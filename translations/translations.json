@@ -74,7 +74,7 @@
     },
     "ps": {
       "createPdf": "پي ډي ایف جوړول",
-      "metaDescription": "{{appName}} آلمان لپاره ستاسو ډیجیټال لارښود دی. په دې کې تاسو سیمه ییز معلومات، غونډې او مشورې موندلی شئ. همېشه تازه معلومات ستاسو په ژبه کې."
+      "metaDescription": "{{appName}} آلمان لپاره ستاسو ډیجیټال لارښود دی. په دې کې تاسو سیمه ییز معلومات،  دہ غونډو  او مشورو معلومات موندلی شئ. همېشه نوی معلومات ستاسو په ژبه کې."
     },
     "ro": {
       "createPdf": "Creați PDF",
@@ -229,6 +229,15 @@
       "copyText": "Copia testo",
       "textCopied": "Copiato"
     },
+    "ka": {
+      "callToAction": "შემოგვთავაზე შენი რეგიონის დამატება!",
+      "explanation": "Integreat-აპის ერთობლივი გამოყენების კონცეფციამ დაგარწმუნა და ფიქრობ რომ შენს ქალაქს, შენს რეგიონს ან უბანს შეეძლო ესარგებლა ამ გადაწყვეტით? თუ ასეა, ძალიან მარტივად შეგიძლია გააქტიურდე.",
+      "whatToDo": "შენ შეგიძლია გააკეთო შემდეგი:",
+      "findOutMail": "მოიძიე შენი რეგიონის ელფოსტის მისამართი",
+      "sendText": "ჩააკოპირე ეს ტექსტი, [ ]-შინაარსში შეიყვანე შენი მონაცემები და გაგზავნე",
+      "copyText": "დააკოპირე ტექსტი",
+      "textCopied": "დაკოპირებულია"
+    },
     "kmr": {
       "callToAction": "Integreatê pêşniyarî navçeya xwe bike!",
       "explanation": "Gelo têgeha ne-qezencê ya Appa Integreat hûn qanih kirine û hûn difikirin ku bajar, kanton an şaredariya we jî dikare ji çareseriya dîjîtal sûd werbigire? Wê hingê hûn dikarin bi hêsanî vê yekê bi kar bînin ku çalak bibin.",
@@ -237,6 +246,15 @@
       "sendText": "Vê nivîsê kopî bikin, piştre beşa [ ] bi zanebûna xwe tijî bike û bişînin.",
       "copyText": "Nivîsê kopî bike",
       "textCopied": "Kopî bû"
+    },
+    "mk": {
+      "callToAction": "Предложи Integreat во твојот регион!",
+      "explanation": "Непрофитниот концепт на апликацијата Integreat те убеди и мислиш дека и твојот град, твојата област или твојата општина би можеле да имаат корист од дигиталното решение? Тогаш со ова лесно можеш да станеш активен.",
+      "whatToDo": "Можеш да го направиш ова:",
+      "findOutMail": "Да ја дознаеш адресата на е-пошта во твојот регион",
+      "sendText": "Да го копираш овој текст, да ги пополниш [ ]-содржините со твоите податоци и да ги испратиш",
+      "copyText": "Копирај го текстот",
+      "textCopied": "Копирано"
     },
     "pes": {
       "callToAction": "Integreat را به منطقه خود معرفی کنید!",
@@ -255,6 +273,24 @@
       "sendText": "Skopiuj ten tekst, wypełnij część w [ ] swoimi danymi i wyślij go",
       "copyText": "Skopiuj tekst",
       "textCopied": "Skopiowano"
+    },
+    "prs": {
+      "callToAction": "منطقه خود را به Integreat معرفی کنید!",
+      "explanation": "مفهوم عام‌المنفعه اپلیکیشن Integreat شما را قانع کرده و شما باور دارید که شهر شما، ناحیه شما یا بخش شما نیز می‌تواند از راهکار دیجیتال سود ببرد؟ در این صورت، به این وسیله می‌توانید به طور کاملا ساده فعال شوید.",
+      "whatToDo": "می‌توانید این کار را انجام دهید:",
+      "findOutMail": "آدرس ایمیل منطقه خود را پیدا کنید",
+      "sendText": "این متن را کپی کنید، محتویات [ ] را با مشخصات خود پر کنید و بفرستید",
+      "copyText": "متن را کپی کنید",
+      "textCopied": "کپی شد"
+    },
+    "ps": {
+      "callToAction": "ستاسو د سیمې سره د یوځای کیدو وړاندیز وکړی",
+      "explanation": "کہ دہ انټیګریټ ایپ دہ بغیر منافع تاسو تہ ملاویدلو باندی تاسو مطمئن  یئ اؤ تاسو دا خیال کوئ چی ستاسو  ښار، ھیواد او کمیونټی بہ ھم دہ دی نہ فائدہ تر لاسہ کړی؟ نو بیا تاسو دی سرہ پہ اسانتیا سرہ فعال کیدلے شئ۔",
+      "whatToDo": "دلتہ بہ تاسو اومومئ چی دا بہ څنګه کوئ:",
+      "findOutMail": "تاسو دی خپلی علاقی ای میل ایدریس معلوم کړئ۔",
+      "sendText": "دا متن کاپی کړئ ، د خپلو تفصیلاتو سره د [ ] محتوا ډکه کړئ او  او یی لیږئ۔",
+      "copyText": "متن کاپی کړئ",
+      "textCopied": "کاپی شولو"
     },
     "ro": {
       "callToAction": "Propuneți Integreat pentru regiunea dumneavoastră!",
@@ -283,6 +319,32 @@
       "copyText": "Koobiyeey qoraalka",
       "textCopied": "la koobiyeeyay"
     },
+    "sq": {
+      "callToAction": "Sugjeroni Integreat në rajonin tuaj!",
+      "whatToDo": "Ti mund ta besh kete:",
+      "findOutMail": "Gjeni adresën e emailit në rajonin tuaj",
+      "sendText": "Kopjojeni këtë tekst, plotësoni përmbajtjen [ ] me të dhënat tuaja dhe dërgojeni",
+      "copyText": "kopjoni tekstin",
+      "textCopied": "e kopjuar"
+    },
+    "sr-Cyrl": {
+      "callToAction": "Предложите Интегреат у свом региону!",
+      "explanation": "Непрофитни концепт апликације Интегреат вас је убедио и мислите да би ваш град, округ или општина такође могли имати користи од дигиталног решења? Тада можете лако постати активни овде.",
+      "whatToDo": "Ово можете учинити:",
+      "findOutMail": "Сазнајте адресу е-поште у вашем региону",
+      "sendText": "Копирајте овај текст, попуните [ ] садржај својим подацима и пошаљите",
+      "copyText": "копирај текст",
+      "textCopied": "копирано"
+    },
+    "sr-Latn": {
+      "callToAction": "Predložite Integreat u svom regionu!",
+      "explanation": "Neprofitni koncept aplikacije Integreat vas je ubedio i mislite da bi vaš grad, okrug ili opština takođe mogli imati koristi od digitalnog rešenja? Tada možete lako postati aktivni ovde.",
+      "whatToDo": "Ovo možete učiniti:",
+      "findOutMail": "Saznajte adresu e-pošte u vašem regionu",
+      "sendText": "Kopirajte ovaj tekst, popunite [ ] sadržaj svojim podacima i pošaljite",
+      "copyText": "kopiraj tekst",
+      "textCopied": "kopirano"
+    },
     "ti": {
       "callToAction": "ናይ ከባቢኻ ምጽንባር ሓሳብ ኣቕርብ!",
       "explanation": "እዚ ንምኽሳብ ዘይኮነ ናይ ምጽንባር ኣፕ ጽንሰ ሓሳብ ንዓኻ ኣእሚንካዶ፣ ከምኡ ከኣ በዚ ናይ ዲጂታል ፍታሕ ንከተማኻ፣ ንከባቢኻ ወይ ድማ ንማሕበር መንበሪ ዓድኻ ክጠቅም ይኽእል ትብልዶ? ስለዚ ኣብዚ ብቐሊሉ ክትነጥፍ ትኽእል።  ",
@@ -309,6 +371,15 @@
       "sendText": "Скопіюйте цей текст, заповніть пропуски [ ] вашими даними та надішліть його.",
       "copyText": "Скопіюйте текст",
       "textCopied": "Копіювати"
+    },
+    "ur": {
+      "callToAction": "اپنے علاقے کو شامل کرنے کے لئے تجویز کریں۔",
+      "explanation": "اگر آپ  Integreat ایپلیکیشن کو مفت میں حاصل کرکے مطمئن ہیں اور آپ سمجھتے ہیں کہ آپ کا شہر، ملک اور آپ کی کمیونٹی بھی اس سے استفادہ کر سکتے ہیں تو آپ اس ایپلیکیشن کے ساتھ آسانی سے فعال رہ سکتے ہیں۔",
+      "whatToDo": "یہاں آپ کو اس کو کرنے کا طریقہ ملے گا:",
+      "findOutMail": "آپ اپنے علاقے کا ای میل ایڈریس معلوم کریں۔",
+      "sendText": "اس ٹیکسٹ کو کاپی کریں اور اپنی تفصیلات اس [ ] میں درج کریں اور بھیج دیں۔",
+      "copyText": "ٹیکسٹ کو کاپی کریں۔",
+      "textCopied": "کاپی کیا گیا"
     }
   },
   "common": {
@@ -387,7 +458,7 @@
       "loading": "Caricamento..."
     },
     "ka": {
-      "languageNotAvailable": "შენი ენა აქ არ მოიხმარება ",
+      "languageNotAvailable": "შენი ენა აქ არ მოიხმარება",
       "chooseALanguage": "აირჩიე ენა.",
       "lastUpdate": "ბოლო აქტუალიზირება:",
       "loading": "ატვირთე…"
@@ -425,8 +496,8 @@
     "ps": {
       "languageNotAvailable": "له بده مرغه ستا ژبه دلته موجوده نده.",
       "chooseALanguage": "یوه ژبه انتخاب کړه.",
-      "lastUpdate": "آخري تغیر:",
-      "loading": "د پورته کیدو په حال کې..."
+      "lastUpdate": "آخري تغیر شوے:",
+      "loading": "بارولے کیږی ۔۔۔"
     },
     "ro": {
       "languageNotAvailable": "Din păcate, aici nu este disponibilă limba ta.",
@@ -584,7 +655,8 @@
       "localInformation": "ადგილობრივი ინფორმაციები",
       "offers": "შეთავაზებები",
       "events": "ღონისძიებები",
-      "news": "ინფორმაციები"
+      "news": "ინფორმაციები",
+      "pois": "რუქა"
     },
     "kmr": {
       "localInformation": "Zanyariyên xwecihî",
@@ -597,7 +669,8 @@
       "localInformation": "Локални информации",
       "offers": "Понуди",
       "events": "Настани",
-      "news": "Вести"
+      "news": "Вести",
+      "pois": "Мапа"
     },
     "pes": {
       "localInformation": "اطلاعات محلی",
@@ -617,13 +690,15 @@
       "localInformation": "معلومات محلی",
       "offers": "پیشنهادات",
       "events": "رویدادها",
-      "news": "اخبار"
+      "news": "اخبار",
+      "pois": "نقشه"
     },
     "ps": {
       "localInformation": "سیمه ییز معلومات",
       "offers": "وړاندیزونه",
       "events": "غونډې",
-      "news": "خبرونه"
+      "news": "خبرونه",
+      "pois": "کارت"
     },
     "ro": {
       "localInformation": "Informații locale",
@@ -650,19 +725,22 @@
       "localInformation": "Informata lokale",
       "offers": "Ofertat",
       "events": "Evenimentet",
-      "news": "Lajme"
+      "news": "Lajme",
+      "pois": "Harta"
     },
     "sr-Cyrl": {
       "localInformation": "Локалне информације",
       "offers": "Понуде",
       "events": "Догађаји",
-      "news": "Вести"
+      "news": "Вести",
+      "pois": "Карта"
     },
     "sr-Latn": {
       "localInformation": "Lokalne informacije",
       "offers": "Ponude",
       "events": "Događaji",
-      "news": "Vesti"
+      "news": "Vesti",
+      "pois": "Karta"
     },
     "ti": {
       "localInformation": "ከባብያዊ ሓበሬታ",
@@ -688,8 +766,9 @@
     "ur": {
       "localInformation": "مقامی معلومات",
       "offers": "پیش کشیں",
-      "events": "ایونٹس",
-      "news": "خبریں"
+      "events": "واقعات",
+      "news": "خبریں",
+      "pois": "نقشہ"
     },
     "zh-CN": {
       "localInformation": "本地信息",
@@ -754,7 +833,7 @@
       "pageTitle": "معلومات ناشر و تماس"
     },
     "ps": {
-      "pageTitle": "خپروونکی او تماس"
+      "pageTitle": "چاپ او اړیکه"
     },
     "ro": {
       "pageTitle": "Caseta tehnică și contact"
@@ -1226,14 +1305,17 @@
     "ka": {
       "notFound": {
         "language": "სამწუხაროდ ეს ენა აქ არ გამოიყენება.",
+        "city": "ეს რეგიონი სამწუხაროდ ვერ მოიძებნა.",
         "category": "სამწუხაროდ ეს გვერდი ვერ მოიძებნა.",
         "event": "სამწუხაროდ ეს ღონისძიება ვერ მოიძებნა.",
         "offer": "სამწუხაროდ ეს შეთავაზება ვერ მოიძებნა.",
+        "poi": "ეს ადგილი სამწუხაროდ ვერ მოიძებნა.",
         "localNews": "სამწუხაროდ ეს ინფორმაცია ვერ მოიძებნა.",
         "tunews": "ეს ტუნიუს ინფორმაციები სამწუხაროდ ვერ მოიძებნა",
         "pageTitle": "გვერდი არ იძებნება"
       },
       "pageNotFound": "სამწუხაროდ ეს გვერდი ვერ მოიძებნა.",
+      "noSuitableAppInstalled": "შესაბამისი აპი არ არის დაინსტალირებული.",
       "networkConnectionFailed": "სერვერთან კავშირი გაწყდა.",
       "networkRequestFailed": "ვერ მოხდა მოთხოვნის დამუშავება.",
       "responseMappingFailed": "ვერ მოხდა სერვერის პასუხის დამუშავება.",
@@ -1246,11 +1328,13 @@
         "categories": "კატეგორიებისაკენ",
         "events": "ღონისძიებებისაკენ",
         "offers": "შეთავაზებებისაკენ",
+        "pois": "რუქაზე გადასვლა",
         "localNews": "ინფორმაციებისაკენ",
         "tunews": "ტუნიუსისაკენ"
       },
       "pageTitle": "შეცდომა",
       "generalError": "გამოვლინდა შეცდომა",
+      "notSupportedByDevice": "ეს ფუნქცია ამ მოწყობილობაზე არ არის მხარდაჭერილი.",
       "languageSwitchFailedTitle": "სამწუხარდო ჩაიშალა ენის ცვლილება.",
       "languageSwitchFailedMessage": "არჩეული ენა ინტერნეტ კავშირის გარეშე არ არის ხელმისაწვდომი. საჭიროა აქტიური ინტერნეტკავშირი."
     },
@@ -1293,14 +1377,17 @@
     "mk": {
       "notFound": {
         "language": "За жал твојот јазик не е достапен.",
+        "city": "За жал, овој регион не беше пронајден.",
         "category": "За жал оваа страница не е пронајдена.",
         "event": "За жал овој настан не е пронајден.",
         "offer": "За жал оваа понуда не е пронајдена.",
+        "poi": "За жал, ова место не беше пронајдено.",
         "localNews": "За жал оваа вест не е пронајдена.",
         "tunews": "За жал овие tünews не се пронајдени.",
         "pageTitle": "Страницата не е пронајдена"
       },
       "pageNotFound": "За жал оваа страница не е пронајдена.",
+      "noSuitableAppInstalled": "Не е инсталирана соодветна апликација.",
       "networkConnectionFailed": "Не е воспоставена врска со серверот.",
       "networkRequestFailed": "Барањето не можеше да се обработи.",
       "responseMappingFailed": "Одговорот од серверот не можеше да се обработи.",
@@ -1313,11 +1400,13 @@
         "categories": "Кон категориите",
         "events": "Кон настаните",
         "offers": "Кон понудите",
+        "pois": "Кон мапата",
         "localNews": "Кон вестите",
         "tunews": "Кон tünews"
       },
       "pageTitle": "Грешка",
       "generalError": "Настапи грешка",
+      "notSupportedByDevice": "Оваа функција не е поддржана на овој уред.",
       "languageSwitchFailedTitle": "За жал неуспешна е промената на јазик.",
       "languageSwitchFailedMessage": "Избраниот јазик не е достапен офлајн. Потребна е активна интернет конекција."
     },
@@ -1396,14 +1485,17 @@
     "prs": {
       "notFound": {
         "language": "متاسفانه این لسان در اینجا موجود نیست‎.",
+        "city": "متاسفانه این منطقه پیدا نشد.",
         "category": "متاسفانه این صفحه پیدا نشد.",
         "event": "متاسفانه این رویداد پیدا نشد‎.",
         "offer": "متاسفانه این پیشنهاد پیدا نشد‎.",
+        "poi": "متاسفانه این محل پیدا نشد.",
         "localNews": "متاسفانه این خبر پیدا نشد‎.",
         "tunews": "متاسفانه این‎ ‎اخبار توبینگن‎ ‎پیدا نشد‎.",
         "pageTitle": "صفحه پیدا نشد"
       },
       "pageNotFound": "متاسفانه این صفحه پیدا نشد.",
+      "noSuitableAppInstalled": "اپلیکیشن مناسب نصب نشده است.",
       "networkConnectionFailed": "اتصال به سرور انجام نشد‎.",
       "networkRequestFailed": "درخواست قابل پروسس نیست‎.",
       "responseMappingFailed": "پاسخ سرور پروسس نشد‎.",
@@ -1416,42 +1508,49 @@
         "categories": "به دسته ها",
         "events": "به رویدادها",
         "offers": "به پیشنهادات",
+        "pois": "به نقشه",
         "localNews": "به اخبار",
         "tunews": "به اخبار توبینگن"
       },
       "pageTitle": "خطا",
       "generalError": "خطایی رخ داده است",
+      "notSupportedByDevice": "این عملکرد در این دستگاه پشتیبانی نمی‌شود.",
       "languageSwitchFailedTitle": "متاسفانه تغییر لسان ناموفق بود‎.",
       "languageSwitchFailedMessage": "لسان انتخاب شده بصورت آفلاین در دسترس نیست‎. اتصال به انترنت فعال ضروری است‎."
     },
     "ps": {
       "notFound": {
         "language": "دا ژبه له بده مرغه دلته موجوده نده.",
+        "city": "له بده مرغه، دا سیمه ونه موندل شوه.",
         "category": "دا پاڼه له بده مرغه پیدا نشوه.",
         "event": "دا غونډه له بده مرغه پیدا نشوه.",
         "offer": "دا وړاندیز له بده مرغه پیدا نشو.",
-        "localNews": "په خواشینۍ سره دا خبر پیدا نشو.",
-        "tunews": "په خواشینۍ سره دا توبینګن خبر پیدا نشو.",
+        "poi": "دا ځای له بده مرغه پیدا نه شو.",
+        "localNews": ".بخښنه غواړم، دا پیغام ونه موندل شو.",
+        "tunews": "بخښنه غواړم دا  خبر پیدا نشو.",
         "pageTitle": "پاڼه پیدا نشوه"
       },
       "pageNotFound": "دا پاڼه له بده مرغه پیدا نشوه.",
+      "noSuitableAppInstalled": " مناسب اپلیکېشن نه دی نصب شوی.",
       "networkConnectionFailed": "له سرور سره پیوستون ناکام شو.",
       "networkRequestFailed": "دا غوښتنه پروسس نکړی شوه.",
       "responseMappingFailed": "د سرور ځواب پروسس نکړی شو.",
       "unknownError": "یوه نامعلومه اشتباه رامینځته شوه.",
-      "tryAgain": "یو ځل بیا کوښښ کول",
+      "tryAgain": "یو ځل بیا کوښښ اوکئ",
       "loadingFailed": "له بده مرغه پاڼه ډاونلوډ نکړی شوه.",
       "chooseALanguage": "یوه ژبه انتخاب کړه:",
       "goTo": {
         "start": "مخپاڼې ته تلل",
-        "categories": "کټګوریو ته تلل",
+        "categories": "کټګوریو یعنی انواعو  ته تلل",
         "events": "غونډو ته تلل",
         "offers": "وړاندیزونو ته تلل",
+        "pois": "نقشی تہ تلل",
         "localNews": "خبرونو ته",
-        "tunews": "توبینګن خبرونو ته"
+        "tunews": "تو خبرونو ته"
       },
       "pageTitle": "اشتباه",
       "generalError": "یوه اشتباه رامینځته شوه",
+      "notSupportedByDevice": "دا ځانګړتیا په دې آله کې نه ملاتړ کیږی.",
       "languageSwitchFailedTitle": "له بده مرغه د ژبې انتخاب ناکام شو.",
       "languageSwitchFailedMessage": "انتخاب شوې ژبه آفلاین موجوده نده. د انټرنیټ فعال پیوستون اړین دی."
     },
@@ -1566,14 +1665,17 @@
     "sq": {
       "notFound": {
         "language": "Fatkeqësisht, kjo gjuhë nuk është në dispozicion këtu.",
+        "city": "Fatkeqësisht, ky rajon nuk u gjet.",
         "category": "Kjo faqe për fat të keq nuk u gjet.",
         "event": "Ky eveniment për fat të keq nuk u gjet.",
         "offer": "Kjo ofertë për fat të keq nuk u gjet.",
+        "poi": "Fatkeqësisht, ky vend nuk u gjet.",
         "localNews": "Ky lajm për fat të keq nuk u gjet.",
         "tunews": "Ky tünews për fat të keq nuk u gjet.",
         "pageTitle": "Faqja nuk u gjet"
       },
       "pageNotFound": "Kjo faqe për fat të keq nuk u gjet.",
+      "noSuitableAppInstalled": "Asnjë aplikacion i përshtatshëm nuk është instaluar.",
       "networkConnectionFailed": "Lidhja me serverin dështoi.",
       "networkRequestFailed": "Kërkesa nuk mund të përpunohej.",
       "responseMappingFailed": "Përgjigja e serverit nuk mund të përpunohej.",
@@ -1586,25 +1688,30 @@
         "categories": "Tek kategoritë",
         "events": "Tek evenimentet",
         "offers": "Tek ofertat",
+        "pois": "Tek harta",
         "localNews": "Tek lajmet",
         "tunews": "Tek tünews"
       },
       "pageTitle": "Gabim",
       "generalError": "Një gabim ka ndodhur",
+      "notSupportedByDevice": "Ky funksion nuk mbështetet në këtë pajisje.",
       "languageSwitchFailedTitle": "Fatkeqësisht, ndryshimi i gjuhës dështoi.",
       "languageSwitchFailedMessage": "Gjuha e zgjedhur nuk është në dispozicion jashtë linje. Është e nevojshme një lidhje aktive në internet."
     },
     "sr-Cyrl": {
       "notFound": {
         "language": "Нажалост, овај језик овде није доступан.",
+        "city": "Нажалост, овај регион није пронађен.",
         "category": "Нажалост, ова страница није пронађена.",
         "event": "Нажалост, овај догађај није пронађен.",
         "offer": "Нажалост, ова понуда није пронађена.",
+        "poi": "Нажалост, ова локација није пронађена.",
         "localNews": "Нажалост, ова порука није пронађена.",
         "tunews": "Ове tünews вести нажалост нису пронађене.",
         "pageTitle": "Страна није пронађена"
       },
       "pageNotFound": "Нажалост, ова страница није пронађена.",
+      "noSuitableAppInstalled": "Није инсталирана одговарајућа апликација.",
       "networkConnectionFailed": "Није било могуће повезивање са сервером.",
       "networkRequestFailed": "Није била могућа обрада упита.",
       "responseMappingFailed": "Није било могуће обрадити одговор сервера.",
@@ -1617,25 +1724,30 @@
         "categories": "Ка категоријама",
         "events": "Ка догађајима",
         "offers": "Ка понудама",
+        "pois": "Ка картама",
         "localNews": "Ка вестима",
         "tunews": "Ка tünews"
       },
       "pageTitle": "Грешка",
       "generalError": "Дошло је до грешке",
+      "notSupportedByDevice": "Ова функција није подржана на овом уређају.",
       "languageSwitchFailedTitle": "Нажалост, промена језика није била могућа.",
       "languageSwitchFailedMessage": "Изабрани језик није доступан ван мреже. Неопходна је активна интернет веза."
     },
     "sr-Latn": {
       "notFound": {
         "language": "Nažalost, ovaj jezik ovde nije dostupan.",
+        "city": "Nažalost, ovaj region nije pronađen.",
         "category": "Nažalost, ova stranica nije pronađena.",
         "event": "Nažalost, ovaj događaj nije pronađen.",
         "offer": "Nažalost, ova ponuda nije pronađena.",
+        "poi": "Nažalost, ova lokacija nije pronađena.",
         "localNews": "Nažalost, ova poruka nije pronađena.",
         "tunews": "Ove tünews vesti nažalost nisu pronađene.",
         "pageTitle": "Strana nije pronađena"
       },
       "pageNotFound": "Nažalost, ova stranica nije pronađena.",
+      "noSuitableAppInstalled": "Nije instalirana odgovarajuća aplikacija.",
       "networkConnectionFailed": "Nije bilo moguće povezivanje sa serverom.",
       "networkRequestFailed": "Nije bila moguća obrada upita.",
       "responseMappingFailed": "Nije bilo moguće obraditi odgovor servera.",
@@ -1648,11 +1760,13 @@
         "categories": "Ka kategorijama",
         "events": "Ka događajima",
         "offers": "Ka ponudama",
+        "pois": "Ka kartama",
         "localNews": "Ka vestima",
         "tunews": "Ka tünews"
       },
       "pageTitle": "Greška",
       "generalError": "Došlo je do greške",
+      "notSupportedByDevice": "Ova funkcija nije podržana na ovom uređaju.",
       "languageSwitchFailedTitle": "Nažalost, promena jezika nije bila moguća.",
       "languageSwitchFailedMessage": "Izabrani jezik nije dostupan van mreže. Neophodna je aktivna internet veza."
     },
@@ -1767,14 +1881,17 @@
     "ur": {
       "notFound": {
         "language": "معذرت، یہ زبان یہاں دستیاب نہیں۔",
+        "city": "معذرت، یہ علاقہ یہاں دستیاب نہیں۔",
         "category": "معذرت، یہ صفحہ نہیں ملا۔",
         "event": "معذرت، یہ ایونٹ نہیں ملا۔",
         "offer": "معذرت، یہ پیش کش نہیں ملی۔",
+        "poi": "معذرت، یہ جگہ  یہاں نہیں ملی۔",
         "localNews": "معذرت، یہ خبر نہیں ملی۔",
         "tunews": "معذرت، یہ tünews نہیں ملا۔",
         "pageTitle": "صفحہ نہیں ملا"
       },
       "pageNotFound": "معذرت، یہ صفحہ نہیں ملا۔",
+      "noSuitableAppInstalled": "مناسب ایپلیکیشن انسٹال نہیں کیا گیا ہے۔",
       "networkConnectionFailed": "سرور سے رابطہ ناکام ہو گیا۔",
       "networkRequestFailed": "درخواست پر عمل نہیں ہو سکا۔",
       "responseMappingFailed": "سرور کے جواب پر عمل نہیں ہو سکا۔",
@@ -1787,6 +1904,7 @@
         "categories": "زمروں پر",
         "events": "ایونٹس پر",
         "offers": "پیش کشوں کے متعلق",
+        "pois": "نقشے سے متعلق",
         "localNews": "خبروں پر",
         "tunews": "Tünews پر"
       },
@@ -1914,6 +2032,7 @@
       "pageTitle": "Eventi"
     },
     "ka": {
+      "address": "მისამართი",
       "date": "თარიღი",
       "events": "ღონისძიებები",
       "currentlyNoEvents": "ამჟამად არ არის ღონისძიბები.",
@@ -1927,6 +2046,7 @@
       "pageTitle": "Rûdan"
     },
     "mk": {
+      "address": "Адреса",
       "date": "Датум",
       "events": "Настани",
       "currentlyNoEvents": "Моментално нема настани.",
@@ -1947,12 +2067,14 @@
       "pageTitle": "Wydarzenia"
     },
     "prs": {
+      "address": "آدرس",
       "date": "تاریخ",
       "events": "رویدادها",
       "currentlyNoEvents": "در حال حاضر هیچ رویدادی وجود ندارد‎.",
       "pageTitle": "رویدادها"
     },
     "ps": {
+      "address": "پتہ",
       "date": "نېټه",
       "events": "غونډې",
       "currentlyNoEvents": "دا مهال کومې غونډې نشته.",
@@ -1980,18 +2102,21 @@
       "pageTitle": "Dhacdooyinka"
     },
     "sq": {
+      "address": "Adresa",
       "date": "Data",
       "events": "Evenimentet",
       "currentlyNoEvents": "Aktualisht nuk ka asnjë eveniment.",
       "pageTitle": "Evenimentet"
     },
     "sr-Cyrl": {
+      "address": "Адреса",
       "date": "Датум",
       "events": "Догађаји",
       "currentlyNoEvents": "Тренутно нема догађаја.",
       "pageTitle": "Догађаји"
     },
     "sr-Latn": {
+      "address": "Adresa",
       "date": "Datum",
       "events": "Događaji",
       "currentlyNoEvents": "Trenutno nema događaja.",
@@ -2019,6 +2144,7 @@
       "pageTitle": "Події"
     },
     "ur": {
+      "address": "پتہ",
       "date": "تاریخ",
       "events": "ایونٹس",
       "currentlyNoEvents": "فی الحال کوئی ایونٹس نہیں ہیں۔",
@@ -2397,8 +2523,8 @@
       "send": "لېږل",
       "failedSendingFeedback": "د تبصرې په لېږلو کې یوه اشتباه رامینځته شوه.",
       "feedback": "تبصره",
-      "positiveComment": "څشی ګټور وو؟",
-      "negativeComment": "مونږ څشی بهترولی شو؟",
+      "positiveComment": "څہ شی مرستہ کؤونکی وو؟",
+      "negativeComment": "مونږ څہ شی بهترولی شو؟",
       "isThisSiteUseful": "آیا دا پاڼه ګټوره ده؟",
       "useful": "ګټوره ده",
       "notUseful": "ګټوره نده",
@@ -2473,7 +2599,7 @@
       "optionalInfo": "ikhtiyaari"
     },
     "sq": {
-      "disclaimer": "K ontakti dhe botuesi",
+      "disclaimer": "Kontakti dhe botuesi",
       "send": "Dërgo",
       "failedSendingFeedback": "Pati një gabim gjatë dërgimit të komenteve.",
       "feedback": "Komenti",
@@ -2509,7 +2635,7 @@
       "close": "Затвори",
       "negativeRating": "Ова страница није корисна",
       "positiveRating": "Ова страница је корисна",
-      "contactMailAddress": "Имејл за питања",
+      "contactMailAddress": "Е-пошта за питања",
       "optionalInfo": "Опција"
     },
     "sr-Latn": {
@@ -2528,7 +2654,9 @@
       "thanksMessage": "Puno vam hvala za povratne informacije. Time nam pomažete da poboljšamo sadržaje i aplikaciju {{appName}}. Radovali bismo se vašim dodatnim povratnim informacijama.",
       "close": "Zatvorite",
       "negativeRating": "Ova stranica nije od pomoći",
-      "positiveRating": "Ova stranica je od pomoći"
+      "positiveRating": "Ova stranica je od pomoći",
+      "contactMailAddress": "E-pošta za pitanja",
+      "optionalInfo": "Opcija"
     },
     "ti": {
       "disclaimer": "ናይ ርክብ ሓበሬታን ናይ ደራሲ ዝርዝራት ሓበሬታን",
@@ -2873,8 +3001,8 @@
       "events": "غونډې",
       "eventsDescription": "دا مهال په دې شاوخوا کې غونډې او ملاقاتونه",
       "offers": "وړاندیزونه",
-      "offersDescription": "دې شاوخوا کې د وظیفې لټون، د ستاژ لټون او نور",
-      "skip": "اووښتل",
+      "offersDescription": "دې شاوخوا کې د کار لټون، د انټرن شپ لټون او نور",
+      "skip": "اووښتل یعنی ورتیریدل",
       "next": "مخته"
     },
     "ro": {
@@ -3227,12 +3355,21 @@
       "clickHere": "Clicca qui"
     },
     "ka": {
+      "searchCity": "ძებნა",
+      "noCitiesFound": "შედეგები არ არის",
+      "nearbyCities": "სიახლოვეს",
+      "noNearbyCities": "სიახლოვეში რეგიონები ვერ მოიძებნა.",
       "alert": "მითითება",
+      "locationError": "თქვენს სიახლოვეს რეგიონების გამოსაჩენად, საჭიროა გააქტიურებული იყოს ადგილმდებარეობის მომსახურებები.",
       "noPermission": "საჭიროა წვდომა მდებარეობის ადგილზე",
       "loading": "განსაზღვრე მდებარეობის ადგილი...",
       "notAvailable": "მდებარეობის ადგილის განსაზღვრა დეაქტივირებულია",
       "timeout": "ვერ განისაზღვრა მდებარეობის ადგილი",
-      "metaDescription": "‎{{appName}} არის თქვენი ციფრული გზამკვლევი გერმანიისათვის. იპოვეთ ადგილობრივი ინფორმაციები, ღონისძიებები და მიიღეთ რჩევები მუდამ აქტუალური და თქვენს გვერდით."
+      "refresh": "ახლოსმდებარე რეგიონების სიის განახლება",
+      "pageTitle": "რეგიონები",
+      "metaDescription": "‎{{appName}} არის თქვენი ციფრული გზამკვლევი გერმანიისათვის. იპოვეთ ადგილობრივი ინფორმაციები, ღონისძიებები და მიიღეთ რჩევები მუდამ აქტუალური და თქვენს გვერდით.",
+      "cityNotFound": "ვერ მოიძებნა ეს რეგიონი?",
+      "clickHere": "დააჭირეთ აქ"
     },
     "kmr": {
       "searchCity": "Lêgerîn",
@@ -3252,12 +3389,21 @@
       "clickHere": "Vir bitikîne"
     },
     "mk": {
+      "searchCity": "Барај",
+      "noCitiesFound": "Нема резултати",
+      "nearbyCities": "Во близина",
+      "noNearbyCities": "Не се пронајдени региони во близина",
       "alert": "Упатство",
+      "locationError": "За да може да се прикажат блиските региони, мора да се активираат услугите за лоцирање.",
       "noPermission": "Потребен е пристап до локацијата",
       "loading": "Одредена локација...",
       "notAvailable": "Деактивирана е опцијата за одредување на локацијата",
       "timeout": "Не може да се активира опцијата за одредување на локацијата",
-      "metaDescription": "{{appName}} е вашиот дигитален водич за Германија. Пронајдете локални информации, настани и совети. Секогаш актуелно и на вашиот јазик."
+      "refresh": "Ажурирај го списокот со региони во близина",
+      "pageTitle": "Региони",
+      "metaDescription": "{{appName}} е вашиот дигитален водич за Германија. Пронајдете локални информации, настани и совети. Секогаш актуелно и на вашиот јазик.",
+      "cityNotFound": "Не го пронајде твојот регион?",
+      "clickHere": "Кликни тука"
     },
     "pes": {
       "searchCity": "جستجو",
@@ -3294,20 +3440,38 @@
       "clickHere": "Kliknij tutaj"
     },
     "prs": {
+      "searchCity": "جستجو",
+      "noCitiesFound": "نتیجه‌ای پیدا نشد",
+      "nearbyCities": "در نزدیکی",
+      "noNearbyCities": "منطقه‌ای در نزدیکی پیدا نشد.",
       "alert": "رهنمایی",
+      "locationError": "برای این که مناطق نزدیک نشان داده شوند، خدمات مکان‌یابی باید فعال شوند.",
       "noPermission": "دسترسی به مکان مورد ضرورت است",
       "loading": "تعیین محل...",
       "notAvailable": "تعیین مکان غیرفعال شد",
       "timeout": "تعیین مکان ناموفق بود",
-      "metaDescription": "{{appName}} رهنمای دیجیتل شما برای جرمنی است. معلومات محلی، رویدادها و مشاوره را پیدا نمایید. همواره به‎​روز و به لسان شما."
+      "refresh": "فهرست مناطق نزدیک را به روز کنید",
+      "pageTitle": "مناطق",
+      "metaDescription": "{{appName}} رهنمای دیجیتل شما برای جرمنی است. معلومات محلی، رویدادها و مشاوره را پیدا نمایید. همواره به‎​روز و به لسان شما.",
+      "cityNotFound": "منطقه شما پیدا نشد؟",
+      "clickHere": "اینجا را کلیک کنید"
     },
     "ps": {
+      "searchCity": "لټون",
+      "noCitiesFound": "هیڅ پایله نه لری",
+      "nearbyCities": "نږدې له خوا",
+      "noNearbyCities": "هیڅ سیمې په نږدې سیمو کې نه دی موندل شوی.",
       "alert": "یادونه",
-      "noPermission": "موقعیت ته لاسرسی لازمي دی",
-      "loading": "موقعیت تعین کړه...",
+      "locationError": "نږدې سیمو ته د لیدلو لپاره، د لوکیشن خدمت باید فعال شی.",
+      "noPermission": "موقعیت یعنی لوکیشن ته لاسرسی لازمي دی",
+      "loading": "موقعیت یعنی لوکیشن تعین کړه...",
       "notAvailable": "د موقعیت تعینول غیر فعال شوي",
       "timeout": "د موقعیت تعینول ناکام شو",
-      "metaDescription": "{{appName}} آلمان لپاره ستاسو ډیجیټال لارښود دی. په دې کې تاسو سیمه ییز معلومات، غونډې او مشورې موندلی شئ. همېشه تازه معلومات ستاسو په ژبه کې."
+      "refresh": "دہ شا و خوا علاقہ لیست اپډیټ کہ",
+      "pageTitle": "سیمی",
+      "metaDescription": "{{appName}} آلمان لپاره ستاسو ډیجیټال لارښود دی. په دې کې تاسو سیمه ییز معلومات،  دہ غونډو او مشورو معلومات موندلی شئ. همېشه تازه معلومات ستاسو په ژبه کې.",
+      "cityNotFound": "آیا ستاسو سیمہ او نہ موندلے شوہ؟",
+      "clickHere": "دلتہ کلک کړئ"
     },
     "ro": {
       "searchCity": "Căutare",
@@ -3361,28 +3525,55 @@
       "clickHere": "Halkan guji"
     },
     "sq": {
+      "searchCity": "Kërko",
+      "noCitiesFound": "Nuk ka rezultate",
+      "nearbyCities": "Në afërsi",
+      "noNearbyCities": "Nuk u gjet asnjë rajon afër.",
       "alert": "Shënim",
+      "locationError": "Për të qenë në gjendje të shfaqen rajonet e afërta, duhet të aktivizohen shërbimet e vendndodhjes.",
       "noPermission": "Kërkohet qasje në vendndodhje",
       "loading": "Cakto vendin...",
       "notAvailable": "Përcaktimi i vendndodhjes i çaktivizuar",
       "timeout": "Përcaktimi i vendndodhjes dështoi",
-      "metaDescription": "{{appName}} është guida juaj dixhitale për Gjermani. Gjeni informacione lokale, evenimente dhe këshilla. Gjithnjë aktuale dhe në gjuhën tuaj."
+      "refresh": "Përditëso listën e rajoneve të afërta",
+      "pageTitle": "Rajone",
+      "metaDescription": "{{appName}} është guida juaj dixhitale për Gjermani. Gjeni informacione lokale, evenimente dhe këshilla. Gjithnjë aktuale dhe në gjuhën tuaj.",
+      "cityNotFound": "Nuk e gjetët rajonin tuaj?",
+      "clickHere": "Kliko këtu"
     },
     "sr-Cyrl": {
+      "searchCity": "Претраживање",
+      "noCitiesFound": "Нема резултата",
+      "nearbyCities": "у близини",
+      "noNearbyCities": "Није пронађен ниједан регион у близини.",
       "alert": "Напомена",
+      "locationError": "Да бисте могли да прикажете оближње регионе, услуге локације морају бити активиране.",
       "noPermission": "Потребан приступ локацији",
       "loading": "Одреди локацију...",
       "notAvailable": "Деактивирано одређивање локације",
       "timeout": "Неуспешно одређивање локације",
-      "metaDescription": "{{appName}} је ваш дигитални водич за Немачку. Пронађите локалне информације, догађаје и саветовање. Увек актуелно на важем језику."
+      "refresh": "Ажурирајте листу оближњих региона",
+      "pageTitle": "Региони",
+      "metaDescription": "{{appName}} је ваш дигитални водич за Немачку. Пронађите локалне информације, догађаје и саветовање. Увек актуелно на важем језику.",
+      "cityNotFound": "Нисте пронашли свој регион?",
+      "clickHere": "Кликните овде"
     },
     "sr-Latn": {
+      "searchCity": "Pretraživanje",
+      "noCitiesFound": "Nema rezultata",
+      "nearbyCities": "u blizini",
+      "noNearbyCities": "Nije pronađen nijedan region u blizini.",
       "alert": "Napomena",
+      "locationError": "Da biste mogli da prikažete obližnje regione, usluge lokacije moraju biti aktivirane.",
       "noPermission": "Potreban pristup lokaciji",
       "loading": "Odredi lokaciju...",
       "notAvailable": "Deaktivirano određivanje lokacije",
       "timeout": "Neuspešno određivanje lokacije",
-      "metaDescription": "{{appName}} je vaš digitalni vodič za Nemačku. Pronađite lokalne informacije, događaje i savetovanje. Uvek aktuelno na važem jeziku."
+      "refresh": "Ažurirajte listu obližnjih regiona",
+      "pageTitle": "Regioni",
+      "metaDescription": "{{appName}} je vaš digitalni vodič za Nemačku. Pronađite lokalne informacije, događaje i savetovanje. Uvek aktuelno na važem jeziku.",
+      "cityNotFound": "Niste pronašli svoj region?",
+      "clickHere": "Kliknite ovde"
     },
     "ti": {
       "searchCity": "ምድላይ",
@@ -3436,12 +3627,21 @@
       "clickHere": "Натисніть тут"
     },
     "ur": {
+      "searchCity": "تلاش کریں",
+      "noCitiesFound": "کوئی شہر نہیں پایا گیا",
+      "nearbyCities": "قریب شہریں",
+      "noNearbyCities": "قریبی شہروں میں نہیں ملا۔",
       "alert": "نوٹ",
+      "locationError": "قریبی علاقوں کو تلاش کرنے کے لئے لوکیشن سروس کو آن کریں۔",
       "noPermission": "مقام تک رسائی درکار ہے",
       "loading": "مقام کا تعین کریں ‎…",
-      "notAvailable": "مقام کی خدمات غیر فعال کر دی گئیں",
+      "notAvailable": "مقام کی خدمات یعنی لوکیشن سروسز غیر فعال کر دی گئیں",
       "timeout": "مقام کا تعین ناکام رہا",
-      "metaDescription": "‎{{appName}}‎، جرمنی کے لئے آپ کی ڈیجیٹل رہنما ہے۔ یہاں مقامی معلومات، ایونٹس اور مشورے حاصل کریں۔ ہمیشہ تازہ ترین اور آپ کی زبان میں۔"
+      "refresh": "قریبی علاقوں کی لسٹ کو اپڈیٹ کریں۔",
+      "pageTitle": "علاقے",
+      "metaDescription": "‎{{appName}}‎، جرمنی کے لئے آپ کی ڈیجیٹل رہنما ہے۔ یہاں مقامی معلومات، ایونٹس اور مشورے حاصل کریں۔ ہمیشہ تازہ ترین اور آپ کی زبان میں۔",
+      "cityNotFound": "کیا آب کو آب کا شہر نہیں ملا؟",
+      "clickHere": "یہاں کلک کریں۔"
     },
     "zh-CN": {
       "alert": "提示",
@@ -3716,6 +3916,7 @@
       "noLanguages": "არ არსებობს სხვა ენებზე",
       "noTranslation": "თარგმანი არ არსებობს",
       "search": "ძებნა",
+      "pois": "რუქა",
       "changeLocation": "მდებარეობის ადგილის შეცვლა",
       "changeLanguage": "ენის შეცვლა",
       "settings": "რეგულაციები",
@@ -3757,6 +3958,7 @@
       "noLanguages": "Не се достапни на други јазици",
       "noTranslation": "Не е достапен превод",
       "search": "Пребарај",
+      "pois": "Мапа",
       "changeLocation": "Промена на локација",
       "changeLanguage": "Промена на јазик",
       "settings": "Нагодувања",
@@ -3819,6 +4021,7 @@
       "noLanguages": "به لسان های دیگر موجود نیست",
       "noTranslation": "ترجمه موجود نیست",
       "search": "جستجو",
+      "pois": "نقشه",
       "changeLocation": "تغییر مکان",
       "changeLanguage": "تغییر لسان",
       "settings": "تنظیمات",
@@ -3829,7 +4032,7 @@
       "disclaimer": "معلومات ناشر"
     },
     "ps": {
-      "imprintAndContact": "خپروونکی او تماس",
+      "imprintAndContact": "چاپ او اړیکه",
       "privacy": "د ډاټا حفاظت",
       "offers": "وړاندیزونه",
       "localInformation": "سیمه ییز معلومات",
@@ -3839,6 +4042,7 @@
       "noLanguages": "په نورو ژبو کې موجود ندی",
       "noTranslation": "ترجمه موجود نده",
       "search": "لټول",
+      "pois": "نقشہ",
       "changeLocation": "موقعیت بدلول",
       "changeLanguage": "ژبه بدلول",
       "settings": "تنظیمات",
@@ -3846,7 +4050,7 @@
       "cancel": "ختمول",
       "shareMessage": "همدا اوس پیدا شو: {{message}}",
       "shareFailDefaultMessage": "د منځپانګو شریکول له بده مرغه ناکام شول.",
-      "disclaimer": "خپروونکی"
+      "disclaimer": "چاپ کؤنکی"
     },
     "ro": {
       "imprintAndContact": "Caseta tehnică și contact",
@@ -3922,6 +4126,7 @@
       "noLanguages": "Nuk është në dispozicion në gjuhë të tjera",
       "noTranslation": "Nuk ka përkthim të disponueshëm",
       "search": "Kërko",
+      "pois": "Harta",
       "changeLocation": "Ndrysho vendin",
       "changeLanguage": "Ndrysho gjuhën",
       "settings": "Parametrat",
@@ -3941,7 +4146,8 @@
       "news": "Вести",
       "noLanguages": "Није доступно на другим језицима",
       "noTranslation": "Није доступан превод",
-      "search": "Тражење",
+      "search": "Претраживање",
+      "pois": "Карта",
       "changeLocation": "Промена локације",
       "changeLanguage": "Промена језика",
       "settings": "Подешавања",
@@ -3962,6 +4168,7 @@
       "noLanguages": "Nije dostupno na drugim jezicima",
       "noTranslation": "Nije dostupan prevod",
       "search": "Traženje",
+      "pois": "Karta",
       "changeLocation": "Promena lokacije",
       "changeLanguage": "Promena jezika",
       "settings": "Podešavanja",
@@ -4045,6 +4252,7 @@
       "noLanguages": "دیگر زبانوں میں دستیاب نہیں",
       "noTranslation": "ترجمہ دستیاب نہیں",
       "search": "تلاش کریں",
+      "pois": "نقشہ",
       "changeLocation": "مقام تبدیل کریں",
       "changeLanguage": "زبان تبدیل کریں",
       "settings": "ترتیبات",
@@ -4131,7 +4339,7 @@
       "pageTitle": "معلومات ناشر و تماس - {{appName}}"
     },
     "ps": {
-      "pageTitle": "خپروونکی او تماس - {{appName}}"
+      "pageTitle": "چاپ کؤونکی او ا ړیکہ - {{appName}}"
     },
     "ro": {
       "pageTitle": "Caseta tehnică și contact - {{appName}}"
@@ -4282,7 +4490,7 @@
     },
     "ur": {
       "NSPhotoLibraryAddUsageDescription": "تصاویر محفوظ کرنے کے لئے ‎{{appName}}‎ کو گیلری تک رسائی درکار ہے۔",
-      "NSLocationWhenInUseUsageDescription": "قریبی مقامات تلاش کرنے کے لئے ‎{{appName}}‎ کو مقام تک رسائی درکار ہے۔"
+      "NSLocationWhenInUseUsageDescription": "قریبی مقامات تلاش کرنے کے لئے ‎{{appName}}‎ کو  لوکیشن سروس تک رسائی درکار ہے۔"
     },
     "zh-CN": {
       "NSPhotoLibraryAddUsageDescription": "要保存图片，{{appName}}需要图库访问权限。",
@@ -5134,6 +5342,30 @@
       "eMailCopied": "Indirizzo email copiato negli appunti",
       "websiteCopied": "Pagina Web copiata negli appunti"
     },
+    "ka": {
+      "pageTitle": "რუქები",
+      "poi": "ადგილი",
+      "pois": "ადგილები",
+      "map": "რუქები",
+      "showOnMap": "რუქაზე ჩვენება",
+      "noPois": "ადგილები ვერ მოიძებნა.",
+      "unitKilometre": "კმ",
+      "unitMetre": "მ",
+      "distanceKilometre": "{{distance}} კმ-ით არის დაშორებული",
+      "distanceKilometreAlternative": "{{distance}} კმ",
+      "distanceMetre": "{{distance}} მ-ით არის დაშორებული",
+      "distanceMetreAlternative": "{{distance}} მ-ით არის დაშორებული",
+      "address": "მისამართი",
+      "phone": "ტელეფონის ნომერი",
+      "eMail": "ელფოსტის მისამართი",
+      "website": "ვებგვერდი",
+      "openingHours": "სამუშაო საათები",
+      "description": "აღწერილობა",
+      "addressCopied": "მისამართი კოპირებულია შუალედურ ჩანართში",
+      "phoneCopied": "ტელეფონის ნომერი კოპირებულია შუალედურ ჩანართში",
+      "eMailCopied": "ელფოსტა კოპირებულია შუალედურ ჩანართში",
+      "websiteCopied": "ვებგვერდი კოპირებულია შუალედურ ჩანართში"
+    },
     "kmr": {
       "pageTitle": "Nexşe",
       "poi": "Cih",
@@ -5157,6 +5389,30 @@
       "phoneCopied": "Hejmara telefonê nava klîpboardê kopî bû",
       "eMailCopied": "Navnîşana e-nameyê nava klîpboardê kopî bû",
       "websiteCopied": "Malper nava klîpboardê kopî bû"
+    },
+    "mk": {
+      "pageTitle": "Мапа",
+      "poi": "Место",
+      "pois": "Места",
+      "map": "Мапа",
+      "showOnMap": "Прикажи на мапата",
+      "noPois": "Не се пронајдени места.",
+      "unitKilometre": "km",
+      "unitMetre": "m",
+      "distanceKilometre": "{{distance}} km оддалечено",
+      "distanceKilometreAlternative": "{{distance}} km",
+      "distanceMetre": "{{distance}} m оддалечено",
+      "distanceMetreAlternative": "{{distance}} m",
+      "address": "Адреса",
+      "phone": "телефонски број",
+      "eMail": "Адреса на е-пошта",
+      "website": "Веб-страница",
+      "openingHours": "Работно време",
+      "description": "Опис",
+      "addressCopied": "Адресата е копирана во меѓуархивата",
+      "phoneCopied": "Телефонскиот број е копиран во меѓуархивата",
+      "eMailCopied": "Адресата на е-пошта е копирана во меѓуархивата",
+      "websiteCopied": "Веб-страницата е копирана во меѓуархивата"
     },
     "pes": {
       "pageTitle": "نقشه",
@@ -5205,6 +5461,54 @@
       "phoneCopied": "Numer telefonu skopiowany do schowka",
       "eMailCopied": "Adres mailowy skopiowany do schowka",
       "websiteCopied": "Strona www skopiowana do schowka"
+    },
+    "prs": {
+      "pageTitle": "نقشه",
+      "poi": "محل",
+      "pois": "محل‌ها",
+      "map": "نقشه",
+      "showOnMap": "روی نقشه نشان دهید",
+      "noPois": "هیچ محلی پیدا نشد",
+      "unitKilometre": "کیلومتر",
+      "unitMetre": "متر",
+      "distanceKilometre": "{{distance}} کیلومتر دورتر",
+      "distanceKilometreAlternative": "{{distance}} کیلومتر",
+      "distanceMetre": "{{distance}} متر دورتر",
+      "distanceMetreAlternative": "{{distance}} متر",
+      "address": "آدرس",
+      "phone": "شماره تلفن",
+      "eMail": "آدرس ایمیل",
+      "website": "وبسایت",
+      "openingHours": "ساعات کار",
+      "description": "توضیح",
+      "addressCopied": "آدرس در کلیپ‌بورد کپی شد",
+      "phoneCopied": "شماره تلفن در کلیپ‌بورد کپی شد",
+      "eMailCopied": "آدرس ایمیل در کلیپ‌بورد کپی شد",
+      "websiteCopied": "وبسایت در کلیپ‌بورد کپی شد"
+    },
+    "ps": {
+      "pageTitle": "نقشہ",
+      "poi": "ځای ",
+      "pois": "ځایونہ ",
+      "map": "نقشہ",
+      "showOnMap": "پہ نقشہ کی ښودل",
+      "noPois": "ھیس ځای او نہ موندلے شو",
+      "unitKilometre": "کیلو میتر",
+      "unitMetre": "میتر",
+      "distanceKilometre": "{{distance}} کیلو میترہ بیرتہ",
+      "distanceKilometreAlternative": "{{distance}} کیلو میترہ ",
+      "distanceMetre": "{{distance}} کیلو میترہ بیرتہ",
+      "distanceMetreAlternative": "{{distance}} میتر",
+      "address": "پتہ",
+      "phone": "تیلیفون رقم",
+      "eMail": "ای میل ایدریس",
+      "website": "ویب پانہ",
+      "openingHours": "دہ پیل مھال",
+      "description": "توضیحات",
+      "addressCopied": "پتہ کلپ بورډ تہ کاپی شوی",
+      "phoneCopied": "تیلیفون رقم کلپ بورډ تہ کاپی شوی",
+      "eMailCopied": "ای میل ایدریس کلپ بورډ تہ کاپی شوی",
+      "websiteCopied": "ویب پانہ کلپ بورډ تہ کاپی شوی"
     },
     "ro": {
       "pageTitle": "Harta",
@@ -5278,6 +5582,78 @@
       "eMailCopied": "Ciwaanka iimaylka waa la koobiyeeyay ",
       "websiteCopied": "Bogga websaydhka waa la koobiyeeyay"
     },
+    "sq": {
+      "pageTitle": "Harta",
+      "poi": "Vendi",
+      "pois": "Vendet",
+      "map": "Harta",
+      "showOnMap": "Shfaq në hartë",
+      "noPois": "Nuk u gjetën vendndodhje.",
+      "unitKilometre": "km",
+      "unitMetre": "m",
+      "distanceKilometre": "{{distance}} km larg",
+      "distanceKilometreAlternative": "{{distance}} km",
+      "distanceMetre": "{{distance}} m larg",
+      "distanceMetreAlternative": "{{distance}} m",
+      "address": "Adresa",
+      "phone": "Numri i telefonit",
+      "eMail": "E-Mail-Adresa",
+      "website": "Faqja e internetit",
+      "openingHours": "Orari i punës",
+      "description": "Përshkrimi",
+      "addressCopied": "Adresa u kopjua ndërmjet rendit ",
+      "phoneCopied": "Numri i telefonit u kopjua ndërmjet rendit ",
+      "eMailCopied": "E-mail adresa u kopjua ndërmjet rendit ",
+      "websiteCopied": "Faqja e internetit u kopjua ndërmjet rendit "
+    },
+    "sr-Cyrl": {
+      "pageTitle": "Карта",
+      "poi": "Место",
+      "pois": "Места",
+      "map": "Карта",
+      "showOnMap": "Прикажи на карти",
+      "noPois": "Није пронађена ниједна локација.",
+      "unitKilometre": "km",
+      "unitMetre": "m",
+      "distanceKilometre": "{{distance}} km удаљен",
+      "distanceKilometreAlternative": "{{distance}} km",
+      "distanceMetre": "{{distance}} m удаљен",
+      "distanceMetreAlternative": "{{distance}} m",
+      "address": "Адреса",
+      "phone": "Телефон",
+      "eMail": "Адреса е-поште",
+      "website": "веб страна",
+      "openingHours": "Радно време",
+      "description": "Опис",
+      "addressCopied": "Адреса је копирана на клипборду",
+      "phoneCopied": "Број телефона је копиран на клипборду",
+      "eMailCopied": "Адреса е-поште је копирана на клипборду",
+      "websiteCopied": "Веб страна је копирана на клипборду"
+    },
+    "sr-Latn": {
+      "pageTitle": "Karta",
+      "poi": "Mesto",
+      "pois": "Mesta",
+      "map": "Karta",
+      "showOnMap": "Prikaži na karti",
+      "noPois": "Nije pronađena nijedna lokacija.",
+      "unitKilometre": "km",
+      "unitMetre": "m",
+      "distanceKilometre": "{{distance}} km udaljen",
+      "distanceKilometreAlternative": "{{distance}} km",
+      "distanceMetre": "{{distance}} m udaljen",
+      "distanceMetreAlternative": "{{distance}} m",
+      "address": "Adresa",
+      "phone": "Telefon",
+      "eMail": "Adresa e-pošte",
+      "website": "veb strana",
+      "openingHours": "Radno vreme",
+      "description": "Opis",
+      "addressCopied": "Adresa je kopirana na klipbordu",
+      "phoneCopied": "Broj telefona je kopiran na klipbordu",
+      "eMailCopied": "Adresa e-pošte je kopirana na klipbordu",
+      "websiteCopied": "Veb strana je kopirana na klipbordu"
+    },
     "ti": {
       "pageTitle": "ካርታ",
       "poi": "ቦታ",
@@ -5350,6 +5726,30 @@
       "eMailCopied": "Адреса електронної пошти скопійована в буфер обміну",
       "websiteCopied": "Сайт скопійований у буфер обміну",
       "listTitle": "З вами поблизу"
+    },
+    "ur": {
+      "pageTitle": "نقشہ",
+      "poi": "جگہ",
+      "pois": "جگہیں",
+      "map": "نقشہ",
+      "showOnMap": "نقشے میں دکھائیں۔",
+      "noPois": "کوئی بی جگہ نہیں ملی۔",
+      "unitKilometre": "کلو میٹر",
+      "unitMetre": "میٹر",
+      "distanceKilometre": "{{distance}}کلو میٹر فاصلہ",
+      "distanceKilometreAlternative": "{{distance}} کلو میٹر",
+      "distanceMetre": "{{distance}} میٹر فاصلہ",
+      "distanceMetreAlternative": "{{distance}} میٹر ",
+      "address": "پتہ",
+      "phone": "ٹیلیفون نمبر",
+      "eMail": "ای میل ایڈریس",
+      "website": "ویب سائٹ",
+      "openingHours": "کھلنے کے اوقات",
+      "description": "تشریح",
+      "addressCopied": "پتہ کلپ بورڈ میں کاپی کیا گیا",
+      "phoneCopied": "ٹیلی فون نمبر کلپ بورڈ میں کاپی کیا گیا",
+      "eMailCopied": "ای میل ایڈریس کلپ بورڈ میں کاپی کیا گیا",
+      "websiteCopied": "ویب سائٹ کلپ بورڈ میں کاپی کیا گیا"
     }
   },
   "search": {
@@ -5415,7 +5815,7 @@
     },
     "ka": {
       "nothingFound": "სამწუხაროდ შესაბამისი შედეგები ვერ მოიძებნა.",
-      "searchPlaceholder": "ძებნა",
+      "searchPlaceholder": "ძიება",
       "pageTitle": "ძიება"
     },
     "kmr": {
@@ -5756,6 +6156,11 @@
       "openSourceLicenses": "ლიცენზია ღია ინტერნეტ რესურსებზე",
       "tracking": "J-PAL ევალუაცია",
       "allowTracking": "თვალთვალის ჩართვა",
+      "trackingShortDescription": "მიიღმთ მონაწილეობა სხვა J-PAL შეფასების კვლევაში, რათა გააუმჯობესოთ {{appName}}.",
+      "trackingMoreInformation": "დამატებითი ინფორმაცია J-Pal შეფასების კვლევასა და კვლევით მიზნებზე",
+      "trackingDescription": "{{appName}} გთხოვთ უფლებას, თვალი მიედევნოს თქვენს მიერ აპის გამოყენებას. თქვენი მონაცემები იქნება ანონიმიზირებული და მხოლოდ კვლევითი და აპის გაუმჯობესების მიზნით გამოყენებული. მიდევნებული მონაცემების გაზიარება არ მოხდება და ასევე არ დამუშავდება რეკლამის ან სხვა კომერციული მიზნებისთვის.",
+      "trackingLeaveTitle": "მიკვლევადობაზე გასცემთ უფლებას?",
+      "trackingLeaveDescription": "თქვენ არ გაეცით უფლება მიკვლევადობაზე. მიკვლევადობა ჩვენ გვეხმარება გავაუმჯობესოთ {{appName}}-აპი და მივაწოდოთ მომხმარებელს ინფორმაცია. დარწმუნებული ხართ, რომ გსურთ ეკრანის დატოვება ისე, რომ არ ადასურებთ მიკვლევადობას?",
       "enabled": "აქტივირებული",
       "disabled": "დეაქტივირებული",
       "decline": "უარყოფა"
@@ -5791,6 +6196,11 @@
       "openSourceLicenses": "Лиценца за отворени содржини",
       "tracking": "J-PAL евалуација",
       "allowTracking": "Дозволено следење",
+      "trackingShortDescription": "Учествувајте во студијата за евалуација на J-PAL за да го подобрите {{appName}}.",
+      "trackingMoreInformation": "Дознајте повеќе за студијата за евалуација на J-Pal и целите за истражување",
+      "trackingDescription": "{{appName}} бара дозвола да го следи вашето користење во апликацијата. Вашите податоци ќе бидат анонимизирани и ќе се користат само за истражувачки цели и за подобрување на апликацијата. Податоците за следење нема да се споделуваат или обработуваат за рекламирање или други комерцијални цели.",
+      "trackingLeaveTitle": "Дозволи следење?",
+      "trackingLeaveDescription": "Не дозволивте следење. Следењето ни помага да ја подобриме апликацијата {{appName}} и да обезбедиме подобри информации за имигрантите. Дали сте сигурни дека сакате да го напуштите екранот без да дозволите следење?",
       "enabled": "активирано",
       "disabled": "деактивирано",
       "decline": "Отфрли"
@@ -5849,6 +6259,7 @@
       "trackingShortDescription": "برای بهبود برنامه {{appName}} در ارزیابی J-PAL شرکت کنید.",
       "trackingMoreInformation": "برای کسب اطلاعات بیشتر در مورد ارزیابی J-Pal و اهداف تحقیق.",
       "trackingDescription": "انتیگریت میخواهد میزان استفاده شما از این اپلیکیشن را پیگیری کند. معلومات شما به شکل نا شناس نگهداری میشود و فقط برای اهداف تحقیق علمی استفاده میشود. معلومات شما که برای پیگیری نگهداری میشود برای تبلیغات یا سایر اهداف تجاری استفاده و پروسس نمیشود.",
+      "trackingLeaveTitle": "به ردیابی اجازه می‌دهید؟",
       "trackingLeaveDescription": "شما اجازه ردیابی را نداده اید. ردیابی به ما کمک می کند تا برنامه {{appName}} را بهبود بخشیم و اطلاعات بهتری برای مهاجران ارائه دهیم. آیا مطمئن هستید که می‌خواهید بدون اجازه ردیابی صفحه را ترک کنید؟",
       "enabled": "فعال شده",
       "disabled": "غیرفعال شده",
@@ -5866,9 +6277,10 @@
       "tracking": "د J-PAL ارزونه",
       "allowTracking": "د تعقیبولو اجازه",
       "trackingShortDescription": "د {{appName}} ایپ ښه کولو لپاره د J-PAL ارزونې کې برخه واخلئ.",
-      "trackingMoreInformation": "د جې پال د ارزونې او څېړنې د اهدافو په اړه نور معلومات ترلاسه کول.",
+      "trackingMoreInformation": "د J-PAL د ارزونې او څېړنې د اهدافو په اړه نور معلومات ترلاسه کول.",
       "trackingDescription": "{{appName}} په اپلیکیشن کې ستاسو د کارونې تعقیب لپاره اجازه غواړي. ستاسو ډاټا به پټ وي او یوازې د څیړنې موخو او د اپلیکیشن ښه کولو لپاره کارول کیږي. د تعقیب ډاټا به د اعلاناتو یا نورو سوداګریزو موخو لپاره شریک یا پروسس نشي",
-      "trackingLeaveDescription": "تاسو د تعقیب اجازه نه ده ورکړې. تعقیب موږ سره د {{appName}} ایپ ښه کولو او د مهاجرینو لپاره غوره معلوماتو چمتو کولو کې مرسته کوي. ایا تاسو ډاډه یاست چې د تعقیب اجازه",
+      "trackingLeaveTitle": "دہ تعقیب اجازہ ورکړئ",
+      "trackingLeaveDescription": "تاسو د تعقیب اجازه نه ده ورکړې. تعقیب موږ سره د {{appName}} ایپ ښه کولو او د مهاجرینو لپاره غوره معلوماتو چمتو کولو کې مرسته کوي. ایا تاسو ډاډه یاست چې د تعقیب اجازه ورکړئ",
       "enabled": "فعال شوی",
       "disabled": "غیرفعال شوی",
       "decline": "رد کول"
@@ -6055,7 +6467,7 @@
     },
     "ur": {
       "sentryTitle": "ایپ کا استحکام",
-      "sentryDescription": "خودکار طریقے سے ایپ بند ہونے کی رپورٹس بھیج کر ‎{{appName}}‎ کو بہتر بنائیں",
+      "sentryDescription": "خودبخودایپ بند ہونے کی رپورٹس بھیج کر ‎{{appName}}‎ کو بہتر بنائیں",
       "pushNewsTitle": "پش نوٹیفیکیشنز",
       "pushNewsDescription": "تازہ مقامی خبروں کے لئے پش نوٹیفیکیشنز وصول کریں",
       "about": "‎{{appName}}‎ کے متعلق",
@@ -6064,6 +6476,11 @@
       "openSourceLicenses": "اوپن سورس لائسنس",
       "tracking": "J-PAL تجزیہ",
       "allowTracking": "ٹریکنگ کی اجازت دیں",
+      "trackingShortDescription": "اس {{appName}} کو بہتر بنانے کے لئے  J-PAL جائزے میں حصہ لیں۔",
+      "trackingMoreInformation": "اس  J-Pal کے جائزے اور تحقیق کے بارے میں مزید معلومات جانئے۔",
+      "trackingDescription": "اس {{appName}} کو آپ کے اس ایپلیکیشن کو استعمال کرنے کی ٹریکنگ کی اجازت چاہئے۔ آپ کا ڈیٹا محفوظ اور راز میں رہے گا اور صرف تحقیق اور ایپلیکیشن کو بہتر بنانے کے لئے استعمال ہوگا۔ ٹریکنگ ڈیٹا کو مارکیٹنگ یا دیگر تجارتی مقاصد کے لئے شٰئر یا پروسیس نہیں کیا جائیگا۔",
+      "trackingLeaveTitle": "ٹریکنگ کی اجازت دیں",
+      "trackingLeaveDescription": "آپ نے ٹریکنگ کی اجازت نہیں دی ہے۔ ٹریکنگ ہمیں {{appName}} کو بہتر بنانے اور مہاجرین کے لئے بہتر معلومات فراہم کرنے میں مدد کرتی ہے۔ کیا آپ ٹریکنگ کی اجازت دینے کے لئے مطمئن ہیں؟",
       "enabled": "فعال",
       "disabled": "غیر فعال",
       "decline": "مسترد کریں"
