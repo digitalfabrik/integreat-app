@@ -36,6 +36,7 @@ const Body = styled.div<{ fullWidth: boolean; scrollable: boolean }>`
   margin: 0 auto;
   background-color: ${props => props.theme.colors.backgroundColor};
   word-wrap: break-word;
+
   /* Fix jumping iOS Safari Toolbar by prevent scrolling on body */
   ${props =>
     !props.scrollable &&
