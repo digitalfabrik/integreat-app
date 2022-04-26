@@ -9,6 +9,7 @@ exports[`Layout should render all components 1`] = `
       <header />
       <styled.div
         fullWidth={false}
+        scrollable={true}
       >
         <styled.aside
           languageSelectorHeight={0}
