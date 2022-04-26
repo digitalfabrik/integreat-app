@@ -22,6 +22,7 @@ type PropsType = {
   cityModel: CityModel
   languageCode: string
   fullWidth?: boolean
+  scrollable?: boolean
 }
 
 const LocationLayout = (props: PropsType): ReactElement => {
@@ -35,7 +36,8 @@ const LocationLayout = (props: PropsType): ReactElement => {
     isLoading,
     route,
     toolbar: toolbarProp,
-    fullWidth = false
+    fullWidth = false,
+    scrollable = true
   } = props
   const { feedbackTargetInformation, cityModel } = props
 
@@ -55,6 +57,7 @@ const LocationLayout = (props: PropsType): ReactElement => {
 
   return (
     <Layout
+      scrollable={scrollable}
       fullWidth={fullWidth}
       header={
         <LocationHeader
