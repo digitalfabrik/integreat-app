@@ -36,7 +36,6 @@ const Body = styled.div<{ fullWidth: boolean; scrollable: boolean }>`
   margin: 0 auto;
   background-color: ${props => props.theme.colors.backgroundColor};
   word-wrap: break-word;
-
   /* Fix jumping iOS Safari Toolbar by prevent scrolling on body */
   ${props =>
     !props.scrollable &&
@@ -45,8 +44,10 @@ const Body = styled.div<{ fullWidth: boolean; scrollable: boolean }>`
         /* CSS specific to iOS safari devices */
         position: fixed;
         overflow: hidden;
-      }
-    `} /* https://aykevl.nl/2014/09/fix-jumping-scrollbar */ ${props =>
+      } ;
+    `};
+  /* https://aykevl.nl/2014/09/fix-jumping-scrollbar */
+  ${props =>
     !props.fullWidth &&
     css`
       @media ${dimensions.minMaxWidth} {
