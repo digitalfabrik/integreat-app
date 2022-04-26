@@ -29,16 +29,23 @@ const RichLayout = styled.div`
   }
 `
 
-const Body = styled.div<{ fullWidth: boolean }>`
+const Body = styled.div<{ fullWidth: boolean; scrollable: boolean }>`
   width: 100%;
   box-sizing: border-box;
   flex-grow: 1;
   margin: 0 auto;
   background-color: ${props => props.theme.colors.backgroundColor};
   word-wrap: break-word;
-
-  /* https://aykevl.nl/2014/09/fix-jumping-scrollbar */
+  /* Fix jumping iOS Safari Toolbar by prevent scrolling on body */
   ${props =>
+    !props.scrollable &&
+    css`
+      @supports (-webkit-touch-callout: none) {
+        /* CSS specific to iOS safari devices */
+        position: fixed;
+        overflow: hidden;
+      }
+    `} /* https://aykevl.nl/2014/09/fix-jumping-scrollbar */ ${props =>
     !props.fullWidth &&
     css`
       @media ${dimensions.minMaxWidth} {
@@ -110,6 +117,7 @@ type PropsType = {
   modal?: ReactNode
   children?: ReactNode
   fullWidth?: boolean
+  scrollable?: boolean
 }
 
 /**
@@ -117,7 +125,15 @@ type PropsType = {
  * If a footer is supplied and there's not enough content (in header and children) to fill the viewbox, the footer will
  * always stick to the bottom of the viewbox.
  */
-const Layout = ({ footer, header, toolbar, modal, children, fullWidth = false }: PropsType): JSX.Element => {
+const Layout = ({
+  footer,
+  header,
+  toolbar,
+  modal,
+  children,
+  fullWidth = false,
+  scrollable = true
+}: PropsType): JSX.Element => {
   const modalVisible = !!modal
   const { width } = useWindowDimensions()
   const [languageSelectorHeight, setLanguageSelectorHeight] = useState<number>(0)
@@ -132,7 +148,7 @@ const Layout = ({ footer, header, toolbar, modal, children, fullWidth = false }:
       <RichLayout>
         <div aria-hidden={modalVisible}>
           {header}
-          <Body fullWidth={fullWidth}>
+          <Body fullWidth={fullWidth} scrollable={scrollable}>
             <Aside languageSelectorHeight={languageSelectorHeight}>{toolbar}</Aside>
             <Main fullWidth={fullWidth}>{children}</Main>
           </Body>
