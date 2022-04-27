@@ -155,7 +155,7 @@ const PoisPage = ({ cityCode, languageCode, cityModel, pathname, languages }: Ci
     languageChangePaths,
     route: POIS_ROUTE,
     languageCode,
-    scrollable: false
+    disableScrollingSafari: true
   }
 
   if (loading) {
