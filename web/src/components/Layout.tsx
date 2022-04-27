@@ -29,7 +29,7 @@ const RichLayout = styled.div`
   }
 `
 
-const Body = styled.div<{ fullWidth: boolean; scrollable: boolean }>`
+const Body = styled.div<{ fullWidth: boolean; disableScrollingSafari: boolean }>`
   width: 100%;
   box-sizing: border-box;
   flex-grow: 1;
@@ -38,7 +38,7 @@ const Body = styled.div<{ fullWidth: boolean; scrollable: boolean }>`
   word-wrap: break-word;
   /* Fix jumping iOS Safari Toolbar by prevent scrolling on body */
   ${props =>
-    !props.scrollable &&
+    props.disableScrollingSafari &&
     css`
       @supports (-webkit-touch-callout: none) {
         /* CSS specific to iOS safari devices */
@@ -119,7 +119,7 @@ type PropsType = {
   modal?: ReactNode
   children?: ReactNode
   fullWidth?: boolean
-  scrollable?: boolean
+  disableScrollingSafari?: boolean
 }
 
 /**
@@ -134,7 +134,7 @@ const Layout = ({
   modal,
   children,
   fullWidth = false,
-  scrollable = true
+  disableScrollingSafari = false
 }: PropsType): JSX.Element => {
   const modalVisible = !!modal
   const { width } = useWindowDimensions()
@@ -150,7 +150,7 @@ const Layout = ({
       <RichLayout>
         <div aria-hidden={modalVisible}>
           {header}
-          <Body fullWidth={fullWidth} scrollable={scrollable}>
+          <Body fullWidth={fullWidth} disableScrollingSafari={disableScrollingSafari}>
             <Aside languageSelectorHeight={languageSelectorHeight}>{toolbar}</Aside>
             <Main fullWidth={fullWidth}>{children}</Main>
           </Body>
