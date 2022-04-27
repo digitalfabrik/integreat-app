@@ -2,16 +2,19 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React, { ReactElement, useEffect, useState } from 'react'
 import styled from 'styled-components'
 
+import { UiDirectionType } from 'translations'
+
 import { faAngleDown, faAngleUp } from '../constants/icons'
 
 type CollapsibleProps = {
   children: ReactElement | string | number
   title: string
   initialCollapsed?: boolean
+  direction: UiDirectionType
 }
 
-const ContentWrapper = styled.div`
-  padding-right: 18px;
+const ContentWrapper = styled.div<{ direction: string }>`
+  ${props => (props.direction === 'rtl' ? `padding-left: 18px;` : `padding-right: 18px;`)}
   display: block;
 `
 const CollapsibleHeader = styled.div`
@@ -30,7 +33,8 @@ const StyledIcon = styled(FontAwesomeIcon)`
 const Collapsible: React.FC<CollapsibleProps> = ({
   children,
   title,
-  initialCollapsed = true
+  initialCollapsed = true,
+  direction
 }: CollapsibleProps): ReactElement => {
   const [collapsed, setCollapsed] = useState<boolean>(initialCollapsed)
 
@@ -49,7 +53,7 @@ const Collapsible: React.FC<CollapsibleProps> = ({
         <Title>{title}</Title>
         <StyledIcon icon={collapsed ? faAngleDown : faAngleUp} />
       </CollapsibleHeader>
-      {collapsed && <ContentWrapper>{children}</ContentWrapper>}
+      {collapsed && <ContentWrapper direction={direction}>{children}</ContentWrapper>}
     </>
   )
 }

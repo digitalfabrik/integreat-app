@@ -1,6 +1,8 @@
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
+
+import { UiDirectionType } from 'translations'
 
 import iconArrowBack from '../assets/IconArrowBack.svg'
 import iconArrowForward from '../assets/IconArrowForward.svg'
@@ -21,19 +23,28 @@ const Label = styled.span`
   font-size: clamp(0.55rem, 1.6vh, ${props => props.theme.fonts.hintFontSize});
 `
 
-const Icon = styled.img`
+const Icon = styled.img<{ direction: string }>`
   width: 16px;
   height: 14px;
   flex-shrink: 0;
   padding: 0 8px;
   object-fit: contain;
   align-self: center;
+  ${props =>
+    props.direction === 'rtl' &&
+    css`
+      transform: rotate(180deg);
+    `};
 `
 
-type PoiPanelNavigationProps = { switchFeature: (step: 1 | -1) => void }
+type PoiPanelNavigationProps = {
+  switchFeature: (step: 1 | -1) => void
+  direction: UiDirectionType
+}
 
 const PoiPanelNavigation: React.FC<PoiPanelNavigationProps> = ({
-  switchFeature
+  switchFeature,
+  direction
 }: PoiPanelNavigationProps): ReactElement => {
   const { t } = useTranslation('pois')
   return (
@@ -44,7 +55,7 @@ const PoiPanelNavigation: React.FC<PoiPanelNavigationProps> = ({
         tabIndex={0}
         onKeyPress={() => switchFeature(-1)}
         aria-label='back-panel'>
-        <Icon src={iconArrowBack} alt='' />
+        <Icon src={iconArrowBack} alt='' direction={direction} />
         <Label>{t('detailsPreviousPoi')}</Label>
       </NavItem>
       <NavItem
@@ -54,7 +65,7 @@ const PoiPanelNavigation: React.FC<PoiPanelNavigationProps> = ({
         onKeyPress={() => switchFeature(1)}
         aria-label='forward-panel'>
         <Label>{t('detailsNextPoi')}</Label>
-        <Icon src={iconArrowForward} alt='' />
+        <Icon src={iconArrowForward} alt='' direction={direction} />
       </NavItem>
     </NavigationContainer>
   )

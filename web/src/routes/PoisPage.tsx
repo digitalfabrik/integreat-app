@@ -19,6 +19,7 @@ import {
   PoiFeature,
   POIS_ROUTE
 } from 'api-client'
+import { config } from 'translations'
 
 import { CityRouteProps } from '../CityContentSwitcher'
 import FailureSwitcher from '../components/FailureSwitcher'
@@ -195,6 +196,7 @@ const PoisPage = ({ cityCode, languageCode, cityModel, pathname, languages }: Ci
     <PoiListItem key={poi.properties.path} poi={poi} selectFeature={selectFeature} />
   )
   const pageTitle = `${t('pageTitle')} - ${cityModel.name}`
+  const direction = config.getScriptDirection(languageCode)
 
   const mapView = cityModel.boundingBox && (
     <MapView
@@ -204,6 +206,7 @@ const PoisPage = ({ cityCode, languageCode, cityModel, pathname, languages }: Ci
       featureCollection={embedInCollection(data.features)}
       bboxViewport={moveViewToBBox(cityModel.boundingBox, defaultMercatorViewportConfig)}
       currentFeature={currentFeature}
+      direction={direction}
     />
   )
 
@@ -224,6 +227,7 @@ const PoisPage = ({ cityCode, languageCode, cityModel, pathname, languages }: Ci
             mapView={mapView}
             poiList={poiList}
             selectFeature={selectFeature}
+            direction={direction}
           />
         ) : (
           <PoisDesktop
@@ -235,6 +239,7 @@ const PoisPage = ({ cityCode, languageCode, cityModel, pathname, languages }: Ci
             mapView={mapView}
             poiList={poiList}
             selectFeature={selectFeature}
+            direction={direction}
           />
         )}
         {feedbackModal}
