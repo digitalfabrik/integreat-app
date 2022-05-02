@@ -14,6 +14,7 @@ import { pushNotificationsEnabled } from './PushNotificationsManager'
 import openExternalUrl from './openExternalUrl'
 import openPrivacyPolicy from './openPrivacyPolicy'
 import { initSentry } from './sentry'
+import openLicenseInfo from './openLicenseInfo'
 
 export type SetSettingFunctionType = (
   changeSetting: (settings: SettingsType) => Partial<SettingsType>,
@@ -139,7 +140,12 @@ const createSettingsSections = ({
         onPress: () => openPrivacyPolicy(languageCode).catch((error: Error) => showSnackbar(error.message))
       },
       {
-        title: t('version', {
+        title: t('version'),
+        onPress: () => openLicenseInfo().catch((error: Error) => showSnackbar(error.message))
+      },
+      {
+        // TODO add translation
+        title: t('licences', {
           version: NativeConstants.appVersion
         }),
         onPress: () => {
