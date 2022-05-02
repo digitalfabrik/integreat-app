@@ -9,8 +9,9 @@ program
   .action(buildConfigName => {
     const buildConfig = execSync(`yarn workspace --silent build-configs --silent manage to-bash ${buildConfigName} common`)
       .toString()
-      .replaceAll('\n', ' ')
-    execSync(`yarn cross-env ${buildConfig} yarn react-native start --reset-cache`, { stdio: 'inherit' })
+      .replace('/\n/g', ' ')
+    execSync(`yarn cross-env-shell ${buildConfig}`)
+    execSync(`yarn react-native start --reset-cache`, { stdio: 'inherit' })
   })
 
 program
@@ -25,8 +26,9 @@ program
 
     const buildConfig = execSync(`yarn workspace --silent build-configs --silent manage to-bash ${buildConfigName} android`)
       .toString()
-      .replaceAll('\n', ' ')
-    execSync(`yarn cross-env ${buildConfig} yarn react-native run-android --no-packager --appId ${applicationId} ${productionFlag}`, { stdio: 'inherit' })
+      .replace('/\n/g', ' ')
+    execSync(`yarn cross-env-shell ${buildConfig}`)
+    execSync(`yarn react-native run-android --no-packager --appId ${applicationId} ${productionFlag}`, { stdio: 'inherit' })
   })
 
 program.parse(process.argv)
