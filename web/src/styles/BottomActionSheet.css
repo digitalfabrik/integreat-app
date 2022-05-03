@@ -16,5 +16,5 @@
 }
 
 [data-rsbs-has-header='false'] [data-rsbs-header] {
-  padding-top: calc(24px + env(safe-area-inset-top));
+  padding-top: calc(32px + env(safe-area-inset-top));
 }
