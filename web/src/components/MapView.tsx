@@ -117,7 +117,7 @@ const MapView = React.forwardRef((props: MapViewProps, ref: React.Ref<MapRef>): 
     [changeSnapPoint, selectFeature]
   )
 
-  const onBackButton = () => {
+  const onDeselect = () => {
     selectFeature(null)
     changeSnapPoint(1)
   }
@@ -145,8 +145,9 @@ const MapView = React.forwardRef((props: MapViewProps, ref: React.Ref<MapRef>): 
         mapStyle={mapConfig.styleJSON}
         onClick={onSelectFeature}
         onTouchMove={() => changeSnapPoint(0)}>
+        onDeselect
         {currentFeature && viewportSmall && (
-          <BackNavigation onClick={onBackButton} role='button' tabIndex={-1} onKeyPress={onBackButton}>
+          <BackNavigation onClick={onDeselect} role='button' tabIndex={-1} onKeyPress={onDeselect}>
             <StyledIcon icon={faArrowLeft} />
           </BackNavigation>
         )}
