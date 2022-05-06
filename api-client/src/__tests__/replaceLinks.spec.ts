@@ -26,4 +26,9 @@ describe('replaceLinks', () => {
       'some content <a href="https://asdf.gh">https://asdf.gh</a> with the correct <a href="mailto:links@qwer.tz">mailto:links@qwer.tz</a>'
     )
   })
+  it('should not match trailing "."', () => {
+    replaceLinks('some content https://integreat.app/asdf.', replace)
+    expect(replace).toHaveBeenCalledTimes(1)
+    expect(replace).toHaveReturnedWith('https://integreat.app/asdf')
+  })
 })
