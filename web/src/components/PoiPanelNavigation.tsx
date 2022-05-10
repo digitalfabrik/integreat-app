@@ -33,7 +33,7 @@ const Icon = styled.img<{ direction: string }>`
   ${props =>
     props.direction === 'rtl' &&
     css`
-      transform: rotate(180deg);
+      transform: scaleX(-1);
     `};
 `
 
