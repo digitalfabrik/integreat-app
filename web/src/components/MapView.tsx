@@ -119,6 +119,11 @@ const MapView = React.forwardRef((props: MapViewProps, ref: React.Ref<MapRef>): 
     [changeSnapPoint, selectFeature]
   )
 
+  const onDeselect = () => {
+    selectFeature(null)
+    changeSnapPoint(1)
+  }
+
   const changeCursor = useCallback((cursor: MapCursorType) => setCursor(cursor), [])
 
   return (
@@ -142,12 +147,13 @@ const MapView = React.forwardRef((props: MapViewProps, ref: React.Ref<MapRef>): 
         mapStyle={mapConfig.styleJSON}
         onClick={onSelectFeature}
         onTouchMove={() => changeSnapPoint(0)}>
+        onDeselect
         {currentFeature && viewportSmall && (
           <BackNavigation
-            onClick={() => selectFeature(null)}
+            onClick={onDeselect}
             role='button'
             tabIndex={-1}
-            onKeyPress={() => selectFeature(null)}
+            onKeyPress={onDeselect}
             direction={direction}>
             <StyledIcon icon={faArrowLeft} direction={direction} />
           </BackNavigation>
