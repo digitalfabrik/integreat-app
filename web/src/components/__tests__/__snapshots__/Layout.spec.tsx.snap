@@ -8,6 +8,7 @@ exports[`Layout should render all components 1`] = `
     >
       <header />
       <styled.div
+        disableScrollingSafari={false}
         fullWidth={false}
       >
         <styled.aside
