@@ -28,7 +28,7 @@ describe('NewsTab', () => {
         <NewsTab type={TU_NEWS_TYPE} active={active} destination={destination} t={t} />
       </ThemeProvider>
     )
-    expect(getByLabelText('tuNews.tuNews')).toHaveProperty('href', `http://localhost${destination}`)
+    expect(getByLabelText('tünews INTERNATIONAL')).toHaveProperty('href', `http://localhost${destination}`)
     expect(queryByText('LOCAL')).toBeFalsy()
   })
 })
