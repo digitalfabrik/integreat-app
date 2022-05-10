@@ -10,12 +10,8 @@ export const getNavigationDeepLinks = (location: LocationModel, title: string): 
   const long = location.coordinates[0]
   const lat = location.coordinates[1]
 
-  const isIos = /iPhone|iPad|iPod/i.test(navigator.userAgent)
   const isAndroid = /Android/i.test(navigator.userAgent)
 
-  if (isIos) {
-    return `maps:${lat},${long}?q=${location.location}`
-  }
   if (isAndroid) {
     return `geo:${lat},${long}?q=${location.location}`
   }
