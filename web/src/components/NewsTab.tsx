@@ -44,8 +44,10 @@ type PropsType = {
 }
 
 const NewsTab = ({ type, active, destination, t }: PropsType): ReactElement => {
+  const tuNewsLabel = 'tünews INTERNATIONAL'
+
   if (type === TU_NEWS_TYPE) {
-    return <TuStyledTab $active={active} to={destination} aria-label={t('tuNews.tuNews')} />
+    return <TuStyledTab $active={active} to={destination} aria-label={tuNewsLabel} />
   }
 
   return (
