@@ -22,7 +22,7 @@ const ShelterPage = ({ cityModel, cityCode, languageCode, pathname, languages }:
   const { shelterId } = useParams()
   const { viewportSmall } = useWindowDimensions()
   const { t } = useTranslation('shelter')
-  const [filter, setFilter] = useState<FilterProps>({ beds: null, pets: null })
+  const [filter, setFilter] = useState<FilterProps>({ beds: null, city: null, pets: null })
 
   const loadShelters = useCallback(
     (page: number) =>
@@ -45,6 +45,9 @@ const ShelterPage = ({ cityModel, cityCode, languageCode, pathname, languages }:
     switch (key) {
       case 'beds':
         setFilter({ ...filter, beds: val })
+        break
+      case 'city':
+        setFilter({ ...filter, city: val })
         break
       case 'pets':
         setFilter({ ...filter, pets: val })
