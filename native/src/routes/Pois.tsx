@@ -7,7 +7,6 @@ import styled from 'styled-components/native'
 import {
   CityModel,
   embedInCollection,
-  ErrorCode,
   fromError,
   locationName,
   NotFoundError,
@@ -32,7 +31,6 @@ import useUserLocation from '../hooks/useUserLocation'
 import createNavigateToFeedbackModal from '../navigation/createNavigateToFeedbackModal'
 import urlFromRouteInformation from '../navigation/url'
 import { LanguageResourceCacheStateType } from '../redux/StateType'
-import { reportError } from '../utils/sentry'
 
 export type PropsType = {
   pois: Array<PoiModel>
