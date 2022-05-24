@@ -82,7 +82,7 @@ describe('News', () => {
       latitude: null,
       longitude: null,
       aliases: null,
-      boundingBox: null
+      boundingBox: [5.98865807458, 47.3024876979, 15.0169958839, 54.983104153]
     })
     const props = { cityModel, language, selectNews, loadMore, refresh, selectedNewsType }
     return render(

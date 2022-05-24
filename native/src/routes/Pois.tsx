@@ -108,11 +108,6 @@ const Pois = ({ pois, language, cityModel, route, navigation }: PropsType): Reac
     })
   }
 
-  if (!cityModel.boundingBox) {
-    reportError(new Error(`Bounding box not set for city ${cityModel.code}!`))
-    return <Failure code={ErrorCode.PageNotFound} />
-  }
-
   const selectedFeatureContent =
     selectedFeature && poi ? (
       <PoiDetails language={language} poi={poi} feature={selectedFeature} />

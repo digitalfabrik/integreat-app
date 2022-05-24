@@ -103,7 +103,7 @@ type ContentCityJsonType = {
   aliases: Record<string, { longitude: number; latitude: number }> | null
   pushNotificationsEnabled: boolean
   tunewsEnabled: boolean
-  bounding_box: BBox | null
+  bounding_box: BBox
 }
 type ContentPoiJsonType = {
   path: string
@@ -495,7 +495,7 @@ class DatabaseConnector {
           longitude: jsonObject.longitude,
           latitude: jsonObject.latitude,
           aliases: jsonObject.aliases,
-          boundingBox: jsonObject.bounding_box ?? null
+          boundingBox: jsonObject.bounding_box
         })
     )
   }

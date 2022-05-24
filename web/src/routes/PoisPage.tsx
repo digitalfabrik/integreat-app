@@ -197,7 +197,7 @@ const PoisPage = ({ cityCode, languageCode, cityModel, pathname, languages }: Ci
   )
   const pageTitle = `${t('pageTitle')} - ${cityModel.name}`
 
-  const mapView = cityModel.boundingBox && (
+  const mapView = (
     <MapView
       ref={updateMapRef}
       selectFeature={selectFeature}

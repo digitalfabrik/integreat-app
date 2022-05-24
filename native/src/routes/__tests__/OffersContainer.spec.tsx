@@ -146,7 +146,7 @@ describe('OffersContainer', () => {
           longitude: 10.889586
         }
       },
-      boundingBox: null
+      boundingBox: [5.98865807458, 47.3024876979, 15.0169958839, 54.983104153]
     })
     const store = mockStore({
       cities: {

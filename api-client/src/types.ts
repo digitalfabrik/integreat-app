@@ -1,3 +1,5 @@
+import { BBox } from 'geojson'
+
 /* eslint-disable camelcase */
 export type JsonAvailableLanguagesType = Record<
   string,
@@ -177,5 +179,5 @@ export type JsonCityType = {
   latitude: number | null
   longitude: number | null
   aliases: Record<string, { longitude: number; latitude: number }> | null
-  bounding_box: number[][] | null
+  bounding_box: BBox
 }

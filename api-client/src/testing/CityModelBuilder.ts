@@ -36,7 +36,7 @@ const cities = [
     latitude: null,
     longitude: null,
     aliases: null,
-    boundingBox: null
+    boundingBox: [5.98865807458, 47.3024876979, 15.0169958839, 54.983104153]
   }),
   new CityModel({
     name: 'City',
@@ -52,7 +52,7 @@ const cities = [
     longitude: null,
     prefix: null,
     aliases: null,
-    boundingBox: null
+    boundingBox: [5.98865807458, 47.3024876979, 15.0169958839, 54.983104153]
   }),
   new CityModel({
     name: 'Other city',
@@ -68,7 +68,7 @@ const cities = [
     longitude: null,
     prefix: null,
     aliases: null,
-    boundingBox: null
+    boundingBox: [5.98865807458, 47.3024876979, 15.0169958839, 54.983104153]
   }),
   new CityModel({
     name: 'Notlive',
@@ -84,7 +84,7 @@ const cities = [
     longitude: null,
     prefix: null,
     aliases: null,
-    boundingBox: null
+    boundingBox: [5.98865807458, 47.3024876979, 15.0169958839, 54.983104153]
   }),
   new CityModel({
     name: 'Yet another city',
@@ -100,7 +100,7 @@ const cities = [
     longitude: null,
     prefix: null,
     aliases: null,
-    boundingBox: null
+    boundingBox: [5.98865807458, 47.3024876979, 15.0169958839, 54.983104153]
   })
 ]
 

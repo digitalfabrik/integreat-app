@@ -24,10 +24,7 @@ describe('cities', () => {
         latitude: 48.3705449
       }
     },
-    bounding_box: [
-      [10.7880103, 48.447238],
-      [11.0174493, 48.297834]
-    ]
+    bounding_box: [10.7880103, 48.447238, 11.0174493, 48.297834]
   }
   const city2: JsonCityType = {
     name: 'Stadt Regensburg',
@@ -43,7 +40,7 @@ describe('cities', () => {
     longitude: null,
     latitude: null,
     aliases: null,
-    bounding_box: null
+    bounding_box: [5.98865807458, 47.3024876979, 15.0169958839, 54.983104153]
   }
 
   const cityJson = [city1, city2]
@@ -90,7 +87,7 @@ describe('cities', () => {
         latitude: null,
         longitude: null,
         aliases: null,
-        boundingBox: null
+        boundingBox: [5.98865807458, 47.3024876979, 15.0169958839, 54.983104153]
       })
     ])
   })
