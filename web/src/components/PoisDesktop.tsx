@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
 
 import { PoiFeature, PoiModel } from 'api-client'
+import { UiDirectionType } from 'translations'
 
 import dimensions from '../constants/dimensions'
 import PoiDetails from './PoiDetails'
@@ -44,6 +45,7 @@ type PoisDesktopProps = {
   poi?: PoiModel
   switchFeature: (step: 1 | -1) => void
   selectFeature: (feature: PoiFeature | null) => void
+  direction: UiDirectionType
 }
 
 const PoisDesktop: React.FC<PoisDesktopProps> = ({
@@ -54,7 +56,8 @@ const PoisDesktop: React.FC<PoisDesktopProps> = ({
   toolbar,
   poi,
   switchFeature,
-  selectFeature
+  selectFeature,
+  direction
 }: PoisDesktopProps): ReactElement => {
   const { t } = useTranslation('pois')
 
@@ -64,13 +67,13 @@ const PoisDesktop: React.FC<PoisDesktopProps> = ({
         <ListViewWrapper panelHeights={panelHeights}>
           {!currentFeature && <ListHeader>{t('listTitle')}</ListHeader>}
           {currentFeature && poi ? (
-            <PoiDetails poi={poi} feature={currentFeature} selectFeature={selectFeature} />
+            <PoiDetails poi={poi} feature={currentFeature} selectFeature={selectFeature} direction={direction} />
           ) : (
             poiList
           )}
         </ListViewWrapper>
         {currentFeature ? (
-          <PoiPanelNavigation switchFeature={switchFeature} />
+          <PoiPanelNavigation switchFeature={switchFeature} direction={direction} />
         ) : (
           <ToolbarContainer>{toolbar}</ToolbarContainer>
         )}
