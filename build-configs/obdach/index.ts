@@ -13,7 +13,7 @@ import { lightTheme } from './theme'
 const APPLE_APP_ID = '1072353915'
 
 const commonIntegreatBuildConfig: CommonBuildConfigType = {
-  appName: 'Integreat',
+  appName: 'Vernetztes Obdach',
   appIcon: 'app_icon_integreat',
   lightTheme,
   assets: INTEGREAT_ASSETS,
@@ -89,7 +89,8 @@ export const iosIntegreatBuildConfig: iOSBuildConfigType = {
 }
 export const webIntegreatBuildConfig: WebBuildConfigType = {
   ...commonIntegreatBuildConfig,
-  appDescription: 'Integreat – die lokale und mehrsprachige Integrations-Plattform für Zugewanderte',
+  appDescription:
+    'Vernetztes Obdach – die lokale und mehrsprachige Plattform für Obdachlose und Menschen die von Obdachlosigkeit bedroht sind',
   mainImprint,
   itunesAppId: APPLE_APP_ID,
   manifestUrl: '/manifest.json',
