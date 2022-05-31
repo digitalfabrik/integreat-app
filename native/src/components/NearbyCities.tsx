@@ -4,8 +4,7 @@ import { Button } from 'react-native-elements'
 import Icon from 'react-native-vector-icons/MaterialIcons'
 import styled, { useTheme } from 'styled-components/native'
 
-import { CityModel } from 'api-client'
-import getNearbyCities from 'api-client/src/utils/getNearbyCities'
+import { CityModel, getNearbyCities } from 'api-client'
 
 import useUserLocation from '../hooks/useUserLocation'
 import CityEntry from './CityEntry'
