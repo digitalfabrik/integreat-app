@@ -8,12 +8,17 @@ describe('Collapsible', () => {
   const content = 'Some Content'
   const title = 'TestTitle'
   it('shows content by default', () => {
-    const { getByText } = render(<Collapsible title={title}>{content}</Collapsible>, { wrapper: wrapWithTheme })
+    const { getByText } = render(
+      <Collapsible direction='ltr' title={title}>
+        {content}
+      </Collapsible>,
+      { wrapper: wrapWithTheme }
+    )
     expect(getByText(content)).toBeTruthy()
   })
   it('shows no content if initialCollapse is set to false', () => {
     const { queryByText } = render(
-      <Collapsible initialCollapsed={false} title={title}>
+      <Collapsible direction='ltr' initialCollapsed={false} title={title}>
         {content}
       </Collapsible>,
       { wrapper: wrapWithTheme }
@@ -21,16 +26,21 @@ describe('Collapsible', () => {
     expect(queryByText(content)).toBeNull()
   })
   it('hides content by clicking on the header', () => {
-    const { getByText, queryByText } = render(<Collapsible title={title}>{content}</Collapsible>, {
-      wrapper: wrapWithTheme
-    })
+    const { getByText, queryByText } = render(
+      <Collapsible direction='ltr' title={title}>
+        {content}
+      </Collapsible>,
+      {
+        wrapper: wrapWithTheme
+      }
+    )
     expect(getByText(content)).toBeTruthy()
     fireEvent.click(getByText(title))
     expect(queryByText(content)).toBeNull()
   })
   it('shows content by clicking on the header if initialCollapse is set to false', () => {
     const { getByText, queryByText } = render(
-      <Collapsible initialCollapsed={false} title={title}>
+      <Collapsible direction='ltr' initialCollapsed={false} title={title}>
         {content}
       </Collapsible>,
       {
