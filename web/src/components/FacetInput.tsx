@@ -35,7 +35,7 @@ type FacetInputProps = {
   name: string
   placeholder?: string
   updateSearchFilter: (key: string, value: string) => void
-  type?: string
+  type: string
 }
 
 const FacetInput: React.FC<FacetInputProps> = ({
@@ -56,7 +56,7 @@ const FacetInput: React.FC<FacetInputProps> = ({
       name={name}
       value={value}
       placeholder={placeholder}
-      type={type || 'number'}
+      type={type}
       onChange={evt => updateSearchFilter(evt.target.name, evt.target.value)}
     />
   </FilterFacet>
