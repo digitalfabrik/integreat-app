@@ -49,7 +49,7 @@ const ShelterFilterBar: React.FC<ShelterFilterBarProps> = ({
         altTag={t('facetCity')}
         placeholder={t('facetCity')}
         updateSearchFilter={updateSearchFilter}
-        type='text'
+        type='hidden'
         name='city'
       />
       <FacetToggle
