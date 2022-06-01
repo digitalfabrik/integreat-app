@@ -52,7 +52,7 @@ export const androidAschaffenburgBuildConfig: AndroidBuildConfigType = {
   sha256CertFingerprint:
     '21:BB:E8:40:4D:4E:18:62:68:A8:16:62:64:FB:27:D1:D1:A4:02:F5:96:44:F6:B9:B5:3F:39:14:17:55:50:99',
   googleServices: {
-    googleAppId: '1:164298278764:android:3fc1f67f3883df306fd549',
+    googleAppId: '1:164298278764:android:2e968d165bb8c80c6fd549',
     gcmDefaultSenderId: '164298278764',
     defaultWebClientId: '164298278764-hhup7orh5rvg0oumhbabqvp5giudaste.apps.googleusercontent.com',
     gaTrackingId: null,
@@ -71,12 +71,12 @@ export const iosAschaffenburgBuildConfig: iOSBuildConfigType = {
   itunesAppName: 'aschaffenburg-app',
   appleAppSiteAssociationAppIds: [`${APP_STORE_TEAM_ID}.app.aschaffenburg`],
   googleServices: {
-    clientId: '164298278764-pemn49q7v283m0tqml3q8q0ltr5h8pni.apps.googleusercontent.com',
-    reversedClientId: 'com.googleusercontent.apps.164298278764-pemn49q7v283m0tqml3q8q0ltr5h8pni',
+    clientId: '164298278764-b6gagnbo2vmickaeq2070fg4jipithsk.apps.googleusercontent.com',
+    reversedClientId: 'com.googleusercontent.apps.164298278764-b6gagnbo2vmickaeq2070fg4jipithsk',
     apiKey: 'AIzaSyBSnGYrUWfIAPcEsFya1OYvTMbjvfUyOEU',
     gcmSenderId: '164298278764',
     plistVersion: '1',
-    bundleId: 'de.integreat-app',
+    bundleId: 'app.aschaffenburg',
     projectId: 'integreat-2020',
     storageBucket: 'integreat-2020.appspot.com',
     isAdsEnabled: false,
@@ -84,7 +84,7 @@ export const iosAschaffenburgBuildConfig: iOSBuildConfigType = {
     isAppInviteEnabled: true,
     isGCMEnabled: true,
     isSigninEnabled: true,
-    googleAppId: '1:164298278764:ios:2a69672da4d117116fd549',
+    googleAppId: '1:164298278764:ios:ce4707c860f0a2cb6fd549',
     databaseUrl: 'https://integreat-2020.firebaseio.com'
   },
   launchScreen: 'LaunchScreenDefault'
