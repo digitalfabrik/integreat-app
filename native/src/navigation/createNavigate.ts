@@ -8,6 +8,7 @@ import {
   EVENTS_ROUTE,
   JPAL_TRACKING_ROUTE,
   LANDING_ROUTE,
+  LICENSE_INFO_ROUTE,
   NEWS_ROUTE,
   OFFERS_ROUTE,
   POIS_ROUTE,
@@ -39,6 +40,8 @@ const createNavigate =
   (routeInformation: RouteInformationType, key?: string, forceRefresh?: boolean): void => {
     if (routeInformation) {
       const url = urlFromRouteInformation(routeInformation)
+      
+
       if (routeInformation.route !== SHELTER_ROUTE) {
         sendTrackingSignal({
           signal: {
@@ -47,6 +50,11 @@ const createNavigate =
             url
           }
         })
+      }
+      
+      if (routeInformation.route === LICENSE_INFO_ROUTE) {
+        navigation.navigate(LICENSE_INFO_ROUTE)
+        return
       }
 
       if (routeInformation.route === LANDING_ROUTE) {

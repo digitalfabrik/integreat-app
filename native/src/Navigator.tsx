@@ -27,7 +27,8 @@ import {
   REDIRECT_ROUTE,
   SEARCH_ROUTE,
   SETTINGS_ROUTE,
-  SPRUNGBRETT_OFFER_ROUTE
+  SPRUNGBRETT_OFFER_ROUTE,
+  LICENSE_INFO_ROUTE
 } from 'api-client'
 
 import HeaderContainer from './components/HeaderContainer'
@@ -59,6 +60,7 @@ import SprungbrettOfferContainer from './routes/SprungbrettOfferContainer'
 import appSettings from './utils/AppSettings'
 import { quitAppStatePushNotificationListener } from './utils/PushNotificationsManager'
 import { initSentry, log } from './utils/sentry'
+import LicenseInfo from './components/LicenseInfo'
 
 type HeaderProps = {
   route: RoutePropType<RoutesType>
@@ -211,6 +213,7 @@ const Navigator = (props: PropsType): ReactElement | null => {
         <Stack.Screen name={EVENTS_ROUTE} component={EventsContainer} />
         <Stack.Screen name={NEWS_ROUTE} component={NewsContainer} />
         <Stack.Screen name={DISCLAIMER_ROUTE} component={DisclaimerContainer} />
+        <Stack.Screen name={LICENSE_INFO_ROUTE} component={LicenseInfo} />
       </Stack.Group>
 
       <Stack.Group screenOptions={{ header: transparentHeader }}>

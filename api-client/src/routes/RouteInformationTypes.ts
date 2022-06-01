@@ -6,6 +6,7 @@ import {
   EventsRouteType,
   JpalTrackingRouteType,
   LandingRouteType,
+  LicenseInfoRouteType,
   LocalNewsType,
   NewsRouteType,
   OffersRouteType,
@@ -57,6 +58,12 @@ export type EventsPoisRouteInformationType = ParamsType & {
   cityContentPath?: string
   urlSlug?: string
 }
+
+export type LicenseInfoRouteInformationType = {
+  route: LicenseInfoRouteType
+  languageCode: string
+}
+
 export type NonNullableRouteInformationType =
   | LandingRouteInformationType
   | CityNotCooperatingInformationType
@@ -66,5 +73,6 @@ export type NonNullableRouteInformationType =
   | SimpleCityContentFeatureType
   | EventsPoisRouteInformationType
   | IdCityContentFeatureType
+  | LicenseInfoRouteInformationType
 
 export type RouteInformationType = NonNullableRouteInformationType | null
