@@ -1,4 +1,4 @@
-import { INTEGREAT_ASSETS } from '../AssetsType'
+import { OBDACH_ASSETS } from '../AssetsType'
 import {
   AndroidBuildConfigType,
   CommonBuildConfigType,
@@ -6,46 +6,44 @@ import {
   WebBuildConfigType
 } from '../BuildConfigType'
 import { APP_STORE_TEAM_ID } from '../common/constants'
-import cityNotCooperatingTemplate from './assets/cityNotCooperatingTemplate'
 import mainImprint from './mainImprint'
 import { lightTheme } from './theme'
 
 const APPLE_APP_ID = '1072353915'
 
-const commonIntegreatBuildConfig: CommonBuildConfigType = {
+const commonObdachBuildConfig: CommonBuildConfigType = {
   appName: 'Vernetztes Obdach',
-  appIcon: 'app_icon_integreat',
+  appIcon: 'app_icon_obdach',
   lightTheme,
-  assets: INTEGREAT_ASSETS,
-  cmsUrl: 'https://cms.integreat-app.de',
-  switchCmsUrl: 'https://cms-test.integreat-app.de',
-  hostName: 'integreat.app',
-  allowedHostNames: ['cms.integreat-app.de', 'cms-test.integreat-app.de'],
+  assets: OBDACH_ASSETS,
+  cmsUrl: 'https://admin.vernetztesobdach.de',
+  hostName: 'vernetztesobdach.de',
+  allowedHostNames: ['admin.vernetztesobdach.de'],
   internalLinksHijackPattern:
-    'https?:\\/\\/(cms(-test)?\\.integreat-app\\.de|web\\.integreat-app\\.de|integreat\\.app)(?!\\/(media|[^/]*\\/(wp-content|wp-admin|wp-json))\\/.*).*',
+    'https?:\\/\\/((admin\\.)?vernetztesobdach\\.de)(?!\\/(media|[^/]*\\/(wp-content|wp-admin|wp-json))\\/.*).*',
   featureFlags: {
     floss: false,
     pois: true,
     newsStream: true,
     pushNotifications: true,
     introSlides: true,
-    jpalTracking: true,
-    sentry: true,
+    jpalTracking: false,
+    sentry: false,
     developerFriendly: false,
     fixedCity: null,
-    cityNotCooperatingTemplate
+    cityNotCooperatingTemplate: null
   },
   aboutUrls: {
-    default: 'https://integreat-app.de/about/',
-    en: 'https://integreat-app.de/en/about/'
+    default: 'https://vernetztesobdach.de/about/',
+    en: 'https://vernetztesobdach.de/en/about/'
   },
   privacyUrls: {
-    default: 'https://integreat-app.de/datenschutz/',
-    en: 'https://integreat-app.de/en/privacy/'
+    default: 'https://vernetztesobdach.de/datenschutz/',
+    en: 'https://vernetztesobdach.de/en/privacy/'
   }
 }
-export const androidIntegreatBuildConfig: AndroidBuildConfigType = {
-  ...commonIntegreatBuildConfig,
+export const androidObdachBuildConfig: AndroidBuildConfigType = {
+  ...commonObdachBuildConfig,
   splashScreen: true,
   applicationId: 'tuerantuer.app.integreat',
   sha256CertFingerprint:
@@ -61,8 +59,8 @@ export const androidIntegreatBuildConfig: AndroidBuildConfigType = {
     projectId: 'integreat-2020'
   }
 }
-export const iosIntegreatBuildConfig: iOSBuildConfigType = {
-  ...commonIntegreatBuildConfig,
+export const iosObdachBuildConfig: iOSBuildConfigType = {
+  ...commonObdachBuildConfig,
   bundleIdentifier: 'de.integreat-app',
   provisioningProfileSpecifier: 'match Development de.integreat-app',
   appleId: APPLE_APP_ID,
@@ -87,8 +85,8 @@ export const iosIntegreatBuildConfig: iOSBuildConfigType = {
   },
   launchScreen: 'LaunchScreenIntegreat'
 }
-export const webIntegreatBuildConfig: WebBuildConfigType = {
-  ...commonIntegreatBuildConfig,
+export const webObdachBuildConfig: WebBuildConfigType = {
+  ...commonObdachBuildConfig,
   appDescription:
     'Vernetztes Obdach – die lokale und mehrsprachige Plattform für Obdachlose und Menschen die von Obdachlosigkeit bedroht sind',
   mainImprint,
@@ -97,25 +95,15 @@ export const webIntegreatBuildConfig: WebBuildConfigType = {
   icons: {
     appLogo: '/app-logo.png',
     locationMarker: '/location-marker.svg',
-    cityNotCooperating: '/city-not-cooperating.svg',
     appleTouchIcon: '/apple-touch-icon.png',
     socialMediaPreview: '/social-media-preview.png',
     favicons: '/favicons/'
-  },
-  splashScreen: {
-    backgroundColor: lightTheme.colors.themeColor,
-    imageUrl: '/app-icon-cornered.jpg'
-  },
-  campaign: {
-    campaignAppLogo: '/campaign-app-logo.png',
-    startDate: '2021-03-08T00:00:00.000Z',
-    endDate: '2021-03-15T00:00:00.000Z'
   }
 }
 const platformBuildConfigs = {
-  common: commonIntegreatBuildConfig,
-  web: webIntegreatBuildConfig,
-  android: androidIntegreatBuildConfig,
-  ios: iosIntegreatBuildConfig
+  common: commonObdachBuildConfig,
+  web: webObdachBuildConfig,
+  android: androidObdachBuildConfig,
+  ios: iosObdachBuildConfig
 }
 export default platformBuildConfigs
