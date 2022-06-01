@@ -16,17 +16,17 @@ const commonObdachBuildConfig: CommonBuildConfigType = {
   appIcon: 'app_icon_obdach',
   lightTheme,
   assets: OBDACH_ASSETS,
-  cmsUrl: 'https://admin.vernetztesobdach.de',
+  cmsUrl: 'https://cms.vernetztesobdach.de',
   hostName: 'vernetztesobdach.de',
-  allowedHostNames: ['admin.vernetztesobdach.de'],
+  allowedHostNames: ['cms.vernetztesobdach.de'],
   internalLinksHijackPattern:
-    'https?:\\/\\/((admin\\.)?vernetztesobdach\\.de)(?!\\/(media|[^/]*\\/(wp-content|wp-admin|wp-json))\\/.*).*',
+    'https?:\\/\\/((cms\\.)?vernetztesobdach\\.de)(?!\\/(media|[^/]*\\/(wp-content|wp-admin|wp-json))\\/.*).*',
   featureFlags: {
     floss: false,
     pois: true,
     newsStream: true,
-    pushNotifications: true,
-    introSlides: true,
+    pushNotifications: false,
+    introSlides: false,
     jpalTracking: false,
     sentry: false,
     developerFriendly: false,
@@ -90,7 +90,6 @@ export const webObdachBuildConfig: WebBuildConfigType = {
   appDescription:
     'Vernetztes Obdach – die lokale und mehrsprachige Plattform für Obdachlose und Menschen die von Obdachlosigkeit bedroht sind',
   mainImprint,
-  itunesAppId: APPLE_APP_ID,
   manifestUrl: '/manifest.json',
   icons: {
     appLogo: '/app-logo.png',
