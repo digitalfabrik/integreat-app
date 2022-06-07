@@ -48,7 +48,7 @@ const PoiPanelNavigation: React.FC<PoiPanelNavigationProps> = ({
 }: PoiPanelNavigationProps): ReactElement => {
   const { t } = useTranslation('pois')
   return (
-    <NavigationContainer>
+    <NavigationContainer data-testid='poi-panel-navigation'>
       <NavItem
         onClick={() => switchFeature(-1)}
         role='button'
