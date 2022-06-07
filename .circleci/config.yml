@@ -241,6 +241,7 @@ commands:
                     - integreat-test-cms
                     - malte-test-cms
                     - aschaffenburg
+                    - obdach
                     - all
                 type: enum
         steps:
@@ -431,6 +432,7 @@ jobs:
                     - integreat-test-cms
                     - malte-test-cms
                     - aschaffenburg
+                    - obdach
                 type: enum
         resource_class: medium
         shell: /bin/bash -eo pipefail
@@ -661,6 +663,9 @@ jobs:
                         command: rsync -e "ssh -o StrictHostKeyChecking=no" -arv $HOME/attached_workspace/dist/aschaffenburg/ web@web.integreat-app.de:/var/www/aschaffenburg.app
                         name: Aschaffenburg production delivery
                     - run:
+                        command: rsync -e "ssh -o StrictHostKeyChecking=no" -arv $HOME/attached_workspace/dist/obdach/ web@web.integreat-app.de:/var/www/vernetztesobdach.de
+                        name: Obdach production delivery
+                    - run:
                         command: tools/sentry-release web-integreat "${NEW_VERSION_NAME}" ~/attached_workspace/dist/integreat
                         name: 'Sentry Upload: integreat'
                     - run:
@@ -681,6 +686,9 @@ jobs:
                     - run:
                         command: rsync -e "ssh -o StrictHostKeyChecking=no" -arv $HOME/attached_workspace/dist/aschaffenburg/ web@web.integreat-app.de:/var/www/webnext.aschaffenburg.app
                         name: Aschaffenburg development delivery
+                    - run:
+                        command: rsync -e "ssh -o StrictHostKeyChecking=no" -arv $HOME/attached_workspace/dist/obdach/ web@web.integreat-app.de:/var/www/vernetztesobdach.de
+                        name: Obdach development delivery
                     - run:
                         command: tools/sentry-release web-integreat-test-cms "${NEW_VERSION_NAME}" ~/attached_workspace/dist/integreat-test-cms
                         name: 'Sentry Upload: integreat-test-cms'
@@ -838,7 +846,7 @@ jobs:
                 name: Create release notes
             - notify:
                 channel: releases
-                success_message: WebApp version ${NEW_VERSION_NAME} was delivered successfully to integreat.app, malteapp.de and aschaffenburg.app!\n${RELEASE_NOTES}
+                success_message: WebApp version ${NEW_VERSION_NAME} was delivered successfully to integreat.app, malteapp.de, aschaffenburg.app and vernetztesobdach.de!\n${RELEASE_NOTES}
     promote_android:
         docker:
             - image: cimg/android:2022.03.1-node
@@ -1013,6 +1021,13 @@ workflows:
                 name: build_aschaffenburg_web
                 requires:
                     - bump_version
+            - build_web:
+                build_config_name: obdach
+                context:
+                    - mattermost
+                name: build_obdach_web
+                requires:
+                    - bump_version
             - deliver_web:
                 context:
                     - mattermost
@@ -1022,6 +1037,7 @@ workflows:
                     - build_ig_test_cms_web
                     - build_malte_test_cms_web
                     - build_aschaffenburg_web
+                    - build_obdach_web
             - build_android:
                 build_config_name: integreat-test-cms
                 context:
@@ -1099,6 +1115,13 @@ workflows:
                 name: build_aschaffenburg_web
                 requires:
                     - bump_version
+            - build_web:
+                build_config_name: obdach
+                context:
+                    - mattermost
+                name: build_obdach_web
+                requires:
+                    - bump_version
             - deliver_web:
                 context:
                     - mattermost
@@ -1110,6 +1133,7 @@ workflows:
                     - build_integreat_web
                     - build_malte_web
                     - build_aschaffenburg_web
+                    - build_obdach_web
             - notify_web:
                 context:
                     - mattermost
@@ -1787,6 +1811,13 @@ workflows:
                 name: build_aschaffenburg_web
                 requires:
                     - bump_version
+            - build_web:
+                build_config_name: obdach
+                context:
+                    - mattermost
+                name: build_obdach_web
+                requires:
+                    - bump_version
             - deliver_web:
                 context:
                     - mattermost
@@ -1798,6 +1829,7 @@ workflows:
                     - build_integreat_web
                     - build_malte_web
                     - build_aschaffenburg_web
+                    - build_obdach_web
             - notify_web:
                 context:
                     - mattermost
