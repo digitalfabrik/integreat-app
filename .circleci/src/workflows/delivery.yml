@@ -40,6 +40,13 @@ jobs:
         - mattermost
       requires:
         - bump_version
+  - build_web:
+      name: build_obdach_web
+      build_config_name: obdach
+      context:
+        - mattermost
+      requires:
+        - bump_version
   - deliver_web:
       context:
         - mattermost
@@ -51,6 +58,7 @@ jobs:
         - build_integreat_web
         - build_malte_web
         - build_aschaffenburg_web
+        - build_obdach_web
   - notify_web:
       context:
         - mattermost
