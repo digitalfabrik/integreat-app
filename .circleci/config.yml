@@ -1018,6 +1018,13 @@ workflows:
                 name: build_aschaffenburg_web
                 requires:
                     - bump_version
+            - build_web:
+                build_config_name: obdach
+                context:
+                    - mattermost
+                name: build_obdach_web
+                requires:
+                    - bump_version
             - deliver_web:
                 context:
                     - mattermost
@@ -1027,6 +1034,7 @@ workflows:
                     - build_ig_test_cms_web
                     - build_malte_test_cms_web
                     - build_aschaffenburg_web
+                    - build_obdach_web
             - build_android:
                 build_config_name: integreat-test-cms
                 context:
