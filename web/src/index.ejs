@@ -15,8 +15,8 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="application-name" content="<%= config.appName %>">
     <meta name="apple-mobile-web-app-title" content="<%= config.appName %>">
-    <% if (config.itunesAppId) { %>
-        <meta name="apple-itunes-app" content="app-id=<%= config.itunesAppId %>">
+    <% if (config.apps) { %>
+        <meta name="apple-itunes-app" content="app-id=<%= config.apps.ios.appStoreId %>">
     <% } %>
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 
