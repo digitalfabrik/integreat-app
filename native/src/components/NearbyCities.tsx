@@ -4,10 +4,9 @@ import { Button } from 'react-native-elements'
 import Icon from 'react-native-vector-icons/MaterialIcons'
 import styled, { useTheme } from 'styled-components/native'
 
-import { CityModel } from 'api-client'
+import { CityModel, getNearbyCities } from 'api-client'
 
 import useUserLocation from '../hooks/useUserLocation'
-import getNearbyCities from '../utils/getNearbyCities'
 import CityEntry from './CityEntry'
 
 const NearbyMessageContainer = styled.View`
@@ -58,9 +57,8 @@ const NearbyCitiesGroup = ({ cities, navigateToDashboard, filterText }: Props): 
   }
 
   const nearbyCities = getNearbyCities(
-    cities.filter(city => city.live),
-    coordinates[0],
-    coordinates[1]
+    coordinates,
+    cities.filter(city => city.live)
   )
 
   if (nearbyCities.length === 0) {
