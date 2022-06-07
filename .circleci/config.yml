@@ -688,7 +688,7 @@ jobs:
                         name: Aschaffenburg development delivery
                     - run:
                         command: rsync -e "ssh -o StrictHostKeyChecking=no" -arv $HOME/attached_workspace/dist/obdach/ web@web.integreat-app.de:/var/www/vernetztesobdach.de
-                        name: Obdach production delivery
+                        name: Obdach development delivery
                     - run:
                         command: tools/sentry-release web-integreat-test-cms "${NEW_VERSION_NAME}" ~/attached_workspace/dist/integreat-test-cms
                         name: 'Sentry Upload: integreat-test-cms'
