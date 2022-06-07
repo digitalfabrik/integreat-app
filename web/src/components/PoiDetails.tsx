@@ -1,9 +1,10 @@
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router-dom'
-import styled, { useTheme } from 'styled-components'
+import styled, { css, useTheme } from 'styled-components'
 
 import { PoiFeature, PoiModel } from 'api-client/src'
+import { UiDirectionType } from 'translations'
 
 import iconArrowBack from '../assets/IconArrowBackLong.svg'
 import iconExternalLink from '../assets/IconExternalLink.svg'
@@ -21,19 +22,31 @@ const DetailsContainer = styled.div`
   font-family: ${props => props.theme.fonts.web.contentFont};
 `
 
-const ArrowBack = styled.img`
+const ArrowBack = styled.img<{ direction: string }>`
   width: 16px;
   height: 14px;
   flex-shrink: 0;
   padding: 0 8px;
   object-fit: contain;
   align-self: center;
+
+  ${props =>
+    props.direction === 'rtl' &&
+    css`
+      transform: scaleX(-1);
+    `};
 `
 
-const Marker = styled.img`
+const Marker = styled.img<{ direction?: string }>`
   width: 20px;
   height: 20px;
   flex-shrink: 0;
+
+  ${props =>
+    props.direction === 'rtl' &&
+    css`
+      transform: scaleX(-1);
+    `};
 
   @media ${dimensions.mediumLargeViewport} {
     padding: 0 8px;
@@ -130,9 +143,15 @@ type PoiDetailsProps = {
   feature: PoiFeature
   poi: PoiModel
   selectFeature: (feature: PoiFeature | null) => void
+  direction: UiDirectionType
 }
 
-const PoiDetails: React.FC<PoiDetailsProps> = ({ feature, poi, selectFeature }: PoiDetailsProps): ReactElement => {
+const PoiDetails: React.FC<PoiDetailsProps> = ({
+  feature,
+  poi,
+  selectFeature,
+  direction
+}: PoiDetailsProps): ReactElement => {
   const onBackClick = () => {
     selectFeature(null)
   }
@@ -144,12 +163,13 @@ const PoiDetails: React.FC<PoiDetailsProps> = ({ feature, poi, selectFeature }: 
   const navigate = useNavigate()
   // MapEvent parses null to 'null'
   const thumb = thumbnail === 'null' ? null : thumbnail?.replace('-150x150', '')
+
   return (
     <DetailsContainer>
       {!viewportSmall && (
         <>
           <DetailsHeader onClick={onBackClick} role='button' tabIndex={0} onKeyPress={onBackClick}>
-            <ArrowBack src={iconArrowBack} alt='' />
+            <ArrowBack src={iconArrowBack} alt='' direction={direction} />
             <DetailsHeaderTitle>{t('detailsHeader')}</DetailsHeaderTitle>
           </DetailsHeader>
           <Spacer borderColor={theme.colors.poiBorderColor} />
@@ -164,7 +184,7 @@ const PoiDetails: React.FC<PoiDetailsProps> = ({ feature, poi, selectFeature }: 
       {!viewportSmall && <Subheading>{t('detailsAddress')}</Subheading>}
       <DetailSection>
         <AddressContentWrapper>
-          {!viewportSmall && <Marker src={iconMarker} alt='' />}
+          {!viewportSmall && <Marker src={iconMarker} alt='' direction={direction} />}
           <AddressContent>
             <span>{location.address}</span>
             <span>
@@ -175,14 +195,14 @@ const PoiDetails: React.FC<PoiDetailsProps> = ({ feature, poi, selectFeature }: 
         <LinkContainer>
           <CleanLink to={getNavigationDeepLinks(location, title)} newTab>
             {!viewportSmall && <LinkLabel>{t('detailsMapLink')}</LinkLabel>}
-            <Marker src={iconExternalLink} alt='' />
+            <Marker src={iconExternalLink} alt='' direction={direction} />
           </CleanLink>
         </LinkContainer>
       </DetailSection>
       {content.length > 0 && (
         <>
           <Spacer borderColor={theme.colors.poiBorderColor} />
-          <Collapsible title={t('detailsInformation')} initialCollapsed>
+          <Collapsible title={t('detailsInformation')} initialCollapsed direction={direction}>
             <RemoteContent html={content} onInternalLinkClick={navigate} smallText />
           </Collapsible>
         </>

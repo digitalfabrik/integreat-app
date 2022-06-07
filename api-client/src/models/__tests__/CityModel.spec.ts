@@ -13,8 +13,8 @@ describe('CityModel', () => {
       tunewsEnabled: false,
       sortingName: 'City',
       prefix: 'prefix',
-      longitude: null,
-      latitude: null,
+      latitude: 48.369696,
+      longitude: 10.892578,
       aliases: null,
       boundingBox: null
     })

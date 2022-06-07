@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next'
 import { BottomSheetRef } from 'react-spring-bottom-sheet'
 
 import { PoiFeature, PoiModel } from 'api-client'
+import { UiDirectionType } from 'translations'
 
 import BottomActionSheet from './BottomActionSheet'
 import PoiDetails from './PoiDetails'
@@ -14,20 +15,25 @@ type PoisMobileProps = {
   toolbar: ReactElement
   poi?: PoiModel
   selectFeature: (feature: PoiFeature | null) => void
+  direction: UiDirectionType
 }
 
 const PoisMobile = React.forwardRef(
   (
-    { mapView, currentFeature, toolbar, poiList, poi, selectFeature }: PoisMobileProps,
+    { mapView, currentFeature, toolbar, poiList, poi, selectFeature, direction }: PoisMobileProps,
     ref: React.Ref<BottomSheetRef>
   ): ReactElement => {
     const { t } = useTranslation('pois')
     return (
       <>
         {mapView}
-        <BottomActionSheet title={!currentFeature ? t('listTitle') : undefined} toolbar={toolbar} ref={ref}>
+        <BottomActionSheet
+          title={!currentFeature ? t('listTitle') : undefined}
+          toolbar={toolbar}
+          ref={ref}
+          direction={direction}>
           {currentFeature && poi ? (
-            <PoiDetails poi={poi} feature={currentFeature} selectFeature={selectFeature} />
+            <PoiDetails poi={poi} feature={currentFeature} selectFeature={selectFeature} direction={direction} />
           ) : (
             poiList
           )}

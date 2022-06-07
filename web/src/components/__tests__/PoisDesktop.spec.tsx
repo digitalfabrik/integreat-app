@@ -16,6 +16,7 @@ describe('PoisDesktop', () => {
   it('should list detail information about the current feature and the poi if feature and poi provided', () => {
     const { queryByText } = renderWithRouter(
       <PoisDesktop
+        direction='ltr'
         switchFeature={switchFeature}
         selectFeature={selectFeature}
         panelHeights={0}
@@ -39,6 +40,7 @@ describe('PoisDesktop', () => {
   it('should render poiList & toolbar components if neither feature nor poi is provided', () => {
     const { queryByText } = renderWithRouter(
       <PoisDesktop
+        direction='ltr'
         switchFeature={switchFeature}
         selectFeature={selectFeature}
         panelHeights={0}
