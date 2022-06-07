@@ -232,13 +232,13 @@ const createConfig = (
         patterns: [
           { from: wwwDirectory, to: distDirectory },
           { from: configAssets, to: distDirectory },
+          {
+            from: manifestPreset,
+            to: distDirectory,
+            transform: (content: Buffer) => generateManifest(content, buildConfig)
+          },
           ...(buildConfig.apps
             ? [
-                {
-                  from: manifestPreset,
-                  to: distDirectory,
-                  transform: (content: Buffer) => generateManifest(content, buildConfig)
-                },
                 {
                   from: assetLinksPreset,
                   to: wellKnownDirectory,
