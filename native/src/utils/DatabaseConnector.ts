@@ -98,8 +98,8 @@ type ContentCityJsonType = {
   events_enabled: boolean
   pois_enabled: boolean
   sorting_name: string
-  longitude: number | null
-  latitude: number | null
+  longitude: number
+  latitude: number
   aliases: Record<string, { longitude: number; latitude: number }> | null
   pushNotificationsEnabled: boolean
   tunewsEnabled: boolean
