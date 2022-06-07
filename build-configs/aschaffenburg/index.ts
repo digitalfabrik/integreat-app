@@ -11,7 +11,8 @@ import { APP_STORE_TEAM_ID } from '../common/constants'
 import mainImprint from './mainImprint'
 import { lightTheme } from './theme'
 
-const APPLE_APP_ID = '1551810291'
+const APPLICATION_ID = 'app.aschaffenburg'
+const BUNDLE_IDENTIFIER = 'app.aschaffenburg'
 
 const commonAschaffenburgBuildConfig: CommonBuildConfigType = {
   appName: 'hallo aschaffenburg',
@@ -48,9 +49,7 @@ const commonAschaffenburgBuildConfig: CommonBuildConfigType = {
 export const androidAschaffenburgBuildConfig: AndroidBuildConfigType = {
   ...commonAschaffenburgBuildConfig,
   splashScreen: false,
-  applicationId: 'app.aschaffenburg',
-  sha256CertFingerprint:
-    '21:BB:E8:40:4D:4E:18:62:68:A8:16:62:64:FB:27:D1:D1:A4:02:F5:96:44:F6:B9:B5:3F:39:14:17:55:50:99',
+  applicationId: APPLICATION_ID,
   googleServices: {
     googleAppId: '1:164298278764:android:2e968d165bb8c80c6fd549',
     gcmDefaultSenderId: '164298278764',
@@ -65,11 +64,8 @@ export const androidAschaffenburgBuildConfig: AndroidBuildConfigType = {
 
 export const iosAschaffenburgBuildConfig: iOSBuildConfigType = {
   ...commonAschaffenburgBuildConfig,
-  bundleIdentifier: 'app.aschaffenburg',
-  provisioningProfileSpecifier: 'match Development app.aschaffenburg',
-  appleId: APPLE_APP_ID,
-  itunesAppName: 'aschaffenburg-app',
-  appleAppSiteAssociationAppIds: [`${APP_STORE_TEAM_ID}.app.aschaffenburg`],
+  bundleIdentifier: BUNDLE_IDENTIFIER,
+  provisioningProfileSpecifier: `match Development ${BUNDLE_IDENTIFIER}`,
   googleServices: {
     clientId: '164298278764-b6gagnbo2vmickaeq2070fg4jipithsk.apps.googleusercontent.com',
     reversedClientId: 'com.googleusercontent.apps.164298278764-b6gagnbo2vmickaeq2070fg4jipithsk',
@@ -94,12 +90,24 @@ export const webAschaffenburgBuildConfig: WebBuildConfigType = {
   ...commonAschaffenburgBuildConfig,
   appDescription: 'Ihr digitaler Begleiter für die Stadt Aschaffenburg',
   mainImprint,
-  itunesAppId: APPLE_APP_ID,
   icons: {
     appLogo: '/app-logo.png',
     appleTouchIcon: '/apple-touch-icon.png',
     socialMediaPreview: '/social-media-preview.png',
     favicons: '/favicons/'
+  },
+  apps: {
+    android: {
+      applicationId: APPLICATION_ID,
+      sha256CertFingerprint:
+        '21:BB:E8:40:4D:4E:18:62:68:A8:16:62:64:FB:27:D1:D1:A4:02:F5:96:44:F6:B9:B5:3F:39:14:17:55:50:99'
+    },
+    ios: {
+      bundleIdentifier: BUNDLE_IDENTIFIER,
+      appStoreId: '1551810291',
+      appStoreName: 'aschaffenburg-app',
+      appleAppSiteAssociationAppIds: [`${APP_STORE_TEAM_ID}.${BUNDLE_IDENTIFIER}`]
+    }
   }
 }
 

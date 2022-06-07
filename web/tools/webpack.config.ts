@@ -12,7 +12,8 @@ import { Configuration, DefinePlugin, LoaderOptionsPlugin, optimize, WebpackPlug
 import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer'
 import 'webpack-dev-server'
 
-import loadBuildConfig, { ANDROID, IOS, WEB } from 'build-configs'
+import loadBuildConfig, { WEB } from 'build-configs'
+import { WebBuildConfigType } from 'build-configs/BuildConfigType'
 import { config as translationsConfig } from 'translations'
 
 // reset the tsconfig to the default configuration
@@ -34,9 +35,11 @@ const readVersionName = () => {
   return versionFile.versionName
 }
 
-const generateAssetLinks = (buildConfigName: string) => {
-  // https://developer.android.com/training/app-links/verify-site-associations#manual-verification
-  const androidBuildConfig = loadBuildConfig(buildConfigName, ANDROID)
+// https://developer.android.com/training/app-links/verify-site-associations#manual-verification
+const generateAssetLinks = (buildConfig: WebBuildConfigType) => {
+  if (!buildConfig.apps) {
+    throw Error('Cannot generate asset links if no apps are available!')
+  }
 
   return JSON.stringify(
     [
@@ -44,8 +47,8 @@ const generateAssetLinks = (buildConfigName: string) => {
         relation: ['delegate_permission/common.handle_all_urls'],
         target: {
           namespace: 'android_app',
-          package_name: androidBuildConfig.applicationId,
-          sha256_cert_fingerprints: [androidBuildConfig.sha256CertFingerprint]
+          package_name: buildConfig.apps.android.applicationId,
+          sha256_cert_fingerprints: [buildConfig.apps.android.sha256CertFingerprint]
         }
       }
     ],
@@ -54,8 +57,10 @@ const generateAssetLinks = (buildConfigName: string) => {
   )
 }
 
-const generateAppleAppSiteAssociation = (buildConfigName: string) => {
-  const iosBuildConfig = loadBuildConfig(buildConfigName, IOS)
+const generateAppleAppSiteAssociation = (buildConfig: WebBuildConfigType) => {
+  if (!buildConfig.apps) {
+    throw Error('Cannot generate apple app site association if no apps are available!')
+  }
 
   return JSON.stringify(
     {
@@ -63,7 +68,7 @@ const generateAppleAppSiteAssociation = (buildConfigName: string) => {
         apps: [],
         details: [
           {
-            appIDs: iosBuildConfig.appleAppSiteAssociationAppIds,
+            appIDs: buildConfig.apps.ios.appleAppSiteAssociationAppIds,
             paths: ['*', '/']
           }
         ]
@@ -74,29 +79,28 @@ const generateAppleAppSiteAssociation = (buildConfigName: string) => {
   )
 }
 
-const generateManifest = (content: Buffer, buildConfigName: string) => {
+const generateManifest = (content: Buffer, buildConfig: WebBuildConfigType) => {
   const manifest = JSON.parse(content.toString())
 
-  const androidBuildConfig = loadBuildConfig(buildConfigName, ANDROID)
-  const iOSBuildConfig = loadBuildConfig(buildConfigName, IOS)
-  const webBuildConfig = loadBuildConfig(buildConfigName, WEB)
-
   manifest.version = readVersionName()
-  manifest.homepage_url = webBuildConfig.aboutUrls.default
-  manifest.theme_color = webBuildConfig.lightTheme.colors.themeColor
-  manifest.name = webBuildConfig.appName
-  manifest.description = webBuildConfig.appDescription
-  manifest.related_applications = [
-    {
-      platform: 'play',
-      id: androidBuildConfig.applicationId,
-      url: `https://play.google.com/store/apps/details?id=${androidBuildConfig.applicationId}`
-    },
-    {
-      platform: 'itunes',
-      url: `https://apps.apple.com/de/app/${iOSBuildConfig.itunesAppName}/id${iOSBuildConfig.appleId}`
-    }
-  ]
+  manifest.homepage_url = buildConfig.aboutUrls.default
+  manifest.theme_color = buildConfig.lightTheme.colors.themeColor
+  manifest.name = buildConfig.appName
+  manifest.description = buildConfig.appDescription
+
+  if (buildConfig.apps) {
+    manifest.related_applications = [
+      {
+        platform: 'play',
+        id: buildConfig.apps.android.applicationId,
+        url: `https://play.google.com/store/apps/details?id=${buildConfig.apps.android.applicationId}`
+      },
+      {
+        platform: 'itunes',
+        url: `https://apps.apple.com/de/app/${buildConfig.apps.ios.appStoreName}/id${buildConfig.apps.ios.appStoreId}`
+      }
+    ]
+  }
   manifest.short_name = manifest.name
   return JSON.stringify(manifest, null, 2)
 }
@@ -231,18 +235,22 @@ const createConfig = (
           {
             from: manifestPreset,
             to: distDirectory,
-            transform: (content: Buffer) => generateManifest(content, buildConfigName)
+            transform: (content: Buffer) => generateManifest(content, buildConfig)
           },
-          {
-            from: assetLinksPreset,
-            to: wellKnownDirectory,
-            transform: () => generateAssetLinks(buildConfigName)
-          },
-          {
-            from: appleAppSiteAssociationPreset,
-            to: distDirectory,
-            transform: () => generateAppleAppSiteAssociation(buildConfigName)
-          }
+          ...(buildConfig.apps
+            ? [
+                {
+                  from: assetLinksPreset,
+                  to: wellKnownDirectory,
+                  transform: () => generateAssetLinks(buildConfig)
+                },
+                {
+                  from: appleAppSiteAssociationPreset,
+                  to: distDirectory,
+                  transform: () => generateAppleAppSiteAssociation(buildConfig)
+                }
+              ]
+            : [])
         ]
       }),
       new DefinePlugin({
