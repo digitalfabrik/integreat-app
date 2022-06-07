@@ -49,8 +49,8 @@ describe('LocalNews', () => {
       tunewsEnabled: true,
       sortingName: 'Oldtown',
       prefix: 'GoT',
-      latitude: null,
-      longitude: null,
+      latitude: 48.369696,
+      longitude: 10.892578,
       aliases: null,
       boundingBox: null
     })
