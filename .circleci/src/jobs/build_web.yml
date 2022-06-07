@@ -1,7 +1,7 @@
 parameters:
   build_config_name:
     type: enum
-    enum: [ integreat, malte, integreat-test-cms, malte-test-cms, aschaffenburg, obdach ]
+    enum: [integreat, malte, integreat-test-cms, malte-test-cms, aschaffenburg, obdach]
     default: integreat
 docker:
   - image: cimg/node:14.19.0
