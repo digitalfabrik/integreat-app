@@ -37,8 +37,8 @@ describe('citiesReducer', () => {
         sortingName: 'augsburg',
         prefix: 'Stadt',
         aliases: null,
-        latitude: null,
-        longitude: null,
+        latitude: 48.369696,
+        longitude: 10.892578,
         boundingBox: null
       })
     ]
