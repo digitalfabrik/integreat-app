@@ -6,7 +6,7 @@ import fs from 'fs'
 import loadBuildConfig, { PlatformType } from '../index'
 
 const loadBuildConfigAsKeyValue = (buildConfigName: string, platform: PlatformType, spaces = true, quotes = false) => {
-  const buildConfig = loadBuildConfig(buildConfigName, platform)
+  const buildConfig = loadBuildConfig(buildConfigName, platform)!
   const xcconfigOptions = flat<Record<string, unknown>, Record<string, string | number | boolean>>(buildConfig, {
     delimiter: '_',
     // Dashes are not supported in keys in xcconfigs and android resources
