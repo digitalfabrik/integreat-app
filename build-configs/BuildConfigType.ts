@@ -80,8 +80,6 @@ export type WebBuildConfigType = CommonBuildConfigType & {
   mainImprint: string
   // Url to the manifest.json generated with webpack.
   manifestUrl?: string
-  // Id of the corresponding iOS app in the Apple App Store.
-  itunesAppId?: string
   icons: {
     appLogo: string
     locationMarker?: string
@@ -101,6 +99,25 @@ export type WebBuildConfigType = CommonBuildConfigType & {
     startDate: string
     endDate: string
   }
+  // iOS and android app information
+  apps: {
+    android: {
+      // Application identifier
+      applicationId: string
+      // SHA-256 certificate fingerprint of the app signing key certificate
+      sha256CertFingerprint: string
+    }
+    ios: {
+      // iOS application identifier.
+      bundleIdentifier: string
+      // Id of the app in the Apple App Store
+      appStoreId: string
+      // Apple app site association app ids, used for apple-app-site-association
+      appleAppSiteAssociationAppIds: string[]
+      // Unique generated app name in the Apple App Store
+      appStoreName: string
+    }
+  } | null
 }
 
 // Firebase config for android
@@ -120,10 +137,8 @@ type AndroidGoogleServicesConfigType = {
 // Only available on android
 export type AndroidBuildConfigType = CommonBuildConfigType & {
   splashScreen: boolean
-  // Shows the app icon as splash screen on app start.
+  // Application identifier
   applicationId: string
-  // SHA-256 certificate fingerprint of the app signing key certificate
-  sha256CertFingerprint: string
   // Android application identifier.
   googleServices: AndroidGoogleServicesConfigType | null
 }
@@ -156,11 +171,5 @@ export type iOSBuildConfigType = CommonBuildConfigType & {
   bundleIdentifier: string
   // Provisioning profile to sign the app.
   provisioningProfileSpecifier: string
-  // Id of the app in the Apple App Store
-  appleId: string
-  // Unique generated app name of apple, used for generating manifest
-  itunesAppName: string
-  // Apple app site association app ids, used for apple-app-site-association
-  appleAppSiteAssociationAppIds: string[]
   googleServices: iOSGoogleServicesConfigType | null | undefined
 }

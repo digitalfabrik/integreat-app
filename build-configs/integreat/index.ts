@@ -10,7 +10,8 @@ import cityNotCooperatingTemplate from './assets/cityNotCooperatingTemplate'
 import mainImprint from './mainImprint'
 import { lightTheme } from './theme'
 
-const APPLE_APP_ID = '1072353915'
+const APPLICATION_ID = 'tuerantuer.app.integreat'
+const BUNDLE_IDENTIFIER = 'de.integreat-app'
 
 const commonIntegreatBuildConfig: CommonBuildConfigType = {
   appName: 'Integreat',
@@ -47,9 +48,7 @@ const commonIntegreatBuildConfig: CommonBuildConfigType = {
 export const androidIntegreatBuildConfig: AndroidBuildConfigType = {
   ...commonIntegreatBuildConfig,
   splashScreen: true,
-  applicationId: 'tuerantuer.app.integreat',
-  sha256CertFingerprint:
-    '66:2E:43:DC:9C:75:DE:7D:99:C5:BA:A9:19:DA:0F:BB:5E:6C:13:3D:03:E8:1D:FB:EF:87:F5:4B:F1:80:D4:B1',
+  applicationId: APPLICATION_ID,
   googleServices: {
     googleAppId: '1:164298278764:android:3fc1f67f3883df306fd549',
     gcmDefaultSenderId: '164298278764',
@@ -63,18 +62,15 @@ export const androidIntegreatBuildConfig: AndroidBuildConfigType = {
 }
 export const iosIntegreatBuildConfig: iOSBuildConfigType = {
   ...commonIntegreatBuildConfig,
-  bundleIdentifier: 'de.integreat-app',
-  provisioningProfileSpecifier: 'match Development de.integreat-app',
-  appleId: APPLE_APP_ID,
-  itunesAppName: 'integreat',
-  appleAppSiteAssociationAppIds: [`${APP_STORE_TEAM_ID}.de.integreat-app`, `${APP_STORE_TEAM_ID}.app.integreat.test`],
+  bundleIdentifier: BUNDLE_IDENTIFIER,
+  provisioningProfileSpecifier: `match Development ${BUNDLE_IDENTIFIER}`,
   googleServices: {
     clientId: '164298278764-pemn49q7v283m0tqml3q8q0ltr5h8pni.apps.googleusercontent.com',
     reversedClientId: 'com.googleusercontent.apps.164298278764-pemn49q7v283m0tqml3q8q0ltr5h8pni',
     apiKey: 'AIzaSyBSnGYrUWfIAPcEsFya1OYvTMbjvfUyOEU',
     gcmSenderId: '164298278764',
     plistVersion: '1',
-    bundleId: 'de.integreat-app',
+    bundleId: BUNDLE_IDENTIFIER,
     projectId: 'integreat-2020',
     storageBucket: 'integreat-2020.appspot.com',
     isAdsEnabled: false,
@@ -91,7 +87,6 @@ export const webIntegreatBuildConfig: WebBuildConfigType = {
   ...commonIntegreatBuildConfig,
   appDescription: 'Integreat – die lokale und mehrsprachige Integrations-Plattform für Zugewanderte',
   mainImprint,
-  itunesAppId: APPLE_APP_ID,
   manifestUrl: '/manifest.json',
   icons: {
     appLogo: '/app-logo.png',
@@ -109,6 +104,22 @@ export const webIntegreatBuildConfig: WebBuildConfigType = {
     campaignAppLogo: '/campaign-app-logo.png',
     startDate: '2021-03-08T00:00:00.000Z',
     endDate: '2021-03-15T00:00:00.000Z'
+  },
+  apps: {
+    android: {
+      applicationId: APPLICATION_ID,
+      sha256CertFingerprint:
+        '66:2E:43:DC:9C:75:DE:7D:99:C5:BA:A9:19:DA:0F:BB:5E:6C:13:3D:03:E8:1D:FB:EF:87:F5:4B:F1:80:D4:B1'
+    },
+    ios: {
+      bundleIdentifier: BUNDLE_IDENTIFIER,
+      appStoreId: '1072353915',
+      appStoreName: 'integreat',
+      appleAppSiteAssociationAppIds: [
+        `${APP_STORE_TEAM_ID}.${BUNDLE_IDENTIFIER}`,
+        `${APP_STORE_TEAM_ID}.app.integreat.test`
+      ]
+    }
   }
 }
 const platformBuildConfigs = {
