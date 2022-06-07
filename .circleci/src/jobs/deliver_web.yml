@@ -55,7 +55,7 @@ steps:
             name: Aschaffenburg development delivery
             command: rsync -e "ssh -o StrictHostKeyChecking=no" -arv $HOME/attached_workspace/dist/aschaffenburg/ web@web.integreat-app.de:/var/www/webnext.aschaffenburg.app
         - run:
-            name: Obdach production delivery
+            name: Obdach development delivery
             command: rsync -e "ssh -o StrictHostKeyChecking=no" -arv $HOME/attached_workspace/dist/obdach/ web@web.integreat-app.de:/var/www/vernetztesobdach.de
         - run:
             name: 'Sentry Upload: integreat-test-cms'
