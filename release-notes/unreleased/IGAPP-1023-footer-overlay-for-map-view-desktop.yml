@@ -1,0 +1,6 @@
+issue_key: IGAPP-1023
+show_in_stores: true
+platforms:
+  - web
+en: Footer is now display as an overlay within the map.
+de: Der Footer wird nun als Overlay innerhalb der Karte angezeigt.

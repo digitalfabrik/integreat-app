@@ -28,6 +28,7 @@ import { FeedbackRatingType } from '../components/FeedbackToolbarItem'
 import Helmet from '../components/Helmet'
 import List from '../components/List'
 import LoadingSpinner from '../components/LoadingSpinner'
+import LocationFooter from '../components/LocationFooter'
 import LocationLayout from '../components/LocationLayout'
 import LocationToolbar from '../components/LocationToolbar'
 import MapView from '../components/MapView'
@@ -156,7 +157,8 @@ const PoisPage = ({ cityCode, languageCode, cityModel, pathname, languages }: Ci
     languageChangePaths,
     route: POIS_ROUTE,
     languageCode,
-    disableScrollingSafari: true
+    disableScrollingSafari: true,
+    showFooter: false
   }
 
   if (loading) {
@@ -199,6 +201,12 @@ const PoisPage = ({ cityCode, languageCode, cityModel, pathname, languages }: Ci
   const pageTitle = `${t('pageTitle')} - ${cityModel.name}`
   const direction = config.getScriptDirection(languageCode)
 
+  const overlayFooter = (
+    <div style={{ position: 'absolute', bottom: 0 }}>
+      <LocationFooter city={cityCode} language={languageCode} overlay />
+    </div>
+  )
+
   const mapView = cityModel.boundingBox && (
     <MapView
       ref={updateMapRef}
@@ -208,12 +216,12 @@ const PoisPage = ({ cityCode, languageCode, cityModel, pathname, languages }: Ci
       bboxViewport={moveViewToBBox(cityModel.boundingBox, defaultMercatorViewportConfig)}
       currentFeature={currentFeature}
       direction={direction}
+      overlayFooter={overlayFooter}
     />
   )
-
   const poiList = <List noItemsMessage={t('noPois')} items={data.features} renderItem={renderPoiListItem} borderless />
   // To calculate the height of the PoisPage container, we have to reduce 100vh by header, footer, navMenu
-  const panelHeights = dimensions.headerHeightLarge + dimensions.footerHeight + dimensions.navigationMenuHeight
+  const panelHeights = dimensions.headerHeightLarge + dimensions.navigationMenuHeight
 
   return (
     <LocationLayout isLoading={false} {...locationLayoutParams} fullWidth>
