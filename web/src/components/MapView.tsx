@@ -60,12 +60,14 @@ type MapViewProps = {
   selectFeature: (feature: PoiFeature | null) => void
   changeSnapPoint: (snapPoint: number) => void
   direction: UiDirectionType
+  overlayFooter: ReactElement
 }
 
 type MapCursorType = 'grab' | 'auto' | 'pointer'
 
 const MapView = React.forwardRef((props: MapViewProps, ref: React.Ref<MapRef>): ReactElement => {
-  const { featureCollection, bboxViewport, selectFeature, changeSnapPoint, currentFeature, direction } = props
+  const { featureCollection, bboxViewport, selectFeature, changeSnapPoint, currentFeature, direction, overlayFooter } =
+    props
 
   const textOffsetY = 1.25
 
@@ -168,7 +170,10 @@ const MapView = React.forwardRef((props: MapViewProps, ref: React.Ref<MapRef>): 
           <Layer {...layerStyle} />
         </Source>
         {!viewportSmall && (
-          <NavigationControl showCompass={false} position={direction === 'rtl' ? 'bottom-left' : 'bottom-right'} />
+          <>
+            <NavigationControl showCompass={false} position={direction === 'rtl' ? 'bottom-left' : 'bottom-right'} />
+            {overlayFooter}
+          </>
         )}
       </Map>
     </MapContainer>

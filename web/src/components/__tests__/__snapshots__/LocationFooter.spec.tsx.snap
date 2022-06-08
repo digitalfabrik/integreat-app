@@ -1,7 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`LocationFooter should match snapshot 1`] = `
-<Footer>
+<Footer
+  overlay={false}
+>
   <CleanLink
     to="/augsburg/de/disclaimer"
   >
