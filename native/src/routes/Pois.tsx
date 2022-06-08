@@ -1,3 +1,4 @@
+import MapboxGL from '@react-native-mapbox-gl/maps'
 import React, { ReactElement, ReactNode, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { ScrollView } from 'react-native'
@@ -59,6 +60,7 @@ const Pois = ({ pois, language, cityModel, route, navigation }: PropsType): Reac
   const poi = pois.find(it => it.urlSlug === urlSlug)
   const { t } = useTranslation('pois')
   const theme = useTheme()
+  const cameraRef = React.useRef<MapboxGL.Camera | null>(null)
 
   const baseUrl = urlFromRouteInformation({
     route: POIS_ROUTE,
@@ -81,8 +83,10 @@ const Pois = ({ pois, language, cityModel, route, navigation }: PropsType): Reac
   )
 
   const selectPoiFeature = (feature: PoiFeature | null) => {
-    if (feature) {
-      setUrlSlug(feature.properties.urlSlug)
+    if (feature && cameraRef.current) {
+      const { properties, geometry } = feature
+      setUrlSlug(properties.urlSlug)
+      cameraRef.current.flyTo(geometry.coordinates)
     } else {
       setUrlSlug(null)
     }
