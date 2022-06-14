@@ -75,8 +75,8 @@ const PoiDetails: React.FC<PoiDetailsProps> = ({ poi, feature, language }: PoiDe
   }
 
   const copyLocationToClipboard = (): void => {
-    if (location) {
-      Clipboard.setString(location)
+    if (address && postcode && town) {
+      Clipboard.setString([address, postcode, town].filter(it => it).join(' '))
       showSnackbar(t('addressCopied'))
     }
   }
