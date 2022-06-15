@@ -3,7 +3,7 @@ import { TFunction } from 'react-i18next'
 import { AccessibilityRole, SectionListData } from 'react-native'
 import { openSettings } from 'react-native-permissions'
 
-import { JPAL_TRACKING_ROUTE, SettingsRouteType } from 'api-client'
+import { JPAL_TRACKING_ROUTE, LICENSE_INFO_ROUTE, SettingsRouteType } from 'api-client'
 
 import NativeConstants from '../constants/NativeConstants'
 import { NavigationPropType } from '../constants/NavigationTypes'
@@ -14,7 +14,6 @@ import { pushNotificationsEnabled } from './PushNotificationsManager'
 import openExternalUrl from './openExternalUrl'
 import openPrivacyPolicy from './openPrivacyPolicy'
 import { initSentry } from './sentry'
-import openLicenseInfo from './openLicenseInfo'
 
 export type SetSettingFunctionType = (
   changeSetting: (settings: SettingsType) => Partial<SettingsType>,
@@ -140,22 +139,14 @@ const createSettingsSections = ({
         onPress: () => openPrivacyPolicy(languageCode).catch((error: Error) => showSnackbar(error.message))
       },
       {
-        title: t('version'),
-        onPress: () => openLicenseInfo().catch((error: Error) => showSnackbar(error.message))
+        title: t('version', {
+          version: NativeConstants.appVersion
+        }),
       },
       {
         // TODO add translation
-        title: t('licences', {
-          version: NativeConstants.appVersion
-        }),
-        onPress: () => {
-          volatileValues.versionTaps += 1
-
-          if (volatileValues.versionTaps === TRIGGER_VERSION_TAPS) {
-            volatileValues.versionTaps = 0
-            throw Error('This error was thrown for testing purposes. Please ignore this error.')
-          }
-        }
+        title: t('openSourceLicenses'),
+        onPress: () => navigation.navigate(LICENSE_INFO_ROUTE)
       },
       // Only show the jpal tracking setting for users that opened it via deep link before
       ...(buildConfig().featureFlags.jpalTracking && settings.jpalTrackingCode

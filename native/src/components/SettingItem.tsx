@@ -37,7 +37,7 @@ type PropType = {
   title: string
   description?: string
   onPress: () => void
-  t: TFunction<'settings'>
+  t?: TFunction<'settings'>
   bigTitle?: boolean
   accessibilityRole?: AccessibilityRole
   hasSwitch?: boolean
@@ -62,7 +62,7 @@ const SettingItem = (props: PropType): ReactElement => {
         </ContentContainer>
         <RightContentContainer>
           {hasSwitch && <SettingsSwitch value={value} onPress={onPress} />}
-          {hasBadge && (
+          {hasBadge && t && (
             <View
               style={{
                 flexDirection: 'row',

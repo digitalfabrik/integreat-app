@@ -1,7 +1,8 @@
 import React, { ReactElement, useEffect, useState } from 'react'
 import { FlatList, View } from 'react-native'
-import { Button } from 'react-native-elements/dist/buttons/Button'
-import { Item } from 'react-navigation-header-buttons'
+
+import openExternalUrl from '../utils/openExternalUrl'
+import SettingItem from './SettingItem'
 
 export type ILicense = {
   licenses: string
@@ -16,51 +17,61 @@ type IFinalLicense = {
   licenseSpecs: ILicense
 }
 
-const LicenseInfo = (): ReactElement => {
-  // TODO import file with try catch
-  const [licenses, setLicenses] = useState<ILicense[] | null>(null)
+const numberRegex = /\d+(\.\d+)*/
+const atRegex = /(?:@)/gi
+const LicenseInfo = (showSnackbar: (message: string) => void): ReactElement => {
+  const [licenses, setLicenses] = useState<IFinalLicense[] | null>(null)
+
   useEffect(() => {
     try {
-      const license_file = require('../../../../assets/licenses_native.json')
-      console.log('test', license_file)
-      setLicenses(license_file)
+      let componentStillMounted = true
+      import('../../../../assets/licenses_native.json').then(licenseFile => {
+        const licenseInfos: ILicense[] = JSON.parse(JSON.stringify(licenseFile))
+        const finalLicenses = Object.entries(licenseInfos).map(info => {
+          // Extract the version of the library from the name
+          const versionMatch = info[0].match(numberRegex)
+          const version = versionMatch !== null ? versionMatch[0] : ''
+
+          // get license name without version in it
+          const nameWithoutVersion = info[0].replace(atRegex, '').replace(version ?? '', '')
+          return { name: nameWithoutVersion, version, licenseSpecs: info[1] }
+        })
+
+        if (componentStillMounted) {
+          setLicenses(finalLicenses)
+        }
+        return () => {
+          componentStillMounted = false
+        }
+      })
     } catch (error) {
       console.log('error when loading licenses.json')
     }
-  }, [])
-  const numberRegex = /\d+(\.\d+)*/
-  const atRegex = /(?:@)/gi
+  }, [licenses])
 
-  const finalLicenses: IFinalLicense[] = []
-  //   licenses?.map(license => {
-  //     // Extract the version of the library from the name
-  //     // const version = license. .match(numberRegex);
-  //     console.log('license info')
-  //     console.log(`${license.licenses}`)
-  //     console.log(`${license.repository}`)
-  // return null
-  //     // Removes the part after the @
-  //     // const nameWithoutVersion = libraryName.replace(atRegex, '').replace(version ? version[0] : '', '');
-  //     finalLicenses.push({ name: 'nameWithoutVersion', version: '', licenseSpecs: license })
-  //   })
+  const renderItem = ({ item }: { item: IFinalLicense }) => {
+    const openLink = () => {
+      openExternalUrl(item.licenseSpecs.licenseUrl).catch((error: Error) => showSnackbar(error.message))
+    }
+
+    return (
+      <SettingItem
+        value={false}
+        hasSwitch={false}
+        hasBadge={false}
+        bigTitle={false}
+        accessibilityRole='link'
+        onPress={openLink}
+        title={item.name}
+        description={`  Version: ${item.version} \n  License: ${item.licenseSpecs.licenses}`}
+        t={undefined}
+      />
+    )
+  }
 
   return (
     <View>
-      {/* <Button title='Test' onPress={() => {}} /> */}
-      <FlatList
-        data={finalLicenses}
-        renderItem={item => <Item title={item.item.name} />}
-        keyExtractor={item => item.name}
-        // keyboardShouldPersistTaps={'handled'}
-        // data={finalLicense}
-        // contentContainerStyle={styles.listContainer}
-        // // renderItem={({ item }) => {
-        // //   return this.renderItem(item);
-        // // }}
-        // ItemSeparatorComponent={this.renderSeparator}
-        // extraData={this.state}
-        // keyExtractor={(item, index) => index.toString()}
-      />
+      <FlatList data={licenses} renderItem={renderItem} keyExtractor={item => item.name} />
     </View>
   )
 }
