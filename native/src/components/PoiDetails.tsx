@@ -63,7 +63,7 @@ const PoiDetails: React.FC<PoiDetailsProps> = ({ poi, feature, language }: PoiDe
 
   // TODO IGAPP-920: this has to be removed when we get proper images from CMS
   const thumbnail = feature.properties.thumbnail?.replace('-150x150', '') ?? Placeholder
-  const { location, address, postcode, town } = poi.location
+  const { address, postcode, town } = poi.location
   const { distance } = feature.properties
   const { title, content } = poi
 
