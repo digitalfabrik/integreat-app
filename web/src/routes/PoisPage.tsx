@@ -47,6 +47,11 @@ const PoisPageWrapper = styled.div<{ panelHeights: number }>`
   ${({ panelHeights }) => `height: calc(100vh - ${panelHeights}px);`};
 `
 
+const FooterContainer = styled.div`
+  position: absolute;
+  bottom: 0;
+`
+
 const moveViewToBBox = (bBox: BBox, defaultVp: MapViewMercatorViewport): MapViewMercatorViewport => {
   const mercatorVp = new WebMercatorViewport(defaultVp)
   return mercatorVp.fitBounds([
@@ -202,9 +207,9 @@ const PoisPage = ({ cityCode, languageCode, cityModel, pathname, languages }: Ci
   const direction = config.getScriptDirection(languageCode)
 
   const overlayFooter = (
-    <div style={{ position: 'absolute', bottom: 0 }}>
+    <FooterContainer>
       <LocationFooter city={cityCode} language={languageCode} overlay />
-    </div>
+    </FooterContainer>
   )
 
   const mapView = cityModel.boundingBox && (
