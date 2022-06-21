@@ -148,6 +148,7 @@ const Pois = ({ pois, language, cityModel, route, navigation }: PropsType): Reac
   return (
     <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
       <MapView
+        ref={cameraRef}
         selectPoiFeature={selectPoiFeature}
         boundingBox={cityModel.boundingBox}
         setSheetSnapPointIndex={setSheetSnapPointIndex}
