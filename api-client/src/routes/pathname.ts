@@ -13,7 +13,7 @@ import {
   CITY_NOT_COOPERATING_ROUTE,
   SHELTER_ROUTE
 } from '.'
-import { NonNullableRouteInformationType } from '..'
+import { locationName, NonNullableRouteInformationType } from '..'
 
 type CityContentRouteUrlType = {
   cityCode: string
@@ -55,8 +55,7 @@ export const pathnameFromRouteInformation = (routeInformation: NonNullableRouteI
   if (
     routeInformation.route === DASHBOARD_ROUTE ||
     routeInformation.route === CATEGORIES_ROUTE ||
-    routeInformation.route === EVENTS_ROUTE ||
-    routeInformation.route === POIS_ROUTE
+    routeInformation.route === EVENTS_ROUTE
   ) {
     if (routeInformation.cityContentPath) {
       // https://integreat.app/augsburg/de/, https://integreat.app/augsburg/de/events/12345
@@ -64,6 +63,15 @@ export const pathnameFromRouteInformation = (routeInformation: NonNullableRouteI
     }
     // https://integreat.app/augsburg/de/events, https://integreat.app/augsburg/de/pois
     return constructPathname([routeInformation.cityCode, routeInformation.languageCode, routeInformation.route])
+  }
+  if (routeInformation.route === POIS_ROUTE) {
+    const { cityCode, languageCode, route, urlSlug } = routeInformation
+    if (urlSlug) {
+      //  https://integreat.app/augsburg/de/locations?name=tuer-an-tuer
+      return `${constructPathname([cityCode, languageCode, route])}?${locationName}=${urlSlug}`
+    }
+    //  https://integreat.app/augsburg/de/locations
+    return constructPathname([cityCode, languageCode, route])
   }
   if (
     routeInformation.route === DISCLAIMER_ROUTE ||
