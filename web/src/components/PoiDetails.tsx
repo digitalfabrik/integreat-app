@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router-dom'
 import styled, { css, useTheme } from 'styled-components'
 
-import { PoiFeature, PoiModel } from 'api-client/src'
+import { getNavigationDeepLinks, PoiFeature, PoiModel } from 'api-client/src'
 import { UiDirectionType } from 'translations'
 
 import iconArrowBack from '../assets/IconArrowBackLong.svg'
@@ -12,7 +12,6 @@ import iconMarker from '../assets/IconMarker.svg'
 import PoiPlaceholder from '../assets/PoiPlaceholderLarge.jpg'
 import dimensions from '../constants/dimensions'
 import useWindowDimensions from '../hooks/useWindowDimensions'
-import { getNavigationDeepLinks } from '../utils/getNavigationDeepLinks'
 import CleanLink from './CleanLink'
 import Collapsible from './Collapsible'
 import RemoteContent from './RemoteContent'
@@ -163,6 +162,8 @@ const PoiDetails: React.FC<PoiDetailsProps> = ({
   const navigate = useNavigate()
   // MapEvent parses null to 'null'
   const thumb = thumbnail === 'null' ? null : thumbnail?.replace('-150x150', '')
+  const isAndroid = /Android/i.test(navigator.userAgent)
+  const navigationDeepLink = getNavigationDeepLinks(location, isAndroid ? 'android' : 'web')
 
   return (
     <DetailsContainer>
@@ -192,12 +193,14 @@ const PoiDetails: React.FC<PoiDetailsProps> = ({
             </span>
           </AddressContent>
         </AddressContentWrapper>
-        <LinkContainer>
-          <CleanLink to={getNavigationDeepLinks(location, title)} newTab>
-            {!viewportSmall && <LinkLabel>{t('detailsMapLink')}</LinkLabel>}
-            <Marker src={iconExternalLink} alt='' direction={direction} />
-          </CleanLink>
-        </LinkContainer>
+        {navigationDeepLink && (
+          <LinkContainer>
+            <CleanLink to={navigationDeepLink} newTab>
+              {!viewportSmall && <LinkLabel>{t('detailsMapLink')}</LinkLabel>}
+              <Marker src={iconExternalLink} alt='' direction={direction} />
+            </CleanLink>
+          </LinkContainer>
+        )}
       </DetailSection>
       {content.length > 0 && (
         <>
