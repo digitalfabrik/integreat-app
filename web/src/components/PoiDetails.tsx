@@ -162,8 +162,7 @@ const PoiDetails: React.FC<PoiDetailsProps> = ({
   const navigate = useNavigate()
   // MapEvent parses null to 'null'
   const thumb = thumbnail === 'null' ? null : thumbnail?.replace('-150x150', '')
-  const isAndroid = /Android/i.test(navigator.userAgent)
-  const navigationDeepLink = getNavigationDeepLinks(location, isAndroid ? 'android' : 'web')
+  const navigationDeepLink = getNavigationDeepLinks(location, 'web')
 
   return (
     <DetailsContainer>
