@@ -1,6 +1,6 @@
 import MapboxGL, { CameraSettings, MapboxGLEvent, SymbolLayerProps } from '@react-native-mapbox-gl/maps'
 import type { BBox, Feature } from 'geojson'
-import React, { MutableRefObject, ReactElement, useCallback, useState } from 'react'
+import React, { ReactElement, useCallback, useState } from 'react'
 import { FAB } from 'react-native-elements'
 import { useTheme } from 'styled-components'
 import styled from 'styled-components/native'
@@ -116,12 +116,8 @@ const MapView = React.forwardRef(
 
       const feature = featureCollection?.features.find((it): it is PoiFeature => it.geometry.type === 'Point')
 
-      if (feature && cameraRef) {
-        const {
-          geometry: { coordinates }
-        } = feature
+      if (feature) {
         selectPoiFeature(feature)
-        ;(cameraRef as MutableRefObject<MapboxGL.Camera>).current.flyTo(coordinates)
         setSheetSnapPointIndex(2)
       } else {
         selectPoiFeature(null)
