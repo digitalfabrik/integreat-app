@@ -33,9 +33,14 @@ const cities = [
     tunewsEnabled: false,
     sortingName: 'Oldtown',
     prefix: 'GoT',
-    latitude: null,
-    longitude: null,
-    aliases: null,
+    latitude: 49.017834,
+    longitude: 12.097392,
+    aliases: {
+      Konigsbrunn: {
+        latitude: 48.28,
+        longitude: 10.8
+      }
+    },
     boundingBox: null
   }),
   new CityModel({
@@ -48,8 +53,8 @@ const cities = [
     localNewsEnabled: false,
     tunewsEnabled: false,
     sortingName: 'City',
-    latitude: null,
-    longitude: null,
+    latitude: 48.369696,
+    longitude: 10.892578,
     prefix: null,
     aliases: null,
     boundingBox: null
@@ -64,8 +69,8 @@ const cities = [
     localNewsEnabled: false,
     tunewsEnabled: false,
     sortingName: 'OtherCity',
-    latitude: null,
-    longitude: null,
+    latitude: 48.369696,
+    longitude: 10.892578,
     prefix: null,
     aliases: null,
     boundingBox: null
@@ -80,8 +85,8 @@ const cities = [
     localNewsEnabled: false,
     tunewsEnabled: false,
     sortingName: 'Nonlive',
-    latitude: null,
-    longitude: null,
+    latitude: 0,
+    longitude: 0,
     prefix: null,
     aliases: null,
     boundingBox: null
@@ -96,8 +101,8 @@ const cities = [
     localNewsEnabled: false,
     tunewsEnabled: false,
     sortingName: 'Yetanothercity',
-    latitude: null,
-    longitude: null,
+    latitude: 48.4,
+    longitude: 10.8,
     prefix: null,
     aliases: null,
     boundingBox: null
