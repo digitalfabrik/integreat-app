@@ -29,14 +29,23 @@ const RichLayout = styled.div`
   }
 `
 
-const Body = styled.div<{ fullWidth: boolean }>`
+const Body = styled.div<{ fullWidth: boolean; disableScrollingSafari: boolean }>`
   width: 100%;
   box-sizing: border-box;
   flex-grow: 1;
   margin: 0 auto;
   background-color: ${props => props.theme.colors.backgroundColor};
   word-wrap: break-word;
-
+  /* Fix jumping iOS Safari Toolbar by prevent scrolling on body */
+  ${props =>
+    props.disableScrollingSafari &&
+    css`
+      @supports (-webkit-touch-callout: none) {
+        /* CSS specific to iOS safari devices */
+        position: fixed;
+        overflow: hidden;
+      } ;
+    `};
   /* https://aykevl.nl/2014/09/fix-jumping-scrollbar */
   ${props =>
     !props.fullWidth &&
@@ -110,6 +119,7 @@ type PropsType = {
   modal?: ReactNode
   children?: ReactNode
   fullWidth?: boolean
+  disableScrollingSafari?: boolean
 }
 
 /**
@@ -117,7 +127,15 @@ type PropsType = {
  * If a footer is supplied and there's not enough content (in header and children) to fill the viewbox, the footer will
  * always stick to the bottom of the viewbox.
  */
-const Layout = ({ footer, header, toolbar, modal, children, fullWidth = false }: PropsType): JSX.Element => {
+const Layout = ({
+  footer,
+  header,
+  toolbar,
+  modal,
+  children,
+  fullWidth = false,
+  disableScrollingSafari = false
+}: PropsType): JSX.Element => {
   const modalVisible = !!modal
   const { width } = useWindowDimensions()
   const [languageSelectorHeight, setLanguageSelectorHeight] = useState<number>(0)
@@ -132,7 +150,7 @@ const Layout = ({ footer, header, toolbar, modal, children, fullWidth = false }:
       <RichLayout>
         <div aria-hidden={modalVisible}>
           {header}
-          <Body fullWidth={fullWidth}>
+          <Body fullWidth={fullWidth} disableScrollingSafari={disableScrollingSafari}>
             <Aside languageSelectorHeight={languageSelectorHeight}>{toolbar}</Aside>
             <Main fullWidth={fullWidth}>{children}</Main>
           </Body>

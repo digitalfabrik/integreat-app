@@ -18,6 +18,8 @@ import malteBuildConfig from './malte'
 import malteTestCmsBuildConfig from './malte-test-cms'
 import malteTestCmsBuildConfigName from './malte-test-cms/build-config-name'
 import malteBuildConfigName from './malte/build-config-name'
+import obdachBuildConfig from './obdach'
+import obdachBuildConfigName from './obdach/build-config-name'
 
 export type { ThemeType } from './ThemeType'
 
@@ -28,8 +30,8 @@ export const WEB = 'web'
 
 type BuildConfigPlatformType = {
   common: CommonBuildConfigType
-  android: AndroidBuildConfigType
-  ios: iOSBuildConfigType
+  android: AndroidBuildConfigType | null
+  ios: iOSBuildConfigType | null
   web: WebBuildConfigType
 }
 
@@ -44,7 +46,8 @@ export const buildConfigs: Record<string, BuildConfigPlatformType> = {
   [integreatE2eBuildConfigName]: integreatE2eBuildConfig,
   [malteBuildConfigName]: malteBuildConfig,
   [malteTestCmsBuildConfigName]: malteTestCmsBuildConfig,
-  [aschaffenburgBuildConfigName]: aschaffenburgBuildConfig
+  [aschaffenburgBuildConfigName]: aschaffenburgBuildConfig,
+  [obdachBuildConfigName]: obdachBuildConfig
 }
 
 const loadBuildConfig = <T extends PlatformType>(
@@ -63,6 +66,10 @@ const loadBuildConfig = <T extends PlatformType>(
 
   if (!PLATFORMS.includes(platform)) {
     throw Error(`Invalid platform supplied: ${platform}`)
+  }
+
+  if (!buildConfig[platform]) {
+    throw Error(`Build config not available for platform: ${platform}`)
   }
 
   buildConfig.common.featureFlags.cityNotCooperating =
