@@ -13,7 +13,7 @@ export type ILicense = {
 
 type IFinalLicense = {
   name: string
-  version: string
+  version?: string
   licenseSpecs: ILicense
 }
 
@@ -24,7 +24,6 @@ const LicenseInfo = (showSnackbar: (message: string) => void): ReactElement => {
 
   useEffect(() => {
     try {
-      let componentStillMounted = true
       import('../../../../assets/licenses_native.json').then(licenseFile => {
         const licenseInfos: ILicense[] = JSON.parse(JSON.stringify(licenseFile))
         const finalLicenses = Object.entries(licenseInfos).map(info => {
@@ -36,18 +35,13 @@ const LicenseInfo = (showSnackbar: (message: string) => void): ReactElement => {
           const nameWithoutVersion = info[0].replace(atRegex, '').replace(version ?? '', '')
           return { name: nameWithoutVersion, version, licenseSpecs: info[1] }
         })
-
-        if (componentStillMounted) {
-          setLicenses(finalLicenses)
-        }
-        return () => {
-          componentStillMounted = false
-        }
+        setLicenses(finalLicenses)
       })
     } catch (error) {
+      // eslint-disable-next-line no-console
       console.log('error when loading licenses.json')
     }
-  }, [licenses])
+  }, [])
 
   const renderItem = ({ item }: { item: IFinalLicense }) => {
     const openLink = () => {
@@ -64,7 +58,6 @@ const LicenseInfo = (showSnackbar: (message: string) => void): ReactElement => {
         onPress={openLink}
         title={item.name}
         description={`  Version: ${item.version} \n  License: ${item.licenseSpecs.licenses}`}
-        t={undefined}
       />
     )
   }
