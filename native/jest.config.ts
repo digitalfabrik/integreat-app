@@ -31,6 +31,11 @@ export default {
   ],
   transform: tsjPreset.transform,
   transformIgnorePatterns: [`node_modules/(?!${transformNodeModules.join('|')})`],
+  globals: {
+    'ts-jest': {
+      tsconfig: './tsconfig.tests.json'
+    }
+  },
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json'],
   modulePaths: ['<rootDir>'],
   moduleDirectories: ['node_modules'],
