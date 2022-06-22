@@ -1,7 +1,8 @@
 import React, { ReactElement, useEffect, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import { FlatList, View } from 'react-native'
-
 import openExternalUrl from '../utils/openExternalUrl'
+import Caption from './Caption'
 import SettingItem from './SettingItem'
 
 export type ILicense = {
@@ -27,6 +28,7 @@ const LicenseInfo = (showSnackbar: (message: string) => void): ReactElement => {
       import('../../../../assets/licenses_native.json').then(licenseFile => {
         const licenseInfos: ILicense[] = JSON.parse(JSON.stringify(licenseFile))
         const finalLicenses = Object.entries(licenseInfos).map(info => {
+
           // Extract the version of the library from the name
           const versionMatch = info[0].match(numberRegex)
           const version = versionMatch !== null ? versionMatch[0] : ''
@@ -43,12 +45,14 @@ const LicenseInfo = (showSnackbar: (message: string) => void): ReactElement => {
     }
   }, [])
 
+  const { t } = useTranslation('settings')
   const renderItem = ({ item }: { item: IFinalLicense }) => {
     const openLink = () => {
       openExternalUrl(item.licenseSpecs.licenseUrl).catch((error: Error) => showSnackbar(error.message))
     }
 
     return (
+      <>
       <SettingItem
         value={false}
         hasSwitch={false}
@@ -59,11 +63,13 @@ const LicenseInfo = (showSnackbar: (message: string) => void): ReactElement => {
         title={item.name}
         description={`  Version: ${item.version} \n  License: ${item.licenseSpecs.licenses}`}
       />
+      </>
     )
   }
 
   return (
     <View>
+      <Caption title={t('openSourceLicenses')}/>
       <FlatList data={licenses} renderItem={renderItem} keyExtractor={item => item.name} />
     </View>
   )
