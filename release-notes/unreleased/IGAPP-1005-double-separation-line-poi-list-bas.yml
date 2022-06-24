@@ -3,4 +3,4 @@ show_in_stores: true
 platforms:
   - web
 en: Removed double separation line in location list view mobile.
-de: Doppelte Trennlinie in der mobilen Listenansicht der Lokationen entfernt.
+de: Doppelte Trennlinie in der mobilen Listenansicht der Orte entfernt.
