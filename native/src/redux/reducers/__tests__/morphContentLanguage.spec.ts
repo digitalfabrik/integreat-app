@@ -164,6 +164,9 @@ describe('morphContentLanguage', () => {
       thumbnail: 'test',
       availableLanguages,
       excerpt: 'test',
+      website: null,
+      phoneNumber: null,
+      email: null,
       location: new LocationModel({
         id: 1,
         country: 'country',

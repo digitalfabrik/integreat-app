@@ -8,6 +8,9 @@ import PageModel from './PageModel'
 class PoiModel extends ExtendedPageModel {
   _location: LocationModel
   _excerpt: string
+  _website: string | null
+  _phoneNumber: string | null
+  _email: string | null
 
   constructor(params: {
     path: string
@@ -18,12 +21,18 @@ class PoiModel extends ExtendedPageModel {
     excerpt: string
     location: LocationModel
     lastUpdate: Moment
+    email: string | null
+    website: string | null
+    phoneNumber: string | null
     hash: string
   }) {
-    const { location, excerpt, ...other } = params
+    const { location, excerpt, website, phoneNumber, email, ...other } = params
     super(other)
     this._location = location
     this._excerpt = excerpt
+    this._website = website
+    this._phoneNumber = phoneNumber
+    this._email = email
   }
 
   get location(): LocationModel {
@@ -36,6 +45,18 @@ class PoiModel extends ExtendedPageModel {
 
   get urlSlug(): string {
     return this._path.split('/').pop() ?? ''
+  }
+
+  get website(): string | null {
+    return this._website
+  }
+
+  get phoneNumber(): string | null {
+    return this._phoneNumber
+  }
+
+  get email(): string | null {
+    return this._email
   }
 
   get featureLocation(): PoiFeature | null {
