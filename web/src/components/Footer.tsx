@@ -41,21 +41,14 @@ const FooterContainer = styled.footer<{ overlay: boolean }>`
  * number if it's a dev build.
  */
 
-const getVersion = (): ReactNode => {
-  if (buildConfig().featureFlags.developerFriendly) {
-    return (
-      <span>
-        {__VERSION_NAME__}+{__COMMIT_SHA__}
-      </span>
-    )
-  }
-  return null
-}
-
 const Footer = ({ children, overlay = false }: PropsType): ReactElement => (
   <FooterContainer overlay={overlay}>
     {children}
-    {getVersion()}
+    {buildConfig().featureFlags.developerFriendly && (
+      <span>
+        {__VERSION_NAME__}+{__COMMIT_SHA__}
+      </span>
+    )}
   </FooterContainer>
 )
 
