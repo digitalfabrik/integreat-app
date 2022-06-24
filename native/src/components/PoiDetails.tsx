@@ -1,11 +1,14 @@
 import Clipboard from '@react-native-clipboard/clipboard'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Text } from 'react-native'
+import { Pressable, Text } from 'react-native'
 import styled from 'styled-components/native'
 
 import { PoiFeature, PoiModel } from 'api-client'
 
+import EmailIcon from '../../../assets/icons/email.svg'
+import PhoneIcon from '../../../assets/icons/phone.svg'
+import WebsiteIcon from '../../../assets/icons/website.svg'
 import ExternalLinkIcon from '../assets/ExternalLink.svg'
 import Placeholder from '../assets/PoiPlaceholderLarge.jpg'
 import useSnackbar from '../hooks/useSnackbar'
@@ -55,7 +58,13 @@ const ContentWrapper = styled.View`
   padding-right: 32px;
 `
 
-const TextWrapper = styled.Pressable``
+const Row = styled.View`
+  flex-direction: row;
+`
+
+const Icon = styled.Image`
+  margin-horizontal: 5px;
+`
 
 const PoiDetails: React.FC<PoiDetailsProps> = ({ poi, feature, language }: PoiDetailsProps): ReactElement => {
   const { t } = useTranslation('pois')
@@ -65,7 +74,7 @@ const PoiDetails: React.FC<PoiDetailsProps> = ({ poi, feature, language }: PoiDe
   const thumbnail = feature.properties.thumbnail?.replace('-150x150', '') ?? Placeholder
   const { address, postcode, town } = poi.location
   const { distance } = feature.properties
-  const { title, content } = poi
+  const { title, content, email, website, phoneNumber } = poi
 
   const onNavigate = () => {
     const navigationUrl = getNavigationDeepLinks(poi.location)
@@ -81,6 +90,37 @@ const PoiDetails: React.FC<PoiDetailsProps> = ({ poi, feature, language }: PoiDe
     }
   }
 
+  const contactInformationCollapsibleItem = (
+    <CollapsibleItem initExpanded headerText={t('contactInformation')} language={language}>
+      <ContentWrapper>
+        {website && (
+          <Row>
+            <Icon source={WebsiteIcon} accessibilityLabel={t('website')} />
+            <Pressable onPress={() => openExternalUrl(website)}>
+              <Text>{website}</Text>
+            </Pressable>
+          </Row>
+        )}
+        {phoneNumber && (
+          <Row>
+            <Icon source={PhoneIcon} accessibilityLabel={t('phone')} />
+            <Pressable onPress={() => openExternalUrl(`tel:${phoneNumber}`)}>
+              <Text>{phoneNumber}</Text>
+            </Pressable>
+          </Row>
+        )}
+        {email && (
+          <Row>
+            <Icon source={EmailIcon} accessibilityLabel={t('eMail')} />
+            <Pressable onPress={() => openExternalUrl(`mailto:${email}`)}>
+              <Text>{email}</Text>
+            </Pressable>
+          </Row>
+        )}
+      </ContentWrapper>
+    </CollapsibleItem>
+  )
+
   return (
     <PoiDetailsContainer>
       <StyledText>{title}</StyledText>
@@ -88,12 +128,18 @@ const PoiDetails: React.FC<PoiDetailsProps> = ({ poi, feature, language }: PoiDe
       <Thumbnail source={thumbnail} resizeMode='cover' />
       <HorizontalLine />
       <PoiDetailItem onPress={onNavigate} icon={<ExternalLink source={ExternalLinkIcon} />} language={language}>
-        <TextWrapper onPress={copyLocationToClipboard}>
+        <Pressable onPress={copyLocationToClipboard}>
           <Text>{address}</Text>
           <Text>{[postcode, town].filter(it => it).join(' ')}</Text>
-        </TextWrapper>
+        </Pressable>
       </PoiDetailItem>
       <HorizontalLine />
+      {(website || phoneNumber || email) && (
+        <>
+          {contactInformationCollapsibleItem}
+          <HorizontalLine />
+        </>
+      )}
       {content.length > 0 && (
         <>
           <CollapsibleItem initExpanded headerText={t('description')} language={language}>
