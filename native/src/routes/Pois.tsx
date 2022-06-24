@@ -6,7 +6,9 @@ import { useTheme } from 'styled-components'
 import styled from 'styled-components/native'
 
 import {
+  animationDuration,
   CityModel,
+  detailZoom,
   embedInCollection,
   ErrorCode,
   fromError,
@@ -86,7 +88,11 @@ const Pois = ({ pois, language, cityModel, route, navigation }: PropsType): Reac
     if (feature && cameraRef.current) {
       const { properties, geometry } = feature
       setUrlSlug(properties.urlSlug)
-      cameraRef.current.flyTo(geometry.coordinates)
+      cameraRef.current.setCamera({
+        centerCoordinate: geometry.coordinates,
+        zoomLevel: detailZoom,
+        animationDuration
+      })
     } else {
       setUrlSlug(null)
     }
