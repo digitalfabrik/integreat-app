@@ -60,6 +60,7 @@ const ContentWrapper = styled.View`
 
 const Row = styled.View`
   flex-direction: row;
+  padding-vertical: 3px;
 `
 
 const Icon = styled.Image`
