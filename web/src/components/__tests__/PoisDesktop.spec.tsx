@@ -31,7 +31,7 @@ describe('PoisDesktop', () => {
     )
 
   it('should list detail information about the current feature and the poi if feature and poi provided', () => {
-    const { queryByText, queryByTestId } = renderPoisDesktop(true, feature)
+    const { queryByText, queryByLabelText } = renderPoisDesktop(true, feature)
 
     expect(queryByText(feature.properties.title)).toBeTruthy()
     expect(queryByText('pois:distanceKilometre')).toBeTruthy()
@@ -39,7 +39,7 @@ describe('PoisDesktop', () => {
     expect(queryByText(poi.content)).toBeTruthy()
     expect(queryByText('poiList')).toBeNull()
     expect(queryByText('Toolbar')).toBeNull()
-    expect(queryByTestId('poi-panel-navigation')).toBeTruthy()
+    expect(queryByLabelText('poi-panel-navigation')).toBeTruthy()
   })
 
   it('should render poiList & toolbar components if neither feature nor poi is provided', () => {
@@ -52,11 +52,11 @@ describe('PoisDesktop', () => {
   })
 
   it('should not render toolbar in detail view if showNavigation is set to false', () => {
-    const { queryByText, queryByTestId } = renderPoisDesktop(false, feature)
+    const { queryByText, queryByLabelText } = renderPoisDesktop(false, feature)
 
     expect(queryByText(poi.content)).toBeTruthy()
     expect(queryByText('poiList')).toBeNull()
     expect(queryByText(feature.properties.title)).toBeTruthy()
-    expect(queryByTestId('poi-panel-navigation')).toBeNull()
+    expect(queryByLabelText('poi-panel-navigation')).toBeNull()
   })
 })
