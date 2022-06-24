@@ -16,7 +16,7 @@ describe('geoJson', () => {
       title: 'name',
       symbol: 'marker_15',
       thumbnail: 'test',
-      path: 'test',
+      path: '/augsburg/de/locations/test',
       urlSlug: 'test',
       address: 'address'
     }
