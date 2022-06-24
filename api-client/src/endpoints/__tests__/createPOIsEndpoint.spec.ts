@@ -17,6 +17,9 @@ describe('pois', () => {
     content: '<p>Am Sonntag...</p>',
     available_languages: [],
     thumbnail: '',
+    website: null,
+    phone_number: null,
+    email: null,
     location: {
       id: 1,
       name: 'Café Tür an Tür',
@@ -41,6 +44,9 @@ describe('pois', () => {
       content: '<p>Am Sonntag...</p>',
       availableLanguages: new Map(),
       thumbnail: '',
+      website: null,
+      phoneNumber: null,
+      email: null,
       location: new LocationModel({
         id: 1,
         name: 'Café Tür an Tür',
