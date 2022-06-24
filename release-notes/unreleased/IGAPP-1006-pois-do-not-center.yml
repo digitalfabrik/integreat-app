@@ -3,5 +3,5 @@ show_in_stores: true
 platforms:
   - android
   - ios
-en: Poi centers on the map by clicking on a location in the list.
-de: Poi wird auf der Karte zentriert, wenn ein Ort aus der Liste ausgewählt wird.
+en: The map is now centered to the selected location.
+de: Die Karte wird nun auf den ausgewählten Ort zentriert.
