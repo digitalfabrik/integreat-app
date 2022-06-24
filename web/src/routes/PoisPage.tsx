@@ -12,7 +12,7 @@ import {
   defaultMercatorViewportConfig,
   detailZoom,
   embedInCollection,
-  locationName,
+  nameQueryParam,
   MapViewMercatorViewport,
   NotFoundError,
   pathnameFromRouteInformation,
@@ -58,7 +58,7 @@ const PoisPage = ({ cityCode, languageCode, cityModel, pathname, languages }: Ci
   const [queryParams, setQueryParams] = useSearchParams()
   const { data, error: featureLocationsError, loading } = useFeatureLocations(cityCode, languageCode)
   const [mapRef, setMapRef] = useState<Map | null>(null)
-  const selectedFeatureSlug = queryParams.get(locationName)
+  const selectedFeatureSlug = queryParams.get(nameQueryParam)
   const [currentFeature, setCurrentFeature] = useState<PoiFeature | null>(
     data?.features.find(it => it.properties.urlSlug === selectedFeatureSlug) ?? null
   )
@@ -73,9 +73,9 @@ const PoisPage = ({ cityCode, languageCode, cityModel, pathname, languages }: Ci
       mapRef.stop()
     }
     if (feature) {
-      queryParams.set(locationName, feature.properties.urlSlug)
+      queryParams.set(nameQueryParam, feature.properties.urlSlug)
     } else {
-      queryParams.delete(locationName)
+      queryParams.delete(nameQueryParam)
     }
     setQueryParams(queryParams)
   }
