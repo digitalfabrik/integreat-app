@@ -83,7 +83,7 @@ const PoiDetails = ({ poi, feature, language }: Props): ReactElement => {
   }
 
   const copyLocationToClipboard = (): void => {
-    Clipboard.setString([address, postcode, town].join(' '))
+    Clipboard.setString(`${address}, ${postcode} ${town}`)
     showSnackbar(t('addressCopied'))
   }
 
