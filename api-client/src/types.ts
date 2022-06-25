@@ -10,14 +10,12 @@ export type JsonAvailableLanguagesType = Record<
 export type JsonLocationType = {
   id: number
   name: string
-  address: string | null | undefined
-  town: string | null | undefined
-  state: string | null | undefined
-  postcode: string | null | undefined
-  region: string | null | undefined
+  address: string
+  town: string
+  postcode: string
   country: string
-  latitude: string | null | undefined
-  longitude: string | null | undefined
+  latitude: string | null
+  longitude: string | null
 }
 type JsonFeaturedImageInstanceType = {
   url: string

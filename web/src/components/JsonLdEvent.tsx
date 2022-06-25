@@ -27,11 +27,10 @@ const createJsonLd = (event: EventModel, formatter: DateFormatter): WithContext<
       name: event.location.name,
       address: {
         '@type': 'PostalAddress',
-        streetAddress: event.location.address ?? 'Unknown',
-        addressLocality: event.location.town ?? 'Unknown',
-        postalCode: event.location.postcode ?? 'Unknow',
-        addressRegion: event.location.region ?? 'Unknown',
-        addressCountry: event.location.country ?? 'Unknown'
+        streetAddress: event.location.address,
+        addressLocality: event.location.town,
+        postalCode: event.location.postcode,
+        addressCountry: event.location.country
       }
     }
   }

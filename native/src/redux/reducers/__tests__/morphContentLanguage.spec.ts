@@ -141,9 +141,7 @@ describe('morphContentLanguage', () => {
         name: 'name',
         address: 'address',
         town: 'town',
-        state: 'state',
         postcode: 'postcode',
-        region: 'region',
         country: 'country',
         longitude: null,
         latitude: null
@@ -170,8 +168,6 @@ describe('morphContentLanguage', () => {
       location: new LocationModel({
         id: 1,
         country: 'country',
-        region: 'region',
-        state: 'state',
         address: 'address',
         town: 'town',
         postcode: 'postcode',

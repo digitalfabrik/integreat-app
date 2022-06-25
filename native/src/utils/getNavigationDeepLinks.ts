@@ -3,7 +3,7 @@ import { Platform } from 'react-native'
 import { LocationModel } from 'api-client/src'
 
 export const getNavigationDeepLinks = (location: LocationModel): string | null => {
-  if (!location.location || !location.coordinates) {
+  if (!location.coordinates) {
     return null
   }
 
@@ -12,7 +12,7 @@ export const getNavigationDeepLinks = (location: LocationModel): string | null =
 
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   return Platform.select({
-    ios: `maps:${y},${x}?q=${location.location}`,
-    android: `geo:${y},${x}?q=${location.location}`
+    ios: `maps:${y},${x}?q=${location.fullAddress}`,
+    android: `geo:${y},${x}?q=${location.fullAddress}`
   })!
 }

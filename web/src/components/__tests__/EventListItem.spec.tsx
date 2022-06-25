@@ -36,8 +36,6 @@ describe('EventListItem', () => {
       postcode: 'postcode',
       longitude: null,
       latitude: null,
-      state: 'state',
-      region: 'region',
       country: 'country'
     }),
     excerpt: 'very loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong excerpt',
@@ -58,12 +56,12 @@ describe('EventListItem', () => {
 
     expect(getByText(event.title)).toBeTruthy()
     expect(getByText(event.date.toFormattedString(formatter))).toBeTruthy()
-    expect(getByText(String(event.location.location))).toBeTruthy()
+    expect(getByText(event.location.fullAddress)).toBeTruthy()
     expect(getByRole('img')).toHaveProperty('src', event.thumbnail)
     expect(getByText(textTruncator(event.excerpt, NUM_OF_CHARS_ALLOWED))).toBeTruthy()
   })
 
-  it('should show event list item with placeholder thumbnail and no location', () => {
+  it('should show event list item with placeholder thumbnail', () => {
     const eventWithoutThumbnail = Object.assign(event, { _thumbnail: undefined })
     const formatter = new DateFormatter(language)
     const { getByText, getByRole } = renderWithRouter(
@@ -74,7 +72,6 @@ describe('EventListItem', () => {
 
     expect(getByText(event.title)).toBeTruthy()
     expect(getByText(event.date.toFormattedString(formatter))).toBeTruthy()
-    expect(getByText(String(event.location.location))).toBeTruthy()
     const src = (getByRole('img') as HTMLMediaElement).src
     expect([EventPlaceholder1, EventPlaceholder2, EventPlaceholder3].some(img => src.endsWith(img))).toBeTruthy()
     expect(getByText(textTruncator(event.excerpt, NUM_OF_CHARS_ALLOWED))).toBeTruthy()

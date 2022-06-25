@@ -5,7 +5,7 @@ import DashboardPage from '../pageobjects/dashboard.page'
 import LandingPage from '../pageobjects/landing.page'
 
 describe('navigateToOtherLocation', () => {
-  it('should open an other location', async () => {
+  it('should open an other fullAddress', async () => {
     const landingPath = Routes.landing
     await DashboardPage.open()
 
