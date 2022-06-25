@@ -9,7 +9,7 @@ import PageModel from './PageModel'
 
 class EventModel extends ExtendedPageModel {
   _date: DateModel
-  _location: LocationModel
+  _location: LocationModel<number | null>
   _excerpt: string
   _featuredImage: FeaturedImageModel | null | undefined
 
@@ -19,7 +19,7 @@ class EventModel extends ExtendedPageModel {
     content: string
     thumbnail: string
     date: DateModel
-    location: LocationModel
+    location: LocationModel<number | null>
     excerpt: string
     availableLanguages: Map<string, string>
     lastUpdate: Moment
@@ -38,7 +38,7 @@ class EventModel extends ExtendedPageModel {
     return this._date
   }
 
-  get location(): LocationModel {
+  get location(): LocationModel<number | null> {
     return this._location
   }
 

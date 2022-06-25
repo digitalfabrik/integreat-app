@@ -48,13 +48,13 @@ type ContentCategoryJsonType = {
   order: number
   hash: string
 }
-type LocationJsonType = {
+type LocationJsonType<T> = {
   id: number
   address: string
   town: string
   postcode: string
-  latitude: string | null
-  longitude: string | null
+  latitude: T
+  longitude: T
   country: string
   name: string
 }
@@ -84,7 +84,7 @@ type ContentEventJsonType = {
     end_date: string
     all_day: boolean
   }
-  location: LocationJsonType
+  location: LocationJsonType<number | null>
   featured_image: FeaturedImageJsonType | null | undefined
 }
 type ContentCityJsonType = {
@@ -113,7 +113,7 @@ type ContentPoiJsonType = {
   email: string | null
   availableLanguages: Record<string, string>
   excerpt: string
-  location: LocationJsonType
+  location: LocationJsonType<number>
   lastUpdate: string
   hash: string
 }

@@ -1,14 +1,12 @@
-import { Position } from 'geojson'
-
-class LocationModel {
+class LocationModel<T> {
   _id: number
   _name: string
   _address: string
   _town: string
   _postcode: string
   _country: string
-  _latitude: string | null
-  _longitude: string | null
+  _latitude: T
+  _longitude: T
 
   constructor({
     id,
@@ -26,8 +24,8 @@ class LocationModel {
     town: string
     postcode: string
     country: string
-    latitude: string | null
-    longitude: string | null
+    latitude: T
+    longitude: T
   }) {
     this._id = id
     this._name = name
@@ -63,11 +61,11 @@ class LocationModel {
     return this._country
   }
 
-  get longitude(): string | null {
+  get longitude(): T {
     return this._longitude
   }
 
-  get latitude(): string | null {
+  get latitude(): T {
     return this._latitude
   }
 
@@ -76,7 +74,13 @@ class LocationModel {
     return [this._name, this._address, town].join(', ')
   }
 
-  isEqual(other: LocationModel): boolean {
+  // Since there are different coordinate formats, we use [longitude, latitude]
+  // https://docs.mapbox.com/help/glossary/lat-lon/#coordinate-format-handling
+  get coordinates(): [T, T] {
+    return [this.longitude, this.latitude]
+  }
+
+  isEqual(other: LocationModel<unknown>): boolean {
     return (
       this.id === other.id &&
       this.name === other.name &&
@@ -87,14 +91,6 @@ class LocationModel {
       this.longitude === other.longitude &&
       this.latitude === other.latitude
     )
-  }
-
-  // since there are different coordinate format handlings, we use [long,lat] https://docs.mapbox.com/help/glossary/lat-lon/#coordinate-format-handling
-  get coordinates(): Position | null {
-    if (!this.longitude || !this.latitude) {
-      return null
-    }
-    return [Number(this.longitude), Number(this.latitude)]
   }
 }
 
