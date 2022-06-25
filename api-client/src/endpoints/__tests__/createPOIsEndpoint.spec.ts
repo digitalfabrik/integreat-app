@@ -27,8 +27,8 @@ describe('pois', () => {
       town: 'Augsburg',
       postcode: '86353',
       country: 'DE',
-      longitude: '10.89779',
-      latitude: '48.3705449'
+      longitude: 10.89779,
+      latitude: 48.3705449
     },
     modified_gmt: '2017-01-09 15:30:00',
     hash: '91d435afbc7aa83496137e81fd2832e3'
@@ -52,8 +52,8 @@ describe('pois', () => {
         town: 'Augsburg',
         postcode: '86353',
         country: 'DE',
-        longitude: '10.89779',
-        latitude: '48.3705449'
+        longitude: 10.89779,
+        latitude: 48.3705449
       }),
       lastUpdate: moment.tz('2017-01-09 15:30:00', 'GMT'),
       hash: '91d435afbc7aa83496137e81fd2832e3'

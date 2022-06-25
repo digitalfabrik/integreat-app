@@ -171,8 +171,8 @@ describe('morphContentLanguage', () => {
         address: 'address',
         town: 'town',
         postcode: 'postcode',
-        latitude: '15',
-        longitude: '15',
+        latitude: 15,
+        longitude: 15,
         name: 'name'
       }),
       lastUpdate: moment('2011-02-04T00:00:00.000Z'),

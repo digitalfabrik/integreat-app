@@ -2,11 +2,7 @@ import { Platform } from 'react-native'
 
 import { LocationModel } from 'api-client/src'
 
-export const getNavigationDeepLinks = (location: LocationModel): string | null => {
-  if (!location.coordinates) {
-    return null
-  }
-
+export const getNavigationDeepLinks = (location: LocationModel<number>): string => {
   const x = location.coordinates[0]
   const y = location.coordinates[1]
 

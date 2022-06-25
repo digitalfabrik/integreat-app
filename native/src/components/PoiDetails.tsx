@@ -79,9 +79,7 @@ const PoiDetails = ({ poi, feature, language }: Props): ReactElement => {
 
   const openExternalMaps = () => {
     const externalMapsUrl = getNavigationDeepLinks(poi.location)
-    if (externalMapsUrl) {
-      openExternalUrl(externalMapsUrl).catch(() => showSnackbar(t('error:noSuitableAppInstalled')))
-    }
+    openExternalUrl(externalMapsUrl).catch(() => showSnackbar(t('error:noSuitableAppInstalled')))
   }
 
   const copyLocationToClipboard = (): void => {

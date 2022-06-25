@@ -25,8 +25,8 @@ const pois = [
       address: 'Test Address 1',
       town: 'Test Town',
       postcode: '12345',
-      latitude: '29.979848',
-      longitude: '31.133859',
+      latitude: 29.979848,
+      longitude: 31.133859,
       name: 'Test Title'
     }),
     lastUpdate: moment('2011-02-04T00:00:00.000Z'),
@@ -48,8 +48,8 @@ const pois = [
       address: 'test address 2',
       town: 'test town 2',
       postcode: 'test postcode 2',
-      latitude: '15',
-      longitude: '15',
+      latitude: 15,
+      longitude: 15,
       name: 'name 2'
     }),
     lastUpdate: moment('2011-02-04T00:00:00.000Z'),

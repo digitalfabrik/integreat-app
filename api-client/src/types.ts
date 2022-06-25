@@ -7,15 +7,15 @@ export type JsonAvailableLanguagesType = Record<
     path: string
   }
 >
-export type JsonLocationType = {
+export type JsonLocationType<T> = {
   id: number
   name: string
   address: string
   town: string
   postcode: string
   country: string
-  latitude: string | null
-  longitude: string | null
+  latitude: T
+  longitude: T
 }
 type JsonFeaturedImageInstanceType = {
   url: string
@@ -70,7 +70,7 @@ export type JsonPoiType = {
   available_languages: JsonAvailableLanguagesType
   thumbnail: string
   hash: string
-  location: JsonLocationType
+  location: JsonLocationType<number>
   website: string | null
   email: string | null
   phone_number: string | null
@@ -87,7 +87,7 @@ export type JsonEventType = {
   thumbnail: string
   hash: string
   event: JsonEventInfoType
-  location: JsonLocationType
+  location: JsonLocationType<number | null>
   featured_image: JsonFeaturedImageType | null | undefined
 }
 export type JsonTunewsType = {

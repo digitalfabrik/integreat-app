@@ -1,11 +1,7 @@
 import { LocationModel } from 'api-client'
 
-export const getNavigationDeepLinks = (location: LocationModel, title: string): string => {
+export const getNavigationDeepLinks = (location: LocationModel<number>): string => {
   const baseUrl = `https://maps.google.com?q=`
-  // TODO remove check after IGAPP-985
-  if (!location.coordinates) {
-    return baseUrl + title
-  }
 
   const long = location.coordinates[0]
   const lat = location.coordinates[1]
