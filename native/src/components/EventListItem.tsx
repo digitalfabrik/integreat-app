@@ -51,7 +51,7 @@ const EventListItem = ({ event, cityCode, language, navigateTo, theme }: PropsTy
       navigateTo={navigateToEventInCity}
       theme={theme}>
       <Description theme={theme}>{event.date.toFormattedString(formatter)}</Description>
-      {event.location.location && <Description theme={theme}>{event.location.location}</Description>}
+      <Description theme={theme}>{event.location.fullAddress}</Description>
     </ListItem>
   )
 }

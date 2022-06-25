@@ -50,14 +50,12 @@ type ContentCategoryJsonType = {
 }
 type LocationJsonType = {
   id: number
-  address: string | null | undefined
-  town: string | null | undefined
-  postcode: string | null | undefined
-  latitude: string | null | undefined
-  longitude: string | null | undefined
-  country: string | null | undefined
-  region: string | null | undefined
-  state: string | null | undefined
+  address: string
+  town: string
+  postcode: string
+  latitude: string | null
+  longitude: string | null
+  country: string
   name: string
 }
 type FeaturedImageInstanceJsonType = {
@@ -406,8 +404,6 @@ class DatabaseConnector {
           latitude: poi.location.latitude,
           longitude: poi.location.longitude,
           country: poi.location.country,
-          region: poi.location.region,
-          state: poi.location.state,
           name: poi.location.name
         },
         lastUpdate: poi.lastUpdate.toISOString(),
@@ -442,8 +438,6 @@ class DatabaseConnector {
         location: new LocationModel({
           id: jsonLocation.id,
           name: jsonLocation.name,
-          region: jsonLocation.region,
-          state: jsonLocation.state,
           country: jsonLocation.country,
           address: jsonLocation.address,
           latitude: jsonLocation.latitude,
@@ -533,8 +527,6 @@ class DatabaseConnector {
           latitude: event.location.latitude,
           longitude: event.location.longitude,
           country: event.location.country,
-          region: event.location.region,
-          state: event.location.state,
           name: event.location.name
         },
         featured_image: event.featuredImage
@@ -590,8 +582,6 @@ class DatabaseConnector {
         location: new LocationModel({
           id: jsonObject.location.id,
           name: jsonObject.location.name,
-          region: jsonObject.location.region,
-          state: jsonObject.location.state,
           country: jsonObject.location.country,
           address: jsonLocation.address,
           latitude: jsonLocation.latitude,

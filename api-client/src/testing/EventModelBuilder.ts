@@ -103,10 +103,8 @@ class EventModelBuilder {
               name: 'test',
               address: 'address',
               town: 'town',
-              state: null,
               postcode: 'postcode',
-              region: null,
-              country: null,
+              country: 'country',
               latitude: null,
               longitude: null
             }),

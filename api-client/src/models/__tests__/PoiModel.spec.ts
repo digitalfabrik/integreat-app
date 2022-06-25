@@ -28,8 +28,6 @@ describe('PoiModel', () => {
       location: new LocationModel({
         id: 1,
         country: 'country',
-        region: 'region',
-        state: 'state',
         address: 'Wertachstr. 29',
         town: 'town',
         postcode: 'postcode',

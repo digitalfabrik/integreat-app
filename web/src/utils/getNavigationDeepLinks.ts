@@ -3,7 +3,7 @@ import { LocationModel } from 'api-client'
 export const getNavigationDeepLinks = (location: LocationModel, title: string): string => {
   const baseUrl = `https://maps.google.com?q=`
   // TODO remove check after IGAPP-985
-  if (!location.location || !location.coordinates) {
+  if (!location.coordinates) {
     return baseUrl + title
   }
 
@@ -13,7 +13,7 @@ export const getNavigationDeepLinks = (location: LocationModel, title: string): 
   const isAndroid = /Android/i.test(navigator.userAgent)
 
   if (isAndroid) {
-    return `geo:${lat},${long}?q=${location.location}`
+    return `geo:${lat},${long}?q=${location.fullAddress}`
   }
-  return `${baseUrl}${location.location},${lat},${long}`
+  return `${baseUrl}${location.fullAddress},${lat},${long}`
 }

@@ -23,8 +23,6 @@ const pois = [
       id: 1,
       country: 'Test Country',
       address: 'Test Address 1',
-      region: 'region',
-      state: 'state',
       town: 'Test Town',
       postcode: '12345',
       latitude: '29.979848',
@@ -47,8 +45,6 @@ const pois = [
     location: new LocationModel({
       id: 1,
       country: 'test country 2',
-      region: 'test region 2',
-      state: 'test state 2',
       address: 'test address 2',
       town: 'test town 2',
       postcode: 'test postcode 2',
