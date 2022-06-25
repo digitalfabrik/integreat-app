@@ -38,16 +38,19 @@ export default (baseUrl: string): Endpoint<ParamsType, Array<EventModel>> =>
                 endDate: moment.tz(`${eventData.end_date} ${endTime}`, eventData.timezone),
                 allDay
               }),
-              location: new LocationModel({
-                id: event.location.id,
-                name: event.location.name,
-                address: event.location.address,
-                town: event.location.town,
-                postcode: event.location.postcode,
-                country: event.location.country,
-                latitude: event.location.latitude,
-                longitude: event.location.longitude
-              }),
+              location:
+                event.location.id !== null
+                  ? new LocationModel({
+                      id: event.location.id,
+                      name: event.location.name,
+                      address: event.location.address,
+                      town: event.location.town,
+                      postcode: event.location.postcode,
+                      country: event.location.country,
+                      latitude: event.location.latitude,
+                      longitude: event.location.longitude
+                    })
+                  : null,
               excerpt: decodeHTML(event.excerpt),
               availableLanguages: mapAvailableLanguages(event.available_languages),
               lastUpdate: moment.tz(event.modified_gmt, 'GMT'),

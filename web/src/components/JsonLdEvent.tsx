@@ -5,7 +5,10 @@ import { Event, WithContext } from 'schema-dts'
 import { EventModel } from 'api-client'
 import DateFormatter from 'api-client/src/i18n/DateFormatter'
 
-const createJsonLd = (event: EventModel, formatter: DateFormatter): WithContext<Event> => {
+const createJsonLd = (event: EventModel, formatter: DateFormatter): WithContext<Event> | null => {
+  if (!event.location) {
+    return null
+  }
   const date = event.date
   // https://developers.google.com/search/docs/data-types/event
   const jsonLd: WithContext<Event> = {
@@ -56,10 +59,16 @@ type PropsType = {
   formatter: DateFormatter
 }
 
-const JsonLdEvent = ({ event, formatter }: PropsType): ReactElement => (
-  <Helmet>
-    <script type='application/ld+json'>{JSON.stringify(createJsonLd(event, formatter))}</script>
-  </Helmet>
-)
+const JsonLdEvent = ({ event, formatter }: PropsType): ReactElement => {
+  const jsonLd = createJsonLd(event, formatter)
+  if (!jsonLd) {
+    return <></>
+  }
+  return (
+    <Helmet>
+      <script type='application/ld+json'>{JSON.stringify(jsonLd)}</script>
+    </Helmet>
+  )
+}
 
 export default JsonLdEvent

@@ -8,7 +8,7 @@ export type JsonAvailableLanguagesType = Record<
   }
 >
 export type JsonLocationType<T> = {
-  id: number
+  id: T
   name: string
   address: string
   town: string

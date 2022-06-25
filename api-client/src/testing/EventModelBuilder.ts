@@ -81,7 +81,7 @@ class EventModelBuilder {
         const path = `/${this._city}/${this._language}/events/event${index}`
         const resourceUrl1 = `https://cms.integreat-app.de/title_${index}-300x300.png`
         const resourceUrl2 = `https://cms.integreat-app.de/event_${index}-300x300.png`
-        const thumbnail = `http://cms.integreat-app.de/thumbnails/event_${index}.png`
+        const thumbnail = `https://cms.integreat-app.de/thumbnails/event_${index}.png`
         return {
           path,
           event: new EventModel({
