@@ -193,7 +193,7 @@ const PoiDetails: React.FC<PoiDetailsProps> = ({
           </AddressContent>
         </AddressContentWrapper>
         <LinkContainer>
-          <CleanLink to={getNavigationDeepLinks(location, title)} newTab>
+          <CleanLink to={getNavigationDeepLinks(location)} newTab>
             {!viewportSmall && <LinkLabel>{t('detailsMapLink')}</LinkLabel>}
             <Marker src={iconExternalLink} alt='' direction={direction} />
           </CleanLink>

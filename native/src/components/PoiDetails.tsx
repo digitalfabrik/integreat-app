@@ -83,10 +83,8 @@ const PoiDetails = ({ poi, feature, language }: Props): ReactElement => {
   }
 
   const copyLocationToClipboard = (): void => {
-    if (address && postcode && town) {
-      Clipboard.setString([address, postcode, town].filter(it => it).join(' '))
-      showSnackbar(t('addressCopied'))
-    }
+    Clipboard.setString([address, postcode, town].join(' '))
+    showSnackbar(t('addressCopied'))
   }
 
   const contactInformationCollapsibleItem = (
@@ -132,7 +130,9 @@ const PoiDetails = ({ poi, feature, language }: Props): ReactElement => {
         language={language}>
         <Pressable onPress={copyLocationToClipboard}>
           <Text>{address}</Text>
-          <Text>{[postcode, town].filter(it => it).join(' ')}</Text>
+          <Text>
+            {postcode} {town}
+          </Text>
         </Pressable>
       </PoiDetailItem>
       <HorizontalLine />
