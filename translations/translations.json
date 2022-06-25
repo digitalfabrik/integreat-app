@@ -4957,7 +4957,8 @@
       "detailsMapLink": "In Google Maps öffnen",
       "detailsInformation": "Informationen",
       "detailsNextPoi": "nächster",
-      "detailsPreviousPoi": "vorheriger"
+      "detailsPreviousPoi": "vorheriger",
+      "openExternalMaps": "In Karten-App öffnen"
     },
     "am": {
       "pageTitle": "ካርታ",

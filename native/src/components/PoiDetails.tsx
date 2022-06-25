@@ -20,12 +20,6 @@ import NativeHtml from './NativeHtml'
 import PoiDetailItem from './PoiDetailItem'
 import SimpleImage from './SimpleImage'
 
-type PoiDetailsProps = {
-  poi: PoiModel
-  feature: PoiFeature
-  language: string
-}
-
 const Thumbnail = styled(SimpleImage)`
   flex: 1;
   height: 180px;
@@ -67,7 +61,13 @@ const Icon = styled.Image`
   margin-horizontal: 5px;
 `
 
-const PoiDetails: React.FC<PoiDetailsProps> = ({ poi, feature, language }: PoiDetailsProps): ReactElement => {
+type Props = {
+  poi: PoiModel
+  feature: PoiFeature
+  language: string
+}
+
+const PoiDetails = ({ poi, feature, language }: Props): ReactElement => {
   const { t } = useTranslation('pois')
   const showSnackbar = useSnackbar()
 
@@ -130,7 +130,7 @@ const PoiDetails: React.FC<PoiDetailsProps> = ({ poi, feature, language }: PoiDe
       <HorizontalLine />
       <PoiDetailItem
         onIconPress={openExternalMaps}
-        icon={<ExternalLink source={ExternalLinkIcon} />}
+        icon={<ExternalLink accessibilityLabel={t('openExternalMaps')} source={ExternalLinkIcon} />}
         language={language}>
         <Pressable onPress={copyLocationToClipboard}>
           <Text>{address}</Text>
