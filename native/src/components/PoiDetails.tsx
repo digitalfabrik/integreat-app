@@ -77,10 +77,10 @@ const PoiDetails: React.FC<PoiDetailsProps> = ({ poi, feature, language }: PoiDe
   const { distance } = feature.properties
   const { title, content, email, website, phoneNumber } = poi
 
-  const onNavigate = () => {
-    const navigationUrl = getNavigationDeepLinks(poi.location)
-    if (navigationUrl) {
-      openExternalUrl(navigationUrl).catch(() => showSnackbar(t('error:noSuitableAppInstalled')))
+  const openExternalMaps = () => {
+    const externalMapsUrl = getNavigationDeepLinks(poi.location)
+    if (externalMapsUrl) {
+      openExternalUrl(externalMapsUrl).catch(() => showSnackbar(t('error:noSuitableAppInstalled')))
     }
   }
 
@@ -128,7 +128,10 @@ const PoiDetails: React.FC<PoiDetailsProps> = ({ poi, feature, language }: PoiDe
       {distance && <StyledDistance>{t('distanceKilometre', { distance })}</StyledDistance>}
       <Thumbnail source={thumbnail} resizeMode='cover' />
       <HorizontalLine />
-      <PoiDetailItem onPress={onNavigate} icon={<ExternalLink source={ExternalLinkIcon} />} language={language}>
+      <PoiDetailItem
+        onIconPress={openExternalMaps}
+        icon={<ExternalLink source={ExternalLinkIcon} />}
+        language={language}>
         <Pressable onPress={copyLocationToClipboard}>
           <Text>{address}</Text>
           <Text>{[postcode, town].filter(it => it).join(' ')}</Text>
