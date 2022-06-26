@@ -1,8 +1,8 @@
-# Deliver integreat and malte. If it is not a production delivery, deliver to webnext.
 parameters:
-  production_delivery:
-    description: Whether to deliver to production or to webnext.
-    type: boolean
+  delivery:
+    description: Whether to deliver to production, beta or to webnext.
+    enum: [production, beta, webnext]
+    type: enum
 docker:
   - image: cimg/node:14.19.0
 resource_class: small
@@ -19,7 +19,8 @@ steps:
       name: Install rsync
       command: sudo apt update && sudo apt install rsync
   - when:
-      condition: << parameters.production_delivery >>
+      condition:
+        equal: [production, << parameters.delivery >>]
       steps:
         - run:
             name: Integreat production delivery # StrictHostKeyChecking=no is not a security problem. The worst that could happen is a delivery to the wrong domain.
@@ -33,36 +34,48 @@ steps:
         - run:
             name: Obdach production delivery
             command: rsync -e "ssh -o StrictHostKeyChecking=no" -arv $HOME/attached_workspace/dist/obdach/ web@web.integreat-app.de:/var/www/vernetztesobdach.de
+  - when:
+      condition:
+        equal: [beta, << parameters.delivery >>]
+      steps:
+        - run:
+            name: Integreat beta delivery # StrictHostKeyChecking=no is not a security problem. The worst that could happen is a delivery to the wrong domain.
+            command: rsync -e "ssh -o StrictHostKeyChecking=no" -arv $HOME/attached_workspace/dist/integreat/ web@web.integreat-app.de:/var/www/beta.integreat.app
+        - run:
+            name: Malte beta delivery
+            command: rsync -e "ssh -o StrictHostKeyChecking=no" -arv $HOME/attached_workspace/dist/malte/ web@web.integreat-app.de:/var/www/beta.malteapp.de
+        - run:
+            name: Aschaffenburg beta delivery
+            command: rsync -e "ssh -o StrictHostKeyChecking=no" -arv $HOME/attached_workspace/dist/aschaffenburg/ web@web.integreat-app.de:/var/www/beta.aschaffenburg.app
+        - run:
+            name: Obdach beta delivery
+            command: rsync -e "ssh -o StrictHostKeyChecking=no" -arv $HOME/attached_workspace/dist/obdach/ web@web.integreat-app.de:/var/www/beta.vernetztesobdach.de
+  - when:
+      condition:
+        equal: [webnext, << parameters.delivery >>]
+      steps:
+        - run:
+            name: Integreat webnext delivery # StrictHostKeyChecking=no is not a security problem. The worst that could happen is a delivery to the wrong domain.
+            command: rsync -e "ssh -o StrictHostKeyChecking=no" -arv $HOME/attached_workspace/dist/integreat-test-cms/ web@web.integreat-app.de:/var/www/webnext.integreat.app
+        - run:
+            name: Malte webnext delivery
+            command: rsync -e "ssh -o StrictHostKeyChecking=no" -arv $HOME/attached_workspace/dist/malte-test-cms/ web@web.integreat-app.de:/var/www/webnext.malteapp.de
+        - run:
+            name: Aschaffenburg webnext delivery
+            command: rsync -e "ssh -o StrictHostKeyChecking=no" -arv $HOME/attached_workspace/dist/aschaffenburg/ web@web.integreat-app.de:/var/www/webnext.aschaffenburg.app
+        - run:
+            name: Obdach webnext delivery
+            command: rsync -e "ssh -o StrictHostKeyChecking=no" -arv $HOME/attached_workspace/dist/obdach/ web@web.integreat-app.de:/var/www/vernetztesobdach.de
+  - unless: # Don't upload to sentry for webnext deliveries
+      condition:
+        equal: [webnext, << parameters.delivery >>]
+      steps:
         - run:
             name: 'Sentry Upload: integreat'
             command: tools/sentry-release web-integreat "${NEW_VERSION_NAME}" ~/attached_workspace/dist/integreat
         - run:
             name: 'Sentry Upload: malte'
             command: tools/sentry-release web-malte "${NEW_VERSION_NAME}" ~/attached_workspace/dist/malte
-        - run:
-            name: 'Sentry Upload: aschaffenburg'
-            command: tools/sentry-release web-aschaffenburg "${NEW_VERSION_NAME}" ~/attached_workspace/dist/aschaffenburg
-  - unless:
-      condition: << parameters.production_delivery >>
-      steps:
-        - run:
-            name: Integreat development delivery
-            command: rsync -e "ssh -o StrictHostKeyChecking=no" -arv $HOME/attached_workspace/dist/integreat-test-cms/ web@web.integreat-app.de:/var/www/webnext.integreat.app
-        - run:
-            name: Malte development delivery
-            command: rsync -e "ssh -o StrictHostKeyChecking=no" -arv $HOME/attached_workspace/dist/malte-test-cms/ web@web.integreat-app.de:/var/www/webnext.malteapp.de
-        - run:
-            name: Aschaffenburg development delivery
-            command: rsync -e "ssh -o StrictHostKeyChecking=no" -arv $HOME/attached_workspace/dist/aschaffenburg/ web@web.integreat-app.de:/var/www/webnext.aschaffenburg.app
-        - run:
-            name: Obdach development delivery
-            command: rsync -e "ssh -o StrictHostKeyChecking=no" -arv $HOME/attached_workspace/dist/obdach/ web@web.integreat-app.de:/var/www/vernetztesobdach.de
-        - run:
-            name: 'Sentry Upload: integreat-test-cms'
-            command: tools/sentry-release web-integreat-test-cms "${NEW_VERSION_NAME}" ~/attached_workspace/dist/integreat-test-cms
-        - run:
-            name: 'Sentry Upload: malte-test-cms'
-            command: tools/sentry-release web-malte-test-cms "${NEW_VERSION_NAME}" ~/attached_workspace/dist/malte-test-cms
         - run:
             name: 'Sentry Upload: aschaffenburg'
             command: tools/sentry-release web-aschaffenburg "${NEW_VERSION_NAME}" ~/attached_workspace/dist/aschaffenburg

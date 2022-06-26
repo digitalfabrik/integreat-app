@@ -1,0 +1,28 @@
+docker:
+  - image: cimg/node:14.19.0
+resource_class: small
+shell: /bin/bash -eo pipefail
+steps:
+  - skip_job
+  - add_ssh_keys:
+      fingerprints:
+        - '68:a3:fe:e7:94:f7:a4:13:35:5c:63:30:2f:07:7d:02'
+  - checkout
+  - prepare_workspace
+  - restore_environment_variables
+  - run:
+      name: Install rsync
+      command: sudo apt update && sudo apt install rsync
+  - run:
+      name: Integreat production promotion # StrictHostKeyChecking=no is not a security problem. The worst that could happen is a delivery to the wrong domain.
+      command: rsync -e "ssh -o StrictHostKeyChecking=no" -arv web@web.integreat-app.de:/var/www/beta.integreat.app/ web@web.integreat-app.de:/var/www/integreat.app
+  - run:
+      name: Malte production promotion
+      command: rsync -e "ssh -o StrictHostKeyChecking=no" -arv web@web.integreat-app.de:/var/www/beta.malteapp.de/ web@web.integreat-app.de:/var/www/malteapp.de
+  - run:
+      name: Aschaffenburg production promotion
+      command: rsync -e "ssh -o StrictHostKeyChecking=no" -arv web@web.integreat-app.de:/var/www/beta.aschaffenburg.app/ web@web.integreat-app.de:/var/www/aschaffenburg.app
+  - run:
+      name: Obdach production promotion
+      command: rsync -e "ssh -o StrictHostKeyChecking=no" -arv web@web.integreat-app.de:/var/www/beta.vernetztesobdach.de/ web@web.integreat-app.de:/var/www/vernetztesobdach.de
+  - notify
