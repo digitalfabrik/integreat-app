@@ -65,7 +65,7 @@ steps:
             command: rsync -e "ssh -o StrictHostKeyChecking=no" -arv $HOME/attached_workspace/dist/aschaffenburg/ web@web.integreat-app.de:/var/www/webnext.aschaffenburg.app
         - run:
             name: Obdach webnext delivery
-            command: rsync -e "ssh -o StrictHostKeyChecking=no" -arv $HOME/attached_workspace/dist/obdach/ web@web.integreat-app.de:/var/www/vernetztesobdach.de
+            command: rsync -e "ssh -o StrictHostKeyChecking=no" -arv $HOME/attached_workspace/dist/obdach/ web@web.integreat-app.de:/var/www/webnext.vernetztesobdach.de
   - unless: # Don't upload to sentry for webnext deliveries
       condition:
         equal: [webnext, << parameters.delivery >>]
