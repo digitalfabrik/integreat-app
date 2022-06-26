@@ -1,7 +1,7 @@
 # Create a release (with release notes) on github and send a mattermost notification.
 parameters:
   production_delivery:
-    description: Whether builds are delivered to the production store. If set to true, jira and github releases are created.
+    description: Whether builds are delivered to the production or beta lane of the play store.
     type: boolean
 docker:
   - image: cimg/node:14.19.0
@@ -24,5 +24,5 @@ steps:
       name: Create release notes
       command: echo "export RELEASE_NOTES=$(yarn --silent --cwd tools manage-metadata parse-release-notes --android --language en)" >> ${BASH_ENV}
   - notify:
-      success_message: <<^ parameters.production_delivery >>[Development] <</ parameters.production_delivery >>Integreat, Malte and Aschaffenburg ${NEW_VERSION_NAME} have been released successfully on Android!\n${RELEASE_NOTES}\n${ANDROID_ARTIFACT_URLS}
+      success_message: <<^ parameters.production_delivery >>[Beta] <</ parameters.production_delivery >>Integreat, Malte and Aschaffenburg ${NEW_VERSION_NAME} have been released successfully on Android!\n${RELEASE_NOTES}\n${ANDROID_ARTIFACT_URLS}
       channel: releases

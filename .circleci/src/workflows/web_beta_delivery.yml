@@ -1,7 +1,7 @@
 when:
   and:
     - << pipeline.parameters.api_triggered >>
-    - equal: [<< pipeline.parameters.workflow_type >>, web_production_delivery]
+    - equal: [<< pipeline.parameters.workflow_type >>, web_beta_delivery]
 jobs:
   - bump_version:
       context:
@@ -51,7 +51,7 @@ jobs:
       context:
         - mattermost
         - sentry
-      delivery: production
+      delivery: beta
       requires:
         - check
         - e2e_web
@@ -60,7 +60,7 @@ jobs:
         - build_aschaffenburg_web
         - build_obdach_web
   - notify_web:
-      production_delivery: true
+      production_delivery: false
       context:
         - mattermost
         - deliverino
