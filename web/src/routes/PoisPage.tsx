@@ -28,7 +28,6 @@ import { FeedbackRatingType } from '../components/FeedbackToolbarItem'
 import Helmet from '../components/Helmet'
 import List from '../components/List'
 import LoadingSpinner from '../components/LoadingSpinner'
-import LocationFooter from '../components/LocationFooter'
 import LocationLayout from '../components/LocationLayout'
 import LocationToolbar from '../components/LocationToolbar'
 import MapView from '../components/MapView'
@@ -45,11 +44,6 @@ import { log } from '../utils/sentry'
 const PoisPageWrapper = styled.div<{ panelHeights: number }>`
   display: flex;
   ${({ panelHeights }) => `height: calc(100vh - ${panelHeights}px);`};
-`
-
-const FooterContainer = styled.div`
-  position: absolute;
-  bottom: 0;
 `
 
 const moveViewToBBox = (bBox: BBox, defaultVp: MapViewMercatorViewport): MapViewMercatorViewport => {
@@ -206,12 +200,6 @@ const PoisPage = ({ cityCode, languageCode, cityModel, pathname, languages }: Ci
   const pageTitle = `${t('pageTitle')} - ${cityModel.name}`
   const direction = config.getScriptDirection(languageCode)
 
-  const overlayFooter = (
-    <FooterContainer>
-      <LocationFooter city={cityCode} language={languageCode} overlay />
-    </FooterContainer>
-  )
-
   const mapView = cityModel.boundingBox && (
     <MapView
       ref={updateMapRef}
@@ -221,7 +209,8 @@ const PoisPage = ({ cityCode, languageCode, cityModel, pathname, languages }: Ci
       bboxViewport={moveViewToBBox(cityModel.boundingBox, defaultMercatorViewportConfig)}
       currentFeature={currentFeature}
       direction={direction}
-      overlayFooter={overlayFooter}
+      cityCode={cityCode}
+      languageCode={languageCode}
     />
   )
   const poiList = <List noItemsMessage={t('noPois')} items={data.features} renderItem={renderPoiListItem} borderless />
