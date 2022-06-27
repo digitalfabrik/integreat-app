@@ -12,7 +12,7 @@
 
 ## Triggering a Delivery using the CI
 
-The easiest way to deliver a new build to production or development is to trigger the corresponding CircleCI workflows _triggered_native_development_delivery_ and _triggered_production_delivery_:
+The easiest way to deliver a new build to production or beta is to trigger the corresponding CircleCI workflows _native_beta_delivery_, _native_production_delivery_, _web_beta_delivery_ and _web_production_delivery_:
 
 - Get a CircleCI [Personal API Token](https://circleci.com/docs/2.0/managing-api-tokens/).
 - Trigger a delivery using the tool [trigger-pipeline](../tools/trigger-pipeline.ts):
@@ -22,15 +22,17 @@ The easiest way to deliver a new build to production or development is to trigge
 
 Several workflows exist for different purposes:
 
-| Workflow                    | Schedule/Trigger       | Checks             | native delivery | web delivery | Version bump       | Move release notes |
-| --------------------------- | ---------------------- | ------------------ | --------------- | ------------ | ------------------ | ------------------ |
-| commit                      | commits of PRs         | :heavy_check_mark: | :x:             | :x:          | :x:                | :x:                |
-| commit_main                 | commits on main        | :x:                | browserstack    | development  | :x:                | :x:                |
-| delivery                    | Monday (04:00), script | :heavy_check_mark: | development     | production   | :heavy_check_mark: | :heavy_check_mark: |
-| native_promotion            | Monday (02:00), script | :x:                | promotion       | :x:          | :x:                | :x:                |
-| native_development_delivery | script                 | :heavy_check_mark: | development     | :x:          | :heavy_check_mark: | :x:                |
-| native_production_delivery  | script                 | :heavy_check_mark: | production      | :x:          | :heavy_check_mark: | :x:                |
-| web_production_delivery     | script                 | :heavy_check_mark: | :x:             | production   | :heavy_check_mark: | :x:                |
+| Workflow                   | Schedule/Trigger       | Checks             | native delivery | web delivery | Version bump       | Move release notes |
+|----------------------------| ---------------------- | ------------------ |-----------------|--------------| ------------------ | ------------------ |
+| commit                     | commits of PRs         | :heavy_check_mark: | :x:             | :x:          | :x:                | :x:                |
+| commit_main                | commits on main        | :x:                | browserstack    | webnext      | :x:                | :x:                |
+| delivery                   | Monday (04:00), script | :heavy_check_mark: | beta            | beta         | :heavy_check_mark: | :heavy_check_mark: |
+| native_promotion           | Monday (02:00), script | :x:                | promotion       | :x:          | :x:                | :x:                |
+| web_promotion              | Monday (02:00), script | :x:                | :x:             | promotion    | :x:                | :x:                |
+| native_beta_delivery       | script                 | :heavy_check_mark: | beta            | :x:          | :heavy_check_mark: | :x:                |
+| native_production_delivery | script                 | :heavy_check_mark: | production      | :x:          | :heavy_check_mark: | :x:                |
+| web_beta_delivery          | script                 | :heavy_check_mark: | :x:             | beta         | :heavy_check_mark: | :x:                |
+| web_production_delivery    | script                 | :heavy_check_mark: | :x:             | production   | :heavy_check_mark: | :x:                |
 
 Steps executed if _Checks_ is checked :heavy_check_mark::
 
