@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router-dom'
 import styled, { css, useTheme } from 'styled-components'
 
-import { getNavigationDeepLinks, PoiFeature, PoiModel } from 'api-client/src'
+import { getExternalMapsLink, PoiFeature, PoiModel } from 'api-client/src'
 import { UiDirectionType } from 'translations'
 
 import iconArrowBack from '../assets/IconArrowBackLong.svg'
@@ -162,7 +162,7 @@ const PoiDetails: React.FC<PoiDetailsProps> = ({
   const navigate = useNavigate()
   // MapEvent parses null to 'null'
   const thumb = thumbnail === 'null' ? null : thumbnail?.replace('-150x150', '')
-  const navigationDeepLink = getNavigationDeepLinks(location, 'web')
+  const navigationDeepLink = getExternalMapsLink(location, 'web')
 
   return (
     <DetailsContainer>
