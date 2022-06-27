@@ -9,11 +9,9 @@ jobs:
         - deliverino
         - jira
       prepare_delivery: true
-
   - check:
       context:
         - mattermost
-
   - e2e_web:
       context:
         - mattermost
