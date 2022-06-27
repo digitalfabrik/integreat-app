@@ -16,4 +16,9 @@ describe('getExternalMapsLink', () => {
     const result = getExternalMapsLink(location, 'ios')
     expect(result).toBe(`maps:${lat},${long}?q=${location.location}`)
   })
+
+  it('should return web for ios web', () => {
+    const result = getExternalMapsLink(location, 'web')
+    expect(result).toBe(`https://maps.google.com?q=${location.location},${lat},${long}`)
+  })
 })

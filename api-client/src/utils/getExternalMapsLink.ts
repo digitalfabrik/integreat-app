@@ -9,16 +9,14 @@ const getExternalMapsLink = (
   }
   const long = location.coordinates[0]
   const lat = location.coordinates[1]
-  const android = `geo:${lat},${long}?q=${location.location}`
 
   switch (platform) {
     case 'web': {
       const baseUrl = `https://maps.google.com?q=`
-      const isAndroid = /Android/i.test(navigator.userAgent)
-      return isAndroid ? android : `${baseUrl}${location.location},${lat},${long}`
+      return `${baseUrl}${location.location},${lat},${long}`
     }
     case 'android':
-      return android
+      return `geo:${lat},${long}?q=${location.location}`
     case 'ios':
       return `maps:${lat},${long}?q=${location.location}`
     default:
