@@ -1,6 +1,6 @@
 import LocationModel from '../models/LocationModel'
 
-const getNavigationDeepLinks = (
+const getExternalMapsLink = (
   location: LocationModel,
   platform: 'web' | 'android' | 'ios' | string
 ): string | null => {
@@ -26,4 +26,4 @@ const getNavigationDeepLinks = (
   }
 }
 
-export default getNavigationDeepLinks
+export default getExternalMapsLink

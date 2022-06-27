@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next'
 import { Platform, Text } from 'react-native'
 import styled from 'styled-components/native'
 
-import { getNavigationDeepLinks, PoiFeature, PoiModel } from 'api-client'
+import { getExternalMapsLink, PoiFeature, PoiModel } from 'api-client'
 
 import ExternalLinkIcon from '../assets/ExternalLink.svg'
 import Placeholder from '../assets/PoiPlaceholderLarge.jpg'
@@ -67,7 +67,7 @@ const PoiDetails: React.FC<PoiDetailsProps> = ({ poi, feature, language }: PoiDe
   const { title, content } = poi
 
   const onNavigate = () => {
-    const navigationUrl = getNavigationDeepLinks(poi.location, Platform.OS)
+    const navigationUrl = getExternalMapsLink(poi.location, Platform.OS)
     if (navigationUrl) {
       openExternalUrl(navigationUrl).catch(() => showSnackbar(t('error:noSuitableAppInstalled')))
     }
