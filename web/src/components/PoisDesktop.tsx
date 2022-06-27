@@ -46,7 +46,7 @@ type PoisDesktopProps = {
   switchFeature: (step: 1 | -1) => void
   selectFeature: (feature: PoiFeature | null) => void
   direction: UiDirectionType
-  showNavigation: boolean
+  showFeatureSwitch: boolean
 }
 
 const PoisDesktop: React.FC<PoisDesktopProps> = ({
@@ -59,7 +59,7 @@ const PoisDesktop: React.FC<PoisDesktopProps> = ({
   switchFeature,
   selectFeature,
   direction,
-  showNavigation
+  showFeatureSwitch
 }: PoisDesktopProps): ReactElement => {
   const { t } = useTranslation('pois')
 
@@ -74,7 +74,7 @@ const PoisDesktop: React.FC<PoisDesktopProps> = ({
             poiList
           )}
         </ListViewWrapper>
-        {currentFeature && showNavigation ? (
+        {currentFeature && showFeatureSwitch ? (
           <PoiPanelNavigation switchFeature={switchFeature} direction={direction} />
         ) : (
           <ToolbarContainer>{toolbar}</ToolbarContainer>

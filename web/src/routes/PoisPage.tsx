@@ -239,7 +239,7 @@ const PoisPage = ({ cityCode, languageCode, cityModel, pathname, languages }: Ci
             panelHeights={panelHeights}
             mapView={mapView}
             poiList={poiList}
-            showNavigation={data.features.length > 1}
+            showFeatureSwitch={data.features.length > 1}
             selectFeature={selectFeature}
             direction={direction}
           />

@@ -13,7 +13,7 @@ describe('PoisDesktop', () => {
   const poi = new PoiModelBuilder(1).build()[0]!
   const feature = prepareFeatureLocation(poi, [10.994217, 48.415402])!
 
-  const renderPoisDesktop = (showNavigation: boolean, currentFeature?: PoiFeature) =>
+  const renderPoisDesktop = (showFeatureSwitch: boolean, currentFeature?: PoiFeature) =>
     renderWithRouter(
       <PoisDesktop
         direction='ltr'
@@ -25,7 +25,7 @@ describe('PoisDesktop', () => {
         currentFeature={currentFeature ?? null}
         poiList={<div>poiList</div>}
         poi={poi}
-        showNavigation={showNavigation}
+        showFeatureSwitch={showFeatureSwitch}
       />,
       { wrapWithTheme: true }
     )
