@@ -48,13 +48,13 @@ const PoiPanelNavigation: React.FC<PoiPanelNavigationProps> = ({
 }: PoiPanelNavigationProps): ReactElement => {
   const { t } = useTranslation('pois')
   return (
-    <NavigationContainer aria-label='poi-panel-navigation'>
+    <NavigationContainer>
       <NavItem
         onClick={() => switchFeature(-1)}
         role='button'
         tabIndex={0}
         onKeyPress={() => switchFeature(-1)}
-        aria-label='back-panel'>
+        aria-label='previous location'>
         <Icon src={iconArrowBack} alt='' direction={direction} />
         <Label>{t('detailsPreviousPoi')}</Label>
       </NavItem>
@@ -63,7 +63,7 @@ const PoiPanelNavigation: React.FC<PoiPanelNavigationProps> = ({
         role='button'
         tabIndex={0}
         onKeyPress={() => switchFeature(1)}
-        aria-label='forward-panel'>
+        aria-label='next location'>
         <Label>{t('detailsNextPoi')}</Label>
         <Icon src={iconArrowForward} alt='' direction={direction} />
       </NavItem>

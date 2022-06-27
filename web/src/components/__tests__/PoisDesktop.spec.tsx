@@ -39,7 +39,8 @@ describe('PoisDesktop', () => {
     expect(queryByText(poi.content)).toBeTruthy()
     expect(queryByText('poiList')).toBeNull()
     expect(queryByText('Toolbar')).toBeNull()
-    expect(queryByLabelText('poi-panel-navigation')).toBeTruthy()
+    expect(queryByLabelText('previous location')).toBeTruthy()
+    expect(queryByLabelText('next location')).toBeTruthy()
   })
 
   it('should render poiList & toolbar components if neither feature nor poi is provided', () => {
@@ -57,6 +58,7 @@ describe('PoisDesktop', () => {
     expect(queryByText(poi.content)).toBeTruthy()
     expect(queryByText('poiList')).toBeNull()
     expect(queryByText(feature.properties.title)).toBeTruthy()
-    expect(queryByLabelText('poi-panel-navigation')).toBeNull()
+    expect(queryByLabelText('previous location')).toBeNull()
+    expect(queryByLabelText('next location')).toBeNull()
   })
 })
