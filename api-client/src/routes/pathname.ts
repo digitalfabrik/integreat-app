@@ -66,12 +66,9 @@ export const pathnameFromRouteInformation = (routeInformation: NonNullableRouteI
   }
   if (routeInformation.route === POIS_ROUTE) {
     const { cityCode, languageCode, route, urlSlug } = routeInformation
-    if (urlSlug) {
-      //  https://integreat.app/augsburg/de/locations?name=tuer-an-tuer
-      return `${constructPathname([cityCode, languageCode, route])}?${nameQueryParam}=${urlSlug}`
-    }
-    //  https://integreat.app/augsburg/de/locations
-    return constructPathname([cityCode, languageCode, route])
+    const pathname = constructPathname([cityCode, languageCode, route])
+    //  https://integreat.app/augsburg/de/locations, https://integreat.app/augsburg/de/locations?name=tuer-an-tuer
+    return urlSlug ? `${pathname}?${nameQueryParam}=${urlSlug}` : pathname
   }
   if (
     routeInformation.route === DISCLAIMER_ROUTE ||
