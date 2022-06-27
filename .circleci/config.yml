@@ -815,7 +815,7 @@ jobs:
                 name: Prepare artifact urls
                 working_directory: ~/attached_workspace
             - run:
-                command: yarn github-release create android ${NEW_VERSION_NAME} ${NEW_VERSION_CODE} --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME} --release-notes "$(yarn --silent manage-metadata parse-release-notes --android --language en)"<<^ parameters.production_delivery >> --development-release<</ parameters.production_delivery >> --download-links "${ANDROID_ARTIFACT_URLS}"
+                command: yarn github-release create android ${NEW_VERSION_NAME} ${NEW_VERSION_CODE} --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME} --release-notes "$(yarn --silent manage-metadata parse-release-notes --android --language en)"<<^ parameters.production_delivery >> --beta-release<</ parameters.production_delivery >> --download-links "${ANDROID_ARTIFACT_URLS}"
                 name: Create github release
                 working_directory: tools
             - run:
@@ -843,7 +843,7 @@ jobs:
                 name: Prepare artifact urls
                 working_directory: ~/attached_workspace
             - run:
-                command: yarn github-release create ios ${NEW_VERSION_NAME} ${NEW_VERSION_CODE} --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME} --release-notes "$(yarn --silent manage-metadata parse-release-notes --ios --language en)"<<^ parameters.production_delivery >> --development-release<</ parameters.production_delivery >> --download-links "${IOS_ARTIFACT_URLS}"
+                command: yarn github-release create ios ${NEW_VERSION_NAME} ${NEW_VERSION_CODE} --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME} --release-notes "$(yarn --silent manage-metadata parse-release-notes --ios --language en)"<<^ parameters.production_delivery >> --beta-release<</ parameters.production_delivery >> --download-links "${IOS_ARTIFACT_URLS}"
                 name: Create github release
                 working_directory: tools
             - run:
