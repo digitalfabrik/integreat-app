@@ -23,7 +23,7 @@ The easiest way to deliver a new build to production or beta is to trigger the c
 Several workflows exist for different purposes:
 
 | Workflow                   | Schedule/Trigger       | Checks             | native delivery | web delivery | Version bump       | Move release notes |
-|----------------------------| ---------------------- | ------------------ |-----------------|--------------| ------------------ | ------------------ |
+| -------------------------- | ---------------------- | ------------------ | --------------- | ------------ | ------------------ | ------------------ |
 | commit                     | commits of PRs         | :heavy_check_mark: | :x:             | :x:          | :x:                | :x:                |
 | commit_main                | commits on main        | :x:                | browserstack    | webnext      | :x:                | :x:                |
 | delivery                   | Monday (04:00), script | :heavy_check_mark: | beta            | beta         | :heavy_check_mark: | :heavy_check_mark: |
