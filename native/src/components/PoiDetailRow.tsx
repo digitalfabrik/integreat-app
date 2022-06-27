@@ -14,7 +14,7 @@ const Icon = styled.Image`
 `
 
 const StyledPressable = styled.Pressable`
-  alignself: center;
+  align-self: center;
 `
 
 type Props = {
