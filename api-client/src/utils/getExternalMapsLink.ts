@@ -1,9 +1,6 @@
 import LocationModel from '../models/LocationModel'
 
-const getExternalMapsLink = (
-  location: LocationModel,
-  platform: 'web' | 'android' | 'ios' | string
-): string | null => {
+const getExternalMapsLink = (location: LocationModel, platform: 'web' | 'android' | 'ios' | string): string | null => {
   if (!location.location || !location.coordinates) {
     return null
   }
