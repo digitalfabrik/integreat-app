@@ -1,0 +1,6 @@
+issue_key: IGAPP-1021
+show_in_stores: true
+platforms:
+  - web
+en: By changing the language, the selected location stays selected.
+de: Bei einer Sprachänderung bleibt der ausgewählte Ort weiterhin ausgewählt.
