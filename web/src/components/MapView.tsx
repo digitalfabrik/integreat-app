@@ -18,6 +18,7 @@ import { UiDirectionType } from 'translations'
 import { faArrowLeft } from '../constants/icons'
 import useWindowDimensions from '../hooks/useWindowDimensions'
 import '../styles/MapView.css'
+import LocationFooter from './LocationFooter'
 
 // Workaround since nothing is rendered if height is set to 100%, 190px is the header size
 const MapContainer = styled.div`
@@ -53,6 +54,11 @@ const StyledIcon = styled(FontAwesomeIcon)<{ direction: string }>`
     `};
 `
 
+const FooterContainer = styled.div`
+  position: absolute;
+  bottom: 0;
+`
+
 type MapViewProps = {
   bboxViewport: MapViewMercatorViewport
   featureCollection: PoiFeatureCollection
@@ -60,12 +66,23 @@ type MapViewProps = {
   selectFeature: (feature: PoiFeature | null) => void
   changeSnapPoint: (snapPoint: number) => void
   direction: UiDirectionType
+  cityCode: string
+  languageCode: string
 }
 
 type MapCursorType = 'grab' | 'auto' | 'pointer'
 
 const MapView = forwardRef((props: MapViewProps, ref: React.Ref<MapRef>): ReactElement => {
-  const { featureCollection, bboxViewport, selectFeature, changeSnapPoint, currentFeature, direction } = props
+  const {
+    featureCollection,
+    bboxViewport,
+    selectFeature,
+    changeSnapPoint,
+    currentFeature,
+    direction,
+    cityCode,
+    languageCode
+  } = props
 
   const textOffsetY = 1.25
 
@@ -168,7 +185,12 @@ const MapView = forwardRef((props: MapViewProps, ref: React.Ref<MapRef>): ReactE
           <Layer {...layerStyle} />
         </Source>
         {!viewportSmall && (
-          <NavigationControl showCompass={false} position={direction === 'rtl' ? 'bottom-left' : 'bottom-right'} />
+          <>
+            <NavigationControl showCompass={false} position={direction === 'rtl' ? 'bottom-left' : 'bottom-right'} />
+            <FooterContainer>
+              <LocationFooter city={cityCode} language={languageCode} overlay />
+            </FooterContainer>
+          </>
         )}
       </Map>
     </MapContainer>
