@@ -156,7 +156,8 @@ const PoisPage = ({ cityCode, languageCode, cityModel, pathname, languages }: Ci
     languageChangePaths,
     route: POIS_ROUTE,
     languageCode,
-    disableScrollingSafari: true
+    disableScrollingSafari: true,
+    showFooter: false
   }
 
   if (loading) {
@@ -208,12 +209,13 @@ const PoisPage = ({ cityCode, languageCode, cityModel, pathname, languages }: Ci
       bboxViewport={moveViewToBBox(cityModel.boundingBox, defaultMercatorViewportConfig)}
       currentFeature={currentFeature}
       direction={direction}
+      cityCode={cityCode}
+      languageCode={languageCode}
     />
   )
-
   const poiList = <List noItemsMessage={t('noPois')} items={data.features} renderItem={renderPoiListItem} borderless />
   // To calculate the height of the PoisPage container, we have to reduce 100vh by header, footer, navMenu
-  const panelHeights = dimensions.headerHeightLarge + dimensions.footerHeight + dimensions.navigationMenuHeight
+  const panelHeights = dimensions.headerHeightLarge + dimensions.navigationMenuHeight
 
   return (
     <LocationLayout isLoading={false} {...locationLayoutParams} fullWidth>
