@@ -1,10 +1,10 @@
 import Clipboard from '@react-native-clipboard/clipboard'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Pressable, Text } from 'react-native'
+import { Platform, Pressable, Text } from 'react-native'
 import styled from 'styled-components/native'
 
-import { PoiFeature, PoiModel } from 'api-client'
+import { getExternalMapsLink, PoiFeature, PoiModel } from 'api-client'
 
 import EmailIcon from '../../../assets/icons/email.svg'
 import PhoneIcon from '../../../assets/icons/phone.svg'
@@ -12,7 +12,6 @@ import WebsiteIcon from '../../../assets/icons/website.svg'
 import ExternalLinkIcon from '../assets/ExternalLink.svg'
 import Placeholder from '../assets/PoiPlaceholderLarge.jpg'
 import useSnackbar from '../hooks/useSnackbar'
-import { getNavigationDeepLinks } from '../utils/getNavigationDeepLinks'
 import openExternalUrl from '../utils/openExternalUrl'
 import CollapsibleItem from './CollapsibleItem'
 import HorizontalLine from './HorizontalLine'
@@ -70,7 +69,7 @@ const PoiDetails = ({ poi, feature, language }: Props): ReactElement => {
   const { title, content, email, website, phoneNumber } = poi
 
   const openExternalMaps = () => {
-    const externalMapsUrl = getNavigationDeepLinks(poi.location)
+    const externalMapsUrl = getExternalMapsLink(poi.location, Platform.OS)
     if (externalMapsUrl) {
       openExternalUrl(externalMapsUrl).catch(() => showSnackbar(t('error:noSuitableAppInstalled')))
     }
