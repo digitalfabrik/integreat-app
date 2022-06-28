@@ -5,22 +5,27 @@ import styled from 'styled-components/native'
 
 import { isRTL } from '../constants/contentDirection'
 
-const Icon = styled(MaterialIcon)`
+const Icon = styled(MaterialIcon)<{ disabled: boolean }>`
   font-size: 30px;
+  color: ${props => (props.disabled ? props.theme.colors.textDisabledColor : props.theme.colors.textColor)};
 `
 
 type PropsType = {
   name: string
   scrollViewRef: React.ElementRef<typeof ScrollView> | null
   isLeftAnchor: boolean
+  setCurrentPosition: (position: 'start' | 'end') => void
+  disabled: boolean
 }
 
-const AnchorIcon = ({ name, scrollViewRef, isLeftAnchor }: PropsType): ReactElement => {
+const AnchorIcon = ({ name, scrollViewRef, isLeftAnchor, setCurrentPosition, disabled }: PropsType): ReactElement => {
   const onAnchorPress = (): void => {
     if (isLeftAnchor) {
       scrollViewRef?.scrollTo({ x: 0, y: 0, animated: true })
+      setCurrentPosition('start')
     } else {
       scrollViewRef?.scrollToEnd({ animated: true })
+      setCurrentPosition('end')
     }
   }
 
@@ -35,6 +40,7 @@ const AnchorIcon = ({ name, scrollViewRef, isLeftAnchor }: PropsType): ReactElem
         ]
       }}
       onPress={onAnchorPress}
+      disabled={disabled}
     />
   )
 }

@@ -1,4 +1,4 @@
-import React, { ReactElement, useRef } from 'react'
+import React, { ReactElement, useRef, useState } from 'react'
 import { Dimensions, ScrollView } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import styled from 'styled-components/native'
@@ -27,8 +27,12 @@ const TilesRow = styled.View`
   shadow-offset: 1px;
 `
 
-const NavigationTilesWithScrollableView = (props: { tiles: Array<TileModel>; theme: ThemeType }): ReactElement => {
-  const { tiles, theme } = props
+type PropsType = {
+  tiles: Array<TileModel>
+  theme: ThemeType
+}
+
+const NavigationTilesWithScrollableView = ({ tiles, theme }: PropsType): ReactElement => {
   const { left, right } = useSafeAreaInsets()
   const { width } = Dimensions.get('screen')
   const layoutWidth = left && right ? width - (left + right) : width
@@ -41,10 +45,19 @@ const NavigationTilesWithScrollableView = (props: { tiles: Array<TileModel>; the
   const isScrollable = allTilesWidth > layoutWidth
 
   const scrollViewRef = useRef<ScrollView>(null)
+  const [currentPosition, setCurrentPosition] = useState<'start' | 'end'>('start')
 
   return (
-    <TilesRow theme={theme}>
-      {isScrollable && <AnchorIcon name='keyboard-arrow-left' isLeftAnchor scrollViewRef={scrollViewRef.current} />}
+    <TilesRow>
+      {isScrollable && (
+        <AnchorIcon
+          name='keyboard-arrow-left'
+          isLeftAnchor
+          scrollViewRef={scrollViewRef.current}
+          setCurrentPosition={setCurrentPosition}
+          disabled={currentPosition === 'start'}
+        />
+      )}
       <ScrollView
         horizontal
         ref={scrollViewRef}
@@ -66,7 +79,13 @@ const NavigationTilesWithScrollableView = (props: { tiles: Array<TileModel>; the
         ))}
       </ScrollView>
       {isScrollable && (
-        <AnchorIcon name='keyboard-arrow-right' isLeftAnchor={false} scrollViewRef={scrollViewRef.current} />
+        <AnchorIcon
+          name='keyboard-arrow-right'
+          isLeftAnchor={false}
+          scrollViewRef={scrollViewRef.current}
+          setCurrentPosition={setCurrentPosition}
+          disabled={currentPosition === 'end'}
+        />
       )}
     </TilesRow>
   )
