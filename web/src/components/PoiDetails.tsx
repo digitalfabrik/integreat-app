@@ -7,8 +7,11 @@ import { getExternalMapsLink, PoiFeature, PoiModel } from 'api-client/src'
 import { UiDirectionType } from 'translations'
 
 import iconArrowBack from '../assets/IconArrowBackLong.svg'
+import iconEmail from '../../../assets/icons/email.svg'
 import iconExternalLink from '../assets/IconExternalLink.svg'
 import iconMarker from '../assets/IconMarker.svg'
+import iconPhone from '../../../assets/icons/phone.svg'
+import iconWebsite from '../../../assets/icons/website.svg'
 import PoiPlaceholder from '../assets/PoiPlaceholderLarge.jpg'
 import dimensions from '../constants/dimensions'
 import useWindowDimensions from '../hooks/useWindowDimensions'
@@ -138,6 +141,17 @@ const DetailSection = styled.div`
   }
 `
 
+const ContactContainer = styled.div`
+  display: flex;
+  align-items: center;
+  padding-top: 4px;
+  font-size: clamp(0.55rem, 1.6vh, ${props => props.theme.fonts.hintFontSize});
+
+  @media ${dimensions.smallViewport} {
+    gap: 8px;
+  }
+`
+
 type PoiDetailsProps = {
   feature: PoiFeature
   poi: PoiModel
@@ -157,7 +171,7 @@ const PoiDetails: React.FC<PoiDetailsProps> = ({
   const { viewportSmall } = useWindowDimensions()
   const theme = useTheme()
   const { title, thumbnail, distance } = feature.properties
-  const { content, location } = poi
+  const { content, location, website, phoneNumber, email } = poi
   const { t } = useTranslation('pois')
   const navigate = useNavigate()
   // MapEvent parses null to 'null'
@@ -202,6 +216,39 @@ const PoiDetails: React.FC<PoiDetailsProps> = ({
           </LinkContainer>
         )}
       </DetailSection>
+      {(website || phoneNumber || email) && (
+        <>
+          <Spacer borderColor={theme.colors.poiBorderColor} />
+          <Collapsible title={t('contactInformation')} initialCollapsed direction={direction}>
+            <>
+              {website && (
+                <ContactContainer>
+                  <Marker src={iconWebsite} alt={t('website')} />
+                  <a href={website}>
+                    {website}
+                  </a>
+                </ContactContainer>
+              )}
+              {phoneNumber && (
+                <ContactContainer>
+                  <Marker src={iconPhone} alt={t('phone')} />
+                  <a href={`tel:${phoneNumber}`}>
+                    {phoneNumber}
+                  </a>
+                </ContactContainer>
+              )}
+              {email && (
+                <ContactContainer>
+                  <Marker src={iconEmail} alt={t('eMail')} />
+                  <a href={`mailto:${email}`}>
+                    {email}
+                  </a>
+                </ContactContainer>
+              )}
+            </>
+          </Collapsible>
+        </>
+      )}
       {content.length > 0 && (
         <>
           <Spacer borderColor={theme.colors.poiBorderColor} />
