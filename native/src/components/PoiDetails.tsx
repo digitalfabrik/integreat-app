@@ -1,15 +1,14 @@
 import Clipboard from '@react-native-clipboard/clipboard'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Text } from 'react-native'
+import { Platform, Text } from 'react-native'
 import styled from 'styled-components/native'
 
-import { PoiFeature, PoiModel } from 'api-client'
+import { getExternalMapsLink, PoiFeature, PoiModel } from 'api-client'
 
 import ExternalLinkIcon from '../assets/ExternalLink.svg'
 import Placeholder from '../assets/PoiPlaceholderLarge.jpg'
 import useSnackbar from '../hooks/useSnackbar'
-import { getNavigationDeepLinks } from '../utils/getNavigationDeepLinks'
 import openExternalUrl from '../utils/openExternalUrl'
 import CollapsibleItem from './CollapsibleItem'
 import HorizontalLine from './HorizontalLine'
@@ -63,20 +62,20 @@ const PoiDetails: React.FC<PoiDetailsProps> = ({ poi, feature, language }: PoiDe
 
   // TODO IGAPP-920: this has to be removed when we get proper images from CMS
   const thumbnail = feature.properties.thumbnail?.replace('-150x150', '') ?? Placeholder
-  const { location, address, postcode, town } = poi.location
+  const { address, postcode, town } = poi.location
   const { distance } = feature.properties
   const { title, content } = poi
 
   const onNavigate = () => {
-    const navigationUrl = getNavigationDeepLinks(poi.location)
+    const navigationUrl = getExternalMapsLink(poi.location, Platform.OS)
     if (navigationUrl) {
       openExternalUrl(navigationUrl).catch(() => showSnackbar(t('error:noSuitableAppInstalled')))
     }
   }
 
   const copyLocationToClipboard = (): void => {
-    if (location) {
-      Clipboard.setString(location)
+    if (address && postcode && town) {
+      Clipboard.setString([address, postcode, town].filter(it => it).join(' '))
       showSnackbar(t('addressCopied'))
     }
   }
