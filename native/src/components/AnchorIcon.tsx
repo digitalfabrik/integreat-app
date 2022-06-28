@@ -14,18 +14,18 @@ type PropsType = {
   name: string
   scrollViewRef: React.ElementRef<typeof ScrollView> | null
   isLeftAnchor: boolean
-  setCurrentPosition: (position: 'start' | 'end') => void
+  updatePosition: (position: 'start' | 'end') => void
   disabled: boolean
 }
 
-const AnchorIcon = ({ name, scrollViewRef, isLeftAnchor, setCurrentPosition, disabled }: PropsType): ReactElement => {
+const AnchorIcon = ({ name, scrollViewRef, isLeftAnchor, updatePosition, disabled }: PropsType): ReactElement => {
   const onAnchorPress = (): void => {
     if (isLeftAnchor) {
       scrollViewRef?.scrollTo({ x: 0, y: 0, animated: true })
-      setCurrentPosition('start')
+      updatePosition('start')
     } else {
       scrollViewRef?.scrollToEnd({ animated: true })
-      setCurrentPosition('end')
+      updatePosition('end')
     }
   }
 

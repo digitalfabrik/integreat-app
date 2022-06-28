@@ -1,5 +1,5 @@
 import React, { ReactElement, useRef, useState } from 'react'
-import { Dimensions, ScrollView } from 'react-native'
+import { Dimensions, NativeScrollEvent, NativeSyntheticEvent, ScrollView } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import styled from 'styled-components/native'
 
@@ -45,7 +45,15 @@ const NavigationTilesWithScrollableView = ({ tiles, theme }: PropsType): ReactEl
   const isScrollable = allTilesWidth > layoutWidth
 
   const scrollViewRef = useRef<ScrollView>(null)
-  const [currentPosition, setCurrentPosition] = useState<'start' | 'end'>('start')
+  const [currentPosition, setCurrentPosition] = useState<number>(0)
+
+  const handleScroll = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
+    setCurrentPosition(event.nativeEvent.contentOffset.x)
+  }
+
+  const updatePosition = (position: 'start' | 'end') => {
+    setCurrentPosition(position === 'start' ? 0 : navigationItemWidth)
+  }
 
   return (
     <TilesRow>
@@ -54,8 +62,8 @@ const NavigationTilesWithScrollableView = ({ tiles, theme }: PropsType): ReactEl
           name='keyboard-arrow-left'
           isLeftAnchor
           scrollViewRef={scrollViewRef.current}
-          setCurrentPosition={setCurrentPosition}
-          disabled={currentPosition === 'start'}
+          updatePosition={updatePosition}
+          disabled={currentPosition === 0}
         />
       )}
       <ScrollView
@@ -73,7 +81,8 @@ const NavigationTilesWithScrollableView = ({ tiles, theme }: PropsType): ReactEl
         scrollEnabled
         snapToInterval={navigationItemWidth}
         decelerationRate='fast'
-        bounces={false}>
+        bounces={false}
+        onScroll={handleScroll}>
         {tiles.map(tile => (
           <NavigationTile key={tile.path} tile={tile} theme={theme} width={navigationItemWidth} />
         ))}
@@ -83,8 +92,8 @@ const NavigationTilesWithScrollableView = ({ tiles, theme }: PropsType): ReactEl
           name='keyboard-arrow-right'
           isLeftAnchor={false}
           scrollViewRef={scrollViewRef.current}
-          setCurrentPosition={setCurrentPosition}
-          disabled={currentPosition === 'end'}
+          updatePosition={updatePosition}
+          disabled={currentPosition >= navigationItemWidth}
         />
       )}
     </TilesRow>
