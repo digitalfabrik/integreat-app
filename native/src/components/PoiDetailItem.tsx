@@ -5,9 +5,8 @@ import styled from 'styled-components/native'
 import { contentDirection } from '../constants/contentDirection'
 
 type PoiDetailItemProps = {
-  /** language to offer rtl support */
   language: string
-  onPress: () => void
+  onIconPress: () => void
   icon: ReactElement
   children: ReactNode
 }
@@ -23,14 +22,14 @@ const IconContainer = styled(Pressable)`
 `
 
 const PoiDetailItem: React.FC<PoiDetailItemProps> = ({
-  onPress,
+  onIconPress,
   children,
   icon,
   language
 }: PoiDetailItemProps): ReactElement => (
   <PoiDetailItemContainer language={language}>
     <View>{children}</View>
-    <IconContainer onPress={onPress}>{icon}</IconContainer>
+    <IconContainer onPress={onIconPress}>{icon}</IconContainer>
   </PoiDetailItemContainer>
 )
 
