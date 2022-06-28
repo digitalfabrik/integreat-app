@@ -1,8 +1,7 @@
-issue_key: IGAPP-936
+issue_key: IGAPP-1022
 show_in_stores: true
 platforms:
-  - web
   - android
   - ios
-en: Several new translations added.
-de: Einige neue Übersetzungen hinzugefügt.
+en: Improved Handling of selection slider
+de: Verbesserte Bedienbarkeit des Auswahl-Slider
