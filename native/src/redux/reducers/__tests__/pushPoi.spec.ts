@@ -1,34 +1,15 @@
 import moment from 'moment'
 
-import { ErrorCode, PoiModel, EVENTS_ROUTE, LanguageModel, LocationModel, POIS_ROUTE } from 'api-client'
+import { ErrorCode, LanguageModel, POIS_ROUTE, PoiModelBuilder } from 'api-client'
 
 import { CityContentStateType } from '../../StateType'
 import { PushPoiActionType } from '../../StoreActionType'
 import cityContentReducer from '../cityContentReducer'
 
 describe('pushPoi', () => {
-  const poi = new PoiModel({
-    path: '/augsburg/de/locations/test',
-    title: 'test',
-    content: 'test',
-    thumbnail: 'test',
-    availableLanguages: new Map([['de', '/augsburg/de/locations/test']]),
-    excerpt: 'test',
-    location: new LocationModel({
-      id: 1,
-      country: 'country',
-      region: 'region',
-      state: 'state',
-      address: 'address',
-      town: 'town',
-      postcode: 'postcode',
-      latitude: '15',
-      longitude: '15',
-      name: 'name'
-    }),
-    lastUpdate: moment('2011-02-04T00:00:00.000Z'),
-    hash: 'test'
-  })
+  const pois = new PoiModelBuilder(2).build()
+  const poi = pois[0]!
+  const poi2 = pois[1]!
   const languageModels = [new LanguageModel('de', 'Deutsch'), new LanguageModel('en', 'English')]
 
   const prepareState = (state: Partial<CityContentStateType>): CityContentStateType => {
@@ -156,28 +137,6 @@ describe('pushPoi', () => {
         }
       }
     }
-    const poi2 = new PoiModel({
-      path: '/augsburg/de/locations/test',
-      title: 'Different Title',
-      content: 'test',
-      thumbnail: 'test',
-      availableLanguages: new Map([['de', '/augsburg/de/locations/test']]),
-      excerpt: 'test',
-      location: new LocationModel({
-        id: 1,
-        country: 'country',
-        region: 'region',
-        state: 'state',
-        address: 'address',
-        town: 'town',
-        postcode: 'postcode',
-        latitude: '15',
-        longitude: '15',
-        name: 'name'
-      }),
-      lastUpdate: moment('2011-02-04T00:00:00.000Z'),
-      hash: 'test'
-    })
     const pushPoiAction = createPushAction({ path: '/testumgebung/de/locations/test', pois: [poi2], resourceCache })
 
     expect(cityContentReducer(prevState, pushPoiAction)).toEqual(
