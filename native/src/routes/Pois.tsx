@@ -93,8 +93,10 @@ const Pois = ({ pois, language, cityModel, route, navigation }: PropsType): Reac
         zoomLevel: detailZoom,
         animationDuration
       })
+      navigation.setParams({ urlSlug: properties.urlSlug })
     } else {
       setUrlSlug(null)
+      navigation.setParams({ urlSlug: undefined })
     }
   }
 
