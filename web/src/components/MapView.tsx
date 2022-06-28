@@ -1,7 +1,7 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import * as mapLibreGl from 'maplibre-gl'
 import 'maplibre-gl/dist/maplibre-gl.css'
-import React, { ReactElement, useCallback, useState } from 'react'
+import React, { forwardRef, ReactElement, useCallback, useState } from 'react'
 import Map, { GeolocateControl, Layer, LayerProps, MapRef, NavigationControl, Source } from 'react-map-gl'
 import styled, { css } from 'styled-components'
 
@@ -64,7 +64,7 @@ type MapViewProps = {
 
 type MapCursorType = 'grab' | 'auto' | 'pointer'
 
-const MapView = React.forwardRef((props: MapViewProps, ref: React.Ref<MapRef>): ReactElement => {
+const MapView = forwardRef((props: MapViewProps, ref: React.Ref<MapRef>): ReactElement => {
   const { featureCollection, bboxViewport, selectFeature, changeSnapPoint, currentFeature, direction } = props
 
   const textOffsetY = 1.25

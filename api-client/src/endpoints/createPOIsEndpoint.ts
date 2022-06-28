@@ -30,6 +30,9 @@ export default (baseUrl: string): Endpoint<ParamsType, Array<PoiModel>> =>
                 thumbnail: poi.thumbnail,
                 availableLanguages: mapAvailableLanguages(poi.available_languages),
                 excerpt: poi.excerpt,
+                website: poi.website,
+                phoneNumber: poi.phone_number,
+                email: poi.email,
                 location: new LocationModel({
                   id: poi.location.id,
                   name: poi.location.name,

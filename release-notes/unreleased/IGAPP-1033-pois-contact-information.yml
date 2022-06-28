@@ -1,0 +1,7 @@
+issue_key: IGAPP-1033
+show_in_stores: true
+platforms:
+  - android
+  - ios
+en: Contact information for locations on the map are now displayed.
+de: Kontaktinformationen für Orte auf der Karte werden nun angezeigt.
