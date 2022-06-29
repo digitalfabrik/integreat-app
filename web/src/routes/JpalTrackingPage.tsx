@@ -1,9 +1,9 @@
-import React, { ReactElement, useEffect } from 'react'
+import { useEffect } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 
 import safeLocalStorage, { JPAL_TRACKING_CODE_KEY } from '../utils/safeLocalStorage'
 
-const JpalTrackingPage = (): ReactElement => {
+const JpalTrackingPage = (): null => {
   const trackingCode = useParams().trackingCode
   const navigate = useNavigate()
 
@@ -17,7 +17,7 @@ const JpalTrackingPage = (): ReactElement => {
     navigate('/', { replace: true })
   }, [trackingCode, navigate])
 
-  return <></>
+  return null
 }
 
 export default JpalTrackingPage
