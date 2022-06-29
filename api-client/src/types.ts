@@ -73,6 +73,9 @@ export type JsonPoiType = {
   thumbnail: string
   hash: string
   location: JsonLocationType
+  website: string | null
+  email: string | null
+  phone_number: string | null
 }
 export type JsonEventType = {
   id: number

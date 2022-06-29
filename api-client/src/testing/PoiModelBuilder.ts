@@ -4,29 +4,32 @@ import LocationModel from '../models/LocationModel'
 import PoiModel from '../models/PoiModel'
 
 const availableLanguages = new Map([
-  ['de', '/de/test'],
+  ['de', '/augsburg/de/locations/test'],
   ['en', '/en/test']
 ])
 
 const pois = [
   new PoiModel({
-    path: 'test',
-    title: 'test',
-    content: 'test',
+    path: '/augsburg/de/locations/test',
+    title: 'Test Title',
+    content: 'My extremely long test content',
     thumbnail: 'test',
     availableLanguages,
-    excerpt: 'test',
+    excerpt: 'excerpt',
+    website: 'https://example.com',
+    phoneNumber: '012345',
+    email: 'test@example.com',
     location: new LocationModel({
       id: 1,
-      country: 'country',
+      country: 'Test Country',
+      address: 'Test Address 1',
       region: 'region',
       state: 'state',
-      address: 'address',
-      town: 'town',
-      postcode: 'postcode',
+      town: 'Test Town',
+      postcode: '12345',
       latitude: '29.979848',
       longitude: '31.133859',
-      name: 'name'
+      name: 'Test Title'
     }),
     lastUpdate: moment('2011-02-04T00:00:00.000Z'),
     hash: 'test'
@@ -38,6 +41,9 @@ const pois = [
     thumbnail: 'test thumbnail 2',
     availableLanguages,
     excerpt: 'test excerpt 2',
+    website: null,
+    phoneNumber: null,
+    email: null,
     location: new LocationModel({
       id: 1,
       country: 'test country 2',
