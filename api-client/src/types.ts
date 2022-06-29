@@ -73,6 +73,9 @@ export type JsonPoiType = {
   thumbnail: string
   hash: string
   location: JsonLocationType
+  website: string | null
+  email: string | null
+  phone_number: string | null
 }
 export type JsonEventType = {
   id: number
@@ -174,8 +177,8 @@ export type JsonCityType = {
   push_notifications: boolean
   name_without_prefix: string
   prefix: string | null | undefined
-  latitude: number | null
-  longitude: number | null
+  latitude: number
+  longitude: number
   aliases: Record<string, { longitude: number; latitude: number }> | null
   bounding_box: number[][] | null
 }

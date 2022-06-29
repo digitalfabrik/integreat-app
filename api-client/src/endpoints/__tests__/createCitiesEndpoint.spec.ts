@@ -40,8 +40,8 @@ describe('cities', () => {
     push_notifications: false,
     name_without_prefix: 'Regensburg',
     prefix: 'Stadt',
-    longitude: null,
-    latitude: null,
+    latitude: 48.369696,
+    longitude: 10.892578,
     aliases: null,
     bounding_box: null
   }
@@ -87,8 +87,8 @@ describe('cities', () => {
         tunewsEnabled: false,
         sortingName: 'Regensburg',
         prefix: 'Stadt',
-        latitude: null,
-        longitude: null,
+        latitude: 48.369696,
+        longitude: 10.892578,
         aliases: null,
         boundingBox: null
       })
