@@ -42,6 +42,7 @@ const NavigationTilesWithScrollableView = ({ tiles, theme }: PropsType): ReactEl
     ? scrollViewWidth / wideScreenItemsCount
     : scrollViewWidth / smallScreenItemsCount
   const allTilesWidth = tiles.length * navigationItemWidth
+  const lastItemAutoScroll = 0.8
   const isScrollable = allTilesWidth > layoutWidth
 
   const scrollViewRef = useRef<ScrollView>(null)
@@ -51,10 +52,6 @@ const NavigationTilesWithScrollableView = ({ tiles, theme }: PropsType): ReactEl
     setCurrentPosition(event.nativeEvent.contentOffset.x)
   }
 
-  const updatePosition = (position: 'start' | 'end') => {
-    setCurrentPosition(position === 'start' ? 0 : navigationItemWidth)
-  }
-
   return (
     <TilesRow>
       {isScrollable && (
@@ -62,7 +59,6 @@ const NavigationTilesWithScrollableView = ({ tiles, theme }: PropsType): ReactEl
           name='keyboard-arrow-left'
           isLeftAnchor
           scrollViewRef={scrollViewRef.current}
-          updatePosition={updatePosition}
           disabled={currentPosition === 0}
         />
       )}
@@ -92,8 +88,7 @@ const NavigationTilesWithScrollableView = ({ tiles, theme }: PropsType): ReactEl
           name='keyboard-arrow-right'
           isLeftAnchor={false}
           scrollViewRef={scrollViewRef.current}
-          updatePosition={updatePosition}
-          disabled={currentPosition >= navigationItemWidth}
+          disabled={currentPosition >= lastItemAutoScroll * navigationItemWidth}
         />
       )}
     </TilesRow>
