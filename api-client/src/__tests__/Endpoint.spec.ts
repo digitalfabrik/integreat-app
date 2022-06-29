@@ -99,7 +99,7 @@ describe('Endpoint', () => {
 
     expect(response.requestUrl).toEqual(`${overrideUrl}/`)
     expect(mockedFetch).toHaveBeenCalledTimes(1)
-    expect(mockedFetch).toHaveBeenCalledWith(overrideUrl, { method: 'GET' })
+    expect(mockedFetch).toHaveBeenCalledWith(`${overrideUrl}/`, { method: 'GET' })
   })
 
   it('should fetch with GET from mapped url and return data', async () => {
