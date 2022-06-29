@@ -3,5 +3,5 @@ show_in_stores: true
 platforms:
   - android
   - ios
-en: By changing the language, the selected location stays selected.
+en: When changing the language the selected location stays selected.
 de: Bei einer Sprachänderung bleibt der ausgewählte Ort weiterhin ausgewählt.
