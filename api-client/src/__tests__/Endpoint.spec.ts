@@ -4,6 +4,7 @@ import Endpoint from '../Endpoint'
 import Payload from '../Payload'
 import FetchError from '../errors/FetchError'
 import ResponseError from '../errors/ResponseError'
+import { setJpalTrackingCode } from '../request'
 
 describe('Endpoint', () => {
   const defaultMapParamsToUrl = (params: { var1: string; var2: string }) =>
@@ -69,6 +70,7 @@ describe('Endpoint', () => {
 
   beforeEach(() => {
     jest.clearAllMocks()
+    setJpalTrackingCode(null)
   })
 
   it('should have correct state name', () => {
@@ -95,7 +97,7 @@ describe('Endpoint', () => {
     const endpoint = new Endpoint('endpoint', defaultMapParamsToUrl, null, defaultJsonMapper)
     const response = await endpoint.request(params, overrideUrl)
 
-    expect(response.requestUrl).toEqual(overrideUrl)
+    expect(response.requestUrl).toEqual(`${overrideUrl}/`)
     expect(mockedFetch).toHaveBeenCalledTimes(1)
     expect(mockedFetch).toHaveBeenCalledWith(overrideUrl, { method: 'GET' })
   })
@@ -112,6 +114,18 @@ describe('Endpoint', () => {
     expect(response.isFetching).toBe(false)
     expect(mockedFetch).toHaveBeenCalledTimes(1)
     expect(mockedFetch).toHaveBeenCalledWith(url, { method: 'GET' })
+  })
+
+  it('should include jpal tracking code if set', async () => {
+    const trackingCode = 'my-tracking-code'
+    setJpalTrackingCode(trackingCode)
+    mockedFetch.mockImplementation(async () => responseOk)
+    const mapParamsToUrl = () => 'https://example.com/?test=1234'
+    const endpoint = new Endpoint('endpoint', mapParamsToUrl, null, defaultJsonMapper)
+    const response = await endpoint.request(params)
+
+    expect(response).toBeInstanceOf(Payload)
+    expect(response.requestUrl).toEqual(`https://example.com/?test=1234&jpal_tracking_code=${trackingCode}`)
   })
 
   it('should fetch with POST from mapped url and return data', async () => {
