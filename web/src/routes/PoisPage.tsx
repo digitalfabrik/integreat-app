@@ -12,7 +12,7 @@ import {
   defaultMercatorViewportConfig,
   detailZoom,
   embedInCollection,
-  locationName,
+  nameQueryParam,
   MapViewMercatorViewport,
   NotFoundError,
   pathnameFromRouteInformation,
@@ -58,7 +58,7 @@ const PoisPage = ({ cityCode, languageCode, cityModel, pathname, languages }: Ci
   const [queryParams, setQueryParams] = useSearchParams()
   const { data, error: featureLocationsError, loading } = useFeatureLocations(cityCode, languageCode)
   const [mapRef, setMapRef] = useState<Map | null>(null)
-  const selectedFeatureSlug = queryParams.get(locationName)
+  const selectedFeatureSlug = queryParams.get(nameQueryParam)
   const [currentFeature, setCurrentFeature] = useState<PoiFeature | null>(
     data?.features.find(it => it.properties.urlSlug === selectedFeatureSlug) ?? null
   )
@@ -73,9 +73,9 @@ const PoisPage = ({ cityCode, languageCode, cityModel, pathname, languages }: Ci
       mapRef.stop()
     }
     if (feature) {
-      queryParams.set(locationName, feature.properties.urlSlug)
+      queryParams.set(nameQueryParam, feature.properties.urlSlug)
     } else {
-      queryParams.delete(locationName)
+      queryParams.delete(nameQueryParam)
     }
     setQueryParams(queryParams)
   }
@@ -106,18 +106,16 @@ const PoisPage = ({ cityCode, languageCode, cityModel, pathname, languages }: Ci
     log('To use geolocation in a development build you have to start the dev server with\n "yarn start --https"')
   }
 
-  const languageChangePaths = languages.map(({ code, name }) => {
-    const isCurrentLanguage = code === languageCode
-    const path = poi
-      ? poi.availableLanguages.get(code) || null
-      : pathnameFromRouteInformation({ route: POIS_ROUTE, cityCode, languageCode: code })
-
-    return {
-      path: isCurrentLanguage ? pathname : path,
-      name,
-      code
-    }
-  })
+  const languageChangePaths = languages.map(({ code, name }) => ({
+    path: pathnameFromRouteInformation({
+      route: POIS_ROUTE,
+      cityCode,
+      languageCode: code,
+      urlSlug: poi?.urlSlug
+    }),
+    name,
+    code
+  }))
 
   const nextFeatureIndex = (step: 1 | -1, arrayLength: number, currentIndex: number): number => {
     if (currentIndex === arrayLength - 1 && step > 0) {
@@ -156,7 +154,8 @@ const PoisPage = ({ cityCode, languageCode, cityModel, pathname, languages }: Ci
     languageChangePaths,
     route: POIS_ROUTE,
     languageCode,
-    disableScrollingSafari: true
+    disableScrollingSafari: true,
+    showFooter: false
   }
 
   if (loading) {
@@ -208,12 +207,13 @@ const PoisPage = ({ cityCode, languageCode, cityModel, pathname, languages }: Ci
       bboxViewport={moveViewToBBox(cityModel.boundingBox, defaultMercatorViewportConfig)}
       currentFeature={currentFeature}
       direction={direction}
+      cityCode={cityCode}
+      languageCode={languageCode}
     />
   )
-
   const poiList = <List noItemsMessage={t('noPois')} items={data.features} renderItem={renderPoiListItem} borderless />
   // To calculate the height of the PoisPage container, we have to reduce 100vh by header, footer, navMenu
-  const panelHeights = dimensions.headerHeightLarge + dimensions.footerHeight + dimensions.navigationMenuHeight
+  const panelHeights = dimensions.headerHeightLarge + dimensions.navigationMenuHeight
 
   return (
     <LocationLayout isLoading={false} {...locationLayoutParams} fullWidth>
