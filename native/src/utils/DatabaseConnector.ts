@@ -98,8 +98,8 @@ type ContentCityJsonType = {
   events_enabled: boolean
   pois_enabled: boolean
   sorting_name: string
-  longitude: number | null
-  latitude: number | null
+  longitude: number
+  latitude: number
   aliases: Record<string, { longitude: number; latitude: number }> | null
   pushNotificationsEnabled: boolean
   tunewsEnabled: boolean
@@ -110,6 +110,9 @@ type ContentPoiJsonType = {
   title: string
   content: string
   thumbnail: string
+  website: string | null
+  phoneNumber: string | null
+  email: string | null
   availableLanguages: Record<string, string>
   excerpt: string
   location: LocationJsonType
@@ -392,6 +395,9 @@ class DatabaseConnector {
         thumbnail: poi.thumbnail,
         availableLanguages: mapToObject(poi.availableLanguages),
         excerpt: poi.excerpt,
+        website: poi.website,
+        phoneNumber: poi.phoneNumber,
+        email: poi.email,
         location: {
           id: poi.location.id,
           address: poi.location.address,
@@ -430,6 +436,9 @@ class DatabaseConnector {
         thumbnail: jsonObject.thumbnail,
         availableLanguages,
         excerpt: jsonObject.excerpt,
+        website: jsonObject.website,
+        phoneNumber: jsonObject.phoneNumber,
+        email: jsonObject.email,
         location: new LocationModel({
           id: jsonLocation.id,
           name: jsonLocation.name,

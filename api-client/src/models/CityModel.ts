@@ -13,8 +13,8 @@ class CityModel {
   _tunewsEnabled: boolean
   _sortingName: string
   _prefix: string | null | undefined
-  _latitude: number | null
-  _longitude: number | null
+  _latitude: number
+  _longitude: number
 
   constructor(params: {
     name: string
@@ -27,8 +27,8 @@ class CityModel {
     tunewsEnabled: boolean
     sortingName: string
     prefix: string | null | undefined
-    latitude: number | null
-    longitude: number | null
+    latitude: number
+    longitude: number
     aliases: Record<string, CoordinateType> | null
     boundingBox: BBox | null
   }) {
@@ -98,11 +98,11 @@ class CityModel {
     return this._prefix
   }
 
-  get longitude(): number | null {
+  get longitude(): number {
     return this._longitude
   }
 
-  get latitude(): number | null {
+  get latitude(): number {
     return this._latitude
   }
 

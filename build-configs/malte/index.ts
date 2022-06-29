@@ -11,7 +11,8 @@ import { APP_STORE_TEAM_ID } from '../common/constants'
 import mainImprint from './mainImprint'
 import { lightTheme } from './theme'
 
-const APPLE_APP_ID = '1535758339'
+const APPLICATION_ID = 'de.malteapp'
+const BUNDLE_IDENTIFIER = 'de.malteapp'
 
 const commonMalteBuildConfig: CommonBuildConfigType = {
   appName: 'Malte',
@@ -48,9 +49,7 @@ const commonMalteBuildConfig: CommonBuildConfigType = {
 const androidMalteBuildConfig: AndroidBuildConfigType = {
   ...commonMalteBuildConfig,
   splashScreen: false,
-  applicationId: 'de.malteapp',
-  sha256CertFingerprint:
-    '35:0C:AC:0B:70:EC:81:3A:35:41:30:03:27:FE:C1:E4:4A:93:F2:58:FF:C3:C9:BB:6F:08:47:0B:56:80:6B:81',
+  applicationId: APPLICATION_ID,
   googleServices: {
     googleAppId: '1:146599424234:android:b110d70b79ff7ce351a793',
     gcmDefaultSenderId: '146599424234',
@@ -65,18 +64,15 @@ const androidMalteBuildConfig: AndroidBuildConfigType = {
 
 const iosMalteBuildConfig: iOSBuildConfigType = {
   ...commonMalteBuildConfig,
-  bundleIdentifier: 'de.malteapp',
-  provisioningProfileSpecifier: 'match Development de.malteapp',
-  appleId: APPLE_APP_ID,
-  itunesAppName: 'malte',
-  appleAppSiteAssociationAppIds: [`${APP_STORE_TEAM_ID}.de.malteapp`, `${APP_STORE_TEAM_ID}.de.malteapp.test`],
+  bundleIdentifier: BUNDLE_IDENTIFIER,
+  provisioningProfileSpecifier: `match Development ${BUNDLE_IDENTIFIER}`,
   googleServices: {
     clientId: '146599424234-b6rfm4skhbsv4qvob3ieh34s2chjm54k.apps.googleusercontent.com',
     reversedClientId: 'com.googleusercontent.apps.146599424234-b6rfm4skhbsv4qvob3ieh34s2chjm54k',
     apiKey: 'AIzaSyAWOaqdFwZ7-tbwiQ79dwMyzpmR_g1cBbI',
     googleAppId: '1:146599424234:ios:56dde1442250260651a793',
     gcmSenderId: '146599424234',
-    bundleId: 'de.malteapp',
+    bundleId: BUNDLE_IDENTIFIER,
     databaseUrl: 'https://malte-2020.firebaseio.com',
     projectId: 'malte-2020',
     plistVersion: '1',
@@ -94,13 +90,28 @@ const webMalteBuildConfig: WebBuildConfigType = {
   ...commonMalteBuildConfig,
   appDescription: 'Guide of the Malteser Werke for Refugees. Digital. Multilingual. Free.',
   mainImprint,
-  itunesAppId: APPLE_APP_ID,
   icons: {
     appLogo: '/app-logo.png',
     locationMarker: '/location-marker.svg',
     appleTouchIcon: '/apple-touch-icon.png',
     socialMediaPreview: '/social-media-preview.png',
     favicons: '/favicons/'
+  },
+  apps: {
+    android: {
+      applicationId: APPLICATION_ID,
+      sha256CertFingerprint:
+        '35:0C:AC:0B:70:EC:81:3A:35:41:30:03:27:FE:C1:E4:4A:93:F2:58:FF:C3:C9:BB:6F:08:47:0B:56:80:6B:81'
+    },
+    ios: {
+      bundleIdentifier: BUNDLE_IDENTIFIER,
+      appStoreId: '1535758339',
+      appStoreName: 'malte',
+      appleAppSiteAssociationAppIds: [
+        `${APP_STORE_TEAM_ID}.${BUNDLE_IDENTIFIER}`,
+        `${APP_STORE_TEAM_ID}.de.malteapp.test`
+      ]
+    }
   }
 }
 
