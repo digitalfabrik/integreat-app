@@ -19,6 +19,7 @@ import CleanLink from './CleanLink'
 import Collapsible from './Collapsible'
 import RemoteContent from './RemoteContent'
 import Spacer from './Spacer'
+import ContactItem from './ContactItem'
 
 const DetailsContainer = styled.div`
   font-family: ${props => props.theme.fonts.web.contentFont};
@@ -141,17 +142,6 @@ const DetailSection = styled.div`
   }
 `
 
-const ContactContainer = styled.div`
-  display: flex;
-  align-items: center;
-  padding-top: 4px;
-  font-size: clamp(0.55rem, 1.6vh, ${props => props.theme.fonts.hintFontSize});
-
-  @media ${dimensions.smallViewport} {
-    gap: 8px;
-  }
-`
-
 type PoiDetailsProps = {
   feature: PoiFeature
   poi: PoiModel
@@ -221,30 +211,9 @@ const PoiDetails: React.FC<PoiDetailsProps> = ({
           <Spacer borderColor={theme.colors.poiBorderColor} />
           <Collapsible title={t('contactInformation')} initialCollapsed direction={direction}>
             <>
-              {website && (
-                <ContactContainer>
-                  <Marker src={iconWebsite} alt={t('website')} />
-                  <a href={website}>
-                    {website}
-                  </a>
-                </ContactContainer>
-              )}
-              {phoneNumber && (
-                <ContactContainer>
-                  <Marker src={iconPhone} alt={t('phone')} />
-                  <a href={`tel:${phoneNumber}`}>
-                    {phoneNumber}
-                  </a>
-                </ContactContainer>
-              )}
-              {email && (
-                <ContactContainer>
-                  <Marker src={iconEmail} alt={t('eMail')} />
-                  <a href={`mailto:${email}`}>
-                    {email}
-                  </a>
-                </ContactContainer>
-              )}
+              {website && <ContactItem iconSrc={iconWebsite} iconAlt={t('website')} link={website} content={website} />}
+              {phoneNumber && <ContactItem iconSrc={iconPhone} iconAlt={t('phone')} link={`tel:${phoneNumber}`} content={phoneNumber} />}
+              {email && <ContactItem iconSrc={iconEmail} iconAlt={t('eMail')} link={`mailto:${email}`} content={email} />}
             </>
           </Collapsible>
         </>
