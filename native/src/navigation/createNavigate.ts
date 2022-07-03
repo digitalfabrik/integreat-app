@@ -40,8 +40,6 @@ const createNavigate =
   (routeInformation: RouteInformationType, key?: string, forceRefresh?: boolean): void => {
     if (routeInformation) {
       const url = urlFromRouteInformation(routeInformation)
-      
-
       if (routeInformation.route !== SHELTER_ROUTE) {
         sendTrackingSignal({
           signal: {
