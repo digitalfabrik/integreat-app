@@ -1,0 +1,12 @@
+export type License = {
+  licenses: string
+  repository: string
+  licenseUrl: string
+  parents: string
+}
+
+export type FinalLicense = {
+  name: string
+  version: string | undefined
+  licenseSpecs: License
+}
