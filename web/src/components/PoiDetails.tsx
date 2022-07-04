@@ -6,20 +6,20 @@ import styled, { css, useTheme } from 'styled-components'
 import { getExternalMapsLink, PoiFeature, PoiModel } from 'api-client/src'
 import { UiDirectionType } from 'translations'
 
-import iconArrowBack from '../assets/IconArrowBackLong.svg'
 import iconEmail from '../../../assets/icons/email.svg'
-import iconExternalLink from '../assets/IconExternalLink.svg'
-import iconMarker from '../assets/IconMarker.svg'
 import iconPhone from '../../../assets/icons/phone.svg'
 import iconWebsite from '../../../assets/icons/website.svg'
+import iconArrowBack from '../assets/IconArrowBackLong.svg'
+import iconExternalLink from '../assets/IconExternalLink.svg'
+import iconMarker from '../assets/IconMarker.svg'
 import PoiPlaceholder from '../assets/PoiPlaceholderLarge.jpg'
 import dimensions from '../constants/dimensions'
 import useWindowDimensions from '../hooks/useWindowDimensions'
 import CleanLink from './CleanLink'
 import Collapsible from './Collapsible'
+import ContactItem from './ContactItem'
 import RemoteContent from './RemoteContent'
 import Spacer from './Spacer'
-import ContactItem from './ContactItem'
 
 const DetailsContainer = styled.div`
   font-family: ${props => props.theme.fonts.web.contentFont};
@@ -212,8 +212,17 @@ const PoiDetails: React.FC<PoiDetailsProps> = ({
           <Collapsible title={t('contactInformation')} initialCollapsed direction={direction}>
             <>
               {website && <ContactItem iconSrc={iconWebsite} iconAlt={t('website')} link={website} content={website} />}
-              {phoneNumber && <ContactItem iconSrc={iconPhone} iconAlt={t('phone')} link={`tel:${phoneNumber}`} content={phoneNumber} />}
-              {email && <ContactItem iconSrc={iconEmail} iconAlt={t('eMail')} link={`mailto:${email}`} content={email} />}
+              {phoneNumber && (
+                <ContactItem
+                  iconSrc={iconPhone}
+                  iconAlt={t('phone')}
+                  link={`tel:${phoneNumber}`}
+                  content={phoneNumber}
+                />
+              )}
+              {email && (
+                <ContactItem iconSrc={iconEmail} iconAlt={t('eMail')} link={`mailto:${email}`} content={email} />
+              )}
             </>
           </Collapsible>
         </>
