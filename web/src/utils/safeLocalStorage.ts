@@ -1,5 +1,10 @@
 let hasLocalStorageSupport: boolean | null = null
 
+export const I18N_LANGUAGE_KEY = 'i18nextLng'
+export const PAGE_FORCE_REFRESHED_KEY = 'pageForceRefreshed'
+export const JPAL_TRACKING_CODE_KEY = 'jpalTrackingCode'
+export const API_URL_KEY = 'api-url'
+
 // Adapted from:
 // https://github.com/i18next/i18next-browser-languageDetector/blob/90284ca924353de0e6991bc51a0453f90fac3a04/src/browserLookups/localStorage.js
 const isAvailable = (): boolean => {
@@ -34,10 +39,17 @@ const setItem = (key: string, value: string): void => {
   }
 }
 
+const removeItem = (key: string): void => {
+  if (isAvailable()) {
+    window.localStorage.removeItem(key)
+  }
+}
+
 const safeLocalStorage = {
   isAvailable,
   setItem,
-  getItem
+  getItem,
+  removeItem
 }
 
 export default safeLocalStorage

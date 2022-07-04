@@ -5,13 +5,20 @@ import styled from 'styled-components'
 import { PoiFeature } from 'api-client'
 
 import PoiPlaceholder from '../assets/PoiPlaceholderThumbnail.jpg'
+import dimensions from '../constants/dimensions'
 
 const ListItemContainer = styled.article`
   font-family: ${props => props.theme.fonts.web.contentFont};
   display: flex;
-  border-bottom: 1px solid ${props => props.theme.colors.poiBorderColor};
   padding: clamp(10px, 1vh, 20px) 0;
+  border-bottom: 1px solid ${props => props.theme.colors.poiBorderColor};
   cursor: pointer;
+
+  @media screen and ${dimensions.smallViewport} {
+    &:last-child {
+      border-bottom: none;
+    }
+  }
 
   &:first-child {
     padding-top: 0;
