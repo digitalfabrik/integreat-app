@@ -4,8 +4,8 @@ import styled from 'styled-components'
 
 import { FilterProps } from 'api-client/src/endpoints/createShelterEndpoint'
 
-import bedIcon from '../assets/shelter/bed.svg'
-import petIcon from '../assets/shelter/pet.svg'
+import bedIcon from '../../../assets/icons/bed.svg'
+import petIcon from '../../../assets/icons/pet.svg'
 import FacetInput from './FacetInput'
 import FacetToggle from './FacetToggle'
 
