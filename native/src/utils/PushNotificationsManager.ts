@@ -73,24 +73,28 @@ export const subscribeNews = async (city: string, language: string): Promise<voi
   log(`Subscribed to ${topic} topic!`)
 }
 
+const urlFromMessage = (message: Message): string => {
+  const { city_code: cityCode, language_code: languageCode, news_id: newsId } = (message as Message).data
+  return urlFromRouteInformation({
+    cityCode,
+    languageCode,
+    route: NEWS_ROUTE,
+    newsType: LOCAL_NEWS_TYPE,
+    newsId
+  })
+}
+
 export const quitAppStatePushNotificationListener = async (
   dispatch: Dispatch,
   navigation: NavigationPropType<RoutesType>
 ): Promise<void> => {
   const messaging = await importFirebaseMessaging()
-  const message = await messaging().getInitialNotification()
+  const message = (await messaging().getInitialNotification()) as Message | null
 
   if (message) {
-    const { city_code: cityCode, language_code: languageCode, news_id: newsId } = (message as Message).data
+    const url = urlFromMessage(message)
     // Use navigateToDeepLink instead of normal createNavigate to avoid navigation not being initialized
-    const url = urlFromRouteInformation({
-      cityCode,
-      languageCode,
-      route: NEWS_ROUTE,
-      newsType: LOCAL_NEWS_TYPE,
-      newsId
-    })
-    navigateToDeepLink(dispatch, navigation, url, languageCode)
+    navigateToDeepLink(dispatch, navigation, url, message.data.language_code)
   }
 }
 
@@ -102,18 +106,9 @@ export const backgroundAppStatePushNotificationListener = (listener: (url: strin
 
         const onReceiveURLListener = Linking.addListener('url', onReceiveURL)
 
-        const unsubscribeNotification = messaging().onNotificationOpenedApp(message => {
-          const { city_code: cityCode, language_code: languageCode, news_id: newsId } = (message as Message).data
-          listener(
-            urlFromRouteInformation({
-              cityCode,
-              languageCode,
-              route: NEWS_ROUTE,
-              newsType: LOCAL_NEWS_TYPE,
-              newsId
-            })
-          )
-        })
+        const unsubscribeNotification = messaging().onNotificationOpenedApp(message =>
+          listener(urlFromMessage(message as Message))
+        )
 
         return () => {
           onReceiveURLListener.remove()

@@ -188,16 +188,22 @@ describe('PushNotificationsManager', () => {
   })
 
   describe('quitAppStatePushNotificationsListener', () => {
+    const message = {
+      notification: { title: 'Test PN' },
+      data: {
+        city_code: 'augsburg',
+        language_code: 'de',
+        news_id: '123',
+        group: 'news'
+      }
+    }
     it('should go to news if there is an initial message', async () => {
-      const url = 'https://integreat.app/augsburg/de/news/local'
+      const url = 'https://integreat.app/augsburg/de/news/local/123'
       mockedFirebaseMessaging.mockImplementation(() => {
         const previous = previousFirebaseMessaging
-        previous.getInitialNotification = async () => ({ notification: { title: 'Test PN' } })
+        previous.getInitialNotification = async () => message
         return previous
       })
-
-      await appSettings.setSelectedCity('augsburg')
-      await appSettings.setContentLanguage('de')
 
       await PushNotificationsManager.quitAppStatePushNotificationListener(jest.fn(), navigation)
       expect(navigateToDeepLink).toHaveBeenCalledTimes(1)
@@ -210,22 +216,6 @@ describe('PushNotificationsManager', () => {
         previous.getInitialNotification = async () => null
         return previous
       })
-
-      await appSettings.setSelectedCity('augsburg')
-      await appSettings.setContentLanguage('de')
-
-      await PushNotificationsManager.quitAppStatePushNotificationListener(jest.fn(), navigation)
-      expect(navigateToDeepLink).not.toHaveBeenCalled()
-    })
-
-    it('should not go to news if there is no selected city or language', async () => {
-      mockedFirebaseMessaging.mockImplementation(() => {
-        const previous = previousFirebaseMessaging
-        previous.getInitialNotification = async () => ({ notification: { title: 'Test PN' } })
-        return previous
-      })
-
-      await appSettings.setContentLanguage('de')
 
       await PushNotificationsManager.quitAppStatePushNotificationListener(jest.fn(), navigation)
       expect(navigateToDeepLink).not.toHaveBeenCalled()
