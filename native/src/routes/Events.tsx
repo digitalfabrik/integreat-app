@@ -90,7 +90,6 @@ const Events = ({
     const event = events.find(_event => _event.path === path)
 
     if (event) {
-      const { location } = event.location
       const files = resourceCache[event.path] || {}
       return (
         <Page
@@ -108,8 +107,13 @@ const Events = ({
               theme={theme}
               language={language}
             />
-            {location && (
-              <PageDetail identifier={t('address')} information={location} theme={theme} language={language} />
+            {event.location && (
+              <PageDetail
+                identifier={t('address')}
+                information={event.location.fullAddress}
+                theme={theme}
+                language={language}
+              />
             )}
           </>
         </Page>
