@@ -57,7 +57,7 @@ class CategoryList extends React.PureComponent<PropsType> {
         <List>
           {categories.map(categoryItem => (
             <CategoryEntry
-              key={categoryItem.model.hash}
+              key={categoryItem.model.path}
               category={categoryItem.model}
               contentWithoutHtml={categoryItem.contentWithoutHtml}
               subCategories={categoryItem.subCategories}

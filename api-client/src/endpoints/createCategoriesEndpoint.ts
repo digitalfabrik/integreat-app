@@ -30,8 +30,7 @@ export default (baseUrl: string): Endpoint<ParamsType, CategoriesMapModel> =>
           thumbnail: '',
           order: -1,
           availableLanguages: new Map(),
-          lastUpdate: moment(0),
-          hash: ''
+          lastUpdate: moment(0)
         })
       )
       return new CategoriesMapModel(categories)

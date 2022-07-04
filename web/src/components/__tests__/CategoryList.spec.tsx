@@ -15,8 +15,7 @@ const modelWithTitle = new CategoryModel({
   availableLanguages: new Map(),
   content: '<div>This is some special test content</div>',
   lastUpdate: moment('2016-01-07 10:36:24'),
-  thumbnail: 'title-thumbnail',
-  hash: '91d435afbc7aa83437e81fd2832e3'
+  thumbnail: 'title-thumbnail'
 })
 const categoryModels: [CategoryModel, CategoryModel, CategoryModel, CategoryModel] = [
   new CategoryModel({
@@ -28,8 +27,7 @@ const categoryModels: [CategoryModel, CategoryModel, CategoryModel, CategoryMode
     content: 'exampleContent0',
     lastUpdate: moment('2016-01-07 10:36:24'),
     order: 0,
-    thumbnail: 'thumb-nail',
-    hash: '91d435afbc7aa83496157e81fd2832e3'
+    thumbnail: 'thumb-nail'
   }),
   new CategoryModel({
     root: false,
@@ -40,8 +38,7 @@ const categoryModels: [CategoryModel, CategoryModel, CategoryModel, CategoryMode
     availableLanguages: new Map(),
     content: 'exampleContent0',
     lastUpdate: moment('2016-01-07 10:36:24'),
-    thumbnail: 'thumb-nail',
-    hash: '91d435afbc5aa83496137e81fd2832e3'
+    thumbnail: 'thumb-nail'
   }),
   new CategoryModel({
     root: false,
@@ -52,8 +49,7 @@ const categoryModels: [CategoryModel, CategoryModel, CategoryModel, CategoryMode
     availableLanguages: new Map(),
     content: 'exampleContent0',
     lastUpdate: moment('2016-01-07 10:36:24'),
-    thumbnail: 'thumb-nail',
-    hash: '91d435afbc7aa83496l37e81fd2832e3'
+    thumbnail: 'thumb-nail'
   }),
   new CategoryModel({
     root: false,
@@ -64,8 +60,7 @@ const categoryModels: [CategoryModel, CategoryModel, CategoryModel, CategoryMode
     availableLanguages: new Map(),
     content: 'exampleContent0',
     lastUpdate: moment('2016-01-07 10:36:24'),
-    thumbnail: 'thumb-nail',
-    hash: '91d435afbc7aa83496137e81fd2832e3'
+    thumbnail: 'thumb-nail'
   })
 ]
 
