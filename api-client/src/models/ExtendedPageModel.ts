@@ -14,7 +14,6 @@ class ExtendedPageModel extends PageModel {
     thumbnail: string
     lastUpdate: Moment
     availableLanguages: Map<string, string>
-    hash: string
   }) {
     const { thumbnail, availableLanguages, ...other } = params
     super(other)

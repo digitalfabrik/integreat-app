@@ -24,7 +24,6 @@ class PoiModel extends ExtendedPageModel {
     email: string | null
     website: string | null
     phoneNumber: string | null
-    hash: string
   }) {
     const { location, excerpt, website, phoneNumber, email, ...other } = params
     super(other)

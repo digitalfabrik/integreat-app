@@ -46,7 +46,6 @@ type ContentCategoryJsonType = {
   parent_path: string
   children: Array<string>
   order: number
-  hash: string
 }
 type LocationJsonType<T> = {
   id: number
@@ -77,7 +76,6 @@ type ContentEventJsonType = {
   last_update: string
   thumbnail: string
   available_languages: Record<string, string>
-  hash: string
   excerpt: string
   date: {
     start_date: string
@@ -115,7 +113,6 @@ type ContentPoiJsonType = {
   excerpt: string
   location: LocationJsonType<number>
   lastUpdate: string
-  hash: string
 }
 type CityCodeType = string
 type LanguageCodeType = string
@@ -332,8 +329,7 @@ class DatabaseConnector {
         available_languages: mapToObject(category.availableLanguages),
         parent_path: category.parentPath,
         children: categoriesMap.getChildren(category).map(category => category.path),
-        order: category.order,
-        hash: category.hash
+        order: category.order
       })
     )
     await this.writeFile(this.getContentPath('categories', context), JSON.stringify(jsonModels))
@@ -360,8 +356,7 @@ class DatabaseConnector {
           parentPath: jsonObject.parent_path,
           order: jsonObject.order,
           availableLanguages,
-          lastUpdate: moment(jsonObject.last_update, moment.ISO_8601),
-          hash: jsonObject.hash
+          lastUpdate: moment(jsonObject.last_update, moment.ISO_8601)
         })
       })
     )
@@ -406,8 +401,7 @@ class DatabaseConnector {
           country: poi.location.country,
           name: poi.location.name
         },
-        lastUpdate: poi.lastUpdate.toISOString(),
-        hash: poi.hash
+        lastUpdate: poi.lastUpdate.toISOString()
       })
     )
     await this.writeFile(this.getContentPath('pois', context), JSON.stringify(jsonModels))
@@ -445,8 +439,7 @@ class DatabaseConnector {
           postcode: jsonLocation.postcode,
           town: jsonLocation.town
         }),
-        lastUpdate: moment(jsonObject.lastUpdate, moment.ISO_8601),
-        hash: jsonObject.hash
+        lastUpdate: moment(jsonObject.lastUpdate, moment.ISO_8601)
       })
     })
   }
@@ -512,7 +505,6 @@ class DatabaseConnector {
         last_update: event.lastUpdate.toISOString(),
         thumbnail: event.thumbnail,
         available_languages: mapToObject(event.availableLanguages),
-        hash: event.hash,
         excerpt: event.excerpt,
         date: {
           start_date: event.date.startDate.toISOString(),
@@ -573,7 +565,6 @@ class DatabaseConnector {
           : null,
         availableLanguages,
         lastUpdate: moment(jsonObject.last_update, moment.ISO_8601),
-        hash: jsonObject.hash,
         excerpt: jsonObject.excerpt,
         date: new DateModel({
           startDate: moment(jsonDate.start_date, moment.ISO_8601),

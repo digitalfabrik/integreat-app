@@ -13,8 +13,7 @@ describe('CategoriesMapModel', () => {
     thumbnail: 'https://cms.integreat-app.de/augsburg/wp-content/uploads/sites/2/2015/09/pin66-150x150.png',
     order: 3,
     availableLanguages: new Map([['ar', '/augsburg/ar/erste-schritte/خريطة-المدينة']]),
-    lastUpdate: moment('2016-01-07 10:36:24'),
-    hash: '91d435afbc7aa83496137e81fd2832e3'
+    lastUpdate: moment('2016-01-07 10:36:24')
   })
   const categories = [
     new CategoryModel({
@@ -26,8 +25,7 @@ describe('CategoriesMapModel', () => {
       content: 'exampleContent0',
       lastUpdate: moment('2016-01-07 10:36:24'),
       order: 0,
-      thumbnail: 'thumb-nail',
-      hash: '91d435afbc7aa83496137e81fd2832e3'
+      thumbnail: 'thumb-nail'
     }),
     new CategoryModel({
       root: false,
@@ -38,8 +36,7 @@ describe('CategoriesMapModel', () => {
       availableLanguages: new Map(),
       content: 'exampleContent0',
       lastUpdate: moment('2016-01-07 10:36:24'),
-      thumbnail: 'thumb-nail',
-      hash: '91d435afbc7aa83496137e81fd2832e3'
+      thumbnail: 'thumb-nail'
     }),
     new CategoryModel({
       root: false,
@@ -50,8 +47,7 @@ describe('CategoriesMapModel', () => {
       availableLanguages: new Map(),
       content: 'exampleContent0',
       lastUpdate: moment('2016-01-07 10:36:24'),
-      thumbnail: 'thumb-nail',
-      hash: '91d435afbc7aa83496137e81fd2832e3'
+      thumbnail: 'thumb-nail'
     }),
     new CategoryModel({
       root: false,
@@ -62,8 +58,7 @@ describe('CategoriesMapModel', () => {
       availableLanguages: new Map(),
       content: 'exampleContent0',
       lastUpdate: moment('2016-01-07 10:36:24'),
-      thumbnail: 'thumb-nail',
-      hash: '91d435afbc7aa83496137e81fd2832e3'
+      thumbnail: 'thumb-nail'
     })
   ]
   const categoriesMapModel = new CategoriesMapModel(categories)
