@@ -42,14 +42,14 @@ const NavigationTilesWithScrollableView = ({ tiles, theme }: PropsType): ReactEl
     ? scrollViewWidth / wideScreenItemsCount
     : scrollViewWidth / smallScreenItemsCount
   const allTilesWidth = tiles.length * navigationItemWidth
-  const lastItemAutoScroll = 0.8
   const isScrollable = allTilesWidth > layoutWidth
 
   const scrollViewRef = useRef<ScrollView>(null)
-  const [currentPosition, setCurrentPosition] = useState<number>(0)
+  const [percentageScrolled, setPercentageScrolled] = useState<number>(0)
 
   const handleScroll = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
-    setCurrentPosition(event.nativeEvent.contentOffset.x)
+    const { contentSize, contentOffset, layoutMeasurement } = event.nativeEvent
+    setPercentageScrolled(contentOffset.x / (contentSize.width - layoutMeasurement.width))
   }
 
   return (
@@ -59,7 +59,7 @@ const NavigationTilesWithScrollableView = ({ tiles, theme }: PropsType): ReactEl
           name='keyboard-arrow-left'
           isLeftAnchor
           scrollViewRef={scrollViewRef.current}
-          disabled={currentPosition === 0}
+          disabled={percentageScrolled === 0}
         />
       )}
       <ScrollView
@@ -89,7 +89,7 @@ const NavigationTilesWithScrollableView = ({ tiles, theme }: PropsType): ReactEl
           name='keyboard-arrow-right'
           isLeftAnchor={false}
           scrollViewRef={scrollViewRef.current}
-          disabled={currentPosition >= lastItemAutoScroll}
+          disabled={percentageScrolled === 1}
         />
       )}
     </TilesRow>
