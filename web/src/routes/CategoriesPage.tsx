@@ -150,6 +150,8 @@ const CategoriesPage = ({ cityModel, pathname, languages, cityCode, languageCode
   }
 
   if (!category || !parents || !categories) {
+    // This adds support for the old paths of categories by redirecting to the new path
+    // The children endpoint always returns the category with the new path at the first position in the response
     const newSlugCategory = categories?.[0]
     if (newSlugCategory) {
       return <Navigate to={newSlugCategory.path} />
