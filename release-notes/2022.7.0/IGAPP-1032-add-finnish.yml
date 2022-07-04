@@ -1,0 +1,6 @@
+issue_key: IGAPP-1032
+show_in_stores: false
+platforms:
+  - android
+  - ios
+en: Added support for finnish language.
