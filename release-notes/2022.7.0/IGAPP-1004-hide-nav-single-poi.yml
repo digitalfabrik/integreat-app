@@ -1,0 +1,6 @@
+issue_key: IGAPP-1004
+show_in_stores: true
+platforms:
+  - web
+en: Do not show poi navigation bar if only one location exists.
+de: Poi Navigation wird nicht angezeigt, wenn nur ein Ort existiert.

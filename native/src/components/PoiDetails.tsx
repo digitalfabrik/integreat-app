@@ -1,27 +1,24 @@
 import Clipboard from '@react-native-clipboard/clipboard'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Text } from 'react-native'
+import { Platform, Pressable, Text } from 'react-native'
 import styled from 'styled-components/native'
 
-import { PoiFeature, PoiModel } from 'api-client'
+import { getExternalMapsLink, PoiFeature, PoiModel } from 'api-client'
 
+import EmailIcon from '../../../assets/icons/email.svg'
+import PhoneIcon from '../../../assets/icons/phone.svg'
+import WebsiteIcon from '../../../assets/icons/website.svg'
 import ExternalLinkIcon from '../assets/ExternalLink.svg'
 import Placeholder from '../assets/PoiPlaceholderLarge.jpg'
 import useSnackbar from '../hooks/useSnackbar'
-import { getNavigationDeepLinks } from '../utils/getNavigationDeepLinks'
 import openExternalUrl from '../utils/openExternalUrl'
 import CollapsibleItem from './CollapsibleItem'
 import HorizontalLine from './HorizontalLine'
 import NativeHtml from './NativeHtml'
 import PoiDetailItem from './PoiDetailItem'
+import PoiDetailRow from './PoiDetailRow'
 import SimpleImage from './SimpleImage'
-
-type PoiDetailsProps = {
-  poi: PoiModel
-  feature: PoiFeature
-  language: string
-}
 
 const Thumbnail = styled(SimpleImage)`
   flex: 1;
@@ -55,31 +52,56 @@ const ContentWrapper = styled.View`
   padding-right: 32px;
 `
 
-const TextWrapper = styled.Pressable``
+type Props = {
+  poi: PoiModel
+  feature: PoiFeature
+  language: string
+}
 
-const PoiDetails: React.FC<PoiDetailsProps> = ({ poi, feature, language }: PoiDetailsProps): ReactElement => {
+const PoiDetails = ({ poi, feature, language }: Props): ReactElement => {
   const { t } = useTranslation('pois')
   const showSnackbar = useSnackbar()
 
   // TODO IGAPP-920: this has to be removed when we get proper images from CMS
   const thumbnail = feature.properties.thumbnail?.replace('-150x150', '') ?? Placeholder
-  const { location, address, postcode, town } = poi.location
+  const { address, postcode, town } = poi.location
   const { distance } = feature.properties
-  const { title, content } = poi
+  const { title, content, email, website, phoneNumber } = poi
 
-  const onNavigate = () => {
-    const navigationUrl = getNavigationDeepLinks(poi.location)
-    if (navigationUrl) {
-      openExternalUrl(navigationUrl).catch(() => showSnackbar(t('error:noSuitableAppInstalled')))
+  const openExternalMaps = () => {
+    const externalMapsUrl = getExternalMapsLink(poi.location, Platform.OS)
+    if (externalMapsUrl) {
+      openExternalUrl(externalMapsUrl).catch(() => showSnackbar(t('error:noSuitableAppInstalled')))
     }
   }
 
   const copyLocationToClipboard = (): void => {
-    if (location) {
-      Clipboard.setString(location)
+    if (address && postcode && town) {
+      Clipboard.setString([address, postcode, town].filter(it => it).join(' '))
       showSnackbar(t('addressCopied'))
     }
   }
+
+  const contactInformationCollapsibleItem = (
+    <CollapsibleItem initExpanded headerText={t('contactInformation')} language={language}>
+      <ContentWrapper>
+        {website && (
+          <PoiDetailRow externalUrl={website} accessibilityLabel={t('website')} text={website} icon={WebsiteIcon} />
+        )}
+        {phoneNumber && (
+          <PoiDetailRow
+            externalUrl={`tel:${phoneNumber}`}
+            accessibilityLabel={t('phone')}
+            text={phoneNumber}
+            icon={PhoneIcon}
+          />
+        )}
+        {email && (
+          <PoiDetailRow externalUrl={`mailto:${email}`} accessibilityLabel={t('eMail')} text={email} icon={EmailIcon} />
+        )}
+      </ContentWrapper>
+    </CollapsibleItem>
+  )
 
   return (
     <PoiDetailsContainer>
@@ -87,13 +109,22 @@ const PoiDetails: React.FC<PoiDetailsProps> = ({ poi, feature, language }: PoiDe
       {distance && <StyledDistance>{t('distanceKilometre', { distance })}</StyledDistance>}
       <Thumbnail source={thumbnail} resizeMode='cover' />
       <HorizontalLine />
-      <PoiDetailItem onPress={onNavigate} icon={<ExternalLink source={ExternalLinkIcon} />} language={language}>
-        <TextWrapper onPress={copyLocationToClipboard}>
+      <PoiDetailItem
+        onIconPress={openExternalMaps}
+        icon={<ExternalLink accessibilityLabel={t('openExternalMaps')} source={ExternalLinkIcon} />}
+        language={language}>
+        <Pressable onPress={copyLocationToClipboard}>
           <Text>{address}</Text>
           <Text>{[postcode, town].filter(it => it).join(' ')}</Text>
-        </TextWrapper>
+        </Pressable>
       </PoiDetailItem>
       <HorizontalLine />
+      {(website || phoneNumber || email) && (
+        <>
+          {contactInformationCollapsibleItem}
+          <HorizontalLine />
+        </>
+      )}
       {content.length > 0 && (
         <>
           <CollapsibleItem initExpanded headerText={t('description')} language={language}>
