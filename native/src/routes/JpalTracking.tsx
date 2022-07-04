@@ -40,7 +40,7 @@ const JpalTracking = ({ navigation, route }: PropsType): ReactElement => {
   const [trackingEnabled, setTrackingEnabled] = useState<boolean | null>(null)
   const [settingsLoaded, setSettingsLoaded] = useState<boolean>(false)
   const { t } = useTranslation('settings')
-  const routeTrackingCode = route.params.trackingCode
+  const { trackingCode: routeTrackingCode, disableTracking } = route.params
 
   const updateTrackingEnabled = useCallback((trackingEnabled: boolean) => {
     setTrackingEnabled(trackingEnabled)
@@ -54,6 +54,12 @@ const JpalTracking = ({ navigation, route }: PropsType): ReactElement => {
   const toggleTrackingEnabled = () => {
     updateTrackingEnabled(!trackingEnabled)
   }
+
+  useEffect(() => {
+    if (disableTracking) {
+      updateTrackingEnabled(false)
+    }
+  }, [disableTracking, updateTrackingEnabled])
 
   useEffect(() => {
     // Save tracking code passed with route params

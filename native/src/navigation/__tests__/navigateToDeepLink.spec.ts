@@ -466,7 +466,8 @@ describe('navigateToDeepLink', () => {
       expect(mockNavigateTo).toHaveBeenCalledWith(
         {
           route: JPAL_TRACKING_ROUTE,
-          trackingCode: 'abcdef123456'
+          trackingCode: 'abcdef123456',
+          disableTracking: false
         },
         undefined,
         false
@@ -482,7 +483,7 @@ describe('navigateToDeepLink', () => {
 
     it('should open dashboard and navigate to tracking links if there is a selected city', async () => {
       const selectedCity = 'testumgebung'
-      const url = `https://integreat.app/jpal/abcdef123456`
+      const url = `https://integreat.app/jpal`
       await appSettings.setContentLanguage(language)
       await appSettings.setSelectedCity(selectedCity)
       await appSettings.setIntroShown()
@@ -505,7 +506,8 @@ describe('navigateToDeepLink', () => {
       expect(mockNavigateTo).toHaveBeenCalledWith(
         {
           route: JPAL_TRACKING_ROUTE,
-          trackingCode: 'abcdef123456'
+          trackingCode: null,
+          disableTracking: true
         },
         undefined,
         false

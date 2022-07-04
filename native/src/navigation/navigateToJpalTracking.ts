@@ -7,16 +7,19 @@ import { StoreActionType } from '../redux/StoreActionType'
 
 const navigateToJpalTracking = <T extends RoutesType>({
   navigation,
-  trackingCode
+  trackingCode,
+  disableTracking
 }: {
   dispatch: Dispatch<StoreActionType>
   navigation: NavigationPropType<T>
   trackingCode: string | null
+  disableTracking?: boolean
 }): void => {
   navigation.navigate({
     name: JPAL_TRACKING_ROUTE,
     params: {
-      trackingCode
+      trackingCode,
+      disableTracking
     }
   })
 }

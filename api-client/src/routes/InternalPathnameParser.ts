@@ -50,7 +50,8 @@ class InternalPathnameParser {
       const trackingCode = this._parts[1] ?? null
       return {
         route: JPAL_TRACKING_ROUTE,
-        trackingCode
+        trackingCode,
+        disableTracking: trackingCode === null
       }
     }
 

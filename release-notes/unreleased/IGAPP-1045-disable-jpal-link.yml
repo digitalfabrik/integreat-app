@@ -1,0 +1,6 @@
+issue_key: IGAPP-1045
+show_in_stores: false
+platforms:
+  - android
+  - ios
+en: Disabling jpal tracking by clicking on link is now possible.
