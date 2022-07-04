@@ -5,7 +5,6 @@ import { mocked } from 'jest-mock'
 import buildConfig from '../../constants/buildConfig'
 import navigateToDeepLink from '../../navigation/navigateToDeepLink'
 import createNavigationScreenPropMock from '../../testing/createNavigationPropMock'
-import appSettings from '../AppSettings'
 import * as PushNotificationsManager from '../PushNotificationsManager'
 
 jest.mock('@react-native-firebase/messaging', () => jest.fn(() => ({})))
