@@ -1,0 +1,7 @@
+issue_key: IGAPP-263
+show_in_stores: true
+platforms:
+  - android
+  - ios
+en: Clicking on push notifications now opens the correct news.
+de: Beim Anklicken von Push Notifications wird nun die richtige Nachricht geöffnet.
