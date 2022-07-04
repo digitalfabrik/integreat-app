@@ -78,7 +78,6 @@ const NavigationTilesWithScrollableView = ({ tiles, theme }: PropsType): ReactEl
         snapToInterval={navigationItemWidth}
         decelerationRate='fast'
         bounces={false}
-        onMomentumScrollEnd={handleScroll}
         onScroll={handleScroll}>
         {tiles.map(tile => (
           <NavigationTile key={tile.path} tile={tile} theme={theme} width={navigationItemWidth} />
