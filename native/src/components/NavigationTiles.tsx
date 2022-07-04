@@ -78,6 +78,7 @@ const NavigationTilesWithScrollableView = ({ tiles, theme }: PropsType): ReactEl
         snapToInterval={navigationItemWidth}
         decelerationRate='fast'
         bounces={false}
+        onMomentumScrollEnd={handleScroll}
         onScroll={handleScroll}>
         {tiles.map(tile => (
           <NavigationTile key={tile.path} tile={tile} theme={theme} width={navigationItemWidth} />
@@ -88,7 +89,7 @@ const NavigationTilesWithScrollableView = ({ tiles, theme }: PropsType): ReactEl
           name='keyboard-arrow-right'
           isLeftAnchor={false}
           scrollViewRef={scrollViewRef.current}
-          disabled={currentPosition >= lastItemAutoScroll * navigationItemWidth}
+          disabled={currentPosition >= lastItemAutoScroll}
         />
       )}
     </TilesRow>
