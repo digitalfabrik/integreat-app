@@ -18,6 +18,7 @@ import InternalPathnameParser from '../InternalPathnameParser'
 
 const cityCode = 'bochum'
 const languageCode = 'de'
+
 describe('InternalPathnameParser', () => {
   it('should match landing route if pathname is emtpy', () => {
     const parser = new InternalPathnameParser('', languageCode, null)
@@ -40,18 +41,20 @@ describe('InternalPathnameParser', () => {
       languageCode: 'ar'
     })
   })
-  it('should match jpal tracking route', () => {
+  it('should match jpal tracking route without tracking code', () => {
     const parser = new InternalPathnameParser(`/${JPAL_TRACKING_ROUTE}`, languageCode, null)
     expect(parser.route()).toEqual({
       route: JPAL_TRACKING_ROUTE,
-      trackingCode: null
+      trackingCode: null,
+      disableTracking: true
     })
   })
-  it('should match landing route if pathname with tracking code', () => {
+  it('should match tracking route with tracking code', () => {
     const parser = new InternalPathnameParser(`/${JPAL_TRACKING_ROUTE}/abcdef12345`, languageCode, null)
     expect(parser.route()).toEqual({
       route: JPAL_TRACKING_ROUTE,
-      trackingCode: 'abcdef12345'
+      trackingCode: 'abcdef12345',
+      disableTracking: false
     })
   })
   it('should match dashboard route if pathname is a city without a language', () => {

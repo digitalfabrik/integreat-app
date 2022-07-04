@@ -64,7 +64,8 @@ const createNavigate =
           navigateToJpalTracking({
             dispatch,
             navigation,
-            trackingCode: routeInformation.trackingCode
+            trackingCode: routeInformation.trackingCode,
+            disableTracking: routeInformation.disableTracking
           })
         }
 

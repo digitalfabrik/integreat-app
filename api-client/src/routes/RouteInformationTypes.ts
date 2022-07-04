@@ -32,6 +32,7 @@ export type CityNotCooperatingInformationType = {
 export type JpalTrackingRouteInformationType = {
   route: JpalTrackingRouteType
   trackingCode: string | null
+  disableTracking?: boolean
 }
 export type CategoriesRouteInformationType = ParamsType & {
   route: DashboardRouteType | CategoriesRouteType

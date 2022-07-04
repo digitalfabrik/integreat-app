@@ -23,10 +23,11 @@ describe('JpalTracking', () => {
 
   const trackingCode = '1234567'
   const navigation = createNavigationMock<JpalTrackingRouteType>()
-  const route = (trackingCode: string | null = '1234567') => ({
+  const route = (trackingCode: string | null = '1234567', disableTracking = false) => ({
     key: 'route-id-0',
     params: {
-      trackingCode
+      trackingCode,
+      disableTracking
     },
     name: JPAL_TRACKING_ROUTE
   })
@@ -39,6 +40,16 @@ describe('JpalTracking', () => {
     await waitFor(() => expect(getByText('tracking')).toBeTruthy())
     const settings = await appSettings.loadSettings()
     await waitFor(() => expect(settings.jpalTrackingCode).toBe(trackingCode))
+  })
+
+  it('should disable tracking if route params disableTracking is true', async () => {
+    await appSettings.setJpalTrackingCode(trackingCode)
+    await appSettings.setJpalTrackingEnabled(true)
+    const { getByText } = render(<JpalTracking route={route(null, true)} navigation={navigation} />)
+    await waitFor(() => expect(getByText('tracking')).toBeTruthy())
+    const settings = await appSettings.loadSettings()
+    expect(settings.jpalTrackingEnabled).toBe(false)
+    expect(settings.jpalTrackingCode).toBe(trackingCode)
   })
 
   it('should not override tracking code if no code passed', async () => {
