@@ -1,10 +1,10 @@
 import Clipboard from '@react-native-clipboard/clipboard'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Pressable, Text } from 'react-native'
+import { Platform, Pressable, Text } from 'react-native'
 import styled from 'styled-components/native'
 
-import { PoiFeature, PoiModel } from 'api-client'
+import { getExternalMapsLink, PoiFeature, PoiModel } from 'api-client'
 
 import EmailIcon from '../../../assets/icons/email.svg'
 import PhoneIcon from '../../../assets/icons/phone.svg'
@@ -12,12 +12,12 @@ import WebsiteIcon from '../../../assets/icons/website.svg'
 import ExternalLinkIcon from '../assets/ExternalLink.svg'
 import Placeholder from '../assets/PoiPlaceholderLarge.jpg'
 import useSnackbar from '../hooks/useSnackbar'
-import { getNavigationDeepLinks } from '../utils/getNavigationDeepLinks'
 import openExternalUrl from '../utils/openExternalUrl'
 import CollapsibleItem from './CollapsibleItem'
 import HorizontalLine from './HorizontalLine'
 import NativeHtml from './NativeHtml'
 import PoiDetailItem from './PoiDetailItem'
+import PoiDetailRow from './PoiDetailRow'
 import SimpleImage from './SimpleImage'
 
 const Thumbnail = styled(SimpleImage)`
@@ -52,15 +52,6 @@ const ContentWrapper = styled.View`
   padding-right: 32px;
 `
 
-const Row = styled.View`
-  flex-direction: row;
-  padding-vertical: 3px;
-`
-
-const Icon = styled.Image`
-  margin-horizontal: 5px;
-`
-
 type Props = {
   poi: PoiModel
   feature: PoiFeature
@@ -78,7 +69,7 @@ const PoiDetails = ({ poi, feature, language }: Props): ReactElement => {
   const { title, content, email, website, phoneNumber } = poi
 
   const openExternalMaps = () => {
-    const externalMapsUrl = getNavigationDeepLinks(poi.location)
+    const externalMapsUrl = getExternalMapsLink(poi.location, Platform.OS)
     openExternalUrl(externalMapsUrl).catch(() => showSnackbar(t('error:noSuitableAppInstalled')))
   }
 
@@ -91,28 +82,18 @@ const PoiDetails = ({ poi, feature, language }: Props): ReactElement => {
     <CollapsibleItem initExpanded headerText={t('contactInformation')} language={language}>
       <ContentWrapper>
         {website && (
-          <Row>
-            <Icon source={WebsiteIcon} accessibilityLabel={t('website')} />
-            <Pressable onPress={() => openExternalUrl(website)}>
-              <Text>{website}</Text>
-            </Pressable>
-          </Row>
+          <PoiDetailRow externalUrl={website} accessibilityLabel={t('website')} text={website} icon={WebsiteIcon} />
         )}
         {phoneNumber && (
-          <Row>
-            <Icon source={PhoneIcon} accessibilityLabel={t('phone')} />
-            <Pressable onPress={() => openExternalUrl(`tel:${phoneNumber}`)}>
-              <Text>{phoneNumber}</Text>
-            </Pressable>
-          </Row>
+          <PoiDetailRow
+            externalUrl={`tel:${phoneNumber}`}
+            accessibilityLabel={t('phone')}
+            text={phoneNumber}
+            icon={PhoneIcon}
+          />
         )}
         {email && (
-          <Row>
-            <Icon source={EmailIcon} accessibilityLabel={t('eMail')} />
-            <Pressable onPress={() => openExternalUrl(`mailto:${email}`)}>
-              <Text>{email}</Text>
-            </Pressable>
-          </Row>
+          <PoiDetailRow externalUrl={`mailto:${email}`} accessibilityLabel={t('eMail')} text={email} icon={EmailIcon} />
         )}
       </ContentWrapper>
     </CollapsibleItem>
