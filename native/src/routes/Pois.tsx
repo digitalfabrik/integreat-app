@@ -12,7 +12,7 @@ import {
   embedInCollection,
   ErrorCode,
   fromError,
-  locationName,
+  nameQueryParam,
   NotFoundError,
   PoiFeature,
   PoiModel,
@@ -69,7 +69,7 @@ const Pois = ({ pois, language, cityModel, route, navigation }: PropsType): Reac
     languageCode: language,
     cityCode: cityModel.code
   })
-  const shareUrl = urlSlug ? `${baseUrl}?${locationName}=${urlSlug}` : baseUrl
+  const shareUrl = urlSlug ? `${baseUrl}?${nameQueryParam}=${urlSlug}` : baseUrl
   useSetShareUrl({ navigation, shareUrl, route, routeInformation: null })
 
   useEffect(
@@ -93,8 +93,10 @@ const Pois = ({ pois, language, cityModel, route, navigation }: PropsType): Reac
         zoomLevel: detailZoom,
         animationDuration
       })
+      navigation.setParams({ urlSlug: properties.urlSlug })
     } else {
       setUrlSlug(null)
+      navigation.setParams({ urlSlug: undefined })
     }
   }
 

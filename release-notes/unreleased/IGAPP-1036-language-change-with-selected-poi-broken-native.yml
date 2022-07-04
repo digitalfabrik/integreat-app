@@ -1,0 +1,7 @@
+issue_key: IGAPP-1036
+show_in_stores: true
+platforms:
+  - android
+  - ios
+en: When changing the language the selected location stays selected.
+de: Bei einer Sprachänderung bleibt der ausgewählte Ort weiterhin ausgewählt.
