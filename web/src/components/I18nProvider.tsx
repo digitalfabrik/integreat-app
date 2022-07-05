@@ -32,15 +32,10 @@ const I18nProvider = ({ children, contentLanguage }: PropsType): ReactElement =>
           ...config.fallbacks,
           default: [config.defaultFallback]
         },
-
-        /* Only allow supported languages (languages which can appear  in content of cms */
         supportedLngs: [...config.getSupportedLanguageTags(), ...config.getFallbackLanguageTags()],
         load: 'currentOnly',
-        // If this is set to 'all' then i18next will try to load zh which is not in supportedLngs
         interpolation: {
           escapeValue: false
-          /* Escaping is not needed for react apps:
-               https://github.com/i18next/react-i18next/issues/277 */
         },
         debug: buildConfig().featureFlags.developerFriendly
       })
@@ -64,9 +59,12 @@ const I18nProvider = ({ children, contentLanguage }: PropsType): ReactElement =>
   // Apply contentLanguage as language
   useEffect(() => {
     if (i18nextInstance && contentLanguage) {
-      i18nextInstance.changeLanguage(contentLanguage, () => {
-        setLanguage(contentLanguage)
-      })
+      const supportedLanguage = config.getLanguageTagIfSupported(contentLanguage)
+      if (supportedLanguage) {
+        i18nextInstance.changeLanguage(supportedLanguage, () => {
+          setLanguage(supportedLanguage)
+        })
+      }
     }
   }, [i18nextInstance, contentLanguage])
 

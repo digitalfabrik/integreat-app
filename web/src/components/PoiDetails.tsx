@@ -163,7 +163,7 @@ const PoiDetails: React.FC<PoiDetailsProps> = ({
   // MapEvent parses null to 'null'
   const thumb = thumbnail === 'null' ? null : thumbnail?.replace('-150x150', '')
   const isAndroid = /Android/i.test(navigator.userAgent)
-  const navigationDeepLink = isAndroid ? getExternalMapsLink(location, 'android') : getExternalMapsLink(location, 'web')
+  const externalMapsLink = getExternalMapsLink(location, isAndroid ? 'android' : 'web')
 
   return (
     <DetailsContainer>
@@ -193,14 +193,12 @@ const PoiDetails: React.FC<PoiDetailsProps> = ({
             </span>
           </AddressContent>
         </AddressContentWrapper>
-        {navigationDeepLink && (
-          <LinkContainer>
-            <CleanLink to={navigationDeepLink} newTab>
-              {!viewportSmall && <LinkLabel>{t('detailsMapLink')}</LinkLabel>}
-              <Marker src={iconExternalLink} alt='' direction={direction} />
-            </CleanLink>
-          </LinkContainer>
-        )}
+        <LinkContainer>
+          <CleanLink to={externalMapsLink} newTab>
+            {!viewportSmall && <LinkLabel>{t('detailsMapLink')}</LinkLabel>}
+            <Marker src={iconExternalLink} alt='' direction={direction} />
+          </CleanLink>
+        </LinkContainer>
       </DetailSection>
       {content.length > 0 && (
         <>
