@@ -1,7 +1,7 @@
 import moment from 'moment'
 import React, { ReactElement, useCallback, useContext, useEffect, useRef } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Link, useParams } from 'react-router-dom'
+import { Link, Navigate, useParams } from 'react-router-dom'
 
 import {
   CATEGORIES_ROUTE,
@@ -150,6 +150,13 @@ const CategoriesPage = ({ cityModel, pathname, languages, cityCode, languageCode
   }
 
   if (!category || !parents || !categories) {
+    // This adds support for the old paths of categories by redirecting to the new path
+    // The children endpoint always returns the category with the new path at the first position in the response
+    const newSlugCategory = categories?.[0]
+    if (newSlugCategory) {
+      return <Navigate to={newSlugCategory.path} />
+    }
+
     const notFoundError = new NotFoundError({ type: 'category', id: pathname, city: cityCode, language: languageCode })
     const error =
       // The cms returns a 400 BAD REQUEST if the path is not a valid categories path

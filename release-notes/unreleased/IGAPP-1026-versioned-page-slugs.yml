@@ -1,0 +1,5 @@
+issue_key: IGAPP-1026
+show_in_stores: false
+platforms:
+  - web
+en: Old page urls are now supported and redirected to the new url.
