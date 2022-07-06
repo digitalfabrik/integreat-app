@@ -6453,6 +6453,7 @@
         "send": "Abschicken"
       },
       "facetBeds": "min. Anzahl Betten",
+      "facetCity": "Ort/PLZ",
       "facetPets": "Haustiere erlaubt"
     },
     "en": {
@@ -6524,6 +6525,7 @@
         "send": "Send"
       },
       "facetBeds": "Number of beds",
+      "facetCity": "place/zip",
       "facetPets": "Pets allowed"
     },
     "pl": {
@@ -6595,6 +6597,7 @@
         "send": "Wyślij"
       },
       "facetBeds": "min. liczba łóżek",
+      "facetCity": "miejsce/zamek błyskawiczny",
       "facetPets": "Zwierzęta domowe dozwolone"
     },
     "ru": {
@@ -6666,6 +6669,7 @@
         "send": "Отправить"
       },
       "facetBeds": "минимальное количество кроватей",
+      "facetCity": "ме́сто/почто́вый и́ндекс",
       "facetPets": "Домашние животные разрешены"
     },
     "uk": {
@@ -6737,6 +6741,7 @@
         "send": "Відправлено"
       },
       "facetBeds": "кількість ліжок",
+      "facetCity": "Розташування/Поштовий індекс",
       "facetPets": "Допускаються домашні тварини"
     }
   },
