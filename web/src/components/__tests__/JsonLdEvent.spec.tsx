@@ -8,7 +8,7 @@ import DateFormatter from 'api-client/src/i18n/DateFormatter'
 
 import JsonLdEvent from '../JsonLdEvent'
 
-describe('EventJsonLd', () => {
+describe('JsonLdEvent', () => {
   it('should output valid json-ld', () => {
     const dateModel = new DateModel({
       startDate: moment('2017-11-18T09:30:00.000Z'),
@@ -20,10 +20,10 @@ describe('EventJsonLd', () => {
       name: 'Café Tür an Tür',
       address: 'Wertachstr. 29',
       town: 'Augsburg',
-      state: 'Bayern',
       postcode: '86153',
-      region: 'Schwaben',
-      country: 'DE'
+      country: 'DE',
+      latitude: null,
+      longitude: null
     })
     const eventModel = new EventModel({
       path: '/events/event0',
@@ -80,7 +80,6 @@ describe('EventJsonLd', () => {
                 streetAddress: 'Wertachstr. 29',
                 addressLocality: 'Augsburg',
                 postalCode: '86153',
-                addressRegion: 'Schwaben',
                 addressCountry: 'DE'
               }
             },
