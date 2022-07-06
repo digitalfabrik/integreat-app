@@ -23,22 +23,20 @@ import createNavigate from '../createNavigate'
 import navigateToCategory from '../navigateToCategory'
 import navigateToDisclaimer from '../navigateToDisclaimer'
 import navigateToEvents from '../navigateToEvents'
-import navigateToJpalTracking from '../navigateToJpalTracking'
 import navigateToNews from '../navigateToNews'
 import navigateToOffers from '../navigateToOffers'
 import navigateToPois from '../navigateToPois'
 import navigateToSearch from '../navigateToSearch'
 
-jest.mock('../navigateToDisclaimer', () => jest.fn())
-jest.mock('../navigateToOffers', () => jest.fn())
-jest.mock('../navigateToEvents', () => jest.fn())
-jest.mock('../navigateToPois', () => jest.fn())
-jest.mock('../navigateToSearch', () => jest.fn())
-jest.mock('../navigateToNews', () => jest.fn())
-jest.mock('../navigateToCategory', () => jest.fn())
-jest.mock('../navigateToJpalTracking', () => jest.fn())
-jest.mock('../../utils/sendTrackingSignal', () => jest.fn())
-jest.mock('../../utils/showSnackbar', () => jest.fn())
+jest.mock('../navigateToDisclaimer')
+jest.mock('../navigateToOffers')
+jest.mock('../navigateToEvents')
+jest.mock('../navigateToPois')
+jest.mock('../navigateToSearch')
+jest.mock('../navigateToNews')
+jest.mock('../navigateToCategory')
+jest.mock('../../utils/sendTrackingSignal')
+jest.mock('../../utils/showSnackbar')
 jest.mock('../url', () => ({
   urlFromRouteInformation: jest.fn(() => 'https://example.com')
 }))
@@ -79,7 +77,8 @@ describe('createNavigate', () => {
     navigateToCategory,
     navigateToPois,
     navigateToDisclaimer,
-    navigateToOffers
+    navigateToOffers,
+    navigation.navigate
   ]
 
   const assertNotCalled = (mocks: Array<CallableFunction>) =>
@@ -114,19 +113,27 @@ describe('createNavigate', () => {
         url: 'https://example.com'
       }
     })
+    assertOnlyCalled([navigation.navigate])
+    expect(navigation.navigate).toHaveBeenCalledWith(LANDING_ROUTE)
+    expect(navigation.navigate).toHaveBeenCalledTimes(1)
   })
 
   it('should call navigateToJpalTracking', () => {
+    mockBuildConfig({
+      jpalTracking: true
+    })
     navigateTo({
       route: JPAL_TRACKING_ROUTE,
       trackingCode: 'abcdef123456'
     })
-    assertOnlyCalled([navigateToJpalTracking])
+    assertOnlyCalled([navigation.navigate])
+    expect(navigation.navigate).toHaveBeenCalledWith(JPAL_TRACKING_ROUTE, {})
+    expect(navigation.navigate).toHaveBeenCalledTimes(1)
   })
 
   it('should not call navigateToJpalTracking if it is disabled in the build config', () => {
     mockBuildConfig({
-      jpalTracking: true
+      jpalTracking: false
     })
     navigateTo({
       route: JPAL_TRACKING_ROUTE,

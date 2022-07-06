@@ -11,7 +11,7 @@ import {
   OFFERS_ROUTE,
   OPEN_DEEP_LINK_SIGNAL_NAME
 } from 'api-client'
-import { FixedCityType } from 'build-configs/BuildConfigType'
+import { FeatureFlagsType } from 'build-configs/BuildConfigType'
 
 import buildConfig from '../../constants/buildConfig'
 import createNavigationPropMock from '../../testing/createNavigationPropMock'
@@ -33,8 +33,9 @@ describe('navigateToDeepLink', () => {
   const language = 'kmr'
   const mockedBuildConfig = mocked(buildConfig)
 
-  const mockBuildConfig = (featureFlags: FixedCityType) => {
+  const mockBuildConfig = (featureFlags: Partial<FeatureFlagsType>) => {
     const previous = buildConfig()
+    // @ts-expect-error partial of fixed city type leads to problems
     mockedBuildConfig.mockImplementation(() => ({
       ...previous,
       featureFlags: { ...previous.featureFlags, ...featureFlags }
@@ -466,8 +467,7 @@ describe('navigateToDeepLink', () => {
       expect(mockNavigateTo).toHaveBeenCalledWith(
         {
           route: JPAL_TRACKING_ROUTE,
-          trackingCode: 'abcdef123456',
-          disableTracking: false
+          trackingCode: 'abcdef123456'
         },
         undefined,
         false
@@ -506,8 +506,7 @@ describe('navigateToDeepLink', () => {
       expect(mockNavigateTo).toHaveBeenCalledWith(
         {
           route: JPAL_TRACKING_ROUTE,
-          trackingCode: null,
-          disableTracking: true
+          trackingCode: null
         },
         undefined,
         false
@@ -519,6 +518,33 @@ describe('navigateToDeepLink', () => {
           url
         }
       })
+    })
+
+    it('should persist tracking code', async () => {
+      mockBuildConfig({ jpalTracking: true })
+      const url = `https://integreat.app/jpal/abcdef123456`
+      await appSettings.setContentLanguage(language)
+      await appSettings.setIntroShown()
+      await appSettings.setJpalTrackingCode('outdated-tracking-code')
+      await navigateToDeepLink(dispatch, navigation, url, language)
+
+      const { jpalTrackingEnabled, jpalTrackingCode } = await appSettings.loadSettings()
+      expect(jpalTrackingEnabled).toBeNull()
+      expect(jpalTrackingCode).toBe('abcdef123456')
+    })
+
+    it('should disable japl tracking if there is no tracking code', async () => {
+      mockBuildConfig({ jpalTracking: true })
+      const url = `https://integreat.app/jpal`
+      await appSettings.setContentLanguage(language)
+      await appSettings.setIntroShown()
+      await appSettings.setJpalTrackingEnabled(true)
+      await appSettings.setJpalTrackingCode('outdated-tracking-code')
+      await navigateToDeepLink(dispatch, navigation, url, language)
+
+      const { jpalTrackingEnabled, jpalTrackingCode } = await appSettings.loadSettings()
+      expect(jpalTrackingEnabled).toBe(false)
+      expect(jpalTrackingCode).toBeNull()
     })
   })
 })

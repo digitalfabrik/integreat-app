@@ -104,10 +104,7 @@ export type RoutesParamsType = {
     }
   [DISCLAIMER_ROUTE]: BasicParams & CityContentParamsType
   [OFFERS_ROUTE]: BasicParams & CityContentParamsType
-  [JPAL_TRACKING_ROUTE]: BasicParams & {
-    trackingCode: string | null
-    disableTracking?: boolean
-  }
+  [JPAL_TRACKING_ROUTE]: BasicParams
   [EXTERNAL_OFFER_ROUTE]: BasicParams & {
     url: string
     postData: Map<string, string> | null | undefined
