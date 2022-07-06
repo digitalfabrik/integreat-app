@@ -14,7 +14,6 @@ type Message = FirebaseMessagingTypes.RemoteMessage & {
   data: {
     city_code: string
     language_code: string
-    group: string
     news_id: string
   }
 }
