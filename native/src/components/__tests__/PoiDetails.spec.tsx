@@ -1,3 +1,4 @@
+import Clipboard from '@react-native-clipboard/clipboard'
 import { fireEvent, waitFor } from '@testing-library/react-native'
 import { mocked } from 'jest-mock'
 import React from 'react'
@@ -45,8 +46,9 @@ describe('PoiDetails', () => {
 
     expect(getByText(poi.title)).toBeTruthy()
     expect(getByText('distanceKilometre', { exact: false })).toBeTruthy()
-    expect(getByText(poi.location.address!)).toBeTruthy()
+    expect(getByText(poi.location.address)).toBeTruthy()
     expect(getByText(`${poi.location.postcode} ${poi.location.town}`)).toBeTruthy()
+    expect(getByText('description')).toBeTruthy()
     expect(getByText(poi.content)).toBeTruthy()
 
     expect(getByText('contactInformation')).toBeTruthy()
@@ -98,5 +100,16 @@ describe('PoiDetails', () => {
     const externalMapsUrl = 'maps:29.979848,31.133859?q=Test Title, Test Address 1, 12345 Test Town'
     await waitFor(() => expect(openExternalUrl).toHaveBeenCalledWith(externalMapsUrl))
     expect(showSnackbar).toHaveBeenCalledWith('error:noSuitableAppInstalled')
+  })
+
+  it('should copy address to clipboard', () => {
+    const poi = pois[0]!
+    const feature = prepareFeatureLocation(poi, userLocation)!
+
+    const { getByText } = renderWithTheme(<PoiDetails poi={poi} feature={feature} language={language} />)
+
+    fireEvent.press(getByText(poi.location.address))
+    expect(Clipboard.setString).toHaveBeenCalledWith('Test Address 1, 12345 Test Town')
+    expect(showSnackbar).toHaveBeenCalledWith('addressCopied')
   })
 })

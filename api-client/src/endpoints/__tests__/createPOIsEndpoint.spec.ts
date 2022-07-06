@@ -25,12 +25,10 @@ describe('pois', () => {
       name: 'Café Tür an Tür',
       address: 'Wertachstr. 29',
       town: 'Augsburg',
-      state: 'Bayern',
       postcode: '86353',
-      region: 'Schwaben',
       country: 'DE',
-      longitude: '10.89779',
-      latitude: '48.3705449'
+      longitude: 10.89779,
+      latitude: 48.3705449
     },
     modified_gmt: '2017-01-09 15:30:00',
     hash: '91d435afbc7aa83496137e81fd2832e3'
@@ -52,12 +50,10 @@ describe('pois', () => {
         name: 'Café Tür an Tür',
         address: 'Wertachstr. 29',
         town: 'Augsburg',
-        state: 'Bayern',
         postcode: '86353',
-        region: 'Schwaben',
         country: 'DE',
-        longitude: '10.89779',
-        latitude: '48.3705449'
+        longitude: 10.89779,
+        latitude: 48.3705449
       }),
       lastUpdate: moment.tz('2017-01-09 15:30:00', 'GMT'),
       hash: '91d435afbc7aa83496137e81fd2832e3'
@@ -77,7 +73,9 @@ describe('pois', () => {
     language: 'de'
   }
   it('should map params to url', () => {
-    expect(pois.mapParamsToUrl(params)).toBe('https://integreat-api-url.de/augsburg/de/wp-json/extensions/v3/locations')
+    expect(pois.mapParamsToUrl(params)).toBe(
+      'https://integreat-api-url.de/augsburg/de/wp-json/extensions/v3/locations?on_map=1'
+    )
   })
   const json = [poi1, poi2, poi3, poi4]
   it('should map fetched data to models', () => {
