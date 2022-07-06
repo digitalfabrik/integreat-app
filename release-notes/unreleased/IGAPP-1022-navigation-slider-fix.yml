@@ -1,0 +1,7 @@
+issue_key: IGAPP-1022
+show_in_stores: true
+platforms:
+  - android
+  - ios
+en: Improved Handling of selection slider
+de: Verbesserte Bedienbarkeit des Auswahl-Slider
