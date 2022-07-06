@@ -1,6 +1,13 @@
 import { merge } from 'lodash'
 
 const defaultRequestOptions: Partial<RequestInit> = {}
+let jpalTrackingCode: string | null = null
+
+export const setJpalTrackingCode = (trackingCode: string | null): void => {
+  jpalTrackingCode = trackingCode
+}
+
+export const getJpalTrackingCode = (): string | null => jpalTrackingCode
 
 export const setUserAgent = (userAgent: string): void => {
   defaultRequestOptions.headers = {

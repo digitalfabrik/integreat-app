@@ -45,8 +45,6 @@ describe('events', () => {
       address: 'Wertachstr. 29',
       town: 'Augsburg',
       postcode: '86353',
-      state: 'Bayern',
-      region: 'Schwaben',
       country: 'DE',
       latitude: null,
       longitude: null
@@ -105,9 +103,7 @@ describe('events', () => {
         name: 'Senkelfabrik',
         address: 'Wertachstr. 29',
         town: 'Augsburg',
-        state: 'Bayern',
         postcode: '86353',
-        region: 'Schwaben',
         country: 'DE',
         longitude: null,
         latitude: null

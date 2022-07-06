@@ -70,16 +70,12 @@ const PoiDetails = ({ poi, feature, language }: Props): ReactElement => {
 
   const openExternalMaps = () => {
     const externalMapsUrl = getExternalMapsLink(poi.location, Platform.OS)
-    if (externalMapsUrl) {
-      openExternalUrl(externalMapsUrl).catch(() => showSnackbar(t('error:noSuitableAppInstalled')))
-    }
+    openExternalUrl(externalMapsUrl).catch(() => showSnackbar(t('error:noSuitableAppInstalled')))
   }
 
   const copyLocationToClipboard = (): void => {
-    if (address && postcode && town) {
-      Clipboard.setString([address, postcode, town].filter(it => it).join(' '))
-      showSnackbar(t('addressCopied'))
-    }
+    Clipboard.setString(`${address}, ${postcode} ${town}`)
+    showSnackbar(t('addressCopied'))
   }
 
   const contactInformationCollapsibleItem = (
@@ -115,7 +111,9 @@ const PoiDetails = ({ poi, feature, language }: Props): ReactElement => {
         language={language}>
         <Pressable onPress={copyLocationToClipboard}>
           <Text>{address}</Text>
-          <Text>{[postcode, town].filter(it => it).join(' ')}</Text>
+          <Text>
+            {postcode} {town}
+          </Text>
         </Pressable>
       </PoiDetailItem>
       <HorizontalLine />
