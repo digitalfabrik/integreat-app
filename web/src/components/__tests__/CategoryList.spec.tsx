@@ -92,12 +92,11 @@ describe('CategoryList', () => {
   })
 
   it('should render title, content and thumbnail of category', () => {
-    const { getByText, getByRole } = renderWithRouter(
+    const { getByText } = renderWithRouter(
       <CategoryList onInternalLinkClick={onInternalLinkClick} categories={[]} category={modelWithTitle} />,
       { wrapWithTheme: true }
     )
     expect(getByText('Asylantrag')).toBeTruthy()
     expect(getByText('This is some special test content')).toBeTruthy()
-    expect(getByRole('img')).toHaveProperty('src', `http://localhost/${modelWithTitle.thumbnail}`)
   })
 })
