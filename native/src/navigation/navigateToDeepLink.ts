@@ -43,63 +43,71 @@ const navigateToDeepLink = async <T extends RoutesType>(
     navigation.replace(INTRO_ROUTE, {
       deepLink: url
     })
-  } else {
-    const { pathname } = new Url(url)
-    const routeParser = new InternalPathnameParser(pathname, language, fixedCity)
-    const routeInformation = routeParser.route()
+    return
+  }
 
-    const routeInformationCityCode =
-      routeInformation &&
-      routeInformation.route !== LANDING_ROUTE &&
-      routeInformation.route !== JPAL_TRACKING_ROUTE &&
-      routeInformation.route !== CITY_NOT_COOPERATING_ROUTE
-        ? routeInformation.cityCode
-        : null
-    const routeInformationLanguageCode =
-      routeInformation && routeInformation.route !== LANDING_ROUTE && routeInformation.route !== JPAL_TRACKING_ROUTE
-        ? routeInformation.languageCode
-        : null
-    // Don't overwrite already selected city
-    const selectedCityCode = fixedCity || selectedCity || routeInformationCityCode || null
-    const languageCode = routeInformationLanguageCode || language
+  const { pathname } = new Url(url)
+  const routeInformation = new InternalPathnameParser(pathname, language, fixedCity).route()
 
-    if (selectedCityCode && languageCode) {
-      // Reset the currently opened screens to just the dashboard of the city and language
-      // This is necessary to prevent undefined behaviour for city content routes upon e.g. back navigation
-      navigateToCategory({
-        dispatch,
-        navigation,
-        cityCode: selectedCityCode,
-        languageCode,
-        routeName: DASHBOARD_ROUTE,
-        cityContentPath: createCityContentPath({
-          cityCode: selectedCityCode,
-          languageCode
-        }),
-        forceRefresh: false,
-        resetNavigation: true
-      })
+  if (routeInformation?.route === JPAL_TRACKING_ROUTE && buildConfig().featureFlags.jpalTracking) {
+    if (routeInformation.trackingCode === null) {
+      await appSettings.setJpalTrackingEnabled(false)
     } else {
-      navigation.replace(LANDING_ROUTE)
+      await appSettings.setJpalTrackingCode(routeInformation.trackingCode)
     }
+  }
 
-    if (!routeInformation) {
-      showSnackbar(dispatch, 'notFound.category')
-      return
-    }
+  const routeInformationCityCode =
+    routeInformation &&
+    routeInformation.route !== LANDING_ROUTE &&
+    routeInformation.route !== JPAL_TRACKING_ROUTE &&
+    routeInformation.route !== CITY_NOT_COOPERATING_ROUTE
+      ? routeInformation.cityCode
+      : null
+  const routeInformationLanguageCode =
+    routeInformation && routeInformation.route !== LANDING_ROUTE && routeInformation.route !== JPAL_TRACKING_ROUTE
+      ? routeInformation.languageCode
+      : null
+  // Don't overwrite already selected city
+  const selectedCityCode = fixedCity || selectedCity || routeInformationCityCode || null
+  const languageCode = routeInformationLanguageCode || language
 
-    if (routeInformation.route === LANDING_ROUTE) {
-      // Already handled
-      return
-    }
+  if (selectedCityCode && languageCode) {
+    // Reset the currently opened screens to just the dashboard of the city and language
+    // This is necessary to prevent undefined behaviour for city content routes upon e.g. back navigation
+    navigateToCategory({
+      dispatch,
+      navigation,
+      cityCode: selectedCityCode,
+      languageCode,
+      routeName: DASHBOARD_ROUTE,
+      cityContentPath: createCityContentPath({
+        cityCode: selectedCityCode,
+        languageCode
+      }),
+      forceRefresh: false,
+      resetNavigation: true
+    })
+  } else {
+    navigation.replace(LANDING_ROUTE)
+  }
 
-    const isPeekingCity = routeInformationCityCode && selectedCity && routeInformationCityCode !== selectedCity
+  if (!routeInformation) {
+    showSnackbar(dispatch, 'notFound.category')
+    return
+  }
 
-    // Only navigate again if either the city of the deep link differs from the currently selected city or
-    // it is a city content route which was not handled already, i.e. everything apart from landing and dashboard.
-    if (routeInformation.route !== DASHBOARD_ROUTE || isPeekingCity) {
-      createNavigate(dispatch, navigation)(routeInformation, undefined, false)
-    }
+  if (routeInformation.route === LANDING_ROUTE) {
+    // Already handled
+    return
+  }
+
+  const isPeekingCity = routeInformationCityCode && selectedCity && routeInformationCityCode !== selectedCity
+
+  // Only navigate again if either the city of the deep link differs from the currently selected city or
+  // it is a city content route which was not handled already, i.e. everything apart from landing and dashboard.
+  if (routeInformation.route !== DASHBOARD_ROUTE || isPeekingCity) {
+    createNavigate(dispatch, navigation)(routeInformation, undefined, false)
   }
 }
 

@@ -58,7 +58,7 @@ describe('useFeatureLocations', () => {
     const { getByText } = render(<MockComponent />)
 
     waitFor(() => {
-      expect(getByText(poi0.location.location!)).toBeTruthy()
+      expect(getByText(poi0.location.fullAddress)).toBeTruthy()
       expect(getByText(poi0.content)).toBeTruthy()
     })
   })
