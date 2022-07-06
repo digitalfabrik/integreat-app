@@ -12,9 +12,7 @@ describe('pushEvent', () => {
     name: 'name',
     address: 'address',
     town: 'town',
-    state: 'state',
     postcode: 'postcode',
-    region: 'region',
     country: 'country',
     longitude: null,
     latitude: null

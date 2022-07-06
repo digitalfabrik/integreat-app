@@ -4,8 +4,10 @@ import styled from 'styled-components'
 
 import { FilterProps } from 'api-client/src/endpoints/createShelterEndpoint'
 
-import bedIcon from '../assets/shelter/bed.svg'
-import petIcon from '../assets/shelter/pet.svg'
+import bedIcon from '../../../assets/icons/bed.svg'
+// import cityIcon from '../../../assets/icons/city.svg'
+import petIcon from '../../../assets/icons/pet.svg'
+import dimensions from '../constants/dimensions'
 import FacetInput from './FacetInput'
 import FacetToggle from './FacetToggle'
 
@@ -23,6 +25,11 @@ const FilterContainer = styled.div`
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.15);
   display: flex;
   justify-content: space-between;
+
+  @media ${dimensions.smallViewport} {
+    flex-wrap: wrap;
+    gap: 8px;
+  }
 `
 
 const ShelterFilterBar: React.FC<ShelterFilterBarProps> = ({
@@ -39,8 +46,19 @@ const ShelterFilterBar: React.FC<ShelterFilterBarProps> = ({
         altTag={t('facetBeds')}
         placeholder={t('facetBeds')}
         updateSearchFilter={updateSearchFilter}
+        type='number'
         name='beds'
       />
+      {/* TODO comment in when backend is ready https://git.tuerantuer.org/DF/wohnraumboerse_formular/issues/33 */}
+      {/* <FacetInput */}
+      {/*  value={filter.city ?? ''} */}
+      {/*  icon={cityIcon} */}
+      {/*  altTag={t('facetCity')} */}
+      {/*  placeholder={t('facetCity')} */}
+      {/*  updateSearchFilter={updateSearchFilter} */}
+      {/*  type='string' */}
+      {/*  name='city' */}
+      {/* /> */}
       <FacetToggle
         icon={petIcon}
         name='pets'

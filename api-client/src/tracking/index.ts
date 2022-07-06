@@ -17,6 +17,8 @@ import {
   SprungbrettOfferRouteType
 } from '../routes'
 
+export const JPAL_TRACKING_CODE_QUERY_PARAM = 'jpal_tracking_code'
+
 type OpenPageSignalNameType = 'open_page'
 export const OPEN_PAGE_SIGNAL_NAME: OpenPageSignalNameType = 'open_page'
 export type OpenPageSignalType = {
