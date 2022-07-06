@@ -1,4 +1,3 @@
-import { isEmpty } from 'lodash'
 import React, { ReactElement, ReactNode } from 'react'
 import styled from 'styled-components'
 
@@ -25,7 +24,7 @@ type PropsType = {
 }
 
 const LocalNewsList = ({ items, renderItem, noItemsMessage, city }: PropsType): ReactElement => {
-  if (isEmpty(items)) {
+  if (items.length === 0) {
     return <NoItemsMessage>{noItemsMessage}</NoItemsMessage>
   }
 

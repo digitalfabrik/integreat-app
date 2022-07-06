@@ -1,6 +1,8 @@
 import { CitiesStateType, defaultCitiesState } from '../StateType'
 import { StoreActionType } from '../StoreActionType'
 
+// Necessary for reducers
+// eslint-disable-next-line default-param-last
 export default (state: CitiesStateType = defaultCitiesState, action: StoreActionType): CitiesStateType => {
   switch (action.type) {
     case 'FETCH_CITIES':

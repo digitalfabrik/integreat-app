@@ -9,7 +9,7 @@ describe('PageDetail', () => {
 
   it('should render', () => {
     const component = shallow(<PageDetail identifier={identifier} information={information} />)
-    expect(component.childAt(0).text()).toEqual(`${identifier}: `)
-    expect(component.childAt(1).text()).toEqual(information)
+    expect(component.childAt(0).text()).toBe(`${identifier}: `)
+    expect(component.childAt(1).text()).toBe(information)
   })
 })

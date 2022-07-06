@@ -73,6 +73,14 @@ module.exports = {
     'prefer-object-spread': 'error',
     'func-names': 'error',
 
+    'react/function-component-definition': [
+      'error',
+      {
+        namedComponents: 'arrow-function',
+        unnamedComponents: 'arrow-function'
+      }
+    ],
+    'react/jsx-no-useless-fragment': ['error', { allowExpressions: true }],
     'react/no-did-mount-set-state': 'error',
     'react/no-unused-prop-types': 'warn',
     'react-hooks/exhaustive-deps': 'error',

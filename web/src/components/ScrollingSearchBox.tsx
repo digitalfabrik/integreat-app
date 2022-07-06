@@ -1,5 +1,5 @@
 import Headroom from '@integreat-app/react-sticky-headroom'
-import React, { ReactNode } from 'react'
+import React, { ReactElement, ReactNode, useRef } from 'react'
 
 import SearchInput from './SearchInput'
 
@@ -8,56 +8,39 @@ const SEARCH_BAR_HEIGHT = 45
 type PropsType = {
   filterText: string
   onFilterTextChange: (filterText: string) => void
-  spaceSearch: boolean
+  spaceSearch?: boolean
   children: ReactNode
   placeholderText: string
   onStickyTopChanged: (stickyTop: number) => void
 }
 
-type StateType = {
-  initialized: boolean
-}
+const ScrollingSearchBox = ({
+  filterText,
+  children,
+  onFilterTextChange,
+  onStickyTopChanged,
+  placeholderText,
+  spaceSearch = false
+}: PropsType): ReactElement => {
+  const node = useRef<HTMLDivElement | null>(null)
 
-export class ScrollingSearchBox extends React.Component<PropsType, StateType> {
-  static defaultProps = { spaceSearch: false }
-  _node: HTMLElement | null = null
-
-  constructor(props: PropsType) {
-    super(props)
-    this.state = { initialized: false }
-  }
-
-  setReference = (node: HTMLElement | null): void => {
-    const { initialized } = this.state
-    if (node) {
-      this._node = node
-      if (!initialized) {
-        this.setState(prevState => ({ ...prevState, initialized: true }))
-      }
-    }
-  }
-
-  render(): ReactNode {
-    const { children, filterText, placeholderText, spaceSearch, onStickyTopChanged, onFilterTextChange } = this.props
-
-    return (
-      <div ref={this.setReference}>
-        <Headroom
-          pinStart={this._node ? this._node.offsetTop : 0}
-          scrollHeight={SEARCH_BAR_HEIGHT}
-          height={SEARCH_BAR_HEIGHT}
-          onStickyTopChanged={onStickyTopChanged}>
-          <SearchInput
-            filterText={filterText}
-            placeholderText={placeholderText}
-            onFilterTextChange={onFilterTextChange}
-            spaceSearch={spaceSearch}
-          />
-        </Headroom>
-        {children}
-      </div>
-    )
-  }
+  return (
+    <div ref={node}>
+      <Headroom
+        pinStart={node.current?.offsetTop ?? 0}
+        scrollHeight={SEARCH_BAR_HEIGHT}
+        height={SEARCH_BAR_HEIGHT}
+        onStickyTopChanged={onStickyTopChanged}>
+        <SearchInput
+          filterText={filterText}
+          placeholderText={placeholderText}
+          onFilterTextChange={onFilterTextChange}
+          spaceSearch={spaceSearch}
+        />
+      </Headroom>
+      {children}
+    </div>
+  )
 }
 
 export default ScrollingSearchBox

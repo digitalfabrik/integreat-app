@@ -22,13 +22,13 @@ describe('createCategoryChildrenEndpoint', () => {
   const endpoint = createCategoryChildrenEndpoint(baseUrl)
 
   it('should map params to url', () => {
-    expect(endpoint.mapParamsToUrl(params)).toEqual(
+    expect(endpoint.mapParamsToUrl(params)).toBe(
       `${baseUrl}/${params.city}/${params.language}/wp-json/extensions/v3/children?depth=1&url=${params.cityContentPath}`
     )
   })
 
   it('should map params to url for root category', () => {
-    expect(endpoint.mapParamsToUrl({ ...params, cityContentPath: '/augsburg/fa', depth: 0 })).toEqual(
+    expect(endpoint.mapParamsToUrl({ ...params, cityContentPath: '/augsburg/fa', depth: 0 })).toBe(
       `${baseUrl}/${params.city}/${params.language}/wp-json/extensions/v3/children?depth=0`
     )
   })

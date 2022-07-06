@@ -6,7 +6,10 @@ import { log } from './sentry'
 const DEFAULT_RETRIES = 2
 const DEFAULT_INTERVAL = 1000
 
-const wait = (interval: number) => new Promise(resolve => setTimeout(resolve, interval))
+const wait = (interval: number) =>
+  new Promise(resolve => {
+    setTimeout(resolve, interval)
+  })
 
 /**
  * This function retries the loading a module if it fails

@@ -1,4 +1,3 @@
-import { isEmpty } from 'lodash'
 import React, { ReactNode } from 'react'
 import styled from 'styled-components'
 
@@ -21,7 +20,7 @@ type PropsType<T> = {
 class List<T> extends React.PureComponent<PropsType<T>> {
   render(): ReactNode {
     const { items, renderItem, noItemsMessage, borderless = false } = this.props
-    if (isEmpty(items)) {
+    if (items.length === 0) {
       return <NoItemsMessage>{noItemsMessage}</NoItemsMessage>
     }
 

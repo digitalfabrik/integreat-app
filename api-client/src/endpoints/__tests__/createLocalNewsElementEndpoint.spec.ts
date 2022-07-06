@@ -35,7 +35,7 @@ describe('localnews', () => {
     id: '1'
   }
   it('should map params to url', () => {
-    expect(localNewsElement.mapParamsToUrl(params)).toEqual(
+    expect(localNewsElement.mapParamsToUrl(params)).toBe(
       `${baseUrl}/${params.city}/${params.language}/wp-json/extensions/v3/fcm?id=${params.id}`
     )
   })

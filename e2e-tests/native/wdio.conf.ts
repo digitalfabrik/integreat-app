@@ -34,6 +34,8 @@ export const config: Testrunner = {
 
   before: async (): Promise<void> => {
     const startupDelay = 10000
-    await new Promise(resolve => setTimeout(resolve, startupDelay))
+    await new Promise(resolve => {
+      setTimeout(resolve, startupDelay)
+    })
   }
 }

@@ -11,6 +11,8 @@ import pushEvent from './pushEvent'
 import pushPoi from './pushPoi'
 
 export default (
+  // Necessary for reducers
+  // eslint-disable-next-line default-param-last
   state: CityContentStateType | null = defaultCityContentState,
   action: StoreActionType
 ): CityContentStateType | null => {
