@@ -141,10 +141,17 @@ const createSettingsSections = ({
       {
         title: t('version', {
           version: NativeConstants.appVersion
-        })
+        }),
+        onPress: () => {
+          volatileValues.versionTaps += 1
+
+          if (volatileValues.versionTaps === TRIGGER_VERSION_TAPS) {
+            volatileValues.versionTaps = 0
+            throw Error('This error was thrown for testing purposes. Please ignore this error.')
+          }
+        }
       },
       {
-        // TODO add translation
         title: t('openSourceLicenses'),
         onPress: () => navigation.navigate(LICENSE_INFO_ROUTE)
       },
