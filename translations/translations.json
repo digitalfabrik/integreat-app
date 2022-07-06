@@ -4940,6 +4940,7 @@
       "distanceKilometreAlternative": "{{distance}} km",
       "distanceMetre": "{{distance}} m entfernt",
       "distanceMetreAlternative": "{{distance}} m",
+      "contactInformation": "Kontaktdaten",
       "address": "Adresse",
       "phone": "Telefonnummer",
       "eMail": "E-Mail-Adresse",
@@ -4956,7 +4957,8 @@
       "detailsMapLink": "In Google Maps öffnen",
       "detailsInformation": "Informationen",
       "detailsNextPoi": "nächster",
-      "detailsPreviousPoi": "vorheriger"
+      "detailsPreviousPoi": "vorheriger",
+      "openExternalMaps": "In Karten-App öffnen"
     },
     "am": {
       "pageTitle": "ካርታ",
@@ -5091,6 +5093,7 @@
       "distanceKilometreAlternative": "{{distance}} km",
       "distanceMetre": "{{distance}} m away ",
       "distanceMetreAlternative": "{{distance}} m",
+      "contactInformation": "Contact details",
       "address": "Address",
       "phone": "Telephone number",
       "eMail": "E-mail address",
@@ -5331,6 +5334,7 @@
       "distanceKilometreAlternative": "{{distance}} km",
       "distanceMetre": "{{distance}} m odległości",
       "distanceMetreAlternative": "{{distance}} m",
+      "contactInformation": "Dane kontaktowe",
       "address": "Adres",
       "phone": "Numer telefonu",
       "eMail": "Adres mailowy",
@@ -5427,6 +5431,7 @@
       "distanceKilometreAlternative": "{{distance}} км",
       "distanceMetre": "удаленность {{distance}} м",
       "distanceMetreAlternative": "{{distance}} м",
+      "contactInformation": "Контактная информация",
       "address": "Адрес",
       "phone": "Телефон",
       "eMail": "Адрес эл. почты",
@@ -5620,6 +5625,7 @@
       "distanceKilometreAlternative": "{{distance}} کلو میٹر",
       "distanceMetre": "{{distance}} میٹر فاصلہ",
       "distanceMetreAlternative": "{{distance}} میٹر ",
+      "contactInformation": "Контактна інформація",
       "address": "پتہ",
       "phone": "ٹیلیفون نمبر",
       "eMail": "ای میل ایڈریس",
@@ -6447,6 +6453,7 @@
         "send": "Abschicken"
       },
       "facetBeds": "min. Anzahl Betten",
+      "facetCity": "Ort/PLZ",
       "facetPets": "Haustiere erlaubt"
     },
     "en": {
@@ -6518,6 +6525,7 @@
         "send": "Send"
       },
       "facetBeds": "Number of beds",
+      "facetCity": "place/zip",
       "facetPets": "Pets allowed"
     },
     "pl": {
@@ -6589,6 +6597,7 @@
         "send": "Wyślij"
       },
       "facetBeds": "min. liczba łóżek",
+      "facetCity": "miejsce/zamek błyskawiczny",
       "facetPets": "Zwierzęta domowe dozwolone"
     },
     "ru": {
@@ -6660,6 +6669,7 @@
         "send": "Отправить"
       },
       "facetBeds": "минимальное количество кроватей",
+      "facetCity": "ме́сто/почто́вый и́ндекс",
       "facetPets": "Домашние животные разрешены"
     },
     "uk": {
@@ -6731,6 +6741,7 @@
         "send": "Відправлено"
       },
       "facetBeds": "кількість ліжок",
+      "facetCity": "Розташування/Поштовий індекс",
       "facetPets": "Допускаються домашні тварини"
     }
   },

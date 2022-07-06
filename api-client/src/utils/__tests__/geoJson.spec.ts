@@ -13,12 +13,12 @@ describe('geoJson', () => {
     },
     properties: {
       id: 1,
-      title: 'name',
+      title: 'Test Title',
       symbol: 'marker_15',
       thumbnail: 'test',
-      path: 'test',
+      path: '/augsburg/de/locations/test',
       urlSlug: 'test',
-      address: 'address'
+      address: 'Test Address 1'
     }
   }
   describe('embedInCollection', () => {

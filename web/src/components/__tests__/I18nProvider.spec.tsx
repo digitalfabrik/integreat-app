@@ -135,6 +135,30 @@ describe('I18nProvider', () => {
     expect(screen.getByText('ar')).toBeTruthy()
   })
 
+  it('should not set ui language for invalid content language', async () => {
+    act(() => {
+      render(
+        <I18nProvider contentLanguage='invalid'>
+          <Translation>{(t, { i18n }) => <p>{i18n.languages[0]}</p>}</Translation>
+        </I18nProvider>
+      )
+    })
+    await waitFor(() => screen.getByText('en'))
+    expect(screen.getByText('en')).toBeTruthy()
+  })
+
+  it('should set ui language to fallback of content language', async () => {
+    act(() => {
+      render(
+        <I18nProvider contentLanguage='fa'>
+          <Translation>{(t, { i18n }) => <p>{i18n.languages[0]}</p>}</Translation>
+        </I18nProvider>
+      )
+    })
+    await waitFor(() => screen.getByText('pes'))
+    expect(screen.getByText('pes')).toBeTruthy()
+  })
+
   it('should choose rtl with ar as language', async () => {
     act(() => {
       render(<I18nProvider contentLanguage='ar'>Hello</I18nProvider>)

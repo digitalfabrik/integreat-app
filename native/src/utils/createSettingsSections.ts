@@ -164,9 +164,7 @@ const createSettingsSections = ({
               getSettingValue: (settings: SettingsType) => settings.jpalTrackingEnabled,
               hasBadge: true,
               onPress: () => {
-                navigation.navigate(JPAL_TRACKING_ROUTE, {
-                  trackingCode: null
-                })
+                navigation.navigate(JPAL_TRACKING_ROUTE, {})
               }
             }
           ]

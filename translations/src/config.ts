@@ -116,6 +116,9 @@ class Config {
     },
     uk: {
       rtl: false
+    },
+    fi: {
+      rtl: false
     }
   }
 

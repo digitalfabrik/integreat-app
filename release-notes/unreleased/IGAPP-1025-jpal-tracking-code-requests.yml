@@ -1,0 +1,5 @@
+issue_key: IGAPP-1025
+show_in_stores: false
+platforms:
+  - web
+en: Jpal tracking for every request added.

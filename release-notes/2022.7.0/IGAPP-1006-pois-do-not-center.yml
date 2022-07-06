@@ -1,0 +1,7 @@
+issue_key: IGAPP-1006
+show_in_stores: true
+platforms:
+  - android
+  - ios
+en: The map is now centered to the selected location.
+de: Die Karte wird nun auf den ausgewählten Ort zentriert.
