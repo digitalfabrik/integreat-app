@@ -42,19 +42,17 @@ describe('InternalPathnameParser', () => {
     })
   })
   it('should match jpal tracking route without tracking code', () => {
-    const parser = new InternalPathnameParser(`/${JPAL_TRACKING_ROUTE}`, languageCode, null)
+    const parser = new InternalPathnameParser(`/${JPAL_TRACKING_ROUTE}/`, languageCode, null)
     expect(parser.route()).toEqual({
       route: JPAL_TRACKING_ROUTE,
-      trackingCode: null,
-      disableTracking: true
+      trackingCode: null
     })
   })
   it('should match tracking route with tracking code', () => {
     const parser = new InternalPathnameParser(`/${JPAL_TRACKING_ROUTE}/abcdef12345`, languageCode, null)
     expect(parser.route()).toEqual({
       route: JPAL_TRACKING_ROUTE,
-      trackingCode: 'abcdef12345',
-      disableTracking: false
+      trackingCode: 'abcdef12345'
     })
   })
   it('should match dashboard route if pathname is a city without a language', () => {

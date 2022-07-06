@@ -26,7 +26,6 @@ import navigateToCategory from './navigateToCategory'
 import navigateToCityNotCooperating from './navigateToCityNotCooperating'
 import navigateToDisclaimer from './navigateToDisclaimer'
 import navigateToEvents from './navigateToEvents'
-import navigateToJpalTracking from './navigateToJpalTracking'
 import navigateToNews from './navigateToNews'
 import navigateToOffers from './navigateToOffers'
 import navigateToPois from './navigateToPois'
@@ -61,12 +60,7 @@ const createNavigate =
       }
       if (routeInformation.route === JPAL_TRACKING_ROUTE) {
         if (buildConfig().featureFlags.jpalTracking) {
-          navigateToJpalTracking({
-            dispatch,
-            navigation,
-            trackingCode: routeInformation.trackingCode,
-            disableTracking: routeInformation.disableTracking
-          })
+          navigation.navigate(JPAL_TRACKING_ROUTE, {})
         }
 
         return
