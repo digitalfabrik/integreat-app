@@ -49,7 +49,7 @@ const createNavigate =
           }
         })
       }
-      
+
       if (routeInformation.route === LICENSE_INFO_ROUTE) {
         navigation.navigate(LICENSE_INFO_ROUTE)
         return

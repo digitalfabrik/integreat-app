@@ -141,7 +141,7 @@ const createSettingsSections = ({
       {
         title: t('version', {
           version: NativeConstants.appVersion
-        }),
+        })
       },
       {
         // TODO add translation
