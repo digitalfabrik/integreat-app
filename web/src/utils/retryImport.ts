@@ -1,12 +1,10 @@
 import { lazy, ComponentType, LazyExoticComponent } from 'react'
 
-import safeLocalStorage from './safeLocalStorage'
+import safeLocalStorage, { PAGE_FORCE_REFRESHED_KEY } from './safeLocalStorage'
 import { log } from './sentry'
 
 const DEFAULT_RETRIES = 2
 const DEFAULT_INTERVAL = 1000
-
-const PAGE_FORCE_REFRESHED_KEY = 'page-force-refreshed'
 
 const wait = (interval: number) => new Promise(resolve => setTimeout(resolve, interval))
 
