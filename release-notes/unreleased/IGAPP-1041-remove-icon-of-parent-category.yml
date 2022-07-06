@@ -1,0 +1,6 @@
+issue: IGAPP-1041
+show_in_stores: true
+platforms:
+  - web
+en: Removed the big icon showing the currently selected parent category in the list view, since it took up a lot of space.
+de: Das große Icon der úbergeordneten Kategorie in Listen-Ansichten wurde entfernt, da es zu viel Platz eingenommen hat.
