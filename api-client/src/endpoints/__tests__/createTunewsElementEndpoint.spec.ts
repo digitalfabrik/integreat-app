@@ -39,7 +39,7 @@ describe('tunews', () => {
     id: 1
   }
   it('should map params to url', () => {
-    expect(tunewsElement.mapParamsToUrl(params)).toEqual(`${baseUrl}/v1/news/${params.id}`)
+    expect(tunewsElement.mapParamsToUrl(params)).toBe(`${baseUrl}/v1/news/${params.id}`)
   })
   it('should map fetched data to models', () => {
     const itemModel = tunewsElement.mapResponse(item1, params)

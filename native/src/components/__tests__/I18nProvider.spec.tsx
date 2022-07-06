@@ -97,7 +97,7 @@ describe('I18nProvider', () => {
     const { getByText } = render(
       <Provider store={store}>
         <I18nProvider>
-          <></>
+          <Text>Content</Text>
         </I18nProvider>
       </Provider>
     )
