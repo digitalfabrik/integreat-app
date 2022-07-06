@@ -50,9 +50,10 @@ const navigateToDeepLink = async <T extends RoutesType>(
   const routeInformation = new InternalPathnameParser(pathname, language, fixedCity).route()
 
   if (routeInformation?.route === JPAL_TRACKING_ROUTE && buildConfig().featureFlags.jpalTracking) {
-    await appSettings.setJpalTrackingCode(routeInformation.trackingCode)
     if (routeInformation.trackingCode === null) {
       await appSettings.setJpalTrackingEnabled(false)
+    } else {
+      await appSettings.setJpalTrackingCode(routeInformation.trackingCode)
     }
   }
 

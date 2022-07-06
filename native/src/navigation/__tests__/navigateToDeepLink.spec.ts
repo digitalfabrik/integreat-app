@@ -544,7 +544,7 @@ describe('navigateToDeepLink', () => {
 
       const { jpalTrackingEnabled, jpalTrackingCode } = await appSettings.loadSettings()
       expect(jpalTrackingEnabled).toBe(false)
-      expect(jpalTrackingCode).toBeNull()
+      expect(jpalTrackingCode).toBe('outdated-tracking-code')
     })
   })
 })
