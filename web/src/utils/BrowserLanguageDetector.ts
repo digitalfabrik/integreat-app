@@ -1,8 +1,7 @@
 import { LanguageDetectorModule } from 'i18next'
 
-import safeLocalStorage from './safeLocalStorage'
+import safeLocalStorage, { I18N_LANGUAGE_KEY } from './safeLocalStorage'
 
-const LANGUAGE_LOCAL_STORAGE = 'i18nextLng'
 const languageDetector: LanguageDetectorModule = {
   type: 'languageDetector',
   init: () => undefined,
@@ -10,7 +9,7 @@ const languageDetector: LanguageDetectorModule = {
   detect: () => {
     const bcp47Tags: string[] = []
 
-    const localStorageLanguage = safeLocalStorage.getItem(LANGUAGE_LOCAL_STORAGE)
+    const localStorageLanguage = safeLocalStorage.getItem(I18N_LANGUAGE_KEY)
 
     if (localStorageLanguage) {
       bcp47Tags.push(localStorageLanguage)
@@ -42,7 +41,7 @@ const languageDetector: LanguageDetectorModule = {
     return bcp47Tags.length > 0 ? bcp47Tags : undefined
   },
   cacheUserLanguage: (language: string) => {
-    safeLocalStorage.setItem(LANGUAGE_LOCAL_STORAGE, language)
+    safeLocalStorage.setItem(I18N_LANGUAGE_KEY, language)
   }
 }
 
