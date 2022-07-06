@@ -139,11 +139,7 @@ const Dashboard = ({
   const navigationTiles = getNavigationTileModels()
   return (
     <SpaceBetween {...testID('Dashboard-Page')}>
-      {navigationTiles.length > 0 ? (
-        <NavigationTiles tiles={navigationTiles} theme={theme} language={language} />
-      ) : (
-        <Spacing />
-      )}
+      {navigationTiles.length > 0 ? <NavigationTiles tiles={navigationTiles} theme={theme} /> : <Spacing />}
       <Categories
         stateView={stateView}
         resourceCache={resourceCache}
