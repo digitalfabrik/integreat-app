@@ -35,7 +35,6 @@ describe('JsonLdEvent', () => {
       excerpt: 'This is a sample event. Have fun sampling.',
       availableLanguages: new Map([]),
       lastUpdate: moment('2017-11-18T09:30:00.000Z'),
-      hash: 'hash123',
       featuredImage: new FeaturedImageModel({
         description: 'whoohoo',
         thumbnail: {

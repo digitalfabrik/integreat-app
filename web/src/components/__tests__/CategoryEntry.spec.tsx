@@ -22,8 +22,7 @@ const category = new CategoryModel({
     ['fa', '4868']
   ]),
   thumbnail: 'https://cms.integreat-ap…03/Beratung-150x150.png',
-  lastUpdate: moment('2017-11-18T19:30:00.000Z'),
-  hash: 'a36a56'
+  lastUpdate: moment('2017-11-18T19:30:00.000Z')
 })
 const childCategory = new CategoryModel({
   root: false,
@@ -38,8 +37,7 @@ const childCategory = new CategoryModel({
     ['fa', '4868']
   ]),
   thumbnail: 'https://cms.integreat-ap…03/Beratung-150x150.png',
-  lastUpdate: moment('2017-11-18T19:30:00.000Z'),
-  hash: 'a36a57'
+  lastUpdate: moment('2017-11-18T19:30:00.000Z')
 })
 const noThumbCategory = new CategoryModel({
   root: false,
@@ -54,8 +52,7 @@ const noThumbCategory = new CategoryModel({
     ['fa', '397']
   ]),
   thumbnail: '',
-  lastUpdate: moment('2017-11-18T19:30:00.000Z'),
-  hash: 'a36a58'
+  lastUpdate: moment('2017-11-18T19:30:00.000Z')
 })
 
 describe('CategoryEntry', () => {
