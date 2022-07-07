@@ -50,7 +50,6 @@ describe('events', () => {
       longitude: null
     },
     modified_gmt: '2017-01-09 15:30:00',
-    hash: '91d435afbc7aa83496137e81fd2832e3',
     featured_image: {
       description: 'I am an image showing beer',
       mimetype: 'image/png',
@@ -109,7 +108,6 @@ describe('events', () => {
         latitude: null
       }),
       lastUpdate: moment.tz('2017-01-09 15:30:00', 'GMT'),
-      hash: '91d435afbc7aa83496137e81fd2832e3',
       featuredImage: new FeaturedImageModel({
         description: 'I am an image showing beer',
         thumbnail: {

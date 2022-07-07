@@ -54,7 +54,6 @@ export default (baseUrl: string): Endpoint<ParamsType, Array<EventModel>> =>
               excerpt: decodeHTML(event.excerpt),
               availableLanguages: mapAvailableLanguages(event.available_languages),
               lastUpdate: moment.tz(event.modified_gmt, 'GMT'),
-              hash: event.hash,
               featuredImage: event.featured_image
                 ? new FeaturedImageModel({
                     description: event.featured_image.description,

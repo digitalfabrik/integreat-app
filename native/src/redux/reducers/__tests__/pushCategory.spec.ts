@@ -23,8 +23,7 @@ describe('pushCategory', () => {
       parentPath,
       order: 0,
       availableLanguages,
-      lastUpdate: moment('2017-11-18 19:30:00', moment.ISO_8601),
-      hash: '123456'
+      lastUpdate: moment('2017-11-18 19:30:00', moment.ISO_8601)
     })
 
   const rootCategory = buildCategory(true, '/augsburg/de', 'Stadt Augsburg', '', new Map())

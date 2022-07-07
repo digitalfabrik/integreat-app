@@ -1,4 +1,3 @@
-import md5 from 'js-md5'
 import moment, { Moment } from 'moment'
 import seedrandom from 'seedrandom'
 
@@ -115,11 +114,7 @@ class EventModelBuilder {
                     <p>This is a sample event</p>
                     <img src='${resourceUrl2}'/>`,
             thumbnail,
-            featuredImage: null,
-            hash: md5
-              .create()
-              .update(Buffer.from([index]))
-              .hex()
+            featuredImage: null
           }),
           resources: {
             [resourceUrl1]: this.createResource(resourceUrl1, index, lastUpdate),

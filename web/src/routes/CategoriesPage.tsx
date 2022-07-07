@@ -100,8 +100,7 @@ const CategoriesPage = ({ cityModel, pathname, languages, cityCode, languageCode
         thumbnail: '',
         order: -1,
         availableLanguages: new Map(),
-        lastUpdate: moment(0),
-        hash: ''
+        lastUpdate: moment(0)
       })
     )
   }
