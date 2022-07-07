@@ -95,27 +95,15 @@ class AppSettings {
     })
   }
 
-  setJpalTrackingCode = async (jpalTrackingCode: string): Promise<void> => {
+  setJpalTrackingCode = async (jpalTrackingCode: string | null): Promise<void> => {
     await this.setSettings({
       jpalTrackingCode
-    })
-  }
-
-  clearJpalTrackingCode = async (): Promise<void> => {
-    await this.setSettings({
-      jpalTrackingCode: null
     })
   }
 
   setJpalTrackingEnabled = async (jpalTrackingEnabled: boolean): Promise<void> => {
     await this.setSettings({
       jpalTrackingEnabled
-    })
-  }
-
-  clearJpalTrackingEnabled = async (): Promise<void> => {
-    await this.setSettings({
-      jpalTrackingEnabled: false
     })
   }
 
