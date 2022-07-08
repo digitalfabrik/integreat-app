@@ -661,16 +661,16 @@ jobs:
                         - << parameters.delivery >>
                 steps:
                     - run:
-                        command: rsync -e "ssh -o StrictHostKeyChecking=no" -arv $HOME/attached_workspace/dist/integreat/ web@web.integreat-app.de:/var/www/integreat.app
+                        command: rsync -e "ssh -o StrictHostKeyChecking=no" -arv --delete $HOME/attached_workspace/dist/integreat/ web@web.integreat-app.de:/var/www/integreat.app
                         name: Integreat production delivery
                     - run:
-                        command: rsync -e "ssh -o StrictHostKeyChecking=no" -arv $HOME/attached_workspace/dist/malte/ web@web.integreat-app.de:/var/www/malteapp.de
+                        command: rsync -e "ssh -o StrictHostKeyChecking=no" -arv --delete $HOME/attached_workspace/dist/malte/ web@web.integreat-app.de:/var/www/malteapp.de
                         name: Malte production delivery
                     - run:
-                        command: rsync -e "ssh -o StrictHostKeyChecking=no" -arv $HOME/attached_workspace/dist/aschaffenburg/ web@web.integreat-app.de:/var/www/aschaffenburg.app
+                        command: rsync -e "ssh -o StrictHostKeyChecking=no" -arv --delete $HOME/attached_workspace/dist/aschaffenburg/ web@web.integreat-app.de:/var/www/aschaffenburg.app
                         name: Aschaffenburg production delivery
                     - run:
-                        command: rsync -e "ssh -o StrictHostKeyChecking=no" -arv $HOME/attached_workspace/dist/obdach/ web@web.integreat-app.de:/var/www/vernetztesobdach.de
+                        command: rsync -e "ssh -o StrictHostKeyChecking=no" -arv --delete $HOME/attached_workspace/dist/obdach/ web@web.integreat-app.de:/var/www/vernetztesobdach.de
                         name: Obdach production delivery
             - when:
                 condition:
@@ -679,16 +679,16 @@ jobs:
                         - << parameters.delivery >>
                 steps:
                     - run:
-                        command: rsync -e "ssh -o StrictHostKeyChecking=no" -arv $HOME/attached_workspace/dist/integreat/ web@web.integreat-app.de:/var/www/beta.integreat.app
+                        command: rsync -e "ssh -o StrictHostKeyChecking=no" -arv --delete $HOME/attached_workspace/dist/integreat/ web@web.integreat-app.de:/var/www/beta.integreat.app
                         name: Integreat beta delivery
                     - run:
-                        command: rsync -e "ssh -o StrictHostKeyChecking=no" -arv $HOME/attached_workspace/dist/malte/ web@web.integreat-app.de:/var/www/beta.malteapp.de
+                        command: rsync -e "ssh -o StrictHostKeyChecking=no" -arv --delete $HOME/attached_workspace/dist/malte/ web@web.integreat-app.de:/var/www/beta.malteapp.de
                         name: Malte beta delivery
                     - run:
-                        command: rsync -e "ssh -o StrictHostKeyChecking=no" -arv $HOME/attached_workspace/dist/aschaffenburg/ web@web.integreat-app.de:/var/www/beta.aschaffenburg.app
+                        command: rsync -e "ssh -o StrictHostKeyChecking=no" -arv --delete $HOME/attached_workspace/dist/aschaffenburg/ web@web.integreat-app.de:/var/www/beta.aschaffenburg.app
                         name: Aschaffenburg beta delivery
                     - run:
-                        command: rsync -e "ssh -o StrictHostKeyChecking=no" -arv $HOME/attached_workspace/dist/obdach/ web@web.integreat-app.de:/var/www/beta.vernetztesobdach.de
+                        command: rsync -e "ssh -o StrictHostKeyChecking=no" -arv --delete $HOME/attached_workspace/dist/obdach/ web@web.integreat-app.de:/var/www/beta.vernetztesobdach.de
                         name: Obdach beta delivery
             - when:
                 condition:
@@ -697,16 +697,16 @@ jobs:
                         - << parameters.delivery >>
                 steps:
                     - run:
-                        command: rsync -e "ssh -o StrictHostKeyChecking=no" -arv $HOME/attached_workspace/dist/integreat-test-cms/ web@web.integreat-app.de:/var/www/webnext.integreat.app
+                        command: rsync -e "ssh -o StrictHostKeyChecking=no" -arv --delete $HOME/attached_workspace/dist/integreat-test-cms/ web@web.integreat-app.de:/var/www/webnext.integreat.app
                         name: Integreat webnext delivery
                     - run:
-                        command: rsync -e "ssh -o StrictHostKeyChecking=no" -arv $HOME/attached_workspace/dist/malte-test-cms/ web@web.integreat-app.de:/var/www/webnext.malteapp.de
+                        command: rsync -e "ssh -o StrictHostKeyChecking=no" -arv --delete $HOME/attached_workspace/dist/malte-test-cms/ web@web.integreat-app.de:/var/www/webnext.malteapp.de
                         name: Malte webnext delivery
                     - run:
-                        command: rsync -e "ssh -o StrictHostKeyChecking=no" -arv $HOME/attached_workspace/dist/aschaffenburg/ web@web.integreat-app.de:/var/www/webnext.aschaffenburg.app
+                        command: rsync -e "ssh -o StrictHostKeyChecking=no" -arv --delete $HOME/attached_workspace/dist/aschaffenburg/ web@web.integreat-app.de:/var/www/webnext.aschaffenburg.app
                         name: Aschaffenburg webnext delivery
                     - run:
-                        command: rsync -e "ssh -o StrictHostKeyChecking=no" -arv $HOME/attached_workspace/dist/obdach/ web@web.integreat-app.de:/var/www/webnext.vernetztesobdach.de
+                        command: rsync -e "ssh -o StrictHostKeyChecking=no" -arv --delete $HOME/attached_workspace/dist/obdach/ web@web.integreat-app.de:/var/www/webnext.vernetztesobdach.de
                         name: Obdach webnext delivery
             - unless:
                 condition:
@@ -951,23 +951,17 @@ jobs:
             - add_ssh_keys:
                 fingerprints:
                     - 68:a3:fe:e7:94:f7:a4:13:35:5c:63:30:2f:07:7d:02
-            - checkout
-            - prepare_workspace
-            - restore_environment_variables
             - run:
-                command: sudo apt update && sudo apt install rsync
-                name: Install rsync
-            - run:
-                command: rsync -e "ssh -o StrictHostKeyChecking=no" -arv web@web.integreat-app.de:/var/www/beta.integreat.app/ web@web.integreat-app.de:/var/www/integreat.app
+                command: ssh -o StrictHostKeyChecking=no web@web.integreat-app.de "rsync -arv --delete /var/www/beta.integreat.app/ /var/www/integreat.app"
                 name: Integreat production promotion
             - run:
-                command: rsync -e "ssh -o StrictHostKeyChecking=no" -arv web@web.integreat-app.de:/var/www/beta.malteapp.de/ web@web.integreat-app.de:/var/www/malteapp.de
+                command: ssh -o StrictHostKeyChecking=no web@web.integreat-app.de "rsync -arv --delete /var/www/beta.malteapp.de/ /var/www/malteapp.de"
                 name: Malte production promotion
             - run:
-                command: rsync -e "ssh -o StrictHostKeyChecking=no" -arv web@web.integreat-app.de:/var/www/beta.aschaffenburg.app/ web@web.integreat-app.de:/var/www/aschaffenburg.app
+                command: ssh -o StrictHostKeyChecking=no web@web.integreat-app.de "rsync -arv --delete /var/www/beta.aschaffenburg.app/ /var/www/aschaffenburg.app"
                 name: Aschaffenburg production promotion
             - run:
-                command: rsync -e "ssh -o StrictHostKeyChecking=no" -arv web@web.integreat-app.de:/var/www/beta.vernetztesobdach.de/ web@web.integreat-app.de:/var/www/vernetztesobdach.de
+                command: ssh -o StrictHostKeyChecking=no web@web.integreat-app.de "rsync -arv --delete /var/www/beta.vernetztesobdach.de/ /var/www/vernetztesobdach.de"
                 name: Obdach production promotion
             - notify
     upload_browserstack:
