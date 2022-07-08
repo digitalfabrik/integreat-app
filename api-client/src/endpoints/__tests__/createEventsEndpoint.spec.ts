@@ -45,14 +45,11 @@ describe('events', () => {
       address: 'Wertachstr. 29',
       town: 'Augsburg',
       postcode: '86353',
-      state: 'Bayern',
-      region: 'Schwaben',
       country: 'DE',
       latitude: null,
       longitude: null
     },
     modified_gmt: '2017-01-09 15:30:00',
-    hash: '91d435afbc7aa83496137e81fd2832e3',
     featured_image: {
       description: 'I am an image showing beer',
       mimetype: 'image/png',
@@ -105,15 +102,12 @@ describe('events', () => {
         name: 'Senkelfabrik',
         address: 'Wertachstr. 29',
         town: 'Augsburg',
-        state: 'Bayern',
         postcode: '86353',
-        region: 'Schwaben',
         country: 'DE',
         longitude: null,
         latitude: null
       }),
       lastUpdate: moment.tz('2017-01-09 15:30:00', 'GMT'),
-      hash: '91d435afbc7aa83496137e81fd2832e3',
       featuredImage: new FeaturedImageModel({
         description: 'I am an image showing beer',
         thumbnail: {
