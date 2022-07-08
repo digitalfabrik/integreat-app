@@ -29,7 +29,7 @@ const EventListItem = ({ event, formatter }: PropsType): ReactElement => (
   <ListItem thumbnail={event.thumbnail || getEventPlaceholder(event.path)} title={event.title} path={event.path}>
     <div>
       <div>{event.date.toFormattedString(formatter)}</div>
-      {event.location.location && <div>{event.location.location}</div>}
+      {event.location && <div>{event.location.fullAddress}</div>}
     </div>
     <div>{textTruncator(event.excerpt, NUM_OF_CHARS_ALLOWED)}</div>
   </ListItem>

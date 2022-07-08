@@ -46,18 +46,15 @@ type ContentCategoryJsonType = {
   parent_path: string
   children: Array<string>
   order: number
-  hash: string
 }
-type LocationJsonType = {
+type LocationJsonType<T> = {
   id: number
-  address: string | null | undefined
-  town: string | null | undefined
-  postcode: string | null | undefined
-  latitude: string | null | undefined
-  longitude: string | null | undefined
-  country: string | null | undefined
-  region: string | null | undefined
-  state: string | null | undefined
+  address: string
+  town: string
+  postcode: string
+  latitude: T
+  longitude: T
+  country: string
   name: string
 }
 type FeaturedImageInstanceJsonType = {
@@ -79,14 +76,13 @@ type ContentEventJsonType = {
   last_update: string
   thumbnail: string
   available_languages: Record<string, string>
-  hash: string
   excerpt: string
   date: {
     start_date: string
     end_date: string
     all_day: boolean
   }
-  location: LocationJsonType
+  location: LocationJsonType<number | null> | null
   featured_image: FeaturedImageJsonType | null | undefined
 }
 type ContentCityJsonType = {
@@ -110,11 +106,13 @@ type ContentPoiJsonType = {
   title: string
   content: string
   thumbnail: string
+  website: string | null
+  phoneNumber: string | null
+  email: string | null
   availableLanguages: Record<string, string>
   excerpt: string
-  location: LocationJsonType
+  location: LocationJsonType<number>
   lastUpdate: string
-  hash: string
 }
 type CityCodeType = string
 type LanguageCodeType = string
@@ -331,8 +329,7 @@ class DatabaseConnector {
         available_languages: mapToObject(category.availableLanguages),
         parent_path: category.parentPath,
         children: categoriesMap.getChildren(category).map(category => category.path),
-        order: category.order,
-        hash: category.hash
+        order: category.order
       })
     )
     await this.writeFile(this.getContentPath('categories', context), JSON.stringify(jsonModels))
@@ -359,8 +356,7 @@ class DatabaseConnector {
           parentPath: jsonObject.parent_path,
           order: jsonObject.order,
           availableLanguages,
-          lastUpdate: moment(jsonObject.last_update, moment.ISO_8601),
-          hash: jsonObject.hash
+          lastUpdate: moment(jsonObject.last_update, moment.ISO_8601)
         })
       })
     )
@@ -392,6 +388,9 @@ class DatabaseConnector {
         thumbnail: poi.thumbnail,
         availableLanguages: mapToObject(poi.availableLanguages),
         excerpt: poi.excerpt,
+        website: poi.website,
+        phoneNumber: poi.phoneNumber,
+        email: poi.email,
         location: {
           id: poi.location.id,
           address: poi.location.address,
@@ -400,12 +399,9 @@ class DatabaseConnector {
           latitude: poi.location.latitude,
           longitude: poi.location.longitude,
           country: poi.location.country,
-          region: poi.location.region,
-          state: poi.location.state,
           name: poi.location.name
         },
-        lastUpdate: poi.lastUpdate.toISOString(),
-        hash: poi.hash
+        lastUpdate: poi.lastUpdate.toISOString()
       })
     )
     await this.writeFile(this.getContentPath('pois', context), JSON.stringify(jsonModels))
@@ -430,11 +426,12 @@ class DatabaseConnector {
         thumbnail: jsonObject.thumbnail,
         availableLanguages,
         excerpt: jsonObject.excerpt,
+        website: jsonObject.website,
+        phoneNumber: jsonObject.phoneNumber,
+        email: jsonObject.email,
         location: new LocationModel({
           id: jsonLocation.id,
           name: jsonLocation.name,
-          region: jsonLocation.region,
-          state: jsonLocation.state,
           country: jsonLocation.country,
           address: jsonLocation.address,
           latitude: jsonLocation.latitude,
@@ -442,8 +439,7 @@ class DatabaseConnector {
           postcode: jsonLocation.postcode,
           town: jsonLocation.town
         }),
-        lastUpdate: moment(jsonObject.lastUpdate, moment.ISO_8601),
-        hash: jsonObject.hash
+        lastUpdate: moment(jsonObject.lastUpdate, moment.ISO_8601)
       })
     })
   }
@@ -509,25 +505,24 @@ class DatabaseConnector {
         last_update: event.lastUpdate.toISOString(),
         thumbnail: event.thumbnail,
         available_languages: mapToObject(event.availableLanguages),
-        hash: event.hash,
         excerpt: event.excerpt,
         date: {
           start_date: event.date.startDate.toISOString(),
           end_date: event.date.endDate.toISOString(),
           all_day: event.date.allDay
         },
-        location: {
-          id: event.location.id,
-          address: event.location.address,
-          town: event.location.town,
-          postcode: event.location.postcode,
-          latitude: event.location.latitude,
-          longitude: event.location.longitude,
-          country: event.location.country,
-          region: event.location.region,
-          state: event.location.state,
-          name: event.location.name
-        },
+        location: event.location
+          ? {
+              id: event.location.id,
+              address: event.location.address,
+              town: event.location.town,
+              postcode: event.location.postcode,
+              latitude: event.location.latitude,
+              longitude: event.location.longitude,
+              country: event.location.country,
+              name: event.location.name
+            }
+          : null,
         featured_image: event.featuredImage
           ? {
               description: event.featuredImage.description,
@@ -553,7 +548,6 @@ class DatabaseConnector {
     const json = await this.readFile<ContentEventJsonType[]>(path)
     return json.map(jsonObject => {
       const jsonDate = jsonObject.date
-      const jsonLocation = jsonObject.location
       const availableLanguages = new Map<string, string>(Object.entries(jsonObject.available_languages))
       return new EventModel({
         path: jsonObject.path,
@@ -571,25 +565,24 @@ class DatabaseConnector {
           : null,
         availableLanguages,
         lastUpdate: moment(jsonObject.last_update, moment.ISO_8601),
-        hash: jsonObject.hash,
         excerpt: jsonObject.excerpt,
         date: new DateModel({
           startDate: moment(jsonDate.start_date, moment.ISO_8601),
           endDate: moment(jsonDate.end_date, moment.ISO_8601),
           allDay: jsonDate.all_day
         }),
-        location: new LocationModel({
-          id: jsonObject.location.id,
-          name: jsonObject.location.name,
-          region: jsonObject.location.region,
-          state: jsonObject.location.state,
-          country: jsonObject.location.country,
-          address: jsonLocation.address,
-          latitude: jsonLocation.latitude,
-          longitude: jsonLocation.longitude,
-          postcode: jsonLocation.postcode,
-          town: jsonLocation.town
-        })
+        location: jsonObject.location?.id
+          ? new LocationModel({
+              id: jsonObject.location.id,
+              name: jsonObject.location.name,
+              country: jsonObject.location.country,
+              address: jsonObject.location.address,
+              latitude: jsonObject.location.latitude,
+              longitude: jsonObject.location.longitude,
+              postcode: jsonObject.location.postcode,
+              town: jsonObject.location.town
+            })
+          : null
       })
     })
   }

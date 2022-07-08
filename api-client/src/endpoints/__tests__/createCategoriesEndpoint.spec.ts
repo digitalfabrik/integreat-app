@@ -30,8 +30,7 @@ describe('createCategoriesEndpoint', () => {
     thumbnail: '',
     order: -1,
     availableLanguages: new Map(),
-    lastUpdate: moment(0),
-    hash: ''
+    lastUpdate: moment(0)
   })
   const endpoint = createCategoriesEndpoint(baseUrl)
 

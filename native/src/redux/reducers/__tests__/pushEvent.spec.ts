@@ -12,9 +12,7 @@ describe('pushEvent', () => {
     name: 'name',
     address: 'address',
     town: 'town',
-    state: 'state',
     postcode: 'postcode',
-    region: 'region',
     country: 'country',
     longitude: null,
     latitude: null
@@ -35,7 +33,6 @@ describe('pushEvent', () => {
         endDate: moment('2000-01-05T10:10:00.000Z'),
         allDay: false
       }),
-      hash: '123456',
       location
     })
 

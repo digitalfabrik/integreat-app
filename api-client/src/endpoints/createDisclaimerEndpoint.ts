@@ -25,8 +25,7 @@ export default (baseUrl: string): Endpoint<ParamsType, PageModel> =>
         path: json.path,
         title: json.title,
         content: json.content,
-        lastUpdate: moment.tz(json.modified_gmt, 'GMT'),
-        hash: json.hash
+        lastUpdate: moment.tz(json.modified_gmt, 'GMT')
       })
     })
     .build()

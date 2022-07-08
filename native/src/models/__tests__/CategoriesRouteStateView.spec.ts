@@ -15,8 +15,7 @@ describe('CategoriesRouteStateView', () => {
       order: 0,
       availableLanguages: new Map(),
       lastUpdate: moment('2017-11-18 19:30:00', moment.ISO_8601),
-      thumbnail: '/thumbnail.jpg',
-      hash: '123asdf'
+      thumbnail: '/thumbnail.jpg'
     }),
     '/augsburg/de/erste-hilfe': new CategoryModel({
       root: false,
@@ -27,8 +26,7 @@ describe('CategoriesRouteStateView', () => {
       order: 0,
       availableLanguages: new Map(),
       lastUpdate: moment('2017-11-18 19:30:00', moment.ISO_8601),
-      thumbnail: '/thumbnail.jpg',
-      hash: '123asdf'
+      thumbnail: '/thumbnail.jpg'
     }),
     '/augsburg/de/zweite-hilfe': new CategoryModel({
       root: false,
@@ -39,8 +37,7 @@ describe('CategoriesRouteStateView', () => {
       order: 0,
       availableLanguages: new Map(),
       lastUpdate: moment('2017-11-18 19:30:00', moment.ISO_8601),
-      thumbnail: '/thumbnail.jpg',
-      hash: '123asdf'
+      thumbnail: '/thumbnail.jpg'
     })
   }
   const children = {
