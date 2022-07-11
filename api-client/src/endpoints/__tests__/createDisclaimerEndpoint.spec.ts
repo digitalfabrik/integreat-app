@@ -11,8 +11,7 @@ describe('disclaimer', () => {
     title: 'Feedback, Kontakt und mögliches Engagement',
     type: 'disclaimer',
     modified_gmt: '2017-06-12 12:27:57',
-    content: '<div>Some disclaimer test content :)</div>',
-    hash: '91d435afbc7aa83496137e81fd2832e3'
+    content: '<div>Some disclaimer test content :)</div>'
   }
   const params = {
     city: 'augsburg',
@@ -33,8 +32,7 @@ describe('disclaimer', () => {
         path: '/augsburg/en/disclaimer/feedback-contact-and-opportunities-to-take-part',
         title: pageJson.title,
         content: '<div>Some disclaimer test content :)</div>',
-        lastUpdate: moment.tz('2017-06-12 12:27:57', 'GMT'),
-        hash: '91d435afbc7aa83496137e81fd2832e3'
+        lastUpdate: moment.tz('2017-06-12 12:27:57', 'GMT')
       })
     )
   })

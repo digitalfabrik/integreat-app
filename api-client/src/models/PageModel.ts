@@ -8,26 +8,22 @@ class PageModel {
   _title: string
   _content: string
   _lastUpdate: Moment
-  _hash: string
 
   constructor({
     path,
     title,
     content,
-    lastUpdate,
-    hash
+    lastUpdate
   }: {
     path: string
     title: string
     content: string
     lastUpdate: Moment
-    hash: string
   }) {
     this._path = normalizePath(path)
     this._title = decodeHTML(title)
     this._content = content
     this._lastUpdate = lastUpdate
-    this._hash = hash
   }
 
   get path(): string {
@@ -46,17 +42,8 @@ class PageModel {
     return this._lastUpdate
   }
 
-  get hash(): string {
-    return this._hash
-  }
-
   isEqual(other: PageModel): boolean {
-    return (
-      this.path === other.path &&
-      this.content === other.content &&
-      this.lastUpdate.isSame(other.lastUpdate) &&
-      this.hash === other.hash
-    )
+    return this.path === other.path && this.content === other.content && this.lastUpdate.isSame(other.lastUpdate)
   }
 }
 

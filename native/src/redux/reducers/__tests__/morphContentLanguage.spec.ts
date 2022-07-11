@@ -48,7 +48,6 @@ describe('morphContentLanguage', () => {
       title: '',
       content: '',
       thumbnail: 'no_thumbnail',
-      hash: '',
       lastUpdate: moment('2011-02-04T00:00:00.000Z')
     })
 
@@ -141,9 +140,7 @@ describe('morphContentLanguage', () => {
         name: 'name',
         address: 'address',
         town: 'town',
-        state: 'state',
         postcode: 'postcode',
-        region: 'region',
         country: 'country',
         longitude: null,
         latitude: null
@@ -152,8 +149,7 @@ describe('morphContentLanguage', () => {
       lastUpdate: moment('2016-01-07 10:36:24', moment.ISO_8601),
       content: 'content',
       thumbnail: 'thumbnail',
-      featuredImage: null,
-      hash: '12345'
+      featuredImage: null
     })
 
   const createPoi = ({ path, availableLanguages }: { path: string; availableLanguages: Map<string, string> }) =>
@@ -170,17 +166,14 @@ describe('morphContentLanguage', () => {
       location: new LocationModel({
         id: 1,
         country: 'country',
-        region: 'region',
-        state: 'state',
         address: 'address',
         town: 'town',
         postcode: 'postcode',
-        latitude: '15',
-        longitude: '15',
+        latitude: 15,
+        longitude: 15,
         name: 'name'
       }),
-      lastUpdate: moment('2011-02-04T00:00:00.000Z'),
-      hash: 'test'
+      lastUpdate: moment('2011-02-04T00:00:00.000Z')
     })
 
   const enFirstEvent = createEvent({

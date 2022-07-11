@@ -90,7 +90,7 @@ export class CategoryEntry extends React.PureComponent<PropsType> {
   renderSubCategories(): Array<ReactNode> {
     const { subCategories } = this.props
     return subCategories.map(subCategory => (
-      <SubCategory key={subCategory.hash}>
+      <SubCategory key={subCategory.path}>
         <StyledLink to={subCategory.path}>
           <SubCategoryCaption aria-label={subCategory.title}>{subCategory.title}</SubCategoryCaption>
         </StyledLink>

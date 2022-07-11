@@ -6,6 +6,9 @@ import styled, { css, useTheme } from 'styled-components'
 import { getExternalMapsLink, PoiFeature, PoiModel } from 'api-client/src'
 import { UiDirectionType } from 'translations'
 
+import iconEmail from '../../../assets/icons/email.svg'
+import iconPhone from '../../../assets/icons/phone.svg'
+import iconWebsite from '../../../assets/icons/website.svg'
 import iconArrowBack from '../assets/IconArrowBackLong.svg'
 import iconExternalLink from '../assets/IconExternalLink.svg'
 import iconMarker from '../assets/IconMarker.svg'
@@ -14,6 +17,7 @@ import dimensions from '../constants/dimensions'
 import useWindowDimensions from '../hooks/useWindowDimensions'
 import CleanLink from './CleanLink'
 import Collapsible from './Collapsible'
+import ContactItem from './ContactItem'
 import RemoteContent from './RemoteContent'
 import Spacer from './Spacer'
 
@@ -157,13 +161,13 @@ const PoiDetails: React.FC<PoiDetailsProps> = ({
   const { viewportSmall } = useWindowDimensions()
   const theme = useTheme()
   const { title, thumbnail, distance } = feature.properties
-  const { content, location } = poi
+  const { content, location, website, phoneNumber, email } = poi
   const { t } = useTranslation('pois')
   const navigate = useNavigate()
   // MapEvent parses null to 'null'
   const thumb = thumbnail === 'null' ? null : thumbnail?.replace('-150x150', '')
   const isAndroid = /Android/i.test(navigator.userAgent)
-  const navigationDeepLink = isAndroid ? getExternalMapsLink(location, 'android') : getExternalMapsLink(location, 'web')
+  const externalMapsLink = getExternalMapsLink(location, isAndroid ? 'android' : 'web')
 
   return (
     <DetailsContainer>
@@ -193,15 +197,34 @@ const PoiDetails: React.FC<PoiDetailsProps> = ({
             </span>
           </AddressContent>
         </AddressContentWrapper>
-        {navigationDeepLink && (
-          <LinkContainer>
-            <CleanLink to={navigationDeepLink} newTab>
-              {!viewportSmall && <LinkLabel>{t('detailsMapLink')}</LinkLabel>}
-              <Marker src={iconExternalLink} alt='' direction={direction} />
-            </CleanLink>
-          </LinkContainer>
-        )}
+        <LinkContainer>
+          <CleanLink to={externalMapsLink} newTab>
+            {!viewportSmall && <LinkLabel>{t('detailsMapLink')}</LinkLabel>}
+            <Marker src={iconExternalLink} alt='' direction={direction} />
+          </CleanLink>
+        </LinkContainer>
       </DetailSection>
+      {(website || phoneNumber || email) && (
+        <>
+          <Spacer borderColor={theme.colors.poiBorderColor} />
+          <Collapsible title={t('contactInformation')} initialCollapsed direction={direction}>
+            <>
+              {website && <ContactItem iconSrc={iconWebsite} iconAlt={t('website')} link={website} content={website} />}
+              {phoneNumber && (
+                <ContactItem
+                  iconSrc={iconPhone}
+                  iconAlt={t('phone')}
+                  link={`tel:${phoneNumber}`}
+                  content={phoneNumber}
+                />
+              )}
+              {email && (
+                <ContactItem iconSrc={iconEmail} iconAlt={t('eMail')} link={`mailto:${email}`} content={email} />
+              )}
+            </>
+          </Collapsible>
+        </>
+      )}
       {content.length > 0 && (
         <>
           <Spacer borderColor={theme.colors.poiBorderColor} />

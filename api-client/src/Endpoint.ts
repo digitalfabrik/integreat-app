@@ -4,7 +4,8 @@ import { MapResponseType } from './MapResponseType'
 import Payload from './Payload'
 import FetchError from './errors/FetchError'
 import ResponseError from './errors/ResponseError'
-import { request as fetch } from './request'
+import { getJpalTrackingCode, request as fetch } from './request'
+import { JPAL_TRACKING_CODE_QUERY_PARAM } from './tracking'
 
 /**
  * A Endpoint holds all the relevant information to fetch data from it
@@ -43,7 +44,15 @@ class Endpoint<P, T> {
       throw this.errorOverride
     }
 
-    const url = overrideUrl || this.mapParamsToUrl(params)
+    const baseUrl = overrideUrl || this.mapParamsToUrl(params)
+
+    const urlObject = new URL(baseUrl)
+    const jpalTrackingCode = getJpalTrackingCode()
+    if (jpalTrackingCode) {
+      urlObject.searchParams.append(JPAL_TRACKING_CODE_QUERY_PARAM, jpalTrackingCode)
+    }
+
+    const url = urlObject.toString()
 
     if (this.responseOverride) {
       return new Payload(false, url, this.responseOverride, null)
