@@ -23,16 +23,13 @@ const pois = [
       id: 1,
       country: 'Test Country',
       address: 'Test Address 1',
-      region: 'region',
-      state: 'state',
       town: 'Test Town',
       postcode: '12345',
-      latitude: '29.979848',
-      longitude: '31.133859',
+      latitude: 29.979848,
+      longitude: 31.133859,
       name: 'Test Title'
     }),
-    lastUpdate: moment('2011-02-04T00:00:00.000Z'),
-    hash: 'test'
+    lastUpdate: moment('2011-02-04T00:00:00.000Z')
   }),
   new PoiModel({
     path: '/augsburg/en/locations/test_path_2',
@@ -47,17 +44,14 @@ const pois = [
     location: new LocationModel({
       id: 1,
       country: 'test country 2',
-      region: 'test region 2',
-      state: 'test state 2',
       address: 'test address 2',
       town: 'test town 2',
       postcode: 'test postcode 2',
-      latitude: '15',
-      longitude: '15',
+      latitude: 15,
+      longitude: 15,
       name: 'name 2'
     }),
-    lastUpdate: moment('2011-02-04T00:00:00.000Z'),
-    hash: 'test hash'
+    lastUpdate: moment('2011-02-04T00:00:00.000Z')
   })
 ]
 

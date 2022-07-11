@@ -19,7 +19,6 @@ class CategoryModel extends ExtendedPageModel {
     order: number
     availableLanguages: Map<string, string>
     lastUpdate: Moment
-    hash: string
   }) {
     const { order, parentPath, root, ...other } = params
     super(other)

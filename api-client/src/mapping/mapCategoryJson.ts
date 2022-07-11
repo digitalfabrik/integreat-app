@@ -14,8 +14,7 @@ const mapCategoryJson = (json: JsonCategoryType, basePath: string): CategoryMode
     order: json.order,
     availableLanguages: mapAvailableLanguages(json.available_languages),
     parentPath: json.parent.path || basePath,
-    lastUpdate: moment.tz(json.modified_gmt, 'GMT'),
-    hash: json.hash
+    lastUpdate: moment.tz(json.modified_gmt, 'GMT')
   })
 
 export default mapCategoryJson

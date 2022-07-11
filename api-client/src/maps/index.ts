@@ -81,7 +81,7 @@ export const defaultMercatorViewportConfig: MapViewMercatorViewport = {
 
 export const detailZoom = 15
 export const animationDuration = 2000
-export const locationName = 'name'
+export const nameQueryParam = 'name'
 
 export const mapMarker: MarkerConfig = {
   iconSize: 1.75,

@@ -1,4 +1,3 @@
-import md5 from 'js-md5'
 import moment, { Moment } from 'moment'
 import seedrandom from 'seedrandom'
 
@@ -82,8 +81,7 @@ class CategoriesMapModelBuilder {
         availableLanguages: new Map(),
         thumbnail,
         parentPath: category.path,
-        lastUpdate,
-        hash: md5.create().update(path).hex()
+        lastUpdate
       })
       this._resourceCache[path] = {
         [resourceUrl1]: this.createResource(resourceUrl1, id, lastUpdate),
@@ -122,8 +120,7 @@ class CategoriesMapModelBuilder {
         availableLanguages: new Map(),
         thumbnail: '',
         parentPath: '',
-        lastUpdate: moment('2017-11-18T19:30:00.000Z', moment.ISO_8601),
-        hash: md5.create().update(path).hex()
+        lastUpdate: moment('2017-11-18T19:30:00.000Z', moment.ISO_8601)
       }),
       0
     )

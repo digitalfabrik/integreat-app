@@ -12,8 +12,7 @@ describe('CategoryModel', () => {
     order: 75,
     availableLanguages: new Map([['de', '/augsburg/de/']]),
     thumbnail: 'https://cms.integreat-ap…/03/Hotline-150x150.png',
-    lastUpdate: moment('2016-01-07 10:36:24'),
-    hash: '91d435afbc7aa83496137e81fd2832e3'
+    lastUpdate: moment('2016-01-07 10:36:24')
   })
   const category = new CategoryModel({
     root: false,
@@ -24,8 +23,7 @@ describe('CategoryModel', () => {
     order: 75,
     availableLanguages: new Map([['de', '/augsburg/de/willkommen']]),
     thumbnail: 'https://cms.integreat-ap…/03/Hotline-150x150.png',
-    lastUpdate: moment('2016-01-07 10:36:24'),
-    hash: '91d435afbc7aa83496137e81fd2832e3'
+    lastUpdate: moment('2016-01-07 10:36:24')
   })
 
   it('should be conscious about being a root', () => {
@@ -43,8 +41,7 @@ describe('CategoryModel', () => {
       order: 75,
       availableLanguages: new Map([['de', '/augsburg/de/willkommen']]),
       thumbnail: 'https://cms.integreat-ap…/03/Hotline-150x150.png',
-      lastUpdate: moment('2016-01-07 10:36:24'),
-      hash: '91d435afbc7aa83496137e81fd2832e3'
+      lastUpdate: moment('2016-01-07 10:36:24')
     })
     expect(normalizedCategory.path).toBe('/augsburg/fa/erste-schritte/نقشه-شهر')
     expect(normalizedCategory.parentPath).toBe('/augsburg/fa/erste-schritte')

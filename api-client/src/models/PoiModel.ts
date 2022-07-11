@@ -6,7 +6,7 @@ import LocationModel from './LocationModel'
 import PageModel from './PageModel'
 
 class PoiModel extends ExtendedPageModel {
-  _location: LocationModel
+  _location: LocationModel<number>
   _excerpt: string
   _website: string | null
   _phoneNumber: string | null
@@ -19,12 +19,11 @@ class PoiModel extends ExtendedPageModel {
     thumbnail: string
     availableLanguages: Map<string, string>
     excerpt: string
-    location: LocationModel
+    location: LocationModel<number>
     lastUpdate: Moment
     email: string | null
     website: string | null
     phoneNumber: string | null
-    hash: string
   }) {
     const { location, excerpt, website, phoneNumber, email, ...other } = params
     super(other)
@@ -35,7 +34,7 @@ class PoiModel extends ExtendedPageModel {
     this._email = email
   }
 
-  get location(): LocationModel {
+  get location(): LocationModel<number> {
     return this._location
   }
 
@@ -61,9 +60,6 @@ class PoiModel extends ExtendedPageModel {
 
   get featureLocation(): PoiFeature | null {
     const { coordinates, name, id, address } = this.location
-    if (coordinates === null) {
-      return null
-    }
 
     return {
       type: 'Feature',
@@ -79,7 +75,7 @@ class PoiModel extends ExtendedPageModel {
         thumbnail: this.thumbnail,
         path: this.path,
         urlSlug: this.urlSlug,
-        address: address ?? undefined
+        address
       }
     }
   }

@@ -12,12 +12,14 @@ type Params =
 
 export type FilterProps = {
   beds: string | null
+  city: string | null
   pets: string | null
 }
 
 // Map for the filter keys for the endpoint
 const paramMap = new Map([
   ['beds', 'min_beds'],
+  ['city', 'city'],
   ['pets', 'pets']
 ])
 

@@ -113,13 +113,14 @@ describe('pathname', () => {
       ).toBe(`/${cityCode}/${languageCode}/${POIS_ROUTE}`)
     })
     it('should match single pois route', () => {
-      const pathname = `/${cityCode}/${languageCode}/${POIS_ROUTE}/1234`
+      const urlSlug = 'tuer-an-tuer'
+      const pathname = `/${cityCode}/${languageCode}/${POIS_ROUTE}?name=${urlSlug}`
       expect(
         pathnameFromRouteInformation({
           route: POIS_ROUTE,
           languageCode,
           cityCode,
-          cityContentPath: pathname
+          urlSlug
         })
       ).toBe(pathname)
     })
