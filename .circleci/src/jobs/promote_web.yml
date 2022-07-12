@@ -1,0 +1,22 @@
+docker:
+  - image: cimg/node:14.19.0
+resource_class: small
+shell: /bin/bash -eo pipefail
+steps:
+  - skip_job
+  - add_ssh_keys:
+      fingerprints:
+        - '68:a3:fe:e7:94:f7:a4:13:35:5c:63:30:2f:07:7d:02'
+  - run:
+      name: Integreat production promotion # StrictHostKeyChecking=no is not a security problem. The worst that could happen is a delivery to the wrong domain.
+      command: ssh -o StrictHostKeyChecking=no web@web.integreat-app.de "rsync -arv --delete /var/www/beta.integreat.app/ /var/www/integreat.app"
+  - run:
+      name: Malte production promotion
+      command: ssh -o StrictHostKeyChecking=no web@web.integreat-app.de "rsync -arv --delete /var/www/beta.malteapp.de/ /var/www/malteapp.de"
+  - run:
+      name: Aschaffenburg production promotion
+      command: ssh -o StrictHostKeyChecking=no web@web.integreat-app.de "rsync -arv --delete /var/www/beta.aschaffenburg.app/ /var/www/aschaffenburg.app"
+  - run:
+      name: Obdach production promotion
+      command: ssh -o StrictHostKeyChecking=no web@web.integreat-app.de "rsync -arv --delete /var/www/beta.vernetztesobdach.de/ /var/www/vernetztesobdach.de"
+  - notify

@@ -634,9 +634,13 @@ jobs:
         docker:
             - image: cimg/node:14.19.0
         parameters:
-            production_delivery:
-                description: Whether to deliver to production or to webnext.
-                type: boolean
+            delivery:
+                description: Whether to deliver to production, beta or to webnext.
+                enum:
+                    - production
+                    - beta
+                    - webnext
+                type: enum
         resource_class: small
         shell: /bin/bash -eo pipefail
         steps:
@@ -651,50 +655,71 @@ jobs:
                 command: sudo apt update && sudo apt install rsync
                 name: Install rsync
             - when:
-                condition: << parameters.production_delivery >>
+                condition:
+                    equal:
+                        - production
+                        - << parameters.delivery >>
                 steps:
                     - run:
-                        command: rsync -e "ssh -o StrictHostKeyChecking=no" -arv $HOME/attached_workspace/dist/integreat/ web@web.integreat-app.de:/var/www/integreat.app
+                        command: rsync -e "ssh -o StrictHostKeyChecking=no" -arv --delete $HOME/attached_workspace/dist/integreat/ web@web.integreat-app.de:/var/www/integreat.app
                         name: Integreat production delivery
                     - run:
-                        command: rsync -e "ssh -o StrictHostKeyChecking=no" -arv $HOME/attached_workspace/dist/malte/ web@web.integreat-app.de:/var/www/malteapp.de
+                        command: rsync -e "ssh -o StrictHostKeyChecking=no" -arv --delete $HOME/attached_workspace/dist/malte/ web@web.integreat-app.de:/var/www/malteapp.de
                         name: Malte production delivery
                     - run:
-                        command: rsync -e "ssh -o StrictHostKeyChecking=no" -arv $HOME/attached_workspace/dist/aschaffenburg/ web@web.integreat-app.de:/var/www/aschaffenburg.app
+                        command: rsync -e "ssh -o StrictHostKeyChecking=no" -arv --delete $HOME/attached_workspace/dist/aschaffenburg/ web@web.integreat-app.de:/var/www/aschaffenburg.app
                         name: Aschaffenburg production delivery
                     - run:
-                        command: rsync -e "ssh -o StrictHostKeyChecking=no" -arv $HOME/attached_workspace/dist/obdach/ web@web.integreat-app.de:/var/www/vernetztesobdach.de
+                        command: rsync -e "ssh -o StrictHostKeyChecking=no" -arv --delete $HOME/attached_workspace/dist/obdach/ web@web.integreat-app.de:/var/www/vernetztesobdach.de
                         name: Obdach production delivery
+            - when:
+                condition:
+                    equal:
+                        - beta
+                        - << parameters.delivery >>
+                steps:
+                    - run:
+                        command: rsync -e "ssh -o StrictHostKeyChecking=no" -arv --delete $HOME/attached_workspace/dist/integreat/ web@web.integreat-app.de:/var/www/beta.integreat.app
+                        name: Integreat beta delivery
+                    - run:
+                        command: rsync -e "ssh -o StrictHostKeyChecking=no" -arv --delete $HOME/attached_workspace/dist/malte/ web@web.integreat-app.de:/var/www/beta.malteapp.de
+                        name: Malte beta delivery
+                    - run:
+                        command: rsync -e "ssh -o StrictHostKeyChecking=no" -arv --delete $HOME/attached_workspace/dist/aschaffenburg/ web@web.integreat-app.de:/var/www/beta.aschaffenburg.app
+                        name: Aschaffenburg beta delivery
+                    - run:
+                        command: rsync -e "ssh -o StrictHostKeyChecking=no" -arv --delete $HOME/attached_workspace/dist/obdach/ web@web.integreat-app.de:/var/www/beta.vernetztesobdach.de
+                        name: Obdach beta delivery
+            - when:
+                condition:
+                    equal:
+                        - webnext
+                        - << parameters.delivery >>
+                steps:
+                    - run:
+                        command: rsync -e "ssh -o StrictHostKeyChecking=no" -arv --delete $HOME/attached_workspace/dist/integreat-test-cms/ web@web.integreat-app.de:/var/www/webnext.integreat.app
+                        name: Integreat webnext delivery
+                    - run:
+                        command: rsync -e "ssh -o StrictHostKeyChecking=no" -arv --delete $HOME/attached_workspace/dist/malte-test-cms/ web@web.integreat-app.de:/var/www/webnext.malteapp.de
+                        name: Malte webnext delivery
+                    - run:
+                        command: rsync -e "ssh -o StrictHostKeyChecking=no" -arv --delete $HOME/attached_workspace/dist/aschaffenburg/ web@web.integreat-app.de:/var/www/webnext.aschaffenburg.app
+                        name: Aschaffenburg webnext delivery
+                    - run:
+                        command: rsync -e "ssh -o StrictHostKeyChecking=no" -arv --delete $HOME/attached_workspace/dist/obdach/ web@web.integreat-app.de:/var/www/webnext.vernetztesobdach.de
+                        name: Obdach webnext delivery
+            - unless:
+                condition:
+                    equal:
+                        - webnext
+                        - << parameters.delivery >>
+                steps:
                     - run:
                         command: tools/sentry-release web-integreat "${NEW_VERSION_NAME}" ~/attached_workspace/dist/integreat
                         name: 'Sentry Upload: integreat'
                     - run:
                         command: tools/sentry-release web-malte "${NEW_VERSION_NAME}" ~/attached_workspace/dist/malte
                         name: 'Sentry Upload: malte'
-                    - run:
-                        command: tools/sentry-release web-aschaffenburg "${NEW_VERSION_NAME}" ~/attached_workspace/dist/aschaffenburg
-                        name: 'Sentry Upload: aschaffenburg'
-            - unless:
-                condition: << parameters.production_delivery >>
-                steps:
-                    - run:
-                        command: rsync -e "ssh -o StrictHostKeyChecking=no" -arv $HOME/attached_workspace/dist/integreat-test-cms/ web@web.integreat-app.de:/var/www/webnext.integreat.app
-                        name: Integreat development delivery
-                    - run:
-                        command: rsync -e "ssh -o StrictHostKeyChecking=no" -arv $HOME/attached_workspace/dist/malte-test-cms/ web@web.integreat-app.de:/var/www/webnext.malteapp.de
-                        name: Malte development delivery
-                    - run:
-                        command: rsync -e "ssh -o StrictHostKeyChecking=no" -arv $HOME/attached_workspace/dist/aschaffenburg/ web@web.integreat-app.de:/var/www/webnext.aschaffenburg.app
-                        name: Aschaffenburg development delivery
-                    - run:
-                        command: rsync -e "ssh -o StrictHostKeyChecking=no" -arv $HOME/attached_workspace/dist/obdach/ web@web.integreat-app.de:/var/www/vernetztesobdach.de
-                        name: Obdach development delivery
-                    - run:
-                        command: tools/sentry-release web-integreat-test-cms "${NEW_VERSION_NAME}" ~/attached_workspace/dist/integreat-test-cms
-                        name: 'Sentry Upload: integreat-test-cms'
-                    - run:
-                        command: tools/sentry-release web-malte-test-cms "${NEW_VERSION_NAME}" ~/attached_workspace/dist/malte-test-cms
-                        name: 'Sentry Upload: malte-test-cms'
                     - run:
                         command: tools/sentry-release web-aschaffenburg "${NEW_VERSION_NAME}" ~/attached_workspace/dist/aschaffenburg
                         name: 'Sentry Upload: aschaffenburg'
@@ -776,7 +801,7 @@ jobs:
             - image: cimg/node:14.19.0
         parameters:
             production_delivery:
-                description: Whether builds are delivered to the production store. If set to true, jira and github releases are created.
+                description: Whether builds are delivered to the production or beta lane of the play store.
                 type: boolean
         resource_class: small
         steps:
@@ -790,7 +815,7 @@ jobs:
                 name: Prepare artifact urls
                 working_directory: ~/attached_workspace
             - run:
-                command: yarn github-release create android ${NEW_VERSION_NAME} ${NEW_VERSION_CODE} --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME} --release-notes "$(yarn --silent manage-metadata parse-release-notes --android --language en)"<<^ parameters.production_delivery >> --development-release<</ parameters.production_delivery >> --download-links "${ANDROID_ARTIFACT_URLS}"
+                command: yarn github-release create android ${NEW_VERSION_NAME} ${NEW_VERSION_CODE} --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME} --release-notes "$(yarn --silent manage-metadata parse-release-notes --android --language en)"<<^ parameters.production_delivery >> --beta-release<</ parameters.production_delivery >> --download-links "${ANDROID_ARTIFACT_URLS}"
                 name: Create github release
                 working_directory: tools
             - run:
@@ -798,13 +823,13 @@ jobs:
                 name: Create release notes
             - notify:
                 channel: releases
-                success_message: <<^ parameters.production_delivery >>[Development] <</ parameters.production_delivery >>Integreat, Malte and Aschaffenburg ${NEW_VERSION_NAME} have been released successfully on Android!\n${RELEASE_NOTES}\n${ANDROID_ARTIFACT_URLS}
+                success_message: <<^ parameters.production_delivery >>[Beta] <</ parameters.production_delivery >>Integreat, Malte and Aschaffenburg ${NEW_VERSION_NAME} have been released successfully on Android!\n${RELEASE_NOTES}\n${ANDROID_ARTIFACT_URLS}
     notify_ios:
         docker:
             - image: cimg/node:14.19.0
         parameters:
             production_delivery:
-                description: Whether builds are delivered to the production store. If set to true, jira and github releases are created.
+                description: Whether builds are delivered to the app store or testflight.
                 type: boolean
         resource_class: small
         steps:
@@ -818,7 +843,7 @@ jobs:
                 name: Prepare artifact urls
                 working_directory: ~/attached_workspace
             - run:
-                command: yarn github-release create ios ${NEW_VERSION_NAME} ${NEW_VERSION_CODE} --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME} --release-notes "$(yarn --silent manage-metadata parse-release-notes --ios --language en)"<<^ parameters.production_delivery >> --development-release<</ parameters.production_delivery >> --download-links "${IOS_ARTIFACT_URLS}"
+                command: yarn github-release create ios ${NEW_VERSION_NAME} ${NEW_VERSION_CODE} --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME} --release-notes "$(yarn --silent manage-metadata parse-release-notes --ios --language en)"<<^ parameters.production_delivery >> --beta-release<</ parameters.production_delivery >> --download-links "${IOS_ARTIFACT_URLS}"
                 name: Create github release
                 working_directory: tools
             - run:
@@ -826,10 +851,14 @@ jobs:
                 name: Create release notes
             - notify:
                 channel: releases
-                success_message: <<^ parameters.production_delivery >>[Development] <</ parameters.production_delivery >>Integreat, Malte and Aschaffenburg ${NEW_VERSION_NAME} have been released successfully on iOS!\n${RELEASE_NOTES}\n${IOS_ARTIFACT_URLS}
+                success_message: <<^ parameters.production_delivery >>[Beta] <</ parameters.production_delivery >>Integreat, Malte and Aschaffenburg ${NEW_VERSION_NAME} have been released successfully on iOS!\n${RELEASE_NOTES}\n${IOS_ARTIFACT_URLS}
     notify_web:
         docker:
             - image: cimg/node:14.19.0
+        parameters:
+            production_delivery:
+                description: Whether builds are delivered to production or beta.
+                type: boolean
         resource_class: small
         steps:
             - skip_job
@@ -844,9 +873,20 @@ jobs:
             - run:
                 command: echo "export RELEASE_NOTES=$(yarn --silent --cwd tools manage-metadata parse-release-notes --web --language en)" >> ${BASH_ENV}
                 name: Create release notes
-            - notify:
-                channel: releases
-                success_message: WebApp version ${NEW_VERSION_NAME} was delivered successfully to integreat.app, malteapp.de, aschaffenburg.app and vernetztesobdach.de!\n${RELEASE_NOTES}
+            - when:
+                condition: << parameters.production_delivery >>
+                steps:
+                    - notify:
+                        channel: releases
+                        success_message: WebApp version ${NEW_VERSION_NAME} was delivered successfully to integreat.app, malteapp.de, aschaffenburg.app and vernetztesobdach.de!\n${RELEASE_NOTES}
+            - unless:
+                condition: << parameters.production_delivery >>
+                steps:
+                    - notify:
+                        channel: releases
+                        success_message: |-
+                            [Beta] WebApp version ${NEW_VERSION_NAME} was delivered successfully to beta.integreat.app, beta.malteapp.de, beta.aschaffenburg.app and beta.vernetztesobdach.de!
+                            ${RELEASE_NOTES}
     promote_android:
         docker:
             - image: cimg/android:2022.03.1-node
@@ -901,6 +941,29 @@ jobs:
                 name: '[FL] App Store Connect Promotion'
                 working_directory: native
             - notify
+    promote_web:
+        docker:
+            - image: cimg/node:14.19.0
+        resource_class: small
+        shell: /bin/bash -eo pipefail
+        steps:
+            - skip_job
+            - add_ssh_keys:
+                fingerprints:
+                    - 68:a3:fe:e7:94:f7:a4:13:35:5c:63:30:2f:07:7d:02
+            - run:
+                command: ssh -o StrictHostKeyChecking=no web@web.integreat-app.de "rsync -arv --delete /var/www/beta.integreat.app/ /var/www/integreat.app"
+                name: Integreat production promotion
+            - run:
+                command: ssh -o StrictHostKeyChecking=no web@web.integreat-app.de "rsync -arv --delete /var/www/beta.malteapp.de/ /var/www/malteapp.de"
+                name: Malte production promotion
+            - run:
+                command: ssh -o StrictHostKeyChecking=no web@web.integreat-app.de "rsync -arv --delete /var/www/beta.aschaffenburg.app/ /var/www/aschaffenburg.app"
+                name: Aschaffenburg production promotion
+            - run:
+                command: ssh -o StrictHostKeyChecking=no web@web.integreat-app.de "rsync -arv --delete /var/www/beta.vernetztesobdach.de/ /var/www/vernetztesobdach.de"
+                name: Obdach production promotion
+            - notify
     upload_browserstack:
         docker:
             - image: cimg/ruby:3.1.1
@@ -936,10 +999,12 @@ parameters:
     workflow_type:
         default: none
         enum:
-            - native_development_delivery
+            - native_beta_delivery
             - native_production_delivery
             - native_promotion
+            - web_beta_delivery
             - web_production_delivery
+            - web_promotion
             - delivery
             - none
         type: enum
@@ -1032,7 +1097,7 @@ workflows:
                 context:
                     - mattermost
                     - sentry
-                production_delivery: false
+                delivery: webnext
                 requires:
                     - build_ig_test_cms_web
                     - build_malte_test_cms_web
@@ -1126,7 +1191,7 @@ workflows:
                 context:
                     - mattermost
                     - sentry
-                production_delivery: true
+                delivery: beta
                 requires:
                     - check
                     - e2e_web
@@ -1138,6 +1203,7 @@ workflows:
                 context:
                     - mattermost
                     - deliverino
+                production_delivery: false
                 requires:
                     - deliver_web
             - build_android:
@@ -1334,7 +1400,7 @@ workflows:
                 - equal:
                     - << pipeline.parameters.workflow_type >>
                     - delivery
-    native_development_delivery:
+    native_beta_delivery:
         jobs:
             - bump_version:
                 context:
@@ -1531,7 +1597,7 @@ workflows:
                 - << pipeline.parameters.api_triggered >>
                 - equal:
                     - << pipeline.parameters.workflow_type >>
-                    - native_development_delivery
+                    - native_beta_delivery
     native_production_delivery:
         jobs:
             - bump_version:
@@ -1774,6 +1840,75 @@ workflows:
                     - << pipeline.parameters.workflow_type >>
                     - native_promotion
     version: 2
+    web_beta_delivery:
+        jobs:
+            - bump_version:
+                context:
+                    - mattermost
+                    - deliverino
+                    - jira
+                prepare_delivery: true
+            - check:
+                context:
+                    - mattermost
+            - e2e_web:
+                context:
+                    - mattermost
+                requires:
+                    - bump_version
+            - build_web:
+                build_config_name: integreat
+                context:
+                    - mattermost
+                name: build_integreat_web
+                requires:
+                    - bump_version
+            - build_web:
+                build_config_name: malte
+                context:
+                    - mattermost
+                name: build_malte_web
+                requires:
+                    - bump_version
+            - build_web:
+                build_config_name: aschaffenburg
+                context:
+                    - mattermost
+                name: build_aschaffenburg_web
+                requires:
+                    - bump_version
+            - build_web:
+                build_config_name: obdach
+                context:
+                    - mattermost
+                name: build_obdach_web
+                requires:
+                    - bump_version
+            - deliver_web:
+                context:
+                    - mattermost
+                    - sentry
+                delivery: beta
+                requires:
+                    - check
+                    - e2e_web
+                    - build_integreat_web
+                    - build_malte_web
+                    - build_aschaffenburg_web
+                    - build_obdach_web
+            - notify_web:
+                context:
+                    - mattermost
+                    - deliverino
+                production_delivery: false
+                requires:
+                    - deliver_web
+        when:
+            and:
+                - << pipeline.parameters.api_triggered >>
+                - equal:
+                    - << pipeline.parameters.workflow_type >>
+                    - web_beta_delivery
     web_production_delivery:
         jobs:
             - bump_version:
@@ -1822,7 +1957,7 @@ workflows:
                 context:
                     - mattermost
                     - sentry
-                production_delivery: true
+                delivery: production
                 requires:
                     - check
                     - e2e_web
@@ -1834,6 +1969,7 @@ workflows:
                 context:
                     - mattermost
                     - deliverino
+                production_delivery: true
                 requires:
                     - deliver_web
         when:
@@ -1842,4 +1978,15 @@ workflows:
                 - equal:
                     - << pipeline.parameters.workflow_type >>
                     - web_production_delivery
+    web_promotion:
+        jobs:
+            - promote_web:
+                context:
+                    - mattermost
+        when:
+            and:
+                - << pipeline.parameters.api_triggered >>
+                - equal:
+                    - << pipeline.parameters.workflow_type >>
+                    - web_promotion
 
