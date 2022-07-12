@@ -26,9 +26,11 @@ type Props = {
 
 const PoiDetailRow = ({ externalUrl, text, accessibilityLabel, icon }: Props): ReactElement => (
   <Row>
-    <Icon source={icon} accessibilityLabel={accessibilityLabel} />
     <StyledPressable onPress={() => openExternalUrl(externalUrl)}>
-      <Text>{text}</Text>
+      <Text>
+        <Icon source={icon} accessibilityLabel={accessibilityLabel} />
+        {text}
+      </Text>
     </StyledPressable>
   </Row>
 )
