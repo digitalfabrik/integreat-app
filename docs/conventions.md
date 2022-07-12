@@ -1,15 +1,63 @@
 # Conventions
 
+## Contents
+
+- [Naming](#naming)
+- [Testing](#testing)
+- [Code Quality](#code-quality)
+- [Commit Messages and Pull Requests](#commit-messages-and-pull-request)
+- [Versioning](#versioning)
+- [Folder Structure](#folder-structure)
+
 ## Naming
 
 We follow the [airbnb style](https://github.com/airbnb/javascript/tree/master/react) for naming.
 
-## Code style
+## Testing
 
-We use [prettier](https://prettier.io) to format code. Run `yarn workspace <workspace> prettier --check .` to show
-formatting problems or `yarn workspace <workspace> prettier --write .` to fix them. We
-use [typescript-eslint](https://github.com/typescript-eslint/typescript-eslint) for TypeScript linting. Run `yarn lint`
-to show linting problems.
+### Unit Tests
+
+Please always test new and changed code using [Jest](https://jestjs.io/).
+For unit testing of React components use the [Testing Library](https://testing-library.com) and follow its [guiding principles](https://testing-library.com/docs/guiding-principles).
+
+Run tests:
+
+> yarn test
+
+### E2E Tests
+
+Refer to the corresponding [documentation](e2e-tests.md).
+You can use [Browserstack](https://www.browserstack.com) for testing cross-platform compatibility.
+
+## Code Quality
+
+### TypeScript
+
+We use [TypeScript](https://www.typescriptlang.org/).
+
+Show TypeScript errors:
+
+> yarn ts:check
+
+### Formatting
+
+We use [prettier](https://prettier.io) to format code.
+
+Apply prettier code formatting:
+
+> yarn prettier:write
+
+### Linting
+
+We use [typescript-eslint](https://github.com/typescript-eslint/typescript-eslint) for TypeScript and [stylelint](https://stylelint.io/) for CSS.
+
+Show linting errors and warnings:
+
+> yarn lint
+
+Show only linting errors:
+
+> yarn lint --quiet
 
 ### IntelliJ Code Snippets
 
@@ -34,7 +82,7 @@ StyledComponents.
 | _rntc_   | Standard Component test with react native testing-library |
 | _scnv_   | styled view native component                              |
 
-## Git commit messages and Pull request names
+## Commit Messages and Pull Request
 
 See [this guide](https://github.com/erlang/otp/wiki/Writing-good-commit-messages) for a general reference on how to
 write good commit messages. Commit messages should have the following schema:
@@ -62,7 +110,7 @@ Examples:
 An additional consecutive version code is used for unique identification in the app stores. The version code is
 incremented for every build uploaded to the stores. The first version code was `100000`.
 
-### Folder Structure
+## Folder Structure
 
 The `src` folders are structured according to its technical character, for example into assets, hooks, components and
 routes. File naming should be PascalCase, inside the routes folder file names should be prefixed by the route name.
