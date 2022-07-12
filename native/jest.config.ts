@@ -23,7 +23,8 @@ export default {
   /* Always explicitly mock modules. Also automocking seems to be broken right now:
         https://github.com/facebook/jest/issues/6127 */
   moduleNameMapper: {
-    '.+\\.(css|styl|less|sass|scss|png|jpg|ttf|woff|woff2)$': 'jest-transform-stub'
+    '.+\\.(css|styl|less|sass|scss|png|jpg|ttf|woff|woff2)$': 'jest-transform-stub',
+    '\\.svg': '<rootDir>/__mocks__/svgrMock.ts'
   },
   setupFilesAfterEnv: [
     '<rootDir>/../jest.setup.ts',
