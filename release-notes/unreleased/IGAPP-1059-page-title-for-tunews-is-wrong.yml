@@ -1,0 +1,7 @@
+issue_key: IGAPP-1059 # e.g. IGAPP-123 (NATIVE-587, WEBAPP-42)
+show_in_stores: true # whether this note should be shown in the stores, either true or false
+platforms: # relevant platforms, possible values: web, android and ios
+  - web
+en: Fixed broken page title for tünews # english version of the note
+# de is required for notes with show_in_stores set to true
+de: Falsch angezeigter Title der Seite tünews repariert # german version of the note

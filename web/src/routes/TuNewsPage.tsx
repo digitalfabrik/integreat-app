@@ -129,7 +129,7 @@ const TuNewsPage = ({ cityCode, languageCode, cityModel, languages }: CityRouteP
     )
   }
 
-  const pageTitle = `${t('tuNews.pageTitle')} - ${cityModel.name}`
+  const pageTitle = `tünews INTERNATIONAL - ${cityModel.name}`
 
   return (
     <LocationLayout isLoading={false} {...locationLayoutParams} languageChangePaths={languageChangePaths}>
