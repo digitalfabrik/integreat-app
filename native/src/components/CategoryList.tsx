@@ -1,14 +1,13 @@
 import { mapValues } from 'lodash'
 import { Moment } from 'moment'
 import * as React from 'react'
-import styled, { useTheme } from 'styled-components/native'
+import { useTheme } from 'styled-components/native'
 
 import { PageResourceCacheEntryStateType, PageResourceCacheStateType } from '../redux/StateType'
 import { RESOURCE_CACHE_DIR_PATH } from '../utils/DatabaseConnector'
 import CategoryListCaption from './CategoryListCaption'
 import CategoryListContent from './CategoryListContent'
 import CategoryListItem from './CategoryListItem'
-import SimpleImage from './SimpleImage'
 
 export type CategoryListModelType = {
   title: string
@@ -37,13 +36,6 @@ type PropsType = {
   language: string
   thumbnail?: string
 }
-const CategoryThumbnail = styled(SimpleImage)`
-  align-self: center;
-  flex-shrink: 0;
-  width: 70px;
-  height: 70px;
-  margin: 10px;
-`
 /**
  * Displays a ContentList which is a list of categories, a caption and a thumbnail
  */
@@ -54,8 +46,7 @@ const CategoryList = ({
   listContent,
   query,
   onItemPress,
-  language,
-  thumbnail
+  language
 }: PropsType): React.ReactElement => {
   const theme = useTheme()
 
@@ -77,8 +68,7 @@ const CategoryList = ({
 
   return (
     <>
-      {thumbnail && <CategoryThumbnail source={thumbnail} />}
-      {title && <CategoryListCaption title={title} withThumbnail={!!thumbnail} />}
+      {title && <CategoryListCaption title={title} withThumbnail={false} />}
       {listContent && getListContent(listContent)}
       {categories.map(({ model, subCategories }) => (
         <CategoryListItem
