@@ -28,7 +28,6 @@
     "test:coverage": "yarn run test --coverage",
     "test:ci": "yarn run test:coverage --ci",
     "test:watch": "yarn run test --watchAll",
-    "test:update": "yarn run test -u",
     "lint": " yarn run stylelint && yarn run stylelint:css && yarn run eslint",
     "lint:ci": "yarn run eslint --quiet --format junit -o reports/lint/junit-lint.xml && yarn run stylelint",
     "lint:changed": "eslint . -c ../.eslintrc_changed.js",
@@ -38,7 +37,7 @@
     "stylelint:css": "stylelint --config stylelint.config_css.js \"src/**/*.css\"",
     "ts:check": "tsc --build",
     "prettier:check": "yarn prettier --ignore-path  ../.prettierignore --check .",
-    "prettier:fix": "yarn prettier --ignore-path  ../.prettierignore --write .",
+    "prettier:write": "yarn prettier --ignore-path  ../.prettierignore --write .",
     "circleci:update-config": "yarn --cwd .. circleci:update-config"
   },
   "dependencies": {

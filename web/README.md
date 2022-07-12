@@ -8,8 +8,7 @@ React JS WebApp for [Integreat](https://integreat-app.de), [Malte](https://www.m
 - [Run the App](#run-the-app)
 - [Build Configs](docs/build-configs.md)
 - [Technical Documentation](docs/technical-documentation.md)
-- [Supported Browsers](docs/supported-browsers.md)
-- [Delivery](docs/delivery.md)
+- [Delivery](docs/delivery-environments.md)
 - [General Repository Documentation](../README.md)
 
 ## Project Setup

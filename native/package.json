@@ -45,7 +45,7 @@
     "postinstall": "jetifier && patch-package",
     "ts:check": "tsc --build",
     "prettier:check": "yarn prettier --ignore-path  ../.prettierignore --check .",
-    "prettier:fix": "yarn prettier --ignore-path  ../.prettierignore --write .",
+    "prettier:write": "yarn prettier --ignore-path  ../.prettierignore --write .",
     "circleci:update-config": "yarn --cwd .. circleci:update-config"
   },
   "dependencies": {
