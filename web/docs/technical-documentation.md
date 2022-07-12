@@ -2,66 +2,67 @@
 
 ## Contents
 
-- [Technology Stack](#technology-stack)
 - [Testing](#testing)
-- [Hidden Cities](#hidden-cities)
 - [Code Quality](#code-quality)
-- [Backend](#backend)
-
-## Technology Stack
-
-### Bundler
-
-[Webpack](https://webpack.github.io/) is used to compile and bundle the app.
-
-### Application state
-
-[Redux](http://redux.js.org/) is used for the global application state.
-The data which is received through the restful api of the CMS is "cached" and stored in this state container.
+- [CMS](#cms)
+- [Hidden Cities](#hidden-cities)
 
 ## Testing
 
 ### Unit Tests
 
-[Jest](https://facebook.github.io/jest/) is used for testing.
+For unit testing of React components use the [Testing Library](https://testing-library.com) and follow its [guiding principles](https://testing-library.com/docs/guiding-principles).
 
-**For testing of React components the [testing-library](https://testing-library.com) should be used whenever possible.**
-Testing the application components should be done in the way the user would use it as stated in its [guiding principles](https://testing-library.com/docs/guiding-principles).
+Commands:
+> yarn test
 
 ### E2E Tests
 
 Refer to the corresponding [documentation](../../docs/e2e-tests.md).
-You can use [Browserstack](https://www.browserstack.com) for testing cross-browser compatibility.
+You can use [Browserstack](https://www.browserstack.com) for testing cross-platform compatibility.
 
 ## Code Quality
+
+### TypeScript
+
+We use [TypeScript](https://www.typescriptlang.org/).
+
+Show TypeScript errors:
+> yarn ts:check
 
 ### Formatting
 
 We use [prettier](https://prettier.io) to format code.
-Run `yarn workspace <workspace> prettier --check .` to show formatting problems or `yarn workspace <workspace> prettier --write .` to fix them.
+
+Apply prettier code formatting:
+> yarn prettier:write
 
 ### Linting
 
-Linting is responsible to embrace best practice coding style.
 We use [typescript-eslint](https://github.com/typescript-eslint/typescript-eslint) for TypeScript and [stylelint](https://stylelint.io/) for CSS.
 
-You can run the linter by calling `yarn lint`.
+Show linting errors and warnings:
+> yarn lint
 
-## Backend
+Only show linting errors:
+> yarn lint --quiet
 
-**Testing with the live cms instance should be avoided:**
+## CMS
 
-- In debug builds (`yarn start`, `yarn build:debug` and `webnext.integreat-app.de`) the test cms is used as default, so it is **only required for release builds**, i.e. on `integreat.app`.
-- To switch the used cms instance:
-  - Enter `window.localStorage.setItem('api-url', <cms url>)` in the console of your web browser.
-  - Reload the page.
+**Testing with the production cms should be avoided!**
 
-The endpoints are defined in the [api-client](../../api-client).
+In development builds, i.e. `yarn start` and the [development environments](delivery-environments.md#development), the test cms is used as default.
 
-- The current backend uses WordPress and can be found [here](https://github.com/Integreat/cms).
-- [API Documentation](https://github.com/Integreat/cms/wiki/REST-APIv3-Documentation)
-- We are working on replacing it with a [python/django project](https://github.com/Integreat/cms-django).
+To change the cms, enter the following command in the console of your web browser:
+> window.localStorage.setItem('api-url', <cms_url>)
 
-### Hidden cities
+The cms can be found [here](https://github.com/digitalfabrik/integreat-cms).
+There is no up-to-date api documentation but an outdated one can be found [here](https://github.com/Integreat/cms/wiki/REST-APIv3-Documentation).
 
-Hidden (i.e. non live) cities can be viewed on the landing page by entering the search query `wirschaffendas`.
+### Testing CMS Content
+
+To test with content from the cms the **testumgebung** can be used. If you don't know how to do that, reach out to us.
+
+### Hidden Cities
+
+Hidden cities, especially the testumgebung, can be shown by entering the search query `wirschaffendas` in the city selection.
