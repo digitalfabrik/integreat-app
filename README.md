@@ -61,9 +61,10 @@ If you are using a different IDE like Visual Studio Code the steps might [differ
 - Follow the steps mentioned in the [web README](web/README.md) or the [native README](native/README.md).
 - [optional]: Enable `Languages & Frameworks > JavaScript > Prettier > On Save` to enable prettier autoformatting.
 - [optional]: Install our pre-commit hook for prettier autoformatting and automated updates of the CircleCI config:
-> cd .git/hooks
-> 
-> ln -s ../../.github/hooks/pre-commit pre-commit
+
+  > cd .git/hooks
+
+  > ln -s ../../.github/hooks/pre-commit pre-commit
 
 _We are recommending to use either a Linux distribution or MacOS for development.
 If you want to develop on Windows anyway, follow the steps [here](./docs/windows-setup.md)
