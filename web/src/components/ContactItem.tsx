@@ -39,10 +39,12 @@ const ContactItem: React.FC<ContactItemProps> = ({
   link,
   content
 }: ContactItemProps): ReactElement => (
-  <ContactContainer>
-    <Marker src={iconSrc} alt={iconAlt} />
-    <CleanLink to={link}>{content}</CleanLink>
-  </ContactContainer>
+  <CleanLink to={link}>
+    <ContactContainer>
+      <Marker src={iconSrc} alt={iconAlt} />
+      {content}
+    </ContactContainer>
+  </CleanLink>
 )
 
 export default ContactItem
