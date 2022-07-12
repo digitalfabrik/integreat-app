@@ -1,6 +1,3 @@
-import iconEmail from 'integreat-app/assets/icons/email.svg'
-import iconPhone from 'integreat-app/assets/icons/phone.svg'
-import iconWebsite from 'integreat-app/assets/icons/website.svg'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router-dom'
@@ -9,6 +6,10 @@ import styled, { css, useTheme } from 'styled-components'
 import { getExternalMapsLink, PoiFeature, PoiModel } from 'api-client/src'
 import { UiDirectionType } from 'translations'
 
+/* eslint-disable import/no-relative-packages */
+import iconEmail from '../../../assets/icons/email.svg'
+import iconPhone from '../../../assets/icons/phone.svg'
+import iconWebsite from '../../../assets/icons/website.svg'
 import iconArrowBack from '../assets/IconArrowBackLong.svg'
 import iconExternalLink from '../assets/IconExternalLink.svg'
 import iconMarker from '../assets/IconMarker.svg'

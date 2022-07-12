@@ -1,12 +1,13 @@
-import bedIcon from 'integreat-app/assets/icons/bed.svg'
-// import cityIcon from 'integreat-app/assets/icons/city.svg'
-import petIcon from 'integreat-app/assets/icons/pet.svg'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
 
 import { FilterProps } from 'api-client/src/endpoints/createShelterEndpoint'
 
+/* eslint-disable import/no-relative-packages */
+import bedIcon from '../../../assets/icons/bed.svg'
+// import cityIcon from '../../../assets/icons/city.svg'
+import petIcon from '../../../assets/icons/pet.svg'
 import dimensions from '../constants/dimensions'
 import FacetInput from './FacetInput'
 import FacetToggle from './FacetToggle'
