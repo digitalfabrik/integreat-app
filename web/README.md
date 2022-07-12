@@ -35,15 +35,15 @@ _Make sure that `sourceMap` is set to true in the `tsconfig.json`_
 #### Run the App in production mode
 
 - Create a release build with `yarn build --env dev_server`
-- Launch http-server in /web/dist/integreat by running `python3 -m http.server`
+- Launch http-server in ../web/dist/integreat by running `python3 -m http.server`
 - See results on [localhost:8000](http://localhost:8000)
-- Note: Steps for other build configs differ accordingly
+
+_Note: Steps for other build configs differ accordingly_
 
 ### Additional Configuration
 
-- `Run > Edit Configurations > Defaults > Jest`:
-  - Set `Configuration file` to `jest.config.js`
-- [optional] Associate `.snap` files with the file type `JavaScript`.
+- Run > Edit Configurations > Defaults > Jest:
+  - Set _Configuration file_ to _jest.config.json_
 - [optional] Install the following plugins:
   - [Prettier](https://plugins.jetbrains.com/plugin/10456-prettier)
   - [Styled Components](https://plugins.jetbrains.com/plugin/9997-styled-components--styled-jsx/)
