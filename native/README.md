@@ -10,7 +10,10 @@ Android and iOS React Native App for [Integreat](https://integreat-app.de)
 - [Debugging](docs/debugging.md)
 - [Troubleshooting](docs/troubleshooting.md)
 - [Build Configs](docs/build-configs.md)
-- [Technical Documentation](docs/technical-documentation.md)
+- [Persistence](docs/persistence.md)
+- [I18n](docs/i18n.md)
+- [Error Reporting](docs/error-reporting.md)
+- [React Native Upgrades](docs/react-native-upgrades.md)
 - [General Repository Documentation](../README.md)
 
 ## Project Setup
@@ -52,3 +55,23 @@ _Note: In order to work with the project in XCode, always open `ios/Integreat.xc
 
 Take a look at the docs for [iOS](docs/manual-builds.md#ios) and [Android](docs/manual-builds.md#android) to see how to
 run the app.
+
+## CMS
+
+**Testing with the production cms should be avoided!**
+
+In development builds, i.e. `yarn start`, the test cms is used as default.
+
+To switch between production and test cms, press the yellow location marker on the landing page 10 times.
+On iOS it may be required to close and reopen the app after changing the cms instance.
+
+The cms repository can be found [here](https://github.com/digitalfabrik/integreat-cms).
+There is no up-to-date api documentation but an outdated one can be found [here](https://github.com/Integreat/cms/wiki/REST-APIv3-Documentation).
+
+### Testing CMS Content
+
+To test with content from the cms the **testumgebung** can be used. If you don't know how to do that, reach out to us.
+
+### Hidden Cities
+
+Hidden cities, especially the testumgebung, can be shown by entering the search query `wirschaffendas` in the city selection.

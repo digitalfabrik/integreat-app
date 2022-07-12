@@ -11,6 +11,7 @@
 ## Production
 
 The actual web apps for our users. It contains the tested state from last weeks [beta environments](#beta):
+
 - https://integreat.app
 - https://malteapp.de
 - https://aschaffenburg.app
@@ -18,6 +19,7 @@ The actual web apps for our users. It contains the tested state from last weeks 
 ## Beta
 
 Every week an automatic delivery to the beta environments is made:
+
 - https://beta.integreat.app
 - https://beta.malteapp.de
 - https://beta.aschaffenburg.app
@@ -27,6 +29,7 @@ Every week an automatic delivery to the beta environments is made:
 Always contains the current state of the `main` branch and uses the test cms:
 
 Urls:
+
 - https://webnext.integreat.app
 - https://webnext.malteapp.de
 - https://webnext.aschaffenburg.app

@@ -59,6 +59,7 @@ If you are using a different IDE like Visual Studio Code the steps might [differ
 - Import this project (VCS > Get from Version Control).
 - **Open either the [web](web) or [native](native) directory separately in IntelliJ (File > Open).**
 - Follow the steps mentioned in the [web README](web/README.md) or the [native README](native/README.md).
+- [optional]: Enable `Languages & Frameworks > JavaScript > Prettier > On Save` to enable prettier autoformatting.
 
 _We are recommending to use either a Linux distribution or MacOS for development.
 If you want to develop on Windows anyway, follow the steps [here](./docs/windows-setup.md)
