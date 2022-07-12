@@ -3,6 +3,5 @@ show_in_stores: true # whether this note should be shown in the stores, either t
 platforms: # relevant platforms, possible values: web, android and ios
   - android
   - ios
-en: Removed icon of parent category in list view since it took up too much space # english version of the note
-# de is required for notes with show_in_stores set to true
-de: In Listenansichten wird das Icon der übergeordneten Kategorie nicht länger angezeigt, um Platz zu sparen # german version of the note
+en: Removed icon of parent category in list view.
+de: In Listenansichten wird das Icon der übergeordneten Kategorie nicht länger angezeigt.
