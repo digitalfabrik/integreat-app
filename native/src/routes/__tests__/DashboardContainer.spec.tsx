@@ -26,7 +26,7 @@ import DashboardContainer from '../DashboardContainer'
 const mockStore = configureMockStore()
 jest.mock('styled-components')
 jest.mock('react-i18next')
-jest.useFakeTimers('modern')
+jest.useFakeTimers()
 jest.mock('../Dashboard', () => {
   const { Text } = require('react-native')
 
@@ -202,7 +202,9 @@ describe('DashboardContainer', () => {
         <DashboardContainer navigation={navigation} route={route} />
       </Provider>
     )
-    act(() => jest.advanceTimersByTime(LOADING_TIMEOUT))
+    act(() => {
+      jest.advanceTimersByTime(LOADING_TIMEOUT)
+    })
     expect(getByText('loading')).toBeTruthy()
   }
 

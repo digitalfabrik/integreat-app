@@ -28,7 +28,7 @@
     "csv-parse": "^4.16.3",
     "csv-stringify": "^5.6.5",
     "flat": "^5.0.0",
-    "jest-junit": "^13.0.0",
+    "jest-junit": "^14.0.0",
     "lodash": "^4.17.19"
   },
   "engines": {
