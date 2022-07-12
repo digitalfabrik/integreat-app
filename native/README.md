@@ -31,7 +31,7 @@ Depending on whether you want to develop for Android, iOS or both the following 
 - Install the latest stable SDK Platform and Android SDK Tools in the SDK Manager (Settings > Appearance & Behaviour >
   System Settings > Android SDK).
 - Install and accept the SDK license in the SDK Manager.
-- \[optional\]: If you want to develop using an emulator, also install the Android Emulator in the Android SDK settings.
+- [optional] If you want to develop using an emulator, also install the Android Emulator in the Android SDK settings.
 
 ### iOS
 
@@ -44,7 +44,6 @@ _Note: In order to work with the project in XCode, always open `ios/Integreat.xc
 
 - Run > Edit Configurations > Defaults > Jest:
   - Set _Configuration file_ to _jest.config.json_
-- [optional] Associate the _\*.snap_ files with the file type _JavaScript_
 - [optional] Install the following plugins:
   - [Styled Components](https://plugins.jetbrains.com/plugin/9997-styled-components--styled-jsx/)
   - [Ruby](https://plugins.jetbrains.com/plugin/1293-ruby) (if working with Fastlane)
