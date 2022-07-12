@@ -21,7 +21,7 @@
   },
   "dependencies": {
     "@turf/distance": "^6.5.0",
-    "entities": "^3.0.1",
+    "entities": "^4.3.1",
     "htmlparser2": "^8.0.1",
     "js-md5": "^0.7.3",
     "lodash": "^4.17.19",
@@ -36,7 +36,7 @@
     "@types/lodash": "^4.14.178",
     "@types/normalize-path": "^3.0.0",
     "@types/react": "^17.0.37",
-    "@types/seedrandom": "^3.0.1",
+    "@types/seedrandom": "^3.0.2",
     "jest-fetch-mock": "^3.0.3",
     "jest-junit": "^14.0.0",
     "seedrandom": "^3.0.3"
