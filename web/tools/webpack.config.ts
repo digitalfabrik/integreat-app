@@ -227,7 +227,6 @@ const createConfig = (
           config: buildConfig
         }
       }),
-      // @ts-expect-error https://github.com/DefinitelyTyped/DefinitelyTyped/issues/50948
       new CopyPlugin({
         patterns: [
           { from: wwwDirectory, to: distDirectory },

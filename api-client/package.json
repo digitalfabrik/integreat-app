@@ -33,7 +33,7 @@
   "devDependencies": {
     "@types/geojson": "^7946.0.8",
     "@types/js-md5": "^0.4.3",
-    "@types/lodash": "^4.14.178",
+    "@types/lodash": "^4.14.182",
     "@types/normalize-path": "^3.0.0",
     "@types/react": "^17.0.37",
     "@types/seedrandom": "^3.0.2",
