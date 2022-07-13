@@ -1,0 +1,6 @@
+issue_key: IGAPP-1048
+show_in_stores: true
+platforms:
+  - web
+en: Show Not Found Error instead of Response Error on invalid endpoints
+de: Zeige einen Not Found Fehler statt eines Response Fehlers auf ungültigen Endpunkten
