@@ -34,7 +34,6 @@ type PropsType = {
   query?: string
   onItemPress: (tile: CategoryListModelType) => void
   language: string
-  thumbnail?: string
 }
 /**
  * Displays a ContentList which is a list of categories, a caption and a thumbnail
