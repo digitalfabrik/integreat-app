@@ -62,7 +62,7 @@ const githubRelease = async (
 program
   .command('create <platform> <new-version-name> <new-version-code>')
   .description('creates a new release for the specified platform')
-  .action(async (platform, newVersionName, newVersionCode) => {
+  .action(async (platform: string, newVersionName: string, newVersionCode: string, program: Options) => {
     try {
       await githubRelease(platform, newVersionName, newVersionCode, {
         deliverinoPrivateKey: program.deliverinoPrivateKey,

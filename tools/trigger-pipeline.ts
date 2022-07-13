@@ -20,7 +20,7 @@ program.requiredOption('--api-token <api-token>', 'circleci api token')
 program
   .command('trigger <workflow-type>')
   .description(`trigger a workflow in the ci on the main branch`)
-  .action(async (workflowType: string) => {
+  .action(async (workflowType: string, program: { apiToken: string }) => {
     try {
       if (!WORKFLOW_TYPES.includes(workflowType)) {
         throw new Error(`Only the following workflow types are supported: ${WORKFLOW_TYPES}`)

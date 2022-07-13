@@ -47,15 +47,16 @@ const createTag = async ({ versionName, versionCode, owner, repo, commitSha, app
   console.warn(`New ref with id ${id} successfully created.`)
 }
 
+type Options = {
+  deliverinoPrivateKey: string
+  owner: string
+  repo: string
+  branch: string
+}
 const commitAndTag = async (
   versionName: string,
   versionCodeString: string,
-  {
-    deliverinoPrivateKey,
-    owner,
-    repo,
-    branch
-  }: { deliverinoPrivateKey: string; owner: string; repo: string; branch: string }
+  { deliverinoPrivateKey, owner, repo, branch }: Options
 ) => {
   if (branch !== MAIN_BRANCH) {
     throw new Error(`Version bumps are only allowed on the ${MAIN_BRANCH} branch!`)
@@ -105,7 +106,7 @@ const commitAndTag = async (
 program
   .command('bump-to <new-version-name> <new-version-code>')
   .description('commits the supplied version name and code to github and tags the commit')
-  .action(async (newVersionName, newVersionCode) => {
+  .action(async (newVersionName: string, newVersionCode: string, program: Options) => {
     try {
       await commitAndTag(newVersionName, newVersionCode, {
         deliverinoPrivateKey: program.deliverinoPrivateKey,
