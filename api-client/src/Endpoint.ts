@@ -81,7 +81,6 @@ class Endpoint<P, T> {
       })
     })
 
-    // separate check for NotFoundErrors: response is not ok, but ResponseError should not be thrown
     const NOT_FOUND_CODE = 404
     if (response.status === NOT_FOUND_CODE) {
       throw new NotFoundError({ ...params, type: 'category', id: this.stateName })
