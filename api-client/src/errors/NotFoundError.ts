@@ -30,8 +30,6 @@ class NotFoundError extends Error {
       Error.captureStackTrace(this, NotFoundError)
     }
 
-    // default values are provided for cases where parameters are unknown
-    // e.g. when throwing NotFoundError from an endpoint
     this.name = 'NotFoundError'
     this._id = params.id
     this._type = params.type
