@@ -24,7 +24,7 @@ You can contribute by:
 - [Creating Pull requests](docs/contributing.md#pull-requests)
 - [Reporting bugs](docs/contributing.md#bug-reporting)
 
-If you want to know more about Integreat or if you want to join us, contact [Max](mailto:ammann@integreat-app.de),
+If you want to know more about Integreat or if you want to join us, contact [Steffi](mailto:metzger@integreat-app.de),
 [Steffen](mailto:kleinle@integreat-app.de) or [our info mail](mailto:info@integreat-app.de) and visit our [website](https://integreat-app.de).
 
 ## Project Structure
@@ -42,26 +42,29 @@ There are also separate sub-projects used by both projects:
 - **[api-client](api-client/README.md)**: Implementation of the endpoints (v3) of the integreat cms
 - **[build-configs](build-configs/README.md)**: Configuration files to build different versions of the apps
 
-If you make changes in these sub-projects, make sure to bump the version in the corresponding package.json and run yarn
-to make these changes available in both projects.
-
 ## Getting Started
 
 ### Prerequisites
 
-- Rate our Integreat app in the [PlayStore](https://play.google.com/store/apps/details?id=tuerantuer.app.integreat)
-  and the [Apple App Store](https://apps.apple.com/ae/app/integreat/id1072353915).
-- Install [nodejs](https://nodejs.org/). (Version >= 15.0 and <= 16.13.0 required)
-- Install [yarn](https://yarnpkg.com/).
+- Rate our apps in the [PlayStore](https://play.google.com/store/apps/developer?id=T%C3%BCr+an+T%C3%BCr+-+Digitalfabrik+gGmbH)
+  and the [Apple App Store](https://apps.apple.com/ae/developer/tur-an-tur-digitalfabrik-ggmbh/id1309363258).
+- Install [nodejs v16 LTS](https://nodejs.org/).
+- Install [classic yarn](https://classic.yarnpkg.com).
 
 ### Project setup
 
 We suggest **[IntelliJ IDEA Ultimate](https://www.jetbrains.com/idea/)** as IDE. JetBrains provides free licences for students.
-If you are using a different IDE like Visual Studio Code ([./docs/vscode.md](./docs/vscode.md)) the steps might differ.
+If you are using a different IDE like Visual Studio Code the steps might [differ](./docs/vscode.md).
 
 - Import this project (VCS > Get from Version Control).
 - **Open either the [web](web) or [native](native) directory separately in IntelliJ (File > Open).**
 - Follow the steps mentioned in the [web README](web/README.md) or the [native README](native/README.md).
+- [optional]: Enable `Languages & Frameworks > JavaScript > Prettier > On Save` to enable prettier autoformatting.
+- [optional]: Install our pre-commit hook for prettier autoformatting and automated updates of the CircleCI config:
+
+  > cd .git/hooks
+
+  > ln -s ../../.github/hooks/pre-commit pre-commit
 
 _We are recommending to use either a Linux distribution or MacOS for development.
 If you want to develop on Windows anyway, follow the steps [here](./docs/windows-setup.md)
