@@ -20,6 +20,7 @@ import LoadingSpinner from '../components/LoadingSpinner'
 import LocationLayout from '../components/LocationLayout'
 import NewsListItem from '../components/NewsListItem'
 import NewsTabs from '../components/NewsTabs'
+import { tunewsLabel } from '../constants/news'
 import { tunewsApiBaseUrl } from '../constants/urls'
 import DateFormatterContext from '../contexts/DateFormatterContext'
 import { TU_NEWS_ROUTE } from './index'
@@ -129,7 +130,7 @@ const TuNewsPage = ({ cityCode, languageCode, cityModel, languages }: CityRouteP
     )
   }
 
-  const pageTitle = `${t('tuNews.pageTitle')} - ${cityModel.name}`
+  const pageTitle = `${tunewsLabel} - ${cityModel.name}`
 
   return (
     <LocationLayout isLoading={false} {...locationLayoutParams} languageChangePaths={languageChangePaths}>
