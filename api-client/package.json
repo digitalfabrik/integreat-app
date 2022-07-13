@@ -31,7 +31,7 @@
     "normalize-strings": "^1.1.1"
   },
   "devDependencies": {
-    "@types/geojson": "^7946.0.8",
+    "@types/geojson": "^7946.0.9",
     "@types/js-md5": "^0.4.3",
     "@types/lodash": "^4.14.182",
     "@types/normalize-path": "^3.0.0",

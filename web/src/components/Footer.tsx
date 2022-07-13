@@ -1,5 +1,5 @@
 import React, { ReactElement, ReactNode } from 'react'
-import styled, { css } from 'styled-components'
+import styled from 'styled-components'
 
 import buildConfig from '../constants/buildConfig'
 
@@ -12,18 +12,14 @@ const FooterContainer = styled.footer<{ overlay: boolean }>`
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  padding: ${props => (props.overlay ? `0 0 0 10px` : `15px 5px`)};
+  padding: ${props => (props.overlay ? '0 0 0 10px' : '15px 5px')};
   background-color: ${props => (props.overlay ? `rgba(255, 255, 255, 0.5)` : props.theme.colors.backgroundAccentColor)};
   box-shadow: 0 2px 3px 3px rgba(0, 0, 0, 0.1);
 
-  ${props =>
-    props.overlay &&
-    css`
-      color: rgba(0, 0, 0, 0.75);
-    `}
+  ${props => (props.overlay ? 'color: rgba(0, 0, 0, 0.75);' : '')}
   & > * {
     @mixin remove-a;
-    margin: ${props => (props.overlay ? 0 : `5px`)};
+    margin: ${props => (props.overlay ? 0 : '5px')};
   }
 
   & > *:after {

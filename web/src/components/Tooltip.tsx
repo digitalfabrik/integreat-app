@@ -52,7 +52,6 @@ const pseudosMixin = (flow: FlowType, color: string) => css`
       left: calc(99% + 5px);
     `}
   }
-
   ::before,
   ::after {
     ${(flow === 'left' || flow === 'right') &&
@@ -121,6 +120,7 @@ const TooltipContainer = styled.div<{
   :hover::before,
   :hover::after {
     display: block;
+    animation: tooltips 300ms ease-out forwards;
   }
 
   /* over 1100px */
@@ -140,11 +140,6 @@ const TooltipContainer = styled.div<{
     to {
       opacity: 1;
     }
-  }
-
-  :hover::before,
-  :hover::after {
-    animation: tooltips 300ms ease-out forwards;
   }
 `
 
