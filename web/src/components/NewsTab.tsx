@@ -7,6 +7,7 @@ import { NewsType, TU_NEWS_TYPE } from 'api-client'
 
 import tunewsLogoActive from '../assets/TunewsActiveLogo.png'
 import tunewsLogoInactive from '../assets/TunewsInactiveLogo.png'
+import { tunewsLabel } from '../constants/news'
 
 const StyledTab = styled(Link)<{ $active: boolean }>`
   display: flex;
@@ -44,10 +45,8 @@ type PropsType = {
 }
 
 const NewsTab = ({ type, active, destination, t }: PropsType): ReactElement => {
-  const tuNewsLabel = 'tünews INTERNATIONAL'
-
   if (type === TU_NEWS_TYPE) {
-    return <TuStyledTab $active={active} to={destination} aria-label={tuNewsLabel} />
+    return <TuStyledTab $active={active} to={destination} aria-label={tunewsLabel} />
   }
 
   return (
