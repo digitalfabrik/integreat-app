@@ -261,9 +261,9 @@ program
   .requiredOption('--translations <translations>', 'the path to the translations.json file')
   .requiredOption('--destination <destination>', 'the path to put the string resources to')
   .description('setup native translations for ios')
-  .action((appName: string, program: ProcessTranslationsType) => {
+  .action((appName: string) => {
     try {
-      writePlistTranslations(appName, program)
+      writePlistTranslations(appName, program.opts())
     } catch (e) {
       console.error(e)
       process.exit(1)

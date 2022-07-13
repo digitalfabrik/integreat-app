@@ -62,17 +62,9 @@ const githubRelease = async (
 program
   .command('create <platform> <new-version-name> <new-version-code>')
   .description('creates a new release for the specified platform')
-  .action(async (platform: string, newVersionName: string, newVersionCode: string, program: Options) => {
+  .action(async (platform: string, newVersionName: string, newVersionCode: string) => {
     try {
-      await githubRelease(platform, newVersionName, newVersionCode, {
-        deliverinoPrivateKey: program.deliverinoPrivateKey,
-        repo: program.repo,
-        owner: program.owner,
-        betaRelease: program.betaRelease,
-        downloadLinks: program.downloadLinks,
-        releaseNotes: program.releaseNotes,
-        dryRun: program.dryRun
-      })
+      await githubRelease(platform, newVersionName, newVersionCode, program.opts())
     } catch (e) {
       console.error(e)
       process.exit(1)
