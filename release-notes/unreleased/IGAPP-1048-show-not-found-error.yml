@@ -3,4 +3,4 @@ show_in_stores: true
 platforms:
   - web
 en: Show correct error message for non-existing categories
-de: Zeige einen Not Found Fehler statt eines Response Fehlers auf ungültigen Endpunkten
+de: Zeige korrekte Fehlernachricht bei nicht-existenten Kategorien
