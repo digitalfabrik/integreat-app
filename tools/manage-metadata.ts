@@ -1,5 +1,5 @@
 /* eslint-disable camelcase */
-import { program } from 'commander'
+import { Command, program } from 'commander'
 import fs from 'fs'
 import yaml from 'js-yaml'
 import path from 'path'
@@ -195,8 +195,7 @@ program
   .description(
     'parse the release notes and outputs the release notes as JSON string and writes them to the specified file'
   )
-  // @ts-expect-error
-  .action(() => parseNotesProgram({ ...program }))
+  .action(() => parseNotesProgram(program.opts()))
 
 // General store metadata
 type StoreName = 'appstore' | 'playstore'
@@ -348,9 +347,10 @@ program
   )
   .command('prepare-metadata <appName> <storeName>')
   .description('prepare metadata for store')
-  .action((appName: string, storeName: string, program: { overrideVersionName?: string }) => {
+  .action((appName: string, storeName: string) => {
     try {
-      writeMetadata(appName, storeName, program.overrideVersionName)
+      const { overrideVersionName } = program.opts()
+      writeMetadata(appName, storeName, overrideVersionName)
     } catch (e) {
       console.error(e)
       process.exit(1)
