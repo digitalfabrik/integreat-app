@@ -1,4 +1,3 @@
-// import { NotFoundError } from '.'
 import { MapParamsToBodyType } from './MapParamsToBody'
 import { MapParamsToUrlType } from './MapParamsToUrlType'
 import { MapResponseType } from './MapResponseType'
