@@ -51,7 +51,7 @@ jobs:
       context:
         - mattermost
         - sentry
-      production_delivery: true
+      delivery: beta
       requires:
         - check
         - e2e_web
@@ -60,6 +60,7 @@ jobs:
         - build_aschaffenburg_web
         - build_obdach_web
   - notify_web:
+      production_delivery: false
       context:
         - mattermost
         - deliverino

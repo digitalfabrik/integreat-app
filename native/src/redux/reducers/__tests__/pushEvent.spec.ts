@@ -33,7 +33,6 @@ describe('pushEvent', () => {
         endDate: moment('2000-01-05T10:10:00.000Z'),
         allDay: false
       }),
-      hash: '123456',
       location
     })
 

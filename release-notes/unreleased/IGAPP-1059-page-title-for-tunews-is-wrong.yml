@@ -1,0 +1,5 @@
+issue_key: IGAPP-1059
+show_in_stores: false
+platforms:
+  - web
+en: Fixed broken page title for tünews

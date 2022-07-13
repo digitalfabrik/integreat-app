@@ -36,7 +36,6 @@
     "test:coverage": "yarn run test --coverage",
     "test:ci": "yarn run test:coverage --ci",
     "test:watch": "yarn run test --watchAll",
-    "test:update": "yarn run test -u",
     "test:e2e": "yarn workspace e2e test:native:browserstack",
     "lint": "yarn run eslint",
     "lint:changed": "eslint . -c ../.eslintrc_changed.js",
@@ -44,9 +43,10 @@
     "eslint": "eslint .",
     "license-crawler": "npm-license-crawler -onlyDirectDependencies -json ../assets/licenses_native.json",
     "postinstall": "jetifier && yarn license-crawler",
+    "postinstall": "jetifier && patch-package",
     "ts:check": "tsc --build",
     "prettier:check": "yarn prettier --ignore-path  ../.prettierignore --check .",
-    "prettier:fix": "yarn prettier --ignore-path  ../.prettierignore --write .",
+    "prettier:write": "yarn prettier --ignore-path  ../.prettierignore --write .",
     "circleci:update-config": "yarn --cwd .. circleci:update-config"
   },
   "dependencies": {
@@ -137,6 +137,8 @@
     "jetifier": "^2.0.0",
     "metro-react-native-babel-preset": "^0.66.2",
     "node-fetch": "^3.1.1",
+    "patch-package": "^6.4.7",
+    "postinstall-postinstall": "^2.1.0",
     "react-native-flipper": "0.131.1",
     "react-native-svg-asset-plugin": "0.4.0",
     "react-test-renderer": "^17.0.2",
