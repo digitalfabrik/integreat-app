@@ -31,8 +31,7 @@ describe('DisclaimerPage', () => {
     path: '/disclaimer',
     title: 'Feedback, Kontakt und mögliches Engagement',
     content: 'this is a test content',
-    lastUpdate: moment('2017-11-18T19:30:00.000Z'),
-    hash: '2fe6283485a93932'
+    lastUpdate: moment('2017-11-18T19:30:00.000Z')
   })
 
   const city = cities[0]!

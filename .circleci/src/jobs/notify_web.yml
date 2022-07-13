@@ -1,4 +1,8 @@
 # Create a release (with release notes) on github and send a mattermost notification.
+parameters:
+  production_delivery:
+    description: Whether builds are delivered to production or beta.
+    type: boolean
 docker:
   - image: cimg/node:14.19.0
 resource_class: small
@@ -15,6 +19,15 @@ steps:
   - run:
       name: Create release notes
       command: echo "export RELEASE_NOTES=$(yarn --silent --cwd tools manage-metadata parse-release-notes --web --language en)" >> ${BASH_ENV}
-  - notify:
-      success_message: WebApp version ${NEW_VERSION_NAME} was delivered successfully to integreat.app, malteapp.de, aschaffenburg.app and vernetztesobdach.de!\n${RELEASE_NOTES}
-      channel: releases
+  - when:
+      condition: << parameters.production_delivery >>
+      steps:
+        - notify:
+            success_message: WebApp version ${NEW_VERSION_NAME} was delivered successfully to integreat.app, malteapp.de, aschaffenburg.app and vernetztesobdach.de!\n${RELEASE_NOTES}
+            channel: releases
+  - unless:
+      condition: << parameters.production_delivery >>
+      steps:
+        - notify:
+            success_message: "[Beta] WebApp version ${NEW_VERSION_NAME} was delivered successfully to beta.integreat.app, beta.malteapp.de, beta.aschaffenburg.app and beta.vernetztesobdach.de!\n${RELEASE_NOTES}"
+            channel: releases

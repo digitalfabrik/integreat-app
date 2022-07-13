@@ -22,7 +22,6 @@ class EventModel extends ExtendedPageModel {
     excerpt: string
     availableLanguages: Map<string, string>
     lastUpdate: Moment
-    hash: string
     featuredImage: FeaturedImageModel | null | undefined
   }) {
     const { date, location, excerpt, featuredImage, ...other } = params

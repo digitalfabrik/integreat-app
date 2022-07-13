@@ -48,7 +48,6 @@ describe('morphContentLanguage', () => {
       title: '',
       content: '',
       thumbnail: 'no_thumbnail',
-      hash: '',
       lastUpdate: moment('2011-02-04T00:00:00.000Z')
     })
 
@@ -150,8 +149,7 @@ describe('morphContentLanguage', () => {
       lastUpdate: moment('2016-01-07 10:36:24', moment.ISO_8601),
       content: 'content',
       thumbnail: 'thumbnail',
-      featuredImage: null,
-      hash: '12345'
+      featuredImage: null
     })
 
   const createPoi = ({ path, availableLanguages }: { path: string; availableLanguages: Map<string, string> }) =>
@@ -175,8 +173,7 @@ describe('morphContentLanguage', () => {
         longitude: 15,
         name: 'name'
       }),
-      lastUpdate: moment('2011-02-04T00:00:00.000Z'),
-      hash: 'test'
+      lastUpdate: moment('2011-02-04T00:00:00.000Z')
     })
 
   const enFirstEvent = createEvent({

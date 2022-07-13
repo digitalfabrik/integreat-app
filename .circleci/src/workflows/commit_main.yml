@@ -40,7 +40,7 @@ jobs:
       context:
         - mattermost
         - sentry
-      production_delivery: false
+      delivery: webnext
       requires:
         - build_ig_test_cms_web
         - build_malte_test_cms_web
