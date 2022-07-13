@@ -348,7 +348,7 @@ program
   )
   .command('prepare-metadata <appName> <storeName>')
   .description('prepare metadata for store')
-  .action((appName: string, storeName: string) => {
+  .action((appName: string, storeName: string, program: { overrideVersionName?: string }) => {
     try {
       writeMetadata(appName, storeName, program.overrideVersionName)
     } catch (e) {
