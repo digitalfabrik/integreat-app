@@ -19,7 +19,7 @@ class NotFoundError extends Error {
   _city: string
   _language: string
 
-  constructor(params: { type: NotFoundType; id: string; city: string; language: string }) {
+  constructor(params: { id: string; type: NotFoundType; city?: string; language?: string }) {
     super(getMessage(params.type, params.id))
 
     // captureStackTrace is not always defined on mobile
@@ -30,11 +30,13 @@ class NotFoundError extends Error {
       Error.captureStackTrace(this, NotFoundError)
     }
 
+    // default values are provided for cases where parameters are unknown
+    // e.g. when throwing NotFoundError from an endpoint
     this.name = 'NotFoundError'
-    this._type = params.type
     this._id = params.id
-    this._city = params.city
-    this._language = params.language
+    this._type = params.type
+    this._city = params.city ?? 'unknown city'
+    this._language = params.language ?? 'en'
   }
 
   get type(): NotFoundType {
