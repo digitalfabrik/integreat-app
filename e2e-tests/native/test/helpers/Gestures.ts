@@ -48,7 +48,7 @@ class Gestures {
   static SCREEN_SIZE: RectReturn | null
 
   static async checkIfDisplayedWithSwipeUp(
-    element: ChainablePromiseElement<Promise<WebdriverIO.Element>>,
+    element: ChainablePromiseElement<WebdriverIO.Element>,
     maxScrolls: number,
     amount = 0
   ): Promise<void> {
