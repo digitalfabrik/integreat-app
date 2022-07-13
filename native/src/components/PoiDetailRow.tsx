@@ -4,17 +4,14 @@ import styled from 'styled-components/native'
 
 import openExternalUrl from '../utils/openExternalUrl'
 
-const Row = styled.View`
-  flex-direction: row;
-  padding-vertical: 3px;
-`
-
 const Icon = styled.Image`
   margin-horizontal: 5px;
 `
 
 const StyledPressable = styled.Pressable`
-  align-self: center;
+  align-self: flex-start;
+  flex-direction: row;
+  padding-vertical: 3px;
 `
 
 type Props = {
@@ -25,14 +22,10 @@ type Props = {
 }
 
 const PoiDetailRow = ({ externalUrl, text, accessibilityLabel, icon }: Props): ReactElement => (
-  <Row>
-    <StyledPressable onPress={() => openExternalUrl(externalUrl)}>
-      <Text>
-        <Icon source={icon} accessibilityLabel={accessibilityLabel} />
-        {text}
-      </Text>
-    </StyledPressable>
-  </Row>
+  <StyledPressable onPress={() => openExternalUrl(externalUrl)}>
+    <Icon source={icon} accessibilityLabel={accessibilityLabel} />
+    <Text>{text}</Text>
+  </StyledPressable>
 )
 
 export default PoiDetailRow
