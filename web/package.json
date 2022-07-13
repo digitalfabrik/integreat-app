@@ -57,7 +57,7 @@
     "i18next": "^20.6.1",
     "lodash": "^4.17.21",
     "mapbox-gl": "npm:empty-npm-package@1.0.0",
-    "maplibre-gl": "^1.15.2",
+    "maplibre-gl": "^2.1.9",
     "moment": "2.29.4",
     "normalize.css": "^8.0.1",
     "react": "17.0.2",
