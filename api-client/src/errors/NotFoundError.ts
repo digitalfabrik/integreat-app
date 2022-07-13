@@ -16,8 +16,8 @@ const getMessage = (type: NotFoundType, id: string): string => `The ${type} ${id
 class NotFoundError extends Error {
   _type: NotFoundType
   _id: string | number
-  _city: string
-  _language: string
+  _city: string | undefined
+  _language: string | undefined
 
   constructor(params: { id: string; type: NotFoundType; city?: string; language?: string }) {
     super(getMessage(params.type, params.id))
@@ -33,8 +33,8 @@ class NotFoundError extends Error {
     this.name = 'NotFoundError'
     this._id = params.id
     this._type = params.type
-    this._city = params.city ?? 'unknown city'
-    this._language = params.language ?? 'en'
+    this._city = params.city
+    this._language = params.language
   }
 
   get type(): NotFoundType {
@@ -45,11 +45,11 @@ class NotFoundError extends Error {
     return this._id
   }
 
-  get city(): string {
+  get city(): string | undefined {
     return this._city
   }
 
-  get language(): string {
+  get language(): string | undefined {
     return this._language
   }
 }
