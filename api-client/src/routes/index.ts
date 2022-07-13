@@ -39,7 +39,7 @@ export type JpalTrackingRouteType = 'jpal'
 export const JPAL_TRACKING_ROUTE: JpalTrackingRouteType = 'jpal'
 
 export type LicenseRouteType = 'licenses'
-export const LICENSE_INFO_ROUTE: LicenseInfoRouteType = 'licenses'
+export const LICENSE_INFO_ROUTE: LicenseRouteType = 'licenses'
 
 // News types
 export type LocalNewsType = 'local'
