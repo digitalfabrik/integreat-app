@@ -1,9 +1,8 @@
-issue_key: IGAPP-1047 # e.g. IGAPP-123 (NATIVE-587, WEBAPP-42)
-show_in_stores: true # whether this note should be shown in the stores, either true or false
-platforms: # relevant platforms, possible values: web, android and ios
+issue_key: IGAPP-1047
+show_in_stores: true
+platforms:
   - android
   - ios
   - web
-en: Icons next to Point-of-Interest links are now also clickable # english version of the note
-# de is required for notes with show_in_stores set to true
-de: Icons neben Point-of-Interest Links sind jetzt ebenfalls klickbar # german version of the note
+en: Icons next to Point-of-Interest links are now also clickable
+de: Icons neben Point-of-Interest Links sind jetzt ebenfalls klickbar
