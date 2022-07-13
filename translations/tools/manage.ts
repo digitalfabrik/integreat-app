@@ -1,6 +1,6 @@
 import { program } from 'commander'
-import parse from 'csv-parse/lib/sync'
-import stringify from 'csv-stringify'
+import { parse } from 'csv-parse/lib/sync'
+import { stringify } from 'csv-stringify'
 import flat from 'flat'
 import fs from 'fs'
 import { fromPairs, isEmpty, isEqual, isString, mapValues, merge, sortBy, toPairs, without, zip } from 'lodash'
