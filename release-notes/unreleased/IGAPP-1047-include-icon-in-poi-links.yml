@@ -1,0 +1,8 @@
+issue_key: IGAPP-1047
+show_in_stores: true
+platforms:
+  - android
+  - ios
+  - web
+en: Icons next to Point-of-Interest links are now also clickable
+de: Icons neben Point-of-Interest Links sind jetzt ebenfalls klickbar
