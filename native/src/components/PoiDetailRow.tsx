@@ -9,9 +9,12 @@ const Icon = styled.Image`
 `
 
 const StyledPressable = styled.Pressable`
-  align-self: flex-start;
   flex-direction: row;
   padding-vertical: 3px;
+`
+
+const StyledText = styled(Text)`
+  align-self: center;
 `
 
 type Props = {
@@ -24,7 +27,7 @@ type Props = {
 const PoiDetailRow = ({ externalUrl, text, accessibilityLabel, icon }: Props): ReactElement => (
   <StyledPressable onPress={() => openExternalUrl(externalUrl)}>
     <Icon source={icon} accessibilityLabel={accessibilityLabel} />
-    <Text>{text}</Text>
+    <StyledText>{text}</StyledText>
   </StyledPressable>
 )
 
