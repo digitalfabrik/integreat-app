@@ -15,8 +15,7 @@ const Marker = styled.img`
   object-fit: contain;
 `
 
-const ContactContainer = styled.div`
-  display: flex;
+const Link = styled(CleanLink)`
   align-items: center;
   padding-top: 4px;
   font-size: clamp(0.55rem, 1.6vh, ${props => props.theme.fonts.hintFontSize});
@@ -39,10 +38,10 @@ const ContactItem: React.FC<ContactItemProps> = ({
   link,
   content
 }: ContactItemProps): ReactElement => (
-  <ContactContainer>
+  <Link to={link}>
     <Marker src={iconSrc} alt={iconAlt} />
-    <CleanLink to={link}>{content}</CleanLink>
-  </ContactContainer>
+    {content}
+  </Link>
 )
 
 export default ContactItem
