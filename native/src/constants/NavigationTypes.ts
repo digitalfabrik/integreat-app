@@ -44,7 +44,7 @@ import {
   FEEDBACK_MODAL_ROUTE,
   CITY_NOT_COOPERATING_ROUTE,
   CityNotCooperatingRouteType,
-  LICENSE_INFO_ROUTE
+  LICENSE_ROUTE
 } from 'api-client'
 
 import { FeedbackInformationType } from '../components/FeedbackContainer'
@@ -113,7 +113,7 @@ export type RoutesParamsType = {
   [SPRUNGBRETT_OFFER_ROUTE]: BasicParams & CityContentParamsType
   [SETTINGS_ROUTE]: undefined
   [SEARCH_ROUTE]: undefined
-  [LICENSE_INFO_ROUTE]: undefined
+  [LICENSE_ROUTE]: undefined
   [CHANGE_LANGUAGE_MODAL_ROUTE]: BasicParams & {
     currentLanguage: string
     previousKey: string

@@ -3,7 +3,7 @@ import { TFunction } from 'react-i18next'
 import { AccessibilityRole, SectionListData } from 'react-native'
 import { openSettings } from 'react-native-permissions'
 
-import { JPAL_TRACKING_ROUTE, LICENSE_INFO_ROUTE, SettingsRouteType } from 'api-client'
+import { JPAL_TRACKING_ROUTE, LICENSE_ROUTE, SettingsRouteType } from 'api-client'
 
 import NativeConstants from '../constants/NativeConstants'
 import { NavigationPropType } from '../constants/NavigationTypes'
@@ -153,7 +153,7 @@ const createSettingsSections = ({
       },
       {
         title: t('openSourceLicenses'),
-        onPress: () => navigation.navigate(LICENSE_INFO_ROUTE)
+        onPress: () => navigation.navigate(LICENSE_ROUTE)
       },
       // Only show the jpal tracking setting for users that opened it via deep link before
       ...(buildConfig().featureFlags.jpalTracking && settings.jpalTrackingCode

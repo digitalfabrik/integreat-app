@@ -30,7 +30,7 @@ export type CityNotCooperatingInformationType = {
   languageCode: string
 }
 
-export type JpalTrackingRouteInformationType = {
+export type JpalTrackingRouteInformationType =  {
   route: JpalTrackingRouteType
   trackingCode: string | null
 }
@@ -45,7 +45,7 @@ export type NewsRouteInformationType = ParamsType & {
   newsId?: string
 }
 export type SimpleCityContentFeatureType = ParamsType & {
-  // Routes without customizable ids, e.g. '/augsburg/de/disclaimer/
+  // Routes without customizable ids, eLICENSE_ROUTE.g. '/augsburg/de/disclaimer/
   route: DisclaimerRouteType | OffersRouteType | SprungbrettOfferRouteType | SearchRouteType
 }
 export type IdCityContentFeatureType = ParamsType & {

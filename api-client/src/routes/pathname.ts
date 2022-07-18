@@ -12,7 +12,7 @@ import {
   LANDING_ROUTE,
   CITY_NOT_COOPERATING_ROUTE,
   SHELTER_ROUTE,
-  LICENSE_INFO_ROUTE
+  LICENSE_ROUTE
 } from '.'
 import { nameQueryParam, NonNullableRouteInformationType } from '..'
 
@@ -35,7 +35,7 @@ export const cityContentPath = ({ cityCode, languageCode, route, path }: CityCon
   constructPathname([cityCode, languageCode, route, path])
 
 export const pathnameFromRouteInformation = (routeInformation: NonNullableRouteInformationType): string => {
-  if (routeInformation.route === JPAL_TRACKING_ROUTE || routeInformation.route === LICENSE_INFO_ROUTE) {
+  if (routeInformation.route === JPAL_TRACKING_ROUTE || routeInformation.route === LICENSE_ROUTE) {
     // https://integreat.app/jpal
     return constructPathname([routeInformation.route])
   }
