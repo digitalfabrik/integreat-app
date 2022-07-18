@@ -5,6 +5,7 @@ import styled from 'styled-components'
 import dimensions from '../constants/dimensions'
 import HeaderLogo from './HeaderLogo'
 import HeaderTitle, { HEADER_TITLE_HEIGHT } from './HeaderTitle'
+import KebabMenu from './KebabMenu'
 
 type PropsType = {
   navigationItems: Array<ReactNode>
@@ -108,6 +109,8 @@ export const Header = ({
     : (1 + (hasNavigationBar ? 1 : 0)) * headerHeightLarge
   const scrollHeight = viewportSmall ? headerHeightSmall + (cityName ? HEADER_TITLE_HEIGHT : 0) : headerHeightLarge
 
+  console.log('actionItems', actionItems)
+
   return (
     <Headroom scrollHeight={scrollHeight} height={height}>
       <HeaderContainer>
@@ -115,7 +118,10 @@ export const Header = ({
           <HeaderLogo link={logoHref} />
           {!viewportSmall && cityName && <HeaderSeparator />}
           {(!viewportSmall || cityName) && <HeaderTitle>{cityName}</HeaderTitle>}
-          <ActionBar>{actionItems}</ActionBar>
+          <ActionBar>
+            {actionItems}
+            <KebabMenu />
+          </ActionBar>
         </Row>
         {hasNavigationBar && (
           <Row>
