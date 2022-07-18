@@ -22,6 +22,11 @@ const RichLayout = styled.div`
   background-color: ${props => props.theme.colors.backgroundColor};
   line-height: ${props => props.theme.fonts.decorativeLineHeight};
 
+  @media ${dimensions.smallViewport} {
+    // for KebabMenu to move in, horizontal scrolling has to be disabled
+    overflow-x: hidden;
+  }
+
   & a,
   button {
     outline: none;
@@ -30,6 +35,7 @@ const RichLayout = styled.div`
 `
 
 const Body = styled.div<{ fullWidth: boolean; disableScrollingSafari: boolean }>`
+  overflow-x: hidden;
   width: 100%;
   box-sizing: border-box;
   flex-grow: 1;
@@ -82,6 +88,7 @@ const Main = styled.main<{ fullWidth: boolean }>`
     width: 100%;
     max-width: initial;
     margin-top: 0;
+    overflow-x: hidden;
   }
 `
 
