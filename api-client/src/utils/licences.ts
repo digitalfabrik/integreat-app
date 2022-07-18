@@ -17,9 +17,9 @@ const versionRegex = /(?:@)\d+(\.\d+)*/
 
 export const parseLicenses = (licenseFile: JsonLicenses): License[] =>
   Object.entries(licenseFile).map(([name, { licenses, licenseUrl }]) => {
-    // Extract the version of the library from the name
-    // get license name without version in it
+    // Extract the version and the name
     const version = name.match(numberRegex)?.[0] ?? ''
     const nameWithoutVersion = name.replace(versionRegex, '')
-    return { name: nameWithoutVersion, version, licenseUrl, licenses }
+    const correctedUrl = licenseUrl.replace('/github:/', 'https://github.com' )
+    return { name: nameWithoutVersion, version, licenseUrl: correctedUrl, licenses }
   })
