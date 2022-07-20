@@ -12,14 +12,16 @@ export type License = {
   licenseUrl: string
 }
 
-const numberRegex = /\d+(\.\d+)*/
+// matches version number e.g. 1.0.2
+const versionNumberRegex = /\d+(\.\d+)*/
+
+// matches @versionNumber e.g. @1.0.2
 const versionRegex = /(?:@)\d+(\.\d+)*/
 
 export const parseLicenses = (licenseFile: JsonLicenses): License[] =>
   Object.entries(licenseFile).map(([name, { licenses, licenseUrl }]) => {
-    // Extract the version and the name
-    const version = name.match(numberRegex)?.[0] ?? ''
+    const version = name.match(versionNumberRegex)?.[0] ?? ''
     const nameWithoutVersion = name.replace(versionRegex, '')
-    const correctedUrl = licenseUrl.replace('/github:/', 'https://github.com' )
+    const correctedUrl = licenseUrl.replace('github:', 'https://github.com/' )
     return { name: nameWithoutVersion, version, licenseUrl: correctedUrl, licenses }
   })

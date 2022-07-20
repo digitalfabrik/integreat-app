@@ -3,16 +3,15 @@ import { useTranslation } from 'react-i18next'
 import { FlatList, View } from 'react-native'
 import styled from 'styled-components/native'
 
-import { License, parseLicenses, JsonLicenses } from 'api-client/src/utils/licences'
+import { License, parseLicenses} from 'api-client/src/utils/licences'
 
 import Caption from '../components/Caption'
 import Layout from '../components/Layout'
-import Touchable from '../components/Touchable'
 import useSnackbar from '../hooks/useSnackbar'
 import openExternalUrl from '../utils/openExternalUrl'
 import { reportError } from '../utils/sentry'
 
-const PadView = styled.View`
+const StyledPressable = styled.Pressable`
   padding: 16px;
   flex-direction: row;
   align-items: center;
@@ -39,15 +38,13 @@ type PropType = {
 const LicenseItem = (props: PropType): ReactElement => {
   const { name, version, license, onPress } = props
   return (
-    <Touchable onPress={onPress}>
-      <PadView>
+    <StyledPressable onPress={onPress}>
         <View>
           <Name>{name}</Name>
           <Description>{`version: ${version}`}</Description>
           <Description>{`license: ${license}`}</Description>
         </View>
-      </PadView>
-    </Touchable>
+    </StyledPressable>
   )
 }
 
@@ -56,9 +53,9 @@ const Licenses = (): ReactElement => {
   const showSnackbar = useSnackbar()
 
   useEffect(() => {
-    import('../../../../assets/licenses_native.json')
-      // cast is necessary because typescript will throw an error otherwise
-      .then(licenseFile => setLicenses(parseLicenses(licenseFile.default as unknown as JsonLicenses)))
+    import('../assets/licenses_native.json')
+      // @ts-expect-error JSON is guaranteed to be of type JsonLicenses
+      .then(licenseFile => setLicenses(parseLicenses(licenseFile.default)))
       .catch(error => reportError(`error while importing licenses ${error}`))
   }, [])
 
