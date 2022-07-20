@@ -1,16 +1,16 @@
 /* BottomActionSheet Overrides */
 [data-rsbs-header] {
-    box-shadow: none;
-    padding-top: calc(24px + env(safe-area-inset-top));
+  box-shadow: none;
+  padding-top: calc(24px + env(safe-area-inset-top));
 }
 
 [data-rsbs-header]::before {
-    width: 28px;
-    height: 3px;
-    background-color: #585858;
-    top: calc(18px + env(safe-area-inset-top));
+  width: 28px;
+  height: 3px;
+  background-color: #585858;
+  top: calc(18px + env(safe-area-inset-top));
 }
 
 [data-rsbs-has-header='false'] [data-rsbs-header] {
-    padding-top: calc(32px + env(safe-area-inset-top));
+  padding-top: calc(32px + env(safe-area-inset-top));
 }
