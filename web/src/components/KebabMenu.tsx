@@ -42,8 +42,8 @@ const List = styled.div<{ direction: UiDirectionType; checked: boolean }>`
 const Icon = styled.img`
   z-index: 32;
   position: relative;
-  width: 24px;
-  height: 24px;
+  width: 28px;
+  height: 28px;
 `
 
 const Overlay = styled.div<{ checked: boolean }>`

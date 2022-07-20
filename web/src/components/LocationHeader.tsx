@@ -17,6 +17,7 @@ import {
 } from 'api-client'
 import { config } from 'translations'
 
+import searchIconMobile from '../assets/IconSearch.svg'
 import eventsIcon from '../assets/events.svg'
 import localInformationIcon from '../assets/local_information.svg'
 import landingIcon from '../assets/location-icon.svg'
@@ -58,7 +59,7 @@ const LocationHeader = (props: PropsType): ReactElement => {
 
   const getActionItems = (viewportSmall: boolean): Array<ReactNode> => {
     if (viewportSmall) {
-      return [<HeaderActionBarItemLink key='search' href={searchPath} text={t('search')} iconSrc={searchIcon} />]
+      return [<HeaderActionBarItemLink key='search' href={searchPath} text={t('search')} iconSrc={searchIconMobile} />]
     }
     return [
       <HeaderActionBarItemLink key='search' href={searchPath} text={t('search')} iconSrc={searchIcon} />,
