@@ -22,11 +22,6 @@ const RichLayout = styled.div`
   background-color: ${props => props.theme.colors.backgroundColor};
   line-height: ${props => props.theme.fonts.decorativeLineHeight};
 
-  @media ${dimensions.smallViewport} {
-    // for KebabMenu to move in, horizontal scrolling has to be disabled
-    overflow-x: hidden;
-  }
-
   & a,
   button {
     outline: none;
