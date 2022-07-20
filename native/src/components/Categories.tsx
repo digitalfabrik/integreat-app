@@ -170,7 +170,6 @@ const Categories = ({
               subCategories: getListModels(children)
             }
           })}
-          thumbnail={getCachedThumbnail(category) || category.thumbnail}
           title={category.title}
           listContent={getListContentModel(category)}
           language={language}

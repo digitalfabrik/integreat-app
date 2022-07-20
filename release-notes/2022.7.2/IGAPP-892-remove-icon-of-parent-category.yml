@@ -1,0 +1,7 @@
+issue_key: IGAPP-892
+show_in_stores: true
+platforms:
+  - android
+  - ios
+en: Removed icon of parent category in list view.
+de: In Listenansichten wird das Icon der übergeordneten Kategorie nicht länger angezeigt.
