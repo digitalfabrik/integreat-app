@@ -1,4 +1,4 @@
-import React, { ReactNode } from 'react'
+import React, { ReactNode, ReactElement } from 'react'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 
@@ -18,7 +18,13 @@ type CleanLinkProps = {
   newTab?: boolean
 }
 
-const CleanLink: React.FC<CleanLinkProps> = ({ to, children, ariaLabel, className, newTab }: CleanLinkProps) => {
+const CleanLink: React.FC<CleanLinkProps> = ({
+  to,
+  children,
+  ariaLabel,
+  className,
+  newTab
+}: CleanLinkProps): ReactElement => {
   const newTabProps = newTab && { target: '_blank', rel: 'noopener noreferrer' }
   if (isExternalUrl(to)) {
     return (

@@ -3,6 +3,7 @@ import { MapParamsToUrlType } from './MapParamsToUrlType'
 import { MapResponseType } from './MapResponseType'
 import Payload from './Payload'
 import FetchError from './errors/FetchError'
+import NotFoundError from './errors/NotFoundError'
 import ResponseError from './errors/ResponseError'
 import { getJpalTrackingCode, request as fetch } from './request'
 import { JPAL_TRACKING_CODE_QUERY_PARAM } from './tracking'
@@ -79,6 +80,11 @@ class Endpoint<P, T> {
         requestOptions
       })
     })
+
+    const NOT_FOUND_CODE = 404
+    if (response.status === NOT_FOUND_CODE) {
+      throw new NotFoundError({ ...params, type: 'category', id: this.stateName })
+    }
 
     if (!response.ok) {
       throw new ResponseError({
