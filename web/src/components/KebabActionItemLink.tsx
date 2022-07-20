@@ -25,12 +25,12 @@ type PropsType = {
 const KebabActionItemLink = ({ href, text, iconSrc }: PropsType): ReactElement => (
   <>
     {href ? (
-      <StyledLink to={href} aria-label={text} dir='auto'>
+      <StyledLink to={href} aria-label={text} dir='auto' data-testid='kebab-action-item'>
         <img alt='' src={iconSrc} width='24px' height='24px' />
         <span>{text}</span>
       </StyledLink>
     ) : (
-      <StyledSpan aria-label={text} dir='auto' style={{ flex: 1 }}>
+      <StyledSpan aria-label={text} dir='auto' style={{ flex: 1 }} data-testid='kebab-action-item'>
         <img alt='' src={iconSrc} width='24px' height='24px' />
         <span>{text}</span>
       </StyledSpan>

@@ -91,6 +91,7 @@ const KebabMenu = ({ items, direction }: KebabMenuProps): ReactElement => {
   return (
     <Toggle>
       <Checkbox
+        data-testid='kebab-menu-checkbox'
         checked={checked}
         id='trigger'
         type='checkbox'
@@ -100,7 +101,7 @@ const KebabMenu = ({ items, direction }: KebabMenuProps): ReactElement => {
       <CheckboxLabel htmlFor='trigger'>
         <Icon src={iconKebabMenu} alt='' />
       </CheckboxLabel>
-      <Portal className='kebab-menu' open={checked}>
+      <Portal className='kebab-menu' opened={checked}>
         {/* disabled because this is an overlay for backdrop close */}
         {/* eslint-disable-next-line styled-components-a11y/no-static-element-interactions,styled-components-a11y/click-events-have-key-events */}
         <Overlay onClick={() => setChecked(false)} checked={checked} />
