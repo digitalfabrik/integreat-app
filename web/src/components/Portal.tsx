@@ -1,5 +1,5 @@
 import React, { ReactNode, ReactPortal, useEffect, useLayoutEffect } from 'react'
-import ReactDOM from 'react-dom'
+import { createPortal } from 'react-dom'
 
 type PropsType = {
   children: ReactNode
@@ -32,5 +32,5 @@ export const Portal = ({ children, className, element = 'reach-portal', opened =
     }
   }, [container, opened])
 
-  return ReactDOM.createPortal(children, container)
+  return createPortal(children, container)
 }

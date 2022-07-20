@@ -30,7 +30,6 @@ const RichLayout = styled.div`
 `
 
 const Body = styled.div<{ fullWidth: boolean; disableScrollingSafari: boolean }>`
-  overflow-x: hidden;
   width: 100%;
   box-sizing: border-box;
   flex-grow: 1;
@@ -83,7 +82,6 @@ const Main = styled.main<{ fullWidth: boolean }>`
     width: 100%;
     max-width: initial;
     margin-top: 0;
-    overflow-x: hidden;
   }
 `
 
