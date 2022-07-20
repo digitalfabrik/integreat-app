@@ -27,7 +27,7 @@ const List = styled.div<{ direction: UiDirectionType; checked: boolean }>`
   width: 80vw;
   height: 100vh;
   background-color: ${props => props.theme.colors.backgroundColor};
-  box-shadow: -3px 3px 3px 0px rgba(0, 0, 0, 0.13);
+  box-shadow: -3px 3px 3px 0 rgba(0, 0, 0, 0.13);
   -webkit-font-smoothing: antialiased;
   /* to stop flickering of text in safari 
    */
@@ -71,7 +71,7 @@ const Heading = styled.div<{ direction: string }>`
   display: flex;
   ${props => (props.direction === 'rtl' ? `justify-content: flex-start;` : `justify-content: flex-end;`)}
   background-color: ${props => props.theme.colors.backgroundAccentColor};
-  box-shadow: -3px 3px 3px 0px rgba(0, 0, 0, 0.13);
+  box-shadow: -3px 3px 3px 0 rgba(0, 0, 0, 0.13);
   height: ${dimensions.headerHeightSmall}px;
 `
 
