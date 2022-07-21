@@ -22,6 +22,6 @@ export const parseLicenses = (licenseFile: JsonLicenses): License[] =>
   Object.entries(licenseFile).map(([name, { licenses, licenseUrl }]) => {
     const version = name.match(versionNumberRegex)?.[0] ?? ''
     const nameWithoutVersion = name.replace(versionRegex, '')
-    const correctedUrl = licenseUrl.replace('github:', 'https://github.com/' )
+    const correctedUrl = licenseUrl.replace('github:', 'https://github.com/')
     return { name: nameWithoutVersion, version, licenseUrl: correctedUrl, licenses }
   })
