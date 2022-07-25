@@ -53,6 +53,9 @@ export const DropDownContainer = styled.div<{ active: boolean }>`
 
   @media ${dimensions.smallViewport} {
     top: ${dimensions.headerHeightSmall}px;
+    height: 100%;
+    overflow: hidden;
+    overflow-y: auto;
   }
 
   @media ${dimensions.minMaxWidth} {
