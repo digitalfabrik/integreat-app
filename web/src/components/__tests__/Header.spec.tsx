@@ -22,8 +22,8 @@ describe('Header', () => {
       />,
       { wrapWithTheme: true }
     )
-    expect(getByTestId('kebab-menu-checkbox')).toBeInTheDocument()
-    fireEvent.click(getByTestId('kebab-menu-checkbox'))
+    expect(getByTestId('kebab-menu-button')).toBeInTheDocument()
+    fireEvent.click(getByTestId('kebab-menu-button'))
     expect(getByTestId('kebab-action-item')).toHaveProperty('href', 'http://localhost/kebab_route')
   })
   it('should not render KebabMenu on large viewport', () => {
@@ -40,6 +40,6 @@ describe('Header', () => {
       />,
       { wrapWithTheme: true }
     )
-    expect(queryByTestId('kebab-menu-checkbox')).not.toBeInTheDocument()
+    expect(queryByTestId('kebab-menu-button')).not.toBeInTheDocument()
   })
 })

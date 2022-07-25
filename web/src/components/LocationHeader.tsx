@@ -57,32 +57,29 @@ const LocationHeader = (props: PropsType): ReactElement => {
 
   const { t } = useTranslation('layout')
 
-  const getActionItems = (viewportSmall: boolean): Array<ReactNode> => {
-    if (viewportSmall) {
-      return [<HeaderActionBarItemLink key='search' href={searchPath} text={t('search')} iconSrc={searchIconMobile} />]
-    }
-    return [
-      <HeaderActionBarItemLink key='search' href={searchPath} text={t('search')} iconSrc={searchIcon} />,
-      ...(!buildConfig().featureFlags.fixedCity
-        ? [
-            <HeaderActionBarItemLink
-              key='location'
-              href={landingPath}
-              text={t('changeLocation')}
-              iconSrc={landingIcon}
-            />
-          ]
-        : []),
-      <LanguageSelector
-        key='language'
-        languageChangePaths={languageChangePaths}
-        isHeaderActionItem
-        languageCode={languageCode}
-      />
-    ]
-  }
+  const actionItems = viewportSmall
+    ? [<HeaderActionBarItemLink key='search' href={searchPath} text={t('search')} iconSrc={searchIconMobile} />]
+    : [
+        <HeaderActionBarItemLink key='search' href={searchPath} text={t('search')} iconSrc={searchIcon} />,
+        ...(!buildConfig().featureFlags.fixedCity
+          ? [
+              <HeaderActionBarItemLink
+                key='location'
+                href={landingPath}
+                text={t('changeLocation')}
+                iconSrc={landingIcon}
+              />
+            ]
+          : []),
+        <LanguageSelector
+          key='language'
+          languageChangePaths={languageChangePaths}
+          isHeaderActionItem
+          languageCode={languageCode}
+        />
+      ]
 
-  const getKebabItems = (): Array<ReactNode> => [
+  const kebabItems = [
     <KebabActionItemLink key='location' href={landingPath} text={t('changeLocation')} iconSrc={landingIcon} />,
     <LanguageSelector
       key='language'
@@ -170,8 +167,8 @@ const LocationHeader = (props: PropsType): ReactElement => {
       direction={config.getScriptDirection(languageCode)}
       viewportSmall={viewportSmall}
       logoHref={categoriesPath}
-      actionItems={getActionItems(viewportSmall)}
-      kebabItems={getKebabItems()}
+      actionItems={actionItems}
+      kebabItems={kebabItems}
       cityName={cityModel.name}
       navigationItems={getNavigationItems()}
     />

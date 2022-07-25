@@ -14,9 +14,9 @@ type KebabMenuProps = {
   direction: UiDirectionType
 }
 
-const Toggle = styled.div`
+const ToggleContainer = styled.div`
   display: flex;
-  padding: 0 12px;
+  padding: 0 8px;
   z-index: 32;
 `
 
@@ -28,14 +28,13 @@ const List = styled.div<{ direction: UiDirectionType; checked: boolean }>`
   height: 100vh;
   background-color: ${props => props.theme.colors.backgroundColor};
   box-shadow: -3px 3px 3px 0 rgba(0, 0, 0, 0.13);
+  /* to stop flickering of text in safari */
   -webkit-font-smoothing: antialiased;
-  /* to stop flickering of text in safari 
-   */
   transform-origin: 0% 0%;
   transition: transform 0.5s cubic-bezier(0.77, 0.2, 0.05, 1);
   z-index: 31;
-  ${props =>
-    props.direction === 'rtl' ? `left: 0;transform: translate(-100%, 0);` : `right:0; transform: translate(100%, 0);`}
+  ${props => (props.direction === 'rtl' ? `left: 0;` : `right:0;`)}
+  ${props => (props.direction === 'rtl' ? `transform: translate(-100%, 0);` : `transform: translate(100%, 0);`)}
   ${props => props.checked && `opacity: 1;transform: none;`}
 `
 
@@ -55,66 +54,51 @@ const Overlay = styled.div<{ checked: boolean }>`
   left: 0;
   background-color: rgba(0, 0, 0, 0.5);
   z-index: 30;
-  ${props => (props.checked ? `display: block` : `display:none`)}
-`
-
-const Checkbox = styled.input`
-  display: none;
-`
-
-const CheckboxLabel = styled.label`
-  display: flex;
-  justify-content: center;
+  display: ${props => (props.checked ? `block` : `none`)};
 `
 
 const Heading = styled.div<{ direction: string }>`
   display: flex;
-  ${props => (props.direction === 'rtl' ? `justify-content: flex-start;` : `justify-content: flex-end;`)}
+  justify-content: ${props => (props.direction === 'rtl' ? `flex-start;` : `flex-end;`)}
   background-color: ${props => props.theme.colors.backgroundAccentColor};
   box-shadow: -3px 3px 3px 0 rgba(0, 0, 0, 0.13);
   height: ${dimensions.headerHeightSmall}px;
+  padding: 0 8px;
 `
 
 const Content = styled.div`
   padding: 0 32px;
 `
 
-const CloseButton = styled.button`
+const ToggleButton = styled.button`
   background-color: transparent;
   border: none;
-  padding: 0 12px;
+  /* TODO IGAPP-889 remove this margin after implementing new search icon to fix wrong viewBox of svg */
+  margin-top: 6px;
 `
 
 const KebabMenu = ({ items, direction }: KebabMenuProps): ReactElement => {
   const [checked, setChecked] = useState<boolean>(false)
 
   return (
-    <Toggle>
-      <Checkbox
-        data-testid='kebab-menu-checkbox'
-        checked={checked}
-        id='trigger'
-        type='checkbox'
-        onClick={() => setChecked(!checked)}
-        onChange={e => setChecked(e.target.checked)}
-      />
-      <CheckboxLabel htmlFor='trigger'>
+    <ToggleContainer>
+      <ToggleButton onClick={() => setChecked(!checked)} data-testid='kebab-menu-button'>
         <Icon src={iconKebabMenu} alt='' />
-      </CheckboxLabel>
+      </ToggleButton>
       <Portal className='kebab-menu' opened={checked}>
         {/* disabled because this is an overlay for backdrop close */}
         {/* eslint-disable-next-line styled-components-a11y/no-static-element-interactions,styled-components-a11y/click-events-have-key-events */}
         <Overlay onClick={() => setChecked(false)} checked={checked} />
         <List direction={direction} checked={checked}>
           <Heading direction={direction}>
-            <CloseButton onClick={() => setChecked(!checked)}>
+            <ToggleButton onClick={() => setChecked(!checked)}>
               <Icon src={iconClose} alt='' />
-            </CloseButton>
+            </ToggleButton>
           </Heading>
           <Content>{items}</Content>
         </List>
       </Portal>
-    </Toggle>
+    </ToggleContainer>
   )
 }
 
