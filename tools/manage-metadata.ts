@@ -1,5 +1,5 @@
 /* eslint-disable camelcase */
-import { Command, program } from 'commander'
+import { program } from 'commander'
 import fs from 'fs'
 import yaml from 'js-yaml'
 import path from 'path'
