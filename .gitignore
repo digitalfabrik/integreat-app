@@ -126,3 +126,4 @@ runConfigurations.xml
 
 # Mac OS X
 .DS_Store
+assets/licenses_native.json
