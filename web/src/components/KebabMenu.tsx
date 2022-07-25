@@ -47,7 +47,6 @@ const Icon = styled.img`
 
 const Overlay = styled.div<{ checked: boolean }>`
   position: absolute;
-  display: none;
   width: 100%;
   height: 100vh;
   top: 0;
@@ -59,7 +58,7 @@ const Overlay = styled.div<{ checked: boolean }>`
 
 const Heading = styled.div<{ direction: string }>`
   display: flex;
-  justify-content: ${props => (props.direction === 'rtl' ? `flex-start;` : `flex-end;`)}
+  justify-content: ${props => (props.direction === 'rtl' ? `flex-start` : `flex-end`)};
   background-color: ${props => props.theme.colors.backgroundAccentColor};
   box-shadow: -3px 3px 3px 0 rgba(0, 0, 0, 0.13);
   height: ${dimensions.headerHeightSmall}px;
