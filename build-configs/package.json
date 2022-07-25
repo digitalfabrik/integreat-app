@@ -9,8 +9,8 @@
   },
   "devDependencies": {
     "@types/flat": "^5.0.0",
-    "commander": "^9.3.0",
-    "decamelize": "^6.0.0",
+    "commander": "^8.3.0",
+    "decamelize": "^5.0.1",
     "flat": "^5.0.0"
   },
   "scripts": {
