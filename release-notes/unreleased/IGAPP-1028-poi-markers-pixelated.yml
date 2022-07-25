@@ -1,0 +1,8 @@
+issue_key: IGAPP-1028
+show_in_stores: true
+platforms:
+  - web
+  - android
+  - ios
+de: Darstellung des Marker Icons auf der Karte wurde verbessert
+en: Display of the marker icon was improved
