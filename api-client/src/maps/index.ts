@@ -84,7 +84,7 @@ export const animationDuration = 2000
 export const nameQueryParam = 'name'
 
 export const mapMarker: MarkerConfig = {
-  iconSize: 1.75,
-  symbol: 'marker_15',
-  symbolActive: 'marker_15_active'
+  iconSize: 0.75,
+  symbol: 'marker_40',
+  symbolActive: 'marker_40_active'
 }
