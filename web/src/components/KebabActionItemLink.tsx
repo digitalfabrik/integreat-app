@@ -22,20 +22,21 @@ type PropsType = {
   iconSrc: string
 }
 
-const KebabActionItemLink = ({ href, text, iconSrc }: PropsType): ReactElement => (
-  <>
-    {href ? (
+const KebabActionItemLink = ({ href, text, iconSrc }: PropsType): ReactElement => {
+  if (href) {
+    return (
       <StyledLink to={href} aria-label={text} dir='auto' data-testid='kebab-action-item'>
         <img alt='' src={iconSrc} width='24px' height='24px' />
         <span>{text}</span>
       </StyledLink>
-    ) : (
-      <StyledSpan aria-label={text} dir='auto' style={{ flex: 1 }} data-testid='kebab-action-item'>
-        <img alt='' src={iconSrc} width='24px' height='24px' />
-        <span>{text}</span>
-      </StyledSpan>
-    )}
-  </>
-)
+    )
+  }
+  return (
+    <StyledSpan aria-label={text} dir='auto' style={{ flex: 1 }} data-testid='kebab-action-item'>
+      <img alt='' src={iconSrc} width='24px' height='24px' />
+      <span>{text}</span>
+    </StyledSpan>
+  )
+}
 
 export default KebabActionItemLink

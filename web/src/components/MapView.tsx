@@ -164,7 +164,6 @@ const MapView = forwardRef((props: MapViewProps, ref: React.Ref<MapRef>): ReactE
         mapStyle={mapConfig.styleJSON}
         onClick={onSelectFeature}
         onTouchMove={() => changeSnapPoint(0)}>
-        onDeselect
         {currentFeature && viewportSmall && (
           <BackNavigation
             onClick={onDeselect}

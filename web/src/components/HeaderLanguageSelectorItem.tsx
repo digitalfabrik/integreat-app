@@ -23,7 +23,7 @@ const HeaderLanguageSelectorItem = ({
 }: PropsType): ReactElement => {
   const noLanguagesHint = t('noLanguages')
 
-  const closeDropDown = (): ReactElement => (
+  const Item = (closeDropDown: () => void): ReactElement => (
     <Selector
       closeDropDown={closeDropDown}
       verticalLayout={false}
@@ -34,18 +34,18 @@ const HeaderLanguageSelectorItem = ({
   )
 
   const renderActionItem = () => {
-    if (!inKebabMenu) {
+    if (inKebabMenu) {
       return (
-        <HeaderActionItemDropDown iconSrc={languageIcon} text={t('changeLanguage')}>
-          {closeDropDown}
-        </HeaderActionItemDropDown>
+        <KebabActionItemDropDown iconSrc={languageIcon} text={t('changeLanguage')}>
+          {Item}
+        </KebabActionItemDropDown>
       )
     }
 
     return (
-      <KebabActionItemDropDown iconSrc={languageIcon} text={t('changeLanguage')}>
-        {closeDropDown}
-      </KebabActionItemDropDown>
+      <HeaderActionItemDropDown iconSrc={languageIcon} text={t('changeLanguage')}>
+        {Item}
+      </HeaderActionItemDropDown>
     )
   }
 
