@@ -12,7 +12,7 @@ describe('PoiModel', () => {
     properties: {
       id: 1,
       title: 'Test Title',
-      symbol: 'marker_15',
+      symbol: 'marker_40',
       thumbnail: 'test',
       path: '/augsburg/de/locations/test',
       urlSlug: 'test',
