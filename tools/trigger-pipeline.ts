@@ -3,7 +3,7 @@ import fetch from 'node-fetch'
 
 import { MAIN_BRANCH } from './constants'
 
-const CIRCLECI_URL = 'https://circleci.com/api/v2/project/github/digitalfabrik/lunes-app/pipeline'
+const CIRCLECI_URL = 'https://circleci.com/api/v2/project/github/digitalfabrik/integreat-app/pipeline'
 const WORKFLOW_TYPES = [
   'none',
   'native_beta_delivery',
