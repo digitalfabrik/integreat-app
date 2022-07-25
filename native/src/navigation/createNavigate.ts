@@ -8,6 +8,7 @@ import {
   EVENTS_ROUTE,
   JPAL_TRACKING_ROUTE,
   LANDING_ROUTE,
+  LICENSE_ROUTE,
   NEWS_ROUTE,
   OFFERS_ROUTE,
   POIS_ROUTE,
@@ -46,6 +47,11 @@ const createNavigate =
             url
           }
         })
+      }
+
+      if (routeInformation.route === LICENSE_ROUTE) {
+        navigation.navigate(LICENSE_ROUTE)
+        return
       }
 
       if (routeInformation.route === LANDING_ROUTE) {

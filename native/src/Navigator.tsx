@@ -27,7 +27,8 @@ import {
   REDIRECT_ROUTE,
   SEARCH_ROUTE,
   SETTINGS_ROUTE,
-  SPRUNGBRETT_OFFER_ROUTE
+  SPRUNGBRETT_OFFER_ROUTE,
+  LICENSE_ROUTE
 } from 'api-client'
 
 import HeaderContainer from './components/HeaderContainer'
@@ -49,6 +50,7 @@ import ImageViewModal from './routes/ImageViewModal'
 import Intro from './routes/Intro'
 import JpalTracking from './routes/JpalTracking'
 import LandingContainer from './routes/LandingContainer'
+import Licenses from './routes/Licenses'
 import NewsContainer from './routes/NewsContainer'
 import OffersContainer from './routes/OffersContainer'
 import PDFViewModal from './routes/PDFViewModal'
@@ -211,6 +213,7 @@ const Navigator = (props: PropsType): ReactElement | null => {
         <Stack.Screen name={EVENTS_ROUTE} component={EventsContainer} />
         <Stack.Screen name={NEWS_ROUTE} component={NewsContainer} />
         <Stack.Screen name={DISCLAIMER_ROUTE} component={DisclaimerContainer} />
+        <Stack.Screen name={LICENSE_ROUTE} component={Licenses} />
       </Stack.Group>
 
       <Stack.Group screenOptions={{ header: transparentHeader }}>
