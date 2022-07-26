@@ -4,10 +4,7 @@ import styled from 'styled-components'
 
 import { FilterProps } from 'api-client/src/endpoints/createShelterEndpoint'
 
-/* eslint-disable import/no-relative-packages */
-import bedIcon from '../../../assets/icons/bed.svg'
-// import cityIcon from '../../../assets/icons/city.svg'
-import petIcon from '../../../assets/icons/pet.svg'
+import { BedIcon, PetIcon } from '../assets'
 import dimensions from '../constants/dimensions'
 import FacetInput from './FacetInput'
 import FacetToggle from './FacetToggle'
@@ -43,7 +40,7 @@ const ShelterFilterBar: React.FC<ShelterFilterBarProps> = ({
     <FilterContainer>
       <FacetInput
         value={filter.beds ?? ''}
-        icon={bedIcon}
+        icon={BedIcon}
         altTag={t('facetBeds')}
         placeholder={t('facetBeds')}
         updateSearchFilter={updateSearchFilter}
@@ -61,7 +58,7 @@ const ShelterFilterBar: React.FC<ShelterFilterBarProps> = ({
       {/*  name='city' */}
       {/* /> */}
       <FacetToggle
-        icon={petIcon}
+        icon={PetIcon}
         name='pets'
         value={filter.pets === '1'}
         updateSearchFilter={updateSearchFilter}
