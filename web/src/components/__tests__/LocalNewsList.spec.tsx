@@ -1,9 +1,9 @@
-import { shallow } from 'enzyme'
 import moment from 'moment'
 import React from 'react'
 
 import { DateFormatter, LOCAL_NEWS_TYPE, LocalNewsModel } from 'api-client'
 
+import { renderWithBrowserRouter } from '../../testing/render'
 import LocalNewsList from '../LocalNewsList'
 import NewsListItem from '../NewsListItem'
 
@@ -43,21 +43,19 @@ describe('LocalNewsList', () => {
   const items = [localNews1, localNews2]
 
   it('should have two NewsListItem', () => {
-    const localNewsList = shallow(
-      <LocalNewsList items={items} renderItem={renderItem} city={city} noItemsMessage='no item' />
-    ).dive()
-    const newsElementList = localNewsList.find('NewsListItem')
-
-    expect(newsElementList).toHaveLength(2)
-    expect(newsElementList.find({ title: 'Love :)' })).toHaveLength(1)
+    const { getByText } = renderWithBrowserRouter(
+      <LocalNewsList items={items} renderItem={renderItem} city={city} noItemsMessage='no item' />,
+      { wrapWithTheme: true }
+    )
+    expect(getByText('Love :)')).toBeDefined()
+    expect(getByText('Important')).toBeDefined()
   })
 
   it('should render "noItemsMessage" if the items is an empty array', () => {
-    const localNewsList = shallow(
-      <LocalNewsList items={[]} renderItem={renderItem} city={city} noItemsMessage='No items' />
-    ).dive()
-
-    const noItemsMessage = localNewsList.text()
-    expect(noItemsMessage).toBe('No items')
+    const { getByText } = renderWithBrowserRouter(
+      <LocalNewsList items={[]} renderItem={renderItem} city={city} noItemsMessage='No items' />,
+      { wrapWithTheme: true }
+    )
+    expect(getByText('No items')).toBeDefined()
   })
 })

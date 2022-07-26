@@ -32,7 +32,6 @@ const config: InitialOptionsTsJest = {
     ]
   ],
   testEnvironment: 'jsdom',
-  snapshotSerializers: ['enzyme-to-json/serializer'],
   globals: {
     'ts-jest': {},
     __BUILD_CONFIG_NAME__: 'integreat-test-cms',
