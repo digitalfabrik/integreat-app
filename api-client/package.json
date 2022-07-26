@@ -22,10 +22,10 @@
   "dependencies": {
     "@turf/distance": "^6.5.0",
     "entities": "^3.0.1",
-    "htmlparser2": "^7.2.0",
+    "htmlparser2": "^8.0.1",
     "js-md5": "^0.7.3",
     "lodash": "^4.17.19",
-    "moment": "2.29.1",
+    "moment": "2.29.4",
     "moment-timezone": "^0.5.34",
     "normalize-path": "^3.0.0",
     "normalize-strings": "^1.1.1"
