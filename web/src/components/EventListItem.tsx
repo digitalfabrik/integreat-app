@@ -28,8 +28,8 @@ const getEventPlaceholder = (path: string): string => {
 const EventListItem = ({ event, formatter }: PropsType): ReactElement => (
   <ListItem thumbnail={event.thumbnail || getEventPlaceholder(event.path)} title={event.title} path={event.path}>
     <div>
-      <div>{event.date.toFormattedString(formatter)}</div>
-      {event.location && <div>{event.location.fullAddress}</div>}
+      <div dir='auto'>{event.date.toFormattedString(formatter)}</div>
+      {event.location && <div dir='auto'>{event.location.fullAddress}</div>}
     </div>
     <div dir='auto'>{textTruncator(event.excerpt, NUM_OF_CHARS_ALLOWED)}</div>
   </ListItem>
