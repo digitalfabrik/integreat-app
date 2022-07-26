@@ -109,16 +109,14 @@ const CategoryEntry = ({ category, contentWithoutHtml, subCategories, query }: P
   )
 
   const Content = textToHighlight && (
-    <div style={{ margin: '0 5px', fontSize: '12px' }} dir='auto'>
-      <ContentMatchItem
-        aria-label={textToHighlight}
-        searchWords={[query]}
-        autoEscape
-        sanitize={normalizeSearchString}
-        textToHighlight={textToHighlight}
-        highlightStyle={{ backgroundColor: theme.colors.backgroundColor, fontWeight: 'bold' }}
-      />
-    </div>
+    <ContentMatchItem
+      aria-label={textToHighlight}
+      searchWords={[query]}
+      autoEscape
+      sanitize={normalizeSearchString}
+      textToHighlight={textToHighlight}
+      highlightStyle={{ backgroundColor: theme.colors.backgroundColor, fontWeight: 'bold' }}
+    />
   )
 
   return (
@@ -127,7 +125,9 @@ const CategoryEntry = ({ category, contentWithoutHtml, subCategories, query }: P
         <CategoryThumbnail alt='' src={category.thumbnail || iconPlaceholder} />
         <CategoryListItem dir='auto'>
           {Title}
-          {Content}
+          <div style={{ margin: '0 5px', fontSize: '12px' }} dir='auto'>
+            {Content}
+          </div>
         </CategoryListItem>
       </StyledLink>
       {SubCategories}
