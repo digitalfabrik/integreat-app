@@ -133,6 +133,7 @@ const RemoteContent = ({ html, onInternalLinkClick, centered = false, smallText 
 
   return (
     <SandBox
+      dir='auto'
       centered={centered}
       dangerouslySetInnerHTML={dangerouslySetInnerHTML}
       ref={sandBoxRef}

@@ -31,7 +31,7 @@ const EventListItem = ({ event, formatter }: PropsType): ReactElement => (
       <div>{event.date.toFormattedString(formatter)}</div>
       {event.location && <div>{event.location.fullAddress}</div>}
     </div>
-    <div>{textTruncator(event.excerpt, NUM_OF_CHARS_ALLOWED)}</div>
+    <div dir='auto'>{textTruncator(event.excerpt, NUM_OF_CHARS_ALLOWED)}</div>
   </ListItem>
 )
 
