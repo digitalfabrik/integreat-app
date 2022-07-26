@@ -24,6 +24,10 @@ import ShelterInformationSection from './ShelterInformationSection'
 import { StyledButton } from './TextButton'
 import Tooltip from './Tooltip'
 
+const FullWidth = styled.div`
+  flex: 1;
+`
+
 const Container = styled.article`
   flex: 1;
   margin: 12px;
@@ -90,7 +94,7 @@ const ShelterInformation = ({ shelter, cityCode, extended = false }: Props): Rea
   const tenancyPossible = costs === 'uebergang-miete'
 
   return (
-    <>
+    <FullWidth dir='auto'>
       {extended && <Caption title={`${titleText} (#${id})`} />}
       <Container>
         <ShelterInformationSection
@@ -159,7 +163,7 @@ const ShelterInformation = ({ shelter, cityCode, extended = false }: Props): Rea
           </DetailButton>
         )}
       </Container>
-    </>
+    </FullWidth>
   )
 }
 

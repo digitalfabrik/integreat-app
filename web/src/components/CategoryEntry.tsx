@@ -1,10 +1,9 @@
-import React, { ReactNode } from 'react'
+import React, { ReactElement, useMemo } from 'react'
 import Highlighter from 'react-highlight-words'
 import { Link } from 'react-router-dom'
-import styled, { withTheme } from 'styled-components'
+import styled, { useTheme } from 'styled-components'
 
 import { CategoryModel, normalizeSearchString } from 'api-client'
-import type { ThemeType } from 'build-configs'
 
 import iconPlaceholder from '../assets/IconPlaceholder.svg'
 import ContentMatcher from './ContentMatcher'
@@ -76,39 +75,41 @@ type PropsType = {
   category: CategoryModel
   contentWithoutHtml?: string
   subCategories: Array<CategoryModel>
-  /** A search query to highlight in the category title */
   query?: string
-  theme: ThemeType
 }
 
-/**
- * Displays a single CategoryEntry
- */
-export class CategoryEntry extends React.PureComponent<PropsType> {
-  contentMatcher = new ContentMatcher()
-
-  renderSubCategories(): Array<ReactNode> {
-    const { subCategories } = this.props
-    return subCategories.map(subCategory => (
-      <SubCategory key={subCategory.path}>
-        <StyledLink to={subCategory.path}>
-          <SubCategoryCaption aria-label={subCategory.title}>{subCategory.title}</SubCategoryCaption>
-        </StyledLink>
-      </SubCategory>
-    ))
-  }
-
-  getMatchedContent(numWordsSurrounding: number): ReactNode {
-    const { query, theme, contentWithoutHtml } = this.props
+const CategoryEntry = ({ category, contentWithoutHtml, subCategories, query }: PropsType): ReactElement => {
+  const theme = useTheme()
+  const textToHighlight = useMemo<string | null>(() => {
     if (!contentWithoutHtml) {
       return null
     }
-    const textToHighlight = this.contentMatcher.getMatchedContent(query, contentWithoutHtml, numWordsSurrounding)
-    if (textToHighlight == null) {
-      return null
-    }
+    const contentMatcher = new ContentMatcher()
+    return contentMatcher.getMatchedContent(query, contentWithoutHtml, NUM_WORDS_SURROUNDING_MATCH)
+  }, [contentWithoutHtml, query])
 
-    return (
+  const SubCategories = subCategories.map(subCategory => (
+    <SubCategory key={subCategory.path} dir='auto'>
+      <StyledLink to={subCategory.path}>
+        <SubCategoryCaption aria-label={subCategory.title}>{subCategory.title}</SubCategoryCaption>
+      </StyledLink>
+    </SubCategory>
+  ))
+
+  const Title = (
+    <Highlighter
+      dir='auto'
+      searchWords={query ? [query] : []}
+      aria-label={category.title}
+      autoEscape
+      sanitize={normalizeSearchString}
+      highlightStyle={{ backgroundColor: theme.colors.backgroundColor, fontWeight: 'bold' }}
+      textToHighlight={category.title}
+    />
+  )
+
+  const Content = textToHighlight && (
+    <div style={{ margin: '0 5px', fontSize: '12px' }} dir='auto'>
       <ContentMatchItem
         aria-label={textToHighlight}
         searchWords={[query]}
@@ -117,38 +118,21 @@ export class CategoryEntry extends React.PureComponent<PropsType> {
         textToHighlight={textToHighlight}
         highlightStyle={{ backgroundColor: theme.colors.backgroundColor, fontWeight: 'bold' }}
       />
-    )
-  }
+    </div>
+  )
 
-  renderTitle(): ReactNode {
-    const { query, category, theme } = this.props
-    return (
-      <CategoryListItem>
-        <Highlighter
-          searchWords={query ? [query] : []}
-          aria-label={category.title}
-          autoEscape
-          sanitize={normalizeSearchString}
-          highlightStyle={{ backgroundColor: theme.colors.backgroundColor, fontWeight: 'bold' }}
-          textToHighlight={category.title}
-        />
-        <div style={{ margin: '0 5px', fontSize: '12px' }}>{this.getMatchedContent(NUM_WORDS_SURROUNDING_MATCH)}</div>
-      </CategoryListItem>
-    )
-  }
-
-  render(): ReactNode {
-    const { category } = this.props
-    return (
-      <Row>
-        <StyledLink to={category.path}>
-          <CategoryThumbnail alt='' src={category.thumbnail || iconPlaceholder} />
-          {this.renderTitle()}
-        </StyledLink>
-        {this.renderSubCategories()}
-      </Row>
-    )
-  }
+  return (
+    <Row>
+      <StyledLink to={category.path}>
+        <CategoryThumbnail alt='' src={category.thumbnail || iconPlaceholder} />
+        <CategoryListItem dir='auto'>
+          {Title}
+          {Content}
+        </CategoryListItem>
+      </StyledLink>
+      {SubCategories}
+    </Row>
+  )
 }
 
-export default withTheme(CategoryEntry)
+export default CategoryEntry

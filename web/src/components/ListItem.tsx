@@ -46,7 +46,7 @@ const ListItem: React.FC<PropsType> = ({ path, title, thumbnail, children }: Pro
     <CleanLink to={path}>
       {thumbnail && <Thumbnail alt='' src={thumbnail} />}
       <Description>
-        <Title>{title}</Title>
+        <Title dir='auto'>{title}</Title>
         {children}
       </Description>
     </CleanLink>
