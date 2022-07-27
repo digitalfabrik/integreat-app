@@ -1,13 +1,11 @@
 import moment from 'moment'
 import React from 'react'
-import { ThemeProvider } from 'styled-components'
 
 import { CategoryModel } from 'api-client'
 
 import iconPlaceholder from '../../assets/IconPlaceholder.svg'
-import buildConfig from '../../constants/buildConfig'
 import { renderWithRouter } from '../../testing/render'
-import { CategoryEntry } from '../CategoryEntry'
+import CategoryEntry from '../CategoryEntry'
 
 const category = new CategoryModel({
   root: false,
@@ -56,13 +54,10 @@ const noThumbCategory = new CategoryModel({
 })
 
 describe('CategoryEntry', () => {
-  const lightTheme = buildConfig().lightTheme
-
   it('should render correctly', () => {
     const { getByText, getByRole, getByLabelText, queryAllByText } = renderWithRouter(
-      <ThemeProvider theme={lightTheme}>
-        <CategoryEntry theme={lightTheme} category={category} subCategories={[childCategory]} />
-      </ThemeProvider>
+      <CategoryEntry category={category} subCategories={[childCategory]} />,
+      { wrapWithTheme: true }
     )
 
     expect(getByLabelText(category.title)).toBeTruthy()
@@ -80,9 +75,8 @@ describe('CategoryEntry', () => {
 
   it('should replace empty thumbnail', () => {
     const { getByRole } = renderWithRouter(
-      <ThemeProvider theme={lightTheme}>
-        <CategoryEntry theme={lightTheme} category={noThumbCategory} subCategories={[childCategory]} />
-      </ThemeProvider>
+      <CategoryEntry category={noThumbCategory} subCategories={[childCategory]} />,
+      { wrapWithTheme: true }
     )
 
     expect(getByRole('img')).toHaveProperty('src', `http://localhost/${iconPlaceholder}`)
@@ -100,15 +94,8 @@ describe('CategoryEntry', () => {
       }
 
       const { getByText, getByLabelText } = renderWithRouter(
-        <ThemeProvider theme={lightTheme}>
-          <CategoryEntry
-            theme={lightTheme}
-            category={category}
-            subCategories={[]}
-            query={query}
-            contentWithoutHtml={category.content}
-          />
-        </ThemeProvider>
+        <CategoryEntry category={category} subCategories={[]} query={query} contentWithoutHtml={category.content} />,
+        { wrapWithTheme: true }
       )
 
       expect(getByLabelText(selectedSection)).toBeTruthy()
@@ -124,15 +111,8 @@ describe('CategoryEntry', () => {
       const query = 'no match'
 
       const { queryAllByText, getByText } = renderWithRouter(
-        <ThemeProvider theme={lightTheme}>
-          <CategoryEntry
-            theme={lightTheme}
-            category={category}
-            subCategories={[]}
-            query={query}
-            contentWithoutHtml={category.content}
-          />
-        </ThemeProvider>
+        <CategoryEntry category={category} subCategories={[]} query={query} contentWithoutHtml={category.content} />,
+        { wrapWithTheme: true }
       )
 
       expect(getByText(category.title)).toBeTruthy()
