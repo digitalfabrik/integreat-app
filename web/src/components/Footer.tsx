@@ -18,7 +18,6 @@ const FooterContainer = styled.footer<{ overlay: boolean }>`
 
   ${props => (props.overlay ? 'color: rgba(0, 0, 0, 0.75);' : '')}
   & > * {
-    @mixin remove-a;
     margin: ${props => (props.overlay ? 0 : '5px')};
   }
 
