@@ -12,7 +12,7 @@ import PetIcon from '../../../assets/icons/pet.svg'
 import PhoneIcon from '../../../assets/icons/phone.svg'
 import SmokingIcon from '../../../assets/icons/smoking.svg'
 import TimerIcon from '../../../assets/icons/timer.svg'
-import WebsiteIcon from '../../../assets/icons/website.svg.svg'
+import WebsiteIcon from '../../../assets/icons/website.svg'
 
 export {
   AccessibleIcon,
