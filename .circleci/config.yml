@@ -524,11 +524,8 @@ jobs:
                 name: TS check
             - unit_test:
                 directory: api-client
-            - run:
-                command: yarn workspace native run test --ci --maxWorkers ${TOTAL_CPUS}
-                name: Unit Tests with Coverage
-            - store_test_results:
-                path: native/reports/unit-test
+            - unit_test:
+                directory: native
             - unit_test:
                 directory: translations
             - unit_test:
