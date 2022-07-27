@@ -8,20 +8,12 @@ const Identifier = styled.span`
 type PropsType = {
   identifier: string
   information: string
-  link?: string
-  linkLabel?: string
 }
 
-// TODO refactor anchor with new clean link component IGAPP-749
-const PageDetail: React.FC<PropsType> = ({ identifier, information, link, linkLabel }: PropsType): ReactElement => (
+const PageDetail = ({ identifier, information }: PropsType): ReactElement => (
   <div>
     <Identifier>{identifier}: </Identifier>
     <span>{information}</span>
-    {link && (
-      <p>
-        <a href={link}>{linkLabel}</a>
-      </p>
-    )}
   </div>
 )
 
