@@ -34,6 +34,7 @@ export { default as FetchError } from './errors/FetchError'
 export { default as ResponseError } from './errors/ResponseError'
 export { default as MappingError } from './errors/MappingError'
 export { default as NotFoundError } from './errors/NotFoundError'
+export { type FilterProps as ShelterFilterProps } from './endpoints/createShelterEndpoint'
 export { default as createCategoriesEndpoint, CATEGORIES_ENDPOINT_NAME } from './endpoints/createCategoriesEndpoint'
 export {
   default as createCategoryContentEndpoint,
