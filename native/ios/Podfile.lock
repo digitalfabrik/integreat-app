@@ -131,9 +131,9 @@ PODS:
   - nanopb/decode (2.30908.0)
   - nanopb/encode (2.30908.0)
   - OpenSSL-Universal (1.1.180)
-  - Permission-LocationWhenInUse (3.1.0):
+  - Permission-LocationWhenInUse (3.6.0):
     - RNPermissions
-  - Permission-Notifications (3.1.0):
+  - Permission-Notifications (3.6.0):
     - RNPermissions
   - PromisesObjC (2.0.0)
   - RCT-Folly (2021.06.28.00-v2):
@@ -336,10 +336,10 @@ PODS:
   - React-jsinspector (0.67.2)
   - React-logger (0.67.2):
     - glog
-  - react-native-blob-util (0.13.18):
+  - react-native-blob-util (0.16.2):
     - React-Core
-  - react-native-geolocation (2.0.2):
-    - React
+  - react-native-geolocation (2.1.0):
+    - React-Core
   - react-native-mapbox-gl (8.5.0):
     - React
     - React-Core
@@ -351,20 +351,24 @@ PODS:
   - react-native-mapbox-gl/StaticLibraryFixer (8.5.0):
     - React
     - React-Core
-  - react-native-netinfo (7.1.5):
+  - react-native-netinfo (9.3.0):
     - React-Core
-  - react-native-pdf (6.4.0):
+  - react-native-pdf (6.5.0):
     - React-Core
   - react-native-progress-bar-android (1.0.4):
     - React
   - react-native-progress-view (1.3.1):
     - React-Core
-  - react-native-safe-area-context (3.3.2):
-    - React-Core
-  - react-native-static-server (0.5.3):
+  - react-native-safe-area-context (4.3.1):
+    - RCT-Folly
+    - RCTRequired
+    - RCTTypeSafety
+    - React
+    - ReactCommon/turbomodule/core
+  - react-native-static-server (0.5.5):
     - GCDWebServer (~> 3.0)
     - React
-  - react-native-webview (11.17.0):
+  - react-native-webview (11.23.0):
     - React-Core
   - React-perflogger (0.67.2)
   - React-RCTActionSheet (0.67.2):
@@ -431,9 +435,9 @@ PODS:
     - React-jsi (= 0.67.2)
     - React-logger (= 0.67.2)
     - React-perflogger (= 0.67.2)
-  - RNCAsyncStorage (1.15.14):
+  - RNCAsyncStorage (1.17.7):
     - React-Core
-  - RNCClipboard (1.9.0):
+  - RNCClipboard (1.10.0):
     - React-Core
   - RNCMaskedView (0.1.11):
     - React
@@ -444,15 +448,15 @@ PODS:
     - Firebase/Messaging (= 8.9.1)
     - React-Core
     - RNFBApp
-  - RNGestureHandler (2.2.0):
+  - RNGestureHandler (2.5.0):
     - React-Core
   - RNInAppBrowser (3.6.3):
     - React-Core
-  - RNLocalize (2.1.7):
+  - RNLocalize (2.2.2):
     - React-Core
-  - RNPermissions (3.1.0):
+  - RNPermissions (3.6.0):
     - React-Core
-  - RNReanimated (2.3.0):
+  - RNReanimated (2.9.1):
     - DoubleConversion
     - FBLazyVector
     - FBReactNativeSpec
@@ -460,7 +464,6 @@ PODS:
     - RCT-Folly
     - RCTRequired
     - RCTTypeSafety
-    - React
     - React-callinvoker
     - React-Core
     - React-Core/DevSupport
@@ -480,19 +483,19 @@ PODS:
     - React-RCTText
     - ReactCommon/turbomodule/core
     - Yoga
-  - RNScreens (3.10.2):
+  - RNScreens (3.15.0):
     - React-Core
     - React-RCTImage
-  - RNSentry (3.2.3):
+  - RNSentry (4.2.0):
     - React-Core
-    - Sentry (= 7.5.1)
-  - RNSVG (12.1.1):
-    - React
-  - RNVectorIcons (9.0.0):
+    - Sentry (= 7.21.0)
+  - RNSVG (12.4.1):
     - React-Core
-  - Sentry (7.5.1):
-    - Sentry/Core (= 7.5.1)
-  - Sentry/Core (7.5.1)
+  - RNVectorIcons (9.2.0):
+    - React-Core
+  - Sentry (7.21.0):
+    - Sentry/Core (= 7.21.0)
+  - Sentry/Core (7.21.0)
   - Yoga (1.14.0)
   - YogaKit (1.18.1):
     - Yoga (~> 1.14)
@@ -746,16 +749,16 @@ SPEC CHECKSUMS:
   FlipperKit: d8d346844eca5d9120c17d441a2f38596e8ed2b9
   fmt: ff9d55029c625d3757ed641535fd4a75fedc7ce9
   GCDWebServer: 2c156a56c8226e2d5c0c3f208a3621ccffbe3ce4
-  glog: 5337263514dd6f09803962437687240c5dc39aa4
+  glog: 85ecdd10ee8d8ec362ef519a6a45ff9aa27b2e85
   GoogleDataTransport: 629c20a4d363167143f30ea78320d5a7eb8bd940
   GoogleUtilities: 684ee790a24f73ebb2d1d966e9711c203f2a4237
   libevent: 4049cae6c81cdb3654a443be001fb9bdceff7913
   nanopb: a0ba3315591a9ae0a16a309ee504766e90db0c96
   OpenSSL-Universal: 1aa4f6a6ee7256b83db99ec1ccdaa80d10f9af9b
-  Permission-LocationWhenInUse: d98db702ec75e93a3ff94bc297d0b66ea04231e1
-  Permission-Notifications: e247d69c22ae72770d1c5314ad6ccd1256c57c83
+  Permission-LocationWhenInUse: 51aa065819cd582517e98e89b564e2465a4a83c6
+  Permission-Notifications: 7f2a467ab97a130a847519705340830d52cfc5f0
   PromisesObjC: 68159ce6952d93e17b2dfe273b8c40907db5ba58
-  RCT-Folly: a21c126816d8025b547704b777a2ba552f3d9fa9
+  RCT-Folly: 803a9cfd78114b2ec0f140cfa6fa2a6bafb2d685
   RCTRequired: cd47794163052d2b8318c891a7a14fcfaccc75ab
   RCTSystemSetting: 5107b7350d63b3f7b42a1277d07e4e5d9df879be
   RCTTypeSafety: 393bb40b3e357b224cde53d3fec26813c52428b1
@@ -768,16 +771,16 @@ SPEC CHECKSUMS:
   React-jsiexecutor: 52beb652bbc61201bd70cbe4f0b8edb607e8da4f
   React-jsinspector: 595f76eba2176ebd8817a1fffd47b84fbdab9383
   React-logger: 23de8ea0f44fa00ee77e96060273225607fd4d78
-  react-native-blob-util: 600972b1782380a5a7d5db61a3817ea32349dae9
-  react-native-geolocation: c956aeb136625c23e0dce0467664af2c437888c9
+  react-native-blob-util: c3b0faecd2919db568e9d552084396f3e50b57c7
+  react-native-geolocation: 69f4fd37650b8e7fee91816d395e62dd16f5ab8d
   react-native-mapbox-gl: 9fc139bea0119fd862c93df0adba1849b053e435
-  react-native-netinfo: a3ece35948490a9507da0c56694da525b83357df
-  react-native-pdf: a6a5a3f0bdf340eb2eed6c96034424d2cc3f84b0
+  react-native-netinfo: 129bd99f607a2dc5bb096168f3e5c150fd1f1c95
+  react-native-pdf: de35db0d8f1e5d37e65e887554f7d4bd062af56b
   react-native-progress-bar-android: be43138ab7da30d51fc038bafa98e9ed594d0c40
   react-native-progress-view: 9e6b6a5305a9115c2157ae3b8852081aba0aab7c
-  react-native-safe-area-context: 584dc04881deb49474363f3be89e4ca0e854c057
-  react-native-static-server: d2e7392c8991b7e88a80ce163fe6e33eb8e63c26
-  react-native-webview: 10996be8bcc5e37a30dbc139fc544bb651dc8612
+  react-native-safe-area-context: 6c12e3859b6f27b25de4fee8201cfb858432d8de
+  react-native-static-server: 9bb6c921baf4f2ad7e84832b82fa0eb5fe57c9f0
+  react-native-webview: e771bc375f789ebfa02a26939a57dbc6fa897336
   React-perflogger: 3c9bb7372493e49036f07a82c44c8cf65cbe88db
   React-RCTActionSheet: 052606483045a408693aa7e864410b4a052f541a
   React-RCTAnimation: 08d4cac13222bb1348c687a0158dfd3b577cdb63
@@ -790,21 +793,21 @@ SPEC CHECKSUMS:
   React-RCTVibration: 99c7f67fba7a5ade46e98e870c6ff2444484f995
   React-runtimeexecutor: 2450b43df7ffe8e805a0b3dcb2abd4282f1f1836
   ReactCommon: d98c6c96b567f9b3a15f9fd4cc302c1eda8e3cf2
-  RNCAsyncStorage: ea6b5c280997b2b32a587793163b1f10e580c4f7
-  RNCClipboard: 99fc8ad669a376b756fbc8098ae2fd05c0ed0668
+  RNCAsyncStorage: d81ee5c3db1060afd49ea7045ad460eff82d2b7d
+  RNCClipboard: f1736c75ab85b627a4d57587edb4b60999c4dd80
   RNCMaskedView: 0e1bc4bfa8365eba5fbbb71e07fbdc0555249489
   RNFBApp: dda844e7084b590eb3d9bec1b2115cabbe4bc40e
   RNFBMessaging: 037ec36b58b6f68e9b2ae83c189eb388eaf48822
-  RNGestureHandler: bf572f552ea324acd5b5464b8d30755b2d8c1de6
+  RNGestureHandler: bad495418bcbd3ab47017a38d93d290ebd406f50
   RNInAppBrowser: 3ff3a3b8f458aaf25aaee879d057352862edf357
-  RNLocalize: f567ea0e35116a641cdffe6683b0d212d568f32a
-  RNPermissions: 4b54095940aea8c03fa3e6c92d4ac3647b31ed4e
-  RNReanimated: 88ca7e0d71398b862da0eee772af2dada75ebdf0
-  RNScreens: d6da2b9e29cf523832c2542f47bf1287318b1868
-  RNSentry: 97bc62fa65b7d663daee16fbf9771470852217cf
-  RNSVG: 551acb6562324b1d52a4e0758f7ca0ec234e278f
-  RNVectorIcons: 4143ba35feebab8fdbe6bc43d1e776b393d47ac8
-  Sentry: 0718c3ad7a08e1107599610795adaf08864102f3
+  RNLocalize: 95a43f85e41a966be7bc9cff2437128911c52da0
+  RNPermissions: de7b7c3fe1680d974ac7a85e3e97aa539c0e68ea
+  RNReanimated: b5b17149593e7c05e4ec5c0efea1f21e05829510
+  RNScreens: 4a1af06327774490d97342c00aee0c2bafb497b7
+  RNSentry: 227b01d7373289c51b8c31b2c8d6bac49f1a4335
+  RNSVG: f2bbcdece1e7d8e5f2f94536ed2a2dcf8f95ea4f
+  RNVectorIcons: fcc2f6cb32f5735b586e66d14103a74ce6ad61f8
+  Sentry: 194d0a2d4d6ef92c9c08c98d998340b0a63efd81
   Yoga: 9b6696970c3289e8dea34b3eda93f23e61fb8121
   YogaKit: f782866e155069a2cca2517aafea43200b01fd5a
 
