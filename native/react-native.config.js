@@ -8,12 +8,12 @@ const excludeConfig = { platforms: { android: null, ios: null } }
 const firebase = floss
   ? {
       '@react-native-firebase/app': excludeConfig,
-      '@react-native-firebase/messaging': excludeConfig
+      '@react-native-firebase/messaging': excludeConfig,
     }
   : {}
 
 const flipper = developerFriendly ? {} : { 'react-native-flipper': excludeConfig }
 
 module.exports = {
-  dependencies: { ...firebase, ...flipper }
+  dependencies: { ...firebase, ...flipper },
 }

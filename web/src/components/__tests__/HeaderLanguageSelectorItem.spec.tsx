@@ -12,13 +12,13 @@ describe('HeaderLanguageSelectorItem', () => {
     new SelectorItemModel({
       code: 'en',
       href: '/augsburg/en/',
-      name: 'English'
+      name: 'English',
     }),
     new SelectorItemModel({
       code: 'de',
       href: '/augsburg/de/',
-      name: 'Deutsch'
-    })
+      name: 'Deutsch',
+    }),
   ]
 
   const activeItemCode = 'de'

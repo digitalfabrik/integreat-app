@@ -2,7 +2,7 @@ import {
   AndroidBuildConfigType,
   CommonBuildConfigType,
   iOSBuildConfigType,
-  WebBuildConfigType
+  WebBuildConfigType,
 } from './BuildConfigType'
 import aschaffenburgBuildConfig from './aschaffenburg'
 import aschaffenburgBuildConfigName from './aschaffenburg/build-config-name'
@@ -47,7 +47,7 @@ export const buildConfigs: Record<string, BuildConfigPlatformType> = {
   [malteBuildConfigName]: malteBuildConfig,
   [malteTestCmsBuildConfigName]: malteTestCmsBuildConfig,
   [aschaffenburgBuildConfigName]: aschaffenburgBuildConfig,
-  [obdachBuildConfigName]: obdachBuildConfig
+  [obdachBuildConfigName]: obdachBuildConfig,
 }
 
 const loadBuildConfig = <T extends PlatformType>(

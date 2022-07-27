@@ -6,7 +6,7 @@ import {
   Payload,
   TU_NEWS_TYPE,
   TunewsModel,
-  useLoadFromEndpoint
+  useLoadFromEndpoint,
 } from 'api-client'
 
 import LanguageNotAvailablePage from '../components/LanguageNotAvailablePage'
@@ -27,7 +27,7 @@ const TuNewsNews = ({
   cityModel,
   selectNews,
   newsId,
-  changeUnavailableLanguage
+  changeUnavailableLanguage,
 }: PropsType): ReactElement => {
   const { availableLanguages, ...tuNewsResponse } = useLoadTuNews({ language })
 
@@ -41,7 +41,7 @@ const TuNewsNews = ({
     data: tuNewsElementData,
     loading: tuNewsElementLoading,
     error: tuNewsElementError,
-    refresh: tuNewsElementRefresh
+    refresh: tuNewsElementRefresh,
   } = useLoadFromEndpoint(requestTuNewsElement)
 
   if (availableLanguages && !availableLanguages.find(model => model.code === language)) {
@@ -54,7 +54,7 @@ const TuNewsNews = ({
         error: tuNewsElementError,
         data: tuNewsElementData ? [tuNewsElementData] : null,
         // Prevent flickering (if newsId is freshly set it takes one rerender for loading to be set to true)
-        loading: tuNewsElementLoading || (!tuNewsElementError && !tuNewsElementData)
+        loading: tuNewsElementLoading || (!tuNewsElementError && !tuNewsElementData),
       }
     : tuNewsResponse
 

@@ -10,5 +10,5 @@ export const Routes = {
   landing: `landing/${language}`,
   dashboard: `${defaultCityCode}/${language}`,
   dashboardAugsburg: `augsburg/${language}`,
-  search: `${defaultCityCode}/${language}/search`
+  search: `${defaultCityCode}/${language}/search`,
 }

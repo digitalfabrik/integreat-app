@@ -6,5 +6,5 @@ const useTheme = () => buildConfig().lightTheme
 
 module.exports = {
   ...realModule,
-  useTheme
+  useTheme,
 }

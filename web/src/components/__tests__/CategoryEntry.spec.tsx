@@ -19,10 +19,10 @@ const category = new CategoryModel({
   availableLanguages: new Map([
     ['en', '4861'],
     ['ar', '4867'],
-    ['fa', '4868']
+    ['fa', '4868'],
   ]),
   thumbnail: 'https://cms.integreat-ap…03/Beratung-150x150.png',
-  lastUpdate: moment('2017-11-18T19:30:00.000Z')
+  lastUpdate: moment('2017-11-18T19:30:00.000Z'),
 })
 const childCategory = new CategoryModel({
   root: false,
@@ -34,10 +34,10 @@ const childCategory = new CategoryModel({
   availableLanguages: new Map([
     ['en', '4861'],
     ['ar', '4867'],
-    ['fa', '4868']
+    ['fa', '4868'],
   ]),
   thumbnail: 'https://cms.integreat-ap…03/Beratung-150x150.png',
-  lastUpdate: moment('2017-11-18T19:30:00.000Z')
+  lastUpdate: moment('2017-11-18T19:30:00.000Z'),
 })
 const noThumbCategory = new CategoryModel({
   root: false,
@@ -49,10 +49,10 @@ const noThumbCategory = new CategoryModel({
   availableLanguages: new Map([
     ['en', '390'],
     ['ar', '711'],
-    ['fa', '397']
+    ['fa', '397'],
   ]),
   thumbnail: '',
-  lastUpdate: moment('2017-11-18T19:30:00.000Z')
+  lastUpdate: moment('2017-11-18T19:30:00.000Z'),
 })
 
 describe('CategoryEntry', () => {
@@ -95,8 +95,8 @@ describe('CategoryEntry', () => {
       const highlightStyle = {
         _values: {
           'background-color': 'rgb(255, 255, 255)',
-          'font-weight': 'bold'
-        }
+          'font-weight': 'bold',
+        },
       }
 
       const { getByText, getByLabelText } = renderWithRouter(

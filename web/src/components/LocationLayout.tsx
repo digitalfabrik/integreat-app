@@ -39,7 +39,7 @@ const LocationLayout = (props: PropsType): ReactElement => {
     toolbar: toolbarProp,
     fullWidth = false,
     disableScrollingSafari = false,
-    showFooter = true
+    showFooter = true,
   } = props
   const { feedbackTargetInformation, cityModel } = props
 

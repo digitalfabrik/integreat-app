@@ -8,7 +8,7 @@ import { StoreActionType } from '../redux/StoreActionType'
 const navigateToDisclaimer = <T extends RoutesType>({
   navigation,
   cityCode,
-  languageCode
+  languageCode,
 }: {
   dispatch: Dispatch<StoreActionType>
   navigation: NavigationPropType<T>
@@ -19,8 +19,8 @@ const navigateToDisclaimer = <T extends RoutesType>({
     name: DISCLAIMER_ROUTE,
     params: {
       cityCode,
-      languageCode
-    }
+      languageCode,
+    },
   })
 }
 

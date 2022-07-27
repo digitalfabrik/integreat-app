@@ -31,7 +31,7 @@ describe('Landing', () => {
     const previous = buildConfig()
     mockedBuildConfig.mockImplementation(() => ({
       ...previous,
-      featureFlags: { ...previous.featureFlags, cityNotCooperating }
+      featureFlags: { ...previous.featureFlags, cityNotCooperating },
     }))
   }
 

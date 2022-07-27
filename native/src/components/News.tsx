@@ -12,7 +12,7 @@ import {
   NotFoundError,
   ReturnType,
   TU_NEWS_TYPE,
-  TunewsModel
+  TunewsModel,
 } from 'api-client'
 
 import Failure from './Failure'
@@ -71,7 +71,7 @@ const News = (props: PropsType): ReactElement => {
         type: 'category',
         id: selectedNewsType,
         city: cityModel.code,
-        language
+        language,
       })
     : error
 
@@ -95,7 +95,7 @@ const News = (props: PropsType): ReactElement => {
       type: selectedNewsType,
       id: newsId,
       city: cityModel.code,
-      language
+      language,
     })
     return <Failure code={fromError(error)} />
   }
@@ -103,7 +103,7 @@ const News = (props: PropsType): ReactElement => {
   return (
     <View
       style={{
-        flex: 1
+        flex: 1,
       }}>
       <NewsList
         renderNoItemsComponent={renderNoItemsComponent}

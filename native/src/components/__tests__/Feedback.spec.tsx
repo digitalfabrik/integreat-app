@@ -26,7 +26,7 @@ describe('Feedback', () => {
     onFeedbackContactMailChanged,
     onSubmit,
     theme: buildConfig().lightTheme,
-    t
+    t,
   })
 
   it('button should be disabled for negative feedback and no input', async () => {

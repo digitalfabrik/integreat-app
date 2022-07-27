@@ -32,7 +32,7 @@ describe('ResourceURLFinder', () => {
         'https://ex.am/pl2.png',
         'https://ex.am/pl2.jpg',
         'https://ex.am/pl2.jpeg',
-        'https://ex.am/pl2.pdf'
+        'https://ex.am/pl2.pdf',
       ])
     )
   })
@@ -45,13 +45,13 @@ describe('ResourceURLFinder', () => {
         thumbnail: 'https://ex.am/thumb.png',
         content: `<img src="https://ex.am/pl1.png" alt="Crazy" />
                   <img src="https://ex.am/noextension" alt="Nöp!" />
-                  <img src="invalid-url" alt="Näp!" />`
+                  <img src="invalid-url" alt="Näp!" />`,
       },
       {
         path: '/path2',
         thumbnail: '',
-        content: '<img src="https://ex.am/pl2.png" alt="Crazy" />'
-      }
+        content: '<img src="https://ex.am/pl2.png" alt="Crazy" />',
+      },
     ]
     const fetchMap = finder.buildFetchMap(input, (url, urlHash) => `buildFilePath('${url}', '${urlHash}')`)
     finder.finalize()
@@ -64,13 +64,13 @@ describe('ResourceURLFinder', () => {
       {
         path: '/path1',
         thumbnail: 'https://ex.am/thumb.png',
-        content: '<img src="https://ex.am/pl1.png" alt="Crazy" />'
+        content: '<img src="https://ex.am/pl1.png" alt="Crazy" />',
       },
       {
         path: '/path2',
         thumbnail: 'https://ex.am/thumb.png',
-        content: '<img src="https://ex.am/pl1.png" alt="Crazy" />'
-      }
+        content: '<img src="https://ex.am/pl1.png" alt="Crazy" />',
+      },
     ]
     const fetchMap = finder.buildFetchMap(input, (url, urlHash) => `buildFilePath('${url}', '${urlHash}')`)
     finder.finalize()

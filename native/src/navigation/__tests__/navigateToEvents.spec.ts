@@ -6,7 +6,7 @@ import navigateToEvents from '../navigateToEvents'
 const url = (path: string) => `some.base.url/${path}`
 
 jest.mock('../url', () => ({
-  url: jest.fn(url)
+  url: jest.fn(url),
 }))
 const cityCode = 'augsburg'
 const languageCode = 'de'
@@ -20,19 +20,19 @@ describe('navigateToEvents', () => {
       navigation,
       cityCode,
       languageCode,
-      cityContentPath
+      cityContentPath,
     })
     expect(navigation.navigate).toHaveBeenCalledWith(
       expect.objectContaining({
-        key: expect.stringMatching(/^.{6,}$/) // at least 6 chars but no newline
+        key: expect.stringMatching(/^.{6,}$/), // at least 6 chars but no newline
       })
     )
     const { key } = mocked(navigation.navigate).mock.calls[0]![0]
     expect(dispatch).toHaveBeenCalledWith({
       type: 'FETCH_EVENT',
       params: expect.objectContaining({
-        key
-      })
+        key,
+      }),
     })
   })
   it('should dispatch a FETCH_EVENT action and refresh resources on force refresh', () => {
@@ -45,7 +45,7 @@ describe('navigateToEvents', () => {
       languageCode: 'de',
       cityContentPath: '/augsburg/de/events',
       key: 'route-id-1',
-      forceRefresh: true
+      forceRefresh: true,
     })
     expect(dispatch).toHaveBeenCalledWith({
       type: 'FETCH_EVENT',
@@ -56,9 +56,9 @@ describe('navigateToEvents', () => {
         key: 'route-id-1',
         criterion: {
           forceUpdate: true,
-          shouldRefreshResources: true
-        }
-      }
+          shouldRefreshResources: true,
+        },
+      },
     })
   })
 })

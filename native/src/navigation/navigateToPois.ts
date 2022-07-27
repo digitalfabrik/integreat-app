@@ -14,7 +14,7 @@ const navigateToPois = <T extends RoutesType>({
   cityContentPath,
   key = generateRouteKey(),
   forceRefresh = false,
-  urlSlug
+  urlSlug,
 }: {
   dispatch: Dispatch<StoreActionType>
   navigation: NavigationPropType<T>
@@ -29,8 +29,8 @@ const navigateToPois = <T extends RoutesType>({
     name: POIS_ROUTE,
     key,
     params: {
-      urlSlug
-    }
+      urlSlug,
+    },
   })
   const fetchPoi: FetchPoiActionType = {
     type: 'FETCH_POI',
@@ -41,9 +41,9 @@ const navigateToPois = <T extends RoutesType>({
       key,
       criterion: {
         forceUpdate: forceRefresh,
-        shouldRefreshResources: forceRefresh
-      }
-    }
+        shouldRefreshResources: forceRefresh,
+      },
+    },
   }
   dispatch(fetchPoi)
 }

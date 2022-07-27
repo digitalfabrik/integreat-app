@@ -10,7 +10,7 @@ const loadBuildConfigAsKeyValue = (buildConfigName: string, platform: PlatformTy
   const xcconfigOptions = flat<Record<string, unknown>, Record<string, string | number | boolean>>(buildConfig, {
     delimiter: '_',
     // Dashes are not supported in keys in xcconfigs and android resources
-    transformKey: key => decamelize(key).toUpperCase().replace('-', '_')
+    transformKey: key => decamelize(key).toUpperCase().replace('-', '_'),
   })
   const assignOperator = `${spaces ? ' ' : ''}=${spaces ? ' ' : ''}`
 

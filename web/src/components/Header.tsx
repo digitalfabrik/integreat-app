@@ -99,7 +99,7 @@ export const Header = ({
   actionItems = [],
   logoHref,
   navigationItems = [],
-  cityName
+  cityName,
 }: PropsType): ReactElement => {
   const { headerHeightSmall, headerHeightLarge } = dimensions
   const hasNavigationBar = navigationItems.length > 0

@@ -5,7 +5,7 @@ import {
   AndroidBuildConfigType,
   CommonBuildConfigType,
   iOSBuildConfigType,
-  WebBuildConfigType
+  WebBuildConfigType,
 } from '../BuildConfigType'
 import { APP_STORE_TEAM_ID } from '../common/constants'
 import mainImprint from './mainImprint'
@@ -35,15 +35,15 @@ const commonAschaffenburgBuildConfig: CommonBuildConfigType = {
     sentry: true,
     developerFriendly: false,
     fixedCity: 'hallo',
-    cityNotCooperatingTemplate: null
+    cityNotCooperatingTemplate: null,
   },
   aboutUrls: {
-    default: 'https://www.aschaffenburg.de/halloaschaffenburg'
+    default: 'https://www.aschaffenburg.de/halloaschaffenburg',
   },
   privacyUrls: {
     default: 'https://integreat-app.de/datenschutz/',
-    en: 'https://integreat-app.de/en/privacy/'
-  }
+    en: 'https://integreat-app.de/en/privacy/',
+  },
 }
 
 export const androidAschaffenburgBuildConfig: AndroidBuildConfigType = {
@@ -58,8 +58,8 @@ export const androidAschaffenburgBuildConfig: AndroidBuildConfigType = {
     firebaseDatabaseUrl: 'https://integreat-2020.firebaseio.com',
     googleApiKey: 'AIzaSyBvc08_Cqww8z2Dh-EXtwHW98HXBk8T7V4',
     googleCrashReportingApiKey: 'AIzaSyBvc08_Cqww8z2Dh-EXtwHW98HXBk8T7V4',
-    projectId: 'integreat-2020'
-  }
+    projectId: 'integreat-2020',
+  },
 }
 
 export const iosAschaffenburgBuildConfig: iOSBuildConfigType = {
@@ -81,9 +81,9 @@ export const iosAschaffenburgBuildConfig: iOSBuildConfigType = {
     isGCMEnabled: true,
     isSigninEnabled: true,
     googleAppId: '1:164298278764:ios:ce4707c860f0a2cb6fd549',
-    databaseUrl: 'https://integreat-2020.firebaseio.com'
+    databaseUrl: 'https://integreat-2020.firebaseio.com',
   },
-  launchScreen: 'LaunchScreenDefault'
+  launchScreen: 'LaunchScreenDefault',
 }
 
 export const webAschaffenburgBuildConfig: WebBuildConfigType = {
@@ -94,28 +94,28 @@ export const webAschaffenburgBuildConfig: WebBuildConfigType = {
     appLogo: '/app-logo.png',
     appleTouchIcon: '/apple-touch-icon.png',
     socialMediaPreview: '/social-media-preview.png',
-    favicons: '/favicons/'
+    favicons: '/favicons/',
   },
   apps: {
     android: {
       applicationId: APPLICATION_ID,
       sha256CertFingerprint:
-        '21:BB:E8:40:4D:4E:18:62:68:A8:16:62:64:FB:27:D1:D1:A4:02:F5:96:44:F6:B9:B5:3F:39:14:17:55:50:99'
+        '21:BB:E8:40:4D:4E:18:62:68:A8:16:62:64:FB:27:D1:D1:A4:02:F5:96:44:F6:B9:B5:3F:39:14:17:55:50:99',
     },
     ios: {
       bundleIdentifier: BUNDLE_IDENTIFIER,
       appStoreId: '1551810291',
       appStoreName: 'aschaffenburg-app',
-      appleAppSiteAssociationAppIds: [`${APP_STORE_TEAM_ID}.${BUNDLE_IDENTIFIER}`]
-    }
-  }
+      appleAppSiteAssociationAppIds: [`${APP_STORE_TEAM_ID}.${BUNDLE_IDENTIFIER}`],
+    },
+  },
 }
 
 const platformBuildConfigs = {
   common: commonAschaffenburgBuildConfig,
   web: webAschaffenburgBuildConfig,
   android: androidAschaffenburgBuildConfig,
-  ios: iosAschaffenburgBuildConfig
+  ios: iosAschaffenburgBuildConfig,
 }
 
 export default platformBuildConfigs

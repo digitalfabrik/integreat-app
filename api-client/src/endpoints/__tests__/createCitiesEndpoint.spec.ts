@@ -21,13 +21,13 @@ describe('cities', () => {
     aliases: {
       Gersthofen: {
         longitude: 10.89779,
-        latitude: 48.3705449
-      }
+        latitude: 48.3705449,
+      },
     },
     bounding_box: [
       [10.7880103, 48.447238],
-      [11.0174493, 48.297834]
-    ]
+      [11.0174493, 48.297834],
+    ],
   }
   const city2: JsonCityType = {
     name: 'Stadt Regensburg',
@@ -43,7 +43,7 @@ describe('cities', () => {
     latitude: 48.369696,
     longitude: 10.892578,
     aliases: null,
-    bounding_box: null
+    bounding_box: null,
   }
 
   const cityJson = [city1, city2]
@@ -71,10 +71,10 @@ describe('cities', () => {
         aliases: {
           Gersthofen: {
             longitude: 10.89779,
-            latitude: 48.3705449
-          }
+            latitude: 48.3705449,
+          },
         },
-        boundingBox: [10.7880103, 48.447238, 11.0174493, 48.297834]
+        boundingBox: [10.7880103, 48.447238, 11.0174493, 48.297834],
       }),
       new CityModel({
         name: city2.name,
@@ -90,8 +90,8 @@ describe('cities', () => {
         latitude: 48.369696,
         longitude: 10.892578,
         aliases: null,
-        boundingBox: null
-      })
+        boundingBox: null,
+      }),
     ])
   })
 })

@@ -15,12 +15,12 @@ jest.mock('react-i18next')
 jest.mock('api-client', () => ({
   ...jest.requireActual('api-client'),
   createPOIsEndpoint: () => ({
-    request: mockRequest
+    request: mockRequest,
   }),
   useLoadFromEndpoint: async (request: any) => {
     const data = await request()
     return { loading: false, error: null, refresh: jest.fn(), data }
-  }
+  },
 }))
 
 describe('useFeatureLocations', () => {

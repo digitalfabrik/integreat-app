@@ -21,7 +21,7 @@ describe('watchClearResourcesAndCache', () => {
       JSON.stringify({
         this: 'is',
         a: 'cool',
-        json: 111
+        json: 111,
       }),
       'utf-8'
     )
@@ -30,12 +30,12 @@ describe('watchClearResourcesAndCache', () => {
       JSON.stringify({
         this: 'expression',
         is: true,
-        not: false
+        not: false,
       }),
       'utf-8'
     )
     const action: ClearResourcesAndCacheActionType = {
-      type: 'CLEAR_RESOURCES_AND_CACHE'
+      type: 'CLEAR_RESOURCES_AND_CACHE',
     }
     const dataContainer = new DefaultDataContainer()
     await expectSaga(clearResourcesAndCache, dataContainer, action).run()
@@ -44,7 +44,7 @@ describe('watchClearResourcesAndCache', () => {
   it('should delete all data in in-memory caches', async () => {
     const dataContainer = new DefaultDataContainer()
     const action: ClearResourcesAndCacheActionType = {
-      type: 'CLEAR_RESOURCES_AND_CACHE'
+      type: 'CLEAR_RESOURCES_AND_CACHE',
     }
     // populate some caches
     const cityModels = new CityModelBuilder(3).build()
@@ -62,8 +62,8 @@ describe('watchClearResourcesAndCache', () => {
       .put({
         type: 'FETCH_CITIES',
         params: {
-          forceRefresh: false
-        }
+          forceRefresh: false,
+        },
       })
   })
   it('should correctly call clearResourcesAndCache when triggered', async () => {

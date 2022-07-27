@@ -26,7 +26,7 @@ const LanguageNotAvailablePage = ({ languages, changeLanguage }: PropsType): Rea
         code,
         name,
         enabled: true,
-        onPress: () => changeLanguage(code)
+        onPress: () => changeLanguage(code),
       })
   )
 

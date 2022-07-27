@@ -46,7 +46,7 @@ const Toolbar: React.FC<ToolbarProps> = ({
   children,
   className,
   viewportSmall,
-  iconDirection = 'column'
+  iconDirection = 'column',
 }: ToolbarProps): ReactElement => {
   const { t } = useTranslation('feedback')
   const hasPadding = iconDirection === 'column'
