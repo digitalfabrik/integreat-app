@@ -24,8 +24,8 @@ describe('SearchInput', () => {
 
     fireEvent.change(getByPlaceholderText('Placeholder'), {
       target: {
-        value: 'test'
-      }
+        value: 'test',
+      },
     })
     expect(outerFilterTextChange).toHaveBeenCalledWith('test')
   })

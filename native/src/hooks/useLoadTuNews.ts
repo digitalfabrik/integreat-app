@@ -7,7 +7,7 @@ import {
   loadFromEndpoint,
   Payload,
   ReturnType,
-  TunewsModel
+  TunewsModel,
 } from 'api-client'
 
 import { tunewsApiUrl } from '../constants/endpoint'
@@ -48,7 +48,7 @@ const useLoadTuNews = ({ language }: ParamsType): TuNewsReturnType => {
       return createTunewsEndpoint(tunewsApiUrl).request({
         language,
         page,
-        count: TUNEWS_FETCH_COUNT_LIMIT
+        count: TUNEWS_FETCH_COUNT_LIMIT,
       })
     }
 
@@ -86,7 +86,7 @@ const useLoadTuNews = ({ language }: ParamsType): TuNewsReturnType => {
     loadingMore: loading && page !== FIRST_PAGE_INDEX,
     refresh: reset,
     loadMore,
-    availableLanguages
+    availableLanguages,
   }
 }
 

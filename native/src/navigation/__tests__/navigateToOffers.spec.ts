@@ -11,14 +11,14 @@ describe('navigateToOffers', () => {
     navigateToOffers({
       navigation,
       cityCode,
-      languageCode
+      languageCode,
     })
     expect(navigation.navigate).toHaveBeenCalledWith({
       name: OFFERS_ROUTE,
       params: {
         cityCode,
-        languageCode
-      }
+        languageCode,
+      },
     })
   })
 })

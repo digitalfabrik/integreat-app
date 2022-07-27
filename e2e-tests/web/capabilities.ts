@@ -11,9 +11,9 @@ const browserstackCaps = (config: BrowserStackCapabilities): Capabilities => {
       sessionName: `${config.browserName?.toLowerCase()}: ${getGitHeadReference()}`,
       local: true,
       debug: true,
-      projectName: 'integreat-app-web'
+      projectName: 'integreat-app-web',
     },
-    browserName: config.browserName
+    browserName: config.browserName,
   }
 }
 
@@ -24,25 +24,25 @@ export const browserstackCapabilities = {
     browserVersion: '80',
     os: 'Windows',
     osVersion: '10',
-    browserName: 'Chrome'
+    browserName: 'Chrome',
   }),
   firefox: browserstackCaps({
     os: 'Windows',
     osVersion: '10',
     browserName: 'Firefox',
-    browserVersion: '84.0'
+    browserVersion: '84.0',
   }),
   safari: browserstackCaps({
     os: 'OS X',
     osVersion: 'Big Sur',
     browserName: 'Safari',
-    browserVersion: '14.0'
-  })
+    browserVersion: '14.0',
+  }),
 } as Record<typeof browsers[number], Capabilities>
 
 export const ciCapabilities = {
   browserName: 'chrome',
   'goog:chromeOptions': {
-    args: ['--no-sandbox', '--disable-infobars', '--headless']
-  }
+    args: ['--no-sandbox', '--disable-infobars', '--headless'],
+  },
 }

@@ -7,7 +7,7 @@ import {
   NotFoundError,
   pathnameFromRouteInformation,
   SHELTER_ROUTE,
-  useLoadFromEndpoint
+  useLoadFromEndpoint,
 } from 'api-client'
 
 import FailureSwitcher from './FailureSwitcher'
@@ -32,14 +32,14 @@ const ShelterDetail = ({
   pathname,
   languages,
   shelterId,
-  viewportSmall
+  viewportSmall,
 }: Props): ReactElement => {
   const requestShelter = useCallback(
     () =>
       createShelterEndpoint().request({
         type: 'detail',
         id: shelterId,
-        cityCode
+        cityCode,
       }),
     [shelterId, cityCode]
   )
@@ -48,7 +48,7 @@ const ShelterDetail = ({
   const languageChangePaths = languages.map(({ code, name }) => ({
     path: `${pathnameFromRouteInformation({ route: SHELTER_ROUTE, cityCode, languageCode: code })}/${shelterId}`,
     name,
-    code
+    code,
   }))
   const locationLayoutParams = {
     cityModel,
@@ -56,7 +56,7 @@ const ShelterDetail = ({
     feedbackTargetInformation: null,
     languageChangePaths,
     route: SHELTER_ROUTE,
-    languageCode
+    languageCode,
   }
 
   if (loading) {

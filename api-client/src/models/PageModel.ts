@@ -13,7 +13,7 @@ class PageModel {
     path,
     title,
     content,
-    lastUpdate
+    lastUpdate,
   }: {
     path: string
     title: string

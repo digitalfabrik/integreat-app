@@ -41,8 +41,8 @@ const createChangeUnavailableLanguage =
       type: 'SWITCH_CONTENT_LANGUAGE',
       params: {
         newLanguage,
-        city
-      }
+        city,
+      },
     }
     dispatch(switchContentLanguage)
   }
@@ -50,12 +50,12 @@ const createChangeUnavailableLanguage =
 const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsType => {
   const {
     navigation,
-    route: { key }
+    route: { key },
   } = ownProps
 
   if (!state.cityContent) {
     return {
-      status: 'routeNotInitialized'
+      status: 'routeNotInitialized',
     }
   }
 
@@ -64,7 +64,7 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
 
   if (!route || route.routeType !== POIS_ROUTE) {
     return {
-      status: 'routeNotInitialized'
+      status: 'routeNotInitialized',
     }
   }
 
@@ -78,7 +78,7 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
         status: 'error',
         refreshProps: null,
         code: languages.status === 'error' ? languages.code : ErrorCode.UnknownError,
-        message: languages.status === 'error' ? languages.message : 'languages not ready'
+        message: languages.status === 'error' ? languages.message : 'languages not ready',
       }
     }
 
@@ -86,7 +86,7 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
       status: 'languageNotAvailable',
       availableLanguages: languages.models.filter(lng => route.allAvailableLanguages.has(lng.code)),
       cityCode: route.city,
-      changeUnavailableLanguage: createChangeUnavailableLanguage(route.city)
+      changeUnavailableLanguage: createChangeUnavailableLanguage(route.city),
     }
   }
 
@@ -95,7 +95,7 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
     cityCode: route.city,
     language: route.language,
     navigation: ownProps.navigation,
-    route: ownProps.route
+    route: ownProps.route,
   }
 
   if (state.cities.status === 'error') {
@@ -103,7 +103,7 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
       status: 'error',
       message: state.cities.message,
       code: state.cities.code,
-      refreshProps
+      refreshProps,
     }
   }
   if (resourceCache.status === 'error') {
@@ -111,7 +111,7 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
       status: 'error',
       message: resourceCache.message,
       code: resourceCache.code,
-      refreshProps
+      refreshProps,
     }
   }
   if (route.status === 'error') {
@@ -119,7 +119,7 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
       status: 'error',
       message: route.message,
       code: route.code,
-      refreshProps
+      refreshProps,
     }
   }
   if (languages.status === 'error') {
@@ -127,7 +127,7 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
       status: 'error',
       message: languages.message,
       code: languages.code,
-      refreshProps
+      refreshProps,
     }
   }
 
@@ -142,7 +142,7 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
   ) {
     return {
       status: 'loading',
-      progress: resourceCache.progress
+      progress: resourceCache.progress,
     }
   }
 
@@ -152,7 +152,7 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
       status: 'error',
       refreshProps,
       message: 'Unknown city',
-      code: ErrorCode.PageNotFound
+      code: ErrorCode.PageNotFound,
     }
   }
 
@@ -167,13 +167,13 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
       resourceCache: resourceCache.value,
       resourceCacheUrl,
       navigation,
-      route: ownProps.route
-    }
+      route: ownProps.route,
+    },
   }
 }
 
 const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>): DispatchPropsType => ({
-  dispatch
+  dispatch,
 })
 
 const refresh = (refreshProps: RefreshPropsType, dispatch: Dispatch<StoreActionType>) => {
@@ -184,7 +184,7 @@ const refresh = (refreshProps: RefreshPropsType, dispatch: Dispatch<StoreActionT
       route: POIS_ROUTE,
       cityCode,
       languageCode: language,
-      cityContentPath: path || undefined
+      cityContentPath: path || undefined,
     },
     route.key,
     true

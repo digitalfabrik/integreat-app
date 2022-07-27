@@ -10,7 +10,7 @@ import {
   PoiModel,
   CategoriesRouteType,
   EventsRouteType,
-  PoisRouteType
+  PoisRouteType,
 } from 'api-client'
 import { config } from 'translations'
 
@@ -148,7 +148,7 @@ export type CitiesStateType =
 export const defaultCitiesState: CitiesStateType = {
   status: 'error',
   code: ErrorCode.UnknownError,
-  message: 'Cities not yet initialized'
+  message: 'Cities not yet initialized',
 }
 export type LanguagesStateType =
   | {

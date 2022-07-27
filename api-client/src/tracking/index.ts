@@ -14,7 +14,7 @@ import {
   PoisRouteType,
   SearchRouteType,
   SettingsRouteType,
-  SprungbrettOfferRouteType
+  SprungbrettOfferRouteType,
 } from '../routes'
 
 export const JPAL_TRACKING_CODE_QUERY_PARAM = 'jpal_tracking_code'

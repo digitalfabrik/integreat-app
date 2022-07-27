@@ -16,7 +16,7 @@ import {
   SEARCH_ROUTE,
   SHELTER_ROUTE,
   SPRUNGBRETT_OFFER_ROUTE,
-  useLoadFromEndpoint
+  useLoadFromEndpoint,
 } from 'api-client'
 
 import FailureSwitcher from './components/FailureSwitcher'
@@ -106,7 +106,7 @@ const CityContentSwitcher = ({ cities, languageCode }: PropsType): ReactElement 
           languageChangePaths={languages.map(({ code, name }) => ({
             code,
             name,
-            path: cityContentPath({ cityCode, languageCode: code })
+            path: cityContentPath({ cityCode, languageCode: code }),
           }))}
         />
       </Layout>
@@ -120,7 +120,7 @@ const CityContentSwitcher = ({ cities, languageCode }: PropsType): ReactElement 
     languageModel,
     pathname,
     cityCode,
-    languageCode
+    languageCode,
   }
   const { eventsEnabled, offersEnabled } = cityModel
   const localNewsEnabled = buildConfig().featureFlags.newsStream && cityModel.localNewsEnabled
@@ -134,7 +134,7 @@ const CityContentSwitcher = ({ cities, languageCode }: PropsType): ReactElement 
     languageChangePaths: null,
     languageCode,
     pathname,
-    isLoading: true
+    isLoading: true,
   }
 
   const render = <S extends RouteType>(

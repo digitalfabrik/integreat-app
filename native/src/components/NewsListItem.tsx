@@ -122,9 +122,9 @@ const NewsListItem = ({ index, newsItem, language, navigateToNews, isTunews }: P
               style={{
                 transform: [
                   {
-                    scaleX: config.hasRTLScript(i18n.language) ? -1 : 1
-                  }
-                ]
+                    scaleX: config.hasRTLScript(i18n.language) ? -1 : 1,
+                  },
+                ],
               }}
             />
           </ReadMoreWrapper>

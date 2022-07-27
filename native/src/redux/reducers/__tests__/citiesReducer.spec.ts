@@ -8,21 +8,21 @@ describe('citiesReducer', () => {
   it('should set status to loading on FETCH_CITIES', () => {
     const prevState: CitiesStateType = {
       status: 'ready',
-      models: []
+      models: [],
     }
     const action: StoreActionType = {
       type: 'FETCH_CITIES',
       params: {
-        forceRefresh: false
-      }
+        forceRefresh: false,
+      },
     }
     expect(citiesReducer(prevState, action)).toEqual({
-      status: 'loading'
+      status: 'loading',
     })
   })
   it('should set models on PUSH_CITIES', () => {
     const prevState: CitiesStateType = {
-      status: 'loading'
+      status: 'loading',
     }
     const models = [
       new CityModel({
@@ -39,24 +39,24 @@ describe('citiesReducer', () => {
         aliases: null,
         latitude: 48.369696,
         longitude: 10.892578,
-        boundingBox: null
-      })
+        boundingBox: null,
+      }),
     ]
     expect(
       citiesReducer(prevState, {
         type: 'PUSH_CITIES',
         params: {
-          cities: models
-        }
+          cities: models,
+        },
       })
     ).toEqual({
       status: 'ready',
-      models
+      models,
     })
   })
   it('should set error status on FETCH_CITIES_FAILED', () => {
     const prevState: CitiesStateType = {
-      status: 'loading'
+      status: 'loading',
     }
     const errorMessage = 'Some Error'
     expect(
@@ -64,13 +64,13 @@ describe('citiesReducer', () => {
         type: 'FETCH_CITIES_FAILED',
         params: {
           message: errorMessage,
-          code: ErrorCode.UnknownError
-        }
+          code: ErrorCode.UnknownError,
+        },
       })
     ).toEqual({
       status: 'error',
       message: errorMessage,
-      code: ErrorCode.UnknownError
+      code: ErrorCode.UnknownError,
     })
   })
 })

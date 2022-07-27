@@ -8,8 +8,8 @@ export const fetch = jest.fn<Promise<NetInfoState>, []>(
       isConnected: true,
       isInternetReachable: true,
       details: {
-        isConnectionExpensive: false
-      }
+        isConnectionExpensive: false,
+      },
     } as NetInfoState)
 )
 export const addEventListener = (
@@ -47,7 +47,7 @@ export const isConnected = {
   },
   fetch: (): void => {
     throw Error('Function is deprecated')
-  }
+  },
 }
 export default {
   fetch,
@@ -56,5 +56,5 @@ export default {
   useNetInfo,
   getConnectionInfo,
   isConnectionExpensive,
-  isConnected
+  isConnected,
 }

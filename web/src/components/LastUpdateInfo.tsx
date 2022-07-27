@@ -27,7 +27,7 @@ export const LastUpdateInfo = ({
   withText,
   className,
   formatter,
-  format = 'LL'
+  format = 'LL',
 }: PropsType): ReactElement => {
   // only show day, month and year
   const timestamp = formatter.format(lastUpdate, { format })

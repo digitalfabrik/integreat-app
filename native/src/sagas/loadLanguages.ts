@@ -26,7 +26,7 @@ export default function* loadLanguages(
   const apiUrl = yield* call(determineApiUrl)
   const payload = yield* call(() =>
     createLanguagesEndpoint(apiUrl).request({
-      city
+      city,
     })
   )
   const languages = payload.data

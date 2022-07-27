@@ -104,11 +104,11 @@ const CityNotCooperating = (): ReactElement => {
           onPress={copyToClipboard}
           title={isCopied ? t('textCopied') : t('copyText')}
           buttonStyle={{
-            backgroundColor: theme.colors.themeColor
+            backgroundColor: theme.colors.themeColor,
           }}
           titleStyle={{
             color: theme.colors.textColor,
-            fontFamily: theme.fonts.native.contentFontRegular
+            fontFamily: theme.fonts.native.contentFontRegular,
           }}
         />
       </ButtonContainer>

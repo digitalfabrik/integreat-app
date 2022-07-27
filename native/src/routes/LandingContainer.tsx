@@ -30,8 +30,8 @@ const refresh = (refreshProps: Record<string, never>, dispatch: Dispatch<StoreAc
   dispatch({
     type: 'FETCH_CITIES',
     params: {
-      forceRefresh: true
-    }
+      forceRefresh: true,
+    },
   })
 }
 
@@ -43,14 +43,14 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
       status: 'error',
       message: state.cities.message,
       code: state.cities.code,
-      refreshProps: {}
+      refreshProps: {},
     }
   }
 
   if (state.cities.status === 'loading') {
     return {
       status: 'loading',
-      progress: 0
+      progress: 0,
     }
   }
 
@@ -60,9 +60,9 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
       cities: Array.from(state.cities.models),
       language,
       navigation: ownProps.navigation,
-      route: ownProps.route
+      route: ownProps.route,
     },
-    refreshProps: {}
+    refreshProps: {},
   }
 }
 
@@ -76,16 +76,16 @@ const LandingContainer = ({ navigation, dispatch, cities, language, route: _rout
       languageCode,
       cityContentPath: cityContentPath({
         cityCode,
-        languageCode
+        languageCode,
       }),
       forceRefresh: false,
-      resetNavigation: true
+      resetNavigation: true,
     })
   }
 
   const clearResourcesAndCache = () => {
     dispatch({
-      type: 'CLEAR_RESOURCES_AND_CACHE'
+      type: 'CLEAR_RESOURCES_AND_CACHE',
     })
   }
 

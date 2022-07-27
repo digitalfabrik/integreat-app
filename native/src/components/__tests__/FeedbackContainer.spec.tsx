@@ -5,7 +5,7 @@ import {
   CATEGORIES_FEEDBACK_TYPE,
   CATEGORIES_ROUTE,
   CONTENT_FEEDBACK_CATEGORY,
-  SEND_FEEDBACK_SIGNAL_NAME
+  SEND_FEEDBACK_SIGNAL_NAME,
 } from 'api-client'
 
 import buildConfig from '../../constants/buildConfig'
@@ -19,8 +19,8 @@ jest.mock('../../utils/sendTrackingSignal')
 jest.mock('api-client', () => ({
   ...jest.requireActual('api-client'),
   createFeedbackEndpoint: (_unusedBaseUrl: string) => ({
-    request: mockRequest
-  })
+    request: mockRequest,
+  }),
 }))
 
 describe('FeedbackContainer', () => {
@@ -50,7 +50,7 @@ describe('FeedbackContainer', () => {
       isPositiveRating: true,
       city,
       language,
-      comment: expect.stringContaining('Kontaktadresse: Keine Angabe')
+      comment: expect.stringContaining('Kontaktadresse: Keine Angabe'),
     })
     expect(sendTrackingSignal).toHaveBeenCalledTimes(1)
     expect(sendTrackingSignal).toHaveBeenCalledWith({
@@ -59,9 +59,9 @@ describe('FeedbackContainer', () => {
         feedback: {
           positive: true,
           numCharacters: 0,
-          contactMail: false
-        }
-      }
+          contactMail: false,
+        },
+      },
     })
   })
   it('should send feedback request with comment and contact information on submit', async () => {
@@ -93,7 +93,7 @@ describe('FeedbackContainer', () => {
       language,
       comment: `${comment}    Kontaktadresse: ${contactMail}`,
       permalink: undefined,
-      query: undefined
+      query: undefined,
     })
     expect(sendTrackingSignal).toHaveBeenCalledTimes(1)
     expect(sendTrackingSignal).toHaveBeenCalledWith({
@@ -102,9 +102,9 @@ describe('FeedbackContainer', () => {
         feedback: {
           positive: true,
           numCharacters: comment.length,
-          contactMail: true
-        }
-      }
+          contactMail: true,
+        },
+      },
     })
   })
 })

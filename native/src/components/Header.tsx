@@ -66,7 +66,7 @@ enum HeaderButtonTitle {
   Location = 'changeLocation',
   Search = 'search',
   Share = 'share',
-  Settings = 'settings'
+  Settings = 'settings',
 }
 
 const Header = (props: PropsType): ReactElement => {
@@ -94,20 +94,20 @@ const Header = (props: PropsType): ReactElement => {
     const message = t('shareMessage', {
       message: shareUrl,
       interpolation: {
-        escapeValue: false
-      }
+        escapeValue: false,
+      },
     })
     sendTrackingSignal({
       signal: {
         name: SHARE_SIGNAL_NAME,
-        url: shareUrl
-      }
+        url: shareUrl,
+      },
     })
 
     try {
       await Share.share({
         message,
-        title: buildConfig().appName
+        title: buildConfig().appName,
       })
     } catch (e) {
       showSnackbar(t('generalError'))
@@ -127,7 +127,7 @@ const Header = (props: PropsType): ReactElement => {
     const cityCode = routeCityModel.code
     navigation.navigate(DISCLAIMER_ROUTE, {
       cityCode,
-      languageCode: language
+      languageCode: language,
     })
   }
 
@@ -186,13 +186,13 @@ const Header = (props: PropsType): ReactElement => {
           theme={theme}
           items={[
             renderItem(HeaderButtonTitle.Search, 'search', showItems, goToSearch),
-            renderItem(HeaderButtonTitle.Language, 'language', showItems, goToLanguageChange)
+            renderItem(HeaderButtonTitle.Language, 'language', showItems, goToLanguageChange),
           ]}
           overflowItems={[
             showShare && renderOverflowItem(HeaderButtonTitle.Share, onShare),
             showChangeLocation && renderOverflowItem(HeaderButtonTitle.Location, goToLanding),
             renderOverflowItem(HeaderButtonTitle.Settings, goToSettings),
-            routeCityModel && renderOverflowItem(HeaderButtonTitle.Disclaimer, goToDisclaimer)
+            routeCityModel && renderOverflowItem(HeaderButtonTitle.Disclaimer, goToDisclaimer),
           ]}
         />
       </Horizontal>

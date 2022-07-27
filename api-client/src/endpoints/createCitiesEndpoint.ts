@@ -42,7 +42,7 @@ export default (baseUrl: string): Endpoint<void, Array<CityModel>> =>
               aliases: city.aliases,
               boundingBox: Array.isArray(city.bounding_box)
                 ? ([...city.bounding_box[0]!, ...city.bounding_box[1]!] as BBox)
-                : null
+                : null,
             })
         )
         .sort((city1, city2) => city1.sortingName.localeCompare(city2.sortingName))

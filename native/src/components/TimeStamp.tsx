@@ -32,7 +32,7 @@ export const TimeStamp = ({ lastUpdate, formatter, showText = true, format = 'LL
   const { i18n, t } = useTranslation('common')
   // only show day, month and year
   const dateText = formatter.format(lastUpdate, {
-    format
+    format,
   })
   return (
     <DirectionContainer language={i18n.language}>

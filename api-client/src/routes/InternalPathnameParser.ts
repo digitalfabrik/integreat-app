@@ -14,7 +14,7 @@ import {
   SHELTER_ROUTE,
   SPRUNGBRETT_OFFER_ROUTE,
   TU_NEWS_TYPE,
-  TuNewsType
+  TuNewsType,
 } from '.'
 
 import normalizePath from '../normalizePath'
@@ -50,7 +50,7 @@ class InternalPathnameParser {
       const trackingCode = this._parts[1] ?? null
       return {
         route: JPAL_TRACKING_ROUTE,
-        trackingCode
+        trackingCode,
       }
     }
 
@@ -67,7 +67,7 @@ class InternalPathnameParser {
       // '/', '/landing' or '/landing/de'
       return {
         route: LANDING_ROUTE,
-        languageCode: this.languageCode()
+        languageCode: this.languageCode(),
       }
     }
 
@@ -85,7 +85,7 @@ class InternalPathnameParser {
           route: DASHBOARD_ROUTE,
           cityCode: fixedCity,
           languageCode: this.languageCode(),
-          cityContentPath
+          cityContentPath,
         }
       }
     } else if (this._length > 0 && this._length <= 2 && this._parts[0] !== LANDING_ROUTE) {
@@ -96,7 +96,7 @@ class InternalPathnameParser {
         route: DASHBOARD_ROUTE,
         cityCode,
         languageCode: this.languageCode(),
-        cityContentPath
+        cityContentPath,
       }
     }
 
@@ -116,7 +116,7 @@ class InternalPathnameParser {
     // '/augsburg/de/<feature>' or '/augsburg/de/<feature>/id'
     return {
       cityCode: this._parts[0]!,
-      languageCode: this._parts[1]!
+      languageCode: this._parts[1]!,
     }
   }
 
@@ -165,7 +165,7 @@ class InternalPathnameParser {
       cityCode: this._parts[0]!,
       languageCode: this._parts[1]!,
       newsType,
-      newsId
+      newsId,
     }
   }
 
@@ -177,20 +177,20 @@ class InternalPathnameParser {
       if (route === OFFERS_ROUTE) {
         return {
           route: OFFERS_ROUTE,
-          ...params
+          ...params,
         }
       }
       if (route === SPRUNGBRETT_OFFER_ROUTE) {
         return {
           route: SPRUNGBRETT_OFFER_ROUTE,
-          ...params
+          ...params,
         }
       }
       if (route === SHELTER_ROUTE) {
         return {
           route: SHELTER_ROUTE,
           ...params,
-          id: this._parts[ENTITY_ID_INDEX + 1]
+          id: this._parts[ENTITY_ID_INDEX + 1],
         }
       }
     }
@@ -207,7 +207,7 @@ class InternalPathnameParser {
 
     return {
       route: DISCLAIMER_ROUTE,
-      ...params
+      ...params,
     }
   }
 
@@ -220,7 +220,7 @@ class InternalPathnameParser {
 
     return {
       route: SEARCH_ROUTE,
-      ...params
+      ...params,
     }
   }
 
@@ -239,7 +239,7 @@ class InternalPathnameParser {
         route: CATEGORIES_ROUTE,
         cityCode: this._parts[0]!,
         languageCode: this._parts[1]!,
-        cityContentPath: this._pathname
+        cityContentPath: this._pathname,
       }
     }
 

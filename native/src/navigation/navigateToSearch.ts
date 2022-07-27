@@ -6,7 +6,7 @@ import { NavigationPropType, RoutesType } from '../constants/NavigationTypes'
 import { StoreActionType } from '../redux/StoreActionType'
 
 const navigateToSearch = <T extends RoutesType>({
-  navigation
+  navigation,
 }: {
   dispatch: Dispatch<StoreActionType>
   navigation: NavigationPropType<T>
@@ -15,7 +15,7 @@ const navigateToSearch = <T extends RoutesType>({
 }): void => {
   navigation.navigate({
     name: SEARCH_ROUTE,
-    params: undefined
+    params: undefined,
   })
 }
 

@@ -35,7 +35,7 @@ function* loadEvents(
   const payload = yield* call(() =>
     createEventsEndpoint(apiUrl).request({
       city,
-      language
+      language,
     })
   )
   const events = payload.data

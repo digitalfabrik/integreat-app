@@ -24,7 +24,7 @@ const FeedbackToolbarItem = ({
   openFeedbackModal,
   isPositiveRatingLink,
   className,
-  viewportSmall
+  viewportSmall,
 }: PropsType): ReactElement => {
   const { t } = useTranslation('feedback')
   const handleLinkClick = useCallback(

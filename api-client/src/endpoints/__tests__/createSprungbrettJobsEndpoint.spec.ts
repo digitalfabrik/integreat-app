@@ -8,7 +8,7 @@ describe('sprungbrettJobs', () => {
     total: '19',
     pager: {
       current: 1,
-      max: 1
+      max: 1,
     },
     results: [
       {
@@ -20,7 +20,7 @@ describe('sprungbrettJobs', () => {
         lat: '48.364660',
         lon: '10.882451',
         distance: '1.223124064236733',
-        url: 'some_url'
+        url: 'some_url',
       },
       {
         title: 'Pflegefachhelfer/in Altenpflege',
@@ -31,7 +31,7 @@ describe('sprungbrettJobs', () => {
         lat: '48.364660',
         lon: '10.882451',
         distance: '1.223124064236733',
-        url: 'some_other_url'
+        url: 'some_other_url',
       },
       {
         title: 'Praktikum Maschinenbau',
@@ -42,9 +42,9 @@ describe('sprungbrettJobs', () => {
         lat: '48.364660',
         lon: '10.882451',
         distance: '1.223124064236733',
-        url: 'some_third_url'
-      }
-    ]
+        url: 'some_third_url',
+      },
+    ],
   }
   const sprungbrettJobModels = [
     new SprungbrettJobModel({
@@ -53,7 +53,7 @@ describe('sprungbrettJobs', () => {
       location: '86150 Augsburg',
       url: 'some_url',
       isEmployment: false,
-      isApprenticeship: true
+      isApprenticeship: true,
     }),
     new SprungbrettJobModel({
       id: 1,
@@ -61,7 +61,7 @@ describe('sprungbrettJobs', () => {
       location: '86150 Augsburg',
       url: 'some_other_url',
       isEmployment: true,
-      isApprenticeship: true
+      isApprenticeship: true,
     }),
     new SprungbrettJobModel({
       id: 2,
@@ -69,8 +69,8 @@ describe('sprungbrettJobs', () => {
       location: '86150 Augsburg',
       url: 'some_third_url',
       isEmployment: true,
-      isApprenticeship: false
-    })
+      isApprenticeship: false,
+    }),
   ]
   it('should map router to url', () => {
     expect(sprungbrettJobs.mapParamsToUrl(undefined)).toBe('https://sprungbrett-api-url.de')

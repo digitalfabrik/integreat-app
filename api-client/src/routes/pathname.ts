@@ -12,7 +12,7 @@ import {
   LANDING_ROUTE,
   CITY_NOT_COOPERATING_ROUTE,
   SHELTER_ROUTE,
-  LICENSE_ROUTE
+  LICENSE_ROUTE,
 } from '.'
 import { nameQueryParam, NonNullableRouteInformationType } from '..'
 

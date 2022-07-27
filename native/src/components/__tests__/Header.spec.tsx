@@ -16,7 +16,7 @@ jest.mock('../../hooks/useSnackbar')
 jest.mock('../../utils/sendTrackingSignal')
 jest.mock('react-navigation-header-buttons', () => ({
   ...jest.requireActual('react-navigation-header-buttons'),
-  HiddenItem: ({ title }: { title: string }) => <Text>hidden: {title}</Text>
+  HiddenItem: ({ title }: { title: string }) => <Text>hidden: {title}</Text>,
 }))
 jest.mock(
   '../MaterialHeaderButtons',
@@ -31,11 +31,11 @@ jest.mock(
 )
 jest.mock('react-i18next', () => ({
   useTranslation: () => ({
-    t: (key: string) => `t_${key}`
-  })
+    t: (key: string) => `t_${key}`,
+  }),
 }))
 jest.mock('@react-navigation/elements', () => ({
-  HeaderBackButton: ({ onPress }: { onPress: () => void }) => <Text onPress={onPress}>HeaderBackButton</Text>
+  HeaderBackButton: ({ onPress }: { onPress: () => void }) => <Text onPress={onPress}>HeaderBackButton</Text>,
 }))
 
 describe('Header', () => {
@@ -58,14 +58,14 @@ describe('Header', () => {
       key: 'key-0',
       name: DASHBOARD_ROUTE,
       params: {
-        shareUrl: 'https://example.com/share'
-      }
+        shareUrl: 'https://example.com/share',
+      },
     },
     peeking,
     categoriesAvailable,
     goToLanguageChange,
     routeCityModel: city,
-    language: 'de'
+    language: 'de',
   })
 
   it('search header button should be enabled and visible after loading was finished', async () => {
@@ -128,7 +128,7 @@ describe('Header', () => {
 
     expect(share).toHaveBeenCalledWith({ message: t('shareMessage'), title: 'Integreat' })
     expect(sendTrackingSignal).toHaveBeenCalledWith({
-      signal: { name: SHARE_SIGNAL_NAME, url: 'https://example.com/share' }
+      signal: { name: SHARE_SIGNAL_NAME, url: 'https://example.com/share' },
     })
 
     expect(showSnackbar).toHaveBeenCalledWith(t('generalError'))

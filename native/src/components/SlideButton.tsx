@@ -16,15 +16,15 @@ const SlideButton = ({ label, onPress, theme, highlighted }: PropsType): ReactEl
     title={label}
     onPress={onPress}
     titleStyle={{
-      color: theme.colors.textColor
+      color: theme.colors.textColor,
     }}
     containerStyle={{
       flex: 1,
-      margin: 0
+      margin: 0,
     }}
     buttonStyle={{
       margin: 0,
-      backgroundColor: highlighted ? theme.colors.themeColor : theme.colors.backgroundColor
+      backgroundColor: highlighted ? theme.colors.themeColor : theme.colors.backgroundColor,
     }}
   />
 )

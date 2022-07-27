@@ -62,7 +62,7 @@ const prepareDataContainer = async (dataContainer: DataContainer, city: string, 
     events,
     pois,
     resources,
-    fetchMap
+    fetchMap,
   }
 }
 
@@ -97,7 +97,7 @@ describe('loadCityContent', () => {
       new ContentLoadCriterion(
         {
           forceUpdate: false,
-          shouldRefreshResources: true
+          shouldRefreshResources: true,
         },
         false
       )
@@ -120,7 +120,7 @@ describe('loadCityContent', () => {
       new ContentLoadCriterion(
         {
           forceUpdate: false,
-          shouldRefreshResources: true
+          shouldRefreshResources: true,
         },
         true
       )
@@ -140,7 +140,7 @@ describe('loadCityContent', () => {
       new ContentLoadCriterion(
         {
           forceUpdate: false,
-          shouldRefreshResources: true
+          shouldRefreshResources: true,
         },
         true
       )
@@ -148,8 +148,8 @@ describe('loadCityContent', () => {
     expect(await new DatabaseConnector().loadLastUsages()).toEqual([
       {
         city: 'augsburg',
-        lastUsage: moment('2000-01-05T11:10:00.000Z')
-      }
+        lastUsage: moment('2000-01-05T11:10:00.000Z'),
+      },
     ])
   })
 
@@ -166,7 +166,7 @@ describe('loadCityContent', () => {
       new ContentLoadCriterion(
         {
           forceUpdate: false,
-          shouldRefreshResources: true
+          shouldRefreshResources: true,
         },
         false
       )
@@ -174,8 +174,8 @@ describe('loadCityContent', () => {
       .put({
         type: 'PUSH_LANGUAGES',
         params: {
-          languages
-        }
+          languages,
+        },
       })
       .run()
     expect(await dataContainer.getLastUpdate(city, language)).toBe(lastUpdate)
@@ -194,15 +194,15 @@ describe('loadCityContent', () => {
       new ContentLoadCriterion(
         {
           forceUpdate: false,
-          shouldRefreshResources: true
+          shouldRefreshResources: true,
         },
         true
       )
     )
       .not.put.like({
         action: {
-          type: 'PUSH_LANGUAGES'
-        }
+          type: 'PUSH_LANGUAGES',
+        },
       })
       .run()
     expect(await dataContainer.getLastUpdate(city, language)).toBe(lastUpdate)
@@ -221,7 +221,7 @@ describe('loadCityContent', () => {
       new ContentLoadCriterion(
         {
           forceUpdate: false,
-          shouldRefreshResources: true
+          shouldRefreshResources: true,
         },
         false
       )
@@ -246,7 +246,7 @@ describe('loadCityContent', () => {
       new ContentLoadCriterion(
         {
           forceUpdate: false,
-          shouldRefreshResources: true
+          shouldRefreshResources: true,
         },
         false
       )
@@ -269,7 +269,7 @@ describe('loadCityContent', () => {
       new ContentLoadCriterion(
         {
           forceUpdate: true,
-          shouldRefreshResources: true
+          shouldRefreshResources: true,
         },
         false
       )
@@ -295,7 +295,7 @@ describe('loadCityContent', () => {
       new ContentLoadCriterion(
         {
           forceUpdate: false,
-          shouldRefreshResources: true
+          shouldRefreshResources: true,
         },
         false
       )
@@ -321,7 +321,7 @@ describe('loadCityContent', () => {
         new ContentLoadCriterion(
           {
             forceUpdate: false,
-            shouldRefreshResources: true
+            shouldRefreshResources: true,
           },
           false
         )
@@ -348,7 +348,7 @@ describe('loadCityContent', () => {
       new ContentLoadCriterion(
         {
           forceUpdate: false,
-          shouldRefreshResources: true
+          shouldRefreshResources: true,
         },
         false
       )
@@ -360,12 +360,12 @@ describe('loadCityContent', () => {
           }
 
           return next()
-        }
+        },
       })
       .put.like({
         action: {
-          type: 'FETCH_LANGUAGES_FAILED'
-        }
+          type: 'FETCH_LANGUAGES_FAILED',
+        },
       })
       .run()
 
@@ -386,7 +386,7 @@ describe('loadCityContent', () => {
       new ContentLoadCriterion(
         {
           forceUpdate: false,
-          shouldRefreshResources: false
+          shouldRefreshResources: false,
         },
         false
       )
@@ -406,9 +406,9 @@ describe('loadCityContent', () => {
       details: {
         isConnectionExpensive: false,
         cellularGeneration: null,
-        carrier: null
+        carrier: null,
       },
-      isWifiEnabled: false
+      isWifiEnabled: false,
     }))
     const dataContainer = new DefaultDataContainer()
     const { fetchMap } = await prepareDataContainer(dataContainer, city, language)
@@ -422,7 +422,7 @@ describe('loadCityContent', () => {
       new ContentLoadCriterion(
         {
           forceUpdate: false,
-          shouldRefreshResources: true
+          shouldRefreshResources: true,
         },
         false
       )
@@ -446,7 +446,7 @@ describe('loadCityContent', () => {
       new ContentLoadCriterion(
         {
           forceUpdate: false,
-          shouldRefreshResources: false
+          shouldRefreshResources: false,
         },
         false
       )

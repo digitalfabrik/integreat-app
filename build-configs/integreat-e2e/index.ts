@@ -2,7 +2,7 @@ import {
   AndroidBuildConfigType,
   CommonBuildConfigType,
   iOSBuildConfigType,
-  WebBuildConfigType
+  WebBuildConfigType,
 } from '../BuildConfigType'
 import integreatPlatformBuildConfigs from '../integreat'
 import cityNotCooperatingTemplate from '../integreat/assets/cityNotCooperatingTemplate'
@@ -20,23 +20,23 @@ const integreatE2e = {
     sentry: false,
     developerFriendly: false,
     fixedCity: null,
-    cityNotCooperatingTemplate
-  }
+    cityNotCooperatingTemplate,
+  },
 }
 const commonIntegreatE2eBuildConfig: CommonBuildConfigType = {
   ...integreatPlatformBuildConfigs.common,
-  ...integreatE2e
+  ...integreatE2e,
 }
 const webIntegreatE2eBuildConfig: WebBuildConfigType = { ...integreatPlatformBuildConfigs.web, ...integreatE2e }
 const androidIntegreatE2eBuildCOnfig: AndroidBuildConfigType = {
   ...integreatPlatformBuildConfigs.android,
-  ...integreatE2e
+  ...integreatE2e,
 }
 const iosIntegreatE2eBuildConfig: iOSBuildConfigType = { ...integreatPlatformBuildConfigs.ios, ...integreatE2e }
 const platformBuildConfigs = {
   common: commonIntegreatE2eBuildConfig,
   web: webIntegreatE2eBuildConfig,
   android: androidIntegreatE2eBuildCOnfig,
-  ios: iosIntegreatE2eBuildConfig
+  ios: iosIntegreatE2eBuildConfig,
 }
 export default platformBuildConfigs
