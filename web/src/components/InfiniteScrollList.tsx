@@ -54,7 +54,7 @@ const InfiniteScrollList = <T,>({
       }
       await loadFromEndpoint(request, addData, setError, setLoading)
     }
-  }, [page, hasMore, itemsPerPage, loadPage])
+  }, [defaultPage, page, hasMore, itemsPerPage, loadPage])
 
   useEffect(
     () => () => {
