@@ -7,7 +7,7 @@ import {
   cityContentPath,
   createCitiesEndpoint,
   JPAL_TRACKING_ROUTE,
-  LANDING_ROUTE,
+  LANDING_ROUTE, LICENSE_ROUTE,
   MAIN_DISCLAIMER_ROUTE,
   NOT_FOUND_ROUTE,
   pathnameFromRouteInformation,
@@ -27,6 +27,7 @@ import { cityContentPattern, RoutePatterns } from './routes'
 import CityNotCooperatingPage from './routes/CityNotCooperatingPage'
 import JpalTrackingPage from './routes/JpalTrackingPage'
 import lazyWithRetry from './utils/retryImport'
+import LicensePage from './routes/LicensePage'
 
 type PropsType = {
   setContentLanguage: (languageCode: string) => void
@@ -87,6 +88,7 @@ const RootSwitcher = ({ setContentLanguage }: PropsType): ReactElement => {
         <Route path={RoutePatterns[MAIN_DISCLAIMER_ROUTE]} element={<MainDisclaimerPage {...props} />} />
         <Route path={RoutePatterns[NOT_FOUND_ROUTE]} element={<NotFoundPage />} />
         <Route path={cityContentPattern} element={<CityContentSwitcher {...props} />} />
+        <Route path={RoutePatterns[LICENSE_ROUTE]} element={<LicensePage/>} />
 
         {cityNotCooperating && (
           <Route path={RoutePatterns[CITY_NOT_COOPERATING_ROUTE]} element={<CityNotCooperatingPage {...props} />} />

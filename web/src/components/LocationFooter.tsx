@@ -1,11 +1,12 @@
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { DISCLAIMER_ROUTE, pathnameFromRouteInformation } from 'api-client'
+import { DISCLAIMER_ROUTE, LICENSE_ROUTE, pathnameFromRouteInformation } from 'api-client'
 
 import buildConfig from '../constants/buildConfig'
 import CleanLink from './CleanLink'
 import Footer from './Footer'
+import { RoutePatterns } from '../routes'
 
 type PropsType = {
   city: string
@@ -29,6 +30,7 @@ const LocationFooter: React.FC<PropsType> = ({ city, language, overlay = false }
       <CleanLink to={disclaimerPath}>{t('imprintAndContact')}</CleanLink>
       <CleanLink to={aboutUrl}>{t('settings:about', { appName: buildConfig().appName })}</CleanLink>
       <CleanLink to={privacyUrl}>{t('privacy')}</CleanLink>
+      <CleanLink to={RoutePatterns[LICENSE_ROUTE]}>{t('openSourceLicenses')}</CleanLink>
     </Footer>
   )
 }
