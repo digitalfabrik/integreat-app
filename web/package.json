@@ -69,7 +69,6 @@
     "react-map-gl": "^7.0.10",
     "react-router-dom": "^6.2.1",
     "react-spring-bottom-sheet": "^3.4.0",
-    "react-styled-flexboxgrid": "^3.1.0",
     "schema-dts": "^1.0.0",
     "styled-components": "^5.3.3",
     "translations": "0.0.1",
