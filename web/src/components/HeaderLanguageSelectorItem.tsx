@@ -19,7 +19,7 @@ const HeaderLanguageSelectorItem = ({
   selectorItems,
   activeItemCode,
   t,
-  inKebabMenu = false
+  inKebabMenu = false,
 }: PropsType): ReactElement => {
   const noLanguagesHint = t('noLanguages')
 

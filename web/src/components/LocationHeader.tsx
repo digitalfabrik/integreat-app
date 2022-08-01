@@ -13,7 +13,7 @@ import {
   POIS_ROUTE,
   SEARCH_ROUTE,
   SHELTER_ROUTE,
-  SPRUNGBRETT_OFFER_ROUTE
+  SPRUNGBRETT_OFFER_ROUTE,
 } from 'api-client'
 import { config } from 'translations'
 
@@ -68,7 +68,7 @@ const LocationHeader = (props: PropsType): ReactElement => {
                 href={landingPath}
                 text={t('changeLocation')}
                 iconSrc={landingIcon}
-              />
+              />,
             ]
           : []),
         <LanguageSelector
@@ -76,7 +76,7 @@ const LocationHeader = (props: PropsType): ReactElement => {
           languageChangePaths={languageChangePaths}
           isHeaderActionItem
           languageCode={languageCode}
-        />
+        />,
       ]
 
   const kebabItems = [
@@ -87,7 +87,7 @@ const LocationHeader = (props: PropsType): ReactElement => {
       isHeaderActionItem
       languageCode={languageCode}
       inKebabMenu
-    />
+    />,
   ]
 
   const getNavigationItems = (): Array<ReactNode> => {
@@ -108,7 +108,7 @@ const LocationHeader = (props: PropsType): ReactElement => {
         active={route === CATEGORIES_ROUTE}
         text={t('localInformation')}
         icon={localInformationIcon}
-      />
+      />,
     ]
 
     if (isNewsVisible) {
