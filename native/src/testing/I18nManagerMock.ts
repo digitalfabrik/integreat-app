@@ -13,10 +13,10 @@ export const I18nManager = {
   },
   getConstants: () => ({
     isRTL,
-    doLeftAndRightSwapInRTL
+    doLeftAndRightSwapInRTL,
   }),
   swapLeftAndRightInRTL: (_unusedSwapLeftAndRight: boolean) => {
     throw Error('Not yet implemented.')
   },
-  doLeftAndRightSwapInRTL
+  doLeftAndRightSwapInRTL,
 } as I18nManagerType

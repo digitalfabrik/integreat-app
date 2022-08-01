@@ -153,7 +153,7 @@ const PoiDetails: React.FC<PoiDetailsProps> = ({
   feature,
   poi,
   selectFeature,
-  direction
+  direction,
 }: PoiDetailsProps): ReactElement => {
   const onBackClick = () => {
     selectFeature(null)

@@ -4,5 +4,5 @@ import integreatFonts from './fonts'
 
 export const lightTheme: ThemeType = {
   colors: lightColors,
-  fonts: integreatFonts
+  fonts: integreatFonts,
 }

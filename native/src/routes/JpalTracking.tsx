@@ -83,13 +83,13 @@ const JpalTracking = ({ navigation }: PropsType): ReactElement => {
               onPress: () => {
                 updateTrackingEnabled(false)
                 navigation.dispatch(e.data.action)
-              }
+              },
             },
             {
               text: t('allowTracking'),
               style: 'default',
-              onPress: () => updateTrackingEnabled(true)
-            }
+              onPress: () => updateTrackingEnabled(true),
+            },
           ])
         }
       }),
@@ -108,7 +108,7 @@ const JpalTracking = ({ navigation }: PropsType): ReactElement => {
     <Layout>
       <View
         style={{
-          padding: 40
+          padding: 40,
         }}>
         <Caption title={t('tracking')} />
         <Text>{t('trackingDescription', { appName: buildConfig().appName })}</Text>

@@ -15,9 +15,9 @@ jest.mock('../../utils/NativeLanguageDetector')
 jest.mock('react-i18next', () => ({
   useTranslation: () => ({
     i18n: {
-      language: 'ckb'
-    }
-  })
+      language: 'ckb',
+    },
+  }),
 }))
 describe('RedirectContainer', () => {
   const url = 'https://example.com/custom/url'
@@ -25,9 +25,9 @@ describe('RedirectContainer', () => {
   const route = {
     key: 'route-id-0',
     params: {
-      url
+      url,
     },
-    name: REDIRECT_ROUTE
+    name: REDIRECT_ROUTE,
   }
   const language = 'ckb'
   const mockStore = configureMockStore()

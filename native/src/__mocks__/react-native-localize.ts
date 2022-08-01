@@ -1,5 +1,5 @@
 export const getLocales = jest.fn(() => [
   {
-    languageCode: 'en'
-  }
+    languageCode: 'en',
+  },
 ])

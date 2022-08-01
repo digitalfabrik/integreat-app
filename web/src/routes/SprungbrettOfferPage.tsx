@@ -11,7 +11,7 @@ import {
   SprungbrettJobModel,
   useLoadFromEndpoint,
   OfferModel,
-  pathnameFromRouteInformation
+  pathnameFromRouteInformation,
 } from 'api-client'
 
 import { CityRouteProps } from '../CityContentSwitcher'
@@ -38,7 +38,7 @@ const SprungbrettOfferPage = ({
   cityCode,
   languageCode,
   pathname,
-  languages
+  languages,
 }: CityRouteProps): ReactElement => {
   const { viewportSmall } = useWindowDimensions()
   const { t } = useTranslation('sprungbrett')
@@ -61,7 +61,7 @@ const SprungbrettOfferPage = ({
   const {
     data: sprungbrettJobs,
     loading: sprungbrettLoading,
-    error: sprungbrettError
+    error: sprungbrettError,
   } = useLoadFromEndpoint(requestSprungbrettOffer)
 
   const toolbar = (openFeedback: (rating: FeedbackRatingType) => void) => (
@@ -71,7 +71,7 @@ const SprungbrettOfferPage = ({
   const languageChangePaths = languages.map(({ code, name }) => ({
     path: pathnameFromRouteInformation({ route: SPRUNGBRETT_OFFER_ROUTE, cityCode, languageCode: code }),
     name,
-    code
+    code,
   }))
 
   const locationLayoutParams = {
@@ -81,7 +81,7 @@ const SprungbrettOfferPage = ({
     languageChangePaths,
     route: SPRUNGBRETT_OFFER_ROUTE,
     languageCode,
-    toolbar
+    toolbar,
   }
 
   if (offersLoading || sprungbrettLoading) {
@@ -100,7 +100,7 @@ const SprungbrettOfferPage = ({
         type: 'offer',
         id: pathname,
         city: cityCode,
-        language: languageCode
+        language: languageCode,
       })
 
     return (

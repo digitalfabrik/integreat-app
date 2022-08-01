@@ -12,12 +12,12 @@ const createNavigateToFeedbackModal =
       signal: {
         name: OPEN_PAGE_SIGNAL_NAME,
         pageType: FEEDBACK_MODAL_ROUTE,
-        url: ''
-      }
+        url: '',
+      },
     })
     navigation.navigate({
       name: FEEDBACK_MODAL_ROUTE,
-      params: feedbackInformation
+      params: feedbackInformation,
     })
   }
 

@@ -31,7 +31,7 @@ describe('Collapsible', () => {
         {content}
       </Collapsible>,
       {
-        wrapper: wrapWithTheme
+        wrapper: wrapWithTheme,
       }
     )
     expect(getByText(content)).toBeTruthy()
@@ -44,7 +44,7 @@ describe('Collapsible', () => {
         {content}
       </Collapsible>,
       {
-        wrapper: wrapWithTheme
+        wrapper: wrapWithTheme,
       }
     )
     expect(queryByText(content)).toBeNull()

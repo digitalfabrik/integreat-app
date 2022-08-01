@@ -46,7 +46,7 @@ class CategoriesMapModelBuilder {
     return {
       filePath: `path/to/documentDir/resource-cache/v1/${this._city}/files/${hash}.png`,
       lastUpdate: moment(lastUpdate).add(this._predictableNumber(index), 'days'),
-      hash
+      hash,
     }
   }
 
@@ -81,12 +81,12 @@ class CategoriesMapModelBuilder {
         availableLanguages: new Map(),
         thumbnail,
         parentPath: category.path,
-        lastUpdate
+        lastUpdate,
       })
       this._resourceCache[path] = {
         [resourceUrl1]: this.createResource(resourceUrl1, id, lastUpdate),
         [resourceUrl2]: this.createResource(resourceUrl2, id, lastUpdate),
-        [thumbnail]: this.createResource(thumbnail, id, lastUpdate)
+        [thumbnail]: this.createResource(thumbnail, id, lastUpdate),
       }
 
       this._addChildren(newChild, depth + 1)
@@ -120,14 +120,14 @@ class CategoriesMapModelBuilder {
         availableLanguages: new Map(),
         thumbnail: '',
         parentPath: '',
-        lastUpdate: moment('2017-11-18T19:30:00.000Z', moment.ISO_8601)
+        lastUpdate: moment('2017-11-18T19:30:00.000Z', moment.ISO_8601),
       }),
       0
     )
 
     return {
       categories: new CategoriesMapModel(this._categories),
-      resourceCache: this._resourceCache
+      resourceCache: this._resourceCache,
     }
   }
 }

@@ -14,7 +14,7 @@ import {
   PushLanguagesActionType,
   ResourcesFetchFailedActionType,
   SwitchContentLanguageActionType,
-  SwitchContentLanguageFailedActionType
+  SwitchContentLanguageFailedActionType,
 } from '../../StoreActionType'
 import cityContentReducer from '../cityContentReducer'
 
@@ -23,20 +23,20 @@ describe('cityContentReducer', () => {
     type: 'SWITCH_CONTENT_LANGUAGE',
     params: {
       newLanguage: 'de',
-      city: 'augsburg'
-    }
+      city: 'augsburg',
+    },
   }
   const switchContentLanguageFailedAction: SwitchContentLanguageFailedActionType = {
     type: 'SWITCH_CONTENT_LANGUAGE_FAILED',
     params: {
-      message: 'Some error'
-    }
+      message: 'Some error',
+    },
   }
   const pushLanguagesAction: PushLanguagesActionType = {
     type: 'PUSH_LANGUAGES',
     params: {
-      languages: [new LanguageModel('de', 'Deutsch')]
-    }
+      languages: [new LanguageModel('de', 'Deutsch')],
+    },
   }
   const pushCategoryAction: PushCategoryActionType = {
     type: 'PUSH_CATEGORY',
@@ -49,8 +49,8 @@ describe('cityContentReducer', () => {
       path: '/augsburg/de',
       depth: 2,
       key: 'route-id-0',
-      refresh: false
-    }
+      refresh: false,
+    },
   }
   const pushEventAction: PushEventActionType = {
     type: 'PUSH_EVENT',
@@ -62,8 +62,8 @@ describe('cityContentReducer', () => {
       cityLanguages: [],
       language: 'de',
       city: 'augsburg',
-      refresh: false
-    }
+      refresh: false,
+    },
   }
   const morphContentLanguageAction: MorphContentLanguageActionType = {
     type: 'MORPH_CONTENT_LANGUAGE',
@@ -72,8 +72,8 @@ describe('cityContentReducer', () => {
       newResourceCache: {},
       newEvents: [],
       newPois: [],
-      newLanguage: 'de'
-    }
+      newLanguage: 'de',
+    },
   }
   const fetchCategoryFailedAction: FetchCategoryFailedActionType = {
     type: 'FETCH_CATEGORY_FAILED',
@@ -85,8 +85,8 @@ describe('cityContentReducer', () => {
       city: 'augsburg',
       language: 'de',
       depth: 2,
-      allAvailableLanguages: null
-    }
+      allAvailableLanguages: null,
+    },
   }
   const fetchEventFailedAction: FetchEventFailedActionType = {
     type: 'FETCH_EVENT_FAILED',
@@ -97,22 +97,22 @@ describe('cityContentReducer', () => {
       path: null,
       city: 'augsburg',
       language: 'de',
-      allAvailableLanguages: null
-    }
+      allAvailableLanguages: null,
+    },
   }
   const fetchResourcesFailedAction: ResourcesFetchFailedActionType = {
     type: 'FETCH_RESOURCES_FAILED',
     params: {
       message: 'Some error',
-      code: ErrorCode.UnknownError
-    }
+      code: ErrorCode.UnknownError,
+    },
   }
   const fetchLanguagesFailed: FetchLanguagesFailedActionType = {
     type: 'FETCH_LANGUAGES_FAILED',
     params: {
       message: 'Some error',
-      code: ErrorCode.UnknownError
-    }
+      code: ErrorCode.UnknownError,
+    },
   }
   const languageModels = [new LanguageModel('de', 'Deutsch'), new LanguageModel('en', 'English')]
   // these actions should not thrown an error if then state is unitialized
@@ -125,7 +125,7 @@ describe('cityContentReducer', () => {
     switchContentLanguageAction,
     pushLanguagesAction,
     fetchEventFailedAction,
-    fetchLanguagesFailed
+    fetchLanguagesFailed,
   ]
 
   softUnsupportedActionsOnUnitializedState.forEach(action => {
@@ -142,15 +142,15 @@ describe('cityContentReducer', () => {
       routeMapping: {},
       languages: {
         status: 'ready',
-        models: languageModels
+        models: languageModels,
       },
       resourceCache: {
         status: 'ready',
         progress: 0,
-        value: {}
+        value: {},
       },
       searchRoute: null,
-      switchingLanguage: false
+      switchingLanguage: false,
     }
   })
   it('should set switchingLanguage to true on SWITCH_CONTENT_LANGUAGE', () => {
@@ -159,15 +159,15 @@ describe('cityContentReducer', () => {
       routeMapping: {},
       languages: {
         status: 'ready',
-        models: []
+        models: [],
       },
       resourceCache: {
         status: 'ready',
         progress: 0,
-        value: {}
+        value: {},
       },
       searchRoute: null,
-      switchingLanguage: false
+      switchingLanguage: false,
     }
     expect(cityContentReducer(prevState, switchContentLanguageAction)?.switchingLanguage).toBe(true)
   })
@@ -177,15 +177,15 @@ describe('cityContentReducer', () => {
       routeMapping: {},
       languages: {
         status: 'ready',
-        models: []
+        models: [],
       },
       resourceCache: {
         status: 'ready',
         progress: 0,
-        value: {}
+        value: {},
       },
       searchRoute: null,
-      switchingLanguage: true
+      switchingLanguage: true,
     }
     expect(cityContentReducer(prevState, switchContentLanguageFailedAction)?.switchingLanguage).toBe(false)
   })
@@ -195,19 +195,19 @@ describe('cityContentReducer', () => {
       routeMapping: {},
       languages: {
         status: 'ready',
-        models: []
+        models: [],
       },
       resourceCache: {
         status: 'ready',
         progress: 0,
-        value: {}
+        value: {},
       },
       searchRoute: null,
-      switchingLanguage: false
+      switchingLanguage: false,
     }
     expect(cityContentReducer(prevState, pushLanguagesAction)?.languages).toEqual({
       status: 'ready',
-      models: pushLanguagesAction.params.languages
+      models: pushLanguagesAction.params.languages,
     })
   })
   it('should set error on FETCH_LANGUAGES_FAILED', () => {
@@ -216,19 +216,19 @@ describe('cityContentReducer', () => {
       routeMapping: {},
       languages: {
         status: 'ready',
-        models: []
+        models: [],
       },
       resourceCache: {
         status: 'ready',
         progress: 0,
-        value: {}
+        value: {},
       },
       searchRoute: null,
-      switchingLanguage: false
+      switchingLanguage: false,
     }
     expect(cityContentReducer(prevState, fetchLanguagesFailed)?.languages).toEqual({
       status: 'error',
-      ...fetchLanguagesFailed.params
+      ...fetchLanguagesFailed.params,
     })
   })
   it('should initialize cityContentState on FETCH_EVENT with loading route', () => {
@@ -241,9 +241,9 @@ describe('cityContentReducer', () => {
         key: 'route-id-0',
         criterion: {
           forceUpdate: false,
-          shouldRefreshResources: false
-        }
-      }
+          shouldRefreshResources: false,
+        },
+      },
     }
     expect(cityContentReducer(null, action)).toEqual({
       city: 'augsburg',
@@ -253,19 +253,19 @@ describe('cityContentReducer', () => {
           language: 'de',
           city: 'augsburg',
           path: null,
-          status: 'loading'
-        }
+          status: 'loading',
+        },
       },
       languages: {
-        status: 'loading'
+        status: 'loading',
       },
       resourceCache: {
         status: 'ready',
         progress: 0,
-        value: {}
+        value: {},
       },
       searchRoute: null,
-      switchingLanguage: false
+      switchingLanguage: false,
     })
   })
   it('should set the route status to languageNotAvailable on FETCH_EVENT_FAILED with available languages', () => {
@@ -277,20 +277,20 @@ describe('cityContentReducer', () => {
           status: 'loading',
           language: 'de',
           city: 'augsburg',
-          path: null
-        }
+          path: null,
+        },
       },
       languages: {
         status: 'ready',
-        models: languageModels
+        models: languageModels,
       },
       resourceCache: {
         status: 'ready',
         progress: 0,
-        value: {}
+        value: {},
       },
       searchRoute: null,
-      switchingLanguage: false
+      switchingLanguage: false,
     }
     expect(
       cityContentReducer(prevState, {
@@ -302,8 +302,8 @@ describe('cityContentReducer', () => {
           path: null,
           allAvailableLanguages: new Map([['en', null]]),
           city: 'augsburg',
-          language: 'de'
-        }
+          language: 'de',
+        },
       })?.routeMapping['route-id-0']
     ).toEqual({
       routeType: EVENTS_ROUTE,
@@ -312,7 +312,7 @@ describe('cityContentReducer', () => {
       path: null,
       language: 'de',
       city: 'augsburg',
-      allAvailableLanguages: new Map([['en', null]])
+      allAvailableLanguages: new Map([['en', null]]),
     })
   })
   it('should pass the error to the corresponding route on FETCH_EVENT_FAILED', () => {
@@ -324,20 +324,20 @@ describe('cityContentReducer', () => {
           status: 'loading',
           language: 'de',
           city: 'augsburg',
-          path: null
-        }
+          path: null,
+        },
       },
       languages: {
         status: 'ready',
-        models: languageModels
+        models: languageModels,
       },
       resourceCache: {
         status: 'ready',
         progress: 0,
-        value: {}
+        value: {},
       },
       searchRoute: null,
-      switchingLanguage: false
+      switchingLanguage: false,
     }
     expect(
       cityContentReducer(prevState, {
@@ -349,8 +349,8 @@ describe('cityContentReducer', () => {
           path: null,
           city: 'augsburg',
           language: 'de',
-          allAvailableLanguages: null
-        }
+          allAvailableLanguages: null,
+        },
       })?.routeMapping['route-id-0']
     ).toEqual({
       routeType: EVENTS_ROUTE,
@@ -359,7 +359,7 @@ describe('cityContentReducer', () => {
       city: 'augsburg',
       path: null,
       message: 'No idea why it fails :/',
-      code: ErrorCode.UnknownError
+      code: ErrorCode.UnknownError,
     })
   })
   it('should initialize cityContentState on FETCH_CATEGORY with loading route', () => {
@@ -373,9 +373,9 @@ describe('cityContentReducer', () => {
         key: 'route-id-0',
         criterion: {
           forceUpdate: false,
-          shouldRefreshResources: false
-        }
-      }
+          shouldRefreshResources: false,
+        },
+      },
     }
     expect(cityContentReducer(null, action)).toEqual({
       routeMapping: {
@@ -385,20 +385,20 @@ describe('cityContentReducer', () => {
           depth: 2,
           language: 'de',
           path: '/augsburg/de',
-          status: 'loading'
-        }
+          status: 'loading',
+        },
       },
       city: 'augsburg',
       languages: {
-        status: 'loading'
+        status: 'loading',
       },
       resourceCache: {
         status: 'ready',
         progress: 0,
-        value: {}
+        value: {},
       },
       searchRoute: null,
-      switchingLanguage: false
+      switchingLanguage: false,
     })
   })
   it('should clear the route on CLEAR_ROUTE', () => {
@@ -413,27 +413,27 @@ describe('cityContentReducer', () => {
           city: 'augsburg',
           path: '/augsburg/de',
           message: 'No idea why it fails :/',
-          code: ErrorCode.UnknownError
-        }
+          code: ErrorCode.UnknownError,
+        },
       },
       languages: {
         status: 'ready',
-        models: languageModels
+        models: languageModels,
       },
       resourceCache: {
         status: 'ready',
         progress: 0,
-        value: {}
+        value: {},
       },
       searchRoute: null,
-      switchingLanguage: false
+      switchingLanguage: false,
     }
     expect(
       cityContentReducer(prevState, {
         type: 'CLEAR_ROUTE',
         params: {
-          key: 'route-id-0'
-        }
+          key: 'route-id-0',
+        },
       })?.routeMapping
     ).toEqual({})
   })
@@ -447,20 +447,20 @@ describe('cityContentReducer', () => {
           language: 'de',
           path: '/augsburg/de',
           depth: 2,
-          city: 'augsburg'
-        }
+          city: 'augsburg',
+        },
       },
       languages: {
         status: 'ready',
-        models: languageModels
+        models: languageModels,
       },
       resourceCache: {
         status: 'ready',
         progress: 0,
-        value: {}
+        value: {},
       },
       searchRoute: null,
-      switchingLanguage: false
+      switchingLanguage: false,
     }
     expect(
       cityContentReducer(prevState, {
@@ -473,8 +473,8 @@ describe('cityContentReducer', () => {
           city: 'augsburg',
           language: 'de',
           path: '/augsburg/de',
-          depth: 2
-        }
+          depth: 2,
+        },
       })?.routeMapping['route-id-0']
     ).toEqual({
       routeType: CATEGORIES_ROUTE,
@@ -482,7 +482,7 @@ describe('cityContentReducer', () => {
       language: 'de',
       allAvailableLanguages: new Map([['en', '/augsburg/en']]),
       city: 'augsburg',
-      depth: 2
+      depth: 2,
     })
   })
   it('should pass the error to the corresponding route on FETCH_CATEGORY_FAILED', () => {
@@ -495,20 +495,20 @@ describe('cityContentReducer', () => {
           language: 'de',
           path: '/augsburg/de',
           depth: 2,
-          city: 'augsburg'
-        }
+          city: 'augsburg',
+        },
       },
       languages: {
         status: 'ready',
-        models: languageModels
+        models: languageModels,
       },
       resourceCache: {
         status: 'ready',
         progress: 0,
-        value: {}
+        value: {},
       },
       searchRoute: null,
-      switchingLanguage: false
+      switchingLanguage: false,
     }
     expect(
       cityContentReducer(prevState, {
@@ -521,8 +521,8 @@ describe('cityContentReducer', () => {
           city: 'augsburg',
           allAvailableLanguages: null,
           language: 'de',
-          depth: 2
-        }
+          depth: 2,
+        },
       })?.routeMapping['route-id-0']
     ).toEqual({
       routeType: CATEGORIES_ROUTE,
@@ -532,7 +532,7 @@ describe('cityContentReducer', () => {
       city: 'augsburg',
       depth: 2,
       message: 'No idea why it fails :/',
-      code: ErrorCode.UnknownError
+      code: ErrorCode.UnknownError,
     })
   })
   it('should clear the cityContentState on CLEAR_CITY', () => {
@@ -541,19 +541,19 @@ describe('cityContentReducer', () => {
       routeMapping: {},
       languages: {
         status: 'ready',
-        models: languageModels
+        models: languageModels,
       },
       resourceCache: {
         status: 'ready',
         progress: 0,
-        value: {}
+        value: {},
       },
       searchRoute: null,
-      switchingLanguage: false
+      switchingLanguage: false,
     }
     expect(
       cityContentReducer(prevState, {
-        type: 'CLEAR_CITY'
+        type: 'CLEAR_CITY',
       })
     ).toBeNull()
   })
@@ -563,20 +563,20 @@ describe('cityContentReducer', () => {
       resourceCache: {
         status: 'ready',
         progress: 0.1,
-        value: {}
-      }
+        value: {},
+      },
     }
     expect(
       cityContentReducer(prevState, {
         type: 'FETCH_RESOURCES_PROGRESS',
         params: {
-          progress: 0.2
-        }
+          progress: 0.2,
+        },
       })?.resourceCache
     ).toEqual({
       status: 'ready',
       progress: 0.2,
-      value: {}
+      value: {},
     })
   })
   it('should set an errorState for the resourceCache on FETCH_RESOURCES_FAILED', () => {
@@ -585,13 +585,13 @@ describe('cityContentReducer', () => {
         type: 'FETCH_RESOURCES_FAILED',
         params: {
           message: 'No idea why it fails :/',
-          code: ErrorCode.UnknownError
-        }
+          code: ErrorCode.UnknownError,
+        },
       })?.resourceCache
     ).toEqual({
       status: 'error',
       message: 'No idea why it fails :/',
-      code: ErrorCode.UnknownError
+      code: ErrorCode.UnknownError,
     })
   })
 })

@@ -52,8 +52,8 @@ export const buildConfigAssets = (): AssetsType => {
         events: integreatIntroEventsIcon,
         language: integreatIntroLanguageIcon,
         offers: integreatIntroOffersIcon,
-        search: integreatIntroSearchIcon
-      }
+        search: integreatIntroSearchIcon,
+      },
     }
   }
   if (assetsName === MALTE_ASSETS) {
@@ -65,14 +65,14 @@ export const buildConfigAssets = (): AssetsType => {
         events: malteIntroEventsIcon,
         language: malteIntroLanguageIcon,
         offers: malteIntroOffersIcon,
-        search: malteIntroSearchIcon
-      }
+        search: malteIntroSearchIcon,
+      },
     }
   }
   if (assetsName === ASCHAFFENBURG_ASSETS) {
     return {
       appIcon: aschaffenburgAppIcon,
-      loadingImage: aschaffenburgLoadingImage
+      loadingImage: aschaffenburgLoadingImage,
     }
   }
 

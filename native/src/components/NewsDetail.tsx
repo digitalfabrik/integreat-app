@@ -51,14 +51,14 @@ const NewsDetail = ({ newsItem, language }: PropsType): ReactElement => {
   return (
     <View
       style={{
-        flex: 1
+        flex: 1,
       }}>
       <ScrollView
         showsVerticalScrollIndicator={false}
         contentContainerStyle={{
           flexGrow: 1,
           marginBottom: 10,
-          paddingHorizontal: '5%'
+          paddingHorizontal: '5%',
         }}>
         {newsItem instanceof TunewsModel && (
           <HeaderImageWrapper>

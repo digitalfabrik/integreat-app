@@ -26,17 +26,17 @@ const PDFViewModal = ({ route, navigation: _navigation }: PropsType): ReactEleme
   return (
     <View
       style={{
-        flex: 1
+        flex: 1,
       }}>
       <Pdf
         singlePage={false}
         style={{
           flex: 1,
-          backgroundColor: theme.colors.backgroundAccentColor
+          backgroundColor: theme.colors.backgroundAccentColor,
         }}
         renderActivityIndicator={() => <LoadingSpinner />}
         source={{
-          uri: url
+          uri: url,
         }}
         onError={() => setError(true)}
       />

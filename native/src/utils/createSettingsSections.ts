@@ -3,7 +3,7 @@ import { TFunction } from 'react-i18next'
 import { AccessibilityRole, SectionListData } from 'react-native'
 import { openSettings } from 'react-native-permissions'
 
-import { JPAL_TRACKING_ROUTE, SettingsRouteType } from 'api-client'
+import { JPAL_TRACKING_ROUTE, LICENSE_ROUTE, SettingsRouteType } from 'api-client'
 
 import NativeConstants from '../constants/NativeConstants'
 import { NavigationPropType } from '../constants/NavigationTypes'
@@ -32,7 +32,7 @@ export type SettingsSectionType = {
 }
 
 const volatileValues = {
-  versionTaps: 0
+  versionTaps: 0,
 }
 
 const TRIGGER_VERSION_TAPS = 25
@@ -54,7 +54,7 @@ const createSettingsSections = ({
   cityCode,
   navigation,
   settings,
-  showSnackbar
+  showSnackbar,
 }: CreateSettingsSectionsPropsType): Readonly<Array<SectionListData<SettingsSectionType>>> => [
   {
     title: null,
@@ -70,7 +70,7 @@ const createSettingsSections = ({
               onPress: () => {
                 setSetting(
                   settings => ({
-                    allowPushNotifications: !settings.allowPushNotifications
+                    allowPushNotifications: !settings.allowPushNotifications,
                   }),
                   async (newSettings): Promise<boolean> => {
                     if (!cityCode) {
@@ -95,20 +95,20 @@ const createSettingsSections = ({
                     return true
                   }
                 )
-              }
-            }
+              },
+            },
           ]),
       {
         title: t('sentryTitle'),
         description: t('sentryDescription', {
-          appName: buildConfig().appName
+          appName: buildConfig().appName,
         }),
         hasSwitch: true,
         getSettingValue: (settings: SettingsType) => settings.errorTracking,
         onPress: () => {
           setSetting(
             settings => ({
-              errorTracking: !settings.errorTracking
+              errorTracking: !settings.errorTracking,
             }),
             async newSettings => {
               const client = Sentry.getCurrentHub().getClient()
@@ -120,27 +120,27 @@ const createSettingsSections = ({
               return true
             }
           )
-        }
+        },
       },
       {
         accessibilityRole: 'link',
         title: t('about', {
-          appName: buildConfig().appName
+          appName: buildConfig().appName,
         }),
         onPress: () => {
           const { aboutUrls } = buildConfig()
           const aboutUrl = aboutUrls[languageCode] || aboutUrls.default
           openExternalUrl(aboutUrl).catch((error: Error) => showSnackbar(error.message))
-        }
+        },
       },
       {
         accessibilityRole: 'link',
         title: t('privacyPolicy'),
-        onPress: () => openPrivacyPolicy(languageCode).catch((error: Error) => showSnackbar(error.message))
+        onPress: () => openPrivacyPolicy(languageCode).catch((error: Error) => showSnackbar(error.message)),
       },
       {
         title: t('version', {
-          version: NativeConstants.appVersion
+          version: NativeConstants.appVersion,
         }),
         onPress: () => {
           volatileValues.versionTaps += 1
@@ -149,7 +149,11 @@ const createSettingsSections = ({
             volatileValues.versionTaps = 0
             throw Error('This error was thrown for testing purposes. Please ignore this error.')
           }
-        }
+        },
+      },
+      {
+        title: t('openSourceLicenses'),
+        onPress: () => navigation.navigate(LICENSE_ROUTE),
       },
       // Only show the jpal tracking setting for users that opened it via deep link before
       ...(buildConfig().featureFlags.jpalTracking && settings.jpalTrackingCode
@@ -161,12 +165,12 @@ const createSettingsSections = ({
               hasBadge: true,
               onPress: () => {
                 navigation.navigate(JPAL_TRACKING_ROUTE, {})
-              }
-            }
+              },
+            },
           ]
-        : [])
-    ]
-  }
+        : []),
+    ],
+  },
 ]
 
 export default createSettingsSections

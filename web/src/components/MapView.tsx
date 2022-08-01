@@ -11,7 +11,7 @@ import {
   PoiFeature,
   PoiFeatureCollection,
   mapMarker,
-  MapViewMercatorViewport
+  MapViewMercatorViewport,
 } from 'api-client'
 import { UiDirectionType } from 'translations'
 
@@ -81,7 +81,7 @@ const MapView = forwardRef((props: MapViewProps, ref: React.Ref<MapRef>): ReactE
     currentFeature,
     direction,
     cityCode,
-    languageCode
+    languageCode,
   } = props
 
   const textOffsetY = 1.25
@@ -98,15 +98,15 @@ const MapView = forwardRef((props: MapViewProps, ref: React.Ref<MapRef>): ReactE
         'case',
         ['==', ['get', 'id'], currentFeature?.properties.id ?? -1],
         mapMarker.symbolActive,
-        ['get', 'symbol']
+        ['get', 'symbol'],
       ],
       'text-field': ['get', 'title'],
       'text-font': ['Roboto Regular'],
       'text-offset': [0, textOffsetY],
       'text-anchor': 'top',
-      'text-size': 12
+      'text-size': 12,
     },
-    paint: {}
+    paint: {},
   }
   const [viewport, setViewport] = useState<MapViewViewport>(bboxViewport)
   const [cursor, setCursor] = useState<MapCursorType>('auto')
@@ -154,7 +154,7 @@ const MapView = forwardRef((props: MapViewProps, ref: React.Ref<MapRef>): ReactE
         {...viewport}
         style={{
           height: '100%',
-          width: '100%'
+          width: '100%',
         }}
         onMove={evt => setViewport(evt.viewState)}
         onDragStart={() => changeCursor('grab')}

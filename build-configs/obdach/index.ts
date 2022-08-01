@@ -23,16 +23,16 @@ const commonObdachBuildConfig: CommonBuildConfigType = {
     sentry: false,
     developerFriendly: false,
     fixedCity: null,
-    cityNotCooperatingTemplate: null
+    cityNotCooperatingTemplate: null,
   },
   aboutUrls: {
     default: 'https://vernetztesobdach.de/about/',
-    en: 'https://vernetztesobdach.de/en/about/'
+    en: 'https://vernetztesobdach.de/en/about/',
   },
   privacyUrls: {
     default: 'https://vernetztesobdach.de/datenschutz/',
-    en: 'https://vernetztesobdach.de/en/privacy/'
-  }
+    en: 'https://vernetztesobdach.de/en/privacy/',
+  },
 }
 export const webObdachBuildConfig: WebBuildConfigType = {
   ...commonObdachBuildConfig,
@@ -45,14 +45,14 @@ export const webObdachBuildConfig: WebBuildConfigType = {
     locationMarker: '/location-marker.svg',
     appleTouchIcon: '/apple-touch-icon.png',
     socialMediaPreview: '/social-media-preview.png',
-    favicons: '/favicons/'
+    favicons: '/favicons/',
   },
-  apps: null
+  apps: null,
 }
 const platformBuildConfigs = {
   common: commonObdachBuildConfig,
   web: webObdachBuildConfig,
   android: null,
-  ios: null
+  ios: null,
 }
 export default platformBuildConfigs

@@ -8,7 +8,7 @@ import {
   pathnameFromRouteInformation,
   TU_NEWS_TYPE,
   TunewsModel,
-  useLoadFromEndpoint
+  useLoadFromEndpoint,
 } from 'api-client'
 
 import { CityRouteProps } from '../CityContentSwitcher'
@@ -58,7 +58,7 @@ const TuNewsPage = ({ cityCode, languageCode, cityModel, languages }: CityRouteP
           newsType: TU_NEWS_TYPE,
           cityCode,
           languageCode,
-          newsId: id.toString()
+          newsId: id.toString(),
         })}
         t={t}
         formatter={formatter}
@@ -73,7 +73,7 @@ const TuNewsPage = ({ cityCode, languageCode, cityModel, languages }: CityRouteP
     feedbackTargetInformation: null,
     languageChangePaths: null,
     route: TU_NEWS_ROUTE,
-    languageCode
+    languageCode,
   }
 
   if (error) {
@@ -107,7 +107,7 @@ const TuNewsPage = ({ cityCode, languageCode, cityModel, languages }: CityRouteP
         ? pathnameFromRouteInformation({ route: NEWS_ROUTE, newsType: TU_NEWS_TYPE, cityCode, languageCode: code })
         : null,
       name,
-      code
+      code,
     }
   })
 

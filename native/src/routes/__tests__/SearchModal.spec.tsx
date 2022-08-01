@@ -33,7 +33,7 @@ describe('SearchModal', () => {
     closeModal: dummy,
     navigateToLink: dummy,
     t,
-    theme: buildConfig().lightTheme
+    theme: buildConfig().lightTheme,
   }
 
   it('should send tracking signal when closing search site', async () => {
@@ -48,8 +48,8 @@ describe('SearchModal', () => {
       signal: {
         name: SEARCH_FINISHED_SIGNAL_NAME,
         query: 'Category',
-        url: null
-      }
+        url: null,
+      },
     })
   })
 
@@ -66,15 +66,15 @@ describe('SearchModal', () => {
       route: CATEGORIES_ROUTE,
       cityContentPath: categoriesMapModel.toArray()[2]!.path,
       cityCode,
-      languageCode: language
+      languageCode: language,
     }
     const expectedUrl = urlFromRouteInformation(routeInformation)
     expect(sendTrackingSignal).toHaveBeenCalledWith({
       signal: {
         name: SEARCH_FINISHED_SIGNAL_NAME,
         query: 'Category',
-        url: expectedUrl
-      }
+        url: expectedUrl,
+      },
     })
   })
 

@@ -2,6 +2,8 @@ native/android/**/*
 native/ios/**/*
 native/vendor/**/*
 
+native/assets/licenses_native.json
+
 web/www/icons
 web/www/fonts
 #do not ignore supplied files

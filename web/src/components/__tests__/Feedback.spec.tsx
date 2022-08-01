@@ -36,7 +36,7 @@ describe('Feedback', () => {
     onContactMailChanged,
     onSubmit,
     t,
-    closeFeedbackModal
+    closeFeedbackModal,
   })
 
   it('button should be disabled for negative Feedback and no input', () => {
@@ -107,8 +107,8 @@ describe('Feedback', () => {
     expect(onContactMailChanged).not.toHaveBeenCalled()
     fireEvent.change(getByDisplayValue('test@example.com'), {
       target: {
-        value: 'new@example.com'
-      }
+        value: 'new@example.com',
+      },
     })
     expect(onContactMailChanged).toHaveBeenCalledTimes(1)
     expect(onContactMailChanged).toHaveBeenCalledWith('new@example.com')
@@ -125,8 +125,8 @@ describe('Feedback', () => {
     expect(onCommentChanged).not.toHaveBeenCalled()
     fireEvent.change(getByDisplayValue('my comment'), {
       target: {
-        value: 'new comment'
-      }
+        value: 'new comment',
+      },
     })
     expect(onCommentChanged).toHaveBeenCalledTimes(1)
     expect(onCommentChanged).toHaveBeenCalledWith('new comment')

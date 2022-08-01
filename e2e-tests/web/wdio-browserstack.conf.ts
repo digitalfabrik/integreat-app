@@ -14,5 +14,5 @@ export const config = Object.assign(defaultConfig, {
   capabilities: capabilities.length > 0 ? capabilities : Object.values(browserstackCapabilities),
 
   services: [['browserstack', { browserstackLocal: true }]],
-  host: 'hub.browserstack.com'
+  host: 'hub.browserstack.com',
 })

@@ -8,7 +8,8 @@ import {
   INTRO_ROUTE,
   JPAL_TRACKING_ROUTE,
   LANDING_ROUTE,
-  OPEN_DEEP_LINK_SIGNAL_NAME
+  LICENSE_ROUTE,
+  OPEN_DEEP_LINK_SIGNAL_NAME,
 } from 'api-client'
 import InternalPathnameParser from 'api-client/src/routes/InternalPathnameParser'
 
@@ -34,14 +35,14 @@ const navigateToDeepLink = async <T extends RoutesType>(
   sendTrackingSignal({
     signal: {
       name: OPEN_DEEP_LINK_SIGNAL_NAME,
-      url
-    }
+      url,
+    },
   })
 
   if (introSlides && !introShown) {
     // Show intro slides first and handle deep link later
     navigation.replace(INTRO_ROUTE, {
-      deepLink: url
+      deepLink: url,
     })
     return
   }
@@ -61,11 +62,15 @@ const navigateToDeepLink = async <T extends RoutesType>(
     routeInformation &&
     routeInformation.route !== LANDING_ROUTE &&
     routeInformation.route !== JPAL_TRACKING_ROUTE &&
-    routeInformation.route !== CITY_NOT_COOPERATING_ROUTE
+    routeInformation.route !== CITY_NOT_COOPERATING_ROUTE &&
+    routeInformation.route !== LICENSE_ROUTE
       ? routeInformation.cityCode
       : null
   const routeInformationLanguageCode =
-    routeInformation && routeInformation.route !== LANDING_ROUTE && routeInformation.route !== JPAL_TRACKING_ROUTE
+    routeInformation &&
+    routeInformation.route !== LANDING_ROUTE &&
+    routeInformation.route !== JPAL_TRACKING_ROUTE &&
+    routeInformation.route !== LICENSE_ROUTE
       ? routeInformation.languageCode
       : null
   // Don't overwrite already selected city
@@ -83,10 +88,10 @@ const navigateToDeepLink = async <T extends RoutesType>(
       routeName: DASHBOARD_ROUTE,
       cityContentPath: createCityContentPath({
         cityCode: selectedCityCode,
-        languageCode
+        languageCode,
       }),
       forceRefresh: false,
-      resetNavigation: true
+      resetNavigation: true,
     })
   } else {
     navigation.replace(LANDING_ROUTE)

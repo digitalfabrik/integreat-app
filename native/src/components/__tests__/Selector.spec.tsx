@@ -9,7 +9,7 @@ describe('Selector', () => {
     const items = [
       new SelectorItemModel({ name: 'Deutsch', code: 'de', enabled: false, onPress: () => undefined }),
       new SelectorItemModel({ name: 'English', code: 'en', enabled: false, onPress: () => undefined }),
-      new SelectorItemModel({ name: 'Espanol', code: 'es', enabled: false, onPress: () => undefined })
+      new SelectorItemModel({ name: 'Espanol', code: 'es', enabled: false, onPress: () => undefined }),
     ]
 
     const { getByText } = render(<Selector items={items} selectedItemCode='de' />)

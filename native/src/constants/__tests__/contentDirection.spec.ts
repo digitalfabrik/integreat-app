@@ -5,8 +5,8 @@ describe('contentDirection', () => {
       jest.isolateModules(() => {
         jest.doMock('react-native', () => ({
           I18nManager: {
-            isRTL: true
-          }
+            isRTL: true,
+          },
         }))
 
         const contentDirection = require('../contentDirection')
@@ -18,8 +18,8 @@ describe('contentDirection', () => {
       jest.isolateModules(() => {
         jest.doMock('react-native', () => ({
           I18nManager: {
-            isRTL: false
-          }
+            isRTL: false,
+          },
         }))
 
         const contentDirection = require('../contentDirection')
@@ -33,8 +33,8 @@ describe('contentDirection', () => {
       jest.isolateModules(() => {
         jest.doMock('react-native', () => ({
           I18nManager: {
-            isRTL: true
-          }
+            isRTL: true,
+          },
         }))
 
         const contentDirection = require('../contentDirection')
@@ -46,8 +46,8 @@ describe('contentDirection', () => {
       jest.isolateModules(() => {
         jest.doMock('react-native', () => ({
           I18nManager: {
-            isRTL: false
-          }
+            isRTL: false,
+          },
         }))
 
         const contentDirection = require('../contentDirection')

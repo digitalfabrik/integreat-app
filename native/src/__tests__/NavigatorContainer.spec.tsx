@@ -71,10 +71,10 @@ describe('NavigatorContainer', () => {
           key: 'route-key-0',
           criterion: {
             forceUpdate: true,
-            shouldRefreshResources: true
-          }
-        }
-      }
+            shouldRefreshResources: true,
+          },
+        },
+      },
     ])
     jest.dontMock('../Navigator')
   })
@@ -97,9 +97,9 @@ describe('NavigatorContainer', () => {
       {
         type: 'FETCH_CITIES',
         params: {
-          forceRefresh: true
-        }
-      }
+          forceRefresh: true,
+        },
+      },
     ])
     jest.dontMock('../Navigator')
   })

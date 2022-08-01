@@ -39,10 +39,10 @@ describe('Dashboard', () => {
   const stateView = new CategoriesRouteStateView(
     categoryLeaf.path,
     {
-      [categoryLeaf.path]: categoryLeaf
+      [categoryLeaf.path]: categoryLeaf,
     },
     {
-      [categoryLeaf.path]: []
+      [categoryLeaf.path]: [],
     }
   )
   const resourceCache = {}
@@ -65,17 +65,17 @@ describe('Dashboard', () => {
       aliases: {
         Konigsbrunn: {
           latitude: 48.267499,
-          longitude: 10.889586
-        }
+          longitude: 10.889586,
+        },
       },
-      boundingBox: null
+      boundingBox: null,
     })
 
   const mockBuildConfig = (pois: boolean, newsStream: boolean) => {
     const previous = buildConfig()
     mocked(buildConfig).mockImplementation(() => ({
       ...previous,
-      featureFlags: { ...previous.featureFlags, pois, newsStream }
+      featureFlags: { ...previous.featureFlags, pois, newsStream },
     }))
   }
 

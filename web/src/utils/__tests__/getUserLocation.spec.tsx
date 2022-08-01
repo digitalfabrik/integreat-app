@@ -12,7 +12,7 @@ describe('getUserLocation', () => {
     // @ts-expect-error Read only var
     navigator.geolocation = {
       // @ts-expect-error not all properties supplied
-      getCurrentPosition: (resolve: PositionCallback) => resolve({ coords: { longitude, latitude } })
+      getCurrentPosition: (resolve: PositionCallback) => resolve({ coords: { longitude, latitude } }),
     }
     const userLocation = await getUserLocation()
     expect(userLocation.status).toBe('ready')

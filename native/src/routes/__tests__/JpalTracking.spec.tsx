@@ -25,7 +25,7 @@ describe('JpalTracking', () => {
   const route = {
     key: 'route-id-0',
     name: JPAL_TRACKING_ROUTE,
-    params: {}
+    params: {},
   }
 
   it('should persist tracking enabled', async () => {
