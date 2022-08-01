@@ -153,7 +153,7 @@ const CategoriesPage = ({ cityModel, pathname, languages, cityCode, languageCode
     // The children endpoint always returns the category with the new path at the first position in the response
     const newSlugCategory = categories?.[0]
     if (newSlugCategory) {
-      return <Navigate to={newSlugCategory.path} />
+      return <Navigate to={newSlugCategory.path} replace />
     }
 
     const notFoundError = new NotFoundError({ type: 'category', id: pathname, city: cityCode, language: languageCode })
