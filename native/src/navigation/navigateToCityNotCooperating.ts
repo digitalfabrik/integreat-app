@@ -3,7 +3,7 @@ import { CITY_NOT_COOPERATING_ROUTE } from 'api-client'
 import { NavigationPropType, RoutesType } from '../constants/NavigationTypes'
 
 const navigateToCityNotCooperating = <T extends RoutesType>({
-  navigation
+  navigation,
 }: {
   navigation: NavigationPropType<T>
 }): void => {

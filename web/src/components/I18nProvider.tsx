@@ -30,14 +30,14 @@ const I18nProvider = ({ children, contentLanguage }: PropsType): ReactElement | 
         resources,
         fallbackLng: {
           ...config.fallbacks,
-          default: [config.defaultFallback]
+          default: [config.defaultFallback],
         },
         supportedLngs: [...config.getSupportedLanguageTags(), ...config.getFallbackLanguageTags()],
         load: 'currentOnly',
         interpolation: {
-          escapeValue: false
+          escapeValue: false,
         },
-        debug: buildConfig().featureFlags.developerFriendly
+        debug: buildConfig().featureFlags.developerFriendly,
       })
       setI18nextInstance(i18nextInstance)
       setLanguage(i18nextInstance.language)

@@ -5,20 +5,20 @@ const offers = [
     alias: 'sprungbrett',
     title: 'Sprungbrett',
     path: 'https://my.sprung.br/ett/api',
-    thumbnail: ''
+    thumbnail: '',
   }),
   new OfferModel({
     alias: 'jobboerse',
     title: 'Jobboerse',
     path: 'https://my.jobs.com/api',
-    thumbnail: ''
+    thumbnail: '',
   }),
   new OfferModel({
     alias: 'some_extra',
     title: 'Some Extra',
     path: 'https://my.ran.om/api',
-    thumbnail: ''
-  })
+    thumbnail: '',
+  }),
 ]
 
 class OfferModelBuilder {

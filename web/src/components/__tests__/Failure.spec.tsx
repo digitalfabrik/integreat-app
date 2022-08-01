@@ -19,7 +19,7 @@ describe('Failure', () => {
     const error = {
       errorMessage: 'error message',
       goToPath: '/goTo.offers',
-      goToMessage: 'goTo.offers'
+      goToMessage: 'goTo.offers',
     }
     const { getByText } = renderWithRouter(<Failure {...error} t={mockTranslate} />)
 

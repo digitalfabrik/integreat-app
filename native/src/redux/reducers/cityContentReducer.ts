@@ -25,8 +25,8 @@ export default (
       ...initializedState,
       routeMapping: {
         ...initializedState.routeMapping,
-        [key]: { ...oldContent, routeType: CATEGORIES_ROUTE, status: 'loading', language, depth, path, city }
-      }
+        [key]: { ...oldContent, routeType: CATEGORIES_ROUTE, status: 'loading', language, depth, path, city },
+      },
     }
   }
   if (action.type === 'FETCH_EVENT') {
@@ -38,8 +38,8 @@ export default (
       ...initializedState,
       routeMapping: {
         ...initializedState.routeMapping,
-        [key]: { ...oldContent, routeType: EVENTS_ROUTE, status: 'loading', language, city, path }
-      }
+        [key]: { ...oldContent, routeType: EVENTS_ROUTE, status: 'loading', language, city, path },
+      },
     }
   }
   if (action.type === 'FETCH_POI') {
@@ -54,9 +54,9 @@ export default (
           status: 'loading',
           language,
           city,
-          path
-        }
-      }
+          path,
+        },
+      },
     }
   }
   if (state === null) {
@@ -70,7 +70,7 @@ export default (
         switchingLanguage: true,
         searchRoute: null,
         resourceCache:
-          state.resourceCache.status !== 'error' ? { ...state.resourceCache, progress: 0 } : state.resourceCache
+          state.resourceCache.status !== 'error' ? { ...state.resourceCache, progress: 0 } : state.resourceCache,
       }
 
     case 'SWITCH_CONTENT_LANGUAGE_FAILED':
@@ -81,8 +81,8 @@ export default (
         ...state,
         languages: {
           status: 'ready',
-          models: action.params.languages
-        }
+          models: action.params.languages,
+        },
       }
 
     case 'FETCH_LANGUAGES_FAILED':
@@ -90,8 +90,8 @@ export default (
         ...state,
         languages: {
           status: 'error',
-          ...action.params
-        }
+          ...action.params,
+        },
       }
 
     case 'FETCH_RESOURCES_PROGRESS':
@@ -100,7 +100,7 @@ export default (
         resourceCache:
           state.resourceCache.status !== 'error'
             ? { ...state.resourceCache, progress: action.params.progress }
-            : state.resourceCache
+            : state.resourceCache,
       }
 
     case 'PUSH_CATEGORY':
@@ -132,16 +132,16 @@ export default (
                 status: 'languageNotAvailable',
                 allAvailableLanguages,
                 path,
-                ...rest
+                ...rest,
               }
             : {
                 routeType: EVENTS_ROUTE,
                 status: 'error',
                 message,
                 path,
-                ...rest
-              }
-        }
+                ...rest,
+              },
+        },
       }
     }
 
@@ -156,7 +156,7 @@ export default (
                 routeType: CATEGORIES_ROUTE,
                 status: 'languageNotAvailable',
                 allAvailableLanguages,
-                ...rest
+                ...rest,
               }
             : {
                 routeType: CATEGORIES_ROUTE,
@@ -164,9 +164,9 @@ export default (
                 message,
                 code,
                 path,
-                ...rest
-              }
-        }
+                ...rest,
+              },
+        },
       }
     }
 
@@ -181,8 +181,8 @@ export default (
         resourceCache: {
           status: 'error',
           message,
-          code
-        }
+          code,
+        },
       }
     }
 

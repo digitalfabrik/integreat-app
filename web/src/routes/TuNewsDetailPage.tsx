@@ -69,7 +69,7 @@ const TuNewsDetailPage = ({ cityModel, languages, pathname, cityCode, languageCo
     feedbackTargetInformation: null,
     languageChangePaths,
     route: TU_NEWS_DETAIL_ROUTE,
-    languageCode
+    languageCode,
   }
 
   if (loading) {
@@ -87,7 +87,7 @@ const TuNewsDetailPage = ({ cityModel, languages, pathname, cityCode, languageCo
         type: TU_NEWS_TYPE,
         id: pathname,
         city: cityCode,
-        language: languageCode
+        language: languageCode,
       })
 
     return (

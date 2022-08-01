@@ -14,7 +14,7 @@ describe('useClearRouteOnClose', () => {
   const route = {
     key: 'route-id-0',
     params: undefined,
-    name: CATEGORIES_ROUTE
+    name: CATEGORIES_ROUTE,
   }
 
   const MockComponent = ({ clearRouteOnClose }: { clearRouteOnClose: boolean }) => {
@@ -32,8 +32,8 @@ describe('useClearRouteOnClose', () => {
     expect(dispatch).toHaveBeenCalledWith({
       type: 'CLEAR_ROUTE',
       params: {
-        key: route.key
-      }
+        key: route.key,
+      },
     })
   })
 

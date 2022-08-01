@@ -9,7 +9,7 @@ import {
   CityModelBuilder,
   LanguageModelBuilder,
   pathnameFromRouteInformation,
-  SEARCH_ROUTE
+  SEARCH_ROUTE,
 } from 'api-client'
 import { mockUseLoadFromEndpointWithData } from 'api-client/src/testing/mockUseLoadFromEndpoint'
 
@@ -20,7 +20,7 @@ import { RoutePatterns } from '../index'
 jest.mock('react-i18next')
 jest.mock('api-client', () => ({
   ...jest.requireActual('api-client'),
-  useLoadFromEndpoint: jest.fn()
+  useLoadFromEndpoint: jest.fn(),
 }))
 
 describe('SearchPage', () => {
@@ -37,7 +37,7 @@ describe('SearchPage', () => {
   const pathname = pathnameFromRouteInformation({
     route: SEARCH_ROUTE,
     cityCode: cityModel.code,
-    languageCode: languageModel.code
+    languageCode: languageModel.code,
   })
   const routePattern = `/:cityCode/:languageCode/${RoutePatterns[SEARCH_ROUTE]}`
 
@@ -68,8 +68,8 @@ describe('SearchPage', () => {
 
     fireEvent.change(getByPlaceholderText('search:searchPlaceholder'), {
       target: {
-        value: 'Does not exist!'
-      }
+        value: 'Does not exist!',
+      },
     })
 
     expect(queryByText(category0.title)).toBeFalsy()
@@ -77,8 +77,8 @@ describe('SearchPage', () => {
 
     fireEvent.change(getByPlaceholderText('search:searchPlaceholder'), {
       target: {
-        value: category1.title
-      }
+        value: category1.title,
+      },
     })
 
     expect(queryByText(category0.title)).toBeFalsy()
@@ -96,7 +96,7 @@ describe('SearchPage', () => {
         order: 1,
         availableLanguages: new Map(),
         thumbnail: 'https://cms.integreat-ap…03/Beratung-150x150.png',
-        lastUpdate: moment('2017-11-18T19:30:00.000Z')
+        lastUpdate: moment('2017-11-18T19:30:00.000Z'),
       })
     const categoryModels = [
       // should be 1st because 'abc' is in the title and it is lexicographically smaller than category 2
@@ -106,7 +106,7 @@ describe('SearchPage', () => {
       // should be 3rd because 'abc' is only in the content and the title is lexicographically smaller than category 4
       buildCategoryModel('def', 'abc'),
       // should be 4th because 'abc' is only in the content and the title is lexicographically bigger than category 3
-      buildCategoryModel('ghi', 'abc')
+      buildCategoryModel('ghi', 'abc'),
     ]
     const categoriesMap = new CategoriesMapModel(categoryModels)
     mockUseLoadFromEndpointWithData(categoriesMap)
@@ -115,8 +115,8 @@ describe('SearchPage', () => {
 
     fireEvent.change(getByPlaceholderText('search:searchPlaceholder'), {
       target: {
-        value: 'abc'
-      }
+        value: 'abc',
+      },
     })
 
     const searchResults = getAllByLabelText('category', { exact: false })
@@ -134,8 +134,8 @@ describe('SearchPage', () => {
 
     fireEvent.change(getByPlaceholderText('search:searchPlaceholder'), {
       target: {
-        value: 'abc'
-      }
+        value: 'abc',
+      },
     })
 
     expect(getByRole('alert')).toContainHTML('search:nothingFound')
@@ -157,8 +157,8 @@ describe('SearchPage', () => {
 
     fireEvent.change(getByPlaceholderText('search:searchPlaceholder'), {
       target: {
-        value: 'ChangeToThis'
-      }
+        value: 'ChangeToThis',
+      },
     })
 
     expect(global.window.location.href).toMatch(/\?query=ChangeToThis/)
@@ -171,8 +171,8 @@ describe('SearchPage', () => {
 
     fireEvent.change(getByPlaceholderText('search:searchPlaceholder'), {
       target: {
-        value: ''
-      }
+        value: '',
+      },
     })
 
     expect(global.window.location.href).toMatch(/^((?!\?query=).)*$/)

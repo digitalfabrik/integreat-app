@@ -10,7 +10,7 @@ describe('LocationModel', () => {
       postcode: '86353',
       country: 'DE',
       latitude: null,
-      longitude: null
+      longitude: null,
     })
     expect(location.fullAddress).toBe('Café Tür an Tür, Wertachstr. 29, 86353 Augsburg')
   })
@@ -24,7 +24,7 @@ describe('LocationModel', () => {
       postcode: '86353',
       latitude: 33,
       longitude: 32,
-      country: 'DE'
+      country: 'DE',
     })
     expect(location.coordinates).toEqual([location.longitude, location.latitude])
   })

@@ -25,7 +25,7 @@ export const defaultSettings: SettingsType = {
   apiUrlOverride: null,
   jpalTrackingEnabled: null,
   jpalTrackingCode: null,
-  jpalSignals: []
+  jpalSignals: [],
 }
 
 class AppSettings {
@@ -63,7 +63,7 @@ class AppSettings {
 
   setVersion = async (version: string): Promise<void> => {
     await this.setSettings({
-      storageVersion: version
+      storageVersion: version,
     })
   }
 
@@ -74,7 +74,7 @@ class AppSettings {
 
   setContentLanguage = async (language: string): Promise<void> => {
     await this.setSettings({
-      contentLanguage: language
+      contentLanguage: language,
     })
   }
 
@@ -85,25 +85,25 @@ class AppSettings {
 
   setSelectedCity = async (city: string): Promise<void> => {
     await this.setSettings({
-      selectedCity: city
+      selectedCity: city,
     })
   }
 
   clearSelectedCity = async (): Promise<void> => {
     await this.setSettings({
-      selectedCity: null
+      selectedCity: null,
     })
   }
 
   setJpalTrackingCode = async (jpalTrackingCode: string | null): Promise<void> => {
     await this.setSettings({
-      jpalTrackingCode
+      jpalTrackingCode,
     })
   }
 
   setJpalTrackingEnabled = async (jpalTrackingEnabled: boolean): Promise<void> => {
     await this.setSettings({
-      jpalTrackingEnabled
+      jpalTrackingEnabled,
     })
   }
 
@@ -111,14 +111,14 @@ class AppSettings {
     const { jpalSignals } = await this.loadSettings()
     jpalSignals.push(signal)
     await this.setSettings({
-      jpalSignals
+      jpalSignals,
     })
   }
 
   clearJpalSignals = async (): Promise<Array<SignalType>> => {
     const { jpalSignals } = await this.loadSettings()
     await this.setSettings({
-      jpalSignals: []
+      jpalSignals: [],
     })
     return jpalSignals
   }
@@ -130,7 +130,7 @@ class AppSettings {
 
   setIntroShown = async (): Promise<void> => {
     await this.setSettings({
-      introShown: true
+      introShown: true,
     })
   }
 
@@ -141,7 +141,7 @@ class AppSettings {
 
   setApiUrlOverride = async (apiUrlOverride: string): Promise<void> => {
     await this.setSettings({
-      apiUrlOverride
+      apiUrlOverride,
     })
   }
 

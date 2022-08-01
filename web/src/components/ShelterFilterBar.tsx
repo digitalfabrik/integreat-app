@@ -32,7 +32,7 @@ const FilterContainer = styled.div`
 
 const ShelterFilterBar: React.FC<ShelterFilterBarProps> = ({
   filter,
-  updateSearchFilter
+  updateSearchFilter,
 }: ShelterFilterBarProps): ReactElement => {
   const { t } = useTranslation('shelter')
 

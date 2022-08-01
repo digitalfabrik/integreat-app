@@ -12,7 +12,7 @@ import PoiDetails from '../PoiDetails'
 
 jest.mock('../../utils/openExternalUrl', () => jest.fn(async () => undefined))
 jest.mock('@react-native-clipboard/clipboard', () => ({
-  setString: jest.fn()
+  setString: jest.fn(),
 }))
 jest.mock('../../hooks/useSnackbar')
 jest.mock('styled-components')
@@ -22,8 +22,8 @@ jest.mock('../NativeHtml', () => {
 })
 jest.mock('react-i18next', () => ({
   useTranslation: () => ({
-    t: (key: string, params: { distance: string } | undefined) => (params ? `${key}: ${params.distance}` : key)
-  })
+    t: (key: string, params: { distance: string } | undefined) => (params ? `${key}: ${params.distance}` : key),
+  }),
 }))
 
 describe('PoiDetails', () => {

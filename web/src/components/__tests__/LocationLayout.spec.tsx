@@ -16,7 +16,7 @@ describe('LocationLayout', () => {
 
   const languageChangePaths = [
     { code: 'de', name: 'Deutsch', path: '/augsburg/de' },
-    { code: 'en', name: 'English', path: '/augsburg/en' }
+    { code: 'en', name: 'English', path: '/augsburg/en' },
   ]
 
   const feedbackTargetInformation = { path: '/path/to/category' }

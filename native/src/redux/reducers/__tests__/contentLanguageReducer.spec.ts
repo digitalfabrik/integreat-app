@@ -6,8 +6,8 @@ describe('contentLanguageReducer', () => {
       contentLanguageReducer('de', {
         type: 'SET_CONTENT_LANGUAGE',
         params: {
-          contentLanguage: 'en'
-        }
+          contentLanguage: 'en',
+        },
       })
     ).toBe('en')
   })

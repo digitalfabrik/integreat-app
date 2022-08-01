@@ -20,106 +20,106 @@ class Config {
   // See https://wiki.tuerantuer.org/integreat-languages and https://iso639-3.sil.org/code_tables/639/data
   supportedLanguages: SupportedLanguagesType = {
     de: {
-      rtl: false
+      rtl: false,
     },
     ar: {
       // Lateef for arabic ui and content, Open Sans for latin text in arabic text, Raleway for latin ui
       rtl: true,
-      additionalFont: 'noto-sans-arabic'
+      additionalFont: 'noto-sans-arabic',
     },
     en: {
-      rtl: false
+      rtl: false,
     },
     pes: {
       rtl: true,
-      additionalFont: 'noto-sans-arabic'
+      additionalFont: 'noto-sans-arabic',
     },
     fr: {
-      rtl: false
+      rtl: false,
     },
     ro: {
-      rtl: false
+      rtl: false,
     },
     tr: {
-      rtl: false
+      rtl: false,
     },
     pl: {
-      rtl: false
+      rtl: false,
     },
     ti: {
-      rtl: false
+      rtl: false,
     },
     ckb: {
       rtl: true,
-      additionalFont: 'noto-sans-arabic'
+      additionalFont: 'noto-sans-arabic',
     },
     ru: {
-      rtl: false
+      rtl: false,
     },
     so: {
-      rtl: false
+      rtl: false,
     },
     hr: {
-      rtl: false
+      rtl: false,
     },
     es: {
-      rtl: false
+      rtl: false,
     },
     'sr-Latn': {
-      rtl: false
+      rtl: false,
     },
     'sr-Cyrl': {
-      rtl: false
+      rtl: false,
     },
     ps: {
-      rtl: true
+      rtl: true,
     },
     kmr: {
-      rtl: false
+      rtl: false,
     },
     am: {
-      rtl: false
+      rtl: false,
     },
     bg: {
-      rtl: false
+      rtl: false,
     },
     el: {
-      rtl: false
+      rtl: false,
     },
     it: {
-      rtl: false
+      rtl: false,
     },
     'zh-CN': {
       rtl: false,
-      additionalFont: 'noto-sans-sc'
+      additionalFont: 'noto-sans-sc',
     },
     mk: {
-      rtl: false
+      rtl: false,
     },
     sq: {
-      rtl: false
+      rtl: false,
     },
     ka: {
       rtl: false,
-      additionalFont: 'noto-sans-georgian'
+      additionalFont: 'noto-sans-georgian',
     },
     prs: {
       rtl: true,
-      additionalFont: 'noto-sans-arabic'
+      additionalFont: 'noto-sans-arabic',
     },
     hu: {
-      rtl: false
+      rtl: false,
     },
     ur: {
       rtl: true,
-      additionalFont: 'noto-sans-arabic'
+      additionalFont: 'noto-sans-arabic',
     },
     uk: {
-      rtl: false
+      rtl: false,
     },
     fi: {
-      rtl: false
-    }
+      rtl: false,
+    },
   }
 
   // Fallbacks for unnormalized language codes from our backend
@@ -134,7 +134,7 @@ class Config {
     // Slugs from the CMS are (and have to be) lowercase
     'sr-cyrl': ['sr-Cyrl'],
     'sr-latn': ['sr-Latn'],
-    'zh-cn': ['zh-CN']
+    'zh-cn': ['zh-CN'],
   }
 
   defaultFallback = 'de' // If the language code is not found in our translations then use this

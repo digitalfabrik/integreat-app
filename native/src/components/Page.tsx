@@ -45,7 +45,7 @@ const Page = ({
   resourceCacheUrl,
   lastUpdate,
   navigateToFeedback,
-  files
+  files,
 }: PropsType): ReactElement => {
   const [loading, setLoading] = useState<boolean>(true)
   const navigateToLink = useNavigateToLink()

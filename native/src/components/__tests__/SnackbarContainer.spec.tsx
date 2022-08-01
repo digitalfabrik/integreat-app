@@ -15,7 +15,7 @@ jest.mock('../../components/Snackbar', () => {
 })
 jest.mock('react-redux', () => ({
   useSelector: jest.fn(),
-  useDispatch: jest.fn()
+  useDispatch: jest.fn(),
 }))
 
 describe('SnackbarContainer', () => {
@@ -40,24 +40,24 @@ describe('SnackbarContainer', () => {
     // Simulate two new snackbars have been pushed to the redux store
     mockUseSelector.mockImplementation(() => [
       {
-        text: snackbarText1
+        text: snackbarText1,
       },
       {
-        text: snackbarText2
-      }
+        text: snackbarText2,
+      },
     ])
     update(<SnackbarContainer />)
 
     // First snackbar should be remove from redux store
     expect(mockDispatch).toHaveBeenCalledTimes(1)
     expect(mockDispatch).toHaveBeenCalledWith({
-      type: 'DEQUEUE_SNACKBAR'
+      type: 'DEQUEUE_SNACKBAR',
     })
     // Simulate pop of snackbar from the redux store (triggered by DEQUEUE_SNACKBAR action)
     mockUseSelector.mockImplementation(() => [
       {
-        text: snackbarText2
-      }
+        text: snackbarText2,
+      },
     ])
     update(<SnackbarContainer />)
     expect(queryByText(snackbarText1)).toBeTruthy()
@@ -71,7 +71,7 @@ describe('SnackbarContainer', () => {
     // Second snackbar should be shown and removed from redux store
     expect(mockDispatch).toHaveBeenCalledTimes(2)
     expect(mockDispatch).toHaveBeenCalledWith({
-      type: 'DEQUEUE_SNACKBAR'
+      type: 'DEQUEUE_SNACKBAR',
     })
     // Simulate pop of snackbar from the redux store (triggered by DEQUEUE_SNACKBAR action)
     mockUseSelector.mockImplementation(() => [])

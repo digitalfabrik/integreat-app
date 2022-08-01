@@ -30,7 +30,7 @@ const SearchInput = ({
   placeholderText,
   filterText,
   onFilterTextChange,
-  spaceSearch = false
+  spaceSearch = false,
 }: PropsType): ReactElement => {
   const theme = useTheme()
 

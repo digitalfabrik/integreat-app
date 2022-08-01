@@ -13,7 +13,7 @@ import NearbyCities from '../NearbyCities'
 jest.mock('react-native-system-setting', () => undefined)
 jest.mock('../../utils/LocationPermissionManager', () => ({
   checkLocationPermission: jest.fn(),
-  requestLocationPermission: jest.fn()
+  requestLocationPermission: jest.fn(),
 }))
 jest.mock('react-native-permissions', () => require('react-native-permissions/mock'))
 
@@ -36,9 +36,9 @@ describe('NearbyCities', () => {
       accuracy: 1,
       altitudeAccuracy: null,
       heading: null,
-      speed: null
+      speed: null,
     },
-    timestamp: 1234566789
+    timestamp: 1234566789,
   }
 
   const cities = new CityModelBuilder(5).build()
@@ -78,8 +78,8 @@ describe('NearbyCities', () => {
         coords: {
           ...augsburgCoordinates.coords,
           longitude: 0,
-          latitude: 0
-        }
+          latitude: 0,
+        },
       })
     )
     const { queryByText, getByText } = renderNearbyCities()

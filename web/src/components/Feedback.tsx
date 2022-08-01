@@ -60,7 +60,7 @@ const Feedback = (props: PropsType): ReactElement => {
     sendingStatus,
     onSubmit,
     onCommentChanged,
-    onContactMailChanged
+    onContactMailChanged,
   } = props
   const { t } = useTranslation('feedback')
   const feedbackModalDescription = isPositiveFeedback ? 'positiveComment' : 'negativeComment'

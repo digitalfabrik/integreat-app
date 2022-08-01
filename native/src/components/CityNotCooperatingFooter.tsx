@@ -51,11 +51,11 @@ const CityNotCooperatingFooter = ({ navigateToCityNotCooperating, theme }: Props
           title={t('clickHere')}
           onPress={navigateToCityNotCooperating}
           buttonStyle={{
-            backgroundColor: theme.colors.themeColor
+            backgroundColor: theme.colors.themeColor,
           }}
           titleStyle={{
             color: theme.colors.textColor,
-            fontFamily: theme.fonts.native.contentFontRegular
+            fontFamily: theme.fonts.native.contentFontRegular,
           }}
         />
       </ButtonContainer>

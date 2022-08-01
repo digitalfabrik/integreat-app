@@ -8,21 +8,21 @@ describe('languages', () => {
     {
       code: 'en',
       native_name: 'English',
-      dir: 'ltr'
+      dir: 'ltr',
     },
     {
       code: 'de',
       native_name: 'Deutsch',
-      dir: 'ltr'
+      dir: 'ltr',
     },
     {
       code: 'ar',
       native_name: '\u0627\u0644\u0639\u0631\u0628\u064a\u0629',
-      dir: 'rtl'
-    }
+      dir: 'rtl',
+    },
   ]
   const params = {
-    city: 'augsburg'
+    city: 'augsburg',
   }
 
   it('should map router to url', () => {
@@ -36,7 +36,7 @@ describe('languages', () => {
     expect(languageModels).toEqual([
       new LanguageModel('ar', '\u0627\u0644\u0639\u0631\u0628\u064a\u0629', 'rtl'),
       new LanguageModel('de', 'Deutsch', 'ltr'),
-      new LanguageModel('en', 'English', 'ltr')
+      new LanguageModel('en', 'English', 'ltr'),
     ])
   })
 })

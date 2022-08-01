@@ -34,10 +34,10 @@ class DateModel {
     // if allDay: only date, else: date + time
     let span = this._allDay
       ? formatter.format(this._startDate, {
-          format: 'LL'
+          format: 'LL',
         })
       : formatter.format(this._startDate, {
-          format: 'LLL'
+          format: 'LLL',
         })
 
     if (this._endDate.isValid() && !this._startDate.isSame(this._endDate)) {
@@ -48,7 +48,7 @@ class DateModel {
         span += this._allDay
           ? ''
           : ` - ${formatter.format(this._endDate, {
-              format: 'LT'
+              format: 'LT',
             })}`
       } else {
         // startDate and endDate are not on the same day
@@ -56,10 +56,10 @@ class DateModel {
         // if allDay: only date, else: date + time
         span += this._allDay
           ? formatter.format(this._endDate, {
-              format: 'LL'
+              format: 'LL',
             })
           : formatter.format(this._endDate, {
-              format: 'LLL'
+              format: 'LLL',
             })
       }
     }

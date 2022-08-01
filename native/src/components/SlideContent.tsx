@@ -45,7 +45,7 @@ type PropsType = {
 const SlideContent = ({ item, theme, width }: PropsType): ReactElement => (
   <ScrollView
     contentContainerStyle={{
-      flexGrow: 1
+      flexGrow: 1,
     }}>
     <Container theme={theme} width={width}>
       <TextContainer>

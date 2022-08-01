@@ -19,7 +19,7 @@ import {
   PAGE_FEEDBACK_TYPE,
   POIS_ROUTE,
   SEARCH_FEEDBACK_TYPE,
-  SEARCH_ROUTE
+  SEARCH_ROUTE,
 } from 'api-client'
 
 import buildConfig from '../constants/buildConfig'
@@ -59,7 +59,7 @@ export enum SendingState {
   IDLE,
   SUCCESS,
   ERROR,
-  SENDING
+  SENDING,
 }
 
 export const FeedbackContainer = (props: PropsType): ReactElement => {
@@ -106,7 +106,7 @@ export const FeedbackContainer = (props: PropsType): ReactElement => {
       language,
       comment: commentWithMail,
       alias,
-      query
+      query,
     }
   }
 
@@ -145,7 +145,7 @@ export const FeedbackContainer = (props: PropsType): ReactElement => {
       <FontAwesomeIcon icon={faSmile} size='4x' />
       <Text>
         {t('thanksMessage', {
-          appName: buildConfig().appName
+          appName: buildConfig().appName,
         })}
       </Text>
       {!!closeModal && !isSearchFeedback && <TextButton onClick={closeModal} text={t('close')} />}

@@ -18,7 +18,7 @@ describe('createCategoriesEndpoint', () => {
   const json = ['myFirstCategory', 'mySecondCategory', 'myThirdCategory']
   const params = {
     city: 'augsburg',
-    language: 'fa'
+    language: 'fa',
   }
   const basePath = `/${params.city}/${params.language}`
   const rootCategory = new CategoryModel({
@@ -30,7 +30,7 @@ describe('createCategoriesEndpoint', () => {
     thumbnail: '',
     order: -1,
     availableLanguages: new Map(),
-    lastUpdate: moment(0)
+    lastUpdate: moment(0),
   })
   const endpoint = createCategoriesEndpoint(baseUrl)
 

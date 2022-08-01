@@ -6,5 +6,5 @@ const themeColorLight = 'rgba(255, 0, 0, 0.5)'
 export const lightColors: ColorsType = {
   themeColor,
   themeColorLight,
-  ...commonLightColors
+  ...commonLightColors,
 }

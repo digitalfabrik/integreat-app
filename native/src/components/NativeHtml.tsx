@@ -42,7 +42,7 @@ const NativeHtml = React.memo(({ content, cacheDictionary, language }: PropsType
             element.attribs = {
               ...element.attribs,
               ...(newHref && { href: newHref }),
-              ...(newSrc && { src: newSrc })
+              ...(newSrc && { src: newSrc }),
             }
           }
         } catch (e) {
@@ -64,18 +64,18 @@ const NativeHtml = React.memo(({ content, cacheDictionary, language }: PropsType
   return (
     <RenderHTML
       source={{
-        html: content
+        html: content,
       }}
       contentWidth={width}
       defaultTextProps={{
         selectable: true,
-        allowFontScaling: true
+        allowFontScaling: true,
       }}
       domVisitors={{ onElement }}
       renderersProps={{
         a: { onPress: onLinkPress },
         ol: { enableExperimentalRtl: true },
-        ul: { enableExperimentalRtl: true }
+        ul: { enableExperimentalRtl: true },
       }}
       baseStyle={{
         fontSize: theme.fonts.contentFontSize,
@@ -83,7 +83,7 @@ const NativeHtml = React.memo(({ content, cacheDictionary, language }: PropsType
         lineHeight: 24,
         color: theme.colors.textColor,
         textAlign: contentAlignment(language),
-        direction: config.hasRTLScript(language) ? 'rtl' : 'ltr'
+        direction: config.hasRTLScript(language) ? 'rtl' : 'ltr',
       }}
       systemFonts={fonts}
       tagsStyles={{
@@ -94,8 +94,8 @@ const NativeHtml = React.memo(({ content, cacheDictionary, language }: PropsType
           paddingLeft: 15,
           paddingRight: 15,
           fontSize: theme.fonts.hintFontSize,
-          fontStyle: 'italic'
-        }
+          fontStyle: 'italic',
+        },
       }}
     />
   )
