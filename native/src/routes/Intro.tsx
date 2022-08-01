@@ -58,44 +58,44 @@ const Intro = ({ route, navigation }: PropsType): ReactElement => {
           key: 'integreat',
           title: buildConfig().appName,
           description: t('appDescription', {
-            appName: buildConfig().appName
+            appName: buildConfig().appName,
           }),
-          Content: <AppIcon source={buildConfigAssets().appIcon} />
+          Content: <AppIcon source={buildConfigAssets().appIcon} />,
         },
         {
           key: 'search',
           title: t('search'),
           description: t('searchDescription'),
-          Content: <ImageContent source={icons.search} />
+          Content: <ImageContent source={icons.search} />,
         },
         {
           key: 'events',
           title: t('events'),
           description: t('eventsDescription'),
-          Content: <ImageContent source={icons.events} />
+          Content: <ImageContent source={icons.events} />,
         },
         {
           key: 'offers',
           title: t('offers'),
           description: t('offersDescription'),
-          Content: <ImageContent source={icons.offers} />
+          Content: <ImageContent source={icons.offers} />,
         },
         {
           key: 'languageChange',
           title: t('languageChange'),
           description: t('languageChangeDescription'),
-          Content: <ImageContent source={icons.language} />
-        }
+          Content: <ImageContent source={icons.language} />,
+        },
       ]
     : [
         {
           key: 'integreat',
           title: buildConfig().appName,
           description: t('appDescription', {
-            appName: buildConfig().appName
+            appName: buildConfig().appName,
           }),
-          Content: <AppIcon source={buildConfigAssets().appIcon} />
-        }
+          Content: <AppIcon source={buildConfigAssets().appIcon} />,
+        },
       ]
 
   const onDone = useCallback(async () => {
@@ -115,7 +115,7 @@ const Intro = ({ route, navigation }: PropsType): ReactElement => {
 
   const goToSlide = useCallback((index: number) => {
     flatListRef.current?.scrollToIndex({
-      index
+      index,
     })
   }, [])
 
@@ -139,7 +139,7 @@ const Intro = ({ route, navigation }: PropsType): ReactElement => {
         pagingEnabled
         viewabilityConfig={{
           itemVisiblePercentThreshold: 51,
-          minimumViewTime: 0.1
+          minimumViewTime: 0.1,
         }}
         onViewableItemsChanged={onViewableItemsChanged}
         showsHorizontalScrollIndicator={false}

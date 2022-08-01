@@ -10,7 +10,7 @@ jest.mock('@sentry/react-native', () => ({
   ...jest.requireActual('@sentry/react-native'),
   captureException: jest.fn(),
   addBreadcrumb: jest.fn(),
-  init: jest.fn()
+  init: jest.fn(),
 }))
 
 beforeEach(() => {
@@ -22,7 +22,7 @@ const mockBuildConfig = (sentry: boolean, developerFriendly = false) => {
   const previous = buildConfig()
   mockedBuildConfig.mockImplementation(() => ({
     ...previous,
-    featureFlags: { ...previous.featureFlags, sentry, developerFriendly }
+    featureFlags: { ...previous.featureFlags, sentry, developerFriendly },
   }))
 }
 
@@ -59,7 +59,7 @@ describe('reportError', () => {
       endpointName: 'my endpoint',
       innerError: new Error(),
       url: 'https://example.com',
-      requestOptions: { method: 'GET' }
+      requestOptions: { method: 'GET' },
     })
     reportError(error)
     expect(Sentry.captureException).not.toHaveBeenCalled()
@@ -106,7 +106,7 @@ describe('log', () => {
     expect(Sentry.addBreadcrumb).toHaveBeenCalledTimes(1)
     expect(Sentry.addBreadcrumb).toHaveBeenCalledWith({
       message: 'test error log',
-      level: 'error'
+      level: 'error',
     })
     expect(errorSpy).not.toHaveBeenCalled()
     errorSpy.mockRestore()
@@ -115,21 +115,21 @@ describe('log', () => {
     expect(Sentry.addBreadcrumb).toHaveBeenCalledTimes(2)
     expect(Sentry.addBreadcrumb).toHaveBeenCalledWith({
       message: 'test warn log',
-      level: 'warning'
+      level: 'warning',
     })
 
     log('test log', 'log')
     expect(Sentry.addBreadcrumb).toHaveBeenCalledTimes(3)
     expect(Sentry.addBreadcrumb).toHaveBeenCalledWith({
       message: 'test log',
-      level: 'log'
+      level: 'log',
     })
 
     log('test debug log')
     expect(Sentry.addBreadcrumb).toHaveBeenCalledTimes(4)
     expect(Sentry.addBreadcrumb).toHaveBeenCalledWith({
       message: 'test debug log',
-      level: 'debug'
+      level: 'debug',
     })
   })
 })

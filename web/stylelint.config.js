@@ -6,6 +6,6 @@ module.exports = {
   rules: {
     'function-no-unknown': null,
     'at-rule-no-unknown': null,
-    'no-extra-semicolons': null
-  }
+    'no-extra-semicolons': null,
+  },
 }

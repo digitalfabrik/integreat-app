@@ -12,7 +12,7 @@ const transformNodeModules = [
   'api-client',
   'translations',
   '@sentry/react-native',
-  'build-configs'
+  'build-configs',
 ]
 export default {
   rootDir: 'src',
@@ -24,11 +24,11 @@ export default {
         https://github.com/facebook/jest/issues/6127 */
   moduleNameMapper: {
     '.+\\.(css|styl|less|sass|scss|png|jpg|ttf|woff|woff2)$': 'jest-transform-stub',
-    '\\.svg': '<rootDir>/__mocks__/svgrMock.ts'
+    '\\.svg': '<rootDir>/__mocks__/svgrMock.ts',
   },
   setupFilesAfterEnv: [
     '<rootDir>/../jest.setup.ts',
-    '<rootDir>/../node_modules/@testing-library/jest-native/extend-expect'
+    '<rootDir>/../node_modules/@testing-library/jest-native/extend-expect',
   ],
   transform: tsjPreset.transform,
   transformIgnorePatterns: [`node_modules/(?!${transformNodeModules.join('|')})`],
@@ -42,8 +42,8 @@ export default {
     [
       'jest-junit',
       {
-        outputDirectory: '<rootDir>/../reports/unit-test'
-      }
-    ]
-  ]
+        outputDirectory: '<rootDir>/../reports/unit-test',
+      },
+    ],
+  ],
 }

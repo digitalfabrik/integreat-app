@@ -55,7 +55,7 @@ const githubRelease = async (
     repo,
     tag_name: tagId({ versionName: newVersionName, platform }),
     name: releaseName,
-    body
+    body,
   })
 }
 

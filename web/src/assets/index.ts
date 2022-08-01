@@ -28,5 +28,5 @@ export {
   PhoneIcon,
   SmokingIcon,
   TimerIcon,
-  WebsiteIcon
+  WebsiteIcon,
 }

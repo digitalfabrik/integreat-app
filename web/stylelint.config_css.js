@@ -3,6 +3,6 @@ module.exports = {
   rules: {
     indentation: 2,
     'unit-allowed-list': ['em', 'rem', 'px'],
-    'string-quotes': null
-  }
+    'string-quotes': null,
+  },
 }

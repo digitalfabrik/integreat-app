@@ -42,8 +42,8 @@ const createRelease = async ({ newVersionName, accessToken, privateKeyBase64, co
       consumer_key: consumerKey,
       consumer_secret: privateKey,
       access_token: accessToken,
-      access_token_secret: ''
-    }
+      access_token_secret: '',
+    },
   })
 
   const date = new Date()
@@ -62,7 +62,7 @@ const createRelease = async ({ newVersionName, accessToken, privateKeyBase64, co
     name: newVersionName,
     released: true,
     releaseDate: newReleaseDate,
-    project: projectKey
+    project: projectKey,
   })
 
   const unsortedVersions = (await jiraApi.getVersions(projectKey)) as JiraVersion[]
@@ -87,7 +87,7 @@ const createRelease = async ({ newVersionName, accessToken, privateKeyBase64, co
   // https://issues.tuerantuer.org/secure/admin/ViewSystemInfo.jspa
   const response = await jiraApi.searchJira(query, {
     fields: ['id'],
-    maxResults: 1000
+    maxResults: 1000,
   })
   const issues = response.issues as JiraIssue[]
 
@@ -102,12 +102,12 @@ const createRelease = async ({ newVersionName, accessToken, privateKeyBase64, co
             {
               set: [
                 {
-                  id: newVersion.id
-                }
-              ]
-            }
-          ]
-        }
+                  id: newVersion.id,
+                },
+              ],
+            },
+          ],
+        },
       }
       return jiraApi.updateIssue(issueId, issueUpdate, { notifyUsers: false })
     })
@@ -123,7 +123,7 @@ program
     try {
       await createRelease({
         newVersionName,
-        ...program.opts<Opts>()
+        ...program.opts<Opts>(),
       })
     } catch (e) {
       console.error(e)

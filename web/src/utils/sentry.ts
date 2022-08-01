@@ -26,7 +26,7 @@ export const initSentry = async (): Promise<void> => {
     const Sentry = await loadSentry()
     Sentry.init({
       dsn: 'https://f07e705b25464bbd8b0dbbc0a6414b11@sentry.tuerantuer.org/2',
-      release: `web-${__BUILD_CONFIG_NAME__}@${__VERSION_NAME__}`
+      release: `web-${__BUILD_CONFIG_NAME__}@${__VERSION_NAME__}`,
     })
   } catch (e) {
     logSentryException(e)
