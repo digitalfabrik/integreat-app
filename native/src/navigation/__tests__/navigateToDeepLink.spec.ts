@@ -9,7 +9,7 @@ import {
   LOCAL_NEWS_TYPE,
   NEWS_ROUTE,
   OFFERS_ROUTE,
-  OPEN_DEEP_LINK_SIGNAL_NAME
+  OPEN_DEEP_LINK_SIGNAL_NAME,
 } from 'api-client'
 import { FeatureFlagsType } from 'build-configs/BuildConfigType'
 
@@ -38,7 +38,7 @@ describe('navigateToDeepLink', () => {
     // @ts-expect-error partial of fixed city type leads to problems
     mockedBuildConfig.mockImplementation(() => ({
       ...previous,
-      featureFlags: { ...previous.featureFlags, ...featureFlags }
+      featureFlags: { ...previous.featureFlags, ...featureFlags },
     }))
   }
 
@@ -56,7 +56,7 @@ describe('navigateToDeepLink', () => {
       await navigateToDeepLink(dispatch, navigation, url, language)
       expect(navigation.replace).toHaveBeenCalledTimes(1)
       expect(navigation.replace).toHaveBeenCalledWith(INTRO_ROUTE, {
-        deepLink: url
+        deepLink: url,
       })
       expect(createNavigate).not.toHaveBeenCalled()
       expect(navigateToCategory).not.toHaveBeenCalled()
@@ -64,8 +64,8 @@ describe('navigateToDeepLink', () => {
       expect(sendTrackingSignal).toHaveBeenCalledWith({
         signal: {
           name: OPEN_DEEP_LINK_SIGNAL_NAME,
-          url
-        }
+          url,
+        },
       })
     })
 
@@ -82,8 +82,8 @@ describe('navigateToDeepLink', () => {
       expect(sendTrackingSignal).toHaveBeenCalledWith({
         signal: {
           name: OPEN_DEEP_LINK_SIGNAL_NAME,
-          url
-        }
+          url,
+        },
       })
     })
 
@@ -99,8 +99,8 @@ describe('navigateToDeepLink', () => {
       expect(sendTrackingSignal).toHaveBeenCalledWith({
         signal: {
           name: OPEN_DEEP_LINK_SIGNAL_NAME,
-          url
-        }
+          url,
+        },
       })
     })
 
@@ -119,7 +119,7 @@ describe('navigateToDeepLink', () => {
         routeName: DASHBOARD_ROUTE,
         cityContentPath: `/${fixedCity}/${language}`,
         forceRefresh: false,
-        resetNavigation: true
+        resetNavigation: true,
       })
       expect(navigation.replace).not.toHaveBeenCalled()
       expect(createNavigate).not.toHaveBeenCalled()
@@ -127,8 +127,8 @@ describe('navigateToDeepLink', () => {
       expect(sendTrackingSignal).toHaveBeenCalledWith({
         signal: {
           name: OPEN_DEEP_LINK_SIGNAL_NAME,
-          url
-        }
+          url,
+        },
       })
     })
 
@@ -147,7 +147,7 @@ describe('navigateToDeepLink', () => {
         routeName: DASHBOARD_ROUTE,
         cityContentPath: `/${selectedCity}/${language}`,
         forceRefresh: false,
-        resetNavigation: true
+        resetNavigation: true,
       })
       expect(navigation.replace).not.toHaveBeenCalled()
       expect(createNavigate).not.toHaveBeenCalled()
@@ -155,8 +155,8 @@ describe('navigateToDeepLink', () => {
       expect(sendTrackingSignal).toHaveBeenCalledWith({
         signal: {
           name: OPEN_DEEP_LINK_SIGNAL_NAME,
-          url
-        }
+          url,
+        },
       })
     })
   })
@@ -170,7 +170,7 @@ describe('navigateToDeepLink', () => {
       await navigateToDeepLink(dispatch, navigation, url, language)
       expect(navigation.replace).toHaveBeenCalledTimes(1)
       expect(navigation.replace).toHaveBeenCalledWith(INTRO_ROUTE, {
-        deepLink: url
+        deepLink: url,
       })
       expect(createNavigate).not.toHaveBeenCalled()
       expect(navigateToCategory).not.toHaveBeenCalled()
@@ -178,8 +178,8 @@ describe('navigateToDeepLink', () => {
       expect(sendTrackingSignal).toHaveBeenCalledWith({
         signal: {
           name: OPEN_DEEP_LINK_SIGNAL_NAME,
-          url
-        }
+          url,
+        },
       })
     })
 
@@ -197,7 +197,7 @@ describe('navigateToDeepLink', () => {
         routeName: DASHBOARD_ROUTE,
         cityContentPath: `/${cityCode}/${languageCode}`,
         forceRefresh: false,
-        resetNavigation: true
+        resetNavigation: true,
       })
       expect(navigation.replace).not.toHaveBeenCalled()
       expect(createNavigate).not.toHaveBeenCalled()
@@ -205,8 +205,8 @@ describe('navigateToDeepLink', () => {
       expect(sendTrackingSignal).toHaveBeenCalledWith({
         signal: {
           name: OPEN_DEEP_LINK_SIGNAL_NAME,
-          url
-        }
+          url,
+        },
       })
     })
 
@@ -225,7 +225,7 @@ describe('navigateToDeepLink', () => {
         routeName: DASHBOARD_ROUTE,
         cityContentPath: `/${cityCode}/${language}`,
         forceRefresh: false,
-        resetNavigation: true
+        resetNavigation: true,
       })
       expect(navigation.replace).not.toHaveBeenCalled()
       expect(createNavigate).not.toHaveBeenCalled()
@@ -233,8 +233,8 @@ describe('navigateToDeepLink', () => {
       expect(sendTrackingSignal).toHaveBeenCalledWith({
         signal: {
           name: OPEN_DEEP_LINK_SIGNAL_NAME,
-          url
-        }
+          url,
+        },
       })
     })
 
@@ -255,7 +255,7 @@ describe('navigateToDeepLink', () => {
         routeName: DASHBOARD_ROUTE,
         cityContentPath: `/${selectedCity}/${language}`,
         forceRefresh: false,
-        resetNavigation: true
+        resetNavigation: true,
       })
       expect(navigation.replace).not.toHaveBeenCalled()
       expect(createNavigate).toHaveBeenCalledTimes(1)
@@ -266,7 +266,7 @@ describe('navigateToDeepLink', () => {
           cityCode,
           languageCode: language,
           cityContentPath: `/${cityCode}/${language}`,
-          route: DASHBOARD_ROUTE
+          route: DASHBOARD_ROUTE,
         },
         undefined,
         false
@@ -275,8 +275,8 @@ describe('navigateToDeepLink', () => {
       expect(sendTrackingSignal).toHaveBeenCalledWith({
         signal: {
           name: OPEN_DEEP_LINK_SIGNAL_NAME,
-          url
-        }
+          url,
+        },
       })
     })
 
@@ -294,7 +294,7 @@ describe('navigateToDeepLink', () => {
         routeName: DASHBOARD_ROUTE,
         cityContentPath: `/${fixedCity}/${language}`,
         forceRefresh: false,
-        resetNavigation: true
+        resetNavigation: true,
       })
       expect(navigation.replace).not.toHaveBeenCalled()
       expect(createNavigate).not.toHaveBeenCalled()
@@ -302,8 +302,8 @@ describe('navigateToDeepLink', () => {
       expect(sendTrackingSignal).toHaveBeenCalledWith({
         signal: {
           name: OPEN_DEEP_LINK_SIGNAL_NAME,
-          url
-        }
+          url,
+        },
       })
     })
   })
@@ -317,7 +317,7 @@ describe('navigateToDeepLink', () => {
       await navigateToDeepLink(dispatch, navigation, url, language)
       expect(navigation.replace).toHaveBeenCalledTimes(1)
       expect(navigation.replace).toHaveBeenCalledWith(INTRO_ROUTE, {
-        deepLink: url
+        deepLink: url,
       })
       expect(createNavigate).not.toHaveBeenCalled()
       expect(navigateToCategory).not.toHaveBeenCalled()
@@ -325,8 +325,8 @@ describe('navigateToDeepLink', () => {
       expect(sendTrackingSignal).toHaveBeenCalledWith({
         signal: {
           name: OPEN_DEEP_LINK_SIGNAL_NAME,
-          url
-        }
+          url,
+        },
       })
     })
 
@@ -345,7 +345,7 @@ describe('navigateToDeepLink', () => {
         routeName: DASHBOARD_ROUTE,
         cityContentPath: `/${cityCode}/${languageCode}`,
         forceRefresh: false,
-        resetNavigation: true
+        resetNavigation: true,
       })
       expect(navigation.replace).not.toHaveBeenCalled()
       expect(createNavigate).toHaveBeenCalledTimes(1)
@@ -356,7 +356,7 @@ describe('navigateToDeepLink', () => {
           cityCode,
           languageCode,
           cityContentPath: `/${cityCode}/${languageCode}/events/some-event`,
-          route: EVENTS_ROUTE
+          route: EVENTS_ROUTE,
         },
         undefined,
         false
@@ -365,8 +365,8 @@ describe('navigateToDeepLink', () => {
       expect(sendTrackingSignal).toHaveBeenCalledWith({
         signal: {
           name: OPEN_DEEP_LINK_SIGNAL_NAME,
-          url
-        }
+          url,
+        },
       })
     })
 
@@ -385,7 +385,7 @@ describe('navigateToDeepLink', () => {
         routeName: DASHBOARD_ROUTE,
         cityContentPath: `/${cityCode}/${languageCode}`,
         forceRefresh: false,
-        resetNavigation: true
+        resetNavigation: true,
       })
       expect(navigation.replace).not.toHaveBeenCalled()
       expect(createNavigate).toHaveBeenCalledTimes(1)
@@ -395,7 +395,7 @@ describe('navigateToDeepLink', () => {
         {
           cityCode,
           languageCode,
-          route: OFFERS_ROUTE
+          route: OFFERS_ROUTE,
         },
         undefined,
         false
@@ -404,8 +404,8 @@ describe('navigateToDeepLink', () => {
       expect(sendTrackingSignal).toHaveBeenCalledWith({
         signal: {
           name: OPEN_DEEP_LINK_SIGNAL_NAME,
-          url
-        }
+          url,
+        },
       })
     })
 
@@ -426,7 +426,7 @@ describe('navigateToDeepLink', () => {
         routeName: DASHBOARD_ROUTE,
         cityContentPath: `/${selectedCity}/en`,
         forceRefresh: false,
-        resetNavigation: true
+        resetNavigation: true,
       })
       expect(navigation.replace).not.toHaveBeenCalled()
       expect(createNavigate).toHaveBeenCalledTimes(1)
@@ -438,7 +438,7 @@ describe('navigateToDeepLink', () => {
           languageCode: 'en',
           newsId: undefined,
           newsType: LOCAL_NEWS_TYPE,
-          route: NEWS_ROUTE
+          route: NEWS_ROUTE,
         },
         undefined,
         false
@@ -447,8 +447,8 @@ describe('navigateToDeepLink', () => {
       expect(sendTrackingSignal).toHaveBeenCalledWith({
         signal: {
           name: OPEN_DEEP_LINK_SIGNAL_NAME,
-          url
-        }
+          url,
+        },
       })
     })
   })
@@ -467,7 +467,7 @@ describe('navigateToDeepLink', () => {
       expect(mockNavigateTo).toHaveBeenCalledWith(
         {
           route: JPAL_TRACKING_ROUTE,
-          trackingCode: 'abcdef123456'
+          trackingCode: 'abcdef123456',
         },
         undefined,
         false
@@ -476,8 +476,8 @@ describe('navigateToDeepLink', () => {
       expect(sendTrackingSignal).toHaveBeenCalledWith({
         signal: {
           name: OPEN_DEEP_LINK_SIGNAL_NAME,
-          url
-        }
+          url,
+        },
       })
     })
 
@@ -497,7 +497,7 @@ describe('navigateToDeepLink', () => {
         routeName: DASHBOARD_ROUTE,
         cityContentPath: `/${selectedCity}/${language}`,
         forceRefresh: false,
-        resetNavigation: true
+        resetNavigation: true,
       })
       expect(navigation.replace).not.toHaveBeenCalled()
       expect(createNavigate).toHaveBeenCalledTimes(1)
@@ -506,7 +506,7 @@ describe('navigateToDeepLink', () => {
       expect(mockNavigateTo).toHaveBeenCalledWith(
         {
           route: JPAL_TRACKING_ROUTE,
-          trackingCode: null
+          trackingCode: null,
         },
         undefined,
         false
@@ -515,8 +515,8 @@ describe('navigateToDeepLink', () => {
       expect(sendTrackingSignal).toHaveBeenCalledWith({
         signal: {
           name: OPEN_DEEP_LINK_SIGNAL_NAME,
-          url
-        }
+          url,
+        },
       })
     })
 

@@ -10,13 +10,13 @@ const config: InitialOptionsTsJest = {
   automock: false,
   setupFilesAfterEnv: [
     '<rootDir>/../jest.setup.ts',
-    '<rootDir>/../node_modules/@testing-library/jest-dom/extend-expect'
+    '<rootDir>/../node_modules/@testing-library/jest-dom/extend-expect',
   ],
   transformIgnorePatterns: [`node_modules/(?!${transformNodeModules.join('|')})`],
   moduleNameMapper: {
     '\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$':
       '<rootDir>/__mocks__/fileMock.ts',
-    '\\.(css|less)$': '<rootDir>/__mocks__/styleMock.ts'
+    '\\.(css|less)$': '<rootDir>/__mocks__/styleMock.ts',
   },
   moduleFileExtensions: ['js', 'jsx', 'ts', 'tsx', 'json'],
   moduleDirectories: ['node_modules'],
@@ -27,9 +27,9 @@ const config: InitialOptionsTsJest = {
     [
       'jest-junit',
       {
-        outputDirectory: '<rootDir>/../reports/unit-test'
-      }
-    ]
+        outputDirectory: '<rootDir>/../reports/unit-test',
+      },
+    ],
   ],
   testEnvironment: 'jsdom',
   snapshotSerializers: ['enzyme-to-json/serializer'],
@@ -38,8 +38,8 @@ const config: InitialOptionsTsJest = {
     __BUILD_CONFIG_NAME__: 'integreat-test-cms',
     __BUILD_CONFIG__: webIntegreatTestCmsBuildConfig,
     __VERSION_NAME__: '0.0.0',
-    __COMMIT_SHA__: 123456789
-  }
+    __COMMIT_SHA__: 123456789,
+  },
 }
 
 export default config

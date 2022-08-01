@@ -37,7 +37,7 @@ describe('events', () => {
       end_date: endDate,
       end_time: endTime,
       timezone,
-      recurrence_id: null
+      recurrence_id: null,
     },
     location: {
       id: 1234,
@@ -47,7 +47,7 @@ describe('events', () => {
       postcode: '86353',
       country: 'DE',
       latitude: null,
-      longitude: null
+      longitude: null,
     },
     modified_gmt: '2017-01-09 15:30:00',
     featured_image: {
@@ -57,31 +57,31 @@ describe('events', () => {
         {
           url: 'https://thumbna.il',
           width: 150,
-          height: 150
-        }
+          height: 150,
+        },
       ],
       medium: [
         {
           url: 'https://medi.um',
           width: 300,
-          height: 300
-        }
+          height: 300,
+        },
       ],
       large: [
         {
           url: 'https://lar.ge',
           width: 500,
-          height: 500
-        }
+          height: 500,
+        },
       ],
       full: [
         {
           url: 'https://fu.ll',
           width: 500,
-          height: 500
-        }
-      ]
-    }
+          height: 500,
+        },
+      ],
+    },
   })
 
   const createEventModel = (id: number, allDay: boolean, startDate: Moment, endDate: Moment): EventModel =>
@@ -95,7 +95,7 @@ describe('events', () => {
       date: new DateModel({
         allDay,
         startDate,
-        endDate
+        endDate,
       }),
       location: new LocationModel({
         id: 1234,
@@ -105,7 +105,7 @@ describe('events', () => {
         postcode: '86353',
         country: 'DE',
         longitude: null,
-        latitude: null
+        latitude: null,
       }),
       lastUpdate: moment.tz('2017-01-09 15:30:00', 'GMT'),
       featuredImage: new FeaturedImageModel({
@@ -113,24 +113,24 @@ describe('events', () => {
         thumbnail: {
           url: 'https://thumbna.il',
           width: 150,
-          height: 150
+          height: 150,
         },
         medium: {
           url: 'https://medi.um',
           width: 300,
-          height: 300
+          height: 300,
         },
         large: {
           url: 'https://lar.ge',
           width: 500,
-          height: 500
+          height: 500,
         },
         full: {
           url: 'https://fu.ll',
           width: 500,
-          height: 500
-        }
-      })
+          height: 500,
+        },
+      }),
     })
 
   const event1 = createEvent(2730, false, '2016-01-31', '10:00:00', '2016-01-31', '13:00:00', 'Europe/Berlin')
@@ -164,7 +164,7 @@ describe('events', () => {
   )
   const params = {
     city: 'augsburg',
-    language: 'de'
+    language: 'de',
   }
   it('should map params to url', () => {
     expect(events.mapParamsToUrl(params)).toBe('https://integreat-api-url.de/augsburg/de/wp-json/extensions/v3/events')

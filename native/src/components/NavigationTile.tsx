@@ -71,7 +71,7 @@ class NavigationTile extends React.Component<PropsType> {
   getNewsDot(): ReactNode {
     const {
       tile: { notifications },
-      theme
+      theme,
     } = this.props
 
     if (notifications && notifications > 0) {

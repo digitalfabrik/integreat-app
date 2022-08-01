@@ -40,9 +40,9 @@ export default (baseUrl: string): Endpoint<ParamsType, Array<PoiModel>> =>
                 postcode: poi.location.postcode,
                 country: poi.location.country,
                 latitude: poi.location.latitude,
-                longitude: poi.location.longitude
+                longitude: poi.location.longitude,
               }),
-              lastUpdate: moment.tz(poi.modified_gmt, 'GMT')
+              lastUpdate: moment.tz(poi.modified_gmt, 'GMT'),
             })
         )
     )

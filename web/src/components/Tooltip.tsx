@@ -177,29 +177,29 @@ const spaceCheckers: Record<
     check: (rect: ClientRect, { width }) =>
       rect.top - MAX_HEIGHT >= 0 && // Check distance to viewport top
       getCenterX(rect) - MAX_WIDTH / 2 >= 0 && // Check distance from center to viewport left
-      getCenterX(rect) + MAX_WIDTH / 2 <= width // Check distance from center to viewport right
+      getCenterX(rect) + MAX_WIDTH / 2 <= width, // Check distance from center to viewport right
   },
   down: {
     fallbacks: ['up', 'left', 'right'],
     check: (rect: ClientRect, { width, height }) =>
       rect.bottom + MAX_HEIGHT <= height && // Check distance to viewport bottom
       getCenterX(rect) - MAX_WIDTH / 2 >= 0 && // Check distance from center to viewport left
-      getCenterX(rect) + MAX_WIDTH / 2 <= width // Check distance from center to viewport right
+      getCenterX(rect) + MAX_WIDTH / 2 <= width, // Check distance from center to viewport right
   },
   left: {
     fallbacks: ['right', 'up', 'left'],
     check: (rect: ClientRect, { height }) =>
       rect.left - MAX_WIDTH >= 0 && // Check distance to viewport left
       getCenterY(rect) - MAX_HEIGHT / 2 >= 0 && // Check distance from center to viewport top
-      getCenterY(rect) + MAX_HEIGHT / 2 <= height // Check distance from center to viewport bottom
+      getCenterY(rect) + MAX_HEIGHT / 2 <= height, // Check distance from center to viewport bottom
   },
   right: {
     fallbacks: ['left', 'up', 'left'],
     check: (rect: ClientRect, { width, height }) =>
       rect.right + MAX_WIDTH <= width && // Check distance to viewport right
       getCenterY(rect) - MAX_HEIGHT / 2 >= 0 && // Check distance from center to viewport top
-      getCenterY(rect) + MAX_HEIGHT / 2 <= height // Check distance from center to viewport bottom
-  }
+      getCenterY(rect) + MAX_HEIGHT / 2 <= height, // Check distance from center to viewport bottom
+  },
 }
 
 const fixFlow = (element: Element | null, preferredFlow: FlowType, dimensions: ViewportDimensionsType) => {
@@ -239,14 +239,14 @@ export default ({ children, text, flow, mediumViewportFlow, smallViewportFlow, .
 
   const [dimensions, setDimensions] = useState<ViewportDimensionsType>({
     height: window.innerHeight,
-    width: window.innerWidth
+    width: window.innerWidth,
   })
 
   useEffect(() => {
     const handleResize = () => {
       setDimensions({
         height: window.innerHeight,
-        width: window.innerWidth
+        width: window.innerWidth,
       })
     }
 

@@ -8,8 +8,8 @@ import LanguageNotAvailablePage from '../LanguageNotAvailablePage'
 
 jest.mock('react-i18next', () => ({
   useTranslation: () => ({
-    t: (key: string) => key
-  })
+    t: (key: string) => key,
+  }),
 }))
 
 describe('LanguageNotAvailablePage', () => {

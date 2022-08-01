@@ -18,7 +18,7 @@ import {
   PoiModel,
   POIS_ROUTE,
   PoisRouteType,
-  prepareFeatureLocations
+  prepareFeatureLocations,
 } from 'api-client'
 
 import BottomActionsSheet from '../components/BottomActionsSheet'
@@ -67,7 +67,7 @@ const Pois = ({ pois, language, cityModel, route, navigation }: PropsType): Reac
   const baseUrl = urlFromRouteInformation({
     route: POIS_ROUTE,
     languageCode: language,
-    cityCode: cityModel.code
+    cityCode: cityModel.code,
   })
   const shareUrl = urlSlug ? `${baseUrl}?${nameQueryParam}=${urlSlug}` : baseUrl
   useSetShareUrl({ navigation, shareUrl, route, routeInformation: null })
@@ -91,7 +91,7 @@ const Pois = ({ pois, language, cityModel, route, navigation }: PropsType): Reac
       cameraRef.current.setCamera({
         centerCoordinate: geometry.coordinates,
         zoomLevel: detailZoom,
-        animationDuration
+        animationDuration,
       })
       navigation.setParams({ urlSlug: properties.urlSlug })
     } else {
@@ -116,7 +116,7 @@ const Pois = ({ pois, language, cityModel, route, navigation }: PropsType): Reac
       language,
       path: poi ? poi.path : undefined,
       cityCode: cityModel.code,
-      isPositiveFeedback
+      isPositiveFeedback,
     })
   }
 
@@ -135,7 +135,7 @@ const Pois = ({ pois, language, cityModel, route, navigation }: PropsType): Reac
             type: 'poi',
             id: urlSlug ?? '',
             city: cityModel.code,
-            language
+            language,
           })
         )}
       />

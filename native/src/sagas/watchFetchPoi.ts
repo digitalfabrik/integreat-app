@@ -16,7 +16,7 @@ export function* fetchPoi(dataContainer: DataContainer, action: FetchPoiActionTy
   try {
     const peeking = yield* select(state =>
       isPeekingRoute(state, {
-        routeCity: city
+        routeCity: city,
       })
     )
     const loadCriterion = new ContentLoadCriterion(criterion, peeking)
@@ -27,7 +27,7 @@ export function* fetchPoi(dataContainer: DataContainer, action: FetchPoiActionTy
     if (languageValid) {
       const { pois, resourceCache } = yield* all({
         pois: call(dataContainer.getPois, city, language),
-        resourceCache: call(dataContainer.getResourceCache, city, language)
+        resourceCache: call(dataContainer.getResourceCache, city, language),
       })
       const insert: PushPoiActionType = {
         type: 'PUSH_POI',
@@ -38,8 +38,8 @@ export function* fetchPoi(dataContainer: DataContainer, action: FetchPoiActionTy
           cityLanguages,
           key,
           language,
-          city
-        }
+          city,
+        },
       }
       yield* put(insert)
     } else {
@@ -49,8 +49,8 @@ export function* fetchPoi(dataContainer: DataContainer, action: FetchPoiActionTy
           cityContentPath({
             route: POIS_ROUTE,
             cityCode: city,
-            languageCode: lng.code
-          })
+            languageCode: lng.code,
+          }),
         ])
       )
       const failed: FetchPoiFailedActionType = {
@@ -62,8 +62,8 @@ export function* fetchPoi(dataContainer: DataContainer, action: FetchPoiActionTy
           path: null,
           key,
           language,
-          city
-        }
+          city,
+        },
       }
       yield* put(failed)
     }
@@ -78,8 +78,8 @@ export function* fetchPoi(dataContainer: DataContainer, action: FetchPoiActionTy
         city,
         language,
         path,
-        allAvailableLanguages: null
-      }
+        allAvailableLanguages: null,
+      },
     }
     yield* put(failed)
   }

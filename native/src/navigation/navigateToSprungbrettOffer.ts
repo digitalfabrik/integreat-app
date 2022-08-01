@@ -8,7 +8,7 @@ import { StoreActionType } from '../redux/StoreActionType'
 const navigateToSprungbrettOffer = <T extends RoutesType>({
   navigation,
   cityCode,
-  languageCode
+  languageCode,
 }: {
   dispatch: Dispatch<StoreActionType>
   navigation: NavigationPropType<T>
@@ -19,8 +19,8 @@ const navigateToSprungbrettOffer = <T extends RoutesType>({
     name: SPRUNGBRETT_OFFER_ROUTE,
     params: {
       cityCode,
-      languageCode
-    }
+      languageCode,
+    },
   })
 }
 

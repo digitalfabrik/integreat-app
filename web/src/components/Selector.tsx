@@ -83,7 +83,7 @@ const Selector = ({
   activeItemCode,
   verticalLayout,
   closeDropDown,
-  disabledItemTooltip
+  disabledItemTooltip,
 }: PropsType): ReactElement => (
   <Wrapper vertical={verticalLayout} id='languageSelector'>
     {items.map(item => {

@@ -26,7 +26,7 @@ const MainDisclaimerPage = ({ languageCode }: PropsType): ReactElement => {
         <Caption title='Impressum und Datenschutz' />
         <div
           dangerouslySetInnerHTML={{
-            __html: buildConfig().mainImprint
+            __html: buildConfig().mainImprint,
           }}
         />
       </div>

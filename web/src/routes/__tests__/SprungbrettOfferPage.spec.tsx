@@ -9,7 +9,7 @@ import {
   pathnameFromRouteInformation,
   SPRUNGBRETT_OFFER_ROUTE,
   SprungbrettJobModel,
-  useLoadFromEndpoint
+  useLoadFromEndpoint,
 } from 'api-client'
 
 import { renderRoute } from '../../testing/render'
@@ -18,7 +18,7 @@ import { RoutePatterns } from '../index'
 
 jest.mock('api-client', () => ({
   ...jest.requireActual('api-client'),
-  useLoadFromEndpoint: jest.fn()
+  useLoadFromEndpoint: jest.fn(),
 }))
 jest.mock('react-i18next')
 
@@ -43,7 +43,7 @@ describe('SprungbrettOfferPage', () => {
       location: 'Augsburg',
       isEmployment: true,
       isApprenticeship: true,
-      url: 'http://awesome-jobs.domain'
+      url: 'http://awesome-jobs.domain',
     }),
     new SprungbrettJobModel({
       id: 1,
@@ -51,7 +51,7 @@ describe('SprungbrettOfferPage', () => {
       location: 'Augsburg',
       isEmployment: true,
       isApprenticeship: false,
-      url: 'http://awesome-jobs.domain'
+      url: 'http://awesome-jobs.domain',
     }),
     new SprungbrettJobModel({
       id: 2,
@@ -59,13 +59,13 @@ describe('SprungbrettOfferPage', () => {
       location: 'Augsburg',
       isEmployment: false,
       isApprenticeship: true,
-      url: 'http://awesome-jobs.domain'
-    })
+      url: 'http://awesome-jobs.domain',
+    }),
   ]
   const pathname = pathnameFromRouteInformation({
     route: SPRUNGBRETT_OFFER_ROUTE,
     cityCode: city.code,
-    languageCode: language.code
+    languageCode: language.code,
   })
   const routePattern = `/:cityCode/:languageCode/${RoutePatterns[SPRUNGBRETT_OFFER_ROUTE]}`
 
@@ -88,7 +88,7 @@ describe('SprungbrettOfferPage', () => {
       data: sprungbrettOffer,
       loading: false,
       error: null,
-      refresh: () => null
+      refresh: () => null,
     })) as typeof useLoadFromEndpoint
     mockUseLoadFromEndpointOnce(useLoadFromEndpointMockOffers)
 
@@ -96,7 +96,7 @@ describe('SprungbrettOfferPage', () => {
       data: sprungbrettJobs,
       loading: false,
       error: null,
-      refresh: () => null
+      refresh: () => null,
     })) as typeof useLoadFromEndpoint
     mockUseLoadFromEndpointOnce(useLoadFromEndpointMockJobs)
 
@@ -114,14 +114,14 @@ describe('SprungbrettOfferPage', () => {
       data: null,
       loading: false,
       error: new Error(errorMessage),
-      refresh: () => null
+      refresh: () => null,
     }))
 
     const useLoadFromEndpointMockJobs = (() => ({
       data: sprungbrettJobs,
       loading: false,
       error: null,
-      refresh: () => null
+      refresh: () => null,
     })) as typeof useLoadFromEndpoint
     mockUseLoadFromEndpointOnce(useLoadFromEndpointMockJobs)
 
@@ -136,7 +136,7 @@ describe('SprungbrettOfferPage', () => {
       data: sprungbrettOffer,
       loading: false,
       error: null,
-      refresh: () => null
+      refresh: () => null,
     })) as typeof useLoadFromEndpoint
     mockUseLoadFromEndpointOnce(useLoadFromEndpointMockOffers)
 
@@ -144,7 +144,7 @@ describe('SprungbrettOfferPage', () => {
       data: null,
       loading: false,
       error: new Error(errorMessage),
-      refresh: () => null
+      refresh: () => null,
     }))
 
     const { getByText } = renderSprungbrett()

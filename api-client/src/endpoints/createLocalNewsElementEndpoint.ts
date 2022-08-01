@@ -37,7 +37,7 @@ export default (baseUrl: string): Endpoint<ParamsType, LocalNewsModel> =>
         id,
         timestamp: moment.tz(timestamp, 'GMT'),
         title,
-        message
+        message,
       })
     })
     .build()

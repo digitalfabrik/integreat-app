@@ -31,7 +31,7 @@ describe('PageDetail', () => {
       )
       queryAllByText(/Some important information/).forEach(element => {
         expect(element).toHaveStyle({
-          flexDirection: 'row'
+          flexDirection: 'row',
         })
       })
       const { queryAllByText: queryAllByTextReverse } = render(
@@ -44,7 +44,7 @@ describe('PageDetail', () => {
       )
       queryAllByTextReverse(/Some important information/).forEach(element => {
         expect(element).toHaveStyle({
-          flexDirection: 'row-reverse'
+          flexDirection: 'row-reverse',
         })
       })
     })
@@ -60,7 +60,7 @@ describe('PageDetail', () => {
       )
       queryAllByTextReverse(/Some important information/).forEach(element => {
         expect(element).toHaveStyle({
-          flexDirection: 'row-reverse'
+          flexDirection: 'row-reverse',
         })
       })
       const { queryAllByText } = render(
@@ -73,7 +73,7 @@ describe('PageDetail', () => {
       )
       queryAllByText(/Some important information/).forEach(element => {
         expect(element).toHaveStyle({
-          flexDirection: 'row'
+          flexDirection: 'row',
         })
       })
     })

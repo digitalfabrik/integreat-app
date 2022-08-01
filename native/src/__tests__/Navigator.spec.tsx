@@ -112,7 +112,7 @@ jest.mock('../components/TransparentHeader', () => {
 })
 jest.mock('../utils/PushNotificationsManager', () => ({
   pushNotificationsSupported: jest.fn(() => true),
-  quitAppStatePushNotificationListener: jest.fn()
+  quitAppStatePushNotificationListener: jest.fn(),
 }))
 jest.mock('react-redux')
 
@@ -125,7 +125,7 @@ const props = ({ routeKey, routeName }: { routeKey?: string; routeName: string |
   routeKey,
   routeName,
   fetchCategory,
-  fetchCities
+  fetchCities,
 })
 
 describe('Navigator', () => {
@@ -141,7 +141,7 @@ describe('Navigator', () => {
         <NavigationContainer>
           <Navigator
             {...props({
-              routeName: null
+              routeName: null,
             })}
           />
         </NavigationContainer>
@@ -160,7 +160,7 @@ describe('Navigator', () => {
       <NavigationContainer>
         <Navigator
           {...props({
-            routeName: null
+            routeName: null,
           })}
         />
       </NavigationContainer>
@@ -176,7 +176,7 @@ describe('Navigator', () => {
       <NavigationContainer>
         <Navigator
           {...props({
-            routeName: null
+            routeName: null,
           })}
         />
       </NavigationContainer>
@@ -190,7 +190,7 @@ describe('Navigator', () => {
       <NavigationContainer>
         <Navigator
           {...props({
-            routeName: null
+            routeName: null,
           })}
         />
       </NavigationContainer>
@@ -208,7 +208,7 @@ describe('Navigator', () => {
         <NavigationContainer>
           <Navigator
             {...props({
-              routeName: null
+              routeName: null,
             })}
           />
         </NavigationContainer>
@@ -220,7 +220,7 @@ describe('Navigator', () => {
           <Navigator
             {...props({
               routeName: DASHBOARD_ROUTE,
-              routeKey
+              routeKey,
             })}
           />
         </NavigationContainer>
@@ -237,7 +237,7 @@ describe('Navigator', () => {
       <NavigationContainer>
         <Navigator
           {...props({
-            routeName: null
+            routeName: null,
           })}
         />
       </NavigationContainer>

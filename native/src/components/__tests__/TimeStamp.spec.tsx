@@ -26,7 +26,7 @@ describe('TimeStamp', () => {
   it('should display last update text and formatted timestamp', () => {
     const { getByText } = renderTimeStamp(null, null)
     const formattedDate = dateFormatter.format(lastUpdate, {
-      format: 'LL'
+      format: 'LL',
     })
     expect(getByText(/lastUpdate/)).toBeTruthy()
     expect(getByText(formattedDate)).toBeTruthy()
@@ -34,7 +34,7 @@ describe('TimeStamp', () => {
   it('should display last update text and formatted timestamp explicitly', () => {
     const { getByText } = renderTimeStamp(null, true)
     const formattedDate = dateFormatter.format(lastUpdate, {
-      format: 'LL'
+      format: 'LL',
     })
     expect(getByText(/lastUpdate/)).toBeTruthy()
     expect(getByText(formattedDate)).toBeTruthy()
@@ -42,7 +42,7 @@ describe('TimeStamp', () => {
   it('should only display formatted timestamp', () => {
     const { getByText, queryByText } = renderTimeStamp(null, false)
     const formattedDate = dateFormatter.format(lastUpdate, {
-      format: 'LL'
+      format: 'LL',
     })
     expect(queryByText(/lastUpdate/)).toBeNull()
     expect(getByText(formattedDate)).toBeTruthy()
@@ -51,7 +51,7 @@ describe('TimeStamp', () => {
     const format = 'LLL'
     const { getByText } = renderTimeStamp(format, false)
     const formattedDate = dateFormatter.format(lastUpdate, {
-      format
+      format,
     })
     expect(getByText(formattedDate)).toBeTruthy()
   })

@@ -5,7 +5,7 @@
 import createFeedbackEndponit, {
   CONTENT_FEEDBACK_CATEGORY,
   PAGE_FEEDBACK_TYPE,
-  TECHNICAL_FEEDBACK_CATEGORY
+  TECHNICAL_FEEDBACK_CATEGORY,
 } from '../createFeedbackEndpoint'
 
 describe('feedback', () => {
@@ -19,7 +19,7 @@ describe('feedback', () => {
         comment: null,
         feedbackType: null,
         feedbackCategory: TECHNICAL_FEEDBACK_CATEGORY,
-        isPositiveRating: true
+        isPositiveRating: true,
       })
     ).toBe('https://integreat-api-url.de/augsburg/de/wp-json/extensions/v3/feedback')
   })
@@ -32,7 +32,7 @@ describe('feedback', () => {
         feedbackType: PAGE_FEEDBACK_TYPE,
         feedbackCategory: CONTENT_FEEDBACK_CATEGORY,
         isPositiveRating: true,
-        permalink: `/augsburg/de/willkommen`
+        permalink: `/augsburg/de/willkommen`,
       })
     ).toBe('https://integreat-api-url.de/augsburg/de/wp-json/extensions/v3/feedback')
   })
@@ -61,7 +61,7 @@ describe('feedback', () => {
         feedbackCategory: CONTENT_FEEDBACK_CATEGORY,
         comment: 'comment',
         alias: 'alias',
-        query: 'query'
+        query: 'query',
       })
     ).toEqual(formData)
   })

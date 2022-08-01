@@ -10,7 +10,7 @@ import { sendRequest } from '../../utils/sendTrackingSignal'
 import useSendOfflineJpalSignals from '../useSendOfflineJpalSignals'
 
 jest.mock('@react-native-community/netinfo', () => ({
-  useNetInfo: jest.fn()
+  useNetInfo: jest.fn(),
 }))
 
 jest.mock('../../utils/sendTrackingSignal')
@@ -36,9 +36,9 @@ describe('useSendOfflineJpalSignals', () => {
     systemLanguage: 'de',
     appSettings: {
       allowPushNotifications: true,
-      errorTracking: false
+      errorTracking: false,
     },
-    timestamp: '2020-01-20T00:00:00.000Z'
+    timestamp: '2020-01-20T00:00:00.000Z',
   }
   const signal2 = { ...signal1, pageType: CATEGORIES_ROUTE }
 
@@ -51,8 +51,8 @@ describe('useSendOfflineJpalSignals', () => {
       isConnected: true,
       isInternetReachable,
       details: {
-        isConnectionExpensive: false
-      }
+        isConnectionExpensive: false,
+      },
     }))
   }
 

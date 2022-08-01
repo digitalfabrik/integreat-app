@@ -8,7 +8,7 @@ import {
   OFFERS_ROUTE,
   pathnameFromRouteInformation,
   ReturnType,
-  useLoadFromEndpoint
+  useLoadFromEndpoint,
 } from 'api-client'
 
 import { renderRoute } from '../../testing/render'
@@ -17,7 +17,7 @@ import { RoutePatterns } from '../index'
 
 jest.mock('api-client', () => ({
   ...jest.requireActual('api-client'),
-  useLoadFromEndpoint: jest.fn()
+  useLoadFromEndpoint: jest.fn(),
 }))
 jest.mock('react-i18next')
 
@@ -34,7 +34,7 @@ describe('OffersPage', () => {
     alias: 'sprungbrett',
     path: 'path to fetch jobs from',
     title: 'Sprungbrett',
-    thumbnail: 'xy'
+    thumbnail: 'xy',
   })
   const lehrstellenRadarPostData = new Map()
   lehrstellenRadarPostData.set('partner', '0006')
@@ -47,20 +47,20 @@ describe('OffersPage', () => {
       path: 'ihk-jobborese.com',
       title: 'Jobboerse',
       thumbnail: 'xy',
-      postData: lehrstellenRadarPostData
+      postData: lehrstellenRadarPostData,
     }),
     new OfferModel({
       alias: 'ihk-praktikumsboerse',
       path: 'ihk-pratkitkumsboerse.com',
       title: 'Praktikumsboerse',
-      thumbnail: 'xy'
-    })
+      thumbnail: 'xy',
+    }),
   ]
 
   const pathname = pathnameFromRouteInformation({
     route: OFFERS_ROUTE,
     cityCode: city.code,
-    languageCode: language.code
+    languageCode: language.code,
   })
   const routePattern = `/:cityCode/:languageCode/${RoutePatterns[OFFERS_ROUTE]}`
 
@@ -85,7 +85,7 @@ describe('OffersPage', () => {
       data: offers,
       loading: false,
       error: null,
-      refresh: () => undefined
+      refresh: () => undefined,
     })
     offers.forEach(offer => {
       expect(getByText(`offers:${offer.title}`)).toBeTruthy()

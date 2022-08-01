@@ -66,10 +66,10 @@ class Endpoint<P, T> {
       ? {
           method: 'POST',
           body,
-          ...headers
+          ...headers,
         }
       : {
-          method: 'GET'
+          method: 'GET',
         }
 
     const response = await fetch(url, requestOptions).catch((e: Error) => {
@@ -77,7 +77,7 @@ class Endpoint<P, T> {
         endpointName: this.stateName,
         innerError: e,
         url,
-        requestOptions
+        requestOptions,
       })
     })
 
@@ -91,7 +91,7 @@ class Endpoint<P, T> {
         endpointName: this.stateName,
         response,
         url,
-        requestOptions
+        requestOptions,
       })
     }
 
@@ -100,7 +100,7 @@ class Endpoint<P, T> {
         endpointName: this.stateName,
         innerError: e,
         url,
-        requestOptions
+        requestOptions,
       })
     })
 

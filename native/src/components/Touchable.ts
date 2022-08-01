@@ -4,5 +4,5 @@ import { Platform, TouchableHighlight, TouchableHighlightProps, TouchableNativeF
 export default Platform.select<React.ComponentType<TouchableHighlightProps>>({
   android: TouchableNativeFeedback,
   ios: TouchableHighlight,
-  default: TouchableHighlight
+  default: TouchableHighlight,
 })

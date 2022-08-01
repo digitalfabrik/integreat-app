@@ -8,13 +8,13 @@ const tiles = [
   new TileModel({
     path: '/augsburg/de/willkommen/willkommen-in-augsburg',
     title: 'Willkommen in Augsburg',
-    thumbnail: 'some-thumnail.jpg'
+    thumbnail: 'some-thumnail.jpg',
   }),
   new TileModel({
     path: '/augsburg/de/willkommen/erste-schritte',
     title: 'Erste Schritte',
-    thumbnail: 'some-other-thumbnail.jpg'
-  })
+    thumbnail: 'some-other-thumbnail.jpg',
+  }),
 ]
 
 describe('Tiles', () => {

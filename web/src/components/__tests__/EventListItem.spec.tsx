@@ -17,7 +17,7 @@ describe('EventListItem', () => {
 
   it('should show event list item with specific thumbnail', () => {
     const { getByText, getByRole } = renderWithRouter(<EventListItem event={event} formatter={formatter} />, {
-      wrapWithTheme: true
+      wrapWithTheme: true,
     })
 
     expect(getByText(event.title)).toBeTruthy()

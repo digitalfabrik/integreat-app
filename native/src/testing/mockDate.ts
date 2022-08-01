@@ -9,6 +9,6 @@ export default (
   return {
     restoreDate: () => {
       spy.mockRestore()
-    }
+    },
   }
 }

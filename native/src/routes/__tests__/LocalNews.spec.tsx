@@ -19,14 +19,14 @@ const news: [LocalNewsModel, LocalNewsModel] = [
     id: 9902,
     title: 'Local news 1',
     timestamp: moment('2020-01-20T00:00:00.000Z'),
-    message: 'Local news content 2'
+    message: 'Local news content 2',
   }),
   new LocalNewsModel({
     id: 1234,
     title: 'Local news 2',
     timestamp: moment('2020-01-20T00:00:00.000Z'),
-    message: 'Local news content 2'
-  })
+    message: 'Local news content 2',
+  }),
 ]
 
 describe('LocalNews', () => {
@@ -52,7 +52,7 @@ describe('LocalNews', () => {
       latitude: 48.369696,
       longitude: 10.892578,
       aliases: null,
-      boundingBox: null
+      boundingBox: null,
     })
     const props = { cityModel, language: 'de', selectNews }
     return render(<LocalNews {...props} newsId={newsId} />)
