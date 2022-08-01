@@ -45,7 +45,7 @@ const CategoryList = ({
   listContent,
   query,
   onItemPress,
-  language
+  language,
 }: PropsType): React.ReactElement => {
   const theme = useTheme()
 

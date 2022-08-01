@@ -1,3 +1,3 @@
 module.exports = {
-  extends: ['./.eslintrc.js', 'plugin:diff/diff']
+  extends: ['./.eslintrc.js', 'plugin:diff/diff'],
 }

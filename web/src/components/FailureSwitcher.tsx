@@ -9,7 +9,7 @@ import {
   NotFoundError,
   OFFERS_ROUTE,
   pathnameFromRouteInformation,
-  POIS_ROUTE
+  POIS_ROUTE,
 } from 'api-client'
 import { LANDING_ROUTE, LOCAL_NEWS_TYPE, TU_NEWS_TYPE } from 'api-client/src/routes'
 
@@ -40,48 +40,48 @@ const FailureSwitcher = ({ error }: PropsType): ReactElement => {
           return {
             goToPath: cityContentPath(params),
             goToMessage: 'goTo.categories',
-            errorMessage: 'notFound.category'
+            errorMessage: 'notFound.category',
           }
         case 'event':
           return {
             goToPath: pathnameFromRouteInformation({ route: EVENTS_ROUTE, ...params }),
             goToMessage: 'goTo.events',
-            errorMessage: 'notFound.event'
+            errorMessage: 'notFound.event',
           }
         case LOCAL_NEWS_TYPE:
           return {
             goToPath: pathnameFromRouteInformation({ route: NEWS_ROUTE, newsType: LOCAL_NEWS_TYPE, ...params }),
             goToMessage: 'goTo.localNews',
-            errorMessage: 'notFound.localNews'
+            errorMessage: 'notFound.localNews',
           }
         case TU_NEWS_TYPE:
           return {
             goToPath: pathnameFromRouteInformation({ route: NEWS_ROUTE, newsType: TU_NEWS_TYPE, ...params }),
             goToMessage: 'goTo.tunews',
-            errorMessage: 'notFound.tunews'
+            errorMessage: 'notFound.tunews',
           }
         case 'offer':
           return {
             goToPath: pathnameFromRouteInformation({ route: OFFERS_ROUTE, ...params }),
             goToMessage: 'goTo.offers',
-            errorMessage: 'notFound.offer'
+            errorMessage: 'notFound.offer',
           }
         case 'poi':
           return {
             goToPath: pathnameFromRouteInformation({ route: POIS_ROUTE, ...params }),
             goToMessage: 'goTo.pois',
-            errorMessage: 'notFound.poi'
+            errorMessage: 'notFound.poi',
           }
         case 'city':
           return {
             goToPath: pathnameFromRouteInformation({ route: LANDING_ROUTE, ...params }),
-            errorMessage: 'notFound.city'
+            errorMessage: 'notFound.city',
           }
       }
     }
     return {
       goToPath: '/',
-      errorMessage: fromError(error)
+      errorMessage: fromError(error),
     }
   }
 

@@ -5,7 +5,7 @@ import { useLocation } from 'react-router-dom'
 import { CityModelBuilder, normalizePath } from 'api-client'
 import {
   mockUseLoadFromEndpointOnceWithData,
-  mockUseLoadFromEndpointWithData
+  mockUseLoadFromEndpointWithData,
 } from 'api-client/src/testing/mockUseLoadFromEndpoint'
 
 import RootSwitcher from '../RootSwitcher'
@@ -14,12 +14,12 @@ import { renderWithBrowserRouter } from '../testing/render'
 
 jest.mock('api-client', () => ({
   ...jest.requireActual('api-client'),
-  useLoadFromEndpoint: jest.fn()
+  useLoadFromEndpoint: jest.fn(),
 }))
 
 jest.mock('i18next', () => ({
   ...jest.requireActual('i18next'),
-  createInstance: () => ({ language: 'de' })
+  createInstance: () => ({ language: 'de' }),
 }))
 jest.mock('react-i18next')
 

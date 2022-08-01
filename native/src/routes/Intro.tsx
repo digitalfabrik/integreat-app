@@ -61,44 +61,44 @@ const Intro = ({ route, navigation }: PropsType): ReactElement => {
           key: 'integreat',
           title: buildConfig().appName,
           description: t('appDescription', {
-            appName: buildConfig().appName
+            appName: buildConfig().appName,
           }),
-          renderContent: renderAppIcon
+          renderContent: renderAppIcon,
         },
         {
           key: 'search',
           title: t('search'),
           description: t('searchDescription'),
-          renderContent: renderImageContent(icons.search)
+          renderContent: renderImageContent(icons.search),
         },
         {
           key: 'events',
           title: t('events'),
           description: t('eventsDescription'),
-          renderContent: renderImageContent(icons.events)
+          renderContent: renderImageContent(icons.events),
         },
         {
           key: 'offers',
           title: t('offers'),
           description: t('offersDescription'),
-          renderContent: renderImageContent(icons.offers)
+          renderContent: renderImageContent(icons.offers),
         },
         {
           key: 'languageChange',
           title: t('languageChange'),
           description: t('languageChangeDescription'),
-          renderContent: renderImageContent(icons.language)
-        }
+          renderContent: renderImageContent(icons.language),
+        },
       ]
     : [
         {
           key: 'integreat',
           title: buildConfig().appName,
           description: t('appDescription', {
-            appName: buildConfig().appName
+            appName: buildConfig().appName,
           }),
-          renderContent: renderAppIcon
-        }
+          renderContent: renderAppIcon,
+        },
       ]
 
   const onDone = useCallback(async () => {
@@ -118,7 +118,7 @@ const Intro = ({ route, navigation }: PropsType): ReactElement => {
 
   const goToSlide = useCallback((index: number) => {
     flatListRef.current?.scrollToIndex({
-      index
+      index,
     })
   }, [])
 
@@ -142,7 +142,7 @@ const Intro = ({ route, navigation }: PropsType): ReactElement => {
         pagingEnabled
         viewabilityConfig={{
           itemVisiblePercentThreshold: 51,
-          minimumViewTime: 0.1
+          minimumViewTime: 0.1,
         }}
         onViewableItemsChanged={onViewableItemsChanged}
         showsHorizontalScrollIndicator={false}

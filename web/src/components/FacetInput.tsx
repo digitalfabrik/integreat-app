@@ -45,7 +45,7 @@ const FacetInput: React.FC<FacetInputProps> = ({
   updateSearchFilter,
   name,
   placeholder,
-  type
+  type,
 }: FacetInputProps): ReactElement => (
   <FilterFacet>
     <FilterIcon>

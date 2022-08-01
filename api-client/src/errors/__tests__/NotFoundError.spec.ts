@@ -8,7 +8,7 @@ describe('NotFoundError', () => {
       type: 'category',
       id: '/augsburg/de/test',
       city: 'augsburg',
-      language: 'language'
+      language: 'language',
     })
     expect(error.message).toBe('The category /augsburg/de/test does not exist here.')
   })
@@ -17,7 +17,7 @@ describe('NotFoundError', () => {
       type: 'category',
       id: '/augsburg/de/test',
       city: 'augsburg',
-      language: 'language'
+      language: 'language',
     })
     // Matches the first line in stack
     expect((error as Error).stack).toMatch(new RegExp(`${escapeRegExp(__filename)}:\\d+:\\d+`))

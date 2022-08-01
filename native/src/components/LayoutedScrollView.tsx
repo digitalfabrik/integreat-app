@@ -17,7 +17,7 @@ const LayoutedScrollView = (props: ScrollViewPropsType): ReactElement => {
         keyboardShouldPersistTaps='always'
         refreshControl={refreshControl}
         contentContainerStyle={{
-          flexGrow: 1
+          flexGrow: 1,
         }}>
         {children}
       </ScrollView>

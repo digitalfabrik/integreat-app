@@ -17,8 +17,8 @@ describe('helpers', () => {
     const defaultAliases: Record<string, { latitude: number; longitude: number }> = {
       Königsbrunn: {
         latitude: 48.267499,
-        longitude: 10.889586
-      }
+        longitude: 10.889586,
+      },
     }
     const city = ({ prefix = 'Stadt', sortingName = 'Augsburg', live = true, aliases = defaultAliases }) =>
       new CityModel({
@@ -35,7 +35,7 @@ describe('helpers', () => {
         aliases,
         latitude: 48.369696,
         longitude: 10.892578,
-        boundingBox: [10.7880103, 48.447238, 11.0174493, 48.297834]
+        boundingBox: [10.7880103, 48.447238, 11.0174493, 48.297834],
       })
 
     it('should sort by sorting name', () => {
@@ -43,7 +43,7 @@ describe('helpers', () => {
         city({ sortingName: 'Günzburg' }),
         city({ sortingName: 'Dillingen' }),
         city({ sortingName: 'Augsburg' }),
-        city({ sortingName: 'Aichach' })
+        city({ sortingName: 'Aichach' }),
       ]
       expect(filterSortCities(cities, '')).toEqual([cities[3], cities[2], cities[1], cities[0]])
     })
@@ -54,7 +54,7 @@ describe('helpers', () => {
         city({ sortingName: 'Augsburg', prefix: 'Stadt' }),
         city({ sortingName: 'Augsburg', prefix: '' }),
         city({ sortingName: 'Aichach' }),
-        city({ sortingName: 'Augsburg', prefix: 'Landkreis' })
+        city({ sortingName: 'Augsburg', prefix: 'Landkreis' }),
       ]
       expect(filterSortCities(cities, '')).toEqual([cities[3], cities[2], cities[4], cities[1], cities[0]])
     })
@@ -65,7 +65,7 @@ describe('helpers', () => {
         city({ sortingName: 'Augsburg', live: false }),
         city({ sortingName: 'Augsburg', prefix: 'Stadt', live: true }),
         city({ sortingName: 'Dillingen', live: false }),
-        city({ sortingName: '', live: true })
+        city({ sortingName: '', live: true }),
       ]
       expect(filterSortCities(cities, '')).toEqual([cities[0], cities[2]])
     })
@@ -76,7 +76,7 @@ describe('helpers', () => {
         city({ sortingName: 'Augsburg', live: false }),
         city({ sortingName: 'Augsburg', prefix: 'Stadt', live: true }),
         city({ sortingName: 'Dillingen', live: false }),
-        city({ sortingName: '', live: true })
+        city({ sortingName: '', live: true }),
       ]
       expect(filterSortCities(cities, 'a', true)).toEqual([cities[0], cities[1], cities[2], cities[3]])
     })
@@ -87,7 +87,7 @@ describe('helpers', () => {
         city({ sortingName: 'Augsburg', live: false }),
         city({ sortingName: 'Augsburg', prefix: 'Stadt', live: true }),
         city({ sortingName: 'Dillingen', live: false }),
-        city({ sortingName: '', live: true })
+        city({ sortingName: '', live: true }),
       ]
       expect(filterSortCities(cities, 'wirschaffendas', true)).toEqual([cities[1], cities[3]])
     })
@@ -103,20 +103,20 @@ describe('helpers', () => {
           aliases: {
             Bächingen: {
               latitude: 48.267499,
-              longitude: 10.889586
-            }
-          }
+              longitude: 10.889586,
+            },
+          },
         }),
         city({
           sortingName: 'Friedberg',
           aliases: {
             Bachern: {
               latitude: 48.267499,
-              longitude: 10.889586
-            }
-          }
+              longitude: 10.889586,
+            },
+          },
         }),
-        city({ sortingName: 'Nürnberg' })
+        city({ sortingName: 'Nürnberg' }),
       ]
       expect(filterSortCities(cities, 'äch')).toEqual([cities[0], cities[3], cities[4], cities[5]])
     })

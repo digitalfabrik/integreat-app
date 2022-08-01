@@ -10,7 +10,7 @@ import {
   NotFoundError,
   pathnameFromRouteInformation,
   replaceLinks,
-  useLoadFromEndpoint
+  useLoadFromEndpoint,
 } from 'api-client'
 
 import { CityRouteProps } from '../CityContentSwitcher'
@@ -55,7 +55,7 @@ const LocalNewsPage = ({ cityModel, languages, pathname, languageCode, cityCode 
           newsType: LOCAL_NEWS_TYPE,
           cityCode,
           languageCode,
-          newsId: id.toString()
+          newsId: id.toString(),
         })}
         t={t}
         formatter={formatter}
@@ -70,7 +70,7 @@ const LocalNewsPage = ({ cityModel, languages, pathname, languageCode, cityCode 
       ? null
       : pathnameFromRouteInformation({ route: NEWS_ROUTE, newsType: LOCAL_NEWS_TYPE, cityCode, languageCode: code }),
     name,
-    code
+    code,
   }))
 
   const locationLayoutParams = {
@@ -79,7 +79,7 @@ const LocalNewsPage = ({ cityModel, languages, pathname, languageCode, cityCode 
     feedbackTargetInformation: null,
     languageChangePaths,
     route: LOCAL_NEWS_ROUTE,
-    languageCode
+    languageCode,
   }
 
   if (loading) {
@@ -105,7 +105,7 @@ const LocalNewsPage = ({ cityModel, languages, pathname, languageCode, cityCode 
         type: LOCAL_NEWS_TYPE,
         id: pathname,
         city: cityCode,
-        language: languageCode
+        language: languageCode,
       })
 
     return (

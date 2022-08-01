@@ -10,7 +10,7 @@ import {
   PLATFORM_IOS,
   PLATFORM_WEB,
   RELEASE_NOTES_DIR,
-  UNRELEASED_DIR
+  UNRELEASED_DIR,
 } from './constants'
 
 const loadStoreTranslations = (appName: string) =>
@@ -92,7 +92,7 @@ const formatDevelopmentNotes = (params: { notes: NoteType[]; language: string; p
     common: [] as NoteType[],
     android: [] as NoteType[],
     ios: [] as NoteType[],
-    web: [] as NoteType[]
+    web: [] as NoteType[],
   }
   // Group notes by platform
   const notesMap = notes.reduce((notesMap, note) => {
@@ -113,7 +113,7 @@ const formatDevelopmentNotes = (params: { notes: NoteType[]; language: string; p
     notes: notesMap.android,
     language,
     production: false,
-    platformName: PLATFORM_ANDROID
+    platformName: PLATFORM_ANDROID,
   })
   const iosNotes = formatNotes({ notes: notesMap.ios, language, production: false, platformName: PLATFORM_IOS })
   const webNotes = formatNotes({ notes: notesMap.web, language, production: false, platformName: PLATFORM_WEB })
@@ -126,7 +126,7 @@ const parseReleaseNotes = ({ source, ios, android, web, production, language, ap
   const platforms: string[] = [
     android ? PLATFORM_ANDROID : undefined,
     ios ? PLATFORM_IOS : undefined,
-    web ? PLATFORM_WEB : undefined
+    web ? PLATFORM_WEB : undefined,
   ].filter((platform): platform is string => !!platform)
 
   if (platforms.length === 0) {
@@ -241,7 +241,7 @@ const appstoreLanguageMap: Record<string, string[]> = {
   tr: ['tr'],
   uk: ['uk'],
   ur: [],
-  'zh-CN': ['zh-Hans']
+  'zh-CN': ['zh-Hans'],
 }
 
 // Maps our translation keys to the right key used by the play store
@@ -269,7 +269,7 @@ const playstoreLanguageMap: Record<string, string[]> = {
   tr: ['tr-TR'],
   uk: ['uk'],
   ur: ['ur'],
-  'zh-CN': ['zh-CN']
+  'zh-CN': ['zh-CN'],
 }
 
 program.version('0.1.0').option('-d, --debug', 'enable extreme logging')
@@ -292,12 +292,12 @@ const metadataFromTranslations = (
     ? {
         name,
         description,
-        ...storeTranslation
+        ...storeTranslation,
       }
     : {
         title: name,
         full_description: description,
-        ...storeTranslation
+        ...storeTranslation,
       }
 }
 
@@ -318,7 +318,7 @@ const writeMetadata = (appName: string, storeName: string, overrideVersionName?:
     targetLanguages.forEach(targetLanguage => {
       const path = metadataPath(appName, storeName, targetLanguage)
       fs.mkdirSync(path, {
-        recursive: true
+        recursive: true,
       })
 
       Object.keys(metadata).forEach(metadataKey => {

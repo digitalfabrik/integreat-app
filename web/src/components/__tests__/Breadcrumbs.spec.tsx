@@ -13,19 +13,19 @@ describe('Breadcrumbs', () => {
           new BreadcrumbModel({
             title: 'Home',
             link: 'https://abc.xyz/',
-            node: <a href='/'>Home</a>
+            node: <a href='/'>Home</a>,
           }),
           new BreadcrumbModel({
             title: 'Subcategory',
             link: 'https://abc.xyz/sub',
-            node: <a href='/sub'>Subcategory</a>
-          })
+            node: <a href='/sub'>Subcategory</a>,
+          }),
         ]}
         currentBreadcrumb={
           new BreadcrumbModel({
             title: 'ThisSite',
             link: 'https://abc.xyz/sub/current',
-            node: <a href='/sub/current'>ThisSite</a>
+            node: <a href='/sub/current'>ThisSite</a>,
           })
         }
       />

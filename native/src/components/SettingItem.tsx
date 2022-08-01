@@ -1,5 +1,5 @@
 import React, { ReactElement } from 'react'
-import { TFunction } from 'react-i18next'
+import { useTranslation } from 'react-i18next'
 import { Text, View, AccessibilityRole } from 'react-native'
 import { Badge, Icon } from 'react-native-elements'
 import styled from 'styled-components/native'
@@ -37,7 +37,6 @@ type PropType = {
   title: string
   description?: string
   onPress: () => void
-  t: TFunction<'settings'>
   bigTitle?: boolean
   accessibilityRole?: AccessibilityRole
   hasSwitch?: boolean
@@ -46,7 +45,8 @@ type PropType = {
 }
 
 const SettingItem = (props: PropType): ReactElement => {
-  const { title, description, onPress, value, hasBadge, hasSwitch, bigTitle, accessibilityRole, t } = props
+  const { title, description, onPress, value, hasBadge, hasSwitch, bigTitle, accessibilityRole } = props
+  const { t } = useTranslation('settings')
   return (
     <Touchable onPress={onPress} accessibilityRole={accessibilityRole}>
       <PadView>
@@ -66,7 +66,7 @@ const SettingItem = (props: PropType): ReactElement => {
             <View
               style={{
                 flexDirection: 'row',
-                alignItems: 'center'
+                alignItems: 'center',
               }}>
               <Badge status={value ? 'success' : 'error'} />
               <Text> {value ? t('enabled') : t('disabled')}</Text>

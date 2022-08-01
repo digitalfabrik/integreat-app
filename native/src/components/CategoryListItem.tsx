@@ -79,7 +79,7 @@ const CategoryListItem = ({
   onItemPress,
   query,
   category,
-  theme
+  theme,
 }: PropsType): React.ReactElement => {
   const contentMatcher = new ContentMatcher()
   const onCategoryPress = (): void => {
@@ -99,7 +99,7 @@ const CategoryListItem = ({
       autoEscape
       highlightStyle={{
         backgroundColor: theme.colors.backgroundColor,
-        fontWeight: 'bold'
+        fontWeight: 'bold',
       }}
     />
   )
@@ -114,7 +114,7 @@ const CategoryListItem = ({
           sanitize={normalizeSearchString}
           searchWords={query ? [query] : []}
           highlightStyle={{
-            fontWeight: 'bold'
+            fontWeight: 'bold',
           }}
         />
       </TitleDirectionContainer>

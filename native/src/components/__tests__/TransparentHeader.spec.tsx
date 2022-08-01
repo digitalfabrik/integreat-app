@@ -17,7 +17,7 @@ jest.mock('../../utils/sendTrackingSignal')
 jest.mock('react-navigation-header-buttons', () => ({
   HiddenItem: ({ title, accessibilityLabel }: { title: string; accessibilityLabel: string }) => (
     <Text accessibilityLabel={`hidden: ${accessibilityLabel}`}>hidden: {title}</Text>
-  )
+  ),
 }))
 jest.mock(
   '../MaterialHeaderButtons',
@@ -32,11 +32,11 @@ jest.mock(
 )
 jest.mock('react-i18next', () => ({
   useTranslation: () => ({
-    t: (key: string) => key
-  })
+    t: (key: string) => key,
+  }),
 }))
 jest.mock('@react-navigation/elements', () => ({
-  HeaderBackButton: ({ onPress }: { onPress: () => void }) => <Text onPress={onPress}>HeaderBackButton</Text>
+  HeaderBackButton: ({ onPress }: { onPress: () => void }) => <Text onPress={onPress}>HeaderBackButton</Text>,
 }))
 
 describe('TransparentHeader', () => {
@@ -50,9 +50,9 @@ describe('TransparentHeader', () => {
       key: 'key-0',
       name: DASHBOARD_ROUTE,
       params: {
-        shareUrl
-      }
-    }
+        shareUrl,
+      },
+    },
   })
 
   it('should show back button and navigate back on click if stack exists', () => {
@@ -84,7 +84,7 @@ describe('TransparentHeader', () => {
 
     // expect(share).toHaveBeenCalledWith({ message: 'shareMessage', title: 'Integreat' })
     expect(sendTrackingSignal).toHaveBeenCalledWith({
-      signal: { name: SHARE_SIGNAL_NAME, url: 'https://example.com/share' }
+      signal: { name: SHARE_SIGNAL_NAME, url: 'https://example.com/share' },
     })
 
     expect(showSnackbar).toHaveBeenCalledWith('generalError')

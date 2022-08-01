@@ -88,7 +88,7 @@ const Settings = ({ navigation }: PropsType): ReactElement => {
   const renderItem = ({ item }: { item: SettingsSectionType }) => {
     const { getSettingValue, ...otherProps } = item
     const value = !!(settings && getSettingValue && getSettingValue(settings))
-    return <SettingItem value={value} t={t} {...otherProps} />
+    return <SettingItem value={value} {...otherProps} />
   }
 
   const renderSectionHeader = ({ section: { title } }: { section: SectionType }) => {
@@ -112,7 +112,7 @@ const Settings = ({ navigation }: PropsType): ReactElement => {
     cityCode,
     navigation,
     settings,
-    showSnackbar
+    showSnackbar,
   })
 
   return (

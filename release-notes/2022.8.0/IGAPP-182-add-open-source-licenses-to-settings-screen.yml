@@ -1,0 +1,7 @@
+issue_key: IGAPP-182
+show_in_stores: true
+platforms:
+  - android
+  - ios
+en: License information about the third-party libraries used is now displayed in the settings
+de: In den Einstellungen werden nun Lizenzinformationen zu den verwendeten Software-Bibliotheken von Drittanbietern angezeigt

@@ -2,7 +2,7 @@ import {
   AndroidBuildConfigType,
   CommonBuildConfigType,
   iOSBuildConfigType,
-  WebBuildConfigType
+  WebBuildConfigType,
 } from '../BuildConfigType'
 import maltePlatformBuildConfigs from '../malte'
 
@@ -21,31 +21,31 @@ const commonMalteTestCmsBuildConfig: CommonBuildConfigType = {
     sentry: false,
     developerFriendly: true,
     fixedCity: null,
-    cityNotCooperatingTemplate: null
-  }
+    cityNotCooperatingTemplate: null,
+  },
 }
 
 const androidMalteTestCmsBuildConfig: AndroidBuildConfigType = {
   ...maltePlatformBuildConfigs.android,
   ...commonMalteTestCmsBuildConfig,
-  applicationId: 'de.malteapp.test'
+  applicationId: 'de.malteapp.test',
 }
 
 const iosMalteTestCmsBuildConfig: iOSBuildConfigType = {
   ...maltePlatformBuildConfigs.ios,
-  ...commonMalteTestCmsBuildConfig
+  ...commonMalteTestCmsBuildConfig,
 }
 
 const webMalteTestCmsBuildConfig: WebBuildConfigType = {
   ...maltePlatformBuildConfigs.web,
-  ...commonMalteTestCmsBuildConfig
+  ...commonMalteTestCmsBuildConfig,
 }
 
 const platformBuildConfigs = {
   common: commonMalteTestCmsBuildConfig,
   web: webMalteTestCmsBuildConfig,
   android: androidMalteTestCmsBuildConfig,
-  ios: iosMalteTestCmsBuildConfig
+  ios: iosMalteTestCmsBuildConfig,
 }
 
 export default platformBuildConfigs

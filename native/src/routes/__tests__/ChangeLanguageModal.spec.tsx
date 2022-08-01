@@ -11,11 +11,11 @@ import ChangeLanguageModal from '../ChangeLanguageModal'
 
 jest.mock('react-i18next', () => ({
   useTranslation: () => ({
-    t: (key: string) => key
-  })
+    t: (key: string) => key,
+  }),
 }))
 jest.mock('react-redux', () => ({
-  useDispatch: jest.fn()
+  useDispatch: jest.fn(),
 }))
 
 describe('ChangeLanguageModal', () => {
@@ -40,9 +40,9 @@ describe('ChangeLanguageModal', () => {
       availableLanguages,
       cityCode: 'augsburg',
       currentLanguage: selectedLanguage.code,
-      previousKey: 'route-id-2'
+      previousKey: 'route-id-2',
     },
-    name: CHANGE_LANGUAGE_MODAL_ROUTE
+    name: CHANGE_LANGUAGE_MODAL_ROUTE,
   }
   const navigation = createNavigationScreenPropMock<ChangeLanguageModalRouteType>()
 
@@ -57,8 +57,8 @@ describe('ChangeLanguageModal', () => {
       type: 'SWITCH_CONTENT_LANGUAGE',
       params: {
         newLanguage: availableLanguage.code,
-        city: 'augsburg'
-      }
+        city: 'augsburg',
+      },
     })
   })
 

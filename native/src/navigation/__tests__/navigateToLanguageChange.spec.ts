@@ -25,7 +25,7 @@ describe('navigateToLanguageChange', () => {
       languageCode,
       languages,
       availableLanguages,
-      previousKey
+      previousKey,
     })
     expect(navigation.navigate).toHaveBeenCalledWith({
       name: CHANGE_LANGUAGE_MODAL_ROUTE,
@@ -34,15 +34,15 @@ describe('navigateToLanguageChange', () => {
         currentLanguage: languageCode,
         languages,
         availableLanguages,
-        previousKey
-      }
+        previousKey,
+      },
     })
     expect(sendTrackingSignal).toHaveBeenCalledWith({
       signal: {
         name: OPEN_PAGE_SIGNAL_NAME,
         pageType: CHANGE_LANGUAGE_MODAL_ROUTE,
-        url: ''
-      }
+        url: '',
+      },
     })
     expect(sendTrackingSignal).toHaveBeenCalledTimes(1)
   })

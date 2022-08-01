@@ -38,7 +38,7 @@ const mapStateToProps = (state: StateType, ownProps: OwnProps): StatePropsType =
       language: contentLanguage,
       routeCityModel,
       peeking: false,
-      categoriesAvailable: false
+      categoriesAvailable: false,
     }
   }
 
@@ -49,12 +49,12 @@ const mapStateToProps = (state: StateType, ownProps: OwnProps): StatePropsType =
       languages: Array.from(languages.models),
       cityCode: cityContent.city,
       availableLanguages: Array.from(route.allAvailableLanguages.keys()),
-      previousKey: routeKey
+      previousKey: routeKey,
     })
   }
 
   const peeking = isPeekingRoute(state, {
-    routeCity: route.city
+    routeCity: route.city,
   })
   const { language } = route
   return {
@@ -62,7 +62,7 @@ const mapStateToProps = (state: StateType, ownProps: OwnProps): StatePropsType =
     routeCityModel,
     language,
     goToLanguageChange,
-    categoriesAvailable
+    categoriesAvailable,
   }
 }
 

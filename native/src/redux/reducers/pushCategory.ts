@@ -44,7 +44,7 @@ const extractResultModelsAndChildren = (
   )
   return {
     resultModels,
-    resultChildren
+    resultChildren,
   }
 }
 
@@ -64,7 +64,7 @@ const pushCategory = (state: CityContentStateType, action: PushCategoryActionTyp
       city,
       status: 'error',
       message: `Could not find a category with path '${path}'.`,
-      code: ErrorCode.PageNotFound
+      code: ErrorCode.PageNotFound,
     }
     return {
       ...state,
@@ -72,11 +72,11 @@ const pushCategory = (state: CityContentStateType, action: PushCategoryActionTyp
       resourceCache: {
         status: 'ready',
         progress: 1,
-        value: newResourceCache
+        value: newResourceCache,
       },
       searchRoute: {
-        categoriesMap
-      }
+        categoriesMap,
+      },
     }
   }
 
@@ -109,7 +109,7 @@ const pushCategory = (state: CityContentStateType, action: PushCategoryActionTyp
             path,
             depth,
             language,
-            city
+            city,
           }
         } else {
           const { resultModels, resultChildren } = extractResultModelsAndChildren(root, categoriesMap, depth)
@@ -135,7 +135,7 @@ const pushCategory = (state: CityContentStateType, action: PushCategoryActionTyp
             path: previousMapping.path,
             depth: previousMapping.depth,
             language: previousMapping.language,
-            city: previousMapping.city
+            city: previousMapping.city,
           }
         }
       })
@@ -150,11 +150,11 @@ const pushCategory = (state: CityContentStateType, action: PushCategoryActionTyp
     depth,
     allAvailableLanguages: getAllAvailableLanguages(root, city, language, cityLanguages),
     language,
-    city
+    city,
   }
   const newRoute: CategoryRouteStateType = {
     status: 'ready',
-    ...newRouteData
+    ...newRouteData,
   }
   return {
     ...state,
@@ -162,11 +162,11 @@ const pushCategory = (state: CityContentStateType, action: PushCategoryActionTyp
     resourceCache: {
       status: 'ready',
       progress: 1,
-      value: newResourceCache
+      value: newResourceCache,
     },
     searchRoute: {
-      categoriesMap
-    }
+      categoriesMap,
+    },
   }
 }
 

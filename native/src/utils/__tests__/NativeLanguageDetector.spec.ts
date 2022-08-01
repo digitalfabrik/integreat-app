@@ -10,31 +10,31 @@ describe('NativeLanguageDetector', () => {
     languageCode: 'en',
     languageTag: 'en-US',
     countryCode: 'US',
-    isRTL: false
+    isRTL: false,
   }
   const pesLocale = {
     languageCode: 'fa',
     languageTag: 'fa-IR',
     countryCode: 'IR',
-    isRTL: true
+    isRTL: true,
   }
   const prsLocale = {
     languageCode: 'fa',
     languageTag: 'fa-AF',
     countryCode: 'AF',
-    isRTL: true
+    isRTL: true,
   }
   const srLocale = {
     languageCode: 'sr',
     languageTag: 'sr-Cyrl',
     countryCode: 'Cyrl',
-    isRTL: true
+    isRTL: true,
   }
   const unsupportedLocale = {
     languageCode: 'xx',
     languageTag: 'xx-YY',
     countryCode: 'YY',
-    isRTL: true
+    isRTL: true,
   }
 
   it('should detect correctly if language tag is directly supported', () => {

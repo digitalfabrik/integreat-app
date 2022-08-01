@@ -27,7 +27,8 @@ import {
   REDIRECT_ROUTE,
   SEARCH_ROUTE,
   SETTINGS_ROUTE,
-  SPRUNGBRETT_OFFER_ROUTE
+  SPRUNGBRETT_OFFER_ROUTE,
+  LICENSE_ROUTE,
 } from 'api-client'
 
 import HeaderContainer from './components/HeaderContainer'
@@ -49,6 +50,7 @@ import ImageViewModal from './routes/ImageViewModal'
 import Intro from './routes/Intro'
 import JpalTracking from './routes/JpalTracking'
 import LandingContainer from './routes/LandingContainer'
+import Licenses from './routes/Licenses'
 import NewsContainer from './routes/NewsContainer'
 import OffersContainer from './routes/OffersContainer'
 import PDFViewModal from './routes/PDFViewModal'
@@ -92,7 +94,7 @@ const Navigator = (props: PropsType): ReactElement | null => {
   const [waitingForSettings, setWaitingForSettings] = useState<boolean>(true)
   const [errorMessage, setErrorMessage] = useState<string | null | undefined>(null)
   const [initialRoute, setInitialRoute] = useState<InitialRouteType>({
-    name: INTRO_ROUTE
+    name: INTRO_ROUTE,
   })
   const previousRouteKey = useRef<string | null | undefined>(null)
   const { fetchCities, fetchCategory, routeKey, routeName } = props
@@ -140,7 +142,7 @@ const Navigator = (props: PropsType): ReactElement | null => {
 
       if (buildConfig().featureFlags.introSlides && !introShown) {
         setInitialRoute({
-          name: INTRO_ROUTE
+          name: INTRO_ROUTE,
         })
       } else {
         const city = buildConfig().featureFlags.fixedCity || selectedCity
@@ -149,11 +151,11 @@ const Navigator = (props: PropsType): ReactElement | null => {
           setInitialRoute({
             name: DASHBOARD_ROUTE,
             cityCode: city,
-            languageCode: contentLanguage
+            languageCode: contentLanguage,
           })
         } else {
           setInitialRoute({
-            name: LANDING_ROUTE
+            name: LANDING_ROUTE,
           })
         }
       }
@@ -190,7 +192,7 @@ const Navigator = (props: PropsType): ReactElement | null => {
   // Keeps our previous transition we used in v4 of react-navigation on android. Fixes weird showing of splash screen on every navigate.
   const transitionPreset = Platform.select({
     android: TransitionPresets.FadeFromBottomAndroid,
-    ios: TransitionPresets.DefaultTransition
+    ios: TransitionPresets.DefaultTransition,
   })
 
   return (
@@ -211,6 +213,7 @@ const Navigator = (props: PropsType): ReactElement | null => {
         <Stack.Screen name={EVENTS_ROUTE} component={EventsContainer} />
         <Stack.Screen name={NEWS_ROUTE} component={NewsContainer} />
         <Stack.Screen name={DISCLAIMER_ROUTE} component={DisclaimerContainer} />
+        <Stack.Screen name={LICENSE_ROUTE} component={Licenses} />
       </Stack.Group>
 
       <Stack.Group screenOptions={{ header: transparentHeader }}>

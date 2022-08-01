@@ -9,7 +9,7 @@ export enum ErrorCode {
   NetworkRequestFailed = 'networkRequestFailed',
   // server's http-status was not 200
   ResponseMappingFailed = 'responseMappingFailed',
-  UnknownError = 'unknownError'
+  UnknownError = 'unknownError',
 }
 
 export const fromError = (error: unknown): ErrorCode => {
