@@ -8,18 +8,18 @@ import CityNotCooperatingFooter from '../CityNotCooperatingFooter'
 jest.mock('../../constants/buildConfig', () =>
   jest.fn(() => ({
     featureFlags: {
-      cityNotCooperating: true
+      cityNotCooperating: true,
     },
     lightTheme,
     icons: {
-      cityNotCooperating: 'test'
-    }
+      cityNotCooperating: 'test',
+    },
   }))
 )
 jest.mock('react-i18next', () => ({
   useTranslation: () => ({
-    t: (key: string) => key
-  })
+    t: (key: string) => key,
+  }),
 }))
 
 describe('CityNotCooperatingFooter', () => {

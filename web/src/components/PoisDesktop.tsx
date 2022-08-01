@@ -59,7 +59,7 @@ const PoisDesktop: React.FC<PoisDesktopProps> = ({
   switchFeature,
   selectFeature,
   direction,
-  showFeatureSwitch
+  showFeatureSwitch,
 }: PoisDesktopProps): ReactElement => {
   const { t } = useTranslation('pois')
 

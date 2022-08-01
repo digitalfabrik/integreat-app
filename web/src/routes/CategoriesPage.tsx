@@ -13,7 +13,7 @@ import {
   NotFoundError,
   Payload,
   ResponseError,
-  useLoadFromEndpoint
+  useLoadFromEndpoint,
 } from 'api-client'
 import { config } from 'translations'
 
@@ -44,7 +44,7 @@ const getBreadcrumb = (category: CategoryModel, cityName: string) => {
       <Link to={category.path} key={category.path}>
         {title}
       </Link>
-    )
+    ),
   })
 }
 
@@ -69,7 +69,7 @@ const CategoriesPage = ({ cityModel, pathname, languages, cityCode, languageCode
         language: languageCode,
         // We show tiles for the root category so only first level children are needed
         depth: categoryId ? 2 : 1,
-        cityContentPath: pathname
+        cityContentPath: pathname,
       }),
     [cityCode, languageCode, pathname, categoryId]
   )
@@ -83,7 +83,7 @@ const CategoriesPage = ({ cityModel, pathname, languages, cityCode, languageCode
     return createCategoryParentsEndpoint(cmsApiBaseUrl).request({
       city: cityCode,
       language: languageCode,
-      cityContentPath: pathname
+      cityContentPath: pathname,
     })
   }, [cityCode, languageCode, pathname, categoryId])
   const { data: parents, loading: parentsLoading, error: parentsError } = useLoadFromEndpoint(requestParents)
@@ -100,7 +100,7 @@ const CategoriesPage = ({ cityModel, pathname, languages, cityCode, languageCode
         thumbnail: '',
         order: -1,
         availableLanguages: new Map(),
-        lastUpdate: moment(0)
+        lastUpdate: moment(0),
       })
     )
   }
@@ -126,7 +126,7 @@ const CategoriesPage = ({ cityModel, pathname, languages, cityCode, languageCode
     return {
       path: isCurrentLanguage ? pathname : path,
       name,
-      code
+      code,
     }
   })
 
@@ -137,7 +137,7 @@ const CategoriesPage = ({ cityModel, pathname, languages, cityCode, languageCode
     languageChangePaths,
     route: CATEGORIES_ROUTE,
     languageCode,
-    toolbar
+    toolbar,
   }
 
   if (categoriesLoading || parentsLoading || pathname !== previousPathname.current) {

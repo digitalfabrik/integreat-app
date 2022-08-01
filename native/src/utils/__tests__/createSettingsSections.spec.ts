@@ -9,19 +9,19 @@ import {
   pushNotificationsEnabled,
   requestPushNotificationPermission,
   subscribeNews,
-  unsubscribeNews
+  unsubscribeNews,
 } from '../PushNotificationsManager'
 import createSettingsSections from '../createSettingsSections'
 
 jest.mock('../../constants/NativeConstants', () => ({
-  appVersion: '1.0.0'
+  appVersion: '1.0.0',
 }))
 
 jest.mock('../../utils/PushNotificationsManager', () => ({
   pushNotificationsEnabled: jest.fn(),
   requestPushNotificationPermission: jest.fn(),
   subscribeNews: jest.fn(),
-  unsubscribeNews: jest.fn()
+  unsubscribeNews: jest.fn(),
 }))
 jest.mock('react-native-permissions', () => require('react-native-permissions/mock'))
 jest.mock('@react-native-community/geolocation')
@@ -64,7 +64,7 @@ describe('createSettingsSections', () => {
       navigation,
       settings: defaultSettings,
       setSetting,
-      showSnackbar
+      showSnackbar,
     })[0]!.data
 
   describe('allowPushNotifications', () => {

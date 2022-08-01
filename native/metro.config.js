@@ -27,7 +27,7 @@ module.exports = {
           }
 
           return path.resolve(__dirname, `node_modules/${name}`)
-        }
+        },
       }
     ),
     // Make sure we use the local copy of react and react-native to avoid multiple copies in the bundle
@@ -39,7 +39,7 @@ module.exports = {
           ? path.join(__dirname, 'node_modules', realModuleName)
           : realModuleName
       return Resolver.resolve(clearContext, module, platform)
-    }
+    },
   },
   watchFolders: [path.resolve(__dirname, '../')],
   transformer: {
@@ -47,8 +47,8 @@ module.exports = {
     getTransformOptions: async () => ({
       transform: {
         experimentalImportSupport: false,
-        inlineRequires: true
-      }
-    })
-  }
+        inlineRequires: true,
+      },
+    }),
+  },
 }

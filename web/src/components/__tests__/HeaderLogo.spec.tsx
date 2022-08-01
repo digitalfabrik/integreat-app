@@ -9,7 +9,7 @@ describe('HeaderLogo', () => {
   const womensDayCampaign = {
     campaignAppLogo: '/campaign-app-logo.png',
     startDate: '2021-03-08T00:00:00.000Z',
-    endDate: '2021-03-15T00:00:00.000Z'
+    endDate: '2021-03-15T00:00:00.000Z',
   }
   const previousConfig = buildConfig()
   let config = previousConfig

@@ -7,7 +7,7 @@ const parseHTML = (html: string, options: ParserOptions = { decodeEntities: true
     {
       ontext: data => {
         decodedContent += data
-      }
+      },
     },
     options
   )

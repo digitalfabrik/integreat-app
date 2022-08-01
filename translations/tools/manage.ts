@@ -17,7 +17,7 @@ const XCODE_LANGUAGES_MAP: Record<string, string> = {
   pes: 'fa',
   prs: 'fa-AF',
   kmr: 'ku',
-  'zh-CN': 'zh-HANS'
+  'zh-CN': 'zh-HANS',
 } as const
 
 program.version('0.1.0').option('-d, --debug', 'enable extreme logging')
@@ -121,12 +121,12 @@ const loadModules = (csvFile: string, csvColumn: string): Record<string, KeyValu
   // .trim() is needed to strip the BOM
   const inputString = fs
     .readFileSync(csvFile, {
-      encoding: 'utf8'
+      encoding: 'utf8',
     })
     .trim()
   const records: Record<string, string>[] = parse(inputString, {
     columns: true,
-    skip_empty_lines: true
+    skip_empty_lines: true,
   })
   const flattened = fromPairs(
     records.map(record => [record.key, record[csvColumn]]).filter(([_unusedKey, translation]) => !!translation)
@@ -183,7 +183,7 @@ const writeJsonFromCsv = (translations: string, toPath: string, sourceLanguage: 
         moduleKey,
         fromPairs(
           languageKeys.map(languageKey => [languageKey, byLanguageModulesWithSourceLanguage[languageKey]![moduleKey]])
-        )
+        ),
       ])
     )
     fs.writeFileSync(toPath, `${JSON.stringify(json, null, 2)}\n`, 'utf-8')
@@ -211,7 +211,7 @@ program
       },
       'csv-json': () => {
         writeJsonFromCsv(fromPath, toPath, sourceLanguage)
-      }
+      },
     }
     const convert = converter[`${sourceFormat.toLowerCase()}-${targetFormat.toLowerCase()}`]
 
@@ -249,7 +249,7 @@ const writePlistTranslations = (appName: string, { translations, destination }: 
     const path = `${destination}/${languageKey}.lproj/`
 
     fs.mkdirSync(path, {
-      recursive: true
+      recursive: true,
     })
     fs.writeFileSync(`${path}InfoPlist.strings`, content)
   })

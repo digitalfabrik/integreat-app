@@ -23,12 +23,12 @@ describe('pushPoi', () => {
           city: 'augsburg',
           language: 'de',
           path: '/augsburg/de/events/ev1',
-          allAvailableLanguages: new Map([['en', '/augsburg/en/locations/test']])
-        }
+          allAvailableLanguages: new Map([['en', '/augsburg/en/locations/test']]),
+        },
       },
       languages: {
         status: 'ready',
-        models: languageModels
+        models: languageModels,
       },
       resourceCache: {
         status: 'ready',
@@ -38,13 +38,13 @@ describe('pushPoi', () => {
             'some-url': {
               filePath: 'some-path',
               lastUpdate: moment('2017-11-18 19:30:00', moment.ISO_8601),
-              hash: '123456'
-            }
-          }
-        }
+              hash: '123456',
+            },
+          },
+        },
       },
       searchRoute: null,
-      switchingLanguage: false
+      switchingLanguage: false,
     }
     return { ...defaultState, ...state }
   }
@@ -59,8 +59,8 @@ describe('pushPoi', () => {
       cityLanguages: languageModels,
       language: 'de',
       city: 'augsburg',
-      ...params
-    }
+      ...params,
+    },
   })
 
   it('should add general pois route to poisRouteMapping', () => {
@@ -68,8 +68,8 @@ describe('pushPoi', () => {
       resourceCache: {
         status: 'ready',
         progress: 0,
-        value: {}
-      }
+        value: {},
+      },
     })
     const pushEventAction = createPushAction()
     expect(cityContentReducer(prevState, pushEventAction)).toEqual(
@@ -81,13 +81,13 @@ describe('pushPoi', () => {
             path: null,
             allAvailableLanguages: new Map([
               ['en', '/augsburg/en/locations/test'],
-              ['de', '/augsburg/de/locations/test']
+              ['de', '/augsburg/de/locations/test'],
             ]),
             city: 'augsburg',
             language: 'de',
-            models: [poi]
-          }
-        }
+            models: [poi],
+          },
+        },
       })
     )
   })
@@ -96,8 +96,8 @@ describe('pushPoi', () => {
       resourceCache: {
         status: 'ready',
         progress: 0,
-        value: {}
-      }
+        value: {},
+      },
     })
 
     const pushPoiAction = createPushAction({ path: '/augsburg/de/locations/test' })
@@ -110,13 +110,13 @@ describe('pushPoi', () => {
             path: '/augsburg/de/locations/test',
             allAvailableLanguages: new Map([
               ['en', '/augsburg/en/locations/test'],
-              ['de', '/augsburg/de/locations/test']
+              ['de', '/augsburg/de/locations/test'],
             ]),
             city: 'augsburg',
             language: 'de',
-            models: [poi]
-          }
-        }
+            models: [poi],
+          },
+        },
       })
     )
   })
@@ -133,9 +133,9 @@ describe('pushPoi', () => {
         'another-url': {
           filePath: 'another-path',
           lastUpdate: moment('2017-11-18 19:30:00', moment.ISO_8601),
-          hash: '123456'
-        }
-      }
+          hash: '123456',
+        },
+      },
     }
     const pushPoiAction = createPushAction({ path: '/testumgebung/de/locations/test', pois: [poi2], resourceCache })
 
@@ -145,8 +145,8 @@ describe('pushPoi', () => {
         resourceCache: {
           status: 'ready',
           progress: 1,
-          value: { ...prevResources, ...resourceCache }
-        }
+          value: { ...prevResources, ...resourceCache },
+        },
       })
     )
   })
@@ -156,8 +156,8 @@ describe('pushPoi', () => {
       resourceCache: {
         status: 'ready',
         progress: 0,
-        value: {}
-      }
+        value: {},
+      },
     })
     const nonExistingPath = '/augsburg/de/locations/test2'
     const pushEventAction = createPushAction({ path: nonExistingPath })
@@ -171,9 +171,9 @@ describe('pushPoi', () => {
             city: 'augsburg',
             status: 'error',
             message: `Could not find a poi with path '${nonExistingPath}'.`,
-            code: ErrorCode.PageNotFound
-          }
-        }
+            code: ErrorCode.PageNotFound,
+          },
+        },
       })
     )
   })

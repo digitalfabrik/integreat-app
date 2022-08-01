@@ -45,12 +45,12 @@ export const config: Testrunner = {
   reporters: ['spec'],
 
   jasmineOpts: {
-    defaultTimeoutInterval: 300000
+    defaultTimeoutInterval: 300000,
   },
 
   before: async (): Promise<void> => {
     // implicit: time the driver will wait searching for elements ($, $$)
     const implicitTimeout = 2000
     driver.setImplicitTimeout(implicitTimeout)
-  }
+  },
 }

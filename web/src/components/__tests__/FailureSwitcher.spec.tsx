@@ -9,7 +9,7 @@ import FailureSwitcher from '../FailureSwitcher'
 
 jest.mock('react-i18next')
 jest.mock('../../utils/sentry', () => ({
-  reportError: jest.fn(async () => undefined)
+  reportError: jest.fn(async () => undefined),
 }))
 
 describe('FailureSwitcher', () => {
@@ -60,7 +60,7 @@ describe('FailureSwitcher', () => {
       endpointName: 'cities',
       response: {} as Response,
       url: 'https://example.com',
-      requestOptions: { method: 'GET' }
+      requestOptions: { method: 'GET' },
     })
     const { getByText } = renderWithRouter(<FailureSwitcher error={error} />)
 

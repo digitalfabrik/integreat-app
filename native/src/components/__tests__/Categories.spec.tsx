@@ -33,10 +33,10 @@ describe('Categories', () => {
     const stateView = new CategoriesRouteStateView(
       categoryLeaf.path,
       {
-        [categoryLeaf.path]: categoryLeaf
+        [categoryLeaf.path]: categoryLeaf,
       },
       {
-        [categoryLeaf.path]: []
+        [categoryLeaf.path]: [],
       }
     )
     const result = TestRenderer.create(
@@ -48,14 +48,14 @@ describe('Categories', () => {
         navigateToFeedback={() => undefined}
         resourceCacheUrl='http://localhost:8080'
         resourceCache={{
-          notAvailable: {}
+          notAvailable: {},
         }}
       />
     )
     const pageInstance = result.root.findByType(Page)
     expect(pageInstance.props).toEqual(
       expect.objectContaining({
-        files: {}
+        files: {},
       })
     )
   })

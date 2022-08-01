@@ -26,8 +26,8 @@ const ChangeLanguageModal = ({ navigation, route }: PropsType): ReactElement => 
       type: 'SWITCH_CONTENT_LANGUAGE',
       params: {
         newLanguage,
-        city: cityCode
-      }
+        city: cityCode,
+      },
     })
   }
 
@@ -42,7 +42,7 @@ const ChangeLanguageModal = ({ navigation, route }: PropsType): ReactElement => 
           changeLanguage(code)
         }
         navigation.goBack()
-      }
+      },
     })
   })
 

@@ -18,7 +18,7 @@ describe('Helmet', () => {
   const languageChangePaths: [LanguageChangePath, LanguageChangePath, LanguageChangePath] = [
     { code: 'de', name: 'Deutsch', path: '/augsburg/de' },
     { code: 'en', name: 'English', path: null },
-    { code: 'ar', name: 'Arabic', path: '/augsburg/ar' }
+    { code: 'ar', name: 'Arabic', path: '/augsburg/ar' },
   ]
 
   const pageTitle = 'PageTitle'

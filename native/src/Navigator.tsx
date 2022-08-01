@@ -28,7 +28,7 @@ import {
   SEARCH_ROUTE,
   SETTINGS_ROUTE,
   SPRUNGBRETT_OFFER_ROUTE,
-  LICENSE_ROUTE
+  LICENSE_ROUTE,
 } from 'api-client'
 
 import HeaderContainer from './components/HeaderContainer'
@@ -94,7 +94,7 @@ const Navigator = (props: PropsType): ReactElement | null => {
   const [waitingForSettings, setWaitingForSettings] = useState<boolean>(true)
   const [errorMessage, setErrorMessage] = useState<string | null | undefined>(null)
   const [initialRoute, setInitialRoute] = useState<InitialRouteType>({
-    name: INTRO_ROUTE
+    name: INTRO_ROUTE,
   })
   const previousRouteKey = useRef<string | null | undefined>(null)
   const { fetchCities, fetchCategory, routeKey, routeName } = props
@@ -142,7 +142,7 @@ const Navigator = (props: PropsType): ReactElement | null => {
 
       if (buildConfig().featureFlags.introSlides && !introShown) {
         setInitialRoute({
-          name: INTRO_ROUTE
+          name: INTRO_ROUTE,
         })
       } else {
         const city = buildConfig().featureFlags.fixedCity || selectedCity
@@ -151,11 +151,11 @@ const Navigator = (props: PropsType): ReactElement | null => {
           setInitialRoute({
             name: DASHBOARD_ROUTE,
             cityCode: city,
-            languageCode: contentLanguage
+            languageCode: contentLanguage,
           })
         } else {
           setInitialRoute({
-            name: LANDING_ROUTE
+            name: LANDING_ROUTE,
           })
         }
       }
@@ -192,7 +192,7 @@ const Navigator = (props: PropsType): ReactElement | null => {
   // Keeps our previous transition we used in v4 of react-navigation on android. Fixes weird showing of splash screen on every navigate.
   const transitionPreset = Platform.select({
     android: TransitionPresets.FadeFromBottomAndroid,
-    ios: TransitionPresets.DefaultTransition
+    ios: TransitionPresets.DefaultTransition,
   })
 
   return (

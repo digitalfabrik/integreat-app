@@ -24,7 +24,7 @@ type Options = {
 const moveReleaseNotes = async ({ newVersionName, deliverinoPrivateKey, owner, repo, branch }: Options) => {
   const appOctokit = await authenticate({ deliverinoPrivateKey, owner, repo })
   const {
-    data: { commit }
+    data: { commit },
   } = await appOctokit.repos.getBranch({ owner, repo, branch })
 
   // Tree of the root folder of the project
@@ -97,14 +97,14 @@ const moveReleaseNotes = async ({ newVersionName, deliverinoPrivateKey, owner, r
     repo,
     message: `Move release notes to ${newVersionName}\n[skip ci]`,
     tree: updatedRootTree.data.sha,
-    parents: [commit.sha]
+    parents: [commit.sha],
   })
 
   await appOctokit.git.updateRef({
     owner,
     repo,
     ref: `heads/${branch}`,
-    sha: renameCommit.data.sha
+    sha: renameCommit.data.sha,
   })
 }
 
@@ -118,7 +118,7 @@ program
         deliverinoPrivateKey: program.deliverinoPrivateKey,
         branch: program.branch,
         owner: program.owner,
-        repo: program.repo
+        repo: program.repo,
       })
     } catch (e) {
       console.error(e)

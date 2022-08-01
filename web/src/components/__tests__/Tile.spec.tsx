@@ -7,13 +7,13 @@ import Tile from '../Tile'
 const tile1 = new TileModel({
   path: '/augsburg/de/willkommen',
   title: 'Willkommen',
-  thumbnail: 'https://cms.integreat-ap…03/Beratung-150x150.png'
+  thumbnail: 'https://cms.integreat-ap…03/Beratung-150x150.png',
 })
 
 const tile2 = new TileModel({
   path: 'https://example.com',
   title: 'Example',
-  thumbnail: 'https://cms.integreat-ap…03/Beratung-150x150.png'
+  thumbnail: 'https://cms.integreat-ap…03/Beratung-150x150.png',
 })
 
 const lehrstellenRadarPostData = new Map()
@@ -25,7 +25,7 @@ const tile3 = new TileModel({
   path: 'https://example.com',
   title: 'Example',
   thumbnail: 'https://cms.integreat-ap…03/Beratung-150x150.png',
-  postData: lehrstellenRadarPostData
+  postData: lehrstellenRadarPostData,
 })
 
 describe('Tile', () => {

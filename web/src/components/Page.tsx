@@ -45,7 +45,7 @@ const Page = ({
   lastUpdateFormat,
   formatter,
   children,
-  onInternalLinkClick
+  onInternalLinkClick,
 }: PropsType): ReactElement => (
   <>
     {defaultThumbnailSrc && <Thumbnail alt='' src={defaultThumbnailSrc} srcSet={thumbnailSrcSet} />}

@@ -7,7 +7,7 @@ import CityModelBuilder from 'api-client/src/testing/CityModelBuilder'
 import {
   mockUseLoadFromEndpointLoading,
   mockUseLoadFromEndpointOnceWithData,
-  mockUseLoadFromEndpointWithError
+  mockUseLoadFromEndpointWithError,
 } from 'api-client/src/testing/mockUseLoadFromEndpoint'
 
 import createNavigationScreenPropMock from '../../testing/createNavigationPropMock'
@@ -20,7 +20,7 @@ jest.mock('react-i18next')
 jest.mock('../../utils/openExternalUrl')
 jest.mock('api-client', () => ({
   ...jest.requireActual('api-client'),
-  useLoadFromEndpoint: jest.fn()
+  useLoadFromEndpoint: jest.fn(),
 }))
 jest.mock('../SprungbrettOffer', () => {
   const { Text } = require('react-native')
@@ -46,17 +46,17 @@ describe('SprungbrettOfferContainer', () => {
     key: 'route-id-0',
     params: {
       cityCode,
-      languageCode
+      languageCode,
     },
-    name: SPRUNGBRETT_OFFER_ROUTE
+    name: SPRUNGBRETT_OFFER_ROUTE,
   }
   const errorText = `Failure ${ErrorCode.UnknownError}`
 
   const cities = new CityModelBuilder(1).build()
   const state = {
     cities: {
-      models: cities
-    }
+      models: cities,
+    },
   }
   const mockStore = configureMockStore()
   const store = mockStore(state)
@@ -144,16 +144,16 @@ describe('SprungbrettOfferContainer', () => {
       aliases: {
         Konigsbrunn: {
           latitude: 48.267499,
-          longitude: 10.889586
-        }
+          longitude: 10.889586,
+        },
       },
-      boundingBox: null
+      boundingBox: null,
     })
     const store = mockStore({
       cities: {
         status: 'ready',
-        models: [disabledOffersCity]
-      }
+        models: [disabledOffersCity],
+      },
     })
     mockUseLoadFromEndpointOnceWithData(null)
 

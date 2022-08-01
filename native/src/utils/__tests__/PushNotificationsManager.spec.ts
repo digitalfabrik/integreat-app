@@ -24,7 +24,7 @@ describe('PushNotificationsManager', () => {
     const previous = buildConfig()
     mockedBuildConfig.mockImplementation(() => ({
       ...previous,
-      featureFlags: { ...previous.featureFlags, pushNotifications, floss }
+      featureFlags: { ...previous.featureFlags, pushNotifications, floss },
     }))
   }
 
@@ -193,8 +193,8 @@ describe('PushNotificationsManager', () => {
         city_code: 'augsburg',
         language_code: 'de',
         news_id: '123',
-        group: 'news'
-      }
+        group: 'news',
+      },
     }
     it('should go to news if there is an initial message', async () => {
       const url = 'https://integreat.app/augsburg/de/news/local/123'

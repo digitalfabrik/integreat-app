@@ -19,7 +19,7 @@ const BottomActionsSheet: React.FC<BottomActionsSheetProps> = ({
   visible = true,
   onChange,
   snapPoints,
-  initialIndex = 0
+  initialIndex = 0,
 }: BottomActionsSheetProps): ReactElement | null => {
   const renderHandle = useCallback(props => <BottomSheetHandler title={title} {...props} />, [title])
 
@@ -29,7 +29,7 @@ const BottomActionsSheet: React.FC<BottomActionsSheetProps> = ({
     if (scrollRef.current) {
       scrollRef.current.scrollTo({
         y: 0,
-        animated: true
+        animated: true,
       })
     }
   }, [title])

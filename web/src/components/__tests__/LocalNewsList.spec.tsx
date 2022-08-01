@@ -30,14 +30,14 @@ describe('LocalNewsList', () => {
     id: 217,
     title: 'Important',
     timestamp: date,
-    message: 'This is a very important message from your favourite city!'
+    message: 'This is a very important message from your favourite city!',
   })
 
   const localNews2 = new LocalNewsModel({
     id: 218,
     title: 'Love :)',
     timestamp: date,
-    message: 'I am a random local news content content and I like it!!!!!!!!!'
+    message: 'I am a random local news content content and I like it!!!!!!!!!',
   })
 
   const items = [localNews1, localNews2]

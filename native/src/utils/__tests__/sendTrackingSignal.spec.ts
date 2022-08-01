@@ -12,11 +12,11 @@ jest.mock('../sentry')
 jest.mock('api-client', () => ({
   ...jest.requireActual('api-client'),
   createTrackingEndpoint: jest.fn(() => ({
-    request: jest.fn()
-  }))
+    request: jest.fn(),
+  })),
 }))
 jest.mock('moment', () => () => ({
-  toISOString: () => '2020-01-20T00:00:00.000Z'
+  toISOString: () => '2020-01-20T00:00:00.000Z',
 }))
 jest.mock('@sentry/react-native')
 
@@ -29,7 +29,7 @@ describe('sendTrackingSignal', () => {
     const previous = buildConfig()
     mockedBuildConfig.mockImplementation(() => ({
       ...previous,
-      featureFlags: { ...previous.featureFlags, jpalTracking }
+      featureFlags: { ...previous.featureFlags, jpalTracking },
     }))
   }
 
@@ -42,7 +42,7 @@ describe('sendTrackingSignal', () => {
   const specificSignal = {
     name: OPEN_PAGE_SIGNAL_NAME,
     pageType: DASHBOARD_ROUTE,
-    url: 'https://example.com'
+    url: 'https://example.com',
   }
 
   describe('sendRequest', () => {
@@ -55,9 +55,9 @@ describe('sendTrackingSignal', () => {
       systemLanguage: 'kmr',
       appSettings: {
         allowPushNotifications: true,
-        errorTracking: false
+        errorTracking: false,
       },
-      timestamp: '2020-01-20T00:00:00.000Z'
+      timestamp: '2020-01-20T00:00:00.000Z',
     }
 
     it('should request the tracking endpoint if tracking enabled and tracking code set', async () => {
@@ -68,7 +68,7 @@ describe('sendTrackingSignal', () => {
         selectedCity: 'muenchen',
         contentLanguage: 'ar',
         allowPushNotifications: true,
-        errorTracking: false
+        errorTracking: false,
       })
       setSystemLanguage('kmr')
       await sendRequest(signal)
@@ -84,7 +84,7 @@ describe('sendTrackingSignal', () => {
         selectedCity: 'muenchen',
         contentLanguage: 'ar',
         allowPushNotifications: true,
-        errorTracking: false
+        errorTracking: false,
       })
       await sendRequest(signal)
       expect(mockRequest).not.toHaveBeenCalled()
@@ -97,7 +97,7 @@ describe('sendTrackingSignal', () => {
         selectedCity: 'muenchen',
         contentLanguage: 'ar',
         allowPushNotifications: true,
-        errorTracking: false
+        errorTracking: false,
       })
       await sendRequest(signal)
       expect(mockRequest).not.toHaveBeenCalled()
@@ -111,7 +111,7 @@ describe('sendTrackingSignal', () => {
         selectedCity: 'muenchen',
         contentLanguage: 'ar',
         allowPushNotifications: true,
-        errorTracking: false
+        errorTracking: false,
       })
       await sendRequest(signal)
       expect(mockRequest).not.toHaveBeenCalled()
@@ -125,13 +125,13 @@ describe('sendTrackingSignal', () => {
         selectedCity: 'muenchen',
         contentLanguage: 'ar',
         allowPushNotifications: true,
-        errorTracking: false
+        errorTracking: false,
       })
       const error = new FetchError({
         endpointName: 'endpoint',
         innerError: new Error('Internet kaputt'),
         url: 'url',
-        requestOptions: { method: 'POST' }
+        requestOptions: { method: 'POST' },
       })
       mockRequest.mockRejectedValueOnce(error)
       await sendRequest(signal)
@@ -148,7 +148,7 @@ describe('sendTrackingSignal', () => {
         contentLanguage: 'ar',
         allowPushNotifications: true,
         errorTracking: false,
-        jpalSignals: []
+        jpalSignals: [],
       })
       const error = new Error('Something bad happened and tracking does not work anymore!')
       mockRequest.mockRejectedValueOnce(error)
@@ -169,12 +169,12 @@ describe('sendTrackingSignal', () => {
         selectedCity: 'muenchen',
         contentLanguage: 'ar',
         allowPushNotifications: true,
-        errorTracking: false
+        errorTracking: false,
       })
       setSystemLanguage('ar')
       await sendTrackingSignal({
         signal: specificSignal,
-        offline: true
+        offline: true,
       })
       expect(mockRequest).toHaveBeenCalledTimes(1)
       expect(mockRequest).toHaveBeenCalledWith({
@@ -186,9 +186,9 @@ describe('sendTrackingSignal', () => {
         systemLanguage: 'ar',
         appSettings: {
           allowPushNotifications: true,
-          errorTracking: false
+          errorTracking: false,
         },
-        timestamp: '2020-01-20T00:00:00.000Z'
+        timestamp: '2020-01-20T00:00:00.000Z',
       })
     })
   })
