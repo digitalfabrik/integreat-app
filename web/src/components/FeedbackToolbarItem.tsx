@@ -36,11 +36,7 @@ const FeedbackToolbarItem = ({
   return (
     <Tooltip text={viewportSmall ? null : dataTip} flow='up' mediumViewportFlow='right' smallViewportFlow='down'>
       <StyledFeedbackToolbarItem className={className} onClick={handleLinkClick} aria-label={dataTip}>
-        <FontAwesomeIcon
-          className={className}
-          icon={isPositiveRatingLink ? faSmile : faFrown}
-          title={isPositiveRatingLink ? 'faSmile' : 'faFrown'}
-        />
+        <FontAwesomeIcon className={className} icon={isPositiveRatingLink ? faSmile : faFrown} />
         {viewportSmall && <StyledSmallViewTip>{smallViewTip}</StyledSmallViewTip>}
       </StyledFeedbackToolbarItem>
     </Tooltip>
