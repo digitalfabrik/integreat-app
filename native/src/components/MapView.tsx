@@ -117,6 +117,7 @@ const MapView = React.forwardRef(
       const feature = featureCollection?.features.find((it): it is PoiFeature => it.geometry.type === 'Point')
 
       if (feature) {
+        setFollowUserLocation(false)
         selectPoiFeature(feature)
         setSheetSnapPointIndex(2)
       } else {
