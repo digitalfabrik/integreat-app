@@ -1,5 +1,5 @@
 import { program } from 'commander'
-import { parse } from 'csv-parse/lib/sync'
+import { parse } from 'csv-parse/sync'
 import { stringify } from 'csv-stringify'
 import flat from 'flat'
 import fs from 'fs'
