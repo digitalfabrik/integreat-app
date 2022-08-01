@@ -8,8 +8,8 @@ import CityNotCooperatingPage from '../CityNotCooperatingPage'
 
 Object.assign(navigator, {
   clipboard: {
-    writeText: jest.fn().mockImplementation(() => Promise.resolve())
-  }
+    writeText: jest.fn().mockImplementation(() => Promise.resolve()),
+  },
 })
 
 describe('CityNotCooperatingPage', () => {

@@ -30,7 +30,7 @@ const FacetToggle: React.FC<FacetToggleProps> = ({
   tooltip,
   value,
   updateSearchFilter,
-  name
+  name,
 }: FacetToggleProps): ReactElement => {
   const onClickToggle = () => {
     updateSearchFilter(name, !value ? '1' : '0')

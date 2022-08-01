@@ -15,7 +15,7 @@ const modelWithTitle = new CategoryModel({
   availableLanguages: new Map(),
   content: '<div>This is some special test content</div>',
   lastUpdate: moment('2016-01-07 10:36:24'),
-  thumbnail: 'title-thumbnail'
+  thumbnail: 'title-thumbnail',
 })
 const categoryModels: [CategoryModel, CategoryModel, CategoryModel, CategoryModel] = [
   new CategoryModel({
@@ -27,7 +27,7 @@ const categoryModels: [CategoryModel, CategoryModel, CategoryModel, CategoryMode
     content: 'exampleContent0',
     lastUpdate: moment('2016-01-07 10:36:24'),
     order: 0,
-    thumbnail: 'thumb-nail'
+    thumbnail: 'thumb-nail',
   }),
   new CategoryModel({
     root: false,
@@ -38,7 +38,7 @@ const categoryModels: [CategoryModel, CategoryModel, CategoryModel, CategoryMode
     availableLanguages: new Map(),
     content: 'exampleContent0',
     lastUpdate: moment('2016-01-07 10:36:24'),
-    thumbnail: 'thumb-nail'
+    thumbnail: 'thumb-nail',
   }),
   new CategoryModel({
     root: false,
@@ -49,7 +49,7 @@ const categoryModels: [CategoryModel, CategoryModel, CategoryModel, CategoryMode
     availableLanguages: new Map(),
     content: 'exampleContent0',
     lastUpdate: moment('2016-01-07 10:36:24'),
-    thumbnail: 'thumb-nail'
+    thumbnail: 'thumb-nail',
   }),
   new CategoryModel({
     root: false,
@@ -60,19 +60,19 @@ const categoryModels: [CategoryModel, CategoryModel, CategoryModel, CategoryMode
     availableLanguages: new Map(),
     content: 'exampleContent0',
     lastUpdate: moment('2016-01-07 10:36:24'),
-    thumbnail: 'thumb-nail'
-  })
+    thumbnail: 'thumb-nail',
+  }),
 ]
 
 const categories = [
   {
     model: categoryModels[0],
-    subCategories: [categoryModels[1], categoryModels[2]]
+    subCategories: [categoryModels[1], categoryModels[2]],
   },
   {
     model: categoryModels[2],
-    subCategories: [categoryModels[3]]
-  }
+    subCategories: [categoryModels[3]],
+  },
 ]
 
 describe('CategoryList', () => {

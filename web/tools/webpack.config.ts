@@ -48,9 +48,9 @@ const generateAssetLinks = (buildConfig: WebBuildConfigType) => {
         target: {
           namespace: 'android_app',
           package_name: buildConfig.apps.android.applicationId,
-          sha256_cert_fingerprints: [buildConfig.apps.android.sha256CertFingerprint]
-        }
-      }
+          sha256_cert_fingerprints: [buildConfig.apps.android.sha256CertFingerprint],
+        },
+      },
     ],
     null,
     2
@@ -69,10 +69,10 @@ const generateAppleAppSiteAssociation = (buildConfig: WebBuildConfigType) => {
         details: [
           {
             appIDs: buildConfig.apps.ios.appleAppSiteAssociationAppIds,
-            paths: ['*', '/']
-          }
-        ]
-      }
+            paths: ['*', '/'],
+          },
+        ],
+      },
     },
     null,
     2
@@ -93,12 +93,12 @@ const generateManifest = (content: Buffer, buildConfig: WebBuildConfigType) => {
       {
         platform: 'play',
         id: buildConfig.apps.android.applicationId,
-        url: `https://play.google.com/store/apps/details?id=${buildConfig.apps.android.applicationId}`
+        url: `https://play.google.com/store/apps/details?id=${buildConfig.apps.android.applicationId}`,
       },
       {
         platform: 'itunes',
-        url: `https://apps.apple.com/de/app/${buildConfig.apps.ios.appStoreName}/id${buildConfig.apps.ios.appStoreId}`
-      }
+        url: `https://apps.apple.com/de/app/${buildConfig.apps.ios.appStoreName}/id${buildConfig.apps.ios.appStoreId}`,
+      },
     ]
   }
   manifest.short_name = manifest.name
@@ -113,7 +113,7 @@ const createConfig = (
     config_name: buildConfigName,
     commit_sha: passedCommitSha,
     version_name: passedVersionName,
-    dev_server: devServer
+    dev_server: devServer,
   } = env
 
   if (!buildConfigName) {
@@ -167,8 +167,8 @@ const createConfig = (
       extensions: ['.tsx', '.ts', '.js'],
       modules: [nodeModules, rootNodeModules],
       alias: {
-        'mapbox-gl': 'maplibre-gl'
-      }
+        'mapbox-gl': 'maplibre-gl',
+      },
     },
     // The base directory for resolving the entry option
     context: srcDirectory,
@@ -177,7 +177,7 @@ const createConfig = (
       '!!style-loader!css-loader!normalize.css/normalize.css',
       ...polyfills,
       /* The main entry point of your JavaScript application */
-      './index.tsx'
+      './index.tsx',
     ],
     // Options affecting the output of the compilation
     output: {
@@ -185,11 +185,11 @@ const createConfig = (
       publicPath: '/',
       filename: devServer ? '[name].js?[contenthash]' : '[name].[contenthash].js',
       chunkFilename: devServer ? '[id].js?[chunkhash]' : '[id].[chunkhash].js',
-      sourcePrefix: '  '
+      sourcePrefix: '  ',
     },
     optimization: {
       usedExports: true,
-      runtimeChunk: 'single'
+      runtimeChunk: 'single',
     },
     devtool: 'source-map',
     devServer: {
@@ -199,14 +199,14 @@ const createConfig = (
       host: '0.0.0.0', // This enables devices in the same network to connect to the dev server
       hot: true,
       http2: false,
-      historyApiFallback: true
+      historyApiFallback: true,
     },
     // What information should be printed to the console
     stats: 'minimal',
     performance: {
       hints: !devServer ? 'error' : false,
       maxEntrypointSize: MAX_BUNDLE_SIZE,
-      maxAssetSize: MAX_ASSET_SIZE
+      maxAssetSize: MAX_ASSET_SIZE,
     },
     // The list of plugins for Webpack compiler
     plugins: [
@@ -216,7 +216,7 @@ const createConfig = (
         generateStatsFile: !devServer,
         openAnalyzer: false,
         reportFilename: join(bundleReportDirectory, 'report.html'),
-        statsFilename: join(bundleReportDirectory, 'stats.json')
+        statsFilename: join(bundleReportDirectory, 'stats.json'),
       }),
       new CleanWebpackPlugin(),
       new HtmlWebpackPlugin({
@@ -224,8 +224,8 @@ const createConfig = (
         // Load a custom template (lodash by default)
         template: 'index.ejs',
         templateParameters: {
-          config: buildConfig
-        }
+          config: buildConfig,
+        },
       }),
       new CopyPlugin({
         patterns: [
@@ -234,30 +234,30 @@ const createConfig = (
           {
             from: manifestPreset,
             to: distDirectory,
-            transform: (content: Buffer) => generateManifest(content, buildConfig)
+            transform: (content: Buffer) => generateManifest(content, buildConfig),
           },
           ...(buildConfig.apps
             ? [
                 {
                   from: assetLinksPreset,
                   to: wellKnownDirectory,
-                  transform: () => generateAssetLinks(buildConfig)
+                  transform: () => generateAssetLinks(buildConfig),
                 },
                 {
                   from: appleAppSiteAssociationPreset,
                   to: distDirectory,
-                  transform: () => generateAppleAppSiteAssociation(buildConfig)
-                }
+                  transform: () => generateAppleAppSiteAssociation(buildConfig),
+                },
               ]
-            : [])
-        ]
+            : []),
+        ],
       }),
       new DefinePlugin({
         'process.env.NODE_ENV': NODE_ENV,
         __VERSION_NAME__: JSON.stringify(versionName),
         __COMMIT_SHA__: JSON.stringify(shortCommitSha),
         __BUILD_CONFIG_NAME__: JSON.stringify(buildConfigName),
-        __BUILD_CONFIG__: JSON.stringify(buildConfig)
+        __BUILD_CONFIG__: JSON.stringify(buildConfig),
       }),
       // Emit a JSON file with assets paths
       // https://github.com/sporto/assets-webpack-plugin#options
@@ -265,23 +265,23 @@ const createConfig = (
       new AssetsPlugin({
         path: distDirectory,
         filename: 'assets.json',
-        prettyPrint: true
+        prettyPrint: true,
       }),
       new LoaderOptionsPlugin({
         debug: devServer,
-        minimize: !devServer
+        minimize: !devServer,
       }),
       // We use moment-timezone for parsing a limited range of years here with GTM data in the integreat-api-client
       new MomentTimezoneDataPlugin({
         startYear: currentYear,
-        endYear: currentYear + 2
+        endYear: currentYear + 2,
       }),
       // moment has no support for 'ti' (Tigrinya) and 'so' (Somali), hence we have to use the ignoreInvalidLocales flag
       new MomentLocalesPlugin({
         localesToKeep: translationsConfig.getSupportedLanguageTags(),
-        ignoreInvalidLocales: true
+        ignoreInvalidLocales: true,
       }),
-      ...plugins
+      ...plugins,
     ],
     module: {
       rules: [
@@ -295,25 +295,25 @@ const createConfig = (
                 transpileOnly: true,
                 ...(devServer && {
                   getCustomTransformers: () => ({
-                    before: [ReactRefreshTypeScript()]
-                  })
-                })
-              }
-            }
-          ]
+                    before: [ReactRefreshTypeScript()],
+                  }),
+                }),
+              },
+            },
+          ],
         },
         {
           test: /\.html$/,
           use: [
             {
               loader: 'html-loader',
-              options: { minimize: true }
-            }
-          ]
+              options: { minimize: true },
+            },
+          ],
         },
         {
           test: /\.css$/,
-          use: ['style-loader', 'css-loader']
+          use: ['style-loader', 'css-loader'],
         },
         {
           test: /\.(png|jpg|jpeg|gif|svg|woff|woff2)$/,
@@ -322,38 +322,38 @@ const createConfig = (
             {
               loader: 'url-loader',
               options: {
-                limit: 10000
-              }
+                limit: 10000,
+              },
             },
             {
               loader: 'img-loader',
               options: {
                 enabled: !devServer,
                 gifsicle: {
-                  interlaced: false
+                  interlaced: false,
                 },
                 mozjpeg: {
                   progressive: true,
-                  arithmetic: false
+                  arithmetic: false,
                 },
                 optipng: false,
                 pngquant: {
                   floyd: 0.5,
-                  speed: 2
+                  speed: 2,
                 },
                 svgo: {
-                  plugins: [{ removeTitle: true }, { convertPathData: false }]
-                }
-              }
-            }
-          ]
+                  plugins: [{ removeTitle: true }, { convertPathData: false }],
+                },
+              },
+            },
+          ],
         },
         {
           test: /\.(eot|ttf|wav|mp3)$/,
-          type: 'assets/resource'
-        }
-      ]
-    }
+          type: 'assets/resource',
+        },
+      ],
+    },
   }
 
   // Optimize the bundle in production mode

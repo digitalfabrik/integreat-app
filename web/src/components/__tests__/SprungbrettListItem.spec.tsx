@@ -14,7 +14,7 @@ describe('SprungbrettListItem', () => {
     location: 'Augsburg',
     isEmployment: true,
     isApprenticeship: true,
-    url: 'http://awesome-jobs.domain'
+    url: 'http://awesome-jobs.domain',
   })
 
   it('should render a sprungbrett list item', () => {

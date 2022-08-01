@@ -17,10 +17,10 @@ export default (id: string): TestIDType => {
     return Platform.OS === 'android'
       ? {
           accessible: true,
-          accessibilityLabel: id
+          accessibilityLabel: id,
         }
       : {
-          testID: id
+          testID: id,
         }
   }
 

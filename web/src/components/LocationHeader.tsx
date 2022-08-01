@@ -13,7 +13,7 @@ import {
   POIS_ROUTE,
   SEARCH_ROUTE,
   SHELTER_ROUTE,
-  SPRUNGBRETT_OFFER_ROUTE
+  SPRUNGBRETT_OFFER_ROUTE,
 } from 'api-client'
 
 import eventsIcon from '../assets/events.svg'
@@ -64,7 +64,7 @@ const LocationHeader = (props: PropsType): ReactElement => {
       languageChangePaths={languageChangePaths}
       isHeaderActionItem
       languageCode={languageCode}
-    />
+    />,
   ]
 
   const getNavigationItems = (): Array<ReactNode> => {
@@ -85,7 +85,7 @@ const LocationHeader = (props: PropsType): ReactElement => {
         active={route === CATEGORIES_ROUTE}
         text={t('localInformation')}
         icon={localInformationIcon}
-      />
+      />,
     ]
 
     if (isNewsVisible) {

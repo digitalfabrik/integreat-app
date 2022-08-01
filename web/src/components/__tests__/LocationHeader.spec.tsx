@@ -8,7 +8,7 @@ import {
   EVENTS_ROUTE,
   OFFERS_ROUTE,
   POIS_ROUTE,
-  SPRUNGBRETT_OFFER_ROUTE
+  SPRUNGBRETT_OFFER_ROUTE,
 } from 'api-client'
 
 import buildConfig from '../../constants/buildConfig'
@@ -47,15 +47,15 @@ describe('LocationHeader', () => {
       aliases: {
         Konigsbrunn: {
           latitude: 48.267499,
-          longitude: 10.889586
-        }
+          longitude: 10.889586,
+        },
       },
-      boundingBox: [10.7880103, 48.447238, 11.0174493, 48.297834]
+      boundingBox: [10.7880103, 48.447238, 11.0174493, 48.297834],
     })
 
   const languageChangePaths = [
     { code: 'de', name: 'Deutsch', path: '/augsburg/de' },
-    { code: 'en', name: 'English', path: '/augsburg/en' }
+    { code: 'en', name: 'English', path: '/augsburg/en' },
   ]
 
   const languageCode = 'de'

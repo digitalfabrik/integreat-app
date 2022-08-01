@@ -3,5 +3,5 @@ export type HelpersType = {
 }
 
 export const helpers: HelpersType = {
-  removeLinkHighlighting: 'color: inherit; text-decoration: none;'
+  removeLinkHighlighting: 'color: inherit; text-decoration: none;',
 }

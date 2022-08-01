@@ -29,7 +29,7 @@ function* rootSaga(dataContainer: DataContainer) {
     call(watchFetchCities, dataContainer),
     call(watchClearCity),
     call(watchContentLanguageSwitch, dataContainer),
-    call(watchClearResourcesAndCache, dataContainer)
+    call(watchClearResourcesAndCache, dataContainer),
   ])
 }
 
@@ -40,14 +40,14 @@ const createReduxStore = (dataContainer: DataContainer): Store<StateType, StoreA
     contentLanguage: defaultContentLanguageState,
     cityContent: defaultCityContentState,
     resourceCacheUrl: null,
-    snackbar: []
+    snackbar: [],
   }
   const rootReducer = combineReducers({
     cities: citiesReducer,
     contentLanguage: contentLanguageReducer,
     cityContent: cityContentReducer,
     resourceCacheUrl: resourceCacheUrlReducer,
-    snackbar: snackbarReducer
+    snackbar: snackbarReducer,
   })
   const middlewares: Middleware[] = [sagaMiddleware]
 

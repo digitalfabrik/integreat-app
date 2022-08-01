@@ -32,9 +32,9 @@ const AnchorIcon = ({ name, scrollViewRef, isLeftAnchor, disabled }: PropsType):
       style={{
         transform: [
           {
-            scaleX: isRTL() ? -1 : 1
-          }
-        ]
+            scaleX: isRTL() ? -1 : 1,
+          },
+        ],
       }}
       onPress={onAnchorPress}
       disabled={disabled}

@@ -16,6 +16,6 @@ parameters:
         web_production_delivery,
         web_promotion,
         delivery,
-        none
+        none,
       ]
     default: none

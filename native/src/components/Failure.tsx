@@ -34,11 +34,11 @@ const Failure = ({ code, tryAgain }: PropsType): ReactElement => {
         <Button
           testID='button-tryAgain'
           titleStyle={{
-            color: theme.colors.textColor
+            color: theme.colors.textColor,
           }}
           buttonStyle={{
             backgroundColor: theme.colors.themeColor,
-            marginTop: 20
+            marginTop: 20,
           }}
           onPress={tryAgain}
           title={t('tryAgain')}

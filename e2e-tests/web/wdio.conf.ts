@@ -31,7 +31,7 @@ export const config: Testrunner = {
   reporters: ['spec'],
 
   jasmineOpts: {
-    defaultTimeoutInterval: 300000
+    defaultTimeoutInterval: 300000,
   },
 
   onPrepare: async (): Promise<void> => {
@@ -45,5 +45,5 @@ export const config: Testrunner = {
 
   before: async (): Promise<void> => {
     await browser.setTimeout({ implicit: 80000, pageLoad: 60000 })
-  }
+  },
 }

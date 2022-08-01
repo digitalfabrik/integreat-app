@@ -96,7 +96,7 @@ const ShelterInformationSection = ({
   children,
   extended,
   elevated = false,
-  singleColumn = false
+  singleColumn = false,
 }: Props): ReactElement => {
   const { viewportSmall } = useWindowDimensions()
   return (

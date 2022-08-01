@@ -25,18 +25,18 @@ const dimensions: DimensionsType = {
   modalHeaderHeight: 40,
   categoryListItem: {
     iconSize: 40,
-    margin: 10
+    margin: 10,
   },
   fontScaling: 0.04,
   headerTextSize: 20,
   bottomSheetHandler: {
-    height: 40
+    height: 40,
   },
   locationFab: {
-    margin: 8
+    margin: 8,
   },
   page: {
-    horizontalMargin: 8
-  }
+    horizontalMargin: 8,
+  },
 }
 export default dimensions

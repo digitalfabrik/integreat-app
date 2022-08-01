@@ -16,8 +16,8 @@ describe('CityModel', () => {
       latitude: 48.369696,
       longitude: 10.892578,
       aliases: null,
-      boundingBox: null
-    })
+      boundingBox: null,
+    }),
   ]
 
   describe('find city name', () => {

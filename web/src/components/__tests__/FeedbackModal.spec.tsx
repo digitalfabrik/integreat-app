@@ -12,8 +12,8 @@ jest.mock('react-i18next')
 jest.mock('api-client', () => ({
   ...jest.requireActual('api-client'),
   createFeedbackEndpoint: () => ({
-    request: () => undefined
-  })
+    request: () => undefined,
+  }),
 }))
 jest.mock('focus-trap-react', () => ({ children }: { children: ReactElement }) => <div>{children}</div>)
 
@@ -36,7 +36,7 @@ describe('FeedbackModal', () => {
       </ThemeProvider>
     )
     const button = getByRole('button', {
-      name: 'feedback:send'
+      name: 'feedback:send',
     })
     fireEvent.click(button)
     await waitFor(() => expect(button).toBeEnabled())

@@ -7,7 +7,7 @@ import {
   PoiModel,
   prepareFeatureLocations,
   ReturnType,
-  useLoadFromEndpoint
+  useLoadFromEndpoint,
 } from 'api-client'
 
 import { cmsApiBaseUrl } from '../constants/urls'

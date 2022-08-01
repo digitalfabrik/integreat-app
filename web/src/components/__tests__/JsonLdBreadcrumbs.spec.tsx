@@ -12,18 +12,18 @@ describe('BreadcrumbsJsonLd', () => {
           new BreadcrumbModel({
             title: 'Home',
             link: 'https://abc.xyz/',
-            node: <a href='/'>Home</a>
+            node: <a href='/'>Home</a>,
           }),
           new BreadcrumbModel({
             title: 'Subcategory',
             link: 'https://abc.xyz/sub',
-            node: <a href='/sub'>Subcategory</a>
+            node: <a href='/sub'>Subcategory</a>,
           }),
           new BreadcrumbModel({
             title: 'ThisSite',
             link: 'https://abc.xyz/sub/current',
-            node: <a href='/sub/current'>ThisSite</a>
-          })
+            node: <a href='/sub/current'>ThisSite</a>,
+          }),
         ]}
       />
     )
@@ -39,21 +39,21 @@ describe('BreadcrumbsJsonLd', () => {
                 '@type': 'ListItem',
                 position: 1,
                 name: 'Home',
-                item: 'https://abc.xyz/'
+                item: 'https://abc.xyz/',
               },
               {
                 '@type': 'ListItem',
                 position: 2,
                 name: 'Subcategory',
-                item: 'https://abc.xyz/sub'
+                item: 'https://abc.xyz/sub',
               },
               {
                 '@type': 'ListItem',
                 position: 3,
                 name: 'ThisSite',
-                item: 'https://abc.xyz/sub/current'
-              }
-            ]
+                item: 'https://abc.xyz/sub/current',
+              },
+            ],
           })}
         </script>
       )

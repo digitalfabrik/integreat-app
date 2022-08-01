@@ -9,7 +9,7 @@ export const URL_PREFIX = 'file://'
 export const getFontFaceSource = (fontName: string): string | undefined =>
   Platform.select({
     ios: `local('${fontName}') url('${fontName}.ttf') format('truetype')`,
-    android: `url('file:///android_asset/fonts/${fontName}.ttf') format('truetype')`
+    android: `url('file:///android_asset/fonts/${fontName}.ttf') format('truetype')`,
   })
 export const createPostSource = (
   uri: string,
@@ -21,14 +21,14 @@ export const createPostSource = (
   body,
   headers: Platform.select({
     ios: {
-      'Content-Type': contentType
+      'Content-Type': contentType,
     },
-    android: undefined
+    android: undefined,
     /* `headers` is not supported on Android.
         In this case Android figures the out which content type to use */
-  })
+  }),
 })
 export const createGetSource = (uri: string): WebViewSource => ({
   uri,
-  method: 'GET'
+  method: 'GET',
 })

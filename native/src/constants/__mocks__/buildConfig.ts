@@ -32,16 +32,16 @@ const buildConfig = jest.fn<CommonBuildConfigType, []>(
       sentry: true,
       developerFriendly: false,
       fixedCity: null,
-      cityNotCooperatingTemplate: 'template'
+      cityNotCooperatingTemplate: 'template',
     },
     aboutUrls: {
       default: 'https://integreat-app.de/about/',
-      en: 'https://integreat-app.de/en/about/'
+      en: 'https://integreat-app.de/en/about/',
     },
     privacyUrls: {
       default: 'https://integreat-app.de/datenschutz/',
-      en: 'https://integreat-app.de/en/privacy/'
-    }
+      en: 'https://integreat-app.de/en/privacy/',
+    },
   })
 )
 export default buildConfig

@@ -15,7 +15,7 @@ import TuNews from '../TuNews'
 jest.mock('react-i18next')
 jest.mock('react-redux', () => ({
   ...jest.requireActual('react-redux'),
-  useDispatch: jest.fn()
+  useDispatch: jest.fn(),
 }))
 jest.mock('../LocalNews', () => () => <Text>LocalNewsContent</Text>)
 jest.mock(
@@ -58,8 +58,8 @@ describe('NewsContainer', () => {
       latitude: 48.369696,
       longitude: 10.892578,
       aliases: null,
-      boundingBox: null
-    })
+      boundingBox: null,
+    }),
   ]
 
   const navigation = createNavigationPropMock<NewsRouteType>()
@@ -68,7 +68,7 @@ describe('NewsContainer', () => {
     cities = defaultCities,
     newsType = TU_NEWS_TYPE,
     newsId = null,
-    language = 'pes'
+    language = 'pes',
   }: {
     cities?: CityModel[] | null
     newsType?: LocalNewsType | TuNewsType
@@ -76,7 +76,7 @@ describe('NewsContainer', () => {
     language?: string
   }) => {
     const store = mockStore({
-      cities: cities ? { status: 'ready', models: cities } : { status: 'loading' }
+      cities: cities ? { status: 'ready', models: cities } : { status: 'loading' },
     })
     const route = {
       key: 'route-id-0',
@@ -84,9 +84,9 @@ describe('NewsContainer', () => {
         cityCode: defaultCities[0]!.code,
         languageCode: language,
         newsType,
-        newsId
+        newsId,
       },
-      name: NEWS_ROUTE
+      name: NEWS_ROUTE,
     }
     return render(
       <Provider store={store}>
@@ -180,8 +180,8 @@ describe('NewsContainer', () => {
       type: 'SWITCH_CONTENT_LANGUAGE',
       params: {
         newLanguage: 'de',
-        city: 'oldtown'
-      }
+        city: 'oldtown',
+      },
     })
   })
 })

@@ -13,7 +13,7 @@ import {
   CATEGORIES_ROUTE,
   normalizeSearchString,
   RouteInformationType,
-  parseHTML
+  parseHTML,
 } from 'api-client'
 import { ThemeType } from 'build-configs'
 
@@ -50,7 +50,7 @@ type SearchStateType = {
 
 class SearchModal extends React.Component<PropsType, SearchStateType> {
   state = {
-    query: ''
+    query: '',
   }
 
   findCategories(categories: CategoriesMapModel): Array<ListEntryType> {
@@ -65,9 +65,9 @@ class SearchModal extends React.Component<PropsType, SearchStateType> {
           model: {
             title: category.title,
             thumbnail: category.thumbnail,
-            path: category.path
+            path: category.path,
           },
-          subCategories: []
+          subCategories: [],
         })
       )
       .sort((category1, category2) => category1.model.title.localeCompare(category2.model.title))
@@ -80,9 +80,9 @@ class SearchModal extends React.Component<PropsType, SearchStateType> {
             path: category.path,
             thumbnail: category.thumbnail,
             title: category.title,
-            contentWithoutHtml: parseHTML(category.content)
+            contentWithoutHtml: parseHTML(category.content),
           },
-          subCategories: []
+          subCategories: [],
         })
       )
       .filter(
@@ -103,20 +103,20 @@ class SearchModal extends React.Component<PropsType, SearchStateType> {
       route: CATEGORIES_ROUTE,
       cityContentPath: category.path,
       cityCode,
-      languageCode: language
+      languageCode: language,
     }
     sendTrackingSignal({
       signal: {
         name: SEARCH_FINISHED_SIGNAL_NAME,
         query,
-        url: urlFromRouteInformation(routeInformation)
-      }
+        url: urlFromRouteInformation(routeInformation),
+      },
     })
     navigateTo({
       route: CATEGORIES_ROUTE,
       cityCode,
       languageCode: language,
-      cityContentPath: category.path
+      cityContentPath: category.path,
     })
   }
 
@@ -127,15 +127,15 @@ class SearchModal extends React.Component<PropsType, SearchStateType> {
       signal: {
         name: SEARCH_FINISHED_SIGNAL_NAME,
         query,
-        url: null
-      }
+        url: null,
+      },
     })
     closeModal(query)
   }
 
   onSearchChanged = (query: string): void => {
     this.setState({
-      query
+      query,
     })
   }
 
@@ -152,14 +152,14 @@ class SearchModal extends React.Component<PropsType, SearchStateType> {
     return (
       <ScrollView
         contentContainerStyle={{
-          flexGrow: 1
+          flexGrow: 1,
         }}
         keyboardShouldPersistTaps='always'>
         {/* The minHeight is needed to circumvent a bug that appears when there is only one search result.
              See NATIVE-430 for reference. */}
         <View
           style={{
-            minHeight
+            minHeight,
           }}>
           <CategoryList
             categories={filteredCategories}
@@ -197,7 +197,7 @@ class SearchModal extends React.Component<PropsType, SearchStateType> {
         <KeyboardAvoidingView
           behavior={Platform.OS === 'ios' ? 'padding' : undefined}
           style={{
-            flex: 1
+            flex: 1,
           }}>
           {this.renderContent()}
         </KeyboardAvoidingView>

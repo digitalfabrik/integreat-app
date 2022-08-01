@@ -7,7 +7,7 @@ import {
   PanGestureHandlerStateChangeEvent,
   PinchGestureHandlerGestureEvent,
   PinchGestureHandlerStateChangeEvent,
-  State
+  State,
 } from 'react-native-gesture-handler'
 import styled from 'styled-components/native'
 
@@ -70,7 +70,7 @@ class PinchPanImage extends React.Component<PropsType, StateType> {
     this.scale = Animated.multiply(this.baseScale, this.pinchScale)
     this.lastScale = 1
     this.onPinchGestureEvent = Animated.event([{ nativeEvent: { scale: this.pinchScale } }], {
-      useNativeDriver: USE_NATIVE_DRIVER
+      useNativeDriver: USE_NATIVE_DRIVER,
     })
 
     // Setup: Panning
@@ -83,9 +83,9 @@ class PinchPanImage extends React.Component<PropsType, StateType> {
         {
           nativeEvent: {
             translationX: this.translateX,
-            translationY: this.translateY
-          }
-        }
+            translationY: this.translateY,
+          },
+        },
       ],
       { useNativeDriver: USE_NATIVE_DRIVER }
     )
@@ -124,7 +124,7 @@ class PinchPanImage extends React.Component<PropsType, StateType> {
     const animation: Animated.CompositeAnimation = Animated.timing(axis === 'x' ? this.translateX : this.translateY, {
       toValue: minValue - newValue,
       duration: ANIMATION_DURATION,
-      useNativeDriver: USE_NATIVE_DRIVER
+      useNativeDriver: USE_NATIVE_DRIVER,
     })
 
     animation.start(({ finished }) => {
@@ -194,7 +194,7 @@ class PinchPanImage extends React.Component<PropsType, StateType> {
       const animation: Animated.CompositeAnimation = Animated.timing(this.baseScale, {
         toValue: 1,
         duration: ANIMATION_DURATION,
-        useNativeDriver: USE_NATIVE_DRIVER
+        useNativeDriver: USE_NATIVE_DRIVER,
       })
       animation.start(({ finished }) => {
         if (finished) {
@@ -311,20 +311,20 @@ class PinchPanImage extends React.Component<PropsType, StateType> {
                 style={[
                   {
                     width: realImageWidth,
-                    height: realImageHeight
+                    height: realImageHeight,
                   },
                   {
                     transform: [
                       { scale: this.scale },
                       { translateX: this.scaledTranslateXWithOffset },
-                      { translateY: this.scaledTranslateYWithOffset }
-                    ]
-                  }
+                      { translateY: this.scaledTranslateYWithOffset },
+                    ],
+                  },
                 ]}
                 onError={this.onImageLoadError}
                 resizeMode='stretch'
                 source={{
-                  uri
+                  uri,
                 }}
               />
             </PinchGestureHandler>
