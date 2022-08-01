@@ -20,7 +20,7 @@ const ScrollingSearchBox = ({
   onFilterTextChange,
   onStickyTopChanged,
   placeholderText,
-  spaceSearch = false
+  spaceSearch = false,
 }: PropsType): ReactElement => {
   const node = useRef<HTMLDivElement | null>(null)
 

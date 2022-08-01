@@ -53,7 +53,7 @@ const SearchInput = ({
   filterText,
   onClickInput,
   onFilterTextChange,
-  spaceSearch = false
+  spaceSearch = false,
 }: PropsType): ReactElement => {
   const handleFilterTextChange = (event: ChangeEvent<HTMLInputElement>): void => {
     if (typeof event.target.value === 'string') {

@@ -33,7 +33,7 @@ const createTag = async ({ versionName, versionCode, owner, repo, commitSha, app
     tag: id,
     message: tagMessage,
     object: commitSha,
-    type: 'commit'
+    type: 'commit',
   })
   const tagSha = tag.data.sha
   console.warn(`New tag with id ${id} successfully created.`)
@@ -42,7 +42,7 @@ const createTag = async ({ versionName, versionCode, owner, repo, commitSha, app
     owner,
     repo,
     ref: `refs/tags/${id}`,
-    sha: tagSha
+    sha: tagSha,
   })
   console.warn(`New ref with id ${id} successfully created.`)
 }
@@ -82,7 +82,7 @@ const commitAndTag = async (
     branch,
     message: commitMessage,
     // @ts-expect-error Random typescript error: property sha is not available on type { ..., sha: string, ... }
-    sha: versionFileContent.data.sha
+    sha: versionFileContent.data.sha,
   })
   console.warn(`New version successfully commited with message "${commitMessage}".`)
 
@@ -97,7 +97,7 @@ const commitAndTag = async (
         appOctokit,
         owner,
         repo,
-        platform
+        platform,
       })
     )
   )

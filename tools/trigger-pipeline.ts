@@ -12,7 +12,7 @@ const WORKFLOW_TYPES = [
   'web_beta_delivery',
   'web_production_delivery',
   'web_promotion',
-  'delivery'
+  'delivery',
 ]
 
 program.requiredOption('--api-token <api-token>', 'circleci api token')
@@ -31,8 +31,8 @@ program
         branch: MAIN_BRANCH,
         parameters: {
           api_triggered: true,
-          workflow_type: workflowType
-        }
+          workflow_type: workflowType,
+        },
       }
 
       const response = await fetch(CIRCLECI_URL, {
@@ -41,8 +41,8 @@ program
         headers: {
           'Content-Type': 'application/json',
           Accept: 'application/json',
-          'Circle-Token': apiToken
-        }
+          'Circle-Token': apiToken,
+        },
       })
       const json = await response.json()
       console.log(json)

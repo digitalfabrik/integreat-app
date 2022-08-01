@@ -18,7 +18,7 @@ import {
   PetIcon,
   PhoneIcon,
   SmokingIcon,
-  TimerIcon
+  TimerIcon,
 } from '../assets'
 import Caption from './Caption'
 import ShelterContactRequestForm from './ShelterContactRequestForm'
@@ -106,7 +106,7 @@ const ShelterInformation = ({ shelter, cityCode, extended = false }: Props): Rea
             { text: startDateText, icon: CalendarIcon, tooltip: t('startDate') },
             { text: t(period), icon: TimerIcon, tooltip: t('duration') },
             ...(extended ? [{ text: t(isFree ? 'free' : 'withCosts'), icon: EuroIcon }] : []),
-            ...(extended && tenancyPossible ? [{ text: t('tenancyPossible'), icon: KeyIcon }] : [])
+            ...(extended && tenancyPossible ? [{ text: t('tenancyPossible'), icon: KeyIcon }] : []),
           ]}>
           <Detail>
             {info.includes('bad') && <IconWithTooltip tooltip={t('bathroom')} icon={BathroomIcon} />}
@@ -124,7 +124,7 @@ const ShelterInformation = ({ shelter, cityCode, extended = false }: Props): Rea
               information={[
                 { text: t('rooms'), rightText: rooms?.toString() ?? notSpecified },
                 { text: t('occupants'), rightText: occupants?.toString() ?? notSpecified },
-                ...(occupants !== 0 ? [{ text: t('hostType'), rightText: hostType ? t(hostType) : notSpecified }] : [])
+                ...(occupants !== 0 ? [{ text: t('hostType'), rightText: hostType ? t(hostType) : notSpecified }] : []),
               ]}
             />
             <ShelterInformationSection
@@ -134,7 +134,7 @@ const ShelterInformation = ({ shelter, cityCode, extended = false }: Props): Rea
                 { text: t('name'), rightText: name },
                 { text: t('zipcode'), rightText: zipcode },
                 { text: t('city'), rightText: city },
-                { text: t('languages'), rightText: languagesText }
+                { text: t('languages'), rightText: languagesText },
               ]}
             />
             {comments && (
@@ -147,7 +147,7 @@ const ShelterInformation = ({ shelter, cityCode, extended = false }: Props): Rea
                 elevated
                 information={[
                   { icon: EmailIcon, text: email ?? notSpecified, link: email ? `mailto:${email}` : undefined },
-                  { icon: PhoneIcon, text: phone ?? notSpecified, link: phone ? `tel:${phone}` : undefined }
+                  { icon: PhoneIcon, text: phone ?? notSpecified, link: phone ? `tel:${phone}` : undefined },
                 ]}
               />
             ) : (
