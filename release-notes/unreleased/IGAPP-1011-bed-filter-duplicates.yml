@@ -1,0 +1,5 @@
+issue_key: IGAPP-1011
+show_in_stores: false
+platforms:
+  - web
+en: Fastly changing filters twice does not lead to duplicated shelters anymore.
