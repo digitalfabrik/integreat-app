@@ -76,11 +76,11 @@ const EastereggImage = ({ clearResourcesAndCache, theme }: PropsType): ReactElem
           <ApiUrlText>{`Currently using API: ${apiUrlOverride.toString()}`}</ApiUrlText>
           <Button
             titleStyle={{
-              color: theme.colors.textColor
+              color: theme.colors.textColor,
             }}
             buttonStyle={{
               backgroundColor: theme.colors.themeColor,
-              marginTop: 10
+              marginTop: 10,
             }}
             onPress={resetApiUrl}
             title='Switch back to default API'

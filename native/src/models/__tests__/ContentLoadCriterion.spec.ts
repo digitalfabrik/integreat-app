@@ -16,7 +16,7 @@ describe('ContentLoadCriterion', () => {
   const stateView = new ContentLoadCriterion(
     {
       forceUpdate: false,
-      shouldRefreshResources: false
+      shouldRefreshResources: false,
     },
     false
   )

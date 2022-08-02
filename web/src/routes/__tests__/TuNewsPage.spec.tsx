@@ -9,7 +9,7 @@ import {
   pathnameFromRouteInformation,
   ReturnType,
   TU_NEWS_TYPE,
-  useLoadFromEndpoint
+  useLoadFromEndpoint,
 } from 'api-client'
 
 import { renderRoute } from '../../testing/render'
@@ -19,7 +19,7 @@ import { RoutePatterns, TU_NEWS_ROUTE } from '../index'
 jest.mock('api-client', () => ({
   ...jest.requireActual('api-client'),
   loadFromEndpoint: jest.fn(),
-  useLoadFromEndpoint: jest.fn()
+  useLoadFromEndpoint: jest.fn(),
 }))
 jest.mock('react-i18next')
 jest.mock('../../components/InfiniteScrollList', () => () => 'List')
@@ -40,14 +40,14 @@ describe('TuNewsPage', () => {
     data: tuNewsLanguages,
     loading: false,
     error: null,
-    refresh: () => undefined
+    refresh: () => undefined,
   }
 
   const pathname = pathnameFromRouteInformation({
     route: NEWS_ROUTE,
     newsType: TU_NEWS_TYPE,
     cityCode: city.code,
-    languageCode: language.code
+    languageCode: language.code,
   })
   const routePattern = `/:cityCode/:languageCode/${RoutePatterns[TU_NEWS_ROUTE]}`
 

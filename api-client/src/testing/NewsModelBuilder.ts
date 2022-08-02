@@ -28,7 +28,7 @@ class LocalNewsModelBuilder {
   }> {
     return Array.from(
       {
-        length: this._newsCount
+        length: this._newsCount,
       },
       () => ({
         path: null,
@@ -36,8 +36,8 @@ class LocalNewsModelBuilder {
           id: 12,
           title: 'first news item',
           timestamp: moment('2017-11-18T19:30:00.000Z'),
-          message: 'This is a sample news'
-        })
+          message: 'This is a sample news',
+        }),
       })
     )
   }

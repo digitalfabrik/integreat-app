@@ -10,7 +10,7 @@ describe('featuredImageToSrcSet', () => {
         thumbnail: { url: 'thumbnail ', width: 10, height: 15 },
         medium: { url: 'medium', width: 20, height: 30 },
         large: { url: 'large', width: 30, height: 45 },
-        full: { url: 'full', width: 40, height: 60 }
+        full: { url: 'full', width: 40, height: 60 },
       }),
       20
     )

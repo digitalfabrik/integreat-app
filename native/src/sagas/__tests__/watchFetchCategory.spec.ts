@@ -32,7 +32,7 @@ const createDataContainer = async (city: string, language: string) => {
     resources,
     languages,
     dataContainer,
-    initialPath: `/${city}/${language}`
+    initialPath: `/${city}/${language}`,
   }
 }
 
@@ -68,15 +68,15 @@ describe('watchFetchCategory', () => {
           key: 'categories-key',
           criterion: {
             forceUpdate: true,
-            shouldRefreshResources: true
-          }
-        }
+            shouldRefreshResources: true,
+          },
+        },
       }
       return expectSaga(fetchCategory, dataContainer, action)
         .withState({
           cityContent: {
-            city
-          }
+            city,
+          },
         })
         .put({
           type: 'PUSH_CATEGORY',
@@ -89,8 +89,8 @@ describe('watchFetchCategory', () => {
             key: 'categories-key',
             language,
             city,
-            refresh: true
-          }
+            refresh: true,
+          },
         })
         .run()
     })
@@ -107,15 +107,15 @@ describe('watchFetchCategory', () => {
           key: 'categories-key',
           criterion: {
             forceUpdate: false,
-            shouldRefreshResources: false
-          }
-        }
+            shouldRefreshResources: false,
+          },
+        },
       }
       return expectSaga(fetchCategory, dataContainer, action)
         .withState({
           cityContent: {
-            city
-          }
+            city,
+          },
         })
         .put({
           type: 'PUSH_CATEGORY',
@@ -128,8 +128,8 @@ describe('watchFetchCategory', () => {
             key: 'categories-key',
             language,
             city,
-            refresh: false
-          }
+            refresh: false,
+          },
         })
         .run()
     })
@@ -147,15 +147,15 @@ describe('watchFetchCategory', () => {
           key: 'categories-key',
           criterion: {
             forceUpdate: false,
-            shouldRefreshResources: false
-          }
-        }
+            shouldRefreshResources: false,
+          },
+        },
       }
       return expectSaga(fetchCategory, dataContainer, action)
         .withState({
           cityContent: {
-            city: anotherCity
-          }
+            city: anotherCity,
+          },
         })
         .put({
           type: 'PUSH_CATEGORY',
@@ -168,8 +168,8 @@ describe('watchFetchCategory', () => {
             key: 'categories-key',
             language,
             city,
-            refresh: false
-          }
+            refresh: false,
+          },
         })
         .run()
     })
@@ -187,15 +187,15 @@ describe('watchFetchCategory', () => {
           key: 'categories-key',
           criterion: {
             forceUpdate: true,
-            shouldRefreshResources: false
-          }
-        }
+            shouldRefreshResources: false,
+          },
+        },
       }
       return expectSaga(fetchCategory, dataContainer, action)
         .withState({
           cityContent: {
-            city: anotherCity
-          }
+            city: anotherCity,
+          },
         })
         .put({
           type: 'PUSH_CATEGORY',
@@ -208,8 +208,8 @@ describe('watchFetchCategory', () => {
             key: 'categories-key',
             language,
             city,
-            refresh: true
-          }
+            refresh: true,
+          },
         })
         .run()
     })
@@ -227,19 +227,19 @@ describe('watchFetchCategory', () => {
           key: 'categories-key',
           criterion: {
             forceUpdate: false,
-            shouldRefreshResources: true
-          }
-        }
+            shouldRefreshResources: true,
+          },
+        },
       }
       const allAvailableLanguages = new Map([
         ['en', '/augsburg/en'],
-        ['de', '/augsburg/de']
+        ['de', '/augsburg/de'],
       ])
       return expectSaga(fetchCategory, dataContainer, action)
         .withState({
           cityContent: {
-            city
-          }
+            city,
+          },
         })
         .put.like({
           action: {
@@ -250,9 +250,9 @@ describe('watchFetchCategory', () => {
               depth: 2,
               path: '/augsburg/??',
               allAvailableLanguages,
-              key: 'categories-key'
-            }
-          }
+              key: 'categories-key',
+            },
+          },
         })
         .run()
     })
@@ -270,20 +270,20 @@ describe('watchFetchCategory', () => {
           key: 'categories-key',
           criterion: {
             forceUpdate: false,
-            shouldRefreshResources: true
-          }
-        }
+            shouldRefreshResources: true,
+          },
+        },
       }
       return expectSaga(fetchCategory, dataContainer, action)
         .withState({
           cityContent: {
-            city
-          }
+            city,
+          },
         })
         .put.like({
           action: {
-            type: 'FETCH_CATEGORY_FAILED'
-          }
+            type: 'FETCH_CATEGORY_FAILED',
+          },
         })
         .run()
     })
@@ -302,15 +302,15 @@ describe('watchFetchCategory', () => {
           key: 'categories-key',
           criterion: {
             forceUpdate: false,
-            shouldRefreshResources: true
-          }
-        }
+            shouldRefreshResources: true,
+          },
+        },
       }
       return expectSaga(fetchCategory, dataContainer, action)
         .withState({
           cityContent: {
-            city: anotherCity
-          }
+            city: anotherCity,
+          },
         })
         .provide({
           call: (effect, next) => {
@@ -323,7 +323,7 @@ describe('watchFetchCategory', () => {
             }
 
             return next()
-          }
+          },
         })
         .put({
           type: 'FETCH_CATEGORY_FAILED',
@@ -335,8 +335,8 @@ describe('watchFetchCategory', () => {
             depth: 2,
             language: '??',
             allAvailableLanguages: null,
-            city
-          }
+            city,
+          },
         })
         .run()
     })
@@ -353,16 +353,16 @@ describe('watchFetchCategory', () => {
           key: 'categories-key',
           criterion: {
             forceUpdate: false,
-            shouldRefreshResources: true
-          }
-        }
+            shouldRefreshResources: true,
+          },
+        },
       }
       const error = new Error('Jemand hat keine 4 Issues geschafft!')
       await expectSaga(fetchCategory, dataContainer, action)
         .withState({
           cityContent: {
-            city
-          }
+            city,
+          },
         })
         .provide({
           call: (effect, next) => {
@@ -371,7 +371,7 @@ describe('watchFetchCategory', () => {
             }
 
             return next()
-          }
+          },
         })
         .put({
           type: 'FETCH_CATEGORY_FAILED',
@@ -383,8 +383,8 @@ describe('watchFetchCategory', () => {
             allAvailableLanguages: null,
             depth: 2,
             language: 'en',
-            city: 'augsburg'
-          }
+            city: 'augsburg',
+          },
         })
         .run()
       expect(reportError).toHaveBeenCalledTimes(1)

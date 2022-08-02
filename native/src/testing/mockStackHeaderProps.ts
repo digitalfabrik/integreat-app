@@ -21,12 +21,12 @@ const mockStackHeaderProps = (props: DeepPartial<PropsType> = {}, routeIndex = 0
       route: {
         key: 'key-0',
         name: DASHBOARD_ROUTE,
-        params: {}
+        params: {},
       },
       options: {},
       layout: {
         width: 450,
-        height: 600
+        height: 600,
       },
       progress: {
         current: {
@@ -34,13 +34,13 @@ const mockStackHeaderProps = (props: DeepPartial<PropsType> = {}, routeIndex = 0
           addListener: jest.fn(),
           removeListener: jest.fn(),
           removeAllListeners: jest.fn(),
-          hasListeners: jest.fn()
-        }
+          hasListeners: jest.fn(),
+        },
       },
       back: {
-        title: 'back title'
+        title: 'back title',
       },
-      styleInterpolator: jest.fn()
+      styleInterpolator: jest.fn(),
     },
     props as StackHeaderProps
   )

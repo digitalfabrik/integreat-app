@@ -11,11 +11,11 @@ describe('navigateToNews', () => {
       cityCode: 'augsburg',
       languageCode: 'de',
       newsId: null,
-      type: LOCAL_NEWS_TYPE
+      type: LOCAL_NEWS_TYPE,
     })
     expect(navigation.navigate).toHaveBeenCalledWith({
       name: 'news',
-      params: { cityCode: 'augsburg', languageCode: 'de', newsId: null, newsType: 'local' }
+      params: { cityCode: 'augsburg', languageCode: 'de', newsId: null, newsType: 'local' },
     })
   })
 })

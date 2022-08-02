@@ -40,7 +40,7 @@ const Events = ({
   path,
   resourceCache,
   resourceCacheUrl,
-  navigateToFeedback
+  navigateToFeedback,
 }: PropsType): ReactElement => {
   const { t } = useTranslation('events')
   const theme = useTheme()
@@ -63,7 +63,7 @@ const Events = ({
       path: event.path,
       cityCode: cityModel.code,
       language,
-      isPositiveFeedback
+      isPositiveFeedback,
     })
   }
 
@@ -72,7 +72,7 @@ const Events = ({
       routeType: EVENTS_ROUTE,
       cityCode: cityModel.code,
       language,
-      isPositiveFeedback
+      isPositiveFeedback,
     })
   }
 
@@ -81,7 +81,7 @@ const Events = ({
       type: 'category',
       id: 'events',
       city: cityModel.code,
-      language
+      language,
     })
     return <Failure code={fromError(error)} />
   }
@@ -124,7 +124,7 @@ const Events = ({
       type: 'event',
       id: path,
       city: cityModel.code,
-      language
+      language,
     })
     return <Failure code={fromError(error)} />
   }

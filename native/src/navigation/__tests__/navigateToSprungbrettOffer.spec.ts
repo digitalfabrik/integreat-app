@@ -13,14 +13,14 @@ describe('navigateToSprungbrettOffer', () => {
       dispatch,
       navigation,
       cityCode,
-      languageCode
+      languageCode,
     })
     expect(navigation.navigate).toHaveBeenCalledWith({
       name: SPRUNGBRETT_OFFER_ROUTE,
       params: {
         cityCode,
-        languageCode
-      }
+        languageCode,
+      },
     })
   })
 })

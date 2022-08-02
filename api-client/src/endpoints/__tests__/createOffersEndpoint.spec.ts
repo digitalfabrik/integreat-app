@@ -10,14 +10,14 @@ describe('endpoint', () => {
       alias: 'serlo-abc',
       url: 'https://abc-app.serlo.org/',
       post: null,
-      thumbnail: 'some_thumbnail'
+      thumbnail: 'some_thumbnail',
     },
     {
       name: 'Sprungbrett',
       alias: 'sprungbrett',
       url: 'https://web.integreat-app.de/proxy/sprungbrett/app-search-internships?location=augsburg',
       post: null,
-      thumbnail: 'some_other_thumbnail'
+      thumbnail: 'some_other_thumbnail',
     },
     {
       alias: 'lehrstellen-radar',
@@ -27,9 +27,9 @@ describe('endpoint', () => {
       post: {
         partner: '0006',
         radius: '50',
-        plz: '86150'
-      }
-    }
+        plz: '86150',
+      },
+    },
   ]
   const lehrstellenRadarPostData = new Map()
   lehrstellenRadarPostData.set('partner', '0006')
@@ -40,25 +40,25 @@ describe('endpoint', () => {
       alias: 'serlo-abc',
       thumbnail: 'some_thumbnail',
       title: 'Serlo ABC',
-      path: 'https://abc-app.serlo.org/'
+      path: 'https://abc-app.serlo.org/',
     }),
     new OfferModel({
       alias: 'sprungbrett',
       thumbnail: 'some_other_thumbnail',
       title: 'Sprungbrett',
-      path: 'https://web.integreat-app.de/proxy/sprungbrett/app-search-internships?location=augsburg'
+      path: 'https://web.integreat-app.de/proxy/sprungbrett/app-search-internships?location=augsburg',
     }),
     new OfferModel({
       alias: 'lehrstellen-radar',
       thumbnail: 'some_other_thumbnail',
       title: 'Lehrstellenradar',
       path: 'https://www.lehrstellen-radar.de/5100,0,lsrlist.html',
-      postData: lehrstellenRadarPostData
-    })
+      postData: lehrstellenRadarPostData,
+    }),
   ]
   const params = {
     city: 'bad-toelz',
-    language: 'en'
+    language: 'en',
   }
   it('should map router to url', () => {
     expect(offers.mapParamsToUrl(params)).toBe('https://integreat-api-url.de/bad-toelz/en/wp-json/extensions/v3/extras')

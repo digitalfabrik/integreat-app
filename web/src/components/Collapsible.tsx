@@ -35,7 +35,7 @@ const Collapsible: React.FC<CollapsibleProps> = ({
   children,
   title,
   initialCollapsed = true,
-  direction
+  direction,
 }: CollapsibleProps): ReactElement => {
   const [collapsed, setCollapsed] = useState<boolean>(initialCollapsed)
 

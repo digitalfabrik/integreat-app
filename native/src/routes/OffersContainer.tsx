@@ -11,7 +11,7 @@ import {
   OFFERS_ROUTE,
   OffersRouteType,
   SPRUNGBRETT_OFFER_ROUTE,
-  useLoadFromEndpoint
+  useLoadFromEndpoint,
 } from 'api-client'
 
 import Failure from '../components/Failure'
@@ -45,7 +45,7 @@ const OffersContainer = ({ navigation, route }: Props): ReactElement => {
     const apiUrl = await determineApiUrl()
     return createOffersEndpoint(apiUrl).request({
       city: cityCode,
-      language: languageCode
+      language: languageCode,
     })
   }, [cityCode, languageCode])
   const { data: offers, error: offersError, loading, refresh } = useLoadFromEndpoint<Array<OfferModel>>(request)
@@ -59,14 +59,14 @@ const OffersContainer = ({ navigation, route }: Props): ReactElement => {
         navigation.push(EXTERNAL_OFFER_ROUTE, {
           url: path,
           shareUrl: path,
-          postData
+          postData,
         })
       } else if (isExternalUrl) {
         openExternalUrl(path).catch((error: Error) => showSnackbar(error.message))
       } else if (offers?.find(offer => offer.title === title)?.alias === SPRUNGBRETT_OFFER_ROUTE) {
         const params = {
           cityCode,
-          languageCode
+          languageCode,
         }
         navigation.push(SPRUNGBRETT_OFFER_ROUTE, params)
       }
@@ -79,7 +79,7 @@ const OffersContainer = ({ navigation, route }: Props): ReactElement => {
         routeType: OFFERS_ROUTE,
         language: languageCode,
         cityCode,
-        isPositiveFeedback
+        isPositiveFeedback,
       })
     },
     [languageCode, cityCode, navigation]
@@ -93,7 +93,7 @@ const OffersContainer = ({ navigation, route }: Props): ReactElement => {
         type: 'category',
         id: 'offers',
         city: cityCode,
-        language: languageCode
+        language: languageCode,
       })
     return (
       <LayoutedScrollView refreshControl={<RefreshControl onRefresh={refresh} refreshing={loading} />}>

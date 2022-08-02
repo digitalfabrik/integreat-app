@@ -27,5 +27,5 @@ export {
   PLATFORM_ANDROID,
   PLATFORMS,
   MAIN_BRANCH,
-  tagId
+  tagId,
 }

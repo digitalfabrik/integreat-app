@@ -134,7 +134,7 @@ const Layout = ({
   modal,
   children,
   fullWidth = false,
-  disableScrollingSafari = false
+  disableScrollingSafari = false,
 }: PropsType): JSX.Element => {
   const modalVisible = !!modal
   const { width } = useWindowDimensions()

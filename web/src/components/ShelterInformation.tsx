@@ -104,7 +104,7 @@ const ShelterInformation = ({ shelter, cityCode, extended = false }: Props): Rea
             { text: startDateText, icon: calendarIcon, tooltip: t('startDate') },
             { text: t(period), icon: timerIcon, tooltip: t('duration') },
             ...(extended ? [{ text: t(isFree ? 'free' : 'withCosts'), icon: euroIcon }] : []),
-            ...(extended && tenancyPossible ? [{ text: t('tenancyPossible'), icon: keyIcon }] : [])
+            ...(extended && tenancyPossible ? [{ text: t('tenancyPossible'), icon: keyIcon }] : []),
           ]}>
           <Detail>
             {info.includes('bad') && <IconWithTooltip tooltip={t('bathroom')} icon={bathroomIcon} />}
@@ -122,7 +122,7 @@ const ShelterInformation = ({ shelter, cityCode, extended = false }: Props): Rea
               information={[
                 { text: t('rooms'), rightText: rooms?.toString() ?? notSpecified },
                 { text: t('occupants'), rightText: occupants?.toString() ?? notSpecified },
-                ...(occupants !== 0 ? [{ text: t('hostType'), rightText: hostType ? t(hostType) : notSpecified }] : [])
+                ...(occupants !== 0 ? [{ text: t('hostType'), rightText: hostType ? t(hostType) : notSpecified }] : []),
               ]}
             />
             <ShelterInformationSection
@@ -132,7 +132,7 @@ const ShelterInformation = ({ shelter, cityCode, extended = false }: Props): Rea
                 { text: t('name'), rightText: name },
                 { text: t('zipcode'), rightText: zipcode },
                 { text: t('city'), rightText: city },
-                { text: t('languages'), rightText: languagesText }
+                { text: t('languages'), rightText: languagesText },
               ]}
             />
             {comments && (
@@ -145,7 +145,7 @@ const ShelterInformation = ({ shelter, cityCode, extended = false }: Props): Rea
                 elevated
                 information={[
                   { icon: emailIcon, text: email ?? notSpecified, link: email ? `mailto:${email}` : undefined },
-                  { icon: phoneIcon, text: phone ?? notSpecified, link: phone ? `tel:${phone}` : undefined }
+                  { icon: phoneIcon, text: phone ?? notSpecified, link: phone ? `tel:${phone}` : undefined },
                 ]}
               />
             ) : (

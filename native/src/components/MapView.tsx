@@ -47,7 +47,7 @@ const MapView = React.forwardRef(
       onRequestLocationPermission,
       locationPermissionGranted,
       selectPoiFeature,
-      setSheetSnapPointIndex
+      setSheetSnapPointIndex,
     }: MapViewPropsType,
     cameraRef: React.Ref<MapboxGL.Camera>
   ): ReactElement => {
@@ -67,19 +67,19 @@ const MapView = React.forwardRef(
           'case',
           ['==', ['get', 'id'], selectedFeature?.properties.id ?? -1],
           mapMarker.symbolActive,
-          ['get', 'symbol']
+          ['get', 'symbol'],
         ],
         textField: ['get', 'title'],
         textFont: ['Roboto Regular'],
         textOffset: [0, textOffsetY],
         textAnchor: 'top',
-        textSize: 12
-      }
+        textSize: 12,
+      },
     }
 
     const bounds = {
       ne: [boundingBox[2], boundingBox[3]],
-      sw: [boundingBox[0], boundingBox[1]]
+      sw: [boundingBox[0], boundingBox[1]],
     }
 
     // if there is a current feature use the coordinates if not use bounding box
@@ -87,7 +87,7 @@ const MapView = React.forwardRef(
     const defaultSettings: CameraSettings = {
       zoomLevel: coordinates ? detailZoom : defaultViewportConfig.zoom,
       centerCoordinate: coordinates,
-      bounds: coordinates ? undefined : bounds
+      bounds: coordinates ? undefined : bounds,
     }
 
     const onRequestLocation = useCallback(async () => {

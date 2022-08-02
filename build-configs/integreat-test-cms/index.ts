@@ -2,7 +2,7 @@ import {
   AndroidBuildConfigType,
   CommonBuildConfigType,
   iOSBuildConfigType,
-  WebBuildConfigType
+  WebBuildConfigType,
 } from '../BuildConfigType'
 import integreatPlatformBuildConfigs from '../integreat'
 import cityNotCooperatingTemplate from '../integreat/assets/cityNotCooperatingTemplate'
@@ -21,16 +21,16 @@ const integreatTestCms = {
     sentry: false,
     developerFriendly: true,
     fixedCity: null,
-    cityNotCooperatingTemplate
-  }
+    cityNotCooperatingTemplate,
+  },
 }
 export const commonIntegreatTestCmsBuildConfig: CommonBuildConfigType = {
   ...integreatPlatformBuildConfigs.common,
-  ...integreatTestCms
+  ...integreatTestCms,
 }
 export const webIntegreatTestCmsBuildConfig: WebBuildConfigType = {
   ...integreatPlatformBuildConfigs.web,
-  ...integreatTestCms
+  ...integreatTestCms,
 }
 export const androidIntegreatTestCmsBuildConfig: AndroidBuildConfigType = {
   ...integreatPlatformBuildConfigs.android,
@@ -44,8 +44,8 @@ export const androidIntegreatTestCmsBuildConfig: AndroidBuildConfigType = {
     firebaseDatabaseUrl: 'https://integreat-2020.firebaseio.com',
     googleApiKey: 'AIzaSyBvc08_Cqww8z2Dh-EXtwHW98HXBk8T7V4',
     googleCrashReportingApiKey: 'AIzaSyBvc08_Cqww8z2Dh-EXtwHW98HXBk8T7V4',
-    projectId: 'integreat-2020'
-  }
+    projectId: 'integreat-2020',
+  },
 }
 export const iosIntegreatTestCmsBuildConfig: iOSBuildConfigType = {
   ...integreatPlatformBuildConfigs.ios,
@@ -67,13 +67,13 @@ export const iosIntegreatTestCmsBuildConfig: iOSBuildConfigType = {
     isGCMEnabled: true,
     isSigninEnabled: true,
     googleAppId: '1:164298278764:ios:4e68482844682abb6fd549',
-    databaseUrl: 'https://integreat-2020.firebaseio.com'
-  }
+    databaseUrl: 'https://integreat-2020.firebaseio.com',
+  },
 }
 const platformBuildConfigs = {
   common: commonIntegreatTestCmsBuildConfig,
   web: webIntegreatTestCmsBuildConfig,
   android: androidIntegreatTestCmsBuildConfig,
-  ios: iosIntegreatTestCmsBuildConfig
+  ios: iosIntegreatTestCmsBuildConfig,
 }
 export default platformBuildConfigs

@@ -13,7 +13,7 @@ import {
   FeaturedImageModel,
   LanguageModel,
   LocationModel,
-  PoiModel
+  PoiModel,
 } from 'api-client'
 
 import DatabaseContext from '../models/DatabaseContext'
@@ -21,7 +21,7 @@ import {
   CityResourceCacheStateType,
   LanguageResourceCacheStateType,
   PageResourceCacheEntryStateType,
-  PageResourceCacheStateType
+  PageResourceCacheStateType,
 } from '../redux/StateType'
 import { deleteIfExists } from './helpers'
 import { log } from './sentry'
@@ -219,7 +219,7 @@ class DatabaseConnector {
     }
 
     cityMetaData.languages[languageCode] = {
-      lastUpdate
+      lastUpdate,
     }
 
     this._storeMetaCities(metaData)
@@ -258,14 +258,14 @@ class DatabaseConnector {
       languages: mapValues(
         cityMeta.languages,
         ({
-          last_update: jsonLastUpdate
+          last_update: jsonLastUpdate,
         }): {
           lastUpdate: Moment
         } => ({
-          lastUpdate: moment(jsonLastUpdate, moment.ISO_8601)
+          lastUpdate: moment(jsonLastUpdate, moment.ISO_8601),
         })
       ),
-      lastUsage: moment(cityMeta.last_usage, moment.ISO_8601)
+      lastUsage: moment(cityMeta.last_usage, moment.ISO_8601),
     }))
   }
 
@@ -275,14 +275,14 @@ class DatabaseConnector {
       languages: mapValues(
         cityMeta.languages,
         ({
-          lastUpdate
+          lastUpdate,
         }): {
           last_update: string
         } => ({
-          last_update: lastUpdate.toISOString()
+          last_update: lastUpdate.toISOString(),
         })
       ),
-      last_usage: cityMeta.lastUsage.toISOString()
+      last_usage: cityMeta.lastUsage.toISOString(),
     }))
     await this.writeFile(path, JSON.stringify(citiesMetaJson))
   }
@@ -291,7 +291,7 @@ class DatabaseConnector {
     const metaData = await this._loadMetaCities()
     return map<MetaCitiesType, CityLastUsageType>(metaData, (value, key) => ({
       city: key,
-      lastUsage: value.lastUsage
+      lastUsage: value.lastUsage,
     }))
   }
 
@@ -305,7 +305,7 @@ class DatabaseConnector {
     const metaData = await this._loadMetaCities().catch(() => ({} as MetaCitiesType))
     metaData[city] = {
       lastUsage: moment(),
-      languages: metaData[city]?.languages || {}
+      languages: metaData[city]?.languages || {},
     }
     await this._storeMetaCities(metaData)
 
@@ -329,7 +329,7 @@ class DatabaseConnector {
         available_languages: mapToObject(category.availableLanguages),
         parent_path: category.parentPath,
         children: categoriesMap.getChildren(category).map(category => category.path),
-        order: category.order
+        order: category.order,
       })
     )
     await this.writeFile(this.getContentPath('categories', context), JSON.stringify(jsonModels))
@@ -356,7 +356,7 @@ class DatabaseConnector {
           parentPath: jsonObject.parent_path,
           order: jsonObject.order,
           availableLanguages,
-          lastUpdate: moment(jsonObject.last_update, moment.ISO_8601)
+          lastUpdate: moment(jsonObject.last_update, moment.ISO_8601),
         })
       })
     )
@@ -399,9 +399,9 @@ class DatabaseConnector {
           latitude: poi.location.latitude,
           longitude: poi.location.longitude,
           country: poi.location.country,
-          name: poi.location.name
+          name: poi.location.name,
         },
-        lastUpdate: poi.lastUpdate.toISOString()
+        lastUpdate: poi.lastUpdate.toISOString(),
       })
     )
     await this.writeFile(this.getContentPath('pois', context), JSON.stringify(jsonModels))
@@ -437,9 +437,9 @@ class DatabaseConnector {
           latitude: jsonLocation.latitude,
           longitude: jsonLocation.longitude,
           postcode: jsonLocation.postcode,
-          town: jsonLocation.town
+          town: jsonLocation.town,
         }),
-        lastUpdate: moment(jsonObject.lastUpdate, moment.ISO_8601)
+        lastUpdate: moment(jsonObject.lastUpdate, moment.ISO_8601),
       })
     })
   }
@@ -460,7 +460,7 @@ class DatabaseConnector {
         longitude: city.longitude,
         latitude: city.latitude,
         aliases: city.aliases,
-        bounding_box: city.boundingBox
+        bounding_box: city.boundingBox,
       })
     )
     await this.writeFile(this.getCitiesPath(), JSON.stringify(jsonModels))
@@ -491,7 +491,7 @@ class DatabaseConnector {
           longitude: jsonObject.longitude,
           latitude: jsonObject.latitude,
           aliases: jsonObject.aliases,
-          boundingBox: jsonObject.bounding_box ?? null
+          boundingBox: jsonObject.bounding_box ?? null,
         })
     )
   }
@@ -509,7 +509,7 @@ class DatabaseConnector {
         date: {
           start_date: event.date.startDate.toISOString(),
           end_date: event.date.endDate.toISOString(),
-          all_day: event.date.allDay
+          all_day: event.date.allDay,
         },
         location: event.location
           ? {
@@ -520,7 +520,7 @@ class DatabaseConnector {
               latitude: event.location.latitude,
               longitude: event.location.longitude,
               country: event.location.country,
-              name: event.location.name
+              name: event.location.name,
             }
           : null,
         featured_image: event.featuredImage
@@ -529,9 +529,9 @@ class DatabaseConnector {
               thumbnail: event.featuredImage.thumbnail,
               medium: event.featuredImage.medium,
               large: event.featuredImage.large,
-              full: event.featuredImage.full
+              full: event.featuredImage.full,
             }
-          : null
+          : null,
       })
     )
     await this.writeFile(this.getContentPath('events', context), JSON.stringify(jsonModels))
@@ -560,7 +560,7 @@ class DatabaseConnector {
               thumbnail: jsonObject.featured_image.thumbnail,
               medium: jsonObject.featured_image.medium,
               large: jsonObject.featured_image.large,
-              full: jsonObject.featured_image.full
+              full: jsonObject.featured_image.full,
             })
           : null,
         availableLanguages,
@@ -569,7 +569,7 @@ class DatabaseConnector {
         date: new DateModel({
           startDate: moment(jsonDate.start_date, moment.ISO_8601),
           endDate: moment(jsonDate.end_date, moment.ISO_8601),
-          allDay: jsonDate.all_day
+          allDay: jsonDate.all_day,
         }),
         location: jsonObject.location?.id
           ? new LocationModel({
@@ -580,9 +580,9 @@ class DatabaseConnector {
               latitude: jsonObject.location.latitude,
               longitude: jsonObject.location.longitude,
               postcode: jsonObject.location.postcode,
-              town: jsonObject.location.town
+              town: jsonObject.location.town,
             })
-          : null
+          : null,
       })
     })
   }
@@ -603,7 +603,7 @@ class DatabaseConnector {
           (entry: PageResourceCacheEntryJsonType): PageResourceCacheEntryStateType => ({
             filePath: entry.file_path,
             lastUpdate: moment(entry.last_update, moment.ISO_8601),
-            hash: entry.hash
+            hash: entry.hash,
           })
         )
       )
@@ -621,7 +621,7 @@ class DatabaseConnector {
             (entry: PageResourceCacheEntryStateType): PageResourceCacheEntryJsonType => ({
               file_path: entry.filePath,
               last_update: entry.lastUpdate.toISOString(),
-              hash: entry.hash
+              hash: entry.hash,
             })
           )
         )

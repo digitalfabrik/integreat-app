@@ -7,7 +7,7 @@ import {
   EVENTS_ROUTE,
   PoiModel,
   POIS_ROUTE,
-  CategoryModel
+  CategoryModel,
 } from 'api-client'
 
 import { forEachTreeNode } from '../../utils/helpers'
@@ -19,7 +19,7 @@ import {
   PathType,
   PoiRouteStateType,
   RouteMappingType,
-  RouteStateType
+  RouteStateType,
 } from '../StateType'
 import { MorphContentLanguageActionType } from '../StoreActionType'
 
@@ -42,7 +42,7 @@ const categoryRouteTranslator =
         allAvailableLanguages,
         city: route.city,
         language: newLanguage,
-        depth: route.depth
+        depth: route.depth,
       }
     }
 
@@ -80,7 +80,7 @@ const categoryRouteTranslator =
       allAvailableLanguages,
       language: newLanguage,
       status: 'ready',
-      city
+      city,
     }
   }
 
@@ -101,7 +101,7 @@ const eventRouteTranslator =
         allAvailableLanguages,
         language: newLanguage,
         path,
-        city
+        city,
       }
     }
 
@@ -116,7 +116,7 @@ const eventRouteTranslator =
         models: newEvents,
         allAvailableLanguages,
         language: newLanguage,
-        city
+        city,
       }
     }
 
@@ -138,7 +138,7 @@ const eventRouteTranslator =
       models: [translatedEvent],
       allAvailableLanguages,
       language: newLanguage,
-      city
+      city,
     }
   }
 
@@ -159,7 +159,7 @@ const poiRouteTranslator =
         allAvailableLanguages,
         language: newLanguage,
         path,
-        city
+        city,
       }
     }
 
@@ -174,7 +174,7 @@ const poiRouteTranslator =
         models: newPois,
         allAvailableLanguages,
         language: newLanguage,
-        city
+        city,
       }
     }
 
@@ -196,7 +196,7 @@ const poiRouteTranslator =
       models: [translatedPoi],
       allAvailableLanguages,
       language: newLanguage,
-      city
+      city,
     }
   }
 
@@ -230,13 +230,13 @@ const morphContentLanguage = (
     resourceCache: {
       status: 'ready',
       progress: 1,
-      value: newResourceCache
+      value: newResourceCache,
     },
     searchRoute: {
-      categoriesMap: newCategoriesMap
+      categoriesMap: newCategoriesMap,
     },
     routeMapping: translatedRouteMapping,
-    switchingLanguage: false
+    switchingLanguage: false,
   }
 }
 

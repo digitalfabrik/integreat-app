@@ -17,7 +17,7 @@ describe('createCategoryChildrenEndpoint', () => {
     city: 'augsburg',
     language: 'fa',
     cityContentPath: '/augsburg/fa/erste-schritte/%d10%86%d9%82%d8%b4%d9%87-%d8%b4%d9%87%d8%b1/',
-    depth: 1
+    depth: 1,
   }
   const endpoint = createCategoryChildrenEndpoint(baseUrl)
 

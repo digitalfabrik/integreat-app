@@ -1,19 +1,16 @@
-import { shallow } from 'enzyme'
 import moment from 'moment'
-import React from 'react'
-import { Helmet } from 'react-helmet'
 
 import { DateModel, EventModel, FeaturedImageModel, LocationModel } from 'api-client'
 import DateFormatter from 'api-client/src/i18n/DateFormatter'
 
-import JsonLdEvent from '../JsonLdEvent'
+import { createJsonLd } from '../JsonLdEvent'
 
 describe('JsonLdEvent', () => {
-  it('should output valid json-ld', () => {
+  it('should create correct json-ld', () => {
     const dateModel = new DateModel({
       startDate: moment('2017-11-18T09:30:00.000Z'),
       endDate: moment('2017-11-19T09:30:00.000Z'),
-      allDay: false
+      allDay: false,
     })
     const locationModel = new LocationModel({
       id: 1,
@@ -23,7 +20,7 @@ describe('JsonLdEvent', () => {
       postcode: '86153',
       country: 'DE',
       latitude: null,
-      longitude: null
+      longitude: null,
     })
     const eventModel = new EventModel({
       path: '/events/event0',
@@ -40,53 +37,46 @@ describe('JsonLdEvent', () => {
         thumbnail: {
           url: '/thumbnail.jpg',
           width: 10,
-          height: 10
+          height: 10,
         },
         medium: {
           url: '/medium.jpg',
           width: 20,
-          height: 20
+          height: 20,
         },
         large: {
           url: '/medium.jpg',
           width: 30,
-          height: 30
+          height: 30,
         },
         full: {
           url: '/full.jpg',
           width: 40,
-          height: 40
-        }
-      })
+          height: 40,
+        },
+      }),
     })
-    const wrapper = shallow(<JsonLdEvent event={eventModel} formatter={new DateFormatter('en')} />)
-    const helmet = wrapper.find(Helmet)
-    expect(
-      helmet.children().matchesElement(
-        <script type='application/ld+json'>
-          {JSON.stringify({
-            '@context': 'https://schema.org',
-            '@type': 'Event',
-            name: 'Sample Event',
-            startDate: '2017-11-18T10:30:00+01:00',
-            eventStatus: 'https://schema.org/EventScheduled',
-            description: 'This is a sample event. Have fun sampling.',
-            location: {
-              '@type': 'Place',
-              name: 'Café Tür an Tür',
-              address: {
-                '@type': 'PostalAddress',
-                streetAddress: 'Wertachstr. 29',
-                addressLocality: 'Augsburg',
-                postalCode: '86153',
-                addressCountry: 'DE'
-              }
-            },
-            endDate: '2017-11-19T10:30:00+01:00',
-            image: ['/thumbnail.jpg', '/medium.jpg', '/medium.jpg', '/full.jpg']
-          })}
-        </script>
-      )
-    ).toBe(true)
+    const formatter = new DateFormatter('en')
+    expect(createJsonLd(eventModel, formatter)).toEqual({
+      '@context': 'https://schema.org',
+      '@type': 'Event',
+      name: 'Sample Event',
+      startDate: '2017-11-18T10:30:00+01:00',
+      eventStatus: 'https://schema.org/EventScheduled',
+      description: 'This is a sample event. Have fun sampling.',
+      location: {
+        '@type': 'Place',
+        name: 'Café Tür an Tür',
+        address: {
+          '@type': 'PostalAddress',
+          streetAddress: 'Wertachstr. 29',
+          addressLocality: 'Augsburg',
+          postalCode: '86153',
+          addressCountry: 'DE',
+        },
+      },
+      endDate: '2017-11-19T10:30:00+01:00',
+      image: ['/thumbnail.jpg', '/medium.jpg', '/medium.jpg', '/full.jpg'],
+    })
   })
 })

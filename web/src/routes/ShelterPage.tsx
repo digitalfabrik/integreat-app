@@ -35,7 +35,7 @@ const ShelterPage = ({ cityModel, cityCode, languageCode, pathname, languages }:
         type: 'list',
         page,
         cityCode,
-        filter
+        filter,
       }),
     [cityCode, filter]
   )
@@ -43,7 +43,7 @@ const ShelterPage = ({ cityModel, cityCode, languageCode, pathname, languages }:
   const languageChangePaths = languages.map(({ code, name }) => ({
     path: pathnameFromRouteInformation({ route: SHELTER_ROUTE, cityCode, languageCode: code }),
     name,
-    code
+    code,
   }))
 
   const updateSearchFilter = (key: string, val: string) => {
@@ -66,7 +66,7 @@ const ShelterPage = ({ cityModel, cityCode, languageCode, pathname, languages }:
     feedbackTargetInformation: null,
     languageChangePaths,
     route: SHELTER_ROUTE,
-    languageCode
+    languageCode,
   }
 
   if (shelterId) {

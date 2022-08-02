@@ -47,8 +47,8 @@ describe('watchContentLanguageSwitch', () => {
         type: 'SWITCH_CONTENT_LANGUAGE',
         params: {
           newLanguage,
-          city
-        }
+          city,
+        },
       }
       await expectSaga(switchContentLanguage, dataContainer, action)
         .put({
@@ -58,8 +58,8 @@ describe('watchContentLanguageSwitch', () => {
             newResourceCache: resources,
             newEvents: events,
             newPois: pois,
-            newLanguage
-          }
+            newLanguage,
+          },
         })
         .run()
       expect(await appSettings.loadContentLanguage()).toBe(newLanguage)
@@ -72,8 +72,8 @@ describe('watchContentLanguageSwitch', () => {
         type: 'SWITCH_CONTENT_LANGUAGE',
         params: {
           newLanguage,
-          city
-        }
+          city,
+        },
       }
       const error = new Error('Jemand hat keine 4 Issues geschafft!')
       await expectSaga(switchContentLanguage, dataContainer, action)
@@ -84,13 +84,13 @@ describe('watchContentLanguageSwitch', () => {
             }
 
             return next()
-          }
+          },
         })
         .put({
           type: 'SWITCH_CONTENT_LANGUAGE_FAILED',
           params: {
-            message: 'Error in switchContentLanguage: Jemand hat keine 4 Issues geschafft!'
-          }
+            message: 'Error in switchContentLanguage: Jemand hat keine 4 Issues geschafft!',
+          },
         })
         .run()
       expect(reportError).toHaveBeenCalledTimes(1)
