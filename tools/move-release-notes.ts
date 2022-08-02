@@ -114,11 +114,11 @@ const moveReleaseNotes = async ({ newVersionName, deliverinoPrivateKey, owner, r
 program
   .command('move-to <new-version-name>')
   .description("move the release notes in 'unreleased' to a new subdirectory <new-version-name>")
-  .action(async (newVersionName: string) => {
+  .action(async (newVersionName: string, options: Opts) => {
     try {
       await moveReleaseNotes({
         newVersionName,
-        ...program.opts<Opts>(),
+        ...options,
       })
     } catch (e) {
       console.error(e)
