@@ -1,6 +1,6 @@
 import { program } from 'commander'
-import parse from 'csv-parse/lib/sync'
-import stringify from 'csv-stringify'
+import { parse } from 'csv-parse/sync'
+import { stringify } from 'csv-stringify'
 import flat from 'flat'
 import fs from 'fs'
 import { fromPairs, isEmpty, isEqual, isString, mapValues, merge, sortBy, toPairs, without, zip } from 'lodash'
@@ -223,12 +223,12 @@ program
     }
   })
 
-type ProcessTranslationsType = {
+type WritePlistTranslationsOptions = {
   translations: string
   destination: string
 }
 
-const writePlistTranslations = (appName: string, { translations, destination }: ProcessTranslationsType) => {
+const writePlistTranslations = (appName: string, { translations, destination }: WritePlistTranslationsOptions) => {
   const { native: nativeTranslations } = JSON.parse(fs.readFileSync(translations, 'utf-8'))
   const languageCodes = Object.keys(nativeTranslations)
   console.warn('Creating InfoPlist.strings for the languages ', languageCodes)
@@ -261,9 +261,9 @@ program
   .requiredOption('--translations <translations>', 'the path to the translations.json file')
   .requiredOption('--destination <destination>', 'the path to put the string resources to')
   .description('setup native translations for ios')
-  .action((appName: string, program: ProcessTranslationsType) => {
+  .action((appName: string, options: WritePlistTranslationsOptions) => {
     try {
-      writePlistTranslations(appName, program)
+      writePlistTranslations(appName, options)
     } catch (e) {
       console.error(e)
       process.exit(1)

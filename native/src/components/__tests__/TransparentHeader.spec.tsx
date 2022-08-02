@@ -8,7 +8,6 @@ import { DASHBOARD_ROUTE, SHARE_SIGNAL_NAME } from 'api-client'
 import useSnackbar from '../../hooks/useSnackbar'
 import createNavigationMock from '../../testing/createNavigationPropMock'
 import render from '../../testing/render'
-import wrapWithTheme from '../../testing/wrapWithTheme'
 import sendTrackingSignal from '../../utils/sendTrackingSignal'
 import TransparentHeader from '../TransparentHeader'
 
@@ -64,7 +63,7 @@ describe('TransparentHeader', () => {
 
   it('should hide header if there is no navigation stack', () => {
     const props = buildProps(0)
-    const { queryByTestId } = render(<TransparentHeader {...props} />, { wrapper: wrapWithTheme })
+    const { queryByTestId } = render(<TransparentHeader {...props} />)
     expect(queryByTestId('transparent-header')).toBeNull()
   })
 

@@ -195,8 +195,7 @@ program
   .description(
     'parse the release notes and outputs the release notes as JSON string and writes them to the specified file'
   )
-  // @ts-expect-error
-  .action(() => parseNotesProgram({ ...program }))
+  .action(parseNotesProgram)
 
 // General store metadata
 type StoreName = 'appstore' | 'playstore'
@@ -348,9 +347,10 @@ program
   )
   .command('prepare-metadata <appName> <storeName>')
   .description('prepare metadata for store')
-  .action((appName: string, storeName: string) => {
+  .action((appName: string, storeName: string, options: { overrideVersionName: string }) => {
     try {
-      writeMetadata(appName, storeName, program.overrideVersionName)
+      const { overrideVersionName } = options
+      writeMetadata(appName, storeName, overrideVersionName)
     } catch (e) {
       console.error(e)
       process.exit(1)

@@ -25,7 +25,7 @@ const locationStateOnError = (error: GeolocationPositionError): UnavailableLocat
 }
 
 const getUserLocation = async (): Promise<UserLocationType> =>
-  new Promise(resolve =>
+  new Promise(resolve => {
     navigator.geolocation.getCurrentPosition(
       ({ coords }) => {
         const { latitude, longitude } = coords
@@ -36,6 +36,6 @@ const getUserLocation = async (): Promise<UserLocationType> =>
       },
       { timeout: 50000 }
     )
-  )
+  })
 
 export default getUserLocation

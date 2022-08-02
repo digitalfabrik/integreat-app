@@ -26,6 +26,7 @@ const createNavigationMock = <T extends RoutesType>(routeIndex = 0): NavigationP
   reset: jest.fn(),
   removeListener: jest.fn(),
   setOptions: jest.fn(),
+  getId: jest.fn(),
 })
 
 export default createNavigationMock

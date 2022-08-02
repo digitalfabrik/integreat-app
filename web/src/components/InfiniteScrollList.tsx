@@ -1,4 +1,3 @@
-import { isEmpty } from 'lodash'
 import React, { ReactElement, ReactNode, useCallback, useEffect, useState } from 'react'
 import InfiniteScroll from 'react-infinite-scroller'
 import styled from 'styled-components'
@@ -71,7 +70,7 @@ const InfiniteScrollList = <T,>({
     return <FailureSwitcher error={error} />
   }
 
-  if (isEmpty(data) && !hasMore) {
+  if (data.length === 0 && !hasMore) {
     return <NoItemsMessage>{noItemsMessage}</NoItemsMessage>
   }
 

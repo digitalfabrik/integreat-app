@@ -5,7 +5,7 @@ import { useSelector, useDispatch } from 'react-redux'
 
 import SnackbarContainer from '../SnackbarContainer'
 
-jest.useFakeTimers('modern')
+jest.useFakeTimers()
 
 jest.mock('react-i18next')
 jest.mock('../../components/Snackbar', () => {

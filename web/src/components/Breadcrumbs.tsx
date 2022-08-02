@@ -1,4 +1,4 @@
-import React, { ReactNode } from 'react'
+import React, { ReactElement } from 'react'
 import styled from 'styled-components'
 
 import { UiDirectionType } from 'translations'
@@ -37,32 +37,24 @@ type PropsType = {
   direction: UiDirectionType
 }
 
-/**
- * Displays breadcrumbs (Links) for lower category levels and outputs a corresponding JSON-LD for rich search experience
- */
-class Breadcrumbs extends React.PureComponent<PropsType> {
-  static defaultProps = { direction: 'ltr' }
+const Breadcrumbs = ({ direction, ancestorBreadcrumbs, currentBreadcrumb }: PropsType): ReactElement => {
+  // The current page should not be listed in the UI, but should be within the JsonLd.
+  const jsonLdBreadcrumbs = [...ancestorBreadcrumbs, currentBreadcrumb]
 
-  render(): ReactNode {
-    const { direction, ancestorBreadcrumbs, currentBreadcrumb } = this.props
-    // The current page should not be listed in the UI, but should be within the JsonLd.
-    const jsonLdBreadcrumbs = [...ancestorBreadcrumbs, currentBreadcrumb]
-
-    // We are doing here funky stuff with directions. See here for more information about the idea:
-    // https://css-tricks.com/position-vertical-scrollbars-on-opposite-side-with-css/
-    // Basically we are inverting the direction on the wrapper and then making sure that the direction of the content
-    // has the opposite direction of the wrapper.
-    return (
-      <Wrapper direction={direction}>
-        <JsonLdBreadcrumbs breadcrumbs={jsonLdBreadcrumbs} />
-        <OrderedList direction={direction}>
-          {ancestorBreadcrumbs.map(breadcrumb => (
-            <Breadcrumb key={breadcrumb.title}>{breadcrumb.node}</Breadcrumb>
-          ))}
-        </OrderedList>
-      </Wrapper>
-    )
-  }
+  /* We are doing here funky stuff with directions. See here for more information about the idea:
+   https://css-tricks.com/position-vertical-scrollbars-on-opposite-side-with-css/
+   Basically we are inverting the direction on the wrapper and then making sure that the direction of the content
+   has the opposite direction of the wrapper. */
+  return (
+    <Wrapper direction={direction}>
+      <JsonLdBreadcrumbs breadcrumbs={jsonLdBreadcrumbs} />
+      <OrderedList direction={direction}>
+        {ancestorBreadcrumbs.map(breadcrumb => (
+          <Breadcrumb key={breadcrumb.title}>{breadcrumb.node}</Breadcrumb>
+        ))}
+      </OrderedList>
+    </Wrapper>
+  )
 }
 
 export default Breadcrumbs

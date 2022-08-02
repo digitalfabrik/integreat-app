@@ -24,7 +24,7 @@ const ReadMore = styled.div<{ $type: NewsType }>`
 
 const Title = styled.h3`
   margin-bottom: 0;
-  font-family: Raleway;
+  font-family: ${props => props.theme.fonts.web.decorativeFont};
   font-size: 18px;
   font-weight: 700;
 `

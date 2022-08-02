@@ -20,19 +20,18 @@ program
   .requiredOption('--private-key <privateKey>')
   .requiredOption('--consumer-key <consumer-key>')
 
-const createRelease = async ({
-  newVersionName,
-  accessToken,
-  privateKeyBase64,
-  consumerKey,
-  projectName,
-}: {
-  newVersionName: string
+type Opts = {
   accessToken: string
   privateKeyBase64: string
   consumerKey: string
   projectName: string
-}) => {
+}
+
+type Options = Opts & {
+  newVersionName: string
+}
+
+const createRelease = async ({ newVersionName, accessToken, privateKeyBase64, consumerKey, projectName }: Options) => {
   const privateKey = Buffer.from(privateKeyBase64, 'base64').toString('ascii')
   const jiraApi = new JiraApi({
     protocol: 'https',
@@ -120,14 +119,11 @@ program
   .description(
     'create a new release with the name <new-version-name> on jira and assign all issues resolved since the last release'
   )
-  .action(async newVersionName => {
+  .action(async (newVersionName: string, options: Opts) => {
     try {
       await createRelease({
         newVersionName,
-        accessToken: program.accessToken,
-        consumerKey: program.consumerKey,
-        privateKeyBase64: program.privateKey,
-        projectName: program.projectName,
+        ...options,
       })
     } catch (e) {
       console.error(e)

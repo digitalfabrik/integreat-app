@@ -29,10 +29,10 @@ program
   .command('write-xcconfig <build_config_name> <platform>')
   .requiredOption('--directory <directory>', 'the directory to put the created xcconfig file in')
   .description('create and write a new buildConfig.tmp.xcconfig to the output directory')
-  .action((buildConfigName, platform, cmdObj) => {
+  .action((buildConfigName: string, platform: PlatformType, options: { directory: string }) => {
     try {
       const xcconfig = loadBuildConfigAsKeyValue(buildConfigName, platform)
-      fs.writeFileSync(`${cmdObj.directory}/buildConfig.tmp.xcconfig`, xcconfig)
+      fs.writeFileSync(`${options.directory}/buildConfig.tmp.xcconfig`, xcconfig)
     } catch (e) {
       console.error(e)
       process.exit(1)

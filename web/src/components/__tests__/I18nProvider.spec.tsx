@@ -245,8 +245,4 @@ describe('I18nProvider', () => {
     expect(screen.getByText('de')).toBeTruthy()
     expect(screen.queryByText('de-DE')).toBeFalsy()
   })
-  // We can not switch the language right now because it is bound to redux-first-router, we would need to trigger a
-  // state update through the router which is very difficult.
-  // eslint-disable-next-line jest/no-disabled-tests
-  it.skip('should remember the language over sessions', async () => undefined)
 })

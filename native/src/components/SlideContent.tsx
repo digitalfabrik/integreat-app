@@ -34,7 +34,7 @@ export type SlideContentType = {
   key: string
   title: string
   description?: string
-  renderContent: () => React.ReactNode
+  Content: ReactElement
 }
 type PropsType = {
   item: SlideContentType
@@ -51,7 +51,7 @@ const SlideContent = ({ item, theme, width }: PropsType): ReactElement => (
       <TextContainer>
         <Heading theme={theme}>{item.title}</Heading>
       </TextContainer>
-      <ContentContainer description={item.description !== undefined}>{item.renderContent()}</ContentContainer>
+      <ContentContainer description={item.description !== undefined}>{item.Content}</ContentContainer>
       {item.description && (
         <TextContainer>
           <Description theme={theme}>{item.description}</Description>

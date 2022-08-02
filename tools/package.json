@@ -13,16 +13,17 @@
     "ts:check": "tsc --build"
   },
   "devDependencies": {
-    "@octokit/auth-app": "^3.6.1",
-    "@octokit/rest": "^18.12.0",
+    "@octokit/auth-app": "^4.0.4",
+    "@octokit/rest": "^19.0.3",
     "@types/jira-client": "^7.1.4",
     "@types/js-yaml": "^4.0.3",
-    "@types/node-fetch": "^2.6.1",
-    "commander": "^5.1.0",
+    "@types/node": "^18.0.3",
+    "@types/node-fetch": "^2.6.2",
+    "commander": "^8.3.0",
     "jira-client": "^8.1.0",
     "js-yaml": "^4.1.0",
-    "node-fetch": "2.6.7",
-    "ts-node": "^9.1.1",
-    "typescript": "^4.2.4"
+    "node-fetch": "^2.6.7",
+    "ts-node": "^10.8.2",
+    "typescript": "^4.7.4"
   }
 }
