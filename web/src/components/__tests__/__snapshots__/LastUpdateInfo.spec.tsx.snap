@@ -1,8 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`LastUpdateInfo should match snapshot 1`] = `
-<styled.p>
-   
-  November 18, 2017
-</styled.p>
-`;
