@@ -9,7 +9,7 @@ import DatabaseContext from '../models/DatabaseContext'
 import {
   CityResourceCacheStateType,
   LanguageResourceCacheStateType,
-  PageResourceCacheStateType
+  PageResourceCacheStateType,
 } from '../redux/StateType'
 import { DataContainer } from './DataContainer'
 import DatabaseConnector from './DatabaseConnector'
@@ -73,7 +73,7 @@ class DefaultDataContainer implements DataContainer {
         (connector: DatabaseConnector, context: DatabaseContext) => connector.loadLastUpdate(context),
         (value: Moment | null, connector: DatabaseConnector, context: DatabaseContext) =>
           connector.storeLastUpdate(value, context)
-      )
+      ),
     }
   }
 
@@ -180,7 +180,7 @@ class DefaultDataContainer implements DataContainer {
     if (!previousResourceCache) {
       await cache.cache(
         {
-          [language]: resourceCache
+          [language]: resourceCache,
         },
         context
       )

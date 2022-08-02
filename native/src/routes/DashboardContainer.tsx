@@ -46,7 +46,7 @@ const refresh = (refreshProps: RefreshPropsType, dispatch: Dispatch<StoreActionT
       route: DASHBOARD_ROUTE,
       cityCode,
       languageCode: language,
-      cityContentPath: path
+      cityContentPath: path,
     },
     route.key,
     true
@@ -59,19 +59,19 @@ const createChangeUnavailableLanguage =
       type: 'SWITCH_CONTENT_LANGUAGE',
       params: {
         newLanguage,
-        city
-      }
+        city,
+      },
     })
   }
 
 const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsType => {
   const {
-    route: { key }
+    route: { key },
   } = ownProps
 
   if (!state.cityContent) {
     return {
-      status: 'routeNotInitialized'
+      status: 'routeNotInitialized',
     }
   }
 
@@ -80,14 +80,14 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
 
   if (!route || route.routeType !== CATEGORIES_ROUTE) {
     return {
-      status: 'routeNotInitialized'
+      status: 'routeNotInitialized',
     }
   }
 
   if (switchingLanguage) {
     return {
       status: 'loading',
-      progress: resourceCache.status === 'ready' ? resourceCache.progress : 0
+      progress: resourceCache.status === 'ready' ? resourceCache.progress : 0,
     }
   }
 
@@ -98,7 +98,7 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
         status: 'error',
         refreshProps: null,
         code: languages.status === 'error' ? languages.code : ErrorCode.UnknownError,
-        message: languages.status === 'error' ? languages.message : 'languages not ready'
+        message: languages.status === 'error' ? languages.message : 'languages not ready',
       }
     }
 
@@ -106,7 +106,7 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
       status: 'languageNotAvailable',
       availableLanguages: languages.models.filter(lng => route.allAvailableLanguages.has(lng.code)),
       cityCode: route.city,
-      changeUnavailableLanguage: createChangeUnavailableLanguage(route.city)
+      changeUnavailableLanguage: createChangeUnavailableLanguage(route.city),
     }
   }
 
@@ -115,7 +115,7 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
     language: route.language,
     path: route.path,
     navigation: ownProps.navigation,
-    route: ownProps.route
+    route: ownProps.route,
   }
 
   if (state.cities.status === 'error') {
@@ -123,7 +123,7 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
       status: 'error',
       refreshProps,
       message: state.cities.message,
-      code: state.cities.code
+      code: state.cities.code,
     }
   }
   if (resourceCache.status === 'error') {
@@ -131,7 +131,7 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
       status: 'error',
       refreshProps,
       message: resourceCache.message,
-      code: resourceCache.code
+      code: resourceCache.code,
     }
   }
   if (route.status === 'error') {
@@ -139,7 +139,7 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
       status: 'error',
       refreshProps,
       message: route.message,
-      code: route.code
+      code: route.code,
     }
   }
   if (languages.status === 'error') {
@@ -147,7 +147,7 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
       status: 'error',
       message: languages.message,
       code: languages.code,
-      refreshProps
+      refreshProps,
     }
   }
 
@@ -162,7 +162,7 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
   ) {
     return {
       status: 'loading',
-      progress: resourceCache.progress
+      progress: resourceCache.progress,
     }
   }
 
@@ -175,7 +175,7 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
       status: 'error',
       refreshProps,
       message: 'Unknown city',
-      code: ErrorCode.PageNotFound
+      code: ErrorCode.PageNotFound,
     }
   }
 
@@ -187,8 +187,8 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
       language: route.language,
       stateView,
       resourceCacheUrl,
-      resourceCache: resourceCache.value
-    }
+      resourceCache: resourceCache.value,
+    },
   }
 
   if (route.status === 'loading') {
@@ -199,7 +199,7 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
 }
 
 const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>): DispatchPropsType => ({
-  dispatch
+  dispatch,
 })
 
 const DashboardContainer = ({ dispatch, navigation, ...rest }: ContainerPropsType) => {
@@ -208,7 +208,7 @@ const DashboardContainer = ({ dispatch, navigation, ...rest }: ContainerPropsTyp
     route: DASHBOARD_ROUTE,
     languageCode: language,
     cityCode: cityModel.code,
-    cityContentPath: stateView.root().path
+    cityContentPath: stateView.root().path,
   }
   useSetShareUrl({ navigation, routeInformation, route: rest.route })
 

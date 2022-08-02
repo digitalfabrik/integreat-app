@@ -5,7 +5,7 @@ import { PoiFeature, PoiFeatureCollection } from '../maps'
 
 export const embedInCollection = (features: PoiFeature[]): PoiFeatureCollection => ({
   type: 'FeatureCollection',
-  features
+  features,
 })
 
 export const prepareFeatureLocation = (poi: PoiModel, userLocation: LocationType | null): PoiFeature | null => {

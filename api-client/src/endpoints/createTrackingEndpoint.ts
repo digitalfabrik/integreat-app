@@ -8,14 +8,14 @@ import {
   SEARCH_FINISHED_SIGNAL_NAME,
   SEND_FEEDBACK_SIGNAL_NAME,
   SignalType,
-  SUSPEND_SIGNAL_NAME
+  SUSPEND_SIGNAL_NAME,
 } from '../tracking'
 
 export const TRACKING_ENDPOINT_NAME = 'tracking'
 export const JPAL_TRACKING_ENDPOINT_URL = 'https://jpal.tuerantuer.org/'
 const JSON_HEADERS = {
   Accept: 'application/json',
-  'Content-Type': 'application/json'
+  'Content-Type': 'application/json',
 }
 
 type TrackingEndpointType = {
@@ -50,22 +50,22 @@ const createTrackingEndpoint = (url: string = JPAL_TRACKING_ENDPOINT_URL): Track
         current_city: signal.currentCity,
         app_settings: {
           error_tracking: signal.appSettings.errorTracking,
-          allow_push_notifications: signal.appSettings.allowPushNotifications
-        }
-      }
+          allow_push_notifications: signal.appSettings.allowPushNotifications,
+        },
+      },
     }
     const body = JSON.stringify(mappedSignal)
     const requestOptions = {
       method: 'POST',
       body,
-      headers: JSON_HEADERS
+      headers: JSON_HEADERS,
     }
     const response = await fetch(url, requestOptions).catch((e: Error) => {
       throw new FetchError({
         endpointName: TRACKING_ENDPOINT_NAME,
         innerError: e,
         requestOptions,
-        url
+        url,
       })
     })
 
@@ -76,14 +76,14 @@ const createTrackingEndpoint = (url: string = JPAL_TRACKING_ENDPOINT_URL): Track
         url,
         requestOptions: {
           method: 'POST',
-          body
-        }
+          body,
+        },
       })
     }
   }
 
   return {
-    request
+    request,
   }
 }
 

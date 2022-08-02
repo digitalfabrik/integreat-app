@@ -6,13 +6,13 @@ const fonts: FontsType = {
     decorativeFontRegular: 'VarelaRound-Regular',
     contentFontRegular: 'NotoSans',
     contentFontBold: 'NotoSans-Bold',
-    webviewFont: 'Noto Sans, Noto Sans Arabic, Noto Sans SC, Noto Sans Georgian, sans-serif'
+    webviewFont: 'Noto Sans, Noto Sans Arabic, Noto Sans SC, Noto Sans Georgian, sans-serif',
   },
   web: {
     decorativeFont: 'Varela Round, Noto Sans Arabic, Noto Sans SC, Noto Sans Georgian, sans-serif',
-    contentFont: 'Noto Sans, Noto Sans Arabic, Noto Sans SC, Noto Sans Georgian, sans-serif'
+    contentFont: 'Noto Sans, Noto Sans Arabic, Noto Sans SC, Noto Sans Georgian, sans-serif',
   },
-  ...commonFonts
+  ...commonFonts,
 }
 
 export default fonts

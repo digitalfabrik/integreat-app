@@ -14,7 +14,7 @@ import {
   SearchRouteType,
   ShelterRouteType,
   SprungbrettOfferRouteType,
-  TuNewsType
+  TuNewsType,
 } from '.'
 
 type ParamsType = {

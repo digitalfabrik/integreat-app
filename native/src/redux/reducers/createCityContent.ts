@@ -6,20 +6,20 @@ const createCityContent = (city: string, languages?: Array<LanguageModel>): City
   city,
   languages: !languages
     ? {
-        status: 'loading'
+        status: 'loading',
       }
     : {
         status: 'ready',
-        models: languages
+        models: languages,
       },
   switchingLanguage: false,
   routeMapping: {},
   resourceCache: {
     status: 'ready',
     progress: 0,
-    value: {}
+    value: {},
   },
-  searchRoute: null
+  searchRoute: null,
 })
 
 export default createCityContent

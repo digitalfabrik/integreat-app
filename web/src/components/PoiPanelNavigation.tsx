@@ -44,7 +44,7 @@ type PoiPanelNavigationProps = {
 
 const PoiPanelNavigation: React.FC<PoiPanelNavigationProps> = ({
   switchFeature,
-  direction
+  direction,
 }: PoiPanelNavigationProps): ReactElement => {
   const { t } = useTranslation('pois')
   return (

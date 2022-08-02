@@ -5,7 +5,7 @@ import PoiModel from '../models/PoiModel'
 
 const availableLanguages = new Map([
   ['de', '/augsburg/de/locations/test'],
-  ['en', '/en/test']
+  ['en', '/en/test'],
 ])
 
 const pois = [
@@ -27,9 +27,9 @@ const pois = [
       postcode: '12345',
       latitude: 29.979848,
       longitude: 31.133859,
-      name: 'Test Title'
+      name: 'Test Title',
     }),
-    lastUpdate: moment('2011-02-04T00:00:00.000Z')
+    lastUpdate: moment('2011-02-04T00:00:00.000Z'),
   }),
   new PoiModel({
     path: '/augsburg/en/locations/test_path_2',
@@ -49,10 +49,10 @@ const pois = [
       postcode: 'test postcode 2',
       latitude: 15,
       longitude: 15,
-      name: 'name 2'
+      name: 'name 2',
     }),
-    lastUpdate: moment('2011-02-04T00:00:00.000Z')
-  })
+    lastUpdate: moment('2011-02-04T00:00:00.000Z'),
+  }),
 ]
 
 class PoiModelBuilder {

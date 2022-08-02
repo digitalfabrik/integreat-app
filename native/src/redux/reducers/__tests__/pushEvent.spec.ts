@@ -15,7 +15,7 @@ describe('pushEvent', () => {
     postcode: 'postcode',
     country: 'country',
     longitude: null,
-    latitude: null
+    latitude: null,
   })
 
   const buildEvent = (path: string, title: string, availableLanguages: Map<string, string>) =>
@@ -31,9 +31,9 @@ describe('pushEvent', () => {
       date: new DateModel({
         startDate: moment('2000-01-05T10:10:00.000Z'),
         endDate: moment('2000-01-05T10:10:00.000Z'),
-        allDay: false
+        allDay: false,
       }),
-      location
+      location,
     })
 
   const event1 = buildEvent('/augsburg/de/events/ev1', 'Event1', new Map([['en', '/augsburg/en/events/ev1']]))
@@ -52,12 +52,12 @@ describe('pushEvent', () => {
           city: 'augsburg',
           language: 'de',
           path: '/augsburg/de/events/ev1',
-          allAvailableLanguages: new Map([['en', '/augsburg/en/events/ev1']])
-        }
+          allAvailableLanguages: new Map([['en', '/augsburg/en/events/ev1']]),
+        },
       },
       languages: {
         status: 'ready',
-        models: languageModels
+        models: languageModels,
       },
       resourceCache: {
         status: 'ready',
@@ -67,13 +67,13 @@ describe('pushEvent', () => {
             'some-url': {
               filePath: 'some-path',
               lastUpdate: moment('2017-11-18 19:30:00', moment.ISO_8601),
-              hash: '123456'
-            }
-          }
-        }
+              hash: '123456',
+            },
+          },
+        },
       },
       searchRoute: null,
-      switchingLanguage: false
+      switchingLanguage: false,
     }
     return { ...defaultState, ...state }
   }
@@ -89,8 +89,8 @@ describe('pushEvent', () => {
       language: 'de',
       city: 'augsburg',
       refresh: false,
-      ...params
-    }
+      ...params,
+    },
   })
 
   it('should add general events route to eventsRouteMapping', () => {
@@ -98,8 +98,8 @@ describe('pushEvent', () => {
       resourceCache: {
         status: 'ready',
         progress: 0,
-        value: {}
-      }
+        value: {},
+      },
     })
     const pushEventAction = createPushAction()
     expect(cityContentReducer(prevState, pushEventAction)).toEqual(
@@ -111,13 +111,13 @@ describe('pushEvent', () => {
             path: null,
             allAvailableLanguages: new Map([
               ['en', '/augsburg/en/events/ev1'],
-              ['de', '/augsburg/de/events/ev1']
+              ['de', '/augsburg/de/events/ev1'],
             ]),
             city: 'augsburg',
             language: 'de',
-            models: [event1]
-          }
-        }
+            models: [event1],
+          },
+        },
       })
     )
   })
@@ -126,8 +126,8 @@ describe('pushEvent', () => {
       resourceCache: {
         status: 'ready',
         progress: 0,
-        value: {}
-      }
+        value: {},
+      },
     })
     const pushEventAction = createPushAction({ path: '/augsburg/de/events/ev1' })
     expect(cityContentReducer(prevState, pushEventAction)).toEqual(
@@ -139,13 +139,13 @@ describe('pushEvent', () => {
             path: '/augsburg/de/events/ev1',
             allAvailableLanguages: new Map([
               ['en', '/augsburg/en/events/ev1'],
-              ['de', '/augsburg/de/events/ev1']
+              ['de', '/augsburg/de/events/ev1'],
             ]),
             city: 'augsburg',
             language: 'de',
-            models: [event1]
-          }
-        }
+            models: [event1],
+          },
+        },
       })
     )
   })
@@ -162,9 +162,9 @@ describe('pushEvent', () => {
         'another-url': {
           filePath: 'another-path',
           lastUpdate: moment('2017-11-18 19:30:00', moment.ISO_8601),
-          hash: '123456'
-        }
-      }
+          hash: '123456',
+        },
+      },
     }
 
     const pushEventAction = createPushAction({
@@ -172,7 +172,7 @@ describe('pushEvent', () => {
       city: 'testumgebung',
       language: 'de',
       path: '/testumgebung/de/events/ev1',
-      resourceCache
+      resourceCache,
     })
 
     expect(cityContentReducer(prevState, pushEventAction)).toEqual(
@@ -181,8 +181,8 @@ describe('pushEvent', () => {
         resourceCache: {
           status: 'ready',
           progress: 1,
-          value: { ...prevResources, ...resourceCache }
-        }
+          value: { ...prevResources, ...resourceCache },
+        },
       })
     )
   })
@@ -192,8 +192,8 @@ describe('pushEvent', () => {
       resourceCache: {
         status: 'ready',
         progress: 0,
-        value: {}
-      }
+        value: {},
+      },
     })
     const nonExistingPath = '/augsburg/de/events/ev2'
     const pushEventAction = createPushAction({ path: nonExistingPath })
@@ -207,9 +207,9 @@ describe('pushEvent', () => {
             city: 'augsburg',
             status: 'error',
             message: `Could not find an event with path '${'/augsburg/de/events/ev2'}'.`,
-            code: ErrorCode.PageNotFound
-          }
-        }
+            code: ErrorCode.PageNotFound,
+          },
+        },
       })
     )
   })

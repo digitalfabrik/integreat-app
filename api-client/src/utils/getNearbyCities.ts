@@ -10,9 +10,9 @@ const distanceToCity = (userLocation: LocationType, cityModel: CityModel): numbe
   const coordinates = [
     {
       longitude: cityModel.longitude,
-      latitude: cityModel.latitude
+      latitude: cityModel.latitude,
     },
-    ...Object.values(cityModel.aliases ?? {})
+    ...Object.values(cityModel.aliases ?? {}),
   ]
   return Math.min(...coordinates.map(it => distance(userLocation, [it.longitude, it.latitude])))
 }

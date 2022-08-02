@@ -79,7 +79,7 @@ class CityEntry extends React.PureComponent<PropType> {
             textToHighlight={city.name}
             sanitize={normalizeSearchString}
             highlightStyle={{
-              fontWeight: 'bold'
+              fontWeight: 'bold',
             }}
           />
           {aliases.length > 0 && (
@@ -93,7 +93,7 @@ class CityEntry extends React.PureComponent<PropType> {
                     autoEscape
                     sanitize={normalizeSearchString}
                     highlightStyle={{
-                      fontWeight: 'bold'
+                      fontWeight: 'bold',
                     }}
                   />
                   {index !== aliases.length - 1 && (

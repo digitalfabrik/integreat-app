@@ -6,7 +6,7 @@ import createNavigationScreenPropMock from '../../testing/createNavigationPropMo
 import navigateToCategory from '../navigateToCategory'
 
 jest.mock('../url', () => ({
-  url: jest.fn(path => path)
+  url: jest.fn(path => path),
 }))
 describe('navigateToCategory', () => {
   it('should navigate to the specified route as in the supplied route name', () => {
@@ -18,11 +18,11 @@ describe('navigateToCategory', () => {
       routeName: CATEGORIES_ROUTE,
       cityCode: 'augsburg',
       languageCode: 'de',
-      cityContentPath: '/augsburg/de/erste-hilfe'
+      cityContentPath: '/augsburg/de/erste-hilfe',
     })
     expect(navigation.navigate).toHaveBeenCalledWith(
       expect.objectContaining({
-        name: CATEGORIES_ROUTE
+        name: CATEGORIES_ROUTE,
       })
     )
     navigateToCategory({
@@ -31,11 +31,11 @@ describe('navigateToCategory', () => {
       routeName: DASHBOARD_ROUTE,
       cityCode: 'augsburg',
       languageCode: 'de',
-      cityContentPath: '/augsburg/de'
+      cityContentPath: '/augsburg/de',
     })
     expect(navigation.navigate).toHaveBeenCalledWith(
       expect.objectContaining({
-        name: DASHBOARD_ROUTE
+        name: DASHBOARD_ROUTE,
       })
     )
   })
@@ -49,15 +49,15 @@ describe('navigateToCategory', () => {
       cityCode: 'augsburg',
       languageCode: 'de',
       cityContentPath: '/augsburg/de/erste-hilfe',
-      resetNavigation: true
+      resetNavigation: true,
     })
     expect(navigation.reset).toHaveBeenCalledWith({
       index: 0,
       routes: [
         expect.objectContaining({
-          name: CATEGORIES_ROUTE
-        })
-      ]
+          name: CATEGORIES_ROUTE,
+        }),
+      ],
     })
     navigateToCategory({
       dispatch,
@@ -66,15 +66,15 @@ describe('navigateToCategory', () => {
       cityCode: 'augsburg',
       languageCode: 'de',
       cityContentPath: '/augsburg/de',
-      resetNavigation: true
+      resetNavigation: true,
     })
     expect(navigation.reset).toHaveBeenCalledWith({
       index: 0,
       routes: [
         expect.objectContaining({
-          name: DASHBOARD_ROUTE
-        })
-      ]
+          name: DASHBOARD_ROUTE,
+        }),
+      ],
     })
   })
   it('should generate key if not supplied with at least 6 chars and use it for both navigation and redux actions', () => {
@@ -86,19 +86,19 @@ describe('navigateToCategory', () => {
       routeName: CATEGORIES_ROUTE,
       cityCode: 'augsburg',
       languageCode: 'de',
-      cityContentPath: '/augsburg/de/erste-hilfe'
+      cityContentPath: '/augsburg/de/erste-hilfe',
     })
     expect(navigation.navigate).toHaveBeenCalledWith(
       expect.objectContaining({
-        key: expect.stringMatching(/^.{6,}$/) // at least 6 chars but no newline
+        key: expect.stringMatching(/^.{6,}$/), // at least 6 chars but no newline
       })
     )
     const { key } = mocked(navigation.navigate).mock.calls[0]![0]
     expect(dispatch).toHaveBeenCalledWith({
       type: 'FETCH_CATEGORY',
       params: expect.objectContaining({
-        key
-      })
+        key,
+      }),
     })
   })
   it('should dispatch a FETCH_CATEGORY action and refresh resources on force refresh', () => {
@@ -112,7 +112,7 @@ describe('navigateToCategory', () => {
       languageCode: 'de',
       cityContentPath: '/augsburg/de/schule',
       key: 'route-id-1',
-      forceRefresh: true
+      forceRefresh: true,
     })
     expect(dispatch).toHaveBeenCalledWith({
       type: 'FETCH_CATEGORY',
@@ -124,9 +124,9 @@ describe('navigateToCategory', () => {
         key: 'route-id-1',
         criterion: {
           forceUpdate: true,
-          shouldRefreshResources: true
-        }
-      }
+          shouldRefreshResources: true,
+        },
+      },
     })
   })
   it('should dispatch a CLEAR_CITY action and delete the content', () => {
@@ -141,10 +141,10 @@ describe('navigateToCategory', () => {
       cityContentPath: '/augsburg/de/schule',
       key: 'route-id-1',
       forceRefresh: true,
-      resetNavigation: true
+      resetNavigation: true,
     })
     expect(dispatch).toHaveBeenCalledWith({
-      type: 'CLEAR_CITY'
+      type: 'CLEAR_CITY',
     })
   })
 })

@@ -25,7 +25,7 @@ const PoiDetailItem: React.FC<PoiDetailItemProps> = ({
   onIconPress,
   children,
   icon,
-  language
+  language,
 }: PoiDetailItemProps): ReactElement => (
   <PoiDetailItemContainer language={language}>
     <View>{children}</View>

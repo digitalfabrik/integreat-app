@@ -54,7 +54,7 @@ export const useLoadFromEndpoint = <T>(request: RequestType<T>): ReturnType<T> =
     data,
     error,
     loading,
-    refresh: load
+    refresh: load,
   }
 }
 

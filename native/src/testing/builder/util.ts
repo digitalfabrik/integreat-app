@@ -11,7 +11,7 @@ export const createFetchMap = (resources: Record<string, PageResourceCacheStateT
         fetchMapEntry.push({
           url,
           filePath: file.filePath,
-          urlHash: file.hash
+          urlHash: file.hash,
         })
         return fetchMapEntry
       },

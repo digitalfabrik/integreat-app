@@ -15,7 +15,7 @@ const useLoadLocalNews = ({ city, language }: ParamsType): ReturnType<LocalNewsM
 
     return createLocalNewsEndpoint(apiUrl).request({
       city,
-      language
+      language,
     })
   }, [language, city])
 

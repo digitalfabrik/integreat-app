@@ -8,7 +8,7 @@ import {
   DisclaimerRouteType,
   fromError,
   PageModel,
-  useLoadFromEndpoint
+  useLoadFromEndpoint,
 } from 'api-client'
 
 import Failure from '../components/Failure'
@@ -38,7 +38,7 @@ const DisclaimerContainer = ({ navigation, route }: PropsType): ReactElement => 
     const apiUrl = await determineApiUrl()
     return createDisclaimerEndpoint(apiUrl).request({
       city: cityCode,
-      language: languageCode
+      language: languageCode,
     })
   }, [cityCode, languageCode])
   const { data: disclaimer, error, loading, refresh } = useLoadFromEndpoint<PageModel>(request)
@@ -50,7 +50,7 @@ const DisclaimerContainer = ({ navigation, route }: PropsType): ReactElement => 
       cityCode,
       language: languageCode,
       isPositiveFeedback,
-      path: disclaimer?.path
+      path: disclaimer?.path,
     })
   }
 

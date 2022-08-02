@@ -25,7 +25,7 @@ const Offers = ({
   navigateToOffer,
   t,
   languageCode,
-  cityCode
+  cityCode,
 }: PropsType): ReactElement => {
   const tiles = offers.map(offer => {
     let path = offer.path
@@ -39,7 +39,7 @@ const Offers = ({
       path,
       thumbnail: offer.thumbnail,
       isExternalUrl: offer.alias !== SPRUNGBRETT_OFFER_ROUTE,
-      postData: offer.postData
+      postData: offer.postData,
     })
   })
 

@@ -54,8 +54,8 @@ export default {
   DocumentDir: (): void => undefined,
   ImageCache: {
     get: {
-      clear: (): void => undefined
-    }
+      clear: (): void => undefined,
+    },
   },
   fs: {
     ls: jest.fn<Promise<Array<string>>, [string]>(lsMock),
@@ -67,7 +67,7 @@ export default {
     dirs: {
       MainBundleDir: 'path/to/mainBundleDir',
       CacheDir: 'path/to/cacheDir',
-      DocumentDir: 'path/to/documentDir'
-    }
-  }
+      DocumentDir: 'path/to/documentDir',
+    },
+  },
 }

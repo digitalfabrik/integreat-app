@@ -17,7 +17,7 @@ import {
   NotFoundError,
   pathnameFromRouteInformation,
   PoiFeature,
-  POIS_ROUTE
+  POIS_ROUTE,
 } from 'api-client'
 import { config } from 'translations'
 
@@ -50,7 +50,7 @@ const moveViewToBBox = (bBox: BBox, defaultVp: MapViewMercatorViewport): MapView
   const mercatorVp = new WebMercatorViewport(defaultVp)
   return mercatorVp.fitBounds([
     [bBox[0], bBox[1]],
-    [bBox[2], bBox[3]]
+    [bBox[2], bBox[3]],
   ])
 }
 
@@ -111,10 +111,10 @@ const PoisPage = ({ cityCode, languageCode, cityModel, pathname, languages }: Ci
       route: POIS_ROUTE,
       cityCode,
       languageCode: code,
-      urlSlug: poi?.urlSlug
+      urlSlug: poi?.urlSlug,
     }),
     name,
-    code
+    code,
   }))
 
   const nextFeatureIndex = (step: 1 | -1, arrayLength: number, currentIndex: number): number => {
@@ -155,7 +155,7 @@ const PoisPage = ({ cityCode, languageCode, cityModel, pathname, languages }: Ci
     route: POIS_ROUTE,
     languageCode,
     disableScrollingSafari: true,
-    showFooter: false
+    showFooter: false,
   }
 
   if (loading) {
@@ -173,7 +173,7 @@ const PoisPage = ({ cityCode, languageCode, cityModel, pathname, languages }: Ci
         type: 'poi',
         id: pathname,
         city: cityCode,
-        language: languageCode
+        language: languageCode,
       })
 
     return (

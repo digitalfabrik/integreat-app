@@ -24,7 +24,7 @@ import {
   SEARCH_FEEDBACK_TYPE,
   SEARCH_ROUTE,
   SearchRouteType,
-  SEND_FEEDBACK_SIGNAL_NAME
+  SEND_FEEDBACK_SIGNAL_NAME,
 } from 'api-client'
 import { ThemeType } from 'build-configs/ThemeType'
 
@@ -107,7 +107,7 @@ const FeedbackContainer = (props: PropsType): ReactElement => {
       language,
       comment: commentWithMail,
       alias,
-      query
+      query,
     }
   }
 
@@ -132,9 +132,9 @@ const FeedbackContainer = (props: PropsType): ReactElement => {
         feedback: {
           positive: feedbackData.isPositiveRating,
           numCharacters: comment.length,
-          contactMail: contactMail.length > 0
-        }
-      }
+          contactMail: contactMail.length > 0,
+        },
+      },
     })
     request().catch(err => {
       reportError(err)

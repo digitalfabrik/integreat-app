@@ -13,7 +13,7 @@ const navigateToEvents = <T extends RoutesType>({
   languageCode,
   cityContentPath,
   key = generateRouteKey(),
-  forceRefresh = false
+  forceRefresh = false,
 }: {
   dispatch: Dispatch<StoreActionType>
   navigation: NavigationPropType<T>
@@ -25,7 +25,7 @@ const navigateToEvents = <T extends RoutesType>({
 }): void => {
   navigation.navigate({
     name: EVENTS_ROUTE,
-    key
+    key,
   })
   const fetchEvent: FetchEventActionType = {
     type: 'FETCH_EVENT',
@@ -36,9 +36,9 @@ const navigateToEvents = <T extends RoutesType>({
       key,
       criterion: {
         forceUpdate: forceRefresh,
-        shouldRefreshResources: forceRefresh
-      }
-    }
+        shouldRefreshResources: forceRefresh,
+      },
+    },
   }
   dispatch(fetchEvent)
 }

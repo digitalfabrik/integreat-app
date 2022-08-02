@@ -14,8 +14,8 @@ export function* clearResourcesAndCache(
   yield* put({
     type: 'FETCH_CITIES',
     params: {
-      forceRefresh: true
-    }
+      forceRefresh: true,
+    },
   })
 }
 

@@ -96,11 +96,11 @@ const Feedback = (props: PropsType): ReactElement => {
           <Button
             icon={<Icon name='send' size={15} color='black' />}
             titleStyle={{
-              color: theme.colors.textColor
+              color: theme.colors.textColor,
             }}
             buttonStyle={{
               backgroundColor: theme.colors.themeColor,
-              marginTop: 15
+              marginTop: 15,
             }}
             disabled={!isPositiveFeedback && !comment}
             onPress={onSubmit}
@@ -119,7 +119,7 @@ const Feedback = (props: PropsType): ReactElement => {
         <Caption title={t('feedback:feedbackSent')} />
         <ThemedText theme={theme}>
           {t('feedback:thanksMessage', {
-            appName: buildConfig().appName
+            appName: buildConfig().appName,
           })}
         </ThemedText>
       </>
@@ -130,7 +130,7 @@ const Feedback = (props: PropsType): ReactElement => {
     <ScrollView
       keyboardShouldPersistTaps='handled'
       style={{
-        backgroundColor: theme.colors.backgroundColor
+        backgroundColor: theme.colors.backgroundColor,
       }}>
       <Wrapper theme={theme}>{renderBox()}</Wrapper>
     </ScrollView>
