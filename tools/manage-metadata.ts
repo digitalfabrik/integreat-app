@@ -195,7 +195,7 @@ program
   .description(
     'parse the release notes and outputs the release notes as JSON string and writes them to the specified file'
   )
-  .action(() => parseNotesProgram(program.opts()))
+  .action(parseNotesProgram)
 
 // General store metadata
 type StoreName = 'appstore' | 'playstore'
@@ -347,9 +347,9 @@ program
   )
   .command('prepare-metadata <appName> <storeName>')
   .description('prepare metadata for store')
-  .action((appName: string, storeName: string) => {
+  .action((appName: string, storeName: string, options: { overrideVersionName: string }) => {
     try {
-      const { overrideVersionName } = program.opts()
+      const { overrideVersionName } = options
       writeMetadata(appName, storeName, overrideVersionName)
     } catch (e) {
       console.error(e)

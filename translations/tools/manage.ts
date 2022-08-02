@@ -223,12 +223,12 @@ program
     }
   })
 
-type ProcessTranslationsType = {
+type WritePlistTranslationsOptions = {
   translations: string
   destination: string
 }
 
-const writePlistTranslations = (appName: string, { translations, destination }: ProcessTranslationsType) => {
+const writePlistTranslations = (appName: string, { translations, destination }: WritePlistTranslationsOptions) => {
   const { native: nativeTranslations } = JSON.parse(fs.readFileSync(translations, 'utf-8'))
   const languageCodes = Object.keys(nativeTranslations)
   console.warn('Creating InfoPlist.strings for the languages ', languageCodes)
@@ -261,9 +261,9 @@ program
   .requiredOption('--translations <translations>', 'the path to the translations.json file')
   .requiredOption('--destination <destination>', 'the path to put the string resources to')
   .description('setup native translations for ios')
-  .action((appName: string) => {
+  .action((appName: string, options: WritePlistTranslationsOptions) => {
     try {
-      writePlistTranslations(appName, program.opts())
+      writePlistTranslations(appName, options)
     } catch (e) {
       console.error(e)
       process.exit(1)

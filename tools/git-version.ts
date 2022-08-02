@@ -106,9 +106,9 @@ const commitAndTag = async (
 program
   .command('bump-to <new-version-name> <new-version-code>')
   .description('commits the supplied version name and code to github and tags the commit')
-  .action(async (newVersionName: string, newVersionCode: string) => {
+  .action(async (newVersionName: string, newVersionCode: string, options: Options) => {
     try {
-      await commitAndTag(newVersionName, newVersionCode, program.opts())
+      await commitAndTag(newVersionName, newVersionCode, options)
     } catch (e) {
       console.error(e)
       process.exit(1)
