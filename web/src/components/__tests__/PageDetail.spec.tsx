@@ -9,7 +9,7 @@ describe('PageDetail', () => {
 
   it('should render correctly', () => {
     const { getByText } = renderWithBrowserRouter(<PageDetail identifier={identifier} information={information} />, {
-      wrapWithTheme: true
+      wrapWithTheme: true,
     })
     expect(getByText(`${identifier}:`)).toBeDefined()
     expect(getByText(information)).toBeDefined()
