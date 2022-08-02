@@ -7,7 +7,7 @@ import {
   pathnameFromRouteInformation,
   SHELTER_ROUTE,
   ShelterModel,
-  ShelterFilterProps
+  ShelterFilterProps,
 } from 'api-client'
 
 import { CityRouteProps } from '../CityContentSwitcher'
