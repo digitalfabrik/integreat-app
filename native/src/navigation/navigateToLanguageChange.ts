@@ -10,7 +10,7 @@ const navigateToLanguageChange = <T extends RoutesType>({
   languageCode,
   languages,
   availableLanguages,
-  previousKey
+  previousKey,
 }: {
   navigation: NavigationPropType<T>
   cityCode: string
@@ -23,8 +23,8 @@ const navigateToLanguageChange = <T extends RoutesType>({
     signal: {
       name: OPEN_PAGE_SIGNAL_NAME,
       pageType: CHANGE_LANGUAGE_MODAL_ROUTE,
-      url: ''
-    }
+      url: '',
+    },
   })
   navigation.navigate({
     name: CHANGE_LANGUAGE_MODAL_ROUTE,
@@ -33,8 +33,8 @@ const navigateToLanguageChange = <T extends RoutesType>({
       languages,
       cityCode,
       availableLanguages,
-      previousKey
-    }
+      previousKey,
+    },
   })
 }
 

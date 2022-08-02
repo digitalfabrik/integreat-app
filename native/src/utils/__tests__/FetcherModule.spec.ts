@@ -21,7 +21,7 @@ describe('FetcherModule', () => {
   describe('fetchAsync', () => {
     const testTargetFilePaths: TargetFilePathsType = {
       'local/path/to/resource.png': 'http://randomtesturl.de/resource.png',
-      'local/path/to/resource2.jpg': 'http://randomtesturl.de/resource2.jpg'
+      'local/path/to/resource2.jpg': 'http://randomtesturl.de/resource2.jpg',
     }
     it('should call fetchAsync with targetFiles on native module', async () => {
       await fetcherModule.fetchAsync(testTargetFilePaths)

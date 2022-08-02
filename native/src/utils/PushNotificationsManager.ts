@@ -79,7 +79,7 @@ const urlFromMessage = (message: Message): string => {
     languageCode,
     route: NEWS_ROUTE,
     newsType: LOCAL_NEWS_TYPE,
-    newsId
+    newsId,
   })
 }
 

@@ -31,7 +31,7 @@ const InfiniteScrollList = <T,>({
   noItemsMessage,
   renderItem,
   defaultPage,
-  itemsPerPage
+  itemsPerPage,
 }: PropsType<T>): ReactElement => {
   const [data, setData] = useState<T[]>([])
   const [error, setError] = useState<Error | null>(null)

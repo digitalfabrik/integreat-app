@@ -8,7 +8,7 @@ describe('EndpointBuilder', () => {
     const mapper = (json: string) => json
 
     const responseOverride = {
-      test: 'random'
+      test: 'random',
     }
     const errorOverride = new Error('Error No. 5')
 

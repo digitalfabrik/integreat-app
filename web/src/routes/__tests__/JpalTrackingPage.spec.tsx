@@ -10,17 +10,17 @@ import JpalTrackingPage from '../JpalTrackingPage'
 
 jest.mock('react-router-dom', () => ({
   ...jest.requireActual('react-router-dom'),
-  useNavigate: jest.fn()
+  useNavigate: jest.fn(),
 }))
 
 jest.mock('../../utils/safeLocalStorage', () => ({
   setItem: jest.fn(),
   removeItem: jest.fn(),
-  JPAL_TRACKING_CODE_KEY: 'jpalTrackingCode'
+  JPAL_TRACKING_CODE_KEY: 'jpalTrackingCode',
 }))
 
 jest.mock('api-client', () => ({
-  setJpalTrackingCode: jest.fn()
+  setJpalTrackingCode: jest.fn(),
 }))
 
 describe('JpalTrackingPage', () => {

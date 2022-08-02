@@ -21,7 +21,7 @@ const pushPoi = (state: CityContentStateType, action: PushPoiActionType): CityCo
         models: pois,
         allAvailableLanguages,
         language,
-        city
+        city,
       }
     }
 
@@ -35,7 +35,7 @@ const pushPoi = (state: CityContentStateType, action: PushPoiActionType): CityCo
         city,
         status: 'error',
         message: `Could not find a poi with path '${path}'.`,
-        code: ErrorCode.PageNotFound
+        code: ErrorCode.PageNotFound,
       }
     }
 
@@ -47,7 +47,7 @@ const pushPoi = (state: CityContentStateType, action: PushPoiActionType): CityCo
       models: [poi],
       allAvailableLanguages,
       language,
-      city
+      city,
     }
   }
 
@@ -60,8 +60,8 @@ const pushPoi = (state: CityContentStateType, action: PushPoiActionType): CityCo
     resourceCache: {
       status: 'ready',
       progress: 1,
-      value: newResourceCache
-    }
+      value: newResourceCache,
+    },
   }
 }
 

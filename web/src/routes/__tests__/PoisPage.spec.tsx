@@ -8,7 +8,7 @@ import {
   LanguageModelBuilder,
   PoiModelBuilder,
   POIS_ROUTE,
-  prepareFeatureLocations
+  prepareFeatureLocations,
 } from 'api-client'
 
 import useFeatureLocations from '../../hooks/useFeatureLocations'
@@ -53,7 +53,7 @@ describe('PoisPage', () => {
       data: { pois, features },
       loading: false,
       error: null,
-      refresh: jest.fn()
+      refresh: jest.fn(),
     }))
     const { getByText } = renderPois()
     expect(getByText(poi0.location.name)).toBeTruthy()
@@ -65,7 +65,7 @@ describe('PoisPage', () => {
       data: null,
       loading: false,
       error: new Error('Something went wrong'),
-      refresh: jest.fn()
+      refresh: jest.fn(),
     }))
     const { getByText } = renderPois()
     expect(getByText('error:unknownError')).toBeTruthy()
@@ -75,7 +75,7 @@ describe('PoisPage', () => {
       data: { pois, features },
       loading: false,
       error: null,
-      refresh: jest.fn()
+      refresh: jest.fn(),
     }))
     const { getByText, getByLabelText } = renderPois()
     fireEvent.click(getByLabelText(poi0.location.name))
@@ -89,7 +89,7 @@ describe('PoisPage', () => {
       data: { pois, features },
       loading: false,
       error: null,
-      refresh: jest.fn()
+      refresh: jest.fn(),
     }))
     const { getByText, getByLabelText } = renderPois()
     fireEvent.click(getByLabelText(poi0.location.name))

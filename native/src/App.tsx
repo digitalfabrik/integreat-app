@@ -35,14 +35,14 @@ enableScreens(true)
 LogBox.ignoreLogs(['NativeEventEmitter'])
 
 NetInfo.configure({
-  reachabilityUrl: 'https://cms.integreat-app.de/ping'
+  reachabilityUrl: 'https://cms.integreat-app.de/ping',
 })
 const linking: LinkingOptions<RoutesParamsType> = {
   prefixes: ['https://', 'integreat://'],
   config: {
     screens: {
-      [REDIRECT_ROUTE]: '*'
-    }
+      [REDIRECT_ROUTE]: '*',
+    },
   },
   getStateFromPath: (path: string) => ({
     index: 0,
@@ -50,12 +50,12 @@ const linking: LinkingOptions<RoutesParamsType> = {
       {
         name: REDIRECT_ROUTE,
         params: {
-          url: `https://${path}`
-        }
-      }
-    ]
+          url: `https://${path}`,
+        },
+      },
+    ],
   }),
-  subscribe: backgroundAppStatePushNotificationListener
+  subscribe: backgroundAppStatePushNotificationListener,
 }
 const dataContainer: DataContainer = new DefaultDataContainer()
 const store: Store<StateType, StoreActionType> = createReduxStore(dataContainer)
@@ -74,8 +74,8 @@ const App = (): ReactElement => {
         if (state.index === routeIndex - 1) {
           sendTrackingSignal({
             signal: {
-              name: CLOSE_PAGE_SIGNAL_NAME
-            }
+              name: CLOSE_PAGE_SIGNAL_NAME,
+            },
           })
         }
 

@@ -27,7 +27,7 @@ jest.mock('api-client', () => {
         .withResponseOverride(mockCategories)
         .withMapper(() => undefined)
         .build()
-    }
+    },
   }
 })
 describe('loadCategories', () => {

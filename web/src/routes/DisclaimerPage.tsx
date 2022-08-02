@@ -6,7 +6,7 @@ import {
   createDisclaimerEndpoint,
   DISCLAIMER_ROUTE,
   pathnameFromRouteInformation,
-  useLoadFromEndpoint
+  useLoadFromEndpoint,
 } from 'api-client'
 
 import { CityRouteProps } from '../CityContentSwitcher'
@@ -29,7 +29,7 @@ const DisclaimerPage = ({ cityCode, languageCode, pathname, languages, cityModel
     async () =>
       createDisclaimerEndpoint(cmsApiBaseUrl).request({
         city: cityCode,
-        language: languageCode
+        language: languageCode,
       }),
     [cityCode, languageCode]
   )
@@ -48,7 +48,7 @@ const DisclaimerPage = ({ cityCode, languageCode, pathname, languages, cityModel
     languageChangePaths,
     route: DISCLAIMER_ROUTE,
     languageCode,
-    pathname
+    pathname,
   }
 
   if (loading) {

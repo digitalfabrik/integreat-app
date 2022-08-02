@@ -46,10 +46,10 @@ export default class ResourceURLFinder {
   init(): void {
     this._parser = new Parser(
       {
-        onattribute: this._onAttributeTagFound
+        onattribute: this._onAttributeTagFound,
       },
       {
-        decodeEntities: true
+        decodeEntities: true,
       }
     )
   }
@@ -91,7 +91,7 @@ export default class ResourceURLFinder {
           return {
             url,
             urlHash,
-            filePath
+            filePath,
           }
         })
         return newFetchMap

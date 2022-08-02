@@ -3,7 +3,7 @@ import LanguageModel from '../models/LanguageModel'
 const languages = [
   new LanguageModel('en', 'English'),
   new LanguageModel('de', 'Deutsch'),
-  new LanguageModel('ar', 'اَللُّغَةُ اَلْعَرَبِيَّة')
+  new LanguageModel('ar', 'اَللُّغَةُ اَلْعَرَبِيَّة'),
 ]
 
 class LanguageModelBuilder {

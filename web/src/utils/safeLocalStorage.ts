@@ -49,7 +49,7 @@ const safeLocalStorage = {
   isAvailable,
   setItem,
   getItem,
-  removeItem
+  removeItem,
 }
 
 export default safeLocalStorage

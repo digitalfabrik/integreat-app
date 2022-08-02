@@ -17,10 +17,10 @@ const cities = [
     aliases: {
       Konigsbrunn: {
         latitude: 48.267499,
-        longitude: 10.889586
-      }
+        longitude: 10.889586,
+      },
     },
-    boundingBox: [10.7880103, 48.447238, 11.0174493, 48.297834]
+    boundingBox: [10.7880103, 48.447238, 11.0174493, 48.297834],
   }),
   new CityModel({
     name: 'Oldtown',
@@ -38,10 +38,10 @@ const cities = [
     aliases: {
       Konigsbrunn: {
         latitude: 48.28,
-        longitude: 10.8
-      }
+        longitude: 10.8,
+      },
     },
-    boundingBox: null
+    boundingBox: null,
   }),
   new CityModel({
     name: 'City',
@@ -57,7 +57,7 @@ const cities = [
     longitude: 10.892578,
     prefix: null,
     aliases: null,
-    boundingBox: null
+    boundingBox: null,
   }),
   new CityModel({
     name: 'Other city',
@@ -73,7 +73,7 @@ const cities = [
     longitude: 10.892578,
     prefix: null,
     aliases: null,
-    boundingBox: null
+    boundingBox: null,
   }),
   new CityModel({
     name: 'Notlive',
@@ -89,7 +89,7 @@ const cities = [
     longitude: 0,
     prefix: null,
     aliases: null,
-    boundingBox: null
+    boundingBox: null,
   }),
   new CityModel({
     name: 'Yet another city',
@@ -105,8 +105,8 @@ const cities = [
     longitude: 10.8,
     prefix: null,
     aliases: null,
-    boundingBox: null
-  })
+    boundingBox: null,
+  }),
 ]
 
 class CityModelBuilder {

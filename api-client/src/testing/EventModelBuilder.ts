@@ -49,7 +49,7 @@ class EventModelBuilder {
     return {
       filePath: `path/to/documentDir/resource-cache/v1/${this._city}/files/${hash}.png`,
       lastUpdate: moment(lastUpdate).add(this._predictableNumber(index), 'days'),
-      hash
+      hash,
     }
   }
 
@@ -67,7 +67,7 @@ class EventModelBuilder {
   }[] {
     return Array.from(
       {
-        length: this._eventCount
+        length: this._eventCount,
       },
       (x, index) => {
         const mockDate = moment('2015-01-01T00:00:00.000Z', moment.ISO_8601)
@@ -89,13 +89,13 @@ class EventModelBuilder {
             availableLanguages: new Map(
               LANGUAGES.filter(language => language !== this._language).map(lng => [
                 lng,
-                `/${this._city}/${lng}/events/event${index}`
+                `/${this._city}/${lng}/events/event${index}`,
               ])
             ),
             date: new DateModel({
               startDate,
               endDate,
-              allDay: false
+              allDay: false,
             }),
             location: new LocationModel({
               id: 1,
@@ -105,7 +105,7 @@ class EventModelBuilder {
               postcode: 'postcode',
               country: 'country',
               latitude: null,
-              longitude: null
+              longitude: null,
             }),
             excerpt: 'excerpt',
             lastUpdate,
@@ -114,13 +114,13 @@ class EventModelBuilder {
                     <p>This is a sample event</p>
                     <img src='${resourceUrl2}'/>`,
             thumbnail,
-            featuredImage: null
+            featuredImage: null,
           }),
           resources: {
             [resourceUrl1]: this.createResource(resourceUrl1, index, lastUpdate),
             [resourceUrl2]: this.createResource(resourceUrl2, index, lastUpdate),
-            [thumbnail]: this.createResource(thumbnail, index, lastUpdate)
-          }
+            [thumbnail]: this.createResource(thumbnail, index, lastUpdate),
+          },
         }
       }
     )

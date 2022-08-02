@@ -30,7 +30,7 @@ const SnackbarContainer = (): ReactElement | null => {
     Animated.timing(translate, {
       toValue: 0,
       duration: ANIMATION_DURATION,
-      useNativeDriver: true
+      useNativeDriver: true,
     }).start()
   }, [])
 
@@ -38,7 +38,7 @@ const SnackbarContainer = (): ReactElement | null => {
     Animated.timing(translate, {
       toValue: 1,
       duration: ANIMATION_DURATION,
-      useNativeDriver: true
+      useNativeDriver: true,
     }).start(() => setDisplayed(null))
   }, [])
 
@@ -47,7 +47,7 @@ const SnackbarContainer = (): ReactElement | null => {
     if (!displayed && newSnackbar) {
       setDisplayed(newSnackbar)
       dispatch({
-        type: 'DEQUEUE_SNACKBAR'
+        type: 'DEQUEUE_SNACKBAR',
       })
     }
   }, [snackbarState, displayed, dispatch])
@@ -66,7 +66,7 @@ const SnackbarContainer = (): ReactElement | null => {
   const outputRange: number[] = [0, height ?? MAX_HEIGHT]
   const interpolated = translate.interpolate({
     inputRange: [0, 1],
-    outputRange
+    outputRange,
   })
   return displayed ? (
     <AnimatedContainer
@@ -74,9 +74,9 @@ const SnackbarContainer = (): ReactElement | null => {
       style={{
         transform: [
           {
-            translateY: interpolated
-          }
-        ]
+            translateY: interpolated,
+          },
+        ],
       }}>
       <Snackbar message={t(displayed.text)} />
     </AnimatedContainer>

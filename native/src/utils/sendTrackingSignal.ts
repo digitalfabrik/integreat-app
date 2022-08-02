@@ -29,7 +29,7 @@ export const sendRequest = async (signal: SignalType): Promise<void> => {
 
 const sendTrackingSignal = async ({
   signal: specificSignal,
-  offline = false
+  offline = false,
 }: {
   signal: SpecificSignalType
   offline?: boolean
@@ -48,8 +48,8 @@ const sendTrackingSignal = async ({
         systemLanguage: systemLanguage ?? 'unknown',
         appSettings: {
           allowPushNotifications,
-          errorTracking
-        }
+          errorTracking,
+        },
       }
       await sendRequest(signal)
     }

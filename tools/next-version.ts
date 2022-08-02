@@ -24,7 +24,7 @@ const calculateNewVersion = () => {
 
   return {
     versionName: newVersionName,
-    versionCode: newVersionCode
+    versionCode: newVersionCode,
   }
 }
 

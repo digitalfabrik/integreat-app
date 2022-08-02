@@ -17,7 +17,7 @@ import {
   LanguageResourceCacheStateType,
   LanguagesStateType,
   ResourceCacheStateType,
-  StateType
+  StateType,
 } from '../../redux/StateType'
 import createNavigationScreenPropMock from '../../testing/createNavigationPropMock'
 import render from '../../testing/render'
@@ -50,7 +50,7 @@ jest.mock('react-native/Libraries/Components/RefreshControl/RefreshControl', () 
 const route = {
   key: 'route-id-0',
   params: {},
-  name: DASHBOARD_ROUTE
+  name: DASHBOARD_ROUTE,
 }
 describe('DashboardContainer', () => {
   const city = new CityModelBuilder(1).build()[0]!
@@ -63,9 +63,9 @@ describe('DashboardContainer', () => {
       'some-url': {
         filePath: 'some-file-path',
         lastUpdate: moment('2016-02-01T10:35:20Z'),
-        hash: '12345678'
-      }
-    }
+        hash: '12345678',
+      },
+    },
   }
   const resourceCacheUrl = 'http://localhost:8080'
 
@@ -75,7 +75,7 @@ describe('DashboardContainer', () => {
       switchingLanguage,
       cities,
       languages,
-      resourceCacheState
+      resourceCacheState,
     }: {
       switchingLanguage?: boolean
       cities?: CitiesStateType
@@ -89,26 +89,26 @@ describe('DashboardContainer', () => {
       switchingLanguage: switchingLanguage !== undefined ? switchingLanguage : false,
       languages: languages || {
         status: 'ready',
-        models: [language]
+        models: [language],
       },
       routeMapping: routeState
         ? {
-            'route-id-0': routeState
+            'route-id-0': routeState,
           }
         : {},
       resourceCache: resourceCacheState || {
         status: 'ready',
         progress: 0,
-        value: resourceCache
+        value: resourceCache,
       },
-      searchRoute: null
+      searchRoute: null,
     },
     contentLanguage: 'de',
     cities: cities || {
       status: 'ready',
-      models: [city]
+      models: [city],
     },
-    snackbar: []
+    snackbar: [],
   })
 
   const rootCategory = categoriesMap.findCategoryByPath(`/${city.code}/${language.code}`)
@@ -132,7 +132,7 @@ describe('DashboardContainer', () => {
     city: city.code,
     allAvailableLanguages: new Map(languages.map(lng => [lng.code, `/${city.code}/${lng.code}`])),
     models,
-    children
+    children,
   }
   it('should display nothing if the route is not initialized', () => {
     const state: StateType = prepareState()
@@ -169,7 +169,7 @@ describe('DashboardContainer', () => {
       language: language.code,
       city: city.code,
       message: 'Something went wrong with the route',
-      code: ErrorCode.UnknownError
+      code: ErrorCode.UnknownError,
     })
     expectError(state, ErrorCode.UnknownError)
   })
@@ -178,8 +178,8 @@ describe('DashboardContainer', () => {
       cities: {
         status: 'error',
         message: 'Something went wrong with the cities',
-        code: ErrorCode.UnknownError
-      }
+        code: ErrorCode.UnknownError,
+      },
     })
     expectError(state, ErrorCode.UnknownError)
   })
@@ -188,8 +188,8 @@ describe('DashboardContainer', () => {
       resourceCacheState: {
         status: 'error',
         message: 'Something went wrong with the resourceCache',
-        code: ErrorCode.UnknownError
-      }
+        code: ErrorCode.UnknownError,
+      },
     })
     expectError(state, ErrorCode.UnknownError)
   })
@@ -213,29 +213,29 @@ describe('DashboardContainer', () => {
       path: rootCategory.path,
       depth: 2,
       language: language.code,
-      city: city.code
+      city: city.code,
     })
     expectLoadingIndicator(state)
   })
   it('should display loading indicator if switching languages lasts long enough', () => {
     const state: StateType = prepareState(successfulRouteState, {
-      switchingLanguage: true
+      switchingLanguage: true,
     })
     expectLoadingIndicator(state)
   })
   it('should display loading indicator if cities are loading long enough', () => {
     const state: StateType = prepareState(successfulRouteState, {
       cities: {
-        status: 'loading'
-      }
+        status: 'loading',
+      },
     })
     expectLoadingIndicator(state)
   })
   it('should display loading indicator if languages are loading long enough', () => {
     const state: StateType = prepareState(successfulRouteState, {
       languages: {
-        status: 'loading'
-      }
+        status: 'loading',
+      },
     })
     expectLoadingIndicator(state)
   })
@@ -246,7 +246,7 @@ describe('DashboardContainer', () => {
       depth: 2,
       city: city.code,
       language: language.code,
-      allAvailableLanguages: new Map(languages.map(lng => [lng.code, `/${city.code}/${lng.code}`]))
+      allAvailableLanguages: new Map(languages.map(lng => [lng.code, `/${city.code}/${lng.code}`])),
     })
     const store = mockStore(state)
     const navigation = createNavigationScreenPropMock<DashboardRouteType>()
