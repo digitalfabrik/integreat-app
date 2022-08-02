@@ -119,11 +119,11 @@ program
   .description(
     'create a new release with the name <new-version-name> on jira and assign all issues resolved since the last release'
   )
-  .action(async (newVersionName: string) => {
+  .action(async (newVersionName: string, options: Opts) => {
     try {
       await createRelease({
         newVersionName,
-        ...program.opts<Opts>(),
+        ...options,
       })
     } catch (e) {
       console.error(e)
