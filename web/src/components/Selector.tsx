@@ -23,7 +23,7 @@ const Element = styled.span<{ $selected: boolean; $enabled: boolean }>`
 
   @media ${dimensions.smallViewport} {
     height: ${dimensions.headerHeightSmall}px;
-    min-width: 70px;
+    width: 100%;
     flex: 1 1 auto;
     font-size: 1em;
     line-height: ${dimensions.headerHeightSmall}px;

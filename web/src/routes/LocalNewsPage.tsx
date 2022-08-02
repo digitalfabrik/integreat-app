@@ -24,6 +24,7 @@ import NewsTabs from '../components/NewsTabs'
 import Page from '../components/Page'
 import { cmsApiBaseUrl } from '../constants/urls'
 import DateFormatterContext from '../contexts/DateFormatterContext'
+import useWindowDimensions from '../hooks/useWindowDimensions'
 import { LOCAL_NEWS_ROUTE } from './index'
 
 const LocalNewsPage = ({ cityModel, languages, pathname, languageCode, cityCode }: CityRouteProps): ReactElement => {
@@ -31,7 +32,7 @@ const LocalNewsPage = ({ cityModel, languages, pathname, languageCode, cityCode 
   const formatter = useContext(DateFormatterContext)
   const { t } = useTranslation('news')
   const navigate = useNavigate()
-  const viewportSmall = false
+  const { viewportSmall } = useWindowDimensions()
 
   const requestLocalNews = useCallback(
     async () => createLocalNewsEndpoint(cmsApiBaseUrl).request({ city: cityCode, language: languageCode }),

@@ -11,10 +11,6 @@
   top: calc(18px + env(safe-area-inset-top));
 }
 
-[data-rsbs-overlay] {
-  z-index: 20;
-}
-
 [data-rsbs-has-header='false'] [data-rsbs-header] {
   padding-top: calc(32px + env(safe-area-inset-top));
 }
