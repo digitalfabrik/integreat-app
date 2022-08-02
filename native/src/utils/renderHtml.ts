@@ -225,7 +225,7 @@ const renderHtml = (
       }
     </style>
   </head>
-  <body dir='${config.hasRTLScript(language) ? 'rtl' : 'ltr'}'>
+  <body dir='auto'>
   <div id='measure-container'>${html}</div>
   <script>${renderJS(cacheDictionary)}</script>
   </body>
