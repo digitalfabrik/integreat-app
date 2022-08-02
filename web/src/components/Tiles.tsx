@@ -1,7 +1,7 @@
 import React, { ReactElement } from 'react'
-import { Row } from 'react-styled-flexboxgrid'
 import styled from 'styled-components'
 
+import dimensions from '../constants/dimensions'
 import TileModel from '../models/TileModel'
 import Caption from './Caption'
 import Tile from './Tile'
@@ -11,8 +11,18 @@ type PropsType = {
   tiles: Array<TileModel>
 }
 
-const TilesRow = styled(Row)`
+const TilesRow = styled.div`
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
   padding: 10px 0;
+
+  @media ${dimensions.mediumViewport} {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  @media ${dimensions.smallViewport} {
+    grid-template-columns: repeat(2, 1fr);
+  }
 `
 
 /**
