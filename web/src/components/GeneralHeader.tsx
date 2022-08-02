@@ -2,6 +2,7 @@ import React from 'react'
 import { TFunction, withTranslation } from 'react-i18next'
 
 import { LANDING_ROUTE, pathnameFromRouteInformation } from 'api-client'
+import { config } from 'translations'
 
 import landingIcon from '../assets/location-icon.svg'
 import buildConfig from '../constants/buildConfig'
@@ -20,7 +21,16 @@ const GeneralHeader = ({ languageCode, viewportSmall, t }: PropsType) => {
     ? [<HeaderActionItemLink key='landing' href={landingPath} iconSrc={landingIcon} text={t('changeLocation')} />]
     : []
 
-  return <Header viewportSmall={viewportSmall} logoHref={landingPath} actionItems={actionItems} navigationItems={[]} />
+  return (
+    <Header
+      viewportSmall={viewportSmall}
+      logoHref={landingPath}
+      actionItems={actionItems}
+      navigationItems={[]}
+      kebabItems={[]}
+      direction={config.getScriptDirection(languageCode)}
+    />
+  )
 }
 
 export default withTranslation('layout')(GeneralHeader)
