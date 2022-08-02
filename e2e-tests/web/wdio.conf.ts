@@ -37,7 +37,9 @@ export const config: Testrunner = {
   onPrepare: async (): Promise<void> => {
     if (process.env.CI) {
       const startupDelay = 20000
-      await new Promise(resolve => setTimeout(resolve, startupDelay))
+      await new Promise(resolve => {
+        setTimeout(resolve, startupDelay)
+      })
     }
   },
 

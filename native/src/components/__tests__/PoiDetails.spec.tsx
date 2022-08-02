@@ -81,9 +81,9 @@ describe('PoiDetails', () => {
     const poi = pois[0]!
     const feature = prepareFeatureLocation(poi, userLocation)!
 
-    const { getByA11yLabel } = renderWithTheme(<PoiDetails poi={poi} feature={feature} language={language} />)
+    const { getByLabelText } = renderWithTheme(<PoiDetails poi={poi} feature={feature} language={language} />)
 
-    fireEvent.press(getByA11yLabel('openExternalMaps'))
+    fireEvent.press(getByLabelText('openExternalMaps'))
     const externalMapsUrl = 'maps:29.979848,31.133859?q=Test Title, Test Address 1, 12345 Test Town'
     await waitFor(() => expect(openExternalUrl).toHaveBeenCalledWith(externalMapsUrl))
   })
@@ -92,11 +92,11 @@ describe('PoiDetails', () => {
     const poi = pois[0]!
     const feature = prepareFeatureLocation(poi, userLocation)!
 
-    const { getByA11yLabel } = renderWithTheme(<PoiDetails poi={poi} feature={feature} language={language} />)
+    const { getByLabelText } = renderWithTheme(<PoiDetails poi={poi} feature={feature} language={language} />)
 
     mocked(openExternalUrl).mockRejectedValueOnce('No suitable app installed')
 
-    fireEvent.press(getByA11yLabel('openExternalMaps'))
+    fireEvent.press(getByLabelText('openExternalMaps'))
     const externalMapsUrl = 'maps:29.979848,31.133859?q=Test Title, Test Address 1, 12345 Test Town'
     await waitFor(() => expect(openExternalUrl).toHaveBeenCalledWith(externalMapsUrl))
     expect(showSnackbar).toHaveBeenCalledWith('error:noSuitableAppInstalled')

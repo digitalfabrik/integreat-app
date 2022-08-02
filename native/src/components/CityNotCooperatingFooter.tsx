@@ -35,11 +35,11 @@ type PropsType = {
   theme: ThemeType
 }
 
-const CityNotCooperatingFooter = ({ navigateToCityNotCooperating, theme }: PropsType): ReactElement => {
+const CityNotCooperatingFooter = ({ navigateToCityNotCooperating, theme }: PropsType): ReactElement | null => {
   const { t } = useTranslation('landing')
 
   if (!buildConfig().featureFlags.cityNotCooperating) {
-    return <></>
+    return null
   }
 
   return (

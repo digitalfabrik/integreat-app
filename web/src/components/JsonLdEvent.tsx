@@ -59,10 +59,10 @@ type PropsType = {
   formatter: DateFormatter
 }
 
-const JsonLdEvent = ({ event, formatter }: PropsType): ReactElement => {
+const JsonLdEvent = ({ event, formatter }: PropsType): ReactElement | null => {
   const jsonLd = createJsonLd(event, formatter)
   if (!jsonLd) {
-    return <></>
+    return null
   }
   return (
     <Helmet>

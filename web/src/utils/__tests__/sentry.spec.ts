@@ -109,7 +109,7 @@ describe('log', () => {
     expect(Sentry.addBreadcrumb).toHaveBeenCalledTimes(1)
     expect(Sentry.addBreadcrumb).toHaveBeenCalledWith({
       message: 'test error log',
-      level: Sentry.Severity.Error,
+      level: 'error',
     })
     expect(errorSpy).not.toHaveBeenCalled()
     errorSpy.mockRestore()
@@ -118,21 +118,21 @@ describe('log', () => {
     expect(Sentry.addBreadcrumb).toHaveBeenCalledTimes(2)
     expect(Sentry.addBreadcrumb).toHaveBeenCalledWith({
       message: 'test warn log',
-      level: Sentry.Severity.Warning,
+      level: 'warning',
     })
 
     await log('test log', 'log')
     expect(Sentry.addBreadcrumb).toHaveBeenCalledTimes(3)
     expect(Sentry.addBreadcrumb).toHaveBeenCalledWith({
       message: 'test log',
-      level: Sentry.Severity.Log,
+      level: 'log',
     })
 
     await log('test debug log')
     expect(Sentry.addBreadcrumb).toHaveBeenCalledTimes(4)
     expect(Sentry.addBreadcrumb).toHaveBeenCalledWith({
       message: 'test debug log',
-      level: Sentry.Severity.Debug,
+      level: 'debug',
     })
   })
 })

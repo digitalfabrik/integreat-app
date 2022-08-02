@@ -97,7 +97,7 @@ describe('Endpoint', () => {
     const endpoint = new Endpoint('endpoint', defaultMapParamsToUrl, null, defaultJsonMapper)
     const response = await endpoint.request(params, overrideUrl)
 
-    expect(response.requestUrl).toEqual(`${overrideUrl}/`)
+    expect(response.requestUrl).toBe(`${overrideUrl}/`)
     expect(mockedFetch).toHaveBeenCalledTimes(1)
     expect(mockedFetch).toHaveBeenCalledWith(`${overrideUrl}/`, { method: 'GET' })
   })
@@ -125,7 +125,7 @@ describe('Endpoint', () => {
     const response = await endpoint.request(params)
 
     expect(response).toBeInstanceOf(Payload)
-    expect(response.requestUrl).toEqual(`https://example.com/?test=1234&jpal_tracking_code=${trackingCode}`)
+    expect(response.requestUrl).toBe(`https://example.com/?test=1234&jpal_tracking_code=${trackingCode}`)
   })
 
   it('should fetch with POST from mapped url and return data', async () => {

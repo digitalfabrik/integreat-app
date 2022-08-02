@@ -1,5 +1,6 @@
 /* eslint-disable no-console */
 import * as Sentry from '@sentry/react-native'
+import { SeverityLevel } from '@sentry/types'
 
 import { FetchError, NotFoundError } from 'api-client'
 
@@ -21,30 +22,26 @@ export const initSentry = (): void => {
   })
 }
 
-export const log = (message: string, level = 'debug'): void => {
+export const log = (message: string, level: SeverityLevel = 'debug'): void => {
   if (sentryEnabled()) {
-    Sentry.addBreadcrumb({
-      message,
-      level: Sentry.Severity.fromString(level),
-    })
+    Sentry.addBreadcrumb({ message, level })
   }
   if (developerFriendly()) {
     switch (level) {
-      case Sentry.Severity.Fatal:
-      case Sentry.Severity.Critical:
-      case Sentry.Severity.Error:
+      case 'fatal':
+      case 'error':
         console.error(message)
         break
-      case Sentry.Severity.Warning:
+      case 'warning':
         console.warn(message)
         break
-      case Sentry.Severity.Log:
+      case 'log':
         console.log(message)
         break
-      case Sentry.Severity.Info:
+      case 'info':
         console.info(message)
         break
-      case Sentry.Severity.Debug:
+      case 'debug':
         console.debug(message)
         break
     }
