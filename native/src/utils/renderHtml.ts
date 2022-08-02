@@ -1,5 +1,4 @@
 import { ThemeType } from 'build-configs'
-import { config } from 'translations'
 
 import { ParsedCacheDictionaryType } from '../components/Page'
 import { ERROR_MESSAGE_TYPE, getFontFaceSource, HEIGHT_MESSAGE_TYPE, WARNING_MESSAGE_TYPE } from '../constants/webview'
