@@ -15,13 +15,12 @@ const WORKFLOW_TYPES = [
   'delivery',
 ]
 
-program.requiredOption('--api-token <api-token>', 'circleci api token')
-
 program
   .command('trigger <workflow-type>')
   .description(`trigger a workflow in the ci on the main branch`)
-  .action(async (workflowType: string) => {
-    const { apiToken } = program.opts()
+  .requiredOption('--api-token <api-token>', 'circleci api token')
+  .action(async (workflowType: string, options: { apiToken: string }) => {
+    const { apiToken } = options
     try {
       if (!WORKFLOW_TYPES.includes(workflowType)) {
         throw new Error(`Only the following workflow types are supported: ${WORKFLOW_TYPES}`)
