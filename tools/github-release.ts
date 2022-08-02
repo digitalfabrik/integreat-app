@@ -8,7 +8,7 @@ program
     '--deliverino-private-key <deliverino-private-key>',
     'private key of the deliverino github app in pem format with base64 encoding'
   )
-  .requiredOption('--owner <owner>', 'owner of the current repository, usually "Integreat"')
+  .requiredOption('--owner <owner>', 'owner of the current repository, usually "digitalfabrik"')
   .requiredOption('--repo <repo>', 'the current repository, should be integreat-app')
   .requiredOption('--release-notes <release-notes>', 'the release notes (for the selected platform) as JSON string')
   .option('--download-links <download-links>', 'the download links of the artifacts (for the selected platform)')
