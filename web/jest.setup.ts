@@ -44,11 +44,11 @@ Object.defineProperty(window, 'matchMedia', {
     removeListener: jest.fn(), // Deprecated
     addEventListener: jest.fn(),
     removeEventListener: jest.fn(),
-    dispatchEvent: jest.fn()
-  }))
+    dispatchEvent: jest.fn(),
+  })),
 })
 
 Object.defineProperty(URL, 'createObjectURL', {
   writable: true,
-  value: jest.fn()
+  value: jest.fn(),
 })

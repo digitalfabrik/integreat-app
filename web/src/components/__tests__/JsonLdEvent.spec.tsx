@@ -10,7 +10,7 @@ describe('JsonLdEvent', () => {
     const dateModel = new DateModel({
       startDate: moment('2017-11-18T09:30:00.000Z'),
       endDate: moment('2017-11-19T09:30:00.000Z'),
-      allDay: false
+      allDay: false,
     })
     const locationModel = new LocationModel({
       id: 1,
@@ -20,7 +20,7 @@ describe('JsonLdEvent', () => {
       postcode: '86153',
       country: 'DE',
       latitude: null,
-      longitude: null
+      longitude: null,
     })
     const eventModel = new EventModel({
       path: '/events/event0',
@@ -37,24 +37,24 @@ describe('JsonLdEvent', () => {
         thumbnail: {
           url: '/thumbnail.jpg',
           width: 10,
-          height: 10
+          height: 10,
         },
         medium: {
           url: '/medium.jpg',
           width: 20,
-          height: 20
+          height: 20,
         },
         large: {
           url: '/medium.jpg',
           width: 30,
-          height: 30
+          height: 30,
         },
         full: {
           url: '/full.jpg',
           width: 40,
-          height: 40
-        }
-      })
+          height: 40,
+        },
+      }),
     })
     const formatter = new DateFormatter('en')
     expect(createJsonLd(eventModel, formatter)).toEqual({
@@ -72,11 +72,11 @@ describe('JsonLdEvent', () => {
           streetAddress: 'Wertachstr. 29',
           addressLocality: 'Augsburg',
           postalCode: '86153',
-          addressCountry: 'DE'
-        }
+          addressCountry: 'DE',
+        },
       },
       endDate: '2017-11-19T10:30:00+01:00',
-      image: ['/thumbnail.jpg', '/medium.jpg', '/medium.jpg', '/full.jpg']
+      image: ['/thumbnail.jpg', '/medium.jpg', '/medium.jpg', '/full.jpg'],
     })
   })
 })
