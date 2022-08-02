@@ -1,7 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`Caption should render 1`] = `
-<styled.h1>
-  Test Title
-</styled.h1>
-`;

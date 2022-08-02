@@ -2,12 +2,30 @@ import { fireEvent } from '@testing-library/react'
 import React from 'react'
 
 import { renderWithRouter } from '../../testing/render'
+import { renderWithBrowserRouter } from '../../testing/render'
 import { Header } from '../Header'
 import HeaderActionItemLink from '../HeaderActionItemLink'
 import HeaderNavigationItem from '../HeaderNavigationItem'
 import KebabActionItemLink from '../KebabActionItemLink'
 
 describe('Header', () => {
+  it('should render correctly', () => {
+    const cityName = 'TestCity'
+
+    const { getByText } = renderWithBrowserRouter(
+      <Header
+        logoHref='/random_route'
+        actionItems={[]}
+        kebabItems={[]}
+        navigationItems={[]}
+        viewportSmall
+        cityName={cityName}
+        direction='ltr'
+      />,
+      { wrapWithTheme: true }
+    )
+    expect(getByText(cityName)).toBeDefined()
+  })
   it('should render KebabMenu with elements on small viewport', () => {
     const { getByTestId } = renderWithRouter(
       <Header
