@@ -1,5 +1,4 @@
 import React, { ReactNode } from 'react'
-import { Col } from 'react-styled-flexboxgrid'
 import styled from 'styled-components'
 
 import TileModel from '../models/TileModel'
@@ -40,7 +39,7 @@ const TileTitle = styled.div`
   text-align: center;
 `
 
-const TileContainer = styled(Col)`
+const TileContainer = styled.div`
   margin-bottom: 20px;
 
   & > a,
@@ -99,11 +98,7 @@ class Tile extends React.PureComponent<PropsType> {
   }
 
   render(): ReactNode {
-    return (
-      <TileContainer xs={6} sm={4} md={3}>
-        {this.getTile()}
-      </TileContainer>
-    )
+    return <TileContainer>{this.getTile()}</TileContainer>
   }
 }
 
