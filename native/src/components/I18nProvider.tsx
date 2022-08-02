@@ -36,8 +36,8 @@ export default ({ children }: PropsType): ReactElement | null => {
       const setContentLanguageAction: SetContentLanguageActionType = {
         type: 'SET_CONTENT_LANGUAGE',
         params: {
-          contentLanguage: contentLanguage || uiLanguage
-        }
+          contentLanguage: contentLanguage || uiLanguage,
+        },
       }
       dispatch(setContentLanguageAction)
     },
@@ -57,11 +57,11 @@ export default ({ children }: PropsType): ReactElement | null => {
         load: 'currentOnly',
         // If this is set to 'all' then i18next will try to load zh which is not in supportedLngs
         interpolation: {
-          escapeValue: false
+          escapeValue: false,
           /* Escaping is not needed for react apps:
              https://github.com/i18next/react-i18next/issues/277 */
         },
-        debug: buildConfig().featureFlags.developerFriendly
+        debug: buildConfig().featureFlags.developerFriendly,
       })
       // A language mentioned in the supportedLanguages array of the config.js in the translations package
       const matchedLanguage = i18nextInstance.languages[0]!

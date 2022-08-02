@@ -36,7 +36,7 @@ export default (baseUrl: string): Endpoint<ParamsType, Array<EventModel>> =>
               date: new DateModel({
                 startDate: moment.tz(`${eventData.start_date} ${startTime}`, eventData.timezone),
                 endDate: moment.tz(`${eventData.end_date} ${endTime}`, eventData.timezone),
-                allDay
+                allDay,
               }),
               location:
                 event.location.id !== null
@@ -48,7 +48,7 @@ export default (baseUrl: string): Endpoint<ParamsType, Array<EventModel>> =>
                       postcode: event.location.postcode,
                       country: event.location.country,
                       latitude: event.location.latitude,
-                      longitude: event.location.longitude
+                      longitude: event.location.longitude,
                     })
                   : null,
               excerpt: decodeHTML(event.excerpt),
@@ -60,9 +60,9 @@ export default (baseUrl: string): Endpoint<ParamsType, Array<EventModel>> =>
                     thumbnail: event.featured_image.thumbnail[0]!,
                     medium: event.featured_image.medium[0]!,
                     large: event.featured_image.large[0]!,
-                    full: event.featured_image.full[0]!
+                    full: event.featured_image.full[0]!,
                   })
-                : null
+                : null,
             })
           })
           .sort((event1, event2) => {

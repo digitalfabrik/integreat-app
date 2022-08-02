@@ -25,7 +25,7 @@ jest.mock('api-client', () => {
         .withResponseOverride(mockLanguages)
         .withMapper(() => undefined)
         .build()
-    }
+    },
   }
 })
 describe('loadLanguages', () => {

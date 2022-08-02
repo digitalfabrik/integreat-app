@@ -12,8 +12,8 @@ jest.mock('react-i18next')
 jest.mock('api-client', () => ({
   ...jest.requireActual('api-client'),
   createFeedbackEndpoint: () => ({
-    request: () => undefined
-  })
+    request: () => undefined,
+  }),
 }))
 
 describe('FeedbackModal', () => {
@@ -35,7 +35,7 @@ describe('FeedbackModal', () => {
       </ThemeProvider>
     )
     const button = getByRole('button', {
-      name: 'feedback:send'
+      name: 'feedback:send',
     })
     fireEvent.click(button)
     // Needed as submitFeedback is asynchronous

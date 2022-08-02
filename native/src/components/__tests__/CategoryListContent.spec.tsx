@@ -6,7 +6,7 @@ import 'react-native/Libraries/Utilities/useWindowDimensions'
 import CategoryListContent from '../CategoryListContent'
 
 jest.mock('react-native/Libraries/Utilities/useWindowDimensions', () => ({
-  default: jest.fn(() => ({ width: 1234 }))
+  default: jest.fn(() => ({ width: 1234 })),
 }))
 jest.mock('../TimeStamp', () => ({ lastUpdate }: { lastUpdate: Moment }) => {
   const { Text } = require('react-native')

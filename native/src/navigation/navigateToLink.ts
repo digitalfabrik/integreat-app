@@ -25,30 +25,30 @@ const navigateToLink = async <T extends RoutesType>(
     sendTrackingSignal({
       signal: {
         name: OPEN_MEDIA_SIGNAL_NAME,
-        url
-      }
+        url,
+      },
     })
     navigation.navigate(PDF_VIEW_MODAL_ROUTE, {
       url,
-      shareUrl
+      shareUrl,
     })
   } else if (SUPPORTED_IMAGE_FILE_TYPES.some(it => url.includes(it))) {
     sendTrackingSignal({
       signal: {
         name: OPEN_MEDIA_SIGNAL_NAME,
-        url
-      }
+        url,
+      },
     })
     navigation.navigate(IMAGE_VIEW_MODAL_ROUTE, {
       url,
-      shareUrl
+      shareUrl,
     })
   } else if (HIJACK.test(url)) {
     sendTrackingSignal({
       signal: {
         name: OPEN_INTERNAL_LINK_SIGNAL_NAME,
-        url
-      }
+        url,
+      },
     })
     const { pathname } = new Url(url)
     const routeParser = new InternalPathnameParser(pathname, language, buildConfig().featureFlags.fixedCity)

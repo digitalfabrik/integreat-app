@@ -13,7 +13,7 @@ import {
   OFFERS_ROUTE,
   POIS_ROUTE,
   SEARCH_ROUTE,
-  SPRUNGBRETT_OFFER_ROUTE
+  SPRUNGBRETT_OFFER_ROUTE,
 } from 'api-client/src/routes'
 import { RouteInformationType } from 'api-client/src/routes/RouteInformationTypes'
 
@@ -44,8 +44,8 @@ const createNavigate =
           signal: {
             name: OPEN_PAGE_SIGNAL_NAME,
             pageType: routeInformation.route,
-            url
-          }
+            url,
+          },
         })
       }
 
@@ -60,7 +60,7 @@ const createNavigate =
       }
       if (routeInformation.route === CITY_NOT_COOPERATING_ROUTE) {
         navigateToCityNotCooperating({
-          navigation
+          navigation,
         })
         return
       }
@@ -77,7 +77,7 @@ const createNavigate =
         dispatch,
         navigation,
         cityCode,
-        languageCode
+        languageCode,
       }
 
       switch (routeInformation.route) {
@@ -88,7 +88,7 @@ const createNavigate =
             routeName: route === CATEGORIES_ROUTE ? CATEGORIES_ROUTE : DASHBOARD_ROUTE,
             cityContentPath: routeInformation.cityContentPath,
             key,
-            forceRefresh
+            forceRefresh,
           })
           return
 
@@ -108,7 +108,7 @@ const createNavigate =
           navigateToNews({
             ...params,
             type: routeInformation.newsType,
-            newsId: routeInformation.newsId
+            newsId: routeInformation.newsId,
           })
           return
 
@@ -129,7 +129,7 @@ const createNavigate =
             urlSlug: routeInformation.urlSlug,
             cityContentPath: routeInformation.cityContentPath,
             key,
-            forceRefresh
+            forceRefresh,
           })
           return
 
@@ -147,7 +147,7 @@ const createNavigate =
       type: 'route',
       id: routeInformation?.route ?? '',
       language: routeInformation?.languageCode ?? 'en',
-      city: routeInformation?.cityCode ?? ''
+      city: routeInformation?.cityCode ?? '',
     })
     showSnackbar(dispatch, error.message)
   }

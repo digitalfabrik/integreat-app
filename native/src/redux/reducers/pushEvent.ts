@@ -30,18 +30,18 @@ const getEventRouteState = (
       language,
       city,
       models: events,
-      allAvailableLanguages
+      allAvailableLanguages,
     }
 
     if (status === 'loading') {
       return {
         status: 'loading',
-        ...eventRouteState
+        ...eventRouteState,
       }
     }
     return {
       status: 'ready',
-      ...eventRouteState
+      ...eventRouteState,
     }
   }
 
@@ -55,7 +55,7 @@ const getEventRouteState = (
       city,
       status: 'error',
       message: `Could not find an event with path '${currentPath}'.`,
-      code: ErrorCode.PageNotFound
+      code: ErrorCode.PageNotFound,
     }
   }
 
@@ -66,20 +66,20 @@ const getEventRouteState = (
     models: [event],
     allAvailableLanguages,
     language,
-    city
+    city,
   }
 
   if (status === 'loading') {
     return {
       routeType: EVENTS_ROUTE,
       status: 'loading',
-      ...eventRouteState
+      ...eventRouteState,
     }
   }
   return {
     routeType: EVENTS_ROUTE,
     status: 'ready',
-    ...eventRouteState
+    ...eventRouteState,
   }
 }
 
@@ -111,8 +111,8 @@ const pushEvent = (state: CityContentStateType, action: PushEventActionType): Ci
     resourceCache: {
       status: 'ready',
       progress: 1,
-      value: newResourceCache
-    }
+      value: newResourceCache,
+    },
   }
 }
 

@@ -23,7 +23,7 @@ describe('pushCategory', () => {
       parentPath,
       order: 0,
       availableLanguages,
-      lastUpdate: moment('2017-11-18 19:30:00', moment.ISO_8601)
+      lastUpdate: moment('2017-11-18 19:30:00', moment.ISO_8601),
     })
 
   const rootCategory = buildCategory(true, '/augsburg/de', 'Stadt Augsburg', '', new Map())
@@ -57,8 +57,8 @@ describe('pushCategory', () => {
       depth: 1,
       key: 'route-id-0',
       refresh: false,
-      ...params
-    }
+      ...params,
+    },
   })
 
   const prepareState = (state: Partial<CityContentStateType> = {}): CityContentStateType => {
@@ -76,17 +76,17 @@ describe('pushCategory', () => {
           models: {
             '/augsburg/de': rootCategory,
             '/augsburg/de/sub': subCategory,
-            '/augsburg/de/sub/sub': subSubCategory
+            '/augsburg/de/sub/sub': subSubCategory,
           },
           children: {
             '/augsburg/de': ['/augsburg/de/sub'],
-            '/augsburg/de/sub': ['/augsburg/de/sub/sub']
-          }
-        }
+            '/augsburg/de/sub': ['/augsburg/de/sub/sub'],
+          },
+        },
       },
       languages: {
         status: 'ready',
-        models: languageModels
+        models: languageModels,
       },
       resourceCache: {
         status: 'ready',
@@ -96,15 +96,15 @@ describe('pushCategory', () => {
             'some-url': {
               filePath: 'some-path',
               lastUpdate: moment('2017-11-18 19:30:00', moment.ISO_8601),
-              hash: '123456'
-            }
-          }
-        }
+              hash: '123456',
+            },
+          },
+        },
       },
       searchRoute: {
-        categoriesMap
+        categoriesMap,
       },
-      switchingLanguage: false
+      switchingLanguage: false,
     }
     return { ...defaultState, ...state }
   }
@@ -115,8 +115,8 @@ describe('pushCategory', () => {
       resourceCache: {
         status: 'ready',
         progress: 0,
-        value: {}
-      }
+        value: {},
+      },
     })
     const pushCategoryAction = createPushAction()
 
@@ -129,20 +129,20 @@ describe('pushCategory', () => {
             path: '/augsburg/de',
             allAvailableLanguages: new Map([
               ['en', '/augsburg/en'],
-              ['de', '/augsburg/de']
+              ['de', '/augsburg/de'],
             ]),
             children: {
-              '/augsburg/de': ['/augsburg/de/sub']
+              '/augsburg/de': ['/augsburg/de/sub'],
             },
             city: 'augsburg',
             depth: 1,
             language: 'de',
             models: {
               '/augsburg/de': rootCategory,
-              '/augsburg/de/sub': subCategory
-            }
-          }
-        }
+              '/augsburg/de/sub': subCategory,
+            },
+          },
+        },
       })
     )
   })
@@ -151,8 +151,8 @@ describe('pushCategory', () => {
       resourceCache: {
         status: 'ready',
         progress: 0,
-        value: {}
-      }
+        value: {},
+      },
     })
     const pushCategoryAction = createPushAction({ path: '/augsburg/de/sub', key: 'route-id-1' })
 
@@ -165,20 +165,20 @@ describe('pushCategory', () => {
             path: '/augsburg/de/sub',
             allAvailableLanguages: new Map([
               ['en', '/augsburg/en/sub'],
-              ['de', '/augsburg/de/sub']
+              ['de', '/augsburg/de/sub'],
             ]),
             children: {
-              '/augsburg/de/sub': ['/augsburg/de/sub/sub']
+              '/augsburg/de/sub': ['/augsburg/de/sub/sub'],
             },
             city: 'augsburg',
             depth: 1,
             language: 'de',
             models: {
               '/augsburg/de/sub': subCategory,
-              '/augsburg/de/sub/sub': subSubCategory
-            }
-          }
-        }
+              '/augsburg/de/sub/sub': subSubCategory,
+            },
+          },
+        },
       })
     )
   })
@@ -198,16 +198,16 @@ describe('pushCategory', () => {
         'another-url': {
           filePath: 'another-path',
           lastUpdate: moment('2017-11-18 19:30:00', moment.ISO_8601),
-          hash: '123456'
-        }
-      }
+          hash: '123456',
+        },
+      },
     }
     const pushCategoryAction = createPushAction({
       categoriesMap: testumgebungCategoriesMap,
       resourceCache,
       city: 'testumgebung',
       path: '/testumgebung/de',
-      key: 'route-id-0'
+      key: 'route-id-0',
     })
 
     expect(cityContentReducer(prevState, pushCategoryAction)).toEqual(
@@ -216,8 +216,8 @@ describe('pushCategory', () => {
         resourceCache: {
           status: 'ready',
           progress: 1,
-          value: { ...prevResources, ...resourceCache }
-        }
+          value: { ...prevResources, ...resourceCache },
+        },
       })
     )
   })
@@ -228,16 +228,16 @@ describe('pushCategory', () => {
       resourceCache: {
         status: 'ready',
         progress: 0,
-        value: {}
-      }
+        value: {},
+      },
     })
 
     const pushCategoryAction = createPushAction()
     expect(cityContentReducer(prevState, pushCategoryAction)).toEqual(
       expect.objectContaining({
         searchRoute: {
-          categoriesMap
-        }
+          categoriesMap,
+        },
       })
     )
   })
@@ -248,8 +248,8 @@ describe('pushCategory', () => {
       resourceCache: {
         status: 'ready',
         progress: 0,
-        value: {}
-      }
+        value: {},
+      },
     })
 
     const nonExistingPath = '/augsburg/de/nonexisting'
@@ -265,9 +265,9 @@ describe('pushCategory', () => {
             city: 'augsburg',
             status: 'error',
             message: `Could not find a category with path '${nonExistingPath}'.`,
-            code: ErrorCode.PageNotFound
-          }
-        }
+            code: ErrorCode.PageNotFound,
+          },
+        },
       })
     )
   })

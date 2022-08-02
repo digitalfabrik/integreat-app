@@ -11,7 +11,7 @@ import {
   POIS_ROUTE,
   SEARCH_ROUTE,
   SPRUNGBRETT_OFFER_ROUTE,
-  TU_NEWS_TYPE
+  TU_NEWS_TYPE,
 } from '..'
 
 import { cityContentPath, pathnameFromRouteInformation } from '../pathname'
@@ -26,7 +26,7 @@ describe('pathname', () => {
         cityCode,
         languageCode,
         route: OFFERS_ROUTE,
-        path: SPRUNGBRETT_OFFER_ROUTE
+        path: SPRUNGBRETT_OFFER_ROUTE,
       })
       expect(pathname).toBe('/augsburg/de/offers/sprungbrett')
     })
@@ -34,7 +34,7 @@ describe('pathname', () => {
       const pathname = cityContentPath({
         cityCode,
         languageCode,
-        route: EVENTS_ROUTE
+        route: EVENTS_ROUTE,
       })
       expect(pathname).toBe('/augsburg/de/events')
     })
@@ -42,14 +42,14 @@ describe('pathname', () => {
       const pathname = cityContentPath({
         cityCode,
         languageCode,
-        path: 'willkommen/ankommen'
+        path: 'willkommen/ankommen',
       })
       expect(pathname).toBe('/augsburg/de/willkommen/ankommen')
     })
     it('should return correct pathname for city content routes without route or path', () => {
       const pathname = cityContentPath({
         cityCode,
-        languageCode
+        languageCode,
       })
       expect(pathname).toBe('/augsburg/de')
     })
@@ -59,7 +59,7 @@ describe('pathname', () => {
       expect(
         pathnameFromRouteInformation({
           route: LANDING_ROUTE,
-          languageCode
+          languageCode,
         })
       ).toBe(`/${LANDING_ROUTE}/${languageCode}`)
     })
@@ -67,7 +67,7 @@ describe('pathname', () => {
       expect(
         pathnameFromRouteInformation({
           route: JPAL_TRACKING_ROUTE,
-          trackingCode: 'abcdef12345'
+          trackingCode: 'abcdef12345',
         })
       ).toBe('/jpal')
     })
@@ -77,7 +77,7 @@ describe('pathname', () => {
           route: DASHBOARD_ROUTE,
           languageCode: 'ar',
           cityCode,
-          cityContentPath: `/${cityCode}/ar`
+          cityContentPath: `/${cityCode}/ar`,
         })
       ).toBe(`/${cityCode}/ar`)
     })
@@ -87,7 +87,7 @@ describe('pathname', () => {
           route: EVENTS_ROUTE,
           languageCode,
           cityCode,
-          cityContentPath: undefined
+          cityContentPath: undefined,
         })
       ).toBe(`/${cityCode}/${languageCode}/${EVENTS_ROUTE}`)
     })
@@ -98,7 +98,7 @@ describe('pathname', () => {
           route: EVENTS_ROUTE,
           languageCode,
           cityCode,
-          cityContentPath: pathname
+          cityContentPath: pathname,
         })
       ).toBe(pathname)
     })
@@ -108,7 +108,7 @@ describe('pathname', () => {
           route: POIS_ROUTE,
           languageCode,
           cityCode,
-          cityContentPath: undefined
+          cityContentPath: undefined,
         })
       ).toBe(`/${cityCode}/${languageCode}/${POIS_ROUTE}`)
     })
@@ -120,7 +120,7 @@ describe('pathname', () => {
           route: POIS_ROUTE,
           languageCode,
           cityCode,
-          urlSlug
+          urlSlug,
         })
       ).toBe(pathname)
     })
@@ -129,7 +129,7 @@ describe('pathname', () => {
         pathnameFromRouteInformation({
           route: DISCLAIMER_ROUTE,
           languageCode,
-          cityCode
+          cityCode,
         })
       ).toBe(`/${cityCode}/${languageCode}/${DISCLAIMER_ROUTE}`)
     })
@@ -138,7 +138,7 @@ describe('pathname', () => {
         pathnameFromRouteInformation({
           route: OFFERS_ROUTE,
           languageCode,
-          cityCode
+          cityCode,
         })
       ).toBe(`/${cityCode}/${languageCode}/${OFFERS_ROUTE}`)
     })
@@ -147,7 +147,7 @@ describe('pathname', () => {
         pathnameFromRouteInformation({
           route: SPRUNGBRETT_OFFER_ROUTE,
           languageCode,
-          cityCode
+          cityCode,
         })
       ).toBe(`/${cityCode}/${languageCode}/${OFFERS_ROUTE}/${SPRUNGBRETT_OFFER_ROUTE}`)
     })
@@ -156,7 +156,7 @@ describe('pathname', () => {
         pathnameFromRouteInformation({
           route: SEARCH_ROUTE,
           languageCode,
-          cityCode
+          cityCode,
         })
       ).toBe(`/${cityCode}/${languageCode}/${SEARCH_ROUTE}`)
     })
@@ -167,7 +167,7 @@ describe('pathname', () => {
           newsType: LOCAL_NEWS_TYPE,
           newsId: undefined,
           languageCode,
-          cityCode
+          cityCode,
         })
       ).toBe(`/${cityCode}/${languageCode}/${NEWS_ROUTE}/${LOCAL_NEWS_TYPE}`)
     })
@@ -178,7 +178,7 @@ describe('pathname', () => {
           newsType: LOCAL_NEWS_TYPE,
           newsId: '1234',
           languageCode,
-          cityCode
+          cityCode,
         })
       ).toBe(`/${cityCode}/${languageCode}/${NEWS_ROUTE}/${LOCAL_NEWS_TYPE}/1234`)
     })
@@ -189,7 +189,7 @@ describe('pathname', () => {
           newsType: TU_NEWS_TYPE,
           newsId: undefined,
           languageCode,
-          cityCode
+          cityCode,
         })
       ).toBe(`/${cityCode}/${languageCode}/${NEWS_ROUTE}/${TU_NEWS_TYPE}`)
     })
@@ -200,7 +200,7 @@ describe('pathname', () => {
           newsType: TU_NEWS_TYPE,
           newsId: '1234',
           languageCode,
-          cityCode
+          cityCode,
         })
       ).toBe(`/${cityCode}/${languageCode}/${NEWS_ROUTE}/${TU_NEWS_TYPE}/1234`)
     })
@@ -211,7 +211,7 @@ describe('pathname', () => {
           route: CATEGORIES_ROUTE,
           languageCode,
           cityCode,
-          cityContentPath: pathname
+          cityContentPath: pathname,
         })
       ).toBe(pathname)
     })

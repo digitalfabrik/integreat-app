@@ -36,7 +36,7 @@ const ContactItem: React.FC<ContactItemProps> = ({
   iconSrc,
   iconAlt,
   link,
-  content
+  content,
 }: ContactItemProps): ReactElement => (
   <Link to={link}>
     <Marker src={iconSrc} alt={iconAlt} />

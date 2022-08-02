@@ -10,14 +10,14 @@ const AppStateListener = (): ReactElement | null => {
     if (nextAppState === 'active') {
       sendTrackingSignal({
         signal: {
-          name: RESUME_SIGNAL_NAME
-        }
+          name: RESUME_SIGNAL_NAME,
+        },
       })
     } else if (nextAppState === 'background') {
       sendTrackingSignal({
         signal: {
-          name: SUSPEND_SIGNAL_NAME
-        }
+          name: SUSPEND_SIGNAL_NAME,
+        },
       })
     }
   }

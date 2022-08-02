@@ -11,18 +11,18 @@ const selectorItems: [SelectorItemModel, SelectorItemModel, SelectorItemModel] =
   new SelectorItemModel({
     code: 'en',
     href: '/augsburg/en/',
-    name: 'English'
+    name: 'English',
   }),
   new SelectorItemModel({
     code: 'de',
     href: '/augsburg/de/',
-    name: 'Deutsch'
+    name: 'Deutsch',
   }),
   new SelectorItemModel({
     code: 'fr',
     href: null,
-    name: 'Französisch'
-  })
+    name: 'Französisch',
+  }),
 ]
 
 describe('Selector', () => {

@@ -24,13 +24,13 @@ const ThemedSearchBar = ({ theme: { colors }, onChangeText, value, autofocus, t 
       backgroundColor: colors.backgroundAccentColor,
       borderTopColor: colors.backgroundAccentColor,
       borderBottomColor: colors.backgroundAccentColor,
-      padding: 4
+      padding: 4,
     }}
     inputContainerStyle={{
-      backgroundColor: colors.backgroundColor
+      backgroundColor: colors.backgroundColor,
     }}
     inputStyle={{
-      backgroundColor: colors.backgroundColor
+      backgroundColor: colors.backgroundColor,
     }}
     // @ts-expect-error on change text is currently not typed correctly
     onChangeText={onChangeText}
