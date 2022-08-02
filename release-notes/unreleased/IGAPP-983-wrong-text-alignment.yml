@@ -1,0 +1,7 @@
+issue_key: IGAPP-983
+show_in_stores: true
+platforms:
+  - web
+  - ios
+  - android
+en: LTR text in RTL layouts is now displayed correctly.
