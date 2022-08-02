@@ -26,7 +26,7 @@ const NativeLanguageDetector: LanguageDetectorModule = {
     return supportedKeys.find(it => it !== undefined) ?? config.defaultFallback
   },
   init: (): void => undefined,
-  cacheUserLanguage: (): void => undefined
+  cacheUserLanguage: (): void => undefined,
 }
 
 export default NativeLanguageDetector

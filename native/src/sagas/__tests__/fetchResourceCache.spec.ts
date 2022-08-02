@@ -29,18 +29,18 @@ describe('fetchResourceCache', () => {
     await expectSaga(fetchResourceCache, city, language, fetchMap, dataContainer)
       .not.put.like({
         action: {
-          type: 'FETCH_RESOURCES_FAILED'
-        }
+          type: 'FETCH_RESOURCES_FAILED',
+        },
       })
       .run()
     const fetchedResources = await dataContainer.getResourceCache(city, language)
     const fetchedCount = {
       ...fetchedResources['/augsburg/en/category_0'],
-      ...fetchedResources['/augsburg/en/category_0/category_0']
+      ...fetchedResources['/augsburg/en/category_0/category_0'],
     }
     const expectedCount = {
       ...resources['/augsburg/en/category_0'],
-      ...resources['/augsburg/en/category_0/category_0']
+      ...resources['/augsburg/en/category_0/category_0'],
     }
     expect(Object.keys(fetchedCount)).toHaveLength(
       Object.keys(expectedCount).length - 1
@@ -61,8 +61,8 @@ describe('fetchResourceCache', () => {
         type: 'FETCH_RESOURCES_FAILED',
         params: {
           message: 'Error in fetchResourceCache: Already fetching!',
-          code: ErrorCode.UnknownError
-        }
+          code: ErrorCode.UnknownError,
+        },
       })
       .run()
     expect(reportError).toHaveBeenCalledTimes(1)

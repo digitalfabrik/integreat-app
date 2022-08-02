@@ -4,7 +4,7 @@ import {
   ShelterHostType,
   ShelterInfo,
   ShelterLanguage,
-  ShelterPeriod
+  ShelterPeriod,
 } from '../types'
 
 class ShelterModel {

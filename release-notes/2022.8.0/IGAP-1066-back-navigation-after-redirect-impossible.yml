@@ -1,0 +1,5 @@
+issue_key: IGAPP-1066
+show_in_stores: false
+platforms:
+  - web
+en: Fix back navigation after redirects

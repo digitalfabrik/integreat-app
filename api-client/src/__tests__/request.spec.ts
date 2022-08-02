@@ -30,9 +30,9 @@ describe('request', () => {
     expect(fetch).toHaveBeenCalledWith(url, {
       headers: {
         custom: 'custom',
-        'User-Agent': 'my-user-agent'
+        'User-Agent': 'my-user-agent',
       },
-      ...requestOptions
+      ...requestOptions,
     })
 
     const requestOptions2 = { method: 'GET' }
@@ -41,9 +41,9 @@ describe('request', () => {
     expect(fetch).toHaveBeenCalledTimes(2)
     expect(fetch).toHaveBeenCalledWith(url2, {
       headers: {
-        'User-Agent': 'my-user-agent'
+        'User-Agent': 'my-user-agent',
       },
-      ...requestOptions2
+      ...requestOptions2,
     })
   })
 })

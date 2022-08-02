@@ -36,8 +36,8 @@ function* watchOnProgress() {
       const progressAction: ResourcesFetchProgressActionType = {
         type: 'FETCH_RESOURCES_PROGRESS',
         params: {
-          progress
-        }
+          progress,
+        },
       }
       yield* put(progressAction)
     }
@@ -91,7 +91,7 @@ export default function* fetchResourceCache(
             acc[downloadResult.url] = {
               filePath,
               lastUpdate: moment(downloadResult.lastUpdate),
-              hash: fetchMapTarget.urlHash
+              hash: fetchMapTarget.urlHash,
             }
           }
 
@@ -107,8 +107,8 @@ export default function* fetchResourceCache(
       type: 'FETCH_RESOURCES_FAILED',
       params: {
         message: `Error in fetchResourceCache: ${getErrorMessage(e)}`,
-        code: fromError(e)
-      }
+        code: fromError(e),
+      },
     }
     yield* put(failed)
   }

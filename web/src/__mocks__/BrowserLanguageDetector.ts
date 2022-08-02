@@ -1,7 +1,7 @@
 const settings: {
   language?: string
 } = {
-  language: undefined
+  language: undefined,
 }
 export default {
   type: 'languageDetector',
@@ -19,5 +19,5 @@ export default {
   }),
   cacheUserLanguage: (language: string): void => {
     settings.language = language
-  }
+  },
 }

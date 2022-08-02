@@ -17,10 +17,10 @@ export const createJsonLd = (event: EventModel, formatter: DateFormatter): WithC
     name: event.title,
     startDate: date.allDay
       ? formatter.format(date.startDate, {
-          format: 'YYYY-MM-DD'
+          format: 'YYYY-MM-DD',
         }) // ISO 8601 date format
       : formatter.format(date.startDate, {
-          format: undefined
+          format: undefined,
         }),
     // ISO 8601 date-time format
     eventStatus: 'https://schema.org/EventScheduled',
@@ -33,9 +33,9 @@ export const createJsonLd = (event: EventModel, formatter: DateFormatter): WithC
         streetAddress: event.location.address,
         addressLocality: event.location.town,
         postalCode: event.location.postcode,
-        addressCountry: event.location.country
-      }
-    }
+        addressCountry: event.location.country,
+      },
+    },
   }
 
   if (date.endDate.isValid()) {
@@ -47,7 +47,7 @@ export const createJsonLd = (event: EventModel, formatter: DateFormatter): WithC
       event.featuredImage.thumbnail.url,
       event.featuredImage.medium.url,
       event.featuredImage.large.url,
-      event.featuredImage.full.url
+      event.featuredImage.full.url,
     ]
   }
 

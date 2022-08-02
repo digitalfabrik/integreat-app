@@ -19,9 +19,9 @@ describe('createTrackingEndpoint', () => {
     systemLanguage: 'de',
     appSettings: {
       allowPushNotifications: true,
-      errorTracking: false
+      errorTracking: false,
     },
-    timestamp: '2020-01-20T00:00:00.000Z'
+    timestamp: '2020-01-20T00:00:00.000Z',
   }
   it('should throw fetch error if fetch fails', async () => {
     const error = new Error('Das Internet ist kaputt!!!1!!!11elf!')
@@ -34,7 +34,7 @@ describe('createTrackingEndpoint', () => {
   it('should throw response error if response is not ok', async () => {
     fetch.mockResponseOnce('Invalid endpoint', {
       status: 500,
-      statusText: ' not ok'
+      statusText: ' not ok',
     })
 
     await expect(createTrackingEndpoint().request(signal)).rejects.toThrow(
@@ -48,9 +48,9 @@ describe('createTrackingEndpoint', () => {
       expect.objectContaining({
         headers: {
           Accept: 'application/json',
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
         },
-        method: 'POST'
+        method: 'POST',
       })
     )
   })
@@ -61,7 +61,7 @@ describe('createTrackingEndpoint', () => {
   it('should correctly map signal to body', async () => {
     const remainingProps = {
       query: 'some query',
-      feedback: {}
+      feedback: {},
     }
     const send = { ...signal, ...remainingProps }
     await createTrackingEndpoint().request(send)
@@ -83,10 +83,10 @@ describe('createTrackingEndpoint', () => {
             current_city: signal.currentCity,
             app_settings: {
               error_tracking: signal.appSettings.errorTracking,
-              allow_push_notifications: signal.appSettings.allowPushNotifications
-            }
-          }
-        })
+              allow_push_notifications: signal.appSettings.allowPushNotifications,
+            },
+          },
+        }),
       })
     )
   })

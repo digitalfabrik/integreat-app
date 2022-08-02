@@ -7,32 +7,32 @@ export const testTranslations: TranslationsType = {
       pageTitles: {
         notFound: 'Seite nicht gefunden',
         tunews: 'tünews',
-        localNews: 'Lokale Nachrichten'
+        localNews: 'Lokale Nachrichten',
       },
       metaDescription:
-        'Integreat ist Ihr digitaler Guide für Deutschland. Finden Sie lokale Informationen, Veranstaltungen und Beratung. Immer aktuell und in Ihrer Sprache.'
-    }
+        'Integreat ist Ihr digitaler Guide für Deutschland. Finden Sie lokale Informationen, Veranstaltungen und Beratung. Immer aktuell und in Ihrer Sprache.',
+    },
   },
   dashboard: {
     kmr: {
-      localInformation: 'Zanyariyên xwecihî'
+      localInformation: 'Zanyariyên xwecihî',
     },
     de: {
       localInformation: 'Lokale Informationen',
       offers: 'Angebote',
       events: 'Veranstaltungen',
       news: 'Nachrichten',
-      newsAlternative: 'Neuigkeiten'
+      newsAlternative: 'Neuigkeiten',
     },
     ar: {
       localInformation: 'معلومات محلية',
       offers: 'العروض',
-      events: 'الفعاليات'
+      events: 'الفعاليات',
     },
     'zh-CN': {
-      localInformation: '本地信息'
-    }
-  }
+      localInformation: '本地信息',
+    },
+  },
 }
 // eslint-disable-next-line no-unused-vars
 export const testOverrideTranslations: TranslationsType = {
@@ -40,14 +40,14 @@ export const testOverrideTranslations: TranslationsType = {
     de: {
       localInformation: 'Malte Informationen',
       offers: 'Malte Angebote',
-      news: 'Malte Nachrichten'
+      news: 'Malte Nachrichten',
     },
     en: {
       localInformation: 'Malte information',
       offers: 'Malte Offers',
-      events: 'Malte Events'
-    }
-  }
+      events: 'Malte Events',
+    },
+  },
 }
 
 const loadTranslations = (): TransformedTranslationsType => transformTranslations(testTranslations)

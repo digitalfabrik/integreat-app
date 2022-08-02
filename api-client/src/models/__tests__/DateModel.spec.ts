@@ -15,7 +15,7 @@ describe('DateModel', () => {
       const date = new DateModel({
         startDate,
         endDate,
-        allDay
+        allDay,
       })
       expect(locales.map(locale => `${locale}: ${date.toFormattedString(new DateFormatter(locale))}`)).toMatchSnapshot()
     })
@@ -26,7 +26,7 @@ describe('DateModel', () => {
       const date = new DateModel({
         startDate,
         endDate,
-        allDay
+        allDay,
       })
       expect(locales.map(locale => `${locale}: ${date.toFormattedString(new DateFormatter(locale))}`)).toMatchSnapshot()
     })
@@ -37,7 +37,7 @@ describe('DateModel', () => {
       const date = new DateModel({
         startDate,
         endDate,
-        allDay
+        allDay,
       })
       expect(locales.map(locale => `${locale}: ${date.toFormattedString(new DateFormatter(locale))}`)).toMatchSnapshot()
     })
@@ -48,7 +48,7 @@ describe('DateModel', () => {
       const date = new DateModel({
         startDate,
         endDate,
-        allDay
+        allDay,
       })
       expect(locales.map(locale => `${locale}: ${date.toFormattedString(new DateFormatter(locale))}`)).toMatchSnapshot()
     })
@@ -59,7 +59,7 @@ describe('DateModel', () => {
       const date = new DateModel({
         startDate,
         endDate,
-        allDay
+        allDay,
       })
       expect(locales.map(locale => `${locale}: ${date.toFormattedString(new DateFormatter(locale))}`)).toMatchSnapshot()
     })
@@ -70,7 +70,7 @@ describe('DateModel', () => {
       const date = new DateModel({
         startDate,
         endDate,
-        allDay
+        allDay,
       })
       expect(locales.map(locale => `${locale}: ${date.toFormattedString(new DateFormatter(locale))}`)).toMatchSnapshot()
     })

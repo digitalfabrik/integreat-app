@@ -25,7 +25,7 @@ const LanguageSelector = (props: PropsType): ReactElement => {
         new SelectorItemModel({
           code,
           name,
-          href: path
+          href: path,
         })
     ) ?? []
 

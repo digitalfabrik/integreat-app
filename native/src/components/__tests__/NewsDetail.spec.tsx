@@ -15,13 +15,13 @@ jest.mock('react-i18next')
 jest.mock('../../navigation/navigateToLink', () => jest.fn(Promise.resolve))
 jest.mock('../../hooks/useSnackbar')
 jest.mock('react-native/Libraries/Utilities/useWindowDimensions', () => ({
-  default: jest.fn(() => ({ width: 1234 }))
+  default: jest.fn(() => ({ width: 1234 })),
 }))
 jest.mock('react-redux', () => ({
-  useDispatch: jest.fn()
+  useDispatch: jest.fn(),
 }))
 jest.mock('@react-navigation/native', () => ({
-  useNavigation: () => mockNavigation
+  useNavigation: () => mockNavigation,
 }))
 jest.mock('styled-components')
 
@@ -33,13 +33,13 @@ const tuNews = new TunewsModel({
   date: moment('2020-01-20T00:00:00.000Z'),
   tags: [],
   content: testHTML,
-  eNewsNo: 'tun0000009902'
+  eNewsNo: 'tun0000009902',
 })
 const localNews = new LocalNewsModel({
   id: 9902,
   timestamp: moment('2020-01-20T00:00:00.000Z'),
   title: 'Test Push Notification',
-  message: 'Some test text mailto:app@integreat-app.de with lots of links https://integreat.app'
+  message: 'Some test text mailto:app@integreat-app.de with lots of links https://integreat.app',
 })
 
 describe('NewsDetail', () => {
@@ -59,7 +59,7 @@ describe('NewsDetail', () => {
   it('should correctly render a local news item', () => {
     const dateFormatter = new DateFormatter('de')
     const timestamp = dateFormatter.format(localNews.timestamp, {
-      format: 'LLL'
+      format: 'LLL',
     })
     const { getByText, queryByText } = renderNewsDetail(localNews)
     expect(getByText(localNews.title)).toBeTruthy()

@@ -34,7 +34,7 @@ describe('Events', () => {
         resourceCacheUrl='http://localhost:8080'
         language={language.code}
         resourceCache={{
-          notAvailable: {}
+          notAvailable: {},
         }}
         navigateTo={() => undefined}
         navigateToFeedback={() => undefined}
@@ -43,7 +43,7 @@ describe('Events', () => {
     const pageInstance = result.root.findByType(Page)
     expect(pageInstance.props).toEqual(
       expect.objectContaining({
-        files: {}
+        files: {},
       })
     )
   })

@@ -9,7 +9,7 @@ const getWindowDimensions = (): WindowDimensionsType => {
   return {
     width,
     height,
-    viewportSmall: width <= dimensions.maxWidthViewportSmall
+    viewportSmall: width <= dimensions.maxWidthViewportSmall,
   }
 }
 

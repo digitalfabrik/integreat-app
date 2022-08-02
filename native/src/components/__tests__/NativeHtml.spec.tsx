@@ -10,13 +10,13 @@ const mockNavigation = jest.fn()
 jest.mock('../../navigation/navigateToLink', () => jest.fn(Promise.resolve))
 jest.mock('../../hooks/useSnackbar')
 jest.mock('react-native/Libraries/Utilities/useWindowDimensions', () => ({
-  default: jest.fn(() => ({ width: 1234 }))
+  default: jest.fn(() => ({ width: 1234 })),
 }))
 jest.mock('react-redux', () => ({
-  useDispatch: jest.fn()
+  useDispatch: jest.fn(),
 }))
 jest.mock('@react-navigation/native', () => ({
-  useNavigation: () => mockNavigation
+  useNavigation: () => mockNavigation,
 }))
 jest.mock('styled-components')
 
@@ -25,7 +25,7 @@ describe('NativeHtml', () => {
   const url1 = 'https://so.me/url/thingy'
   const url2 = 'https://so.meoth.er/clicking/thingy'
   const cacheDictionary = {
-    [url2]: dictUrl
+    [url2]: dictUrl,
   }
   beforeEach(() => {
     jest.clearAllMocks()

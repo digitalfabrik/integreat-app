@@ -15,8 +15,8 @@ const useClearRouteOnClose = (
         dispatch({
           type: 'CLEAR_ROUTE',
           params: {
-            key: route.key
-          }
+            key: route.key,
+          },
         })
       }
     },

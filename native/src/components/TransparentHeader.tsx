@@ -54,20 +54,20 @@ const TransparentHeader = ({ navigation, route }: PropsType): ReactElement | nul
     const message = t('shareMessage', {
       message: shareUrl,
       interpolation: {
-        escapeValue: false
-      }
+        escapeValue: false,
+      },
     })
     sendTrackingSignal({
       signal: {
         name: SHARE_SIGNAL_NAME,
-        url: shareUrl
-      }
+        url: shareUrl,
+      },
     })
 
     try {
       await Share.share({
         message,
-        title: buildConfig().appName
+        title: buildConfig().appName,
       })
     } catch (e) {
       showSnackbar(t('generalError'))

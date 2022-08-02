@@ -14,8 +14,8 @@ export default {
     [
       'jest-junit',
       {
-        outputDirectory: '<rootDir>/../reports/unit-test'
-      }
-    ]
-  ]
+        outputDirectory: '<rootDir>/../reports/unit-test',
+      },
+    ],
+  ],
 }

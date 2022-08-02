@@ -19,7 +19,7 @@ describe('loadFromEndpoint', () => {
     const request = jest.fn(() =>
       Promise.resolve(
         createPayload({
-          data: 'myData'
+          data: 'myData',
         })
       )
     )
@@ -38,7 +38,7 @@ describe('loadFromEndpoint', () => {
     const request = jest.fn(() =>
       Promise.resolve(
         createPayload({
-          error
+          error,
         })
       )
     )

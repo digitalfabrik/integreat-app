@@ -8,7 +8,7 @@ import {
   MorphContentLanguageActionType,
   SetContentLanguageActionType,
   SwitchContentLanguageActionType,
-  SwitchContentLanguageFailedActionType
+  SwitchContentLanguageFailedActionType,
 } from '../redux/StoreActionType'
 import appSettings from '../utils/AppSettings'
 import { DataContainer } from '../utils/DataContainer'
@@ -33,7 +33,7 @@ export function* switchContentLanguage(
       new ContentLoadCriterion(
         {
           forceUpdate: false,
-          shouldRefreshResources: true
+          shouldRefreshResources: true,
         },
         false
       )
@@ -42,7 +42,7 @@ export function* switchContentLanguage(
       categories: call(dataContainer.getCategoriesMap, city, newLanguage),
       resourceCache: call(dataContainer.getResourceCache, city, newLanguage),
       events: call(dataContainer.getEvents, city, newLanguage),
-      pois: call(dataContainer.getPois, city, newLanguage)
+      pois: call(dataContainer.getPois, city, newLanguage),
     })
     const { selectedCity, contentLanguage, allowPushNotifications } = yield* call(appSettings.loadSettings)
 
@@ -56,8 +56,8 @@ export function* switchContentLanguage(
     const setContentLanguage: SetContentLanguageActionType = {
       type: 'SET_CONTENT_LANGUAGE',
       params: {
-        contentLanguage: newLanguage
-      }
+        contentLanguage: newLanguage,
+      },
     }
     yield* put(setContentLanguage)
     const insert: MorphContentLanguageActionType = {
@@ -67,24 +67,24 @@ export function* switchContentLanguage(
         newResourceCache: resourceCache,
         newEvents: events,
         newPois: pois,
-        newLanguage
-      }
+        newLanguage,
+      },
     }
     yield* put(insert)
   } catch (e) {
     const enqueueSnackbar: EnqueueSnackbarActionType = {
       type: 'ENQUEUE_SNACKBAR',
       params: {
-        text: fromError(e)
-      }
+        text: fromError(e),
+      },
     }
     yield* put(enqueueSnackbar)
     reportError(e)
     const failed: SwitchContentLanguageFailedActionType = {
       type: 'SWITCH_CONTENT_LANGUAGE_FAILED',
       params: {
-        message: `Error in switchContentLanguage: ${getErrorMessage(e)}`
-      }
+        message: `Error in switchContentLanguage: ${getErrorMessage(e)}`,
+      },
     }
     yield* put(failed)
   }

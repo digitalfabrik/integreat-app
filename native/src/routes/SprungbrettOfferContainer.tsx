@@ -12,7 +12,7 @@ import {
   SPRUNGBRETT_OFFER_ROUTE,
   SprungbrettJobModel,
   SprungbrettOfferRouteType,
-  useLoadFromEndpoint
+  useLoadFromEndpoint,
 } from 'api-client'
 
 import Failure from '../components/Failure'
@@ -46,7 +46,7 @@ const SprungbrettOfferContainer = ({ route, navigation }: Props): ReactElement =
     const apiUrl = await determineApiUrl()
     const offersPayload = await createOffersEndpoint(apiUrl).request({
       city: cityCode,
-      language: languageCode
+      language: languageCode,
     })
 
     if (offersPayload.error) {
@@ -62,7 +62,7 @@ const SprungbrettOfferContainer = ({ route, navigation }: Props): ReactElement =
         type: 'offer',
         id: alias,
         city: cityCode,
-        language: languageCode
+        language: languageCode,
       })
     }
 
@@ -73,7 +73,7 @@ const SprungbrettOfferContainer = ({ route, navigation }: Props): ReactElement =
     data: jobs,
     error: jobsError,
     loading,
-    refresh
+    refresh,
   } = useLoadFromEndpoint<Array<SprungbrettJobModel>>(requestJobs)
   useReportError(jobsError)
 
@@ -83,7 +83,7 @@ const SprungbrettOfferContainer = ({ route, navigation }: Props): ReactElement =
       cityCode,
       alias,
       language: languageCode,
-      isPositiveFeedback
+      isPositiveFeedback,
     })
   }
 
@@ -96,7 +96,7 @@ const SprungbrettOfferContainer = ({ route, navigation }: Props): ReactElement =
         type: 'category',
         id: 'offers',
         city: cityCode,
-        language: languageCode
+        language: languageCode,
       })
     return (
       <LayoutedScrollView refreshControl={<RefreshControl onRefresh={refresh} refreshing={loading} />}>

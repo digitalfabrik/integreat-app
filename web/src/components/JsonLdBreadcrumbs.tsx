@@ -11,8 +11,8 @@ export const createJsonLd = (breadcrumbs: Array<BreadcrumbModel>): WithContext<B
       '@type': 'ListItem',
       position: index + 1,
       name: breadcrumb.title,
-      item: breadcrumb.link
-    }))
+      item: breadcrumb.link,
+    })),
   })
 
 export class BreadcrumbModel {

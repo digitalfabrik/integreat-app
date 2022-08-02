@@ -5,7 +5,7 @@ import { NavigationPropType, RoutesType } from '../constants/NavigationTypes'
 const navigateToOffers = <T extends RoutesType>({
   navigation,
   cityCode,
-  languageCode
+  languageCode,
 }: {
   navigation: NavigationPropType<T>
   cityCode: string
@@ -15,8 +15,8 @@ const navigateToOffers = <T extends RoutesType>({
     name: OFFERS_ROUTE,
     params: {
       cityCode,
-      languageCode
-    }
+      languageCode,
+    },
   })
 }
 

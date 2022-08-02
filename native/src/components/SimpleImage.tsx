@@ -13,7 +13,7 @@ const getImageSource = (uri: string | number): ImageSourcePropType =>
     ? uri
     : {
         uri,
-        cache: 'reload'
+        cache: 'reload',
       }
 
 const SimpleImage = ({ source, style, resizeMode = 'contain' }: PropsType): ReactElement => {

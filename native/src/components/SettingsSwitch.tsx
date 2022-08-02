@@ -14,7 +14,7 @@ const SettingsSwitch = ({ value, onPress }: PropsType): ReactElement => {
       thumbColor={theme.colors.themeColor}
       trackColor={{
         true: theme.colors.themeColor,
-        false: theme.colors.textSecondaryColor
+        false: theme.colors.textSecondaryColor,
       }}
       value={value}
       onValueChange={onPress}

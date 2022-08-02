@@ -7,7 +7,7 @@ const navigateToNews = <T extends RoutesType>({
   cityCode,
   languageCode,
   type,
-  newsId
+  newsId,
 }: {
   navigation: NavigationPropType<T>
   cityCode: string
@@ -21,8 +21,8 @@ const navigateToNews = <T extends RoutesType>({
       cityCode,
       languageCode,
       newsId: newsId ?? null,
-      newsType: type
-    }
+      newsType: type,
+    },
   })
 }
 

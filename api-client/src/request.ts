@@ -12,7 +12,7 @@ export const getJpalTrackingCode = (): string | null => jpalTrackingCode
 export const setUserAgent = (userAgent: string): void => {
   defaultRequestOptions.headers = {
     ...defaultRequestOptions.headers,
-    'User-Agent': userAgent
+    'User-Agent': userAgent,
   }
 }
 
