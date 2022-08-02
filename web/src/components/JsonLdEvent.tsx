@@ -5,7 +5,7 @@ import { Event, WithContext } from 'schema-dts'
 import { EventModel } from 'api-client'
 import DateFormatter from 'api-client/src/i18n/DateFormatter'
 
-const createJsonLd = (event: EventModel, formatter: DateFormatter): WithContext<Event> | null => {
+export const createJsonLd = (event: EventModel, formatter: DateFormatter): WithContext<Event> | null => {
   if (!event.location) {
     return null
   }

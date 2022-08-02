@@ -7,9 +7,11 @@ import {
   ParamsType as ImportedFeedbackParamsType,
 } from './endpoints/createFeedbackEndpoint'
 import { Status as ImportedShelterContactStatus } from './endpoints/createShelterContactEndpoint'
+import { FilterProps as ImportedShelterFilterProps } from './endpoints/createShelterEndpoint'
 import { ReturnType as ImportedReturnType } from './endpoints/hooks/useLoadFromEndpoint'
 
 export type ShelterContactStatus = ImportedShelterContactStatus
+export type ShelterFilterProps = ImportedShelterFilterProps
 export type MapParamsToBodyType<P> = ImportedMapParamsToBodyType<P>
 export type MapParamsToUrlType<P> = ImportedMapParamsToUrlType<P>
 export type MapResponseType<P, T> = ImportedMapResponseType<P, T>
