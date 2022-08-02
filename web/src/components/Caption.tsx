@@ -17,6 +17,6 @@ type PropsType = {
   title: string
 }
 
-const Caption = ({ title }: PropsType): ReactElement => <H1>{title}</H1>
+const Caption = ({ title }: PropsType): ReactElement => <H1 dir='auto'>{title}</H1>
 
 export default Caption
