@@ -16,7 +16,7 @@ const getTileModels = (categories: Array<CategoryModel>): Array<TileModel> =>
       new TileModel({
         title: category.title,
         path: category.path,
-        thumbnail: category.thumbnail
+        thumbnail: category.thumbnail,
       })
   )
 
@@ -58,7 +58,7 @@ const CategoriesContent = ({ categories, categoryModel, formatter, t }: PropsTyp
     <CategoryList
       categories={children.map(model => ({
         model,
-        subCategories: categories.getChildren(model)
+        subCategories: categories.getChildren(model),
       }))}
       category={categoryModel}
       onInternalLinkClick={navigate}

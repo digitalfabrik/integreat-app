@@ -36,7 +36,7 @@ const EventListItem = ({ event, cityCode, language, navigateTo, theme }: PropsTy
       route: EVENTS_ROUTE,
       cityCode,
       languageCode: language,
-      cityContentPath: event.path
+      cityContentPath: event.path,
     })
   }, [navigateTo, cityCode, language, event])
   const thumbnail = event.thumbnail || getEventPlaceholder(event.path.length)

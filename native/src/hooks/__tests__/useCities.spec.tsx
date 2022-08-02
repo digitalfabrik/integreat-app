@@ -21,8 +21,8 @@ describe('useCities', () => {
     const state = {
       cities: {
         status: 'ready',
-        models: cities
-      }
+        models: cities,
+      },
     }
     const store = mockStore(state)
     const { getByText } = render(
@@ -37,8 +37,8 @@ describe('useCities', () => {
   it('should return null if cities are not ready', () => {
     const state = {
       cities: {
-        status: 'loading'
-      }
+        status: 'loading',
+      },
     }
     const store = mockStore(state)
     const { getByText } = render(

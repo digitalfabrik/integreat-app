@@ -4,7 +4,7 @@ import { Octokit } from '@octokit/rest'
 const authenticate = async ({
   deliverinoPrivateKey,
   owner,
-  repo
+  repo,
 }: {
   deliverinoPrivateKey: string
   owner: string
@@ -15,10 +15,10 @@ const authenticate = async ({
 
   const octokit = new Octokit({ authStrategy: createAppAuth, auth: { appId, privateKey } })
   const {
-    data: { id: installationId }
+    data: { id: installationId },
   } = await octokit.apps.getRepoInstallation({ owner, repo })
   const {
-    data: { token }
+    data: { token },
   } = await octokit.apps.createInstallationAccessToken({ installation_id: installationId })
 
   return new Octokit({ auth: token })

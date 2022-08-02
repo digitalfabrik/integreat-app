@@ -5,5 +5,5 @@ export default {
   requestAuthorization: jest.fn(),
   setConfiguration: jest.fn(),
   startObserving: jest.fn(),
-  stopObserving: jest.fn()
+  stopObserving: jest.fn(),
 }

@@ -16,7 +16,7 @@ class LocationModel<T> {
     postcode,
     country,
     latitude,
-    longitude
+    longitude,
   }: {
     id: number
     name: string

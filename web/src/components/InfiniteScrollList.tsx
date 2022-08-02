@@ -31,7 +31,7 @@ const InfiniteScrollList = <T,>({
   noItemsMessage,
   renderItem,
   defaultPage,
-  itemsPerPage
+  itemsPerPage,
 }: PropsType<T>): ReactElement => {
   const [data, setData] = useState<T[]>([])
   const [error, setError] = useState<Error | null>(null)
@@ -46,7 +46,7 @@ const InfiniteScrollList = <T,>({
       const request = () => loadPage(page)
       const addData = (data: T[] | null) => {
         if (data !== null) {
-          setData(oldData => oldData.concat(data))
+          setData(oldData => (page === defaultPage ? data : oldData.concat(data)))
           if (data.length !== itemsPerPage) {
             setHasMore(false)
           }
@@ -54,7 +54,7 @@ const InfiniteScrollList = <T,>({
       }
       await loadFromEndpoint(request, addData, setError, setLoading)
     }
-  }, [page, hasMore, itemsPerPage, loadPage])
+  }, [defaultPage, page, hasMore, itemsPerPage, loadPage])
 
   useEffect(
     () => () => {

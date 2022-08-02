@@ -15,7 +15,7 @@ describe('CategoriesRouteStateView', () => {
       order: 0,
       availableLanguages: new Map(),
       lastUpdate: moment('2017-11-18 19:30:00', moment.ISO_8601),
-      thumbnail: '/thumbnail.jpg'
+      thumbnail: '/thumbnail.jpg',
     }),
     '/augsburg/de/erste-hilfe': new CategoryModel({
       root: false,
@@ -26,7 +26,7 @@ describe('CategoriesRouteStateView', () => {
       order: 0,
       availableLanguages: new Map(),
       lastUpdate: moment('2017-11-18 19:30:00', moment.ISO_8601),
-      thumbnail: '/thumbnail.jpg'
+      thumbnail: '/thumbnail.jpg',
     }),
     '/augsburg/de/zweite-hilfe': new CategoryModel({
       root: false,
@@ -37,13 +37,13 @@ describe('CategoriesRouteStateView', () => {
       order: 0,
       availableLanguages: new Map(),
       lastUpdate: moment('2017-11-18 19:30:00', moment.ISO_8601),
-      thumbnail: '/thumbnail.jpg'
-    })
+      thumbnail: '/thumbnail.jpg',
+    }),
   }
   const children = {
     '/augsburg/de': ['/augsburg/de/erste-hilfe'],
     '/augsburg/de/erste-hilfe': ['/augsburg/de/zweite-hilfe'],
-    '/augsburg/de/zweite-hilfe': []
+    '/augsburg/de/zweite-hilfe': [],
   }
   it('should throw if accessing root while the root model is not available', () => {
     const stateView = new CategoriesRouteStateView('/augsburg/de/erste-hilfe', {}, {})

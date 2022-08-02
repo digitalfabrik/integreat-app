@@ -28,7 +28,7 @@ function* loadCategories(
   const categoriesPayload = yield* call(() =>
     createCategoriesEndpoint(apiUrl).request({
       city,
-      language
+      language,
     })
   )
   const categoriesMap = categoriesPayload.data

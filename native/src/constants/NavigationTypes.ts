@@ -44,7 +44,7 @@ import {
   FEEDBACK_MODAL_ROUTE,
   CITY_NOT_COOPERATING_ROUTE,
   CityNotCooperatingRouteType,
-  LICENSE_ROUTE
+  LICENSE_ROUTE,
 } from 'api-client'
 
 import { FeedbackInformationType } from '../components/FeedbackContainer'

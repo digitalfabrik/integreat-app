@@ -12,7 +12,7 @@ import {
   OFFERS_ROUTE,
   POIS_ROUTE,
   RouteInformationType,
-  TU_NEWS_TYPE
+  TU_NEWS_TYPE,
 } from 'api-client'
 
 import eventsIcon from '../assets/events.svg'
@@ -49,7 +49,7 @@ const Dashboard = ({
   resourceCache,
   resourceCacheUrl,
   navigateTo,
-  navigateToFeedback
+  navigateToFeedback,
 }: PropsType): ReactElement => {
   const { t } = useTranslation('dashboard')
   const theme = useTheme()
@@ -72,9 +72,9 @@ const Dashboard = ({
               route: NEWS_ROUTE,
               cityCode,
               languageCode: language,
-              newsType: localNewsEnabled ? LOCAL_NEWS_TYPE : TU_NEWS_TYPE
+              newsType: localNewsEnabled ? LOCAL_NEWS_TYPE : TU_NEWS_TYPE,
             }),
-          notifications: 0
+          notifications: 0,
         })
       )
     }
@@ -90,9 +90,9 @@ const Dashboard = ({
             navigateTo({
               route: EVENTS_ROUTE,
               cityCode,
-              languageCode: language
+              languageCode: language,
             }),
-          notifications: 0
+          notifications: 0,
         })
       )
     }
@@ -108,9 +108,9 @@ const Dashboard = ({
             navigateTo({
               route: OFFERS_ROUTE,
               cityCode,
-              languageCode: language
+              languageCode: language,
             }),
-          notifications: 0
+          notifications: 0,
         })
       )
     }
@@ -126,9 +126,9 @@ const Dashboard = ({
             navigateTo({
               route: POIS_ROUTE,
               cityCode,
-              languageCode: language
+              languageCode: language,
             }),
-          notifications: 0
+          notifications: 0,
         })
       )
     }

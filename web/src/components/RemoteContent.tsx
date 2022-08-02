@@ -128,7 +128,7 @@ const RemoteContent = ({ html, onInternalLinkClick, centered = false, smallText 
   }, [html, handleClick, sandBoxRef])
 
   const dangerouslySetInnerHTML = {
-    __html: Dompurify.sanitize(html)
+    __html: Dompurify.sanitize(html),
   }
 
   return (

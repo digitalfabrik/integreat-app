@@ -23,7 +23,7 @@ export default (baseUrl: string): Endpoint<ParamsType, TunewsModel> =>
           type: TU_NEWS_TYPE,
           id: params.id.toString(),
           language: 'unknown',
-          city: 'unknown'
+          city: 'unknown',
         })
       }
 
@@ -33,7 +33,7 @@ export default (baseUrl: string): Endpoint<ParamsType, TunewsModel> =>
         tags: json.tags,
         date: moment.tz(json.date, 'GMT'),
         content: json.content,
-        eNewsNo: json.enewsno
+        eNewsNo: json.enewsno,
       })
     })
     .build()

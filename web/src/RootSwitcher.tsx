@@ -11,7 +11,7 @@ import {
   MAIN_DISCLAIMER_ROUTE,
   NOT_FOUND_ROUTE,
   pathnameFromRouteInformation,
-  useLoadFromEndpoint
+  useLoadFromEndpoint,
 } from 'api-client'
 
 import CityContentSwitcher from './CityContentSwitcher'
@@ -77,7 +77,7 @@ const RootSwitcher = ({ setContentLanguage }: PropsType): ReactElement => {
 
   const props = {
     cities: relevantCities,
-    languageCode: language
+    languageCode: language,
   }
 
   return (
@@ -98,10 +98,12 @@ const RootSwitcher = ({ setContentLanguage }: PropsType): ReactElement => {
         )}
 
         {/* Redirects */}
-        <Route path='/' element={<Navigate to={fixedCityPath ?? landingPath} />} />
-        <Route path={LANDING_ROUTE} element={<Navigate to={fixedCityPath ?? landingPath} />} />
-        <Route path='/:cityCode' element={<Navigate to={fixedCityPath ?? language} />} />
-        {fixedCityPath && <Route path={RoutePatterns[LANDING_ROUTE]} element={<Navigate to={fixedCityPath} />} />}
+        <Route path='/' element={<Navigate to={fixedCityPath ?? landingPath} replace />} />
+        <Route path={LANDING_ROUTE} element={<Navigate to={fixedCityPath ?? landingPath} replace />} />
+        <Route path='/:cityCode' element={<Navigate to={fixedCityPath ?? language} replace />} />
+        {fixedCityPath && (
+          <Route path={RoutePatterns[LANDING_ROUTE]} element={<Navigate to={fixedCityPath} replace />} />
+        )}
       </Routes>
     </Suspense>
   )

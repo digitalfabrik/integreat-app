@@ -4,5 +4,5 @@ import aschaffenburgFonts from './fonts'
 
 export const lightTheme: ThemeType = {
   colors: lightColors,
-  fonts: aschaffenburgFonts
+  fonts: aschaffenburgFonts,
 }

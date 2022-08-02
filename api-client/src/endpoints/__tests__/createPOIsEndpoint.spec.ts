@@ -28,9 +28,9 @@ describe('pois', () => {
       postcode: '86353',
       country: 'DE',
       longitude: 10.89779,
-      latitude: 48.3705449
+      latitude: 48.3705449,
     },
-    modified_gmt: '2017-01-09 15:30:00'
+    modified_gmt: '2017-01-09 15:30:00',
   })
 
   const createPoiModel = () =>
@@ -52,9 +52,9 @@ describe('pois', () => {
         postcode: '86353',
         country: 'DE',
         longitude: 10.89779,
-        latitude: 48.3705449
+        latitude: 48.3705449,
       }),
-      lastUpdate: moment.tz('2017-01-09 15:30:00', 'GMT')
+      lastUpdate: moment.tz('2017-01-09 15:30:00', 'GMT'),
     })
 
   const poi1 = createPoi(2730)
@@ -68,7 +68,7 @@ describe('pois', () => {
   const poiModel4 = createPoiModel()
   const params = {
     city: 'augsburg',
-    language: 'de'
+    language: 'de',
   }
   it('should map params to url', () => {
     expect(pois.mapParamsToUrl(params)).toBe(

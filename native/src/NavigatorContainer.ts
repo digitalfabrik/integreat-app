@@ -21,20 +21,20 @@ const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>): DispatchPropsT
         depth: 2,
         criterion: {
           forceUpdate,
-          shouldRefreshResources: true
+          shouldRefreshResources: true,
         },
-        key
-      }
+        key,
+      },
     })
   },
   fetchCities: (forceRefresh: boolean) => {
     dispatch({
       type: 'FETCH_CITIES',
       params: {
-        forceRefresh
-      }
+        forceRefresh,
+      },
     })
-  }
+  },
 })
 
 export default connect(undefined, mapDispatchToProps)(Navigator)

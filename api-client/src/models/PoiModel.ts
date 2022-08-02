@@ -65,7 +65,7 @@ class PoiModel extends ExtendedPageModel {
       type: 'Feature',
       geometry: {
         type: 'Point',
-        coordinates
+        coordinates,
       },
       properties: {
         title: name,
@@ -75,8 +75,8 @@ class PoiModel extends ExtendedPageModel {
         thumbnail: this.thumbnail,
         path: this.path,
         urlSlug: this.urlSlug,
-        address
-      }
+        address,
+      },
     }
   }
 

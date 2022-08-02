@@ -66,7 +66,7 @@ const SettingItem = (props: PropType): ReactElement => {
             <View
               style={{
                 flexDirection: 'row',
-                alignItems: 'center'
+                alignItems: 'center',
               }}>
               <Badge status={value ? 'success' : 'error'} />
               <Text> {value ? t('enabled') : t('disabled')}</Text>

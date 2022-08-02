@@ -30,7 +30,7 @@ const Landing = ({
   language,
   navigateToDashboard,
   navigateToCityNotCooperating,
-  clearResourcesAndCache
+  clearResourcesAndCache,
 }: PropsType): ReactElement => {
   const theme = useTheme()
 

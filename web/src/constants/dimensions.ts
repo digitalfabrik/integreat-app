@@ -25,7 +25,7 @@ const dimensions: DimensionsType = {
   headerHeightLarge: 90,
   headerHeightSmall: 70,
   footerHeight: 50,
-  navigationMenuHeight: 90
+  navigationMenuHeight: 90,
 }
 
 export default dimensions

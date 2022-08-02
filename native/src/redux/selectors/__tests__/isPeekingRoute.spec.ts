@@ -11,24 +11,24 @@ describe('isPeekingRoute', () => {
             switchingLanguage: false,
             languages: {
               status: 'ready',
-              models: []
+              models: [],
             },
             routeMapping: {},
             resourceCache: {
               status: 'ready',
               progress: 1,
-              value: {}
+              value: {},
             },
-            searchRoute: null
+            searchRoute: null,
           },
           contentLanguage: 'en',
           cities: {
-            status: 'loading'
+            status: 'loading',
           },
-          snackbar: []
+          snackbar: [],
         },
         {
-          routeCity: 'augsburg'
+          routeCity: 'augsburg',
         }
       )
     ).toBe(false)
@@ -43,24 +43,24 @@ describe('isPeekingRoute', () => {
             switchingLanguage: false,
             languages: {
               status: 'ready',
-              models: []
+              models: [],
             },
             routeMapping: {},
             resourceCache: {
               status: 'ready',
               progress: 1,
-              value: {}
+              value: {},
             },
-            searchRoute: null
+            searchRoute: null,
           },
           contentLanguage: 'en',
           cities: {
-            status: 'loading'
+            status: 'loading',
           },
-          snackbar: []
+          snackbar: [],
         },
         {
-          routeCity: 'nuernberg'
+          routeCity: 'nuernberg',
         }
       )
     ).toBe(true)
@@ -73,12 +73,12 @@ describe('isPeekingRoute', () => {
           cityContent: null,
           contentLanguage: 'en',
           cities: {
-            status: 'loading'
+            status: 'loading',
           },
-          snackbar: []
+          snackbar: [],
         },
         {
-          routeCity: 'augsburg'
+          routeCity: 'augsburg',
         }
       )
     ).toBe(false)

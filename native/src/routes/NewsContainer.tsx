@@ -32,7 +32,7 @@ const NewsContainer = ({ route, navigation }: NavigationPropsType): ReactElement
     cityCode,
     languageCode: selectedLanguage,
     newsType,
-    newsId: newsId ?? undefined
+    newsId: newsId ?? undefined,
   }
   useSetShareUrl({ navigation, routeInformation, route })
 
@@ -65,8 +65,8 @@ const NewsContainer = ({ route, navigation }: NavigationPropsType): ReactElement
       type: 'SWITCH_CONTENT_LANGUAGE',
       params: {
         newLanguage,
-        city: cityModel.code
-      }
+        city: cityModel.code,
+      },
     })
   }
 

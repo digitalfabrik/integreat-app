@@ -19,11 +19,11 @@ const browserstackCaps = (
       debug: true,
       realMobile: isCi,
       appiumVersion: '1.21.0',
-      idleTimeout: 10000
+      idleTimeout: 10000,
     },
     ...config,
     'appium:app': app,
-    platformName
+    platformName,
   }
 }
 
@@ -32,7 +32,7 @@ export default {
     {
       'appium:platformVersion': '10.0',
       'appium:deviceName': 'Google Pixel 3',
-      'appium:automationName': 'UiAutomator2'
+      'appium:automationName': 'UiAutomator2',
     },
     'android'
   ),
@@ -41,8 +41,8 @@ export default {
       'appium:platformVersion': '14',
       'appium:deviceName': 'iPhone 11',
       'appium:automationName': 'XCUITest',
-      'appium:waitForIdleTimeout': 10000
+      'appium:waitForIdleTimeout': 10000,
     },
     'ios'
-  )
+  ),
 } as Record<string, Capabilities.Capabilities>

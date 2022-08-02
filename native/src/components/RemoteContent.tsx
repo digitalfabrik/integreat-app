@@ -101,7 +101,7 @@ const RemoteContent = (props: PropType): ReactElement | null => {
     <WebView
       source={{
         baseUrl: resourceCacheUrl,
-        html: renderHtml(content, cacheDirectory, theme, language)
+        html: renderHtml(content, cacheDirectory, theme, language),
       }}
       originWhitelist={['*']} // Needed by iOS to load the initial html
       javaScriptEnabled
@@ -119,7 +119,7 @@ const RemoteContent = (props: PropType): ReactElement | null => {
       setSupportMultipleWindows={false}
       style={{
         height: webViewHeight,
-        width: webViewWidth
+        width: webViewWidth,
       }}
     />
   )

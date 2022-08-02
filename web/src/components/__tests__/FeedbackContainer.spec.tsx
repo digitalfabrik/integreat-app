@@ -15,7 +15,7 @@ import {
   POIS_ROUTE,
   SEARCH_FEEDBACK_TYPE,
   SEARCH_ROUTE,
-  SPRUNGBRETT_OFFER
+  SPRUNGBRETT_OFFER,
 } from 'api-client'
 
 import buildConfig from '../../constants/buildConfig'
@@ -27,8 +27,8 @@ jest.mock('react-i18next')
 jest.mock('api-client', () => ({
   ...jest.requireActual('api-client'),
   createFeedbackEndpoint: () => ({
-    request: mockRequest
-  })
+    request: mockRequest,
+  }),
 }))
 
 describe('FeedbackContainer', () => {
@@ -50,7 +50,7 @@ describe('FeedbackContainer', () => {
     language,
     closeModal,
     isPositiveFeedback,
-    isSearchFeedback
+    isSearchFeedback,
   })
 
   it.each`
@@ -73,7 +73,7 @@ describe('FeedbackContainer', () => {
       </ThemeProvider>
     )
     const button = getByRole('button', {
-      name: 'feedback:send'
+      name: 'feedback:send',
     })
     fireEvent.click(button)
     // Needed as submitFeedback is asynchronous
@@ -88,7 +88,7 @@ describe('FeedbackContainer', () => {
       isPositiveRating: true,
       alias: inputProps.alias,
       permalink: inputProps.path,
-      query: inputProps.query
+      query: inputProps.query,
     })
   })
 
@@ -99,7 +99,7 @@ describe('FeedbackContainer', () => {
       </ThemeProvider>
     )
     const button = getByRole('button', {
-      name: 'feedback:send'
+      name: 'feedback:send',
     })
     fireEvent.click(button)
     // Needed as submitFeedback is asynchronous
@@ -115,7 +115,7 @@ describe('FeedbackContainer', () => {
       </ThemeProvider>
     )
     const button = getByRole('button', {
-      name: 'feedback:send'
+      name: 'feedback:send',
     })
     fireEvent.click(button)
     // Needed as submitFeedback is asynchronous
@@ -134,7 +134,7 @@ describe('FeedbackContainer', () => {
       </ThemeProvider>
     )
     const button = getByRole('button', {
-      name: 'feedback:send'
+      name: 'feedback:send',
     })
     fireEvent.click(button)
     // Needed as submitFeedback is asynchronous

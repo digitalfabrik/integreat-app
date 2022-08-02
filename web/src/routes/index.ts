@@ -14,7 +14,7 @@ import {
   SEARCH_ROUTE,
   SHELTER_ROUTE,
   SPRUNGBRETT_OFFER_ROUTE,
-  TU_NEWS_TYPE
+  TU_NEWS_TYPE,
 } from 'api-client'
 
 export const LOCAL_NEWS_ROUTE = LOCAL_NEWS_TYPE
@@ -40,7 +40,7 @@ export const RoutePatterns = {
   [TU_NEWS_DETAIL_ROUTE]: `${NEWS_ROUTE}/${TU_NEWS_ROUTE}/:newsId`,
   [SEARCH_ROUTE]: SEARCH_ROUTE,
   [DISCLAIMER_ROUTE]: DISCLAIMER_ROUTE,
-  [CATEGORIES_ROUTE]: '*'
+  [CATEGORIES_ROUTE]: '*',
 } as const
 
 export type RouteType = keyof typeof RoutePatterns
