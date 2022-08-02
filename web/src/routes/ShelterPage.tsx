@@ -2,8 +2,13 @@ import React, { ReactElement, useCallback, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useParams } from 'react-router-dom'
 
-import { createShelterEndpoint, pathnameFromRouteInformation, SHELTER_ROUTE, ShelterModel } from 'api-client'
-import { FilterProps } from 'api-client/src/endpoints/createShelterEndpoint'
+import {
+  createShelterEndpoint,
+  pathnameFromRouteInformation,
+  SHELTER_ROUTE,
+  ShelterModel,
+  ShelterFilterProps,
+} from 'api-client'
 
 import { CityRouteProps } from '../CityContentSwitcher'
 import Caption from '../components/Caption'
@@ -22,7 +27,7 @@ const ShelterPage = ({ cityModel, cityCode, languageCode, pathname, languages }:
   const { shelterId } = useParams()
   const { viewportSmall } = useWindowDimensions()
   const { t } = useTranslation('shelter')
-  const [filter, setFilter] = useState<FilterProps>({ beds: null, city: null, pets: null })
+  const [filter, setFilter] = useState<ShelterFilterProps>({ beds: null, city: null, pets: null })
 
   const loadShelters = useCallback(
     (page: number) =>
