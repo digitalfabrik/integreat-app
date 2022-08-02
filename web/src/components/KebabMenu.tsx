@@ -17,7 +17,7 @@ type KebabMenuProps = {
 const ToggleContainer = styled.div`
   display: flex;
   padding: 0 8px;
-  z-index: 32;
+  z-index: 50;
 `
 
 const List = styled.div<{ direction: UiDirectionType; checked: boolean }>`
@@ -32,14 +32,14 @@ const List = styled.div<{ direction: UiDirectionType; checked: boolean }>`
   -webkit-font-smoothing: antialiased;
   transform-origin: 0% 0%;
   transition: transform 0.5s cubic-bezier(0.77, 0.2, 0.05, 1);
-  z-index: 31;
+  z-index: 40;
   ${props => (props.direction === 'rtl' ? `left: 0;` : `right:0;`)}
   ${props => (props.direction === 'rtl' ? `transform: translate(-100%, 0);` : `transform: translate(100%, 0);`)}
   ${props => props.checked && `opacity: 1;transform: none;`}
 `
 
 const Icon = styled.img`
-  z-index: 32;
+  z-index: 50;
   position: relative;
   width: 28px;
   height: 28px;
