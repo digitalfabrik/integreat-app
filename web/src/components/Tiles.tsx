@@ -15,9 +15,11 @@ const TilesRow = styled.div`
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   padding: 10px 0;
+
   @media ${dimensions.mediumViewport} {
     grid-template-columns: repeat(3, 1fr);
   }
+
   @media ${dimensions.smallViewport} {
     grid-template-columns: repeat(2, 1fr);
   }
