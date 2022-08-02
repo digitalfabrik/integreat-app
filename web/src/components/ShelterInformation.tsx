@@ -29,7 +29,6 @@ const FullWidth = styled.div`
 `
 
 const Container = styled.article`
-  flex: 1;
   margin: 12px;
   padding: 16px 12px 28px;
   background-color: #f8f8f8;
