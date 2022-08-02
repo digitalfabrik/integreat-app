@@ -1,8 +1,7 @@
 import { fireEvent } from '@testing-library/react'
 import React from 'react'
 
-import { renderWithRouter } from '../../testing/render'
-import { renderWithBrowserRouter } from '../../testing/render'
+import { renderWithRouter, renderWithBrowserRouter } from '../../testing/render'
 import { Header } from '../Header'
 import HeaderActionItemLink from '../HeaderActionItemLink'
 import HeaderNavigationItem from '../HeaderNavigationItem'
