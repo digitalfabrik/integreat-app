@@ -97,9 +97,10 @@ const Pois = ({ pois, language, cityModel, route, navigation }: PropsType): Reac
     [navigation, urlSlug]
   )
 
-  // wait for followUserLocation change before moving the camera to avoid position lock
+  // Wait for followUserLocation change before moving the camera to avoid position lock
+  // https://github.com/rnmapbox/maps/issues/1079
   useEffect(() => {
-    if (selectedFeature && cameraRef.current) {
+    if (!followUserLocation && selectedFeature && cameraRef.current) {
       cameraRef.current.setCamera({
         centerCoordinate: selectedFeature.geometry.coordinates,
         zoomLevel: detailZoom,

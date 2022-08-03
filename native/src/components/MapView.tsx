@@ -1,6 +1,6 @@
 import MapboxGL, { CameraSettings, MapboxGLEvent, SymbolLayerProps } from '@react-native-mapbox-gl/maps'
 import type { BBox, Feature } from 'geojson'
-import React, { ReactElement, useCallback, useState } from 'react'
+import React, { ReactElement, useCallback } from 'react'
 import { FAB } from 'react-native-elements'
 import { useTheme } from 'styled-components'
 import styled from 'styled-components/native'
@@ -96,7 +96,7 @@ const MapView = React.forwardRef(
     const onRequestLocation = useCallback(async () => {
       await onRequestLocationPermission()
       setFollowUserLocation(true)
-    }, [onRequestLocationPermission])
+    }, [onRequestLocationPermission, setFollowUserLocation])
 
     const onUserTrackingModeChange = (
       event: MapboxGLEvent<'usertrackingmodechange', { followUserLocation: boolean }>
