@@ -23,7 +23,6 @@ const HeaderContainer = styled.header`
   display: flex;
   width: 100%;
   box-sizing: border-box;
-  box-shadow: 0 2px 5px -3px rgba(0, 0, 0, 0.2);
   background-color: ${props => props.theme.colors.backgroundAccentColor};
   user-select: none;
   flex-direction: column;
@@ -32,6 +31,7 @@ const HeaderContainer = styled.header`
   @media ${dimensions.minMaxWidth} {
     padding-right: calc((200% - 100vw - ${dimensions.maxWidth}px) / 2);
     padding-left: calc((100vw - ${dimensions.maxWidth}px) / 2);
+    box-shadow: 0 2px 5px -3px rgba(0, 0, 0, 0.2);
   }
 `
 
@@ -52,10 +52,11 @@ const Row = styled.div<{ hasTitle?: boolean }>`
     flex-wrap: wrap;
     min-height: ${dimensions.headerHeightSmall}px;
     overflow-x: auto;
-
+    padding: 16px 12px;
+    box-shadow: 0 2px 5px -3px rgba(0, 0, 0, 0.2);
     :first-child {
-      /* this is only necessary for IE11 */
-      min-height: ${props => dimensions.headerHeightSmall + (props.hasTitle ? HEADER_TITLE_HEIGHT : 0)}px;
+      box-shadow: 0 2px 5px -3px rgba(0, 0, 0, 0.12);
+      padding: 8px 4px;
     }
   }
 `
