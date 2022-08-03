@@ -43,7 +43,7 @@ describe('tunews', () => {
     count: 1,
   }
   it('should map params to url', () => {
-    expect(tunews.mapParamsToUrl(params)).toEqual(
+    expect(tunews.mapParamsToUrl(params)).toBe(
       `${baseUrl}/v1/news/${params.language}?page=${params.page}&count=${params.count}`
     )
   })

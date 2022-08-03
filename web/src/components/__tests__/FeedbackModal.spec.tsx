@@ -1,5 +1,5 @@
 import { fireEvent, waitFor } from '@testing-library/react'
-import React from 'react'
+import React, { ReactElement } from 'react'
 import { ThemeProvider } from 'styled-components'
 
 import { CATEGORIES_ROUTE } from 'api-client'
@@ -15,6 +15,7 @@ jest.mock('api-client', () => ({
     request: () => undefined,
   }),
 }))
+jest.mock('focus-trap-react', () => ({ children }: { children: ReactElement }) => <div>{children}</div>)
 
 describe('FeedbackModal', () => {
   const cityCode = 'augsburg'
@@ -38,7 +39,6 @@ describe('FeedbackModal', () => {
       name: 'feedback:send',
     })
     fireEvent.click(button)
-    // Needed as submitFeedback is asynchronous
     await waitFor(() => expect(button).toBeEnabled())
     expect(getByText('feedback:thanksMessage')).toBeTruthy()
   })

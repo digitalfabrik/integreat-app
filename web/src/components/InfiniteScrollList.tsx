@@ -1,4 +1,3 @@
-import { isEmpty } from 'lodash'
 import React, { ReactElement, ReactNode, useCallback, useEffect, useState } from 'react'
 import InfiniteScroll from 'react-infinite-scroller'
 import styled from 'styled-components'
@@ -46,7 +45,7 @@ const InfiniteScrollList = <T,>({
       const request = () => loadPage(page)
       const addData = (data: T[] | null) => {
         if (data !== null) {
-          setData(oldData => oldData.concat(data))
+          setData(oldData => (page === defaultPage ? data : oldData.concat(data)))
           if (data.length !== itemsPerPage) {
             setHasMore(false)
           }
@@ -54,7 +53,7 @@ const InfiniteScrollList = <T,>({
       }
       await loadFromEndpoint(request, addData, setError, setLoading)
     }
-  }, [page, hasMore, itemsPerPage, loadPage])
+  }, [defaultPage, page, hasMore, itemsPerPage, loadPage])
 
   useEffect(
     () => () => {
@@ -71,7 +70,7 @@ const InfiniteScrollList = <T,>({
     return <FailureSwitcher error={error} />
   }
 
-  if (isEmpty(data) && !hasMore) {
+  if (data.length === 0 && !hasMore) {
     return <NoItemsMessage>{noItemsMessage}</NoItemsMessage>
   }
 

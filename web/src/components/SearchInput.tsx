@@ -1,6 +1,6 @@
 import { faSearch } from '@fortawesome/free-solid-svg-icons/faSearch'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import React, { ChangeEvent, ReactNode } from 'react'
+import React, { ChangeEvent, ReactElement } from 'react'
 import styled from 'styled-components'
 
 const searchLogoWidth = '25px'
@@ -44,38 +44,39 @@ type PropsType = {
   placeholderText: string
   filterText: string
   onFilterTextChange: (filterText: string) => void
-  spaceSearch: boolean
+  spaceSearch?: boolean
   onClickInput?: () => void
 }
 
-export class SearchInput extends React.PureComponent<PropsType> {
-  static defaultProps = { spaceSearch: false }
-  handleFilterTextChange = (event: ChangeEvent<HTMLInputElement>): void => {
-    const { onFilterTextChange } = this.props
+const SearchInput = ({
+  placeholderText,
+  filterText,
+  onClickInput,
+  onFilterTextChange,
+  spaceSearch = false,
+}: PropsType): ReactElement => {
+  const handleFilterTextChange = (event: ChangeEvent<HTMLInputElement>): void => {
     if (typeof event.target.value === 'string') {
       onFilterTextChange(event.target.value)
     }
   }
 
-  render(): ReactNode {
-    const { onClickInput, filterText, placeholderText, spaceSearch } = this.props
-    return (
-      <Spacer space={spaceSearch}>
-        <Wrapper>
-          <SearchIcon />
-          {/* eslint-disable-next-line styled-components-a11y/no-autofocus -- in a dedicated search modal autofocus is fine */}
-          <TextInput
-            placeholder={placeholderText}
-            aria-label={placeholderText}
-            defaultValue={filterText}
-            onChange={this.handleFilterTextChange}
-            onClick={onClickInput}
-            autoFocus
-          />
-        </Wrapper>
-      </Spacer>
-    )
-  }
+  return (
+    <Spacer space={spaceSearch}>
+      <Wrapper>
+        <SearchIcon />
+        {/* eslint-disable-next-line styled-components-a11y/no-autofocus -- in a dedicated search modal autofocus is fine */}
+        <TextInput
+          placeholder={placeholderText}
+          aria-label={placeholderText}
+          defaultValue={filterText}
+          onChange={handleFilterTextChange}
+          onClick={onClickInput}
+          autoFocus
+        />
+      </Wrapper>
+    </Spacer>
+  )
 }
 
 export default SearchInput

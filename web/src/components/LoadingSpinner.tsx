@@ -22,6 +22,18 @@ const Spinner = styled.div`
   text-align: center;
   animation-name: ${lineScaleParty};
 
+  > div {
+    background-color: ${props => props.theme.colors.textSecondaryColor};
+    width: 4px;
+    height: 35px;
+    border-radius: 2px;
+    margin: 2px;
+    animation-fill-mode: both;
+    display: inline-block;
+    animation-name: ${lineScaleParty};
+    animation-iteration-count: infinite;
+  }
+
   > div:nth-child(1) {
     animation-delay: 0.48s;
     animation-duration: 0.54s;
@@ -40,18 +52,6 @@ const Spinner = styled.div`
   > div:nth-child(4) {
     animation-delay: -0.12s;
     animation-duration: 0.61s;
-  }
-
-  > div {
-    background-color: ${props => props.theme.colors.textSecondaryColor};
-    width: 4px;
-    height: 35px;
-    border-radius: 2px;
-    margin: 2px;
-    animation-fill-mode: both;
-    display: inline-block;
-    animation-name: ${lineScaleParty};
-    animation-iteration-count: infinite;
   }
 `
 

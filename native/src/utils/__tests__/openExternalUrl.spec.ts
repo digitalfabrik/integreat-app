@@ -42,7 +42,7 @@ describe('openExternalUrl', () => {
     const url2 = 'http://som.niceli.nk/les/stext'
     await openExternalUrl(url2)
     expect(InAppBrowser.close).toHaveBeenCalled()
-    expect(await InAppBrowser.open).toHaveBeenLastCalledWith(url2, expect.anything())
+    expect(InAppBrowser.open).toHaveBeenLastCalledWith(url2, expect.anything())
     expect(Linking.openURL).not.toHaveBeenCalled()
     expect(sendTrackingSignal).toHaveBeenCalledWith({
       signal: {

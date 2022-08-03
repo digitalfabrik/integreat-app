@@ -20,7 +20,7 @@ const openExternalUrl = async (url: string): Promise<void> => {
           url,
         },
       })
-      await InAppBrowser.close()
+      InAppBrowser.close()
       await InAppBrowser.open(url, {
         toolbarColor: buildConfig().lightTheme.colors.themeColor,
       })

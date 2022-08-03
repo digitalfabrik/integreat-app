@@ -16,7 +16,7 @@ type PropsType = {
   children: ReactNode
 }
 
-const I18nProvider = ({ children, contentLanguage }: PropsType): ReactElement => {
+const I18nProvider = ({ children, contentLanguage }: PropsType): ReactElement | null => {
   const [language, setLanguage] = useState<string>(config.defaultFallback)
   const [errorMessage, setErrorMessage] = useState<string | null | undefined>(null)
   const [i18nextInstance, setI18nextInstance] = useState<i18n | null>(null)
@@ -81,7 +81,7 @@ const I18nProvider = ({ children, contentLanguage }: PropsType): ReactElement =>
   }
 
   if (!i18nextInstance) {
-    return <></>
+    return null
   }
 
   const additionalFont = config.getAdditionalFont(language)

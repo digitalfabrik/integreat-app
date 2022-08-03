@@ -209,9 +209,9 @@ describe('watchFetchEvent', () => {
     })
   })
 
-  it('should correctly call fetchEvent when triggered', async () => {
+  it('should correctly call fetchEvent when triggered', () => {
     const dataContainer = new DefaultDataContainer()
-    await testSaga(watchFetchEvent, dataContainer).next().takeEvery('FETCH_EVENT', fetchEvent, dataContainer)
+    testSaga(watchFetchEvent, dataContainer).next().takeEvery('FETCH_EVENT', fetchEvent, dataContainer)
     expect(reportError).not.toHaveBeenCalled()
   })
 })
