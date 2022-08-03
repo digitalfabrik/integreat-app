@@ -392,8 +392,8 @@ describe('watchFetchCategory', () => {
     })
   })
 
-  it('should correctly call fetchCategory when triggered', async () => {
+  it('should correctly call fetchCategory when triggered', () => {
     const dataContainer = new DefaultDataContainer()
-    await testSaga(watchFetchCategory, dataContainer).next().takeEvery('FETCH_CATEGORY', fetchCategory, dataContainer)
+    testSaga(watchFetchCategory, dataContainer).next().takeEvery('FETCH_CATEGORY', fetchCategory, dataContainer)
   })
 })

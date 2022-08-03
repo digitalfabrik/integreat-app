@@ -5,32 +5,55 @@ import languageIcon from '../assets/language-icon.svg'
 import SelectorItemModel from '../models/SelectorItemModel'
 import HeaderActionItemDropDown from './HeaderActionItemDropDown'
 import HeaderActionBarItemLink from './HeaderActionItemLink'
+import KebabActionItemDropDown from './KebabActionItemDropDown'
 import Selector from './Selector'
 
 type PropsType = {
   selectorItems: Array<SelectorItemModel>
   activeItemCode: string
   t: TFunction<'layout'>
+  inKebabMenu?: boolean
 }
 
-const HeaderLanguageSelectorItem = ({ selectorItems, activeItemCode, t }: PropsType): ReactElement => {
+const HeaderLanguageSelectorItem = ({
+  selectorItems,
+  activeItemCode,
+  t,
+  inKebabMenu = false,
+}: PropsType): ReactElement => {
   const noLanguagesHint = t('noLanguages')
 
-  return selectorItems.length > 0 ? (
-    <HeaderActionItemDropDown iconSrc={languageIcon} text={t('changeLanguage')}>
-      {closeDropDown => (
-        <Selector
-          closeDropDown={closeDropDown}
-          verticalLayout={false}
-          items={selectorItems}
-          activeItemCode={activeItemCode}
-          disabledItemTooltip={t('noTranslation')}
-        />
-      )}
-    </HeaderActionItemDropDown>
-  ) : (
-    <HeaderActionBarItemLink text={noLanguagesHint} iconSrc={languageIcon} />
+  const renderItem = (closeDropDown: () => void): ReactElement => (
+    <Selector
+      closeDropDown={closeDropDown}
+      verticalLayout={false}
+      items={selectorItems}
+      activeItemCode={activeItemCode}
+      disabledItemTooltip={t('noTranslation')}
+    />
   )
+
+  const renderActionItem = () => {
+    if (inKebabMenu) {
+      return (
+        <KebabActionItemDropDown iconSrc={languageIcon} text={t('changeLanguage')}>
+          {renderItem}
+        </KebabActionItemDropDown>
+      )
+    }
+
+    return (
+      <HeaderActionItemDropDown iconSrc={languageIcon} text={t('changeLanguage')}>
+        {renderItem}
+      </HeaderActionItemDropDown>
+    )
+  }
+
+  if (selectorItems.length > 0) {
+    return renderActionItem()
+  }
+
+  return <HeaderActionBarItemLink text={noLanguagesHint} iconSrc={languageIcon} />
 }
 
 export default HeaderLanguageSelectorItem

@@ -15,7 +15,9 @@ import {
   SHELTER_ROUTE,
   SPRUNGBRETT_OFFER_ROUTE,
 } from 'api-client'
+import { config } from 'translations'
 
+import searchIconMobile from '../assets/IconSearch.svg'
 import eventsIcon from '../assets/events.svg'
 import localInformationIcon from '../assets/local_information.svg'
 import landingIcon from '../assets/location-icon.svg'
@@ -28,6 +30,7 @@ import HeaderNavigationItem from '../components/HeaderNavigationItem'
 import buildConfig from '../constants/buildConfig'
 import { LOCAL_NEWS_ROUTE, RouteType, TU_NEWS_DETAIL_ROUTE, TU_NEWS_ROUTE } from '../routes'
 import Header from './Header'
+import KebabActionItemLink from './KebabActionItemLink'
 import LanguageSelector from './LanguageSelector'
 
 type PropsType = {
@@ -54,16 +57,36 @@ const LocationHeader = (props: PropsType): ReactElement => {
 
   const { t } = useTranslation('layout')
 
-  const getActionItems = (): Array<ReactNode> => [
-    <HeaderActionBarItemLink key='search' href={searchPath} text={t('search')} iconSrc={searchIcon} />,
-    ...(!buildConfig().featureFlags.fixedCity
-      ? [<HeaderActionBarItemLink key='location' href={landingPath} text={t('changeLocation')} iconSrc={landingIcon} />]
-      : []),
+  const actionItems = viewportSmall
+    ? [<HeaderActionBarItemLink key='search' href={searchPath} text={t('search')} iconSrc={searchIconMobile} />]
+    : [
+        <HeaderActionBarItemLink key='search' href={searchPath} text={t('search')} iconSrc={searchIcon} />,
+        ...(!buildConfig().featureFlags.fixedCity
+          ? [
+              <HeaderActionBarItemLink
+                key='location'
+                href={landingPath}
+                text={t('changeLocation')}
+                iconSrc={landingIcon}
+              />,
+            ]
+          : []),
+        <LanguageSelector
+          key='language'
+          languageChangePaths={languageChangePaths}
+          isHeaderActionItem
+          languageCode={languageCode}
+        />,
+      ]
+
+  const kebabItems = [
+    <KebabActionItemLink key='location' href={landingPath} text={t('changeLocation')} iconSrc={landingIcon} />,
     <LanguageSelector
       key='language'
       languageChangePaths={languageChangePaths}
       isHeaderActionItem
       languageCode={languageCode}
+      inKebabMenu
     />,
   ]
 
@@ -141,9 +164,11 @@ const LocationHeader = (props: PropsType): ReactElement => {
 
   return (
     <Header
+      direction={config.getScriptDirection(languageCode)}
       viewportSmall={viewportSmall}
       logoHref={categoriesPath}
-      actionItems={getActionItems()}
+      actionItems={actionItems}
+      kebabItems={kebabItems}
       cityName={cityModel.name}
       navigationItems={getNavigationItems()}
     />

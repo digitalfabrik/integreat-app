@@ -40,8 +40,8 @@ describe('SearchModal', () => {
     const { getByPlaceholderText, getAllByRole } = render(<SearchModal {...props} />)
     const goBackButton = getAllByRole('button')[0]!
     const searchBar = getByPlaceholderText('searchPlaceholder')
-    await fireEvent.changeText(searchBar, 'Category')
-    await fireEvent.press(goBackButton)
+    fireEvent.changeText(searchBar, 'Category')
+    fireEvent.press(goBackButton)
     await waitFor(() => expect(goBackButton).not.toBeDisabled())
     await waitFor(() => expect(sendTrackingSignal).toHaveBeenCalledTimes(1))
     expect(sendTrackingSignal).toHaveBeenCalledWith({
@@ -57,9 +57,9 @@ describe('SearchModal', () => {
     const { getByText, getByPlaceholderText, getAllByRole } = render(<SearchModal {...props} />)
     const goBackButton = getAllByRole('button')[0]!
     const searchBar = getByPlaceholderText('searchPlaceholder')
-    await fireEvent.changeText(searchBar, 'Category')
+    fireEvent.changeText(searchBar, 'Category')
     const categoryListItem = getByText('with id 1')
-    await fireEvent.press(categoryListItem)
+    fireEvent.press(categoryListItem)
     await waitFor(() => expect(goBackButton).not.toBeDisabled())
     expect(sendTrackingSignal).toHaveBeenCalledTimes(1)
     const routeInformation: CategoriesRouteInformationType = {

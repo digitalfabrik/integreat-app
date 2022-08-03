@@ -73,11 +73,20 @@ module.exports = {
     'prefer-object-spread': 'error',
     'func-names': 'error',
 
+    'react/function-component-definition': [
+      'error',
+      {
+        namedComponents: 'arrow-function',
+        unnamedComponents: 'arrow-function',
+      },
+    ],
+    'react/jsx-no-useless-fragment': ['error', { allowExpressions: true }],
     'react/no-did-mount-set-state': 'error',
     'react/no-unused-prop-types': 'warn',
     'react-hooks/exhaustive-deps': 'error',
 
-    '@typescript-eslint/ban-ts-comment': 'warn',
+    '@typescript-eslint/await-thenable': 'error',
+    '@typescript-eslint/ban-ts-comment': 'error',
     '@typescript-eslint/consistent-type-definitions': ['error', 'type'],
     '@typescript-eslint/explicit-module-boundary-types': 'error',
     '@typescript-eslint/no-empty-function': 'error',

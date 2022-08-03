@@ -5,27 +5,32 @@ import styled from 'styled-components'
 
 import { ShelterModel } from 'api-client'
 
-import accessibleIcon from '../../../assets/icons/accessible.svg'
-import bathroomIcon from '../../../assets/icons/bathroom.svg'
-import bedIcon from '../../../assets/icons/bed.svg'
-import calendarIcon from '../../../assets/icons/calendar.svg'
-import emailIcon from '../../../assets/icons/email.svg'
-import euroIcon from '../../../assets/icons/euro.svg'
-import houseIcon from '../../../assets/icons/house.svg'
-import keyIcon from '../../../assets/icons/key.svg'
-import lgbtqiIcon from '../../../assets/icons/lgbtqi.svg'
-import petIcon from '../../../assets/icons/pet.svg'
-import phoneIcon from '../../../assets/icons/phone.svg'
-import smokingIcon from '../../../assets/icons/smoking.svg'
-import timerIcon from '../../../assets/icons/timer.svg'
+import {
+  AccessibleIcon,
+  BathroomIcon,
+  BedIcon,
+  CalendarIcon,
+  EmailIcon,
+  EuroIcon,
+  HouseIcon,
+  KeyIcon,
+  LgbtqiIcon,
+  PetIcon,
+  PhoneIcon,
+  SmokingIcon,
+  TimerIcon,
+} from '../assets'
 import Caption from './Caption'
 import ShelterContactRequestForm from './ShelterContactRequestForm'
 import ShelterInformationSection from './ShelterInformationSection'
 import { StyledButton } from './TextButton'
 import Tooltip from './Tooltip'
 
-const Container = styled.article`
+const FullWidth = styled.div`
   flex: 1;
+`
+
+const Container = styled.article`
   margin: 12px;
   padding: 16px 12px 28px;
   background-color: #f8f8f8;
@@ -90,7 +95,7 @@ const ShelterInformation = ({ shelter, cityCode, extended = false }: Props): Rea
   const tenancyPossible = costs === 'uebergang-miete'
 
   return (
-    <>
+    <FullWidth dir='auto'>
       {extended && <Caption title={`${titleText} (#${id})`} />}
       <Container>
         <ShelterInformationSection
@@ -99,19 +104,19 @@ const ShelterInformation = ({ shelter, cityCode, extended = false }: Props): Rea
           titleHint={extended ? undefined : titleHint}
           label={isFree ? t('free') : undefined}
           information={[
-            { text: t(accommodationType), icon: houseIcon, tooltip: t('shelterType') },
-            { text: bedsText, icon: bedIcon, tooltip: t('availableBeds') },
-            { text: startDateText, icon: calendarIcon, tooltip: t('startDate') },
-            { text: t(period), icon: timerIcon, tooltip: t('duration') },
-            ...(extended ? [{ text: t(isFree ? 'free' : 'withCosts'), icon: euroIcon }] : []),
-            ...(extended && tenancyPossible ? [{ text: t('tenancyPossible'), icon: keyIcon }] : []),
+            { text: t(accommodationType), icon: HouseIcon, tooltip: t('shelterType') },
+            { text: bedsText, icon: BedIcon, tooltip: t('availableBeds') },
+            { text: startDateText, icon: CalendarIcon, tooltip: t('startDate') },
+            { text: t(period), icon: TimerIcon, tooltip: t('duration') },
+            ...(extended ? [{ text: t(isFree ? 'free' : 'withCosts'), icon: EuroIcon }] : []),
+            ...(extended && tenancyPossible ? [{ text: t('tenancyPossible'), icon: KeyIcon }] : []),
           ]}>
           <Detail>
-            {info.includes('bad') && <IconWithTooltip tooltip={t('bathroom')} icon={bathroomIcon} />}
-            {info.includes('lgbtiq') && <IconWithTooltip tooltip={t('lgbtiq')} icon={lgbtqiIcon} />}
-            {info.includes('barrierefrei') && <IconWithTooltip tooltip={t('accessible')} icon={accessibleIcon} />}
-            {petsAllowed && <IconWithTooltip tooltip={petsTooltip} icon={petIcon} />}
-            {info.includes('rauchen') && <IconWithTooltip tooltip={t('smoking')} icon={smokingIcon} />}
+            {info.includes('bad') && <IconWithTooltip tooltip={t('bathroom')} icon={BathroomIcon} />}
+            {info.includes('lgbtiq') && <IconWithTooltip tooltip={t('lgbtiq')} icon={LgbtqiIcon} />}
+            {info.includes('barrierefrei') && <IconWithTooltip tooltip={t('accessible')} icon={AccessibleIcon} />}
+            {petsAllowed && <IconWithTooltip tooltip={petsTooltip} icon={PetIcon} />}
+            {info.includes('rauchen') && <IconWithTooltip tooltip={t('smoking')} icon={SmokingIcon} />}
           </Detail>
         </ShelterInformationSection>
         {extended && (
@@ -144,8 +149,8 @@ const ShelterInformation = ({ shelter, cityCode, extended = false }: Props): Rea
                 title={t('contactInformation').toUpperCase()}
                 elevated
                 information={[
-                  { icon: emailIcon, text: email ?? notSpecified, link: email ? `mailto:${email}` : undefined },
-                  { icon: phoneIcon, text: phone ?? notSpecified, link: phone ? `tel:${phone}` : undefined },
+                  { icon: EmailIcon, text: email ?? notSpecified, link: email ? `mailto:${email}` : undefined },
+                  { icon: PhoneIcon, text: phone ?? notSpecified, link: phone ? `tel:${phone}` : undefined },
                 ]}
               />
             ) : (
@@ -159,7 +164,7 @@ const ShelterInformation = ({ shelter, cityCode, extended = false }: Props): Rea
           </DetailButton>
         )}
       </Container>
-    </>
+    </FullWidth>
   )
 }
 

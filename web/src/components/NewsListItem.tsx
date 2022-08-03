@@ -24,7 +24,7 @@ const ReadMore = styled.div<{ $type: NewsType }>`
 
 const Title = styled.h3`
   margin-bottom: 0;
-  font-family: Raleway;
+  font-family: ${props => props.theme.fonts.web.decorativeFont};
   font-size: 18px;
   font-weight: 700;
 `
@@ -62,8 +62,8 @@ const NewsListItem = ({ title, content, timestamp, formatter, t, type, link }: P
     <StyledNewsListItem>
       <Link to={link}>
         <Description>
-          <Title>{title}</Title>
-          <Body>{textTruncator(content.trim(), NUM_OF_CHARS_ALLOWED, false)}</Body>
+          <Title dir='auto'>{title}</Title>
+          <Body dir='auto'>{textTruncator(content.trim(), NUM_OF_CHARS_ALLOWED, false)}</Body>
           <StyledContainer>
             <LastUpdateInfo lastUpdate={timestamp} formatter={formatter} withText={false} />
             <ReadMore $type={type}>{readMoreLinkText}</ReadMore>

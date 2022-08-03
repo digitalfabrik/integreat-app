@@ -96,30 +96,30 @@ describe('NewsContainer', () => {
   }
 
   it('should render nothing if city model is not yet available', () => {
-    const { queryByText, queryByA11yLabel } = renderNews({ cities: null })
-    expect(queryByA11yLabel('local')).toBeFalsy()
-    expect(queryByA11yLabel('TüNews')).toBeFalsy()
+    const { queryByText, queryByLabelText } = renderNews({ cities: null })
+    expect(queryByLabelText('local')).toBeFalsy()
+    expect(queryByLabelText('TüNews')).toBeFalsy()
     expect(queryByText('LocalNewsContent')).toBeFalsy()
     expect(queryByText('TuNewsContent')).toBeFalsy()
   })
 
   it('should correctly handle switch between local and tu news', () => {
-    const { getByText, getByA11yLabel, queryByText } = renderNews({})
+    const { getByText, getByLabelText, queryByText } = renderNews({})
 
     expect(getByText('TuNewsContent')).toBeTruthy()
     expect(queryByText('LocalNewsContent')).toBeFalsy()
 
-    fireEvent.press(getByA11yLabel('TüNews'))
+    fireEvent.press(getByLabelText('TüNews'))
 
     expect(getByText('TuNewsContent')).toBeTruthy()
     expect(queryByText('LocalNewsContent')).toBeFalsy()
 
-    fireEvent.press(getByA11yLabel('local'))
+    fireEvent.press(getByLabelText('local'))
 
     expect(getByText('LocalNewsContent')).toBeTruthy()
     expect(queryByText('TuNewsContent')).toBeFalsy()
 
-    fireEvent.press(getByA11yLabel('TüNews'))
+    fireEvent.press(getByLabelText('TüNews'))
 
     expect(getByText('TuNewsContent')).toBeTruthy()
     expect(queryByText('LocalNewsContent')).toBeFalsy()

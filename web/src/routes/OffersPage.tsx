@@ -21,11 +21,12 @@ import LocationLayout from '../components/LocationLayout'
 import LocationToolbar from '../components/LocationToolbar'
 import Tiles from '../components/Tiles'
 import { cmsApiBaseUrl } from '../constants/urls'
+import useWindowDimensions from '../hooks/useWindowDimensions'
 import TileModel from '../models/TileModel'
 
 const OffersPage = ({ cityModel, cityCode, languageCode, languages }: CityRouteProps): ReactElement => {
   const { t } = useTranslation('offers')
-  const viewportSmall = false
+  const { viewportSmall } = useWindowDimensions()
 
   const toolbar = (openFeedback: (rating: FeedbackRatingType) => void) => (
     <LocationToolbar openFeedbackModal={openFeedback} viewportSmall={viewportSmall} />

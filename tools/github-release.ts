@@ -8,7 +8,7 @@ program
     '--deliverino-private-key <deliverino-private-key>',
     'private key of the deliverino github app in pem format with base64 encoding'
   )
-  .requiredOption('--owner <owner>', 'owner of the current repository, usually "Integreat"')
+  .requiredOption('--owner <owner>', 'owner of the current repository, usually "digitalfabrik"')
   .requiredOption('--repo <repo>', 'the current repository, should be integreat-app')
   .requiredOption('--release-notes <release-notes>', 'the release notes (for the selected platform) as JSON string')
   .option('--download-links <download-links>', 'the download links of the artifacts (for the selected platform)')
@@ -62,17 +62,9 @@ const githubRelease = async (
 program
   .command('create <platform> <new-version-name> <new-version-code>')
   .description('creates a new release for the specified platform')
-  .action(async (platform, newVersionName, newVersionCode) => {
+  .action(async (platform: string, newVersionName: string, newVersionCode: string, options: Options) => {
     try {
-      await githubRelease(platform, newVersionName, newVersionCode, {
-        deliverinoPrivateKey: program.deliverinoPrivateKey,
-        repo: program.repo,
-        owner: program.owner,
-        betaRelease: program.betaRelease,
-        downloadLinks: program.downloadLinks,
-        releaseNotes: program.releaseNotes,
-        dryRun: program.dryRun,
-      })
+      await githubRelease(platform, newVersionName, newVersionCode, options)
     } catch (e) {
       console.error(e)
       process.exit(1)

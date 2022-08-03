@@ -75,9 +75,9 @@ describe('watchFetchCities', () => {
     })
   })
 
-  it('should correctly call fetchCities when triggered', async () => {
+  it('should correctly call fetchCities when triggered', () => {
     const dataContainer = new DefaultDataContainer()
-    await testSaga(watchFetchCities, dataContainer).next().takeLatest('FETCH_CITIES', fetchCities, dataContainer)
+    testSaga(watchFetchCities, dataContainer).next().takeLatest('FETCH_CITIES', fetchCities, dataContainer)
     expect(reportError).not.toHaveBeenCalled()
   })
 })

@@ -35,7 +35,7 @@ describe('createCategoriesEndpoint', () => {
   const endpoint = createCategoriesEndpoint(baseUrl)
 
   it('should map params to url', () => {
-    expect(endpoint.mapParamsToUrl(params)).toEqual(
+    expect(endpoint.mapParamsToUrl(params)).toBe(
       `${baseUrl}/${params.city}/${params.language}/wp-json/extensions/v3/pages`
     )
   })
