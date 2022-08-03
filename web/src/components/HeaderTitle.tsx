@@ -27,13 +27,13 @@ const HeaderTitleDiv = styled.div<{ long: boolean }>`
   }
 
   @media ${dimensions.smallViewport} {
-    font-size: ${props => (props.long ? '1.2rem' : '1.5rem')};
+    font-size: ${props => props.theme.fonts.decorativeFontSize};
     height: ${HEADER_TITLE_HEIGHT}px;
-    order: 3;
-    min-width: 100%;
-    justify-content: center;
+    justify-content: start;
     padding: 0 10px;
     text-align: center;
+    align-self: center;
+    font-weight: 600;
   }
 `
 
