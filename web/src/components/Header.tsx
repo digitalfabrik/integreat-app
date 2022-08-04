@@ -52,11 +52,11 @@ const Row = styled.div<{ hasTitle?: boolean }>`
     flex-wrap: wrap;
     min-height: ${dimensions.headerHeightSmall}px;
     overflow-x: auto;
-    padding: 16px 12px;
+    padding: 4px 12px;
     box-shadow: 0 2px 5px -3px rgba(0, 0, 0, 0.2);
     :first-child {
       box-shadow: 0 2px 5px -3px rgba(0, 0, 0, 0.12);
-      padding: 8px 4px;
+      padding: 0px 4px;
     }
   }
 `
@@ -88,10 +88,12 @@ const ActionBar = styled.nav`
 
 const NavigationBar = styled.nav`
   display: flex;
-  padding: 0 10px;
   flex: 1 1 0%; /* The % unit is necessary for IE11 */
   align-items: stretch;
   justify-content: center;
+  @media ${dimensions.mediumLargeViewport} {
+    padding: 0 10px;
+  }
 `
 
 /**
@@ -112,9 +114,12 @@ export const Header = ({
   const { headerHeightSmall, headerHeightLarge } = dimensions
   const hasNavigationBar = navigationItems.length > 0
   const height = viewportSmall
-    ? (1 + (hasNavigationBar ? 1 : 0)) * headerHeightSmall + (cityName ? HEADER_TITLE_HEIGHT : 0)
+    ? (1 + (hasNavigationBar ? 1 : 0)) * headerHeightSmall
     : (1 + (hasNavigationBar ? 1 : 0)) * headerHeightLarge
-  const scrollHeight = viewportSmall ? headerHeightSmall + (cityName ? HEADER_TITLE_HEIGHT : 0) : headerHeightLarge
+  const scrollHeight = viewportSmall ? headerHeightSmall : headerHeightLarge
+
+  console.log('height', height)
+  console.log('scrollHeight', scrollHeight)
 
   return (
     <Headroom scrollHeight={scrollHeight} height={height}>
