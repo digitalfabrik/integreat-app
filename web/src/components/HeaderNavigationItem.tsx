@@ -7,6 +7,16 @@ import { helpers } from '../constants/theme'
 
 const Container = styled.div`
   flex: 1 1 135px;
+
+  @media ${dimensions.smallViewport} {
+    &:first-child {
+      padding-right: 12px;
+    }
+
+    &:not(first-child) {
+      padding: 0 12px;
+    }
+  }
 `
 
 const StyledLink = styled(Link)<{ $active: boolean }>`
@@ -20,12 +30,16 @@ const StyledLink = styled(Link)<{ $active: boolean }>`
   flex-direction: column;
   display: flex;
   transition: color 0.2s;
-
   height: 100%;
 
+  &:active {
+    font-weight: 800;
+  }
+
   @media ${dimensions.smallViewport} {
-    font-size: 0.8em;
-    min-width: 135px;
+    font-size: ${props => props.theme.fonts.contentFontSizeSmall};
+    font-weight: 500;
+    min-width: 80px;
   }
 
   &:hover > div:first-child {
@@ -58,22 +72,31 @@ const StyledLink = styled(Link)<{ $active: boolean }>`
       : ''}
 `
 
+const StyledText = styled.span<{ $active: boolean }>`
+  @media ${dimensions.smallViewport} {
+    ${props => (props.$active ? 'font-weight: 800' : '')}
+  }
+`
+
 const ICON_SIZE_LARGE = 50
 const ICON_SIZE_SMALL = 35
 const PADDING_CIRCLE = 8
 
 const Circle = styled.div`
-  background-color: white;
-  box-sizing: border-box;
-  border-radius: 100%;
-  height: ${ICON_SIZE_LARGE}px;
-  width: ${ICON_SIZE_LARGE}px;
   display: flex;
   justify-content: center;
   align-items: center;
-  box-shadow: 0 2px 5px -3px rgba(0, 0, 0, 0.7);
-  transition: box-shadow 0.2s, border 0.2s;
-  border: white 2px solid;
+
+  @media ${dimensions.mediumLargeViewport} {
+    background-color: white;
+    box-sizing: border-box;
+    border-radius: 100%;
+    height: ${ICON_SIZE_LARGE}px;
+    width: ${ICON_SIZE_LARGE}px;
+    box-shadow: 0 2px 5px -3px rgba(0, 0, 0, 0.7);
+    transition: box-shadow 0.2s, border 0.2s;
+    border: white 2px solid;
+  }
 
   & img {
     position: relative;
@@ -107,7 +130,7 @@ const HeaderNavigationItem = ({ active, text, href, icon }: PropsType): ReactEle
       <Circle>
         <img src={icon} alt='' />
       </Circle>
-      {text}
+      <StyledText $active={active}>{text}</StyledText>
     </StyledLink>
   </Container>
 )

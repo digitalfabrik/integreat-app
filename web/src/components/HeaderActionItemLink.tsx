@@ -12,8 +12,8 @@ const StyledLink = styled(Link)`
   height: calc(0.8 * ${dimensions.headerHeightLarge}px);
 
   @media ${dimensions.smallViewport} {
-    width: calc(0.8 * ${dimensions.headerHeightSmall}px);
-    height: calc(0.8 * ${dimensions.headerHeightSmall}px);
+    width: calc(0.5 * ${dimensions.headerHeightSmall}px);
+    height: calc(0.5 * ${dimensions.headerHeightSmall}px);
   }
 
   & > img {
