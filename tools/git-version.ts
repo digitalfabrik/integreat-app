@@ -4,15 +4,6 @@ import { program } from 'commander'
 import { VERSION_FILE, PLATFORMS, tagId, MAIN_BRANCH } from './constants'
 import authenticate from './github-authentication'
 
-program
-  .requiredOption(
-    '--deliverino-private-key <deliverino-private-key>',
-    'private key of the deliverino github app in pem format with base64 encoding'
-  )
-  .requiredOption('--owner <owner>', 'owner of the current repository, usually "digitalfabrik"')
-  .requiredOption('--repo <repo>', 'the current repository, should be integreat-app')
-  .requiredOption('--branch <branch>', 'the current branch')
-
 type TagOptions = {
   versionName: string
   versionCode: number
@@ -106,6 +97,13 @@ const commitAndTag = async (
 program
   .command('bump-to <new-version-name> <new-version-code>')
   .description('commits the supplied version name and code to github and tags the commit')
+  .requiredOption(
+    '--deliverino-private-key <deliverino-private-key>',
+    'private key of the deliverino github app in pem format with base64 encoding'
+  )
+  .requiredOption('--owner <owner>', 'owner of the current repository, usually "digitalfabrik"')
+  .requiredOption('--repo <repo>', 'the current repository, should be integreat-app')
+  .requiredOption('--branch <branch>', 'the current branch')
   .action(async (newVersionName: string, newVersionCode: string, options: Options) => {
     try {
       await commitAndTag(newVersionName, newVersionCode, options)
