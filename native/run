@@ -17,7 +17,7 @@ program
   .command('android <build_config_name>')
   .description('create android build')
   .option('--production', 'whether a production (release) build should be made')
-  .action((buildConfigName: string, options: { production: boolean }) => {
+  .action((buildConfigName, options) => {
     const { production } = options
     const productionFlag = production ? '--variant=release' : ''
 
