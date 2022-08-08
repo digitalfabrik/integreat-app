@@ -13,13 +13,6 @@ type JiraIssue = {
   id: string
 }
 
-program
-  .option('-d, --debug', 'enable extreme logging')
-  .requiredOption('--project-name <project-name>', 'the name of the jira project, e.g. integreat-app')
-  .requiredOption('--access-token <access-token>', 'version name of the new release')
-  .requiredOption('--private-key <privateKey>')
-  .requiredOption('--consumer-key <consumer-key>')
-
 type Opts = {
   accessToken: string
   privateKeyBase64: string
@@ -119,6 +112,11 @@ program
   .description(
     'create a new release with the name <new-version-name> on jira and assign all issues resolved since the last release'
   )
+  .option('-d, --debug', 'enable extreme logging')
+  .requiredOption('--project-name <project-name>', 'the name of the jira project, e.g. integreat-app')
+  .requiredOption('--access-token <access-token>', 'version name of the new release')
+  .requiredOption('--private-key <privateKey>')
+  .requiredOption('--consumer-key <consumer-key>')
   .action(async (newVersionName: string, options: Opts) => {
     try {
       await createRelease({
