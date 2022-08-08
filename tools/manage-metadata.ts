@@ -160,7 +160,6 @@ const parseReleaseNotes = ({ source, ios, android, web, production, language, ap
 
 const parseNotesProgram = (options: ParseOptions) => {
   const { destination } = options
-  console.log(options)
   try {
     const notes = parseReleaseNotes(options)
 
@@ -349,7 +348,6 @@ program
   )
   .action((appName: string, storeName: string, options: { overrideVersionName: string }) => {
     try {
-      console.log(options)
       const { overrideVersionName } = options
       writeMetadata(appName, storeName, overrideVersionName)
     } catch (e) {
