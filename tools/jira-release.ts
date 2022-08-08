@@ -112,7 +112,6 @@ program
   .description(
     'create a new release with the name <new-version-name> on jira and assign all issues resolved since the last release'
   )
-  .option('-d, --debug', 'enable extreme logging')
   .requiredOption('--project-name <project-name>', 'the name of the jira project, e.g. integreat-app')
   .requiredOption('--access-token <access-token>', 'version name of the new release')
   .requiredOption('--private-key <privateKey>')
