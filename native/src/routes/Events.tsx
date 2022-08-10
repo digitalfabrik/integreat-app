@@ -133,7 +133,7 @@ const Events = ({
     <SpaceBetween>
       <View>
         <Caption title={t('events')} />
-        <List noItemsMessage={t('currentlyNoEvents')} items={events} renderItem={renderEventListItem} theme={theme} />
+        <List noItemsMessage={t('currentlyNoEvents')} items={events} renderItem={renderEventListItem} />
       </View>
       <SiteHelpfulBox navigateToFeedback={navigateToFeedbackForEvents} />
     </SpaceBetween>

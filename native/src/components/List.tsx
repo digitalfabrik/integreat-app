@@ -1,9 +1,6 @@
 import { isEmpty } from 'lodash'
-import * as React from 'react'
-import { ReactNode } from 'react'
+import React, { FC, ReactElement, ReactNode } from 'react'
 import styled from 'styled-components/native'
-
-import { ThemeType } from 'build-configs'
 
 const StyledView = styled.View`
   margin: 0 10px 0;
@@ -14,28 +11,23 @@ const NoItemsMessage = styled.Text`
   padding-top: 25px;
   text-align: center;
 `
-type PropsType<T> = {
+type Props<T> = {
   items: Array<T>
   noItemsMessage: string
-  renderItem: (arg0: T) => React.ReactNode
-  theme: ThemeType
-  CustomStyledList?: React.FC
+  renderItem: (item: T) => ReactNode
+  Wrapper?: FC
 }
 
-class List<T> extends React.PureComponent<PropsType<T>> {
-  render(): ReactNode {
-    const { items, renderItem, noItemsMessage, theme, CustomStyledList } = this.props
-
-    if (isEmpty(items)) {
-      return <NoItemsMessage>{noItemsMessage}</NoItemsMessage>
-    }
-
-    if (CustomStyledList) {
-      return <CustomStyledList>{items.map(item => renderItem(item))}</CustomStyledList>
-    }
-
-    return <StyledView theme={theme}>{items.map(item => renderItem(item))}</StyledView>
+const List = <T,>({ items, noItemsMessage, renderItem, Wrapper }: Props<T>): ReactElement => {
+  if (isEmpty(items)) {
+    return <NoItemsMessage>{noItemsMessage}</NoItemsMessage>
   }
+
+  if (Wrapper) {
+    return <Wrapper>{items.map(item => renderItem(item))}</Wrapper>
+  }
+
+  return <StyledView>{items.map(item => renderItem(item))}</StyledView>
 }
 
 export default List

@@ -47,7 +47,7 @@ export type PropsType = {
   navigation: NavigationPropType<PoisRouteType>
 }
 
-const CustomSheetList = styled.View`
+const ListWrapper = styled.View`
   margin: 0 32px;
 `
 
@@ -153,13 +153,7 @@ const Pois = ({ pois, language, cityModel, route, navigation }: PropsType): Reac
   const content = urlSlug ? (
     selectedFeatureContent
   ) : (
-    <List
-      CustomStyledList={CustomSheetList}
-      noItemsMessage={t('noPois')}
-      items={features}
-      renderItem={renderPoiListItem}
-      theme={theme}
-    />
+    <List Wrapper={ListWrapper} noItemsMessage={t('noPois')} items={features} renderItem={renderPoiListItem} />
   )
 
   return (
