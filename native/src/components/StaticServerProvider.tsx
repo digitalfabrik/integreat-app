@@ -22,11 +22,11 @@ const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>): DispatchPropsT
     const setResourceCacheUrlAction: SetResourceCacheUrlActionType = {
       type: 'SET_RESOURCE_CACHE_URL',
       params: {
-        url
-      }
+        url,
+      },
     }
     dispatch(setResourceCacheUrlAction)
-  }
+  },
 })
 
 const SERVER_PATH = RESOURCE_CACHE_DIR_PATH
@@ -39,11 +39,11 @@ class StaticServerProvider extends React.Component<
   }
 > {
   staticServer = new StaticServer(SERVER_PORT, SERVER_PATH, {
-    localOnly: true
+    localOnly: true,
   })
 
   state = {
-    errorMessage: null
+    errorMessage: null,
   }
 
   async componentDidMount() {
@@ -54,7 +54,7 @@ class StaticServerProvider extends React.Component<
     } catch (e) {
       // eslint-disable-next-line react/no-did-mount-set-state
       this.setState({
-        errorMessage: getErrorMessage(e)
+        errorMessage: getErrorMessage(e),
       })
     }
   }

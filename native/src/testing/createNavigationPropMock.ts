@@ -13,7 +13,7 @@ const createNavigationMock = <T extends RoutesType>(routeIndex = 0): NavigationP
     key: 'some-key-0',
     routeNames: [DASHBOARD_ROUTE],
     type: 'stack',
-    stale: false
+    stale: false,
   })),
   navigate: jest.fn(),
   setParams: jest.fn(),
@@ -25,7 +25,8 @@ const createNavigationMock = <T extends RoutesType>(routeIndex = 0): NavigationP
   isFocused: jest.fn(),
   reset: jest.fn(),
   removeListener: jest.fn(),
-  setOptions: jest.fn()
+  setOptions: jest.fn(),
+  getId: jest.fn(),
 })
 
 export default createNavigationMock

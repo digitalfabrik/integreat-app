@@ -6,7 +6,7 @@ import {
   HeaderButton,
   HeaderButtons,
   OnOverflowMenuPressParams,
-  OverflowMenu
+  OverflowMenu,
 } from 'react-navigation-header-buttons'
 
 import { ThemeType } from 'build-configs'
@@ -22,7 +22,7 @@ const MaterialHeaderButton = (props: {
 const onOverflowMenuPress = (cancelButtonLabel: string) => (props: OnOverflowMenuPressParams) =>
   defaultOnOverflowMenuPress({
     ...props,
-    cancelButtonLabel
+    cancelButtonLabel,
   })
 
 const MaterialHeaderButtons = (props: {

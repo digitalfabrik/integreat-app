@@ -20,5 +20,5 @@ export const commonLightColors = {
   backgroundColor: '#ffffff',
   tunewsThemeColor: '#007aa8',
   tunewsThemeColorLight: 'rgba(0, 122, 168, 0.4)',
-  poiBorderColor: '#F1F1F1'
+  poiBorderColor: '#F1F1F1',
 }

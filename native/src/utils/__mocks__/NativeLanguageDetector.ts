@@ -3,5 +3,5 @@ export default {
   async: false,
   init: (): void => undefined,
   detect: jest.fn<string, []>(() => 'en'),
-  cacheUserLanguage: (): void => undefined
+  cacheUserLanguage: (): void => undefined,
 }

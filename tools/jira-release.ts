@@ -13,26 +13,18 @@ type JiraIssue = {
   id: string
 }
 
-program
-  .option('-d, --debug', 'enable extreme logging')
-  .requiredOption('--project-name <project-name>', 'the name of the jira project, e.g. integreat-app')
-  .requiredOption('--access-token <access-token>', 'version name of the new release')
-  .requiredOption('--private-key <privateKey>')
-  .requiredOption('--consumer-key <consumer-key>')
-
-const createRelease = async ({
-  newVersionName,
-  accessToken,
-  privateKeyBase64,
-  consumerKey,
-  projectName
-}: {
-  newVersionName: string
+type Opts = {
   accessToken: string
   privateKeyBase64: string
   consumerKey: string
   projectName: string
-}) => {
+}
+
+type Options = Opts & {
+  newVersionName: string
+}
+
+const createRelease = async ({ newVersionName, accessToken, privateKeyBase64, consumerKey, projectName }: Options) => {
   const privateKey = Buffer.from(privateKeyBase64, 'base64').toString('ascii')
   const jiraApi = new JiraApi({
     protocol: 'https',
@@ -43,8 +35,8 @@ const createRelease = async ({
       consumer_key: consumerKey,
       consumer_secret: privateKey,
       access_token: accessToken,
-      access_token_secret: ''
-    }
+      access_token_secret: '',
+    },
   })
 
   const date = new Date()
@@ -63,7 +55,7 @@ const createRelease = async ({
     name: newVersionName,
     released: true,
     releaseDate: newReleaseDate,
-    project: projectKey
+    project: projectKey,
   })
 
   const unsortedVersions = (await jiraApi.getVersions(projectKey)) as JiraVersion[]
@@ -88,7 +80,7 @@ const createRelease = async ({
   // https://issues.tuerantuer.org/secure/admin/ViewSystemInfo.jspa
   const response = await jiraApi.searchJira(query, {
     fields: ['id'],
-    maxResults: 1000
+    maxResults: 1000,
   })
   const issues = response.issues as JiraIssue[]
 
@@ -103,12 +95,12 @@ const createRelease = async ({
             {
               set: [
                 {
-                  id: newVersion.id
-                }
-              ]
-            }
-          ]
-        }
+                  id: newVersion.id,
+                },
+              ],
+            },
+          ],
+        },
       }
       return jiraApi.updateIssue(issueId, issueUpdate, { notifyUsers: false })
     })
@@ -120,14 +112,15 @@ program
   .description(
     'create a new release with the name <new-version-name> on jira and assign all issues resolved since the last release'
   )
-  .action(async newVersionName => {
+  .requiredOption('--project-name <project-name>', 'the name of the jira project, e.g. integreat-app')
+  .requiredOption('--access-token <access-token>', 'version name of the new release')
+  .requiredOption('--private-key <privateKey>')
+  .requiredOption('--consumer-key <consumer-key>')
+  .action(async (newVersionName: string, options: Opts) => {
     try {
       await createRelease({
         newVersionName,
-        accessToken: program.accessToken,
-        consumerKey: program.consumerKey,
-        privateKeyBase64: program.privateKey,
-        projectName: program.projectName
+        ...options,
       })
     } catch (e) {
       console.error(e)

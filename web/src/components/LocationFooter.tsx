@@ -22,7 +22,7 @@ const LocationFooter: React.FC<PropsType> = ({ city, language, overlay = false }
   const disclaimerPath = pathnameFromRouteInformation({
     route: DISCLAIMER_ROUTE,
     cityCode: city,
-    languageCode: language
+    languageCode: language,
   })
 
   return (

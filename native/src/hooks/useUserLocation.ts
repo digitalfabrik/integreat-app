@@ -12,20 +12,20 @@ const locationStateOnError = (error: GeolocationError): UnavailableLocationState
     return {
       status: 'unavailable',
       message: 'noPermission',
-      coordinates: null
+      coordinates: null,
     }
   }
   if (error.code === error.POSITION_UNAVAILABLE) {
     return {
       status: 'unavailable',
       message: 'notAvailable',
-      coordinates: null
+      coordinates: null,
     }
   }
   return {
     status: 'unavailable',
     message: 'timeout',
-    coordinates: null
+    coordinates: null,
   }
 }
 
@@ -37,7 +37,7 @@ const useUserLocation = (useSettingsListener = false): LocationInformationType =
   const [locationState, setLocationState] = useState<LocationStateType>({
     status: 'loading',
     message: 'loading',
-    coordinates: null
+    coordinates: null,
   })
 
   const determineLocation = useCallback(() => {
@@ -46,7 +46,7 @@ const useUserLocation = (useSettingsListener = false): LocationInformationType =
         setLocationState({
           status: 'ready',
           message: 'ready',
-          coordinates: [position.coords.longitude, position.coords.latitude]
+          coordinates: [position.coords.longitude, position.coords.latitude],
         })
       },
       (error: GeolocationError) => {
@@ -55,7 +55,7 @@ const useUserLocation = (useSettingsListener = false): LocationInformationType =
       {
         enableHighAccuracy: true,
         timeout: 50000,
-        maximumAge: 3600000
+        maximumAge: 3600000,
       }
     )
   }, [])
@@ -66,14 +66,14 @@ const useUserLocation = (useSettingsListener = false): LocationInformationType =
         setLocationState(state => ({
           status: 'loading',
           message: 'loading',
-          coordinates: state.coordinates
+          coordinates: state.coordinates,
         }))
         determineLocation()
       } else {
         setLocationState({
           status: 'unavailable',
           message: 'noPermission',
-          coordinates: null
+          coordinates: null,
         })
       }
     })
@@ -83,7 +83,7 @@ const useUserLocation = (useSettingsListener = false): LocationInformationType =
     setLocationState(state => ({
       status: 'loading',
       message: 'loading',
-      coordinates: state.coordinates
+      coordinates: state.coordinates,
     }))
     const locationPermissionStatus = await checkLocationPermission()
 
@@ -93,7 +93,7 @@ const useUserLocation = (useSettingsListener = false): LocationInformationType =
       setLocationState({
         message: 'noPermission',
         status: 'unavailable',
-        coordinates: null
+        coordinates: null,
       })
       if (locationPermissionStatus === RESULTS.BLOCKED) {
         await openSettings()
@@ -110,7 +110,7 @@ const useUserLocation = (useSettingsListener = false): LocationInformationType =
           setLocationState({
             status: 'unavailable',
             message: 'notAvailable',
-            coordinates: null
+            coordinates: null,
           })
         }
       }
@@ -125,7 +125,7 @@ const useUserLocation = (useSettingsListener = false): LocationInformationType =
 
   return {
     ...locationState,
-    requestAndDetermineLocation
+    requestAndDetermineLocation,
   }
 }
 

@@ -1,6 +1,6 @@
 import {
   TransformedTranslationsType as ImportedTransformedTranslationsType,
-  TranslationsType as ImportedTranslationsType
+  TranslationsType as ImportedTranslationsType,
 } from './types'
 
 export type TranslationsType = ImportedTranslationsType

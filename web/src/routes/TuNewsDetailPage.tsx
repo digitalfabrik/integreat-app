@@ -30,7 +30,7 @@ const StyledBanner = styled.div`
   overflow: hidden;
   align-items: center;
   margin: 25px 0;
-  background-color: ${({ theme }) => theme.colors.tunewsThemeColorLight};
+  background-color: ${props => props.theme.colors.tunewsThemeColorLight};
   border-radius: 11px;
 `
 const StyledBannerImage = styled.img`
@@ -42,8 +42,8 @@ const StyledTitle = styled.div`
   height: 100%;
   align-items: center;
   justify-content: center;
-  background-color: ${({ theme }) => theme.colors.tunewsThemeColor};
-  color: ${({ theme }) => theme.colors.backgroundColor};
+  background-color: ${props => props.theme.colors.tunewsThemeColor};
+  color: ${props => props.theme.colors.backgroundColor};
   font-size: 20px;
   font-weight: 700;
 `
@@ -69,7 +69,7 @@ const TuNewsDetailPage = ({ cityModel, languages, pathname, cityCode, languageCo
     feedbackTargetInformation: null,
     languageChangePaths,
     route: TU_NEWS_DETAIL_ROUTE,
-    languageCode
+    languageCode,
   }
 
   if (loading) {
@@ -87,7 +87,7 @@ const TuNewsDetailPage = ({ cityModel, languages, pathname, cityCode, languageCo
         type: TU_NEWS_TYPE,
         id: pathname,
         city: cityCode,
-        language: languageCode
+        language: languageCode,
       })
 
     return (

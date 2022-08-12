@@ -15,7 +15,7 @@ const navigateToCategory = <T extends RoutesType>({
   cityContentPath,
   key = generateRouteKey(),
   forceRefresh = false,
-  resetNavigation = false
+  resetNavigation = false,
 }: {
   dispatch: Dispatch<StoreActionType>
   navigation: NavigationPropType<T>
@@ -29,16 +29,16 @@ const navigateToCategory = <T extends RoutesType>({
 }): void => {
   const route = {
     name: routeName,
-    key
+    key,
   }
 
   if (resetNavigation) {
     navigation.reset({
       index: 0,
-      routes: [route]
+      routes: [route],
     })
     dispatch({
-      type: 'CLEAR_CITY'
+      type: 'CLEAR_CITY',
     })
   } else {
     navigation.navigate(route)
@@ -54,9 +54,9 @@ const navigateToCategory = <T extends RoutesType>({
       key,
       criterion: {
         forceUpdate: forceRefresh,
-        shouldRefreshResources: forceRefresh
-      }
-    }
+        shouldRefreshResources: forceRefresh,
+      },
+    },
   }
   dispatch(fetchCategory)
 }

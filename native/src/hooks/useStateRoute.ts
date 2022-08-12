@@ -6,7 +6,7 @@ import {
   EVENTS_ROUTE,
   EventsRouteType,
   POIS_ROUTE,
-  PoisRouteType
+  PoisRouteType,
 } from 'api-client'
 
 import { CategoryRouteStateType, EventRouteStateType, PoiRouteStateType, StateType } from '../redux/StateType'

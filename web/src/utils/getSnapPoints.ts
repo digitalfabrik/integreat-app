@@ -12,5 +12,5 @@ export const getSnapPoints = (maxHeight: number): number[] => [
   maxHeight * min,
   maxHeight * mid,
   getDetailSnapPoint(maxHeight),
-  maxHeight
+  maxHeight,
 ]

@@ -4,12 +4,14 @@ import { MapResponseType as ImportedMapResponseType } from './MapResponseType'
 import {
   FeedbackCategoryType as ImportedFeedbackCategoryType,
   FeedbackType as ImportedFeedbackType,
-  ParamsType as ImportedFeedbackParamsType
+  ParamsType as ImportedFeedbackParamsType,
 } from './endpoints/createFeedbackEndpoint'
 import { Status as ImportedShelterContactStatus } from './endpoints/createShelterContactEndpoint'
+import { FilterProps as ImportedShelterFilterProps } from './endpoints/createShelterEndpoint'
 import { ReturnType as ImportedReturnType } from './endpoints/hooks/useLoadFromEndpoint'
 
 export type ShelterContactStatus = ImportedShelterContactStatus
+export type ShelterFilterProps = ImportedShelterFilterProps
 export type MapParamsToBodyType<P> = ImportedMapParamsToBodyType<P>
 export type MapParamsToUrlType<P> = ImportedMapParamsToUrlType<P>
 export type MapResponseType<P, T> = ImportedMapResponseType<P, T>
@@ -37,20 +39,20 @@ export { default as NotFoundError } from './errors/NotFoundError'
 export { default as createCategoriesEndpoint, CATEGORIES_ENDPOINT_NAME } from './endpoints/createCategoriesEndpoint'
 export {
   default as createCategoryContentEndpoint,
-  CATEGORY_CONTENT_ENDPOINT_NAME
+  CATEGORY_CONTENT_ENDPOINT_NAME,
 } from './endpoints/createCategoryContentEndpoint'
 export {
   default as createCategoryChildrenEndpoint,
-  CATEGORY_CHILDREN_ENDPOINT_NAME
+  CATEGORY_CHILDREN_ENDPOINT_NAME,
 } from './endpoints/createCategoryChildrenEndpoint'
 export {
   default as createCategoryParentsEndpoint,
-  CATEGORY_PARENTS_ENDPOINT_NAME
+  CATEGORY_PARENTS_ENDPOINT_NAME,
 } from './endpoints/createCategoryParentsEndpoint'
 export { default as createShelterEndpoint, SHELTER_ENDPOINT_NAME } from './endpoints/createShelterEndpoint'
 export {
   default as createShelterContactEndpoint,
-  SHELTER_CONTACT_ENDPOINT_NAME
+  SHELTER_CONTACT_ENDPOINT_NAME,
 } from './endpoints/createShelterContactEndpoint'
 export { default as createCitiesEndpoint, CITIES_ENDPOINT_NAME } from './endpoints/createCitiesEndpoint'
 export { default as createDisclaimerEndpoint, DISCLAIMER_ENDPOINT_NAME } from './endpoints/createDisclaimerEndpoint'
@@ -58,12 +60,12 @@ export { default as createEventsEndpoint, EVENTS_ENDPOINT_NAME } from './endpoin
 export { default as createLocalNewsEndpoint, LOCAL_NEWS_ENDPOINT_NAME } from './endpoints/createLocalNewsEndpoint'
 export {
   default as createLocalNewsElementEndpoint,
-  LOCAL_NEWS_ELEMENT_ENDPOINT_NAME
+  LOCAL_NEWS_ELEMENT_ENDPOINT_NAME,
 } from './endpoints/createLocalNewsElementEndpoint'
 export { default as createTunewsEndpoint, TUNEWS_ENDPOINT_NAME } from './endpoints/createTunewsEndpoint'
 export {
   default as createTunewsElementEndpoint,
-  TUNEWS_ELEMENT_ENDPOINT_NAME
+  TUNEWS_ELEMENT_ENDPOINT_NAME,
 } from './endpoints/createTunewsElementEndpoint'
 export { default as createOffersEndpoint, OFFERS_ENDPOINT_NAME } from './endpoints/createOffersEndpoint'
 export { default as createFeedbackEndpoint, FEEDBACK_ENDPOINT_NAME } from './endpoints/createFeedbackEndpoint'
@@ -87,12 +89,12 @@ export { DEFAULT_FEEDBACK_LANGUAGE } from './endpoints/createFeedbackEndpoint'
 export { default as createLanguagesEndpoint, LANGUAGES_ENDPOINT_NAME } from './endpoints/createLanguagesEndpoint'
 export {
   default as createTunewsLanguagesEndpoint,
-  TUNEWS_LANGUAGES_ENDPOINT_NAME
+  TUNEWS_LANGUAGES_ENDPOINT_NAME,
 } from './endpoints/createTunewsLanguagesEndpoint'
 export { default as createPOIsEndpoint, POIS_ENDPOINT_NAME } from './endpoints/createPOIsEndpoint'
 export {
   default as createSprungbrettJobsEndpoint,
-  SPRUNGBRETT_JOBS_ENDPOINT_NAME
+  SPRUNGBRETT_JOBS_ENDPOINT_NAME,
 } from './endpoints/createSprungbrettJobsEndpoint'
 export { SPRUNGBRETT_OFFER } from './endpoints/createSprungbrettJobsEndpoint'
 export { default as useLoadFromEndpoint, loadFromEndpoint } from './endpoints/hooks/useLoadFromEndpoint'

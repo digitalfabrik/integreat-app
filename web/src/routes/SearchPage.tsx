@@ -9,7 +9,7 @@ import {
   parseHTML,
   pathnameFromRouteInformation,
   SEARCH_ROUTE,
-  useLoadFromEndpoint
+  useLoadFromEndpoint,
 } from 'api-client'
 
 import { CityRouteProps } from '../CityContentSwitcher'
@@ -37,7 +37,7 @@ const SearchPage = ({ cityModel, languages, cityCode, languageCode, pathname }: 
     async () =>
       createCategoriesEndpoint(cmsApiBaseUrl).request({
         city: cityCode,
-        language: languageCode
+        language: languageCode,
       }),
     [cityCode, languageCode]
   )
@@ -46,7 +46,7 @@ const SearchPage = ({ cityModel, languages, cityCode, languageCode, pathname }: 
   const languageChangePaths = languages.map(({ code, name }) => ({
     path: pathnameFromRouteInformation({ route: SEARCH_ROUTE, cityCode, languageCode: code }),
     name,
-    code
+    code,
   }))
 
   const locationLayoutParams = {
@@ -55,7 +55,7 @@ const SearchPage = ({ cityModel, languages, cityCode, languageCode, pathname }: 
     feedbackTargetInformation: null,
     languageChangePaths,
     route: SEARCH_ROUTE,
-    languageCode
+    languageCode,
   }
 
   if (loading) {
@@ -91,7 +91,7 @@ const SearchPage = ({ cityModel, languages, cityCode, languageCode, pathname }: 
       (category: CategoryModel): CategoryEntryType => ({
         model: category,
         contentWithoutHtml: parseHTML(category.content),
-        subCategories: []
+        subCategories: [],
       })
     )
     .filter(

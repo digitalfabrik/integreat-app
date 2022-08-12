@@ -21,27 +21,27 @@ const testResources = {
     'https://test.de/path/to/resource/test.png': {
       filePath: '/local/path/to/resource2/b4b5dca65e423.png',
       lastUpdate: moment('2011-02-04T00:00:00.000Z'),
-      hash: 'testHash'
-    }
-  }
+      hash: 'testHash',
+    },
+  },
 }
 const previousResources = {
   '/path/to/page': {
     'https://test.de/path/to/resource/test.png': {
       filePath: '/local/path/to/resource/b4b5dca65e423.png',
       lastUpdate: moment('2011-02-04T00:00:00.000Z'),
-      hash: 'testHash'
-    }
-  }
+      hash: 'testHash',
+    },
+  },
 }
 const anotherTestResources = {
   '/path/to/page': {
     'https://test.de/path/to/anotherResource/test.png': {
       filePath: '/local/path/to/resource3/b4b5dca65e424.png',
       lastUpdate: moment('2011-02-04T00:00:00.000Z'),
-      hash: 'testHash'
-    }
-  }
+      hash: 'testHash',
+    },
+  },
 }
 describe('DefaultDataContainer', () => {
   const city = 'augsburg'

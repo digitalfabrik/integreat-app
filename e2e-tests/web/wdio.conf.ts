@@ -31,17 +31,19 @@ export const config: Testrunner = {
   reporters: ['spec'],
 
   jasmineOpts: {
-    defaultTimeoutInterval: 300000
+    defaultTimeoutInterval: 300000,
   },
 
   onPrepare: async (): Promise<void> => {
     if (process.env.CI) {
       const startupDelay = 20000
-      await new Promise(resolve => setTimeout(resolve, startupDelay))
+      await new Promise(resolve => {
+        setTimeout(resolve, startupDelay)
+      })
     }
   },
 
   before: async (): Promise<void> => {
     await browser.setTimeout({ implicit: 80000, pageLoad: 60000 })
-  }
+  },
 }

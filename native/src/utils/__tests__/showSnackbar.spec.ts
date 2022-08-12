@@ -10,8 +10,8 @@ describe('showSnackbar', () => {
     expect(dispatch).toHaveBeenCalledWith({
       type: 'ENQUEUE_SNACKBAR',
       params: {
-        text: message
-      }
+        text: message,
+      },
     })
   })
 })

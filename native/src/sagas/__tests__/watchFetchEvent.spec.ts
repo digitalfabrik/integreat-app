@@ -48,7 +48,7 @@ describe('watchFetchEvent', () => {
         dataContainer,
         events,
         resources,
-        languages
+        languages,
       }
     }
 
@@ -63,15 +63,15 @@ describe('watchFetchEvent', () => {
           key: 'events-key',
           criterion: {
             forceUpdate: true,
-            shouldRefreshResources: true
-          }
-        }
+            shouldRefreshResources: true,
+          },
+        },
       }
       return expectSaga(fetchEvent, dataContainer, action)
         .withState({
           cityContent: {
-            city
-          }
+            city,
+          },
         })
         .put({
           type: 'PUSH_EVENT',
@@ -83,8 +83,8 @@ describe('watchFetchEvent', () => {
             key: 'events-key',
             language,
             city,
-            refresh: true
-          }
+            refresh: true,
+          },
         })
         .run()
     })
@@ -100,15 +100,15 @@ describe('watchFetchEvent', () => {
           key: 'events-key',
           criterion: {
             forceUpdate: false,
-            shouldRefreshResources: false
-          }
-        }
+            shouldRefreshResources: false,
+          },
+        },
       }
       return expectSaga(fetchEvent, dataContainer, action)
         .withState({
           cityContent: {
-            city
-          }
+            city,
+          },
         })
         .put({
           type: 'PUSH_EVENT',
@@ -120,8 +120,8 @@ describe('watchFetchEvent', () => {
             key: 'events-key',
             language,
             city,
-            refresh: false
-          }
+            refresh: false,
+          },
         })
         .run()
     })
@@ -138,15 +138,15 @@ describe('watchFetchEvent', () => {
           key: 'route-0',
           criterion: {
             forceUpdate: false,
-            shouldRefreshResources: true
-          }
-        }
+            shouldRefreshResources: true,
+          },
+        },
       }
       return expectSaga(fetchEvent, dataContainer, action)
         .withState({
           cityContent: {
-            city
-          }
+            city,
+          },
         })
         .put({
           type: 'FETCH_EVENT_FAILED',
@@ -158,10 +158,10 @@ describe('watchFetchEvent', () => {
             path: null,
             allAvailableLanguages: new Map([
               ['en', '/augsburg/en/events'],
-              ['de', '/augsburg/de/events']
+              ['de', '/augsburg/de/events'],
             ]),
-            key: 'route-0'
-          }
+            key: 'route-0',
+          },
         })
         .run()
     })
@@ -177,16 +177,16 @@ describe('watchFetchEvent', () => {
           key: 'events-key',
           criterion: {
             forceUpdate: false,
-            shouldRefreshResources: true
-          }
-        }
+            shouldRefreshResources: true,
+          },
+        },
       }
       const error = new Error('Jemand hat keine 4 Issues geschafft!')
       await expectSaga(fetchEvent, dataContainer, action)
         .withState({
           cityContent: {
-            city
-          }
+            city,
+          },
         })
         .provide({
           call: (effect, next) => {
@@ -195,12 +195,12 @@ describe('watchFetchEvent', () => {
             }
 
             return next()
-          }
+          },
         })
         .put.like({
           action: {
-            type: 'FETCH_EVENT_FAILED'
-          }
+            type: 'FETCH_EVENT_FAILED',
+          },
         })
         .run()
 
@@ -209,9 +209,9 @@ describe('watchFetchEvent', () => {
     })
   })
 
-  it('should correctly call fetchEvent when triggered', async () => {
+  it('should correctly call fetchEvent when triggered', () => {
     const dataContainer = new DefaultDataContainer()
-    await testSaga(watchFetchEvent, dataContainer).next().takeEvery('FETCH_EVENT', fetchEvent, dataContainer)
+    testSaga(watchFetchEvent, dataContainer).next().takeEvery('FETCH_EVENT', fetchEvent, dataContainer)
     expect(reportError).not.toHaveBeenCalled()
   })
 })

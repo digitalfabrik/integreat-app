@@ -33,23 +33,23 @@ describe('SearchModal', () => {
     closeModal: dummy,
     navigateToLink: dummy,
     t,
-    theme: buildConfig().lightTheme
+    theme: buildConfig().lightTheme,
   }
 
   it('should send tracking signal when closing search site', async () => {
     const { getByPlaceholderText, getAllByRole } = render(<SearchModal {...props} />)
     const goBackButton = getAllByRole('button')[0]!
     const searchBar = getByPlaceholderText('searchPlaceholder')
-    await fireEvent.changeText(searchBar, 'Category')
-    await fireEvent.press(goBackButton)
+    fireEvent.changeText(searchBar, 'Category')
+    fireEvent.press(goBackButton)
     await waitFor(() => expect(goBackButton).not.toBeDisabled())
     await waitFor(() => expect(sendTrackingSignal).toHaveBeenCalledTimes(1))
     expect(sendTrackingSignal).toHaveBeenCalledWith({
       signal: {
         name: SEARCH_FINISHED_SIGNAL_NAME,
         query: 'Category',
-        url: null
-      }
+        url: null,
+      },
     })
   })
 
@@ -57,24 +57,24 @@ describe('SearchModal', () => {
     const { getByText, getByPlaceholderText, getAllByRole } = render(<SearchModal {...props} />)
     const goBackButton = getAllByRole('button')[0]!
     const searchBar = getByPlaceholderText('searchPlaceholder')
-    await fireEvent.changeText(searchBar, 'Category')
+    fireEvent.changeText(searchBar, 'Category')
     const categoryListItem = getByText('with id 1')
-    await fireEvent.press(categoryListItem)
+    fireEvent.press(categoryListItem)
     await waitFor(() => expect(goBackButton).not.toBeDisabled())
     expect(sendTrackingSignal).toHaveBeenCalledTimes(1)
     const routeInformation: CategoriesRouteInformationType = {
       route: CATEGORIES_ROUTE,
       cityContentPath: categoriesMapModel.toArray()[2]!.path,
       cityCode,
-      languageCode: language
+      languageCode: language,
     }
     const expectedUrl = urlFromRouteInformation(routeInformation)
     expect(sendTrackingSignal).toHaveBeenCalledWith({
       signal: {
         name: SEARCH_FINISHED_SIGNAL_NAME,
         query: 'Category',
-        url: expectedUrl
-      }
+        url: expectedUrl,
+      },
     })
   })
 

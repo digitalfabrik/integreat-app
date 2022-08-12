@@ -37,7 +37,7 @@ function* subscribePushNotifications(newCity: string, newLanguage: string): Saga
     } else {
       // Disable the feature to prevent the user from being asked again
       yield* call(appSettings.setSettings, {
-        allowPushNotifications: false
+        allowPushNotifications: false,
       })
     }
   }
@@ -73,7 +73,7 @@ function* refreshResources(
   const input = (categoriesMap.toArray() as Array<CategoryModel | EventModel>).concat(events).map(it => ({
     path: it.path,
     thumbnail: it.thumbnail,
-    content: it.content
+    content: it.content,
   }))
   const fetchMap = resourceURLFinder.buildFetchMap(input, (url, urlHash) =>
     buildResourceFilePath(url, newCity, urlHash)
@@ -102,8 +102,8 @@ function* prepareLanguages(
     const pushLanguages: PushLanguagesActionType = {
       type: 'PUSH_LANGUAGES',
       params: {
-        languages
-      }
+        languages,
+      },
     }
     yield* put(pushLanguages)
     return languages.map(language => language.code).includes(newLanguage)
@@ -113,8 +113,8 @@ function* prepareLanguages(
       type: 'FETCH_LANGUAGES_FAILED',
       params: {
         message: `Error while fetching languages: ${getErrorMessage(e)}`,
-        code: fromError(e)
-      }
+        code: fromError(e),
+      },
     }
     yield* put(languagesFailed)
     return false
@@ -173,7 +173,7 @@ export default function* loadCityContent(
     const { categoriesMap, events, _unusedPois } = yield* all({
       categoriesMap: call(loadCategories, newCity, newLanguage, dataContainer, shouldUpdate),
       events: call(loadEvents, newCity, newLanguage, cityModel.eventsEnabled, dataContainer, shouldUpdate),
-      _unusedPois: call(loadPois, newCity, newLanguage, featureFlags.pois, dataContainer, shouldUpdate)
+      _unusedPois: call(loadPois, newCity, newLanguage, featureFlags.pois, dataContainer, shouldUpdate),
     })
 
     // fetchResourceCache should be callable independent of content updates. Even if loadCategories, loadEvents,

@@ -1,5 +1,4 @@
-import { IconDefinition } from '@fortawesome/fontawesome-common-types'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { FontAwesomeIcon, FontAwesomeIconProps } from '@fortawesome/react-fontawesome'
 import React, { ReactElement } from 'react'
 
 import StyledSmallViewTip from './StyledSmallViewTip'
@@ -8,7 +7,7 @@ import Tooltip from './Tooltip'
 
 type PropsType = {
   href: string
-  icon: IconDefinition
+  icon: FontAwesomeIconProps['icon']
   text: string
   viewportSmall: boolean
 }

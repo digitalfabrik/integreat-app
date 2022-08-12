@@ -23,7 +23,7 @@ class FetcherModule {
     const fetchResult = mapValues(targetFilePaths, value => ({
       lastUpdate: '2016-02-01T10:35:20Z',
       url: value,
-      errorMessage: null as string | null
+      errorMessage: null as string | null,
     }))
     const fetchResultPairs = toPairs(fetchResult)
     const sortedPaths = sortBy(fetchResultPairs, ([, result]) => result.url).map(([path]) => path)

@@ -10,7 +10,7 @@ import {
   PLATFORM_IOS,
   PLATFORM_WEB,
   RELEASE_NOTES_DIR,
-  UNRELEASED_DIR
+  UNRELEASED_DIR,
 } from './constants'
 
 const loadStoreTranslations = (appName: string) =>
@@ -25,7 +25,7 @@ type NoteType = {
   de?: string
   en: string
 }
-type ParseProgramType = {
+type ParseOptions = {
   destination?: string
   source: string
   ios: boolean
@@ -92,7 +92,7 @@ const formatDevelopmentNotes = (params: { notes: NoteType[]; language: string; p
     common: [] as NoteType[],
     android: [] as NoteType[],
     ios: [] as NoteType[],
-    web: [] as NoteType[]
+    web: [] as NoteType[],
   }
   // Group notes by platform
   const notesMap = notes.reduce((notesMap, note) => {
@@ -113,7 +113,7 @@ const formatDevelopmentNotes = (params: { notes: NoteType[]; language: string; p
     notes: notesMap.android,
     language,
     production: false,
-    platformName: PLATFORM_ANDROID
+    platformName: PLATFORM_ANDROID,
   })
   const iosNotes = formatNotes({ notes: notesMap.ios, language, production: false, platformName: PLATFORM_IOS })
   const webNotes = formatNotes({ notes: notesMap.web, language, production: false, platformName: PLATFORM_WEB })
@@ -122,11 +122,11 @@ const formatDevelopmentNotes = (params: { notes: NoteType[]; language: string; p
   return `Release Notes:\n${releaseNotes || 'No release notes found. Looks like nothing happened for a while.'}`
 }
 
-const parseReleaseNotes = ({ source, ios, android, web, production, language, appName }: ParseProgramType): string => {
+const parseReleaseNotes = ({ source, ios, android, web, production, language, appName }: ParseOptions): string => {
   const platforms: string[] = [
     android ? PLATFORM_ANDROID : undefined,
     ios ? PLATFORM_IOS : undefined,
-    web ? PLATFORM_WEB : undefined
+    web ? PLATFORM_WEB : undefined,
   ].filter((platform): platform is string => !!platform)
 
   if (platforms.length === 0) {
@@ -158,13 +158,14 @@ const parseReleaseNotes = ({ source, ios, android, web, production, language, ap
   return formatDevelopmentNotes({ notes: relevantNotes, language, platforms })
 }
 
-const parseNotesProgram = (program: ParseProgramType) => {
+const parseNotesProgram = (options: ParseOptions) => {
+  const { destination } = options
   try {
-    const notes = parseReleaseNotes({ ...program })
+    const notes = parseReleaseNotes(options)
 
-    if (program.destination) {
-      fs.mkdirSync(path.dirname(program.destination), { recursive: true })
-      fs.writeFileSync(program.destination, notes)
+    if (destination) {
+      fs.mkdirSync(path.dirname(destination), { recursive: true })
+      fs.writeFileSync(destination, notes)
     }
 
     // Log to enable bash piping
@@ -176,6 +177,10 @@ const parseNotesProgram = (program: ParseProgramType) => {
 }
 
 program
+  .command('parse-release-notes')
+  .description(
+    'parse the release notes and outputs the release notes as JSON string and writes them to the specified file'
+  )
   .option('--ios', 'include release notes for ios')
   .option('--android', 'include release notes for android')
   .option('--web', 'include release notes for web.')
@@ -191,12 +196,7 @@ program
     `../${RELEASE_NOTES_DIR}/${UNRELEASED_DIR}`
   )
   .requiredOption('--language <language>', 'the language of the release notes to parse', DEFAULT_NOTES_LANGUAGE)
-  .command('parse-release-notes')
-  .description(
-    'parse the release notes and outputs the release notes as JSON string and writes them to the specified file'
-  )
-  // @ts-expect-error
-  .action(() => parseNotesProgram({ ...program }))
+  .action(parseNotesProgram)
 
 // General store metadata
 type StoreName = 'appstore' | 'playstore'
@@ -241,7 +241,7 @@ const appstoreLanguageMap: Record<string, string[]> = {
   tr: ['tr'],
   uk: ['uk'],
   ur: [],
-  'zh-CN': ['zh-Hans']
+  'zh-CN': ['zh-Hans'],
 }
 
 // Maps our translation keys to the right key used by the play store
@@ -269,10 +269,8 @@ const playstoreLanguageMap: Record<string, string[]> = {
   tr: ['tr-TR'],
   uk: ['uk'],
   ur: ['ur'],
-  'zh-CN': ['zh-CN']
+  'zh-CN': ['zh-CN'],
 }
-
-program.version('0.1.0').option('-d, --debug', 'enable extreme logging')
 
 // Record<storeName, Record<language, Record<metadataKey, metadataValue>>>
 type StoreTranslationType = Record<string, Record<string, Record<string, string>>>
@@ -292,12 +290,12 @@ const metadataFromTranslations = (
     ? {
         name,
         description,
-        ...storeTranslation
+        ...storeTranslation,
       }
     : {
         title: name,
         full_description: description,
-        ...storeTranslation
+        ...storeTranslation,
       }
 }
 
@@ -318,7 +316,7 @@ const writeMetadata = (appName: string, storeName: string, overrideVersionName?:
     targetLanguages.forEach(targetLanguage => {
       const path = metadataPath(appName, storeName, targetLanguage)
       fs.mkdirSync(path, {
-        recursive: true
+        recursive: true,
       })
 
       Object.keys(metadata).forEach(metadataKey => {
@@ -342,15 +340,16 @@ const writeMetadata = (appName: string, storeName: string, overrideVersionName?:
 }
 
 program
+  .command('prepare-metadata <appName> <storeName>')
+  .description('prepare metadata for store')
   .option(
     '--override-version-name <override-version-name>',
     'if specified the release notes will be generated from the specified version name instead of the unreleased notes'
   )
-  .command('prepare-metadata <appName> <storeName>')
-  .description('prepare metadata for store')
-  .action((appName: string, storeName: string) => {
+  .action((appName: string, storeName: string, options: { overrideVersionName: string }) => {
     try {
-      writeMetadata(appName, storeName, program.overrideVersionName)
+      const { overrideVersionName } = options
+      writeMetadata(appName, storeName, overrideVersionName)
     } catch (e) {
       console.error(e)
       process.exit(1)

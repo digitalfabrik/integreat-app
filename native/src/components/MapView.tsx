@@ -1,6 +1,6 @@
 import MapboxGL, { CameraSettings, MapboxGLEvent, SymbolLayerProps } from '@react-native-mapbox-gl/maps'
 import type { BBox, Feature } from 'geojson'
-import React, { ReactElement, useCallback, useState } from 'react'
+import React, { ReactElement, useCallback } from 'react'
 import { FAB } from 'react-native-elements'
 import { useTheme } from 'styled-components'
 import styled from 'styled-components/native'
@@ -30,6 +30,8 @@ type MapViewPropsType = {
   fabPosition: string | number
   selectPoiFeature: (feature: PoiFeature | null) => void
   setSheetSnapPointIndex: (index: number) => void
+  followUserLocation: boolean
+  setFollowUserLocation: (value: boolean) => void
 }
 
 const textOffsetY = 1.25
@@ -47,11 +49,12 @@ const MapView = React.forwardRef(
       onRequestLocationPermission,
       locationPermissionGranted,
       selectPoiFeature,
-      setSheetSnapPointIndex
+      setSheetSnapPointIndex,
+      followUserLocation,
+      setFollowUserLocation,
     }: MapViewPropsType,
     cameraRef: React.Ref<MapboxGL.Camera>
   ): ReactElement => {
-    const [followUserLocation, setFollowUserLocation] = useState<boolean>(false)
     const mapRef = React.useRef<MapboxGL.MapView | null>(null)
     const theme = useTheme()
 
@@ -67,19 +70,19 @@ const MapView = React.forwardRef(
           'case',
           ['==', ['get', 'id'], selectedFeature?.properties.id ?? -1],
           mapMarker.symbolActive,
-          ['get', 'symbol']
+          ['get', 'symbol'],
         ],
         textField: ['get', 'title'],
         textFont: ['Roboto Regular'],
         textOffset: [0, textOffsetY],
         textAnchor: 'top',
-        textSize: 12
-      }
+        textSize: 12,
+      },
     }
 
     const bounds = {
       ne: [boundingBox[2], boundingBox[3]],
-      sw: [boundingBox[0], boundingBox[1]]
+      sw: [boundingBox[0], boundingBox[1]],
     }
 
     // if there is a current feature use the coordinates if not use bounding box
@@ -87,13 +90,13 @@ const MapView = React.forwardRef(
     const defaultSettings: CameraSettings = {
       zoomLevel: coordinates ? detailZoom : defaultViewportConfig.zoom,
       centerCoordinate: coordinates,
-      bounds: coordinates ? undefined : bounds
+      bounds: coordinates ? undefined : bounds,
     }
 
     const onRequestLocation = useCallback(async () => {
       await onRequestLocationPermission()
       setFollowUserLocation(true)
-    }, [onRequestLocationPermission])
+    }, [onRequestLocationPermission, setFollowUserLocation])
 
     const onUserTrackingModeChange = (
       event: MapboxGLEvent<'usertrackingmodechange', { followUserLocation: boolean }>

@@ -35,11 +35,11 @@ type PropsType = {
   theme: ThemeType
 }
 
-const CityNotCooperatingFooter = ({ navigateToCityNotCooperating, theme }: PropsType): ReactElement => {
+const CityNotCooperatingFooter = ({ navigateToCityNotCooperating, theme }: PropsType): ReactElement | null => {
   const { t } = useTranslation('landing')
 
   if (!buildConfig().featureFlags.cityNotCooperating) {
-    return <></>
+    return null
   }
 
   return (
@@ -51,11 +51,11 @@ const CityNotCooperatingFooter = ({ navigateToCityNotCooperating, theme }: Props
           title={t('clickHere')}
           onPress={navigateToCityNotCooperating}
           buttonStyle={{
-            backgroundColor: theme.colors.themeColor
+            backgroundColor: theme.colors.themeColor,
           }}
           titleStyle={{
             color: theme.colors.textColor,
-            fontFamily: theme.fonts.native.contentFontRegular
+            fontFamily: theme.fonts.native.contentFontRegular,
           }}
         />
       </ButtonContainer>

@@ -38,7 +38,7 @@ const Categories = ({
   navigateToFeedback,
   stateView,
   resourceCache,
-  resourceCacheUrl
+  resourceCacheUrl,
 }: PropsType): ReactElement => {
   const category = stateView.root()
   const children = stateView.children()
@@ -49,7 +49,7 @@ const Categories = ({
         route: CATEGORIES_ROUTE,
         cityCode: cityModel.code,
         languageCode: language,
-        cityContentPath: tile.path
+        cityContentPath: tile.path,
       })
     },
     [cityModel.code, language, navigateTo]
@@ -61,7 +61,7 @@ const Categories = ({
         route: CATEGORIES_ROUTE,
         cityCode: cityModel.code,
         languageCode: language,
-        cityContentPath: category.path
+        cityContentPath: category.path,
       })
     },
     [cityModel.code, language, navigateTo]
@@ -73,7 +73,7 @@ const Categories = ({
       language,
       cityCode: cityModel.code,
       path: !category.isRoot() ? category.path : undefined,
-      isPositiveFeedback
+      isPositiveFeedback,
     })
   }
 
@@ -99,14 +99,14 @@ const Categories = ({
           title: category.title,
           path: category.path,
           thumbnail: getCachedThumbnail(category) || category.thumbnail,
-          isExternalUrl: false
+          isExternalUrl: false,
         })
     )
 
   const getListModel = (category: CategoryModel): CategoryListModelType => ({
     title: category.title,
     path: category.path,
-    thumbnail: getCachedThumbnail(category) || category.thumbnail
+    thumbnail: getCachedThumbnail(category) || category.thumbnail,
   })
 
   const getListModels = (categories: Array<CategoryModel>): Array<CategoryListModelType> =>
@@ -118,7 +118,7 @@ const Categories = ({
           content: category.content,
           files: getCategoryResourceCache(category),
           resourceCacheUrl,
-          lastUpdate: category.lastUpdate
+          lastUpdate: category.lastUpdate,
         }
       : undefined
 
@@ -167,7 +167,7 @@ const Categories = ({
             const children = newStateView.children()
             return {
               model: getListModel(model),
-              subCategories: getListModels(children)
+              subCategories: getListModels(children),
             }
           })}
           title={category.title}

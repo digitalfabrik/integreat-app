@@ -14,8 +14,8 @@ export function* fetchCities(dataContainer: DataContainer, action: FetchCitiesAc
     const insert: PushCitiesActionType = {
       type: 'PUSH_CITIES',
       params: {
-        cities
-      }
+        cities,
+      },
     }
     yield* put(insert)
   } catch (e) {
@@ -24,8 +24,8 @@ export function* fetchCities(dataContainer: DataContainer, action: FetchCitiesAc
       type: 'FETCH_CITIES_FAILED',
       params: {
         message: `Error in fetchCities: ${getErrorMessage(e)}`,
-        code: fromError(e)
-      }
+        code: fromError(e),
+      },
     }
     yield* put(failed)
   }

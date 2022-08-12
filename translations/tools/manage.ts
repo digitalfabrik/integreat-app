@@ -1,6 +1,6 @@
 import { program } from 'commander'
-import parse from 'csv-parse/lib/sync'
-import stringify from 'csv-stringify'
+import { parse } from 'csv-parse/sync'
+import { stringify } from 'csv-stringify'
 import flat from 'flat'
 import fs from 'fs'
 import { fromPairs, isEmpty, isEqual, isString, mapValues, merge, sortBy, toPairs, without, zip } from 'lodash'
@@ -17,10 +17,8 @@ const XCODE_LANGUAGES_MAP: Record<string, string> = {
   pes: 'fa',
   prs: 'fa-AF',
   kmr: 'ku',
-  'zh-CN': 'zh-HANS'
+  'zh-CN': 'zh-HANS',
 } as const
-
-program.version('0.1.0').option('-d, --debug', 'enable extreme logging')
 
 type TransformationFunctionType = (val: string | KeyValueType, key?: string, obj?: KeyValueType) => string
 const mapStringValuesDeep = (obj: KeyValueType, fn: TransformationFunctionType): KeyValueType =>
@@ -121,12 +119,12 @@ const loadModules = (csvFile: string, csvColumn: string): Record<string, KeyValu
   // .trim() is needed to strip the BOM
   const inputString = fs
     .readFileSync(csvFile, {
-      encoding: 'utf8'
+      encoding: 'utf8',
     })
     .trim()
   const records: Record<string, string>[] = parse(inputString, {
     columns: true,
-    skip_empty_lines: true
+    skip_empty_lines: true,
   })
   const flattened = fromPairs(
     records.map(record => [record.key, record[csvColumn]]).filter(([_unusedKey, translation]) => !!translation)
@@ -183,7 +181,7 @@ const writeJsonFromCsv = (translations: string, toPath: string, sourceLanguage: 
         moduleKey,
         fromPairs(
           languageKeys.map(languageKey => [languageKey, byLanguageModulesWithSourceLanguage[languageKey]![moduleKey]])
-        )
+        ),
       ])
     )
     fs.writeFileSync(toPath, `${JSON.stringify(json, null, 2)}\n`, 'utf-8')
@@ -211,7 +209,7 @@ program
       },
       'csv-json': () => {
         writeJsonFromCsv(fromPath, toPath, sourceLanguage)
-      }
+      },
     }
     const convert = converter[`${sourceFormat.toLowerCase()}-${targetFormat.toLowerCase()}`]
 
@@ -223,12 +221,12 @@ program
     }
   })
 
-type ProcessTranslationsType = {
+type WritePlistTranslationsOptions = {
   translations: string
   destination: string
 }
 
-const writePlistTranslations = (appName: string, { translations, destination }: ProcessTranslationsType) => {
+const writePlistTranslations = (appName: string, { translations, destination }: WritePlistTranslationsOptions) => {
   const { native: nativeTranslations } = JSON.parse(fs.readFileSync(translations, 'utf-8'))
   const languageCodes = Object.keys(nativeTranslations)
   console.warn('Creating InfoPlist.strings for the languages ', languageCodes)
@@ -249,7 +247,7 @@ const writePlistTranslations = (appName: string, { translations, destination }: 
     const path = `${destination}/${languageKey}.lproj/`
 
     fs.mkdirSync(path, {
-      recursive: true
+      recursive: true,
     })
     fs.writeFileSync(`${path}InfoPlist.strings`, content)
   })
@@ -258,12 +256,12 @@ const writePlistTranslations = (appName: string, { translations, destination }: 
 
 program
   .command('write-plist <appName>')
+  .description('setup native translations for ios')
   .requiredOption('--translations <translations>', 'the path to the translations.json file')
   .requiredOption('--destination <destination>', 'the path to put the string resources to')
-  .description('setup native translations for ios')
-  .action((appName: string, program: ProcessTranslationsType) => {
+  .action((appName: string, options: WritePlistTranslationsOptions) => {
     try {
-      writePlistTranslations(appName, program)
+      writePlistTranslations(appName, options)
     } catch (e) {
       console.error(e)
       process.exit(1)

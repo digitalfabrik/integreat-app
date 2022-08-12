@@ -27,14 +27,14 @@ describe('CitySelector', () => {
   const changeFilterText = (getByPlaceholderText: (id: Matcher) => HTMLElement, filterText: string) => {
     fireEvent.change(getByPlaceholderText('landing:searchCity'), {
       target: {
-        value: filterText
-      }
+        value: filterText,
+      },
     })
   }
 
   it('should show only live cities', () => {
     const { queryByLabelText } = renderWithRouter(<CitySelector language='de' cities={cities} />, {
-      wrapWithTheme: true
+      wrapWithTheme: true,
     })
 
     cities.filter(city => !city.live).forEach(city => expect(queryByLabelText(city.name)).toBeFalsy())
@@ -69,7 +69,7 @@ describe('CitySelector', () => {
     const { queryByLabelText, getByPlaceholderText } = renderWithRouter(
       <CitySelector language='de' cities={cities} />,
       {
-        wrapWithTheme: true
+        wrapWithTheme: true,
       }
     )
 

@@ -9,13 +9,14 @@ type PropsType = {
   languageCode: string
   isHeaderActionItem: boolean
   languageChangePaths: Array<{ code: string; path: string | null; name: string }> | null
+  inKebabMenu?: boolean
 }
 
 /**
  * Displays a dropDown menu to handle changing of the language
  */
 const LanguageSelector = (props: PropsType): ReactElement => {
-  const { isHeaderActionItem, languageChangePaths, languageCode } = props
+  const { isHeaderActionItem, languageChangePaths, languageCode, inKebabMenu = false } = props
   const activeItemCode = languageCode
   const { t } = useTranslation('layout')
 
@@ -25,12 +26,19 @@ const LanguageSelector = (props: PropsType): ReactElement => {
         new SelectorItemModel({
           code,
           name,
-          href: path
+          href: path,
         })
     ) ?? []
 
   if (isHeaderActionItem) {
-    return <HeaderLanguageSelectorItem selectorItems={selectorItems} activeItemCode={activeItemCode} t={t} />
+    return (
+      <HeaderLanguageSelectorItem
+        selectorItems={selectorItems}
+        activeItemCode={activeItemCode}
+        t={t}
+        inKebabMenu={inKebabMenu}
+      />
+    )
   }
 
   const availableItems = selectorItems.filter(item => item.href !== null)

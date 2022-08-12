@@ -27,16 +27,16 @@ describe('watchFetchCities', () => {
       const action: FetchCitiesActionType = {
         type: 'FETCH_CITIES',
         params: {
-          forceRefresh: false
-        }
+          forceRefresh: false,
+        },
       }
       await expectSaga(fetchCities, dataContainer, action)
         .call(loadCities, dataContainer, false)
         .put({
           type: 'PUSH_CITIES',
           params: {
-            cities
-          }
+            cities,
+          },
         })
         .run()
       expect(reportError).not.toHaveBeenCalled()
@@ -47,8 +47,8 @@ describe('watchFetchCities', () => {
       const action: FetchCitiesActionType = {
         type: 'FETCH_CITIES',
         params: {
-          forceRefresh: false
-        }
+          forceRefresh: false,
+        },
       }
       const error = new Error('Jemand hat keine 4 Issues geschafft!')
       await expectSaga(fetchCities, dataContainer, action)
@@ -59,15 +59,15 @@ describe('watchFetchCities', () => {
             }
 
             return next()
-          }
+          },
         })
         .call(loadCities, dataContainer, false)
         .put({
           type: 'FETCH_CITIES_FAILED',
           params: {
             message: 'Error in fetchCities: Jemand hat keine 4 Issues geschafft!',
-            code: ErrorCode.UnknownError
-          }
+            code: ErrorCode.UnknownError,
+          },
         })
         .run()
       expect(reportError).toHaveBeenCalledTimes(1)
@@ -75,9 +75,9 @@ describe('watchFetchCities', () => {
     })
   })
 
-  it('should correctly call fetchCities when triggered', async () => {
+  it('should correctly call fetchCities when triggered', () => {
     const dataContainer = new DefaultDataContainer()
-    await testSaga(watchFetchCities, dataContainer).next().takeLatest('FETCH_CITIES', fetchCities, dataContainer)
+    testSaga(watchFetchCities, dataContainer).next().takeLatest('FETCH_CITIES', fetchCities, dataContainer)
     expect(reportError).not.toHaveBeenCalled()
   })
 })

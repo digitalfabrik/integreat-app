@@ -10,7 +10,7 @@ jest.mock('@sentry/react', () => ({
   ...jest.requireActual('@sentry/react'),
   captureException: jest.fn(),
   addBreadcrumb: jest.fn(),
-  init: jest.fn()
+  init: jest.fn(),
 }))
 
 const previousConfig = buildConfig()
@@ -62,7 +62,7 @@ describe('reportError', () => {
       endpointName: 'my endpoint',
       innerError: new Error(),
       url: 'https://example.com',
-      requestOptions: { method: 'GET' }
+      requestOptions: { method: 'GET' },
     })
     await reportError(error)
     expect(Sentry.captureException).not.toHaveBeenCalled()
@@ -109,7 +109,7 @@ describe('log', () => {
     expect(Sentry.addBreadcrumb).toHaveBeenCalledTimes(1)
     expect(Sentry.addBreadcrumb).toHaveBeenCalledWith({
       message: 'test error log',
-      level: Sentry.Severity.Error
+      level: 'error',
     })
     expect(errorSpy).not.toHaveBeenCalled()
     errorSpy.mockRestore()
@@ -118,21 +118,21 @@ describe('log', () => {
     expect(Sentry.addBreadcrumb).toHaveBeenCalledTimes(2)
     expect(Sentry.addBreadcrumb).toHaveBeenCalledWith({
       message: 'test warn log',
-      level: Sentry.Severity.Warning
+      level: 'warning',
     })
 
     await log('test log', 'log')
     expect(Sentry.addBreadcrumb).toHaveBeenCalledTimes(3)
     expect(Sentry.addBreadcrumb).toHaveBeenCalledWith({
       message: 'test log',
-      level: Sentry.Severity.Log
+      level: 'log',
     })
 
     await log('test debug log')
     expect(Sentry.addBreadcrumb).toHaveBeenCalledTimes(4)
     expect(Sentry.addBreadcrumb).toHaveBeenCalledWith({
       message: 'test debug log',
-      level: Sentry.Severity.Debug
+      level: 'debug',
     })
   })
 })

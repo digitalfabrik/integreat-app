@@ -15,18 +15,18 @@ describe('categories', () => {
     parent: {
       id: 0,
       path: null,
-      url: null
+      url: null,
     },
     order: 75,
     available_languages: {
       en: {
         id: 3651,
         path: '/augsburg/en/anlaufstellen',
-        url: 'https://cms.integreat-app.de/augsburg/en/anlaufstellen'
-      }
+        url: 'https://cms.integreat-app.de/augsburg/en/anlaufstellen',
+      },
     },
     thumbnail: 'https://cms.integreat-ap…/03/Hotline-150x150.png',
-    modified_gmt: '2017-01-01 05:10:05'
+    modified_gmt: '2017-01-01 05:10:05',
   }
   const categoryJson2 = {
     id: 404,
@@ -41,7 +41,7 @@ describe('categories', () => {
       url:
         'https://cms.integreat-app.de/augsburg/fa/erste-schritte/%d8%ae%d9%88%d8%b4-' +
         '%d8%a2%d9%85%d8%af%db%8c%d8%af-%d8%a8%d9%87-%d8%a2%da%af%d8%b2%d8%a8%d9%88%d8%b1%da%af/',
-      path: '/augsburg/fa/erste-schritte/%d8%ae%d9%88%d8%b4-%d8%a2%d9%85%d8%af%db%8c%d8%af-%d8%a8%d9%87-%d8%a2%da%af%d8%b2%d8%a8%d9%88%d8%b1%da%af/'
+      path: '/augsburg/fa/erste-schritte/%d8%ae%d9%88%d8%b4-%d8%a2%d9%85%d8%af%db%8c%d8%af-%d8%a8%d9%87-%d8%a2%da%af%d8%b2%d8%a8%d9%88%d8%b1%da%af/',
     },
     order: 3,
     available_languages: {
@@ -50,10 +50,10 @@ describe('categories', () => {
         url:
           'https://cms.integreat-app.de/augsburg/ar/erste-schritte/%d8%ae%d8%b1%d9%8a%d8%b7%d8%a9-' +
           '%d8%a7%d9%84%d9%85%d8%af%d9%8a%d9%86%d8%a9/',
-        path: '/augsburg/ar/erste-schritte/%d8%ae%d8%b1%d9%8a%d8%b7%d8%a9-%d8%a7%d9%84%d9%85%d8%af%d9%8a%d9%86%d8%a9/'
-      }
+        path: '/augsburg/ar/erste-schritte/%d8%ae%d8%b1%d9%8a%d8%b7%d8%a9-%d8%a7%d9%84%d9%85%d8%af%d9%8a%d9%86%d8%a9/',
+      },
     },
-    thumbnail: 'https://example.com/thumbnail'
+    thumbnail: 'https://example.com/thumbnail',
   }
   const categoryModel1 = new CategoryModel({
     root: false,
@@ -64,7 +64,7 @@ describe('categories', () => {
     order: 75,
     availableLanguages: new Map([['en', '/augsburg/en/anlaufstellen']]),
     thumbnail: 'https://cms.integreat-ap…/03/Hotline-150x150.png',
-    lastUpdate: moment.tz('2017-01-01 05:10:05', 'GMT')
+    lastUpdate: moment.tz('2017-01-01 05:10:05', 'GMT'),
   })
   const categoryModel2 = new CategoryModel({
     root: false,
@@ -75,7 +75,7 @@ describe('categories', () => {
     parentPath: '/augsburg/fa/erste-schritte/خوش-آمدید-به-آگزبورگ',
     order: 3,
     thumbnail: 'https://example.com/thumbnail',
-    lastUpdate: moment.tz('2016-01-07 10:36:24', 'GMT')
+    lastUpdate: moment.tz('2016-01-07 10:36:24', 'GMT'),
   })
 
   it('should map json correctly', () => {

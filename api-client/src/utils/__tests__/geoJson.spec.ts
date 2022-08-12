@@ -9,22 +9,22 @@ describe('geoJson', () => {
     type: 'Feature',
     geometry: {
       type: 'Point',
-      coordinates: [31.133859, 29.979848]
+      coordinates: [31.133859, 29.979848],
     },
     properties: {
       id: 1,
       title: 'Test Title',
-      symbol: 'marker_15',
+      symbol: 'marker_40',
       thumbnail: 'test',
       path: '/augsburg/de/locations/test',
       urlSlug: 'test',
-      address: 'Test Address 1'
-    }
+      address: 'Test Address 1',
+    },
   }
   describe('embedInCollection', () => {
     const expectedGeoJsonFeatureCollection: PoiFeatureCollection = {
       features: [expectedGeoJsonMarkerFeature],
-      type: 'FeatureCollection'
+      type: 'FeatureCollection',
     }
 
     it('should embed feature to GeoJson', () => {

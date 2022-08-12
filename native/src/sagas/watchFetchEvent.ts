@@ -16,7 +16,7 @@ export function* fetchEvent(dataContainer: DataContainer, action: FetchEventActi
   try {
     const peeking: boolean = yield* select(state =>
       isPeekingRoute(state, {
-        routeCity: city
+        routeCity: city,
       })
     )
     const loadCriterion = new ContentLoadCriterion(criterion, peeking)
@@ -40,8 +40,8 @@ export function* fetchEvent(dataContainer: DataContainer, action: FetchEventActi
           key,
           language,
           city,
-          refresh
-        }
+          refresh,
+        },
       }
       yield* put(insert)
     } else {
@@ -51,8 +51,8 @@ export function* fetchEvent(dataContainer: DataContainer, action: FetchEventActi
           cityContentPath({
             route: EVENTS_ROUTE,
             cityCode: city,
-            languageCode: lng.code
-          })
+            languageCode: lng.code,
+          }),
         ])
       )
       const failed: FetchEventFailedActionType = {
@@ -64,8 +64,8 @@ export function* fetchEvent(dataContainer: DataContainer, action: FetchEventActi
           path: null,
           key,
           language,
-          city
-        }
+          city,
+        },
       }
       yield* put(failed)
     }
@@ -80,8 +80,8 @@ export function* fetchEvent(dataContainer: DataContainer, action: FetchEventActi
         city,
         language,
         path,
-        allAvailableLanguages: null
-      }
+        allAvailableLanguages: null,
+      },
     }
     yield* put(failed)
   }

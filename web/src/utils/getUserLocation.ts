@@ -7,25 +7,25 @@ const locationStateOnError = (error: GeolocationPositionError): UnavailableLocat
       return {
         status: 'unavailable',
         message: 'noPermission',
-        coordinates: null
+        coordinates: null,
       }
     case GeolocationPositionError.POSITION_UNAVAILABLE:
       return {
         status: 'unavailable',
         message: 'notAvailable',
-        coordinates: null
+        coordinates: null,
       }
     default:
       return {
         status: 'unavailable',
         message: 'timeout',
-        coordinates: null
+        coordinates: null,
       }
   }
 }
 
 const getUserLocation = async (): Promise<UserLocationType> =>
-  new Promise(resolve =>
+  new Promise(resolve => {
     navigator.geolocation.getCurrentPosition(
       ({ coords }) => {
         const { latitude, longitude } = coords
@@ -36,6 +36,6 @@ const getUserLocation = async (): Promise<UserLocationType> =>
       },
       { timeout: 50000 }
     )
-  )
+  })
 
 export default getUserLocation

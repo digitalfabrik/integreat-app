@@ -39,11 +39,11 @@ type PropsType = {
   languageCode: string
 }
 
-const CityNotCooperatingFooter = ({ languageCode }: PropsType): ReactElement => {
+const CityNotCooperatingFooter = ({ languageCode }: PropsType): ReactElement | null => {
   const { t } = useTranslation('landing')
 
   if (!buildConfig().featureFlags.cityNotCooperating) {
-    return <></>
+    return null
   }
 
   return (

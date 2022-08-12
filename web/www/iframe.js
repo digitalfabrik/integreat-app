@@ -213,7 +213,7 @@
 
       size: function sizeF() {
         sendSize('size')
-      }
+      },
     }
   }
 
@@ -283,7 +283,7 @@
       characterData: true,
       characterDataOldValue: false,
       childList: true,
-      subtree: true
+      subtree: true,
     }
 
     var observer = new MutationObserver(mutationObserved)
@@ -296,7 +296,7 @@
           observer.disconnect()
           elements.forEach(removeImageLoadListener)
         }
-      }
+      },
     }
   }
 
@@ -407,7 +407,7 @@
 
       resize: function resizeFromParent() {
         sendSize('resizeParent')
-      }
+      },
     }
 
     function isMessageForUs() {

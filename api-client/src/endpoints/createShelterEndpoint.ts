@@ -20,7 +20,7 @@ export type FilterProps = {
 const paramMap = new Map([
   ['beds', 'min_beds'],
   ['city', 'city'],
-  ['pets', 'pets']
+  ['pets', 'pets'],
 ])
 
 // add a key and value as a string for each param
@@ -63,7 +63,7 @@ export default (): Endpoint<Params, ShelterModel[]> =>
             period: it.period,
             hostType: it.host_type,
             costs: it.costs,
-            comments: it.comments
+            comments: it.comments,
           })
       )
     )

@@ -6,7 +6,7 @@ import { ContentLoadCriterion } from '../models/ContentLoadCriterion'
 import {
   FetchCategoryActionType,
   FetchCategoryFailedActionType,
-  PushCategoryActionType
+  PushCategoryActionType,
 } from '../redux/StoreActionType'
 import isPeekingRoute from '../redux/selectors/isPeekingRoute'
 import { DataContainer } from '../utils/DataContainer'
@@ -25,7 +25,7 @@ import loadCityContent from './loadCityContent'
 function* isPeeking(routeCity: string): SagaGenerator<boolean> {
   return yield* select(state =>
     isPeekingRoute(state, {
-      routeCity
+      routeCity,
     })
   )
 }
@@ -56,8 +56,8 @@ export function* fetchCategory(dataContainer: DataContainer, action: FetchCatego
           key,
           city,
           language,
-          refresh
-        }
+          refresh,
+        },
       }
       yield* put(push)
     } else {
@@ -66,8 +66,8 @@ export function* fetchCategory(dataContainer: DataContainer, action: FetchCatego
           lng.code,
           cityContentPath({
             cityCode: city,
-            languageCode: lng.code
-          })
+            languageCode: lng.code,
+          }),
         ])
       )
       const failedAction: FetchCategoryFailedActionType = {
@@ -80,8 +80,8 @@ export function* fetchCategory(dataContainer: DataContainer, action: FetchCatego
           depth,
           language,
           city,
-          allAvailableLanguages
-        }
+          allAvailableLanguages,
+        },
       }
       yield* put(failedAction)
     }
@@ -97,8 +97,8 @@ export function* fetchCategory(dataContainer: DataContainer, action: FetchCatego
         depth,
         language,
         city,
-        allAvailableLanguages: null
-      }
+        allAvailableLanguages: null,
+      },
     }
     yield* put(failed)
   }

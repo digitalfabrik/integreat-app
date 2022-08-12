@@ -14,7 +14,7 @@ import {
   SearchRouteType,
   ShelterRouteType,
   SprungbrettOfferRouteType,
-  TuNewsType
+  TuNewsType,
 } from '.'
 
 type ParamsType = {
@@ -45,7 +45,7 @@ export type NewsRouteInformationType = ParamsType & {
   newsId?: string
 }
 export type SimpleCityContentFeatureType = ParamsType & {
-  // Routes without customizable ids, eLICENSE_ROUTE.g. '/augsburg/de/disclaimer/
+  // Routes without customizable ids, e.g. '/augsburg/de/disclaimer/
   route: DisclaimerRouteType | OffersRouteType | SprungbrettOfferRouteType | SearchRouteType
 }
 export type IdCityContentFeatureType = ParamsType & {

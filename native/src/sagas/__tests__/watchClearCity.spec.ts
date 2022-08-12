@@ -10,7 +10,7 @@ describe('watchClearCity', () => {
     await appSettings.setSelectedCity('augsburg')
     await runSaga(
       {
-        dispatch: () => undefined
+        dispatch: () => undefined,
       },
       clearCity
     ).toPromise()

@@ -2,16 +2,21 @@ import Headroom from '@integreat-app/react-sticky-headroom'
 import React, { ReactElement, ReactNode } from 'react'
 import styled from 'styled-components'
 
+import { UiDirectionType } from 'translations'
+
 import dimensions from '../constants/dimensions'
 import HeaderLogo from './HeaderLogo'
 import HeaderTitle, { HEADER_TITLE_HEIGHT } from './HeaderTitle'
+import KebabMenu from './KebabMenu'
 
 type PropsType = {
   navigationItems: Array<ReactNode>
   actionItems: Array<ReactNode>
+  kebabItems: Array<ReactNode>
   logoHref: string
   viewportSmall: boolean
   cityName?: string
+  direction: UiDirectionType
 }
 
 const HeaderContainer = styled.header`
@@ -97,9 +102,11 @@ const NavigationBar = styled.nav`
 export const Header = ({
   viewportSmall,
   actionItems = [],
+  kebabItems = [],
   logoHref,
   navigationItems = [],
-  cityName
+  cityName,
+  direction,
 }: PropsType): ReactElement => {
   const { headerHeightSmall, headerHeightLarge } = dimensions
   const hasNavigationBar = navigationItems.length > 0
@@ -115,7 +122,10 @@ export const Header = ({
           <HeaderLogo link={logoHref} />
           {!viewportSmall && cityName && <HeaderSeparator />}
           {(!viewportSmall || cityName) && <HeaderTitle>{cityName}</HeaderTitle>}
-          <ActionBar>{actionItems}</ActionBar>
+          <ActionBar>
+            {actionItems}
+            {viewportSmall && <KebabMenu items={kebabItems} direction={direction} />}
+          </ActionBar>
         </Row>
         {hasNavigationBar && (
           <Row>

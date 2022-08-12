@@ -10,7 +10,7 @@ import {
   NotFoundError,
   pathnameFromRouteInformation,
   replaceLinks,
-  useLoadFromEndpoint
+  useLoadFromEndpoint,
 } from 'api-client'
 
 import { CityRouteProps } from '../CityContentSwitcher'
@@ -24,6 +24,7 @@ import NewsTabs from '../components/NewsTabs'
 import Page from '../components/Page'
 import { cmsApiBaseUrl } from '../constants/urls'
 import DateFormatterContext from '../contexts/DateFormatterContext'
+import useWindowDimensions from '../hooks/useWindowDimensions'
 import { LOCAL_NEWS_ROUTE } from './index'
 
 const LocalNewsPage = ({ cityModel, languages, pathname, languageCode, cityCode }: CityRouteProps): ReactElement => {
@@ -31,7 +32,7 @@ const LocalNewsPage = ({ cityModel, languages, pathname, languageCode, cityCode 
   const formatter = useContext(DateFormatterContext)
   const { t } = useTranslation('news')
   const navigate = useNavigate()
-  const viewportSmall = false
+  const { viewportSmall } = useWindowDimensions()
 
   const requestLocalNews = useCallback(
     async () => createLocalNewsEndpoint(cmsApiBaseUrl).request({ city: cityCode, language: languageCode }),
@@ -54,7 +55,7 @@ const LocalNewsPage = ({ cityModel, languages, pathname, languageCode, cityCode 
           newsType: LOCAL_NEWS_TYPE,
           cityCode,
           languageCode,
-          newsId: id.toString()
+          newsId: id.toString(),
         })}
         t={t}
         formatter={formatter}
@@ -69,7 +70,7 @@ const LocalNewsPage = ({ cityModel, languages, pathname, languageCode, cityCode 
       ? null
       : pathnameFromRouteInformation({ route: NEWS_ROUTE, newsType: LOCAL_NEWS_TYPE, cityCode, languageCode: code }),
     name,
-    code
+    code,
   }))
 
   const locationLayoutParams = {
@@ -78,7 +79,7 @@ const LocalNewsPage = ({ cityModel, languages, pathname, languageCode, cityCode 
     feedbackTargetInformation: null,
     languageChangePaths,
     route: LOCAL_NEWS_ROUTE,
-    languageCode
+    languageCode,
   }
 
   if (loading) {
@@ -104,7 +105,7 @@ const LocalNewsPage = ({ cityModel, languages, pathname, languageCode, cityCode 
         type: LOCAL_NEWS_TYPE,
         id: pathname,
         city: cityCode,
-        language: languageCode
+        language: languageCode,
       })
 
     return (

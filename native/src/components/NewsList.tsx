@@ -27,7 +27,7 @@ const NewsList = (props: PropType): ReactElement => {
       showsVerticalScrollIndicator={false}
       contentContainerStyle={{
         flexGrow: 1,
-        paddingHorizontal: 10
+        paddingHorizontal: 10,
       }}
       refreshControl={<RefreshControl refreshing={false} onRefresh={refresh} />}
       onEndReached={fetchMoreItems}

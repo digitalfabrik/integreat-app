@@ -31,7 +31,7 @@ const prepareState = ({
   contentLanguage = 'de',
   switchingLanguage,
   cities,
-  languages
+  languages,
 }: {
   contentLanguage?: string
   switchingLanguage?: boolean
@@ -44,7 +44,7 @@ const prepareState = ({
     switchingLanguage: switchingLanguage !== undefined ? switchingLanguage : false,
     languages: languages || {
       status: 'ready',
-      models: [language]
+      models: [language],
     },
     routeMapping: {},
     searchRoute: null,
@@ -52,16 +52,16 @@ const prepareState = ({
       status: 'ready',
       progress: 0,
       value: {
-        file: {}
-      }
-    }
+        file: {},
+      },
+    },
   },
   contentLanguage,
   cities: cities || {
     status: 'ready',
-    models: [city]
+    models: [city],
   },
-  snackbar: []
+  snackbar: [],
 })
 
 const mockStore = configureMockStore()
@@ -97,7 +97,7 @@ describe('I18nProvider', () => {
     const { getByText } = render(
       <Provider store={store}>
         <I18nProvider>
-          <></>
+          <Text>Content</Text>
         </I18nProvider>
       </Provider>
     )
@@ -147,10 +147,10 @@ describe('I18nProvider', () => {
       expect(store.getActions()).toEqual([
         {
           params: {
-            contentLanguage: 'ar'
+            contentLanguage: 'ar',
           },
-          type: 'SET_CONTENT_LANGUAGE'
-        }
+          type: 'SET_CONTENT_LANGUAGE',
+        },
       ])
     )
   })
@@ -179,7 +179,7 @@ describe('I18nProvider', () => {
     await appSettings.setContentLanguage('kmr')
     const store = mockStore(
       prepareState({
-        contentLanguage: undefined
+        contentLanguage: undefined,
       })
     )
 
@@ -187,10 +187,10 @@ describe('I18nProvider', () => {
       expect(store.getActions()).toEqual([
         {
           params: {
-            contentLanguage: 'kmr'
+            contentLanguage: 'kmr',
           },
-          type: 'SET_CONTENT_LANGUAGE'
-        }
+          type: 'SET_CONTENT_LANGUAGE',
+        },
       ])
       return <Text>Hello</Text>
     }

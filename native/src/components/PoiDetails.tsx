@@ -1,4 +1,7 @@
 import Clipboard from '@react-native-clipboard/clipboard'
+import EmailIcon from 'integreat-app/assets/icons/email.svg'
+import PhoneIcon from 'integreat-app/assets/icons/phone.svg'
+import WebsiteIcon from 'integreat-app/assets/icons/website.svg'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Platform, Pressable, Text } from 'react-native'
@@ -6,9 +9,6 @@ import styled from 'styled-components/native'
 
 import { getExternalMapsLink, PoiFeature, PoiModel } from 'api-client'
 
-import EmailIcon from '../../../assets/icons/email.svg'
-import PhoneIcon from '../../../assets/icons/phone.svg'
-import WebsiteIcon from '../../../assets/icons/website.svg'
 import ExternalLinkIcon from '../assets/ExternalLink.svg'
 import Placeholder from '../assets/PoiPlaceholderLarge.jpg'
 import useSnackbar from '../hooks/useSnackbar'

@@ -6,8 +6,8 @@ const showSnackbar = (dispatch: Dispatch<StoreActionType>, message: string): voi
   const enqueueSnackbar: EnqueueSnackbarActionType = {
     type: 'ENQUEUE_SNACKBAR',
     params: {
-      text: message
-    }
+      text: message,
+    },
   }
   dispatch(enqueueSnackbar)
 }
