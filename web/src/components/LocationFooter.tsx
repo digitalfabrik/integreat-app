@@ -4,9 +4,9 @@ import { useTranslation } from 'react-i18next'
 import { DISCLAIMER_ROUTE, LICENSE_ROUTE, pathnameFromRouteInformation } from 'api-client'
 
 import buildConfig from '../constants/buildConfig'
+import { RoutePatterns } from '../routes'
 import CleanLink from './CleanLink'
 import Footer from './Footer'
-import { RoutePatterns } from '../routes'
 
 type PropsType = {
   city: string
