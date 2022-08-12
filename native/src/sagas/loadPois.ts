@@ -35,7 +35,7 @@ function* loadPois(
   const payload = yield* call(() =>
     createPOIsEndpoint(apiUrl).request({
       city,
-      language
+      language,
     })
   )
   const pois = payload.data

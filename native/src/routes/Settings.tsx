@@ -112,7 +112,7 @@ const Settings = ({ navigation }: PropsType): ReactElement => {
     cityCode,
     navigation,
     settings,
-    showSnackbar
+    showSnackbar,
   })
 
   return (

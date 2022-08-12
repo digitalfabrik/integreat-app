@@ -8,7 +8,7 @@ import {
   EVENTS_ROUTE,
   NotFoundError,
   pathnameFromRouteInformation,
-  useLoadFromEndpoint
+  useLoadFromEndpoint,
 } from 'api-client'
 
 import { CityRouteProps } from '../CityContentSwitcher'
@@ -57,7 +57,7 @@ const EventsPage = ({ cityModel, languages, pathname, languageCode, cityCode }: 
     return {
       path: isCurrentLanguage ? pathname : path,
       name,
-      code
+      code,
     }
   })
 
@@ -68,7 +68,7 @@ const EventsPage = ({ cityModel, languages, pathname, languageCode, cityCode }: 
     languageChangePaths,
     route: EVENTS_ROUTE,
     languageCode,
-    toolbar
+    toolbar,
   }
 
   if (loading) {
@@ -86,7 +86,7 @@ const EventsPage = ({ cityModel, languages, pathname, languageCode, cityCode }: 
         type: 'event',
         id: pathname,
         city: cityCode,
-        language: languageCode
+        language: languageCode,
       })
 
     return (

@@ -22,7 +22,7 @@ describe('Endpoint', () => {
     getAll: jest.fn(),
     has: jest.fn(),
     set: jest.fn(),
-    forEach: jest.fn()
+    forEach: jest.fn(),
   }
   const defaultMapParamsToBody = () => body
 
@@ -36,7 +36,7 @@ describe('Endpoint', () => {
     get: jest.fn(),
     has: jest.fn(),
     set: jest.fn(),
-    forEach: jest.fn()
+    forEach: jest.fn(),
   }
 
   const responseBody: Body = {
@@ -46,7 +46,7 @@ describe('Endpoint', () => {
     blob: jest.fn(),
     formData: jest.fn(),
     json: jest.fn(async () => responseJson),
-    text: jest.fn()
+    text: jest.fn(),
   }
 
   const responseOk: Response = {
@@ -58,14 +58,14 @@ describe('Endpoint', () => {
     type: 'default',
     url: 'https://example.com',
     clone: jest.fn(),
-    ...responseBody
+    ...responseBody,
   }
 
   const responseNotOk: Response = {
     ...responseOk,
     status: 400,
     statusText: 'not ok',
-    ok: false
+    ok: false,
   }
 
   beforeEach(() => {
@@ -97,7 +97,7 @@ describe('Endpoint', () => {
     const endpoint = new Endpoint('endpoint', defaultMapParamsToUrl, null, defaultJsonMapper)
     const response = await endpoint.request(params, overrideUrl)
 
-    expect(response.requestUrl).toEqual(`${overrideUrl}/`)
+    expect(response.requestUrl).toBe(`${overrideUrl}/`)
     expect(mockedFetch).toHaveBeenCalledTimes(1)
     expect(mockedFetch).toHaveBeenCalledWith(`${overrideUrl}/`, { method: 'GET' })
   })
@@ -125,7 +125,7 @@ describe('Endpoint', () => {
     const response = await endpoint.request(params)
 
     expect(response).toBeInstanceOf(Payload)
-    expect(response.requestUrl).toEqual(`https://example.com/?test=1234&jpal_tracking_code=${trackingCode}`)
+    expect(response.requestUrl).toBe(`https://example.com/?test=1234&jpal_tracking_code=${trackingCode}`)
   })
 
   it('should fetch with POST from mapped url and return data', async () => {
@@ -165,7 +165,7 @@ describe('Endpoint', () => {
       ...responseOk,
       json: async () => {
         throw error
-      }
+      },
     }
     mockedFetch.mockImplementation(async () => responseFailingJson)
     const endpoint = new Endpoint('endpoint', defaultMapParamsToUrl, null, defaultJsonMapper)

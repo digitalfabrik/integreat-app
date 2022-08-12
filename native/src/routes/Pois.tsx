@@ -18,7 +18,7 @@ import {
   PoiModel,
   POIS_ROUTE,
   PoisRouteType,
-  prepareFeatureLocations
+  prepareFeatureLocations,
 } from 'api-client'
 
 import BottomActionsSheet from '../components/BottomActionsSheet'
@@ -57,6 +57,7 @@ const Pois = ({ pois, language, cityModel, route, navigation }: PropsType): Reac
   const { coordinates, requestAndDetermineLocation } = useUserLocation(true)
   const [urlSlug, setUrlSlug] = useState<string | null>(route.params.urlSlug ?? null)
   const [sheetSnapPointIndex, setSheetSnapPointIndex] = useState<number>(1)
+  const [followUserLocation, setFollowUserLocation] = useState<boolean>(false)
   const features = prepareFeatureLocations(pois, coordinates)
   const selectedFeature = urlSlug ? features.find(it => it.properties.urlSlug === urlSlug) : null
   const poi = pois.find(it => it.urlSlug === urlSlug)
@@ -67,10 +68,22 @@ const Pois = ({ pois, language, cityModel, route, navigation }: PropsType): Reac
   const baseUrl = urlFromRouteInformation({
     route: POIS_ROUTE,
     languageCode: language,
-    cityCode: cityModel.code
+    cityCode: cityModel.code,
   })
   const shareUrl = urlSlug ? `${baseUrl}?${nameQueryParam}=${urlSlug}` : baseUrl
   useSetShareUrl({ navigation, shareUrl, route, routeInformation: null })
+
+  const selectPoiFeature = (feature: PoiFeature | null) => {
+    if (feature && cameraRef.current) {
+      const { properties } = feature
+      setFollowUserLocation(false)
+      setUrlSlug(properties.urlSlug)
+      navigation.setParams({ urlSlug: properties.urlSlug })
+    } else {
+      setUrlSlug(null)
+      navigation.setParams({ urlSlug: undefined })
+    }
+  }
 
   useEffect(
     () =>
@@ -84,21 +97,17 @@ const Pois = ({ pois, language, cityModel, route, navigation }: PropsType): Reac
     [navigation, urlSlug]
   )
 
-  const selectPoiFeature = (feature: PoiFeature | null) => {
-    if (feature && cameraRef.current) {
-      const { properties, geometry } = feature
-      setUrlSlug(properties.urlSlug)
+  // Wait for followUserLocation change before moving the camera to avoid position lock
+  // https://github.com/rnmapbox/maps/issues/1079
+  useEffect(() => {
+    if (!followUserLocation && selectedFeature && cameraRef.current) {
       cameraRef.current.setCamera({
-        centerCoordinate: geometry.coordinates,
+        centerCoordinate: selectedFeature.geometry.coordinates,
         zoomLevel: detailZoom,
-        animationDuration
+        animationDuration,
       })
-      navigation.setParams({ urlSlug: properties.urlSlug })
-    } else {
-      setUrlSlug(null)
-      navigation.setParams({ urlSlug: undefined })
     }
-  }
+  }, [followUserLocation, selectedFeature])
 
   const renderPoiListItem = (poi: PoiFeature): ReactNode => (
     <PoiListItem
@@ -116,7 +125,7 @@ const Pois = ({ pois, language, cityModel, route, navigation }: PropsType): Reac
       language,
       path: poi ? poi.path : undefined,
       cityCode: cityModel.code,
-      isPositiveFeedback
+      isPositiveFeedback,
     })
   }
 
@@ -135,7 +144,7 @@ const Pois = ({ pois, language, cityModel, route, navigation }: PropsType): Reac
             type: 'poi',
             id: urlSlug ?? '',
             city: cityModel.code,
-            language
+            language,
           })
         )}
       />
@@ -167,6 +176,8 @@ const Pois = ({ pois, language, cityModel, route, navigation }: PropsType): Reac
         fabPosition={
           sheetSnapPointIndex < BOTTOM_SHEET_SNAP_POINTS.length - 1 ? BOTTOM_SHEET_SNAP_POINTS[sheetSnapPointIndex]! : 0
         }
+        followUserLocation={followUserLocation}
+        setFollowUserLocation={setFollowUserLocation}
       />
       <BottomActionsSheet
         title={!selectedFeature ? t('listTitle') : undefined}

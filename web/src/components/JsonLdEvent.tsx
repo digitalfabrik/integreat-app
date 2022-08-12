@@ -5,7 +5,7 @@ import { Event, WithContext } from 'schema-dts'
 import { EventModel } from 'api-client'
 import DateFormatter from 'api-client/src/i18n/DateFormatter'
 
-const createJsonLd = (event: EventModel, formatter: DateFormatter): WithContext<Event> | null => {
+export const createJsonLd = (event: EventModel, formatter: DateFormatter): WithContext<Event> | null => {
   if (!event.location) {
     return null
   }
@@ -17,10 +17,10 @@ const createJsonLd = (event: EventModel, formatter: DateFormatter): WithContext<
     name: event.title,
     startDate: date.allDay
       ? formatter.format(date.startDate, {
-          format: 'YYYY-MM-DD'
+          format: 'YYYY-MM-DD',
         }) // ISO 8601 date format
       : formatter.format(date.startDate, {
-          format: undefined
+          format: undefined,
         }),
     // ISO 8601 date-time format
     eventStatus: 'https://schema.org/EventScheduled',
@@ -33,9 +33,9 @@ const createJsonLd = (event: EventModel, formatter: DateFormatter): WithContext<
         streetAddress: event.location.address,
         addressLocality: event.location.town,
         postalCode: event.location.postcode,
-        addressCountry: event.location.country
-      }
-    }
+        addressCountry: event.location.country,
+      },
+    },
   }
 
   if (date.endDate.isValid()) {
@@ -47,7 +47,7 @@ const createJsonLd = (event: EventModel, formatter: DateFormatter): WithContext<
       event.featuredImage.thumbnail.url,
       event.featuredImage.medium.url,
       event.featuredImage.large.url,
-      event.featuredImage.full.url
+      event.featuredImage.full.url,
     ]
   }
 
@@ -59,10 +59,10 @@ type PropsType = {
   formatter: DateFormatter
 }
 
-const JsonLdEvent = ({ event, formatter }: PropsType): ReactElement => {
+const JsonLdEvent = ({ event, formatter }: PropsType): ReactElement | null => {
   const jsonLd = createJsonLd(event, formatter)
   if (!jsonLd) {
-    return <></>
+    return null
   }
   return (
     <Helmet>

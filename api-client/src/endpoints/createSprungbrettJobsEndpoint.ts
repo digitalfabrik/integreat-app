@@ -18,7 +18,7 @@ export default (baseUrl: string): Endpoint<void, Array<SprungbrettJobModel>> =>
               location: `${job.zip} ${job.city}`,
               url: job.url,
               isEmployment: job.employment === '1',
-              isApprenticeship: job.apprenticeship === '1'
+              isApprenticeship: job.apprenticeship === '1',
             })
         )
     )

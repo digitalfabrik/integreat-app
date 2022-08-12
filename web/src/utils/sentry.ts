@@ -1,5 +1,6 @@
 /* eslint-disable no-console */
 import type Sentry from '@sentry/react'
+import { SeverityLevel } from '@sentry/types'
 
 import { FetchError, NotFoundError } from 'api-client'
 
@@ -25,39 +26,35 @@ export const initSentry = async (): Promise<void> => {
     const Sentry = await loadSentry()
     Sentry.init({
       dsn: 'https://f07e705b25464bbd8b0dbbc0a6414b11@sentry.tuerantuer.org/2',
-      release: `web-${__BUILD_CONFIG_NAME__}@${__VERSION_NAME__}`
+      release: `web-${__BUILD_CONFIG_NAME__}@${__VERSION_NAME__}`,
     })
   } catch (e) {
     logSentryException(e)
   }
 }
 
-export const log = async (message: string, level = 'debug'): Promise<void> => {
+export const log = async (message: string, level: SeverityLevel = 'debug'): Promise<void> => {
   try {
     const Sentry = await loadSentry()
     if (sentryEnabled()) {
-      Sentry.addBreadcrumb({
-        message,
-        level: Sentry.Severity.fromString(level)
-      })
+      Sentry.addBreadcrumb({ message, level })
     }
     if (developerFriendly()) {
       switch (level) {
-        case Sentry.Severity.Fatal:
-        case Sentry.Severity.Critical:
-        case Sentry.Severity.Error:
+        case 'fatal':
+        case 'error':
           console.error(message)
           break
-        case Sentry.Severity.Warning:
+        case 'warning':
           console.warn(message)
           break
-        case Sentry.Severity.Log:
+        case 'log':
           console.log(message)
           break
-        case Sentry.Severity.Info:
+        case 'info':
           console.info(message)
           break
-        case Sentry.Severity.Debug:
+        case 'debug':
           console.debug(message)
           break
       }

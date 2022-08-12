@@ -17,12 +17,12 @@ const openExternalUrl = async (url: string): Promise<void> => {
       sendTrackingSignal({
         signal: {
           name: OPEN_EXTERNAL_LINK_SIGNAL_NAME,
-          url
-        }
+          url,
+        },
       })
-      await InAppBrowser.close()
+      InAppBrowser.close()
       await InAppBrowser.open(url, {
-        toolbarColor: buildConfig().lightTheme.colors.themeColor
+        toolbarColor: buildConfig().lightTheme.colors.themeColor,
       })
     } else {
       const canOpen = await Linking.canOpenURL(url)
@@ -31,8 +31,8 @@ const openExternalUrl = async (url: string): Promise<void> => {
         sendTrackingSignal({
           signal: {
             name: OPEN_OS_LINK_SIGNAL_NAME,
-            url
-          }
+            url,
+          },
         })
         await Linking.openURL(url)
       } else {

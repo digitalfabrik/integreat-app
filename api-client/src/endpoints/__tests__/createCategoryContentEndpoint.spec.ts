@@ -16,12 +16,12 @@ describe('createCategoryContentEndpoint', () => {
   const params = {
     city: 'augsburg',
     language: 'fa',
-    cityContentPath: '/augsburg/fa/erste-schritte/%d10%86%d9%82%d8%b4%d9%87-%d8%b4%d9%87%d8%b1/'
+    cityContentPath: '/augsburg/fa/erste-schritte/%d10%86%d9%82%d8%b4%d9%87-%d8%b4%d9%87%d8%b1/',
   }
   const endpoint = createCategoryContentEndpoint(baseUrl)
 
   it('should map params to url', () => {
-    expect(endpoint.mapParamsToUrl(params)).toEqual(
+    expect(endpoint.mapParamsToUrl(params)).toBe(
       `${baseUrl}/${params.city}/${params.language}/wp-json/extensions/v3/post?&url=${params.cityContentPath}`
     )
   })

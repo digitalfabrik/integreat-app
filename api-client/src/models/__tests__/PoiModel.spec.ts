@@ -7,17 +7,17 @@ describe('PoiModel', () => {
     type: 'Feature',
     geometry: {
       type: 'Point',
-      coordinates: [31.133859, 29.979848]
+      coordinates: [31.133859, 29.979848],
     },
     properties: {
       id: 1,
       title: 'Test Title',
-      symbol: 'marker_15',
+      symbol: 'marker_40',
       thumbnail: 'test',
       path: '/augsburg/de/locations/test',
       urlSlug: 'test',
-      address: 'Test Address 1'
-    }
+      address: 'Test Address 1',
+    },
   }
 
   it('should return geo location', () => {

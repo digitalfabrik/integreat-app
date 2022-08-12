@@ -67,10 +67,10 @@ const NavigationTilesWithScrollableView = ({ tiles, theme }: PropsType): ReactEl
         ref={scrollViewRef}
         contentContainerStyle={{
           flexGrow: 1,
-          justifyContent: 'space-around'
+          justifyContent: 'space-around',
         }}
         style={{
-          width: scrollViewWidth
+          width: scrollViewWidth,
         }}
         showsHorizontalScrollIndicator={false}
         pagingEnabled

@@ -1,6 +1,6 @@
 import Dompurify from 'dompurify'
 import React, { ReactElement, useCallback, useEffect } from 'react'
-import styled, { css } from 'styled-components'
+import styled from 'styled-components'
 
 import buildConfig from '../constants/buildConfig'
 
@@ -10,12 +10,8 @@ const SandBox = styled.div<{ centered: boolean; smallText: boolean }>`
     props.smallText ? `clamp(0.55rem, 1.6vh, ${props.theme.fonts.hintFontSize})` : props.theme.fonts.contentFontSize};
   line-height: ${props => props.theme.fonts.contentLineHeight};
 
-  ${props =>
-    props.centered &&
-    css`
-      text-align: center;
-      list-style-position: inside;
-    `}
+  ${props => (props.centered ? 'text-align: center;' : '')}
+  ${props => (props.centered ? 'list-style-position: inside;' : '')}
   & img {
     max-width: 100%;
     max-height: 100%;
@@ -128,11 +124,12 @@ const RemoteContent = ({ html, onInternalLinkClick, centered = false, smallText 
   }, [html, handleClick, sandBoxRef])
 
   const dangerouslySetInnerHTML = {
-    __html: Dompurify.sanitize(html)
+    __html: Dompurify.sanitize(html),
   }
 
   return (
     <SandBox
+      dir='auto'
       centered={centered}
       dangerouslySetInnerHTML={dangerouslySetInnerHTML}
       ref={sandBoxRef}

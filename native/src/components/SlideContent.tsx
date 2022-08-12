@@ -34,7 +34,7 @@ export type SlideContentType = {
   key: string
   title: string
   description?: string
-  renderContent: () => React.ReactNode
+  Content: ReactElement
 }
 type PropsType = {
   item: SlideContentType
@@ -45,13 +45,13 @@ type PropsType = {
 const SlideContent = ({ item, theme, width }: PropsType): ReactElement => (
   <ScrollView
     contentContainerStyle={{
-      flexGrow: 1
+      flexGrow: 1,
     }}>
     <Container theme={theme} width={width}>
       <TextContainer>
         <Heading theme={theme}>{item.title}</Heading>
       </TextContainer>
-      <ContentContainer description={item.description !== undefined}>{item.renderContent()}</ContentContainer>
+      <ContentContainer description={item.description !== undefined}>{item.Content}</ContentContainer>
       {item.description && (
         <TextContainer>
           <Description theme={theme}>{item.description}</Description>

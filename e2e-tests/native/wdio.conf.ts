@@ -4,7 +4,7 @@ import { Testrunner } from '@wdio/types/build/Options'
 const androidCapabilities: Capabilities = {
   platformName: 'android',
   'appium:app': '../native/android/app/build/outputs/apk/debug/app-debug.apk',
-  'appium:automationName': 'UiAutomator2'
+  'appium:automationName': 'UiAutomator2',
 }
 
 export const config: Testrunner = {
@@ -29,11 +29,13 @@ export const config: Testrunner = {
   reporters: ['spec'],
 
   jasmineOpts: {
-    defaultTimeoutInterval: 100000
+    defaultTimeoutInterval: 100000,
   },
 
   before: async (): Promise<void> => {
     const startupDelay = 10000
-    await new Promise(resolve => setTimeout(resolve, startupDelay))
-  }
+    await new Promise(resolve => {
+      setTimeout(resolve, startupDelay)
+    })
+  },
 }

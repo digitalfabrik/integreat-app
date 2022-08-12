@@ -10,20 +10,20 @@ describe('CategoryListItem', () => {
     {
       title: 'sub 1',
       thumbnail: 'thumbnail',
-      path: 'path/to/sub1'
+      path: 'path/to/sub1',
     },
     {
       title: 'sub 2',
       thumbnail: 'thumbnail',
-      path: 'path/to/sub2'
-    }
+      path: 'path/to/sub2',
+    },
   ]
 
   const category: CategoryListModelType = {
     title: 'category',
     thumbnail: 'thumbnail',
     path: 'path/to',
-    contentWithoutHtml: 'This is some test content.'
+    contentWithoutHtml: 'This is some test content.',
   }
 
   const onItemPress = jest.fn()

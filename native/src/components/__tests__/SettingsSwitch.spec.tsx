@@ -8,14 +8,14 @@ jest.mock('styled-components')
 jest.mock('react-native/Libraries/Components/Switch/Switch', () => {
   const mockComponent = require('react-native/jest/mockComponent')
   return {
-    default: mockComponent('react-native/Libraries/Components/Switch/Switch')
+    default: mockComponent('react-native/Libraries/Components/Switch/Switch'),
   }
 })
 
 describe('SettingsSwitch', () => {
   const createTestSwitch = (onPressMock: jest.Mock) => {
-    const { getByA11yRole } = render(<SettingsSwitch value={false} onPress={onPressMock} />)
-    return getByA11yRole('switch')
+    const { getByRole } = render(<SettingsSwitch value={false} onPress={onPressMock} />)
+    return getByRole('switch')
   }
 
   it('should execute onPress when toggled', () => {

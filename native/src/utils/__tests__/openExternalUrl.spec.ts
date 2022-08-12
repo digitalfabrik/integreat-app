@@ -8,19 +8,19 @@ import openExternalUrl from '../openExternalUrl'
 import sendTrackingSignal from '../sendTrackingSignal'
 
 jest.mock('@sentry/react-native', () => ({
-  captureException: () => undefined
+  captureException: () => undefined,
 }))
 jest.mock('react-native-inappbrowser-reborn', () => ({
   open: jest.fn(),
   close: jest.fn(),
-  isAvailable: jest.fn(() => true)
+  isAvailable: jest.fn(() => true),
 }))
 jest.mock('../../utils/sendTrackingSignal')
 jest.mock('react-native', () => ({
   Linking: {
     canOpenURL: jest.fn(() => true),
-    openURL: jest.fn()
-  }
+    openURL: jest.fn(),
+  },
 }))
 describe('openExternalUrl', () => {
   beforeEach(() => {
@@ -36,19 +36,19 @@ describe('openExternalUrl', () => {
     expect(sendTrackingSignal).toHaveBeenCalledWith({
       signal: {
         name: OPEN_EXTERNAL_LINK_SIGNAL_NAME,
-        url
-      }
+        url,
+      },
     })
     const url2 = 'http://som.niceli.nk/les/stext'
     await openExternalUrl(url2)
     expect(InAppBrowser.close).toHaveBeenCalled()
-    expect(await InAppBrowser.open).toHaveBeenLastCalledWith(url2, expect.anything())
+    expect(InAppBrowser.open).toHaveBeenLastCalledWith(url2, expect.anything())
     expect(Linking.openURL).not.toHaveBeenCalled()
     expect(sendTrackingSignal).toHaveBeenCalledWith({
       signal: {
         name: OPEN_EXTERNAL_LINK_SIGNAL_NAME,
-        url: url2
-      }
+        url: url2,
+      },
     })
   })
   it('should open http urls with linking if inapp browser is not available', async () => {
@@ -66,8 +66,8 @@ describe('openExternalUrl', () => {
     expect(sendTrackingSignal).toHaveBeenCalledWith({
       signal: {
         name: OPEN_OS_LINK_SIGNAL_NAME,
-        url
-      }
+        url,
+      },
     })
   })
 
@@ -79,7 +79,7 @@ describe('openExternalUrl', () => {
         type: 'route',
         id: url,
         city: '',
-        language: ''
+        language: '',
       })
     )
     expect(Linking.openURL).not.toHaveBeenCalled()

@@ -42,7 +42,7 @@ const languageDetector: LanguageDetectorModule = {
   },
   cacheUserLanguage: (language: string) => {
     safeLocalStorage.setItem(I18N_LANGUAGE_KEY, language)
-  }
+  },
 }
 
 export default languageDetector

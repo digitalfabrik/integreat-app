@@ -6,7 +6,7 @@ describe('ContentLoadCriterion', () => {
   // mock date to avoid test fails running at midnight
   const nowDateString = '2021-07-20T00:00:00'
   beforeAll(() => {
-    jest.useFakeTimers('modern')
+    jest.useFakeTimers()
     jest.setSystemTime(moment(nowDateString).utc().toDate().getTime())
   })
 
@@ -16,7 +16,7 @@ describe('ContentLoadCriterion', () => {
   const stateView = new ContentLoadCriterion(
     {
       forceUpdate: false,
-      shouldRefreshResources: false
+      shouldRefreshResources: false,
     },
     false
   )

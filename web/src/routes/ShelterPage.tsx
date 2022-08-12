@@ -2,8 +2,13 @@ import React, { ReactElement, useCallback, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useParams } from 'react-router-dom'
 
-import { createShelterEndpoint, pathnameFromRouteInformation, SHELTER_ROUTE, ShelterModel } from 'api-client'
-import { FilterProps } from 'api-client/src/endpoints/createShelterEndpoint'
+import {
+  createShelterEndpoint,
+  pathnameFromRouteInformation,
+  SHELTER_ROUTE,
+  ShelterModel,
+  ShelterFilterProps,
+} from 'api-client'
 
 import { CityRouteProps } from '../CityContentSwitcher'
 import Caption from '../components/Caption'
@@ -22,7 +27,7 @@ const ShelterPage = ({ cityModel, cityCode, languageCode, pathname, languages }:
   const { shelterId } = useParams()
   const { viewportSmall } = useWindowDimensions()
   const { t } = useTranslation('shelter')
-  const [filter, setFilter] = useState<FilterProps>({ beds: null, city: null, pets: null })
+  const [filter, setFilter] = useState<ShelterFilterProps>({ beds: null, city: null, pets: null })
 
   const loadShelters = useCallback(
     (page: number) =>
@@ -30,7 +35,7 @@ const ShelterPage = ({ cityModel, cityCode, languageCode, pathname, languages }:
         type: 'list',
         page,
         cityCode,
-        filter
+        filter,
       }),
     [cityCode, filter]
   )
@@ -38,7 +43,7 @@ const ShelterPage = ({ cityModel, cityCode, languageCode, pathname, languages }:
   const languageChangePaths = languages.map(({ code, name }) => ({
     path: pathnameFromRouteInformation({ route: SHELTER_ROUTE, cityCode, languageCode: code }),
     name,
-    code
+    code,
   }))
 
   const updateSearchFilter = (key: string, val: string) => {
@@ -61,7 +66,7 @@ const ShelterPage = ({ cityModel, cityCode, languageCode, pathname, languages }:
     feedbackTargetInformation: null,
     languageChangePaths,
     route: SHELTER_ROUTE,
-    languageCode
+    languageCode,
   }
 
   if (shelterId) {

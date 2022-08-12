@@ -21,20 +21,20 @@ type XY = {
 const SWIPE_DIRECTION = {
   down: {
     start: { x: 50, y: 15 },
-    end: { x: 50, y: 85 }
+    end: { x: 50, y: 85 },
   },
   left: {
     start: { x: 95, y: 50 },
-    end: { x: 5, y: 50 }
+    end: { x: 5, y: 50 },
   },
   right: {
     start: { x: 5, y: 50 },
-    end: { x: 95, y: 50 }
+    end: { x: 95, y: 50 },
   },
   up: {
     start: { x: 50, y: 85 },
-    end: { x: 50, y: 15 }
-  }
+    end: { x: 50, y: 15 },
+  },
 }
 
 const SWIPE_PERCENTAGE = 0.85
@@ -48,7 +48,7 @@ class Gestures {
   static SCREEN_SIZE: RectReturn | null
 
   static async checkIfDisplayedWithSwipeUp(
-    element: ChainablePromiseElement<Promise<WebdriverIO.Element>>,
+    element: ChainablePromiseElement<WebdriverIO.Element>,
     maxScrolls: number,
     amount = 0
   ): Promise<void> {
@@ -150,9 +150,9 @@ class Gestures {
           //    Play with the duration to make the swipe go slower / faster
           { type: 'pointerMove', duration: 1000, x: to.x, y: to.y },
           // f. Finger gets up, off the screen
-          { type: 'pointerUp', button: 0 }
-        ]
-      }
+          { type: 'pointerUp', button: 0 },
+        ],
+      },
     ])
     // Add a pause, just to make sure the swipe is done
     await driver.pause(WAIT_FOR_SWIPE_FINISHED)
@@ -165,7 +165,7 @@ class Gestures {
     const HUNDRED_PERCENT = 100
     return {
       x: Math.round(screenSize.width * (coordinates.x / HUNDRED_PERCENT)),
-      y: Math.round(screenSize.height * (coordinates.y / HUNDRED_PERCENT))
+      y: Math.round(screenSize.height * (coordinates.y / HUNDRED_PERCENT)),
     }
   }
 
@@ -175,7 +175,7 @@ class Gestures {
   private static calculateXY({ x, y }: XY, percentage: number): XY {
     return {
       x: x * percentage,
-      y: y * percentage
+      y: y * percentage,
     }
   }
 }

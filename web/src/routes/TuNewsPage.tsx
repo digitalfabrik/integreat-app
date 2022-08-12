@@ -8,7 +8,7 @@ import {
   pathnameFromRouteInformation,
   TU_NEWS_TYPE,
   TunewsModel,
-  useLoadFromEndpoint
+  useLoadFromEndpoint,
 } from 'api-client'
 
 import { CityRouteProps } from '../CityContentSwitcher'
@@ -23,6 +23,7 @@ import NewsTabs from '../components/NewsTabs'
 import { tunewsLabel } from '../constants/news'
 import { tunewsApiBaseUrl } from '../constants/urls'
 import DateFormatterContext from '../contexts/DateFormatterContext'
+import useWindowDimensions from '../hooks/useWindowDimensions'
 import { TU_NEWS_ROUTE } from './index'
 
 const DEFAULT_PAGE = 1
@@ -31,7 +32,7 @@ const DEFAULT_COUNT = 10
 const TuNewsPage = ({ cityCode, languageCode, cityModel, languages }: CityRouteProps): ReactElement => {
   const formatter = useContext(DateFormatterContext)
   const { t } = useTranslation('news')
-  const viewportSmall = false
+  const { viewportSmall } = useWindowDimensions()
 
   const loadTuNewsLanguages = useCallback(async () => createTunewsLanguagesEndpoint(tunewsApiBaseUrl).request(), [])
   const { data: tuNewsLanguages, error } = useLoadFromEndpoint(loadTuNewsLanguages)
@@ -57,7 +58,7 @@ const TuNewsPage = ({ cityCode, languageCode, cityModel, languages }: CityRouteP
           newsType: TU_NEWS_TYPE,
           cityCode,
           languageCode,
-          newsId: id.toString()
+          newsId: id.toString(),
         })}
         t={t}
         formatter={formatter}
@@ -72,7 +73,7 @@ const TuNewsPage = ({ cityCode, languageCode, cityModel, languages }: CityRouteP
     feedbackTargetInformation: null,
     languageChangePaths: null,
     route: TU_NEWS_ROUTE,
-    languageCode
+    languageCode,
   }
 
   if (error) {
@@ -106,7 +107,7 @@ const TuNewsPage = ({ cityCode, languageCode, cityModel, languages }: CityRouteP
         ? pathnameFromRouteInformation({ route: NEWS_ROUTE, newsType: TU_NEWS_TYPE, cityCode, languageCode: code })
         : null,
       name,
-      code
+      code,
     }
   })
 

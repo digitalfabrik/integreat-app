@@ -15,13 +15,13 @@ const tuNews = new TunewsModel({
   date: moment('2020-01-20T00:00:00.000Z'),
   tags: [],
   content: 'Ein Verein ist eine Gruppe von Menschen. Sie haben ein gemeinsames Interesse und organisieren.',
-  eNewsNo: 'tun0000009902'
+  eNewsNo: 'tun0000009902',
 })
 const localNews = new LocalNewsModel({
   id: 9902,
   timestamp: moment('2020-01-20T00:00:00.000Z'),
   title: 'Test Push Notification',
-  message: 'Some &quot;test text with lots of &quot;html entities&quot; which won&#39;t be displayed.'
+  message: 'Some &quot;test text with lots of &quot;html entities&quot; which won&#39;t be displayed.',
 })
 describe('NewsListItem', () => {
   const language = 'de'

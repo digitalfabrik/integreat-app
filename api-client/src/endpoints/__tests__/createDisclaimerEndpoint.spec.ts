@@ -11,11 +11,11 @@ describe('disclaimer', () => {
     title: 'Feedback, Kontakt und mögliches Engagement',
     type: 'disclaimer',
     modified_gmt: '2017-06-12 12:27:57',
-    content: '<div>Some disclaimer test content :)</div>'
+    content: '<div>Some disclaimer test content :)</div>',
   }
   const params = {
     city: 'augsburg',
-    language: 'de'
+    language: 'de',
   }
   it('should map router to url', () => {
     expect(disclaimer.mapParamsToUrl(params)).toBe(
@@ -32,7 +32,7 @@ describe('disclaimer', () => {
         path: '/augsburg/en/disclaimer/feedback-contact-and-opportunities-to-take-part',
         title: pageJson.title,
         content: '<div>Some disclaimer test content :)</div>',
-        lastUpdate: moment.tz('2017-06-12 12:27:57', 'GMT')
+        lastUpdate: moment.tz('2017-06-12 12:27:57', 'GMT'),
       })
     )
   })

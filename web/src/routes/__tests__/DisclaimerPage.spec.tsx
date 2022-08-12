@@ -6,7 +6,7 @@ import {
   DISCLAIMER_ROUTE,
   LanguageModelBuilder,
   PageModel,
-  pathnameFromRouteInformation
+  pathnameFromRouteInformation,
 } from 'api-client'
 import { mockUseLoadFromEndpointOnceWithData } from 'api-client/src/testing/mockUseLoadFromEndpoint'
 
@@ -16,7 +16,7 @@ import { RoutePatterns } from '../index'
 
 jest.mock('api-client', () => ({
   ...jest.requireActual('api-client'),
-  useLoadFromEndpoint: jest.fn()
+  useLoadFromEndpoint: jest.fn(),
 }))
 jest.mock('react-i18next')
 
@@ -31,7 +31,7 @@ describe('DisclaimerPage', () => {
     path: '/disclaimer',
     title: 'Feedback, Kontakt und mögliches Engagement',
     content: 'this is a test content',
-    lastUpdate: moment('2017-11-18T19:30:00.000Z')
+    lastUpdate: moment('2017-11-18T19:30:00.000Z'),
   })
 
   const city = cities[0]!
@@ -40,7 +40,7 @@ describe('DisclaimerPage', () => {
   const pathname = pathnameFromRouteInformation({
     route: DISCLAIMER_ROUTE,
     cityCode: city.code,
-    languageCode: language.code
+    languageCode: language.code,
   })
   const routePattern = `/:cityCode/:languageCode/${RoutePatterns[DISCLAIMER_ROUTE]}`
 

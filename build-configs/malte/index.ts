@@ -5,7 +5,7 @@ import {
   AndroidBuildConfigType,
   CommonBuildConfigType,
   iOSBuildConfigType,
-  WebBuildConfigType
+  WebBuildConfigType,
 } from '../BuildConfigType'
 import { APP_STORE_TEAM_ID } from '../common/constants'
 import mainImprint from './mainImprint'
@@ -36,14 +36,14 @@ const commonMalteBuildConfig: CommonBuildConfigType = {
     sentry: true,
     developerFriendly: false,
     fixedCity: null,
-    cityNotCooperatingTemplate: null
+    cityNotCooperatingTemplate: null,
   },
   aboutUrls: {
-    default: 'https://www.malteser-werke.de/malte-app'
+    default: 'https://www.malteser-werke.de/malte-app',
   },
   privacyUrls: {
-    default: 'https://www.malteser-werke.de/datenschutzerklaerung-malte.html'
-  }
+    default: 'https://www.malteser-werke.de/datenschutzerklaerung-malte.html',
+  },
 }
 
 const androidMalteBuildConfig: AndroidBuildConfigType = {
@@ -58,8 +58,8 @@ const androidMalteBuildConfig: AndroidBuildConfigType = {
     firebaseDatabaseUrl: 'https://malte-2020.firebaseio.com',
     googleApiKey: 'AIzaSyDZNWm7Cvh3O4DjfTupTGErQVtvz1o77q8',
     googleCrashReportingApiKey: 'AIzaSyDZNWm7Cvh3O4DjfTupTGErQVtvz1o77q8',
-    projectId: 'malte-2020'
-  }
+    projectId: 'malte-2020',
+  },
 }
 
 const iosMalteBuildConfig: iOSBuildConfigType = {
@@ -81,9 +81,9 @@ const iosMalteBuildConfig: iOSBuildConfigType = {
     isAnalyticsEnabled: false,
     isAppInviteEnabled: true,
     isGCMEnabled: true,
-    isSigninEnabled: true
+    isSigninEnabled: true,
   },
-  launchScreen: 'LaunchScreenDefault'
+  launchScreen: 'LaunchScreenDefault',
 }
 
 const webMalteBuildConfig: WebBuildConfigType = {
@@ -95,13 +95,13 @@ const webMalteBuildConfig: WebBuildConfigType = {
     locationMarker: '/location-marker.svg',
     appleTouchIcon: '/apple-touch-icon.png',
     socialMediaPreview: '/social-media-preview.png',
-    favicons: '/favicons/'
+    favicons: '/favicons/',
   },
   apps: {
     android: {
       applicationId: APPLICATION_ID,
       sha256CertFingerprint:
-        '35:0C:AC:0B:70:EC:81:3A:35:41:30:03:27:FE:C1:E4:4A:93:F2:58:FF:C3:C9:BB:6F:08:47:0B:56:80:6B:81'
+        '35:0C:AC:0B:70:EC:81:3A:35:41:30:03:27:FE:C1:E4:4A:93:F2:58:FF:C3:C9:BB:6F:08:47:0B:56:80:6B:81',
     },
     ios: {
       bundleIdentifier: BUNDLE_IDENTIFIER,
@@ -109,17 +109,17 @@ const webMalteBuildConfig: WebBuildConfigType = {
       appStoreName: 'malte',
       appleAppSiteAssociationAppIds: [
         `${APP_STORE_TEAM_ID}.${BUNDLE_IDENTIFIER}`,
-        `${APP_STORE_TEAM_ID}.de.malteapp.test`
-      ]
-    }
-  }
+        `${APP_STORE_TEAM_ID}.de.malteapp.test`,
+      ],
+    },
+  },
 }
 
 const platformBuildConfigs = {
   common: commonMalteBuildConfig,
   web: webMalteBuildConfig,
   android: androidMalteBuildConfig,
-  ios: iosMalteBuildConfig
+  ios: iosMalteBuildConfig,
 }
 
 export default platformBuildConfigs

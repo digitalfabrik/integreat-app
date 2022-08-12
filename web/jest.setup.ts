@@ -1,14 +1,9 @@
 import '@testing-library/jest-dom'
 import '@testing-library/jest-dom/extend-expect'
-import { configure } from 'enzyme'
-import Adapter from 'enzyme-adapter-react-16'
 import * as fs from 'fs'
 import * as path from 'path'
 import 'raf/polyfill'
 
-configure({
-  adapter: new Adapter()
-})
 // Setup fetch mock
 global.fetch = require('jest-fetch-mock')
 // Setup config mock
@@ -49,11 +44,11 @@ Object.defineProperty(window, 'matchMedia', {
     removeListener: jest.fn(), // Deprecated
     addEventListener: jest.fn(),
     removeEventListener: jest.fn(),
-    dispatchEvent: jest.fn()
-  }))
+    dispatchEvent: jest.fn(),
+  })),
 })
 
 Object.defineProperty(URL, 'createObjectURL', {
   writable: true,
-  value: jest.fn()
+  value: jest.fn(),
 })

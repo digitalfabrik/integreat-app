@@ -4,15 +4,6 @@ import { program } from 'commander'
 import { VERSION_FILE, PLATFORMS, tagId, MAIN_BRANCH } from './constants'
 import authenticate from './github-authentication'
 
-program
-  .requiredOption(
-    '--deliverino-private-key <deliverino-private-key>',
-    'private key of the deliverino github app in pem format with base64 encoding'
-  )
-  .requiredOption('--owner <owner>', 'owner of the current repository, usually "Integreat"')
-  .requiredOption('--repo <repo>', 'the current repository, should be integreat-app')
-  .requiredOption('--branch <branch>', 'the current branch')
-
 type TagOptions = {
   versionName: string
   versionCode: number
@@ -33,7 +24,7 @@ const createTag = async ({ versionName, versionCode, owner, repo, commitSha, app
     tag: id,
     message: tagMessage,
     object: commitSha,
-    type: 'commit'
+    type: 'commit',
   })
   const tagSha = tag.data.sha
   console.warn(`New tag with id ${id} successfully created.`)
@@ -42,20 +33,21 @@ const createTag = async ({ versionName, versionCode, owner, repo, commitSha, app
     owner,
     repo,
     ref: `refs/tags/${id}`,
-    sha: tagSha
+    sha: tagSha,
   })
   console.warn(`New ref with id ${id} successfully created.`)
 }
 
+type Options = {
+  deliverinoPrivateKey: string
+  owner: string
+  repo: string
+  branch: string
+}
 const commitAndTag = async (
   versionName: string,
   versionCodeString: string,
-  {
-    deliverinoPrivateKey,
-    owner,
-    repo,
-    branch
-  }: { deliverinoPrivateKey: string; owner: string; repo: string; branch: string }
+  { deliverinoPrivateKey, owner, repo, branch }: Options
 ) => {
   if (branch !== MAIN_BRANCH) {
     throw new Error(`Version bumps are only allowed on the ${MAIN_BRANCH} branch!`)
@@ -81,7 +73,7 @@ const commitAndTag = async (
     branch,
     message: commitMessage,
     // @ts-expect-error Random typescript error: property sha is not available on type { ..., sha: string, ... }
-    sha: versionFileContent.data.sha
+    sha: versionFileContent.data.sha,
   })
   console.warn(`New version successfully commited with message "${commitMessage}".`)
 
@@ -96,7 +88,7 @@ const commitAndTag = async (
         appOctokit,
         owner,
         repo,
-        platform
+        platform,
       })
     )
   )
@@ -105,14 +97,16 @@ const commitAndTag = async (
 program
   .command('bump-to <new-version-name> <new-version-code>')
   .description('commits the supplied version name and code to github and tags the commit')
-  .action(async (newVersionName, newVersionCode) => {
+  .requiredOption(
+    '--deliverino-private-key <deliverino-private-key>',
+    'private key of the deliverino github app in pem format with base64 encoding'
+  )
+  .requiredOption('--owner <owner>', 'owner of the current repository, usually "digitalfabrik"')
+  .requiredOption('--repo <repo>', 'the current repository, should be integreat-app')
+  .requiredOption('--branch <branch>', 'the current branch')
+  .action(async (newVersionName: string, newVersionCode: string, options: Options) => {
     try {
-      await commitAndTag(newVersionName, newVersionCode, {
-        deliverinoPrivateKey: program.deliverinoPrivateKey,
-        branch: program.branch,
-        owner: program.owner,
-        repo: program.repo
-      })
+      await commitAndTag(newVersionName, newVersionCode, options)
     } catch (e) {
       console.error(e)
       process.exit(1)

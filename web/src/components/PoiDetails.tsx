@@ -6,9 +6,7 @@ import styled, { css, useTheme } from 'styled-components'
 import { getExternalMapsLink, PoiFeature, PoiModel } from 'api-client/src'
 import { UiDirectionType } from 'translations'
 
-import iconEmail from '../../../assets/icons/email.svg'
-import iconPhone from '../../../assets/icons/phone.svg'
-import iconWebsite from '../../../assets/icons/website.svg'
+import { EmailIcon, PhoneIcon, WebsiteIcon } from '../assets'
 import iconArrowBack from '../assets/IconArrowBackLong.svg'
 import iconExternalLink from '../assets/IconExternalLink.svg'
 import iconMarker from '../assets/IconMarker.svg'
@@ -153,7 +151,7 @@ const PoiDetails: React.FC<PoiDetailsProps> = ({
   feature,
   poi,
   selectFeature,
-  direction
+  direction,
 }: PoiDetailsProps): ReactElement => {
   const onBackClick = () => {
     selectFeature(null)
@@ -209,17 +207,17 @@ const PoiDetails: React.FC<PoiDetailsProps> = ({
           <Spacer borderColor={theme.colors.poiBorderColor} />
           <Collapsible title={t('contactInformation')} initialCollapsed direction={direction}>
             <>
-              {website && <ContactItem iconSrc={iconWebsite} iconAlt={t('website')} link={website} content={website} />}
+              {website && <ContactItem iconSrc={WebsiteIcon} iconAlt={t('website')} link={website} content={website} />}
               {phoneNumber && (
                 <ContactItem
-                  iconSrc={iconPhone}
+                  iconSrc={PhoneIcon}
                   iconAlt={t('phone')}
                   link={`tel:${phoneNumber}`}
                   content={phoneNumber}
                 />
               )}
               {email && (
-                <ContactItem iconSrc={iconEmail} iconAlt={t('eMail')} link={`mailto:${email}`} content={email} />
+                <ContactItem iconSrc={EmailIcon} iconAlt={t('eMail')} link={`mailto:${email}`} content={email} />
               )}
             </>
           </Collapsible>

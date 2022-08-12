@@ -5,6 +5,6 @@ export type NativeConstantsType = {
 }
 const { RNNativeConstants } = NativeModules
 const NativeConstants: NativeConstantsType = {
-  appVersion: RNNativeConstants.appVersion
+  appVersion: RNNativeConstants.appVersion,
 }
 export default NativeConstants

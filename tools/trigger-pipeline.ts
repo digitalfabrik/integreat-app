@@ -12,15 +12,15 @@ const WORKFLOW_TYPES = [
   'web_beta_delivery',
   'web_production_delivery',
   'web_promotion',
-  'delivery'
+  'delivery',
 ]
-
-program.requiredOption('--api-token <api-token>', 'circleci api token')
 
 program
   .command('trigger <workflow-type>')
   .description(`trigger a workflow in the ci on the main branch`)
-  .action(async (workflowType: string) => {
+  .requiredOption('--api-token <api-token>', 'circleci api token')
+  .action(async (workflowType: string, options: { apiToken: string }) => {
+    const { apiToken } = options
     try {
       if (!WORKFLOW_TYPES.includes(workflowType)) {
         throw new Error(`Only the following workflow types are supported: ${WORKFLOW_TYPES}`)
@@ -30,8 +30,8 @@ program
         branch: MAIN_BRANCH,
         parameters: {
           api_triggered: true,
-          workflow_type: workflowType
-        }
+          workflow_type: workflowType,
+        },
       }
 
       const response = await fetch(CIRCLECI_URL, {
@@ -40,8 +40,8 @@ program
         headers: {
           'Content-Type': 'application/json',
           Accept: 'application/json',
-          'Circle-Token': program.apiToken
-        }
+          'Circle-Token': apiToken,
+        },
       })
       const json = await response.json()
       console.log(json)

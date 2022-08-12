@@ -51,9 +51,6 @@ const Intro = ({ route, navigation }: PropsType): ReactElement => {
   const flatListRef = useRef<FlatList>(null)
   const { deepLink } = route.params
 
-  const renderAppIcon = (): React.ReactNode => <AppIcon source={buildConfigAssets().appIcon} />
-  const renderImageContent = (image: number) => (): React.ReactNode => <ImageContent source={image} />
-
   const icons = buildConfigAssets().intro
   const slides = icons
     ? [
@@ -61,44 +58,44 @@ const Intro = ({ route, navigation }: PropsType): ReactElement => {
           key: 'integreat',
           title: buildConfig().appName,
           description: t('appDescription', {
-            appName: buildConfig().appName
+            appName: buildConfig().appName,
           }),
-          renderContent: renderAppIcon
+          Content: <AppIcon source={buildConfigAssets().appIcon} />,
         },
         {
           key: 'search',
           title: t('search'),
           description: t('searchDescription'),
-          renderContent: renderImageContent(icons.search)
+          Content: <ImageContent source={icons.search} />,
         },
         {
           key: 'events',
           title: t('events'),
           description: t('eventsDescription'),
-          renderContent: renderImageContent(icons.events)
+          Content: <ImageContent source={icons.events} />,
         },
         {
           key: 'offers',
           title: t('offers'),
           description: t('offersDescription'),
-          renderContent: renderImageContent(icons.offers)
+          Content: <ImageContent source={icons.offers} />,
         },
         {
           key: 'languageChange',
           title: t('languageChange'),
           description: t('languageChangeDescription'),
-          renderContent: renderImageContent(icons.language)
-        }
+          Content: <ImageContent source={icons.language} />,
+        },
       ]
     : [
         {
           key: 'integreat',
           title: buildConfig().appName,
           description: t('appDescription', {
-            appName: buildConfig().appName
+            appName: buildConfig().appName,
           }),
-          renderContent: renderAppIcon
-        }
+          Content: <AppIcon source={buildConfigAssets().appIcon} />,
+        },
       ]
 
   const onDone = useCallback(async () => {
@@ -118,7 +115,7 @@ const Intro = ({ route, navigation }: PropsType): ReactElement => {
 
   const goToSlide = useCallback((index: number) => {
     flatListRef.current?.scrollToIndex({
-      index
+      index,
     })
   }, [])
 
@@ -142,7 +139,7 @@ const Intro = ({ route, navigation }: PropsType): ReactElement => {
         pagingEnabled
         viewabilityConfig={{
           itemVisiblePercentThreshold: 51,
-          minimumViewTime: 0.1
+          minimumViewTime: 0.1,
         }}
         onViewableItemsChanged={onViewableItemsChanged}
         showsHorizontalScrollIndicator={false}

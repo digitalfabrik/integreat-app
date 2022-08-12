@@ -48,7 +48,7 @@ const CollapsibleItem: React.FC<CollapsibleItemProps> = ({
   iconSize = DEFAULT_ICON_SIZE,
   children,
   headerText,
-  language
+  language,
 }: CollapsibleItemProps): ReactElement => {
   const theme = useTheme()
   const [isExpanded, setIsExpanded] = useState<boolean>(initExpanded)

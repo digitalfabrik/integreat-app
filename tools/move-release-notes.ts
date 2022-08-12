@@ -3,28 +3,21 @@ import { program } from 'commander'
 import { GITKEEP_FILE, UNRELEASED_DIR, RELEASE_NOTES_DIR } from './constants'
 import authenticate from './github-authentication'
 
-program
-  .option('-d, --debug', 'enable extreme logging')
-  .requiredOption(
-    '--deliverino-private-key <deliverino-private-key>',
-    'private key of the deliverino github app in pem format with base64 encoding'
-  )
-  .requiredOption('--owner <owner>', 'owner of the current repository, usually "Integreat"')
-  .requiredOption('--repo <repo>', 'the current repository, usually "integreat-app"')
-  .requiredOption('--branch <branch>', 'the current branch')
-
-type Options = {
-  newVersionName: string
+type Opts = {
   deliverinoPrivateKey: string
   owner: string
   repo: string
   branch: string
 }
 
+type Options = Opts & {
+  newVersionName: string
+}
+
 const moveReleaseNotes = async ({ newVersionName, deliverinoPrivateKey, owner, repo, branch }: Options) => {
   const appOctokit = await authenticate({ deliverinoPrivateKey, owner, repo })
   const {
-    data: { commit }
+    data: { commit },
   } = await appOctokit.repos.getBranch({ owner, repo, branch })
 
   // Tree of the root folder of the project
@@ -97,28 +90,32 @@ const moveReleaseNotes = async ({ newVersionName, deliverinoPrivateKey, owner, r
     repo,
     message: `Move release notes to ${newVersionName}\n[skip ci]`,
     tree: updatedRootTree.data.sha,
-    parents: [commit.sha]
+    parents: [commit.sha],
   })
 
   await appOctokit.git.updateRef({
     owner,
     repo,
     ref: `heads/${branch}`,
-    sha: renameCommit.data.sha
+    sha: renameCommit.data.sha,
   })
 }
 
 program
   .command('move-to <new-version-name>')
   .description("move the release notes in 'unreleased' to a new subdirectory <new-version-name>")
-  .action(async (newVersionName: string) => {
+  .requiredOption(
+    '--deliverino-private-key <deliverino-private-key>',
+    'private key of the deliverino github app in pem format with base64 encoding'
+  )
+  .requiredOption('--owner <owner>', 'owner of the current repository, usually "digitalfabrik"')
+  .requiredOption('--repo <repo>', 'the current repository, usually "integreat-app"')
+  .requiredOption('--branch <branch>', 'the current branch')
+  .action(async (newVersionName: string, options: Opts) => {
     try {
       await moveReleaseNotes({
         newVersionName,
-        deliverinoPrivateKey: program.deliverinoPrivateKey,
-        branch: program.branch,
-        owner: program.owner,
-        repo: program.repo
+        ...options,
       })
     } catch (e) {
       console.error(e)

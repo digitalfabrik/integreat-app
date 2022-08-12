@@ -14,7 +14,7 @@ class SprungbrettListItem extends React.PureComponent<PropsType> {
     const { job } = this.props
     return (
       <ListItem title={job.title} path={job.url}>
-        <div>{job.location}</div>
+        <div dir='auto'>{job.location}</div>
       </ListItem>
     )
   }
