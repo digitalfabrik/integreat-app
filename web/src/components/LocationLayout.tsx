@@ -1,9 +1,12 @@
 import React, { ReactElement, ReactNode, useState } from 'react'
+import { useTheme } from 'styled-components'
 
 import { CityModel, SEARCH_ROUTE } from 'api-client'
 
 import Layout from '../components/Layout'
 import LocationFooter from '../components/LocationFooter'
+import buildConfig from '../constants/buildConfig'
+import useScript from '../hooks/useScript'
 import { RouteType } from '../routes'
 import FeedbackModal from './FeedbackModal'
 import { FeedbackRatingType } from './FeedbackToolbarItem'
@@ -28,6 +31,8 @@ type PropsType = {
 
 const LocationLayout = (props: PropsType): ReactElement => {
   const [feedbackModalRating, setFeedbackModalRating] = useState<FeedbackRatingType | null>(null)
+  const theme = useTheme()
+  useScript('https://unpkg.com/@rasahq/rasa-chat')
 
   const {
     viewportSmall,
@@ -73,7 +78,17 @@ const LocationLayout = (props: PropsType): ReactElement => {
       footer={!isLoading && showFooter ? <LocationFooter city={cityModel.code} language={languageCode} /> : null}
       modal={feedbackModal}
       toolbar={toolbar}>
-      {children}
+      <>
+        {children}
+        {buildConfig().featureFlags.developerFriendly && cityModel.name === 'München' && (
+          <div
+            id='rasa-chat-widget'
+            data-primary={theme.colors.themeColor}
+            data-primary-highlight={theme.colors.themeColor}
+            data-websocket-url='https://your-rasa-url-here/'
+          />
+        )}
+      </>
     </Layout>
   )
 }
