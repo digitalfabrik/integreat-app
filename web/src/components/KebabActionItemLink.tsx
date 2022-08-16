@@ -2,6 +2,10 @@ import React, { ReactElement } from 'react'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 
+import { UiDirectionType } from 'translations/src'
+
+import DirectionIcon from './DirectionIcon'
+
 const StyledLink = styled(Link)`
   display: flex;
   text-decoration: none;
@@ -20,20 +24,21 @@ type PropsType = {
   href?: string
   text: string
   iconSrc: string
+  direction?: UiDirectionType
 }
 
-const KebabActionItemLink = ({ href, text, iconSrc }: PropsType): ReactElement => {
+const KebabActionItemLink = ({ href, text, iconSrc, direction }: PropsType): ReactElement => {
   if (href) {
     return (
       <StyledLink to={href} aria-label={text} dir='auto' data-testid='kebab-action-item'>
-        <img alt='' src={iconSrc} width='24px' height='24px' />
+        <DirectionIcon alt='' src={iconSrc} width='24px' height='24px' direction={direction} />
         <span>{text}</span>
       </StyledLink>
     )
   }
   return (
     <StyledSpan aria-label={text} dir='auto' style={{ flex: 1 }} data-testid='kebab-action-item'>
-      <img alt='' src={iconSrc} width='24px' height='24px' />
+      <DirectionIcon alt='' src={iconSrc} width='24px' height='24px' direction={direction} />
       <span>{text}</span>
     </StyledSpan>
   )
