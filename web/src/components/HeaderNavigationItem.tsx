@@ -8,13 +8,19 @@ import { helpers } from '../constants/theme'
 const Container = styled.div`
   flex: 1 1 135px;
 
-  @media ${dimensions.smallViewport} {
-    &:first-child {
-      padding-right: 16px;
-    }
+  // TODO add RTL support
 
+  @media ${dimensions.smallViewport} {
     &:not(first-child) {
       padding: 0 16px;
+    }
+
+    &:first-child {
+      padding-left: 0;
+    }
+
+    &:last-child {
+      padding-right: 0;
     }
   }
 `
