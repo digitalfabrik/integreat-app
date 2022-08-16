@@ -54,13 +54,28 @@ const LocationHeader = (props: PropsType): ReactElement => {
   const newsPath = pathnameFromRouteInformation({ route: NEWS_ROUTE, newsType, ...params })
   const searchPath = pathnameFromRouteInformation({ route: SEARCH_ROUTE, ...params })
   const landingPath = pathnameFromRouteInformation({ route: LANDING_ROUTE, ...{ languageCode } })
+  const direction = config.getScriptDirection(languageCode)
 
   const { t } = useTranslation('layout')
 
   const actionItems = viewportSmall
-    ? [<HeaderActionBarItemLink key='search' href={searchPath} text={t('search')} iconSrc={searchIconMobile} />]
+    ? [
+        <HeaderActionBarItemLink
+          key='search'
+          href={searchPath}
+          text={t('search')}
+          iconSrc={searchIconMobile}
+          direction={direction}
+        />,
+      ]
     : [
-        <HeaderActionBarItemLink key='search' href={searchPath} text={t('search')} iconSrc={searchIcon} />,
+        <HeaderActionBarItemLink
+          key='search'
+          href={searchPath}
+          text={t('search')}
+          iconSrc={searchIcon}
+          direction={direction}
+        />,
         ...(!buildConfig().featureFlags.fixedCity
           ? [
               <HeaderActionBarItemLink
@@ -80,7 +95,13 @@ const LocationHeader = (props: PropsType): ReactElement => {
       ]
 
   const kebabItems = [
-    <KebabActionItemLink key='location' href={landingPath} text={t('changeLocation')} iconSrc={landingIcon} />,
+    <KebabActionItemLink
+      key='location'
+      href={landingPath}
+      text={t('changeLocation')}
+      iconSrc={landingIcon}
+      direction={direction}
+    />,
     <LanguageSelector
       key='language'
       languageChangePaths={languageChangePaths}
