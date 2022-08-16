@@ -10,11 +10,11 @@ const Container = styled.div`
 
   @media ${dimensions.smallViewport} {
     &:first-child {
-      padding-right: 12px;
+      padding-right: 16px;
     }
 
     &:not(first-child) {
-      padding: 0 12px;
+      padding: 0 16px;
     }
   }
 `
@@ -37,8 +37,9 @@ const StyledLink = styled(Link)<{ $active: boolean }>`
   }
 
   @media ${dimensions.smallViewport} {
-    font-size: ${props => props.theme.fonts.contentFontSizeSmall};
-    font-weight: 500;
+    font-family: ${props => props.theme.fonts.web.decorativeFont};
+    font-size: ${props => props.theme.fonts.hintFontSize};
+    font-weight: 400;
     min-width: 80px;
   }
 

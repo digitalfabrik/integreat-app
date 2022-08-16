@@ -6,7 +6,7 @@ import { UiDirectionType } from 'translations'
 
 import dimensions from '../constants/dimensions'
 import HeaderLogo from './HeaderLogo'
-import HeaderTitle, { HEADER_TITLE_HEIGHT } from './HeaderTitle'
+import HeaderTitle from './HeaderTitle'
 import KebabMenu from './KebabMenu'
 
 type PropsType = {
@@ -48,11 +48,12 @@ const Row = styled.div<{ hasTitle?: boolean }>`
   }
 
   @media ${dimensions.smallViewport} {
+    background-color: ${props => props.theme.colors.backgroundAccentColor};
     justify-content: space-between;
     flex-wrap: wrap;
     min-height: ${dimensions.headerHeightSmall}px;
     overflow-x: auto;
-    padding: 4px 12px;
+    padding: 16px 12px;
     box-shadow: 0 2px 5px -3px rgba(0, 0, 0, 0.2);
     :first-child {
       box-shadow: 0 2px 5px -3px rgba(0, 0, 0, 0.12);
@@ -117,9 +118,6 @@ export const Header = ({
     ? (1 + (hasNavigationBar ? 1 : 0)) * headerHeightSmall
     : (1 + (hasNavigationBar ? 1 : 0)) * headerHeightLarge
   const scrollHeight = viewportSmall ? headerHeightSmall : headerHeightLarge
-
-  console.log('height', height)
-  console.log('scrollHeight', scrollHeight)
 
   return (
     <Headroom scrollHeight={scrollHeight} height={height}>
