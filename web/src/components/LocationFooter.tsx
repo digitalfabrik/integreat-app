@@ -30,7 +30,7 @@ const LocationFooter: React.FC<PropsType> = ({ city, language, overlay = false }
       <CleanLink to={disclaimerPath}>{t('imprintAndContact')}</CleanLink>
       <CleanLink to={aboutUrl}>{t('settings:about', { appName: buildConfig().appName })}</CleanLink>
       <CleanLink to={privacyUrl}>{t('privacy')}</CleanLink>
-      <CleanLink to={RoutePatterns[LICENSE_ROUTE]}>{t('openSourceLicenses')}</CleanLink>
+      <CleanLink to={RoutePatterns[LICENSE_ROUTE]}>{t('settings:openSourceLicenses')}</CleanLink>
     </Footer>
   )
 }
