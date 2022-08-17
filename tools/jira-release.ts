@@ -15,7 +15,7 @@ type JiraIssue = {
 
 type Opts = {
   accessToken: string
-  privateKeyBase64: string
+  privateKey: string
   consumerKey: string
   projectName: string
 }
@@ -24,8 +24,9 @@ type Options = Opts & {
   newVersionName: string
 }
 
-const createRelease = async ({ newVersionName, accessToken, privateKeyBase64, consumerKey, projectName }: Options) => {
-  const privateKey = Buffer.from(privateKeyBase64, 'base64').toString('ascii')
+const createRelease = async ({ newVersionName, accessToken, privateKey, consumerKey, projectName }: Options) => {
+  const privateKeyDecoded = Buffer.from(privateKey, 'base64').toString('ascii')
+
   const jiraApi = new JiraApi({
     protocol: 'https',
     host: JIRA_HOST,
@@ -33,7 +34,7 @@ const createRelease = async ({ newVersionName, accessToken, privateKeyBase64, co
     strictSSL: true,
     oauth: {
       consumer_key: consumerKey,
-      consumer_secret: privateKey,
+      consumer_secret: privateKeyDecoded,
       access_token: accessToken,
       access_token_secret: '',
     },
