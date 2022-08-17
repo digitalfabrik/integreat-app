@@ -129,6 +129,7 @@ const LocationHeader = (props: PropsType): ReactElement => {
         active={route === CATEGORIES_ROUTE}
         text={t('localInformation')}
         icon={localInformationIcon}
+        direction={direction}
       />,
     ]
 
@@ -140,6 +141,7 @@ const LocationHeader = (props: PropsType): ReactElement => {
           href={newsPath}
           text={t('news')}
           icon={newsIcon}
+          direction={direction}
         />
       )
     }
@@ -152,6 +154,7 @@ const LocationHeader = (props: PropsType): ReactElement => {
           active={route === EVENTS_ROUTE}
           text={t('events')}
           icon={eventsIcon}
+          direction={direction}
         />
       )
     }
@@ -164,6 +167,7 @@ const LocationHeader = (props: PropsType): ReactElement => {
           active={route === POIS_ROUTE}
           text={t('pois')}
           icon={poisIcon}
+          direction={direction}
         />
       )
     }
@@ -176,6 +180,7 @@ const LocationHeader = (props: PropsType): ReactElement => {
           active={route === OFFERS_ROUTE || route === SPRUNGBRETT_OFFER_ROUTE || route === SHELTER_ROUTE}
           text={t('offers')}
           icon={offersIcon}
+          direction={direction}
         />
       )
     }

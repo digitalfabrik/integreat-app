@@ -2,25 +2,23 @@ import React, { ReactElement } from 'react'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 
+import { UiDirectionType } from 'translations/src'
+
 import dimensions from '../constants/dimensions'
 import { helpers } from '../constants/theme'
 
-const Container = styled.div`
+const Container = styled.div<{ direction?: UiDirectionType }>`
   flex: 1 1 135px;
 
-  // TODO add RTL support
-
   @media ${dimensions.smallViewport} {
-    &:not(first-child) {
-      padding: 0 16px;
-    }
+    padding: 0 12px;
 
     &:first-child {
-      padding-left: 0;
+      ${props => (props.direction === 'rtl' ? 'padding-right: 0;' : 'padding-left: 0;')}
     }
 
     &:last-child {
-      padding-right: 0;
+      ${props => (props.direction === 'rtl' ? 'padding-left: 0;' : 'padding-right: 0;')}
     }
   }
 `
@@ -28,6 +26,7 @@ const Container = styled.div`
 const StyledLink = styled(Link)<{ $active: boolean }>`
   ${helpers.removeLinkHighlighting};
   color: ${props => props.theme.colors.textSecondaryColor};
+  font-family: ${props => props.theme.fonts.web.contentFont};
   font-size: 0.9em;
   font-weight: 800;
   text-align: center;
@@ -43,10 +42,9 @@ const StyledLink = styled(Link)<{ $active: boolean }>`
   }
 
   @media ${dimensions.smallViewport} {
-    font-family: ${props => props.theme.fonts.web.decorativeFont};
-    font-size: ${props => props.theme.fonts.hintFontSize};
+    font-size: ${props => props.theme.fonts.decorativeFontSizeSmall};
     font-weight: 400;
-    min-width: 80px;
+    min-width: 50px;
   }
 
   &:hover > div:first-child {
@@ -129,10 +127,11 @@ type PropsType = {
   href: string
   active: boolean
   icon: string
+  direction?: UiDirectionType
 }
 
-const HeaderNavigationItem = ({ active, text, href, icon }: PropsType): ReactElement => (
-  <Container>
+const HeaderNavigationItem = ({ active, text, href, icon, direction }: PropsType): ReactElement => (
+  <Container direction={direction}>
     <StyledLink to={href} $active={active}>
       <Circle>
         <img src={icon} alt='' />
