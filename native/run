@@ -14,11 +14,12 @@ program
   })
 
 program
-  .option('--production', 'whether a production (release) build should be made')
   .command('android <build_config_name>')
   .description('create android build')
-  .action(buildConfigName => {
-    const productionFlag = program.opts().production ? '--variant=release' : ''
+  .option('--production', 'whether a production (release) build should be made')
+  .action((buildConfigName, options) => {
+    const { production } = options
+    const productionFlag = production ? '--variant=release' : ''
 
     const jsonBuildConfig = execSync(`yarn workspace --silent build-configs --silent manage to-json ${buildConfigName} android`)
     const applicationId = JSON.parse(jsonBuildConfig).applicationId

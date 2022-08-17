@@ -1,0 +1,8 @@
+issue_key: IGAPP-1074
+show_in_stores: true
+platforms:
+  - web
+  - android
+  - ios
+en: Add support for Dutch.
+de: Unterstützung für Niederländisch hinzugefügt.

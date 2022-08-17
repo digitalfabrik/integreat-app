@@ -20,8 +20,6 @@ const XCODE_LANGUAGES_MAP: Record<string, string> = {
   'zh-CN': 'zh-HANS',
 } as const
 
-program.version('0.1.0').option('-d, --debug', 'enable extreme logging')
-
 type TransformationFunctionType = (val: string | KeyValueType, key?: string, obj?: KeyValueType) => string
 const mapStringValuesDeep = (obj: KeyValueType, fn: TransformationFunctionType): KeyValueType =>
   mapValues(obj, (val, key) => (!isString(val) ? mapStringValuesDeep(val, fn) : fn(val, key, obj)))
@@ -258,9 +256,9 @@ const writePlistTranslations = (appName: string, { translations, destination }: 
 
 program
   .command('write-plist <appName>')
+  .description('setup native translations for ios')
   .requiredOption('--translations <translations>', 'the path to the translations.json file')
   .requiredOption('--destination <destination>', 'the path to put the string resources to')
-  .description('setup native translations for ios')
   .action((appName: string, options: WritePlistTranslationsOptions) => {
     try {
       writePlistTranslations(appName, options)
