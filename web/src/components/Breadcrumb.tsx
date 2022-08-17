@@ -4,7 +4,12 @@ import styled from 'styled-components'
 import { helpers } from '../constants/theme'
 
 const ListItem = styled.li`
-  display: inline;
+  overflow: hidden;
+  white-space: nowrap;
+
+  &:not(:last-of-type) {
+    text-overflow: ellipsis;
+  }
 
   & * {
     ${helpers.removeLinkHighlighting}
