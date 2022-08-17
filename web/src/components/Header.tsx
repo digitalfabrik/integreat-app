@@ -1,15 +1,14 @@
 import Headroom from '@integreat-app/react-sticky-headroom'
-import React, { ReactElement, ReactNode, useEffect, useRef, useState } from 'react'
-import styled, { css } from 'styled-components'
+import React, { ReactElement, ReactNode, useRef } from 'react'
+import styled from 'styled-components'
 
 import { UiDirectionType } from 'translations'
 
-import iconArrowBack from '../assets/IconArrowBack.svg'
-import iconArrowForward from '../assets/IconArrowForward.svg'
 import dimensions from '../constants/dimensions'
 import HeaderLogo from './HeaderLogo'
 import HeaderTitle from './HeaderTitle'
 import KebabMenu from './KebabMenu'
+import NavigationBarScrollContainer from './NavigationBarScrollContainer'
 
 type PropsType = {
   navigationItems: Array<ReactNode>
@@ -29,15 +28,15 @@ const HeaderContainer = styled.header`
   user-select: none;
   flex-direction: column;
   overflow: visible;
+  box-shadow: 0 2px 5px -3px rgba(0, 0, 0, 0.2);
 
   @media ${dimensions.minMaxWidth} {
     padding-right: calc((200% - 100vw - ${dimensions.maxWidth}px) / 2);
     padding-left: calc((100vw - ${dimensions.maxWidth}px) / 2);
-    box-shadow: 0 2px 5px -3px rgba(0, 0, 0, 0.2);
   }
 `
 
-const Row = styled.div<{ hasTitle?: boolean }>`
+const Row = styled.div`
   display: flex;
   flex: 1;
   max-width: 100%;
@@ -99,36 +98,6 @@ const NavigationBar = styled.nav`
   }
 `
 
-const ScrollContainer = styled.div`
-  display: flex;
-`
-
-const Arrow = styled.img<{ direction: string; disabled: boolean }>`
-  width: 12px;
-  height: 10px;
-  flex-shrink: 0;
-  padding: 0 8px;
-  object-fit: contain;
-  align-self: center;
-
-  ${props =>
-    props.direction === 'rtl' &&
-    css`
-      transform: scaleX(-1);
-    `}
-  ${props =>
-    props.disabled &&
-    css`
-      opacity: 0;
-    `}
-`
-
-const Button = styled.button`
-  background-color: transparent;
-  border: none;
-  padding: 0;
-`
-
 /**
  * The standard header which can supplied to a Layout. Displays a logo left, a HeaderMenuBar in the middle and a
  * HeaderActionBar at the right (RTL: vice versa). On small viewports the HeaderMenuBar is shown underneath the rest
@@ -150,40 +119,12 @@ export const Header = ({
     ? (1 + (hasNavigationBar ? 1 : 0)) * headerHeightSmall
     : (1 + (hasNavigationBar ? 1 : 0)) * headerHeightLarge
   const scrollHeight = viewportSmall ? headerHeightSmall : headerHeightLarge
-  const scrollContainer = useRef<any>(null)
-  const [scrollPosition, setScrollPosition] = useState(0)
-  const [showArrowRight, setShowArrowRight] = useState<boolean | null>(null)
-  const [showArrowLeft, setShowArrowLeft] = useState<boolean | null>(null)
+  const scrollContainer = useRef<HTMLDivElement>(null)
 
-  const getScrollableWidth = (): number => {
-    if (scrollContainer.current) {
-      const { scrollWidth, clientWidth } = scrollContainer.current
-      return scrollWidth - clientWidth
-    } else {
-      return 0
-    }
-  }
-
-  useEffect(() => {
-    if (scrollContainer.current) {
-      if (scrollPosition < getScrollableWidth()) {
-        setShowArrowRight(true)
-      } else {
-        setShowArrowRight(false)
-      }
-      if (scrollPosition > 0) {
-        setShowArrowLeft(true)
-      } else {
-        setShowArrowLeft(false)
-      }
-    }
-  }, [scrollPosition])
-
-  // TODO move scroll logic to separate component and adjust types
   return (
     <Headroom scrollHeight={scrollHeight} height={height}>
       <HeaderContainer>
-        <Row hasTitle={!!cityName}>
+        <Row>
           <HeaderLogo link={logoHref} />
           {!viewportSmall && cityName && <HeaderSeparator />}
           {(!viewportSmall || cityName) && <HeaderTitle>{cityName}</HeaderTitle>}
@@ -193,24 +134,9 @@ export const Header = ({
           </ActionBar>
         </Row>
         {hasNavigationBar && (
-          <ScrollContainer>
-            <Button disabled={!showArrowLeft} onClick={() => scrollContainer.current?.scroll({ left: 0 })}>
-              <Arrow src={iconArrowBack} direction={direction} disabled={!showArrowLeft} />
-            </Button>
-            <Row ref={scrollContainer} onScroll={(e: any) => setScrollPosition(Math.abs(e.target.scrollLeft))}>
-              <NavigationBar>{navigationItems}</NavigationBar>
-            </Row>
-            <Button
-              disabled={!showArrowRight}
-              onClick={() => {
-                scrollContainer.current?.scroll({
-                  left:
-                    direction === 'rtl' ? -scrollContainer.current?.scrollWidth : scrollContainer.current?.scrollWidth,
-                })
-              }}>
-              <Arrow src={iconArrowForward} direction={direction} disabled={!showArrowRight} />
-            </Button>
-          </ScrollContainer>
+          <NavigationBarScrollContainer scrollContainer={scrollContainer} direction={direction}>
+            <NavigationBar>{navigationItems}</NavigationBar>
+          </NavigationBarScrollContainer>
         )}
       </HeaderContainer>
     </Headroom>

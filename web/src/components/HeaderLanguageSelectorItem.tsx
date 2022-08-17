@@ -5,7 +5,6 @@ import { UiDirectionType } from 'translations/src'
 
 import languageIcon from '../assets/language-icon.svg'
 import SelectorItemModel from '../models/SelectorItemModel'
-import directionIcon from './DirectionIcon'
 import HeaderActionItemDropDown from './HeaderActionItemDropDown'
 import HeaderActionBarItemLink from './HeaderActionItemLink'
 import KebabActionItemDropDown from './KebabActionItemDropDown'
