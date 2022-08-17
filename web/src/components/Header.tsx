@@ -54,7 +54,7 @@ const Row = styled.div`
     flex-wrap: wrap;
     min-height: ${dimensions.headerHeightSmall}px;
     overflow-x: auto;
-    padding: 16px 0;
+    padding: 8px 0;
     box-shadow: 0 2px 5px -3px rgba(0, 0, 0, 0.2);
     :first-child {
       box-shadow: 0 2px 5px -3px rgba(0, 0, 0, 0.12);
