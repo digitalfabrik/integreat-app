@@ -1,16 +1,15 @@
 import React, { ReactElement, ReactNode, useState } from 'react'
-import { useTheme } from 'styled-components'
 
 import { CityModel, SEARCH_ROUTE } from 'api-client'
 
 import Layout from '../components/Layout'
 import LocationFooter from '../components/LocationFooter'
 import buildConfig from '../constants/buildConfig'
-import useScript from '../hooks/useScript'
 import { RouteType } from '../routes'
 import FeedbackModal from './FeedbackModal'
 import { FeedbackRatingType } from './FeedbackToolbarItem'
 import LocationHeader from './LocationHeader'
+import RasaWidget from './RasaWidget'
 
 export type ToolbarPropType = (openFeedbackModal: (rating: FeedbackRatingType) => void) => ReactNode
 
@@ -31,8 +30,6 @@ type PropsType = {
 
 const LocationLayout = (props: PropsType): ReactElement => {
   const [feedbackModalRating, setFeedbackModalRating] = useState<FeedbackRatingType | null>(null)
-  const theme = useTheme()
-  useScript('https://unpkg.com/@rasahq/rasa-chat')
 
   const {
     viewportSmall,
@@ -80,14 +77,7 @@ const LocationLayout = (props: PropsType): ReactElement => {
       toolbar={toolbar}>
       <>
         {children}
-        {buildConfig().featureFlags.developerFriendly && cityModel.name === 'München' && (
-          <div
-            id='rasa-chat-widget'
-            data-primary={theme.colors.themeColor}
-            data-primary-highlight={theme.colors.themeColor}
-            data-websocket-url='https://your-rasa-url-here/'
-          />
-        )}
+        {buildConfig().featureFlags.developerFriendly && cityModel.name === 'München' && <RasaWidget />}
       </>
     </Layout>
   )
