@@ -21,18 +21,14 @@ type PropsType = {
   onPress: string
 }
 
-const LicenseItem = ({ license, name, onPress, version }: PropsType): ReactElement =>
+const LicenseItem = ({ license, name, onPress, version }: PropsType): ReactElement => (
   <ListItem path={onPress} title={name}>
     <LicenseContainer>
-      <div>
-        {`version: ${version}`}
-      </div>
-      <div>
-        {`license: ${license}`}
-      </div>
+      <div>{`version: ${version}`}</div>
+      <div>{`license: ${license}`}</div>
     </LicenseContainer>
   </ListItem>
-
+)
 
 const LicensePage = (): ReactElement => {
   const { t } = useTranslation('settings')

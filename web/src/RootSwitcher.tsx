@@ -12,7 +12,7 @@ import {
   MAIN_DISCLAIMER_ROUTE,
   NOT_FOUND_ROUTE,
   pathnameFromRouteInformation,
-  useLoadFromEndpoint
+  useLoadFromEndpoint,
 } from 'api-client'
 
 import CityContentSwitcher from './CityContentSwitcher'
@@ -79,7 +79,7 @@ const RootSwitcher = ({ setContentLanguage }: PropsType): ReactElement => {
 
   const props = {
     cities: relevantCities,
-    languageCode: language
+    languageCode: language,
   }
 
   return (
