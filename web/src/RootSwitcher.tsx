@@ -8,11 +8,11 @@ import {
   createCitiesEndpoint,
   JPAL_TRACKING_ROUTE,
   LANDING_ROUTE,
-  LICENSE_ROUTE,
+  LICENSES_ROUTE,
   MAIN_DISCLAIMER_ROUTE,
   NOT_FOUND_ROUTE,
   pathnameFromRouteInformation,
-  useLoadFromEndpoint,
+  useLoadFromEndpoint
 } from 'api-client'
 
 import CityContentSwitcher from './CityContentSwitcher'
@@ -79,7 +79,7 @@ const RootSwitcher = ({ setContentLanguage }: PropsType): ReactElement => {
 
   const props = {
     cities: relevantCities,
-    languageCode: language,
+    languageCode: language
   }
 
   return (
@@ -89,7 +89,7 @@ const RootSwitcher = ({ setContentLanguage }: PropsType): ReactElement => {
         <Route path={RoutePatterns[MAIN_DISCLAIMER_ROUTE]} element={<MainDisclaimerPage {...props} />} />
         <Route path={RoutePatterns[NOT_FOUND_ROUTE]} element={<NotFoundPage />} />
         <Route path={cityContentPattern} element={<CityContentSwitcher {...props} />} />
-        <Route path={RoutePatterns[LICENSE_ROUTE]} element={<LicensePage />} />
+        <Route path={RoutePatterns[LICENSES_ROUTE]} element={<LicensePage />} />
 
         {cityNotCooperating && (
           <Route path={RoutePatterns[CITY_NOT_COOPERATING_ROUTE]} element={<CityNotCooperatingPage {...props} />} />

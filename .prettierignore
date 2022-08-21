@@ -2,7 +2,7 @@ native/android/**/*
 native/ios/**/*
 native/vendor/**/*
 
-native/assets/licenses_native.json
+native/assets/licenses.json
 web/assets/licenses.json
 
 web/www/icons

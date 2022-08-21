@@ -1,7 +1,7 @@
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { DISCLAIMER_ROUTE, LICENSE_ROUTE, pathnameFromRouteInformation } from 'api-client'
+import { DISCLAIMER_ROUTE, LICENSES_ROUTE, pathnameFromRouteInformation } from 'api-client'
 
 import buildConfig from '../constants/buildConfig'
 import { RoutePatterns } from '../routes'
@@ -22,7 +22,7 @@ const LocationFooter: React.FC<PropsType> = ({ city, language, overlay = false }
   const disclaimerPath = pathnameFromRouteInformation({
     route: DISCLAIMER_ROUTE,
     cityCode: city,
-    languageCode: language,
+    languageCode: language
   })
 
   return (
@@ -30,7 +30,7 @@ const LocationFooter: React.FC<PropsType> = ({ city, language, overlay = false }
       <CleanLink to={disclaimerPath}>{t('imprintAndContact')}</CleanLink>
       <CleanLink to={aboutUrl}>{t('settings:about', { appName: buildConfig().appName })}</CleanLink>
       <CleanLink to={privacyUrl}>{t('privacy')}</CleanLink>
-      <CleanLink to={RoutePatterns[LICENSE_ROUTE]}>{t('settings:openSourceLicenses')}</CleanLink>
+      <CleanLink to={RoutePatterns[LICENSES_ROUTE]}>{t('settings:openSourceLicenses')}</CleanLink>
     </Footer>
   )
 }
