@@ -53,7 +53,7 @@ const Licenses = (): ReactElement => {
   const showSnackbar = useSnackbar()
 
   useEffect(() => {
-    import('../assets/licenses_native.json')
+    import('../assets/licenses.json')
       // @ts-expect-error JSON is guaranteed to be of type JsonLicenses
       .then(licenseFile => setLicenses(parseLicenses(licenseFile.default)))
       .catch(error => reportError(`error while importing licenses ${error}`))

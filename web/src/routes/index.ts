@@ -5,7 +5,7 @@ import {
   EVENTS_ROUTE,
   JPAL_TRACKING_ROUTE,
   LANDING_ROUTE,
-  LICENSE_ROUTE,
+  LICENSES_ROUTE,
   LOCAL_NEWS_TYPE,
   MAIN_DISCLAIMER_ROUTE,
   NEWS_ROUTE,
@@ -15,7 +15,7 @@ import {
   SEARCH_ROUTE,
   SHELTER_ROUTE,
   SPRUNGBRETT_OFFER_ROUTE,
-  TU_NEWS_TYPE,
+  TU_NEWS_TYPE
 } from 'api-client'
 
 export const LOCAL_NEWS_ROUTE = LOCAL_NEWS_TYPE
@@ -29,7 +29,7 @@ export const RoutePatterns = {
   [MAIN_DISCLAIMER_ROUTE]: `/${MAIN_DISCLAIMER_ROUTE}`,
   [JPAL_TRACKING_ROUTE]: `/${JPAL_TRACKING_ROUTE}`,
   [NOT_FOUND_ROUTE]: `/${NOT_FOUND_ROUTE}`,
-  [LICENSE_ROUTE]: `/${LICENSE_ROUTE}`,
+  [LICENSES_ROUTE]: `/${LICENSES_ROUTE}`,
 
   // City content routes, relative to /:cityCode/:languageCode
   [EVENTS_ROUTE]: EVENTS_ROUTE,
@@ -42,7 +42,7 @@ export const RoutePatterns = {
   [TU_NEWS_DETAIL_ROUTE]: `${NEWS_ROUTE}/${TU_NEWS_ROUTE}/:newsId`,
   [SEARCH_ROUTE]: SEARCH_ROUTE,
   [DISCLAIMER_ROUTE]: DISCLAIMER_ROUTE,
-  [CATEGORIES_ROUTE]: '*',
+  [CATEGORIES_ROUTE]: '*'
 } as const
 
 export type RouteType = keyof typeof RoutePatterns
