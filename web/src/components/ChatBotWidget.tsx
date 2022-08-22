@@ -1,14 +1,14 @@
 import React, { ReactElement, useEffect } from 'react'
 import { useTheme } from 'styled-components'
 
-const RasaWidget = (): ReactElement => {
+const ChatBotWidget = (): ReactElement => {
   const theme = useTheme()
 
   useEffect(() => {
     const script = document.createElement('script')
 
     script.src = 'https://unpkg.com/@rasahq/rasa-chat'
-    script.async = false
+    script.defer = true
 
     document.body.appendChild(script)
 
@@ -26,9 +26,9 @@ const RasaWidget = (): ReactElement => {
       id='rasa-chat-widget'
       data-primary={theme.colors.themeColor}
       data-primary-highlight={theme.colors.themeColor}
-      data-websocket-url='https://your-rasa-url-here/'
+      data-websocket-url='https://integreat-demo.translatorswithoutborders.org/'
     />
   )
 }
 
-export default RasaWidget
+export default ChatBotWidget

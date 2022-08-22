@@ -6,10 +6,10 @@ import Layout from '../components/Layout'
 import LocationFooter from '../components/LocationFooter'
 import buildConfig from '../constants/buildConfig'
 import { RouteType } from '../routes'
+import ChatBotWidget from './ChatBotWidget'
 import FeedbackModal from './FeedbackModal'
 import { FeedbackRatingType } from './FeedbackToolbarItem'
 import LocationHeader from './LocationHeader'
-import RasaWidget from './RasaWidget'
 
 export type ToolbarPropType = (openFeedbackModal: (rating: FeedbackRatingType) => void) => ReactNode
 
@@ -77,7 +77,7 @@ const LocationLayout = (props: PropsType): ReactElement => {
       toolbar={toolbar}>
       <>
         {children}
-        {buildConfig().featureFlags.developerFriendly && cityModel.name === 'München' && <RasaWidget />}
+        {buildConfig().featureFlags.developerFriendly && cityModel.code === 'muenchen' && <ChatBotWidget />}
       </>
     </Layout>
   )
