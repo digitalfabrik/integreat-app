@@ -70,6 +70,7 @@ describe('CategoryEntry', () => {
     const regex = /.+/
     const texts = queryAllByText(regex)
     // Only category.title and childCategory.title, nothing split up because of highlighting
+    console.log(texts)
     expect(texts).toHaveLength(2)
   })
 
@@ -120,6 +121,14 @@ describe('CategoryEntry', () => {
       const texts = queryAllByText(regex)
       // Only category.title, nothing split up because of highlighting
       expect(texts).toHaveLength(1)
+    })
+
+    it('should show content if title matches query', () => {
+      const query = 'Willkommen'
+      const { getByText } = renderWithRouter(<CategoryEntry category={category} subCategories={[]} query={query} />, {
+        wrapWithTheme: true,
+      })
+      expect(getByText(category.content)).toBeDefined()
     })
   })
 })
