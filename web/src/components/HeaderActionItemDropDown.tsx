@@ -5,7 +5,7 @@ import { UiDirectionType } from 'translations/src'
 
 import dimensions from '../constants/dimensions'
 import useOnClickOutside from '../hooks/useOnClickOutside'
-import DirectionIcon from './DirectionIcon'
+import IconWithUiDirection from './IconWithUiDirection'
 import Tooltip from './Tooltip'
 
 export const Container = styled.div`
@@ -97,7 +97,7 @@ const HeaderActionItemDropDown = ({ iconSrc, text, children, direction }: PropsT
     <Container ref={wrapperRef}>
       <Tooltip text={text} flow='down' mediumViewportFlow='left'>
         <button type='button' aria-label={text} onClick={toggleDropDown}>
-          <DirectionIcon alt='' src={iconSrc} direction={direction} />
+          <IconWithUiDirection alt='' src={iconSrc} direction={direction} />
         </button>
       </Tooltip>
       <DropDownContainer

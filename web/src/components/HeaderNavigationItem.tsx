@@ -78,9 +78,7 @@ const StyledLink = styled(Link)<{ $active: boolean }>`
 `
 
 const StyledText = styled.span<{ $active: boolean }>`
-  @media ${dimensions.smallViewport} {
-    ${props => (props.$active ? 'font-weight: 800' : '')}
-  }
+  ${props => (props.$active ? 'font-weight: 800' : '')}
 `
 
 const ICON_SIZE_LARGE = 50
