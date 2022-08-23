@@ -5,3 +5,4 @@ platforms:
   - ios
   - android
 en: LTR text in RTL layouts is now displayed correctly.
+de: Linksbündiger Text wird nun in rechtsbündigen Layouts korrekt dargestellt.
