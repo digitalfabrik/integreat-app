@@ -4,7 +4,7 @@ import styled from 'styled-components'
 
 import { UiDirectionType } from 'translations'
 
-import iconClose from '../assets/IconClose.svg'
+import iconHome from '../assets/IconHome.svg'
 import BreadcrumbModel from '../models/BreadcrumbModel'
 import { pathnameFromUrl } from '../utils/stringUtils'
 import Breadcrumb from './Breadcrumb'
@@ -39,9 +39,12 @@ const OrderedList = styled.ol<{ direction: UiDirectionType }>`
 `
 
 const HomeIcon = styled.img`
-  width: 18px;
-  height: 18px;
-  vertical-align: middle;
+  width: 24px;
+  height: 24px;
+`
+
+const StyledLink = styled(Link)`
+  margin-right: 4px;
 `
 
 type PropsType = {
@@ -64,9 +67,9 @@ const Breadcrumbs = ({ direction, ancestorBreadcrumbs, currentBreadcrumb }: Prop
       <OrderedList direction={direction}>
         {ancestorBreadcrumbs.map((breadcrumb, index) =>
           ancestorBreadcrumbs.length > 1 && index === 0 ? (
-            <Link to={pathnameFromUrl(breadcrumb.link)}>
-              <HomeIcon src={iconClose} alt='' />
-            </Link>
+            <StyledLink to={pathnameFromUrl(breadcrumb.link)}>
+              <HomeIcon src={iconHome} alt='' />
+            </StyledLink>
           ) : (
             <Breadcrumb key={breadcrumb.title}>{breadcrumb.node}</Breadcrumb>
           )
