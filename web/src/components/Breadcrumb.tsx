@@ -10,7 +10,7 @@ const ListItem = styled.li`
   flex-shrink: 0.1;
 
   &:not(:last-of-type) {
-    flex-shrink: 1000;
+    flex-shrink: 1;
   }
 
   & * {

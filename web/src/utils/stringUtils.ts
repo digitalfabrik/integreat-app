@@ -12,5 +12,3 @@ export const textTruncator = (text: string, numOfCharsAllowed: number, replaceLi
  * @returns {string} the url of the current host and the specified path
  */
 export const urlFromPath = (path: string): string => `${window.location.origin}${path}`
-
-export const pathnameFromUrl = (url: string): string => new URL(url).pathname
