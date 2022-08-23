@@ -5,7 +5,7 @@ import styled from 'styled-components'
 import { UiDirectionType } from 'translations/src'
 
 import dimensions from '../constants/dimensions'
-import DirectionIcon from './DirectionIcon'
+import IconWithUiDirection from './IconWithUiDirection'
 import Tooltip from './Tooltip'
 
 const StyledLink = styled(Link)`
@@ -45,11 +45,11 @@ const HeaderActionItemLink = ({ href, text, iconSrc, direction }: PropsType): Re
   <Tooltip text={text} flow='down' smallViewportFlow='left'>
     {href ? (
       <StyledLink to={href} aria-label={text}>
-        <DirectionIcon alt='' src={iconSrc} direction={direction} />
+        <IconWithUiDirection alt='' src={iconSrc} direction={direction} />
       </StyledLink>
     ) : (
       <StyledSpan aria-label={text}>
-        <DirectionIcon alt='' src={iconSrc} direction={direction} />
+        <IconWithUiDirection alt='' src={iconSrc} direction={direction} />
       </StyledSpan>
     )}
   </Tooltip>

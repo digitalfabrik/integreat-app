@@ -32,7 +32,7 @@ const HeaderTitleDiv = styled.div<{ long: boolean }>`
     height: ${HEADER_TITLE_HEIGHT}px;
     justify-content: start;
     padding: 0 10px;
-    text-align: center;
+    text-align: left;
     align-self: center;
     font-weight: 400;
   }

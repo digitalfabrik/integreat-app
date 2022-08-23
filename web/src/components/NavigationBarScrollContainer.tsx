@@ -85,7 +85,9 @@ const NavigationBarScrollContainer = ({ children, direction, scrollContainer }: 
       <Button disabled={!showArrowLeft} onClick={() => scrollContainer.current?.scroll({ left: 0 })}>
         <Arrow src={iconArrowBack} direction={direction} visible={showArrowLeft} alt='' />
       </Button>
-      <ScrollContainer ref={scrollContainer} onScroll={(e: any) => setScrollPosition(Math.abs(e.target.scrollLeft))}>
+      <ScrollContainer
+        ref={scrollContainer}
+        onScroll={(e: React.UIEvent<HTMLElement>) => setScrollPosition(Math.abs(e.currentTarget.scrollLeft))}>
         {children}
       </ScrollContainer>
       <Button
