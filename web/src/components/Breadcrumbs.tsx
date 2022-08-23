@@ -6,7 +6,6 @@ import { UiDirectionType } from 'translations'
 
 import iconHome from '../assets/IconHome.svg'
 import BreadcrumbModel from '../models/BreadcrumbModel'
-import { pathnameFromUrl } from '../utils/stringUtils'
 import Breadcrumb from './Breadcrumb'
 import JsonLdBreadcrumbs from './JsonLdBreadcrumbs'
 
@@ -67,7 +66,7 @@ const Breadcrumbs = ({ direction, ancestorBreadcrumbs, currentBreadcrumb }: Prop
       <OrderedList direction={direction}>
         {ancestorBreadcrumbs.map((breadcrumb, index) =>
           ancestorBreadcrumbs.length > 1 && index === 0 ? (
-            <StyledLink to={pathnameFromUrl(breadcrumb.link)}>
+            <StyledLink to={breadcrumb.link}>
               <HomeIcon src={iconHome} alt='' />
             </StyledLink>
           ) : (
