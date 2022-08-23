@@ -3,7 +3,7 @@ import Highlighter from 'react-highlight-words'
 import { Link } from 'react-router-dom'
 import styled, { useTheme } from 'styled-components'
 
-import { CategoryModel, normalizeSearchString } from 'api-client'
+import { CategoryModel, normalizeSearchString, parseHTML } from 'api-client'
 
 import iconPlaceholder from '../assets/IconPlaceholder.svg'
 import ContentMatcher from './ContentMatcher'
@@ -108,7 +108,7 @@ const CategoryEntry = ({ category, contentWithoutHtml, subCategories, query }: P
     />
   )
 
-  const Content = textToHighlight && (
+  const Content = textToHighlight ? (
     <ContentMatchItem
       aria-label={textToHighlight}
       searchWords={[query]}
@@ -117,6 +117,13 @@ const CategoryEntry = ({ category, contentWithoutHtml, subCategories, query }: P
       textToHighlight={textToHighlight}
       highlightStyle={{ backgroundColor: theme.colors.backgroundColor, fontWeight: 'bold' }}
     />
+  ) : (
+    <p>
+      {new ContentMatcher()
+        .getWords(parseHTML(category.content).slice(0))
+        .slice(0, 2 * NUM_WORDS_SURROUNDING_MATCH)
+        .join(' ')}
+    </p>
   )
 
   return (
