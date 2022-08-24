@@ -30,7 +30,7 @@ const LicenseItem = ({ license, name, onPress, version }: PropsType): ReactEleme
   </ListItem>
 )
 
-const LicensePage = (): ReactElement => {
+const LicensesPage = (): ReactElement => {
   const { t } = useTranslation('settings')
   const [licenses, setLicenses] = useState<License[] | null>(null)
 
