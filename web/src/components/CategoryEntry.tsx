@@ -118,12 +118,14 @@ const CategoryEntry = ({ category, contentWithoutHtml, subCategories, query }: P
       highlightStyle={{ backgroundColor: theme.colors.backgroundColor, fontWeight: 'bold' }}
     />
   ) : (
-    <p>
-      {new ContentMatcher()
-        .getWords(parseHTML(category.content).slice(0))
-        .slice(0, 2 * NUM_WORDS_SURROUNDING_MATCH)
-        .join(' ')}
-    </p>
+    query && (
+      <p>
+        {new ContentMatcher()
+          .getWords(parseHTML(category.content).slice(0))
+          .slice(0, 2 * NUM_WORDS_SURROUNDING_MATCH)
+          .join(' ')}
+      </p>
+    )
   )
 
   return (
