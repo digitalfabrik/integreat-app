@@ -12,7 +12,7 @@ import {
   POIS_ROUTE,
   SEARCH_ROUTE,
   SHELTER_ROUTE,
-  SPRUNGBRETT_OFFER_ROUTE
+  SPRUNGBRETT_OFFER_ROUTE,
 } from '.'
 import { nameQueryParam, NonNullableRouteInformationType } from '..'
 

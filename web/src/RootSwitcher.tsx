@@ -27,7 +27,7 @@ import useWindowDimensions from './hooks/useWindowDimensions'
 import { cityContentPattern, RoutePatterns } from './routes'
 import CityNotCooperatingPage from './routes/CityNotCooperatingPage'
 import JpalTrackingPage from './routes/JpalTrackingPage'
-import LicensePage from './routes/LicensePage'
+import LicensesPage from './routes/LicensesPage'
 import lazyWithRetry from './utils/retryImport'
 
 type PropsType = {
@@ -89,7 +89,7 @@ const RootSwitcher = ({ setContentLanguage }: PropsType): ReactElement => {
         <Route path={RoutePatterns[MAIN_DISCLAIMER_ROUTE]} element={<MainDisclaimerPage {...props} />} />
         <Route path={RoutePatterns[NOT_FOUND_ROUTE]} element={<NotFoundPage />} />
         <Route path={cityContentPattern} element={<CityContentSwitcher {...props} />} />
-        <Route path={RoutePatterns[LICENSES_ROUTE]} element={<LicensePage />} />
+        <Route path={RoutePatterns[LICENSES_ROUTE]} element={<LicensesPage />} />
 
         {cityNotCooperating && (
           <Route path={RoutePatterns[CITY_NOT_COOPERATING_ROUTE]} element={<CityNotCooperatingPage {...props} />} />

@@ -5,6 +5,7 @@ import styled from 'styled-components'
 import { License, parseLicenses } from 'api-client/src/utils/licences'
 
 import Caption from '../components/Caption'
+import Layout from '../components/Layout'
 import List from '../components/List'
 import ListItem from '../components/ListItem'
 import { reportError } from '../utils/sentry'
@@ -45,11 +46,11 @@ const LicensesPage = (): ReactElement => {
   )
 
   return (
-    <div>
+    <Layout>
       <Caption title={t('openSourceLicenses')} />
       <List items={licenses ?? []} renderItem={renderItem} noItemsMessage='' />
-    </div>
+    </Layout>
   )
 }
 
-export default LicensePage
+export default LicensesPage
