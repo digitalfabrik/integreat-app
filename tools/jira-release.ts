@@ -13,16 +13,9 @@ type JiraIssue = {
   id: string
 }
 
-program
-  .option('-d, --debug', 'enable extreme logging')
-  .requiredOption('--project-name <project-name>', 'the name of the jira project, e.g. integreat-app')
-  .requiredOption('--access-token <access-token>', 'version name of the new release')
-  .requiredOption('--private-key <privateKey>')
-  .requiredOption('--consumer-key <consumer-key>')
-
 type Opts = {
   accessToken: string
-  privateKeyBase64: string
+  privateKey: string
   consumerKey: string
   projectName: string
 }
@@ -31,8 +24,9 @@ type Options = Opts & {
   newVersionName: string
 }
 
-const createRelease = async ({ newVersionName, accessToken, privateKeyBase64, consumerKey, projectName }: Options) => {
-  const privateKey = Buffer.from(privateKeyBase64, 'base64').toString('ascii')
+const createRelease = async ({ newVersionName, accessToken, privateKey, consumerKey, projectName }: Options) => {
+  const privateKeyDecoded = Buffer.from(privateKey, 'base64').toString('ascii')
+
   const jiraApi = new JiraApi({
     protocol: 'https',
     host: JIRA_HOST,
@@ -40,7 +34,7 @@ const createRelease = async ({ newVersionName, accessToken, privateKeyBase64, co
     strictSSL: true,
     oauth: {
       consumer_key: consumerKey,
-      consumer_secret: privateKey,
+      consumer_secret: privateKeyDecoded,
       access_token: accessToken,
       access_token_secret: '',
     },
@@ -119,6 +113,10 @@ program
   .description(
     'create a new release with the name <new-version-name> on jira and assign all issues resolved since the last release'
   )
+  .requiredOption('--project-name <project-name>', 'the name of the jira project, e.g. integreat-app')
+  .requiredOption('--access-token <access-token>', 'version name of the new release')
+  .requiredOption('--private-key <privateKey>')
+  .requiredOption('--consumer-key <consumer-key>')
   .action(async (newVersionName: string, options: Opts) => {
     try {
       await createRelease({

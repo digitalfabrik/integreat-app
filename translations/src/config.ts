@@ -120,6 +120,9 @@ class Config {
     fi: {
       rtl: false,
     },
+    nl: {
+      rtl: false,
+    },
   }
 
   // Fallbacks for unnormalized language codes from our backend
