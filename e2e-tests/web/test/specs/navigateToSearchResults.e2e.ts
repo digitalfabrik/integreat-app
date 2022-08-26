@@ -20,13 +20,13 @@ describe('navigateToSearchResult', () => {
     expect(searchBar).toExist()
     await browser.keys(contentSearch)
 
-    const firstResult = $('=Language')
-    const secondResult = $('=Language courses')
+    const results = $$('*=Language')
 
-    await expect(firstResult).toExist()
-    await expect(secondResult).toExist()
+    await expect(results[0]).toExist()
+    await expect(results[1]).toExist()
+    expect(await results[1]!.getAttribute('href')).toBe(`/${Routes.dashboard}/language/language-courses`)
 
-    await firstResult.click()
+    await results[0]!.click()
     const resultUrl = await browser.getUrl()
     const parsedResultUrl = new URL(resultUrl)
     expect(parsedResultUrl.pathname).toBe(`/${Routes.dashboard}/language`)
