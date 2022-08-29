@@ -1,35 +1,13 @@
 import React, { ReactElement, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import styled from 'styled-components'
 
 import { License, parseLicenses } from 'api-client/src/utils/licences'
 
 import Caption from '../components/Caption'
 import Layout from '../components/Layout'
+import LicenseItem from '../components/LicenseItem'
 import List from '../components/List'
-import ListItem from '../components/ListItem'
 import { reportError } from '../utils/sentry'
-
-const LicenseContainer = styled.div`
-  padding: 5px 10px;
-  line-height: 120%;
-`
-
-type PropsType = {
-  name: string
-  version: string | undefined
-  license: string
-  onPress: string
-}
-
-const LicenseItem = ({ license, name, onPress, version }: PropsType): ReactElement => (
-  <ListItem path={onPress} title={name}>
-    <LicenseContainer>
-      <div>{`version: ${version}`}</div>
-      <div>{`license: ${license}`}</div>
-    </LicenseContainer>
-  </ListItem>
-)
 
 const LicensesPage = (): ReactElement => {
   const { t } = useTranslation('settings')
@@ -47,7 +25,7 @@ const LicensesPage = (): ReactElement => {
 
   return (
     <Layout>
-      <Caption title={t('openSourceLicenses')} />
+      <Caption title={t('settings:openSourceLicenses')} />
       <List items={licenses ?? []} renderItem={renderItem} noItemsMessage='' />
     </Layout>
   )

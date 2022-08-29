@@ -24,7 +24,7 @@ const GeneralFooter = ({ language }: PropsType): ReactElement => {
       <CleanLink to={RoutePatterns[MAIN_DISCLAIMER_ROUTE]}>{t('imprintAndContact')}</CleanLink>
       <CleanLink to={aboutUrl}>{t('settings:about', { appName: buildConfig().appName })}</CleanLink>
       <CleanLink to={privacyUrl}>{t('privacy')}</CleanLink>
-      <CleanLink to={RoutePatterns[LICENSES_ROUTE]}>{t('openSourceLicenses')}</CleanLink>
+      <CleanLink to={RoutePatterns[LICENSES_ROUTE]}>{t('settings:openSourceLicenses')}</CleanLink>
     </Footer>
   )
 }
