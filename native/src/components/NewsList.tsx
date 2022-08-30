@@ -5,8 +5,6 @@ import { LocalNewsModel, TunewsModel } from 'api-client'
 
 import LoadingSpinner from './LoadingSpinner'
 
-const keyExtractor = (item: unknown, index: number) => `${index}`
-
 type NewsModelsType = Array<LocalNewsModel | TunewsModel>
 
 type PropType = {
@@ -34,7 +32,6 @@ const NewsList = (props: PropType): ReactElement => {
       ListEmptyComponent={renderNoItemsComponent}
       ListFooterComponent={isFetchingMore ? <LoadingSpinner testID='loadingSpinner' /> : null}
       onEndReachedThreshold={1}
-      keyExtractor={keyExtractor}
       renderItem={renderItem}
     />
   )

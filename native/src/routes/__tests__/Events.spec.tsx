@@ -25,9 +25,11 @@ describe('Events', () => {
   const language = new LanguageModelBuilder(1).build()[0]!
   const events = new EventModelBuilder('Events-component', 1, cityModel.code, language.code).build()
   const event = events[0]!
+
   it('should pass an empty object to Page if the resource cache doesnt contain an appropriate entry', () => {
     const result = TestRenderer.create(
       <Events
+        refresh={jest.fn()}
         path={event.path}
         events={events}
         cityModel={cityModel}
