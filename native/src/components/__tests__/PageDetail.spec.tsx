@@ -1,7 +1,7 @@
-import { render } from '@testing-library/react-native'
 import React from 'react'
 import { I18nManager } from 'react-native'
 
+import render from '../../testing/render'
 import PageDetail from '../PageDetail'
 
 describe('PageDetail', () => {
