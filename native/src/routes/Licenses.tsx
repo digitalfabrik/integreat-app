@@ -61,14 +61,15 @@ const Licenses = (): ReactElement => {
 
   const { t } = useTranslation('settings')
   const renderItem = ({ item }: { item: License }) => {
-    const openLink = () => openExternalUrl(item.licenseUrl).catch(() => showSnackbar(t('error:unknownError')))
-    return <LicenseItem name={item.name} version={item.version ?? ''} license={item.licenses} onPress={openLink} />
+    const { licenses, name, licenseUrl, version } = item
+    const openLink = () => openExternalUrl(licenseUrl).catch(() => showSnackbar(t('error:unknownError')))
+    return <LicenseItem key={name} name={name} version={version ?? ''} license={licenses} onPress={openLink} />
   }
 
   return (
     <Layout>
       <Caption title={t('openSourceLicenses')} />
-      <FlatList data={licenses} renderItem={renderItem} keyExtractor={item => item.name} />
+      <FlatList data={licenses} renderItem={renderItem} />
     </Layout>
   )
 }
