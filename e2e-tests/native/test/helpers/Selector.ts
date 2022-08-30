@@ -5,7 +5,7 @@ export class Selector {
     if (driver.isAndroid) {
       this.queries.push(`.text("${text}")`)
     } else {
-      this.queries.push(`label LIKE '${text}'`)
+      this.queries.push(`label BEGINSWITH '${text}'`)
     }
     return this
   }
