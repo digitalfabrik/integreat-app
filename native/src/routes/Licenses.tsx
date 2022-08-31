@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next'
 import { FlatList, View } from 'react-native'
 import styled from 'styled-components/native'
 
-import { License, parseLicenses } from 'api-client/src/utils/licences'
+import { License, parseLicenses } from 'api-client'
 
 import Caption from '../components/Caption'
 import Layout from '../components/Layout'
@@ -21,7 +21,7 @@ const StyledPressable = styled.Pressable`
 
 const Name = styled.Text`
   color: ${props => props.theme.colors.textColor};
-  'font-size: 18px;'
+  font-size: 18px;
 `
 const Description = styled.Text`
   color: ${props => props.theme.colors.textSecondaryColor};
@@ -37,12 +37,17 @@ type PropType = {
 
 const LicenseItem = (props: PropType): ReactElement => {
   const { name, version, license, onPress } = props
+  const { t } = useTranslation('licenses')
   return (
     <StyledPressable onPress={onPress}>
       <View>
         <Name>{name}</Name>
-        <Description>{`version: ${version}`}</Description>
-        <Description>{`license: ${license}`}</Description>
+        <Description>
+          {t('version')} {version}
+        </Description>
+        <Description>
+          {t('license')} {license}
+        </Description>
       </View>
     </StyledPressable>
   )

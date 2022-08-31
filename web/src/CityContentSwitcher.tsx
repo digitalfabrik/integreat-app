@@ -9,6 +9,7 @@ import {
   DISCLAIMER_ROUTE,
   EVENTS_ROUTE,
   LanguageModel,
+  LICENSES_ROUTE,
   normalizePath,
   NotFoundError,
   OFFERS_ROUTE,
@@ -43,6 +44,7 @@ const SprungbrettOfferPage = lazyWithRetry(() => import('./routes/SprungbrettOff
 const PoisPage = lazyWithRetry(() => import('./routes/PoisPage'))
 const SearchPage = lazyWithRetry(() => import('./routes/SearchPage'))
 const DisclaimerPage = lazyWithRetry(() => import('./routes/DisclaimerPage'))
+const LicensesPage = lazyWithRetry(() => import('./routes/LicensesPage'))
 
 type PropsType = {
   cities: CityModel[]
@@ -164,6 +166,7 @@ const CityContentSwitcher = ({ cities, languageCode }: PropsType): ReactElement 
       {render(SEARCH_ROUTE, SearchPage)}
       {render(DISCLAIMER_ROUTE, DisclaimerPage)}
       {render(CATEGORIES_ROUTE, CategoriesPage)}
+      {render(LICENSES_ROUTE, LicensesPage)}
       {eventsEnabled && render(EVENTS_ROUTE, EventsPage, ':eventId')}
 
       {offersEnabled && render(SHELTER_ROUTE, ShelterPage, ':shelterId')}
