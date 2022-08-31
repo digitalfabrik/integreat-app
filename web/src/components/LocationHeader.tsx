@@ -17,11 +17,11 @@ import {
 } from 'api-client'
 import { config } from 'translations'
 
+import { OffersIcon } from '../assets'
 import eventsIcon from '../assets/Events.svg'
 import searchIconMobile from '../assets/IconSearch.svg'
 import localInformationIcon from '../assets/Local_Information.svg'
 import newsIcon from '../assets/News.svg'
-import offersIcon from '../assets/Offers.svg'
 import poisIcon from '../assets/Pois.svg'
 import landingIcon from '../assets/location-icon.svg'
 import searchIcon from '../assets/magnifier.svg'
@@ -179,7 +179,7 @@ const LocationHeader = (props: PropsType): ReactElement => {
           href={offersPath}
           active={route === OFFERS_ROUTE || route === SPRUNGBRETT_OFFER_ROUTE || route === SHELTER_ROUTE}
           text={t('offers')}
-          icon={offersIcon}
+          icon={OffersIcon}
           direction={direction}
         />
       )
