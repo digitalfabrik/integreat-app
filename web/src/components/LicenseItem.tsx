@@ -1,4 +1,5 @@
 import React, { ReactElement } from 'react'
+import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
 
 import ListItem from '../components/ListItem'
@@ -15,13 +16,20 @@ type PropsType = {
   onPress: string
 }
 
-const LicenseItem = ({ license, name, onPress, version }: PropsType): ReactElement => (
-  <ListItem path={onPress} title={name}>
-    <LicenseContainer>
-      <div>version: {version}</div>
-      <div>license: {license}</div>
-    </LicenseContainer>
-  </ListItem>
-)
+const LicenseItem = ({ license, name, onPress, version }: PropsType): ReactElement => {
+  const { t } = useTranslation('licenses')
+  return (
+    <ListItem path={onPress} title={name}>
+      <LicenseContainer>
+        <div>
+          {t('version')} {version}
+        </div>
+        <div>
+          {t('license')} {license}
+        </div>
+      </LicenseContainer>
+    </ListItem>
+  )
+}
 
 export default LicenseItem

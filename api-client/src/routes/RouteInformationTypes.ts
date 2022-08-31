@@ -46,7 +46,7 @@ export type NewsRouteInformationType = ParamsType & {
 }
 export type SimpleCityContentFeatureType = ParamsType & {
   // Routes without customizable ids, e.g. '/augsburg/de/disclaimer/
-  route: DisclaimerRouteType | OffersRouteType | SprungbrettOfferRouteType | SearchRouteType
+  route: DisclaimerRouteType | OffersRouteType | SprungbrettOfferRouteType | SearchRouteType | LicensesRouteType
 }
 export type IdCityContentFeatureType = ParamsType & {
   route: ShelterRouteType
@@ -59,10 +59,6 @@ export type EventsPoisRouteInformationType = ParamsType & {
   urlSlug?: string
 }
 
-export type LicensesRouteInformationType = {
-  route: LicensesRouteType
-}
-
 export type NonNullableRouteInformationType =
   | LandingRouteInformationType
   | CityNotCooperatingInformationType
@@ -72,6 +68,5 @@ export type NonNullableRouteInformationType =
   | SimpleCityContentFeatureType
   | EventsPoisRouteInformationType
   | IdCityContentFeatureType
-  | LicensesRouteInformationType
 
 export type RouteInformationType = NonNullableRouteInformationType | null
