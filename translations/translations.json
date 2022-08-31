@@ -60,6 +60,10 @@
       "createPdf": "Креирај PDF",
       "metaDescription": "{{appName}} е вашиот дигитален водич за Германија. Пронајдете локални информации, настани и совети. Секогаш актуелно и на вашиот јазик."
     },
+    "nl": {
+      "createPdf": "Maak een PDF",
+      "metaDescription": "{{appName}} is jouw digitale gids voor het leven in Duitsland. Ontdek lokale informatie, evenementen en krijg advies. Altijd up to date en beschikbaar in jouw eigen taal."
+    },
     "pes": {
       "createPdf": "ایجاد PDF",
       "metaDescription": "{{appName}} راهنمای دیجیتال شما برای آلمان است. اطلاعات محلی، رویدادها و مشاوره را بیابید. همواره به روز و به زبان شما."
@@ -255,6 +259,15 @@
       "sendText": "Да го копираш овој текст, да ги пополниш [ ]-содржините со твоите податоци и да ги испратиш",
       "copyText": "Копирај го текстот",
       "textCopied": "Копирано"
+    },
+    "nl": {
+      "callToAction": "Geef je regio op!",
+      "explanation": "Heeft de Integreat-App jou overtuigd en denk je dat ook jouw stad, regio of gemeenschap baat kan hebben bij deze digitale oplossing? In dat geval kun je nu hier gemakkelijk actief worden. ",
+      "whatToDo": "Dit is wat je kunt doen:",
+      "findOutMail": "Krijg het emailadres van jouw regio",
+      "sendText": "Kopieer deze tekst, vul de […] content aan met jouw details en verstuur",
+      "copyText": "Kopieer tekst",
+      "textCopied": "Gekopieerd"
     },
     "pes": {
       "callToAction": "Integreat را به منطقه خود معرفی کنید!",
@@ -475,6 +488,13 @@
       "lastUpdate": "Последно ажурирање:",
       "loading": "Вчитај..."
     },
+    "nl": {
+      "moreOptions": "Meer opties",
+      "languageNotAvailable": "Sorry, jouw taal is hier niet beschikbaar",
+      "chooseALanguage": "Kies een taal",
+      "lastUpdate": "Laatste update:",
+      "loading": "Aan het laden…"
+    },
     "pes": {
       "languageNotAvailable": "متاسفانه زبان شما در اینجا در دسترس نیست.",
       "chooseALanguage": "یک زبان را انتخاب کنید.",
@@ -672,6 +692,13 @@
       "news": "Вести",
       "pois": "Мапа"
     },
+    "nl": {
+      "localInformation": "Lokale informatie",
+      "offers": "Aanbod",
+      "events": "Evenementen",
+      "news": "Nieuws",
+      "pois": "Kaart "
+    },
     "pes": {
       "localInformation": "اطلاعات محلی",
       "offers": "خدمات",
@@ -822,6 +849,9 @@
     },
     "mk": {
       "pageTitle": "Импресум и контакт"
+    },
+    "nl": {
+      "pageTitle": "Impressum en contactgegevens"
     },
     "pes": {
       "pageTitle": "اطلاعات ناشر و تماس"
@@ -1409,6 +1439,42 @@
       "notSupportedByDevice": "Оваа функција не е поддржана на овој уред.",
       "languageSwitchFailedTitle": "За жал неуспешна е промената на јазик.",
       "languageSwitchFailedMessage": "Избраниот јазик не е достапен офлајн. Потребна е активна интернет конекција."
+    },
+    "nl": {
+      "notFound": {
+        "language": "Sorry, deze taal is hier niet beschikbaar.",
+        "city": "Sorry, deze regio is niet gevonden.",
+        "category": "Sorry, de gevraagde pagina kan niet worden gevonden.",
+        "event": "Sorry, dit evenement kan niet worden gevonden. ",
+        "offer": "Sorry, dit aanbod kan niet worden gevonden.",
+        "poi": "Sorry, deze locatie is niet gevonden.",
+        "localNews": "Sorry, dit bericht kan niet worden gevonden.",
+        "tunews": "Sorry, dit nieuws kan niet worden gevonden.",
+        "pageTitle": "Pagina niet gevonden."
+      },
+      "pageNotFound": "Sorry, de gevraagde pagina kan niet worden gevonden.",
+      "noSuitableAppInstalled": "Geen geschikte app geïnstalleerd.",
+      "networkConnectionFailed": "Verbinding met de server is mislukt.",
+      "networkRequestFailed": "De aanvraag kan niet worden verwerkt.",
+      "responseMappingFailed": "Er is een fout opgetreden bij het verwerken van het antwoord van de server.",
+      "unknownError": "Er is een onbekende fout opgetreden.",
+      "tryAgain": "Probeer opnieuw",
+      "loadingFailed": "Sorry, de gevraagde pagina kan niet worden geladen.",
+      "chooseALanguage": "Kies een taal:",
+      "goTo": {
+        "start": "Ga naar de beginpagina",
+        "categories": "Ga naar categorieën ",
+        "events": "Ga naar evenementen",
+        "offers": "Ga naar aanbod",
+        "pois": "Ga naar de kaart",
+        "localNews": "Ga naar nieuws",
+        "tunews": "Ga naar nieuws"
+      },
+      "pageTitle": "Fout",
+      "generalError": "Er is een fout opgetreden. ",
+      "notSupportedByDevice": "Deze functie wordt niet ondersteund op dit apparaat. ",
+      "languageSwitchFailedTitle": "Helaas, het is niet gelukt om de taal te wijzigen. ",
+      "languageSwitchFailedMessage": "De geselecteerde taal is niet beschikbaar als je offline bent. Er is een actieve verbinding met het internet nodig."
     },
     "pes": {
       "notFound": {
@@ -2052,6 +2118,13 @@
       "currentlyNoEvents": "Моментално нема настани.",
       "pageTitle": "Настани"
     },
+    "nl": {
+      "address": "Adres",
+      "date": "Datum",
+      "events": "Evenementen",
+      "currentlyNoEvents": "Er zijn momenteel geen evenementen beschikbaar.",
+      "pageTitle": "Evenementen"
+    },
     "pes": {
       "address": "نشانی",
       "date": "تاریخ",
@@ -2457,6 +2530,26 @@
       "positiveRating": "Оваа страница ми помогна",
       "contactMailAddress": "Е-адреса за прашања",
       "optionalInfo": "опционално"
+    },
+    "nl": {
+      "disclaimer": "Contactgegevens en impressum",
+      "send": "Versturen",
+      "failedSendingFeedback": "Er is een fout opgetreden bij het versturen van de feedback.",
+      "feedback": "Feedback",
+      "positiveComment": "Was dit nuttig?",
+      "negativeComment": "Wat kunnen we verbeteren?",
+      "isThisSiteUseful": "Is deze website nuttig?",
+      "useful": "Nuttig",
+      "notUseful": "Niet nuttig",
+      "informationNotFound": "Heb je niet gevonden waar je naar zocht?",
+      "wantedInformation": "Welke informatie mist?",
+      "feedbackSent": "De feedback is verzonden",
+      "thanksMessage": "Bedankt voor je feedback. Dit zal ons ons helpen om onze content en de {{appName}} te verbeteren. We zouden het fijn vinden om aanvullende feedback te ontvangen.",
+      "close": "sluit af",
+      "negativeRating": "Deze website is niet nuttig.",
+      "positiveRating": "Deze website is nuttig.",
+      "contactMailAddress": "Stuur een email voor overige vragen.",
+      "optionalInfo": "Optioneel / optionele informatie"
     },
     "pes": {
       "disclaimer": "اطلاعات ناشر و تماس",
@@ -2953,6 +3046,19 @@
       "skip": "Прескокни",
       "next": "Понатаму"
     },
+    "nl": {
+      "appDescription": "{{appName}} is jouw digitale gids voor het leven in Duitsland.",
+      "search": "Zoek",
+      "searchDescription": "Vind de juiste informatie gebaseerd op steekwoorden.",
+      "languageChange": "Wijzig de taal",
+      "languageChangeDescription": "Het wijzigen van de taal op individuele pagina's is makkelijk.",
+      "events": "Evenementen",
+      "eventsDescription": "Huidige evenementen en data in de omgeving",
+      "offers": "Aanbod",
+      "offersDescription": "Een baan zoeken, een stage zoeken en meer in de omgeving",
+      "skip": "Sla over",
+      "next": "Ga door"
+    },
     "pes": {
       "appDescription": "{{appName}}‏ راهنمای دیجیتالی شما در مورد آلمان است",
       "search": "جستجو",
@@ -3404,6 +3510,23 @@
       "metaDescription": "{{appName}} е вашиот дигитален водич за Германија. Пронајдете локални информации, настани и совети. Секогаш актуелно и на вашиот јазик.",
       "cityNotFound": "Не го пронајде твојот регион?",
       "clickHere": "Кликни тука"
+    },
+    "nl": {
+      "searchCity": "Zoek",
+      "noCitiesFound": "Geen resultaten",
+      "nearbyCities": "In de buurt",
+      "noNearbyCities": "Er is geen regio in de buurt gevonden.",
+      "alert": "Melding",
+      "locationError": "Om de regio's in de buurt weer te geven, moet de locatievoorziening zijn ingeschakeld. ",
+      "noPermission": "Om de regio's in de buurt weer te geven, moet de locatievoorziening zijn ingeschakeld. ",
+      "loading": "Locatie aan het bepalen…",
+      "notAvailable": "Automatische plaatsbepaling is gedactiveerd.",
+      "timeout": "Automatische plaatsbepaling is mislukt.",
+      "refresh": "Update de lijst met de dichtstbijzijnde regio's",
+      "pageTitle": "Regio's",
+      "metaDescription": "{{appName}} is jouw digitale gids voor het leven in Duitsland. Ontdek lokale informatie, evenementen en krijg advies. Altijd up to date en beschikbaar in jouw eigen taal.",
+      "cityNotFound": "Heb je jouw regio niet gevonden?",
+      "clickHere": "Klik hier"
     },
     "pes": {
       "searchCity": "جستجو",
@@ -3968,6 +4091,27 @@
       "shareFailDefaultMessage": "Деловите од содржината за жал не се вчитани.",
       "disclaimer": "Импресум"
     },
+    "nl": {
+      "imprintAndContact": "Impressum en contactgegevens",
+      "privacy": "Gegevensbescherming",
+      "offers": "Aanbod",
+      "localInformation": "Lokale informatie",
+      "events": "Evenementen",
+      "noEvents": "Geen evenementen",
+      "news": "Nieuws",
+      "noLanguages": "Niet beschikbaar in andere talen",
+      "noTranslation": "Geen vertaling beschikbaar",
+      "search": "Zoek",
+      "pois": "Kaart ",
+      "changeLocation": "Wijzig locatie",
+      "changeLanguage": "Wijzig taal",
+      "settings": "Instellingen",
+      "share": "Deel",
+      "cancel": "Annuleer",
+      "shareMessage": "Zojuist gevonden: {{message}}",
+      "shareFailDefaultMessage": "Helaas is er een fout opgetreden bij het delen van de content",
+      "disclaimer": "Impressum  "
+    },
     "pes": {
       "imprintAndContact": "اطلاعات ناشر و تماس",
       "privacy": "حفاظت از داده ها",
@@ -4329,6 +4473,9 @@
     "mk": {
       "pageTitle": "Импресум и контакт - {{appName}}"
     },
+    "nl": {
+      "pageTitle": "Impressum en contactgegevens - {{appName}}"
+    },
     "pes": {
       "pageTitle": "اطلاعات ناشر و تماس - {{appName}}"
     },
@@ -4435,6 +4582,10 @@
     "mk": {
       "NSPhotoLibraryAddUsageDescription": "За да зачувате слики, потребно е да влезете во {{appName}} во галеријата.",
       "NSLocationWhenInUseUsageDescription": "За да пронајдете локации во близина, потребно е да влезете во {{appName}} во локацијата."
+    },
+    "nl": {
+      "NSPhotoLibraryAddUsageDescription": "{{appName}} wil de foto's opslaan in jouw bibliotheek.",
+      "NSLocationWhenInUseUsageDescription": "{{appName}} wil jouw locatie gebruiken om steden in de buurt te vinden."
     },
     "pes": {
       "NSPhotoLibraryAddUsageDescription": "برای ذخیره تصاویر، {{appName}} نیاز به دسترسی به گالری دارد.",
@@ -4647,6 +4798,16 @@
       "local": "Локално",
       "readMore": "Продолжи со читање",
       "currentlyNoNews": "Моментално нема вести."
+    },
+    "nl": {
+      "news": "Nieuws",
+      "localNews": {
+        "localNews": "Lokaal nieuws",
+        "pageTitle": "Lokaal nieuws"
+      },
+      "local": "Lokaal   ",
+      "readMore": "Ga door",
+      "currentlyNoNews": "Op dit moment is er geen nieuws."
     },
     "pes": {
       "news": "اخبار",
@@ -4861,6 +5022,11 @@
     "mk": {
       "offers": "Понуди",
       "pageTitle": "Понуди"
+    },
+    "nl": {
+      "offers": "Aanbod",
+      "pageTitle": "Aanbod",
+      "wohnraum": "Huisvesting"
     },
     "pes": {
       "offers": "خدمات",
@@ -5297,6 +5463,39 @@
       "eMailCopied": "Адресата на е-пошта е копирана во меѓуархивата",
       "websiteCopied": "Веб-страницата е копирана во меѓуархивата"
     },
+    "nl": {
+      "pageTitle": "Kaart ",
+      "poi": "Plaats",
+      "pois": "Plaatsen",
+      "map": "Kaart ",
+      "showOnMap": "Laat zien op de kaart",
+      "noPois": "Er zijn geen plaatsen gevonden.",
+      "unitKilometre": "km",
+      "unitMetre": "m",
+      "distanceKilometre": "{{distance}} km afstand",
+      "distanceKilometreAlternative": "{{distance}} km ",
+      "distanceMetre": "{{distance}} m afstand",
+      "distanceMetreAlternative": "{{distance}} m ",
+      "contactInformation": "Contactgegevens",
+      "address": "Adres",
+      "phone": "Telefoonnummer",
+      "eMail": "Emailadres",
+      "website": "Website",
+      "openingHours": "Openingstijden",
+      "description": "Beschrijving",
+      "addressCopied": "Het adres is gekopieerd naar het klembord",
+      "phoneCopied": "Het telefoonnummer is gekopieerd naar het klembord",
+      "eMailCopied": "Het emailadres is gekopieerd naar het klembord",
+      "websiteCopied": "De website is gekopieerd naar het klembord",
+      "listTitle": "Vlakbij jou",
+      "detailsHeader": "Terug naar het overzicht",
+      "detailsAddress": "Routebeschrijving",
+      "detailsMapLink": "Open in Google Maps",
+      "detailsInformation": "Informatie",
+      "detailsNextPoi": "Volgende",
+      "detailsPreviousPoi": "Vorige",
+      "openExternalMaps": "Open in de kaarten app"
+    },
     "pes": {
       "pageTitle": "نقشه",
       "poi": "محل",
@@ -5714,6 +5913,11 @@
       "searchPlaceholder": "Пребарај",
       "pageTitle": "Пребарај"
     },
+    "nl": {
+      "nothingFound": "Sorry, we hebben geen passend resultaat kunnen vinden.",
+      "searchPlaceholder": "Zoek",
+      "pageTitle": "Zoek"
+    },
     "pes": {
       "nothingFound": "متاسفانه هیچ نتیجه مناسبی پیدا نشد.",
       "searchPlaceholder": "جستجو",
@@ -6090,6 +6294,26 @@
       "enabled": "активирано",
       "disabled": "деактивирано",
       "decline": "Отфрли"
+    },
+    "nl": {
+      "sentryTitle": "App stabiliteit",
+      "sentryDescription": "Verbeter de {{appName}} app door automatisch foutmeldingen te versturen.",
+      "pushNewsTitle": "Pushmeldingen",
+      "pushNewsDescription": "Ontvang pushmedlingen voor het laatste lokale nieuws",
+      "about": "Over {{appName}}",
+      "privacyPolicy": "Gegevensbeschermingsbeleid",
+      "version": "Versie: {{version}}",
+      "openSourceLicenses": "Open bron licenties",
+      "tracking": "J-PAL evaluatie",
+      "allowTracking": "Sta tracking toe",
+      "trackingShortDescription": "Neem deel aan de J-PAL evaluatie om {{appName}} te verbeteren.",
+      "trackingMoreInformation": "Meer informatie over de J-PAL evaluatie en onderzoeksdoelen.",
+      "trackingDescription": "{{appName}} wil toestemming om jouw gebruik van de app te volgen. Jouw data wordt geanonimiseerd en alleen gebruik voor onderzoeksdoeleinden en om de app te verbeteren. De getraceerde data wordt niet gedeeld of gebruikt voor reclame of andere commerciële doeleinden.",
+      "trackingLeaveTitle": "Tracking toestaan?",
+      "trackingLeaveDescription": "Je hebt de tracking niet toegestaan.Tracking helpt ons om de {{appName}}-App te verbeteren en om immigranten van betere informatie te voorzien. Weet je zeker dat je de pagina wil verlaten zonder tracking toe te staan?",
+      "enabled": "Geactiveerd",
+      "disabled": "Gedeactiveerd",
+      "decline": "Weiger"
     },
     "pes": {
       "sentryTitle": "پایداری اپلیکیشن",
@@ -6528,6 +6752,78 @@
       "facetCity": "place/zip",
       "facetPets": "Pets allowed"
     },
+    "nl": {
+      "title": "Huisvesting",
+      "shelterTitle": "{{beds}} op {{locatie}}",
+      "shelterInformation": "Aangeboden huisvesting",
+      "householdInformation": "Informatie over het gehele huishouden",
+      "hostInformation": "Details van de host",
+      "contactInformation": "Contactgegevens",
+      "shelterButton": "bekijken",
+      "bed": "1 bed",
+      "beds": "{{beds}} bedden",
+      "ges_unterkunft": "De gehele accommodatie",
+      "gemein_zimmer": "Gedeelde kamer",
+      "privatzimmer": "Privékamer",
+      "7t": "Tot 7 dagen",
+      "14t": "Tot 14 dagen",
+      "1m": "Tot 1 maand",
+      "3m": "Tot 3 maanden",
+      "6m": "Tot 6 maanden",
+      "12m": "Tot 12 maanden",
+      "12m_plus": "Langer dan 12 maanden",
+      "starting": "Vanaf",
+      "now": "Meteen",
+      "free": "Gratis",
+      "withCosts": "Er zijn kosten aan verbonden (prijs op aanvraag) ",
+      "tenancyPossible": "Overgang naar huur mogelijk",
+      "accessible": "Toegankelijk ",
+      "bathroom": "Eigen badkamer",
+      "lgbtiq": "LGBTIQ+-vriendelijk",
+      "haustier": "Huisdieren toegestaan",
+      "haustier-katze": "Katten toegestaan",
+      "haustier-hund": "Honden toegestaan",
+      "smoking": "Roken toegestaan",
+      "rooms": "Aantal kamers:",
+      "occupants": "Aantal bewoners:",
+      "notSpecified": "Niet gespecificeerd",
+      "name": "Naam:",
+      "zipcode": "Postcode:",
+      "city": "Locatie:",
+      "hostType": "Huishouden:",
+      "languages": "Taalvaardigheden",
+      "deutsch": "Duits",
+      "englisch": "Engels",
+      "ukrainisch": "Oekraïens",
+      "russisch": "Russisch",
+      "polnisch": "Pools",
+      "kroatisch": "Kroatisch",
+      "allein_maennlich": "Alleenstaande man",
+      "allein_weiblich": "Alleenstaande vrouw",
+      "familie_kinder": "Familie met kind(eren)",
+      "paar": "Familie zonder kinderen",
+      "wg": "Een gemeenschap die appartementen deelt",
+      "comments": "Aanvullend commentaar",
+      "noSheltersAvailable": "Geen accomodaties ",
+      "shelterType": "Soort opvang",
+      "startDate": "Eerst beschikbaar (or: eerst beschikbare opvang)",
+      "availableBeds": "Beschikbare bedden",
+      "duration": "Mogelijke verblijfsduur",
+      "contactRequest": {
+        "title": "Contact aanvraag",
+        "description": "Als je geïnteresseerd bent in de aangeboden opvang, dan kunnen we jouw contactgegevens doorsturen naar de aanbieder van de opvang.",
+        "email": "E-mailadres",
+        "phone": "Telefoonnummer",
+        "success": "Het is gelukt je contactgegevens door te sturen.",
+        "error": "Helaas, er is iets misgegaan.",
+        "invalid_accommodation": "Dit aanbod is niet langer beschikbaar.",
+        "invalid_contact_data": "Sorry, je contactgegevens zijn niet juist of zijn al in gebruik.",
+        "send": "Stuur   "
+      },
+      "facetBeds": "Aantal bedden",
+      "facetCity": "Plaats/postcode",
+      "facetPets": "Huisdieren toegestaan"
+    },
     "pl": {
       "title": "Zakwaterowania",
       "shelterTitle": "{{beds}} w {{location}}",
@@ -6790,6 +7086,9 @@
     },
     "mk": {
       "noOffersAvailable": "Не се достапни понуди."
+    },
+    "nl": {
+      "noOffersAvailable": "Geen aanbod beschikbaar"
     },
     "pes": {
       "noOffersAvailable": "هیچ خدماتی در دسترس نیست"
