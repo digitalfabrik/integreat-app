@@ -5,6 +5,15 @@ export class Selector {
     if (driver.isAndroid) {
       this.queries.push(`.text("${text}")`)
     } else {
+      this.queries.push(`label LIKE '${text}'`)
+    }
+    return this
+  }
+
+  public ByBeginsWith(text: string): Selector {
+    if (driver.isAndroid) {
+      this.queries.push(`.text("${text}")`)
+    } else {
       this.queries.push(`label BEGINSWITH '${text}'`)
     }
     return this

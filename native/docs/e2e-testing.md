@@ -36,6 +36,17 @@ Getting started:
 
 To run tests locally do: `E2E_CONFIG=local_android yarn test:e2e`
 
+#### iOS
+- start the simulator in XCode with the capabilities from  `wdio-ios.conf.ts` 
+- adjust the `BUILD_DIR` (Find instructions in `wdio-ios.conf.ts` )
+- run `yarn prepare:native:start`
+- run this command to start the tests
+
+```
+BUILD_DIR='<your build dir>' 
+yarn test:native:ios`
+```
+
 ### Running tests on browserstack
 
 You can find your browserstack `user` and `key` here: https://app-automate.browserstack.com/
