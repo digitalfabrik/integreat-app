@@ -12,3 +12,4 @@ steps:
       key: 8-yarn-{{ arch }}-{{ checksum "yarn.lock" }}-{{ checksum "package.json" }}-{{ checksum "native/package.json" }}-{{ checksum "web/package.json" }}
       paths:
         - .yarn/cache
+        - .yarn/unplugged
