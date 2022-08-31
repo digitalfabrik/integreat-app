@@ -6,11 +6,10 @@ steps:
         - 2-yarn-{{ arch }}-{{ checksum "tools/yarn.lock" }}-{{ checksum "tools/package.json" }}
   - run:
       name: Yarn tools
-      command: yarn --immutable --cache-folder ~/.cache/yarn-tools
+      command: yarn install --immutable
       working_directory: tools
   - save_cache:
       name: Save Yarn Tools Package Cache
       key: 2-yarn-{{ arch }}-{{ checksum "tools/yarn.lock" }}-{{ checksum "tools/package.json" }}
       paths:
-        - ~/.cache/yarn-tools
-        - tools/node_modules
+        - tools/.yarn/cache

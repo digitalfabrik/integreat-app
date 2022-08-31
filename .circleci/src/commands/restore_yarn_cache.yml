@@ -6,12 +6,12 @@ steps:
         - 8-yarn-{{ arch }}-{{ checksum "yarn.lock" }}-{{ checksum "package.json" }}-{{ checksum "native/package.json" }}-{{ checksum "web/package.json" }}
   - run:
       name: Yarn
-      command: yarn --immutable --cache-folder ~/.cache/yarn
+      command: yarn install --immutable
   - save_cache:
       name: Save Yarn Package Cache
       key: 8-yarn-{{ arch }}-{{ checksum "yarn.lock" }}-{{ checksum "package.json" }}-{{ checksum "native/package.json" }}-{{ checksum "web/package.json" }}
       paths:
-        - ~/.cache/yarn
+        - .yarn/cache
         - node_modules
         - native/node_modules
         - web/node_modules
