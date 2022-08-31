@@ -1,4 +1,4 @@
-import React, { ReactElement, ReactNode, RefObject, useEffect, useState } from 'react'
+import React, { ReactElement, ReactNode, RefObject, useState } from 'react'
 import styled, { css } from 'styled-components'
 
 import { UiDirectionType } from 'translations/src'
@@ -69,16 +69,14 @@ const getScrollableWidth = (scrollContainer: RefObject<HTMLDivElement>): number 
 }
 
 const NavigationBarScrollContainer = ({ children, direction, scrollContainer }: PropsType): ReactElement => {
-  const [showArrowRight, setShowArrowRight] = useState<boolean>(false)
-  const [showArrowLeft, setShowArrowLeft] = useState<boolean>(false)
   const [scrollPosition, setScrollPosition] = useState(0)
+  const showArrowLeft = scrollContainer.current ? scrollPosition > 0 : false
+  const showArrowRight = scrollContainer.current ? scrollPosition < getScrollableWidth(scrollContainer) : false
 
-  useEffect(() => {
-    if (scrollContainer.current) {
-      setShowArrowRight(scrollPosition < getScrollableWidth(scrollContainer))
-      setShowArrowLeft(scrollPosition > 0)
-    }
-  }, [scrollContainer, scrollPosition])
+  const onScrollForward = () =>
+    scrollContainer.current?.scroll({
+      left: direction === 'rtl' ? -scrollContainer.current.scrollWidth : scrollContainer.current.scrollWidth,
+    })
 
   return (
     <Container>
@@ -90,13 +88,7 @@ const NavigationBarScrollContainer = ({ children, direction, scrollContainer }: 
         onScroll={(e: React.UIEvent<HTMLElement>) => setScrollPosition(Math.abs(e.currentTarget.scrollLeft))}>
         {children}
       </ScrollContainer>
-      <Button
-        disabled={!showArrowRight}
-        onClick={() => {
-          scrollContainer.current?.scroll({
-            left: direction === 'rtl' ? -scrollContainer.current.scrollWidth : scrollContainer.current.scrollWidth,
-          })
-        }}>
+      <Button disabled={!showArrowRight} onClick={onScrollForward}>
         <Arrow src={iconArrowForward} direction={direction} visible={showArrowRight} alt='' />
       </Button>
     </Container>

@@ -1,6 +1,6 @@
 import styled, { css } from 'styled-components'
 
-import { UiDirectionType } from 'translations/src'
+import { UiDirectionType } from 'translations'
 
 export const IconWithUiDirection = styled.img<{ direction?: UiDirectionType }>`
   ${props =>
