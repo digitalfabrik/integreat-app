@@ -476,11 +476,11 @@ jobs:
             - checkout
             - restore_yarn_tools_cache
             - run:
-                command: echo "export NEW_VERSION_NAME=$(yarn --silent next-version calc | jq .versionName)" >> ${BASH_ENV}
+                command: echo "export NEW_VERSION_NAME=$(yarn next-version calc | jq .versionName)" >> ${BASH_ENV}
                 name: Calculate next version name
                 working_directory: tools
             - run:
-                command: echo "export NEW_VERSION_CODE=$(yarn --silent next-version calc | jq .versionCode)" >> ${BASH_ENV}
+                command: echo "export NEW_VERSION_CODE=$(yarn next-version calc | jq .versionCode)" >> ${BASH_ENV}
                 name: Calculate next version code
                 working_directory: tools
             - when:
@@ -507,8 +507,8 @@ jobs:
         steps:
             - skip_job
             - checkout
-            - check_config
             - restore_yarn_cache
+            - check_config
             - run:
                 command: yarn prettier:check
                 name: Prettier
