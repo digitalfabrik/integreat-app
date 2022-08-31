@@ -6,7 +6,7 @@ steps:
         - 8-yarn-{{ arch }}-{{ checksum "yarn.lock" }}-{{ checksum "package.json" }}-{{ checksum "native/package.json" }}-{{ checksum "web/package.json" }}
   - run:
       name: Yarn
-      command: yarn --frozen-lockfile --cache-folder ~/.cache/yarn
+      command: yarn --immutable --cache-folder ~/.cache/yarn
   - save_cache:
       name: Save Yarn Package Cache
       key: 8-yarn-{{ arch }}-{{ checksum "yarn.lock" }}-{{ checksum "package.json" }}-{{ checksum "native/package.json" }}-{{ checksum "web/package.json" }}
