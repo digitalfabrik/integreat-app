@@ -1,0 +1,8 @@
+issue_key: IGAPP-1084
+show_in_stores: true
+platforms:
+  - web
+  - ios
+  - android
+en: Added Dutch translations.
+de: Niederländische Übersetzungen hinzugefügt.
