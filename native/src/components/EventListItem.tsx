@@ -9,12 +9,15 @@ import EventPlaceholder1 from '../assets/EventPlaceholder1.jpg'
 import EventPlaceholder2 from '../assets/EventPlaceholder2.jpg'
 import EventPlaceholder3 from '../assets/EventPlaceholder3.jpg'
 import DateFormatterContext from '../contexts/DateFormatterContext'
+import { textTruncator } from '../utils/stringUtils'
 import ListItem from './ListItem'
 
 const Description = styled.Text`
   color: ${props => props.theme.colors.textColor};
   font-family: ${props => props.theme.fonts.native.contentFontRegular};
 `
+
+const NUM_OF_CHARS_ALLOWED = 90
 
 const getEventPlaceholder = (id: number): number => {
   const placeholders = [EventPlaceholder1, EventPlaceholder2, EventPlaceholder3]
@@ -48,7 +51,7 @@ const EventListItem = ({ event, cityCode, language, navigateTo, theme }: PropsTy
       navigateTo={navigateToEventInCity}
       theme={theme}>
       <Description>{event.date.toFormattedString(formatter)}</Description>
-      {event.location && <Description>{event.location.fullAddress}</Description>}
+      {event.excerpt && <Description>{textTruncator(event.excerpt, NUM_OF_CHARS_ALLOWED)}</Description>}
     </ListItem>
   )
 }
