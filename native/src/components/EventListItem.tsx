@@ -5,11 +5,11 @@ import styled from 'styled-components/native'
 import { EventModel, EVENTS_ROUTE, RouteInformationType } from 'api-client'
 import { ThemeType } from 'build-configs'
 
+import textTruncator from '../../../api-client/src/utils/textTruncator'
 import EventPlaceholder1 from '../assets/EventPlaceholder1.jpg'
 import EventPlaceholder2 from '../assets/EventPlaceholder2.jpg'
 import EventPlaceholder3 from '../assets/EventPlaceholder3.jpg'
 import DateFormatterContext from '../contexts/DateFormatterContext'
-import { textTruncator } from '../utils/stringUtils'
 import ListItem from './ListItem'
 
 const Description = styled.Text`

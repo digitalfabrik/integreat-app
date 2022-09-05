@@ -4,9 +4,9 @@ import { ThemeProvider } from 'styled-components'
 
 import { DateFormatter, LOCAL_NEWS_TYPE } from 'api-client'
 
+import textTruncator from '../../../../api-client/src/utils/textTruncator'
 import buildConfig from '../../constants/buildConfig'
 import { renderWithRouter } from '../../testing/render'
-import { textTruncator } from '../../utils/stringUtils'
 import NewsListItem, { NUM_OF_CHARS_ALLOWED } from '../NewsListItem'
 
 jest.mock('../LastUpdateInfo', () =>
