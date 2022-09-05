@@ -2,9 +2,8 @@ import moment from 'moment'
 import React from 'react'
 import { ThemeProvider } from 'styled-components'
 
-import { DateFormatter, LOCAL_NEWS_TYPE } from 'api-client'
+import { DateFormatter, LOCAL_NEWS_TYPE, textTruncator } from 'api-client'
 
-import textTruncator from '../../../../api-client/src/utils/textTruncator'
 import buildConfig from '../../constants/buildConfig'
 import { renderWithRouter } from '../../testing/render'
 import NewsListItem, { NUM_OF_CHARS_ALLOWED } from '../NewsListItem'
