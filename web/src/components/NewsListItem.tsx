@@ -5,7 +5,7 @@ import styled from 'styled-components'
 
 import { DateFormatter, LOCAL_NEWS_TYPE, NewsType } from 'api-client'
 
-import { textTruncator } from '../utils/stringUtils'
+import textTruncator from '../../../api-client/src/utils/textTruncator'
 import CleanLink from './CleanLink'
 import LastUpdateInfo from './LastUpdateInfo'
 import { Description } from './ListItem'
