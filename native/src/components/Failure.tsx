@@ -6,12 +6,14 @@ import styled, { useTheme } from 'styled-components/native'
 
 import { ErrorCode } from 'api-client'
 
+import NoInternetIcon from '../assets/no-network.svg'
 import SadIcon from '../assets/smile-sad.svg'
+import UnknownIcon from '../assets/warning.svg'
 
 const ViewContainer = styled.View`
   flex: 1;
   align-items: center;
-  margin-top: 15%;
+  justify-content: center;
   margin-bottom: 15%;
 `
 const IconContainer = styled.Image`
@@ -26,9 +28,24 @@ export type PropsType = {
 const Failure = ({ code, tryAgain }: PropsType): ReactElement => {
   const { t } = useTranslation('error')
   const theme = useTheme()
+  let errorIcon
+  switch (code) {
+    case ErrorCode.NetworkConnectionFailed: {
+      errorIcon = NoInternetIcon
+      break
+    }
+    case ErrorCode.UnknownError: {
+      errorIcon = UnknownIcon
+      break
+    }
+    default: {
+      errorIcon = SadIcon
+      break
+    }
+  }
   return (
     <ViewContainer>
-      <IconContainer source={SadIcon} />
+      <IconContainer source={errorIcon} />
       <Text>{t(code)}</Text>
       {tryAgain && (
         <Button
@@ -38,7 +55,7 @@ const Failure = ({ code, tryAgain }: PropsType): ReactElement => {
           }}
           buttonStyle={{
             backgroundColor: theme.colors.themeColor,
-            marginTop: 20,
+            marginTop: 40,
           }}
           onPress={tryAgain}
           title={t('tryAgain')}
