@@ -26,7 +26,7 @@
     "js-md5": "^0.7.3",
     "lodash": "^4.17.19",
     "moment": "2.29.4",
-    "moment-timezone": "^0.5.34",
+    "moment-timezone": "^0.5.35",
     "normalize-path": "^3.0.0",
     "normalize-strings": "^1.1.1"
   },
