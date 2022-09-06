@@ -29,7 +29,6 @@ const FailureSwitcher = ({ error }: PropsType): ReactElement => {
   }, [error])
 
   const getFailureProps = (error: Error): { goToPath?: string; goToMessage?: string; errorMessage: string } => {
-    /* eslint-disable @typescript-eslint/no-unnecessary-condition */
     if (error instanceof NotFoundError && error.city !== undefined && error.language !== undefined) {
       const { city, language } = error
       const params = { cityCode: city, languageCode: language }
