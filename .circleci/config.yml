@@ -9,7 +9,7 @@ commands:
                 command: curl -fLSs https://raw.githubusercontent.com/CircleCI-Public/circleci-cli/master/install.sh | sudo bash
                 name: Install CircleCI CLI
             - run:
-                command: yarn run circleci:update-config
+                command: yarn --version
                 name: Build circle config
             - run:
                 command: |
@@ -220,7 +220,7 @@ commands:
                     - 2-yarn-{{ arch }}-{{ checksum "tools/yarn.lock" }}-{{ checksum "tools/package.json" }}
                 name: Restore Yarn Tools Package Cache
             - run:
-                command: yarn install --immuntable
+                command: yarn install --immutable
                 name: Yarn tools
                 working_directory: tools
             - save_cache:
