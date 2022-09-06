@@ -6,7 +6,7 @@ import styled, { useTheme } from 'styled-components/native'
 
 import { ErrorCode } from 'api-client'
 
-import NoInternetIcon from '../assets/no-network.svg'
+import NoInternetIcon from '../assets/no-internet.svg'
 import SadIcon from '../assets/smile-sad.svg'
 import UnknownIcon from '../assets/warning.svg'
 
