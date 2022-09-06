@@ -20,7 +20,6 @@
     "lint:ci": "yarn run eslint --quiet --format junit -o reports/lint/junit-lint.xml",
     "ts:check": "tsc --build"
   },
-  "dependencies": {},
   "devDependencies": {
     "@types/flat": "^5.0.2",
     "@types/lodash": "^4.14.182",
