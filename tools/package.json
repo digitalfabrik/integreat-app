@@ -2,6 +2,7 @@
   "version": "0.0.1",
   "name": "tools",
   "private": true,
+  "packageManager": "yarn@3.2.2",
   "scripts": {
     "manage-metadata": "ts-node manage-metadata.ts",
     "git-version": "ts-node git-version.ts",
