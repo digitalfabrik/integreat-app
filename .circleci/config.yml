@@ -209,9 +209,6 @@ commands:
                 name: Save Yarn Package Cache
                 paths:
                     - .yarn/cache
-                    - node_modules
-                    - native/node_modules
-                    - web/node_modules
     restore_yarn_tools_cache:
         description: Restores and saves the node_modules directories of the tools package.
         steps:

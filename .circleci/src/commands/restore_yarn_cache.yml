@@ -12,6 +12,3 @@ steps:
       key: 8-yarn-{{ arch }}-{{ checksum "yarn.lock" }}-{{ checksum "package.json" }}-{{ checksum "native/package.json" }}-{{ checksum "web/package.json" }}
       paths:
         - .yarn/cache
-        - node_modules
-        - native/node_modules
-        - web/node_modules
