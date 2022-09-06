@@ -94,7 +94,7 @@ describe('CategoryEntry', () => {
       }
 
       const { getByText, getByLabelText } = renderWithRouter(
-        <CategoryEntry category={category} subCategories={[]} query={query} contentWithoutHtml={category.content} />,
+        <CategoryEntry category={category} subCategories={[]} query={query} />,
         { wrapWithTheme: true }
       )
 
@@ -111,7 +111,7 @@ describe('CategoryEntry', () => {
       const query = 'no match'
 
       const { queryAllByText, getByText } = renderWithRouter(
-        <CategoryEntry category={category} subCategories={[]} query={query} contentWithoutHtml={category.content} />,
+        <CategoryEntry category={category} subCategories={[]} query={query} titleMatch />,
         { wrapWithTheme: true }
       )
 
