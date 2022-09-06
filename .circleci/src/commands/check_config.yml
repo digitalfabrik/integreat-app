@@ -5,7 +5,7 @@ steps:
       command: curl -fLSs https://raw.githubusercontent.com/CircleCI-Public/circleci-cli/master/install.sh | sudo bash
   - run:
       name: Build circle config
-      command: yarn --version #yarn run circleci:update-config
+      command: yarn run circleci:update-config --inspect
   - run: # Taken from https://github.com/roopakv/orbs/blob/master/src/commands/fail_if_dirty.yml
       name: CircleCI config up to date
       # language=bash
