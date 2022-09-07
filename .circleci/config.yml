@@ -505,11 +505,11 @@ jobs:
             - skip_job
             - checkout
             - run:
-                command: yarn --version
-                name: Print yarn version
-            - run:
                 command: node --version
                 name: Print node version
+            - run:
+                command: yarn --version
+                name: Print yarn version
             - restore_yarn_cache
             - restore_yarn_tools_cache
             - check_config
