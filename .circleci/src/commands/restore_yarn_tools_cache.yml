@@ -5,7 +5,7 @@ steps:
       keys:
         - 2-yarn-{{ arch }}-{{ checksum "tools/yarn.lock" }}-{{ checksum "tools/package.json" }}
   - run:
-      name: Yarn tools
+      name: Install Tools Dependencies
       command: yarn install --immutable
       working_directory: tools
   - save_cache:
@@ -13,4 +13,3 @@ steps:
       key: 2-yarn-{{ arch }}-{{ checksum "tools/yarn.lock" }}-{{ checksum "tools/package.json" }}
       paths:
         - tools/.yarn/cache
-        - tools/node_modules

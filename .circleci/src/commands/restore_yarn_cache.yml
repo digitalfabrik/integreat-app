@@ -5,7 +5,7 @@ steps:
       keys:
         - 8-yarn-2-{{ arch }}-{{ checksum "yarn.lock" }}-{{ checksum "package.json" }}-{{ checksum "native/package.json" }}-{{ checksum "web/package.json" }}
   - run:
-      name: Yarn
+      name: Install Dependencies
       command: yarn install --immutable
   - save_cache:
       name: Save Yarn Package Cache

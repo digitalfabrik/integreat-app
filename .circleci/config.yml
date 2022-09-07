@@ -203,7 +203,7 @@ commands:
                 name: Restore Yarn Package Cache
             - run:
                 command: yarn install --immutable
-                name: Yarn
+                name: Install Dependencies
             - save_cache:
                 key: 8-yarn-2-{{ arch }}-{{ checksum "yarn.lock" }}-{{ checksum "package.json" }}-{{ checksum "native/package.json" }}-{{ checksum "web/package.json" }}
                 name: Save Yarn Package Cache
@@ -218,14 +218,13 @@ commands:
                 name: Restore Yarn Tools Package Cache
             - run:
                 command: yarn install --immutable
-                name: Yarn tools
+                name: Install Tools Dependencies
                 working_directory: tools
             - save_cache:
                 key: 2-yarn-{{ arch }}-{{ checksum "tools/yarn.lock" }}-{{ checksum "tools/package.json" }}
                 name: Save Yarn Tools Package Cache
                 paths:
                     - tools/.yarn/cache
-                    - tools/node_modules
     skip_job:
         description: Skips the current build if neccassary
         parameters:
@@ -506,6 +505,7 @@ jobs:
             - skip_job
             - checkout
             - restore_yarn_cache
+            - restore_yarn_tools_cache
             - check_config
             - run:
                 command: yarn prettier:check
