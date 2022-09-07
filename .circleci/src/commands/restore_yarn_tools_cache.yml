@@ -3,13 +3,13 @@ steps:
   - restore_cache:
       name: Restore Yarn Tools Package Cache
       keys:
-        - 2-yarn-{{ arch }}-{{ checksum "tools/yarn.lock" }}-{{ checksum "tools/package.json" }}
+        - 2-yarn-3-{{ arch }}-{{ checksum "tools/yarn.lock" }}-{{ checksum "tools/package.json" }}
   - run:
       name: Install Tools Dependencies
       command: yarn install --immutable
       working_directory: tools
   - save_cache:
       name: Save Yarn Tools Package Cache
-      key: 2-yarn-{{ arch }}-{{ checksum "tools/yarn.lock" }}-{{ checksum "tools/package.json" }}
+      key: 2-yarn-3-{{ arch }}-{{ checksum "tools/yarn.lock" }}-{{ checksum "tools/package.json" }}
       paths:
         - tools/.yarn/cache

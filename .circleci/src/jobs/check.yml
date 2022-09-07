@@ -9,6 +9,12 @@ shell: /bin/bash -eo pipefail
 steps:
   - skip_job
   - checkout
+  - run:
+      name: Print yarn version
+      command: yarn --version
+  - run:
+      name: Print node version
+      command: node --version
   - restore_yarn_cache
   - restore_yarn_tools_cache
   - check_config

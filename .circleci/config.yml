@@ -199,29 +199,29 @@ commands:
         steps:
             - restore_cache:
                 keys:
-                    - 8-yarn-2-{{ arch }}-{{ checksum "yarn.lock" }}-{{ checksum "package.json" }}-{{ checksum "native/package.json" }}-{{ checksum "web/package.json" }}
+                    - 8-yarn-3-{{ arch }}-{{ checksum "yarn.lock" }}-{{ checksum "package.json" }}-{{ checksum "native/package.json" }}-{{ checksum "web/package.json" }}
                 name: Restore Yarn Package Cache
             - run:
                 command: yarn install --immutable
                 name: Install Dependencies
             - save_cache:
-                key: 8-yarn-2-{{ arch }}-{{ checksum "yarn.lock" }}-{{ checksum "package.json" }}-{{ checksum "native/package.json" }}-{{ checksum "web/package.json" }}
+                key: 8-yarn-3-{{ arch }}-{{ checksum "yarn.lock" }}-{{ checksum "package.json" }}-{{ checksum "native/package.json" }}-{{ checksum "web/package.json" }}
                 name: Save Yarn Package Cache
                 paths:
-                    - .yarn/cache
+                    - .yarn/cache386
     restore_yarn_tools_cache:
         description: Restores and saves the node_modules directories of the tools package.
         steps:
             - restore_cache:
                 keys:
-                    - 2-yarn-{{ arch }}-{{ checksum "tools/yarn.lock" }}-{{ checksum "tools/package.json" }}
+                    - 2-yarn-3-{{ arch }}-{{ checksum "tools/yarn.lock" }}-{{ checksum "tools/package.json" }}
                 name: Restore Yarn Tools Package Cache
             - run:
                 command: yarn install --immutable
                 name: Install Tools Dependencies
                 working_directory: tools
             - save_cache:
-                key: 2-yarn-{{ arch }}-{{ checksum "tools/yarn.lock" }}-{{ checksum "tools/package.json" }}
+                key: 2-yarn-3-{{ arch }}-{{ checksum "tools/yarn.lock" }}-{{ checksum "tools/package.json" }}
                 name: Save Yarn Tools Package Cache
                 paths:
                     - tools/.yarn/cache
@@ -504,6 +504,12 @@ jobs:
         steps:
             - skip_job
             - checkout
+            - run:
+                command: yarn --version
+                name: Print yarn version
+            - run:
+                command: node --version
+                name: Print node version
             - restore_yarn_cache
             - restore_yarn_tools_cache
             - check_config
