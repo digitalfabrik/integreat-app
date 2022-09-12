@@ -119,7 +119,7 @@ export const Header = ({
     ? (1 + (hasNavigationBar ? 1 : 0)) * headerHeightSmall
     : (1 + (hasNavigationBar ? 1 : 0)) * headerHeightLarge
   const scrollHeight = viewportSmall ? headerHeightSmall : headerHeightLarge
-  const scrollContainer = useRef<HTMLDivElement>(null)
+  const scrollContainerRef = useRef<HTMLDivElement>(null)
 
   return (
     <Headroom scrollHeight={scrollHeight} height={height}>
@@ -134,7 +134,7 @@ export const Header = ({
           </ActionBar>
         </Row>
         {hasNavigationBar && (
-          <NavigationBarScrollContainer scrollContainer={scrollContainer} direction={direction}>
+          <NavigationBarScrollContainer scrollContainerRef={scrollContainerRef} direction={direction}>
             <NavigationBar>{navigationItems}</NavigationBar>
           </NavigationBarScrollContainer>
         )}

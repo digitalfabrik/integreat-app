@@ -1,12 +1,8 @@
-import styled, { css } from 'styled-components'
+import styled from 'styled-components'
 
 import { UiDirectionType } from 'translations'
 
-export const IconWithUiDirection = styled.img<{ direction?: UiDirectionType }>`
-  ${props =>
-    props.direction === 'rtl' &&
-    css`
-      transform: scaleX(-1);
-    `};
+const IconWithUiDirection = styled.img<{ direction?: UiDirectionType }>`
+  transform: ${props => (props.direction === 'rtl' ? 'scaleX(-1)' : '')};
 `
 export default IconWithUiDirection
