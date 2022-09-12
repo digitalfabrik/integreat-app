@@ -1,5 +1,5 @@
 import React, { ReactElement, ReactNode, RefObject, useState } from 'react'
-import styled, { css } from 'styled-components'
+import styled from 'styled-components'
 
 import { UiDirectionType } from 'translations/src'
 
@@ -10,11 +10,12 @@ import dimensions from '../constants/dimensions'
 type PropsType = {
   children: ReactNode
   direction?: UiDirectionType
-  scrollContainer: RefObject<HTMLDivElement>
+  scrollContainerRef: RefObject<HTMLDivElement>
 }
 
 const Container = styled.div`
   display: flex;
+  padding: 4px 0;
 `
 
 const Arrow = styled.img<{ direction?: string; visible: boolean }>`
@@ -22,18 +23,8 @@ const Arrow = styled.img<{ direction?: string; visible: boolean }>`
   height: 10px;
   padding: 0 8px;
   align-self: center;
-  opacity: 0;
-
-  ${props =>
-    props.direction === 'rtl' &&
-    css`
-      transform: scaleX(-1);
-    `}
-  ${props =>
-    props.visible &&
-    css`
-      opacity: 1;
-    `}
+  opacity: ${props => (props.visible ? 1 : 0)}
+  transform: ${props => (props.direction === 'rtl' ? 'scaleX(-1)' : '')};
 `
 
 const Button = styled.button`
@@ -42,7 +33,7 @@ const Button = styled.button`
   padding: 0;
 `
 
-const ScrollContainer = styled.div`
+const ScrollContainer = styled.div<{ showArrows: boolean }>`
   display: flex;
   flex: 1;
   max-width: 100%;
@@ -56,7 +47,7 @@ const ScrollContainer = styled.div`
     flex-wrap: wrap;
     min-height: ${dimensions.headerHeightSmall}px;
     overflow-x: auto;
-    padding: 8px 0;
+    padding: ${props => (props.showArrows ? '8px 0' : '8px')};
   }
 `
 
@@ -68,28 +59,37 @@ const getScrollableWidth = (scrollContainer: RefObject<HTMLDivElement>): number 
   return 0
 }
 
-const NavigationBarScrollContainer = ({ children, direction, scrollContainer }: PropsType): ReactElement => {
+const NavigationBarScrollContainer = ({ children, direction, scrollContainerRef }: PropsType): ReactElement => {
   const [scrollPosition, setScrollPosition] = useState(0)
-  const showArrowLeft = scrollContainer.current ? scrollPosition > 0 : false
-  const showArrowRight = scrollContainer.current ? scrollPosition < getScrollableWidth(scrollContainer) : false
+  const showArrowLeft = scrollContainerRef.current ? scrollPosition > 0 : false
+  const showArrows = scrollContainerRef.current ? scrollPosition < getScrollableWidth(scrollContainerRef) : false
 
   const onScrollForward = () =>
-    scrollContainer.current?.scroll({
-      left: direction === 'rtl' ? -scrollContainer.current.scrollWidth : scrollContainer.current.scrollWidth,
+    scrollContainerRef.current?.scroll({
+      left: direction === 'rtl' ? -scrollContainerRef.current.scrollWidth : scrollContainerRef.current.scrollWidth,
     })
+
+  const scrollContainer = (
+    <ScrollContainer
+      ref={scrollContainerRef}
+      onScroll={(e: React.UIEvent<HTMLElement>) => setScrollPosition(Math.abs(e.currentTarget.scrollLeft))}
+      showArrows={showArrows}>
+      {children}
+    </ScrollContainer>
+  )
+
+  if (!showArrows) {
+    return scrollContainer
+  }
 
   return (
     <Container>
-      <Button disabled={!showArrowLeft} onClick={() => scrollContainer.current?.scroll({ left: 0 })}>
+      <Button disabled={!showArrowLeft} onClick={() => scrollContainerRef.current?.scroll({ left: 0 })}>
         <Arrow src={iconArrowBack} direction={direction} visible={showArrowLeft} alt='' />
       </Button>
-      <ScrollContainer
-        ref={scrollContainer}
-        onScroll={(e: React.UIEvent<HTMLElement>) => setScrollPosition(Math.abs(e.currentTarget.scrollLeft))}>
-        {children}
-      </ScrollContainer>
-      <Button disabled={!showArrowRight} onClick={onScrollForward}>
-        <Arrow src={iconArrowForward} direction={direction} visible={showArrowRight} alt='' />
+      {scrollContainer}
+      <Button disabled={!showArrows} onClick={onScrollForward}>
+        <Arrow src={iconArrowForward} direction={direction} visible={showArrows} alt='' />
       </Button>
     </Container>
   )
