@@ -38,7 +38,7 @@ const getBreadcrumb = (category: CategoryModel, cityName: string) => {
   const title = category.isRoot() ? cityName : category.title
   return new BreadcrumbModel({
     title,
-    link: category.path,
+    pathname: category.path,
     node: (
       <Link to={category.path} key={category.path}>
         {title}
