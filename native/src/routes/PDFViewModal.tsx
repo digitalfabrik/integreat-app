@@ -38,6 +38,7 @@ const PDFViewModal = ({ route, navigation: _navigation }: PropsType): ReactEleme
         source={{
           uri: url,
         }}
+        trustAllCerts={false}
         onError={() => setError(true)}
       />
     </View>
