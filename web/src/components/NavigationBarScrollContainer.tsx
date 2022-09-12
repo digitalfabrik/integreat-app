@@ -23,7 +23,7 @@ const Arrow = styled.img<{ direction?: string; visible: boolean }>`
   height: 10px;
   padding: 0 8px;
   align-self: center;
-  opacity: ${props => (props.visible ? 1 : 0)}
+  opacity: ${props => (props.visible ? 1 : 0)};
   transform: ${props => (props.direction === 'rtl' ? 'scaleX(-1)' : '')};
 `
 
