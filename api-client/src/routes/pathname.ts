@@ -35,7 +35,7 @@ export const cityContentPath = ({ cityCode, languageCode, route, path }: CityCon
   constructPathname([cityCode, languageCode, route, path])
 
 export const pathnameFromRouteInformation = (routeInformation: NonNullableRouteInformationType): string => {
-  if (routeInformation.route === JPAL_TRACKING_ROUTE) {
+  if (routeInformation.route === JPAL_TRACKING_ROUTE || routeInformation.route === LICENSES_ROUTE) {
     // https://integreat.app/jpal
     return constructPathname([routeInformation.route])
   }
@@ -75,8 +75,7 @@ export const pathnameFromRouteInformation = (routeInformation: NonNullableRouteI
     routeInformation.route === DISCLAIMER_ROUTE ||
     routeInformation.route === OFFERS_ROUTE ||
     routeInformation.route === SEARCH_ROUTE ||
-    routeInformation.route === NEWS_ROUTE ||
-    routeInformation.route === LICENSES_ROUTE
+    routeInformation.route === NEWS_ROUTE
   ) {
     // https://integreat.app/augsburg/de/offers, https://integreat.app/augsburg/de/search, ...
     const { cityCode, languageCode } = routeInformation
