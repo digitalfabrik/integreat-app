@@ -20,7 +20,7 @@ export default class BreadcrumbModel {
     return this._title
   }
 
-  get link(): string {
+  get pathname(): string {
     return this._pathname
   }
 
