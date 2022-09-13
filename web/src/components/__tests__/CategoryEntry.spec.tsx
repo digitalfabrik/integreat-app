@@ -94,7 +94,7 @@ describe('CategoryEntry', () => {
       }
 
       const { getByText, getByLabelText } = renderWithRouter(
-        <CategoryEntry category={category} subCategories={[]} query={query} contentWithoutHtml={category.content} />,
+        <CategoryEntry category={category} subCategories={[]} query={query} />,
         { wrapWithTheme: true }
       )
 
@@ -107,19 +107,28 @@ describe('CategoryEntry', () => {
       )
     })
 
-    it('should highlight nothing and show no content if there is no match', () => {
+    it('should highlight nothing and show content if there is no match', () => {
       const query = 'no match'
 
       const { queryAllByText, getByText } = renderWithRouter(
-        <CategoryEntry category={category} subCategories={[]} query={query} contentWithoutHtml={category.content} />,
+        <CategoryEntry category={category} subCategories={[]} query={query} titleMatch />,
         { wrapWithTheme: true }
       )
 
       expect(getByText(category.title)).toBeTruthy()
+      expect(getByText(category.content)).toBeTruthy()
       const regex = /.+/
       const texts = queryAllByText(regex)
-      // Only category.title, nothing split up because of highlighting
-      expect(texts).toHaveLength(1)
+      // Shows category.title and beginning of category.content
+      expect(texts).toHaveLength(2)
+    })
+
+    it('should show content if title matches query', () => {
+      const query = 'Willkommen'
+      const { getByText } = renderWithRouter(<CategoryEntry category={category} subCategories={[]} query={query} />, {
+        wrapWithTheme: true,
+      })
+      expect(getByText(category.content)).toBeDefined()
     })
   })
 })
