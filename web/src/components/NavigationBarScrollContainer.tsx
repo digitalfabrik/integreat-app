@@ -33,7 +33,7 @@ const Button = styled.button`
   padding: 0;
 `
 
-const ScrollContainer = styled.div<{ showArrows: boolean }>`
+const ScrollContainer = styled.div<{ showArrows?: boolean }>`
   display: flex;
   flex: 1;
   max-width: 100%;
@@ -61,8 +61,10 @@ const getScrollableWidth = (scrollContainer: RefObject<HTMLDivElement>): number 
 
 const NavigationBarScrollContainer = ({ children, direction, scrollContainerRef }: PropsType): ReactElement => {
   const [scrollPosition, setScrollPosition] = useState(0)
+
+  const showArrows = scrollContainerRef.current ? getScrollableWidth(scrollContainerRef) > 0 : false
   const showArrowLeft = scrollContainerRef.current ? scrollPosition > 0 : false
-  const showArrows = scrollContainerRef.current ? scrollPosition < getScrollableWidth(scrollContainerRef) : false
+  const showArrowRight = scrollContainerRef.current ? scrollPosition < getScrollableWidth(scrollContainerRef) : false
 
   const onScrollForward = () =>
     scrollContainerRef.current?.scroll({
@@ -88,8 +90,8 @@ const NavigationBarScrollContainer = ({ children, direction, scrollContainerRef 
         <Arrow src={iconArrowBack} direction={direction} visible={showArrowLeft} alt='' />
       </Button>
       {scrollContainer}
-      <Button disabled={!showArrows} onClick={onScrollForward}>
-        <Arrow src={iconArrowForward} direction={direction} visible={showArrows} alt='' />
+      <Button disabled={!showArrowRight} onClick={onScrollForward}>
+        <Arrow src={iconArrowForward} direction={direction} visible={showArrowRight} alt='' />
       </Button>
     </Container>
   )
