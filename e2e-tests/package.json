@@ -7,6 +7,7 @@
     "test:web:browserstack": "yarn wdio run ./web/browserstack/wdio-browserstack.conf.ts",
     "test:native:browserstack": "yarn wdio run ./native/wdio-browserstack.conf.ts",
     "test:native": "yarn wdio run native/wdio.conf.ts",
+    "test:native:ios": "yarn wdio run native/wdio-ios.conf.ts",
     "prepare:native:android": "yarn workspace native android:integreat-e2e",
     "prepare:native:start": "yarn workspace native start:integreat-e2e",
     "prepare:web:start": "yarn workspace web start:integreat-e2e",

@@ -24,7 +24,7 @@ import SearchInput from '../components/SearchInput'
 import { cmsApiBaseUrl } from '../constants/urls'
 import useWindowDimensions from '../hooks/useWindowDimensions'
 
-type CategoryEntryType = { model: CategoryModel; contentWithoutHtml?: string; subCategories: Array<CategoryModel> }
+type CategoryEntryType = { model: CategoryModel; titleMatch?: boolean; subCategories: Array<CategoryModel> }
 
 const SearchPage = ({ cityModel, languages, cityCode, languageCode, pathname }: CityRouteProps): ReactElement => {
   const query = new URLSearchParams(useLocation().search).get('query') ?? ''
@@ -80,34 +80,41 @@ const SearchPage = ({ cityModel, languages, cityCode, languageCode, pathname }: 
   // find all categories whose titles include the filter text and sort them lexicographically
   const categoriesWithTitle = categories
     .toArray()
-    .filter((category: CategoryModel) => normalizeSearchString(category.title).includes(normalizedFilterText))
-    .sort((category1: CategoryModel, category2: CategoryModel) => category1.title.localeCompare(category2.title))
-
-  // find all categories whose contents but not titles include the filter text and sort them lexicographically
-  const categoriesWithContent = categories
-    .toArray()
-    .filter((category: CategoryModel) => !normalizeSearchString(category.title).includes(normalizedFilterText))
+    .filter(
+      (category: CategoryModel) =>
+        normalizeSearchString(category.title).includes(normalizedFilterText) && !category.isRoot()
+    )
     .map(
       (category: CategoryModel): CategoryEntryType => ({
         model: category,
-        contentWithoutHtml: parseHTML(category.content),
+        titleMatch: true,
         subCategories: [],
       })
-    )
-    .filter(
-      (categoryEntry: CategoryEntryType) =>
-        categoryEntry.contentWithoutHtml &&
-        normalizeSearchString(categoryEntry.contentWithoutHtml).includes(normalizedFilterText)
     )
     .sort((category1: CategoryEntryType, category2: CategoryEntryType) =>
       category1.model.title.localeCompare(category2.model.title)
     )
 
-  // return all categories from above and remove the root category
-  const searchResults = categoriesWithTitle
-    .filter((category: CategoryModel) => !category._root)
-    .map((category: CategoryModel): CategoryEntryType => ({ model: category, subCategories: [] }))
-    .concat(categoriesWithContent)
+  // find all categories whose contents but not titles include the filter text and sort them lexicographically
+  const categoriesWithContent = categories
+    .toArray()
+    .filter(
+      (category: CategoryModel) =>
+        normalizeSearchString(parseHTML(category.content)).includes(normalizedFilterText) &&
+        !normalizeSearchString(category.title).includes(normalizedFilterText)
+    )
+    .map(
+      (category: CategoryModel): CategoryEntryType => ({
+        model: category,
+        subCategories: [],
+      })
+    )
+    .sort((category1: CategoryEntryType, category2: CategoryEntryType) =>
+      category1.model.title.localeCompare(category2.model.title)
+    )
+
+  // return all categories
+  const searchResults = categoriesWithTitle.concat(categoriesWithContent)
 
   const handleFilterTextChanged = (filterText: string): void => {
     setFilterText(filterText)
