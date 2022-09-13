@@ -1,23 +1,25 @@
 import React from 'react'
 
-import { BreadcrumbModel, createJsonLd } from '../JsonLdBreadcrumbs'
+import BreadcrumbModel from '../../models/BreadcrumbModel'
+import { createJsonLd } from '../JsonLdBreadcrumbs'
 
 describe('BreadcrumbsJsonLd', () => {
+  const location = window.location
   it('should create correct json-ld', () => {
     const jsonLd = createJsonLd([
       new BreadcrumbModel({
         title: 'Home',
-        link: 'https://abc.xyz/',
+        pathname: '/',
         node: <a href='/'>Home</a>,
       }),
       new BreadcrumbModel({
         title: 'Subcategory',
-        link: 'https://abc.xyz/sub',
+        pathname: '/sub',
         node: <a href='/sub'>Subcategory</a>,
       }),
       new BreadcrumbModel({
         title: 'ThisSite',
-        link: 'https://abc.xyz/sub/current',
+        pathname: '/sub/current',
         node: <a href='/sub/current'>ThisSite</a>,
       }),
     ])
@@ -30,19 +32,19 @@ describe('BreadcrumbsJsonLd', () => {
           '@type': 'ListItem',
           position: 1,
           name: 'Home',
-          item: 'https://abc.xyz/',
+          item: `${location}`,
         },
         {
           '@type': 'ListItem',
           position: 2,
           name: 'Subcategory',
-          item: 'https://abc.xyz/sub',
+          item: `${location}sub`,
         },
         {
           '@type': 'ListItem',
           position: 3,
           name: 'ThisSite',
-          item: 'https://abc.xyz/sub/current',
+          item: `${location}sub/current`,
         },
       ],
     })
