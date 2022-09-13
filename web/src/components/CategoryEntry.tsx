@@ -3,7 +3,7 @@ import Highlighter from 'react-highlight-words'
 import { Link } from 'react-router-dom'
 import styled, { useTheme } from 'styled-components'
 
-import { CategoryModel, normalizeSearchString } from 'api-client'
+import { CategoryModel, normalizeSearchString, parseHTML } from 'api-client'
 
 import iconPlaceholder from '../assets/IconPlaceholder.svg'
 import ContentMatcher from './ContentMatcher'
@@ -73,20 +73,17 @@ const StyledLink = styled(Link)`
 
 type PropsType = {
   category: CategoryModel
-  contentWithoutHtml?: string
+  titleMatch?: boolean
   subCategories: Array<CategoryModel>
   query?: string
 }
 
-const CategoryEntry = ({ category, contentWithoutHtml, subCategories, query }: PropsType): ReactElement => {
+const CategoryEntry = ({ category, titleMatch, subCategories, query }: PropsType): ReactElement => {
   const theme = useTheme()
   const textToHighlight = useMemo<string | null>(() => {
-    if (!contentWithoutHtml) {
-      return null
-    }
     const contentMatcher = new ContentMatcher()
-    return contentMatcher.getMatchedContent(query, contentWithoutHtml, NUM_WORDS_SURROUNDING_MATCH)
-  }, [contentWithoutHtml, query])
+    return contentMatcher.getMatchedContent(query, parseHTML(category.content), NUM_WORDS_SURROUNDING_MATCH)
+  }, [category.content, query])
 
   const SubCategories = subCategories.map(subCategory => (
     <SubCategory key={subCategory.path} dir='auto'>
@@ -108,16 +105,26 @@ const CategoryEntry = ({ category, contentWithoutHtml, subCategories, query }: P
     />
   )
 
-  const Content = textToHighlight && (
-    <ContentMatchItem
-      aria-label={textToHighlight}
-      searchWords={[query]}
-      autoEscape
-      sanitize={normalizeSearchString}
-      textToHighlight={textToHighlight}
-      highlightStyle={{ backgroundColor: theme.colors.backgroundColor, fontWeight: 'bold' }}
-    />
-  )
+  const Content =
+    textToHighlight && query && !titleMatch ? (
+      <ContentMatchItem
+        aria-label={textToHighlight}
+        searchWords={[query]}
+        autoEscape
+        sanitize={normalizeSearchString}
+        textToHighlight={textToHighlight}
+        highlightStyle={{ backgroundColor: theme.colors.backgroundColor, fontWeight: 'bold' }}
+      />
+    ) : (
+      query && (
+        <p>
+          {new ContentMatcher()
+            .getWords(parseHTML(category.content).slice(0))
+            .slice(0, 2 * NUM_WORDS_SURROUNDING_MATCH)
+            .join(' ')}
+        </p>
+      )
+    )
 
   return (
     <Row>

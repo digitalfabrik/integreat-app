@@ -14,7 +14,7 @@ describe('navigate to search result', () => {
     await expect(searchBar).toExist()
     await searchBar.addValue(contentSearch)
 
-    const searchResult = $(new Selector().ByText('Language').build())
+    const searchResult = $(new Selector().ByBeginsWith('Language').build())
     await expect(searchResult).toExist()
     await searchResult.click()
 

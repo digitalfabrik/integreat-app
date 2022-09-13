@@ -1,4 +1,5 @@
 import * as React from 'react'
+import { Text } from 'react-native'
 import Highlighter from 'react-native-highlight-words'
 import styled from 'styled-components/native'
 
@@ -91,18 +92,27 @@ const CategoryListItem = ({
     category.contentWithoutHtml,
     NUM_WORDS_SURROUNDING_MATCH
   )
-  const matchedContent = textToHighlight && query && (
-    <Highlighter
-      searchWords={[query]}
-      sanitize={normalizeSearchString}
-      textToHighlight={textToHighlight}
-      autoEscape
-      highlightStyle={{
-        backgroundColor: theme.colors.backgroundColor,
-        fontWeight: 'bold',
-      }}
-    />
-  )
+  const content =
+    textToHighlight && query && !category.titleMatch ? (
+      <Highlighter
+        searchWords={[query]}
+        sanitize={normalizeSearchString}
+        textToHighlight={textToHighlight}
+        autoEscape
+        highlightStyle={{
+          backgroundColor: theme.colors.backgroundColor,
+          fontWeight: 'bold',
+        }}
+      />
+    ) : (
+      <Text>
+        {new ContentMatcher().getContentAfterMatchIndex(
+          category.contentWithoutHtml ?? '',
+          0,
+          2 * NUM_WORDS_SURROUNDING_MATCH
+        )}
+      </Text>
+    )
 
   const title = query ? (
     <CategoryEntryContainer>
@@ -118,7 +128,7 @@ const CategoryListItem = ({
           }}
         />
       </TitleDirectionContainer>
-      {matchedContent}
+      {content}
     </CategoryEntryContainer>
   ) : (
     <CategoryEntryContainer>
