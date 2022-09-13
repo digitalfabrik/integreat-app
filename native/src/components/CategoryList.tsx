@@ -14,6 +14,7 @@ export type CategoryListModelType = {
   thumbnail: string
   path: string
   contentWithoutHtml?: string
+  titleMatch?: boolean
 }
 export type ListEntryType = {
   model: CategoryListModelType
