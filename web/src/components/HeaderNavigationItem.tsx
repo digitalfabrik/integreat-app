@@ -2,16 +2,31 @@ import React, { ReactElement } from 'react'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 
+import { UiDirectionType } from 'translations/src'
+
 import dimensions from '../constants/dimensions'
 import { helpers } from '../constants/theme'
 
-const Container = styled.div`
+const Container = styled.div<{ direction?: UiDirectionType }>`
   flex: 1 1 135px;
+
+  @media ${dimensions.smallViewport} {
+    padding: 0 12px;
+
+    &:first-child {
+      ${props => (props.direction === 'rtl' ? 'padding-right: 0;' : 'padding-left: 0;')}
+    }
+
+    &:last-child {
+      ${props => (props.direction === 'rtl' ? 'padding-left: 0;' : 'padding-right: 0;')}
+    }
+  }
 `
 
 const StyledLink = styled(Link)<{ $active: boolean }>`
   ${helpers.removeLinkHighlighting};
   color: ${props => props.theme.colors.textSecondaryColor};
+  font-family: ${props => props.theme.fonts.web.contentFont};
   font-size: 0.9em;
   font-weight: 800;
   text-align: center;
@@ -20,12 +35,16 @@ const StyledLink = styled(Link)<{ $active: boolean }>`
   flex-direction: column;
   display: flex;
   transition: color 0.2s;
-
   height: 100%;
 
+  &:active {
+    font-weight: 800;
+  }
+
   @media ${dimensions.smallViewport} {
-    font-size: 0.8em;
-    min-width: 135px;
+    font-size: ${props => props.theme.fonts.decorativeFontSizeSmall};
+    font-weight: 400;
+    min-width: 50px;
   }
 
   &:hover > div:first-child {
@@ -58,22 +77,29 @@ const StyledLink = styled(Link)<{ $active: boolean }>`
       : ''}
 `
 
+const StyledText = styled.span<{ $active: boolean }>`
+  ${props => (props.$active ? 'font-weight: 800' : '')}
+`
+
 const ICON_SIZE_LARGE = 50
 const ICON_SIZE_SMALL = 35
 const PADDING_CIRCLE = 8
 
 const Circle = styled.div`
-  background-color: white;
-  box-sizing: border-box;
-  border-radius: 100%;
-  height: ${ICON_SIZE_LARGE}px;
-  width: ${ICON_SIZE_LARGE}px;
   display: flex;
   justify-content: center;
   align-items: center;
-  box-shadow: 0 2px 5px -3px rgba(0, 0, 0, 0.7);
-  transition: box-shadow 0.2s, border 0.2s;
-  border: white 2px solid;
+
+  @media ${dimensions.mediumLargeViewport} {
+    background-color: ${props => props.theme.colors.backgroundColor};
+    box-sizing: border-box;
+    border-radius: 100%;
+    height: ${ICON_SIZE_LARGE}px;
+    width: ${ICON_SIZE_LARGE}px;
+    box-shadow: 0 2px 5px -3px rgba(0, 0, 0, 0.7);
+    transition: box-shadow 0.2s, border 0.2s;
+    border: ${props => props.theme.colors.backgroundColor} 2px solid;
+  }
 
   & img {
     position: relative;
@@ -99,15 +125,16 @@ type PropsType = {
   href: string
   active: boolean
   icon: string
+  direction?: UiDirectionType
 }
 
-const HeaderNavigationItem = ({ active, text, href, icon }: PropsType): ReactElement => (
-  <Container>
+const HeaderNavigationItem = ({ active, text, href, icon, direction }: PropsType): ReactElement => (
+  <Container direction={direction}>
     <StyledLink to={href} $active={active}>
       <Circle>
         <img src={icon} alt='' />
       </Circle>
-      {text}
+      <StyledText $active={active}>{text}</StyledText>
     </StyledLink>
   </Container>
 )
