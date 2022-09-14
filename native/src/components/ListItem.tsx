@@ -6,6 +6,7 @@ import { ThemeType } from 'build-configs'
 
 import { contentDirection } from '../constants/contentDirection'
 import SimpleImage, { ImageSourceType } from './SimpleImage'
+import Text from './base/Text'
 
 type ListItemViewPropsType = {
   language: string
@@ -37,7 +38,7 @@ const Description = styled.View`
   font-family: ${props => props.theme.fonts.native.decorativeFontRegular};
   padding: 0 10px;
 `
-const Title = styled.Text`
+const Title = styled(Text)`
   font-weight: 700;
   font-family: ${props => props.theme.fonts.native.decorativeFontBold};
   color: ${props => props.theme.colors.textColor};
@@ -59,9 +60,7 @@ class ListItem extends React.PureComponent<PropsType> {
         <ListItemView language={language} theme={theme}>
           {thumbnail && <Thumbnail source={thumbnail} />}
           <Description theme={theme}>
-            <Title theme={theme} android_hyphenationFrequency='full'>
-              {title}
-            </Title>
+            <Title theme={theme}>{title}</Title>
             {children}
           </Description>
         </ListItemView>
