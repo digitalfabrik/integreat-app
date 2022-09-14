@@ -33,7 +33,7 @@ const Button = styled.button`
   padding: 0;
 `
 
-const ScrollContainer = styled.div<{ showArrows?: boolean }>`
+const ScrollContainer = styled.div<{ showArrows: boolean }>`
   display: flex;
   flex: 1;
   max-width: 100%;
