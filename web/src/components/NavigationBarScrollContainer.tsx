@@ -33,7 +33,7 @@ const Button = styled.button`
   padding: 0;
 `
 
-const ScrollContainer = styled.div<{ showArrows: boolean }>`
+const ScrollContainer = styled.div<{ showArrowContainer: boolean }>`
   display: flex;
   flex: 1;
   max-width: 100%;
@@ -47,7 +47,7 @@ const ScrollContainer = styled.div<{ showArrows: boolean }>`
     flex-wrap: wrap;
     min-height: ${dimensions.headerHeightSmall}px;
     overflow-x: auto;
-    padding: ${props => (props.showArrows ? '8px 0' : '8px')};
+    padding: ${props => (props.showArrowContainer ? '8px 0' : '8px')};
   }
 `
 
@@ -62,7 +62,7 @@ const getScrollableWidth = (scrollContainer: RefObject<HTMLDivElement>): number 
 const NavigationBarScrollContainer = ({ children, direction, scrollContainerRef }: PropsType): ReactElement => {
   const [scrollPosition, setScrollPosition] = useState(0)
 
-  const showArrows = scrollContainerRef.current ? getScrollableWidth(scrollContainerRef) > 0 : false
+  const showArrowContainer = scrollContainerRef.current ? getScrollableWidth(scrollContainerRef) > 0 : false
   const showArrowLeft = scrollContainerRef.current ? scrollPosition > 0 : false
   const showArrowRight = scrollContainerRef.current ? scrollPosition < getScrollableWidth(scrollContainerRef) : false
 
@@ -75,12 +75,12 @@ const NavigationBarScrollContainer = ({ children, direction, scrollContainerRef 
     <ScrollContainer
       ref={scrollContainerRef}
       onScroll={(e: React.UIEvent<HTMLElement>) => setScrollPosition(Math.abs(e.currentTarget.scrollLeft))}
-      showArrows={showArrows}>
+      showArrowContainer={showArrowContainer}>
       {children}
     </ScrollContainer>
   )
 
-  if (!showArrows) {
+  if (!showArrowContainer) {
     return scrollContainer
   }
 
