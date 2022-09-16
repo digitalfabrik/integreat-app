@@ -12,7 +12,7 @@ import {
 } from 'api-client'
 
 import useFeatureLocations from '../../hooks/useFeatureLocations'
-import { renderWithRouter } from '../../testing/render'
+import { renderWithRouter, renderWithRouterAndTheme } from '../../testing/render'
 import PoisPage from '../PoisPage'
 
 jest.mock('react-i18next')
@@ -35,7 +35,7 @@ describe('PoisPage', () => {
   const pathname = cityContentPath({ route: POIS_ROUTE, cityCode: city.code, languageCode: language.code })
 
   const renderPois = () =>
-    renderWithRouter(
+    renderWithRouterAndTheme(
       <PoisPage
         cities={cities}
         cityModel={city}
@@ -44,8 +44,7 @@ describe('PoisPage', () => {
         pathname={pathname}
         languageCode={language.code}
         cityCode={city.code}
-      />,
-      { wrapWithTheme: true }
+      />
     )
 
   it('should render a list with all pois', () => {
