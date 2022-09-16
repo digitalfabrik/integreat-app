@@ -56,7 +56,7 @@ describe('DisclaimerPage', () => {
         cityCode={city.code}
         pathname={pathname}
       />,
-      { routePattern, pathname, wrapWithTheme: true }
+      { pathname, routePattern }
     )
   }
 

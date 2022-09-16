@@ -10,7 +10,7 @@ import {
 
 import RootSwitcher from '../RootSwitcher'
 import buildConfig from '../constants/buildConfig'
-import { renderWithBrowserRouter } from '../testing/render'
+import { renderWithRouterAndTheme } from '../testing/render'
 
 jest.mock('api-client', () => ({
   ...jest.requireActual('api-client'),
@@ -33,12 +33,12 @@ describe('RootSwitcher', () => {
   const cities = new CityModelBuilder(2).build()
 
   const renderRootSwitcher = (pathname: string) =>
-    renderWithBrowserRouter(
+    renderWithRouterAndTheme(
       <>
         <RootSwitcher setContentLanguage={setContentLanguage} />
         <MockComponent />
       </>,
-      { pathname, wrapWithTheme: true }
+      { pathname }
     )
 
   beforeEach(() => {
