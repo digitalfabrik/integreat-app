@@ -1,13 +1,14 @@
 import Headroom from '@integreat-app/react-sticky-headroom'
-import React, { ReactElement, ReactNode } from 'react'
+import React, { ReactElement, ReactNode, useRef } from 'react'
 import styled from 'styled-components'
 
 import { UiDirectionType } from 'translations'
 
 import dimensions from '../constants/dimensions'
 import HeaderLogo from './HeaderLogo'
-import HeaderTitle, { HEADER_TITLE_HEIGHT } from './HeaderTitle'
+import HeaderTitle from './HeaderTitle'
 import KebabMenu from './KebabMenu'
+import NavigationBarScrollContainer from './NavigationBarScrollContainer'
 
 type PropsType = {
   navigationItems: Array<ReactNode>
@@ -23,11 +24,11 @@ const HeaderContainer = styled.header`
   display: flex;
   width: 100%;
   box-sizing: border-box;
-  box-shadow: 0 2px 5px -3px rgba(0, 0, 0, 0.2);
   background-color: ${props => props.theme.colors.backgroundAccentColor};
   user-select: none;
   flex-direction: column;
   overflow: visible;
+  box-shadow: 0 2px 5px -3px rgba(0, 0, 0, 0.2);
 
   @media ${dimensions.minMaxWidth} {
     padding-right: calc((200% - 100vw - ${dimensions.maxWidth}px) / 2);
@@ -35,7 +36,7 @@ const HeaderContainer = styled.header`
   }
 `
 
-const Row = styled.div<{ hasTitle?: boolean }>`
+const Row = styled.div`
   display: flex;
   flex: 1;
   max-width: 100%;
@@ -48,14 +49,16 @@ const Row = styled.div<{ hasTitle?: boolean }>`
   }
 
   @media ${dimensions.smallViewport} {
+    background-color: ${props => props.theme.colors.backgroundAccentColor};
     justify-content: space-between;
     flex-wrap: wrap;
     min-height: ${dimensions.headerHeightSmall}px;
     overflow-x: auto;
-
+    padding: 8px 0;
+    box-shadow: 0 2px 5px -3px rgba(0, 0, 0, 0.2);
     :first-child {
-      /* this is only necessary for IE11 */
-      min-height: ${props => dimensions.headerHeightSmall + (props.hasTitle ? HEADER_TITLE_HEIGHT : 0)}px;
+      box-shadow: 0 2px 5px -3px rgba(0, 0, 0, 0.12);
+      padding: 0px 4px;
     }
   }
 `
@@ -87,10 +90,12 @@ const ActionBar = styled.nav`
 
 const NavigationBar = styled.nav`
   display: flex;
-  padding: 0 10px;
   flex: 1 1 0%; /* The % unit is necessary for IE11 */
   align-items: stretch;
   justify-content: center;
+  @media ${dimensions.mediumLargeViewport} {
+    padding: 0 10px;
+  }
 `
 
 /**
@@ -111,14 +116,15 @@ export const Header = ({
   const { headerHeightSmall, headerHeightLarge } = dimensions
   const hasNavigationBar = navigationItems.length > 0
   const height = viewportSmall
-    ? (1 + (hasNavigationBar ? 1 : 0)) * headerHeightSmall + (cityName ? HEADER_TITLE_HEIGHT : 0)
+    ? (1 + (hasNavigationBar ? 1 : 0)) * headerHeightSmall
     : (1 + (hasNavigationBar ? 1 : 0)) * headerHeightLarge
-  const scrollHeight = viewportSmall ? headerHeightSmall + (cityName ? HEADER_TITLE_HEIGHT : 0) : headerHeightLarge
+  const scrollHeight = viewportSmall ? headerHeightSmall : headerHeightLarge
+  const scrollContainerRef = useRef<HTMLDivElement>(null)
 
   return (
     <Headroom scrollHeight={scrollHeight} height={height}>
       <HeaderContainer>
-        <Row hasTitle={!!cityName}>
+        <Row>
           <HeaderLogo link={logoHref} />
           {!viewportSmall && cityName && <HeaderSeparator />}
           {(!viewportSmall || cityName) && <HeaderTitle>{cityName}</HeaderTitle>}
@@ -128,9 +134,9 @@ export const Header = ({
           </ActionBar>
         </Row>
         {hasNavigationBar && (
-          <Row>
+          <NavigationBarScrollContainer scrollContainerRef={scrollContainerRef} direction={direction}>
             <NavigationBar>{navigationItems}</NavigationBar>
-          </Row>
+          </NavigationBarScrollContainer>
         )}
       </HeaderContainer>
     </Headroom>

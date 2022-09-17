@@ -54,6 +54,7 @@ const BottomActionSheet = React.forwardRef(
         direction={direction}
         ref={ref}
         open
+        scrollLocking={false}
         blocking={false}
         header={title && <Title>{title}</Title>}
         snapPoints={({ maxHeight }) => getSnapPoints(maxHeight)}

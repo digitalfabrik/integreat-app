@@ -5,6 +5,7 @@ import styled from 'styled-components'
 
 import buildConfig from '../constants/buildConfig'
 import dimensions from '../constants/dimensions'
+import useWindowDimensions from '../hooks/useWindowDimensions'
 
 type PropsType = {
   link: string
@@ -29,10 +30,12 @@ const LogoContainer = styled.div`
     height: 100%;
     max-width: 100%;
     object-fit: contain;
+    object-position: left;
   }
 
   @media ${dimensions.smallViewport} {
     height: ${dimensions.headerHeightSmall}px;
+    max-width: ${dimensions.headerHeightSmall}px;
     flex: 1 1 0%; /* The % unit is necessary for IE11 */
     & a {
       max-height: 75%;
@@ -44,15 +47,18 @@ const LogoContainer = styled.div`
  * A logo component designed for the Header.
  */
 export const HeaderLogo = ({ link }: PropsType): ReactElement => {
+  const { viewportSmall } = useWindowDimensions()
   const { campaign, appName, icons } = buildConfig()
   const currentDate = moment()
   const showCampaignLogo = campaign && currentDate.isAfter(campaign.startDate) && currentDate.isBefore(campaign.endDate)
   const src = campaign && showCampaignLogo ? campaign.campaignAppLogo : icons.appLogo
+  const srcMobile = campaign && showCampaignLogo ? campaign.campaignAppLogo : icons.appLogoMobile
+  // TODO delete campaign in one commit incl assets
 
   return (
     <LogoContainer>
       <Link to={link}>
-        <img src={src} alt={appName} width='100%' height='auto' />
+        <img src={viewportSmall ? srcMobile : src} alt={appName} width='100%' height='auto' />
       </Link>
     </LogoContainer>
   )
