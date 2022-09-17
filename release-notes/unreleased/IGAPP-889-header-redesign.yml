@@ -1,0 +1,5 @@
+issue_key: IGAPP-889
+show_in_stores: true
+platforms:
+  - web
+en: Header area was optimized for mobile view.
