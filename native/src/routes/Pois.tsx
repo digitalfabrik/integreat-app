@@ -1,7 +1,7 @@
 import MapboxGL from '@react-native-mapbox-gl/maps'
 import React, { ReactElement, ReactNode, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { ScrollView } from 'react-native'
+import { ScrollView, useWindowDimensions } from 'react-native'
 import { useTheme } from 'styled-components'
 import styled from 'styled-components/native'
 
@@ -51,13 +51,20 @@ const CustomSheetList = styled.View`
   margin: 0 32px;
 `
 
-const BOTTOM_SHEET_SNAP_POINTS = [dimensions.bottomSheetHandler.height, '35%', '95%']
+const midSnapPointPercentage = 0.35
+const percentage = 100
+const BOTTOM_SHEET_SNAP_POINTS = [
+  dimensions.bottomSheetHandler.height,
+  `${midSnapPointPercentage * percentage}%`,
+  '95%',
+]
 
 const Pois = ({ pois, language, cityModel, route, navigation }: PropsType): ReactElement => {
   const { coordinates, requestAndDetermineLocation } = useUserLocation(true)
   const [urlSlug, setUrlSlug] = useState<string | null>(route.params.urlSlug ?? null)
   const [sheetSnapPointIndex, setSheetSnapPointIndex] = useState<number>(1)
   const [followUserLocation, setFollowUserLocation] = useState<boolean>(false)
+  const deviceHeight = useWindowDimensions().height
   const features = prepareFeatureLocations(pois, coordinates)
   const selectedFeature = urlSlug ? features.find(it => it.properties.urlSlug === urlSlug) : null
   const poi = pois.find(it => it.urlSlug === urlSlug)
@@ -100,14 +107,15 @@ const Pois = ({ pois, language, cityModel, route, navigation }: PropsType): Reac
   // Wait for followUserLocation change before moving the camera to avoid position lock
   // https://github.com/rnmapbox/maps/issues/1079
   useEffect(() => {
-    if (!followUserLocation && selectedFeature && cameraRef.current) {
+    if (!followUserLocation && selectedFeature && cameraRef.current && sheetSnapPointIndex === 1) {
       cameraRef.current.setCamera({
         centerCoordinate: selectedFeature.geometry.coordinates,
         zoomLevel: detailZoom,
         animationDuration,
+        padding: { paddingBottom: deviceHeight * midSnapPointPercentage },
       })
     }
-  }, [followUserLocation, selectedFeature])
+  }, [deviceHeight, followUserLocation, selectedFeature, sheetSnapPointIndex])
 
   const renderPoiListItem = (poi: PoiFeature): ReactNode => (
     <PoiListItem

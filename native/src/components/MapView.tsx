@@ -121,7 +121,7 @@ const MapView = React.forwardRef(
 
       if (feature) {
         selectPoiFeature(feature)
-        setSheetSnapPointIndex(2)
+        setSheetSnapPointIndex(1)
       } else {
         selectPoiFeature(null)
         setSheetSnapPointIndex(1)
