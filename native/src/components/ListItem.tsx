@@ -22,7 +22,7 @@ const Thumbnail = styled(SimpleImage)`
 const Description = styled.View`
   height: 100%;
   flex-direction: column;
-  flex-grow: 1;
+  flex: 1;
   font-family: ${props => props.theme.fonts.native.decorativeFontRegular};
   padding: 0 10px;
 `

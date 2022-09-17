@@ -23,6 +23,10 @@ const Separator = styled.View`
   border-top-color: ${props => props.theme.colors.themeColor};
 `
 
+const StyledSiteHelpfulBox = styled(SiteHelpfulBox)`
+  margin-top: 0;
+`
+
 export type PropsType = {
   path: string | null | undefined
   events: Array<EventModel>
@@ -154,7 +158,7 @@ const Events = ({
             <Separator />
           </>
         }
-        Footer={<SiteHelpfulBox navigateToFeedback={navigateToFeedbackForEvents} />}
+        Footer={<StyledSiteHelpfulBox navigateToFeedback={navigateToFeedbackForEvents} />}
         refresh={refresh}
         noItemsMessage={t('currentlyNoEvents')}
       />
