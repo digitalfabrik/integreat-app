@@ -25,8 +25,6 @@ const LocationFooter: React.FC<PropsType> = ({ city, language, overlay = false }
   })
   const licensesPath = pathnameFromRouteInformation({
     route: LICENSES_ROUTE,
-    cityCode: city,
-    languageCode: language,
   })
 
   return (
