@@ -90,6 +90,7 @@ export const webIntegreatBuildConfig: WebBuildConfigType = {
   manifestUrl: '/manifest.json',
   icons: {
     appLogo: '/app-logo.png',
+    appLogoMobile: '/app-icon-round.png',
     locationMarker: '/location-marker.svg',
     cityNotCooperating: '/city-not-cooperating.svg',
     appleTouchIcon: '/apple-touch-icon.png',

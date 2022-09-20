@@ -17,14 +17,14 @@ import {
 } from 'api-client'
 import { config } from 'translations'
 
+import { OffersIcon } from '../assets'
+import eventsIcon from '../assets/Events.svg'
 import searchIconMobile from '../assets/IconSearch.svg'
-import eventsIcon from '../assets/events.svg'
-import localInformationIcon from '../assets/local_information.svg'
+import localInformationIcon from '../assets/Local_Information.svg'
+import newsIcon from '../assets/News.svg'
+import poisIcon from '../assets/Pois.svg'
 import landingIcon from '../assets/location-icon.svg'
 import searchIcon from '../assets/magnifier.svg'
-import newsIcon from '../assets/news.svg'
-import offersIcon from '../assets/offers.svg'
-import poisIcon from '../assets/pois.svg'
 import HeaderActionBarItemLink from '../components/HeaderActionItemLink'
 import HeaderNavigationItem from '../components/HeaderNavigationItem'
 import buildConfig from '../constants/buildConfig'
@@ -54,13 +54,28 @@ const LocationHeader = (props: PropsType): ReactElement => {
   const newsPath = pathnameFromRouteInformation({ route: NEWS_ROUTE, newsType, ...params })
   const searchPath = pathnameFromRouteInformation({ route: SEARCH_ROUTE, ...params })
   const landingPath = pathnameFromRouteInformation({ route: LANDING_ROUTE, ...{ languageCode } })
+  const direction = config.getScriptDirection(languageCode)
 
   const { t } = useTranslation('layout')
 
   const actionItems = viewportSmall
-    ? [<HeaderActionBarItemLink key='search' href={searchPath} text={t('search')} iconSrc={searchIconMobile} />]
+    ? [
+        <HeaderActionBarItemLink
+          key='search'
+          href={searchPath}
+          text={t('search')}
+          iconSrc={searchIconMobile}
+          direction={direction}
+        />,
+      ]
     : [
-        <HeaderActionBarItemLink key='search' href={searchPath} text={t('search')} iconSrc={searchIcon} />,
+        <HeaderActionBarItemLink
+          key='search'
+          href={searchPath}
+          text={t('search')}
+          iconSrc={searchIcon}
+          direction={direction}
+        />,
         ...(!buildConfig().featureFlags.fixedCity
           ? [
               <HeaderActionBarItemLink
@@ -80,7 +95,13 @@ const LocationHeader = (props: PropsType): ReactElement => {
       ]
 
   const kebabItems = [
-    <KebabActionItemLink key='location' href={landingPath} text={t('changeLocation')} iconSrc={landingIcon} />,
+    <KebabActionItemLink
+      key='location'
+      href={landingPath}
+      text={t('changeLocation')}
+      iconSrc={landingIcon}
+      direction={direction}
+    />,
     <LanguageSelector
       key='language'
       languageChangePaths={languageChangePaths}
@@ -108,6 +129,7 @@ const LocationHeader = (props: PropsType): ReactElement => {
         active={route === CATEGORIES_ROUTE}
         text={t('localInformation')}
         icon={localInformationIcon}
+        direction={direction}
       />,
     ]
 
@@ -119,6 +141,7 @@ const LocationHeader = (props: PropsType): ReactElement => {
           href={newsPath}
           text={t('news')}
           icon={newsIcon}
+          direction={direction}
         />
       )
     }
@@ -131,6 +154,7 @@ const LocationHeader = (props: PropsType): ReactElement => {
           active={route === EVENTS_ROUTE}
           text={t('events')}
           icon={eventsIcon}
+          direction={direction}
         />
       )
     }
@@ -143,6 +167,7 @@ const LocationHeader = (props: PropsType): ReactElement => {
           active={route === POIS_ROUTE}
           text={t('pois')}
           icon={poisIcon}
+          direction={direction}
         />
       )
     }
@@ -154,7 +179,8 @@ const LocationHeader = (props: PropsType): ReactElement => {
           href={offersPath}
           active={route === OFFERS_ROUTE || route === SPRUNGBRETT_OFFER_ROUTE || route === SHELTER_ROUTE}
           text={t('offers')}
-          icon={offersIcon}
+          icon={OffersIcon}
+          direction={direction}
         />
       )
     }

@@ -66,7 +66,7 @@ const Breadcrumbs = ({ direction, ancestorBreadcrumbs, currentBreadcrumb }: Prop
       <OrderedList direction={direction}>
         {ancestorBreadcrumbs.map((breadcrumb, index) =>
           ancestorBreadcrumbs.length > 1 && index === 0 ? (
-            <StyledLink to={breadcrumb.link} key={breadcrumb.link}>
+            <StyledLink to={breadcrumb.pathname} key={breadcrumb.pathname}>
               <HomeIcon src={iconHome} alt='' />
             </StyledLink>
           ) : (
