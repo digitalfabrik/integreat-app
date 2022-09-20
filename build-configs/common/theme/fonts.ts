@@ -12,6 +12,7 @@ export type FontsType = {
   }
   fontSizeAdjust: number
   decorativeFontSize: string
+  decorativeFontSizeSmall: string
   decorativeLineHeight: number
   contentFontSize: string
   contentLineHeight: number
@@ -22,6 +23,7 @@ export type FontsType = {
 export const commonFonts = {
   fontSizeAdjust: 0.55,
   decorativeFontSize: '0.95rem',
+  decorativeFontSizeSmall: '0.7rem',
   decorativeLineHeight: 1.3,
   contentFontSize: '0.95rem',
   contentLineHeight: 1.4,
