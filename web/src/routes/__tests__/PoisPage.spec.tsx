@@ -12,7 +12,7 @@ import {
 } from 'api-client'
 
 import useFeatureLocations from '../../hooks/useFeatureLocations'
-import { renderWithRouter, renderWithRouterAndTheme } from '../../testing/render'
+import { renderWithRouterAndTheme } from '../../testing/render'
 import PoisPage from '../PoisPage'
 
 jest.mock('react-i18next')
