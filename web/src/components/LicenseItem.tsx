@@ -13,13 +13,13 @@ type PropsType = {
   name: string
   version: string | undefined
   license: string
-  onPress: string
+  licenseUrl: string
 }
 
-const LicenseItem = ({ license, name, onPress, version }: PropsType): ReactElement => {
+const LicenseItem = ({ license, name, licenseUrl, version }: PropsType): ReactElement => {
   const { t } = useTranslation('licenses')
   return (
-    <ListItem path={onPress} title={name}>
+    <ListItem path={licenseUrl} title={name}>
       <LicenseContainer>
         <div>
           {t('version')} {version}
