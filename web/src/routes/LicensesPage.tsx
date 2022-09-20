@@ -30,7 +30,7 @@ const LicensesPage = ({ languageCode }: PropsType): ReactElement => {
       name={item.name}
       license={item.licenses}
       version={item.version}
-      onPress={item.licenseUrl}
+      licenseUrl={item.licenseUrl}
     />
   )
 
