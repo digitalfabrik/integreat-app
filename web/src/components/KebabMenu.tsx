@@ -6,8 +6,9 @@ import { UiDirectionType } from 'translations'
 import iconClose from '../assets/IconClose.svg'
 import iconKebabMenu from '../assets/IconKebabMenu.svg'
 import dimensions from '../constants/dimensions'
+import useLockedBody from '../hooks/useLockedBody'
 import '../styles/KebabMenu.css'
-import { Portal } from './Portal'
+import Portal from './Portal'
 
 type KebabMenuProps = {
   items: Array<ReactNode>
@@ -78,19 +79,28 @@ const ToggleButton = styled.button`
 
 const KebabMenu = ({ items, direction }: KebabMenuProps): ReactElement => {
   const [checked, setChecked] = useState<boolean>(false)
+  const { locked, setLocked } = useLockedBody(checked)
+
+  const onClick = () => {
+    if (!locked) {
+      window.scrollTo(0, 0)
+    }
+    setChecked(!checked)
+    setLocked(!locked)
+  }
 
   return (
     <ToggleContainer>
-      <ToggleButton onClick={() => setChecked(!checked)} data-testid='kebab-menu-button'>
+      <ToggleButton onClick={onClick} data-testid='kebab-menu-button'>
         <Icon src={iconKebabMenu} alt='' />
       </ToggleButton>
       <Portal className='kebab-menu' opened={checked}>
         {/* disabled because this is an overlay for backdrop close */}
         {/* eslint-disable-next-line styled-components-a11y/no-static-element-interactions,styled-components-a11y/click-events-have-key-events */}
-        <Overlay onClick={() => setChecked(false)} checked={checked} />
+        <Overlay onClick={onClick} checked={checked} />
         <List direction={direction} checked={checked}>
           <Heading direction={direction}>
-            <ToggleButton onClick={() => setChecked(!checked)}>
+            <ToggleButton onClick={onClick}>
               <Icon src={iconClose} alt='' />
             </ToggleButton>
           </Heading>

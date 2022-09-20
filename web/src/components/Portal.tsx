@@ -8,7 +8,7 @@ type PropsType = {
   opened?: boolean
 }
 /** A portal creates a new DOM Node outside the regular DOM. You can use it f.e. to fix z-index problems */
-export const Portal = ({ children, className, element = 'reach-portal', opened = false }: PropsType): ReactPortal => {
+const Portal = ({ children, className, element = 'reach-portal', opened = false }: PropsType): ReactPortal => {
   const [container] = useState(() => document.createElement(element))
 
   useEffect(() => {
@@ -30,3 +30,5 @@ export const Portal = ({ children, className, element = 'reach-portal', opened =
 
   return createPortal(children, container)
 }
+
+export default Portal
