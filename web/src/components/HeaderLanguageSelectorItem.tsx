@@ -1,6 +1,8 @@
 import React, { ReactElement } from 'react'
 import { TFunction } from 'react-i18next'
 
+import { UiDirectionType } from 'translations/src'
+
 import languageIcon from '../assets/language-icon.svg'
 import SelectorItemModel from '../models/SelectorItemModel'
 import HeaderActionItemDropDown from './HeaderActionItemDropDown'
@@ -13,6 +15,7 @@ type PropsType = {
   activeItemCode: string
   t: TFunction<'layout'>
   inKebabMenu?: boolean
+  direction?: UiDirectionType
 }
 
 const HeaderLanguageSelectorItem = ({
@@ -20,6 +23,7 @@ const HeaderLanguageSelectorItem = ({
   activeItemCode,
   t,
   inKebabMenu = false,
+  direction,
 }: PropsType): ReactElement => {
   const noLanguagesHint = t('noLanguages')
 
@@ -36,14 +40,14 @@ const HeaderLanguageSelectorItem = ({
   const renderActionItem = () => {
     if (inKebabMenu) {
       return (
-        <KebabActionItemDropDown iconSrc={languageIcon} text={t('changeLanguage')}>
+        <KebabActionItemDropDown iconSrc={languageIcon} text={t('changeLanguage')} direction={direction}>
           {renderItem}
         </KebabActionItemDropDown>
       )
     }
 
     return (
-      <HeaderActionItemDropDown iconSrc={languageIcon} text={t('changeLanguage')}>
+      <HeaderActionItemDropDown iconSrc={languageIcon} text={t('changeLanguage')} direction={direction}>
         {renderItem}
       </HeaderActionItemDropDown>
     )
@@ -53,7 +57,7 @@ const HeaderLanguageSelectorItem = ({
     return renderActionItem()
   }
 
-  return <HeaderActionBarItemLink text={noLanguagesHint} iconSrc={languageIcon} />
+  return <HeaderActionBarItemLink text={noLanguagesHint} iconSrc={languageIcon} direction={direction} />
 }
 
 export default HeaderLanguageSelectorItem
