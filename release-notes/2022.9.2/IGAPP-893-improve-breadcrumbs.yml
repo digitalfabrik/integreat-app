@@ -1,0 +1,6 @@
+issue_key: IGAPP-893
+show_in_stores: true
+platforms:
+  - web
+en: Display of breadcrumbs was improved
+de: Die Darstellung der Breadcrumbs wurde verbessert

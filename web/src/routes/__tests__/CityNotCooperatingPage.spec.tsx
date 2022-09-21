@@ -1,9 +1,8 @@
 import { fireEvent, RenderResult, waitFor } from '@testing-library/react'
 import React from 'react'
-import { ThemeProvider } from 'styled-components'
 
 import buildConfig from '../../constants/buildConfig'
-import { renderWithRouter } from '../../testing/render'
+import { renderWithRouterAndTheme } from '../../testing/render'
 import CityNotCooperatingPage from '../CityNotCooperatingPage'
 
 Object.assign(navigator, {
@@ -20,11 +19,7 @@ describe('CityNotCooperatingPage', () => {
   const template = buildConfig().featureFlags.cityNotCooperatingTemplate
 
   const renderPage = (): RenderResult =>
-    renderWithRouter(
-      <ThemeProvider theme={buildConfig().lightTheme}>
-        <CityNotCooperatingPage languageCode={languageCode} />
-      </ThemeProvider>
-    )
+    renderWithRouterAndTheme(<CityNotCooperatingPage languageCode={languageCode} />)
 
   it('should render texts', () => {
     const { getByText } = renderPage()
