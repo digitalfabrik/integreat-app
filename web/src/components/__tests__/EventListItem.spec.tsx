@@ -5,7 +5,7 @@ import { DateFormatter, EventModelBuilder } from 'api-client'
 import EventPlaceholder1 from '../../assets/EventPlaceholder1.jpg'
 import EventPlaceholder2 from '../../assets/EventPlaceholder2.jpg'
 import EventPlaceholder3 from '../../assets/EventPlaceholder3.jpg'
-import { renderWithRouter } from '../../testing/render'
+import { renderWithRouterAndTheme } from '../../testing/render'
 import { textTruncator } from '../../utils/stringUtils'
 import EventListItem, { NUM_OF_CHARS_ALLOWED } from '../EventListItem'
 
@@ -16,9 +16,7 @@ describe('EventListItem', () => {
   const formatter = new DateFormatter(language)
 
   it('should show event list item with specific thumbnail', () => {
-    const { getByText, getByRole } = renderWithRouter(<EventListItem event={event} formatter={formatter} />, {
-      wrapWithTheme: true,
-    })
+    const { getByText, getByRole } = renderWithRouterAndTheme(<EventListItem event={event} formatter={formatter} />)
 
     expect(getByText(event.title)).toBeTruthy()
     expect(getByText(event.date.toFormattedString(formatter))).toBeTruthy()
@@ -30,9 +28,8 @@ describe('EventListItem', () => {
   it('should show event list item with placeholder thumbnail', () => {
     const eventWithoutThumbnail = Object.assign(event, { _thumbnail: undefined })
 
-    const { getByText, getByRole } = renderWithRouter(
-      <EventListItem event={eventWithoutThumbnail} formatter={formatter} />,
-      { wrapWithTheme: true }
+    const { getByText, getByRole } = renderWithRouterAndTheme(
+      <EventListItem event={eventWithoutThumbnail} formatter={formatter} />
     )
 
     expect(getByText(event.title)).toBeTruthy()

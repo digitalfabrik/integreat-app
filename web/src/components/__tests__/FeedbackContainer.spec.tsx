@@ -1,6 +1,5 @@
-import { fireEvent, render, waitFor } from '@testing-library/react'
+import { fireEvent, waitFor } from '@testing-library/react'
 import React, { ComponentProps } from 'react'
-import { ThemeProvider } from 'styled-components'
 
 import {
   CATEGORIES_FEEDBACK_TYPE,
@@ -18,8 +17,8 @@ import {
   SPRUNGBRETT_OFFER,
 } from 'api-client'
 
-import buildConfig from '../../constants/buildConfig'
 import { RouteType, TU_NEWS_ROUTE } from '../../routes'
+import { renderWithTheme } from '../../testing/render'
 import FeedbackContainer from '../FeedbackContainer'
 
 const mockRequest = jest.fn()
@@ -67,10 +66,8 @@ describe('FeedbackContainer', () => {
     ${SEARCH_ROUTE}     | ${{ query: 'query ' }}                 | ${SEARCH_FEEDBACK_TYPE}
     ${TU_NEWS_ROUTE}    | ${{}}                                  | ${CATEGORIES_FEEDBACK_TYPE}
   `('should successfully request feedback for $feedbackType', async ({ route, inputProps, feedbackType }) => {
-    const { getByRole } = render(
-      <ThemeProvider theme={buildConfig().lightTheme}>
-        <FeedbackContainer {...buildDefaultProps(route, true, false)} {...inputProps} />
-      </ThemeProvider>
+    const { getByRole } = renderWithTheme(
+      <FeedbackContainer {...buildDefaultProps(route, true, false)} {...inputProps} />
     )
     const button = getByRole('button', {
       name: 'feedback:send',
@@ -93,10 +90,8 @@ describe('FeedbackContainer', () => {
   })
 
   it('should display thanks message for modal', async () => {
-    const { getByRole, getByText } = render(
-      <ThemeProvider theme={buildConfig().lightTheme}>
-        <FeedbackContainer {...buildDefaultProps(CATEGORIES_ROUTE, true, false)} />
-      </ThemeProvider>
+    const { getByRole, getByText } = renderWithTheme(
+      <FeedbackContainer {...buildDefaultProps(CATEGORIES_ROUTE, true, false)} />
     )
     const button = getByRole('button', {
       name: 'feedback:send',
@@ -109,10 +104,8 @@ describe('FeedbackContainer', () => {
   })
 
   it('should display thanks message for search', async () => {
-    const { getByRole, getByText, queryByRole } = render(
-      <ThemeProvider theme={buildConfig().lightTheme}>
-        <FeedbackContainer {...buildDefaultProps(CATEGORIES_ROUTE, true, true)} />
-      </ThemeProvider>
+    const { getByRole, getByText, queryByRole } = renderWithTheme(
+      <FeedbackContainer {...buildDefaultProps(CATEGORIES_ROUTE, true, true)} />
     )
     const button = getByRole('button', {
       name: 'feedback:send',
@@ -128,10 +121,8 @@ describe('FeedbackContainer', () => {
     mockRequest.mockImplementationOnce(() => {
       throw new Error()
     })
-    const { getByRole, getByText } = render(
-      <ThemeProvider theme={buildConfig().lightTheme}>
-        <FeedbackContainer {...buildDefaultProps(SEARCH_ROUTE, true, true)} />
-      </ThemeProvider>
+    const { getByRole, getByText } = renderWithTheme(
+      <FeedbackContainer {...buildDefaultProps(SEARCH_ROUTE, true, true)} />
     )
     const button = getByRole('button', {
       name: 'feedback:send',

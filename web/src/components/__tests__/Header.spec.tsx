@@ -1,7 +1,7 @@
 import { fireEvent } from '@testing-library/react'
 import React from 'react'
 
-import { renderWithRouter, renderWithBrowserRouter } from '../../testing/render'
+import { renderWithRouterAndTheme } from '../../testing/render'
 import { Header } from '../Header'
 import HeaderActionItemLink from '../HeaderActionItemLink'
 import HeaderNavigationItem from '../HeaderNavigationItem'
@@ -11,7 +11,7 @@ describe('Header', () => {
   it('should render correctly', () => {
     const cityName = 'TestCity'
 
-    const { getByText } = renderWithBrowserRouter(
+    const { getByText } = renderWithRouterAndTheme(
       <Header
         logoHref='/random_route'
         actionItems={[]}
@@ -20,13 +20,13 @@ describe('Header', () => {
         viewportSmall
         cityName={cityName}
         direction='ltr'
-      />,
-      { wrapWithTheme: true }
+      />
     )
     expect(getByText(cityName)).toBeDefined()
   })
+
   it('should render KebabMenu with elements on small viewport', () => {
-    const { getByTestId } = renderWithRouter(
+    const { getByTestId } = renderWithRouterAndTheme(
       <Header
         logoHref='/random_route'
         actionItems={[<HeaderActionItemLink key={0} href='/random_route' text='random route' iconSrc='/icon.jpg' />]}
@@ -36,15 +36,14 @@ describe('Header', () => {
         ]}
         viewportSmall
         direction='ltr'
-      />,
-      { wrapWithTheme: true }
+      />
     )
     expect(getByTestId('kebab-menu-button')).toBeInTheDocument()
     fireEvent.click(getByTestId('kebab-menu-button'))
     expect(getByTestId('kebab-action-item')).toHaveProperty('href', 'http://localhost/kebab_route')
   })
   it('should not render KebabMenu on large viewport', () => {
-    const { queryByTestId } = renderWithRouter(
+    const { queryByTestId } = renderWithRouterAndTheme(
       <Header
         logoHref='/random_route'
         actionItems={[<HeaderActionItemLink key={0} href='/random_route' text='random route' iconSrc='/icon.jpg' />]}
@@ -54,8 +53,7 @@ describe('Header', () => {
         ]}
         viewportSmall={false}
         direction='ltr'
-      />,
-      { wrapWithTheme: true }
+      />
     )
     expect(queryByTestId('kebab-menu-button')).not.toBeInTheDocument()
   })
