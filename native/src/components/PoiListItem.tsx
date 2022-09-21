@@ -1,9 +1,8 @@
-import React, { memo, ReactElement } from 'react'
-import { useTranslation } from 'react-i18next'
+import React, { PureComponent, ReactElement } from 'react'
+import { TFunction } from 'react-i18next'
 import styled from 'styled-components/native'
 
 import { PoiFeature } from 'api-client'
-import { ThemeType } from 'build-configs'
 
 import Placeholder from '../assets/PoiPlaceholderThumbnail.jpg'
 import { contentDirection } from '../constants/contentDirection'
@@ -23,7 +22,6 @@ const Thumbnail = styled(SimpleImage)`
 
 const StyledTouchableOpacity = styled.TouchableOpacity<{ language: string }>`
   flex: 1;
-  flex-direction: column;
   border-bottom-width: 1px;
   border-bottom-color: ${props => props.theme.colors.textDisabledColor};
   flex-direction: ${props => contentDirection(props.language)};
@@ -34,7 +32,6 @@ const Description = styled.View`
   flex: 1;
   height: 100%;
   flex-direction: column;
-  flex-grow: 1;
   font-family: ${props => props.theme.fonts.native.decorativeFontRegular};
   padding: 0 32px;
   justify-content: center;
@@ -45,27 +42,30 @@ const Title = styled.Text`
   color: ${props => props.theme.colors.textColor};
 `
 
-type PoiListItemProps = {
+type Props = {
   poi: PoiFeature
   language: string
   navigateToPoi: () => void
-  theme: ThemeType
+  t: TFunction
 }
 
-export const PoiListItem: React.FC<PoiListItemProps> = memo(
-  ({ poi, navigateToPoi, language, theme }: PoiListItemProps): ReactElement => {
-    const { t } = useTranslation('pois')
+// This should stay a PureComponent for performance reasons
+class PoiListItem extends PureComponent<Props> {
+  render(): ReactElement {
+    const { poi, language, navigateToPoi, t } = this.props
     const thumbnail = poi.properties.thumbnail ?? Placeholder
     return (
-      <StyledTouchableOpacity onPress={navigateToPoi} theme={theme} activeOpacity={1} language={language}>
+      <StyledTouchableOpacity onPress={navigateToPoi} activeOpacity={1} language={language}>
         <Thumbnail source={thumbnail} />
-        <Description theme={theme}>
-          <Title theme={theme}>{poi.properties.title}</Title>
+        <Description>
+          <Title>{poi.properties.title}</Title>
           {poi.properties.distance && (
-            <Distance theme={theme}>{t('distanceKilometre', { distance: poi.properties.distance })}</Distance>
+            <Distance>{t('distanceKilometre', { distance: poi.properties.distance })}</Distance>
           )}
         </Description>
       </StyledTouchableOpacity>
     )
   }
-)
+}
+
+export default PoiListItem

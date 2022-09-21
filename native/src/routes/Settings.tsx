@@ -88,7 +88,7 @@ const Settings = ({ navigation }: PropsType): ReactElement => {
   const renderItem = ({ item }: { item: SettingsSectionType }) => {
     const { getSettingValue, ...otherProps } = item
     const value = !!(settings && getSettingValue && getSettingValue(settings))
-    return <SettingItem value={value} {...otherProps} />
+    return <SettingItem value={value} key={otherProps.title} {...otherProps} />
   }
 
   const renderSectionHeader = ({ section: { title } }: { section: SectionType }) => {
@@ -98,8 +98,6 @@ const Settings = ({ navigation }: PropsType): ReactElement => {
 
     return <SectionHeader>{title}</SectionHeader>
   }
-
-  const keyExtractor = (item: SettingsSectionType, index: number): string => index.toString()
 
   if (!settings) {
     return <Layout />
@@ -118,7 +116,6 @@ const Settings = ({ navigation }: PropsType): ReactElement => {
   return (
     <Layout>
       <SectionList
-        keyExtractor={keyExtractor}
         sections={sections}
         extraData={settings}
         renderItem={renderItem}
