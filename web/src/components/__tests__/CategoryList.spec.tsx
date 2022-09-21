@@ -3,7 +3,7 @@ import React from 'react'
 
 import { CategoryModel } from 'api-client'
 
-import { renderWithRouter } from '../../testing/render'
+import { renderWithRouterAndTheme } from '../../testing/render'
 import CategoryList from '../CategoryList'
 
 const modelWithTitle = new CategoryModel({
@@ -82,9 +82,8 @@ describe('CategoryList', () => {
   const onInternalLinkClick = jest.fn()
 
   it('should render category list', () => {
-    const { getByText } = renderWithRouter(
-      <CategoryList onInternalLinkClick={onInternalLinkClick} categories={categories} />,
-      { wrapWithTheme: true }
+    const { getByText } = renderWithRouterAndTheme(
+      <CategoryList onInternalLinkClick={onInternalLinkClick} categories={categories} />
     )
     categoryModels.forEach(() => {
       expect(getByText(categoryModels[0].title)).toBeTruthy()
@@ -92,9 +91,8 @@ describe('CategoryList', () => {
   })
 
   it('should render title, content and thumbnail of category', () => {
-    const { getByText } = renderWithRouter(
-      <CategoryList onInternalLinkClick={onInternalLinkClick} categories={[]} category={modelWithTitle} />,
-      { wrapWithTheme: true }
+    const { getByText } = renderWithRouterAndTheme(
+      <CategoryList onInternalLinkClick={onInternalLinkClick} categories={[]} category={modelWithTitle} />
     )
     expect(getByText('Asylantrag')).toBeTruthy()
     expect(getByText('This is some special test content')).toBeTruthy()

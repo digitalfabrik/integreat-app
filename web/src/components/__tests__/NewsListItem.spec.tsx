@@ -1,11 +1,10 @@
 import moment from 'moment'
 import React from 'react'
-import { ThemeProvider } from 'styled-components'
 
 import { DateFormatter, LOCAL_NEWS_TYPE, textTruncator } from 'api-client'
 
-import buildConfig from '../../constants/buildConfig'
-import { renderWithRouter } from '../../testing/render'
+import { renderWithRouterAndTheme } from '../../testing/render'
+import { textTruncator } from '../../utils/stringUtils'
 import NewsListItem, { NUM_OF_CHARS_ALLOWED } from '../NewsListItem'
 
 jest.mock('../LastUpdateInfo', () =>
@@ -18,7 +17,6 @@ jest.mock('../LastUpdateInfo', () =>
 )
 
 describe('NewsListItem', () => {
-  const theme = buildConfig().lightTheme
   const language = 'en'
   const link = '/testumgebung/en/news/local'
   const t = (key: string) => key
@@ -36,18 +34,16 @@ describe('NewsListItem', () => {
       'If you discover a tick in your skin, you should carefully pull it out with tweezers without crushing it. ' +
       'If the sting inflames, you must see a doctor.'
 
-    const { getByText } = renderWithRouter(
-      <ThemeProvider theme={theme}>
-        <NewsListItem
-          type={LOCAL_NEWS_TYPE}
-          title={title}
-          content={message}
-          timestamp={lastUpdate}
-          formatter={new DateFormatter(language)}
-          t={t}
-          link={link}
-        />
-      </ThemeProvider>
+    const { getByText } = renderWithRouterAndTheme(
+      <NewsListItem
+        type={LOCAL_NEWS_TYPE}
+        title={title}
+        content={message}
+        timestamp={lastUpdate}
+        formatter={new DateFormatter(language)}
+        t={t}
+        link={link}
+      />
     )
 
     expect(getByText(title)).toBeTruthy()

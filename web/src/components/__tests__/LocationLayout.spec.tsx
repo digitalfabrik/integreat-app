@@ -1,10 +1,9 @@
-import { render } from '@testing-library/react'
+import { RenderResult } from '@testing-library/react'
 import React from 'react'
-import { ThemeProvider } from 'styled-components'
 
 import { CATEGORIES_ROUTE, CityModelBuilder } from 'api-client'
 
-import buildConfig from '../../constants/buildConfig'
+import { renderWithTheme } from '../../testing/render'
 import LocationLayout, { ToolbarPropType } from '../LocationLayout'
 
 jest.mock('../LocationFooter', () => () => <div>LocationFooter</div>)
@@ -20,38 +19,38 @@ describe('LocationLayout', () => {
   ]
 
   const feedbackTargetInformation = { path: '/path/to/category' }
-  const theme = buildConfig().lightTheme
 
   const MockNode = () => <div />
-  const renderLocationLayout = (isLoading: boolean, toolbar?: ToolbarPropType) => (
-    <LocationLayout
-      toolbar={toolbar}
-      cityModel={cityModel}
-      languageCode={language}
-      route={CATEGORIES_ROUTE}
-      languageChangePaths={languageChangePaths}
-      feedbackTargetInformation={feedbackTargetInformation}
-      viewportSmall
-      isLoading={isLoading}>
-      <MockNode />
-    </LocationLayout>
-  )
+  const renderLocationLayout = (isLoading: boolean, toolbar?: ToolbarPropType): RenderResult =>
+    renderWithTheme(
+      <LocationLayout
+        toolbar={toolbar}
+        cityModel={cityModel}
+        languageCode={language}
+        route={CATEGORIES_ROUTE}
+        languageChangePaths={languageChangePaths}
+        feedbackTargetInformation={feedbackTargetInformation}
+        viewportSmall
+        isLoading={isLoading}>
+        <MockNode />
+      </LocationLayout>
+    )
 
   it('should render a toolbar', () => {
     const toolbar = () => 'LocationToolbar'
 
-    const { getByText } = render(<ThemeProvider theme={theme}>{renderLocationLayout(false, toolbar)}</ThemeProvider>)
+    const { getByText } = renderLocationLayout(false, toolbar)
     expect(getByText('LocationToolbar')).toBeTruthy()
   })
 
   it('should show LocationHeader and LocationFooter if not loading', () => {
-    const { getByText } = render(<ThemeProvider theme={theme}>{renderLocationLayout(false)}</ThemeProvider>)
+    const { getByText } = renderLocationLayout(false)
     expect(getByText('LocationHeader')).toBeTruthy()
     expect(getByText('LocationFooter')).toBeTruthy()
   })
 
   it('should not render LocationFooter if loading', () => {
-    const { getByText } = render(<ThemeProvider theme={theme}>{renderLocationLayout(true)}</ThemeProvider>)
+    const { getByText } = renderLocationLayout(true)
     expect(getByText('LocationHeader')).toBeTruthy()
     expect(() => getByText('LocationFooter')).toThrow()
   })

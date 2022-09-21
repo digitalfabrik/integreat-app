@@ -4,7 +4,6 @@ import { CityModel, SEARCH_ROUTE } from 'api-client'
 
 import Layout from '../components/Layout'
 import LocationFooter from '../components/LocationFooter'
-import buildConfig from '../constants/buildConfig'
 import { RouteType } from '../routes'
 import ChatBotWidget from './ChatBotWidget'
 import FeedbackModal from './FeedbackModal'
@@ -77,7 +76,7 @@ const LocationLayout = (props: PropsType): ReactElement => {
       toolbar={toolbar}>
       <>
         {children}
-        {buildConfig().featureFlags.developerFriendly && cityModel.code === 'muenchen' && <ChatBotWidget />}
+        {cityModel.code === 'muenchen' && <ChatBotWidget />}
       </>
     </Layout>
   )

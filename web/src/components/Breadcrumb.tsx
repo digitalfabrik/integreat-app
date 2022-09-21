@@ -4,19 +4,27 @@ import styled from 'styled-components'
 import { helpers } from '../constants/theme'
 
 const ListItem = styled.li`
-  display: inline;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  flex-shrink: 0.1;
+
+  &:not(:last-of-type) {
+    flex-shrink: 1;
+  }
 
   & * {
     ${helpers.removeLinkHighlighting}
-    color: ${props => props.theme.colors.textSecondaryColor};
-    font-size: 15px;
+    color: ${props => props.theme.colors.textColor};
+    font-size: 16px;
+    margin: 0 2px;
   }
 `
 
 const Separator = styled.span`
   &::before {
-    color: ${props => props.theme.colors.textDecorationColor};
-    font-size: 16px;
+    color: ${props => props.theme.colors.textColor};
+    font-size: 19px;
     content: ' > ';
   }
 `

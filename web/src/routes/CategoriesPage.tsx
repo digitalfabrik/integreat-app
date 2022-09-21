@@ -31,7 +31,6 @@ import { cmsApiBaseUrl } from '../constants/urls'
 import DateFormatterContext from '../contexts/DateFormatterContext'
 import useWindowDimensions from '../hooks/useWindowDimensions'
 import BreadcrumbModel from '../models/BreadcrumbModel'
-import { urlFromPath } from '../utils/stringUtils'
 
 const CATEGORY_NOT_FOUND_STATUS_CODE = 400
 
@@ -39,7 +38,7 @@ const getBreadcrumb = (category: CategoryModel, cityName: string) => {
   const title = category.isRoot() ? cityName : category.title
   return new BreadcrumbModel({
     title,
-    link: urlFromPath(category.path),
+    pathname: category.path,
     node: (
       <Link to={category.path} key={category.path}>
         {title}
