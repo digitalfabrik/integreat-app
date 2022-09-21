@@ -55,6 +55,21 @@ describe('contentDirection', () => {
         expect(contentDirection.contentDirection('en')).toBe('row')
       })
     })
+
+    it('should align text right if more chars are in rtl language', () => {
+      jest.isolateModules(() => {
+        const contentDirection = require('../contentDirection')
+
+        expect(contentDirection.contentAlignmentRTLText('Tuer an Tuer أمسية الرقص عند الباب للباب')).toBe('right')
+      })
+    })
+    it('should align text left if more chars are in ltr language', () => {
+      jest.isolateModules(() => {
+        const contentDirection = require('../contentDirection')
+
+        expect(contentDirection.contentAlignmentRTLText('Tuer an Tuer للباب')).toBe('left')
+      })
+    })
   })
 })
 

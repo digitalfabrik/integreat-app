@@ -3,6 +3,7 @@ import styled from 'styled-components/native'
 
 import { contentDirection } from '../constants/contentDirection'
 import SimpleImage, { ImageSourceType } from './SimpleImage'
+import Text from './base/Text'
 
 const ListItemView = styled.View<{ language: string }>`
   flex-direction: ${props => contentDirection(props.language)};
@@ -26,7 +27,7 @@ const Description = styled.View`
   font-family: ${props => props.theme.fonts.native.decorativeFontRegular};
   padding: 0 10px;
 `
-const Title = styled.Text`
+const Title = styled(Text)`
   font-weight: 700;
   font-family: ${props => props.theme.fonts.native.decorativeFontBold};
   color: ${props => props.theme.colors.textColor};
@@ -45,7 +46,7 @@ const ListItem = ({ language, title, thumbnail, children, navigateTo }: Props): 
     <ListItemView language={language}>
       {thumbnail && <Thumbnail source={thumbnail} />}
       <Description>
-        <Title android_hyphenationFrequency='full'>{title}</Title>
+        <Title>{title}</Title>
         {children}
       </Description>
     </ListItemView>
