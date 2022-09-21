@@ -1,7 +1,5 @@
 import React, { ReactElement, useCallback, useState } from 'react'
-import { useTranslation } from 'react-i18next'
 import { RefreshControl } from 'react-native'
-import { useTheme } from 'styled-components'
 
 import {
   createOffersEndpoint,
@@ -16,6 +14,7 @@ import {
 } from 'api-client'
 
 import Failure from '../components/Failure'
+import Layout from '../components/Layout'
 import LayoutedScrollView from '../components/LayoutedScrollView'
 import { NavigationPropType, RoutePropType } from '../constants/NavigationTypes'
 import useCities from '../hooks/useCities'
@@ -35,9 +34,6 @@ const SprungbrettOfferContainer = ({ route, navigation }: Props): ReactElement =
   const [title, setTitle] = useState<string>('')
   const { cityCode, languageCode } = route.params
   const alias = SPRUNGBRETT_OFFER_ROUTE
-
-  const { t } = useTranslation('sprungbrett')
-  const theme = useTheme()
 
   const routeInformation = { route: SPRUNGBRETT_OFFER_ROUTE, languageCode, cityCode }
   useSetShareUrl({ navigation, routeInformation, route })
@@ -89,6 +85,8 @@ const SprungbrettOfferContainer = ({ route, navigation }: Props): ReactElement =
 
   const cityModel = cities && cities.find(city => city.code === cityCode)
 
+  const refreshControl = <RefreshControl onRefresh={refresh} refreshing={loading} />
+
   if (jobsError || (cityModel && !cityModel.offersEnabled)) {
     const error =
       jobsError ||
@@ -99,25 +97,26 @@ const SprungbrettOfferContainer = ({ route, navigation }: Props): ReactElement =
         language: languageCode,
       })
     return (
-      <LayoutedScrollView refreshControl={<RefreshControl onRefresh={refresh} refreshing={loading} />}>
+      <LayoutedScrollView refreshControl={refreshControl}>
         <Failure code={fromError(error)} tryAgain={refresh} />
       </LayoutedScrollView>
     )
   }
 
+  if (!jobs) {
+    return <LayoutedScrollView refreshControl={refreshControl} />
+  }
+
   return (
-    <LayoutedScrollView refreshControl={<RefreshControl onRefresh={refresh} refreshing={loading} />}>
-      {jobs && (
-        <SprungbrettOffer
-          title={title}
-          jobs={jobs}
-          t={t}
-          theme={theme}
-          language={languageCode}
-          navigateToFeedback={navigateToFeedback}
-        />
-      )}
-    </LayoutedScrollView>
+    <Layout>
+      <SprungbrettOffer
+        title={title}
+        jobs={jobs}
+        language={languageCode}
+        navigateToFeedback={navigateToFeedback}
+        refresh={refresh}
+      />
+    </Layout>
   )
 }
 

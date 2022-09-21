@@ -5,6 +5,7 @@ import {
   EVENTS_ROUTE,
   JPAL_TRACKING_ROUTE,
   LANDING_ROUTE,
+  LICENSES_ROUTE,
   LOCAL_NEWS_TYPE,
   MAIN_DISCLAIMER_ROUTE,
   NEWS_ROUTE,
@@ -28,6 +29,7 @@ export const RoutePatterns = {
   [MAIN_DISCLAIMER_ROUTE]: `/${MAIN_DISCLAIMER_ROUTE}`,
   [JPAL_TRACKING_ROUTE]: `/${JPAL_TRACKING_ROUTE}`,
   [NOT_FOUND_ROUTE]: `/${NOT_FOUND_ROUTE}`,
+  [LICENSES_ROUTE]: `/${LICENSES_ROUTE}`,
 
   // City content routes, relative to /:cityCode/:languageCode
   [EVENTS_ROUTE]: EVENTS_ROUTE,

@@ -1,15 +1,12 @@
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Text, TouchableOpacity, View } from 'react-native'
+import { StyleProp, Text, TouchableOpacity, View, ViewStyle } from 'react-native'
 import styled from 'styled-components/native'
 
 import happyIcon from '../assets/smile-happy.svg'
 import sadIcon from '../assets/smile-sad.svg'
 import SimpleImage from './SimpleImage'
 
-const FeedbackBoxContainer = styled.View`
-  margin-top: auto;
-`
 const FeedbackBox = styled.View<{ backgroundColor?: string }>`
   margin-top: 25px;
   padding: 15px 5px;
@@ -55,30 +52,29 @@ const Thumbnail = styled(SimpleImage)`
 type PropsType = {
   navigateToFeedback: (positive: boolean) => void
   backgroundColor?: string
+  style?: StyleProp<ViewStyle>
 }
 
-const SiteHelpfulBox = ({ navigateToFeedback, backgroundColor }: PropsType): ReactElement => {
+const SiteHelpfulBox = ({ navigateToFeedback, backgroundColor, style }: PropsType): ReactElement => {
   const { t } = useTranslation('feedback')
   return (
-    <FeedbackBoxContainer>
-      <FeedbackBox backgroundColor={backgroundColor}>
-        <HelpfulText>{t('isThisSiteUseful')}</HelpfulText>
-        <FeedbackButtons>
-          <FeedbackTouchableOpacity onPress={() => navigateToFeedback(true)}>
-            <Circle>
-              <Thumbnail source={happyIcon} />
-            </Circle>
-            <FeedbackText>{t('useful')}</FeedbackText>
-          </FeedbackTouchableOpacity>
-          <FeedbackTouchableOpacity onPress={() => navigateToFeedback(false)}>
-            <Circle>
-              <Thumbnail source={sadIcon} />
-            </Circle>
-            <FeedbackText>{t('notUseful')}</FeedbackText>
-          </FeedbackTouchableOpacity>
-        </FeedbackButtons>
-      </FeedbackBox>
-    </FeedbackBoxContainer>
+    <FeedbackBox style={style} backgroundColor={backgroundColor}>
+      <HelpfulText>{t('isThisSiteUseful')}</HelpfulText>
+      <FeedbackButtons>
+        <FeedbackTouchableOpacity onPress={() => navigateToFeedback(true)}>
+          <Circle>
+            <Thumbnail source={happyIcon} />
+          </Circle>
+          <FeedbackText>{t('useful')}</FeedbackText>
+        </FeedbackTouchableOpacity>
+        <FeedbackTouchableOpacity onPress={() => navigateToFeedback(false)}>
+          <Circle>
+            <Thumbnail source={sadIcon} />
+          </Circle>
+          <FeedbackText>{t('notUseful')}</FeedbackText>
+        </FeedbackTouchableOpacity>
+      </FeedbackButtons>
+    </FeedbackBox>
   )
 }
 

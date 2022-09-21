@@ -1,6 +1,8 @@
 import React, { ReactElement, ReactNode, useRef, useState } from 'react'
 import styled from 'styled-components'
 
+import { UiDirectionType } from 'translations/src'
+
 import useOnClickOutside from '../hooks/useOnClickOutside'
 import { DropDownContainer } from './HeaderActionItemDropDown'
 import KebabActionItemLink from './KebabActionItemLink'
@@ -21,6 +23,7 @@ type PropsType = {
   children: (closeDropDown: () => void) => ReactNode
   iconSrc: string
   text: string
+  direction?: UiDirectionType
 }
 
 /**
@@ -28,8 +31,7 @@ type PropsType = {
  * Header. Once the user clicks outside, the node is hidden again. Additionally, the inner node gets a
  * closeDropDownCallback through its props to close the dropDown and hide itself.
  */
-const KebabActionItemDropDown = (props: PropsType): ReactElement => {
-  const { iconSrc, text, children } = props
+const KebabActionItemDropDown = ({ iconSrc, text, children, direction }: PropsType): ReactElement => {
   const [dropDownActive, setDropDownActive] = useState(false)
 
   const toggleDropDown = (): void => {
@@ -46,7 +48,7 @@ const KebabActionItemDropDown = (props: PropsType): ReactElement => {
   return (
     <Container ref={wrapperRef}>
       <Button type='button' aria-label={text} onClick={toggleDropDown}>
-        <KebabActionItemLink text={text} iconSrc={iconSrc} />
+        <KebabActionItemLink text={text} iconSrc={iconSrc} direction={direction} />
       </Button>
       <DropDownContainer
         data-testid='headerActionItemDropDown'
