@@ -10,6 +10,15 @@ export class Selector {
     return this
   }
 
+  public ByBeginsWith(text: string): Selector {
+    if (driver.isAndroid) {
+      this.queries.push(`.text("${text}")`)
+    } else {
+      this.queries.push(`label BEGINSWITH '${text}'`)
+    }
+    return this
+  }
+
   public ByContainedText(text: string): Selector {
     if (driver.isAndroid) {
       this.queries.push(`.textContains("${text}")`)
