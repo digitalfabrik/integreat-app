@@ -1,4 +1,4 @@
-import { fireEvent } from '@testing-library/react'
+import { fireEvent, waitFor } from '@testing-library/react'
 import moment from 'moment'
 import React from 'react'
 
@@ -41,20 +41,21 @@ describe('SearchPage', () => {
   })
   const routePattern = `/:cityCode/:languageCode/${RoutePatterns[SEARCH_ROUTE]}`
 
+  const searchPage = (
+    <SearchPage
+      cities={cities}
+      cityModel={cityModel}
+      languages={languages}
+      languageModel={languageModel}
+      pathname={pathname}
+      cityCode={cityModel.code}
+      languageCode={languageModel.code}
+    />
+  )
+
   const renderSearch = ({ query }: { query?: string } = {}) => {
     const pathnameWithQuery = query ? `${pathname}${query}` : pathname
-    return renderRoute(
-      <SearchPage
-        cities={cities}
-        cityModel={cityModel}
-        languages={languages}
-        languageModel={languageModel}
-        pathname={pathname}
-        cityCode={cityModel.code}
-        languageCode={languageModel.code}
-      />,
-      { routePattern, pathname: pathnameWithQuery, wrapWithTheme: true }
-    )
+    return renderRoute(searchPage, { routePattern, pathname: pathnameWithQuery })
   }
 
   it('should filter correctly', () => {
@@ -152,8 +153,8 @@ describe('SearchPage', () => {
     })
   })
 
-  it('should set url when state changes', () => {
-    const { getByPlaceholderText } = renderSearch()
+  it('should set url when state changes', async () => {
+    const { getByPlaceholderText, router } = renderRoute(searchPage, { pathname, routePattern })
 
     fireEvent.change(getByPlaceholderText('search:searchPlaceholder'), {
       target: {
@@ -161,7 +162,7 @@ describe('SearchPage', () => {
       },
     })
 
-    expect(global.window.location.href).toMatch(/\?query=ChangeToThis/)
+    await waitFor(() => expect(router.state.location.search).toMatch(/\?query=ChangeToThis/))
   })
 
   it('should remove ?query= when filteredText is empty', () => {
