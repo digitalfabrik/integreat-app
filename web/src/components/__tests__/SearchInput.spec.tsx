@@ -1,23 +1,20 @@
-import { fireEvent, render } from '@testing-library/react'
+import { fireEvent } from '@testing-library/react'
 import React from 'react'
-import { ThemeProvider } from 'styled-components'
 
-import buildConfig from '../../constants/buildConfig'
+import { renderWithTheme } from '../../testing/render'
 import SearchInput from '../SearchInput'
 
 describe('SearchInput', () => {
   it('should pass onFilterTextChange and onClickInput', () => {
     const outerFilterTextChange = jest.fn()
     const onClickInput = jest.fn()
-    const { getByPlaceholderText } = render(
-      <ThemeProvider theme={buildConfig().lightTheme}>
-        <SearchInput
-          filterText='Test'
-          placeholderText='Placeholder'
-          onClickInput={onClickInput}
-          onFilterTextChange={outerFilterTextChange}
-        />
-      </ThemeProvider>
+    const { getByPlaceholderText } = renderWithTheme(
+      <SearchInput
+        filterText='Test'
+        placeholderText='Placeholder'
+        onClickInput={onClickInput}
+        onFilterTextChange={outerFilterTextChange}
+      />
     )
     fireEvent.click(getByPlaceholderText('Placeholder'))
     expect(onClickInput).toHaveBeenCalled()
