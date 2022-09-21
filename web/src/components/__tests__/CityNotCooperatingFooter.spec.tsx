@@ -2,7 +2,7 @@ import React from 'react'
 
 import { lightTheme } from 'build-configs/integreat/theme'
 
-import { renderWithRouter } from '../../testing/render'
+import { renderWithRouterAndTheme } from '../../testing/render'
 import CityNotCooperatingFooter from '../CityNotCooperatingFooter'
 
 jest.mock('../../constants/buildConfig', () =>
@@ -27,7 +27,7 @@ describe('CityNotCooperatingFooter', () => {
     jest.clearAllMocks()
   })
   it('should render text and button', () => {
-    const { getByText } = renderWithRouter(<CityNotCooperatingFooter languageCode='de' />, { wrapWithTheme: true })
+    const { getByText } = renderWithRouterAndTheme(<CityNotCooperatingFooter languageCode='de' />)
     expect(getByText('cityNotFound')).toBeDefined()
     expect(getByText('clickHere')).toBeDefined()
   })

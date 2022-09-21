@@ -63,7 +63,7 @@ describe('TuNewsPage', () => {
         cityCode={city.code}
         languageCode={languageModel.code}
       />,
-      { routePattern, pathname, wrapWithTheme: true }
+      { routePattern, pathname }
     )
   }
 
