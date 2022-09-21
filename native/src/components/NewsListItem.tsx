@@ -1,15 +1,17 @@
 import * as React from 'react'
 import { ReactElement, useContext } from 'react'
 import { useTranslation } from 'react-i18next'
+import { View } from 'react-native'
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons'
 import styled from 'styled-components/native'
 
 import { LocalNewsModel, TunewsModel } from 'api-client'
 import { config } from 'translations'
 
-import { contentAlignment, contentDirection } from '../constants/contentDirection'
+import { contentDirection } from '../constants/contentDirection'
 import DateFormatterContext from '../contexts/DateFormatterContext'
 import TimeStamp from './TimeStamp'
+import Text from './base/Text'
 
 type PropsType = {
   index: number
@@ -19,9 +21,6 @@ type PropsType = {
   isTunews: boolean
 }
 
-const ListItemView = styled.View<{ language: string }>`
-  flex-direction: ${props => contentDirection(props.language)};
-`
 const ReadMoreWrapper = styled.View<{ language: string }>`
   flex-direction: ${props => contentDirection(props.language)};
   justify-content: flex-end;
@@ -54,7 +53,7 @@ export const Description = styled.View`
   flex-direction: column;
   font-family: ${props => props.theme.fonts.native.decorativeFontRegular};
 `
-export const Title = styled.Text`
+export const Title = styled(Text)`
   font-weight: 700;
   font-family: ${props => props.theme.fonts.native.decorativeFontBold};
   color: ${props => props.theme.colors.textColor};
@@ -62,21 +61,19 @@ export const Title = styled.Text`
   margin-bottom: 8px;
   margin-top: 8px;
 `
-export const Content = styled.Text<{ language: string }>`
+export const Content = styled(Text)`
   font-family: ${props => props.theme.fonts.native.decorativeFontRegular};
   font-size: 14px;
   letter-spacing: 0.5px;
-  text-align: ${props => contentAlignment(props.language)};
   color: ${props => props.theme.colors.textColor};
 `
-const TimeStampContent = styled.Text<{ language: string }>`
+const TimeStampContent = styled(Text)`
   font-family: ${props => props.theme.fonts.native.decorativeFontRegular};
   font-size: 14px;
   padding: 10px 0px;
-  text-align: ${props => contentAlignment(props.language)};
   color: ${props => props.theme.colors.textColor};
 `
-export const ReadMore = styled.Text<{ isTunews: boolean }>`
+export const ReadMore = styled(Text)<{ isTunews: boolean }>`
   font-family: ${props => props.theme.fonts.native.decorativeFontBold};
   font-size: 12px;
   letter-spacing: 0.5px;
@@ -84,7 +81,7 @@ export const ReadMore = styled.Text<{ isTunews: boolean }>`
   color: ${props => (props.isTunews ? props.theme.colors.tunewsThemeColor : props.theme.colors.themeColor)};
 `
 
-const NewsListItem = ({ index, newsItem, language, navigateToNews, isTunews }: PropsType): ReactElement => {
+const NewsListItem = ({ index, newsItem, navigateToNews, isTunews }: PropsType): ReactElement => {
   const { t, i18n } = useTranslation('news')
   const formatter = useContext(DateFormatterContext)
   const localNewsContent = newsItem instanceof LocalNewsModel ? newsItem.message : ''
@@ -98,20 +95,18 @@ const NewsListItem = ({ index, newsItem, language, navigateToNews, isTunews }: P
       <ListItemWrapper>
         <StyledTouchableOpacity onPress={navigateToNews}>
           <Description>
-            <ListItemView language={language}>
+            <View>
               <Title>{newsItem.title}</Title>
-            </ListItemView>
-            <ListItemView language={language}>
-              <Content numberOfLines={5} language={language}>
-                {content}
-              </Content>
-            </ListItemView>
+            </View>
+            <View>
+              <Content numberOfLines={5}>{content}</Content>
+            </View>
             {timestamp && (
-              <ListItemView language={language}>
-                <TimeStampContent language={language}>
+              <View>
+                <TimeStampContent>
                   <TimeStamp formatter={formatter} lastUpdate={timestamp} showText={false} />
                 </TimeStampContent>
-              </ListItemView>
+              </View>
             )}
           </Description>
           <ReadMoreWrapper language={i18n.language}>
