@@ -82,6 +82,7 @@ export type WebBuildConfigType = CommonBuildConfigType & {
   manifestUrl?: string
   icons: {
     appLogo: string
+    appLogoMobile: string
     locationMarker?: string
     cityNotCooperating?: string
     appleTouchIcon: string

@@ -66,6 +66,8 @@ class SearchModal extends React.Component<PropsType, SearchStateType> {
             title: category.title,
             thumbnail: category.thumbnail,
             path: category.path,
+            contentWithoutHtml: parseHTML(category.content),
+            titleMatch: true,
           },
           subCategories: [],
         })
