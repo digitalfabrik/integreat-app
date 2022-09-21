@@ -8,7 +8,7 @@ import {
   INTRO_ROUTE,
   JPAL_TRACKING_ROUTE,
   LANDING_ROUTE,
-  LICENSE_ROUTE,
+  LICENSES_ROUTE,
   OPEN_DEEP_LINK_SIGNAL_NAME,
 } from 'api-client'
 import InternalPathnameParser from 'api-client/src/routes/InternalPathnameParser'
@@ -63,14 +63,14 @@ const navigateToDeepLink = async <T extends RoutesType>(
     routeInformation.route !== LANDING_ROUTE &&
     routeInformation.route !== JPAL_TRACKING_ROUTE &&
     routeInformation.route !== CITY_NOT_COOPERATING_ROUTE &&
-    routeInformation.route !== LICENSE_ROUTE
+    routeInformation.route !== LICENSES_ROUTE
       ? routeInformation.cityCode
       : null
   const routeInformationLanguageCode =
     routeInformation &&
     routeInformation.route !== LANDING_ROUTE &&
     routeInformation.route !== JPAL_TRACKING_ROUTE &&
-    routeInformation.route !== LICENSE_ROUTE
+    routeInformation.route !== LICENSES_ROUTE
       ? routeInformation.languageCode
       : null
   // Don't overwrite already selected city
