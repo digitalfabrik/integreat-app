@@ -2,7 +2,7 @@ import React from 'react'
 
 import { PoiFeature, PoiModelBuilder, prepareFeatureLocation } from 'api-client'
 
-import { renderWithRouter } from '../../testing/render'
+import { renderWithRouterAndTheme } from '../../testing/render'
 import PoisDesktop from '../PoisDesktop'
 
 jest.mock('react-i18next')
@@ -14,7 +14,7 @@ describe('PoisDesktop', () => {
   const feature = prepareFeatureLocation(poi, [10.994217, 48.415402])!
 
   const renderPoisDesktop = (showFeatureSwitch: boolean, currentFeature?: PoiFeature) =>
-    renderWithRouter(
+    renderWithRouterAndTheme(
       <PoisDesktop
         direction='ltr'
         switchFeature={switchFeature}
@@ -26,8 +26,7 @@ describe('PoisDesktop', () => {
         poiList={<div>poiList</div>}
         poi={poi}
         showFeatureSwitch={showFeatureSwitch}
-      />,
-      { wrapWithTheme: true }
+      />
     )
 
   it('should list detail information about the current feature and the poi if feature and poi provided', () => {

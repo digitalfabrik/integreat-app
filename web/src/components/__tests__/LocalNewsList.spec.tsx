@@ -3,7 +3,7 @@ import React from 'react'
 
 import { DateFormatter, LOCAL_NEWS_TYPE, LocalNewsModel } from 'api-client'
 
-import { renderWithBrowserRouter } from '../../testing/render'
+import { renderWithRouterAndTheme } from '../../testing/render'
 import LocalNewsList from '../LocalNewsList'
 import NewsListItem from '../NewsListItem'
 
@@ -43,18 +43,16 @@ describe('LocalNewsList', () => {
   const items = [localNews1, localNews2]
 
   it('should have two NewsListItem', () => {
-    const { getByText } = renderWithBrowserRouter(
-      <LocalNewsList items={items} renderItem={renderItem} city={city} noItemsMessage='no item' />,
-      { wrapWithTheme: true }
+    const { getByText } = renderWithRouterAndTheme(
+      <LocalNewsList items={items} renderItem={renderItem} city={city} noItemsMessage='no item' />
     )
     expect(getByText('Love :)')).toBeDefined()
     expect(getByText('Important')).toBeDefined()
   })
 
   it('should render "noItemsMessage" if the items is an empty array', () => {
-    const { getByText } = renderWithBrowserRouter(
-      <LocalNewsList items={[]} renderItem={renderItem} city={city} noItemsMessage='No items' />,
-      { wrapWithTheme: true }
+    const { getByText } = renderWithRouterAndTheme(
+      <LocalNewsList items={[]} renderItem={renderItem} city={city} noItemsMessage='No items' />
     )
     expect(getByText('No items')).toBeDefined()
   })
