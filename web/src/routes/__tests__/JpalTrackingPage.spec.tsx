@@ -32,7 +32,10 @@ describe('JpalTrackingPage', () => {
 
   it('should save tracking code and redirect', () => {
     const trackingCode = 'my-tracking-code'
-    renderRoute(<JpalTrackingPage />, { pathname: `/jpal/${trackingCode}`, routePattern: `/jpal/:trackingCode` })
+    renderRoute(<JpalTrackingPage />, {
+      pathname: `/jpal/${trackingCode}`,
+      routePattern: `/jpal/:trackingCode`,
+    })
 
     expect(safeLocalStorage.setItem).toHaveBeenCalledWith(JPAL_TRACKING_CODE_KEY, trackingCode)
     expect(safeLocalStorage.setItem).toHaveBeenCalledTimes(1)
