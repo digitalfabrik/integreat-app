@@ -1,28 +1,26 @@
-import { cleanup, fireEvent, render, RenderResult } from '@testing-library/react'
+import { cleanup, fireEvent, RenderResult } from '@testing-library/react'
 import React from 'react'
-import { ThemeProvider } from 'styled-components'
 
-import buildConfig from '../../constants/buildConfig'
+import { renderWithTheme } from '../../testing/render'
 import HeaderActionItemDropDown from '../HeaderActionItemDropDown'
 
 describe('HeaderActionItemDropDown', () => {
   let wrapperComponent: RenderResult
   let inner: HTMLElement
   let outside: HTMLElement
-  const theme = buildConfig().lightTheme
 
   beforeEach(() => {
     const InnerComponent = ({ closeDropDown }: { closeDropDown: () => void }) => (
       <span onClick={closeDropDown}>Do you see me?</span>
     )
 
-    wrapperComponent = render(
-      <ThemeProvider theme={theme}>
+    wrapperComponent = renderWithTheme(
+      <>
         <span>Click me to trigger dropdown!</span>
         <HeaderActionItemDropDown iconSrc='/someImg' text='some text'>
           {closeDropDown => <InnerComponent closeDropDown={closeDropDown} />}
         </HeaderActionItemDropDown>
-      </ThemeProvider>
+      </>
     )
 
     inner = wrapperComponent.getByText('Do you see me?')

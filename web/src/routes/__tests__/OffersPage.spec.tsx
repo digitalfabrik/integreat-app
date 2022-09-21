@@ -76,7 +76,7 @@ describe('OffersPage', () => {
         cityCode={city.code}
         languageCode={language.code}
       />,
-      { routePattern, pathname, wrapWithTheme: true }
+      { routePattern, pathname }
     )
   }
 

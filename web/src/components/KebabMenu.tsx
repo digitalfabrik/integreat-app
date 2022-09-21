@@ -41,8 +41,8 @@ const List = styled.div<{ direction: UiDirectionType; checked: boolean }>`
 const Icon = styled.img`
   z-index: 50;
   position: relative;
-  width: 28px;
-  height: 28px;
+  width: 18px;
+  height: 18px;
 `
 
 const Overlay = styled.div<{ checked: boolean }>`
@@ -76,8 +76,12 @@ const ToggleButton = styled.button`
   margin-top: 6px;
 `
 
-const KebabMenu = ({ items, direction }: KebabMenuProps): ReactElement => {
+const KebabMenu = ({ items, direction }: KebabMenuProps): ReactElement | null => {
   const [checked, setChecked] = useState<boolean>(false)
+
+  if (items.length === 0) {
+    return null
+  }
 
   return (
     <ToggleContainer>

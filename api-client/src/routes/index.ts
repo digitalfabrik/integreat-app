@@ -38,8 +38,8 @@ export const SEARCH_ROUTE: SearchRouteType = 'search'
 export type JpalTrackingRouteType = 'jpal'
 export const JPAL_TRACKING_ROUTE: JpalTrackingRouteType = 'jpal'
 
-export type LicenseRouteType = 'licenses'
-export const LICENSE_ROUTE: LicenseRouteType = 'licenses'
+export type LicensesRouteType = 'licenses'
+export const LICENSES_ROUTE: LicensesRouteType = 'licenses'
 
 // News types
 export type LocalNewsType = 'local'

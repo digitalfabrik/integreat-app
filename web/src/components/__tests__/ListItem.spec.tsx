@@ -1,22 +1,18 @@
-import { render } from '@testing-library/react'
 import React from 'react'
 
-import wrapWithTheme from '../../testing/wrapWithTheme'
+import { renderWithTheme } from '../../testing/render'
 import ListItem from '../ListItem'
 
 describe('ListItemSpec', () => {
   const path = 'https://tuerantuer.org'
 
   it('should not render thumbnail in the ListItem', () => {
-    const { getByRole } = render(<ListItem title='first Event' path={path} />, {
-      wrapper: wrapWithTheme,
-    })
+    const { getByRole } = renderWithTheme(<ListItem title='first Event' path={path} />)
     expect(getByRole('link').closest('img')).not.toBeInTheDocument()
   })
+
   it('should render thumbnail in the ListItem', () => {
-    const { getByRole } = render(<ListItem title='first Event' thumbnail='thumbnail' path={path} />, {
-      wrapper: wrapWithTheme,
-    })
+    const { getByRole } = renderWithTheme(<ListItem title='first Event' thumbnail='thumbnail' path={path} />)
     expect(getByRole('img')).toBeInTheDocument()
   })
 })
