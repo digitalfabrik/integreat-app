@@ -76,8 +76,12 @@ const ToggleButton = styled.button`
   margin-top: 6px;
 `
 
-const KebabMenu = ({ items, direction }: KebabMenuProps): ReactElement => {
+const KebabMenu = ({ items, direction }: KebabMenuProps): ReactElement | null => {
   const [checked, setChecked] = useState<boolean>(false)
+
+  if (items.length === 0) {
+    return null
+  }
 
   return (
     <ToggleContainer>

@@ -1,8 +1,7 @@
-import { fireEvent, render } from '@testing-library/react'
+import { fireEvent } from '@testing-library/react'
 import React from 'react'
-import { ThemeProvider } from 'styled-components'
 
-import buildConfig from '../../constants/buildConfig'
+import { renderWithTheme } from '../../testing/render'
 import Feedback from '../Feedback'
 import { SendingState } from '../FeedbackContainer'
 
@@ -40,56 +39,32 @@ describe('Feedback', () => {
   })
 
   it('button should be disabled for negative Feedback and no input', () => {
-    const { getByText } = render(
-      <ThemeProvider theme={buildConfig().lightTheme}>
-        <Feedback {...buildProps(false, '')} />
-      </ThemeProvider>
-    )
+    const { getByText } = renderWithTheme(<Feedback {...buildProps(false, '')} />)
     expect(getByText('feedback:send')).toBeDisabled()
   })
 
   it('button should be enabled for positive Feedback and no input', () => {
-    const { getByText } = render(
-      <ThemeProvider theme={buildConfig().lightTheme}>
-        <Feedback {...buildProps(true, '')} />
-      </ThemeProvider>
-    )
+    const { getByText } = renderWithTheme(<Feedback {...buildProps(true, '')} />)
     expect(getByText('feedback:send')).toBeEnabled()
   })
 
   it('button should be enabled for negative Feedback and input', () => {
-    const { getByText } = render(
-      <ThemeProvider theme={buildConfig().lightTheme}>
-        <Feedback {...buildProps(false, 'comment')} />
-      </ThemeProvider>
-    )
+    const { getByText } = renderWithTheme(<Feedback {...buildProps(false, 'comment')} />)
     expect(getByText('feedback:send')).toBeEnabled()
   })
 
   it('should display correct description for search', () => {
-    const { getByText } = render(
-      <ThemeProvider theme={buildConfig().lightTheme}>
-        <Feedback {...buildProps(false, 'comment', true)} />
-      </ThemeProvider>
-    )
+    const { getByText } = renderWithTheme(<Feedback {...buildProps(false, 'comment', true)} />)
     expect(getByText('feedback:wantedInformation')).toBeTruthy()
   })
 
   it('should display error', () => {
-    const { getByText } = render(
-      <ThemeProvider theme={buildConfig().lightTheme}>
-        <Feedback {...buildProps(false, 'comment', false, SendingState.ERROR)} />
-      </ThemeProvider>
-    )
+    const { getByText } = renderWithTheme(<Feedback {...buildProps(false, 'comment', false, SendingState.ERROR)} />)
     expect(getByText('feedback:failedSendingFeedback')).toBeTruthy()
   })
 
   it('onSubmit should be called on button press', async () => {
-    const { getByText } = render(
-      <ThemeProvider theme={buildConfig().lightTheme}>
-        <Feedback {...buildProps(false, 'comment')} />
-      </ThemeProvider>
-    )
+    const { getByText } = renderWithTheme(<Feedback {...buildProps(false, 'comment')} />)
     const button = getByText('feedback:send')
     fireEvent.click(button)
     expect(onSubmit).toHaveBeenCalled()
@@ -97,10 +72,8 @@ describe('Feedback', () => {
 
   it('should call callback on contact mail changed', () => {
     const onContactMailChanged = jest.fn()
-    const { getByDisplayValue, queryByDisplayValue } = render(
-      <ThemeProvider theme={buildConfig().lightTheme}>
-        <Feedback {...buildProps(false, 'my comment', false, SendingState.IDLE, onContactMailChanged)} />
-      </ThemeProvider>
+    const { getByDisplayValue, queryByDisplayValue } = renderWithTheme(
+      <Feedback {...buildProps(false, 'my comment', false, SendingState.IDLE, onContactMailChanged)} />
     )
     expect(getByDisplayValue('test@example.com')).toBeTruthy()
     expect(queryByDisplayValue('new@example.com')).toBeFalsy()
@@ -115,10 +88,8 @@ describe('Feedback', () => {
   })
 
   it('should call callback on comment changed', () => {
-    const { getByDisplayValue, queryByDisplayValue } = render(
-      <ThemeProvider theme={buildConfig().lightTheme}>
-        <Feedback {...buildProps(false, 'my comment')} />
-      </ThemeProvider>
+    const { getByDisplayValue, queryByDisplayValue } = renderWithTheme(
+      <Feedback {...buildProps(false, 'my comment')} />
     )
     expect(getByDisplayValue('my comment')).toBeTruthy()
     expect(queryByDisplayValue('new comment')).toBeFalsy()

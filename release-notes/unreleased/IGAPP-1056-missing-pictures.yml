@@ -1,0 +1,7 @@
+issue_key: IGAPP-1056
+show_in_stores: true
+platforms:
+  - ios
+  - android
+en: Fix certain cases of missing icons.
+de: Bestimmte Fälle von fehlenden Icons behoben.

@@ -1,5 +1,5 @@
 import MapboxGL from '@react-native-mapbox-gl/maps'
-import React, { ReactElement, ReactNode, useEffect, useState } from 'react'
+import React, { ReactElement, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { ScrollView, useWindowDimensions } from 'react-native'
 import { useTheme } from 'styled-components'
@@ -23,10 +23,9 @@ import {
 
 import BottomActionsSheet from '../components/BottomActionsSheet'
 import Failure from '../components/Failure'
-import List from '../components/List'
 import MapView from '../components/MapView'
 import PoiDetails from '../components/PoiDetails'
-import { PoiListItem } from '../components/PoiListItem'
+import PoiListItem from '../components/PoiListItem'
 import SiteHelpfulBox from '../components/SiteHelpfulBox'
 import { NavigationPropType, RoutePropType } from '../constants/NavigationTypes'
 import dimensions from '../constants/dimensions'
@@ -47,8 +46,13 @@ export type PropsType = {
   navigation: NavigationPropType<PoisRouteType>
 }
 
-const CustomSheetList = styled.View`
+const ListWrapper = styled.View`
   margin: 0 32px;
+`
+
+const NoItemsMessage = styled.Text`
+  padding-top: 25px;
+  text-align: center;
 `
 
 const midSnapPointPercentage = 0.35
@@ -117,13 +121,13 @@ const Pois = ({ pois, language, cityModel, route, navigation }: PropsType): Reac
     }
   }, [deviceHeight, followUserLocation, selectedFeature, sheetSnapPointIndex])
 
-  const renderPoiListItem = (poi: PoiFeature): ReactNode => (
+  const renderPoiListItem = (poi: PoiFeature): ReactElement => (
     <PoiListItem
       key={poi.properties.id}
       poi={poi}
       language={language}
-      theme={theme}
       navigateToPoi={() => selectPoiFeature(poi)}
+      t={t}
     />
   )
 
@@ -161,13 +165,9 @@ const Pois = ({ pois, language, cityModel, route, navigation }: PropsType): Reac
   const content = urlSlug ? (
     selectedFeatureContent
   ) : (
-    <List
-      CustomStyledList={CustomSheetList}
-      noItemsMessage={t('noPois')}
-      items={features}
-      renderItem={renderPoiListItem}
-      theme={theme}
-    />
+    <ListWrapper>
+      {features.length === 0 ? <NoItemsMessage>{t('noPois')}</NoItemsMessage> : features.map(renderPoiListItem)}
+    </ListWrapper>
   )
 
   return (
