@@ -1,4 +1,4 @@
-import { ReactNode, ReactPortal, useEffect, useLayoutEffect, useState } from 'react'
+import { CSSProperties, ReactNode, ReactPortal, useEffect, useLayoutEffect, useState } from 'react'
 import { createPortal } from 'react-dom'
 
 type PropsType = {
@@ -6,9 +6,10 @@ type PropsType = {
   className: string
   element?: string
   opened?: boolean
+  style?: CSSProperties
 }
 /** A portal creates a new DOM Node outside the regular DOM. You can use it f.e. to fix z-index problems */
-const Portal = ({ children, className, element = 'reach-portal', opened = false }: PropsType): ReactPortal => {
+const Portal = ({ children, className, element = 'reach-portal', opened = false, style }: PropsType): ReactPortal => {
   const [container] = useState(() => document.createElement(element))
 
   useEffect(() => {
@@ -21,12 +22,15 @@ const Portal = ({ children, className, element = 'reach-portal', opened = false 
 
   /* Add no-pointer events when portal is not opened to enable click events on underlying components */
   useLayoutEffect(() => {
+    if (style) {
+      Object.assign(container.style, style)
+    }
     if (opened) {
       container.style.pointerEvents = 'auto'
     } else {
       container.style.pointerEvents = 'none'
     }
-  }, [container, opened])
+  }, [container, opened, style])
 
   return createPortal(children, container)
 }
