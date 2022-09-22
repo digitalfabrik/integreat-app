@@ -1,10 +1,8 @@
-import { render } from '@testing-library/react'
 import React from 'react'
-import { ThemeProvider } from 'styled-components'
 
 import { SprungbrettJobModel } from 'api-client'
 
-import buildConfig from '../../constants/buildConfig'
+import { renderWithTheme } from '../../testing/render'
 import SprungbrettListItem from '../SprungbrettListItem'
 
 describe('SprungbrettListItem', () => {
@@ -18,11 +16,7 @@ describe('SprungbrettListItem', () => {
   })
 
   it('should render a sprungbrett list item', () => {
-    const { getByText } = render(
-      <ThemeProvider theme={buildConfig().lightTheme}>
-        <SprungbrettListItem job={job} />
-      </ThemeProvider>
-    )
+    const { getByText } = renderWithTheme(<SprungbrettListItem job={job} />)
 
     expect(getByText(job.title)).toBeTruthy()
     expect(getByText(job.title).closest('a')).toHaveAttribute('href', job.url)

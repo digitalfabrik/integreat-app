@@ -1,41 +1,48 @@
-import { isEmpty } from 'lodash'
-import * as React from 'react'
-import { ReactNode } from 'react'
+import React, { ReactElement } from 'react'
+import { FlatList, RefreshControl } from 'react-native'
 import styled from 'styled-components/native'
 
-import { ThemeType } from 'build-configs'
-
-const StyledView = styled.View`
-  margin: 0 10px 0;
-  border-top-width: 2px;
-  border-top-color: ${props => props.theme.colors.themeColor};
-`
 const NoItemsMessage = styled.Text`
-  padding-top: 25px;
-  text-align: center;
+  color: ${props => props.theme.colors.textColor};
+  font-family: ${props => props.theme.fonts.native.contentFontRegular};
+  align-self: center;
+  margin-top: 20px;
 `
-type PropsType<T> = {
+
+type Props<T> = {
   items: Array<T>
   noItemsMessage: string
-  renderItem: (arg0: T) => React.ReactNode
-  theme: ThemeType
-  CustomStyledList?: React.FC
+  renderItem: (props: { item: T; index: number }) => ReactElement
+  Header?: ReactElement
+  Footer?: ReactElement
+  refresh?: () => void
+  onEndReached?: () => void
 }
 
-class List<T> extends React.PureComponent<PropsType<T>> {
-  render(): ReactNode {
-    const { items, renderItem, noItemsMessage, theme, CustomStyledList } = this.props
-
-    if (isEmpty(items)) {
-      return <NoItemsMessage>{noItemsMessage}</NoItemsMessage>
-    }
-
-    if (CustomStyledList) {
-      return <CustomStyledList>{items.map(item => renderItem(item))}</CustomStyledList>
-    }
-
-    return <StyledView theme={theme}>{items.map(item => renderItem(item))}</StyledView>
-  }
-}
+const List = <T,>({
+  items,
+  noItemsMessage,
+  renderItem,
+  Header,
+  Footer,
+  refresh,
+  onEndReached,
+}: Props<T>): ReactElement => (
+  <FlatList
+    data={items}
+    renderItem={renderItem}
+    ListHeaderComponent={Header}
+    ListFooterComponent={Footer}
+    refreshControl={<RefreshControl onRefresh={refresh} refreshing={false} />}
+    ListEmptyComponent={<NoItemsMessage>{noItemsMessage}</NoItemsMessage>}
+    onEndReached={onEndReached}
+    showsVerticalScrollIndicator={false}
+    contentContainerStyle={{
+      flexGrow: 1,
+      paddingHorizontal: 10,
+    }}
+    onEndReachedThreshold={1}
+  />
+)
 
 export default List

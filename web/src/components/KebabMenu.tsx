@@ -77,13 +77,17 @@ const ToggleButton = styled.button`
   margin-top: 6px;
 `
 
-const KebabMenu = ({ items, direction }: KebabMenuProps): ReactElement => {
+const KebabMenu = ({ items, direction }: KebabMenuProps): ReactElement | null => {
   const [checked, setChecked] = useState<boolean>(false)
   const { locked, setLocked } = useLockedBody(checked)
 
   const onClick = () => {
     setChecked(!checked)
     setLocked(!locked)
+  }
+
+  if (items.length === 0) {
+    return null
   }
 
   return (
