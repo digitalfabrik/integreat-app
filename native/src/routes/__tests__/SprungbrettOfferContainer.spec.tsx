@@ -77,19 +77,6 @@ describe('SprungbrettOfferContainer', () => {
     expect(queryByText(errorText)).toBeFalsy()
   })
 
-  it('should display offers with a Loading spinner', () => {
-    mockUseLoadFromEndpointLoading({ data: [] })
-
-    const { queryByText, getByText } = render(
-      <Provider store={store}>
-        <SprungbrettOfferContainer navigation={navigation} route={route} />
-      </Provider>
-    )
-    expect(getByText('SprungbrettOffer')).toBeTruthy()
-    expect(getByText('loading')).toBeTruthy()
-    expect(queryByText(errorText)).toBeFalsy()
-  })
-
   it('should display error without a loading spinner', () => {
     mockUseLoadFromEndpointWithError('Error')
     const { queryByText, getByText } = render(
@@ -111,18 +98,6 @@ describe('SprungbrettOfferContainer', () => {
       </Provider>
     )
     expect(queryByText(errorText)).toBeFalsy()
-    expect(getByText('loading')).toBeTruthy()
-    expect(queryByText('SprungbrettOffer')).toBeFalsy()
-  })
-
-  it('should display error with spinner', () => {
-    mockUseLoadFromEndpointLoading({ data: [], error: 'Error' })
-    const { queryByText, getByText } = render(
-      <Provider store={store}>
-        <SprungbrettOfferContainer navigation={navigation} route={route} />
-      </Provider>
-    )
-    expect(getByText(errorText)).toBeTruthy()
     expect(getByText('loading')).toBeTruthy()
     expect(queryByText('SprungbrettOffer')).toBeFalsy()
   })

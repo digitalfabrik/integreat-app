@@ -1,8 +1,8 @@
-import React, { ReactElement, useCallback } from 'react'
-import { TFunction } from 'react-i18next'
+import React, { ReactElement } from 'react'
+import { useTranslation } from 'react-i18next'
+import styled from 'styled-components/native'
 
 import { SprungbrettJobModel } from 'api-client'
-import { ThemeType } from 'build-configs'
 
 import Caption from '../components/Caption'
 import List from '../components/List'
@@ -11,41 +11,42 @@ import SprungbrettListItem from '../components/SprungbrettListItem'
 import useSnackbar from '../hooks/useSnackbar'
 import openExternalUrl from '../utils/openExternalUrl'
 
+const Separator = styled.View`
+  border-top-width: 2px;
+  border-top-color: ${props => props.theme.colors.themeColor};
+`
+
 type PropsType = {
   jobs: Array<SprungbrettJobModel>
-  t: TFunction
-  theme: ThemeType
   language: string
   title: string
   navigateToFeedback: (isPositiveFeedback: boolean) => void
+  refresh: () => void
 }
 
-const SprungbrettOffer = ({ jobs, title, navigateToFeedback, theme, t, language }: PropsType): ReactElement => {
+const SprungbrettOffer = ({ jobs, title, navigateToFeedback, language, refresh }: PropsType): ReactElement => {
+  const { t } = useTranslation('sprungbrett')
   const showSnackbar = useSnackbar()
-  const openJob = useCallback(
-    (url: string) => () => {
-      openExternalUrl(url).catch((error: Error) => showSnackbar(error.message))
-    },
-    [showSnackbar]
-  )
-  const renderListItem = useCallback(
-    (job: SprungbrettJobModel): React.ReactNode => (
-      <SprungbrettListItem
-        key={job.id}
-        job={job}
-        openJobInBrowser={openJob(job.url)}
-        theme={theme}
-        language={language}
-      />
-    ),
-    [language, theme, openJob]
-  )
+
+  const renderListItem = ({ item }: { item: SprungbrettJobModel }): ReactElement => {
+    const openJob = () => openExternalUrl(item.url).catch((error: Error) => showSnackbar(error.message))
+    return <SprungbrettListItem key={item.id} job={item} openJobInBrowser={openJob} language={language} />
+  }
+
   return (
-    <>
-      <Caption title={title} />
-      <List noItemsMessage={t('noOffersAvailable')} renderItem={renderListItem} items={jobs} theme={theme} />
-      <SiteHelpfulBox navigateToFeedback={navigateToFeedback} />
-    </>
+    <List
+      items={jobs}
+      renderItem={renderListItem}
+      Header={
+        <>
+          <Caption title={title} />
+          <Separator />
+        </>
+      }
+      Footer={<SiteHelpfulBox navigateToFeedback={navigateToFeedback} />}
+      refresh={refresh}
+      noItemsMessage={t('currentlyNoEvents')}
+    />
   )
 }
 

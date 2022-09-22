@@ -1,0 +1,6 @@
+issue_key: IGAPP-499
+show_in_stores: true
+platforms:
+  - native
+en: Prettier error messages
+de: Hübschere Fehlermeldungen

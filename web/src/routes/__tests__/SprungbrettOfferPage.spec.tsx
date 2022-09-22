@@ -80,7 +80,7 @@ describe('SprungbrettOfferPage', () => {
         cityCode={city.code}
         languageCode={language.code}
       />,
-      { routePattern, pathname, wrapWithTheme: true }
+      { routePattern, pathname }
     )
 
   it('should render page with title and content', () => {

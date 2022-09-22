@@ -1,43 +1,44 @@
+import type { Router } from '@remix-run/router'
 import { render, RenderResult } from '@testing-library/react'
 import React, { ReactElement } from 'react'
-import { BrowserRouter, MemoryRouter, Route, Routes } from 'react-router-dom'
+import { createMemoryRouter, MemoryRouter, RouterProvider } from 'react-router-dom'
 import { ThemeProvider } from 'styled-components'
 
 import buildConfig from '../constants/buildConfig'
 
 type RenderRouteOptions = {
   pathname: string
-  wrapWithTheme?: boolean
-  childRoute?: string
   routePattern: string
 }
 
-export const renderWithRouter = (
-  ui: ReactElement,
-  { wrapWithTheme = false, router = MemoryRouter } = {}
-): RenderResult => {
-  const wrapped = wrapWithTheme ? <ThemeProvider theme={buildConfig().lightTheme}>{ui}</ThemeProvider> : ui
-  return render(wrapped, { wrapper: router })
+const AllTheProviders = ({ children, options }: { children: ReactElement; options?: { pathname: string } }) => (
+  <MemoryRouter initialEntries={options ? [options.pathname] : ['/']}>
+    <ThemeProvider theme={buildConfig().lightTheme}>{children}</ThemeProvider>
+  </MemoryRouter>
+)
+
+export const renderWithRouterAndTheme = (ui: ReactElement, options?: { pathname: string }): RenderResult =>
+  render(ui, { wrapper: (props: any) => <AllTheProviders {...props} options={options} /> })
+
+export const renderWithTheme = (ui: ReactElement): RenderResult =>
+  render(<ThemeProvider theme={buildConfig().lightTheme}>{ui}</ThemeProvider>)
+
+export const renderWithRouter = (ui: ReactElement): RenderResult => render(ui, { wrapper: MemoryRouter })
+
+type ExtendedRenderResult = RenderResult & {
+  router: Router
 }
 
-export const renderWithBrowserRouter = (
-  ui: ReactElement,
-  { pathname = '/', wrapWithTheme = false } = {}
-): RenderResult => {
-  window.history.pushState({}, 'Test page', pathname)
-
-  return renderWithRouter(ui, { wrapWithTheme, router: BrowserRouter })
-}
-
-export const renderRoute = (ui: ReactElement, options: RenderRouteOptions): RenderResult => {
-  const { routePattern, childRoute } = options
-  const wrapped = (
-    <Routes>
-      <Route path={routePattern} element={ui}>
-        {childRoute && <Route path={childRoute} element={null} />}
-      </Route>
-    </Routes>
-  )
-
-  return renderWithBrowserRouter(wrapped, options)
+export const renderRoute = (ui: ReactElement, options: RenderRouteOptions): ExtendedRenderResult => {
+  const routes = [
+    {
+      path: options.routePattern,
+      element: ui,
+    },
+  ]
+  const router = createMemoryRouter(routes, { initialEntries: options.pathname ? [options.pathname] : ['/'] })
+  return {
+    ...renderWithTheme(<RouterProvider router={router} />),
+    router,
+  }
 }

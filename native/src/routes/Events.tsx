@@ -1,8 +1,7 @@
-import * as React from 'react'
-import { ReactElement, useContext } from 'react'
+import React, { ReactElement, useContext } from 'react'
 import { useTranslation } from 'react-i18next'
-import { View } from 'react-native'
-import { useTheme } from 'styled-components'
+import { RefreshControl } from 'react-native'
+import styled from 'styled-components/native'
 
 import { CityModel, EventModel, EVENTS_ROUTE, fromError, NotFoundError, RouteInformationType } from 'api-client'
 
@@ -10,13 +9,23 @@ import Caption from '../components/Caption'
 import EventListItem from '../components/EventListItem'
 import Failure from '../components/Failure'
 import { FeedbackInformationType } from '../components/FeedbackContainer'
+import Layout from '../components/Layout'
+import LayoutedScrollView from '../components/LayoutedScrollView'
 import List from '../components/List'
 import Page from '../components/Page'
 import PageDetail from '../components/PageDetail'
 import SiteHelpfulBox from '../components/SiteHelpfulBox'
-import SpaceBetween from '../components/SpaceBetween'
 import DateFormatterContext from '../contexts/DateFormatterContext'
 import { LanguageResourceCacheStateType } from '../redux/StateType'
+
+const Separator = styled.View`
+  border-top-width: 2px;
+  border-top-color: ${props => props.theme.colors.themeColor};
+`
+
+const StyledSiteHelpfulBox = styled(SiteHelpfulBox)`
+  margin-top: 0;
+`
 
 export type PropsType = {
   path: string | null | undefined
@@ -25,8 +34,9 @@ export type PropsType = {
   language: string
   resourceCache: LanguageResourceCacheStateType
   resourceCacheUrl: string
-  navigateTo: (arg0: RouteInformationType) => void
-  navigateToFeedback: (arg0: FeedbackInformationType) => void
+  navigateTo: (routeInformation: RouteInformationType) => void
+  navigateToFeedback: (feedbackInformation: FeedbackInformationType) => void
+  refresh: () => void
 }
 
 /**
@@ -41,21 +51,10 @@ const Events = ({
   resourceCache,
   resourceCacheUrl,
   navigateToFeedback,
+  refresh,
 }: PropsType): ReactElement => {
   const { t } = useTranslation('events')
-  const theme = useTheme()
   const formatter = useContext(DateFormatterContext)
-
-  const renderEventListItem = (event: EventModel) => (
-    <EventListItem
-      key={event.path}
-      event={event}
-      cityCode={cityModel.code}
-      language={language}
-      theme={theme}
-      navigateTo={navigateTo}
-    />
-  )
 
   const createNavigateToFeedbackForEvent = (event: EventModel) => (isPositiveFeedback: boolean) => {
     navigateToFeedback({
@@ -83,7 +82,11 @@ const Events = ({
       city: cityModel.code,
       language,
     })
-    return <Failure code={fromError(error)} />
+    return (
+      <LayoutedScrollView refreshControl={<RefreshControl onRefresh={refresh} refreshing={false} />}>
+        <Failure code={fromError(error)} />
+      </LayoutedScrollView>
+    )
   }
 
   if (path) {
@@ -92,31 +95,27 @@ const Events = ({
     if (event) {
       const files = resourceCache[event.path] || {}
       return (
-        <Page
-          content={event.content}
-          title={event.title}
-          lastUpdate={event.lastUpdate}
-          language={language}
-          files={files}
-          resourceCacheUrl={resourceCacheUrl}
-          navigateToFeedback={createNavigateToFeedbackForEvent(event)}>
-          <>
-            <PageDetail
-              identifier={t('date')}
-              information={event.date.toFormattedString(formatter)}
-              theme={theme}
-              language={language}
-            />
-            {event.location && (
+        <LayoutedScrollView refreshControl={<RefreshControl onRefresh={refresh} refreshing={false} />}>
+          <Page
+            content={event.content}
+            title={event.title}
+            lastUpdate={event.lastUpdate}
+            language={language}
+            files={files}
+            resourceCacheUrl={resourceCacheUrl}
+            navigateToFeedback={createNavigateToFeedbackForEvent(event)}>
+            <>
               <PageDetail
-                identifier={t('address')}
-                information={event.location.fullAddress}
-                theme={theme}
+                identifier={t('date')}
+                information={event.date.toFormattedString(formatter)}
                 language={language}
               />
-            )}
-          </>
-        </Page>
+              {event.location && (
+                <PageDetail identifier={t('address')} information={event.location.fullAddress} language={language} />
+              )}
+            </>
+          </Page>
+        </LayoutedScrollView>
       )
     }
 
@@ -129,14 +128,41 @@ const Events = ({
     return <Failure code={fromError(error)} />
   }
 
+  const renderEventListItem = ({ item }: { item: EventModel }) => {
+    const navigateToEvent = () =>
+      navigateTo({
+        route: EVENTS_ROUTE,
+        cityCode: cityModel.code,
+        languageCode: language,
+        cityContentPath: item.path,
+      })
+    return (
+      <EventListItem
+        key={item.path}
+        formatter={formatter}
+        event={item}
+        language={language}
+        navigateToEvent={navigateToEvent}
+      />
+    )
+  }
+
   return (
-    <SpaceBetween>
-      <View>
-        <Caption title={t('events')} />
-        <List noItemsMessage={t('currentlyNoEvents')} items={events} renderItem={renderEventListItem} theme={theme} />
-      </View>
-      <SiteHelpfulBox navigateToFeedback={navigateToFeedbackForEvents} />
-    </SpaceBetween>
+    <Layout>
+      <List
+        items={events}
+        renderItem={renderEventListItem}
+        Header={
+          <>
+            <Caption title={t('events')} />
+            <Separator />
+          </>
+        }
+        Footer={<StyledSiteHelpfulBox navigateToFeedback={navigateToFeedbackForEvents} />}
+        refresh={refresh}
+        noItemsMessage={t('currentlyNoEvents')}
+      />
+    </Layout>
   )
 }
 

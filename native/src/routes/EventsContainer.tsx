@@ -30,6 +30,7 @@ type ContainerPropsType = NavigationPropsType &
     language: string
     resourceCache: LanguageResourceCacheStateType
     resourceCacheUrl: string
+    refresh: (dispatch: Dispatch<StoreActionType>) => () => void
   }
 type RefreshPropsType = NavigationPropsType & {
   cityCode: string
@@ -37,6 +38,21 @@ type RefreshPropsType = NavigationPropsType & {
   path: string | null | undefined
 }
 type StatePropsType = StatusPropsType<ContainerPropsType, RefreshPropsType>
+
+const refresh = (refreshProps: RefreshPropsType, dispatch: Dispatch<StoreActionType>) => {
+  const { route, navigation, cityCode, language, path } = refreshProps
+  const navigateTo = createNavigate(dispatch, navigation)
+  navigateTo(
+    {
+      route: EVENTS_ROUTE,
+      cityCode,
+      languageCode: language,
+      cityContentPath: path || undefined,
+    },
+    route.key,
+    true
+  )
+}
 
 const createChangeUnavailableLanguage =
   (city: string) => (dispatch: Dispatch<StoreActionType>, newLanguage: string) => {
@@ -167,6 +183,7 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
     resourceCacheUrl,
     navigation: ownProps.navigation,
     route: ownProps.route,
+    refresh: (dispatch: Dispatch<StoreActionType>) => () => refresh(refreshProps, dispatch),
   }
 
   if (route.status === 'loading') {
@@ -189,7 +206,7 @@ const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>): DispatchPropsT
   dispatch,
 })
 
-const EventsContainer = ({ dispatch, navigation, route, ...rest }: ContainerPropsType) => {
+const EventsContainer = ({ dispatch, navigation, route, refresh, ...rest }: ContainerPropsType) => {
   const routeInformation = {
     route: EVENTS_ROUTE,
     languageCode: rest.language,
@@ -201,24 +218,10 @@ const EventsContainer = ({ dispatch, navigation, route, ...rest }: ContainerProp
   return (
     <Events
       {...rest}
+      refresh={refresh(dispatch)}
       navigateTo={createNavigate(dispatch, navigation)}
       navigateToFeedback={createNavigateToFeedbackModal(navigation)}
     />
-  )
-}
-
-const refresh = (refreshProps: RefreshPropsType, dispatch: Dispatch<StoreActionType>) => {
-  const { route, navigation, cityCode, language, path } = refreshProps
-  const navigateTo = createNavigate(dispatch, navigation)
-  navigateTo(
-    {
-      route: EVENTS_ROUTE,
-      cityCode,
-      languageCode: language,
-      cityContentPath: path || undefined,
-    },
-    route.key,
-    true
   )
 }
 
@@ -226,4 +229,4 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps
   // @ts-expect-error TODO: IGAPP-636
-)(withPayloadProvider<ContainerPropsType, RefreshPropsType, EventsRouteType>(refresh, true)(EventsContainer))
+)(withPayloadProvider<ContainerPropsType, RefreshPropsType, EventsRouteType>(refresh, true, true)(EventsContainer))
