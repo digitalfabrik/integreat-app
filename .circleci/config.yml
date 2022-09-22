@@ -208,6 +208,12 @@ commands:
                 command: yarn --version
                 name: Yarn version
             - run:
+                command: yarn set version berry
+                name: Yarn set berry
+            - run:
+                command: yarn --version
+                name: Yarn version
+            - run:
                 command: yarn install --immutable
                 name: Install Dependencies
             - run:

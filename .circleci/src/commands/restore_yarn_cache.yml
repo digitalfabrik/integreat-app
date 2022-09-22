@@ -11,6 +11,12 @@ steps:
       name: Yarn version
       command: yarn --version
   - run:
+      name: Yarn set berry
+      command: yarn set version berry
+  - run:
+      name: Yarn version
+      command: yarn --version
+  - run:
       name: Install Dependencies
       command: yarn install --immutable
   - run:
