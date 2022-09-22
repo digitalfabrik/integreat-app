@@ -29,19 +29,17 @@ import PoiListItem from '../components/PoiListItem'
 import SiteHelpfulBox from '../components/SiteHelpfulBox'
 import { NavigationPropType, RoutePropType } from '../constants/NavigationTypes'
 import dimensions from '../constants/dimensions'
+import usePrevious from '../hooks/usePrevious'
 import useSetShareUrl from '../hooks/useSetShareUrl'
 import useUserLocation from '../hooks/useUserLocation'
 import createNavigateToFeedbackModal from '../navigation/createNavigateToFeedbackModal'
 import urlFromRouteInformation from '../navigation/url'
-import { LanguageResourceCacheStateType } from '../redux/StateType'
 import { reportError } from '../utils/sentry'
 
 export type PropsType = {
   pois: Array<PoiModel>
   cityModel: CityModel
   language: string
-  resourceCache: LanguageResourceCacheStateType
-  resourceCacheUrl: string
   route: RoutePropType<PoisRouteType>
   navigation: NavigationPropType<PoisRouteType>
 }
@@ -60,12 +58,13 @@ const percentage = 100
 const BOTTOM_SHEET_SNAP_POINTS = [
   dimensions.bottomSheetHandler.height,
   `${midSnapPointPercentage * percentage}%`,
-  '95%',
+  '100%',
 ]
 
 const Pois = ({ pois, language, cityModel, route, navigation }: PropsType): ReactElement => {
   const { coordinates, requestAndDetermineLocation } = useUserLocation(true)
   const [urlSlug, setUrlSlug] = useState<string | null>(route.params.urlSlug ?? null)
+  const prevUrlSlug = usePrevious(urlSlug ?? '')
   const [sheetSnapPointIndex, setSheetSnapPointIndex] = useState<number>(1)
   const [followUserLocation, setFollowUserLocation] = useState<boolean>(false)
   const deviceHeight = useWindowDimensions().height
@@ -111,7 +110,7 @@ const Pois = ({ pois, language, cityModel, route, navigation }: PropsType): Reac
   // Wait for followUserLocation change before moving the camera to avoid position lock
   // https://github.com/rnmapbox/maps/issues/1079
   useEffect(() => {
-    if (!followUserLocation && selectedFeature && cameraRef.current && sheetSnapPointIndex === 1) {
+    if (!followUserLocation && selectedFeature && cameraRef.current && prevUrlSlug !== urlSlug) {
       cameraRef.current.setCamera({
         centerCoordinate: selectedFeature.geometry.coordinates,
         zoomLevel: detailZoom,
@@ -119,7 +118,7 @@ const Pois = ({ pois, language, cityModel, route, navigation }: PropsType): Reac
         padding: { paddingBottom: deviceHeight * midSnapPointPercentage },
       })
     }
-  }, [deviceHeight, followUserLocation, selectedFeature, sheetSnapPointIndex])
+  }, [deviceHeight, followUserLocation, prevUrlSlug, selectedFeature, sheetSnapPointIndex, urlSlug])
 
   const renderPoiListItem = (poi: PoiFeature): ReactElement => (
     <PoiListItem
@@ -191,7 +190,8 @@ const Pois = ({ pois, language, cityModel, route, navigation }: PropsType): Reac
         title={!selectedFeature ? t('listTitle') : undefined}
         onChange={setSheetSnapPointIndex}
         initialIndex={sheetSnapPointIndex}
-        snapPoints={BOTTOM_SHEET_SNAP_POINTS}>
+        snapPoints={BOTTOM_SHEET_SNAP_POINTS}
+        snapPointIndex={sheetSnapPointIndex}>
         {content}
         <SiteHelpfulBox backgroundColor={theme.colors.backgroundColor} navigateToFeedback={navigateToFeedback} />
       </BottomActionsSheet>
