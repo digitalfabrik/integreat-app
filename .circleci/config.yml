@@ -199,13 +199,19 @@ commands:
         steps:
             - restore_cache:
                 keys:
-                    - 8-yarn-4-{{ arch }}-{{ checksum "yarn.lock" }}-{{ checksum "package.json" }}-{{ checksum "native/package.json" }}-{{ checksum "web/package.json" }}
+                    - 8-yarn-5-{{ arch }}-{{ checksum "yarn.lock" }}-{{ checksum "package.json" }}-{{ checksum "native/package.json" }}-{{ checksum "web/package.json" }}
                 name: Restore Yarn Package Cache
+            - run:
+                command: npm list -g
+                name: NPM global packages
+            - run:
+                command: yarn --version
+                name: Yarn version
             - run:
                 command: yarn install --immutable
                 name: Install Dependencies
             - save_cache:
-                key: 8-yarn-4-{{ arch }}-{{ checksum "yarn.lock" }}-{{ checksum "package.json" }}-{{ checksum "native/package.json" }}-{{ checksum "web/package.json" }}
+                key: 8-yarn-40-{{ arch }}-{{ checksum "yarn.lock" }}-{{ checksum "package.json" }}-{{ checksum "native/package.json" }}-{{ checksum "web/package.json" }}
                 name: Save Yarn Package Cache
                 paths:
                     - .yarn/cache
