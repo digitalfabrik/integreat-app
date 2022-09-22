@@ -17,11 +17,8 @@ steps:
       name: ls
       command: ls
   - run:
-      name: cd ./yarn
-      command: cd ./yarn
-  - run:
-      name: ls
-      command: ls
+      name: ls .?*
+      command: ls .?*
   - save_cache:
       name: Save Yarn Package Cache
       key: 8-yarn-40-{{ arch }}-{{ checksum "yarn.lock" }}-{{ checksum "package.json" }}-{{ checksum "native/package.json" }}-{{ checksum "web/package.json" }}
