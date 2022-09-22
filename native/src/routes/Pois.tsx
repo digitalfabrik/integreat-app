@@ -118,7 +118,7 @@ const Pois = ({ pois, language, cityModel, route, navigation }: PropsType): Reac
         padding: { paddingBottom: deviceHeight * midSnapPointPercentage },
       })
     }
-  }, [deviceHeight, followUserLocation, prevUrlSlug, selectedFeature, sheetSnapPointIndex, urlSlug])
+  }, [deviceHeight, followUserLocation, prevUrlSlug, selectedFeature, urlSlug])
 
   const renderPoiListItem = (poi: PoiFeature): ReactElement => (
     <PoiListItem
