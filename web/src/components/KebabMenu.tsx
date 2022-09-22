@@ -82,9 +82,6 @@ const KebabMenu = ({ items, direction }: KebabMenuProps): ReactElement => {
   const { locked, setLocked } = useLockedBody(checked)
 
   const onClick = () => {
-    if (!locked) {
-      window.scrollTo(0, 0)
-    }
     setChecked(!checked)
     setLocked(!locked)
   }
@@ -94,7 +91,10 @@ const KebabMenu = ({ items, direction }: KebabMenuProps): ReactElement => {
       <ToggleButton onClick={onClick} data-testid='kebab-menu-button'>
         <Icon src={iconKebabMenu} alt='' />
       </ToggleButton>
-      <Portal className='kebab-menu' opened={checked}>
+      <Portal
+        className='kebab-menu'
+        opened={checked}
+        style={window.scrollY > 0 ? { top: `${window.scrollY}px` } : undefined}>
         {/* disabled because this is an overlay for backdrop close */}
         {/* eslint-disable-next-line styled-components-a11y/no-static-element-interactions,styled-components-a11y/click-events-have-key-events */}
         <Overlay onClick={onClick} checked={checked} />
