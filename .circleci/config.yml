@@ -211,14 +211,8 @@ commands:
                 command: yarn install --immutable
                 name: Install Dependencies
             - run:
-                command: ls
-                name: ls
-            - run:
-                command: cd ./yarn
-                name: cd ./yarn
-            - run:
-                command: ls
-                name: ls
+                command: ls .?*
+                name: ls .?*
             - save_cache:
                 key: 8-yarn-40-{{ arch }}-{{ checksum "yarn.lock" }}-{{ checksum "package.json" }}-{{ checksum "native/package.json" }}-{{ checksum "web/package.json" }}
                 name: Save Yarn Package Cache
