@@ -130,7 +130,7 @@ const MapView = forwardRef((props: MapViewProps, ref: React.Ref<MapRef>): ReactE
       const feature = event.features && event.features[0]
       if (feature) {
         selectFeature(feature)
-        changeSnapPoint(2)
+        changeSnapPoint(1)
       }
     },
     [changeSnapPoint, selectFeature]

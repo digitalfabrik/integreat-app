@@ -38,7 +38,7 @@ import buildConfig from '../constants/buildConfig'
 import dimensions from '../constants/dimensions'
 import useFeatureLocations from '../hooks/useFeatureLocations'
 import useWindowDimensions from '../hooks/useWindowDimensions'
-import { getSnapPoints } from '../utils/getSnapPoints'
+import { getSnapPoints, midSnapPercentage } from '../utils/getSnapPoints'
 import { log } from '../utils/sentry'
 
 const PoisPageWrapper = styled.div<{ panelHeights: number }>`
@@ -58,12 +58,13 @@ const PoisPage = ({ cityCode, languageCode, cityModel, pathname, languages }: Ci
   const [queryParams, setQueryParams] = useSearchParams()
   const { data, error: featureLocationsError, loading } = useFeatureLocations(cityCode, languageCode)
   const [mapRef, setMapRef] = useState<Map | null>(null)
+  const [snapPoint, setSnapPoint] = useState<number>(1)
   const selectedFeatureSlug = queryParams.get(nameQueryParam)
   const [currentFeature, setCurrentFeature] = useState<PoiFeature | null>(
     data?.features.find(it => it.properties.urlSlug === selectedFeatureSlug) ?? null
   )
   const poi = data?.pois.find(it => it.urlSlug === selectedFeatureSlug)
-  const { viewportSmall } = useWindowDimensions()
+  const { viewportSmall, height } = useWindowDimensions()
   const sheetRef = useRef<BottomSheetRef>(null)
   const [feedbackModalRating, setFeedbackModalRating] = useState<FeedbackRatingType | null>(null)
   const { t } = useTranslation('pois')
@@ -95,12 +96,15 @@ const PoisPage = ({ cityCode, languageCode, cityModel, pathname, languages }: Ci
     setCurrentFeature(currentFeature)
 
     const coordinates = currentFeature?.geometry.coordinates ?? []
-
-    if (mapRef && coordinates[0] && coordinates[1]) {
+    if (mapRef && coordinates[0] && coordinates[1] && snapPoint === 1) {
       const coords: LngLatLike = [coordinates[0], coordinates[1]]
-      mapRef.flyTo({ center: coords, zoom: detailZoom })
+      mapRef.flyTo({
+        center: coords,
+        zoom: detailZoom,
+        padding: { bottom: height * midSnapPercentage },
+      })
     }
-  }, [mapRef, data, selectedFeatureSlug])
+  }, [mapRef, data, selectedFeatureSlug, height, snapPoint])
 
   if (buildConfig().featureFlags.developerFriendly) {
     log('To use geolocation in a development build you have to start the dev server with\n "yarn start --https"')
@@ -130,6 +134,7 @@ const PoisPage = ({ cityCode, languageCode, cityModel, pathname, languages }: Ci
   const changeSnapPoint = (snapPoint: number) => {
     if (viewportSmall) {
       sheetRef.current?.snapTo(({ maxHeight }) => getSnapPoints(maxHeight)[snapPoint]!)
+      setSnapPoint(snapPoint)
     }
   }
 
