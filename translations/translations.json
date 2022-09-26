@@ -4427,6 +4427,18 @@
       "disclaimer": "版本说明"
     }
   },
+  "licenses": {
+    "de": {
+      "version": "Version:",
+      "license": "Lizenz:",
+      "noLicensesMessage": "Keinen Lizenzinformationen verfügbar"
+    },
+    "en": {
+      "version": "Version:",
+      "license": "License:",
+      "noLicensesMessage": "No license information available"
+    }
+  },
   "mainDisclaimer": {
     "de": {
       "pageTitle": "Impressum und Kontakt - {{appName}}"

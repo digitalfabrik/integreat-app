@@ -1,0 +1,7 @@
+issue_key: IGAPP-1055
+show_in_stores: true
+platforms:
+  - ios
+  - android
+en: Improve performance if there are many events.
+de: Verbesserte Performance falls viele Events angezeigt werden.
