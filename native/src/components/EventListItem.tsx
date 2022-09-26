@@ -1,7 +1,7 @@
 import React, { PureComponent, ReactElement } from 'react'
 import styled from 'styled-components/native'
 
-import { EventModel, EVENTS_ROUTE, textTruncator } from 'api-client'
+import { DateFormatter, EventModel, EVENTS_ROUTE, textTruncator } from 'api-client'
 
 import EventPlaceholder1 from '../assets/EventPlaceholder1.jpg'
 import EventPlaceholder2 from '../assets/EventPlaceholder2.jpg'
