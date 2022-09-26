@@ -1,24 +1,22 @@
-import * as React from 'react'
-import { ReactNode } from 'react'
+import React, { PureComponent, ReactElement } from 'react'
 import { Text } from 'react-native'
 
 import { SprungbrettJobModel } from 'api-client'
-import { ThemeType } from 'build-configs'
 
 import ListItem from './ListItem'
 
-type PropsType = {
+type Props = {
   job: SprungbrettJobModel
   openJobInBrowser: () => void
-  theme: ThemeType
   language: string
 }
 
-class SprungbrettListItem extends React.PureComponent<PropsType> {
-  render(): ReactNode {
-    const { language, job, openJobInBrowser, theme } = this.props
+// This should stay a PureComponent for performance reasons
+class SprungbrettListItem extends PureComponent<Props> {
+  render(): ReactElement {
+    const { language, job, openJobInBrowser } = this.props
     return (
-      <ListItem thumbnail={null} title={job.title} navigateTo={openJobInBrowser} theme={theme} language={language}>
+      <ListItem thumbnail={null} title={job.title} navigateTo={openJobInBrowser} language={language}>
         <Text>{job.location}</Text>
       </ListItem>
     )

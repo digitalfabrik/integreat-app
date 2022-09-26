@@ -1,6 +1,7 @@
 import BottomSheet, { BottomSheetScrollView } from '@gorhom/bottom-sheet'
 import React, { ReactElement, ReactNode, useCallback, useEffect, useRef } from 'react'
 import { ScrollView } from 'react-native'
+import styled from 'styled-components/native'
 
 import BottomSheetHandler from './BottomSheetHandler'
 
@@ -11,7 +12,12 @@ type BottomActionsSheetProps = {
   visible?: boolean
   onChange?: (index: number) => void
   initialIndex: number
+  snapPointIndex: number
 }
+
+const StyledBottomSheet = styled(BottomSheet)<{ isFullscreen: boolean }>`
+  ${props => props.isFullscreen && `background-color: white;`}
+`
 
 const BottomActionsSheet: React.FC<BottomActionsSheetProps> = ({
   children,
@@ -20,6 +26,7 @@ const BottomActionsSheet: React.FC<BottomActionsSheetProps> = ({
   onChange,
   snapPoints,
   initialIndex = 0,
+  snapPointIndex,
 }: BottomActionsSheetProps): ReactElement | null => {
   const renderHandle = useCallback(props => <BottomSheetHandler title={title} {...props} />, [title])
 
@@ -39,14 +46,15 @@ const BottomActionsSheet: React.FC<BottomActionsSheetProps> = ({
   }
 
   return (
-    <BottomSheet
+    <StyledBottomSheet
       index={initialIndex}
+      isFullscreen={snapPointIndex === 2}
       snapPoints={snapPoints}
       animateOnMount
       handleComponent={renderHandle}
       onChange={onChange}>
       <BottomSheetScrollView ref={scrollRef}>{children}</BottomSheetScrollView>
-    </BottomSheet>
+    </StyledBottomSheet>
   )
 }
 

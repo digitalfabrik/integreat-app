@@ -1,7 +1,7 @@
 import MapboxGL from '@react-native-mapbox-gl/maps'
-import React, { ReactElement, ReactNode, useEffect, useState } from 'react'
+import React, { ReactElement, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { ScrollView } from 'react-native'
+import { ScrollView, useWindowDimensions } from 'react-native'
 import { useTheme } from 'styled-components'
 import styled from 'styled-components/native'
 
@@ -23,41 +23,51 @@ import {
 
 import BottomActionsSheet from '../components/BottomActionsSheet'
 import Failure from '../components/Failure'
-import List from '../components/List'
 import MapView from '../components/MapView'
 import PoiDetails from '../components/PoiDetails'
-import { PoiListItem } from '../components/PoiListItem'
+import PoiListItem from '../components/PoiListItem'
 import SiteHelpfulBox from '../components/SiteHelpfulBox'
 import { NavigationPropType, RoutePropType } from '../constants/NavigationTypes'
 import dimensions from '../constants/dimensions'
+import usePrevious from '../hooks/usePrevious'
 import useSetShareUrl from '../hooks/useSetShareUrl'
 import useUserLocation from '../hooks/useUserLocation'
 import createNavigateToFeedbackModal from '../navigation/createNavigateToFeedbackModal'
 import urlFromRouteInformation from '../navigation/url'
-import { LanguageResourceCacheStateType } from '../redux/StateType'
 import { reportError } from '../utils/sentry'
 
 export type PropsType = {
   pois: Array<PoiModel>
   cityModel: CityModel
   language: string
-  resourceCache: LanguageResourceCacheStateType
-  resourceCacheUrl: string
   route: RoutePropType<PoisRouteType>
   navigation: NavigationPropType<PoisRouteType>
 }
 
-const CustomSheetList = styled.View`
+const ListWrapper = styled.View`
   margin: 0 32px;
 `
 
-const BOTTOM_SHEET_SNAP_POINTS = [dimensions.bottomSheetHandler.height, '35%', '95%']
+const NoItemsMessage = styled.Text`
+  padding-top: 25px;
+  text-align: center;
+`
+
+const midSnapPointPercentage = 0.35
+const percentage = 100
+const BOTTOM_SHEET_SNAP_POINTS = [
+  dimensions.bottomSheetHandler.height,
+  `${midSnapPointPercentage * percentage}%`,
+  '100%',
+]
 
 const Pois = ({ pois, language, cityModel, route, navigation }: PropsType): ReactElement => {
   const { coordinates, requestAndDetermineLocation } = useUserLocation(true)
   const [urlSlug, setUrlSlug] = useState<string | null>(route.params.urlSlug ?? null)
+  const prevUrlSlug = usePrevious(urlSlug ?? '')
   const [sheetSnapPointIndex, setSheetSnapPointIndex] = useState<number>(1)
   const [followUserLocation, setFollowUserLocation] = useState<boolean>(false)
+  const deviceHeight = useWindowDimensions().height
   const features = prepareFeatureLocations(pois, coordinates)
   const selectedFeature = urlSlug ? features.find(it => it.properties.urlSlug === urlSlug) : null
   const poi = pois.find(it => it.urlSlug === urlSlug)
@@ -100,22 +110,23 @@ const Pois = ({ pois, language, cityModel, route, navigation }: PropsType): Reac
   // Wait for followUserLocation change before moving the camera to avoid position lock
   // https://github.com/rnmapbox/maps/issues/1079
   useEffect(() => {
-    if (!followUserLocation && selectedFeature && cameraRef.current) {
+    if (!followUserLocation && selectedFeature && cameraRef.current && prevUrlSlug !== urlSlug) {
       cameraRef.current.setCamera({
         centerCoordinate: selectedFeature.geometry.coordinates,
         zoomLevel: detailZoom,
         animationDuration,
+        padding: { paddingBottom: deviceHeight * midSnapPointPercentage },
       })
     }
-  }, [followUserLocation, selectedFeature])
+  }, [deviceHeight, followUserLocation, prevUrlSlug, selectedFeature, urlSlug])
 
-  const renderPoiListItem = (poi: PoiFeature): ReactNode => (
+  const renderPoiListItem = (poi: PoiFeature): ReactElement => (
     <PoiListItem
       key={poi.properties.id}
       poi={poi}
       language={language}
-      theme={theme}
       navigateToPoi={() => selectPoiFeature(poi)}
+      t={t}
     />
   )
 
@@ -153,13 +164,9 @@ const Pois = ({ pois, language, cityModel, route, navigation }: PropsType): Reac
   const content = urlSlug ? (
     selectedFeatureContent
   ) : (
-    <List
-      CustomStyledList={CustomSheetList}
-      noItemsMessage={t('noPois')}
-      items={features}
-      renderItem={renderPoiListItem}
-      theme={theme}
-    />
+    <ListWrapper>
+      {features.length === 0 ? <NoItemsMessage>{t('noPois')}</NoItemsMessage> : features.map(renderPoiListItem)}
+    </ListWrapper>
   )
 
   return (
@@ -183,7 +190,8 @@ const Pois = ({ pois, language, cityModel, route, navigation }: PropsType): Reac
         title={!selectedFeature ? t('listTitle') : undefined}
         onChange={setSheetSnapPointIndex}
         initialIndex={sheetSnapPointIndex}
-        snapPoints={BOTTOM_SHEET_SNAP_POINTS}>
+        snapPoints={BOTTOM_SHEET_SNAP_POINTS}
+        snapPointIndex={sheetSnapPointIndex}>
         {content}
         <SiteHelpfulBox backgroundColor={theme.colors.backgroundColor} navigateToFeedback={navigateToFeedback} />
       </BottomActionsSheet>

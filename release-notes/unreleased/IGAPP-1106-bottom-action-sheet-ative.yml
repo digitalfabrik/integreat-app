@@ -1,0 +1,8 @@
+issue_key: IGAPP-1106
+show_in_stores: true
+platforms:
+  - android
+  - ios
+  - web
+en: Fix centering of poi marker on poi selection
+de: Zentrierung des Poi-Markers bei der Poi-Auswahl korrigiert
