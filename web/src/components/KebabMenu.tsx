@@ -1,4 +1,4 @@
-import React, { ReactElement, ReactNode, useState } from 'react'
+import React, { ReactElement, ReactNode } from 'react'
 import styled from 'styled-components'
 
 import { UiDirectionType } from 'translations'
@@ -13,6 +13,8 @@ import Portal from './Portal'
 type KebabMenuProps = {
   items: Array<ReactNode>
   direction: UiDirectionType
+  show: boolean
+  setShow: (show: boolean) => void
 }
 
 const ToggleContainer = styled.div`
@@ -21,7 +23,7 @@ const ToggleContainer = styled.div`
   z-index: 50;
 `
 
-const List = styled.div<{ direction: UiDirectionType; checked: boolean }>`
+const List = styled.div<{ direction: UiDirectionType; show: boolean }>`
   font-family: ${props => props.theme.fonts.web.decorativeFont};
   position: absolute;
   top: 0;
@@ -36,7 +38,7 @@ const List = styled.div<{ direction: UiDirectionType; checked: boolean }>`
   z-index: 40;
   ${props => (props.direction === 'rtl' ? `left: 0;` : `right:0;`)}
   ${props => (props.direction === 'rtl' ? `transform: translate(-100%, 0);` : `transform: translate(100%, 0);`)}
-  ${props => props.checked && `opacity: 1;transform: none;`}
+  ${props => props.show && `opacity: 1;transform: none;`}
 `
 
 const Icon = styled.img`
@@ -46,7 +48,7 @@ const Icon = styled.img`
   height: 18px;
 `
 
-const Overlay = styled.div<{ checked: boolean }>`
+const Overlay = styled.div<{ show: boolean }>`
   position: absolute;
   width: 100%;
   height: 100vh;
@@ -54,7 +56,7 @@ const Overlay = styled.div<{ checked: boolean }>`
   left: 0;
   background-color: rgba(0, 0, 0, 0.5);
   z-index: 30;
-  display: ${props => (props.checked ? `block` : `none`)};
+  display: ${props => (props.show ? `block` : `none`)};
 `
 
 const Heading = styled.div<{ direction: string }>`
@@ -77,12 +79,11 @@ const ToggleButton = styled.button`
   margin-top: 6px;
 `
 
-const KebabMenu = ({ items, direction }: KebabMenuProps): ReactElement | null => {
-  const [checked, setChecked] = useState<boolean>(false)
-  const { locked, setLocked } = useLockedBody(checked)
+const KebabMenu = ({ items, direction, show, setShow }: KebabMenuProps): ReactElement | null => {
+  const { locked, setLocked } = useLockedBody(show)
 
   const onClick = () => {
-    setChecked(!checked)
+    setShow(!show)
     setLocked(!locked)
   }
 
@@ -97,12 +98,12 @@ const KebabMenu = ({ items, direction }: KebabMenuProps): ReactElement | null =>
       </ToggleButton>
       <Portal
         className='kebab-menu'
-        opened={checked}
+        show={show}
         style={window.scrollY > 0 ? { top: `${window.scrollY}px` } : undefined}>
         {/* disabled because this is an overlay for backdrop close */}
         {/* eslint-disable-next-line styled-components-a11y/no-static-element-interactions,styled-components-a11y/click-events-have-key-events */}
-        <Overlay onClick={onClick} checked={checked} />
-        <List direction={direction} checked={checked}>
+        <Overlay onClick={onClick} show={show} />
+        <List direction={direction} show={show}>
           <Heading direction={direction}>
             <ToggleButton onClick={onClick}>
               <Icon src={iconClose} alt='' />
