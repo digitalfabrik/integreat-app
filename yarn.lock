@@ -16465,7 +16465,7 @@ react-native-highlight-words@^1.0.1:
     highlight-words-core "^1.0.3"
     prop-types "^15.5.7"
 
-react-native-inappbrowser-reborn@^3.6.3:
+react-native-inappbrowser-reborn@^3.7.0:
   version "3.7.0"
   resolved "https://registry.yarnpkg.com/react-native-inappbrowser-reborn/-/react-native-inappbrowser-reborn-3.7.0.tgz#849a43c3c7da22b65147649fe596836bcb494083"
   integrity sha512-Ia53jYNtFcbNaX5W3QfOmN25I7bcvuDiQmSY5zABXjy4+WI20bPc9ua09li55F8yDCjv3C99jX6vKms68mBV7g==
