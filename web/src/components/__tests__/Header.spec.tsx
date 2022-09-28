@@ -26,6 +26,7 @@ describe('Header', () => {
   })
 
   it('should render KebabMenu with elements on small viewport', () => {
+    const setShowSidebar = jest.fn()
     const { getByTestId } = renderWithRouterAndTheme(
       <Header
         logoHref='/random_route'
@@ -36,6 +37,8 @@ describe('Header', () => {
         ]}
         viewportSmall
         direction='ltr'
+        showSidebar
+        setShowSidebar={setShowSidebar}
       />
     )
     expect(getByTestId('kebab-menu-button')).toBeInTheDocument()
