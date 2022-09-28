@@ -64,19 +64,19 @@ export type PoiFeatureCollection = FeatureCollection<Point, GeoJsonPoiProperties
 
 export const mapConfig: MapConfigProps = {
   styleJSON: 'https://maps.tuerantuer.org/styles/integreat/style.json',
-  accessToken: 'dummy',
+  accessToken: 'dummy'
 }
 
 export const defaultViewportConfig: MapViewViewport = {
   latitude: 48.366512,
   longitude: 10.894446,
-  zoom: 8,
+  zoom: 8
 }
 
 export const defaultMercatorViewportConfig: MapViewMercatorViewport = {
   width: 400,
   height: 400,
-  ...defaultViewportConfig,
+  ...defaultViewportConfig
 }
 
 export const detailZoom = 15
@@ -87,9 +87,5 @@ export const nameQueryParam = 'name'
 export const mapMarker: MarkerConfig = {
   iconSize: 0.75,
   symbol: 'marker_40',
-  symbolActive: 'marker_40_active',
-}
-
-export const cluster = {
-  circleSize: 20,
+  symbolActive: 'marker_40_active'
 }
