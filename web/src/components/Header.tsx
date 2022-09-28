@@ -134,8 +134,11 @@ export const Header = ({
           </ActionBar>
         </Row>
         {hasNavigationBar && (
-          <NavigationBarScrollContainer scrollContainerRef={scrollContainerRef} direction={direction}>
-            <NavigationBar>{navigationItems}</NavigationBar>
+          <NavigationBarScrollContainer
+            scrollContainerRef={scrollContainerRef}
+            direction={direction}
+            activeIndex={navigationItems.findIndex((el: any) => el.props.active)}>
+            <NavigationBar id='navbar'>{navigationItems}</NavigationBar>
           </NavigationBarScrollContainer>
         )}
       </HeaderContainer>
