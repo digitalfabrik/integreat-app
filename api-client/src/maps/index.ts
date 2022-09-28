@@ -80,11 +80,15 @@ export const defaultMercatorViewportConfig: MapViewMercatorViewport = {
 }
 
 export const detailZoom = 15
-export const animationDuration = 2000
+export const clusterZoom = 12
 export const nameQueryParam = 'name'
 
 export const mapMarker: MarkerConfig = {
   iconSize: 0.75,
   symbol: 'marker_40',
   symbolActive: 'marker_40_active',
+}
+
+export const cluster = {
+  circleSize: 20,
 }

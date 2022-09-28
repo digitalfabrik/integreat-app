@@ -1,0 +1,5 @@
+issue_key: IGAPP-1095
+show_in_stores: true
+platforms:
+  - web
+en: Add clustering for pois
