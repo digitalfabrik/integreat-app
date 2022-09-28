@@ -23,6 +23,7 @@ import Layout from './components/Layout'
 import LoadingSpinner from './components/LoadingSpinner'
 import buildConfig from './constants/buildConfig'
 import { cmsApiBaseUrl } from './constants/urls'
+import useScrollToTop from './hooks/useScrollToTop'
 import useWindowDimensions from './hooks/useWindowDimensions'
 import { cityContentPattern, RoutePatterns } from './routes'
 import CityNotCooperatingPage from './routes/CityNotCooperatingPage'
@@ -45,6 +46,7 @@ const RootSwitcher = ({ setContentLanguage }: PropsType): ReactElement => {
   const { fixedCity, cityNotCooperating, jpalTracking } = buildConfig().featureFlags
   const languageCode = useMatch('/:slug/:languageCode/*')?.params.languageCode
   const { viewportSmall } = useWindowDimensions()
+  useScrollToTop()
 
   const detectedLanguageCode = i18n.language
   const language = languageCode ?? detectedLanguageCode
