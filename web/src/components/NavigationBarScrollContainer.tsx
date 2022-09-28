@@ -11,6 +11,7 @@ type PropsType = {
   children: ReactNode
   direction?: UiDirectionType
   scrollContainerRef: RefObject<HTMLDivElement>
+  activeIndex: number
 }
 
 const Container = styled.div`
@@ -59,8 +60,19 @@ const getScrollableWidth = (scrollContainer: RefObject<HTMLDivElement>): number 
   return 0
 }
 
-const NavigationBarScrollContainer = ({ children, direction, scrollContainerRef }: PropsType): ReactElement => {
-  const [scrollPosition, setScrollPosition] = useState(0)
+const NavigationBarScrollContainer = ({
+  children,
+  direction,
+  scrollContainerRef,
+  activeIndex,
+}: PropsType): ReactElement => {
+  const navBar = document.getElementById('navbar')
+  const navBarOffset = navBar?.offsetLeft
+  const elementOffset = navBar?.getElementsByTagName('div')[activeIndex]?.offsetLeft
+  const initScrollPosition = activeIndex > 0 && navBarOffset && elementOffset ? navBarOffset + elementOffset : 0
+
+  const [scrollPosition, setScrollPosition] = useState<number>(initScrollPosition)
+  scrollContainerRef.current?.scrollTo({ left: scrollPosition, behavior: 'smooth' })
 
   const showArrowContainer = scrollContainerRef.current ? getScrollableWidth(scrollContainerRef) > 0 : false
   const showArrowLeft = scrollContainerRef.current ? scrollPosition > 0 : false
