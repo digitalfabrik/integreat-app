@@ -16,6 +16,7 @@ type PropsType = {
   t: TFunction<'layout'>
   inKebabMenu?: boolean
   direction?: UiDirectionType
+  closeSidebar?: () => void
 }
 
 const HeaderLanguageSelectorItem = ({
@@ -24,6 +25,7 @@ const HeaderLanguageSelectorItem = ({
   t,
   inKebabMenu = false,
   direction,
+  closeSidebar,
 }: PropsType): ReactElement => {
   const noLanguagesHint = t('noLanguages')
 
@@ -38,9 +40,13 @@ const HeaderLanguageSelectorItem = ({
   )
 
   const renderActionItem = () => {
-    if (inKebabMenu) {
+    if (inKebabMenu && closeSidebar) {
       return (
-        <KebabActionItemDropDown iconSrc={languageIcon} text={t('changeLanguage')} direction={direction}>
+        <KebabActionItemDropDown
+          iconSrc={languageIcon}
+          text={t('changeLanguage')}
+          direction={direction}
+          closeSidebar={closeSidebar}>
           {renderItem}
         </KebabActionItemDropDown>
       )
