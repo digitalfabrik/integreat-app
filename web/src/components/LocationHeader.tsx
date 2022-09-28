@@ -1,4 +1,4 @@
-import React, { ReactNode, ReactElement } from 'react'
+import React, { ReactNode, ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import {
@@ -44,6 +44,7 @@ type PropsType = {
 const LocationHeader = (props: PropsType): ReactElement => {
   const { viewportSmall, cityModel, languageCode, languageChangePaths, route } = props
   const { eventsEnabled, poisEnabled, offersEnabled, tunewsEnabled, localNewsEnabled } = cityModel
+  const [showSidebar, setShowSidebar] = useState<boolean>(false)
 
   const params = { cityCode: cityModel.code, languageCode }
   const newsType = localNewsEnabled ? LOCAL_NEWS_ROUTE : TU_NEWS_ROUTE
@@ -108,6 +109,7 @@ const LocationHeader = (props: PropsType): ReactElement => {
       isHeaderActionItem
       languageCode={languageCode}
       inKebabMenu
+      closeSidebar={() => setShowSidebar(false)}
     />,
   ]
 
@@ -197,6 +199,8 @@ const LocationHeader = (props: PropsType): ReactElement => {
       kebabItems={kebabItems}
       cityName={cityModel.name}
       navigationItems={getNavigationItems()}
+      showSidebar={showSidebar}
+      setShowSidebar={setShowSidebar}
     />
   )
 }

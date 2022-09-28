@@ -18,6 +18,8 @@ type PropsType = {
   viewportSmall: boolean
   cityName?: string
   direction: UiDirectionType
+  showSidebar?: boolean
+  setShowSidebar?: (show: boolean) => void
 }
 
 const HeaderContainer = styled.header`
@@ -112,6 +114,8 @@ export const Header = ({
   navigationItems = [],
   cityName,
   direction,
+  showSidebar = false,
+  setShowSidebar,
 }: PropsType): ReactElement => {
   const { headerHeightSmall, headerHeightLarge } = dimensions
   const hasNavigationBar = navigationItems.length > 0
@@ -130,7 +134,9 @@ export const Header = ({
           {(!viewportSmall || cityName) && <HeaderTitle>{cityName}</HeaderTitle>}
           <ActionBar>
             {actionItems}
-            {viewportSmall && <KebabMenu items={kebabItems} direction={direction} />}
+            {viewportSmall && setShowSidebar && (
+              <KebabMenu setShow={setShowSidebar} show={showSidebar} items={kebabItems} direction={direction} />
+            )}
           </ActionBar>
         </Row>
         {hasNavigationBar && (
