@@ -74,14 +74,14 @@ const SearchPage = ({ cityModel, languages, cityCode, languageCode, pathname }: 
 
   const normalizedFilterText = normalizeSearchString(filterText)
 
-  // find all categories whose titles include the filter text and sort them lexicographically
+  // Lexicographically sorted categories with match in title
   const categoriesWithTitle = categories
     .toArray()
     .filter(category => normalizeSearchString(category.title).includes(normalizedFilterText) && !category.isRoot())
     .map(category => ({ model: category, subCategories: [] }))
     .sort((category1, category2) => category1.model.title.localeCompare(category2.model.title))
 
-  // find all categories whose contents but not titles include the filter text and sort them lexicographically
+  // Lexicographically sorted categories with match in content but not in title
   const categoriesWithContent = categories
     .toArray()
     .filter(
@@ -92,7 +92,6 @@ const SearchPage = ({ cityModel, languages, cityCode, languageCode, pathname }: 
     .map(category => ({ model: category, subCategories: [] }))
     .sort((category1, category2) => category1.model.title.localeCompare(category2.model.title))
 
-  // return all categories
   const searchResults = categoriesWithTitle.concat(categoriesWithContent)
 
   const handleFilterTextChanged = (filterText: string): void => {
