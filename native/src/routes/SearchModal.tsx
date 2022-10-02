@@ -7,7 +7,6 @@ import styled from 'styled-components/native'
 import {
   CategoriesRouteInformationType,
   CategoriesMapModel,
-  CategoryModel,
   SEARCH_FINISHED_SIGNAL_NAME,
   SEARCH_ROUTE,
   CATEGORIES_ROUTE,
@@ -56,45 +55,40 @@ class SearchModal extends React.Component<PropsType, SearchStateType> {
   findCategories(categories: CategoriesMapModel): Array<ListEntryType> {
     const { query } = this.state
     const normalizedFilter = normalizeSearchString(query)
-    const categoriesArray = categories.toArray()
-    // find all categories whose titles include the filter text and sort them lexicographically
+    const categoriesArray = categories.toArray().filter(it => !it.isRoot())
+
+    // Lexicographically sorted categories with match in title
     const categoriesWithTitle = categoriesArray
-      .filter(category => normalizeSearchString(category.title).includes(normalizedFilter) && !category.isRoot())
-      .map(
-        (category: CategoryModel): ListEntryType => ({
-          model: {
-            title: category.title,
-            thumbnail: category.thumbnail,
-            path: category.path,
-            contentWithoutHtml: parseHTML(category.content),
-            titleMatch: true,
-          },
-          subCategories: [],
-        })
-      )
+      .filter(category => normalizeSearchString(category.title).includes(normalizedFilter))
+      .map(category => ({
+        model: {
+          title: category.title,
+          thumbnail: category.thumbnail,
+          path: category.path,
+          contentWithoutHtml: parseHTML(category.content),
+        },
+        subCategories: [],
+      }))
       .sort((category1, category2) => category1.model.title.localeCompare(category2.model.title))
-    // find all categories whose contents but not titles include the filter text and sort them lexicographically
+
+    // Lexicographically sorted categories with match in content but not in title
     const categoriesWithContent = categoriesArray
-      .filter(category => !normalizeSearchString(category.title).includes(normalizedFilter) && !category.isRoot())
-      .map(
-        (category: CategoryModel): ListEntryType => ({
-          model: {
-            path: category.path,
-            thumbnail: category.thumbnail,
-            title: category.title,
-            contentWithoutHtml: parseHTML(category.content),
-          },
-          subCategories: [],
-        })
-      )
+      .map(category => ({
+        model: {
+          path: category.path,
+          thumbnail: category.thumbnail,
+          title: category.title,
+          contentWithoutHtml: parseHTML(category.content),
+        },
+        subCategories: [],
+      }))
       .filter(
         category =>
-          category.model.contentWithoutHtml &&
-          category.model.contentWithoutHtml.length > 0 &&
+          !normalizeSearchString(category.model.title).includes(normalizedFilter) &&
           normalizeSearchString(category.model.contentWithoutHtml).includes(normalizedFilter)
       )
       .sort((category1, category2) => category1.model.title.localeCompare(category2.model.title))
-    // return all categories from above and remove the root category
+
     return categoriesWithTitle.concat(categoriesWithContent)
   }
 
