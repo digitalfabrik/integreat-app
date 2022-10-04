@@ -1,11 +1,10 @@
 import React from 'react'
 
 import render from '../../testing/render'
-import { CategoryListModelType } from '../CategoryList'
 import CategoryListItem from '../CategoryListItem'
 
 describe('CategoryListItem', () => {
-  const subCategories: [CategoryListModelType, CategoryListModelType] = [
+  const subCategories = [
     {
       title: 'sub 1',
       thumbnail: 'thumbnail',
@@ -18,12 +17,14 @@ describe('CategoryListItem', () => {
     },
   ]
 
-  const category: CategoryListModelType = {
+  const item = {
     title: 'category',
     thumbnail: 'thumbnail',
     path: 'path/to',
     contentWithoutHtml: 'This is some test content.',
+    subCategories,
   }
+  const itemWithoutSubCategories = { ...item, subCategories: [] }
 
   const onItemPress = jest.fn()
 
@@ -34,35 +35,24 @@ describe('CategoryListItem', () => {
   it('should render category and subcategories', () => {
     const language = 'de'
     const { getByText, queryByText } = render(
-      <CategoryListItem
-        category={category}
-        subCategories={subCategories}
-        onItemPress={onItemPress}
-        language={language}
-      />
+      <CategoryListItem item={item} onItemPress={onItemPress} language={language} />
     )
-    expect(getByText(category.title)).toBeTruthy()
+    expect(getByText(item.title)).toBeTruthy()
 
-    expect(queryByText(category.contentWithoutHtml!)).toBeFalsy()
+    expect(queryByText(item.contentWithoutHtml!)).toBeFalsy()
 
-    expect(getByText(subCategories[0].title)).toBeTruthy()
+    expect(getByText(subCategories[0]!.title)).toBeTruthy()
 
-    expect(getByText(subCategories[1].title)).toBeTruthy()
+    expect(getByText(subCategories[1]!.title)).toBeTruthy()
   })
 
   it('should render category and highlighted filtered text', () => {
     const language = 'de'
     const { getByText } = render(
-      <CategoryListItem
-        query='test'
-        category={category}
-        subCategories={[]}
-        onItemPress={onItemPress}
-        language={language}
-      />
+      <CategoryListItem query='test' item={itemWithoutSubCategories} onItemPress={onItemPress} language={language} />
     )
 
-    expect(getByText(category.title)).toBeTruthy()
+    expect(getByText(item.title)).toBeTruthy()
     expect(getByText('This is some content.')).toBeTruthy()
   })
 })

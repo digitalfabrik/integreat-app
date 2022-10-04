@@ -8,37 +8,36 @@ import CategoryListCaption from './CategoryListCaption'
 import CategoryListContent from './CategoryListContent'
 import CategoryListItem from './CategoryListItem'
 
-export type CategoryListModelType = {
+export type SimpleItem = {
   title: string
-  thumbnail: string
   path: string
+  thumbnail: string
   contentWithoutHtml?: string
 }
-export type ListEntryType = {
-  model: CategoryListModelType
-  subCategories: Array<CategoryListModelType>
+
+export type Item = SimpleItem & {
+  subCategories: SimpleItem[]
 }
-export type ListContentModelType = {
+
+type ListContentModelType = {
   files: PageResourceCacheStateType
   resourceCacheUrl: string
   content: string
   lastUpdate: Moment
 }
 type PropsType = {
-  categories: Array<ListEntryType>
+  items: Item[]
   title?: string
   listContent?: ListContentModelType | null | undefined
-
-  /** A search query to highlight in the categories titles */
   query?: string
-  onItemPress: (tile: CategoryListModelType) => void
+  onItemPress: (item: { path: string }) => void
   language: string
 }
 /**
  * Displays a ContentList which is a list of categories, a caption and a thumbnail
  */
 
-const CategoryList = ({ categories, title, listContent, query, onItemPress, language }: PropsType): ReactElement => {
+const CategoryList = ({ items, title, listContent, query, onItemPress, language }: PropsType): ReactElement => {
   const getListContent = (listContent: ListContentModelType) => {
     const cacheDictionary = mapValues(listContent.files, (file: PageResourceCacheEntryStateType) =>
       file.filePath.startsWith(RESOURCE_CACHE_DIR_PATH)
@@ -59,15 +58,8 @@ const CategoryList = ({ categories, title, listContent, query, onItemPress, lang
     <>
       {title && <CategoryListCaption title={title} withThumbnail={false} />}
       {listContent && getListContent(listContent)}
-      {categories.map(({ model, subCategories }) => (
-        <CategoryListItem
-          key={model.path}
-          category={model}
-          language={language}
-          subCategories={subCategories}
-          query={query}
-          onItemPress={onItemPress}
-        />
+      {items.map(it => (
+        <CategoryListItem key={it.path} item={it} language={language} query={query} onItemPress={onItemPress} />
       ))}
     </>
   )
