@@ -1134,6 +1134,7 @@
       "networkRequestFailed": "The request could not be processed.",
       "responseMappingFailed": "An error occurred while processing the server's response.",
       "unknownError": "An unknown error occurred.",
+      "linkError": "Link could not be opened",
       "tryAgain": "Try again",
       "loadingFailed": "Sorry, but the requested page could not be loaded.",
       "chooseALanguage": "Choose a language:",
