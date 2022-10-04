@@ -61,12 +61,11 @@ const getScrollableWidth = (scrollContainer: RefObject<HTMLDivElement>): number 
 }
 
 const NavigationBarScrollContainer = ({
-                                        children,
-                                        direction,
-                                        scrollContainerRef,
-                                        activeIndex
-                                      }: PropsType): ReactElement => {
-
+  children,
+  direction,
+  scrollContainerRef,
+  activeIndex,
+}: PropsType): ReactElement => {
   const getInitScrollPosition = useCallback((): number => {
     const navBar = document.getElementById('navbar')
     if (!navBar) {
@@ -75,7 +74,6 @@ const NavigationBarScrollContainer = ({
     const navBarOffset = navBar.offsetLeft
     const elementOffset = navBar.getElementsByTagName('div')[activeIndex]?.offsetLeft
     return elementOffset ? navBarOffset + elementOffset : 0
-
   }, [activeIndex])
   const [scrollPosition, setScrollPosition] = useState<number>(activeIndex > 0 ? getInitScrollPosition() : 0)
 
@@ -89,7 +87,7 @@ const NavigationBarScrollContainer = ({
 
   const onScrollForward = () =>
     scrollContainerRef.current?.scroll({
-      left: direction === 'rtl' ? -scrollContainerRef.current.scrollWidth : scrollContainerRef.current.scrollWidth
+      left: direction === 'rtl' ? -scrollContainerRef.current.scrollWidth : scrollContainerRef.current.scrollWidth,
     })
 
   const scrollContainer = (
