@@ -73,6 +73,7 @@ class SearchModal extends React.Component<PropsType, SearchStateType> {
 
     // Lexicographically sorted categories with match in content but not in title
     const categoriesWithContent = categoriesArray
+      .filter(category => !normalizeSearchString(category.title).includes(normalizedFilter) && !category.isRoot())
       .map(category => ({
         model: {
           path: category.path,
@@ -82,11 +83,7 @@ class SearchModal extends React.Component<PropsType, SearchStateType> {
         },
         subCategories: [],
       }))
-      .filter(
-        category =>
-          !normalizeSearchString(category.model.title).includes(normalizedFilter) &&
-          normalizeSearchString(category.model.contentWithoutHtml).includes(normalizedFilter)
-      )
+      .filter(category => normalizeSearchString(category.model.contentWithoutHtml).includes(normalizedFilter))
       .sort((category1, category2) => category1.model.title.localeCompare(category2.model.title))
 
     return categoriesWithTitle.concat(categoriesWithContent)
