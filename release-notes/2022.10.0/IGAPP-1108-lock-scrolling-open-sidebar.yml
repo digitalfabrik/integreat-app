@@ -1,0 +1,5 @@
+issue_key: IGAPP-1108
+show_in_stores: true
+platforms:
+  - web
+en: Added scroll locking when sidebar is open
