@@ -32,7 +32,7 @@ const Separator = styled.span`
 
 type PropsType = {
   children: ReactNode
-  shrink?: boolean
+  shrink: boolean
 }
 
 /**
