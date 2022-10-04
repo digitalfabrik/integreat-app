@@ -1,5 +1,4 @@
-import * as React from 'react'
-import { ReactNode } from 'react'
+import React, { ReactElement, useMemo, useState } from 'react'
 import { TFunction } from 'react-i18next'
 import { ActivityIndicator, KeyboardAvoidingView, Platform, ScrollView, View } from 'react-native'
 import styled from 'styled-components/native'
@@ -10,13 +9,12 @@ import {
   SEARCH_FINISHED_SIGNAL_NAME,
   SEARCH_ROUTE,
   CATEGORIES_ROUTE,
-  normalizeSearchString,
   RouteInformationType,
-  parseHTML,
+  queryCategories,
 } from 'api-client'
 import { ThemeType } from 'build-configs'
 
-import CategoryList, { ListEntryType } from '../components/CategoryList'
+import CategoryList from '../components/CategoryList'
 import FeedbackContainer from '../components/FeedbackContainer'
 import NothingFound from '../components/NothingFound'
 import SearchHeader from '../components/SearchHeader'
@@ -43,55 +41,23 @@ export type PropsType = {
   closeModal: (query: string) => void
   t: TFunction<'search'>
 }
-type SearchStateType = {
-  query: string
-}
 
-class SearchModal extends React.Component<PropsType, SearchStateType> {
-  state = {
-    query: '',
-  }
-
-  findCategories(categories: CategoriesMapModel): Array<ListEntryType> {
-    const { query } = this.state
-    const normalizedFilter = normalizeSearchString(query)
-    const categoriesArray = categories.toArray().filter(it => !it.isRoot())
-
-    // Lexicographically sorted categories with match in title
-    const categoriesWithTitle = categoriesArray
-      .filter(category => normalizeSearchString(category.title).includes(normalizedFilter))
-      .map(category => ({
-        model: {
-          title: category.title,
-          thumbnail: category.thumbnail,
-          path: category.path,
-          contentWithoutHtml: parseHTML(category.content),
-        },
+const SearchModal = ({ categories, navigateTo, theme, language, cityCode, closeModal, t }: PropsType): ReactElement => {
+  const [query, setQuery] = useState<string>('')
+  const searchResults = useMemo(
+    () =>
+      queryCategories(categories, query)?.map(({ category, contentWithoutHtml }) => ({
+        title: category.title,
+        path: category.path,
+        thumbnail: category.thumbnail,
+        contentWithoutHtml,
         subCategories: [],
-      }))
-      .sort((category1, category2) => category1.model.title.localeCompare(category2.model.title))
+      })),
+    [categories, query]
+  )
+  const minHeight = dimensions.categoryListItem.iconSize + dimensions.categoryListItem.margin * 2
 
-    // Lexicographically sorted categories with match in content but not in title
-    const categoriesWithContent = categoriesArray
-      .filter(category => !normalizeSearchString(category.title).includes(normalizedFilter) && !category.isRoot())
-      .map(category => ({
-        model: {
-          path: category.path,
-          thumbnail: category.thumbnail,
-          title: category.title,
-          contentWithoutHtml: parseHTML(category.content),
-        },
-        subCategories: [],
-      }))
-      .filter(category => normalizeSearchString(category.model.contentWithoutHtml).includes(normalizedFilter))
-      .sort((category1, category2) => category1.model.title.localeCompare(category2.model.title))
-
-    return categoriesWithTitle.concat(categoriesWithContent)
-  }
-
-  onItemPress = (category: { path: string }): void => {
-    const { cityCode, language, navigateTo } = this.props
-    const { query } = this.state
+  const onItemPress = (category: { path: string }): void => {
     const routeInformation: CategoriesRouteInformationType = {
       route: CATEGORIES_ROUTE,
       cityContentPath: category.path,
@@ -113,9 +79,7 @@ class SearchModal extends React.Component<PropsType, SearchStateType> {
     })
   }
 
-  onClose = (): void => {
-    const { query } = this.state
-    const { closeModal } = this.props
+  const onClose = (): void => {
     sendTrackingSignal({
       signal: {
         name: SEARCH_FINISHED_SIGNAL_NAME,
@@ -126,77 +90,35 @@ class SearchModal extends React.Component<PropsType, SearchStateType> {
     closeModal(query)
   }
 
-  onSearchChanged = (query: string): void => {
-    this.setState({
-      query,
-    })
-  }
+  const Content = searchResults ? (
+    <ScrollView contentContainerStyle={{ flexGrow: 1 }} keyboardShouldPersistTaps='always'>
+      {/* The minHeight is needed to circumvent a bug that appears when there is only one search result (NATIVE-430). */}
+      <View style={{ minHeight }}>
+        <CategoryList items={searchResults} query={query} onItemPress={onItemPress} language={language} />
+      </View>
+      {searchResults.length === 0 && <NothingFound />}
+      <FeedbackContainer
+        routeType={SEARCH_ROUTE}
+        isSearchFeedback
+        isPositiveFeedback={false}
+        language={language}
+        cityCode={cityCode}
+        query={query}
+        theme={theme}
+      />
+    </ScrollView>
+  ) : (
+    <ActivityIndicator size='large' color='#0000ff' />
+  )
 
-  renderContent = (): ReactNode => {
-    const { language, cityCode, theme, categories } = this.props
-    const { query } = this.state
-    const minHeight = dimensions.categoryListItem.iconSize + dimensions.categoryListItem.margin * 2
-
-    if (!categories) {
-      return <ActivityIndicator size='large' color='#0000ff' />
-    }
-
-    const filteredCategories = this.findCategories(categories)
-    return (
-      <ScrollView
-        contentContainerStyle={{
-          flexGrow: 1,
-        }}
-        keyboardShouldPersistTaps='always'>
-        {/* The minHeight is needed to circumvent a bug that appears when there is only one search result.
-             See NATIVE-430 for reference. */}
-        <View
-          style={{
-            minHeight,
-          }}>
-          <CategoryList
-            categories={filteredCategories}
-            query={query}
-            onItemPress={this.onItemPress}
-            language={language}
-          />
-        </View>
-        {filteredCategories.length === 0 && <NothingFound />}
-        <FeedbackContainer
-          routeType={SEARCH_ROUTE}
-          isSearchFeedback
-          isPositiveFeedback={false}
-          language={language}
-          cityCode={cityCode}
-          query={query}
-          theme={theme}
-        />
-      </ScrollView>
-    )
-  }
-
-  render(): ReactNode {
-    const { theme, t } = this.props
-    const { query } = this.state
-    return (
-      <Wrapper theme={theme} {...testID('Search-Page')}>
-        <SearchHeader
-          theme={theme}
-          query={query}
-          closeSearchBar={this.onClose}
-          onSearchChanged={this.onSearchChanged}
-          t={t}
-        />
-        <KeyboardAvoidingView
-          behavior={Platform.OS === 'ios' ? 'padding' : undefined}
-          style={{
-            flex: 1,
-          }}>
-          {this.renderContent()}
-        </KeyboardAvoidingView>
-      </Wrapper>
-    )
-  }
+  return (
+    <Wrapper theme={theme} {...testID('Search-Page')}>
+      <SearchHeader theme={theme} query={query} closeSearchBar={onClose} onSearchChanged={setQuery} t={t} />
+      <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : undefined} style={{ flex: 1 }}>
+        {Content}
+      </KeyboardAvoidingView>
+    </Wrapper>
+  )
 }
 
 export default SearchModal

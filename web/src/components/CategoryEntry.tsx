@@ -3,7 +3,7 @@ import Highlighter from 'react-highlight-words'
 import { Link } from 'react-router-dom'
 import styled, { useTheme } from 'styled-components'
 
-import { CategoryModel, normalizeSearchString, parseHTML } from 'api-client'
+import { CategoryModel, normalizeSearchString } from 'api-client'
 
 import iconPlaceholder from '../assets/IconPlaceholder.svg'
 import ContentMatcher from './ContentMatcher'
@@ -73,21 +73,24 @@ const StyledLink = styled(Link)`
 
 type PropsType = {
   category: CategoryModel
-  subCategories: Array<CategoryModel>
+  subCategories: CategoryModel[]
+  contentWithoutHtml?: string
   query?: string
 }
 
-const CategoryEntry = ({ category, subCategories, query }: PropsType): ReactElement => {
+const CategoryEntry = ({ category, contentWithoutHtml, subCategories, query }: PropsType): ReactElement => {
   const theme = useTheme()
 
   const excerpt = useMemo<string | null>(() => {
+    if (!query || !contentWithoutHtml) {
+      return null
+    }
     const contentMatcher = new ContentMatcher()
-    const contentWithoutHtml = parseHTML(category.content)
     return (
       contentMatcher.getMatchedContent(query, contentWithoutHtml, NUM_WORDS_SURROUNDING_MATCH) ??
       contentMatcher.getContentAfterMatchIndex(contentWithoutHtml, 0, 2 * NUM_WORDS_SURROUNDING_MATCH)
     )
-  }, [category.content, query])
+  }, [contentWithoutHtml, query])
 
   const SubCategories = subCategories.map(subCategory => (
     <SubCategory key={subCategory.path} dir='auto'>

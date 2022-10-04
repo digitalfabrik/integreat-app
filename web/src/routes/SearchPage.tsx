@@ -1,12 +1,11 @@
-import React, { ReactElement, useCallback, useState } from 'react'
+import React, { ReactElement, useCallback, useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useLocation, useNavigate } from 'react-router-dom'
 
 import {
   createCategoriesEndpoint,
-  normalizeSearchString,
-  parseHTML,
   pathnameFromRouteInformation,
+  queryCategories,
   SEARCH_ROUTE,
   useLoadFromEndpoint,
 } from 'api-client'
@@ -39,6 +38,10 @@ const SearchPage = ({ cityModel, languages, cityCode, languageCode, pathname }: 
     [cityCode, languageCode]
   )
   const { data: categories, loading, error: categoriesError } = useLoadFromEndpoint(requestCategories)
+  const searchResults = useMemo(
+    () => queryCategories(categories, query)?.map(it => ({ ...it, subCategories: [] })),
+    [categories, query]
+  )
 
   const languageChangePaths = languages.map(({ code, name }) => ({
     path: pathnameFromRouteInformation({ route: SEARCH_ROUTE, cityCode, languageCode: code }),
@@ -63,7 +66,7 @@ const SearchPage = ({ cityModel, languages, cityCode, languageCode, pathname }: 
     )
   }
 
-  if (!categories) {
+  if (!searchResults) {
     const error = categoriesError || new Error('Categories should not be null!')
     return (
       <LocationLayout isLoading={false} {...locationLayoutParams}>
@@ -71,28 +74,6 @@ const SearchPage = ({ cityModel, languages, cityCode, languageCode, pathname }: 
       </LocationLayout>
     )
   }
-
-  const normalizedFilterText = normalizeSearchString(filterText)
-
-  // Lexicographically sorted categories with match in title
-  const categoriesWithTitle = categories
-    .toArray()
-    .filter(category => normalizeSearchString(category.title).includes(normalizedFilterText) && !category.isRoot())
-    .map(category => ({ model: category, subCategories: [] }))
-    .sort((category1, category2) => category1.model.title.localeCompare(category2.model.title))
-
-  // Lexicographically sorted categories with match in content but not in title
-  const categoriesWithContent = categories
-    .toArray()
-    .filter(
-      category =>
-        !normalizeSearchString(category.title).includes(normalizedFilterText) &&
-        normalizeSearchString(parseHTML(category.content)).includes(normalizedFilterText)
-    )
-    .map(category => ({ model: category, subCategories: [] }))
-    .sort((category1, category2) => category1.model.title.localeCompare(category2.model.title))
-
-  const searchResults = categoriesWithTitle.concat(categoriesWithContent)
 
   const handleFilterTextChanged = (filterText: string): void => {
     setFilterText(filterText)
@@ -111,7 +92,7 @@ const SearchPage = ({ cityModel, languages, cityCode, languageCode, pathname }: 
         onFilterTextChange={handleFilterTextChanged}
         spaceSearch
       />
-      <CategoryList categories={searchResults} query={filterText} onInternalLinkClick={navigate} />
+      <CategoryList items={searchResults} query={filterText} onInternalLinkClick={navigate} />
       {searchResults.length === 0 && <Failure errorMessage='nothingFound' t={t} />}
       <FeedbackSearch
         cityCode={cityCode}

@@ -1,11 +1,9 @@
-import * as React from 'react'
-import { ReactNode } from 'react'
+import React, { ReactElement } from 'react'
+import { useTheme } from 'styled-components'
 import styled from 'styled-components/native'
 
-import { ThemeType } from 'build-configs'
-
 import { contentDirection } from '../constants/contentDirection'
-import { CategoryListModelType } from './CategoryList'
+import { SimpleItem } from './CategoryList'
 
 const SubCategoryTitleContainer = styled.View<{ language: string }>`
   flex: 1;
@@ -21,37 +19,32 @@ const FlexStyledLink = styled.TouchableHighlight<{ language: string }>`
   flex-direction: ${props => contentDirection(props.language)};
   margin: 0 20px 0 95px;
 `
+
 const SubCategoryTitle = styled.Text`
   color: ${props => props.theme.colors.textColor};
   font-family: ${props => props.theme.fonts.native.decorativeFontRegular};
 `
+
 type PropsType = {
-  subCategory: CategoryListModelType
-  theme: ThemeType
-  onItemPress: (tile: CategoryListModelType) => void
+  subCategory: SimpleItem
+  onItemPress: (item: SimpleItem) => void
   language: string
 }
 
-class SubCategoryListItem extends React.PureComponent<PropsType> {
-  onSubCategoryPress = (): void => {
-    const { onItemPress, subCategory } = this.props
-    onItemPress(subCategory)
-  }
+const SubCategoryListItem = ({ subCategory, onItemPress, language }: PropsType): ReactElement => {
+  const theme = useTheme()
 
-  render(): ReactNode {
-    const { language, subCategory, theme } = this.props
-    return (
-      <FlexStyledLink
-        onPress={this.onSubCategoryPress}
-        underlayColor={theme.colors.backgroundAccentColor}
-        language={language}
-        theme={theme}>
-        <SubCategoryTitleContainer language={language} theme={theme}>
-          <SubCategoryTitle theme={theme}>{subCategory.title}</SubCategoryTitle>
-        </SubCategoryTitleContainer>
-      </FlexStyledLink>
-    )
-  }
+  return (
+    <FlexStyledLink
+      onPress={() => onItemPress(subCategory)}
+      underlayColor={theme.colors.backgroundAccentColor}
+      language={language}
+      theme={theme}>
+      <SubCategoryTitleContainer language={language} theme={theme}>
+        <SubCategoryTitle theme={theme}>{subCategory.title}</SubCategoryTitle>
+      </SubCategoryTitleContainer>
+    </FlexStyledLink>
+  )
 }
 
 export default SubCategoryListItem
