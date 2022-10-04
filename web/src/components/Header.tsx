@@ -6,10 +6,10 @@ import { UiDirectionType } from 'translations'
 
 import dimensions from '../constants/dimensions'
 import HeaderLogo from './HeaderLogo'
+import { HeaderNavigationItemProps } from './HeaderNavigationItem'
 import HeaderTitle from './HeaderTitle'
 import KebabMenu from './KebabMenu'
 import NavigationBarScrollContainer from './NavigationBarScrollContainer'
-import { HeaderNavigationItemProps } from './HeaderNavigationItem'
 
 type PropsType = {
   navigationItems: Array<ReactElement<HeaderNavigationItemProps>>
@@ -106,14 +106,14 @@ const NavigationBar = styled.nav`
  * Uses Headroom to save space when scrolling.
  */
 export const Header = ({
-                         viewportSmall,
-                         actionItems = [],
-                         kebabItems = [],
-                         logoHref,
-                         navigationItems = [],
-                         cityName,
-                         direction
-                       }: PropsType): ReactElement => {
+  viewportSmall,
+  actionItems = [],
+  kebabItems = [],
+  logoHref,
+  navigationItems = [],
+  cityName,
+  direction,
+}: PropsType): ReactElement => {
   const { headerHeightSmall, headerHeightLarge } = dimensions
   const hasNavigationBar = navigationItems.length > 0
   const height = viewportSmall

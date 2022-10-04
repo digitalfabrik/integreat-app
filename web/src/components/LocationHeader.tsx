@@ -13,7 +13,7 @@ import {
   POIS_ROUTE,
   SEARCH_ROUTE,
   SHELTER_ROUTE,
-  SPRUNGBRETT_OFFER_ROUTE
+  SPRUNGBRETT_OFFER_ROUTE,
 } from 'api-client'
 import { config } from 'translations'
 
@@ -60,39 +60,39 @@ const LocationHeader = (props: PropsType): ReactElement => {
 
   const actionItems = viewportSmall
     ? [
-      <HeaderActionBarItemLink
-        key='search'
-        href={searchPath}
-        text={t('search')}
-        iconSrc={searchIconMobile}
-        direction={direction}
-      />
-    ]
+        <HeaderActionBarItemLink
+          key='search'
+          href={searchPath}
+          text={t('search')}
+          iconSrc={searchIconMobile}
+          direction={direction}
+        />,
+      ]
     : [
-      <HeaderActionBarItemLink
-        key='search'
-        href={searchPath}
-        text={t('search')}
-        iconSrc={searchIcon}
-        direction={direction}
-      />,
-      ...(!buildConfig().featureFlags.fixedCity
-        ? [
-          <HeaderActionBarItemLink
-            key='location'
-            href={landingPath}
-            text={t('changeLocation')}
-            iconSrc={landingIcon}
-          />
-        ]
-        : []),
-      <LanguageSelector
-        key='language'
-        languageChangePaths={languageChangePaths}
-        isHeaderActionItem
-        languageCode={languageCode}
-      />
-    ]
+        <HeaderActionBarItemLink
+          key='search'
+          href={searchPath}
+          text={t('search')}
+          iconSrc={searchIcon}
+          direction={direction}
+        />,
+        ...(!buildConfig().featureFlags.fixedCity
+          ? [
+              <HeaderActionBarItemLink
+                key='location'
+                href={landingPath}
+                text={t('changeLocation')}
+                iconSrc={landingIcon}
+              />,
+            ]
+          : []),
+        <LanguageSelector
+          key='language'
+          languageChangePaths={languageChangePaths}
+          isHeaderActionItem
+          languageCode={languageCode}
+        />,
+      ]
 
   const kebabItems = [
     <KebabActionItemLink
@@ -108,7 +108,7 @@ const LocationHeader = (props: PropsType): ReactElement => {
       isHeaderActionItem
       languageCode={languageCode}
       inKebabMenu
-    />
+    />,
   ]
 
   const getNavigationItems = (): Array<ReactElement> => {
@@ -130,7 +130,7 @@ const LocationHeader = (props: PropsType): ReactElement => {
         text={t('localInformation')}
         icon={localInformationIcon}
         direction={direction}
-      />
+      />,
     ]
 
     if (isNewsVisible) {
