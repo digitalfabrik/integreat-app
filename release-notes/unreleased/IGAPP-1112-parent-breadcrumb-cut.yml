@@ -1,0 +1,5 @@
+issue_key: IGAPP-1112
+show_in_stores: true
+platforms:
+  - web
+en: Improve display of last breadcrumb

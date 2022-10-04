@@ -3,11 +3,12 @@ import styled from 'styled-components'
 
 import { helpers } from '../constants/theme'
 
-const ListItem = styled.li`
+const SHRINK_FACTOR = 0.1
+const ListItem = styled.li<{ shrink: boolean }>`
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
-  flex-shrink: 0.1;
+  flex-shrink: ${props => (props.shrink ? SHRINK_FACTOR : 0)};
 
   &:not(:last-of-type) {
     flex-shrink: 1;
@@ -31,13 +32,14 @@ const Separator = styled.span`
 
 type PropsType = {
   children: ReactNode
+  shrink: boolean
 }
 
 /**
  * Displays breadcrumbs (Links) for lower category levels
  */
-const Breadcrumb = ({ children }: PropsType): ReactElement => (
-  <ListItem>
+const Breadcrumb = ({ children, shrink }: PropsType): ReactElement => (
+  <ListItem shrink={shrink}>
     <Separator aria-hidden />
     {children}
   </ListItem>
