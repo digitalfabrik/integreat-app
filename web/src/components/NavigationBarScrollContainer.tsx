@@ -1,4 +1,4 @@
-import React, { ReactElement, ReactNode, RefObject, useState } from 'react'
+import React, { ReactElement, ReactNode, RefObject, useCallback, useState } from 'react'
 import styled from 'styled-components'
 
 import { UiDirectionType } from 'translations/src'
@@ -61,18 +61,27 @@ const getScrollableWidth = (scrollContainer: RefObject<HTMLDivElement>): number 
 }
 
 const NavigationBarScrollContainer = ({
-  children,
-  direction,
-  scrollContainerRef,
-  activeIndex,
-}: PropsType): ReactElement => {
-  const navBar = document.getElementById('navbar')
-  const navBarOffset = navBar?.offsetLeft
-  const elementOffset = navBar?.getElementsByTagName('div')[activeIndex]?.offsetLeft
-  const initScrollPosition = activeIndex > 0 && navBarOffset && elementOffset ? navBarOffset + elementOffset : 0
+                                        children,
+                                        direction,
+                                        scrollContainerRef,
+                                        activeIndex
+                                      }: PropsType): ReactElement => {
 
-  const [scrollPosition, setScrollPosition] = useState<number>(initScrollPosition)
-  scrollContainerRef.current?.scrollTo({ left: scrollPosition, behavior: 'smooth' })
+  const getInitScrollPosition = useCallback((): number => {
+    const navBar = document.getElementById('navbar')
+    if (!navBar) {
+      return 0
+    }
+    const navBarOffset = navBar.offsetLeft
+    const elementOffset = navBar.getElementsByTagName('div')[activeIndex]?.offsetLeft
+    return elementOffset ? navBarOffset + elementOffset : 0
+
+  }, [activeIndex])
+  const [scrollPosition, setScrollPosition] = useState<number>(activeIndex > 0 ? getInitScrollPosition() : 0)
+
+  if (scrollContainerRef.current) {
+    scrollContainerRef.current.scrollTo({ left: scrollPosition, behavior: 'smooth' })
+  }
 
   const showArrowContainer = scrollContainerRef.current ? getScrollableWidth(scrollContainerRef) > 0 : false
   const showArrowLeft = scrollContainerRef.current ? scrollPosition > 0 : false
@@ -80,7 +89,7 @@ const NavigationBarScrollContainer = ({
 
   const onScrollForward = () =>
     scrollContainerRef.current?.scroll({
-      left: direction === 'rtl' ? -scrollContainerRef.current.scrollWidth : scrollContainerRef.current.scrollWidth,
+      left: direction === 'rtl' ? -scrollContainerRef.current.scrollWidth : scrollContainerRef.current.scrollWidth
     })
 
   const scrollContainer = (

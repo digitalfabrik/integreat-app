@@ -9,9 +9,10 @@ import HeaderLogo from './HeaderLogo'
 import HeaderTitle from './HeaderTitle'
 import KebabMenu from './KebabMenu'
 import NavigationBarScrollContainer from './NavigationBarScrollContainer'
+import { HeaderNavigationItemProps } from './HeaderNavigationItem'
 
 type PropsType = {
-  navigationItems: Array<ReactNode>
+  navigationItems: Array<ReactElement<HeaderNavigationItemProps>>
   actionItems: Array<ReactNode>
   kebabItems: Array<ReactNode>
   logoHref: string
@@ -105,14 +106,14 @@ const NavigationBar = styled.nav`
  * Uses Headroom to save space when scrolling.
  */
 export const Header = ({
-  viewportSmall,
-  actionItems = [],
-  kebabItems = [],
-  logoHref,
-  navigationItems = [],
-  cityName,
-  direction,
-}: PropsType): ReactElement => {
+                         viewportSmall,
+                         actionItems = [],
+                         kebabItems = [],
+                         logoHref,
+                         navigationItems = [],
+                         cityName,
+                         direction
+                       }: PropsType): ReactElement => {
   const { headerHeightSmall, headerHeightLarge } = dimensions
   const hasNavigationBar = navigationItems.length > 0
   const height = viewportSmall
@@ -137,7 +138,7 @@ export const Header = ({
           <NavigationBarScrollContainer
             scrollContainerRef={scrollContainerRef}
             direction={direction}
-            activeIndex={navigationItems.findIndex((el: any) => el.props.active)}>
+            activeIndex={navigationItems.findIndex(el => el.props.active)}>
             <NavigationBar id='navbar'>{navigationItems}</NavigationBar>
           </NavigationBarScrollContainer>
         )}
