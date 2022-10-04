@@ -20,9 +20,9 @@ export const clusterLayer = (theme: ThemeType): LayerProps => ({
     'circle-color': [
       'step',
       ['get', 'point_count'],
-      `${theme.colors.themeColor}`,
+      theme.colors.themeColor,
       groupCount,
-      `${theme.colors.themeColor}`,
+      theme.colors.themeColor,
     ],
     'circle-radius': ['step', ['get', 'point_count'], circleRadiusSmall, groupCount, circleRadiusLarge],
   },
