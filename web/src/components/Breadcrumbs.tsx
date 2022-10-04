@@ -55,7 +55,7 @@ type PropsType = {
 const Breadcrumbs = ({ direction, ancestorBreadcrumbs, currentBreadcrumb }: PropsType): ReactElement => {
   // The current page should not be listed in the UI, but should be within the JsonLd.
   const jsonLdBreadcrumbs = [...ancestorBreadcrumbs, currentBreadcrumb]
-  // Min amount of chars when the last breadcrumb item should shrink
+  // Min text length after which the last breadcrumb item should shrink
   const MIN_SHRINK_CHARS = 20
 
   /* We are doing here funky stuff with directions. See here for more information about the idea:
