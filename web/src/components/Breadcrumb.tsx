@@ -38,7 +38,7 @@ type PropsType = {
 /**
  * Displays breadcrumbs (Links) for lower category levels
  */
-const Breadcrumb = ({ children, shrink = false }: PropsType): ReactElement => (
+const Breadcrumb = ({ children, shrink }: PropsType): ReactElement => (
   <ListItem shrink={shrink}>
     <Separator aria-hidden />
     {children}
