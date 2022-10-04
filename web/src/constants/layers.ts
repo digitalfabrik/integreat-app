@@ -17,13 +17,7 @@ export const clusterLayer = (theme: ThemeType): LayerProps => ({
   source: 'point',
   filter: ['has', 'point_count'],
   paint: {
-    'circle-color': [
-      'step',
-      ['get', 'point_count'],
-      theme.colors.themeColor,
-      groupCount,
-      theme.colors.themeColor,
-    ],
+    'circle-color': ['step', ['get', 'point_count'], theme.colors.themeColor, groupCount, theme.colors.themeColor],
     'circle-radius': ['step', ['get', 'point_count'], circleRadiusSmall, groupCount, circleRadiusLarge],
   },
 })
