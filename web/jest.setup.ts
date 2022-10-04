@@ -44,11 +44,15 @@ Object.defineProperty(window, 'matchMedia', {
     removeListener: jest.fn(), // Deprecated
     addEventListener: jest.fn(),
     removeEventListener: jest.fn(),
-    dispatchEvent: jest.fn(),
-  })),
+    dispatchEvent: jest.fn()
+  }))
 })
 
 Object.defineProperty(URL, 'createObjectURL', {
   writable: true,
-  value: jest.fn(),
+  value: jest.fn()
 })
+
+// eslint-disable-next-line @typescript-eslint/no-empty-function -- scrollTo doesn't exist in JSDOM
+Element.prototype.scrollTo = () => {
+}
