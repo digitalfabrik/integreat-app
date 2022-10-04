@@ -81,9 +81,9 @@ type PropsType = {
 const CategoryEntry = ({ category, contentWithoutHtml, subCategories, query }: PropsType): ReactElement => {
   const theme = useTheme()
 
-  const excerpt = useMemo<string | null>(() => {
+  const excerpt = useMemo<string>(() => {
     if (!query || !contentWithoutHtml) {
-      return null
+      return ''
     }
     const contentMatcher = new ContentMatcher()
     return (
@@ -100,13 +100,17 @@ const CategoryEntry = ({ category, contentWithoutHtml, subCategories, query }: P
     </SubCategory>
   ))
 
+  const asdf = (str: string): string => {
+    return str
+  }
+
   const Title = (
     <Highlighter
       dir='auto'
       searchWords={query ? [query] : []}
       aria-label={category.title}
       autoEscape
-      sanitize={normalizeSearchString}
+      sanitize={asdf}
       highlightStyle={{ backgroundColor: theme.colors.backgroundColor, fontWeight: 'bold' }}
       textToHighlight={category.title}
     />
@@ -117,7 +121,7 @@ const CategoryEntry = ({ category, contentWithoutHtml, subCategories, query }: P
       aria-label={excerpt}
       searchWords={[query]}
       autoEscape
-      sanitize={normalizeSearchString}
+      sanitize={asdf}
       textToHighlight={excerpt}
       highlightStyle={{ backgroundColor: theme.colors.backgroundColor, fontWeight: 'bold' }}
     />
