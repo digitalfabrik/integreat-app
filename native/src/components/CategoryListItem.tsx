@@ -1,10 +1,8 @@
-import * as React from 'react'
-import { Text } from 'react-native'
+import React, { ReactElement } from 'react'
 import Highlighter from 'react-native-highlight-words'
-import styled from 'styled-components/native'
+import styled, { useTheme } from 'styled-components/native'
 
 import { normalizeSearchString } from 'api-client'
-import { ThemeType } from 'build-configs'
 
 import iconPlaceholder from '../assets/IconPlaceholder.png'
 import { contentDirection } from '../constants/contentDirection'
@@ -65,7 +63,6 @@ type PropsType = {
 
   /** A search query to highlight in the category title */
   query?: string
-  theme: ThemeType
   onItemPress: (tile: CategoryListModelType) => void
   language: string
 }
@@ -74,45 +71,25 @@ type PropsType = {
  * Displays a single CategoryListItem
  */
 
-const CategoryListItem = ({
-  language,
-  subCategories,
-  onItemPress,
-  query,
-  category,
-  theme,
-}: PropsType): React.ReactElement => {
+const CategoryListItem = ({ language, subCategories, onItemPress, query, category }: PropsType): ReactElement => {
+  const theme = useTheme()
   const contentMatcher = new ContentMatcher()
   const onCategoryPress = (): void => {
     onItemPress(category)
   }
+  const excerpt =
+    contentMatcher.getMatchedContent(query, category.contentWithoutHtml, NUM_WORDS_SURROUNDING_MATCH) ??
+    contentMatcher.getContentAfterMatchIndex(category.contentWithoutHtml ?? '', 0, 2 * NUM_WORDS_SURROUNDING_MATCH)
 
-  const textToHighlight = contentMatcher.getMatchedContent(
-    query,
-    category.contentWithoutHtml,
-    NUM_WORDS_SURROUNDING_MATCH
+  const content = query && (
+    <Highlighter
+      searchWords={[query]}
+      sanitize={normalizeSearchString}
+      textToHighlight={excerpt}
+      autoEscape
+      highlightStyle={{ backgroundColor: theme.colors.backgroundColor, fontWeight: 'bold' }}
+    />
   )
-  const content =
-    textToHighlight && query && !category.titleMatch ? (
-      <Highlighter
-        searchWords={[query]}
-        sanitize={normalizeSearchString}
-        textToHighlight={textToHighlight}
-        autoEscape
-        highlightStyle={{
-          backgroundColor: theme.colors.backgroundColor,
-          fontWeight: 'bold',
-        }}
-      />
-    ) : (
-      <Text>
-        {new ContentMatcher().getContentAfterMatchIndex(
-          category.contentWithoutHtml ?? '',
-          0,
-          2 * NUM_WORDS_SURROUNDING_MATCH
-        )}
-      </Text>
-    )
 
   const title = query ? (
     <CategoryEntryContainer>
