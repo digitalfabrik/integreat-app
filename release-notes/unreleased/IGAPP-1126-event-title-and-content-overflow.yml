@@ -1,0 +1,5 @@
+issue_key: IGAPP-1126
+show_in_stores: false
+platforms:
+  - web
+en: Break lines around exceptionally long event titles and content.
