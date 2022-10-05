@@ -7,7 +7,6 @@ import { normalizeSearchString } from 'api-client'
 import iconPlaceholder from '../assets/IconPlaceholder.png'
 import { contentDirection } from '../constants/contentDirection'
 import dimensions from '../constants/dimensions'
-import { Item } from './CategoryList'
 import ContentMatcher from './ContentMatcher'
 import SimpleImage from './SimpleImage'
 import StyledLink from './StyledLink'
@@ -57,8 +56,19 @@ const CategoryThumbnail = styled(SimpleImage)`
   margin: ${dimensions.categoryListItem.margin}px;
 `
 
+export type SimpleCategoryListItem = {
+  title: string
+  path: string
+  thumbnail: string
+  contentWithoutHtml?: string
+}
+
+export type CategoryListItemType = SimpleCategoryListItem & {
+  subCategories: SimpleCategoryListItem[]
+}
+
 type PropsType = {
-  item: Item
+  item: CategoryListItemType
   onItemPress: (item: { path: string }) => void
   language: string
   query?: string

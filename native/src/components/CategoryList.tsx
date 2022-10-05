@@ -6,18 +6,7 @@ import { PageResourceCacheEntryStateType, PageResourceCacheStateType } from '../
 import { RESOURCE_CACHE_DIR_PATH } from '../utils/DatabaseConnector'
 import CategoryListCaption from './CategoryListCaption'
 import CategoryListContent from './CategoryListContent'
-import CategoryListItem from './CategoryListItem'
-
-export type SimpleItem = {
-  title: string
-  path: string
-  thumbnail: string
-  contentWithoutHtml?: string
-}
-
-export type Item = SimpleItem & {
-  subCategories: SimpleItem[]
-}
+import CategoryListItem, { CategoryListItemType } from './CategoryListItem'
 
 type ListContentModelType = {
   files: PageResourceCacheStateType
@@ -26,7 +15,7 @@ type ListContentModelType = {
   lastUpdate: Moment
 }
 type PropsType = {
-  items: Item[]
+  items: CategoryListItemType[]
   title?: string
   listContent?: ListContentModelType | null | undefined
   query?: string

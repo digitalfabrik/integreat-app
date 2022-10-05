@@ -5,7 +5,7 @@ import { useLocation, useNavigate } from 'react-router-dom'
 import {
   createCategoriesEndpoint,
   pathnameFromRouteInformation,
-  queryCategories,
+  searchCategories,
   SEARCH_ROUTE,
   useLoadFromEndpoint,
 } from 'api-client'
@@ -39,7 +39,7 @@ const SearchPage = ({ cityModel, languages, cityCode, languageCode, pathname }: 
   )
   const { data: categories, loading, error: categoriesError } = useLoadFromEndpoint(requestCategories)
   const searchResults = useMemo(
-    () => queryCategories(categories, query)?.map(it => ({ ...it, subCategories: [] })),
+    () => searchCategories(categories, query)?.map(it => ({ ...it, subCategories: [] })),
     [categories, query]
   )
 

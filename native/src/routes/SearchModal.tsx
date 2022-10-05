@@ -10,7 +10,7 @@ import {
   SEARCH_ROUTE,
   CATEGORIES_ROUTE,
   RouteInformationType,
-  queryCategories,
+  searchCategories,
 } from 'api-client'
 import { ThemeType } from 'build-configs'
 
@@ -46,7 +46,7 @@ const SearchModal = ({ categories, navigateTo, theme, language, cityCode, closeM
   const [query, setQuery] = useState<string>('')
   const searchResults = useMemo(
     () =>
-      queryCategories(categories, query)?.map(({ category, contentWithoutHtml }) => ({
+      searchCategories(categories, query)?.map(({ category, contentWithoutHtml }) => ({
         title: category.title,
         path: category.path,
         thumbnail: category.thumbnail,
@@ -112,7 +112,7 @@ const SearchModal = ({ categories, navigateTo, theme, language, cityCode, closeM
   )
 
   return (
-    <Wrapper theme={theme} {...testID('Search-Page')}>
+    <Wrapper {...testID('Search-Page')}>
       <SearchHeader theme={theme} query={query} closeSearchBar={onClose} onSearchChanged={setQuery} t={t} />
       <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : undefined} style={{ flex: 1 }}>
         {Content}
