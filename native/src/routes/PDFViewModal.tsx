@@ -45,7 +45,7 @@ const PDFViewModal = ({ route, navigation: _navigation }: PropsType): ReactEleme
         }}
         trustAllCerts={false}
         onError={() => setError(true)}
-        onPressLink={uri => openExternalUrl(uri).catch(() => showSnackbar(t('linkError')))}
+        onPressLink={url => openExternalUrl(url).catch(() => showSnackbar(t('urlError')))}
       />
     </View>
   )
