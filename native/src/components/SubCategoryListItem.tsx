@@ -3,7 +3,7 @@ import { useTheme } from 'styled-components'
 import styled from 'styled-components/native'
 
 import { contentDirection } from '../constants/contentDirection'
-import { SimpleItem } from './CategoryList'
+import { SimpleCategoryListItem } from './CategoryListItem'
 
 const SubCategoryTitleContainer = styled.View<{ language: string }>`
   flex: 1;
@@ -26,8 +26,8 @@ const SubCategoryTitle = styled.Text`
 `
 
 type PropsType = {
-  subCategory: SimpleItem
-  onItemPress: (item: SimpleItem) => void
+  subCategory: SimpleCategoryListItem
+  onItemPress: (item: SimpleCategoryListItem) => void
   language: string
 }
 
@@ -38,10 +38,9 @@ const SubCategoryListItem = ({ subCategory, onItemPress, language }: PropsType):
     <FlexStyledLink
       onPress={() => onItemPress(subCategory)}
       underlayColor={theme.colors.backgroundAccentColor}
-      language={language}
-      theme={theme}>
-      <SubCategoryTitleContainer language={language} theme={theme}>
-        <SubCategoryTitle theme={theme}>{subCategory.title}</SubCategoryTitle>
+      language={language}>
+      <SubCategoryTitleContainer language={language}>
+        <SubCategoryTitle>{subCategory.title}</SubCategoryTitle>
       </SubCategoryTitleContainer>
     </FlexStyledLink>
   )

@@ -8,7 +8,7 @@ type Result = {
   contentWithoutHtml: string
 }
 
-const queryCategories = (categoriesMapModel: CategoriesMapModel | null, query: string): Result[] | null => {
+const searchCategories = (categoriesMapModel: CategoriesMapModel | null, query: string): Result[] | null => {
   if (!categoriesMapModel) {
     return null
   }
@@ -31,4 +31,4 @@ const queryCategories = (categoriesMapModel: CategoriesMapModel | null, query: s
   return categoriesWithTitle.concat(categoriesWithContent)
 }
 
-export default queryCategories
+export default searchCategories

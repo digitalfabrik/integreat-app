@@ -31,8 +31,14 @@ const CategoryList = ({ items, query, formatter, category, onInternalLinkClick }
       <LastUpdateInfo lastUpdate={category.lastUpdate} formatter={formatter} withText />
     )}
     <List>
-      {items.map(it => (
-        <CategoryEntry key={it.category.path} category={it.category} subCategories={it.subCategories} query={query} />
+      {items.map(({ category, subCategories, contentWithoutHtml }) => (
+        <CategoryEntry
+          key={category.path}
+          query={query}
+          category={category}
+          subCategories={subCategories}
+          contentWithoutHtml={contentWithoutHtml}
+        />
       ))}
     </List>
   </div>

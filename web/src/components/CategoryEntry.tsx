@@ -100,17 +100,13 @@ const CategoryEntry = ({ category, contentWithoutHtml, subCategories, query }: P
     </SubCategory>
   ))
 
-  const asdf = (str: string): string => {
-    return str
-  }
-
   const Title = (
     <Highlighter
       dir='auto'
       searchWords={query ? [query] : []}
       aria-label={category.title}
       autoEscape
-      sanitize={asdf}
+      sanitize={normalizeSearchString}
       highlightStyle={{ backgroundColor: theme.colors.backgroundColor, fontWeight: 'bold' }}
       textToHighlight={category.title}
     />
@@ -121,7 +117,7 @@ const CategoryEntry = ({ category, contentWithoutHtml, subCategories, query }: P
       aria-label={excerpt}
       searchWords={[query]}
       autoEscape
-      sanitize={asdf}
+      sanitize={normalizeSearchString}
       textToHighlight={excerpt}
       highlightStyle={{ backgroundColor: theme.colors.backgroundColor, fontWeight: 'bold' }}
     />
