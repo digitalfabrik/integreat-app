@@ -108,7 +108,7 @@ describe('CategoryEntry', () => {
       const query = 'no match'
 
       const { queryAllByText, getByText } = renderWithRouterAndTheme(
-        <CategoryEntry category={category} subCategories={[]} query={query} titleMatch />
+        <CategoryEntry category={category} subCategories={[]} query={query} />
       )
 
       expect(getByText(category.title)).toBeTruthy()
