@@ -1,5 +1,11 @@
 import React, { ReactElement, useEffect } from 'react'
-import { useTheme } from 'styled-components'
+import styled, { useTheme } from 'styled-components'
+
+const ChatContainer = styled.div`
+  > div {
+    right: calc(100% - 100vw + 33px);
+  }
+`
 
 const ChatBotWidget = (): ReactElement => {
   const theme = useTheme()
@@ -22,12 +28,16 @@ const ChatBotWidget = (): ReactElement => {
   }, [])
 
   return (
-    <div
-      id='rasa-chat-widget'
-      data-primary={theme.colors.themeColor}
-      data-primary-highlight={theme.colors.themeColor}
-      data-websocket-url='https://integreat-demo.translatorswithoutborders.org/'
-    />
+    <>
+      <ChatContainer id='rasa-container' />
+      <div
+        id='rasa-chat-widget'
+        data-root-element-id='rasa-container'
+        data-primary={theme.colors.themeColor}
+        data-primary-highlight={theme.colors.themeColor}
+        data-websocket-url='https://integreat-demo.translatorswithoutborders.org/'
+      />
+    </>
   )
 }
 
