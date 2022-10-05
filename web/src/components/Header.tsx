@@ -1,5 +1,5 @@
 import Headroom from '@integreat-app/react-sticky-headroom'
-import React, { ReactElement, ReactNode, useRef } from 'react'
+import React, { ReactElement, ReactNode } from 'react'
 import styled from 'styled-components'
 
 import { UiDirectionType } from 'translations'
@@ -124,7 +124,6 @@ export const Header = ({
     ? (1 + (hasNavigationBar ? 1 : 0)) * headerHeightSmall
     : (1 + (hasNavigationBar ? 1 : 0)) * headerHeightLarge
   const scrollHeight = viewportSmall ? headerHeightSmall : headerHeightLarge
-  const scrollContainerRef = useRef<HTMLDivElement>(null)
 
   return (
     <Headroom scrollHeight={scrollHeight} height={height}>
@@ -142,7 +141,6 @@ export const Header = ({
         </Row>
         {hasNavigationBar && (
           <NavigationBarScrollContainer
-            scrollContainerRef={scrollContainerRef}
             direction={direction}
             activeIndex={navigationItems.findIndex(el => el.props.active)}>
             <NavigationBar id='navigation-bar'>{navigationItems}</NavigationBar>

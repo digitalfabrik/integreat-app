@@ -1,4 +1,4 @@
-import React, { ReactElement, ReactNode, RefObject, useCallback, useState } from 'react'
+import React, { ReactElement, ReactNode, RefObject, useEffect, useState } from 'react'
 import styled from 'styled-components'
 
 import { UiDirectionType } from 'translations/src'
@@ -6,11 +6,11 @@ import { UiDirectionType } from 'translations/src'
 import iconArrowBack from '../assets/IconArrowBack.svg'
 import iconArrowForward from '../assets/IconArrowForward.svg'
 import dimensions from '../constants/dimensions'
+import useRefWithCallback from '../hooks/useRefWithCallback'
 
 type PropsType = {
   children: ReactNode
   direction?: UiDirectionType
-  scrollContainerRef: RefObject<HTMLDivElement>
   activeIndex: number
 }
 
@@ -52,34 +52,34 @@ const ScrollContainer = styled.div<{ showArrowContainer: boolean }>`
   }
 `
 
-const getScrollableWidth = (scrollContainer: RefObject<HTMLDivElement>): number => {
+const getScrollableWidth = <T extends HTMLSpanElement | HTMLDivElement | HTMLParagraphElement>(
+  scrollContainer: RefObject<T>
+): number => {
   if (scrollContainer.current) {
     const { scrollWidth, clientWidth } = scrollContainer.current
     return scrollWidth - clientWidth
   }
   return 0
 }
-
-const NavigationBarScrollContainer = ({
-  children,
-  direction,
-  scrollContainerRef,
-  activeIndex,
-}: PropsType): ReactElement => {
-  const getInitialScrollPosition = useCallback((): number => {
-    const navigationBar = document.getElementById('navbar')
-    if (!navBar) {
-      return 0
-    }
-    const navBarOffset = navBar.offsetLeft
-    const elementOffset = navBar.getElementsByTagName('div')[activeIndex]?.offsetLeft
-    return elementOffset ? navBarOffset + elementOffset : 0
-  }, [activeIndex])
-  const [scrollPosition, setScrollPosition] = useState<number>(activeIndex > 0 ? getInitScrollPosition() : 0)
-
-  if (scrollContainerRef.current) {
-    scrollContainerRef.current.scrollTo({ left: scrollPosition, behavior: 'smooth' })
+const getInitialScrollPosition = (activeIndex: number): number => {
+  const navigationBar = document.getElementById('navigation-bar')
+  if (!navigationBar) {
+    return 0
   }
+  const navBarOffset = navigationBar.offsetLeft
+  const elementOffset = navigationBar.getElementsByTagName('div')[activeIndex]?.offsetLeft
+  return elementOffset ? navBarOffset + elementOffset : 0
+}
+
+const NavigationBarScrollContainer = ({ children, direction, activeIndex }: PropsType): ReactElement => {
+  const [scrollPosition, setScrollPosition] = useState<number>(0)
+  const { toggle, refCallback, ref: scrollContainerRef } = useRefWithCallback()
+
+  useEffect(() => {
+    if (activeIndex > 0 && scrollContainerRef.current) {
+      scrollContainerRef.current.scrollTo({ left: getInitialScrollPosition(activeIndex) })
+    }
+  }, [activeIndex, scrollContainerRef, toggle])
 
   const showArrowContainer = scrollContainerRef.current ? getScrollableWidth(scrollContainerRef) > 0 : false
   const showArrowLeft = scrollContainerRef.current ? scrollPosition > 0 : false
@@ -92,7 +92,7 @@ const NavigationBarScrollContainer = ({
 
   const scrollContainer = (
     <ScrollContainer
-      ref={scrollContainerRef}
+      ref={refCallback}
       onScroll={(e: React.UIEvent<HTMLElement>) => setScrollPosition(Math.abs(e.currentTarget.scrollLeft))}
       showArrowContainer={showArrowContainer}>
       {children}
