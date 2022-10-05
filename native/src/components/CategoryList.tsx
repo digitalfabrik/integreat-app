@@ -1,7 +1,6 @@
 import { mapValues } from 'lodash'
 import { Moment } from 'moment'
-import * as React from 'react'
-import { useTheme } from 'styled-components/native'
+import React, { ReactElement } from 'react'
 
 import { PageResourceCacheEntryStateType, PageResourceCacheStateType } from '../redux/StateType'
 import { RESOURCE_CACHE_DIR_PATH } from '../utils/DatabaseConnector'
@@ -14,7 +13,6 @@ export type CategoryListModelType = {
   thumbnail: string
   path: string
   contentWithoutHtml?: string
-  titleMatch?: boolean
 }
 export type ListEntryType = {
   model: CategoryListModelType
@@ -40,16 +38,7 @@ type PropsType = {
  * Displays a ContentList which is a list of categories, a caption and a thumbnail
  */
 
-const CategoryList = ({
-  categories,
-  title,
-  listContent,
-  query,
-  onItemPress,
-  language,
-}: PropsType): React.ReactElement => {
-  const theme = useTheme()
-
+const CategoryList = ({ categories, title, listContent, query, onItemPress, language }: PropsType): ReactElement => {
   const getListContent = (listContent: ListContentModelType) => {
     const cacheDictionary = mapValues(listContent.files, (file: PageResourceCacheEntryStateType) =>
       file.filePath.startsWith(RESOURCE_CACHE_DIR_PATH)
@@ -77,7 +66,6 @@ const CategoryList = ({
           language={language}
           subCategories={subCategories}
           query={query}
-          theme={theme}
           onItemPress={onItemPress}
         />
       ))}
