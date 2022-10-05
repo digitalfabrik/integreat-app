@@ -16,7 +16,7 @@ const List = styled.div`
 `
 
 type PropsType = {
-  categories: Array<{ model: CategoryModel; titleMatch?: boolean; subCategories: Array<CategoryModel> }>
+  categories: Array<{ model: CategoryModel; subCategories: Array<CategoryModel> }>
   /** A search query to highlight in the categories titles */
   query?: string
   formatter?: DateFormatter
@@ -42,7 +42,6 @@ class CategoryList extends React.PureComponent<PropsType> {
             <CategoryEntry
               key={categoryItem.model.path}
               category={categoryItem.model}
-              titleMatch={categoryItem.titleMatch}
               subCategories={categoryItem.subCategories}
               query={query}
             />
