@@ -20,6 +20,8 @@ const ChatBotWidget = (): ReactElement => {
 
     return () => {
       document.body.removeChild(script)
+
+      // Rasa replaces the original element with this one
       const button = document.getElementById('rasa-chat-widget-container')
       if (button) {
         document.body.removeChild(button)
