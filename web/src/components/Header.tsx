@@ -145,7 +145,7 @@ export const Header = ({
             scrollContainerRef={scrollContainerRef}
             direction={direction}
             activeIndex={navigationItems.findIndex(el => el.props.active)}>
-            <NavigationBar id='navbar'>{navigationItems}</NavigationBar>
+            <NavigationBar id='navigation-bar'>{navigationItems}</NavigationBar>
           </NavigationBarScrollContainer>
         )}
       </HeaderContainer>
