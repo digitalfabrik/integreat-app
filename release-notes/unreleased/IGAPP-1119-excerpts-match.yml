@@ -1,0 +1,8 @@
+issue_key: IGAPP-1119
+show_in_stores: true
+platforms:
+  - web
+  - android
+  - ios
+en: Show excerpt around query match.
+de: Auszug um gefundenen Suchbegriff wird nun angezeigt.
