@@ -1,4 +1,5 @@
 import React from 'react'
+import { ReactTestInstance } from 'react-test-renderer'
 
 import render from '../../testing/render'
 import CategoryListItem from '../CategoryListItem'
@@ -49,65 +50,55 @@ describe('CategoryListItem', () => {
   })
 
   describe('query', () => {
-    it('should show excerpt around query if match in title and content', () => {
-      const excerptBeforeQuery = 'exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.'
-      const query = 'Duis aute'
-      const excerptAfterQuery = 'irure dolor in reprehenderit in voluptate velit esse cillum'
-      const highlightStyle = {
-        _values: {
-          'background-color': 'rgb(255, 255, 255)',
-          'font-weight': 'bold',
-        },
-      }
+    const assertHighlighting = (instance: ReactTestInstance, highlighted: boolean) =>
+      highlighted
+        ? expect(instance.props.style?.fontWeight).toBe('bold')
+        : expect(instance.props.style?.fontWeight).toBeUndefined()
 
-      const { queryAllByText, getByText, debug } = render(
-        <CategoryListItem item={item} onItemPress={onItemPress} language={language} query={query} />
+    it('should show excerpt around query if match in title and content', () => {
+      const excerptBeforeQuery = 'exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. '
+      const excerptAfterQuery = ' irure dolor in reprehenderit in voluptate velit esse cillum'
+
+      const { queryAllByText, getByText } = render(
+        <CategoryListItem item={item} onItemPress={onItemPress} language={language} query={item.title} />
       )
 
-      debug()
-      expect(getByText(excerptBeforeQuery)).not.toHaveProperty('style', expect.objectContaining(highlightStyle))
-      expect(queryAllByText(query)[0]).toHaveProperty('style', expect.objectContaining(highlightStyle))
-      expect(queryAllByText(query)[1]).toHaveProperty('style', expect.objectContaining(highlightStyle))
-      expect(getByText(excerptAfterQuery)).not.toHaveProperty('style', expect.objectContaining(highlightStyle))
+      assertHighlighting(getByText(excerptBeforeQuery, { exact: false }), false)
+      assertHighlighting(queryAllByText(item.title)[0]!, true)
+      assertHighlighting(queryAllByText(item.title)[1]!, true)
+      assertHighlighting(getByText(excerptAfterQuery, { exact: false }), false)
     })
 
     it('should show beginning of excerpt if match only in title', () => {
-      const query = 'Willkommen'
       const excerpt =
         'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim'
-      const highlightStyle = {
-        _values: {
-          'background-color': 'rgb(255, 255, 255)',
-          'font-weight': 'bold',
-        },
-      }
 
       const { getByText } = render(
-        <CategoryListItem item={itemWithDifferentName} onItemPress={onItemPress} language={language} query={query} />
+        <CategoryListItem
+          item={itemWithDifferentName}
+          onItemPress={onItemPress}
+          language={language}
+          query={itemWithDifferentName.title}
+        />
       )
 
-      expect(getByText(query)).toHaveProperty('style', expect.objectContaining(highlightStyle))
-      expect(getByText(excerpt)).not.toHaveProperty('style', expect.objectContaining(highlightStyle))
+      assertHighlighting(getByText(itemWithDifferentName.title), true)
+      assertHighlighting(getByText(excerpt), false)
     })
 
     it('should show excerpt around query if only match in content', () => {
       const excerptBeforeQuery = 'et dolore magna aliqua. Ut enim ad minim veniam, quis'
       const query = 'nostrud exercitation'
       const excerptAfterQuery = 'ullamco laboris nisi ut aliquip ex ea commodo consequat.'
-      const highlightStyle = {
-        _values: {
-          'background-color': 'rgb(255, 255, 255)',
-          'font-weight': 'bold',
-        },
-      }
 
       const { getByText } = render(
         <CategoryListItem item={item} onItemPress={onItemPress} language={language} query={query} />
       )
 
-      expect(getByText(excerptBeforeQuery)).not.toHaveProperty('style', expect.objectContaining(highlightStyle))
-      expect(getByText(query)).toHaveProperty('style', expect.objectContaining(highlightStyle))
-      expect(getByText(excerptAfterQuery)).not.toHaveProperty('style', expect.objectContaining(highlightStyle))
+      assertHighlighting(getByText(item.title), false)
+      assertHighlighting(getByText(excerptBeforeQuery, { exact: false }), false)
+      assertHighlighting(getByText(query), true)
+      assertHighlighting(getByText(excerptAfterQuery, { exact: false }), false)
     })
 
     it('should show beginning of excerpt if there is no match', () => {
@@ -115,16 +106,12 @@ describe('CategoryListItem', () => {
       const excerpt =
         'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim'
 
-      const { queryAllByText, getByText } = render(
+      const { getByText } = render(
         <CategoryListItem item={item} onItemPress={onItemPress} language={language} query={query} />
       )
 
-      expect(getByText(item.title)).toBeTruthy()
-      expect(getByText(excerpt)).toBeTruthy()
-      const regex = /.+/
-      const texts = queryAllByText(regex)
-      // Shows category.title and beginning of category.content
-      expect(texts).toHaveLength(2)
+      assertHighlighting(getByText(item.title), false)
+      assertHighlighting(getByText(excerpt), false)
     })
   })
 })

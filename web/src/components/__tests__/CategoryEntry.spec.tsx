@@ -62,17 +62,18 @@ describe('CategoryEntry', () => {
   })
 
   describe('query', () => {
+    const highlightStyle = {
+      _values: {
+        'background-color': 'rgb(255, 255, 255)',
+        'font-weight': 'bold',
+      },
+    }
+
     it('should show excerpt around query if match in title and content', () => {
       const excerptBeforeQuery = 'exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.'
       const query = 'Duis aute'
       const excerptAfterQuery = 'irure dolor in reprehenderit in voluptate velit esse cillum'
       const excerpt = `${excerptBeforeQuery} ${query} ${excerptAfterQuery}`
-      const highlightStyle = {
-        _values: {
-          'background-color': 'rgb(255, 255, 255)',
-          'font-weight': 'bold',
-        },
-      }
 
       const { queryAllByText, getByText, getByLabelText } = renderWithRouterAndTheme(
         <CategoryEntry category={category} subCategories={[]} query={query} contentWithoutHtml={category.content} />
@@ -89,12 +90,6 @@ describe('CategoryEntry', () => {
       const query = 'Willkommen'
       const excerpt =
         'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim'
-      const highlightStyle = {
-        _values: {
-          'background-color': 'rgb(255, 255, 255)',
-          'font-weight': 'bold',
-        },
-      }
 
       const { getByText, getByLabelText } = renderWithRouterAndTheme(
         <CategoryEntry
@@ -115,12 +110,6 @@ describe('CategoryEntry', () => {
       const query = 'nostrud exercitation'
       const excerptAfterQuery = 'ullamco laboris nisi ut aliquip ex ea commodo consequat.'
       const excerpt = `${excerptBeforeQuery} ${query} ${excerptAfterQuery}`
-      const highlightStyle = {
-        _values: {
-          'background-color': 'rgb(255, 255, 255)',
-          'font-weight': 'bold',
-        },
-      }
 
       const { getByText, getByLabelText } = renderWithRouterAndTheme(
         <CategoryEntry category={category} subCategories={[]} query={query} contentWithoutHtml={category.content} />
@@ -137,16 +126,12 @@ describe('CategoryEntry', () => {
       const excerpt =
         'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim'
 
-      const { queryAllByText, getByText } = renderWithRouterAndTheme(
+      const { getByText } = renderWithRouterAndTheme(
         <CategoryEntry category={category} subCategories={[]} query={query} contentWithoutHtml={category.content} />
       )
 
-      expect(getByText(category.title)).toBeTruthy()
-      expect(getByText(excerpt)).toBeTruthy()
-      const regex = /.+/
-      const texts = queryAllByText(regex)
-      // Shows category.title and beginning of category.content
-      expect(texts).toHaveLength(2)
+      expect(getByText(category.title)).not.toHaveProperty('style', expect.objectContaining(highlightStyle))
+      expect(getByText(excerpt)).not.toHaveProperty('style', expect.objectContaining(highlightStyle))
     })
   })
 })
