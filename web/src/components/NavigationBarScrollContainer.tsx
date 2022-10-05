@@ -66,7 +66,7 @@ const NavigationBarScrollContainer = ({
   scrollContainerRef,
   activeIndex,
 }: PropsType): ReactElement => {
-  const getInitScrollPosition = useCallback((): number => {
+  const getInitialScrollPosition = useCallback((): number => {
     const navigationBar = document.getElementById('navbar')
     if (!navBar) {
       return 0
