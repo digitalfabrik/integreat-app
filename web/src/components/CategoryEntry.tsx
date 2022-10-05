@@ -54,7 +54,7 @@ const SubCategoryCaption = styled(CategoryListItem)`
   border-bottom: 1px solid ${props => props.theme.colors.themeColor};
 `
 
-const ContentMatchItem = styled(Highlighter)`
+const StyledHighlighter = styled(Highlighter)`
   display: inline-block;
 `
 
@@ -73,16 +73,20 @@ const StyledLink = styled(Link)`
 
 type PropsType = {
   category: CategoryModel
-  titleMatch?: boolean
   subCategories: Array<CategoryModel>
   query?: string
 }
 
-const CategoryEntry = ({ category, titleMatch, subCategories, query }: PropsType): ReactElement => {
+const CategoryEntry = ({ category, subCategories, query }: PropsType): ReactElement => {
   const theme = useTheme()
-  const textToHighlight = useMemo<string | null>(() => {
+
+  const excerpt = useMemo<string | null>(() => {
     const contentMatcher = new ContentMatcher()
-    return contentMatcher.getMatchedContent(query, parseHTML(category.content), NUM_WORDS_SURROUNDING_MATCH)
+    const contentWithoutHtml = parseHTML(category.content)
+    return (
+      contentMatcher.getMatchedContent(query, contentWithoutHtml, NUM_WORDS_SURROUNDING_MATCH) ??
+      contentMatcher.getContentAfterMatchIndex(contentWithoutHtml, 0, 2 * NUM_WORDS_SURROUNDING_MATCH)
+    )
   }, [category.content, query])
 
   const SubCategories = subCategories.map(subCategory => (
@@ -105,26 +109,16 @@ const CategoryEntry = ({ category, titleMatch, subCategories, query }: PropsType
     />
   )
 
-  const Content =
-    textToHighlight && query && !titleMatch ? (
-      <ContentMatchItem
-        aria-label={textToHighlight}
-        searchWords={[query]}
-        autoEscape
-        sanitize={normalizeSearchString}
-        textToHighlight={textToHighlight}
-        highlightStyle={{ backgroundColor: theme.colors.backgroundColor, fontWeight: 'bold' }}
-      />
-    ) : (
-      query && (
-        <p>
-          {new ContentMatcher()
-            .getWords(parseHTML(category.content).slice(0))
-            .slice(0, 2 * NUM_WORDS_SURROUNDING_MATCH)
-            .join(' ')}
-        </p>
-      )
-    )
+  const Content = query && (
+    <StyledHighlighter
+      aria-label={excerpt}
+      searchWords={[query]}
+      autoEscape
+      sanitize={normalizeSearchString}
+      textToHighlight={excerpt}
+      highlightStyle={{ backgroundColor: theme.colors.backgroundColor, fontWeight: 'bold' }}
+    />
+  )
 
   return (
     <Row>
