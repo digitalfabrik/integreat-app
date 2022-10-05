@@ -66,9 +66,9 @@ const getInitialScrollPosition = (activeIndex: number): number => {
   if (!navigationBar) {
     return 0
   }
-  const navBarOffset = navigationBar.offsetLeft
+  const navigationBarOffset = navigationBar.offsetLeft
   const elementOffset = navigationBar.getElementsByTagName('div')[activeIndex]?.offsetLeft
-  return elementOffset ? navBarOffset + elementOffset : 0
+  return elementOffset ? navigationBarOffset + elementOffset : 0
 }
 
 const NavigationBarScrollContainer = ({ children, direction, activeIndex }: PropsType): ReactElement => {
