@@ -1,9 +1,14 @@
 import React, { ReactElement, useEffect } from 'react'
 import styled, { useTheme } from 'styled-components'
 
+import dimensions from '../constants/dimensions'
+
+// 33px = 17px for the width of the average scrollbar + 16px actual padding
 const ChatContainer = styled.div`
   > div {
-    right: calc(100% - 100vw + 33px);
+    @media ${dimensions.mediumLargeViewport} {
+      right: calc(100% - 100vw + 33px);
+    }
   }
 `
 
