@@ -53,5 +53,4 @@ Object.defineProperty(URL, 'createObjectURL', {
   value: jest.fn(),
 })
 
-// eslint-disable-next-line @typescript-eslint/no-empty-function -- scrollTo doesn't exist in JSDOM
-Element.prototype.scrollTo = () => {}
+Element.prototype.scrollTo = () => undefined
