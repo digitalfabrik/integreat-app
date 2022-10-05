@@ -1,6 +1,7 @@
 issue_key: IGAPP-1076
 show_in_stores: true
 platforms:
-  - native
+  - android
+  - ios
 en: Show event description in event list
 de: Zeige Eventbeschreibung in der Eventliste
