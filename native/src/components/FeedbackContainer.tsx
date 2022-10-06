@@ -2,28 +2,22 @@ import React, { ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import {
-  CATEGORIES_FEEDBACK_TYPE,
-  CATEGORIES_ROUTE,
   CategoriesRouteType,
+  CATEGORIES_ROUTE,
   CONTENT_FEEDBACK_CATEGORY,
   createFeedbackEndpoint,
-  DISCLAIMER_ROUTE,
   DisclaimerRouteType,
-  EVENTS_FEEDBACK_TYPE,
-  EVENTS_ROUTE,
+  DISCLAIMER_ROUTE,
   EventsRouteType,
+  EVENTS_ROUTE,
   FeedbackParamsType,
   FeedbackType,
-  OFFER_FEEDBACK_TYPE,
-  OFFERS_FEEDBACK_TYPE,
-  OFFERS_ROUTE,
   OffersRouteType,
-  PAGE_FEEDBACK_TYPE,
-  POIS_ROUTE,
+  OFFERS_ROUTE,
   PoisRouteType,
-  SEARCH_FEEDBACK_TYPE,
-  SEARCH_ROUTE,
+  POIS_ROUTE,
   SearchRouteType,
+  SEARCH_ROUTE,
   SEND_FEEDBACK_SIGNAL_NAME,
 } from 'api-client'
 import { ThemeType } from 'build-configs/ThemeType'
@@ -47,8 +41,7 @@ export type FeedbackInformationType = {
   isPositiveFeedback: boolean
   language: string
   cityCode: string
-  path?: string
-  alias?: string
+  slug?: string
 }
 export type FeedbackContainerProps = {
   routeType: RouteType
@@ -56,9 +49,8 @@ export type FeedbackContainerProps = {
   isPositiveFeedback: boolean
   language: string
   cityCode: string
-  path?: string
-  alias?: string
   query?: string
+  slug?: string
   theme: ThemeType
 }
 
@@ -66,32 +58,31 @@ const FeedbackContainer = (props: FeedbackContainerProps): ReactElement => {
   const [comment, setComment] = useState<string>('')
   const [contactMail, setContactMail] = useState<string>('')
   const [sendingStatus, setSendingStatus] = useState<SendingStatusType>('idle')
-  const { path, alias, query, language, isPositiveFeedback, isSearchFeedback, routeType, cityCode, theme } = props
+  const { query, language, isPositiveFeedback, isSearchFeedback, routeType, cityCode, slug, theme } = props
   const { t } = useTranslation('feedback')
 
   const getFeedbackType = (): FeedbackType => {
     switch (routeType) {
       case EVENTS_ROUTE:
-        return path ? PAGE_FEEDBACK_TYPE : EVENTS_FEEDBACK_TYPE
+        return slug ? FeedbackType.event : FeedbackType.events
 
       case OFFERS_ROUTE:
-        return alias ? OFFER_FEEDBACK_TYPE : OFFERS_FEEDBACK_TYPE
+        return slug ? FeedbackType.offer : FeedbackType.offers
 
       case DISCLAIMER_ROUTE:
-        return PAGE_FEEDBACK_TYPE
+        return FeedbackType.imprint
 
       case POIS_ROUTE:
-        // TODO IGAPP-404 Handle pois list feedback correctly instead of returning categories feedback type
-        return path ? PAGE_FEEDBACK_TYPE : CATEGORIES_FEEDBACK_TYPE
+        return slug ? FeedbackType.poi : FeedbackType.map
 
       case CATEGORIES_ROUTE:
-        return path ? PAGE_FEEDBACK_TYPE : CATEGORIES_FEEDBACK_TYPE
+        return slug ? FeedbackType.page : FeedbackType.categories
 
       case SEARCH_ROUTE:
-        return SEARCH_FEEDBACK_TYPE
+        return FeedbackType.search
 
       default:
-        return CATEGORIES_FEEDBACK_TYPE
+        return FeedbackType.categories
     }
   }
 
@@ -102,12 +93,11 @@ const FeedbackContainer = (props: FeedbackContainerProps): ReactElement => {
       feedbackType,
       feedbackCategory: CONTENT_FEEDBACK_CATEGORY,
       isPositiveRating: isPositiveFeedback,
-      permalink: path,
       city: cityCode,
       language,
       comment: commentWithMail,
-      alias,
       query,
+      slug,
     }
   }
 
@@ -117,6 +107,7 @@ const FeedbackContainer = (props: FeedbackContainerProps): ReactElement => {
 
   const handleSubmit = () => {
     const feedbackData = getFeedbackData(comment, contactMail)
+
     setSendingStatus('sending')
 
     const request = async () => {

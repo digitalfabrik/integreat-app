@@ -132,9 +132,9 @@ const Pois = ({ pois, language, cityModel, route, navigation }: PoisProps): Reac
     createNavigateToFeedbackModal(navigation)({
       routeType: POIS_ROUTE,
       language,
-      path: poi ? poi.path : undefined,
       cityCode: cityModel.code,
       isPositiveFeedback,
+      slug: poi?.urlSlug,
     })
   }
 
