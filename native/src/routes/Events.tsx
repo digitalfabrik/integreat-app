@@ -3,7 +3,15 @@ import { useTranslation } from 'react-i18next'
 import { RefreshControl } from 'react-native'
 import styled from 'styled-components/native'
 
-import { CityModel, EventModel, EVENTS_ROUTE, fromError, NotFoundError, RouteInformationType } from 'api-client'
+import {
+  CityModel,
+  EventModel,
+  EVENTS_ROUTE,
+  fromError,
+  getEventSlug,
+  NotFoundError,
+  RouteInformationType,
+} from 'api-client'
 
 import Caption from '../components/Caption'
 import EventListItem from '../components/EventListItem'
@@ -59,7 +67,7 @@ const Events = ({
   const createNavigateToFeedbackForEvent = (event: EventModel) => (isPositiveFeedback: boolean) => {
     navigateToFeedback({
       routeType: EVENTS_ROUTE,
-      path: event.path,
+      slug: getEventSlug(event),
       cityCode: cityModel.code,
       language,
       isPositiveFeedback,

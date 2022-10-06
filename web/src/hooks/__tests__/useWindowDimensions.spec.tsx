@@ -3,6 +3,7 @@ import React from 'react'
 
 import useWindowDimensions from '../useWindowDimensions'
 
+jest.mock('react-i18next')
 describe('useWindowDimensions', () => {
   const MockComponent = () => {
     const { width, height, viewportSmall } = useWindowDimensions()

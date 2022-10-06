@@ -72,7 +72,7 @@ const OffersPage = ({ cityModel, cityCode, languageCode, languages }: CityRouteP
   const locationLayoutParams = {
     cityModel,
     viewportSmall,
-    feedbackTargetInformation: { path: pathnameFromRouteInformation({ route: OFFERS_ROUTE, cityCode, languageCode }) },
+    feedbackTargetInformation: null,
     languageChangePaths,
     route: OFFERS_ROUTE,
     languageCode,
