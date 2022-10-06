@@ -14,12 +14,12 @@ describe('textTruncator', () => {
   })
 
   it('should truncate text at whitespace before cutoff', () => {
-    const truncatedText = textTruncator("Before after", TEST_CUTOFF)
+    const truncatedText = textTruncator('Before after', TEST_CUTOFF)
     expect(truncatedText).toBe('Before...')
   })
 
   it('should strip whitespace before ellipses', () => {
-    const truncatedText = textTruncator("First\n\n\n\n\n\n\n\n\n\nSecond", TEST_CUTOFF)
+    const truncatedText = textTruncator('First\n\n\n\n\n\n\n\n\n\nSecond', TEST_CUTOFF)
     expect(truncatedText).toBe('First...')
   })
 })
