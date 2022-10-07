@@ -26,10 +26,11 @@ const Element = styled.Text<{ enabled: boolean }>`
 type Props = {
   model: SelectorItemModel
   selected: boolean
+  isOnline: boolean
 }
 
-const SelectorItem = ({ model: { name, code, enabled, onPress }, selected }: Props): ReactElement => {
-  if (enabled || selected) {
+const SelectorItem = ({ model: { name, code, enabled, onPress }, selected, isOnline }: Props): ReactElement => {
+  if ((enabled || selected) && isOnline) {
     return (
       <TouchTarget key={code} onPress={onPress}>
         <ItemWrapper selected={selected}>
