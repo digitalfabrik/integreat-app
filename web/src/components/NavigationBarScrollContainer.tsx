@@ -87,8 +87,8 @@ const NavigationBarScrollContainer = ({ children, direction, activeIndex }: Prop
   const Content = (
     <ScrollContainer
       ref={ref}
-      showArrowContainer={showArrowContainer}
-      onScroll={(e: React.UIEvent<HTMLElement>) => setScrollPosition(Math.abs(e.currentTarget.scrollLeft))}>
+      onScroll={(e: React.UIEvent<HTMLElement>) => setScrollPosition(Math.abs(e.currentTarget.scrollLeft))}
+      showArrowContainer={showArrowContainer}>
       {children}
     </ScrollContainer>
   )
