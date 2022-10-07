@@ -29,6 +29,7 @@ import {
   SETTINGS_ROUTE,
   SPRUNGBRETT_OFFER_ROUTE,
   LICENSES_ROUTE,
+  ERROR_ROUTE,
 } from 'api-client'
 
 import HeaderContainer from './components/HeaderContainer'
@@ -57,6 +58,7 @@ import PDFViewModal from './routes/PDFViewModal'
 import PoisContainer from './routes/PoisContainer'
 import SearchModalContainer from './routes/SearchModalContainer'
 import Settings from './routes/Settings'
+import ErrorRoute from './routes/ErrorRoute'
 import SprungbrettOfferContainer from './routes/SprungbrettOfferContainer'
 import appSettings from './utils/AppSettings'
 import { quitAppStatePushNotificationListener } from './utils/PushNotificationsManager'
@@ -214,6 +216,7 @@ const Navigator = (props: PropsType): ReactElement | null => {
         <Stack.Screen name={NEWS_ROUTE} component={NewsContainer} />
         <Stack.Screen name={DISCLAIMER_ROUTE} component={DisclaimerContainer} />
         <Stack.Screen name={LICENSES_ROUTE} component={Licenses} />
+        <Stack.Screen name={ERROR_ROUTE} component={ErrorRoute} />
       </Stack.Group>
 
       <Stack.Group screenOptions={{ header: transparentHeader }}>

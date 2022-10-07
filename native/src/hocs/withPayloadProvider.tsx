@@ -15,6 +15,7 @@ import { NavigationPropType, RoutePropType, RoutesType } from '../constants/Navi
 import wrapDisplayName from '../hocs/wrapDisplayName'
 import useClearRouteOnClose from '../hooks/useClearRouteOnClose'
 import { StoreActionType } from '../redux/StoreActionType'
+import { ERROR_ROUTE } from 'api-client/src/routes'
 
 // A waiting time of >=1s feels like an interruption
 export const LOADING_TIMEOUT = 800
@@ -122,11 +123,14 @@ const withPayloadProvider =
         return <Layout />
       }
       if (props.status === 'error') {
-        return (
-          <LayoutedScrollView refreshControl={<RefreshControl onRefresh={refreshIfPossible} refreshing={false} />}>
-            <Failure tryAgain={refreshIfPossible} code={props.code} />
-          </LayoutedScrollView>
-        )
+          props.navigation.goBack()
+          // props.navigation.navigate(ERROR_ROUTE, {code: props.code})
+          return null
+        // return (
+        //   <LayoutedScrollView refreshControl={<RefreshControl onRefresh={refreshIfPossible} refreshing={false} />}>
+        //     <Failure tryAgain={refreshIfPossible} navigation={props.navigation} code={props.code} />
+        //   </LayoutedScrollView>
+        // )
       }
       if (props.status === 'languageNotAvailable') {
         return (

@@ -23,9 +23,10 @@ const IconContainer = styled.Image`
 export type PropsType = {
   code: ErrorCode
   tryAgain?: () => void
+  goBack?: () => void
 }
 
-const Failure = ({ code, tryAgain }: PropsType): ReactElement => {
+const Failure = ({ code, tryAgain, goBack }: PropsType): ReactElement => {
   const { t } = useTranslation('error')
   const theme = useTheme()
   let errorIcon
@@ -47,7 +48,7 @@ const Failure = ({ code, tryAgain }: PropsType): ReactElement => {
     <ViewContainer>
       <IconContainer source={errorIcon} />
       <Text>{t(code)}</Text>
-      {tryAgain && (
+      {tryAgain || goBack && (
         <Button
           testID='button-tryAgain'
           titleStyle={{
@@ -57,7 +58,7 @@ const Failure = ({ code, tryAgain }: PropsType): ReactElement => {
             backgroundColor: theme.colors.themeColor,
             marginTop: 40,
           }}
-          onPress={tryAgain}
+          onPress={() => {goBack(); goBack()}}
           title={t('tryAgain')}
         />
       )}
