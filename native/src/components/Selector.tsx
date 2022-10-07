@@ -30,7 +30,7 @@ const OfflineWarning = styled.View`
 const IconContainer = styled.Image`
   height: 30px;
   width: 30px;
-  resizemode: contain;
+  resizeMode: contain;
 `
 
 type PropsType = {
