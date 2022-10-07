@@ -1,11 +1,11 @@
+import { useNetInfo } from '@react-native-community/netinfo'
 import React, { ReactElement } from 'react'
 import styled from 'styled-components/native'
-import { useNetInfo } from '@react-native-community/netinfo'
 
+import WarningIcon from '../assets/warning.svg'
 import SelectorItemModel from '../models/SelectorItemModel'
 import SelectorItem from './SelectorItem'
 import Text from './base/Text'
-import WarningIcon from '../assets/warning.svg'
 
 export const Wrapper = styled.View`
   display: flex;
@@ -28,9 +28,9 @@ const OfflineWarning = styled.View`
 `
 
 const IconContainer = styled.Image`
-    height: 30px;
-    width: 30px;
-    resizeMode: contain;
+  height: 30px;
+  width: 30px;
+  resizemode: contain;
 `
 
 type PropsType = {
@@ -39,16 +39,27 @@ type PropsType = {
 }
 
 const Selector = ({ items, selectedItemCode }: PropsType): ReactElement => {
-    const netInfo = useNetInfo()
+  const netInfo = useNetInfo()
   return (
-  <>
-    {!netInfo.isConnected && <OfflineWarning><IconContainer source={WarningIcon} /><Text>You are currently offline. Some languages are not available.</Text></OfflineWarning>}
-    <Wrapper>
+    <>
+      {!netInfo.isConnected && (
+        <OfflineWarning>
+          <IconContainer source={WarningIcon} />
+          <Text>You are currently offline. Some languages are not available.</Text>
+        </OfflineWarning>
+      )}
+      <Wrapper>
         {items.map(item => (
-        <SelectorItem key={item.code} model={item} selected={selectedItemCode === item.code} isOnline={netInfo.isConnected}/>
+          <SelectorItem
+            key={item.code}
+            model={item}
+            selected={selectedItemCode === item.code}
+            isOnline={netInfo.isConnected}
+          />
         ))}
-    </Wrapper>
-    </>)
+      </Wrapper>
+    </>
+  )
 }
 
 export default Selector

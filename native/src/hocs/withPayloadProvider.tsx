@@ -5,6 +5,7 @@ import { RefreshControl } from 'react-native'
 import { Dispatch } from 'redux'
 
 import { ErrorCode, LanguageModel } from 'api-client'
+import { ERROR_ROUTE } from 'api-client/src/routes'
 
 import Failure from '../components/Failure'
 import LanguageNotAvailablePage from '../components/LanguageNotAvailablePage'
@@ -15,7 +16,6 @@ import { NavigationPropType, RoutePropType, RoutesType } from '../constants/Navi
 import wrapDisplayName from '../hocs/wrapDisplayName'
 import useClearRouteOnClose from '../hooks/useClearRouteOnClose'
 import { StoreActionType } from '../redux/StoreActionType'
-import { ERROR_ROUTE } from 'api-client/src/routes'
 
 // A waiting time of >=1s feels like an interruption
 export const LOADING_TIMEOUT = 800
@@ -123,9 +123,9 @@ const withPayloadProvider =
         return <Layout />
       }
       if (props.status === 'error') {
-          props.navigation.goBack()
-          // props.navigation.navigate(ERROR_ROUTE, {code: props.code})
-          return null
+        props.navigation.goBack()
+        // props.navigation.navigate(ERROR_ROUTE, {code: props.code})
+        return null
         // return (
         //   <LayoutedScrollView refreshControl={<RefreshControl onRefresh={refreshIfPossible} refreshing={false} />}>
         //     <Failure tryAgain={refreshIfPossible} navigation={props.navigation} code={props.code} />

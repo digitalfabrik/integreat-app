@@ -48,20 +48,24 @@ const Failure = ({ code, tryAgain, goBack }: PropsType): ReactElement => {
     <ViewContainer>
       <IconContainer source={errorIcon} />
       <Text>{t(code)}</Text>
-      {tryAgain || goBack && (
-        <Button
-          testID='button-tryAgain'
-          titleStyle={{
-            color: theme.colors.textColor,
-          }}
-          buttonStyle={{
-            backgroundColor: theme.colors.themeColor,
-            marginTop: 40,
-          }}
-          onPress={() => {goBack(); goBack()}}
-          title={t('tryAgain')}
-        />
-      )}
+      {tryAgain ||
+        (goBack && (
+          <Button
+            testID='button-tryAgain'
+            titleStyle={{
+              color: theme.colors.textColor,
+            }}
+            buttonStyle={{
+              backgroundColor: theme.colors.themeColor,
+              marginTop: 40,
+            }}
+            onPress={() => {
+              goBack()
+              goBack()
+            }}
+            title={t('tryAgain')}
+          />
+        ))}
     </ViewContainer>
   )
 }
