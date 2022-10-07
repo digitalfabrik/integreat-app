@@ -5,7 +5,7 @@ type UseRefWithCallbackReturnProps<T> = {
   ref: (node: T | null) => void
 }
 
-const useRefWithCallback = <T extends HTMLSpanElement | HTMLDivElement | HTMLParagraphElement>(
+const useCallbackRef = <T extends HTMLSpanElement | HTMLDivElement | HTMLParagraphElement>(
   callback: (ref: RefObject<T>) => void
 ): UseRefWithCallbackReturnProps<T> => {
   const ref = useRef<T | null>(null)
@@ -18,4 +18,4 @@ const useRefWithCallback = <T extends HTMLSpanElement | HTMLDivElement | HTMLPar
   )
   return { ref: refCallback, current: ref.current }
 }
-export default useRefWithCallback
+export default useCallbackRef

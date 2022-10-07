@@ -6,7 +6,7 @@ import { UiDirectionType } from 'translations/src'
 import iconArrowBack from '../assets/IconArrowBack.svg'
 import iconArrowForward from '../assets/IconArrowForward.svg'
 import dimensions from '../constants/dimensions'
-import useRefWithCallback from '../hooks/useRefWithCallback'
+import useCallbackRef from '../hooks/useCallbackRef'
 import useWindowDimensions from '../hooks/useWindowDimensions'
 
 type PropsType = {
@@ -72,7 +72,7 @@ const NavigationBarScrollContainer = ({ children, direction, activeIndex }: Prop
     },
     [activeIndex]
   )
-  const { ref, current: scrollContainer } = useRefWithCallback(scrollToActiveItem)
+  const { ref, current: scrollContainer } = useCallbackRef(scrollToActiveItem)
   const scrollableWidth = scrollContainer ? scrollContainer.scrollWidth - scrollContainer.clientWidth : 0
 
   const showArrowContainer = scrollContainer ? scrollContainer.scrollWidth > width : false
