@@ -1,15 +1,16 @@
 import { LayerProps } from 'react-map-gl'
 
-import { mapMarker, PoiFeature } from 'api-client'
+import {
+  circleRadiusLarge,
+  circleRadiusSmall,
+  fontSizeLarge,
+  fontSizeSmall,
+  groupCount,
+  mapMarker,
+  PoiFeature,
+  textOffsetY,
+} from 'api-client'
 import { ThemeType } from 'build-configs/ThemeType'
-
-const textOffsetY = 1.25
-
-const groupCount = 50
-const circleRadiusSmall = 20
-const circleRadiusLarge = 30
-const fontSizeSmall = 12
-const fontSizeLarge = 16
 
 export const clusterLayer = (theme: ThemeType): LayerProps => ({
   id: 'clusters',

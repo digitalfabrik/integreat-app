@@ -12,6 +12,7 @@ import {
   PoiFeatureCollection,
   MapViewMercatorViewport,
   clusterZoom,
+  clusterRadius,
 } from 'api-client'
 import { UiDirectionType } from 'translations'
 
@@ -163,7 +164,7 @@ const MapView = forwardRef((props: MapViewProps, ref: React.Ref<MapRef>): ReactE
           data={featureCollection}
           cluster
           clusterMaxZoom={clusterZoom}
-          clusterRadius={50}>
+          clusterRadius={clusterRadius}>
           <Layer {...clusterLayer(theme)} />
           <Layer {...clusterCountLayer} />
           <Layer {...markerLayer(currentFeature)} />
