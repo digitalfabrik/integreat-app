@@ -1,4 +1,5 @@
 import React, { ReactElement } from 'react'
+import styled from 'styled-components'
 
 import { DateFormatter, EventModel, textTruncator } from 'api-client'
 
@@ -8,6 +9,10 @@ import EventPlaceholder3 from '../assets/EventPlaceholder3.jpg'
 import ListItem from './ListItem'
 
 export const NUM_OF_CHARS_ALLOWED = 110
+
+const Content = styled.div`
+  overflow-wrap: anywhere;
+`
 
 type PropsType = {
   event: EventModel
@@ -26,11 +31,11 @@ const getEventPlaceholder = (path: string): string => {
 
 const EventListItem = ({ event, formatter }: PropsType): ReactElement => (
   <ListItem thumbnail={event.thumbnail || getEventPlaceholder(event.path)} title={event.title} path={event.path}>
-    <div>
-      <div dir='auto'>{event.date.toFormattedString(formatter)}</div>
-      {event.location && <div dir='auto'>{event.location.fullAddress}</div>}
-    </div>
-    <div dir='auto'>{textTruncator(event.excerpt, NUM_OF_CHARS_ALLOWED)}</div>
+    <Content>
+      <Content dir='auto'>{event.date.toFormattedString(formatter)}</Content>
+      {event.location && <Content dir='auto'>{event.location.fullAddress}</Content>}
+    </Content>
+    <Content dir='auto'>{textTruncator(event.excerpt, NUM_OF_CHARS_ALLOWED)}</Content>
   </ListItem>
 )
 
