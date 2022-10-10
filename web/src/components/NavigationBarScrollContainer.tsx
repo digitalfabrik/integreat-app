@@ -53,14 +53,14 @@ const ScrollContainer = styled.div<{ showArrowContainer: boolean }>`
   }
 `
 
-const getInitialScrollPosition = (activeIndex: number): number => {
+const getActiveItemScrollPosition = (activeIndex: number): number => {
   const navigationBar = document.getElementById('navigation-bar')
   if (!navigationBar || activeIndex === 0) {
     return 0
   }
   const navigationBarOffset = navigationBar.offsetLeft
-  const elementOffset = navigationBar.getElementsByTagName('div')[activeIndex]?.offsetLeft
-  return elementOffset ? navigationBarOffset + elementOffset : 0
+  const navigationItem = navigationBar.getElementsByClassName('navigation-item')[activeIndex] as HTMLElement | null
+  return navigationItem?.offsetLeft ? navigationItem.offsetLeft - navigationBarOffset : 0
 }
 
 const NavigationBarScrollContainer = ({ children, direction, activeIndex }: PropsType): ReactElement => {
@@ -68,7 +68,7 @@ const NavigationBarScrollContainer = ({ children, direction, activeIndex }: Prop
   const [scrollPosition, setScrollPosition] = useState<number>(0)
   const scrollToActiveItem = useCallback(
     (ref: RefObject<HTMLDivElement>) => {
-      ref.current?.scroll({ left: getInitialScrollPosition(activeIndex) })
+      ref.current?.scroll({ left: getActiveItemScrollPosition(activeIndex) })
     },
     [activeIndex]
   )

@@ -53,4 +53,4 @@ Object.defineProperty(URL, 'createObjectURL', {
   value: jest.fn(),
 })
 
-Element.prototype.scrollTo = () => undefined
+Element.prototype.scroll = () => undefined
