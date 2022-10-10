@@ -1,4 +1,4 @@
-import React, { ReactElement, ReactNode, RefObject, useEffect, useState } from 'react'
+import React, { ReactElement, ReactNode, RefObject, useCallback, useState } from 'react'
 import styled from 'styled-components'
 
 import { UiDirectionType } from 'translations/src'
@@ -6,7 +6,8 @@ import { UiDirectionType } from 'translations/src'
 import iconArrowBack from '../assets/IconArrowBack.svg'
 import iconArrowForward from '../assets/IconArrowForward.svg'
 import dimensions from '../constants/dimensions'
-import useRefWithCallback from '../hooks/useRefWithCallback'
+import useCallbackRef from '../hooks/useCallbackRef'
+import useWindowDimensions from '../hooks/useWindowDimensions'
 
 type PropsType = {
   children: ReactNode
@@ -52,18 +53,9 @@ const ScrollContainer = styled.div<{ showArrowContainer: boolean }>`
   }
 `
 
-const getScrollableWidth = <T extends HTMLSpanElement | HTMLDivElement | HTMLParagraphElement>(
-  scrollContainer: RefObject<T>
-): number => {
-  if (scrollContainer.current) {
-    const { scrollWidth, clientWidth } = scrollContainer.current
-    return scrollWidth - clientWidth
-  }
-  return 0
-}
 const getInitialScrollPosition = (activeIndex: number): number => {
   const navigationBar = document.getElementById('navigation-bar')
-  if (!navigationBar) {
+  if (!navigationBar || activeIndex === 0) {
     return 0
   }
   const navigationBarOffset = navigationBar.offsetLeft
@@ -72,27 +64,29 @@ const getInitialScrollPosition = (activeIndex: number): number => {
 }
 
 const NavigationBarScrollContainer = ({ children, direction, activeIndex }: PropsType): ReactElement => {
+  const { width } = useWindowDimensions()
   const [scrollPosition, setScrollPosition] = useState<number>(0)
-  const { toggle, refCallback, ref: scrollContainerRef } = useRefWithCallback()
+  const scrollToActiveItem = useCallback(
+    (ref: RefObject<HTMLDivElement>) => {
+      ref.current?.scroll({ left: getInitialScrollPosition(activeIndex) })
+    },
+    [activeIndex]
+  )
+  const { ref, current: scrollContainer } = useCallbackRef(scrollToActiveItem)
+  const scrollableWidth = scrollContainer ? scrollContainer.scrollWidth - scrollContainer.clientWidth : 0
 
-  useEffect(() => {
-    if (activeIndex > 0 && scrollContainerRef.current) {
-      scrollContainerRef.current.scrollTo({ left: getInitialScrollPosition(activeIndex) })
-    }
-  }, [activeIndex, scrollContainerRef, toggle])
+  const showArrowContainer = scrollContainer ? scrollContainer.scrollWidth > width : false
+  const showArrowLeft = scrollContainer ? scrollPosition > 0 : false
+  const showArrowRight = scrollContainer ? scrollPosition < scrollableWidth : false
 
-  const showArrowContainer = scrollContainerRef.current ? getScrollableWidth(scrollContainerRef) > 0 : false
-  const showArrowLeft = scrollContainerRef.current ? scrollPosition > 0 : false
-  const showArrowRight = scrollContainerRef.current ? scrollPosition < getScrollableWidth(scrollContainerRef) : false
+  const scrollToEnd = () =>
+    scrollContainer?.scroll({ left: direction === 'rtl' ? -scrollContainer.scrollWidth : scrollContainer.scrollWidth })
 
-  const onScrollForward = () =>
-    scrollContainerRef.current?.scroll({
-      left: direction === 'rtl' ? -scrollContainerRef.current.scrollWidth : scrollContainerRef.current.scrollWidth,
-    })
+  const scrollToStart = () => scrollContainer?.scroll({ left: 0 })
 
-  const scrollContainer = (
+  const Content = (
     <ScrollContainer
-      ref={refCallback}
+      ref={ref}
       onScroll={(e: React.UIEvent<HTMLElement>) => setScrollPosition(Math.abs(e.currentTarget.scrollLeft))}
       showArrowContainer={showArrowContainer}>
       {children}
@@ -100,16 +94,16 @@ const NavigationBarScrollContainer = ({ children, direction, activeIndex }: Prop
   )
 
   if (!showArrowContainer) {
-    return scrollContainer
+    return <Container>{Content}</Container>
   }
 
   return (
     <Container>
-      <Button disabled={!showArrowLeft} onClick={() => scrollContainerRef.current?.scroll({ left: 0 })}>
+      <Button disabled={!showArrowLeft} onClick={scrollToStart}>
         <Arrow src={iconArrowBack} direction={direction} visible={showArrowLeft} alt='' />
       </Button>
-      {scrollContainer}
-      <Button disabled={!showArrowRight} onClick={onScrollForward}>
+      {Content}
+      <Button disabled={!showArrowRight} onClick={scrollToEnd}>
         <Arrow src={iconArrowForward} direction={direction} visible={showArrowRight} alt='' />
       </Button>
     </Container>
