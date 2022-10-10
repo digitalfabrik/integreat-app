@@ -23,7 +23,7 @@ export const Description = styled.div`
   flex-direction: column;
   flex-grow: 1;
   padding: 15px 10px 0;
-  word-wrap: break-word;
+  overflow-wrap: anywhere;
 
   > * {
     padding-bottom: 10px;
