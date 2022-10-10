@@ -129,7 +129,7 @@ export type HeaderNavigationItemProps = {
 }
 
 const HeaderNavigationItem = ({ active, text, href, icon, direction }: HeaderNavigationItemProps): ReactElement => (
-  <Container direction={direction} className='navigation-item'>
+  <Container direction={direction} className='header-navigation-item'>
     <StyledLink to={href} $active={active}>
       <Circle>
         <img src={icon} alt='' />
