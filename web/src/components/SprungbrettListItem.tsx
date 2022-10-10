@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { ReactElement } from 'react'
+import { memo, ReactElement } from 'react'
 import styled from 'styled-components'
 
 import { SprungbrettJobModel } from 'api-client'
@@ -20,4 +20,4 @@ const SprungbrettListItem = ({ job }: PropsType): ReactElement => (
   </ListItem>
 )
 
-export default SprungbrettListItem
+export default memo(SprungbrettListItem)
