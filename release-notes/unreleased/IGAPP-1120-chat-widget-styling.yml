@@ -1,0 +1,5 @@
+issue_key: IGAPP-1120
+show_in_stores: true
+platforms:
+  - web
+en: Fix Jumping of Chat Widget when Scrollbar Appears
