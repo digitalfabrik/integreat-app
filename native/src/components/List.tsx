@@ -11,7 +11,7 @@ const NoItemsMessage = styled.Text`
 
 type Props<T> = {
   items: Array<T>
-  noItemsMessage: string
+  noItemsMessage: ReactElement | string
   renderItem: (props: { item: T; index: number }) => ReactElement
   Header?: ReactElement
   Footer?: ReactElement
@@ -34,7 +34,9 @@ const List = <T,>({
     ListHeaderComponent={Header}
     ListFooterComponent={Footer}
     refreshControl={<RefreshControl onRefresh={refresh} refreshing={false} />}
-    ListEmptyComponent={<NoItemsMessage>{noItemsMessage}</NoItemsMessage>}
+    ListEmptyComponent={
+      typeof noItemsMessage === 'string' ? <NoItemsMessage>{noItemsMessage}</NoItemsMessage> : noItemsMessage
+    }
     onEndReached={onEndReached}
     showsVerticalScrollIndicator={false}
     contentContainerStyle={{

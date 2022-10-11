@@ -7,11 +7,12 @@ import iconPlaceholder from '../../assets/IconPlaceholder.svg'
 import { renderWithRouterAndTheme } from '../../testing/render'
 import CategoryEntry from '../CategoryEntry'
 
-const category = new CategoryModel({
+const categoryParams = {
   root: false,
-  path: '/augsburg/de/willkommen',
-  title: 'Willkommen',
-  content: 'this is a test content which is longer than usual',
+  path: '/augsburg/de/lorem-ipsum',
+  title: 'Duis aute',
+  content:
+    'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
   parentPath: '/augsburg/de',
   order: 11,
   availableLanguages: new Map([
@@ -21,37 +22,17 @@ const category = new CategoryModel({
   ]),
   thumbnail: 'https://cms.integreat-ap…03/Beratung-150x150.png',
   lastUpdate: moment('2017-11-18T19:30:00.000Z'),
-})
+}
+
+const category = new CategoryModel(categoryParams)
+const categoryWithDifferentName = new CategoryModel({ ...categoryParams, title: 'Willkommen' })
 const childCategory = new CategoryModel({
-  root: false,
-  path: '/augsburg/de/test',
+  ...categoryParams,
+  path: '/augsburg/de/lorem-ipsum/test',
   title: 'Child',
-  content: 'this is a test content',
-  parentPath: '/augsburg/de',
-  order: 11,
-  availableLanguages: new Map([
-    ['en', '4861'],
-    ['ar', '4867'],
-    ['fa', '4868'],
-  ]),
-  thumbnail: 'https://cms.integreat-ap…03/Beratung-150x150.png',
-  lastUpdate: moment('2017-11-18T19:30:00.000Z'),
+  parentPath: '/augsburg/de/lorem-ipsum',
 })
-const noThumbCategory = new CategoryModel({
-  root: false,
-  path: '/augsburg/de/willkommen/willkommen-in-augsburg',
-  title: 'GotNoThumb :O',
-  content: 'some content',
-  parentPath: '/augsburg/de/willkommen',
-  order: 1,
-  availableLanguages: new Map([
-    ['en', '390'],
-    ['ar', '711'],
-    ['fa', '397'],
-  ]),
-  thumbnail: '',
-  lastUpdate: moment('2017-11-18T19:30:00.000Z'),
-})
+const noThumbCategory = new CategoryModel({ ...categoryParams, thumbnail: '' })
 
 describe('CategoryEntry', () => {
   it('should render correctly', () => {
@@ -80,51 +61,77 @@ describe('CategoryEntry', () => {
     expect(getByRole('img')).toHaveProperty('src', `http://localhost/${iconPlaceholder}`)
   })
 
-  describe('highlighted content', () => {
-    it('should return the highlighted match item', () => {
-      const query = 'test'
-      const selectedSection = 'this is a test content which is longer than usual'
-      const highlightStyle = {
-        _values: {
-          'background-color': 'rgb(255, 255, 255)',
-          'font-weight': 'bold',
-        },
-      }
+  describe('query', () => {
+    const highlightStyle = {
+      _values: {
+        'background-color': 'rgb(255, 255, 255)',
+        'font-weight': 'bold',
+      },
+    }
+
+    it('should show excerpt around query if match in title and content', () => {
+      const excerptBeforeQuery = 'exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.'
+      const query = 'Duis aute'
+      const excerptAfterQuery = 'irure dolor in reprehenderit in voluptate velit esse cillum'
+      const excerpt = `${excerptBeforeQuery} ${query} ${excerptAfterQuery}`
+
+      const { queryAllByText, getByText, getByLabelText } = renderWithRouterAndTheme(
+        <CategoryEntry category={category} subCategories={[]} query={query} contentWithoutHtml={category.content} />
+      )
+
+      expect(getByLabelText(excerpt)).toBeTruthy()
+      expect(getByText(excerptBeforeQuery)).not.toHaveProperty('style', expect.objectContaining(highlightStyle))
+      expect(queryAllByText(query)[0]).toHaveProperty('style', expect.objectContaining(highlightStyle))
+      expect(queryAllByText(query)[1]).toHaveProperty('style', expect.objectContaining(highlightStyle))
+      expect(getByText(excerptAfterQuery)).not.toHaveProperty('style', expect.objectContaining(highlightStyle))
+    })
+
+    it('should show beginning of excerpt if match only in title', () => {
+      const query = 'Willkommen'
+      const excerpt =
+        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim'
 
       const { getByText, getByLabelText } = renderWithRouterAndTheme(
-        <CategoryEntry category={category} subCategories={[]} query={query} />
+        <CategoryEntry
+          category={categoryWithDifferentName}
+          subCategories={[]}
+          query={query}
+          contentWithoutHtml={categoryWithDifferentName.content}
+        />
       )
 
-      expect(getByLabelText(selectedSection)).toBeTruthy()
-      expect(getByText('this is a')).not.toHaveProperty('style', expect.objectContaining(highlightStyle))
       expect(getByText(query)).toHaveProperty('style', expect.objectContaining(highlightStyle))
-      expect(getByText('content which is longer than usual')).not.toHaveProperty(
-        'style',
-        expect.objectContaining(highlightStyle)
-      )
+      expect(getByLabelText(excerpt)).toBeTruthy()
+      expect(getByText(excerpt)).not.toHaveProperty('style', expect.objectContaining(highlightStyle))
     })
 
-    it('should highlight nothing and show content if there is no match', () => {
+    it('should show excerpt around query if only match in content', () => {
+      const excerptBeforeQuery = 'et dolore magna aliqua. Ut enim ad minim veniam, quis'
+      const query = 'nostrud exercitation'
+      const excerptAfterQuery = 'ullamco laboris nisi ut aliquip ex ea commodo consequat.'
+      const excerpt = `${excerptBeforeQuery} ${query} ${excerptAfterQuery}`
+
+      const { getByText, getByLabelText } = renderWithRouterAndTheme(
+        <CategoryEntry category={category} subCategories={[]} query={query} contentWithoutHtml={category.content} />
+      )
+
+      expect(getByLabelText(excerpt)).toBeTruthy()
+      expect(getByText(excerptBeforeQuery)).not.toHaveProperty('style', expect.objectContaining(highlightStyle))
+      expect(getByText(query)).toHaveProperty('style', expect.objectContaining(highlightStyle))
+      expect(getByText(excerptAfterQuery)).not.toHaveProperty('style', expect.objectContaining(highlightStyle))
+    })
+
+    it('should show beginning of excerpt if there is no match', () => {
       const query = 'no match'
+      const excerpt =
+        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim'
 
-      const { queryAllByText, getByText } = renderWithRouterAndTheme(
-        <CategoryEntry category={category} subCategories={[]} query={query} />
-      )
-
-      expect(getByText(category.title)).toBeTruthy()
-      expect(getByText(category.content)).toBeTruthy()
-      const regex = /.+/
-      const texts = queryAllByText(regex)
-      // Shows category.title and beginning of category.content
-      expect(texts).toHaveLength(2)
-    })
-
-    it('should show content if title matches query', () => {
-      const query = 'Willkommen'
       const { getByText } = renderWithRouterAndTheme(
-        <CategoryEntry category={category} subCategories={[]} query={query} />
+        <CategoryEntry category={category} subCategories={[]} query={query} contentWithoutHtml={category.content} />
       )
-      expect(getByText(category.content)).toBeDefined()
+
+      expect(getByText(category.title)).not.toHaveProperty('style', expect.objectContaining(highlightStyle))
+      expect(getByText(excerpt)).not.toHaveProperty('style', expect.objectContaining(highlightStyle))
     })
   })
 })
