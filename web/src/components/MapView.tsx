@@ -2,20 +2,21 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import * as mapLibreGl from 'maplibre-gl'
 import 'maplibre-gl/dist/maplibre-gl.css'
 import React, { forwardRef, ReactElement, useCallback, useState } from 'react'
-import Map, { GeolocateControl, Layer, LayerProps, MapRef, NavigationControl, Source } from 'react-map-gl'
-import styled, { css } from 'styled-components'
+import Map, { GeolocateControl, Layer, MapRef, NavigationControl, Source } from 'react-map-gl'
+import styled, { css, useTheme } from 'styled-components'
 
 import {
   mapConfig,
   MapViewViewport,
   PoiFeature,
   PoiFeatureCollection,
-  mapMarker,
   MapViewMercatorViewport,
+  clusterZoom,
 } from 'api-client'
 import { UiDirectionType } from 'translations'
 
 import { faArrowLeft } from '../constants/icons'
+import { clusterCountLayer, clusterLayer, markerLayer } from '../constants/layers'
 import useWindowDimensions from '../hooks/useWindowDimensions'
 import '../styles/MapView.css'
 import LocationFooter from './LocationFooter'
@@ -83,33 +84,9 @@ const MapView = forwardRef((props: MapViewProps, ref: React.Ref<MapRef>): ReactE
     cityCode,
     languageCode,
   } = props
-
-  const textOffsetY = 1.25
-
-  const layerStyle: LayerProps = {
-    id: 'point',
-    type: 'symbol',
-    source: 'point',
-    layout: {
-      'icon-allow-overlap': true,
-      'icon-ignore-placement': true,
-      'icon-size': mapMarker.iconSize,
-      'icon-image': [
-        'case',
-        ['==', ['get', 'id'], currentFeature?.properties.id ?? -1],
-        mapMarker.symbolActive,
-        ['get', 'symbol'],
-      ],
-      'text-field': ['get', 'title'],
-      'text-font': ['Roboto Regular'],
-      'text-offset': [0, textOffsetY],
-      'text-anchor': 'top',
-      'text-size': 12,
-    },
-    paint: {},
-  }
   const [viewport, setViewport] = useState<MapViewViewport>(bboxViewport)
   const [cursor, setCursor] = useState<MapCursorType>('auto')
+  const theme = useTheme()
 
   const { viewportSmall } = useWindowDimensions()
 
@@ -130,7 +107,7 @@ const MapView = forwardRef((props: MapViewProps, ref: React.Ref<MapRef>): ReactE
       const feature = event.features && event.features[0]
       if (feature) {
         selectFeature(feature)
-        changeSnapPoint(2)
+        changeSnapPoint(1)
       }
     },
     [changeSnapPoint, selectFeature]
@@ -150,7 +127,7 @@ const MapView = forwardRef((props: MapViewProps, ref: React.Ref<MapRef>): ReactE
         ref={ref}
         reuseMaps
         cursor={cursor}
-        interactiveLayerIds={[layerStyle.id!]}
+        interactiveLayerIds={[markerLayer(currentFeature).id!]}
         {...viewport}
         style={{
           height: '100%',
@@ -180,8 +157,16 @@ const MapView = forwardRef((props: MapViewProps, ref: React.Ref<MapRef>): ReactE
           trackUserLocation
           position={direction === 'rtl' ? 'top-left' : 'top-right'}
         />
-        <Source id='location-pois' type='geojson' data={featureCollection}>
-          <Layer {...layerStyle} />
+        <Source
+          id='location-pois'
+          type='geojson'
+          data={featureCollection}
+          cluster
+          clusterMaxZoom={clusterZoom}
+          clusterRadius={50}>
+          <Layer {...clusterLayer(theme)} />
+          <Layer {...clusterCountLayer} />
+          <Layer {...markerLayer(currentFeature)} />
         </Source>
         {!viewportSmall && (
           <>

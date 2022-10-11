@@ -4,7 +4,7 @@ import React from 'react'
 import { CategoryModel } from 'api-client'
 
 import iconPlaceholder from '../../assets/IconPlaceholder.svg'
-import { renderWithRouter } from '../../testing/render'
+import { renderWithRouterAndTheme } from '../../testing/render'
 import CategoryEntry from '../CategoryEntry'
 
 const category = new CategoryModel({
@@ -55,9 +55,8 @@ const noThumbCategory = new CategoryModel({
 
 describe('CategoryEntry', () => {
   it('should render correctly', () => {
-    const { getByText, getByRole, getByLabelText, queryAllByText } = renderWithRouter(
-      <CategoryEntry category={category} subCategories={[childCategory]} />,
-      { wrapWithTheme: true }
+    const { getByText, getByRole, getByLabelText, queryAllByText } = renderWithRouterAndTheme(
+      <CategoryEntry category={category} subCategories={[childCategory]} />
     )
 
     expect(getByLabelText(category.title)).toBeTruthy()
@@ -74,9 +73,8 @@ describe('CategoryEntry', () => {
   })
 
   it('should replace empty thumbnail', () => {
-    const { getByRole } = renderWithRouter(
-      <CategoryEntry category={noThumbCategory} subCategories={[childCategory]} />,
-      { wrapWithTheme: true }
+    const { getByRole } = renderWithRouterAndTheme(
+      <CategoryEntry category={noThumbCategory} subCategories={[childCategory]} />
     )
 
     expect(getByRole('img')).toHaveProperty('src', `http://localhost/${iconPlaceholder}`)
@@ -93,9 +91,8 @@ describe('CategoryEntry', () => {
         },
       }
 
-      const { getByText, getByLabelText } = renderWithRouter(
-        <CategoryEntry category={category} subCategories={[]} query={query} />,
-        { wrapWithTheme: true }
+      const { getByText, getByLabelText } = renderWithRouterAndTheme(
+        <CategoryEntry category={category} subCategories={[]} query={query} />
       )
 
       expect(getByLabelText(selectedSection)).toBeTruthy()
@@ -110,9 +107,8 @@ describe('CategoryEntry', () => {
     it('should highlight nothing and show content if there is no match', () => {
       const query = 'no match'
 
-      const { queryAllByText, getByText } = renderWithRouter(
-        <CategoryEntry category={category} subCategories={[]} query={query} titleMatch />,
-        { wrapWithTheme: true }
+      const { queryAllByText, getByText } = renderWithRouterAndTheme(
+        <CategoryEntry category={category} subCategories={[]} query={query} />
       )
 
       expect(getByText(category.title)).toBeTruthy()
@@ -125,9 +121,9 @@ describe('CategoryEntry', () => {
 
     it('should show content if title matches query', () => {
       const query = 'Willkommen'
-      const { getByText } = renderWithRouter(<CategoryEntry category={category} subCategories={[]} query={query} />, {
-        wrapWithTheme: true,
-      })
+      const { getByText } = renderWithRouterAndTheme(
+        <CategoryEntry category={category} subCategories={[]} query={query} />
+      )
       expect(getByText(category.content)).toBeDefined()
     })
   })

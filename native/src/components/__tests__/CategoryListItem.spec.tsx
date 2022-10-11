@@ -1,6 +1,5 @@
 import React from 'react'
 
-import buildConfig from '../../constants/buildConfig'
 import render from '../../testing/render'
 import { CategoryListModelType } from '../CategoryList'
 import CategoryListItem from '../CategoryListItem'
@@ -36,7 +35,6 @@ describe('CategoryListItem', () => {
     const language = 'de'
     const { getByText, queryByText } = render(
       <CategoryListItem
-        theme={buildConfig().lightTheme}
         category={category}
         subCategories={subCategories}
         onItemPress={onItemPress}
@@ -56,7 +54,6 @@ describe('CategoryListItem', () => {
     const language = 'de'
     const { getByText } = render(
       <CategoryListItem
-        theme={buildConfig().lightTheme}
         query='test'
         category={category}
         subCategories={[]}

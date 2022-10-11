@@ -1,0 +1,7 @@
+issue_key: IGAPP-1113
+show_in_stores: true
+platforms:
+  - android
+  - ios
+en: Links in pdfs are supported
+de: Links in pdfs werden unterstützt
