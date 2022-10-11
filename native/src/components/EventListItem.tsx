@@ -31,7 +31,7 @@ class EventListItem extends PureComponent<Props> {
     return (
       <ListItem thumbnail={thumbnail} title={event.title} language={language} navigateTo={navigateToEvent}>
         <Description>{event.date.toFormattedString(formatter)}</Description>
-        {event.excerpt && <Description>{textTruncator(event.excerpt, NUM_OF_CHARS_ALLOWED)}</Description>}
+        {event.excerpt.length > 0 && <Description>{textTruncator(event.excerpt, NUM_OF_CHARS_ALLOWED)}</Description>}
       </ListItem>
     )
   }
