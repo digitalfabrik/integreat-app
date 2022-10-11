@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react'
+import React, { memo, ReactElement } from 'react'
 import Highlighter from 'react-native-highlight-words'
 import styled, { useTheme } from 'styled-components/native'
 
@@ -137,4 +137,4 @@ const CategoryListItem = ({ language, item, onItemPress, query }: PropsType): Re
   )
 }
 
-export default CategoryListItem
+export default memo(CategoryListItem)

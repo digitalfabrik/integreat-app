@@ -1,3 +1,4 @@
+import { mapValues } from 'lodash'
 import React, { ReactElement } from 'react'
 import { View } from 'react-native'
 
@@ -8,8 +9,11 @@ import { RouteInformationType } from 'api-client/src/routes/RouteInformationType
 import { URL_PREFIX } from '../constants/webview'
 import CategoriesRouteStateView from '../models/CategoriesRouteStateView'
 import TileModel from '../models/TileModel'
-import { LanguageResourceCacheStateType } from '../redux/StateType'
-import CategoryList from './CategoryList'
+import { LanguageResourceCacheStateType, PageResourceCacheEntryStateType } from '../redux/StateType'
+import { RESOURCE_CACHE_DIR_PATH } from '../utils/DatabaseConnector'
+import Caption from './Caption'
+import CategoryListContent from './CategoryListContent'
+import CategoryListItem from './CategoryListItem'
 import { FeedbackInformationType } from './FeedbackContainer'
 import Page from './Page'
 import SiteHelpfulBox from './SiteHelpfulBox'
@@ -41,6 +45,7 @@ const Categories = ({
 }: PropsType): ReactElement => {
   const category = stateView.root()
   const children = stateView.children()
+  const categoryResourceCache = resourceCache[category.path] || {}
 
   const getCachedThumbnail = (category: CategoryModel): string => {
     const categoryResourceCache = resourceCache[category.path] || {}
@@ -77,15 +82,6 @@ const Categories = ({
     })
   }
 
-  const listContent = category.content
-    ? {
-        content: category.content,
-        files: resourceCache[category.path] || {},
-        resourceCacheUrl,
-        lastUpdate: category.lastUpdate,
-      }
-    : null
-
   /**
    * Returns the content to be displayed, based on the current category, which is
    * a) page with information
@@ -96,19 +92,19 @@ const Categories = ({
 
   if (children.length === 0) {
     // last level, our category is a simple page
-    const files = resourceCache[category.path] || {}
     return (
       <Page
         title={category.title}
         content={category.content}
         lastUpdate={category.lastUpdate}
-        files={files}
+        files={categoryResourceCache}
         language={language}
         navigateToFeedback={navigateToFeedbackForCategory}
         resourceCacheUrl={resourceCacheUrl}
       />
     )
   }
+
   if (category.isRoot()) {
     // first level, we want to display a table with all first order categories
     const tiles = children.map(it => new TileModel({ ...mapToItem(it), isExternalUrl: false }))
@@ -123,23 +119,38 @@ const Categories = ({
     )
   }
 
+  const cacheDictionary = mapValues(categoryResourceCache, (file: PageResourceCacheEntryStateType): string =>
+    file.filePath.startsWith(RESOURCE_CACHE_DIR_PATH)
+      ? file.filePath.replace(RESOURCE_CACHE_DIR_PATH, resourceCacheUrl)
+      : file.filePath
+  )
+
+  const ListContent = category.content ? (
+    <CategoryListContent
+      content={category.content}
+      language={language}
+      cacheDictionary={cacheDictionary}
+      lastUpdate={category.lastUpdate}
+    />
+  ) : undefined
+
+  const items = children.map(it => {
+    const children = stateView.stepInto(it.path).children()
+    return {
+      ...mapToItem(it),
+      subCategories: children.map(mapToItem),
+    }
+  })
+
   // some level between, we want to display a list
   return (
     <SpaceBetween>
       <View>
-        <CategoryList
-          items={children.map(it => {
-            const children = stateView.stepInto(it.path).children()
-            return {
-              ...mapToItem(it),
-              subCategories: children.map(mapToItem),
-            }
-          })}
-          title={category.title}
-          listContent={listContent}
-          language={language}
-          onItemPress={navigateToCategory}
-        />
+        <Caption title={category.title} />
+        {ListContent}
+        {items.map(it => (
+          <CategoryListItem key={it.path} item={it} language={language} onItemPress={navigateToCategory} />
+        ))}
       </View>
       <SiteHelpfulBox navigateToFeedback={navigateToFeedbackForCategory} />
     </SpaceBetween>
