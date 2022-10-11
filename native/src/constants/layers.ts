@@ -40,14 +40,14 @@ export const markerLayer = (selectedFeature: PoiFeature | null, featureLayerId: 
     textFont: ['Roboto Regular'],
     textOffset: [0, textOffsetY],
     textAnchor: 'top',
-    textSize: 12,
+    textSize: fontSizeSmall,
   },
 })
 
 export const clusterCountLayer: SymbolLayerProps = {
   id: 'pointCount',
   style: {
-    textField: '{point_count}',
+    textField: '{point_count_abbreviated}',
     textFont: ['Roboto Regular'],
     textSize: ['step', ['get', 'point_count'], fontSizeSmall, groupCount, fontSizeLarge],
   },
