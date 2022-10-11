@@ -3,7 +3,18 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+    <!-- Nginx Server Side Include template for dynamic social media previews -->
+    <!--# if expr="$render_title = yes" -->
+    <!--# include virtual="/proxy/socialmeta/$request_uri" -->
+    <!--# else -->
+    <!-- Default tags for a prettier social media preview, will be overwritten in Helmet.tsx for most pages. -->
     <title><%= config.appName %></title>
+    <meta name="apple-mobile-web-app-title" content="<%= config.appName %>">
+    <meta property="og:title" content="<%= config.appName %>" data-react-helmet="true">
+    <meta name="twitter:title" content="<%= config.appName %>">
+    <!--# endif -->
+
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <% if (config.manifestUrl) { %>
         <link rel="manifest" href="<%= config.manifestUrl %>">
@@ -14,7 +25,6 @@
 
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="application-name" content="<%= config.appName %>">
-    <meta name="apple-mobile-web-app-title" content="<%= config.appName %>">
     <% if (config.apps) { %>
         <meta name="apple-itunes-app" content="app-id=<%= config.apps.ios.appStoreId %>">
     <% } %>
@@ -32,11 +42,12 @@
     <!-- Default tags for a prettier social media preview, will be overwritten in Helmet.tsx for most pages. -->
     <!-- data-react-helmet="true" is needed to allow overwriting in Helmet.tsx -->
     <!-- https://github.com/nfl/react-helmet/issues/430#issuecomment-520364492 -->
-    <meta property="og:title" content="<%= config.appName %>" data-react-helmet="true" />
+
     <meta property="og:image" content="<%= config.icons.socialMediaPreview %>" data-react-helmet="true" />
     <meta property="og:image:width" content="1200" data-react-helmet="true" />
     <meta property="og:image:height" content="630" data-react-helmet="true" />
     <meta property="og:type" content="website" data-react-helmet="true" />
+    <meta name="twitter:image" content="<%= config.icons.socialMediaPreview %>">
 
     <!-- Disable phone number auto detection in mobile safari in order to have consistent behavior -->
     <!-- https://developers.google.com/web/fundamentals/native-hardware/click-to-call#disable_auto-detection_when_necessary -->
