@@ -34,12 +34,6 @@ const TitleDirectionContainer = styled.View<{ language: string }>`
   flex-direction: ${props => contentDirection(props.language)};
 `
 
-const CategoryTitle = styled.Text<{ language: string }>`
-  flex-direction: ${props => contentDirection(props.language)};
-  font-family: ${props => props.theme.fonts.native.decorativeFontRegular};
-  color: ${props => props.theme.colors.textColor};
-`
-
 const HighlighterCategoryTitle = styled(Highlighter)<{ language: string }>`
   flex-direction: ${props => contentDirection(props.language)};
   font-family: ${props => props.theme.fonts.native.decorativeFontRegular};
@@ -76,7 +70,7 @@ const CategoryListItem = ({ language, item, onItemPress, query }: PropsType): Re
   const theme = useTheme()
   const excerpt = getExcerpt(item.contentWithoutHtml ?? '', { query, maxChars: SEARCH_PREVIEW_MAX_CHARS })
 
-  const content = query && (
+  const Content = query && (
     <Highlighter
       searchWords={[query]}
       sanitize={normalizeSearchString}
@@ -86,30 +80,19 @@ const CategoryListItem = ({ language, item, onItemPress, query }: PropsType): Re
     />
   )
 
-  const title = query ? (
-    <CategoryEntryContainer>
-      <TitleDirectionContainer language={language}>
-        <HighlighterCategoryTitle
-          language={language}
-          autoEscape
-          textToHighlight={item.title}
-          sanitize={normalizeSearchString}
-          searchWords={query ? [query] : []}
-          highlightStyle={{
-            fontWeight: 'bold',
-          }}
-        />
-      </TitleDirectionContainer>
-      {content}
-    </CategoryEntryContainer>
-  ) : (
-    <CategoryEntryContainer>
-      <TitleDirectionContainer language={language}>
-        <CategoryTitle language={language} android_hyphenationFrequency='full'>
-          {item.title}
-        </CategoryTitle>
-      </TitleDirectionContainer>
-    </CategoryEntryContainer>
+  const Title = (
+    <TitleDirectionContainer language={language}>
+      <HighlighterCategoryTitle
+        language={language}
+        autoEscape
+        textToHighlight={item.title}
+        sanitize={normalizeSearchString}
+        searchWords={query ? [query] : []}
+        highlightStyle={{
+          fontWeight: 'bold',
+        }}
+      />
+    </TitleDirectionContainer>
   )
 
   return (
@@ -117,7 +100,10 @@ const CategoryListItem = ({ language, item, onItemPress, query }: PropsType): Re
       <FlexStyledLink onPress={() => onItemPress(item)} underlayColor={theme.colors.backgroundAccentColor}>
         <DirectionContainer language={language}>
           <CategoryThumbnail source={item.thumbnail || iconPlaceholder} />
-          {title}
+          <CategoryEntryContainer>
+            {Title}
+            {Content}
+          </CategoryEntryContainer>
         </DirectionContainer>
       </FlexStyledLink>
       {item.subCategories.map(subCategory => (
