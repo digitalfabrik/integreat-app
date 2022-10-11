@@ -5,7 +5,7 @@ import styled, { useTheme } from 'styled-components/native'
 import { getExcerpt, normalizeSearchString } from 'api-client'
 
 import iconPlaceholder from '../assets/IconPlaceholder.png'
-import { EXCERPT_MAX_CHARS } from '../constants'
+import { SEARCH_PREVIEW_MAX_CHARS } from '../constants'
 import { contentDirection } from '../constants/contentDirection'
 import dimensions from '../constants/dimensions'
 import SimpleImage from './SimpleImage'
@@ -74,7 +74,7 @@ type PropsType = {
 
 const CategoryListItem = ({ language, item, onItemPress, query }: PropsType): ReactElement => {
   const theme = useTheme()
-  const excerpt = getExcerpt(item.contentWithoutHtml ?? '', { query, maxChars: EXCERPT_MAX_CHARS })
+  const excerpt = getExcerpt(item.contentWithoutHtml ?? '', { query, maxChars: SEARCH_PREVIEW_MAX_CHARS })
 
   const content = query && (
     <Highlighter
