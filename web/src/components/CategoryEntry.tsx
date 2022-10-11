@@ -1,14 +1,12 @@
-import React, { ReactElement, useMemo } from 'react'
+import React, { ReactElement } from 'react'
 import Highlighter from 'react-highlight-words'
 import { Link } from 'react-router-dom'
 import styled, { useTheme } from 'styled-components'
 
-import { CategoryModel, normalizeSearchString } from 'api-client'
+import { CategoryModel, getExcerpt, normalizeSearchString } from 'api-client'
 
 import iconPlaceholder from '../assets/IconPlaceholder.svg'
-import ContentMatcher from './ContentMatcher'
-
-const NUM_WORDS_SURROUNDING_MATCH = 10
+import { EXCERPT_MAX_CHARS } from '../constants'
 
 const Row = styled.div`
   margin: 12px 0;
@@ -81,16 +79,7 @@ type PropsType = {
 const CategoryEntry = ({ category, contentWithoutHtml, subCategories, query }: PropsType): ReactElement => {
   const theme = useTheme()
 
-  const excerpt = useMemo<string>(() => {
-    if (!query || !contentWithoutHtml) {
-      return ''
-    }
-    const contentMatcher = new ContentMatcher()
-    return (
-      contentMatcher.getMatchedContent(query, contentWithoutHtml, NUM_WORDS_SURROUNDING_MATCH) ??
-      contentMatcher.getContentAfterMatchIndex(contentWithoutHtml, 0, 2 * NUM_WORDS_SURROUNDING_MATCH)
-    )
-  }, [contentWithoutHtml, query])
+  const excerpt = getExcerpt(contentWithoutHtml ?? '', { query, maxChars: EXCERPT_MAX_CHARS })
 
   const SubCategories = subCategories.map(subCategory => (
     <SubCategory key={subCategory.path} dir='auto'>
