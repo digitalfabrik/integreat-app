@@ -81,6 +81,7 @@ export const defaultMercatorViewportConfig: MapViewMercatorViewport = {
 
 export const detailZoom = 15
 export const clusterZoom = 13
+export const clusterRadius = 50
 export const animationDuration = 2000
 export const nameQueryParam = 'name'
 
@@ -89,3 +90,11 @@ export const mapMarker: MarkerConfig = {
   symbol: 'marker_40',
   symbolActive: 'marker_40_active',
 }
+
+// Shared layer properties
+export const textOffsetY = 1.25
+export const groupCount = 50
+export const circleRadiusSmall = 20
+export const circleRadiusLarge = 30
+export const fontSizeSmall = 12
+export const fontSizeLarge = 16
