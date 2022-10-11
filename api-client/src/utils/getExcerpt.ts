@@ -37,7 +37,7 @@ type ExcerptOptions = {
 }
 
 const getExcerpt = (text: string, { query, maxChars, replaceLineBreaks }: ExcerptOptions): string => {
-  const match = query ? normalizeSearchString(text).match(query) : []
+  const match = query ? normalizeSearchString(text).match(normalizeSearchString(query)) : []
 
   if (!query || !match?.index || text.trim().length <= maxChars) {
     return truncate(text, { maxChars, replaceLineBreaks })
