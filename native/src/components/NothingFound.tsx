@@ -17,7 +17,7 @@ const Description = styled.Text`
 `
 
 const SadIconContainer = styled.Image`
-  margin: 0px auto 10px;
+  margin: 0 auto 10px;
 `
 
 type Props = {
