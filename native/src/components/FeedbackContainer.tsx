@@ -50,7 +50,7 @@ export type FeedbackInformationType = {
   path?: string
   alias?: string
 }
-export type PropsType = {
+export type FeedbackContainerPropsType = {
   routeType: RouteType
   isSearchFeedback: boolean
   isPositiveFeedback: boolean
@@ -62,7 +62,7 @@ export type PropsType = {
   theme: ThemeType
 }
 
-const FeedbackContainer = (props: PropsType): ReactElement => {
+const FeedbackContainer = (props: FeedbackContainerPropsType): ReactElement => {
   const [comment, setComment] = useState<string>('')
   const [contactMail, setContactMail] = useState<string>('')
   const [sendingStatus, setSendingStatus] = useState<SendingStatusType>('idle')

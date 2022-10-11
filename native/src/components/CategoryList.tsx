@@ -24,7 +24,7 @@ export type ListContentModelType = {
   content: string
   lastUpdate: Moment
 }
-type PropsType = {
+type CategoryListPropsType = {
   categories: Array<ListEntryType>
   title?: string
   listContent?: ListContentModelType | null | undefined
@@ -38,7 +38,7 @@ type PropsType = {
  * Displays a ContentList which is a list of categories, a caption and a thumbnail
  */
 
-const CategoryList = ({ categories, title, listContent, query, onItemPress, language }: PropsType): ReactElement => {
+const CategoryList = ({ categories, title, listContent, query, onItemPress, language }: CategoryListPropsType): ReactElement => {
   const getListContent = (listContent: ListContentModelType) => {
     const cacheDictionary = mapValues(listContent.files, (file: PageResourceCacheEntryStateType) =>
       file.filePath.startsWith(RESOURCE_CACHE_DIR_PATH)

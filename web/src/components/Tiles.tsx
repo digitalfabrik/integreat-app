@@ -6,7 +6,7 @@ import TileModel from '../models/TileModel'
 import Caption from './Caption'
 import Tile from './Tile'
 
-type PropsType = {
+type TilesPropsType = {
   title: string | null
   tiles: Array<TileModel>
 }
@@ -28,7 +28,7 @@ const TilesRow = styled.div`
 /**
  * Displays a table of Tiles
  */
-const Tiles = ({ title, tiles }: PropsType): ReactElement => (
+const Tiles = ({ title, tiles }: TilesPropsType): ReactElement => (
   <div>
     {title && <Caption title={title} />}
     <TilesRow>

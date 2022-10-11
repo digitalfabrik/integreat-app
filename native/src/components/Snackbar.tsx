@@ -34,13 +34,13 @@ export type SnackbarActionType = {
   label: string
   onPress: () => void | Promise<void>
 }
-export type PropsType = {
+export type SnackbarPropsType = {
   message: string
   positiveAction?: SnackbarActionType
   negativeAction?: SnackbarActionType
 }
 
-const Snackbar = ({ message, positiveAction, negativeAction }: PropsType): ReactElement => {
+const Snackbar = ({ message, positiveAction, negativeAction }: SnackbarPropsType): ReactElement => {
   const horizontal = !(positiveAction && negativeAction)
   return (
     <Container row={horizontal}>

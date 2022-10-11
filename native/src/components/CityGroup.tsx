@@ -16,11 +16,11 @@ const BorderWrapper = styled.View`
   align-items: flex-start;
 `
 
-type PropsType = {
+type CityGroupPropsType = {
   children: string
 }
 
-const CityGroup = ({ children }: PropsType): ReactElement => (
+const CityGroup = ({ children }: CityGroupPropsType): ReactElement => (
   <BorderWrapper>
     <GroupText>{children}</GroupText>
   </BorderWrapper>

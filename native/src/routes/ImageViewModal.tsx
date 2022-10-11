@@ -9,11 +9,11 @@ import Failure from '../components/Failure'
 import PinchPanImage from '../components/PinchPanImage'
 import { RoutePropType } from '../constants/NavigationTypes'
 
-type PropsType = {
+type ImageViewModalPropsType = {
   route: RoutePropType<ImageViewModalRouteType>
 }
 
-const ImageViewModal = ({ route }: PropsType): ReactElement => {
+const ImageViewModal = ({ route }: ImageViewModalPropsType): ReactElement => {
   const [isError, setError] = useState(false)
   const theme = useContext(ThemeContext)
 

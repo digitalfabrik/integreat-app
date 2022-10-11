@@ -27,12 +27,12 @@ const TilesRow = styled.View`
   shadow-offset: 1px;
 `
 
-type PropsType = {
+type NavigationTilesWithScrollableViewPropsType = {
   tiles: Array<TileModel>
   theme: ThemeType
 }
 
-const NavigationTilesWithScrollableView = ({ tiles, theme }: PropsType): ReactElement => {
+const NavigationTilesWithScrollableView = ({ tiles, theme }: NavigationTilesWithScrollableViewPropsType): ReactElement => {
   const { left, right } = useSafeAreaInsets()
   const { width } = Dimensions.get('screen')
   const layoutWidth = left && right ? width - (left + right) : width

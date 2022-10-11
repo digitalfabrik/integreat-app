@@ -47,12 +47,12 @@ const HonigTopf = styled(TextInput)`
 
 type Status = ShelterContactStatus | 'idle' | 'sending' | 'error'
 
-type PropsType = {
+type ShelterContactRequestFormPropsType = {
   shelterId: number
   cityCode: string
 }
 
-const ShelterContactRequestForm = ({ shelterId, cityCode }: PropsType): ReactElement => {
+const ShelterContactRequestForm = ({ shelterId, cityCode }: ShelterContactRequestFormPropsType): ReactElement => {
   const [email, setEmail] = useState<string>('')
   const [phone, setPhone] = useState<string>('')
   const [status, setStatus] = useState<Status>('idle')

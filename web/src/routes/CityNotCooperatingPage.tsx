@@ -76,11 +76,11 @@ const TemplateText = styled(Text)`
   white-space: pre-line;
 `
 
-type PropsType = {
+type CityNotCooperatingPagePropsType = {
   languageCode: string
 }
 
-const CityNotCooperatingPage = ({ languageCode }: PropsType): ReactElement => {
+const CityNotCooperatingPage = ({ languageCode }: CityNotCooperatingPagePropsType): ReactElement => {
   const { t } = useTranslation('cityNotCooperating')
   const [isCopied, setIsCopied] = useState<boolean>(false)
   const template = buildConfig().featureFlags.cityNotCooperatingTemplate!

@@ -58,7 +58,7 @@ export type StatusPropsType<
   | LanguageNotAvailableType
   | SuccessType<Omit<S, keyof { dispatch: Dispatch<StoreActionType> }>, R>
 
-export type PropsType<
+export type withPayloadProviderPropsType<
   S extends {
     dispatch: Dispatch<StoreActionType>
   },
@@ -81,9 +81,9 @@ const withPayloadProvider =
     refresh: (refreshProps: R, dispatch: Dispatch<StoreActionType>) => void,
     clearRouteOnClose: boolean,
     noScrollView?: boolean
-  ): ((Component: React.ComponentType<S>) => React.ComponentType<PropsType<S, R, T>>) =>
-  (Component: React.ComponentType<S>): React.ComponentType<PropsType<S, R, T>> => {
-    const Wrapper = ({ route, dispatch, ...props }: PropsType<S, R, T>) => {
+  ): ((Component: React.ComponentType<S>) => React.ComponentType<withPayloadProviderPropsType<S, R, T>>) =>
+  (Component: React.ComponentType<S>): React.ComponentType<withPayloadProviderPropsType<S, R, T>> => {
+    const Wrapper = ({ route, dispatch, ...props }: withPayloadProviderPropsType<S, R, T>) => {
       const [timeoutExpired, setTimeoutExpired] = useState(false)
       // The hook must be used here and not in the route containers since the containers are unmounted on language change
       // Otherwise the routes are cleared on language change and just a blank screen is displayed

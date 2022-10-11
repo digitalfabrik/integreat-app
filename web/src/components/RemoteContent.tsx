@@ -86,7 +86,7 @@ const SandBox = styled.div<{ centered: boolean; smallText: boolean }>`
   }
 `
 
-type PropsType = {
+type RemoteContentPropsType = {
   html: string
   onInternalLinkClick: (url: string) => void
   centered?: boolean
@@ -95,7 +95,7 @@ type PropsType = {
 
 const HIJACK = new RegExp(buildConfig().internalLinksHijackPattern)
 
-const RemoteContent = ({ html, onInternalLinkClick, centered = false, smallText = false }: PropsType): ReactElement => {
+const RemoteContent = ({ html, onInternalLinkClick, centered = false, smallText = false }: RemoteContentPropsType): ReactElement => {
   const sandBoxRef = React.createRef<HTMLDivElement>()
 
   const handleClick = useCallback(

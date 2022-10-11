@@ -13,7 +13,7 @@ import DateFormatterContext from '../contexts/DateFormatterContext'
 import TimeStamp from './TimeStamp'
 import Text from './base/Text'
 
-type PropsType = {
+type NewsListItemPropsType = {
   index: number
   newsItem: LocalNewsModel | TunewsModel
   language: string
@@ -81,7 +81,7 @@ export const ReadMore = styled(Text)<{ isTunews: boolean }>`
   color: ${props => (props.isTunews ? props.theme.colors.tunewsThemeColor : props.theme.colors.themeColor)};
 `
 
-const NewsListItem = ({ index, newsItem, navigateToNews, isTunews }: PropsType): ReactElement => {
+const NewsListItem = ({ index, newsItem, navigateToNews, isTunews }: NewsListItemPropsType): ReactElement => {
   const { t, i18n } = useTranslation('news')
   const formatter = useContext(DateFormatterContext)
   const localNewsContent = newsItem instanceof LocalNewsModel ? newsItem.message : ''

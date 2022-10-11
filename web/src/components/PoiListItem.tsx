@@ -59,12 +59,12 @@ const LinkContainer = styled.div`
   display: flex;
 `
 
-type PropsType = {
+type PoiListItemPropsType = {
   poi: PoiFeature
   selectFeature: (feature: PoiFeature | null) => void
 }
 
-const PoiListItem = ({ poi, selectFeature }: PropsType): ReactElement => {
+const PoiListItem = ({ poi, selectFeature }: PoiListItemPropsType): ReactElement => {
   const { t } = useTranslation('pois')
   const { thumbnail, title, distance } = poi.properties
 

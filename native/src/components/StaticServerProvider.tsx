@@ -15,7 +15,7 @@ type OwnPropsType = {
 type DispatchPropsType = {
   setResourceCacheUrl: (arg0: string) => void
 }
-type PropsType = OwnPropsType & DispatchPropsType
+type StaticServerProviderPropsType = OwnPropsType & DispatchPropsType
 
 const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>): DispatchPropsType => ({
   setResourceCacheUrl: (url: string) => {
@@ -33,7 +33,7 @@ const SERVER_PATH = RESOURCE_CACHE_DIR_PATH
 const SERVER_PORT = 8080
 
 class StaticServerProvider extends React.Component<
-  PropsType,
+  StaticServerProviderPropsType,
   {
     errorMessage: string | null
   }

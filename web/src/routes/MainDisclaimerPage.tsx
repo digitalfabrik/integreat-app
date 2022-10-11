@@ -9,9 +9,9 @@ import Layout from '../components/Layout'
 import buildConfig from '../constants/buildConfig'
 import useWindowDimensions from '../hooks/useWindowDimensions'
 
-type PropsType = { languageCode: string }
+type MainDisclaimerPagePropsType = { languageCode: string }
 
-const MainDisclaimerPage = ({ languageCode }: PropsType): ReactElement => {
+const MainDisclaimerPage = ({ languageCode }: MainDisclaimerPagePropsType): ReactElement => {
   const { viewportSmall } = useWindowDimensions()
   const { t } = useTranslation('mainDisclaimer')
 

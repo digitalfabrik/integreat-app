@@ -25,14 +25,14 @@ const SubCategoryTitle = styled.Text`
   color: ${props => props.theme.colors.textColor};
   font-family: ${props => props.theme.fonts.native.decorativeFontRegular};
 `
-type PropsType = {
+type SubCategoryListItemPropsType = {
   subCategory: CategoryListModelType
   theme: ThemeType
   onItemPress: (tile: CategoryListModelType) => void
   language: string
 }
 
-class SubCategoryListItem extends React.PureComponent<PropsType> {
+class SubCategoryListItem extends React.PureComponent<SubCategoryListItemPropsType> {
   onSubCategoryPress = (): void => {
     const { onItemPress, subCategory } = this.props
     onItemPress(subCategory)

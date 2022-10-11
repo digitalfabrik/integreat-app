@@ -15,7 +15,7 @@ const List = styled.div`
   }
 `
 
-type PropsType = {
+type CategoryListPropsType = {
   categories: Array<{ model: CategoryModel; subCategories: Array<CategoryModel> }>
   /** A search query to highlight in the categories titles */
   query?: string
@@ -27,7 +27,7 @@ type PropsType = {
 /**
  * Displays a ContentList which is a list of categories, a caption and a thumbnail
  */
-class CategoryList extends React.PureComponent<PropsType> {
+class CategoryList extends React.PureComponent<CategoryListPropsType> {
   render(): ReactNode {
     const { categories, query, onInternalLinkClick, formatter, category } = this.props
     return (

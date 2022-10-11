@@ -16,11 +16,11 @@ import NativeLanguageDetector from '../utils/NativeLanguageDetector'
 import { setSystemLanguage } from '../utils/sendTrackingSignal'
 import { reportError } from '../utils/sentry'
 
-type PropsType = {
+type I18nextProviderPropsType = {
   children: React.ReactNode
 }
 
-export default ({ children }: PropsType): ReactElement | null => {
+export default ({ children }: I18nextProviderPropsType): ReactElement | null => {
   const [errorMessage, setErrorMessage] = useState<string | null | undefined>(null)
   const [i18nextInstance, setI18nextInstance] = useState<typeof i18next | null>(null)
   const dispatch = useDispatch()

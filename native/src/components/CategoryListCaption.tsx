@@ -10,12 +10,12 @@ const H1 = styled.Text<{
   color: ${props => props.theme.colors.textColor};
   font-family: ${props => props.theme.fonts.native.decorativeFontBold};
 `
-type PropsType = {
+type CategoryListCaptionPropsType = {
   title: string
   withThumbnail: boolean
 }
 
-const CategoryListCaption = ({ title, withThumbnail }: PropsType): ReactElement => (
+const CategoryListCaption = ({ title, withThumbnail }: CategoryListCaptionPropsType): ReactElement => (
   <H1 withThumbnail={withThumbnail} android_hyphenationFrequency='full'>
     {title}
   </H1>

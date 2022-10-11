@@ -16,14 +16,14 @@ const Wrapper = styled.div`
   background-color: ${({ theme }) => theme.colors.backgroundColor};
 `
 
-type PropsType = {
+type LocalNewsListPropsType = {
   items: Array<LocalNewsModel>
   noItemsMessage: string
   renderItem: (item: LocalNewsModel, city: string) => ReactNode
   city: string
 }
 
-const LocalNewsList = ({ items, renderItem, noItemsMessage, city }: PropsType): ReactElement => {
+const LocalNewsList = ({ items, renderItem, noItemsMessage, city }: LocalNewsListPropsType): ReactElement => {
   if (items.length === 0) {
     return <NoItemsMessage>{noItemsMessage}</NoItemsMessage>
   }

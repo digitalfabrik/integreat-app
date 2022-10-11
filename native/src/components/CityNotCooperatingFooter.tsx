@@ -30,12 +30,12 @@ const ButtonContainer = styled.View`
   margin: 30px 0 40px 0;
 `
 
-type PropsType = {
+type CityNotCooperatingFooterPropsType = {
   navigateToCityNotCooperating: () => void
   theme: ThemeType
 }
 
-const CityNotCooperatingFooter = ({ navigateToCityNotCooperating, theme }: PropsType): ReactElement | null => {
+const CityNotCooperatingFooter = ({ navigateToCityNotCooperating, theme }: CityNotCooperatingFooterPropsType): ReactElement | null => {
   const { t } = useTranslation('landing')
 
   if (!buildConfig().featureFlags.cityNotCooperating) {

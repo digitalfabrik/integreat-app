@@ -17,7 +17,7 @@ const Wrapper = styled(View)`
   flex-grow: 1;
 `
 
-export type PropsType = {
+export type LandingPropsType = {
   cities: Array<CityModel>
   language: string
   navigateToDashboard: (cityCode: string, language: string) => void
@@ -31,7 +31,7 @@ const Landing = ({
   navigateToDashboard,
   navigateToCityNotCooperating,
   clearResourcesAndCache,
-}: PropsType): ReactElement => {
+}: LandingPropsType): ReactElement => {
   const theme = useTheme()
 
   const navigateTo = useCallback(

@@ -12,12 +12,12 @@ import { NavigationPropType, RoutePropType } from '../constants/NavigationTypes'
 import useSnackbar from '../hooks/useSnackbar'
 import openExternalUrl from '../utils/openExternalUrl'
 
-type PropsType = {
+type PDFViewModalPropsType = {
   route: RoutePropType<PdfViewModalRouteType>
   navigation: NavigationPropType<PdfViewModalRouteType>
 }
 
-const PDFViewModal = ({ route, navigation: _navigation }: PropsType): ReactElement => {
+const PDFViewModal = ({ route, navigation: _navigation }: PDFViewModalPropsType): ReactElement => {
   const [error, setError] = useState<boolean>(false)
   const { t } = useTranslation('error')
   const showSnackbar = useSnackbar()

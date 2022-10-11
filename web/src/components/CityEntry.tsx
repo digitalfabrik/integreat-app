@@ -27,14 +27,14 @@ const AliasItem = styled(Highlighter)`
   display: inline-block;
 `
 
-type PropsType = {
+type CityEntryPropsType = {
   language: string
   city: CityModel
   filterText: string
   theme: ThemeType
 }
 
-class CityEntry extends React.PureComponent<PropsType> {
+class CityEntry extends React.PureComponent<CityEntryPropsType> {
   getMatchedAliases = (city: CityModel, normalizedFilter: string): Array<string> => {
     if (city.aliases && normalizedFilter.length >= 1) {
       return Object.keys(city.aliases).filter(alias => normalizeSearchString(alias).includes(normalizedFilter))

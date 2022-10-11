@@ -10,11 +10,11 @@ const Content = styled.div`
   overflow-wrap: anywhere;
 `
 
-type PropsType = {
+type SprungbrettListItemPropsType = {
   job: SprungbrettJobModel
 }
 
-const SprungbrettListItem = ({ job }: PropsType): ReactElement => (
+const SprungbrettListItem = ({ job }: SprungbrettListItemPropsType): ReactElement => (
   <ListItem title={job.title} path={job.url}>
     <Content dir='auto'>{job.location}</Content>
   </ListItem>

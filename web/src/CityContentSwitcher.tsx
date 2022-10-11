@@ -44,7 +44,7 @@ const PoisPage = lazyWithRetry(() => import('./routes/PoisPage'))
 const SearchPage = lazyWithRetry(() => import('./routes/SearchPage'))
 const DisclaimerPage = lazyWithRetry(() => import('./routes/DisclaimerPage'))
 
-type PropsType = {
+type CityContentSwitcherPropsType = {
   cities: CityModel[]
   languageCode: string
 }
@@ -59,7 +59,7 @@ export type CityRouteProps = {
   languageCode: string
 }
 
-const CityContentSwitcher = ({ cities, languageCode }: PropsType): ReactElement => {
+const CityContentSwitcher = ({ cities, languageCode }: CityContentSwitcherPropsType): ReactElement => {
   const cityCode = useParams().cityCode!
   const pathname = normalizePath(useLocation().pathname)
   const { viewportSmall } = useWindowDimensions()

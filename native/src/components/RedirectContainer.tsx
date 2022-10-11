@@ -11,12 +11,12 @@ import Layout from './Layout'
 const TIMEOUT = 10
 const INTERVAL_TIMEOUT = 500
 
-type PropsType = {
+type RedirectContainerPropsType = {
   route: RoutePropType<RedirectRouteType>
   navigation: NavigationPropType<RoutesType>
 }
 
-const RedirectContainer = ({ route, navigation }: PropsType): ReactElement => {
+const RedirectContainer = ({ route, navigation }: RedirectContainerPropsType): ReactElement => {
   const dispatch = useDispatch()
   const { i18n } = useTranslation()
   const { language } = i18n

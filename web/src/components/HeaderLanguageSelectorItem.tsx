@@ -10,7 +10,7 @@ import HeaderActionBarItemLink from './HeaderActionItemLink'
 import KebabActionItemDropDown from './KebabActionItemDropDown'
 import Selector from './Selector'
 
-type PropsType = {
+type HeaderLanguageSelectorItemPropsType = {
   selectorItems: Array<SelectorItemModel>
   activeItemCode: string
   t: TFunction<'layout'>
@@ -26,7 +26,7 @@ const HeaderLanguageSelectorItem = ({
   inKebabMenu = false,
   direction,
   closeSidebar,
-}: PropsType): ReactElement => {
+}: HeaderLanguageSelectorItemPropsType): ReactElement => {
   const noLanguagesHint = t('noLanguages')
 
   const renderItem = (closeDropDown: () => void): ReactElement => (

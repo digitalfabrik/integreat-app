@@ -73,7 +73,7 @@ const settingsHeader = (headerProps: StackHeaderProps) => <SettingsHeader {...he
 
 const defaultHeader = (headerProps: StackHeaderProps) => <HeaderContainer {...(headerProps as HeaderProps)} />
 
-type PropsType = {
+type NavigatorPropsType = {
   fetchCategory: (cityCode: string, language: string, key: string, forceUpdate: boolean) => void
   fetchCities: (forceRefresh: boolean) => void
   routeKey: string | null | undefined
@@ -90,7 +90,7 @@ type InitialRouteType =
     }
 const Stack = createStackNavigator<RoutesParamsType>()
 
-const Navigator = (props: PropsType): ReactElement | null => {
+const Navigator = (props: NavigatorPropsType): ReactElement | null => {
   const [waitingForSettings, setWaitingForSettings] = useState<boolean>(true)
   const [errorMessage, setErrorMessage] = useState<string | null | undefined>(null)
   const [initialRoute, setInitialRoute] = useState<InitialRouteType>({

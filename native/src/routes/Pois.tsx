@@ -36,7 +36,7 @@ import createNavigateToFeedbackModal from '../navigation/createNavigateToFeedbac
 import urlFromRouteInformation from '../navigation/url'
 import { reportError } from '../utils/sentry'
 
-export type PropsType = {
+export type PoisPropsType = {
   pois: Array<PoiModel>
   cityModel: CityModel
   language: string
@@ -61,7 +61,7 @@ const BOTTOM_SHEET_SNAP_POINTS = [
   '100%',
 ]
 
-const Pois = ({ pois, language, cityModel, route, navigation }: PropsType): ReactElement => {
+const Pois = ({ pois, language, cityModel, route, navigation }: PoisPropsType): ReactElement => {
   const { coordinates, requestAndDetermineLocation } = useUserLocation(true)
   const [urlSlug, setUrlSlug] = useState<string | null>(route.params.urlSlug ?? null)
   const prevUrlSlug = usePrevious(urlSlug ?? '')

@@ -63,7 +63,7 @@ const CloseButton = styled.button`
   }
 `
 
-type PropsType = {
+type FeedbackModalPropsType = {
   path?: string
   alias?: string
   cityCode: string
@@ -73,7 +73,7 @@ type PropsType = {
   closeModal: () => void
 }
 
-const FeedbackModal = (props: PropsType): ReactElement => {
+const FeedbackModal = (props: FeedbackModalPropsType): ReactElement => {
   const { feedbackRating, closeModal, ...otherProps } = props
   const { t } = useTranslation('feedback')
 

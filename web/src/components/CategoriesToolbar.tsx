@@ -9,7 +9,7 @@ import { FeedbackRatingType } from './FeedbackToolbarItem'
 import LocationToolbar from './LocationToolbar'
 import ToolbarItem from './ToolbarItem'
 
-type PropsType = {
+type CategoriesToolbarPropsType = {
   category?: CategoryModel
   cityCode: string
   languageCode: string
@@ -17,7 +17,7 @@ type PropsType = {
   viewportSmall: boolean
 }
 
-const CategoriesToolbar = (props: PropsType): ReactElement => {
+const CategoriesToolbar = (props: CategoriesToolbarPropsType): ReactElement => {
   const { category, openFeedbackModal, viewportSmall, cityCode, languageCode } = props
   const { t } = useTranslation('categories')
 

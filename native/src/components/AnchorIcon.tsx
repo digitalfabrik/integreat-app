@@ -10,14 +10,14 @@ const Icon = styled(MaterialIcon)<{ disabled: boolean }>`
   color: ${props => (props.disabled ? props.theme.colors.textDisabledColor : props.theme.colors.textColor)};
 `
 
-type PropsType = {
+type AnchorIconPropsType = {
   name: string
   scrollViewRef: React.ElementRef<typeof ScrollView> | null
   isLeftAnchor: boolean
   disabled: boolean
 }
 
-const AnchorIcon = ({ name, scrollViewRef, isLeftAnchor, disabled }: PropsType): ReactElement => {
+const AnchorIcon = ({ name, scrollViewRef, isLeftAnchor, disabled }: AnchorIconPropsType): ReactElement => {
   const onAnchorPress = (): void => {
     if (isLeftAnchor) {
       scrollViewRef?.scrollTo({ x: 0, y: 0, animated: true })

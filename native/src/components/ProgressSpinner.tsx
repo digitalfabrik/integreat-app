@@ -31,11 +31,11 @@ const strokeWidth = svgSize * STROKE_WIDTH_FRACTION
 const radius = (svgSize - strokeWidth * DIAMETER_FRACTION) / 2
 const circumference = radius * 2 * Math.PI
 
-export type PropsType = {
+export type ProgressSpinnerPropsType = {
   progress: number
 }
 
-const ProgressSpinner = ({ progress }: PropsType): ReactElement => {
+const ProgressSpinner = ({ progress }: ProgressSpinnerPropsType): ReactElement => {
   const { t } = useTranslation('common')
   const theme = useTheme()
 
