@@ -1,6 +1,6 @@
 import React, { ReactElement, useMemo, useState } from 'react'
 import { TFunction } from 'react-i18next'
-import { ActivityIndicator, KeyboardAvoidingView, Platform, ScrollView, View } from 'react-native'
+import { KeyboardAvoidingView, Platform } from 'react-native'
 import styled from 'styled-components/native'
 
 import {
@@ -14,11 +14,11 @@ import {
 } from 'api-client'
 import { ThemeType } from 'build-configs'
 
-import CategoryList from '../components/CategoryList'
+import CategoryListItem, { CategoryListItemType } from '../components/CategoryListItem'
 import FeedbackContainer from '../components/FeedbackContainer'
+import List from '../components/List'
 import NothingFound from '../components/NothingFound'
 import SearchHeader from '../components/SearchHeader'
-import dimensions from '../constants/dimensions'
 import { urlFromRouteInformation } from '../navigation/url'
 import testID from '../testing/testID'
 import sendTrackingSignal from '../utils/sendTrackingSignal'
@@ -33,7 +33,7 @@ const Wrapper = styled.View`
 `
 
 export type PropsType = {
-  categories: CategoriesMapModel | null
+  categories: CategoriesMapModel
   navigateTo: (routeInformation: RouteInformationType) => void
   theme: ThemeType
   language: string
@@ -46,7 +46,7 @@ const SearchModal = ({ categories, navigateTo, theme, language, cityCode, closeM
   const [query, setQuery] = useState<string>('')
   const searchResults = useMemo(
     () =>
-      searchCategories(categories, query)?.map(({ category, contentWithoutHtml }) => ({
+      searchCategories(categories, query).map(({ category, contentWithoutHtml }) => ({
         title: category.title,
         path: category.path,
         thumbnail: category.thumbnail,
@@ -55,7 +55,6 @@ const SearchModal = ({ categories, navigateTo, theme, language, cityCode, closeM
       })),
     [categories, query]
   )
-  const minHeight = dimensions.categoryListItem.iconSize + dimensions.categoryListItem.margin * 2
 
   const onItemPress = (category: { path: string }): void => {
     const routeInformation: CategoriesRouteInformationType = {
@@ -90,32 +89,26 @@ const SearchModal = ({ categories, navigateTo, theme, language, cityCode, closeM
     closeModal(query)
   }
 
-  const Content = searchResults ? (
-    <ScrollView contentContainerStyle={{ flexGrow: 1 }} keyboardShouldPersistTaps='always'>
-      {/* The minHeight is needed to circumvent a bug that appears when there is only one search result (NATIVE-430). */}
-      <View style={{ minHeight }}>
-        <CategoryList items={searchResults} query={query} onItemPress={onItemPress} language={language} />
-      </View>
-      {searchResults.length === 0 && <NothingFound />}
-      <FeedbackContainer
-        routeType={SEARCH_ROUTE}
-        isSearchFeedback
-        isPositiveFeedback={false}
-        language={language}
-        cityCode={cityCode}
-        query={query}
-        theme={theme}
-      />
-    </ScrollView>
-  ) : (
-    <ActivityIndicator size='large' color='#0000ff' />
+  const renderItem = ({ item }: { item: CategoryListItemType }) => (
+    <CategoryListItem key={item.path} item={item} language={language} query={query} onItemPress={onItemPress} />
+  )
+  const Feedback = (
+    <FeedbackContainer
+      routeType={SEARCH_ROUTE}
+      isSearchFeedback
+      isPositiveFeedback={false}
+      language={language}
+      cityCode={cityCode}
+      query={query}
+      theme={theme}
+    />
   )
 
   return (
     <Wrapper {...testID('Search-Page')}>
       <SearchHeader theme={theme} query={query} closeSearchBar={onClose} onSearchChanged={setQuery} t={t} />
       <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : undefined} style={{ flex: 1 }}>
-        {Content}
+        <List items={searchResults} renderItem={renderItem} Footer={Feedback} noItemsMessage={<NothingFound />} />
       </KeyboardAvoidingView>
     </Wrapper>
   )

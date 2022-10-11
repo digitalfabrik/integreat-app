@@ -8,10 +8,7 @@ type Result = {
   contentWithoutHtml: string
 }
 
-const searchCategories = (categoriesMapModel: CategoriesMapModel | null, query: string): Result[] | null => {
-  if (!categoriesMapModel) {
-    return null
-  }
+const searchCategories = (categoriesMapModel: CategoriesMapModel, query: string): Result[] => {
   const normalizedFilter = normalizeSearchString(query)
   const categories = categoriesMapModel.toArray().filter(it => !it.isRoot())
 
