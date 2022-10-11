@@ -59,7 +59,7 @@ const getActiveItemScrollPosition = (activeIndex: number): number => {
   if (!navigationBar || !(navigationItem instanceof HTMLElement)) {
     return 0
   }
-  return navigationItem?.offsetLeft ? navigationItem.offsetLeft - navigationBar.offsetLeft : 0
+  return navigationItem.offsetLeft - navigationBar.offsetLeft
 }
 
 const NavigationBarScrollContainer = ({ children, direction, activeIndex }: NavigationBarScrollContainerPropsType): ReactElement => {
