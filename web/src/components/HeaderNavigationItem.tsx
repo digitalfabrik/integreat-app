@@ -120,7 +120,7 @@ const Circle = styled.div`
   }
 `
 
-type PropsType = {
+export type HeaderNavigationItemProps = {
   text: string
   href: string
   active: boolean
@@ -128,8 +128,8 @@ type PropsType = {
   direction?: UiDirectionType
 }
 
-const HeaderNavigationItem = ({ active, text, href, icon, direction }: PropsType): ReactElement => (
-  <Container direction={direction}>
+const HeaderNavigationItem = ({ active, text, href, icon, direction }: HeaderNavigationItemProps): ReactElement => (
+  <Container direction={direction} className='header-navigation-item'>
     <StyledLink to={href} $active={active}>
       <Circle>
         <img src={icon} alt='' />
