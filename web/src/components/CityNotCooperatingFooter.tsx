@@ -35,11 +35,11 @@ const Question = styled.p`
   font-weight: 400;
 `
 
-type PropsType = {
+type CityNotCooperatingFooterPropsType = {
   languageCode: string
 }
 
-const CityNotCooperatingFooter = ({ languageCode }: PropsType): ReactElement | null => {
+const CityNotCooperatingFooter = ({ languageCode }: CityNotCooperatingFooterPropsType): ReactElement | null => {
   const { t } = useTranslation('landing')
 
   if (!buildConfig().featureFlags.cityNotCooperating) {

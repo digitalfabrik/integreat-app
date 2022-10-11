@@ -34,7 +34,7 @@ const Wrapper = styled.View`
   background-color: ${props => props.theme.colors.backgroundColor};
 `
 
-export type PropsType = {
+export type SearchModalPropsType = {
   categories: CategoriesMapModel | null
   navigateTo: (routeInformation: RouteInformationType) => void
   theme: ThemeType
@@ -47,7 +47,7 @@ type SearchStateType = {
   query: string
 }
 
-class SearchModal extends React.Component<PropsType, SearchStateType> {
+class SearchModal extends React.Component<SearchModalPropsType, SearchStateType> {
   state = {
     query: '',
   }

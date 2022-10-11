@@ -11,7 +11,7 @@ import Tooltip from './Tooltip'
 
 export type FeedbackRatingType = 'up' | 'down'
 
-type PropsType = {
+type FeedbackToolbarItemPropsType = {
   isPositiveRatingLink: boolean
   openFeedbackModal: (rating: FeedbackRatingType) => void
   className?: string
@@ -25,7 +25,7 @@ const FeedbackToolbarItem = ({
   isPositiveRatingLink,
   className,
   viewportSmall,
-}: PropsType): ReactElement => {
+}: FeedbackToolbarItemPropsType): ReactElement => {
   const { t } = useTranslation('feedback')
   const handleLinkClick = useCallback(
     () => openFeedbackModal(isPositiveRatingLink ? POSITIVE_RATING : NEGATIVE_RATING),

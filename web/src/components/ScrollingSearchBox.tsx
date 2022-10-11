@@ -5,7 +5,7 @@ import SearchInput from './SearchInput'
 
 const SEARCH_BAR_HEIGHT = 45
 
-type PropsType = {
+type ScrollingSearchBoxPropsType = {
   filterText: string
   onFilterTextChange: (filterText: string) => void
   spaceSearch?: boolean
@@ -21,7 +21,7 @@ const ScrollingSearchBox = ({
   onStickyTopChanged,
   placeholderText,
   spaceSearch = false,
-}: PropsType): ReactElement => {
+}: ScrollingSearchBoxPropsType): ReactElement => {
   const node = useRef<HTMLDivElement | null>(null)
 
   return (

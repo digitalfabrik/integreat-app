@@ -19,7 +19,7 @@ import appSettings, { SettingsType } from '../utils/AppSettings'
 import createSettingsSections, { SettingsSectionType } from '../utils/createSettingsSections'
 import { log, reportError } from '../utils/sentry'
 
-export type PropsType = {
+export type SettingsPropsType = {
   theme: ThemeType
   route: RoutePropType<SettingsRouteType>
   navigation: NavigationPropType<SettingsRouteType>
@@ -39,7 +39,7 @@ const SectionHeader = styled.Text`
   color: ${props => props.theme.colors.textColor};
 `
 
-const Settings = ({ navigation }: PropsType): ReactElement => {
+const Settings = ({ navigation }: SettingsPropsType): ReactElement => {
   const [settings, setSettings] = useState<SettingsType | null>(null)
   const languageCode = useSelector<StateType, string>((state: StateType) => state.contentLanguage)
   const cityCode = useSelector<StateType, string | null>((state: StateType) => state.cityContent?.city ?? null)

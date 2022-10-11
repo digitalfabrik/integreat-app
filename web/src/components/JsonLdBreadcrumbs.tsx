@@ -18,11 +18,11 @@ export const createJsonLd = (breadcrumbs: Array<BreadcrumbModel>): WithContext<B
     })),
   })
 
-type PropsType = {
+type JsonLdBreadcrumbsPropsType = {
   breadcrumbs: Array<BreadcrumbModel>
 }
 
-const JsonLdBreadcrumbs = ({ breadcrumbs }: PropsType): ReactElement => (
+const JsonLdBreadcrumbs = ({ breadcrumbs }: JsonLdBreadcrumbsPropsType): ReactElement => (
   <Helmet>
     <script type='application/ld+json'>{JSON.stringify(createJsonLd(breadcrumbs))}</script>
   </Helmet>

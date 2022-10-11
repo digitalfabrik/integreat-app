@@ -21,14 +21,14 @@ const DirectionContainer = styled.View<DirectionContainerPropsType>`
   display: flex;
   flex-direction: ${props => contentDirection(props.language)};
 `
-type PropsType = {
+type TimeStampPropsType = {
   lastUpdate: Moment
   formatter: DateFormatter
   showText?: boolean
   format?: string
 }
 
-export const TimeStamp = ({ lastUpdate, formatter, showText = true, format = 'LL' }: PropsType): ReactElement => {
+export const TimeStamp = ({ lastUpdate, formatter, showText = true, format = 'LL' }: TimeStampPropsType): ReactElement => {
   const { i18n, t } = useTranslation('common')
   // only show day, month and year
   const dateText = formatter.format(lastUpdate, {

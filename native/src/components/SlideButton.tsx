@@ -3,14 +3,14 @@ import { Button } from 'react-native-elements'
 
 import { ThemeType } from 'build-configs'
 
-type PropsType = {
+type SlideButtonPropsType = {
   label: string
   onPress: () => void | Promise<void>
   theme: ThemeType
   highlighted?: boolean
 }
 
-const SlideButton = ({ label, onPress, theme, highlighted }: PropsType): ReactElement => (
+const SlideButton = ({ label, onPress, theme, highlighted }: SlideButtonPropsType): ReactElement => (
   <Button
     type={highlighted ? 'solid' : 'clear'}
     title={label}

@@ -9,13 +9,13 @@ import buildConfig from '../constants/buildConfig'
 import Header from './Header'
 import HeaderActionItemLink from './HeaderActionItemLink'
 
-type PropsType = {
+type GeneralHeaderPropsType = {
   languageCode: string
   viewportSmall: boolean
   t: TFunction
 }
 
-const GeneralHeader = ({ languageCode, viewportSmall, t }: PropsType) => {
+const GeneralHeader = ({ languageCode, viewportSmall, t }: GeneralHeaderPropsType) => {
   const landingPath = pathnameFromRouteInformation({ route: LANDING_ROUTE, languageCode })
   const actionItems = !buildConfig().featureFlags.fixedCity
     ? [<HeaderActionItemLink key='landing' href={landingPath} iconSrc={landingIcon} text={t('changeLocation')} />]

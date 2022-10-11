@@ -50,7 +50,7 @@ const BoxShadow = styled.View`
   height: ${dimensions.headerHeight}px;
 `
 
-type PropsType = {
+type HeaderPropsType = {
   route: RoutePropType<RoutesType>
   navigation: NavigationPropType<RoutesType>
   peeking: boolean
@@ -69,7 +69,7 @@ enum HeaderButtonTitle {
   Settings = 'settings',
 }
 
-const Header = (props: PropsType): ReactElement => {
+const Header = (props: HeaderPropsType): ReactElement => {
   const { t } = useTranslation('layout')
   const theme = useTheme()
   const { route, navigation, language, routeCityModel, goToLanguageChange, peeking, categoriesAvailable } = props

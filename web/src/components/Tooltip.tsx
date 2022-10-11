@@ -143,7 +143,7 @@ const TooltipContainer = styled.div<{
   }
 `
 
-type PropsType = {
+type TooltipPropsType = {
   children: ReactNode
   text: string | null
   flow: FlowType
@@ -223,7 +223,7 @@ const fixFlow = (element: Element | null, preferredFlow: FlowType, dimensions: V
   return fallback ?? preferredFlow
 }
 
-export default ({ children, text, flow, mediumViewportFlow, smallViewportFlow, ...props }: PropsType): ReactElement => {
+export default ({ children, text, flow, mediumViewportFlow, smallViewportFlow, ...props }: TooltipPropsType): ReactElement => {
   const [container, setContainer] = useState<Element | null>(null)
   const onRefSet = useCallback(
     ref => {

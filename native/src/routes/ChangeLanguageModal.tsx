@@ -12,12 +12,12 @@ const Wrapper = styled.ScrollView`
   background-color: ${props => props.theme.colors.backgroundColor};
 `
 
-type PropsType = {
+type ChangeLanguageModalPropsType = {
   route: RoutePropType<ChangeLanguageModalRouteType>
   navigation: NavigationPropType<ChangeLanguageModalRouteType>
 }
 
-const ChangeLanguageModal = ({ navigation, route }: PropsType): ReactElement => {
+const ChangeLanguageModal = ({ navigation, route }: ChangeLanguageModalPropsType): ReactElement => {
   const { currentLanguage, languages, availableLanguages, cityCode } = route.params
   const dispatch = useDispatch()
 

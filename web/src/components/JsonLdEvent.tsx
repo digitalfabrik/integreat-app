@@ -54,12 +54,12 @@ export const createJsonLd = (event: EventModel, formatter: DateFormatter): WithC
   return jsonLd
 }
 
-type PropsType = {
+type JsonLdEventPropsType = {
   event: EventModel
   formatter: DateFormatter
 }
 
-const JsonLdEvent = ({ event, formatter }: PropsType): ReactElement | null => {
+const JsonLdEvent = ({ event, formatter }: JsonLdEventPropsType): ReactElement | null => {
   const jsonLd = createJsonLd(event, formatter)
   if (!jsonLd) {
     return null

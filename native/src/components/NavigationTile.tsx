@@ -10,7 +10,7 @@ import SimpleImage from './SimpleImage'
 
 const NEWS_DOT_RADIUS = 20
 const ICON_SIZE = 50
-type PropsType = {
+type NavigationTilePropsType = {
   tile: TileModel
   theme: ThemeType
   width: number
@@ -67,7 +67,7 @@ const NewsDot = styled.Text`
  * Displays a single NavigationTile
  */
 
-class NavigationTile extends React.Component<PropsType> {
+class NavigationTile extends React.Component<NavigationTilePropsType> {
   getNewsDot(): ReactNode {
     const {
       tile: { notifications },

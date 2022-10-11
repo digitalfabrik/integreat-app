@@ -20,14 +20,14 @@ const StyledLink = styled(Link)`
 `
 const StyledSpan = StyledLink.withComponent('span')
 
-type PropsType = {
+type KebabActionItemLinkPropsType = {
   href?: string
   text: string
   iconSrc: string
   direction?: UiDirectionType
 }
 
-const KebabActionItemLink = ({ href, text, iconSrc, direction }: PropsType): ReactElement => {
+const KebabActionItemLink = ({ href, text, iconSrc, direction }: KebabActionItemLinkPropsType): ReactElement => {
   if (href) {
     return (
       <StyledLink to={href} aria-label={text} dir='auto' data-testid='kebab-action-item'>

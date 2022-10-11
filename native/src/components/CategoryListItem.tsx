@@ -57,7 +57,7 @@ const CategoryThumbnail = styled(SimpleImage)`
   height: ${dimensions.categoryListItem.iconSize}px;
   margin: ${dimensions.categoryListItem.margin}px;
 `
-type PropsType = {
+type CategoryListItemPropsType = {
   category: CategoryListModelType
   subCategories: Array<CategoryListModelType>
 
@@ -71,7 +71,7 @@ type PropsType = {
  * Displays a single CategoryListItem
  */
 
-const CategoryListItem = ({ language, subCategories, onItemPress, query, category }: PropsType): ReactElement => {
+const CategoryListItem = ({ language, subCategories, onItemPress, query, category }: CategoryListItemPropsType): ReactElement => {
   const theme = useTheme()
   const contentMatcher = new ContentMatcher()
   const onCategoryPress = (): void => {

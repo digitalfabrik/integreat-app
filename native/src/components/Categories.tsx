@@ -17,7 +17,7 @@ import SiteHelpfulBox from './SiteHelpfulBox'
 import SpaceBetween from './SpaceBetween'
 import Tiles from './Tiles'
 
-export type PropsType = {
+export type CategoriesPropsType = {
   cityModel: CityModel
   language: string
   stateView: CategoriesRouteStateView
@@ -39,7 +39,7 @@ const Categories = ({
   stateView,
   resourceCache,
   resourceCacheUrl,
-}: PropsType): ReactElement => {
+}: CategoriesPropsType): ReactElement => {
   const category = stateView.root()
   const children = stateView.children()
 

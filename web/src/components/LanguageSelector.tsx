@@ -7,7 +7,7 @@ import Selector from '../components/Selector'
 import SelectorItemModel from '../models/SelectorItemModel'
 import HeaderLanguageSelectorItem from './HeaderLanguageSelectorItem'
 
-type PropsType = {
+type LanguageSelectorPropsType = {
   languageCode: string
   isHeaderActionItem: boolean
   languageChangePaths: Array<{ code: string; path: string | null; name: string }> | null
@@ -18,7 +18,7 @@ type PropsType = {
 /**
  * Displays a dropDown menu to handle changing of the language
  */
-const LanguageSelector = (props: PropsType): ReactElement => {
+const LanguageSelector = (props: LanguageSelectorPropsType): ReactElement => {
   const { isHeaderActionItem, languageChangePaths, languageCode, inKebabMenu = false, closeSidebar } = props
   const activeItemCode = languageCode
   const { t } = useTranslation('layout')

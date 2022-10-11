@@ -2,12 +2,12 @@ import React, { ReactElement } from 'react'
 import { Switch } from 'react-native'
 import { useTheme } from 'styled-components'
 
-type PropsType = {
+type SettingsSwitchPropsType = {
   onPress: () => void
   value: boolean
 }
 
-const SettingsSwitch = ({ value, onPress }: PropsType): ReactElement => {
+const SettingsSwitch = ({ value, onPress }: SettingsSwitchPropsType): ReactElement => {
   const theme = useTheme()
   return (
     <Switch

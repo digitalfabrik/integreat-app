@@ -19,13 +19,13 @@ const Dot = styled.TouchableOpacity<{ isActive: boolean }>`
   background-color: ${props =>
     props.isActive ? props.theme.colors.textSecondaryColor : props.theme.colors.textDecorationColor};
 `
-type PropsType = {
+type PaginationPropsType = {
   slideCount: number
   currentSlide: number
   goToSlide: (index: number) => void
 }
 
-const Pagination = ({ slideCount, currentSlide, goToSlide }: PropsType): ReactElement => {
+const Pagination = ({ slideCount, currentSlide, goToSlide }: PaginationPropsType): ReactElement => {
   const goToSlideIndex = (index: number) => () => goToSlide(index)
 
   return (

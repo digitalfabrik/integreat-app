@@ -33,12 +33,12 @@ const BoxShadow = styled.View`
 }
 `
 
-type PropsType = {
+type TransparentHeaderPropsType = {
   route: RoutePropType<RoutesType>
   navigation: NavigationPropType<RoutesType>
 }
 
-const TransparentHeader = ({ navigation, route }: PropsType): ReactElement | null => {
+const TransparentHeader = ({ navigation, route }: TransparentHeaderPropsType): ReactElement | null => {
   const { t } = useTranslation('layout')
   const theme = useTheme()
   const showSnackbar = useSnackbar()

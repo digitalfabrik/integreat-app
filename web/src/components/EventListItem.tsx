@@ -14,7 +14,7 @@ const Content = styled.div`
   overflow-wrap: anywhere;
 `
 
-type PropsType = {
+type EventListItemPropsType = {
   event: EventModel
   formatter: DateFormatter
 }
@@ -29,7 +29,7 @@ const getEventPlaceholder = (path: string): string => {
   return placeholders[pseudoId % placeholders.length]!
 }
 
-const EventListItem = ({ event, formatter }: PropsType): ReactElement => (
+const EventListItem = ({ event, formatter }: EventListItemPropsType): ReactElement => (
   <ListItem thumbnail={event.thumbnail || getEventPlaceholder(event.path)} title={event.title} path={event.path}>
     <Content>
       <Content dir='auto'>{event.date.toFormattedString(formatter)}</Content>
