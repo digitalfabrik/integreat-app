@@ -1,0 +1,5 @@
+issue_key: IGAPP-1064
+show_in_stores: true
+platforms:
+  - web
+en: Fix scroll position of active navigation item on mobile devices

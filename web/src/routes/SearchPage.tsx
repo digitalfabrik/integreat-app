@@ -3,7 +3,6 @@ import { useTranslation } from 'react-i18next'
 import { useLocation, useNavigate } from 'react-router-dom'
 
 import {
-  CategoryModel,
   createCategoriesEndpoint,
   normalizeSearchString,
   parseHTML,
@@ -23,8 +22,6 @@ import LocationLayout from '../components/LocationLayout'
 import SearchInput from '../components/SearchInput'
 import { cmsApiBaseUrl } from '../constants/urls'
 import useWindowDimensions from '../hooks/useWindowDimensions'
-
-type CategoryEntryType = { model: CategoryModel; titleMatch?: boolean; subCategories: Array<CategoryModel> }
 
 const SearchPage = ({ cityModel, languages, cityCode, languageCode, pathname }: CityRouteProps): ReactElement => {
   const query = new URLSearchParams(useLocation().search).get('query') ?? ''
@@ -77,43 +74,24 @@ const SearchPage = ({ cityModel, languages, cityCode, languageCode, pathname }: 
 
   const normalizedFilterText = normalizeSearchString(filterText)
 
-  // find all categories whose titles include the filter text and sort them lexicographically
+  // Lexicographically sorted categories with match in title
   const categoriesWithTitle = categories
     .toArray()
-    .filter(
-      (category: CategoryModel) =>
-        normalizeSearchString(category.title).includes(normalizedFilterText) && !category.isRoot()
-    )
-    .map(
-      (category: CategoryModel): CategoryEntryType => ({
-        model: category,
-        titleMatch: true,
-        subCategories: [],
-      })
-    )
-    .sort((category1: CategoryEntryType, category2: CategoryEntryType) =>
-      category1.model.title.localeCompare(category2.model.title)
-    )
+    .filter(category => normalizeSearchString(category.title).includes(normalizedFilterText) && !category.isRoot())
+    .map(category => ({ model: category, subCategories: [] }))
+    .sort((category1, category2) => category1.model.title.localeCompare(category2.model.title))
 
-  // find all categories whose contents but not titles include the filter text and sort them lexicographically
+  // Lexicographically sorted categories with match in content but not in title
   const categoriesWithContent = categories
     .toArray()
     .filter(
-      (category: CategoryModel) =>
-        normalizeSearchString(parseHTML(category.content)).includes(normalizedFilterText) &&
-        !normalizeSearchString(category.title).includes(normalizedFilterText)
+      category =>
+        !normalizeSearchString(category.title).includes(normalizedFilterText) &&
+        normalizeSearchString(parseHTML(category.content)).includes(normalizedFilterText)
     )
-    .map(
-      (category: CategoryModel): CategoryEntryType => ({
-        model: category,
-        subCategories: [],
-      })
-    )
-    .sort((category1: CategoryEntryType, category2: CategoryEntryType) =>
-      category1.model.title.localeCompare(category2.model.title)
-    )
+    .map(category => ({ model: category, subCategories: [] }))
+    .sort((category1, category2) => category1.model.title.localeCompare(category2.model.title))
 
-  // return all categories
   const searchResults = categoriesWithTitle.concat(categoriesWithContent)
 
   const handleFilterTextChanged = (filterText: string): void => {

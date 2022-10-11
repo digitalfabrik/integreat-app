@@ -80,6 +80,7 @@ export const defaultMercatorViewportConfig: MapViewMercatorViewport = {
 }
 
 export const detailZoom = 15
+export const clusterZoom = 13
 export const animationDuration = 2000
 export const nameQueryParam = 'name'
 

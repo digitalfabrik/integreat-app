@@ -24,6 +24,7 @@ type PropsType = {
   iconSrc: string
   text: string
   direction?: UiDirectionType
+  closeSidebar: () => void
 }
 
 /**
@@ -31,7 +32,7 @@ type PropsType = {
  * Header. Once the user clicks outside, the node is hidden again. Additionally, the inner node gets a
  * closeDropDownCallback through its props to close the dropDown and hide itself.
  */
-const KebabActionItemDropDown = ({ iconSrc, text, children, direction }: PropsType): ReactElement => {
+const KebabActionItemDropDown = ({ iconSrc, text, children, direction, closeSidebar }: PropsType): ReactElement => {
   const [dropDownActive, setDropDownActive] = useState(false)
 
   const toggleDropDown = (): void => {
@@ -40,6 +41,11 @@ const KebabActionItemDropDown = ({ iconSrc, text, children, direction }: PropsTy
 
   const closeDropDown = (): void => {
     setDropDownActive(false)
+  }
+
+  const onClickDropdownItem = (): void => {
+    closeDropDown()
+    closeSidebar()
   }
 
   const wrapperRef = useRef(null)
@@ -55,7 +61,7 @@ const KebabActionItemDropDown = ({ iconSrc, text, children, direction }: PropsTy
         active={dropDownActive}
         // We need to have the visibility here, else the jest-dom testing library can not assert on it
         style={{ visibility: dropDownActive ? 'visible' : 'hidden' }}>
-        {children(closeDropDown)}
+        {children(onClickDropdownItem)}
       </DropDownContainer>
     </Container>
   )

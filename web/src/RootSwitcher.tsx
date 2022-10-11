@@ -8,6 +8,7 @@ import {
   createCitiesEndpoint,
   JPAL_TRACKING_ROUTE,
   LANDING_ROUTE,
+  LICENSES_ROUTE,
   MAIN_DISCLAIMER_ROUTE,
   NOT_FOUND_ROUTE,
   pathnameFromRouteInformation,
@@ -22,6 +23,7 @@ import Layout from './components/Layout'
 import LoadingSpinner from './components/LoadingSpinner'
 import buildConfig from './constants/buildConfig'
 import { cmsApiBaseUrl } from './constants/urls'
+import useScrollToTop from './hooks/useScrollToTop'
 import useWindowDimensions from './hooks/useWindowDimensions'
 import { cityContentPattern, RoutePatterns } from './routes'
 import CityNotCooperatingPage from './routes/CityNotCooperatingPage'
@@ -35,6 +37,7 @@ type PropsType = {
 const MainDisclaimerPage = lazyWithRetry(() => import('./routes/MainDisclaimerPage'))
 const LandingPage = lazyWithRetry(() => import('./routes/LandingPage'))
 const NotFoundPage = lazyWithRetry(() => import('./routes/NotFoundPage'))
+const LicensesPage = lazyWithRetry(() => import('./routes/LicensesPage'))
 
 const RootSwitcher = ({ setContentLanguage }: PropsType): ReactElement => {
   const requestCities = useCallback(async () => createCitiesEndpoint(cmsApiBaseUrl).request(), [])
@@ -43,6 +46,7 @@ const RootSwitcher = ({ setContentLanguage }: PropsType): ReactElement => {
   const { fixedCity, cityNotCooperating, jpalTracking } = buildConfig().featureFlags
   const languageCode = useMatch('/:slug/:languageCode/*')?.params.languageCode
   const { viewportSmall } = useWindowDimensions()
+  useScrollToTop()
 
   const detectedLanguageCode = i18n.language
   const language = languageCode ?? detectedLanguageCode
@@ -86,6 +90,7 @@ const RootSwitcher = ({ setContentLanguage }: PropsType): ReactElement => {
         <Route path={RoutePatterns[LANDING_ROUTE]} element={<LandingPage {...props} />} />
         <Route path={RoutePatterns[MAIN_DISCLAIMER_ROUTE]} element={<MainDisclaimerPage {...props} />} />
         <Route path={RoutePatterns[NOT_FOUND_ROUTE]} element={<NotFoundPage />} />
+        <Route path={RoutePatterns[LICENSES_ROUTE]} element={<LicensesPage {...props} />} />
         <Route path={cityContentPattern} element={<CityContentSwitcher {...props} />} />
 
         {cityNotCooperating && (

@@ -1,7 +1,7 @@
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { MAIN_DISCLAIMER_ROUTE } from 'api-client'
+import { LICENSES_ROUTE, MAIN_DISCLAIMER_ROUTE } from 'api-client'
 
 import buildConfig from '../constants/buildConfig'
 import { RoutePatterns } from '../routes'
@@ -24,6 +24,7 @@ const GeneralFooter = ({ language }: PropsType): ReactElement => {
       <CleanLink to={RoutePatterns[MAIN_DISCLAIMER_ROUTE]}>{t('imprintAndContact')}</CleanLink>
       <CleanLink to={aboutUrl}>{t('settings:about', { appName: buildConfig().appName })}</CleanLink>
       <CleanLink to={privacyUrl}>{t('privacy')}</CleanLink>
+      <CleanLink to={RoutePatterns[LICENSES_ROUTE]}>{t('settings:openSourceLicenses')}</CleanLink>
     </Footer>
   )
 }

@@ -1,17 +1,14 @@
-import { fireEvent, render } from '@testing-library/react'
+import { fireEvent } from '@testing-library/react'
 import React from 'react'
-import { ThemeProvider } from 'styled-components'
 
-import buildConfig from '../../constants/buildConfig'
+import { renderWithTheme } from '../../testing/render'
 import RemoteContent from '../RemoteContent'
 
 describe('RemoteContent', () => {
   it('should render the html content', () => {
     const content = 'Test html'
-    const { getByText } = render(
-      <ThemeProvider theme={buildConfig().lightTheme}>
-        <RemoteContent html={`<div>${content}</div>`} onInternalLinkClick={() => undefined} />
-      </ThemeProvider>
+    const { getByText } = renderWithTheme(
+      <RemoteContent html={`<div>${content}</div>`} onInternalLinkClick={() => undefined} />
     )
     expect(getByText(content)).toBeTruthy()
   })
@@ -22,10 +19,8 @@ describe('RemoteContent', () => {
     const html = `<a href=${href}>Test Anchor</a>`
     const onInternalLinkClick = jest.fn()
 
-    const { getByRole, getAllByRole } = render(
-      <ThemeProvider theme={buildConfig().lightTheme}>
-        <RemoteContent html={html} onInternalLinkClick={onInternalLinkClick} />
-      </ThemeProvider>
+    const { getByRole, getAllByRole } = renderWithTheme(
+      <RemoteContent html={html} onInternalLinkClick={onInternalLinkClick} />
     )
 
     expect(getAllByRole('link')).toHaveLength(1)
@@ -40,10 +35,8 @@ describe('RemoteContent', () => {
     const html = `<a href=${href}>Test Anchor</a>`
     const onInternalLinkClick = jest.fn()
 
-    const { getByRole, getAllByRole } = render(
-      <ThemeProvider theme={buildConfig().lightTheme}>
-        <RemoteContent html={html} onInternalLinkClick={onInternalLinkClick} />
-      </ThemeProvider>
+    const { getByRole, getAllByRole } = renderWithTheme(
+      <RemoteContent html={html} onInternalLinkClick={onInternalLinkClick} />
     )
 
     expect(getAllByRole('link')).toHaveLength(1)
@@ -58,10 +51,8 @@ describe('RemoteContent', () => {
 
     const content =
       '<div><p>Ich bleib aber da.<iframe//src=jAva&Tab;script:alert(3)>def</p><math><mi//xlink:href="data:x,<script>alert(4)</script>">'
-    const { getByText } = render(
-      <ThemeProvider theme={buildConfig().lightTheme}>
-        <RemoteContent html={`<div>${content}</div>`} onInternalLinkClick={() => undefined} />
-      </ThemeProvider>
+    const { getByText } = renderWithTheme(
+      <RemoteContent html={`<div>${content}</div>`} onInternalLinkClick={() => undefined} />
     )
 
     expect(alertSpy).not.toHaveBeenCalled()
