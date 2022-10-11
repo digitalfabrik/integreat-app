@@ -1,4 +1,4 @@
-import React, { ReactNode } from 'react'
+import React, { ReactElement } from 'react'
 import styled from 'styled-components'
 
 import { CategoryModel, DateFormatter } from 'api-client'
@@ -15,41 +15,33 @@ const List = styled.div`
   }
 `
 
-type CategoryListPropsType = {
-  categories: Array<{ model: CategoryModel; subCategories: Array<CategoryModel> }>
-  /** A search query to highlight in the categories titles */
+type PropsType = {
+  items: { category: CategoryModel; subCategories: CategoryModel[]; contentWithoutHtml?: string }[]
   query?: string
   formatter?: DateFormatter
   category?: CategoryModel
   onInternalLinkClick: (link: string) => void
 }
 
-/**
- * Displays a ContentList which is a list of categories, a caption and a thumbnail
- */
-class CategoryList extends React.PureComponent<CategoryListPropsType> {
-  render(): ReactNode {
-    const { categories, query, onInternalLinkClick, formatter, category } = this.props
-    return (
-      <div>
-        {category?.title && <Caption title={category.title} />}
-        {category?.content && <RemoteContent html={category.content} onInternalLinkClick={onInternalLinkClick} />}
-        {category?.content && formatter && (
-          <LastUpdateInfo lastUpdate={category.lastUpdate} formatter={formatter} withText />
-        )}
-        <List>
-          {categories.map(categoryItem => (
-            <CategoryEntry
-              key={categoryItem.model.path}
-              category={categoryItem.model}
-              subCategories={categoryItem.subCategories}
-              query={query}
-            />
-          ))}
-        </List>
-      </div>
-    )
-  }
-}
+const CategoryList = ({ items, query, formatter, category, onInternalLinkClick }: PropsType): ReactElement => (
+  <div>
+    {category?.title && <Caption title={category.title} />}
+    {category?.content && <RemoteContent html={category.content} onInternalLinkClick={onInternalLinkClick} />}
+    {category?.content && formatter && (
+      <LastUpdateInfo lastUpdate={category.lastUpdate} formatter={formatter} withText />
+    )}
+    <List>
+      {items.map(({ category, subCategories, contentWithoutHtml }) => (
+        <CategoryEntry
+          key={category.path}
+          query={query}
+          category={category}
+          subCategories={subCategories}
+          contentWithoutHtml={contentWithoutHtml}
+        />
+      ))}
+    </List>
+  </div>
+)
 
 export default CategoryList
