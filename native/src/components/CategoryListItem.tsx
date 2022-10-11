@@ -67,14 +67,14 @@ export type CategoryListItemType = SimpleCategoryListItem & {
   subCategories: SimpleCategoryListItem[]
 }
 
-type PropsType = {
+type CategoryListItemPropsType = {
   item: CategoryListItemType
   onItemPress: (item: { path: string }) => void
   language: string
   query?: string
 }
 
-const CategoryListItem = ({ language, item, onItemPress, query }: PropsType): ReactElement => {
+const CategoryListItem = ({ language, item, onItemPress, query }: CategoryListItemPropsType): ReactElement => {
   const theme = useTheme()
   const contentMatcher = new ContentMatcher()
   const excerpt =

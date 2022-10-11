@@ -71,14 +71,14 @@ const StyledLink = styled(Link)`
   }
 `
 
-type PropsType = {
+type CategoryEntryPropsType = {
   category: CategoryModel
   subCategories: CategoryModel[]
   contentWithoutHtml?: string
   query?: string
 }
 
-const CategoryEntry = ({ category, contentWithoutHtml, subCategories, query }: PropsType): ReactElement => {
+const CategoryEntry = ({ category, contentWithoutHtml, subCategories, query }: CategoryEntryPropsType): ReactElement => {
   const theme = useTheme()
 
   const excerpt = useMemo<string>(() => {

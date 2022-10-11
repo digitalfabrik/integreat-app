@@ -15,7 +15,7 @@ const List = styled.div`
   }
 `
 
-type PropsType = {
+type CategoryListPropsType = {
   items: { category: CategoryModel; subCategories: CategoryModel[]; contentWithoutHtml?: string }[]
   query?: string
   formatter?: DateFormatter
@@ -23,7 +23,7 @@ type PropsType = {
   onInternalLinkClick: (link: string) => void
 }
 
-const CategoryList = ({ items, query, formatter, category, onInternalLinkClick }: PropsType): ReactElement => (
+const CategoryList = ({ items, query, formatter, category, onInternalLinkClick }: CategoryListPropsType): ReactElement => (
   <div>
     {category?.title && <Caption title={category.title} />}
     {category?.content && <RemoteContent html={category.content} onInternalLinkClick={onInternalLinkClick} />}
