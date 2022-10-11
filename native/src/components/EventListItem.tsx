@@ -28,11 +28,12 @@ class EventListItem extends PureComponent<Props> {
   render(): ReactElement {
     const { formatter, language, event, navigateToEvent } = this.props
     const thumbnail = event.thumbnail || placeholderThumbnails[event.path.length % placeholderThumbnails.length]!
+    const content = parseHTML(event.content)
 
     return (
       <ListItem thumbnail={thumbnail} title={event.title} language={language} navigateTo={navigateToEvent}>
         <Description>{event.date.toFormattedString(formatter)}</Description>
-        {event.content.length > 0 && <Description>{event.content}</Description>}
+        <Description numberOfLines={EXCERPT_MAX_LINES}>{content}</Description>
       </ListItem>
     )
   }
