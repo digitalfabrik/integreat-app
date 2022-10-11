@@ -39,7 +39,7 @@ const SearchPage = ({ cityModel, languages, cityCode, languageCode, pathname }: 
   )
   const { data: categories, loading, error: categoriesError } = useLoadFromEndpoint(requestCategories)
   const searchResults = useMemo(
-    () => (categories ? searchCategories(categories, query)?.map(it => ({ ...it, subCategories: [] })) : null),
+    () => (categories ? searchCategories(categories, query).map(it => ({ ...it, subCategories: [] })) : null),
     [categories, query]
   )
 
