@@ -21,6 +21,7 @@ type PropsType = {
   direction: UiDirectionType
   showSidebar?: boolean
   setShowSidebar?: (show: boolean) => void
+  language: string
 }
 
 const HeaderContainer = styled.header`
@@ -117,6 +118,7 @@ export const Header = ({
   direction,
   showSidebar = false,
   setShowSidebar,
+  language,
 }: PropsType): ReactElement => {
   const { headerHeightSmall, headerHeightLarge } = dimensions
   const hasNavigationBar = navigationItems.length > 0
@@ -135,7 +137,13 @@ export const Header = ({
           <ActionBar>
             {actionItems}
             {viewportSmall && setShowSidebar && (
-              <KebabMenu setShow={setShowSidebar} show={showSidebar} items={kebabItems} direction={direction} />
+              <KebabMenu
+                setShow={setShowSidebar}
+                show={showSidebar}
+                items={kebabItems}
+                direction={direction}
+                language={language}
+              />
             )}
           </ActionBar>
         </Row>

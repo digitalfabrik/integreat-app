@@ -20,6 +20,7 @@ describe('Header', () => {
         viewportSmall
         cityName={cityName}
         direction='ltr'
+        language='de'
       />
     )
     expect(getByText(cityName)).toBeDefined()
@@ -39,6 +40,7 @@ describe('Header', () => {
         direction='ltr'
         showSidebar
         setShowSidebar={setShowSidebar}
+        language='de'
       />
     )
     expect(getByTestId('kebab-menu-button')).toBeInTheDocument()
@@ -56,6 +58,7 @@ describe('Header', () => {
         ]}
         viewportSmall={false}
         direction='ltr'
+        language='de'
       />
     )
     expect(queryByTestId('kebab-menu-button')).not.toBeInTheDocument()

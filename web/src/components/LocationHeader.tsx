@@ -201,6 +201,7 @@ const LocationHeader = (props: PropsType): ReactElement => {
       navigationItems={getNavigationItems()}
       showSidebar={showSidebar}
       setShowSidebar={setShowSidebar}
+      language={languageCode}
     />
   )
 }
