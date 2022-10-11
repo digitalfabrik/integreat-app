@@ -1,10 +1,9 @@
 import moment from 'moment'
 import React from 'react'
 
-import { DateFormatter, LOCAL_NEWS_TYPE } from 'api-client'
+import { DateFormatter, LOCAL_NEWS_TYPE, textTruncator } from 'api-client'
 
 import { renderWithRouterAndTheme } from '../../testing/render'
-import { textTruncator } from '../../utils/stringUtils'
 import NewsListItem, { NUM_OF_CHARS_ALLOWED } from '../NewsListItem'
 
 jest.mock('../LastUpdateInfo', () =>
