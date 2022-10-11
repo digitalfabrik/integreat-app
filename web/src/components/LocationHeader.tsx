@@ -1,4 +1,4 @@
-import React, { ReactNode, ReactElement, useState } from 'react'
+import React, { ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import {
@@ -113,7 +113,7 @@ const LocationHeader = (props: PropsType): ReactElement => {
     />,
   ]
 
-  const getNavigationItems = (): Array<ReactNode> => {
+  const getNavigationItems = (): Array<ReactElement> => {
     const isNewsVisible = buildConfig().featureFlags.newsStream && (localNewsEnabled || tunewsEnabled)
     const isEventsVisible = eventsEnabled
     const isPoisVisible = buildConfig().featureFlags.pois && poisEnabled
@@ -124,7 +124,7 @@ const LocationHeader = (props: PropsType): ReactElement => {
       return []
     }
 
-    const items: Array<ReactNode> = [
+    const items: Array<ReactElement> = [
       <HeaderNavigationItem
         key='categories'
         href={categoriesPath}
