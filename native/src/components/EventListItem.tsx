@@ -1,12 +1,12 @@
 import React, { PureComponent, ReactElement } from 'react'
 import styled from 'styled-components/native'
 
-import { DateFormatter, EventModel, getExcerpt } from 'api-client'
+import { DateFormatter, EventModel, parseHTML } from 'api-client'
 
 import EventPlaceholder1 from '../assets/EventPlaceholder1.jpg'
 import EventPlaceholder2 from '../assets/EventPlaceholder2.jpg'
 import EventPlaceholder3 from '../assets/EventPlaceholder3.jpg'
-import { EXCERPT_MAX_CHARS } from '../constants'
+import { EXCERPT_MAX_LINES } from '../constants'
 import ListItem from './ListItem'
 
 const Description = styled.Text`
@@ -28,12 +28,11 @@ class EventListItem extends PureComponent<Props> {
   render(): ReactElement {
     const { formatter, language, event, navigateToEvent } = this.props
     const thumbnail = event.thumbnail || placeholderThumbnails[event.path.length % placeholderThumbnails.length]!
-    const excerpt = getExcerpt(event.excerpt, { maxChars: EXCERPT_MAX_CHARS })
 
     return (
       <ListItem thumbnail={thumbnail} title={event.title} language={language} navigateTo={navigateToEvent}>
         <Description>{event.date.toFormattedString(formatter)}</Description>
-        {excerpt.length > 0 && <Description>{excerpt}</Description>}
+        {event.content.length > 0 && <Description>{event.content}</Description>}
       </ListItem>
     )
   }
