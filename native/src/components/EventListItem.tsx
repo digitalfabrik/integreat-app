@@ -1,11 +1,12 @@
 import React, { PureComponent, ReactElement } from 'react'
 import styled from 'styled-components/native'
 
-import { DateFormatter, EventModel, EVENTS_ROUTE, textTruncator } from 'api-client'
+import { DateFormatter, EventModel, getExcerpt } from 'api-client'
 
 import EventPlaceholder1 from '../assets/EventPlaceholder1.jpg'
 import EventPlaceholder2 from '../assets/EventPlaceholder2.jpg'
 import EventPlaceholder3 from '../assets/EventPlaceholder3.jpg'
+import { EXCERPT_MAX_CHARS } from '../constants'
 import ListItem from './ListItem'
 
 const Description = styled.Text`
@@ -13,7 +14,6 @@ const Description = styled.Text`
   font-family: ${props => props.theme.fonts.native.contentFontRegular};
 `
 
-const NUM_OF_CHARS_ALLOWED = 90
 const placeholderThumbnails = [EventPlaceholder1, EventPlaceholder2, EventPlaceholder3]
 
 type Props = {
@@ -28,10 +28,12 @@ class EventListItem extends PureComponent<Props> {
   render(): ReactElement {
     const { formatter, language, event, navigateToEvent } = this.props
     const thumbnail = event.thumbnail || placeholderThumbnails[event.path.length % placeholderThumbnails.length]!
+    const excerpt = getExcerpt(event.excerpt, { maxChars: EXCERPT_MAX_CHARS })
+
     return (
       <ListItem thumbnail={thumbnail} title={event.title} language={language} navigateTo={navigateToEvent}>
         <Description>{event.date.toFormattedString(formatter)}</Description>
-        {event.excerpt.length > 0 && <Description>{textTruncator(event.excerpt, NUM_OF_CHARS_ALLOWED)}</Description>}
+        {excerpt.length > 0 && <Description>{excerpt}</Description>}
       </ListItem>
     )
   }

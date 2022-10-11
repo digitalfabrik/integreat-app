@@ -2,17 +2,15 @@ import React, { memo, ReactElement } from 'react'
 import Highlighter from 'react-native-highlight-words'
 import styled, { useTheme } from 'styled-components/native'
 
-import { normalizeSearchString } from 'api-client'
+import { getExcerpt, normalizeSearchString } from 'api-client'
 
 import iconPlaceholder from '../assets/IconPlaceholder.png'
+import { EXCERPT_MAX_CHARS } from '../constants'
 import { contentDirection } from '../constants/contentDirection'
 import dimensions from '../constants/dimensions'
-import ContentMatcher from './ContentMatcher'
 import SimpleImage from './SimpleImage'
 import StyledLink from './StyledLink'
 import SubCategoryListItem from './SubCategoryListItem'
-
-const NUM_WORDS_SURROUNDING_MATCH = 10
 
 const FlexStyledLink = styled(StyledLink)`
   display: flex;
@@ -76,10 +74,7 @@ type PropsType = {
 
 const CategoryListItem = ({ language, item, onItemPress, query }: PropsType): ReactElement => {
   const theme = useTheme()
-  const contentMatcher = new ContentMatcher()
-  const excerpt =
-    contentMatcher.getMatchedContent(query, item.contentWithoutHtml, NUM_WORDS_SURROUNDING_MATCH) ??
-    contentMatcher.getContentAfterMatchIndex(item.contentWithoutHtml ?? '', 0, 2 * NUM_WORDS_SURROUNDING_MATCH)
+  const excerpt = getExcerpt(item.contentWithoutHtml ?? '', { query, maxChars: EXCERPT_MAX_CHARS })
 
   const content = query && (
     <Highlighter

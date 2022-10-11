@@ -1,10 +1,11 @@
 import moment from 'moment'
 import React from 'react'
 
-import { DateFormatter, LOCAL_NEWS_TYPE, textTruncator } from 'api-client'
+import { DateFormatter, getExcerpt, LOCAL_NEWS_TYPE } from 'api-client'
 
+import { EXCERPT_MAX_CHARS } from '../../constants'
 import { renderWithRouterAndTheme } from '../../testing/render'
-import NewsListItem, { NUM_OF_CHARS_ALLOWED } from '../NewsListItem'
+import NewsListItem from '../NewsListItem'
 
 jest.mock('../LastUpdateInfo', () =>
   jest.fn(({ lastUpdate, withText }) => (
@@ -46,7 +47,7 @@ describe('NewsListItem', () => {
     )
 
     expect(getByText(title)).toBeTruthy()
-    expect(getByText(textTruncator(message, NUM_OF_CHARS_ALLOWED))).toBeTruthy()
+    expect(getByText(getExcerpt(message, { maxChars: EXCERPT_MAX_CHARS, replaceLineBreaks: false }))).toBeTruthy()
     expect(getByText(lastUpdate.toISOString())).toBeTruthy()
     expect(() => getByText('lastUpdate')).toThrow()
   })
