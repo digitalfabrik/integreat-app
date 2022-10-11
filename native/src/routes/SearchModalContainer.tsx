@@ -29,7 +29,7 @@ const SearchModalContainer = ({ navigation }: PropsType): ReactElement | null =>
     navigation.goBack()
   }
 
-  return cityCode ? (
+  return cityCode && categories ? (
     <SearchModal
       cityCode={cityCode}
       navigateTo={createNavigate(dispatch, navigation)}
