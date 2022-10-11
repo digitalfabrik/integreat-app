@@ -52,3 +52,5 @@ Object.defineProperty(URL, 'createObjectURL', {
   writable: true,
   value: jest.fn(),
 })
+
+Element.prototype.scroll = () => undefined
