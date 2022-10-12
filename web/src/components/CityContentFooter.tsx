@@ -16,8 +16,8 @@ const SidebarFooterContainer = styled.div`
     height: 48px;
     display: flex;
     align-items: center;
-    justify-content: center; /* the text is centered, the lines between are not */
-    padding-right: 5.5px;
+    justify-content: center;
+    padding-right: 5.5px; /* the text is centered, the lines between are not */
     border-bottom: 1px solid ${props => props.theme.colors.textSecondaryColor};
     &:last-child {
       border-bottom: none;
