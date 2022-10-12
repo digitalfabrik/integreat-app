@@ -19,7 +19,7 @@ export const Wrapper = styled.View<{ space: boolean }>`
   background-color: ${props => props.theme.colors.backgroundColor};
 `
 
-type SearchInputPropsType = {
+type SearchInputProps = {
   placeholderText: string
   filterText: string
   onFilterTextChange: (filterText: string) => void
@@ -31,7 +31,7 @@ const SearchInput = ({
   filterText,
   onFilterTextChange,
   spaceSearch = false,
-}: SearchInputPropsType): ReactElement => {
+}: SearchInputProps): ReactElement => {
   const theme = useTheme()
 
   return (

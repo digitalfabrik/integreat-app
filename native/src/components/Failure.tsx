@@ -20,12 +20,12 @@ const IconContainer = styled.Image`
   margin-bottom: 10px;
 `
 
-export type FailurePropsType = {
+export type FailureProps = {
   code: ErrorCode
   tryAgain?: () => void
 }
 
-const Failure = ({ code, tryAgain }: FailurePropsType): ReactElement => {
+const Failure = ({ code, tryAgain }: FailureProps): ReactElement => {
   const { t } = useTranslation('error')
   const theme = useTheme()
   let errorIcon

@@ -13,10 +13,10 @@ const H1 = styled.h1`
   }
 `
 
-type CaptionPropsType = {
+type CaptionProps = {
   title: string
 }
 
-const Caption = ({ title }: CaptionPropsType): ReactElement => <H1 dir='auto'>{title}</H1>
+const Caption = ({ title }: CaptionProps): ReactElement => <H1 dir='auto'>{title}</H1>
 
 export default Caption

@@ -18,7 +18,7 @@ const Container = styled.View`
   flex: 1;
 `
 
-type PinchPanImagePropsType = {
+type PinchPanImageProps = {
   uri: string
   /**
    * @param error Error returned by react native of type any
@@ -37,7 +37,7 @@ type StateType = {
   imageDimensions?: { width: number; height: number }
 }
 
-class PinchPanImage extends React.Component<PinchPanImagePropsType, StateType> {
+class PinchPanImage extends React.Component<PinchPanImageProps, StateType> {
   private lastOffset: { x: number; y: number }
   private readonly panHandler: React.RefObject<PanGestureHandler>
   // Used to hold the a translation of the image which has been recorded via panning
@@ -57,7 +57,7 @@ class PinchPanImage extends React.Component<PinchPanImagePropsType, StateType> {
   private readonly scale: Animated.AnimatedMultiplication
   private readonly onPinchGestureEvent: (event: PinchGestureHandlerGestureEvent) => void
 
-  constructor(props: PinchPanImagePropsType) {
+  constructor(props: PinchPanImageProps) {
     super(props)
     this.state = { interactive: true }
 

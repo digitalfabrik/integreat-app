@@ -23,7 +23,7 @@ const BoxShadow = styled.View`
   background-color: ${props => props.theme.colors.backgroundAccentColor};
   height: ${dimensions.headerHeight}px;
 `
-type SearchHeaderPropsType = {
+type SearchHeaderProps = {
   theme: ThemeType
   query: string
   closeSearchBar: (query: string) => void
@@ -31,7 +31,7 @@ type SearchHeaderPropsType = {
   t: TFunction<'search'>
 }
 
-const SearchHeader = ({ theme, query, closeSearchBar, onSearchChanged, t }: SearchHeaderPropsType): ReactElement => {
+const SearchHeader = ({ theme, query, closeSearchBar, onSearchChanged, t }: SearchHeaderProps): ReactElement => {
   const onClose = () => {
     closeSearchBar(query)
   }

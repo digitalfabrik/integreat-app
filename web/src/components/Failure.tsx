@@ -14,14 +14,14 @@ const Centered = styled.div`
   }
 `
 
-type FailurePropsType = {
+type FailureProps = {
   errorMessage: string
   goToPath?: string
   goToMessage?: string
   t: TFunction<'error'>
 }
 
-const Failure = ({ errorMessage, goToPath, goToMessage = 'goTo.start', t }: FailurePropsType): ReactElement => (
+const Failure = ({ errorMessage, goToPath, goToMessage = 'goTo.start', t }: FailureProps): ReactElement => (
   <Centered>
     <div>
       <FontAwesomeIcon icon={faFrown} size='4x' />

@@ -8,12 +8,12 @@ import { renderWebviewError } from '../components/RemoteContent'
 import { userAgent } from '../constants/endpoint'
 import { createGetSource, createPostSource } from '../constants/webview'
 
-export type ExternalOfferPropsType = {
+export type ExternalOfferProps = {
   url: string
   postData: Map<string, string> | null | undefined
 }
 
-const ExternalOffer = (props: ExternalOfferPropsType): ReactElement => {
+const ExternalOffer = (props: ExternalOfferProps): ReactElement => {
   const [canGoBack, setCanGoBack] = useState<boolean>(false)
   const webviewRef = useRef<WebView>(null)
   useEffect(() => {

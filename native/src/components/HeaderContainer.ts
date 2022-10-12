@@ -13,7 +13,7 @@ type OwnProps = {
   navigation: NavigationPropType<RoutesType>
 }
 
-type StatePropsType = {
+type StateProps = {
   language: string
   goToLanguageChange?: () => void
   peeking: boolean
@@ -21,7 +21,7 @@ type StatePropsType = {
   routeCityModel?: CityModel
 }
 
-const mapStateToProps = (state: StateType, ownProps: OwnProps): StatePropsType => {
+const mapStateToProps = (state: StateType, ownProps: OwnProps): StateProps => {
   const { key: routeKey } = ownProps.route
   const { cityContent, contentLanguage, cities } = state
   const route = cityContent?.routeMapping[routeKey]

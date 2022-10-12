@@ -14,14 +14,14 @@ const Container = styled.View`
 const LastUpdateContainer = styled.View`
   margin: 15px 0;
 `
-type ContentPropsType = {
+type ContentProps = {
   content: string
   cacheDictionary: Record<string, string>
   language: string
   lastUpdate?: Moment
 }
 
-const CategoryListContent = ({ content, cacheDictionary, language, lastUpdate }: ContentPropsType): ReactElement => {
+const CategoryListContent = ({ content, cacheDictionary, language, lastUpdate }: ContentProps): ReactElement => {
   const formatter = useContext(DateFormatterContext)
   return (
     <SpaceBetween>

@@ -11,12 +11,12 @@ import useSetShareUrl from '../hooks/useSetShareUrl'
 import LocalNews from './LocalNews'
 import TuNews from './TuNews'
 
-type NavigationPropsType = {
+type NavigationProps = {
   route: RoutePropType<NewsRouteType>
   navigation: NavigationPropType<NewsRouteType>
 }
 
-const NewsContainer = ({ route, navigation }: NavigationPropsType): ReactElement => {
+const NewsContainer = ({ route, navigation }: NavigationProps): ReactElement => {
   const { cityCode, languageCode, newsType: routeNewsType, newsId: routeNewsId } = route.params
   const [newsType, setNewsType] = useState<NewsType>(routeNewsType)
   const [newsId, setNewsId] = useState<string | null>(routeNewsId)

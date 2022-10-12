@@ -30,7 +30,7 @@ const Separator = styled.span`
   }
 `
 
-type BreadcrumbPropsType = {
+type BreadcrumbProps = {
   children: ReactNode
   shrink: boolean
 }
@@ -38,7 +38,7 @@ type BreadcrumbPropsType = {
 /**
  * Displays breadcrumbs (Links) for lower category levels
  */
-const Breadcrumb = ({ children, shrink }: BreadcrumbPropsType): ReactElement => (
+const Breadcrumb = ({ children, shrink }: BreadcrumbProps): ReactElement => (
   <ListItem shrink={shrink}>
     <Separator aria-hidden />
     {children}

@@ -12,7 +12,7 @@ const TimeStamp = styled.p`
   font-size: ${props => props.theme.fonts.contentFontSize};
 `
 
-type LastUpdateInfoPropsType = {
+type LastUpdateInfoProps = {
   lastUpdate: Moment
   t: TFunction
   withText: boolean
@@ -28,7 +28,7 @@ export const LastUpdateInfo = ({
   className,
   formatter,
   format = 'LL',
-}: LastUpdateInfoPropsType): ReactElement => {
+}: LastUpdateInfoProps): ReactElement => {
   // only show day, month and year
   const timestamp = formatter.format(lastUpdate, { format })
   return (

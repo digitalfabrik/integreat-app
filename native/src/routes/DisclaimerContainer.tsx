@@ -22,12 +22,12 @@ import { StateType } from '../redux/StateType'
 import { determineApiUrl } from '../utils/helpers'
 import Disclaimer from './Disclaimer'
 
-type DisclaimerContainerPropsType = {
+type DisclaimerContainerProps = {
   route: RoutePropType<DisclaimerRouteType>
   navigation: NavigationPropType<DisclaimerRouteType>
 }
 
-const DisclaimerContainer = ({ navigation, route }: DisclaimerContainerPropsType): ReactElement => {
+const DisclaimerContainer = ({ navigation, route }: DisclaimerContainerProps): ReactElement => {
   const { cityCode, languageCode } = route.params
   const resourceCacheUrl = useSelector<StateType, string | null>(state => state.resourceCacheUrl)
 

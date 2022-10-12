@@ -31,12 +31,12 @@ const DescriptionContainer = styled.TouchableOpacity`
   padding: 15px 0 5px;
 `
 
-export type JpalTrackingPropsType = {
+export type JpalTrackingProps = {
   route: RoutePropType<JpalTrackingRouteType>
   navigation: NavigationPropType<JpalTrackingRouteType>
 }
 
-const JpalTracking = ({ navigation }: JpalTrackingPropsType): ReactElement => {
+const JpalTracking = ({ navigation }: JpalTrackingProps): ReactElement => {
   const [trackingEnabled, setTrackingEnabled] = useState<boolean | null>(null)
   const [settingsLoaded, setSettingsLoaded] = useState<boolean>(false)
   const { t } = useTranslation('settings')

@@ -6,10 +6,10 @@ const Wrapper = styled.View`
   background-color: ${props => props.theme.colors.backgroundColor};
 `
 
-type AppPropsType = {
+type AppProps = {
   children?: React.ReactNode
 }
 
-const Layout = ({ children }: AppPropsType): ReactElement => <Wrapper>{children}</Wrapper>
+const Layout = ({ children }: AppProps): ReactElement => <Wrapper>{children}</Wrapper>
 
 export default Layout

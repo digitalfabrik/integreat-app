@@ -39,13 +39,13 @@ const HeaderContainer = styled.View`
   margin-bottom: 12px;
 `
 
-type NewsHeaderPropsType = {
+type NewsHeaderProps = {
   cityModel: CityModel
   selectedNewsType: NewsType
   navigateToNews: (newsType: NewsType) => void
 }
 
-const NewsHeader = ({ cityModel, selectedNewsType, navigateToNews }: NewsHeaderPropsType): ReactElement => {
+const NewsHeader = ({ cityModel, selectedNewsType, navigateToNews }: NewsHeaderProps): ReactElement => {
   const { t } = useTranslation('news')
   const navigateToLocalNews = () => navigateToNews(LOCAL_NEWS_TYPE)
   const navigateToTuNews = () => navigateToNews(TU_NEWS_TYPE)

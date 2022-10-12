@@ -46,7 +46,7 @@ const HappyIconContainer = styled.Image`
   margin: 100px auto 10px;
 `
 
-export type FeedbackPropsType = {
+export type FeedbackProps = {
   comment: string
   contactMail: string
   sendingStatus: SendingStatusType
@@ -59,7 +59,7 @@ export type FeedbackPropsType = {
   t: TFunction<'feedback'>
 }
 
-const Feedback = (props: FeedbackPropsType): ReactElement => {
+const Feedback = (props: FeedbackProps): ReactElement => {
   const { theme, t, isSearchFeedback, isPositiveFeedback, comment, contactMail, sendingStatus } = props
   const { onFeedbackContactMailChanged, onCommentChanged, onSubmit } = props
   const renderBox = (): React.ReactNode => {

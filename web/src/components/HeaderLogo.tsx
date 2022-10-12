@@ -7,7 +7,7 @@ import buildConfig from '../constants/buildConfig'
 import dimensions from '../constants/dimensions'
 import useWindowDimensions from '../hooks/useWindowDimensions'
 
-type HeaderLogoPropsType = {
+type HeaderLogoProps = {
   link: string
 }
 
@@ -46,7 +46,7 @@ const LogoContainer = styled.div`
 /**
  * A logo component designed for the Header.
  */
-export const HeaderLogo = ({ link }: HeaderLogoPropsType): ReactElement => {
+export const HeaderLogo = ({ link }: HeaderLogoProps): ReactElement => {
   const { viewportSmall } = useWindowDimensions()
   const { campaign, appName, icons } = buildConfig()
   const currentDate = moment()

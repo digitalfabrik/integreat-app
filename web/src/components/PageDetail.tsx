@@ -5,12 +5,12 @@ const Identifier = styled.span`
   font-weight: 700;
 `
 
-type PageDetailPropsType = {
+type PageDetailProps = {
   identifier: string
   information: string
 }
 
-const PageDetail = ({ identifier, information }: PageDetailPropsType): ReactElement => (
+const PageDetail = ({ identifier, information }: PageDetailProps): ReactElement => (
   <div>
     <Identifier>{identifier}: </Identifier>
     <span>{information}</span>

@@ -5,7 +5,7 @@ import { ThemeType } from 'build-configs'
 
 import EastereggImage from './EastereggImage'
 
-type HeadingPropsType = {
+type HeadingProps = {
   clearResourcesAndCache: () => void
   theme: ThemeType
 }
@@ -15,7 +15,7 @@ const Wrapper = styled.View`
   align-items: center;
 `
 
-const Heading = ({ clearResourcesAndCache, theme }: HeadingPropsType): ReactElement => (
+const Heading = ({ clearResourcesAndCache, theme }: HeadingProps): ReactElement => (
   <Wrapper>
     <EastereggImage clearResourcesAndCache={clearResourcesAndCache} theme={theme} />
   </Wrapper>

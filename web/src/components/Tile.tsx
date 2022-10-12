@@ -4,7 +4,7 @@ import styled from 'styled-components'
 import TileModel from '../models/TileModel'
 import CleanLink from './CleanLink'
 
-type TilePropsType = {
+type TileProps = {
   tile: TileModel
 }
 
@@ -63,7 +63,7 @@ const TileContainer = styled.div`
 /**
  * Displays a single Tile
  */
-class Tile extends React.PureComponent<TilePropsType> {
+class Tile extends React.PureComponent<TileProps> {
   getTileContent(): ReactNode {
     const { tile } = this.props
     return (
