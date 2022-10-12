@@ -10,12 +10,12 @@ import Helmet from '../components/Helmet'
 import Layout from '../components/Layout'
 import buildConfig from '../constants/buildConfig'
 
-type LandingPagePropsType = {
+type LandingPageProps = {
   cities: Array<CityModel>
   languageCode: string
 }
 
-const LandingPage = ({ cities, languageCode }: LandingPagePropsType): ReactElement => {
+const LandingPage = ({ cities, languageCode }: LandingPageProps): ReactElement => {
   const { t } = useTranslation('landing')
 
   const pageTitle = t('pageTitle')

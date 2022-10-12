@@ -20,7 +20,7 @@ const getTileModels = (categories: Array<CategoryModel>): Array<TileModel> =>
       })
   )
 
-type CategoriesContentPropsType = {
+type CategoriesContentProps = {
   categories: CategoriesMapModel
   categoryModel: CategoryModel
   t: TFunction
@@ -33,7 +33,7 @@ type CategoriesContentPropsType = {
  * b) table with categories
  * c) list with categories
  */
-const CategoriesContent = ({ categories, categoryModel, formatter, t }: CategoriesContentPropsType): ReactElement => {
+const CategoriesContent = ({ categories, categoryModel, formatter, t }: CategoriesContentProps): ReactElement => {
   const children = categories.getChildren(categoryModel)
   const navigate = useNavigate()
 

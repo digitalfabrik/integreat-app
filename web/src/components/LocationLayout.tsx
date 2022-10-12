@@ -12,7 +12,7 @@ import LocationHeader from './LocationHeader'
 
 export type ToolbarPropType = (openFeedbackModal: (rating: FeedbackRatingType) => void) => ReactNode
 
-type LocationLayoutPropsType = {
+type LocationLayoutProps = {
   toolbar?: ToolbarPropType
   viewportSmall: boolean
   children?: ReactNode
@@ -27,7 +27,7 @@ type LocationLayoutPropsType = {
   showFooter?: boolean
 }
 
-const LocationLayout = (props: LocationLayoutPropsType): ReactElement => {
+const LocationLayout = (props: LocationLayoutProps): ReactElement => {
   const [feedbackModalRating, setFeedbackModalRating] = useState<FeedbackRatingType | null>(null)
 
   const {

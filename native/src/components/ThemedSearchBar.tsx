@@ -6,7 +6,7 @@ import { ThemeType } from 'build-configs'
 
 import testID from '../testing/testID'
 
-type ThemedSearchBarPropsType = {
+type ThemedSearchBarProps = {
   theme: ThemeType
   onChangeText: (text: string) => void
   value: string
@@ -14,7 +14,13 @@ type ThemedSearchBarPropsType = {
   t: TFunction<'search'>
 }
 
-const ThemedSearchBar = ({ theme: { colors }, onChangeText, value, autofocus, t }: ThemedSearchBarPropsType): ReactElement => (
+const ThemedSearchBar = ({
+  theme: { colors },
+  onChangeText,
+  value,
+  autofocus,
+  t,
+}: ThemedSearchBarProps): ReactElement => (
   <SearchBar
     {...testID('Content-Search-Input')}
     accessibilityRole='search'

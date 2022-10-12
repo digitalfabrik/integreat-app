@@ -37,7 +37,7 @@ const volatileValues = {
 
 const TRIGGER_VERSION_TAPS = 25
 
-type CreateSettingsSectionsPropsType = {
+type CreateSettingsSectionsProps = {
   setSetting: SetSettingFunctionType
   t: TFunction
   languageCode: string
@@ -55,7 +55,7 @@ const createSettingsSections = ({
   navigation,
   settings,
   showSnackbar,
-}: CreateSettingsSectionsPropsType): Readonly<Array<SectionListData<SettingsSectionType>>> => [
+}: CreateSettingsSectionsProps): Readonly<Array<SectionListData<SettingsSectionType>>> => [
   {
     title: null,
     data: [

@@ -36,12 +36,12 @@ const ImageContent = styled.Image`
   resize-mode: contain;
 `
 
-type IntroPropsType = {
+type IntroProps = {
   route: RoutePropType<IntroRouteType>
   navigation: NavigationPropType<IntroRouteType>
 }
 
-const Intro = ({ route, navigation }: IntroPropsType): ReactElement => {
+const Intro = ({ route, navigation }: IntroProps): ReactElement => {
   const [currentSlide, setCurrentSlide] = useState(0)
   const language = useSelector<StateType, string>((state: StateType) => state.contentLanguage)
   const { width } = useWindowDimensions()

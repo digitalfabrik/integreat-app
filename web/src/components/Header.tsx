@@ -11,7 +11,7 @@ import HeaderTitle from './HeaderTitle'
 import KebabMenu from './KebabMenu'
 import NavigationBarScrollContainer from './NavigationBarScrollContainer'
 
-type HeaderPropsType = {
+type HeaderProps = {
   navigationItems: Array<ReactElement<HeaderNavigationItemProps>>
   actionItems: Array<ReactNode>
   kebabItems: Array<ReactNode>
@@ -117,7 +117,7 @@ export const Header = ({
   direction,
   showSidebar = false,
   setShowSidebar,
-}: HeaderPropsType): ReactElement => {
+}: HeaderProps): ReactElement => {
   const { headerHeightSmall, headerHeightLarge } = dimensions
   const hasNavigationBar = navigationItems.length > 0
   const height = viewportSmall

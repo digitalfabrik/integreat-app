@@ -13,12 +13,12 @@ const Wrapper = styled.ScrollView`
   background-color: ${props => props.theme.colors.backgroundColor};
 `
 
-export type LanguageNotAvailablePagePropsType = {
+export type LanguageNotAvailablePageProps = {
   languages: Array<LanguageModel>
   changeLanguage: (newLanguage: string) => void
 }
 
-const LanguageNotAvailablePage = ({ languages, changeLanguage }: LanguageNotAvailablePagePropsType): ReactElement => {
+const LanguageNotAvailablePage = ({ languages, changeLanguage }: LanguageNotAvailablePageProps): ReactElement => {
   const { t } = useTranslation('common')
   const selectorItems = languages.map(
     ({ code, name }) =>

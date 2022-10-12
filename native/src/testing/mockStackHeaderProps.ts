@@ -9,12 +9,15 @@ import createNavigationMock from './createNavigationPropMock'
 type DeepPartial<T> = {
   [P in keyof T]?: DeepPartial<T[P]>
 }
-type mockStackHeaderPropsPropsType = {
+type mockStackHeaderPropsProps = {
   route: RoutePropType<RoutesType>
   navigation: NavigationPropType<RoutesType>
 }
 
-const mockStackHeaderProps = (props: DeepPartial<mockStackHeaderPropsPropsType> = {}, routeIndex = 0): mockStackHeaderPropsPropsType =>
+const mockStackHeaderProps = (
+  props: DeepPartial<mockStackHeaderPropsProps> = {},
+  routeIndex = 0
+): mockStackHeaderPropsProps =>
   merge(
     {
       navigation: createNavigationMock(routeIndex),

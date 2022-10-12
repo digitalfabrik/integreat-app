@@ -32,7 +32,7 @@ const Wrapper = styled.View`
   background-color: ${props => props.theme.colors.backgroundColor};
 `
 
-export type SearchModalPropsType = {
+export type SearchModalProps = {
   categories: CategoriesMapModel
   navigateTo: (routeInformation: RouteInformationType) => void
   theme: ThemeType
@@ -42,7 +42,15 @@ export type SearchModalPropsType = {
   t: TFunction<'search'>
 }
 
-const SearchModal = ({ categories, navigateTo, theme, language, cityCode, closeModal, t }: SearchModalPropsType): ReactElement => {
+const SearchModal = ({
+  categories,
+  navigateTo,
+  theme,
+  language,
+  cityCode,
+  closeModal,
+  t,
+}: SearchModalProps): ReactElement => {
   const [query, setQuery] = useState<string>('')
   const searchResults = useMemo(
     () =>

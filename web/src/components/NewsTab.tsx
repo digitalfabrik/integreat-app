@@ -37,14 +37,14 @@ const TuStyledTab = styled(StyledTab)`
   background-position: center center;
 `
 
-type NewsTabPropsType = {
+type NewsTabProps = {
   type: NewsType
   active: boolean
   destination: string
   t: TFunction<'news'>
 }
 
-const NewsTab = ({ type, active, destination, t }: NewsTabPropsType): ReactElement => {
+const NewsTab = ({ type, active, destination, t }: NewsTabProps): ReactElement => {
   if (type === TU_NEWS_TYPE) {
     return <TuStyledTab $active={active} to={destination} aria-label={tunewsLabel} />
   }

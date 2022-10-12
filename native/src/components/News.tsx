@@ -21,7 +21,7 @@ import NewsListItem from './NewsListItem'
 
 type NewsModelsType = Array<LocalNewsModel | TunewsModel>
 
-export type NewsPropsType = ReturnType<NewsModelsType> & {
+export type NewsProps = ReturnType<NewsModelsType> & {
   selectNews: (newsId: string | null) => void
   newsId: string | null | undefined
   cityModel: CityModel
@@ -31,7 +31,7 @@ export type NewsPropsType = ReturnType<NewsModelsType> & {
   loadingMore?: boolean
 }
 
-const News = (props: NewsPropsType): ReactElement => {
+const News = (props: NewsProps): ReactElement => {
   const { data, loading, loadMore, error, newsId, language, selectedNewsType, refresh, selectNews, cityModel } = props
   const { loadingMore } = props
   const { t } = useTranslation('news')

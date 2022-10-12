@@ -44,7 +44,7 @@ const StyledContainer = styled.div`
   justify-content: space-between;
 `
 
-type NewsListItemPropsType = {
+type NewsListItemProps = {
   title: string
   content: string
   timestamp: Moment
@@ -54,7 +54,7 @@ type NewsListItemPropsType = {
   t: TFunction<'news'>
 }
 
-const NewsListItem = ({ title, content, timestamp, formatter, t, type, link }: NewsListItemPropsType): ReactElement => {
+const NewsListItem = ({ title, content, timestamp, formatter, t, type, link }: NewsListItemProps): ReactElement => {
   const readMoreLinkText = `${t('readMore')} >`
 
   return (

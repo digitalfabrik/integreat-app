@@ -9,14 +9,14 @@ const LicenseContainer = styled.div`
   line-height: 120%;
 `
 
-type LicenseItemPropsType = {
+type LicenseItemProps = {
   name: string
   version: string | undefined
   license: string
   licenseUrl: string
 }
 
-const LicenseItem = ({ license, name, licenseUrl, version }: LicenseItemPropsType): ReactElement => {
+const LicenseItem = ({ license, name, licenseUrl, version }: LicenseItemProps): ReactElement => {
   const { t } = useTranslation('licenses')
   return (
     <ListItem path={licenseUrl} title={name}>

@@ -16,7 +16,7 @@ const Separator = styled.View`
   border-top-color: ${props => props.theme.colors.themeColor};
 `
 
-type SprungbrettOfferPropsType = {
+type SprungbrettOfferProps = {
   jobs: Array<SprungbrettJobModel>
   language: string
   title: string
@@ -24,7 +24,13 @@ type SprungbrettOfferPropsType = {
   refresh: () => void
 }
 
-const SprungbrettOffer = ({ jobs, title, navigateToFeedback, language, refresh }: SprungbrettOfferPropsType): ReactElement => {
+const SprungbrettOffer = ({
+  jobs,
+  title,
+  navigateToFeedback,
+  language,
+  refresh,
+}: SprungbrettOfferProps): ReactElement => {
   const { t } = useTranslation('sprungbrett')
   const showSnackbar = useSnackbar()
 

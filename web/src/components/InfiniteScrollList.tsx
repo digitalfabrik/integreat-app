@@ -17,7 +17,7 @@ const StyledList = styled.div`
   padding-top: 1px;
 `
 
-type InfiniteScrollListPropsType<T> = {
+type InfiniteScrollListProps<T> = {
   loadPage: (page: number) => Promise<Payload<T[]>>
   noItemsMessage: string
   renderItem: (item: T) => ReactNode
@@ -31,7 +31,7 @@ const InfiniteScrollList = <T,>({
   renderItem,
   defaultPage,
   itemsPerPage,
-}: InfiniteScrollListPropsType<T>): ReactElement => {
+}: InfiniteScrollListProps<T>): ReactElement => {
   const [data, setData] = useState<T[]>([])
   const [error, setError] = useState<Error | null>(null)
   const [loading, setLoading] = useState<boolean>(false)

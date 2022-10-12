@@ -10,12 +10,12 @@ import createNavigate from '../navigation/createNavigate'
 import { StateType } from '../redux/StateType'
 import SearchModal from './SearchModal'
 
-export type SearchModalContainerPropsType = {
+export type SearchModalContainerProps = {
   route: RoutePropType<SearchRouteType>
   navigation: NavigationPropType<SearchRouteType>
 }
 
-const SearchModalContainer = ({ navigation }: SearchModalContainerPropsType): ReactElement | null => {
+const SearchModalContainer = ({ navigation }: SearchModalContainerProps): ReactElement | null => {
   const cityCode = useSelector<StateType, string | undefined>(state => state.cityContent?.city)
   const language = useSelector<StateType, string>(state => state.contentLanguage)
   const categories = useSelector<StateType, CategoriesMapModel | null>(

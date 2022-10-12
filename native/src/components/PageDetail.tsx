@@ -14,13 +14,13 @@ const DetailContainer = styled.Text<{ language: string }>`
   color: ${props => props.theme.colors.textColor};
 `
 
-type PageDetailPropsType = {
+type PageDetailProps = {
   identifier: string
   information: string
   language: string
 }
 
-const PageDetail: React.FC<PageDetailPropsType> = (props: PageDetailPropsType): ReactElement => {
+const PageDetail: React.FC<PageDetailProps> = (props: PageDetailProps): ReactElement => {
   const { identifier, information, language } = props
 
   return (

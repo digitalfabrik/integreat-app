@@ -26,12 +26,12 @@ const CityListParent = styled.div<{ stickyTop: number }>`
   border-bottom: 1px solid ${props => props.theme.colors.themeColor};
 `
 
-type CitySelectorPropsType = {
+type CitySelectorProps = {
   cities: Array<CityModel>
   language: string
 }
 
-const CitySelector = ({ cities, language }: CitySelectorPropsType): ReactElement => {
+const CitySelector = ({ cities, language }: CitySelectorProps): ReactElement => {
   const [filterText, setFilterText] = useState<string>('')
   const [stickyTop, setStickyTop] = useState<number>(0)
   const { t } = useTranslation('landing')

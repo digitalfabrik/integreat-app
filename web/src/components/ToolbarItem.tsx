@@ -5,14 +5,14 @@ import StyledSmallViewTip from './StyledSmallViewTip'
 import StyledToolbarItem from './StyledToolbarItem'
 import Tooltip from './Tooltip'
 
-type ToolbarItemPropsType = {
+type ToolbarItemProps = {
   href: string
   icon: FontAwesomeIconProps['icon']
   text: string
   viewportSmall: boolean
 }
 
-const ToolbarItem = ({ href, text, icon, viewportSmall }: ToolbarItemPropsType): ReactElement => (
+const ToolbarItem = ({ href, text, icon, viewportSmall }: ToolbarItemProps): ReactElement => (
   <Tooltip text={viewportSmall ? null : text} flow='up' mediumViewportFlow='right' smallViewportFlow='down'>
     <StyledToolbarItem href={href} ariaLabel={text}>
       <FontAwesomeIcon icon={icon} />

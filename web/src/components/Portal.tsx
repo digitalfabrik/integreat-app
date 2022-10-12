@@ -1,7 +1,7 @@
 import { CSSProperties, ReactNode, ReactPortal, useEffect, useLayoutEffect, useState } from 'react'
 import { createPortal } from 'react-dom'
 
-type PortalPropsType = {
+type PortalProps = {
   children: ReactNode
   className: string
   element?: string
@@ -9,7 +9,7 @@ type PortalPropsType = {
   style?: CSSProperties
 }
 /** A portal creates a new DOM Node outside the regular DOM. You can use it f.e. to fix z-index problems */
-const Portal = ({ children, className, element = 'reach-portal', show = false, style }: PortalPropsType): ReactPortal => {
+const Portal = ({ children, className, element = 'reach-portal', show = false, style }: PortalProps): ReactPortal => {
   const [container] = useState(() => document.createElement(element))
 
   useEffect(() => {

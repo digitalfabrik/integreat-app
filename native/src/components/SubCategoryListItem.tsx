@@ -25,13 +25,13 @@ const SubCategoryTitle = styled.Text`
   font-family: ${props => props.theme.fonts.native.decorativeFontRegular};
 `
 
-type SubCategoryListItemPropsType = {
+type SubCategoryListItemProps = {
   subCategory: SimpleCategoryListItem
   onItemPress: (item: SimpleCategoryListItem) => void
   language: string
 }
 
-const SubCategoryListItem = ({ subCategory, onItemPress, language }: SubCategoryListItemPropsType): ReactElement => {
+const SubCategoryListItem = ({ subCategory, onItemPress, language }: SubCategoryListItemProps): ReactElement => {
   const theme = useTheme()
 
   return (

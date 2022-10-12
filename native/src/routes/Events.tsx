@@ -27,7 +27,7 @@ const StyledSiteHelpfulBox = styled(SiteHelpfulBox)`
   margin-top: 0;
 `
 
-export type EventsPropsType = {
+export type EventsProps = {
   path: string | null | undefined
   events: Array<EventModel>
   cityModel: CityModel
@@ -52,7 +52,7 @@ const Events = ({
   resourceCacheUrl,
   navigateToFeedback,
   refresh,
-}: EventsPropsType): ReactElement => {
+}: EventsProps): ReactElement => {
   const { t } = useTranslation('events')
   const formatter = useContext(DateFormatterContext)
 

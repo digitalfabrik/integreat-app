@@ -112,7 +112,7 @@ const Aside = styled.aside<{ languageSelectorHeight: number }>`
   }
 `
 
-type LayoutPropsType = {
+type LayoutProps = {
   footer?: ReactNode
   header?: ReactNode
   toolbar?: ReactNode
@@ -135,7 +135,7 @@ const Layout = ({
   children,
   fullWidth = false,
   disableScrollingSafari = false,
-}: LayoutPropsType): JSX.Element => {
+}: LayoutProps): JSX.Element => {
   const modalVisible = !!modal
   const { width } = useWindowDimensions()
   const [languageSelectorHeight, setLanguageSelectorHeight] = useState<number>(0)

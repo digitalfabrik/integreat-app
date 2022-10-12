@@ -8,11 +8,11 @@ import { RoutePatterns } from '../routes'
 import CleanLink from './CleanLink'
 import Footer from './Footer'
 
-type GeneralFooterPropsType = {
+type GeneralFooterProps = {
   language: string
 }
 
-const GeneralFooter = ({ language }: GeneralFooterPropsType): ReactElement => {
+const GeneralFooter = ({ language }: GeneralFooterProps): ReactElement => {
   const { aboutUrls, privacyUrls } = buildConfig()
   const { t } = useTranslation('layout')
 

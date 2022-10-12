@@ -34,14 +34,14 @@ const Title = styled.div`
   font-weight: 700;
 `
 
-type ListItemPropsType = {
+type ListItemProps = {
   thumbnail?: string
   path: string
   title: string
   children?: ReactNode
 }
 
-const ListItem: React.FC<ListItemPropsType> = ({ path, title, thumbnail, children }: ListItemPropsType): ReactElement => (
+const ListItem: React.FC<ListItemProps> = ({ path, title, thumbnail, children }: ListItemProps): ReactElement => (
   <ListItemContainer dir='auto'>
     <CleanLink to={path}>
       {thumbnail && <Thumbnail alt='' src={thumbnail} />}

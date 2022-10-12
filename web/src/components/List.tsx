@@ -10,14 +10,14 @@ const NoItemsMessage = styled.div`
   text-align: center;
 `
 
-type ListPropsType<T> = {
+type ListProps<T> = {
   items: Array<T>
   noItemsMessage: string
   renderItem: (item: T) => ReactNode
   borderless?: boolean
 }
 
-class List<T> extends React.PureComponent<ListPropsType<T>> {
+class List<T> extends React.PureComponent<ListProps<T>> {
   render(): ReactNode {
     const { items, renderItem, noItemsMessage, borderless = false } = this.props
     if (items.length === 0) {

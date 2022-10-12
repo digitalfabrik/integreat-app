@@ -30,7 +30,7 @@ const StyledLink = styled(Link)`
 
 const StyledSpan = StyledLink.withComponent('span')
 
-type HeaderActionItemLinkPropsType = {
+type HeaderActionItemLinkProps = {
   href?: string
   text: string
   iconSrc: string
@@ -41,7 +41,7 @@ type HeaderActionItemLinkPropsType = {
  * Designed to work with Header. In the ActionBar you can display icons as link or dropDown involving actions like
  * 'Change language', 'Change location' and similar items.
  */
-const HeaderActionItemLink = ({ href, text, iconSrc, direction }: HeaderActionItemLinkPropsType): ReactElement => (
+const HeaderActionItemLink = ({ href, text, iconSrc, direction }: HeaderActionItemLinkProps): ReactElement => (
   <Tooltip text={text} flow='down' smallViewportFlow='left'>
     {href ? (
       <StyledLink to={href} aria-label={text}>

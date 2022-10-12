@@ -4,7 +4,7 @@ import styled from 'styled-components'
 
 import dimensions from '../constants/dimensions'
 
-type HeaderTitlePropsType = {
+type HeaderTitleProps = {
   children?: string
 }
 
@@ -41,7 +41,7 @@ const HeaderTitleDiv = styled.div<{ long: boolean }>`
 /**
  * The title of a Header. Is only designed for the Header component.
  */
-class HeaderTitle extends React.PureComponent<HeaderTitlePropsType> {
+class HeaderTitle extends React.PureComponent<HeaderTitleProps> {
   render(): ReactNode {
     const { children } = this.props
     return <HeaderTitleDiv long={(children?.length || 0) >= LONG_TITLE_LENGTH}>{children}</HeaderTitleDiv>

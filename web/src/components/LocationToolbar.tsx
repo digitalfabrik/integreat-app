@@ -3,14 +3,14 @@ import React, { ReactNode } from 'react'
 import FeedbackToolbarItem, { FeedbackRatingType } from './FeedbackToolbarItem'
 import Toolbar from './Toolbar'
 
-type LocationToolbarPropsType = {
+type LocationToolbarProps = {
   openFeedbackModal: (rating: FeedbackRatingType) => void
   children?: ReactNode
   viewportSmall: boolean
   iconDirection?: 'row' | 'column'
 }
 
-class LocationToolbar extends React.PureComponent<LocationToolbarPropsType> {
+class LocationToolbar extends React.PureComponent<LocationToolbarProps> {
   render(): ReactNode {
     const { viewportSmall, children, openFeedbackModal, iconDirection } = this.props
 

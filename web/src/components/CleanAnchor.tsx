@@ -6,14 +6,14 @@ const StyledAnchor = styled.a`
   text-decoration: none;
 `
 
-type CleanAnchorPropsType = {
+type CleanAnchorProps = {
   href: string
   children: ReactNode
   ariaLabel?: string
   className?: string
 }
 
-class CleanAnchor extends React.PureComponent<CleanAnchorPropsType> {
+class CleanAnchor extends React.PureComponent<CleanAnchorProps> {
   render(): ReactNode {
     const { href, children, className, ariaLabel } = this.props
     return (

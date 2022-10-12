@@ -9,15 +9,15 @@ import { SetResourceCacheUrlActionType, StoreActionType } from '../redux/StoreAc
 import { RESOURCE_CACHE_DIR_PATH } from '../utils/DatabaseConnector'
 import { getErrorMessage } from '../utils/helpers'
 
-type OwnPropsType = {
+type OwnProps = {
   children: React.ReactNode
 }
-type DispatchPropsType = {
+type DispatchProps = {
   setResourceCacheUrl: (arg0: string) => void
 }
-type StaticServerProviderPropsType = OwnPropsType & DispatchPropsType
+type StaticServerProviderProps = OwnProps & DispatchProps
 
-const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>): DispatchPropsType => ({
+const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>): DispatchProps => ({
   setResourceCacheUrl: (url: string) => {
     const setResourceCacheUrlAction: SetResourceCacheUrlActionType = {
       type: 'SET_RESOURCE_CACHE_URL',
@@ -33,7 +33,7 @@ const SERVER_PATH = RESOURCE_CACHE_DIR_PATH
 const SERVER_PORT = 8080
 
 class StaticServerProvider extends React.Component<
-  StaticServerProviderPropsType,
+  StaticServerProviderProps,
   {
     errorMessage: string | null
   }

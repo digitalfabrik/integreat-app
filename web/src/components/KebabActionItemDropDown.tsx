@@ -19,7 +19,7 @@ const Container = styled.div`
   display: flex;
 `
 
-type KebabActionItemDropDownPropsType = {
+type KebabActionItemDropDownProps = {
   children: (closeDropDown: () => void) => ReactNode
   iconSrc: string
   text: string
@@ -32,7 +32,13 @@ type KebabActionItemDropDownPropsType = {
  * Header. Once the user clicks outside, the node is hidden again. Additionally, the inner node gets a
  * closeDropDownCallback through its props to close the dropDown and hide itself.
  */
-const KebabActionItemDropDown = ({ iconSrc, text, children, direction, closeSidebar }: KebabActionItemDropDownPropsType): ReactElement => {
+const KebabActionItemDropDown = ({
+  iconSrc,
+  text,
+  children,
+  direction,
+  closeSidebar,
+}: KebabActionItemDropDownProps): ReactElement => {
   const [dropDownActive, setDropDownActive] = useState(false)
 
   const toggleDropDown = (): void => {

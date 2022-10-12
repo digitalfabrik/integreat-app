@@ -14,7 +14,7 @@ import News from '../components/News'
 import { tunewsApiUrl } from '../constants/endpoint'
 import useLoadTuNews from '../hooks/useLoadTuNews'
 
-export type TuNewsNewsPropsType = {
+export type TuNewsNewsProps = {
   newsId: string | null | undefined
   cityModel: CityModel
   language: string
@@ -28,7 +28,7 @@ const TuNewsNews = ({
   selectNews,
   newsId,
   changeUnavailableLanguage,
-}: TuNewsNewsPropsType): ReactElement => {
+}: TuNewsNewsProps): ReactElement => {
   const { availableLanguages, ...tuNewsResponse } = useLoadTuNews({ language })
 
   const requestTuNewsElement = useCallback(async () => {

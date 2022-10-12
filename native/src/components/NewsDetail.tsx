@@ -40,12 +40,12 @@ const NewsHeadLine = styled.Text`
   margin-top: 18px;
   margin-bottom: 15px;
 `
-type NewsDetailPropsType = {
+type NewsDetailProps = {
   language: string
   newsItem: TunewsModel | LocalNewsModel
 }
 
-const NewsDetail = ({ newsItem, language }: NewsDetailPropsType): ReactElement => {
+const NewsDetail = ({ newsItem, language }: NewsDetailProps): ReactElement => {
   const formatter = useContext(DateFormatterContext)
   const content = newsItem instanceof TunewsModel ? newsItem.content : replaceLinks(newsItem.message)
   return (

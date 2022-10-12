@@ -21,7 +21,7 @@ const StyledFAB = styled(FAB)<{ position: number | string }>`
   bottom: ${props => props.position}${props => (typeof props.position === 'number' ? 'px' : '')};
 `
 
-type MapViewPropsType = {
+type MapViewProps = {
   boundingBox: BBox
   featureCollection: PoiFeatureCollection
   selectedFeature: PoiFeature | null
@@ -52,7 +52,7 @@ const MapView = React.forwardRef(
       setSheetSnapPointIndex,
       followUserLocation,
       setFollowUserLocation,
-    }: MapViewPropsType,
+    }: MapViewProps,
     cameraRef: React.Ref<MapboxGL.Camera>
   ): ReactElement => {
     const mapRef = React.useRef<MapboxGL.MapView | null>(null)

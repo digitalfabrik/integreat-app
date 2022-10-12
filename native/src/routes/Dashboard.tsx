@@ -32,7 +32,7 @@ import testID from '../testing/testID'
 const Spacing = styled.View`
   padding: 10px;
 `
-type DashboardPropsType = {
+type DashboardProps = {
   navigateTo: (arg0: RouteInformationType) => void
   navigateToFeedback: (arg0: FeedbackInformationType) => void
   language: string
@@ -50,7 +50,7 @@ const Dashboard = ({
   resourceCacheUrl,
   navigateTo,
   navigateToFeedback,
-}: DashboardPropsType): ReactElement => {
+}: DashboardProps): ReactElement => {
   const { t } = useTranslation('dashboard')
   const theme = useTheme()
 
