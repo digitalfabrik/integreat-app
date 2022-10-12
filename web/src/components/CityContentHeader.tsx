@@ -1,4 +1,4 @@
-import React, { ReactElement, useState } from 'react'
+import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import {
@@ -39,12 +39,20 @@ type CityContentHeaderProps = {
   languageCode: string
   viewportSmall: boolean
   languageChangePaths: Array<{ code: string; path: string | null; name: string }> | null
+  isSidebarOpen: boolean
+  setIsSidebarOpen: (input: boolean) => void
 }
 
-const CityContentHeader = (props: CityContentHeaderProps): ReactElement => {
-  const { viewportSmall, cityModel, languageCode, languageChangePaths, route } = props
+const CityContentHeader = ({
+  viewportSmall,
+  cityModel,
+  languageCode,
+  languageChangePaths,
+  route,
+  isSidebarOpen,
+  setIsSidebarOpen,
+}: CityContentHeaderProps): ReactElement => {
   const { eventsEnabled, poisEnabled, offersEnabled, tunewsEnabled, localNewsEnabled } = cityModel
-  const [showSidebar, setShowSidebar] = useState<boolean>(false)
 
   const params = { cityCode: cityModel.code, languageCode }
   const newsType = localNewsEnabled ? LOCAL_NEWS_ROUTE : TU_NEWS_ROUTE
@@ -109,7 +117,7 @@ const CityContentHeader = (props: CityContentHeaderProps): ReactElement => {
       isHeaderActionItem
       languageCode={languageCode}
       inKebabMenu
-      closeSidebar={() => setShowSidebar(false)}
+      closeSidebar={() => setIsSidebarOpen(false)}
     />,
   ]
 
@@ -199,8 +207,8 @@ const CityContentHeader = (props: CityContentHeaderProps): ReactElement => {
       kebabItems={kebabItems}
       cityName={cityModel.name}
       navigationItems={getNavigationItems()}
-      showSidebar={showSidebar}
-      setShowSidebar={setShowSidebar}
+      isSidebarOpen={isSidebarOpen}
+      setIsSidebarOpen={setIsSidebarOpen}
       language={languageCode}
     />
   )

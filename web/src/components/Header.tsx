@@ -5,6 +5,7 @@ import styled from 'styled-components'
 import { UiDirectionType } from 'translations'
 
 import dimensions from '../constants/dimensions'
+import CityContentFooter from './CityContentFooter'
 import HeaderLogo from './HeaderLogo'
 import { HeaderNavigationItemProps } from './HeaderNavigationItem'
 import HeaderTitle from './HeaderTitle'
@@ -19,8 +20,8 @@ type PropsType = {
   viewportSmall: boolean
   cityName?: string
   direction: UiDirectionType
-  showSidebar?: boolean
-  setShowSidebar?: (show: boolean) => void
+  isSidebarOpen?: boolean
+  setIsSidebarOpen?: (show: boolean) => void
   language: string
 }
 
@@ -116,8 +117,8 @@ export const Header = ({
   navigationItems = [],
   cityName,
   direction,
-  showSidebar = false,
-  setShowSidebar,
+  isSidebarOpen = false,
+  setIsSidebarOpen,
   language,
 }: PropsType): ReactElement => {
   const { headerHeightSmall, headerHeightLarge } = dimensions
@@ -136,13 +137,13 @@ export const Header = ({
           {(!viewportSmall || cityName) && <HeaderTitle>{cityName}</HeaderTitle>}
           <ActionBar>
             {actionItems}
-            {viewportSmall && setShowSidebar && (
+            {viewportSmall && setIsSidebarOpen && cityName && (
               <KebabMenu
-                setShow={setShowSidebar}
-                show={showSidebar}
+                setShow={setIsSidebarOpen}
+                show={isSidebarOpen}
                 items={kebabItems}
                 direction={direction}
-                language={language}
+                footer={<CityContentFooter city={cityName} language={language} inSidebar />}
               />
             )}
           </ActionBar>
