@@ -52,13 +52,13 @@ const ContentWrapper = styled.View`
   padding-right: 32px;
 `
 
-type Props = {
+type PoiDetailsProps = {
   poi: PoiModel
   feature: PoiFeature
   language: string
 }
 
-const PoiDetails = ({ poi, feature, language }: Props): ReactElement => {
+const PoiDetails = ({ poi, feature, language }: PoiDetailsProps): ReactElement => {
   const { t } = useTranslation('pois')
   const showSnackbar = useSnackbar()
 
