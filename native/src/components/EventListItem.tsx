@@ -16,7 +16,7 @@ const Description = styled.Text`
 const NUM_OF_CHARS_ALLOWED = 90
 const placeholderThumbnails = [EventPlaceholder1, EventPlaceholder2, EventPlaceholder3]
 
-type Props = {
+type EventListItemProps = {
   event: EventModel
   language: string
   navigateToEvent: () => void
@@ -24,7 +24,7 @@ type Props = {
 }
 
 // This should stay a PureComponent for performance reasons
-class EventListItem extends PureComponent<Props> {
+class EventListItem extends PureComponent<EventListItemProps> {
   render(): ReactElement {
     const { formatter, language, event, navigateToEvent } = this.props
     const thumbnail = event.thumbnail || placeholderThumbnails[event.path.length % placeholderThumbnails.length]!

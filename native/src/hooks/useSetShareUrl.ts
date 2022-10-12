@@ -14,13 +14,13 @@ type ShareProps =
       routeInformation: null
     }
 
-type Props = {
+type useSetShareUrlProps = {
   route: RoutePropType<RoutesType>
   navigation: NavigationPropType<RoutesType>
 } & ShareProps
 
 // Sets the share url of the current route information to allow usage in header components
-const useSetShareUrl = ({ route, navigation, ...rest }: Props): void => {
+const useSetShareUrl = ({ route, navigation, ...rest }: useSetShareUrlProps): void => {
   const url = rest.routeInformation ? urlFromRouteInformation(rest.routeInformation) : rest.shareUrl
 
   useEffect(() => {

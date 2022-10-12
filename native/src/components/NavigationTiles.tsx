@@ -32,7 +32,7 @@ type NavigationTilesProps = {
   theme: ThemeType
 }
 
-const NavigationTilesWithScrollableView = ({ tiles, theme }: NavigationTilesProps): ReactElement => {
+const NavigationTiles = ({ tiles, theme }: NavigationTilesProps): ReactElement => {
   const { left, right } = useSafeAreaInsets()
   const { width } = Dimensions.get('screen')
   const layoutWidth = left && right ? width - (left + right) : width
@@ -95,4 +95,4 @@ const NavigationTilesWithScrollableView = ({ tiles, theme }: NavigationTilesProp
   )
 }
 
-export default NavigationTilesWithScrollableView
+export default NavigationTiles

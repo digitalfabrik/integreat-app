@@ -5,13 +5,13 @@ import { pathnameFromRouteInformation, SHELTER_ROUTE, ShelterModel } from 'api-c
 import CleanLink from './CleanLink'
 import ShelterInformation from './ShelterInformation'
 
-type Props = {
+type ShelterListItemProps = {
   shelter: ShelterModel
   cityCode: string
   languageCode: string
 }
 
-const ShelterListItem = ({ shelter, cityCode, languageCode }: Props): ReactElement => (
+const ShelterListItem = ({ shelter, cityCode, languageCode }: ShelterListItemProps): ReactElement => (
   <CleanLink
     to={`${pathnameFromRouteInformation({ route: SHELTER_ROUTE, cityCode, languageCode })}/${shelter.id}`}
     newTab>

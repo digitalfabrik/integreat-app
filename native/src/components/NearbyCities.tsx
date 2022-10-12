@@ -24,13 +24,13 @@ const NearbyMessage = styled.Text`
   padding-top: 15px;
 `
 
-type Props = {
+type NearbyCitiesGroupProps = {
   cities: Array<CityModel>
   navigateToDashboard: (city: CityModel) => void
   filterText: string
 }
 
-const NearbyCitiesGroup = ({ cities, navigateToDashboard, filterText }: Props): ReactElement => {
+const NearbyCitiesGroup = ({ cities, navigateToDashboard, filterText }: NearbyCitiesGroupProps): ReactElement => {
   const locationInformation = useUserLocation()
   const { status, coordinates, message, requestAndDetermineLocation } = locationInformation
   const { t } = useTranslation('landing')

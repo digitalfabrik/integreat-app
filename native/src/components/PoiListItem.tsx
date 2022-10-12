@@ -42,7 +42,7 @@ const Title = styled.Text`
   color: ${props => props.theme.colors.textColor};
 `
 
-type Props = {
+type PoiListItemProps = {
   poi: PoiFeature
   language: string
   navigateToPoi: () => void
@@ -50,7 +50,7 @@ type Props = {
 }
 
 // This should stay a PureComponent for performance reasons
-class PoiListItem extends PureComponent<Props> {
+class PoiListItem extends PureComponent<PoiListItemProps> {
   render(): ReactElement {
     const { poi, language, navigateToPoi, t } = this.props
     const thumbnail = poi.properties.thumbnail ?? Placeholder

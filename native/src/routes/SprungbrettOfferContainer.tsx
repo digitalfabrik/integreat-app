@@ -24,12 +24,12 @@ import createNavigateToFeedbackModal from '../navigation/createNavigateToFeedbac
 import { determineApiUrl } from '../utils/helpers'
 import SprungbrettOffer from './SprungbrettOffer'
 
-type Props = {
+type SprungbrettOfferContainerProps = {
   route: RoutePropType<SprungbrettOfferRouteType>
   navigation: NavigationPropType<SprungbrettOfferRouteType>
 }
 
-const SprungbrettOfferContainer = ({ route, navigation }: Props): ReactElement => {
+const SprungbrettOfferContainer = ({ route, navigation }: SprungbrettOfferContainerProps): ReactElement => {
   const cities = useCities()
   const [title, setTitle] = useState<string>('')
   const { cityCode, languageCode } = route.params
