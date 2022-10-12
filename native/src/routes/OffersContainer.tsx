@@ -27,12 +27,12 @@ import { determineApiUrl } from '../utils/helpers'
 import openExternalUrl from '../utils/openExternalUrl'
 import Offers from './Offers'
 
-type Props = {
+type OffersContainerProps = {
   route: RoutePropType<OffersRouteType>
   navigation: NavigationPropType<OffersRouteType>
 }
 
-const OffersContainer = ({ navigation, route }: Props): ReactElement => {
+const OffersContainer = ({ navigation, route }: OffersContainerProps): ReactElement => {
   const showSnackbar = useSnackbar()
   const { cityCode, languageCode } = route.params
   const cities = useCities()

@@ -22,7 +22,7 @@ type OwnProps = NavigationProps
 type DispatchProps = {
   dispatch: Dispatch<StoreActionType>
 }
-type ContainerProps = NavigationProps &
+type EventsContainerProps = NavigationProps &
   DispatchProps & {
     path: string | null | undefined
     events: Array<EventModel>
@@ -37,7 +37,7 @@ type RefreshProps = NavigationProps & {
   language: string
   path: string | null | undefined
 }
-type StateProps = StatusProps<ContainerProps, RefreshProps>
+type StateProps = StatusProps<EventsContainerProps, RefreshProps>
 
 const refresh = (refreshProps: RefreshProps, dispatch: Dispatch<StoreActionType>) => {
   const { route, navigation, cityCode, language, path } = refreshProps
@@ -206,7 +206,7 @@ const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>): DispatchProps 
   dispatch,
 })
 
-const EventsContainer = ({ dispatch, navigation, route, refresh, ...rest }: ContainerProps) => {
+const EventsContainer = ({ dispatch, navigation, route, refresh, ...rest }: EventsContainerProps) => {
   const routeInformation = {
     route: EVENTS_ROUTE,
     languageCode: rest.language,
@@ -229,4 +229,4 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps
   // @ts-expect-error TODO: IGAPP-636
-)(withPayloadProvider<ContainerProps, RefreshProps, EventsRouteType>(refresh, true, true)(EventsContainer))
+)(withPayloadProvider<EventsContainerProps, RefreshProps, EventsRouteType>(refresh, true, true)(EventsContainer))
