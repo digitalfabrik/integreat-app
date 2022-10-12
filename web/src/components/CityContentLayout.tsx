@@ -29,6 +29,7 @@ type CityContentLayoutProps = {
 
 const CityContentLayout = (props: CityContentLayoutProps): ReactElement => {
   const [feedbackModalRating, setFeedbackModalRating] = useState<FeedbackRatingType | null>(null)
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false)
 
   const {
     viewportSmall,
@@ -69,9 +70,15 @@ const CityContentLayout = (props: CityContentLayoutProps): ReactElement => {
           viewportSmall={viewportSmall}
           languageCode={languageCode}
           route={route}
+          isSidebarOpen={isSidebarOpen}
+          setIsSidebarOpen={setIsSidebarOpen}
         />
       }
-      footer={!isLoading && showFooter ? <CityContentFooter city={cityModel.code} language={languageCode} /> : null}
+      footer={
+        !isLoading && showFooter && !isSidebarOpen ? (
+          <CityContentFooter city={cityModel.code} language={languageCode} />
+        ) : null
+      }
       modal={feedbackModal}
       toolbar={toolbar}>
       <>

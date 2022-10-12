@@ -56,6 +56,9 @@ describe('CityContentHeader', () => {
 
   const languageCode = 'de'
 
+  const isSidebarOpen = false
+  const setIsSidebarOpen = (_value: boolean) => undefined
+
   type GetByTextType = (text: Matcher, options?: SelectorMatcherOptions) => HTMLElement
   const expectNavigationItem = (getByText: GetByTextType, shouldExist: boolean, text: string) => {
     if (shouldExist) {
@@ -89,6 +92,8 @@ describe('CityContentHeader', () => {
           viewportSmall
           cityModel={cityModel(false, false, false, false, false)}
           languageChangePaths={languageChangePaths}
+          isSidebarOpen={isSidebarOpen}
+          setIsSidebarOpen={setIsSidebarOpen}
         />
       )
       expectNavigationItems(getByText, false, false, false, false, false)
@@ -102,6 +107,8 @@ describe('CityContentHeader', () => {
           viewportSmall
           cityModel={cityModel(false, true, false, false, false)}
           languageChangePaths={languageChangePaths}
+          isSidebarOpen={isSidebarOpen}
+          setIsSidebarOpen={setIsSidebarOpen}
         />
       )
       expectNavigationItems(getByText, true, false, true, false, false)
@@ -115,6 +122,8 @@ describe('CityContentHeader', () => {
           viewportSmall
           cityModel={cityModel(false, false, false, false, true)}
           languageChangePaths={languageChangePaths}
+          isSidebarOpen={isSidebarOpen}
+          setIsSidebarOpen={setIsSidebarOpen}
         />
       )
       expectNavigationItems(getByText, true, false, false, false, true)
@@ -128,6 +137,8 @@ describe('CityContentHeader', () => {
           viewportSmall
           cityModel={cityModel(true, true, true, true, true)}
           languageChangePaths={languageChangePaths}
+          isSidebarOpen={isSidebarOpen}
+          setIsSidebarOpen={setIsSidebarOpen}
         />
       )
       expectNavigationItems(getByText, true, true, true, true, true)
@@ -141,6 +152,8 @@ describe('CityContentHeader', () => {
           viewportSmall
           cityModel={cityModel(true, true, true, true, true)}
           languageChangePaths={languageChangePaths}
+          isSidebarOpen={isSidebarOpen}
+          setIsSidebarOpen={setIsSidebarOpen}
         />
       )
       expect(getByText('layout:localInformation active')).toBeTruthy()
@@ -158,6 +171,8 @@ describe('CityContentHeader', () => {
           viewportSmall
           cityModel={cityModel(true, true, true, true, true)}
           languageChangePaths={languageChangePaths}
+          isSidebarOpen={isSidebarOpen}
+          setIsSidebarOpen={setIsSidebarOpen}
         />
       )
       expect(getByText('layout:localInformation inactive')).toBeTruthy()
@@ -175,6 +190,8 @@ describe('CityContentHeader', () => {
           viewportSmall
           cityModel={cityModel(true, true, true, true, true)}
           languageChangePaths={languageChangePaths}
+          isSidebarOpen={isSidebarOpen}
+          setIsSidebarOpen={setIsSidebarOpen}
         />
       )
       expect(getByText('layout:localInformation inactive')).toBeTruthy()
@@ -192,6 +209,8 @@ describe('CityContentHeader', () => {
           viewportSmall
           cityModel={cityModel(true, true, true, true, true)}
           languageChangePaths={languageChangePaths}
+          isSidebarOpen={isSidebarOpen}
+          setIsSidebarOpen={setIsSidebarOpen}
         />
       )
       expect(getByText('layout:localInformation inactive')).toBeTruthy()
@@ -209,6 +228,8 @@ describe('CityContentHeader', () => {
           viewportSmall
           cityModel={cityModel(true, true, true, true, true)}
           languageChangePaths={languageChangePaths}
+          isSidebarOpen={isSidebarOpen}
+          setIsSidebarOpen={setIsSidebarOpen}
         />
       )
       expect(getByText('layout:localInformation inactive')).toBeTruthy()
@@ -226,6 +247,8 @@ describe('CityContentHeader', () => {
           viewportSmall
           cityModel={cityModel(true, true, true, true, true)}
           languageChangePaths={languageChangePaths}
+          isSidebarOpen={isSidebarOpen}
+          setIsSidebarOpen={setIsSidebarOpen}
         />
       )
       expect(getByText('layout:localInformation inactive')).toBeTruthy()
@@ -243,6 +266,8 @@ describe('CityContentHeader', () => {
           viewportSmall
           cityModel={cityModel(true, true, true, true, true)}
           languageChangePaths={languageChangePaths}
+          isSidebarOpen={isSidebarOpen}
+          setIsSidebarOpen={setIsSidebarOpen}
         />
       )
       expect(getByText('layout:localInformation inactive')).toBeTruthy()
@@ -260,6 +285,8 @@ describe('CityContentHeader', () => {
           viewportSmall
           cityModel={cityModel(true, true, true, true, true)}
           languageChangePaths={languageChangePaths}
+          isSidebarOpen={isSidebarOpen}
+          setIsSidebarOpen={setIsSidebarOpen}
         />
       )
       expect(getByText('layout:localInformation inactive')).toBeTruthy()

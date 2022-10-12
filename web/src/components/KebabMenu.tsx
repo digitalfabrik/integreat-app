@@ -8,7 +8,6 @@ import iconKebabMenu from '../assets/IconKebabMenu.svg'
 import dimensions from '../constants/dimensions'
 import useLockedBody from '../hooks/useLockedBody'
 import '../styles/KebabMenu.css'
-import KebabFooter from './KebabFooter'
 import Portal from './Portal'
 
 type KebabMenuProps = {
@@ -16,7 +15,7 @@ type KebabMenuProps = {
   direction: UiDirectionType
   show: boolean
   setShow: (show: boolean) => void
-  language: string
+  footer: ReactNode
 }
 
 const ToggleContainer = styled.div`
@@ -83,7 +82,7 @@ const ToggleButton = styled.button`
   margin-top: 6px;
 `
 
-const KebabMenu = ({ items, direction, show, setShow, language }: KebabMenuProps): ReactElement | null => {
+const KebabMenu = ({ items, direction, show, setShow, footer }: KebabMenuProps): ReactElement | null => {
   const { locked, setLocked } = useLockedBody(show)
 
   const onClick = () => {
@@ -114,7 +113,7 @@ const KebabMenu = ({ items, direction, show, setShow, language }: KebabMenuProps
             </ToggleButton>
           </Heading>
           <Content>{items}</Content>
-          <KebabFooter language={language} />
+          {footer}
         </List>
       </Portal>
     </ToggleContainer>

@@ -8,9 +8,8 @@ import HeaderNavigationItem from '../HeaderNavigationItem'
 import KebabActionItemLink from '../KebabActionItemLink'
 
 describe('Header', () => {
+  const cityName = 'TestCity'
   it('should render correctly', () => {
-    const cityName = 'TestCity'
-
     const { getByText } = renderWithRouterAndTheme(
       <Header
         logoHref='/random_route'
@@ -38,8 +37,9 @@ describe('Header', () => {
         ]}
         viewportSmall
         direction='ltr'
-        showSidebar
-        setShowSidebar={setShowSidebar}
+        cityName={cityName}
+        isSidebarOpen
+        setIsSidebarOpen={setShowSidebar}
         language='de'
       />
     )
