@@ -1,6 +1,5 @@
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 
 import { DISCLAIMER_ROUTE, LICENSES_ROUTE, pathnameFromRouteInformation } from 'api-client'
@@ -9,21 +8,20 @@ import buildConfig from '../constants/buildConfig'
 import CleanLink from './CleanLink'
 import Footer from './Footer'
 
-const StyledLink = styled(Link)`
-  text-decoration: none;
-  color: ${props => props.theme.colors.textColor};
+const SidebarFooterContainer = styled.div`
   width: 100%;
-  height: 48px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 0 20px;
-  border-bottom: 1px solid ${props => props.theme.colors.textSecondaryColor};
-  &:first-child {
-    margin-top: -10px;
-  }
-  &:last-child {
-    border-bottom: none;
+  margin: -10px 12px 0 23px;
+  > * {
+    color: ${props => props.theme.colors.textColor};
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center; /* the text is centered, the lines between are not */
+    padding-right: 5.5px;
+    border-bottom: 1px solid ${props => props.theme.colors.textSecondaryColor};
+    &:last-child {
+      border-bottom: none;
+    }
   }
 `
 
@@ -56,10 +54,12 @@ const CityContentFooter: React.FC<CityContentFooterProps> = ({
   if (inSidebar) {
     return (
       <Footer>
-        <StyledLink to={disclaimerPath}>{t('imprintAndContact')}</StyledLink>
-        <StyledLink to={aboutUrl}>{t('settings:about', { appName: buildConfig().appName })}</StyledLink>
-        <StyledLink to={privacyUrl}>{t('privacy')}</StyledLink>
-        <StyledLink to={licensesPath}>{t('settings:openSourceLicenses')}</StyledLink>
+        <SidebarFooterContainer>
+          <CleanLink to={disclaimerPath}>{t('imprintAndContact')}</CleanLink>
+          <CleanLink to={aboutUrl}>{t('settings:about', { appName: buildConfig().appName })}</CleanLink>
+          <CleanLink to={privacyUrl}>{t('privacy')}</CleanLink>
+          <CleanLink to={licensesPath}>{t('settings:openSourceLicenses')}</CleanLink>
+        </SidebarFooterContainer>
       </Footer>
     )
   }
