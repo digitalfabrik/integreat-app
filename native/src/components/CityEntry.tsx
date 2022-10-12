@@ -3,7 +3,7 @@ import { Text } from 'react-native'
 import Highlighter from 'react-native-highlight-words'
 import styled from 'styled-components/native'
 
-import { CityModel, normalizeSearchString } from 'api-client'
+import { CityModel, normalizeString } from 'api-client'
 import { ThemeType } from 'build-configs'
 
 import testID from '../testing/testID'
@@ -50,7 +50,7 @@ type PropType = {
 class CityEntry extends React.PureComponent<PropType> {
   getMatchingAliases = (city: CityModel, normalizedFilter: string): Array<string> => {
     if (city.aliases && normalizedFilter.length >= 1) {
-      return Object.keys(city.aliases).filter(alias => normalizeSearchString(alias).includes(normalizedFilter))
+      return Object.keys(city.aliases).filter(alias => normalizeString(alias).includes(normalizedFilter))
     }
 
     return []
@@ -63,7 +63,7 @@ class CityEntry extends React.PureComponent<PropType> {
 
   render(): ReactNode {
     const { city, theme, filterText } = this.props
-    const normalizedFilter = normalizeSearchString(filterText)
+    const normalizedFilter = normalizeString(filterText)
     const aliases = this.getMatchingAliases(city, normalizedFilter).slice(0, MAX_NUMBER_OF_ALIASES_SHOWN)
     const sliceNeeded = aliases.length > MAX_NUMBER_OF_ALIASES_SHOWN
     return (
@@ -77,7 +77,7 @@ class CityEntry extends React.PureComponent<PropType> {
             searchWords={[filterText]}
             autoEscape
             textToHighlight={city.name}
-            sanitize={normalizeSearchString}
+            sanitize={normalizeString}
             highlightStyle={{
               fontWeight: 'bold',
             }}
@@ -91,7 +91,7 @@ class CityEntry extends React.PureComponent<PropType> {
                     searchWords={[filterText]}
                     textToHighlight={alias}
                     autoEscape
-                    sanitize={normalizeSearchString}
+                    sanitize={normalizeString}
                     highlightStyle={{
                       fontWeight: 'bold',
                     }}

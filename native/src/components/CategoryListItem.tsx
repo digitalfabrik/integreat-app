@@ -2,7 +2,7 @@ import React, { memo, ReactElement } from 'react'
 import Highlighter from 'react-native-highlight-words'
 import styled, { useTheme } from 'styled-components/native'
 
-import { getExcerpt, normalizeSearchString } from 'api-client'
+import { getExcerpt, normalizeString } from 'api-client'
 
 import iconPlaceholder from '../assets/IconPlaceholder.png'
 import { SEARCH_PREVIEW_MAX_CHARS } from '../constants'
@@ -73,7 +73,7 @@ const CategoryListItem = ({ language, item, onItemPress, query }: PropsType): Re
   const Content = query ? (
     <Highlighter
       searchWords={[query]}
-      sanitize={normalizeSearchString}
+      sanitize={normalizeString}
       textToHighlight={excerpt}
       autoEscape
       highlightStyle={{ backgroundColor: theme.colors.backgroundColor, fontWeight: 'bold' }}
@@ -86,7 +86,7 @@ const CategoryListItem = ({ language, item, onItemPress, query }: PropsType): Re
         language={language}
         autoEscape
         textToHighlight={item.title}
-        sanitize={normalizeSearchString}
+        sanitize={normalizeString}
         searchWords={query ? [query] : []}
         highlightStyle={{
           fontWeight: 'bold',

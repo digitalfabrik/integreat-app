@@ -3,7 +3,7 @@ import Highlighter from 'react-highlight-words'
 import { Link } from 'react-router-dom'
 import styled, { useTheme } from 'styled-components'
 
-import { CategoryModel, getExcerpt, normalizeSearchString } from 'api-client'
+import { CategoryModel, getExcerpt, normalizeString } from 'api-client'
 
 import iconPlaceholder from '../assets/IconPlaceholder.svg'
 import { EXCERPT_MAX_CHARS } from '../constants'
@@ -95,7 +95,7 @@ const CategoryEntry = ({ category, contentWithoutHtml, subCategories, query }: P
       searchWords={query ? [query] : []}
       aria-label={category.title}
       autoEscape
-      sanitize={normalizeSearchString}
+      sanitize={normalizeString}
       highlightStyle={{ backgroundColor: theme.colors.backgroundColor, fontWeight: 'bold' }}
       textToHighlight={category.title}
     />
@@ -106,7 +106,7 @@ const CategoryEntry = ({ category, contentWithoutHtml, subCategories, query }: P
       aria-label={excerpt}
       searchWords={[query]}
       autoEscape
-      sanitize={normalizeSearchString}
+      sanitize={normalizeString}
       textToHighlight={excerpt}
       highlightStyle={{ backgroundColor: theme.colors.backgroundColor, fontWeight: 'bold' }}
     />
