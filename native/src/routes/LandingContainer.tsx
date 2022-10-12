@@ -19,12 +19,12 @@ type OwnProps = {
 type DispatchProps = {
   dispatch: Dispatch<StoreActionType>
 }
-type ContainerProps = OwnProps &
+type LandingContainerProps = OwnProps &
   DispatchProps & {
     language: string
     cities: Array<CityModel>
   }
-type StateProps = StatusProps<ContainerProps, Record<string, never>>
+type StateProps = StatusProps<LandingContainerProps, Record<string, never>>
 
 const refresh = (refreshProps: Record<string, never>, dispatch: Dispatch<StoreActionType>) => {
   dispatch({
@@ -66,7 +66,7 @@ const mapStateToProps = (state: StateType, ownProps: OwnProps): StateProps => {
   }
 }
 
-const LandingContainer = ({ navigation, dispatch, cities, language, route: _route }: ContainerProps) => {
+const LandingContainer = ({ navigation, dispatch, cities, language, route: _route }: LandingContainerProps) => {
   const navigateToDashboard = (cityCode: string, languageCode: string) => {
     navigateToCategory({
       routeName: DASHBOARD_ROUTE,
@@ -102,5 +102,5 @@ const LandingContainer = ({ navigation, dispatch, cities, language, route: _rout
 
 export default connect(mapStateToProps)(
   // @ts-expect-error TODO: IGAPP-636
-  withPayloadProvider<ContainerProps, Record<string, never>, LandingRouteType>(refresh, false)(LandingContainer)
+  withPayloadProvider<LandingContainerProps, Record<string, never>, LandingRouteType>(refresh, false)(LandingContainer)
 )
