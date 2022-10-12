@@ -1,4 +1,4 @@
-import { normalizeSearchString } from './search'
+import { normalizeString } from './search'
 
 type TruncateTextOptions = {
   maxChars: number
@@ -37,7 +37,7 @@ type ExcerptOptions = {
 }
 
 const getExcerpt = (text: string, { query, maxChars, replaceLineBreaks }: ExcerptOptions): string => {
-  const match = query ? normalizeSearchString(text).match(normalizeSearchString(query)) : []
+  const match = query ? normalizeString(text).match(normalizeString(query)) : []
 
   if (!query || !match?.index || text.trim().length <= maxChars) {
     return truncate(text, { maxChars, replaceLineBreaks })
