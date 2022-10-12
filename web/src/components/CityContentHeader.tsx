@@ -25,15 +25,15 @@ import newsIcon from '../assets/News.svg'
 import poisIcon from '../assets/Pois.svg'
 import landingIcon from '../assets/location-icon.svg'
 import searchIcon from '../assets/magnifier.svg'
-import HeaderActionBarItemLink from '../components/HeaderActionItemLink'
-import HeaderNavigationItem from '../components/HeaderNavigationItem'
 import buildConfig from '../constants/buildConfig'
 import { LOCAL_NEWS_ROUTE, RouteType, TU_NEWS_DETAIL_ROUTE, TU_NEWS_ROUTE } from '../routes'
 import Header from './Header'
+import HeaderActionBarItemLink from './HeaderActionItemLink'
+import HeaderNavigationItem from './HeaderNavigationItem'
 import KebabActionItemLink from './KebabActionItemLink'
 import LanguageSelector from './LanguageSelector'
 
-type PropsType = {
+type CityContentHeaderProps = {
   cityModel: CityModel
   route: RouteType
   languageCode: string
@@ -41,7 +41,7 @@ type PropsType = {
   languageChangePaths: Array<{ code: string; path: string | null; name: string }> | null
 }
 
-const LocationHeader = (props: PropsType): ReactElement => {
+const CityContentHeader = (props: CityContentHeaderProps): ReactElement => {
   const { viewportSmall, cityModel, languageCode, languageChangePaths, route } = props
   const { eventsEnabled, poisEnabled, offersEnabled, tunewsEnabled, localNewsEnabled } = cityModel
   const [showSidebar, setShowSidebar] = useState<boolean>(false)
@@ -206,4 +206,4 @@ const LocationHeader = (props: PropsType): ReactElement => {
   )
 }
 
-export default LocationHeader
+export default CityContentHeader

@@ -10,9 +10,9 @@ import {
   useLoadFromEndpoint,
 } from 'api-client'
 
+import CityContentLayout from './CityContentLayout'
 import FailureSwitcher from './FailureSwitcher'
 import LoadingSpinner from './LoadingSpinner'
-import LocationLayout from './LocationLayout'
 import ShelterInformation from './ShelterInformation'
 
 type Props = {
@@ -61,9 +61,9 @@ const ShelterDetail = ({
 
   if (loading) {
     return (
-      <LocationLayout isLoading {...locationLayoutParams}>
+      <CityContentLayout isLoading {...locationLayoutParams}>
         <LoadingSpinner />
-      </LocationLayout>
+      </CityContentLayout>
     )
   }
 
@@ -72,15 +72,15 @@ const ShelterDetail = ({
   if (!shelter) {
     const notFoundError = new NotFoundError({ type: 'offer', id: pathname, city: cityCode, language: languageCode })
     return (
-      <LocationLayout isLoading={false} {...locationLayoutParams}>
+      <CityContentLayout isLoading={false} {...locationLayoutParams}>
         <FailureSwitcher error={error || notFoundError} />
-      </LocationLayout>
+      </CityContentLayout>
     )
   }
   return (
-    <LocationLayout isLoading={false} {...locationLayoutParams}>
+    <CityContentLayout isLoading={false} {...locationLayoutParams}>
       <ShelterInformation shelter={shelter} cityCode={cityCode} extended />
-    </LocationLayout>
+    </CityContentLayout>
   )
 }
 
