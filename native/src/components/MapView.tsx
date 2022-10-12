@@ -1,11 +1,21 @@
-import MapboxGL, { CameraSettings, MapboxGLEvent, SymbolLayerProps } from '@react-native-mapbox-gl/maps'
+import MapboxGL, { CameraSettings, MapboxGLEvent } from '@react-native-mapbox-gl/maps'
 import type { BBox, Feature } from 'geojson'
 import React, { ReactElement, useCallback } from 'react'
 import { FAB } from 'react-native-elements'
 import { useTheme } from 'styled-components'
 import styled from 'styled-components/native'
 
-import { defaultViewportConfig, detailZoom, mapConfig, mapMarker, PoiFeature, PoiFeatureCollection } from 'api-client'
+import {
+  clusterRadius,
+  clusterZoom,
+  defaultViewportConfig,
+  detailZoom,
+  mapConfig,
+  PoiFeature,
+  PoiFeatureCollection,
+} from 'api-client'
+
+import { clusterCountLayer, clusterLayer, markerLayer } from '../constants/layers'
 
 const MapContainer = styled.View`
   flex: 1;
@@ -34,7 +44,6 @@ type MapViewProps = {
   setFollowUserLocation: (value: boolean) => void
 }
 
-const textOffsetY = 1.25
 const featureLayerId = 'point'
 
 // Has to be set even if we use map libre
@@ -57,28 +66,6 @@ const MapView = React.forwardRef(
   ): ReactElement => {
     const mapRef = React.useRef<MapboxGL.MapView | null>(null)
     const theme = useTheme()
-
-    const layerProps: SymbolLayerProps = {
-      id: featureLayerId,
-      style: {
-        symbolPlacement: 'point',
-        symbolZOrder: 'source',
-        iconAllowOverlap: true,
-        iconSize: mapMarker.iconSize,
-        iconIgnorePlacement: true,
-        iconImage: [
-          'case',
-          ['==', ['get', 'id'], selectedFeature?.properties.id ?? -1],
-          mapMarker.symbolActive,
-          ['get', 'symbol'],
-        ],
-        textField: ['get', 'title'],
-        textFont: ['Roboto Regular'],
-        textOffset: [0, textOffsetY],
-        textAnchor: 'top',
-        textSize: 12,
-      },
-    }
 
     const bounds = {
       ne: [boundingBox[2], boundingBox[3]],
@@ -138,8 +125,15 @@ const MapView = React.forwardRef(
           attributionEnabled={false}
           logoEnabled={false}>
           <MapboxGL.UserLocation visible={locationPermissionGranted} />
-          <MapboxGL.ShapeSource id='location-pois' shape={featureCollection}>
-            <MapboxGL.SymbolLayer {...layerProps} />
+          <MapboxGL.ShapeSource
+            id='location-pois'
+            shape={featureCollection}
+            cluster
+            clusterRadius={clusterRadius}
+            clusterMaxZoomLevel={clusterZoom}>
+            <MapboxGL.SymbolLayer {...clusterCountLayer} />
+            <MapboxGL.CircleLayer {...clusterLayer(theme)} />
+            <MapboxGL.SymbolLayer {...markerLayer(selectedFeature, featureLayerId)} />
           </MapboxGL.ShapeSource>
           <MapboxGL.Camera
             defaultSettings={defaultSettings}

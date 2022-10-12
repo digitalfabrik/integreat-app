@@ -1,0 +1,7 @@
+issue_key: IGAPP-1096
+show_in_stores: true
+platforms:
+  - ios
+  - android
+en: Clustering for pois added
+de: Clustering für Pois hinzugefügt
