@@ -70,7 +70,7 @@ const CategoryListItem = ({ language, item, onItemPress, query }: PropsType): Re
   const theme = useTheme()
   const excerpt = getExcerpt(item.contentWithoutHtml ?? '', { query, maxChars: SEARCH_PREVIEW_MAX_CHARS })
 
-  const Content = query && (
+  const Content = query ? (
     <Highlighter
       searchWords={[query]}
       sanitize={normalizeSearchString}
@@ -78,7 +78,7 @@ const CategoryListItem = ({ language, item, onItemPress, query }: PropsType): Re
       autoEscape
       highlightStyle={{ backgroundColor: theme.colors.backgroundColor, fontWeight: 'bold' }}
     />
-  )
+  ) : null
 
   const Title = (
     <TitleDirectionContainer language={language}>
