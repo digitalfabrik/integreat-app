@@ -121,16 +121,4 @@ const KebabMenu = ({ items, direction, show, setShow, language }: KebabMenuProps
   )
 }
 
-/* Done:
-- Get items
-  - Datenschutz
-  - Ueber Integreat
-  - Impressum und Kontakt
-
-
-TODO:
-- Style them
-- Put them in a separate file
-*/
-
 export default KebabMenu
