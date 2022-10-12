@@ -4,10 +4,10 @@ import React from 'react'
 import { CATEGORIES_ROUTE, CityModelBuilder } from 'api-client'
 
 import { renderWithTheme } from '../../testing/render'
-import LocationLayout, { ToolbarPropType } from '../LocationLayout'
+import CityContentLayout, { ToolbarProps } from '../CityContentLayout'
 
-jest.mock('../LocationFooter', () => () => <div>LocationFooter</div>)
-jest.mock('../LocationHeader', () => () => <div>LocationHeader</div>)
+jest.mock('../CityContentFooter', () => () => <div>CityContentFooter</div>)
+jest.mock('../CityContentHeader', () => () => <div>CityContentHeader</div>)
 
 describe('LocationLayout', () => {
   const language = 'de'
@@ -21,9 +21,9 @@ describe('LocationLayout', () => {
   const feedbackTargetInformation = { path: '/path/to/category' }
 
   const MockNode = () => <div />
-  const renderLocationLayout = (isLoading: boolean, toolbar?: ToolbarPropType): RenderResult =>
+  const renderLocationLayout = (isLoading: boolean, toolbar?: ToolbarProps): RenderResult =>
     renderWithTheme(
-      <LocationLayout
+      <CityContentLayout
         toolbar={toolbar}
         cityModel={cityModel}
         languageCode={language}
@@ -33,25 +33,25 @@ describe('LocationLayout', () => {
         viewportSmall
         isLoading={isLoading}>
         <MockNode />
-      </LocationLayout>
+      </CityContentLayout>
     )
 
   it('should render a toolbar', () => {
-    const toolbar = () => 'LocationToolbar'
+    const toolbar = () => 'CityContentToolbar'
 
     const { getByText } = renderLocationLayout(false, toolbar)
-    expect(getByText('LocationToolbar')).toBeTruthy()
+    expect(getByText('CityContentToolbar')).toBeTruthy()
   })
 
-  it('should show LocationHeader and LocationFooter if not loading', () => {
+  it('should show CityContentHeader and CityContentFooter if not loading', () => {
     const { getByText } = renderLocationLayout(false)
-    expect(getByText('LocationHeader')).toBeTruthy()
-    expect(getByText('LocationFooter')).toBeTruthy()
+    expect(getByText('CityContentHeader')).toBeTruthy()
+    expect(getByText('CityContentFooter')).toBeTruthy()
   })
 
-  it('should not render LocationFooter if loading', () => {
+  it('should not render CityContentFooter if loading', () => {
     const { getByText } = renderLocationLayout(true)
-    expect(getByText('LocationHeader')).toBeTruthy()
-    expect(() => getByText('LocationFooter')).toThrow()
+    expect(getByText('CityContentHeader')).toBeTruthy()
+    expect(() => getByText('CityContentFooter')).toThrow()
   })
 })
