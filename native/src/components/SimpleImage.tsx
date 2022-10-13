@@ -1,5 +1,5 @@
 import React, { ReactElement } from 'react'
-import { Image, View, ImageSourcePropType, StyleProp, ImageStyle, ImageResizeMode } from 'react-native'
+import { Image, View, ImageSourceProps, StyleProp, ImageStyle, ImageResizeMode } from 'react-native'
 
 export type ImageSourceType = string | number | null
 type SimpleImageProps = {
@@ -8,7 +8,7 @@ type SimpleImageProps = {
   resizeMode?: ImageResizeMode
 }
 
-const getImageSource = (uri: string | number): ImageSourcePropType =>
+const getImageSource = (uri: string | number): ImageSourceProps =>
   typeof uri === 'number'
     ? uri
     : {

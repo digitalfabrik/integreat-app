@@ -3,7 +3,7 @@ import { Dispatch } from 'redux'
 
 import { CityModel, ErrorCode, PoiModel, POIS_ROUTE, PoisRouteType } from 'api-client'
 
-import { NavigationPropType, RoutePropType } from '../constants/NavigationTypes'
+import { NavigationProps, RouteProps } from '../constants/NavigationTypes'
 import withPayloadProvider, { StatusProps } from '../hocs/withPayloadProvider'
 import createNavigate from '../navigation/createNavigate'
 import { LanguageResourceCacheStateType, StateType } from '../redux/StateType'
@@ -12,8 +12,8 @@ import { reportError } from '../utils/sentry'
 import Pois from './Pois'
 
 type NavigationProps = {
-  route: RoutePropType<PoisRouteType>
-  navigation: NavigationPropType<PoisRouteType>
+  route: RouteProps<PoisRouteType>
+  navigation: NavigationProps<PoisRouteType>
 }
 type OwnProps = NavigationProps
 type ContainerProps = OwnProps & {

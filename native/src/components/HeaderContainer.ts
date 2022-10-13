@@ -3,14 +3,14 @@ import { connect } from 'react-redux'
 import { CityModel } from 'api-client'
 
 import Header from '../components/Header'
-import { RoutesType, RoutePropType, NavigationPropType } from '../constants/NavigationTypes'
+import { RoutesType, RouteProps, NavigationProps } from '../constants/NavigationTypes'
 import navigateToLanguageChange from '../navigation/navigateToLanguageChange'
 import { StateType } from '../redux/StateType'
 import isPeekingRoute from '../redux/selectors/isPeekingRoute'
 
 type OwnProps = {
-  route: RoutePropType<RoutesType>
-  navigation: NavigationPropType<RoutesType>
+  route: RouteProps<RoutesType>
+  navigation: NavigationProps<RoutesType>
 }
 
 type StateProps = {

@@ -5,7 +5,7 @@ import styled from 'styled-components/native'
 import { ChangeLanguageModalRouteType } from 'api-client'
 
 import Selector from '../components/Selector'
-import { NavigationPropType, RoutePropType } from '../constants/NavigationTypes'
+import { NavigationProps, RouteProps } from '../constants/NavigationTypes'
 import SelectorItemModel from '../models/SelectorItemModel'
 
 const Wrapper = styled.ScrollView`
@@ -13,8 +13,8 @@ const Wrapper = styled.ScrollView`
 `
 
 type ChangeLanguageModalProps = {
-  route: RoutePropType<ChangeLanguageModalRouteType>
-  navigation: NavigationPropType<ChangeLanguageModalRouteType>
+  route: RouteProps<ChangeLanguageModalRouteType>
+  navigation: NavigationProps<ChangeLanguageModalRouteType>
 }
 
 const ChangeLanguageModal = ({ navigation, route }: ChangeLanguageModalProps): ReactElement => {

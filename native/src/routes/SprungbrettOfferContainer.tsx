@@ -16,7 +16,7 @@ import {
 import Failure from '../components/Failure'
 import Layout from '../components/Layout'
 import LayoutedScrollView from '../components/LayoutedScrollView'
-import { NavigationPropType, RoutePropType } from '../constants/NavigationTypes'
+import { NavigationProps, RouteProps } from '../constants/NavigationTypes'
 import useCities from '../hooks/useCities'
 import useReportError from '../hooks/useReportError'
 import useSetShareUrl from '../hooks/useSetShareUrl'
@@ -25,8 +25,8 @@ import { determineApiUrl } from '../utils/helpers'
 import SprungbrettOffer from './SprungbrettOffer'
 
 type SprungbrettOfferContainerProps = {
-  route: RoutePropType<SprungbrettOfferRouteType>
-  navigation: NavigationPropType<SprungbrettOfferRouteType>
+  route: RouteProps<SprungbrettOfferRouteType>
+  navigation: NavigationProps<SprungbrettOfferRouteType>
 }
 
 const SprungbrettOfferContainer = ({ route, navigation }: SprungbrettOfferContainerProps): ReactElement => {

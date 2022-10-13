@@ -2,12 +2,12 @@ import React, { ReactElement } from 'react'
 
 import { ExternalOfferRouteType } from 'api-client'
 
-import { NavigationPropType, RoutePropType } from '../constants/NavigationTypes'
+import { NavigationProps, RouteProps } from '../constants/NavigationTypes'
 import ExternalOffer from './ExternalOffer'
 
 type ExternalOfferContainerProps = {
-  route: RoutePropType<ExternalOfferRouteType>
-  navigation: NavigationPropType<ExternalOfferRouteType>
+  route: RouteProps<ExternalOfferRouteType>
+  navigation: NavigationProps<ExternalOfferRouteType>
 }
 
 const ExternalOfferContainer = ({ route, navigation: _navigation }: ExternalOfferContainerProps): ReactElement => {

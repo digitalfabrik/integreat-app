@@ -27,7 +27,7 @@ import MapView from '../components/MapView'
 import PoiDetails from '../components/PoiDetails'
 import PoiListItem from '../components/PoiListItem'
 import SiteHelpfulBox from '../components/SiteHelpfulBox'
-import { NavigationPropType, RoutePropType } from '../constants/NavigationTypes'
+import { NavigationProps, RouteProps } from '../constants/NavigationTypes'
 import dimensions from '../constants/dimensions'
 import usePrevious from '../hooks/usePrevious'
 import useSetShareUrl from '../hooks/useSetShareUrl'
@@ -40,8 +40,8 @@ export type PoisProps = {
   pois: Array<PoiModel>
   cityModel: CityModel
   language: string
-  route: RoutePropType<PoisRouteType>
-  navigation: NavigationPropType<PoisRouteType>
+  route: RouteProps<PoisRouteType>
+  navigation: NavigationProps<PoisRouteType>
 }
 
 const ListWrapper = styled.View`

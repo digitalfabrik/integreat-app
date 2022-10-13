@@ -24,7 +24,7 @@ export const renderWebviewError = (
   </Text>
 )
 
-type RemoteContentPropsType = {
+type RemoteContentProps = {
   content: string
   cacheDirectory: ParsedCacheDictionaryType
   language: string
@@ -33,7 +33,7 @@ type RemoteContentPropsType = {
   onLoad: () => void
 }
 
-const RemoteContent = (props: RemoteContentPropsType): ReactElement | null => {
+const RemoteContent = (props: RemoteContentProps): ReactElement | null => {
   const { onLoad, content, cacheDirectory, resourceCacheUrl, language, onLinkPress } = props
   const [error, setError] = useState<string | null>(null)
   const [pressedUrl, setPressedUrl] = useState<string | null>(null)

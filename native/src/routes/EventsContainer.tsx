@@ -4,7 +4,7 @@ import { Dispatch } from 'redux'
 
 import { CityModel, ErrorCode, EventModel, EVENTS_ROUTE, EventsRouteType } from 'api-client'
 
-import { NavigationPropType, RoutePropType } from '../constants/NavigationTypes'
+import { NavigationProps, RouteProps } from '../constants/NavigationTypes'
 import withPayloadProvider, { StatusProps } from '../hocs/withPayloadProvider'
 import useSetShareUrl from '../hooks/useSetShareUrl'
 import createNavigate from '../navigation/createNavigate'
@@ -15,8 +15,8 @@ import { reportError } from '../utils/sentry'
 import Events from './Events'
 
 type NavigationProps = {
-  route: RoutePropType<EventsRouteType>
-  navigation: NavigationPropType<EventsRouteType>
+  route: RouteProps<EventsRouteType>
+  navigation: NavigationProps<EventsRouteType>
 }
 type OwnProps = NavigationProps
 type DispatchProps = {

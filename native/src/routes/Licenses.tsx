@@ -28,14 +28,14 @@ const Description = styled.Text`
   padding-left: 8px;
 `
 
-type LicenseItemPropsType = {
+type LicenseItemProps = {
   name: string
   version: string
   license: string
   onPress: () => void
 }
 
-const LicenseItem = (props: LicenseItemPropsType): ReactElement => {
+const LicenseItem = (props: LicenseItemProps): ReactElement => {
   const { name, version, license, onPress } = props
   const { t } = useTranslation('licenses')
   return (

@@ -4,7 +4,7 @@ import { Dispatch } from 'redux'
 
 import { CATEGORIES_ROUTE, CityModel, DASHBOARD_ROUTE, DashboardRouteType, ErrorCode } from 'api-client'
 
-import { NavigationPropType, RoutePropType } from '../constants/NavigationTypes'
+import { NavigationProps, RouteProps } from '../constants/NavigationTypes'
 import withPayloadProvider, { StatusProps } from '../hocs/withPayloadProvider'
 import useSetShareUrl from '../hooks/useSetShareUrl'
 import CategoriesRouteStateView from '../models/CategoriesRouteStateView'
@@ -16,8 +16,8 @@ import { reportError } from '../utils/sentry'
 import Dashboard from './Dashboard'
 
 type NavigationProps = {
-  route: RoutePropType<DashboardRouteType>
-  navigation: NavigationPropType<DashboardRouteType>
+  route: RouteProps<DashboardRouteType>
+  navigation: NavigationProps<DashboardRouteType>
 }
 type OwnProps = NavigationProps
 type RefreshProps = NavigationProps & {

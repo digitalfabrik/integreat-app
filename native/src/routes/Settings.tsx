@@ -11,7 +11,7 @@ import { ThemeType } from 'build-configs'
 
 import Layout from '../components/Layout'
 import SettingItem from '../components/SettingItem'
-import { NavigationPropType, RoutePropType } from '../constants/NavigationTypes'
+import { NavigationProps, RouteProps } from '../constants/NavigationTypes'
 import useSnackbar from '../hooks/useSnackbar'
 import { StateType } from '../redux/StateType'
 import { StoreActionType } from '../redux/StoreActionType'
@@ -21,8 +21,8 @@ import { log, reportError } from '../utils/sentry'
 
 export type SettingsProps = {
   theme: ThemeType
-  route: RoutePropType<SettingsRouteType>
-  navigation: NavigationPropType<SettingsRouteType>
+  route: RouteProps<SettingsRouteType>
+  navigation: NavigationProps<SettingsRouteType>
   dispatch: Dispatch<StoreActionType>
 }
 
