@@ -9,7 +9,7 @@ import { IntroRouteType, LANDING_ROUTE } from 'api-client'
 
 import SlideContent, { SlideContentType } from '../components/SlideContent'
 import SlideFooter from '../components/SlideFooter'
-import { NavigationPropType, RoutePropType } from '../constants/NavigationTypes'
+import { NavigationProps, RouteProps } from '../constants/NavigationTypes'
 import buildConfig, { buildConfigAssets } from '../constants/buildConfig'
 import navigateToDeepLink from '../navigation/navigateToDeepLink'
 import { StateType } from '../redux/StateType'
@@ -37,8 +37,8 @@ const ImageContent = styled.Image`
 `
 
 type IntroProps = {
-  route: RoutePropType<IntroRouteType>
-  navigation: NavigationPropType<IntroRouteType>
+  route: RouteProps<IntroRouteType>
+  navigation: NavigationProps<IntroRouteType>
 }
 
 const Intro = ({ route, navigation }: IntroProps): ReactElement => {

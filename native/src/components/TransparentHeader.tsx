@@ -8,7 +8,7 @@ import styled from 'styled-components/native'
 
 import { SHARE_SIGNAL_NAME } from 'api-client'
 
-import { NavigationPropType, RoutePropType, RoutesType } from '../constants/NavigationTypes'
+import { NavigationProps, RouteProps, RoutesType } from '../constants/NavigationTypes'
 import buildConfig from '../constants/buildConfig'
 import dimensions from '../constants/dimensions'
 import useSnackbar from '../hooks/useSnackbar'
@@ -34,8 +34,8 @@ const BoxShadow = styled.View`
 `
 
 type TransparentHeaderProps = {
-  route: RoutePropType<RoutesType>
-  navigation: NavigationPropType<RoutesType>
+  route: RouteProps<RoutesType>
+  navigation: NavigationProps<RoutesType>
 }
 
 const TransparentHeader = ({ navigation, route }: TransparentHeaderProps): ReactElement | null => {

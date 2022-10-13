@@ -4,7 +4,7 @@ import React from 'react'
 import { CATEGORIES_ROUTE, CityModelBuilder } from 'api-client'
 
 import { renderWithTheme } from '../../testing/render'
-import LocationLayout, { ToolbarPropType } from '../LocationLayout'
+import LocationLayout, { ToolbarProps } from '../LocationLayout'
 
 jest.mock('../LocationFooter', () => () => <div>LocationFooter</div>)
 jest.mock('../LocationHeader', () => () => <div>LocationHeader</div>)
@@ -21,7 +21,7 @@ describe('LocationLayout', () => {
   const feedbackTargetInformation = { path: '/path/to/category' }
 
   const MockNode = () => <div />
-  const renderLocationLayout = (isLoading: boolean, toolbar?: ToolbarPropType): RenderResult =>
+  const renderLocationLayout = (isLoading: boolean, toolbar?: ToolbarProps): RenderResult =>
     renderWithTheme(
       <LocationLayout
         toolbar={toolbar}

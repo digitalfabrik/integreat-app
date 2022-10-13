@@ -8,13 +8,13 @@ import { ErrorCode, PdfViewModalRouteType } from 'api-client'
 
 import Failure from '../components/Failure'
 import LoadingSpinner from '../components/LoadingSpinner'
-import { NavigationPropType, RoutePropType } from '../constants/NavigationTypes'
+import { NavigationProps, RouteProps } from '../constants/NavigationTypes'
 import useSnackbar from '../hooks/useSnackbar'
 import openExternalUrl from '../utils/openExternalUrl'
 
 type PDFViewModalProps = {
-  route: RoutePropType<PdfViewModalRouteType>
-  navigation: NavigationPropType<PdfViewModalRouteType>
+  route: RouteProps<PdfViewModalRouteType>
+  navigation: NavigationProps<PdfViewModalRouteType>
 }
 
 const PDFViewModal = ({ route, navigation: _navigation }: PDFViewModalProps): ReactElement => {

@@ -4,7 +4,7 @@ import { Dispatch } from 'redux'
 
 import { CityModel, cityContentPath, DASHBOARD_ROUTE, LandingRouteType } from 'api-client'
 
-import { NavigationPropType, RoutePropType } from '../constants/NavigationTypes'
+import { NavigationProps, RouteProps } from '../constants/NavigationTypes'
 import withPayloadProvider, { StatusProps } from '../hocs/withPayloadProvider'
 import navigateToCategory from '../navigation/navigateToCategory'
 import navigateToCityNotCooperating from '../navigation/navigateToCityNotCooperating'
@@ -13,8 +13,8 @@ import { StoreActionType } from '../redux/StoreActionType'
 import Landing from './Landing'
 
 type OwnProps = {
-  route: RoutePropType<LandingRouteType>
-  navigation: NavigationPropType<LandingRouteType>
+  route: RouteProps<LandingRouteType>
+  navigation: NavigationProps<LandingRouteType>
 }
 type DispatchProps = {
   dispatch: Dispatch<StoreActionType>

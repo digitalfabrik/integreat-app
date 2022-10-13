@@ -40,14 +40,14 @@ const Aliases = styled.View`
   margin: 0 5px;
 `
 
-type CityEntryPropsType = {
+type CityEntryProps = {
   city: CityModel
   filterText: string
   navigateToDashboard: (city: CityModel) => void
   theme: ThemeType
 }
 
-class CityEntry extends React.PureComponent<CityEntryPropsType> {
+class CityEntry extends React.PureComponent<CityEntryProps> {
   getMatchingAliases = (city: CityModel, normalizedFilter: string): Array<string> => {
     if (city.aliases && normalizedFilter.length >= 1) {
       return Object.keys(city.aliases).filter(alias => normalizeSearchString(alias).includes(normalizedFilter))

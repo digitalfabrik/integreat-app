@@ -2,7 +2,7 @@ import { Dispatch } from 'redux'
 
 import { DISCLAIMER_ROUTE } from 'api-client/src/routes'
 
-import { NavigationPropType, RoutesType } from '../constants/NavigationTypes'
+import { NavigationProps, RoutesType } from '../constants/NavigationTypes'
 import { StoreActionType } from '../redux/StoreActionType'
 
 const navigateToDisclaimer = <T extends RoutesType>({
@@ -11,7 +11,7 @@ const navigateToDisclaimer = <T extends RoutesType>({
   languageCode,
 }: {
   dispatch: Dispatch<StoreActionType>
-  navigation: NavigationPropType<T>
+  navigation: NavigationProps<T>
   cityCode: string
   languageCode: string
 }): void => {

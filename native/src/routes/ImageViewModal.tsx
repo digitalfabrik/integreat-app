@@ -7,10 +7,10 @@ import { ErrorCode, ImageViewModalRouteType } from 'api-client'
 
 import Failure from '../components/Failure'
 import PinchPanImage from '../components/PinchPanImage'
-import { RoutePropType } from '../constants/NavigationTypes'
+import { RouteProps } from '../constants/NavigationTypes'
 
 type ImageViewModalProps = {
-  route: RoutePropType<ImageViewModalRouteType>
+  route: RouteProps<ImageViewModalRouteType>
 }
 
 const ImageViewModal = ({ route }: ImageViewModalProps): ReactElement => {

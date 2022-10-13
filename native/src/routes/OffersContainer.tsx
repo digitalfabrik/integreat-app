@@ -16,7 +16,7 @@ import {
 
 import Failure from '../components/Failure'
 import LayoutedScrollView from '../components/LayoutedScrollView'
-import { NavigationPropType, RoutePropType } from '../constants/NavigationTypes'
+import { NavigationProps, RouteProps } from '../constants/NavigationTypes'
 import useCities from '../hooks/useCities'
 import useReportError from '../hooks/useReportError'
 import useSetShareUrl from '../hooks/useSetShareUrl'
@@ -28,8 +28,8 @@ import openExternalUrl from '../utils/openExternalUrl'
 import Offers from './Offers'
 
 type OffersContainerProps = {
-  route: RoutePropType<OffersRouteType>
-  navigation: NavigationPropType<OffersRouteType>
+  route: RouteProps<OffersRouteType>
+  navigation: NavigationProps<OffersRouteType>
 }
 
 const OffersContainer = ({ navigation, route }: OffersContainerProps): ReactElement => {

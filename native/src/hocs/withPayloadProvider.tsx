@@ -11,7 +11,7 @@ import LanguageNotAvailablePage from '../components/LanguageNotAvailablePage'
 import Layout from '../components/Layout'
 import LayoutedScrollView from '../components/LayoutedScrollView'
 import ProgressSpinner from '../components/ProgressSpinner'
-import { NavigationPropType, RoutePropType, RoutesType } from '../constants/NavigationTypes'
+import { NavigationProps, RouteProps, RoutesType } from '../constants/NavigationTypes'
 import wrapDisplayName from '../hocs/wrapDisplayName'
 import useClearRouteOnClose from '../hooks/useClearRouteOnClose'
 import { StoreActionType } from '../redux/StoreActionType'
@@ -66,8 +66,8 @@ export type withPayloadProviderProps<
   T extends RoutesType
 > = StatusProps<S, R> & {
   dispatch: Dispatch<StoreActionType>
-  navigation: NavigationPropType<T>
-  route: RoutePropType<T>
+  navigation: NavigationProps<T>
+  route: RouteProps<T>
 }
 
 const withPayloadProvider =

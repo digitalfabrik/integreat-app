@@ -4,11 +4,11 @@ import { ThemeContext } from 'styled-components'
 import { FeedbackModalRouteType } from 'api-client'
 
 import FeedbackContainer from '../components/FeedbackContainer'
-import { NavigationPropType, RoutePropType } from '../constants/NavigationTypes'
+import { NavigationProps, RouteProps } from '../constants/NavigationTypes'
 
 type FeedbackModalContainerProps = {
-  route: RoutePropType<FeedbackModalRouteType>
-  navigation: NavigationPropType<FeedbackModalRouteType>
+  route: RouteProps<FeedbackModalRouteType>
+  navigation: NavigationProps<FeedbackModalRouteType>
 }
 
 const FeedbackModalContainer = ({ route }: FeedbackModalContainerProps): ReactElement => {

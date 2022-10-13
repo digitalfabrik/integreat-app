@@ -1,8 +1,8 @@
 import { DASHBOARD_ROUTE } from 'api-client'
 
-import { NavigationPropType, RoutesType } from '../constants/NavigationTypes'
+import { NavigationProps, RoutesType } from '../constants/NavigationTypes'
 
-const createNavigationMock = <T extends RoutesType>(routeIndex = 0): NavigationPropType<T> => ({
+const createNavigationMock = <T extends RoutesType>(routeIndex = 0): NavigationProps<T> => ({
   dispatch: jest.fn(),
   canGoBack: jest.fn(() => routeIndex > 0),
   goBack: jest.fn(),

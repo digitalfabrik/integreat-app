@@ -5,7 +5,7 @@ import { Dispatch } from 'redux'
 import { CATEGORIES_ROUTE, CategoriesRouteType, CityModel, ErrorCode } from 'api-client'
 
 import Categories from '../components/Categories'
-import { NavigationPropType, RoutePropType } from '../constants/NavigationTypes'
+import { NavigationProps, RouteProps } from '../constants/NavigationTypes'
 import withPayloadProvider, { StatusProps } from '../hocs/withPayloadProvider'
 import useSetShareUrl from '../hooks/useSetShareUrl'
 import CategoriesRouteStateView from '../models/CategoriesRouteStateView'
@@ -16,8 +16,8 @@ import { StoreActionType, SwitchContentLanguageActionType } from '../redux/Store
 import { reportError } from '../utils/sentry'
 
 type NavigationProps = {
-  route: RoutePropType<CategoriesRouteType>
-  navigation: NavigationPropType<CategoriesRouteType>
+  route: RouteProps<CategoriesRouteType>
+  navigation: NavigationProps<CategoriesRouteType>
 }
 type OwnProps = NavigationProps
 type DispatchProps = {
