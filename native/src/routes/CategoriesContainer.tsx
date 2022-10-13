@@ -25,12 +25,12 @@ type DispatchProps = {
 }
 type ContainerProps = OwnProps &
   DispatchProps & {
-  cityModel: CityModel
-  language: string
-  stateView: CategoriesRouteStateView
-  resourceCache: LanguageResourceCacheStateType
-  resourceCacheUrl: string
-}
+    cityModel: CityModel
+    language: string
+    stateView: CategoriesRouteStateView
+    resourceCache: LanguageResourceCacheStateType
+    resourceCacheUrl: string
+  }
 type RefreshProps = CategoriesNavigationProps & {
   cityCode: string
   language: string
@@ -44,20 +44,20 @@ const createChangeUnavailableLanguage =
       type: 'SWITCH_CONTENT_LANGUAGE',
       params: {
         newLanguage,
-        city
-      }
+        city,
+      },
     }
     dispatch(switchContentLanguage)
   }
 
 const mapStateToProps = (state: StateType, ownProps: OwnProps): StateProps => {
   const {
-    route: { key }
+    route: { key },
   } = ownProps
 
   if (!state.cityContent) {
     return {
-      status: 'routeNotInitialized'
+      status: 'routeNotInitialized',
     }
   }
 
@@ -66,14 +66,14 @@ const mapStateToProps = (state: StateType, ownProps: OwnProps): StateProps => {
 
   if (!route || route.routeType !== CATEGORIES_ROUTE) {
     return {
-      status: 'routeNotInitialized'
+      status: 'routeNotInitialized',
     }
   }
 
   if (switchingLanguage) {
     return {
       status: 'loading',
-      progress: resourceCache.status === 'ready' ? resourceCache.progress : 0
+      progress: resourceCache.status === 'ready' ? resourceCache.progress : 0,
     }
   }
 
@@ -84,7 +84,7 @@ const mapStateToProps = (state: StateType, ownProps: OwnProps): StateProps => {
         status: 'error',
         refreshProps: null,
         code: languages.status === 'error' ? languages.code : ErrorCode.UnknownError,
-        message: languages.status === 'error' ? languages.message : 'languages not ready'
+        message: languages.status === 'error' ? languages.message : 'languages not ready',
       }
     }
 
@@ -92,7 +92,7 @@ const mapStateToProps = (state: StateType, ownProps: OwnProps): StateProps => {
       status: 'languageNotAvailable',
       availableLanguages: languages.models.filter(lng => route.allAvailableLanguages.has(lng.code)),
       cityCode: route.city,
-      changeUnavailableLanguage: createChangeUnavailableLanguage(route.city)
+      changeUnavailableLanguage: createChangeUnavailableLanguage(route.city),
     }
   }
 
@@ -101,7 +101,7 @@ const mapStateToProps = (state: StateType, ownProps: OwnProps): StateProps => {
     language: route.language,
     path: route.path,
     navigation: ownProps.navigation,
-    route: ownProps.route
+    route: ownProps.route,
   }
 
   if (state.cities.status === 'error') {
@@ -109,7 +109,7 @@ const mapStateToProps = (state: StateType, ownProps: OwnProps): StateProps => {
       status: 'error',
       message: state.cities.message,
       code: state.cities.code,
-      refreshProps
+      refreshProps,
     }
   }
   if (route.status === 'error') {
@@ -117,7 +117,7 @@ const mapStateToProps = (state: StateType, ownProps: OwnProps): StateProps => {
       status: 'error',
       message: route.message,
       code: route.code,
-      refreshProps
+      refreshProps,
     }
   }
   if (resourceCache.status === 'error') {
@@ -125,7 +125,7 @@ const mapStateToProps = (state: StateType, ownProps: OwnProps): StateProps => {
       status: 'error',
       message: resourceCache.message,
       code: resourceCache.code,
-      refreshProps
+      refreshProps,
     }
   }
   if (languages.status === 'error') {
@@ -133,7 +133,7 @@ const mapStateToProps = (state: StateType, ownProps: OwnProps): StateProps => {
       status: 'error',
       message: languages.message,
       code: languages.code,
-      refreshProps
+      refreshProps,
     }
   }
 
@@ -148,7 +148,7 @@ const mapStateToProps = (state: StateType, ownProps: OwnProps): StateProps => {
   ) {
     return {
       status: 'loading',
-      progress: resourceCache.progress
+      progress: resourceCache.progress,
     }
   }
 
@@ -160,7 +160,7 @@ const mapStateToProps = (state: StateType, ownProps: OwnProps): StateProps => {
       status: 'error',
       refreshProps,
       message: 'Unknown city',
-      code: ErrorCode.PageNotFound
+      code: ErrorCode.PageNotFound,
     }
   }
 
@@ -172,8 +172,8 @@ const mapStateToProps = (state: StateType, ownProps: OwnProps): StateProps => {
       language: route.language,
       stateView,
       resourceCache: resourceCache.value,
-      resourceCacheUrl
-    }
+      resourceCacheUrl,
+    },
   }
 
   if (route.status === 'loading') {
@@ -184,7 +184,7 @@ const mapStateToProps = (state: StateType, ownProps: OwnProps): StateProps => {
 }
 
 const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>): DispatchProps => ({
-  dispatch
+  dispatch,
 })
 
 const refresh = async (refreshProps: RefreshProps, dispatch: Dispatch<StoreActionType>) => {
@@ -195,7 +195,7 @@ const refresh = async (refreshProps: RefreshProps, dispatch: Dispatch<StoreActio
       route: CATEGORIES_ROUTE,
       cityCode,
       languageCode: language,
-      cityContentPath: path
+      cityContentPath: path,
     },
     route.key,
     true
@@ -208,7 +208,7 @@ const CategoriesContainer = ({ dispatch, navigation, route, ...rest }: Container
     route: CATEGORIES_ROUTE,
     languageCode: language,
     cityCode: cityModel.code,
-    cityContentPath: stateView.root().path
+    cityContentPath: stateView.root().path,
   }
   useSetShareUrl({ navigation, routeInformation, route })
 
