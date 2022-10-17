@@ -56,10 +56,7 @@ const CategoriesContent = ({ categories, categoryModel, formatter, t }: PropsTyp
   // some level between, we want to display a list
   return (
     <CategoryList
-      categories={children.map(model => ({
-        model,
-        subCategories: categories.getChildren(model),
-      }))}
+      items={children.map(it => ({ category: it, subCategories: categories.getChildren(it) }))}
       category={categoryModel}
       onInternalLinkClick={navigate}
       formatter={formatter}
