@@ -72,13 +72,7 @@ const NearbyCitiesGroup = ({ cities, navigateToDashboard, filterText }: Props): 
   return (
     <>
       {nearbyCities.map(city => (
-        <CityEntry
-          key={city.code}
-          city={city}
-          filterText={filterText}
-          navigateToDashboard={navigateToDashboard}
-          theme={theme}
-        />
+        <CityEntry key={city.code} city={city} query={filterText} navigateToDashboard={navigateToDashboard} />
       ))}
     </>
   )

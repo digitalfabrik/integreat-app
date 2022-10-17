@@ -44,7 +44,6 @@ const News = (props: PropsType): ReactElement => {
         index={index}
         key={item.id}
         newsItem={item}
-        language={language}
         isTunews={selectedNewsType === TU_NEWS_TYPE}
         navigateToNews={navigateToNews}
       />
