@@ -143,7 +143,7 @@ export const Header = ({
                 show={isSidebarOpen}
                 items={kebabItems}
                 direction={direction}
-                footer={<CityContentFooter city={cityName} language={language} inSidebar />}
+                Footer={<CityContentFooter city={cityName} language={language} mode='sidebar' />}
               />
             )}
           </ActionBar>
