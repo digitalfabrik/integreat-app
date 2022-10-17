@@ -1,0 +1,5 @@
+issue_key: IGAPP-1122
+show_in_stores: true
+platforms:
+  - web
+en: Hide the icon for the chatbot on the locations route

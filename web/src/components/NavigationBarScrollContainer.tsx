@@ -17,7 +17,6 @@ type PropsType = {
 
 const Container = styled.div`
   display: flex;
-  padding: 4px 0;
 `
 
 const Arrow = styled.img<{ direction?: string; visible: boolean }>`
@@ -59,7 +58,7 @@ const getActiveItemScrollPosition = (activeIndex: number): number => {
   if (!navigationBar || !(navigationItem instanceof HTMLElement)) {
     return 0
   }
-  return navigationItem?.offsetLeft ? navigationItem.offsetLeft - navigationBar.offsetLeft : 0
+  return navigationItem.offsetLeft - navigationBar.offsetLeft
 }
 
 const NavigationBarScrollContainer = ({ children, direction, activeIndex }: PropsType): ReactElement => {

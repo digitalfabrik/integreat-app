@@ -1,5 +1,5 @@
-import * as React from 'react'
-import { ReactElement, useCallback } from 'react'
+import { mapValues } from 'lodash'
+import React, { ReactElement } from 'react'
 import { View } from 'react-native'
 
 import { CategoryModel, CityModel } from 'api-client'
@@ -9,8 +9,11 @@ import { RouteInformationType } from 'api-client/src/routes/RouteInformationType
 import { URL_PREFIX } from '../constants/webview'
 import CategoriesRouteStateView from '../models/CategoriesRouteStateView'
 import TileModel from '../models/TileModel'
-import { LanguageResourceCacheStateType, PageResourceCacheStateType } from '../redux/StateType'
-import CategoryList, { CategoryListModelType, ListContentModelType } from './CategoryList'
+import { LanguageResourceCacheStateType, PageResourceCacheEntryStateType } from '../redux/StateType'
+import { RESOURCE_CACHE_DIR_PATH } from '../utils/DatabaseConnector'
+import Caption from './Caption'
+import CategoryListContent from './CategoryListContent'
+import CategoryListItem from './CategoryListItem'
 import { FeedbackInformationType } from './FeedbackContainer'
 import Page from './Page'
 import SiteHelpfulBox from './SiteHelpfulBox'
@@ -21,8 +24,8 @@ export type PropsType = {
   cityModel: CityModel
   language: string
   stateView: CategoriesRouteStateView
-  navigateTo: (arg0: RouteInformationType) => void
-  navigateToFeedback: (arg0: FeedbackInformationType) => void
+  navigateTo: (routeInformation: RouteInformationType) => void
+  navigateToFeedback: (feedbackInformation: FeedbackInformationType) => void
   resourceCache: LanguageResourceCacheStateType
   resourceCacheUrl: string
 }
@@ -42,85 +45,42 @@ const Categories = ({
 }: PropsType): ReactElement => {
   const category = stateView.root()
   const children = stateView.children()
+  const categoryResourceCache = resourceCache[category.path] || {}
 
-  const onTilePress = useCallback(
-    (tile: TileModel) => {
-      navigateTo({
-        route: CATEGORIES_ROUTE,
-        cityCode: cityModel.code,
-        languageCode: language,
-        cityContentPath: tile.path,
-      })
-    },
-    [cityModel.code, language, navigateTo]
-  )
+  const getCachedThumbnail = (category: CategoryModel): string => {
+    const categoryResourceCache = resourceCache[category.path] || {}
+    const resource = categoryResourceCache[category.thumbnail]
 
-  const onItemPress = useCallback(
-    (category: CategoryListModelType) => {
-      navigateTo({
-        route: CATEGORIES_ROUTE,
-        cityCode: cityModel.code,
-        languageCode: language,
-        cityContentPath: category.path,
-      })
-    },
-    [cityModel.code, language, navigateTo]
-  )
+    if (resource) {
+      return URL_PREFIX + resource.filePath
+    }
+
+    return category.thumbnail
+  }
+
+  const mapToItem = (category: CategoryModel) => ({
+    title: category.title,
+    path: category.path,
+    thumbnail: getCachedThumbnail(category),
+  })
+
+  const navigateToCategory = ({ path }: { path: string }) =>
+    navigateTo({
+      route: CATEGORIES_ROUTE,
+      cityCode: cityModel.code,
+      languageCode: language,
+      cityContentPath: path,
+    })
 
   const navigateToFeedbackForCategory = (isPositiveFeedback: boolean) => {
     navigateToFeedback({
       routeType: CATEGORIES_ROUTE,
       language,
       cityCode: cityModel.code,
-      path: !category.isRoot() ? category.path : undefined,
+      path: category.isRoot() ? undefined : category.path,
       isPositiveFeedback,
     })
   }
-
-  const getCategoryResourceCache = (category: CategoryModel): PageResourceCacheStateType =>
-    resourceCache[category.path] || {}
-
-  const getCachedThumbnail = (category: CategoryModel): string | null | undefined => {
-    if (category.thumbnail) {
-      const resource = getCategoryResourceCache(category)[category.thumbnail]
-
-      if (resource) {
-        return URL_PREFIX + resource.filePath
-      }
-    }
-
-    return null
-  }
-
-  const getTileModels = (categories: Array<CategoryModel>): Array<TileModel> =>
-    categories.map(
-      category =>
-        new TileModel({
-          title: category.title,
-          path: category.path,
-          thumbnail: getCachedThumbnail(category) || category.thumbnail,
-          isExternalUrl: false,
-        })
-    )
-
-  const getListModel = (category: CategoryModel): CategoryListModelType => ({
-    title: category.title,
-    path: category.path,
-    thumbnail: getCachedThumbnail(category) || category.thumbnail,
-  })
-
-  const getListModels = (categories: Array<CategoryModel>): Array<CategoryListModelType> =>
-    categories.map(category => getListModel(category))
-
-  const getListContentModel = (category: CategoryModel): ListContentModelType | null | undefined =>
-    category.content
-      ? {
-          content: category.content,
-          files: getCategoryResourceCache(category),
-          resourceCacheUrl,
-          lastUpdate: category.lastUpdate,
-        }
-      : undefined
 
   /**
    * Returns the content to be displayed, based on the current category, which is
@@ -132,49 +92,65 @@ const Categories = ({
 
   if (children.length === 0) {
     // last level, our category is a simple page
-    const files = getCategoryResourceCache(category)
     return (
       <Page
         title={category.title}
         content={category.content}
         lastUpdate={category.lastUpdate}
-        files={files}
+        files={categoryResourceCache}
         language={language}
         navigateToFeedback={navigateToFeedbackForCategory}
         resourceCacheUrl={resourceCacheUrl}
       />
     )
   }
+
   if (category.isRoot()) {
     // first level, we want to display a table with all first order categories
+    const tiles = children.map(it => new TileModel({ ...mapToItem(it), isExternalUrl: false }))
+
     return (
       <SpaceBetween>
         <View>
-          <Tiles tiles={getTileModels(children)} language={language} onTilePress={onTilePress} />
+          <Tiles tiles={tiles} language={language} onTilePress={navigateToCategory} />
         </View>
         <SiteHelpfulBox navigateToFeedback={navigateToFeedbackForCategory} />
       </SpaceBetween>
     )
   }
 
+  const cacheDictionary = mapValues(categoryResourceCache, (file: PageResourceCacheEntryStateType): string =>
+    file.filePath.startsWith(RESOURCE_CACHE_DIR_PATH)
+      ? file.filePath.replace(RESOURCE_CACHE_DIR_PATH, resourceCacheUrl)
+      : file.filePath
+  )
+
+  const ListContent = category.content ? (
+    <CategoryListContent
+      content={category.content}
+      language={language}
+      cacheDictionary={cacheDictionary}
+      lastUpdate={category.lastUpdate}
+    />
+  ) : undefined
+
+  const items = children.map(it => {
+    const children = stateView.stepInto(it.path).children()
+    return {
+      ...mapToItem(it),
+      subCategories: children.map(mapToItem),
+    }
+  })
+
   // some level between, we want to display a list
   return (
     <SpaceBetween>
       <View>
-        <CategoryList
-          categories={children.map((model: CategoryModel) => {
-            const newStateView = stateView.stepInto(model.path)
-            const children = newStateView.children()
-            return {
-              model: getListModel(model),
-              subCategories: getListModels(children),
-            }
-          })}
-          title={category.title}
-          listContent={getListContentModel(category)}
-          language={language}
-          onItemPress={onItemPress}
-        />
+        <Caption title={category.title} />
+        {ListContent}
+        {items.map(it => (
+          <CategoryListItem key={it.path} item={it} language={language} onItemPress={navigateToCategory} />
+        ))}
       </View>
       <SiteHelpfulBox navigateToFeedback={navigateToFeedbackForCategory} />
     </SpaceBetween>
