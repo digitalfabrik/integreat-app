@@ -10,15 +10,15 @@ import Footer from './Footer'
 
 const SidebarFooterContainer = styled.div`
   width: 100%;
-  margin: -10px 12px 0 23px;
+  margin-top: -10px; /* to counteract the padding-top of the normal footer */
+  padding: 0 32px;
   > * {
     color: ${props => props.theme.colors.textColor};
-    height: 48px;
+    padding: 16px 0;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding-right: 5.5px; /* the text is centered, the lines between are not */
-    border-bottom: 1px solid ${props => props.theme.colors.textSecondaryColor};
+    border-bottom: 1px solid #b1b1b1;
     &:last-child {
       border-bottom: none;
     }
@@ -51,27 +51,24 @@ const CityContentFooter: React.FC<CityContentFooterProps> = ({
     route: LICENSES_ROUTE,
   })
 
-  if (inSidebar) {
-    return (
-      <Footer>
-        <SidebarFooterContainer>
-          <CleanLink to={disclaimerPath}>{t('imprintAndContact')}</CleanLink>
-          <CleanLink to={aboutUrl}>{t('settings:about', { appName: buildConfig().appName })}</CleanLink>
-          <CleanLink to={privacyUrl}>{t('privacy')}</CleanLink>
-          <CleanLink to={licensesPath}>{t('settings:openSourceLicenses')}</CleanLink>
-        </SidebarFooterContainer>
-      </Footer>
-    )
-  }
-
-  return (
-    <Footer overlay={overlay}>
+  const links = (
+    <>
       <CleanLink to={disclaimerPath}>{t('imprintAndContact')}</CleanLink>
       <CleanLink to={aboutUrl}>{t('settings:about', { appName: buildConfig().appName })}</CleanLink>
       <CleanLink to={privacyUrl}>{t('privacy')}</CleanLink>
       <CleanLink to={licensesPath}>{t('settings:openSourceLicenses')}</CleanLink>
-    </Footer>
+    </>
   )
+
+  if (inSidebar) {
+    return (
+      <Footer>
+        <SidebarFooterContainer>{links}</SidebarFooterContainer>
+      </Footer>
+    )
+  }
+
+  return <Footer overlay={overlay}>{links}</Footer>
 }
 
 export default CityContentFooter
