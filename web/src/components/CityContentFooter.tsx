@@ -11,7 +11,7 @@ import Footer from './Footer'
 const SidebarFooterContainer = styled.div`
   width: 100%;
   margin-top: -10px; /* to counteract the padding-top of the normal footer */
-  padding: 0 32px;
+  padding: 0 27px;
   > * {
     color: ${props => props.theme.colors.textColor};
     padding: 16px 0;
