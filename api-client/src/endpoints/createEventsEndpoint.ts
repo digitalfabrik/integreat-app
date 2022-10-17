@@ -74,7 +74,15 @@ export default (baseUrl: string): Endpoint<ParamsType, Array<EventModel>> =>
               return 1
             }
 
-            return 0
+            if (event1.date.endDate.isBefore(event2.date.endDate)) {
+              return -1
+            }
+
+            if (event1.date.endDate.isAfter(event2.date.endDate)) {
+              return 1
+            }
+
+            return event1.title.localeCompare(event2.title)
           })
     )
     .build()
