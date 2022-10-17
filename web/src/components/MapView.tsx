@@ -173,7 +173,7 @@ const MapView = forwardRef((props: MapViewProps, ref: React.Ref<MapRef>): ReactE
           <>
             <NavigationControl showCompass={false} position={direction === 'rtl' ? 'bottom-left' : 'bottom-right'} />
             <FooterContainer>
-              <CityContentFooter city={cityCode} language={languageCode} overlay />
+              <CityContentFooter city={cityCode} language={languageCode} mode='overlay' />
             </FooterContainer>
           </>
         )}

@@ -28,16 +28,10 @@ const SidebarFooterContainer = styled.div`
 type CityContentFooterProps = {
   city: string
   language: string
-  overlay?: boolean
-  inSidebar?: boolean
+  mode?: 'normal' | 'overlay' | 'sidebar'
 }
 
-const CityContentFooter: React.FC<CityContentFooterProps> = ({
-  city,
-  language,
-  overlay = false,
-  inSidebar = false,
-}: CityContentFooterProps): ReactElement => {
+const CityContentFooter = ({ city, language, mode = 'normal' }: CityContentFooterProps): ReactElement => {
   const { aboutUrls, privacyUrls } = buildConfig()
   const { t } = useTranslation(['layout', 'settings'])
   const aboutUrl = aboutUrls[language] || aboutUrls.default
@@ -51,7 +45,7 @@ const CityContentFooter: React.FC<CityContentFooterProps> = ({
     route: LICENSES_ROUTE,
   })
 
-  const links = (
+  const Links = (
     <>
       <CleanLink to={disclaimerPath}>{t('imprintAndContact')}</CleanLink>
       <CleanLink to={aboutUrl}>{t('settings:about', { appName: buildConfig().appName })}</CleanLink>
@@ -60,15 +54,15 @@ const CityContentFooter: React.FC<CityContentFooterProps> = ({
     </>
   )
 
-  if (inSidebar) {
+  if (mode === 'sidebar') {
     return (
       <Footer>
-        <SidebarFooterContainer>{links}</SidebarFooterContainer>
+        <SidebarFooterContainer>{Links}</SidebarFooterContainer>
       </Footer>
     )
   }
 
-  return <Footer overlay={overlay}>{links}</Footer>
+  return <Footer overlay={mode === 'overlay'}>{Links}</Footer>
 }
 
 export default CityContentFooter
