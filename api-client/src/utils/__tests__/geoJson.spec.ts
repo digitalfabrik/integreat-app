@@ -48,7 +48,7 @@ describe('geoJson', () => {
         ...expectedGeoJsonMarkerFeature,
         properties: {
           ...expectedGeoJsonMarkerFeature.properties,
-          distance: '0',
+          distance: '0.0',
         },
       })
     })
