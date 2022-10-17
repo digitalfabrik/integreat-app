@@ -2,7 +2,7 @@ import { groupBy, transform } from 'lodash'
 import React, { ReactElement, ReactNode, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { View } from 'react-native'
-import styled, { useTheme } from 'styled-components/native'
+import styled from 'styled-components/native'
 
 import { CityModel, filterSortCities } from 'api-client'
 
@@ -33,18 +33,11 @@ type PropsType = {
 const CitySelector = ({ cities, navigateToDashboard }: PropsType): ReactElement => {
   const [filterText, setFilterText] = useState<string>('')
   const { t } = useTranslation('landing')
-  const theme = useTheme()
 
   const resultCities = filterSortCities(cities, filterText, buildConfig().featureFlags.developerFriendly)
 
   const renderCity = (city: CityModel) => (
-    <CityEntry
-      key={city.code}
-      city={city}
-      filterText={filterText}
-      navigateToDashboard={navigateToDashboard}
-      theme={theme}
-    />
+    <CityEntry key={city.code} city={city} query={filterText} navigateToDashboard={navigateToDashboard} />
   )
 
   const cityGroups = groupBy(resultCities, (city: CityModel) => city.sortCategory)

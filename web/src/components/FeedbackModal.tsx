@@ -1,4 +1,5 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import FocusTrap from 'focus-trap-react'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
@@ -78,23 +79,25 @@ const FeedbackModal = (props: PropsType): ReactElement => {
   const { t } = useTranslation('feedback')
 
   return (
-    <ModalContainer role='dialog' aria-modal>
-      <Overlay onClick={closeModal} role='button' tabIndex={0} onKeyPress={closeModal} />
-      <ModalContent>
-        <Header>
-          <div>{t('feedback')}</div>
-          <CloseButton aria-label={t('close')} onClick={closeModal}>
-            <FontAwesomeIcon icon={faTimes} />
-          </CloseButton>
-        </Header>
-        <FeedbackContainer
-          isPositiveFeedback={feedbackRating === POSITIVE_RATING}
-          isSearchFeedback={false}
-          closeModal={closeModal}
-          {...otherProps}
-        />
-      </ModalContent>
-    </ModalContainer>
+    <FocusTrap focusTrapOptions={{ clickOutsideDeactivates: true }}>
+      <ModalContainer role='dialog' aria-modal>
+        <Overlay onClick={closeModal} role='button' tabIndex={0} onKeyPress={closeModal} />
+        <ModalContent>
+          <Header>
+            <div>{t('feedback')}</div>
+            <CloseButton aria-label={t('close')} onClick={closeModal}>
+              <FontAwesomeIcon icon={faTimes} />
+            </CloseButton>
+          </Header>
+          <FeedbackContainer
+            isPositiveFeedback={feedbackRating === POSITIVE_RATING}
+            isSearchFeedback={false}
+            closeModal={closeModal}
+            {...otherProps}
+          />
+        </ModalContent>
+      </ModalContainer>
+    </FocusTrap>
   )
 }
 
