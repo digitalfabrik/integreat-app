@@ -2,12 +2,12 @@ import normalizeStrings from 'normalize-strings'
 
 import CityModel from '../models/CityModel'
 
-export const normalizeSearchString = (str: string): string => normalizeStrings(str).toLowerCase().trim()
+export const normalizeString = (str: string): string => normalizeStrings(str).toLowerCase().trim()
 
 const cityFilter =
   (filterText: string, developerFriendly: boolean) =>
   (cityModel: CityModel): boolean => {
-    const normalizedFilter = normalizeSearchString(filterText)
+    const normalizedFilter = normalizeString(filterText)
 
     // TODO Remove filter once django has replaced wordpress and there is no city with empty path anymore
     if (cityModel.code === '') {
@@ -20,7 +20,7 @@ const cityFilter =
 
     const validCity = cityModel.live || developerFriendly
     const aliases = Object.keys(cityModel.aliases ?? {})
-    const matchesFilter = [cityModel.name, ...aliases].some(it => normalizeSearchString(it).includes(normalizedFilter))
+    const matchesFilter = [cityModel.name, ...aliases].some(it => normalizeString(it).includes(normalizedFilter))
     return validCity && matchesFilter
   }
 
