@@ -1,0 +1,7 @@
+issue_key: IGAPP-1107
+show_in_stores: false
+platforms:
+  - web
+  - android
+  - ios
+en: Sort events by end date or title if the start dates are equal.
