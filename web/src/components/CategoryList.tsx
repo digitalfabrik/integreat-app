@@ -25,9 +25,9 @@ type PropsType = {
 
 const CategoryList = ({ items, query, formatter, category, onInternalLinkClick }: PropsType): ReactElement => (
   <div>
-    {category?.title && <Caption title={category.title} />}
-    {category?.content && <RemoteContent html={category.content} onInternalLinkClick={onInternalLinkClick} />}
-    {category?.content && formatter && (
+    {!!category?.title && <Caption title={category.title} />}
+    {!!category?.content && <RemoteContent html={category.content} onInternalLinkClick={onInternalLinkClick} />}
+    {!!category?.content && formatter && (
       <LastUpdateInfo lastUpdate={category.lastUpdate} formatter={formatter} withText />
     )}
     <List>

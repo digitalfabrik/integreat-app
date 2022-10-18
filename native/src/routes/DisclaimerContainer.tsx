@@ -64,7 +64,7 @@ const DisclaimerContainer = ({ navigation, route }: PropsType): ReactElement => 
 
   return (
     <LayoutedScrollView refreshControl={<RefreshControl onRefresh={refresh} refreshing={loading} />}>
-      {disclaimer && resourceCacheUrl && (
+      {!!disclaimer && !!resourceCacheUrl && (
         <Disclaimer resourceCacheUrl={resourceCacheUrl} disclaimer={disclaimer} language={languageCode} />
       )}
       <SiteHelpfulBox navigateToFeedback={navigateToFeedback} />

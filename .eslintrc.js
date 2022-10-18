@@ -1,7 +1,15 @@
 module.exports = {
   root: true,
   parser: '@typescript-eslint/parser',
-  plugins: ['@typescript-eslint', 'react', 'react-hooks', 'jest', 'prefer-arrow', 'styled-components-a11y'],
+  plugins: [
+    '@typescript-eslint',
+    'jest',
+    'jsx-expressions',
+    'prefer-arrow',
+    'react',
+    'react-hooks',
+    'styled-components-a11y',
+  ],
   extends: [
     'airbnb',
     'airbnb/hooks',
@@ -61,6 +69,7 @@ module.exports = {
     'react/static-property-placement': 'off',
 
     curly: ['error', 'all'],
+    'func-names': 'error',
     'no-console': 'error',
     'no-magic-numbers': [
       'error',
@@ -71,7 +80,6 @@ module.exports = {
     ],
     'prefer-destructuring': ['error', { array: false }],
     'prefer-object-spread': 'error',
-    'func-names': 'error',
 
     'react/function-component-definition': [
       'error',
@@ -105,6 +113,8 @@ module.exports = {
 
     'jest/consistent-test-it': 'error',
     'jest/no-alias-methods': 'error',
+
+    'jsx-expressions/strict-logical-expressions': 'error',
 
     'prefer-arrow/prefer-arrow-functions': 'error',
 
