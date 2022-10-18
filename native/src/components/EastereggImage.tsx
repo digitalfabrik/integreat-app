@@ -96,7 +96,7 @@ const EastereggImage = ({ clearResourcesAndCache, theme }: PropsType): ReactElem
   return (
     <>
       <TouchableOpacity activeOpacity={1} onPress={onImagePress}>
-        {locationMarker && <LocationImage source={locationMarker} />}
+        {!!locationMarker && <LocationImage source={locationMarker} />}
       </TouchableOpacity>
       {renderApiUrlText()}
     </>

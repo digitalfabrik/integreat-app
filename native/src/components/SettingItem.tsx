@@ -54,7 +54,7 @@ const SettingItem = (props: PropType): ReactElement => {
           <View>
             <Title bigTitle={bigTitle || false}>{title}</Title>
           </View>
-          {description && (
+          {!!description && (
             <View>
               <Description>{description}</Description>
             </View>

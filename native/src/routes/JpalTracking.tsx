@@ -10,7 +10,7 @@ import Layout from '../components/Layout'
 import Link from '../components/Link'
 import LoadingSpinner from '../components/LoadingSpinner'
 import SettingsSwitch from '../components/SettingsSwitch'
-import { NavigationPropType, RoutePropType } from '../constants/NavigationTypes'
+import { NavigationPropType } from '../constants/NavigationTypes'
 import buildConfig from '../constants/buildConfig'
 import appSettings from '../utils/AppSettings'
 import { log, reportError } from '../utils/sentry'
@@ -32,7 +32,6 @@ const DescriptionContainer = styled.TouchableOpacity`
 `
 
 export type PropsType = {
-  route: RoutePropType<JpalTrackingRouteType>
   navigation: NavigationPropType<JpalTrackingRouteType>
 }
 

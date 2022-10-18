@@ -59,7 +59,7 @@ class PoiListItem extends PureComponent<Props> {
         <Thumbnail source={thumbnail} />
         <Description>
           <Title>{poi.properties.title}</Title>
-          {poi.properties.distance && (
+          {!!poi.properties.distance && (
             <Distance>{t('distanceKilometre', { distance: poi.properties.distance })}</Distance>
           )}
         </Description>

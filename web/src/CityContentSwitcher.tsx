@@ -155,7 +155,7 @@ const CityContentSwitcher = ({ cities, languageCode }: PropsType): ReactElement 
         </Suspense>
       }
       path={RoutePatterns[route]}>
-      {childPattern && <Route element={null} path={childPattern} />}
+      {!!childPattern && <Route element={null} path={childPattern} />}
     </Route>
   )
 
