@@ -3,7 +3,7 @@ import Highlighter from 'react-highlight-words'
 import { Link } from 'react-router-dom'
 import styled, { withTheme } from 'styled-components'
 
-import { cityContentPath, CityModel, normalizeSearchString } from 'api-client'
+import { cityContentPath, CityModel, normalizeString } from 'api-client'
 import type { ThemeType } from 'build-configs'
 
 const MAX_NUMBER_OF_ALIASES = 3
@@ -37,20 +37,20 @@ type CityEntryProps = {
 class CityEntry extends React.PureComponent<CityEntryProps> {
   getMatchedAliases = (city: CityModel, normalizedFilter: string): Array<string> => {
     if (city.aliases && normalizedFilter.length >= 1) {
-      return Object.keys(city.aliases).filter(alias => normalizeSearchString(alias).includes(normalizedFilter))
+      return Object.keys(city.aliases).filter(alias => normalizeString(alias).includes(normalizedFilter))
     }
     return []
   }
 
   render() {
     const { city, language, filterText, theme } = this.props
-    const normalizedFilter = normalizeSearchString(filterText)
+    const normalizedFilter = normalizeString(filterText)
     const aliases = this.getMatchedAliases(city, normalizedFilter)
     return (
       <CityListItem to={cityContentPath({ cityCode: city.code, languageCode: language })}>
         <Highlighter
           searchWords={[filterText]}
-          sanitize={normalizeSearchString}
+          sanitize={normalizeString}
           aria-label={city.name}
           textToHighlight={city.name}
           autoEscape
@@ -62,7 +62,7 @@ class CityEntry extends React.PureComponent<CityEntryProps> {
               <AliasItem
                 aria-label={alias}
                 searchWords={[filterText]}
-                sanitize={normalizeSearchString}
+                sanitize={normalizeString}
                 textToHighlight={alias}
                 autoEscape
                 highlightStyle={{ backgroundColor: theme.colors.backgroundColor, fontWeight: 'bold' }}

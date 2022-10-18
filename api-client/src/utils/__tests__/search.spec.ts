@@ -1,15 +1,15 @@
 import { CityModel, filterSortCities } from '../../index'
-import { normalizeSearchString } from '../search'
+import { normalizeString } from '../search'
 
-describe('helpers', () => {
-  describe('normalizeSearchString', () => {
+describe('search', () => {
+  describe('normalizeStrings', () => {
     it('should normalize search string', () => {
-      expect(normalizeSearchString('Donauwörth')).toBe('donauworth')
-      expect(normalizeSearchString('äöUEJJ')).toBe('aouejj')
+      expect(normalizeString('Donauwörth')).toBe('donauworth')
+      expect(normalizeString('äöUEJJ')).toBe('aouejj')
     })
 
     it('should trim whitespaces', () => {
-      expect(normalizeSearchString('   test  ')).toBe('test')
+      expect(normalizeString('   test  ')).toBe('test')
     })
   })
 

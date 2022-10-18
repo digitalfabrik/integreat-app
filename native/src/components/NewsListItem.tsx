@@ -1,13 +1,12 @@
-import * as React from 'react'
-import { ReactElement, useContext } from 'react'
+import React, { ReactElement, useContext } from 'react'
 import { useTranslation } from 'react-i18next'
-import { View } from 'react-native'
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons'
 import styled from 'styled-components/native'
 
 import { LocalNewsModel, TunewsModel } from 'api-client'
 import { config } from 'translations'
 
+import { EXCERPT_MAX_LINES } from '../constants'
 import { contentDirection } from '../constants/contentDirection'
 import DateFormatterContext from '../contexts/DateFormatterContext'
 import TimeStamp from './TimeStamp'
@@ -16,7 +15,6 @@ import Text from './base/Text'
 type NewsListItemProps = {
   index: number
   newsItem: LocalNewsModel | TunewsModel
-  language: string
   navigateToNews: () => void
   isTunews: boolean
 }
@@ -31,11 +29,11 @@ const Icon = styled(MaterialIcon)<{ isTunews: boolean }>`
   font-size: 20px;
   top: 4px;
   right: 5px;
-  left: 0px;
+  left: 0;
   color: ${props => (props.isTunews ? props.theme.colors.tunewsThemeColor : props.theme.colors.themeColor)};
 `
 const ListItemWrapper = styled.View`
-  padding-horizontal: 5%;
+  padding: 0 5%;
 `
 const StyledTouchableOpacity = styled.TouchableOpacity`
   flex-direction: column;
@@ -70,7 +68,7 @@ export const Content = styled(Text)`
 const TimeStampContent = styled(Text)`
   font-family: ${props => props.theme.fonts.native.decorativeFontRegular};
   font-size: 14px;
-  padding: 10px 0px;
+  padding: 10px 0;
   color: ${props => props.theme.colors.textColor};
 `
 export const ReadMore = styled(Text)<{ isTunews: boolean }>`
@@ -95,18 +93,12 @@ const NewsListItem = ({ index, newsItem, navigateToNews, isTunews }: NewsListIte
       <ListItemWrapper>
         <StyledTouchableOpacity onPress={navigateToNews}>
           <Description>
-            <View>
-              <Title>{newsItem.title}</Title>
-            </View>
-            <View>
-              <Content numberOfLines={5}>{content}</Content>
-            </View>
+            <Title>{newsItem.title}</Title>
+            <Content numberOfLines={EXCERPT_MAX_LINES}>{content}</Content>
             {timestamp && (
-              <View>
-                <TimeStampContent>
-                  <TimeStamp formatter={formatter} lastUpdate={timestamp} showText={false} />
-                </TimeStampContent>
-              </View>
+              <TimeStampContent>
+                <TimeStamp formatter={formatter} lastUpdate={timestamp} showText={false} />
+              </TimeStampContent>
             )}
           </Description>
           <ReadMoreWrapper language={i18n.language}>

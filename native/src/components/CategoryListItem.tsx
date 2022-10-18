@@ -2,17 +2,15 @@ import React, { memo, ReactElement } from 'react'
 import Highlighter from 'react-native-highlight-words'
 import styled, { useTheme } from 'styled-components/native'
 
-import { normalizeSearchString } from 'api-client'
+import { getExcerpt, normalizeString } from 'api-client'
 
 import iconPlaceholder from '../assets/IconPlaceholder.png'
+import { SEARCH_PREVIEW_MAX_CHARS } from '../constants'
 import { contentDirection } from '../constants/contentDirection'
 import dimensions from '../constants/dimensions'
-import ContentMatcher from './ContentMatcher'
 import SimpleImage from './SimpleImage'
 import StyledLink from './StyledLink'
 import SubCategoryListItem from './SubCategoryListItem'
-
-const NUM_WORDS_SURROUNDING_MATCH = 10
 
 const FlexStyledLink = styled(StyledLink)`
   display: flex;
@@ -34,12 +32,6 @@ const CategoryEntryContainer = styled.View`
 
 const TitleDirectionContainer = styled.View<{ language: string }>`
   flex-direction: ${props => contentDirection(props.language)};
-`
-
-const CategoryTitle = styled.Text<{ language: string }>`
-  flex-direction: ${props => contentDirection(props.language)};
-  font-family: ${props => props.theme.fonts.native.decorativeFontRegular};
-  color: ${props => props.theme.colors.textColor};
 `
 
 const HighlighterCategoryTitle = styled(Highlighter)<{ language: string }>`
@@ -76,45 +68,31 @@ type CategoryListItemProps = {
 
 const CategoryListItem = ({ language, item, onItemPress, query }: CategoryListItemProps): ReactElement => {
   const theme = useTheme()
-  const contentMatcher = new ContentMatcher()
-  const excerpt =
-    contentMatcher.getMatchedContent(query, item.contentWithoutHtml, NUM_WORDS_SURROUNDING_MATCH) ??
-    contentMatcher.getContentAfterMatchIndex(item.contentWithoutHtml ?? '', 0, 2 * NUM_WORDS_SURROUNDING_MATCH)
+  const excerpt = getExcerpt(item.contentWithoutHtml ?? '', { query, maxChars: SEARCH_PREVIEW_MAX_CHARS })
 
-  const content = query && (
+  const Content = query ? (
     <Highlighter
       searchWords={[query]}
-      sanitize={normalizeSearchString}
+      sanitize={normalizeString}
       textToHighlight={excerpt}
       autoEscape
       highlightStyle={{ backgroundColor: theme.colors.backgroundColor, fontWeight: 'bold' }}
     />
-  )
+  ) : null
 
-  const title = query ? (
-    <CategoryEntryContainer>
-      <TitleDirectionContainer language={language}>
-        <HighlighterCategoryTitle
-          language={language}
-          autoEscape
-          textToHighlight={item.title}
-          sanitize={normalizeSearchString}
-          searchWords={query ? [query] : []}
-          highlightStyle={{
-            fontWeight: 'bold',
-          }}
-        />
-      </TitleDirectionContainer>
-      {content}
-    </CategoryEntryContainer>
-  ) : (
-    <CategoryEntryContainer>
-      <TitleDirectionContainer language={language}>
-        <CategoryTitle language={language} android_hyphenationFrequency='full'>
-          {item.title}
-        </CategoryTitle>
-      </TitleDirectionContainer>
-    </CategoryEntryContainer>
+  const Title = (
+    <TitleDirectionContainer language={language}>
+      <HighlighterCategoryTitle
+        language={language}
+        autoEscape
+        textToHighlight={item.title}
+        sanitize={normalizeString}
+        searchWords={query ? [query] : []}
+        highlightStyle={{
+          fontWeight: 'bold',
+        }}
+      />
+    </TitleDirectionContainer>
   )
 
   return (
@@ -122,7 +100,10 @@ const CategoryListItem = ({ language, item, onItemPress, query }: CategoryListIt
       <FlexStyledLink onPress={() => onItemPress(item)} underlayColor={theme.colors.backgroundAccentColor}>
         <DirectionContainer language={language}>
           <CategoryThumbnail source={item.thumbnail || iconPlaceholder} />
-          {title}
+          <CategoryEntryContainer>
+            {Title}
+            {Content}
+          </CategoryEntryContainer>
         </DirectionContainer>
       </FlexStyledLink>
       {item.subCategories.map(subCategory => (
