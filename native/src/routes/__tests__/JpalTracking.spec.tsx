@@ -2,7 +2,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 import { fireEvent, waitFor } from '@testing-library/react-native'
 import React from 'react'
 
-import { JPAL_TRACKING_ROUTE, JpalTrackingRouteType } from 'api-client'
+import { JpalTrackingRouteType } from 'api-client'
 
 import createNavigationMock from '../../testing/createNavigationPropMock'
 import render from '../../testing/render'
@@ -22,17 +22,12 @@ describe('JpalTracking', () => {
   })
 
   const navigation = createNavigationMock<JpalTrackingRouteType>()
-  const route = {
-    key: 'route-id-0',
-    name: JPAL_TRACKING_ROUTE,
-    params: {},
-  }
 
   it('should persist tracking enabled', async () => {
     const oldSettings = await appSettings.loadSettings()
     expect(oldSettings.jpalTrackingEnabled).toBeNull()
 
-    const { getByText } = render(<JpalTracking route={route} navigation={navigation} />)
+    const { getByText } = render(<JpalTracking navigation={navigation} />)
     await waitFor(() => expect(getByText('tracking')).toBeTruthy())
 
     fireEvent.press(getByText('allowTracking'))
