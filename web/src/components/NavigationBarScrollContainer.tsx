@@ -17,7 +17,6 @@ type NavigationBarScrollContainerProps = {
 
 const Container = styled.div`
   display: flex;
-  padding: 4px 0;
 `
 
 const Arrow = styled.img<{ direction?: string; visible: boolean }>`

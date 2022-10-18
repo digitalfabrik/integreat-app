@@ -24,19 +24,10 @@ const localNews = new LocalNewsModel({
   message: 'Some &quot;test text with lots of &quot;html entities&quot; which won&#39;t be displayed.',
 })
 describe('NewsListItem', () => {
-  const language = 'de'
   const navigateToNews = jest.fn()
 
   const renderNewsListItem = (newsItem: LocalNewsModel | TunewsModel, isTuNews: boolean): RenderAPI =>
-    render(
-      <NewsListItem
-        index={0}
-        newsItem={newsItem}
-        language={language}
-        navigateToNews={navigateToNews}
-        isTunews={isTuNews}
-      />
-    )
+    render(<NewsListItem index={0} newsItem={newsItem} navigateToNews={navigateToNews} isTunews={isTuNews} />)
 
   beforeEach(() => {
     jest.clearAllMocks()

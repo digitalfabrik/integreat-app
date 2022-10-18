@@ -1,0 +1,5 @@
+issue_key: IGAPP-1135
+show_in_stores: false
+platforms:
+  - web
+en: Fix wrong height of header on map route

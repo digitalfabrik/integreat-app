@@ -1,14 +1,13 @@
 import React, { ReactElement } from 'react'
 import styled from 'styled-components'
 
-import { DateFormatter, EventModel, textTruncator } from 'api-client'
+import { DateFormatter, EventModel, getExcerpt } from 'api-client'
 
 import EventPlaceholder1 from '../assets/EventPlaceholder1.jpg'
 import EventPlaceholder2 from '../assets/EventPlaceholder2.jpg'
 import EventPlaceholder3 from '../assets/EventPlaceholder3.jpg'
+import { EXCERPT_MAX_CHARS } from '../constants'
 import ListItem from './ListItem'
-
-export const NUM_OF_CHARS_ALLOWED = 110
 
 const Content = styled.div`
   overflow-wrap: anywhere;
@@ -35,7 +34,7 @@ const EventListItem = ({ event, formatter }: EventListItemProps): ReactElement =
       <Content dir='auto'>{event.date.toFormattedString(formatter)}</Content>
       {event.location && <Content dir='auto'>{event.location.fullAddress}</Content>}
     </Content>
-    <Content dir='auto'>{textTruncator(event.excerpt, NUM_OF_CHARS_ALLOWED)}</Content>
+    <Content dir='auto'>{getExcerpt(event.excerpt, { maxChars: EXCERPT_MAX_CHARS })}</Content>
   </ListItem>
 )
 
