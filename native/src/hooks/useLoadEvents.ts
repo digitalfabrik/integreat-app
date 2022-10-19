@@ -27,7 +27,7 @@ const useLoadEvents = ({ cityCode, languageCode }: UseLoadEventsProps): CityCont
     return payload.data ? { events: payload.data } : null
   }, [cityCode, languageCode])
 
-  return useLoadCityContent({ cityCode, load })
+  return useLoadCityContent({ cityCode, languageCode, load })
 }
 
 export default useLoadEvents

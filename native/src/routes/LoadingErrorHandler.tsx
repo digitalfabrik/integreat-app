@@ -11,16 +11,9 @@ import { LOADING_TIMEOUT } from '../hocs/withPayloadProvider'
 
 type LoadingErrorHandlerProps<T> = ReturnType<T> & {
   children?: ReactNode
-  scrollView?: boolean
 }
 
-const LoadingErrorHandler = <T,>({
-  children,
-  scrollView = false,
-  loading,
-  refresh,
-  error,
-}: LoadingErrorHandlerProps<T>): ReactElement => {
+const LoadingErrorHandler = <T,>({ children, loading, refresh, error }: LoadingErrorHandlerProps<T>): ReactElement => {
   const [timeoutExpired, setTimeoutExpired] = useState(false)
 
   useEffect(() => {
@@ -32,13 +25,14 @@ const LoadingErrorHandler = <T,>({
 
   if (loading) {
     // Prevent jumpy behaviour by showing nothing until the timeout finishes
-    if (timeoutExpired) {
+    if (!timeoutExpired) {
       return <Layout />
     }
     return (
-      <LayoutedScrollView refreshControl={<RefreshControl refreshing={!children} />}>
+      <Layout>
+        <RefreshControl refreshing={!children} />
         {children ?? <ProgressSpinner progress={0} />}
-      </LayoutedScrollView>
+      </Layout>
     )
   }
 
@@ -47,14 +41,6 @@ const LoadingErrorHandler = <T,>({
       <LayoutedScrollView refreshControl={<RefreshControl onRefresh={refresh} refreshing={false} />}>
         {/* TODO error code */}
         <Failure tryAgain={refresh} code={ErrorCode.UnknownError} />
-      </LayoutedScrollView>
-    )
-  }
-
-  if (scrollView) {
-    return (
-      <LayoutedScrollView refreshControl={<RefreshControl onRefresh={refresh} refreshing={false} />}>
-        {children}
       </LayoutedScrollView>
     )
   }
