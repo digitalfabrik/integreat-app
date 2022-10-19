@@ -25,22 +25,26 @@ const navigateToEvents = <T extends RoutesType>({
 }): void => {
   navigation.navigate({
     name: EVENTS_ROUTE,
+    params: {
+      cityCode,
+      languageCode,
+    },
     key,
   })
-  const fetchEvent: FetchEventActionType = {
-    type: 'FETCH_EVENT',
-    params: {
-      city: cityCode,
-      language: languageCode,
-      path: cityContentPath,
-      key,
-      criterion: {
-        forceUpdate: forceRefresh,
-        shouldRefreshResources: forceRefresh,
-      },
-    },
-  }
-  dispatch(fetchEvent)
+  // const fetchEvent: FetchEventActionType = {
+  //   type: 'FETCH_EVENT',
+  //   params: {
+  //     city: cityCode,
+  //     language: languageCode,
+  //     path: cityContentPath,
+  //     key,
+  //     criterion: {
+  //       forceUpdate: forceRefresh,
+  //       shouldRefreshResources: forceRefresh,
+  //     },
+  //   },
+  // }
+  // dispatch(fetchEvent)
 }
 
 export default navigateToEvents
