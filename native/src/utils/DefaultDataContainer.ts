@@ -255,4 +255,6 @@ class DefaultDataContainer implements DataContainer {
   }
 }
 
+export const dataContainer = new DefaultDataContainer()
+
 export default DefaultDataContainer

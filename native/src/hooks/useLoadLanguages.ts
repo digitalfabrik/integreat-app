@@ -22,7 +22,7 @@ const useLoadLanguages = ({ cityCode }: UseLoadLanguagesProps): ReturnType<Langu
     return payload.data ?? null
   }, [cityCode])
 
-  return useLoadAsync(load, {})
+  return useLoadAsync(load)
 }
 
 export default useLoadLanguages
