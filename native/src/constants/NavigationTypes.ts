@@ -97,7 +97,11 @@ export type RoutesParamsType = {
   [POIS_ROUTE]: BasicParams & {
     urlSlug?: string
   }
-  [EVENTS_ROUTE]: BasicParams
+  [EVENTS_ROUTE]: BasicParams & {
+    cityCode: string
+    languageCode: string
+    slug?: string
+  }
   [NEWS_ROUTE]: BasicParams &
     CityContentParamsType & {
       newsId: string | null
