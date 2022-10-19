@@ -43,7 +43,6 @@ import ChangeLanguageModal from './routes/ChangeLanguageModal'
 import CityNotCooperating from './routes/CityNotCooperating'
 import DashboardContainer from './routes/DashboardContainer'
 import DisclaimerContainer from './routes/DisclaimerContainer'
-import EventsContainer from './routes/EventsContainer'
 import ExternalOfferContainer from './routes/ExternalOfferContainer'
 import FeedbackModalContainer from './routes/FeedbackModalContainer'
 import ImageViewModal from './routes/ImageViewModal'
@@ -51,6 +50,7 @@ import Intro from './routes/Intro'
 import JpalTracking from './routes/JpalTracking'
 import LandingContainer from './routes/LandingContainer'
 import Licenses from './routes/Licenses'
+import NewEventsContainer from './routes/NewEventsContainer'
 import NewsContainer from './routes/NewsContainer'
 import OffersContainer from './routes/OffersContainer'
 import PDFViewModal from './routes/PDFViewModal'
@@ -210,7 +210,7 @@ const Navigator = (props: NavigatorProps): ReactElement | null => {
         <Stack.Screen name={SPRUNGBRETT_OFFER_ROUTE} component={SprungbrettOfferContainer} />
         <Stack.Screen name={EXTERNAL_OFFER_ROUTE} component={ExternalOfferContainer} />
         <Stack.Screen name={POIS_ROUTE} component={PoisContainer} />
-        <Stack.Screen name={EVENTS_ROUTE} component={EventsContainer} />
+        <Stack.Screen name={EVENTS_ROUTE} component={NewEventsContainer} />
         <Stack.Screen name={NEWS_ROUTE} component={NewsContainer} />
         <Stack.Screen name={DISCLAIMER_ROUTE} component={DisclaimerContainer} />
         <Stack.Screen name={LICENSES_ROUTE} component={Licenses} />

@@ -1,10 +1,9 @@
 import { useCallback, useEffect, useState } from 'react'
 
-type Request<T, P extends Record<string, string>> = (params: P) => Promise<T>
+type Request<T> = () => Promise<T>
 
-export const loadAsync = async <T, P extends Record<string, string>>(
-  request: Request<T, P>,
-  params: P,
+export const loadAsync = async <T>(
+  request: Request<T>,
   setData: (data: T | null) => void,
   setError: (error: Error | null) => void,
   setLoading: (loading: boolean) => void
@@ -12,7 +11,7 @@ export const loadAsync = async <T, P extends Record<string, string>>(
   setLoading(true)
 
   try {
-    const response = await request(params)
+    const response = await request()
     setData(response)
     setError(null)
   } catch (e: unknown) {
@@ -30,14 +29,14 @@ export type Return<T> = {
   refresh: () => void
 }
 
-export const useLoadAsync = <T, P extends Record<string, string>>(request: Request<T, P>, params: P): Return<T> => {
+export const useLoadAsync = <T>(request: Request<T>): Return<T> => {
   const [data, setData] = useState<T | null>(null)
   const [error, setError] = useState<Error | null>(null)
   const [loading, setLoading] = useState<boolean>(true)
 
   const load = useCallback(() => {
-    loadAsync<T, P>(request, params, setData, setError, setLoading).catch(e => setError(e))
-  }, [request, params])
+    loadAsync<T>(request, setData, setError, setLoading).catch(e => setError(e))
+  }, [request])
 
   useEffect(() => {
     load()
