@@ -18,7 +18,7 @@ const useLoadCities = (): ReturnType<CityModel[]> => {
     return payload.data ?? null
   }, [])
 
-  return useLoadAsync(load, {})
+  return useLoadAsync(load)
 }
 
 export default useLoadCities

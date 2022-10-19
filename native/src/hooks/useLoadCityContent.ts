@@ -5,6 +5,7 @@ import useLoadLanguages from './useLoadLanguages'
 
 type UseLoadCityContentProps<T> = {
   cityCode: string
+  languageCode: string
   load: () => Promise<T | null>
 }
 
@@ -17,13 +18,13 @@ export type CityContentReturn<T> = ReturnType<
   } & T
 >
 
-const useLoadCityContent = <T>({ cityCode, load }: UseLoadCityContentProps<T>): CityContentReturn<T> => {
+const useLoadCityContent = <T>({ cityCode, languageCode, load }: UseLoadCityContentProps<T>): CityContentReturn<T> => {
   const citiesReturn = useLoadCities()
   const languagesReturn = useLoadLanguages({ cityCode })
-  const otherReturn = useLoadAsync(load, {})
+  const otherReturn = useLoadAsync(load)
 
   const city = citiesReturn.data?.find(it => it.code === cityCode)
-  const language = languagesReturn.data?.find(it => it.code === cityCode)
+  const language = languagesReturn.data?.find(it => it.code === languageCode)
 
   const getError = (): Error | null => {
     if (!city) {
