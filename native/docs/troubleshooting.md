@@ -141,7 +141,6 @@ Should also be generated during the build, manual command here: `yarn workspace 
 
 Then run `bundle exec pod install` in /ios, clean the Build folder in XCode(Shift + Cmd + K), restart XCode, and try again.
 
-
 ## Other assorted XCode problems
 
 It often helps to rerun `yarn install` in /native and `bundle exec pod install` in /ios, then clean the build
