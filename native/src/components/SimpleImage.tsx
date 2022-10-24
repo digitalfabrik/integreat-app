@@ -2,7 +2,7 @@ import React, { ReactElement } from 'react'
 import { Image, View, ImageSourcePropType, StyleProp, ImageStyle, ImageResizeMode } from 'react-native'
 
 export type ImageSourceType = string | number | null
-type PropsType = {
+type SimpleImageProps = {
   source: ImageSourceType
   style?: StyleProp<ImageStyle>
   resizeMode?: ImageResizeMode
@@ -16,7 +16,7 @@ const getImageSource = (uri: string | number): ImageSourcePropType =>
         cache: 'reload',
       }
 
-const SimpleImage = ({ source, style, resizeMode = 'contain' }: PropsType): ReactElement => {
+const SimpleImage = ({ source, style, resizeMode = 'contain' }: SimpleImageProps): ReactElement => {
   if (source === null) {
     return <View style={style} />
   }

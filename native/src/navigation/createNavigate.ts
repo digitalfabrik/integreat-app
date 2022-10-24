@@ -17,7 +17,7 @@ import {
 } from 'api-client/src/routes'
 import { RouteInformationType } from 'api-client/src/routes/RouteInformationTypes'
 
-import { NavigationPropType, RoutesType } from '../constants/NavigationTypes'
+import { NavigationProps, RoutesType } from '../constants/NavigationTypes'
 import buildConfig from '../constants/buildConfig'
 import { StoreActionType } from '../redux/StoreActionType'
 import openExternalUrl from '../utils/openExternalUrl'
@@ -35,7 +35,7 @@ import navigateToSprungbrettOffer from './navigateToSprungbrettOffer'
 import { urlFromRouteInformation } from './url'
 
 const createNavigate =
-  <T extends RoutesType>(dispatch: Dispatch<StoreActionType>, navigation: NavigationPropType<T>) =>
+  <T extends RoutesType>(dispatch: Dispatch<StoreActionType>, navigation: NavigationProps<T>) =>
   (routeInformation: RouteInformationType, key?: string, forceRefresh?: boolean): void => {
     if (routeInformation) {
       const url = urlFromRouteInformation(routeInformation)

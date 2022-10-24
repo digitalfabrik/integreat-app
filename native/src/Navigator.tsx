@@ -35,7 +35,7 @@ import HeaderContainer from './components/HeaderContainer'
 import RedirectContainer from './components/RedirectContainer'
 import SettingsHeader from './components/SettingsHeader'
 import TransparentHeader from './components/TransparentHeader'
-import { NavigationPropType, RoutePropType, RoutesParamsType, RoutesType } from './constants/NavigationTypes'
+import { NavigationProps, RouteProps, RoutesParamsType, RoutesType } from './constants/NavigationTypes'
 import buildConfig from './constants/buildConfig'
 import { ASYNC_STORAGE_VERSION } from './constants/settings'
 import CategoriesContainer from './routes/CategoriesContainer'
@@ -63,8 +63,8 @@ import { quitAppStatePushNotificationListener } from './utils/PushNotificationsM
 import { initSentry, log } from './utils/sentry'
 
 type HeaderProps = {
-  route: RoutePropType<RoutesType>
-  navigation: NavigationPropType<RoutesType>
+  route: RouteProps<RoutesType>
+  navigation: NavigationProps<RoutesType>
 }
 
 const transparentHeader = (headerProps: StackHeaderProps) => <TransparentHeader {...(headerProps as HeaderProps)} />
@@ -73,7 +73,7 @@ const settingsHeader = (headerProps: StackHeaderProps) => <SettingsHeader {...he
 
 const defaultHeader = (headerProps: StackHeaderProps) => <HeaderContainer {...(headerProps as HeaderProps)} />
 
-type PropsType = {
+type NavigatorProps = {
   fetchCategory: (cityCode: string, language: string, key: string, forceUpdate: boolean) => void
   fetchCities: (forceRefresh: boolean) => void
   routeKey: string | null | undefined
@@ -90,7 +90,7 @@ type InitialRouteType =
     }
 const Stack = createStackNavigator<RoutesParamsType>()
 
-const Navigator = (props: PropsType): ReactElement | null => {
+const Navigator = (props: NavigatorProps): ReactElement | null => {
   const [waitingForSettings, setWaitingForSettings] = useState<boolean>(true)
   const [errorMessage, setErrorMessage] = useState<string | null | undefined>(null)
   const [initialRoute, setInitialRoute] = useState<InitialRouteType>({
@@ -98,7 +98,7 @@ const Navigator = (props: PropsType): ReactElement | null => {
   })
   const previousRouteKey = useRef<string | null | undefined>(null)
   const { fetchCities, fetchCategory, routeKey, routeName } = props
-  const navigation = useNavigation() as NavigationPropType<RoutesType>
+  const navigation = useNavigation() as NavigationProps<RoutesType>
   const dispatch = useDispatch()
 
   useEffect(() => {

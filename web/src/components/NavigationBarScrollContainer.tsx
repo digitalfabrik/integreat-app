@@ -9,7 +9,7 @@ import dimensions from '../constants/dimensions'
 import useCallbackRef from '../hooks/useCallbackRef'
 import useWindowDimensions from '../hooks/useWindowDimensions'
 
-type PropsType = {
+type NavigationBarScrollContainerProps = {
   children: ReactNode
   direction?: UiDirectionType
   activeIndex: number
@@ -61,7 +61,11 @@ const getActiveItemScrollPosition = (activeIndex: number): number => {
   return navigationItem.offsetLeft - navigationBar.offsetLeft
 }
 
-const NavigationBarScrollContainer = ({ children, direction, activeIndex }: PropsType): ReactElement => {
+const NavigationBarScrollContainer = ({
+  children,
+  direction,
+  activeIndex,
+}: NavigationBarScrollContainerProps): ReactElement => {
   const { width } = useWindowDimensions()
   const [scrollPosition, setScrollPosition] = useState<number>(0)
   const scrollToActiveItem = useCallback(
