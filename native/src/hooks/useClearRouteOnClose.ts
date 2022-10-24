@@ -1,11 +1,11 @@
 import { useEffect } from 'react'
 import { Dispatch } from 'redux'
 
-import { RoutePropType, RoutesType } from '../constants/NavigationTypes'
+import { RouteProps, RoutesType } from '../constants/NavigationTypes'
 import { StoreActionType } from '../redux/StoreActionType'
 
 const useClearRouteOnClose = (
-  route: RoutePropType<RoutesType>,
+  route: RouteProps<RoutesType>,
   dispatch: Dispatch<StoreActionType>,
   clearRouteOnClose: boolean
 ): void => {

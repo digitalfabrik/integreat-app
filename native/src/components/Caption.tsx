@@ -10,10 +10,10 @@ const H1 = styled(Text)`
   color: ${props => props.theme.colors.textColor};
   font-family: ${props => props.theme.fonts.native.decorativeFontBold};
 `
-type PropsType = {
+type CaptionProps = {
   title: string
 }
 
-const Caption = ({ title }: PropsType): ReactElement => <H1 android_hyphenationFrequency='full'>{title}</H1>
+const Caption = ({ title }: CaptionProps): ReactElement => <H1 android_hyphenationFrequency='full'>{title}</H1>
 
 export default Caption

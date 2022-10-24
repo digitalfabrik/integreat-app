@@ -14,13 +14,13 @@ export const StyledButton = styled.button<{ disabled: boolean }>`
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.15);
 `
 
-type ButtonPropsType = {
+type TextButtonProps = {
   onClick: () => void
   text: string
   disabled?: boolean
 }
 
-class TextButton extends React.PureComponent<ButtonPropsType> {
+class TextButton extends React.PureComponent<TextButtonProps> {
   render(): ReactNode {
     const { onClick, text, disabled } = this.props
     return (
