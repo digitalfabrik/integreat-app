@@ -146,3 +146,6 @@ Then run `bundle exec pod install` in /ios, clean the Build folder in XCode(Shif
 
 It often helps to rerun `yarn install` in /native and `bundle exec pod install` in /ios, then clean the build
 folder in XCode (Shift + Cmd + K), and then restart XCode.
+
+If working on an M1, some of the pods might not be working correctly yet. Go into the Build Settings of the project,
+to Architecture > Excluded Architectures. The Debug and Release area both should have `arm64` under `Any iOS Simulator SDK`.
