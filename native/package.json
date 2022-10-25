@@ -45,8 +45,7 @@
     "postinstall": "jetifier && yarn license-crawler",
     "ts:check": "tsc --build",
     "prettier:check": "yarn prettier --ignore-path  ../.prettierignore --check .",
-    "prettier:write": "yarn prettier --ignore-path  ../.prettierignore --write .",
-    "circleci:update-config": "yarn --cwd .. circleci:update-config"
+    "prettier:write": "yarn prettier --ignore-path  ../.prettierignore --write ."
   },
   "dependencies": {
     "@dr.pogodin/react-native-static-server": "^0.5.5",
