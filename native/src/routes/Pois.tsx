@@ -27,7 +27,7 @@ import MapView from '../components/MapView'
 import PoiDetails from '../components/PoiDetails'
 import PoiListItem from '../components/PoiListItem'
 import SiteHelpfulBox from '../components/SiteHelpfulBox'
-import { NavigationPropType, RoutePropType } from '../constants/NavigationTypes'
+import { NavigationProps, RouteProps } from '../constants/NavigationTypes'
 import dimensions from '../constants/dimensions'
 import usePrevious from '../hooks/usePrevious'
 import useSetShareUrl from '../hooks/useSetShareUrl'
@@ -36,12 +36,12 @@ import createNavigateToFeedbackModal from '../navigation/createNavigateToFeedbac
 import urlFromRouteInformation from '../navigation/url'
 import { reportError } from '../utils/sentry'
 
-export type PropsType = {
+export type PoisProps = {
   pois: Array<PoiModel>
   cityModel: CityModel
   language: string
-  route: RoutePropType<PoisRouteType>
-  navigation: NavigationPropType<PoisRouteType>
+  route: RouteProps<PoisRouteType>
+  navigation: NavigationProps<PoisRouteType>
 }
 
 const ListWrapper = styled.View`
@@ -61,7 +61,7 @@ const BOTTOM_SHEET_SNAP_POINTS = [
   '100%',
 ]
 
-const Pois = ({ pois, language, cityModel, route, navigation }: PropsType): ReactElement => {
+const Pois = ({ pois, language, cityModel, route, navigation }: PoisProps): ReactElement => {
   const { coordinates, requestAndDetermineLocation } = useUserLocation(true)
   const [urlSlug, setUrlSlug] = useState<string | null>(route.params.urlSlug ?? null)
   const prevUrlSlug = usePrevious(urlSlug ?? '')

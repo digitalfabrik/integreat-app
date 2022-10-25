@@ -4,27 +4,27 @@ import { Dispatch } from 'redux'
 
 import { CityModel, cityContentPath, DASHBOARD_ROUTE, LandingRouteType } from 'api-client'
 
-import { NavigationPropType, RoutePropType } from '../constants/NavigationTypes'
-import withPayloadProvider, { StatusPropsType } from '../hocs/withPayloadProvider'
+import { NavigationProps, RouteProps } from '../constants/NavigationTypes'
+import withPayloadProvider, { StatusProps } from '../hocs/withPayloadProvider'
 import navigateToCategory from '../navigation/navigateToCategory'
 import navigateToCityNotCooperating from '../navigation/navigateToCityNotCooperating'
 import { StateType } from '../redux/StateType'
 import { StoreActionType } from '../redux/StoreActionType'
 import Landing from './Landing'
 
-type OwnPropsType = {
-  route: RoutePropType<LandingRouteType>
-  navigation: NavigationPropType<LandingRouteType>
+type OwnProps = {
+  route: RouteProps<LandingRouteType>
+  navigation: NavigationProps<LandingRouteType>
 }
-type DispatchPropsType = {
+type DispatchProps = {
   dispatch: Dispatch<StoreActionType>
 }
-type ContainerPropsType = OwnPropsType &
-  DispatchPropsType & {
+type LandingContainerProps = OwnProps &
+  DispatchProps & {
     language: string
     cities: Array<CityModel>
   }
-type StatePropsType = StatusPropsType<ContainerPropsType, Record<string, never>>
+type StateProps = StatusProps<LandingContainerProps, Record<string, never>>
 
 const refresh = (refreshProps: Record<string, never>, dispatch: Dispatch<StoreActionType>) => {
   dispatch({
@@ -35,7 +35,7 @@ const refresh = (refreshProps: Record<string, never>, dispatch: Dispatch<StoreAc
   })
 }
 
-const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsType => {
+const mapStateToProps = (state: StateType, ownProps: OwnProps): StateProps => {
   const language = state.contentLanguage
 
   if (state.cities.status === 'error') {
@@ -66,7 +66,7 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
   }
 }
 
-const LandingContainer = ({ navigation, dispatch, cities, language, route: _route }: ContainerPropsType) => {
+const LandingContainer = ({ navigation, dispatch, cities, language, route: _route }: LandingContainerProps) => {
   const navigateToDashboard = (cityCode: string, languageCode: string) => {
     navigateToCategory({
       routeName: DASHBOARD_ROUTE,
@@ -102,5 +102,5 @@ const LandingContainer = ({ navigation, dispatch, cities, language, route: _rout
 
 export default connect(mapStateToProps)(
   // @ts-expect-error TODO: IGAPP-636
-  withPayloadProvider<ContainerPropsType, Record<string, never>, LandingRouteType>(refresh, false)(LandingContainer)
+  withPayloadProvider<LandingContainerProps, Record<string, never>, LandingRouteType>(refresh, false)(LandingContainer)
 )

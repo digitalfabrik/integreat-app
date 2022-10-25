@@ -13,14 +13,14 @@ const Container = styled.div`
   align-items: center;
 `
 
-type PropsType = {
+type FeedbackSearchProps = {
   cityCode: string
   languageCode: string
   query: string
   resultsFound: boolean
 }
 
-const FeedbackSearch = ({ cityCode, languageCode, query, resultsFound }: PropsType): ReactElement => {
+const FeedbackSearch = ({ cityCode, languageCode, query, resultsFound }: FeedbackSearchProps): ReactElement => {
   const [boxOpenedForQuery, setBoxOpenedForQuery] = useState<string | null>(null)
   const { t } = useTranslation('feedback')
 

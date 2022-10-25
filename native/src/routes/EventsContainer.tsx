@@ -4,8 +4,8 @@ import { Dispatch } from 'redux'
 
 import { CityModel, ErrorCode, EventModel, EVENTS_ROUTE, EventsRouteType } from 'api-client'
 
-import { NavigationPropType, RoutePropType } from '../constants/NavigationTypes'
-import withPayloadProvider, { StatusPropsType } from '../hocs/withPayloadProvider'
+import { NavigationProps, RouteProps } from '../constants/NavigationTypes'
+import withPayloadProvider, { StatusProps } from '../hocs/withPayloadProvider'
 import useSetShareUrl from '../hooks/useSetShareUrl'
 import createNavigate from '../navigation/createNavigate'
 import createNavigateToFeedbackModal from '../navigation/createNavigateToFeedbackModal'
@@ -14,16 +14,16 @@ import { StoreActionType, SwitchContentLanguageActionType } from '../redux/Store
 import { reportError } from '../utils/sentry'
 import Events from './Events'
 
-type NavigationPropsType = {
-  route: RoutePropType<EventsRouteType>
-  navigation: NavigationPropType<EventsRouteType>
+type EventsNavigationProps = {
+  route: RouteProps<EventsRouteType>
+  navigation: NavigationProps<EventsRouteType>
 }
-type OwnPropsType = NavigationPropsType
-type DispatchPropsType = {
+type OwnProps = EventsNavigationProps
+type DispatchProps = {
   dispatch: Dispatch<StoreActionType>
 }
-type ContainerPropsType = NavigationPropsType &
-  DispatchPropsType & {
+type EventsContainerProps = EventsNavigationProps &
+  DispatchProps & {
     path: string | null | undefined
     events: Array<EventModel>
     cityModel: CityModel
@@ -32,14 +32,14 @@ type ContainerPropsType = NavigationPropsType &
     resourceCacheUrl: string
     refresh: (dispatch: Dispatch<StoreActionType>) => () => void
   }
-type RefreshPropsType = NavigationPropsType & {
+type RefreshProps = EventsNavigationProps & {
   cityCode: string
   language: string
   path: string | null | undefined
 }
-type StatePropsType = StatusPropsType<ContainerPropsType, RefreshPropsType>
+type StateProps = StatusProps<EventsContainerProps, RefreshProps>
 
-const refresh = (refreshProps: RefreshPropsType, dispatch: Dispatch<StoreActionType>) => {
+const refresh = (refreshProps: RefreshProps, dispatch: Dispatch<StoreActionType>) => {
   const { route, navigation, cityCode, language, path } = refreshProps
   const navigateTo = createNavigate(dispatch, navigation)
   navigateTo(
@@ -68,7 +68,7 @@ const createChangeUnavailableLanguage =
 
 const routeHasOldContent = (route: EventRouteStateType) => 'models' in route && route.allAvailableLanguages
 
-const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsType => {
+const mapStateToProps = (state: StateType, ownProps: OwnProps): StateProps => {
   const {
     route: { key },
   } = ownProps
@@ -202,11 +202,11 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
   }
 }
 
-const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>): DispatchPropsType => ({
+const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>): DispatchProps => ({
   dispatch,
 })
 
-const EventsContainer = ({ dispatch, navigation, route, refresh, ...rest }: ContainerPropsType) => {
+const EventsContainer = ({ dispatch, navigation, route, refresh, ...rest }: EventsContainerProps) => {
   const routeInformation = {
     route: EVENTS_ROUTE,
     languageCode: rest.language,
@@ -229,4 +229,4 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps
   // @ts-expect-error TODO: IGAPP-636
-)(withPayloadProvider<ContainerPropsType, RefreshPropsType, EventsRouteType>(refresh, true, true)(EventsContainer))
+)(withPayloadProvider<EventsContainerProps, RefreshProps, EventsRouteType>(refresh, true, true)(EventsContainer))

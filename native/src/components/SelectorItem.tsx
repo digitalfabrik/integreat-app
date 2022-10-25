@@ -23,12 +23,12 @@ const Element = styled.Text<{ enabled: boolean }>`
   color: ${props => (props.enabled ? props.theme.colors.textColor : props.theme.colors.textSecondaryColor)}};
 `
 
-type Props = {
+type SelectorItemProps = {
   model: SelectorItemModel
   selected: boolean
 }
 
-const SelectorItem = ({ model: { name, code, enabled, onPress }, selected }: Props): ReactElement => {
+const SelectorItem = ({ model: { name, code, enabled, onPress }, selected }: SelectorItemProps): ReactElement => {
   if (enabled || selected) {
     return (
       <TouchTarget key={code} onPress={onPress}>

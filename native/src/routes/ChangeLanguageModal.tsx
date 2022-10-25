@@ -5,19 +5,19 @@ import styled from 'styled-components/native'
 import { ChangeLanguageModalRouteType } from 'api-client'
 
 import Selector from '../components/Selector'
-import { NavigationPropType, RoutePropType } from '../constants/NavigationTypes'
+import { NavigationProps, RouteProps } from '../constants/NavigationTypes'
 import SelectorItemModel from '../models/SelectorItemModel'
 
 const Wrapper = styled.ScrollView`
   background-color: ${props => props.theme.colors.backgroundColor};
 `
 
-type PropsType = {
-  route: RoutePropType<ChangeLanguageModalRouteType>
-  navigation: NavigationPropType<ChangeLanguageModalRouteType>
+type ChangeLanguageModalProps = {
+  route: RouteProps<ChangeLanguageModalRouteType>
+  navigation: NavigationProps<ChangeLanguageModalRouteType>
 }
 
-const ChangeLanguageModal = ({ navigation, route }: PropsType): ReactElement => {
+const ChangeLanguageModal = ({ navigation, route }: ChangeLanguageModalProps): ReactElement => {
   const { currentLanguage, languages, availableLanguages, cityCode } = route.params
   const dispatch = useDispatch()
 

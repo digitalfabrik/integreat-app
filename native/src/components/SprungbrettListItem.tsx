@@ -5,14 +5,14 @@ import { SprungbrettJobModel } from 'api-client'
 
 import ListItem from './ListItem'
 
-type Props = {
+type SprungbrettListItemProps = {
   job: SprungbrettJobModel
   openJobInBrowser: () => void
   language: string
 }
 
 // This should stay a PureComponent for performance reasons
-class SprungbrettListItem extends PureComponent<Props> {
+class SprungbrettListItem extends PureComponent<SprungbrettListItemProps> {
   render(): ReactElement {
     const { language, job, openJobInBrowser } = this.props
     return (
