@@ -19,7 +19,7 @@ const Container = styled.View`
   margin: 0 ${dimensions.page.horizontalMargin}px 8px;
 `
 export type ParsedCacheDictionaryType = Record<string, string>
-type PropsType = {
+type PageProps = {
   title: string
   content: string
   navigateToFeedback?: (positive: boolean) => void
@@ -46,7 +46,7 @@ const Page = ({
   lastUpdate,
   navigateToFeedback,
   files,
-}: PropsType): ReactElement => {
+}: PageProps): ReactElement => {
   const [loading, setLoading] = useState<boolean>(true)
   const navigateToLink = useNavigateToLink()
   const formatter = useContext(DateFormatterContext)

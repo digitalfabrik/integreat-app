@@ -9,7 +9,7 @@ const NoItemsMessage = styled.Text`
   margin-top: 20px;
 `
 
-type Props<T> = {
+type ListProps<T> = {
   items: Array<T>
   noItemsMessage: ReactElement | string
   renderItem: (props: { item: T; index: number }) => ReactElement
@@ -27,7 +27,7 @@ const List = <T,>({
   Footer,
   refresh,
   onEndReached,
-}: Props<T>): ReactElement => (
+}: ListProps<T>): ReactElement => (
   <FlatList
     data={items}
     renderItem={renderItem}

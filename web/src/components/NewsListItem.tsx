@@ -43,7 +43,7 @@ const StyledContainer = styled.div`
   justify-content: space-between;
 `
 
-type PropsType = {
+type NewsListItemProps = {
   title: string
   content: string
   timestamp: Moment
@@ -53,7 +53,7 @@ type PropsType = {
   t: TFunction<'news'>
 }
 
-const NewsListItem = ({ title, content, timestamp, formatter, t, type, link }: PropsType): ReactElement => {
+const NewsListItem = ({ title, content, timestamp, formatter, t, type, link }: NewsListItemProps): ReactElement => {
   const readMoreLinkText = `${t('readMore')} >`
   const excerpt = getExcerpt(content, { maxChars: EXCERPT_MAX_CHARS, replaceLineBreaks: false })
 

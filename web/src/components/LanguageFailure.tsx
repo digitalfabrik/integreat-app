@@ -12,13 +12,13 @@ const ChooseLanguage = styled.p`
   text-align: center;
 `
 
-type PropsType = {
+type LanguageFailureProps = {
   cityModel: CityModel
   languageCode: string
   languageChangePaths: Array<{ code: string; path: string | null; name: string }>
 }
 
-const LanguageFailure = ({ cityModel, languageCode, languageChangePaths }: PropsType): ReactElement => {
+const LanguageFailure = ({ cityModel, languageCode, languageChangePaths }: LanguageFailureProps): ReactElement => {
   const { t } = useTranslation('error')
   return (
     <>

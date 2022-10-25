@@ -4,13 +4,13 @@ import { PageModel } from 'api-client'
 
 import Page from '../components/Page'
 
-type PropsType = {
+type DisclaimerProps = {
   disclaimer: PageModel
   language: string
   resourceCacheUrl: string
 }
 
-const Disclaimer = ({ disclaimer, language, resourceCacheUrl }: PropsType): ReactElement => {
+const Disclaimer = ({ disclaimer, language, resourceCacheUrl }: DisclaimerProps): ReactElement => {
   const { title, content, lastUpdate } = disclaimer
   return (
     <Page

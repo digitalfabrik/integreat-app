@@ -49,13 +49,13 @@ const Thumbnail = styled(SimpleImage)`
   width: ${MAXIMAL_ICON_SIZE * ICON_SCALE_FACTOR}px;
 `
 
-type PropsType = {
+type SiteHelpfulBoxProps = {
   navigateToFeedback: (positive: boolean) => void
   backgroundColor?: string
   style?: StyleProp<ViewStyle>
 }
 
-const SiteHelpfulBox = ({ navigateToFeedback, backgroundColor, style }: PropsType): ReactElement => {
+const SiteHelpfulBox = ({ navigateToFeedback, backgroundColor, style }: SiteHelpfulBoxProps): ReactElement => {
   const { t } = useTranslation('feedback')
   return (
     <FeedbackBox style={style} backgroundColor={backgroundColor}>

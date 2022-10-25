@@ -4,19 +4,19 @@ import { useDispatch } from 'react-redux'
 
 import { RedirectRouteType } from 'api-client'
 
-import { NavigationPropType, RoutePropType, RoutesType } from '../constants/NavigationTypes'
+import { NavigationProps, RouteProps, RoutesType } from '../constants/NavigationTypes'
 import navigateToDeepLink from '../navigation/navigateToDeepLink'
 import Layout from './Layout'
 
 const TIMEOUT = 10
 const INTERVAL_TIMEOUT = 500
 
-type PropsType = {
-  route: RoutePropType<RedirectRouteType>
-  navigation: NavigationPropType<RoutesType>
+type RedirectContainerProps = {
+  route: RouteProps<RedirectRouteType>
+  navigation: NavigationProps<RoutesType>
 }
 
-const RedirectContainer = ({ route, navigation }: PropsType): ReactElement => {
+const RedirectContainer = ({ route, navigation }: RedirectContainerProps): ReactElement => {
   const dispatch = useDispatch()
   const { i18n } = useTranslation()
   const { language } = i18n

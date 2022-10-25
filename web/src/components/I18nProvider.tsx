@@ -11,12 +11,12 @@ import DateFormatterContext from '../contexts/DateFormatterContext'
 import BrowserLanguageDetectorService from '../utils/BrowserLanguageDetector'
 import { log, reportError } from '../utils/sentry'
 
-type PropsType = {
+type I18nProviderProps = {
   contentLanguage: string | undefined
   children: ReactNode
 }
 
-const I18nProvider = ({ children, contentLanguage }: PropsType): ReactElement | null => {
+const I18nProvider = ({ children, contentLanguage }: I18nProviderProps): ReactElement | null => {
   const [language, setLanguage] = useState<string>(config.defaultFallback)
   const [errorMessage, setErrorMessage] = useState<string | null | undefined>(null)
   const [i18nextInstance, setI18nextInstance] = useState<i18n | null>(null)

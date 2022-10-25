@@ -17,11 +17,11 @@ import { reportError } from '../utils/sentry'
 import Failure from './Failure'
 import Helmet from './Helmet'
 
-type PropsType = {
+type FailureSwitcherProps = {
   error: Error
 }
 
-const FailureSwitcher = ({ error }: PropsType): ReactElement => {
+const FailureSwitcher = ({ error }: FailureSwitcherProps): ReactElement => {
   const { t } = useTranslation('error')
 
   useEffect(() => {
