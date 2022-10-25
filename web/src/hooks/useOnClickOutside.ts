@@ -12,11 +12,9 @@ const useOnClickOutside = (ref: { current: HTMLElement | null }, callback: () =>
     }
 
     const handleKeyPress = (event: KeyboardEvent) => {
-      const KEY_ENTER = 'Enter'
-      const KEY_ESCAPE = 'Escape'
-      if (event.code === KEY_ESCAPE) {
+      if (event.code === 'Escape') {
         callback()
-      } else if (event.code === KEY_ENTER && isOutside(event.target)) {
+      } else if (event.code === 'Enter' && isOutside(event.target)) {
         callback()
       }
     }
