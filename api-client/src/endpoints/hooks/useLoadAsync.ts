@@ -39,6 +39,8 @@ export const useLoadAsync = <T>(request: Request<T>): Return<T> => {
   }, [request])
 
   useEffect(() => {
+    setData(null)
+    setError(null)
     load()
   }, [load])
 
