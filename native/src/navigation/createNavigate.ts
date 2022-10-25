@@ -97,7 +97,7 @@ const createNavigate =
           return
 
         case EVENTS_ROUTE:
-          navigateToEvents({ ...params, cityContentPath: routeInformation.cityContentPath, key, forceRefresh })
+          navigateToEvents({ ...params, slug: routeInformation.slug, key, forceRefresh })
           return
 
         case NEWS_ROUTE:
@@ -126,8 +126,9 @@ const createNavigate =
           }
           navigateToPois({
             ...params,
-            urlSlug: routeInformation.urlSlug,
-            cityContentPath: routeInformation.cityContentPath,
+            urlSlug: routeInformation.slug,
+            // TODO
+            cityContentPath: '',
             key,
             forceRefresh,
           })

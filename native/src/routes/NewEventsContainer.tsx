@@ -1,11 +1,13 @@
-import React, { ReactElement, useEffect } from 'react'
+import React, { ReactElement, useCallback, useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 
 import { EVENTS_ROUTE, EventsRouteType } from 'api-client'
 
 import { NavigationPropType, RoutePropType } from '../constants/NavigationTypes'
+import { LOADING_TIMEOUT } from '../hocs/withPayloadProvider'
 import useLoadEvents from '../hooks/useLoadEvents'
 import useSetShareUrl from '../hooks/useSetShareUrl'
+import useOnLanguageChange from '../hooks/useUpdateParamsOnLanguageChange'
 import createNavigate from '../navigation/createNavigate'
 import createNavigateToFeedbackModal from '../navigation/createNavigateToFeedbackModal'
 import Events from './Events'
@@ -23,30 +25,45 @@ const NewEventsContainer = ({ navigation, route }: NewEventsContainerProps): Rea
   const response = useLoadEvents({ cityCode, languageCode })
   const { data, refresh } = response
 
-  const currentEvent = slug ? data?.events.find(it => it.path === slug) : undefined
-  useEffect(() => {
-    const newSlug = currentEvent?.availableLanguages.get(languageCode)
-    navigation.setParams({ slug: newSlug })
-  }, [languageCode, currentEvent, navigation])
+  // useEffect(() => {
+  //   const timer = setTimeout(() => {
+  //     if (slug) {
+  //       navigation.setParams({ languageCode: 'de' })
+  //     }
+  //   }, LOADING_TIMEOUT)
+  //   return () => clearTimeout(timer)
+  // }, [navigation, slug])
+
+  const currentEvent = slug ? data?.events.find(it => it.slug === slug) : undefined
+
+  const onLanguageChange = useCallback(
+    (newLanguage: string) => {
+      if (currentEvent) {
+        const newSlug = currentEvent.availableLanguageSlugs[newLanguage]
+        // TODO: Handle language not available?
+        navigation.setParams({ slug: newSlug })
+      }
+    },
+    [currentEvent, navigation]
+  )
+  useOnLanguageChange({ languageCode, onLanguageChange })
 
   const routeInformation = {
     route: EVENTS_ROUTE,
     languageCode,
     cityCode,
-    // TODO
-    cityContentPath: undefined,
+    slug,
   }
   useSetShareUrl({ navigation, routeInformation, route })
 
   // TODO
-  const path = ''
   const resourceCacheUrl = ''
 
   return (
     <LoadingErrorHandler {...response}>
       {data && (
         <Events
-          path={path}
+          slug={slug}
           events={data.events}
           cityModel={data.city}
           language={languageCode}
