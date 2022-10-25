@@ -42,10 +42,6 @@ class PoiModel extends ExtendedPageModel {
     return this._excerpt
   }
 
-  get urlSlug(): string {
-    return this._path.split('/').pop() ?? ''
-  }
-
   get website(): string | null {
     return this._website
   }
@@ -74,7 +70,7 @@ class PoiModel extends ExtendedPageModel {
         symbol: mapMarker.symbol,
         thumbnail: this.thumbnail,
         path: this.path,
-        urlSlug: this.urlSlug,
+        urlSlug: this.slug,
         address,
       },
     }

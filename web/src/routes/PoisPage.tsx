@@ -63,7 +63,7 @@ const PoisPage = ({ cityCode, languageCode, cityModel, pathname, languages }: Ci
   const [currentFeature, setCurrentFeature] = useState<PoiFeature | null>(
     data?.features.find(it => it.properties.urlSlug === selectedFeatureSlug) ?? null
   )
-  const poi = data?.pois.find(it => it.urlSlug === selectedFeatureSlug)
+  const poi = data?.pois.find(it => it.slug === selectedFeatureSlug)
   const { viewportSmall, height } = useWindowDimensions()
   const sheetRef = useRef<BottomSheetRef>(null)
   const [feedbackModalRating, setFeedbackModalRating] = useState<FeedbackRatingType | null>(null)
@@ -115,7 +115,7 @@ const PoisPage = ({ cityCode, languageCode, cityModel, pathname, languages }: Ci
       route: POIS_ROUTE,
       cityCode,
       languageCode: code,
-      urlSlug: poi?.urlSlug,
+      slug: poi?.slug,
     }),
     name,
     code,

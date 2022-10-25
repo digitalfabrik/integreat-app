@@ -70,7 +70,7 @@ const Pois = ({ pois, language, cityModel, route, navigation }: PoisProps): Reac
   const deviceHeight = useWindowDimensions().height
   const features = prepareFeatureLocations(pois, coordinates)
   const selectedFeature = urlSlug ? features.find(it => it.properties.urlSlug === urlSlug) : null
-  const poi = pois.find(it => it.urlSlug === urlSlug)
+  const poi = pois.find(it => it.slug === urlSlug)
   const { t } = useTranslation('pois')
   const theme = useTheme()
   const cameraRef = React.useRef<MapboxGL.Camera | null>(null)

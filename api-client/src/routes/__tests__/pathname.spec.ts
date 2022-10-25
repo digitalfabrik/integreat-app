@@ -87,7 +87,6 @@ describe('pathname', () => {
           route: EVENTS_ROUTE,
           languageCode,
           cityCode,
-          cityContentPath: undefined,
         })
       ).toBe(`/${cityCode}/${languageCode}/${EVENTS_ROUTE}`)
     })
@@ -98,7 +97,7 @@ describe('pathname', () => {
           route: EVENTS_ROUTE,
           languageCode,
           cityCode,
-          cityContentPath: pathname,
+          slug: '1234',
         })
       ).toBe(pathname)
     })
@@ -108,19 +107,18 @@ describe('pathname', () => {
           route: POIS_ROUTE,
           languageCode,
           cityCode,
-          cityContentPath: undefined,
         })
       ).toBe(`/${cityCode}/${languageCode}/${POIS_ROUTE}`)
     })
     it('should match single pois route', () => {
-      const urlSlug = 'tuer-an-tuer'
-      const pathname = `/${cityCode}/${languageCode}/${POIS_ROUTE}?name=${urlSlug}`
+      const slug = 'tuer-an-tuer'
+      const pathname = `/${cityCode}/${languageCode}/${POIS_ROUTE}?name=${slug}`
       expect(
         pathnameFromRouteInformation({
           route: POIS_ROUTE,
           languageCode,
           cityCode,
-          urlSlug,
+          slug,
         })
       ).toBe(pathname)
     })

@@ -20,7 +20,7 @@ const cityCode = 'bochum'
 const languageCode = 'de'
 
 describe('InternalPathnameParser', () => {
-  it('should match landing route if pathname is emtpy', () => {
+  it('should match landing route if pathname is empty', () => {
     const parser = new InternalPathnameParser('', languageCode, null)
     expect(parser.route()).toEqual({
       route: LANDING_ROUTE,
@@ -80,7 +80,6 @@ describe('InternalPathnameParser', () => {
       route: EVENTS_ROUTE,
       languageCode,
       cityCode,
-      cityContentPath: undefined,
     })
   })
   it('should match single events route', () => {
@@ -90,7 +89,7 @@ describe('InternalPathnameParser', () => {
       route: EVENTS_ROUTE,
       languageCode,
       cityCode,
-      cityContentPath: pathname,
+      slug: '1234',
     })
   })
   it('should match pois route', () => {
@@ -100,7 +99,6 @@ describe('InternalPathnameParser', () => {
       route: POIS_ROUTE,
       languageCode,
       cityCode,
-      cityContentPath: undefined,
     })
   })
   it('should match single pois route', () => {
@@ -110,7 +108,7 @@ describe('InternalPathnameParser', () => {
       route: POIS_ROUTE,
       languageCode,
       cityCode,
-      cityContentPath: pathname,
+      slug: '1234',
     })
   })
   it('should match disclaimer route', () => {
@@ -286,7 +284,6 @@ describe('InternalPathnameParser', () => {
         route: EVENTS_ROUTE,
         languageCode,
         cityCode: fixedCity,
-        cityContentPath: undefined,
       })
     })
     it('should match single events route', () => {
@@ -297,7 +294,7 @@ describe('InternalPathnameParser', () => {
         route: EVENTS_ROUTE,
         languageCode,
         cityCode: fixedCity,
-        cityContentPath: pathname,
+        slug: '1234',
       })
     })
     it('should match pois route', () => {
@@ -307,7 +304,6 @@ describe('InternalPathnameParser', () => {
         route: POIS_ROUTE,
         languageCode,
         cityCode: fixedCity,
-        cityContentPath: undefined,
       })
     })
     it('should match single pois route', () => {
@@ -317,7 +313,7 @@ describe('InternalPathnameParser', () => {
         route: POIS_ROUTE,
         languageCode,
         cityCode: fixedCity,
-        cityContentPath: pathname,
+        slug: '1234',
       })
     })
     it('should match disclaimer route', () => {
