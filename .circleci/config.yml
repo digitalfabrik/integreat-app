@@ -199,19 +199,16 @@ commands:
         steps:
             - restore_cache:
                 keys:
-                    - 8-yarn-{{ arch }}-{{ checksum "yarn.lock" }}-{{ checksum "package.json" }}-{{ checksum "native/package.json" }}-{{ checksum "web/package.json" }}
+                    - 8-b-yarn-{{ arch }}-{{ checksum "yarn.lock" }}-{{ checksum "package.json" }}-{{ checksum "native/package.json" }}-{{ checksum "web/package.json" }}
                 name: Restore Yarn Package Cache
             - run:
                 command: yarn install --immutable
                 name: Yarn
             - save_cache:
-                key: 8-yarn-{{ arch }}-{{ checksum "yarn.lock" }}-{{ checksum "package.json" }}-{{ checksum "native/package.json" }}-{{ checksum "web/package.json" }}
+                key: 8-b-yarn-{{ arch }}-{{ checksum "yarn.lock" }}-{{ checksum "package.json" }}-{{ checksum "native/package.json" }}-{{ checksum "web/package.json" }}
                 name: Save Yarn Package Cache
                 paths:
                     - .yarn/cache
-                    - node_modules
-                    - native/node_modules
-                    - web/node_modules
     restore_yarn_tools_cache:
         description: Restores and saves the node_modules directories of the tools package.
         steps:
@@ -228,7 +225,6 @@ commands:
                 name: Save Yarn Tools Package Cache
                 paths:
                     - tools/.yarn/cache
-                    - tools/node_modules
     skip_job:
         description: Skips the current build if neccassary
         parameters:
@@ -510,8 +506,8 @@ jobs:
             - checkout
             - restore_yarn_cache
             - run:
-                command: yarn install
-                name: yarn install
+                command: yarn install --immutable
+                name: yarn install2
             - check_config
             - run:
                 command: yarn prettier:check

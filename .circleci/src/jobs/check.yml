@@ -11,8 +11,8 @@ steps:
   - checkout
   - restore_yarn_cache
   - run:
-      name: yarn install
-      command: yarn install
+      name: yarn install2
+      command: yarn install --immutable
   - check_config
   - run:
       name: Prettier
