@@ -177,14 +177,14 @@ const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>): DispatchProps 
 })
 
 const refresh = (refreshProps: RefreshProps, dispatch: Dispatch<StoreActionType>) => {
-  const { navigation, route, cityCode, language, path } = refreshProps
+  const { navigation, route, cityCode, language } = refreshProps
   const navigateTo = createNavigate(dispatch, navigation)
   navigateTo(
     {
       route: POIS_ROUTE,
       cityCode,
       languageCode: language,
-      cityContentPath: path || undefined,
+      // TODO
     },
     route.key,
     true
