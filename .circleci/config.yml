@@ -508,8 +508,8 @@ jobs:
         steps:
             - skip_job
             - checkout
-            - check_config
             - restore_yarn_cache
+            - check_config
             - run:
                 command: yarn prettier:check
                 name: Prettier
