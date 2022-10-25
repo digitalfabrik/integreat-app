@@ -509,6 +509,9 @@ jobs:
             - skip_job
             - checkout
             - restore_yarn_cache
+            - run:
+                command: yarn install
+                name: yarn install
             - check_config
             - run:
                 command: yarn prettier:check
