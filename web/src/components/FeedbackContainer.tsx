@@ -43,7 +43,7 @@ const Text = styled.div`
   text-align: center;
 `
 
-type PropsType = {
+type FeedbackContainerProps = {
   cityCode: string
   language: string
   routeType: RouteType
@@ -62,7 +62,7 @@ export enum SendingState {
   SENDING,
 }
 
-export const FeedbackContainer = (props: PropsType): ReactElement => {
+export const FeedbackContainer = (props: FeedbackContainerProps): ReactElement => {
   const [comment, setComment] = useState<string>('')
   const [contactMail, setContactMail] = useState<string>('')
   const [sendingStatus, setSendingStatus] = useState<SendingState>(SendingState.IDLE)

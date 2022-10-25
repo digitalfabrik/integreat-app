@@ -17,14 +17,14 @@ const StyledText = styled(Text)`
   align-self: center;
 `
 
-type Props = {
+type PoiDetailRowProps = {
   externalUrl: string
   accessibilityLabel: string
   text: string
   icon: SVGElement
 }
 
-const PoiDetailRow = ({ externalUrl, text, accessibilityLabel, icon }: Props): ReactElement => (
+const PoiDetailRow = ({ externalUrl, text, accessibilityLabel, icon }: PoiDetailRowProps): ReactElement => (
   <StyledPressable onPress={() => openExternalUrl(externalUrl)}>
     <Icon source={icon} accessibilityLabel={accessibilityLabel} />
     <StyledText>{text}</StyledText>

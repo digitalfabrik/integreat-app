@@ -8,7 +8,7 @@ import styled, { useTheme } from 'styled-components/native'
 import { CityModel, LANDING_ROUTE, SHARE_SIGNAL_NAME } from 'api-client'
 import { DISCLAIMER_ROUTE, SEARCH_ROUTE, SETTINGS_ROUTE } from 'api-client/src/routes'
 
-import { NavigationPropType, RoutePropType, RoutesType } from '../constants/NavigationTypes'
+import { NavigationProps, RouteProps, RoutesType } from '../constants/NavigationTypes'
 import buildConfig, { buildConfigAssets } from '../constants/buildConfig'
 import dimensions from '../constants/dimensions'
 import useSnackbar from '../hooks/useSnackbar'
@@ -50,9 +50,9 @@ const BoxShadow = styled.View`
   height: ${dimensions.headerHeight}px;
 `
 
-type PropsType = {
-  route: RoutePropType<RoutesType>
-  navigation: NavigationPropType<RoutesType>
+type HeaderProps = {
+  route: RouteProps<RoutesType>
+  navigation: NavigationProps<RoutesType>
   peeking: boolean
   categoriesAvailable: boolean
   goToLanguageChange?: () => void
@@ -69,7 +69,7 @@ enum HeaderButtonTitle {
   Settings = 'settings',
 }
 
-const Header = (props: PropsType): ReactElement => {
+const Header = (props: HeaderProps): ReactElement => {
   const { t } = useTranslation('layout')
   const theme = useTheme()
   const { route, navigation, language, routeCityModel, goToLanguageChange, peeking, categoriesAvailable } = props

@@ -1,7 +1,7 @@
 import { LanguageModel, OPEN_PAGE_SIGNAL_NAME } from 'api-client'
 import { CHANGE_LANGUAGE_MODAL_ROUTE } from 'api-client/src/routes'
 
-import { NavigationPropType, RoutesType } from '../constants/NavigationTypes'
+import { NavigationProps, RoutesType } from '../constants/NavigationTypes'
 import sendTrackingSignal from '../utils/sendTrackingSignal'
 
 const navigateToLanguageChange = <T extends RoutesType>({
@@ -12,7 +12,7 @@ const navigateToLanguageChange = <T extends RoutesType>({
   availableLanguages,
   previousKey,
 }: {
-  navigation: NavigationPropType<T>
+  navigation: NavigationProps<T>
   cityCode: string
   languageCode: string
   previousKey: string

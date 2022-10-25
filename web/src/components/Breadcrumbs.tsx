@@ -46,13 +46,13 @@ const StyledLink = styled(Link)`
   margin-right: 4px;
 `
 
-type PropsType = {
+type BreadcrumbsProps = {
   ancestorBreadcrumbs: Array<BreadcrumbModel>
   currentBreadcrumb: BreadcrumbModel
   direction: UiDirectionType
 }
 
-const Breadcrumbs = ({ direction, ancestorBreadcrumbs, currentBreadcrumb }: PropsType): ReactElement => {
+const Breadcrumbs = ({ direction, ancestorBreadcrumbs, currentBreadcrumb }: BreadcrumbsProps): ReactElement => {
   // The current page should not be listed in the UI, but should be within the JsonLd.
   const jsonLdBreadcrumbs = [...ancestorBreadcrumbs, currentBreadcrumb]
   // Min text length after which the last breadcrumb item should shrink
