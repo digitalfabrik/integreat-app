@@ -21,7 +21,7 @@ export default (baseUrl: string): Endpoint<ParamsType, Array<EventModel>> =>
       (params: ParamsType): string => `${baseUrl}/${params.city}/${params.language}/wp-json/extensions/v3/events`
     )
     .withMapper(
-      (json: Array<JsonEventType>): Array<EventModel> =>
+      (json: Array<JsonEventType>, params: ParamsType): Array<EventModel> =>
         json
           .map((event: JsonEventType) => {
             const eventData = event.event
@@ -31,7 +31,7 @@ export default (baseUrl: string): Endpoint<ParamsType, Array<EventModel>> =>
             return new EventModel({
               path: event.path,
               title: event.title,
-              content: event.content,
+              content: params.language,
               thumbnail: event.thumbnail,
               date: new DateModel({
                 startDate: moment.tz(`${eventData.start_date} ${startTime}`, eventData.timezone),
