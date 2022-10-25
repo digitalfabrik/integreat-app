@@ -1,6 +1,6 @@
 import { NewsType, NEWS_ROUTE } from 'api-client/src/routes'
 
-import { NavigationPropType, RoutesType } from '../constants/NavigationTypes'
+import { NavigationProps, RoutesType } from '../constants/NavigationTypes'
 
 const navigateToNews = <T extends RoutesType>({
   navigation,
@@ -9,7 +9,7 @@ const navigateToNews = <T extends RoutesType>({
   type,
   newsId,
 }: {
-  navigation: NavigationPropType<T>
+  navigation: NavigationProps<T>
   cityCode: string
   languageCode: string
   type: NewsType

@@ -1,13 +1,13 @@
 import { OFFERS_ROUTE } from 'api-client/src/routes'
 
-import { NavigationPropType, RoutesType } from '../constants/NavigationTypes'
+import { NavigationProps, RoutesType } from '../constants/NavigationTypes'
 
 const navigateToOffers = <T extends RoutesType>({
   navigation,
   cityCode,
   languageCode,
 }: {
-  navigation: NavigationPropType<T>
+  navigation: NavigationProps<T>
   cityCode: string
   languageCode: string
 }): void => {

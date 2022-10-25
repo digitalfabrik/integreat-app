@@ -5,8 +5,8 @@ import { Dispatch } from 'redux'
 import { CATEGORIES_ROUTE, CategoriesRouteType, CityModel, ErrorCode } from 'api-client'
 
 import Categories from '../components/Categories'
-import { NavigationPropType, RoutePropType } from '../constants/NavigationTypes'
-import withPayloadProvider, { StatusPropsType } from '../hocs/withPayloadProvider'
+import { NavigationProps, RouteProps } from '../constants/NavigationTypes'
+import withPayloadProvider, { StatusProps } from '../hocs/withPayloadProvider'
 import useSetShareUrl from '../hooks/useSetShareUrl'
 import CategoriesRouteStateView from '../models/CategoriesRouteStateView'
 import createNavigate from '../navigation/createNavigate'
@@ -15,28 +15,28 @@ import { LanguageResourceCacheStateType, StateType } from '../redux/StateType'
 import { StoreActionType, SwitchContentLanguageActionType } from '../redux/StoreActionType'
 import { reportError } from '../utils/sentry'
 
-type NavigationPropsType = {
-  route: RoutePropType<CategoriesRouteType>
-  navigation: NavigationPropType<CategoriesRouteType>
+type CategoriesNavigationProps = {
+  route: RouteProps<CategoriesRouteType>
+  navigation: NavigationProps<CategoriesRouteType>
 }
-type OwnPropsType = NavigationPropsType
-type DispatchPropsType = {
+type OwnProps = CategoriesNavigationProps
+type DispatchProps = {
   dispatch: Dispatch<StoreActionType>
 }
-type ContainerPropsType = OwnPropsType &
-  DispatchPropsType & {
+type ContainerProps = OwnProps &
+  DispatchProps & {
     cityModel: CityModel
     language: string
     stateView: CategoriesRouteStateView
     resourceCache: LanguageResourceCacheStateType
     resourceCacheUrl: string
   }
-type RefreshPropsType = NavigationPropsType & {
+type RefreshProps = CategoriesNavigationProps & {
   cityCode: string
   language: string
   path: string
 }
-type StatePropsType = StatusPropsType<ContainerPropsType, RefreshPropsType>
+type StateProps = StatusProps<ContainerProps, RefreshProps>
 
 const createChangeUnavailableLanguage =
   (city: string) => (dispatch: Dispatch<StoreActionType>, newLanguage: string) => {
@@ -50,7 +50,7 @@ const createChangeUnavailableLanguage =
     dispatch(switchContentLanguage)
   }
 
-const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsType => {
+const mapStateToProps = (state: StateType, ownProps: OwnProps): StateProps => {
   const {
     route: { key },
   } = ownProps
@@ -183,11 +183,11 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
   return { ...successProps, status: 'success' }
 }
 
-const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>): DispatchPropsType => ({
+const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>): DispatchProps => ({
   dispatch,
 })
 
-const refresh = async (refreshProps: RefreshPropsType, dispatch: Dispatch<StoreActionType>) => {
+const refresh = async (refreshProps: RefreshProps, dispatch: Dispatch<StoreActionType>) => {
   const { cityCode, language, path, navigation, route } = refreshProps
   const navigateTo = createNavigate(dispatch, navigation)
   navigateTo(
@@ -202,7 +202,7 @@ const refresh = async (refreshProps: RefreshPropsType, dispatch: Dispatch<StoreA
   )
 }
 
-const CategoriesContainer = ({ dispatch, navigation, route, ...rest }: ContainerPropsType) => {
+const CategoriesContainer = ({ dispatch, navigation, route, ...rest }: ContainerProps) => {
   const { language, cityModel, stateView } = rest
   const routeInformation = {
     route: CATEGORIES_ROUTE,
@@ -226,5 +226,5 @@ export default connect(
   mapDispatchToProps
 )(
   // @ts-expect-error TODO: IGAPP-636
-  withPayloadProvider<ContainerPropsType, RefreshPropsType, CategoriesRouteType>(refresh, true)(CategoriesContainer)
+  withPayloadProvider<ContainerProps, RefreshProps, CategoriesRouteType>(refresh, true)(CategoriesContainer)
 )

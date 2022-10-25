@@ -14,12 +14,12 @@ export const Wrapper = styled.View`
   align-items: center;
 `
 
-type PropsType = {
+type SelectorProps = {
   items: Array<SelectorItemModel>
   selectedItemCode: string | null
 }
 
-const Selector = ({ items, selectedItemCode }: PropsType): ReactElement => (
+const Selector = ({ items, selectedItemCode }: SelectorProps): ReactElement => (
   <Wrapper>
     {items.map(item => (
       <SelectorItem key={item.code} model={item} selected={selectedItemCode === item.code} />

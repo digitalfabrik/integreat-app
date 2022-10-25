@@ -33,7 +33,7 @@ import Header from './Header'
 import KebabActionItemLink from './KebabActionItemLink'
 import LanguageSelector from './LanguageSelector'
 
-type PropsType = {
+type LocationHeaderProps = {
   cityModel: CityModel
   route: RouteType
   languageCode: string
@@ -41,7 +41,7 @@ type PropsType = {
   languageChangePaths: Array<{ code: string; path: string | null; name: string }> | null
 }
 
-const LocationHeader = (props: PropsType): ReactElement => {
+const LocationHeader = (props: LocationHeaderProps): ReactElement => {
   const { viewportSmall, cityModel, languageCode, languageChangePaths, route } = props
   const { eventsEnabled, poisEnabled, offersEnabled, tunewsEnabled, localNewsEnabled } = cityModel
   const [showSidebar, setShowSidebar] = useState<boolean>(false)

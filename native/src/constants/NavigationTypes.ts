@@ -129,5 +129,5 @@ export type RoutesParamsType = {
   }
   [FEEDBACK_MODAL_ROUTE]: BasicParams & FeedbackInformationType
 }
-export type RoutePropType<T extends RoutesType> = RouteProp<RoutesParamsType, T>
-export type NavigationPropType<T extends RoutesType> = StackNavigationProp<RoutesParamsType, T>
+export type RouteProps<T extends RoutesType> = RouteProp<RoutesParamsType, T>
+export type NavigationProps<T extends RoutesType> = StackNavigationProp<RoutesParamsType, T>
