@@ -66,14 +66,14 @@ describe('HeaderActionItemDropDown', () => {
   it('should close if pressing escape', async () => {
     fireEvent.click(wrapperComponent.getByRole('button'))
     expect(inner).toBeVisible()
-    fireEvent.keyDown(outside, { code: 'Escape' })
+    fireEvent.keyDown(outside, { key: 'Escape' })
     expect(inner).not.toBeVisible()
   })
 
   it('should close if pressing enter', async () => {
     fireEvent.click(wrapperComponent.getByRole('button'))
     expect(inner).toBeVisible()
-    fireEvent.keyDown(outside, { code: 'Enter' })
+    fireEvent.keyDown(outside, { key: 'Enter' })
     expect(inner).not.toBeVisible()
   })
 
