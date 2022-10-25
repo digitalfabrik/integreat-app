@@ -202,13 +202,13 @@ commands:
                     - 8-yarn-{{ arch }}-{{ checksum "yarn.lock" }}-{{ checksum "package.json" }}-{{ checksum "native/package.json" }}-{{ checksum "web/package.json" }}
                 name: Restore Yarn Package Cache
             - run:
-                command: yarn --frozen-lockfile --cache-folder ~/.cache/yarn
+                command: yarn install --immutable
                 name: Yarn
             - save_cache:
                 key: 8-yarn-{{ arch }}-{{ checksum "yarn.lock" }}-{{ checksum "package.json" }}-{{ checksum "native/package.json" }}-{{ checksum "web/package.json" }}
                 name: Save Yarn Package Cache
                 paths:
-                    - ~/.cache/yarn
+                    - .yarn/cache
                     - node_modules
                     - native/node_modules
                     - web/node_modules
@@ -220,14 +220,14 @@ commands:
                     - 2-yarn-{{ arch }}-{{ checksum "tools/yarn.lock" }}-{{ checksum "tools/package.json" }}
                 name: Restore Yarn Tools Package Cache
             - run:
-                command: yarn --frozen-lockfile --cache-folder ~/.cache/yarn-tools
+                command: yarn install --immutable
                 name: Yarn tools
                 working_directory: tools
             - save_cache:
                 key: 2-yarn-{{ arch }}-{{ checksum "tools/yarn.lock" }}-{{ checksum "tools/package.json" }}
                 name: Save Yarn Tools Package Cache
                 paths:
-                    - ~/.cache/yarn-tools
+                    - tools/.yarn/cache
                     - tools/node_modules
     skip_job:
         description: Skips the current build if neccassary
