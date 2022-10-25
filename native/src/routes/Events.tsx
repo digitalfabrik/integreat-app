@@ -3,15 +3,7 @@ import { useTranslation } from 'react-i18next'
 import { RefreshControl } from 'react-native'
 import styled from 'styled-components/native'
 
-import {
-  CityModel,
-  EventModel,
-  EVENTS_ROUTE,
-  fromError,
-  getSlug,
-  NotFoundError,
-  RouteInformationType,
-} from 'api-client'
+import { CityModel, EventModel, EVENTS_ROUTE, fromError, NotFoundError, RouteInformationType } from 'api-client'
 
 import Caption from '../components/Caption'
 import EventListItem from '../components/EventListItem'
@@ -36,7 +28,7 @@ const StyledSiteHelpfulBox = styled(SiteHelpfulBox)`
 `
 
 export type EventsProps = {
-  path: string | null | undefined
+  slug?: string
   events: Array<EventModel>
   cityModel: CityModel
   language: string
@@ -55,7 +47,7 @@ const Events = ({
   language,
   navigateTo,
   events,
-  path,
+  slug,
   resourceCache,
   resourceCacheUrl,
   navigateToFeedback,
@@ -64,19 +56,10 @@ const Events = ({
   const { t } = useTranslation('events')
   const formatter = useContext(DateFormatterContext)
 
-  const createNavigateToFeedbackForEvent = (event: EventModel) => (isPositiveFeedback: boolean) => {
+  const createNavigateToFeedback = (event?: EventModel) => (isPositiveFeedback: boolean) => {
     navigateToFeedback({
       routeType: EVENTS_ROUTE,
-      slug: getSlug(event.path),
-      cityCode: cityModel.code,
-      language,
-      isPositiveFeedback,
-    })
-  }
-
-  const navigateToFeedbackForEvents = (isPositiveFeedback: boolean) => {
-    navigateToFeedback({
-      routeType: EVENTS_ROUTE,
+      slug: event?.slug,
       cityCode: cityModel.code,
       language,
       isPositiveFeedback,
@@ -97,8 +80,8 @@ const Events = ({
     )
   }
 
-  if (path) {
-    const event = events.find(_event => _event.path === path)
+  if (slug) {
+    const event = events.find(_event => _event.slug === slug)
 
     if (event) {
       const files = resourceCache[event.path] || {}
@@ -111,7 +94,7 @@ const Events = ({
             language={language}
             files={files}
             resourceCacheUrl={resourceCacheUrl}
-            navigateToFeedback={createNavigateToFeedbackForEvent(event)}>
+            navigateToFeedback={createNavigateToFeedback(event)}>
             <>
               <PageDetail
                 identifier={t('date')}
@@ -129,7 +112,7 @@ const Events = ({
 
     const error = new NotFoundError({
       type: 'event',
-      id: path,
+      id: slug,
       city: cityModel.code,
       language,
     })
@@ -142,11 +125,11 @@ const Events = ({
         route: EVENTS_ROUTE,
         cityCode: cityModel.code,
         languageCode: language,
-        cityContentPath: item.path,
+        slug: item.slug,
       })
     return (
       <EventListItem
-        key={item.path}
+        key={item.slug}
         formatter={formatter}
         event={item}
         language={language}
@@ -166,7 +149,7 @@ const Events = ({
             <Separator />
           </>
         }
-        Footer={<StyledSiteHelpfulBox navigateToFeedback={navigateToFeedbackForEvents} />}
+        Footer={<StyledSiteHelpfulBox navigateToFeedback={createNavigateToFeedback()} />}
         refresh={refresh}
         noItemsMessage={t('currentlyNoEvents')}
       />
