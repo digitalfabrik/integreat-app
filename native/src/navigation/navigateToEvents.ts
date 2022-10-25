@@ -11,7 +11,7 @@ const navigateToEvents = <T extends RoutesType>({
   dispatch,
   cityCode,
   languageCode,
-  cityContentPath,
+  slug,
   key = generateRouteKey(),
   forceRefresh = false,
 }: {
@@ -19,7 +19,7 @@ const navigateToEvents = <T extends RoutesType>({
   navigation: NavigationProps<T>
   cityCode: string
   languageCode: string
-  cityContentPath: string | null | undefined
+  slug?: string
   key?: string
   forceRefresh?: boolean
 }): void => {
@@ -28,6 +28,7 @@ const navigateToEvents = <T extends RoutesType>({
     params: {
       cityCode,
       languageCode,
+      slug,
     },
     key,
   })

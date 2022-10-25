@@ -8,7 +8,7 @@ describe('loadAsync', () => {
   it('should set everything correctly if loading succeeds', async () => {
     const request = async (): Promise<string> => 'myData'
 
-    await loadAsync(request, {}, setData, setError, setLoading)
+    await loadAsync(request, setData, setError, setLoading)
 
     expect(setError).toHaveBeenCalledTimes(1)
     expect(setError).toHaveBeenCalledWith(null)
@@ -19,7 +19,7 @@ describe('loadAsync', () => {
   it('should set everything correctly if loading throws an error', async () => {
     const error = new Error('myError')
     const request = async (): Promise<void> => Promise.reject(error)
-    await loadAsync(request, {}, setData, setError, setLoading)
+    await loadAsync(request, setData, setError, setLoading)
     expect(setError).toHaveBeenCalledTimes(1)
     expect(setError).toHaveBeenCalledWith(error)
     expect(setData).toHaveBeenCalledTimes(1)

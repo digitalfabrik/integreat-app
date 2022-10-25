@@ -127,9 +127,9 @@ class InternalPathnameParser {
       return null
     }
 
-    // Single events are identified via their city content path, e.g. '/augsburg/de/events/1234'
-    const cityContentPath = this._length > ENTITY_ID_INDEX ? this._pathname : undefined
-    return { ...params, route: EVENTS_ROUTE, cityContentPath }
+    // Single events are identified via their slug, e.g. 'my-event-1234'
+    const slug = this._length > ENTITY_ID_INDEX ? this._parts[this._length - 1] : undefined
+    return { ...params, route: EVENTS_ROUTE, slug }
   }
 
   pois = (): RouteInformationType => {
@@ -139,9 +139,9 @@ class InternalPathnameParser {
       return null
     }
 
-    // get the urlSlug from pathname '/testumgebung/de/locations/cafe-tür-an-tür'
-    const urlSlug = this._length > ENTITY_ID_INDEX ? this._parts[ENTITY_ID_INDEX]! : undefined
-    return { ...params, route: POIS_ROUTE, urlSlug }
+    // Single pois are identified via their slug, e.g. 'my-poi-1234'
+    const slug = this._length > ENTITY_ID_INDEX ? this._parts[ENTITY_ID_INDEX] : undefined
+    return { ...params, route: POIS_ROUTE, slug }
   }
 
   news = (): RouteInformationType => {
