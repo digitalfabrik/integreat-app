@@ -35,7 +35,7 @@
     "eslint": "eslint .",
     "stylelint": "stylelint --config stylelint.config.js \"src/**/*.{ts,tsx}\"",
     "stylelint:css": "stylelint --config stylelint.config_css.js \"src/**/*.css\"",
-    "ts:check": "tsc --build",
+    "ts:check": "yarn g:tsc --build",
     "prettier:check": "yarn prettier --ignore-path  ../.prettierignore --check .",
     "prettier:write": "yarn prettier --ignore-path  ../.prettierignore --write .",
     "postinstall": "npm-license-crawler -onlyDirectDependencies -json ./assets/licenses.json"
