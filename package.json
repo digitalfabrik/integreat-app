@@ -10,14 +10,10 @@
       "api-client",
       "translations",
       "build-configs"
-    ],
-    "nohoist": [
-      "native/**",
-      "web/**",
-      "api-client/**",
-      "translations/**",
-      "build-configs/**"
     ]
+  },
+  "installConfig": {
+    "hoistingLimits": "workspaces"
   },
   "scripts": {
     "lint": "yarn run eslint",
