@@ -5,7 +5,8 @@
   "workspaces": {
     "packages": [
       "translations",
-      "build-configs"
+      "build-configs",
+      "api-client"
     ]
   },
   "installConfig": {
