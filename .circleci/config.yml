@@ -504,10 +504,10 @@ jobs:
         steps:
             - skip_job
             - checkout
-            - restore_yarn_cache
             - run:
-                command: yarn install --immutable
-                name: yarn install2
+                  command: yarn install --immutable
+                  name: yarn install2
+            - restore_yarn_cache
             - check_config
             - run:
                 command: yarn prettier:check
