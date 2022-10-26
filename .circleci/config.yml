@@ -495,7 +495,7 @@ jobs:
             - notify
     check:
         docker:
-            - image: cimg/node:14.19.0
+            - image: cimg/node:16.13.0
         environment:
             TOTAL_CPUS: 1
             TZ: Europe/Berlin
