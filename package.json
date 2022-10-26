@@ -2,16 +2,6 @@
   "name": "integreat-app",
   "license": "MIT",
   "private": true,
-  "workspaces": {
-    "packages": [
-      "native",
-      "web",
-      "e2e-tests",
-      "api-client",
-      "translations",
-      "build-configs"
-    ]
-  },
   "installConfig": {
     "hoistingLimits": "workspaces"
   },
