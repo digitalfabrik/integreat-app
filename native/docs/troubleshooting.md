@@ -17,6 +17,9 @@
 - [`Invalid BUILD_CONFIG_NAME supplied`](#invalid-build_config_name-supplied)
 - [App crashing with java.lang.UnsatisfiedLinkError](#app-crashing-with-javalangunsatisfiedlinkerror)
 - [App crashing without any error](#app-crashing-without-any-error)
+- [XCode can't find 'bla/bla/de.lproj/InfoPlist.strings'](#xcode-cant-find-blabladelprojinfopliststrings)
+- [XCode can't find $BUILD_CONFIG_APP_ICON](#xcode-cant-find-build_config_app_icon)
+- [Other assorted XCode problems](#other-assorted-xcode-problems)
 
 ## Could not initialize class org.codehouse.groovy.runtime.InvokeHelper
 
@@ -128,7 +131,7 @@ The following error occurs:
 The app is installed correctly on the android emulator but crashes without any error message on start up.
 To solve this issue delete /android/app/build and android/.gradle folder.
 
-## XCode can't find 'your/directory/native/ios/Integreat/de.lproj/InfoPlist.strings'
+## XCode can't find 'bla/bla/de.lproj/InfoPlist.strings'
 
 These translations should usually be generated during the build, if they aren't, generate them manually with
 `yarn workspace translations manage write-plist Integreat --translations "../translations/translations.json" --destination ../native/ios/Integreat`
