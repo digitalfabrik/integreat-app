@@ -516,7 +516,7 @@ jobs:
                 command: yarn workspace web stylelint
                 name: Stylelint
             - run:
-                command: yarn workspaces run ts:check
+                command: yarn workspaces foreach run ts:check
                 name: TS check
             - unit_test:
                 directory: api-client

@@ -22,7 +22,7 @@ steps:
       command: yarn workspace web stylelint
   - run:
       name: TS check
-      command: yarn workspaces run ts:check
+      command: yarn workspaces foreach run ts:check
   - unit_test:
       directory: api-client
   - unit_test:
