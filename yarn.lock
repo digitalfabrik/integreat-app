@@ -1410,6 +1410,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/flat@npm:^5.0.2":
+  version: 5.0.2
+  resolution: "@types/flat@npm:5.0.2"
+  checksum: cdf64077ed9b364b0be531e4b4761167bddd8fc57cb60cf6edf5e4220e432263282d1182a4252228da8d0e92d0a931d63e711a6fcfeb3e0e2a314d07e4d34408
+  languageName: node
+  linkType: hard
+
 "@types/graceful-fs@npm:^4.1.2":
   version: 4.1.5
   resolution: "@types/graceful-fs@npm:4.1.5"
@@ -1472,6 +1479,13 @@ __metadata:
   version: 0.0.29
   resolution: "@types/json5@npm:0.0.29"
   checksum: 6bf5337bc447b706bb5b4431d37686aa2ea6d07cfd6f79cc31de80170d6ff9b1c7384a9c0ccbc45b3f512bae9e9f75c2e12109806a15331dc94e8a8db6dbb4ac
+  languageName: node
+  linkType: hard
+
+"@types/lodash@npm:^4.14.182":
+  version: 4.14.186
+  resolution: "@types/lodash@npm:4.14.186"
+  checksum: 6e0c73ead3eb5073e37c9b8141004369776fba31a3876d2b647d590b78256e414b770753f767a548a70ad23408ac5cc83b174adfd5dba2bb88b833f2763c632b
   languageName: node
   linkType: hard
 
@@ -2361,6 +2375,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"commander@npm:^8.3.0":
+  version: 8.3.0
+  resolution: "commander@npm:8.3.0"
+  checksum: 8b043bb8322ea1c39664a1598a95e0495bfe4ca2fad0d84a92d7d1d8d213e2a155b441d2470c8e08de7c4a28cf2bc6e169211c49e1b21d9f7edc6ae4d9356060
+  languageName: node
+  linkType: hard
+
 "concat-map@npm:0.0.1":
   version: 0.0.1
   resolution: "concat-map@npm:0.0.1"
@@ -2452,6 +2473,20 @@ __metadata:
   dependencies:
     cssom: ~0.3.6
   checksum: 863400da2a458f73272b9a55ba7ff05de40d850f22eb4f37311abebd7eff801cf1cd2fb04c4c92b8c3daed83fe766e52e4112afb7bc88d86c63a9c2256a7d178
+  languageName: node
+  linkType: hard
+
+"csv-parse@npm:^5.3.0":
+  version: 5.3.1
+  resolution: "csv-parse@npm:5.3.1"
+  checksum: baec73f48e6d84fc6889ea3620d6c6c5ec2be8ee1bc7d28a0c19cf88fcfeeb98ffcc08ccbaa6ea6a8b09970dfff89d0ace6a5ea5c2b061043b4ff6f1ace803b7
+  languageName: node
+  linkType: hard
+
+"csv-stringify@npm:^6.2.0":
+  version: 6.2.0
+  resolution: "csv-stringify@npm:6.2.0"
+  checksum: dd1b27ae7fa3bd41b1466b79f26360ef84a4fcf5526e5a5e0f15d6a63d920116b58fe23e102899b54e7a31bd9822c61a17327f27137f35c81c3ff58d9681f632
   languageName: node
   linkType: hard
 
@@ -3405,6 +3440,15 @@ __metadata:
     flatted: ^3.1.0
     rimraf: ^3.0.2
   checksum: f274dcbadb09ad8d7b6edf2ee9b034bc40bf0c12638f6c4084e9f1d39208cb104a5ebbb24b398880ef048200eaa116852f73d2d8b72e8c9627aba8c3e27ca057
+  languageName: node
+  linkType: hard
+
+"flat@npm:^5.0.0":
+  version: 5.0.2
+  resolution: "flat@npm:5.0.2"
+  bin:
+    flat: cli.js
+  checksum: f178b13482f0cd80c7fede05f4d10585b1f2fdebf26e12edc138e32d3150c6ea6482b7f12813a1091143bad52bb6d3596bca51a162257a21163c0ff438baa5fe
   languageName: node
   linkType: hard
 
@@ -4400,6 +4444,18 @@ __metadata:
     pretty-format: ^27.5.1
     throat: ^6.0.1
   checksum: 028172d5d65abf7e8da89c30894112efdd18007a934f30b89e3f35def3764824a9680917996d5e551caa2087589a372a2539777d5554fa3bae6c7e36afec6d4c
+  languageName: node
+  linkType: hard
+
+"jest-junit@npm:^14.0.0":
+  version: 14.0.1
+  resolution: "jest-junit@npm:14.0.1"
+  dependencies:
+    mkdirp: ^1.0.4
+    strip-ansi: ^6.0.1
+    uuid: ^8.3.2
+    xml: ^1.0.1
+  checksum: ec06ffad0326f037e62637b0c9935f2668c4657bebf4b81ab3b14867482b754f479c93cd13fe8915b763a7196a3dbc3edf323f062026763e4a79891b617e5945
   languageName: node
   linkType: hard
 
@@ -6322,6 +6378,21 @@ __metadata:
   languageName: node
   linkType: hard
 
+"translations@workspace:translations":
+  version: 0.0.0-use.local
+  resolution: "translations@workspace:translations"
+  dependencies:
+    "@types/flat": ^5.0.2
+    "@types/lodash": ^4.14.182
+    commander: ^8.3.0
+    csv-parse: ^5.3.0
+    csv-stringify: ^6.2.0
+    flat: ^5.0.0
+    jest-junit: ^14.0.0
+    lodash: ^4.17.19
+  languageName: unknown
+  linkType: soft
+
 "ts-jest@npm:^27.1.5":
   version: 27.1.5
   resolution: "ts-jest@npm:27.1.5"
@@ -6556,6 +6627,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"uuid@npm:^8.3.2":
+  version: 8.3.2
+  resolution: "uuid@npm:8.3.2"
+  bin:
+    uuid: dist/bin/uuid
+  checksum: bcbb807a917d374a49f475fae2e87fdca7da5e5530820ef53f65ba1d12131bd81a92ecf259cc7ce317cbe0f289e7d79fdfebcef9bfa3087c8c8a2fa304c9be54
+  languageName: node
+  linkType: hard
+
 "v8-compile-cache-lib@npm:^3.0.1":
   version: 3.0.1
   resolution: "v8-compile-cache-lib@npm:3.0.1"
@@ -6738,6 +6818,13 @@ __metadata:
   version: 3.0.0
   resolution: "xml-name-validator@npm:3.0.0"
   checksum: da310f6a7a52f8eb0fce3d04ffa1f97387ca68f47e8620ae3a259909c4e832f7003313b918e53840a6bf57fb38d5ae3c5f79f31f911b2818a7439f7898f8fbf1
+  languageName: node
+  linkType: hard
+
+"xml@npm:^1.0.1":
+  version: 1.0.1
+  resolution: "xml@npm:1.0.1"
+  checksum: 04bcc9b8b5e7b49392072fbd9c6b0f0958bd8e8f8606fee460318e43991349a68cbc5384038d179ff15aef7d222285f69ca0f067f53d071084eb14c7fdb30411
   languageName: node
   linkType: hard
 
