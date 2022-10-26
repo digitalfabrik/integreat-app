@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react'
+import React, { ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import {
@@ -39,8 +39,6 @@ type CityContentHeaderProps = {
   languageCode: string
   viewportSmall: boolean
   languageChangePaths: Array<{ code: string; path: string | null; name: string }> | null
-  isSidebarOpen: boolean
-  setIsSidebarOpen: (input: boolean) => void
 }
 
 const CityContentHeader = ({
@@ -49,10 +47,9 @@ const CityContentHeader = ({
   languageCode,
   languageChangePaths,
   route,
-  isSidebarOpen,
-  setIsSidebarOpen,
 }: CityContentHeaderProps): ReactElement => {
   const { eventsEnabled, poisEnabled, offersEnabled, tunewsEnabled, localNewsEnabled } = cityModel
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false)
 
   const params = { cityCode: cityModel.code, languageCode }
   const newsType = localNewsEnabled ? LOCAL_NEWS_ROUTE : TU_NEWS_ROUTE
