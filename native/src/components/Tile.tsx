@@ -5,7 +5,7 @@ import styled from 'styled-components/native'
 import TileModel from '../models/TileModel'
 import SimpleImage from './SimpleImage'
 
-type PropsType = {
+type TileProps = {
   tile: TileModel
   onTilePress: (tile: TileModel) => void
 }
@@ -23,7 +23,7 @@ const TileContainer = styled.View`
   width: 50%;
 `
 
-const Tile = ({ onTilePress, tile }: PropsType): ReactElement => (
+const Tile = ({ onTilePress, tile }: TileProps): ReactElement => (
   <TileContainer>
     <TouchableOpacity onPress={() => onTilePress(tile)}>
       <ThumbnailContainer source={tile.thumbnail} />

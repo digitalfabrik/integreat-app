@@ -12,23 +12,23 @@ const TimeStampText = styled.Text`
   color: ${props => props.theme.colors.textSecondaryColor};
   font-family: ${props => props.theme.fonts.native.contentFontRegular};
 `
-type DirectionContainerPropsType = {
+type DirectionContainerProps = {
   language: string
   children: React.ReactNode
 }
 
-const DirectionContainer = styled.View<DirectionContainerPropsType>`
+const DirectionContainer = styled.View<DirectionContainerProps>`
   display: flex;
   flex-direction: ${props => contentDirection(props.language)};
 `
-type PropsType = {
+type TimeStampProps = {
   lastUpdate: Moment
   formatter: DateFormatter
   showText?: boolean
   format?: string
 }
 
-export const TimeStamp = ({ lastUpdate, formatter, showText = true, format = 'LL' }: PropsType): ReactElement => {
+export const TimeStamp = ({ lastUpdate, formatter, showText = true, format = 'LL' }: TimeStampProps): ReactElement => {
   const { i18n, t } = useTranslation('common')
   // only show day, month and year
   const dateText = formatter.format(lastUpdate, {

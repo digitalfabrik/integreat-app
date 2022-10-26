@@ -15,7 +15,7 @@ import FailureSwitcher from './FailureSwitcher'
 import LoadingSpinner from './LoadingSpinner'
 import ShelterInformation from './ShelterInformation'
 
-type Props = {
+type ShelterDetailProps = {
   cityModel: CityModel
   cityCode: string
   languageCode: string
@@ -33,7 +33,7 @@ const ShelterDetail = ({
   languages,
   shelterId,
   viewportSmall,
-}: Props): ReactElement => {
+}: ShelterDetailProps): ReactElement => {
   const requestShelter = useCallback(
     () =>
       createShelterEndpoint().request({

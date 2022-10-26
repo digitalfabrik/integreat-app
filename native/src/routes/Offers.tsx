@@ -10,7 +10,7 @@ import Tiles from '../components/Tiles'
 import TileModel from '../models/TileModel'
 import urlFromRouteInformation from '../navigation/url'
 
-type PropsType = {
+type OffersProps = {
   offers: Array<OfferModel>
   navigateToFeedback: (isPositiveFeedback: boolean) => void
   navigateToOffer: (tile: TileModel) => void
@@ -26,7 +26,7 @@ const Offers = ({
   t,
   languageCode,
   cityCode,
-}: PropsType): ReactElement => {
+}: OffersProps): ReactElement => {
   const tiles = offers.map(offer => {
     let path = offer.path
     if (offer.alias === SPRUNGBRETT_OFFER_ROUTE) {

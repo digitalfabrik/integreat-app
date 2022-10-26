@@ -20,11 +20,11 @@ const SadIconContainer = styled.Image`
   margin: 0 auto 10px;
 `
 
-type Props = {
+type NothingFoundProps = {
   paddingTop?: boolean
 }
 
-const NothingFound = ({ paddingTop = false }: Props): ReactElement => {
+const NothingFound = ({ paddingTop = false }: NothingFoundProps): ReactElement => {
   const { t } = useTranslation('search')
   return (
     <Container paddingTop={paddingTop}>
