@@ -6,7 +6,8 @@
     "packages": [
       "translations",
       "build-configs",
-      "api-client"
+      "api-client",
+      "web"
     ]
   },
   "installConfig": {
