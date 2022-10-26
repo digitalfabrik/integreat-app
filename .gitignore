@@ -116,6 +116,7 @@ dist
 !.yarn/releases
 !.yarn/sdks
 !.yarn/versions
+tools/.yarn/*
 
 # png caches
 **/.png-cache
