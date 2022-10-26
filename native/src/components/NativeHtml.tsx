@@ -11,13 +11,13 @@ import useNavigateToLink from '../hooks/useNavigateToLink'
 import { getErrorMessage } from '../utils/helpers'
 import { log, reportError } from '../utils/sentry'
 
-type PropsType = {
+type NativeHtmlProps = {
   language: string
   content: string
   cacheDictionary?: Record<string, string>
 }
 
-const NativeHtml = React.memo(({ content, cacheDictionary, language }: PropsType): ReactElement => {
+const NativeHtml = React.memo(({ content, cacheDictionary, language }: NativeHtmlProps): ReactElement => {
   const theme = useTheme()
   const { width } = useWindowDimensions()
   const navigateToLink = useNavigateToLink()

@@ -33,7 +33,7 @@ const Title = styled(Text)`
   color: ${props => props.theme.colors.textColor};
 `
 
-type Props = {
+type ListItemProps = {
   thumbnail: ImageSourceType
   title: string
   language: string
@@ -41,7 +41,7 @@ type Props = {
   navigateTo: () => void
 }
 
-const ListItem = ({ language, title, thumbnail, children, navigateTo }: Props): ReactElement => (
+const ListItem = ({ language, title, thumbnail, children, navigateTo }: ListItemProps): ReactElement => (
   <StyledTouchableOpacity onPress={navigateTo}>
     <ListItemView language={language}>
       {thumbnail && <Thumbnail source={thumbnail} />}

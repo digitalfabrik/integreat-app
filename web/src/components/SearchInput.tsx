@@ -40,7 +40,7 @@ const SearchIcon = styled(FontAwesomeIcon).attrs({ icon: faSearch })`
   text-align: center;
 `
 
-type PropsType = {
+type SearchInputProps = {
   placeholderText: string
   filterText: string
   onFilterTextChange: (filterText: string) => void
@@ -54,7 +54,7 @@ const SearchInput = ({
   onClickInput,
   onFilterTextChange,
   spaceSearch = false,
-}: PropsType): ReactElement => {
+}: SearchInputProps): ReactElement => {
   const handleFilterTextChange = (event: ChangeEvent<HTMLInputElement>): void => {
     if (typeof event.target.value === 'string') {
       onFilterTextChange(event.target.value)

@@ -3,20 +3,20 @@ import { Dispatch } from 'redux'
 
 import { CityModel, ErrorCode, PoiModel, POIS_ROUTE, PoisRouteType } from 'api-client'
 
-import { NavigationPropType, RoutePropType } from '../constants/NavigationTypes'
-import withPayloadProvider, { StatusPropsType } from '../hocs/withPayloadProvider'
+import { NavigationProps, RouteProps } from '../constants/NavigationTypes'
+import withPayloadProvider, { StatusProps } from '../hocs/withPayloadProvider'
 import createNavigate from '../navigation/createNavigate'
 import { LanguageResourceCacheStateType, StateType } from '../redux/StateType'
 import { StoreActionType, SwitchContentLanguageActionType } from '../redux/StoreActionType'
 import { reportError } from '../utils/sentry'
 import Pois from './Pois'
 
-type NavigationPropsType = {
-  route: RoutePropType<PoisRouteType>
-  navigation: NavigationPropType<PoisRouteType>
+type PoisNavigationProps = {
+  route: RouteProps<PoisRouteType>
+  navigation: NavigationProps<PoisRouteType>
 }
-type OwnPropsType = NavigationPropsType
-type ContainerPropsType = OwnPropsType & {
+type OwnProps = PoisNavigationProps
+type ContainerProps = OwnProps & {
   path: string | null | undefined
   pois: Array<PoiModel>
   cityModel: CityModel
@@ -25,13 +25,13 @@ type ContainerPropsType = OwnPropsType & {
   resourceCacheUrl: string
   dispatch: Dispatch<StoreActionType>
 }
-type RefreshPropsType = NavigationPropsType & {
+type RefreshProps = PoisNavigationProps & {
   cityCode: string
   language: string
   path: string | null | undefined
 }
-type StatePropsType = StatusPropsType<ContainerPropsType, RefreshPropsType>
-type DispatchPropsType = {
+type StateProps = StatusProps<ContainerProps, RefreshProps>
+type DispatchProps = {
   dispatch: Dispatch<StoreActionType>
 }
 
@@ -47,7 +47,7 @@ const createChangeUnavailableLanguage =
     dispatch(switchContentLanguage)
   }
 
-const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsType => {
+const mapStateToProps = (state: StateType, ownProps: OwnProps): StateProps => {
   const {
     navigation,
     route: { key },
@@ -172,11 +172,11 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
   }
 }
 
-const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>): DispatchPropsType => ({
+const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>): DispatchProps => ({
   dispatch,
 })
 
-const refresh = (refreshProps: RefreshPropsType, dispatch: Dispatch<StoreActionType>) => {
+const refresh = (refreshProps: RefreshProps, dispatch: Dispatch<StoreActionType>) => {
   const { navigation, route, cityCode, language, path } = refreshProps
   const navigateTo = createNavigate(dispatch, navigation)
   navigateTo(
@@ -195,4 +195,4 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps
   // @ts-expect-error TODO: IGAPP-636
-)(withPayloadProvider<ContainerPropsType, RefreshPropsType, PoisRouteType>(refresh, true, true)(Pois))
+)(withPayloadProvider<ContainerProps, RefreshProps, PoisRouteType>(refresh, true, true)(Pois))

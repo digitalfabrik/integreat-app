@@ -9,7 +9,7 @@ import CityContentLayout, { ToolbarProps } from '../CityContentLayout'
 jest.mock('../CityContentFooter', () => () => <div>CityContentFooter</div>)
 jest.mock('../CityContentHeader', () => () => <div>CityContentHeader</div>)
 
-describe('LocationLayout', () => {
+describe('CityContentLayout', () => {
   const language = 'de'
   const cityModel = new CityModelBuilder(1).build()[0]!
 
@@ -21,7 +21,7 @@ describe('LocationLayout', () => {
   const feedbackTargetInformation = { path: '/path/to/category' }
 
   const MockNode = () => <div />
-  const renderLocationLayout = (isLoading: boolean, toolbar?: ToolbarProps): RenderResult =>
+  const renderCityContentLayout = (isLoading: boolean, toolbar?: ToolbarProps): RenderResult =>
     renderWithTheme(
       <CityContentLayout
         toolbar={toolbar}
@@ -39,18 +39,18 @@ describe('LocationLayout', () => {
   it('should render a toolbar', () => {
     const toolbar = () => 'CityContentToolbar'
 
-    const { getByText } = renderLocationLayout(false, toolbar)
+    const { getByText } = renderCityContentLayout(false, toolbar)
     expect(getByText('CityContentToolbar')).toBeTruthy()
   })
 
   it('should show CityContentHeader and CityContentFooter if not loading', () => {
-    const { getByText } = renderLocationLayout(false)
+    const { getByText } = renderCityContentLayout(false)
     expect(getByText('CityContentHeader')).toBeTruthy()
     expect(getByText('CityContentFooter')).toBeTruthy()
   })
 
   it('should not render CityContentFooter if loading', () => {
-    const { getByText } = renderLocationLayout(true)
+    const { getByText } = renderCityContentLayout(true)
     expect(getByText('CityContentHeader')).toBeTruthy()
     expect(() => getByText('CityContentFooter')).toThrow()
   })
