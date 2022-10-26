@@ -2,6 +2,9 @@
   "name": "integreat-app",
   "license": "MIT",
   "private": true,
+  "workspaces": [
+      "native"
+  ],
   "installConfig": {
     "hoistingLimits": "workspaces"
   },
