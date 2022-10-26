@@ -507,6 +507,15 @@ jobs:
             - restore_yarn_cache
             - check_config
             - run:
+                command: ls && cd node_modules && ls && cd .bin && ls
+                name: ls node_modules/.bin/
+            - run:
+                command: cd web && tsc --build
+                name: TS check
+            - run:
+                command: yarn workspace web run ts:check
+                name: TS check
+            - run:
                 command: yarn prettier:check
                 name: Prettier
             - run:
@@ -515,9 +524,6 @@ jobs:
             - run:
                 command: yarn workspace web stylelint
                 name: Stylelint
-            - run:
-                command: yarn workspace web run ts:check
-                name: TS check
             - unit_test:
                 directory: api-client
             - unit_test:

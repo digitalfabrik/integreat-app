@@ -12,6 +12,15 @@ steps:
   - restore_yarn_cache
   - check_config
   - run:
+      name: ls node_modules/.bin/
+      command: ls && cd node_modules && ls && cd .bin && ls
+  - run:
+      name: TS check
+      command: cd web && tsc --build
+  - run:
+      name: TS check
+      command: yarn workspace web run ts:check
+  - run:
       name: Prettier
       command: yarn prettier:check
   - run:
@@ -20,9 +29,6 @@ steps:
   - run:
       name: Stylelint
       command: yarn workspace web stylelint
-  - run:
-      name: TS check
-      command: yarn workspace web run ts:check
   - unit_test:
       directory: api-client
   - unit_test:
