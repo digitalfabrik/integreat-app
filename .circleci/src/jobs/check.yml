@@ -10,9 +10,6 @@ steps:
   - skip_job
   - checkout
   - restore_yarn_cache
-  - run:
-      name: yarn install2
-      command: yarn install --immutable
   - check_config
   - run:
       name: Prettier

@@ -504,9 +504,6 @@ jobs:
         steps:
             - skip_job
             - checkout
-            - run:
-                  command: yarn install --immutable
-                  name: yarn install2
             - restore_yarn_cache
             - check_config
             - run:
