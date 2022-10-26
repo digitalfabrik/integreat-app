@@ -8,8 +8,7 @@
       "build-configs",
       "api-client",
       "web",
-      "native",
-      "e2e-tests"
+      "native"
     ]
   },
   "installConfig": {
