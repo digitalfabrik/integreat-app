@@ -8,8 +8,8 @@ import { StaticServerContext } from '../components/StaticServerProvider'
 import { NavigationProps, RouteProps } from '../constants/NavigationTypes'
 import useCityAppContext from '../hooks/useCityAppContext'
 import useLoadEvents from '../hooks/useLoadEvents'
+import useOnLanguageChange from '../hooks/useOnLanguageChange'
 import useSetShareUrl from '../hooks/useSetShareUrl'
-import useOnLanguageChange from '../hooks/useUpdateParamsOnLanguageChange'
 import createNavigate from '../navigation/createNavigate'
 import createNavigateToFeedbackModal from '../navigation/createNavigateToFeedbackModal'
 import navigateToLanguageChange from '../navigation/navigateToLanguageChange'
@@ -67,7 +67,7 @@ const EventsContainer = ({ navigation, route }: NewEventsContainerProps): ReactE
     (newLanguage: string) => {
       if (currentEvent) {
         const newSlug = currentEvent.availableLanguageSlugs[newLanguage]
-        // TODO: Handle language not available?
+        // TODO IGAPP-636: Handle language not available?
         navigation.setParams({ slug: newSlug })
       }
     },

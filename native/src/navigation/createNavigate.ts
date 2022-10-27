@@ -127,7 +127,6 @@ const createNavigate =
           navigateToPois({
             ...params,
             urlSlug: routeInformation.slug,
-            // TODO
             cityContentPath: '',
             key,
             forceRefresh,
