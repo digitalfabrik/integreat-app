@@ -6,6 +6,7 @@ import { LanguageResourceCacheStateType } from '../redux/StateType'
 import { dataContainer } from '../utils/DefaultDataContainer'
 import useLoadCities from './useLoadCities'
 import useLoadLanguages from './useLoadLanguages'
+import useOnLanguageChange from './useOnLanguageChange'
 
 type UseLoadCityContentProps<T> = {
   cityCode: string
@@ -28,6 +29,8 @@ const useLoadCityContent = <T>({ cityCode, languageCode, load }: UseLoadCityCont
   const languagesReturn = useLoadLanguages({ cityCode })
   const otherReturn = useLoadAsync(load)
 
+  const previousLanguageCode = useOnLanguageChange({ languageCode })
+
   const loadResourceCache = useCallback(
     async () => dataContainer.getResourceCache(cityCode, languageCode),
     [cityCode, languageCode]
@@ -39,6 +42,10 @@ const useLoadCityContent = <T>({ cityCode, languageCode, load }: UseLoadCityCont
   const language = languagesReturn.data?.find(it => it.code === languageCode)
 
   const getError = () => {
+    if (previousLanguageCode !== languageCode) {
+      // Prevent flickering if unavailable language changed
+      return { error: null, errorCode: null }
+    }
     if (citiesReturn.data && !city) {
       return { error: new Error(ErrorCode.CityUnavailable), errorCode: ErrorCode.CityUnavailable }
     }
