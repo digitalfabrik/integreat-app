@@ -26,8 +26,6 @@ const navigateToEvents = <T extends RoutesType>({
   navigation.navigate({
     name: EVENTS_ROUTE,
     params: {
-      cityCode,
-      languageCode,
       slug,
     },
     key,
