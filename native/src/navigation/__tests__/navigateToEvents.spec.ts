@@ -10,7 +10,7 @@ jest.mock('../url', () => ({
 }))
 const cityCode = 'augsburg'
 const languageCode = 'de'
-const cityContentPath = '/augsburg/de/integrationskurs'
+
 describe('navigateToEvents', () => {
   it('should generate key if not supplied with at least 6 chars and use it for both navigation and redux actions', () => {
     const dispatch = jest.fn()
@@ -20,7 +20,7 @@ describe('navigateToEvents', () => {
       navigation,
       cityCode,
       languageCode,
-      cityContentPath,
+      slug: '1234',
     })
     expect(navigation.navigate).toHaveBeenCalledWith(
       expect.objectContaining({
@@ -43,7 +43,7 @@ describe('navigateToEvents', () => {
       navigation,
       cityCode: 'augsburg',
       languageCode: 'de',
-      cityContentPath: '/augsburg/de/events',
+      slug: '1234',
       key: 'route-id-1',
       forceRefresh: true,
     })
