@@ -3,7 +3,7 @@ import { mocked } from 'jest-mock'
 import React, { ReactElement } from 'react'
 import { Share, Text, View } from 'react-native'
 
-import { DASHBOARD_ROUTE, SHARE_SIGNAL_NAME } from 'api-client'
+import { CATEGORIES_ROUTE, SHARE_SIGNAL_NAME } from 'api-client'
 
 import useSnackbar from '../../hooks/useSnackbar'
 import createNavigationMock from '../../testing/createNavigationPropMock'
@@ -47,7 +47,7 @@ describe('TransparentHeader', () => {
     navigation: createNavigationMock(routeIndex),
     route: {
       key: 'key-0',
-      name: DASHBOARD_ROUTE,
+      name: CATEGORIES_ROUTE,
       params: {
         shareUrl,
       },
