@@ -21,6 +21,7 @@ import StatusBar from './components/StatusBar'
 import { RoutesParamsType } from './constants/NavigationTypes'
 import buildConfig from './constants/buildConfig'
 import { userAgent } from './constants/endpoint'
+import AppContextProvider from './contexts/AppContextProvider'
 import useSendOfflineJpalSignals from './hooks/useSendOfflineJpalSignals'
 import { StateType } from './redux/StateType'
 import { StoreActionType } from './redux/StoreActionType'
@@ -94,17 +95,19 @@ const App = (): ReactElement => {
         <StaticServerProvider>
           <I18nProvider>
             <SafeAreaProvider>
-              <>
-                <StatusBar />
-                <IOSSafeAreaView>
-                  <NavigationContainer onStateChange={onStateChange} linking={linking}>
-                    <OverflowMenuProvider>
-                      <NavigatorContainer routeKey={routeKey} routeName={routeName} />
-                    </OverflowMenuProvider>
-                  </NavigationContainer>
-                </IOSSafeAreaView>
-                <SnackbarContainer />
-              </>
+              <AppContextProvider>
+                <>
+                  <StatusBar />
+                  <IOSSafeAreaView>
+                    <NavigationContainer onStateChange={onStateChange} linking={linking}>
+                      <OverflowMenuProvider>
+                        <NavigatorContainer routeKey={routeKey} routeName={routeName} />
+                      </OverflowMenuProvider>
+                    </NavigationContainer>
+                  </IOSSafeAreaView>
+                  <SnackbarContainer />
+                </>
+              </AppContextProvider>
             </SafeAreaProvider>
           </I18nProvider>
         </StaticServerProvider>

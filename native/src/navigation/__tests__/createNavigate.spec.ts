@@ -223,7 +223,7 @@ describe('createNavigate', () => {
     navigateTo({
       route: EVENTS_ROUTE,
       ...params,
-      cityContentPath,
+      slug: '1234',
     })
     expect(navigateToEvents).toHaveBeenCalledWith({
       dispatch,
@@ -299,7 +299,7 @@ describe('createNavigate', () => {
       {
         route: POIS_ROUTE,
         ...params,
-        cityContentPath,
+        slug: '1234',
       },
       key,
       forceRefresh
@@ -333,7 +333,7 @@ describe('createNavigate', () => {
       {
         route: POIS_ROUTE,
         ...params,
-        cityContentPath,
+        slug: '1234',
       },
       key,
       forceRefresh

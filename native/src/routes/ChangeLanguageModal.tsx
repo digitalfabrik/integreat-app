@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react'
+import React, { ReactElement, useContext } from 'react'
 import { useDispatch } from 'react-redux'
 import styled from 'styled-components/native'
 
@@ -6,6 +6,7 @@ import { ChangeLanguageModalRouteType } from 'api-client'
 
 import Selector from '../components/Selector'
 import { NavigationProps, RouteProps } from '../constants/NavigationTypes'
+import { AppContext } from '../contexts/AppContextProvider'
 import SelectorItemModel from '../models/SelectorItemModel'
 
 const Wrapper = styled.ScrollView`
@@ -19,9 +20,11 @@ type ChangeLanguageModalProps = {
 
 const ChangeLanguageModal = ({ navigation, route }: ChangeLanguageModalProps): ReactElement => {
   const { currentLanguage, languages, availableLanguages, cityCode } = route.params
+  const { changeLanguageCode } = useContext(AppContext)
   const dispatch = useDispatch()
 
   const changeLanguage = (newLanguage: string) => {
+    changeLanguageCode(newLanguage)
     dispatch({
       type: 'SWITCH_CONTENT_LANGUAGE',
       params: {
