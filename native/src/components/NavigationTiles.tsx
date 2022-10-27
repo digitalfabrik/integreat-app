@@ -1,9 +1,8 @@
 import React, { ReactElement, useRef, useState } from 'react'
 import { Dimensions, NativeScrollEvent, NativeSyntheticEvent, ScrollView } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
+import { useTheme } from 'styled-components'
 import styled from 'styled-components/native'
-
-import { ThemeType } from 'build-configs'
 
 import TileModel from '../models/TileModel'
 import AnchorIcon from './AnchorIcon'
@@ -29,10 +28,9 @@ const TilesRow = styled.View`
 
 type NavigationTilesProps = {
   tiles: Array<TileModel>
-  theme: ThemeType
 }
 
-const NavigationTiles = ({ tiles, theme }: NavigationTilesProps): ReactElement => {
+const NavigationTiles = ({ tiles }: NavigationTilesProps): ReactElement => {
   const { left, right } = useSafeAreaInsets()
   const { width } = Dimensions.get('screen')
   const layoutWidth = left && right ? width - (left + right) : width
@@ -43,6 +41,7 @@ const NavigationTiles = ({ tiles, theme }: NavigationTilesProps): ReactElement =
     : scrollViewWidth / smallScreenItemsCount
   const allTilesWidth = tiles.length * navigationItemWidth
   const isScrollable = allTilesWidth > layoutWidth
+  const theme = useTheme()
 
   const scrollViewRef = useRef<ScrollView>(null)
   const [percentageScrolled, setPercentageScrolled] = useState<number>(0)

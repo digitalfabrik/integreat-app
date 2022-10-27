@@ -1,9 +1,14 @@
 import { Dispatch } from 'redux'
 
-import { CITY_NOT_COOPERATING_ROUTE, NotFoundError, OPEN_PAGE_SIGNAL_NAME, SHELTER_ROUTE } from 'api-client'
+import {
+  CITY_NOT_COOPERATING_ROUTE,
+  DASHBOARD_ROUTE,
+  NotFoundError,
+  OPEN_PAGE_SIGNAL_NAME,
+  SHELTER_ROUTE,
+} from 'api-client'
 import {
   CATEGORIES_ROUTE,
-  DASHBOARD_ROUTE,
   DISCLAIMER_ROUTE,
   EVENTS_ROUTE,
   JPAL_TRACKING_ROUTE,
@@ -23,7 +28,6 @@ import { StoreActionType } from '../redux/StoreActionType'
 import openExternalUrl from '../utils/openExternalUrl'
 import sendTrackingSignal from '../utils/sendTrackingSignal'
 import showSnackbar from '../utils/showSnackbar'
-import navigateToCategory from './navigateToCategory'
 import navigateToCityNotCooperating from './navigateToCityNotCooperating'
 import navigateToDisclaimer from './navigateToDisclaimer'
 import navigateToEvents from './navigateToEvents'
@@ -72,7 +76,7 @@ const createNavigate =
         return
       }
 
-      const { route, cityCode, languageCode } = routeInformation
+      const { cityCode, languageCode } = routeInformation
       const params = {
         dispatch,
         navigation,
@@ -83,12 +87,8 @@ const createNavigate =
       switch (routeInformation.route) {
         case CATEGORIES_ROUTE:
         case DASHBOARD_ROUTE:
-          navigateToCategory({
-            ...params,
-            routeName: route === CATEGORIES_ROUTE ? CATEGORIES_ROUTE : DASHBOARD_ROUTE,
-            cityContentPath: routeInformation.cityContentPath,
-            key,
-            forceRefresh,
+          navigation.push(CATEGORIES_ROUTE, {
+            path: routeInformation.cityContentPath,
           })
           return
 
