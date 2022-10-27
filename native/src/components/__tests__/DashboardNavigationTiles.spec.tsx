@@ -1,52 +1,25 @@
 import { mocked } from 'jest-mock'
-import * as React from 'react'
+import React from 'react'
 import TestRenderer from 'react-test-renderer'
-import { ThemeProvider } from 'styled-components'
 
-import { CityModel } from 'api-client'
-import CategoriesMapModelBuilder from 'api-client/src/testing/CategoriesMapModelBuilder'
+import { CityModel } from 'api-client/src'
 
-import NavigationTiles from '../../components/NavigationTiles'
 import buildConfig from '../../constants/buildConfig'
-import CategoriesRouteStateView from '../../models/CategoriesRouteStateView'
 import TileModel from '../../models/TileModel'
-import Dashboard from '../Dashboard'
+import DashboardNavigationTiles from '../DashboardNavigationTiles'
+import NavigationTiles from '../NavigationTiles'
 
 jest.mock('react-i18next')
-jest.mock('../../components/Page', () => {
-  const { Text } = require('react-native')
 
-  return () => <Text>Page</Text>
-})
 jest.mock('../../components/NavigationTiles', () => {
   const { Text } = require('react-native')
 
   return () => <Text>NavigationTiles</Text>
 })
 
-describe('Dashboard', () => {
-  const categoriesMapModel = new CategoriesMapModelBuilder('augsburg', 'de').build()
-  const categoryLeaf = categoriesMapModel.toArray().find(category => categoriesMapModel.isLeaf(category))
+describe('DashboardNavigationTiles', () => {
   const language = 'de'
   const navigateTo = jest.fn()
-  const navigateToFeedback = jest.fn()
-  const theme = buildConfig().lightTheme
-
-  if (!categoryLeaf) {
-    throw Error('There should be a leaf!')
-  }
-
-  const stateView = new CategoriesRouteStateView(
-    categoryLeaf.path,
-    {
-      [categoryLeaf.path]: categoryLeaf,
-    },
-    {
-      [categoryLeaf.path]: [],
-    }
-  )
-  const resourceCache = {}
-  const resourceCacheUrl = 'https://localhost:8080'
 
   const createCityModel = (events: boolean, offers: boolean, local: boolean, tunews: boolean, pois: boolean) =>
     new CityModel({
@@ -79,24 +52,14 @@ describe('Dashboard', () => {
     }))
   }
 
-  const renderDashboard = (cityModel: CityModel): TestRenderer.ReactTestRenderer =>
+  const renderDashboardNavigationTiles = (cityModel: CityModel): TestRenderer.ReactTestRenderer =>
     TestRenderer.create(
-      <ThemeProvider theme={theme}>
-        <Dashboard
-          navigateToFeedback={navigateToFeedback}
-          navigateTo={navigateTo}
-          language={language}
-          cityModel={cityModel}
-          stateView={stateView}
-          resourceCache={resourceCache}
-          resourceCacheUrl={resourceCacheUrl}
-        />
-      </ThemeProvider>
+      <DashboardNavigationTiles navigateTo={navigateTo} languageCode={language} cityModel={cityModel} />
     )
 
-  it('should show navigation tiles if there are is at least one feature enabled', () => {
+  it('should show navigation tiles if there is at least one feature enabled', () => {
     const cityModel = createCityModel(true, false, false, false, false)
-    const result = renderDashboard(cityModel)
+    const result = renderDashboardNavigationTiles(cityModel)
     expect(() => result.root.findByType(NavigationTiles)).not.toThrow()
     const navigationTiles = result.root.findByType(NavigationTiles)
     expect(navigationTiles.props.tiles.some((tile: TileModel) => tile.path === 'events')).toBeTruthy()
@@ -104,18 +67,18 @@ describe('Dashboard', () => {
 
   it('should not show navigation tiles if there are no features enabled', () => {
     const cityModel = createCityModel(false, false, false, false, false)
-    const result = renderDashboard(cityModel)
+    const result = renderDashboardNavigationTiles(cityModel)
     expect(() => result.root.findByType(NavigationTiles)).toThrow()
   })
 
   it('should show news tile if at least one news feature is enabled', () => {
     mockBuildConfig(false, true)
     const cityModel = createCityModel(false, false, true, false, false)
-    const result = renderDashboard(cityModel)
+    const result = renderDashboardNavigationTiles(cityModel)
     const navigationTiles = result.root.findByType(NavigationTiles)
     expect(navigationTiles.props.tiles.some((tile: TileModel) => tile.path === 'news')).toBeTruthy()
     const otherCityModel = createCityModel(false, false, false, true, false)
-    const otherResult = renderDashboard(otherCityModel)
+    const otherResult = renderDashboardNavigationTiles(otherCityModel)
     const otherNavigationTiles = otherResult.root.findByType(NavigationTiles)
     expect(otherNavigationTiles.props.tiles.some((tile: TileModel) => tile.path === 'news')).toBeTruthy()
   })
@@ -123,16 +86,16 @@ describe('Dashboard', () => {
   it('should show all tiles if all features are enabled in city model and build config', () => {
     mockBuildConfig(true, true)
     const cityModel = createCityModel(true, true, true, true, true)
-    const result = renderDashboard(cityModel)
+    const result = renderDashboardNavigationTiles(cityModel)
     expect(() => result.root.findByType(NavigationTiles)).not.toThrow()
     const navigationTiles = result.root.findByType(NavigationTiles)
     expect(navigationTiles.props.tiles).toHaveLength(4)
   })
 
-  it('should show any feature disabled in the build config', () => {
+  it('should not show any feature disabled in the build config', () => {
     mockBuildConfig(false, false)
     const cityModel = createCityModel(true, true, true, true, true)
-    const result = renderDashboard(cityModel)
+    const result = renderDashboardNavigationTiles(cityModel)
     expect(() => result.root.findByType(NavigationTiles)).not.toThrow()
     const navigationTiles = result.root.findByType(NavigationTiles)
     expect(navigationTiles.props.tiles).toHaveLength(2)

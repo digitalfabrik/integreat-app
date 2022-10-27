@@ -1,15 +1,12 @@
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { NavigationContainer } from '@react-navigation/native'
 import { act, render } from '@testing-library/react-native'
-import * as React from 'react'
+import React from 'react'
 import waitForExpect from 'wait-for-expect'
-
-import { DASHBOARD_ROUTE } from 'api-client/src/routes'
 
 import Navigator from '../Navigator'
 import appSettings from '../utils/AppSettings'
 import { quitAppStatePushNotificationListener } from '../utils/PushNotificationsManager'
-import { generateRouteKey } from '../utils/helpers'
 
 jest.mock('../utils/sentry')
 jest.mock('react-native/Libraries/Utilities/useWindowDimensions')
@@ -24,11 +21,6 @@ jest.mock('../routes/LandingContainer', () => {
   const { Text } = require('react-native')
 
   return () => <Text>Landing</Text>
-})
-jest.mock('../routes/DashboardContainer', () => {
-  const { Text } = require('react-native')
-
-  return () => <Text>Dashboard</Text>
 })
 jest.mock('../routes/Settings', () => {
   const { Text } = require('react-native')
@@ -152,7 +144,7 @@ describe('Navigator', () => {
     })
   })
 
-  it('should display dashboard if a city is selected and the intro was shown', async () => {
+  it('should display categories if a city is selected and the intro was shown', async () => {
     await appSettings.setSelectedCity(cityCode)
     await appSettings.setContentLanguage(languageCode)
     await appSettings.setIntroShown()
@@ -165,7 +157,7 @@ describe('Navigator', () => {
         />
       </NavigationContainer>
     )
-    await findByText('Dashboard')
+    await findByText('categories')
   })
 
   it('should display Landing if no city is selected in settings and intro was shown', async () => {
@@ -198,37 +190,6 @@ describe('Navigator', () => {
     await findByText('Intro')
   })
 
-  it('should call fetch category if the dashboard route is the initial route', async () => {
-    await act(async () => {
-      const routeKey = generateRouteKey()
-      await appSettings.setSelectedCity(cityCode)
-      await appSettings.setContentLanguage(languageCode)
-      await appSettings.setIntroShown()
-      const { findByText, rerender } = render(
-        <NavigationContainer>
-          <Navigator
-            {...props({
-              routeName: null,
-            })}
-          />
-        </NavigationContainer>
-      )
-      // Don't remove this, the rerender only triggers a fetch category if the initial route is already set
-      await findByText('Dashboard')
-      rerender(
-        <NavigationContainer>
-          <Navigator
-            {...props({
-              routeName: DASHBOARD_ROUTE,
-              routeKey,
-            })}
-          />
-        </NavigationContainer>
-      )
-      await waitForExpect(() => expect(fetchCategory).toHaveBeenCalledWith(cityCode, languageCode, routeKey, false))
-    })
-  })
-
   it('should listen for push notification press in quit state', async () => {
     await appSettings.setSelectedCity(cityCode)
     await appSettings.setContentLanguage(languageCode)
@@ -243,7 +204,7 @@ describe('Navigator', () => {
       </NavigationContainer>
     )
 
-    await findByText('Dashboard')
+    await findByText('categories')
     expect(quitAppStatePushNotificationListener).toHaveBeenCalledTimes(1)
   })
 })
