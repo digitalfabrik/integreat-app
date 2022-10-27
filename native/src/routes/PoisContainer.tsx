@@ -184,7 +184,6 @@ const refresh = (refreshProps: RefreshProps, dispatch: Dispatch<StoreActionType>
       route: POIS_ROUTE,
       cityCode,
       languageCode: language,
-      // TODO
     },
     route.key,
     true
