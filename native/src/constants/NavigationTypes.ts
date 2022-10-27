@@ -98,8 +98,6 @@ export type RoutesParamsType = {
     urlSlug?: string
   }
   [EVENTS_ROUTE]: BasicParams & {
-    cityCode: string
-    languageCode: string
     slug?: string
   }
   [NEWS_ROUTE]: BasicParams &
@@ -120,7 +118,6 @@ export type RoutesParamsType = {
   [LICENSES_ROUTE]: undefined
   [CHANGE_LANGUAGE_MODAL_ROUTE]: BasicParams & {
     currentLanguage: string
-    previousKey: string
     cityCode: string
     languages: Array<LanguageModel>
     availableLanguages: Array<string>
