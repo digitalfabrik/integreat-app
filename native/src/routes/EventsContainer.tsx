@@ -5,7 +5,7 @@ import { EVENTS_ROUTE, EventsRouteType } from 'api-client'
 
 import Header from '../components/Header'
 import { StaticServerContext } from '../components/StaticServerProvider'
-import { NavigationPropType, RoutePropType } from '../constants/NavigationTypes'
+import { NavigationProps, RouteProps } from '../constants/NavigationTypes'
 import useCityAppContext from '../hooks/useCityAppContext'
 import useLoadEvents from '../hooks/useLoadEvents'
 import useSetShareUrl from '../hooks/useSetShareUrl'
@@ -17,8 +17,8 @@ import Events from './Events'
 import LoadingErrorHandler from './LoadingErrorHandler'
 
 type NewEventsContainerProps = {
-  route: RoutePropType<EventsRouteType>
-  navigation: NavigationPropType<EventsRouteType>
+  route: RouteProps<EventsRouteType>
+  navigation: NavigationProps<EventsRouteType>
 }
 
 const EventsContainer = ({ navigation, route }: NewEventsContainerProps): ReactElement => {
