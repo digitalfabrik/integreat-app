@@ -1,232 +1,107 @@
-import * as React from 'react'
-import { connect } from 'react-redux'
-import { Dispatch } from 'redux'
+import React, { ReactElement, useCallback, useContext, useEffect } from 'react'
+import { useDispatch } from 'react-redux'
 
-import { CityModel, ErrorCode, EventModel, EVENTS_ROUTE, EventsRouteType } from 'api-client'
+import { EVENTS_ROUTE, EventsRouteType } from 'api-client'
 
-import { NavigationProps, RouteProps } from '../constants/NavigationTypes'
-import withPayloadProvider, { StatusProps } from '../hocs/withPayloadProvider'
+import Header from '../components/Header'
+import { StaticServerContext } from '../components/StaticServerProvider'
+import { NavigationPropType, RoutePropType } from '../constants/NavigationTypes'
+import useCityAppContext from '../hooks/useCityAppContext'
+import useLoadEvents from '../hooks/useLoadEvents'
 import useSetShareUrl from '../hooks/useSetShareUrl'
+import useOnLanguageChange from '../hooks/useUpdateParamsOnLanguageChange'
 import createNavigate from '../navigation/createNavigate'
 import createNavigateToFeedbackModal from '../navigation/createNavigateToFeedbackModal'
-import { EventRouteStateType, LanguageResourceCacheStateType, StateType } from '../redux/StateType'
-import { StoreActionType, SwitchContentLanguageActionType } from '../redux/StoreActionType'
-import { reportError } from '../utils/sentry'
+import navigateToLanguageChange from '../navigation/navigateToLanguageChange'
 import Events from './Events'
+import LoadingErrorHandler from './LoadingErrorHandler'
 
-type EventsNavigationProps = {
-  route: RouteProps<EventsRouteType>
-  navigation: NavigationProps<EventsRouteType>
-}
-type OwnProps = EventsNavigationProps
-type DispatchProps = {
-  dispatch: Dispatch<StoreActionType>
-}
-type EventsContainerProps = EventsNavigationProps &
-  DispatchProps & {
-    path: string | null | undefined
-    events: Array<EventModel>
-    cityModel: CityModel
-    language: string
-    resourceCache: LanguageResourceCacheStateType
-    resourceCacheUrl: string
-    refresh: (dispatch: Dispatch<StoreActionType>) => () => void
-  }
-type RefreshProps = EventsNavigationProps & {
-  cityCode: string
-  language: string
-  path: string | null | undefined
-}
-type StateProps = StatusProps<EventsContainerProps, RefreshProps>
-
-const refresh = (refreshProps: RefreshProps, dispatch: Dispatch<StoreActionType>) => {
-  const { route, navigation, cityCode, language, path } = refreshProps
-  const navigateTo = createNavigate(dispatch, navigation)
-  navigateTo(
-    {
-      route: EVENTS_ROUTE,
-      cityCode,
-      languageCode: language,
-      cityContentPath: path || undefined,
-    },
-    route.key,
-    true
-  )
+type NewEventsContainerProps = {
+  route: RoutePropType<EventsRouteType>
+  navigation: NavigationPropType<EventsRouteType>
 }
 
-const createChangeUnavailableLanguage =
-  (city: string) => (dispatch: Dispatch<StoreActionType>, newLanguage: string) => {
-    const switchContentLanguage: SwitchContentLanguageActionType = {
-      type: 'SWITCH_CONTENT_LANGUAGE',
-      params: {
-        newLanguage,
-        city,
-      },
-    }
-    dispatch(switchContentLanguage)
-  }
+const EventsContainer = ({ navigation, route }: NewEventsContainerProps): ReactElement => {
+  const { slug } = route.params
+  const { cityCode, languageCode } = useCityAppContext()
+  const dispatch = useDispatch()
+  const resourceCacheUrl = useContext(StaticServerContext)
 
-const routeHasOldContent = (route: EventRouteStateType) => 'models' in route && route.allAvailableLanguages
+  const response = useLoadEvents({ cityCode, languageCode })
+  const { data, refresh } = response
 
-const mapStateToProps = (state: StateType, ownProps: OwnProps): StateProps => {
-  const {
-    route: { key },
-  } = ownProps
+  const currentEvent = slug ? data?.events.find(it => it.slug === slug) : undefined
 
-  if (!state.cityContent) {
-    return {
-      status: 'routeNotInitialized',
-    }
-  }
+  useEffect(() => {
+    const goToLanguageChange = data
+      ? () => {
+          navigateToLanguageChange({
+            navigation,
+            languageCode,
+            languages: data.languages,
+            cityCode,
+            availableLanguages: currentEvent
+              ? Object.keys(currentEvent.availableLanguageSlugs)
+              : data.languages.map(it => it.code),
+          })
+        }
+      : undefined
+    navigation.setOptions({
+      // Only run on use effect dependency changes which means it is re-rendered anyway since props change
+      // eslint-disable-next-line react/no-unstable-nested-components
+      header: () => (
+        <Header
+          route={route}
+          navigation={navigation}
+          peeking={false}
+          categoriesAvailable
+          language={languageCode}
+          routeCityModel={data?.city}
+          goToLanguageChange={goToLanguageChange}
+        />
+      ),
+    })
+  }, [route, navigation, cityCode, languageCode, data, currentEvent])
 
-  const { resourceCache, routeMapping, switchingLanguage, languages } = state.cityContent
-  const route = routeMapping[key]
-
-  if (!route || route.routeType !== EVENTS_ROUTE) {
-    return {
-      status: 'routeNotInitialized',
-    }
-  }
-
-  if (route.status === 'languageNotAvailable' && !switchingLanguage) {
-    if (languages.status === 'error' || languages.status === 'loading') {
-      reportError(new Error('languageNotAvailable status impossible if languages not ready'))
-      return {
-        status: 'error',
-        refreshProps: null,
-        code: languages.status === 'error' ? languages.code : ErrorCode.UnknownError,
-        message: languages.status === 'error' ? languages.message : 'languages not ready',
+  const onLanguageChange = useCallback(
+    (newLanguage: string) => {
+      if (currentEvent) {
+        const newSlug = currentEvent.availableLanguageSlugs[newLanguage]
+        // TODO: Handle language not available?
+        navigation.setParams({ slug: newSlug })
       }
-    }
-
-    return {
-      status: 'languageNotAvailable',
-      availableLanguages: languages.models.filter(lng => route.allAvailableLanguages.has(lng.code)),
-      cityCode: route.city,
-      changeUnavailableLanguage: createChangeUnavailableLanguage(route.city),
-    }
-  }
-
-  const refreshProps = {
-    path: route.path,
-    cityCode: route.city,
-    language: route.language,
-    navigation: ownProps.navigation,
-    route: ownProps.route,
-  }
-
-  if (state.cities.status === 'error') {
-    return {
-      status: 'error',
-      message: state.cities.message,
-      code: state.cities.code,
-      refreshProps,
-    }
-  }
-  if (resourceCache.status === 'error') {
-    return {
-      status: 'error',
-      message: resourceCache.message,
-      code: resourceCache.code,
-      refreshProps,
-    }
-  }
-  if (route.status === 'error') {
-    return {
-      status: 'error',
-      message: route.message,
-      code: route.code,
-      refreshProps,
-    }
-  }
-  if (languages.status === 'error') {
-    return {
-      status: 'error',
-      message: languages.message,
-      code: languages.code,
-      refreshProps,
-    }
-  }
-
-  const { resourceCacheUrl } = state
-
-  if (
-    resourceCacheUrl === null ||
-    state.cities.status === 'loading' ||
-    switchingLanguage ||
-    (route.status === 'loading' && !routeHasOldContent(route)) ||
-    languages.status === 'loading'
-  ) {
-    return {
-      status: 'loading',
-      progress: 0,
-    }
-  }
-
-  const cities = state.cities.models
-  const cityModel = cities.find(city => city.code === route.city)
-
-  if (!cityModel) {
-    throw new Error('cityModel is undefined!')
-  }
-
-  if (route.status === 'languageNotAvailable') {
-    throw new Error('language not available route status not handled!')
-  }
-
-  const innerProps = {
-    path: route.path,
-    events: Array.from(route.models || []),
-    cityModel,
-    language: route.language,
-    resourceCache: resourceCache.value,
-    resourceCacheUrl,
-    navigation: ownProps.navigation,
-    route: ownProps.route,
-    refresh: (dispatch: Dispatch<StoreActionType>) => () => refresh(refreshProps, dispatch),
-  }
-
-  if (route.status === 'loading') {
-    return {
-      status: 'loading',
-      refreshProps,
-      innerProps,
-      progress: 0,
-    }
-  }
-
-  return {
-    status: 'success',
-    refreshProps,
-    innerProps,
-  }
-}
-
-const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>): DispatchProps => ({
-  dispatch,
-})
-
-const EventsContainer = ({ dispatch, navigation, route, refresh, ...rest }: EventsContainerProps) => {
-  const routeInformation = {
-    route: EVENTS_ROUTE,
-    languageCode: rest.language,
-    cityCode: rest.cityModel.code,
-    cityContentPath: rest.path ?? undefined,
-  }
-  useSetShareUrl({ navigation, routeInformation, route })
+    },
+    [currentEvent, navigation]
+  )
+  useOnLanguageChange({ languageCode, onLanguageChange })
+  useSetShareUrl({
+    navigation,
+    route,
+    routeInformation: {
+      route: EVENTS_ROUTE,
+      languageCode,
+      cityCode,
+      slug,
+    },
+  })
 
   return (
-    <Events
-      {...rest}
-      refresh={refresh(dispatch)}
-      navigateTo={createNavigate(dispatch, navigation)}
-      navigateToFeedback={createNavigateToFeedbackModal(navigation)}
-    />
+    <LoadingErrorHandler {...response}>
+      {data && (
+        <Events
+          slug={slug}
+          events={data.events}
+          cityModel={data.city}
+          language={languageCode}
+          resourceCache={data.resourceCache}
+          resourceCacheUrl={resourceCacheUrl}
+          navigateTo={createNavigate(dispatch, navigation)}
+          navigateToFeedback={createNavigateToFeedbackModal(navigation)}
+          refresh={refresh}
+        />
+      )}
+    </LoadingErrorHandler>
   )
 }
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-  // @ts-expect-error TODO: IGAPP-636
-)(withPayloadProvider<EventsContainerProps, RefreshProps, EventsRouteType>(refresh, true, true)(EventsContainer))
+export default EventsContainer
