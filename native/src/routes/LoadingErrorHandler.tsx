@@ -42,7 +42,7 @@ const LoadingErrorHandler = ({ children, loading, refresh, error }: LoadingError
   if (error) {
     return (
       <LayoutedScrollView refreshControl={<RefreshControl onRefresh={refresh} refreshing={false} />}>
-        {/* TODO error code */}
+        {/* TODO IGAPP-636: Pass correct error code */}
         <Failure tryAgain={refresh} code={ErrorCode.UnknownError} />
       </LayoutedScrollView>
     )

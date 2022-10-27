@@ -66,7 +66,7 @@ class PoiModel extends ExtendedPageModel {
       properties: {
         title: name,
         id,
-        // TODO gonna be replaced by proper mapping category->symbolName IGAPP-736
+        // TODO IGAPP-736: Replace by proper mapping category->symbolName
         symbol: mapMarker.symbol,
         thumbnail: this.thumbnail,
         path: this.path,
