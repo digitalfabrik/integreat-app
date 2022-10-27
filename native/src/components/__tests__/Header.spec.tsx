@@ -3,7 +3,7 @@ import { mocked } from 'jest-mock'
 import React, { ReactElement } from 'react'
 import { Share, Text, View } from 'react-native'
 
-import { DASHBOARD_ROUTE, SEARCH_ROUTE, SHARE_SIGNAL_NAME } from 'api-client'
+import { CATEGORIES_ROUTE, SEARCH_ROUTE, SHARE_SIGNAL_NAME } from 'api-client'
 import CityModelBuilder from 'api-client/src/testing/CityModelBuilder'
 
 import useSnackbar from '../../hooks/useSnackbar'
@@ -56,7 +56,7 @@ describe('Header', () => {
     navigation: createNavigationMock(routeIndex),
     route: {
       key: 'key-0',
-      name: DASHBOARD_ROUTE,
+      name: CATEGORIES_ROUTE,
       params: {
         shareUrl: 'https://example.com/share',
       },

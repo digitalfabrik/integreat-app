@@ -2,9 +2,8 @@ import { Dispatch } from 'redux'
 import Url from 'url-parse'
 
 import {
+  CATEGORIES_ROUTE,
   CITY_NOT_COOPERATING_ROUTE,
-  cityContentPath as createCityContentPath,
-  DASHBOARD_ROUTE,
   INTRO_ROUTE,
   JPAL_TRACKING_ROUTE,
   LANDING_ROUTE,
@@ -20,7 +19,6 @@ import appSettings, { SettingsType } from '../utils/AppSettings'
 import sendTrackingSignal from '../utils/sendTrackingSignal'
 import showSnackbar from '../utils/showSnackbar'
 import createNavigate from './createNavigate'
-import navigateToCategory from './navigateToCategory'
 
 const navigateToDeepLink = async <T extends RoutesType>(
   dispatch: Dispatch<StoreActionType>,
@@ -80,19 +78,7 @@ const navigateToDeepLink = async <T extends RoutesType>(
   if (selectedCityCode && languageCode) {
     // Reset the currently opened screens to just the dashboard of the city and language
     // This is necessary to prevent undefined behaviour for city content routes upon e.g. back navigation
-    navigateToCategory({
-      dispatch,
-      navigation,
-      cityCode: selectedCityCode,
-      languageCode,
-      routeName: DASHBOARD_ROUTE,
-      cityContentPath: createCityContentPath({
-        cityCode: selectedCityCode,
-        languageCode,
-      }),
-      forceRefresh: false,
-      resetNavigation: true,
-    })
+    navigation.reset({ index: 0, routes: [{ name: CATEGORIES_ROUTE, params: {} }] })
   } else {
     navigation.replace(LANDING_ROUTE)
   }
@@ -111,7 +97,8 @@ const navigateToDeepLink = async <T extends RoutesType>(
 
   // Only navigate again if either the city of the deep link differs from the currently selected city or
   // it is a city content route which was not handled already, i.e. everything apart from landing and dashboard.
-  if (routeInformation.route !== DASHBOARD_ROUTE || isPeekingCity) {
+  // TODO IGAPP-636: Fix deep linking
+  if (routeInformation.route !== CATEGORIES_ROUTE || isPeekingCity) {
     createNavigate(dispatch, navigation)(routeInformation, undefined, false)
   }
 }

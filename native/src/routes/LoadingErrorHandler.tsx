@@ -14,9 +14,16 @@ type LoadingErrorHandlerProps = {
   error: Error | null
   loading: boolean
   refresh: () => void
+  scrollView?: boolean
 }
 
-const LoadingErrorHandler = ({ children, loading, refresh, error }: LoadingErrorHandlerProps): ReactElement => {
+const LoadingErrorHandler = ({
+  children,
+  loading,
+  refresh,
+  error,
+  scrollView = false,
+}: LoadingErrorHandlerProps): ReactElement => {
   const [timeoutExpired, setTimeoutExpired] = useState(false)
 
   useEffect(() => {
@@ -44,6 +51,14 @@ const LoadingErrorHandler = ({ children, loading, refresh, error }: LoadingError
       <LayoutedScrollView refreshControl={<RefreshControl onRefresh={refresh} refreshing={false} />}>
         {/* TODO IGAPP-636: Pass correct error code */}
         <Failure tryAgain={refresh} code={ErrorCode.UnknownError} />
+      </LayoutedScrollView>
+    )
+  }
+
+  if (scrollView) {
+    return (
+      <LayoutedScrollView refreshControl={<RefreshControl onRefresh={refresh} refreshing={false} />}>
+        {children}
       </LayoutedScrollView>
     )
   }

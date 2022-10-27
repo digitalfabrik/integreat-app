@@ -1,6 +1,6 @@
 import { useNavigation } from '@react-navigation/native'
 import { createStackNavigator, StackHeaderProps, TransitionPresets } from '@react-navigation/stack'
-import React, { ReactElement, useEffect, useRef, useState } from 'react'
+import React, { ReactElement, useEffect, useState } from 'react'
 import { Platform, Text } from 'react-native'
 import { useDispatch } from 'react-redux'
 
@@ -8,8 +8,6 @@ import {
   CATEGORIES_ROUTE,
   CHANGE_LANGUAGE_MODAL_ROUTE,
   CITY_NOT_COOPERATING_ROUTE,
-  DASHBOARD_ROUTE,
-  DashboardRouteType,
   DISCLAIMER_ROUTE,
   EVENTS_ROUTE,
   EXTERNAL_OFFER_ROUTE,
@@ -29,6 +27,7 @@ import {
   SETTINGS_ROUTE,
   SPRUNGBRETT_OFFER_ROUTE,
   LICENSES_ROUTE,
+  CategoriesRouteType,
 } from 'api-client'
 
 import HeaderContainer from './components/HeaderContainer'
@@ -41,7 +40,6 @@ import { ASYNC_STORAGE_VERSION } from './constants/settings'
 import CategoriesContainer from './routes/CategoriesContainer'
 import ChangeLanguageModal from './routes/ChangeLanguageModal'
 import CityNotCooperating from './routes/CityNotCooperating'
-import DashboardContainer from './routes/DashboardContainer'
 import DisclaimerContainer from './routes/DisclaimerContainer'
 import EventsContainer from './routes/EventsContainer'
 import ExternalOfferContainer from './routes/ExternalOfferContainer'
@@ -74,17 +72,14 @@ const settingsHeader = (headerProps: StackHeaderProps) => <SettingsHeader {...he
 const defaultHeader = (headerProps: StackHeaderProps) => <HeaderContainer {...(headerProps as HeaderProps)} />
 
 type NavigatorProps = {
-  fetchCategory: (cityCode: string, language: string, key: string, forceUpdate: boolean) => void
   fetchCities: (forceRefresh: boolean) => void
-  routeKey: string | null | undefined
-  routeName: string | null | undefined
 }
 type InitialRouteType =
   | {
       name: IntroRouteType | LandingRouteType
     }
   | {
-      name: DashboardRouteType
+      name: CategoriesRouteType
       cityCode: string
       languageCode: string
     }
@@ -96,8 +91,7 @@ const Navigator = (props: NavigatorProps): ReactElement | null => {
   const [initialRoute, setInitialRoute] = useState<InitialRouteType>({
     name: INTRO_ROUTE,
   })
-  const previousRouteKey = useRef<string | null | undefined>(null)
-  const { fetchCities, fetchCategory, routeKey, routeName } = props
+  const { fetchCities } = props
   const navigation = useNavigation() as NavigationProps<RoutesType>
   const dispatch = useDispatch()
 
@@ -149,7 +143,7 @@ const Navigator = (props: NavigatorProps): ReactElement | null => {
 
         if (city) {
           setInitialRoute({
-            name: DASHBOARD_ROUTE,
+            name: CATEGORIES_ROUTE,
             cityCode: city,
             languageCode: contentLanguage,
           })
@@ -165,22 +159,6 @@ const Navigator = (props: NavigatorProps): ReactElement | null => {
 
     initialize().catch(error => setErrorMessage(error.message))
   }, [setInitialRoute, setErrorMessage])
-
-  // The following is used to have correct mapping from categories route mapping in redux state to the actual routes
-  useEffect(() => {
-    // Fetch categories if the initial route is the dashboard route and there was no route before
-    // i.e. initial route was set by this component (Navigator)
-    if (
-      !previousRouteKey.current &&
-      routeKey &&
-      initialRoute.name === DASHBOARD_ROUTE &&
-      routeName === DASHBOARD_ROUTE
-    ) {
-      fetchCategory(initialRoute.cityCode, initialRoute.languageCode, routeKey, false)
-    }
-
-    previousRouteKey.current = routeKey
-  }, [routeKey, fetchCategory, initialRoute, routeName])
 
   if (errorMessage) {
     return <Text>{errorMessage}</Text>
@@ -204,8 +182,7 @@ const Navigator = (props: NavigatorProps): ReactElement | null => {
       </Stack.Group>
 
       <Stack.Group screenOptions={{ header: defaultHeader }}>
-        <Stack.Screen name={DASHBOARD_ROUTE} component={DashboardContainer} />
-        <Stack.Screen name={CATEGORIES_ROUTE} component={CategoriesContainer} />
+        <Stack.Screen name={CATEGORIES_ROUTE} initialParams={{}} component={CategoriesContainer} />
         <Stack.Screen name={OFFERS_ROUTE} component={OffersContainer} />
         <Stack.Screen name={SPRUNGBRETT_OFFER_ROUTE} component={SprungbrettOfferContainer} />
         <Stack.Screen name={EXTERNAL_OFFER_ROUTE} component={ExternalOfferContainer} />
