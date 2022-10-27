@@ -1,12 +1,12 @@
-import * as React from 'react'
+import React, { useContext } from 'react'
 import { connect } from 'react-redux'
 import { Dispatch } from 'redux'
 
-import { CityModel, cityContentPath, DASHBOARD_ROUTE, LandingRouteType } from 'api-client'
+import { CityModel, LandingRouteType, CATEGORIES_ROUTE } from 'api-client'
 
 import { NavigationProps, RouteProps } from '../constants/NavigationTypes'
+import { AppContext } from '../contexts/AppContextProvider'
 import withPayloadProvider, { StatusProps } from '../hocs/withPayloadProvider'
-import navigateToCategory from '../navigation/navigateToCategory'
 import navigateToCityNotCooperating from '../navigation/navigateToCityNotCooperating'
 import { StateType } from '../redux/StateType'
 import { StoreActionType } from '../redux/StoreActionType'
@@ -67,20 +67,11 @@ const mapStateToProps = (state: StateType, ownProps: OwnProps): StateProps => {
 }
 
 const LandingContainer = ({ navigation, dispatch, cities, language, route: _route }: LandingContainerProps) => {
-  const navigateToDashboard = (cityCode: string, languageCode: string) => {
-    navigateToCategory({
-      routeName: DASHBOARD_ROUTE,
-      navigation,
-      dispatch,
-      cityCode,
-      languageCode,
-      cityContentPath: cityContentPath({
-        cityCode,
-        languageCode,
-      }),
-      forceRefresh: false,
-      resetNavigation: true,
-    })
+  const { changeCityCode } = useContext(AppContext)
+
+  const navigateToDashboard = (cityCode: string) => {
+    changeCityCode(cityCode)
+    navigation.reset({ index: 0, routes: [{ name: CATEGORIES_ROUTE, params: {} }] })
   }
 
   const clearResourcesAndCache = () => {

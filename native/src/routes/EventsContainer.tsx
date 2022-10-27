@@ -17,12 +17,12 @@ import navigateToLanguageChange from '../navigation/navigateToLanguageChange'
 import Events from './Events'
 import LoadingErrorHandler from './LoadingErrorHandler'
 
-type NewEventsContainerProps = {
+type EventsContainerProps = {
   route: RouteProps<EventsRouteType>
   navigation: NavigationProps<EventsRouteType>
 }
 
-const EventsContainer = ({ navigation, route }: NewEventsContainerProps): ReactElement => {
+const EventsContainer = ({ navigation, route }: EventsContainerProps): ReactElement => {
   const { slug } = route.params
   const { cityCode, languageCode } = useCityAppContext()
   const dispatch = useDispatch()
