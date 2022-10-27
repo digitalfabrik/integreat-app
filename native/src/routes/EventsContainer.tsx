@@ -1,9 +1,10 @@
 import React, { ReactElement, useCallback, useContext, useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 
-import { EVENTS_ROUTE, EventsRouteType } from 'api-client'
+import { ErrorCode, EVENTS_ROUTE, EventsRouteType } from 'api-client'
 
 import Header from '../components/Header'
+import LanguageNotAvailablePage from '../components/LanguageNotAvailablePage'
 import { StaticServerContext } from '../components/StaticServerProvider'
 import { NavigationProps, RouteProps } from '../constants/NavigationTypes'
 import useCityAppContext from '../hooks/useCityAppContext'
@@ -31,21 +32,23 @@ const EventsContainer = ({ navigation, route }: NewEventsContainerProps): ReactE
   const { data, refresh } = response
 
   const currentEvent = slug ? data?.events.find(it => it.slug === slug) : undefined
+  const availableLanguages = currentEvent
+    ? Object.keys(currentEvent.availableLanguageSlugs)
+    : data?.languages.map(it => it.code)
 
   useEffect(() => {
-    const goToLanguageChange = data
-      ? () => {
-          navigateToLanguageChange({
-            navigation,
-            languageCode,
-            languages: data.languages,
-            cityCode,
-            availableLanguages: currentEvent
-              ? Object.keys(currentEvent.availableLanguageSlugs)
-              : data.languages.map(it => it.code),
-          })
-        }
-      : undefined
+    const goToLanguageChange =
+      data && availableLanguages
+        ? () => {
+            navigateToLanguageChange({
+              navigation,
+              languageCode,
+              languages: data.languages,
+              cityCode,
+              availableLanguages,
+            })
+          }
+        : undefined
     navigation.setOptions({
       // Only run on use effect dependency changes which means it is re-rendered anyway since props change
       // eslint-disable-next-line react/no-unstable-nested-components
@@ -61,7 +64,7 @@ const EventsContainer = ({ navigation, route }: NewEventsContainerProps): ReactE
         />
       ),
     })
-  }, [route, navigation, cityCode, languageCode, data, currentEvent])
+  }, [route, navigation, cityCode, languageCode, data, availableLanguages])
 
   const onLanguageChange = useCallback(
     (newLanguage: string) => {
@@ -84,6 +87,10 @@ const EventsContainer = ({ navigation, route }: NewEventsContainerProps): ReactE
       slug,
     },
   })
+
+  if (response.errorCode === ErrorCode.LanguageUnavailable) {
+    return <LanguageNotAvailablePage />
+  }
 
   return (
     <LoadingErrorHandler {...response}>
