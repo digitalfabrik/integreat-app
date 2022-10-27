@@ -17,7 +17,7 @@
 - [`Invalid BUILD_CONFIG_NAME supplied`](#invalid-build_config_name-supplied)
 - [App crashing with java.lang.UnsatisfiedLinkError](#app-crashing-with-javalangunsatisfiedlinkerror)
 - [App crashing without any error](#app-crashing-without-any-error)
-- [XCode can't find 'bla/bla/de.lproj/InfoPlist.strings'](#xcode-cant-find-yourdirectorynativeiosIntegreatdelprojinfopliststrings)
+- [XCode can't find 'your/directory/native/ios/Integreat/de.lproj/InfoPlist.strings'](#xcode-cant-find-yourdirectorynativeiosIntegreatdelprojinfopliststrings)
 - [XCode can't find $BUILD_CONFIG_APP_ICON](#xcode-cant-find-build_config_app_icon)
 - [Other assorted XCode problems](#other-assorted-xcode-problems)
 
