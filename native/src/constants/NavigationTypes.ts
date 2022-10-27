@@ -4,7 +4,6 @@ import { StackNavigationProp } from '@react-navigation/stack'
 import {
   CategoriesRouteType,
   ChangeLanguageModalRouteType,
-  DashboardRouteType,
   DisclaimerRouteType,
   EventsRouteType,
   ExternalOfferRouteType,
@@ -25,7 +24,6 @@ import {
   LanguageModel,
   POIS_ROUTE,
   CATEGORIES_ROUTE,
-  DASHBOARD_ROUTE,
   LANDING_ROUTE,
   INTRO_ROUTE,
   REDIRECT_ROUTE,
@@ -55,7 +53,6 @@ export type RoutesType =
   | IntroRouteType
   | LandingRouteType
   | CityNotCooperatingRouteType
-  | DashboardRouteType
   | CategoriesRouteType
   | PoisRouteType
   | EventsRouteType
@@ -92,8 +89,9 @@ export type RoutesParamsType = {
   }
   [LANDING_ROUTE]: undefined
   [CITY_NOT_COOPERATING_ROUTE]: undefined
-  [DASHBOARD_ROUTE]: BasicParams
-  [CATEGORIES_ROUTE]: BasicParams
+  [CATEGORIES_ROUTE]: BasicParams & {
+    path?: string
+  }
   [POIS_ROUTE]: BasicParams & {
     urlSlug?: string
   }

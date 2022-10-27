@@ -2,12 +2,11 @@ import { mapValues } from 'lodash'
 import React, { ReactElement } from 'react'
 import { View } from 'react-native'
 
-import { CategoryModel, CityModel } from 'api-client'
+import { CategoriesMapModel, CategoryModel, CityModel } from 'api-client'
 import { CATEGORIES_ROUTE } from 'api-client/src/routes'
 import { RouteInformationType } from 'api-client/src/routes/RouteInformationTypes'
 
 import { URL_PREFIX } from '../constants/webview'
-import CategoriesRouteStateView from '../models/CategoriesRouteStateView'
 import TileModel from '../models/TileModel'
 import { LanguageResourceCacheStateType, PageResourceCacheEntryStateType } from '../redux/StateType'
 import { RESOURCE_CACHE_DIR_PATH } from '../utils/DatabaseConnector'
@@ -23,7 +22,8 @@ import Tiles from './Tiles'
 export type CategoriesProps = {
   cityModel: CityModel
   language: string
-  stateView: CategoriesRouteStateView
+  categories: CategoriesMapModel
+  category: CategoryModel
   navigateTo: (routeInformation: RouteInformationType) => void
   navigateToFeedback: (feedbackInformation: FeedbackInformationType) => void
   resourceCache: LanguageResourceCacheStateType
@@ -39,12 +39,12 @@ const Categories = ({
   language,
   navigateTo,
   navigateToFeedback,
-  stateView,
+  categories,
+  category,
   resourceCache,
   resourceCacheUrl,
 }: CategoriesProps): ReactElement => {
-  const category = stateView.root()
-  const children = stateView.children()
+  const children = categories.getChildren(category)
   const categoryResourceCache = resourceCache[category.path] || {}
 
   const getCachedThumbnail = (category: CategoryModel): string => {
@@ -135,7 +135,7 @@ const Categories = ({
   ) : undefined
 
   const items = children.map(it => {
-    const children = stateView.stepInto(it.path).children()
+    const children = categories.getChildren(it)
     return {
       ...mapToItem(it),
       subCategories: children.map(mapToItem),

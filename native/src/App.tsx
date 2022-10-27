@@ -63,8 +63,6 @@ const store: Store<StateType, StoreActionType> = createReduxStore(dataContainer)
 setUserAgent(userAgent)
 
 const App = (): ReactElement => {
-  const [routeName, setRouteName] = useState<string | null | undefined>(null)
-  const [routeKey, setRouteKey] = useState<string | null | undefined>(null)
   const [routeIndex, setRouteIndex] = useState<number>(0)
 
   useSendOfflineJpalSignals()
@@ -80,9 +78,6 @@ const App = (): ReactElement => {
           })
         }
 
-        const route = state.routes[state.index]
-        setRouteName(route.name)
-        setRouteKey(route.key)
         setRouteIndex(state.index)
       }
     },
@@ -101,7 +96,7 @@ const App = (): ReactElement => {
                   <IOSSafeAreaView>
                     <NavigationContainer onStateChange={onStateChange} linking={linking}>
                       <OverflowMenuProvider>
-                        <NavigatorContainer routeKey={routeKey} routeName={routeName} />
+                        <NavigatorContainer />
                       </OverflowMenuProvider>
                     </NavigationContainer>
                   </IOSSafeAreaView>
