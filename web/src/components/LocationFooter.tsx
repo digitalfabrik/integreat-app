@@ -7,13 +7,17 @@ import buildConfig from '../constants/buildConfig'
 import CleanLink from './CleanLink'
 import Footer from './Footer'
 
-type PropsType = {
+type LocationFooterProps = {
   city: string
   language: string
   overlay?: boolean
 }
 
-const LocationFooter: React.FC<PropsType> = ({ city, language, overlay = false }: PropsType): ReactElement => {
+const LocationFooter: React.FC<LocationFooterProps> = ({
+  city,
+  language,
+  overlay = false,
+}: LocationFooterProps): ReactElement => {
   const { aboutUrls, privacyUrls } = buildConfig()
   const { t } = useTranslation(['layout', 'settings'])
   const aboutUrl = aboutUrls[language] || aboutUrls.default

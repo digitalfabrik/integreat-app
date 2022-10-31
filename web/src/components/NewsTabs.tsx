@@ -13,7 +13,7 @@ const StyledTabs = styled.div`
   justify-content: center;
 `
 
-type PropsType = {
+type NewsTabsProps = {
   type: NewsType
   children: ReactNode
   city: string
@@ -23,7 +23,15 @@ type PropsType = {
   t: TFunction<'news'>
 }
 
-const NewsTabs = ({ children, language, city, localNewsEnabled, tunewsEnabled, t, type }: PropsType): ReactElement => {
+const NewsTabs = ({
+  children,
+  language,
+  city,
+  localNewsEnabled,
+  tunewsEnabled,
+  t,
+  type,
+}: NewsTabsProps): ReactElement => {
   const params = { route: NEWS_ROUTE, cityCode: city, languageCode: language }
   const localNewsPath = pathnameFromRouteInformation({ ...params, newsType: LOCAL_NEWS_TYPE })
   const tunewsPath = pathnameFromRouteInformation({ ...params, newsType: TU_NEWS_TYPE })

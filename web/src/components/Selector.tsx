@@ -67,7 +67,7 @@ const Wrapper = styled.div<{ vertical: boolean }>`
     `}
 `
 
-type PropsType = {
+type SelectorProps = {
   verticalLayout: boolean
   closeDropDown?: () => void
   items: Array<SelectorItemModel>
@@ -84,7 +84,7 @@ const Selector = ({
   verticalLayout,
   closeDropDown,
   disabledItemTooltip,
-}: PropsType): ReactElement => (
+}: SelectorProps): ReactElement => (
   <Wrapper vertical={verticalLayout} id='languageSelector'>
     {items.map(item => {
       if (item.href) {

@@ -1,6 +1,6 @@
 import { StateType } from '../StateType'
 
-type SelectPropsType = {
+type isPeekingRouteProps = {
   routeCity: string
 }
 
@@ -12,7 +12,7 @@ type SelectPropsType = {
  * @param params The params which contain the routeCity
  * @returns true if the fetch corresponds to a peek
  */
-const isPeekingRoute = (state: StateType, { routeCity }: SelectPropsType): boolean => {
+const isPeekingRoute = (state: StateType, { routeCity }: isPeekingRouteProps): boolean => {
   const { cityContent } = state
 
   if (!cityContent) {
