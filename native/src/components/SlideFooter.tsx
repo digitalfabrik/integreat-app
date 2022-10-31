@@ -15,7 +15,7 @@ export const ButtonContainer = styled.View`
   padding: 5px;
   background-color: ${props => props.theme.colors.backgroundColor};
 `
-type PropsType = {
+type SlideFooterProps = {
   slideCount: number
   currentSlide: number
   goToSlide: (index: number) => void
@@ -24,7 +24,7 @@ type PropsType = {
   t: TFunction<['intro', 'settings']>
 }
 
-const SlideFooter = ({ onDone, theme, slideCount, goToSlide, currentSlide, t }: PropsType): ReactElement => {
+const SlideFooter = ({ onDone, theme, slideCount, goToSlide, currentSlide, t }: SlideFooterProps): ReactElement => {
   const goToNextSlide = () => goToSlide(currentSlide + 1)
 
   const isLastSlide = currentSlide === slideCount - 1

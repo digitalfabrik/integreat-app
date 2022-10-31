@@ -10,7 +10,7 @@ describe('PoiModel', () => {
       coordinates: [31.133859, 29.979848],
     },
     properties: {
-      id: 1,
+      id: 0,
       title: 'Test Title',
       symbol: 'marker_40',
       thumbnail: 'test',

@@ -3,7 +3,7 @@ import styled from 'styled-components'
 
 import buildConfig from '../constants/buildConfig'
 
-type PropsType = {
+type FooterProps = {
   children: Array<ReactNode>
   overlay?: boolean
 }
@@ -36,7 +36,7 @@ const FooterContainer = styled.footer<{ overlay: boolean }>`
  * number if it's a dev build.
  */
 
-const Footer = ({ children, overlay = false }: PropsType): ReactElement => (
+const Footer = ({ children, overlay = false }: FooterProps): ReactElement => (
   <FooterContainer overlay={overlay}>
     {children}
     {buildConfig().featureFlags.developerFriendly && (

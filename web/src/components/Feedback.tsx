@@ -40,7 +40,7 @@ export const ErrorSendingStatus = styled.div`
   font-weight: 700;
 `
 
-type PropsType = {
+type FeedbackProps = {
   isPositiveFeedback: boolean
   isSearchFeedback: boolean
   comment: string
@@ -51,7 +51,7 @@ type PropsType = {
   sendingStatus: SendingState
 }
 
-const Feedback = (props: PropsType): ReactElement => {
+const Feedback = (props: FeedbackProps): ReactElement => {
   const {
     isPositiveFeedback,
     isSearchFeedback,

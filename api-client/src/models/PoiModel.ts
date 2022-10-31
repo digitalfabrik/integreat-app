@@ -58,7 +58,7 @@ class PoiModel extends ExtendedPageModel {
     return this._email
   }
 
-  get featureLocation(): PoiFeature | null {
+  get featureLocation(): PoiFeature {
     const { coordinates, name, id, address } = this.location
 
     return {

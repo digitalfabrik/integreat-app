@@ -16,7 +16,7 @@ import {
 import Failure from '../components/Failure'
 import Layout from '../components/Layout'
 import LayoutedScrollView from '../components/LayoutedScrollView'
-import { NavigationPropType, RoutePropType } from '../constants/NavigationTypes'
+import { NavigationProps, RouteProps } from '../constants/NavigationTypes'
 import useCities from '../hooks/useCities'
 import useReportError from '../hooks/useReportError'
 import useSetShareUrl from '../hooks/useSetShareUrl'
@@ -24,12 +24,12 @@ import createNavigateToFeedbackModal from '../navigation/createNavigateToFeedbac
 import { determineApiUrl } from '../utils/helpers'
 import SprungbrettOffer from './SprungbrettOffer'
 
-type Props = {
-  route: RoutePropType<SprungbrettOfferRouteType>
-  navigation: NavigationPropType<SprungbrettOfferRouteType>
+type SprungbrettOfferContainerProps = {
+  route: RouteProps<SprungbrettOfferRouteType>
+  navigation: NavigationProps<SprungbrettOfferRouteType>
 }
 
-const SprungbrettOfferContainer = ({ route, navigation }: Props): ReactElement => {
+const SprungbrettOfferContainer = ({ route, navigation }: SprungbrettOfferContainerProps): ReactElement => {
   const cities = useCities()
   const [title, setTitle] = useState<string>('')
   const { cityCode, languageCode } = route.params

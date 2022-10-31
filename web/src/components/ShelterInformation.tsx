@@ -67,13 +67,13 @@ const IconWithTooltip = ({ tooltip, icon }: IconWithTooltipProps): ReactElement 
   </IconContainer>
 )
 
-type Props = {
+type ShelterInformationProps = {
   shelter: ShelterModel
   extended?: boolean
   cityCode: string
 }
 
-const ShelterInformation = ({ shelter, cityCode, extended = false }: Props): ReactElement => {
+const ShelterInformation = ({ shelter, cityCode, extended = false }: ShelterInformationProps): ReactElement => {
   const { beds, city, id, accommodationType, period, startDate, info, rooms, occupants, name } = shelter
   const { zipcode, hostType, languages, email, phone, comments, costs } = shelter
   const { t } = useTranslation('shelter')
