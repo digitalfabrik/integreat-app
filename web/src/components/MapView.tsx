@@ -22,7 +22,6 @@ import useWindowDimensions from '../hooks/useWindowDimensions'
 import '../styles/MapView.css'
 import LocationFooter from './LocationFooter'
 
-// Workaround since nothing is rendered if height is set to 100%, 190px is the header size
 const MapContainer = styled.div`
   height: 100%;
   width: 100%;
