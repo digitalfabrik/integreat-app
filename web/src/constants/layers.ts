@@ -28,6 +28,7 @@ export const markerLayer = (currentFeature: PoiFeature | null): LayerProps => ({
   source: 'point',
   layout: {
     'icon-allow-overlap': true,
+    'text-allow-overlap': true,
     'icon-ignore-placement': true,
     'icon-size': mapMarker.iconSize,
     'icon-image': [
