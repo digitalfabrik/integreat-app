@@ -97,7 +97,7 @@ const navigateToDeepLink = async <T extends RoutesType>(
 
   // Only navigate again if either the city of the deep link differs from the currently selected city or
   // it is a city content route which was not handled already, i.e. everything apart from landing and dashboard.
-  // TODO IGAPP-636: Fix deep linking
+  // TODO IGAPP-636: Fix deep linking and set city code/language code
   if (routeInformation.route !== CATEGORIES_ROUTE || isPeekingCity) {
     createNavigate(dispatch, navigation)(routeInformation, undefined, false)
   }

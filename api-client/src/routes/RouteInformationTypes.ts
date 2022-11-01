@@ -1,7 +1,6 @@
 import {
   CategoriesRouteType,
   CityNotCooperatingRouteType,
-  DashboardRouteType,
   DisclaimerRouteType,
   EventsRouteType,
   JpalTrackingRouteType,
@@ -39,7 +38,7 @@ export type JpalTrackingRouteInformationType = {
   trackingCode: string | null
 }
 export type CategoriesRouteInformationType = ParamsType & {
-  route: DashboardRouteType | CategoriesRouteType
+  route: CategoriesRouteType
   cityContentPath: string
 }
 export type NewsRouteInformationType = ParamsType & {
