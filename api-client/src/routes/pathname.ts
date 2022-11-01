@@ -1,7 +1,6 @@
 import {
   CATEGORIES_ROUTE,
   CITY_NOT_COOPERATING_ROUTE,
-  DASHBOARD_ROUTE,
   DISCLAIMER_ROUTE,
   EVENTS_ROUTE,
   JPAL_TRACKING_ROUTE,
@@ -53,8 +52,8 @@ export const pathnameFromRouteInformation = (routeInformation: NonNullableRouteI
     // https://integreat.app/augsburg/de/offers/wohnraum/1234, https://integreat.app/augsburg/de/offers/wohnraum
     return constructPathname([cityCode, languageCode, OFFERS_ROUTE, route, id])
   }
-  if (routeInformation.route === DASHBOARD_ROUTE || routeInformation.route === CATEGORIES_ROUTE) {
-    // https://integreat.app/augsburg/de/
+  if (routeInformation.route === CATEGORIES_ROUTE) {
+    // https://integreat.app/augsburg/de/, https://integreat.app/augsburg/de/willkommen/erste-schritte
     return constructPathname([routeInformation.cityContentPath])
   }
   if (routeInformation.route === EVENTS_ROUTE || routeInformation.route === POIS_ROUTE) {

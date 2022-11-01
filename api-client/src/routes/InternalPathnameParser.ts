@@ -1,6 +1,5 @@
 import {
   CATEGORIES_ROUTE,
-  DASHBOARD_ROUTE,
   DISCLAIMER_ROUTE,
   EVENTS_ROUTE,
   JPAL_TRACKING_ROUTE,
@@ -82,7 +81,7 @@ class InternalPathnameParser {
       if (this._length <= 2 && (this._length === 0 || this.isFixedCity() || this._parts[0] === LANDING_ROUTE)) {
         const cityContentPath = `/${fixedCity}/${this.languageCode()}`
         return {
-          route: DASHBOARD_ROUTE,
+          route: CATEGORIES_ROUTE,
           cityCode: fixedCity,
           languageCode: this.languageCode(),
           cityContentPath,
@@ -93,7 +92,7 @@ class InternalPathnameParser {
       // '/ansbach/de', '/ansbach'
       const cityContentPath = `/${cityCode}/${this.languageCode()}`
       return {
-        route: DASHBOARD_ROUTE,
+        route: CATEGORIES_ROUTE,
         cityCode,
         languageCode: this.languageCode(),
         cityContentPath,
