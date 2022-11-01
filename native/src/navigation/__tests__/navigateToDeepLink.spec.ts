@@ -1,7 +1,7 @@
 import { mocked } from 'jest-mock'
 
 import {
-  DASHBOARD_ROUTE,
+  CATEGORIES_ROUTE,
   EVENTS_ROUTE,
   INTRO_ROUTE,
   JPAL_TRACKING_ROUTE,
@@ -18,7 +18,6 @@ import createNavigationPropMock from '../../testing/createNavigationPropMock'
 import appSettings from '../../utils/AppSettings'
 import sendTrackingSignal from '../../utils/sendTrackingSignal'
 import createNavigate from '../createNavigate'
-import navigateToCategory from '../navigateToCategory'
 import navigateToDeepLink from '../navigateToDeepLink'
 
 const mockNavigateTo = jest.fn()
@@ -54,12 +53,13 @@ describe('navigateToDeepLink', () => {
       mockBuildConfig({ introSlides: true, fixedCity: null })
       await appSettings.setContentLanguage(language)
       await navigateToDeepLink(dispatch, navigation, url, language)
+
       expect(navigation.replace).toHaveBeenCalledTimes(1)
       expect(navigation.replace).toHaveBeenCalledWith(INTRO_ROUTE, {
         deepLink: url,
       })
+
       expect(createNavigate).not.toHaveBeenCalled()
-      expect(navigateToCategory).not.toHaveBeenCalled()
       expect(sendTrackingSignal).toHaveBeenCalledTimes(1)
       expect(sendTrackingSignal).toHaveBeenCalledWith({
         signal: {
@@ -74,10 +74,11 @@ describe('navigateToDeepLink', () => {
       await appSettings.setContentLanguage(language)
       await appSettings.setIntroShown()
       await navigateToDeepLink(dispatch, navigation, url, language)
+
       expect(navigation.replace).toHaveBeenCalledTimes(1)
       expect(navigation.replace).toHaveBeenCalledWith(LANDING_ROUTE)
+
       expect(createNavigate).not.toHaveBeenCalled()
-      expect(navigateToCategory).not.toHaveBeenCalled()
       expect(sendTrackingSignal).toHaveBeenCalledTimes(1)
       expect(sendTrackingSignal).toHaveBeenCalledWith({
         signal: {
@@ -91,10 +92,11 @@ describe('navigateToDeepLink', () => {
       mockBuildConfig({ introSlides: false, fixedCity: null })
       await appSettings.setContentLanguage(language)
       await navigateToDeepLink(dispatch, navigation, url, language)
+
       expect(navigation.replace).toHaveBeenCalledTimes(1)
       expect(navigation.replace).toHaveBeenCalledWith(LANDING_ROUTE)
+
       expect(createNavigate).not.toHaveBeenCalled()
-      expect(navigateToCategory).not.toHaveBeenCalled()
       expect(sendTrackingSignal).toHaveBeenCalledTimes(1)
       expect(sendTrackingSignal).toHaveBeenCalledWith({
         signal: {
@@ -110,18 +112,11 @@ describe('navigateToDeepLink', () => {
       await appSettings.setContentLanguage(language)
       await appSettings.setIntroShown()
       await navigateToDeepLink(dispatch, navigation, url, language)
-      expect(navigateToCategory).toHaveBeenCalledTimes(1)
-      expect(navigateToCategory).toHaveBeenCalledWith({
-        dispatch,
-        navigation,
-        cityCode: fixedCity,
-        languageCode: language,
-        routeName: DASHBOARD_ROUTE,
-        cityContentPath: `/${fixedCity}/${language}`,
-        forceRefresh: false,
-        resetNavigation: true,
-      })
-      expect(navigation.replace).not.toHaveBeenCalled()
+
+      // /${fixedCity}/${language}
+      expect(navigation.replace).toHaveBeenCalledTimes(1)
+      expect(navigation.replace).toHaveBeenCalledWith({ index: 0, routes: [{ CATEGORIES_ROUTE, params: {} }] })
+
       expect(createNavigate).not.toHaveBeenCalled()
       expect(sendTrackingSignal).toHaveBeenCalledTimes(1)
       expect(sendTrackingSignal).toHaveBeenCalledWith({
@@ -138,18 +133,11 @@ describe('navigateToDeepLink', () => {
       await appSettings.setContentLanguage(language)
       await appSettings.setSelectedCity(selectedCity)
       await navigateToDeepLink(dispatch, navigation, url, language)
-      expect(navigateToCategory).toHaveBeenCalledTimes(1)
-      expect(navigateToCategory).toHaveBeenCalledWith({
-        dispatch,
-        navigation,
-        cityCode: selectedCity,
-        languageCode: language,
-        routeName: DASHBOARD_ROUTE,
-        cityContentPath: `/${selectedCity}/${language}`,
-        forceRefresh: false,
-        resetNavigation: true,
-      })
-      expect(navigation.replace).not.toHaveBeenCalled()
+
+      // /${selectedCity}/${language}
+      expect(navigation.replace).toHaveBeenCalledTimes(1)
+      expect(navigation.replace).toHaveBeenCalledWith({ index: 0, routes: [{ CATEGORIES_ROUTE, params: {} }] })
+
       expect(createNavigate).not.toHaveBeenCalled()
       expect(sendTrackingSignal).toHaveBeenCalledTimes(1)
       expect(sendTrackingSignal).toHaveBeenCalledWith({
@@ -164,16 +152,18 @@ describe('navigateToDeepLink', () => {
     const cityCode = `muenchen`
     const languageCode = `ar`
     const url = `https://integreat.app/${cityCode}/${languageCode}`
+
     it('should navigate to the into slides if not shown yet and enabled in the build config', async () => {
       mockBuildConfig({ introSlides: true, fixedCity: null })
       await appSettings.setContentLanguage(language)
       await navigateToDeepLink(dispatch, navigation, url, language)
+
       expect(navigation.replace).toHaveBeenCalledTimes(1)
       expect(navigation.replace).toHaveBeenCalledWith(INTRO_ROUTE, {
         deepLink: url,
       })
+
       expect(createNavigate).not.toHaveBeenCalled()
-      expect(navigateToCategory).not.toHaveBeenCalled()
       expect(sendTrackingSignal).toHaveBeenCalledTimes(1)
       expect(sendTrackingSignal).toHaveBeenCalledWith({
         signal: {
@@ -188,18 +178,11 @@ describe('navigateToDeepLink', () => {
       await appSettings.setContentLanguage(language)
       await appSettings.setIntroShown()
       await navigateToDeepLink(dispatch, navigation, url, language)
-      expect(navigateToCategory).toHaveBeenCalledTimes(1)
-      expect(navigateToCategory).toHaveBeenCalledWith({
-        dispatch,
-        navigation,
-        cityCode,
-        languageCode,
-        routeName: DASHBOARD_ROUTE,
-        cityContentPath: `/${cityCode}/${languageCode}`,
-        forceRefresh: false,
-        resetNavigation: true,
-      })
-      expect(navigation.replace).not.toHaveBeenCalled()
+
+      // /${cityCode}/${languageCode}
+      expect(navigation.replace).toHaveBeenCalledTimes(1)
+      expect(navigation.replace).toHaveBeenCalledWith({ index: 0, routes: [{ CATEGORIES_ROUTE, params: {} }] })
+
       expect(createNavigate).not.toHaveBeenCalled()
       expect(sendTrackingSignal).toHaveBeenCalledTimes(1)
       expect(sendTrackingSignal).toHaveBeenCalledWith({
@@ -216,18 +199,11 @@ describe('navigateToDeepLink', () => {
       await appSettings.setContentLanguage(language)
       await appSettings.setIntroShown()
       await navigateToDeepLink(dispatch, navigation, url, language)
-      expect(navigateToCategory).toHaveBeenCalledTimes(1)
-      expect(navigateToCategory).toHaveBeenCalledWith({
-        dispatch,
-        navigation,
-        cityCode,
-        languageCode: language,
-        routeName: DASHBOARD_ROUTE,
-        cityContentPath: `/${cityCode}/${language}`,
-        forceRefresh: false,
-        resetNavigation: true,
-      })
-      expect(navigation.replace).not.toHaveBeenCalled()
+
+      // /${cityCode}/${language}
+      expect(navigation.replace).toHaveBeenCalledTimes(1)
+      expect(navigation.replace).toHaveBeenCalledWith({ index: 0, routes: [{ CATEGORIES_ROUTE, params: {} }] })
+
       expect(createNavigate).not.toHaveBeenCalled()
       expect(sendTrackingSignal).toHaveBeenCalledTimes(1)
       expect(sendTrackingSignal).toHaveBeenCalledWith({
@@ -246,18 +222,11 @@ describe('navigateToDeepLink', () => {
       await appSettings.setSelectedCity(selectedCity)
       await appSettings.setIntroShown()
       await navigateToDeepLink(dispatch, navigation, url, language)
-      expect(navigateToCategory).toHaveBeenCalledTimes(1)
-      expect(navigateToCategory).toHaveBeenCalledWith({
-        dispatch,
-        navigation,
-        cityCode: selectedCity,
-        languageCode: language,
-        routeName: DASHBOARD_ROUTE,
-        cityContentPath: `/${selectedCity}/${language}`,
-        forceRefresh: false,
-        resetNavigation: true,
-      })
-      expect(navigation.replace).not.toHaveBeenCalled()
+
+      // /${selectedCity}/${language}
+      expect(navigation.replace).toHaveBeenCalledTimes(1)
+      expect(navigation.replace).toHaveBeenCalledWith({ index: 0, routes: [{ CATEGORIES_ROUTE, params: {} }] })
+
       expect(createNavigate).toHaveBeenCalledTimes(1)
       expect(createNavigate).toHaveBeenCalledWith(dispatch, navigation)
       expect(mockNavigateTo).toHaveBeenCalledTimes(1)
@@ -266,7 +235,7 @@ describe('navigateToDeepLink', () => {
           cityCode,
           languageCode: language,
           cityContentPath: `/${cityCode}/${language}`,
-          route: DASHBOARD_ROUTE,
+          route: CATEGORIES_ROUTE,
         },
         undefined,
         false
@@ -285,18 +254,11 @@ describe('navigateToDeepLink', () => {
       mockBuildConfig({ introSlides: false, fixedCity })
       await appSettings.setContentLanguage(language)
       await navigateToDeepLink(dispatch, navigation, url, language)
-      expect(navigateToCategory).toHaveBeenCalledTimes(1)
-      expect(navigateToCategory).toHaveBeenCalledWith({
-        dispatch,
-        navigation,
-        cityCode: fixedCity,
-        languageCode: language,
-        routeName: DASHBOARD_ROUTE,
-        cityContentPath: `/${fixedCity}/${language}`,
-        forceRefresh: false,
-        resetNavigation: true,
-      })
-      expect(navigation.replace).not.toHaveBeenCalled()
+
+      // /${fixedCity}/${language}
+      expect(navigation.replace).toHaveBeenCalledTimes(1)
+      expect(navigation.replace).toHaveBeenCalledWith({ index: 0, routes: [{ CATEGORIES_ROUTE, params: {} }] })
+
       expect(createNavigate).not.toHaveBeenCalled()
       expect(sendTrackingSignal).toHaveBeenCalledTimes(1)
       expect(sendTrackingSignal).toHaveBeenCalledWith({
@@ -307,6 +269,7 @@ describe('navigateToDeepLink', () => {
       })
     })
   })
+
   describe('city content deep links', () => {
     const cityCode = `muenchen`
     const languageCode = `ar`
@@ -315,12 +278,13 @@ describe('navigateToDeepLink', () => {
       mockBuildConfig({ introSlides: true, fixedCity: null })
       await appSettings.setContentLanguage(language)
       await navigateToDeepLink(dispatch, navigation, url, language)
+
       expect(navigation.replace).toHaveBeenCalledTimes(1)
       expect(navigation.replace).toHaveBeenCalledWith(INTRO_ROUTE, {
         deepLink: url,
       })
+
       expect(createNavigate).not.toHaveBeenCalled()
-      expect(navigateToCategory).not.toHaveBeenCalled()
       expect(sendTrackingSignal).toHaveBeenCalledTimes(1)
       expect(sendTrackingSignal).toHaveBeenCalledWith({
         signal: {
@@ -336,18 +300,10 @@ describe('navigateToDeepLink', () => {
       await appSettings.setContentLanguage(language)
       await appSettings.setIntroShown()
       await navigateToDeepLink(dispatch, navigation, url, language)
-      expect(navigateToCategory).toHaveBeenCalledTimes(1)
-      expect(navigateToCategory).toHaveBeenCalledWith({
-        dispatch,
-        navigation,
-        cityCode,
-        languageCode,
-        routeName: DASHBOARD_ROUTE,
-        cityContentPath: `/${cityCode}/${languageCode}`,
-        forceRefresh: false,
-        resetNavigation: true,
-      })
-      expect(navigation.replace).not.toHaveBeenCalled()
+
+      // /${cityCode}/${languageCode}
+      expect(navigation.replace).toHaveBeenCalledTimes(1)
+      expect(navigation.replace).toHaveBeenCalledWith({ index: 0, routes: [{ CATEGORIES_ROUTE, params: {} }] })
       expect(createNavigate).toHaveBeenCalledTimes(1)
       expect(createNavigate).toHaveBeenCalledWith(dispatch, navigation)
       expect(mockNavigateTo).toHaveBeenCalledTimes(1)
@@ -376,18 +332,10 @@ describe('navigateToDeepLink', () => {
       await appSettings.setContentLanguage(language)
       await appSettings.setIntroShown()
       await navigateToDeepLink(dispatch, navigation, url, language)
-      expect(navigateToCategory).toHaveBeenCalledTimes(1)
-      expect(navigateToCategory).toHaveBeenCalledWith({
-        dispatch,
-        navigation,
-        cityCode,
-        languageCode,
-        routeName: DASHBOARD_ROUTE,
-        cityContentPath: `/${cityCode}/${languageCode}`,
-        forceRefresh: false,
-        resetNavigation: true,
-      })
-      expect(navigation.replace).not.toHaveBeenCalled()
+
+      // /${cityCode}/${languageCode}
+      expect(navigation.replace).toHaveBeenCalledTimes(1)
+      expect(navigation.replace).toHaveBeenCalledWith({ index: 0, routes: [{ CATEGORIES_ROUTE, params: {} }] })
       expect(createNavigate).toHaveBeenCalledTimes(1)
       expect(createNavigate).toHaveBeenCalledWith(dispatch, navigation)
       expect(mockNavigateTo).toHaveBeenCalledTimes(1)
@@ -417,18 +365,10 @@ describe('navigateToDeepLink', () => {
       await appSettings.setSelectedCity(selectedCity)
       await appSettings.setIntroShown()
       await navigateToDeepLink(dispatch, navigation, url, language)
-      expect(navigateToCategory).toHaveBeenCalledTimes(1)
-      expect(navigateToCategory).toHaveBeenCalledWith({
-        dispatch,
-        navigation,
-        cityCode: selectedCity,
-        languageCode: 'en',
-        routeName: DASHBOARD_ROUTE,
-        cityContentPath: `/${selectedCity}/en`,
-        forceRefresh: false,
-        resetNavigation: true,
-      })
-      expect(navigation.replace).not.toHaveBeenCalled()
+
+      // /${selectedCity}/${en}
+      expect(navigation.replace).toHaveBeenCalledTimes(1)
+      expect(navigation.replace).toHaveBeenCalledWith({ index: 0, routes: [{ CATEGORIES_ROUTE, params: {} }] })
       expect(createNavigate).toHaveBeenCalledTimes(1)
       expect(createNavigate).toHaveBeenCalledWith(dispatch, navigation)
       expect(mockNavigateTo).toHaveBeenCalledTimes(1)
@@ -458,7 +398,7 @@ describe('navigateToDeepLink', () => {
       await appSettings.setContentLanguage(language)
       await appSettings.setIntroShown()
       await navigateToDeepLink(dispatch, navigation, url, language)
-      expect(navigateToCategory).not.toHaveBeenCalled()
+
       expect(navigation.replace).toHaveBeenCalledTimes(1)
       expect(navigation.replace).toHaveBeenCalledWith(LANDING_ROUTE)
       expect(createNavigate).toHaveBeenCalledTimes(1)
@@ -488,18 +428,10 @@ describe('navigateToDeepLink', () => {
       await appSettings.setSelectedCity(selectedCity)
       await appSettings.setIntroShown()
       await navigateToDeepLink(dispatch, navigation, url, language)
-      expect(navigateToCategory).toHaveBeenCalledTimes(1)
-      expect(navigateToCategory).toHaveBeenCalledWith({
-        dispatch,
-        navigation,
-        cityCode: selectedCity,
-        languageCode: language,
-        routeName: DASHBOARD_ROUTE,
-        cityContentPath: `/${selectedCity}/${language}`,
-        forceRefresh: false,
-        resetNavigation: true,
-      })
-      expect(navigation.replace).not.toHaveBeenCalled()
+
+      // /${selectedCity}/${language}
+      expect(navigation.replace).toHaveBeenCalledTimes(1)
+      expect(navigation.replace).toHaveBeenCalledWith({ index: 0, routes: [{ CATEGORIES_ROUTE, params: {} }] })
       expect(createNavigate).toHaveBeenCalledTimes(1)
       expect(createNavigate).toHaveBeenCalledWith(dispatch, navigation)
       expect(mockNavigateTo).toHaveBeenCalledTimes(1)

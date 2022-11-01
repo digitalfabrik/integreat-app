@@ -1,12 +1,6 @@
 import { Dispatch } from 'redux'
 
-import {
-  CITY_NOT_COOPERATING_ROUTE,
-  DASHBOARD_ROUTE,
-  NotFoundError,
-  OPEN_PAGE_SIGNAL_NAME,
-  SHELTER_ROUTE,
-} from 'api-client'
+import { CITY_NOT_COOPERATING_ROUTE, NotFoundError, OPEN_PAGE_SIGNAL_NAME, SHELTER_ROUTE } from 'api-client'
 import {
   CATEGORIES_ROUTE,
   DISCLAIMER_ROUTE,
@@ -30,7 +24,6 @@ import sendTrackingSignal from '../utils/sendTrackingSignal'
 import showSnackbar from '../utils/showSnackbar'
 import navigateToCityNotCooperating from './navigateToCityNotCooperating'
 import navigateToDisclaimer from './navigateToDisclaimer'
-import navigateToEvents from './navigateToEvents'
 import navigateToNews from './navigateToNews'
 import navigateToOffers from './navigateToOffers'
 import navigateToPois from './navigateToPois'
@@ -86,10 +79,7 @@ const createNavigate =
 
       switch (routeInformation.route) {
         case CATEGORIES_ROUTE:
-        case DASHBOARD_ROUTE:
-          navigation.push(CATEGORIES_ROUTE, {
-            path: routeInformation.cityContentPath,
-          })
+          navigation.push(CATEGORIES_ROUTE, { path: routeInformation.cityContentPath })
           return
 
         case DISCLAIMER_ROUTE:
@@ -97,7 +87,7 @@ const createNavigate =
           return
 
         case EVENTS_ROUTE:
-          navigateToEvents({ ...params, slug: routeInformation.slug, key, forceRefresh })
+          navigation.push(EVENTS_ROUTE, { slug: routeInformation.slug })
           return
 
         case NEWS_ROUTE:

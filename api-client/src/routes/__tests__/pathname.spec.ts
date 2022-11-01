@@ -1,6 +1,5 @@
 import {
   CATEGORIES_ROUTE,
-  DASHBOARD_ROUTE,
   DISCLAIMER_ROUTE,
   EVENTS_ROUTE,
   JPAL_TRACKING_ROUTE,
@@ -71,10 +70,10 @@ describe('pathname', () => {
         })
       ).toBe('/jpal')
     })
-    it('should match dashboard route if pathname is a city with a language', () => {
+    it('should match categories route if pathname is a city with a language', () => {
       expect(
         pathnameFromRouteInformation({
-          route: DASHBOARD_ROUTE,
+          route: CATEGORIES_ROUTE,
           languageCode: 'ar',
           cityCode,
           cityContentPath: `/${cityCode}/ar`,
