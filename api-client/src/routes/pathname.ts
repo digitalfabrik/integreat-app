@@ -54,7 +54,7 @@ export const pathnameFromRouteInformation = (routeInformation: NonNullableRouteI
     return constructPathname([cityCode, languageCode, OFFERS_ROUTE, route, id])
   }
   if (routeInformation.route === DASHBOARD_ROUTE || routeInformation.route === CATEGORIES_ROUTE) {
-    // https://integreat.app/augsburg/de/, https://integreat.app/augsburg/de/events/12345
+    // https://integreat.app/augsburg/de/
     return constructPathname([routeInformation.cityContentPath])
   }
   if (routeInformation.route === EVENTS_ROUTE) {
