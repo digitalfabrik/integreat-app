@@ -3,7 +3,6 @@ import { mocked } from 'jest-mock'
 import { OPEN_PAGE_SIGNAL_NAME } from 'api-client'
 import {
   CATEGORIES_ROUTE,
-  DASHBOARD_ROUTE,
   DISCLAIMER_ROUTE,
   EVENTS_ROUTE,
   JPAL_TRACKING_ROUTE,
@@ -20,9 +19,7 @@ import createNavigationScreenPropMock from '../../testing/createNavigationPropMo
 import sendTrackingSignal from '../../utils/sendTrackingSignal'
 import showSnackbar from '../../utils/showSnackbar'
 import createNavigate from '../createNavigate'
-import navigateToCategory from '../navigateToCategory'
 import navigateToDisclaimer from '../navigateToDisclaimer'
-import navigateToEvents from '../navigateToEvents'
 import navigateToNews from '../navigateToNews'
 import navigateToOffers from '../navigateToOffers'
 import navigateToPois from '../navigateToPois'
@@ -30,11 +27,9 @@ import navigateToSearch from '../navigateToSearch'
 
 jest.mock('../navigateToDisclaimer')
 jest.mock('../navigateToOffers')
-jest.mock('../navigateToEvents')
 jest.mock('../navigateToPois')
 jest.mock('../navigateToSearch')
 jest.mock('../navigateToNews')
-jest.mock('../navigateToCategory')
 jest.mock('../../utils/sendTrackingSignal')
 jest.mock('../../utils/showSnackbar')
 jest.mock('../url', () => ({
@@ -72,13 +67,13 @@ describe('createNavigate', () => {
   })
   const allMocks = [
     navigateToNews,
-    navigateToEvents,
     navigateToSearch,
-    navigateToCategory,
     navigateToPois,
     navigateToDisclaimer,
     navigateToOffers,
     navigation.navigate,
+    navigation.push,
+    navigation.reset,
   ]
 
   const assertNotCalled = (mocks: Array<CallableFunction>) =>
@@ -142,36 +137,7 @@ describe('createNavigate', () => {
     assertNotCalled(allMocks)
   })
 
-  it('should call navigateToCategory for dashboard route', () => {
-    navigateTo(
-      {
-        route: DASHBOARD_ROUTE,
-        cityContentPath,
-        ...params,
-      },
-      key,
-      forceRefresh
-    )
-    assertOnlyCalled([navigateToCategory])
-    expect(navigateToCategory).toHaveBeenCalledWith({
-      dispatch,
-      navigation,
-      routeName: DASHBOARD_ROUTE,
-      cityContentPath,
-      ...params,
-      key,
-      forceRefresh,
-    })
-    expect(sendTrackingSignal).toHaveBeenCalledWith({
-      signal: {
-        name: OPEN_PAGE_SIGNAL_NAME,
-        pageType: DASHBOARD_ROUTE,
-        url: 'https://example.com',
-      },
-    })
-  })
-
-  it('should call navigateToCategory for categories route', () => {
+  it('should call navigation.push for categories route', () => {
     navigateTo(
       {
         route: CATEGORIES_ROUTE,
@@ -181,15 +147,14 @@ describe('createNavigate', () => {
       key,
       forceRefresh
     )
-    assertOnlyCalled([navigateToCategory])
-    expect(navigateToCategory).toHaveBeenCalledWith({
-      dispatch,
-      navigation,
-      routeName: CATEGORIES_ROUTE,
-      cityContentPath,
-      ...params,
-      key,
-      forceRefresh,
+    assertOnlyCalled([navigation.push])
+    expect(navigation.push).toHaveBeenCalledWith(CATEGORIES_ROUTE, { path: cityContentPath })
+    expect(sendTrackingSignal).toHaveBeenCalledWith({
+      signal: {
+        name: OPEN_PAGE_SIGNAL_NAME,
+        pageType: CATEGORIES_ROUTE,
+        url: 'https://example.com',
+      },
     })
   })
 
@@ -219,18 +184,13 @@ describe('createNavigate', () => {
     })
   })
 
-  it('should call navigateToEvents for events route', () => {
+  it('should call navigation.push for events route', () => {
     navigateTo({
       route: EVENTS_ROUTE,
       ...params,
       slug: '1234',
     })
-    expect(navigateToEvents).toHaveBeenCalledWith({
-      dispatch,
-      navigation,
-      ...params,
-      cityContentPath,
-    })
+    expect(navigation.push).toHaveBeenCalledWith(EVENTS_ROUTE, { slug: '1234' })
     navigateTo(
       {
         route: EVENTS_ROUTE,
@@ -239,15 +199,8 @@ describe('createNavigate', () => {
       key,
       forceRefresh
     )
-    expect(navigateToEvents).toHaveBeenCalledWith({
-      dispatch,
-      navigation,
-      ...params,
-      key,
-      forceRefresh,
-      cityContentPath: undefined,
-    })
-    assertOnlyCalled([navigateToEvents], 2)
+    expect(navigation.push).toHaveBeenCalledWith(EVENTS_ROUTE, { slug: undefined })
+    assertOnlyCalled([navigation.push], 2)
   })
 
   it('should call navigateToNews for news route', () => {
