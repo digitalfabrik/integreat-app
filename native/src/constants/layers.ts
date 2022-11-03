@@ -42,6 +42,7 @@ export const markerLayer = (selectedFeature: PoiFeature | null, featureLayerId: 
     textOffset: [0, textOffsetY],
     textAnchor: 'top',
     textSize: fontSizeSmall,
+    textVariableAnchor: ['top', 'bottom', 'left', 'right'],
   },
 })
 
