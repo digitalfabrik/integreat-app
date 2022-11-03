@@ -42,6 +42,7 @@ export const markerLayer = (currentFeature: PoiFeature | null): LayerProps => ({
     'text-offset': [0, textOffsetY],
     'text-anchor': 'top',
     'text-size': fontSizeSmall,
+    'text-variable-anchor': ['top', 'bottom', 'left', 'right'],
   },
   paint: {},
 })
