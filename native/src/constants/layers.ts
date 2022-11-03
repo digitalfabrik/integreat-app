@@ -28,6 +28,7 @@ export const markerLayer = (selectedFeature: PoiFeature | null, featureLayerId: 
     symbolPlacement: 'point',
     symbolZOrder: 'source',
     iconAllowOverlap: true,
+    textAllowOverlap: true,
     iconSize: mapMarker.iconSize,
     iconIgnorePlacement: true,
     iconImage: [
