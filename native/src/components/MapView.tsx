@@ -7,7 +7,6 @@ import styled from 'styled-components/native'
 
 import {
   clusterRadius,
-  clusterZoom,
   defaultViewportConfig,
   detailZoom,
   mapConfig,
@@ -125,12 +124,7 @@ const MapView = React.forwardRef(
           attributionEnabled={false}
           logoEnabled={false}>
           <MapboxGL.UserLocation visible={locationPermissionGranted} />
-          <MapboxGL.ShapeSource
-            id='location-pois'
-            shape={featureCollection}
-            cluster
-            clusterRadius={clusterRadius}
-            clusterMaxZoomLevel={clusterZoom}>
+          <MapboxGL.ShapeSource id='location-pois' shape={featureCollection} cluster clusterRadius={clusterRadius}>
             <MapboxGL.SymbolLayer {...clusterCountLayer} />
             <MapboxGL.CircleLayer {...clusterLayer(theme)} />
             <MapboxGL.SymbolLayer {...markerLayer(selectedFeature, featureLayerId)} />
