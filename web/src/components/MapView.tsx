@@ -11,7 +11,6 @@ import {
   PoiFeature,
   PoiFeatureCollection,
   MapViewMercatorViewport,
-  clusterZoom,
   clusterRadius,
 } from 'api-client'
 import { UiDirectionType } from 'translations'
@@ -157,13 +156,7 @@ const MapView = forwardRef((props: MapViewProps, ref: React.Ref<MapRef>): ReactE
           trackUserLocation
           position={direction === 'rtl' ? 'top-left' : 'top-right'}
         />
-        <Source
-          id='location-pois'
-          type='geojson'
-          data={featureCollection}
-          cluster
-          clusterMaxZoom={clusterZoom}
-          clusterRadius={clusterRadius}>
+        <Source id='location-pois' type='geojson' data={featureCollection} cluster clusterRadius={clusterRadius}>
           <Layer {...clusterLayer(theme)} />
           <Layer {...clusterCountLayer} />
           <Layer {...markerLayer(currentFeature)} />
