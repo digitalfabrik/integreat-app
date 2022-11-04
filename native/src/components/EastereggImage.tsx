@@ -1,11 +1,9 @@
 import moment, { Moment } from 'moment'
-import * as React from 'react'
-import { ReactElement, ReactNode, useCallback, useEffect, useState } from 'react'
+import React, { ReactElement, ReactNode, useCallback, useEffect, useState } from 'react'
 import { TouchableOpacity } from 'react-native'
 import { Button } from 'react-native-elements'
+import { useTheme } from 'styled-components'
 import styled from 'styled-components/native'
-
-import { ThemeType } from 'build-configs'
 
 import buildConfig, { buildConfigAssets } from '../constants/buildConfig'
 import appSettings from '../utils/AppSettings'
@@ -14,10 +12,6 @@ import { log, reportError } from '../utils/sentry'
 const API_URL_OVERRIDE_MIN_CLICKS = 10
 const CLICK_TIMEOUT = 8
 
-type EastereggImageProps = {
-  clearResourcesAndCache: () => void
-  theme: ThemeType
-}
 const LocationImage = styled.Image`
   height: 70px;
   resize-mode: contain;
@@ -27,10 +21,15 @@ const ApiUrlText = styled.Text`
   color: red;
 `
 
-const EastereggImage = ({ clearResourcesAndCache, theme }: EastereggImageProps): ReactElement => {
+type EastereggImageProps = {
+  clearResourcesAndCache: () => void
+}
+
+const EastereggImage = ({ clearResourcesAndCache }: EastereggImageProps): ReactElement => {
   const [clickCount, setClickCount] = useState(0)
   const [apiUrlOverride, setApiUrlOverride] = useState<string | null>(null)
   const [clickStart, setClickStart] = useState<null | Moment>(null)
+  const theme = useTheme()
 
   useEffect(() => {
     appSettings.loadApiUrlOverride().then(setApiUrlOverride).catch(reportError)
