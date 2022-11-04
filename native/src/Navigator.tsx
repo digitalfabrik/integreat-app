@@ -47,7 +47,7 @@ import FeedbackModalContainer from './routes/FeedbackModalContainer'
 import ImageViewModal from './routes/ImageViewModal'
 import Intro from './routes/Intro'
 import JpalTracking from './routes/JpalTracking'
-import LandingContainer from './routes/LandingContainer'
+import Landing from './routes/Landing'
 import Licenses from './routes/Licenses'
 import NewsContainer from './routes/NewsContainer'
 import OffersContainer from './routes/OffersContainer'
@@ -194,7 +194,7 @@ const Navigator = (props: NavigatorProps): ReactElement | null => {
       </Stack.Group>
 
       <Stack.Group screenOptions={{ header: transparentHeader }}>
-        <Stack.Screen name={LANDING_ROUTE} component={LandingContainer} />
+        <Stack.Screen name={LANDING_ROUTE} component={Landing} />
         <Stack.Screen name={PDF_VIEW_MODAL_ROUTE} component={PDFViewModal} />
         <Stack.Screen name={CHANGE_LANGUAGE_MODAL_ROUTE} component={ChangeLanguageModal} />
         <Stack.Screen name={IMAGE_VIEW_MODAL_ROUTE} component={ImageViewModal} />
