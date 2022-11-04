@@ -7623,7 +7623,7 @@
     },
     "nl": {
       "title": "Huisvesting",
-      "shelterTitle": "{{beds}} op {{locatie}}",
+      "shelterTitle": "{{beds}} op {{location}}",
       "shelterInformation": "Aangeboden huisvesting",
       "householdInformation": "Informatie over het gehele huishouden",
       "hostInformation": "Details van de host",
