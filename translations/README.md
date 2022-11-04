@@ -57,7 +57,8 @@ they can be submitted to professionals for translations as follows:
 
 **Warning:** Make sure to check the received translations on mistakes. For example make sure that our placeholders are not translated.
 The following regex can be used to find invalid placeholders:
-> \{\{(?!appName|message|distance|version|beds|location)[^}]*}}
+
+> \{\{(?!appName|message|distance|version|beds|location)[^}]\*}}
 
 ## Conversion between JSON, CSV and ODS
 
