@@ -21,7 +21,7 @@ describe('CityContentLayout', () => {
   const feedbackTargetInformation = { path: '/path/to/category' }
 
   const MockNode = () => <div />
-  const renderCityContentLayout = (isLoading: boolean, toolbar?: ToolbarProps): RenderResult =>
+  const renderCityContentLayout = (isLoading: boolean, viewportSmall: boolean, toolbar?: ToolbarProps): RenderResult =>
     renderWithTheme(
       <CityContentLayout
         toolbar={toolbar}
@@ -30,7 +30,7 @@ describe('CityContentLayout', () => {
         route={CATEGORIES_ROUTE}
         languageChangePaths={languageChangePaths}
         feedbackTargetInformation={feedbackTargetInformation}
-        viewportSmall
+        viewportSmall={viewportSmall}
         isLoading={isLoading}>
         <MockNode />
       </CityContentLayout>
@@ -39,18 +39,24 @@ describe('CityContentLayout', () => {
   it('should render a toolbar', () => {
     const toolbar = () => 'CityContentToolbar'
 
-    const { getByText } = renderCityContentLayout(false, toolbar)
+    const { getByText } = renderCityContentLayout(false, true, toolbar)
     expect(getByText('CityContentToolbar')).toBeTruthy()
   })
 
-  it('should show CityContentHeader and CityContentFooter if not loading', () => {
-    const { getByText } = renderCityContentLayout(false)
+  it('should show CityContentHeader and CityContentFooter if not loading and on a big screen', () => {
+    const { getByText } = renderCityContentLayout(false, false)
     expect(getByText('CityContentHeader')).toBeTruthy()
     expect(getByText('CityContentFooter')).toBeTruthy()
   })
 
+  it('should show CityContentHeader and not CityContentFooter if not loading and on a small screen', () => {
+    const { getByText } = renderCityContentLayout(false, true)
+    expect(getByText('CityContentHeader')).toBeTruthy()
+    expect(() => getByText('CityContentFooter')).toThrow()
+  })
+
   it('should not render CityContentFooter if loading', () => {
-    const { getByText } = renderCityContentLayout(true)
+    const { getByText } = renderCityContentLayout(true, true)
     expect(getByText('CityContentHeader')).toBeTruthy()
     expect(() => getByText('CityContentFooter')).toThrow()
   })
