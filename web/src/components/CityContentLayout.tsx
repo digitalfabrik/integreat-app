@@ -71,7 +71,11 @@ const CityContentLayout = (props: CityContentLayoutProps): ReactElement => {
           route={route}
         />
       }
-      footer={!isLoading && showFooter ? <CityContentFooter city={cityModel.code} language={languageCode} /> : null}
+      footer={
+        !isLoading && showFooter && !viewportSmall ? (
+          <CityContentFooter city={cityModel.code} language={languageCode} />
+        ) : null
+      }
       modal={feedbackModal}
       toolbar={toolbar}>
       <>
