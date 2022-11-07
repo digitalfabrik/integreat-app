@@ -169,7 +169,7 @@ const CityContentSwitcher = ({ cities, languageCode }: CityContentSwitcherProps)
       {offersEnabled && render(SHELTER_ROUTE, ShelterPage, ':shelterId')}
       {offersEnabled && render(SPRUNGBRETT_OFFER_ROUTE, SprungbrettOfferPage)}
       {offersEnabled && render(OFFERS_ROUTE, OffersPage)}
-      {poisEnabled && render(POIS_ROUTE, PoisPage, ':poiId')}
+      {poisEnabled && render(POIS_ROUTE, PoisPage)}
       {localNewsEnabled && render(LOCAL_NEWS_ROUTE, LocalNewsPage, ':newsId')}
 
       {tuNewsEnabled && render(TU_NEWS_ROUTE, TuNewsPage)}

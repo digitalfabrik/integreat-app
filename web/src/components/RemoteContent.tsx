@@ -1,5 +1,6 @@
 import Dompurify from 'dompurify'
 import React, { ReactElement, useCallback, useEffect } from 'react'
+import { NavigateFunction } from 'react-router-dom'
 import styled from 'styled-components'
 
 import buildConfig from '../constants/buildConfig'
@@ -88,7 +89,7 @@ const SandBox = styled.div<{ centered: boolean; smallText: boolean }>`
 
 type RemoteContentProps = {
   html: string
-  onInternalLinkClick: (url: string) => void
+  onInternalLinkClick: NavigateFunction
   centered?: boolean
   smallText?: boolean
 }
@@ -109,8 +110,8 @@ const RemoteContent = ({
       const target = event.currentTarget
 
       if (target instanceof HTMLAnchorElement) {
-        const href = target.href
-        onInternalLinkClick(decodeURIComponent(new URL(decodeURIComponent(href)).pathname))
+        const url = new URL(decodeURIComponent(target.href))
+        onInternalLinkClick({ pathname: url.pathname, search: url.search })
       }
     },
     [onInternalLinkClick]
