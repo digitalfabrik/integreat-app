@@ -28,13 +28,15 @@ class InternalPathnameParser {
   _length: number
   _fallbackLanguageCode: string
   _fixedCity: string | null
+  _queryParams: string | undefined
 
-  constructor(pathname: string, languageCode: string, fixedCity: string | null) {
+  constructor(pathname: string, languageCode: string, fixedCity: string | null, queryParams?: string) {
     this._pathname = normalizePath(pathname)
     this._fixedCity = fixedCity
     this._parts = this.pathnameParts(pathname)
     this._length = this._parts.length
     this._fallbackLanguageCode = languageCode
+    this._queryParams = queryParams
   }
 
   pathnameParts = (pathname: string): string[] => pathname.split('/').filter(Boolean)
@@ -134,14 +136,13 @@ class InternalPathnameParser {
 
   pois = (): RouteInformationType => {
     const params = this.cityContentParams(POIS_ROUTE)
-
     if (!params) {
       return null
     }
 
-    // Single pois are identified via their city content path, e.g. '/augsburg/de/events/1234'
+    // Single pois are identified via their city content path and urlSlug, e.g.'/augsburg/de/location/?name=cafe-tür-an-tür'
     const cityContentPath = this._length > ENTITY_ID_INDEX ? this._pathname : undefined
-    return { ...params, route: POIS_ROUTE, cityContentPath }
+    return { ...params, route: POIS_ROUTE, cityContentPath, urlSlug: this._queryParams }
   }
 
   news = (): RouteInformationType => {

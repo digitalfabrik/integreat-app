@@ -1,6 +1,4 @@
-import Url from 'url-parse'
-
-import { OPEN_INTERNAL_LINK_SIGNAL_NAME, OPEN_MEDIA_SIGNAL_NAME } from 'api-client'
+import { nameQueryParam, OPEN_INTERNAL_LINK_SIGNAL_NAME, OPEN_MEDIA_SIGNAL_NAME, POIS_ROUTE } from 'api-client'
 import { IMAGE_VIEW_MODAL_ROUTE, PDF_VIEW_MODAL_ROUTE } from 'api-client/src/routes'
 import InternalPathnameParser from 'api-client/src/routes/InternalPathnameParser'
 import { RouteInformationType } from 'api-client/src/routes/RouteInformationTypes'
@@ -50,8 +48,18 @@ const navigateToLink = async <T extends RoutesType>(
         url,
       },
     })
-    const { pathname } = new Url(url)
-    const routeParser = new InternalPathnameParser(pathname, language, buildConfig().featureFlags.fixedCity)
+
+    const { pathname, searchParams } = new URL(url)
+    let routeParser = new InternalPathnameParser(pathname, language, buildConfig().featureFlags.fixedCity)
+
+    if (pathname.includes(POIS_ROUTE) && searchParams.has(nameQueryParam)) {
+      routeParser = new InternalPathnameParser(
+        pathname,
+        language,
+        buildConfig().featureFlags.fixedCity,
+        searchParams.get(nameQueryParam)!
+      )
+    }
     navigateTo(routeParser.route())
   } else {
     openExternalUrl(url)
