@@ -1,5 +1,3 @@
-import Url from 'url-parse'
-
 import { OPEN_INTERNAL_LINK_SIGNAL_NAME, OPEN_MEDIA_SIGNAL_NAME } from 'api-client'
 import { IMAGE_VIEW_MODAL_ROUTE, PDF_VIEW_MODAL_ROUTE } from 'api-client/src/routes'
 import InternalPathnameParser from 'api-client/src/routes/InternalPathnameParser'
@@ -50,7 +48,7 @@ const navigateToLink = async <T extends RoutesType>(
         url,
       },
     })
-    const { pathname } = new Url(url)
+    const { pathname } = new URL(url)
     const routeParser = new InternalPathnameParser(pathname, language, buildConfig().featureFlags.fixedCity)
     navigateTo(routeParser.route())
   } else {

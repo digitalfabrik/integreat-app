@@ -1,40 +1,30 @@
-import MapboxGL from '@react-native-mapbox-gl/maps'
-import React, { ReactElement, useEffect, useState } from 'react'
-import { useTranslation } from 'react-i18next'
-import { ScrollView, useWindowDimensions } from 'react-native'
-import { useTheme } from 'styled-components'
-import styled from 'styled-components/native'
+import MapboxGL from '@react-native-mapbox-gl/maps';
+import React, { ReactElement, useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import { ScrollView, useWindowDimensions } from 'react-native';
+import { useTheme } from 'styled-components';
+import styled from 'styled-components/native';
 
-import {
-  animationDuration,
-  CityModel,
-  detailZoom,
-  embedInCollection,
-  ErrorCode,
-  fromError,
-  nameQueryParam,
-  NotFoundError,
-  PoiFeature,
-  PoiModel,
-  POIS_ROUTE,
-  PoisRouteType,
-  prepareFeatureLocations,
-} from 'api-client'
 
-import BottomActionsSheet from '../components/BottomActionsSheet'
-import Failure from '../components/Failure'
-import MapView from '../components/MapView'
-import PoiDetails from '../components/PoiDetails'
-import PoiListItem from '../components/PoiListItem'
-import SiteHelpfulBox from '../components/SiteHelpfulBox'
-import { NavigationProps, RouteProps } from '../constants/NavigationTypes'
-import dimensions from '../constants/dimensions'
-import usePrevious from '../hooks/usePrevious'
-import useSetShareUrl from '../hooks/useSetShareUrl'
-import useUserLocation from '../hooks/useUserLocation'
-import createNavigateToFeedbackModal from '../navigation/createNavigateToFeedbackModal'
-import urlFromRouteInformation from '../navigation/url'
-import { reportError } from '../utils/sentry'
+
+import { animationDuration, CityModel, detailZoom, embedInCollection, ErrorCode, fromError, NotFoundError, PoiFeature, PoiModel, POIS_ROUTE, PoisRouteType, prepareFeatureLocations } from 'api-client';
+
+
+
+import BottomActionsSheet from '../components/BottomActionsSheet';
+import Failure from '../components/Failure';
+import MapView from '../components/MapView';
+import PoiDetails from '../components/PoiDetails';
+import PoiListItem from '../components/PoiListItem';
+import SiteHelpfulBox from '../components/SiteHelpfulBox';
+import { NavigationProps, RouteProps } from '../constants/NavigationTypes';
+import dimensions from '../constants/dimensions';
+import useSetShareUrl from '../hooks/useSetShareUrl';
+import useUserLocation from '../hooks/useUserLocation';
+import createNavigateToFeedbackModal from '../navigation/createNavigateToFeedbackModal';
+import urlFromRouteInformation from '../navigation/url';
+import { reportError } from '../utils/sentry';
+
 
 export type PoisProps = {
   pois: Array<PoiModel>
@@ -64,7 +54,6 @@ const BOTTOM_SHEET_SNAP_POINTS = [
 const Pois = ({ pois, language, cityModel, route, navigation }: PoisProps): ReactElement => {
   const { coordinates, requestAndDetermineLocation } = useUserLocation(true)
   const [urlSlug, setUrlSlug] = useState<string | null>(route.params.urlSlug ?? null)
-  const prevUrlSlug = usePrevious(urlSlug ?? '')
   const [sheetSnapPointIndex, setSheetSnapPointIndex] = useState<number>(1)
   const [followUserLocation, setFollowUserLocation] = useState<boolean>(false)
   const deviceHeight = useWindowDimensions().height
@@ -80,7 +69,7 @@ const Pois = ({ pois, language, cityModel, route, navigation }: PoisProps): Reac
     languageCode: language,
     cityCode: cityModel.code,
   })
-  const shareUrl = urlSlug ? `${baseUrl}?${nameQueryParam}=${urlSlug}` : baseUrl
+  const shareUrl = urlSlug ? `${baseUrl}/${urlSlug}` : baseUrl
   useSetShareUrl({ navigation, shareUrl, route, routeInformation: null })
 
   const selectPoiFeature = (feature: PoiFeature | null) => {
@@ -110,15 +99,15 @@ const Pois = ({ pois, language, cityModel, route, navigation }: PoisProps): Reac
   // Wait for followUserLocation change before moving the camera to avoid position lock
   // https://github.com/rnmapbox/maps/issues/1079
   useEffect(() => {
-    if (!followUserLocation && selectedFeature && cameraRef.current && prevUrlSlug !== urlSlug) {
+    if (!followUserLocation && selectedFeature && cameraRef.current) {
       cameraRef.current.setCamera({
         centerCoordinate: selectedFeature.geometry.coordinates,
         zoomLevel: detailZoom,
         animationDuration,
-        padding: { paddingBottom: deviceHeight * midSnapPointPercentage },
+        padding: { paddingBottom: deviceHeight * midSnapPointPercentage ,
       })
     }
-  }, [deviceHeight, followUserLocation, prevUrlSlug, selectedFeature, urlSlug])
+  }, [deviceHeight, followUserLocation, selectedFeature])
 
   const renderPoiListItem = (poi: PoiFeature): ReactElement => (
     <PoiListItem
