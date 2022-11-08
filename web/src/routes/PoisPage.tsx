@@ -4,7 +4,7 @@ import { Map } from 'maplibre-gl'
 import React, { ReactElement, useCallback, useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { LngLatLike } from 'react-map-gl'
-import { useSearchParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import { BottomSheetRef } from 'react-spring-bottom-sheet'
 import styled from 'styled-components'
 
@@ -12,7 +12,6 @@ import {
   defaultMercatorViewportConfig,
   detailZoom,
   embedInCollection,
-  nameQueryParam,
   MapViewMercatorViewport,
   NotFoundError,
   pathnameFromRouteInformation,
@@ -40,6 +39,7 @@ import useFeatureLocations from '../hooks/useFeatureLocations'
 import useWindowDimensions from '../hooks/useWindowDimensions'
 import { getSnapPoints, midSnapPercentage } from '../utils/getSnapPoints'
 import { log } from '../utils/sentry'
+import { getParentPath } from '../utils/stringUtils'
 
 const PoisPageWrapper = styled.div<{ panelHeights: number }>`
   display: flex;
@@ -55,30 +55,36 @@ const moveViewToBBox = (bBox: BBox, defaultVp: MapViewMercatorViewport): MapView
 }
 
 const PoisPage = ({ cityCode, languageCode, cityModel, pathname, languages }: CityRouteProps): ReactElement => {
-  const [queryParams, setQueryParams] = useSearchParams()
+  const { urlSlug } = useParams()
+  const navigate = useNavigate()
   const { data, error: featureLocationsError, loading } = useFeatureLocations(cityCode, languageCode)
   const [mapRef, setMapRef] = useState<Map | null>(null)
   const [snapPoint, setSnapPoint] = useState<number>(1)
-  const selectedFeatureSlug = queryParams.get(nameQueryParam)
   const [currentFeature, setCurrentFeature] = useState<PoiFeature | null>(
-    data?.features.find(it => it.properties.urlSlug === selectedFeatureSlug) ?? null
+    data?.features.find(it => it.properties.urlSlug === urlSlug) ?? null
   )
-  const poi = data?.pois.find(it => it.urlSlug === selectedFeatureSlug)
+  const poi = data?.pois.find(it => it.urlSlug === urlSlug)
   const { viewportSmall, height } = useWindowDimensions()
   const sheetRef = useRef<BottomSheetRef>(null)
   const [feedbackModalRating, setFeedbackModalRating] = useState<FeedbackRatingType | null>(null)
   const { t } = useTranslation('pois')
 
+  const getNavigationPath = (feature: PoiFeature | null, hasCurrentFeature: boolean): string => {
+    const pathname = window.location.pathname.replace(/\/$/, '')
+    if (feature) {
+      if (hasCurrentFeature) {
+        return `${getParentPath(pathname)}/${feature.properties.urlSlug}`
+      }
+      return `${pathname}/${feature.properties.urlSlug}`
+    }
+    return getParentPath(pathname)
+  }
+
   const selectFeature = (feature: PoiFeature | null) => {
     if (mapRef?.isMoving()) {
       mapRef.stop()
     }
-    if (feature) {
-      queryParams.set(nameQueryParam, feature.properties.urlSlug)
-    } else {
-      queryParams.delete(nameQueryParam)
-    }
-    setQueryParams(queryParams)
+    navigate(getNavigationPath(feature, !!currentFeature))
   }
 
   const updateMapRef = useCallback(node => {
@@ -91,8 +97,7 @@ const PoisPage = ({ cityCode, languageCode, cityModel, pathname, languages }: Ci
   }, [])
 
   useEffect(() => {
-    const currentFeature =
-      data?.features.find((feature: PoiFeature) => feature.properties.urlSlug === selectedFeatureSlug) ?? null
+    const currentFeature = data?.features.find((feature: PoiFeature) => feature.properties.urlSlug === urlSlug) ?? null
     setCurrentFeature(currentFeature)
 
     const coordinates = currentFeature?.geometry.coordinates ?? []
@@ -104,7 +109,7 @@ const PoisPage = ({ cityCode, languageCode, cityModel, pathname, languages }: Ci
         padding: { bottom: height * midSnapPercentage },
       })
     }
-  }, [mapRef, data, selectedFeatureSlug, height, snapPoint])
+  }, [mapRef, data, urlSlug, height, snapPoint])
 
   if (buildConfig().featureFlags.developerFriendly) {
     log('To use geolocation in a development build you have to start the dev server with\n "yarn start --https"')
