@@ -112,7 +112,7 @@ const Pois = ({ pois, language, cityModel, route, navigation }: PoisProps): Reac
         centerCoordinate: selectedFeature.geometry.coordinates,
         zoomLevel: detailZoom,
         animationDuration,
-        padding: { paddingBottom: deviceHeight * midSnapPointPercentage ,
+        padding: { paddingBottom: deviceHeight * midSnapPointPercentage },
       })
     }
   }, [deviceHeight, followUserLocation, selectedFeature])
