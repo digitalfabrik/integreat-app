@@ -139,9 +139,10 @@ class InternalPathnameParser {
       return null
     }
 
-    // Single pois are identified via their city content path, e.g. '/augsburg/de/events/1234'
-    const cityContentPath = this._length > ENTITY_ID_INDEX ? this._pathname : undefined
-    return { ...params, route: POIS_ROUTE, cityContentPath }
+    // get the urlSlug from pathname '/testumgebung/de/locations/cafe-tür-an-tür'
+    const urlSlug =
+      this._parts[this._length - 2] === POIS_ROUTE ? decodeURI(this._parts[ENTITY_ID_INDEX]!).toLowerCase() : undefined
+    return { ...params, route: POIS_ROUTE, urlSlug }
   }
 
   news = (): RouteInformationType => {
