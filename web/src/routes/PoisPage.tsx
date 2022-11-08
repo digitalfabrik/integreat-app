@@ -106,7 +106,7 @@ const PoisPage = ({ cityCode, languageCode, cityModel, pathname, languages }: Ci
       mapRef.flyTo({
         center: coords,
         zoom: detailZoom,
-        padding: { bottom: height * midSnapPercentage },
+        padding: { bottom: viewportSmall ? height * midSnapPercentage : 0 },
       })
     }
   }, [mapRef, data, urlSlug, height, snapPoint])
