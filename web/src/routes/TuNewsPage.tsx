@@ -12,12 +12,12 @@ import {
 } from 'api-client'
 
 import { CityRouteProps } from '../CityContentSwitcher'
+import CityContentLayout from '../components/CityContentLayout'
 import FailureSwitcher from '../components/FailureSwitcher'
 import Helmet from '../components/Helmet'
 import InfiniteScrollList from '../components/InfiniteScrollList'
 import LanguageFailure from '../components/LanguageFailure'
 import LoadingSpinner from '../components/LoadingSpinner'
-import LocationLayout from '../components/LocationLayout'
 import NewsListItem from '../components/NewsListItem'
 import NewsTabs from '../components/NewsTabs'
 import { tunewsLabel } from '../constants/news'
@@ -78,15 +78,15 @@ const TuNewsPage = ({ cityCode, languageCode, cityModel, languages }: CityRouteP
 
   if (error) {
     return (
-      <LocationLayout isLoading={false} {...locationLayoutParams}>
+      <CityContentLayout isLoading={false} {...locationLayoutParams}>
         <FailureSwitcher error={error} />
-      </LocationLayout>
+      </CityContentLayout>
     )
   }
 
   if (!tuNewsLanguages) {
     return (
-      <LocationLayout isLoading {...locationLayoutParams}>
+      <CityContentLayout isLoading {...locationLayoutParams}>
         <NewsTabs
           type={TU_NEWS_TYPE}
           city={cityCode}
@@ -96,7 +96,7 @@ const TuNewsPage = ({ cityCode, languageCode, cityModel, languages }: CityRouteP
           language={languageCode}>
           <LoadingSpinner />
         </NewsTabs>
-      </LocationLayout>
+      </CityContentLayout>
     )
   }
 
@@ -113,7 +113,7 @@ const TuNewsPage = ({ cityCode, languageCode, cityModel, languages }: CityRouteP
 
   if (!tuNewsLanguages.find(({ code }) => code === languageCode)) {
     return (
-      <LocationLayout isLoading={false} {...locationLayoutParams} languageChangePaths={languageChangePaths}>
+      <CityContentLayout isLoading={false} {...locationLayoutParams} languageChangePaths={languageChangePaths}>
         <NewsTabs
           type={TU_NEWS_TYPE}
           city={cityCode}
@@ -127,14 +127,14 @@ const TuNewsPage = ({ cityCode, languageCode, cityModel, languages }: CityRouteP
             languageChangePaths={languageChangePaths}
           />
         </NewsTabs>
-      </LocationLayout>
+      </CityContentLayout>
     )
   }
 
   const pageTitle = `${tunewsLabel} - ${cityModel.name}`
 
   return (
-    <LocationLayout isLoading={false} {...locationLayoutParams} languageChangePaths={languageChangePaths}>
+    <CityContentLayout isLoading={false} {...locationLayoutParams} languageChangePaths={languageChangePaths}>
       <Helmet pageTitle={pageTitle} languageChangePaths={languageChangePaths} cityModel={cityModel} />
       <NewsTabs
         type={TU_NEWS_TYPE}
@@ -151,7 +151,7 @@ const TuNewsPage = ({ cityCode, languageCode, cityModel, languages }: CityRouteP
           itemsPerPage={DEFAULT_COUNT}
         />
       </NewsTabs>
-    </LocationLayout>
+    </CityContentLayout>
   )
 }
 

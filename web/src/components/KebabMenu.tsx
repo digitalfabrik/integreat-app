@@ -15,6 +15,7 @@ type KebabMenuProps = {
   direction: UiDirectionType
   show: boolean
   setShow: (show: boolean) => void
+  Footer: ReactNode
 }
 
 const ToggleContainer = styled.div`
@@ -39,6 +40,8 @@ const List = styled.div<{ direction: UiDirectionType; show: boolean }>`
   ${props => (props.direction === 'rtl' ? `left: 0;` : `right:0;`)}
   ${props => (props.direction === 'rtl' ? `transform: translate(-100%, 0);` : `transform: translate(100%, 0);`)}
   ${props => props.show && `opacity: 1;transform: none;`}
+  display: flex;
+  flex-direction: column;
 `
 
 const Icon = styled.img`
@@ -79,7 +82,7 @@ const ToggleButton = styled.button`
   margin-top: 6px;
 `
 
-const KebabMenu = ({ items, direction, show, setShow }: KebabMenuProps): ReactElement | null => {
+const KebabMenu = ({ items, direction, show, setShow, Footer }: KebabMenuProps): ReactElement | null => {
   const { locked, setLocked } = useLockedBody(show)
 
   const onClick = () => {
@@ -110,6 +113,7 @@ const KebabMenu = ({ items, direction, show, setShow }: KebabMenuProps): ReactEl
             </ToggleButton>
           </Heading>
           <Content>{items}</Content>
+          {Footer}
         </List>
       </Portal>
     </ToggleContainer>
