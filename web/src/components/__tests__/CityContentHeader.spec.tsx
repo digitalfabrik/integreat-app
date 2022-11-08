@@ -12,14 +12,14 @@ import {
 
 import { LOCAL_NEWS_ROUTE, TU_NEWS_DETAIL_ROUTE, TU_NEWS_ROUTE } from '../../routes'
 import { renderWithRouterAndTheme } from '../../testing/render'
-import LocationHeader from '../LocationHeader'
+import CityContentHeader from '../CityContentHeader'
 
 jest.mock('react-i18next')
 jest.mock('../HeaderNavigationItem', () => ({ text, active }: { text: string; active: boolean }) => (
   <div>{`${text} ${active ? 'active' : 'inactive'}`}</div>
 ))
 
-describe('LocationHeader', () => {
+describe('CityContentHeader', () => {
   const cityModel = (
     offersEnabled: boolean,
     eventsEnabled: boolean,
@@ -83,7 +83,7 @@ describe('LocationHeader', () => {
   describe('NavigationItems', () => {
     it('should be empty if all other header items are disabled', () => {
       const { getByText } = renderWithRouterAndTheme(
-        <LocationHeader
+        <CityContentHeader
           languageCode={languageCode}
           route={CATEGORIES_ROUTE}
           viewportSmall
@@ -96,7 +96,7 @@ describe('LocationHeader', () => {
 
     it('should show categories if events are enabled', () => {
       const { getByText } = renderWithRouterAndTheme(
-        <LocationHeader
+        <CityContentHeader
           languageCode={languageCode}
           route={CATEGORIES_ROUTE}
           viewportSmall
@@ -109,7 +109,7 @@ describe('LocationHeader', () => {
 
     it('should show categories if news are enabled', () => {
       const { getByText } = renderWithRouterAndTheme(
-        <LocationHeader
+        <CityContentHeader
           languageCode={languageCode}
           route={CATEGORIES_ROUTE}
           viewportSmall
@@ -122,7 +122,7 @@ describe('LocationHeader', () => {
 
     it('should show categories, news, events, offers, pois', () => {
       const { getByText } = renderWithRouterAndTheme(
-        <LocationHeader
+        <CityContentHeader
           languageCode={languageCode}
           route={CATEGORIES_ROUTE}
           viewportSmall
@@ -135,7 +135,7 @@ describe('LocationHeader', () => {
 
     it('should highlight local information if route corresponds', () => {
       const { getByText } = renderWithRouterAndTheme(
-        <LocationHeader
+        <CityContentHeader
           languageCode={languageCode}
           route={CATEGORIES_ROUTE}
           viewportSmall
@@ -152,7 +152,7 @@ describe('LocationHeader', () => {
 
     it('should highlight news if the local news route is selected', () => {
       const { getByText } = renderWithRouterAndTheme(
-        <LocationHeader
+        <CityContentHeader
           languageCode={languageCode}
           route={LOCAL_NEWS_ROUTE}
           viewportSmall
@@ -169,7 +169,7 @@ describe('LocationHeader', () => {
 
     it('should highlight news if the tu news route is selected', () => {
       const { getByText } = renderWithRouterAndTheme(
-        <LocationHeader
+        <CityContentHeader
           languageCode={languageCode}
           route={TU_NEWS_ROUTE}
           viewportSmall
@@ -186,7 +186,7 @@ describe('LocationHeader', () => {
 
     it('should highlight news if the tu news detail route is selected', () => {
       const { getByText } = renderWithRouterAndTheme(
-        <LocationHeader
+        <CityContentHeader
           languageCode={languageCode}
           route={TU_NEWS_DETAIL_ROUTE}
           viewportSmall
@@ -203,7 +203,7 @@ describe('LocationHeader', () => {
 
     it('should highlight events if route corresponds', () => {
       const { getByText } = renderWithRouterAndTheme(
-        <LocationHeader
+        <CityContentHeader
           languageCode={languageCode}
           route={EVENTS_ROUTE}
           viewportSmall
@@ -220,7 +220,7 @@ describe('LocationHeader', () => {
 
     it('layout:should highlight offers if offers route is active', () => {
       const { getByText } = renderWithRouterAndTheme(
-        <LocationHeader
+        <CityContentHeader
           languageCode={languageCode}
           route={OFFERS_ROUTE}
           viewportSmall
@@ -237,7 +237,7 @@ describe('LocationHeader', () => {
 
     it('should highlight offers if sprungbrett route is selected', () => {
       const { getByText } = renderWithRouterAndTheme(
-        <LocationHeader
+        <CityContentHeader
           languageCode={languageCode}
           route={SPRUNGBRETT_OFFER_ROUTE}
           viewportSmall
@@ -254,7 +254,7 @@ describe('LocationHeader', () => {
 
     it('should highlight pois if pois route is selected', () => {
       const { getByText } = renderWithRouterAndTheme(
-        <LocationHeader
+        <CityContentHeader
           languageCode={languageCode}
           route={POIS_ROUTE}
           viewportSmall
