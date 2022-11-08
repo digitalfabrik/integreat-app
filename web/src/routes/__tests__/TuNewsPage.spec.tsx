@@ -23,7 +23,7 @@ jest.mock('api-client', () => ({
 }))
 jest.mock('react-i18next')
 jest.mock('../../components/InfiniteScrollList', () => () => 'List')
-jest.mock('../../components/LocationHeader', () => () => null)
+jest.mock('../../components/CityContentHeader', () => () => null)
 
 describe('TuNewsPage', () => {
   beforeEach(() => {
