@@ -20,7 +20,7 @@ import { faArrowLeft } from '../constants/icons'
 import { clusterCountLayer, clusterLayer, markerLayer } from '../constants/layers'
 import useWindowDimensions from '../hooks/useWindowDimensions'
 import '../styles/MapView.css'
-import LocationFooter from './LocationFooter'
+import CityContentFooter from './CityContentFooter'
 
 // Workaround since nothing is rendered if height is set to 100%, 190px is the header size
 const MapContainer = styled.div`
@@ -173,7 +173,7 @@ const MapView = forwardRef((props: MapViewProps, ref: React.Ref<MapRef>): ReactE
           <>
             <NavigationControl showCompass={false} position={direction === 'rtl' ? 'bottom-left' : 'bottom-right'} />
             <FooterContainer>
-              <LocationFooter city={cityCode} language={languageCode} overlay />
+              <CityContentFooter city={cityCode} language={languageCode} mode='overlay' />
             </FooterContainer>
           </>
         )}
