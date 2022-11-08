@@ -1,30 +1,38 @@
-import MapboxGL from '@react-native-mapbox-gl/maps';
-import React, { ReactElement, useEffect, useState } from 'react';
-import { useTranslation } from 'react-i18next';
-import { ScrollView, useWindowDimensions } from 'react-native';
-import { useTheme } from 'styled-components';
-import styled from 'styled-components/native';
+import MapboxGL from '@react-native-mapbox-gl/maps'
+import React, { ReactElement, useEffect, useState } from 'react'
+import { useTranslation } from 'react-i18next'
+import { ScrollView, useWindowDimensions } from 'react-native'
+import { useTheme } from 'styled-components'
+import styled from 'styled-components/native'
 
+import {
+  animationDuration,
+  CityModel,
+  detailZoom,
+  embedInCollection,
+  ErrorCode,
+  fromError,
+  NotFoundError,
+  PoiFeature,
+  PoiModel,
+  POIS_ROUTE,
+  PoisRouteType,
+  prepareFeatureLocations,
+} from 'api-client'
 
-
-import { animationDuration, CityModel, detailZoom, embedInCollection, ErrorCode, fromError, NotFoundError, PoiFeature, PoiModel, POIS_ROUTE, PoisRouteType, prepareFeatureLocations } from 'api-client';
-
-
-
-import BottomActionsSheet from '../components/BottomActionsSheet';
-import Failure from '../components/Failure';
-import MapView from '../components/MapView';
-import PoiDetails from '../components/PoiDetails';
-import PoiListItem from '../components/PoiListItem';
-import SiteHelpfulBox from '../components/SiteHelpfulBox';
-import { NavigationProps, RouteProps } from '../constants/NavigationTypes';
-import dimensions from '../constants/dimensions';
-import useSetShareUrl from '../hooks/useSetShareUrl';
-import useUserLocation from '../hooks/useUserLocation';
-import createNavigateToFeedbackModal from '../navigation/createNavigateToFeedbackModal';
-import urlFromRouteInformation from '../navigation/url';
-import { reportError } from '../utils/sentry';
-
+import BottomActionsSheet from '../components/BottomActionsSheet'
+import Failure from '../components/Failure'
+import MapView from '../components/MapView'
+import PoiDetails from '../components/PoiDetails'
+import PoiListItem from '../components/PoiListItem'
+import SiteHelpfulBox from '../components/SiteHelpfulBox'
+import { NavigationProps, RouteProps } from '../constants/NavigationTypes'
+import dimensions from '../constants/dimensions'
+import useSetShareUrl from '../hooks/useSetShareUrl'
+import useUserLocation from '../hooks/useUserLocation'
+import createNavigateToFeedbackModal from '../navigation/createNavigateToFeedbackModal'
+import urlFromRouteInformation from '../navigation/url'
+import { reportError } from '../utils/sentry'
 
 export type PoisProps = {
   pois: Array<PoiModel>
