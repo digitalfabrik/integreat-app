@@ -12,9 +12,9 @@ import {
 
 import { CityRouteProps } from '../CityContentSwitcher'
 import Caption from '../components/Caption'
+import CityContentLayout from '../components/CityContentLayout'
 import Helmet from '../components/Helmet'
 import InfiniteScrollList from '../components/InfiniteScrollList'
-import LocationLayout from '../components/LocationLayout'
 import ShelterDetail from '../components/ShelterDetail'
 import ShelterFilterBar from '../components/ShelterFilterBar'
 import ShelterListItem from '../components/ShelterListItem'
@@ -90,7 +90,7 @@ const ShelterPage = ({ cityModel, cityCode, languageCode, pathname, languages }:
   )
 
   return (
-    <LocationLayout isLoading={false} {...locationLayoutParams}>
+    <CityContentLayout isLoading={false} {...locationLayoutParams}>
       <Helmet pageTitle={pageTitle} languageChangePaths={languageChangePaths} cityModel={cityModel} />
       <Caption title={t('title')} />
       <ShelterFilterBar filter={filter} updateSearchFilter={updateSearchFilter} />
@@ -101,7 +101,7 @@ const ShelterPage = ({ cityModel, cityCode, languageCode, pathname, languages }:
         defaultPage={DEFAULT_PAGE}
         itemsPerPage={ITEMS_PER_PAGE}
       />
-    </LocationLayout>
+    </CityContentLayout>
   )
 }
 

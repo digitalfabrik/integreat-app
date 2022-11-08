@@ -29,6 +29,7 @@ const GeneralHeader = ({ languageCode, viewportSmall, t }: GeneralHeaderProps) =
       navigationItems={[]}
       kebabItems={[]}
       direction={config.getScriptDirection(languageCode)}
+      language={languageCode}
     />
   )
 }
