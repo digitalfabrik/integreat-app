@@ -12,12 +12,12 @@ import {
 
 import { CityRouteProps } from '../CityContentSwitcher'
 import CategoryList from '../components/CategoryList'
+import CityContentLayout from '../components/CityContentLayout'
 import Failure from '../components/Failure'
 import FailureSwitcher from '../components/FailureSwitcher'
 import FeedbackSearch from '../components/FeedbackSearch'
 import Helmet from '../components/Helmet'
 import LoadingSpinner from '../components/LoadingSpinner'
-import LocationLayout from '../components/LocationLayout'
 import SearchInput from '../components/SearchInput'
 import { cmsApiBaseUrl } from '../constants/urls'
 import useWindowDimensions from '../hooks/useWindowDimensions'
@@ -60,18 +60,18 @@ const SearchPage = ({ cityModel, languages, cityCode, languageCode, pathname }: 
 
   if (loading) {
     return (
-      <LocationLayout isLoading {...locationLayoutParams}>
+      <CityContentLayout isLoading {...locationLayoutParams}>
         <LoadingSpinner />
-      </LocationLayout>
+      </CityContentLayout>
     )
   }
 
   if (!searchResults) {
     const error = categoriesError || new Error('Categories should not be null!')
     return (
-      <LocationLayout isLoading={false} {...locationLayoutParams}>
+      <CityContentLayout isLoading={false} {...locationLayoutParams}>
         <FailureSwitcher error={error} />
-      </LocationLayout>
+      </CityContentLayout>
     )
   }
 
@@ -84,7 +84,7 @@ const SearchPage = ({ cityModel, languages, cityCode, languageCode, pathname }: 
   const pageTitle = `${t('pageTitle')} - ${cityModel.name}`
 
   return (
-    <LocationLayout isLoading={false} {...locationLayoutParams}>
+    <CityContentLayout isLoading={false} {...locationLayoutParams}>
       <Helmet pageTitle={pageTitle} languageChangePaths={languageChangePaths} cityModel={cityModel} />
       <SearchInput
         filterText={filterText}
@@ -100,7 +100,7 @@ const SearchPage = ({ cityModel, languages, cityCode, languageCode, pathname }: 
         resultsFound={searchResults.length !== 0}
         query={filterText}
       />
-    </LocationLayout>
+    </CityContentLayout>
   )
 }
 
