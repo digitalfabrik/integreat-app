@@ -21,11 +21,11 @@ import { CityRouteProps } from '../CityContentSwitcher'
 import Breadcrumbs from '../components/Breadcrumbs'
 import CategoriesContent from '../components/CategoriesContent'
 import CategoriesToolbar from '../components/CategoriesToolbar'
+import CityContentLayout from '../components/CityContentLayout'
 import FailureSwitcher from '../components/FailureSwitcher'
 import { FeedbackRatingType } from '../components/FeedbackToolbarItem'
 import Helmet from '../components/Helmet'
 import LoadingSpinner from '../components/LoadingSpinner'
-import LocationLayout from '../components/LocationLayout'
 import buildConfig from '../constants/buildConfig'
 import { cmsApiBaseUrl } from '../constants/urls'
 import DateFormatterContext from '../contexts/DateFormatterContext'
@@ -141,9 +141,9 @@ const CategoriesPage = ({ cityModel, pathname, languages, cityCode, languageCode
 
   if (categoriesLoading || parentsLoading || pathname !== previousPathname.current) {
     return (
-      <LocationLayout isLoading {...locationLayoutParams}>
+      <CityContentLayout isLoading {...locationLayoutParams}>
         <LoadingSpinner />
-      </LocationLayout>
+      </CityContentLayout>
     )
   }
 
@@ -163,9 +163,9 @@ const CategoriesPage = ({ cityModel, pathname, languages, cityCode, languageCode
         : categoriesError || parentsError || notFoundError
 
     return (
-      <LocationLayout isLoading={false} {...locationLayoutParams}>
+      <CityContentLayout isLoading={false} {...locationLayoutParams}>
         <FailureSwitcher error={error} />
-      </LocationLayout>
+      </CityContentLayout>
     )
   }
 
@@ -177,7 +177,7 @@ const CategoriesPage = ({ cityModel, pathname, languages, cityCode, languageCode
   const pageTitle = `${!category.isRoot() ? `${category.title} - ` : ''}${cityModel.name}`
 
   return (
-    <LocationLayout isLoading={false} {...locationLayoutParams}>
+    <CityContentLayout isLoading={false} {...locationLayoutParams}>
       <Helmet
         pageTitle={pageTitle}
         metaDescription={metaDescription}
@@ -195,7 +195,7 @@ const CategoriesPage = ({ cityModel, pathname, languages, cityCode, languageCode
         formatter={formatter}
         t={t}
       />
-    </LocationLayout>
+    </CityContentLayout>
   )
 }
 

@@ -21,14 +21,14 @@ import {
 import { config } from 'translations'
 
 import { CityRouteProps } from '../CityContentSwitcher'
+import CityContentLayout from '../components/CityContentLayout'
+import CityContentToolbar from '../components/CityContentToolbar'
 import FailureSwitcher from '../components/FailureSwitcher'
 import FeedbackModal from '../components/FeedbackModal'
 import { FeedbackRatingType } from '../components/FeedbackToolbarItem'
 import Helmet from '../components/Helmet'
 import List from '../components/List'
 import LoadingSpinner from '../components/LoadingSpinner'
-import LocationLayout from '../components/LocationLayout'
-import LocationToolbar from '../components/LocationToolbar'
 import MapView from '../components/MapView'
 import PoiListItem from '../components/PoiListItem'
 import PoisDesktop from '../components/PoisDesktop'
@@ -144,7 +144,7 @@ const PoisPage = ({ cityCode, languageCode, cityModel, pathname, languages }: Ci
   }
 
   const toolbar = (
-    <LocationToolbar openFeedbackModal={setFeedbackModalRating} viewportSmall={viewportSmall} iconDirection='row' />
+    <CityContentToolbar openFeedbackModal={setFeedbackModalRating} viewportSmall={viewportSmall} iconDirection='row' />
   )
 
   const feedbackModal = feedbackModalRating && (
@@ -170,9 +170,9 @@ const PoisPage = ({ cityCode, languageCode, cityModel, pathname, languages }: Ci
 
   if (loading) {
     return (
-      <LocationLayout isLoading {...locationLayoutParams}>
+      <CityContentLayout isLoading {...locationLayoutParams}>
         <LoadingSpinner />
-      </LocationLayout>
+      </CityContentLayout>
     )
   }
 
@@ -187,9 +187,9 @@ const PoisPage = ({ cityCode, languageCode, cityModel, pathname, languages }: Ci
       })
 
     return (
-      <LocationLayout isLoading={false} {...locationLayoutParams}>
+      <CityContentLayout isLoading={false} {...locationLayoutParams}>
         <FailureSwitcher error={error} />
-      </LocationLayout>
+      </CityContentLayout>
     )
   }
 
@@ -226,7 +226,7 @@ const PoisPage = ({ cityCode, languageCode, cityModel, pathname, languages }: Ci
   const panelHeights = dimensions.headerHeightLarge + dimensions.navigationMenuHeight
 
   return (
-    <LocationLayout isLoading={false} {...locationLayoutParams} fullWidth>
+    <CityContentLayout isLoading={false} {...locationLayoutParams} fullWidth>
       <Helmet pageTitle={pageTitle} languageChangePaths={languageChangePaths} cityModel={cityModel} />
       <PoisPageWrapper panelHeights={panelHeights}>
         {viewportSmall ? (
@@ -256,7 +256,7 @@ const PoisPage = ({ cityCode, languageCode, cityModel, pathname, languages }: Ci
         )}
         {feedbackModal}
       </PoisPageWrapper>
-    </LocationLayout>
+    </CityContentLayout>
   )
 }
 
