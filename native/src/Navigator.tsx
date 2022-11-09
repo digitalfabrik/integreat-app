@@ -37,6 +37,7 @@ import TransparentHeader from './components/TransparentHeader'
 import { NavigationProps, RouteProps, RoutesParamsType, RoutesType } from './constants/NavigationTypes'
 import buildConfig from './constants/buildConfig'
 import { ASYNC_STORAGE_VERSION } from './constants/settings'
+import useLoadCities from './hooks/useLoadCities'
 import CategoriesContainer from './routes/CategoriesContainer'
 import ChangeLanguageModal from './routes/ChangeLanguageModal'
 import CityNotCooperating from './routes/CityNotCooperating'
@@ -90,6 +91,8 @@ const Navigator = (): ReactElement | null => {
   })
   const navigation = useNavigation() as NavigationProps<RoutesType>
   const dispatch = useDispatch()
+  // Preload cities
+  useLoadCities()
 
   useEffect(() => {
     quitAppStatePushNotificationListener(dispatch, navigation)

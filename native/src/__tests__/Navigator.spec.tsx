@@ -4,9 +4,11 @@ import { render } from '@testing-library/react-native'
 import React from 'react'
 
 import Navigator from '../Navigator'
+import useLoadCities from '../hooks/useLoadCities'
 import appSettings from '../utils/AppSettings'
 import { quitAppStatePushNotificationListener } from '../utils/PushNotificationsManager'
 
+jest.mock('../hooks/useLoadCities')
 jest.mock('../utils/sentry')
 jest.mock('react-native/Libraries/Utilities/useWindowDimensions')
 jest.mock('react-i18next')
@@ -116,6 +118,18 @@ describe('Navigator', () => {
     jest.clearAllMocks()
   })
 
+  it('should preload cities', async () => {
+    await appSettings.setContentLanguage(languageCode)
+    const { findByText } = render(
+      <NavigationContainer>
+        <Navigator />
+      </NavigationContainer>
+    )
+
+    await findByText('Intro')
+    expect(useLoadCities).toHaveBeenCalled()
+  })
+
   it('should display categories if a city is selected and the intro was shown', async () => {
     await appSettings.setSelectedCity(cityCode)
     await appSettings.setContentLanguage(languageCode)
@@ -160,7 +174,7 @@ describe('Navigator', () => {
       </NavigationContainer>
     )
 
-    await findByText('categories')
+    await findByText('Categories')
     expect(quitAppStatePushNotificationListener).toHaveBeenCalledTimes(1)
   })
 })
