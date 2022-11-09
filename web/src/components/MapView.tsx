@@ -21,7 +21,6 @@ import { faArrowLeft } from '../constants/icons'
 import { clusterCountLayer, clusterLayer, markerLayer } from '../constants/layers'
 import useWindowDimensions from '../hooks/useWindowDimensions'
 import '../styles/MapView.css'
-import { getParentPath } from '../utils/stringUtils'
 import CityContentFooter from './CityContentFooter'
 
 // Workaround since nothing is rendered if height is set to 100%, 190px is the header size
@@ -109,8 +108,8 @@ const MapView = forwardRef((props: MapViewProps, ref: React.Ref<MapRef>): ReactE
       // Stop propagation to children to prevent onClick select event as it is already handled
       event.originalEvent.stopPropagation()
       const feature = event.features && event.features[0]
+      selectFeature(feature)
       if (feature) {
-        selectFeature(feature)
         changeSnapPoint(1)
       }
     },
@@ -118,7 +117,7 @@ const MapView = forwardRef((props: MapViewProps, ref: React.Ref<MapRef>): ReactE
   )
 
   const onDeselect = () => {
-    navigate(getParentPath(window.location.pathname))
+    navigate('.')
     changeSnapPoint(1)
   }
 
