@@ -11,7 +11,7 @@ import LanguageNotAvailablePage from '../components/LanguageNotAvailablePage'
 import Layout from '../components/Layout'
 import LayoutedScrollView from '../components/LayoutedScrollView'
 import ProgressSpinner from '../components/ProgressSpinner'
-import { NavigationPropType, RoutePropType, RoutesType } from '../constants/NavigationTypes'
+import { NavigationProps, RouteProps, RoutesType } from '../constants/NavigationTypes'
 import wrapDisplayName from '../hocs/wrapDisplayName'
 import useClearRouteOnClose from '../hooks/useClearRouteOnClose'
 import { StoreActionType } from '../redux/StoreActionType'
@@ -46,7 +46,7 @@ export type SuccessType<S extends Record<string, unknown>, R extends Record<stri
   refreshProps: R
 }
 
-export type StatusPropsType<
+export type StatusProps<
   S extends {
     dispatch: Dispatch<StoreActionType>
   },
@@ -58,16 +58,16 @@ export type StatusPropsType<
   | LanguageNotAvailableType
   | SuccessType<Omit<S, keyof { dispatch: Dispatch<StoreActionType> }>, R>
 
-export type PropsType<
+export type withPayloadProviderProps<
   S extends {
     dispatch: Dispatch<StoreActionType>
   },
   R extends Record<string, unknown>,
   T extends RoutesType
-> = StatusPropsType<S, R> & {
+> = StatusProps<S, R> & {
   dispatch: Dispatch<StoreActionType>
-  navigation: NavigationPropType<T>
-  route: RoutePropType<T>
+  navigation: NavigationProps<T>
+  route: RouteProps<T>
 }
 
 const withPayloadProvider =
@@ -81,9 +81,9 @@ const withPayloadProvider =
     refresh: (refreshProps: R, dispatch: Dispatch<StoreActionType>) => void,
     clearRouteOnClose: boolean,
     noScrollView?: boolean
-  ): ((Component: React.ComponentType<S>) => React.ComponentType<PropsType<S, R, T>>) =>
-  (Component: React.ComponentType<S>): React.ComponentType<PropsType<S, R, T>> => {
-    const Wrapper = ({ route, dispatch, ...props }: PropsType<S, R, T>) => {
+  ): ((Component: React.ComponentType<S>) => React.ComponentType<withPayloadProviderProps<S, R, T>>) =>
+  (Component: React.ComponentType<S>): React.ComponentType<withPayloadProviderProps<S, R, T>> => {
+    const Wrapper = ({ route, dispatch, ...props }: withPayloadProviderProps<S, R, T>) => {
       const [timeoutExpired, setTimeoutExpired] = useState(false)
       // The hook must be used here and not in the route containers since the containers are unmounted on language change
       // Otherwise the routes are cleared on language change and just a blank screen is displayed

@@ -6,17 +6,17 @@ import TileModel from '../models/TileModel'
 import Caption from './Caption'
 import Tile from './Tile'
 
-type PropsType = {
+type TilesProps = {
   title?: string
   tiles: Array<TileModel>
   onTilePress: (tile: TileModel) => void
   language: string
 }
-type TilesRowPropsType = {
+type TilesRowProps = {
   language: string
   children: React.ReactNode
 }
-const TilesRow = styled.View<TilesRowPropsType>`
+const TilesRow = styled.View<TilesRowProps>`
   display: flex;
   flex-direction: ${props => contentDirection(props.language)};
   flex-wrap: wrap;
@@ -28,7 +28,7 @@ const TilesRow = styled.View<TilesRowPropsType>`
  * Displays a table of Tiles
  */
 
-const Tiles = ({ title, language, tiles, onTilePress }: PropsType): ReactElement => (
+const Tiles = ({ title, language, tiles, onTilePress }: TilesProps): ReactElement => (
   <>
     {!!title && <Caption title={title} />}
     <TilesRow language={language}>

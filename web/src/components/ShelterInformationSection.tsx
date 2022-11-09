@@ -77,7 +77,7 @@ type InformationType = {
   link?: string
 }
 
-type Props = {
+type ShelterInformationSectionProps = {
   title: string
   titleHint?: string
   label?: string
@@ -97,7 +97,7 @@ const ShelterInformationSection = ({
   extended,
   elevated = false,
   singleColumn = false,
-}: Props): ReactElement => {
+}: ShelterInformationSectionProps): ReactElement => {
   const { viewportSmall } = useWindowDimensions()
   return (
     <Container extended={extended} elevated={elevated}>

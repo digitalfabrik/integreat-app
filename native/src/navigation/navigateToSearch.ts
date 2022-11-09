@@ -2,14 +2,14 @@ import { Dispatch } from 'redux'
 
 import { SEARCH_ROUTE } from 'api-client/src/routes'
 
-import { NavigationPropType, RoutesType } from '../constants/NavigationTypes'
+import { NavigationProps, RoutesType } from '../constants/NavigationTypes'
 import { StoreActionType } from '../redux/StoreActionType'
 
 const navigateToSearch = <T extends RoutesType>({
   navigation,
 }: {
   dispatch: Dispatch<StoreActionType>
-  navigation: NavigationPropType<T>
+  navigation: NavigationProps<T>
   cityCode: string
   languageCode: string
 }): void => {

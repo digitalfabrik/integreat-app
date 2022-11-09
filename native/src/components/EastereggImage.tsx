@@ -14,7 +14,7 @@ import { log, reportError } from '../utils/sentry'
 const API_URL_OVERRIDE_MIN_CLICKS = 10
 const CLICK_TIMEOUT = 8
 
-type PropsType = {
+type EastereggImageProps = {
   clearResourcesAndCache: () => void
   theme: ThemeType
 }
@@ -27,7 +27,7 @@ const ApiUrlText = styled.Text`
   color: red;
 `
 
-const EastereggImage = ({ clearResourcesAndCache, theme }: PropsType): ReactElement => {
+const EastereggImage = ({ clearResourcesAndCache, theme }: EastereggImageProps): ReactElement => {
   const [clickCount, setClickCount] = useState(0)
   const [apiUrlOverride, setApiUrlOverride] = useState<string | null>(null)
   const [clickStart, setClickStart] = useState<null | Moment>(null)

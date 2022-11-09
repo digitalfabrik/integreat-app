@@ -19,7 +19,7 @@ const Thumbnail = styled.img`
   object-fit: contain;
 `
 
-type PropsType = {
+type PageProps = {
   title: string
   defaultThumbnailSrc?: string // necessary for IE11 support
   thumbnailSrcSet?: string
@@ -46,7 +46,7 @@ const Page = ({
   formatter,
   children,
   onInternalLinkClick,
-}: PropsType): ReactElement => (
+}: PageProps): ReactElement => (
   <>
     {!!defaultThumbnailSrc && <Thumbnail alt='' src={defaultThumbnailSrc} srcSet={thumbnailSrcSet} />}
     <Caption title={title} />

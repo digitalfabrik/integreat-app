@@ -5,13 +5,14 @@ import styled from 'styled-components'
 import { UiDirectionType } from 'translations'
 
 import dimensions from '../constants/dimensions'
+import CityContentFooter from './CityContentFooter'
 import HeaderLogo from './HeaderLogo'
 import { HeaderNavigationItemProps } from './HeaderNavigationItem'
 import HeaderTitle from './HeaderTitle'
 import KebabMenu from './KebabMenu'
 import NavigationBarScrollContainer from './NavigationBarScrollContainer'
 
-type PropsType = {
+type HeaderProps = {
   navigationItems: Array<ReactElement<HeaderNavigationItemProps>>
   actionItems: Array<ReactNode>
   kebabItems: Array<ReactNode>
@@ -19,8 +20,9 @@ type PropsType = {
   viewportSmall: boolean
   cityName?: string
   direction: UiDirectionType
-  showSidebar?: boolean
-  setShowSidebar?: (show: boolean) => void
+  isSidebarOpen?: boolean
+  setIsSidebarOpen?: (show: boolean) => void
+  language: string
 }
 
 const HeaderContainer = styled.header`
@@ -115,9 +117,10 @@ export const Header = ({
   navigationItems = [],
   cityName,
   direction,
-  showSidebar = false,
-  setShowSidebar,
-}: PropsType): ReactElement => {
+  isSidebarOpen = false,
+  setIsSidebarOpen,
+  language,
+}: HeaderProps): ReactElement => {
   const { headerHeightSmall, headerHeightLarge } = dimensions
   const hasNavigationBar = navigationItems.length > 0
   const height = viewportSmall
@@ -134,8 +137,14 @@ export const Header = ({
           {(!viewportSmall || !!cityName) && <HeaderTitle>{cityName}</HeaderTitle>}
           <ActionBar>
             {actionItems}
-            {viewportSmall && setShowSidebar && (
-              <KebabMenu setShow={setShowSidebar} show={showSidebar} items={kebabItems} direction={direction} />
+            {viewportSmall && setIsSidebarOpen && cityName && (
+              <KebabMenu
+                setShow={setIsSidebarOpen}
+                show={isSidebarOpen}
+                items={kebabItems}
+                direction={direction}
+                Footer={<CityContentFooter city={cityName} language={language} mode='sidebar' />}
+              />
             )}
           </ActionBar>
         </Row>

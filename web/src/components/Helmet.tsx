@@ -5,14 +5,14 @@ import { CityModel } from 'api-client'
 
 import buildConfig from '../constants/buildConfig'
 
-type PropsType = {
+type HelmetProps = {
   pageTitle: string
   metaDescription?: string
   languageChangePaths?: Array<{ code: string; path: string | null; name: string }>
   cityModel?: CityModel
 }
 
-const Helmet = ({ pageTitle, metaDescription, languageChangePaths, cityModel }: PropsType): ReactElement => {
+const Helmet = ({ pageTitle, metaDescription, languageChangePaths, cityModel }: HelmetProps): ReactElement => {
   const languageLinks =
     languageChangePaths?.map(
       ({ code, path }) =>

@@ -5,16 +5,16 @@ import { ThemeContext } from 'styled-components'
 
 import { CategoriesMapModel, SearchRouteType } from 'api-client'
 
-import { NavigationPropType } from '../constants/NavigationTypes'
+import { NavigationProps } from '../constants/NavigationTypes'
 import createNavigate from '../navigation/createNavigate'
 import { StateType } from '../redux/StateType'
 import SearchModal from './SearchModal'
 
-export type PropsType = {
-  navigation: NavigationPropType<SearchRouteType>
+export type SearchModalContainerProps = {
+  navigation: NavigationProps<SearchRouteType>
 }
 
-const SearchModalContainer = ({ navigation }: PropsType): ReactElement | null => {
+const SearchModalContainer = ({ navigation }: SearchModalContainerProps): ReactElement | null => {
   const cityCode = useSelector<StateType, string | undefined>(state => state.cityContent?.city)
   const language = useSelector<StateType, string>(state => state.contentLanguage)
   const categories = useSelector<StateType, CategoriesMapModel | null>(

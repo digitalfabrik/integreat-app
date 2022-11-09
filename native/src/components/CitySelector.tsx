@@ -25,12 +25,12 @@ const SearchBar = styled.View`
   padding: 0 10%;
 `
 
-type PropsType = {
+type CitySelectorProps = {
   cities: Array<CityModel>
   navigateToDashboard: (city: CityModel) => void
 }
 
-const CitySelector = ({ cities, navigateToDashboard }: PropsType): ReactElement => {
+const CitySelector = ({ cities, navigateToDashboard }: CitySelectorProps): ReactElement => {
   const [filterText, setFilterText] = useState<string>('')
   const { t } = useTranslation('landing')
 

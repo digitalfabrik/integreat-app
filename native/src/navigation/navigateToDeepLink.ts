@@ -13,7 +13,7 @@ import {
 } from 'api-client'
 import InternalPathnameParser from 'api-client/src/routes/InternalPathnameParser'
 
-import { NavigationPropType, RoutesType } from '../constants/NavigationTypes'
+import { NavigationProps, RoutesType } from '../constants/NavigationTypes'
 import buildConfig from '../constants/buildConfig'
 import { StoreActionType } from '../redux/StoreActionType'
 import appSettings, { SettingsType } from '../utils/AppSettings'
@@ -24,7 +24,7 @@ import navigateToCategory from './navigateToCategory'
 
 const navigateToDeepLink = async <T extends RoutesType>(
   dispatch: Dispatch<StoreActionType>,
-  navigation: NavigationPropType<T>,
+  navigation: NavigationProps<T>,
   url: string,
   language: string
 ): Promise<void> => {

@@ -6,7 +6,7 @@ import { openSettings } from 'react-native-permissions'
 import { JPAL_TRACKING_ROUTE, LICENSES_ROUTE, SettingsRouteType } from 'api-client'
 
 import NativeConstants from '../constants/NativeConstants'
-import { NavigationPropType } from '../constants/NavigationTypes'
+import { NavigationProps } from '../constants/NavigationTypes'
 import buildConfig from '../constants/buildConfig'
 import { SettingsType } from './AppSettings'
 import * as NotificationsManager from './PushNotificationsManager'
@@ -37,12 +37,12 @@ const volatileValues = {
 
 const TRIGGER_VERSION_TAPS = 25
 
-type CreateSettingsSectionsPropsType = {
+type CreateSettingsSectionsProps = {
   setSetting: SetSettingFunctionType
   t: TFunction
   languageCode: string
   cityCode: string | null | undefined
-  navigation: NavigationPropType<SettingsRouteType>
+  navigation: NavigationProps<SettingsRouteType>
   settings: SettingsType
   showSnackbar: (message: string) => void
 }
@@ -55,7 +55,7 @@ const createSettingsSections = ({
   navigation,
   settings,
   showSnackbar,
-}: CreateSettingsSectionsPropsType): Readonly<Array<SectionListData<SettingsSectionType>>> => [
+}: CreateSettingsSectionsProps): Readonly<Array<SectionListData<SettingsSectionType>>> => [
   {
     title: null,
     data: [
