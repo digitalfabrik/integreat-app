@@ -56,5 +56,6 @@ export const clusterCountLayer: LayerProps = {
     'text-field': '{point_count_abbreviated}',
     'text-font': ['Roboto Regular'],
     'text-size': ['step', ['get', 'point_count'], fontSizeSmall, groupCount, fontSizeLarge],
+    'text-allow-overlap': true,
   },
 }
