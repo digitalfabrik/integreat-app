@@ -1,6 +1,5 @@
 import React, { ReactElement, useContext } from 'react'
 import { View } from 'react-native'
-import { useDispatch } from 'react-redux'
 import styled from 'styled-components/native'
 
 import { CATEGORIES_ROUTE, CITY_NOT_COOPERATING_ROUTE, CityModel, LandingRouteType } from 'api-client'
@@ -8,10 +7,12 @@ import { CATEGORIES_ROUTE, CITY_NOT_COOPERATING_ROUTE, CityModel, LandingRouteTy
 import CityNotCooperatingFooter from '../components/CityNotCooperatingFooter'
 import CitySelector from '../components/CitySelector'
 import Heading from '../components/Heading'
-import { NavigationProps, RouteProps } from '../constants/NavigationTypes'
+import { NavigationProps } from '../constants/NavigationTypes'
 import { AppContext } from '../contexts/AppContextProvider'
 import useLoadCities from '../hooks/useLoadCities'
 import testID from '../testing/testID'
+import { dataContainer } from '../utils/DefaultDataContainer'
+import { reportError } from '../utils/sentry'
 import LoadingErrorHandler from './LoadingErrorHandler'
 
 const Wrapper = styled(View)`
@@ -21,26 +22,22 @@ const Wrapper = styled(View)`
   flex-grow: 1;
 `
 
-export type LandingProps = {
-  route: RouteProps<LandingRouteType>
+type LandingProps = {
   navigation: NavigationProps<LandingRouteType>
 }
 
 const Landing = ({ navigation }: LandingProps): ReactElement => {
   const { data: cities, ...response } = useLoadCities()
   const { changeCityCode } = useContext(AppContext)
-  const dispatch = useDispatch()
 
   const navigateToDashboard = (city: CityModel) => {
     changeCityCode(city.code)
     navigation.reset({ index: 0, routes: [{ name: CATEGORIES_ROUTE, params: {} }] })
   }
 
-  // TODO IGAPP-636: Clear resourcesAndCache on cms change
   const clearResourcesAndCache = () => {
-    dispatch({
-      type: 'CLEAR_RESOURCES_AND_CACHE',
-    })
+    dataContainer.clearInMemoryCache()
+    dataContainer.clearOfflineCache().catch(reportError)
   }
 
   return (
