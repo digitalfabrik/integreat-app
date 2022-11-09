@@ -6,10 +6,10 @@ import { createTunewsElementEndpoint, NotFoundError, TU_NEWS_TYPE, useLoadFromEn
 
 import { CityRouteProps } from '../CityContentSwitcher'
 import TunewsIcon from '../assets/TunewsActiveLogo.png'
+import CityContentLayout from '../components/CityContentLayout'
 import FailureSwitcher from '../components/FailureSwitcher'
 import Helmet from '../components/Helmet'
 import LoadingSpinner from '../components/LoadingSpinner'
-import LocationLayout from '../components/LocationLayout'
 import Page from '../components/Page'
 import { tunewsApiBaseUrl } from '../constants/urls'
 import DateFormatterContext from '../contexts/DateFormatterContext'
@@ -74,9 +74,9 @@ const TuNewsDetailPage = ({ cityModel, languages, pathname, cityCode, languageCo
 
   if (loading) {
     return (
-      <LocationLayout isLoading {...locationLayoutParams}>
+      <CityContentLayout isLoading {...locationLayoutParams}>
         <LoadingSpinner />
-      </LocationLayout>
+      </CityContentLayout>
     )
   }
 
@@ -91,16 +91,16 @@ const TuNewsDetailPage = ({ cityModel, languages, pathname, cityCode, languageCo
       })
 
     return (
-      <LocationLayout isLoading={false} {...locationLayoutParams}>
+      <CityContentLayout isLoading={false} {...locationLayoutParams}>
         <FailureSwitcher error={error} />
-      </LocationLayout>
+      </CityContentLayout>
     )
   }
 
   const pageTitle = `${newsModel.title} - ${cityModel.name}`
 
   return (
-    <LocationLayout isLoading={false} {...locationLayoutParams}>
+    <CityContentLayout isLoading={false} {...locationLayoutParams}>
       <Helmet pageTitle={pageTitle} languageChangePaths={languageChangePaths} cityModel={cityModel} />
       <StyledContainer>
         <StyledWrapper>
@@ -120,7 +120,7 @@ const TuNewsDetailPage = ({ cityModel, languages, pathname, cityCode, languageCo
           />
         </StyledWrapper>
       </StyledContainer>
-    </LocationLayout>
+    </CityContentLayout>
   )
 }
 
