@@ -13,6 +13,7 @@ import {
   detailZoom,
   embedInCollection,
   MapViewMercatorViewport,
+  normalizePath,
   NotFoundError,
   pathnameFromRouteInformation,
   PoiFeature,
@@ -39,7 +40,6 @@ import useFeatureLocations from '../hooks/useFeatureLocations'
 import useWindowDimensions from '../hooks/useWindowDimensions'
 import { getSnapPoints, midSnapPercentage } from '../utils/getSnapPoints'
 import { log } from '../utils/sentry'
-import { getParentPath } from '../utils/stringUtils'
 
 const PoisPageWrapper = styled.div<{ panelHeights: number }>`
   display: flex;
@@ -56,35 +56,25 @@ const moveViewToBBox = (bBox: BBox, defaultVp: MapViewMercatorViewport): MapView
 
 const PoisPage = ({ cityCode, languageCode, cityModel, pathname, languages }: CityRouteProps): ReactElement => {
   const { urlSlug } = useParams()
+  const normalizedUrlSlug = urlSlug ? normalizePath(urlSlug.toLowerCase()) : undefined
   const navigate = useNavigate()
   const { data, error: featureLocationsError, loading } = useFeatureLocations(cityCode, languageCode)
   const [mapRef, setMapRef] = useState<Map | null>(null)
   const [snapPoint, setSnapPoint] = useState<number>(1)
   const [currentFeature, setCurrentFeature] = useState<PoiFeature | null>(
-    data?.features.find(it => it.properties.urlSlug === urlSlug) ?? null
+    data?.features.find(it => it.properties.urlSlug === normalizedUrlSlug) ?? null
   )
-  const poi = data?.pois.find(it => it.urlSlug === urlSlug)
+  const poi = data?.pois.find(it => it.urlSlug === normalizedUrlSlug)
   const { viewportSmall, height } = useWindowDimensions()
   const sheetRef = useRef<BottomSheetRef>(null)
   const [feedbackModalRating, setFeedbackModalRating] = useState<FeedbackRatingType | null>(null)
   const { t } = useTranslation('pois')
 
-  const getNavigationPath = (feature: PoiFeature | null, hasCurrentFeature: boolean): string => {
-    const pathname = window.location.pathname.replace(/\/$/, '')
-    if (feature) {
-      if (hasCurrentFeature) {
-        return `${getParentPath(pathname)}/${feature.properties.urlSlug}`
-      }
-      return `${pathname}/${feature.properties.urlSlug}`
-    }
-    return getParentPath(pathname)
-  }
-
   const selectFeature = (feature: PoiFeature | null) => {
     if (mapRef?.isMoving()) {
       mapRef.stop()
     }
-    navigate(getNavigationPath(feature, !!currentFeature))
+    navigate(feature?.properties.urlSlug ?? '.')
   }
 
   const updateMapRef = useCallback(node => {
@@ -97,19 +87,24 @@ const PoisPage = ({ cityCode, languageCode, cityModel, pathname, languages }: Ci
   }, [])
 
   useEffect(() => {
-    const currentFeature = data?.features.find((feature: PoiFeature) => feature.properties.urlSlug === urlSlug) ?? null
+    const currentFeature =
+      data?.features.find((feature: PoiFeature) => feature.properties.urlSlug === normalizedUrlSlug) ?? null
     setCurrentFeature(currentFeature)
-
     const coordinates = currentFeature?.geometry.coordinates ?? []
     if (mapRef && coordinates[0] && coordinates[1] && snapPoint === 1) {
       const coords: LngLatLike = [coordinates[0], coordinates[1]]
-      mapRef.flyTo({
-        center: coords,
-        zoom: detailZoom,
-        padding: { bottom: viewportSmall ? height * midSnapPercentage : 0 },
-      })
+      // TODO IGAPP-1154 - remove setTimeout
+      setTimeout(
+        () =>
+          mapRef.flyTo({
+            center: coords,
+            zoom: detailZoom,
+            padding: { bottom: viewportSmall ? height * midSnapPercentage : 0 },
+          }),
+        0
+      )
     }
-  }, [mapRef, data, urlSlug, height, snapPoint, viewportSmall])
+  }, [mapRef, data, normalizedUrlSlug, height, snapPoint, viewportSmall])
 
   if (buildConfig().featureFlags.developerFriendly) {
     log('To use geolocation in a development build you have to start the dev server with\n "yarn start --https"')
