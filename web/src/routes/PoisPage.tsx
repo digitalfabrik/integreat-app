@@ -56,7 +56,7 @@ const moveViewToBBox = (bBox: BBox, defaultVp: MapViewMercatorViewport): MapView
 
 const PoisPage = ({ cityCode, languageCode, cityModel, pathname, languages }: CityRouteProps): ReactElement => {
   const { urlSlug } = useParams()
-  const normalizedUrlSlug = urlSlug ? normalizePath(urlSlug.toLowerCase()) : undefined
+  const normalizedUrlSlug = urlSlug ? normalizePath(urlSlug) : undefined
   const navigate = useNavigate()
   const { data, error: featureLocationsError, loading } = useFeatureLocations(cityCode, languageCode)
   const [mapRef, setMapRef] = useState<Map | null>(null)
