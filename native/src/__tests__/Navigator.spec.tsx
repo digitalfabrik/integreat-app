@@ -1,8 +1,7 @@
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { NavigationContainer } from '@react-navigation/native'
-import { act, render } from '@testing-library/react-native'
+import { render } from '@testing-library/react-native'
 import React from 'react'
-import waitForExpect from 'wait-for-expect'
 
 import Navigator from '../Navigator'
 import appSettings from '../utils/AppSettings'
@@ -17,7 +16,7 @@ jest.mock('../routes/Intro', () => {
 
   return () => <Text>Intro</Text>
 })
-jest.mock('../routes/LandingContainer', () => {
+jest.mock('../routes/Landing', () => {
   const { Text } = require('react-native')
 
   return () => <Text>Landing</Text>
@@ -110,38 +109,11 @@ jest.mock('react-redux')
 
 const cityCode = 'augsburg'
 const languageCode = 'de'
-const fetchCities = jest.fn()
-const fetchCategory = jest.fn()
-
-const props = ({ routeKey, routeName }: { routeKey?: string; routeName: string | null }) => ({
-  routeKey,
-  routeName,
-  fetchCategory,
-  fetchCities,
-})
 
 describe('Navigator', () => {
   beforeEach(() => {
     AsyncStorage.clear()
     jest.clearAllMocks()
-  })
-
-  it('should fetch cities on mount', async () => {
-    await act(async () => {
-      await appSettings.setContentLanguage(languageCode)
-      render(
-        <NavigationContainer>
-          <Navigator
-            {...props({
-              routeName: null,
-            })}
-          />
-        </NavigationContainer>
-      )
-      await waitForExpect(() => {
-        expect(fetchCities).toHaveBeenCalledTimes(1)
-      })
-    })
   })
 
   it('should display categories if a city is selected and the intro was shown', async () => {
@@ -150,14 +122,10 @@ describe('Navigator', () => {
     await appSettings.setIntroShown()
     const { findByText } = render(
       <NavigationContainer>
-        <Navigator
-          {...props({
-            routeName: null,
-          })}
-        />
+        <Navigator />
       </NavigationContainer>
     )
-    await findByText('categories')
+    await findByText('Categories')
   })
 
   it('should display Landing if no city is selected in settings and intro was shown', async () => {
@@ -166,11 +134,7 @@ describe('Navigator', () => {
     await appSettings.setIntroShown()
     const { findByText } = render(
       <NavigationContainer>
-        <Navigator
-          {...props({
-            routeName: null,
-          })}
-        />
+        <Navigator />
       </NavigationContainer>
     )
     await findByText('Landing')
@@ -180,11 +144,7 @@ describe('Navigator', () => {
     await appSettings.setContentLanguage(languageCode)
     const { findByText } = render(
       <NavigationContainer>
-        <Navigator
-          {...props({
-            routeName: null,
-          })}
-        />
+        <Navigator />
       </NavigationContainer>
     )
     await findByText('Intro')
@@ -196,11 +156,7 @@ describe('Navigator', () => {
     await appSettings.setIntroShown()
     const { findByText } = render(
       <NavigationContainer>
-        <Navigator
-          {...props({
-            routeName: null,
-          })}
-        />
+        <Navigator />
       </NavigationContainer>
     )
 
