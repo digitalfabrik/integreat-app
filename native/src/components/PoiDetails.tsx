@@ -81,10 +81,10 @@ const PoiDetails = ({ poi, feature, language }: PoiDetailsProps): ReactElement =
   const contactInformationCollapsibleItem = (
     <CollapsibleItem initExpanded headerText={t('contactInformation')} language={language}>
       <ContentWrapper>
-        {website && (
+        {!!website && (
           <PoiDetailRow externalUrl={website} accessibilityLabel={t('website')} text={website} icon={WebsiteIcon} />
         )}
-        {phoneNumber && (
+        {!!phoneNumber && (
           <PoiDetailRow
             externalUrl={`tel:${phoneNumber}`}
             accessibilityLabel={t('phone')}
@@ -92,7 +92,7 @@ const PoiDetails = ({ poi, feature, language }: PoiDetailsProps): ReactElement =
             icon={PhoneIcon}
           />
         )}
-        {email && (
+        {!!email && (
           <PoiDetailRow externalUrl={`mailto:${email}`} accessibilityLabel={t('eMail')} text={email} icon={EmailIcon} />
         )}
       </ContentWrapper>
@@ -102,7 +102,7 @@ const PoiDetails = ({ poi, feature, language }: PoiDetailsProps): ReactElement =
   return (
     <PoiDetailsContainer>
       <StyledText>{title}</StyledText>
-      {distance && <StyledDistance>{t('distanceKilometre', { distance })}</StyledDistance>}
+      {!!distance && <StyledDistance>{t('distanceKilometre', { distance })}</StyledDistance>}
       <Thumbnail source={thumbnail} resizeMode='cover' />
       <HorizontalLine />
       <PoiDetailItem
@@ -117,7 +117,7 @@ const PoiDetails = ({ poi, feature, language }: PoiDetailsProps): ReactElement =
         </Pressable>
       </PoiDetailItem>
       <HorizontalLine />
-      {(website || phoneNumber || email) && (
+      {!!(website || phoneNumber || email) && (
         <>
           {contactInformationCollapsibleItem}
           <HorizontalLine />

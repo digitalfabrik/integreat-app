@@ -133,11 +133,11 @@ export const Header = ({
       <HeaderContainer>
         <Row>
           <HeaderLogo link={logoHref} />
-          {!viewportSmall && cityName && <HeaderSeparator />}
-          {(!viewportSmall || cityName) && <HeaderTitle>{cityName}</HeaderTitle>}
+          {!viewportSmall && !!cityName && <HeaderSeparator />}
+          {(!viewportSmall || !!cityName) && <HeaderTitle>{cityName}</HeaderTitle>}
           <ActionBar>
             {actionItems}
-            {viewportSmall && setIsSidebarOpen && cityName && (
+            {viewportSmall && setIsSidebarOpen && !!cityName && (
               <KebabMenu
                 setShow={setIsSidebarOpen}
                 show={isSidebarOpen}

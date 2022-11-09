@@ -1,7 +1,15 @@
 module.exports = {
   root: true,
   parser: '@typescript-eslint/parser',
-  plugins: ['@typescript-eslint', 'react', 'react-hooks', 'jest', 'prefer-arrow', 'styled-components-a11y'],
+  plugins: [
+    '@typescript-eslint',
+    'jest',
+    'jsx-expressions',
+    'prefer-arrow',
+    'react',
+    'react-hooks',
+    'styled-components-a11y',
+  ],
   extends: [
     'airbnb',
     'airbnb/hooks',
@@ -38,7 +46,6 @@ module.exports = {
     'no-shadow': 'off',
     'no-underscore-dangle': 'off',
     'react/display-name': 'off',
-    '@typescript-eslint/strict-boolean-expressions': 'off',
     'react/jsx-props-no-spreading': 'off',
     'jest/no-mocks-import': 'off',
 
@@ -47,6 +54,7 @@ module.exports = {
     'import/extensions': 'off',
     'import/prefer-default-export': 'off',
     'react/require-default-props': 'off',
+    'react/sort-comp': 'off',
     'jest/expect-expect': 'off',
 
     // Disabling since better @typescript-eslint rules available or they make no sense for ts projects
@@ -55,12 +63,8 @@ module.exports = {
     'import/no-unresolved': 'off',
     'react/jsx-filename-extension': 'off',
 
-    // Disabling since our class components are legacy anyway
-    'react/sort-comp': 'off',
-    'react/state-in-constructor': 'off',
-    'react/static-property-placement': 'off',
-
     curly: ['error', 'all'],
+    'func-names': 'error',
     'no-console': 'error',
     'no-magic-numbers': [
       'error',
@@ -71,7 +75,6 @@ module.exports = {
     ],
     'prefer-destructuring': ['error', { array: false }],
     'prefer-object-spread': 'error',
-    'func-names': 'error',
 
     'react/function-component-definition': [
       'error',
@@ -90,6 +93,7 @@ module.exports = {
     '@typescript-eslint/consistent-type-definitions': ['error', 'type'],
     '@typescript-eslint/explicit-module-boundary-types': 'error',
     '@typescript-eslint/no-empty-function': 'error',
+    '@typescript-eslint/no-explicit-any': 'error',
     '@typescript-eslint/no-unnecessary-condition': 'error',
     '@typescript-eslint/no-unused-vars': [
       'error',
@@ -105,6 +109,8 @@ module.exports = {
 
     'jest/consistent-test-it': 'error',
     'jest/no-alias-methods': 'error',
+
+    'jsx-expressions/strict-logical-expressions': 'error',
 
     'prefer-arrow/prefer-arrow-functions': 'error',
 
