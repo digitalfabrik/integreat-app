@@ -42,7 +42,7 @@ class StaticServerProvider extends React.Component<
     localOnly: true,
   })
 
-  constructor(props: PropsType) {
+  constructor(props: StaticServerProviderProps) {
     super(props)
     this.state = { errorMessage: null }
   }
