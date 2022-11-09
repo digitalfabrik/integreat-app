@@ -109,7 +109,7 @@ const PoisPage = ({ cityCode, languageCode, cityModel, pathname, languages }: Ci
         padding: { bottom: viewportSmall ? height * midSnapPercentage : 0 },
       })
     }
-  }, [mapRef, data, urlSlug, height, snapPoint])
+  }, [mapRef, data, urlSlug, height, snapPoint, viewportSmall])
 
   if (buildConfig().featureFlags.developerFriendly) {
     log('To use geolocation in a development build you have to start the dev server with\n "yarn start --https"')
