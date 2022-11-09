@@ -30,7 +30,7 @@ class InternalPathnameParser {
   _fixedCity: string | null
 
   constructor(pathname: string, languageCode: string, fixedCity: string | null) {
-    this._pathname = normalizePath(pathname).toLowerCase()
+    this._pathname = normalizePath(pathname)
     this._fixedCity = fixedCity
     this._parts = this.pathnameParts(this._pathname)
     this._length = this._parts.length
@@ -140,7 +140,7 @@ class InternalPathnameParser {
     }
 
     // get the urlSlug from pathname '/testumgebung/de/locations/cafe-tür-an-tür'
-    const urlSlug = this._parts[this._length - 2] === POIS_ROUTE ? this._parts[ENTITY_ID_INDEX]! : undefined
+    const urlSlug = this._length > ENTITY_ID_INDEX ? this._parts[ENTITY_ID_INDEX]! : undefined
     return { ...params, route: POIS_ROUTE, urlSlug }
   }
 
