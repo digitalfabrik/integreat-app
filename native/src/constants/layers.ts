@@ -52,5 +52,6 @@ export const clusterCountLayer: SymbolLayerProps = {
     textField: '{point_count_abbreviated}',
     textFont: ['Roboto Regular'],
     textSize: ['step', ['get', 'point_count'], fontSizeSmall, groupCount, fontSizeLarge],
+    textAllowOverlap: true,
   },
 }
