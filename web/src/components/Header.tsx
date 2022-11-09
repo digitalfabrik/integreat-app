@@ -137,7 +137,7 @@ export const Header = ({
           {(!viewportSmall || !!cityName) && <HeaderTitle>{cityName}</HeaderTitle>}
           <ActionBar>
             {actionItems}
-            {viewportSmall && setIsSidebarOpen && cityName && (
+            {viewportSmall && setIsSidebarOpen && !!cityName && (
               <KebabMenu
                 setShow={setIsSidebarOpen}
                 show={isSidebarOpen}
