@@ -140,7 +140,7 @@ const ShelterInformation = ({ shelter, cityCode, extended = false }: ShelterInfo
                 { text: t('languages'), rightText: languagesText },
               ]}
             />
-            {comments && (
+            {!!comments && (
               <ShelterInformationSection title={t('comments')} information={[{ text: comments }]} extended={extended} />
             )}
             {email || phone ? (

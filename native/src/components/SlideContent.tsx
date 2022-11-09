@@ -52,7 +52,7 @@ const SlideContent = ({ item, theme, width }: SlideContentProps): ReactElement =
         <Heading theme={theme}>{item.title}</Heading>
       </TextContainer>
       <ContentContainer description={item.description !== undefined}>{item.Content}</ContentContainer>
-      {item.description && (
+      {!!item.description && (
         <TextContainer>
           <Description theme={theme}>{item.description}</Description>
         </TextContainer>
