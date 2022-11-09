@@ -5,13 +5,12 @@ import { ThemeContext } from 'styled-components'
 
 import { CategoriesMapModel, SearchRouteType } from 'api-client'
 
-import { NavigationProps, RouteProps } from '../constants/NavigationTypes'
+import { NavigationProps } from '../constants/NavigationTypes'
 import createNavigate from '../navigation/createNavigate'
 import { StateType } from '../redux/StateType'
 import SearchModal from './SearchModal'
 
 export type SearchModalContainerProps = {
-  route: RouteProps<SearchRouteType>
   navigation: NavigationProps<SearchRouteType>
 }
 
