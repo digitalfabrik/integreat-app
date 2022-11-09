@@ -1,7 +1,8 @@
 issue_key: IGAPP-1136
-show_in_stores: false
+show_in_stores: true
 platforms:
   - web
   - android
   - ios
 en: Fix overlapping POIs hiding each other
+de: Nah beieinanderliegende POIs sind jetzt alle sichtbar
