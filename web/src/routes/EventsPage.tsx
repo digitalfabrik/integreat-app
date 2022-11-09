@@ -13,6 +13,8 @@ import {
 
 import { CityRouteProps } from '../CityContentSwitcher'
 import Caption from '../components/Caption'
+import CityContentLayout from '../components/CityContentLayout'
+import CityContentToolbar from '../components/CityContentToolbar'
 import EventListItem from '../components/EventListItem'
 import FailureSwitcher from '../components/FailureSwitcher'
 import { FeedbackRatingType } from '../components/FeedbackToolbarItem'
@@ -20,8 +22,6 @@ import Helmet from '../components/Helmet'
 import JsonLdEvent from '../components/JsonLdEvent'
 import List from '../components/List'
 import LoadingSpinner from '../components/LoadingSpinner'
-import LocationLayout from '../components/LocationLayout'
-import LocationToolbar from '../components/LocationToolbar'
 import Page, { THUMBNAIL_WIDTH } from '../components/Page'
 import PageDetail from '../components/PageDetail'
 import { cmsApiBaseUrl } from '../constants/urls'
@@ -45,7 +45,7 @@ const EventsPage = ({ cityModel, languages, pathname, languageCode, cityCode }: 
   const event = eventId ? events?.find((event: EventModel) => event.path === pathname) : null
 
   const toolbar = (openFeedback: (rating: FeedbackRatingType) => void) => (
-    <LocationToolbar openFeedbackModal={openFeedback} viewportSmall={viewportSmall} />
+    <CityContentToolbar openFeedbackModal={openFeedback} viewportSmall={viewportSmall} />
   )
 
   const languageChangePaths = languages.map(({ code, name }) => {
@@ -73,9 +73,9 @@ const EventsPage = ({ cityModel, languages, pathname, languageCode, cityCode }: 
 
   if (loading) {
     return (
-      <LocationLayout isLoading {...locationLayoutParams}>
+      <CityContentLayout isLoading {...locationLayoutParams}>
         <LoadingSpinner />
-      </LocationLayout>
+      </CityContentLayout>
     )
   }
 
@@ -90,9 +90,9 @@ const EventsPage = ({ cityModel, languages, pathname, languageCode, cityCode }: 
       })
 
     return (
-      <LocationLayout isLoading={false} {...locationLayoutParams}>
+      <CityContentLayout isLoading={false} {...locationLayoutParams}>
         <FailureSwitcher error={error} />
-      </LocationLayout>
+      </CityContentLayout>
     )
   }
 
@@ -102,7 +102,7 @@ const EventsPage = ({ cityModel, languages, pathname, languageCode, cityCode }: 
     const pageTitle = `${event.title} - ${cityModel.name}`
 
     return (
-      <LocationLayout isLoading={false} {...locationLayoutParams}>
+      <CityContentLayout isLoading={false} {...locationLayoutParams}>
         <Helmet pageTitle={pageTitle} languageChangePaths={languageChangePaths} cityModel={cityModel} />
         <JsonLdEvent event={event} formatter={formatter} />
         <Page
@@ -118,7 +118,7 @@ const EventsPage = ({ cityModel, languages, pathname, languageCode, cityCode }: 
             {location && <PageDetail identifier={t('address')} information={location.fullAddress} />}
           </>
         </Page>
-      </LocationLayout>
+      </CityContentLayout>
     )
   }
 
@@ -129,11 +129,11 @@ const EventsPage = ({ cityModel, languages, pathname, languageCode, cityCode }: 
   const pageTitle = `${t('pageTitle')} - ${cityModel.name}`
 
   return (
-    <LocationLayout isLoading={false} {...locationLayoutParams}>
+    <CityContentLayout isLoading={false} {...locationLayoutParams}>
       <Helmet pageTitle={pageTitle} languageChangePaths={languageChangePaths} cityModel={cityModel} />
       <Caption title={t('events')} />
       <List noItemsMessage={t('currentlyNoEvents')} items={events} renderItem={renderEventListItem} />
-    </LocationLayout>
+    </CityContentLayout>
   )
 }
 

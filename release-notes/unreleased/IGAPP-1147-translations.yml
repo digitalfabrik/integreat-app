@@ -1,0 +1,8 @@
+issue_key: IGAPP-1147
+show_in_stores: true
+platforms:
+  - web
+  - ios
+  - android
+en: Add finnish translations.
+de: Finnische Übersetzungen hinzugefügt.
