@@ -30,7 +30,7 @@ const TilesRow = styled.View<TilesRowProps>`
 
 const Tiles = ({ title, language, tiles, onTilePress }: TilesProps): ReactElement => (
   <>
-    {title && <Caption title={title} />}
+    {!!title && <Caption title={title} />}
     <TilesRow language={language}>
       {tiles.map(tile => (
         <Tile key={tile.path} tile={tile} onTilePress={onTilePress} />

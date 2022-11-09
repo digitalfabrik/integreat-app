@@ -18,7 +18,7 @@ const AllTheProviders = ({ children, options }: { children: ReactElement; option
 )
 
 export const renderWithRouterAndTheme = (ui: ReactElement, options?: { pathname: string }): RenderResult =>
-  render(ui, { wrapper: (props: any) => <AllTheProviders {...props} options={options} /> })
+  render(ui, { wrapper: (props: { children: ReactElement }) => <AllTheProviders {...props} options={options} /> })
 
 export const renderWithTheme = (ui: ReactElement): RenderResult =>
   render(<ThemeProvider theme={buildConfig().lightTheme}>{ui}</ThemeProvider>)
