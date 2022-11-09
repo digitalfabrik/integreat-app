@@ -71,9 +71,6 @@ const settingsHeader = (headerProps: StackHeaderProps) => <SettingsHeader {...he
 
 const defaultHeader = (headerProps: StackHeaderProps) => <HeaderContainer {...(headerProps as HeaderProps)} />
 
-type NavigatorProps = {
-  fetchCities: (forceRefresh: boolean) => void
-}
 type InitialRouteType =
   | {
       name: IntroRouteType | LandingRouteType
@@ -85,19 +82,14 @@ type InitialRouteType =
     }
 const Stack = createStackNavigator<RoutesParamsType>()
 
-const Navigator = (props: NavigatorProps): ReactElement | null => {
+const Navigator = (): ReactElement | null => {
   const [waitingForSettings, setWaitingForSettings] = useState<boolean>(true)
   const [errorMessage, setErrorMessage] = useState<string | null | undefined>(null)
   const [initialRoute, setInitialRoute] = useState<InitialRouteType>({
     name: INTRO_ROUTE,
   })
-  const { fetchCities } = props
   const navigation = useNavigation() as NavigationProps<RoutesType>
   const dispatch = useDispatch()
-
-  useEffect(() => {
-    fetchCities(false)
-  }, [fetchCities])
 
   useEffect(() => {
     quitAppStatePushNotificationListener(dispatch, navigation)
