@@ -11,7 +11,7 @@ import { ThemeProvider } from 'styled-components'
 
 import { CLOSE_PAGE_SIGNAL_NAME, REDIRECT_ROUTE, setUserAgent } from 'api-client'
 
-import NavigatorContainer from './NavigatorContainer'
+import Navigator from './Navigator'
 import AppStateListener from './components/AppStateListener'
 import I18nProvider from './components/I18nProvider'
 import IOSSafeAreaView from './components/IOSSafeAreaView'
@@ -96,7 +96,7 @@ const App = (): ReactElement => {
                   <IOSSafeAreaView>
                     <NavigationContainer onStateChange={onStateChange} linking={linking}>
                       <OverflowMenuProvider>
-                        <NavigatorContainer />
+                        <Navigator />
                       </OverflowMenuProvider>
                     </NavigationContainer>
                   </IOSSafeAreaView>
