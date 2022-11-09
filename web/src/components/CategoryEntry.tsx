@@ -69,14 +69,14 @@ const StyledLink = styled(Link)`
   }
 `
 
-type PropsType = {
+type CategoryEntryProps = {
   category: CategoryModel
   subCategories: CategoryModel[]
   contentWithoutHtml?: string
   query?: string
 }
 
-const CategoryEntry = ({ category, contentWithoutHtml, subCategories, query }: PropsType): ReactElement => {
+const CategoryEntry = ({ category, contentWithoutHtml, subCategories, query }: CategoryEntryProps): ReactElement => {
   const theme = useTheme()
 
   const excerpt = getExcerpt(contentWithoutHtml ?? '', { query, maxChars: EXCERPT_MAX_CHARS })

@@ -2,18 +2,18 @@ import React, { ReactElement, ReactNode, useState } from 'react'
 
 import { CityModel, POIS_ROUTE, SEARCH_ROUTE } from 'api-client'
 
-import Layout from '../components/Layout'
-import LocationFooter from '../components/LocationFooter'
 import { RouteType } from '../routes'
 import ChatBotWidget from './ChatBotWidget'
+import CityContentFooter from './CityContentFooter'
+import CityContentHeader from './CityContentHeader'
 import FeedbackModal from './FeedbackModal'
 import { FeedbackRatingType } from './FeedbackToolbarItem'
-import LocationHeader from './LocationHeader'
+import Layout from './Layout'
 
-export type ToolbarPropType = (openFeedbackModal: (rating: FeedbackRatingType) => void) => ReactNode
+export type ToolbarProps = (openFeedbackModal: (rating: FeedbackRatingType) => void) => ReactNode
 
-type PropsType = {
-  toolbar?: ToolbarPropType
+type CityContentLayoutProps = {
+  toolbar?: ToolbarProps
   viewportSmall: boolean
   children?: ReactNode
   route: RouteType
@@ -27,7 +27,7 @@ type PropsType = {
   showFooter?: boolean
 }
 
-const LocationLayout = (props: PropsType): ReactElement => {
+const CityContentLayout = (props: CityContentLayoutProps): ReactElement => {
   const [feedbackModalRating, setFeedbackModalRating] = useState<FeedbackRatingType | null>(null)
 
   const {
@@ -63,7 +63,7 @@ const LocationLayout = (props: PropsType): ReactElement => {
       disableScrollingSafari={disableScrollingSafari}
       fullWidth={fullWidth}
       header={
-        <LocationHeader
+        <CityContentHeader
           cityModel={cityModel}
           languageChangePaths={languageChangePaths}
           viewportSmall={viewportSmall}
@@ -71,7 +71,11 @@ const LocationLayout = (props: PropsType): ReactElement => {
           route={route}
         />
       }
-      footer={!isLoading && showFooter ? <LocationFooter city={cityModel.code} language={languageCode} /> : null}
+      footer={
+        !isLoading && showFooter && !viewportSmall ? (
+          <CityContentFooter city={cityModel.code} language={languageCode} />
+        ) : null
+      }
       modal={feedbackModal}
       toolbar={toolbar}>
       <>
@@ -82,4 +86,4 @@ const LocationLayout = (props: PropsType): ReactElement => {
   )
 }
 
-export default LocationLayout
+export default CityContentLayout

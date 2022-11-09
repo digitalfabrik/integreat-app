@@ -2,7 +2,7 @@ import { useEffect } from 'react'
 
 import { NonNullableRouteInformationType } from 'api-client'
 
-import { NavigationPropType, RoutePropType, RoutesType } from '../constants/NavigationTypes'
+import { NavigationProps, RouteProps, RoutesType } from '../constants/NavigationTypes'
 import urlFromRouteInformation from '../navigation/url'
 
 type ShareProps =
@@ -14,13 +14,13 @@ type ShareProps =
       routeInformation: null
     }
 
-type Props = {
-  route: RoutePropType<RoutesType>
-  navigation: NavigationPropType<RoutesType>
+type useSetShareUrlProps = {
+  route: RouteProps<RoutesType>
+  navigation: NavigationProps<RoutesType>
 } & ShareProps
 
 // Sets the share url of the current route information to allow usage in header components
-const useSetShareUrl = ({ route, navigation, ...rest }: Props): void => {
+const useSetShareUrl = ({ route, navigation, ...rest }: useSetShareUrlProps): void => {
   const url = rest.routeInformation ? urlFromRouteInformation(rest.routeInformation) : rest.shareUrl
 
   useEffect(() => {

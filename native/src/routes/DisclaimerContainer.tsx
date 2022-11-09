@@ -14,7 +14,7 @@ import {
 import Failure from '../components/Failure'
 import LayoutedScrollView from '../components/LayoutedScrollView'
 import SiteHelpfulBox from '../components/SiteHelpfulBox'
-import { NavigationPropType, RoutePropType } from '../constants/NavigationTypes'
+import { NavigationProps, RouteProps } from '../constants/NavigationTypes'
 import useReportError from '../hooks/useReportError'
 import useSetShareUrl from '../hooks/useSetShareUrl'
 import createNavigateToFeedbackModal from '../navigation/createNavigateToFeedbackModal'
@@ -22,12 +22,12 @@ import { StateType } from '../redux/StateType'
 import { determineApiUrl } from '../utils/helpers'
 import Disclaimer from './Disclaimer'
 
-type PropsType = {
-  route: RoutePropType<DisclaimerRouteType>
-  navigation: NavigationPropType<DisclaimerRouteType>
+type DisclaimerContainerProps = {
+  route: RouteProps<DisclaimerRouteType>
+  navigation: NavigationProps<DisclaimerRouteType>
 }
 
-const DisclaimerContainer = ({ navigation, route }: PropsType): ReactElement => {
+const DisclaimerContainer = ({ navigation, route }: DisclaimerContainerProps): ReactElement => {
   const { cityCode, languageCode } = route.params
   const resourceCacheUrl = useSelector<StateType, string | null>(state => state.resourceCacheUrl)
 

@@ -3,18 +3,21 @@ import { merge } from 'lodash'
 
 import { DASHBOARD_ROUTE } from 'api-client'
 
-import { NavigationPropType, RoutePropType, RoutesType } from '../constants/NavigationTypes'
+import { NavigationProps, RouteProps, RoutesType } from '../constants/NavigationTypes'
 import createNavigationMock from './createNavigationPropMock'
 
 type DeepPartial<T> = {
   [P in keyof T]?: DeepPartial<T[P]>
 }
-type PropsType = {
-  route: RoutePropType<RoutesType>
-  navigation: NavigationPropType<RoutesType>
+type mockStackHeaderPropsProps = {
+  route: RouteProps<RoutesType>
+  navigation: NavigationProps<RoutesType>
 }
 
-const mockStackHeaderProps = (props: DeepPartial<PropsType> = {}, routeIndex = 0): PropsType =>
+const mockStackHeaderProps = (
+  props: DeepPartial<mockStackHeaderPropsProps> = {},
+  routeIndex = 0
+): mockStackHeaderPropsProps =>
   merge(
     {
       navigation: createNavigationMock(routeIndex),

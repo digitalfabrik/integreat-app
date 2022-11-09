@@ -14,11 +14,11 @@ import {
 } from 'api-client'
 
 import { CityRouteProps } from '../CityContentSwitcher'
+import CityContentLayout from '../components/CityContentLayout'
 import FailureSwitcher from '../components/FailureSwitcher'
 import Helmet from '../components/Helmet'
 import LoadingSpinner from '../components/LoadingSpinner'
 import LocalNewsList from '../components/LocalNewsList'
-import LocationLayout from '../components/LocationLayout'
 import NewsListItem from '../components/NewsListItem'
 import NewsTabs from '../components/NewsTabs'
 import Page from '../components/Page'
@@ -84,7 +84,7 @@ const LocalNewsPage = ({ cityModel, languages, pathname, languageCode, cityCode 
 
   if (loading) {
     return (
-      <LocationLayout isLoading {...locationLayoutParams}>
+      <CityContentLayout isLoading {...locationLayoutParams}>
         <NewsTabs
           type={LOCAL_NEWS_TYPE}
           city={cityCode}
@@ -94,7 +94,7 @@ const LocalNewsPage = ({ cityModel, languages, pathname, languageCode, cityCode 
           language={languageCode}>
           <LoadingSpinner />
         </NewsTabs>
-      </LocationLayout>
+      </CityContentLayout>
     )
   }
 
@@ -109,9 +109,9 @@ const LocalNewsPage = ({ cityModel, languages, pathname, languageCode, cityCode 
       })
 
     return (
-      <LocationLayout isLoading={false} {...locationLayoutParams}>
+      <CityContentLayout isLoading={false} {...locationLayoutParams}>
         <FailureSwitcher error={error} />
-      </LocationLayout>
+      </CityContentLayout>
     )
   }
 
@@ -119,7 +119,7 @@ const LocalNewsPage = ({ cityModel, languages, pathname, languageCode, cityCode 
     const pageTitle = `${newsModel.title} - ${cityModel.name}`
     const linkedContent = replaceLinks(newsModel.message)
     return (
-      <LocationLayout isLoading={false} {...locationLayoutParams}>
+      <CityContentLayout isLoading={false} {...locationLayoutParams}>
         <Helmet pageTitle={pageTitle} languageChangePaths={languageChangePaths} cityModel={cityModel} />
         <Page
           title={newsModel.title}
@@ -130,14 +130,14 @@ const LocalNewsPage = ({ cityModel, languages, pathname, languageCode, cityCode 
           showLastUpdateText={false}
           onInternalLinkClick={navigate}
         />
-      </LocationLayout>
+      </CityContentLayout>
     )
   }
 
   const pageTitle = `${t('localNews.pageTitle')} - ${cityModel.name}`
 
   return (
-    <LocationLayout isLoading={false} {...locationLayoutParams}>
+    <CityContentLayout isLoading={false} {...locationLayoutParams}>
       <Helmet pageTitle={pageTitle} languageChangePaths={languageChangePaths} cityModel={cityModel} />
       <NewsTabs
         type={LOCAL_NEWS_TYPE}
@@ -153,7 +153,7 @@ const LocalNewsPage = ({ cityModel, languages, pathname, languageCode, cityCode 
           city={cityCode}
         />
       </NewsTabs>
-    </LocationLayout>
+    </CityContentLayout>
   )
 }
 

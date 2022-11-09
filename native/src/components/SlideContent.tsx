@@ -36,13 +36,13 @@ export type SlideContentType = {
   description?: string
   Content: ReactElement
 }
-type PropsType = {
+type SlideContentProps = {
   item: SlideContentType
   theme: ThemeType
   width: number
 }
 
-const SlideContent = ({ item, theme, width }: PropsType): ReactElement => (
+const SlideContent = ({ item, theme, width }: SlideContentProps): ReactElement => (
   <ScrollView
     contentContainerStyle={{
       flexGrow: 1,

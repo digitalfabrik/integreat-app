@@ -3,8 +3,8 @@ import styled from 'styled-components'
 
 import buildConfig from '../constants/buildConfig'
 
-type PropsType = {
-  children: Array<ReactNode>
+type FooterProps = {
+  children: Array<ReactNode> | ReactNode
   overlay?: boolean
 }
 
@@ -13,6 +13,7 @@ const FooterContainer = styled.footer<{ overlay: boolean }>`
   flex-wrap: wrap;
   justify-content: center;
   padding: ${props => (props.overlay ? '0 0 0 10px' : '15px 5px')};
+  margin-top: auto;
   background-color: ${props => (props.overlay ? `rgba(255, 255, 255, 0.5)` : props.theme.colors.backgroundAccentColor)};
   box-shadow: 0 2px 3px 3px rgba(0, 0, 0, 0.1);
 
@@ -36,7 +37,7 @@ const FooterContainer = styled.footer<{ overlay: boolean }>`
  * number if it's a dev build.
  */
 
-const Footer = ({ children, overlay = false }: PropsType): ReactElement => (
+const Footer = ({ children, overlay = false }: FooterProps): ReactElement => (
   <FooterContainer overlay={overlay}>
     {children}
     {buildConfig().featureFlags.developerFriendly && (

@@ -4,7 +4,7 @@ import { Dispatch } from 'redux'
 
 import { LOCAL_NEWS_TYPE, NEWS_ROUTE } from 'api-client'
 
-import { NavigationPropType, RoutesType } from '../constants/NavigationTypes'
+import { NavigationProps, RoutesType } from '../constants/NavigationTypes'
 import buildConfig from '../constants/buildConfig'
 import navigateToDeepLink from '../navigation/navigateToDeepLink'
 import urlFromRouteInformation from '../navigation/url'
@@ -85,7 +85,7 @@ const urlFromMessage = (message: Message): string => {
 
 export const quitAppStatePushNotificationListener = async (
   dispatch: Dispatch,
-  navigation: NavigationPropType<RoutesType>
+  navigation: NavigationProps<RoutesType>
 ): Promise<void> => {
   const messaging = await importFirebaseMessaging()
   const message = (await messaging().getInitialNotification()) as Message | null

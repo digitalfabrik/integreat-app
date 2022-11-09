@@ -33,7 +33,7 @@ const Description = styled.Text`
   color: ${props => props.theme.colors.textSecondaryColor};
 `
 
-type PropType = {
+type SettingItemProps = {
   title: string
   description?: string
   onPress: () => void
@@ -44,7 +44,7 @@ type PropType = {
   value: boolean
 }
 
-const SettingItem = (props: PropType): ReactElement => {
+const SettingItem = (props: SettingItemProps): ReactElement => {
   const { title, description, onPress, value, hasBadge, hasSwitch, bigTitle, accessibilityRole } = props
   const { t } = useTranslation('settings')
   return (

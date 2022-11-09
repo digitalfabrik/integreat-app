@@ -5,18 +5,18 @@ import { LOCAL_NEWS_TYPE, NEWS_ROUTE, NewsRouteType, NewsType } from 'api-client
 
 import Layout from '../components/Layout'
 import NewsHeader from '../components/NewsHeader'
-import { NavigationPropType, RoutePropType } from '../constants/NavigationTypes'
+import { NavigationProps, RouteProps } from '../constants/NavigationTypes'
 import useCities from '../hooks/useCities'
 import useSetShareUrl from '../hooks/useSetShareUrl'
 import LocalNews from './LocalNews'
 import TuNews from './TuNews'
 
-type NavigationPropsType = {
-  route: RoutePropType<NewsRouteType>
-  navigation: NavigationPropType<NewsRouteType>
+type NewsContainerProps = {
+  route: RouteProps<NewsRouteType>
+  navigation: NavigationProps<NewsRouteType>
 }
 
-const NewsContainer = ({ route, navigation }: NavigationPropsType): ReactElement => {
+const NewsContainer = ({ route, navigation }: NewsContainerProps): ReactElement => {
   const { cityCode, languageCode, newsType: routeNewsType, newsId: routeNewsId } = route.params
   const [newsType, setNewsType] = useState<NewsType>(routeNewsType)
   const [newsId, setNewsId] = useState<string | null>(routeNewsId)

@@ -5,7 +5,7 @@ import { IMAGE_VIEW_MODAL_ROUTE, PDF_VIEW_MODAL_ROUTE } from 'api-client/src/rou
 import InternalPathnameParser from 'api-client/src/routes/InternalPathnameParser'
 import { RouteInformationType } from 'api-client/src/routes/RouteInformationTypes'
 
-import { NavigationPropType, RoutesType } from '../constants/NavigationTypes'
+import { NavigationProps, RoutesType } from '../constants/NavigationTypes'
 import buildConfig from '../constants/buildConfig'
 import openExternalUrl from '../utils/openExternalUrl'
 import sendTrackingSignal from '../utils/sendTrackingSignal'
@@ -16,7 +16,7 @@ const HIJACK = new RegExp(buildConfig().internalLinksHijackPattern)
 
 const navigateToLink = async <T extends RoutesType>(
   url: string,
-  navigation: NavigationPropType<T>,
+  navigation: NavigationProps<T>,
   language: string,
   navigateTo: (arg0: RouteInformationType) => void,
   shareUrl: string

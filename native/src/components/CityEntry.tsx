@@ -39,13 +39,13 @@ const AliasesWrapper = styled.View`
   margin: 0 5px;
 `
 
-type PropType = {
+type CityEntryProps = {
   city: CityModel
   query: string
   navigateToDashboard: (city: CityModel) => void
 }
 
-const CityEntry = ({ city, query, navigateToDashboard }: PropType): ReactElement => {
+const CityEntry = ({ city, query, navigateToDashboard }: CityEntryProps): ReactElement => {
   const normalizedQuery = normalizeString(query)
   const matchingAliases =
     city.aliases && normalizedQuery.length >= 1

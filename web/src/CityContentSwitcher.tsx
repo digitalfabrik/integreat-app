@@ -19,13 +19,13 @@ import {
   useLoadFromEndpoint,
 } from 'api-client'
 
+import CityContentLayout from './components/CityContentLayout'
 import FailureSwitcher from './components/FailureSwitcher'
 import GeneralFooter from './components/GeneralFooter'
 import GeneralHeader from './components/GeneralHeader'
 import LanguageFailure from './components/LanguageFailure'
 import Layout from './components/Layout'
 import LoadingSpinner from './components/LoadingSpinner'
-import LocationLayout from './components/LocationLayout'
 import buildConfig from './constants/buildConfig'
 import { cmsApiBaseUrl } from './constants/urls'
 import useWindowDimensions from './hooks/useWindowDimensions'
@@ -44,7 +44,7 @@ const PoisPage = lazyWithRetry(() => import('./routes/PoisPage'))
 const SearchPage = lazyWithRetry(() => import('./routes/SearchPage'))
 const DisclaimerPage = lazyWithRetry(() => import('./routes/DisclaimerPage'))
 
-type PropsType = {
+type CityContentSwitcherProps = {
   cities: CityModel[]
   languageCode: string
 }
@@ -59,7 +59,7 @@ export type CityRouteProps = {
   languageCode: string
 }
 
-const CityContentSwitcher = ({ cities, languageCode }: PropsType): ReactElement => {
+const CityContentSwitcher = ({ cities, languageCode }: CityContentSwitcherProps): ReactElement => {
   const cityCode = useParams().cityCode!
   const pathname = normalizePath(useLocation().pathname)
   const { viewportSmall } = useWindowDimensions()
@@ -147,9 +147,9 @@ const CityContentSwitcher = ({ cities, languageCode }: PropsType): ReactElement 
       element={
         <Suspense
           fallback={
-            <LocationLayout {...suspenseLayoutProps} route={route}>
+            <CityContentLayout {...suspenseLayoutProps} route={route}>
               <LoadingSpinner />
-            </LocationLayout>
+            </CityContentLayout>
           }>
           <Component {...cityRouteProps} />
         </Suspense>

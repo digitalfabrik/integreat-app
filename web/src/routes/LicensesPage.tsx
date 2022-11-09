@@ -12,8 +12,8 @@ import List from '../components/List'
 import useWindowDimensions from '../hooks/useWindowDimensions'
 import { reportError } from '../utils/sentry'
 
-type PropsType = { languageCode: string }
-const LicensesPage = ({ languageCode }: PropsType): ReactElement => {
+type LicensesPageProps = { languageCode: string }
+const LicensesPage = ({ languageCode }: LicensesPageProps): ReactElement => {
   const { t } = useTranslation(['settings', 'licenses'])
   const { viewportSmall } = useWindowDimensions()
   const [licenses, setLicenses] = useState<License[] | null>(null)

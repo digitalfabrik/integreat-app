@@ -5,11 +5,11 @@ import { CategoryModel } from 'api-client'
 
 import { faFilePdf } from '../constants/icons'
 import { cmsApiBaseUrl } from '../constants/urls'
+import CityContentToolbar from './CityContentToolbar'
 import { FeedbackRatingType } from './FeedbackToolbarItem'
-import LocationToolbar from './LocationToolbar'
 import ToolbarItem from './ToolbarItem'
 
-type PropsType = {
+type CategoriesToolbarProps = {
   category?: CategoryModel
   cityCode: string
   languageCode: string
@@ -17,7 +17,7 @@ type PropsType = {
   viewportSmall: boolean
 }
 
-const CategoriesToolbar = (props: PropsType): ReactElement => {
+const CategoriesToolbar = (props: CategoriesToolbarProps): ReactElement => {
   const { category, openFeedbackModal, viewportSmall, cityCode, languageCode } = props
   const { t } = useTranslation('categories')
 
@@ -27,9 +27,9 @@ const CategoriesToolbar = (props: PropsType): ReactElement => {
       : `${cmsApiBaseUrl}/${cityCode}/${languageCode}/wp-json/ig-mpdf/v1/pdf?url=${encodeURIComponent(category.path)}`
 
   return (
-    <LocationToolbar openFeedbackModal={openFeedbackModal} viewportSmall={viewportSmall}>
+    <CityContentToolbar openFeedbackModal={openFeedbackModal} viewportSmall={viewportSmall}>
       <ToolbarItem icon={faFilePdf} text={t('createPdf')} href={pdfUrl} viewportSmall={viewportSmall} />
-    </LocationToolbar>
+    </CityContentToolbar>
   )
 }
 

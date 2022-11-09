@@ -9,14 +9,13 @@ import buildConfig from '../constants/buildConfig'
 import Header from './Header'
 import HeaderActionItemLink from './HeaderActionItemLink'
 
-type PropsType = {
+type GeneralHeaderProps = {
   languageCode: string
   viewportSmall: boolean
 }
 
-const GeneralHeader = ({ languageCode, viewportSmall }: PropsType): ReactElement => {
+const GeneralHeader = ({ languageCode, viewportSmall }: GeneralHeaderProps): ReactElement => {
   const { t } = useTranslation('layout')
-
   const landingPath = pathnameFromRouteInformation({ route: LANDING_ROUTE, languageCode })
   const actionItems = !buildConfig().featureFlags.fixedCity
     ? [<HeaderActionItemLink key='landing' href={landingPath} iconSrc={landingIcon} text={t('changeLocation')} />]
@@ -30,6 +29,7 @@ const GeneralHeader = ({ languageCode, viewportSmall }: PropsType): ReactElement
       navigationItems={[]}
       kebabItems={[]}
       direction={config.getScriptDirection(languageCode)}
+      language={languageCode}
     />
   )
 }

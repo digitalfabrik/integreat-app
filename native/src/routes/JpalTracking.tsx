@@ -10,7 +10,7 @@ import Layout from '../components/Layout'
 import Link from '../components/Link'
 import LoadingSpinner from '../components/LoadingSpinner'
 import SettingsSwitch from '../components/SettingsSwitch'
-import { NavigationPropType } from '../constants/NavigationTypes'
+import { NavigationProps } from '../constants/NavigationTypes'
 import buildConfig from '../constants/buildConfig'
 import appSettings from '../utils/AppSettings'
 import { log, reportError } from '../utils/sentry'
@@ -31,11 +31,11 @@ const DescriptionContainer = styled.TouchableOpacity`
   padding: 15px 0 5px;
 `
 
-export type PropsType = {
-  navigation: NavigationPropType<JpalTrackingRouteType>
+export type JpalTrackingProps = {
+  navigation: NavigationProps<JpalTrackingRouteType>
 }
 
-const JpalTracking = ({ navigation }: PropsType): ReactElement => {
+const JpalTracking = ({ navigation }: JpalTrackingProps): ReactElement => {
   const [trackingEnabled, setTrackingEnabled] = useState<boolean | null>(null)
   const [settingsLoaded, setSettingsLoaded] = useState<boolean>(false)
   const { t } = useTranslation('settings')

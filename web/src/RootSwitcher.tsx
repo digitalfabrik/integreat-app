@@ -30,7 +30,7 @@ import CityNotCooperatingPage from './routes/CityNotCooperatingPage'
 import JpalTrackingPage from './routes/JpalTrackingPage'
 import lazyWithRetry from './utils/retryImport'
 
-type PropsType = {
+type RootSwitcherProps = {
   setContentLanguage: (languageCode: string) => void
 }
 
@@ -39,7 +39,7 @@ const LandingPage = lazyWithRetry(() => import('./routes/LandingPage'))
 const NotFoundPage = lazyWithRetry(() => import('./routes/NotFoundPage'))
 const LicensesPage = lazyWithRetry(() => import('./routes/LicensesPage'))
 
-const RootSwitcher = ({ setContentLanguage }: PropsType): ReactElement => {
+const RootSwitcher = ({ setContentLanguage }: RootSwitcherProps): ReactElement => {
   const requestCities = useCallback(async () => createCitiesEndpoint(cmsApiBaseUrl).request(), [])
   const { data: cities, loading, error } = useLoadFromEndpoint(requestCities)
   const { i18n } = useTranslation()

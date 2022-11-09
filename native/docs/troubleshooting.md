@@ -17,6 +17,9 @@
 - [`Invalid BUILD_CONFIG_NAME supplied`](#invalid-build_config_name-supplied)
 - [App crashing with java.lang.UnsatisfiedLinkError](#app-crashing-with-javalangunsatisfiedlinkerror)
 - [App crashing without any error](#app-crashing-without-any-error)
+- [XCode can't find 'your/directory/native/ios/Integreat/de.lproj/InfoPlist.strings'](#xcode-cant-find-yourdirectorynativeiosIntegreatdelprojinfopliststrings)
+- [XCode can't find $BUILD_CONFIG_APP_ICON](#xcode-cant-find-build_config_app_icon)
+- [Other assorted XCode problems](#other-assorted-xcode-problems)
 
 ## Could not initialize class org.codehouse.groovy.runtime.InvokeHelper
 
@@ -127,3 +130,24 @@ The following error occurs:
 
 The app is installed correctly on the android emulator but crashes without any error message on start up.
 To solve this issue delete /android/app/build and android/.gradle folder.
+
+## XCode can't find 'your/directory/native/ios/Integreat/de.lproj/InfoPlist.strings'
+
+These translations should usually be generated during the build, if they aren't, generate them manually with
+`yarn workspace translations manage write-plist Integreat --translations "../translations/translations.json" --destination ../native/ios/Integreat`
+
+Then run `bundle exec pod install` in /ios, clean the Build folder in XCode(Shift + Cmd + K), restart XCode, and try again.
+
+## XCode can't find $BUILD_CONFIG_APP_ICON
+
+Should also be generated during the build, manual command here: `yarn workspace build-configs manage write-xcconfig integreat ios --directory ../native/ios`
+
+Then run `bundle exec pod install` in /ios, clean the Build folder in XCode(Shift + Cmd + K), restart XCode, and try again.
+
+## Other assorted XCode problems
+
+It often helps to rerun `yarn install` in /native and `bundle exec pod install` in /ios, then clean the build
+folder in XCode (Shift + Cmd + K), and then restart XCode.
+
+If working on an M1, some of the pods might not be working correctly yet. Go into the Build Settings of the project,
+to Architecture > Excluded Architectures. The Debug and Release area both should have `arm64` under `Any iOS Simulator SDK`.
