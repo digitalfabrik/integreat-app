@@ -76,6 +76,7 @@ const MapView = React.forwardRef(
     const coordinates = selectedFeature?.geometry.coordinates
     const defaultSettings: CameraSettings = {
       zoomLevel: coordinates ? detailZoom : defaultViewportConfig.zoom,
+      centerCoordinate: coordinates,
       bounds: coordinates ? undefined : bounds,
     }
 
