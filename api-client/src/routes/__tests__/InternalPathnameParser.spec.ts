@@ -104,13 +104,14 @@ describe('InternalPathnameParser', () => {
     })
   })
   it('should match single pois route', () => {
-    const pathname = `/${cityCode}/${languageCode}/${POIS_ROUTE}/1234`
+    const urlSlug = 'tuer-an-tuer'
+    const pathname = `/${cityCode}/${languageCode}/${POIS_ROUTE}/${urlSlug}`
     const parser = new InternalPathnameParser(pathname, languageCode, null)
     expect(parser.route()).toEqual({
       route: POIS_ROUTE,
       languageCode,
       cityCode,
-      cityContentPath: pathname,
+      urlSlug,
     })
   })
   it('should match disclaimer route', () => {
@@ -311,13 +312,14 @@ describe('InternalPathnameParser', () => {
       })
     })
     it('should match single pois route', () => {
-      const pathname = `/${fixedCity}/${languageCode}/${POIS_ROUTE}/1234`
+      const urlSlug = 'tuer-an-tuer'
+      const pathname = `/${fixedCity}/${languageCode}/${POIS_ROUTE}/${urlSlug}`
       const parser = new InternalPathnameParser(pathname, languageCode, fixedCity)
       expect(parser.route()).toEqual({
         route: POIS_ROUTE,
         languageCode,
         cityCode: fixedCity,
-        cityContentPath: pathname,
+        urlSlug,
       })
     })
     it('should match disclaimer route', () => {

@@ -12,7 +12,6 @@ import {
   embedInCollection,
   ErrorCode,
   fromError,
-  nameQueryParam,
   NotFoundError,
   PoiFeature,
   PoiModel,
@@ -30,7 +29,6 @@ import PoiListItem from '../components/PoiListItem'
 import SiteHelpfulBox from '../components/SiteHelpfulBox'
 import { NavigationProps, RouteProps } from '../constants/NavigationTypes'
 import dimensions from '../constants/dimensions'
-import usePrevious from '../hooks/usePrevious'
 import useSetShareUrl from '../hooks/useSetShareUrl'
 import useUserLocation from '../hooks/useUserLocation'
 import createNavigateToFeedbackModal from '../navigation/createNavigateToFeedbackModal'
@@ -65,7 +63,6 @@ const BOTTOM_SHEET_SNAP_POINTS = [
 const Pois = ({ pois, language, cityModel, route, navigation }: PoisProps): ReactElement => {
   const { coordinates, requestAndDetermineLocation } = useUserLocation(true)
   const [urlSlug, setUrlSlug] = useState<string | null>(route.params.urlSlug ?? null)
-  const prevUrlSlug = usePrevious(urlSlug ?? '')
   const [sheetSnapPointIndex, setSheetSnapPointIndex] = useState<number>(1)
   const [followUserLocation, setFollowUserLocation] = useState<boolean>(false)
   const deviceHeight = useWindowDimensions().height
@@ -81,7 +78,7 @@ const Pois = ({ pois, language, cityModel, route, navigation }: PoisProps): Reac
     languageCode: language,
     cityCode: cityModel.code,
   })
-  const shareUrl = urlSlug ? `${baseUrl}?${nameQueryParam}=${urlSlug}` : baseUrl
+  const shareUrl = urlSlug ? `${baseUrl}/${urlSlug}` : baseUrl
   useSetShareUrl({ navigation, shareUrl, route, routeInformation: null })
 
   const selectPoiFeature = (feature: PoiFeature | null) => {
@@ -111,7 +108,7 @@ const Pois = ({ pois, language, cityModel, route, navigation }: PoisProps): Reac
   // Wait for followUserLocation change before moving the camera to avoid position lock
   // https://github.com/rnmapbox/maps/issues/1079
   useEffect(() => {
-    if (!followUserLocation && selectedFeature && cameraRef.current && prevUrlSlug !== urlSlug) {
+    if (!followUserLocation && selectedFeature && cameraRef.current) {
       cameraRef.current.setCamera({
         centerCoordinate: selectedFeature.geometry.coordinates,
         zoomLevel: selectedFeature.properties.closeToOtherPoi ? closerDetailZoom : normalDetailZoom,
@@ -119,7 +116,7 @@ const Pois = ({ pois, language, cityModel, route, navigation }: PoisProps): Reac
         padding: { paddingBottom: deviceHeight * midSnapPointPercentage },
       })
     }
-  }, [deviceHeight, followUserLocation, prevUrlSlug, selectedFeature, urlSlug])
+  }, [deviceHeight, followUserLocation, selectedFeature])
 
   const renderPoiListItem = (poi: PoiFeature): ReactElement => (
     <PoiListItem

@@ -106,7 +106,7 @@ const RootSwitcher = ({ setContentLanguage }: RootSwitcherProps): ReactElement =
         <Route path='/' element={<Navigate to={fixedCityPath ?? landingPath} replace />} />
         <Route path={LANDING_ROUTE} element={<Navigate to={fixedCityPath ?? landingPath} replace />} />
         <Route path='/:cityCode' element={<Navigate to={fixedCityPath ?? language} replace />} />
-        {fixedCityPath && (
+        {!!fixedCityPath && (
           <Route path={RoutePatterns[LANDING_ROUTE]} element={<Navigate to={fixedCityPath} replace />} />
         )}
       </Routes>
