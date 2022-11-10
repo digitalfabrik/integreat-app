@@ -10,7 +10,7 @@ import styled from 'styled-components'
 
 import {
   defaultMercatorViewportConfig,
-  detailZoom,
+  normalDetailZoom,
   embedInCollection,
   nameQueryParam,
   MapViewMercatorViewport,
@@ -18,6 +18,7 @@ import {
   pathnameFromRouteInformation,
   PoiFeature,
   POIS_ROUTE,
+  closerDetailZoom,
 } from 'api-client'
 import { config } from 'translations'
 
@@ -100,7 +101,7 @@ const PoisPage = ({ cityCode, languageCode, cityModel, pathname, languages }: Ci
       const coords: LngLatLike = [coordinates[0], coordinates[1]]
       mapRef.flyTo({
         center: coords,
-        zoom: detailZoom,
+        zoom: currentFeature?.properties.closeToOtherPoi ? closerDetailZoom : normalDetailZoom,
         padding: { bottom: height * midSnapPercentage },
       })
     }

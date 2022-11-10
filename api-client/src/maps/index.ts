@@ -29,6 +29,7 @@ export type GeoJsonPoiProperties = {
   address?: string
   distance?: string
   thumbnail?: string
+  closeToOtherPoi?: boolean
 }
 
 export type MarkerConfig = {
@@ -79,7 +80,8 @@ export const defaultMercatorViewportConfig: MapViewMercatorViewport = {
   ...defaultViewportConfig,
 }
 
-export const detailZoom = 15
+export const normalDetailZoom = 15
+export const closerDetailZoom = 18
 export const clusterRadius = 50
 export const animationDuration = 2000
 export const nameQueryParam = 'name'
