@@ -3,6 +3,7 @@ import * as mapLibreGl from 'maplibre-gl'
 import 'maplibre-gl/dist/maplibre-gl.css'
 import React, { forwardRef, ReactElement, useCallback, useState } from 'react'
 import Map, { GeolocateControl, Layer, MapRef, NavigationControl, Source } from 'react-map-gl'
+import { useNavigate } from 'react-router-dom'
 import styled, { css, useTheme } from 'styled-components'
 
 import {
@@ -88,6 +89,7 @@ const MapView = forwardRef((props: MapViewProps, ref: React.Ref<MapRef>): ReactE
   const [viewport, setViewport] = useState<MapViewViewport>(bboxViewport)
   const [cursor, setCursor] = useState<MapCursorType>('auto')
   const theme = useTheme()
+  const navigate = useNavigate()
 
   const { viewportSmall } = useWindowDimensions()
 
@@ -106,8 +108,8 @@ const MapView = forwardRef((props: MapViewProps, ref: React.Ref<MapRef>): ReactE
       // Stop propagation to children to prevent onClick select event as it is already handled
       event.originalEvent.stopPropagation()
       const feature = event.features && event.features[0]
+      selectFeature(feature)
       if (feature) {
-        selectFeature(feature)
         changeSnapPoint(1)
       }
     },
@@ -115,7 +117,7 @@ const MapView = forwardRef((props: MapViewProps, ref: React.Ref<MapRef>): ReactE
   )
 
   const onDeselect = () => {
-    selectFeature(null)
+    navigate('.')
     changeSnapPoint(1)
   }
 

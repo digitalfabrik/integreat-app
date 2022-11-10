@@ -83,7 +83,6 @@ export const detailZoom = 15
 export const clusterZoom = 13
 export const clusterRadius = 50
 export const animationDuration = 2000
-export const nameQueryParam = 'name'
 
 export const mapMarker: MarkerConfig = {
   iconSize: 0.75,
