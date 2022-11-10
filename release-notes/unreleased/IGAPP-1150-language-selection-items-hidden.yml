@@ -3,4 +3,3 @@ show_in_stores: true
 platforms:
   - web
 en: Fix hidden languages in language selection on mobile devices
-
