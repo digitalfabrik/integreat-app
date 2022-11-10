@@ -32,7 +32,7 @@ class InternalPathnameParser {
   constructor(pathname: string, languageCode: string, fixedCity: string | null) {
     this._pathname = normalizePath(pathname)
     this._fixedCity = fixedCity
-    this._parts = this.pathnameParts(pathname)
+    this._parts = this.pathnameParts(this._pathname)
     this._length = this._parts.length
     this._fallbackLanguageCode = languageCode
   }
@@ -139,9 +139,9 @@ class InternalPathnameParser {
       return null
     }
 
-    // Single pois are identified via their city content path, e.g. '/augsburg/de/events/1234'
-    const cityContentPath = this._length > ENTITY_ID_INDEX ? this._pathname : undefined
-    return { ...params, route: POIS_ROUTE, cityContentPath }
+    // get the urlSlug from pathname '/testumgebung/de/locations/cafe-tür-an-tür'
+    const urlSlug = this._length > ENTITY_ID_INDEX ? this._parts[ENTITY_ID_INDEX]! : undefined
+    return { ...params, route: POIS_ROUTE, urlSlug }
   }
 
   news = (): RouteInformationType => {

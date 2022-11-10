@@ -4,7 +4,7 @@ import { Map } from 'maplibre-gl'
 import React, { ReactElement, useCallback, useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { LngLatLike } from 'react-map-gl'
-import { useSearchParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import { BottomSheetRef } from 'react-spring-bottom-sheet'
 import styled from 'styled-components'
 
@@ -12,8 +12,8 @@ import {
   defaultMercatorViewportConfig,
   detailZoom,
   embedInCollection,
-  nameQueryParam,
   MapViewMercatorViewport,
+  normalizePath,
   NotFoundError,
   pathnameFromRouteInformation,
   PoiFeature,
@@ -55,15 +55,16 @@ const moveViewToBBox = (bBox: BBox, defaultVp: MapViewMercatorViewport): MapView
 }
 
 const PoisPage = ({ cityCode, languageCode, cityModel, pathname, languages }: CityRouteProps): ReactElement => {
-  const [queryParams, setQueryParams] = useSearchParams()
+  const { urlSlug } = useParams()
+  const normalizedUrlSlug = urlSlug ? normalizePath(urlSlug) : undefined
+  const navigate = useNavigate()
   const { data, error: featureLocationsError, loading } = useFeatureLocations(cityCode, languageCode)
   const [mapRef, setMapRef] = useState<Map | null>(null)
   const [snapPoint, setSnapPoint] = useState<number>(1)
-  const selectedFeatureSlug = queryParams.get(nameQueryParam)
   const [currentFeature, setCurrentFeature] = useState<PoiFeature | null>(
-    data?.features.find(it => it.properties.urlSlug === selectedFeatureSlug) ?? null
+    data?.features.find(it => it.properties.urlSlug === normalizedUrlSlug) ?? null
   )
-  const poi = data?.pois.find(it => it.urlSlug === selectedFeatureSlug)
+  const poi = data?.pois.find(it => it.urlSlug === normalizedUrlSlug)
   const { viewportSmall, height } = useWindowDimensions()
   const sheetRef = useRef<BottomSheetRef>(null)
   const [feedbackModalRating, setFeedbackModalRating] = useState<FeedbackRatingType | null>(null)
@@ -73,12 +74,7 @@ const PoisPage = ({ cityCode, languageCode, cityModel, pathname, languages }: Ci
     if (mapRef?.isMoving()) {
       mapRef.stop()
     }
-    if (feature) {
-      queryParams.set(nameQueryParam, feature.properties.urlSlug)
-    } else {
-      queryParams.delete(nameQueryParam)
-    }
-    setQueryParams(queryParams)
+    navigate(feature?.properties.urlSlug ?? '.')
   }
 
   const updateMapRef = useCallback(node => {
@@ -92,19 +88,23 @@ const PoisPage = ({ cityCode, languageCode, cityModel, pathname, languages }: Ci
 
   useEffect(() => {
     const currentFeature =
-      data?.features.find((feature: PoiFeature) => feature.properties.urlSlug === selectedFeatureSlug) ?? null
+      data?.features.find((feature: PoiFeature) => feature.properties.urlSlug === normalizedUrlSlug) ?? null
     setCurrentFeature(currentFeature)
-
     const coordinates = currentFeature?.geometry.coordinates ?? []
     if (mapRef && coordinates[0] && coordinates[1] && snapPoint === 1) {
       const coords: LngLatLike = [coordinates[0], coordinates[1]]
-      mapRef.flyTo({
-        center: coords,
-        zoom: detailZoom,
-        padding: { bottom: height * midSnapPercentage },
-      })
+      // TODO IGAPP-1154 - remove setTimeout
+      setTimeout(
+        () =>
+          mapRef.flyTo({
+            center: coords,
+            zoom: detailZoom,
+            padding: { bottom: viewportSmall ? height * midSnapPercentage : 0 },
+          }),
+        0
+      )
     }
-  }, [mapRef, data, selectedFeatureSlug, height, snapPoint])
+  }, [mapRef, data, normalizedUrlSlug, height, snapPoint, viewportSmall])
 
   if (buildConfig().featureFlags.developerFriendly) {
     log('To use geolocation in a development build you have to start the dev server with\n "yarn start --https"')

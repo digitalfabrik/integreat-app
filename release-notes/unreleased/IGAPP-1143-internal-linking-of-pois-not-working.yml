@@ -1,0 +1,8 @@
+issue_key: IGAPP-1135
+show_in_stores: true
+platforms:
+  - web
+  - android
+  - ios
+en: Fix internal linking of locations.
+de: Fehler bei der internen Verlinkung von Orten behoben.
