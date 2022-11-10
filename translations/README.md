@@ -55,6 +55,11 @@ they can be submitted to professionals for translations as follows:
   - `yarn import:ods:override-aschaffenburg`
 - Review the changes carefully.
 
+**Warning:** Make sure to check the received translations on mistakes. For example make sure that our placeholders are not translated.
+The following regex can be used to find invalid placeholders:
+
+> \{\{(?!appName|message|distance|version|beds|location)[^}]\*}}
+
 ## Conversion between JSON, CSV and ODS
 
 External translators generally need csv or ods files.

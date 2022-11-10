@@ -30,7 +30,7 @@ const TilesRow = styled.div`
  */
 const Tiles = ({ title, tiles }: TilesProps): ReactElement => (
   <div>
-    {title && <Caption title={title} />}
+    {!!title && <Caption title={title} />}
     <TilesRow>
       {tiles.map(tile => (
         <Tile key={tile.path} tile={tile} />

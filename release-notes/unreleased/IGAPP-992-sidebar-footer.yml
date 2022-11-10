@@ -1,0 +1,5 @@
+issue_key: IGAPP-992
+show_in_stores: true
+platforms:
+  - web
+en: Move the footer to the sidebar on the mobile map page

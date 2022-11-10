@@ -14,7 +14,7 @@ import {
   SHELTER_ROUTE,
   SPRUNGBRETT_OFFER_ROUTE,
 } from '.'
-import { nameQueryParam, NonNullableRouteInformationType } from '..'
+import { NonNullableRouteInformationType } from '..'
 
 type CityContentRouteUrlType = {
   cityCode: string
@@ -68,8 +68,8 @@ export const pathnameFromRouteInformation = (routeInformation: NonNullableRouteI
   if (routeInformation.route === POIS_ROUTE) {
     const { cityCode, languageCode, route, urlSlug } = routeInformation
     const pathname = constructPathname([cityCode, languageCode, route])
-    //  https://integreat.app/augsburg/de/locations, https://integreat.app/augsburg/de/locations?name=tuer-an-tuer
-    return urlSlug ? `${pathname}?${nameQueryParam}=${urlSlug}` : pathname
+    //  https://integreat.app/augsburg/de/locations, https://integreat.app/augsburg/de/locations/tuer-an-tuer
+    return urlSlug ? `${pathname}/${urlSlug}` : pathname
   }
   if (
     routeInformation.route === DISCLAIMER_ROUTE ||

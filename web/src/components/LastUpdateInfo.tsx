@@ -1,6 +1,6 @@
 import { Moment } from 'moment'
 import React, { ReactElement } from 'react'
-import { TFunction, withTranslation } from 'react-i18next'
+import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
 
 import DateFormatter from 'api-client/src/i18n/DateFormatter'
@@ -14,7 +14,6 @@ const TimeStamp = styled.p`
 
 type LastUpdateInfoProps = {
   lastUpdate: Moment
-  t: TFunction
   withText: boolean
   format?: string
   className?: string
@@ -23,12 +22,12 @@ type LastUpdateInfoProps = {
 
 export const LastUpdateInfo = ({
   lastUpdate,
-  t,
   withText,
   className,
   formatter,
   format = 'LL',
 }: LastUpdateInfoProps): ReactElement => {
+  const { t } = useTranslation('common')
   // only show day, month and year
   const timestamp = formatter.format(lastUpdate, { format })
   return (
@@ -38,4 +37,4 @@ export const LastUpdateInfo = ({
   )
 }
 
-export default withTranslation('common')(LastUpdateInfo)
+export default LastUpdateInfo

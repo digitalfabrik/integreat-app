@@ -78,7 +78,7 @@ const PoiListItem = ({ poi, selectFeature }: PoiListItemProps): ReactElement => 
         <Thumbnail alt='' src={thumbnail || PoiPlaceholder} />
         <Description>
           <Title>{title}</Title>
-          {distance && <Distance>{t('distanceKilometre', { distance })}</Distance>}
+          {!!distance && <Distance>{t('distanceKilometre', { distance })}</Distance>}
         </Description>
       </LinkContainer>
     </ListItemContainer>

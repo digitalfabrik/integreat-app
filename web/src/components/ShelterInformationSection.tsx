@@ -103,16 +103,16 @@ const ShelterInformationSection = ({
     <Container extended={extended} elevated={elevated}>
       <Row>
         <Title>{title}</Title>
-        {titleHint && <TitleHint>{titleHint}</TitleHint>}
-        {label && <Label>{label}</Label>}
+        {!!titleHint && <TitleHint>{titleHint}</TitleHint>}
+        {!!label && <Label>{label}</Label>}
       </Row>
       <RowDetail singleColumn={viewportSmall || singleColumn}>
         {information.map(({ text, icon, rightText, link, tooltip }) => {
           const content = (
             <>
-              {icon && <img alt={tooltip} src={icon} />}
+              {!!icon && <img alt={tooltip} src={icon} />}
               <DetailText hasText={!!rightText}>{text}</DetailText>
-              {rightText && <RightTextContainer>{rightText}</RightTextContainer>}
+              {!!rightText && <RightTextContainer>{rightText}</RightTextContainer>}
             </>
           )
           return (

@@ -17,7 +17,7 @@ jest.mock('api-client', () => ({
   createPOIsEndpoint: () => ({
     request: mockRequest,
   }),
-  useLoadFromEndpoint: async (request: any) => {
+  useLoadFromEndpoint: async (request: () => unknown) => {
     const data = await request()
     return { loading: false, error: null, refresh: jest.fn(), data }
   },
