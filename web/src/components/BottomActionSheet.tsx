@@ -56,7 +56,7 @@ const BottomActionSheet = React.forwardRef(
         open
         scrollLocking={false}
         blocking={false}
-        header={!!title && <Title>{title}</Title>}
+        header={title ? <Title>{title}</Title> : null}
         snapPoints={({ maxHeight }) => getSnapPoints(maxHeight)}
         defaultSnap={({ snapPoints }) => snapPoints[1]!}>
         <ListContainer ref={listRef}>{children}</ListContainer>
