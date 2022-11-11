@@ -1,19 +1,18 @@
-import React, { ReactElement, useCallback, useContext, useEffect } from 'react'
+import React, { ReactElement, useCallback, useContext } from 'react'
 import { useDispatch } from 'react-redux'
 
 import { ErrorCode, EVENTS_ROUTE, EventsRouteType } from 'api-client'
 
-import Header from '../components/Header'
 import LanguageNotAvailablePage from '../components/LanguageNotAvailablePage'
 import { StaticServerContext } from '../components/StaticServerProvider'
 import { NavigationProps, RouteProps } from '../constants/NavigationTypes'
 import useCityAppContext from '../hooks/useCityAppContext'
+import useHeader from '../hooks/useHeader'
 import useLoadEvents from '../hooks/useLoadEvents'
 import useOnLanguageChange from '../hooks/useOnLanguageChange'
 import useSetShareUrl from '../hooks/useSetShareUrl'
 import createNavigate from '../navigation/createNavigate'
 import createNavigateToFeedbackModal from '../navigation/createNavigateToFeedbackModal'
-import navigateToLanguageChange from '../navigation/navigateToLanguageChange'
 import Events from './Events'
 import LoadingErrorHandler from './LoadingErrorHandler'
 
@@ -36,35 +35,7 @@ const EventsContainer = ({ navigation, route }: EventsContainerProps): ReactElem
     ? Object.keys(currentEvent.availableLanguageSlugs)
     : data?.languages.map(it => it.code)
 
-  useEffect(() => {
-    const goToLanguageChange =
-      data && availableLanguages
-        ? () => {
-            navigateToLanguageChange({
-              navigation,
-              languageCode,
-              languages: data.languages,
-              cityCode,
-              availableLanguages,
-            })
-          }
-        : undefined
-    navigation.setOptions({
-      // Only run on use effect dependency changes which means it is re-rendered anyway since props change
-      // eslint-disable-next-line react/no-unstable-nested-components
-      header: () => (
-        <Header
-          route={route}
-          navigation={navigation}
-          peeking={false}
-          categoriesAvailable
-          language={languageCode}
-          routeCityModel={data?.city}
-          goToLanguageChange={goToLanguageChange}
-        />
-      ),
-    })
-  }, [route, navigation, cityCode, languageCode, data, availableLanguages])
+  useHeader({ navigation, route, availableLanguages, languages: data?.languages, languageCode, city: data?.city })
 
   const onLanguageChange = useCallback(
     (newLanguage: string) => {
