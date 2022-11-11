@@ -77,7 +77,7 @@ class PoiModel extends ExtendedPageModel {
         symbol: mapMarker.symbol,
         thumbnail: this.thumbnail,
         path: this.path,
-        urlSlug: this.slug,
+        slug: this.slug,
         address,
         closeToOtherPoi: false,
       },
