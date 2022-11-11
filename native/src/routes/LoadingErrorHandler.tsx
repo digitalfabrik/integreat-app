@@ -7,7 +7,9 @@ import Failure from '../components/Failure'
 import Layout from '../components/Layout'
 import LayoutedScrollView from '../components/LayoutedScrollView'
 import ProgressSpinner from '../components/ProgressSpinner'
-import { LOADING_TIMEOUT } from '../hocs/withPayloadProvider'
+
+// A waiting time of >=1s feels like an interruption
+export const LOADING_TIMEOUT = 800
 
 type LoadingErrorHandlerProps = {
   children?: ReactNode
