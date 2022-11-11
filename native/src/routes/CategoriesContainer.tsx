@@ -1,5 +1,4 @@
 import React, { ReactElement, useCallback, useContext } from 'react'
-import { useDispatch } from 'react-redux'
 import styled from 'styled-components/native'
 
 import { CATEGORIES_ROUTE, CategoriesRouteType, cityContentPath, ErrorCode, NotFoundError } from 'api-client'
@@ -13,9 +12,9 @@ import { NavigationProps, RouteProps } from '../constants/NavigationTypes'
 import useCityAppContext from '../hooks/useCityAppContext'
 import useHeader from '../hooks/useHeader'
 import useLoadCategories from '../hooks/useLoadCategories'
+import useNavigate from '../hooks/useNavigate'
 import useOnLanguageChange from '../hooks/useOnLanguageChange'
 import useSetShareUrl from '../hooks/useSetShareUrl'
-import createNavigate from '../navigation/createNavigate'
 import createNavigateToFeedbackModal from '../navigation/createNavigateToFeedbackModal'
 import testID from '../testing/testID'
 import LoadingErrorHandler from './LoadingErrorHandler'
@@ -31,9 +30,8 @@ type CategoriesContainerProps = {
 
 const CategoriesContainer = ({ navigation, route }: CategoriesContainerProps): ReactElement => {
   const { cityCode, languageCode } = useCityAppContext()
-  const dispatch = useDispatch()
   const resourceCacheUrl = useContext(StaticServerContext)
-  const navigateTo = createNavigate(dispatch, navigation)
+  const { navigateTo } = useNavigate()
 
   const response = useLoadCategories({ cityCode, languageCode })
   const { data } = response

@@ -6,7 +6,6 @@ import Header from '../components/Header'
 import { RoutesType, RouteProps, NavigationProps } from '../constants/NavigationTypes'
 import navigateToLanguageChange from '../navigation/navigateToLanguageChange'
 import { StateType } from '../redux/StateType'
-import isPeekingRoute from '../redux/selectors/isPeekingRoute'
 
 type OwnProps = {
   route: RouteProps<RoutesType>
@@ -14,9 +13,7 @@ type OwnProps = {
 }
 
 type StateProps = {
-  language: string
   goToLanguageChange?: () => void
-  peeking: boolean
   categoriesAvailable: boolean
   routeCityModel?: CityModel
 }
@@ -35,9 +32,7 @@ const mapStateToProps = (state: StateType, ownProps: OwnProps): StateProps => {
     // Route does not exist yet. In this case it is not really defined whether we are peek or not because
     // we do not yet know the city of the route.
     return {
-      language: contentLanguage,
       routeCityModel,
-      peeking: false,
       categoriesAvailable: false,
     }
   }
@@ -52,14 +47,8 @@ const mapStateToProps = (state: StateType, ownProps: OwnProps): StateProps => {
     })
   }
 
-  const peeking = isPeekingRoute(state, {
-    routeCity: route.city,
-  })
-  const { language } = route
   return {
-    peeking,
     routeCityModel,
-    language,
     goToLanguageChange,
     categoriesAvailable,
   }

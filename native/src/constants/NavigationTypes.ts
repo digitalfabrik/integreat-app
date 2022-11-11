@@ -72,10 +72,6 @@ type ShareUrlType = {
   shareUrl: string
 }
 
-type CityContentParamsType = {
-  cityCode: string
-  languageCode: string
-}
 type BasicParams = {
   shareUrl?: string
 }
@@ -98,19 +94,18 @@ export type RoutesParamsType = {
   [EVENTS_ROUTE]: BasicParams & {
     slug?: string
   }
-  [NEWS_ROUTE]: BasicParams &
-    CityContentParamsType & {
-      newsId: string | null
-      newsType: NewsType
-    }
-  [DISCLAIMER_ROUTE]: BasicParams & CityContentParamsType
-  [OFFERS_ROUTE]: BasicParams & CityContentParamsType
+  [NEWS_ROUTE]: BasicParams & {
+    newsId: string | null
+    newsType: NewsType
+  }
+  [DISCLAIMER_ROUTE]: BasicParams
+  [OFFERS_ROUTE]: BasicParams
   [JPAL_TRACKING_ROUTE]: BasicParams
   [EXTERNAL_OFFER_ROUTE]: BasicParams & {
     url: string
     postData: Map<string, string> | null | undefined
   }
-  [SPRUNGBRETT_OFFER_ROUTE]: BasicParams & CityContentParamsType
+  [SPRUNGBRETT_OFFER_ROUTE]: BasicParams
   [SETTINGS_ROUTE]: undefined
   [SEARCH_ROUTE]: undefined
   [LICENSES_ROUTE]: undefined
