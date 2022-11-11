@@ -23,7 +23,7 @@ const SearchModalContainer = ({ navigation }: SearchModalContainerProps): ReactE
   const { navigateTo } = useNavigate()
 
   return (
-    <LoadingErrorHandler {...response} scrollView>
+    <LoadingErrorHandler {...response}>
       {data && (
         <SearchModal
           cityCode={cityCode}

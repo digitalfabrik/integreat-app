@@ -51,7 +51,7 @@ const SprungbrettOffer = ({
       }
       Footer={<SiteHelpfulBox navigateToFeedback={navigateToFeedback} />}
       refresh={refresh}
-      noItemsMessage={t('currentlyNoEvents')}
+      noItemsMessage={t('noOffersAvailable')}
     />
   )
 }
