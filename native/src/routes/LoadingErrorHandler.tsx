@@ -9,7 +9,7 @@ import LayoutedScrollView from '../components/LayoutedScrollView'
 import ProgressSpinner from '../components/ProgressSpinner'
 
 // A waiting time of >=1s feels like an interruption
-export const LOADING_TIMEOUT = 800
+const LOADING_TIMEOUT = 800
 
 type LoadingErrorHandlerProps = {
   children?: ReactNode
