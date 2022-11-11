@@ -16,6 +16,7 @@ import Failure from '../components/Failure'
 import LayoutedScrollView from '../components/LayoutedScrollView'
 import SiteHelpfulBox from '../components/SiteHelpfulBox'
 import { NavigationProps, RouteProps } from '../constants/NavigationTypes'
+import useCityAppContext from '../hooks/useCityAppContext'
 import useReportError from '../hooks/useReportError'
 import useSetShareUrl from '../hooks/useSetShareUrl'
 import createNavigateToFeedbackModal from '../navigation/createNavigateToFeedbackModal'
@@ -29,7 +30,7 @@ type DisclaimerContainerProps = {
 }
 
 const DisclaimerContainer = ({ navigation, route }: DisclaimerContainerProps): ReactElement => {
-  const { cityCode, languageCode } = route.params
+  const { cityCode, languageCode } = useCityAppContext()
   const resourceCacheUrl = useSelector<StateType, string | null>(state => state.resourceCacheUrl)
 
   const routeInformation = { route: DISCLAIMER_ROUTE, languageCode, cityCode }

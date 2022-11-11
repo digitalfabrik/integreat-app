@@ -1,7 +1,11 @@
-import { OPEN_INTERNAL_LINK_SIGNAL_NAME, OPEN_MEDIA_SIGNAL_NAME } from 'api-client'
-import { IMAGE_VIEW_MODAL_ROUTE, PDF_VIEW_MODAL_ROUTE } from 'api-client/src/routes'
-import InternalPathnameParser from 'api-client/src/routes/InternalPathnameParser'
-import { RouteInformationType } from 'api-client/src/routes/RouteInformationTypes'
+import {
+  IMAGE_VIEW_MODAL_ROUTE,
+  InternalPathnameParser,
+  OPEN_INTERNAL_LINK_SIGNAL_NAME,
+  OPEN_MEDIA_SIGNAL_NAME,
+  PDF_VIEW_MODAL_ROUTE,
+  RouteInformationType,
+} from 'api-client'
 
 import { NavigationProps, RoutesType } from '../constants/NavigationTypes'
 import buildConfig from '../constants/buildConfig'
@@ -16,7 +20,7 @@ const navigateToLink = async <T extends RoutesType>(
   url: string,
   navigation: NavigationProps<T>,
   language: string,
-  navigateTo: (arg0: RouteInformationType) => void,
+  navigateTo: (routeInformation: RouteInformationType) => void,
   shareUrl: string
 ): Promise<void> => {
   if (url.includes('.pdf')) {
