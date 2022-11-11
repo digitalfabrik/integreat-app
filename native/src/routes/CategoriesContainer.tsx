@@ -1,4 +1,4 @@
-import React, { ReactElement, useCallback, useContext, useEffect } from 'react'
+import React, { ReactElement, useCallback, useContext } from 'react'
 import { useDispatch } from 'react-redux'
 import styled from 'styled-components/native'
 
@@ -6,18 +6,17 @@ import { CATEGORIES_ROUTE, CategoriesRouteType, cityContentPath, ErrorCode, NotF
 
 import Categories from '../components/Categories'
 import DashboardNavigationTiles from '../components/DashboardNavigationTiles'
-import Header from '../components/Header'
 import LanguageNotAvailablePage from '../components/LanguageNotAvailablePage'
 import SpaceBetween from '../components/SpaceBetween'
 import { StaticServerContext } from '../components/StaticServerProvider'
 import { NavigationProps, RouteProps } from '../constants/NavigationTypes'
 import useCityAppContext from '../hooks/useCityAppContext'
+import useHeader from '../hooks/useHeader'
 import useLoadCategories from '../hooks/useLoadCategories'
 import useOnLanguageChange from '../hooks/useOnLanguageChange'
 import useSetShareUrl from '../hooks/useSetShareUrl'
 import createNavigate from '../navigation/createNavigate'
 import createNavigateToFeedbackModal from '../navigation/createNavigateToFeedbackModal'
-import navigateToLanguageChange from '../navigation/navigateToLanguageChange'
 import testID from '../testing/testID'
 import LoadingErrorHandler from './LoadingErrorHandler'
 
@@ -44,35 +43,7 @@ const CategoriesContainer = ({ navigation, route }: CategoriesContainerProps): R
   const availableLanguages =
     category && !category.isRoot() ? Array.from(category.availableLanguages.keys()) : data?.languages.map(it => it.code)
 
-  useEffect(() => {
-    const goToLanguageChange =
-      data && availableLanguages
-        ? () => {
-            navigateToLanguageChange({
-              navigation,
-              languageCode,
-              languages: data.languages,
-              cityCode,
-              availableLanguages,
-            })
-          }
-        : undefined
-    navigation.setOptions({
-      // Only run on use effect dependency changes which means it is re-rendered anyway since props change
-      // eslint-disable-next-line react/no-unstable-nested-components
-      header: () => (
-        <Header
-          route={route}
-          navigation={navigation}
-          peeking={false}
-          categoriesAvailable
-          language={languageCode}
-          routeCityModel={data?.city}
-          goToLanguageChange={goToLanguageChange}
-        />
-      ),
-    })
-  }, [route, navigation, cityCode, languageCode, data, availableLanguages])
+  useHeader({ navigation, route, availableLanguages, languages: data?.languages, languageCode, city: data?.city })
 
   const onLanguageChange = useCallback(
     (newLanguage: string) => {
