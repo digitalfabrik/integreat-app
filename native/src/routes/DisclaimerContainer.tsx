@@ -1,28 +1,24 @@
-import React, { ReactElement, useCallback } from 'react'
-import { RefreshControl } from 'react-native'
-import { useSelector } from 'react-redux'
+import React, { ReactElement, useCallback, useContext } from 'react'
 
 import {
   createDisclaimerEndpoint,
   DISCLAIMER_ROUTE,
   DisclaimerRouteType,
-  fromError,
   PageModel,
   useLoadFromEndpoint,
   getSlug,
 } from 'api-client'
 
-import Failure from '../components/Failure'
-import LayoutedScrollView from '../components/LayoutedScrollView'
 import SiteHelpfulBox from '../components/SiteHelpfulBox'
+import { StaticServerContext } from '../components/StaticServerProvider'
 import { NavigationProps, RouteProps } from '../constants/NavigationTypes'
 import useCityAppContext from '../hooks/useCityAppContext'
 import useReportError from '../hooks/useReportError'
 import useSetShareUrl from '../hooks/useSetShareUrl'
 import createNavigateToFeedbackModal from '../navigation/createNavigateToFeedbackModal'
-import { StateType } from '../redux/StateType'
 import { determineApiUrl } from '../utils/helpers'
 import Disclaimer from './Disclaimer'
+import LoadingErrorHandler from './LoadingErrorHandler'
 
 type DisclaimerContainerProps = {
   route: RouteProps<DisclaimerRouteType>
@@ -31,7 +27,7 @@ type DisclaimerContainerProps = {
 
 const DisclaimerContainer = ({ navigation, route }: DisclaimerContainerProps): ReactElement => {
   const { cityCode, languageCode } = useCityAppContext()
-  const resourceCacheUrl = useSelector<StateType, string | null>(state => state.resourceCacheUrl)
+  const resourceCacheUrl = useContext(StaticServerContext)
 
   const routeInformation = { route: DISCLAIMER_ROUTE, languageCode, cityCode }
   useSetShareUrl({ navigation, routeInformation, route })
@@ -43,8 +39,8 @@ const DisclaimerContainer = ({ navigation, route }: DisclaimerContainerProps): R
       language: languageCode,
     })
   }, [cityCode, languageCode])
-  const { data: disclaimer, error, loading, refresh } = useLoadFromEndpoint<PageModel>(request)
-  useReportError(error)
+  const { data: disclaimer, ...response } = useLoadFromEndpoint<PageModel>(request)
+  useReportError(response.error)
 
   const navigateToFeedback = (isPositiveFeedback: boolean) => {
     createNavigateToFeedbackModal(navigation)({
@@ -56,21 +52,15 @@ const DisclaimerContainer = ({ navigation, route }: DisclaimerContainerProps): R
     })
   }
 
-  if (error) {
-    return (
-      <LayoutedScrollView refreshControl={<RefreshControl onRefresh={refresh} refreshing={loading} />}>
-        <Failure code={fromError(error)} tryAgain={refresh} />
-      </LayoutedScrollView>
-    )
-  }
-
   return (
-    <LayoutedScrollView refreshControl={<RefreshControl onRefresh={refresh} refreshing={loading} />}>
-      {!!disclaimer && !!resourceCacheUrl && (
-        <Disclaimer resourceCacheUrl={resourceCacheUrl} disclaimer={disclaimer} language={languageCode} />
+    <LoadingErrorHandler {...response} scrollView>
+      {disclaimer && (
+        <>
+          <Disclaimer resourceCacheUrl={resourceCacheUrl} disclaimer={disclaimer} language={languageCode} />
+          <SiteHelpfulBox navigateToFeedback={navigateToFeedback} />
+        </>
       )}
-      <SiteHelpfulBox navigateToFeedback={navigateToFeedback} />
-    </LayoutedScrollView>
+    </LoadingErrorHandler>
   )
 }
 
