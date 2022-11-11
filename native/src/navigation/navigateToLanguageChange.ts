@@ -10,12 +10,10 @@ const navigateToLanguageChange = <T extends RoutesType>({
   languageCode,
   languages,
   availableLanguages,
-  previousKey,
 }: {
   navigation: NavigationProps<T>
   cityCode: string
   languageCode: string
-  previousKey?: string
   languages: Array<LanguageModel>
   availableLanguages: Array<string>
 }): void => {
