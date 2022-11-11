@@ -37,7 +37,7 @@ export const Container = styled.div`
   }
 `
 
-export const DropDownContainer = styled.div<{ active: boolean }>`
+export const DropDownContainer = styled.div<{ active: boolean; height?: number }>`
   position: absolute;
   top: ${dimensions.headerHeightLarge}px;
   right: 0;
@@ -56,7 +56,10 @@ export const DropDownContainer = styled.div<{ active: boolean }>`
 
   @media ${dimensions.smallViewport} {
     top: ${dimensions.headerHeightSmall}px;
-    height: 100%;
+    height: ${props =>
+      props.height
+        ? `${props.height}px;`
+        : `100%;`}; /* within the KebabActionItemDropdown the headerHeight has to be considered */
     overflow-x: hidden;
     overflow-y: auto;
   }
