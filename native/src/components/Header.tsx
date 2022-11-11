@@ -182,7 +182,8 @@ const Header = (props: HeaderProps): ReactElement => {
             showShare && renderOverflowItem(HeaderButtonTitle.Share, onShare),
             showChangeLocation && renderOverflowItem(HeaderButtonTitle.Location, goToLanding),
             renderOverflowItem(HeaderButtonTitle.Settings, goToSettings),
-            routeCityModel && renderOverflowItem(HeaderButtonTitle.Disclaimer, goToDisclaimer),
+            // TODO IGAPP-636: Do not show for disclaimer
+            renderOverflowItem(HeaderButtonTitle.Disclaimer, goToDisclaimer),
           ]}
         />
       </Horizontal>

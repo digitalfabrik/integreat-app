@@ -1,5 +1,4 @@
 import React, { ReactElement, useCallback, useContext } from 'react'
-import useNavigate from 'src/hooks/useNavigate'
 
 import { ErrorCode, EVENTS_ROUTE, EventsRouteType } from 'api-client'
 
@@ -9,6 +8,7 @@ import { NavigationProps, RouteProps } from '../constants/NavigationTypes'
 import useCityAppContext from '../hooks/useCityAppContext'
 import useHeader from '../hooks/useHeader'
 import useLoadEvents from '../hooks/useLoadEvents'
+import useNavigate from '../hooks/useNavigate'
 import useOnLanguageChange from '../hooks/useOnLanguageChange'
 import useSetShareUrl from '../hooks/useSetShareUrl'
 import createNavigateToFeedbackModal from '../navigation/createNavigateToFeedbackModal'
