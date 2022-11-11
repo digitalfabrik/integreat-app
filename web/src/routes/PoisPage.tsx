@@ -56,16 +56,16 @@ const moveViewToBBox = (bBox: BBox, defaultVp: MapViewMercatorViewport): MapView
 }
 
 const PoisPage = ({ cityCode, languageCode, cityModel, pathname, languages }: CityRouteProps): ReactElement => {
-  const { urlSlug } = useParams()
-  const normalizedUrlSlug = urlSlug ? normalizePath(urlSlug) : undefined
+  const { slug: unsafeSlug } = useParams()
+  const slug = unsafeSlug ? normalizePath(unsafeSlug) : undefined
   const navigate = useNavigate()
   const { data, error: featureLocationsError, loading } = useFeatureLocations(cityCode, languageCode)
   const [mapRef, setMapRef] = useState<Map | null>(null)
   const [snapPoint, setSnapPoint] = useState<number>(1)
   const [currentFeature, setCurrentFeature] = useState<PoiFeature | null>(
-    data?.features.find(it => it.properties.urlSlug === normalizedUrlSlug) ?? null
+    data?.features.find(it => it.properties.slug === slug) ?? null
   )
-  const poi = data?.pois.find(it => it.slug === normalizedUrlSlug)
+  const poi = data?.pois.find(it => it.slug === slug)
   const { viewportSmall, height } = useWindowDimensions()
   const sheetRef = useRef<BottomSheetRef>(null)
   const [feedbackModalRating, setFeedbackModalRating] = useState<FeedbackRatingType | null>(null)
@@ -75,7 +75,7 @@ const PoisPage = ({ cityCode, languageCode, cityModel, pathname, languages }: Ci
     if (mapRef?.isMoving()) {
       mapRef.stop()
     }
-    navigate(feature?.properties.urlSlug ?? '.')
+    navigate(feature?.properties.slug ?? '.')
   }
 
   const updateMapRef = useCallback(node => {
@@ -88,8 +88,7 @@ const PoisPage = ({ cityCode, languageCode, cityModel, pathname, languages }: Ci
   }, [])
 
   useEffect(() => {
-    const currentFeature =
-      data?.features.find((feature: PoiFeature) => feature.properties.urlSlug === normalizedUrlSlug) ?? null
+    const currentFeature = data?.features.find((feature: PoiFeature) => feature.properties.slug === slug) ?? null
     setCurrentFeature(currentFeature)
     const coordinates = currentFeature?.geometry.coordinates ?? []
     if (mapRef && coordinates[0] && coordinates[1] && snapPoint === 1) {
@@ -105,7 +104,7 @@ const PoisPage = ({ cityCode, languageCode, cityModel, pathname, languages }: Ci
         0
       )
     }
-  }, [mapRef, data, normalizedUrlSlug, height, snapPoint, viewportSmall])
+  }, [mapRef, data, slug, height, snapPoint, viewportSmall])
 
   if (buildConfig().featureFlags.developerFriendly) {
     log('To use geolocation in a development build you have to start the dev server with\n "yarn start --https"')
@@ -191,7 +190,7 @@ const PoisPage = ({ cityCode, languageCode, cityModel, pathname, languages }: Ci
 
   const switchFeature = (step: 1 | -1) => {
     const featureIndex = data.features.findIndex(
-      (poi: PoiFeature) => poi.properties.urlSlug === currentFeature?.properties.urlSlug
+      (poi: PoiFeature) => poi.properties.slug === currentFeature?.properties.slug
     )
     const updatedIndex = nextFeatureIndex(step, data.features.length, featureIndex)
     const feature = data.features[updatedIndex]
