@@ -18,6 +18,7 @@ import Layout from '../components/Layout'
 import LayoutedScrollView from '../components/LayoutedScrollView'
 import { NavigationProps, RouteProps } from '../constants/NavigationTypes'
 import useCities from '../hooks/useCities'
+import useCityAppContext from '../hooks/useCityAppContext'
 import useReportError from '../hooks/useReportError'
 import useSetShareUrl from '../hooks/useSetShareUrl'
 import createNavigateToFeedbackModal from '../navigation/createNavigateToFeedbackModal'
@@ -32,7 +33,7 @@ type SprungbrettOfferContainerProps = {
 const SprungbrettOfferContainer = ({ route, navigation }: SprungbrettOfferContainerProps): ReactElement => {
   const cities = useCities()
   const [title, setTitle] = useState<string>('')
-  const { cityCode, languageCode } = route.params
+  const { cityCode, languageCode } = useCityAppContext()
   const alias = SPRUNGBRETT_OFFER_ROUTE
 
   const routeInformation = { route: SPRUNGBRETT_OFFER_ROUTE, languageCode, cityCode }

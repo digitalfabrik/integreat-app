@@ -16,21 +16,21 @@ import {
 
 import buildConfig from '../../constants/buildConfig'
 import createNavigationScreenPropMock from '../../testing/createNavigationPropMock'
+import openExternalUrl from '../../utils/openExternalUrl'
 import sendTrackingSignal from '../../utils/sendTrackingSignal'
-import showSnackbar from '../../utils/showSnackbar'
 import createNavigate from '../createNavigate'
 
 jest.mock('../../utils/sendTrackingSignal')
 jest.mock('../../utils/showSnackbar')
+jest.mock('../../utils/openExternalUrl', () => jest.fn(async () => undefined))
 jest.mock('../url', () => ({
   urlFromRouteInformation: jest.fn(() => 'https://example.com'),
 }))
 
-const dispatch = jest.fn()
 const navigation = createNavigationScreenPropMock()
-const navigateTo = createNavigate(dispatch, navigation)
 const cityCode = 'ansbach'
 const languageCode = 'ro'
+const navigateTo = createNavigate(navigation, cityCode, languageCode)
 const params = {
   cityCode,
   languageCode,
@@ -50,12 +50,6 @@ const mockBuildConfig = (featureFlags: { jpalTracking?: boolean; newsStream?: bo
 describe('createNavigate', () => {
   beforeEach(() => {
     jest.clearAllMocks()
-  })
-
-  it('should show snackbar if empty route information is passed', () => {
-    navigateTo(null)
-    expect(navigation.push).not.toHaveBeenCalled()
-    expect(showSnackbar).toHaveBeenCalled()
   })
 
   it('should navigate to landing', () => {
@@ -97,6 +91,19 @@ describe('createNavigate', () => {
     expect(navigation.push).not.toHaveBeenCalled()
   })
 
+  it('should open route externally if city or language do not match the app settings', () => {
+    const cityContentPath = `/peekingCity/${languageCode}/willkommen`
+    navigateTo({
+      route: CATEGORIES_ROUTE,
+      cityContentPath,
+      cityCode: 'peekingCity',
+      languageCode,
+    })
+    expect(navigation.push).not.toHaveBeenCalled()
+    expect(openExternalUrl).toHaveBeenCalledTimes(1)
+    expect(openExternalUrl).toHaveBeenCalledWith('https://example.com')
+  })
+
   it('should navigate to categories route', () => {
     navigateTo({
       route: CATEGORIES_ROUTE,
@@ -119,7 +126,7 @@ describe('createNavigate', () => {
       route: DISCLAIMER_ROUTE,
       ...params,
     })
-    expect(navigation.push).toHaveBeenCalledWith(DISCLAIMER_ROUTE, params)
+    expect(navigation.push).toHaveBeenCalledWith(DISCLAIMER_ROUTE, {})
     expect(navigation.push).toHaveBeenCalledTimes(1)
   })
 
@@ -128,7 +135,7 @@ describe('createNavigate', () => {
       route: OFFERS_ROUTE,
       ...params,
     })
-    expect(navigation.push).toHaveBeenCalledWith(OFFERS_ROUTE, params)
+    expect(navigation.push).toHaveBeenCalledWith(OFFERS_ROUTE, {})
     expect(navigation.push).toHaveBeenCalledTimes(1)
   })
 

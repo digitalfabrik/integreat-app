@@ -41,9 +41,7 @@ const useHeader = <T extends RoutesType>({
         <Header
           route={route}
           navigation={navigation}
-          peeking={false}
           categoriesAvailable
-          language={languageCode}
           routeCityModel={city}
           goToLanguageChange={goToLanguageChange}
         />
