@@ -19,17 +19,7 @@ import createNavigationScreenPropMock from '../../testing/createNavigationPropMo
 import sendTrackingSignal from '../../utils/sendTrackingSignal'
 import showSnackbar from '../../utils/showSnackbar'
 import createNavigate from '../createNavigate'
-import navigateToDisclaimer from '../navigateToDisclaimer'
-import navigateToNews from '../navigateToNews'
-import navigateToOffers from '../navigateToOffers'
-import navigateToPois from '../navigateToPois'
-import navigateToSearch from '../navigateToSearch'
 
-jest.mock('../navigateToDisclaimer')
-jest.mock('../navigateToOffers')
-jest.mock('../navigateToPois')
-jest.mock('../navigateToSearch')
-jest.mock('../navigateToNews')
 jest.mock('../../utils/sendTrackingSignal')
 jest.mock('../../utils/showSnackbar')
 jest.mock('../url', () => ({
@@ -44,12 +34,8 @@ const languageCode = 'ro'
 const params = {
   cityCode,
   languageCode,
-  forceRefresh: undefined,
-  key: undefined,
 }
 const cityContentPath = `/${cityCode}/${languageCode}`
-const key = 'some-route-1234'
-const forceRefresh = false
 
 const mockedBuildConfig = mocked(buildConfig)
 
@@ -65,38 +51,14 @@ describe('createNavigate', () => {
   beforeEach(() => {
     jest.clearAllMocks()
   })
-  const allMocks = [
-    navigateToNews,
-    navigateToSearch,
-    navigateToPois,
-    navigateToDisclaimer,
-    navigateToOffers,
-    navigation.navigate,
-    navigation.push,
-    navigation.reset,
-  ]
-
-  const assertNotCalled = (mocks: Array<CallableFunction>) =>
-    mocks.forEach(mock => expect(mocked(mock)).not.toHaveBeenCalled())
-
-  const assertOnlyCalled = (mocks: Array<CallableFunction>, times = 1) => {
-    mocks.map(m => mocked(m))
-    allMocks.forEach(mock => {
-      if (mocks.includes(mock)) {
-        expect(mock).toHaveBeenCalledTimes(times)
-      } else {
-        expect(mock).not.toHaveBeenCalled()
-      }
-    })
-  }
 
   it('should show snackbar if empty route information is passed', () => {
     navigateTo(null)
-    assertNotCalled(allMocks)
+    expect(navigation.push).not.toHaveBeenCalled()
     expect(showSnackbar).toHaveBeenCalled()
   })
 
-  it('should call navigateToLanding', () => {
+  it('should navigate to landing', () => {
     navigateTo({
       route: LANDING_ROUTE,
       languageCode,
@@ -108,12 +70,11 @@ describe('createNavigate', () => {
         url: 'https://example.com',
       },
     })
-    assertOnlyCalled([navigation.navigate])
-    expect(navigation.navigate).toHaveBeenCalledWith(LANDING_ROUTE)
-    expect(navigation.navigate).toHaveBeenCalledTimes(1)
+    expect(navigation.push).toHaveBeenCalledWith(LANDING_ROUTE)
+    expect(navigation.push).toHaveBeenCalledTimes(1)
   })
 
-  it('should call navigateToJpalTracking', () => {
+  it('should navigate to jpal tracking', () => {
     mockBuildConfig({
       jpalTracking: true,
     })
@@ -121,12 +82,11 @@ describe('createNavigate', () => {
       route: JPAL_TRACKING_ROUTE,
       trackingCode: 'abcdef123456',
     })
-    assertOnlyCalled([navigation.navigate])
-    expect(navigation.navigate).toHaveBeenCalledWith(JPAL_TRACKING_ROUTE, {})
-    expect(navigation.navigate).toHaveBeenCalledTimes(1)
+    expect(navigation.push).toHaveBeenCalledWith(JPAL_TRACKING_ROUTE, {})
+    expect(navigation.push).toHaveBeenCalledTimes(1)
   })
 
-  it('should not call navigateToJpalTracking if it is disabled in the build config', () => {
+  it('should not navigate to jpal tracking if it is disabled in the build config', () => {
     mockBuildConfig({
       jpalTracking: false,
     })
@@ -134,21 +94,17 @@ describe('createNavigate', () => {
       route: JPAL_TRACKING_ROUTE,
       trackingCode: 'abcdef123456',
     })
-    assertNotCalled(allMocks)
+    expect(navigation.push).not.toHaveBeenCalled()
   })
 
-  it('should call navigation.push for categories route', () => {
-    navigateTo(
-      {
-        route: CATEGORIES_ROUTE,
-        cityContentPath,
-        ...params,
-      },
-      key,
-      forceRefresh
-    )
-    assertOnlyCalled([navigation.push])
+  it('should navigate to categories route', () => {
+    navigateTo({
+      route: CATEGORIES_ROUTE,
+      cityContentPath,
+      ...params,
+    })
     expect(navigation.push).toHaveBeenCalledWith(CATEGORIES_ROUTE, { path: cityContentPath })
+    expect(navigation.push).toHaveBeenCalledTimes(1)
     expect(sendTrackingSignal).toHaveBeenCalledWith({
       signal: {
         name: OPEN_PAGE_SIGNAL_NAME,
@@ -158,152 +114,106 @@ describe('createNavigate', () => {
     })
   })
 
-  it('should call navigateToDisclaimer for disclaimer route', () => {
+  it('should navigate to disclaimer route', () => {
     navigateTo({
       route: DISCLAIMER_ROUTE,
       ...params,
     })
-    assertOnlyCalled([navigateToDisclaimer])
-    expect(navigateToDisclaimer).toHaveBeenCalledWith({
-      dispatch,
-      navigation,
-      ...params,
-    })
+    expect(navigation.push).toHaveBeenCalledWith(DISCLAIMER_ROUTE, params)
+    expect(navigation.push).toHaveBeenCalledTimes(1)
   })
 
-  it('should call navigateToOffers for offer route', () => {
+  it('should navigate to offers route', () => {
     navigateTo({
       route: OFFERS_ROUTE,
       ...params,
     })
-    assertOnlyCalled([navigateToOffers])
-    expect(navigateToOffers).toHaveBeenCalledWith({
-      dispatch,
-      navigation,
-      ...params,
-    })
+    expect(navigation.push).toHaveBeenCalledWith(OFFERS_ROUTE, params)
+    expect(navigation.push).toHaveBeenCalledTimes(1)
   })
 
-  it('should call navigation.push for events route', () => {
+  it('should navigate to events route', () => {
     navigateTo({
       route: EVENTS_ROUTE,
       ...params,
       slug: '1234',
     })
     expect(navigation.push).toHaveBeenCalledWith(EVENTS_ROUTE, { slug: '1234' })
-    navigateTo(
-      {
-        route: EVENTS_ROUTE,
-        ...params,
-      },
-      key,
-      forceRefresh
-    )
+    navigateTo({
+      route: EVENTS_ROUTE,
+      ...params,
+    })
     expect(navigation.push).toHaveBeenCalledWith(EVENTS_ROUTE, { slug: undefined })
-    assertOnlyCalled([navigation.push], 2)
+    expect(navigation.push).toHaveBeenCalledTimes(2)
   })
 
-  it('should call navigateToNews for news route', () => {
+  it('should navigate to news route', () => {
     mockBuildConfig({
       newsStream: true,
     })
-    navigateTo(
-      {
-        route: NEWS_ROUTE,
-        ...params,
-        newsType: LOCAL_NEWS_TYPE,
-        newsId: '1234',
-      },
-      key,
-      forceRefresh
-    )
-    assertOnlyCalled([navigateToNews])
-    expect(navigateToNews).toHaveBeenCalledWith({
-      dispatch,
-      navigation,
+    navigateTo({
+      route: NEWS_ROUTE,
       ...params,
-      type: LOCAL_NEWS_TYPE,
+      newsType: LOCAL_NEWS_TYPE,
       newsId: '1234',
     })
+    expect(navigation.push).toHaveBeenCalledWith(NEWS_ROUTE, {
+      ...params,
+      newsType: LOCAL_NEWS_TYPE,
+      newsId: '1234',
+    })
+    expect(navigation.push).toHaveBeenCalledTimes(1)
   })
 
-  it('should not call navigateToNews if it is not enabled in build config', () => {
+  it('should not navigate to news if it is not enabled in build config', () => {
     mockBuildConfig({
       newsStream: false,
     })
-    navigateTo(
-      {
-        route: NEWS_ROUTE,
-        ...params,
-        newsType: LOCAL_NEWS_TYPE,
-        newsId: '1234',
-      },
-      key,
-      forceRefresh
-    )
-    assertNotCalled(allMocks)
+    navigateTo({
+      route: NEWS_ROUTE,
+      ...params,
+      newsType: LOCAL_NEWS_TYPE,
+      newsId: '1234',
+    })
+    expect(navigation.push).not.toHaveBeenCalled()
   })
 
-  it('should call navigateToPois for pois route', () => {
+  it('should navigate to pois route', () => {
     mockBuildConfig({
       pois: true,
-    })
-    navigateTo(
-      {
-        route: POIS_ROUTE,
-        ...params,
-        slug: '1234',
-      },
-      key,
-      forceRefresh
-    )
-    expect(navigateToPois).toHaveBeenCalledWith({
-      dispatch,
-      navigation,
-      ...params,
-      cityContentPath,
-      forceRefresh,
-      key,
     })
     navigateTo({
       route: POIS_ROUTE,
       ...params,
+      slug: '1234',
     })
-    expect(navigateToPois).toHaveBeenLastCalledWith({
-      dispatch,
-      navigation,
+    expect(navigation.push).toHaveBeenCalledWith(POIS_ROUTE, { slug: '1234' })
+    navigateTo({
+      route: POIS_ROUTE,
       ...params,
-      cityContentPath: undefined,
     })
-    assertOnlyCalled([navigateToPois], 2)
+    expect(navigation.push).toHaveBeenCalledWith(POIS_ROUTE, { slug: undefined })
+    expect(navigation.push).toHaveBeenCalledTimes(2)
   })
 
-  it('should not call navigateToPois if it is not enabled in build config', () => {
+  it('should not navigate to pois if it is not enabled in build config', () => {
     mockBuildConfig({
       pois: false,
     })
-    navigateTo(
-      {
-        route: POIS_ROUTE,
-        ...params,
-        slug: '1234',
-      },
-      key,
-      forceRefresh
-    )
-    assertNotCalled(allMocks)
+    navigateTo({
+      route: POIS_ROUTE,
+      ...params,
+      slug: '1234',
+    })
+    expect(navigation.push).not.toHaveBeenCalled()
   })
 
-  it('should call navigateToSearch for search route', () => {
+  it('should navigate to search', () => {
     navigateTo({
       route: SEARCH_ROUTE,
       ...params,
     })
-    assertOnlyCalled([navigateToSearch])
-    expect(navigateToSearch).toHaveBeenCalledWith({
-      dispatch,
-      navigation,
-      ...params,
-    })
+    expect(navigation.push).toHaveBeenCalledWith(SEARCH_ROUTE)
+    expect(navigation.push).toHaveBeenCalledTimes(1)
   })
 })

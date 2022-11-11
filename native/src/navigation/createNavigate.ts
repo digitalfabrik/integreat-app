@@ -22,18 +22,11 @@ import { StoreActionType } from '../redux/StoreActionType'
 import openExternalUrl from '../utils/openExternalUrl'
 import sendTrackingSignal from '../utils/sendTrackingSignal'
 import showSnackbar from '../utils/showSnackbar'
-import navigateToCityNotCooperating from './navigateToCityNotCooperating'
-import navigateToDisclaimer from './navigateToDisclaimer'
-import navigateToNews from './navigateToNews'
-import navigateToOffers from './navigateToOffers'
-import navigateToPois from './navigateToPois'
-import navigateToSearch from './navigateToSearch'
-import navigateToSprungbrettOffer from './navigateToSprungbrettOffer'
 import { urlFromRouteInformation } from './url'
 
 const createNavigate =
   <T extends RoutesType>(dispatch: Dispatch<StoreActionType>, navigation: NavigationProps<T>) =>
-  (routeInformation: RouteInformationType, key?: string, forceRefresh?: boolean): void => {
+  (routeInformation: RouteInformationType): void => {
     if (routeInformation) {
       const url = urlFromRouteInformation(routeInformation)
       if (routeInformation.route !== SHELTER_ROUTE) {
@@ -47,23 +40,21 @@ const createNavigate =
       }
 
       if (routeInformation.route === LICENSES_ROUTE) {
-        navigation.navigate(LICENSES_ROUTE)
+        navigation.push(LICENSES_ROUTE)
         return
       }
 
       if (routeInformation.route === LANDING_ROUTE) {
-        navigation.navigate(LANDING_ROUTE)
+        navigation.push(LANDING_ROUTE)
         return
       }
       if (routeInformation.route === CITY_NOT_COOPERATING_ROUTE) {
-        navigateToCityNotCooperating({
-          navigation,
-        })
+        navigation.push(CITY_NOT_COOPERATING_ROUTE)
         return
       }
       if (routeInformation.route === JPAL_TRACKING_ROUTE) {
         if (buildConfig().featureFlags.jpalTracking) {
-          navigation.navigate(JPAL_TRACKING_ROUTE, {})
+          navigation.push(JPAL_TRACKING_ROUTE, {})
         }
 
         return
@@ -71,8 +62,6 @@ const createNavigate =
 
       const { cityCode, languageCode } = routeInformation
       const params = {
-        dispatch,
-        navigation,
         cityCode,
         languageCode,
       }
@@ -83,7 +72,7 @@ const createNavigate =
           return
 
         case DISCLAIMER_ROUTE:
-          navigateToDisclaimer(params)
+          navigation.push(DISCLAIMER_ROUTE, params)
           return
 
         case EVENTS_ROUTE:
@@ -95,37 +84,30 @@ const createNavigate =
             break
           }
 
-          navigateToNews({
+          navigation.push(NEWS_ROUTE, {
             ...params,
-            type: routeInformation.newsType,
-            newsId: routeInformation.newsId,
+            newsType: routeInformation.newsType,
+            newsId: routeInformation.newsId ?? null,
           })
           return
 
         case OFFERS_ROUTE:
-          navigateToOffers(params)
+          navigation.push(OFFERS_ROUTE, params)
           return
 
         case SPRUNGBRETT_OFFER_ROUTE:
-          navigateToSprungbrettOffer(params)
+          navigation.push(SPRUNGBRETT_OFFER_ROUTE, params)
           return
 
         case POIS_ROUTE:
           if (!buildConfig().featureFlags.pois) {
             break
           }
-          navigateToPois({
-            ...params,
-            urlSlug: routeInformation.slug,
-            // TODO
-            cityContentPath: '',
-            key,
-            forceRefresh,
-          })
+          navigation.push(POIS_ROUTE, { slug: routeInformation.slug })
           return
 
         case SEARCH_ROUTE:
-          navigateToSearch(params)
+          navigation.push(SEARCH_ROUTE)
           return
 
         // Not implemented in native apps, should be opened in InAppBrowser
