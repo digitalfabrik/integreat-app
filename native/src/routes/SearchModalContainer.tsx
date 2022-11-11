@@ -1,6 +1,5 @@
 import React, { ReactElement, useContext } from 'react'
 import { useTranslation } from 'react-i18next'
-import { useDispatch } from 'react-redux'
 import { ThemeContext } from 'styled-components'
 
 import { SearchRouteType } from 'api-client'
@@ -8,7 +7,7 @@ import { SearchRouteType } from 'api-client'
 import { NavigationProps } from '../constants/NavigationTypes'
 import useCityAppContext from '../hooks/useCityAppContext'
 import useLoadCategories from '../hooks/useLoadCategories'
-import createNavigate from '../navigation/createNavigate'
+import useNavigate from '../hooks/useNavigate'
 import LoadingErrorHandler from './LoadingErrorHandler'
 import SearchModal from './SearchModal'
 
@@ -21,14 +20,14 @@ const SearchModalContainer = ({ navigation }: SearchModalContainerProps): ReactE
   const { data, ...response } = useLoadCategories({ cityCode, languageCode })
   const theme = useContext(ThemeContext)
   const { t } = useTranslation('search')
-  const dispatch = useDispatch()
+  const { navigateTo } = useNavigate()
 
   return (
-    <LoadingErrorHandler {...response}>
+    <LoadingErrorHandler {...response} scrollView>
       {data && (
         <SearchModal
           cityCode={cityCode}
-          navigateTo={createNavigate(dispatch, navigation)}
+          navigateTo={navigateTo}
           closeModal={navigation.goBack}
           categories={data.categories}
           language={languageCode}

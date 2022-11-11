@@ -61,11 +61,9 @@ describe('Header', () => {
         shareUrl: 'https://example.com/share',
       },
     },
-    peeking,
     categoriesAvailable,
     goToLanguageChange,
     routeCityModel: city,
-    language: 'de',
   })
 
   it('search header button should be enabled and visible after loading was finished', async () => {

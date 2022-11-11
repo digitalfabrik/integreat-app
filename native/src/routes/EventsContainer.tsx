@@ -1,5 +1,5 @@
 import React, { ReactElement, useCallback, useContext } from 'react'
-import { useDispatch } from 'react-redux'
+import useNavigate from 'src/hooks/useNavigate'
 
 import { ErrorCode, EVENTS_ROUTE, EventsRouteType } from 'api-client'
 
@@ -11,7 +11,6 @@ import useHeader from '../hooks/useHeader'
 import useLoadEvents from '../hooks/useLoadEvents'
 import useOnLanguageChange from '../hooks/useOnLanguageChange'
 import useSetShareUrl from '../hooks/useSetShareUrl'
-import createNavigate from '../navigation/createNavigate'
 import createNavigateToFeedbackModal from '../navigation/createNavigateToFeedbackModal'
 import Events from './Events'
 import LoadingErrorHandler from './LoadingErrorHandler'
@@ -24,7 +23,7 @@ type EventsContainerProps = {
 const EventsContainer = ({ navigation, route }: EventsContainerProps): ReactElement => {
   const { slug } = route.params
   const { cityCode, languageCode } = useCityAppContext()
-  const dispatch = useDispatch()
+  const { navigateTo } = useNavigate()
   const resourceCacheUrl = useContext(StaticServerContext)
 
   const response = useLoadEvents({ cityCode, languageCode })
@@ -73,7 +72,7 @@ const EventsContainer = ({ navigation, route }: EventsContainerProps): ReactElem
           language={languageCode}
           resourceCache={data.resourceCache}
           resourceCacheUrl={resourceCacheUrl}
-          navigateTo={createNavigate(dispatch, navigation)}
+          navigateTo={navigateTo}
           navigateToFeedback={createNavigateToFeedbackModal(navigation)}
           refresh={refresh}
         />

@@ -53,11 +53,9 @@ const BoxShadow = styled.View`
 type HeaderProps = {
   route: RouteProps<RoutesType>
   navigation: NavigationProps<RoutesType>
-  peeking: boolean
   categoriesAvailable: boolean
   goToLanguageChange?: () => void
   routeCityModel?: CityModel
-  language: string
 }
 
 enum HeaderButtonTitle {
@@ -72,7 +70,8 @@ enum HeaderButtonTitle {
 const Header = (props: HeaderProps): ReactElement => {
   const { t } = useTranslation('layout')
   const theme = useTheme()
-  const { route, navigation, language, routeCityModel, goToLanguageChange, peeking, categoriesAvailable } = props
+  const { route, navigation, routeCityModel, goToLanguageChange, categoriesAvailable } = props
+  const showSnackbar = useSnackbar()
 
   const shareUrl = route.params?.shareUrl
 
@@ -84,7 +83,6 @@ const Header = (props: HeaderProps): ReactElement => {
     navigation.navigate(SETTINGS_ROUTE)
   }
 
-  const showSnackbar = useSnackbar()
   const onShare = async () => {
     if (!shareUrl) {
       // The share option should only be shown if there is a shareUrl
@@ -120,15 +118,7 @@ const Header = (props: HeaderProps): ReactElement => {
   }
 
   const goToDisclaimer = () => {
-    if (!routeCityModel) {
-      throw new Error('Impossible to go to disclaimer route if no city model is defined')
-    }
-
-    const cityCode = routeCityModel.code
-    navigation.navigate(DISCLAIMER_ROUTE, {
-      cityCode,
-      languageCode: language,
-    })
+    navigation.navigate(DISCLAIMER_ROUTE, {})
   }
 
   const deviceWidth = useWindowDimensions().width
@@ -163,7 +153,7 @@ const Header = (props: HeaderProps): ReactElement => {
 
   const showShare = !!shareUrl
   const showChangeLocation = !buildConfig().featureFlags.fixedCity
-  const showItems = !peeking && !!goToLanguageChange && categoriesAvailable
+  const showItems = !!goToLanguageChange && categoriesAvailable
   const canGoBack = navigation.getState().index > 0
 
   return (
