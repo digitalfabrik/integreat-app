@@ -7,6 +7,7 @@ import Layout from '../components/Layout'
 import NewsHeader from '../components/NewsHeader'
 import { NavigationProps, RouteProps } from '../constants/NavigationTypes'
 import useCities from '../hooks/useCities'
+import useCityAppContext from '../hooks/useCityAppContext'
 import useSetShareUrl from '../hooks/useSetShareUrl'
 import LocalNews from './LocalNews'
 import TuNews from './TuNews'
@@ -17,7 +18,8 @@ type NewsContainerProps = {
 }
 
 const NewsContainer = ({ route, navigation }: NewsContainerProps): ReactElement => {
-  const { cityCode, languageCode, newsType: routeNewsType, newsId: routeNewsId } = route.params
+  const { cityCode, languageCode } = useCityAppContext()
+  const { newsType: routeNewsType, newsId: routeNewsId } = route.params
   const [newsType, setNewsType] = useState<NewsType>(routeNewsType)
   const [newsId, setNewsId] = useState<string | null>(routeNewsId)
   const [selectedLanguage, setSelectedLanguage] = useState<string>(languageCode)
