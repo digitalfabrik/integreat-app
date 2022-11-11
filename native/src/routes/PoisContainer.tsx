@@ -1,197 +1,98 @@
-import { connect } from 'react-redux'
-import { Dispatch } from 'redux'
+import React, { ReactElement, useCallback, useEffect } from 'react'
 
-import { CityModel, ErrorCode, PoiModel, POIS_ROUTE, PoisRouteType } from 'api-client'
+import { ErrorCode, POIS_ROUTE, PoisRouteType } from 'api-client'
 
+import Header from '../components/Header'
+import LanguageNotAvailablePage from '../components/LanguageNotAvailablePage'
 import { NavigationProps, RouteProps } from '../constants/NavigationTypes'
-import withPayloadProvider, { StatusProps } from '../hocs/withPayloadProvider'
-import createNavigate from '../navigation/createNavigate'
-import { LanguageResourceCacheStateType, StateType } from '../redux/StateType'
-import { StoreActionType, SwitchContentLanguageActionType } from '../redux/StoreActionType'
-import { reportError } from '../utils/sentry'
+import useCityAppContext from '../hooks/useCityAppContext'
+import useLoadPois from '../hooks/useLoadPois'
+import useOnLanguageChange from '../hooks/useOnLanguageChange'
+import useSetShareUrl from '../hooks/useSetShareUrl'
+import navigateToLanguageChange from '../navigation/navigateToLanguageChange'
+import LoadingErrorHandler from './LoadingErrorHandler'
 import Pois from './Pois'
 
-type PoisNavigationProps = {
+type PoisContainerProps = {
   route: RouteProps<PoisRouteType>
   navigation: NavigationProps<PoisRouteType>
 }
-type OwnProps = PoisNavigationProps
-type ContainerProps = OwnProps & {
-  path: string | null | undefined
-  pois: Array<PoiModel>
-  cityModel: CityModel
-  language: string
-  resourceCache: LanguageResourceCacheStateType
-  resourceCacheUrl: string
-  dispatch: Dispatch<StoreActionType>
-}
-type RefreshProps = PoisNavigationProps & {
-  cityCode: string
-  language: string
-  path: string | null | undefined
-}
-type StateProps = StatusProps<ContainerProps, RefreshProps>
-type DispatchProps = {
-  dispatch: Dispatch<StoreActionType>
-}
 
-const createChangeUnavailableLanguage =
-  (city: string) => (dispatch: Dispatch<StoreActionType>, newLanguage: string) => {
-    const switchContentLanguage: SwitchContentLanguageActionType = {
-      type: 'SWITCH_CONTENT_LANGUAGE',
-      params: {
-        newLanguage,
-        city,
-      },
-    }
-    dispatch(switchContentLanguage)
-  }
+const PoisContainer = ({ navigation, route }: PoisContainerProps): ReactElement => {
+  const { slug } = route.params
+  const { cityCode, languageCode } = useCityAppContext()
 
-const mapStateToProps = (state: StateType, ownProps: OwnProps): StateProps => {
-  const {
-    navigation,
-    route: { key },
-  } = ownProps
+  const response = useLoadPois({ cityCode, languageCode })
+  const { data } = response
 
-  if (!state.cityContent) {
-    return {
-      status: 'routeNotInitialized',
-    }
-  }
+  const currentPoi = slug ? data?.pois.find(it => it.slug === slug) : undefined
+  const availableLanguages = currentPoi
+    ? Object.keys(currentPoi.availableLanguageSlugs)
+    : data?.languages.map(it => it.code)
 
-  const { resourceCache, routeMapping, switchingLanguage, languages } = state.cityContent
-  const route = routeMapping[key]
+  useEffect(() => {
+    const goToLanguageChange =
+      data && availableLanguages
+        ? () => {
+            navigateToLanguageChange({
+              navigation,
+              languageCode,
+              languages: data.languages,
+              cityCode,
+              availableLanguages,
+            })
+          }
+        : undefined
+    navigation.setOptions({
+      // Only run on use effect dependency changes which means it is re-rendered anyway since props change
+      // eslint-disable-next-line react/no-unstable-nested-components
+      header: () => (
+        <Header
+          route={route}
+          navigation={navigation}
+          peeking={false}
+          categoriesAvailable
+          language={languageCode}
+          routeCityModel={data?.city}
+          goToLanguageChange={goToLanguageChange}
+        />
+      ),
+    })
+  }, [route, navigation, cityCode, languageCode, data, availableLanguages])
 
-  if (!route || route.routeType !== POIS_ROUTE) {
-    return {
-      status: 'routeNotInitialized',
-    }
-  }
-
-  if (route.status === 'languageNotAvailable') {
-    if (switchingLanguage) {
-      throw new Error('language not available route status not handled!')
-    }
-    if (languages.status === 'error' || languages.status === 'loading') {
-      reportError(new Error('languageNotAvailable status impossible if languages not ready'))
-      return {
-        status: 'error',
-        refreshProps: null,
-        code: languages.status === 'error' ? languages.code : ErrorCode.UnknownError,
-        message: languages.status === 'error' ? languages.message : 'languages not ready',
+  const onLanguageChange = useCallback(
+    (newLanguage: string) => {
+      if (currentPoi) {
+        const newSlug = currentPoi.availableLanguageSlugs[newLanguage]
+        // TODO IGAPP-636: Handle language not available?
+        navigation.setParams({ slug: newSlug })
       }
-    }
-
-    return {
-      status: 'languageNotAvailable',
-      availableLanguages: languages.models.filter(lng => route.allAvailableLanguages.has(lng.code)),
-      cityCode: route.city,
-      changeUnavailableLanguage: createChangeUnavailableLanguage(route.city),
-    }
-  }
-
-  const refreshProps = {
-    path: route.path,
-    cityCode: route.city,
-    language: route.language,
-    navigation: ownProps.navigation,
-    route: ownProps.route,
-  }
-
-  if (state.cities.status === 'error') {
-    return {
-      status: 'error',
-      message: state.cities.message,
-      code: state.cities.code,
-      refreshProps,
-    }
-  }
-  if (resourceCache.status === 'error') {
-    return {
-      status: 'error',
-      message: resourceCache.message,
-      code: resourceCache.code,
-      refreshProps,
-    }
-  }
-  if (route.status === 'error') {
-    return {
-      status: 'error',
-      message: route.message,
-      code: route.code,
-      refreshProps,
-    }
-  }
-  if (languages.status === 'error') {
-    return {
-      status: 'error',
-      message: languages.message,
-      code: languages.code,
-      refreshProps,
-    }
-  }
-
-  const { resourceCacheUrl } = state
-
-  if (
-    resourceCacheUrl === null ||
-    switchingLanguage ||
-    state.cities.status === 'loading' ||
-    route.status === 'loading' ||
-    languages.status === 'loading'
-  ) {
-    return {
-      status: 'loading',
-      progress: resourceCache.progress,
-    }
-  }
-
-  const cityModel = state.cities.models.find(city => city.code === route.city)
-  if (!cityModel) {
-    return {
-      status: 'error',
-      refreshProps,
-      message: 'Unknown city',
-      code: ErrorCode.PageNotFound,
-    }
-  }
-
-  return {
-    status: 'success',
-    refreshProps,
-    innerProps: {
-      path: route.path,
-      pois: Array.from(route.models),
-      cityModel,
-      language: route.language,
-      resourceCache: resourceCache.value,
-      resourceCacheUrl,
-      navigation,
-      route: ownProps.route,
     },
-  }
-}
-
-const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>): DispatchProps => ({
-  dispatch,
-})
-
-const refresh = (refreshProps: RefreshProps, dispatch: Dispatch<StoreActionType>) => {
-  const { navigation, route, cityCode, language } = refreshProps
-  const navigateTo = createNavigate(dispatch, navigation)
-  navigateTo(
-    {
+    [currentPoi, navigation]
+  )
+  useOnLanguageChange({ languageCode, onLanguageChange })
+  useSetShareUrl({
+    navigation,
+    route,
+    routeInformation: {
       route: POIS_ROUTE,
+      languageCode,
       cityCode,
-      languageCode: language,
+      slug,
     },
-    route.key,
-    true
+  })
+
+  if (response.errorCode === ErrorCode.LanguageUnavailable) {
+    return <LanguageNotAvailablePage />
+  }
+
+  return (
+    <LoadingErrorHandler {...response}>
+      {data && (
+        <Pois pois={data.pois} cityModel={data.city} language={languageCode} route={route} navigation={navigation} />
+      )}
+    </LoadingErrorHandler>
   )
 }
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-  // @ts-expect-error TODO: IGAPP-636
-)(withPayloadProvider<ContainerProps, RefreshProps, PoisRouteType>(refresh, true, true)(Pois))
+export default PoisContainer

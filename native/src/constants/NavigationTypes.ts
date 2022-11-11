@@ -93,7 +93,7 @@ export type RoutesParamsType = {
     path?: string
   }
   [POIS_ROUTE]: BasicParams & {
-    urlSlug?: string
+    slug?: string
   }
   [EVENTS_ROUTE]: BasicParams & {
     slug?: string
