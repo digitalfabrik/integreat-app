@@ -42,8 +42,9 @@ class StaticServerProvider extends React.Component<
     localOnly: true,
   })
 
-  state = {
-    errorMessage: null,
+  constructor(props: StaticServerProviderProps) {
+    super(props)
+    this.state = { errorMessage: null }
   }
 
   async componentDidMount() {

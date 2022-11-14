@@ -16,14 +16,14 @@ import {
 
 import { CityRouteProps } from '../CityContentSwitcher'
 import Caption from '../components/Caption'
+import CityContentLayout from '../components/CityContentLayout'
+import CityContentToolbar from '../components/CityContentToolbar'
 import CleanLink from '../components/CleanLink'
 import FailureSwitcher from '../components/FailureSwitcher'
 import { FeedbackRatingType } from '../components/FeedbackToolbarItem'
 import Helmet from '../components/Helmet'
 import List from '../components/List'
 import LoadingSpinner from '../components/LoadingSpinner'
-import LocationLayout from '../components/LocationLayout'
-import LocationToolbar from '../components/LocationToolbar'
 import SprungbrettListItem from '../components/SprungbrettListItem'
 import { cmsApiBaseUrl } from '../constants/urls'
 import useWindowDimensions from '../hooks/useWindowDimensions'
@@ -65,7 +65,7 @@ const SprungbrettOfferPage = ({
   } = useLoadFromEndpoint(requestSprungbrettOffer)
 
   const toolbar = (openFeedback: (rating: FeedbackRatingType) => void) => (
-    <LocationToolbar openFeedbackModal={openFeedback} viewportSmall={viewportSmall} />
+    <CityContentToolbar openFeedbackModal={openFeedback} viewportSmall={viewportSmall} />
   )
 
   const languageChangePaths = languages.map(({ code, name }) => ({
@@ -86,9 +86,9 @@ const SprungbrettOfferPage = ({
 
   if (offersLoading || sprungbrettLoading) {
     return (
-      <LocationLayout isLoading {...locationLayoutParams}>
+      <CityContentLayout isLoading {...locationLayoutParams}>
         <LoadingSpinner />
-      </LocationLayout>
+      </CityContentLayout>
     )
   }
 
@@ -104,9 +104,9 @@ const SprungbrettOfferPage = ({
       })
 
     return (
-      <LocationLayout isLoading={false} {...locationLayoutParams}>
+      <CityContentLayout isLoading={false} {...locationLayoutParams}>
         <FailureSwitcher error={error} />
-      </LocationLayout>
+      </CityContentLayout>
     )
   }
 
@@ -117,14 +117,14 @@ const SprungbrettOfferPage = ({
   const pageTitle = `${offer.title} - ${cityModel.name}`
 
   return (
-    <LocationLayout isLoading={false} {...locationLayoutParams}>
+    <CityContentLayout isLoading={false} {...locationLayoutParams}>
       <Helmet pageTitle={pageTitle} languageChangePaths={languageChangePaths} cityModel={cityModel} />
       <Caption title={offer.title} />
       <List noItemsMessage={t('noOffersAvailable')} renderItem={renderSprungbrettListItem} items={sprungbrettJobs} />
       <CleanLink to='https://www.sprungbrett-intowork.de'>
         <Image src={offer.thumbnail} alt='' />
       </CleanLink>
-    </LocationLayout>
+    </CityContentLayout>
   )
 }
 

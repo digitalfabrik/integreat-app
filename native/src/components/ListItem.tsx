@@ -44,7 +44,7 @@ type ListItemProps = {
 const ListItem = ({ language, title, thumbnail, children, navigateTo }: ListItemProps): ReactElement => (
   <StyledTouchableOpacity onPress={navigateTo}>
     <ListItemView language={language}>
-      {thumbnail && <Thumbnail source={thumbnail} />}
+      {!!thumbnail && <Thumbnail source={thumbnail} />}
       <Description>
         <Title>{title}</Title>
         {children}

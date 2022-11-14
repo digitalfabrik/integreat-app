@@ -1,0 +1,8 @@
+issue_key: IGAPP-1147
+show_in_stores: true
+platforms:
+  - web
+  - ios
+  - android
+en: Add translations for various texts.
+de: Übersetzungen für verschiedene Texte hinzugefügt.

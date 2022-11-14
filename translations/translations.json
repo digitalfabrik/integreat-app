@@ -32,6 +32,10 @@
       "createPdf": "Crear PDF",
       "metaDescription": "{{appName}} es su guía digital para Alemania. Encuentre información local, eventos y consejos. Siempre actualizados y en su idioma."
     },
+    "fi": {
+      "createPdf": "Luo PDF",
+      "metaDescription": "{{appName}} on digitaalinen oppaasi Saksaa varten. Etsi paikallisia tietoja, tapahtumia ja neuvoja. Aina ajantasaista tietoa omalla kielelläsi."
+    },
     "fr": {
       "createPdf": "Créer PDF",
       "metaDescription": "{{appName}} est votre guide numérique pour l'Allemagne. Vous y trouverez des informations locales, des événements et des conseils, toujours à jour et dans votre langue."
@@ -139,8 +143,8 @@
       "callToAction": "የኣከባቢህን መወሃድ የሚመለከት ሃሳብ ኣቅርብ!",
       "explanation": "ይህ ኣትራፊ ያልሆነ የመዋሃድ ኣፕ ጽንሰ ሃሳብ ኣንተን ኣሳምኖሃል፣ እንደዚሁም በዚሁ የዲጊታል መፍትሔ ያንተ ከተማ፣ ያንተ ወረዳ ወይ ያንተ ኣገር ሊጠቀም ይችላል ብለህ ታምናለህ? ስለዚህ በቀላሉ እዚህ መንቀሳቀስ ትችላለህ።",
       "whatToDo": "ይሄንን ማድረግ ትችላለህ:",
-      "findOutMail": "ያንተን ኣከባቢ ኢ-ሜይል ኣድራሻ ማግኘት ",
-      "sendText": "ያንተን ጽሑፍ መቅዳት፣ የ [ ]-ይዞታውን በራስህ ቃል ሞልተህ መላክ ",
+      "findOutMail": "ያንተን ኣከባቢ ኢ-ሜይል ኣድራሻ ማግኘት",
+      "sendText": "ያንተን ጽሑፍ መቅዳት፣ የ [ ]-ይዞታውን በራስህ ቃል ሞልተህ መላክ",
       "copyText": "ጽሑፍ መቅዳት",
       "textCopied": "ተቀድቷል"
     },
@@ -172,7 +176,8 @@
       "textCopied": "کۆپی کرا"
     },
     "el": {
-      "callToAction": "Προτείνετε το Integreat στην περιοχή σας! ",
+      "callToAction": "Προτείνετε το Integreat στην περιοχή σας!",
+      "explanation": "Η μη κερδοσκοπική ιδέα της εφαρμογής Integreat σάς έχει πείσει ότι η πόλη, η περιφέρεια ή ο δήμος σας θα μπορούσαν επίσης να επωφεληθούν από την ψηφιακή λύση; Τότε μπορείτε εύκολα να δραστηριοποιηθείτε εδώ.",
       "whatToDo": "Μπορείτε να κάνετε το εξής:",
       "findOutMail": "Μάθετε τη διεύθυνση e-mail στην περιοχή σας",
       "sendText": "Αντιγράψτε αυτό το κείμενο, συμπληρώστε το περιεχόμενο [ ] με τα στοιχεία σας και στείλτε το",
@@ -196,6 +201,15 @@
       "sendText": "Copiar este texto, rellenar los [ ] con sus datos y enviar",
       "copyText": "Copiar texto",
       "textCopied": "Copiado"
+    },
+    "fi": {
+      "callToAction": "Ehdota aluettasi Integreatille!",
+      "explanation": "Oletko vakuuttunut Integreat-sovelluksen yleishyödyllisestä konseptista ja uskot, että sinunkin kaupunkisi, maakuntasi tai yhteisösi voi hyötyä digitaalisesta ratkaisusta? Osallistuminen on nyt helppoa.",
+      "whatToDo": "Toimi näin:",
+      "findOutMail": "Selvitä alueesi sähköpostiosoite",
+      "sendText": "Kopioi tämä teksti, täytä tietosi [ ]-sisältöihin ja lähetä",
+      "copyText": "Kopioi teksti",
+      "textCopied": "Kopioitu"
     },
     "fr": {
       "callToAction": "Propose Integreat à ta région !",
@@ -262,7 +276,7 @@
     },
     "nl": {
       "callToAction": "Geef je regio op!",
-      "explanation": "Heeft de Integreat-App jou overtuigd en denk je dat ook jouw stad, regio of gemeenschap baat kan hebben bij deze digitale oplossing? In dat geval kun je nu hier gemakkelijk actief worden. ",
+      "explanation": "Heeft de Integreat-App jou overtuigd en denk je dat ook jouw stad, regio of gemeenschap baat kan hebben bij deze digitale oplossing? In dat geval kun je nu hier gemakkelijk actief worden.",
       "whatToDo": "Dit is wat je kunt doen:",
       "findOutMail": "Krijg het emailadres van jouw regio",
       "sendText": "Kopieer deze tekst, vul de […] content aan met jouw details en verstuur",
@@ -334,6 +348,7 @@
     },
     "sq": {
       "callToAction": "Sugjeroni Integreat në rajonin tuaj!",
+      "explanation": "Koncepti jofitimprurës i aplikacionit Integreat ju ka bindur dhe mendoni se qyteti, rrethi apo bashkia juaj mund të përfitojnë gjithashtu nga zgjidhja dixhitale? Atëherë mund të aktivizoheni lehtësisht këtu.",
       "whatToDo": "Ti mund ta besh kete:",
       "findOutMail": "Gjeni adresën e emailit në rajonin tuaj",
       "sendText": "Kopjojeni këtë tekst, plotësoni përmbajtjen [ ] me të dhënat tuaja dhe dërgojeni",
@@ -363,13 +378,13 @@
       "explanation": "እዚ ንምኽሳብ ዘይኮነ ናይ ምጽንባር ኣፕ ጽንሰ ሓሳብ ንዓኻ ኣእሚንካዶ፣ ከምኡ ከኣ በዚ ናይ ዲጂታል ፍታሕ ንከተማኻ፣ ንከባቢኻ ወይ ድማ ንማሕበር መንበሪ ዓድኻ ክጠቅም ይኽእል ትብልዶ? ስለዚ ኣብዚ ብቐሊሉ ክትነጥፍ ትኽእል።  ",
       "whatToDo": "ነዚ ክትገብር ትኽእል:",
       "findOutMail": "ናይ ከባቢኻ ኢ-ሜይል ኣድራሻ ምርካብ",
-      "sendText": "ነዚ ጽሑፍ ምቕዳሕ፣ ነዚ [ ]-ትሕዝቶ ብናትካ ቃላት መሊእካ ምልኣኽ ",
+      "sendText": "ነዚ ጽሑፍ ምቕዳሕ፣ ነዚ [ ]-ትሕዝቶ ብናትካ ቃላት መሊእካ ምልኣኽ",
       "copyText": "ጽሑፍ ምቕዳሕ",
       "textCopied": "ተቐዲሑ"
     },
     "tr": {
       "callToAction": "Bölgen için Integreat uygulamasını öner!",
-      "explanation": "Integreat uygulamasının kamuya yararlı olan konsepti seni ikna etti, ve şehrinin, ilçenin veya belediyenin de dijital çözümden yararlanabileceğini mi düşünüyorsun? ",
+      "explanation": "Integreat uygulamasının kamuya yararlı olan konsepti seni ikna etti, ve şehrinin, ilçenin veya belediyenin de dijital çözümden yararlanabileceğini mi düşünüyorsun?",
       "whatToDo": "Bunu yapabilirsin:",
       "findOutMail": "Bölgenin e-posta adresini öğrenebilirsin",
       "sendText": "Bu metni kopyala, [ ]-içerikleri kendi bilgilerinle doldur ve gönder",
@@ -393,6 +408,15 @@
       "sendText": "اس ٹیکسٹ کو کاپی کریں اور اپنی تفصیلات اس [ ] میں درج کریں اور بھیج دیں۔",
       "copyText": "ٹیکسٹ کو کاپی کریں۔",
       "textCopied": "کاپی کیا گیا"
+    },
+    "zh-CN": {
+      "callToAction": "向你所在地区推荐Integreat！",
+      "explanation": "Integreat应用程序的非盈利理念说服了你，你认为你的城市、区或社区也可以从这种数字解决方案中受益吗？然后你就可以很容易地通过它变得活跃起来。",
+      "whatToDo": "你可以这么做：",
+      "findOutMail": "找出你所在地区的电子邮件地址",
+      "sendText": "复制此文本，用你的信息填充[]内容并发送",
+      "copyText": "复制文本",
+      "textCopied": "已复制"
     }
   },
   "common": {
@@ -404,30 +428,35 @@
       "loading": "Lade ..."
     },
     "am": {
+      "moreOptions": "የበዛ ኣማራጭ",
       "languageNotAvailable": "ይቅርታ፣ ቋንቋዎ እዚህ ላይ የለም።",
       "chooseALanguage": "ቋንቋ ይምረጡ።",
       "lastUpdate": "መጨረሻ የተሻሻለበት ጊዜ:",
       "loading": "እየጫነ ነው ..."
     },
     "ar": {
+      "moreOptions": "مزيد من الخيارات",
       "languageNotAvailable": "للأسف، لغتك ليست متاحة.",
       "chooseALanguage": "اختر لغة.",
       "lastUpdate": "التحديث الأخير:",
       "loading": "حمّل..."
     },
     "bg": {
+      "moreOptions": "Още опции",
       "languageNotAvailable": "За съжаление, езикът Ви не е наличен тук.",
       "chooseALanguage": "Изберете език.",
       "lastUpdate": "Последна актуализация:",
       "loading": "Зареждане..."
     },
     "ckb": {
+      "moreOptions": "بژاردەی زیاتر",
       "languageNotAvailable": "بەداخەوە زمانەکەتی تێدا نییە.",
       "chooseALanguage": "زمانێک هەڵبژێرە.",
       "lastUpdate": "دوایین بەڕۆژکردنەوە:",
       "loading": "خەریکی بارکردنە..."
     },
     "el": {
+      "moreOptions": "Περισσότερες επιλογές",
       "languageNotAvailable": "Δυστυχώς, η γλώσσα σας δεν είναι διαθέσιμη εδώ.",
       "chooseALanguage": "Επιλέξτε μια γλώσσα.",
       "lastUpdate": "Τελευταία ενημέρωση:",
@@ -441,48 +470,63 @@
       "loading": "Loading ..."
     },
     "es": {
+      "moreOptions": "Más opciones",
       "languageNotAvailable": "Tu idioma no está disponible aquí.",
       "chooseALanguage": "Selecciona un idioma.",
       "lastUpdate": "Última actualización:",
       "loading": "Cargando..."
     },
+    "fi": {
+      "moreOptions": "Lisää vaihtoehtoja",
+      "languageNotAvailable": "Kielesi ei ole saatavilla.",
+      "chooseALanguage": "Valitse kieli.",
+      "lastUpdate": "Viimeisin päivitys:",
+      "loading": "Lataa..."
+    },
     "fr": {
+      "moreOptions": "Plus d’options",
       "languageNotAvailable": "Malheureusement, ta langue n'est pas disponible ici.",
       "chooseALanguage": "Choisis une langue.",
       "lastUpdate": "Dernière actualisation :",
       "loading": "Chargement ..."
     },
     "hr": {
+      "moreOptions": "Više opcija",
       "languageNotAvailable": "Tvoj jezik ovdje nažalost nije dostupan.",
       "chooseALanguage": "Odaberi jezik.",
       "lastUpdate": "Zadnje ažuriranje:",
       "loading": "Učitava se..."
     },
     "hu": {
+      "moreOptions": "További lehetőségek",
       "languageNotAvailable": "A nyelved sajnos nem elérhető.",
       "chooseALanguage": "Válassz ki egy nyelvet.",
       "lastUpdate": "Utolsó aktualizálás:",
       "loading": "Betöltés..."
     },
     "it": {
+      "moreOptions": "Più opzioni",
       "languageNotAvailable": "Purtroppo la tua lingua non è disponibile qui.",
       "chooseALanguage": "Scegli una lingua.",
       "lastUpdate": "Ultimo aggiornamento:",
       "loading": "Caricamento..."
     },
     "ka": {
+      "moreOptions": "მეტი ვარიანტი",
       "languageNotAvailable": "შენი ენა აქ არ მოიხმარება",
       "chooseALanguage": "აირჩიე ენა.",
       "lastUpdate": "ბოლო აქტუალიზირება:",
       "loading": "ატვირთე…"
     },
     "kmr": {
+      "moreOptions": "Bijardeyên zêdetir",
       "languageNotAvailable": "Mixabin zimanê te li vir li ber dest nîne.",
       "chooseALanguage": "Zimanekî bibijêre.",
       "lastUpdate": "Birojkirina herî dawî:",
       "loading": "Di halê birojkirinê da..."
     },
     "mk": {
+      "moreOptions": "Повеќе опции",
       "languageNotAvailable": "За жал твојот јазик не е достапен.",
       "chooseALanguage": "Избери јазик.",
       "lastUpdate": "Последно ажурирање:",
@@ -496,90 +540,105 @@
       "loading": "Aan het laden…"
     },
     "pes": {
+      "moreOptions": "گزینه‌های بیشتر",
       "languageNotAvailable": "متاسفانه زبان شما در اینجا در دسترس نیست.",
       "chooseALanguage": "یک زبان را انتخاب کنید.",
       "lastUpdate": "آخرین تغییرات:",
       "loading": "در حال بارگیری ..."
     },
     "pl": {
+      "moreOptions": "Więcej opcji",
       "languageNotAvailable": "Niestety Twój język nie jest tutaj dostępny.",
       "chooseALanguage": "Wybierz język.",
       "lastUpdate": "Ostatnia aktualizacja",
       "loading": "Załaduj..."
     },
     "prs": {
+      "moreOptions": "انتخاب‌‌های بیشتر",
       "languageNotAvailable": "متاسفانه لسان شما در اینجا موجود نیست‎.",
       "chooseALanguage": "یک لسان انتخاب کنید.",
       "lastUpdate": "آخرین به‎​روز رسانی:",
       "loading": "در حال دانلود ..."
     },
     "ps": {
+      "moreOptions": "نور اختیارونه",
       "languageNotAvailable": "له بده مرغه ستا ژبه دلته موجوده نده.",
       "chooseALanguage": "یوه ژبه انتخاب کړه.",
       "lastUpdate": "آخري تغیر شوے:",
       "loading": "بارولے کیږی ۔۔۔"
     },
     "ro": {
+      "moreOptions": "Mai multe opțiuni",
       "languageNotAvailable": "Din păcate, aici nu este disponibilă limba ta.",
       "chooseALanguage": "Alege o limbă.",
       "lastUpdate": "Ultima actualizare:",
       "loading": "Se încarcă ..."
     },
     "ru": {
+      "moreOptions": "дополнительные опции",
       "languageNotAvailable": "К сожалению, ваш язык здесь не используется.",
       "chooseALanguage": "Выбор языка.",
       "lastUpdate": "Последнее обновление:",
       "loading": "Загрузка..."
     },
     "so": {
+      "moreOptions": "Xulashooyin dheeraad ah",
       "languageNotAvailable": "Nasiib darro, luqaddaada halkan lagama heli karo.",
       "chooseALanguage": "Dooro luuqad.",
       "lastUpdate": "Cusbooneysiinta ugu dambeyso:",
       "loading": "Xareysmeyso ..."
     },
     "sq": {
+      "moreOptions": "Me shumë opsione",
       "languageNotAvailable": "Fatkeqësisht, gjuha juaj nuk është në dispozicion këtu.",
       "chooseALanguage": "Zgjidh një gjuhë.",
       "lastUpdate": "Përditësimi i fundit:",
       "loading": "Ngarko ..."
     },
     "sr-Cyrl": {
+      "moreOptions": "Више опција",
       "languageNotAvailable": "Нажалост, твој језик овде није доступан.",
       "chooseALanguage": "Изабери језик.",
       "lastUpdate": "Последње ажурирање:",
       "loading": "Учитава се ..."
     },
     "sr-Latn": {
+      "moreOptions": "Više opcija",
       "languageNotAvailable": "Nažalost, tvoj jezik ovde nije dostupan.",
       "chooseALanguage": "Izaberi jezik.",
       "lastUpdate": "Poslednje ažuriranje:",
       "loading": "Učitava se ..."
     },
     "ti": {
+      "moreOptions": "ዝበዝሐ ኣማራጺ",
       "languageNotAvailable": "ሕማቕ ኣጋጣሚ ኮይኑ፡ ቋንቋኻ ኣብዚ የለን።",
       "chooseALanguage": "ቋንቋ ምረጽ።",
       "lastUpdate": "መወዳእታ ዝተሓደሰ",
       "loading": "ይጽዓን ኣሎ ..."
     },
     "tr": {
+      "moreOptions": "Daha fazla seçenek",
       "languageNotAvailable": "Senin dilin burada maalesef yok.",
       "chooseALanguage": "Bir dil seçin.",
       "lastUpdate": "Son güncelleme:",
       "loading": "Yükleniyor ..."
     },
     "uk": {
+      "moreOptions": "Більше опцій",
       "languageNotAvailable": "Ваша мова тут недоступна.",
       "chooseALanguage": "Виберіть мову.",
       "lastUpdate": "Останнє оновлення:",
       "loading": "Завантаження ..."
     },
     "ur": {
+      "moreOptions": "نسخہ:",
       "languageNotAvailable": "معذرت، آپ کی زبان یہاں دستیاب نہیں۔",
       "chooseALanguage": "زبان منتخب کریں۔",
       "lastUpdate": "آخری ترمیم:",
       "loading": "لوڈ ہو رہا ہے ‎…"
     },
     "zh-CN": {
+      "moreOptions": "更多选项",
       "languageNotAvailable": "很抱歉，这里没有提供您的语言。",
       "chooseALanguage": "请选择一种语言。",
       "lastUpdate": "上次更新：",
@@ -643,6 +702,13 @@
       "news": "Noticias",
       "pois": "Mapa"
     },
+    "fi": {
+      "localInformation": "Paikalliset tiedot",
+      "offers": "Tarjoukset",
+      "events": "Tapahtumat",
+      "news": "Viestit",
+      "pois": "Kartta"
+    },
     "fr": {
       "localInformation": "Informations locales",
       "offers": "Offres",
@@ -697,7 +763,7 @@
       "offers": "Aanbod",
       "events": "Evenementen",
       "news": "Nieuws",
-      "pois": "Kaart "
+      "pois": "Kaart"
     },
     "pes": {
       "localInformation": "اطلاعات محلی",
@@ -714,11 +780,11 @@
       "pois": "Mapa"
     },
     "prs": {
-      "localInformation": "معلومات محلی",
-      "offers": "پیشنهادات",
-      "events": "رویدادها",
-      "news": "اخبار",
-      "pois": "نقشه"
+      "localInformation": "اطلاعات تماس",
+      "offers": "در نزدیکی تو",
+      "events": "بازگشت به خلاصه",
+      "news": "مسیریابی",
+      "pois": "باز کردن در Google Maps"
     },
     "ps": {
       "localInformation": "سیمه ییز معلومات",
@@ -801,7 +867,8 @@
       "localInformation": "本地信息",
       "offers": "提供项目",
       "events": "活动",
-      "news": "新闻"
+      "news": "新闻",
+      "pois": "地图"
     }
   },
   "disclaimer": {
@@ -828,6 +895,9 @@
     },
     "es": {
       "pageTitle": "Aviso legal y contacto"
+    },
+    "fi": {
+      "pageTitle": "Julkaisu- ja yhteystiedot"
     },
     "fr": {
       "pageTitle": "Mentions légales et contact"
@@ -1123,7 +1193,7 @@
         "category": "Sorry, but the requested page could not be found.",
         "event": "Sorry, but this event could not be found.",
         "offer": "Sorry, but this offer could not be found.",
-        "poi": "Sorry, this place was not found. ",
+        "poi": "Sorry, this place was not found.",
         "localNews": "Sorry, but this message could not be found.",
         "tunews": "Sorry, but this tünews could not be found.",
         "pageTitle": "Page not found"
@@ -1187,6 +1257,42 @@
       "notSupportedByDevice": "Esta función no es compatible con este dispositivo.",
       "languageSwitchFailedTitle": "No se ha podido cambiar el idioma.",
       "languageSwitchFailedMessage": "El idioma seleccionado no está disponible sin conexión. Se necesita una conexión a internet activada."
+    },
+    "fi": {
+      "notFound": {
+        "language": "Tämä kieli ei ole saatavilla.",
+        "city": "Aluetta ei löydetty.",
+        "category": "Sivua ei löydetty.",
+        "event": "Tapahtumaa ei löydetty.",
+        "offer": "Tarjousta ei löydetty.",
+        "poi": "Paikkaa ei löydetty.",
+        "localNews": "Viestiä ei löydetty.",
+        "tunews": "tünews-uutisia ei löydetty.",
+        "pageTitle": "Sivua ei löytynyt"
+      },
+      "pageNotFound": "Sivua ei löydetty.",
+      "noSuitableAppInstalled": "Sopivaa sovellusta ei ole asennettu.",
+      "networkConnectionFailed": "Yhteys palvelimeen epäonnistui.",
+      "networkRequestFailed": "Yhteydenottoa ei voitu käsitellä.",
+      "responseMappingFailed": "Palvelimen vastausta ei voitu käsitellä.",
+      "unknownError": "Ilmeni tuntematon virhe.",
+      "tryAgain": "Yritä uudelleen",
+      "loadingFailed": "Sivua ei voitu ladata.",
+      "chooseALanguage": "Valitse kieli:",
+      "goTo": {
+        "start": "Siirry kotisivulle",
+        "categories": "Siirry kategorioihin",
+        "events": "Siirry tapahtumiin",
+        "offers": "Siirry tarjouksiin",
+        "pois": "Siirry karttaan",
+        "localNews": "Siirry uutisiin",
+        "tunews": "Siirry kohteeseen tünews"
+      },
+      "pageTitle": "Virhe",
+      "generalError": "Ilmeni virhe",
+      "notSupportedByDevice": "Tämä laite ei tue tätä toimintoa.",
+      "languageSwitchFailedTitle": "Kielen vaihto epäonnistui.",
+      "languageSwitchFailedMessage": "Valittu kieli ei ole saatavilla offline-tilassa. Tarvitaan aktiivinen internetyhteys."
     },
     "fr": {
       "notFound": {
@@ -1445,7 +1551,7 @@
         "language": "Sorry, deze taal is hier niet beschikbaar.",
         "city": "Sorry, deze regio is niet gevonden.",
         "category": "Sorry, de gevraagde pagina kan niet worden gevonden.",
-        "event": "Sorry, dit evenement kan niet worden gevonden. ",
+        "event": "Sorry, dit evenement kan niet worden gevonden.",
         "offer": "Sorry, dit aanbod kan niet worden gevonden.",
         "poi": "Sorry, deze locatie is niet gevonden.",
         "localNews": "Sorry, dit bericht kan niet worden gevonden.",
@@ -1463,7 +1569,7 @@
       "chooseALanguage": "Kies een taal:",
       "goTo": {
         "start": "Ga naar de beginpagina",
-        "categories": "Ga naar categorieën ",
+        "categories": "Ga naar categorieën",
         "events": "Ga naar evenementen",
         "offers": "Ga naar aanbod",
         "pois": "Ga naar de kaart",
@@ -1471,9 +1577,9 @@
         "tunews": "Ga naar nieuws"
       },
       "pageTitle": "Fout",
-      "generalError": "Er is een fout opgetreden. ",
-      "notSupportedByDevice": "Deze functie wordt niet ondersteund op dit apparaat. ",
-      "languageSwitchFailedTitle": "Helaas, het is niet gelukt om de taal te wijzigen. ",
+      "generalError": "Er is een fout opgetreden.",
+      "notSupportedByDevice": "Deze functie wordt niet ondersteund op dit apparaat.",
+      "languageSwitchFailedTitle": "Helaas, het is niet gelukt om de taal te wijzigen.",
       "languageSwitchFailedMessage": "De geselecteerde taal is niet beschikbaar als je offline bent. Er is een actieve verbinding met het internet nodig."
     },
     "pes": {
@@ -1983,14 +2089,17 @@
     "zh-CN": {
       "notFound": {
         "language": "很抱歉，这里没有提供该语言。",
+        "city": "很遗憾，未找到此地区。",
         "category": "很抱歉，找不到此页面。",
         "event": "很抱歉，找不到此活动。",
         "offer": "很抱歉，找不到此提供项目。",
+        "poi": "很遗憾，未找到此地点。",
         "localNews": "很抱歉，找不到此新闻。",
         "tunews": "很抱歉，找不到此 tünews。",
         "pageTitle": "未找到网页"
       },
       "pageNotFound": "很抱歉，找不到此页面。",
+      "noSuitableAppInstalled": "未安装合适的应用程序。",
       "networkConnectionFailed": "与服务器的连接失败。",
       "networkRequestFailed": "无法处理该询问。",
       "responseMappingFailed": "处理服务器响应时出错。",
@@ -2003,11 +2112,13 @@
         "categories": "前往类别",
         "events": "前往活动",
         "offers": "前往提供项目",
+        "pois": "前往地图",
         "localNews": "前往新闻",
         "tunews": "前往 tünews"
       },
       "pageTitle": "错误",
       "generalError": "发生了错误",
+      "notSupportedByDevice": "此设备不支持此功能。",
       "languageSwitchFailedTitle": "很抱歉，更改语言失败。",
       "languageSwitchFailedMessage": "所选语言无法离线使用。需要有效的互联网连接。"
     }
@@ -2068,6 +2179,13 @@
       "events": "Actividades",
       "currentlyNoEvents": "Actualmente no hay actividades.",
       "pageTitle": "Actividades"
+    },
+    "fi": {
+      "address": "Osoite",
+      "date": "Pvm",
+      "events": "Tapahtumat",
+      "currentlyNoEvents": "Tapahtumia ei ole tällä hetkellä.",
+      "pageTitle": "Tapahtumat"
     },
     "fr": {
       "address": "Adresse",
@@ -2224,6 +2342,7 @@
       "pageTitle": "ایونٹس"
     },
     "zh-CN": {
+      "address": "地址",
       "date": "日期",
       "events": "活动",
       "currentlyNoEvents": "目前没有活动。",
@@ -2390,6 +2509,26 @@
       "positiveRating": "Esta página sirve de ayuda",
       "contactMailAddress": "Correo electrónico para consultas",
       "optionalInfo": "opcional"
+    },
+    "fi": {
+      "disclaimer": "Yhteys- ja julkaisutiedot",
+      "send": "Lähetä",
+      "failedSendingFeedback": "Palautteen lähettämisessä on tapahtunut virhe.",
+      "feedback": "Palaute",
+      "positiveComment": "Mikä oli hyödyllistä?",
+      "negativeComment": "Missä voisimme parantaa?",
+      "isThisSiteUseful": "Oliko tämä sivu hyödyllinen?",
+      "useful": "Hyödyllinen",
+      "notUseful": "Ei hyödyllinen",
+      "informationNotFound": "Etkö löytänyt etsimääsi?",
+      "wantedInformation": "Mitkä tiedot puuttuvat?",
+      "feedbackSent": "Palaute lähetetty",
+      "thanksMessage": "Kiitos palautteestasi. Parannamme sisältöjä ja {{appName}}-sovellusta palautteesi avulla. Kuulemme mielellämme lisää palautetta.",
+      "close": "Sulje",
+      "negativeRating": "Tästä sivusta ei ole apua",
+      "positiveRating": "Tämä sivu on hyödyllinen",
+      "contactMailAddress": "Sähköpostiosoite tiedusteluita varten",
+      "optionalInfo": "valinnainen"
     },
     "fr": {
       "disclaimer": "Contact et mentions légales",
@@ -2847,7 +2986,9 @@
       "thanksMessage": "感谢您的反馈。这将帮助我们改进网站内容和{{appName}}应用程序。我们期待更多的反馈。",
       "close": "关闭",
       "negativeRating": "这个网站没有帮助",
-      "positiveRating": "这个网站很有帮助"
+      "positiveRating": "这个网站很有帮助",
+      "contactMailAddress": "反问的电子邮件",
+      "optionalInfo": "可选"
     }
   },
   "intro": {
@@ -2954,6 +3095,19 @@
       "offersDescription": "Búsqueda de trabajo, búsqueda de prácticas y más en la zona",
       "skip": "Saltar",
       "next": "Seguir"
+    },
+    "fi": {
+      "appDescription": "{{appName}} on digitaalinen oppaasi Saksaa varten",
+      "search": "Haku",
+      "searchDescription": "Löydä etsimäsi tiedot nopeasti hakusanojen avulla",
+      "languageChange": "Kielenvaihto",
+      "languageChangeDescription": "Helppo yksittäisten sivujen kielenvaihto",
+      "events": "Tapahtumat",
+      "eventsDescription": "Ympäristön ajankohtaiset tapahtumat ja aikataulut",
+      "offers": "Tarjoukset",
+      "offersDescription": "Ympäristön työnhaku, harjoittelupaikkahaku ja paljon muuta",
+      "skip": "Ohita",
+      "next": "Eteenpäin"
     },
     "fr": {
       "appDescription": "{{appName}} est votre guide numérique pour l'Allemagne",
@@ -3276,7 +3430,7 @@
     "am": {
       "searchCity": "መፈለግ",
       "noCitiesFound": "ውጤት የለም",
-      "nearbyCities": "በኣጠገብ ",
+      "nearbyCities": "በኣጠገብ",
       "noNearbyCities": "በኣጠገቡ ምንም ኣከባቢ ኣልተገኘም።",
       "alert": "ማስታወሻ",
       "locationError": "ኣጠገብ ላይ ያለውን ኣከባቢ ማሳየት እንዲቻል፣ የቦታ ማሳያ ኣገልግሎቶች መከፈት ኣለባቸው።",
@@ -3352,7 +3506,7 @@
       "loading": "Προσδιορισμός τοποθεσίας ...",
       "notAvailable": "Οι υπηρεσίες τοποθεσίας απενεργοποιήθηκαν",
       "timeout": "Ο προσδιορισμός της τοποθεσίας απέτυχε",
-      "refresh": "Ενημέρωση της λίστας κοντινών περιοχών ",
+      "refresh": "Ενημέρωση της λίστας κοντινών περιοχών",
       "pageTitle": "Περιοχές",
       "metaDescription": "Το {{appName}} είναι ο ψηφιακός σας οδηγός για τη Γερμανία. Βρείτε τοπικές πληροφορίες, εκδηλώσεις και συμβουλές. Πάντα ενημερωμένο και στη γλώσσα σας.",
       "cityNotFound": "Δεν μπορείτε να βρείτε την περιοχή σας;",
@@ -3364,7 +3518,7 @@
       "nearbyCities": "In the vicinity",
       "noNearbyCities": "No region found in the vicinity.",
       "alert": "Note",
-      "locationError": "To display regions in the vicinity, tracking services must be activated. ",
+      "locationError": "To display regions in the vicinity, tracking services must be activated.",
       "noPermission": "Location access required",
       "loading": "Determining location...",
       "notAvailable": "Location determination is deactivated",
@@ -3391,6 +3545,23 @@
       "metaDescription": "{{appName}} es su guía digital para Alemania. Encuentre información local, eventos y consejos. Siempre actualizados y en su idioma.",
       "cityNotFound": "¿No ha encontrado su región?",
       "clickHere": "Haga clic aquí"
+    },
+    "fi": {
+      "searchCity": "Haku",
+      "noCitiesFound": "Ei tuloksia",
+      "nearbyCities": "Lähellä",
+      "noNearbyCities": "Alueita ei löydetty läheltä.",
+      "alert": "Huom!",
+      "locationError": "Jotta lähellä olevat alueet voitaisiin näyttää, on paikannus otettava käyttöön.",
+      "noPermission": "Edellyttää sijaintitietojen pääsyn sallimista",
+      "loading": "Määritä sijainti...",
+      "notAvailable": "Sijainninmääritys poistettu käytöstä",
+      "timeout": "Sijainninmääritys epäonnistui",
+      "refresh": "Päivitä läheisten alueiden luettelo",
+      "pageTitle": "Alueet",
+      "metaDescription": "{{appName}} on digitaalinen oppaasi Saksaa varten. Etsi paikallisia tietoja, tapahtumia ja neuvoja. Aina ajantasaista tietoa omalla kielelläsi.",
+      "cityNotFound": "Etkö löytänyt aluettasi?",
+      "clickHere": "Klikkaa tästä"
     },
     "fr": {
       "searchCity": "Recherche",
@@ -3517,8 +3688,8 @@
       "nearbyCities": "In de buurt",
       "noNearbyCities": "Er is geen regio in de buurt gevonden.",
       "alert": "Melding",
-      "locationError": "Om de regio's in de buurt weer te geven, moet de locatievoorziening zijn ingeschakeld. ",
-      "noPermission": "Om de regio's in de buurt weer te geven, moet de locatievoorziening zijn ingeschakeld. ",
+      "locationError": "Om de regio's in de buurt weer te geven, moet de locatievoorziening zijn ingeschakeld.",
+      "noPermission": "Om de regio's in de buurt weer te geven, moet de locatievoorziening zijn ingeschakeld.",
       "loading": "Locatie aan het bepalen…",
       "notAvailable": "Automatische plaatsbepaling is gedactiveerd.",
       "timeout": "Automatische plaatsbepaling is mislukt.",
@@ -3767,12 +3938,21 @@
       "clickHere": "یہاں کلک کریں۔"
     },
     "zh-CN": {
+      "searchCity": "搜索",
+      "noCitiesFound": "没有结果",
+      "nearbyCities": "在附近",
+      "noNearbyCities": "未找到附近的地区。",
       "alert": "提示",
+      "locationError": "为了能够显示附近的地区，必须启用位置服务。",
       "noPermission": "需要位置访问权限",
       "loading": "定位中。。。",
       "notAvailable": "定位功能已停用",
       "timeout": "定位失败",
-      "metaDescription": "{{appName}}是您在德国生活的数字指南。查找本地信息、活动和建议。信息始终保持最新并以您自己的语言提供。"
+      "refresh": "更新附近地区列表",
+      "pageTitle": "地区",
+      "metaDescription": "{{appName}}是您在德国生活的数字指南。查找本地信息、活动和建议。信息始终保持最新并以您自己的语言提供。",
+      "cityNotFound": "未找到你的地区吗？",
+      "clickHere": "点击此处"
     }
   },
   "layout": {
@@ -3944,6 +4124,27 @@
       "shareFailDefaultMessage": "No se ha podido compartir el contenido.",
       "disclaimer": "Aviso legal"
     },
+    "fi": {
+      "imprintAndContact": "Julkaisu- ja yhteystiedot",
+      "privacy": "Tietosuoja",
+      "offers": "Tarjoukset",
+      "localInformation": "Paikalliset tiedot",
+      "events": "Tapahtumat",
+      "noEvents": "Ei tapahtumia",
+      "news": "Viestit",
+      "noLanguages": "Ei saatavilla muilla kielillä",
+      "noTranslation": "Käännöksiä ei saatavilla",
+      "search": "Haku",
+      "pois": "Kartta",
+      "changeLocation": "Vaihda sijaintia",
+      "changeLanguage": "Vaihda kieltä",
+      "settings": "Asetukset",
+      "share": "Jaa",
+      "cancel": "Keskeytä",
+      "shareMessage": "Juuri löydetty: {{message}}",
+      "shareFailDefaultMessage": "Sisällön jakaminen epäonnistui.",
+      "disclaimer": "Julkaisutiedot"
+    },
     "fr": {
       "imprintAndContact": "Mentions légales et contact",
       "privacy": "Protection des données",
@@ -4102,7 +4303,7 @@
       "noLanguages": "Niet beschikbaar in andere talen",
       "noTranslation": "Geen vertaling beschikbaar",
       "search": "Zoek",
-      "pois": "Kaart ",
+      "pois": "Kaart",
       "changeLocation": "Wijzig locatie",
       "changeLanguage": "Wijzig taal",
       "settings": "Instellingen",
@@ -4417,6 +4618,7 @@
       "noLanguages": "没有其他语言版本",
       "noTranslation": "没有翻译",
       "search": "搜索",
+      "pois": "地图",
       "changeLocation": "更改位置",
       "changeLanguage": "更改语言",
       "settings": "设置",
@@ -4433,10 +4635,160 @@
       "license": "Lizenz:",
       "noLicensesMessage": "Keinen Lizenzinformationen verfügbar"
     },
+    "am": {
+      "version": "ዓይነት",
+      "license": "የፍቃድ ወረቀት",
+      "noLicensesMessage": "ምንም የፍቃድ መረጃ የለም"
+    },
+    "ar": {
+      "version": "نسخة:",
+      "license": "رخصة:",
+      "noLicensesMessage": "لا توجد معلومات متاحة حول الترخيص"
+    },
+    "bg": {
+      "version": "Версия:",
+      "license": "Лиценз:",
+      "noLicensesMessage": "Няма налична информация за лиценза"
+    },
+    "ckb": {
+      "version": "ڤێرژن:",
+      "license": "مۆڵەت:",
+      "noLicensesMessage": "زانیاری مۆڵەت بەردەست نیە"
+    },
+    "el": {
+      "version": "Έκδοση:",
+      "license": "Άδεια:",
+      "noLicensesMessage": "Δεν υπάρχουν διαθέσιμες πληροφορίες άδειας"
+    },
     "en": {
       "version": "Version:",
       "license": "License:",
       "noLicensesMessage": "No license information available"
+    },
+    "es": {
+      "version": "Versión:",
+      "license": "Licencia:",
+      "noLicensesMessage": "No hay informaciones de licencia disponibles"
+    },
+    "fi": {
+      "version": "Versio:",
+      "license": "Lisenssi:",
+      "noLicensesMessage": "Lisenssitietoja ei ole saatavilla"
+    },
+    "fr": {
+      "version": "Version:",
+      "license": "Licence :",
+      "noLicensesMessage": "Aucune information de licence disponible"
+    },
+    "hr": {
+      "version": "Verzija:",
+      "license": "Licenca:",
+      "noLicensesMessage": "Nema dostupnih informacija o licenci"
+    },
+    "hu": {
+      "version": "Verzió:",
+      "license": "Licenc:",
+      "noLicensesMessage": "Nem áll rendelkezésre licencre vonatkozó információ"
+    },
+    "it": {
+      "version": "Versione:",
+      "license": "Licenza:",
+      "noLicensesMessage": "Nessuna informazione sulla licenza"
+    },
+    "ka": {
+      "version": "ვერსია:",
+      "license": "ლიცენზია:",
+      "noLicensesMessage": "ინფორმაცია ლიცენზიის შესახებ არ არის ხელმისაწვდომი"
+    },
+    "kmr": {
+      "version": "Versiyon:",
+      "license": "Destûr:",
+      "noLicensesMessage": "Ti zanyariyeke rêpêdayî li ber dest nîne"
+    },
+    "mk": {
+      "version": "Верзија:",
+      "license": "Лиценца:",
+      "noLicensesMessage": "Не се достапни информации за лиценцата"
+    },
+    "nl": {
+      "version": "Versie",
+      "license": "Licentie:",
+      "noLicensesMessage": "Geen licentie-informatie beschikbaar"
+    },
+    "pes": {
+      "version": "نسخه:",
+      "license": "مجوز:",
+      "noLicensesMessage": "اطلاعات مجوز موجود نیست"
+    },
+    "pl": {
+      "version": "Wersja:",
+      "license": "Licencja:",
+      "noLicensesMessage": "Informacja o licencji niedostępna"
+    },
+    "prs": {
+      "version": "نسخه:",
+      "license": "مجوز:",
+      "noLicensesMessage": "معلومات مجوز موجود نیست"
+    },
+    "ps": {
+      "version": "نسخه:",
+      "license": "جواز:",
+      "noLicensesMessage": "د جواز معلومات شتون نلري"
+    },
+    "ro": {
+      "version": "Versiuni:",
+      "license": "Licență:",
+      "noLicensesMessage": "Nu sunt disponibile informații despre licență"
+    },
+    "ru": {
+      "version": "Версия:",
+      "license": "Лицензия:",
+      "noLicensesMessage": "Нет  данных о лицензии"
+    },
+    "so": {
+      "version": "Nooca:",
+      "license": "Shatiga:",
+      "noLicensesMessage": "Ma jiro macluumaad shati oo la heli karo"
+    },
+    "sq": {
+      "version": "Versioni:",
+      "license": "Liçensë:",
+      "noLicensesMessage": "Nuk disponohet asnjë informacion licence"
+    },
+    "sr-Cyrl": {
+      "version": "Верзија:",
+      "license": "Лиценца:",
+      "noLicensesMessage": "Нема доступних информација о лиценци"
+    },
+    "sr-Latn": {
+      "version": "Verzija:",
+      "license": "Licenca: ",
+      "noLicensesMessage": "Nema dostupnih informacija o licenci"
+    },
+    "ti": {
+      "version": "ዓይነት",
+      "license": "ወረቐት ፍቓድ",
+      "noLicensesMessage": "ምንም ናይ ሊቸንሳ ሓበሬታ የለን"
+    },
+    "tr": {
+      "version": "Sürüm:",
+      "license": "Lisans:",
+      "noLicensesMessage": "Lisans bilgisi yok"
+    },
+    "uk": {
+      "version": "Версія:",
+      "license": "Ліцензія:",
+      "noLicensesMessage": "Інформація про ліцензію відсутня"
+    },
+    "ur": {
+      "version": "لائسنس:",
+      "license": "لائسنس کی کوئی معلومات دستیاب نہیں۔",
+      "noLicensesMessage": "رہنے  کا کمرہ"
+    },
+    "zh-CN": {
+      "version": "版本：",
+      "license": "许可证：",
+      "noLicensesMessage": "无许可证信息可用"
     }
   },
   "mainDisclaimer": {
@@ -4463,6 +4815,9 @@
     },
     "es": {
       "pageTitle": "Aviso legal y contacto - {{appName}}"
+    },
+    "fi": {
+      "pageTitle": "Julkaisu- ja yhteystiedot – {{appName}}"
     },
     "fr": {
       "pageTitle": "Mentions légales et contact - {{appName}}"
@@ -4566,6 +4921,10 @@
     "es": {
       "NSPhotoLibraryAddUsageDescription": "Para guardar imágenes, {{appName}} necesita un acceso a la galería.",
       "NSLocationWhenInUseUsageDescription": "Para encontrar ubicaciones cercanas, {{appName}} necesita acceder a la ubicación."
+    },
+    "fi": {
+      "NSPhotoLibraryAddUsageDescription": "Salli {{appName}}-sovellukselle pääsy galleriaan voidaksesi tallentaa kuvia.",
+      "NSLocationWhenInUseUsageDescription": "Salli {{appName}}-sovellukselle pääsy sijaintitietoihin etsiäksesi lähellä sijaitsevia paikkoja."
     },
     "fr": {
       "NSPhotoLibraryAddUsageDescription": "Pour enregistrer des photos, {{appName}} doit accéder à la galerie.",
@@ -4740,6 +5099,16 @@
       "local": "Local",
       "readMore": "Seguir leyendo",
       "currentlyNoNews": "En la actualidad no hay noticias"
+    },
+    "fi": {
+      "news": "Viestit",
+      "localNews": {
+        "localNews": "Paikalliset uutiset",
+        "pageTitle": "Paikalliset uutiset"
+      },
+      "local": "Paikallinen",
+      "readMore": "Lue lisää",
+      "currentlyNoNews": "Tällä hetkellä ei ole uutisia."
     },
     "fr": {
       "news": "Nouvelles",
@@ -4980,23 +5349,28 @@
     },
     "am": {
       "offers": "ግብዣዎች/ መጥሪያዎች",
-      "pageTitle": "ግብዣዎች/ መጥሪያዎች"
+      "pageTitle": "ግብዣዎች/ መጥሪያዎች",
+      "wohnraum": "መኖሪያ ቤት"
     },
     "ar": {
       "offers": "العروض",
-      "pageTitle": "العروض"
+      "pageTitle": "العروض",
+      "wohnraum": "غرفة المعيشة"
     },
     "bg": {
       "offers": "Оферти",
-      "pageTitle": "Оферти"
+      "pageTitle": "Оферти",
+      "wohnraum": "Жилище"
     },
     "ckb": {
       "offers": "پێشنیارەکان",
-      "pageTitle": "پێشنیارەکان"
+      "pageTitle": "پێشنیارەکان",
+      "wohnraum": "جەوی ژیان"
     },
     "el": {
       "offers": "Προσφορές",
-      "pageTitle": "Προσφορές"
+      "pageTitle": "Προσφορές",
+      "wohnraum": "Κατοικία"
     },
     "en": {
       "offers": "Offers",
@@ -5005,35 +5379,48 @@
     },
     "es": {
       "offers": "Ofertas",
-      "pageTitle": "Ofertas"
+      "pageTitle": "Ofertas",
+      "wohnraum": "Vivienda"
+    },
+    "fi": {
+      "offers": "Tarjoukset",
+      "pageTitle": "Tarjoukset",
+      "wohnraum": "Asuinalue"
     },
     "fr": {
       "offers": "Offres",
-      "pageTitle": "Offres"
+      "pageTitle": "Offres",
+      "wohnraum": "Espace vital"
     },
     "hr": {
       "offers": "Ponude",
-      "pageTitle": "Ponude"
+      "pageTitle": "Ponude",
+      "wohnraum": "Stambeni prostor"
     },
     "hu": {
       "offers": "Ajánlatok",
-      "pageTitle": "Ajánlatok"
+      "pageTitle": "Ajánlatok",
+      "wohnraum": "Lakóterület"
     },
     "it": {
       "offers": "Offerte",
-      "pageTitle": "Offerte"
+      "pageTitle": "Offerte",
+      "wohnraum": "Vano"
     },
     "ka": {
       "offers": "შეთავაზებები",
-      "pageTitle": "შეთავაზებები"
+      "pageTitle": "შეთავაზებები",
+      "wohnraum": "საცხოვრებელი ოთახი"
     },
     "kmr": {
       "offers": "Xizmet",
-      "pageTitle": "Xizmet"
+      "pageTitle": "Xizmet",
+      "wohnraum": "Atmosfera jiyanê"
     },
     "mk": {
       "offers": "Понуди",
-      "pageTitle": "Понуди"
+      "pageTitle": "Понуди",
+      "wohnraum": "Станбен простор"
     },
     "nl": {
       "offers": "Aanbod",
@@ -5042,7 +5429,8 @@
     },
     "pes": {
       "offers": "خدمات",
-      "pageTitle": "پیشنهادات"
+      "pageTitle": "پیشنهادات",
+      "wohnraum": "مسکن"
     },
     "pl": {
       "offers": "Oferty",
@@ -5051,15 +5439,18 @@
     },
     "prs": {
       "offers": "پیشنهادات",
-      "pageTitle": "پیشنهادات"
+      "pageTitle": "پیشنهادات",
+      "wohnraum": "مسکن"
     },
     "ps": {
       "offers": "وړاندیزونه",
-      "pageTitle": "وړاندیزونه"
+      "pageTitle": "وړاندیزونه",
+      "wohnraum": "د اوسیدلو کوټہ"
     },
     "ro": {
       "offers": "Oferte",
-      "pageTitle": "Oferte"
+      "pageTitle": "Oferte",
+      "wohnraum": "Spațiu de locuit"
     },
     "ru": {
       "offers": "Предложения",
@@ -5068,27 +5459,33 @@
     },
     "so": {
       "offers": "Heshiisyo",
-      "pageTitle": "Heshiisyo"
+      "pageTitle": "Heshiisyo",
+      "wohnraum": "Qolka fadhiga"
     },
     "sq": {
       "offers": "Ofertat",
-      "pageTitle": "Ofertat"
+      "pageTitle": "Ofertat",
+      "wohnraum": "Vendbanimi"
     },
     "sr-Cyrl": {
       "offers": "Понуде",
-      "pageTitle": "Понуде"
+      "pageTitle": "Понуде",
+      "wohnraum": "Стамбени простор"
     },
     "sr-Latn": {
       "offers": "Ponude",
-      "pageTitle": "Ponude"
+      "pageTitle": "Ponude",
+      "wohnraum": "Stambeni prostor"
     },
     "ti": {
       "offers": "ውዕላት",
-      "pageTitle": "ውዕላት"
+      "pageTitle": "ውዕላት",
+      "wohnraum": "መንበሪ ገዛ"
     },
     "tr": {
       "offers": "Teklifler",
-      "pageTitle": "Teklifler"
+      "pageTitle": "Teklifler",
+      "wohnraum": "Oturma odası"
     },
     "uk": {
       "offers": "Пропозиції",
@@ -5097,11 +5494,13 @@
     },
     "ur": {
       "offers": "پیش کشیں",
-      "pageTitle": "پیش کشیں"
+      "pageTitle": "پیش کشیں",
+      "wohnraum": "رابطہ کی تفصیلات"
     },
     "zh-CN": {
       "offers": "提供项目",
-      "pageTitle": "提供项目"
+      "pageTitle": "提供项目",
+      "wohnraum": "居住空间"
     }
   },
   "pois": {
@@ -5151,6 +5550,7 @@
       "distanceKilometreAlternative": "{{distance}} ኪሎሜትር",
       "distanceMetre": "{{distance}} ሜትር ርቀት",
       "distanceMetreAlternative": "{{distance}} ሜትር",
+      "contactInformation": "ግላዊ መረጃ",
       "address": "ኣድራሻ",
       "phone": "የተሌፎን ቁጥር",
       "eMail": "ኢ-ሜይል ኣድራሻ",
@@ -5160,7 +5560,15 @@
       "addressCopied": "ኣድራሻው በማቆያ ማሕደር ተቀድቷል",
       "phoneCopied": "የተሌፎን ቁጥር በማቆያ ማሕደር ተቀድቷል",
       "eMailCopied": "ኢ-ሜይል ኣድራሻ በማቆያ ማሕደር ተቀድቷል",
-      "websiteCopied": "የድረ ገጽ ጣቢያ በማቆያ ማሕደር ተቀድቷል"
+      "websiteCopied": "የድረ ገጽ ጣቢያ በማቆያ ማሕደር ተቀድቷል",
+      "listTitle": "በኣጠገብህ",
+      "detailsHeader": "ወደ መጀመሪያ ገጽ ይመለስ",
+      "detailsAddress": "መንገድ መምራት",
+      "detailsMapLink": "በጉግል ማፕ መክፈት",
+      "detailsInformation": "መረጃዎች",
+      "detailsNextPoi": "የሚቀጥለው",
+      "detailsPreviousPoi": "ኣስቀድሞ የነበረው",
+      "openExternalMaps": "ካርታው ላይ ኣፕ መክፈት"
     },
     "ar": {
       "pageTitle": "الخريطة",
@@ -5175,6 +5583,7 @@
       "distanceKilometreAlternative": "{{distance}} كم",
       "distanceMetre": "على بُعد {{distance}} م",
       "distanceMetreAlternative": "{{distance}} م",
+      "contactInformation": "بيانات الاتصال",
       "address": "العنوان",
       "phone": "رقم الهاتف",
       "eMail": "عنوان البريد الإليكتروني",
@@ -5184,7 +5593,15 @@
       "addressCopied": "تم نسخ العنوان",
       "phoneCopied": "تم نسخ رقم الهاتف",
       "eMailCopied": "تم نسخ البريد الإليكتروني",
-      "websiteCopied": "تم نسخ الموقع الإليكتروني"
+      "websiteCopied": "تم نسخ الموقع الإليكتروني",
+      "listTitle": "في منطقتك",
+      "detailsHeader": "العودة إلى النظرة العامة",
+      "detailsAddress": "خريطة الاتجاهات",
+      "detailsMapLink": "فتح من خلال خرائط جوجل",
+      "detailsInformation": "معلومات محلية",
+      "detailsNextPoi": "التالي",
+      "detailsPreviousPoi": "السابق",
+      "openExternalMaps": "فتح من خلال تطبيق الخرائط ( Karten-App)"
     },
     "bg": {
       "pageTitle": "Карта",
@@ -5199,6 +5616,7 @@
       "distanceKilometreAlternative": "{{distance}} км",
       "distanceMetre": "{{distance}} м разстояние",
       "distanceMetreAlternative": "{{distance}} м",
+      "contactInformation": "Данни за контакт",
       "address": "Адрес",
       "phone": "Телефон",
       "eMail": "Имейл адрес",
@@ -5208,7 +5626,15 @@
       "addressCopied": "Адресът е копиран в клипборда",
       "phoneCopied": "Телефонният номер е копиран в клипборда",
       "eMailCopied": "Имейл адресът е копиран в клипборда",
-      "websiteCopied": "Уебсайтът е копиран в клипборда"
+      "websiteCopied": "Уебсайтът е копиран в клипборда",
+      "listTitle": "В близост до теб",
+      "detailsHeader": "обратно към прегледа",
+      "detailsAddress": "Упътвания",
+      "detailsMapLink": "Отваряне в Google Maps",
+      "detailsInformation": "Информация",
+      "detailsNextPoi": "следваща",
+      "detailsPreviousPoi": "предишна",
+      "openExternalMaps": "Отваряне в приложението Карти"
     },
     "ckb": {
       "pageTitle": "نەخشە",
@@ -5223,6 +5649,7 @@
       "distanceKilometreAlternative": "{{distance}} کیلۆمەتر",
       "distanceMetre": "{{distance}} مەتر دوورە",
       "distanceMetreAlternative": "{{distance}} مەتر",
+      "contactInformation": "زانیاری پەیوەندی",
       "address": "ناونیشان",
       "phone": "ژمارە تەلەفۆن",
       "eMail": "ناونیشانی ئیمەیل",
@@ -5232,7 +5659,15 @@
       "addressCopied": "ناونیشان کۆپی کرایە نێو کلیپبۆرد",
       "phoneCopied": "ژمارە تەلەفۆن کۆپی کرایە نێو کلیپبۆرد",
       "eMailCopied": "ناونیشانی ئیمەیل کۆپی کرایە نێو کلیپبۆرد",
-      "websiteCopied": "ماڵپەڕ کۆپی کرایە نێو کلیپبۆرد"
+      "websiteCopied": "ماڵپەڕ کۆپی کرایە نێو کلیپبۆرد",
+      "listTitle": "لە نزیک تۆ",
+      "detailsHeader": "گەڕانەوە بۆ دیمەنی گشتی",
+      "detailsAddress": "ئاراستەکان",
+      "detailsMapLink": "کردنەوە لە Google Maps",
+      "detailsInformation": "زانیارییەکان",
+      "detailsNextPoi": "نزیکترین",
+      "detailsPreviousPoi": "پێشوو",
+      "openExternalMaps": "کردنەوە لە ئەپی نەخشە"
     },
     "el": {
       "pageTitle": "Χάρτης",
@@ -5247,6 +5682,7 @@
       "distanceKilometreAlternative": "{{distance}} χλμ.",
       "distanceMetre": "{{distance}} μ.",
       "distanceMetreAlternative": "{{distance}} μ.",
+      "contactInformation": "Στοιχεία επικοινωνίας",
       "address": "Διεύθυνση",
       "phone": "Αριθμός τηλεφώνου",
       "eMail": "Διεύθυνση e-mail",
@@ -5256,7 +5692,15 @@
       "addressCopied": "Η διεύθυνση αντιγράφηκε στο πρόχειρο",
       "phoneCopied": "Ο αριθμός τηλεφώνου αντιγράφηκε στο πρόχειρο",
       "eMailCopied": "Η διεύθυνση e-mail αντιγράφηκε στο πρόχειρο",
-      "websiteCopied": "Η ιστοσελίδα αντιγράφηκε στο πρόχειρο"
+      "websiteCopied": "Η ιστοσελίδα αντιγράφηκε στο πρόχειρο",
+      "listTitle": "Κοντά σε εσάς",
+      "detailsHeader": "επιστροφή στην επισκόπηση",
+      "detailsAddress": "Οδηγίες",
+      "detailsMapLink": "Άνοιγμα στους Χάρτες Google",
+      "detailsInformation": "Πληροφορίες",
+      "detailsNextPoi": "επόμενο",
+      "detailsPreviousPoi": "προηγούμενο",
+      "openExternalMaps": "Άνοιγμα στην εφαρμογή Χάρτες"
     },
     "en": {
       "pageTitle": "Map",
@@ -5281,7 +5725,15 @@
       "addressCopied": "Address copied to clipboard",
       "phoneCopied": "Telephone number copied to clipboard",
       "eMailCopied": "E-mail address copied to clipboard",
-      "websiteCopied": "Website copied to clipboard"
+      "websiteCopied": "Website copied to clipboard",
+      "listTitle": "Near you",
+      "detailsHeader": "Back",
+      "detailsAddress": "Directions",
+      "detailsMapLink": "Open in Google Maps",
+      "detailsInformation": "Info",
+      "detailsNextPoi": "Next",
+      "detailsPreviousPoi": "Previous",
+      "openExternalMaps": "Open in maps app"
     },
     "es": {
       "pageTitle": "Mapa",
@@ -5296,6 +5748,7 @@
       "distanceKilometreAlternative": "{{distance}} km",
       "distanceMetre": "A {{distance}} m de distancia",
       "distanceMetreAlternative": "{{distance}} m",
+      "contactInformation": "Datos de contacto",
       "address": "Dirección",
       "phone": "Número de teléfono",
       "eMail": "Correo electrónico",
@@ -5305,7 +5758,48 @@
       "addressCopied": "Dirección copiada en el portapapeles",
       "phoneCopied": "Número de teléfono copiado en el portapapeles",
       "eMailCopied": "Dirección de correo electrónico copiada en el portapapeles",
-      "websiteCopied": "Página web copiada en el portapapeles"
+      "websiteCopied": "Página web copiada en el portapapeles",
+      "listTitle": "En tu proximidad",
+      "detailsHeader": "volver a la vista general",
+      "detailsAddress": "Descripción de la ruta",
+      "detailsMapLink": "Abrir en Google Maps",
+      "detailsInformation": "Informaciones",
+      "detailsNextPoi": "siguiente",
+      "detailsPreviousPoi": "anterior",
+      "openExternalMaps": "Abrir en la aplicación de mapas"
+    },
+    "fi": {
+      "pageTitle": "Kartta",
+      "poi": "Paikka",
+      "pois": "Paikat",
+      "map": "Kartta",
+      "showOnMap": "Näytä kartalla",
+      "noPois": "Paikkoja ei löydetty.",
+      "unitKilometre": "km",
+      "unitMetre": "m",
+      "distanceKilometre": "{{distance}} km:n päässä",
+      "distanceKilometreAlternative": "{{distance}} km",
+      "distanceMetre": "{{distance}} m:n päässä",
+      "distanceMetreAlternative": "{{distance}} m",
+      "contactInformation": "Yhteystiedot",
+      "address": "Osoite",
+      "phone": "Puhelinnumero",
+      "eMail": "Sähköpostiosoite",
+      "website": "Verkkosivu",
+      "openingHours": "Aukioloajat",
+      "description": "Kuvaus",
+      "addressCopied": "Osoite kopioitu välimuistiin",
+      "phoneCopied": "Puhelinnumero kopioitu välimuistiin",
+      "eMailCopied": "Sähköpostiosoite kopioitu välimuistiin",
+      "websiteCopied": "Verkkosivu kopioitu välimuistiin",
+      "listTitle": "Lähellä",
+      "detailsHeader": "takaisin näkymään",
+      "detailsAddress": "Reittikuvaus",
+      "detailsMapLink": "Avaa Google Mapsissa",
+      "detailsInformation": "Tiedot",
+      "detailsNextPoi": "seuraava",
+      "detailsPreviousPoi": "edellinen",
+      "openExternalMaps": "Avaa karttasovelluksessa"
     },
     "fr": {
       "pageTitle": "Carte",
@@ -5320,6 +5814,7 @@
       "distanceKilometreAlternative": "{{distance}} km",
       "distanceMetre": "{{distance}} m de distance",
       "distanceMetreAlternative": "{{distance}} m",
+      "contactInformation": "Coordonnées",
       "address": "Adresse",
       "phone": "Numéro de téléphone",
       "eMail": "Adresse électronique",
@@ -5329,7 +5824,15 @@
       "addressCopied": "Adresse copiée dans le presse-papiers",
       "phoneCopied": "Numéro de téléphone copié dans le presse-papiers",
       "eMailCopied": "Adresse électronique copiée dans le presse-papiers",
-      "websiteCopied": "Site web copié dans le presse-papiers"
+      "websiteCopied": "Site web copié dans le presse-papiers",
+      "listTitle": "Près de chez toi",
+      "detailsHeader": "Retour à l’aperçu",
+      "detailsAddress": "Itinéraire",
+      "detailsMapLink": "Ouvrir dans Google Maps",
+      "detailsInformation": "Informations",
+      "detailsNextPoi": "suivant",
+      "detailsPreviousPoi": "précédent",
+      "openExternalMaps": "Ouvrir dans l’application de carte"
     },
     "hr": {
       "pageTitle": "Karta",
@@ -5344,6 +5847,7 @@
       "distanceKilometreAlternative": "{{distance}} km",
       "distanceMetre": "{{distance}} m udaljeno",
       "distanceMetreAlternative": "{{distance}} m",
+      "contactInformation": "Podaci za kontakt",
       "address": "Adresa",
       "phone": "Broj telefona",
       "eMail": "Adresa e-pošte",
@@ -5353,7 +5857,15 @@
       "addressCopied": "Adresa kopirana u međuspremnik",
       "phoneCopied": "Broj telefona kopiran u međuspremnik",
       "eMailCopied": "Adresa e-pošte kopirana u međuspremnik",
-      "websiteCopied": "Web-mjesto kopirano u međuspremnik"
+      "websiteCopied": "Web-mjesto kopirano u međuspremnik",
+      "listTitle": "Blizu tebe",
+      "detailsHeader": "natrag na pregled",
+      "detailsAddress": "Upute za vožnju",
+      "detailsMapLink": "Otvoriti u Google kartama",
+      "detailsInformation": "Informacije",
+      "detailsNextPoi": "najbliži",
+      "detailsPreviousPoi": "prethodni",
+      "openExternalMaps": "Otvoriti u aplikaciji Karte"
     },
     "hu": {
       "pageTitle": "Térkép",
@@ -5368,6 +5880,7 @@
       "distanceKilometreAlternative": "{{distance}} km",
       "distanceMetre": "{{distance}} kilométerre",
       "distanceMetreAlternative": "{{distance}} m",
+      "contactInformation": "Elérhetőség",
       "address": "Cím",
       "phone": "Telefonszám",
       "eMail": "E-mail címe",
@@ -5377,7 +5890,15 @@
       "addressCopied": "Cím vágólapra másolása befejezve",
       "phoneCopied": "Telefonszám vágólapra másolása befejezve",
       "eMailCopied": "E-mail cím vágólapra másolása befejezve",
-      "websiteCopied": "Weboldal vágólapra másolása befejezve"
+      "websiteCopied": "Weboldal vágólapra másolása befejezve",
+      "listTitle": "A közelben",
+      "detailsHeader": "Vissza az áttekintéshez",
+      "detailsAddress": "Útvonalterv",
+      "detailsMapLink": "Megnyitás Google Mapsben",
+      "detailsInformation": "Információk",
+      "detailsNextPoi": "következő",
+      "detailsPreviousPoi": "előző",
+      "openExternalMaps": "Megnyitás térkép alkalmazásban"
     },
     "it": {
       "pageTitle": "Mappa",
@@ -5389,19 +5910,28 @@
       "unitKilometre": "km",
       "unitMetre": "m",
       "distanceKilometre": "{{distance}} km di distanza",
-      "distanceKilometreAlternative": "{{distance}} km ",
+      "distanceKilometreAlternative": "{{distance}} km",
       "distanceMetre": "{{distance}} m di distanza",
-      "distanceMetreAlternative": "{{distance}} m ",
+      "distanceMetreAlternative": "{{distance}} m",
+      "contactInformation": "Recapiti",
       "address": "Indirizzo",
       "phone": "Numero telefonico",
       "eMail": "Indirizzo email",
-      "website": "Pagina Web ",
+      "website": "Pagina Web",
       "openingHours": "Orari di apertura",
       "description": "Descrizione",
       "addressCopied": "Indirizzo copiato negli appunti",
       "phoneCopied": "Numero telefonico copiato negli appunti",
       "eMailCopied": "Indirizzo email copiato negli appunti",
-      "websiteCopied": "Pagina Web copiata negli appunti"
+      "websiteCopied": "Pagina Web copiata negli appunti",
+      "listTitle": "Nelle vicinanze",
+      "detailsHeader": "torna alla panoramica",
+      "detailsAddress": "Descrizione del percorso",
+      "detailsMapLink": "Apri su Google Maps",
+      "detailsInformation": "Informazioni",
+      "detailsNextPoi": "successivo",
+      "detailsPreviousPoi": "precedente",
+      "openExternalMaps": "Apri nell'app di mappe"
     },
     "ka": {
       "pageTitle": "რუქები",
@@ -5416,6 +5946,7 @@
       "distanceKilometreAlternative": "{{distance}} კმ",
       "distanceMetre": "{{distance}} მ-ით არის დაშორებული",
       "distanceMetreAlternative": "{{distance}} მ-ით არის დაშორებული",
+      "contactInformation": "საკონტაქტო მონაცემები",
       "address": "მისამართი",
       "phone": "ტელეფონის ნომერი",
       "eMail": "ელფოსტის მისამართი",
@@ -5425,7 +5956,15 @@
       "addressCopied": "მისამართი კოპირებულია შუალედურ ჩანართში",
       "phoneCopied": "ტელეფონის ნომერი კოპირებულია შუალედურ ჩანართში",
       "eMailCopied": "ელფოსტა კოპირებულია შუალედურ ჩანართში",
-      "websiteCopied": "ვებგვერდი კოპირებულია შუალედურ ჩანართში"
+      "websiteCopied": "ვებგვერდი კოპირებულია შუალედურ ჩანართში",
+      "listTitle": "შენს სიახლოვეს",
+      "detailsHeader": "მიმოხილვაზე დაბრუნება",
+      "detailsAddress": "გზის აღწერილობა",
+      "detailsMapLink": "Google Map-ში გახსნა",
+      "detailsInformation": "ინფორმაციები",
+      "detailsNextPoi": "შემდეგი",
+      "detailsPreviousPoi": "წინა",
+      "openExternalMaps": "რუქის აპში გახსნა"
     },
     "kmr": {
       "pageTitle": "Nexşe",
@@ -5440,6 +5979,7 @@
       "distanceKilometreAlternative": "{{distance}} km",
       "distanceMetre": "{{distance}} km dûr e",
       "distanceMetreAlternative": "{{distance}} m",
+      "contactInformation": "Hûrgiliyên têkilîdanînê",
       "address": "Navnîşan",
       "phone": "Hejmara telefonê",
       "eMail": "Navnîşana e-nameyê",
@@ -5449,7 +5989,15 @@
       "addressCopied": "Navnîşan nava klîpboardê kopî bû",
       "phoneCopied": "Hejmara telefonê nava klîpboardê kopî bû",
       "eMailCopied": "Navnîşana e-nameyê nava klîpboardê kopî bû",
-      "websiteCopied": "Malper nava klîpboardê kopî bû"
+      "websiteCopied": "Malper nava klîpboardê kopî bû",
+      "listTitle": "Li nêzikî te",
+      "detailsHeader": "Vegeriyan bo nimaya giştî",
+      "detailsAddress": "Alî",
+      "detailsMapLink": "Vekirin li Google Maps'ê",
+      "detailsInformation": "Zanyarî",
+      "detailsNextPoi": "Herî nêzik",
+      "detailsPreviousPoi": "Ya berê",
+      "openExternalMaps": "Vekirin li bernameya Nexşeyê"
     },
     "mk": {
       "pageTitle": "Мапа",
@@ -5464,6 +6012,7 @@
       "distanceKilometreAlternative": "{{distance}} km",
       "distanceMetre": "{{distance}} m оддалечено",
       "distanceMetreAlternative": "{{distance}} m",
+      "contactInformation": "Податоци за контакт",
       "address": "Адреса",
       "phone": "телефонски број",
       "eMail": "Адреса на е-пошта",
@@ -5473,21 +6022,29 @@
       "addressCopied": "Адресата е копирана во меѓуархивата",
       "phoneCopied": "Телефонскиот број е копиран во меѓуархивата",
       "eMailCopied": "Адресата на е-пошта е копирана во меѓуархивата",
-      "websiteCopied": "Веб-страницата е копирана во меѓуархивата"
+      "websiteCopied": "Веб-страницата е копирана во меѓуархивата",
+      "listTitle": "Во твоја близина",
+      "detailsHeader": "назад кон преглед",
+      "detailsAddress": "опис на пат",
+      "detailsMapLink": "отвори во Google Maps",
+      "detailsInformation": "Информации",
+      "detailsNextPoi": "најблиско",
+      "detailsPreviousPoi": "претходно",
+      "openExternalMaps": "да се отвори во апликација за карти"
     },
     "nl": {
-      "pageTitle": "Kaart ",
+      "pageTitle": "Kaart",
       "poi": "Plaats",
       "pois": "Plaatsen",
-      "map": "Kaart ",
+      "map": "Kaart",
       "showOnMap": "Laat zien op de kaart",
       "noPois": "Er zijn geen plaatsen gevonden.",
       "unitKilometre": "km",
       "unitMetre": "m",
       "distanceKilometre": "{{distance}} km afstand",
-      "distanceKilometreAlternative": "{{distance}} km ",
+      "distanceKilometreAlternative": "{{distance}} km",
       "distanceMetre": "{{distance}} m afstand",
-      "distanceMetreAlternative": "{{distance}} m ",
+      "distanceMetreAlternative": "{{distance}} m",
       "contactInformation": "Contactgegevens",
       "address": "Adres",
       "phone": "Telefoonnummer",
@@ -5521,6 +6078,7 @@
       "distanceKilometreAlternative": "{{distance}} کیلومتر",
       "distanceMetre": "در فاصله {{distance}} متری",
       "distanceMetreAlternative": "{{distance}} متر",
+      "contactInformation": "اطلاعات تماس",
       "address": "نشانی",
       "phone": "شماره تلفن",
       "eMail": "نشانی ایمیل",
@@ -5530,7 +6088,15 @@
       "addressCopied": "نشانی در کلیپ‌برد کپی شد",
       "phoneCopied": "شماره تلفن در کلیپ‌برد کپی شد",
       "eMailCopied": "نشانی ایمیل در کلیپ‌برد کپی شد",
-      "websiteCopied": "وبسایت در کلیپ‌برد کپی شد"
+      "websiteCopied": "وبسایت در کلیپ‌برد کپی شد",
+      "listTitle": "در نزدیکی تو",
+      "detailsHeader": "بازگشت به خلاصه",
+      "detailsAddress": "مسیریابی",
+      "detailsMapLink": "باز کردن در Google Maps",
+      "detailsInformation": "اطلاعات",
+      "detailsNextPoi": "بعدی",
+      "detailsPreviousPoi": "قبلی",
+      "openExternalMaps": "باز کردن در اپلیکیشن نقشه‌ها"
     },
     "pl": {
       "pageTitle": "Mapa",
@@ -5555,7 +6121,15 @@
       "addressCopied": "Adres skopiowany do schowka",
       "phoneCopied": "Numer telefonu skopiowany do schowka",
       "eMailCopied": "Adres mailowy skopiowany do schowka",
-      "websiteCopied": "Strona www skopiowana do schowka"
+      "websiteCopied": "Strona www skopiowana do schowka",
+      "listTitle": "W pobliżu",
+      "detailsHeader": "powrót do widoku",
+      "detailsAddress": "Opis drogi",
+      "detailsMapLink": "Otwórz w Google Maps",
+      "detailsInformation": "Informacje",
+      "detailsNextPoi": "następny",
+      "detailsPreviousPoi": "poprzedni",
+      "openExternalMaps": "Otwórz w Karten-App"
     },
     "prs": {
       "pageTitle": "نقشه",
@@ -5570,6 +6144,7 @@
       "distanceKilometreAlternative": "{{distance}} کیلومتر",
       "distanceMetre": "{{distance}} متر دورتر",
       "distanceMetreAlternative": "{{distance}} متر",
+      "contactInformation": "معلومات تماس",
       "address": "آدرس",
       "phone": "شماره تلفن",
       "eMail": "آدرس ایمیل",
@@ -5579,21 +6154,30 @@
       "addressCopied": "آدرس در کلیپ‌بورد کپی شد",
       "phoneCopied": "شماره تلفن در کلیپ‌بورد کپی شد",
       "eMailCopied": "آدرس ایمیل در کلیپ‌بورد کپی شد",
-      "websiteCopied": "وبسایت در کلیپ‌بورد کپی شد"
+      "websiteCopied": "وبسایت در کلیپ‌بورد کپی شد",
+      "listTitle": "در نزدیکی تو",
+      "detailsHeader": "بازگشت به خلاصه",
+      "detailsAddress": "مسیریابی",
+      "detailsMapLink": "باز کردن در Google Maps",
+      "detailsInformation": "معلومات",
+      "detailsNextPoi": "بعدی",
+      "detailsPreviousPoi": "قبلی",
+      "openExternalMaps": "باز کردن در اپلیکیشن نقشه‌ها"
     },
     "ps": {
       "pageTitle": "نقشہ",
-      "poi": "ځای ",
-      "pois": "ځایونہ ",
+      "poi": "ځای",
+      "pois": "ځایونہ",
       "map": "نقشہ",
       "showOnMap": "پہ نقشہ کی ښودل",
       "noPois": "ھیس ځای او نہ موندلے شو",
       "unitKilometre": "کیلو میتر",
       "unitMetre": "میتر",
       "distanceKilometre": "{{distance}} کیلو میترہ بیرتہ",
-      "distanceKilometreAlternative": "{{distance}} کیلو میترہ ",
+      "distanceKilometreAlternative": "{{distance}} کیلو میترہ",
       "distanceMetre": "{{distance}} کیلو میترہ بیرتہ",
       "distanceMetreAlternative": "{{distance}} میتر",
+      "contactInformation": "د اړیکو نیولو معلومات",
       "address": "پتہ",
       "phone": "تیلیفون رقم",
       "eMail": "ای میل ایدریس",
@@ -5603,7 +6187,15 @@
       "addressCopied": "پتہ کلپ بورډ تہ کاپی شوی",
       "phoneCopied": "تیلیفون رقم کلپ بورډ تہ کاپی شوی",
       "eMailCopied": "ای میل ایدریس کلپ بورډ تہ کاپی شوی",
-      "websiteCopied": "ویب پانہ کلپ بورډ تہ کاپی شوی"
+      "websiteCopied": "ویب پانہ کلپ بورډ تہ کاپی شوی",
+      "listTitle": "تا ته نیږدی",
+      "detailsHeader": "بیرته کتنې ته",
+      "detailsAddress": "لارښوونې",
+      "detailsMapLink": "په ګوګل نقشه کې خلاص کړئ",
+      "detailsInformation": "معلومات",
+      "detailsNextPoi": "راتلونکی",
+      "detailsPreviousPoi": "پخوانی",
+      "openExternalMaps": "په نقشه ایپ کې خلاص کړئ"
     },
     "ro": {
       "pageTitle": "Harta",
@@ -5618,6 +6210,7 @@
       "distanceKilometreAlternative": "{{distance}} km",
       "distanceMetre": "{{distance}} m distanță",
       "distanceMetreAlternative": "{{distance}} m",
+      "contactInformation": "Date de contact",
       "address": "Adresa",
       "phone": "Numărul de telefon",
       "eMail": "Adresa de e-mail",
@@ -5627,7 +6220,15 @@
       "addressCopied": "Adresa copiată în clipboard",
       "phoneCopied": "Numărul de telefon copiat în clipboard",
       "eMailCopied": "Adresa de e-mail copiată în clipboard",
-      "websiteCopied": "Pagina de internet copiată în clipboard"
+      "websiteCopied": "Pagina de internet copiată în clipboard",
+      "listTitle": "În apropierea ta",
+      "detailsHeader": "înapoi la Sumar",
+      "detailsAddress": "Descriere traseu",
+      "detailsMapLink": "Deschide în Google Maps",
+      "detailsInformation": "Informații",
+      "detailsNextPoi": "următorul",
+      "detailsPreviousPoi": "anteriorul",
+      "openExternalMaps": "Deschide în aplicația Hărți"
     },
     "ru": {
       "pageTitle": "Карта",
@@ -5652,7 +6253,15 @@
       "addressCopied": "Адрес скопирован в буфер обмена",
       "phoneCopied": "Телефон скопирован в буфер обмена",
       "eMailCopied": "Адрес эл. почты скопирован в буфер обмена",
-      "websiteCopied": "Ссылка на сайт скопирована в буфер обмена"
+      "websiteCopied": "Ссылка на сайт скопирована в буфер обмена",
+      "listTitle": "Рядом с тобой",
+      "detailsHeader": "возврат на страницу обзора",
+      "detailsAddress": "Описание направления",
+      "detailsMapLink": "открыть в Google Maps",
+      "detailsInformation": "Информация",
+      "detailsNextPoi": "следующий",
+      "detailsPreviousPoi": "предыдущий",
+      "openExternalMaps": "Открыть в навигационном приложении"
     },
     "so": {
       "pageTitle": "khariidad",
@@ -5667,6 +6276,7 @@
       "distanceKilometreAlternative": "{{distance}} km",
       "distanceMetre": "{{distance}} m kuu jirta",
       "distanceMetreAlternative": "{{distance}} m",
+      "contactInformation": "faahfaahinta xiriirka",
       "address": "ciwaanka",
       "phone": "lambarka taleefanka",
       "eMail": "Cinwaanka iimaylka",
@@ -5675,8 +6285,16 @@
       "description": "sharaxaadda",
       "addressCopied": "Ciwaanka waxa la koobiyeeyay",
       "phoneCopied": "Lambarka taleefanka waa la koobiyeeyay",
-      "eMailCopied": "Ciwaanka iimaylka waa la koobiyeeyay ",
-      "websiteCopied": "Bogga websaydhka waa la koobiyeeyay"
+      "eMailCopied": "Ciwaanka iimaylka waa la koobiyeeyay",
+      "websiteCopied": "Bogga websaydhka waa la koobiyeeyay",
+      "listTitle": "Kugu dhow",
+      "detailsHeader": "U laabo guudmarka",
+      "detailsAddress": "Tilmaamaha",
+      "detailsMapLink": "Ku fur Khariidadaha Google-ka (Google Maps)",
+      "detailsInformation": "macluumaad",
+      "detailsNextPoi": "ugu dhow",
+      "detailsPreviousPoi": "hore",
+      "openExternalMaps": "Ku fur ablikeeshinka Khariidadaha"
     },
     "sq": {
       "pageTitle": "Harta",
@@ -5691,16 +6309,25 @@
       "distanceKilometreAlternative": "{{distance}} km",
       "distanceMetre": "{{distance}} m larg",
       "distanceMetreAlternative": "{{distance}} m",
+      "contactInformation": "Detaje të kontaktit",
       "address": "Adresa",
       "phone": "Numri i telefonit",
       "eMail": "E-Mail-Adresa",
       "website": "Faqja e internetit",
       "openingHours": "Orari i punës",
       "description": "Përshkrimi",
-      "addressCopied": "Adresa u kopjua ndërmjet rendit ",
-      "phoneCopied": "Numri i telefonit u kopjua ndërmjet rendit ",
-      "eMailCopied": "E-mail adresa u kopjua ndërmjet rendit ",
-      "websiteCopied": "Faqja e internetit u kopjua ndërmjet rendit "
+      "addressCopied": "Adresa u kopjua ndërmjet rendit",
+      "phoneCopied": "Numri i telefonit u kopjua ndërmjet rendit",
+      "eMailCopied": "E-mail adresa u kopjua ndërmjet rendit",
+      "websiteCopied": "Faqja e internetit u kopjua ndërmjet rendit",
+      "listTitle": "Në afërsin tuaj",
+      "detailsHeader": "kthehu te përmbledhja",
+      "detailsAddress": "Përshkrimi i rrugës",
+      "detailsMapLink": "Hape të Google Map",
+      "detailsInformation": "Informata",
+      "detailsNextPoi": "tjetra",
+      "detailsPreviousPoi": "mëparshme",
+      "openExternalMaps": "hape në App Hartë"
     },
     "sr-Cyrl": {
       "pageTitle": "Карта",
@@ -5715,6 +6342,7 @@
       "distanceKilometreAlternative": "{{distance}} km",
       "distanceMetre": "{{distance}} m удаљен",
       "distanceMetreAlternative": "{{distance}} m",
+      "contactInformation": "Контакт информације",
       "address": "Адреса",
       "phone": "Телефон",
       "eMail": "Адреса е-поште",
@@ -5724,7 +6352,15 @@
       "addressCopied": "Адреса је копирана на клипборду",
       "phoneCopied": "Број телефона је копиран на клипборду",
       "eMailCopied": "Адреса е-поште је копирана на клипборду",
-      "websiteCopied": "Веб страна је копирана на клипборду"
+      "websiteCopied": "Веб страна је копирана на клипборду",
+      "listTitle": "У вашој близини",
+      "detailsHeader": "Назад у преглед",
+      "detailsAddress": "Опис пута",
+      "detailsMapLink": "Отвори у Гоогле мапама",
+      "detailsInformation": "Информације",
+      "detailsNextPoi": "Следећи",
+      "detailsPreviousPoi": "Претходни",
+      "openExternalMaps": "отвори у апликацији мапе"
     },
     "sr-Latn": {
       "pageTitle": "Karta",
@@ -5739,6 +6375,7 @@
       "distanceKilometreAlternative": "{{distance}} km",
       "distanceMetre": "{{distance}} m udaljen",
       "distanceMetreAlternative": "{{distance}} m",
+      "contactInformation": " Kontakt informacije ",
       "address": "Adresa",
       "phone": "Telefon",
       "eMail": "Adresa e-pošte",
@@ -5748,7 +6385,15 @@
       "addressCopied": "Adresa je kopirana na klipbordu",
       "phoneCopied": "Broj telefona je kopiran na klipbordu",
       "eMailCopied": "Adresa e-pošte je kopirana na klipbordu",
-      "websiteCopied": "Veb strana je kopirana na klipbordu"
+      "websiteCopied": "Veb strana je kopirana na klipbordu",
+      "listTitle": "U vašoj blizini ",
+      "detailsHeader": " Nazad u pregled ",
+      "detailsAddress": "Opis puta",
+      "detailsMapLink": "Otvori u Google mapama ",
+      "detailsInformation": "Informacije ",
+      "detailsNextPoi": "Sledeći ",
+      "detailsPreviousPoi": "Prethodni ",
+      "openExternalMaps": "Otvori u aplikaciji mape "
     },
     "ti": {
       "pageTitle": "ካርታ",
@@ -5763,6 +6408,7 @@
       "distanceKilometreAlternative": "{{distance}} ኪሎሜትሮ",
       "distanceMetre": "{{distance}} ሜትሮ ርሕቀት",
       "distanceMetreAlternative": "{{distance}} ሜትሮ",
+      "contactInformation": "ውልቃዊ ሓበሬታ",
       "address": "ኣድራሻ",
       "phone": "ቁጽሪ ተሌፎን",
       "eMail": "ኢ-ሜይል ኣድራሻ",
@@ -5772,7 +6418,15 @@
       "addressCopied": "ኣድራሻ ኣብ መጽንሒ ማሕደር ተቐዲሑ",
       "phoneCopied": "ቁጽሪ ተሌፎን ኣብ መጽንሒ ማሕደር ተቐዲሑ",
       "eMailCopied": "ኢ-ሜይል ኣድራሻ ኣብ መጽንሒ ማሕደር ተቐዲሑ",
-      "websiteCopied": "መርበብ ሓበሬታ ኣብ መጽንሒ ማሕደር ተቐዲሑ"
+      "websiteCopied": "መርበብ ሓበሬታ ኣብ መጽንሒ ማሕደር ተቐዲሑ",
+      "listTitle": "ኣብ ጥቓኻ",
+      "detailsHeader": "ናብ መርኣዪ ትሕዝቶ ይመለስ ",
+      "detailsAddress": "መገዲ ምሕባር",
+      "detailsMapLink": "ኣብ ጉግል ማፕ ክፈት",
+      "detailsInformation": "ሓበሬታት",
+      "detailsNextPoi": "ዝቕጽል",
+      "detailsPreviousPoi": "ዝሓለፈ",
+      "openExternalMaps": "ኣብ ካርታ ኣፕ ምኽፋት"
     },
     "tr": {
       "pageTitle": "Harita",
@@ -5787,6 +6441,7 @@
       "distanceKilometreAlternative": "{{distance}} km",
       "distanceMetre": "{{distance}} m mesafede",
       "distanceMetreAlternative": "{{distance}} m",
+      "contactInformation": "İletişim bilgileri",
       "address": "Adres",
       "phone": "Telelfon numarası",
       "eMail": "E-posta adresi",
@@ -5796,7 +6451,15 @@
       "addressCopied": "Adres panoya kopyalandı",
       "phoneCopied": "Telelfon numarası panoya kopyalandı",
       "eMailCopied": "E-posta adresi panoya kopyalandı",
-      "websiteCopied": "İnternet sitesi panoya kopyalandı"
+      "websiteCopied": "İnternet sitesi panoya kopyalandı",
+      "listTitle": "Yakınında",
+      "detailsHeader": "Genel bakışa geri git",
+      "detailsAddress": "Yol açıklaması",
+      "detailsMapLink": "Google Haritaları aç",
+      "detailsInformation": "Bilgiler",
+      "detailsNextPoi": "Bir sonraki",
+      "detailsPreviousPoi": "Bir önceki",
+      "openExternalMaps": "Harita uygulamasında aç"
     },
     "uk": {
       "pageTitle": "Мапа",
@@ -5811,6 +6474,7 @@
       "distanceKilometreAlternative": "{{distance}} км",
       "distanceMetre": "{{distance}} м",
       "distanceMetreAlternative": "{{distance}} м",
+      "contactInformation": "Контактні дані",
       "address": "Адреса",
       "phone": "Номер телефону",
       "eMail": "Адреса електронної пошти",
@@ -5821,7 +6485,14 @@
       "phoneCopied": "Номер телефону скопійовано в буфер обміну",
       "eMailCopied": "Адреса електронної пошти скопійована в буфер обміну",
       "websiteCopied": "Сайт скопійований у буфер обміну",
-      "listTitle": "З вами поблизу"
+      "listTitle": "З вами поблизу",
+      "detailsHeader": "назад до огляду",
+      "detailsAddress": "Опис маршруту",
+      "detailsMapLink": "Відкрити в Карти Google",
+      "detailsInformation": "Інформація",
+      "detailsNextPoi": "наступний",
+      "detailsPreviousPoi": "попередній",
+      "openExternalMaps": "Відкрити в додатку Карти"
     },
     "ur": {
       "pageTitle": "نقشہ",
@@ -5835,7 +6506,7 @@
       "distanceKilometre": "{{distance}}کلو میٹر فاصلہ",
       "distanceKilometreAlternative": "{{distance}} کلو میٹر",
       "distanceMetre": "{{distance}} میٹر فاصلہ",
-      "distanceMetreAlternative": "{{distance}} میٹر ",
+      "distanceMetreAlternative": "{{distance}} میٹر",
       "contactInformation": "Контактна інформація",
       "address": "پتہ",
       "phone": "ٹیلیفون نمبر",
@@ -5846,7 +6517,48 @@
       "addressCopied": "پتہ کلپ بورڈ میں کاپی کیا گیا",
       "phoneCopied": "ٹیلی فون نمبر کلپ بورڈ میں کاپی کیا گیا",
       "eMailCopied": "ای میل ایڈریس کلپ بورڈ میں کاپی کیا گیا",
-      "websiteCopied": "ویب سائٹ کلپ بورڈ میں کاپی کیا گیا"
+      "websiteCopied": "ویب سائٹ کلپ بورڈ میں کاپی کیا گیا",
+      "listTitle": "آپ کے قریب",
+      "detailsHeader": "جائزہ پر واپس جائیں۔",
+      "detailsAddress": "ہدایات",
+      "detailsMapLink": "گوگل میپس میں کھولیں۔",
+      "detailsInformation": "معلومات",
+      "detailsNextPoi": "اگلا",
+      "detailsPreviousPoi": "پچھلے",
+      "openExternalMaps": "Maps  ایپ میں کھولیں۔"
+    },
+    "zh-CN": {
+      "pageTitle": "地图",
+      "poi": "地点",
+      "pois": "地点",
+      "map": "地图",
+      "showOnMap": "在地图上显示",
+      "noPois": "未找到地点。",
+      "unitKilometre": "千米",
+      "unitMetre": "米",
+      "distanceKilometre": "距离{{distance}}千米",
+      "distanceKilometreAlternative": "{{distance}}千米",
+      "distanceMetre": "距离{{distance}}米",
+      "distanceMetreAlternative": "{{distance}}米",
+      "contactInformation": "联系方式",
+      "address": "地址",
+      "phone": "电话号码",
+      "eMail": "电子邮件地址",
+      "website": "网址",
+      "openingHours": "营业时间",
+      "description": "描述",
+      "addressCopied": "地址已复制到剪贴板",
+      "phoneCopied": "电话号码已复制到剪贴板",
+      "eMailCopied": "电子邮件地址已复制到剪贴板",
+      "websiteCopied": "网址已复制到剪贴板",
+      "listTitle": "在你附近",
+      "detailsHeader": "返回概览",
+      "detailsAddress": "路线描述",
+      "detailsMapLink": "在谷歌地图中打开",
+      "detailsInformation": "信息",
+      "detailsNextPoi": "下一个",
+      "detailsPreviousPoi": "上一个",
+      "openExternalMaps": "在地图应用程序中打开"
     }
   },
   "search": {
@@ -5889,6 +6601,11 @@
       "nothingFound": "No se ha encontrado ningún resultado.",
       "searchPlaceholder": "Búsqueda",
       "pageTitle": "Búsqueda"
+    },
+    "fi": {
+      "nothingFound": "Sopivia hakutuloksia ei löydetty.",
+      "searchPlaceholder": "Haku",
+      "pageTitle": "Haku"
     },
     "fr": {
       "nothingFound": "Malheureusement, nous n'avons trouvé aucun résultat.",
@@ -6040,7 +6757,7 @@
       "allowTracking": "ክትትሉን ይፍቀዱ",
       "trackingShortDescription": "በ J-PAL የግምገማ ጥናት ላይ ተሳተፉ፣ የ {{appName}} ለማሻሻል።",
       "trackingMoreInformation": "የ J-PAL የግምገማ ጥናትን የሚመለከት ተጨማሪ መረጃና የጥናቱ ዓላማ  ",
-      "trackingDescription": "{{appName}} በዚህ ኣፕ ውስጥ የመጠቀምን ዱካ ለመከታተል፣ ፈቃድ ይጠየቃል። የርስዎ ዳታ በሚስጢር በተያዘ መንገድና ዓላማው ለጥናት ለሆነና ኣፑን ለማሻሻል ተብሎ ብቻ ጥቅም ላይ ይውላል። የዱካ መከታተል ዳታዎች ለሌላ ተላልፈው ኣይሰጡም ወይ ደግሞ ለማስታወቂያ ወይም ለሌላ ንግዳዊ ለሆነ ዓላማ ተብለው ኣይሰሩም። ",
+      "trackingDescription": "{{appName}} በዚህ ኣፕ ውስጥ የመጠቀምን ዱካ ለመከታተል፣ ፈቃድ ይጠየቃል። የርስዎ ዳታ በሚስጢር በተያዘ መንገድና ዓላማው ለጥናት ለሆነና ኣፑን ለማሻሻል ተብሎ ብቻ ጥቅም ላይ ይውላል። የዱካ መከታተል ዳታዎች ለሌላ ተላልፈው ኣይሰጡም ወይ ደግሞ ለማስታወቂያ ወይም ለሌላ ንግዳዊ ለሆነ ዓላማ ተብለው ኣይሰሩም።",
       "trackingLeaveTitle": "ዱካ መከታተልን መፍቀድ?",
       "trackingLeaveDescription": "ዱካ መከታተሉን ኣልፈቀዱም።ዱካ መከታተሉ እኛን የሚረዳን፣ የ {{appName}}-ኣፕ ለማሻሻልና ወደ ኣገር እንግዳ ለሆኑ የተሻለ መረጃ ለማዘጋጀት ነው። የዱካ መከታተሉን ሳይፈቅዱ ከስክሪኑ ለመለየት እርግጠኛ ነዎት?                                                                                                                                                                                                                          ",
       "enabled": "ሰርቷል",
@@ -6166,6 +6883,26 @@
       "enabled": "activado",
       "disabled": "desactivado",
       "decline": "Rechazar"
+    },
+    "fi": {
+      "sentryTitle": "Sovelluksen vakaus",
+      "sentryDescription": "Paranna {{appName}}-sovellusta lähettämällä häiriöraportit automaattisesti",
+      "pushNewsTitle": "Puskuviestit",
+      "pushNewsDescription": "Vastaanota puskuviestejä uusimmista paikallisista uutisista",
+      "about": "{{appName}}-sovelluksesta",
+      "privacyPolicy": "Tietosuojaseloste",
+      "version": "Versio: {{version}}",
+      "openSourceLicenses": "Avoimen lähdekoodin lisenssit",
+      "tracking": "J-PAL Evaluation",
+      "allowTracking": "Salli seuranta",
+      "trackingShortDescription": "Osallistu J-PAL-arviointitutkimukseen auttaaksesi parantamaan {{appName}}-sovellusta.",
+      "trackingMoreInformation": "Lisätietoja J-Pal-arviointitutkimuksesta ja tutkimustavoitteet",
+      "trackingDescription": "{{appName}} pyytää lupaasi seurata sovelluksen sisästä käyttöäsi. Tietosi anonymisoidaan ja niitä käytetään vain tutkimustarkoituksiin ja sovelluksen parantamiseen. Seurantatietoja ei jaeta tai käsitellä mainos- tai muissa kaupallisissa tarkoituksissa.",
+      "trackingLeaveTitle": "Sallitaanko seuranta?",
+      "trackingLeaveDescription": "Et ole sallinut seurantaa. Seuranta auttaa meitä parantamaan {{appName}}-sovellusta ja tarjoamaan parempia tietoja maahanmuuttajille. Haluatko varmasti poistua näytöltä sallimatta seurantaa?",
+      "enabled": "Aktivoitu",
+      "disabled": "Pois käytöstä",
+      "decline": "Hylkää"
     },
     "fr": {
       "sentryTitle": "Stabilité de l'application",
@@ -6616,6 +7353,15 @@
       "privacyPolicy": "数据保护政策",
       "version": "版本：{{version}}",
       "openSourceLicenses": "开源许可证",
+      "tracking": "J-PAL评估",
+      "allowTracking": "允许跟踪",
+      "trackingShortDescription": "请参与J-PAL评估研究，以改进{{AppName}}。",
+      "trackingMoreInformation": "有关J-PAL评估研究和研究目标的更多信息",
+      "trackingDescription": "{{AppName}}请求允许在应用程序中跟踪您的使用情况。您的数据被匿名化处理，仅用于研究目的和改进应用程序。跟踪数据不会被共享，也不会出于广告或其他商业目的而被处理。",
+      "trackingLeaveTitle": "允许追踪吗？",
+      "trackingLeaveDescription": "您未允许跟踪。跟踪帮助我们改进{{appname}}应用程序，并为移民提供更好的信息。您确定要在不允许跟踪的情况下离开屏幕吗？",
+      "enabled": "已激活",
+      "disabled": "已停用",
       "decline": "拒绝"
     }
   },
@@ -6692,6 +7438,21 @@
       "facetCity": "Ort/PLZ",
       "facetPets": "Haustiere erlaubt"
     },
+    "am": {
+      "title": "መኖሪያ ክፍል"
+    },
+    "ar": {
+      "title": "غرفة المعيشة"
+    },
+    "bg": {
+      "title": "Жилище"
+    },
+    "ckb": {
+      "title": "جەوی ژیان"
+    },
+    "el": {
+      "title": "Κατοικία"
+    },
     "en": {
       "title": "Housing",
       "shelterTitle": "{{beds}} in {{location}}",
@@ -6764,9 +7525,105 @@
       "facetCity": "place/zip",
       "facetPets": "Pets allowed"
     },
+    "es": {
+      "title": "Vivienda"
+    },
+    "fi": {
+      "title": "Asuinalue"
+    },
+    "fr": {
+      "title": "Espace vital"
+    },
+    "hr": {
+      "title": "Stambeni prostor"
+    },
+    "hu": {
+      "title": "Lakóterület"
+    },
+    "it": {
+      "title": "Vano"
+    },
+    "ka": {
+      "title": "საცხოვრებელი ოთახი",
+      "shelterTitle": "{{beds}} {{location}}-ში",
+      "shelterInformation": "შეთავაზებული საცხოვრებელი ოთახი",
+      "householdInformation": "საყოფაცხოვრებო მონაცემები",
+      "hostInformation": "მონაცემები შემთავაზებლის შესახებ",
+      "contactInformation": "საკონტაქტო მონაცემები",
+      "shelterButton": "ნახვა",
+      "bed": "1 ლოგინი",
+      "beds": "{{beds}} ლოგინი",
+      "ges_unterkunft": "მთლიანი საცხოვრისი",
+      "gemein_zimmer": "საერთო ოთახი",
+      "privatzimmer": "პირადი ოთახი",
+      "7t": "7 დღემდე",
+      "14t": "14 დღემდე",
+      "1m": "1 თვემდე",
+      "3m": "3 თვემდე",
+      "6m": "6 თვემდე",
+      "12m": "12 თვემდე",
+      "12m_plus": "12 თვეზე მეტი",
+      "starting": "შემდეგიდან",
+      "now": "ახლავე",
+      "free": "უფასო",
+      "withCosts": "ფასიანი (ფასი მოთხოვნით)",
+      "tenancyPossible": "ქირის ხელშეკრულებაზე გადასვლის შესაძლებლობა",
+      "accessible": "ბარიერების გარეშე",
+      "bathroom": "საკუთარი სააბაზანო",
+      "lgbtiq": "LGBTIQ+ მეგობრული",
+      "haustier": "დაშვებულია შინაური ცხოველები",
+      "haustier-katze": "კატები დაშვებულია",
+      "haustier-hund": "ძაღლები დაშვებულია",
+      "smoking": "მოწევა დაშვებულია",
+      "rooms": "ოთახების რაოდენობა:",
+      "occupants": "მაცხოვრებლების რაოდენობა:",
+      "notSpecified": "არ არის მითითებული",
+      "name": "სახელი:",
+      "zipcode": "საფოსტო ინდექსი:",
+      "city": "ადგილი:",
+      "hostType": "სახლის მდგომარეობა:",
+      "languages": "ენა:",
+      "deutsch": "გერმანული",
+      "englisch": "ინგლისური",
+      "ukrainisch": "უკრაინული",
+      "russisch": "რუსული",
+      "polnisch": "პოლონური",
+      "kroatisch": "ხორვატული",
+      "allein_maennlich": "დამოუკიდებელი მამაკაცი",
+      "allein_weiblich": "დამოუკიდებელი ქალი",
+      "familie_kinder": "ოჯახი ბავშვ(ებ)ით",
+      "paar": "წყვილი ბავშვების გარეშე",
+      "wg": "საერთო საცხოვრებელი",
+      "comments": "დასკვნითი შენიშვნები",
+      "noSheltersAvailable": "საცხოვრისი არ არის ხელმისაწვდომი",
+      "shelterType": "საცხოვრებელი ოთახის ტიპი",
+      "startDate": "ყველაზე ადრე ხელმისაწვდომი",
+      "availableBeds": "ხელმისაწვდომი ლოგინები",
+      "duration": "დარჩენის შესაძლო ხანგრძლივობა",
+      "contactRequest": {
+        "title": "კონტაქტის მოთხოვნა",
+        "description": "თუ გაქვთ ინტერესი შეთავაზებულ საცხოვრებელ ოთახზე, შეგვიძლია თქვენი საკონტაქტო მონაცემები გადავცეთ მესაკუთრეს.",
+        "email": "ელფოსტის მისამართი",
+        "phone": "ტელეფონის ნომერი",
+        "success": "თქვენი საკონტაქტო ინფორმაცია წარმატებით გაიგზავნა",
+        "error": "სამწუხაროდ რაღაც დახარვეზდა.",
+        "invalid_accommodation": "ეს შეთავაზება აღარ არის ხელმისაწვდომი.",
+        "invalid_contact_data": "თქვენი საკონტაქტო ინფორმაცია სამწუხაროდ არ იყო სწორი ან უკვე გამოყენებულია კონტაქტის მოთხოვნაში.",
+        "send": "გაგზავნა"
+      },
+      "facetBeds": "ლოგინების მინ.რაოდენობა",
+      "facetCity": "ადგილი/საფოსტო კოდი",
+      "facetPets": "შინაური ცხოველები დაშვებულია"
+    },
+    "kmr": {
+      "title": "Atmosfera jiyanê"
+    },
+    "mk": {
+      "title": "Станбен простор"
+    },
     "nl": {
       "title": "Huisvesting",
-      "shelterTitle": "{{beds}} op {{locatie}}",
+      "shelterTitle": "{{beds}} op {{location}}",
       "shelterInformation": "Aangeboden huisvesting",
       "householdInformation": "Informatie over het gehele huishouden",
       "hostInformation": "Details van de host",
@@ -6787,9 +7644,9 @@
       "starting": "Vanaf",
       "now": "Meteen",
       "free": "Gratis",
-      "withCosts": "Er zijn kosten aan verbonden (prijs op aanvraag) ",
+      "withCosts": "Er zijn kosten aan verbonden (prijs op aanvraag)",
       "tenancyPossible": "Overgang naar huur mogelijk",
-      "accessible": "Toegankelijk ",
+      "accessible": "Toegankelijk",
       "bathroom": "Eigen badkamer",
       "lgbtiq": "LGBTIQ+-vriendelijk",
       "haustier": "Huisdieren toegestaan",
@@ -6816,7 +7673,7 @@
       "paar": "Familie zonder kinderen",
       "wg": "Een gemeenschap die appartementen deelt",
       "comments": "Aanvullend commentaar",
-      "noSheltersAvailable": "Geen accomodaties ",
+      "noSheltersAvailable": "Geen accomodaties",
       "shelterType": "Soort opvang",
       "startDate": "Eerst beschikbaar (or: eerst beschikbare opvang)",
       "availableBeds": "Beschikbare bedden",
@@ -6835,6 +7692,9 @@
       "facetBeds": "Aantal bedden",
       "facetCity": "Plaats/postcode",
       "facetPets": "Huisdieren toegestaan"
+    },
+    "pes": {
+      "title": "مسکن"
     },
     "pl": {
       "title": "Zakwaterowania",
@@ -6908,6 +7768,15 @@
       "facetCity": "miejsce/zamek błyskawiczny",
       "facetPets": "Zwierzęta domowe dozwolone"
     },
+    "prs": {
+      "title": "مسکن"
+    },
+    "ps": {
+      "title": "د اوسیدلو کوټہ "
+    },
+    "ro": {
+      "title": "Spațiu de locuit"
+    },
     "ru": {
       "title": "Жильё",
       "shelterTitle": "{{beds}} в {{location}}",
@@ -6980,6 +7849,24 @@
       "facetCity": "ме́сто/почто́вый и́ндекс",
       "facetPets": "Домашние животные разрешены"
     },
+    "so": {
+      "title": "Qolka fadhiga"
+    },
+    "sq": {
+      "title": "Vendbanimi"
+    },
+    "sr-Cyrl": {
+      "title": "Стамбени простор"
+    },
+    "sr-Latn": {
+      "title": "Stambeni prostor"
+    },
+    "ti": {
+      "title": "መንበሪ ክፍሊ"
+    },
+    "tr": {
+      "title": "Oturma odası"
+    },
     "uk": {
       "title": "Житло",
       "shelterTitle": "{{beds}} y {{location}}",
@@ -7051,6 +7938,12 @@
       "facetBeds": "кількість ліжок",
       "facetCity": "Розташування/Поштовий індекс",
       "facetPets": "Допускаються домашні тварини"
+    },
+    "ur": {
+      "title": "رہنے  کا کمرہ"
+    },
+    "zh-CN": {
+      "title": "居住空间"
     }
   },
   "sprungbrett": {

@@ -181,7 +181,7 @@ const PoiDetails: React.FC<PoiDetailsProps> = ({
       <HeadingSection>
         <Thumbnail alt='' src={thumb ?? PoiPlaceholder} />
         <Heading>{title}</Heading>
-        {distance && <Distance>{t('distanceKilometre', { distance })}</Distance>}
+        {!!distance && <Distance>{t('distanceKilometre', { distance })}</Distance>}
       </HeadingSection>
       <Spacer borderColor={theme.colors.poiBorderColor} />
       {!viewportSmall && <Subheading>{t('detailsAddress')}</Subheading>}
@@ -202,13 +202,15 @@ const PoiDetails: React.FC<PoiDetailsProps> = ({
           </CleanLink>
         </LinkContainer>
       </DetailSection>
-      {(website || phoneNumber || email) && (
+      {(!!website || !!phoneNumber || !!email) && (
         <>
           <Spacer borderColor={theme.colors.poiBorderColor} />
           <Collapsible title={t('contactInformation')} initialCollapsed direction={direction}>
             <>
-              {website && <ContactItem iconSrc={WebsiteIcon} iconAlt={t('website')} link={website} content={website} />}
-              {phoneNumber && (
+              {!!website && (
+                <ContactItem iconSrc={WebsiteIcon} iconAlt={t('website')} link={website} content={website} />
+              )}
+              {!!phoneNumber && (
                 <ContactItem
                   iconSrc={PhoneIcon}
                   iconAlt={t('phone')}
@@ -216,7 +218,7 @@ const PoiDetails: React.FC<PoiDetailsProps> = ({
                   content={phoneNumber}
                 />
               )}
-              {email && (
+              {!!email && (
                 <ContactItem iconSrc={EmailIcon} iconAlt={t('eMail')} link={`mailto:${email}`} content={email} />
               )}
             </>

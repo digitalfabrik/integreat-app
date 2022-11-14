@@ -52,7 +52,7 @@ const Collapsible: React.FC<CollapsibleProps> = ({
         tabIndex={0}
         onKeyPress={() => setCollapsed(!collapsed)}>
         <Title>{title}</Title>
-        <StyledIcon icon={collapsed ? faAngleDown : faAngleUp} />
+        <StyledIcon icon={collapsed ? faAngleUp : faAngleDown} />
       </CollapsibleHeader>
       {collapsed && <ContentWrapper direction={direction}>{children}</ContentWrapper>}
     </>
