@@ -1,0 +1,8 @@
+issue_key: IGAPP-973
+show_in_stores: true
+platforms:
+  - web
+  - android
+  - ios
+en: Mark external links with an icon
+de: Externe Links mit einem Icon markieren
