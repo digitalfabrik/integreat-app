@@ -17,17 +17,10 @@ export const prepareFeatureLocation = (
   const { featureLocation } = poi
   const { coordinates } = featureLocation.geometry
 
-  const maxDistanceForOverlap = 0.0003
-  const longitude = coordinates[0] as number
-  const latitude = coordinates[1] as number
-  const overlappingCoordinates = coordinateList.filter(
-    coord =>
-      Math.abs((coord[0] as number) - longitude) < maxDistanceForOverlap &&
-      Math.abs((coord[1] as number) - latitude) < maxDistanceForOverlap
-  )
-  if (overlappingCoordinates.length > 1) {
-    featureLocation.properties.closeToOtherPoi = true
-  }
+  // 50 meters
+  const maxDistanceForOverlap = 0.05
+  const overlappingCoordinates = coordinateList.filter(coord => distance(coord, coordinates) < maxDistanceForOverlap)
+  featureLocation.properties.closeToOtherPoi = overlappingCoordinates.length > 1
 
   if (userLocation) {
     const distanceValue = distance(userLocation, featureLocation.geometry.coordinates).toFixed(1)

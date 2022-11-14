@@ -29,7 +29,7 @@ export type GeoJsonPoiProperties = {
   address?: string
   distance?: string
   thumbnail?: string
-  closeToOtherPoi?: boolean
+  closeToOtherPoi: boolean
 }
 
 export type MarkerConfig = {
