@@ -32,7 +32,7 @@ describe('RemoteContent', () => {
 
   it('should not trigger on internalLinkClick for external links', () => {
     const href = `https://some.external/link`
-    const html = `<a href=${href}>Test Anchor</a>`
+    const html = `<a href=${href} class="external-link">Test Anchor</a>`
     const onInternalLinkClick = jest.fn()
 
     const { getByRole, getAllByRole } = renderWithTheme(
