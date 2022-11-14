@@ -19,13 +19,13 @@ import {
   useLoadFromEndpoint,
 } from 'api-client'
 
+import CityContentLayout from './components/CityContentLayout'
 import FailureSwitcher from './components/FailureSwitcher'
 import GeneralFooter from './components/GeneralFooter'
 import GeneralHeader from './components/GeneralHeader'
 import LanguageFailure from './components/LanguageFailure'
 import Layout from './components/Layout'
 import LoadingSpinner from './components/LoadingSpinner'
-import LocationLayout from './components/LocationLayout'
 import buildConfig from './constants/buildConfig'
 import { cmsApiBaseUrl } from './constants/urls'
 import useWindowDimensions from './hooks/useWindowDimensions'
@@ -147,15 +147,15 @@ const CityContentSwitcher = ({ cities, languageCode }: CityContentSwitcherProps)
       element={
         <Suspense
           fallback={
-            <LocationLayout {...suspenseLayoutProps} route={route}>
+            <CityContentLayout {...suspenseLayoutProps} route={route}>
               <LoadingSpinner />
-            </LocationLayout>
+            </CityContentLayout>
           }>
           <Component {...cityRouteProps} />
         </Suspense>
       }
       path={RoutePatterns[route]}>
-      {childPattern && <Route element={null} path={childPattern} />}
+      {!!childPattern && <Route element={null} path={childPattern} />}
     </Route>
   )
 
@@ -169,7 +169,7 @@ const CityContentSwitcher = ({ cities, languageCode }: CityContentSwitcherProps)
       {offersEnabled && render(SHELTER_ROUTE, ShelterPage, ':shelterId')}
       {offersEnabled && render(SPRUNGBRETT_OFFER_ROUTE, SprungbrettOfferPage)}
       {offersEnabled && render(OFFERS_ROUTE, OffersPage)}
-      {poisEnabled && render(POIS_ROUTE, PoisPage, ':poiId')}
+      {poisEnabled && render(POIS_ROUTE, PoisPage, ':urlSlug')}
       {localNewsEnabled && render(LOCAL_NEWS_ROUTE, LocalNewsPage, ':newsId')}
 
       {tuNewsEnabled && render(TU_NEWS_ROUTE, TuNewsPage)}

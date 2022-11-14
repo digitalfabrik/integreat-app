@@ -10,10 +10,10 @@ import {
 } from 'api-client'
 
 import { CityRouteProps } from '../CityContentSwitcher'
+import CityContentLayout from '../components/CityContentLayout'
 import FailureSwitcher from '../components/FailureSwitcher'
 import Helmet from '../components/Helmet'
 import LoadingSpinner from '../components/LoadingSpinner'
-import LocationLayout from '../components/LocationLayout'
 import Page from '../components/Page'
 import { cmsApiBaseUrl } from '../constants/urls'
 import DateFormatterContext from '../contexts/DateFormatterContext'
@@ -53,25 +53,25 @@ const DisclaimerPage = ({ cityCode, languageCode, pathname, languages, cityModel
 
   if (loading) {
     return (
-      <LocationLayout isLoading {...locationLayoutParams}>
+      <CityContentLayout isLoading {...locationLayoutParams}>
         <LoadingSpinner />
-      </LocationLayout>
+      </CityContentLayout>
     )
   }
 
   if (!disclaimer) {
     const error = disclaimerError || new Error('Disclaimer should not be null!')
     return (
-      <LocationLayout isLoading {...locationLayoutParams}>
+      <CityContentLayout isLoading {...locationLayoutParams}>
         <FailureSwitcher error={error} />
-      </LocationLayout>
+      </CityContentLayout>
     )
   }
 
   const pageTitle = `${t('pageTitle')} - ${cityModel.name}`
 
   return (
-    <LocationLayout isLoading={false} {...locationLayoutParams}>
+    <CityContentLayout isLoading={false} {...locationLayoutParams}>
       <Helmet pageTitle={pageTitle} languageChangePaths={languageChangePaths} cityModel={cityModel} />
       <Page
         lastUpdate={disclaimer.lastUpdate}
@@ -80,7 +80,7 @@ const DisclaimerPage = ({ cityCode, languageCode, pathname, languages, cityModel
         formatter={dateFormatter}
         onInternalLinkClick={navigate}
       />
-    </LocationLayout>
+    </CityContentLayout>
   )
 }
 

@@ -48,7 +48,7 @@ const Page = ({
   onInternalLinkClick,
 }: PageProps): ReactElement => (
   <>
-    {defaultThumbnailSrc && <Thumbnail alt='' src={defaultThumbnailSrc} srcSet={thumbnailSrcSet} />}
+    {!!defaultThumbnailSrc && <Thumbnail alt='' src={defaultThumbnailSrc} srcSet={thumbnailSrcSet} />}
     <Caption title={title} />
     {children}
     <RemoteContent html={content} onInternalLinkClick={onInternalLinkClick} />

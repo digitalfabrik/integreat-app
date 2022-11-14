@@ -114,7 +114,7 @@ describe('pathname', () => {
     })
     it('should match single pois route', () => {
       const urlSlug = 'tuer-an-tuer'
-      const pathname = `/${cityCode}/${languageCode}/${POIS_ROUTE}?name=${urlSlug}`
+      const pathname = `/${cityCode}/${languageCode}/${POIS_ROUTE}/${urlSlug}`
       expect(
         pathnameFromRouteInformation({
           route: POIS_ROUTE,

@@ -44,7 +44,7 @@ type ListItemProps = {
 const ListItem: React.FC<ListItemProps> = ({ path, title, thumbnail, children }: ListItemProps): ReactElement => (
   <ListItemContainer dir='auto'>
     <CleanLink to={path}>
-      {thumbnail && <Thumbnail alt='' src={thumbnail} />}
+      {!!thumbnail && <Thumbnail alt='' src={thumbnail} />}
       <Description>
         <Title dir='auto'>{title}</Title>
         {children}
