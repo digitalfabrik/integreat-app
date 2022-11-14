@@ -96,8 +96,6 @@ describe('geoJson', () => {
     it('should sort feature location by distance ascending', () => {
       const poiFeature1 = prepareFeatureLocation(poi1, userLocation, [])
       const poiFeature2 = prepareFeatureLocation(poi2, userLocation, [])
-      console.log(poiFeature2)
-
       const poiFeature3 = prepareFeatureLocation(poi3, userLocation, [])
       expect(prepareFeatureLocations([poi3, poi2, poi1], userLocation)).toEqual([poiFeature1, poiFeature3, poiFeature2])
     })
