@@ -2,7 +2,7 @@ import Dompurify from 'dompurify'
 import React, { ReactElement, useCallback, useEffect } from 'react'
 import styled from 'styled-components'
 
-import iconExternalLink from '../assets/IconExternalLink.svg'
+import IconExternalLink from '../assets/IconExternalLink.svg'
 import buildConfig from '../constants/buildConfig'
 
 const SandBox = styled.div<{ centered: boolean; smallText: boolean }>`
@@ -89,7 +89,7 @@ const SandBox = styled.div<{ centered: boolean; smallText: boolean }>`
   .link-external::after {
     content: '';
     display: inline-block;
-    background-image: url('${iconExternalLink}');
+    background-image: url('${IconExternalLink}');
     width: ${props =>
       props.smallText ? `clamp(0.55rem, 1.6vh, ${props.theme.fonts.hintFontSize})` : props.theme.fonts.contentFontSize};
     height: ${props =>
