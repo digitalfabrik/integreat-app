@@ -18,7 +18,7 @@ const ChatBotWidget = (): ReactElement => {
   useEffect(() => {
     const script = document.createElement('script')
 
-    script.src = 'https://unpkg.com/@rasahq/rasa-chat'
+    script.src = `/rasa-widget/chatbot.js`
     script.defer = true
 
     document.body.appendChild(script)
