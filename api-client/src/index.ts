@@ -95,7 +95,7 @@ export { default as useLoadFromEndpoint, loadFromEndpoint } from './endpoints/ho
 export { default as parseHTML } from './utils/parseHTML'
 export { embedInCollection } from './utils/geoJson'
 export { prepareFeatureLocations, prepareFeatureLocation } from './utils/geoJson'
-export { getSlug, getEventSlug } from './utils/getSlug'
+export { getSlug } from './utils/getSlug'
 
 export { default as CategoriesMapModel } from './models/CategoriesMapModel'
 export { default as CategoryModel } from './models/CategoryModel'

@@ -8,7 +8,7 @@ import {
   EventModel,
   EVENTS_ROUTE,
   fromError,
-  getEventSlug,
+  getSlug,
   NotFoundError,
   RouteInformationType,
 } from 'api-client'
@@ -67,7 +67,7 @@ const Events = ({
   const createNavigateToFeedbackForEvent = (event: EventModel) => (isPositiveFeedback: boolean) => {
     navigateToFeedback({
       routeType: EVENTS_ROUTE,
-      slug: getEventSlug(event),
+      slug: getSlug(event.path),
       cityCode: cityModel.code,
       language,
       isPositiveFeedback,

@@ -6,7 +6,7 @@ import {
   createEventsEndpoint,
   EventModel,
   EVENTS_ROUTE,
-  getEventSlug,
+  getSlug,
   NotFoundError,
   pathnameFromRouteInformation,
   useLoadFromEndpoint,
@@ -64,7 +64,7 @@ const EventsPage = ({ cityModel, languages, pathname, languageCode, cityCode }: 
   const locationLayoutParams = {
     cityModel,
     viewportSmall,
-    feedbackTargetInformation: event ? { slug: getEventSlug(event) } : null,
+    feedbackTargetInformation: event ? { slug: getSlug(event.path) } : null,
     languageChangePaths,
     route: EVENTS_ROUTE,
     languageCode,
