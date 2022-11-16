@@ -17,6 +17,7 @@ describe('PoiModel', () => {
       path: '/augsburg/de/locations/test',
       urlSlug: 'test',
       address: 'Test Address 1',
+      closeToOtherPoi: false,
     },
   }
 

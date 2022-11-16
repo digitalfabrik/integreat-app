@@ -76,6 +76,7 @@ class PoiModel extends ExtendedPageModel {
         path: this.path,
         urlSlug: this.urlSlug,
         address,
+        closeToOtherPoi: false,
       },
     }
   }
