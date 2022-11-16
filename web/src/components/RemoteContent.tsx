@@ -86,6 +86,11 @@ const SandBox = styled.div<{ centered: boolean; smallText: boolean }>`
     overflow-x: auto;
   }
 
+  .link-external {
+    display: flex;
+    align-items: center;
+  }
+
   .link-external::after {
     content: '';
     display: inline-block;
