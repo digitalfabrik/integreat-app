@@ -3,22 +3,16 @@ import React, { ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
 
-import type { FeedbackType } from 'api-client'
 import {
-  CATEGORIES_FEEDBACK_TYPE,
   CATEGORIES_ROUTE,
   CONTENT_FEEDBACK_CATEGORY,
   createFeedbackEndpoint,
   DISCLAIMER_ROUTE,
-  EVENTS_FEEDBACK_TYPE,
   EVENTS_ROUTE,
   FeedbackParamsType,
-  OFFER_FEEDBACK_TYPE,
-  OFFERS_FEEDBACK_TYPE,
+  FeedbackType,
   OFFERS_ROUTE,
-  PAGE_FEEDBACK_TYPE,
   POIS_ROUTE,
-  SEARCH_FEEDBACK_TYPE,
   SEARCH_ROUTE,
 } from 'api-client'
 
@@ -50,9 +44,8 @@ type FeedbackContainerProps = {
   isPositiveFeedback: boolean
   isSearchFeedback: boolean
   closeModal?: () => void
-  alias?: string
-  path?: string
   query?: string
+  slug?: string
 }
 
 export enum SendingState {
@@ -66,47 +59,47 @@ export const FeedbackContainer = (props: FeedbackContainerProps): ReactElement =
   const [comment, setComment] = useState<string>('')
   const [contactMail, setContactMail] = useState<string>('')
   const [sendingStatus, setSendingStatus] = useState<SendingState>(SendingState.IDLE)
-  const { path, alias, query, language, isPositiveFeedback, isSearchFeedback, routeType, cityCode, closeModal } = props
+  const { query, language, isPositiveFeedback, isSearchFeedback, routeType, cityCode, slug, closeModal } = props
   const { t } = useTranslation('feedback')
 
   const getFeedbackType = (): FeedbackType => {
     switch (routeType) {
       case EVENTS_ROUTE:
-        return path ? PAGE_FEEDBACK_TYPE : EVENTS_FEEDBACK_TYPE
+        return slug ? FeedbackType.event : FeedbackType.events
 
       case OFFERS_ROUTE:
-        return alias ? OFFER_FEEDBACK_TYPE : OFFERS_FEEDBACK_TYPE
+        return slug ? FeedbackType.offer : FeedbackType.offers
 
       case DISCLAIMER_ROUTE:
-        return PAGE_FEEDBACK_TYPE
+        return FeedbackType.imprint
 
       case POIS_ROUTE:
-        return path ? PAGE_FEEDBACK_TYPE : CATEGORIES_FEEDBACK_TYPE
+        return slug ? FeedbackType.poi : FeedbackType.map
 
       case CATEGORIES_ROUTE:
-        return path ? PAGE_FEEDBACK_TYPE : CATEGORIES_FEEDBACK_TYPE
+        return slug ? FeedbackType.page : FeedbackType.categories
 
       case SEARCH_ROUTE:
-        return SEARCH_FEEDBACK_TYPE
+        return FeedbackType.search
 
       default:
-        return CATEGORIES_FEEDBACK_TYPE
+        return FeedbackType.categories
     }
   }
 
   const getFeedbackData = (comment: string, contactMail: string): FeedbackParamsType => {
     const feedbackType = getFeedbackType()
     const commentWithMail = `${comment}    Kontaktadresse: ${contactMail || 'Keine Angabe'}`
+
     return {
       feedbackType,
       feedbackCategory: CONTENT_FEEDBACK_CATEGORY,
       isPositiveRating: isPositiveFeedback,
-      permalink: path,
       city: cityCode,
       language,
       comment: commentWithMail,
-      alias,
       query,
+      slug,
     }
   }
 

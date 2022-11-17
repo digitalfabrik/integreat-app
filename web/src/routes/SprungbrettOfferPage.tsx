@@ -12,6 +12,7 @@ import {
   useLoadFromEndpoint,
   OfferModel,
   pathnameFromRouteInformation,
+  getSlug,
 } from 'api-client'
 
 import { CityRouteProps } from '../CityContentSwitcher'
@@ -77,7 +78,7 @@ const SprungbrettOfferPage = ({
   const locationLayoutParams = {
     cityModel,
     viewportSmall,
-    feedbackTargetInformation: offer ? { path: offer.path } : null,
+    feedbackTargetInformation: offer ? { slug: getSlug(offer.path) } : null,
     languageChangePaths,
     route: SPRUNGBRETT_OFFER_ROUTE,
     languageCode,
