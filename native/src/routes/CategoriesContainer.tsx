@@ -84,7 +84,7 @@ const CategoriesContainer = ({ navigation, route }: CategoriesContainerProps): R
     },
     [category, navigation]
   )
-  useOnLanguageChange({ languageCode, onLanguageChange })
+  const previousLanguageCode = useOnLanguageChange({ languageCode, onLanguageChange })
   useSetShareUrl({
     navigation,
     route,
@@ -100,14 +100,14 @@ const CategoriesContainer = ({ navigation, route }: CategoriesContainerProps): R
     return <LanguageNotAvailablePage />
   }
 
-  if (!category) {
-    const error = new NotFoundError({ id: path, type: 'category', city: cityCode, language: languageCode })
-    return <LoadingErrorHandler {...response} error={response.error ?? error} />
-  }
+  const error =
+    data?.categories && !category && previousLanguageCode === languageCode
+      ? new NotFoundError({ id: path, type: 'category', city: cityCode, language: languageCode })
+      : response.error
 
   return (
-    <LoadingErrorHandler {...response} scrollView>
-      {data && (
+    <LoadingErrorHandler {...response} error={error} scrollView>
+      {data && category && (
         <SpaceBetween {...(category.isRoot() ? testID('Dashboard-Page') : {})}>
           {category.isRoot() ? (
             <DashboardNavigationTiles cityModel={data.city} languageCode={languageCode} navigateTo={navigateTo} />
