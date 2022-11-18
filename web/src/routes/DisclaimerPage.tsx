@@ -5,13 +5,16 @@ import { useNavigate } from 'react-router-dom'
 import {
   createDisclaimerEndpoint,
   DISCLAIMER_ROUTE,
+  getSlug,
   pathnameFromRouteInformation,
   useLoadFromEndpoint,
 } from 'api-client'
 
 import { CityRouteProps } from '../CityContentSwitcher'
 import CityContentLayout from '../components/CityContentLayout'
+import CityContentToolbar from '../components/CityContentToolbar'
 import FailureSwitcher from '../components/FailureSwitcher'
+import { FeedbackRatingType } from '../components/FeedbackToolbarItem'
 import Helmet from '../components/Helmet'
 import LoadingSpinner from '../components/LoadingSpinner'
 import Page from '../components/Page'
@@ -36,6 +39,10 @@ const DisclaimerPage = ({ cityCode, languageCode, pathname, languages, cityModel
 
   const { data: disclaimer, loading, error: disclaimerError } = useLoadFromEndpoint(requestDisclaimer)
 
+  const toolbar = (openFeedback: (rating: FeedbackRatingType) => void) => (
+    <CityContentToolbar openFeedbackModal={openFeedback} viewportSmall={viewportSmall} />
+  )
+
   const languageChangePaths = languages.map(({ code, name }) => {
     const disclaimerPath = pathnameFromRouteInformation({ route: DISCLAIMER_ROUTE, cityCode, languageCode: code })
     return { path: disclaimerPath, name, code }
@@ -44,11 +51,12 @@ const DisclaimerPage = ({ cityCode, languageCode, pathname, languages, cityModel
   const locationLayoutParams = {
     cityModel,
     viewportSmall,
-    feedbackTargetInformation: disclaimer ? { path: disclaimer.path } : null,
+    feedbackTargetInformation: disclaimer ? { slug: getSlug(disclaimer.path) } : null,
     languageChangePaths,
     route: DISCLAIMER_ROUTE,
     languageCode,
     pathname,
+    toolbar,
   }
 
   if (loading) {

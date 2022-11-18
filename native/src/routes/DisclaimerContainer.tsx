@@ -9,6 +9,7 @@ import {
   fromError,
   PageModel,
   useLoadFromEndpoint,
+  getSlug,
 } from 'api-client'
 
 import Failure from '../components/Failure'
@@ -50,7 +51,7 @@ const DisclaimerContainer = ({ navigation, route }: DisclaimerContainerProps): R
       cityCode,
       language: languageCode,
       isPositiveFeedback,
-      path: disclaimer?.path,
+      slug: disclaimer ? getSlug(disclaimer.path) : undefined,
     })
   }
 
