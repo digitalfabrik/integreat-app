@@ -1,0 +1,8 @@
+issue_key: IGAPP-920
+show_in_stores: true
+platforms:
+  - web
+  - android
+  - ios
+en: Show thumbnail of location in correct aspect ratio
+de: Zeige Thumbnail der Lokation in korrektem Seitenverhältnis
