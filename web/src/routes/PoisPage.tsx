@@ -156,7 +156,7 @@ const PoisPage = ({ cityCode, languageCode, cityModel, pathname, languages }: Ci
   const locationLayoutParams = {
     cityModel,
     viewportSmall,
-    feedbackTargetInformation: poi ? { path: poi.path } : null,
+    feedbackTargetInformation: poi ? { slug: poi.urlSlug } : null,
     languageChangePaths,
     route: POIS_ROUTE,
     languageCode,
