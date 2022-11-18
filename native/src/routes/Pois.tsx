@@ -134,7 +134,7 @@ const Pois = ({ pois, language, cityModel, route, navigation }: PoisProps): Reac
       language,
       cityCode: cityModel.code,
       isPositiveFeedback,
-      slug: poi?.urlSlug,
+      slug: poi?.slug,
     })
   }
 
