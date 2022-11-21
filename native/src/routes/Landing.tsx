@@ -1,4 +1,4 @@
-import React, { ReactElement, useContext } from 'react'
+import React, { ReactElement, useCallback, useContext } from 'react'
 import { View } from 'react-native'
 import styled from 'styled-components/native'
 
@@ -27,7 +27,7 @@ type LandingProps = {
 }
 
 const Landing = ({ navigation }: LandingProps): ReactElement => {
-  const { data: cities, ...response } = useLoadCities()
+  const { data: cities, refresh, ...response } = useLoadCities()
   const { changeCityCode } = useContext(AppContext)
 
   const navigateToDashboard = (city: CityModel) => {
@@ -35,13 +35,14 @@ const Landing = ({ navigation }: LandingProps): ReactElement => {
     navigation.reset({ index: 0, routes: [{ name: CATEGORIES_ROUTE, params: {} }] })
   }
 
-  const clearResourcesAndCache = () => {
+  const clearResourcesAndCache = useCallback(() => {
     dataContainer.clearInMemoryCache()
     dataContainer.clearOfflineCache().catch(reportError)
-  }
+    refresh()
+  }, [refresh])
 
   return (
-    <LoadingErrorHandler {...response} scrollView>
+    <LoadingErrorHandler {...response} refresh={refresh} scrollView>
       {cities && (
         <>
           <Wrapper {...testID('Landing-Page')}>
