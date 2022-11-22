@@ -3,7 +3,6 @@ import { MapParamsToUrlType as ImportedMapParamsToUrlType } from './MapParamsToU
 import { MapResponseType as ImportedMapResponseType } from './MapResponseType'
 import {
   FeedbackCategoryType as ImportedFeedbackCategoryType,
-  FeedbackType as ImportedFeedbackType,
   ParamsType as ImportedFeedbackParamsType,
 } from './endpoints/createFeedbackEndpoint'
 import { Status as ImportedShelterContactStatus } from './endpoints/createShelterContactEndpoint'
@@ -16,7 +15,6 @@ export type MapParamsToBodyType<P> = ImportedMapParamsToBodyType<P>
 export type MapParamsToUrlType<P> = ImportedMapParamsToUrlType<P>
 export type MapResponseType<P, T> = ImportedMapResponseType<P, T>
 export type FeedbackParamsType = ImportedFeedbackParamsType
-export type FeedbackType = ImportedFeedbackType
 export type FeedbackCategoryType = ImportedFeedbackCategoryType
 export type ReturnType<T> = ImportedReturnType<T>
 export { default as InternalPathnameParser } from './routes/InternalPathnameParser'
@@ -77,12 +75,7 @@ export { default as hashUrl } from './hashUrl'
 export * from './replaceLinks'
 export { POSITIVE_RATING } from './endpoints/createFeedbackEndpoint'
 export { NEGATIVE_RATING } from './endpoints/createFeedbackEndpoint'
-export { PAGE_FEEDBACK_TYPE } from './endpoints/createFeedbackEndpoint'
-export { OFFER_FEEDBACK_TYPE } from './endpoints/createFeedbackEndpoint'
-export { SEARCH_FEEDBACK_TYPE } from './endpoints/createFeedbackEndpoint'
-export { CATEGORIES_FEEDBACK_TYPE } from './endpoints/createFeedbackEndpoint'
-export { EVENTS_FEEDBACK_TYPE } from './endpoints/createFeedbackEndpoint'
-export { OFFERS_FEEDBACK_TYPE } from './endpoints/createFeedbackEndpoint'
+export { FeedbackType } from './endpoints/createFeedbackEndpoint'
 export { CONTENT_FEEDBACK_CATEGORY } from './endpoints/createFeedbackEndpoint'
 export { TECHNICAL_FEEDBACK_CATEGORY } from './endpoints/createFeedbackEndpoint'
 export { INTEGREAT_INSTANCE } from './endpoints/createFeedbackEndpoint'
@@ -102,6 +95,7 @@ export { default as useLoadFromEndpoint, loadFromEndpoint } from './endpoints/ho
 export { default as parseHTML } from './utils/parseHTML'
 export { embedInCollection } from './utils/geoJson'
 export { prepareFeatureLocations, prepareFeatureLocation } from './utils/geoJson'
+export { getSlug } from './utils/getSlug'
 
 export { default as CategoriesMapModel } from './models/CategoriesMapModel'
 export { default as CategoryModel } from './models/CategoryModel'
