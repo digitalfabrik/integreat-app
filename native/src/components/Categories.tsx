@@ -2,7 +2,7 @@ import { mapValues } from 'lodash'
 import React, { ReactElement } from 'react'
 import { View } from 'react-native'
 
-import { CategoryModel, CityModel } from 'api-client'
+import { CategoryModel, CityModel, getSlug } from 'api-client'
 import { CATEGORIES_ROUTE } from 'api-client/src/routes'
 import { RouteInformationType } from 'api-client/src/routes/RouteInformationTypes'
 
@@ -77,7 +77,7 @@ const Categories = ({
       routeType: CATEGORIES_ROUTE,
       language,
       cityCode: cityModel.code,
-      path: category.isRoot() ? undefined : category.path,
+      slug: !category.isRoot() ? getSlug(category.path) : undefined,
       isPositiveFeedback,
     })
   }
