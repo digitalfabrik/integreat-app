@@ -14,6 +14,7 @@ import {
   Payload,
   ResponseError,
   useLoadFromEndpoint,
+  getSlug,
 } from 'api-client'
 import { config } from 'translations'
 
@@ -132,7 +133,7 @@ const CategoriesPage = ({ cityModel, pathname, languages, cityCode, languageCode
   const locationLayoutParams = {
     cityModel,
     viewportSmall,
-    feedbackTargetInformation: category && !category.isRoot() ? { path: category.path } : null,
+    feedbackTargetInformation: category && !category.isRoot() ? { slug: getSlug(category.path) } : null,
     languageChangePaths,
     route: CATEGORIES_ROUTE,
     languageCode,

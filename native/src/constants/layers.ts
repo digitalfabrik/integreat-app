@@ -28,6 +28,7 @@ export const markerLayer = (selectedFeature: PoiFeature | null, featureLayerId: 
     symbolPlacement: 'point',
     symbolZOrder: 'source',
     iconAllowOverlap: true,
+    textAllowOverlap: true,
     iconSize: mapMarker.iconSize,
     iconIgnorePlacement: true,
     iconImage: [
@@ -41,6 +42,7 @@ export const markerLayer = (selectedFeature: PoiFeature | null, featureLayerId: 
     textOffset: [0, textOffsetY],
     textAnchor: 'top',
     textSize: fontSizeSmall,
+    textVariableAnchor: ['top', 'bottom', 'left', 'right'],
   },
 })
 
@@ -50,5 +52,6 @@ export const clusterCountLayer: SymbolLayerProps = {
     textField: '{point_count_abbreviated}',
     textFont: ['Roboto Regular'],
     textSize: ['step', ['get', 'point_count'], fontSizeSmall, groupCount, fontSizeLarge],
+    textAllowOverlap: true,
   },
 }

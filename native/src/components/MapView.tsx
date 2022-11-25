@@ -7,9 +7,8 @@ import styled from 'styled-components/native'
 
 import {
   clusterRadius,
-  clusterZoom,
   defaultViewportConfig,
-  detailZoom,
+  normalDetailZoom,
   mapConfig,
   PoiFeature,
   PoiFeatureCollection,
@@ -72,10 +71,10 @@ const MapView = React.forwardRef(
       sw: [boundingBox[0], boundingBox[1]],
     }
 
-    // if there is a current feature use the coordinates if not use bounding box
+    // if there is a current feature use the coordinates; if not use bounding box
     const coordinates = selectedFeature?.geometry.coordinates
     const defaultSettings: CameraSettings = {
-      zoomLevel: coordinates ? detailZoom : defaultViewportConfig.zoom,
+      zoomLevel: coordinates ? normalDetailZoom : defaultViewportConfig.zoom,
       centerCoordinate: coordinates,
       bounds: coordinates ? undefined : bounds,
     }
@@ -125,12 +124,7 @@ const MapView = React.forwardRef(
           attributionEnabled={false}
           logoEnabled={false}>
           <MapboxGL.UserLocation visible={locationPermissionGranted} />
-          <MapboxGL.ShapeSource
-            id='location-pois'
-            shape={featureCollection}
-            cluster
-            clusterRadius={clusterRadius}
-            clusterMaxZoomLevel={clusterZoom}>
+          <MapboxGL.ShapeSource id='location-pois' shape={featureCollection} cluster clusterRadius={clusterRadius}>
             <MapboxGL.SymbolLayer {...clusterCountLayer} />
             <MapboxGL.CircleLayer {...clusterLayer(theme)} />
             <MapboxGL.SymbolLayer {...markerLayer(selectedFeature, featureLayerId)} />
