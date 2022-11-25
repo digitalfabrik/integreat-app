@@ -229,8 +229,8 @@ const renderHtml = (
       }
 
       .link-external::after {
-        content: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='1114.4419786503477 1814.3063537312773 18 18' width='18' height='18' style='-webkit-print-color-adjust:exact'><path d='M1130.442 1830.306h-14v-14h7v-2h-7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14c1.1 0 2-.9 2-2v-7h-2v7Zm-5-16v2h3.59l-9.83 9.83 1.41 1.41 9.83-9.83v3.59h2v-7h-7Z' fill='rgb(11, 87, 208)'/></svg>");
         /* ExternalIcon, WebView can't handle imported svg as background */
+        content: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='1114.4419786503477 1814.3063537312773 18 18' width='18' height='18' style='-webkit-print-color-adjust:exact'><path d='M1130.442 1830.306h-14v-14h7v-2h-7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14c1.1 0 2-.9 2-2v-7h-2v7Zm-5-16v2h3.59l-9.83 9.83 1.41 1.41 9.83-9.83v3.59h2v-7h-7Z' fill='rgb(11, 87, 208)'/></svg>");
         display: inline-block;
         width: ${theme.fonts.contentFontSize};
         height: ${theme.fonts.contentFontSize};
