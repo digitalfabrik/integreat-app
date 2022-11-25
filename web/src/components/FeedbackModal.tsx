@@ -65,8 +65,7 @@ const CloseButton = styled.button`
 `
 
 type FeedbackModalProps = {
-  path?: string
-  alias?: string
+  slug?: string
   cityCode: string
   language: string
   routeType: RouteType

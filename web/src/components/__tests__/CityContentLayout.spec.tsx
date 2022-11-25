@@ -18,7 +18,7 @@ describe('CityContentLayout', () => {
     { code: 'en', name: 'English', path: '/augsburg/en' },
   ]
 
-  const feedbackTargetInformation = { path: '/path/to/category' }
+  const feedbackTargetInformation = { slug: 'category' }
 
   const MockNode = () => <div />
   const renderCityContentLayout = (isLoading: boolean, viewportSmall: boolean, toolbar?: ToolbarProps): RenderResult =>

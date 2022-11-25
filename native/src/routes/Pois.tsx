@@ -8,7 +8,7 @@ import styled from 'styled-components/native'
 import {
   animationDuration,
   CityModel,
-  detailZoom,
+  normalDetailZoom,
   embedInCollection,
   ErrorCode,
   fromError,
@@ -18,6 +18,7 @@ import {
   POIS_ROUTE,
   PoisRouteType,
   prepareFeatureLocations,
+  closerDetailZoom,
 } from 'api-client'
 
 import BottomActionsSheet from '../components/BottomActionsSheet'
@@ -110,7 +111,7 @@ const Pois = ({ pois, language, cityModel, route, navigation }: PoisProps): Reac
     if (!followUserLocation && selectedFeature && cameraRef.current) {
       cameraRef.current.setCamera({
         centerCoordinate: selectedFeature.geometry.coordinates,
-        zoomLevel: detailZoom,
+        zoomLevel: selectedFeature.properties.closeToOtherPoi ? closerDetailZoom : normalDetailZoom,
         animationDuration,
         padding: { paddingBottom: deviceHeight * midSnapPointPercentage },
       })
@@ -131,9 +132,9 @@ const Pois = ({ pois, language, cityModel, route, navigation }: PoisProps): Reac
     createNavigateToFeedbackModal(navigation)({
       routeType: POIS_ROUTE,
       language,
-      path: poi ? poi.path : undefined,
       cityCode: cityModel.code,
       isPositiveFeedback,
+      slug: poi?.urlSlug,
     })
   }
 

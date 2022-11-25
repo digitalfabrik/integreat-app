@@ -2,7 +2,7 @@ import React, { ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
 
-import { SEARCH_FEEDBACK_TYPE } from 'api-client'
+import { FeedbackType } from 'api-client'
 
 import FeedbackContainer from './FeedbackContainer'
 import TextButton from './TextButton'
@@ -34,7 +34,7 @@ const FeedbackSearch = ({ cityCode, languageCode, query, resultsFound }: Feedbac
         <FeedbackContainer
           cityCode={cityCode}
           language={languageCode}
-          routeType={SEARCH_FEEDBACK_TYPE}
+          routeType={FeedbackType.search}
           isPositiveFeedback={false}
           isSearchFeedback
           query={query}

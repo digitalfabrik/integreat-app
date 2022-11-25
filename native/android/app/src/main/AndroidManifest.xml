@@ -18,6 +18,7 @@
     <activity
             android:name=".MainActivity"
             android:label="@string/BUILD_CONFIG_APP_NAME"
+            android:exported="true"
             android:configChanges="keyboard|keyboardHidden|orientation|screenSize|layoutDirection|locale|uiMode"
             android:launchMode="singleTask"
             android:windowSoftInputMode="adjustResize">

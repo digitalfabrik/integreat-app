@@ -77,7 +77,7 @@ const SprungbrettOfferContainer = ({ route, navigation }: SprungbrettOfferContai
     createNavigateToFeedbackModal(navigation)({
       routeType: OFFERS_ROUTE,
       cityCode,
-      alias,
+      slug: alias,
       language: languageCode,
       isPositiveFeedback,
     })

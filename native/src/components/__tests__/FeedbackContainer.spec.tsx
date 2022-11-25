@@ -1,12 +1,7 @@
 import { fireEvent } from '@testing-library/react-native'
 import React from 'react'
 
-import {
-  CATEGORIES_FEEDBACK_TYPE,
-  CATEGORIES_ROUTE,
-  CONTENT_FEEDBACK_CATEGORY,
-  SEND_FEEDBACK_SIGNAL_NAME,
-} from 'api-client'
+import { FeedbackType, CATEGORIES_ROUTE, CONTENT_FEEDBACK_CATEGORY, SEND_FEEDBACK_SIGNAL_NAME } from 'api-client'
 
 import buildConfig from '../../constants/buildConfig'
 import render from '../../testing/render'
@@ -45,7 +40,7 @@ describe('FeedbackContainer', () => {
     expect(await findByText('feedback:feedbackSent')).toBeDefined()
     expect(mockRequest).toHaveBeenCalledTimes(1)
     expect(mockRequest).toHaveBeenCalledWith({
-      feedbackType: CATEGORIES_FEEDBACK_TYPE,
+      feedbackType: FeedbackType.categories,
       feedbackCategory: CONTENT_FEEDBACK_CATEGORY,
       isPositiveRating: true,
       city,
@@ -85,15 +80,12 @@ describe('FeedbackContainer', () => {
     expect(await findByText('feedback:feedbackSent')).toBeDefined()
     expect(mockRequest).toHaveBeenCalledTimes(1)
     expect(mockRequest).toHaveBeenCalledWith({
-      alias: undefined,
-      feedbackType: CATEGORIES_FEEDBACK_TYPE,
+      feedbackType: FeedbackType.categories,
       feedbackCategory: CONTENT_FEEDBACK_CATEGORY,
       isPositiveRating: true,
       city,
       language,
       comment: `${comment}    Kontaktadresse: ${contactMail}`,
-      permalink: undefined,
-      query: undefined,
     })
     expect(sendTrackingSignal).toHaveBeenCalledTimes(1)
     expect(sendTrackingSignal).toHaveBeenCalledWith({
