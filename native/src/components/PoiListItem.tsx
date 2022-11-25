@@ -56,7 +56,7 @@ class PoiListItem extends PureComponent<PoiListItemProps> {
     const thumbnail = poi.properties.thumbnail ?? Placeholder
     return (
       <StyledTouchableOpacity onPress={navigateToPoi} activeOpacity={1} language={language}>
-        <Thumbnail source={thumbnail} />
+        <Thumbnail source={thumbnail} resizeMode='cover' />
         <Description>
           <Title>{poi.properties.title}</Title>
           {!!poi.properties.distance && (

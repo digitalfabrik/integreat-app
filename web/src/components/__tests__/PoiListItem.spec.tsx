@@ -11,7 +11,7 @@ jest.mock('react-i18next')
 describe('PoiListItem', () => {
   const selectFeature = jest.fn()
   const poi = new PoiModelBuilder(1).build()[0]!
-  const feature = prepareFeatureLocation(poi, [10.994217, 48.415402])!
+  const feature = prepareFeatureLocation(poi, [10.994217, 48.415402], [])!
 
   it('should render list item information', () => {
     const { getByText } = renderWithTheme(<PoiListItem selectFeature={selectFeature} poi={feature} />)
