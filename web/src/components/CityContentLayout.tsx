@@ -17,7 +17,7 @@ type CityContentLayoutProps = {
   viewportSmall: boolean
   children?: ReactNode
   route: RouteType
-  feedbackTargetInformation: { path?: string; alias?: string } | null
+  feedbackTargetInformation: { slug?: string } | null
   languageChangePaths: Array<{ code: string; path: string | null; name: string }> | null
   isLoading: boolean
   cityModel: CityModel

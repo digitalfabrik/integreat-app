@@ -4,7 +4,7 @@
  */
 import createFeedbackEndponit, {
   CONTENT_FEEDBACK_CATEGORY,
-  PAGE_FEEDBACK_TYPE,
+  FeedbackType,
   TECHNICAL_FEEDBACK_CATEGORY,
 } from '../createFeedbackEndpoint'
 
@@ -17,32 +17,30 @@ describe('feedback', () => {
         city: 'augsburg',
         language: 'de',
         comment: null,
-        feedbackType: null,
+        feedbackType: FeedbackType.categories,
         feedbackCategory: TECHNICAL_FEEDBACK_CATEGORY,
         isPositiveRating: true,
       })
-    ).toBe('https://integreat-api-url.de/augsburg/de/wp-json/extensions/v3/feedback')
+    ).toBe('https://integreat-api-url.de/augsburg/de/wp-json/extensions/v3/feedback/categories')
   })
-  it('should overwrite wrong feedback type for the root category', () => {
+  it('should create the correct feedbackendpoint', () => {
     expect(
       feedback.mapParamsToUrl({
         city: 'augsburg',
         language: 'de',
         comment: null,
-        feedbackType: PAGE_FEEDBACK_TYPE,
+        feedbackType: FeedbackType.page,
         feedbackCategory: CONTENT_FEEDBACK_CATEGORY,
         isPositiveRating: true,
-        permalink: `/augsburg/de/willkommen`,
+        slug: `willkommen`,
       })
-    ).toBe('https://integreat-api-url.de/augsburg/de/wp-json/extensions/v3/feedback')
+    ).toBe('https://integreat-api-url.de/augsburg/de/wp-json/extensions/v3/feedback/page')
   })
   it('should map the params to the body', () => {
     const formData = new FormData()
     formData.append('rating', 'up')
-    formData.append('permalink', '/augsburg/de/familie')
     formData.append('comment', 'comment')
     formData.append('query', 'query')
-    formData.append('alias', 'alias')
     formData.append('category', 'Inhalte')
     expect(feedback.mapParamsToBody).not.toBeNull()
     expect(feedback.mapParamsToBody).toBeDefined()
@@ -55,12 +53,10 @@ describe('feedback', () => {
       feedback.mapParamsToBody({
         city: 'augsburg',
         language: 'de',
-        permalink: '/augsburg/de/familie',
         isPositiveRating: true,
-        feedbackType: 'categories',
+        feedbackType: FeedbackType.categories,
         feedbackCategory: CONTENT_FEEDBACK_CATEGORY,
         comment: 'comment',
-        alias: 'alias',
         query: 'query',
       })
     ).toEqual(formData)

@@ -2,17 +2,12 @@ import { fireEvent, waitFor } from '@testing-library/react'
 import React, { ComponentProps } from 'react'
 
 import {
-  CATEGORIES_FEEDBACK_TYPE,
   CATEGORIES_ROUTE,
   DISCLAIMER_ROUTE,
-  EVENTS_FEEDBACK_TYPE,
   EVENTS_ROUTE,
-  OFFER_FEEDBACK_TYPE,
-  OFFERS_FEEDBACK_TYPE,
+  FeedbackType,
   OFFERS_ROUTE,
-  PAGE_FEEDBACK_TYPE,
   POIS_ROUTE,
-  SEARCH_FEEDBACK_TYPE,
   SEARCH_ROUTE,
   SPRUNGBRETT_OFFER,
 } from 'api-client'
@@ -53,18 +48,18 @@ describe('FeedbackContainer', () => {
   })
 
   it.each`
-    route               | inputProps                             | feedbackType
-    ${CATEGORIES_ROUTE} | ${{}}                                  | ${CATEGORIES_FEEDBACK_TYPE}
-    ${CATEGORIES_ROUTE} | ${{ path: 'augsburg/de' }}             | ${PAGE_FEEDBACK_TYPE}
-    ${EVENTS_ROUTE}     | ${{}}                                  | ${EVENTS_FEEDBACK_TYPE}
-    ${EVENTS_ROUTE}     | ${{ path: 'augsburg/de/events/1234' }} | ${PAGE_FEEDBACK_TYPE}
-    ${OFFERS_ROUTE}     | ${{ alias: SPRUNGBRETT_OFFER }}        | ${OFFER_FEEDBACK_TYPE}
-    ${OFFERS_ROUTE}     | ${{}}                                  | ${OFFERS_FEEDBACK_TYPE}
-    ${DISCLAIMER_ROUTE} | ${{ path: 'augsburg/de/disclaimer' }}  | ${PAGE_FEEDBACK_TYPE}
-    ${POIS_ROUTE}       | ${{ path: 'augsburg/de/pois/1234' }}   | ${PAGE_FEEDBACK_TYPE}
-    ${POIS_ROUTE}       | ${{}}                                  | ${CATEGORIES_FEEDBACK_TYPE}
-    ${SEARCH_ROUTE}     | ${{ query: 'query ' }}                 | ${SEARCH_FEEDBACK_TYPE}
-    ${TU_NEWS_ROUTE}    | ${{}}                                  | ${CATEGORIES_FEEDBACK_TYPE}
+    route               | inputProps                     | feedbackType
+    ${CATEGORIES_ROUTE} | ${{}}                          | ${FeedbackType.categories}
+    ${CATEGORIES_ROUTE} | ${{ slug: 'willkommen' }}      | ${FeedbackType.page}
+    ${EVENTS_ROUTE}     | ${{}}                          | ${FeedbackType.events}
+    ${EVENTS_ROUTE}     | ${{ slug: '1234' }}            | ${FeedbackType.event}
+    ${OFFERS_ROUTE}     | ${{ slug: SPRUNGBRETT_OFFER }} | ${FeedbackType.offer}
+    ${OFFERS_ROUTE}     | ${{}}                          | ${FeedbackType.offers}
+    ${DISCLAIMER_ROUTE} | ${{}}                          | ${FeedbackType.imprint}
+    ${POIS_ROUTE}       | ${{ slug: '1234' }}            | ${FeedbackType.poi}
+    ${POIS_ROUTE}       | ${{}}                          | ${FeedbackType.map}
+    ${SEARCH_ROUTE}     | ${{ query: 'query ' }}         | ${FeedbackType.search}
+    ${TU_NEWS_ROUTE}    | ${{}}                          | ${FeedbackType.categories}
   `('should successfully request feedback for $feedbackType', async ({ route, inputProps, feedbackType }) => {
     const { getByRole } = renderWithTheme(
       <FeedbackContainer {...buildDefaultProps(route, true, false)} {...inputProps} />
@@ -83,9 +78,8 @@ describe('FeedbackContainer', () => {
       comment: '    Kontaktadresse: Keine Angabe',
       feedbackCategory: 'Inhalte',
       isPositiveRating: true,
-      alias: inputProps.alias,
-      permalink: inputProps.path,
       query: inputProps.query,
+      slug: inputProps.slug,
     })
   })
 

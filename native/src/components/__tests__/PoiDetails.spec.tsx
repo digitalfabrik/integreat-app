@@ -40,7 +40,7 @@ describe('PoiDetails', () => {
 
   it('should render poi information', () => {
     const poi = pois[0]!
-    const feature = prepareFeatureLocation(poi, userLocation)!
+    const feature = prepareFeatureLocation(poi, userLocation, [])!
 
     const { getByText } = renderWithTheme(<PoiDetails poi={poi} feature={feature} language={language} />)
 
@@ -59,7 +59,7 @@ describe('PoiDetails', () => {
 
   it('should not render distance if there is no user location', () => {
     const poi = pois[0]!
-    const feature = prepareFeatureLocation(poi, null)!
+    const feature = prepareFeatureLocation(poi, null, [])!
 
     const { queryByText } = renderWithTheme(<PoiDetails poi={poi} feature={feature} language={language} />)
 
@@ -68,7 +68,7 @@ describe('PoiDetails', () => {
 
   it('should not render contact information if there is none', () => {
     const poiWithoutContactInformation = pois[1]!
-    const feature = prepareFeatureLocation(poiWithoutContactInformation, null)!
+    const feature = prepareFeatureLocation(poiWithoutContactInformation, null, [])!
 
     const { queryByText } = renderWithTheme(
       <PoiDetails poi={poiWithoutContactInformation} feature={feature} language={language} />
@@ -79,7 +79,7 @@ describe('PoiDetails', () => {
 
   it('should open external maps app on icon click', async () => {
     const poi = pois[0]!
-    const feature = prepareFeatureLocation(poi, userLocation)!
+    const feature = prepareFeatureLocation(poi, userLocation, [])!
 
     const { getByLabelText } = renderWithTheme(<PoiDetails poi={poi} feature={feature} language={language} />)
 
@@ -90,7 +90,7 @@ describe('PoiDetails', () => {
 
   it('should show snackbar if opening external maps fails', async () => {
     const poi = pois[0]!
-    const feature = prepareFeatureLocation(poi, userLocation)!
+    const feature = prepareFeatureLocation(poi, userLocation, [])!
 
     const { getByLabelText } = renderWithTheme(<PoiDetails poi={poi} feature={feature} language={language} />)
 
@@ -104,7 +104,7 @@ describe('PoiDetails', () => {
 
   it('should copy address to clipboard', () => {
     const poi = pois[0]!
-    const feature = prepareFeatureLocation(poi, userLocation)!
+    const feature = prepareFeatureLocation(poi, userLocation, [])!
 
     const { getByText } = renderWithTheme(<PoiDetails poi={poi} feature={feature} language={language} />)
 

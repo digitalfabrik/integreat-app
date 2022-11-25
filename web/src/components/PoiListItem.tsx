@@ -30,7 +30,7 @@ const Thumbnail = styled.img`
   height: clamp(70px, 10vh, 100px);
   flex-shrink: 0;
   border: 1px solid transparent;
-  object-fit: contain;
+  object-fit: fill;
   border-radius: 10px;
 `
 
