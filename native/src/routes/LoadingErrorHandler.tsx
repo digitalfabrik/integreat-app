@@ -1,5 +1,5 @@
 import React, { ReactElement, ReactNode, useEffect, useState } from 'react'
-import { RefreshControl } from 'react-native'
+import { ActivityIndicator, RefreshControl } from 'react-native'
 
 import { ErrorCode } from 'api-client'
 
@@ -42,8 +42,8 @@ const LoadingErrorHandler = ({
     }
     return (
       <Layout>
-        <RefreshControl refreshing={!children} />
-        {children ?? <ProgressSpinner progress={0} />}
+        {children ? <ActivityIndicator /> : <ProgressSpinner progress={0} />}
+        {children}
       </Layout>
     )
   }
