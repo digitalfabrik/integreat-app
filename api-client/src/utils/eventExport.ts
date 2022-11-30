@@ -1,5 +1,6 @@
 import moment, { Moment } from 'moment'
 import { EventModel } from '../index'
+import parseHTML from './parseHTML'
 
 
 const formatDate = (date: Moment): string => `${date.format('YYYYMMDDTHHmm')}00Z`
@@ -19,7 +20,7 @@ const generateUID = (): string => {
 // TODO check formatting
 export const mapToICalFormat = (event: EventModel): string => {
   const body: string[] = []
-  body.push(`DSTAMP:${formatDate(moment())}`)
+  body.push(`DTSTAMP:${formatDate(moment())}`)
   // body.push(`UID:${generateUID()}`)
   body.push('UID:ff808181-00000003@example.com')
   body.push(`SUMMARY:${event.title}`)
@@ -32,7 +33,7 @@ export const mapToICalFormat = (event: EventModel): string => {
   // TODO escape html?
   // https://www.npmjs.com/package/html-to-text
   if (event.content) {
-    body.push(`DESCRIPTION:${event.content}`)
+    body.push(`DESCRIPTION:${parseHTML(Buffer.from(event.content, 'utf-8').toString())}`)
   }
 
 
@@ -48,18 +49,3 @@ export const mapToICalFormat = (event: EventModel): string => {
   ].join('\n')
 }
 
-
-/*
-BEGIN:VCALENDAR
-VERSION:2.0
-PRODID:Integreat-App
-BEGIN:VEVENT
-DTSTAMP:20221125T000000Z
-UID:ff808181-00000003@example.com
-DTSTART:20221127T000000Z
-DTEND:20220529T013000Z
-SUMMARY:Test-Veranstaltung tel
-WWK Arena, Bürgermeister-Ulrich-Straße 90, 86199 Augsburg
-END:VEVENT
-END:VCALENDAR
-*/
