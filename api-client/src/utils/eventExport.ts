@@ -33,7 +33,7 @@ export const mapToICalFormat = (event: EventModel): string => {
   // TODO escape html?
   // https://www.npmjs.com/package/html-to-text
   if (event.content) {
-    body.push(`DESCRIPTION:${parseHTML(Buffer.from(event.content, 'utf-8').toString())}`)
+    body.push(`DESCRIPTION:${parseHTML(event.content)}`)
   }
 
 
