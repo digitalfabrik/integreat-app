@@ -7,10 +7,11 @@ import { UiDirectionType } from 'translations'
 import { faAngleDown, faAngleUp } from '../constants/icons'
 
 type CollapsibleProps = {
-  children: ReactElement | string | number
-  title: string
+  children?: ReactElement | string | number
+  title: string | ReactElement
   initialCollapsed?: boolean
   direction: UiDirectionType
+  disabled?: boolean
 }
 
 const ContentWrapper = styled.div<{ direction: string }>`
@@ -23,7 +24,9 @@ const CollapsibleHeader = styled.div`
   cursor: pointer;
   outline: none;
 `
-const Title = styled.span`
+const Title = styled.div`
+  display: flex;
+  flex: 1;
   font-weight: 700;
   font-size: clamp(0.55rem, 1.6vh, ${props => props.theme.fonts.hintFontSize});
 `
@@ -36,6 +39,7 @@ const Collapsible: React.FC<CollapsibleProps> = ({
   title,
   initialCollapsed = true,
   direction,
+  disabled = false,
 }: CollapsibleProps): ReactElement => {
   const [collapsed, setCollapsed] = useState<boolean>(initialCollapsed)
 
@@ -48,11 +52,11 @@ const Collapsible: React.FC<CollapsibleProps> = ({
     <>
       <CollapsibleHeader
         role='button'
-        onClick={() => setCollapsed(!collapsed)}
+        onClick={() => !disabled && setCollapsed(!collapsed)}
         tabIndex={0}
-        onKeyPress={() => setCollapsed(!collapsed)}>
+        onKeyPress={() => !disabled && setCollapsed(!collapsed)}>
         <Title>{title}</Title>
-        <StyledIcon icon={collapsed ? faAngleUp : faAngleDown} />
+        {!disabled && <StyledIcon icon={collapsed ? faAngleUp : faAngleDown} />}
       </CollapsibleHeader>
       {collapsed && <ContentWrapper direction={direction}>{children}</ContentWrapper>}
     </>

@@ -5535,7 +5535,12 @@
       "detailsInformation": "Informationen",
       "detailsNextPoi": "nächster",
       "detailsPreviousPoi": "vorheriger",
-      "openExternalMaps": "In Karten-App öffnen"
+      "detailsOpeningHours": "Öffnungszeiten",
+      "openExternalMaps": "In Karten-App öffnen",
+      "openingHoursAllDay": "ganztägig",
+      "openingHoursOpened": "geöffnet",
+      "openingHoursClosed": "geschlossen",
+      "openingHoursTemporaryClosed": "Temporär geschlossen"
     },
     "am": {
       "pageTitle": "ካርታ",

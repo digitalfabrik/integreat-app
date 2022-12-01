@@ -1,8 +1,9 @@
-import { Moment } from 'moment'
+import moment, { Moment } from 'moment'
 
 import { mapMarker, PoiFeature } from '../maps'
 import ExtendedPageModel from './ExtendedPageModel'
 import LocationModel from './LocationModel'
+import OpenHoursModel from './OpenHoursModel'
 import PageModel from './PageModel'
 
 class PoiModel extends ExtendedPageModel {
@@ -11,6 +12,8 @@ class PoiModel extends ExtendedPageModel {
   _website: string | null
   _phoneNumber: string | null
   _email: string | null
+  _openingHours: OpenHoursModel[] | null
+  _temporaryClosed: boolean
 
   constructor(params: {
     path: string
@@ -24,14 +27,18 @@ class PoiModel extends ExtendedPageModel {
     email: string | null
     website: string | null
     phoneNumber: string | null
+    temporaryClosed: boolean
+    openingHours: OpenHoursModel[] | null
   }) {
-    const { location, excerpt, website, phoneNumber, email, ...other } = params
+    const { openingHours, temporaryClosed, location, excerpt, website, phoneNumber, email, ...other } = params
     super(other)
     this._location = location
     this._excerpt = excerpt
     this._website = website
     this._phoneNumber = phoneNumber
     this._email = email
+    this._openingHours = openingHours
+    this._temporaryClosed = temporaryClosed
   }
 
   get location(): LocationModel<number> {
@@ -79,6 +86,28 @@ class PoiModel extends ExtendedPageModel {
         closeToOtherPoi: false,
       },
     }
+  }
+
+  get openingHours(): OpenHoursModel[] | null {
+    return this._openingHours
+  }
+
+  get temporaryClosed(): boolean {
+    return this._temporaryClosed
+  }
+
+  get isCurrentlyOpened(): boolean {
+    if (!this.openingHours) {
+      return false
+    }
+    // isoWeekday return 1-7 for the weekdays
+    const weekday = moment().isoWeekday() - 1
+    const dateFormat = 'LT'
+    const currentTime = moment().locale('de').format(dateFormat)
+
+    return this.openingHours[weekday]?._timeSlots.some(timeslot =>
+      moment(currentTime, dateFormat).isBetween(moment(timeslot.start, dateFormat), moment(timeslot.end, dateFormat))
+    ) as boolean
   }
 
   isEqual(other: PageModel): boolean {
