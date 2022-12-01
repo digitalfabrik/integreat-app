@@ -34,7 +34,7 @@ const EventsContainer = ({ navigation, route }: EventsContainerProps): ReactElem
     ? Object.keys(currentEvent.availableLanguageSlugs)
     : data?.languages.map(it => it.code)
 
-  useHeader({ navigation, route, availableLanguages, languages: data?.languages, languageCode, city: data?.city })
+  useHeader({ navigation, route, availableLanguages, data })
 
   const onLanguageChange = useCallback(
     (newLanguage: string) => {

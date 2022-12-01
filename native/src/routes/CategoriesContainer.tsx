@@ -41,7 +41,7 @@ const CategoriesContainer = ({ navigation, route }: CategoriesContainerProps): R
   const availableLanguages =
     category && !category.isRoot() ? Array.from(category.availableLanguages.keys()) : data?.languages.map(it => it.code)
 
-  useHeader({ navigation, route, availableLanguages, languages: data?.languages, languageCode, city: data?.city })
+  useHeader({ navigation, route, availableLanguages, data, isHome: !route.params.path })
 
   const onLanguageChange = useCallback(
     (newLanguage: string) => {

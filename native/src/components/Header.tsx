@@ -1,17 +1,19 @@
 import { HeaderBackButton } from '@react-navigation/elements'
-import React, { ReactElement } from 'react'
+import React, { ReactElement, useContext } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Share, useWindowDimensions } from 'react-native'
 import { HiddenItem, Item } from 'react-navigation-header-buttons'
-import styled, { useTheme } from 'styled-components/native'
+import styled from 'styled-components/native'
 
-import { CityModel, LANDING_ROUTE, SHARE_SIGNAL_NAME } from 'api-client'
+import { CityModel, LANDING_ROUTE, LanguageModel, SHARE_SIGNAL_NAME } from 'api-client'
 import { DISCLAIMER_ROUTE, SEARCH_ROUTE, SETTINGS_ROUTE } from 'api-client/src/routes'
 
 import { NavigationProps, RouteProps, RoutesType } from '../constants/NavigationTypes'
 import buildConfig, { buildConfigAssets } from '../constants/buildConfig'
 import dimensions from '../constants/dimensions'
+import { AppContext } from '../contexts/AppContextProvider'
 import useSnackbar from '../hooks/useSnackbar'
+import navigateToLanguageChange from '../navigation/navigateToLanguageChange'
 import { forceNewlineAfterChar } from '../utils/forceNewLineAfterChar'
 import sendTrackingSignal from '../utils/sendTrackingSignal'
 import { reportError } from '../utils/sentry'
@@ -50,14 +52,6 @@ const BoxShadow = styled.View`
   height: ${dimensions.headerHeight}px;
 `
 
-type HeaderProps = {
-  route: RouteProps<RoutesType>
-  navigation: NavigationProps<RoutesType>
-  categoriesAvailable: boolean
-  goToLanguageChange?: () => void
-  routeCityModel?: CityModel
-}
-
 enum HeaderButtonTitle {
   Disclaimer = 'disclaimer',
   Language = 'changeLanguage',
@@ -67,22 +61,31 @@ enum HeaderButtonTitle {
   Settings = 'settings',
 }
 
-const Header = (props: HeaderProps): ReactElement => {
+type HeaderProps = {
+  route: RouteProps<RoutesType>
+  navigation: NavigationProps<RoutesType>
+  showItems?: boolean
+  city?: CityModel
+  languages?: LanguageModel[]
+  availableLanguages?: string[]
+  shareUrl?: string
+  isHome?: boolean
+}
+
+const Header = ({
+  navigation,
+  route,
+  availableLanguages,
+  shareUrl,
+  showItems = false,
+  city,
+  languages,
+  isHome = false,
+}: HeaderProps): ReactElement | null => {
+  const { cityCode, languageCode } = useContext(AppContext)
   const { t } = useTranslation('layout')
-  const theme = useTheme()
-  const { route, navigation, routeCityModel, goToLanguageChange, categoriesAvailable } = props
   const showSnackbar = useSnackbar()
-
-  const shareUrl = route.params?.shareUrl
-
-  const goToLanding = () => {
-    navigation.navigate(LANDING_ROUTE)
-  }
-
-  const goToSettings = () => {
-    navigation.navigate(SETTINGS_ROUTE)
-  }
-
+  const deviceWidth = useWindowDimensions().width
   const onShare = async () => {
     if (!shareUrl) {
       // The share option should only be shown if there is a shareUrl
@@ -113,26 +116,12 @@ const Header = (props: HeaderProps): ReactElement => {
     }
   }
 
-  const goToSearch = () => {
-    navigation.navigate(SEARCH_ROUTE)
-  }
-
-  const goToDisclaimer = () => {
-    navigation.navigate(DISCLAIMER_ROUTE, {})
-  }
-
-  const deviceWidth = useWindowDimensions().width
-
-  const cityDisplayName = (): string => {
-    if (!routeCityModel) {
-      return ''
-    }
-
-    const description = routeCityModel.prefix ? ` (${routeCityModel.prefix})` : ''
-    const cityNameLength = routeCityModel.sortingName.length
-    return cityNameLength < deviceWidth / dimensions.headerTextSize
-      ? `${routeCityModel.sortingName}${description}`
-      : `${forceNewlineAfterChar(routeCityModel.sortingName, '-')}${description}`
+  const cityDisplayName = (city: CityModel) => {
+    const description = city.prefix ? ` (${city.prefix})` : ''
+    const shortCityName = city.sortingName.length < deviceWidth / dimensions.headerTextSize
+    return shortCityName
+      ? `${city.sortingName}${description}`
+      : `${forceNewlineAfterChar(city.sortingName, '-')}${description}`
   }
 
   const renderItem = (title: string, iconName: string, visible: boolean, onPress?: () => void): ReactElement => (
@@ -151,41 +140,43 @@ const Header = (props: HeaderProps): ReactElement => {
     <HiddenItem key={title} title={t(title)} onPress={onPress} />
   )
 
-  const showShare = !!shareUrl
-  const showChangeLocation = !buildConfig().featureFlags.fixedCity
-  const showItems = !!goToLanguageChange && categoriesAvailable
-  const canGoBack = navigation.getState().index > 0
+  const goToLanguageChange = () =>
+    languages &&
+    availableLanguages &&
+    cityCode &&
+    navigateToLanguageChange({ navigation, cityCode, languageCode, availableLanguages, languages })
+
+  const visible = showItems && !!goToLanguageChange
+  const items = [
+    renderItem(HeaderButtonTitle.Search, 'search', visible, () => navigation.navigate(SEARCH_ROUTE)),
+    renderItem(HeaderButtonTitle.Language, 'language', visible, goToLanguageChange),
+  ]
+
+  const overflowItems = [
+    ...(shareUrl ? [renderOverflowItem(HeaderButtonTitle.Share, onShare)] : []),
+    ...(!buildConfig().featureFlags.fixedCity
+      ? [renderOverflowItem(HeaderButtonTitle.Location, () => navigation.navigate(LANDING_ROUTE))]
+      : []),
+    renderOverflowItem(HeaderButtonTitle.Settings, () => navigation.navigate(SETTINGS_ROUTE)),
+    ...(route.name !== DISCLAIMER_ROUTE
+      ? [renderOverflowItem(HeaderButtonTitle.Disclaimer, () => navigation.navigate(DISCLAIMER_ROUTE, {}))]
+      : []),
+  ]
 
   return (
-    <BoxShadow theme={theme}>
+    <BoxShadow>
       <Horizontal>
         <HorizontalLeft>
-          {canGoBack ? (
-            <HeaderBackButton onPress={navigation.goBack} labelVisible={false} />
-          ) : (
+          {isHome ? (
             <Icon source={buildConfigAssets().appIcon} />
+          ) : (
+            <HeaderBackButton onPress={navigation.goBack} labelVisible={false} />
           )}
-          {routeCityModel && (
-            <HeaderText allowFontScaling={false} theme={theme} fontSize={deviceWidth * dimensions.fontScaling}>
-              {cityDisplayName()}
-            </HeaderText>
-          )}
+          <HeaderText allowFontScaling={false} fontSize={deviceWidth * dimensions.fontScaling}>
+            {city && isHome && cityDisplayName(city)}
+          </HeaderText>
         </HorizontalLeft>
-        <MaterialHeaderButtons
-          cancelLabel={t('cancel')}
-          theme={theme}
-          items={[
-            renderItem(HeaderButtonTitle.Search, 'search', showItems, goToSearch),
-            renderItem(HeaderButtonTitle.Language, 'language', showItems, goToLanguageChange),
-          ]}
-          overflowItems={[
-            showShare && renderOverflowItem(HeaderButtonTitle.Share, onShare),
-            showChangeLocation && renderOverflowItem(HeaderButtonTitle.Location, goToLanding),
-            renderOverflowItem(HeaderButtonTitle.Settings, goToSettings),
-            // TODO IGAPP-636: Do not show for disclaimer
-            renderOverflowItem(HeaderButtonTitle.Disclaimer, goToDisclaimer),
-          ]}
-        />
+        <MaterialHeaderButtons cancelLabel={t('cancel')} items={items} overflowItems={overflowItems} />
       </Horizontal>
     </BoxShadow>
   )
