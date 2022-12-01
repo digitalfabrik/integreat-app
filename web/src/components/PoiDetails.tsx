@@ -16,6 +16,7 @@ import useWindowDimensions from '../hooks/useWindowDimensions'
 import CleanLink from './CleanLink'
 import Collapsible from './Collapsible'
 import ContactItem from './ContactItem'
+import OpeningHours from './OpeningHours'
 import RemoteContent from './RemoteContent'
 import Spacer from './Spacer'
 
@@ -159,7 +160,7 @@ const PoiDetails: React.FC<PoiDetailsProps> = ({
   const { viewportSmall } = useWindowDimensions()
   const theme = useTheme()
   const { title, thumbnail, distance } = feature.properties
-  const { content, location, website, phoneNumber, email } = poi
+  const { content, location, website, phoneNumber, email, isCurrentlyOpened, openingHours, temporaryClosed } = poi
   const { t } = useTranslation('pois')
   const navigate = useNavigate()
   // MapEvent parses null to 'null'
@@ -205,7 +206,7 @@ const PoiDetails: React.FC<PoiDetailsProps> = ({
       {(!!website || !!phoneNumber || !!email) && (
         <>
           <Spacer borderColor={theme.colors.poiBorderColor} />
-          <Collapsible title={t('contactInformation')} initialCollapsed direction={direction}>
+          <Collapsible title={t('contactInformation')} direction={direction}>
             <>
               {!!website && (
                 <ContactItem iconSrc={WebsiteIcon} iconAlt={t('website')} link={website} content={website} />
@@ -225,10 +226,19 @@ const PoiDetails: React.FC<PoiDetailsProps> = ({
           </Collapsible>
         </>
       )}
+      <>
+        <Spacer borderColor={theme.colors.poiBorderColor} />
+        <OpeningHours
+          direction={direction}
+          openingHours={openingHours}
+          isCurrentlyOpened={isCurrentlyOpened}
+          isTemporaryClosed={temporaryClosed}
+        />
+      </>
       {content.length > 0 && (
         <>
           <Spacer borderColor={theme.colors.poiBorderColor} />
-          <Collapsible title={t('detailsInformation')} initialCollapsed direction={direction}>
+          <Collapsible title={t('detailsInformation')} direction={direction}>
             <RemoteContent html={content} onInternalLinkClick={navigate} smallText />
           </Collapsible>
         </>
