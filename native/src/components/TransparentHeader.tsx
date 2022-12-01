@@ -3,7 +3,6 @@ import React, { ReactElement, useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Share } from 'react-native'
 import { HiddenItem } from 'react-navigation-header-buttons'
-import { useTheme } from 'styled-components'
 import styled from 'styled-components/native'
 
 import { SHARE_SIGNAL_NAME } from 'api-client'
@@ -40,7 +39,6 @@ type TransparentHeaderProps = {
 
 const TransparentHeader = ({ navigation, route }: TransparentHeaderProps): ReactElement | null => {
   const { t } = useTranslation('layout')
-  const theme = useTheme()
   const showSnackbar = useSnackbar()
 
   const shareUrl = route.params?.shareUrl
@@ -85,12 +83,12 @@ const TransparentHeader = ({ navigation, route }: TransparentHeaderProps): React
   }
 
   return (
-    <BoxShadow theme={theme} testID='transparent-header'>
+    <BoxShadow testID='transparent-header'>
       <Horizontal>
         <HorizontalLeft>
           <HeaderBackButton onPress={navigation.goBack} labelVisible={false} />
         </HorizontalLeft>
-        <MaterialHeaderButtons cancelLabel={t('cancel')} theme={theme} items={[]} overflowItems={overflowItems} />
+        <MaterialHeaderButtons cancelLabel={t('cancel')} items={[]} overflowItems={overflowItems} />
       </Horizontal>
     </BoxShadow>
   )
