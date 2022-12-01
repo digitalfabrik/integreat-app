@@ -30,7 +30,7 @@ import {
   CategoriesRouteType,
 } from 'api-client'
 
-import HeaderContainer from './components/HeaderContainer'
+import Header from './components/Header'
 import RedirectContainer from './components/RedirectContainer'
 import SettingsHeader from './components/SettingsHeader'
 import TransparentHeader from './components/TransparentHeader'
@@ -70,7 +70,7 @@ const transparentHeader = (headerProps: StackHeaderProps) => <TransparentHeader 
 
 const settingsHeader = (headerProps: StackHeaderProps) => <SettingsHeader {...headerProps} />
 
-const defaultHeader = (headerProps: StackHeaderProps) => <HeaderContainer {...(headerProps as HeaderProps)} />
+const defaultHeader = (headerProps: StackHeaderProps) => <Header {...(headerProps as HeaderProps)} />
 
 type InitialRouteType =
   | {
