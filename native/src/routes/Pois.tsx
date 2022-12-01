@@ -82,7 +82,7 @@ const Pois = ({ pois, language, cityModel, route, navigation }: PoisProps): Reac
   }
 
   const deselectPoiFeature = useCallback(() => navigation.setParams({ slug: undefined }), [navigation])
-  useOnBackNavigation(deselectPoiFeature)
+  useOnBackNavigation(slug ? deselectPoiFeature : undefined)
 
   // Wait for followUserLocation change before moving the camera to avoid position lock
   // https://github.com/rnmapbox/maps/issues/1079
