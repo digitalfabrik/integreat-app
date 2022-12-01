@@ -14,15 +14,14 @@ type UseLoadCityContentProps<T> = {
   load: () => Promise<T | null>
 }
 
-export type CityContentReturn<T> = ReturnType<
-  {
-    cities: CityModel[]
-    languages: LanguageModel[]
-    city: CityModel
-    language: LanguageModel
-    resourceCache: LanguageResourceCacheStateType
-  } & T
-> & { errorCode: ErrorCode | null }
+export type CityContentData<T> = {
+  cities: CityModel[]
+  languages: LanguageModel[]
+  city: CityModel
+  language: LanguageModel
+  resourceCache: LanguageResourceCacheStateType
+} & T
+export type CityContentReturn<T> = ReturnType<CityContentData<T>> & { errorCode: ErrorCode | null }
 
 const useLoadCityContent = <T>({ cityCode, languageCode, load }: UseLoadCityContentProps<T>): CityContentReturn<T> => {
   const citiesReturn = useLoadCities()
