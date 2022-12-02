@@ -10,6 +10,7 @@ type UseHeaderProps<T extends RoutesType> = {
   data: CityContentData<unknown> | null
   availableLanguages?: string[]
   isHome?: boolean
+  shareUrl?: string
 }
 
 const useHeader = <T extends RoutesType>({
@@ -18,6 +19,7 @@ const useHeader = <T extends RoutesType>({
   availableLanguages,
   data,
   isHome,
+  shareUrl,
 }: UseHeaderProps<T>): void => {
   useEffect(() => {
     navigation.setOptions({
@@ -30,10 +32,11 @@ const useHeader = <T extends RoutesType>({
           showItems={!!data}
           availableLanguages={availableLanguages}
           isHome={isHome}
+          shareUrl={shareUrl}
         />
       ),
     })
-  }, [route, navigation, data, availableLanguages, isHome])
+  }, [route, navigation, data, availableLanguages, isHome, shareUrl])
 }
 
 export default useHeader

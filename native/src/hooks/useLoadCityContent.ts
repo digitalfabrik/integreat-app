@@ -30,6 +30,7 @@ const useLoadCityContent = <T>({ cityCode, languageCode, load }: UseLoadCityCont
 
   const previousLanguageCode = useOnLanguageChange({ languageCode })
 
+  // TODO IGAPP-636: Actually load resource cache
   const loadResourceCache = useCallback(
     async () => dataContainer.getResourceCache(cityCode, languageCode),
     [cityCode, languageCode]
