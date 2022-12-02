@@ -35,7 +35,7 @@ export const useLoadAsync = <T>(request: Request<T>): Return<T> => {
   const [loading, setLoading] = useState<boolean>(true)
 
   const load = useCallback(() => {
-    loadAsync<T>(request, setData, setError, setLoading).catch(e => setError(e))
+    loadAsync<T>(request, setData, setError, setLoading).catch(setError)
   }, [request])
 
   useEffect(() => {

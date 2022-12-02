@@ -14,8 +14,8 @@ import useHeader from '../hooks/useHeader'
 import useLoadCategories from '../hooks/useLoadCategories'
 import useNavigate from '../hooks/useNavigate'
 import useOnLanguageChange from '../hooks/useOnLanguageChange'
-import useSetShareUrl from '../hooks/useSetShareUrl'
 import createNavigateToFeedbackModal from '../navigation/createNavigateToFeedbackModal'
+import urlFromRouteInformation from '../navigation/url'
 import testID from '../testing/testID'
 import LoadingErrorHandler from './LoadingErrorHandler'
 
@@ -41,7 +41,13 @@ const CategoriesContainer = ({ navigation, route }: CategoriesContainerProps): R
   const availableLanguages =
     category && !category.isRoot() ? Array.from(category.availableLanguages.keys()) : data?.languages.map(it => it.code)
 
-  useHeader({ navigation, route, availableLanguages, data, isHome: !route.params.path })
+  const shareUrl = urlFromRouteInformation({
+    route: CATEGORIES_ROUTE,
+    languageCode,
+    cityCode,
+    cityContentPath: path,
+  })
+  useHeader({ navigation, route, availableLanguages, data, isHome: !route.params.path, shareUrl })
 
   const onLanguageChange = useCallback(
     (newLanguage: string) => {
@@ -54,16 +60,6 @@ const CategoriesContainer = ({ navigation, route }: CategoriesContainerProps): R
     [category, navigation]
   )
   const previousLanguageCode = useOnLanguageChange({ languageCode, onLanguageChange })
-  useSetShareUrl({
-    navigation,
-    route,
-    routeInformation: {
-      route: CATEGORIES_ROUTE,
-      languageCode,
-      cityCode,
-      cityContentPath: path,
-    },
-  })
 
   if (response.errorCode === ErrorCode.LanguageUnavailable) {
     return <LanguageNotAvailablePage />

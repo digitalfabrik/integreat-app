@@ -10,8 +10,8 @@ import useHeader from '../hooks/useHeader'
 import useLoadEvents from '../hooks/useLoadEvents'
 import useNavigate from '../hooks/useNavigate'
 import useOnLanguageChange from '../hooks/useOnLanguageChange'
-import useSetShareUrl from '../hooks/useSetShareUrl'
 import createNavigateToFeedbackModal from '../navigation/createNavigateToFeedbackModal'
+import urlFromRouteInformation from '../navigation/url'
 import Events from './Events'
 import LoadingErrorHandler from './LoadingErrorHandler'
 
@@ -34,7 +34,13 @@ const EventsContainer = ({ navigation, route }: EventsContainerProps): ReactElem
     ? Object.keys(currentEvent.availableLanguageSlugs)
     : data?.languages.map(it => it.code)
 
-  useHeader({ navigation, route, availableLanguages, data })
+  const shareUrl = urlFromRouteInformation({
+    route: EVENTS_ROUTE,
+    languageCode,
+    cityCode,
+    slug,
+  })
+  useHeader({ navigation, route, availableLanguages, data, shareUrl })
 
   const onLanguageChange = useCallback(
     (newLanguage: string) => {
@@ -47,16 +53,6 @@ const EventsContainer = ({ navigation, route }: EventsContainerProps): ReactElem
     [currentEvent, navigation]
   )
   useOnLanguageChange({ languageCode, onLanguageChange })
-  useSetShareUrl({
-    navigation,
-    route,
-    routeInformation: {
-      route: EVENTS_ROUTE,
-      languageCode,
-      cityCode,
-      slug,
-    },
-  })
 
   if (response.errorCode === ErrorCode.LanguageUnavailable) {
     return <LanguageNotAvailablePage />
