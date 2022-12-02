@@ -1,7 +1,7 @@
 import React, { ReactElement, ReactNode, useEffect, useState } from 'react'
 import { ActivityIndicator, RefreshControl } from 'react-native'
 
-import { ErrorCode } from 'api-client'
+import { fromError } from 'api-client'
 
 import Failure from '../components/Failure'
 import Layout from '../components/Layout'
@@ -51,8 +51,7 @@ const LoadingErrorHandler = ({
   if (error) {
     return (
       <LayoutedScrollView refreshControl={<RefreshControl onRefresh={refresh} refreshing={false} />}>
-        {/* TODO IGAPP-636: Pass correct error code */}
-        <Failure tryAgain={refresh} code={ErrorCode.UnknownError} />
+        <Failure tryAgain={refresh} code={fromError(error)} />
       </LayoutedScrollView>
     )
   }

@@ -1,28 +1,14 @@
-import React, { ReactElement, useCallback, useState } from 'react'
-import { RefreshControl } from 'react-native'
+import React, { ReactElement } from 'react'
 
-import {
-  createOffersEndpoint,
-  createSprungbrettJobsEndpoint,
-  fromError,
-  NotFoundError,
-  OFFERS_ROUTE,
-  SPRUNGBRETT_OFFER_ROUTE,
-  SprungbrettJobModel,
-  SprungbrettOfferRouteType,
-  useLoadFromEndpoint,
-} from 'api-client'
+import { NotFoundError, OFFERS_ROUTE, SPRUNGBRETT_OFFER_ROUTE, SprungbrettOfferRouteType } from 'api-client'
 
-import Failure from '../components/Failure'
-import Layout from '../components/Layout'
-import LayoutedScrollView from '../components/LayoutedScrollView'
 import { NavigationProps, RouteProps } from '../constants/NavigationTypes'
-import useCities from '../hooks/useCities'
 import useCityAppContext from '../hooks/useCityAppContext'
-import useReportError from '../hooks/useReportError'
-import useSetShareUrl from '../hooks/useSetShareUrl'
+import useHeader from '../hooks/useHeader'
+import useLoadSprungbrettJobs from '../hooks/useLoadSprungbrettJobs'
 import createNavigateToFeedbackModal from '../navigation/createNavigateToFeedbackModal'
-import { determineApiUrl } from '../utils/helpers'
+import urlFromRouteInformation from '../navigation/url'
+import LoadingErrorHandler from './LoadingErrorHandler'
 import SprungbrettOffer from './SprungbrettOffer'
 
 type SprungbrettOfferContainerProps = {
@@ -31,48 +17,14 @@ type SprungbrettOfferContainerProps = {
 }
 
 const SprungbrettOfferContainer = ({ route, navigation }: SprungbrettOfferContainerProps): ReactElement => {
-  const cities = useCities()
-  const [title, setTitle] = useState<string>('')
   const { cityCode, languageCode } = useCityAppContext()
   const alias = SPRUNGBRETT_OFFER_ROUTE
 
-  const routeInformation = { route: SPRUNGBRETT_OFFER_ROUTE, languageCode, cityCode }
-  useSetShareUrl({ navigation, routeInformation, route })
+  const { data, ...response } = useLoadSprungbrettJobs({ cityCode, languageCode })
 
-  const requestJobs = useCallback(async () => {
-    const apiUrl = await determineApiUrl()
-    const offersPayload = await createOffersEndpoint(apiUrl).request({
-      city: cityCode,
-      language: languageCode,
-    })
-
-    if (offersPayload.error) {
-      throw offersPayload.error
-    } else if (!offersPayload.data) {
-      throw new Error('Offers not available!')
-    }
-
-    const sprungbrettOffer = offersPayload.data.find(offer => offer.alias === alias)
-
-    if (!sprungbrettOffer) {
-      throw new NotFoundError({
-        type: 'offer',
-        id: alias,
-        city: cityCode,
-        language: languageCode,
-      })
-    }
-
-    setTitle(sprungbrettOffer.title)
-    return createSprungbrettJobsEndpoint(sprungbrettOffer.path).request(undefined)
-  }, [cityCode, languageCode, alias, setTitle])
-  const {
-    data: jobs,
-    error: jobsError,
-    loading,
-    refresh,
-  } = useLoadFromEndpoint<Array<SprungbrettJobModel>>(requestJobs)
-  useReportError(jobsError)
+  const availableLanguages = data?.languages.map(it => it.code)
+  const shareUrl = urlFromRouteInformation({ route: SPRUNGBRETT_OFFER_ROUTE, languageCode, cityCode })
+  useHeader({ navigation, route, availableLanguages, data, shareUrl })
 
   const navigateToFeedback = (isPositiveFeedback: boolean) => {
     createNavigateToFeedbackModal(navigation)({
@@ -84,40 +36,28 @@ const SprungbrettOfferContainer = ({ route, navigation }: SprungbrettOfferContai
     })
   }
 
-  const cityModel = cities && cities.find(city => city.code === cityCode)
-
-  const refreshControl = <RefreshControl onRefresh={refresh} refreshing={loading} />
-
-  if (jobsError || (cityModel && !cityModel.offersEnabled)) {
-    const error =
-      jobsError ||
-      new NotFoundError({
-        type: 'category',
-        id: 'offers',
-        city: cityCode,
-        language: languageCode,
-      })
-    return (
-      <LayoutedScrollView refreshControl={refreshControl}>
-        <Failure code={fromError(error)} tryAgain={refresh} />
-      </LayoutedScrollView>
-    )
-  }
-
-  if (!jobs) {
-    return <LayoutedScrollView refreshControl={refreshControl} />
-  }
+  const error =
+    data?.city && !data.city.offersEnabled
+      ? new NotFoundError({
+          type: 'category',
+          id: 'offers',
+          city: cityCode,
+          language: languageCode,
+        })
+      : response.error
 
   return (
-    <Layout>
-      <SprungbrettOffer
-        title={title}
-        jobs={jobs}
-        language={languageCode}
-        navigateToFeedback={navigateToFeedback}
-        refresh={refresh}
-      />
-    </Layout>
+    <LoadingErrorHandler {...response} error={error}>
+      {data && (
+        <SprungbrettOffer
+          title={data.sprungbrettOffer.title}
+          jobs={data.sprungbrettJobs}
+          language={languageCode}
+          navigateToFeedback={navigateToFeedback}
+          refresh={response.refresh}
+        />
+      )}
+    </LoadingErrorHandler>
   )
 }
 

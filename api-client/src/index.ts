@@ -97,7 +97,6 @@ export { default as useLoadAsync, loadAsync } from './endpoints/hooks/useLoadAsy
 export { default as parseHTML } from './utils/parseHTML'
 export { embedInCollection } from './utils/geoJson'
 export { prepareFeatureLocations, prepareFeatureLocation } from './utils/geoJson'
-export { getSlug } from './utils/getSlug'
 
 export { default as CategoriesMapModel } from './models/CategoriesMapModel'
 export { default as CategoryModel } from './models/CategoryModel'
