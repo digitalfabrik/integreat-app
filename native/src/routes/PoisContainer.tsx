@@ -8,7 +8,7 @@ import useCityAppContext from '../hooks/useCityAppContext'
 import useHeader from '../hooks/useHeader'
 import useLoadPois from '../hooks/useLoadPois'
 import useOnLanguageChange from '../hooks/useOnLanguageChange'
-import useSetShareUrl from '../hooks/useSetShareUrl'
+import urlFromRouteInformation from '../navigation/url'
 import LoadingErrorHandler from './LoadingErrorHandler'
 import Pois from './Pois'
 
@@ -28,8 +28,14 @@ const PoisContainer = ({ navigation, route }: PoisContainerProps): ReactElement 
   const availableLanguages = currentPoi
     ? Object.keys(currentPoi.availableLanguageSlugs)
     : data?.languages.map(it => it.code)
+  const shareUrl = urlFromRouteInformation({
+    route: POIS_ROUTE,
+    languageCode,
+    cityCode,
+    slug,
+  })
 
-  useHeader({ navigation, route, availableLanguages, data })
+  useHeader({ navigation, route, availableLanguages, data, shareUrl })
 
   const onLanguageChange = useCallback(
     (newLanguage: string) => {
@@ -42,16 +48,6 @@ const PoisContainer = ({ navigation, route }: PoisContainerProps): ReactElement 
     [currentPoi, navigation]
   )
   useOnLanguageChange({ languageCode, onLanguageChange })
-  useSetShareUrl({
-    navigation,
-    route,
-    routeInformation: {
-      route: POIS_ROUTE,
-      languageCode,
-      cityCode,
-      slug,
-    },
-  })
 
   if (response.errorCode === ErrorCode.LanguageUnavailable) {
     return <LanguageNotAvailablePage />

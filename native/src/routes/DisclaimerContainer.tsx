@@ -1,22 +1,15 @@
-import React, { ReactElement, useCallback, useContext } from 'react'
+import React, { ReactElement, useContext } from 'react'
 
-import {
-  createDisclaimerEndpoint,
-  DISCLAIMER_ROUTE,
-  DisclaimerRouteType,
-  PageModel,
-  useLoadFromEndpoint,
-  getSlug,
-} from 'api-client'
+import { DISCLAIMER_ROUTE, DisclaimerRouteType } from 'api-client'
 
 import SiteHelpfulBox from '../components/SiteHelpfulBox'
 import { StaticServerContext } from '../components/StaticServerProvider'
 import { NavigationProps, RouteProps } from '../constants/NavigationTypes'
 import useCityAppContext from '../hooks/useCityAppContext'
-import useReportError from '../hooks/useReportError'
-import useSetShareUrl from '../hooks/useSetShareUrl'
+import useHeader from '../hooks/useHeader'
+import useLoadDisclaimer from '../hooks/useLoadDisclaimer'
 import createNavigateToFeedbackModal from '../navigation/createNavigateToFeedbackModal'
-import { determineApiUrl } from '../utils/helpers'
+import urlFromRouteInformation from '../navigation/url'
 import Disclaimer from './Disclaimer'
 import LoadingErrorHandler from './LoadingErrorHandler'
 
@@ -28,19 +21,11 @@ type DisclaimerContainerProps = {
 const DisclaimerContainer = ({ navigation, route }: DisclaimerContainerProps): ReactElement => {
   const { cityCode, languageCode } = useCityAppContext()
   const resourceCacheUrl = useContext(StaticServerContext)
+  const { data, ...response } = useLoadDisclaimer({ cityCode, languageCode })
 
-  const routeInformation = { route: DISCLAIMER_ROUTE, languageCode, cityCode }
-  useSetShareUrl({ navigation, routeInformation, route })
-
-  const request = useCallback(async () => {
-    const apiUrl = await determineApiUrl()
-    return createDisclaimerEndpoint(apiUrl).request({
-      city: cityCode,
-      language: languageCode,
-    })
-  }, [cityCode, languageCode])
-  const { data: disclaimer, ...response } = useLoadFromEndpoint<PageModel>(request)
-  useReportError(response.error)
+  const availableLanguages = data?.languages.map(it => it.code)
+  const shareUrl = urlFromRouteInformation({ route: DISCLAIMER_ROUTE, languageCode, cityCode })
+  useHeader({ navigation, route, availableLanguages, data, shareUrl })
 
   const navigateToFeedback = (isPositiveFeedback: boolean) => {
     createNavigateToFeedbackModal(navigation)({
@@ -48,15 +33,15 @@ const DisclaimerContainer = ({ navigation, route }: DisclaimerContainerProps): R
       cityCode,
       language: languageCode,
       isPositiveFeedback,
-      slug: disclaimer ? getSlug(disclaimer.path) : undefined,
+      slug: data?.disclaimer.slug,
     })
   }
 
   return (
     <LoadingErrorHandler {...response} scrollView>
-      {disclaimer && (
+      {data && (
         <>
-          <Disclaimer resourceCacheUrl={resourceCacheUrl} disclaimer={disclaimer} language={languageCode} />
+          <Disclaimer resourceCacheUrl={resourceCacheUrl} disclaimer={data.disclaimer} language={languageCode} />
           <SiteHelpfulBox navigateToFeedback={navigateToFeedback} />
         </>
       )}
