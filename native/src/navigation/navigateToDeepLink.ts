@@ -17,7 +17,6 @@ import buildConfig from '../constants/buildConfig'
 import { StoreActionType } from '../redux/StoreActionType'
 import appSettings, { SettingsType } from '../utils/AppSettings'
 import sendTrackingSignal from '../utils/sendTrackingSignal'
-import showSnackbar from '../utils/showSnackbar'
 import createNavigate from './createNavigate'
 
 const navigateToDeepLink = async <T extends RoutesType>(
@@ -84,7 +83,8 @@ const navigateToDeepLink = async <T extends RoutesType>(
   }
 
   if (!routeInformation) {
-    showSnackbar(dispatch, 'notFound.category')
+    // TODO IGAPP-636: Show snackbar
+    // showSnackbar(dispatch, 'notFound.category')
     return
   }
 
