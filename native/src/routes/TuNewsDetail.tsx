@@ -1,47 +1,46 @@
 import React, { ReactElement } from 'react'
 
-import { LOCAL_NEWS_TYPE, NEWS_ROUTE, NewsRouteType } from 'api-client'
+import { NEWS_ROUTE, NewsRouteType, TU_NEWS_TYPE } from 'api-client'
 
 import News from '../components/News'
 import { NavigationProps, RouteProps } from '../constants/NavigationTypes'
 import useHeader from '../hooks/useHeader'
 import { CityContentData } from '../hooks/useLoadCityContent'
-import useLoadLocalNews from '../hooks/useLoadLocalNews'
+import useLoadTuNewsElement from '../hooks/useLoadTuNewsElement'
 import urlFromRouteInformation from '../navigation/url'
 import LoadingErrorHandler from './LoadingErrorHandler'
 
-type LocalNewsProps = {
+type TuNewsProps = {
   route: RouteProps<NewsRouteType>
   navigation: NavigationProps<NewsRouteType>
-  newsId: string | null
+  newsId: string
   data: CityContentData<unknown>
   selectNews: (newsId: string | null) => void
 }
 
-const LocalNews = ({ route, navigation, data, newsId, selectNews }: LocalNewsProps): ReactElement => {
+const TuNewsNews = ({ route, navigation, data, selectNews, newsId }: TuNewsProps): ReactElement => {
   const cityCode = data.city.code
   const languageCode = data.language.code
-  const { data: localNews, ...response } = useLoadLocalNews({ cityCode, languageCode })
+  const { data: tuNews, ...response } = useLoadTuNewsElement({ newsId })
 
-  const availableLanguages = newsId ? [languageCode] : data.languages.map(it => it.code)
   const shareUrl = urlFromRouteInformation({
     route: NEWS_ROUTE,
     cityCode,
     languageCode,
-    newsType: LOCAL_NEWS_TYPE,
-    newsId: newsId ?? undefined,
+    newsType: TU_NEWS_TYPE,
+    newsId,
   })
-  useHeader({ navigation, route, availableLanguages, data, shareUrl })
+  useHeader({ navigation, route, availableLanguages: [languageCode], data, shareUrl })
 
   return (
     <LoadingErrorHandler {...response}>
-      {localNews && (
+      {tuNews && (
         <News
           newsId={newsId}
           languageCode={languageCode}
-          selectedNewsType={LOCAL_NEWS_TYPE}
+          selectedNewsType={TU_NEWS_TYPE}
           selectNews={selectNews}
-          news={localNews}
+          news={tuNews}
           refresh={response.refresh}
         />
       )}
@@ -49,4 +48,4 @@ const LocalNews = ({ route, navigation, data, newsId, selectNews }: LocalNewsPro
   )
 }
 
-export default LocalNews
+export default TuNewsNews
