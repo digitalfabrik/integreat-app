@@ -1,5 +1,5 @@
 import MapboxGL from '@react-native-mapbox-gl/maps'
-import React, { ReactElement, useEffect, useRef, useState } from 'react'
+import React, { ReactElement, useCallback, useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { ScrollView, useWindowDimensions } from 'react-native'
 import { useTheme } from 'styled-components'
@@ -29,6 +29,7 @@ import PoiListItem from '../components/PoiListItem'
 import SiteHelpfulBox from '../components/SiteHelpfulBox'
 import { NavigationProps, RouteProps } from '../constants/NavigationTypes'
 import dimensions from '../constants/dimensions'
+import useOnBackNavigation from '../hooks/useOnBackNavigation'
 import useUserLocation from '../hooks/useUserLocation'
 import createNavigateToFeedbackModal from '../navigation/createNavigateToFeedbackModal'
 import { reportError } from '../utils/sentry'
@@ -80,17 +81,8 @@ const Pois = ({ pois, language, cityModel, route, navigation }: PoisProps): Reac
     }
   }
 
-  useEffect(
-    () =>
-      navigation.addListener('beforeRemove', e => {
-        if (slug) {
-          // Only deselect currently selected poi if navigating back
-          e.preventDefault()
-          navigation.setParams({ slug: undefined })
-        }
-      }),
-    [navigation, slug]
-  )
+  const deselectPoiFeature = useCallback(() => navigation.setParams({ slug: undefined }), [navigation])
+  useOnBackNavigation(deselectPoiFeature)
 
   // Wait for followUserLocation change before moving the camera to avoid position lock
   // https://github.com/rnmapbox/maps/issues/1079
