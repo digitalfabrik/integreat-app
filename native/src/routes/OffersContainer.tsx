@@ -41,7 +41,7 @@ const OffersContainer = ({ navigation, route }: OffersContainerProps): ReactElem
         postData,
       })
     } else if (isExternalUrl) {
-      openExternalUrl(path).catch(error => showSnackbar(error.message))
+      openExternalUrl(path).catch(error => showSnackbar({ text: error.message }))
     } else if (data?.offers.find(offer => offer.title === title)?.alias === SPRUNGBRETT_OFFER_ROUTE) {
       navigateTo({ route: SPRUNGBRETT_OFFER_ROUTE, cityCode, languageCode })
     }
