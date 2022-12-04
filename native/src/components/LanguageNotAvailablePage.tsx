@@ -17,18 +17,15 @@ const Wrapper = styled.ScrollView`
 `
 
 type LanguageNotAvailablePageProps = {
-  languages?: LanguageModel[]
-  changeLanguage?: (newLanguage: string) => void
+  availableLanguages?: LanguageModel[]
 }
 
-const LanguageNotAvailablePage = ({ languages, changeLanguage }: LanguageNotAvailablePageProps): ReactElement => {
+const LanguageNotAvailablePage = ({ availableLanguages }: LanguageNotAvailablePageProps): ReactElement => {
   const { cityCode, changeLanguageCode } = useCityAppContext()
   const { data, ...response } = useLoadLanguages({ cityCode })
   const { t } = useTranslation('common')
 
-  const availableLanguages = languages ?? data
-
-  const items = availableLanguages?.map(
+  const items = (availableLanguages ?? data)?.map(
     ({ code, name }) =>
       new SelectorItemModel({
         code,
@@ -36,15 +33,12 @@ const LanguageNotAvailablePage = ({ languages, changeLanguage }: LanguageNotAvai
         enabled: true,
         onPress: () => {
           changeLanguageCode(code)
-          if (changeLanguage) {
-            changeLanguage(code)
-          }
         },
       })
   )
 
   return (
-    <LoadingErrorHandler {...response}>
+    <LoadingErrorHandler {...response} scrollView>
       {items && (
         <Wrapper contentContainerStyle={{ alignItems: 'center' }}>
           <Caption title={t('languageNotAvailable')} />

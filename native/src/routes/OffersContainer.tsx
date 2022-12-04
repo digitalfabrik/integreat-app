@@ -1,6 +1,6 @@
 import React, { ReactElement } from 'react'
 
-import { EXTERNAL_OFFER_ROUTE, NotFoundError, OFFERS_ROUTE, OffersRouteType, SPRUNGBRETT_OFFER_ROUTE } from 'api-client'
+import { ErrorCode, EXTERNAL_OFFER_ROUTE, OFFERS_ROUTE, OffersRouteType, SPRUNGBRETT_OFFER_ROUTE } from 'api-client'
 
 import { NavigationProps, RouteProps } from '../constants/NavigationTypes'
 import useCityAppContext from '../hooks/useCityAppContext'
@@ -54,15 +54,7 @@ const OffersContainer = ({ navigation, route }: OffersContainerProps): ReactElem
     })
   }
 
-  const error =
-    data?.city && !data.city.offersEnabled
-      ? new NotFoundError({
-          type: 'category',
-          id: 'offers',
-          city: cityCode,
-          language: languageCode,
-        })
-      : response.error
+  const error = data?.city && !data.city.offersEnabled ? ErrorCode.PageNotFound : response.error
 
   return (
     <LoadingErrorHandler {...response} error={error} scrollView>
