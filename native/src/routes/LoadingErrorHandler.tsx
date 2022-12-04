@@ -1,9 +1,10 @@
 import React, { ReactElement, ReactNode, useEffect, useState } from 'react'
 import { ActivityIndicator, RefreshControl } from 'react-native'
 
-import { fromError } from 'api-client'
+import { ErrorCode, fromError, LanguageModel } from 'api-client'
 
 import Failure from '../components/Failure'
+import LanguageNotAvailablePage from '../components/LanguageNotAvailablePage'
 import Layout from '../components/Layout'
 import LayoutedScrollView from '../components/LayoutedScrollView'
 import ProgressSpinner from '../components/ProgressSpinner'
@@ -13,9 +14,10 @@ const LOADING_TIMEOUT = 800
 
 type LoadingErrorHandlerProps = {
   children?: ReactNode
-  error: Error | null
+  error: Error | ErrorCode | null
   loading: boolean
   refresh: () => void
+  availableLanguages?: LanguageModel[]
   scrollView?: boolean
 }
 
@@ -24,6 +26,7 @@ const LoadingErrorHandler = ({
   loading,
   refresh,
   error,
+  availableLanguages,
   scrollView = false,
 }: LoadingErrorHandlerProps): ReactElement => {
   const [timeoutExpired, setTimeoutExpired] = useState(false)
@@ -48,10 +51,14 @@ const LoadingErrorHandler = ({
     )
   }
 
+  if (error === ErrorCode.LanguageUnavailable) {
+    return <LanguageNotAvailablePage availableLanguages={availableLanguages} />
+  }
+
   if (error) {
     return (
       <LayoutedScrollView refreshControl={<RefreshControl onRefresh={refresh} refreshing={false} />}>
-        <Failure tryAgain={refresh} code={fromError(error)} />
+        <Failure tryAgain={refresh} code={error instanceof Error ? fromError(error) : error} />
       </LayoutedScrollView>
     )
   }
