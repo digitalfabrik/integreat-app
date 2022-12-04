@@ -1,6 +1,6 @@
 import React, { ReactElement } from 'react'
 
-import { NotFoundError, OFFERS_ROUTE, SPRUNGBRETT_OFFER_ROUTE, SprungbrettOfferRouteType } from 'api-client'
+import { ErrorCode, OFFERS_ROUTE, SPRUNGBRETT_OFFER_ROUTE, SprungbrettOfferRouteType } from 'api-client'
 
 import { NavigationProps, RouteProps } from '../constants/NavigationTypes'
 import useCityAppContext from '../hooks/useCityAppContext'
@@ -36,15 +36,7 @@ const SprungbrettOfferContainer = ({ route, navigation }: SprungbrettOfferContai
     })
   }
 
-  const error =
-    data?.city && !data.city.offersEnabled
-      ? new NotFoundError({
-          type: 'category',
-          id: 'offers',
-          city: cityCode,
-          language: languageCode,
-        })
-      : response.error
+  const error = data?.city && !data.city.offersEnabled ? ErrorCode.PageNotFound : response.error
 
   return (
     <LoadingErrorHandler {...response} error={error}>

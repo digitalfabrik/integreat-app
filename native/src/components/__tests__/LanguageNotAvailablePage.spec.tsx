@@ -21,7 +21,7 @@ describe('LanguageNotAvailablePage', () => {
   const changeLanguage = jest.fn()
 
   it('should render', () => {
-    const { getByText } = render(<LanguageNotAvailablePage languages={languages} changeLanguage={changeLanguage} />)
+    const { getByText } = render(<LanguageNotAvailablePage availableLanguages={languages} />)
 
     expect(getByText('languageNotAvailable')).toBeTruthy()
     expect(getByText('chooseALanguage')).toBeTruthy()
@@ -31,7 +31,7 @@ describe('LanguageNotAvailablePage', () => {
   })
 
   it('should call onPress if enabled', () => {
-    const { getByText } = render(<LanguageNotAvailablePage languages={languages} changeLanguage={changeLanguage} />)
+    const { getByText } = render(<LanguageNotAvailablePage availableLanguages={languages} />)
 
     fireEvent.press(getByText(languages[2]!.name))
 

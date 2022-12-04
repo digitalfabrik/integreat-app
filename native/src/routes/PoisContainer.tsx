@@ -1,8 +1,7 @@
 import React, { ReactElement, useCallback } from 'react'
 
-import { ErrorCode, POIS_ROUTE, PoisRouteType } from 'api-client'
+import { POIS_ROUTE, PoisRouteType } from 'api-client'
 
-import LanguageNotAvailablePage from '../components/LanguageNotAvailablePage'
 import { NavigationProps, RouteProps } from '../constants/NavigationTypes'
 import useCityAppContext from '../hooks/useCityAppContext'
 import useHeader from '../hooks/useHeader'
@@ -48,10 +47,6 @@ const PoisContainer = ({ navigation, route }: PoisContainerProps): ReactElement 
     [currentPoi, navigation]
   )
   useOnLanguageChange({ languageCode, onLanguageChange })
-
-  if (response.errorCode === ErrorCode.LanguageUnavailable) {
-    return <LanguageNotAvailablePage />
-  }
 
   return (
     <LoadingErrorHandler {...response}>

@@ -1,8 +1,7 @@
 import React, { ReactElement, useCallback, useContext } from 'react'
 
-import { ErrorCode, EVENTS_ROUTE, EventsRouteType } from 'api-client'
+import { EVENTS_ROUTE, EventsRouteType } from 'api-client'
 
-import LanguageNotAvailablePage from '../components/LanguageNotAvailablePage'
 import { StaticServerContext } from '../components/StaticServerProvider'
 import { NavigationProps, RouteProps } from '../constants/NavigationTypes'
 import useCityAppContext from '../hooks/useCityAppContext'
@@ -53,10 +52,6 @@ const EventsContainer = ({ navigation, route }: EventsContainerProps): ReactElem
     [currentEvent, navigation]
   )
   useOnLanguageChange({ languageCode, onLanguageChange })
-
-  if (response.errorCode === ErrorCode.LanguageUnavailable) {
-    return <LanguageNotAvailablePage />
-  }
 
   return (
     <LoadingErrorHandler {...response}>
