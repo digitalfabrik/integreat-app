@@ -87,7 +87,8 @@ const navigateToDeepLink = async <T extends RoutesType>({
   }
 
   if (!routeInformation) {
-    showSnackbar({ text: 'notFound.category' })
+    // TODO IGAPP-636: Show snackbar
+    // showSnackbar({ text: 'notFound.category' })
     return
   }
 
