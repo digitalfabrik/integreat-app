@@ -1,72 +1,57 @@
-import React, { ReactElement, useCallback } from 'react'
+import React, { ReactElement } from 'react'
 
-import {
-  CityModel,
-  createTunewsElementEndpoint,
-  Payload,
-  TU_NEWS_TYPE,
-  TunewsModel,
-  useLoadFromEndpoint,
-} from 'api-client'
+import { ErrorCode, NEWS_ROUTE, NewsRouteType, TU_NEWS_TYPE } from 'api-client'
 
-import LanguageNotAvailablePage from '../components/LanguageNotAvailablePage'
 import News from '../components/News'
-import { tunewsApiUrl } from '../constants/endpoint'
+import { NavigationProps, RouteProps } from '../constants/NavigationTypes'
+import useHeader from '../hooks/useHeader'
+import { CityContentData } from '../hooks/useLoadCityContent'
 import useLoadTuNews from '../hooks/useLoadTuNews'
+import urlFromRouteInformation from '../navigation/url'
+import LoadingErrorHandler from './LoadingErrorHandler'
 
-export type TuNewsProps = {
-  newsId: string | null | undefined
-  cityModel: CityModel
-  language: string
+type TuNewsProps = {
+  route: RouteProps<NewsRouteType>
+  navigation: NavigationProps<NewsRouteType>
+  data: CityContentData<unknown>
   selectNews: (newsId: string | null) => void
-  changeUnavailableLanguage: (newLanguage: string) => void
 }
 
-const TuNewsNews = ({
-  language,
-  cityModel,
-  selectNews,
-  newsId,
-  changeUnavailableLanguage,
-}: TuNewsProps): ReactElement => {
-  const { availableLanguages, ...tuNewsResponse } = useLoadTuNews({ language })
-
-  const requestTuNewsElement = useCallback(async () => {
-    if (newsId) {
-      return createTunewsElementEndpoint(tunewsApiUrl).request({ id: parseInt(newsId, 10) })
-    }
-    return new Payload<TunewsModel>(false)
-  }, [newsId])
+const TuNewsNews = ({ route, navigation, data, selectNews }: TuNewsProps): ReactElement => {
+  const cityCode = data.city.code
+  const languageCode = data.language.code
   const {
-    data: tuNewsElementData,
-    loading: tuNewsElementLoading,
-    error: tuNewsElementError,
-    refresh: tuNewsElementRefresh,
-  } = useLoadFromEndpoint(requestTuNewsElement)
+    data: tuNews,
+    availableLanguages,
+    loadMore,
+    loadingMore,
+    ...response
+  } = useLoadTuNews({ language: languageCode })
 
-  if (availableLanguages && !availableLanguages.find(model => model.code === language)) {
-    return <LanguageNotAvailablePage languages={availableLanguages} changeLanguage={changeUnavailableLanguage} />
-  }
+  const availableLanguageCodes = availableLanguages?.map(it => it.code)
+  const shareUrl = urlFromRouteInformation({ route: NEWS_ROUTE, cityCode, languageCode, newsType: TU_NEWS_TYPE })
+  useHeader({ navigation, route, availableLanguages: availableLanguageCodes, data, shareUrl })
 
-  const response = newsId
-    ? {
-        refresh: tuNewsElementRefresh,
-        error: tuNewsElementError,
-        data: tuNewsElementData ? [tuNewsElementData] : null,
-        // Prevent flickering (if newsId is freshly set it takes one rerender for loading to be set to true)
-        loading: tuNewsElementLoading || (!tuNewsElementError && !tuNewsElementData),
-      }
-    : tuNewsResponse
+  const error =
+    availableLanguageCodes && !availableLanguageCodes.find(it => it === languageCode)
+      ? ErrorCode.LanguageUnavailable
+      : response.error
 
   return (
-    <News
-      newsId={newsId}
-      cityModel={cityModel}
-      language={language}
-      selectedNewsType={TU_NEWS_TYPE}
-      selectNews={selectNews}
-      {...response}
-    />
+    <LoadingErrorHandler {...response} error={error} availableLanguages={availableLanguages ?? undefined}>
+      {tuNews && (
+        <News
+          languageCode={languageCode}
+          selectedNewsType={TU_NEWS_TYPE}
+          selectNews={selectNews}
+          news={tuNews}
+          refresh={response.refresh}
+          loadingMore={loadingMore}
+          loadMore={loadMore}
+          newsId={null}
+        />
+      )}
+    </LoadingErrorHandler>
   )
 }
 
