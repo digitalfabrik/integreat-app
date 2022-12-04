@@ -45,8 +45,8 @@ const NewsContainer = ({ route, navigation }: NewsContainerProps): ReactElement 
         <>
           <NewsHeader selectedNewsType={newsType} cityModel={data.city} navigateToNews={navigateToNews} />
           {newsType === LOCAL_NEWS_TYPE && <LocalNews {...props} newsId={newsId} data={data} />}
-          {newsType === TU_NEWS_TYPE && !newsId && <TuNews {...props} data={data} />}
-          {newsType === TU_NEWS_TYPE && !!newsId && <TuNewsDetail {...props} newsId={newsId} data={data} />}
+          {newsType === TU_NEWS_TYPE &&
+            (newsId ? <TuNewsDetail {...props} newsId={newsId} data={data} /> : <TuNews {...props} data={data} />)}
         </>
       )}
     </LoadingErrorHandler>
