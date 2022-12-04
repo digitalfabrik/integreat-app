@@ -1,6 +1,6 @@
 import { useCallback } from 'react'
 
-import { CityModel, ErrorCode, fromError, LanguageModel, ReturnType, useLoadAsync } from 'api-client'
+import { CityModel, ErrorCode, LanguageModel, ReturnType, useLoadAsync } from 'api-client'
 
 import { LanguageResourceCacheStateType } from '../redux/StateType'
 import { dataContainer } from '../utils/DefaultDataContainer'
@@ -21,7 +21,7 @@ export type CityContentData<T> = {
   language: LanguageModel
   resourceCache: LanguageResourceCacheStateType
 } & T
-export type CityContentReturn<T> = ReturnType<CityContentData<T>> & { errorCode: ErrorCode | null }
+export type CityContentReturn<T> = Omit<ReturnType<CityContentData<T>>, 'error'> & { error: ErrorCode | Error | null }
 
 const useLoadCityContent = <T>({ cityCode, languageCode, load }: UseLoadCityContentProps<T>): CityContentReturn<T> => {
   const citiesReturn = useLoadCities()
@@ -44,16 +44,15 @@ const useLoadCityContent = <T>({ cityCode, languageCode, load }: UseLoadCityCont
   const getError = () => {
     if (previousLanguageCode !== languageCode) {
       // Prevent flickering if unavailable language changed
-      return { error: null, errorCode: null }
+      return null
     }
     if (citiesReturn.data && !city) {
-      return { error: new Error(ErrorCode.CityUnavailable), errorCode: ErrorCode.CityUnavailable }
+      return ErrorCode.CityUnavailable
     }
     if (languagesReturn.data && !language) {
-      return { error: new Error(ErrorCode.LanguageUnavailable), errorCode: ErrorCode.LanguageUnavailable }
+      return ErrorCode.LanguageUnavailable
     }
-    const error = citiesReturn.error ?? languagesReturn.error ?? otherReturn.error ?? resourceCacheReturn.error
-    return { error: error ?? null, errorCode: error ? fromError(error) : null }
+    return citiesReturn.error ?? languagesReturn.error ?? otherReturn.error ?? resourceCacheReturn.error ?? null
   }
 
   const loading = citiesReturn.loading || languagesReturn.loading || otherReturn.loading || resourceCacheReturn.loading
@@ -76,7 +75,14 @@ const useLoadCityContent = <T>({ cityCode, languageCode, load }: UseLoadCityCont
         }
       : null
 
-  return { ...getError(), loading, refresh, data }
+  return { error: getError(), loading, refresh, data }
 }
+
+// Simple utility helper to just load cities and languages
+export const useSimpleLoadCityContent = (params: {
+  cityCode: string
+  languageCode: string
+}): CityContentReturn<unknown> =>
+  useLoadCityContent({ ...params, load: useCallback(async () => ({ unused: true }), []) })
 
 export default useLoadCityContent

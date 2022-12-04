@@ -1,11 +1,10 @@
 import React, { ReactElement, useCallback, useContext } from 'react'
 import styled from 'styled-components/native'
 
-import { CATEGORIES_ROUTE, CategoriesRouteType, cityContentPath, ErrorCode, NotFoundError } from 'api-client'
+import { CATEGORIES_ROUTE, CategoriesRouteType, cityContentPath, ErrorCode } from 'api-client'
 
 import Categories from '../components/Categories'
 import DashboardNavigationTiles from '../components/DashboardNavigationTiles'
-import LanguageNotAvailablePage from '../components/LanguageNotAvailablePage'
 import SpaceBetween from '../components/SpaceBetween'
 import { StaticServerContext } from '../components/StaticServerProvider'
 import { NavigationProps, RouteProps } from '../constants/NavigationTypes'
@@ -61,14 +60,8 @@ const CategoriesContainer = ({ navigation, route }: CategoriesContainerProps): R
   )
   const previousLanguageCode = useOnLanguageChange({ languageCode, onLanguageChange })
 
-  if (response.errorCode === ErrorCode.LanguageUnavailable) {
-    return <LanguageNotAvailablePage />
-  }
-
   const error =
-    data?.categories && !category && previousLanguageCode === languageCode
-      ? new NotFoundError({ id: path, type: 'category', city: cityCode, language: languageCode })
-      : response.error
+    data?.categories && !category && previousLanguageCode === languageCode ? ErrorCode.PageNotFound : response.error
 
   return (
     <LoadingErrorHandler {...response} error={error} scrollView>
