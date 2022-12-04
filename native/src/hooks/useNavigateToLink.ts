@@ -11,7 +11,7 @@ const useNavigateToLink = (): ((url: string, language: string, shareUrl: string)
   return useCallback(
     (url: string, language: string, shareUrl: string) => {
       navigateToLink(url, navigation, language, navigateTo, shareUrl).catch((error: Error) =>
-        showSnackbar(error.message)
+        showSnackbar({ text: error.message })
       )
     },
     [navigation, showSnackbar, navigateTo]

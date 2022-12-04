@@ -44,7 +44,7 @@ type CreateSettingsSectionsProps = {
   cityCode: string | null | undefined
   navigation: NavigationProps<SettingsRouteType>
   settings: SettingsType
-  showSnackbar: (message: string) => void
+  showSnackbar: ({ text }: { text: string }) => void
 }
 
 const createSettingsSections = ({
@@ -130,13 +130,13 @@ const createSettingsSections = ({
         onPress: () => {
           const { aboutUrls } = buildConfig()
           const aboutUrl = aboutUrls[languageCode] || aboutUrls.default
-          openExternalUrl(aboutUrl).catch((error: Error) => showSnackbar(error.message))
+          openExternalUrl(aboutUrl).catch((error: Error) => showSnackbar({ text: error.message }))
         },
       },
       {
         accessibilityRole: 'link',
         title: t('privacyPolicy'),
-        onPress: () => openPrivacyPolicy(languageCode).catch((error: Error) => showSnackbar(error.message)),
+        onPress: () => openPrivacyPolicy(languageCode).catch((error: Error) => showSnackbar({ text: error.message })),
       },
       {
         title: t('version', {
