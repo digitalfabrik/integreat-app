@@ -1,0 +1,5 @@
+issue_key: IGAPP-1101
+show_in_stores: true
+platforms:
+  - web
+en: Show opening hours for locations

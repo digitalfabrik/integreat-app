@@ -30,11 +30,11 @@ const OpeningEntry = ({ allDay, closed, timeSlots, weekday, isCurrentDay }: Open
   const { t } = useTranslation('pois')
 
   return (
-    <EntryContainer isCurrentDay={isCurrentDay}>
+    <EntryContainer isCurrentDay={isCurrentDay} id={`openingEntryContainer-${weekday}`}>
       <span>{weekday}</span>
       {allDay && <span>{t('openingHoursAllDay')}</span>}
       {closed && <span>{t('openingHoursClosed')}</span>}
-      {timeSlots.length > 0 && (
+      {!(allDay && closed) && timeSlots.length > 0 && (
         <Timeslot>
           {timeSlots.map(timeSlot => (
             <span key={`${weekday}-${timeSlot.start}`}>{`${timeSlot.start}-${timeSlot.end}`}</span>

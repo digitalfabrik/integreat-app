@@ -1,6 +1,7 @@
 import moment from 'moment'
 
 import LocationModel from '../models/LocationModel'
+import OpenHoursModel from '../models/OpenHoursModel'
 import PoiModel from '../models/PoiModel'
 
 const availableLanguages = new Map([
@@ -27,9 +28,11 @@ const pois = [
       postcode: '12345',
       longitude: 31.133859,
       latitude: 29.979848,
-      name: 'Test Title',
+      name: 'Test Tle',
     }),
     lastUpdate: moment('2011-02-04T00:00:00.000Z'),
+    temporarilyClosed: false,
+    openingHours: [new OpenHoursModel({ allDay: true, closed: false, timeSlots: [{ end: '18:00', start: '08:00' }] })],
   }),
   new PoiModel({
     path: '/augsburg/en/locations/test_path_2',
@@ -49,9 +52,11 @@ const pois = [
       postcode: 'test postcode 2',
       longitude: 15,
       latitude: 15,
-      name: 'name 2',
+      name: 'na 2',
     }),
     lastUpdate: moment('2011-02-04T00:00:00.000Z'),
+    temporarilyClosed: false,
+    openingHours: [new OpenHoursModel({ allDay: false, closed: false, timeSlots: [{ end: '18:00', start: '08:00' }] })],
   }),
   new PoiModel({
     path: '/augsburg/en/locations/another_test_path',
@@ -74,6 +79,8 @@ const pois = [
       name: 'another name',
     }),
     lastUpdate: moment('2011-02-04T00:00:00.000Z'),
+    temporarilyClosed: false,
+    openingHours: null,
   }),
 ]
 

@@ -13,7 +13,7 @@ class PoiModel extends ExtendedPageModel {
   _phoneNumber: string | null
   _email: string | null
   _openingHours: OpenHoursModel[] | null
-  _temporaryClosed: boolean
+  _temporarilyClosed: boolean
 
   constructor(params: {
     path: string
@@ -27,10 +27,10 @@ class PoiModel extends ExtendedPageModel {
     email: string | null
     website: string | null
     phoneNumber: string | null
-    temporaryClosed: boolean
+    temporarilyClosed: boolean
     openingHours: OpenHoursModel[] | null
   }) {
-    const { openingHours, temporaryClosed, location, excerpt, website, phoneNumber, email, ...other } = params
+    const { openingHours, temporarilyClosed, location, excerpt, website, phoneNumber, email, ...other } = params
     super(other)
     this._location = location
     this._excerpt = excerpt
@@ -38,7 +38,7 @@ class PoiModel extends ExtendedPageModel {
     this._phoneNumber = phoneNumber
     this._email = email
     this._openingHours = openingHours
-    this._temporaryClosed = temporaryClosed
+    this._temporarilyClosed = temporarilyClosed
   }
 
   get location(): LocationModel<number> {
@@ -92,8 +92,8 @@ class PoiModel extends ExtendedPageModel {
     return this._openingHours
   }
 
-  get temporaryClosed(): boolean {
-    return this._temporaryClosed
+  get temporarilyClosed(): boolean {
+    return this._temporarilyClosed
   }
 
   get isCurrentlyOpened(): boolean {
@@ -105,9 +105,11 @@ class PoiModel extends ExtendedPageModel {
     const dateFormat = 'LT'
     const currentTime = moment().locale('de').format(dateFormat)
 
-    return this.openingHours[weekday]?._timeSlots.some(timeslot =>
-      moment(currentTime, dateFormat).isBetween(moment(timeslot.start, dateFormat), moment(timeslot.end, dateFormat))
-    ) as boolean
+    return (
+      this.openingHours[weekday]?._timeSlots.some(timeslot =>
+        moment(currentTime, dateFormat).isBetween(moment(timeslot.start, dateFormat), moment(timeslot.end, dateFormat))
+      ) || (this.openingHours[weekday]?.allDay as boolean)
+    )
   }
 
   isEqual(other: PageModel): boolean {

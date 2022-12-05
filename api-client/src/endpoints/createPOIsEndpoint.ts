@@ -33,7 +33,7 @@ export default (baseUrl: string): Endpoint<ParamsType, Array<PoiModel>> =>
               website: poi.website,
               phoneNumber: poi.phone_number,
               email: poi.email,
-              temporaryClosed: poi.temporarily_closed,
+              temporarilyClosed: poi.temporarily_closed,
               openingHours:
                 poi.opening_hours?.map(
                   el => new OpenHoursModel({ allDay: el.allDay, closed: el.closed, timeSlots: el.timeSlots })

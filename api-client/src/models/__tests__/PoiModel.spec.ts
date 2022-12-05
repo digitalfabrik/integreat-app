@@ -1,7 +1,7 @@
 import { PoiModelBuilder } from '../../testing'
 
 describe('PoiModel', () => {
-  const poi = new PoiModelBuilder(1).build()[0]!
+  const poi = new PoiModelBuilder(1).build()
 
   const expectedGeoJsonMarkerFeature = {
     type: 'Feature',
@@ -17,11 +17,23 @@ describe('PoiModel', () => {
       path: '/augsburg/de/locations/test',
       urlSlug: 'test',
       address: 'Test Address 1',
-      closeToOtherPoi: false,
+      closeToOtherPoi: fae,
     },
   }
 
+  const expectedOpenHoursJson = [
+    {
+      _timeSlots: [{ end: '18:00', start: '08:00' }],
+      _allDay: true,
+      _closed: fae,
+    },
+  ]
+
   it('should return geo location', () => {
-    expect(poi.featureLocation).toEqual(expectedGeoJsonMarkerFeature)
+    expect(poi[0]!.featureLocation).toEqual(expectedGeoJsonMarkerFeature)
+  })
+
+  it('should return openingHours', () => {
+    expect(poi[0]!.openingHours).toEqual(expectedOpenHoursJson)
   })
 })
