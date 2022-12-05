@@ -1,11 +1,9 @@
 import React, { ReactElement, useEffect } from 'react'
-import { useTranslation } from 'react-i18next'
 
 import { RedirectRouteType } from 'api-client'
 
 import { NavigationProps, RouteProps, RoutesType } from '../constants/NavigationTypes'
-import useSnackbar from '../hooks/useSnackbar'
-import navigateToDeepLink from '../navigation/navigateToDeepLink'
+import useNavigateToDeepLink from '../hooks/useNavigateToDeepLink'
 import Layout from './Layout'
 
 const TIMEOUT = 10
@@ -17,9 +15,7 @@ type RedirectContainerProps = {
 }
 
 const RedirectContainer = ({ route, navigation }: RedirectContainerProps): ReactElement => {
-  const showSnackbar = useSnackbar()
-  const { i18n } = useTranslation()
-  const { language } = i18n
+  const navigateToDeepLink = useNavigateToDeepLink()
   const { url } = route.params
 
   useEffect(() => {
@@ -27,18 +23,18 @@ const RedirectContainer = ({ route, navigation }: RedirectContainerProps): React
     // Therefore we wait for a short time period and try again if the component is still rendered
     // https://github.com/react-navigation/react-navigation/issues/8537
     const timeout = setTimeout(() => {
-      navigateToDeepLink({ navigation, url, language, showSnackbar })
+      navigateToDeepLink(url)
     }, TIMEOUT)
     return () => clearTimeout(timeout)
-  }, [url, showSnackbar, navigation, route, language])
+  }, [url, navigation, navigateToDeepLink])
 
   useEffect(() => {
     // To support potentially older devices taking longer we setup a separate interval to retry the navigation
     const interval = setInterval(() => {
-      navigateToDeepLink({ navigation, url, language, showSnackbar })
+      navigateToDeepLink(url)
     }, INTERVAL_TIMEOUT)
     return () => clearInterval(interval)
-  }, [url, showSnackbar, navigation, route, language])
+  }, [url, navigation, navigateToDeepLink])
 
   return <Layout />
 }

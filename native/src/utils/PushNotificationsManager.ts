@@ -3,10 +3,7 @@ import { Linking } from 'react-native'
 
 import { LOCAL_NEWS_TYPE, NEWS_ROUTE } from 'api-client'
 
-import { SnackbarType } from '../components/SnackbarContainer'
-import { NavigationProps, RoutesType } from '../constants/NavigationTypes'
 import buildConfig from '../constants/buildConfig'
-import navigateToDeepLink from '../navigation/navigateToDeepLink'
 import urlFromRouteInformation from '../navigation/url'
 import { log, reportError } from './sentry'
 
@@ -84,16 +81,14 @@ const urlFromMessage = (message: Message): string => {
 }
 
 export const quitAppStatePushNotificationListener = async (
-  navigation: NavigationProps<RoutesType>,
-  showSnackbar: (snackbar: SnackbarType) => void
+  navigateToDeepLink: (url: string) => void
 ): Promise<void> => {
   const messaging = await importFirebaseMessaging()
   const message = (await messaging().getInitialNotification()) as Message | null
 
   if (message) {
-    const url = urlFromMessage(message)
-    // Use navigateToDeepLink instead of normal createNavigate to avoid navigation not being initialized
-    navigateToDeepLink({ navigation, url, language: message.data.language_code, showSnackbar })
+    // Use navigateToDeepLink instead of normal navigation to avoid navigation not being initialized
+    navigateToDeepLink(urlFromMessage(message))
   }
 }
 
