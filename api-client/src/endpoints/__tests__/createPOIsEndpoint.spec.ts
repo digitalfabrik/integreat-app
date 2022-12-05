@@ -54,11 +54,11 @@ describe('pois', () => {
         postcode: '86353',
         country: 'DE',
         longitude: 10.89779,
-        latitude: 0.3705449,
+        latitude: 48.3705449,
       }),
       lastUpdate: moment.tz('2017-01-09 15:30:00', 'GMT'),
       temporarilyClosed: false,
-      openingHrs: null,
+      openingHours: null,
     })
 
   const poi1 = createPoi(2730)

@@ -17,7 +17,7 @@ describe('PoiModel', () => {
       path: '/augsburg/de/locations/test',
       urlSlug: 'test',
       address: 'Test Address 1',
-      closeToOtherPoi: fae,
+      closeToOtherPoi: false,
     },
   }
 
@@ -25,7 +25,7 @@ describe('PoiModel', () => {
     {
       _timeSlots: [{ end: '18:00', start: '08:00' }],
       _allDay: true,
-      _closed: fae,
+      _closed: false,
     },
   ]
 
