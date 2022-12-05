@@ -160,7 +160,7 @@ const PoiDetails: React.FC<PoiDetailsProps> = ({
   const { viewportSmall } = useWindowDimensions()
   const theme = useTheme()
   const { title, thumbnail, distance } = feature.properties
-  const { content, location, website, phoneNumber, email, isCurrentlyOpened, openingHours, temporaryClosed } = poi
+  const { content, location, website, phoneNumber, email, isCurrentlyOpened, openingHours, temporarilyClosed } = poi
   const { t } = useTranslation('pois')
   const navigate = useNavigate()
   // MapEvent parses null to 'null'
@@ -232,7 +232,7 @@ const PoiDetails: React.FC<PoiDetailsProps> = ({
           direction={direction}
           openingHours={openingHours}
           isCurrentlyOpened={isCurrentlyOpened}
-          isTemporaryClosed={temporaryClosed}
+          isTemporarilyClosed={temporarilyClosed}
         />
       </>
       {content.length > 0 && (

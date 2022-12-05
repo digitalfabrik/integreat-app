@@ -19,16 +19,23 @@ const Content = styled.div`
   font-size: clamp(0.55rem, 1.6vh, 0.85rem);
 `
 
+const TitleContainer = styled.div`
+  display: flex;
+  flex: 1;
+  font-weight: 700;
+  font-size: clamp(0.55rem, 1.6vh, ${props => props.theme.fonts.hintFontSize});
+`
+
 type OpeningHoursProps = {
   isCurrentlyOpened: boolean
   direction: UiDirectionType
   openingHours: OpeningHoursModel[] | null
-  isTemporaryClosed: boolean
+  isTemporarilyClosed: boolean
 }
 
-const getOpeningLabel = (isTemporaryClosed: boolean, isCurrentlyOpened: boolean): string => {
-  if (isTemporaryClosed) {
-    return 'openingHoursTemporaryClosed'
+const getOpeningLabel = (isTemporarilyClosed: boolean, isCurrentlyOpened: boolean): string => {
+  if (isTemporarilyClosed) {
+    return 'openingHoursTemporarilyClosed'
   }
   if (isCurrentlyOpened) {
     return 'openingHoursOpened'
@@ -40,7 +47,7 @@ const OpeningHours = ({
   isCurrentlyOpened,
   direction,
   openingHours,
-  isTemporaryClosed,
+  isTemporarilyClosed,
 }: OpeningHoursProps): ReactElement | null => {
   const { t } = useTranslation('pois')
   moment.locale('de')
@@ -50,13 +57,13 @@ const OpeningHours = ({
     <>
       <span>{t('detailsOpeningHours')}</span>
       <OpeningLabel isOpened={isCurrentlyOpened}>
-        {`${t(getOpeningLabel(isTemporaryClosed, isCurrentlyOpened))}`}
+        {`${t(getOpeningLabel(isTemporarilyClosed, isCurrentlyOpened))}`}
       </OpeningLabel>
     </>
   )
   if (!openingHours) {
-    if (isTemporaryClosed) {
-      return <Collapsible title={OpeningHoursTitle} initialCollapsed={false} direction={direction} disabled />
+    if (isTemporarilyClosed) {
+      return <TitleContainer>{OpeningHoursTitle}</TitleContainer>
     }
     return null
   }

@@ -174,6 +174,8 @@ describe('morphContentLanguage', () => {
         name: 'name',
       }),
       lastUpdate: moment('2011-02-04T00:00:00.000Z'),
+      openingHours: null,
+      temporarilyClosed: true,
     })
 
   const enFirstEvent = createEvent({

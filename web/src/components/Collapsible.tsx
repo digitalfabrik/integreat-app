@@ -11,7 +11,6 @@ type CollapsibleProps = {
   title: string | ReactElement
   initialCollapsed?: boolean
   direction: UiDirectionType
-  disabled?: boolean
 }
 
 const ContentWrapper = styled.div<{ direction: string }>`
@@ -39,7 +38,6 @@ const Collapsible: React.FC<CollapsibleProps> = ({
   title,
   initialCollapsed = true,
   direction,
-  disabled = false,
 }: CollapsibleProps): ReactElement => {
   const [collapsed, setCollapsed] = useState<boolean>(initialCollapsed)
 
@@ -52,11 +50,11 @@ const Collapsible: React.FC<CollapsibleProps> = ({
     <>
       <CollapsibleHeader
         role='button'
-        onClick={() => !disabled && setCollapsed(!collapsed)}
+        onClick={() => setCollapsed(!collapsed)}
         tabIndex={0}
-        onKeyPress={() => !disabled && setCollapsed(!collapsed)}>
+        onKeyPress={() => setCollapsed(!collapsed)}>
         <Title>{title}</Title>
-        {!disabled && <StyledIcon icon={collapsed ? faAngleUp : faAngleDown} />}
+        {<StyledIcon icon={collapsed ? faAngleUp : faAngleDown} />}
       </CollapsibleHeader>
       {collapsed && <ContentWrapper direction={direction}>{children}</ContentWrapper>}
     </>

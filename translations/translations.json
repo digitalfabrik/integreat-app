@@ -5540,7 +5540,7 @@
       "openingHoursAllDay": "ganztägig",
       "openingHoursOpened": "geöffnet",
       "openingHoursClosed": "geschlossen",
-      "openingHoursTemporaryClosed": "Temporär geschlossen"
+      "openingHoursTemporarilyClosed": "Temporär geschlossen"
     },
     "am": {
       "pageTitle": "ካርታ",
@@ -5738,7 +5738,11 @@
       "detailsInformation": "Info",
       "detailsNextPoi": "Next",
       "detailsPreviousPoi": "Previous",
-      "openExternalMaps": "Open in maps app"
+      "openExternalMaps": "Open in maps app",
+      "openingHoursAllDay": "all day",
+      "openingHoursOpened": "open",
+      "openingHoursClosed": "closed",
+      "openingHoursTemporarilyClosed": "temporarily closed"
     },
     "es": {
       "pageTitle": "Mapa",
