@@ -93,7 +93,7 @@ export const quitAppStatePushNotificationListener = async (
   if (message) {
     const url = urlFromMessage(message)
     // Use navigateToDeepLink instead of normal createNavigate to avoid navigation not being initialized
-    navigateToDeepLink({ navigation, url, showSnackbar })
+    navigateToDeepLink({ navigation, url, language: message.data.language_code, showSnackbar })
   }
 }
 

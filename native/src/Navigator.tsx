@@ -2,7 +2,6 @@ import { useNavigation } from '@react-navigation/native'
 import { createStackNavigator, StackHeaderProps, TransitionPresets } from '@react-navigation/stack'
 import React, { ReactElement, useEffect, useState } from 'react'
 import { Platform, Text } from 'react-native'
-import { useDispatch } from 'react-redux'
 
 import {
   CATEGORIES_ROUTE,
@@ -38,6 +37,7 @@ import { NavigationProps, RouteProps, RoutesParamsType, RoutesType } from './con
 import buildConfig from './constants/buildConfig'
 import { ASYNC_STORAGE_VERSION } from './constants/settings'
 import useLoadCities from './hooks/useLoadCities'
+import useSnackbar from './hooks/useSnackbar'
 import CategoriesContainer from './routes/CategoriesContainer'
 import ChangeLanguageModal from './routes/ChangeLanguageModal'
 import CityNotCooperating from './routes/CityNotCooperating'
@@ -90,13 +90,13 @@ const Navigator = (): ReactElement | null => {
     name: INTRO_ROUTE,
   })
   const navigation = useNavigation() as NavigationProps<RoutesType>
-  const dispatch = useDispatch()
   // Preload cities
   useLoadCities()
+  const showSnackbar = useSnackbar()
 
   useEffect(() => {
-    quitAppStatePushNotificationListener(dispatch, navigation)
-  }, [dispatch, navigation])
+    quitAppStatePushNotificationListener(navigation, showSnackbar)
+  }, [showSnackbar, navigation])
 
   useEffect(() => {
     const initialize = async () => {
