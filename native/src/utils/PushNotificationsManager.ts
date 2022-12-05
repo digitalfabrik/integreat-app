@@ -1,9 +1,9 @@
 import { FirebaseMessagingTypes } from '@react-native-firebase/messaging'
 import { Linking } from 'react-native'
-import { Dispatch } from 'redux'
 
 import { LOCAL_NEWS_TYPE, NEWS_ROUTE } from 'api-client'
 
+import { SnackbarType } from '../components/SnackbarContainer'
 import { NavigationProps, RoutesType } from '../constants/NavigationTypes'
 import buildConfig from '../constants/buildConfig'
 import navigateToDeepLink from '../navigation/navigateToDeepLink'
@@ -84,8 +84,8 @@ const urlFromMessage = (message: Message): string => {
 }
 
 export const quitAppStatePushNotificationListener = async (
-  dispatch: Dispatch,
-  navigation: NavigationProps<RoutesType>
+  navigation: NavigationProps<RoutesType>,
+  showSnackbar: (snackbar: SnackbarType) => void
 ): Promise<void> => {
   const messaging = await importFirebaseMessaging()
   const message = (await messaging().getInitialNotification()) as Message | null
@@ -93,7 +93,7 @@ export const quitAppStatePushNotificationListener = async (
   if (message) {
     const url = urlFromMessage(message)
     // Use navigateToDeepLink instead of normal createNavigate to avoid navigation not being initialized
-    navigateToDeepLink(dispatch, navigation, url, message.data.language_code)
+    navigateToDeepLink({ navigation, url, showSnackbar })
   }
 }
 
