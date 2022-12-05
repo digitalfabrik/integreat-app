@@ -7,7 +7,7 @@ import { UiDirectionType } from 'translations'
 import { faAngleDown, faAngleUp } from '../constants/icons'
 
 type CollapsibleProps = {
-  children?: ReactElement | string | number
+  children: ReactElement | string | number
   title: string | ReactElement
   initialCollapsed?: boolean
   direction: UiDirectionType
@@ -54,7 +54,7 @@ const Collapsible: React.FC<CollapsibleProps> = ({
         tabIndex={0}
         onKeyPress={() => setCollapsed(!collapsed)}>
         <Title>{title}</Title>
-        {<StyledIcon icon={collapsed ? faAngleUp : faAngleDown} />}
+        <StyledIcon icon={collapsed ? faAngleUp : faAngleDown} />
       </CollapsibleHeader>
       {collapsed && <ContentWrapper direction={direction}>{children}</ContentWrapper>}
     </>
