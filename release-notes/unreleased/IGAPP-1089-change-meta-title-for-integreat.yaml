@@ -1,0 +1,5 @@
+issue_key: IGAPP-1089
+show_in_stores: false
+platforms: 
+  - web
+en: Add Json-Ld for Website

@@ -1,0 +1,5 @@
+issue_key: IGAPP-1140
+show_in_stores: false
+platforms: 
+  - web
+en: Include version number in the released app
