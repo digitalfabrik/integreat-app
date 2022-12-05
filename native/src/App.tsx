@@ -5,8 +5,6 @@ import { LogBox } from 'react-native'
 import { SafeAreaProvider } from 'react-native-safe-area-context'
 import { enableScreens } from 'react-native-screens'
 import { OverflowMenuProvider } from 'react-navigation-header-buttons'
-import { Provider } from 'react-redux'
-import { Store } from 'redux'
 import { ThemeProvider } from 'styled-components'
 
 import { CLOSE_PAGE_SIGNAL_NAME, REDIRECT_ROUTE, setUserAgent } from 'api-client'
@@ -23,11 +21,6 @@ import buildConfig from './constants/buildConfig'
 import { userAgent } from './constants/endpoint'
 import AppContextProvider from './contexts/AppContextProvider'
 import useSendOfflineJpalSignals from './hooks/useSendOfflineJpalSignals'
-import { StateType } from './redux/StateType'
-import { StoreActionType } from './redux/StoreActionType'
-import createReduxStore from './redux/createReduxStore'
-import { DataContainer } from './utils/DataContainer'
-import DefaultDataContainer from './utils/DefaultDataContainer'
 import { backgroundAppStatePushNotificationListener } from './utils/PushNotificationsManager'
 import sendTrackingSignal from './utils/sendTrackingSignal'
 
@@ -58,8 +51,6 @@ const linking: LinkingOptions<RoutesParamsType> = {
   }),
   subscribe: backgroundAppStatePushNotificationListener,
 }
-const dataContainer: DataContainer = new DefaultDataContainer()
-const store: Store<StateType, StoreActionType> = createReduxStore(dataContainer)
 setUserAgent(userAgent)
 
 const App = (): ReactElement => {
@@ -85,7 +76,7 @@ const App = (): ReactElement => {
   )
 
   return (
-    <Provider store={store}>
+    <>
       <ThemeProvider theme={buildConfig().lightTheme}>
         <StaticServerProvider>
           <I18nProvider>
@@ -108,7 +99,7 @@ const App = (): ReactElement => {
         </StaticServerProvider>
       </ThemeProvider>
       <AppStateListener />
-    </Provider>
+    </>
   )
 }
 
