@@ -1,9 +1,7 @@
 import { useFocusEffect } from '@react-navigation/native'
-import React, { ReactElement, useCallback, useState } from 'react'
+import React, { ReactElement, useCallback, useContext, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { SectionList, SectionListData, StyleSheet } from 'react-native'
-import { useSelector } from 'react-redux'
-import { Dispatch } from 'redux'
 import styled from 'styled-components/native'
 
 import { SettingsRouteType } from 'api-client'
@@ -12,18 +10,16 @@ import { ThemeType } from 'build-configs'
 import Layout from '../components/Layout'
 import SettingItem from '../components/SettingItem'
 import { NavigationProps, RouteProps } from '../constants/NavigationTypes'
+import { AppContext } from '../contexts/AppContextProvider'
 import useSnackbar from '../hooks/useSnackbar'
-import { StateType } from '../redux/StateType'
-import { StoreActionType } from '../redux/StoreActionType'
 import appSettings, { SettingsType } from '../utils/AppSettings'
 import createSettingsSections, { SettingsSectionType } from '../utils/createSettingsSections'
 import { log, reportError } from '../utils/sentry'
 
-export type SettingsProps = {
+type SettingsProps = {
   theme: ThemeType
   route: RouteProps<SettingsRouteType>
   navigation: NavigationProps<SettingsRouteType>
-  dispatch: Dispatch<StoreActionType>
 }
 
 type SectionType = SectionListData<SettingsSectionType> & {
@@ -41,8 +37,7 @@ const SectionHeader = styled.Text`
 
 const Settings = ({ navigation }: SettingsProps): ReactElement => {
   const [settings, setSettings] = useState<SettingsType | null>(null)
-  const languageCode = useSelector<StateType, string>((state: StateType) => state.contentLanguage)
-  const cityCode = useSelector<StateType, string | null>((state: StateType) => state.cityContent?.city ?? null)
+  const { cityCode, languageCode } = useContext(AppContext)
   const showSnackbar = useSnackbar()
   const { t } = useTranslation('settings')
 
