@@ -1,4 +1,3 @@
-import { useNavigation } from '@react-navigation/native'
 import { createStackNavigator, StackHeaderProps, TransitionPresets } from '@react-navigation/stack'
 import React, { ReactElement, useEffect, useState } from 'react'
 import { Platform, Text } from 'react-native'
@@ -37,7 +36,7 @@ import { NavigationProps, RouteProps, RoutesParamsType, RoutesType } from './con
 import buildConfig from './constants/buildConfig'
 import { ASYNC_STORAGE_VERSION } from './constants/settings'
 import useLoadCities from './hooks/useLoadCities'
-import useSnackbar from './hooks/useSnackbar'
+import useNavigateToDeepLink from './hooks/useNavigateToDeepLink'
 import CategoriesContainer from './routes/CategoriesContainer'
 import ChangeLanguageModal from './routes/ChangeLanguageModal'
 import CityNotCooperating from './routes/CityNotCooperating'
@@ -89,14 +88,13 @@ const Navigator = (): ReactElement | null => {
   const [initialRoute, setInitialRoute] = useState<InitialRouteType>({
     name: INTRO_ROUTE,
   })
-  const navigation = useNavigation() as NavigationProps<RoutesType>
+  const navigateToDeepLink = useNavigateToDeepLink()
   // Preload cities
   useLoadCities()
-  const showSnackbar = useSnackbar()
 
   useEffect(() => {
-    quitAppStatePushNotificationListener(navigation, showSnackbar)
-  }, [showSnackbar, navigation])
+    quitAppStatePushNotificationListener(navigateToDeepLink)
+  }, [navigateToDeepLink])
 
   useEffect(() => {
     const initialize = async () => {
