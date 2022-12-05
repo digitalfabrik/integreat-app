@@ -1,4 +1,3 @@
-import { Dispatch } from 'redux'
 import Url from 'url-parse'
 
 import {
@@ -12,19 +11,26 @@ import {
 } from 'api-client'
 import InternalPathnameParser from 'api-client/src/routes/InternalPathnameParser'
 
+import { SnackbarType } from '../components/SnackbarContainer'
 import { NavigationProps, RoutesType } from '../constants/NavigationTypes'
 import buildConfig from '../constants/buildConfig'
-import { StoreActionType } from '../redux/StoreActionType'
 import appSettings, { SettingsType } from '../utils/AppSettings'
 import sendTrackingSignal from '../utils/sendTrackingSignal'
 import createNavigate from './createNavigate'
 
-const navigateToDeepLink = async <T extends RoutesType>(
-  dispatch: Dispatch<StoreActionType>,
-  navigation: NavigationProps<T>,
-  url: string,
+type NavigateToDeepLinkParams<T extends RoutesType> = {
+  navigation: NavigationProps<T>
+  url: string
   language: string
-): Promise<void> => {
+  showSnackbar: (snackbar: SnackbarType) => void
+}
+
+const navigateToDeepLink = async <T extends RoutesType>({
+  navigation,
+  url,
+  language,
+  showSnackbar,
+}: NavigateToDeepLinkParams<T>): Promise<void> => {
   const settings: SettingsType = await appSettings.loadSettings()
   const { introShown, selectedCity } = settings
   const { introSlides, fixedCity } = buildConfig().featureFlags
@@ -38,9 +44,7 @@ const navigateToDeepLink = async <T extends RoutesType>(
 
   if (introSlides && !introShown) {
     // Show intro slides first and handle deep link later
-    navigation.replace(INTRO_ROUTE, {
-      deepLink: url,
-    })
+    navigation.replace(INTRO_ROUTE, { deepLink: url })
     return
   }
 
@@ -83,8 +87,7 @@ const navigateToDeepLink = async <T extends RoutesType>(
   }
 
   if (!routeInformation) {
-    // TODO IGAPP-636: Show snackbar
-    // showSnackbar(dispatch, 'notFound.category')
+    showSnackbar({ text: 'notFound.category' })
     return
   }
 
