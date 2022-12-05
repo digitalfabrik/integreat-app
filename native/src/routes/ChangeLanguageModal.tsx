@@ -1,5 +1,4 @@
 import React, { ReactElement, useContext } from 'react'
-import { useDispatch } from 'react-redux'
 import styled from 'styled-components/native'
 
 import { ChangeLanguageModalRouteType } from 'api-client'
@@ -19,20 +18,8 @@ type ChangeLanguageModalProps = {
 }
 
 const ChangeLanguageModal = ({ navigation, route }: ChangeLanguageModalProps): ReactElement => {
-  const { currentLanguage, languages, availableLanguages, cityCode } = route.params
+  const { currentLanguage, languages, availableLanguages } = route.params
   const { changeLanguageCode } = useContext(AppContext)
-  const dispatch = useDispatch()
-
-  const changeLanguage = (newLanguage: string) => {
-    changeLanguageCode(newLanguage)
-    dispatch({
-      type: 'SWITCH_CONTENT_LANGUAGE',
-      params: {
-        newLanguage,
-        city: cityCode,
-      },
-    })
-  }
 
   const selectorItems = languages.map(({ code, name }) => {
     const isLanguageAvailable = availableLanguages.includes(code)
@@ -42,7 +29,7 @@ const ChangeLanguageModal = ({ navigation, route }: ChangeLanguageModalProps): R
       enabled: isLanguageAvailable,
       onPress: () => {
         if (code !== currentLanguage) {
-          changeLanguage(code)
+          changeLanguageCode(code)
         }
         navigation.goBack()
       },

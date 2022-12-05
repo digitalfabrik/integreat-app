@@ -2,7 +2,6 @@ import i18next from 'i18next'
 import React, { ReactElement, ReactNode, useCallback, useEffect, useMemo, useState } from 'react'
 import { I18nextProvider } from 'react-i18next'
 import { Text } from 'react-native'
-import { useDispatch } from 'react-redux'
 
 import DateFormatter from 'api-client/src/i18n/DateFormatter'
 import { config, loadTranslations } from 'translations'
@@ -21,25 +20,14 @@ type I18nProviderProps = {
 const I18nProvider = ({ children }: I18nProviderProps): ReactElement | null => {
   const [errorMessage, setErrorMessage] = useState<string | null | undefined>(null)
   const [i18nextInstance, setI18nextInstance] = useState<typeof i18next | null>(null)
-  const dispatch = useDispatch()
 
-  const setContentLanguage = useCallback(
-    async (uiLanguage: string) => {
-      const contentLanguage = await appSettings.loadContentLanguage()
+  const setContentLanguage = useCallback(async (uiLanguage: string) => {
+    const contentLanguage = await appSettings.loadContentLanguage()
 
-      if (!contentLanguage) {
-        await appSettings.setContentLanguage(uiLanguage)
-      }
-
-      dispatch({
-        type: 'SET_CONTENT_LANGUAGE',
-        params: {
-          contentLanguage: contentLanguage || uiLanguage,
-        },
-      })
-    },
-    [dispatch]
-  )
+    if (!contentLanguage) {
+      await appSettings.setContentLanguage(uiLanguage)
+    }
+  }, [])
 
   useEffect(() => {
     const initI18Next = async () => {
