@@ -70,7 +70,7 @@ const transparentHeader = (headerProps: StackHeaderProps) => <TransparentHeader 
 
 const settingsHeader = (headerProps: StackHeaderProps) => <SettingsHeader {...headerProps} />
 
-const defaultHeader = (headerProps: StackHeaderProps) => <Header {...(headerProps as HeaderProps)} />
+const defaultHeader = (headerProps: StackHeaderProps) => <Header {...(headerProps as HeaderProps)} isHome={null} />
 
 type InitialRouteType =
   | {
