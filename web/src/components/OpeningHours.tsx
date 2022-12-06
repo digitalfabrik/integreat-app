@@ -9,13 +9,13 @@ import { UiDirectionType } from 'translations/src'
 import Collapsible from './Collapsible'
 import OpeningEntry from './OpeningEntry'
 
-const OpeningLabel = styled.span<{ isOpened: boolean }>`
+const OpeningLabel = styled.span<{ isOpened: boolean; direction: string }>`
   color: ${props => (props.isOpened ? props.theme.colors.positiveHighlight : props.theme.colors.negativeHighlight)};
-  margin: 0 auto;
+  padding-right: 12px;
+  ${props => (props.direction === 'rtl' ? `padding-left: 12px;` : `padding-right: 12px;`)}
 `
 
 const Content = styled.div`
-  padding: 8px;
   font-size: clamp(0.55rem, 1.6vh, 0.85rem);
 `
 
@@ -24,10 +24,11 @@ const TitleContainer = styled.div`
   flex: 1;
   font-weight: 700;
   font-size: clamp(0.55rem, 1.6vh, ${props => props.theme.fonts.hintFontSize});
+  justify-content: space-between;
 `
 
 type OpeningHoursProps = {
-  isCurrentlyOpened: boolean
+  isCurrentlyOpen: boolean
   direction: UiDirectionType
   openingHours: OpeningHoursModel[] | null
   isTemporarilyClosed: boolean
@@ -44,7 +45,7 @@ const getOpeningLabel = (isTemporarilyClosed: boolean, isCurrentlyOpened: boolea
 }
 
 const OpeningHours = ({
-  isCurrentlyOpened,
+  isCurrentlyOpen,
   direction,
   openingHours,
   isTemporarilyClosed,
@@ -53,23 +54,23 @@ const OpeningHours = ({
   moment.locale('de')
   const weekdays = moment.weekdays(true)
 
-  const OpeningHoursTitle = (
+  const openingHoursTitle = (
     <>
       <span>{t('openingHours')}</span>
-      <OpeningLabel isOpened={isCurrentlyOpened}>
-        {t(getOpeningLabel(isTemporarilyClosed, isCurrentlyOpened))}
+      <OpeningLabel isOpened={isCurrentlyOpen} direction={direction}>
+        {t(getOpeningLabel(isTemporarilyClosed, isCurrentlyOpen))}
       </OpeningLabel>
     </>
   )
   if (!openingHours) {
     if (isTemporarilyClosed) {
-      return <TitleContainer>{OpeningHoursTitle}</TitleContainer>
+      return <TitleContainer>{openingHoursTitle}</TitleContainer>
     }
     return null
   }
 
   return (
-    <Collapsible title={OpeningHoursTitle} initialCollapsed={false} direction={direction}>
+    <Collapsible title={openingHoursTitle} direction={direction}>
       <Content>
         {openingHours.map((entry, index) => (
           <OpeningEntry

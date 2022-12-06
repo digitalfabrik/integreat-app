@@ -21,7 +21,7 @@ describe('PoiModel', () => {
     },
   }
 
-  const expectedOpenHoursJson = [
+  const expectedOpeningHoursJson = [
     {
       _timeSlots: [{ end: '18:00', start: '08:00' }],
       _allDay: true,
@@ -34,6 +34,6 @@ describe('PoiModel', () => {
   })
 
   it('should return openingHours', () => {
-    expect(poi[0]!.openingHours).toEqual(expectedOpenHoursJson)
+    expect(poi[0]!.openingHours).toEqual(expectedOpeningHoursJson)
   })
 })
