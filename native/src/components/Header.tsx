@@ -112,7 +112,7 @@ const Header = ({
         title: buildConfig().appName,
       })
     } catch (e) {
-      showSnackbar({ text: t('generalError') })
+      showSnackbar({ text: 'generalError' })
       reportError(e)
     }
   }
