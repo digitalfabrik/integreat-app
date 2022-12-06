@@ -25,7 +25,11 @@ export type SnackbarType = {
 type SnackbarContextType = (snackbar: SnackbarType) => void
 export const SnackbarContext = createContext<SnackbarContextType>(() => undefined)
 
-const SnackbarContainer = (): ReactElement | null => {
+type SnackbarContainerProps = {
+  children: ReactElement
+}
+
+const SnackbarContainer = ({ children }: SnackbarContainerProps): ReactElement | null => {
   const [height, setHeight] = useState<number | null>(null)
   const [enqueuedSnackbars, setEnqueuedSnackbars] = useState<SnackbarType[]>([])
   const displayedSnackbar = enqueuedSnackbars[0]
@@ -71,6 +75,7 @@ const SnackbarContainer = (): ReactElement | null => {
 
   return (
     <SnackbarContext.Provider value={enqueueSnackbar}>
+      {children}
       {displayedSnackbar ? (
         <AnimatedContainer
           onLayout={onLayout}

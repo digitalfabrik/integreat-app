@@ -82,17 +82,18 @@ const App = (): ReactElement => {
           <I18nProvider>
             <SafeAreaProvider>
               <AppContextProvider>
-                <>
-                  <StatusBar />
-                  <IOSSafeAreaView>
-                    <NavigationContainer onStateChange={onStateChange} linking={linking}>
-                      <OverflowMenuProvider>
-                        <Navigator />
-                      </OverflowMenuProvider>
-                    </NavigationContainer>
-                  </IOSSafeAreaView>
-                  <SnackbarContainer />
-                </>
+                <SnackbarContainer>
+                  <>
+                    <StatusBar />
+                    <IOSSafeAreaView>
+                      <NavigationContainer onStateChange={onStateChange} linking={linking}>
+                        <OverflowMenuProvider>
+                          <Navigator />
+                        </OverflowMenuProvider>
+                      </NavigationContainer>
+                    </IOSSafeAreaView>
+                  </>
+                </SnackbarContainer>
               </AppContextProvider>
             </SafeAreaProvider>
           </I18nProvider>
