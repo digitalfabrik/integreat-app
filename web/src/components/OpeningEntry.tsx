@@ -37,7 +37,7 @@ const OpeningEntry = ({ allDay, closed, timeSlots, weekday, isCurrentDay }: Open
       {!allDay && !closed && timeSlots.length > 0 && (
         <Timeslot>
           {timeSlots.map(timeSlot => (
-            <span key={`${weekday}-${timeSlot.start}`}>{`${timeSlot.start}-${timeSlot.end}`}</span>
+            <span key={`${weekday}-${timeSlot.start}`}>{timeSlot.start}-{timeSlot.end}</span>
           ))}
         </Timeslot>
       )}
