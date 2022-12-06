@@ -1,6 +1,6 @@
 import { TimeSlot } from '../types'
 
-class OpenHoursModel {
+class OpeningHoursModel {
   _allDay: boolean
   _closed: boolean
   _timeSlots: TimeSlot[]
@@ -24,4 +24,4 @@ class OpenHoursModel {
   }
 }
 
-export default OpenHoursModel
+export default OpeningHoursModel

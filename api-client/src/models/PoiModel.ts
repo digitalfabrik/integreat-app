@@ -3,7 +3,7 @@ import moment, { Moment } from 'moment'
 import { mapMarker, PoiFeature } from '../maps'
 import ExtendedPageModel from './ExtendedPageModel'
 import LocationModel from './LocationModel'
-import OpenHoursModel from './OpenHoursModel'
+import OpeningHoursModel from './OpeningHoursModel'
 import PageModel from './PageModel'
 
 class PoiModel extends ExtendedPageModel {
@@ -12,7 +12,7 @@ class PoiModel extends ExtendedPageModel {
   _website: string | null
   _phoneNumber: string | null
   _email: string | null
-  _openingHours: OpenHoursModel[] | null
+  _openingHours: OpeningHoursModel[] | null
   _temporarilyClosed: boolean
 
   constructor(params: {
@@ -28,7 +28,7 @@ class PoiModel extends ExtendedPageModel {
     website: string | null
     phoneNumber: string | null
     temporarilyClosed: boolean
-    openingHours: OpenHoursModel[] | null
+    openingHours: OpeningHoursModel[] | null
   }) {
     const { openingHours, temporarilyClosed, location, excerpt, website, phoneNumber, email, ...other } = params
     super(other)
@@ -88,7 +88,7 @@ class PoiModel extends ExtendedPageModel {
     }
   }
 
-  get openingHours(): OpenHoursModel[] | null {
+  get openingHours(): OpeningHoursModel[] | null {
     return this._openingHours
   }
 
@@ -96,20 +96,25 @@ class PoiModel extends ExtendedPageModel {
     return this._temporarilyClosed
   }
 
-  get isCurrentlyOpened(): boolean {
+  get isCurrentlyOpen(): boolean {
     if (!this.openingHours) {
       return false
     }
     // isoWeekday return 1-7 for the weekdays
     const weekday = moment().isoWeekday() - 1
-    const dateFormat = 'LT'
-    const currentTime = moment().locale('de').format(dateFormat)
+    const currentDay = this.openingHours[weekday]
 
-    return (
-      this.openingHours[weekday]?._timeSlots.some(timeslot =>
+    if (currentDay) {
+      if (currentDay.allDay) {
+        return true
+      }
+      const dateFormat = 'LT'
+      const currentTime = moment().locale('de').format(dateFormat)
+      return currentDay.timeSlots.some(timeslot =>
         moment(currentTime, dateFormat).isBetween(moment(timeslot.start, dateFormat), moment(timeslot.end, dateFormat))
-      ) || (this.openingHours[weekday]?.allDay as boolean)
-    )
+      )
+    }
+    return false
   }
 
   isEqual(other: PageModel): boolean {

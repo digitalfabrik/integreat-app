@@ -4,7 +4,7 @@ import Endpoint from '../Endpoint'
 import EndpointBuilder from '../EndpointBuilder'
 import mapAvailableLanguages from '../mapAvailableLanguages'
 import LocationModel from '../models/LocationModel'
-import OpenHoursModel from '../models/OpenHoursModel'
+import OpeningHoursModel from '../models/OpeningHoursModel'
 import PoiModel from '../models/PoiModel'
 import { JsonPoiType } from '../types'
 
@@ -34,7 +34,7 @@ export default (baseUrl: string): Endpoint<ParamsType, Array<PoiModel>> =>
               phoneNumber: poi.phone_number,
               email: poi.email,
               temporarilyClosed: poi.temporarily_closed,
-              openingHours: poi.opening_hours?.map(openingHour => new OpenHoursModel(openingHour)) ?? null,
+              openingHours: poi.opening_hours?.map(openingHour => new OpeningHoursModel(openingHour)) ?? null,
               location: new LocationModel({
                 id: poi.location.id,
                 name: poi.location.name,

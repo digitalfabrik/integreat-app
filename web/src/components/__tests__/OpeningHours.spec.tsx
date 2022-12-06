@@ -1,7 +1,7 @@
 import React from 'react'
 
 import { OpeningHoursModel } from 'api-client/src'
-import OpenHoursModel from 'api-client/src/models/OpenHoursModel'
+import OpenHoursModel from 'api-client/src/models/OpeningHoursModel'
 
 import { renderWithTheme } from '../../testing/render'
 import OpeningHours from '../OpeningHours'
@@ -10,13 +10,13 @@ jest.mock('react-i18next')
 
 describe('OpeningHoursSpec', () => {
   const renderOpeningHours = (
-    isCurrentlyOpened: boolean,
+    isCurrentlyOpen: boolean,
     isTemporarilyClosed: boolean,
     openingHours: OpeningHoursModel[] | null = null
   ) =>
     renderWithTheme(
       <OpeningHours
-        isCurrentlyOpened={isCurrentlyOpened}
+        isCurrentlyOpen={isCurrentlyOpen}
         isTemporarilyClosed={isTemporarilyClosed}
         openingHours={openingHours}
         direction='ltr'

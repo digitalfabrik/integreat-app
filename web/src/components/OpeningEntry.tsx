@@ -18,6 +18,12 @@ const Timeslot = styled.div`
   flex-direction: column;
 `
 
+const TimeSlotEntry = styled.span`
+  &:not(:first-child) {
+    margin-top: 8px;
+  }
+`
+
 type OpeningEntryProps = {
   allDay: boolean
   closed: boolean
@@ -37,7 +43,9 @@ const OpeningEntry = ({ allDay, closed, timeSlots, weekday, isCurrentDay }: Open
       {!allDay && !closed && timeSlots.length > 0 && (
         <Timeslot>
           {timeSlots.map(timeSlot => (
-            <span key={`${weekday}-${timeSlot.start}`}>{timeSlot.start}-{timeSlot.end}</span>
+            <TimeSlotEntry key={`${weekday}-${timeSlot.start}`}>
+              {timeSlot.start}-{timeSlot.end}
+            </TimeSlotEntry>
           ))}
         </Timeslot>
       )}
