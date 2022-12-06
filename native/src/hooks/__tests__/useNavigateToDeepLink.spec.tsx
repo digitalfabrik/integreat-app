@@ -12,7 +12,7 @@ import {
   NEWS_ROUTE,
   OFFERS_ROUTE,
   OPEN_DEEP_LINK_SIGNAL_NAME,
-} from 'api-client/src'
+} from 'api-client'
 import { FeatureFlagsType } from 'build-configs/BuildConfigType'
 
 import buildConfig from '../../constants/buildConfig'
@@ -29,7 +29,7 @@ jest.mock('../useNavigate')
 jest.mock('../useSnackbar')
 jest.mock('../../utils/sendTrackingSignal')
 
-describe('navigateToDeepLink', () => {
+describe('useNavigateToDeepLink', () => {
   const mockedBuildConfig = mocked(buildConfig)
   const showSnackbar = jest.fn()
   const navigateTo = jest.fn()

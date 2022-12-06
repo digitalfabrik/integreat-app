@@ -1,6 +1,7 @@
+import { useNavigation } from '@react-navigation/native'
 import { mocked } from 'jest-mock'
+import React, { useEffect } from 'react'
 
-import { OPEN_PAGE_SIGNAL_NAME } from 'api-client'
 import {
   CATEGORIES_ROUTE,
   DISCLAIMER_ROUTE,
@@ -10,50 +11,68 @@ import {
   LOCAL_NEWS_TYPE,
   NEWS_ROUTE,
   OFFERS_ROUTE,
+  OPEN_PAGE_SIGNAL_NAME,
   POIS_ROUTE,
+  RouteInformationType,
   SEARCH_ROUTE,
-} from 'api-client/src/routes'
+} from 'api-client'
 
 import buildConfig from '../../constants/buildConfig'
-import createNavigationScreenPropMock from '../../testing/createNavigationPropMock'
+import { AppContext } from '../../contexts/AppContextProvider'
+import createNavigationPropMock from '../../testing/createNavigationPropMock'
+import render from '../../testing/render'
 import openExternalUrl from '../../utils/openExternalUrl'
 import sendTrackingSignal from '../../utils/sendTrackingSignal'
-import createNavigate from '../createNavigate'
+import useNavigate from '../useNavigate'
 
+jest.mock('@react-navigation/native')
 jest.mock('../../utils/sendTrackingSignal')
-jest.mock('../../utils/showSnackbar')
 jest.mock('../../utils/openExternalUrl', () => jest.fn(async () => undefined))
-jest.mock('../url', () => ({
+jest.mock('../../navigation/url', () => ({
   urlFromRouteInformation: jest.fn(() => 'https://example.com'),
 }))
 
-const navigation = createNavigationScreenPropMock()
-const cityCode = 'ansbach'
-const languageCode = 'ro'
-const navigateTo = createNavigate(navigation, cityCode, languageCode)
-const params = {
-  cityCode,
-  languageCode,
-}
-const cityContentPath = `/${cityCode}/${languageCode}`
+describe('useNavigate', () => {
+  const navigation = createNavigationPropMock()
+  mocked(useNavigation).mockImplementation(() => navigation)
 
-const mockedBuildConfig = mocked(buildConfig)
+  const changeCityCode = jest.fn()
+  const changeLanguageCode = jest.fn()
+  const cityCode = 'ansbach'
+  const languageCode = 'ro'
+  const params = { cityCode, languageCode }
+  const cityContentPath = `/${cityCode}/${languageCode}`
 
-const mockBuildConfig = (featureFlags: { jpalTracking?: boolean; newsStream?: boolean; pois?: boolean }) => {
-  const previous = buildConfig()
-  mockedBuildConfig.mockImplementation(() => ({
-    ...previous,
-    featureFlags: { ...previous.featureFlags, ...featureFlags },
-  }))
-}
+  const mockedBuildConfig = mocked(buildConfig)
+  const mockBuildConfig = (featureFlags: { jpalTracking?: boolean; newsStream?: boolean; pois?: boolean }) => {
+    const previous = buildConfig()
+    mockedBuildConfig.mockImplementation(() => ({
+      ...previous,
+      featureFlags: { ...previous.featureFlags, ...featureFlags },
+    }))
+  }
 
-describe('createNavigate', () => {
+  const MockComponent = ({ routeInformation }: { routeInformation: RouteInformationType }) => {
+    const { navigateTo } = useNavigate()
+    useEffect(() => navigateTo(routeInformation), [navigateTo, routeInformation])
+
+    return null
+  }
+
+  const renderMockComponent = (routeInformation: RouteInformationType) =>
+    render(
+      // eslint-disable-next-line react/jsx-no-constructed-context-values
+      <AppContext.Provider value={{ changeCityCode, changeLanguageCode, cityCode, languageCode }}>
+        <MockComponent routeInformation={routeInformation} />
+      </AppContext.Provider>
+    )
+
   beforeEach(() => {
     jest.clearAllMocks()
   })
 
   it('should navigate to landing', () => {
-    navigateTo({
+    renderMockComponent({
       route: LANDING_ROUTE,
       languageCode,
     })
@@ -72,7 +91,7 @@ describe('createNavigate', () => {
     mockBuildConfig({
       jpalTracking: true,
     })
-    navigateTo({
+    renderMockComponent({
       route: JPAL_TRACKING_ROUTE,
       trackingCode: 'abcdef123456',
     })
@@ -84,16 +103,16 @@ describe('createNavigate', () => {
     mockBuildConfig({
       jpalTracking: false,
     })
-    navigateTo({
+    renderMockComponent({
       route: JPAL_TRACKING_ROUTE,
       trackingCode: 'abcdef123456',
     })
     expect(navigation.push).not.toHaveBeenCalled()
   })
 
-  it('should open route externally if city or language do not match the app settings', () => {
+  it('should open route externally if city does not match the app settings', () => {
     const cityContentPath = `/peekingCity/${languageCode}/willkommen`
-    navigateTo({
+    renderMockComponent({
       route: CATEGORIES_ROUTE,
       cityContentPath,
       cityCode: 'peekingCity',
@@ -104,8 +123,21 @@ describe('createNavigate', () => {
     expect(openExternalUrl).toHaveBeenCalledWith('https://example.com')
   })
 
+  it('should open route externally if language does not match the app settings', () => {
+    const cityContentPath = `/${cityCode}/asdf/willkommen`
+    renderMockComponent({
+      route: CATEGORIES_ROUTE,
+      cityContentPath,
+      cityCode: 'asdf',
+      languageCode,
+    })
+    expect(navigation.push).not.toHaveBeenCalled()
+    expect(openExternalUrl).toHaveBeenCalledTimes(1)
+    expect(openExternalUrl).toHaveBeenCalledWith('https://example.com')
+  })
+
   it('should navigate to categories route', () => {
-    navigateTo({
+    renderMockComponent({
       route: CATEGORIES_ROUTE,
       cityContentPath,
       ...params,
@@ -122,7 +154,7 @@ describe('createNavigate', () => {
   })
 
   it('should navigate to disclaimer route', () => {
-    navigateTo({
+    renderMockComponent({
       route: DISCLAIMER_ROUTE,
       ...params,
     })
@@ -131,7 +163,7 @@ describe('createNavigate', () => {
   })
 
   it('should navigate to offers route', () => {
-    navigateTo({
+    renderMockComponent({
       route: OFFERS_ROUTE,
       ...params,
     })
@@ -140,13 +172,13 @@ describe('createNavigate', () => {
   })
 
   it('should navigate to events route', () => {
-    navigateTo({
+    renderMockComponent({
       route: EVENTS_ROUTE,
       ...params,
       slug: '1234',
     })
     expect(navigation.push).toHaveBeenCalledWith(EVENTS_ROUTE, { slug: '1234' })
-    navigateTo({
+    renderMockComponent({
       route: EVENTS_ROUTE,
       ...params,
     })
@@ -158,7 +190,7 @@ describe('createNavigate', () => {
     mockBuildConfig({
       newsStream: true,
     })
-    navigateTo({
+    renderMockComponent({
       route: NEWS_ROUTE,
       ...params,
       newsType: LOCAL_NEWS_TYPE,
@@ -176,7 +208,7 @@ describe('createNavigate', () => {
     mockBuildConfig({
       newsStream: false,
     })
-    navigateTo({
+    renderMockComponent({
       route: NEWS_ROUTE,
       ...params,
       newsType: LOCAL_NEWS_TYPE,
@@ -189,13 +221,13 @@ describe('createNavigate', () => {
     mockBuildConfig({
       pois: true,
     })
-    navigateTo({
+    renderMockComponent({
       route: POIS_ROUTE,
       ...params,
       slug: '1234',
     })
     expect(navigation.push).toHaveBeenCalledWith(POIS_ROUTE, { slug: '1234' })
-    navigateTo({
+    renderMockComponent({
       route: POIS_ROUTE,
       ...params,
     })
@@ -207,7 +239,7 @@ describe('createNavigate', () => {
     mockBuildConfig({
       pois: false,
     })
-    navigateTo({
+    renderMockComponent({
       route: POIS_ROUTE,
       ...params,
       slug: '1234',
@@ -216,7 +248,7 @@ describe('createNavigate', () => {
   })
 
   it('should navigate to search', () => {
-    navigateTo({
+    renderMockComponent({
       route: SEARCH_ROUTE,
       ...params,
     })
