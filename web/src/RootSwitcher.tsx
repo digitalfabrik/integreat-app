@@ -29,7 +29,6 @@ import { cityContentPattern, RoutePatterns } from './routes'
 import CityNotCooperatingPage from './routes/CityNotCooperatingPage'
 import JpalTrackingPage from './routes/JpalTrackingPage'
 import lazyWithRetry from './utils/retryImport'
-import JsonLdWebSite from './components/JsonLdWebSite'
 
 type RootSwitcherProps = {
   setContentLanguage: (languageCode: string) => void
@@ -87,7 +86,6 @@ const RootSwitcher = ({ setContentLanguage }: RootSwitcherProps): ReactElement =
 
   return (
     <Suspense fallback={<LoadingSpinner />}>
-      <JsonLdWebSite />
       <Routes>
         <Route path={RoutePatterns[LANDING_ROUTE]} element={<LandingPage {...props} />} />
         <Route path={RoutePatterns[MAIN_DISCLAIMER_ROUTE]} element={<MainDisclaimerPage {...props} />} />
