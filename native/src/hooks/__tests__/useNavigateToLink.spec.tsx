@@ -1,3 +1,6 @@
+import { mocked } from 'jest-mock'
+import React, { useEffect } from 'react'
+
 import {
   IMAGE_VIEW_MODAL_ROUTE,
   LANDING_ROUTE,
@@ -6,26 +9,55 @@ import {
   PDF_VIEW_MODAL_ROUTE,
 } from 'api-client'
 
-import createNavigationScreenPropMock from '../../testing/createNavigationPropMock'
+import { AppContext } from '../../contexts/AppContextProvider'
+import createNavigationPropMock from '../../testing/createNavigationPropMock'
+import render from '../../testing/render'
 import openExternalUrl from '../../utils/openExternalUrl'
 import sendTrackingSignal from '../../utils/sendTrackingSignal'
-import navigateToLink from '../navigateToLink'
+import useNavigate from '../useNavigate'
+import useNavigateToLink from '../useNavigateToLink'
+import useSnackbar from '../useSnackbar'
 
 jest.mock('../../utils/sendTrackingSignal')
 jest.mock('../../utils/openExternalUrl')
+jest.mock('../useNavigate')
+jest.mock('../useSnackbar')
 
-describe('navigateToLink', () => {
+describe('useNavigateToLink', () => {
+  const showSnackbar = jest.fn()
+  const navigateTo = jest.fn()
+  const navigation = createNavigationPropMock()
+  mocked(useSnackbar).mockImplementation(() => showSnackbar)
+  mocked(useNavigate).mockImplementation(() => ({ navigateTo, navigation }))
+
+  const changeCityCode = jest.fn()
+  const changeLanguageCode = jest.fn()
+  const cityCode = 'augsburg'
+  const languageCode = 'de'
+
+  const MockComponent = ({ url, shareUrl }: { url: string; shareUrl: string }) => {
+    const navigateToLink = useNavigateToLink()
+    useEffect(() => navigateToLink(url, shareUrl), [navigateToLink, url, shareUrl])
+
+    return null
+  }
+
+  const renderMockComponent = (url: string, shareUrl: string) =>
+    render(
+      // eslint-disable-next-line react/jsx-no-constructed-context-values
+      <AppContext.Provider value={{ changeCityCode, changeLanguageCode, cityCode, languageCode }}>
+        <MockComponent url={url} shareUrl={shareUrl} />
+      </AppContext.Provider>
+    )
+  const shareUrl = 'https://example.com/my/share/url'
+
   beforeEach(() => {
     jest.clearAllMocks()
   })
-  const navigation = createNavigationScreenPropMock()
-  const languageCode = 'de'
-  const navigateTo = jest.fn()
-  const shareUrl = 'https://example.com/my/share/url'
 
   it('should navigate to pdf modal route', () => {
     const url = 'https://example.com/my.pdf'
-    navigateToLink(url, navigation, languageCode, navigateTo, shareUrl)
+    renderMockComponent(url, shareUrl)
     expect(navigation.navigate).toHaveBeenCalledTimes(1)
     expect(navigation.navigate).toHaveBeenCalledWith(PDF_VIEW_MODAL_ROUTE, {
       url,
@@ -44,7 +76,7 @@ describe('navigateToLink', () => {
 
   it('should navigate to image modal route for jpgs', () => {
     const url = 'https://example.com/my.jpg'
-    navigateToLink(url, navigation, languageCode, navigateTo, shareUrl)
+    renderMockComponent(url, shareUrl)
     expect(navigation.navigate).toHaveBeenCalledTimes(1)
     expect(navigation.navigate).toHaveBeenCalledWith(IMAGE_VIEW_MODAL_ROUTE, {
       url,
@@ -63,7 +95,7 @@ describe('navigateToLink', () => {
 
   it('should navigate to image modal route for jpegs', () => {
     const url = 'https://example.com/my.jpeg'
-    navigateToLink(url, navigation, languageCode, navigateTo, shareUrl)
+    renderMockComponent(url, shareUrl)
     expect(navigation.navigate).toHaveBeenCalledTimes(1)
     expect(navigation.navigate).toHaveBeenCalledWith(IMAGE_VIEW_MODAL_ROUTE, {
       url,
@@ -82,7 +114,7 @@ describe('navigateToLink', () => {
 
   it('should navigate to image modal route for pngs', () => {
     const url = 'https://example.com/my.png'
-    navigateToLink(url, navigation, languageCode, navigateTo, shareUrl)
+    renderMockComponent(url, shareUrl)
     expect(navigation.navigate).toHaveBeenCalledTimes(1)
     expect(navigation.navigate).toHaveBeenCalledWith(IMAGE_VIEW_MODAL_ROUTE, {
       url,
@@ -101,7 +133,7 @@ describe('navigateToLink', () => {
 
   it('should call navigateTo for internal links', () => {
     const url = 'https://integreat.app'
-    navigateToLink(url, navigation, languageCode, navigateTo, shareUrl)
+    renderMockComponent(url, shareUrl)
     expect(navigateTo).toHaveBeenCalledTimes(1)
     expect(navigateTo).toHaveBeenCalledWith({
       route: LANDING_ROUTE,
@@ -120,9 +152,9 @@ describe('navigateToLink', () => {
 
   it('should call openExternalUrl for external links', () => {
     const url = 'https://example.com'
-    navigateToLink(url, navigation, languageCode, navigateTo, shareUrl)
+    renderMockComponent(url, shareUrl)
     expect(openExternalUrl).toHaveBeenCalledTimes(1)
-    expect(openExternalUrl).toHaveBeenCalledWith(url)
+    expect(openExternalUrl).toHaveBeenCalledWith(url, expect.any(Function))
     expect(sendTrackingSignal).not.toHaveBeenCalled()
     expect(navigation.navigate).not.toHaveBeenCalled()
     expect(navigateTo).not.toHaveBeenCalled()

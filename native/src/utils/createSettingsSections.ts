@@ -13,7 +13,6 @@ import { SettingsType } from './AppSettings'
 import * as NotificationsManager from './PushNotificationsManager'
 import { pushNotificationsEnabled } from './PushNotificationsManager'
 import openExternalUrl from './openExternalUrl'
-import openPrivacyPolicy from './openPrivacyPolicy'
 import { initSentry } from './sentry'
 
 export type SetSettingFunctionType = (
@@ -131,13 +130,17 @@ const createSettingsSections = ({
         onPress: () => {
           const { aboutUrls } = buildConfig()
           const aboutUrl = aboutUrls[languageCode] || aboutUrls.default
-          openExternalUrl(aboutUrl).catch((error: Error) => showSnackbar({ text: error.message }))
+          openExternalUrl(aboutUrl, showSnackbar)
         },
       },
       {
         accessibilityRole: 'link',
         title: t('privacyPolicy'),
-        onPress: () => openPrivacyPolicy(languageCode).catch((error: Error) => showSnackbar({ text: error.message })),
+        onPress: () => {
+          const { privacyUrls } = buildConfig()
+          const privacyUrl = privacyUrls[languageCode] || privacyUrls.default
+          openExternalUrl(privacyUrl, showSnackbar)
+        },
       },
       {
         title: t('version', {

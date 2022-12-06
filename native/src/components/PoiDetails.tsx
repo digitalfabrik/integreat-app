@@ -71,7 +71,7 @@ const PoiDetails = ({ poi, feature, language }: PoiDetailsProps): ReactElement =
 
   const openExternalMaps = () => {
     const externalMapsUrl = getExternalMapsLink(poi.location, Platform.OS)
-    openExternalUrl(externalMapsUrl).catch(() => showSnackbar({ text: t('error:noSuitableAppInstalled') }))
+    openExternalUrl(externalMapsUrl, showSnackbar)
   }
 
   const copyLocationToClipboard = (): void => {
