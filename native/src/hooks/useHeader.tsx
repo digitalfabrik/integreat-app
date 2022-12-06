@@ -31,7 +31,7 @@ const useHeader = <T extends RoutesType>({
           languages={data?.languages}
           showItems={!!data}
           availableLanguages={availableLanguages}
-          isHome={isHome}
+          isHome={isHome ?? false}
           shareUrl={shareUrl}
         />
       ),

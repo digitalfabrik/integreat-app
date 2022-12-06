@@ -69,7 +69,7 @@ type HeaderProps = {
   languages?: LanguageModel[]
   availableLanguages?: string[]
   shareUrl?: string
-  isHome?: boolean
+  isHome: boolean | null
 }
 
 const Header = ({
@@ -80,7 +80,7 @@ const Header = ({
   showItems = false,
   city,
   languages,
-  isHome = false,
+  isHome,
 }: HeaderProps): ReactElement | null => {
   const { cityCode, languageCode } = useContext(AppContext)
   const { t } = useTranslation('layout')
@@ -163,15 +163,19 @@ const Header = ({
       : []),
   ]
 
+  const HeaderLeft =
+    isHome !== null &&
+    (isHome ? (
+      <Icon source={buildConfigAssets().appIcon} />
+    ) : (
+      <HeaderBackButton onPress={navigation.goBack} labelVisible={false} />
+    ))
+
   return (
     <BoxShadow>
       <Horizontal>
         <HorizontalLeft>
-          {isHome ? (
-            <Icon source={buildConfigAssets().appIcon} />
-          ) : (
-            <HeaderBackButton onPress={navigation.goBack} labelVisible={false} />
-          )}
+          {HeaderLeft}
           <HeaderText allowFontScaling={false} fontSize={deviceWidth * dimensions.fontScaling}>
             {city && isHome && cityDisplayName(city)}
           </HeaderText>
