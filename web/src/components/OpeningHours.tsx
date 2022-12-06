@@ -57,7 +57,7 @@ const OpeningHours = ({
     <>
       <span>{t('openingHours')}</span>
       <OpeningLabel isOpened={isCurrentlyOpened}>
-        {`${t(getOpeningLabel(isTemporarilyClosed, isCurrentlyOpened))}`}
+        {t(getOpeningLabel(isTemporarilyClosed, isCurrentlyOpened))}
       </OpeningLabel>
     </>
   )
