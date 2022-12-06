@@ -1,15 +1,16 @@
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Text } from 'react-native'
+import { RefreshControl, Text } from 'react-native'
 import styled from 'styled-components/native'
 
-import { LanguageModel } from 'api-client'
+import { fromError, LanguageModel } from 'api-client'
 
 import useCityAppContext from '../hooks/useCityAppContext'
 import useLoadLanguages from '../hooks/useLoadLanguages'
 import SelectorItemModel from '../models/SelectorItemModel'
-import LoadingErrorHandler from '../routes/LoadingErrorHandler'
 import Caption from './Caption'
+import Failure from './Failure'
+import LayoutedScrollView from './LayoutedScrollView'
 import Selector from './Selector'
 
 const Wrapper = styled.ScrollView`
@@ -18,11 +19,12 @@ const Wrapper = styled.ScrollView`
 
 type LanguageNotAvailablePageProps = {
   availableLanguages?: LanguageModel[]
+  refresh?: () => void
 }
 
-const LanguageNotAvailablePage = ({ availableLanguages }: LanguageNotAvailablePageProps): ReactElement => {
+const LanguageNotAvailablePage = ({ availableLanguages, refresh }: LanguageNotAvailablePageProps): ReactElement => {
   const { cityCode, changeLanguageCode } = useCityAppContext()
-  const { data, ...response } = useLoadLanguages({ cityCode })
+  const { data, error, refresh: refreshLanguages, loading } = useLoadLanguages({ cityCode })
   const { t } = useTranslation('common')
 
   const items = (availableLanguages ?? data)?.map(
@@ -38,15 +40,18 @@ const LanguageNotAvailablePage = ({ availableLanguages }: LanguageNotAvailablePa
   )
 
   return (
-    <LoadingErrorHandler {...response} scrollView>
-      {items && (
+    <LayoutedScrollView
+      refreshControl={<RefreshControl refreshing={loading} onRefresh={refresh ?? refreshLanguages} />}>
+      {items ? (
         <Wrapper contentContainerStyle={{ alignItems: 'center' }}>
           <Caption title={t('languageNotAvailable')} />
           <Text>{t('chooseALanguage')}</Text>
           <Selector items={items} selectedItemCode={null} />
         </Wrapper>
+      ) : (
+        !loading && <Failure code={fromError(error)} />
       )}
-    </LoadingErrorHandler>
+    </LayoutedScrollView>
   )
 }
 
