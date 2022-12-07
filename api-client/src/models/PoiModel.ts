@@ -101,8 +101,8 @@ class PoiModel extends ExtendedPageModel {
       return false
     }
     // isoWeekday return 1-7 for the weekdays
-    const weekday = moment().isoWeekday() - 1
-    const currentDay = this.openingHours[weekday]
+    const currentWeekday = moment().isoWeekday() - 1
+    const currentDay = this.openingHours[currentWeekday]
 
     if (currentDay) {
       if (currentDay.allDay) {
