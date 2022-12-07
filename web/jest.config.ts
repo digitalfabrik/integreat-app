@@ -33,7 +33,6 @@ const config: InitialOptionsTsJest = {
   ],
   testEnvironment: 'jsdom',
   globals: {
-    'ts-jest': {},
     __BUILD_CONFIG_NAME__: 'integreat-test-cms',
     __BUILD_CONFIG__: webIntegreatTestCmsBuildConfig,
     __VERSION_NAME__: '0.0.0',
