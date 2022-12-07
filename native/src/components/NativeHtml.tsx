@@ -1,15 +1,17 @@
 import * as React from 'react'
 import { ReactElement, useCallback } from 'react'
 import { useWindowDimensions } from 'react-native'
-import { Element, RenderHTML } from 'react-native-render-html'
+import { defaultHTMLElementModels, Element, HTMLContentModel, RenderHTML } from 'react-native-render-html'
 import { useTheme } from 'styled-components'
 
 import { config } from 'translations'
 
+import ExternalIcon from '../assets/ExternalLink.svg'
 import { contentAlignment } from '../constants/contentDirection'
 import useNavigateToLink from '../hooks/useNavigateToLink'
 import { getErrorMessage } from '../utils/helpers'
 import { log, reportError } from '../utils/sentry'
+import SimpleImage from './SimpleImage'
 
 type NativeHtmlProps = {
   language: string
@@ -61,10 +63,23 @@ const NativeHtml = React.memo(({ content, cacheDictionary, language }: NativeHtm
 
   const fonts = theme.fonts.native.webviewFont.split(', ')
 
+  const addExternalLinkMarkers = (text: string): string => {
+    const links = text.match(/<a.*class="link-external".*?(?=<\/a>)/g)
+    if (!links) {
+      return text
+    }
+    const textPieces = text.split(/<a.*class="link-external".*?(?=<\/a>)/g)
+    const textWithMarkers = links
+      .map((link, i) => `${textPieces[i] + link} <svg></svg>`)
+      .concat(textPieces.slice(-1)) // one more text piece than links
+      .join('')
+    return textWithMarkers
+  }
+
   return (
     <RenderHTML
       source={{
-        html: content,
+        html: addExternalLinkMarkers(content),
       }}
       contentWidth={width}
       defaultTextProps={{
@@ -84,6 +99,14 @@ const NativeHtml = React.memo(({ content, cacheDictionary, language }: NativeHtm
         color: theme.colors.textColor,
         textAlign: contentAlignment(language),
         direction: config.hasRTLScript(language) ? 'rtl' : 'ltr',
+      }}
+      customHTMLElementModels={{
+        svg: defaultHTMLElementModels.svg.extend({
+          contentModel: HTMLContentModel.mixed,
+        }),
+      }}
+      renderers={{
+        svg: () => <SimpleImage source={ExternalIcon} />,
       }}
       systemFonts={fonts}
       tagsStyles={{
