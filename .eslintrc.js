@@ -39,6 +39,7 @@ module.exports = {
     '**/babel.config.js',
     '**/react-native.config.js',
     '**/www/iframe.js',
+    '**/www/rasa-widget/chatbot.js',
   ],
   rules: {
     // Overly strict rules (for now)
