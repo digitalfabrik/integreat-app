@@ -1,4 +1,4 @@
-import { fireEvent, waitFor } from '@testing-library/react'
+import { findByText, fireEvent, waitFor } from '@testing-library/react'
 import React, { ComponentProps } from 'react'
 
 import {
@@ -84,45 +84,43 @@ describe('FeedbackContainer', () => {
   })
 
   it('should display thanks message for modal', async () => {
-    const { getByRole, getByText } = renderWithTheme(
+    const { getByRole, findByText } = renderWithTheme(
       <FeedbackContainer {...buildDefaultProps(CATEGORIES_ROUTE, true, false)} />
     )
     const button = getByRole('button', {
       name: 'feedback:send',
     })
     fireEvent.click(button)
-    // Needed as submitFeedback is asynchronous
-    await waitFor(() => expect(button).toBeEnabled())
+
+    expect(await findByText('feedback:thanksMessage')).toBeTruthy()
     expect(getByRole('button', { name: 'feedback:close' })).toBeTruthy()
-    expect(getByText('feedback:thanksMessage')).toBeTruthy()
   })
 
   it('should display thanks message for search', async () => {
-    const { getByRole, getByText, queryByRole } = renderWithTheme(
+    const { getByRole, findByText, queryByRole } = renderWithTheme(
       <FeedbackContainer {...buildDefaultProps(CATEGORIES_ROUTE, true, true)} />
     )
     const button = getByRole('button', {
       name: 'feedback:send',
     })
     fireEvent.click(button)
-    // Needed as submitFeedback is asynchronous
-    await waitFor(() => expect(button).toBeEnabled())
+
+    expect(await findByText('feedback:thanksMessage')).toBeTruthy()
     expect(queryByRole('button', { name: 'feedback:close' })).toBeNull()
-    expect(getByText('feedback:thanksMessage')).toBeTruthy()
   })
 
   it('should display error', async () => {
     mockRequest.mockImplementationOnce(() => {
       throw new Error()
     })
-    const { getByRole, getByText } = renderWithTheme(
+    const { getByRole, findByText } = renderWithTheme(
       <FeedbackContainer {...buildDefaultProps(SEARCH_ROUTE, true, true)} />
     )
     const button = getByRole('button', {
       name: 'feedback:send',
     })
     fireEvent.click(button)
-    // Needed as submitFeedback is asynchronous
-    await waitFor(() => expect(getByText('feedback:failedSendingFeedback')).toBeTruthy())
+
+    expect(await findByText('feedback:failedSendingFeedback')).toBeTruthy()
   })
 })

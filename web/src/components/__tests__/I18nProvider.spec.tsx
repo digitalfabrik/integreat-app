@@ -1,4 +1,4 @@
-import { act, render, screen, waitFor } from '@testing-library/react'
+import { act, getByTestId, getByText, render, waitFor } from '@testing-library/react'
 import { mocked } from 'jest-mock'
 import React from 'react'
 import Helmet from 'react-helmet'
@@ -13,54 +13,69 @@ jest.mock('translations/src/loadTranslations')
 describe('I18nProvider', () => {
   const mockDetect = mocked(BrowserLanguageDetector.detect)
 
-  it('should choose the browser language', async () => {
-    mockDetect.mockReturnValue(['ar'])
-    act(() => {
-      render(
-        <I18nProvider contentLanguage={undefined}>
+  it.each`
+    detectedLanguage | contentLanguage | expectedLanguage | expectedTranslation
+    ${'ar'}          | ${'ar'}         | ${'ar'}          | ${'معلومات محلية'}
+    ${'ku'}          | ${undefined}    | ${'ku'}          | ${'Zanyariyên xwecihî'}
+    ${'en'}          | ${'invalid'}    | ${'en'}          | ${'Lokale Informationen'}
+    ${'zh-CN'}       | ${undefined}    | ${'zh-CN'}       | ${'本地信息'}
+    ${'zh-hans'}     | ${undefined}    | ${'zh-CN'}       | ${'本地信息'}
+    ${'de-DE'}       | ${undefined}    | ${'de'}          | ${'Lokale Informationen'}
+  `(
+    `should choose correct direction and translation for detected $detectedLanguage and content language $contentLanguage`,
+    async ({ detectedLanguage, contentLanguage, expectedLanguage, expectedTranslation }) => {
+      mockDetect.mockReturnValue([detectedLanguage])
+      const { findByText } = render(
+        <I18nProvider contentLanguage={contentLanguage}>
           <Translation>{(t, { i18n }) => <p>{i18n.languages[0]}</p>}</Translation>
+          <Translation>{t => <p>{t('dashboard:localInformation')}</p>}</Translation>
         </I18nProvider>
       )
-    })
-    await waitFor(() => screen.getByText('ar'))
-    expect(screen.getByText('ar')).toBeTruthy()
+      expect(await findByText(expectedLanguage)).toBeTruthy()
+      expect(await findByText(expectedTranslation)).toBeTruthy()
+    }
+  )
+
+  it(`should set the browser direction correctly to rtl for ar`, async () => {
+    mockDetect.mockReturnValue(['ar'])
+    const { findByText, getByTestId } = render(
+      <I18nProvider contentLanguage={undefined}>
+        <Translation>{(t, { i18n }) => <p>{i18n.languages[0]}</p>}</Translation>
+      </I18nProvider>
+    )
+
+    expect((await findByText('ar')).parentElement?.dir).toBe('rtl')
+    expect(getByTestId('direction')).toHaveAttribute('dir', 'rtl')
   })
 
-  it('should set the browser direction correctly to ltr', async () => {
-    mockDetect.mockReturnValue(['ru'])
-    act(() => {
-      render(
-        <I18nProvider contentLanguage={undefined}>
-          <Translation>{(t, { i18n }) => <p>{i18n.languages[0]}</p>}</Translation>
-        </I18nProvider>
-      )
-    })
-    await waitFor(() => screen.getByText('ru'))
-    expect(screen.getByText('ru').parentElement?.dir).toBe('ltr')
+  it(`should set the browser direction correctly to ltr for de`, async () => {
+    mockDetect.mockReturnValue(['de'])
+    const { findByText, getByTestId } = render(
+      <I18nProvider contentLanguage={undefined}>
+        <Translation>{(t, { i18n }) => <p>{i18n.languages[0]}</p>}</Translation>
+      </I18nProvider>
+    )
+
+    expect((await findByText('de')).parentElement?.dir).toBe('ltr')
+    expect(getByTestId('direction')).toHaveAttribute('dir', 'ltr')
   })
 
-  it('should set the browser direction correctly to rtl', async () => {
-    mockDetect.mockReturnValue(['ar'])
-    act(() => {
-      render(
-        <I18nProvider contentLanguage={undefined}>
-          <Translation>{(t, { i18n }) => <p>{i18n.languages[0]}</p>}</Translation>
-        </I18nProvider>
-      )
-    })
-    await waitFor(() => screen.getByText('ar'))
-    expect(screen.getByText('ar').parentElement?.dir).toBe('rtl')
+  it('should set ui language to fallback of content language', async () => {
+    const { findByText } = render(
+      <I18nProvider contentLanguage='fa'>
+        <Translation>{(t, { i18n }) => <p>{i18n.languages[0]}</p>}</Translation>
+      </I18nProvider>
+    )
+    expect(await findByText('pes')).toBeTruthy()
   })
 
   it('should set link for additional font noto sans arabic', async () => {
     mockDetect.mockReturnValue(['ar'])
-    act(() => {
-      render(
-        <I18nProvider contentLanguage={undefined}>
-          <Translation>{(t, { i18n }) => <p>{i18n.languages[0]}</p>}</Translation>
-        </I18nProvider>
-      )
-    })
+    render(
+      <I18nProvider contentLanguage={undefined}>
+        <Translation>{(t, { i18n }) => <p>{i18n.languages[0]}</p>}</Translation>
+      </I18nProvider>
+    )
     await waitFor(() =>
       expect(document.querySelector('link')?.getAttribute('href')).toBe('/fonts/noto-sans-arabic/noto-sans-arabic.css')
     )
@@ -68,13 +83,11 @@ describe('I18nProvider', () => {
 
   it('should set link for additional font noto-sans-sc', async () => {
     mockDetect.mockReturnValue(['zh-CN'])
-    act(() => {
-      render(
-        <I18nProvider contentLanguage={undefined}>
-          <Translation>{(t, { i18n }) => <p>{i18n.languages[0]}</p>}</Translation>
-        </I18nProvider>
-      )
-    })
+    render(
+      <I18nProvider contentLanguage={undefined}>
+        <Translation>{(t, { i18n }) => <p>{i18n.languages[0]}</p>}</Translation>
+      </I18nProvider>
+    )
     await waitFor(() =>
       expect(document.querySelector('link')?.getAttribute('href')).toBe('/fonts/noto-sans-sc/noto-sans-sc.css')
     )
@@ -82,13 +95,11 @@ describe('I18nProvider', () => {
 
   it('should set link for additional font noto-sans-georgian', async () => {
     mockDetect.mockReturnValue(['ka'])
-    act(() => {
-      render(
-        <I18nProvider contentLanguage={undefined}>
-          <Translation>{(t, { i18n }) => <p>{i18n.languages[0]}</p>}</Translation>
-        </I18nProvider>
-      )
-    })
+    render(
+      <I18nProvider contentLanguage={undefined}>
+        <Translation>{(t, { i18n }) => <p>{i18n.languages[0]}</p>}</Translation>
+      </I18nProvider>
+    )
     await waitFor(() =>
       expect(document.querySelector('link')?.getAttribute('href')).toBe(
         '/fonts/noto-sans-georgian/noto-sans-georgian.css'
@@ -96,153 +107,62 @@ describe('I18nProvider', () => {
     )
   })
 
-  it('should use fallbacks for ui translations', async () => {
-    mockDetect.mockReturnValue(['ku'])
-    act(() => {
-      render(
-        <I18nProvider contentLanguage={undefined}>
-          <Translation>{t => <p>{t('dashboard:localInformation')}</p>}</Translation>
-        </I18nProvider>
-      )
-    })
-    await waitFor(() => screen.debug())
-    await waitFor(() => screen.getByText('Zanyariyên xwecihî'))
-    expect(screen.getByText('Zanyariyên xwecihî')).toBeTruthy()
-  })
-
   it('should choose the default fallback for ui translations', async () => {
     mockDetect.mockReturnValue(['en'])
-    act(() => {
-      render(
-        <I18nProvider contentLanguage={undefined}>
-          <Translation>{t => <p>{t('dashboard:localInformation')}</p>}</Translation>
-        </I18nProvider>
-      )
-    })
-    await waitFor(() => screen.getByText('Lokale Informationen'))
-    expect(screen.getByText('Lokale Informationen')).toBeTruthy()
-  })
-
-  it('should set ui language to content language', async () => {
-    act(() => {
-      render(
-        <I18nProvider contentLanguage='ar'>
-          <Translation>{(t, { i18n }) => <p>{i18n.languages[0]}</p>}</Translation>
-        </I18nProvider>
-      )
-    })
-    await waitFor(() => screen.getByText('ar'))
-    expect(screen.getByText('ar')).toBeTruthy()
-  })
-
-  it('should not set ui language for invalid content language', async () => {
-    act(() => {
-      render(
-        <I18nProvider contentLanguage='invalid'>
-          <Translation>{(t, { i18n }) => <p>{i18n.languages[0]}</p>}</Translation>
-        </I18nProvider>
-      )
-    })
-    await waitFor(() => screen.getByText('en'))
-    expect(screen.getByText('en')).toBeTruthy()
-  })
-
-  it('should set ui language to fallback of content language', async () => {
-    act(() => {
-      render(
-        <I18nProvider contentLanguage='fa'>
-          <Translation>{(t, { i18n }) => <p>{i18n.languages[0]}</p>}</Translation>
-        </I18nProvider>
-      )
-    })
-    await waitFor(() => screen.getByText('pes'))
-    expect(screen.getByText('pes')).toBeTruthy()
-  })
-
-  it('should choose rtl with ar as language', async () => {
-    act(() => {
-      render(<I18nProvider contentLanguage='ar'>Hello</I18nProvider>)
-    })
-    await waitFor(() => screen.getByTestId('direction'))
-    expect(screen.getByTestId('direction')).toHaveAttribute('dir', 'rtl')
-  })
-
-  it('should choose ltr with en as language', async () => {
-    act(() => {
-      render(<I18nProvider contentLanguage={undefined}>Hello</I18nProvider>)
-    })
-    await waitFor(() => screen.getByTestId('direction'))
-    expect(screen.getByTestId('direction')).toHaveAttribute('dir', 'ltr')
+    const { findByText } = render(
+      <I18nProvider contentLanguage={undefined}>
+        <Translation>{t => <p>{t('dashboard:localInformation')}</p>}</Translation>
+      </I18nProvider>
+    )
+    expect(await findByText('Lokale Informationen')).toBeTruthy()
   })
 
   it('should set document language', async () => {
-    act(() => {
-      render(<I18nProvider contentLanguage='ar'>Hello</I18nProvider>)
-    })
-    await waitFor(() => screen.getByTestId('direction'))
-    expect(document.documentElement.lang).toBe('ar')
+    render(<I18nProvider contentLanguage='ar'>Hello</I18nProvider>)
+    await waitFor(() => expect(document.documentElement.lang).toBe('ar'))
   })
 
   it('should use additional font for arabic', async () => {
-    act(() => {
-      render(<I18nProvider contentLanguage='ar'>Hello</I18nProvider>)
+    render(<I18nProvider contentLanguage='ar'>Hello</I18nProvider>)
+
+    await waitFor(() => {
+      // Checking for side-effect
+      const helmet = Helmet.peek()
+      expect(helmet.linkTags.map(link => link.href)).toContain('/fonts/noto-sans-arabic/noto-sans-arabic.css')
     })
-    await waitFor(() => screen.getByTestId('direction'))
-    // Checking for side-effect
-    const helmet = Helmet.peek()
-    expect(helmet.linkTags.map(link => link.href)).toContain('/fonts/noto-sans-arabic/noto-sans-arabic.css')
   })
 
   it('should use no additional font for english', async () => {
-    act(() => {
-      render(<I18nProvider contentLanguage={undefined}>Hello</I18nProvider>)
+    render(<I18nProvider contentLanguage={undefined}>Hello</I18nProvider>)
+    await waitFor(() => {
+      // Checking for side-effect
+      const helmet = Helmet.peek()
+      expect(helmet.linkTags.map(link => link.href)).not.toContain('/fonts/noto-sans-arabic/noto-sans-arabic.css')
     })
-    await waitFor(() => screen.getByTestId('direction'))
-    // Checking for side-effect
-    const helmet = Helmet.peek()
-    expect(helmet.linkTags.map(link => link.href)).not.toContain('/fonts/noto-sans-arabic/noto-sans-arabic.css')
-  })
-
-  it('should use zh-CN if any chinese variant is chosen', async () => {
-    mockDetect.mockReturnValue(['zh-CN'])
-    act(() => {
-      render(
-        <I18nProvider contentLanguage={undefined}>
-          <Translation>{t => <p>{t('dashboard:localInformation')}</p>}</Translation>
-        </I18nProvider>
-      )
-    })
-    await waitFor(() => screen.getByText('本地信息'))
-    expect(screen.getByText('本地信息')).toBeTruthy()
   })
 
   it('should support language tags with dashes', async () => {
     mockDetect.mockReturnValue(['zh-hans'])
-    act(() => {
-      render(
-        <I18nProvider contentLanguage={undefined}>
-          <Translation>{t => <p>{t('dashboard:localInformation')}</p>}</Translation>
-        </I18nProvider>
-      )
-    })
-    await waitFor(() => screen.getByText('本地信息'))
-    expect(screen.getByText('本地信息')).toBeTruthy()
+    const { findByText } = render(
+      <I18nProvider contentLanguage={undefined}>
+        <Translation>{t => <p>{t('dashboard:localInformation')}</p>}</Translation>
+      </I18nProvider>
+    )
+
+    expect(await findByText('本地信息')).toBeTruthy()
   })
 
   it('should support de-DE and select de', async () => {
     mockDetect.mockReturnValue(['de-DE'])
-    act(() => {
-      render(
-        <I18nProvider contentLanguage={undefined}>
-          <Translation>{t => <p>{t('dashboard:localInformation')}</p>}</Translation>
-          <Translation>{(t, { i18n }) => <p>{i18n.languages[0]}</p>}</Translation>
-        </I18nProvider>
-      )
-    })
-    await waitFor(() => screen.getByText('Lokale Informationen'))
-    await waitFor(() => screen.debug())
-    expect(screen.getByText('Lokale Informationen')).toBeTruthy()
-    expect(screen.getByText('de')).toBeTruthy()
-    expect(screen.queryByText('de-DE')).toBeFalsy()
+    const { findByText, queryByText } = render(
+      <I18nProvider contentLanguage={undefined}>
+        <Translation>{t => <p>{t('dashboard:localInformation')}</p>}</Translation>
+        <Translation>{(t, { i18n }) => <p>{i18n.languages[0]}</p>}</Translation>
+      </I18nProvider>
+    )
+
+    expect(await findByText('Lokale Informationen')).toBeTruthy()
+    expect(await findByText('de')).toBeTruthy()
+    expect(queryByText('de-DE')).toBeFalsy()
   })
 })
