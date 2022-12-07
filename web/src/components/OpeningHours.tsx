@@ -51,8 +51,10 @@ const OpeningHours = ({
   isTemporarilyClosed,
 }: OpeningHoursProps): ReactElement | null => {
   const { t } = useTranslation('pois')
-  moment.locale('de')
-  const weekdays = moment.weekdays(true)
+
+  // The opening hours loaded from the cms are ordered according to the german weekday order
+  // @ts-expect-error Interface has wrong type, supplying true is necessary and works
+  const weekdays = moment.localeData('de').weekdays(true)
 
   const openingHoursTitle = (
     <>
