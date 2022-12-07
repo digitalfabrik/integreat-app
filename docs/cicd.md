@@ -2,8 +2,9 @@
 
 ## Content
 
-- [Deliver a new release by triggering the CI](#triggering-a-delivery)
 - [Workflows](#workflows)
+- [Failed Delivery](#failed-ci-delivery)
+- [Deliver a new release by triggering the CI](#triggering-a-delivery)
 - [Services](#services)
 - [Fastlane](#fastlane)
 - [Determining the next version](#determining-the-next-version)
@@ -40,7 +41,7 @@ Steps executed if _Version bump_ is checked :heavy_check_mark::
 - Jira release
 - Bump version: Bump the version(s) and create a tag and release on github
 
-## Failed CI Delivery
+## Failed Delivery
 
 Sometimes it happens that one or multiple steps of our scheduled CI delivery workflow fails. In that case,
 you should **not** use the `Restart Workflow from Start` (as this will lead to just another failure since the version number
