@@ -1,6 +1,6 @@
 import WebMercatorViewport from '@math.gl/web-mercator'
-import { BBox } from 'geojson'
 import { Map } from 'maplibre-gl'
+import { BBox } from 'geojson'
 import React, { ReactElement, useCallback, useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { LngLatLike, MapRef } from 'react-map-gl'
