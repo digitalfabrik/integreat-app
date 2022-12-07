@@ -46,9 +46,8 @@ Sometimes it happens that one or multiple steps of our scheduled CI delivery wor
 you should **not** use the `Restart Workflow from Start` (as this will lead to just another failure since the version number
 was bumped before but not in the state of the failed delivery workflow such that it attempts to create the same releases again).
 
-If the reason for a delivery to fail was just a transient error that was fixed in the meantime
-(e.g. network error, API down, problems in the stores) was fixed in the mean time and don't require a code change,
-you can use the `Restart Workflow from Failed` and in the best case the workflow should finish now.
+If the reason for a delivery to fail was just a transient error that was fixed in the meantime and doesn't require a code change
+(e.g. network error, API down, problems in the stores), you can use the `Restart Workflow from Failed` and in the best case the workflow should finish now.
 
 In all other cases you can decide if there is an important change that should be delivered asap and can't wait another week.
 Examples are important bug fixes or big new features that should be released on multiple platforms in the same time. In that case
