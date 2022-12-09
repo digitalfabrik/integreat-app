@@ -8,13 +8,14 @@ import { faAngleDown, faAngleUp } from '../constants/icons'
 
 type CollapsibleProps = {
   children: ReactElement | string | number
-  title: string
+  title: string | ReactElement
   initialCollapsed?: boolean
   direction: UiDirectionType
 }
 
 const ContentWrapper = styled.div<{ direction: string }>`
-  ${props => (props.direction === 'rtl' ? `padding-left: 18px;` : `padding-right: 18px;`)}
+  padding: 8px 0;
+  ${props => (props.direction === 'rtl' ? `padding-left: 26px;` : `padding-right: 26px;`)}
   display: block;
 `
 const CollapsibleHeader = styled.div`
@@ -23,9 +24,12 @@ const CollapsibleHeader = styled.div`
   cursor: pointer;
   outline: none;
 `
-const Title = styled.span`
+const Title = styled.div`
+  display: flex;
+  flex: 1;
   font-weight: 700;
   font-size: clamp(0.55rem, 1.6vh, ${props => props.theme.fonts.hintFontSize});
+  justify-content: space-between;
 `
 const StyledIcon = styled(FontAwesomeIcon)`
   font-size: 18px;
