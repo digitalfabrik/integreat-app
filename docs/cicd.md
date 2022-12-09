@@ -52,7 +52,7 @@ If the reason for a delivery to fail was just a transient error that was fixed i
 
 In all other cases you can decide if there is an important change that should be delivered asap and can't wait another week.
 Examples are important bug fixes or big new features that should be released on multiple platforms in the same time. In that case
-you can [trigger a delivery](#triggering-a-delivery). It is possible to either just execute _web_beta_delivery_ or 
+you can [trigger a delivery](#triggering-a-delivery). It is possible to either just execute _web_beta_delivery_ or
 _native_beta_delivery_ or just run the whole _delivery_ workflow again. If that is not the case, just waiting one week is also fine.
 
 ## Triggering a Delivery
