@@ -18,9 +18,8 @@ type SprungbrettOfferContainerProps = {
 
 const SprungbrettOfferContainer = ({ route, navigation }: SprungbrettOfferContainerProps): ReactElement => {
   const { cityCode, languageCode } = useCityAppContext()
-  const alias = SPRUNGBRETT_OFFER_ROUTE
-
   const { data, ...response } = useLoadSprungbrettJobs({ cityCode, languageCode })
+  const error = data?.city && !data.city.offersEnabled ? ErrorCode.PageNotFound : response.error
 
   const availableLanguages = data?.languages.map(it => it.code)
   const shareUrl = urlFromRouteInformation({ route: SPRUNGBRETT_OFFER_ROUTE, languageCode, cityCode })
@@ -30,13 +29,11 @@ const SprungbrettOfferContainer = ({ route, navigation }: SprungbrettOfferContai
     createNavigateToFeedbackModal(navigation)({
       routeType: OFFERS_ROUTE,
       cityCode,
-      slug: alias,
+      slug: SPRUNGBRETT_OFFER_ROUTE,
       language: languageCode,
       isPositiveFeedback,
     })
   }
-
-  const error = data?.city && !data.city.offersEnabled ? ErrorCode.PageNotFound : response.error
 
   return (
     <LoadingErrorHandler {...response} error={error}>

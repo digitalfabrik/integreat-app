@@ -24,6 +24,7 @@ const OffersContainer = ({ navigation, route }: OffersContainerProps): ReactElem
   const showSnackbar = useSnackbar()
   const { cityCode, languageCode } = useCityAppContext()
   const { data, ...response } = useLoadOffers({ cityCode, languageCode })
+  const error = data?.city && !data.city.offersEnabled ? ErrorCode.PageNotFound : response.error
   const { navigateTo } = useNavigate()
 
   const availableLanguages = data?.languages.map(it => it.code)
@@ -45,6 +46,7 @@ const OffersContainer = ({ navigation, route }: OffersContainerProps): ReactElem
       navigateTo({ route: SPRUNGBRETT_OFFER_ROUTE, cityCode, languageCode })
     }
   }
+
   const navigateToFeedback = (isPositiveFeedback: boolean) => {
     createNavigateToFeedbackModal(navigation)({
       routeType: OFFERS_ROUTE,
@@ -53,8 +55,6 @@ const OffersContainer = ({ navigation, route }: OffersContainerProps): ReactElem
       isPositiveFeedback,
     })
   }
-
-  const error = data?.city && !data.city.offersEnabled ? ErrorCode.PageNotFound : response.error
 
   return (
     <LoadingErrorHandler {...response} error={error} scrollView>
