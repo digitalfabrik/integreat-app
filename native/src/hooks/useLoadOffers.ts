@@ -1,8 +1,5 @@
-import { useCallback } from 'react'
-
 import { createOffersEndpoint, OfferModel } from 'api-client'
 
-import { determineApiUrl } from '../utils/helpers'
 import useLoadCityContent, { CityContentReturn } from './useLoadCityContent'
 
 type UseLoadOffersProps = {
@@ -10,16 +7,7 @@ type UseLoadOffersProps = {
   languageCode: string
 }
 
-const useLoadOffers = ({ cityCode, languageCode }: UseLoadOffersProps): CityContentReturn<{ offers: OfferModel[] }> => {
-  const load = useCallback(async () => {
-    const payload = await createOffersEndpoint(await determineApiUrl()).request({
-      city: cityCode,
-      language: languageCode,
-    })
-    return payload.data ? { offers: payload.data } : null
-  }, [cityCode, languageCode])
-
-  return useLoadCityContent({ cityCode, languageCode, load })
-}
+const useLoadOffers = (params: UseLoadOffersProps): CityContentReturn<{ offers: OfferModel[] }> =>
+  useLoadCityContent({ ...params, createEndpoint: createOffersEndpoint, map: data => ({ offers: data }) })
 
 export default useLoadOffers
