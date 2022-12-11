@@ -86,6 +86,7 @@ const Header = ({
   const { t } = useTranslation('layout')
   const showSnackbar = useSnackbar()
   const deviceWidth = useWindowDimensions().width
+
   const onShare = async () => {
     if (!shareUrl) {
       // The share option should only be shown if there is a shareUrl
@@ -112,16 +113,16 @@ const Header = ({
       })
     } catch (e) {
       showSnackbar(t('generalError'))
-      reportError(e as Error)
+      reportError(e)
     }
   }
 
   const cityDisplayName = (city: CityModel) => {
-    const description = city.prefix ? ` (${city.prefix})` : ''
+    const cityType = city.prefix ? ` (${city.prefix})` : ''
     const shortCityName = city.sortingName.length < deviceWidth / dimensions.headerTextSize
     return shortCityName
-      ? `${city.sortingName}${description}`
-      : `${forceNewlineAfterChar(city.sortingName, '-')}${description}`
+      ? `${city.sortingName}${cityType}`
+      : `${forceNewlineAfterChar(city.sortingName, '-')}${cityType}`
   }
 
   const renderItem = (title: string, iconName: string, visible: boolean, onPress?: () => void): ReactElement => (
