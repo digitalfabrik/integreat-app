@@ -5,7 +5,7 @@ import { ErrorCode, LOCAL_NEWS_TYPE, NewsRouteType, NewsType, TU_NEWS_TYPE } fro
 import NewsHeader from '../components/NewsHeader'
 import { NavigationProps, RouteProps } from '../constants/NavigationTypes'
 import useCityAppContext from '../hooks/useCityAppContext'
-import { useSimpleLoadCityContent } from '../hooks/useLoadCityContent'
+import useLoadCityContent from '../hooks/useLoadCityContent'
 import useOnBackNavigation from '../hooks/useOnBackNavigation'
 import useOnLanguageChange from '../hooks/useOnLanguageChange'
 import LoadingErrorHandler from './LoadingErrorHandler'
@@ -21,13 +21,18 @@ type NewsContainerProps = {
 const NewsContainer = ({ route, navigation }: NewsContainerProps): ReactElement | null => {
   const { newsType, newsId } = route.params
   const { cityCode, languageCode } = useCityAppContext()
-  const { data, ...response } = useSimpleLoadCityContent({ cityCode, languageCode })
+  const unusedLoad = useCallback(async () => ({ unused: true }), [])
+  const { data, ...response } = useLoadCityContent({
+    cityCode,
+    languageCode,
+    load: unusedLoad,
+  })
   const selectNews = useCallback((newsId: string | null) => navigation.setParams({ newsId }), [navigation])
   const deselectNews = useCallback(() => selectNews(null), [selectNews])
 
   useOnBackNavigation(newsId ? deselectNews : undefined)
 
-  // We don't support language change between single news as we don't now whether they are translated and with what id
+  // We don't support language change between single news as we don't know whether they are translated and with what id
   useOnLanguageChange({ languageCode, onLanguageChange: deselectNews })
 
   const navigateToNews = (newsType: NewsType) => {
