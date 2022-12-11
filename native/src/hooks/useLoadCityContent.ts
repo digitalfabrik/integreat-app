@@ -1,16 +1,20 @@
 import { useCallback } from 'react'
 
-import { CityModel, ErrorCode, LanguageModel, ReturnType, useLoadAsync } from 'api-client'
+import { CityModel, Endpoint, ErrorCode, LanguageModel, ReturnType, useLoadAsync } from 'api-client'
 
 import { LanguageResourceCacheStateType } from '../redux/StateType'
 import { dataContainer } from '../utils/DefaultDataContainer'
+import { determineApiUrl } from '../utils/helpers'
 import useLoadCities from './useLoadCities'
 import useLoadLanguages from './useLoadLanguages'
 import useOnLanguageChange from './useOnLanguageChange'
 
-type UseLoadCityContentProps<T> = {
+type Params = {
   cityCode: string
   languageCode: string
+}
+
+type UseRawLoadCityContentProps<T> = Params & {
   load: () => Promise<T | null>
 }
 
@@ -23,7 +27,11 @@ export type CityContentData<T> = {
 } & T
 export type CityContentReturn<T> = Omit<ReturnType<CityContentData<T>>, 'error'> & { error: ErrorCode | Error | null }
 
-const useLoadCityContent = <T>({ cityCode, languageCode, load }: UseLoadCityContentProps<T>): CityContentReturn<T> => {
+const useRawLoadCityContent = <T>({
+  cityCode,
+  languageCode,
+  load,
+}: UseRawLoadCityContentProps<T>): CityContentReturn<T> => {
   const citiesReturn = useLoadCities()
   const languagesReturn = useLoadLanguages({ cityCode })
   const otherReturn = useLoadAsync(load)
@@ -78,11 +86,42 @@ const useLoadCityContent = <T>({ cityCode, languageCode, load }: UseLoadCityCont
   return { error: getError(), loading, refresh, data }
 }
 
-// Simple utility helper to just load cities and languages
-export const useSimpleLoadCityContent = (params: {
-  cityCode: string
-  languageCode: string
-}): CityContentReturn<unknown> =>
-  useLoadCityContent({ ...params, load: useCallback(async () => ({ unused: true }), []) })
+type UseLoadCityContentProps<T, P> =
+  | UseRawLoadCityContentProps<P>
+  | (Params & {
+      map: (data: T) => P
+      createEndpoint: (baseUrl: string) => Endpoint<{ city: string; language: string }, T>
+      isAvailable?: (cityCode: string, languageCode: string) => Promise<boolean>
+      getFromDataContainer?: (cityCode: string, languageCode: string) => Promise<T>
+      setToDataContainer?: (cityCode: string, languageCode: string, data: T) => Promise<void>
+      load?: undefined
+    })
+
+const useLoadCityContent = <T, P>({
+  cityCode,
+  languageCode,
+  ...props
+}: UseLoadCityContentProps<T, P>): CityContentReturn<P> => {
+  const load = useCallback(async () => {
+    if (props.load) {
+      return props.load()
+    }
+    const { isAvailable, getFromDataContainer, setToDataContainer, map, createEndpoint } = props
+    if (isAvailable && getFromDataContainer && (await isAvailable(cityCode, languageCode))) {
+      return map(await getFromDataContainer(cityCode, languageCode))
+    }
+
+    const payload = await createEndpoint(await determineApiUrl()).request({
+      city: cityCode,
+      language: languageCode,
+    })
+    if (payload.data && setToDataContainer) {
+      await setToDataContainer(cityCode, languageCode, payload.data)
+    }
+    return payload.data ? map(payload.data) : null
+  }, [cityCode, languageCode, props])
+
+  return useRawLoadCityContent({ cityCode, languageCode, load })
+}
 
 export default useLoadCityContent
