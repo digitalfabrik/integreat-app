@@ -8,13 +8,13 @@ type UseLoadTuNewsElementProps = {
   newsId: string
 }
 
-const useLoadTuNewsElement = ({ newsId }: UseLoadTuNewsElementProps): ReturnType<TunewsModel[]> => {
+const useLoadTuNewsElement = ({ newsId }: UseLoadTuNewsElementProps): ReturnType<TunewsModel> => {
   const load = useCallback(async () => {
     const payload = await createTunewsElementEndpoint(tunewsApiUrl).request({ id: parseInt(newsId, 10) })
     if (!payload.data) {
       throw new Error('Data missing!')
     }
-    return [payload.data]
+    return payload.data
   }, [newsId])
 
   return useLoadAsync(load)
