@@ -2,7 +2,7 @@ import React, { ReactElement } from 'react'
 
 import { NEWS_ROUTE, NewsRouteType, TU_NEWS_TYPE } from 'api-client'
 
-import News from '../components/News'
+import NewsDetail from '../components/NewsDetail'
 import { NavigationProps, RouteProps } from '../constants/NavigationTypes'
 import useHeader from '../hooks/useHeader'
 import { CityContentData } from '../hooks/useLoadCityContent'
@@ -15,10 +15,9 @@ type TuNewsProps = {
   navigation: NavigationProps<NewsRouteType>
   newsId: string
   data: CityContentData<unknown>
-  selectNews: (newsId: string | null) => void
 }
 
-const TuNewsNews = ({ route, navigation, data, selectNews, newsId }: TuNewsProps): ReactElement => {
+const TuNewsDetail = ({ route, navigation, data, newsId }: TuNewsProps): ReactElement => {
   const cityCode = data.city.code
   const languageCode = data.language.code
   const { data: tuNews, ...response } = useLoadTuNewsElement({ newsId })
@@ -34,18 +33,9 @@ const TuNewsNews = ({ route, navigation, data, selectNews, newsId }: TuNewsProps
 
   return (
     <LoadingErrorHandler {...response}>
-      {tuNews && (
-        <News
-          newsId={newsId}
-          languageCode={languageCode}
-          selectedNewsType={TU_NEWS_TYPE}
-          selectNews={selectNews}
-          news={tuNews}
-          refresh={response.refresh}
-        />
-      )}
+      {tuNews && <NewsDetail newsItem={tuNews} language={languageCode} />}
     </LoadingErrorHandler>
   )
 }
 
-export default TuNewsNews
+export default TuNewsDetail
