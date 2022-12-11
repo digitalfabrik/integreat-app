@@ -1,9 +1,6 @@
-import { useCallback } from 'react'
-
 import { createEventsEndpoint, EventModel } from 'api-client'
 
 import { dataContainer } from '../utils/DefaultDataContainer'
-import { determineApiUrl } from '../utils/helpers'
 import useLoadCityContent, { CityContentReturn } from './useLoadCityContent'
 
 type UseLoadEventsProps = {
@@ -11,23 +8,14 @@ type UseLoadEventsProps = {
   languageCode: string
 }
 
-const useLoadEvents = ({ cityCode, languageCode }: UseLoadEventsProps): CityContentReturn<{ events: EventModel[] }> => {
-  const load = useCallback(async () => {
-    if (await dataContainer.eventsAvailable(cityCode, languageCode)) {
-      return { events: await dataContainer.getEvents(cityCode, languageCode) }
-    }
-
-    const payload = await createEventsEndpoint(await determineApiUrl()).request({
-      city: cityCode,
-      language: languageCode,
-    })
-    if (payload.data) {
-      await dataContainer.setEvents(cityCode, languageCode, payload.data)
-    }
-    return payload.data ? { events: payload.data } : null
-  }, [cityCode, languageCode])
-
-  return useLoadCityContent({ cityCode, languageCode, load })
-}
+const useLoadEvents = (params: UseLoadEventsProps): CityContentReturn<{ events: EventModel[] }> =>
+  useLoadCityContent({
+    ...params,
+    createEndpoint: createEventsEndpoint,
+    map: data => ({ events: data }),
+    isAvailable: dataContainer.eventsAvailable,
+    getFromDataContainer: dataContainer.getEvents,
+    setToDataContainer: dataContainer.setEvents,
+  })
 
 export default useLoadEvents
