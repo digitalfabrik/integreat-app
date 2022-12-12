@@ -22,7 +22,7 @@ describe('I18nProvider', () => {
     ${'zh-hans'}     | ${undefined}    | ${'zh-CN'}       | ${'本地信息'}
     ${'de-DE'}       | ${undefined}    | ${'de'}          | ${'Lokale Informationen'}
   `(
-    `should choose correct direction and translation for detected $detectedLanguage and content language $contentLanguage`,
+    `should detect correct language and translation for detected $detectedLanguage and content language $contentLanguage`,
     async ({ detectedLanguage, contentLanguage, expectedLanguage, expectedTranslation }) => {
       mockDetect.mockReturnValue([detectedLanguage])
       const { findByText } = render(
@@ -139,30 +139,5 @@ describe('I18nProvider', () => {
       const helmet = Helmet.peek()
       expect(helmet.linkTags.map(link => link.href)).not.toContain('/fonts/noto-sans-arabic/noto-sans-arabic.css')
     })
-  })
-
-  it('should support language tags with dashes', async () => {
-    mockDetect.mockReturnValue(['zh-hans'])
-    const { findByText } = render(
-      <I18nProvider contentLanguage={undefined}>
-        <Translation>{t => <p>{t('dashboard:localInformation')}</p>}</Translation>
-      </I18nProvider>
-    )
-
-    expect(await findByText('本地信息')).toBeTruthy()
-  })
-
-  it('should support de-DE and select de', async () => {
-    mockDetect.mockReturnValue(['de-DE'])
-    const { findByText, queryByText } = render(
-      <I18nProvider contentLanguage={undefined}>
-        <Translation>{t => <p>{t('dashboard:localInformation')}</p>}</Translation>
-        <Translation>{(t, { i18n }) => <p>{i18n.languages[0]}</p>}</Translation>
-      </I18nProvider>
-    )
-
-    expect(await findByText('Lokale Informationen')).toBeTruthy()
-    expect(await findByText('de')).toBeTruthy()
-    expect(queryByText('de-DE')).toBeFalsy()
   })
 })

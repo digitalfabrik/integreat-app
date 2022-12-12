@@ -143,6 +143,14 @@ const withPayloadProvider =
         if (innerProps) {
           const componentProps = { ...innerProps, dispatch } as S
           // Display previous content if available
+
+          if (noScrollView) {
+            return (
+              <Layout>
+                <Component {...componentProps} />
+              </Layout>
+            )
+          }
           return (
             <LayoutedScrollView refreshControl={<RefreshControl refreshing />}>
               <Component {...componentProps} />

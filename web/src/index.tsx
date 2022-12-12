@@ -1,5 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
+import { createRoot } from 'react-dom/client'
 
 import App from './App'
 import buildConfig from './constants/buildConfig'
@@ -10,7 +11,8 @@ if (container == null) {
   throw new Error("Couldn't find element with id container.")
 }
 
-ReactDOM.render(<App />, container)
+const root = createRoot(container)
+root.render(<App />)
 
 if (buildConfig().splashScreen) {
   // Sets the splash to hidden when the page is rendered

@@ -5,4 +5,4 @@ import 'react-native-url-polyfill/auto'
 
 import App from './App'
 
-AppRegistry.registerComponent('Integreat', () => () => <App />)
+AppRegistry.registerComponent('Integreat', () => App)
