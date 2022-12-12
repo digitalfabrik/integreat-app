@@ -17,6 +17,11 @@ export type JsonLocationType<T> = {
   latitude: T
   longitude: T
 }
+export type JsonOpeningHoursType = {
+  allDay: boolean
+  closed: boolean
+  timeSlots: TimeSlot[]
+}
 type JsonFeaturedImageInstanceType = {
   url: string
   width: number
@@ -72,6 +77,8 @@ export type JsonPoiType = {
   website: string | null
   email: string | null
   phone_number: string | null
+  temporarily_closed: boolean
+  opening_hours: JsonOpeningHoursType[] | null
 }
 export type JsonEventType = {
   id: number
@@ -176,4 +183,9 @@ export type JsonCityType = {
   longitude: number
   aliases: Record<string, { longitude: number; latitude: number }> | null
   bounding_box: number[][] | null
+}
+
+export type TimeSlot = {
+  end: string
+  start: string
 }
