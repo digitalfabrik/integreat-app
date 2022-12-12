@@ -13,6 +13,7 @@ import {
   FeaturedImageModel,
   LanguageModel,
   LocationModel,
+  OpeningHoursModel,
   PoiModel,
 } from 'api-client'
 
@@ -113,6 +114,8 @@ type ContentPoiJsonType = {
   excerpt: string
   location: LocationJsonType<number>
   lastUpdate: string
+  openingHours: OpeningHoursModel[] | null
+  temporarilyClosed: boolean
 }
 type CityCodeType = string
 type LanguageCodeType = string
@@ -402,6 +405,8 @@ class DatabaseConnector {
           name: poi.location.name,
         },
         lastUpdate: poi.lastUpdate.toISOString(),
+        openingHours: poi.openingHours,
+        temporarilyClosed: poi.temporarilyClosed,
       })
     )
     await this.writeFile(this.getContentPath('pois', context), JSON.stringify(jsonModels))
@@ -440,6 +445,8 @@ class DatabaseConnector {
           town: jsonLocation.town,
         }),
         lastUpdate: moment(jsonObject.lastUpdate, moment.ISO_8601),
+        openingHours: jsonObject.openingHours,
+        temporarilyClosed: true,
       })
     })
   }

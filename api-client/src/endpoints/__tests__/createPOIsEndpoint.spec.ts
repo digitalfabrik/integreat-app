@@ -31,6 +31,8 @@ describe('pois', () => {
       latitude: 48.3705449,
     },
     modified_gmt: '2017-01-09 15:30:00',
+    temporarily_closed: false,
+    opening_hours: null,
   })
 
   const createPoiModel = () =>
@@ -55,6 +57,8 @@ describe('pois', () => {
         latitude: 48.3705449,
       }),
       lastUpdate: moment.tz('2017-01-09 15:30:00', 'GMT'),
+      temporarilyClosed: false,
+      openingHours: null,
     })
 
   const poi1 = createPoi(2730)
