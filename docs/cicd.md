@@ -2,21 +2,14 @@
 
 ## Content
 
-- [Deliver a new release by triggering the CI](#triggering-a-delivery-using-the-ci)
 - [Workflows](#workflows)
+- [Failed Delivery](#failed-ci-delivery)
+- [Deliver a new release by triggering the CI](#triggering-a-delivery)
 - [Services](#services)
 - [Fastlane](#fastlane)
 - [Determining the next version](#determining-the-next-version)
 - [Environment variables](#environment-variables-and-dependencies)
 - [Hints and quirks](#hints-and-quirks)
-
-## Triggering a Delivery using the CI
-
-The easiest way to deliver a new build to production or beta is to trigger the corresponding CircleCI workflows _native_beta_delivery_, _native_production_delivery_, _web_beta_delivery_ and _web_production_delivery_:
-
-- Get a CircleCI [Personal API Token](https://circleci.com/docs/2.0/managing-api-tokens/).
-- Trigger a delivery using the tool [trigger-pipeline](../tools/trigger-pipeline.ts):
-  `cd tools && yarn trigger-pipeline trigger <workflow-type> --api-token <api-token>`
 
 ## Workflows
 
@@ -47,6 +40,32 @@ Steps executed if _Version bump_ is checked :heavy_check_mark::
 
 - Jira release
 - Bump version: Bump the version(s) and create a tag and release on github
+
+## Failed Delivery
+
+Sometimes it happens that one or multiple steps of our scheduled CI delivery workflow fails. In that case,
+you should **not** use the `Restart Workflow from Start` (as this will lead to just another failure since the version number
+was bumped before but not in the state of the failed delivery workflow such that it attempts to create the same releases again).
+
+If the reason for a delivery to fail was just a transient error that was fixed in the meantime and doesn't require a code change
+(e.g. network error, API down, problems in the stores), you can use the `Restart Workflow from Failed` and in the best case the workflow should finish now.
+
+In all other cases you can decide if there is an important change that should be delivered asap and can't wait another week.
+Examples are important bug fixes or big new features that should be released on multiple platforms in the same time. In that case
+you can [trigger a delivery](#triggering-a-delivery). It is possible to either just execute _web_beta_delivery_ or
+_native_beta_delivery_ or just run the whole _delivery_ workflow again. If that is not the case, just waiting one week is also fine.
+
+## Triggering a Delivery
+
+Normally the scheduled deliveries (see [workflows](#workflows)) should be frequent enough for most purposes.
+
+If you still have to deliver a new reason for example for an urgent bug fix or because of a failed CI delivery,
+the easiest way to deliver a new build to production or beta is to trigger the corresponding CircleCI workflows
+_native_beta_delivery_, _native_production_delivery_, _web_beta_delivery_ and _web_production_delivery_:
+
+- Get a CircleCI [Personal API Token](https://circleci.com/docs/2.0/managing-api-tokens/).
+- Trigger a delivery using the tool [trigger-pipeline](../tools/trigger-pipeline.ts):
+  `cd tools && yarn trigger-pipeline trigger <workflow-type> --api-token <api-token>`
 
 ## Services
 
