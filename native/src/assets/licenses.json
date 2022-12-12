@@ -1,0 +1,308 @@
+{
+    "@dr.pogodin/react-native-static-server@0.5.5": {
+        "licenses": "MIT",
+        "repository": "https://github.com/birdofpreyru/react-native-static-server",
+        "licenseUrl": "https://github.com/birdofpreyru/react-native-static-server/raw/master/license",
+        "parents": "native"
+    },
+    "@gorhom/bottom-sheet@4.4.2": {
+        "licenses": "MIT",
+        "repository": "https://github.com/gorhom/react-native-bottom-sheet",
+        "licenseUrl": "https://github.com/gorhom/react-native-bottom-sheet/raw/master/LICENSE",
+        "parents": "native"
+    },
+    "@react-native-async-storage/async-storage@1.17.7": {
+        "licenses": "MIT",
+        "repository": "https://github.com/react-native-async-storage/async-storage",
+        "licenseUrl": "https://github.com/react-native-async-storage/async-storage/raw/master/LICENSE",
+        "parents": "native"
+    },
+    "@react-native-clipboard/clipboard@1.10.0": {
+        "licenses": "MIT",
+        "repository": "https://github.com/react-native-clipboard/clipboard",
+        "licenseUrl": "https://github.com/react-native-clipboard/clipboard/raw/master/LICENSE",
+        "parents": "native"
+    },
+    "@react-native-community/geolocation@2.1.0": {
+        "licenses": "MIT",
+        "repository": "https://github.com/react-native-geolocation/react-native-geolocation",
+        "licenseUrl": "https://github.com/react-native-geolocation/react-native-geolocation",
+        "parents": "native"
+    },
+    "@react-native-community/masked-view@0.1.11": {
+        "licenses": "MIT",
+        "repository": "https://github.com/react-native-community/react-native-masked-view",
+        "licenseUrl": "https://github.com/react-native-community/react-native-masked-view",
+        "parents": "native"
+    },
+    "@react-native-community/netinfo@9.3.0": {
+        "licenses": "MIT",
+        "repository": "https://github.com/react-native-netinfo/react-native-netinfo",
+        "licenseUrl": "https://github.com/react-native-netinfo/react-native-netinfo/raw/master/LICENSE",
+        "parents": "native"
+    },
+    "@react-native-community/progress-bar-android@1.0.4": {
+        "licenses": "MIT",
+        "repository": "https://github.com/react-native-community/react-native-progress-bar-android",
+        "licenseUrl": "https://github.com/react-native-community/react-native-progress-bar-android/raw/master/LICENSE",
+        "parents": "native"
+    },
+    "@react-native-community/progress-view@1.3.1": {
+        "licenses": "MIT",
+        "repository": "https://github.com/react-native-community/react-native-progress-view",
+        "licenseUrl": "https://github.com/react-native-community/react-native-progress-view/raw/master/LICENSE",
+        "parents": "native"
+    },
+    "@react-native-firebase/app@13.0.1": {
+        "licenses": "Apache-2.0",
+        "repository": "https://github.com/invertase/react-native-firebase/tree/main/packages/app",
+        "licenseUrl": "https://github.com/invertase/react-native-firebase/tree/main/packages/app/raw/master/LICENSE",
+        "parents": "native"
+    },
+    "@react-native-firebase/messaging@13.0.1": {
+        "licenses": "Apache-2.0",
+        "repository": "https://github.com/invertase/react-native-firebase/tree/main/packages/messaging",
+        "licenseUrl": "https://github.com/invertase/react-native-firebase/tree/main/packages/messaging/raw/master/LICENSE",
+        "parents": "native"
+    },
+    "@react-native-mapbox-gl/maps@8.5.0": {
+        "licenses": "MIT",
+        "repository": "https://github.com/react-native-mapbox-gl/maps",
+        "licenseUrl": "https://github.com/react-native-mapbox-gl/maps/raw/master/LICENSE.md",
+        "parents": "native"
+    },
+    "@react-navigation/elements@1.3.4": {
+        "licenses": "MIT",
+        "repository": "https://github.com/react-navigation/react-navigation",
+        "licenseUrl": "https://github.com/react-navigation/react-navigation/raw/master/LICENSE",
+        "parents": "native"
+    },
+    "@react-navigation/native@6.0.11": {
+        "licenses": "MIT",
+        "repository": "https://github.com/react-navigation/react-navigation",
+        "licenseUrl": "https://github.com/react-navigation/react-navigation/raw/master/LICENSE",
+        "parents": "native"
+    },
+    "@react-navigation/stack@6.2.2": {
+        "licenses": "MIT",
+        "repository": "https://github.com/react-navigation/react-navigation",
+        "licenseUrl": "https://github.com/react-navigation/react-navigation/raw/master/LICENSE",
+        "parents": "native"
+    },
+    "@sentry/react-native@5.0.0-alpha.10": {
+        "licenses": "MIT",
+        "repository": "https://github.com/getsentry/sentry-react-native",
+        "licenseUrl": "https://github.com/getsentry/sentry-react-native/raw/master/LICENSE.md",
+        "parents": "native"
+    },
+    "accordion-collapse-react-native@1.1.1": {
+        "licenses": "MIT",
+        "repository": "https://github.com/marouanekadiri/Accordion-Collapse-react-native",
+        "licenseUrl": "https://github.com/marouanekadiri/Accordion-Collapse-react-native/raw/master/LICENSE.md",
+        "parents": "native"
+    },
+    "events@3.3.0": {
+        "licenses": "MIT",
+        "repository": "https://github.com/Gozala/events",
+        "licenseUrl": "https://github.com/Gozala/events/raw/master/LICENSE",
+        "parents": "native"
+    },
+    "i18next@20.6.1": {
+        "licenses": "MIT",
+        "repository": "https://github.com/i18next/i18next",
+        "licenseUrl": "https://github.com/i18next/i18next/raw/master/LICENSE",
+        "parents": "native"
+    },
+    "metro-resolver@0.66.2": {
+        "licenses": "MIT",
+        "repository": "https://github.com/facebook/metro",
+        "licenseUrl": "https://github.com/facebook/metro",
+        "parents": "native"
+    },
+    "npm-license-crawler@0.2.1": {
+        "licenses": "BSD-3-Clause",
+        "repository": "http://github.com/mwittig/npm-license-crawler",
+        "licenseUrl": "http://github.com/mwittig/npm-license-crawler/raw/master/LICENSE",
+        "parents": "native"
+    },
+    "query-string@7.1.1": {
+        "licenses": "MIT",
+        "repository": "https://github.com/sindresorhus/query-string",
+        "licenseUrl": "https://github.com/sindresorhus/query-string/raw/master/license",
+        "parents": "native"
+    },
+    "react-i18next@11.18.1": {
+        "licenses": "MIT",
+        "repository": "https://github.com/i18next/react-i18next",
+        "licenseUrl": "https://github.com/i18next/react-i18next/raw/master/LICENSE",
+        "parents": "native"
+    },
+    "react-native-blob-util@0.17.0": {
+        "licenses": "MIT",
+        "repository": "https://github.com/RonRadtke/react-native-blob-util",
+        "licenseUrl": "https://github.com/RonRadtke/react-native-blob-util/raw/master/LICENSE",
+        "parents": "native"
+    },
+    "react-native-elements@3.4.2": {
+        "licenses": "MIT",
+        "repository": "https://github.com/react-native-elements/react-native-elements",
+        "licenseUrl": "https://github.com/react-native-elements/react-native-elements/raw/master/LICENSE",
+        "parents": "native"
+    },
+    "react-native-gesture-handler@2.5.0": {
+        "licenses": "MIT",
+        "repository": "https://github.com/software-mansion/react-native-gesture-handler",
+        "licenseUrl": "https://github.com/software-mansion/react-native-gesture-handler/raw/master/LICENSE",
+        "parents": "native"
+    },
+    "react-native-highlight-words@1.0.1": {
+        "licenses": "MIT",
+        "repository": "https://github.com/clauderic/react-native-highlight-words",
+        "licenseUrl": "https://github.com/clauderic/react-native-highlight-words/raw/master/LICENSE",
+        "parents": "native"
+    },
+    "react-native-inappbrowser-reborn@3.7.0": {
+        "licenses": "MIT",
+        "repository": "https://github.com/proyecto26/react-native-inappbrowser",
+        "licenseUrl": "https://github.com/proyecto26/react-native-inappbrowser/raw/master/LICENSE",
+        "parents": "native"
+    },
+    "react-native-localize@2.2.2": {
+        "licenses": "MIT",
+        "repository": "https://github.com/zoontek/react-native-localize",
+        "licenseUrl": "https://github.com/zoontek/react-native-localize/raw/master/LICENSE",
+        "parents": "native"
+    },
+    "react-native-pdf@6.5.0": {
+        "licenses": "MIT",
+        "repository": "https://github.com/wonday/react-native-pdf",
+        "licenseUrl": "https://github.com/wonday/react-native-pdf/raw/master/LICENSE",
+        "parents": "native"
+    },
+    "react-native-permissions@3.6.0": {
+        "licenses": "MIT",
+        "repository": "https://github.com/zoontek/react-native-permissions",
+        "licenseUrl": "https://github.com/zoontek/react-native-permissions/raw/master/LICENSE",
+        "parents": "native"
+    },
+    "react-native-reanimated@2.9.1": {
+        "licenses": "MIT",
+        "repository": "https://github.com/software-mansion/react-native-reanimated",
+        "licenseUrl": "https://github.com/software-mansion/react-native-reanimated/raw/master/LICENSE",
+        "parents": "native"
+    },
+    "react-native-render-html@6.3.4": {
+        "licenses": "BSD-2-Clause",
+        "repository": "https://github.com/meliorence/react-native-render-html",
+        "licenseUrl": "https://github.com/meliorence/react-native-render-html",
+        "parents": "native"
+    },
+    "react-native-safe-area-context@4.3.1": {
+        "licenses": "MIT",
+        "repository": "https://github.com/th3rdwave/react-native-safe-area-context",
+        "licenseUrl": "https://github.com/th3rdwave/react-native-safe-area-context/raw/master/LICENSE",
+        "parents": "native"
+    },
+    "react-native-screens@3.15.0": {
+        "licenses": "MIT",
+        "repository": "https://github.com/software-mansion/react-native-screens",
+        "licenseUrl": "https://github.com/software-mansion/react-native-screens/raw/master/LICENSE",
+        "parents": "native"
+    },
+    "react-native-svg@12.4.1": {
+        "licenses": "MIT",
+        "repository": "https://github.com/react-native-community/react-native-svg",
+        "licenseUrl": "https://github.com/react-native-community/react-native-svg/raw/master/LICENSE",
+        "parents": "native"
+    },
+    "react-native-system-setting@1.7.6": {
+        "licenses": "MIT",
+        "repository": "https://github.com/c19354837/react-native-system-setting",
+        "licenseUrl": "https://github.com/c19354837/react-native-system-setting/raw/master/LICENSE.md",
+        "parents": "native"
+    },
+    "react-native-tab-view@3.1.1": {
+        "licenses": "MIT",
+        "repository": "https://github.com/satya164/react-native-tab-view",
+        "licenseUrl": "https://github.com/satya164/react-native-tab-view/raw/master/LICENSE.md",
+        "parents": "native"
+    },
+    "react-native-url-polyfill@1.3.0": {
+        "licenses": "MIT",
+        "repository": "https://github.com/charpeni/react-native-url-polyfill",
+        "licenseUrl": "https://github.com/charpeni/react-native-url-polyfill/raw/master/LICENSE",
+        "parents": "native"
+    },
+    "react-native-vector-icons@9.2.0": {
+        "licenses": "MIT",
+        "repository": "https://github.com/oblador/react-native-vector-icons",
+        "licenseUrl": "https://github.com/oblador/react-native-vector-icons/raw/master/LICENSE",
+        "parents": "native"
+    },
+    "react-native-webview@11.23.0": {
+        "licenses": "MIT",
+        "repository": "https://github.com/react-native-webview/react-native-webview",
+        "licenseUrl": "https://github.com/react-native-webview/react-native-webview/raw/master/LICENSE",
+        "parents": "native"
+    },
+    "react-native@0.69.7": {
+        "licenses": "MIT",
+        "repository": "github:facebook/react-native",
+        "licenseUrl": "github:facebook/react-native",
+        "parents": "native"
+    },
+    "react-navigation-header-buttons@9.0.1": {
+        "licenses": "MIT",
+        "repository": "https://github.com/vonovak/react-navigation-header-buttons",
+        "licenseUrl": "https://github.com/vonovak/react-navigation-header-buttons/raw/master/LICENSE",
+        "parents": "native"
+    },
+    "react-redux@8.0.2": {
+        "licenses": "MIT",
+        "repository": "github:reduxjs/react-redux",
+        "licenseUrl": "github:reduxjs/react-redux",
+        "parents": "native"
+    },
+    "redux-devtools-extension@2.13.9": {
+        "licenses": "MIT",
+        "repository": "https://github.com/zalmoxisus/redux-devtools-extension",
+        "licenseUrl": "https://github.com/zalmoxisus/redux-devtools-extension",
+        "parents": "native"
+    },
+    "redux-flipper@2.0.2": {
+        "licenses": "MIT",
+        "repository": "https://github.com/jk-gan/redux-flipper",
+        "licenseUrl": "https://github.com/jk-gan/redux-flipper/raw/master/LICENSE",
+        "parents": "native"
+    },
+    "redux-saga@1.1.3": {
+        "licenses": "MIT",
+        "repository": "https://github.com/redux-saga/redux-saga/tree/master/packages/core",
+        "licenseUrl": "https://github.com/redux-saga/redux-saga/tree/master/packages/core/raw/master/LICENSE",
+        "parents": "native"
+    },
+    "redux@4.2.0": {
+        "licenses": "MIT",
+        "repository": "github:reduxjs/redux",
+        "licenseUrl": "github:reduxjs/redux",
+        "parents": "native"
+    },
+    "styled-components@5.3.5": {
+        "licenses": "MIT",
+        "repository": "https://github.com/styled-components/styled-components",
+        "licenseUrl": "https://github.com/styled-components/styled-components",
+        "parents": "native"
+    },
+    "typed-redux-saga@1.5.0": {
+        "licenses": "MIT",
+        "repository": "https://github.com/agiledigital/typed-redux-saga",
+        "licenseUrl": "https://github.com/agiledigital/typed-redux-saga/raw/master/LICENSE",
+        "parents": "native"
+    },
+    "url-parse@1.5.10": {
+        "licenses": "MIT",
+        "repository": "https://github.com/unshiftio/url-parse",
+        "licenseUrl": "https://github.com/unshiftio/url-parse/raw/master/LICENSE",
+        "parents": "native"
+    }
+}
