@@ -45,7 +45,7 @@ const PDFViewModal = ({ route, navigation: _navigation }: PDFViewModalProps): Re
         }}
         trustAllCerts={false}
         onError={() => setError(true)}
-        onPressLink={url => openExternalUrl(url).catch(() => showSnackbar(t('unknownError')))}
+        onPressLink={url => openExternalUrl(url).catch(() => showSnackbar({ text: t('unknownError') }))}
       />
     </View>
   )

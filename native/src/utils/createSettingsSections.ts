@@ -5,6 +5,7 @@ import { openSettings } from 'react-native-permissions'
 
 import { JPAL_TRACKING_ROUTE, LICENSES_ROUTE, SettingsRouteType } from 'api-client'
 
+import { SnackbarType } from '../components/SnackbarContainer'
 import NativeConstants from '../constants/NativeConstants'
 import { NavigationProps } from '../constants/NavigationTypes'
 import buildConfig from '../constants/buildConfig'
@@ -44,7 +45,7 @@ type CreateSettingsSectionsProps = {
   cityCode: string | null | undefined
   navigation: NavigationProps<SettingsRouteType>
   settings: SettingsType
-  showSnackbar: (message: string) => void
+  showSnackbar: (snackbar: SnackbarType) => void
 }
 
 const createSettingsSections = ({
@@ -130,13 +131,13 @@ const createSettingsSections = ({
         onPress: () => {
           const { aboutUrls } = buildConfig()
           const aboutUrl = aboutUrls[languageCode] || aboutUrls.default
-          openExternalUrl(aboutUrl).catch((error: Error) => showSnackbar(error.message))
+          openExternalUrl(aboutUrl).catch((error: Error) => showSnackbar({ text: error.message }))
         },
       },
       {
         accessibilityRole: 'link',
         title: t('privacyPolicy'),
-        onPress: () => openPrivacyPolicy(languageCode).catch((error: Error) => showSnackbar(error.message)),
+        onPress: () => openPrivacyPolicy(languageCode).catch((error: Error) => showSnackbar({ text: error.message })),
       },
       {
         title: t('version', {

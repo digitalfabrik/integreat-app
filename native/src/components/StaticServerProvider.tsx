@@ -1,6 +1,5 @@
 import StaticServer from '@dr.pogodin/react-native-static-server'
 import React, { createContext, ReactElement, ReactNode, useEffect, useState } from 'react'
-import { useDispatch } from 'react-redux'
 
 import { RESOURCE_CACHE_DIR_PATH } from '../utils/DatabaseConnector'
 import { reportError } from '../utils/sentry'
@@ -20,7 +19,6 @@ export const StaticServerContext = createContext('')
 
 const StaticServerProvider = ({ children }: StaticServerProps): ReactElement | null => {
   const [resourceCacheUrl, setResourceCacheUrl] = useState<string | null>(null)
-  const dispatch = useDispatch()
 
   useEffect(() => {
     staticServer.start().then(setResourceCacheUrl).catch(reportError)
@@ -29,15 +27,6 @@ const StaticServerProvider = ({ children }: StaticServerProps): ReactElement | n
       staticServer.stop()
     }
   }, [])
-
-  useEffect(() => {
-    dispatch({
-      type: 'SET_RESOURCE_CACHE_URL',
-      params: {
-        url: resourceCacheUrl,
-      },
-    })
-  }, [dispatch, resourceCacheUrl])
 
   if (resourceCacheUrl === null) {
     return null

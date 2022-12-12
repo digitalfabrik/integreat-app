@@ -68,7 +68,7 @@ const TransparentHeader = ({ navigation, route }: TransparentHeaderProps): React
         title: buildConfig().appName,
       })
     } catch (e) {
-      showSnackbar(t('generalError'))
+      showSnackbar({ text: 'generalError' })
       reportError(e)
     }
   }, [showSnackbar, shareUrl, t])

@@ -35,7 +35,7 @@ const SprungbrettOffer = ({
   const showSnackbar = useSnackbar()
 
   const renderListItem = ({ item }: { item: SprungbrettJobModel }): ReactElement => {
-    const openJob = () => openExternalUrl(item.url).catch((error: Error) => showSnackbar(error.message))
+    const openJob = () => openExternalUrl(item.url).catch((error: Error) => showSnackbar({ text: error.message }))
     return <SprungbrettListItem key={item.id} job={item} openJobInBrowser={openJob} language={language} />
   }
 
