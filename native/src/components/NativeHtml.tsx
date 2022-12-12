@@ -106,7 +106,7 @@ const NativeHtml = React.memo(({ content, cacheDictionary, language }: NativeHtm
         }),
       }}
       renderers={{
-        svg: () => <SimpleImage source={ExternalIcon} />,
+        svg: () => <SimpleImage style={{ marginLeft: 10 }} source={ExternalIcon} />,
       }}
       systemFonts={fonts}
       tagsStyles={{
