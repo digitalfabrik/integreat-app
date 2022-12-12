@@ -64,13 +64,14 @@ const NativeHtml = React.memo(({ content, cacheDictionary, language }: NativeHtm
   const fonts = theme.fonts.native.webviewFont.split(', ')
 
   const addExternalLinkMarkers = (text: string): string => {
-    const links = text.match(/<a.*class="link-external".*?(?=<\/a>)/g)
+    const externalAnchor = /<a.*class="link-external".*?(?=<\/a>)/g // ends before </a>
+    const links = text.match(externalAnchor)
     if (!links) {
       return text
     }
-    const textPieces = text.split(/<a.*class="link-external".*?(?=<\/a>)/g)
+    const textPieces = text.split(externalAnchor)
     const textWithMarkers = links
-      .map((link, i) => `${textPieces[i] + link} <svg></svg>`)
+      .map((link, index) => `${textPieces[index] + link}<svg></svg>`)
       .concat(textPieces.slice(-1)) // one more text piece than links
       .join('')
     return textWithMarkers
@@ -106,7 +107,9 @@ const NativeHtml = React.memo(({ content, cacheDictionary, language }: NativeHtm
         }),
       }}
       renderers={{
-        svg: () => <SimpleImage style={{ marginLeft: 10 }} source={ExternalIcon} />,
+        svg: () => <SimpleImage style={{ marginLeft: 10, height: 14 }} source={ExternalIcon} />,
+        // This renders all SVGs as ExternalIcon which should be fine because they can't be added in the CMS as SVGs
+        // but if we do want to add other ones, then this renderer would break those SVGs and would need to be replaced
       }}
       systemFonts={fonts}
       tagsStyles={{
