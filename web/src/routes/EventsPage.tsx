@@ -9,9 +9,10 @@ import {
   getSlug,
   NotFoundError,
   pathnameFromRouteInformation,
-  useLoadFromEndpoint,
+  useLoadFromEndpoint
 } from 'api-client'
 
+import { mapToICalFormat } from 'api-client/src/utils/eventExport'
 import { CityRouteProps } from '../CityContentSwitcher'
 import Caption from '../components/Caption'
 import CityContentLayout from '../components/CityContentLayout'
@@ -57,7 +58,7 @@ const EventsPage = ({ cityModel, languages, pathname, languageCode, cityCode }: 
     return {
       path: isCurrentLanguage ? pathname : path,
       name,
-      code,
+      code
     }
   })
 
@@ -68,7 +69,7 @@ const EventsPage = ({ cityModel, languages, pathname, languageCode, cityCode }: 
     languageChangePaths,
     route: EVENTS_ROUTE,
     languageCode,
-    toolbar,
+    toolbar
   }
 
   if (loading) {
@@ -86,7 +87,7 @@ const EventsPage = ({ cityModel, languages, pathname, languageCode, cityCode }: 
         type: 'event',
         id: pathname,
         city: cityCode,
-        language: languageCode,
+        language: languageCode
       })
 
     return (
@@ -94,6 +95,16 @@ const EventsPage = ({ cityModel, languages, pathname, languageCode, cityCode }: 
         <FailureSwitcher error={error} />
       </CityContentLayout>
     )
+  }
+
+  const downloadEventAsIcsFile = (event: EventModel) => {
+    const blob = new Blob([mapToICalFormat(event)], { type: 'text/calendar;charset=utf-8' })
+    const linkEl = document.createElement('a')
+    linkEl.href = window.URL.createObjectURL(blob)
+    linkEl.setAttribute('download', 'event.ics')
+    document.body.appendChild(linkEl)
+    linkEl.click()
+    document.body.removeChild(linkEl)
   }
 
   if (event) {
@@ -112,7 +123,9 @@ const EventsPage = ({ cityModel, languages, pathname, languageCode, cityCode }: 
           content={content}
           title={title}
           formatter={formatter}
-          onInternalLinkClick={navigate}>
+          onInternalLinkClick={navigate}
+          buttonText={t('exportAsICal')}
+          onButtonClick={() => downloadEventAsIcsFile(event)}>
           <>
             <PageDetail identifier={t('date')} information={date.toFormattedString(formatter)} />
             {location && <PageDetail identifier={t('address')} information={location.fullAddress} />}
