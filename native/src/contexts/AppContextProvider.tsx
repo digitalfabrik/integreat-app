@@ -1,9 +1,10 @@
-import React, { createContext, ReactElement, useCallback, useMemo, useState } from 'react'
+import React, { createContext, ReactElement, useCallback, useEffect, useMemo, useState } from 'react'
 
 import { useLoadAsync } from 'api-client'
 
 import LoadingErrorHandler from '../routes/LoadingErrorHandler'
 import appSettings from '../utils/AppSettings'
+import { dataContainer } from '../utils/DefaultDataContainer'
 import { reportError } from '../utils/sentry'
 
 type AppContextType = {
@@ -26,6 +27,12 @@ type AppContextProviderProps = {
 const AppContextProvider = ({ children }: AppContextProviderProps): ReactElement => {
   const [cityCode, setCityCode] = useState<string | null>(null)
   const [languageCode, setLanguageCode] = useState<string | null>(null)
+
+  useEffect(() => {
+    if (cityCode) {
+      dataContainer.storeLastUsage(cityCode).catch(reportError)
+    }
+  }, [cityCode])
 
   const loadSettings = useCallback(async () => {
     const { selectedCity, contentLanguage } = await appSettings.loadSettings()
