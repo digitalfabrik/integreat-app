@@ -250,8 +250,8 @@ class DefaultDataContainer implements DataContainer {
     (await this.eventsAvailable(city, language)) &&
     this.languagesAvailable(city)
 
-  storeLastUsage = async (city: string, peeking: boolean): Promise<void> => {
-    await this._databaseConnector.storeLastUsage(new DatabaseContext(city), peeking)
+  storeLastUsage = async (city: string): Promise<void> => {
+    await this._databaseConnector.storeLastUsage(new DatabaseContext(city))
   }
 }
 

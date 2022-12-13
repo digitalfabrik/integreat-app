@@ -298,7 +298,7 @@ class DatabaseConnector {
     }))
   }
 
-  async storeLastUsage(context: DatabaseContext, peeking: boolean): Promise<void> {
+  async storeLastUsage(context: DatabaseContext): Promise<void> {
     const city = context.cityCode
 
     if (!city) {
@@ -311,12 +311,7 @@ class DatabaseConnector {
       languages: metaData[city]?.languages || {},
     }
     await this._storeMetaCities(metaData)
-
-    // Only delete files if not peeking, otherwise if you peek from one city to three different cities, the content of
-    // the non peeking city would be deleted while still open
-    if (!peeking) {
-      await this.deleteOldFiles(context)
-    }
+    await this.deleteOldFiles(context)
   }
 
   async storeCategories(categoriesMap: CategoriesMapModel, context: DatabaseContext): Promise<void> {
