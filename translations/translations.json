@@ -2128,6 +2128,7 @@
       "address": "Adresse",
       "date": "Datum",
       "events": "Veranstaltungen",
+      "exportAsICal": "Als iCal exportieren",
       "currentlyNoEvents": "Es gibt aktuell keine Veranstaltungen.",
       "pageTitle": "Veranstaltungen"
     },
@@ -2170,6 +2171,7 @@
       "address": "Address",
       "date": "Date",
       "events": "Events",
+      "exportAsICal": "export as iCal",
       "currentlyNoEvents": "No events are currently available.",
       "pageTitle": "Events"
     },
@@ -3002,7 +3004,7 @@
       "eventsDescription": "Aktuelle Veranstaltungen und Termine in der Umgebung",
       "offers": "Angebote",
       "offersDescription": "Jobsuche, Praktikasuche und mehr in der Umgebung",
-      "skip": "Überspringen",
+      "skip": "Überspringen", 
       "next": "Weiter"
     },
     "am": {
