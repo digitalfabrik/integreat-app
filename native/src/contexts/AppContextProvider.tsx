@@ -2,6 +2,7 @@ import React, { createContext, ReactElement, useCallback, useEffect, useMemo, us
 
 import { useLoadAsync } from 'api-client'
 
+import useSubscribePushNotifications from '../hooks/useSubscribePushNotifications'
 import LoadingErrorHandler from '../routes/LoadingErrorHandler'
 import appSettings from '../utils/AppSettings'
 import { dataContainer } from '../utils/DefaultDataContainer'
@@ -28,22 +29,27 @@ const AppContextProvider = ({ children }: AppContextProviderProps): ReactElement
   const [cityCode, setCityCode] = useState<string | null>(null)
   const [languageCode, setLanguageCode] = useState<string | null>(null)
 
+  const loadSettings = useCallback(async () => {
+    const settings = await appSettings.loadSettings()
+    const { selectedCity, contentLanguage } = settings
+    if (!contentLanguage) {
+      throw new Error('Language not initialized by I18nProvider!')
+    }
+    setCityCode(selectedCity)
+    setLanguageCode(contentLanguage)
+    return settings
+  }, [])
+
+  const settingsResponse = useLoadAsync(loadSettings)
+  const allowPushNotifications = settingsResponse.data?.allowPushNotifications ?? null
+
   useEffect(() => {
     if (cityCode) {
       dataContainer.storeLastUsage(cityCode).catch(reportError)
     }
   }, [cityCode])
 
-  const loadSettings = useCallback(async () => {
-    const { selectedCity, contentLanguage } = await appSettings.loadSettings()
-    if (!contentLanguage) {
-      throw new Error('Language not initialized by I18nProvider!')
-    }
-    setCityCode(selectedCity)
-    setLanguageCode(contentLanguage)
-  }, [])
-
-  const settingsResponse = useLoadAsync(loadSettings)
+  useSubscribePushNotifications({ cityCode, languageCode, allowPushNotifications })
 
   const changeCityCode = useCallback((cityCode: string): void => {
     setCityCode(cityCode)
