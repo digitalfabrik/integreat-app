@@ -39,19 +39,19 @@ type PageProps = {
  * Display a single page with all necessary information
  */
 const Page = ({
-                title,
-                defaultThumbnailSrc,
-                thumbnailSrcSet,
-                content,
-                lastUpdate,
-                showLastUpdateText = true,
-                lastUpdateFormat,
-                formatter,
-                children,
-                onInternalLinkClick,
-                buttonText,
-                onButtonClick
-              }: PageProps): ReactElement => (
+  title,
+  defaultThumbnailSrc,
+  thumbnailSrcSet,
+  content,
+  lastUpdate,
+  showLastUpdateText = true,
+  lastUpdateFormat,
+  formatter,
+  children,
+  onInternalLinkClick,
+  buttonText,
+  onButtonClick,
+}: PageProps): ReactElement => (
   <>
     {!!defaultThumbnailSrc && <Thumbnail alt='' src={defaultThumbnailSrc} srcSet={thumbnailSrcSet} />}
     <Caption title={title} />
