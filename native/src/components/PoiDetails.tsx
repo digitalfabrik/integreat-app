@@ -16,6 +16,7 @@ import openExternalUrl from '../utils/openExternalUrl'
 import CollapsibleItem from './CollapsibleItem'
 import HorizontalLine from './HorizontalLine'
 import NativeHtml from './NativeHtml'
+import OpeningHours from './OpeningHours'
 import PoiDetailItem from './PoiDetailItem'
 import PoiDetailRow from './PoiDetailRow'
 import SimpleImage from './SimpleImage'
@@ -66,7 +67,7 @@ const PoiDetails = ({ poi, feature, language }: PoiDetailsProps): ReactElement =
   const thumbnail = feature.properties.thumbnail?.replace('-150x150', '') ?? Placeholder
   const { address, postcode, town } = poi.location
   const { distance } = feature.properties
-  const { title, content, email, website, phoneNumber } = poi
+  const { title, content, email, website, phoneNumber, openingHours, temporarilyClosed, isCurrentlyOpen } = poi
 
   const openExternalMaps = () => {
     const externalMapsUrl = getExternalMapsLink(poi.location, Platform.OS)
@@ -79,7 +80,7 @@ const PoiDetails = ({ poi, feature, language }: PoiDetailsProps): ReactElement =
   }
 
   const contactInformationCollapsibleItem = (
-    <CollapsibleItem initExpanded headerText={t('contactInformation')} language={language}>
+    <CollapsibleItem initExpanded headerContent={t('contactInformation')} language={language}>
       <ContentWrapper>
         {!!website && (
           <PoiDetailRow externalUrl={website} accessibilityLabel={t('website')} text={website} icon={WebsiteIcon} />
@@ -123,9 +124,18 @@ const PoiDetails = ({ poi, feature, language }: PoiDetailsProps): ReactElement =
           <HorizontalLine />
         </>
       )}
+      <>
+        <OpeningHours
+          language={language}
+          openingHours={openingHours}
+          isCurrentlyOpen={isCurrentlyOpen}
+          isTemporarilyClosed={temporarilyClosed}
+        />
+        {((openingHours && openingHours.length > 0) || temporarilyClosed) && <HorizontalLine />}
+      </>
       {content.length > 0 && (
         <>
-          <CollapsibleItem initExpanded headerText={t('description')} language={language}>
+          <CollapsibleItem initExpanded headerContent={t('description')} language={language}>
             <ContentWrapper>
               <NativeHtml content={content} language={language} />
             </ContentWrapper>
