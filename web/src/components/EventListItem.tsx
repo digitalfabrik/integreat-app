@@ -28,7 +28,6 @@ const getEventPlaceholder = (path: string): string => {
   return placeholders[pseudoId % placeholders.length]!
 }
 
-
 const EventListItem = ({ event, formatter }: EventListItemProps): ReactElement => (
   <div>
     <ListItem thumbnail={event.thumbnail || getEventPlaceholder(event.path)} title={event.title} path={event.path}>
@@ -40,6 +39,5 @@ const EventListItem = ({ event, formatter }: EventListItemProps): ReactElement =
     </ListItem>
   </div>
 )
-
 
 export default EventListItem
