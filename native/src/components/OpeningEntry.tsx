@@ -48,7 +48,7 @@ const OpeningEntry = ({
   const { t } = useTranslation('pois')
 
   return (
-    <EntryContainer testID={`openingEntryContainer-${weekday}`} language={language}>
+    <EntryContainer language={language}>
       <TimeSlotLabel isCurrentDay={isCurrentDay}>{weekday}</TimeSlotLabel>
       {allDay && <TimeSlotEntry isCurrentDay={isCurrentDay}>{t('openingHoursAllDay')}</TimeSlotEntry>}
       {closed && <TimeSlotEntry isCurrentDay={isCurrentDay}>{t('openingHoursClosed')}</TimeSlotEntry>}
