@@ -1,5 +1,5 @@
 import moment from 'moment'
-import React, { ReactElement, useContext, useEffect, useRef } from 'react'
+import React, { ReactElement, useCallback, useContext, useEffect, useRef } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Link, Navigate, useParams } from 'react-router-dom'
 
@@ -12,6 +12,7 @@ import {
   createCategoryParentsEndpoint,
   NotFoundError,
   ResponseError,
+  useLoadAsync,
   useLoadFromEndpoint,
 } from 'api-client'
 import { config } from 'translations'
@@ -72,15 +73,24 @@ const CategoriesPage = ({ cityModel, pathname, languages, cityCode, languageCode
     cityContentPath: pathname,
   })
 
-  const {
-    data: parents,
-    loading: parentsLoading,
-    error: parentsError,
-  } = useLoadFromEndpoint(createCategoryParentsEndpoint, cmsApiBaseUrl, {
-    city: cityCode,
-    language: languageCode,
-    cityContentPath: pathname,
-  })
+  const requestParents = useCallback(async () => {
+    if (!categoryId) {
+      // The endpoint does not work for the root category, just return an empty array
+      return []
+    }
+    const { data } = await createCategoryParentsEndpoint(cmsApiBaseUrl).request({
+      city: cityCode,
+      language: languageCode,
+      cityContentPath: pathname,
+    })
+
+    if (!data) {
+      throw new Error('Data missing!')
+    }
+
+    return data
+  }, [cityCode, languageCode, pathname, categoryId])
+  const { data: parents, loading: parentsLoading, error: parentsError } = useLoadAsync(requestParents)
 
   if (!categoryId && categories) {
     // The root category is not delivered via our endpoints

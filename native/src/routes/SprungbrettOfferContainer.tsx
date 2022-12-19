@@ -1,13 +1,20 @@
-import React, { ReactElement } from 'react'
+import React, { ReactElement, useCallback } from 'react'
 
-import { ErrorCode, OFFERS_ROUTE, SPRUNGBRETT_OFFER_ROUTE, SprungbrettOfferRouteType } from 'api-client'
+import {
+  ErrorCode,
+  loadSprungbrettJobs,
+  OFFERS_ROUTE,
+  SPRUNGBRETT_OFFER_ROUTE,
+  SprungbrettOfferRouteType,
+} from 'api-client'
 
 import { NavigationProps, RouteProps } from '../constants/NavigationTypes'
 import useCityAppContext from '../hooks/useCityAppContext'
 import useHeader from '../hooks/useHeader'
-import useLoadSprungbrettJobs from '../hooks/useLoadSprungbrettJobs'
+import useLoadExtraCityContent from '../hooks/useLoadExtraCityContent'
 import createNavigateToFeedbackModal from '../navigation/createNavigateToFeedbackModal'
 import urlFromRouteInformation from '../navigation/url'
+import { determineApiUrl } from '../utils/helpers'
 import LoadingErrorHandler from './LoadingErrorHandler'
 import SprungbrettOffer from './SprungbrettOffer'
 
@@ -18,7 +25,11 @@ type SprungbrettOfferContainerProps = {
 
 const SprungbrettOfferContainer = ({ route, navigation }: SprungbrettOfferContainerProps): ReactElement => {
   const { cityCode, languageCode } = useCityAppContext()
-  const { data, ...response } = useLoadSprungbrettJobs({ cityCode, languageCode })
+  const load = useCallback(
+    () => loadSprungbrettJobs({ cityCode, languageCode, baseUrl: determineApiUrl }),
+    [cityCode, languageCode]
+  )
+  const { data, ...response } = useLoadExtraCityContent({ cityCode, languageCode, load })
   const error = data?.city && !data.city.offersEnabled ? ErrorCode.PageNotFound : response.error
 
   const availableLanguages = data?.languages.map(it => it.code)
