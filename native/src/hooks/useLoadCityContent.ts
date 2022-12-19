@@ -132,8 +132,6 @@ const useLoadCityContent = ({ cityCode, languageCode }: Params): CityContentRetu
     setToDataContainer: dataContainer.setPois,
   })
 
-  // TODO update last update
-
   // TODO IGAPP-636: Actually load resource cache
   const loadResourceCache = useCallback(
     async () => dataContainer.getResourceCache(cityCode, languageCode),
