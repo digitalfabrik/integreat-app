@@ -27,6 +27,10 @@ export type UseLoadExtraCityContentReturn<T> = Omit<ReturnType<UseLoadExtraCityC
   error: ErrorCode | Error | null
 }
 
+/**
+ * Hook to load city content and some other data at the same time.
+ * Either a function creating an endpoint or a regular async function to load the data has to be passed.
+ */
 const useLoadExtraCityContent = <T>({
   cityCode,
   languageCode,
