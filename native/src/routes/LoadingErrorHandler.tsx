@@ -1,5 +1,5 @@
 import React, { ReactElement, ReactNode, useEffect, useState } from 'react'
-import { ActivityIndicator, RefreshControl } from 'react-native'
+import { RefreshControl } from 'react-native'
 
 import { ErrorCode, fromError, LanguageModel } from 'api-client'
 
@@ -43,12 +43,14 @@ const LoadingErrorHandler = ({
     if (!timeoutExpired) {
       return <Layout />
     }
-    return (
-      <Layout>
-        {children ? <ActivityIndicator /> : <ProgressSpinner progress={0} />}
-        {children}
-      </Layout>
-    )
+    if (scrollView) {
+      return (
+        <LayoutedScrollView refreshControl={<RefreshControl onRefresh={refresh} refreshing />}>
+          {children ?? <ProgressSpinner progress={0} />}
+        </LayoutedScrollView>
+      )
+    }
+    return <Layout>{children ?? <ProgressSpinner progress={0} />}</Layout>
   }
 
   if (error === ErrorCode.LanguageUnavailable) {

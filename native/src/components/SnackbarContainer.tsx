@@ -35,10 +35,10 @@ const SnackbarContainer = ({ children }: SnackbarContainerProps): ReactElement |
   const displayedSnackbar = enqueuedSnackbars[0]
   const { t } = useTranslation('error')
 
-  const enqueueSnackbar = useCallback(
-    (snackbar: SnackbarType) => setEnqueuedSnackbars(snackbars => [...snackbars, snackbar]),
-    []
-  )
+  const enqueueSnackbar = useCallback((snackbar: SnackbarType) => {
+    // Don't show same snackbar multiple times
+    setEnqueuedSnackbars(snackbars => (snackbars[0]?.text !== snackbar.text ? [...snackbars, snackbar] : snackbars))
+  }, [])
 
   const show = useCallback(() => {
     Animated.timing(translate, {

@@ -1,4 +1,5 @@
-import { useCallback } from 'react'
+import moment from 'moment'
+import { useCallback, useEffect } from 'react'
 
 import {
   CategoriesMapModel,
@@ -17,6 +18,7 @@ import {
 
 import { LanguageResourceCacheStateType } from '../redux/StateType'
 import { dataContainer } from '../utils/DefaultDataContainer'
+import { reportError } from '../utils/sentry'
 import useLoadCities from './useLoadCities'
 import useLoadWithCache from './useLoadWithCache'
 import useOnLanguageChange from './useOnLanguageChange'
@@ -78,6 +80,14 @@ const useLoadCityContent = ({ cityCode, languageCode }: Params): CityContentRetu
     getFromDataContainer: dataContainer.getPois,
     setToDataContainer: dataContainer.setPois,
   })
+
+  useEffect(() => {
+    // Update last update if all data is available.
+    // WARNING: This also means that the last update is updated if everything is just loaded from the cache.
+    if (languagesReturn.data && categoriesReturn.data && eventsReturn.data && poisReturn.data) {
+      dataContainer.setLastUpdate(cityCode, languageCode, moment()).catch(reportError)
+    }
+  }, [languagesReturn, categoriesReturn, eventsReturn, poisReturn, cityCode, languageCode])
 
   // TODO IGAPP-636: Actually load resource cache and move to separate hook
   const loadResourceCache = useCallback(
