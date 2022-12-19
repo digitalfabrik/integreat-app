@@ -143,8 +143,8 @@ describe('DefaultDataContainer', () => {
   it('should return the lastUpdateMoment associated with the context', async () => {
     const defaultDataContainer = new DefaultDataContainer()
     const databaseConnector = new DatabaseConnector()
-    await databaseConnector.storeLastUsage(new DatabaseContext('testCity'), false)
-    await databaseConnector.storeLastUsage(new DatabaseContext('anotherTestCity'), false)
+    await databaseConnector.storeLastUsage(new DatabaseContext('testCity'))
+    await databaseConnector.storeLastUsage(new DatabaseContext('anotherTestCity'))
     const lastUpdate = moment('2011-02-04T00:00:00.000Z')
     const anotherLastUpdate = moment('2012-02-04T00:00:00.000Z')
     await defaultDataContainer.setLastUpdate('testCity', 'de', lastUpdate)
