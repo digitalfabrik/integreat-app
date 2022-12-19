@@ -1,4 +1,4 @@
-import React, { ReactElement, useCallback } from 'react'
+import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
 
@@ -6,13 +6,12 @@ import {
   createOffersEndpoint,
   createSprungbrettJobsEndpoint,
   NotFoundError,
-  Payload,
   SPRUNGBRETT_OFFER_ROUTE,
   SprungbrettJobModel,
   useLoadFromEndpoint,
   OfferModel,
   pathnameFromRouteInformation,
-  getSlug,
+  getSlugFromPath,
 } from 'api-client'
 
 import { CityRouteProps } from '../CityContentSwitcher'
@@ -44,26 +43,19 @@ const SprungbrettOfferPage = ({
   const { viewportSmall } = useWindowDimensions()
   const { t } = useTranslation('sprungbrett')
 
-  const requestOffers = useCallback(
-    async () => createOffersEndpoint(cmsApiBaseUrl).request({ city: cityCode, language: languageCode }),
-    [cityCode, languageCode]
-  )
-  const { data: offers, loading: offersLoading, error: offersError } = useLoadFromEndpoint(requestOffers)
+  const {
+    data: offers,
+    loading: offersLoading,
+    error: offersError,
+  } = useLoadFromEndpoint(createOffersEndpoint, cmsApiBaseUrl, { city: cityCode, language: languageCode })
 
   const offer = offers?.find((offer: OfferModel) => offer.alias === 'sprungbrett')
-
-  const requestSprungbrettOffer = useCallback(async () => {
-    if (!offer) {
-      return new Payload(false, null, [])
-    }
-    return createSprungbrettJobsEndpoint(offer.path).request()
-  }, [offer])
 
   const {
     data: sprungbrettJobs,
     loading: sprungbrettLoading,
     error: sprungbrettError,
-  } = useLoadFromEndpoint(requestSprungbrettOffer)
+  } = useLoadFromEndpoint(createSprungbrettJobsEndpoint, offer?.path ?? '', undefined)
 
   const toolbar = (openFeedback: (rating: FeedbackRatingType) => void) => (
     <CityContentToolbar openFeedbackModal={openFeedback} viewportSmall={viewportSmall} />
@@ -78,7 +70,7 @@ const SprungbrettOfferPage = ({
   const locationLayoutParams = {
     cityModel,
     viewportSmall,
-    feedbackTargetInformation: offer ? { slug: getSlug(offer.path) } : null,
+    feedbackTargetInformation: offer ? { slug: getSlugFromPath(offer.path) } : null,
     languageChangePaths,
     route: SPRUNGBRETT_OFFER_ROUTE,
     languageCode,
@@ -95,8 +87,8 @@ const SprungbrettOfferPage = ({
 
   if (!sprungbrettJobs || !offer) {
     const error =
-      sprungbrettError ||
       offersError ||
+      sprungbrettError ||
       new NotFoundError({
         type: 'offer',
         id: pathname,

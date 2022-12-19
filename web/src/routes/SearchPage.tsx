@@ -1,4 +1,4 @@
-import React, { ReactElement, useCallback, useMemo, useState } from 'react'
+import React, { ReactElement, useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useLocation, useNavigate } from 'react-router-dom'
 
@@ -29,15 +29,14 @@ const SearchPage = ({ cityModel, languages, cityCode, languageCode, pathname }: 
   const { t } = useTranslation('search')
   const navigate = useNavigate()
 
-  const requestCategories = useCallback(
-    async () =>
-      createCategoriesEndpoint(cmsApiBaseUrl).request({
-        city: cityCode,
-        language: languageCode,
-      }),
-    [cityCode, languageCode]
-  )
-  const { data: categories, loading, error: categoriesError } = useLoadFromEndpoint(requestCategories)
+  const {
+    data: categories,
+    loading,
+    error: categoriesError,
+  } = useLoadFromEndpoint(createCategoriesEndpoint, cmsApiBaseUrl, {
+    city: cityCode,
+    language: languageCode,
+  })
   const searchResults = useMemo(
     () => (categories ? searchCategories(categories, query).map(it => ({ ...it, subCategories: [] })) : null),
     [categories, query]

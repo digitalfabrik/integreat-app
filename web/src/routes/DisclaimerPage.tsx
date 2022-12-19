@@ -1,11 +1,10 @@
-import React, { ReactElement, useCallback, useContext } from 'react'
+import React, { ReactElement, useContext } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router-dom'
 
 import {
   createDisclaimerEndpoint,
   DISCLAIMER_ROUTE,
-  getSlug,
   pathnameFromRouteInformation,
   useLoadFromEndpoint,
 } from 'api-client'
@@ -28,16 +27,14 @@ const DisclaimerPage = ({ cityCode, languageCode, pathname, languages, cityModel
   const navigate = useNavigate()
   const { t } = useTranslation('disclaimer')
 
-  const requestDisclaimer = useCallback(
-    async () =>
-      createDisclaimerEndpoint(cmsApiBaseUrl).request({
-        city: cityCode,
-        language: languageCode,
-      }),
-    [cityCode, languageCode]
-  )
-
-  const { data: disclaimer, loading, error: disclaimerError } = useLoadFromEndpoint(requestDisclaimer)
+  const {
+    data: disclaimer,
+    loading,
+    error: disclaimerError,
+  } = useLoadFromEndpoint(createDisclaimerEndpoint, cmsApiBaseUrl, {
+    city: cityCode,
+    language: languageCode,
+  })
 
   const toolbar = (openFeedback: (rating: FeedbackRatingType) => void) => (
     <CityContentToolbar openFeedbackModal={openFeedback} viewportSmall={viewportSmall} />
@@ -51,7 +48,7 @@ const DisclaimerPage = ({ cityCode, languageCode, pathname, languages, cityModel
   const locationLayoutParams = {
     cityModel,
     viewportSmall,
-    feedbackTargetInformation: disclaimer ? { slug: getSlug(disclaimer.path) } : null,
+    feedbackTargetInformation: disclaimer ? { slug: disclaimer.slug } : null,
     languageChangePaths,
     route: DISCLAIMER_ROUTE,
     languageCode,
