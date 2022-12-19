@@ -45,7 +45,7 @@ const LoadingErrorHandler = ({
     }
     if (scrollView) {
       return (
-        <LayoutedScrollView refreshControl={<RefreshControl onRefresh={refresh} refreshing />}>
+        <LayoutedScrollView refreshControl={<RefreshControl onRefresh={refresh} refreshing={!!children} />}>
           {children ?? <ProgressSpinner progress={0} />}
         </LayoutedScrollView>
       )
