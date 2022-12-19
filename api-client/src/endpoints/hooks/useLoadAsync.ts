@@ -1,9 +1,7 @@
 import { useCallback, useEffect, useState } from 'react'
 
-type Request<T> = () => Promise<T>
-
 export const loadAsync = async <T>(
-  request: Request<T>,
+  request: () => Promise<T>,
   setData: (data: T | null) => void,
   setError: (error: Error | null) => void,
   setLoading: (loading: boolean) => void
@@ -29,14 +27,17 @@ export type Return<T> = {
   refresh: () => void
 }
 
-export const useLoadAsync = <T>(request: Request<T>): Return<T> => {
+export const useLoadAsync = <T>(request: (refresh: boolean) => Promise<T>): Return<T> => {
   const [data, setData] = useState<T | null>(null)
   const [error, setError] = useState<Error | null>(null)
   const [loading, setLoading] = useState<boolean>(true)
 
-  const load = useCallback(() => {
-    loadAsync<T>(request, setData, setError, setLoading).catch(setError)
-  }, [request])
+  const load = useCallback(
+    (refresh = false) => {
+      loadAsync<T>(() => request(refresh), setData, setError, setLoading).catch(setError)
+    },
+    [request]
+  )
 
   useEffect(() => {
     setData(null)
@@ -44,7 +45,7 @@ export const useLoadAsync = <T>(request: Request<T>): Return<T> => {
     load()
   }, [load])
 
-  return { data, error, loading, refresh: load }
+  return { data, error, loading, refresh: useCallback(() => load(true), [load]) }
 }
 
 export default useLoadAsync
