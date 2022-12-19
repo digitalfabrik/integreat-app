@@ -10,7 +10,7 @@ import { StaticServerContext } from '../components/StaticServerProvider'
 import { NavigationProps, RouteProps } from '../constants/NavigationTypes'
 import useCityAppContext from '../hooks/useCityAppContext'
 import useHeader from '../hooks/useHeader'
-import useLoadCategories from '../hooks/useLoadCategories'
+import useLoadCityContent from '../hooks/useLoadCityContent'
 import useNavigate from '../hooks/useNavigate'
 import useOnLanguageChange from '../hooks/useOnLanguageChange'
 import createNavigateToFeedbackModal from '../navigation/createNavigateToFeedbackModal'
@@ -32,8 +32,7 @@ const CategoriesContainer = ({ navigation, route }: CategoriesContainerProps): R
   const resourceCacheUrl = useContext(StaticServerContext)
   const { navigateTo } = useNavigate()
 
-  const response = useLoadCategories({ cityCode, languageCode })
-  const { data } = response
+  const { data, ...response } = useLoadCityContent({ cityCode, languageCode })
 
   const path = route.params.path ?? cityContentPath({ cityCode, languageCode })
   const category = data?.categories.findCategoryByPath(path)

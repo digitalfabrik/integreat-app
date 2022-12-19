@@ -6,7 +6,7 @@ import { StaticServerContext } from '../components/StaticServerProvider'
 import { NavigationProps, RouteProps } from '../constants/NavigationTypes'
 import useCityAppContext from '../hooks/useCityAppContext'
 import useHeader from '../hooks/useHeader'
-import useLoadEvents from '../hooks/useLoadEvents'
+import useLoadCityContent from '../hooks/useLoadCityContent'
 import useNavigate from '../hooks/useNavigate'
 import useOnLanguageChange from '../hooks/useOnLanguageChange'
 import createNavigateToFeedbackModal from '../navigation/createNavigateToFeedbackModal'
@@ -25,8 +25,7 @@ const EventsContainer = ({ navigation, route }: EventsContainerProps): ReactElem
   const { navigateTo } = useNavigate()
   const resourceCacheUrl = useContext(StaticServerContext)
 
-  const response = useLoadEvents({ cityCode, languageCode })
-  const { data, refresh } = response
+  const { data, ...response } = useLoadCityContent({ cityCode, languageCode })
 
   const currentEvent = slug ? data?.events.find(it => it.slug === slug) : undefined
   const availableLanguages = currentEvent
@@ -65,7 +64,7 @@ const EventsContainer = ({ navigation, route }: EventsContainerProps): ReactElem
           resourceCacheUrl={resourceCacheUrl}
           navigateTo={navigateTo}
           navigateToFeedback={createNavigateToFeedbackModal(navigation)}
-          refresh={refresh}
+          refresh={response.refresh}
         />
       )}
     </LoadingErrorHandler>

@@ -13,7 +13,7 @@ import LoadingErrorHandler from './LoadingErrorHandler'
 type TuNewsProps = {
   route: RouteProps<NewsRouteType>
   navigation: NavigationProps<NewsRouteType>
-  data: CityContentData<unknown>
+  data: CityContentData
   selectNews: (newsId: string | null) => void
 }
 

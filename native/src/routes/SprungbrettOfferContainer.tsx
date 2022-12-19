@@ -39,8 +39,8 @@ const SprungbrettOfferContainer = ({ route, navigation }: SprungbrettOfferContai
     <LoadingErrorHandler {...response} error={error}>
       {data && (
         <SprungbrettOffer
-          title={data.sprungbrettOffer.title}
-          jobs={data.sprungbrettJobs}
+          title={data.extra.sprungbrettOffer.title}
+          jobs={data.extra.sprungbrettJobs}
           language={languageCode}
           navigateToFeedback={navigateToFeedback}
           refresh={response.refresh}

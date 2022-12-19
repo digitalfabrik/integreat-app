@@ -7,7 +7,7 @@ import { CityContentData } from './useLoadCityContent'
 type UseHeaderProps<T extends RoutesType> = {
   navigation: NavigationProps<T>
   route: RouteProps<T>
-  data: CityContentData<unknown> | null
+  data: CityContentData | null
   availableLanguages?: string[]
   isHome?: boolean
   shareUrl?: string

@@ -6,7 +6,7 @@ import { SearchRouteType } from 'api-client'
 
 import { NavigationProps } from '../constants/NavigationTypes'
 import useCityAppContext from '../hooks/useCityAppContext'
-import useLoadCategories from '../hooks/useLoadCategories'
+import useLoadCityContent from '../hooks/useLoadCityContent'
 import useNavigate from '../hooks/useNavigate'
 import LoadingErrorHandler from './LoadingErrorHandler'
 import SearchModal from './SearchModal'
@@ -17,7 +17,7 @@ export type SearchModalContainerProps = {
 
 const SearchModalContainer = ({ navigation }: SearchModalContainerProps): ReactElement | null => {
   const { cityCode, languageCode } = useCityAppContext()
-  const { data, ...response } = useLoadCategories({ cityCode, languageCode })
+  const { data, ...response } = useLoadCityContent({ cityCode, languageCode })
   const theme = useContext(ThemeContext)
   const { t } = useTranslation('search')
   const { navigateTo } = useNavigate()
