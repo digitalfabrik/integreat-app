@@ -1,11 +1,18 @@
 import React, { ReactElement } from 'react'
 
-import { ErrorCode, EXTERNAL_OFFER_ROUTE, OFFERS_ROUTE, OffersRouteType, SPRUNGBRETT_OFFER_ROUTE } from 'api-client'
+import {
+  createOffersEndpoint,
+  ErrorCode,
+  EXTERNAL_OFFER_ROUTE,
+  OFFERS_ROUTE,
+  OffersRouteType,
+  SPRUNGBRETT_OFFER_ROUTE,
+} from 'api-client'
 
 import { NavigationProps, RouteProps } from '../constants/NavigationTypes'
 import useCityAppContext from '../hooks/useCityAppContext'
 import useHeader from '../hooks/useHeader'
-import useLoadOffers from '../hooks/useLoadOffers'
+import useLoadExtraCityContent from '../hooks/useLoadExtraCityContent'
 import useNavigate from '../hooks/useNavigate'
 import useSnackbar from '../hooks/useSnackbar'
 import TileModel from '../models/TileModel'
@@ -23,7 +30,11 @@ type OffersContainerProps = {
 const OffersContainer = ({ navigation, route }: OffersContainerProps): ReactElement => {
   const showSnackbar = useSnackbar()
   const { cityCode, languageCode } = useCityAppContext()
-  const { data, ...response } = useLoadOffers({ cityCode, languageCode })
+  const { data, ...response } = useLoadExtraCityContent({
+    cityCode,
+    languageCode,
+    createEndpoint: createOffersEndpoint,
+  })
   const error = data?.city && !data.city.offersEnabled ? ErrorCode.PageNotFound : response.error
   const { navigateTo } = useNavigate()
 
@@ -42,7 +53,7 @@ const OffersContainer = ({ navigation, route }: OffersContainerProps): ReactElem
       })
     } else if (isExternalUrl) {
       openExternalUrl(path).catch(error => showSnackbar({ text: error.message }))
-    } else if (data?.offers.find(offer => offer.title === title)?.alias === SPRUNGBRETT_OFFER_ROUTE) {
+    } else if (data?.extra.find(offer => offer.title === title)?.alias === SPRUNGBRETT_OFFER_ROUTE) {
       navigateTo({ route: SPRUNGBRETT_OFFER_ROUTE, cityCode, languageCode })
     }
   }
@@ -60,7 +71,7 @@ const OffersContainer = ({ navigation, route }: OffersContainerProps): ReactElem
     <LoadingErrorHandler {...response} error={error} scrollView>
       {data?.city.offersEnabled && (
         <Offers
-          offers={data.offers}
+          offers={data.extra}
           navigateToOffer={navigateToOffer}
           navigateToFeedback={navigateToFeedback}
           languageCode={languageCode}

@@ -21,12 +21,7 @@ type NewsContainerProps = {
 const NewsContainer = ({ route, navigation }: NewsContainerProps): ReactElement | null => {
   const { newsType, newsId } = route.params
   const { cityCode, languageCode } = useCityAppContext()
-  const unusedLoad = useCallback(async () => ({ unused: true }), [])
-  const { data, ...response } = useLoadCityContent({
-    cityCode,
-    languageCode,
-    load: unusedLoad,
-  })
+  const { data, ...response } = useLoadCityContent({ cityCode, languageCode })
   const selectNews = useCallback((newsId: string | null) => navigation.setParams({ newsId }), [navigation])
   const deselectNews = useCallback(() => selectNews(null), [selectNews])
 

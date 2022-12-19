@@ -5,7 +5,7 @@ import { POIS_ROUTE, PoisRouteType } from 'api-client'
 import { NavigationProps, RouteProps } from '../constants/NavigationTypes'
 import useCityAppContext from '../hooks/useCityAppContext'
 import useHeader from '../hooks/useHeader'
-import useLoadPois from '../hooks/useLoadPois'
+import useLoadCityContent from '../hooks/useLoadCityContent'
 import useOnLanguageChange from '../hooks/useOnLanguageChange'
 import urlFromRouteInformation from '../navigation/url'
 import LoadingErrorHandler from './LoadingErrorHandler'
@@ -20,8 +20,7 @@ const PoisContainer = ({ navigation, route }: PoisContainerProps): ReactElement 
   const { slug } = route.params
   const { cityCode, languageCode } = useCityAppContext()
 
-  const response = useLoadPois({ cityCode, languageCode })
-  const { data } = response
+  const { data, ...response } = useLoadCityContent({ cityCode, languageCode })
 
   const currentPoi = slug ? data?.pois.find(it => it.slug === slug) : undefined
   const availableLanguages = currentPoi

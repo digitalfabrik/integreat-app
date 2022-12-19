@@ -14,7 +14,7 @@ type TuNewsProps = {
   route: RouteProps<NewsRouteType>
   navigation: NavigationProps<NewsRouteType>
   newsId: string
-  data: CityContentData<unknown>
+  data: CityContentData
 }
 
 const TuNewsDetail = ({ route, navigation, data, newsId }: TuNewsProps): ReactElement => {

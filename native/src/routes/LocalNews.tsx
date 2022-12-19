@@ -14,7 +14,7 @@ type LocalNewsProps = {
   route: RouteProps<NewsRouteType>
   navigation: NavigationProps<NewsRouteType>
   newsId: string | null
-  data: CityContentData<unknown>
+  data: CityContentData
   selectNews: (newsId: string | null) => void
 }
 
