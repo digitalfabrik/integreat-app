@@ -16,16 +16,14 @@ export default (baseUrl: string): Endpoint<ParamsType, Array<CategoryModel>> =>
   new EndpointBuilder<ParamsType, Array<CategoryModel>>(CATEGORY_PARENTS_ENDPOINT_NAME)
     .withParamsToUrlMapper((params: ParamsType): string => {
       const { city, language, cityContentPath } = params
-      const basePath = `/${city}/${language}`
-
-      if (basePath === cityContentPath) {
-        throw new Error('This endpoint does not support the root category!')
-      }
-
       return `${baseUrl}/${city}/${language}/wp-json/extensions/v3/parents?url=${cityContentPath}`
     })
     .withMapper((json: Array<JsonCategoryType>, params: ParamsType): Array<CategoryModel> => {
       const basePath = `/${params.city}/${params.language}`
+      if (params.cityContentPath === basePath) {
+        // The endpoint does not work for the root category, just return an empty array
+        return []
+      }
       const parents = json.map(category => mapCategoryJson(category, basePath))
       parents.push(
         new CategoryModel({

@@ -2,7 +2,7 @@ import React, { ReactElement, ReactNode, useCallback, useEffect, useState } from
 import InfiniteScroll from 'react-infinite-scroller'
 import styled from 'styled-components'
 
-import { loadFromEndpoint, Payload } from 'api-client'
+import { loadAsync } from 'api-client'
 
 import FailureSwitcher from './FailureSwitcher'
 
@@ -18,7 +18,7 @@ const StyledList = styled.div`
 `
 
 type InfiniteScrollListProps<T> = {
-  loadPage: (page: number) => Promise<Payload<T[]>>
+  loadPage: (page: number) => Promise<T[]>
   noItemsMessage: string
   renderItem: (item: T) => ReactNode
   defaultPage: number
@@ -51,7 +51,7 @@ const InfiniteScrollList = <T,>({
           }
         }
       }
-      await loadFromEndpoint(request, addData, setError, setLoading)
+      await loadAsync(request, addData, setError, setLoading)
     }
   }, [defaultPage, page, hasMore, itemsPerPage, loadPage])
 

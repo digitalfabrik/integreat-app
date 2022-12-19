@@ -34,13 +34,20 @@ const TuNewsPage = ({ cityCode, languageCode, cityModel, languages }: CityRouteP
   const { t } = useTranslation('news')
   const { viewportSmall } = useWindowDimensions()
 
-  const loadTuNewsLanguages = useCallback(async () => createTunewsLanguagesEndpoint(tunewsApiBaseUrl).request(), [])
-  const { data: tuNewsLanguages, error } = useLoadFromEndpoint(loadTuNewsLanguages)
+  const { data: tuNewsLanguages, error } = useLoadFromEndpoint(
+    createTunewsLanguagesEndpoint,
+    tunewsApiBaseUrl,
+    undefined
+  )
 
   const loadTuNews = useCallback(
     async (page: number) => {
       const endpoint = createTunewsEndpoint(tunewsApiBaseUrl)
-      return endpoint.request({ language: languageCode, page, count: DEFAULT_COUNT })
+      const { data } = await endpoint.request({ language: languageCode, page, count: DEFAULT_COUNT })
+      if (!data) {
+        throw new Error('Data missing!')
+      }
+      return data
     },
     [languageCode]
   )
