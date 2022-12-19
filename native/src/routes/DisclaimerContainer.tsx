@@ -1,13 +1,13 @@
 import React, { ReactElement, useContext } from 'react'
 
-import { DISCLAIMER_ROUTE, DisclaimerRouteType } from 'api-client'
+import { createDisclaimerEndpoint, DISCLAIMER_ROUTE, DisclaimerRouteType } from 'api-client'
 
 import SiteHelpfulBox from '../components/SiteHelpfulBox'
 import { StaticServerContext } from '../components/StaticServerProvider'
 import { NavigationProps, RouteProps } from '../constants/NavigationTypes'
 import useCityAppContext from '../hooks/useCityAppContext'
 import useHeader from '../hooks/useHeader'
-import useLoadDisclaimer from '../hooks/useLoadDisclaimer'
+import useLoadExtraCityContent from '../hooks/useLoadExtraCityContent'
 import createNavigateToFeedbackModal from '../navigation/createNavigateToFeedbackModal'
 import urlFromRouteInformation from '../navigation/url'
 import Disclaimer from './Disclaimer'
@@ -21,7 +21,11 @@ type DisclaimerContainerProps = {
 const DisclaimerContainer = ({ navigation, route }: DisclaimerContainerProps): ReactElement => {
   const { cityCode, languageCode } = useCityAppContext()
   const resourceCacheUrl = useContext(StaticServerContext)
-  const { data, ...response } = useLoadDisclaimer({ cityCode, languageCode })
+  const { data, ...response } = useLoadExtraCityContent({
+    createEndpoint: createDisclaimerEndpoint,
+    cityCode,
+    languageCode,
+  })
 
   const availableLanguages = data?.languages.map(it => it.code)
   const shareUrl = urlFromRouteInformation({ route: DISCLAIMER_ROUTE, languageCode, cityCode })
@@ -33,7 +37,7 @@ const DisclaimerContainer = ({ navigation, route }: DisclaimerContainerProps): R
       cityCode,
       language: languageCode,
       isPositiveFeedback,
-      slug: data?.disclaimer.slug,
+      slug: data?.extra.slug,
     })
   }
 
@@ -41,7 +45,7 @@ const DisclaimerContainer = ({ navigation, route }: DisclaimerContainerProps): R
     <LoadingErrorHandler {...response} scrollView>
       {data && (
         <>
-          <Disclaimer resourceCacheUrl={resourceCacheUrl} disclaimer={data.disclaimer} language={languageCode} />
+          <Disclaimer resourceCacheUrl={resourceCacheUrl} disclaimer={data.extra} language={languageCode} />
           <SiteHelpfulBox navigateToFeedback={navigateToFeedback} />
         </>
       )}

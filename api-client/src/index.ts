@@ -7,7 +7,7 @@ import {
 } from './endpoints/createFeedbackEndpoint'
 import { Status as ImportedShelterContactStatus } from './endpoints/createShelterContactEndpoint'
 import { FilterProps as ImportedShelterFilterProps } from './endpoints/createShelterEndpoint'
-import { ReturnType as ImportedReturnType } from './endpoints/hooks/useLoadFromEndpoint'
+import { Return as ImportedReturnType } from './endpoints/hooks/useLoadAsync'
 
 export type ShelterContactStatus = ImportedShelterContactStatus
 export type ShelterFilterProps = ImportedShelterFilterProps

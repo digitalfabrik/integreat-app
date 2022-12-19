@@ -10,7 +10,7 @@ import {
 } from 'api-client'
 
 import { determineApiUrl } from '../utils/helpers'
-import useLoadCityContent, { CityContentReturn } from './useLoadCityContent'
+import useLoadExtraCityContent, { UseLoadExtraCityContentReturn } from './useLoadExtraCityContent'
 
 type UseLoadOffersProps = {
   cityCode: string
@@ -20,7 +20,7 @@ type UseLoadOffersProps = {
 const useLoadSprungbrettJobs = ({
   cityCode,
   languageCode,
-}: UseLoadOffersProps): CityContentReturn<{
+}: UseLoadOffersProps): UseLoadExtraCityContentReturn<{
   offers: OfferModel[]
   sprungbrettOffer: OfferModel
   sprungbrettJobs: SprungbrettJobModel[]
@@ -47,12 +47,15 @@ const useLoadSprungbrettJobs = ({
     }
 
     const sprungbrettJobsPayload = await createSprungbrettJobsEndpoint(sprungbrettOffer.path).request(undefined)
-    return sprungbrettJobsPayload.data
-      ? { offers: offersPayload.data, sprungbrettOffer, sprungbrettJobs: sprungbrettJobsPayload.data }
-      : null
+
+    if (!sprungbrettJobsPayload.data) {
+      throw new Error('Data missing!')
+    }
+
+    return { offers: offersPayload.data, sprungbrettOffer, sprungbrettJobs: sprungbrettJobsPayload.data }
   }, [cityCode, languageCode])
 
-  return useLoadCityContent({ cityCode, languageCode, load })
+  return useLoadExtraCityContent({ cityCode, languageCode, load })
 }
 
 export default useLoadSprungbrettJobs
