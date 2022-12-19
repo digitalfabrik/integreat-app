@@ -143,7 +143,6 @@ describe('useNavigateToDeepLink', () => {
       mockBuildConfig({ introSlides: false, fixedCity: null })
       renderMockComponent(url, selectedCity)
 
-      // /${selectedCity}/${language}
       await waitFor(() => expect(navigation.replace).toHaveBeenCalledTimes(1))
       expect(navigation.replace).toHaveBeenCalledWith(CATEGORIES_ROUTE, {})
 
@@ -386,7 +385,7 @@ describe('useNavigateToDeepLink', () => {
       await appSettings.setJpalTrackingCode('outdated-tracking-code')
       renderMockComponent(url)
 
-      waitFor(async () => {
+      await waitFor(async () => {
         const { jpalTrackingEnabled, jpalTrackingCode } = await appSettings.loadSettings()
         expect(jpalTrackingEnabled).toBeNull()
         expect(jpalTrackingCode).toBe('abcdef123456')
@@ -401,7 +400,7 @@ describe('useNavigateToDeepLink', () => {
       await appSettings.setJpalTrackingCode('outdated-tracking-code')
       renderMockComponent(url)
 
-      waitFor(async () => {
+      await waitFor(async () => {
         const { jpalTrackingEnabled, jpalTrackingCode } = await appSettings.loadSettings()
         expect(jpalTrackingEnabled).toBe(false)
         expect(jpalTrackingCode).toBe('outdated-tracking-code')
