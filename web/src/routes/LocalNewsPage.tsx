@@ -1,4 +1,4 @@
-import React, { ReactElement, useCallback, useContext } from 'react'
+import React, { ReactElement, useContext } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useNavigate, useParams } from 'react-router-dom'
 
@@ -34,11 +34,11 @@ const LocalNewsPage = ({ cityModel, languages, pathname, languageCode, cityCode 
   const navigate = useNavigate()
   const { viewportSmall } = useWindowDimensions()
 
-  const requestLocalNews = useCallback(
-    async () => createLocalNewsEndpoint(cmsApiBaseUrl).request({ city: cityCode, language: languageCode }),
-    [cityCode, languageCode]
-  )
-  const { data: localNews, loading, error: newsError } = useLoadFromEndpoint(requestLocalNews)
+  const {
+    data: localNews,
+    loading,
+    error: newsError,
+  } = useLoadFromEndpoint(createLocalNewsEndpoint, cmsApiBaseUrl, { city: cityCode, language: languageCode })
 
   const newsModel = newsId && localNews?.find((it: LocalNewsModel) => it.id.toString() === newsId)
 

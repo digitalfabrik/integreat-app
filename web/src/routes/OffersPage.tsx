@@ -32,11 +32,11 @@ const OffersPage = ({ cityModel, cityCode, languageCode, languages }: CityRouteP
     <CityContentToolbar openFeedbackModal={openFeedback} viewportSmall={viewportSmall} />
   )
 
-  const requestOffers = useCallback(
-    async () => createOffersEndpoint(cmsApiBaseUrl).request({ city: cityCode, language: languageCode }),
-    [cityCode, languageCode]
-  )
-  const { data: offers, loading, error: offersError } = useLoadFromEndpoint(requestOffers)
+  const {
+    data: offers,
+    loading,
+    error: offersError,
+  } = useLoadFromEndpoint(createOffersEndpoint, cmsApiBaseUrl, { city: cityCode, language: languageCode })
 
   const toTileModels = useCallback(
     (offers: Array<OfferModel>): Array<TileModel> =>
