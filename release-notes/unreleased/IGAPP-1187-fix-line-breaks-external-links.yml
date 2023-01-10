@@ -1,0 +1,8 @@
+issue_key: IGAPP-1187
+show_in_stores: true
+platforms:
+  - web
+  - android
+  - ios
+en: Show external links without surrounding line breaks
+de: Externe Links werden nicht mehr auf eine neue Zeile gesetzt
