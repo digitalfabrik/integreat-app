@@ -8,6 +8,7 @@ import { OpeningHoursModel } from 'api-client'
 
 import { contentDirection } from '../constants/contentDirection'
 import CollapsibleItem from './CollapsibleItem'
+import HorizontalLine from './HorizontalLine'
 import OpeningEntry from './OpeningEntry'
 
 const OpeningLabel = styled.Text<{ isOpened: boolean; direction: string }>`
@@ -67,28 +68,36 @@ const OpeningHours = ({
     </TitleContainer>
   )
 
+  if (isTemporarilyClosed) {
+    return (
+      <>
+        <TitleContainer language={language}>{openingHoursTitle}</TitleContainer>
+        <HorizontalLine />
+      </>
+    )
+  }
   if (!openingHours) {
-    if (isTemporarilyClosed) {
-      return <TitleContainer language={language}>{openingHoursTitle}</TitleContainer>
-    }
     return null
   }
   return (
-    <CollapsibleItem headerContent={openingHoursTitle} language={language} initExpanded>
-      <Content>
-        {openingHours.map((entry, index) => (
-          <OpeningEntry
-            key={`${weekdays[index]!}-OpeningEntry`}
-            weekday={weekdays[index]!}
-            allDay={entry.allDay}
-            closed={entry.closed}
-            timeSlots={entry.timeSlots}
-            isCurrentDay={index === moment().isoWeekday() - 1}
-            language={language}
-          />
-        ))}
-      </Content>
-    </CollapsibleItem>
+    <>
+      <CollapsibleItem headerContent={openingHoursTitle} language={language} initExpanded>
+        <Content>
+          {openingHours.map((entry, index) => (
+            <OpeningEntry
+              key={`${weekdays[index]!}-OpeningEntry`}
+              weekday={t(weekdays[index]!.toLowerCase())}
+              allDay={entry.allDay}
+              closed={entry.closed}
+              timeSlots={entry.timeSlots}
+              isCurrentDay={index === moment().isoWeekday() - 1}
+              language={language}
+            />
+          ))}
+        </Content>
+      </CollapsibleItem>
+      <HorizontalLine />
+    </>
   )
 }
 

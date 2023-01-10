@@ -131,7 +131,6 @@ const PoiDetails = ({ poi, feature, language }: PoiDetailsProps): ReactElement =
           isCurrentlyOpen={isCurrentlyOpen}
           isTemporarilyClosed={temporarilyClosed}
         />
-        {((openingHours && openingHours.length > 0) || temporarilyClosed) && <HorizontalLine />}
       </>
       {content.length > 0 && (
         <>
