@@ -89,12 +89,12 @@ const navigateToDeepLink = async <T extends RoutesType>({
     changeCityCode(selectedCityCode)
   }
 
+  // Reset the currently opened screens to just the dashboard of the city and language or the landing page
+  // This is necessary to prevent undefined behaviour for city content routes upon e.g. back navigation
   if (selectedCityCode) {
-    // Reset the currently opened screens to just the dashboard of the city and language
-    // This is necessary to prevent undefined behaviour for city content routes upon e.g. back navigation
-    navigation.replace(CATEGORIES_ROUTE, {})
+    navigation.reset({ index: 0, routes: [{ name: CATEGORIES_ROUTE, params: {} }] })
   } else {
-    navigation.replace(LANDING_ROUTE)
+    navigation.reset({ index: 0, routes: [{ name: LANDING_ROUTE }] })
   }
 
   const dashboardPath = selectedCityCode ? cityContentPath({ cityCode: selectedCityCode, languageCode }) : null
