@@ -224,7 +224,7 @@ const renderHtml = (
       }
 
       .link-external {
-        display: flex;
+        display: inline-flex;
         align-items: center;
       }
 

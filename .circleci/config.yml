@@ -37,7 +37,7 @@ commands:
                 default: integreat-app
                 type: string
             failure_mentions:
-                default: '@max.ammann @stefanie.metzger @sarah.sporck @steffen.kleinle @andreas.fischer'
+                default: '@steffenkleinle @sarahsporck @SteffiStuffel @f1sh1918 @LeandraH'
                 type: string
             only_for_branch:
                 default: main

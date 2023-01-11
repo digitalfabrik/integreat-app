@@ -87,7 +87,7 @@ const SandBox = styled.div<{ centered: boolean; smallText: boolean }>`
   }
 
   .link-external {
-    display: flex;
+    display: inline-flex;
     align-items: center;
   }
 
