@@ -83,7 +83,7 @@ describe('useNavigateToDeepLink', () => {
   describe('landing deep links', () => {
     const url = 'https://integreat.app'
 
-    it('should navigate to the into slides if not shown yet and enabled in the build config', async () => {
+    it('should navigate to the intro slides if not shown yet and enabled in the build config', async () => {
       mockBuildConfig({ introSlides: true, fixedCity: null })
       renderMockComponent(url)
 
@@ -156,7 +156,7 @@ describe('useNavigateToDeepLink', () => {
     const cityCode = `muenchen`
     const url = `https://integreat.app/${cityCode}/${selectedLanguageCode}`
 
-    it('should navigate to the into slides if not shown yet and enabled in the build config', async () => {
+    it('should navigate to the intro slides if not shown yet and enabled in the build config', async () => {
       mockBuildConfig({ introSlides: true, fixedCity: null })
       renderMockComponent(url)
 
@@ -263,7 +263,7 @@ describe('useNavigateToDeepLink', () => {
     const cityCode = `muenchen`
     const languageCode = `ar`
 
-    it('should navigate to the into slides if not shown yet and enabled in the build config', async () => {
+    it('should navigate to the intro slides if not shown yet and enabled in the build config', async () => {
       const url = `https://integreat.app/${cityCode}/${languageCode}/events/some-event`
       mockBuildConfig({ introSlides: true, fixedCity: null })
       renderMockComponent(url)
