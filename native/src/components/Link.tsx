@@ -1,6 +1,7 @@
 import React, { ReactElement } from 'react'
 import styled from 'styled-components/native'
 
+import useSnackbar from '../hooks/useSnackbar'
 import openExternalUrl from '../utils/openExternalUrl'
 import Touchable from './Touchable'
 
@@ -15,10 +16,13 @@ type LinkProps = {
   text: string
 }
 
-const Link = ({ url, text }: LinkProps): ReactElement => (
-  <Touchable onPress={() => openExternalUrl(url)} accessibilityRole='link' underlayColor='transparent'>
-    <LinkText>{text}</LinkText>
-  </Touchable>
-)
+const Link = ({ url, text }: LinkProps): ReactElement => {
+  const showSnackbar = useSnackbar()
+  return (
+    <Touchable onPress={() => openExternalUrl(url, showSnackbar)} accessibilityRole='link' underlayColor='transparent'>
+      <LinkText>{text}</LinkText>
+    </Touchable>
+  )
+}
 
 export default Link

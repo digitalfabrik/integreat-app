@@ -94,7 +94,7 @@ describe('DatabaseConnector', () => {
     it('should return a moment that matches the one that was stored', async () => {
       const context = new DatabaseContext('tcc', 'de')
       const dateExpected = moment('2011-05-04T00:00:00.000Z')
-      await databaseConnector.storeLastUsage(context, false)
+      await databaseConnector.storeLastUsage(context)
       await databaseConnector.storeLastUpdate(dateExpected, context)
       expect(dateExpected).toStrictEqual(await databaseConnector.loadLastUpdate(context))
     })
@@ -119,7 +119,7 @@ describe('DatabaseConnector', () => {
       const context = new DatabaseContext('tcc', 'de')
       const date = moment('2011-05-04T00:00:00.000Z')
       const date2 = moment('2012-05-04T00:00:00.000Z')
-      await databaseConnector.storeLastUsage(context, false)
+      await databaseConnector.storeLastUsage(context)
       await databaseConnector.storeLastUpdate(date, context)
       await databaseConnector.storeLastUpdate(date2, context)
       expect(date2).toStrictEqual(await databaseConnector.loadLastUpdate(context))
@@ -127,7 +127,7 @@ describe('DatabaseConnector', () => {
     it('should store the json file in the correct path', async () => {
       const context = new DatabaseContext('tcc', 'de')
       const date = moment('2011-05-04T00:00:00.000Z')
-      await databaseConnector.storeLastUsage(context, false)
+      await databaseConnector.storeLastUsage(context)
       await databaseConnector.storeLastUpdate(date, context)
       expect(BlobUtil.fs.writeFile).toHaveBeenCalledWith(
         expect.stringContaining('cities-meta.json'),
@@ -293,7 +293,7 @@ describe('DatabaseConnector', () => {
       const date = moment('2014-05-04T00:00:00.000Z')
       const { restoreDate } = mockDate(date)
       const context = new DatabaseContext('augsburg')
-      await databaseConnector.storeLastUsage(context, false)
+      await databaseConnector.storeLastUsage(context)
       expect(JSON.parse(await BlobUtil.fs.readFile(databaseConnector.getMetaCitiesPath(), ''))).toEqual({
         augsburg: {
           last_usage: date.toISOString(),
@@ -302,7 +302,7 @@ describe('DatabaseConnector', () => {
       })
       restoreDate()
     })
-    it('should not delete old cities if peeking', async () => {
+    it('should delete old files if there are more than MAX_STORED_CITIES', async () => {
       await populateCityContent('muenchen')
       await populateCityContent('dortmund')
       await populateCityContent('ansbach')
@@ -327,57 +327,7 @@ describe('DatabaseConnector', () => {
         ''
       )
       const { restoreDate } = mockDate(moment('2013-05-04T00:00:00.000Z'))
-      await databaseConnector.storeLastUsage(new DatabaseContext('regensburg'), true)
-      await expectCityFilesExist('muenchen')
-      await expectCityFilesExist('dortmund')
-      await expectCityFilesExist('ansbach')
-      await expectCityFilesExist('regensburg')
-      expect(JSON.parse(await BlobUtil.fs.readFile(databaseConnector.getMetaCitiesPath(), ''))).toEqual({
-        muenchen: {
-          languages: {},
-          last_usage: '2010-05-04T00:00:00.000Z',
-        },
-        ansbach: {
-          languages: {},
-          last_usage: '2012-05-04T00:00:00.000Z',
-        },
-        dortmund: {
-          languages: {},
-          last_usage: '2011-05-04T00:00:00.000Z',
-        },
-        regensburg: {
-          languages: {},
-          last_usage: '2013-05-04T00:00:00.000Z',
-        },
-      })
-      restoreDate()
-    })
-    it('should delete old files if there are more than MAX_STORED_CITIES and not peeking', async () => {
-      await populateCityContent('muenchen')
-      await populateCityContent('dortmund')
-      await populateCityContent('ansbach')
-      await populateCityContent('regensburg')
-      // We have to write this manually, since this is normally done in storeLastUsage, but it calls deleteOldFiles
-      await BlobUtil.fs.writeFile(
-        databaseConnector.getMetaCitiesPath(),
-        JSON.stringify({
-          muenchen: {
-            languages: {},
-            last_usage: '2010-05-04T00:00:00.000Z',
-          },
-          dortmund: {
-            languages: {},
-            last_usage: '2011-05-04T00:00:00.000Z',
-          },
-          ansbach: {
-            languages: {},
-            last_usage: '2012-05-04T00:00:00.000Z',
-          },
-        }),
-        ''
-      )
-      const { restoreDate } = mockDate(moment('2013-05-04T00:00:00.000Z'))
-      await databaseConnector.storeLastUsage(new DatabaseContext('regensburg'), false)
+      await databaseConnector.storeLastUsage(new DatabaseContext('regensburg'))
       await expectCityFilesExist('muenchen', false)
       await expectCityFilesExist('dortmund')
       await expectCityFilesExist('ansbach')
@@ -403,7 +353,7 @@ describe('DatabaseConnector', () => {
       const path = databaseConnector.getMetaCitiesPath()
       BlobUtil.fs.writeFile(path, '{ "i": "am": "malformed" } }', 'utf8')
       const { restoreDate } = mockDate(moment('2013-05-04T00:00:00.000Z'))
-      await databaseConnector.storeLastUsage(context, false)
+      await databaseConnector.storeLastUsage(context)
       expect(JSON.parse(await BlobUtil.fs.readFile(path, 'utf8'))).toEqual({
         tcc: {
           languages: {},

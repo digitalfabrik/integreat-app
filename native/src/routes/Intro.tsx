@@ -1,4 +1,4 @@
-import React, { ReactElement, useCallback, useContext, useRef, useState } from 'react'
+import React, { ReactElement, useCallback, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { FlatList, useWindowDimensions, ViewToken } from 'react-native'
 import { useTheme } from 'styled-components'
@@ -10,10 +10,9 @@ import SlideContent, { SlideContentType } from '../components/SlideContent'
 import SlideFooter from '../components/SlideFooter'
 import { NavigationProps, RouteProps } from '../constants/NavigationTypes'
 import buildConfig, { buildConfigAssets } from '../constants/buildConfig'
-import { AppContext } from '../contexts/AppContextProvider'
-import useSnackbar from '../hooks/useSnackbar'
-import navigateToDeepLink from '../navigation/navigateToDeepLink'
+import useNavigateToDeepLink from '../hooks/useNavigateToDeepLink'
 import appSettings from '../utils/AppSettings'
+import { reportError } from '../utils/sentry'
 
 const Container = styled.View<{ width: number }>`
   flex: 1;
@@ -43,13 +42,12 @@ type IntroProps = {
 
 const Intro = ({ route, navigation }: IntroProps): ReactElement => {
   const [currentSlide, setCurrentSlide] = useState(0)
-  const { languageCode } = useContext(AppContext)
   const { width } = useWindowDimensions()
   const { t } = useTranslation<['intro', 'settings']>(['intro', 'settings'])
   const theme = useTheme()
-  const showSnackbar = useSnackbar()
   const flatListRef = useRef<FlatList>(null)
   const { deepLink } = route.params
+  const navigateToDeepLink = useNavigateToDeepLink()
 
   const icons = buildConfigAssets().intro
   const slides = icons
@@ -103,15 +101,14 @@ const Intro = ({ route, navigation }: IntroProps): ReactElement => {
       await appSettings.setIntroShown()
 
       if (deepLink) {
-        navigateToDeepLink({ navigation, url: deepLink, language: languageCode, showSnackbar })
+        navigateToDeepLink(deepLink)
       } else {
         navigation.replace(LANDING_ROUTE)
       }
     } catch (e) {
-      // eslint-disable-next-line no-console
-      console.warn(e)
+      reportError(e)
     }
-  }, [showSnackbar, languageCode, navigation, deepLink])
+  }, [navigateToDeepLink, navigation, deepLink])
 
   const goToSlide = useCallback((index: number) => {
     flatListRef.current?.scrollToIndex({
