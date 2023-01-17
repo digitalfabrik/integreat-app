@@ -8,10 +8,10 @@ import Cache from '../models/Cache'
 import DatabaseContext from '../models/DatabaseContext'
 import {
   CityResourceCacheStateType,
+  DataContainer,
   LanguageResourceCacheStateType,
   PageResourceCacheStateType,
-} from '../redux/StateType'
-import { DataContainer } from './DataContainer'
+} from './DataContainer'
 import DatabaseConnector from './DatabaseConnector'
 import { log } from './sentry'
 

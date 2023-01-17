@@ -23,7 +23,7 @@ import {
   LanguageResourceCacheStateType,
   PageResourceCacheEntryStateType,
   PageResourceCacheStateType,
-} from '../redux/StateType'
+} from './DataContainer'
 import { deleteIfExists } from './helpers'
 import { log } from './sentry'
 

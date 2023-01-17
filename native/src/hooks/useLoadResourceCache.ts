@@ -5,17 +5,19 @@ import moment from 'moment'
 import { CategoriesMapModel, EventModel, ExtendedPageModel, PoiModel } from 'api-client'
 
 import buildConfig from '../constants/buildConfig'
-import { PageResourceCacheEntryStateType } from '../redux/StateType'
+import { PageResourceCacheEntryStateType } from '../utils/DataContainer'
 import dataContainer from '../utils/DefaultDataContainer'
 import FetcherModule, { TargetFilePathsType } from '../utils/FetcherModule'
 import ResourceURLFinder from '../utils/ResourceURLFinder'
 import buildResourceFilePath from '../utils/buildResourceFilePath'
 
-type FetchMapTargetType = {
+export type FetchMapTargetType = {
   url: string
   filePath: string
   urlHash: string
 }
+
+export type FetchMapType = Record<string, Array<FetchMapTargetType>>
 
 type UseLoadResourceCacheProps = {
   cityCode: string

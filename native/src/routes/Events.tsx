@@ -16,7 +16,7 @@ import Page from '../components/Page'
 import PageDetail from '../components/PageDetail'
 import SiteHelpfulBox from '../components/SiteHelpfulBox'
 import DateFormatterContext from '../contexts/DateFormatterContext'
-import { LanguageResourceCacheStateType } from '../redux/StateType'
+import { LanguageResourceCacheStateType } from '../utils/DataContainer'
 
 const Separator = styled.View`
   border-top-width: 2px;
