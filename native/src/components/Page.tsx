@@ -54,9 +54,9 @@ const Page = ({
   const onLinkPress = useCallback(
     (url: string) => {
       const shareUrl = Object.keys(cacheDict).find(remoteUrl => cacheDict[remoteUrl] === url)
-      navigateToLink(url, language, shareUrl || url)
+      navigateToLink(url, shareUrl || url)
     },
-    [cacheDict, language, navigateToLink]
+    [cacheDict, navigateToLink]
   )
   const onLoad = useCallback(() => setLoading(false), [setLoading])
   return (

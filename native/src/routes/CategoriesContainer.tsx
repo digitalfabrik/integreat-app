@@ -13,6 +13,7 @@ import useHeader from '../hooks/useHeader'
 import useLoadCityContent from '../hooks/useLoadCityContent'
 import useNavigate from '../hooks/useNavigate'
 import useOnLanguageChange from '../hooks/useOnLanguageChange'
+import useResourceCache from '../hooks/useResourceCache'
 import createNavigateToFeedbackModal from '../navigation/createNavigateToFeedbackModal'
 import urlFromRouteInformation from '../navigation/url'
 import testID from '../testing/testID'
@@ -29,6 +30,7 @@ type CategoriesContainerProps = {
 
 const CategoriesContainer = ({ navigation, route }: CategoriesContainerProps): ReactElement => {
   const { cityCode, languageCode } = useCityAppContext()
+  const resourceCache = useResourceCache({ cityCode, languageCode })
   const resourceCacheUrl = useContext(StaticServerContext)
   const { navigateTo } = useNavigate()
 
@@ -78,7 +80,7 @@ const CategoriesContainer = ({ navigation, route }: CategoriesContainerProps): R
             cityModel={data.city}
             categories={data.categories}
             category={category}
-            resourceCache={data.resourceCache}
+            resourceCache={resourceCache}
             resourceCacheUrl={resourceCacheUrl}
           />
         </SpaceBetween>

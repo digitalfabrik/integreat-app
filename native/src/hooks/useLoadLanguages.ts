@@ -2,7 +2,7 @@ import { useCallback } from 'react'
 
 import { createLanguagesEndpoint, LanguageModel, ReturnType, useLoadAsync } from 'api-client'
 
-import { dataContainer } from '../utils/DefaultDataContainer'
+import dataContainer from '../utils/DefaultDataContainer'
 import { determineApiUrl } from '../utils/helpers'
 
 type UseLoadLanguagesProps = {

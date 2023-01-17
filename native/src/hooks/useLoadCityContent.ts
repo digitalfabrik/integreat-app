@@ -1,5 +1,5 @@
 import moment from 'moment'
-import { useCallback, useEffect } from 'react'
+import { useEffect } from 'react'
 
 import {
   CategoriesMapModel,
@@ -13,13 +13,12 @@ import {
   LanguageModel,
   PoiModel,
   ReturnType,
-  useLoadAsync,
 } from 'api-client'
 
-import { LanguageResourceCacheStateType } from '../redux/StateType'
-import { dataContainer } from '../utils/DefaultDataContainer'
+import dataContainer from '../utils/DefaultDataContainer'
 import { reportError } from '../utils/sentry'
 import useLoadCities from './useLoadCities'
+import loadResourceCache from './useLoadResourceCache'
 import useLoadWithCache from './useLoadWithCache'
 import useOnLanguageChange from './useOnLanguageChange'
 import useSnackbar from './useSnackbar'
@@ -37,7 +36,6 @@ export type CityContentData = {
   categories: CategoriesMapModel
   events: EventModel[]
   pois: PoiModel[]
-  resourceCache: LanguageResourceCacheStateType
 }
 
 export type CityContentReturn = Omit<ReturnType<CityContentData>, 'error'> & { error: ErrorCode | Error | null }
@@ -82,19 +80,25 @@ const useLoadCityContent = ({ cityCode, languageCode }: Params): CityContentRetu
   })
 
   useEffect(() => {
-    // Update last update if all data is available.
-    // WARNING: This also means that the last update is updated if everything is just loaded from the cache.
     if (languagesReturn.data && categoriesReturn.data && eventsReturn.data && poisReturn.data) {
-      dataContainer.setLastUpdate(cityCode, languageCode, moment()).catch(reportError)
+      // Load the resource cache in the background once a day and do not wait for it
+      dataContainer.getLastUpdate(cityCode, languageCode).then(lastUpdate => {
+        if (!lastUpdate || lastUpdate.isBefore(moment.utc().startOf('day'))) {
+          loadResourceCache({
+            cityCode,
+            languageCode,
+            categories: categoriesReturn.data,
+            events: eventsReturn.data,
+            pois: poisReturn.data,
+          }).catch(reportError)
+        }
+      })
+
+      // Update last update if all data is available.
+      // WARNING: This also means that the last update is updated if everything is just loaded from the cache.
+      dataContainer.setLastUpdate(cityCode, languageCode, moment().subtract(1, 'day')).catch(reportError)
     }
   }, [languagesReturn, categoriesReturn, eventsReturn, poisReturn, cityCode, languageCode])
-
-  // TODO IGAPP-636: Actually load resource cache and move to separate hook
-  const loadResourceCache = useCallback(
-    async () => dataContainer.getResourceCache(cityCode, languageCode),
-    [cityCode, languageCode]
-  )
-  const resourceCacheReturn = useLoadAsync(loadResourceCache)
 
   const city = citiesReturn.data?.find(it => it.code === cityCode)
   const language = languagesReturn.data?.find(it => it.code === languageCode)
@@ -116,7 +120,6 @@ const useLoadCityContent = ({ cityCode, languageCode }: Params): CityContentRetu
       categoriesReturn.error ??
       eventsReturn.error ??
       poisReturn.error ??
-      resourceCacheReturn.error ??
       null
     )
   }
@@ -126,8 +129,7 @@ const useLoadCityContent = ({ cityCode, languageCode }: Params): CityContentRetu
     languagesReturn.loading ||
     categoriesReturn.loading ||
     eventsReturn.loading ||
-    poisReturn.loading ||
-    resourceCacheReturn.loading
+    poisReturn.loading
 
   const refresh = () => {
     citiesReturn.refresh()
@@ -135,7 +137,6 @@ const useLoadCityContent = ({ cityCode, languageCode }: Params): CityContentRetu
     categoriesReturn.refresh()
     eventsReturn.refresh()
     poisReturn.refresh()
-    resourceCacheReturn.refresh()
   }
 
   const data =
@@ -145,8 +146,7 @@ const useLoadCityContent = ({ cityCode, languageCode }: Params): CityContentRetu
     languagesReturn.data &&
     categoriesReturn.data &&
     eventsReturn.data &&
-    poisReturn.data &&
-    resourceCacheReturn.data
+    poisReturn.data
       ? {
           city,
           language,
@@ -155,7 +155,6 @@ const useLoadCityContent = ({ cityCode, languageCode }: Params): CityContentRetu
           categories: categoriesReturn.data,
           events: eventsReturn.data,
           pois: poisReturn.data,
-          resourceCache: resourceCacheReturn.data,
         }
       : null
 

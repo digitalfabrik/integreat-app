@@ -2,7 +2,13 @@ import { Moment } from 'moment'
 
 import { CategoriesMapModel, CityModel, EventModel, LanguageModel, PoiModel } from 'api-client'
 
-import { LanguageResourceCacheStateType } from '../redux/StateType'
+export type PageResourceCacheEntryStateType = {
+  filePath: string
+  lastUpdate: Moment
+  hash: string
+}
+export type PageResourceCacheStateType = Record<string, PageResourceCacheEntryStateType>
+export type LanguageResourceCacheStateType = Record<string, PageResourceCacheStateType>
 
 export type DataContainer = {
   /**

@@ -19,7 +19,7 @@ const buildConfig = jest.fn<CommonBuildConfigType, []>(
     cmsUrl: 'https://cms.integreat-app.de',
     switchCmsUrl: 'https://cms-test.integreat-app.de',
     hostName: 'integreat.app',
-    allowedHostNames: ['cms.integreat-app.de', 'cms-test.integreat-app.de'],
+    allowedHostNames: ['cms.integreat-app.de', 'cms-test.integreat-app.de', 'admin.integreat-app.de'],
     internalLinksHijackPattern:
       'https?:\\/\\/(cms(-test)?\\.integreat-app\\.de|web\\.integreat-app\\.de|integreat\\.app)(?!\\/[^/]*\\/(wp-content|wp-admin|wp-json)\\/.*).*',
     featureFlags: {
