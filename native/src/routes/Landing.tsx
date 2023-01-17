@@ -11,7 +11,7 @@ import { NavigationProps } from '../constants/NavigationTypes'
 import { AppContext } from '../contexts/AppContextProvider'
 import useLoadCities from '../hooks/useLoadCities'
 import testID from '../testing/testID'
-import { dataContainer } from '../utils/DefaultDataContainer'
+import dataContainer from '../utils/DefaultDataContainer'
 import { reportError } from '../utils/sentry'
 import LoadingErrorHandler from './LoadingErrorHandler'
 

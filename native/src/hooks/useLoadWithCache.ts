@@ -4,7 +4,7 @@ import { useCallback } from 'react'
 import { Endpoint, fromError, ReturnType, useLoadAsync } from 'api-client'
 
 import { SnackbarType } from '../components/SnackbarContainer'
-import { dataContainer } from '../utils/DefaultDataContainer'
+import dataContainer from '../utils/DefaultDataContainer'
 import { determineApiUrl } from '../utils/helpers'
 
 type Load<T> = {
@@ -54,10 +54,11 @@ const loadWithCache = async <T>({
     }
     return payload.data ?? cachedData
   } catch (e) {
-    if (cachedData) {
-      showSnackbar({ text: fromError(e) })
-    } else {
+    if (!cachedData) {
       throw e
+    }
+    if (forceUpdate) {
+      showSnackbar({ text: fromError(e) })
     }
   }
   return cachedData

@@ -255,7 +255,6 @@ class DefaultDataContainer implements DataContainer {
   }
 }
 
-// TODO IGAPP-636: Change to default export
-export const dataContainer = new DefaultDataContainer()
+const dataContainer = new DefaultDataContainer()
 
-export default DefaultDataContainer
+export default dataContainer

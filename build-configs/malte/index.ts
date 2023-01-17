@@ -21,7 +21,7 @@ const commonMalteBuildConfig: CommonBuildConfigType = {
   assets: MALTE_ASSETS,
   cmsUrl: 'https://cms.malteapp.de',
   switchCmsUrl: 'https://malte-test.tuerantuer.org',
-  allowedHostNames: ['cms.malteapp.de', 'malte-test.tuerantuer.org'],
+  allowedHostNames: ['cms.malteapp.de', 'malte-test.tuerantuer.org', 'admin.malteapp.de'],
   translationsOverride: malteOverrideTranslations,
   internalLinksHijackPattern:
     'https?:\\/\\/((cms\\.)?malteapp\\.de|malte-test\\.tuerantuer\\.org)(?!\\/(media|[^/]*\\/(wp-content|wp-admin|wp-json))\\/.*).*',

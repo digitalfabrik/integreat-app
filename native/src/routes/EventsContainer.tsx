@@ -9,6 +9,7 @@ import useHeader from '../hooks/useHeader'
 import useLoadCityContent from '../hooks/useLoadCityContent'
 import useNavigate from '../hooks/useNavigate'
 import useOnLanguageChange from '../hooks/useOnLanguageChange'
+import useResourceCache from '../hooks/useResourceCache'
 import createNavigateToFeedbackModal from '../navigation/createNavigateToFeedbackModal'
 import urlFromRouteInformation from '../navigation/url'
 import Events from './Events'
@@ -22,6 +23,7 @@ type EventsContainerProps = {
 const EventsContainer = ({ navigation, route }: EventsContainerProps): ReactElement => {
   const { slug } = route.params
   const { cityCode, languageCode } = useCityAppContext()
+  const resourceCache = useResourceCache({ cityCode, languageCode })
   const { navigateTo } = useNavigate()
   const resourceCacheUrl = useContext(StaticServerContext)
 
@@ -60,7 +62,7 @@ const EventsContainer = ({ navigation, route }: EventsContainerProps): ReactElem
           events={data.events}
           cityModel={data.city}
           language={languageCode}
-          resourceCache={data.resourceCache}
+          resourceCache={resourceCache}
           resourceCacheUrl={resourceCacheUrl}
           navigateTo={navigateTo}
           navigateToFeedback={createNavigateToFeedbackModal(navigation)}

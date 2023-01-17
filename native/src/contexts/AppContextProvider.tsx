@@ -5,7 +5,7 @@ import { useLoadAsync } from 'api-client'
 import useSubscribePushNotifications from '../hooks/useSubscribePushNotifications'
 import LoadingErrorHandler from '../routes/LoadingErrorHandler'
 import appSettings from '../utils/AppSettings'
-import { dataContainer } from '../utils/DefaultDataContainer'
+import dataContainer from '../utils/DefaultDataContainer'
 import { reportError } from '../utils/sentry'
 
 type AppContextType = {
