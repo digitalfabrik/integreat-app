@@ -8,7 +8,7 @@ import { RouteInformationType } from 'api-client/src/routes/RouteInformationType
 
 import { URL_PREFIX } from '../constants/webview'
 import TileModel from '../models/TileModel'
-import { LanguageResourceCacheStateType, PageResourceCacheEntryStateType } from '../redux/StateType'
+import { LanguageResourceCacheStateType, PageResourceCacheEntryStateType } from '../utils/DataContainer'
 import { RESOURCE_CACHE_DIR_PATH } from '../utils/DatabaseConnector'
 import Caption from './Caption'
 import CategoryListContent from './CategoryListContent'

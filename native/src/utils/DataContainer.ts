@@ -9,6 +9,7 @@ export type PageResourceCacheEntryStateType = {
 }
 export type PageResourceCacheStateType = Record<string, PageResourceCacheEntryStateType>
 export type LanguageResourceCacheStateType = Record<string, PageResourceCacheStateType>
+export type CityResourceCacheStateType = Record<string, LanguageResourceCacheStateType>
 
 export type DataContainer = {
   /**
