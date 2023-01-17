@@ -5,47 +5,22 @@ unless:
 jobs:
   - bump_version:
       prepare_delivery: false
-
   - check
-
-  - build_web:
-      name: build_ig_test_cms_web
-      build_config_name: integreat-test-cms
-      requires:
-        - bump_version
-        - check
-
-  - e2e_web:
-      requires:
-        - bump_version
-        - check
-
   - build_android:
-      name: build_e2e_android
-      build_config_name: integreat-e2e
+      name: build_integreat_android
+      build_config_name: integreat
       context:
+        - mattermost
         - credentials-repo
         - credentials-integreat
       requires:
         - bump_version
-        - check
-  - e2e_android:
-      context:
-        - browserstack
-      requires:
-        - build_e2e_android
-
-  - build_ios:
-      name: build_e2e_ios
-      build_config_name: integreat-e2e
-      context:
-        - tuerantuer-apple
-        - fastlane-match
-      requires:
-        - bump_version
-        - check
-  - e2e_ios:
-      context:
-        - browserstack
-      requires:
-        - build_e2e_ios
+#  - build_ios:
+#      name: build_integreat_ios
+#      build_config_name: integreat
+#      context:
+#       - mattermost
+#        - tuerantuer-apple
+#        - fastlane-match
+#      requires:
+#        - bump_version

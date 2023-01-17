@@ -19,6 +19,9 @@ steps:
         - 24:1d:3b:b7:b3:49:69:d7:54:c3:93:a5:a2:d1:71:db
   - checkout
   - prepare_workspace
+  - run:
+      name: echo for testing
+      command: echo test
   - restore_environment_variables
   - restore_yarn_cache
   - restore_ruby_cache:
@@ -51,9 +54,17 @@ steps:
       steps:
         - run:
             name: Persist artifact url
-            command: echo "[<< parameters.build_config_name >>.ipa](https://$CIRCLE_BUILD_NUM-$GITHUB_REPO_ID-gh.circle-artifacts.com/0/native/ios/output/gym/integreat.ipa)" >> << parameters.build_config_name >>-ipa-url
+            command: echo "[<< parameters.build_config_name >>.ipa](https://output.circle-artifacts.com/output/job/$CIRCLE_WORKFLOW_JOB_ID/artifacts/0/native/ios/output/gym/integreat.ipa)" >> << parameters.build_config_name >>-ipa-url
         - persist_to_workspace:
             root: ./
             paths:
               - << parameters.build_config_name >>-ipa-url
+  - run:
+      name: Prepare artifact urls
+      command: echo "export ANDROID_ARTIFACT_URLS='$(echo $(cat $(ls | grep apk-url)))'" >> ${BASH_ENV}
+      working_directory: ~/attached_workspace
+  - run:
+      name: echo for testing
+      command: echo ${ANDROID_ARTIFACT_URLS}
+      working_directory: ~/attached_workspace
   - notify

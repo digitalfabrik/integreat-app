@@ -19,6 +19,16 @@ steps:
   - checkout
   - prepare_workspace
   - restore_environment_variables
+  - run:
+      name: echo for testing
+      command: echo test
+  - run:
+      name: test export var
+      command: echo "export ANDROID_TEST='hello world'" >> ${BASH_ENV}
+      working_directory: ~/attached_workspace
+  - run:
+      name: echo for testing
+      command: echo $CIRCLE_WORKFLOW_JOB_ID
   - restore_yarn_cache
   - restore_ruby_cache:
       directory: native/android
@@ -55,13 +65,20 @@ steps:
       condition:
         or:
           - equal: [integreat-e2e, << parameters.build_config_name >>]
-          - equal: [integreat-test-cms, << parameters.build_config_name >>]
+          - equal: [integreat-test-cs, << parameters.build_config_name >>]
       steps:
         - run:
             name: Persist artifact url
-            command: echo "[<< parameters.build_config_name >>.apk](https://$CIRCLE_BUILD_NUM-$GITHUB_REPO_ID-gh.circle-artifacts.com/0/native/android/<< parameters.build_config_name >>.apk)" >> << parameters.build_config_name >>-apk-url
+            command: echo "[<< parameters.build_config_name >>.apk](https://output.circle-artifacts.com/output/job/$CIRCLE_WORKFLOW_JOB_ID/artifacts/0/native/android/<< parameters.build_config_name >>.apk)" >> << parameters.build_config_name >>-apk-url
         - persist_to_workspace:
             root: ./
             paths:
               - << parameters.build_config_name >>-apk-url
+  - run:
+      name: Prepare artifact urls
+      command: echo "export ANDROID_ARTIFACT_URLS='$(echo $(cat $(ls | grep apk-url)))'" >> ${BASH_ENV}
+      working_directory: ~/attached_workspace
+  - run:
+      name: echo for testing
+      command: echo $ANDROID_ARTIFACT_URLS
   - notify

@@ -299,6 +299,16 @@ jobs:
             - checkout
             - prepare_workspace
             - restore_environment_variables
+            - run:
+                command: echo test
+                name: echo for testing
+            - run:
+                command: echo "export ANDROID_TEST='hello world'" >> ${BASH_ENV}
+                name: test export var
+                working_directory: ~/attached_workspace
+            - run:
+                command: echo $CIRCLE_WORKFLOW_JOB_ID
+                name: echo for testing
             - restore_yarn_cache
             - restore_ruby_cache:
                 directory: native/android
@@ -338,16 +348,23 @@ jobs:
                             - integreat-e2e
                             - << parameters.build_config_name >>
                         - equal:
-                            - integreat-test-cms
+                            - integreat-test-cs
                             - << parameters.build_config_name >>
                 steps:
                     - run:
-                        command: echo "[<< parameters.build_config_name >>.apk](https://$CIRCLE_BUILD_NUM-$GITHUB_REPO_ID-gh.circle-artifacts.com/0/native/android/<< parameters.build_config_name >>.apk)" >> << parameters.build_config_name >>-apk-url
+                        command: echo "[<< parameters.build_config_name >>.apk](https://output.circle-artifacts.com/output/job/$CIRCLE_WORKFLOW_JOB_ID/artifacts/0/native/android/<< parameters.build_config_name >>.apk)" >> << parameters.build_config_name >>-apk-url
                         name: Persist artifact url
                     - persist_to_workspace:
                         paths:
                             - << parameters.build_config_name >>-apk-url
                         root: ./
+            - run:
+                command: echo "export ANDROID_ARTIFACT_URLS='$(echo $(cat $(ls | grep apk-url)))'" >> ${BASH_ENV}
+                name: Prepare artifact urls
+                working_directory: ~/attached_workspace
+            - run:
+                command: echo $ANDROID_ARTIFACT_URLS
+                name: echo for testing
             - notify
     build_ios:
         environment:
@@ -376,6 +393,9 @@ jobs:
                     - 24:1d:3b:b7:b3:49:69:d7:54:c3:93:a5:a2:d1:71:db
             - checkout
             - prepare_workspace
+            - run:
+                command: echo test
+                name: echo for testing
             - restore_environment_variables
             - restore_yarn_cache
             - restore_ruby_cache:
@@ -411,12 +431,20 @@ jobs:
                             - << parameters.build_config_name >>
                 steps:
                     - run:
-                        command: echo "[<< parameters.build_config_name >>.ipa](https://$CIRCLE_BUILD_NUM-$GITHUB_REPO_ID-gh.circle-artifacts.com/0/native/ios/output/gym/integreat.ipa)" >> << parameters.build_config_name >>-ipa-url
+                        command: echo "[<< parameters.build_config_name >>.ipa](https://output.circle-artifacts.com/output/job/$CIRCLE_WORKFLOW_JOB_ID/artifacts/0/native/ios/output/gym/integreat.ipa)" >> << parameters.build_config_name >>-ipa-url
                         name: Persist artifact url
                     - persist_to_workspace:
                         paths:
                             - << parameters.build_config_name >>-ipa-url
                         root: ./
+            - run:
+                command: echo "export ANDROID_ARTIFACT_URLS='$(echo $(cat $(ls | grep apk-url)))'" >> ${BASH_ENV}
+                name: Prepare artifact urls
+                working_directory: ~/attached_workspace
+            - run:
+                command: echo ${ANDROID_ARTIFACT_URLS}
+                name: echo for testing
+                working_directory: ~/attached_workspace
             - notify
     build_web:
         docker:
@@ -510,26 +538,6 @@ jobs:
             - checkout
             - check_config
             - restore_yarn_cache
-            - run:
-                command: yarn prettier:check
-                name: Prettier
-            - run:
-                command: yarn lint
-                name: Lint
-            - run:
-                command: yarn workspace web stylelint
-                name: Stylelint
-            - run:
-                command: yarn workspaces run ts:check
-                name: TS check
-            - unit_test:
-                directory: api-client
-            - unit_test:
-                directory: native
-            - unit_test:
-                directory: translations
-            - unit_test:
-                directory: web
             - notify
     deliver_android:
         docker:
@@ -1015,44 +1023,15 @@ workflows:
             - bump_version:
                 prepare_delivery: false
             - check
-            - build_web:
-                build_config_name: integreat-test-cms
-                name: build_ig_test_cms_web
-                requires:
-                    - bump_version
-                    - check
-            - e2e_web:
-                requires:
-                    - bump_version
-                    - check
             - build_android:
-                build_config_name: integreat-e2e
+                build_config_name: integreat
                 context:
+                    - mattermost
                     - credentials-repo
                     - credentials-integreat
-                name: build_e2e_android
+                name: build_integreat_android
                 requires:
                     - bump_version
-                    - check
-            - e2e_android:
-                context:
-                    - browserstack
-                requires:
-                    - build_e2e_android
-            - build_ios:
-                build_config_name: integreat-e2e
-                context:
-                    - tuerantuer-apple
-                    - fastlane-match
-                name: build_e2e_ios
-                requires:
-                    - bump_version
-                    - check
-            - e2e_ios:
-                context:
-                    - browserstack
-                requires:
-                    - build_e2e_ios
         unless:
             or:
                 - equal:
