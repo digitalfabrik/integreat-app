@@ -164,7 +164,7 @@ describe('NewsContainer', () => {
 
   it('should handle language switch correctly', () => {
     const dispatch = jest.fn()
-    mocked(useDispatch).mockImplementation(() => dispatch)
+    mocked(useDispatch<any>).mockImplementation(() => dispatch)
     const { getByText } = renderNews({ newsId: '1234' })
 
     expect(getByText('language: pes')).toBeTruthy()

@@ -11,7 +11,7 @@ import {
   OFFERS_ROUTE,
   OPEN_DEEP_LINK_SIGNAL_NAME,
 } from 'api-client'
-import { FeatureFlagsType } from 'build-configs/BuildConfigType'
+import { CommonBuildConfigType, FeatureFlagsType } from 'build-configs/BuildConfigType'
 
 import buildConfig from '../../constants/buildConfig'
 import createNavigationPropMock from '../../testing/createNavigationPropMock'
@@ -31,13 +31,13 @@ describe('navigateToDeepLink', () => {
   const dispatch = jest.fn()
   const navigation = createNavigationPropMock()
   const language = 'kmr'
-  const mockedBuildConfig = mocked(buildConfig)
+  const mockedBuildConfig = mocked(buildConfig as () => CommonBuildConfigType)
 
   const mockBuildConfig = (featureFlags: Partial<FeatureFlagsType>) => {
     const previous = buildConfig()
-    // @ts-expect-error partial of fixed city type leads to problems
     mockedBuildConfig.mockImplementation(() => ({
       ...previous,
+      // @ts-expect-error partial of fixed city type leads to problems
       featureFlags: { ...previous.featureFlags, ...featureFlags },
     }))
   }

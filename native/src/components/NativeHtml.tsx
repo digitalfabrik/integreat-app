@@ -24,7 +24,7 @@ const NativeHtml = React.memo(({ content, cacheDictionary, language }: NativeHtm
   const { width } = useWindowDimensions()
   const navigateToLink = useNavigateToLink()
   const onLinkPress = useCallback(
-    (_, url: string) => {
+    (_: unknown, url: string) => {
       const shareUrl = cacheDictionary
         ? Object.keys(cacheDictionary).find(remoteUrl => cacheDictionary[remoteUrl] === url)
         : undefined

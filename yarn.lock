@@ -216,7 +216,7 @@
     semver "^6.3.0"
     source-map "^0.5.0"
 
-"@babel/core@^7.18.6", "@babel/core@^7.20.0":
+"@babel/core@^7.20.0", "@babel/core@^7.20.12":
   version "7.20.12"
   resolved "https://registry.yarnpkg.com/@babel/core/-/core-7.20.12.tgz#7930db57443c6714ad216953d1356dac0eb8496d"
   integrity sha512-XsMfHovsUYHFMdrIHkZphTN/2Hzzi78R08NuHfDBehym2VsPDL6Zn/JAD/JQdnRvbSsbQc4mVaU1m6JgtTEElg==
@@ -2125,7 +2125,7 @@
     core-js "^2.6.5"
     regenerator-runtime "^0.13.4"
 
-"@babel/preset-env@^7.18.6":
+"@babel/preset-env@^7.20.2":
   version "7.20.2"
   resolved "https://registry.yarnpkg.com/@babel/preset-env/-/preset-env-7.20.2.tgz#9b1642aa47bb9f43a86f9630011780dab7f86506"
   integrity sha512-1G0efQEWR1EHkKvKHqbG+IN/QdgwfByUpM5V5QroDzGV2t3S/WXNQd693cHiHTlCFMpr9B6FkPFXDA2lQcKoDg==
@@ -4436,10 +4436,10 @@
     lodash "^4.17.15"
     redent "^3.0.0"
 
-"@testing-library/jest-native@^5.3.1":
-  version "5.3.1"
-  resolved "https://registry.yarnpkg.com/@testing-library/jest-native/-/jest-native-5.3.1.tgz#a21fcf3d92b7f5a554a824c48594ea8a2133b428"
-  integrity sha512-ET8IJScwsOPtuChFbIKNH54jpTz2PDyo8Dg22QNCotyTdCurHS6wO9klgRYan5i/lS/jjNh3HfCxnpK6bIbNiw==
+"@testing-library/jest-native@^5.4.1":
+  version "5.4.1"
+  resolved "https://registry.yarnpkg.com/@testing-library/jest-native/-/jest-native-5.4.1.tgz#88ae27943996551970de5d722525200f9f7cbc96"
+  integrity sha512-VOyJp8LdBpwoG33xjeCcF59Fh9FDUJUjEFdFPbc/3TtVRze+5bSjFMeADEDZ9R2/AM/Qii0q1cPv7Tjk8JkSSw==
   dependencies:
     chalk "^4.1.2"
     jest-diff "^29.0.1"
@@ -4913,10 +4913,10 @@
     jest-diff "^26.0.0"
     pretty-format "^26.0.0"
 
-"@types/jest@^29.2.4":
-  version "29.2.4"
-  resolved "https://registry.yarnpkg.com/@types/jest/-/jest-29.2.4.tgz#9c155c4b81c9570dbd183eb8604aa0ae80ba5a5b"
-  integrity sha512-PipFB04k2qTRPePduVLTRiPzQfvMeLwUN3Z21hsAKaB/W9IIzgB2pizCL466ftJlcyZqnHoC9ZHpxLGl3fS86A==
+"@types/jest@^29.2.5":
+  version "29.2.5"
+  resolved "https://registry.yarnpkg.com/@types/jest/-/jest-29.2.5.tgz#c27f41a9d6253f288d1910d3c5f09484a56b73c0"
+  integrity sha512-H2cSxkKgVmqNHXP7TC2L/WUorrZu8ZigyRywfVzv6EyBlxj39n4C00hjXYQWsbwqgElaj/CiAeSRmk5GoaKTgw==
   dependencies:
     expect "^29.0.0"
     pretty-format "^29.0.0"
@@ -12479,10 +12479,10 @@ jest-environment-node@^29.3.1:
     jest-mock "^29.3.1"
     jest-util "^29.3.1"
 
-jest-extended@^3.2.0:
-  version "3.2.0"
-  resolved "https://registry.yarnpkg.com/jest-extended/-/jest-extended-3.2.0.tgz#4333dbb47e40acef3abccb1d22b7769c5fa90a0b"
-  integrity sha512-jy+1nwlPLPPR6O8O9Mn+BWCBq/jL/9OgdKEG8ekOSQoLyVvAO5nND8ll3UxoajzBu4kYyn7zUKYWRdnTfQPcVw==
+jest-extended@^3.2.3:
+  version "3.2.3"
+  resolved "https://registry.yarnpkg.com/jest-extended/-/jest-extended-3.2.3.tgz#286c19b4622e2ab828e1bb28d3b2d4a1ed64f8b9"
+  integrity sha512-YcdjfFv3+N2AiWq4aG6gT/r1mfLtDKnbXs0hKXNlL/hf37TKQJTlh2zNwuMUYnvwKRRMtO/X9CfZU1EmOgUREA==
   dependencies:
     jest-diff "^29.0.0"
     jest-get-type "^29.0.0"
@@ -13145,7 +13145,7 @@ json5@^2.1.2, json5@^2.2.1:
   resolved "https://registry.yarnpkg.com/json5/-/json5-2.2.1.tgz#655d50ed1e6f95ad1a3caababd2b0efda10b395c"
   integrity sha512-1hqLFMSrGHRHxav9q9gNjJ5EXznIxGVO09xQRrwplcS8qs28pZ8s8hupZAmqDwZUmVZ2Qb2jnyPOWcDH8m8dlA==
 
-json5@^2.2.2:
+json5@^2.2.2, json5@^2.2.3:
   version "2.2.3"
   resolved "https://registry.yarnpkg.com/json5/-/json5-2.2.3.tgz#78cd6f1a19bdc12b73db5ad0c61efd66c1e29283"
   integrity sha512-XmOWe7eyHYH14cLdVPoyg+GOH3rYX++KpzrylJwSW98t3Nk+U8XOl8FWKOgwtzdb8lXGf6zYwDUzeHMWfxasyg==
@@ -18473,15 +18473,15 @@ truncate-utf8-bytes@^1.0.0:
   dependencies:
     utf8-byte-length "^1.0.1"
 
-ts-jest@^29.0.3:
-  version "29.0.3"
-  resolved "https://registry.yarnpkg.com/ts-jest/-/ts-jest-29.0.3.tgz#63ea93c5401ab73595440733cefdba31fcf9cb77"
-  integrity sha512-Ibygvmuyq1qp/z3yTh9QTwVVAbFdDy/+4BtIQR2sp6baF2SJU/8CKK/hhnGIDY2L90Az2jIqTwZPnN2p+BweiQ==
+ts-jest@^29.0.5:
+  version "29.0.5"
+  resolved "https://registry.yarnpkg.com/ts-jest/-/ts-jest-29.0.5.tgz#c5557dcec8fe434fcb8b70c3e21c6b143bfce066"
+  integrity sha512-PL3UciSgIpQ7f6XjVOmbi96vmDHUqAyqDr8YxzopDqX3kfgYtX1cuNeBjP+L9sFXi6nzsGGA6R3fP3DDDJyrxA==
   dependencies:
     bs-logger "0.x"
     fast-json-stable-stringify "2.x"
     jest-util "^29.0.0"
-    json5 "^2.2.1"
+    json5 "^2.2.3"
     lodash.memoize "4.x"
     make-error "1.x"
     semver "7.x"

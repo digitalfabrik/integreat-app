@@ -20,8 +20,8 @@ jest.mock('react-redux', () => ({
 
 describe('SnackbarContainer', () => {
   const mockDispatch = jest.fn()
-  const mockUseSelector = mocked(useSelector)
-  const mockUseDispatch = mocked(useDispatch)
+  const mockUseSelector = mocked(useSelector<unknown, ReturnType<typeof useSelector>>)
+  const mockUseDispatch = mocked(useDispatch<any>)
 
   beforeEach(() => {
     jest.clearAllMocks()

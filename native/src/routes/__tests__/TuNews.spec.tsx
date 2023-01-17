@@ -5,7 +5,7 @@ import React from 'react'
 import { Text } from 'react-native'
 import { ThemeProvider } from 'styled-components/native'
 
-import { CityModel, LanguageModelBuilder, TunewsModel, useLoadFromEndpoint } from 'api-client'
+import { CityModel, LanguageModelBuilder, TunewsModel, useLoadFromEndpoint, ReturnType } from 'api-client'
 
 import buildConfig from '../../constants/buildConfig'
 import useLoadTuNews from '../../hooks/useLoadTuNews'
@@ -74,11 +74,11 @@ describe('TuNews', () => {
       </ThemeProvider>
     )
   }
-  const elementResponse = { data: news[0], error: null, loading: false, refresh: jest.fn() }
+  const elementResponse: ReturnType<TunewsModel> = { data: news[0], error: null, loading: false, refresh: jest.fn() }
   const tuNewsResponse = { ...elementResponse, loadMore, loadingMore: false, refresh, data: news, availableLanguages }
 
   it('should show news list', () => {
-    mocked(useLoadFromEndpoint).mockImplementation(() => elementResponse)
+    mocked(useLoadFromEndpoint<TunewsModel>).mockImplementation(() => elementResponse)
     mocked(useLoadTuNews).mockImplementation(() => tuNewsResponse)
 
     const { getByText } = renderNews({})
@@ -90,7 +90,7 @@ describe('TuNews', () => {
   })
 
   it('should show language selector if language not available', () => {
-    mocked(useLoadFromEndpoint).mockImplementation(() => elementResponse)
+    mocked(useLoadFromEndpoint<TunewsModel>).mockImplementation(() => elementResponse)
     mocked(useLoadTuNews).mockImplementation(() => tuNewsResponse)
 
     const { getByText, queryByText } = renderNews({ language: 'es' })
@@ -103,7 +103,7 @@ describe('TuNews', () => {
   })
 
   it('should show news detail', () => {
-    mocked(useLoadFromEndpoint).mockImplementation(() => elementResponse)
+    mocked(useLoadFromEndpoint<TunewsModel>).mockImplementation(() => elementResponse)
     mocked(useLoadTuNews).mockImplementation(() => tuNewsResponse)
 
     const { queryByText } = renderNews({ newsId: news[0].id.toString() })

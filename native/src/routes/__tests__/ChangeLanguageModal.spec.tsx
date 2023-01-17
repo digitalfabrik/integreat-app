@@ -20,7 +20,7 @@ jest.mock('react-redux', () => ({
 
 describe('ChangeLanguageModal', () => {
   const mockDispatch = jest.fn()
-  const mockUseDispatch = mocked(useDispatch)
+  const mockUseDispatch = mocked(useDispatch<any>)
 
   beforeEach(() => {
     jest.clearAllMocks()
