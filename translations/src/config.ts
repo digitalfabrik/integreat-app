@@ -123,6 +123,12 @@ class Config {
     nl: {
       rtl: false,
     },
+    pt: {
+      rtl: false,
+    },
+    cs: {
+      rtl: false,
+    },
   }
 
   // Fallbacks for unnormalized language codes from our backend
