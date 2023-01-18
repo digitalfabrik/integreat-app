@@ -4,8 +4,8 @@ buildscript {
     ext {
         buildToolsVersion = "30.0.2"
         minSdkVersion = 21
-        compileSdkVersion = 30
-        targetSdkVersion = 30
+        compileSdkVersion = 31
+        targetSdkVersion = 31
         ndkVersion = "21.4.7075529"
         // stick to browser 1.3.0 until we upgrade to SDK 31 https://stackoverflow.com/questions/69208613/getting-error-while-running-react-native-app
         androidXBrowser = "1.3.0"
