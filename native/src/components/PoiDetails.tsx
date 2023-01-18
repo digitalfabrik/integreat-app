@@ -124,14 +124,12 @@ const PoiDetails = ({ poi, feature, language }: PoiDetailsProps): ReactElement =
           <HorizontalLine />
         </>
       )}
-      <>
-        <OpeningHours
-          language={language}
-          openingHours={openingHours}
-          isCurrentlyOpen={isCurrentlyOpen}
-          isTemporarilyClosed={temporarilyClosed}
-        />
-      </>
+      <OpeningHours
+        language={language}
+        openingHours={openingHours}
+        isCurrentlyOpen={isCurrentlyOpen}
+        isTemporarilyClosed={temporarilyClosed}
+      />
       {content.length > 0 && (
         <>
           <CollapsibleItem initExpanded headerContent={t('description')} language={language}>
