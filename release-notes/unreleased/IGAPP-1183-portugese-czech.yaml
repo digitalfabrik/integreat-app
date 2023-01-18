@@ -1,0 +1,8 @@
+issue_key: IGAPP-1183
+show_in_stores: true
+platforms:
+  - web
+  - android
+  - ios
+en: Added support for Portuguese and Czech
+de: Unterstützung für Portugiesisch und Tschechisch hinzugefügt
