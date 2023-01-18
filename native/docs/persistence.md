@@ -18,7 +18,7 @@ The structure of the data stored on the device is:
             └── files.json
 ```
 
-In general, only files and metadata of maximal three instances are kept (this may differ if peeking).
+In general, only files and metadata of maximal three instances are kept.
 
 The `cities-meta.json` contains information about the last content update as well as the last usage of the city:
 
