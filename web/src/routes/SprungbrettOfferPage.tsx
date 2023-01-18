@@ -53,7 +53,7 @@ const SprungbrettOfferPage = ({ cityModel, cityCode, languageCode, languages }: 
   const locationLayoutParams = {
     cityModel,
     viewportSmall,
-    feedbackTargetInformation: data?.sprungbrettOffer ? { slug: getSlugFromPath(data?.sprungbrettOffer.path) } : null,
+    feedbackTargetInformation: data?.sprungbrettOffer ? { slug: getSlugFromPath(data.sprungbrettOffer.path) } : null,
     languageChangePaths,
     route: SPRUNGBRETT_OFFER_ROUTE,
     languageCode,
