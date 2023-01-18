@@ -8,6 +8,7 @@ import useLoadCities from '../hooks/useLoadCities'
 import appSettings from '../utils/AppSettings'
 import { quitAppStatePushNotificationListener } from '../utils/PushNotificationsManager'
 
+jest.mock('@react-native-community/netinfo')
 jest.mock('../hooks/useLoadCities')
 jest.mock('../utils/sentry')
 jest.mock('react-native/Libraries/Utilities/useWindowDimensions')
@@ -93,7 +94,7 @@ jest.mock('../components/SettingsHeader', () => {
 
   return () => <Text>SettingsHeader</Text>
 })
-jest.mock('../components/HeaderContainer', () => {
+jest.mock('../components/Header', () => {
   const { Text } = require('react-native')
 
   return () => <Text>Header</Text>
@@ -107,7 +108,6 @@ jest.mock('../utils/PushNotificationsManager', () => ({
   pushNotificationsSupported: jest.fn(() => true),
   quitAppStatePushNotificationListener: jest.fn(),
 }))
-jest.mock('react-redux')
 
 const cityCode = 'augsburg'
 const languageCode = 'de'

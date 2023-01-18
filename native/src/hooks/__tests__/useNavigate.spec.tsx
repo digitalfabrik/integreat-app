@@ -94,7 +94,7 @@ describe('useNavigate', () => {
       route: JPAL_TRACKING_ROUTE,
       trackingCode: 'abcdef123456',
     })
-    expect(navigation.push).toHaveBeenCalledWith(JPAL_TRACKING_ROUTE, {})
+    expect(navigation.push).toHaveBeenCalledWith(JPAL_TRACKING_ROUTE)
     expect(navigation.push).toHaveBeenCalledTimes(1)
   })
 
@@ -119,7 +119,7 @@ describe('useNavigate', () => {
     })
     expect(navigation.push).not.toHaveBeenCalled()
     expect(openExternalUrl).toHaveBeenCalledTimes(1)
-    expect(openExternalUrl).toHaveBeenCalledWith('https://example.com')
+    expect(openExternalUrl).toHaveBeenCalledWith('https://example.com', expect.any(Function))
   })
 
   it('should open route externally if language does not match the app settings', () => {
@@ -132,7 +132,7 @@ describe('useNavigate', () => {
     })
     expect(navigation.push).not.toHaveBeenCalled()
     expect(openExternalUrl).toHaveBeenCalledTimes(1)
-    expect(openExternalUrl).toHaveBeenCalledWith('https://example.com')
+    expect(openExternalUrl).toHaveBeenCalledWith('https://example.com', expect.any(Function))
   })
 
   it('should navigate to categories route', () => {
@@ -157,7 +157,7 @@ describe('useNavigate', () => {
       route: DISCLAIMER_ROUTE,
       ...params,
     })
-    expect(navigation.push).toHaveBeenCalledWith(DISCLAIMER_ROUTE, {})
+    expect(navigation.push).toHaveBeenCalledWith(DISCLAIMER_ROUTE)
     expect(navigation.push).toHaveBeenCalledTimes(1)
   })
 
@@ -166,7 +166,7 @@ describe('useNavigate', () => {
       route: OFFERS_ROUTE,
       ...params,
     })
-    expect(navigation.push).toHaveBeenCalledWith(OFFERS_ROUTE, {})
+    expect(navigation.push).toHaveBeenCalledWith(OFFERS_ROUTE)
     expect(navigation.push).toHaveBeenCalledTimes(1)
   })
 
