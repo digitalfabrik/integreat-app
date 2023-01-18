@@ -1,0 +1,5 @@
+issue_key: IGAPP-1190
+show_in_stores: false
+platforms:
+  - ios
+en: Include NSLocationAlwaysAndWhenInUseUsageDescription in Info.plist
