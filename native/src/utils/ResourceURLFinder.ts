@@ -4,8 +4,8 @@ import Url from 'url-parse'
 
 import { hashUrl } from 'api-client'
 
-import { FetchMapType } from '../hooks/useLoadResourceCache'
 import { getExtension } from './helpers'
+import { FetchMapType } from './loadResourceCache'
 
 type InputEntryType = {
   path: string

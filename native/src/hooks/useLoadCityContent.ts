@@ -16,9 +16,9 @@ import {
 } from 'api-client'
 
 import dataContainer from '../utils/DefaultDataContainer'
+import loadResourceCache from '../utils/loadResourceCache'
 import { reportError } from '../utils/sentry'
 import useLoadCities from './useLoadCities'
-import loadResourceCache from './useLoadResourceCache'
 import useLoadWithCache from './useLoadWithCache'
 import useOnLanguageChange from './useOnLanguageChange'
 import useSnackbar from './useSnackbar'

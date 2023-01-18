@@ -13,23 +13,17 @@ describe('navigateToLanguageChange', () => {
   })
   const languages = new LanguageModelBuilder(3).build()
   const availableLanguages = ['de', 'en']
-  const cityCode = 'augsburg'
-  const languageCode = 'de'
 
   it('should navigate to language change and send a tracking signal', () => {
     const navigation = createNavigationScreenPropMock()
     navigateToLanguageChange({
       navigation,
-      cityCode,
-      languageCode,
       languages,
       availableLanguages,
     })
     expect(navigation.navigate).toHaveBeenCalledWith({
       name: CHANGE_LANGUAGE_MODAL_ROUTE,
       params: {
-        cityCode,
-        currentLanguage: languageCode,
         languages,
         availableLanguages,
       },

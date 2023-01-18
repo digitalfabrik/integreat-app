@@ -48,7 +48,6 @@ const OffersContainer = ({ navigation, route }: OffersContainerProps): ReactElem
       // HTTP POST is neither supported by the InAppBrowser nor by Linking, therefore we have to open it in a webview
       navigation.push(EXTERNAL_OFFER_ROUTE, {
         url: path,
-        shareUrl: path,
         postData,
       })
     } else if (isExternalUrl) {

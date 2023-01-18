@@ -44,7 +44,6 @@ describe('useNavigateToLink', () => {
 
   const renderMockComponent = (url: string, shareUrl: string) =>
     render(
-      // eslint-disable-next-line react/jsx-no-constructed-context-values
       <AppContext.Provider value={{ changeCityCode, changeLanguageCode, cityCode, languageCode }}>
         <MockComponent url={url} shareUrl={shareUrl} />
       </AppContext.Provider>

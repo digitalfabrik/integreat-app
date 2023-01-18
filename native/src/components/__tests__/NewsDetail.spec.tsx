@@ -1,4 +1,5 @@
 import { fireEvent, render } from '@testing-library/react-native'
+import { mocked } from 'jest-mock'
 import moment from 'moment'
 import React from 'react'
 import { ThemeProvider } from 'styled-components/native'
@@ -6,19 +7,16 @@ import { ThemeProvider } from 'styled-components/native'
 import { DateFormatter, LocalNewsModel, TunewsModel } from 'api-client'
 
 import buildConfig from '../../constants/buildConfig'
-import navigateToLink from '../../navigation/navigateToLink'
+import useNavigateToLink from '../../hooks/useNavigateToLink'
 import NewsDetail from '../NewsDetail'
 
 const mockNavigation = jest.fn()
 
 jest.mock('react-i18next')
-jest.mock('../../navigation/navigateToLink', () => jest.fn(Promise.resolve))
+jest.mock('../../hooks/useNavigateToLink')
 jest.mock('../../hooks/useSnackbar')
 jest.mock('react-native/Libraries/Utilities/useWindowDimensions', () => ({
   default: jest.fn(() => ({ width: 1234 })),
-}))
-jest.mock('react-redux', () => ({
-  useDispatch: jest.fn(),
 }))
 jest.mock('@react-navigation/native', () => ({
   useNavigation: () => mockNavigation,
@@ -46,6 +44,9 @@ describe('NewsDetail', () => {
   const theme = buildConfig().lightTheme
   const language = 'de'
 
+  const navigateToLink = jest.fn()
+  mocked(useNavigateToLink).mockImplementation(() => navigateToLink)
+
   const renderNewsDetail = (news: LocalNewsModel | TunewsModel) =>
     render(
       <ThemeProvider theme={theme}>
@@ -70,21 +71,9 @@ describe('NewsDetail', () => {
     expect(getByText(timestamp)).toBeTruthy()
     expect(queryByText('Last Update')).toBeNull()
     fireEvent.press(getByText('mailto:app@integreat-app.de'))
-    expect(navigateToLink).toHaveBeenCalledWith(
-      'mailto:app@integreat-app.de',
-      mockNavigation,
-      language,
-      expect.anything(),
-      'mailto:app@integreat-app.de'
-    )
+    expect(navigateToLink).toHaveBeenCalledWith('mailto:app@integreat-app.de', 'mailto:app@integreat-app.de')
     fireEvent.press(getByText('https://integreat.app'))
-    expect(navigateToLink).toHaveBeenCalledWith(
-      'https://integreat.app/',
-      mockNavigation,
-      language,
-      expect.anything(),
-      'https://integreat.app/'
-    )
+    expect(navigateToLink).toHaveBeenCalledWith('https://integreat.app/', 'https://integreat.app/')
   })
 
   it('should correctly render a tu news item', () => {
@@ -101,9 +90,6 @@ describe('NewsDetail', () => {
     fireEvent.press(getByText('Aktuelle Informationen zu Corona: Hier klicken'))
     expect(navigateToLink).toHaveBeenCalledWith(
       'https://tunewsinternational.com/category/corona-deutsch/',
-      mockNavigation,
-      language,
-      expect.anything(),
       'https://tunewsinternational.com/category/corona-deutsch/'
     )
   })

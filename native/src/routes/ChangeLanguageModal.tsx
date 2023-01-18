@@ -18,8 +18,8 @@ type ChangeLanguageModalProps = {
 }
 
 const ChangeLanguageModal = ({ navigation, route }: ChangeLanguageModalProps): ReactElement => {
-  const { currentLanguage, languages, availableLanguages } = route.params
-  const { changeLanguageCode } = useContext(AppContext)
+  const { languages, availableLanguages } = route.params
+  const { languageCode, changeLanguageCode } = useContext(AppContext)
 
   const selectorItems = languages.map(({ code, name }) => {
     const isLanguageAvailable = availableLanguages.includes(code)
@@ -28,7 +28,7 @@ const ChangeLanguageModal = ({ navigation, route }: ChangeLanguageModalProps): R
       name,
       enabled: isLanguageAvailable,
       onPress: () => {
-        if (code !== currentLanguage) {
+        if (code !== languageCode) {
           changeLanguageCode(code)
         }
         navigation.goBack()
@@ -38,7 +38,7 @@ const ChangeLanguageModal = ({ navigation, route }: ChangeLanguageModalProps): R
 
   return (
     <Wrapper contentContainerStyle={{ flexGrow: 1, justifyContent: 'center' }}>
-      <Selector selectedItemCode={currentLanguage} items={selectorItems} />
+      <Selector selectedItemCode={languageCode} items={selectorItems} />
     </Wrapper>
   )
 }

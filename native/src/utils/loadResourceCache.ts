@@ -2,14 +2,14 @@ import NetInfo from '@react-native-community/netinfo'
 import { flatten, mapValues, pickBy, reduce, values } from 'lodash'
 import moment from 'moment'
 
-import { CategoriesMapModel, EventModel, ExtendedPageModel, PoiModel } from 'api-client'
+import { CategoriesMapModel, EventModel, ExtendedPageModel, PoiModel } from 'api-client/src'
 
 import buildConfig from '../constants/buildConfig'
-import { PageResourceCacheEntryStateType } from '../utils/DataContainer'
-import dataContainer from '../utils/DefaultDataContainer'
-import FetcherModule, { TargetFilePathsType } from '../utils/FetcherModule'
-import ResourceURLFinder from '../utils/ResourceURLFinder'
-import buildResourceFilePath from '../utils/buildResourceFilePath'
+import { PageResourceCacheEntryStateType } from './DataContainer'
+import dataContainer from './DefaultDataContainer'
+import FetcherModule, { TargetFilePathsType } from './FetcherModule'
+import ResourceURLFinder from './ResourceURLFinder'
+import buildResourceFilePath from './buildResourceFilePath'
 
 export type FetchMapTargetType = {
   url: string
@@ -19,21 +19,19 @@ export type FetchMapTargetType = {
 
 export type FetchMapType = Record<string, Array<FetchMapTargetType>>
 
-type UseLoadResourceCacheProps = {
-  cityCode: string
-  languageCode: string
-  categories: CategoriesMapModel | null
-  events: EventModel[] | null
-  pois: PoiModel[] | null
-}
-
 const loadResourceCache = async ({
   cityCode,
   languageCode,
   categories,
   events,
   pois,
-}: UseLoadResourceCacheProps): Promise<void> => {
+}: {
+  cityCode: string
+  languageCode: string
+  categories: CategoriesMapModel | null
+  events: EventModel[] | null
+  pois: PoiModel[] | null
+}): Promise<void> => {
   const netInfo = await NetInfo.fetch()
   if (FetcherModule.currentlyFetching || netInfo.type === 'cellular') {
     return

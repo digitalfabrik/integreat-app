@@ -82,7 +82,7 @@ const Header = ({
   languages,
   isHome,
 }: HeaderProps): ReactElement | null => {
-  const { cityCode, languageCode } = useContext(AppContext)
+  const { cityCode } = useContext(AppContext)
   const { t } = useTranslation('layout')
   const showSnackbar = useSnackbar()
   const deviceWidth = useWindowDimensions().width
@@ -145,7 +145,7 @@ const Header = ({
     languages &&
     availableLanguages &&
     cityCode &&
-    navigateToLanguageChange({ navigation, cityCode, languageCode, availableLanguages, languages })
+    navigateToLanguageChange({ navigation, availableLanguages, languages })
 
   const visible = showItems && !!goToLanguageChange
   const items = [
@@ -160,7 +160,7 @@ const Header = ({
       : []),
     renderOverflowItem(HeaderButtonTitle.Settings, () => navigation.navigate(SETTINGS_ROUTE)),
     ...(route.name !== DISCLAIMER_ROUTE
-      ? [renderOverflowItem(HeaderButtonTitle.Disclaimer, () => navigation.navigate(DISCLAIMER_ROUTE, {}))]
+      ? [renderOverflowItem(HeaderButtonTitle.Disclaimer, () => navigation.navigate(DISCLAIMER_ROUTE))]
       : []),
   ]
 
