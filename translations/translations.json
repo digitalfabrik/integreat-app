@@ -5571,7 +5571,14 @@
       "openingHoursAllDay": "ganztägig",
       "openingHoursOpened": "geöffnet",
       "openingHoursClosed": "geschlossen",
-      "openingHoursTemporarilyClosed": "Vorübergehend geschlossen"
+      "openingHoursTemporarilyClosed": "Vorübergehend geschlossen",
+      "montag": "Montag",
+      "dienstag": "Dienstag",
+      "mittwoch": "Mittwoch",
+      "donnerstag": "Donnerstag",
+      "freitag": "Freitag,",
+      "samstag": "Samstag",
+      "sonntag": "Sonntag"
     },
     "am": {
       "pageTitle": "ካርታ",
@@ -5773,7 +5780,14 @@
       "openingHoursAllDay": "all day",
       "openingHoursOpened": "open",
       "openingHoursClosed": "closed",
-      "openingHoursTemporarilyClosed": "temporarily closed"
+      "openingHoursTemporarilyClosed": "temporarily closed",
+      "montag": "Monday",
+      "dienstag": "Tuesday",
+      "mittwoch": "Wednesday",
+      "donnerstag": "Thursday",
+      "freitag": "Friday,",
+      "samstag": "Saturday",
+      "sonntag": "Sunday"
     },
     "es": {
       "pageTitle": "Mapa",
