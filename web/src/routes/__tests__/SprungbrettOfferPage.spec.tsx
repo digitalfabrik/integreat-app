@@ -9,7 +9,7 @@ import {
   pathnameFromRouteInformation,
   SPRUNGBRETT_OFFER_ROUTE,
   SprungbrettJobModel,
-  useLoadFromEndpoint,
+  useLoadAsync,
 } from 'api-client'
 
 import { renderRoute } from '../../testing/render'
@@ -18,15 +18,11 @@ import { RoutePatterns } from '../index'
 
 jest.mock('api-client', () => ({
   ...jest.requireActual('api-client'),
-  useLoadFromEndpoint: jest.fn(),
+  useLoadAsync: jest.fn(),
 }))
 jest.mock('react-i18next')
 
 describe('SprungbrettOfferPage', () => {
-  const mockUseLoadFromEndpointOnce = (mock: typeof useLoadFromEndpoint) => {
-    mocked(useLoadFromEndpoint).mockImplementationOnce(mock)
-  }
-
   beforeEach(() => {
     jest.clearAllMocks()
   })
@@ -35,7 +31,7 @@ describe('SprungbrettOfferPage', () => {
   const cities = new CityModelBuilder(2).build()
   const city = cities[0]!
   const language = languages[0]!
-  const sprungbrettOffer = new OffersModelBuilder(1).build()
+  const offers = new OffersModelBuilder(1).build()
   const sprungbrettJobs = [
     new SprungbrettJobModel({
       id: 0,
@@ -69,6 +65,17 @@ describe('SprungbrettOfferPage', () => {
   })
   const routePattern = `/:cityCode/:languageCode/${RoutePatterns[SPRUNGBRETT_OFFER_ROUTE]}`
 
+  const returnValue = {
+    data: {
+      sprungbrettJobs,
+      offers,
+      sprungbrettOffer: offers[0],
+    },
+    loading: false,
+    error: null,
+    refresh: jest.fn,
+  }
+
   const renderSprungbrett = (): RenderResult =>
     renderRoute(
       <SprungbrettOfferPage
@@ -84,68 +91,19 @@ describe('SprungbrettOfferPage', () => {
     )
 
   it('should render page with title and content', () => {
-    const useLoadFromEndpointMockOffers = (() => ({
-      data: sprungbrettOffer,
-      loading: false,
-      error: null,
-      refresh: () => null,
-    })) as typeof useLoadFromEndpoint
-    mockUseLoadFromEndpointOnce(useLoadFromEndpointMockOffers)
-
-    const useLoadFromEndpointMockJobs = (() => ({
-      data: sprungbrettJobs,
-      loading: false,
-      error: null,
-      refresh: () => null,
-    })) as typeof useLoadFromEndpoint
-    mockUseLoadFromEndpointOnce(useLoadFromEndpointMockJobs)
+    mocked(useLoadAsync).mockImplementation(() => returnValue)
 
     const { getByText } = renderSprungbrett()
 
-    expect(getByText(sprungbrettOffer[0]!.title)).toBeTruthy()
+    expect(getByText(offers[0]!.title)).toBeTruthy()
     sprungbrettJobs.forEach(sprungbrettJob => {
       expect(getByText(sprungbrettJob.title)).toBeTruthy()
     })
   })
 
-  it('should render error when offers cannot be fetched', () => {
+  it('should render error when loading fails', () => {
     const errorMessage = 'Offers are not available!'
-    mockUseLoadFromEndpointOnce(() => ({
-      data: null,
-      loading: false,
-      error: new Error(errorMessage),
-      refresh: () => null,
-    }))
-
-    const useLoadFromEndpointMockJobs = (() => ({
-      data: sprungbrettJobs,
-      loading: false,
-      error: null,
-      refresh: () => null,
-    })) as typeof useLoadFromEndpoint
-    mockUseLoadFromEndpointOnce(useLoadFromEndpointMockJobs)
-
-    const { getByText } = renderSprungbrett()
-
-    expect(getByText(`error:unknownError`)).toBeTruthy()
-  })
-
-  it('should render error when sprungbrettJobs cannot be fetched', () => {
-    const errorMessage = 'Jobs are not available!'
-    const useLoadFromEndpointMockOffers = (() => ({
-      data: sprungbrettOffer,
-      loading: false,
-      error: null,
-      refresh: () => null,
-    })) as typeof useLoadFromEndpoint
-    mockUseLoadFromEndpointOnce(useLoadFromEndpointMockOffers)
-
-    mockUseLoadFromEndpointOnce(() => ({
-      data: null,
-      loading: false,
-      error: new Error(errorMessage),
-      refresh: () => null,
-    }))
+    mocked(useLoadAsync).mockImplementation(() => ({ ...returnValue, error: new Error(errorMessage), data: null }))
 
     const { getByText } = renderSprungbrett()
 
