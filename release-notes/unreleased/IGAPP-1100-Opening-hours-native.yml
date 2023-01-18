@@ -1,0 +1,7 @@
+issue_key: IGAPP-1100
+show_in_stores: true
+platforms:
+  - ios
+  - android
+en: Opening hours for locations will be displayed
+de: Öffnungszeiten für Orte werden nun angezeigt
