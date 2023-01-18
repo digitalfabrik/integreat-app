@@ -68,60 +68,52 @@ export type RoutesType =
   | ImageViewModalRouteType
   | FeedbackModalRouteType
 
-type ShareUrlType = {
-  shareUrl: string
-}
-
-type BasicParams = {
-  shareUrl?: string
-}
-
 export type RoutesParamsType = {
-  [REDIRECT_ROUTE]: BasicParams & {
+  [REDIRECT_ROUTE]: {
     url: string
   }
-  [INTRO_ROUTE]: BasicParams & {
+  [INTRO_ROUTE]: {
     deepLink?: string
   }
   [LANDING_ROUTE]: undefined
   [CITY_NOT_COOPERATING_ROUTE]: undefined
-  [CATEGORIES_ROUTE]: BasicParams & {
+  [CATEGORIES_ROUTE]: {
     path?: string
   }
-  [POIS_ROUTE]: BasicParams & {
+  [POIS_ROUTE]: {
     slug?: string
   }
-  [EVENTS_ROUTE]: BasicParams & {
+  [EVENTS_ROUTE]: {
     slug?: string
   }
-  [NEWS_ROUTE]: BasicParams & {
+  [NEWS_ROUTE]: {
     newsId: string | null
     newsType: NewsType
   }
-  [DISCLAIMER_ROUTE]: BasicParams
-  [OFFERS_ROUTE]: BasicParams
-  [JPAL_TRACKING_ROUTE]: BasicParams
-  [EXTERNAL_OFFER_ROUTE]: BasicParams & {
+  [DISCLAIMER_ROUTE]: undefined
+  [OFFERS_ROUTE]: undefined
+  [JPAL_TRACKING_ROUTE]: undefined
+  [EXTERNAL_OFFER_ROUTE]: {
     url: string
     postData: Map<string, string> | null | undefined
   }
-  [SPRUNGBRETT_OFFER_ROUTE]: BasicParams
+  [SPRUNGBRETT_OFFER_ROUTE]: undefined
   [SETTINGS_ROUTE]: undefined
   [SEARCH_ROUTE]: undefined
   [LICENSES_ROUTE]: undefined
-  [CHANGE_LANGUAGE_MODAL_ROUTE]: BasicParams & {
-    currentLanguage: string
-    cityCode: string
+  [CHANGE_LANGUAGE_MODAL_ROUTE]: {
     languages: Array<LanguageModel>
     availableLanguages: Array<string>
   }
-  [PDF_VIEW_MODAL_ROUTE]: ShareUrlType & {
+  [PDF_VIEW_MODAL_ROUTE]: {
     url: string
+    shareUrl: string
   }
-  [IMAGE_VIEW_MODAL_ROUTE]: ShareUrlType & {
+  [IMAGE_VIEW_MODAL_ROUTE]: {
     url: string
+    shareUrl: string
   }
-  [FEEDBACK_MODAL_ROUTE]: BasicParams & FeedbackInformationType
+  [FEEDBACK_MODAL_ROUTE]: FeedbackInformationType
 }
 export type RouteProps<T extends RoutesType> = RouteProp<RoutesParamsType, T>
 export type NavigationProps<T extends RoutesType> = StackNavigationProp<RoutesParamsType, T>

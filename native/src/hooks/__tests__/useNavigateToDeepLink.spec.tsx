@@ -59,7 +59,6 @@ describe('useNavigateToDeepLink', () => {
 
   const renderMockComponent = (url: string, cityCode: string | null = null, languageCode = selectedLanguageCode) =>
     render(
-      // eslint-disable-next-line react/jsx-no-constructed-context-values
       <AppContext.Provider value={{ changeCityCode, changeLanguageCode, cityCode, languageCode }}>
         <MockComponent url={url} />
       </AppContext.Provider>
@@ -102,8 +101,8 @@ describe('useNavigateToDeepLink', () => {
       await appSettings.setIntroShown()
       renderMockComponent(url)
 
-      await waitFor(() => expect(navigation.replace).toHaveBeenCalledTimes(1))
-      expect(navigation.replace).toHaveBeenCalledWith(LANDING_ROUTE)
+      await waitFor(() => expect(navigation.reset).toHaveBeenCalledTimes(1))
+      expect(navigation.reset).toHaveBeenCalledWith({ index: 0, routes: [{ name: LANDING_ROUTE }] })
 
       expect(navigateTo).not.toHaveBeenCalled()
       expect(changeCityCode).not.toHaveBeenCalled()
@@ -114,8 +113,8 @@ describe('useNavigateToDeepLink', () => {
       mockBuildConfig({ introSlides: false, fixedCity: null })
       renderMockComponent(url)
 
-      await waitFor(() => expect(navigation.replace).toHaveBeenCalledTimes(1))
-      expect(navigation.replace).toHaveBeenCalledWith(LANDING_ROUTE)
+      await waitFor(() => expect(navigation.reset).toHaveBeenCalledTimes(1))
+      expect(navigation.reset).toHaveBeenCalledWith({ index: 0, routes: [{ name: LANDING_ROUTE }] })
 
       expect(navigateTo).not.toHaveBeenCalled()
       expect(changeCityCode).not.toHaveBeenCalled()
@@ -128,8 +127,8 @@ describe('useNavigateToDeepLink', () => {
       await appSettings.setIntroShown()
       renderMockComponent(url)
 
-      await waitFor(() => expect(navigation.replace).toHaveBeenCalledTimes(1))
-      expect(navigation.replace).toHaveBeenCalledWith(CATEGORIES_ROUTE, {})
+      await waitFor(() => expect(navigation.reset).toHaveBeenCalledTimes(1))
+      expect(navigation.reset).toHaveBeenCalledWith({ index: 0, routes: [{ name: CATEGORIES_ROUTE, params: {} }] })
 
       expect(changeCityCode).toHaveBeenCalledTimes(1)
       expect(changeCityCode).toHaveBeenCalledWith(fixedCity)
@@ -143,8 +142,8 @@ describe('useNavigateToDeepLink', () => {
       mockBuildConfig({ introSlides: false, fixedCity: null })
       renderMockComponent(url, selectedCity)
 
-      await waitFor(() => expect(navigation.replace).toHaveBeenCalledTimes(1))
-      expect(navigation.replace).toHaveBeenCalledWith(CATEGORIES_ROUTE, {})
+      await waitFor(() => expect(navigation.reset).toHaveBeenCalledTimes(1))
+      expect(navigation.reset).toHaveBeenCalledWith({ index: 0, routes: [{ name: CATEGORIES_ROUTE, params: {} }] })
 
       expect(changeCityCode).not.toHaveBeenCalled()
       expect(navigateTo).not.toHaveBeenCalled()
@@ -175,8 +174,8 @@ describe('useNavigateToDeepLink', () => {
       await appSettings.setIntroShown()
       renderMockComponent(url)
 
-      await waitFor(() => expect(navigation.replace).toHaveBeenCalledTimes(1))
-      expect(navigation.replace).toHaveBeenCalledWith(CATEGORIES_ROUTE, {})
+      await waitFor(() => expect(navigation.reset).toHaveBeenCalledTimes(1))
+      expect(navigation.reset).toHaveBeenCalledWith({ index: 0, routes: [{ name: CATEGORIES_ROUTE, params: {} }] })
 
       expect(changeCityCode).toHaveBeenCalledTimes(1)
       expect(changeCityCode).toHaveBeenCalledWith(cityCode)
@@ -191,8 +190,8 @@ describe('useNavigateToDeepLink', () => {
       await appSettings.setIntroShown()
       renderMockComponent(url)
 
-      await waitFor(() => expect(navigation.replace).toHaveBeenCalledTimes(1))
-      expect(navigation.replace).toHaveBeenCalledWith(CATEGORIES_ROUTE, {})
+      await waitFor(() => expect(navigation.reset).toHaveBeenCalledTimes(1))
+      expect(navigation.reset).toHaveBeenCalledWith({ index: 0, routes: [{ name: CATEGORIES_ROUTE, params: {} }] })
 
       expect(changeCityCode).toHaveBeenCalledTimes(1)
       expect(changeCityCode).toHaveBeenCalledWith(cityCode)
@@ -207,8 +206,8 @@ describe('useNavigateToDeepLink', () => {
       await appSettings.setIntroShown()
       renderMockComponent(url, selectedCity)
 
-      await waitFor(() => expect(navigation.replace).toHaveBeenCalledTimes(1))
-      expect(navigation.replace).toHaveBeenCalledWith(CATEGORIES_ROUTE, {})
+      await waitFor(() => expect(navigation.reset).toHaveBeenCalledTimes(1))
+      expect(navigation.reset).toHaveBeenCalledWith({ index: 0, routes: [{ name: CATEGORIES_ROUTE, params: {} }] })
 
       expect(navigateTo).toHaveBeenCalledTimes(1)
       expect(navigateTo).toHaveBeenCalledWith({
@@ -229,8 +228,8 @@ describe('useNavigateToDeepLink', () => {
       await appSettings.setIntroShown()
       renderMockComponent(url, selectedCity)
 
-      await waitFor(() => expect(navigation.replace).toHaveBeenCalledTimes(1))
-      expect(navigation.replace).toHaveBeenCalledWith(CATEGORIES_ROUTE, {})
+      await waitFor(() => expect(navigation.reset).toHaveBeenCalledTimes(1))
+      expect(navigation.reset).toHaveBeenCalledWith({ index: 0, routes: [{ name: CATEGORIES_ROUTE, params: {} }] })
 
       expect(navigateTo).toHaveBeenCalledTimes(1)
       expect(navigateTo).toHaveBeenCalledWith({
@@ -252,7 +251,7 @@ describe('useNavigateToDeepLink', () => {
       await waitFor(() => expect(showSnackbar).toHaveBeenCalledTimes(1))
       expect(showSnackbar).toHaveBeenCalledWith({ text: 'notFound.category' })
 
-      expect(navigation.replace).not.toHaveBeenCalled()
+      expect(navigation.reset).not.toHaveBeenCalled()
       expect(navigateTo).not.toHaveBeenCalled()
       expect(changeCityCode).not.toHaveBeenCalled()
       expectTrackingSignal(url)
@@ -284,8 +283,8 @@ describe('useNavigateToDeepLink', () => {
       await appSettings.setIntroShown()
       renderMockComponent(url, cityCode)
 
-      await waitFor(() => expect(navigation.replace).toHaveBeenCalledTimes(1))
-      expect(navigation.replace).toHaveBeenCalledWith(CATEGORIES_ROUTE, {})
+      await waitFor(() => expect(navigation.reset).toHaveBeenCalledTimes(1))
+      expect(navigation.reset).toHaveBeenCalledWith({ index: 0, routes: [{ name: CATEGORIES_ROUTE, params: {} }] })
       expect(navigateTo).toHaveBeenCalledTimes(1)
       expect(navigateTo).toHaveBeenCalledWith({
         cityCode,
@@ -304,8 +303,8 @@ describe('useNavigateToDeepLink', () => {
       await appSettings.setIntroShown()
       renderMockComponent(url)
 
-      await waitFor(() => expect(navigation.replace).toHaveBeenCalledTimes(1))
-      expect(navigation.replace).toHaveBeenCalledWith(CATEGORIES_ROUTE, {})
+      await waitFor(() => expect(navigation.reset).toHaveBeenCalledTimes(1))
+      expect(navigation.reset).toHaveBeenCalledWith({ index: 0, routes: [{ name: CATEGORIES_ROUTE, params: {} }] })
       expect(navigateTo).toHaveBeenCalledTimes(1)
       expect(navigateTo).toHaveBeenCalledWith({
         cityCode,
@@ -326,8 +325,8 @@ describe('useNavigateToDeepLink', () => {
       await appSettings.setIntroShown()
       renderMockComponent(url, selectedCity)
 
-      await waitFor(() => expect(navigation.replace).toHaveBeenCalledTimes(1))
-      expect(navigation.replace).toHaveBeenCalledWith(CATEGORIES_ROUTE, {})
+      await waitFor(() => expect(navigation.reset).toHaveBeenCalledTimes(1))
+      expect(navigation.reset).toHaveBeenCalledWith({ index: 0, routes: [{ name: CATEGORIES_ROUTE, params: {} }] })
       expect(navigateTo).toHaveBeenCalledTimes(1)
       expect(navigateTo).toHaveBeenCalledWith({
         cityCode,
@@ -348,8 +347,8 @@ describe('useNavigateToDeepLink', () => {
       await appSettings.setIntroShown()
       renderMockComponent(url)
 
-      await waitFor(() => expect(navigation.replace).toHaveBeenCalledTimes(1))
-      expect(navigation.replace).toHaveBeenCalledWith(LANDING_ROUTE)
+      await waitFor(() => expect(navigation.reset).toHaveBeenCalledTimes(1))
+      expect(navigation.reset).toHaveBeenCalledWith({ index: 0, routes: [{ name: LANDING_ROUTE }] })
       expect(navigateTo).toHaveBeenCalledTimes(1)
       expect(navigateTo).toHaveBeenCalledWith({
         route: JPAL_TRACKING_ROUTE,
@@ -366,8 +365,8 @@ describe('useNavigateToDeepLink', () => {
       await appSettings.setIntroShown()
       renderMockComponent(url, selectedCity)
 
-      await waitFor(() => expect(navigation.replace).toHaveBeenCalledTimes(1))
-      expect(navigation.replace).toHaveBeenCalledWith(CATEGORIES_ROUTE, {})
+      await waitFor(() => expect(navigation.reset).toHaveBeenCalledTimes(1))
+      expect(navigation.reset).toHaveBeenCalledWith({ index: 0, routes: [{ name: CATEGORIES_ROUTE, params: {} }] })
       expect(navigateTo).toHaveBeenCalledTimes(1)
       expect(navigateTo).toHaveBeenCalledWith({
         route: JPAL_TRACKING_ROUTE,

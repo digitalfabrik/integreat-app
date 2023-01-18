@@ -61,7 +61,6 @@ describe('useNavigate', () => {
 
   const renderMockComponent = (routeInformation: RouteInformationType) =>
     render(
-      // eslint-disable-next-line react/jsx-no-constructed-context-values
       <AppContext.Provider value={{ changeCityCode, changeLanguageCode, cityCode, languageCode }}>
         <MockComponent routeInformation={routeInformation} />
       </AppContext.Provider>

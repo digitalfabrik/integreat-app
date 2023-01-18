@@ -41,7 +41,7 @@ const TransparentHeader = ({ navigation, route }: TransparentHeaderProps): React
   const { t } = useTranslation('layout')
   const showSnackbar = useSnackbar()
 
-  const shareUrl = route.params?.shareUrl
+  const shareUrl = (route.params as { shareUrl: string } | undefined)?.shareUrl
 
   const onShare = useCallback(async (): Promise<void> => {
     if (!shareUrl) {

@@ -64,7 +64,7 @@ const navigate = <T extends RoutesType>(
   }
   if (routeInformation.route === JPAL_TRACKING_ROUTE) {
     if (buildConfig().featureFlags.jpalTracking) {
-      navigation.push(JPAL_TRACKING_ROUTE, {})
+      navigation.push(JPAL_TRACKING_ROUTE)
     }
 
     return
@@ -89,7 +89,7 @@ const navigate = <T extends RoutesType>(
       return
 
     case DISCLAIMER_ROUTE:
-      navigation.push(DISCLAIMER_ROUTE, {})
+      navigation.push(DISCLAIMER_ROUTE)
       return
 
     case EVENTS_ROUTE:
@@ -109,11 +109,11 @@ const navigate = <T extends RoutesType>(
       return
 
     case OFFERS_ROUTE:
-      navigation.push(OFFERS_ROUTE, {})
+      navigation.push(OFFERS_ROUTE)
       return
 
     case SPRUNGBRETT_OFFER_ROUTE:
-      navigation.push(SPRUNGBRETT_OFFER_ROUTE, {})
+      navigation.push(SPRUNGBRETT_OFFER_ROUTE)
       return
 
     case POIS_ROUTE:
