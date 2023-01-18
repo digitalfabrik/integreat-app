@@ -2,6 +2,7 @@ import Dompurify from 'dompurify'
 import React, { ReactElement, useCallback, useEffect } from 'react'
 import styled from 'styled-components'
 
+import IconExternalLink from '../assets/IconExternalLink.svg'
 import buildConfig from '../constants/buildConfig'
 
 const SandBox = styled.div<{ centered: boolean; smallText: boolean }>`
@@ -12,7 +13,7 @@ const SandBox = styled.div<{ centered: boolean; smallText: boolean }>`
 
   ${props => (props.centered ? 'text-align: center;' : '')}
   ${props => (props.centered ? 'list-style-position: inside;' : '')}
-  & img {
+  img {
     max-width: 100%;
     max-height: 100%;
     object-fit: contain;
@@ -31,7 +32,7 @@ const SandBox = styled.div<{ centered: boolean; smallText: boolean }>`
     }
   }
 
-  & figure {
+  figure {
     margin-inline-start: 0;
     text-align: center;
     margin: 15px auto;
@@ -41,48 +42,66 @@ const SandBox = styled.div<{ centered: boolean; smallText: boolean }>`
     }
   }
 
-  & figcaption {
+  figcaption {
     font-size: ${props => props.theme.fonts.hintFontSize};
     font-style: italic;
     padding: 0 15px;
   }
 
-  & table {
+  table {
     display: block;
     width: 100% !important;
     height: auto !important; /* need important because of bad-formatted remote-content */
     overflow: auto;
   }
 
-  & tbody,
-  & thead {
+  tbody,
+  thead {
     display: table; /* little bit hacky, but works in all browsers, even IE11 :O */
     width: 100%;
     box-sizing: border-box;
     border-collapse: collapse;
   }
 
-  & tbody,
-  & thead,
-  & th,
-  & td {
+  tbody,
+  thead,
+  th,
+  td {
     border: 1px solid ${props => props.theme.colors.backgroundAccentColor};
   }
 
-  & a {
+  a {
     overflow-wrap: break-word;
   }
 
-  & details > * {
+  details > * {
     padding: 0 25px;
   }
 
-  & details > summary {
+  details > summary {
     padding: 0;
   }
 
-  & pre {
+  pre {
     overflow-x: auto;
+  }
+
+  .link-external {
+    display: inline-flex;
+    align-items: center;
+  }
+
+  .link-external::after {
+    content: '';
+    display: inline-block;
+    background-image: url('${IconExternalLink}');
+    width: ${props =>
+      props.smallText ? `clamp(0.55rem, 1.6vh, ${props.theme.fonts.hintFontSize})` : props.theme.fonts.contentFontSize};
+    height: ${props =>
+      props.smallText ? `clamp(0.55rem, 1.6vh, ${props.theme.fonts.hintFontSize})` : props.theme.fonts.contentFontSize};
+    background-size: contain;
+    vertical-align: middle;
+    margin-left: 4px;
   }
 `
 
