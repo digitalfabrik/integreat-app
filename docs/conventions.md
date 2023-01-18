@@ -77,7 +77,6 @@ StyledComponents.
 | _rfc_    | React Functional Component                                |
 | _rnfc_   | React Native Functional Component                         |
 | _rccc_   | React class component with constructor                    |
-| _rrdc_   | React class connect to redux                              |
 | _rtc_    | Standard Component test with react testing-library        |
 | _rntc_   | Standard Component test with react native testing-library |
 | _scnv_   | styled view native component                              |
