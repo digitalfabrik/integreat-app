@@ -51,7 +51,7 @@ steps:
       steps:
         - run:
             name: Persist artifact url
-            command: echo "[<< parameters.build_config_name >>.ipa](https://$CIRCLE_BUILD_NUM-$GITHUB_REPO_ID-gh.circle-artifacts.com/0/native/ios/output/gym/integreat.ipa)" >> << parameters.build_config_name >>-ipa-url
+            command: echo "[<< parameters.build_config_name >>.ipa](https://output.circle-artifacts.com/output/job/$CIRCLE_WORKFLOW_JOB_ID/artifacts/0/native/ios/output/gym/<< parameters.build_config_name >>.ipa)" >> << parameters.build_config_name >>-ipa-url
         - persist_to_workspace:
             root: ./
             paths:
