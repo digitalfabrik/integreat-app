@@ -80,7 +80,7 @@ describe('PoisPage', () => {
     const { getByText } = renderPois()
     expect(getByText('error:unknownError')).toBeTruthy()
   })
-  // TODO IGAPP-1153: fix tests for Pois with URL Slug instead of just skipping
+
   it('should render poi details page when list item was clicked', () => {
     mocked(useFeatureLocations).mockImplementation(() => ({
       data: { pois, features },
