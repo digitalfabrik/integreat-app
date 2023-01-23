@@ -1,8 +1,7 @@
 import { Collapse, CollapseHeader, CollapseBody } from 'accordion-collapse-react-native'
 import React, { ReactElement, ReactNode, useState } from 'react'
 import Icon from 'react-native-vector-icons/MaterialIcons'
-import { useTheme } from 'styled-components'
-import styled from 'styled-components/native'
+import styled, { useTheme } from 'styled-components/native'
 
 import { contentDirection } from '../constants/contentDirection'
 
@@ -11,8 +10,8 @@ type CollapsibleItemProps = {
   initExpanded: boolean
   /** set iconSize for the collapseHeader */
   iconSize?: number
-  /** set text for the collapseHeader */
-  headerText: string
+  /** set content for the collapseHeader */
+  headerContent: string | ReactElement
   children: ReactNode
   /** language to offer rtl support */
   language: string
@@ -26,7 +25,6 @@ const PageContainer = styled.View`
 
 const CollapseHeaderText = styled.Text`
   font-size: 14px;
-  font-weight: bold;
   align-self: center;
   font-family: ${props => props.theme.fonts.native.decorativeFontBold};
 `
@@ -35,6 +33,8 @@ const CollapseHeaderWrapper = styled.View<{ language: string }>`
   flex-direction: ${props => contentDirection(props.language)};
   justify-content: space-between;
   width: 100%;
+  align-self: center;
+  font-family: ${props => props.theme.fonts.native.decorativeFontBold};
 `
 
 const StyledIcon = styled(Icon)`
@@ -43,16 +43,24 @@ const StyledIcon = styled(Icon)`
 
 const DEFAULT_ICON_SIZE = 25
 
+const renderHeaderContent = (headerContent: string | ReactElement): ReactElement => {
+  if (typeof headerContent === 'string') {
+    return <CollapseHeaderText>{headerContent}</CollapseHeaderText>
+  }
+  return headerContent
+}
+
 const CollapsibleItem: React.FC<CollapsibleItemProps> = ({
   initExpanded,
   iconSize = DEFAULT_ICON_SIZE,
   children,
-  headerText,
+  headerContent,
   language,
 }: CollapsibleItemProps): ReactElement => {
   const theme = useTheme()
   const [isExpanded, setIsExpanded] = useState<boolean>(initExpanded)
   const iconName: CollapsibleHeaderIconProps = isExpanded ? 'expand-less' : 'expand-more'
+
   return (
     <PageContainer>
       <Collapse
@@ -61,7 +69,7 @@ const CollapsibleItem: React.FC<CollapsibleItemProps> = ({
         touchableOpacityProps={{ activeOpacity: 1 }}>
         <CollapseHeader style={{ flexDirection: 'row' }}>
           <CollapseHeaderWrapper language={language}>
-            <CollapseHeaderText>{headerText}</CollapseHeaderText>
+            {renderHeaderContent(headerContent)}
             <StyledIcon name={iconName} size={iconSize} color={theme.colors.textSecondaryColor} />
           </CollapseHeaderWrapper>
         </CollapseHeader>
