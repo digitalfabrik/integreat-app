@@ -688,7 +688,7 @@ class DatabaseConnector {
     return BlobUtil.fs.exists(path)
   }
 
-  async readFile<T>(path: string): Promise<T> {
+  async readFile<T>(path: string, isRetry = false): Promise<T> {
     const jsonString: number[] | string = await BlobUtil.fs.readFile(path, 'utf8')
 
     try {
@@ -698,6 +698,10 @@ class DatabaseConnector {
 
       return JSON.parse(jsonString)
     } catch (e) {
+      if (!isRetry) {
+        log(`An error occurred while trying to parse json '${jsonString}' from path '${path}', retrying.`, 'warning')
+        return this.readFile(path, true)
+      }
       log(`An error occurred while trying to parse json '${jsonString}' from path '${path}'`, 'warning')
       await deleteIfExists(path)
       throw e
