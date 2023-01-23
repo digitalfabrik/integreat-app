@@ -108,6 +108,7 @@ jest.mock('../utils/PushNotificationsManager', () => ({
   pushNotificationsSupported: jest.fn(() => true),
   quitAppStatePushNotificationListener: jest.fn(),
 }))
+jest.mock('../utils/FetcherModule')
 
 const cityCode = 'augsburg'
 const languageCode = 'de'
