@@ -3,12 +3,7 @@ import { isEmpty, mapValues, sortBy, toPairs } from 'lodash'
 import { FetchResultType, TargetFilePathsType } from '../FetcherModule'
 
 class FetcherModule {
-  static currentlyFetching = false
   fetchAsync = (targetFilePaths: TargetFilePathsType): Promise<FetchResultType> => {
-    if (FetcherModule.currentlyFetching) {
-      throw new Error('Already fetching!')
-    }
-
     if (isEmpty(targetFilePaths)) {
       return Promise.resolve({})
     }
