@@ -29,10 +29,11 @@ describe('LanguageNotAvailablePage', () => {
   const changeLanguageCode = jest.fn()
   const cityCode = 'ansbach'
   const languageCode = 'de'
+  const context = { changeCityCode, changeLanguageCode, cityCode, languageCode }
 
   const renderLanguageNotAvailablePage = () =>
     render(
-      <AppContext.Provider value={{ changeCityCode, changeLanguageCode, cityCode, languageCode }}>
+      <AppContext.Provider value={context}>
         <LanguageNotAvailablePage availableLanguages={languages} />
       </AppContext.Provider>
     )

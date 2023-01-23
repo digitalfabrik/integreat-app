@@ -5,6 +5,8 @@ describe('loadAsync', () => {
   const setError = jest.fn()
   const setLoading = jest.fn()
 
+  beforeEach(jest.resetAllMocks)
+
   it('should set everything correctly if loading succeeds', async () => {
     const request = async (): Promise<string> => 'myData'
 

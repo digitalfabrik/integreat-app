@@ -1,4 +1,4 @@
-import { fireEvent, render, waitFor } from '@testing-library/react-native'
+import { fireEvent, render } from '@testing-library/react-native'
 import { mocked } from 'jest-mock'
 import moment from 'moment'
 import React from 'react'
@@ -116,8 +116,8 @@ describe('TuNews', () => {
       availableLanguages: languages.slice(1),
     }))
 
-    const { getByText, queryByText } = renderNews()
-    await waitFor(() => expect(getByText('languageNotAvailable')).toBeTruthy())
+    const { findByText, queryByText } = renderNews()
+    expect(await findByText('languageNotAvailable')).toBeTruthy()
 
     expect(queryByText(news[0].title)).toBeFalsy()
   })

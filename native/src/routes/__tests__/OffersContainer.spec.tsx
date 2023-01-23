@@ -73,11 +73,11 @@ describe('OffersContainer', () => {
     error: null,
     data,
   }
+  const context = { changeCityCode, changeLanguageCode, cityCode: city.code, languageCode: language.code }
 
   const renderOffersContainer = () =>
     render(
-      <AppContext.Provider
-        value={{ changeCityCode, changeLanguageCode, cityCode: city.code, languageCode: language.code }}>
+      <AppContext.Provider value={context}>
         <OffersContainer route={route} navigation={navigation} />
       </AppContext.Provider>
     )

@@ -41,10 +41,11 @@ describe('useNavigateToLink', () => {
 
     return null
   }
+  const context = { changeCityCode, changeLanguageCode, cityCode, languageCode }
 
   const renderMockComponent = (url: string, shareUrl: string) =>
     render(
-      <AppContext.Provider value={{ changeCityCode, changeLanguageCode, cityCode, languageCode }}>
+      <AppContext.Provider value={context}>
         <MockComponent url={url} shareUrl={shareUrl} />
       </AppContext.Provider>
     )
