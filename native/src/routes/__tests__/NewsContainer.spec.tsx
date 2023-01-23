@@ -74,6 +74,7 @@ describe('NewsContainer', () => {
     error: null,
     data,
   }
+  const context = { changeCityCode, changeLanguageCode, cityCode: city.code, languageCode: language.code }
 
   const renderNews = ({
     newsType = TU_NEWS_TYPE,
@@ -90,9 +91,9 @@ describe('NewsContainer', () => {
       },
       name: NEWS_ROUTE,
     }
+
     return render(
-      <AppContext.Provider
-        value={{ changeCityCode, changeLanguageCode, cityCode: city.code, languageCode: language.code }}>
+      <AppContext.Provider value={context}>
         <NewsContainer route={route} navigation={navigation} />
       </AppContext.Provider>
     )

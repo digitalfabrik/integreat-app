@@ -51,6 +51,7 @@ describe('useNavigate', () => {
       featureFlags: { ...previous.featureFlags, ...featureFlags },
     }))
   }
+  const context = { changeCityCode, changeLanguageCode, cityCode, languageCode }
 
   const MockComponent = ({ routeInformation }: { routeInformation: RouteInformationType }) => {
     const { navigateTo } = useNavigate()
@@ -61,7 +62,7 @@ describe('useNavigate', () => {
 
   const renderMockComponent = (routeInformation: RouteInformationType) =>
     render(
-      <AppContext.Provider value={{ changeCityCode, changeLanguageCode, cityCode, languageCode }}>
+      <AppContext.Provider value={context}>
         <MockComponent routeInformation={routeInformation} />
       </AppContext.Provider>
     )

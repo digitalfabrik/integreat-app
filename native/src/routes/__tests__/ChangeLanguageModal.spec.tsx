@@ -39,10 +39,11 @@ describe('ChangeLanguageModal', () => {
     name: CHANGE_LANGUAGE_MODAL_ROUTE,
   }
   const navigation = createNavigationScreenPropMock<ChangeLanguageModalRouteType>()
+  const context = { changeCityCode, changeLanguageCode, cityCode, languageCode }
 
   const renderChangeLanguageModel = () =>
     render(
-      <AppContext.Provider value={{ changeCityCode, changeLanguageCode, cityCode, languageCode }}>
+      <AppContext.Provider value={context}>
         <ChangeLanguageModal route={route} navigation={navigation} />
       </AppContext.Provider>
     )

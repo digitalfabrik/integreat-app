@@ -13,7 +13,6 @@ import {
 } from 'api-client'
 import CityModelBuilder from 'api-client/src/testing/CityModelBuilder'
 
-import { AppContext } from '../../contexts/AppContextProvider'
 import useSnackbar from '../../hooks/useSnackbar'
 import navigateToLanguageChange from '../../navigation/navigateToLanguageChange'
 import createNavigationMock from '../../testing/createNavigationPropMock'
@@ -80,19 +79,16 @@ describe('Header', () => {
     isHome?: boolean | null
   }) =>
     render(
-      <AppContext.Provider
-        value={{ cityCode: 'augsburg', languageCode: 'de', changeCityCode: jest.fn(), changeLanguageCode: jest.fn() }}>
-        <Header
-          navigation={navigation}
-          route={route}
-          isHome={isHome}
-          availableLanguages={availableLanguages}
-          languages={languages}
-          city={city}
-          shareUrl={shareUrl}
-          showItems={showItems}
-        />
-      </AppContext.Provider>
+      <Header
+        navigation={navigation}
+        route={route}
+        isHome={isHome}
+        availableLanguages={availableLanguages}
+        languages={languages}
+        city={city}
+        shareUrl={shareUrl}
+        showItems={showItems}
+      />
     )
 
   it('search and language change buttons should be enabled and visible if showItems and all props available', async () => {
