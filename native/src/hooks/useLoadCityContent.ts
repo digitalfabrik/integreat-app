@@ -96,7 +96,7 @@ const useLoadCityContent = ({ cityCode, languageCode }: Params): CityContentRetu
 
       // Update last update if all data is available.
       // WARNING: This also means that the last update is updated if everything is just loaded from the cache.
-      dataContainer.setLastUpdate(cityCode, languageCode, moment().subtract(1, 'day')).catch(reportError)
+      dataContainer.setLastUpdate(cityCode, languageCode, moment()).catch(reportError)
     }
   }, [languagesReturn, categoriesReturn, eventsReturn, poisReturn, cityCode, languageCode])
 
