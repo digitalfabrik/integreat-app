@@ -71,12 +71,12 @@ const PoiDetails = ({ poi, feature, language }: PoiDetailsProps): ReactElement =
 
   const openExternalMaps = () => {
     const externalMapsUrl = getExternalMapsLink(poi.location, Platform.OS)
-    openExternalUrl(externalMapsUrl).catch(() => showSnackbar(t('error:noSuitableAppInstalled')))
+    openExternalUrl(externalMapsUrl, showSnackbar)
   }
 
   const copyLocationToClipboard = (): void => {
     Clipboard.setString(`${address}, ${postcode} ${town}`)
-    showSnackbar(t('addressCopied'))
+    showSnackbar({ text: t('addressCopied') })
   }
 
   const contactInformationCollapsibleItem = (

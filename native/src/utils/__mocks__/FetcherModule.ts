@@ -1,21 +1,9 @@
 import { isEmpty, mapValues, sortBy, toPairs } from 'lodash'
-import { EventChannel, eventChannel } from 'redux-saga'
 
 import { FetchResultType, TargetFilePathsType } from '../FetcherModule'
 
 class FetcherModule {
-  static currentlyFetching = false
-  createProgressChannel = (): EventChannel<number> =>
-    eventChannel<number>(emitter => {
-      emitter(0.5)
-      return () => undefined
-    })
-
   fetchAsync = (targetFilePaths: TargetFilePathsType): Promise<FetchResultType> => {
-    if (FetcherModule.currentlyFetching) {
-      throw new Error('Already fetching!')
-    }
-
     if (isEmpty(targetFilePaths)) {
       return Promise.resolve({})
     }

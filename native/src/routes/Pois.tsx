@@ -1,5 +1,5 @@
 import MapboxGL from '@react-native-mapbox-gl/maps'
-import React, { ReactElement, useEffect, useState } from 'react'
+import React, { ReactElement, useCallback, useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { ScrollView, useWindowDimensions } from 'react-native'
 import { useTheme } from 'styled-components'
@@ -29,19 +29,10 @@ import PoiListItem from '../components/PoiListItem'
 import SiteHelpfulBox from '../components/SiteHelpfulBox'
 import { NavigationProps, RouteProps } from '../constants/NavigationTypes'
 import dimensions from '../constants/dimensions'
-import useSetShareUrl from '../hooks/useSetShareUrl'
+import useOnBackNavigation from '../hooks/useOnBackNavigation'
 import useUserLocation from '../hooks/useUserLocation'
 import createNavigateToFeedbackModal from '../navigation/createNavigateToFeedbackModal'
-import urlFromRouteInformation from '../navigation/url'
 import { reportError } from '../utils/sentry'
-
-export type PoisProps = {
-  pois: Array<PoiModel>
-  cityModel: CityModel
-  language: string
-  route: RouteProps<PoisRouteType>
-  navigation: NavigationProps<PoisRouteType>
-}
 
 const ListWrapper = styled.View`
   margin: 0 32px;
@@ -60,50 +51,38 @@ const BOTTOM_SHEET_SNAP_POINTS = [
   '100%',
 ]
 
+type PoisProps = {
+  pois: Array<PoiModel>
+  cityModel: CityModel
+  language: string
+  route: RouteProps<PoisRouteType>
+  navigation: NavigationProps<PoisRouteType>
+}
+
 const Pois = ({ pois, language, cityModel, route, navigation }: PoisProps): ReactElement => {
   const { coordinates, requestAndDetermineLocation } = useUserLocation(true)
-  const [urlSlug, setUrlSlug] = useState<string | null>(route.params.urlSlug ?? null)
+  const { slug } = route.params
   const [sheetSnapPointIndex, setSheetSnapPointIndex] = useState<number>(1)
   const [followUserLocation, setFollowUserLocation] = useState<boolean>(false)
   const deviceHeight = useWindowDimensions().height
   const features = prepareFeatureLocations(pois, coordinates)
-  const selectedFeature = urlSlug ? features.find(it => it.properties.urlSlug === urlSlug) : null
-  const poi = pois.find(it => it.urlSlug === urlSlug)
+  const selectedFeature = slug ? features.find(it => it.properties.slug === slug) : null
+  const poi = pois.find(it => it.slug === slug)
   const { t } = useTranslation('pois')
   const theme = useTheme()
-  const cameraRef = React.useRef<MapboxGL.Camera | null>(null)
-
-  const baseUrl = urlFromRouteInformation({
-    route: POIS_ROUTE,
-    languageCode: language,
-    cityCode: cityModel.code,
-  })
-  const shareUrl = urlSlug ? `${baseUrl}/${urlSlug}` : baseUrl
-  useSetShareUrl({ navigation, shareUrl, route, routeInformation: null })
+  const cameraRef = useRef<MapboxGL.Camera | null>(null)
 
   const selectPoiFeature = (feature: PoiFeature | null) => {
     if (feature && cameraRef.current) {
-      const { properties } = feature
       setFollowUserLocation(false)
-      setUrlSlug(properties.urlSlug)
-      navigation.setParams({ urlSlug: properties.urlSlug })
+      navigation.setParams({ slug: feature.properties.slug })
     } else {
-      setUrlSlug(null)
-      navigation.setParams({ urlSlug: undefined })
+      navigation.setParams({ slug: undefined })
     }
   }
 
-  useEffect(
-    () =>
-      navigation.addListener('beforeRemove', e => {
-        if (urlSlug) {
-          // Only deselect currently selected poi if navigating back
-          e.preventDefault()
-          setUrlSlug(null)
-        }
-      }),
-    [navigation, urlSlug]
-  )
+  const deselectPoiFeature = useCallback(() => navigation.setParams({ slug: undefined }), [navigation])
+  useOnBackNavigation(slug ? deselectPoiFeature : undefined)
 
   // Wait for followUserLocation change before moving the camera to avoid position lock
   // https://github.com/rnmapbox/maps/issues/1079
@@ -134,7 +113,7 @@ const Pois = ({ pois, language, cityModel, route, navigation }: PoisProps): Reac
       language,
       cityCode: cityModel.code,
       isPositiveFeedback,
-      slug: poi?.urlSlug,
+      slug: poi?.slug,
     })
   }
 
@@ -151,7 +130,7 @@ const Pois = ({ pois, language, cityModel, route, navigation }: PoisProps): Reac
         code={fromError(
           new NotFoundError({
             type: 'poi',
-            id: urlSlug ?? '',
+            id: slug ?? '',
             city: cityModel.code,
             language,
           })
@@ -159,7 +138,7 @@ const Pois = ({ pois, language, cityModel, route, navigation }: PoisProps): Reac
       />
     )
 
-  const content = urlSlug ? (
+  const content = slug ? (
     selectedFeatureContent
   ) : (
     <ListWrapper>

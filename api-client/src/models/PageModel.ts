@@ -2,6 +2,7 @@ import { decodeHTML } from 'entities'
 import { Moment } from 'moment'
 
 import normalizePath from '../normalizePath'
+import { getSlugFromPath } from '../utils'
 
 class PageModel {
   _path: string
@@ -28,6 +29,10 @@ class PageModel {
 
   get path(): string {
     return this._path
+  }
+
+  get slug(): string {
+    return getSlugFromPath(this._path)
   }
 
   get title(): string {

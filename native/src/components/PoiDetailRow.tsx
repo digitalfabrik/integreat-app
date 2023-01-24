@@ -2,6 +2,7 @@ import React, { ReactElement } from 'react'
 import { Text } from 'react-native'
 import styled from 'styled-components/native'
 
+import useSnackbar from '../hooks/useSnackbar'
 import openExternalUrl from '../utils/openExternalUrl'
 
 const Icon = styled.Image`
@@ -24,11 +25,14 @@ type PoiDetailRowProps = {
   icon: SVGElement
 }
 
-const PoiDetailRow = ({ externalUrl, text, accessibilityLabel, icon }: PoiDetailRowProps): ReactElement => (
-  <StyledPressable onPress={() => openExternalUrl(externalUrl)}>
-    <Icon source={icon} accessibilityLabel={accessibilityLabel} />
-    <StyledText>{text}</StyledText>
-  </StyledPressable>
-)
+const PoiDetailRow = ({ externalUrl, text, accessibilityLabel, icon }: PoiDetailRowProps): ReactElement => {
+  const showSnackbar = useSnackbar()
+  return (
+    <StyledPressable onPress={() => openExternalUrl(externalUrl, showSnackbar)}>
+      <Icon source={icon} accessibilityLabel={accessibilityLabel} />
+      <StyledText>{text}</StyledText>
+    </StyledPressable>
+  )
+}
 
 export default PoiDetailRow
