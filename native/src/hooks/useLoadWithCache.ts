@@ -3,7 +3,7 @@ import { useCallback } from 'react'
 
 import { Endpoint, fromError, ReturnType, useLoadAsync } from 'api-client'
 
-import { SnackbarType } from '../components/SnackbarContainer'
+import { SnackbarType } from '../components/Snackbar'
 import dataContainer from '../utils/DefaultDataContainer'
 import { determineApiUrl } from '../utils/helpers'
 

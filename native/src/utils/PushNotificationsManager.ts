@@ -1,14 +1,18 @@
 import { FirebaseMessagingTypes } from '@react-native-firebase/messaging'
+import { useEffect } from 'react'
 import { Linking } from 'react-native'
 
-import { LOCAL_NEWS_TYPE, NEWS_ROUTE } from 'api-client'
+import { LOCAL_NEWS_TYPE, NEWS_ROUTE, NonNullableRouteInformationType } from 'api-client'
 
+import { SnackbarType } from '../components/Snackbar'
+import { RoutesType } from '../constants/NavigationTypes'
 import buildConfig from '../constants/buildConfig'
 import urlFromRouteInformation from '../navigation/url'
 import appSettings from './AppSettings'
 import { log, reportError } from './sentry'
 
 type Message = FirebaseMessagingTypes.RemoteMessage & {
+  notification: { title: string }
   data: {
     city_code: string
     language_code: string
@@ -71,16 +75,42 @@ export const subscribeNews = async (city: string, language: string): Promise<voi
   }
 }
 
-const urlFromMessage = (message: Message): string => {
-  const { city_code: cityCode, language_code: languageCode, news_id: newsId } = (message as Message).data
-  return urlFromRouteInformation({
-    cityCode,
-    languageCode,
-    route: NEWS_ROUTE,
-    newsType: LOCAL_NEWS_TYPE,
-    newsId,
-  })
-}
+const routeInformationFromMessage = (message: Message): NonNullableRouteInformationType => ({
+  cityCode: message.data.city_code,
+  languageCode: message.data.language_code,
+  route: NEWS_ROUTE,
+  newsType: LOCAL_NEWS_TYPE,
+  newsId: message.data.news_id,
+})
+const urlFromMessage = (message: Message): string => urlFromRouteInformation(routeInformationFromMessage(message))
+
+export const useForegroundPushNotificationListener = ({
+  showSnackbar,
+  navigate,
+}: {
+  showSnackbar: (snackbar: SnackbarType) => void
+  navigate: (route: RoutesType, params: Record<string, unknown>) => void
+}): void =>
+  useEffect(() => {
+    let mounted = true
+    importFirebaseMessaging().then(messaging =>
+      messaging().onMessage(async _message => {
+        const message = _message as Message
+        if (mounted) {
+          showSnackbar({
+            text: message.notification.title,
+            positiveAction: {
+              onPress: () => navigate(NEWS_ROUTE, routeInformationFromMessage(message)),
+              label: 'Show',
+            },
+          })
+        }
+      })
+    )
+    return () => {
+      mounted = false
+    }
+  }, [showSnackbar, navigate])
 
 export const quitAppStatePushNotificationListener = async (
   navigateToDeepLink: (url: string) => void

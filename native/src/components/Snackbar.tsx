@@ -30,21 +30,21 @@ const Action = styled.Text`
   font-weight: bold;
 `
 
-export type SnackbarActionType = {
+type SnackbarActionType = {
   label: string
   onPress: () => void | Promise<void>
 }
-export type SnackbarProps = {
-  message: string
+export type SnackbarType = {
+  text: string
   positiveAction?: SnackbarActionType
   negativeAction?: SnackbarActionType
 }
 
-const Snackbar = ({ message, positiveAction, negativeAction }: SnackbarProps): ReactElement => {
+const Snackbar = ({ text, positiveAction, negativeAction }: SnackbarType): ReactElement => {
   const horizontal = !(positiveAction && negativeAction)
   return (
     <Container row={horizontal}>
-      <Message>{message}</Message>
+      <Message>{text}</Message>
       <ActionContainer row={!horizontal}>
         {negativeAction && <Action onPress={negativeAction.onPress}>{negativeAction.label}</Action>}
         {positiveAction && <Action onPress={positiveAction.onPress}>{positiveAction.label}</Action>}

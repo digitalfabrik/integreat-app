@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next'
 import { Animated, View, LayoutChangeEvent } from 'react-native'
 import styled from 'styled-components/native'
 
-import Snackbar from '../components/Snackbar'
+import Snackbar, { SnackbarType } from '../components/Snackbar'
 
 const Container = styled(View)`
   position: absolute;
@@ -19,9 +19,6 @@ const SHOW_DURATION = 5000
 const MAX_HEIGHT = 9999
 const translate = new Animated.Value(1)
 
-export type SnackbarType = {
-  text: string
-}
 type SnackbarContextType = (snackbar: SnackbarType) => void
 export const SnackbarContext = createContext<SnackbarContextType>(() => undefined)
 
@@ -86,7 +83,11 @@ const SnackbarContainer = ({ children }: SnackbarContainerProps): ReactElement |
               },
             ],
           }}>
-          <Snackbar message={t(displayedSnackbar.text)} />
+          <Snackbar
+            text={t(displayedSnackbar.text)}
+            positiveAction={displayedSnackbar.positiveAction}
+            negativeAction={displayedSnackbar.negativeAction}
+          />
         </AnimatedContainer>
       ) : null}
     </SnackbarContext.Provider>

@@ -107,6 +107,7 @@ jest.mock('../components/TransparentHeader', () => {
 jest.mock('../utils/PushNotificationsManager', () => ({
   pushNotificationsSupported: jest.fn(() => true),
   quitAppStatePushNotificationListener: jest.fn(),
+  useForegroundPushNotificationListener: jest.fn(),
 }))
 jest.mock('../utils/FetcherModule')
 
