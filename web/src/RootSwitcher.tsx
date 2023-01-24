@@ -1,4 +1,4 @@
-import React, { ReactElement, Suspense, useCallback, useEffect } from 'react'
+import React, { ReactElement, Suspense, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Navigate, Route, Routes, useMatch } from 'react-router-dom'
 
@@ -40,8 +40,7 @@ const NotFoundPage = lazyWithRetry(() => import('./routes/NotFoundPage'))
 const LicensesPage = lazyWithRetry(() => import('./routes/LicensesPage'))
 
 const RootSwitcher = ({ setContentLanguage }: RootSwitcherProps): ReactElement => {
-  const requestCities = useCallback(async () => createCitiesEndpoint(cmsApiBaseUrl).request(), [])
-  const { data: cities, loading, error } = useLoadFromEndpoint(requestCities)
+  const { data: cities, loading, error } = useLoadFromEndpoint(createCitiesEndpoint, cmsApiBaseUrl, undefined)
   const { i18n } = useTranslation()
   const { fixedCity, cityNotCooperating, jpalTracking } = buildConfig().featureFlags
   const languageCode = useMatch('/:slug/:languageCode/*')?.params.languageCode

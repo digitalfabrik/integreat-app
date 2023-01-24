@@ -1,5 +1,7 @@
 import AsyncStorage from '@react-native-async-storage/async-storage'
+import { useNavigation } from '@react-navigation/native'
 import { fireEvent, waitFor } from '@testing-library/react-native'
+import { mocked } from 'jest-mock'
 import React from 'react'
 
 import { JpalTrackingRouteType } from 'api-client'
@@ -15,6 +17,8 @@ jest.mock('../../components/SettingsSwitch', () => {
   return () => <Text>SettingsSwitch</Text>
 })
 
+jest.mock('@react-navigation/native')
+
 describe('JpalTracking', () => {
   beforeEach(() => {
     AsyncStorage.clear()
@@ -22,6 +26,7 @@ describe('JpalTracking', () => {
   })
 
   const navigation = createNavigationMock<JpalTrackingRouteType>()
+  mocked(useNavigation).mockImplementation(() => navigation)
 
   it('should persist tracking enabled', async () => {
     const oldSettings = await appSettings.loadSettings()

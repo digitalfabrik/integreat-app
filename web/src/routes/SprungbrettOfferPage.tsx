@@ -3,16 +3,12 @@ import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
 
 import {
-  createOffersEndpoint,
-  createSprungbrettJobsEndpoint,
-  NotFoundError,
-  Payload,
   SPRUNGBRETT_OFFER_ROUTE,
   SprungbrettJobModel,
-  useLoadFromEndpoint,
-  OfferModel,
   pathnameFromRouteInformation,
-  getSlug,
+  getSlugFromPath,
+  useLoadAsync,
+  loadSprungbrettJobs,
 } from 'api-client'
 
 import { CityRouteProps } from '../CityContentSwitcher'
@@ -34,36 +30,15 @@ const Image = styled.img`
   margin: 0 auto;
 `
 
-const SprungbrettOfferPage = ({
-  cityModel,
-  cityCode,
-  languageCode,
-  pathname,
-  languages,
-}: CityRouteProps): ReactElement => {
+const SprungbrettOfferPage = ({ cityModel, cityCode, languageCode, languages }: CityRouteProps): ReactElement => {
   const { viewportSmall } = useWindowDimensions()
   const { t } = useTranslation('sprungbrett')
 
-  const requestOffers = useCallback(
-    async () => createOffersEndpoint(cmsApiBaseUrl).request({ city: cityCode, language: languageCode }),
+  const load = useCallback(
+    () => loadSprungbrettJobs({ cityCode, languageCode, baseUrl: cmsApiBaseUrl }),
     [cityCode, languageCode]
   )
-  const { data: offers, loading: offersLoading, error: offersError } = useLoadFromEndpoint(requestOffers)
-
-  const offer = offers?.find((offer: OfferModel) => offer.alias === 'sprungbrett')
-
-  const requestSprungbrettOffer = useCallback(async () => {
-    if (!offer) {
-      return new Payload(false, null, [])
-    }
-    return createSprungbrettJobsEndpoint(offer.path).request()
-  }, [offer])
-
-  const {
-    data: sprungbrettJobs,
-    loading: sprungbrettLoading,
-    error: sprungbrettError,
-  } = useLoadFromEndpoint(requestSprungbrettOffer)
+  const { data, error, loading } = useLoadAsync(load)
 
   const toolbar = (openFeedback: (rating: FeedbackRatingType) => void) => (
     <CityContentToolbar openFeedbackModal={openFeedback} viewportSmall={viewportSmall} />
@@ -78,14 +53,14 @@ const SprungbrettOfferPage = ({
   const locationLayoutParams = {
     cityModel,
     viewportSmall,
-    feedbackTargetInformation: offer ? { slug: getSlug(offer.path) } : null,
+    feedbackTargetInformation: data?.sprungbrettOffer ? { slug: getSlugFromPath(data.sprungbrettOffer.path) } : null,
     languageChangePaths,
     route: SPRUNGBRETT_OFFER_ROUTE,
     languageCode,
     toolbar,
   }
 
-  if (offersLoading || sprungbrettLoading) {
+  if (loading) {
     return (
       <CityContentLayout isLoading {...locationLayoutParams}>
         <LoadingSpinner />
@@ -93,20 +68,10 @@ const SprungbrettOfferPage = ({
     )
   }
 
-  if (!sprungbrettJobs || !offer) {
-    const error =
-      sprungbrettError ||
-      offersError ||
-      new NotFoundError({
-        type: 'offer',
-        id: pathname,
-        city: cityCode,
-        language: languageCode,
-      })
-
+  if (!data) {
     return (
       <CityContentLayout isLoading={false} {...locationLayoutParams}>
-        <FailureSwitcher error={error} />
+        <FailureSwitcher error={error ?? new Error('Data missing')} />
       </CityContentLayout>
     )
   }
@@ -114,6 +79,8 @@ const SprungbrettOfferPage = ({
   const renderSprungbrettListItem = (job: SprungbrettJobModel): React.ReactNode => (
     <SprungbrettListItem key={job.id} job={job} />
   )
+
+  const { sprungbrettOffer: offer, sprungbrettJobs } = data
 
   const pageTitle = `${offer.title} - ${cityModel.name}`
 

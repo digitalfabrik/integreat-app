@@ -1,6 +1,5 @@
 import {
   CATEGORIES_ROUTE,
-  DASHBOARD_ROUTE,
   DISCLAIMER_ROUTE,
   EVENTS_ROUTE,
   JPAL_TRACKING_ROUTE,
@@ -20,7 +19,7 @@ const cityCode = 'bochum'
 const languageCode = 'de'
 
 describe('InternalPathnameParser', () => {
-  it('should match landing route if pathname is emtpy', () => {
+  it('should match landing route if pathname is empty', () => {
     const parser = new InternalPathnameParser('', languageCode, null)
     expect(parser.route()).toEqual({
       route: LANDING_ROUTE,
@@ -55,19 +54,19 @@ describe('InternalPathnameParser', () => {
       trackingCode: 'abcdef12345',
     })
   })
-  it('should match dashboard route if pathname is a city without a language', () => {
+  it('should match categories route if pathname is a city without a language', () => {
     const parser = new InternalPathnameParser(`/${cityCode}`, languageCode, null)
     expect(parser.route()).toEqual({
-      route: DASHBOARD_ROUTE,
+      route: CATEGORIES_ROUTE,
       languageCode,
       cityCode,
       cityContentPath: `/${cityCode}/${languageCode}`,
     })
   })
-  it('should match dashboard route if pathname is a city with a language', () => {
+  it('should match categories route if pathname is a city with a language', () => {
     const parser = new InternalPathnameParser(`/${cityCode}/ar`, languageCode, null)
     expect(parser.route()).toEqual({
-      route: DASHBOARD_ROUTE,
+      route: CATEGORIES_ROUTE,
       languageCode: 'ar',
       cityCode,
       cityContentPath: `/${cityCode}/ar`,
@@ -80,7 +79,6 @@ describe('InternalPathnameParser', () => {
       route: EVENTS_ROUTE,
       languageCode,
       cityCode,
-      cityContentPath: undefined,
     })
   })
   it('should match single events route', () => {
@@ -90,7 +88,7 @@ describe('InternalPathnameParser', () => {
       route: EVENTS_ROUTE,
       languageCode,
       cityCode,
-      cityContentPath: pathname,
+      slug: '1234',
     })
   })
   it('should match pois route', () => {
@@ -100,18 +98,17 @@ describe('InternalPathnameParser', () => {
       route: POIS_ROUTE,
       languageCode,
       cityCode,
-      cityContentPath: undefined,
     })
   })
   it('should match single pois route', () => {
-    const urlSlug = 'tuer-an-tuer'
-    const pathname = `/${cityCode}/${languageCode}/${POIS_ROUTE}/${urlSlug}`
+    const slug = 'tuer-an-tuer'
+    const pathname = `/${cityCode}/${languageCode}/${POIS_ROUTE}/${slug}`
     const parser = new InternalPathnameParser(pathname, languageCode, null)
     expect(parser.route()).toEqual({
       route: POIS_ROUTE,
       languageCode,
       cityCode,
-      urlSlug,
+      slug,
     })
   })
   it('should match disclaimer route', () => {
@@ -235,46 +232,46 @@ describe('InternalPathnameParser', () => {
   })
   describe('fixed city', () => {
     const fixedCity = 'aschaffenburg'
-    it('should match dashboard route if pathname is emtpy', () => {
+    it('should match categories route if pathname is emtpy', () => {
       const parser = new InternalPathnameParser('', languageCode, fixedCity)
       expect(parser.route()).toEqual({
-        route: DASHBOARD_ROUTE,
+        route: CATEGORIES_ROUTE,
         languageCode,
         cityCode: fixedCity,
         cityContentPath: `/${fixedCity}/${languageCode}`,
       })
     })
-    it('should match dashboard route if pathname is landing without a language', () => {
+    it('should match categories route if pathname is landing without a language', () => {
       const parser = new InternalPathnameParser(`/${LANDING_ROUTE}`, languageCode, fixedCity)
       expect(parser.route()).toEqual({
-        route: DASHBOARD_ROUTE,
+        route: CATEGORIES_ROUTE,
         languageCode,
         cityCode: fixedCity,
         cityContentPath: `/${fixedCity}/${languageCode}`,
       })
     })
-    it('should match dashboard route if pathname is landing with a language', () => {
+    it('should match categories route if pathname is landing with a language', () => {
       const parser = new InternalPathnameParser(`/${LANDING_ROUTE}/ar/`, languageCode, fixedCity)
       expect(parser.route()).toEqual({
-        route: DASHBOARD_ROUTE,
+        route: CATEGORIES_ROUTE,
         languageCode: 'ar',
         cityCode: fixedCity,
         cityContentPath: `/${fixedCity}/ar`,
       })
     })
-    it('should match dashboard route if pathname the fixed city without a language', () => {
+    it('should match categories route if pathname the fixed city without a language', () => {
       const parser = new InternalPathnameParser(`/${fixedCity}/`, languageCode, fixedCity)
       expect(parser.route()).toEqual({
-        route: DASHBOARD_ROUTE,
+        route: CATEGORIES_ROUTE,
         languageCode,
         cityCode: fixedCity,
         cityContentPath: `/${fixedCity}/${languageCode}`,
       })
     })
-    it('should match dashboard route if pathname is the fixed city with a language', () => {
+    it('should match categories route if pathname is the fixed city with a language', () => {
       const parser = new InternalPathnameParser(`/${fixedCity}/ar`, languageCode, fixedCity)
       expect(parser.route()).toEqual({
-        route: DASHBOARD_ROUTE,
+        route: CATEGORIES_ROUTE,
         languageCode: 'ar',
         cityCode: fixedCity,
         cityContentPath: `/${fixedCity}/ar`,
@@ -287,7 +284,6 @@ describe('InternalPathnameParser', () => {
         route: EVENTS_ROUTE,
         languageCode,
         cityCode: fixedCity,
-        cityContentPath: undefined,
       })
     })
     it('should match single events route', () => {
@@ -298,7 +294,7 @@ describe('InternalPathnameParser', () => {
         route: EVENTS_ROUTE,
         languageCode,
         cityCode: fixedCity,
-        cityContentPath: pathname,
+        slug: '1234',
       })
     })
     it('should match pois route', () => {
@@ -308,18 +304,17 @@ describe('InternalPathnameParser', () => {
         route: POIS_ROUTE,
         languageCode,
         cityCode: fixedCity,
-        cityContentPath: undefined,
       })
     })
     it('should match single pois route', () => {
-      const urlSlug = 'tuer-an-tuer'
-      const pathname = `/${fixedCity}/${languageCode}/${POIS_ROUTE}/${urlSlug}`
+      const slug = 'tuer-an-tuer'
+      const pathname = `/${fixedCity}/${languageCode}/${POIS_ROUTE}/${slug}`
       const parser = new InternalPathnameParser(pathname, languageCode, fixedCity)
       expect(parser.route()).toEqual({
         route: POIS_ROUTE,
         languageCode,
         cityCode: fixedCity,
-        urlSlug,
+        slug,
       })
     })
     it('should match disclaimer route', () => {

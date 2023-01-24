@@ -85,21 +85,7 @@ describe('PoiDetails', () => {
 
     fireEvent.press(getByLabelText('openExternalMaps'))
     const externalMapsUrl = 'maps:29.979848,31.133859?q=Test Title, Test Address 1, 12345 Test Town'
-    await waitFor(() => expect(openExternalUrl).toHaveBeenCalledWith(externalMapsUrl))
-  })
-
-  it('should show snackbar if opening external maps fails', async () => {
-    const poi = pois[0]!
-    const feature = prepareFeatureLocation(poi, userLocation, [])!
-
-    const { getByLabelText } = renderWithTheme(<PoiDetails poi={poi} feature={feature} language={language} />)
-
-    mocked(openExternalUrl).mockRejectedValueOnce('No suitable app installed')
-
-    fireEvent.press(getByLabelText('openExternalMaps'))
-    const externalMapsUrl = 'maps:29.979848,31.133859?q=Test Title, Test Address 1, 12345 Test Town'
-    await waitFor(() => expect(openExternalUrl).toHaveBeenCalledWith(externalMapsUrl))
-    expect(showSnackbar).toHaveBeenCalledWith('error:noSuitableAppInstalled')
+    await waitFor(() => expect(openExternalUrl).toHaveBeenCalledWith(externalMapsUrl, expect.any(Function)))
   })
 
   it('should copy address to clipboard', () => {
@@ -110,6 +96,6 @@ describe('PoiDetails', () => {
 
     fireEvent.press(getByText(poi.location.address))
     expect(Clipboard.setString).toHaveBeenCalledWith('Test Address 1, 12345 Test Town')
-    expect(showSnackbar).toHaveBeenCalledWith('addressCopied')
+    expect(showSnackbar).toHaveBeenCalledWith({ text: 'addressCopied' })
   })
 })
