@@ -6,16 +6,10 @@ import sendTrackingSignal from '../utils/sendTrackingSignal'
 
 const navigateToLanguageChange = <T extends RoutesType>({
   navigation,
-  cityCode,
-  languageCode,
   languages,
   availableLanguages,
-  previousKey,
 }: {
   navigation: NavigationProps<T>
-  cityCode: string
-  languageCode: string
-  previousKey: string
   languages: Array<LanguageModel>
   availableLanguages: Array<string>
 }): void => {
@@ -29,11 +23,8 @@ const navigateToLanguageChange = <T extends RoutesType>({
   navigation.navigate({
     name: CHANGE_LANGUAGE_MODAL_ROUTE,
     params: {
-      currentLanguage: languageCode,
       languages,
-      cityCode,
       availableLanguages,
-      previousKey,
     },
   })
 }

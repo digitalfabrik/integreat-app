@@ -13,6 +13,7 @@ const transformNodeModules = [
   'translations',
   '@sentry/react-native',
   'build-configs',
+  '@dr.pogodin/react-native-static-server',
 ]
 export default {
   rootDir: 'src',

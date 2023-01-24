@@ -13,9 +13,9 @@ import {
 } from 'api-client'
 
 import useFeatureLocations from '../../hooks/useFeatureLocations'
-import { RoutePatterns } from '../../routes'
 import { renderWithRouterAndTheme } from '../../testing/render'
 import PoisPage from '../PoisPage'
+import { RoutePatterns } from '../index'
 
 jest.mock('react-i18next')
 jest.mock('../../utils/getUserLocation', () => async () => ({ status: 'ready', coordinates: [10.8, 48.3] }))
@@ -52,7 +52,7 @@ describe('PoisPage', () => {
               cityCode={city.code}
             />
           }>
-          <Route element={null} path=':urlSlug' />
+          <Route element={null} path=':slug' />
         </Route>
       </Routes>,
       { pathname: '/locations' }
