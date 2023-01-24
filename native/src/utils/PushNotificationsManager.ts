@@ -100,17 +100,17 @@ export const useForegroundPushNotificationListener = ({
         const message = _message as Message
         if (mounted) {
           // The CMS needs some time until the push notification is available in the API response
-          setTimeout(
-            () =>
-              showSnackbar({
-                text: message.notification.title,
-                positiveAction: {
-                  onPress: () => navigate(NEWS_ROUTE, routeInformationFromMessage(message)),
-                  label: 'Show',
-                },
-              }),
-            WAITING_TIME_FOR_CMS
-          )
+          setTimeout(() => {
+            // TODO IGAPP-1024: Uncomment and improve snackbar
+            log(JSON.stringify(message))
+            // showSnackbar({
+            //   text: message.notification.title,
+            //   positiveAction: {
+            //     onPress: () => navigate(NEWS_ROUTE, routeInformationFromMessage(message)),
+            //     label: 'Show',
+            //   },
+            // })
+          }, WAITING_TIME_FOR_CMS)
         }
       })
     )
