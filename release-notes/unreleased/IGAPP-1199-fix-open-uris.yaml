@@ -1,0 +1,6 @@
+issue_key: IGAPP-1190
+show_in_stores: true
+platforms:
+  - android
+en: Fixed opening of mail addresses and phone numbers in other apps.
+de: Das Öffnen von E-Mail Adressen und Telefonnummern in anderen Apps wurde behoben.
