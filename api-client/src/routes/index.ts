@@ -5,9 +5,6 @@ export const LANDING_ROUTE: LandingRouteType = 'landing'
 export type CityNotCooperatingRouteType = 'recommend'
 export const CITY_NOT_COOPERATING_ROUTE: CityNotCooperatingRouteType = 'recommend'
 
-export type DashboardRouteType = 'dashboard'
-export const DASHBOARD_ROUTE: DashboardRouteType = 'dashboard'
-
 export type CategoriesRouteType = 'categories'
 export const CATEGORIES_ROUTE: CategoriesRouteType = 'categories'
 

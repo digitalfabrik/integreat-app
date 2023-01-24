@@ -1,9 +1,7 @@
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Button } from 'react-native-elements'
-import styled from 'styled-components/native'
-
-import { ThemeType } from 'build-configs/ThemeType'
+import styled, { useTheme } from 'styled-components/native'
 
 import buildConfig, { buildConfigAssets } from '../constants/buildConfig'
 
@@ -32,13 +30,12 @@ const ButtonContainer = styled.View`
 
 type CityNotCooperatingFooterProps = {
   navigateToCityNotCooperating: () => void
-  theme: ThemeType
 }
 
 const CityNotCooperatingFooter = ({
   navigateToCityNotCooperating,
-  theme,
 }: CityNotCooperatingFooterProps): ReactElement | null => {
+  const theme = useTheme()
   const { t } = useTranslation('landing')
 
   if (!buildConfig().featureFlags.cityNotCooperating) {

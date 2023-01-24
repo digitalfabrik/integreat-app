@@ -3,9 +3,16 @@ import React from 'react'
 
 import { LanguageModelBuilder } from 'api-client'
 
+import { AppContext } from '../../contexts/AppContextProvider'
 import render from '../../testing/render'
 import LanguageNotAvailablePage from '../LanguageNotAvailablePage'
 
+jest.mock('../../hooks/useLoadLanguages', () => () => ({
+  data: null,
+  loading: false,
+  error: null,
+  refresh: () => null,
+}))
 jest.mock('react-i18next', () => ({
   useTranslation: () => ({
     t: (key: string) => key,
@@ -18,10 +25,21 @@ describe('LanguageNotAvailablePage', () => {
   })
 
   const languages = new LanguageModelBuilder(3).build()
-  const changeLanguage = jest.fn()
+  const changeCityCode = jest.fn()
+  const changeLanguageCode = jest.fn()
+  const cityCode = 'ansbach'
+  const languageCode = 'de'
+  const context = { changeCityCode, changeLanguageCode, cityCode, languageCode }
+
+  const renderLanguageNotAvailablePage = () =>
+    render(
+      <AppContext.Provider value={context}>
+        <LanguageNotAvailablePage availableLanguages={languages} />
+      </AppContext.Provider>
+    )
 
   it('should render', () => {
-    const { getByText } = render(<LanguageNotAvailablePage languages={languages} changeLanguage={changeLanguage} />)
+    const { getByText } = renderLanguageNotAvailablePage()
 
     expect(getByText('languageNotAvailable')).toBeTruthy()
     expect(getByText('chooseALanguage')).toBeTruthy()
@@ -31,11 +49,11 @@ describe('LanguageNotAvailablePage', () => {
   })
 
   it('should call onPress if enabled', () => {
-    const { getByText } = render(<LanguageNotAvailablePage languages={languages} changeLanguage={changeLanguage} />)
+    const { getByText } = renderLanguageNotAvailablePage()
 
     fireEvent.press(getByText(languages[2]!.name))
 
-    expect(changeLanguage).toHaveBeenCalledTimes(1)
-    expect(changeLanguage).toHaveBeenCalledWith(languages[2]!.code)
+    expect(changeLanguageCode).toHaveBeenCalledTimes(1)
+    expect(changeLanguageCode).toHaveBeenCalledWith(languages[2]!.code)
   })
 })

@@ -3,12 +3,9 @@ import messaging, { FirebaseMessagingTypes } from '@react-native-firebase/messag
 import { mocked } from 'jest-mock'
 
 import buildConfig from '../../constants/buildConfig'
-import navigateToDeepLink from '../../navigation/navigateToDeepLink'
-import createNavigationScreenPropMock from '../../testing/createNavigationPropMock'
 import * as PushNotificationsManager from '../PushNotificationsManager'
 
 jest.mock('@react-native-firebase/messaging', () => jest.fn(() => ({})))
-jest.mock('../../navigation/navigateToDeepLink')
 
 describe('PushNotificationsManager', () => {
   beforeEach(() => {
@@ -18,7 +15,7 @@ describe('PushNotificationsManager', () => {
   const mockedFirebaseMessaging = mocked<() => FirebaseMessagingTypes.Module>(messaging)
   const mockedBuildConfig = mocked(buildConfig)
   const previousFirebaseMessaging = mockedFirebaseMessaging()
-  const navigation = createNavigationScreenPropMock()
+  const navigateToDeepLink = jest.fn()
 
   const mockBuildConfig = (pushNotifications: boolean, floss: boolean) => {
     const previous = buildConfig()
@@ -204,9 +201,9 @@ describe('PushNotificationsManager', () => {
         return previous
       })
 
-      await PushNotificationsManager.quitAppStatePushNotificationListener(jest.fn(), navigation)
+      await PushNotificationsManager.quitAppStatePushNotificationListener(navigateToDeepLink)
       expect(navigateToDeepLink).toHaveBeenCalledTimes(1)
-      expect(navigateToDeepLink).toHaveBeenCalledWith(expect.any(Function), navigation, url, 'de')
+      expect(navigateToDeepLink).toHaveBeenCalledWith(url)
     })
 
     it('should not go to news if there is no initial message', async () => {
@@ -216,7 +213,7 @@ describe('PushNotificationsManager', () => {
         return previous
       })
 
-      await PushNotificationsManager.quitAppStatePushNotificationListener(jest.fn(), navigation)
+      await PushNotificationsManager.quitAppStatePushNotificationListener(navigateToDeepLink)
       expect(navigateToDeepLink).not.toHaveBeenCalled()
     })
   })

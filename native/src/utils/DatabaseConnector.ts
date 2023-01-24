@@ -23,7 +23,7 @@ import {
   LanguageResourceCacheStateType,
   PageResourceCacheEntryStateType,
   PageResourceCacheStateType,
-} from '../redux/StateType'
+} from './DataContainer'
 import { deleteIfExists } from './helpers'
 import { log } from './sentry'
 
@@ -298,7 +298,7 @@ class DatabaseConnector {
     }))
   }
 
-  async storeLastUsage(context: DatabaseContext, peeking: boolean): Promise<void> {
+  async storeLastUsage(context: DatabaseContext): Promise<void> {
     const city = context.cityCode
 
     if (!city) {
@@ -311,12 +311,7 @@ class DatabaseConnector {
       languages: metaData[city]?.languages || {},
     }
     await this._storeMetaCities(metaData)
-
-    // Only delete files if not peeking, otherwise if you peek from one city to three different cities, the content of
-    // the non peeking city would be deleted while still open
-    if (!peeking) {
-      await this.deleteOldFiles(context)
-    }
+    await this.deleteOldFiles(context)
   }
 
   async storeCategories(categoriesMap: CategoriesMapModel, context: DatabaseContext): Promise<void> {
@@ -693,7 +688,7 @@ class DatabaseConnector {
     return BlobUtil.fs.exists(path)
   }
 
-  async readFile<T>(path: string): Promise<T> {
+  async readFile<T>(path: string, isRetry = false): Promise<T> {
     const jsonString: number[] | string = await BlobUtil.fs.readFile(path, 'utf8')
 
     try {
@@ -703,6 +698,10 @@ class DatabaseConnector {
 
       return JSON.parse(jsonString)
     } catch (e) {
+      if (!isRetry) {
+        log(`An error occurred while trying to parse json '${jsonString}' from path '${path}', retrying.`, 'warning')
+        return this.readFile(path, true)
+      }
       log(`An error occurred while trying to parse json '${jsonString}' from path '${path}'`, 'warning')
       await deleteIfExists(path)
       throw e

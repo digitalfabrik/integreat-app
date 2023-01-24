@@ -24,7 +24,7 @@ describe('geoJson', () => {
       symbol: 'marker_40',
       thumbnail: 'test',
       path: '/augsburg/de/locations/test',
-      urlSlug: 'test',
+      slug: 'test',
       address: 'Test Address 1',
       closeToOtherPoi: false,
     },

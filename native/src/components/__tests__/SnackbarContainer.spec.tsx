@@ -1,9 +1,7 @@
 import { act, render } from '@testing-library/react-native'
-import { mocked } from 'jest-mock'
-import React from 'react'
-import { useSelector, useDispatch } from 'react-redux'
+import React, { useContext } from 'react'
 
-import SnackbarContainer from '../SnackbarContainer'
+import SnackbarContainer, { SnackbarContext } from '../SnackbarContainer'
 
 jest.useFakeTimers()
 
@@ -13,53 +11,39 @@ jest.mock('../../components/Snackbar', () => {
 
   return ({ message }: { message: string }) => <Text>{message}</Text>
 })
-jest.mock('react-redux', () => ({
-  useSelector: jest.fn(),
-  useDispatch: jest.fn(),
-}))
 
 describe('SnackbarContainer', () => {
-  const mockDispatch = jest.fn()
-  const mockUseSelector = mocked(useSelector)
-  const mockUseDispatch = mocked(useDispatch)
-
   beforeEach(() => {
     jest.clearAllMocks()
     jest.clearAllTimers()
-    mockUseDispatch.mockImplementation(() => mockDispatch)
   })
 
+  let enqueueSnackbar = jest.fn()
+
+  const MockComponent = () => {
+    enqueueSnackbar = jest.fn(useContext(SnackbarContext))
+    return null
+  }
+
+  const MockComponentWithSnackbar = () => (
+    <SnackbarContainer>
+      <MockComponent />
+    </SnackbarContainer>
+  )
+
   it('should show a snackbar if included in the state', () => {
-    mockUseSelector.mockImplementation(() => [])
     const snackbarText1 = 'snackbarText1'
     const snackbarText2 = 'snackbarText2'
-    const { update, queryByText } = render(<SnackbarContainer />)
+    const { update, queryByText } = render(<MockComponentWithSnackbar />)
     expect(queryByText(snackbarText1)).toBeFalsy()
     expect(queryByText(snackbarText2)).toBeFalsy()
 
-    // Simulate two new snackbars have been pushed to the redux store
-    mockUseSelector.mockImplementation(() => [
-      {
-        text: snackbarText1,
-      },
-      {
-        text: snackbarText2,
-      },
-    ])
-    update(<SnackbarContainer />)
-
-    // First snackbar should be remove from redux store
-    expect(mockDispatch).toHaveBeenCalledTimes(1)
-    expect(mockDispatch).toHaveBeenCalledWith({
-      type: 'DEQUEUE_SNACKBAR',
+    act(() => {
+      enqueueSnackbar({ text: snackbarText1 })
+      enqueueSnackbar({ text: snackbarText2 })
     })
-    // Simulate pop of snackbar from the redux store (triggered by DEQUEUE_SNACKBAR action)
-    mockUseSelector.mockImplementation(() => [
-      {
-        text: snackbarText2,
-      },
-    ])
-    update(<SnackbarContainer />)
+    update(<MockComponentWithSnackbar />)
+
     expect(queryByText(snackbarText1)).toBeTruthy()
     expect(queryByText(snackbarText2)).toBeFalsy()
 
@@ -68,16 +52,12 @@ describe('SnackbarContainer', () => {
       jest.advanceTimersByTime(5300)
     })
 
-    // Second snackbar should be shown and removed from redux store
-    expect(mockDispatch).toHaveBeenCalledTimes(2)
-    expect(mockDispatch).toHaveBeenCalledWith({
-      type: 'DEQUEUE_SNACKBAR',
+    update(<MockComponentWithSnackbar />)
+
+    act(() => {
+      expect(queryByText(snackbarText1)).toBeFalsy()
+      expect(queryByText(snackbarText2)).toBeTruthy()
     })
-    // Simulate pop of snackbar from the redux store (triggered by DEQUEUE_SNACKBAR action)
-    mockUseSelector.mockImplementation(() => [])
-    update(<SnackbarContainer />)
-    expect(queryByText(snackbarText1)).toBeFalsy()
-    expect(queryByText(snackbarText2)).toBeTruthy()
 
     act(() => {
       // 5000 (show duration) + 300 (animation duration)

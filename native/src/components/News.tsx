@@ -1,17 +1,7 @@
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import {
-  CityModel,
-  fromError,
-  LOCAL_NEWS_TYPE,
-  LocalNewsModel,
-  NewsType,
-  NotFoundError,
-  ReturnType,
-  TU_NEWS_TYPE,
-  TunewsModel,
-} from 'api-client'
+import { ErrorCode, LocalNewsModel, NewsType, TU_NEWS_TYPE, TunewsModel } from 'api-client'
 
 import Failure from './Failure'
 import List from './List'
@@ -21,19 +11,27 @@ import NewsListItem from './NewsListItem'
 
 type NewsModelsType = Array<LocalNewsModel | TunewsModel>
 
-export type NewsProps = ReturnType<NewsModelsType> & {
+export type NewsProps = {
+  news: NewsModelsType
   selectNews: (newsId: string | null) => void
   newsId: string | null | undefined
-  cityModel: CityModel
-  language: string
+  languageCode: string
   selectedNewsType: NewsType
   loadMore?: () => void
   loadingMore?: boolean
+  refresh: () => void
 }
 
-const News = (props: NewsProps): ReactElement => {
-  const { data, loading, loadMore, error, newsId, language, selectedNewsType, refresh, selectNews, cityModel } = props
-  const { loadingMore } = props
+const News = ({
+  news,
+  loadMore,
+  newsId,
+  languageCode,
+  selectedNewsType,
+  selectNews,
+  refresh,
+  loadingMore,
+}: NewsProps): ReactElement => {
   const { t } = useTranslation('news')
 
   const rendersNewsListItem = ({ item, index }: { item: LocalNewsModel | TunewsModel; index: number }) => {
@@ -50,39 +48,13 @@ const News = (props: NewsProps): ReactElement => {
     )
   }
 
-  const isDisabled = selectedNewsType === LOCAL_NEWS_TYPE ? !cityModel.localNewsEnabled : !cityModel.tunewsEnabled
-  const errorToShow = isDisabled
-    ? new NotFoundError({
-        type: 'category',
-        id: selectedNewsType,
-        city: cityModel.code,
-        language,
-      })
-    : error
-
-  if (errorToShow) {
-    return <Failure code={fromError(errorToShow)} />
-  }
-
-  if (loading) {
-    return <LoadingSpinner testID='loadingSpinner' />
-  }
-
-  const news = data ?? []
-
   if (newsId) {
     const selectedNewsItem = news.find(_newsItem => _newsItem.id.toString() === newsId)
 
     if (selectedNewsItem) {
-      return <NewsDetail newsItem={selectedNewsItem} language={language} />
+      return <NewsDetail newsItem={selectedNewsItem} language={languageCode} />
     }
-    const error = new NotFoundError({
-      type: selectedNewsType,
-      id: newsId,
-      city: cityModel.code,
-      language,
-    })
-    return <Failure code={fromError(error)} />
+    return <Failure code={ErrorCode.PageNotFound} />
   }
 
   return (
