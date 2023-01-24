@@ -1,5 +1,4 @@
 import React, { ReactElement } from 'react'
-import { ScrollView } from 'react-native'
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons'
 import styled from 'styled-components/native'
 
@@ -11,35 +10,24 @@ const Icon = styled(MaterialIcon)<{ disabled: boolean }>`
 `
 
 type AnchorIconProps = {
-  name: string
-  scrollViewRef: React.ElementRef<typeof ScrollView> | null
+  onPress: () => void
   isLeftAnchor: boolean
   disabled: boolean
 }
 
-const AnchorIcon = ({ name, scrollViewRef, isLeftAnchor, disabled }: AnchorIconProps): ReactElement => {
-  const onAnchorPress = (): void => {
-    if (isLeftAnchor) {
-      scrollViewRef?.scrollTo({ x: 0, y: 0, animated: true })
-    } else {
-      scrollViewRef?.scrollToEnd({ animated: true })
-    }
-  }
-
-  return (
-    <Icon
-      name={name}
-      style={{
-        transform: [
-          {
-            scaleX: isRTL() ? -1 : 1,
-          },
-        ],
-      }}
-      onPress={onAnchorPress}
-      disabled={disabled}
-    />
-  )
-}
+const AnchorIcon = ({ onPress, isLeftAnchor, disabled }: AnchorIconProps): ReactElement => (
+  <Icon
+    name={isLeftAnchor ? 'keyboard-arrow-left' : 'keyboard-arrow-right'}
+    style={{
+      transform: [
+        {
+          scaleX: isRTL() ? -1 : 1,
+        },
+      ],
+    }}
+    onPress={onPress}
+    disabled={disabled}
+  />
+)
 
 export default AnchorIcon
