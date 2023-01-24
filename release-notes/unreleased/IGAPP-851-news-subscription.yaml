@@ -1,0 +1,6 @@
+issue_key: IGAPP-851
+show_in_stores: false
+platforms:
+  - android
+  - ios
+en: In the future push news from old cities/languages should not be received anymore for fresh installations.
