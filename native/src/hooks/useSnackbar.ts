@@ -1,10 +1,7 @@
-import { useDispatch } from 'react-redux'
+import { useContext } from 'react'
 
-import showSnackbar from '../utils/showSnackbar'
+import { SnackbarContext, SnackbarType } from '../components/SnackbarContainer'
 
-const useSnackbar = (): ((message: string) => void) => {
-  const dispatch = useDispatch()
-  return (message: string) => showSnackbar(dispatch, message)
-}
+const useSnackbar = (): ((snackbar: SnackbarType) => void) => useContext(SnackbarContext)
 
 export default useSnackbar

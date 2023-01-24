@@ -1,11 +1,9 @@
-import React, { ReactElement, useCallback, useEffect, useState } from 'react'
+import React, { createContext, ReactElement, useCallback, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Animated, View, LayoutChangeEvent } from 'react-native'
-import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components/native'
 
 import Snackbar from '../components/Snackbar'
-import { SnackbarType, StateType } from '../redux/StateType'
 
 const Container = styled(View)`
   position: absolute;
@@ -13,18 +11,34 @@ const Container = styled(View)`
   left: 0;
   right: 0;
 `
+
 // https://github.com/styled-components/styled-components/issues/892
 const AnimatedContainer = Animated.createAnimatedComponent(Container)
 const ANIMATION_DURATION = 300
 const SHOW_DURATION = 5000
 const MAX_HEIGHT = 9999
 const translate = new Animated.Value(1)
-const SnackbarContainer = (): ReactElement | null => {
+
+export type SnackbarType = {
+  text: string
+}
+type SnackbarContextType = (snackbar: SnackbarType) => void
+export const SnackbarContext = createContext<SnackbarContextType>(() => undefined)
+
+type SnackbarContainerProps = {
+  children: ReactElement
+}
+
+const SnackbarContainer = ({ children }: SnackbarContainerProps): ReactElement | null => {
   const [height, setHeight] = useState<number | null>(null)
-  const [displayed, setDisplayed] = useState<SnackbarType | null>(null)
-  const snackbarState = useSelector<StateType, Array<SnackbarType>>((state: StateType) => state.snackbar)
-  const dispatch = useDispatch()
+  const [enqueuedSnackbars, setEnqueuedSnackbars] = useState<SnackbarType[]>([])
+  const displayedSnackbar = enqueuedSnackbars[0]
   const { t } = useTranslation('error')
+
+  const enqueueSnackbar = useCallback((snackbar: SnackbarType) => {
+    // Don't show same snackbar multiple times
+    setEnqueuedSnackbars(snackbars => (snackbars[0]?.text !== snackbar.text ? [...snackbars, snackbar] : snackbars))
+  }, [])
 
   const show = useCallback(() => {
     Animated.timing(translate, {
@@ -39,27 +53,17 @@ const SnackbarContainer = (): ReactElement | null => {
       toValue: 1,
       duration: ANIMATION_DURATION,
       useNativeDriver: true,
-    }).start(() => setDisplayed(null))
+    }).start(() => setEnqueuedSnackbars(snackbars => snackbars.slice(1)))
   }, [])
 
   useEffect(() => {
-    const newSnackbar = snackbarState[0]
-    if (!displayed && newSnackbar) {
-      setDisplayed(newSnackbar)
-      dispatch({
-        type: 'DEQUEUE_SNACKBAR',
-      })
-    }
-  }, [snackbarState, displayed, dispatch])
-
-  useEffect(() => {
-    if (displayed) {
+    if (displayedSnackbar) {
       show()
       const timeout = setTimeout(hide, SHOW_DURATION)
       return () => clearTimeout(timeout)
     }
     return () => undefined
-  }, [displayed, hide, show])
+  }, [displayedSnackbar, hide, show])
 
   const onLayout = (event: LayoutChangeEvent) => setHeight(event.nativeEvent.layout.height)
 
@@ -68,19 +72,25 @@ const SnackbarContainer = (): ReactElement | null => {
     inputRange: [0, 1],
     outputRange,
   })
-  return displayed ? (
-    <AnimatedContainer
-      onLayout={onLayout}
-      style={{
-        transform: [
-          {
-            translateY: interpolated,
-          },
-        ],
-      }}>
-      <Snackbar message={t(displayed.text)} />
-    </AnimatedContainer>
-  ) : null
+
+  return (
+    <SnackbarContext.Provider value={enqueueSnackbar}>
+      {children}
+      {displayedSnackbar ? (
+        <AnimatedContainer
+          onLayout={onLayout}
+          style={{
+            transform: [
+              {
+                translateY: interpolated,
+              },
+            ],
+          }}>
+          <Snackbar message={t(displayedSnackbar.text)} />
+        </AnimatedContainer>
+      ) : null}
+    </SnackbarContext.Provider>
+  )
 }
 
 export default SnackbarContainer

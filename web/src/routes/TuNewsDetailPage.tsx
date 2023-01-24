@@ -1,4 +1,4 @@
-import React, { ReactElement, useCallback, useContext } from 'react'
+import React, { ReactElement, useContext } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import styled from 'styled-components'
 
@@ -54,11 +54,11 @@ const TuNewsDetailPage = ({ cityModel, languages, pathname, cityCode, languageCo
   const navigate = useNavigate()
   const viewportSmall = false
 
-  const requestTuNews = useCallback(
-    async () => createTunewsElementEndpoint(tunewsApiBaseUrl).request({ id: parseInt(newsId, 10) }),
-    [newsId]
-  )
-  const { data: newsModel, loading, error: newsError } = useLoadFromEndpoint(requestTuNews)
+  const {
+    data: newsModel,
+    loading,
+    error: newsError,
+  } = useLoadFromEndpoint(createTunewsElementEndpoint, tunewsApiBaseUrl, { id: parseInt(newsId, 10) })
 
   // Language change is not possible between tuNews detail views because we don't know the id of other languages
   const languageChangePaths = languages.map(({ code, name }) => ({ path: null, name, code }))

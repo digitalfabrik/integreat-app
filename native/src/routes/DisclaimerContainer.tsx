@@ -1,27 +1,17 @@
-import React, { ReactElement, useCallback } from 'react'
-import { RefreshControl } from 'react-native'
-import { useSelector } from 'react-redux'
+import React, { ReactElement, useContext } from 'react'
 
-import {
-  createDisclaimerEndpoint,
-  DISCLAIMER_ROUTE,
-  DisclaimerRouteType,
-  fromError,
-  PageModel,
-  useLoadFromEndpoint,
-  getSlug,
-} from 'api-client'
+import { createDisclaimerEndpoint, DISCLAIMER_ROUTE, DisclaimerRouteType } from 'api-client'
 
-import Failure from '../components/Failure'
-import LayoutedScrollView from '../components/LayoutedScrollView'
 import SiteHelpfulBox from '../components/SiteHelpfulBox'
+import { StaticServerContext } from '../components/StaticServerProvider'
 import { NavigationProps, RouteProps } from '../constants/NavigationTypes'
-import useReportError from '../hooks/useReportError'
-import useSetShareUrl from '../hooks/useSetShareUrl'
+import useCityAppContext from '../hooks/useCityAppContext'
+import useHeader from '../hooks/useHeader'
+import useLoadExtraCityContent from '../hooks/useLoadExtraCityContent'
 import createNavigateToFeedbackModal from '../navigation/createNavigateToFeedbackModal'
-import { StateType } from '../redux/StateType'
-import { determineApiUrl } from '../utils/helpers'
+import urlFromRouteInformation from '../navigation/url'
 import Disclaimer from './Disclaimer'
+import LoadingErrorHandler from './LoadingErrorHandler'
 
 type DisclaimerContainerProps = {
   route: RouteProps<DisclaimerRouteType>
@@ -29,21 +19,17 @@ type DisclaimerContainerProps = {
 }
 
 const DisclaimerContainer = ({ navigation, route }: DisclaimerContainerProps): ReactElement => {
-  const { cityCode, languageCode } = route.params
-  const resourceCacheUrl = useSelector<StateType, string | null>(state => state.resourceCacheUrl)
+  const { cityCode, languageCode } = useCityAppContext()
+  const resourceCacheUrl = useContext(StaticServerContext)
+  const { data, ...response } = useLoadExtraCityContent({
+    createEndpoint: createDisclaimerEndpoint,
+    cityCode,
+    languageCode,
+  })
 
-  const routeInformation = { route: DISCLAIMER_ROUTE, languageCode, cityCode }
-  useSetShareUrl({ navigation, routeInformation, route })
-
-  const request = useCallback(async () => {
-    const apiUrl = await determineApiUrl()
-    return createDisclaimerEndpoint(apiUrl).request({
-      city: cityCode,
-      language: languageCode,
-    })
-  }, [cityCode, languageCode])
-  const { data: disclaimer, error, loading, refresh } = useLoadFromEndpoint<PageModel>(request)
-  useReportError(error)
+  const availableLanguages = data?.languages.map(it => it.code)
+  const shareUrl = urlFromRouteInformation({ route: DISCLAIMER_ROUTE, languageCode, cityCode })
+  useHeader({ navigation, route, availableLanguages, data, shareUrl })
 
   const navigateToFeedback = (isPositiveFeedback: boolean) => {
     createNavigateToFeedbackModal(navigation)({
@@ -51,25 +37,19 @@ const DisclaimerContainer = ({ navigation, route }: DisclaimerContainerProps): R
       cityCode,
       language: languageCode,
       isPositiveFeedback,
-      slug: disclaimer ? getSlug(disclaimer.path) : undefined,
+      slug: data?.extra.slug,
     })
   }
 
-  if (error) {
-    return (
-      <LayoutedScrollView refreshControl={<RefreshControl onRefresh={refresh} refreshing={loading} />}>
-        <Failure code={fromError(error)} tryAgain={refresh} />
-      </LayoutedScrollView>
-    )
-  }
-
   return (
-    <LayoutedScrollView refreshControl={<RefreshControl onRefresh={refresh} refreshing={loading} />}>
-      {!!disclaimer && !!resourceCacheUrl && (
-        <Disclaimer resourceCacheUrl={resourceCacheUrl} disclaimer={disclaimer} language={languageCode} />
+    <LoadingErrorHandler {...response} scrollView>
+      {data && (
+        <>
+          <Disclaimer resourceCacheUrl={resourceCacheUrl} disclaimer={data.extra} language={languageCode} />
+          <SiteHelpfulBox navigateToFeedback={navigateToFeedback} />
+        </>
       )}
-      <SiteHelpfulBox navigateToFeedback={navigateToFeedback} />
-    </LayoutedScrollView>
+    </LoadingErrorHandler>
   )
 }
 

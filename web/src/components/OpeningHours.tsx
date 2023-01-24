@@ -64,10 +64,11 @@ const OpeningHours = ({
       </OpeningLabel>
     </>
   )
+  if (isTemporarilyClosed) {
+    return <TitleContainer>{openingHoursTitle}</TitleContainer>
+  }
+
   if (!openingHours) {
-    if (isTemporarilyClosed) {
-      return <TitleContainer>{openingHoursTitle}</TitleContainer>
-    }
     return null
   }
 
@@ -77,7 +78,7 @@ const OpeningHours = ({
         {openingHours.map((entry, index) => (
           <OpeningEntry
             key={`${weekdays[index]!}-OpeningEntry`}
-            weekday={weekdays[index]!}
+            weekday={t(weekdays[index]!.toLowerCase())}
             allDay={entry.allDay}
             closed={entry.closed}
             timeSlots={entry.timeSlots}

@@ -1,11 +1,11 @@
-import React, { ReactElement } from 'react'
-import { useDispatch } from 'react-redux'
+import React, { ReactElement, useContext } from 'react'
 import styled from 'styled-components/native'
 
 import { ChangeLanguageModalRouteType } from 'api-client'
 
 import Selector from '../components/Selector'
 import { NavigationProps, RouteProps } from '../constants/NavigationTypes'
+import { AppContext } from '../contexts/AppContextProvider'
 import SelectorItemModel from '../models/SelectorItemModel'
 
 const Wrapper = styled.ScrollView`
@@ -18,18 +18,8 @@ type ChangeLanguageModalProps = {
 }
 
 const ChangeLanguageModal = ({ navigation, route }: ChangeLanguageModalProps): ReactElement => {
-  const { currentLanguage, languages, availableLanguages, cityCode } = route.params
-  const dispatch = useDispatch()
-
-  const changeLanguage = (newLanguage: string) => {
-    dispatch({
-      type: 'SWITCH_CONTENT_LANGUAGE',
-      params: {
-        newLanguage,
-        city: cityCode,
-      },
-    })
-  }
+  const { languages, availableLanguages } = route.params
+  const { languageCode, changeLanguageCode } = useContext(AppContext)
 
   const selectorItems = languages.map(({ code, name }) => {
     const isLanguageAvailable = availableLanguages.includes(code)
@@ -38,8 +28,8 @@ const ChangeLanguageModal = ({ navigation, route }: ChangeLanguageModalProps): R
       name,
       enabled: isLanguageAvailable,
       onPress: () => {
-        if (code !== currentLanguage) {
-          changeLanguage(code)
+        if (code !== languageCode) {
+          changeLanguageCode(code)
         }
         navigation.goBack()
       },
@@ -48,7 +38,7 @@ const ChangeLanguageModal = ({ navigation, route }: ChangeLanguageModalProps): R
 
   return (
     <Wrapper contentContainerStyle={{ flexGrow: 1, justifyContent: 'center' }}>
-      <Selector selectedItemCode={currentLanguage} items={selectorItems} />
+      <Selector selectedItemCode={languageCode} items={selectorItems} />
     </Wrapper>
   )
 }

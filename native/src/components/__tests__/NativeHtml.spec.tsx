@@ -1,19 +1,17 @@
 import { fireEvent, render } from '@testing-library/react-native'
+import { mocked } from 'jest-mock'
 import React from 'react'
 
-import navigateToLink from '../../navigation/navigateToLink'
+import useNavigateToLink from '../../hooks/useNavigateToLink'
 import CategoryListContent from '../CategoryListContent'
 import NativeHtml from '../NativeHtml'
 
 const mockNavigation = jest.fn()
 
-jest.mock('../../navigation/navigateToLink', () => jest.fn(Promise.resolve))
+jest.mock('../../hooks/useNavigateToLink')
 jest.mock('../../hooks/useSnackbar')
 jest.mock('react-native/Libraries/Utilities/useWindowDimensions', () => ({
   default: jest.fn(() => ({ width: 1234 })),
-}))
-jest.mock('react-redux', () => ({
-  useDispatch: jest.fn(),
 }))
 jest.mock('@react-navigation/native', () => ({
   useNavigation: () => mockNavigation,
@@ -30,6 +28,9 @@ describe('NativeHtml', () => {
   beforeEach(() => {
     jest.clearAllMocks()
   })
+  const navigateToLink = jest.fn()
+  mocked(useNavigateToLink).mockImplementation(() => navigateToLink)
+
   it('should display the content correctly', () => {
     const content1 = 'This is some nice, I mean'
     const content2 = 'really nice html content'
@@ -64,9 +65,9 @@ describe('NativeHtml', () => {
       <CategoryListContent content={htmlContent} cacheDictionary={cacheDictionary} language='de' />
     )
     fireEvent.press(getByText(text1))
-    expect(navigateToLink).toHaveBeenNthCalledWith(1, url1, mockNavigation, 'de', expect.anything(), url1)
+    expect(navigateToLink).toHaveBeenNthCalledWith(1, url1, url1)
     fireEvent.press(getByText(text2))
-    expect(navigateToLink).toHaveBeenNthCalledWith(2, dictUrl, mockNavigation, 'de', expect.anything(), url2)
+    expect(navigateToLink).toHaveBeenNthCalledWith(2, dictUrl, url2)
   })
 
   it('should not replace links', () => {
@@ -76,6 +77,6 @@ describe('NativeHtml', () => {
     const { getByText } = render(<NativeHtml content={htmlContent} language='de' />)
     fireEvent.press(getByText(text1))
     expect(navigateToLink).toHaveBeenCalledTimes(1)
-    expect(navigateToLink).toHaveBeenCalledWith(url1, mockNavigation, 'de', expect.anything(), url1)
+    expect(navigateToLink).toHaveBeenCalledWith(url1, url1)
   })
 })

@@ -1,4 +1,4 @@
-import { DASHBOARD_ROUTE } from 'api-client'
+import { CATEGORIES_ROUTE } from 'api-client'
 
 import { NavigationProps, RoutesType } from '../constants/NavigationTypes'
 
@@ -9,9 +9,9 @@ const createNavigationMock = <T extends RoutesType>(routeIndex = 0): NavigationP
   getParent: jest.fn(),
   getState: jest.fn(() => ({
     index: routeIndex,
-    routes: [{ key: 'some-key-0', name: DASHBOARD_ROUTE }],
+    routes: [{ key: 'some-key-0', name: CATEGORIES_ROUTE }],
     key: 'some-key-0',
-    routeNames: [DASHBOARD_ROUTE],
+    routeNames: [CATEGORIES_ROUTE],
     type: 'stack',
     stale: false,
   })),
