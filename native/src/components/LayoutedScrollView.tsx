@@ -6,7 +6,7 @@ import Layout from './Layout'
 
 type LayoutedScrollViewProps = {
   children?: React.ReactNode
-  refreshControl: React.ReactElement<RefreshControlProps>
+  refreshControl?: React.ReactElement<RefreshControlProps>
 }
 
 const LayoutedScrollView = (props: LayoutedScrollViewProps): ReactElement => {

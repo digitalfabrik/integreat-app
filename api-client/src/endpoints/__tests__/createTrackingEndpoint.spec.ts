@@ -1,6 +1,6 @@
 import fetch from 'jest-fetch-mock'
 
-import { DASHBOARD_ROUTE } from '../../routes'
+import { CATEGORIES_ROUTE } from '../../routes'
 import { OPEN_PAGE_SIGNAL_NAME } from '../../tracking'
 import createTrackingEndpoint, { JPAL_TRACKING_ENDPOINT_URL } from '../createTrackingEndpoint'
 
@@ -10,7 +10,7 @@ describe('createTrackingEndpoint', () => {
   })
   const signal = {
     name: OPEN_PAGE_SIGNAL_NAME,
-    pageType: DASHBOARD_ROUTE,
+    pageType: CATEGORIES_ROUTE,
     url: 'https://example.com',
     trackingCode: 'abcdef123456',
     offline: true,

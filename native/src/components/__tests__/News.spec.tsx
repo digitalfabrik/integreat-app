@@ -3,15 +3,7 @@ import moment from 'moment'
 import React from 'react'
 import { Text } from 'react-native'
 
-import {
-  CityModel,
-  LOCAL_NEWS_TYPE,
-  LocalNewsModel,
-  LocalNewsType,
-  TU_NEWS_TYPE,
-  TunewsModel,
-  TuNewsType,
-} from 'api-client'
+import { CityModel, LocalNewsModel, LocalNewsType, TU_NEWS_TYPE, TunewsModel, TuNewsType } from 'api-client'
 
 import render from '../../testing/render'
 import News from '../News'
@@ -53,16 +45,12 @@ describe('News', () => {
     selectedNewsType = TU_NEWS_TYPE,
     newsId = null,
     data = news,
-    loading = false,
     loadingMore = false,
-    error = null,
     tuNewsEnabled = true,
     localNewsEnabled = true,
   }: {
-    error?: Error | null
     newsId?: string | null
-    data?: Array<LocalNewsModel | TunewsModel> | null
-    loading?: boolean
+    data?: Array<LocalNewsModel | TunewsModel>
     loadingMore?: boolean
     selectedNewsType?: TuNewsType | LocalNewsType
     tuNewsEnabled?: boolean
@@ -85,30 +73,8 @@ describe('News', () => {
       boundingBox: null,
     })
     const props = { cityModel, language, selectNews, loadMore, refresh, selectedNewsType }
-    return render(
-      <News {...props} loading={loading} data={data} newsId={newsId} error={error} loadingMore={loadingMore} />
-    )
+    return render(<News {...props} news={data} newsId={newsId} loadingMore={loadingMore} languageCode='de' />)
   }
-
-  it('should show loading spinner', () => {
-    const { getByTestId } = renderNews({ loading: true })
-    expect(getByTestId('loadingSpinner')).toBeTruthy()
-  })
-
-  it('should show error', () => {
-    const { getByText } = renderNews({ error: new Error('my error') })
-    expect(getByText('unknownError')).toBeTruthy()
-  })
-
-  it('should show not found error if local news selected and not enabled', () => {
-    const { getByText } = renderNews({ tuNewsEnabled: false, selectedNewsType: TU_NEWS_TYPE })
-    expect(getByText('pageNotFound')).toBeTruthy()
-  })
-
-  it('should show not found error if tu news selected and not enabled', () => {
-    const { getByText } = renderNews({ localNewsEnabled: false, selectedNewsType: LOCAL_NEWS_TYPE })
-    expect(getByText('pageNotFound')).toBeTruthy()
-  })
 
   it('should show not found error if news with id not found', () => {
     const { getByText } = renderNews({ newsId: 'i am a ghost' })

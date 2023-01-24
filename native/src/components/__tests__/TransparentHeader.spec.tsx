@@ -3,7 +3,7 @@ import { mocked } from 'jest-mock'
 import React, { ReactElement } from 'react'
 import { Share, Text, View } from 'react-native'
 
-import { DASHBOARD_ROUTE, SHARE_SIGNAL_NAME } from 'api-client'
+import { PDF_VIEW_MODAL_ROUTE, SHARE_SIGNAL_NAME } from 'api-client'
 
 import useSnackbar from '../../hooks/useSnackbar'
 import createNavigationMock from '../../testing/createNavigationPropMock'
@@ -43,13 +43,17 @@ describe('TransparentHeader', () => {
     jest.clearAllMocks()
   })
 
-  const buildProps = (routeIndex: number, shareUrl?: string): React.ComponentProps<typeof TransparentHeader> => ({
+  const buildProps = (
+    routeIndex: number,
+    shareUrl = 'https://example.com'
+  ): React.ComponentProps<typeof TransparentHeader> => ({
     navigation: createNavigationMock(routeIndex),
     route: {
       key: 'key-0',
-      name: DASHBOARD_ROUTE,
+      name: PDF_VIEW_MODAL_ROUTE,
       params: {
         shareUrl,
+        url: 'test',
       },
     },
   })
@@ -86,6 +90,6 @@ describe('TransparentHeader', () => {
       signal: { name: SHARE_SIGNAL_NAME, url: 'https://example.com/share' },
     })
 
-    expect(showSnackbar).toHaveBeenCalledWith('generalError')
+    expect(showSnackbar).toHaveBeenCalledWith({ text: 'generalError' })
   })
 })

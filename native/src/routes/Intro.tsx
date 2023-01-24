@@ -1,7 +1,6 @@
 import React, { ReactElement, useCallback, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { FlatList, useWindowDimensions, ViewToken } from 'react-native'
-import { useDispatch, useSelector } from 'react-redux'
 import { useTheme } from 'styled-components'
 import styled from 'styled-components/native'
 
@@ -11,9 +10,9 @@ import SlideContent, { SlideContentType } from '../components/SlideContent'
 import SlideFooter from '../components/SlideFooter'
 import { NavigationProps, RouteProps } from '../constants/NavigationTypes'
 import buildConfig, { buildConfigAssets } from '../constants/buildConfig'
-import navigateToDeepLink from '../navigation/navigateToDeepLink'
-import { StateType } from '../redux/StateType'
+import useNavigateToDeepLink from '../hooks/useNavigateToDeepLink'
 import appSettings from '../utils/AppSettings'
+import { reportError } from '../utils/sentry'
 
 const Container = styled.View<{ width: number }>`
   flex: 1;
@@ -43,13 +42,12 @@ type IntroProps = {
 
 const Intro = ({ route, navigation }: IntroProps): ReactElement => {
   const [currentSlide, setCurrentSlide] = useState(0)
-  const language = useSelector<StateType, string>((state: StateType) => state.contentLanguage)
   const { width } = useWindowDimensions()
   const { t } = useTranslation<['intro', 'settings']>(['intro', 'settings'])
   const theme = useTheme()
-  const dispatch = useDispatch()
   const flatListRef = useRef<FlatList>(null)
   const { deepLink } = route.params
+  const navigateToDeepLink = useNavigateToDeepLink()
 
   const icons = buildConfigAssets().intro
   const slides = icons
@@ -103,15 +101,14 @@ const Intro = ({ route, navigation }: IntroProps): ReactElement => {
       await appSettings.setIntroShown()
 
       if (deepLink) {
-        navigateToDeepLink(dispatch, navigation, deepLink, language)
+        navigateToDeepLink(deepLink)
       } else {
         navigation.replace(LANDING_ROUTE)
       }
     } catch (e) {
-      // eslint-disable-next-line no-console
-      console.warn(e)
+      reportError(e)
     }
-  }, [dispatch, language, navigation, deepLink])
+  }, [navigateToDeepLink, navigation, deepLink])
 
   const goToSlide = useCallback((index: number) => {
     flatListRef.current?.scrollToIndex({
