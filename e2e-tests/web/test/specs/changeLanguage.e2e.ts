@@ -7,7 +7,7 @@ describe('Change language', () => {
 
   it('should display language icon', async () => {
     const icon = await dashboardPage.languageIcon
-    expect(await icon.isDisplayed()).toBeTrue()
+    expect(await icon.isDisplayed()).toBeTruthy()
   })
 
   it('should open language selector', async () => {
@@ -15,18 +15,18 @@ describe('Change language', () => {
     await languageIcon.click()
 
     const languageSelector = await $("*[data-testid='headerActionItemDropDown']")
-    expect(await languageSelector.isDisplayed()).toBeTrue()
+    expect(await languageSelector.isDisplayed()).toBeTruthy()
   })
 
   it('should change language', async () => {
-    expect(await dashboardPage.hasHeadline('Local information')).toBeTrue()
+    expect(await dashboardPage.hasHeadline('Local information')).toBeTruthy()
     const englishContent = await $(`*=Welcome`)
-    expect(await englishContent.isDisplayed()).toBeTrue()
+    expect(await englishContent.isDisplayed()).toBeTruthy()
 
     await dashboardPage.selectLanguage('de')
 
-    expect(await dashboardPage.hasHeadline('Lokale Informationen')).toBeTrue()
+    expect(await dashboardPage.hasHeadline('Lokale Informationen')).toBeTruthy()
     const germanContent = await $(`*=Willkommen`)
-    expect(await germanContent.isDisplayed()).toBeTrue()
+    expect(await germanContent.isDisplayed()).toBeTruthy()
   })
 })

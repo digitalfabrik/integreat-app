@@ -7,12 +7,12 @@ describe('Change language', () => {
     await navigateToDashboard()
 
     const languageIcon = dashboardPage.languageIcon
-    expect(await languageIcon.isDisplayed()).toBeTrue()
+    expect(await languageIcon.isDisplayed()).toBeTruthy()
   })
 
   it('should change language', async () => {
     const englishContent = $(new Selector().ByText('Welcome').build())
-    expect(await englishContent.isDisplayed()).toBeTrue()
+    expect(await englishContent.isDisplayed()).toBeTruthy()
 
     await dashboardPage.languageIcon.click()
 
