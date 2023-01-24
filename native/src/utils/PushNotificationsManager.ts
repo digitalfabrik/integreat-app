@@ -20,6 +20,8 @@ type Message = FirebaseMessagingTypes.RemoteMessage & {
   }
 }
 
+const WAITING_TIME_FOR_CMS = 1000
+
 const importFirebaseMessaging = async (): Promise<() => FirebaseMessagingTypes.Module> =>
   import('@react-native-firebase/messaging').then(firebase => firebase.default)
 
@@ -97,13 +99,18 @@ export const useForegroundPushNotificationListener = ({
       messaging().onMessage(async _message => {
         const message = _message as Message
         if (mounted) {
-          showSnackbar({
-            text: message.notification.title,
-            positiveAction: {
-              onPress: () => navigate(NEWS_ROUTE, routeInformationFromMessage(message)),
-              label: 'Show',
-            },
-          })
+          // The CMS needs some time until the push notification is available in the API response
+          setTimeout(
+            () =>
+              showSnackbar({
+                text: message.notification.title,
+                positiveAction: {
+                  onPress: () => navigate(NEWS_ROUTE, routeInformationFromMessage(message)),
+                  label: 'Show',
+                },
+              }),
+            WAITING_TIME_FOR_CMS
+          )
         }
       })
     )
