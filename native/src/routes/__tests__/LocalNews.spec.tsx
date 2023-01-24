@@ -4,9 +4,18 @@ import moment from 'moment'
 import React from 'react'
 import { Text } from 'react-native'
 
-import { CityModel, LocalNewsModel } from 'api-client'
+import {
+  CategoriesMapModelBuilder,
+  CityModelBuilder,
+  LanguageModelBuilder,
+  LOCAL_NEWS_TYPE,
+  LocalNewsModel,
+  NEWS_ROUTE,
+  NewsRouteType,
+} from 'api-client'
 
 import useLoadLocalNews from '../../hooks/useLoadLocalNews'
+import createNavigationScreenPropMock from '../../testing/createNavigationPropMock'
 import render from '../../testing/render'
 import LocalNews from '../LocalNews'
 
@@ -29,6 +38,21 @@ const news: [LocalNewsModel, LocalNewsModel] = [
   }),
 ]
 
+const cities = new CityModelBuilder(3).build()
+const city = cities[0]!
+const languages = new LanguageModelBuilder(3).build()
+const language = languages[0]!
+
+const data = {
+  cities,
+  languages,
+  city,
+  language,
+  categories: new CategoriesMapModelBuilder(city.code, language.code).build(),
+  events: [],
+  pois: [],
+}
+
 describe('LocalNews', () => {
   beforeEach(() => {
     jest.clearAllMocks()
@@ -37,26 +61,18 @@ describe('LocalNews', () => {
   const selectNews = jest.fn()
   const refresh = jest.fn()
 
-  const renderNews = ({ newsId = null }: { newsId?: string | null }) => {
-    const cityModel = new CityModel({
-      name: 'Oldtown',
-      code: 'oldtown',
-      live: false,
-      eventsEnabled: true,
-      offersEnabled: true,
-      poisEnabled: false,
-      localNewsEnabled: true,
-      tunewsEnabled: true,
-      sortingName: 'Oldtown',
-      prefix: 'GoT',
-      latitude: 48.369696,
-      longitude: 10.892578,
-      aliases: null,
-      boundingBox: null,
-    })
-    const props = { cityModel, language: 'de', selectNews }
-    return render(<LocalNews {...props} newsId={newsId} />)
+  const navigation = createNavigationScreenPropMock<NewsRouteType>()
+  const route = {
+    key: 'route-id-0',
+    params: {
+      newsType: LOCAL_NEWS_TYPE,
+      newsId: null,
+    },
+    name: NEWS_ROUTE,
   }
+
+  const renderNews = ({ newsId = null }: { newsId?: string | null }) =>
+    render(<LocalNews data={data} newsId={newsId} route={route} navigation={navigation} selectNews={selectNews} />)
   const response = { data: news, error: null, loading: false, refresh }
 
   it('should show news list', () => {

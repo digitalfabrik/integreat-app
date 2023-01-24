@@ -1,16 +1,15 @@
+import { mocked } from 'jest-mock'
 import React from 'react'
-import { Provider } from 'react-redux'
-import configureMockStore from 'redux-mock-store'
 import waitForExpect from 'wait-for-expect'
 
 import { REDIRECT_ROUTE } from 'api-client'
 
-import navigateToDeepLink from '../../navigation/navigateToDeepLink'
+import useNavigateToDeepLink from '../../hooks/useNavigateToDeepLink'
 import createNavigationScreenPropMock from '../../testing/createNavigationPropMock'
 import render from '../../testing/render'
 import RedirectContainer from '../RedirectContainer'
 
-jest.mock('../../navigation/navigateToDeepLink')
+jest.mock('../../hooks/useNavigateToDeepLink')
 jest.mock('../../utils/NativeLanguageDetector')
 jest.mock('react-i18next', () => ({
   useTranslation: () => ({
@@ -19,6 +18,7 @@ jest.mock('react-i18next', () => ({
     },
   }),
 }))
+
 describe('RedirectContainer', () => {
   const url = 'https://example.com/custom/url'
   const navigation = createNavigationScreenPropMock()
@@ -29,20 +29,18 @@ describe('RedirectContainer', () => {
     },
     name: REDIRECT_ROUTE,
   }
-  const language = 'ckb'
-  const mockStore = configureMockStore()
+  const navigateToDeepLink = jest.fn()
+  mocked(useNavigateToDeepLink).mockImplementation(() => navigateToDeepLink)
+
   beforeEach(() => {
     jest.clearAllMocks()
   })
-  it('should fetch navigate to deep link on mount', async () => {
-    render(
-      <Provider store={mockStore({})}>
-        <RedirectContainer route={route} navigation={navigation} />
-      </Provider>
-    )
+
+  it('should call navigate to deep link on mount', async () => {
+    render(<RedirectContainer route={route} navigation={navigation} />)
     await waitForExpect(() => {
       expect(navigateToDeepLink).toHaveBeenCalledTimes(1)
-      expect(navigateToDeepLink).toHaveBeenCalledWith(expect.any(Function), navigation, url, language)
+      expect(navigateToDeepLink).toHaveBeenCalledWith(url)
     })
   })
 })

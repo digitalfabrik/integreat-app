@@ -1,6 +1,3 @@
-/**
- * The payload gets stored in the redux store and holds the information about a fetch
- */
 class Payload<T> {
   _isFetching: boolean
   _data: T | null | undefined
