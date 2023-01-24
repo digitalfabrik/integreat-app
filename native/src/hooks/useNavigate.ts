@@ -19,7 +19,7 @@ import {
   SPRUNGBRETT_OFFER_ROUTE,
 } from 'api-client'
 
-import { SnackbarType } from '../components/SnackbarContainer'
+import { SnackbarType } from '../components/Snackbar'
 import { NavigationProps, RoutesType } from '../constants/NavigationTypes'
 import buildConfig from '../constants/buildConfig'
 import { AppContext } from '../contexts/AppContextProvider'

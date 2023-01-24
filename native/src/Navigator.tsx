@@ -1,5 +1,6 @@
+import { useNavigation } from '@react-navigation/native'
 import { createStackNavigator, StackHeaderProps, TransitionPresets } from '@react-navigation/stack'
-import React, { ReactElement, useEffect, useState } from 'react'
+import React, { ReactElement, useCallback, useEffect, useState } from 'react'
 import { Platform, Text } from 'react-native'
 
 import {
@@ -36,7 +37,7 @@ import { NavigationProps, RouteProps, RoutesParamsType, RoutesType } from './con
 import buildConfig from './constants/buildConfig'
 import { ASYNC_STORAGE_VERSION } from './constants/settings'
 import useLoadCities from './hooks/useLoadCities'
-import useNavigateToDeepLink from './hooks/useNavigateToDeepLink'
+import useSnackbar from './hooks/useSnackbar'
 import CategoriesContainer from './routes/CategoriesContainer'
 import ChangeLanguageModal from './routes/ChangeLanguageModal'
 import CityNotCooperating from './routes/CityNotCooperating'
@@ -57,7 +58,10 @@ import SearchModalContainer from './routes/SearchModalContainer'
 import Settings from './routes/Settings'
 import SprungbrettOfferContainer from './routes/SprungbrettOfferContainer'
 import appSettings from './utils/AppSettings'
-import { quitAppStatePushNotificationListener } from './utils/PushNotificationsManager'
+import {
+  quitAppStatePushNotificationListener,
+  useForegroundPushNotificationListener,
+} from './utils/PushNotificationsManager'
 import { initSentry, log } from './utils/sentry'
 
 type HeaderProps = {
@@ -88,9 +92,14 @@ const Navigator = (): ReactElement | null => {
   const [initialRoute, setInitialRoute] = useState<InitialRouteType>({
     name: INTRO_ROUTE,
   })
-  const navigateToDeepLink = useNavigateToDeepLink()
   // Preload cities
   useLoadCities()
+
+  const showSnackbar = useSnackbar()
+  const navigation = useNavigation<NavigationProps<RoutesType>>()
+  const navigateToDeepLink = useCallback((url: string) => navigation.navigate(REDIRECT_ROUTE, { url }), [navigation])
+
+  useForegroundPushNotificationListener({ showSnackbar, navigate: navigation.navigate })
 
   useEffect(() => {
     quitAppStatePushNotificationListener(navigateToDeepLink)
