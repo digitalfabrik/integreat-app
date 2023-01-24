@@ -2,9 +2,12 @@ import { fireEvent, RenderAPI } from '@testing-library/react-native'
 import { mocked } from 'jest-mock'
 import React from 'react'
 
+import { CITY_NOT_COOPERATING_ROUTE, LandingRouteType } from 'api-client'
 import CityModelBuilder from 'api-client/src/testing/CityModelBuilder'
 
 import buildConfig from '../../constants/buildConfig'
+import useLoadCities from '../../hooks/useLoadCities'
+import createNavigationScreenPropMock from '../../testing/createNavigationPropMock'
 import render from '../../testing/render'
 import Landing from '../Landing'
 
@@ -14,17 +17,17 @@ jest.mock('../../components/NearbyCities', () => {
 })
 jest.mock('react-i18next')
 jest.mock('styled-components')
+jest.mock('../../hooks/useLoadCities')
 
 describe('Landing', () => {
+  const cities = new CityModelBuilder(6).build()
+
   beforeEach(() => {
     jest.clearAllMocks()
+    mocked(useLoadCities).mockImplementation(() => ({ data: cities, error: null, refresh: jest.fn(), loading: false }))
   })
 
-  const clearResourcesAndCache = jest.fn()
-  const navigateToDashboard = jest.fn()
-  const navigateToCityNotCooperating = jest.fn()
-  const language = 'de'
-  const cities = new CityModelBuilder(6).build()
+  const navigation = createNavigationScreenPropMock<LandingRouteType>()
 
   const mockedBuildConfig = mocked(buildConfig)
   const mockBuildConfig = (cityNotCooperating: boolean) => {
@@ -35,16 +38,7 @@ describe('Landing', () => {
     }))
   }
 
-  const renderLanding = (): RenderAPI =>
-    render(
-      <Landing
-        cities={cities}
-        language={language}
-        navigateToDashboard={navigateToDashboard}
-        navigateToCityNotCooperating={navigateToCityNotCooperating}
-        clearResourcesAndCache={clearResourcesAndCache}
-      />
-    )
+  const renderLanding = (): RenderAPI => render(<Landing navigation={navigation} />)
 
   it('should show live cities', () => {
     const { getByText, queryByText } = renderLanding()
@@ -78,6 +72,6 @@ describe('Landing', () => {
     const { getByText } = renderLanding()
     const button = getByText('clickHere')
     fireEvent.press(button)
-    expect(navigateToCityNotCooperating).toHaveBeenCalled()
+    expect(navigation.navigate).toHaveBeenCalledWith(CITY_NOT_COOPERATING_ROUTE)
   })
 })

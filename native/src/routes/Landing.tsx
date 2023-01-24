@@ -1,14 +1,19 @@
-import React, { ReactElement, useCallback } from 'react'
+import React, { ReactElement, useCallback, useContext } from 'react'
 import { View } from 'react-native'
-import { useTheme } from 'styled-components'
 import styled from 'styled-components/native'
 
-import { CityModel } from 'api-client'
+import { CATEGORIES_ROUTE, CITY_NOT_COOPERATING_ROUTE, CityModel, LandingRouteType } from 'api-client'
 
 import CityNotCooperatingFooter from '../components/CityNotCooperatingFooter'
 import CitySelector from '../components/CitySelector'
 import Heading from '../components/Heading'
+import { NavigationProps } from '../constants/NavigationTypes'
+import { AppContext } from '../contexts/AppContextProvider'
+import useLoadCities from '../hooks/useLoadCities'
 import testID from '../testing/testID'
+import dataContainer from '../utils/DefaultDataContainer'
+import { reportError } from '../utils/sentry'
+import LoadingErrorHandler from './LoadingErrorHandler'
 
 const Wrapper = styled(View)`
   background-color: ${props => props.theme.colors.backgroundColor};
@@ -17,38 +22,39 @@ const Wrapper = styled(View)`
   flex-grow: 1;
 `
 
-export type LandingProps = {
-  cities: Array<CityModel>
-  language: string
-  navigateToDashboard: (cityCode: string, language: string) => void
-  navigateToCityNotCooperating: () => void
-  clearResourcesAndCache: () => void
+type LandingProps = {
+  navigation: NavigationProps<LandingRouteType>
 }
 
-const Landing = ({
-  cities,
-  language,
-  navigateToDashboard,
-  navigateToCityNotCooperating,
-  clearResourcesAndCache,
-}: LandingProps): ReactElement => {
-  const theme = useTheme()
+const Landing = ({ navigation }: LandingProps): ReactElement => {
+  const { data: cities, refresh, ...response } = useLoadCities()
+  const { changeCityCode } = useContext(AppContext)
 
-  const navigateTo = useCallback(
-    (cityModel: CityModel) => {
-      navigateToDashboard(cityModel.code, language)
-    },
-    [language, navigateToDashboard]
-  )
+  const navigateToDashboard = (city: CityModel) => {
+    changeCityCode(city.code)
+    navigation.reset({ index: 0, routes: [{ name: CATEGORIES_ROUTE, params: {} }] })
+  }
+
+  const clearResourcesAndCache = useCallback(() => {
+    dataContainer.clearInMemoryCache()
+    dataContainer.clearOfflineCache().catch(reportError)
+    refresh()
+  }, [refresh])
 
   return (
-    <>
-      <Wrapper {...testID('Landing-Page')}>
-        <Heading clearResourcesAndCache={clearResourcesAndCache} theme={theme} />
-        <CitySelector cities={cities} navigateToDashboard={navigateTo} />
-      </Wrapper>
-      <CityNotCooperatingFooter navigateToCityNotCooperating={navigateToCityNotCooperating} theme={theme} />
-    </>
+    <LoadingErrorHandler {...response} refresh={refresh} scrollView>
+      {cities && (
+        <>
+          <Wrapper {...testID('Landing-Page')}>
+            <Heading clearResourcesAndCache={clearResourcesAndCache} />
+            <CitySelector cities={cities} navigateToDashboard={navigateToDashboard} />
+          </Wrapper>
+          <CityNotCooperatingFooter
+            navigateToCityNotCooperating={() => navigation.navigate(CITY_NOT_COOPERATING_ROUTE)}
+          />
+        </>
+      )}
+    </LoadingErrorHandler>
   )
 }
 

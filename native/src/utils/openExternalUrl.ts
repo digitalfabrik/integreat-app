@@ -2,13 +2,14 @@ import { Linking } from 'react-native'
 import InAppBrowser from 'react-native-inappbrowser-reborn'
 import URL from 'url-parse'
 
-import { NotFoundError, OPEN_EXTERNAL_LINK_SIGNAL_NAME, OPEN_OS_LINK_SIGNAL_NAME } from 'api-client'
+import { OPEN_EXTERNAL_LINK_SIGNAL_NAME, OPEN_OS_LINK_SIGNAL_NAME } from 'api-client'
 
+import { SnackbarType } from '../components/SnackbarContainer'
 import buildConfig from '../constants/buildConfig'
 import sendTrackingSignal from './sendTrackingSignal'
 import { reportError } from './sentry'
 
-const openExternalUrl = async (url: string): Promise<void> => {
+const openExternalUrl = async (url: string, showSnackbar: (snackbar: SnackbarType) => void): Promise<void> => {
   const { protocol } = new URL(url)
 
   try {
@@ -36,14 +37,12 @@ const openExternalUrl = async (url: string): Promise<void> => {
         })
         await Linking.openURL(url)
       } else {
-        throw new NotFoundError({ type: 'route', id: url, city: '', language: '' })
+        showSnackbar({ text: 'noSuitableAppInstalled' })
       }
     }
   } catch (error) {
     reportError(error)
-    if (error instanceof NotFoundError) {
-      throw error
-    }
+    showSnackbar({ text: 'unknownError' })
   }
 }
 

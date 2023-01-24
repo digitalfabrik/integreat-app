@@ -33,7 +33,7 @@ export type FeatureFlagsType = FixedCityType & {
   jpalTracking: boolean
   // Enables error tracking to sentry, can be disabled by users.
   sentry: boolean
-  // Enables additional debugging output for devs (i18n, redux, hidden cities, version).
+  // Enables additional debugging output for devs (i18n, hidden cities, version).
   developerFriendly: boolean
   // Enables the option for users to suggest Integreat to their city and uses this template for the suggestion
   cityNotCooperating?: boolean

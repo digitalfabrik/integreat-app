@@ -1,5 +1,4 @@
 import React, { ReactElement, useState } from 'react'
-import { useTranslation } from 'react-i18next'
 import { View } from 'react-native'
 import Pdf from 'react-native-pdf'
 import { useTheme } from 'styled-components'
@@ -19,7 +18,6 @@ type PDFViewModalProps = {
 
 const PDFViewModal = ({ route, navigation: _navigation }: PDFViewModalProps): ReactElement => {
   const [error, setError] = useState<boolean>(false)
-  const { t } = useTranslation('error')
   const showSnackbar = useSnackbar()
   const { url } = route.params
   const theme = useTheme()
@@ -45,7 +43,7 @@ const PDFViewModal = ({ route, navigation: _navigation }: PDFViewModalProps): Re
         }}
         trustAllCerts={false}
         onError={() => setError(true)}
-        onPressLink={url => openExternalUrl(url).catch(() => showSnackbar(t('unknownError')))}
+        onPressLink={url => openExternalUrl(url, showSnackbar)}
       />
     </View>
   )

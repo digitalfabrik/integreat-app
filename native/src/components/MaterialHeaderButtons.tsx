@@ -8,8 +8,7 @@ import {
   OnOverflowMenuPressParams,
   OverflowMenu,
 } from 'react-navigation-header-buttons'
-
-import { ThemeType } from 'build-configs'
+import { useTheme } from 'styled-components'
 
 const MaterialHeaderButton = (props: {
   disabled: boolean
@@ -29,9 +28,9 @@ const MaterialHeaderButtons = (props: {
   cancelLabel: string
   items: Array<ReactNode>
   overflowItems: Array<ReactNode>
-  theme: ThemeType
 }): ReactElement => {
-  const { cancelLabel, theme, items, overflowItems } = props
+  const { cancelLabel, items, overflowItems } = props
+  const theme = useTheme()
   const { t } = useTranslation('common')
   return (
     <HeaderButtons HeaderButtonComponent={MaterialHeaderButton}>

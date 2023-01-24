@@ -1,7 +1,6 @@
 import {
   CATEGORIES_ROUTE,
   CITY_NOT_COOPERATING_ROUTE,
-  DASHBOARD_ROUTE,
   DISCLAIMER_ROUTE,
   EVENTS_ROUTE,
   JPAL_TRACKING_ROUTE,
@@ -53,23 +52,14 @@ export const pathnameFromRouteInformation = (routeInformation: NonNullableRouteI
     // https://integreat.app/augsburg/de/offers/wohnraum/1234, https://integreat.app/augsburg/de/offers/wohnraum
     return constructPathname([cityCode, languageCode, OFFERS_ROUTE, route, id])
   }
-  if (
-    routeInformation.route === DASHBOARD_ROUTE ||
-    routeInformation.route === CATEGORIES_ROUTE ||
-    routeInformation.route === EVENTS_ROUTE
-  ) {
-    if (routeInformation.cityContentPath) {
-      // https://integreat.app/augsburg/de/, https://integreat.app/augsburg/de/events/12345
-      return constructPathname([routeInformation.cityContentPath])
-    }
-    // https://integreat.app/augsburg/de/events, https://integreat.app/augsburg/de/pois
-    return constructPathname([routeInformation.cityCode, routeInformation.languageCode, routeInformation.route])
+  if (routeInformation.route === CATEGORIES_ROUTE) {
+    // https://integreat.app/augsburg/de/, https://integreat.app/augsburg/de/willkommen/erste-schritte
+    return constructPathname([routeInformation.cityContentPath])
   }
-  if (routeInformation.route === POIS_ROUTE) {
-    const { cityCode, languageCode, route, urlSlug } = routeInformation
-    const pathname = constructPathname([cityCode, languageCode, route])
-    //  https://integreat.app/augsburg/de/locations, https://integreat.app/augsburg/de/locations/tuer-an-tuer
-    return urlSlug ? `${pathname}/${urlSlug}` : pathname
+  if (routeInformation.route === EVENTS_ROUTE || routeInformation.route === POIS_ROUTE) {
+    const { cityCode, languageCode, route, slug } = routeInformation
+    // https://integreat.app/augsburg/de/locations, https://integreat.app/augsburg/de/events/my-event-1234
+    return constructPathname([cityCode, languageCode, route, slug])
   }
   if (
     routeInformation.route === DISCLAIMER_ROUTE ||

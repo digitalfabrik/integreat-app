@@ -37,7 +37,7 @@ commands:
                 default: integreat-app
                 type: string
             failure_mentions:
-                default: '@steffenkleinle @sarahsporck @SteffiStuffel @f1sh1918 @LeandraH'
+                default: '@steffen.kleinle @sarah.sporck @stefanie.metzger @andreas.fischer @leandra.hahn'
                 type: string
             only_for_branch:
                 default: main
@@ -342,7 +342,7 @@ jobs:
                             - << parameters.build_config_name >>
                 steps:
                     - run:
-                        command: echo "[<< parameters.build_config_name >>.apk](https://$CIRCLE_BUILD_NUM-$GITHUB_REPO_ID-gh.circle-artifacts.com/0/native/android/<< parameters.build_config_name >>.apk)" >> << parameters.build_config_name >>-apk-url
+                        command: echo "[<< parameters.build_config_name >>.apk](https://output.circle-artifacts.com/output/job/$CIRCLE_WORKFLOW_JOB_ID/artifacts/0/native/android/<< parameters.build_config_name >>.apk)" >> << parameters.build_config_name >>-apk-url
                         name: Persist artifact url
                     - persist_to_workspace:
                         paths:
@@ -411,7 +411,7 @@ jobs:
                             - << parameters.build_config_name >>
                 steps:
                     - run:
-                        command: echo "[<< parameters.build_config_name >>.ipa](https://$CIRCLE_BUILD_NUM-$GITHUB_REPO_ID-gh.circle-artifacts.com/0/native/ios/output/gym/integreat.ipa)" >> << parameters.build_config_name >>-ipa-url
+                        command: echo "[<< parameters.build_config_name >>.ipa](https://output.circle-artifacts.com/output/job/$CIRCLE_WORKFLOW_JOB_ID/artifacts/0/native/ios/output/gym/<< parameters.build_config_name >>.ipa)" >> << parameters.build_config_name >>-ipa-url
                         name: Persist artifact url
                     - persist_to_workspace:
                         paths:

@@ -59,7 +59,7 @@ steps:
       steps:
         - run:
             name: Persist artifact url
-            command: echo "[<< parameters.build_config_name >>.apk](https://$CIRCLE_BUILD_NUM-$GITHUB_REPO_ID-gh.circle-artifacts.com/0/native/android/<< parameters.build_config_name >>.apk)" >> << parameters.build_config_name >>-apk-url
+            command: echo "[<< parameters.build_config_name >>.apk](https://output.circle-artifacts.com/output/job/$CIRCLE_WORKFLOW_JOB_ID/artifacts/0/native/android/<< parameters.build_config_name >>.apk)" >> << parameters.build_config_name >>-apk-url
         - persist_to_workspace:
             root: ./
             paths:
