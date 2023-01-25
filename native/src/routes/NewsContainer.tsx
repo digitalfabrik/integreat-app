@@ -1,13 +1,12 @@
 import React, { ReactElement, useCallback } from 'react'
 
-import { ErrorCode, LOCAL_NEWS_TYPE, NewsRouteType, NewsType, TU_NEWS_TYPE } from 'api-client'
+import { ErrorCode, LOCAL_NEWS_TYPE, NewsRouteType, NewsType, TU_NEWS_TYPE, useOnPropChange } from 'api-client'
 
 import NewsHeader from '../components/NewsHeader'
 import { NavigationProps, RouteProps } from '../constants/NavigationTypes'
 import useCityAppContext from '../hooks/useCityAppContext'
 import useLoadCityContent from '../hooks/useLoadCityContent'
 import useOnBackNavigation from '../hooks/useOnBackNavigation'
-import useOnLanguageChange from '../hooks/useOnLanguageChange'
 import LoadingErrorHandler from './LoadingErrorHandler'
 import LocalNews from './LocalNews'
 import TuNews from './TuNews'
@@ -28,7 +27,7 @@ const NewsContainer = ({ route, navigation }: NewsContainerProps): ReactElement 
   useOnBackNavigation(newsId ? deselectNews : undefined)
 
   // We don't support language change between single news as we don't know whether they are translated and with what id
-  useOnLanguageChange({ languageCode, onLanguageChange: deselectNews })
+  useOnPropChange({ prop: languageCode, onPropChange: deselectNews })
 
   const navigateToNews = (newsType: NewsType) => {
     navigation.setParams({ newsType, newsId: null })
