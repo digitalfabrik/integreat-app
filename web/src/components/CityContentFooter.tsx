@@ -18,7 +18,7 @@ const SidebarFooterContainer = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
-    border-bottom: 1px solid #b1b1b1;
+    border-bottom: 1px solid ${props => props.theme.colors.footerLineColor};
     &:last-child {
       border-bottom: none;
     }

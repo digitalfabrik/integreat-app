@@ -30,13 +30,19 @@ const ShelterPage = ({ cityModel, cityCode, languageCode, pathname, languages }:
   const [filter, setFilter] = useState<ShelterFilterProps>({ beds: null, city: null, pets: null })
 
   const loadShelters = useCallback(
-    (page: number) =>
-      createShelterEndpoint().request({
+    async (page: number) => {
+      const { data } = await createShelterEndpoint().request({
         type: 'list',
         page,
         cityCode,
         filter,
-      }),
+      })
+
+      if (!data) {
+        throw new Error('Data missing!')
+      }
+      return data
+    },
     [cityCode, filter]
   )
 

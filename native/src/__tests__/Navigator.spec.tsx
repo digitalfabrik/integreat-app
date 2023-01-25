@@ -1,16 +1,15 @@
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { NavigationContainer } from '@react-navigation/native'
-import { act, render } from '@testing-library/react-native'
-import * as React from 'react'
-import waitForExpect from 'wait-for-expect'
-
-import { DASHBOARD_ROUTE } from 'api-client/src/routes'
+import { render } from '@testing-library/react-native'
+import React from 'react'
 
 import Navigator from '../Navigator'
+import useLoadCities from '../hooks/useLoadCities'
 import appSettings from '../utils/AppSettings'
 import { quitAppStatePushNotificationListener } from '../utils/PushNotificationsManager'
-import { generateRouteKey } from '../utils/helpers'
 
+jest.mock('@react-native-community/netinfo')
+jest.mock('../hooks/useLoadCities')
 jest.mock('../utils/sentry')
 jest.mock('react-native/Libraries/Utilities/useWindowDimensions')
 jest.mock('react-i18next')
@@ -20,15 +19,10 @@ jest.mock('../routes/Intro', () => {
 
   return () => <Text>Intro</Text>
 })
-jest.mock('../routes/LandingContainer', () => {
+jest.mock('../routes/Landing', () => {
   const { Text } = require('react-native')
 
   return () => <Text>Landing</Text>
-})
-jest.mock('../routes/DashboardContainer', () => {
-  const { Text } = require('react-native')
-
-  return () => <Text>Dashboard</Text>
 })
 jest.mock('../routes/Settings', () => {
   const { Text } = require('react-native')
@@ -100,7 +94,7 @@ jest.mock('../components/SettingsHeader', () => {
 
   return () => <Text>SettingsHeader</Text>
 })
-jest.mock('../components/HeaderContainer', () => {
+jest.mock('../components/Header', () => {
   const { Text } = require('react-native')
 
   return () => <Text>Header</Text>
@@ -114,19 +108,10 @@ jest.mock('../utils/PushNotificationsManager', () => ({
   pushNotificationsSupported: jest.fn(() => true),
   quitAppStatePushNotificationListener: jest.fn(),
 }))
-jest.mock('react-redux')
+jest.mock('../utils/FetcherModule')
 
 const cityCode = 'augsburg'
 const languageCode = 'de'
-const fetchCities = jest.fn()
-const fetchCategory = jest.fn()
-
-const props = ({ routeKey, routeName }: { routeKey?: string; routeName: string | null }) => ({
-  routeKey,
-  routeName,
-  fetchCategory,
-  fetchCities,
-})
 
 describe('Navigator', () => {
   beforeEach(() => {
@@ -134,38 +119,28 @@ describe('Navigator', () => {
     jest.clearAllMocks()
   })
 
-  it('should fetch cities on mount', async () => {
-    await act(async () => {
-      await appSettings.setContentLanguage(languageCode)
-      render(
-        <NavigationContainer>
-          <Navigator
-            {...props({
-              routeName: null,
-            })}
-          />
-        </NavigationContainer>
-      )
-      await waitForExpect(() => {
-        expect(fetchCities).toHaveBeenCalledTimes(1)
-      })
-    })
+  it('should preload cities', async () => {
+    await appSettings.setContentLanguage(languageCode)
+    const { findByText } = render(
+      <NavigationContainer>
+        <Navigator />
+      </NavigationContainer>
+    )
+
+    await findByText('Intro')
+    expect(useLoadCities).toHaveBeenCalled()
   })
 
-  it('should display dashboard if a city is selected and the intro was shown', async () => {
+  it('should display categories if a city is selected and the intro was shown', async () => {
     await appSettings.setSelectedCity(cityCode)
     await appSettings.setContentLanguage(languageCode)
     await appSettings.setIntroShown()
     const { findByText } = render(
       <NavigationContainer>
-        <Navigator
-          {...props({
-            routeName: null,
-          })}
-        />
+        <Navigator />
       </NavigationContainer>
     )
-    await findByText('Dashboard')
+    await findByText('Categories')
   })
 
   it('should display Landing if no city is selected in settings and intro was shown', async () => {
@@ -174,11 +149,7 @@ describe('Navigator', () => {
     await appSettings.setIntroShown()
     const { findByText } = render(
       <NavigationContainer>
-        <Navigator
-          {...props({
-            routeName: null,
-          })}
-        />
+        <Navigator />
       </NavigationContainer>
     )
     await findByText('Landing')
@@ -188,45 +159,10 @@ describe('Navigator', () => {
     await appSettings.setContentLanguage(languageCode)
     const { findByText } = render(
       <NavigationContainer>
-        <Navigator
-          {...props({
-            routeName: null,
-          })}
-        />
+        <Navigator />
       </NavigationContainer>
     )
     await findByText('Intro')
-  })
-
-  it('should call fetch category if the dashboard route is the initial route', async () => {
-    await act(async () => {
-      const routeKey = generateRouteKey()
-      await appSettings.setSelectedCity(cityCode)
-      await appSettings.setContentLanguage(languageCode)
-      await appSettings.setIntroShown()
-      const { findByText, rerender } = render(
-        <NavigationContainer>
-          <Navigator
-            {...props({
-              routeName: null,
-            })}
-          />
-        </NavigationContainer>
-      )
-      // Don't remove this, the rerender only triggers a fetch category if the initial route is already set
-      await findByText('Dashboard')
-      rerender(
-        <NavigationContainer>
-          <Navigator
-            {...props({
-              routeName: DASHBOARD_ROUTE,
-              routeKey,
-            })}
-          />
-        </NavigationContainer>
-      )
-      await waitForExpect(() => expect(fetchCategory).toHaveBeenCalledWith(cityCode, languageCode, routeKey, false))
-    })
   })
 
   it('should listen for push notification press in quit state', async () => {
@@ -235,15 +171,11 @@ describe('Navigator', () => {
     await appSettings.setIntroShown()
     const { findByText } = render(
       <NavigationContainer>
-        <Navigator
-          {...props({
-            routeName: null,
-          })}
-        />
+        <Navigator />
       </NavigationContainer>
     )
 
-    await findByText('Dashboard')
+    await findByText('Categories')
     expect(quitAppStatePushNotificationListener).toHaveBeenCalledTimes(1)
   })
 })

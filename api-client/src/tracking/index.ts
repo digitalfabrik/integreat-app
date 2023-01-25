@@ -2,7 +2,6 @@ import {
   CategoriesRouteType,
   ChangeLanguageModalRouteType,
   CityNotCooperatingRouteType,
-  DashboardRouteType,
   DisclaimerRouteType,
   EventsRouteType,
   FeedbackModalRouteType,
@@ -24,7 +23,6 @@ export const OPEN_PAGE_SIGNAL_NAME: OpenPageSignalNameType = 'open_page'
 export type OpenPageSignalType = {
   name: OpenPageSignalNameType
   pageType:
-    | DashboardRouteType
     | CategoriesRouteType
     | EventsRouteType
     | NewsRouteType

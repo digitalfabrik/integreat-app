@@ -1,6 +1,7 @@
 import { fireEvent } from '@testing-library/react'
 import { mocked } from 'jest-mock'
 import React from 'react'
+import { Route, Routes } from 'react-router-dom'
 
 import {
   cityContentPath,
@@ -14,6 +15,7 @@ import {
 import useFeatureLocations from '../../hooks/useFeatureLocations'
 import { renderWithRouterAndTheme } from '../../testing/render'
 import PoisPage from '../PoisPage'
+import { RoutePatterns } from '../index'
 
 jest.mock('react-i18next')
 jest.mock('../../utils/getUserLocation', () => async () => ({ status: 'ready', coordinates: [10.8, 48.3] }))
@@ -36,15 +38,24 @@ describe('PoisPage', () => {
 
   const renderPois = () =>
     renderWithRouterAndTheme(
-      <PoisPage
-        cities={cities}
-        cityModel={city}
-        languages={languages}
-        languageModel={language}
-        pathname={pathname}
-        languageCode={language.code}
-        cityCode={city.code}
-      />
+      <Routes>
+        <Route
+          path={RoutePatterns[POIS_ROUTE]}
+          element={
+            <PoisPage
+              cities={cities}
+              cityModel={city}
+              languages={languages}
+              languageModel={language}
+              pathname={pathname}
+              languageCode={language.code}
+              cityCode={city.code}
+            />
+          }>
+          <Route element={null} path=':slug' />
+        </Route>
+      </Routes>,
+      { pathname: '/locations' }
     )
 
   it('should render a list with all pois', () => {
@@ -69,8 +80,8 @@ describe('PoisPage', () => {
     const { getByText } = renderPois()
     expect(getByText('error:unknownError')).toBeTruthy()
   })
-  // TODO IGAPP-1153: fix tests for Pois with URL Slug instead of just skipping
-  it.skip('should render poi details page when list item was clicked', () => {
+
+  it('should render poi details page when list item was clicked', () => {
     mocked(useFeatureLocations).mockImplementation(() => ({
       data: { pois, features },
       loading: false,
@@ -84,7 +95,7 @@ describe('PoisPage', () => {
     expect(getByText(poi0.content)).toBeTruthy()
   })
 
-  it.skip('should switch between pois using the PanelNavigation on poi details page', () => {
+  it('should switch between pois using the PanelNavigation on poi details page', () => {
     mocked(useFeatureLocations).mockImplementation(() => ({
       data: { pois, features },
       loading: false,

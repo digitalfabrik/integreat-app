@@ -49,10 +49,6 @@ class PoiModel extends ExtendedPageModel {
     return this._excerpt
   }
 
-  get urlSlug(): string {
-    return this._path.split('/').pop() ?? ''
-  }
-
   get website(): string | null {
     return this._website
   }
@@ -77,11 +73,11 @@ class PoiModel extends ExtendedPageModel {
       properties: {
         title: name,
         id,
-        // TODO gonna be replaced by proper mapping category->symbolName IGAPP-736
+        // TODO IGAPP-736: Replace by proper mapping category->symbolName
         symbol: mapMarker.symbol,
         thumbnail: this.thumbnail,
         path: this.path,
-        urlSlug: this.urlSlug,
+        slug: this.slug,
         address,
         closeToOtherPoi: false,
       },

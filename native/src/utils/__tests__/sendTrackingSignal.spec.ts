@@ -1,7 +1,7 @@
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { mocked } from 'jest-mock'
 
-import { createTrackingEndpoint, DASHBOARD_ROUTE, FetchError, OPEN_PAGE_SIGNAL_NAME } from 'api-client'
+import { createTrackingEndpoint, CATEGORIES_ROUTE, FetchError, OPEN_PAGE_SIGNAL_NAME } from 'api-client'
 
 import buildConfig from '../../constants/buildConfig'
 import appSettings from '../AppSettings'
@@ -41,7 +41,7 @@ describe('sendTrackingSignal', () => {
 
   const specificSignal = {
     name: OPEN_PAGE_SIGNAL_NAME,
-    pageType: DASHBOARD_ROUTE,
+    pageType: CATEGORIES_ROUTE,
     url: 'https://example.com',
   }
 
