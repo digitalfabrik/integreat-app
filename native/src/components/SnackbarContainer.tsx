@@ -15,11 +15,11 @@ const Container = styled(View)`
 // https://github.com/styled-components/styled-components/issues/892
 const AnimatedContainer = Animated.createAnimatedComponent(Container)
 const ANIMATION_DURATION = 300
-const SHOW_DURATION = 5000
+const DEFAULT_SHOW_DURATION = 5000
 const MAX_HEIGHT = 9999
 const translate = new Animated.Value(1)
 
-type SnackbarContextType = (snackbar: SnackbarType) => void
+type SnackbarContextType = (snackbar: SnackbarType, showDuration?: number) => void
 export const SnackbarContext = createContext<SnackbarContextType>(() => undefined)
 
 type SnackbarContainerProps = {
@@ -29,10 +29,15 @@ type SnackbarContainerProps = {
 const SnackbarContainer = ({ children }: SnackbarContainerProps): ReactElement | null => {
   const [height, setHeight] = useState<number | null>(null)
   const [enqueuedSnackbars, setEnqueuedSnackbars] = useState<SnackbarType[]>([])
+  const [duration, setDuration] = useState<number>(DEFAULT_SHOW_DURATION)
   const displayedSnackbar = enqueuedSnackbars[0]
   const { t } = useTranslation('error')
 
-  const enqueueSnackbar = useCallback((snackbar: SnackbarType) => {
+  const enqueueSnackbar = useCallback((snackbar: SnackbarType, showDuration?: number) => {
+    // set custom show duration
+    if (showDuration) {
+      setDuration(showDuration)
+    }
     // Don't show same snackbar multiple times
     setEnqueuedSnackbars(snackbars => (snackbars[0]?.text !== snackbar.text ? [...snackbars, snackbar] : snackbars))
   }, [])
@@ -56,7 +61,7 @@ const SnackbarContainer = ({ children }: SnackbarContainerProps): ReactElement |
   useEffect(() => {
     if (displayedSnackbar) {
       show()
-      const timeout = setTimeout(hide, SHOW_DURATION)
+      const timeout = setTimeout(hide, duration)
       return () => clearTimeout(timeout)
     }
     return () => undefined

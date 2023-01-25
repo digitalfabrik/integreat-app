@@ -21,6 +21,7 @@ type Message = FirebaseMessagingTypes.RemoteMessage & {
 }
 
 const WAITING_TIME_FOR_CMS = 1000
+const SHOW_DURATION = 10000
 
 const importFirebaseMessaging = async (): Promise<() => FirebaseMessagingTypes.Module> =>
   import('@react-native-firebase/messaging').then(firebase => firebase.default)
@@ -90,7 +91,7 @@ export const useForegroundPushNotificationListener = ({
   showSnackbar,
   navigate,
 }: {
-  showSnackbar: (snackbar: SnackbarType) => void
+  showSnackbar: (snackbar: SnackbarType, showDuration?: number) => void
   navigate: (route: RoutesType, params: Record<string, unknown>) => void
 }): void =>
   useEffect(() => {
@@ -103,13 +104,16 @@ export const useForegroundPushNotificationListener = ({
           setTimeout(() => {
             // TODO IGAPP-1024: Uncomment and improve snackbar
             log(JSON.stringify(message))
-            // showSnackbar({
-            //   text: message.notification.title,
-            //   positiveAction: {
-            //     onPress: () => navigate(NEWS_ROUTE, routeInformationFromMessage(message)),
-            //     label: 'Show',
+            // showSnackbar(
+            //   {
+            //     text: message.notification.title,
+            //     positiveAction: {
+            //       onPress: () => navigate(NEWS_ROUTE, routeInformationFromMessage(message)),
+            //       label: 'Show',
+            //     },
             //   },
-            // })
+            //   SHOW_DURATION
+            // )
           }, WAITING_TIME_FOR_CMS)
         }
       })
