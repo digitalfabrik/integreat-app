@@ -41,7 +41,7 @@
     "lint:changed": "eslint . -c ../.eslintrc_changed.js",
     "lint:ci": "yarn run eslint --quiet --format junit -o reports/lint/junit-lint.xml",
     "eslint": "eslint .",
-    "license-crawler": "npm-license-crawler -onlyDirectDependencies -json ./assets/licenses.json",
+    "license-crawler": "npm-license-crawler -onlyDirectDependencies -json ./src/assets/licenses.json",
     "postinstall": "jetifier && patch-package && yarn license-crawler",
     "ts:check": "tsc --build",
     "prettier:check": "yarn prettier --ignore-path  ../.prettierignore --check .",

@@ -7,7 +7,6 @@ const NoItemsMessage = styled.Text`
   font-family: ${props => props.theme.fonts.native.contentFontRegular};
   align-self: center;
   margin-top: 20px;
-  flex-grow: 1;
 `
 
 type ListProps<T> = {
