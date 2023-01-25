@@ -138,7 +138,7 @@ const writeJsonFromCsv = (translations: string, toPath: string, sourceLanguage: 
       throw err
     }
 
-    const csvs = files.map(file => `${translations}${file}`).filter(file => path.extname(file) === '.csv')
+    const csvs = files.map(file => `${translations}/${file}`).filter(file => path.extname(file) === '.csv')
 
     if (isEmpty(csvs)) {
       throw new Error('A minimum of one CSV is required in order to build a JSON!')
