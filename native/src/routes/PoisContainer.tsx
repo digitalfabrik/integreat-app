@@ -1,6 +1,6 @@
 import React, { ReactElement, useCallback } from 'react'
 
-import { POIS_ROUTE, PoisRouteType, useOnPropChange } from 'api-client'
+import { POIS_ROUTE, PoisRouteType, usePreviousProp } from 'api-client'
 
 import { NavigationProps, RouteProps } from '../constants/NavigationTypes'
 import useCityAppContext from '../hooks/useCityAppContext'
@@ -44,7 +44,7 @@ const PoisContainer = ({ navigation, route }: PoisContainerProps): ReactElement 
     },
     [currentPoi, navigation]
   )
-  useOnPropChange({ prop: languageCode, onPropChange: onLanguageChange })
+  usePreviousProp({ prop: languageCode, onPropChange: onLanguageChange })
 
   return (
     <LoadingErrorHandler {...response}>

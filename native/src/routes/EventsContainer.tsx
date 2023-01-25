@@ -1,6 +1,6 @@
 import React, { ReactElement, useCallback, useContext } from 'react'
 
-import { EVENTS_ROUTE, EventsRouteType, useOnPropChange } from 'api-client'
+import { EVENTS_ROUTE, EventsRouteType, usePreviousProp } from 'api-client'
 
 import { StaticServerContext } from '../components/StaticServerProvider'
 import { NavigationProps, RouteProps } from '../constants/NavigationTypes'
@@ -51,7 +51,7 @@ const EventsContainer = ({ navigation, route }: EventsContainerProps): ReactElem
     },
     [currentEvent, navigation]
   )
-  useOnPropChange({ prop: languageCode, onPropChange: onLanguageChange })
+  usePreviousProp({ prop: languageCode, onPropChange: onLanguageChange })
 
   return (
     <LoadingErrorHandler {...response}>

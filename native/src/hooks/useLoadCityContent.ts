@@ -13,7 +13,7 @@ import {
   LanguageModel,
   PoiModel,
   ReturnType,
-  useOnPropChange,
+  usePreviousProp,
 } from 'api-client'
 
 import dataContainer from '../utils/DefaultDataContainer'
@@ -46,7 +46,7 @@ export type CityContentReturn = Omit<ReturnType<CityContentData>, 'error'> & { e
  */
 const useLoadCityContent = ({ cityCode, languageCode }: Params): CityContentReturn => {
   const citiesReturn = useLoadCities()
-  const previousLanguageCode = useOnPropChange({ prop: languageCode })
+  const previousLanguageCode = usePreviousProp({ prop: languageCode })
   const showSnackbar = useSnackbar()
   const params = { cityCode, languageCode, showSnackbar }
 

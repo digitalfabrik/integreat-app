@@ -1,7 +1,7 @@
 import React, { ReactElement, useCallback, useContext } from 'react'
 import styled from 'styled-components/native'
 
-import { CATEGORIES_ROUTE, CategoriesRouteType, cityContentPath, ErrorCode, useOnPropChange } from 'api-client'
+import { CATEGORIES_ROUTE, CategoriesRouteType, cityContentPath, ErrorCode, usePreviousProp } from 'api-client'
 
 import Categories from '../components/Categories'
 import DashboardNavigationTiles from '../components/DashboardNavigationTiles'
@@ -58,7 +58,7 @@ const CategoriesContainer = ({ navigation, route }: CategoriesContainerProps): R
     },
     [category, navigation]
   )
-  const previousLanguageCode = useOnPropChange({ prop: languageCode, onPropChange: onLanguageChange })
+  const previousLanguageCode = usePreviousProp({ prop: languageCode, onPropChange: onLanguageChange })
 
   const error =
     data?.categories && !category && previousLanguageCode === languageCode ? ErrorCode.PageNotFound : response.error
