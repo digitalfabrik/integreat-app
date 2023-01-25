@@ -1,0 +1,16 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`FetcherModule fetchAsync should return the fetch result data if fetchAsync call is valid 1`] = `
+{
+  "local/path/to/resource.png": {
+    "errorMessage": null,
+    "lastUpdate": "2004-06-14T23:34:30Z",
+    "url": "http://randomtesturl.de/resource.png",
+  },
+  "local/path/to/resource2.jpg": {
+    "errorMessage": null,
+    "lastUpdate": "2004-06-14T23:34:30Z",
+    "url": "http://randomtesturl.de/resource2.jpg",
+  },
+}
+`;
