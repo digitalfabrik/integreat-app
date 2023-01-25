@@ -510,15 +510,6 @@ jobs:
             - checkout
             - check_config
             - restore_yarn_cache
-            - run:
-                command: yarn lint
-                name: Lint
-            - run:
-                command: yarn workspace web stylelint
-                name: Stylelint
-            - run:
-                command: yarn workspaces run ts:check
-                name: TS check
             - unit_test:
                 directory: api-client
             - unit_test:

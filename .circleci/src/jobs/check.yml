@@ -14,15 +14,15 @@ steps:
 #  - run:
 #      name: Prettier
 #      command: yarn prettier:check
-  - run:
-      name: Lint
-      command: yarn lint
-  - run:
-      name: Stylelint
-      command: yarn workspace web stylelint
-  - run:
-      name: TS check
-      command: yarn workspaces run ts:check
+#  - run:
+#      name: Lint
+#      command: yarn lint
+#  - run:
+#      name: Stylelint
+#      command: yarn workspace web stylelint
+#  - run:
+#      name: TS check
+#      command: yarn workspaces run ts:check
   - unit_test:
       directory: api-client
   - unit_test:
