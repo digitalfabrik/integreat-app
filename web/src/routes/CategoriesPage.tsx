@@ -14,7 +14,7 @@ import {
   ResponseError,
   useLoadAsync,
   useLoadFromEndpoint,
-  useOnPropChange,
+  usePreviousProp,
 } from 'api-client'
 import { config } from 'translations'
 
@@ -49,7 +49,7 @@ const getBreadcrumb = (category: CategoryModel, cityName: string) => {
 }
 
 const CategoriesPage = ({ cityModel, pathname, languages, cityCode, languageCode }: CityRouteProps): ReactElement => {
-  const previousPathname = useOnPropChange({ prop: pathname })
+  const previousPathname = usePreviousProp({ prop: pathname })
   const categoryId = useParams()['*']
   const { t } = useTranslation('layout')
   const formatter = useContext(DateFormatterContext)

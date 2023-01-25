@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react'
 
-type UseOnPropChangeProps<T> = {
+type UsePreviousPropProps<T> = {
   prop: T
   onPropChange?: (newProp: T, oldProp: T) => void
 }
 
-const useOnPropChange = <T>({ prop, onPropChange }: UseOnPropChangeProps<T>): T => {
+const usePreviousProp = <T>({ prop, onPropChange }: UsePreviousPropProps<T>): T => {
   const [previousProp, setPreviousProp] = useState<T>(prop)
 
   useEffect(() => {
@@ -20,4 +20,4 @@ const useOnPropChange = <T>({ prop, onPropChange }: UseOnPropChangeProps<T>): T 
   return previousProp
 }
 
-export default useOnPropChange
+export default usePreviousProp
