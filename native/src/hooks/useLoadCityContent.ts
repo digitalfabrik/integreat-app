@@ -13,6 +13,7 @@ import {
   LanguageModel,
   PoiModel,
   ReturnType,
+  useOnPropChange,
 } from 'api-client'
 
 import dataContainer from '../utils/DefaultDataContainer'
@@ -20,7 +21,6 @@ import loadResourceCache from '../utils/loadResourceCache'
 import { reportError } from '../utils/sentry'
 import useLoadCities from './useLoadCities'
 import useLoadWithCache from './useLoadWithCache'
-import useOnLanguageChange from './useOnLanguageChange'
 import useSnackbar from './useSnackbar'
 
 type Params = {
@@ -46,7 +46,7 @@ export type CityContentReturn = Omit<ReturnType<CityContentData>, 'error'> & { e
  */
 const useLoadCityContent = ({ cityCode, languageCode }: Params): CityContentReturn => {
   const citiesReturn = useLoadCities()
-  const previousLanguageCode = useOnLanguageChange({ languageCode })
+  const previousLanguageCode = useOnPropChange({ prop: languageCode })
   const showSnackbar = useSnackbar()
   const params = { cityCode, languageCode, showSnackbar }
 

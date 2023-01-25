@@ -1,12 +1,11 @@
 import React, { ReactElement, useCallback } from 'react'
 
-import { POIS_ROUTE, PoisRouteType } from 'api-client'
+import { POIS_ROUTE, PoisRouteType, useOnPropChange } from 'api-client'
 
 import { NavigationProps, RouteProps } from '../constants/NavigationTypes'
 import useCityAppContext from '../hooks/useCityAppContext'
 import useHeader from '../hooks/useHeader'
 import useLoadCityContent from '../hooks/useLoadCityContent'
-import useOnLanguageChange from '../hooks/useOnLanguageChange'
 import urlFromRouteInformation from '../navigation/url'
 import LoadingErrorHandler from './LoadingErrorHandler'
 import Pois from './Pois'
@@ -45,7 +44,7 @@ const PoisContainer = ({ navigation, route }: PoisContainerProps): ReactElement 
     },
     [currentPoi, navigation]
   )
-  useOnLanguageChange({ languageCode, onLanguageChange })
+  useOnPropChange({ prop: languageCode, onPropChange: onLanguageChange })
 
   return (
     <LoadingErrorHandler {...response}>

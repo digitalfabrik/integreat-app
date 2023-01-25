@@ -1,6 +1,6 @@
 import React, { ReactElement, useCallback, useContext } from 'react'
 
-import { EVENTS_ROUTE, EventsRouteType } from 'api-client'
+import { EVENTS_ROUTE, EventsRouteType, useOnPropChange } from 'api-client'
 
 import { StaticServerContext } from '../components/StaticServerProvider'
 import { NavigationProps, RouteProps } from '../constants/NavigationTypes'
@@ -8,7 +8,6 @@ import useCityAppContext from '../hooks/useCityAppContext'
 import useHeader from '../hooks/useHeader'
 import useLoadCityContent from '../hooks/useLoadCityContent'
 import useNavigate from '../hooks/useNavigate'
-import useOnLanguageChange from '../hooks/useOnLanguageChange'
 import useResourceCache from '../hooks/useResourceCache'
 import createNavigateToFeedbackModal from '../navigation/createNavigateToFeedbackModal'
 import urlFromRouteInformation from '../navigation/url'
@@ -52,7 +51,7 @@ const EventsContainer = ({ navigation, route }: EventsContainerProps): ReactElem
     },
     [currentEvent, navigation]
   )
-  useOnLanguageChange({ languageCode, onLanguageChange })
+  useOnPropChange({ prop: languageCode, onPropChange: onLanguageChange })
 
   return (
     <LoadingErrorHandler {...response}>
