@@ -4,8 +4,7 @@ import {
   createTunewsEndpoint,
   createTunewsLanguagesEndpoint,
   LanguageModel,
-  loadFromEndpoint,
-  Payload,
+  loadAsync,
   ReturnType,
   TunewsModel,
 } from 'api-client'
@@ -42,17 +41,23 @@ const useLoadTuNews = ({ language }: ParamsType): TuNewsReturnType => {
       setAvailableLanguages(tuNewsLanguages.data ?? null)
 
       if (!tuNewsLanguages.data?.find(languageModel => languageModel.code === language)) {
-        return new Payload<TunewsModel[]>(false)
+        return []
       }
 
-      return createTunewsEndpoint(tunewsApiUrl).request({
+      const { data } = await createTunewsEndpoint(tunewsApiUrl).request({
         language,
         page,
         count: TUNEWS_FETCH_COUNT_LIMIT,
       })
+
+      if (!data) {
+        throw new Error('Data missing!')
+      }
+
+      return data
     }
 
-    loadFromEndpoint<TunewsModel[]>(request, updateData, setError, setLoading).catch(e => {
+    loadAsync<TunewsModel[]>(request, updateData, setError, setLoading).catch(e => {
       setError(e)
     })
   }, [language, page, updateData])

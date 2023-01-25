@@ -1,6 +1,5 @@
 import {
   CATEGORIES_ROUTE,
-  DASHBOARD_ROUTE,
   DISCLAIMER_ROUTE,
   EVENTS_ROUTE,
   JPAL_TRACKING_ROUTE,
@@ -82,7 +81,7 @@ class InternalPathnameParser {
       if (this._length <= 2 && (this._length === 0 || this.isFixedCity() || this._parts[0] === LANDING_ROUTE)) {
         const cityContentPath = `/${fixedCity}/${this.languageCode()}`
         return {
-          route: DASHBOARD_ROUTE,
+          route: CATEGORIES_ROUTE,
           cityCode: fixedCity,
           languageCode: this.languageCode(),
           cityContentPath,
@@ -93,7 +92,7 @@ class InternalPathnameParser {
       // '/ansbach/de', '/ansbach'
       const cityContentPath = `/${cityCode}/${this.languageCode()}`
       return {
-        route: DASHBOARD_ROUTE,
+        route: CATEGORIES_ROUTE,
         cityCode,
         languageCode: this.languageCode(),
         cityContentPath,
@@ -127,9 +126,9 @@ class InternalPathnameParser {
       return null
     }
 
-    // Single events are identified via their city content path, e.g. '/augsburg/de/events/1234'
-    const cityContentPath = this._length > ENTITY_ID_INDEX ? this._pathname : undefined
-    return { ...params, route: EVENTS_ROUTE, cityContentPath }
+    // Single events are identified via their slug, e.g. 'my-event-1234'
+    const slug = this._length > ENTITY_ID_INDEX ? this._parts[this._length - 1] : undefined
+    return { ...params, route: EVENTS_ROUTE, slug }
   }
 
   pois = (): RouteInformationType => {
@@ -139,9 +138,9 @@ class InternalPathnameParser {
       return null
     }
 
-    // get the urlSlug from pathname '/testumgebung/de/locations/cafe-tür-an-tür'
-    const urlSlug = this._length > ENTITY_ID_INDEX ? this._parts[ENTITY_ID_INDEX]! : undefined
-    return { ...params, route: POIS_ROUTE, urlSlug }
+    // Single pois are identified via their slug, e.g. 'my-poi-1234'
+    const slug = this._length > ENTITY_ID_INDEX ? this._parts[ENTITY_ID_INDEX] : undefined
+    return { ...params, route: POIS_ROUTE, slug }
   }
 
   news = (): RouteInformationType => {

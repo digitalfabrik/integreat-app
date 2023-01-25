@@ -2,7 +2,14 @@ import { Moment } from 'moment'
 
 import { CategoriesMapModel, CityModel, EventModel, LanguageModel, PoiModel } from 'api-client'
 
-import { LanguageResourceCacheStateType } from '../redux/StateType'
+export type PageResourceCacheEntryStateType = {
+  filePath: string
+  lastUpdate: Moment
+  hash: string
+}
+export type PageResourceCacheStateType = Record<string, PageResourceCacheEntryStateType>
+export type LanguageResourceCacheStateType = Record<string, PageResourceCacheStateType>
+export type CityResourceCacheStateType = Record<string, LanguageResourceCacheStateType>
 
 export type DataContainer = {
   /**
@@ -116,7 +123,7 @@ export type DataContainer = {
   /**
    * Stores the last usage of the passed city
    */
-  storeLastUsage(city: string, peeking: boolean): Promise<void>
+  storeLastUsage(city: string): Promise<void>
 
   /**
    * Deletes all pages and files that are stored offline in the filesystem

@@ -1,11 +1,9 @@
 import moment, { Moment } from 'moment'
-import * as React from 'react'
-import { ReactElement, ReactNode, useCallback, useEffect, useState } from 'react'
+import React, { ReactElement, ReactNode, useEffect, useState } from 'react'
 import { TouchableOpacity } from 'react-native'
 import { Button } from 'react-native-elements'
+import { useTheme } from 'styled-components'
 import styled from 'styled-components/native'
-
-import { ThemeType } from 'build-configs'
 
 import buildConfig, { buildConfigAssets } from '../constants/buildConfig'
 import appSettings from '../utils/AppSettings'
@@ -14,10 +12,6 @@ import { log, reportError } from '../utils/sentry'
 const API_URL_OVERRIDE_MIN_CLICKS = 10
 const CLICK_TIMEOUT = 8
 
-type EastereggImageProps = {
-  clearResourcesAndCache: () => void
-  theme: ThemeType
-}
 const LocationImage = styled.Image`
   height: 70px;
   resize-mode: contain;
@@ -27,18 +21,30 @@ const ApiUrlText = styled.Text`
   color: red;
 `
 
-const EastereggImage = ({ clearResourcesAndCache, theme }: EastereggImageProps): ReactElement => {
+type EastereggImageProps = {
+  clearResourcesAndCache: () => void
+}
+
+const EastereggImage = ({ clearResourcesAndCache }: EastereggImageProps): ReactElement => {
   const [clickCount, setClickCount] = useState(0)
   const [apiUrlOverride, setApiUrlOverride] = useState<string | null>(null)
   const [clickStart, setClickStart] = useState<null | Moment>(null)
+  const { cmsUrl, switchCmsUrl } = buildConfig()
+  const theme = useTheme()
 
   useEffect(() => {
     appSettings.loadApiUrlOverride().then(setApiUrlOverride).catch(reportError)
   }, [])
 
-  const onImagePress = useCallback(async () => {
-    const { cmsUrl, switchCmsUrl } = buildConfig()
+  const setApiUrl = (newApiUrl: string) => {
+    appSettings.setApiUrlOverride(newApiUrl).catch(reportError)
+    setApiUrlOverride(newApiUrl)
+    setClickCount(0)
+    setClickStart(null)
+    clearResourcesAndCache()
+  }
 
+  const onImagePress = async () => {
     if (!switchCmsUrl) {
       return
     }
@@ -49,11 +55,7 @@ const EastereggImage = ({ clearResourcesAndCache, theme }: EastereggImageProps):
     if (prevClickCount + 1 >= API_URL_OVERRIDE_MIN_CLICKS && clickedInTimeInterval) {
       const apiUrlOverride = await appSettings.loadApiUrlOverride()
       const newApiUrl = !apiUrlOverride || apiUrlOverride === cmsUrl ? switchCmsUrl : cmsUrl
-      await appSettings.setApiUrlOverride(newApiUrl)
-      setClickCount(0)
-      setClickStart(null)
-
-      clearResourcesAndCache()
+      setApiUrl(newApiUrl)
       log(`Switching to new API-Url: ${newApiUrl}`)
     } else {
       const newClickStart = clickedInTimeInterval ? clickStart : moment()
@@ -61,13 +63,7 @@ const EastereggImage = ({ clearResourcesAndCache, theme }: EastereggImageProps):
       setClickCount(newClickCount)
       setClickStart(newClickStart)
     }
-  }, [clearResourcesAndCache, clickCount, clickStart])
-
-  const resetApiUrl = useCallback(async () => {
-    await appSettings.setApiUrlOverride(buildConfig().cmsUrl)
-    setClickCount(0)
-    clearResourcesAndCache()
-  }, [clearResourcesAndCache])
+  }
 
   const renderApiUrlText = (): ReactNode => {
     if (apiUrlOverride && apiUrlOverride !== buildConfig().cmsUrl) {
@@ -82,7 +78,7 @@ const EastereggImage = ({ clearResourcesAndCache, theme }: EastereggImageProps):
               backgroundColor: theme.colors.themeColor,
               marginTop: 10,
             }}
-            onPress={resetApiUrl}
+            onPress={() => setApiUrl(cmsUrl)}
             title='Switch back to default API'
           />
         </>

@@ -1,7 +1,6 @@
 import {
   CategoriesRouteType,
   CityNotCooperatingRouteType,
-  DashboardRouteType,
   DisclaimerRouteType,
   EventsRouteType,
   JpalTrackingRouteType,
@@ -39,7 +38,7 @@ export type JpalTrackingRouteInformationType = {
   trackingCode: string | null
 }
 export type CategoriesRouteInformationType = ParamsType & {
-  route: DashboardRouteType | CategoriesRouteType
+  route: CategoriesRouteType
   cityContentPath: string
 }
 export type NewsRouteInformationType = ParamsType & {
@@ -59,8 +58,7 @@ export type IdCityContentFeatureType = ParamsType & {
 export type EventsPoisRouteInformationType = ParamsType & {
   // Routes with customizable ids, e.g. '/augsburg/de/pois/1234/
   route: EventsRouteType | PoisRouteType
-  cityContentPath?: string
-  urlSlug?: string
+  slug?: string
 }
 
 export type NonNullableRouteInformationType =

@@ -1,6 +1,5 @@
 import {
   CATEGORIES_ROUTE,
-  DASHBOARD_ROUTE,
   DISCLAIMER_ROUTE,
   EVENTS_ROUTE,
   JPAL_TRACKING_ROUTE,
@@ -71,10 +70,10 @@ describe('pathname', () => {
         })
       ).toBe('/jpal')
     })
-    it('should match dashboard route if pathname is a city with a language', () => {
+    it('should match categories route if pathname is a city with a language', () => {
       expect(
         pathnameFromRouteInformation({
-          route: DASHBOARD_ROUTE,
+          route: CATEGORIES_ROUTE,
           languageCode: 'ar',
           cityCode,
           cityContentPath: `/${cityCode}/ar`,
@@ -87,7 +86,6 @@ describe('pathname', () => {
           route: EVENTS_ROUTE,
           languageCode,
           cityCode,
-          cityContentPath: undefined,
         })
       ).toBe(`/${cityCode}/${languageCode}/${EVENTS_ROUTE}`)
     })
@@ -98,7 +96,7 @@ describe('pathname', () => {
           route: EVENTS_ROUTE,
           languageCode,
           cityCode,
-          cityContentPath: pathname,
+          slug: '1234',
         })
       ).toBe(pathname)
     })
@@ -108,19 +106,18 @@ describe('pathname', () => {
           route: POIS_ROUTE,
           languageCode,
           cityCode,
-          cityContentPath: undefined,
         })
       ).toBe(`/${cityCode}/${languageCode}/${POIS_ROUTE}`)
     })
     it('should match single pois route', () => {
-      const urlSlug = 'tuer-an-tuer'
-      const pathname = `/${cityCode}/${languageCode}/${POIS_ROUTE}/${urlSlug}`
+      const slug = 'tuer-an-tuer'
+      const pathname = `/${cityCode}/${languageCode}/${POIS_ROUTE}/${slug}`
       expect(
         pathnameFromRouteInformation({
           route: POIS_ROUTE,
           languageCode,
           cityCode,
-          urlSlug,
+          slug,
         })
       ).toBe(pathname)
     })

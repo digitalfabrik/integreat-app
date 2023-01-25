@@ -1,5 +1,5 @@
 import React, { ReactElement } from 'react'
-import { TFunction } from 'react-i18next'
+import { useTranslation } from 'react-i18next'
 import { View } from 'react-native'
 
 import { OfferModel, SHELTER_ROUTE, SPRUNGBRETT_OFFER_ROUTE } from 'api-client'
@@ -14,19 +14,13 @@ type OffersProps = {
   offers: Array<OfferModel>
   navigateToFeedback: (isPositiveFeedback: boolean) => void
   navigateToOffer: (tile: TileModel) => void
-  t: TFunction
   languageCode: string
   cityCode: string
 }
 
-const Offers = ({
-  offers,
-  navigateToFeedback,
-  navigateToOffer,
-  t,
-  languageCode,
-  cityCode,
-}: OffersProps): ReactElement => {
+const Offers = ({ offers, navigateToFeedback, navigateToOffer, languageCode, cityCode }: OffersProps): ReactElement => {
+  const { t } = useTranslation('offers')
+
   const tiles = offers.map(offer => {
     let path = offer.path
     if (offer.alias === SPRUNGBRETT_OFFER_ROUTE) {

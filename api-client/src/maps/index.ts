@@ -24,7 +24,7 @@ export type GeoJsonPoiProperties = {
   id: number
   title: string
   path: string
-  urlSlug: string
+  slug: string
   symbol: string
   address?: string
   distance?: string

@@ -8,10 +8,10 @@ import Cache from '../models/Cache'
 import DatabaseContext from '../models/DatabaseContext'
 import {
   CityResourceCacheStateType,
+  DataContainer,
   LanguageResourceCacheStateType,
   PageResourceCacheStateType,
-} from '../redux/StateType'
-import { DataContainer } from './DataContainer'
+} from './DataContainer'
 import DatabaseConnector from './DatabaseConnector'
 import { log } from './sentry'
 
@@ -250,9 +250,11 @@ class DefaultDataContainer implements DataContainer {
     (await this.eventsAvailable(city, language)) &&
     this.languagesAvailable(city)
 
-  storeLastUsage = async (city: string, peeking: boolean): Promise<void> => {
-    await this._databaseConnector.storeLastUsage(new DatabaseContext(city), peeking)
+  storeLastUsage = async (city: string): Promise<void> => {
+    await this._databaseConnector.storeLastUsage(new DatabaseContext(city))
   }
 }
 
-export default DefaultDataContainer
+const dataContainer = new DefaultDataContainer()
+
+export default dataContainer
