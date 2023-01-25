@@ -9,6 +9,7 @@ import {
   NotFoundError,
   pathnameFromRouteInformation,
   useLoadFromEndpoint,
+  useOnPropChange,
 } from 'api-client'
 
 import { CityRouteProps } from '../CityContentSwitcher'
@@ -30,6 +31,7 @@ import useWindowDimensions from '../hooks/useWindowDimensions'
 import featuredImageToSrcSet from '../utils/featuredImageToSrcSet'
 
 const EventsPage = ({ cityModel, languages, pathname, languageCode, cityCode }: CityRouteProps): ReactElement => {
+  const previousPathname = useOnPropChange({ prop: pathname })
   const { eventId } = useParams()
   const { t } = useTranslation('events')
   const formatter = useContext(DateFormatterContext)
@@ -70,7 +72,7 @@ const EventsPage = ({ cityModel, languages, pathname, languageCode, cityCode }: 
     toolbar,
   }
 
-  if (loading) {
+  if (loading || pathname !== previousPathname) {
     return (
       <CityContentLayout isLoading {...locationLayoutParams}>
         <LoadingSpinner />

@@ -1,5 +1,5 @@
 import moment from 'moment'
-import React, { ReactElement, useCallback, useContext, useEffect, useRef } from 'react'
+import React, { ReactElement, useCallback, useContext } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Link, Navigate, useParams } from 'react-router-dom'
 
@@ -14,6 +14,7 @@ import {
   ResponseError,
   useLoadAsync,
   useLoadFromEndpoint,
+  useOnPropChange,
 } from 'api-client'
 import { config } from 'translations'
 
@@ -48,18 +49,12 @@ const getBreadcrumb = (category: CategoryModel, cityName: string) => {
 }
 
 const CategoriesPage = ({ cityModel, pathname, languages, cityCode, languageCode }: CityRouteProps): ReactElement => {
-  const previousPathname = useRef<string | null>(null)
+  const previousPathname = useOnPropChange({ prop: pathname })
   const categoryId = useParams()['*']
   const { t } = useTranslation('layout')
   const formatter = useContext(DateFormatterContext)
   const uiDirection = config.getScriptDirection(languageCode)
   const { viewportSmall } = useWindowDimensions()
-
-  useEffect(() => {
-    // Hooks are only run after render, therefore if the user navigates, the old data is still valid for a moment.
-    // To prevent flickering, render a loading spinner if the pathname has changed since the last render.
-    previousPathname.current = pathname
-  }, [pathname])
 
   const {
     data: categories,
@@ -144,7 +139,7 @@ const CategoriesPage = ({ cityModel, pathname, languages, cityCode, languageCode
     toolbar,
   }
 
-  if (categoriesLoading || parentsLoading || pathname !== previousPathname.current) {
+  if (categoriesLoading || parentsLoading || pathname !== previousPathname) {
     return (
       <CityContentLayout isLoading {...locationLayoutParams}>
         <LoadingSpinner />
