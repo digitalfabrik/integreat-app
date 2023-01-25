@@ -11,10 +11,9 @@ import {
   createCategoryChildrenEndpoint,
   createCategoryParentsEndpoint,
   NotFoundError,
-  Payload,
   ResponseError,
+  useLoadAsync,
   useLoadFromEndpoint,
-  getSlug,
 } from 'api-client'
 import { config } from 'translations'
 
@@ -62,31 +61,36 @@ const CategoriesPage = ({ cityModel, pathname, languages, cityCode, languageCode
     previousPathname.current = pathname
   }, [pathname])
 
-  const requestChildren = useCallback(
-    async () =>
-      createCategoryChildrenEndpoint(cmsApiBaseUrl).request({
-        city: cityCode,
-        language: languageCode,
-        // We show tiles for the root category so only first level children are needed
-        depth: categoryId ? 2 : 1,
-        cityContentPath: pathname,
-      }),
-    [cityCode, languageCode, pathname, categoryId]
-  )
-  const { data: categories, loading: categoriesLoading, error: categoriesError } = useLoadFromEndpoint(requestChildren)
+  const {
+    data: categories,
+    loading: categoriesLoading,
+    error: categoriesError,
+  } = useLoadFromEndpoint(createCategoryChildrenEndpoint, cmsApiBaseUrl, {
+    city: cityCode,
+    language: languageCode,
+    // We show tiles for the root category so only first level children are needed
+    depth: categoryId ? 2 : 1,
+    cityContentPath: pathname,
+  })
 
   const requestParents = useCallback(async () => {
     if (!categoryId) {
       // The endpoint does not work for the root category, just return an empty array
-      return new Payload(false, null, [])
+      return []
     }
-    return createCategoryParentsEndpoint(cmsApiBaseUrl).request({
+    const { data } = await createCategoryParentsEndpoint(cmsApiBaseUrl).request({
       city: cityCode,
       language: languageCode,
       cityContentPath: pathname,
     })
+
+    if (!data) {
+      throw new Error('Data missing!')
+    }
+
+    return data
   }, [cityCode, languageCode, pathname, categoryId])
-  const { data: parents, loading: parentsLoading, error: parentsError } = useLoadFromEndpoint(requestParents)
+  const { data: parents, loading: parentsLoading, error: parentsError } = useLoadAsync(requestParents)
 
   if (!categoryId && categories) {
     // The root category is not delivered via our endpoints
@@ -133,7 +137,7 @@ const CategoriesPage = ({ cityModel, pathname, languages, cityCode, languageCode
   const locationLayoutParams = {
     cityModel,
     viewportSmall,
-    feedbackTargetInformation: category && !category.isRoot() ? { slug: getSlug(category.path) } : null,
+    feedbackTargetInformation: category && !category.isRoot() ? { slug: category.slug } : null,
     languageChangePaths,
     route: CATEGORIES_ROUTE,
     languageCode,

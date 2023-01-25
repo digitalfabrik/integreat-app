@@ -1,15 +1,11 @@
-import { useNavigation } from '@react-navigation/native'
 import { createStackNavigator, StackHeaderProps, TransitionPresets } from '@react-navigation/stack'
-import React, { ReactElement, useEffect, useRef, useState } from 'react'
+import React, { ReactElement, useEffect, useState } from 'react'
 import { Platform, Text } from 'react-native'
-import { useDispatch } from 'react-redux'
 
 import {
   CATEGORIES_ROUTE,
   CHANGE_LANGUAGE_MODAL_ROUTE,
   CITY_NOT_COOPERATING_ROUTE,
-  DASHBOARD_ROUTE,
-  DashboardRouteType,
   DISCLAIMER_ROUTE,
   EVENTS_ROUTE,
   EXTERNAL_OFFER_ROUTE,
@@ -29,19 +25,21 @@ import {
   SETTINGS_ROUTE,
   SPRUNGBRETT_OFFER_ROUTE,
   LICENSES_ROUTE,
+  CategoriesRouteType,
 } from 'api-client'
 
-import HeaderContainer from './components/HeaderContainer'
+import Header from './components/Header'
 import RedirectContainer from './components/RedirectContainer'
 import SettingsHeader from './components/SettingsHeader'
 import TransparentHeader from './components/TransparentHeader'
 import { NavigationProps, RouteProps, RoutesParamsType, RoutesType } from './constants/NavigationTypes'
 import buildConfig from './constants/buildConfig'
 import { ASYNC_STORAGE_VERSION } from './constants/settings'
+import useLoadCities from './hooks/useLoadCities'
+import useNavigateToDeepLink from './hooks/useNavigateToDeepLink'
 import CategoriesContainer from './routes/CategoriesContainer'
 import ChangeLanguageModal from './routes/ChangeLanguageModal'
 import CityNotCooperating from './routes/CityNotCooperating'
-import DashboardContainer from './routes/DashboardContainer'
 import DisclaimerContainer from './routes/DisclaimerContainer'
 import EventsContainer from './routes/EventsContainer'
 import ExternalOfferContainer from './routes/ExternalOfferContainer'
@@ -49,7 +47,7 @@ import FeedbackModalContainer from './routes/FeedbackModalContainer'
 import ImageViewModal from './routes/ImageViewModal'
 import Intro from './routes/Intro'
 import JpalTracking from './routes/JpalTracking'
-import LandingContainer from './routes/LandingContainer'
+import Landing from './routes/Landing'
 import Licenses from './routes/Licenses'
 import NewsContainer from './routes/NewsContainer'
 import OffersContainer from './routes/OffersContainer'
@@ -71,43 +69,32 @@ const transparentHeader = (headerProps: StackHeaderProps) => <TransparentHeader 
 
 const settingsHeader = (headerProps: StackHeaderProps) => <SettingsHeader {...headerProps} />
 
-const defaultHeader = (headerProps: StackHeaderProps) => <HeaderContainer {...(headerProps as HeaderProps)} />
+const defaultHeader = (headerProps: StackHeaderProps) => <Header {...(headerProps as HeaderProps)} isHome={null} />
 
-type NavigatorProps = {
-  fetchCategory: (cityCode: string, language: string, key: string, forceUpdate: boolean) => void
-  fetchCities: (forceRefresh: boolean) => void
-  routeKey: string | null | undefined
-  routeName: string | null | undefined
-}
 type InitialRouteType =
   | {
       name: IntroRouteType | LandingRouteType
     }
   | {
-      name: DashboardRouteType
+      name: CategoriesRouteType
       cityCode: string
       languageCode: string
     }
 const Stack = createStackNavigator<RoutesParamsType>()
 
-const Navigator = (props: NavigatorProps): ReactElement | null => {
+const Navigator = (): ReactElement | null => {
   const [waitingForSettings, setWaitingForSettings] = useState<boolean>(true)
   const [errorMessage, setErrorMessage] = useState<string | null | undefined>(null)
   const [initialRoute, setInitialRoute] = useState<InitialRouteType>({
     name: INTRO_ROUTE,
   })
-  const previousRouteKey = useRef<string | null | undefined>(null)
-  const { fetchCities, fetchCategory, routeKey, routeName } = props
-  const navigation = useNavigation() as NavigationProps<RoutesType>
-  const dispatch = useDispatch()
+  const navigateToDeepLink = useNavigateToDeepLink()
+  // Preload cities
+  useLoadCities()
 
   useEffect(() => {
-    fetchCities(false)
-  }, [fetchCities])
-
-  useEffect(() => {
-    quitAppStatePushNotificationListener(dispatch, navigation)
-  }, [dispatch, navigation])
+    quitAppStatePushNotificationListener(navigateToDeepLink)
+  }, [navigateToDeepLink])
 
   useEffect(() => {
     const initialize = async () => {
@@ -149,7 +136,7 @@ const Navigator = (props: NavigatorProps): ReactElement | null => {
 
         if (city) {
           setInitialRoute({
-            name: DASHBOARD_ROUTE,
+            name: CATEGORIES_ROUTE,
             cityCode: city,
             languageCode: contentLanguage,
           })
@@ -165,22 +152,6 @@ const Navigator = (props: NavigatorProps): ReactElement | null => {
 
     initialize().catch(error => setErrorMessage(error.message))
   }, [setInitialRoute, setErrorMessage])
-
-  // The following is used to have correct mapping from categories route mapping in redux state to the actual routes
-  useEffect(() => {
-    // Fetch categories if the initial route is the dashboard route and there was no route before
-    // i.e. initial route was set by this component (Navigator)
-    if (
-      !previousRouteKey.current &&
-      routeKey &&
-      initialRoute.name === DASHBOARD_ROUTE &&
-      routeName === DASHBOARD_ROUTE
-    ) {
-      fetchCategory(initialRoute.cityCode, initialRoute.languageCode, routeKey, false)
-    }
-
-    previousRouteKey.current = routeKey
-  }, [routeKey, fetchCategory, initialRoute, routeName])
 
   if (errorMessage) {
     return <Text>{errorMessage}</Text>
@@ -204,8 +175,7 @@ const Navigator = (props: NavigatorProps): ReactElement | null => {
       </Stack.Group>
 
       <Stack.Group screenOptions={{ header: defaultHeader }}>
-        <Stack.Screen name={DASHBOARD_ROUTE} component={DashboardContainer} />
-        <Stack.Screen name={CATEGORIES_ROUTE} component={CategoriesContainer} />
+        <Stack.Screen name={CATEGORIES_ROUTE} initialParams={{}} component={CategoriesContainer} />
         <Stack.Screen name={OFFERS_ROUTE} component={OffersContainer} />
         <Stack.Screen name={SPRUNGBRETT_OFFER_ROUTE} component={SprungbrettOfferContainer} />
         <Stack.Screen name={EXTERNAL_OFFER_ROUTE} component={ExternalOfferContainer} />
@@ -217,7 +187,7 @@ const Navigator = (props: NavigatorProps): ReactElement | null => {
       </Stack.Group>
 
       <Stack.Group screenOptions={{ header: transparentHeader }}>
-        <Stack.Screen name={LANDING_ROUTE} component={LandingContainer} />
+        <Stack.Screen name={LANDING_ROUTE} component={Landing} />
         <Stack.Screen name={PDF_VIEW_MODAL_ROUTE} component={PDFViewModal} />
         <Stack.Screen name={CHANGE_LANGUAGE_MODAL_ROUTE} component={ChangeLanguageModal} />
         <Stack.Screen name={IMAGE_VIEW_MODAL_ROUTE} component={ImageViewModal} />

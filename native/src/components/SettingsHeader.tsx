@@ -2,7 +2,6 @@ import { HeaderBackButton } from '@react-navigation/elements'
 import { StackHeaderProps } from '@react-navigation/stack'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
-import { useTheme } from 'styled-components'
 import styled from 'styled-components/native'
 
 import dimensions from '../constants/dimensions'
@@ -41,14 +40,13 @@ const HeaderText = styled.Text`
 
 const SettingsHeader = ({ navigation }: StackHeaderProps): ReactElement => {
   const { t } = useTranslation('layout')
-  const theme = useTheme()
 
   return (
-    <BoxShadow theme={theme}>
+    <BoxShadow>
       <Horizontal>
         <HorizontalLeft>
           <HeaderBackButton onPress={navigation.goBack} labelVisible={false} />
-          <HeaderText theme={theme}>{t('settings')}</HeaderText>
+          <HeaderText>{t('settings')}</HeaderText>
         </HorizontalLeft>
       </Horizontal>
     </BoxShadow>

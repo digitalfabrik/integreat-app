@@ -1,7 +1,7 @@
 import { StackHeaderProps } from '@react-navigation/stack'
 import { merge } from 'lodash'
 
-import { DASHBOARD_ROUTE } from 'api-client'
+import { CATEGORIES_ROUTE } from 'api-client'
 
 import { NavigationProps, RouteProps, RoutesType } from '../constants/NavigationTypes'
 import createNavigationMock from './createNavigationPropMock'
@@ -23,7 +23,7 @@ const mockStackHeaderProps = (
       navigation: createNavigationMock(routeIndex),
       route: {
         key: 'key-0',
-        name: DASHBOARD_ROUTE,
+        name: CATEGORIES_ROUTE,
         params: {},
       },
       options: {},

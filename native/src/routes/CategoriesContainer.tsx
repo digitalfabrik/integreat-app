@@ -1,230 +1,92 @@
-import React from 'react'
-import { connect } from 'react-redux'
-import { Dispatch } from 'redux'
+import React, { ReactElement, useCallback, useContext } from 'react'
+import styled from 'styled-components/native'
 
-import { CATEGORIES_ROUTE, CategoriesRouteType, CityModel, ErrorCode } from 'api-client'
+import { CATEGORIES_ROUTE, CategoriesRouteType, cityContentPath, ErrorCode } from 'api-client'
 
 import Categories from '../components/Categories'
+import DashboardNavigationTiles from '../components/DashboardNavigationTiles'
+import SpaceBetween from '../components/SpaceBetween'
+import { StaticServerContext } from '../components/StaticServerProvider'
 import { NavigationProps, RouteProps } from '../constants/NavigationTypes'
-import withPayloadProvider, { StatusProps } from '../hocs/withPayloadProvider'
-import useSetShareUrl from '../hooks/useSetShareUrl'
-import CategoriesRouteStateView from '../models/CategoriesRouteStateView'
-import createNavigate from '../navigation/createNavigate'
+import useCityAppContext from '../hooks/useCityAppContext'
+import useHeader from '../hooks/useHeader'
+import useLoadCityContent from '../hooks/useLoadCityContent'
+import useNavigate from '../hooks/useNavigate'
+import useOnLanguageChange from '../hooks/useOnLanguageChange'
+import useResourceCache from '../hooks/useResourceCache'
 import createNavigateToFeedbackModal from '../navigation/createNavigateToFeedbackModal'
-import { LanguageResourceCacheStateType, StateType } from '../redux/StateType'
-import { StoreActionType, SwitchContentLanguageActionType } from '../redux/StoreActionType'
-import { reportError } from '../utils/sentry'
+import urlFromRouteInformation from '../navigation/url'
+import testID from '../testing/testID'
+import LoadingErrorHandler from './LoadingErrorHandler'
 
-type CategoriesNavigationProps = {
+const Spacing = styled.View`
+  padding: 10px;
+`
+
+type CategoriesContainerProps = {
   route: RouteProps<CategoriesRouteType>
   navigation: NavigationProps<CategoriesRouteType>
 }
-type OwnProps = CategoriesNavigationProps
-type DispatchProps = {
-  dispatch: Dispatch<StoreActionType>
-}
-type ContainerProps = OwnProps &
-  DispatchProps & {
-    cityModel: CityModel
-    language: string
-    stateView: CategoriesRouteStateView
-    resourceCache: LanguageResourceCacheStateType
-    resourceCacheUrl: string
-  }
-type RefreshProps = CategoriesNavigationProps & {
-  cityCode: string
-  language: string
-  path: string
-}
-type StateProps = StatusProps<ContainerProps, RefreshProps>
 
-const createChangeUnavailableLanguage =
-  (city: string) => (dispatch: Dispatch<StoreActionType>, newLanguage: string) => {
-    const switchContentLanguage: SwitchContentLanguageActionType = {
-      type: 'SWITCH_CONTENT_LANGUAGE',
-      params: {
-        newLanguage,
-        city,
-      },
-    }
-    dispatch(switchContentLanguage)
-  }
+const CategoriesContainer = ({ navigation, route }: CategoriesContainerProps): ReactElement => {
+  const { cityCode, languageCode } = useCityAppContext()
+  const resourceCache = useResourceCache({ cityCode, languageCode })
+  const resourceCacheUrl = useContext(StaticServerContext)
+  const { navigateTo } = useNavigate()
 
-const mapStateToProps = (state: StateType, ownProps: OwnProps): StateProps => {
-  const {
-    route: { key },
-  } = ownProps
+  const { data, ...response } = useLoadCityContent({ cityCode, languageCode })
 
-  if (!state.cityContent) {
-    return {
-      status: 'routeNotInitialized',
-    }
-  }
+  const path = route.params.path ?? cityContentPath({ cityCode, languageCode })
+  const category = data?.categories.findCategoryByPath(path)
+  const availableLanguages =
+    category && !category.isRoot() ? Array.from(category.availableLanguages.keys()) : data?.languages.map(it => it.code)
 
-  const { resourceCache, routeMapping, switchingLanguage, languages } = state.cityContent
-  const route = routeMapping[key]
-
-  if (!route || route.routeType !== CATEGORIES_ROUTE) {
-    return {
-      status: 'routeNotInitialized',
-    }
-  }
-
-  if (switchingLanguage) {
-    return {
-      status: 'loading',
-      progress: resourceCache.status === 'ready' ? resourceCache.progress : 0,
-    }
-  }
-
-  if (route.status === 'languageNotAvailable') {
-    if (languages.status === 'error' || languages.status === 'loading') {
-      reportError(new Error('languageNotAvailable status impossible if languages not ready'))
-      return {
-        status: 'error',
-        refreshProps: null,
-        code: languages.status === 'error' ? languages.code : ErrorCode.UnknownError,
-        message: languages.status === 'error' ? languages.message : 'languages not ready',
-      }
-    }
-
-    return {
-      status: 'languageNotAvailable',
-      availableLanguages: languages.models.filter(lng => route.allAvailableLanguages.has(lng.code)),
-      cityCode: route.city,
-      changeUnavailableLanguage: createChangeUnavailableLanguage(route.city),
-    }
-  }
-
-  const refreshProps = {
-    cityCode: route.city,
-    language: route.language,
-    path: route.path,
-    navigation: ownProps.navigation,
-    route: ownProps.route,
-  }
-
-  if (state.cities.status === 'error') {
-    return {
-      status: 'error',
-      message: state.cities.message,
-      code: state.cities.code,
-      refreshProps,
-    }
-  }
-  if (route.status === 'error') {
-    return {
-      status: 'error',
-      message: route.message,
-      code: route.code,
-      refreshProps,
-    }
-  }
-  if (resourceCache.status === 'error') {
-    return {
-      status: 'error',
-      message: resourceCache.message,
-      code: resourceCache.code,
-      refreshProps,
-    }
-  }
-  if (languages.status === 'error') {
-    return {
-      status: 'error',
-      message: languages.message,
-      code: languages.code,
-      refreshProps,
-    }
-  }
-
-  const { resourceCacheUrl } = state
-  const { models, children, allAvailableLanguages } = route
-
-  if (
-    resourceCacheUrl === null ||
-    state.cities.status === 'loading' ||
-    languages.status === 'loading' ||
-    (route.status === 'loading' && (!models || !allAvailableLanguages || !children))
-  ) {
-    return {
-      status: 'loading',
-      progress: resourceCache.progress,
-    }
-  }
-
-  const stateView = new CategoriesRouteStateView(route.path, models ?? {}, children ?? {})
-  const cityModel = state.cities.models.find(city => city.code === route.city)
-
-  if (!cityModel) {
-    return {
-      status: 'error',
-      refreshProps,
-      message: 'Unknown city',
-      code: ErrorCode.PageNotFound,
-    }
-  }
-
-  const successProps = {
-    refreshProps,
-    innerProps: {
-      ...ownProps,
-      cityModel,
-      language: route.language,
-      stateView,
-      resourceCache: resourceCache.value,
-      resourceCacheUrl,
-    },
-  }
-
-  if (route.status === 'loading') {
-    return { ...successProps, progress: resourceCache.progress, status: 'loading' }
-  }
-
-  return { ...successProps, status: 'success' }
-}
-
-const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>): DispatchProps => ({
-  dispatch,
-})
-
-const refresh = async (refreshProps: RefreshProps, dispatch: Dispatch<StoreActionType>) => {
-  const { cityCode, language, path, navigation, route } = refreshProps
-  const navigateTo = createNavigate(dispatch, navigation)
-  navigateTo(
-    {
-      route: CATEGORIES_ROUTE,
-      cityCode,
-      languageCode: language,
-      cityContentPath: path,
-    },
-    route.key,
-    true
-  )
-}
-
-const CategoriesContainer = ({ dispatch, navigation, route, ...rest }: ContainerProps) => {
-  const { language, cityModel, stateView } = rest
-  const routeInformation = {
+  const shareUrl = urlFromRouteInformation({
     route: CATEGORIES_ROUTE,
-    languageCode: language,
-    cityCode: cityModel.code,
-    cityContentPath: stateView.root().path,
-  }
-  useSetShareUrl({ navigation, routeInformation, route })
+    languageCode,
+    cityCode,
+    cityContentPath: path,
+  })
+  useHeader({ navigation, route, availableLanguages, data, isHome: !route.params.path, shareUrl })
+
+  const onLanguageChange = useCallback(
+    (newLanguage: string) => {
+      if (category) {
+        const newPath = category.availableLanguages.get(newLanguage)
+        // TODO IGAPP-636: Handle language not available?
+        navigation.setParams({ path: newPath })
+      }
+    },
+    [category, navigation]
+  )
+  const previousLanguageCode = useOnLanguageChange({ languageCode, onLanguageChange })
+
+  const error =
+    data?.categories && !category && previousLanguageCode === languageCode ? ErrorCode.PageNotFound : response.error
 
   return (
-    <Categories
-      {...rest}
-      navigateToFeedback={createNavigateToFeedbackModal(navigation)}
-      navigateTo={createNavigate(dispatch, navigation)}
-    />
+    <LoadingErrorHandler {...response} error={error} scrollView>
+      {data && category && (
+        <SpaceBetween {...(category.isRoot() ? testID('Dashboard-Page') : {})}>
+          {category.isRoot() ? (
+            <DashboardNavigationTiles cityModel={data.city} languageCode={languageCode} navigateTo={navigateTo} />
+          ) : (
+            <Spacing />
+          )}
+          <Categories
+            navigateTo={navigateTo}
+            navigateToFeedback={createNavigateToFeedbackModal(navigation)}
+            language={languageCode}
+            cityModel={data.city}
+            categories={data.categories}
+            category={category}
+            resourceCache={resourceCache}
+            resourceCacheUrl={resourceCacheUrl}
+          />
+        </SpaceBetween>
+      )}
+    </LoadingErrorHandler>
   )
 }
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(
-  // @ts-expect-error TODO: IGAPP-636
-  withPayloadProvider<ContainerProps, RefreshProps, CategoriesRouteType>(refresh, true)(CategoriesContainer)
-)
+export default CategoriesContainer

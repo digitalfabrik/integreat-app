@@ -1,25 +1,27 @@
 import { useCallback } from 'react'
 
-import { createLocalNewsEndpoint, LocalNewsModel, ReturnType, useLoadFromEndpoint } from 'api-client'
+import { createLocalNewsEndpoint, LocalNewsModel, ReturnType, useLoadAsync } from 'api-client'
 
 import { determineApiUrl } from '../utils/helpers'
 
-type ParamsType = {
-  city: string
-  language: string
+type UseLoadLocalNewsProps = {
+  cityCode: string
+  languageCode: string
 }
 
-const useLoadLocalNews = ({ city, language }: ParamsType): ReturnType<LocalNewsModel[]> => {
-  const request = useCallback(async () => {
-    const apiUrl = await determineApiUrl()
-
-    return createLocalNewsEndpoint(apiUrl).request({
-      city,
-      language,
+const useLoadLocalNews = ({ cityCode, languageCode }: UseLoadLocalNewsProps): ReturnType<LocalNewsModel[]> => {
+  const load = useCallback(async () => {
+    const payload = await createLocalNewsEndpoint(await determineApiUrl()).request({
+      city: cityCode,
+      language: languageCode,
     })
-  }, [language, city])
+    if (!payload.data) {
+      throw new Error('Data missing!')
+    }
+    return payload.data
+  }, [cityCode, languageCode])
 
-  return useLoadFromEndpoint<LocalNewsModel[]>(request)
+  return useLoadAsync(load)
 }
 
 export default useLoadLocalNews

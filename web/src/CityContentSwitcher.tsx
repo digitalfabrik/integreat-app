@@ -1,4 +1,4 @@
-import React, { FunctionComponent, ReactElement, Suspense, useCallback } from 'react'
+import React, { FunctionComponent, ReactElement, Suspense } from 'react'
 import { Route, Routes, useLocation, useParams } from 'react-router-dom'
 
 import {
@@ -65,11 +65,11 @@ const CityContentSwitcher = ({ cities, languageCode }: CityContentSwitcherProps)
   const { viewportSmall } = useWindowDimensions()
   const cityModel = cities.find(it => it.code === cityCode)
 
-  const requestLanguages = useCallback(
-    async () => createLanguagesEndpoint(cmsApiBaseUrl).request({ city: cityCode }),
-    [cityCode]
-  )
-  const { data: languages, loading, error: loadingError } = useLoadFromEndpoint<LanguageModel[]>(requestLanguages)
+  const {
+    data: languages,
+    loading,
+    error: loadingError,
+  } = useLoadFromEndpoint(createLanguagesEndpoint, cmsApiBaseUrl, { city: cityCode })
   const languageModel = languages?.find(it => it.code === languageCode)
 
   if (!cityModel || !languageModel || !languages) {
@@ -169,7 +169,7 @@ const CityContentSwitcher = ({ cities, languageCode }: CityContentSwitcherProps)
       {offersEnabled && render(SHELTER_ROUTE, ShelterPage, ':shelterId')}
       {offersEnabled && render(SPRUNGBRETT_OFFER_ROUTE, SprungbrettOfferPage)}
       {offersEnabled && render(OFFERS_ROUTE, OffersPage)}
-      {poisEnabled && render(POIS_ROUTE, PoisPage, ':urlSlug')}
+      {poisEnabled && render(POIS_ROUTE, PoisPage, ':slug')}
       {localNewsEnabled && render(LOCAL_NEWS_ROUTE, LocalNewsPage, ':newsId')}
 
       {tuNewsEnabled && render(TU_NEWS_ROUTE, TuNewsPage)}

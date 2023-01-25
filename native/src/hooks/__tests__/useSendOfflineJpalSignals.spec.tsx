@@ -3,7 +3,7 @@ import { render, waitFor } from '@testing-library/react-native'
 import { mocked } from 'jest-mock'
 import React from 'react'
 
-import { CATEGORIES_ROUTE, DASHBOARD_ROUTE, OPEN_PAGE_SIGNAL_NAME } from 'api-client'
+import { CATEGORIES_ROUTE, OPEN_PAGE_SIGNAL_NAME } from 'api-client'
 
 import appSettings from '../../utils/AppSettings'
 import { sendRequest } from '../../utils/sendTrackingSignal'
@@ -27,7 +27,7 @@ describe('useSendOfflineJpalSignals', () => {
 
   const signal1 = {
     name: OPEN_PAGE_SIGNAL_NAME,
-    pageType: DASHBOARD_ROUTE,
+    pageType: CATEGORIES_ROUTE,
     url: 'https://example.com',
     trackingCode: 'abcdef123456',
     offline: true,
