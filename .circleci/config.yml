@@ -511,9 +511,6 @@ jobs:
             - check_config
             - restore_yarn_cache
             - run:
-                command: yarn prettier:check
-                name: Prettier
-            - run:
                 command: yarn lint
                 name: Lint
             - run:

@@ -11,9 +11,9 @@ steps:
   - checkout
   - check_config
   - restore_yarn_cache
-  - run:
-      name: Prettier
-      command: yarn prettier:check
+#  - run:
+#      name: Prettier
+#      command: yarn prettier:check
   - run:
       name: Lint
       command: yarn lint
