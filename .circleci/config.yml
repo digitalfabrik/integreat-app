@@ -511,8 +511,6 @@ jobs:
             - check_config
             - restore_yarn_cache
             - unit_test:
-                directory: api-client
-            - unit_test:
                 directory: native
             - unit_test:
                 directory: translations

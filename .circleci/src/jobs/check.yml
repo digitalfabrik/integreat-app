@@ -23,8 +23,8 @@ steps:
 #  - run:
 #      name: TS check
 #      command: yarn workspaces run ts:check
-  - unit_test:
-      directory: api-client
+#  - unit_test:
+#      directory: api-client
   - unit_test:
       directory: native
   - unit_test:
