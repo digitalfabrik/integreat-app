@@ -7,7 +7,7 @@ import styled from 'styled-components/native'
 import dimensions from '../constants/dimensions'
 import DateFormatterContext from '../contexts/DateFormatterContext'
 import useNavigateToLink from '../hooks/useNavigateToLink'
-import { PageResourceCacheEntryStateType, PageResourceCacheStateType } from '../redux/StateType'
+import { PageResourceCacheEntryStateType, PageResourceCacheStateType } from '../utils/DataContainer'
 import { RESOURCE_CACHE_DIR_PATH } from '../utils/DatabaseConnector'
 import Caption from './Caption'
 import RemoteContent from './RemoteContent'
@@ -54,9 +54,9 @@ const Page = ({
   const onLinkPress = useCallback(
     (url: string) => {
       const shareUrl = Object.keys(cacheDict).find(remoteUrl => cacheDict[remoteUrl] === url)
-      navigateToLink(url, language, shareUrl || url)
+      navigateToLink(url, shareUrl || url)
     },
-    [cacheDict, language, navigateToLink]
+    [cacheDict, navigateToLink]
   )
   const onLoad = useCallback(() => setLoading(false), [setLoading])
   return (

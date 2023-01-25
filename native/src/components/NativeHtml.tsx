@@ -28,9 +28,9 @@ const NativeHtml = React.memo(({ content, cacheDictionary, language }: NativeHtm
       const shareUrl = cacheDictionary
         ? Object.keys(cacheDictionary).find(remoteUrl => cacheDictionary[remoteUrl] === url)
         : undefined
-      navigateToLink(url, language, shareUrl || url)
+      navigateToLink(url, shareUrl || url)
     },
-    [cacheDictionary, language, navigateToLink]
+    [cacheDictionary, navigateToLink]
   )
 
   const onElement = useCallback(

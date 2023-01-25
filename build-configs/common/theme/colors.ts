@@ -6,6 +6,7 @@ export type ColorsType = {
   textSecondaryColor: string
   textDecorationColor: string
   textDisabledColor: string
+  footerLineColor: string
   backgroundColor: string
   tunewsThemeColor: string
   tunewsThemeColorLight: string
@@ -19,6 +20,7 @@ export const commonLightColors = {
   textSecondaryColor: '#585858',
   textDecorationColor: '#c7c7c7',
   textDisabledColor: '#d0d0d0',
+  footerLineColor: '#b1b1b1',
   backgroundColor: '#ffffff',
   tunewsThemeColor: '#007aa8',
   tunewsThemeColorLight: 'rgba(0, 122, 168, 0.4)',

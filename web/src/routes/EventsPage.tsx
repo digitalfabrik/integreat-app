@@ -1,4 +1,4 @@
-import React, { ReactElement, useCallback, useContext } from 'react'
+import React, { ReactElement, useContext } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useNavigate, useParams } from 'react-router-dom'
 
@@ -6,7 +6,6 @@ import {
   createEventsEndpoint,
   EventModel,
   EVENTS_ROUTE,
-  getSlug,
   NotFoundError,
   pathnameFromRouteInformation,
   useLoadFromEndpoint,
@@ -37,11 +36,11 @@ const EventsPage = ({ cityModel, languages, pathname, languageCode, cityCode }: 
   const { viewportSmall } = useWindowDimensions()
   const navigate = useNavigate()
 
-  const requestEvents = useCallback(
-    async () => createEventsEndpoint(cmsApiBaseUrl).request({ city: cityCode, language: languageCode }),
-    [cityCode, languageCode]
-  )
-  const { data: events, loading, error: eventsError } = useLoadFromEndpoint(requestEvents)
+  const {
+    data: events,
+    loading,
+    error: eventsError,
+  } = useLoadFromEndpoint(createEventsEndpoint, cmsApiBaseUrl, { city: cityCode, language: languageCode })
 
   const event = eventId ? events?.find((event: EventModel) => event.path === pathname) : null
 
@@ -64,7 +63,7 @@ const EventsPage = ({ cityModel, languages, pathname, languageCode, cityCode }: 
   const locationLayoutParams = {
     cityModel,
     viewportSmall,
-    feedbackTargetInformation: event ? { slug: getSlug(event.path) } : null,
+    feedbackTargetInformation: event ? { slug: event.slug } : null,
     languageChangePaths,
     route: EVENTS_ROUTE,
     languageCode,

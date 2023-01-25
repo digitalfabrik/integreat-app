@@ -1,3 +1,4 @@
+import { NavigationAction } from '@react-navigation/native'
 import React, { ReactElement, useCallback, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Alert, Text, View } from 'react-native'
@@ -12,6 +13,7 @@ import LoadingSpinner from '../components/LoadingSpinner'
 import SettingsSwitch from '../components/SettingsSwitch'
 import { NavigationProps } from '../constants/NavigationTypes'
 import buildConfig from '../constants/buildConfig'
+import useOnBackNavigation from '../hooks/useOnBackNavigation'
 import appSettings from '../utils/AppSettings'
 import { log, reportError } from '../utils/sentry'
 
@@ -68,32 +70,29 @@ const JpalTracking = ({ navigation }: JpalTrackingProps): ReactElement => {
       })
   }, [])
 
-  useEffect(
-    () =>
-      navigation.addListener('beforeRemove', e => {
-        // Show alert if user attempts to leave screen with tracking disabled
-        if (!trackingEnabled) {
-          e.preventDefault()
-
-          Alert.alert(t('trackingLeaveTitle'), t('trackingLeaveDescription', { appName: buildConfig().appName }), [
-            {
-              text: t('decline'),
-              style: 'destructive',
-              onPress: () => {
-                updateTrackingEnabled(false)
-                navigation.dispatch(e.data.action)
-              },
+  const onBackNavigation = useCallback(
+    (action: NavigationAction) => {
+      if (!trackingEnabled) {
+        Alert.alert(t('trackingLeaveTitle'), t('trackingLeaveDescription', { appName: buildConfig().appName }), [
+          {
+            text: t('decline'),
+            style: 'destructive',
+            onPress: () => {
+              updateTrackingEnabled(false)
+              navigation.dispatch(action)
             },
-            {
-              text: t('allowTracking'),
-              style: 'default',
-              onPress: () => updateTrackingEnabled(true),
-            },
-          ])
-        }
-      }),
+          },
+          {
+            text: t('allowTracking'),
+            style: 'default',
+            onPress: () => updateTrackingEnabled(true),
+          },
+        ])
+      }
+    },
     [navigation, trackingEnabled, updateTrackingEnabled, t]
   )
+  useOnBackNavigation(onBackNavigation)
 
   if (!settingsLoaded) {
     return (
