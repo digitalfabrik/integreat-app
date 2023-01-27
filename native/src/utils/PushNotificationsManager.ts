@@ -104,14 +104,14 @@ export const useForegroundPushNotificationListener = ({
           setTimeout(() => {
             // TODO IGAPP-1024: Uncomment and improve snackbar
             log(JSON.stringify(message))
-            showSnackbar({
-              text: message.notification.title,
-              positiveAction: {
-                onPress: () => navigate(NEWS_ROUTE, routeInformationFromMessage(message)),
-                label: 'Show',
-              },
-              showDuration: PUSH_NOTIFICATION_SHOW_DURATION,
-            })
+            // showSnackbar({
+            //   text: message.notification.title,
+            //   positiveAction: {
+            //     onPress: () => navigate(NEWS_ROUTE, routeInformationFromMessage(message)),
+            //     label: 'Show',
+            //   },
+            //   showDuration: PUSH_NOTIFICATION_SHOW_DURATION,
+            // })
           }, WAITING_TIME_FOR_CMS)
         }
       })
