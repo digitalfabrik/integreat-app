@@ -4,7 +4,7 @@ import { Linking } from 'react-native'
 
 import { LOCAL_NEWS_TYPE, NEWS_ROUTE, NonNullableRouteInformationType } from 'api-client'
 
-import { SnackbarType } from '../components/Snackbar'
+import { SnackbarType } from '../components/SnackbarContainer'
 import { RoutesType } from '../constants/NavigationTypes'
 import buildConfig from '../constants/buildConfig'
 import urlFromRouteInformation from '../navigation/url'
@@ -21,6 +21,7 @@ type Message = FirebaseMessagingTypes.RemoteMessage & {
 }
 
 const WAITING_TIME_FOR_CMS = 1000
+const PUSH_NOTIFICATION_SHOW_DURATION = 10000
 
 const importFirebaseMessaging = async (): Promise<() => FirebaseMessagingTypes.Module> =>
   import('@react-native-firebase/messaging').then(firebase => firebase.default)
@@ -103,13 +104,14 @@ export const useForegroundPushNotificationListener = ({
           setTimeout(() => {
             // TODO IGAPP-1024: Uncomment and improve snackbar
             log(JSON.stringify(message))
-            // showSnackbar({
-            //   text: message.notification.title,
-            //   positiveAction: {
-            //     onPress: () => navigate(NEWS_ROUTE, routeInformationFromMessage(message)),
-            //     label: 'Show',
-            //   },
-            // })
+            showSnackbar({
+              text: message.notification.title,
+              positiveAction: {
+                onPress: () => navigate(NEWS_ROUTE, routeInformationFromMessage(message)),
+                label: 'Show',
+              },
+              showDuration: PUSH_NOTIFICATION_SHOW_DURATION,
+            })
           }, WAITING_TIME_FOR_CMS)
         }
       })
