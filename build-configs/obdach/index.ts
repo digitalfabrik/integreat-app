@@ -10,7 +10,7 @@ const commonObdachBuildConfig: CommonBuildConfigType = {
   assets: OBDACH_ASSETS,
   cmsUrl: 'https://cms.vernetztesobdach.de',
   hostName: 'vernetztesobdach.de',
-  allowedHostNames: ['cms.vernetztesobdach.de'],
+  allowedHostNames: ['cms.vernetztesobdach.de', 'admin.vernetztesobdach.de'],
   internalLinksHijackPattern:
     'https?:\\/\\/((cms\\.)?vernetztesobdach\\.de)(?!\\/(media|[^/]*\\/(wp-content|wp-admin|wp-json))\\/.*).*',
   featureFlags: {

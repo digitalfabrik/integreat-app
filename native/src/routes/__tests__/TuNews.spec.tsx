@@ -5,10 +5,19 @@ import React from 'react'
 import { Text } from 'react-native'
 import { ThemeProvider } from 'styled-components/native'
 
-import { CityModel, LanguageModelBuilder, TunewsModel, useLoadFromEndpoint, ReturnType } from 'api-client'
+import {
+  CategoriesMapModelBuilder,
+  CityModelBuilder,
+  LanguageModelBuilder,
+  NEWS_ROUTE,
+  NewsRouteType,
+  TU_NEWS_TYPE,
+  TunewsModel,
+} from 'api-client'
 
 import buildConfig from '../../constants/buildConfig'
 import useLoadTuNews from '../../hooks/useLoadTuNews'
+import createNavigationScreenPropMock from '../../testing/createNavigationPropMock'
 import TuNews from '../TuNews'
 
 jest.mock('react-i18next')
@@ -18,6 +27,7 @@ jest.mock('api-client', () => ({
   ...jest.requireActual('api-client'),
   useLoadFromEndpoint: jest.fn(),
 }))
+jest.mock('../../components/LanguageNotAvailablePage', () => () => <Text>languageNotAvailable</Text>)
 
 const news: [TunewsModel, TunewsModel] = [
   new TunewsModel({
@@ -38,7 +48,6 @@ const news: [TunewsModel, TunewsModel] = [
     eNewsNo: 'tun0000009902',
   }),
 ]
-const availableLanguages = new LanguageModelBuilder(2).build()
 
 describe('TuNews', () => {
   beforeEach(() => {
@@ -46,42 +55,54 @@ describe('TuNews', () => {
   })
 
   const selectNews = jest.fn()
-  const changeUnavailableLanguage = jest.fn()
   const loadMore = jest.fn()
   const refresh = jest.fn()
 
-  const renderNews = ({ newsId = null, language = 'de' }: { newsId?: string | null; language?: string }) => {
-    const cityModel = new CityModel({
-      name: 'Oldtown',
-      code: 'oldtown',
-      live: false,
-      eventsEnabled: true,
-      offersEnabled: true,
-      poisEnabled: false,
-      localNewsEnabled: true,
-      tunewsEnabled: true,
-      sortingName: 'Oldtown',
-      prefix: 'GoT',
-      latitude: 48.369696,
-      longitude: 10.892578,
-      aliases: null,
-      boundingBox: null,
-    })
-    const props = { cityModel, language, selectNews, changeUnavailableLanguage }
-    return render(
+  const navigation = createNavigationScreenPropMock<NewsRouteType>()
+  const route = {
+    key: 'route-id-0',
+    params: {
+      newsType: TU_NEWS_TYPE,
+      newsId: null,
+    },
+    name: NEWS_ROUTE,
+  }
+
+  const cities = new CityModelBuilder(3).build()
+  const city = cities[0]!
+  const languages = new LanguageModelBuilder(3).build()
+  const language = languages[0]!
+
+  const data = {
+    cities,
+    languages,
+    city,
+    language,
+    categories: new CategoriesMapModelBuilder(city.code, language.code).build(),
+    events: [],
+    pois: [],
+  }
+
+  const renderNews = () =>
+    render(
       <ThemeProvider theme={buildConfig().lightTheme}>
-        <TuNews {...props} newsId={newsId} />
+        <TuNews data={data} route={route} navigation={navigation} selectNews={selectNews} />
       </ThemeProvider>
     )
+  const elementResponse = { data: news[0], error: null, loading: false, refresh: jest.fn() }
+  const tuNewsResponse = {
+    ...elementResponse,
+    loadMore,
+    loadingMore: false,
+    refresh,
+    data: news,
+    availableLanguages: languages,
   }
-  const elementResponse: ReturnType<TunewsModel> = { data: news[0], error: null, loading: false, refresh: jest.fn() }
-  const tuNewsResponse = { ...elementResponse, loadMore, loadingMore: false, refresh, data: news, availableLanguages }
 
   it('should show news list', () => {
-    mocked(useLoadFromEndpoint<TunewsModel>).mockImplementation(() => elementResponse)
     mocked(useLoadTuNews).mockImplementation(() => tuNewsResponse)
 
-    const { getByText } = renderNews({})
+    const { getByText } = renderNews()
     expect(getByText(news[0].title)).toBeTruthy()
     expect(getByText(news[1].title)).toBeTruthy()
 
@@ -89,27 +110,15 @@ describe('TuNews', () => {
     expect(selectNews).toHaveBeenCalledWith(news[1].id.toString())
   })
 
-  it('should show language selector if language not available', () => {
-    mocked(useLoadFromEndpoint<TunewsModel>).mockImplementation(() => elementResponse)
-    mocked(useLoadTuNews).mockImplementation(() => tuNewsResponse)
+  it('should show language selector if language not available', async () => {
+    mocked(useLoadTuNews).mockImplementation(() => ({
+      ...tuNewsResponse,
+      availableLanguages: languages.slice(1),
+    }))
 
-    const { getByText, queryByText } = renderNews({ language: 'es' })
-    expect(getByText('languageNotAvailable')).toBeTruthy()
+    const { findByText, queryByText } = renderNews()
+    expect(await findByText('languageNotAvailable')).toBeTruthy()
 
     expect(queryByText(news[0].title)).toBeFalsy()
-
-    fireEvent.press(getByText(availableLanguages[0]!.name))
-    expect(changeUnavailableLanguage).toHaveBeenCalledWith(availableLanguages[0]!.code)
-  })
-
-  it('should show news detail', () => {
-    mocked(useLoadFromEndpoint<TunewsModel>).mockImplementation(() => elementResponse)
-    mocked(useLoadTuNews).mockImplementation(() => tuNewsResponse)
-
-    const { queryByText } = renderNews({ newsId: news[0].id.toString() })
-    expect(queryByText(news[0].title)).toBeTruthy()
-    expect(queryByText(news[0].content)).toBeTruthy()
-
-    expect(queryByText(news[1].title)).toBeFalsy()
   })
 })

@@ -1,0 +1,7 @@
+issue_key: IGAPP-1200
+show_in_stores: true
+platforms:
+  - ios
+  - android
+en: Fixed unresponsive behavior and disabling of arrows in navigation bar.
+de: Die Buttons in der Navigationsleiste reagieren jetzt immer und werden farblich korrekt hervorgehoben.

@@ -66,7 +66,7 @@ const Licenses = (): ReactElement => {
   const { t } = useTranslation('settings')
   const renderItem = ({ item }: { item: License }) => {
     const { licenses, name, licenseUrl, version } = item
-    const openLink = () => openExternalUrl(licenseUrl).catch(() => showSnackbar(t('error:unknownError')))
+    const openLink = () => openExternalUrl(licenseUrl, showSnackbar)
     return <LicenseItem key={name} name={name} version={version ?? ''} license={licenses} onPress={openLink} />
   }
 

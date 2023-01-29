@@ -1,4 +1,4 @@
-import React, { ReactElement, useCallback } from 'react'
+import React, { ReactElement } from 'react'
 
 import {
   CityModel,
@@ -34,16 +34,15 @@ const ShelterDetail = ({
   shelterId,
   viewportSmall,
 }: ShelterDetailProps): ReactElement => {
-  const requestShelter = useCallback(
-    () =>
-      createShelterEndpoint().request({
-        type: 'detail',
-        id: shelterId,
-        cityCode,
-      }),
-    [shelterId, cityCode]
-  )
-  const { data: shelters, loading, error } = useLoadFromEndpoint(requestShelter)
+  const {
+    data: shelters,
+    loading,
+    error,
+  } = useLoadFromEndpoint(createShelterEndpoint, '', {
+    type: 'detail',
+    id: shelterId,
+    cityCode,
+  })
 
   const languageChangePaths = languages.map(({ code, name }) => ({
     path: `${pathnameFromRouteInformation({ route: SHELTER_ROUTE, cityCode, languageCode: code })}/${shelterId}`,

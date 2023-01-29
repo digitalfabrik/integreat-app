@@ -1,13 +1,11 @@
 import { FirebaseMessagingTypes } from '@react-native-firebase/messaging'
 import { Linking } from 'react-native'
-import { Dispatch } from 'redux'
 
 import { LOCAL_NEWS_TYPE, NEWS_ROUTE } from 'api-client'
 
-import { NavigationProps, RoutesType } from '../constants/NavigationTypes'
 import buildConfig from '../constants/buildConfig'
-import navigateToDeepLink from '../navigation/navigateToDeepLink'
 import urlFromRouteInformation from '../navigation/url'
+import appSettings from './AppSettings'
 import { log, reportError } from './sentry'
 
 type Message = FirebaseMessagingTypes.RemoteMessage & {
@@ -56,20 +54,21 @@ export const unsubscribeNews = async (city: string, language: string): Promise<v
   log(`Unsubscribed from ${topic} topic!`)
 }
 export const subscribeNews = async (city: string, language: string): Promise<void> => {
-  if (!pushNotificationsEnabled()) {
-    log('Push notifications disabled, subscription skipped.')
-    return
-  }
-
-  const topic = newsTopic(city, language)
-
   try {
+    const { allowPushNotifications } = await appSettings.loadSettings()
+    if (!pushNotificationsEnabled() || !allowPushNotifications) {
+      log('Push notifications disabled, subscription skipped.')
+      return
+    }
+
+    const topic = newsTopic(city, language)
+
     const messaging = await importFirebaseMessaging()
     await messaging().subscribeToTopic(topic)
+    log(`Subscribed to ${topic} topic!`)
   } catch (e) {
     reportError(e)
   }
-  log(`Subscribed to ${topic} topic!`)
 }
 
 const urlFromMessage = (message: Message): string => {
@@ -84,16 +83,14 @@ const urlFromMessage = (message: Message): string => {
 }
 
 export const quitAppStatePushNotificationListener = async (
-  dispatch: Dispatch,
-  navigation: NavigationProps<RoutesType>
+  navigateToDeepLink: (url: string) => void
 ): Promise<void> => {
   const messaging = await importFirebaseMessaging()
   const message = (await messaging().getInitialNotification()) as Message | null
 
   if (message) {
-    const url = urlFromMessage(message)
-    // Use navigateToDeepLink instead of normal createNavigate to avoid navigation not being initialized
-    navigateToDeepLink(dispatch, navigation, url, message.data.language_code)
+    // Use navigateToDeepLink instead of normal navigation to avoid navigation not being initialized
+    navigateToDeepLink(urlFromMessage(message))
   }
 }
 

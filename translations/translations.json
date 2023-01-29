@@ -20,6 +20,10 @@
       "createPdf": "دروستکردنی PDF",
       "metaDescription": "{{appName}} ڕێنمایی دیجیتاڵی تۆ لەبارەی ئەڵمانیایە. زانیارییە خۆجێیەکان، ڕووداوەکان و ڕاوێژکاری بدۆزەوە. هەمیشە بەڕۆژ و بە زمانی خۆت."
     },
+    "cs": {
+      "createPdf": "Vytvořit PDF",
+      "metaDescription": "{{appName}} je váš digitální průvodce po Německu. Najděte místní informace, akce a rady. Na adrese"
+    },
     "el": {
       "createPdf": "Δημιουργία PDF",
       "metaDescription": "Το {{appName}} είναι ο ψηφιακός σας οδηγός για τη Γερμανία. Βρείτε τοπικές πληροφορίες, εκδηλώσεις και συμβουλές. Πάντα ενημερωμένο και στη γλώσσα σας."
@@ -83,6 +87,10 @@
     "ps": {
       "createPdf": "پي ډي ایف جوړول",
       "metaDescription": "{{appName}} آلمان لپاره ستاسو ډیجیټال لارښود دی. په دې کې تاسو سیمه ییز معلومات،  دہ غونډو  او مشورو معلومات موندلی شئ. همېشه نوی معلومات ستاسو په ژبه کې."
+    },
+    "pt": {
+      "createPdf": "Crear PDF",
+      "metaDescription": "{{appName}} es su guía digital para Alemania. Buscar información, eventos y asesoramiento en la zona. Siempre actualizada y en su idioma."
     },
     "ro": {
       "createPdf": "Creați PDF",
@@ -174,6 +182,15 @@
       "sendText": "ئەم تێکستە کۆپی بکە، پاشان بەشی [ ] بە زانیاریی خۆت پڕ بکەوە و بینێرە.",
       "copyText": "تێکست کۆپی بکە",
       "textCopied": "کۆپی کرا"
+    },
+    "cs": {
+      "callToAction": "Navrhněte Integreat pro svůj region!",
+      "explanation": "Neziskový koncept aplikace Integreat vás přesvědčil a vy si myslíte, že vaše město, okres nebo",
+      "whatToDo": "To můžete udělat:",
+      "findOutMail": "Zjistěte e-mailovou adresu svého regionu",
+      "sendText": "Zkopírujte tento text, vyplňte []-obsah svými údaji a odešlete jej.",
+      "copyText": "Kopírovat text",
+      "textCopied": "Kopírovat"
     },
     "el": {
       "callToAction": "Προτείνετε το Integreat στην περιοχή σας!",
@@ -319,6 +336,15 @@
       "copyText": "متن کاپی کړئ",
       "textCopied": "کاپی شولو"
     },
+    "pt": {
+      "callToAction": "¡Propón Integreat en tu región!",
+      "explanation": "¿El concepto de utilidad pública de la aplicación Integreat te ha convencido y crees que tu ciudad, tu distrito o tu comunidad podría beneficiarse de esta solución digital? Entonces aquí puedes contribuir de forma muy sencilla.",
+      "whatToDo": "Esto es lo que puedes hacer:",
+      "findOutMail": "Averigua el correo electrónico de tu zona",
+      "sendText": "Copia este texto, rellena el contenido de [ ] con tus datos y envíalo",
+      "copyText": "Copiar el texto",
+      "textCopied": "Copiado"
+    },
     "ro": {
       "callToAction": "Propuneți Integreat pentru regiunea dumneavoastră!",
       "explanation": "Conceptul non-profit al aplicației Integreat v-a convins și credeți că și orașul, districtul sau municipalitatea dumneavoastră ar putea beneficia de această soluție digitală? Atunci puteți deveni cu ușurință activi în acest sens aici.",
@@ -455,6 +481,13 @@
       "lastUpdate": "دوایین بەڕۆژکردنەوە:",
       "loading": "خەریکی بارکردنە..."
     },
+    "cs": {
+      "moreOptions": "Další možnosti",
+      "languageNotAvailable": "Váš jazyk zde není k dispozici.",
+      "chooseALanguage": "Vyberte si jazyk.",
+      "lastUpdate": "Poslední aktualizace:",
+      "loading": "Načítání ..."
+    },
     "el": {
       "moreOptions": "Περισσότερες επιλογές",
       "languageNotAvailable": "Δυστυχώς, η γλώσσα σας δεν είναι διαθέσιμη εδώ.",
@@ -566,6 +599,13 @@
       "chooseALanguage": "یوه ژبه انتخاب کړه.",
       "lastUpdate": "آخري تغیر شوے:",
       "loading": "بارولے کیږی ۔۔۔"
+    },
+    "pt": {
+      "moreOptions": "Más opciones",
+      "languageNotAvailable": "Lamentablemente, tu idioma no está disponible.",
+      "chooseALanguage": "Elige un idioma.",
+      "lastUpdate": "Última actualización:",
+      "loading": "Cargar ..."
     },
     "ro": {
       "moreOptions": "Mai multe opțiuni",
@@ -681,6 +721,13 @@
       "news": "هەواڵ",
       "pois": "نەخشە"
     },
+    "cs": {
+      "localInformation": "Místní informace",
+      "offers": "Nabídky",
+      "events": "Akce",
+      "news": "Zprávy",
+      "pois": "Mapa"
+    },
     "el": {
       "localInformation": "Τοπικές πληροφορίες",
       "offers": "Προσφορές",
@@ -793,6 +840,13 @@
       "news": "خبرونه",
       "pois": "کارت"
     },
+    "pt": {
+      "localInformation": "Información de la zona",
+      "offers": "Ofertas",
+      "events": "Eventos",
+      "news": "Noticias",
+      "pois": "Mapa"
+    },
     "ro": {
       "localInformation": "Informații locale",
       "offers": "Oferte",
@@ -887,6 +941,9 @@
     "ckb": {
       "pageTitle": "زانیارییەکانی ناوەندی بڵاوکەرەوە و زانیارییەکانی پەیوەندی"
     },
+    "cs": {
+      "pageTitle": "Impresum a kontakt"
+    },
     "el": {
       "pageTitle": "Στοιχεία έκδοσης και επικοινωνία"
     },
@@ -934,6 +991,9 @@
     },
     "ps": {
       "pageTitle": "چاپ او اړیکه"
+    },
+    "pt": {
+      "pageTitle": "Pie de imprenta y contacto"
     },
     "ro": {
       "pageTitle": "Caseta tehnică și contact"
@@ -1149,6 +1209,42 @@
       "notSupportedByDevice": "ئەم تواناییە لەم ئامێرەدا پاڵپشتی ناکرێت.",
       "languageSwitchFailedTitle": "بەداخەوە گۆڕینی زمان جێبەجێ نەبوو.",
       "languageSwitchFailedMessage": "زمانی هەلبژێردراو بەشێوەی ئۆفلاین لەبەردەست نییە. پێویستی بە ئینتەرنەتی چالاکە."
+    },
+    "cs": {
+      "notFound": {
+        "language": "Je nám líto, tento jazyk zde není k dispozici.",
+        "city": "Je nám líto, tato oblast nebyla nalezena.",
+        "category": "Je nám líto, tato stránka nebyla nalezena.",
+        "event": "Je nám líto, tato akce nebyla nalezena.",
+        "offer": "Je nám líto, tato nabídka nebyla nalezena.",
+        "poi": "Je nám líto, toto místo nebylo nalezeno.",
+        "localNews": "Je nám líto, tato zpráva nebyla nalezena.",
+        "tunews": "Je nám líto, tato zpráva nebyla nalezena.",
+        "pageTitle": "Stránka nebyla nalezena"
+      },
+      "pageNotFound": "Je nám líto, tato stránka nebyla nalezena.",
+      "noSuitableAppInstalled": "Není nainstalována žádná vhodná aplikace.",
+      "networkConnectionFailed": "Připojení k serveru se nezdařilo.",
+      "networkRequestFailed": "Požadavek nebylo možné zpracovat.",
+      "responseMappingFailed": "Odpověď serveru se nepodařilo zpracovat.",
+      "unknownError": "Došlo k neznámé chybě.",
+      "tryAgain": "Zkuste to znovu",
+      "loadingFailed": "Je nám líto, stránku se nepodařilo načíst.",
+      "chooseALanguage": "Vyberte si jazyk:",
+      "goTo": {
+        "start": "Na domovskou stránku",
+        "categories": "Ke kategoriím",
+        "events": "K akcím",
+        "offers": "K nabídkám",
+        "pois": "Na mapu",
+        "localNews": "Ke zprávám",
+        "tunews": "Ke zprávám"
+      },
+      "pageTitle": "Chyba",
+      "generalError": "Došlo k chybě",
+      "notSupportedByDevice": "Tato funkce není v tomto zařízení podporována.",
+      "languageSwitchFailedTitle": "Změna jazyka se bohužel nepodařila",
+      "languageSwitchFailedMessage": "Vybraný jazyk není k dispozici v režimu offline. Je vyžadováno aktivní připojení k internetu."
     },
     "el": {
       "notFound": {
@@ -1726,6 +1822,42 @@
       "languageSwitchFailedTitle": "له بده مرغه د ژبې انتخاب ناکام شو.",
       "languageSwitchFailedMessage": "انتخاب شوې ژبه آفلاین موجوده نده. د انټرنیټ فعال پیوستون اړین دی."
     },
+    "pt": {
+      "notFound": {
+        "language": "Lamentablemente, este idioma no está disponible.",
+        "city": "No hemos encontrado esta región.",
+        "category": "No hemos encontrado esta página.",
+        "event": "No hemos encontrado este evento.",
+        "offer": "No hemos encontrado esta oferta.",
+        "poi": "No hemos encontrado este lugar.",
+        "localNews": "No hemos encontrado esta noticia.",
+        "tunews": "No hemos encontrado esta tünews.",
+        "pageTitle": "Página no encontrada"
+      },
+      "pageNotFound": "No hemos encontrado esta página.",
+      "noSuitableAppInstalled": "No se ha instalado una aplicación adecuada.",
+      "networkConnectionFailed": "La conexión con el servidor ha fallado.",
+      "networkRequestFailed": "La solicitud no se ha podido procesar.",
+      "responseMappingFailed": "La respuesta del servidor no se ha podido procesar.",
+      "unknownError": "Se ha producido un error desconocido.",
+      "tryAgain": "Intentar de nuevo",
+      "loadingFailed": "La página no se ha podido cargar.",
+      "chooseALanguage": "Elige un idioma:",
+      "goTo": {
+        "start": "Ir a la página de inicio",
+        "categories": "Ir a las categorías",
+        "events": "Ir a los eventos",
+        "offers": "Ir a las ofertas",
+        "pois": "Ir al mapa",
+        "localNews": "Ir a las noticias",
+        "tunews": "Ir a las tünews"
+      },
+      "pageTitle": "Error",
+      "generalError": "Se ha producido un error",
+      "notSupportedByDevice": "Esta función no está disponible en este aparato.",
+      "languageSwitchFailedTitle": "El cambio de idioma ha fallado.",
+      "languageSwitchFailedMessage": "El idioma seleccionado no está disponible sin conexión. Es necesario estar conectado a internet."
+    },
     "ro": {
       "notFound": {
         "language": "Aici nu este disponibilă această limbă, din păcate.",
@@ -2159,6 +2291,13 @@
       "currentlyNoEvents": "لەئێستادا هیچ ڕووداوێکی تیدا نییە.",
       "pageTitle": "ڕووداوەکان"
     },
+    "cs": {
+      "address": "Adresa",
+      "date": "Datum",
+      "events": "Akce",
+      "currentlyNoEvents": "V současné době nejsou k dispozici žádné akce.",
+      "pageTitle": "Akce"
+    },
     "el": {
       "address": "Διεύθυνση",
       "date": "Ημερομηνία",
@@ -2270,6 +2409,13 @@
       "events": "غونډې",
       "currentlyNoEvents": "دا مهال کومې غونډې نشته.",
       "pageTitle": "غونډې"
+    },
+    "pt": {
+      "address": "Dirección",
+      "date": "Fecha",
+      "events": "Eventos",
+      "currentlyNoEvents": "Actualmente no hay ningún evento.",
+      "pageTitle": "Eventos"
     },
     "ro": {
       "address": "Adresa",
@@ -2449,6 +2595,26 @@
       "positiveRating": "ئەم لاپەڕەیە بەکەڵکە",
       "contactMailAddress": "ئیمەیل بۆ پرسیارەکان",
       "optionalInfo": "دڵخواز"
+    },
+    "cs": {
+      "disclaimer": "Kontakt a impresum",
+      "send": "Odeslat",
+      "failedSendingFeedback": "Při odesílání zpětné vazby došlo k chybě.",
+      "feedback": "Zpětná vazba",
+      "positiveComment": "Co bylo užitečné?",
+      "negativeComment": "Co můžeme udělat lépe?",
+      "isThisSiteUseful": "Je tato stránka užitečná?",
+      "useful": "Užitečné",
+      "notUseful": "Neužitečné",
+      "informationNotFound": "Nenašli jste, co jste hledali?",
+      "wantedInformation": "Jaké informace zde chybí?",
+      "feedbackSent": "Zpětná vazba byla odeslána",
+      "thanksMessage": "Děkujeme za vaši zpětnou vazbu. Pomůže nám to zlepšit náš obsah a aplikaci {{appName}}. Budeme rádi za další zpětnou vazbu.",
+      "close": "Zavřít",
+      "negativeRating": "Tato stránka není užitečná",
+      "positiveRating": "Tato stránka je užitečná",
+      "contactMailAddress": "E-mail pro dotazy",
+      "optionalInfo": "volitelné"
     },
     "el": {
       "disclaimer": "Στοιχεία έκδοσης και επικοινωνία",
@@ -2770,6 +2936,26 @@
       "contactMailAddress": "د پوښتنو لپاره بریښنالیک",
       "optionalInfo": "اختیاري"
     },
+    "pt": {
+      "disclaimer": "Contacto y pie de imprenta",
+      "send": "Enviar",
+      "failedSendingFeedback": "Se ha producido un error al enviar la valoración.",
+      "feedback": "Valoración",
+      "positiveComment": "¿Qué ha sido útil?",
+      "negativeComment": "¿Qué podríamos mejorar?",
+      "isThisSiteUseful": "¿Esta página es útil?",
+      "useful": "Es útil",
+      "notUseful": "No es útil",
+      "informationNotFound": "¿No ha encontrado lo que buscaba?",
+      "wantedInformation": "¿Qué información falta aquí?",
+      "feedbackSent": "Valoración enviada",
+      "thanksMessage": "Muchas gracias por su valoración. Con ella nos ayuda a mejorar nuestros contenidos y la aplicación {{appName}}. Esperamos volver a conocer su opinión.",
+      "close": "Cerrar",
+      "negativeRating": "Esta página no es útil",
+      "positiveRating": "Esta página es útil",
+      "contactMailAddress": "Correo electrónico para dudas",
+      "optionalInfo": "Opcional"
+    },
     "ro": {
       "disclaimer": "Contact și caseta tehnică",
       "send": "Trimiteți",
@@ -3057,6 +3243,19 @@
       "skip": "بازدان",
       "next": "بەردەوامی"
     },
+    "cs": {
+      "appDescription": "{{appName}]} je váš digitální průvodce po Německu",
+      "search": "Vyhledávání",
+      "searchDescription": "Rychlé vyhledání správných informací pomocí klíčových slov",
+      "languageChange": "Změna jazyka",
+      "languageChangeDescription": "Snadná změna jazyka jednotlivých stránek",
+      "events": "Akce",
+      "eventsDescription": "Aktuální akce a termíny v okolí",
+      "offers": "Nabídky",
+      "offersDescription": "Hledání práce, stáží a dalšího v okolí",
+      "skip": "Přeskočit",
+      "next": "Další"
+    },
     "el": {
       "appDescription": "Το {{appName}} είναι ο ψηφιακός οδηγός σας για τη Γερμανία",
       "search": "Αναζήτηση",
@@ -3264,6 +3463,19 @@
       "offersDescription": "دې شاوخوا کې د کار لټون، د انټرن شپ لټون او نور",
       "skip": "اووښتل یعنی ورتیریدل",
       "next": "مخته"
+    },
+    "pt": {
+      "appDescription": "{{appName}} es su guía digital para Alemania",
+      "search": "Búsqueda",
+      "searchDescription": "Buscar la información adecuada mediante palabras clave",
+      "languageChange": "Cambio de idioma",
+      "languageChangeDescription": "Cambio sencillo del idioma en páginas individuales",
+      "events": "Eventos",
+      "eventsDescription": "Eventos actuales y fechas señaladas en el entorno",
+      "offers": "Ofertas",
+      "offersDescription": "Búsqueda de empleo, búsqueda de prácticas y más en el entorno",
+      "skip": "Omitir",
+      "next": "Siguiente"
     },
     "ro": {
       "appDescription": "{{appName}} constituie ghidul dvs. digital pentru Germania",
@@ -3494,6 +3706,23 @@
       "metaDescription": "{{appName}} ڕێنمایی دیجیتاڵی تۆ بۆ ئەلمانیایە. زانیارییە خۆجێیەکان، ڕووداوەکان و ڕاوێژکاری بدۆزەوە. هەمیشە بەڕۆژ و بە زمانی خۆت.",
       "cityNotFound": "ناوچەکەت نەدۆزرایەوە؟",
       "clickHere": "لێرە کرتە بکە"
+    },
+    "cs": {
+      "searchCity": "Vyhledávání",
+      "noCitiesFound": "Žádné výsledky",
+      "nearbyCities": "Poblíž",
+      "noNearbyCities": "V okolí nebyly nalezeny žádné regiony.",
+      "alert": "Upozornění",
+      "locationError": "Chcete-li zobrazit okolní regiony, musí být povolena lokalizace.",
+      "noPermission": "Požadovaný přístup k lokalizaci",
+      "loading": "Lokalizuji…",
+      "notAvailable": "Vypnuté služby lokalizace",
+      "timeout": "Lokalizace se nezdařila",
+      "refresh": "Aktualizace seznamu okolních regionů",
+      "pageTitle": "Regiony",
+      "metaDescription": "{{appName}} je váš digitální průvodce po Německu. Najděte místní informace, akce a rady. Vždy aktuální a ve vašem jazyce.",
+      "cityNotFound": "Váš region nebyl nalezen?",
+      "clickHere": "Klikněte zde"
     },
     "el": {
       "searchCity": "Αναζήτηση",
@@ -3766,6 +3995,23 @@
       "metaDescription": "{{appName}} آلمان لپاره ستاسو ډیجیټال لارښود دی. په دې کې تاسو سیمه ییز معلومات،  دہ غونډو او مشورو معلومات موندلی شئ. همېشه تازه معلومات ستاسو په ژبه کې.",
       "cityNotFound": "آیا ستاسو سیمہ او نہ موندلے شوہ؟",
       "clickHere": "دلتہ کلک کړئ"
+    },
+    "pt": {
+      "searchCity": "Búsqueda",
+      "noCitiesFound": "Ningún resultado",
+      "nearbyCities": "En los alrededores",
+      "noNearbyCities": "No se ha encontrado ninguna región en los alrededores.",
+      "alert": "Aviso",
+      "locationError": "Para poder mostrar regiones en los alrededores, deben activarse los servicios de localización.",
+      "noPermission": "Es necesario acceder a la ubicación",
+      "loading": "Determinar la ubicación...",
+      "notAvailable": "Detección de la ubicación desactivada",
+      "timeout": "Detección de la ubicación fallida",
+      "refresh": "Actualizar la lista de las regiones próximas",
+      "pageTitle": "Regiones",
+      "metaDescription": "{{appName}} es su guía digital para Alemania. Buscar información, eventos y asesoramiento en la zona. Siempre actualizada y en su idioma.",
+      "cityNotFound": "¿No has encontrado tu región?",
+      "clickHere": "Haz clic aquí"
     },
     "ro": {
       "searchCity": "Căutare",
@@ -4060,6 +4306,27 @@
       "shareMessage": "ئێستا نەدۆزراوە: {{message}}",
       "shareFailDefaultMessage": "بەداخەوە هاوبەشکردنی انوەرۆک ئەنجام نەدرا.",
       "disclaimer": "زانیارییەکانی ناوەندی بڵاوکەرەوە"
+    },
+    "cs": {
+      "imprintAndContact": "Impresum a kontakt",
+      "privacy": "Ochrana údajů",
+      "offers": "Nabídky",
+      "localInformation": "Lokální informace",
+      "events": "Akce",
+      "noEvents": "Žádné akce",
+      "news": "Zprávy",
+      "noLanguages": "Není k dispozici v jiných jazycích",
+      "noTranslation": "Žádný překlad není k dispozici",
+      "search": "Vyhledávání",
+      "pois": "Mapa",
+      "changeLocation": "Zmit lokalitu",
+      "changeLanguage": "Změnit jazyk",
+      "settings": "Nastavení",
+      "share": "Sdílet",
+      "cancel": "Zrušit",
+      "shareMessage": "Právě nalezeno: {{message}}",
+      "shareFailDefaultMessage": "Je nám líto, sdílení obsahu se nezdařilo.",
+      "disclaimer": "Impresum"
     },
     "el": {
       "imprintAndContact": "Στοιχεία έκδοσης και επικοινωνία",
@@ -4397,6 +4664,27 @@
       "shareFailDefaultMessage": "د منځپانګو شریکول له بده مرغه ناکام شول.",
       "disclaimer": "چاپ کؤنکی"
     },
+    "pt": {
+      "imprintAndContact": "Pie de imprenta y contacto",
+      "privacy": "Protección de datos",
+      "offers": "Ofertas",
+      "localInformation": "Información de la zona",
+      "events": "Eventos",
+      "noEvents": "Ningún evento",
+      "news": "Noticias",
+      "noLanguages": "No disponible en otros idiomas",
+      "noTranslation": "No hay disponible ninguna traducción",
+      "search": "Buscar",
+      "pois": "Mapa",
+      "changeLocation": "Cambiar la ubicación",
+      "changeLanguage": "Cambiar el idioma",
+      "settings": "Ajustes",
+      "share": "Compartir",
+      "cancel": "Cancelar",
+      "shareMessage": "Recién encontrado: {{message}}",
+      "shareFailDefaultMessage": "No se ha podido compartir el contenido.",
+      "disclaimer": "Pie de imprenta"
+    },
     "ro": {
       "imprintAndContact": "Caseta tehnică și contact",
       "privacy": "Confidențialitate",
@@ -4655,6 +4943,11 @@
       "license": "مۆڵەت:",
       "noLicensesMessage": "زانیاری مۆڵەت بەردەست نیە"
     },
+    "cs": {
+      "version": "Verze:",
+      "license": "Licence:",
+      "noLicensesMessage": "Informace o licenci nejsou k dispozici"
+    },
     "el": {
       "version": "Έκδοση:",
       "license": "Άδεια:",
@@ -4735,6 +5028,11 @@
       "license": "جواز:",
       "noLicensesMessage": "د جواز معلومات شتون نلري"
     },
+    "pt": {
+      "version": "Versión:",
+      "license": "Licencia:",
+      "noLicensesMessage": "No hay disponible ninguna información sobre la licencia"
+    },
     "ro": {
       "version": "Versiuni:",
       "license": "Licență:",
@@ -4807,6 +5105,9 @@
     "ckb": {
       "pageTitle": "زانیارییەکانی ناوەندی بڵاوکەرەوە و زانیارییەکانی پەیوەندی - {{appName}}"
     },
+    "cs": {
+      "pageTitle": "Impresum a kontakt - {{appName}}"
+    },
     "el": {
       "pageTitle": "Στοιχεία έκδοσης και επικοινωνία"
     },
@@ -4855,6 +5156,9 @@
     "ps": {
       "pageTitle": "چاپ کؤونکی او ا ړیکہ - {{appName}}"
     },
+    "pt": {
+      "pageTitle": "Pie de imprenta y contacto - {{appName}}"
+    },
     "ro": {
       "pageTitle": "Caseta tehnică și contact - {{appName}}"
     },
@@ -4892,131 +5196,173 @@
   "native": {
     "de": {
       "NSPhotoLibraryAddUsageDescription": "Um Bilder zu speichern, benötigt {{appName}} Zugriff auf die Galerie.",
-      "NSLocationWhenInUseUsageDescription": "Um nahegelegene Orte zu finden, benötigt {{appName}} Zugriff auf den Standort."
+      "NSLocationWhenInUseUsageDescription": "Um nahegelegene Orte zu finden, benötigt {{appName}} Zugriff auf den Standort.",
+      "NSLocationAlwaysAndWhenInUseUsageDescription": "Um nahegelegene Orte zu finden, benötigt {{appName}} Zugriff auf den Standort."
     },
     "am": {
       "NSPhotoLibraryAddUsageDescription": "ምስሎችን ሴቭ ለማድረግ የ{{appName}} የምስል ማስቀመጫን ያግኙ።",
-      "NSLocationWhenInUseUsageDescription": "የቅርብ ቦታዎችን ለመፈለግ የ{{appName}} ቦታን ያግኙ።"
+      "NSLocationWhenInUseUsageDescription": "የቅርብ ቦታዎችን ለመፈለግ የ{{appName}} ቦታን ያግኙ።",
+      "NSLocationAlwaysAndWhenInUseUsageDescription": "የቅርብ ቦታዎችን ለመፈለግ የ{{appName}} ቦታን ያግኙ።"
     },
     "ar": {
       "NSPhotoLibraryAddUsageDescription": "يحتاج تطبيق {{appName}} إذن بالوصول إلى المعرض لحفظ الصورة.",
-      "NSLocationWhenInUseUsageDescription": "يحتاج تطبيق {{appName}} إذن بالوصول إلى الموقع للعثور على الأماكن القريبة."
+      "NSLocationWhenInUseUsageDescription": "يحتاج تطبيق {{appName}} إذن بالوصول إلى الموقع للعثور على الأماكن القريبة.",
+      "NSLocationAlwaysAndWhenInUseUsageDescription": "يحتاج تطبيق {{appName}} إذن بالوصول إلى الموقع للعثور على الأماكن القريبة."
     },
     "bg": {
       "NSPhotoLibraryAddUsageDescription": "За запазване на изображения, {{appName}} се нуждае от достъп до галерията.",
-      "NSLocationWhenInUseUsageDescription": "За да намери местоположения наблизо, {{appName}} се нуждае от достъп до местоположението."
+      "NSLocationWhenInUseUsageDescription": "За да намери местоположения наблизо, {{appName}} се нуждае от достъп до местоположението.",
+      "NSLocationAlwaysAndWhenInUseUsageDescription": "За да намери местоположения наблизо, {{appName}} се нуждае от достъп до местоположението."
     },
     "ckb": {
       "NSPhotoLibraryAddUsageDescription": "بۆ پاشەکەوتی وێنەکان، {{appName}} پێویستی بە دەستڕاگەیشتن بە گەلەری هەیە.",
-      "NSLocationWhenInUseUsageDescription": "بۆ دۆزینەوەی شوێنە نزیکەکان، {{appName}} پێویستی بە دەستڕاگەیشتن بە شوێن هەیە."
+      "NSLocationWhenInUseUsageDescription": "بۆ دۆزینەوەی شوێنە نزیکەکان، {{appName}} پێویستی بە دەستڕاگەیشتن بە شوێن هەیە.",
+      "NSLocationAlwaysAndWhenInUseUsageDescription": "بۆ دۆزینەوەی شوێنە نزیکەکان، {{appName}} پێویستی بە دەستڕاگەیشتن بە شوێن هەیە."
+    },
+    "cs": {
+      "NSPhotoLibraryAddUsageDescription": "Pro uložení obrázků vyžaduje {{appName}} přístup do galerie.",
+      "NSLocationWhenInUseUsageDescription": "K vyhledání míst v okolí potřebuje aplikace {{appName}} přístup k poloze.",
+      "NSLocationAlwaysAndWhenInUseUsageDescription": "K vyhledání míst v okolí potřebuje aplikace {{appName}} přístup k poloze."
     },
     "el": {
       "NSPhotoLibraryAddUsageDescription": "Για την αποθήκευση εικόνων, είναι απαραίτητη η πρόσβαση του {{appName}} στη συλλογή.",
-      "NSLocationWhenInUseUsageDescription": "Για την εύρεση κοντινών τοποθεσιών, είναι απαραίτητη η πρόσβαση του {{appName}} στην τοποθεσία."
+      "NSLocationWhenInUseUsageDescription": "Για την εύρεση κοντινών τοποθεσιών, είναι απαραίτητη η πρόσβαση του {{appName}} στην τοποθεσία.",
+      "NSLocationAlwaysAndWhenInUseUsageDescription": "Για την εύρεση κοντινών τοποθεσιών, είναι απαραίτητη η πρόσβαση του {{appName}} στην τοποθεσία."
     },
     "en": {
       "NSPhotoLibraryAddUsageDescription": "{{appName}} wants to save photos to your library.",
-      "NSLocationWhenInUseUsageDescription": "{{appName}} wants to use your location to find nearby cities."
+      "NSLocationWhenInUseUsageDescription": "{{appName}} wants to use your location to find nearby cities.",
+      "NSLocationAlwaysAndWhenInUseUsageDescription": "{{appName}} wants to use your location to find nearby cities."
     },
     "es": {
       "NSPhotoLibraryAddUsageDescription": "Para guardar imágenes, {{appName}} necesita un acceso a la galería.",
-      "NSLocationWhenInUseUsageDescription": "Para encontrar ubicaciones cercanas, {{appName}} necesita acceder a la ubicación."
+      "NSLocationWhenInUseUsageDescription": "Para encontrar ubicaciones cercanas, {{appName}} necesita acceder a la ubicación.",
+      "NSLocationAlwaysAndWhenInUseUsageDescription": "Para encontrar ubicaciones cercanas, {{appName}} necesita acceder a la ubicación."
     },
     "fi": {
       "NSPhotoLibraryAddUsageDescription": "Salli {{appName}}-sovellukselle pääsy galleriaan voidaksesi tallentaa kuvia.",
-      "NSLocationWhenInUseUsageDescription": "Salli {{appName}}-sovellukselle pääsy sijaintitietoihin etsiäksesi lähellä sijaitsevia paikkoja."
+      "NSLocationWhenInUseUsageDescription": "Salli {{appName}}-sovellukselle pääsy sijaintitietoihin etsiäksesi lähellä sijaitsevia paikkoja.",
+      "NSLocationAlwaysAndWhenInUseUsageDescription": "Salli {{appName}}-sovellukselle pääsy sijaintitietoihin etsiäksesi lähellä sijaitsevia paikkoja."
     },
     "fr": {
       "NSPhotoLibraryAddUsageDescription": "Pour enregistrer des photos, {{appName}} doit accéder à la galerie.",
-      "NSLocationWhenInUseUsageDescription": "Pour trouver des lieux situés à proximité,  {{appName}} a besoin d’un accès au site."
+      "NSLocationWhenInUseUsageDescription": "Pour trouver des lieux situés à proximité,  {{appName}} a besoin d’un accès au site.",
+      "NSLocationAlwaysAndWhenInUseUsageDescription": "Pour trouver des lieux situés à proximité,  {{appName}} a besoin d’un accès au site."
     },
     "hr": {
       "NSPhotoLibraryAddUsageDescription": "Za pohranjivanje slika {{appName}} mora imati pristup galeriji.",
-      "NSLocationWhenInUseUsageDescription": "Da bi mogla pronaći obližnja mjesta, aplikacija {{appName}} mora imati omogućen pristup lokaciji."
+      "NSLocationWhenInUseUsageDescription": "Da bi mogla pronaći obližnja mjesta, aplikacija {{appName}} mora imati omogućen pristup lokaciji.",
+      "NSLocationAlwaysAndWhenInUseUsageDescription": "Da bi mogla pronaći obližnja mjesta, aplikacija {{appName}} mora imati omogućen pristup lokaciji."
     },
     "hu": {
       "NSPhotoLibraryAddUsageDescription": "A képek mentéséhez a(z) {{appName}} alkalmazásnak hozzáférésre van szüksége a galériához.",
-      "NSLocationWhenInUseUsageDescription": "A közeli helyek megtalálásához az {{appName}} alkalmazásnak hozzáférésre van szüksége a helyhez."
+      "NSLocationWhenInUseUsageDescription": "A közeli helyek megtalálásához az {{appName}} alkalmazásnak hozzáférésre van szüksége a helyhez.",
+      "NSLocationAlwaysAndWhenInUseUsageDescription": "A közeli helyek megtalálásához az {{appName}} alkalmazásnak hozzáférésre van szüksége a helyhez."
     },
     "it": {
       "NSPhotoLibraryAddUsageDescription": "Per salvare le immagini, {{appName}} deve poter accedere alla galleria.",
-      "NSLocationWhenInUseUsageDescription": "Per trovare luoghi nelle vicinanze, {{appName}} deve poter accedere alla posizione."
+      "NSLocationWhenInUseUsageDescription": "Per trovare luoghi nelle vicinanze, {{appName}} deve poter accedere alla posizione.",
+      "NSLocationAlwaysAndWhenInUseUsageDescription": "Per trovare luoghi nelle vicinanze, {{appName}} deve poter accedere alla posizione."
     },
     "ka": {
       "NSPhotoLibraryAddUsageDescription": "სურათების შესანახავად საჭიროა {{appName}} წვდომა გალერეაზე.",
-      "NSLocationWhenInUseUsageDescription": "ახლომდებარე ადგილების საპოვნად, საჭიროა {{appName}} წვდომა ქონდეს მდებარეობის ადგილზე"
+      "NSLocationWhenInUseUsageDescription": "ახლომდებარე ადგილების საპოვნად, საჭიროა {{appName}} წვდომა ქონდეს მდებარეობის ადგილზე",
+      "NSLocationAlwaysAndWhenInUseUsageDescription": "ახლომდებარე ადგილების საპოვნად, საჭიროა {{appName}} წვდომა ქონდეს მდებარეობის ადგილზე"
     },
     "kmr": {
       "NSPhotoLibraryAddUsageDescription": "Jibo zexîrekirin anku xwedankirina wêneyan, {{appName}} hewcetî bi têketina nav galeriyê heye.",
-      "NSLocationWhenInUseUsageDescription": "Ji bo ku hûn deverên nêzîk bibînin, {{appName}} hewcetî bi destgihiştina mekanê heye."
+      "NSLocationWhenInUseUsageDescription": "Ji bo ku hûn deverên nêzîk bibînin, {{appName}} hewcetî bi destgihiştina mekanê heye.",
+      "NSLocationAlwaysAndWhenInUseUsageDescription": "Ji bo ku hûn deverên nêzîk bibînin, {{appName}} hewcetî bi destgihiştina mekanê heye."
     },
     "mk": {
       "NSPhotoLibraryAddUsageDescription": "За да зачувате слики, потребно е да влезете во {{appName}} во галеријата.",
-      "NSLocationWhenInUseUsageDescription": "За да пронајдете локации во близина, потребно е да влезете во {{appName}} во локацијата."
+      "NSLocationWhenInUseUsageDescription": "За да пронајдете локации во близина, потребно е да влезете во {{appName}} во локацијата.",
+      "NSLocationAlwaysAndWhenInUseUsageDescription": "За да пронајдете локации во близина, потребно е да влезете во {{appName}} во локацијата."
     },
     "nl": {
       "NSPhotoLibraryAddUsageDescription": "{{appName}} wil de foto's opslaan in jouw bibliotheek.",
-      "NSLocationWhenInUseUsageDescription": "{{appName}} wil jouw locatie gebruiken om steden in de buurt te vinden."
+      "NSLocationWhenInUseUsageDescription": "{{appName}} wil jouw locatie gebruiken om steden in de buurt te vinden.",
+      "NSLocationAlwaysAndWhenInUseUsageDescription": "{{appName}} wil jouw locatie gebruiken om steden in de buurt te vinden."
     },
     "pes": {
       "NSPhotoLibraryAddUsageDescription": "برای ذخیره تصاویر، {{appName}} نیاز به دسترسی به گالری دارد.",
-      "NSLocationWhenInUseUsageDescription": "برای یافتن مکان‌های مجاور، {{appName} نیاز به دسترسی به موقعیت مکانی دارد."
+      "NSLocationWhenInUseUsageDescription": "برای یافتن مکان‌های مجاور، {{appName} نیاز به دسترسی به موقعیت مکانی دارد.",
+      "NSLocationAlwaysAndWhenInUseUsageDescription": "برای یافتن مکان‌های مجاور، {{appName} نیاز به دسترسی به موقعیت مکانی دارد."
     },
     "pl": {
       "NSPhotoLibraryAddUsageDescription": "Aby zapisać obrazy, {{appName}} potrzebuje dostępu do galerii.",
-      "NSLocationWhenInUseUsageDescription": "Aby znaleźć lokalizacje w pobliżu, {{appName}} wymaga dostępu do placówki."
+      "NSLocationWhenInUseUsageDescription": "Aby znaleźć lokalizacje w pobliżu, {{appName}} wymaga dostępu do placówki.",
+      "NSLocationAlwaysAndWhenInUseUsageDescription": "Aby znaleźć lokalizacje w pobliżu, {{appName}} wymaga dostępu do placówki."
     },
     "prs": {
       "NSPhotoLibraryAddUsageDescription": "برای ذخیره عکس ها، {{appName}} به دسترسی گالری ضرورت دارد.",
-      "NSLocationWhenInUseUsageDescription": "برای یافتن مکان های نزدیک، {{appName}} به دسترسی مکان ضرورت دارد."
+      "NSLocationWhenInUseUsageDescription": "برای یافتن مکان های نزدیک، {{appName}} به دسترسی مکان ضرورت دارد.",
+      "NSLocationAlwaysAndWhenInUseUsageDescription": "برای یافتن مکان های نزدیک، {{appName}} به دسترسی مکان ضرورت دارد."
     },
     "ps": {
       "NSPhotoLibraryAddUsageDescription": "د انځورونو خوندي کولو لپاره {{appName}} انځورتون ته لاسرسي ته اړتیا لري.",
-      "NSLocationWhenInUseUsageDescription": "د نږدې ځایونو پیدا کولو لپاره {{appName}} موقعیت ته لاسرسي ته اړتیا لري."
+      "NSLocationWhenInUseUsageDescription": "د نږدې ځایونو پیدا کولو لپاره {{appName}} موقعیت ته لاسرسي ته اړتیا لري.",
+      "NSLocationAlwaysAndWhenInUseUsageDescription": "د نږدې ځایونو پیدا کولو لپاره {{appName}} موقعیت ته لاسرسي ته اړتیا لري."
+    },
+    "pt": {
+      "NSPhotoLibraryAddUsageDescription": "Para guardar las imágenes, {{appName}} necesita acceder a la galería.",
+      "NSLocationWhenInUseUsageDescription": "Para encontrar lugares próximos, {{appName}} necesita acceder a la ubicación.",
+      "NSLocationAlwaysAndWhenInUseUsageDescription": "Para encontrar lugares próximos, {{appName}} necesita acceder a la ubicación."
     },
     "ro": {
       "NSPhotoLibraryAddUsageDescription": "Pentru a stoca imagini, {{appName}} are nevoie de acces la galerie.",
-      "NSLocationWhenInUseUsageDescription": "Pentru a putea găsi locații aflate în apropiere, {{appName}} are nevoie de acces la locația dvs."
+      "NSLocationWhenInUseUsageDescription": "Pentru a putea găsi locații aflate în apropiere, {{appName}} are nevoie de acces la locația dvs.",
+      "NSLocationAlwaysAndWhenInUseUsageDescription": "Pentru a putea găsi locații aflate în apropiere, {{appName}} are nevoie de acces la locația dvs."
     },
     "ru": {
       "NSPhotoLibraryAddUsageDescription": "Чтобы сохранить снимки, приложению {{appName}} требуется доступ к галерее изображений.",
-      "NSLocationWhenInUseUsageDescription": "Чтобы найти близлежащие населенные пункты, приложению {{appName}} требуется доступ к данным о вашем местоположении."
+      "NSLocationWhenInUseUsageDescription": "Чтобы найти близлежащие населенные пункты, приложению {{appName}} требуется доступ к данным о вашем местоположении.",
+      "NSLocationAlwaysAndWhenInUseUsageDescription": "Чтобы найти близлежащие населенные пункты, приложению {{appName}} требуется доступ к данным о вашем местоположении."
     },
     "so": {
       "NSPhotoLibraryAddUsageDescription": "Si loo keydiyo sawirada, {{appName}} waxay u baahan tahay inay marin u hesho keydka sawirada.",
-      "NSLocationWhenInUseUsageDescription": "Si loo helo meelaha kuugu dhow, {{appName}} wuxuu u baahan yahay inuu marin u helo goobta."
+      "NSLocationWhenInUseUsageDescription": "Si loo helo meelaha kuugu dhow, {{appName}} wuxuu u baahan yahay inuu marin u helo goobta.",
+      "NSLocationAlwaysAndWhenInUseUsageDescription": "Si loo helo meelaha kuugu dhow, {{appName}} wuxuu u baahan yahay inuu marin u helo goobta."
     },
     "sq": {
       "NSPhotoLibraryAddUsageDescription": "Për të ruajtur fotografi, {{appName}} ka nevojë për qasje në galeri.",
-      "NSLocationWhenInUseUsageDescription": "Për të gjetur vende në afërsi, {{appName}} ka nevojë për qasje në vendndodhje."
+      "NSLocationWhenInUseUsageDescription": "Për të gjetur vende në afërsi, {{appName}} ka nevojë për qasje në vendndodhje.",
+      "NSLocationAlwaysAndWhenInUseUsageDescription": "Për të gjetur vende në afërsi, {{appName}} ka nevojë për qasje në vendndodhje."
     },
     "sr-Cyrl": {
       "NSPhotoLibraryAddUsageDescription": "Да би се сачувале слике, {{appName}} захтева приступ галерији.",
-      "NSLocationWhenInUseUsageDescription": "Ради проналажења оближњих места, {{appName}} захтева приступ локацији."
+      "NSLocationWhenInUseUsageDescription": "Ради проналажења оближњих места, {{appName}} захтева приступ локацији.",
+      "NSLocationAlwaysAndWhenInUseUsageDescription": "Ради проналажења оближњих места, {{appName}} захтева приступ локацији."
     },
     "sr-Latn": {
       "NSPhotoLibraryAddUsageDescription": "Da bi se sačuvale slike, {{appName}} zahteva pristup galeriji.",
-      "NSLocationWhenInUseUsageDescription": "Radi pronalaženja obližnjih mesta, {{appName}} zahteva pristup lokaciji."
+      "NSLocationWhenInUseUsageDescription": "Radi pronalaženja obližnjih mesta, {{appName}} zahteva pristup lokaciji.",
+      "NSLocationAlwaysAndWhenInUseUsageDescription": "Radi pronalaženja obližnjih mesta, {{appName}} zahteva pristup lokaciji."
     },
     "ti": {
       "NSPhotoLibraryAddUsageDescription": "ስእልታት ንምዕቃብ፡ {{appName}} ናብቲ ጋለሪ/መኽዘን ስእሊ ናይ ምእታው ፍቓድ የድልዮ።",
-      "NSLocationWhenInUseUsageDescription": "ኣብ ጥቓኹም ዘለዉ ቦታታት ንምርካብ፡ {{appName}} ናብቲ ቦታ ናይ ምእታው ዕድል ክውሃቦ ይደሊ።"
+      "NSLocationWhenInUseUsageDescription": "ኣብ ጥቓኹም ዘለዉ ቦታታት ንምርካብ፡ {{appName}} ናብቲ ቦታ ናይ ምእታው ዕድል ክውሃቦ ይደሊ።",
+      "NSLocationAlwaysAndWhenInUseUsageDescription": "ኣብ ጥቓኹም ዘለዉ ቦታታት ንምርካብ፡ {{appName}} ናብቲ ቦታ ናይ ምእታው ዕድል ክውሃቦ ይደሊ።"
     },
     "tr": {
       "NSPhotoLibraryAddUsageDescription": "Resimleri kaydedebilmek için {{appName}}'in galeriye erişimi gerekmektedir.",
-      "NSLocationWhenInUseUsageDescription": "Yakınlardaki konumu bulmak için {{appName}}'in konuma erişmesi gerekmektedir."
+      "NSLocationWhenInUseUsageDescription": "Yakınlardaki konumu bulmak için {{appName}}'in konuma erişmesi gerekmektedir.",
+      "NSLocationAlwaysAndWhenInUseUsageDescription": "Yakınlardaki konumu bulmak için {{appName}}'in konuma erişmesi gerekmektedir."
     },
     "uk": {
       "NSPhotoLibraryAddUsageDescription": "Щоб зберегти зображення, {{appName}} потрібний доступ до галереї.",
-      "NSLocationWhenInUseUsageDescription": "Щоб знайти сусідні населені пункти, {{appName}} потрібен доступ до розташування."
+      "NSLocationWhenInUseUsageDescription": "Щоб знайти сусідні населені пункти, {{appName}} потрібен доступ до розташування.",
+      "NSLocationAlwaysAndWhenInUseUsageDescription": "Щоб знайти сусідні населені пункти, {{appName}} потрібен доступ до розташування."
     },
     "ur": {
       "NSPhotoLibraryAddUsageDescription": "تصاویر محفوظ کرنے کے لئے ‎{{appName}}‎ کو گیلری تک رسائی درکار ہے۔",
-      "NSLocationWhenInUseUsageDescription": "قریبی مقامات تلاش کرنے کے لئے ‎{{appName}}‎ کو  لوکیشن سروس تک رسائی درکار ہے۔"
+      "NSLocationWhenInUseUsageDescription": "قریبی مقامات تلاش کرنے کے لئے ‎{{appName}}‎ کو  لوکیشن سروس تک رسائی درکار ہے۔",
+      "NSLocationAlwaysAndWhenInUseUsageDescription": "قریبی مقامات تلاش کرنے کے لئے ‎{{appName}}‎ کو  لوکیشن سروس تک رسائی درکار ہے۔"
     },
     "zh-CN": {
       "NSPhotoLibraryAddUsageDescription": "要保存图片，{{appName}}需要图库访问权限。",
-      "NSLocationWhenInUseUsageDescription": "要查找附近的位置，{{appName}}需要位置访问权限。"
+      "NSLocationWhenInUseUsageDescription": "要查找附近的位置，{{appName}}需要位置访问权限。",
+      "NSLocationAlwaysAndWhenInUseUsageDescription": "要查找附近的位置，{{appName}}需要位置访问权限。"
     }
   },
   "news": {
@@ -5069,6 +5415,16 @@
       "local": "خۆجێی",
       "readMore": "درێژەی خوێندنەوە",
       "currentlyNoNews": "لەئێستادا هیچ هەواڵێکی تێدا نییە."
+    },
+    "cs": {
+      "news": "Zprávy",
+      "localNews": {
+        "localNews": "Lokální zprávy",
+        "pageTitle": "Lokální zprávy"
+      },
+      "local": "Lokální",
+      "readMore": "Přečtěte si více",
+      "currentlyNoNews": "V tuto chvíli nejsou žádné novinky."
     },
     "el": {
       "news": "Ειδήσεις",
@@ -5230,6 +5586,16 @@
       "readMore": "مخته لوستل",
       "currentlyNoNews": "دا مهال کوم خبرونه نشته."
     },
+    "pt": {
+      "news": "Noticias",
+      "localNews": {
+        "localNews": "Noticias de la zona",
+        "pageTitle": "Noticias de la zona"
+      },
+      "local": "Local",
+      "readMore": "Seguir leyendo",
+      "currentlyNoNews": "En estos momentos no hay noticias."
+    },
     "ro": {
       "news": "Știri",
       "localNews": {
@@ -5367,6 +5733,11 @@
       "pageTitle": "پێشنیارەکان",
       "wohnraum": "جەوی ژیان"
     },
+    "cs": {
+      "offers": "Nabídky",
+      "pageTitle": "Nabídky",
+      "wohnraum": "Obytný prostor"
+    },
     "el": {
       "offers": "Προσφορές",
       "pageTitle": "Προσφορές",
@@ -5446,6 +5817,11 @@
       "offers": "وړاندیزونه",
       "pageTitle": "وړاندیزونه",
       "wohnraum": "د اوسیدلو کوټہ"
+    },
+    "pt": {
+      "offers": "Ofertas",
+      "pageTitle": "Ofertas",
+      "wohnraum": "Habitaciones"
     },
     "ro": {
       "offers": "Oferte",
@@ -5539,7 +5915,14 @@
       "openingHoursAllDay": "ganztägig",
       "openingHoursOpened": "geöffnet",
       "openingHoursClosed": "geschlossen",
-      "openingHoursTemporarilyClosed": "Vorübergehend geschlossen"
+      "openingHoursTemporarilyClosed": "Vorübergehend geschlossen",
+      "montag": "Montag",
+      "dienstag": "Dienstag",
+      "mittwoch": "Mittwoch",
+      "donnerstag": "Donnerstag",
+      "freitag": "Freitag",
+      "samstag": "Samstag",
+      "sonntag": "Sonntag"
     },
     "am": {
       "pageTitle": "ካርታ",
@@ -5673,6 +6056,50 @@
       "detailsPreviousPoi": "پێشوو",
       "openExternalMaps": "کردنەوە لە ئەپی نەخشە"
     },
+    "cs": {
+      "pageTitle": "Mapa",
+      "poi": "Místo",
+      "pois": "Místa",
+      "map": "Mapa",
+      "showOnMap": "Zobrazit na mapě",
+      "noPois": "Nebyla nalezena žádná místa.",
+      "unitKilometre": "km",
+      "unitMetre": "m",
+      "distanceKilometre": "vzdálenost{{distance}} km",
+      "distanceKilometreAlternative": "{{distance}} km",
+      "distanceMetre": "vzdáleno {{distance}} m",
+      "distanceMetreAlternative": "{{distance}} m",
+      "contactInformation": "Kontaktní údaje",
+      "address": "Adresa",
+      "phone": "Telefonnní číslo",
+      "eMail": "E-mail",
+      "website": "Webové stránky",
+      "openingHours": "Otevírací doba",
+      "description": "Popis",
+      "addressCopied": "Adresa byla zkopírovaná do schránky",
+      "phoneCopied": "Telefonní číslo bylo zkopírované do schránky",
+      "eMailCopied": "E-mailová adresa byla zkopírovaná do schránky",
+      "websiteCopied": "Webová stránka byla zkopírovaná do schránky",
+      "listTitle": "Ve vašem okolí",
+      "detailsHeader": "Zpět na přehled",
+      "detailsAddress": "Popis trasy",
+      "detailsMapLink": "Otevřít v Google Maps",
+      "detailsInformation": "Informace",
+      "detailsNextPoi": "další",
+      "detailsPreviousPoi": "předchozí",
+      "openExternalMaps": "Otevření v aplikaci Mapy",
+      "openingHoursAllDay": "celý den",
+      "openingHoursOpened": "otevřeno",
+      "openingHoursClosed": "zavřeno",
+      "openingHoursTemporarilyClosed": "dočasně uzavřeno",
+      "montag": "pondělí",
+      "dienstag": "úterý",
+      "mittwoch": "středa",
+      "donnerstag": "čtvrtek",
+      "freitag": "pátek",
+      "samstag": "sobota",
+      "sonntag": "neděle"
+    },
     "el": {
       "pageTitle": "Χάρτης",
       "poi": "Τοποθεσία",
@@ -5741,7 +6168,14 @@
       "openingHoursAllDay": "all day",
       "openingHoursOpened": "open",
       "openingHoursClosed": "closed",
-      "openingHoursTemporarilyClosed": "temporarily closed"
+      "openingHoursTemporarilyClosed": "temporarily closed",
+      "montag": "Monday",
+      "dienstag": "Tuesday",
+      "mittwoch": "Wednesday",
+      "donnerstag": "Thursday",
+      "freitag": "Friday",
+      "samstag": "Saturday",
+      "sonntag": "Sunday"
     },
     "es": {
       "pageTitle": "Mapa",
@@ -6205,6 +6639,50 @@
       "detailsPreviousPoi": "پخوانی",
       "openExternalMaps": "په نقشه ایپ کې خلاص کړئ"
     },
+    "pt": {
+      "pageTitle": "Mapa",
+      "poi": "Lugar",
+      "pois": "Lugares",
+      "map": "Mapa",
+      "showOnMap": "Mostrar en el mapa",
+      "noPois": "No se ha encontrado ningún lugar.",
+      "unitKilometre": "km",
+      "unitMetre": "m",
+      "distanceKilometre": "A {{distance}} km de distancia",
+      "distanceKilometreAlternative": "{{distance}} km",
+      "distanceMetre": "A {{distance}} m de distancia",
+      "distanceMetreAlternative": "{{distance}} m",
+      "contactInformation": "Datos de contacto",
+      "address": "Dirección",
+      "phone": "Número de teléfono",
+      "eMail": "Correo electrónico",
+      "website": "Página web",
+      "openingHours": "Horario de apertura",
+      "description": "Descripción",
+      "addressCopied": "Dirección copiada en el portapapeles",
+      "phoneCopied": "Teléfono copiado en el portapapeles",
+      "eMailCopied": "Correo electrónico copiado en el portapapeles",
+      "websiteCopied": "Página web copiada en el portapapeles",
+      "listTitle": "En sus alrededores",
+      "detailsHeader": "Volver a la vista general",
+      "detailsAddress": "Indicaciones",
+      "detailsMapLink": "Abrir en Google Maps",
+      "detailsInformation": "Información",
+      "detailsNextPoi": "Siguiente",
+      "detailsPreviousPoi": "Anterior",
+      "openExternalMaps": "Abrir en la aplicación de mapas",
+      "openingHoursAllDay": "Todo el día",
+      "openingHoursOpened": "Abierto",
+      "openingHoursClosed": "Cerrado",
+      "openingHoursTemporarilyClosed": "Cerrado temporalmente",
+      "montag": "Lunes",
+      "dienstag": "Martes",
+      "mittwoch": "Miércoles",
+      "donnerstag": "Jueves",
+      "freitag": "Viernes",
+      "samstag": "Sábado",
+      "sonntag": "Domingo"
+    },
     "ro": {
       "pageTitle": "Harta",
       "poi": "Localitate",
@@ -6595,6 +7073,11 @@
       "searchPlaceholder": "گەڕان",
       "pageTitle": "گەڕان"
     },
+    "cs": {
+      "nothingFound": "Je nám líto, ale nebyly nalezeny žádné odpovídající výsledky",
+      "searchPlaceholder": "Vyhledávání",
+      "pageTitle": "Vyhledávání"
+    },
     "el": {
       "nothingFound": "Δυστυχώς δεν βρέθηκαν ταιριαστά αποτελέσματα.",
       "searchPlaceholder": "Αναζήτηση",
@@ -6674,6 +7157,11 @@
       "nothingFound": "له بده مرغه مناسبې نتیجې پیدا نشوې.",
       "searchPlaceholder": "لټون",
       "pageTitle": "لټون"
+    },
+    "pt": {
+      "nothingFound": "No se han encontrado resultados coincidentes.",
+      "searchPlaceholder": "Búsqueda",
+      "pageTitle": "Búsqueda"
     },
     "ro": {
       "nothingFound": "Din păcate, nu au fost găsite nici un fel de rezultate utile.",
@@ -6831,6 +7319,26 @@
       "enabled": "چالاک کراوە",
       "disabled": "ناچالاک کراوە",
       "decline": "ڕەتکردنەوە"
+    },
+    "cs": {
+      "sentryTitle": "Stabilita aplikace",
+      "sentryDescription": "Vylepšení aplikace {{appName}} automatickým odesíláním kolapsu aplikace",
+      "pushNewsTitle": "Oznámení Push",
+      "pushNewsDescription": "Získejte push oznámení o nejnovějších místních zprávách",
+      "about": "O {{appName}}",
+      "privacyPolicy": "Prohlášení o ochraně osobních údajů",
+      "version": "Verze: {{version}}",
+      "openSourceLicenses": "Licence open-source",
+      "tracking": "Hodnocení J-PAL",
+      "allowTracking": "Povolit tracking",
+      "trackingShortDescription": "Účast na hodnotící studii J-PAL s cílem zlepšit {{appName}}.",
+      "trackingMoreInformation": "Další informace o hodnotící studii J-Pal a cílech výzkumu",
+      "trackingDescription": "{{appName}} žádá o povolení sledovat vaše používání v rámci aplikace.  Vaše údaje budou anonymizovány a použity pouze pro výzkumné účely a ke zlepšení aplikace. Sledovací údaje nebudou sdíleny ani zpracovávány pro reklamní či jiné komerční účely.",
+      "trackingLeaveTitle": "Povolit tracking?",
+      "trackingLeaveDescription": "Tracking jste nepovolili. Tracking nám pomáhá zlepšovat aplikaci {{appName}} a poskytovat lepší informace pro přistěhovalce. Jste si jisti, že chcete opustit obrazovku bez povolení trackingu?",
+      "enabled": "aktivní",
+      "disabled": "neaktivní",
+      "decline": "Zakázat"
     },
     "el": {
       "sentryTitle": "Σταθερότητα εφαρμογής",
@@ -7152,6 +7660,26 @@
       "disabled": "غیرفعال شوی",
       "decline": "رد کول"
     },
+    "pt": {
+      "sentryTitle": "Estabilidad de la aplicación",
+      "sentryDescription": "Mejorar la aplicación {{appName}} con el envío automático de informes de errores",
+      "pushNewsTitle": "Notificaciones insertadas",
+      "pushNewsDescription": "Recibir notificaciones insertadas de las últimas noticias de la zona",
+      "about": "Sobre {{appName}}",
+      "privacyPolicy": "Declaración sobre la protección de datos",
+      "version": "Versión: {{version}}",
+      "openSourceLicenses": "Licencias de código abierto",
+      "tracking": "Evaluación J-PAL",
+      "allowTracking": "Permitir el seguimiento",
+      "trackingShortDescription": "Participe en el estudio de evaluación J-PAL para mejorar {{appName}}.",
+      "trackingMoreInformation": "Más información sobre el estudio de evaluación J-Pal y los objetivos de investigación",
+      "trackingDescription": "{{appName}} le pide permiso para hacer un seguimiento de su uso de la aplicación. Sus datos son anonimizados y solo se utilizan para investigación y mejora de la aplicación. Los datos de seguimiento no se comparten ni se tratan con fines publicitarios o de otro tipo.",
+      "trackingLeaveTitle": "¿Permitir el seguimiento?",
+      "trackingLeaveDescription": "No ha permitido el seguimiento. El seguimiento nos ayuda a mejorar la aplicación {{appName}} y a facilitar una mejor información a los inmigrantes. ¿Está seguro de que desea salir de la pantalla sin permitir el seguimiento?",
+      "enabled": "Activado",
+      "disabled": "Desactivado",
+      "decline": "Rechazar"
+    },
     "ro": {
       "sentryTitle": "Stabilitate app",
       "sentryDescription": "Îmbunătățiți {{appName}}-App prin trimiterea automată a rapoartelor de blocare",
@@ -7457,6 +7985,78 @@
     },
     "ckb": {
       "title": "جەوی ژیان"
+    },
+    "cs": {
+      "title": "Obytný prostor",
+      "shelterTitle": "{{beds}} v lokalitě {{location}}",
+      "shelterInformation": "Nabízený obytný prostor",
+      "householdInformation": "Údaje o celé domácnosti",
+      "hostInformation": "Údaje o nabízejícím",
+      "contactInformation": "Kontaktní údaje",
+      "shelterButton": "Zobrazit",
+      "bed": "1 postel",
+      "beds": "{{beds}} postele",
+      "ges_unterkunft": "Celé ubytování",
+      "gemein_zimmer": "Společný pokoj",
+      "privatzimmer": "Soukromý pokoj",
+      "7t": "až 7 dní",
+      "14t": "až 14 dní",
+      "1m": "až 1 měsíc",
+      "3m": "až 3 měsíce",
+      "6m": "až 6 měsíců",
+      "12m": "až 12 měsíců",
+      "12m_plus": "déle než 12 měsíců",
+      "starting": "od",
+      "now": "okamžitě",
+      "free": "zdarma",
+      "withCosts": "s náklady (cena na vyžádání)",
+      "tenancyPossible": "možnost přechodu do nájmu",
+      "accessible": "bezbariérovost",
+      "bathroom": "vlastní koupelna",
+      "lgbtiq": "LGBTIO+ friendly",
+      "haustier": "Domácí zvířata povolena",
+      "haustier-katze": "kočky povoleny",
+      "haustier-hund": "Psi povoleni",
+      "smoking": "Kouření je povoleno",
+      "rooms": "Počet pokojů:",
+      "occupants": "Počet osob:",
+      "notSpecified": "Není specifikováno",
+      "name": "Jméno:",
+      "zipcode": "Poštovní směrovací číslo:",
+      "city": "Město:",
+      "hostType": "Domácnost:",
+      "languages": "Jazykové znalosti:",
+      "deutsch": "Němčina",
+      "englisch": "Angličtina",
+      "ukrainisch": "Ukrajinština",
+      "russisch": "Rušzina",
+      "polnisch": "Polština",
+      "kroatisch": "Chorvatština",
+      "allein_maennlich": "svobodný muž",
+      "allein_weiblich": "svobodná žena",
+      "familie_kinder": "rodina s dítětem (dětmi)",
+      "paar": "pár bez dětí",
+      "wg": "sdílené bydlení",
+      "comments": "další poznámky",
+      "noSheltersAvailable": "není k dispozici žádné ubytování",
+      "shelterType": "typ ubytování",
+      "startDate": "k dispozici nejdříve",
+      "availableBeds": "dostupná lůžka",
+      "duration": "možná délka pobytu",
+      "contactRequest": {
+        "title": "Kontakt",
+        "description": "Pokud vás nabídka ubytování zaujala, můžeme předat vaše kontaktní údaje osobě, která ubytování nabízí.",
+        "email": "E-mail",
+        "phone": "Telefonní číslo",
+        "success": "Vaše kontaktní údaje byly úspěšně předány.",
+        "error": "Něco se bohužel pokazilo.",
+        "invalid_accommodation": "Tato nabídka již není k dispozici.",
+        "invalid_contact_data": "Je nám líto, ale vaše kontaktní údaje byly nesprávné nebo již byly použity ke kontaktování.",
+        "send": "Odeslat"
+      },
+      "facetBeds": "min. počet lůžek",
+      "facetCity": "Místo/PSČ",
+      "facetPets": "Domácí zvířata povolena"
     },
     "el": {
       "title": "Κατοικία"
@@ -7782,6 +8382,78 @@
     "ps": {
       "title": "د اوسیدلو کوټہ "
     },
+    "pt": {
+      "title": "Habitaciones",
+      "shelterTitle": "{{beds}} en {{location}}",
+      "shelterInformation": "Habitación ofrecida",
+      "householdInformation": "Datos de toda la casa",
+      "hostInformation": "Datos del ofertante",
+      "contactInformation": "Datos de contacto",
+      "shelterButton": "Ver",
+      "bed": "1 cama",
+      "beds": "{{beds}} camas",
+      "ges_unterkunft": "Alojamiento completo",
+      "gemein_zimmer": "Habitación compartida",
+      "privatzimmer": "Habitación privada",
+      "7t": "Hasta 7 días",
+      "14t": "Hasta 14 días",
+      "1m": "Hasta 1 mes",
+      "3m": "Hasta 3 meses",
+      "6m": "Hasta 6 meses",
+      "12m": "Hasta 12 meses",
+      "12m_plus": "Más de 12 meses",
+      "starting": "Desde",
+      "now": "Desde ahora",
+      "free": "Gratis",
+      "withCosts": "De pago (hay que preguntar el precio)",
+      "tenancyPossible": "Es posible cambiar a contrato de alquiler",
+      "accessible": "Accesos adaptados",
+      "bathroom": "Baño propio",
+      "lgbtiq": "Pro LGBTIQ+",
+      "haustier": "Se permiten mascotas",
+      "haustier-katze": "Se permiten gatos",
+      "haustier-hund": "Se permiten perros",
+      "smoking": "Se permite fumar",
+      "rooms": "Número de habitaciones:",
+      "occupants": "Número de personas:",
+      "notSpecified": "Sin datos",
+      "name": "Nombre:",
+      "zipcode": "Código postal:",
+      "city": "Lugar:",
+      "hostType": "Casa:",
+      "languages": "Idiomas:",
+      "deutsch": "Alemán",
+      "englisch": "Inglés",
+      "ukrainisch": "Ucraniano",
+      "russisch": "Ruso",
+      "polnisch": "Polaco",
+      "kroatisch": "Croata",
+      "allein_maennlich": "Hombre soltero",
+      "allein_weiblich": "Mujer soltera",
+      "familie_kinder": "Familia con hijo(s)",
+      "paar": "Pareja sin hijos",
+      "wg": "Residencia compartida",
+      "comments": "Otros comentarios",
+      "noSheltersAvailable": "No hay disponible ningún alojamiento",
+      "shelterType": "Tipo de habitación",
+      "startDate": "Disponible lo antes posible",
+      "availableBeds": "Camas disponibles",
+      "duration": "Posible duración de la estancia",
+      "contactRequest": {
+        "title": "Solicitud de contacto",
+        "description": "Si tiene interés en la habitación ofrecida, podemos facilitar su información de contacto a la persona ofertante.",
+        "email": "Correo electrónico",
+        "phone": "Número de teléfono",
+        "success": "Su información de contacto se ha facilitado correctamente.",
+        "error": "Lamentablemente, algo ha fallado.",
+        "invalid_accommodation": "Esta oferta ya no está disponible.",
+        "invalid_contact_data": "Su información de contacto era incorrecta o ya se ha utilizado para solicitar el contacto.",
+        "send": "Enviar"
+      },
+      "facetBeds": "Cantidad de camas mín.",
+      "facetCity": "Lugar/Código postal",
+      "facetPets": "Se permiten mascotas"
+    },
     "ro": {
       "title": "Spațiu de locuit"
     },
@@ -7970,6 +8642,9 @@
     "ckb": {
       "noOffersAvailable": "هیچ پێشنیارێک لەبەردەستدا نییە"
     },
+    "cs": {
+      "noOffersAvailable": "Nejsou k dispozici žádné nabídky"
+    },
     "el": {
       "noOffersAvailable": "Δεν υπάρχουν διαθέσιμες προσφορές"
     },
@@ -8014,6 +8689,9 @@
     },
     "ps": {
       "noOffersAvailable": "کوم وړاندیز موجود ندی"
+    },
+    "pt": {
+      "noOffersAvailable": "No hay ofertas disponibles"
     },
     "ro": {
       "noOffersAvailable": "Nicio ofertă disponibilă"
