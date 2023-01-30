@@ -9,7 +9,7 @@ import {
   RouteInformationType,
 } from 'api-client'
 
-import { SnackbarType } from '../components/Snackbar'
+import { SnackbarType } from '../components/SnackbarContainer'
 import { NavigationProps, RoutesType } from '../constants/NavigationTypes'
 import buildConfig from '../constants/buildConfig'
 import { AppContext } from '../contexts/AppContextProvider'

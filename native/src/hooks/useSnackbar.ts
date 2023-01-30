@@ -1,7 +1,6 @@
 import { useContext } from 'react'
 
-import { SnackbarType } from '../components/Snackbar'
-import { SnackbarContext } from '../components/SnackbarContainer'
+import { SnackbarContext, SnackbarType } from '../components/SnackbarContainer'
 
 const useSnackbar = (): ((snackbar: SnackbarType) => void) => useContext(SnackbarContext)
 

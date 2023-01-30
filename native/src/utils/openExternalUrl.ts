@@ -4,7 +4,7 @@ import URL from 'url-parse'
 
 import { OPEN_EXTERNAL_LINK_SIGNAL_NAME, OPEN_OS_LINK_SIGNAL_NAME } from 'api-client'
 
-import { SnackbarType } from '../components/Snackbar'
+import { SnackbarType } from '../components/SnackbarContainer'
 import buildConfig from '../constants/buildConfig'
 import sendTrackingSignal from './sendTrackingSignal'
 import { reportError } from './sentry'
