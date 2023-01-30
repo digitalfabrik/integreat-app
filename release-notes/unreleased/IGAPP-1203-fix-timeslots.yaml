@@ -1,0 +1,7 @@
+issue_key: IGAPP-1203
+show_in_stores: true
+platforms:
+  - android
+  - ios
+en: App crashes when opening places with opening hours has been fixed.
+de: App Abstürze beim Öffnen von Orten mit Öffnungszeiten wurde behoben.
