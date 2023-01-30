@@ -1,9 +1,11 @@
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { NavigationContainer } from '@react-navigation/native'
 import { render } from '@testing-library/react-native'
+import { mocked } from 'jest-mock'
 import React from 'react'
 
 import Navigator from '../Navigator'
+import { AppContext } from '../contexts/AppContextProvider'
 import useLoadCities from '../hooks/useLoadCities'
 import appSettings from '../utils/AppSettings'
 import { quitAppStatePushNotificationListener } from '../utils/PushNotificationsManager'
@@ -18,6 +20,11 @@ jest.mock('../routes/Intro', () => {
   const { Text } = require('react-native')
 
   return () => <Text>Intro</Text>
+})
+jest.mock('../components/RedirectContainer', () => {
+  const { Text } = require('react-native')
+
+  return () => <Text>Redirect</Text>
 })
 jest.mock('../routes/Landing', () => {
   const { Text } = require('react-native')
@@ -107,11 +114,19 @@ jest.mock('../components/TransparentHeader', () => {
 jest.mock('../utils/PushNotificationsManager', () => ({
   pushNotificationsSupported: jest.fn(() => true),
   quitAppStatePushNotificationListener: jest.fn(),
+  useForegroundPushNotificationListener: jest.fn(),
 }))
 jest.mock('../utils/FetcherModule')
 
-const cityCode = 'augsburg'
-const languageCode = 'de'
+const renderNavigator = (cityCode: string | null = null) =>
+  render(
+    <AppContext.Provider
+      value={{ changeCityCode: jest.fn(), changeLanguageCode: jest.fn(), cityCode, languageCode: 'de' }}>
+      <NavigationContainer>
+        <Navigator />
+      </NavigationContainer>
+    </AppContext.Provider>
+  )
 
 describe('Navigator', () => {
   beforeEach(() => {
@@ -120,62 +135,38 @@ describe('Navigator', () => {
   })
 
   it('should preload cities', async () => {
-    await appSettings.setContentLanguage(languageCode)
-    const { findByText } = render(
-      <NavigationContainer>
-        <Navigator />
-      </NavigationContainer>
-    )
+    const { findByText } = renderNavigator()
 
     await findByText('Intro')
     expect(useLoadCities).toHaveBeenCalled()
   })
 
   it('should display categories if a city is selected and the intro was shown', async () => {
-    await appSettings.setSelectedCity(cityCode)
-    await appSettings.setContentLanguage(languageCode)
     await appSettings.setIntroShown()
-    const { findByText } = render(
-      <NavigationContainer>
-        <Navigator />
-      </NavigationContainer>
-    )
+    const { findByText } = renderNavigator('augsburg')
     await findByText('Categories')
   })
 
   it('should display Landing if no city is selected in settings and intro was shown', async () => {
     await appSettings.clearSelectedCity()
-    await appSettings.setContentLanguage(languageCode)
     await appSettings.setIntroShown()
-    const { findByText } = render(
-      <NavigationContainer>
-        <Navigator />
-      </NavigationContainer>
-    )
+    const { findByText } = renderNavigator()
     await findByText('Landing')
   })
 
   it('should display Intro if intro was not shown yet', async () => {
-    await appSettings.setContentLanguage(languageCode)
-    const { findByText } = render(
-      <NavigationContainer>
-        <Navigator />
-      </NavigationContainer>
-    )
+    const { findByText } = renderNavigator()
     await findByText('Intro')
   })
 
   it('should listen for push notification press in quit state', async () => {
-    await appSettings.setSelectedCity(cityCode)
-    await appSettings.setContentLanguage(languageCode)
-    await appSettings.setIntroShown()
-    const { findByText } = render(
-      <NavigationContainer>
-        <Navigator />
-      </NavigationContainer>
+    mocked(quitAppStatePushNotificationListener).mockImplementation(async navigate =>
+      navigate('https://integreat.app/augsbug/de/news/local/1234')
     )
+    await appSettings.setIntroShown()
+    const { findByText } = renderNavigator()
 
-    await findByText('Categories')
+    await findByText('Redirect')
     expect(quitAppStatePushNotificationListener).toHaveBeenCalledTimes(1)
   })
 })

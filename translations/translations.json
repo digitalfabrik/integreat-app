@@ -5920,7 +5920,7 @@
       "dienstag": "Dienstag",
       "mittwoch": "Mittwoch",
       "donnerstag": "Donnerstag",
-      "freitag": "Freitag,",
+      "freitag": "Freitag",
       "samstag": "Samstag",
       "sonntag": "Sonntag"
     },
@@ -6173,7 +6173,7 @@
       "dienstag": "Tuesday",
       "mittwoch": "Wednesday",
       "donnerstag": "Thursday",
-      "freitag": "Friday,",
+      "freitag": "Friday",
       "samstag": "Saturday",
       "sonntag": "Sunday"
     },
