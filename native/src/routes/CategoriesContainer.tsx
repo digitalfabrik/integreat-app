@@ -1,7 +1,7 @@
 import React, { ReactElement, useCallback, useContext } from 'react'
 import styled from 'styled-components/native'
 
-import { CATEGORIES_ROUTE, CategoriesRouteType, cityContentPath, ErrorCode, usePreviousProp } from 'api-client'
+import { CATEGORIES_ROUTE, CategoriesRouteType, cityContentPath, ErrorCode } from 'api-client'
 
 import Categories from '../components/Categories'
 import DashboardNavigationTiles from '../components/DashboardNavigationTiles'
@@ -12,6 +12,7 @@ import useCityAppContext from '../hooks/useCityAppContext'
 import useHeader from '../hooks/useHeader'
 import useLoadCityContent from '../hooks/useLoadCityContent'
 import useNavigate from '../hooks/useNavigate'
+import usePreviousProp from '../hooks/usePreviousProp'
 import useResourceCache from '../hooks/useResourceCache'
 import createNavigateToFeedbackModal from '../navigation/createNavigateToFeedbackModal'
 import urlFromRouteInformation from '../navigation/url'

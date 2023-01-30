@@ -13,7 +13,6 @@ import {
   LanguageModel,
   PoiModel,
   ReturnType,
-  usePreviousProp,
 } from 'api-client'
 
 import dataContainer from '../utils/DefaultDataContainer'
@@ -21,6 +20,7 @@ import loadResourceCache from '../utils/loadResourceCache'
 import { reportError } from '../utils/sentry'
 import useLoadCities from './useLoadCities'
 import useLoadWithCache from './useLoadWithCache'
+import usePreviousProp from './usePreviousProp'
 import useSnackbar from './useSnackbar'
 
 type Params = {
