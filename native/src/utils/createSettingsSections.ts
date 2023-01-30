@@ -5,7 +5,7 @@ import { openSettings } from 'react-native-permissions'
 
 import { JPAL_TRACKING_ROUTE, LICENSES_ROUTE, SettingsRouteType } from 'api-client'
 
-import { SnackbarType } from '../components/Snackbar'
+import { SnackbarType } from '../components/SnackbarContainer'
 import NativeConstants from '../constants/NativeConstants'
 import { NavigationProps } from '../constants/NavigationTypes'
 import buildConfig from '../constants/buildConfig'
