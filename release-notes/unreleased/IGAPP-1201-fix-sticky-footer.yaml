@@ -1,0 +1,7 @@
+issue_key: IGAPP-1201
+show_in_stores: true
+platforms:
+  - android
+  - ios
+en: Fixed footer not sticking to the bottom in the event list.
+de: Die Fußzeile ist in der Eventliste jetzt wieder unten fixiert.
