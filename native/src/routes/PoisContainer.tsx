@@ -1,11 +1,12 @@
 import React, { ReactElement, useCallback } from 'react'
 
-import { POIS_ROUTE, PoisRouteType, usePreviousProp } from 'api-client'
+import { POIS_ROUTE, PoisRouteType } from 'api-client'
 
 import { NavigationProps, RouteProps } from '../constants/NavigationTypes'
 import useCityAppContext from '../hooks/useCityAppContext'
 import useHeader from '../hooks/useHeader'
 import useLoadCityContent from '../hooks/useLoadCityContent'
+import usePreviousProp from '../hooks/usePreviousProp'
 import urlFromRouteInformation from '../navigation/url'
 import LoadingErrorHandler from './LoadingErrorHandler'
 import Pois from './Pois'
