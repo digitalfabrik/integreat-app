@@ -1,4 +1,6 @@
 import moment, { Moment } from 'moment'
+// Fix for this issue https://github.com/moment/moment/issues/5789
+import 'moment/locale/de'
 
 import { mapMarker, PoiFeature } from '../maps'
 import ExtendedPageModel from './ExtendedPageModel'
