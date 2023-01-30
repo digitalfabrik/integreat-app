@@ -2,6 +2,7 @@ import moment from 'moment'
 import React, { ReactElement, useCallback, useContext } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Link, Navigate, useParams } from 'react-router-dom'
+import usePreviousProp from 'src/hooks/usePreviousProp'
 
 import {
   CATEGORIES_ROUTE,
@@ -14,7 +15,6 @@ import {
   ResponseError,
   useLoadAsync,
   useLoadFromEndpoint,
-  usePreviousProp,
 } from 'api-client'
 import { config } from 'translations'
 

@@ -1,6 +1,7 @@
 import React, { ReactElement, useContext } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useNavigate, useParams } from 'react-router-dom'
+import usePreviousProp from 'src/hooks/usePreviousProp'
 
 import {
   createEventsEndpoint,
@@ -9,7 +10,6 @@ import {
   NotFoundError,
   pathnameFromRouteInformation,
   useLoadFromEndpoint,
-  usePreviousProp,
 } from 'api-client'
 
 import { CityRouteProps } from '../CityContentSwitcher'
