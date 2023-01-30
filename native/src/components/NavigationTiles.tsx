@@ -12,6 +12,7 @@ const widthBreakPoint = 400
 const anchorWidth = 30
 const wideScreenItemsCount = 4
 const smallScreenItemsCount = 3
+const scrolledToEndThreshold = 0.95
 
 const TilesRow = styled.View`
   background-color: ${props => props.theme.colors.backgroundAccentColor};
@@ -51,16 +52,15 @@ const NavigationTiles = ({ tiles }: NavigationTilesProps): ReactElement => {
     setPercentageScrolled(contentOffset.x / (contentSize.width - layoutMeasurement.width))
   }
 
+  const scrolledToStart = percentageScrolled === 0
+  const scrolledToEnd = percentageScrolled >= scrolledToEndThreshold
+
+  const scrollToStart = () => scrollViewRef.current?.scrollTo({ x: 0, y: 0, animated: true })
+  const scrollToEnd = () => scrollViewRef.current?.scrollToEnd({ animated: true })
+
   return (
     <TilesRow>
-      {isScrollable && (
-        <AnchorIcon
-          name='keyboard-arrow-left'
-          isLeftAnchor
-          scrollViewRef={scrollViewRef.current}
-          disabled={percentageScrolled === 0}
-        />
-      )}
+      {isScrollable && <AnchorIcon isLeftAnchor onPress={scrollToStart} disabled={scrolledToStart} />}
       <ScrollView
         horizontal
         ref={scrollViewRef}
@@ -82,14 +82,7 @@ const NavigationTiles = ({ tiles }: NavigationTilesProps): ReactElement => {
           <NavigationTile key={tile.path} tile={tile} theme={theme} width={navigationItemWidth} />
         ))}
       </ScrollView>
-      {isScrollable && (
-        <AnchorIcon
-          name='keyboard-arrow-right'
-          isLeftAnchor={false}
-          scrollViewRef={scrollViewRef.current}
-          disabled={percentageScrolled === 1}
-        />
-      )}
+      {isScrollable && <AnchorIcon isLeftAnchor={false} onPress={scrollToEnd} disabled={scrolledToEnd} />}
     </TilesRow>
   )
 }
