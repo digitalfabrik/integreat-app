@@ -271,7 +271,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  cocoapods (= 1.11.2)
+  cocoapods (~> 1.11, = 1.11.2)
   fastlane (>= 2.151.1)
   fastlane-plugin-yarn
 

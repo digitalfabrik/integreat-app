@@ -1,4 +1,4 @@
-import { findByText, fireEvent, waitFor } from '@testing-library/react'
+import { fireEvent, waitFor } from '@testing-library/react'
 import React, { ComponentProps } from 'react'
 
 import {
