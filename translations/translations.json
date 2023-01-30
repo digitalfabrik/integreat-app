@@ -2171,7 +2171,7 @@
       "address": "Address",
       "date": "Date",
       "events": "Events",
-      "exportAsICal": "export as iCal",
+      "exportAsICal": "Export as iCal",
       "currentlyNoEvents": "No events are currently available.",
       "pageTitle": "Events"
     },
