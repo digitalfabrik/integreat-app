@@ -59,7 +59,6 @@ describe('useNavigateToDeepLink', () => {
 
   const renderMockComponent = (url: string, cityCode: string | null = null, languageCode = selectedLanguageCode) =>
     render(
-      // eslint-disable-next-line react/jsx-no-constructed-context-values
       <AppContext.Provider value={{ changeCityCode, changeLanguageCode, cityCode, languageCode }}>
         <MockComponent url={url} />
       </AppContext.Provider>
