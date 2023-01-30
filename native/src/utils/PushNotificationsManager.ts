@@ -1,19 +1,27 @@
 import { FirebaseMessagingTypes } from '@react-native-firebase/messaging'
+import { useEffect } from 'react'
 import { Linking } from 'react-native'
 
-import { LOCAL_NEWS_TYPE, NEWS_ROUTE } from 'api-client'
+import { LOCAL_NEWS_TYPE, NEWS_ROUTE, NonNullableRouteInformationType } from 'api-client'
 
+import { SnackbarType } from '../components/SnackbarContainer'
+import { RoutesType } from '../constants/NavigationTypes'
 import buildConfig from '../constants/buildConfig'
 import urlFromRouteInformation from '../navigation/url'
+import appSettings from './AppSettings'
 import { log, reportError } from './sentry'
 
 type Message = FirebaseMessagingTypes.RemoteMessage & {
+  notification: { title: string }
   data: {
     city_code: string
     language_code: string
     news_id: string
   }
 }
+
+const WAITING_TIME_FOR_CMS = 1000
+const PUSH_NOTIFICATION_SHOW_DURATION = 10000
 
 const importFirebaseMessaging = async (): Promise<() => FirebaseMessagingTypes.Module> =>
   import('@react-native-firebase/messaging').then(firebase => firebase.default)
@@ -53,32 +61,65 @@ export const unsubscribeNews = async (city: string, language: string): Promise<v
   log(`Unsubscribed from ${topic} topic!`)
 }
 export const subscribeNews = async (city: string, language: string): Promise<void> => {
-  if (!pushNotificationsEnabled()) {
-    log('Push notifications disabled, subscription skipped.')
-    return
-  }
-
-  const topic = newsTopic(city, language)
-
   try {
+    const { allowPushNotifications } = await appSettings.loadSettings()
+    if (!pushNotificationsEnabled() || !allowPushNotifications) {
+      log('Push notifications disabled, subscription skipped.')
+      return
+    }
+
+    const topic = newsTopic(city, language)
+
     const messaging = await importFirebaseMessaging()
     await messaging().subscribeToTopic(topic)
+    log(`Subscribed to ${topic} topic!`)
   } catch (e) {
     reportError(e)
   }
-  log(`Subscribed to ${topic} topic!`)
 }
 
-const urlFromMessage = (message: Message): string => {
-  const { city_code: cityCode, language_code: languageCode, news_id: newsId } = (message as Message).data
-  return urlFromRouteInformation({
-    cityCode,
-    languageCode,
-    route: NEWS_ROUTE,
-    newsType: LOCAL_NEWS_TYPE,
-    newsId,
-  })
-}
+const routeInformationFromMessage = (message: Message): NonNullableRouteInformationType => ({
+  cityCode: message.data.city_code,
+  languageCode: message.data.language_code,
+  route: NEWS_ROUTE,
+  newsType: LOCAL_NEWS_TYPE,
+  newsId: message.data.news_id,
+})
+const urlFromMessage = (message: Message): string => urlFromRouteInformation(routeInformationFromMessage(message))
+
+export const useForegroundPushNotificationListener = ({
+  showSnackbar,
+  navigate,
+}: {
+  showSnackbar: (snackbar: SnackbarType) => void
+  navigate: (route: RoutesType, params: Record<string, unknown>) => void
+}): void =>
+  useEffect(() => {
+    let mounted = true
+    importFirebaseMessaging().then(messaging =>
+      messaging().onMessage(async _message => {
+        const message = _message as Message
+        if (mounted) {
+          // The CMS needs some time until the push notification is available in the API response
+          setTimeout(() => {
+            // TODO IGAPP-1024: Uncomment and improve snackbar
+            log(JSON.stringify(message))
+            // showSnackbar({
+            //   text: message.notification.title,
+            //   positiveAction: {
+            //     onPress: () => navigate(NEWS_ROUTE, routeInformationFromMessage(message)),
+            //     label: 'Show',
+            //   },
+            //   showDuration: PUSH_NOTIFICATION_SHOW_DURATION,
+            // })
+          }, WAITING_TIME_FOR_CMS)
+        }
+      })
+    )
+    return () => {
+      mounted = false
+    }
+  }, [showSnackbar, navigate])
 
 export const quitAppStatePushNotificationListener = async (
   navigateToDeepLink: (url: string) => void

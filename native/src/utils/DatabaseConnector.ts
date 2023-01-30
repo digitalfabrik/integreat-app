@@ -114,7 +114,7 @@ type ContentPoiJsonType = {
   excerpt: string
   location: LocationJsonType<number>
   lastUpdate: string
-  openingHours: OpeningHoursModel[] | null
+  openingHours: { allDay: boolean; closed: boolean; timeSlots: { start: string; end: string }[] }[] | null
   temporarilyClosed: boolean
 }
 type CityCodeType = string
@@ -400,7 +400,15 @@ class DatabaseConnector {
           name: poi.location.name,
         },
         lastUpdate: poi.lastUpdate.toISOString(),
-        openingHours: poi.openingHours,
+        openingHours:
+          poi.openingHours?.map(hours => ({
+            allDay: hours.allDay,
+            closed: hours.closed,
+            timeSlots: hours.timeSlots.map(timeslot => ({
+              start: timeslot.start,
+              end: timeslot.end,
+            })),
+          })) ?? null,
         temporarilyClosed: poi.temporarilyClosed,
       })
     )
@@ -440,7 +448,18 @@ class DatabaseConnector {
           town: jsonLocation.town,
         }),
         lastUpdate: moment(jsonObject.lastUpdate, moment.ISO_8601),
-        openingHours: jsonObject.openingHours,
+        openingHours:
+          jsonObject.openingHours?.map(
+            hours =>
+              new OpeningHoursModel({
+                allDay: hours.allDay,
+                closed: hours.closed,
+                timeSlots: hours.timeSlots.map(timeslot => ({
+                  start: timeslot.start,
+                  end: timeslot.end,
+                })),
+              })
+          ) ?? null,
         temporarilyClosed: true,
       })
     })

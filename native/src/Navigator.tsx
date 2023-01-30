@@ -1,9 +1,11 @@
+import { useNavigation } from '@react-navigation/native'
 import { createStackNavigator, StackHeaderProps, TransitionPresets } from '@react-navigation/stack'
-import React, { ReactElement, useEffect, useState } from 'react'
+import React, { ReactElement, useCallback, useContext, useEffect, useState } from 'react'
 import { Platform, Text } from 'react-native'
 
 import {
   CATEGORIES_ROUTE,
+  CategoriesRouteType,
   CHANGE_LANGUAGE_MODAL_ROUTE,
   CITY_NOT_COOPERATING_ROUTE,
   DISCLAIMER_ROUTE,
@@ -16,16 +18,16 @@ import {
   JPAL_TRACKING_ROUTE,
   LANDING_ROUTE,
   LandingRouteType,
+  LICENSES_ROUTE,
   NEWS_ROUTE,
   OFFERS_ROUTE,
   PDF_VIEW_MODAL_ROUTE,
   POIS_ROUTE,
   REDIRECT_ROUTE,
+  RedirectRouteType,
   SEARCH_ROUTE,
   SETTINGS_ROUTE,
   SPRUNGBRETT_OFFER_ROUTE,
-  LICENSES_ROUTE,
-  CategoriesRouteType,
 } from 'api-client'
 
 import Header from './components/Header'
@@ -35,8 +37,9 @@ import TransparentHeader from './components/TransparentHeader'
 import { NavigationProps, RouteProps, RoutesParamsType, RoutesType } from './constants/NavigationTypes'
 import buildConfig from './constants/buildConfig'
 import { ASYNC_STORAGE_VERSION } from './constants/settings'
+import { AppContext } from './contexts/AppContextProvider'
 import useLoadCities from './hooks/useLoadCities'
-import useNavigateToDeepLink from './hooks/useNavigateToDeepLink'
+import useSnackbar from './hooks/useSnackbar'
 import CategoriesContainer from './routes/CategoriesContainer'
 import ChangeLanguageModal from './routes/ChangeLanguageModal'
 import CityNotCooperating from './routes/CityNotCooperating'
@@ -57,7 +60,10 @@ import SearchModalContainer from './routes/SearchModalContainer'
 import Settings from './routes/Settings'
 import SprungbrettOfferContainer from './routes/SprungbrettOfferContainer'
 import appSettings from './utils/AppSettings'
-import { quitAppStatePushNotificationListener } from './utils/PushNotificationsManager'
+import {
+  quitAppStatePushNotificationListener,
+  useForegroundPushNotificationListener,
+} from './utils/PushNotificationsManager'
 import { initSentry, log } from './utils/sentry'
 
 type HeaderProps = {
@@ -73,28 +79,47 @@ const defaultHeader = (headerProps: StackHeaderProps) => <Header {...(headerProp
 
 type InitialRouteType =
   | {
-      name: IntroRouteType | LandingRouteType
+      name: IntroRouteType | LandingRouteType | CategoriesRouteType
     }
   | {
-      name: CategoriesRouteType
-      cityCode: string
-      languageCode: string
+      name: RedirectRouteType
+      url: string
     }
 const Stack = createStackNavigator<RoutesParamsType>()
 
 const Navigator = (): ReactElement | null => {
+  const { cityCode } = useContext(AppContext)
   const [waitingForSettings, setWaitingForSettings] = useState<boolean>(true)
   const [errorMessage, setErrorMessage] = useState<string | null | undefined>(null)
   const [initialRoute, setInitialRoute] = useState<InitialRouteType>({
     name: INTRO_ROUTE,
   })
-  const navigateToDeepLink = useNavigateToDeepLink()
+
   // Preload cities
   useLoadCities()
 
+  const showSnackbar = useSnackbar()
+  const navigation = useNavigation<NavigationProps<RoutesType>>()
+
+  useForegroundPushNotificationListener({ showSnackbar, navigate: navigation.navigate })
+
   useEffect(() => {
-    quitAppStatePushNotificationListener(navigateToDeepLink)
-  }, [navigateToDeepLink])
+    // If the app is opened by clicking on a push notification, the navigation object is initially not ready
+    // Therefore use the RedirectContainer to handle the deep link to the local news
+    quitAppStatePushNotificationListener((url: string) =>
+      setInitialRoute({
+        name: REDIRECT_ROUTE,
+        url,
+      })
+    )
+  }, [])
+
+  const updateInitialRoute = useCallback(
+    (initialRoute: InitialRouteType) =>
+      // Do not override initial route set by opening push notification
+      setInitialRoute(previous => (previous.name === REDIRECT_ROUTE ? previous : initialRoute)),
+    []
+  )
 
   useEffect(() => {
     const initialize = async () => {
@@ -104,8 +129,7 @@ const Navigator = (): ReactElement | null => {
         log('App is using Hermes: https://reactnative.dev/docs/hermes')
       }
 
-      const { introShown, selectedCity, contentLanguage, storageVersion, errorTracking } =
-        await appSettings.loadSettings()
+      const { introShown, storageVersion, errorTracking } = await appSettings.loadSettings()
 
       if (errorTracking) {
         initSentry()
@@ -119,39 +143,29 @@ const Navigator = (): ReactElement | null => {
         // start a migration routine
       }
 
-      if (!contentLanguage) {
-        throw Error('The contentLanguage has not been set correctly by I18nProvider!')
-      }
-
       if (!buildConfig().featureFlags.introSlides && !introShown) {
         await appSettings.setIntroShown()
       }
 
       if (buildConfig().featureFlags.introSlides && !introShown) {
-        setInitialRoute({
+        updateInitialRoute({
           name: INTRO_ROUTE,
         })
+      } else if (cityCode) {
+        updateInitialRoute({
+          name: CATEGORIES_ROUTE,
+        })
       } else {
-        const city = buildConfig().featureFlags.fixedCity || selectedCity
-
-        if (city) {
-          setInitialRoute({
-            name: CATEGORIES_ROUTE,
-            cityCode: city,
-            languageCode: contentLanguage,
-          })
-        } else {
-          setInitialRoute({
-            name: LANDING_ROUTE,
-          })
-        }
+        updateInitialRoute({
+          name: LANDING_ROUTE,
+        })
       }
 
       setWaitingForSettings(false)
     }
 
     initialize().catch(error => setErrorMessage(error.message))
-  }, [setInitialRoute, setErrorMessage])
+  }, [cityCode, updateInitialRoute, setErrorMessage])
 
   if (errorMessage) {
     return <Text>{errorMessage}</Text>
@@ -166,10 +180,12 @@ const Navigator = (): ReactElement | null => {
     ios: TransitionPresets.DefaultTransition,
   })
 
+  const redirectUrl = initialRoute.name === REDIRECT_ROUTE ? initialRoute.url : undefined
+
   return (
     <Stack.Navigator initialRouteName={initialRoute.name} screenOptions={{ ...transitionPreset, headerMode: 'screen' }}>
       <Stack.Group screenOptions={{ header: () => null }}>
-        <Stack.Screen name={REDIRECT_ROUTE} component={RedirectContainer} />
+        <Stack.Screen name={REDIRECT_ROUTE} initialParams={{ url: redirectUrl }} component={RedirectContainer} />
         <Stack.Screen name={INTRO_ROUTE} component={Intro} initialParams={{}} />
         <Stack.Screen name={SEARCH_ROUTE} component={SearchModalContainer} />
       </Stack.Group>

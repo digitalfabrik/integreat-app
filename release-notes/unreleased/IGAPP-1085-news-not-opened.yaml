@@ -1,0 +1,7 @@
+issue_key: IGAPP-1085
+show_in_stores: true
+platforms:
+  - android
+  - ios
+en: News detail is now directly opened after clicking on a push notification.
+de: Detailseite von Nachrichten werden nun beim Klicken auf eine Push Benachrichtigung direkt geöffnet.

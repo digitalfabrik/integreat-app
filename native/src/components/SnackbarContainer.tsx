@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next'
 import { Animated, View, LayoutChangeEvent } from 'react-native'
 import styled from 'styled-components/native'
 
-import Snackbar from '../components/Snackbar'
+import Snackbar, { SnackbarActionType } from '../components/Snackbar'
 
 const Container = styled(View)`
   position: absolute;
@@ -15,13 +15,17 @@ const Container = styled(View)`
 // https://github.com/styled-components/styled-components/issues/892
 const AnimatedContainer = Animated.createAnimatedComponent(Container)
 const ANIMATION_DURATION = 300
-const SHOW_DURATION = 5000
+const DEFAULT_SHOW_DURATION = 5000
 const MAX_HEIGHT = 9999
 const translate = new Animated.Value(1)
 
 export type SnackbarType = {
   text: string
+  positiveAction?: SnackbarActionType
+  negativeAction?: SnackbarActionType
+  showDuration?: number
 }
+
 type SnackbarContextType = (snackbar: SnackbarType) => void
 export const SnackbarContext = createContext<SnackbarContextType>(() => undefined)
 
@@ -59,7 +63,7 @@ const SnackbarContainer = ({ children }: SnackbarContainerProps): ReactElement |
   useEffect(() => {
     if (displayedSnackbar) {
       show()
-      const timeout = setTimeout(hide, SHOW_DURATION)
+      const timeout = setTimeout(hide, displayedSnackbar.showDuration ?? DEFAULT_SHOW_DURATION)
       return () => clearTimeout(timeout)
     }
     return () => undefined
@@ -86,7 +90,11 @@ const SnackbarContainer = ({ children }: SnackbarContainerProps): ReactElement |
               },
             ],
           }}>
-          <Snackbar message={t(displayedSnackbar.text)} />
+          <Snackbar
+            text={t(displayedSnackbar.text)}
+            positiveAction={displayedSnackbar.positiveAction}
+            negativeAction={displayedSnackbar.negativeAction}
+          />
         </AnimatedContainer>
       ) : null}
     </SnackbarContext.Provider>
