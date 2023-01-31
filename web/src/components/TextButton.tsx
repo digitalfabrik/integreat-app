@@ -1,7 +1,7 @@
 import React, { ReactNode } from 'react'
 import styled, { css } from 'styled-components'
 
-export const StyledButton = styled.button<{ disabled: boolean; fullWidth: boolean }>`
+export const StyledButton = styled.button<{ disabled: boolean; fullWidth?: boolean }>`
   margin: 15px 0;
   padding: 8px 24px;
   background-color: ${props => (props.disabled ? props.theme.colors.textDisabledColor : props.theme.colors.themeColor)};
