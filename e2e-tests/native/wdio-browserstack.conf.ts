@@ -33,8 +33,8 @@ export const config: WebdriverIO.Config = {
   specFileRetries: 2,
   bail: 1,
 
-  waitforTimeout: 100000,
-  waitforInterval: 100000,
+  waitforTimeout: 10000,
+  waitforInterval: 10000,
   connectionRetryTimeout: 120000,
   connectionRetryCount: 2,
 

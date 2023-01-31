@@ -2,10 +2,10 @@
   "extends": "../tsconfig.json",
   "compilerOptions": {
     "skipLibCheck": true,
+    "noEmit": true,
     "types": [
       "node",
       "@wdio/globals/types",
-      "expect-webdriverio/jasmine",
       "@wdio/jasmine-framework",
     ],
     "sourceMap": true

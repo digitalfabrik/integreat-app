@@ -1,5 +1,7 @@
-import { Selector } from '../helpers/Selector'
+import Gestures from '../helpers/Gestures'
 import { Page } from './page'
+
+const MAX_SCROLLS = 4
 
 class LandingPage extends Page {
   constructor() {
@@ -15,7 +17,7 @@ class LandingPage extends Page {
   }
 
   city(name: string) {
-    return $(new Selector().ByText(name).build())
+    return Gestures.checkIfDisplayedWithSwipeUp(name, MAX_SCROLLS)
   }
 }
 
