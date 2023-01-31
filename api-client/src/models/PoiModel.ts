@@ -1,4 +1,6 @@
 import moment, { Moment } from 'moment'
+// Fix for minifying js issue with hermes using moment().locale https://github.com/moment/moment/issues/5789
+import 'moment/locale/de'
 
 import { mapMarker, PoiFeature } from '../maps'
 import ExtendedPageModel from './ExtendedPageModel'
