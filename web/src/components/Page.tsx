@@ -7,7 +7,6 @@ import DateFormatter from 'api-client/src/i18n/DateFormatter'
 import Caption from './Caption'
 import LastUpdateInfo from './LastUpdateInfo'
 import RemoteContent from './RemoteContent'
-import TextButton from './TextButton'
 
 export const THUMBNAIL_WIDTH = 300
 
@@ -31,8 +30,7 @@ type PageProps = {
   formatter: DateFormatter
   onInternalLinkClick: (url: string) => void
   children?: ReactNode
-  buttonText?: string
-  onButtonClick?: () => void
+  pageFooter?: ReactNode
 }
 
 /**
@@ -49,8 +47,7 @@ const Page = ({
   formatter,
   children,
   onInternalLinkClick,
-  buttonText,
-  onButtonClick,
+  pageFooter,
 }: PageProps): ReactElement => (
   <>
     {!!defaultThumbnailSrc && <Thumbnail alt='' src={defaultThumbnailSrc} srcSet={thumbnailSrcSet} />}
@@ -65,7 +62,7 @@ const Page = ({
         withText={showLastUpdateText}
       />
     )}
-    {onButtonClick && !!buttonText && <TextButton onClick={onButtonClick} text={buttonText} />}
+    {pageFooter}
   </>
 )
 

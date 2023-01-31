@@ -2,5 +2,5 @@ issue_key: IGAPP-1129
 show_in_stores: true
 platforms:
   - web
-en: Added button under event description to export an event in iCal format
-de: Unter der Event Beschreibung wurde ein Button hinzugefügt um das Event im iCal Format zu exportieren 
+en: Events can now be exported.
+de: Veranstaltungen können nun exportiert werden.

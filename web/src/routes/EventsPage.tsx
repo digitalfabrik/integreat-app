@@ -10,7 +10,6 @@ import {
   pathnameFromRouteInformation,
   useLoadFromEndpoint,
 } from 'api-client'
-import { mapToICalFormat } from 'api-client/src/utils/eventExport'
 
 import { CityRouteProps } from '../CityContentSwitcher'
 import Caption from '../components/Caption'
@@ -25,6 +24,8 @@ import List from '../components/List'
 import LoadingSpinner from '../components/LoadingSpinner'
 import Page, { THUMBNAIL_WIDTH } from '../components/Page'
 import PageDetail from '../components/PageDetail'
+import TextButton from '../components/TextButton'
+import buildConfig from '../constants/buildConfig'
 import { cmsApiBaseUrl } from '../constants/urls'
 import DateFormatterContext from '../contexts/DateFormatterContext'
 import useWindowDimensions from '../hooks/useWindowDimensions'
@@ -97,10 +98,12 @@ const EventsPage = ({ cityModel, languages, pathname, languageCode, cityCode }: 
   }
 
   const downloadEventAsIcsFile = (event: EventModel) => {
-    const blob = new Blob([mapToICalFormat(event)], { type: 'text/calendar;charset=utf-8' })
+    const blob = new Blob([event.toICal(window.location.origin, buildConfig().appName)], {
+      type: 'text/calendar;charset=utf-8',
+    })
     const linkEl = document.createElement('a')
     linkEl.href = window.URL.createObjectURL(blob)
-    linkEl.setAttribute('download', 'event.ics')
+    linkEl.setAttribute('download', `${event.title}.ics`)
     document.body.appendChild(linkEl)
     linkEl.click()
     document.body.removeChild(linkEl)
@@ -110,6 +113,10 @@ const EventsPage = ({ cityModel, languages, pathname, languageCode, cityCode }: 
     const { featuredImage, thumbnail, lastUpdate, content, title, location, date } = event
     const defaultThumbnail = featuredImage ? featuredImage.medium.url : thumbnail
     const pageTitle = `${event.title} - ${cityModel.name}`
+
+    const PageFooter = (
+      <TextButton fullWidth={viewportSmall} onClick={() => downloadEventAsIcsFile(event)} text={t('exportAsICal')} />
+    )
 
     return (
       <CityContentLayout isLoading={false} {...locationLayoutParams}>
@@ -123,8 +130,7 @@ const EventsPage = ({ cityModel, languages, pathname, languageCode, cityCode }: 
           title={title}
           formatter={formatter}
           onInternalLinkClick={navigate}
-          buttonText={t('exportAsICal')}
-          onButtonClick={() => downloadEventAsIcsFile(event)}>
+          pageFooter={PageFooter}>
           <>
             <PageDetail identifier={t('date')} information={date.toFormattedString(formatter)} />
             {location && <PageDetail identifier={t('address')} information={location.fullAddress} />}
