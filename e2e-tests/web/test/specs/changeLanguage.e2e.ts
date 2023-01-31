@@ -1,6 +1,6 @@
 import dashboardPage from '../pageobjects/dashboard.page'
 
-describe('Change language', () => {
+describe('change language', () => {
   beforeEach(async () => {
     await dashboardPage.open()
   })
