@@ -1,6 +1,9 @@
 import { decodeHTML } from 'entities'
-import { Moment } from 'moment'
+import moment, { Moment } from 'moment'
 
+import { getExcerpt } from '../index'
+import { formatDateICal } from '../utils'
+import generateUID from '../utils/generateUID'
 import DateModel from './DateModel'
 import ExtendedPageModel from './ExtendedPageModel'
 import FeaturedImageModel from './FeaturedImageModel'
@@ -46,6 +49,39 @@ class EventModel extends ExtendedPageModel {
 
   get featuredImage(): FeaturedImageModel | null | undefined {
     return this._featuredImage
+  }
+
+  toICal(baseUrl: string, appName: string): string {
+    const { title, location, path, date, excerpt } = this
+    const body: string[] = []
+    body.push(`DTSTAMP:${formatDateICal(moment())}`)
+    body.push(`UID:${generateUID()}`)
+    body.push(`SUMMARY:${title}`)
+    body.push(`DTSTART:${formatDateICal(date.startDate)}`)
+    body.push(`DEND:${formatDateICal(date.endDate)}`)
+    if (location) {
+      body.push(`LOCATION:${location.fullAddress}`)
+    }
+
+    if (path) {
+      body.push(
+        `DESCRIPTION:${getExcerpt(excerpt, {
+          query: undefined,
+          maxChars: 150,
+          replaceLineBreaks: false,
+        })}\\n\\n${baseUrl}${path}`
+      )
+    }
+
+    return [
+      'BEGIN:VCALENDAR',
+      'VERSION:2.0',
+      `PRODID:${appName}`,
+      'BEGIN:VEVENT',
+      body.join('\n'),
+      'END:VEVENT',
+      'END:VCALENDAR',
+    ].join('\n')
   }
 
   isEqual(other: EventModel): boolean {
