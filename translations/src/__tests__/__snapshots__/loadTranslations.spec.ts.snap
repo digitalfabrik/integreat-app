@@ -1,24 +1,24 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`loadTranslations should correctly merge and transform translations 1`] = `
-Object {
-  "ar": Object {
-    "dashboard": Object {
+{
+  "ar": {
+    "dashboard": {
       "events": "الفعاليات",
       "localInformation": "معلومات محلية",
       "offers": "العروض",
     },
   },
-  "de": Object {
-    "app": Object {
+  "de": {
+    "app": {
       "metaDescription": "Integreat ist Ihr digitaler Guide für Deutschland. Finden Sie lokale Informationen, Veranstaltungen und Beratung. Immer aktuell und in Ihrer Sprache.",
-      "pageTitles": Object {
+      "pageTitles": {
         "localNews": "Lokale Nachrichten",
         "notFound": "Seite nicht gefunden",
         "tunews": "tünews",
       },
     },
-    "dashboard": Object {
+    "dashboard": {
       "events": "Veranstaltungen",
       "localInformation": "Malte Informationen",
       "news": "Malte Nachrichten",
@@ -26,20 +26,20 @@ Object {
       "offers": "Malte Angebote",
     },
   },
-  "en": Object {
-    "dashboard": Object {
+  "en": {
+    "dashboard": {
       "events": "Malte Events",
       "localInformation": "Malte information",
       "offers": "Malte Offers",
     },
   },
-  "kmr": Object {
-    "dashboard": Object {
+  "kmr": {
+    "dashboard": {
       "localInformation": "Zanyariyên xwecihî",
     },
   },
-  "zh-CN": Object {
-    "dashboard": Object {
+  "zh-CN": {
+    "dashboard": {
       "localInformation": "本地信息",
     },
   },
@@ -47,24 +47,24 @@ Object {
 `;
 
 exports[`loadTranslations should correctly transform translations 1`] = `
-Object {
-  "ar": Object {
-    "dashboard": Object {
+{
+  "ar": {
+    "dashboard": {
       "events": "الفعاليات",
       "localInformation": "معلومات محلية",
       "offers": "العروض",
     },
   },
-  "de": Object {
-    "app": Object {
+  "de": {
+    "app": {
       "metaDescription": "Integreat ist Ihr digitaler Guide für Deutschland. Finden Sie lokale Informationen, Veranstaltungen und Beratung. Immer aktuell und in Ihrer Sprache.",
-      "pageTitles": Object {
+      "pageTitles": {
         "localNews": "Lokale Nachrichten",
         "notFound": "Seite nicht gefunden",
         "tunews": "tünews",
       },
     },
-    "dashboard": Object {
+    "dashboard": {
       "events": "Veranstaltungen",
       "localInformation": "Lokale Informationen",
       "news": "Nachrichten",
@@ -72,13 +72,13 @@ Object {
       "offers": "Angebote",
     },
   },
-  "kmr": Object {
-    "dashboard": Object {
+  "kmr": {
+    "dashboard": {
       "localInformation": "Zanyariyên xwecihî",
     },
   },
-  "zh-CN": Object {
-    "dashboard": Object {
+  "zh-CN": {
+    "dashboard": {
       "localInformation": "本地信息",
     },
   },
