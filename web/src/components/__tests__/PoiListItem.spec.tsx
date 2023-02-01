@@ -18,6 +18,7 @@ describe('PoiListItem', () => {
 
     expect(getByText(feature.properties.title)).toBeTruthy()
     expect(getByText('pois:distanceKilometre')).toBeTruthy()
+    expect(getByText(feature.properties.category!)).toBeTruthy()
   })
 
   it('should select feature', () => {

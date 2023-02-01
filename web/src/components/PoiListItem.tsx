@@ -38,6 +38,11 @@ const Distance = styled.div`
   font-size: clamp(0.55rem, 1.6vh, ${props => props.theme.fonts.hintFontSize});
 `
 
+const Category = styled.div`
+  font-size: clamp(0.55rem, 1.6vh, ${props => props.theme.fonts.hintFontSize});
+  color: ${props => props.theme.colors.textSecondaryColor};
+`
+
 export const Description = styled.div`
   display: flex;
   justify-content: center;
@@ -66,7 +71,7 @@ type PoiListItemProps = {
 
 const PoiListItem = ({ poi, selectFeature }: PoiListItemProps): ReactElement => {
   const { t } = useTranslation('pois')
-  const { thumbnail, title, distance } = poi.properties
+  const { thumbnail, title, distance, category } = poi.properties
 
   const onClickItem = () => {
     selectFeature(poi)
@@ -79,6 +84,7 @@ const PoiListItem = ({ poi, selectFeature }: PoiListItemProps): ReactElement => 
         <Description>
           <Title>{title}</Title>
           {!!distance && <Distance>{t('distanceKilometre', { distance })}</Distance>}
+          {!!category && <Category>{category}</Category>}
         </Description>
       </LinkContainer>
     </ListItemContainer>
