@@ -44,6 +44,12 @@ const StyledDistance = styled.Text`
   margin-bottom: 16px;
 `
 
+const StyledCategory = styled.Text`
+  font-size: 12px;
+  margin-bottom: 16px;
+  color: ${props => props.theme.colors.textSecondaryColor};
+`
+
 const ExternalLink = styled.Image`
   border-top-left-radius: 5px;
   border-bottom-left-radius: 5px;
@@ -67,7 +73,8 @@ const PoiDetails = ({ poi, feature, language }: PoiDetailsProps): ReactElement =
   const thumbnail = feature.properties.thumbnail?.replace('-150x150', '') ?? Placeholder
   const { address, postcode, town } = poi.location
   const { distance } = feature.properties
-  const { title, content, email, website, phoneNumber, openingHours, temporarilyClosed, isCurrentlyOpen } = poi
+  const { title, content, email, website, phoneNumber, openingHours, temporarilyClosed, isCurrentlyOpen, category } =
+    poi
 
   const openExternalMaps = () => {
     const externalMapsUrl = getExternalMapsLink(poi.location, Platform.OS)
@@ -104,6 +111,7 @@ const PoiDetails = ({ poi, feature, language }: PoiDetailsProps): ReactElement =
     <PoiDetailsContainer>
       <StyledText>{title}</StyledText>
       {!!distance && <StyledDistance>{t('distanceKilometre', { distance })}</StyledDistance>}
+      {!!category?.name && <StyledCategory>{category.name}</StyledCategory>}
       <Thumbnail source={thumbnail} resizeMode='cover' />
       <HorizontalLine />
       <PoiDetailItem
