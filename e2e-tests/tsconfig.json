@@ -3,11 +3,7 @@
   "compilerOptions": {
     "skipLibCheck": true,
     "noEmit": true,
-    "types": [
-      "node",
-      "@wdio/globals/types",
-      "@wdio/jasmine-framework",
-    ],
+    "types": ["node", "@wdio/globals/types", "@wdio/jasmine-framework"],
     "sourceMap": true
   },
   "include": ["web", "native", "shared"]
