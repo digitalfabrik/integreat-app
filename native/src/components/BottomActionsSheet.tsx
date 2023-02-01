@@ -1,6 +1,9 @@
-import BottomSheet, { BottomSheetScrollView } from '@gorhom/bottom-sheet'
+import BottomSheet, {
+  BottomSheetHandleProps,
+  BottomSheetScrollView,
+  BottomSheetScrollViewMethods,
+} from '@gorhom/bottom-sheet'
 import React, { ReactElement, ReactNode, useCallback, useEffect, useRef } from 'react'
-import { ScrollView } from 'react-native'
 import styled from 'styled-components/native'
 
 import BottomSheetHandler from './BottomSheetHandler'
@@ -28,9 +31,12 @@ const BottomActionsSheet: React.FC<BottomActionsSheetProps> = ({
   initialIndex = 0,
   snapPointIndex,
 }: BottomActionsSheetProps): ReactElement | null => {
-  const renderHandle = useCallback(props => <BottomSheetHandler title={title} {...props} />, [title])
+  const renderHandle = useCallback(
+    (props: BottomSheetHandleProps) => <BottomSheetHandler title={title} {...props} />,
+    [title]
+  )
 
-  const scrollRef = useRef<ScrollView>(null)
+  const scrollRef = useRef<BottomSheetScrollViewMethods>(null)
 
   useEffect(() => {
     if (scrollRef.current) {
