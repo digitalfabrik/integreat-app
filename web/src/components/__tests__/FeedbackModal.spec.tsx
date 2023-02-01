@@ -1,4 +1,4 @@
-import { fireEvent, waitFor } from '@testing-library/react'
+import { fireEvent } from '@testing-library/react'
 import React, { ReactElement } from 'react'
 
 import { CATEGORIES_ROUTE } from 'api-client'
@@ -21,7 +21,7 @@ describe('FeedbackModal', () => {
   const closeModal = jest.fn()
 
   it('should display thanks message after successfully submitting feedback', async () => {
-    const { getByRole, getByText } = renderWithRouterAndTheme(
+    const { getByRole, findByText } = renderWithRouterAndTheme(
       <FeedbackModal
         cityCode={cityCode}
         language={language}
@@ -34,7 +34,7 @@ describe('FeedbackModal', () => {
       name: 'feedback:send',
     })
     fireEvent.click(button)
-    await waitFor(() => expect(button).toBeEnabled())
-    expect(getByText('feedback:thanksMessage')).toBeTruthy()
+
+    expect(await findByText('feedback:thanksMessage')).toBeTruthy()
   })
 })

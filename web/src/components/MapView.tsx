@@ -106,7 +106,7 @@ const MapView = forwardRef((props: MapViewProps, ref: React.Ref<MapRef>): ReactE
       // Stop propagation to children to prevent onClick select event as it is already handled
       event.originalEvent.stopPropagation()
       const feature = event.features && event.features[0]
-      selectFeature(feature ? feature as unknown as PoiFeature: null)
+      selectFeature(feature ? (feature as unknown as PoiFeature) : null)
       if (feature) {
         changeSnapPoint(1)
       }
