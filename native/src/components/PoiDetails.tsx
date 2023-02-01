@@ -26,6 +26,7 @@ const Thumbnail = styled(SimpleImage)`
   height: 180px;
   width: 100%;
   border-radius: 7px;
+  margin-top: 12px;
 `
 
 const PoiDetailsContainer = styled.View`
@@ -36,17 +37,16 @@ const PoiDetailsContainer = styled.View`
 const StyledText = styled.Text`
   font-size: 15px;
   font-weight: bold;
-  margin-bottom: 8px;
 `
 
 const StyledDistance = styled.Text`
   font-size: 12px;
-  margin-bottom: 16px;
+  margin-top: 8px;
 `
 
 const StyledCategory = styled.Text`
   font-size: 12px;
-  margin-bottom: 16px;
+  margin-top: 8px;
   color: ${props => props.theme.colors.textSecondaryColor};
 `
 
