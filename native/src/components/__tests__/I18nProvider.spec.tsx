@@ -31,8 +31,7 @@ describe('I18nProvider', () => {
         <Text>Hello</Text>
       </I18nProvider>
     )
-    await waitFor(() => undefined)
-    expect(await appSettings.loadContentLanguage()).toBe('kmr')
+    await waitFor(async () => expect(await appSettings.loadContentLanguage()).toBe('kmr'))
     expect(setSystemLanguage).toHaveBeenCalledTimes(1)
     expect(setSystemLanguage).toHaveBeenCalledWith('kmr')
   })
@@ -45,9 +44,8 @@ describe('I18nProvider', () => {
         <Text>Hello</Text>
       </I18nProvider>
     )
-    await waitFor(() => undefined)
     expect(await appSettings.loadContentLanguage()).toBe('ar')
-    expect(setSystemLanguage).toHaveBeenCalledTimes(1)
+    await waitFor(() => expect(setSystemLanguage).toHaveBeenCalledTimes(1))
     expect(setSystemLanguage).toHaveBeenCalledWith('kmr')
   })
 

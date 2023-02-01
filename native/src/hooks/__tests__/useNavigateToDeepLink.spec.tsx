@@ -43,9 +43,9 @@ describe('useNavigateToDeepLink', () => {
 
   const mockBuildConfig = (featureFlags: Partial<FeatureFlagsType>) => {
     const previous = buildConfig()
-    // @ts-expect-error passing only a partial of fixed city type leads to ts errors that are irrelevant for testing though
     mockedBuildConfig.mockImplementation(() => ({
       ...previous,
+      // @ts-expect-error passing only a partial of fixed city type leads to ts errors that are irrelevant for testing though
       featureFlags: { ...previous.featureFlags, ...featureFlags },
     }))
   }

@@ -38,7 +38,7 @@ export const browserstackCapabilities = {
     browserName: 'Safari',
     browserVersion: '14.0',
   }),
-} as Record<typeof browsers[number], Capabilities>
+} as Record<(typeof browsers)[number], Capabilities>
 
 export const ciCapabilities = {
   browserName: 'chrome',
