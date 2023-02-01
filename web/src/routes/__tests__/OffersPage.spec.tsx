@@ -65,7 +65,7 @@ describe('OffersPage', () => {
   const routePattern = `/:cityCode/:languageCode/${RoutePatterns[OFFERS_ROUTE]}`
 
   const renderOffersRoute = (mockData: ReturnType<OfferModel[]>) => {
-    mocked(useLoadFromEndpoint<OfferModel[]>).mockImplementationOnce(() => mockData)
+    mocked(useLoadFromEndpoint).mockImplementationOnce(() => mockData as never)
     return renderRoute(
       <OffersPage
         cities={cities}

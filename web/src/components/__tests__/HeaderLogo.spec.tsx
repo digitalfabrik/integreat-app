@@ -39,7 +39,7 @@ describe('HeaderLogo', () => {
   })
 
   it('should show the regular logo if the current date is before the start date', () => {
-    jest.setSystemTime(1614942686000)// Fri Mar 05 2021 11:11:26
+    jest.setSystemTime(1614942686000) // Fri Mar 05 2021 11:11:26
     config.campaign = womensDayCampaign
     config.icons.appLogo = '/my-regular-logo'
     const { getByAltText } = renderWithRouter(<HeaderLogo link='https://example.com' />)
