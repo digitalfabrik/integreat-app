@@ -33,7 +33,7 @@ export type GeoJsonPoiProperties = {
 }
 
 export type MarkerConfig = {
-  symbol: string
+  defaultSymbol: string
   symbolActive: string
   iconSize: number
 }
@@ -86,9 +86,9 @@ export const clusterRadius = 50
 export const animationDuration = 2000
 
 export const mapMarker: MarkerConfig = {
-  iconSize: 0.75,
-  symbol: 'marker_40',
-  symbolActive: 'marker_40_active',
+  iconSize: 0.6,
+  defaultSymbol: 'marker_55',
+  symbolActive: 'marker_55_active',
 }
 
 // Shared layer properties

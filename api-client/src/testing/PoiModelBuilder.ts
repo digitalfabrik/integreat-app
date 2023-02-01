@@ -2,6 +2,7 @@ import moment from 'moment'
 
 import LocationModel from '../models/LocationModel'
 import OpeningHoursModel from '../models/OpeningHoursModel'
+import PoiCategoryModel from '../models/PoiCategoryModel'
 import PoiModel from '../models/PoiModel'
 
 const availableLanguages = new Map([
@@ -20,6 +21,12 @@ const pois = [
     website: 'https://example.com',
     phoneNumber: '012345',
     email: 'test@example.com',
+    category: new PoiCategoryModel({
+      color: '#1DC6C6',
+      icon: 'gastronomy',
+      id: 10,
+      name: 'Gastronomie',
+    }),
     location: new LocationModel({
       id: 0,
       country: 'Test Country',
@@ -46,6 +53,12 @@ const pois = [
     website: null,
     phoneNumber: null,
     email: null,
+    category: new PoiCategoryModel({
+      color: '#1DC6C6',
+      icon: 'gastronomy',
+      id: 10,
+      name: 'Gastronomie',
+    }),
     location: new LocationModel({
       id: 1,
       country: 'test country 2',
@@ -72,6 +85,12 @@ const pois = [
     website: null,
     phoneNumber: null,
     email: null,
+    category: new PoiCategoryModel({
+      color: '#1DC6C6',
+      icon: 'gastronomy',
+      id: 10,
+      name: 'Gastronomie',
+    }),
     location: new LocationModel({
       id: 2,
       country: 'another test country',

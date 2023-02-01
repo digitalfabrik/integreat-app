@@ -12,7 +12,7 @@ describe('PoiModel', () => {
     properties: {
       id: 0,
       title: 'Test Title',
-      symbol: 'marker_40',
+      symbol: 'gastronomy_#1DC6C6',
       thumbnail: 'test',
       path: '/augsburg/de/locations/test',
       slug: 'test',
