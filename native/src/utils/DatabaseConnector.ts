@@ -478,7 +478,7 @@ class DatabaseConnector {
                 })),
               })
           ) ?? null,
-        temporarilyClosed: true,
+        temporarilyClosed: jsonObject.temporarilyClosed,
       })
     })
   }
