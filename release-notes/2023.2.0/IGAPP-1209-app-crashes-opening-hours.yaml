@@ -1,0 +1,7 @@
+issue_key: IGAPP-1209
+show_in_stores: true
+platforms:
+  - android
+  - ios
+en: Fix app crashes for places that are currently opened.
+de: App Abstürze bei gerade geöffneten Orten wurden behoben.

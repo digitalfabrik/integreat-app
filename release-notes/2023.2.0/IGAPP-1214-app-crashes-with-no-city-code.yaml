@@ -1,0 +1,7 @@
+issue_key: IGAPP-1214
+show_in_stores: false
+platforms:
+  - android
+  - ios
+en: Fixed city will be provided in App context to avoid crashes.
+de: Festgelegte Stadt wird im App context bereitgestellt, um App Abstürze zu verhinden.
