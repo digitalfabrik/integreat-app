@@ -1,5 +1,4 @@
 import { Capabilities } from '@wdio/types/build/Capabilities'
-import { Testrunner } from '@wdio/types/build/Options'
 
 import { browsers, ciCapabilities } from './capabilities'
 
@@ -13,9 +12,9 @@ const getCapabilities = (): Array<Capabilities> => {
   return parsedCapabilies.length > 0 ? parsedCapabilies : [{ browserName: 'chrome' }]
 }
 
-export const config: Testrunner = {
+export const config: WebdriverIO.Config = {
   runner: 'local',
-  specs: ['./web/test/specs/**/*.e2e.ts'],
+  specs: ['./test/specs/**'],
   exclude: [],
   maxInstancesPerCapability: 1,
 

@@ -5,7 +5,7 @@ export class Page {
     this.pageId = pageId
   }
 
-  public async get(): Promise<ReturnType<typeof $>> {
-    return $(`~${this.pageId}`)
+  public async get(): Promise<true | void> {
+    return $(`~${this.pageId}`).waitForExist()
   }
 }
