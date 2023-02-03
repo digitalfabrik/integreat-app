@@ -132,7 +132,14 @@ module.exports = {
   },
   overrides: [
     {
-      files: ['*.spec.{ts,tsx}', '**/__mocks__/*.{ts,tsx}', '**/testing/*.{ts,tsx}', 'jest.setup.ts', 'jest.config.ts'],
+      files: [
+        '*.spec.{ts,tsx}',
+        '*.e2e.ts',
+        '**/__mocks__/*.{ts,tsx}',
+        '**/testing/*.{ts,tsx}',
+        'jest.setup.ts',
+        'jest.config.ts',
+      ],
       rules: {
         'global-require': 'off',
         'no-console': 'off',
