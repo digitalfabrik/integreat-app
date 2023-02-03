@@ -274,7 +274,7 @@ commands:
 jobs:
     build_android:
         docker:
-            - image: cimg/android:2022.03.1-node
+            - image: cimg/android:2022.09.2-node
         environment:
             FASTLANE_SKIP_UPDATE_CHECK: true
             TOTAL_CPUS: 3
@@ -355,7 +355,7 @@ jobs:
             FL_OUTPUT_DIR: output
             TOTAL_CPUS: 4
         macos:
-            xcode: 13.2.1
+            xcode: 14.2.0
         parameters:
             build_config_name:
                 default: integreat
@@ -420,7 +420,7 @@ jobs:
             - notify
     build_web:
         docker:
-            - image: cimg/node:14.19.0
+            - image: cimg/node:16.19.0
         environment:
             TOTAL_CPUS: 2
         parameters:
@@ -465,7 +465,7 @@ jobs:
             - notify
     bump_version:
         docker:
-            - image: cimg/node:14.19.0
+            - image: cimg/node:16.19.0
         parameters:
             prepare_delivery:
                 default: false
@@ -499,7 +499,7 @@ jobs:
             - notify
     check:
         docker:
-            - image: cimg/node:14.19.0
+            - image: cimg/node:16.19.0
         environment:
             TOTAL_CPUS: 1
             TZ: Europe/Berlin
@@ -533,7 +533,7 @@ jobs:
             - notify
     deliver_android:
         docker:
-            - image: cimg/android:2022.03.1-node
+            - image: cimg/android:2022.09.2-node
         environment:
             FASTLANE_SKIP_UPDATE_CHECK: true
         parameters:
@@ -580,7 +580,7 @@ jobs:
         environment:
             FASTLANE_SKIP_UPDATE_CHECK: true
         macos:
-            xcode: 13.2.1
+            xcode: 14.2.0
         parameters:
             build_config_name:
                 default: integreat
@@ -632,7 +632,7 @@ jobs:
             - notify
     deliver_web:
         docker:
-            - image: cimg/node:14.19.0
+            - image: cimg/node:16.19.0
         parameters:
             delivery:
                 description: Whether to deliver to production, beta or to webnext.
@@ -726,7 +726,7 @@ jobs:
             - notify
     e2e_android:
         docker:
-            - image: cimg/android:2022.03.1-node
+            - image: cimg/android:2022.09.2-node
         environment:
             FASTLANE_SKIP_UPDATE_CHECK: true
         resource_class: small
@@ -745,7 +745,7 @@ jobs:
             - notify
     e2e_ios:
         docker:
-            - image: cimg/android:2022.03.1-node
+            - image: cimg/android:2022.09.2-node
         environment:
             FASTLANE_SKIP_UPDATE_CHECK: true
         resource_class: small
@@ -764,7 +764,7 @@ jobs:
             - notify
     e2e_web:
         docker:
-            - image: cimg/node:14.19.0-browsers
+            - image: cimg/node:16.19.0-browsers
             - image: selenium/standalone-chrome
         resource_class: small
         shell: /bin/bash -eo pipefail
@@ -783,7 +783,7 @@ jobs:
             - notify
     move_release_notes:
         docker:
-            - image: cimg/node:14.19.0
+            - image: cimg/node:16.19.0
         resource_class: small
         steps:
             - skip_job
@@ -798,7 +798,7 @@ jobs:
             - notify
     notify_android:
         docker:
-            - image: cimg/node:14.19.0
+            - image: cimg/node:16.19.0
         parameters:
             production_delivery:
                 description: Whether builds are delivered to the production or beta lane of the play store.
@@ -826,7 +826,7 @@ jobs:
                 success_message: <<^ parameters.production_delivery >>[Beta] <</ parameters.production_delivery >>Integreat, Malte and Aschaffenburg ${NEW_VERSION_NAME} have been released successfully on Android!\n${RELEASE_NOTES}\n${ANDROID_ARTIFACT_URLS}
     notify_ios:
         docker:
-            - image: cimg/node:14.19.0
+            - image: cimg/node:16.19.0
         parameters:
             production_delivery:
                 description: Whether builds are delivered to the app store or testflight.
@@ -854,7 +854,7 @@ jobs:
                 success_message: <<^ parameters.production_delivery >>[Beta] <</ parameters.production_delivery >>Integreat, Malte and Aschaffenburg ${NEW_VERSION_NAME} have been released successfully on iOS!\n${RELEASE_NOTES}\n${IOS_ARTIFACT_URLS}
     notify_web:
         docker:
-            - image: cimg/node:14.19.0
+            - image: cimg/node:16.19.0
         parameters:
             production_delivery:
                 description: Whether builds are delivered to production or beta.
@@ -889,7 +889,7 @@ jobs:
                             ${RELEASE_NOTES}
     promote_android:
         docker:
-            - image: cimg/android:2022.03.1-node
+            - image: cimg/android:2022.09.2-node
         environment:
             FASTLANE_SKIP_UPDATE_CHECK: true
         parameters:
@@ -918,7 +918,7 @@ jobs:
         environment:
             FASTLANE_SKIP_UPDATE_CHECK: true
         macos:
-            xcode: 13.2.1
+            xcode: 14.2.0
         parameters:
             build_config_name:
                 default: integreat
@@ -943,7 +943,7 @@ jobs:
             - notify
     promote_web:
         docker:
-            - image: cimg/node:14.19.0
+            - image: cimg/node:16.19.0
         resource_class: small
         shell: /bin/bash -eo pipefail
         steps:

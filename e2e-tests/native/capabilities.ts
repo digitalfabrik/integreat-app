@@ -18,7 +18,7 @@ const browserstackCaps = (
       projectName: 'integreat-app-native',
       debug: true,
       realMobile: isCi,
-      appiumVersion: '1.21.0',
+      appiumVersion: '2.0.0',
       idleTimeout: 10000,
     },
     ...config,
@@ -30,17 +30,15 @@ const browserstackCaps = (
 export default {
   android: browserstackCaps(
     {
-      'appium:platformVersion': '10.0',
-      'appium:deviceName': 'Google Pixel 3',
-      'appium:automationName': 'UiAutomator2',
+      'appium:platformVersion': '13.0',
+      'appium:deviceName': 'Google Pixel 7',
     },
     'android'
   ),
   ios: browserstackCaps(
     {
-      'appium:platformVersion': '14',
-      'appium:deviceName': 'iPhone 11',
-      'appium:automationName': 'XCUITest',
+      'appium:platformVersion': '16',
+      'appium:deviceName': 'iPhone 14',
       'appium:waitForIdleTimeout': 10000,
     },
     'ios'

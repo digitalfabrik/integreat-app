@@ -12,7 +12,6 @@ target 'Integreat' do
   flags = get_default_flags()
 
   use_react_native!(
-    :production => production
     :path => config[:reactNativePath],
     # Hermes is now enabled by default. Disable by setting this flag to false.
     # Upcoming versions of React Native may rely on get_default_flags(), but
@@ -46,7 +45,7 @@ target 'Integreat' do
       # Set `mac_catalyst_enabled` to `true` in order to apply patches
       # necessary for Mac Catalyst builds
       :mac_catalyst_enabled => false
-    
+    )
     __apply_Xcode_12_5_M1_post_install_workaround(installer)
 
     # Required for Mapbox

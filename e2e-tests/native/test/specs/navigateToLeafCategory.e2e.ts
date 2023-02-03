@@ -6,18 +6,18 @@ describe('navigate to leaf category', () => {
     await navigateToDashboard()
 
     const firstLevelCategory = $(new Selector().ByText('Language').build())
-    await expect(firstLevelCategory).toExist()
+    await firstLevelCategory.waitForDisplayed()
     await firstLevelCategory.click()
 
     const secondLevelCategory = $(new Selector().ByText('Language courses').build())
-    await expect(secondLevelCategory).toExist()
+    await secondLevelCategory.waitForDisplayed()
     await secondLevelCategory.click()
 
     const leafCategory = $(new Selector().ByText('Integration Courses').build())
-    await expect(leafCategory).toExist()
+    await leafCategory.waitForDisplayed()
     await leafCategory.click()
 
     const leafCategoryContent = $(new Selector().ByContainedText('you will learn German').build())
-    await expect(leafCategoryContent).toExist()
+    await leafCategoryContent.waitForDisplayed()
   })
 })
