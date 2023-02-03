@@ -17,24 +17,24 @@ describe('Categories', () => {
     expect(await getPathname()).toBe(`/${Routes.dashboard}/welcome`)
 
     const subCategoryEl = await $(`*=${subCategory}`)
-    expect(await subCategoryEl.isDisplayed()).toBeTrue()
+    expect(await subCategoryEl.isDisplayed()).toBeTruthy()
 
     const leaf = await $(`*=${leafCategory}`)
-    expect(await leaf.isDisplayed()).toBeTrue()
+    expect(await leaf.isDisplayed()).toBeTruthy()
   })
 
   it('should open sub category', async () => {
     await categoriesPage.openCategory(subCategory)
 
     const headline = await $(`h1=${subCategory}`)
-    expect(await headline.isDisplayed()).toBeTrue()
+    expect(await headline.isDisplayed()).toBeTruthy()
   })
 
   it('should open leaf in category', async () => {
     await categoriesPage.openCategory(leafCategory)
 
     const headline = await $(`h1=${leafCategory}`)
-    expect(await headline.isDisplayed()).toBeTrue()
+    expect(await headline.isDisplayed()).toBeTruthy()
   })
 
   it('should open leaf in sub category and display the content', async () => {
@@ -42,9 +42,9 @@ describe('Categories', () => {
     await categoriesPage.openCategory(leafCategory)
 
     const headline = await $(`h1=${leafCategory}`)
-    expect(await headline.isDisplayed()).toBeTrue()
+    expect(await headline.isDisplayed()).toBeTruthy()
 
     const contentExcerpt = await $('li*=Everyone is allowed to have their own opinion.')
-    expect(await contentExcerpt.isDisplayed()).toBeTrue()
+    expect(await contentExcerpt.isDisplayed()).toBeTruthy()
   })
 })

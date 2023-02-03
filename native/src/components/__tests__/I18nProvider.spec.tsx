@@ -87,6 +87,7 @@ describe('I18nProvider', () => {
   it('should have formatter with german fallback format', async () => {
     const ReceivingComponent = () => {
       const formatter = useContext(DateFormatterContext)
+      // eslint-disable-next-line react/destructuring-assignment
       const formated = formatter.format(moment.utc('2020-12-21T14:58:57+01:00'), {})
       return <Text>{formated}</Text>
     }
