@@ -14,6 +14,7 @@
     "nohoist": [
       "native/**",
       "web/**",
+      "e2e-tests/**",
       "api-client/**",
       "translations/**",
       "build-configs/**"
