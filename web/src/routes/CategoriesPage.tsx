@@ -2,7 +2,6 @@ import moment from 'moment'
 import React, { ReactElement, useCallback, useContext } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Link, Navigate, useParams } from 'react-router-dom'
-import usePreviousProp from '../hooks/usePreviousProp'
 
 import {
   CATEGORIES_ROUTE,
@@ -30,6 +29,7 @@ import LoadingSpinner from '../components/LoadingSpinner'
 import buildConfig from '../constants/buildConfig'
 import { cmsApiBaseUrl } from '../constants/urls'
 import DateFormatterContext from '../contexts/DateFormatterContext'
+import usePreviousProp from '../hooks/usePreviousProp'
 import useWindowDimensions from '../hooks/useWindowDimensions'
 import BreadcrumbModel from '../models/BreadcrumbModel'
 
