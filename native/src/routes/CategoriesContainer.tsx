@@ -12,7 +12,7 @@ import useCityAppContext from '../hooks/useCityAppContext'
 import useHeader from '../hooks/useHeader'
 import useLoadCityContent from '../hooks/useLoadCityContent'
 import useNavigate from '../hooks/useNavigate'
-import useOnLanguageChange from '../hooks/useOnLanguageChange'
+import usePreviousProp from '../hooks/usePreviousProp'
 import useResourceCache from '../hooks/useResourceCache'
 import createNavigateToFeedbackModal from '../navigation/createNavigateToFeedbackModal'
 import urlFromRouteInformation from '../navigation/url'
@@ -59,7 +59,7 @@ const CategoriesContainer = ({ navigation, route }: CategoriesContainerProps): R
     },
     [category, navigation]
   )
-  const previousLanguageCode = useOnLanguageChange({ languageCode, onLanguageChange })
+  const previousLanguageCode = usePreviousProp({ prop: languageCode, onPropChange: onLanguageChange })
 
   const error =
     data?.categories && !category && previousLanguageCode === languageCode ? ErrorCode.PageNotFound : response.error
