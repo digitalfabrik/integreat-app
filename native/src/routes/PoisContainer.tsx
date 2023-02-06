@@ -6,7 +6,7 @@ import { NavigationProps, RouteProps } from '../constants/NavigationTypes'
 import useCityAppContext from '../hooks/useCityAppContext'
 import useHeader from '../hooks/useHeader'
 import useLoadCityContent from '../hooks/useLoadCityContent'
-import useOnLanguageChange from '../hooks/useOnLanguageChange'
+import usePreviousProp from '../hooks/usePreviousProp'
 import urlFromRouteInformation from '../navigation/url'
 import LoadingErrorHandler from './LoadingErrorHandler'
 import Pois from './Pois'
@@ -45,7 +45,7 @@ const PoisContainer = ({ navigation, route }: PoisContainerProps): ReactElement 
     },
     [currentPoi, navigation]
   )
-  useOnLanguageChange({ languageCode, onLanguageChange })
+  usePreviousProp({ prop: languageCode, onPropChange: onLanguageChange })
 
   return (
     <LoadingErrorHandler {...response}>
