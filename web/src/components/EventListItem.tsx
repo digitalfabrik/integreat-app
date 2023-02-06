@@ -29,15 +29,13 @@ const getEventPlaceholder = (path: string): string => {
 }
 
 const EventListItem = ({ event, formatter }: EventListItemProps): ReactElement => (
-  <div>
-    <ListItem thumbnail={event.thumbnail || getEventPlaceholder(event.path)} title={event.title} path={event.path}>
-      <Content>
-        <Content dir='auto'>{event.date.toFormattedString(formatter)}</Content>
-        {event.location && <Content dir='auto'>{event.location.fullAddress}</Content>}
-      </Content>
-      <Content dir='auto'>{getExcerpt(event.excerpt, { maxChars: EXCERPT_MAX_CHARS })}</Content>
-    </ListItem>
-  </div>
+  <ListItem thumbnail={event.thumbnail || getEventPlaceholder(event.path)} title={event.title} path={event.path}>
+    <Content>
+      <Content dir='auto'>{event.date.toFormattedString(formatter)}</Content>
+      {event.location && <Content dir='auto'>{event.location.fullAddress}</Content>}
+    </Content>
+    <Content dir='auto'>{getExcerpt(event.excerpt, { maxChars: EXCERPT_MAX_CHARS })}</Content>
+  </ListItem>
 )
 
 export default EventListItem
