@@ -1,7 +1,7 @@
 import React, { ReactElement, useContext } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useNavigate, useParams } from 'react-router-dom'
-import usePreviousProp from 'src/hooks/usePreviousProp'
+import usePreviousProp from '../hooks/usePreviousProp'
 
 import {
   createEventsEndpoint,
