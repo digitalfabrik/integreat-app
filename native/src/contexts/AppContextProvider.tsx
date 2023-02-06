@@ -2,6 +2,7 @@ import React, { createContext, ReactElement, useCallback, useEffect, useMemo, us
 
 import { useLoadAsync } from 'api-client'
 
+import buildConfig from '../constants/buildConfig'
 import appSettings from '../utils/AppSettings'
 import dataContainer from '../utils/DefaultDataContainer'
 import * as PushNotificationsManager from '../utils/PushNotificationsManager'
@@ -34,7 +35,7 @@ const AppContextProvider = ({ children }: AppContextProviderProps): ReactElement
     if (!contentLanguage) {
       throw new Error('Language not initialized by I18nProvider!')
     }
-    setCityCode(selectedCity)
+    setCityCode(buildConfig().featureFlags.fixedCity ?? selectedCity)
     setLanguageCode(contentLanguage)
   }, [])
 
