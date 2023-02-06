@@ -89,11 +89,11 @@ export const animationDuration = 2000
 export const mapMarker: MarkerConfig = {
   iconSize: 0.6,
   defaultSymbol: 'marker_55',
-  symbolActive: 'marker_55_active',
+  symbolActive: 'marker_90_active',
 }
 
 // Shared layer properties
-export const textOffsetY = 1.25
+export const textOffsetY = 1.5
 export const groupCount = 50
 export const circleRadiusSmall = 20
 export const circleRadiusLarge = 30
