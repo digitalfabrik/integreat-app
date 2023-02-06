@@ -1,5 +1,3 @@
-import { Testrunner } from '@wdio/types/build/Options'
-
 import capabilities from './capabilities'
 
 const getCapability = () => {
@@ -16,9 +14,9 @@ const getCapability = () => {
   return capability
 }
 
-export const config: Testrunner = {
+export const config: WebdriverIO.Config = {
   runner: 'local',
-  specs: ['./native/test/specs/**/*.ts'],
+  specs: ['./test/specs/**/*.ts'],
   exclude: [],
 
   maxInstances: 1,
@@ -35,8 +33,8 @@ export const config: Testrunner = {
   specFileRetries: 2,
   bail: 1,
 
-  waitforTimeout: 100000,
-  waitforInterval: 100000,
+  waitforTimeout: 10000,
+  waitforInterval: 10000,
   connectionRetryTimeout: 120000,
   connectionRetryCount: 2,
 

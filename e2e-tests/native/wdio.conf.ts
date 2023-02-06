@@ -9,7 +9,7 @@ const androidCapabilities: Capabilities = {
 
 export const config: Testrunner = {
   runner: 'local',
-  specs: ['./native/test/specs/**/*.ts'],
+  specs: ['./test/specs/**/*.ts'],
   exclude: [],
 
   maxInstances: 1,
