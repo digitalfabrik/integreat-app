@@ -35,11 +35,19 @@ const Thumbnail = styled.img`
 `
 
 const Distance = styled.div`
-  font-size: clamp(0.55rem, 1.6vh, ${props => props.theme.fonts.hintFontSize});
+  font-size: clamp(
+    ${props => props.theme.fonts.adaptiveFontSizeSmall.min},
+    ${props => props.theme.fonts.adaptiveFontSizeSmall.value},
+    ${props => props.theme.fonts.adaptiveFontSizeSmall.max}
+  );
 `
 
 const Category = styled.div`
-  font-size: clamp(0.55rem, 1.6vh, ${props => props.theme.fonts.hintFontSize});
+  font-size: clamp(
+    ${props => props.theme.fonts.adaptiveFontSizeSmall.min},
+    ${props => props.theme.fonts.adaptiveFontSizeSmall.value},
+    ${props => props.theme.fonts.adaptiveFontSizeSmall.max}
+  );
   color: ${props => props.theme.colors.textSecondaryColor};
 `
 
@@ -56,7 +64,11 @@ export const Description = styled.div`
 `
 
 const Title = styled.span`
-  font-size: clamp(0.55rem, 1.6vh, ${props => props.theme.fonts.hintFontSize});
+  font-size: clamp(
+    ${props => props.theme.fonts.adaptiveFontSizeSmall.min},
+    ${props => props.theme.fonts.adaptiveFontSizeSmall.value},
+    ${props => props.theme.fonts.adaptiveFontSizeSmall.max}
+  );
   font-weight: 700;
 `
 

@@ -16,14 +16,22 @@ const OpeningLabel = styled.span<{ isOpened: boolean; direction: string }>`
 `
 
 const Content = styled.div`
-  font-size: clamp(0.55rem, 1.6vh, 0.85rem);
+  font-size: clamp(
+    ${props => props.theme.fonts.adaptiveFontSizeSmall.min},
+    ${props => props.theme.fonts.adaptiveFontSizeSmall.value},
+    ${props => props.theme.fonts.adaptiveFontSizeSmall.max}
+  );
 `
 
 const TitleContainer = styled.div`
   display: flex;
   flex: 1;
   font-weight: 700;
-  font-size: clamp(0.55rem, 1.6vh, ${props => props.theme.fonts.hintFontSize});
+  font-size: clamp(
+    ${props => props.theme.fonts.adaptiveFontSizeSmall.min},
+    ${props => props.theme.fonts.adaptiveFontSizeSmall.value},
+    ${props => props.theme.fonts.adaptiveFontSizeSmall.max}
+  );
   justify-content: space-between;
 `
 
