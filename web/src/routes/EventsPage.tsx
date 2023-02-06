@@ -101,12 +101,12 @@ const EventsPage = ({ cityModel, languages, pathname, languageCode, cityCode }: 
     const blob = new Blob([event.toICal(window.location.origin, buildConfig().appName)], {
       type: 'text/calendar;charset=utf-8',
     })
-    const linkEl = document.createElement('a')
-    linkEl.href = window.URL.createObjectURL(blob)
-    linkEl.setAttribute('download', `${event.title}.ics`)
-    document.body.appendChild(linkEl)
-    linkEl.click()
-    document.body.removeChild(linkEl)
+    const anchorElement = document.createElement('a')
+    anchorElement.href = window.URL.createObjectURL(blob)
+    anchorElement.setAttribute('download', `${event.title}.ics`)
+    document.body.appendChild(anchorElement)
+    anchorElement.click()
+    document.body.removeChild(anchorElement)
   }
 
   if (event) {

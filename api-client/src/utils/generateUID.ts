@@ -1,4 +1,5 @@
 const DEFAULT_LENGTH = 20
+// TODO IGAPP-1226: Replace by UID from CMS
 const generateUID = (length = DEFAULT_LENGTH): string => {
   let generatedID = ''
   const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
