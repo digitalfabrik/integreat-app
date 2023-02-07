@@ -1,0 +1,5 @@
+issue_key: IGAPP-1184
+show_in_stores: false
+platforms:
+  - web
+en: Fixed flickering of not found error if switching language of an event.
