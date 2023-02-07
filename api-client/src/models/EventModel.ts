@@ -1,9 +1,9 @@
 import { decodeHTML } from 'entities'
 import moment, { Moment } from 'moment'
+import { v5 } from 'uuid'
 
 import { getExcerpt } from '../index'
 import { formatDateICal } from '../utils'
-import generateUID from '../utils/generateUID'
 import DateModel from './DateModel'
 import ExtendedPageModel from './ExtendedPageModel'
 import FeaturedImageModel from './FeaturedImageModel'
@@ -52,25 +52,24 @@ class EventModel extends ExtendedPageModel {
   }
 
   toICal(baseUrl: string, appName: string): string {
-    const { title, location, path, date, excerpt } = this
+    const { title, location, path, date, excerpt, lastUpdate } = this
+    const url = `${baseUrl}${path}`
+    const uid = v5(`${url}/${formatDateICal(lastUpdate)}`, v5.URL)
     const body: string[] = []
     body.push(`DTSTAMP:${formatDateICal(moment())}`)
-    body.push(`UID:${generateUID()}`)
+    body.push(`UID:${uid}`)
     body.push(`SUMMARY:${title}`)
     body.push(`DTSTART:${formatDateICal(date.startDate)}`)
     body.push(`DEND:${formatDateICal(date.endDate)}`)
+    body.push(
+      `DESCRIPTION:${getExcerpt(excerpt, {
+        query: undefined,
+        maxChars: 150,
+        replaceLineBreaks: false,
+      })}\\n\\n${url}`
+    )
     if (location) {
       body.push(`LOCATION:${location.fullAddress}`)
-    }
-
-    if (path) {
-      body.push(
-        `DESCRIPTION:${getExcerpt(excerpt, {
-          query: undefined,
-          maxChars: 150,
-          replaceLineBreaks: false,
-        })}\\n\\n${baseUrl}${path}`
-      )
     }
 
     return [

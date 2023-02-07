@@ -28,7 +28,8 @@
     "moment": "2.29.4",
     "moment-timezone": "^0.5.35",
     "normalize-path": "^3.0.0",
-    "normalize-strings": "^1.1.1"
+    "normalize-strings": "^1.1.1",
+    "uuid": "^9.0.0"
   },
   "devDependencies": {
     "@types/geojson": "^7946.0.9",
@@ -37,6 +38,7 @@
     "@types/normalize-path": "^3.0.0",
     "@types/react": "^17.0.37",
     "@types/seedrandom": "^3.0.2",
+    "@types/uuid": "^9.0.0",
     "jest-fetch-mock": "^3.0.3",
     "jest-junit": "^14.0.0",
     "seedrandom": "^3.0.3"
