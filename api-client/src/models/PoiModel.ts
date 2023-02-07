@@ -89,6 +89,7 @@ class PoiModel extends ExtendedPageModel {
       },
       properties: {
         title: name,
+        category: this.category?.name,
         id,
         symbol: this.getMarkerSymbol(),
         thumbnail: this.thumbnail,

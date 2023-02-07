@@ -45,6 +45,8 @@ describe('PoiDetails', () => {
     const { getByText } = renderWithTheme(<PoiDetails poi={poi} feature={feature} language={language} />)
 
     expect(getByText(poi.title)).toBeTruthy()
+    // eslint-disable-next-line @typescript-eslint/no-non-null-asserted-optional-chain
+    expect(getByText(poi.category?.name!)).toBeTruthy()
     expect(getByText('distanceKilometre', { exact: false })).toBeTruthy()
     expect(getByText(poi.location.address)).toBeTruthy()
     expect(getByText(`${poi.location.postcode} ${poi.location.town}`)).toBeTruthy()
