@@ -7,18 +7,15 @@ import { navigateToDashboard } from '../utils/navigationUtils'
 describe('navigate to search result', () => {
   it('should open and search content', async () => {
     await navigateToDashboard()
-    DashboardPage.searchIcon.click()
-    await expect(SearchPage.get()).toExist()
+    await DashboardPage.searchIcon.click()
+    await SearchPage.get()
 
-    const searchBar = SearchPage.search
-    await expect(searchBar).toExist()
+    const searchBar = await SearchPage.search
     await searchBar.addValue(contentSearch)
 
-    const searchResult = $(new Selector().ByBeginsWith('Language').build())
-    await expect(searchResult).toExist()
+    const searchResult = await $(new Selector().ByBeginsWith('Language').build())
     await searchResult.click()
 
-    const categoryItem = $(new Selector().ByText('Language courses').build())
-    await expect(categoryItem).toExist()
+    await $(new Selector().ByText('Language courses').build()).waitForDisplayed()
   })
 })
