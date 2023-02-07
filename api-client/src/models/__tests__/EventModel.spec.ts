@@ -41,7 +41,7 @@ describe('EventModel', () => {
   })
 
   it('should include excerpt and link in description of iCal', () => {
-    const contentField = iCalEvent.split('\n')[10]!
+    const contentField = iCalEvent.split('\n')[9]!
     expect(contentField.startsWith(`DESCRIPTION:${event.excerpt}`)).toBeTruthy()
     expect(contentField.includes(`${baseUrl}${event.path}`)).toBeTruthy()
   })
