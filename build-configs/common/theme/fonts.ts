@@ -1,3 +1,10 @@
+// CSS clamp()
+type AdaptiveFont = {
+  min: string
+  value: string
+  max: string
+}
+
 export type FontsType = {
   native: {
     decorativeFontBold: string
@@ -10,6 +17,7 @@ export type FontsType = {
     decorativeFont: string
     contentFont: string
   }
+  adaptiveFontSizeSmall: AdaptiveFont
   fontSizeAdjust: number
   decorativeFontSize: string
   decorativeFontSizeSmall: string
@@ -30,4 +38,5 @@ export const commonFonts = {
   standardParagraphMargin: '0.75rem',
   subTitleFontSize: '1.8rem',
   hintFontSize: '0.85rem',
+  adaptiveFontSizeSmall: { min: '0.55rem', value: '1.6vh', max: '0.85rem' },
 }
