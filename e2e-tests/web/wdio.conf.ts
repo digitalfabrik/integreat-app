@@ -1,6 +1,6 @@
 import { Capabilities } from '@wdio/types/build/Capabilities'
-
 import { browsers, ciCapabilities } from './capabilities'
+import waitForLocalhost from './waitForLocalhost'
 
 const getCapabilities = (): Array<Capabilities> => {
   if (process.env.CI) {
@@ -34,15 +34,12 @@ export const config: WebdriverIO.Config = {
   },
 
   onPrepare: async (): Promise<void> => {
-    if (process.env.CI) {
-      const startupDelay = 20000
-      await new Promise(resolve => {
-        setTimeout(resolve, startupDelay)
-      })
-    }
+    const startupDelay = 100000
+    await waitForLocalhost(startupDelay)
   },
 
-  before: async (): Promise<void> => {
+  before: async (): Promise<void> => {    
     await browser.setTimeout({ implicit: 80000, pageLoad: 60000 })
   },
 }
+
