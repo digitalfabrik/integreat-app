@@ -1,5 +1,4 @@
 fastlane_version "2.156.1"
-xcodes(version: "14.2.0")
 
 require_relative "read_build_config"
 
