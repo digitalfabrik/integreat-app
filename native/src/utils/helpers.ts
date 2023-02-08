@@ -1,4 +1,4 @@
-import { last } from 'lodash'
+import last from 'lodash/last'
 import BlobUtil from 'react-native-blob-util'
 import Url from 'url-parse'
 

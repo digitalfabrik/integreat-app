@@ -1,4 +1,4 @@
-import { fromPairs } from 'lodash'
+import fromPairs from 'lodash/fromPairs'
 import { stringify } from 'query-string'
 import React, { useState, useRef, useEffect, useCallback, ReactElement } from 'react'
 import { BackHandler } from 'react-native'
