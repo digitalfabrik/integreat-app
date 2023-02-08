@@ -1,4 +1,4 @@
-import { range } from 'lodash'
+import range from 'lodash/range'
 import React, { ReactElement } from 'react'
 import styled from 'styled-components/native'
 

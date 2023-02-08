@@ -1,4 +1,8 @@
-import { difference, flatMap, isEmpty, map, omitBy } from 'lodash'
+import difference from 'lodash/difference'
+import flatMap from 'lodash/flatMap'
+import isEmpty from 'lodash/isEmpty'
+import map from 'lodash/map'
+import omitBy from 'lodash/omitBy'
 import { Moment } from 'moment'
 import BlobUtil from 'react-native-blob-util'
 
