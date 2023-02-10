@@ -5,7 +5,7 @@ parameters:
     type: boolean
     default: false
 docker:
-  - image: cimg/node:16.19.0
+  - image: cimg/node:16.16.0
 resource_class: small
 steps:
   - skip_job

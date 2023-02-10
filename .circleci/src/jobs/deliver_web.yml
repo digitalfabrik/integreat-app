@@ -4,7 +4,7 @@ parameters:
     enum: [production, beta, webnext]
     type: enum
 docker:
-  - image: cimg/node:16.19.0
+  - image: cimg/node:16.16.0
 resource_class: small
 shell: /bin/bash -eo pipefail
 steps:
