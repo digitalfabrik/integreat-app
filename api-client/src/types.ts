@@ -17,10 +17,17 @@ export type JsonLocationType<T> = {
   latitude: T
   longitude: T
 }
-export type JsonOpeningHoursType = {
+type JsonOpeningHoursType = {
   allDay: boolean
   closed: boolean
   timeSlots: TimeSlot[]
+}
+
+export type JsonPoiCategoryType = {
+  id: number
+  name: string
+  color?: string
+  icon?: string
 }
 type JsonFeaturedImageInstanceType = {
   url: string
@@ -79,6 +86,7 @@ export type JsonPoiType = {
   phone_number: string | null
   temporarily_closed: boolean
   opening_hours: JsonOpeningHoursType[] | null
+  category: JsonPoiCategoryType | null
 }
 export type JsonEventType = {
   id: number
