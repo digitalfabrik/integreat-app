@@ -1,6 +1,7 @@
 import moment from 'moment-timezone'
 
 import LocationModel from '../../models/LocationModel'
+import PoiCategoryModel from '../../models/PoiCategoryModel'
 import PoiModel from '../../models/PoiModel'
 import createPOIsEndpoint from '../createPOIsEndpoint'
 
@@ -20,6 +21,12 @@ describe('pois', () => {
     website: null,
     phone_number: null,
     email: null,
+    category: new PoiCategoryModel({
+      color: '#1DC6C6',
+      icon: 'gastronomy',
+      id: 10,
+      name: 'Gastronomie',
+    }),
     location: {
       id: 1,
       name: 'Café Tür an Tür',
@@ -46,6 +53,12 @@ describe('pois', () => {
       website: null,
       phoneNumber: null,
       email: null,
+      category: new PoiCategoryModel({
+        color: '#1DC6C6',
+        icon: 'gastronomy',
+        id: 10,
+        name: 'Gastronomie',
+      }),
       location: new LocationModel({
         id: 1,
         name: 'Café Tür an Tür',

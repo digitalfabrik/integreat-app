@@ -18,7 +18,11 @@ const Marker = styled.img`
 const Link = styled(CleanLink)`
   align-items: center;
   padding-top: 4px;
-  font-size: clamp(0.55rem, 1.6vh, ${props => props.theme.fonts.hintFontSize});
+  font-size: clamp(
+    ${props => props.theme.fonts.adaptiveFontSizeSmall.min},
+    ${props => props.theme.fonts.adaptiveFontSizeSmall.value},
+    ${props => props.theme.fonts.adaptiveFontSizeSmall.max}
+  );
 
   @media ${dimensions.smallViewport} {
     gap: 8px;
