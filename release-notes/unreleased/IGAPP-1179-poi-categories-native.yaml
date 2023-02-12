@@ -1,0 +1,7 @@
+issue_key: IGAPP-1179
+show_in_stores: true
+platforms:
+  - android
+  - ios
+en: Categories of locations will be shown.
+de: Kategorien zu Orten werden angezeigt.

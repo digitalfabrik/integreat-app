@@ -20,7 +20,11 @@ const NavItem = styled.div`
 
 const Label = styled.span`
   align-self: center;
-  font-size: clamp(0.55rem, 1.6vh, ${props => props.theme.fonts.hintFontSize});
+  font-size: clamp(
+    ${props => props.theme.fonts.adaptiveFontSizeSmall.min},
+    ${props => props.theme.fonts.adaptiveFontSizeSmall.value},
+    ${props => props.theme.fonts.adaptiveFontSizeSmall.max}
+  );
 `
 
 const Icon = styled.img<{ direction: string }>`
