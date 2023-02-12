@@ -1,0 +1,8 @@
+issue_key: IGAPP-1175
+show_in_stores: true
+platforms:
+  - android
+  - ios
+  - web
+en: Location category icons are shown on the map.
+de: Kategorie-Icons von Orten werden auf der Karte angezeigt.
