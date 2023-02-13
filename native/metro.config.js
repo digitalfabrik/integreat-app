@@ -32,13 +32,12 @@ module.exports = {
     ),
     // Make sure we use the local copy of react and react-native to avoid multiple copies in the bundle
     // https://github.com/facebook/react/issues/13991#issuecomment-830308729
-    resolveRequest: (context, realModuleName, platform, moduleName) => {
-      const clearContext = { ...context, resolveRequest: undefined }
+    resolveRequest: (context, moduleName, platform) => {
       const module =
         moduleName === 'react' || moduleName === 'react-native'
-          ? path.join(__dirname, 'node_modules', realModuleName)
-          : realModuleName
-      return Resolver.resolve(clearContext, module, platform)
+          ? path.join(__dirname, 'node_modules', moduleName)
+          : moduleName
+      return Resolver.resolve(context, module, platform)
     },
   },
   watchFolders: [path.resolve(__dirname, '../')],
@@ -46,7 +45,6 @@ module.exports = {
     assetPlugins: ['react-native-svg-asset-plugin'],
     getTransformOptions: async () => ({
       transform: {
-        experimentalImportSupport: false,
         inlineRequires: true,
       },
     }),

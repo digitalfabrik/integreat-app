@@ -7,13 +7,14 @@ import {
   CityModel,
   ErrorCode,
   LanguageModelBuilder,
+  OfferModel,
   OFFERS_ROUTE,
   OffersRouteType,
 } from 'api-client'
 import CityModelBuilder from 'api-client/src/testing/CityModelBuilder'
 
 import { AppContext } from '../../contexts/AppContextProvider'
-import useLoadExtraCityContent from '../../hooks/useLoadExtraCityContent'
+import useLoadExtraCityContent, { UseLoadExtraCityContentReturn } from '../../hooks/useLoadExtraCityContent'
 import createNavigationScreenPropMock from '../../testing/createNavigationPropMock'
 import render from '../../testing/render'
 import OffersContainer from '../OffersContainer'
@@ -67,7 +68,7 @@ describe('OffersContainer', () => {
     extra: [],
   }
 
-  const returnValue = {
+  const returnValue: UseLoadExtraCityContentReturn<OfferModel[]> = {
     refresh: jest.fn(),
     loading: false,
     error: null,
@@ -87,7 +88,7 @@ describe('OffersContainer', () => {
   })
 
   it('should display offers without a Loading spinner', () => {
-    mocked(useLoadExtraCityContent).mockImplementation(() => returnValue)
+    mocked(useLoadExtraCityContent).mockImplementation(() => returnValue as never)
     const { queryByText } = renderOffersContainer()
     expect(queryByText('Offers')).toBeTruthy()
     expect(queryByText('loading')).toBeFalsy()
@@ -95,7 +96,9 @@ describe('OffersContainer', () => {
   })
 
   it('should display error', () => {
-    mocked(useLoadExtraCityContent).mockImplementation(() => ({ ...returnValue, error: ErrorCode.UnknownError }))
+    mocked(useLoadExtraCityContent).mockImplementation(
+      () => ({ ...returnValue, error: ErrorCode.UnknownError } as never)
+    )
     const { queryByText } = renderOffersContainer()
     expect(queryByText(errorText)).toBeTruthy()
     expect(queryByText('Offers')).toBeFalsy()
@@ -103,7 +106,7 @@ describe('OffersContainer', () => {
   })
 
   it('should display offers with a Loading spinner', async () => {
-    mocked(useLoadExtraCityContent).mockImplementation(() => ({ ...returnValue, loading: true }))
+    mocked(useLoadExtraCityContent).mockImplementation(() => ({ ...returnValue, loading: true } as never))
     const { queryByText } = renderOffersContainer()
     await waitFor(() => expect(queryByText('Offers')).toBeTruthy())
     expect(queryByText('loading')).toBeTruthy()
@@ -140,10 +143,13 @@ describe('OffersContainer', () => {
       },
       boundingBox: [10.7880103, 48.447238, 11.0174493, 48.297834],
     })
-    mocked(useLoadExtraCityContent).mockImplementation(() => ({
-      ...returnValue,
-      data: { ...data, city: cityDisabledOffers },
-    }))
+    mocked(useLoadExtraCityContent).mockImplementation(
+      () =>
+        ({
+          ...returnValue,
+          data: { ...data, city: cityDisabledOffers },
+        } as never)
+    )
     const { queryByText } = renderOffersContainer()
     await waitFor(() => expect(queryByText('Offers')).toBeFalsy())
     expect(queryByText('loading')).toBeFalsy()

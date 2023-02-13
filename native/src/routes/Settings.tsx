@@ -5,11 +5,10 @@ import { SectionList, SectionListData, StyleSheet } from 'react-native'
 import styled from 'styled-components/native'
 
 import { SettingsRouteType } from 'api-client'
-import { ThemeType } from 'build-configs'
 
 import Layout from '../components/Layout'
 import SettingItem from '../components/SettingItem'
-import { NavigationProps, RouteProps } from '../constants/NavigationTypes'
+import { NavigationProps } from '../constants/NavigationTypes'
 import { AppContext } from '../contexts/AppContextProvider'
 import useSnackbar from '../hooks/useSnackbar'
 import appSettings, { SettingsType } from '../utils/AppSettings'
@@ -17,8 +16,6 @@ import createSettingsSections, { SettingsSectionType } from '../utils/createSett
 import { log, reportError } from '../utils/sentry'
 
 type SettingsProps = {
-  theme: ThemeType
-  route: RouteProps<SettingsRouteType>
   navigation: NavigationProps<SettingsRouteType>
 }
 

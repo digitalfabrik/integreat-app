@@ -52,7 +52,7 @@ describe('TuNewsPage', () => {
   const routePattern = `/:cityCode/:languageCode/${RoutePatterns[TU_NEWS_ROUTE]}`
 
   const renderTuNewsRoute = (languageModel = language, tuNewsLanguages = languagesReturn) => {
-    mocked(useLoadFromEndpoint).mockImplementation(() => tuNewsLanguages)
+    mocked(useLoadFromEndpoint).mockImplementation(() => tuNewsLanguages as never)
     return renderRoute(
       <TuNewsPage
         cities={cities}
