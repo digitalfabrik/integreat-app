@@ -66,7 +66,11 @@ const DetailsHeaderTitle = styled.span`
   align-self: center;
   white-space: pre;
   padding-left: 8px;
-  font-size: clamp(0.55rem, 1.6vh, ${props => props.theme.fonts.hintFontSize});
+  font-size: clamp(
+    ${props => props.theme.fonts.adaptiveFontSizeSmall.min},
+    ${props => props.theme.fonts.adaptiveFontSizeSmall.value},
+    ${props => props.theme.fonts.adaptiveFontSizeSmall.max}
+  );
   font-family: ${props => props.theme.fonts.web.contentFont};
 `
 
@@ -85,18 +89,40 @@ const Thumbnail = styled.img`
 `
 
 const Distance = styled.div`
-  font-size: clamp(0.55rem, 1.6vh, ${props => props.theme.fonts.hintFontSize});
+  font-size: clamp(
+    ${props => props.theme.fonts.adaptiveFontSizeSmall.min},
+    ${props => props.theme.fonts.adaptiveFontSizeSmall.value},
+    ${props => props.theme.fonts.adaptiveFontSizeSmall.max}
+  );
+`
+
+const Category = styled.div`
+  font-size: clamp(
+    ${props => props.theme.fonts.adaptiveFontSizeSmall.min},
+    ${props => props.theme.fonts.adaptiveFontSizeSmall.value},
+    ${props => props.theme.fonts.adaptiveFontSizeSmall.max}
+  );
+  color: ${props => props.theme.colors.textSecondaryColor};
+  margin-top: 8px;
 `
 
 const AddressContentWrapper = styled.div`
   display: flex;
-  font-size: clamp(0.55rem, 1.6vh, ${props => props.theme.fonts.hintFontSize});
+  font-size: clamp(
+    ${props => props.theme.fonts.adaptiveFontSizeSmall.min},
+    ${props => props.theme.fonts.adaptiveFontSizeSmall.value},
+    ${props => props.theme.fonts.adaptiveFontSizeSmall.max}
+  );
 `
 
 const AddressContent = styled.div`
   display: flex;
   flex-direction: column;
-  font-size: clamp(0.55rem, 1.6vh, ${props => props.theme.fonts.hintFontSize});
+  font-size: clamp(
+    ${props => props.theme.fonts.adaptiveFontSizeSmall.min},
+    ${props => props.theme.fonts.adaptiveFontSizeSmall.value},
+    ${props => props.theme.fonts.adaptiveFontSizeSmall.max}
+  );
 
   @media ${dimensions.smallViewport} {
     align-self: center;
@@ -111,7 +137,11 @@ const Heading = styled.div`
 const Subheading = styled.div`
   margin: 12px 0;
   font-weight: 700;
-  font-size: clamp(0.55rem, 1.6vh, ${props => props.theme.fonts.hintFontSize});
+  font-size: clamp(
+    ${props => props.theme.fonts.adaptiveFontSizeSmall.min},
+    ${props => props.theme.fonts.adaptiveFontSizeSmall.value},
+    ${props => props.theme.fonts.adaptiveFontSizeSmall.max}
+  );
 `
 
 const LinkContainer = styled.div`
@@ -122,7 +152,11 @@ const LinkContainer = styled.div`
 const LinkLabel = styled.span`
   color: #0b57d0;
   padding-right: 8px;
-  font-size: clamp(0.55rem, 1.6vh, ${props => props.theme.fonts.hintFontSize});
+  font-size: clamp(
+    ${props => props.theme.fonts.adaptiveFontSizeSmall.min},
+    ${props => props.theme.fonts.adaptiveFontSizeSmall.value},
+    ${props => props.theme.fonts.adaptiveFontSizeSmall.max}
+  );
   align-self: flex-end;
 `
 
@@ -160,7 +194,8 @@ const PoiDetails: React.FC<PoiDetailsProps> = ({
   const { viewportSmall } = useWindowDimensions()
   const theme = useTheme()
   const { title, thumbnail, distance } = feature.properties
-  const { content, location, website, phoneNumber, email, isCurrentlyOpen, openingHours, temporarilyClosed } = poi
+  const { content, location, website, phoneNumber, email, isCurrentlyOpen, openingHours, temporarilyClosed, category } =
+    poi
   const { t } = useTranslation('pois')
   const navigate = useNavigate()
   // MapEvent parses null to 'null'
@@ -183,6 +218,7 @@ const PoiDetails: React.FC<PoiDetailsProps> = ({
         <Thumbnail alt='' src={thumb ?? PoiPlaceholder} />
         <Heading>{title}</Heading>
         {!!distance && <Distance>{t('distanceKilometre', { distance })}</Distance>}
+        {!!category?.name && <Category>{category.name}</Category>}
       </HeadingSection>
       <Spacer borderColor={theme.colors.poiBorderColor} />
       {!viewportSmall && <Subheading>{t('detailsAddress')}</Subheading>}
