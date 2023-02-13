@@ -1,0 +1,6 @@
+issue_key: IGAPP-1129
+show_in_stores: true
+platforms:
+  - web
+en: Events can now be exported.
+de: Veranstaltungen können nun exportiert werden.
