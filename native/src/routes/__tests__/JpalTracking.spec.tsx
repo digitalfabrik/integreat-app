@@ -26,7 +26,7 @@ describe('JpalTracking', () => {
   })
 
   const navigation = createNavigationMock<JpalTrackingRouteType>()
-  mocked(useNavigation).mockImplementation(() => navigation)
+  mocked(useNavigation).mockImplementation(() => navigation as never)
 
   it('should persist tracking enabled', async () => {
     const oldSettings = await appSettings.loadSettings()

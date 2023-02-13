@@ -77,7 +77,8 @@ const NavigationTiles = ({ tiles }: NavigationTilesProps): ReactElement => {
         snapToInterval={navigationItemWidth}
         decelerationRate='fast'
         bounces={false}
-        onScroll={handleScroll}>
+        onScroll={handleScroll}
+        scrollEventThrottle={16}>
         {tiles.map(tile => (
           <NavigationTile key={tile.path} tile={tile} theme={theme} width={navigationItemWidth} />
         ))}
