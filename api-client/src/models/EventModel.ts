@@ -60,7 +60,7 @@ class EventModel extends ExtendedPageModel {
     body.push(`UID:${uid}`)
     body.push(`SUMMARY:${title}`)
     body.push(`DTSTART:${formatDateICal(date.startDate)}`)
-    body.push(`DEND:${formatDateICal(date.endDate)}`)
+    body.push(`DTEND:${formatDateICal(date.endDate)}`)
     body.push(
       `DESCRIPTION:${getExcerpt(excerpt, {
         query: undefined,
