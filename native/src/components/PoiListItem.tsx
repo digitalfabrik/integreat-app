@@ -13,6 +13,11 @@ const Distance = styled.Text`
   font-family: ${props => props.theme.fonts.native.contentFontRegular};
   margin-top: 4px;
 `
+const Category = styled.Text`
+  color: ${props => props.theme.colors.textSecondaryColor};
+  font-family: ${props => props.theme.fonts.native.contentFontRegular};
+  margin-top: 4px;
+`
 const Thumbnail = styled(SimpleImage)`
   width: 100px;
   height: 100px;
@@ -62,6 +67,7 @@ class PoiListItem extends PureComponent<PoiListItemProps> {
           {!!poi.properties.distance && (
             <Distance>{t('distanceKilometre', { distance: poi.properties.distance })}</Distance>
           )}
+          {!!poi.properties.category && <Category>{poi.properties.category}</Category>}
         </Description>
       </StyledTouchableOpacity>
     )

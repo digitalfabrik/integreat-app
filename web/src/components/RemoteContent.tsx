@@ -8,7 +8,13 @@ import buildConfig from '../constants/buildConfig'
 const SandBox = styled.div<{ centered: boolean; smallText: boolean }>`
   font-family: ${props => props.theme.fonts.web.contentFont};
   font-size: ${props =>
-    props.smallText ? `clamp(0.55rem, 1.6vh, ${props.theme.fonts.hintFontSize})` : props.theme.fonts.contentFontSize};
+    props.smallText
+      ? `clamp(
+          ${props.theme.fonts.adaptiveFontSizeSmall.min},
+          ${props.theme.fonts.adaptiveFontSizeSmall.value},
+          ${props.theme.fonts.adaptiveFontSizeSmall.max}
+  );`
+      : props.theme.fonts.contentFontSize};
   line-height: ${props => props.theme.fonts.contentLineHeight};
 
   ${props => (props.centered ? 'text-align: center;' : '')}
@@ -96,9 +102,21 @@ const SandBox = styled.div<{ centered: boolean; smallText: boolean }>`
     display: inline-block;
     background-image: url('${IconExternalLink}');
     width: ${props =>
-      props.smallText ? `clamp(0.55rem, 1.6vh, ${props.theme.fonts.hintFontSize})` : props.theme.fonts.contentFontSize};
+      props.smallText
+        ? `clamp(
+          ${props.theme.fonts.adaptiveFontSizeSmall.min},
+          ${props.theme.fonts.adaptiveFontSizeSmall.value},
+          ${props.theme.fonts.adaptiveFontSizeSmall.max}
+  );`
+        : props.theme.fonts.contentFontSize};
     height: ${props =>
-      props.smallText ? `clamp(0.55rem, 1.6vh, ${props.theme.fonts.hintFontSize})` : props.theme.fonts.contentFontSize};
+      props.smallText
+        ? `clamp(
+          ${props.theme.fonts.adaptiveFontSizeSmall.min},
+          ${props.theme.fonts.adaptiveFontSizeSmall.value},
+          ${props.theme.fonts.adaptiveFontSizeSmall.max}
+  );`
+        : props.theme.fonts.contentFontSize};
     background-size: contain;
     vertical-align: middle;
     margin-left: 4px;
