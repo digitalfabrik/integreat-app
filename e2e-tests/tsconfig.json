@@ -4,7 +4,7 @@
     "skipLibCheck": true,
     "noEmit": true,
     "types": ["node", "@wdio/globals/types", "@wdio/jasmine-framework"],
-    "sourceMap": true
+    "sourceMap": false
   },
   "include": ["web", "native", "shared"]
 }
