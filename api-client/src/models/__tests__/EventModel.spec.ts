@@ -56,7 +56,7 @@ describe('EventModel', () => {
 
   it('should have dates formatted correctly in iCal', () => {
     const eventFields = iCalEvent.split('\n')
-    expect(eventFields[7]).toBe(`DTSTART:20190301T000000`)
-    expect(eventFields[8]).toBe(`DTEND:20190301T041000`)
+    expect(eventFields[7]).toBe(`DTSTART;TZID=Europe/Berlin:20190301T000000`)
+    expect(eventFields[8]).toBe(`DTEND;TZID=Europe/Berlin:20190301T041000`)
   })
 })
