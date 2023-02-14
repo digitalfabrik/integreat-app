@@ -1,4 +1,4 @@
-import merge from 'lodash/merge'
+import { merge } from 'lodash'
 
 const defaultRequestOptions: Partial<RequestInit> = {}
 let jpalTrackingCode: string | null = null

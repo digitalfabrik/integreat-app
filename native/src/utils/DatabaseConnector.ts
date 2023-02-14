@@ -1,7 +1,6 @@
 /* eslint-disable camelcase */
 import { BBox } from 'geojson'
-import map from 'lodash/map'
-import mapValues from 'lodash/mapValues'
+import { map, mapValues } from 'lodash'
 import moment, { Moment } from 'moment'
 import BlobUtil from 'react-native-blob-util'
 

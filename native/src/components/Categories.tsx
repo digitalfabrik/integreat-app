@@ -1,4 +1,4 @@
-import mapValues from 'lodash/mapValues'
+import { mapValues } from 'lodash'
 import React, { ReactElement } from 'react'
 import { View } from 'react-native'
 
