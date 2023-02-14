@@ -55,12 +55,14 @@ class EventModel extends ExtendedPageModel {
     const { title, location, path, date, excerpt, lastUpdate } = this
     const url = `${baseUrl}${path}`
     const uid = v5(`${url}/${formatDateICal(lastUpdate)}`, v5.URL)
+    // should be delivered correctly by CMS https://github.com/digitalfabrik/integreat-cms/issues/2066
+    const timezone = `Europe/Berlin`
     const body: string[] = []
     body.push(`DTSTAMP:${formatDateICal(moment())}`)
     body.push(`UID:${uid}`)
     body.push(`SUMMARY:${title}`)
-    body.push(`DTSTART:${formatDateICal(date.startDate)}`)
-    body.push(`DTEND:${formatDateICal(date.endDate)}`)
+    body.push(`DTSTART;TZID=${timezone}:${formatDateICal(date.startDate)}`)
+    body.push(`DTEND;TZID=${timezone}:${formatDateICal(date.endDate)}`)
     body.push(
       `DESCRIPTION:${getExcerpt(excerpt, {
         query: undefined,
