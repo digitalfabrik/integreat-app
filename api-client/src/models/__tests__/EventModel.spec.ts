@@ -12,8 +12,8 @@ describe('EventModel', () => {
     content: '<h1> html content </h1>',
     thumbnail: 'event.thumbnail',
     date: new DateModel({
-      startDate: moment('2019-03-01T00:00:00.000Z'),
-      endDate: moment('2019-03-01T04:10:40.714Z'),
+      startDate: moment('2019-03-01T00:00:00.000'),
+      endDate: moment('2019-03-01T04:10:40.714'),
       allDay: false,
     }),
     location: new LocationModel({
@@ -55,8 +55,9 @@ describe('EventModel', () => {
   })
 
   it('should have dates formatted correctly in iCal', () => {
+    const timezone = event.date.startDate.tz()
     const eventFields = iCalEvent.split('\n')
-    expect(eventFields[7]).toBe(`DTSTART:20190301T010000Z`)
-    expect(eventFields[8]).toBe(`DEND:20190301T051000Z`)
+    expect(eventFields[7]).toBe(`DTSTART;TZID=${timezone}:20190301T000000`)
+    expect(eventFields[8]).toBe(`DTEND;TZID=${timezone}:20190301T041000`)
   })
 })

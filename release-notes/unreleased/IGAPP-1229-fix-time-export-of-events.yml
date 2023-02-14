@@ -1,0 +1,6 @@
+issue_key: IGAPP-1129
+show_in_stores: false
+platforms:
+  - web
+en: Times of events will be exported correctly.
+de: Die Uhrzeiten von Veranstaltungen werden korrekt exportiert.
