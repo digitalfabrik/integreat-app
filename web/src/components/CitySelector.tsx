@@ -1,5 +1,4 @@
-import groupBy from 'lodash/groupBy'
-import transform from 'lodash/transform'
+import { groupBy, transform } from 'lodash'
 import React, { ReactElement, ReactNode, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'

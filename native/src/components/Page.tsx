@@ -1,4 +1,4 @@
-import mapValues from 'lodash/mapValues'
+import { mapValues } from 'lodash'
 import { Moment } from 'moment'
 import * as React from 'react'
 import { ReactElement, useCallback, useContext, useState } from 'react'
