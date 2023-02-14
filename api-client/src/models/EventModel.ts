@@ -55,12 +55,13 @@ class EventModel extends ExtendedPageModel {
     const { title, location, path, date, excerpt, lastUpdate } = this
     const url = `${baseUrl}${path}`
     const uid = v5(`${url}/${formatDateICal(lastUpdate)}`, v5.URL)
+    const timezone = date.startDate.tz()
     const body: string[] = []
     body.push(`DTSTAMP:${formatDateICal(moment())}`)
     body.push(`UID:${uid}`)
     body.push(`SUMMARY:${title}`)
-    body.push(`DTSTART:${formatDateICal(date.startDate)}`)
-    body.push(`DEND:${formatDateICal(date.endDate)}`)
+    body.push(`DTSTART;TZID=${timezone}:${formatDateICal(date.startDate)}`)
+    body.push(`DTEND;TZID=${timezone}:${formatDateICal(date.endDate)}`)
     body.push(
       `DESCRIPTION:${getExcerpt(excerpt, {
         query: undefined,
