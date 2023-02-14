@@ -49,7 +49,7 @@ describe('NewsContainer', () => {
   })
 
   const navigation = createNavigationPropMock<NewsRouteType>()
-  mocked(useNavigation).mockImplementation(() => navigation)
+  mocked(useNavigation).mockImplementation(() => navigation as never)
   const cities = new CityModelBuilder(3).build()
   const city = cities[0]!
   const languages = new LanguageModelBuilder(3).build()

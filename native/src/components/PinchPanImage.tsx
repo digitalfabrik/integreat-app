@@ -46,15 +46,15 @@ class PinchPanImage extends React.Component<PinchPanImageProps, StateType> {
   // Used for applying an the lastOffset to the position of the image
   private readonly translateXOffset: Animated.AnimatedValue
   private readonly translateYOffset: Animated.AnimatedValue
-  private readonly scaledTranslateYWithOffset: Animated.AnimatedDivision
-  private readonly scaledTranslateXWithOffset: Animated.AnimatedDivision
+  private readonly scaledTranslateYWithOffset: Animated.AnimatedDivision<string | number>
+  private readonly scaledTranslateXWithOffset: Animated.AnimatedDivision<string | number>
   private readonly onPanGestureEvent: (event: PanGestureHandlerGestureEvent) => void
 
   private lastScale: number
   private readonly pinchHandler: React.RefObject<PinchGestureHandler>
   private readonly baseScale: Animated.Value
   private readonly pinchScale: Animated.Value
-  private readonly scale: Animated.AnimatedMultiplication
+  private readonly scale: Animated.AnimatedMultiplication<string | number>
   private readonly onPinchGestureEvent: (event: PinchGestureHandlerGestureEvent) => void
 
   constructor(props: PinchPanImageProps) {

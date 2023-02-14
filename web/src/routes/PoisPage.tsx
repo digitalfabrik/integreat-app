@@ -3,7 +3,7 @@ import { BBox } from 'geojson'
 import { Map } from 'maplibre-gl'
 import React, { ReactElement, useCallback, useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { LngLatLike } from 'react-map-gl'
+import { LngLatLike, MapRef } from 'react-map-gl'
 import { useNavigate, useParams } from 'react-router-dom'
 import { BottomSheetRef } from 'react-spring-bottom-sheet'
 import styled from 'styled-components'
@@ -78,12 +78,12 @@ const PoisPage = ({ cityCode, languageCode, cityModel, pathname, languages }: Ci
     navigate(feature?.properties.slug ?? '.')
   }
 
-  const updateMapRef = useCallback(node => {
+  const updateMapRef = useCallback((node: MapRef | null) => {
     // This allows us to use the map (ref) as dependency in hooks which is not possible using useRef.
     // This is needed because on initial render the ref is null such that flyTo is not possible.
     // https://reactjs.org/docs/hooks-faq.html#how-can-i-measure-a-dom-node
     if (node) {
-      setMapRef(node.getMap())
+      setMapRef(node.getMap() as unknown as Map)
     }
   }, [])
 

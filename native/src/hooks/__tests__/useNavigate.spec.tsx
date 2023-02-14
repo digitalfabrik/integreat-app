@@ -34,7 +34,7 @@ jest.mock('../../navigation/url', () => ({
 
 describe('useNavigate', () => {
   const navigation = createNavigationPropMock()
-  mocked(useNavigation).mockImplementation(() => navigation)
+  mocked(useNavigation).mockImplementation(() => navigation as never)
 
   const changeCityCode = jest.fn()
   const changeLanguageCode = jest.fn()

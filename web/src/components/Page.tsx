@@ -30,6 +30,7 @@ type PageProps = {
   formatter: DateFormatter
   onInternalLinkClick: (url: string) => void
   children?: ReactNode
+  pageFooter?: ReactNode
 }
 
 /**
@@ -46,6 +47,7 @@ const Page = ({
   formatter,
   children,
   onInternalLinkClick,
+  pageFooter,
 }: PageProps): ReactElement => (
   <>
     {!!defaultThumbnailSrc && <Thumbnail alt='' src={defaultThumbnailSrc} srcSet={thumbnailSrcSet} />}
@@ -60,6 +62,7 @@ const Page = ({
         withText={showLastUpdateText}
       />
     )}
+    {pageFooter}
   </>
 )
 

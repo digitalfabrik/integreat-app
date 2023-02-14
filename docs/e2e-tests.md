@@ -43,6 +43,7 @@ The tests itself are then created in the test folder and have to end on `*.e2e.t
 
 ### Local Testing
 
+Selenium standalone requires Java 8.0+.
 To run the web E2E-tests you first have to start the web app, and then execute the e2e tests:
 
 ```

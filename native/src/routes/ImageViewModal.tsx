@@ -17,6 +17,10 @@ const ImageViewModal = ({ route }: ImageViewModalProps): ReactElement => {
   const [isError, setError] = useState(false)
   const theme = useContext(ThemeContext)
 
+  const {
+    colors: { backgroundAccentColor },
+  } = theme
+
   if (isError) {
     return <Failure code={ErrorCode.UnknownError} />
   }
@@ -26,7 +30,7 @@ const ImageViewModal = ({ route }: ImageViewModalProps): ReactElement => {
       style={{
         flex: 1,
         justifyContent: 'center',
-        backgroundColor: theme.colors.backgroundAccentColor,
+        backgroundColor: backgroundAccentColor,
       }}>
       <PinchPanImage uri={route.params.url} onError={() => setError(true)} />
     </View>
