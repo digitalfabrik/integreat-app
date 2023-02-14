@@ -1,5 +1,3 @@
-import { defaults as tsjPreset } from 'ts-jest/presets'
-
 const transformNodeModules = [
   'react-native',
   '@react-native',
@@ -31,8 +29,11 @@ export default {
     '<rootDir>/../jest.setup.ts',
     '<rootDir>/../node_modules/@testing-library/jest-native/extend-expect',
   ],
-  transform: tsjPreset.transform,
-  transformIgnorePatterns: [`node_modules/(?!${transformNodeModules.join('|')})`],
+  transform: {
+    '^.+\\.jsx?$': '../babel-jest.js',
+    '^.+\\.tsx?$': 'ts-jest',
+  },
+  transformIgnorePatterns: [`node_modules/(?!${transformNodeModules.join('|')}/)`],
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json'],
   modulePaths: ['<rootDir>'],
   moduleDirectories: ['node_modules'],

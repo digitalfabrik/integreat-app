@@ -7,6 +7,7 @@ import ExtendedPageModel from './ExtendedPageModel'
 import LocationModel from './LocationModel'
 import OpeningHoursModel from './OpeningHoursModel'
 import PageModel from './PageModel'
+import PoiCategoryModel from './PoiCategoryModel'
 
 class PoiModel extends ExtendedPageModel {
   _location: LocationModel<number>
@@ -16,6 +17,7 @@ class PoiModel extends ExtendedPageModel {
   _email: string | null
   _openingHours: OpeningHoursModel[] | null
   _temporarilyClosed: boolean
+  _category: PoiCategoryModel | null
 
   constructor(params: {
     path: string
@@ -31,8 +33,10 @@ class PoiModel extends ExtendedPageModel {
     phoneNumber: string | null
     temporarilyClosed: boolean
     openingHours: OpeningHoursModel[] | null
+    category: PoiCategoryModel | null
   }) {
-    const { openingHours, temporarilyClosed, location, excerpt, website, phoneNumber, email, ...other } = params
+    const { category, openingHours, temporarilyClosed, location, excerpt, website, phoneNumber, email, ...other } =
+      params
     super(other)
     this._location = location
     this._excerpt = excerpt
@@ -41,6 +45,7 @@ class PoiModel extends ExtendedPageModel {
     this._email = email
     this._openingHours = openingHours
     this._temporarilyClosed = temporarilyClosed
+    this._category = category
   }
 
   get location(): LocationModel<number> {
@@ -63,6 +68,16 @@ class PoiModel extends ExtendedPageModel {
     return this._email
   }
 
+  private getMarkerSymbol(): string {
+    if (this.category) {
+      if (this.category.color && this.category.icon) {
+        const { color, icon } = this.category
+        return `${icon}_${color}`
+      }
+    }
+    return mapMarker.defaultSymbol
+  }
+
   get featureLocation(): PoiFeature {
     const { coordinates, name, id, address } = this.location
 
@@ -74,9 +89,9 @@ class PoiModel extends ExtendedPageModel {
       },
       properties: {
         title: name,
+        category: this.category?.name,
         id,
-        // TODO IGAPP-736: Replace by proper mapping category->symbolName
-        symbol: mapMarker.symbol,
+        symbol: this.getMarkerSymbol(),
         thumbnail: this.thumbnail,
         path: this.path,
         slug: this.slug,
@@ -92,6 +107,10 @@ class PoiModel extends ExtendedPageModel {
 
   get temporarilyClosed(): boolean {
     return this._temporarilyClosed
+  }
+
+  get category(): PoiCategoryModel | null {
+    return this._category
   }
 
   get isCurrentlyOpen(): boolean {

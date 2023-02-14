@@ -89,9 +89,9 @@ describe('TuNews', () => {
         <TuNews data={data} route={route} navigation={navigation} selectNews={selectNews} />
       </ThemeProvider>
     )
-  const elementResponse = { data: news[0], error: null, loading: false, refresh: jest.fn() }
   const tuNewsResponse = {
-    ...elementResponse,
+    error: null,
+    loading: false,
     loadMore,
     loadingMore: false,
     refresh,

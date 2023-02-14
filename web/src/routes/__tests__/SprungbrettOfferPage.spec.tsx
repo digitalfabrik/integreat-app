@@ -91,7 +91,7 @@ describe('SprungbrettOfferPage', () => {
     )
 
   it('should render page with title and content', () => {
-    mocked(useLoadAsync).mockImplementation(() => returnValue)
+    mocked(useLoadAsync).mockImplementation(() => returnValue as never)
 
     const { getByText } = renderSprungbrett()
 

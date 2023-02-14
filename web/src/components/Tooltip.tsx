@@ -233,7 +233,7 @@ export default ({
 }: TooltipProps): ReactElement => {
   const [container, setContainer] = useState<Element | null>(null)
   const onRefSet = useCallback(
-    ref => {
+    (ref: Element | null) => {
       setContainer(ref)
     },
     [setContainer]
