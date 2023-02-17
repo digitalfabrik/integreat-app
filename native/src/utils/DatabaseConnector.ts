@@ -220,6 +220,9 @@ class DatabaseConnector {
 
     if (!cityMetaData) {
       log(`Did not find city '${cityCode}' im metaData '${JSON.stringify(metaData)}'`, 'warning')
+      // Workaround for city content invalidation.
+      // TODO IGAPP-1231: Proper cache invalidation for version updates
+      this._deleteMetaOfCities([cityCode])
       throw Error('cannot store last update for unused city')
     }
 
