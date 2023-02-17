@@ -33,6 +33,7 @@ describe('PoisDesktop', () => {
     const { queryByText, queryByLabelText } = renderPoisDesktop(true, feature)
 
     expect(queryByText(feature.properties.title)).toBeTruthy()
+    expect(queryByText(feature.properties.category!)).toBeTruthy()
     expect(queryByText('pois:distanceKilometre')).toBeTruthy()
     expect(queryByText(poi.location.address!)).toBeTruthy()
     expect(queryByText(poi.content)).toBeTruthy()
@@ -48,6 +49,7 @@ describe('PoisDesktop', () => {
     expect(queryByText('poiList')).toBeTruthy()
     expect(queryByText('Toolbar')).toBeTruthy()
     expect(queryByText(feature.properties.title)).toBeNull()
+    expect(queryByText(feature.properties.category!)).toBeNull()
     expect(queryByText(poi.content)).toBeNull()
   })
 
@@ -57,6 +59,7 @@ describe('PoisDesktop', () => {
     expect(queryByText(poi.content)).toBeTruthy()
     expect(queryByText('poiList')).toBeNull()
     expect(queryByText(feature.properties.title)).toBeTruthy()
+    expect(queryByText(feature.properties.category!)).toBeTruthy()
     expect(queryByLabelText('previous location')).toBeNull()
     expect(queryByLabelText('next location')).toBeNull()
   })

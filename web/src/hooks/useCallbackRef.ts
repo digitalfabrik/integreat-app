@@ -10,7 +10,7 @@ const useCallbackRef = <T extends HTMLSpanElement | HTMLDivElement | HTMLParagra
 ): UseRefWithCallbackReturnProps<T> => {
   const ref = useRef<T | null>(null)
   const refCallback = useCallback(
-    node => {
+    (node: T | null) => {
       ref.current = node
       callback(ref)
     },

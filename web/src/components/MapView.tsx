@@ -1,8 +1,8 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import * as mapLibreGl from 'maplibre-gl'
 import 'maplibre-gl/dist/maplibre-gl.css'
-import React, { forwardRef, ReactElement, useCallback, useState } from 'react'
-import Map, { GeolocateControl, Layer, MapRef, NavigationControl, Source } from 'react-map-gl'
+import React, { forwardRef, ReactElement, useCallback, useState, UIEvent } from 'react'
+import Map, { GeolocateControl, Layer, MapRef, NavigationControl, Source, MapLayerMouseEvent } from 'react-map-gl'
 import { useNavigate } from 'react-router-dom'
 import styled, { css, useTheme } from 'styled-components'
 
@@ -92,9 +92,9 @@ const MapView = forwardRef((props: MapViewProps, ref: React.Ref<MapRef>): ReactE
   const { viewportSmall } = useWindowDimensions()
 
   const onDeselectFeature = useCallback(
-    e => {
+    (e: UIEvent<HTMLElement>) => {
       // Currently selected feature should not be deselected if the user clicks on the controls like zoom or user location
-      if (e.target.classList.toString().includes('mapboxgl-canvas')) {
+      if (e.target instanceof HTMLDivElement && e.target.classList.toString().includes('mapboxgl-canvas')) {
         selectFeature(null)
       }
     },
@@ -102,11 +102,11 @@ const MapView = forwardRef((props: MapViewProps, ref: React.Ref<MapRef>): ReactE
   )
 
   const onSelectFeature = useCallback(
-    event => {
+    (event: MapLayerMouseEvent) => {
       // Stop propagation to children to prevent onClick select event as it is already handled
       event.originalEvent.stopPropagation()
       const feature = event.features && event.features[0]
-      selectFeature(feature)
+      selectFeature(feature ? (feature as unknown as PoiFeature) : null)
       if (feature) {
         changeSnapPoint(1)
       }

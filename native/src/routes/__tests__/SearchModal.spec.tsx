@@ -11,6 +11,7 @@ import sendTrackingSignal from '../../utils/sendTrackingSignal'
 import SearchModal from '../SearchModal'
 
 jest.mock('../../utils/sendTrackingSignal')
+jest.mock('../../components/FeedbackContainer')
 jest.mock('../../components/TimeStamp')
 jest.mock('react-i18next')
 
@@ -22,7 +23,7 @@ describe('SearchModal', () => {
 
   const t = (key: string) => key
 
-  const categoriesMapModel = new CategoriesMapModelBuilder('augsburg', 'de').build()
+  const categoriesMapModel = new CategoriesMapModelBuilder('augsburg', 'de', 2, 2).build()
   const language = 'de'
   const cityCode = 'augsburg'
   const props = {
@@ -58,7 +59,7 @@ describe('SearchModal', () => {
     const goBackButton = getAllByRole('button')[0]!
     const searchBar = getByPlaceholderText('searchPlaceholder')
     fireEvent.changeText(searchBar, 'Category')
-    const categoryListItem = getByText('with id 1')
+    const categoryListItem = getByText('with id 1', { exact: false })
     fireEvent.press(categoryListItem)
     await waitFor(() => expect(goBackButton).not.toBeDisabled())
     expect(sendTrackingSignal).toHaveBeenCalledTimes(1)

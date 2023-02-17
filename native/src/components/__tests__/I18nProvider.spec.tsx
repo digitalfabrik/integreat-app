@@ -31,8 +31,7 @@ describe('I18nProvider', () => {
         <Text>Hello</Text>
       </I18nProvider>
     )
-    await waitFor(() => undefined)
-    expect(await appSettings.loadContentLanguage()).toBe('kmr')
+    await waitFor(async () => expect(await appSettings.loadContentLanguage()).toBe('kmr'))
     expect(setSystemLanguage).toHaveBeenCalledTimes(1)
     expect(setSystemLanguage).toHaveBeenCalledWith('kmr')
   })
@@ -45,9 +44,8 @@ describe('I18nProvider', () => {
         <Text>Hello</Text>
       </I18nProvider>
     )
-    await waitFor(() => undefined)
     expect(await appSettings.loadContentLanguage()).toBe('ar')
-    expect(setSystemLanguage).toHaveBeenCalledTimes(1)
+    await waitFor(() => expect(setSystemLanguage).toHaveBeenCalledTimes(1))
     expect(setSystemLanguage).toHaveBeenCalledWith('kmr')
   })
 
@@ -89,6 +87,7 @@ describe('I18nProvider', () => {
   it('should have formatter with german fallback format', async () => {
     const ReceivingComponent = () => {
       const formatter = useContext(DateFormatterContext)
+      // eslint-disable-next-line react/destructuring-assignment
       const formated = formatter.format(moment.utc('2020-12-21T14:58:57+01:00'), {})
       return <Text>{formated}</Text>
     }

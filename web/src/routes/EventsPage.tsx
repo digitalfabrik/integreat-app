@@ -24,6 +24,8 @@ import List from '../components/List'
 import LoadingSpinner from '../components/LoadingSpinner'
 import Page, { THUMBNAIL_WIDTH } from '../components/Page'
 import PageDetail from '../components/PageDetail'
+import TextButton from '../components/TextButton'
+import buildConfig from '../constants/buildConfig'
 import { cmsApiBaseUrl } from '../constants/urls'
 import DateFormatterContext from '../contexts/DateFormatterContext'
 import usePreviousProp from '../hooks/usePreviousProp'
@@ -97,10 +99,26 @@ const EventsPage = ({ cityModel, languages, pathname, languageCode, cityCode }: 
     )
   }
 
+  const downloadEventAsIcsFile = (event: EventModel) => {
+    const blob = new Blob([event.toICal(window.location.origin, buildConfig().appName)], {
+      type: 'text/calendar;charset=utf-8',
+    })
+    const anchorElement = document.createElement('a')
+    anchorElement.href = window.URL.createObjectURL(blob)
+    anchorElement.setAttribute('download', `${event.title}.ics`)
+    document.body.appendChild(anchorElement)
+    anchorElement.click()
+    document.body.removeChild(anchorElement)
+  }
+
   if (event) {
     const { featuredImage, thumbnail, lastUpdate, content, title, location, date } = event
     const defaultThumbnail = featuredImage ? featuredImage.medium.url : thumbnail
     const pageTitle = `${event.title} - ${cityModel.name}`
+
+    const PageFooter = (
+      <TextButton fullWidth={viewportSmall} onClick={() => downloadEventAsIcsFile(event)} text={t('exportAsICal')} />
+    )
 
     return (
       <CityContentLayout isLoading={false} {...locationLayoutParams}>
@@ -113,7 +131,8 @@ const EventsPage = ({ cityModel, languages, pathname, languageCode, cityCode }: 
           content={content}
           title={title}
           formatter={formatter}
-          onInternalLinkClick={navigate}>
+          onInternalLinkClick={navigate}
+          pageFooter={PageFooter}>
           <>
             <PageDetail identifier={t('date')} information={date.toFormattedString(formatter)} />
             {location && <PageDetail identifier={t('address')} information={location.fullAddress} />}

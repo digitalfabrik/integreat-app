@@ -1,5 +1,5 @@
 import NetInfo from '@react-native-community/netinfo'
-import { LinkingOptions, NavigationContainer } from '@react-navigation/native'
+import { LinkingOptions, NavigationContainer, NavigationState } from '@react-navigation/native'
 import React, { ReactElement, useCallback, useState } from 'react'
 import { LogBox } from 'react-native'
 import { SafeAreaProvider } from 'react-native-safe-area-context'
@@ -59,7 +59,7 @@ const App = (): ReactElement => {
   useSendOfflineJpalSignals()
 
   const onStateChange = useCallback(
-    state => {
+    (state: NavigationState | undefined) => {
       if (state) {
         if (state.index === routeIndex - 1) {
           sendTrackingSignal({

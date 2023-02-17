@@ -44,7 +44,7 @@ const Body = styled.div<{ fullWidth: boolean; disableScrollingSafari: boolean }>
         /* CSS specific to iOS safari devices */
         position: fixed;
         overflow: hidden;
-      } ;
+      }
     `};
   /* https://aykevl.nl/2014/09/fix-jumping-scrollbar */
   ${props =>
@@ -53,7 +53,7 @@ const Body = styled.div<{ fullWidth: boolean; disableScrollingSafari: boolean }>
       @media ${dimensions.minMaxWidth} {
         padding-right: calc((200% - 100vw - ${dimensions.maxWidth}px) / 2);
         padding-left: calc((100vw - ${dimensions.maxWidth}px) / 2);
-      } ;
+      }
     `};
 
   @media ${dimensions.smallViewport} {
