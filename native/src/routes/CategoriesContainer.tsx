@@ -17,6 +17,8 @@ import useResourceCache from '../hooks/useResourceCache'
 import createNavigateToFeedbackModal from '../navigation/createNavigateToFeedbackModal'
 import urlFromRouteInformation from '../navigation/url'
 import testID from '../testing/testID'
+import dataContainer from '../utils/DefaultDataContainer'
+import { reportError } from '../utils/sentry'
 import LoadingErrorHandler from './LoadingErrorHandler'
 
 const Spacing = styled.View`
@@ -34,7 +36,7 @@ const CategoriesContainer = ({ navigation, route }: CategoriesContainerProps): R
   const resourceCacheUrl = useContext(StaticServerContext)
   const { navigateTo } = useNavigate()
 
-  const { data, ...response } = useLoadCityContent({ cityCode, languageCode })
+  const { data, refresh, ...response } = useLoadCityContent({ cityCode, languageCode })
 
   const path = route.params.path ?? cityContentPath({ cityCode, languageCode })
   const category = data?.categories.findCategoryByPath(path)
@@ -64,8 +66,16 @@ const CategoriesContainer = ({ navigation, route }: CategoriesContainerProps): R
   const error =
     data?.categories && !category && previousLanguageCode === languageCode ? ErrorCode.PageNotFound : response.error
 
+  // Workaround clear cache on refresh if city content can't be loaded.
+  // TODO IGAPP-1231: Proper cache invalidation for version updates
+  const clearResourcesAndCache = useCallback(() => {
+    dataContainer.clearInMemoryCache()
+    dataContainer.clearOfflineCache().catch(reportError)
+    refresh()
+  }, [refresh])
+
   return (
-    <LoadingErrorHandler {...response} error={error} scrollView>
+    <LoadingErrorHandler {...response} error={error} refresh={clearResourcesAndCache} scrollView>
       {data && category && (
         <SpaceBetween {...(category.isRoot() ? testID('Dashboard-Page') : {})}>
           {category.isRoot() ? (
