@@ -36,7 +36,7 @@ const CategoriesContainer = ({ navigation, route }: CategoriesContainerProps): R
   const resourceCacheUrl = useContext(StaticServerContext)
   const { navigateTo } = useNavigate()
 
-  const { data, ...response } = useLoadCityContent({ cityCode, languageCode })
+  const { data, refresh, ...response } = useLoadCityContent({ cityCode, languageCode })
 
   const path = route.params.path ?? cityContentPath({ cityCode, languageCode })
   const category = data?.categories.findCategoryByPath(path)
@@ -68,10 +68,11 @@ const CategoriesContainer = ({ navigation, route }: CategoriesContainerProps): R
 
   // Workaround clear cache on refresh if city content can't be loaded.
   // TODO IGAPP-1231: Proper cache invalidation for version updates
-  const clearResourcesAndCache = () => {
+  const clearResourcesAndCache = useCallback(() => {
     dataContainer.clearInMemoryCache()
     dataContainer.clearOfflineCache().catch(reportError)
-  }
+    refresh()
+  }, [refresh])
 
   return (
     <LoadingErrorHandler {...response} error={error} refresh={clearResourcesAndCache} scrollView>
