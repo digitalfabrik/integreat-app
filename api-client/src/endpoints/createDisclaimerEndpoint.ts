@@ -14,7 +14,7 @@ type ParamsType = {
 export default (baseUrl: string): Endpoint<ParamsType, PageModel> =>
   new EndpointBuilder<ParamsType, PageModel>(DISCLAIMER_ENDPOINT_NAME)
     .withParamsToUrlMapper(
-      (params: ParamsType): string => `${baseUrl}/${params.city}/${params.language}/wp-json/extensions/v3/disclaimer`
+      (params: ParamsType): string => `${baseUrl}/${params.city}/${params.language}/wp-json/extensions/v3/disclaimer/`
     )
     .withMapper((json: JsonDisclaimerType | null | undefined, params: ParamsType): PageModel => {
       if (!json) {
