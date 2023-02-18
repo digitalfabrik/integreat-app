@@ -37,7 +37,7 @@ export default (baseUrl: string): Endpoint<ParamsType, void> =>
     .withParamsToUrlMapper(params => {
       const { city, language } = params
 
-      return `${baseUrl}/${city}/${language}/wp-json/extensions/v3/feedback/${params.feedbackType}`
+      return `${baseUrl}/${city}/${language}/wp-json/extensions/v3/feedback/${params.feedbackType}/`
     })
     .withParamsToBodyMapper((params: ParamsType): FormData => {
       const formData = new FormData()
