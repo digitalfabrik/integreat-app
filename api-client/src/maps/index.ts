@@ -92,6 +92,8 @@ export const mapMarker: MarkerConfig = {
   symbolActive: 'marker_90_active',
 }
 
+export const openStreetMapCopyrightLink = 'https://www.openstreetmap.org/copyright'
+
 // Shared layer properties
 export const textOffsetY = 1.5
 export const groupCount = 50
