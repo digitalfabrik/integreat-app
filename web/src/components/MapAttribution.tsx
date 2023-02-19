@@ -20,8 +20,10 @@ const AttributionContainer = styled.div`
   width: 100%;
   position: absolute;
   top: 0;
+  right: 0;
   justify-content: flex-end;
-  padding: 8px 0;
+  padding: 8px;
+  cursor: pointer;
 `
 
 const OpenStreetMapsLink = styled(CleanLink)`
