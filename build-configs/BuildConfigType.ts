@@ -97,6 +97,7 @@ export type WebBuildConfigType = CommonBuildConfigType & {
   campaign?: {
     // Shows a different app logo from start to end date.
     campaignAppLogo: string
+    campaignAppLogoMobile: string
     startDate: string
     endDate: string
   }
