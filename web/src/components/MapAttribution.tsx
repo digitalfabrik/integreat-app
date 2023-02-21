@@ -1,7 +1,7 @@
 import React, { ReactElement, useState } from 'react'
 import styled from 'styled-components'
 
-import { openStreeMapCopyright } from 'api-client'
+import { MapViewMercatorViewport, openStreeMapCopyright, PoiFeature, PoiFeatureCollection } from 'api-client'
 
 import CleanLink from './CleanLink'
 
@@ -12,7 +12,7 @@ const Attribution = styled.div`
   box-shadow: 0 2px 3px 3px rgb(0 0 0 / 10%);
   color: rgba(0, 0, 0, 0.75);
 `
-const AttributionContainer = styled.div<{ minimized: boolean }>`
+const AttributionContainer = styled.div<{ expanded: boolean }>`
   display: flex;
   width: 100%;
   position: absolute;
@@ -20,7 +20,8 @@ const AttributionContainer = styled.div<{ minimized: boolean }>`
   right: 0;
   justify-content: flex-end;
   cursor: pointer;
-  font-size: ${props => (props.minimized ? props.theme.fonts.contentFontSize : props.theme.fonts.hintFontSize)};
+  font-size: ${props => (props.expanded ? props.theme.fonts.hintFontSize : props.theme.fonts.contentFontSize)};
+  font-weight: ${props => (props.expanded ? 'normal' : 'bold')};
 `
 
 const OpenStreetMapsLink = styled(CleanLink)`
@@ -33,19 +34,23 @@ const Label = styled.span`
   color: rgba(0, 0, 0, 0.75);
 `
 
-const MapAttribution = (): ReactElement => {
+type MapAttributionProps = {
+  initialExpanded: boolean
+}
+
+const MapAttribution = ({ initialExpanded }: MapAttributionProps): ReactElement => {
   const { icon, linkText, url, label } = openStreeMapCopyright
-  const [minimized, setMinimized] = useState<boolean>(true)
+  const [expanded, setExpanded] = useState<boolean>(initialExpanded)
   return (
     <AttributionContainer
-      minimized={minimized}
+      expanded={expanded}
       role='button'
       tabIndex={0}
-      onKeyPress={() => setMinimized(!minimized)}
-      onClick={() => setMinimized(!minimized)}>
+      onKeyPress={() => setExpanded(!expanded)}
+      onClick={() => setExpanded(!expanded)}>
       <Attribution>
         <Label>{icon}</Label>
-        {!minimized && (
+        {expanded && (
           <>
             <OpenStreetMapsLink newTab to={url}>
               {linkText}
