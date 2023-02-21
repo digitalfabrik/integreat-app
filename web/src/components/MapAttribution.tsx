@@ -20,7 +20,8 @@ const AttributionContainer = styled.div<{ expanded: boolean }>`
   right: 0;
   justify-content: flex-end;
   cursor: pointer;
-  font-size: ${props => (props.expanded ? props.theme.fonts.hintFontSize : props.theme.fonts.contentFontSize)};
+  font-size: ${props =>
+    props.expanded ? props.theme.fonts.decorativeFontSizeSmall : props.theme.fonts.contentFontSize};
   font-weight: ${props => (props.expanded ? 'normal' : 'bold')};
 `
 
