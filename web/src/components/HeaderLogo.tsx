@@ -52,8 +52,7 @@ export const HeaderLogo = ({ link }: HeaderLogoProps): ReactElement => {
   const currentDate = moment()
   const showCampaignLogo = campaign && currentDate.isAfter(campaign.startDate) && currentDate.isBefore(campaign.endDate)
   const src = campaign && showCampaignLogo ? campaign.campaignAppLogo : icons.appLogo
-  const srcMobile = campaign && showCampaignLogo ? campaign.campaignAppLogo : icons.appLogoMobile
-  // TODO delete campaign in one commit incl assets
+  const srcMobile = campaign && showCampaignLogo ? campaign.campaignAppLogoMobile : icons.appLogoMobile
 
   return (
     <LogoContainer>
