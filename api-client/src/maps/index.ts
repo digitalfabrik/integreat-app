@@ -38,6 +38,13 @@ export type MarkerConfig = {
   symbolActive: string
   iconSize: number
 }
+
+type OpenStreetMapCopyrightType = {
+  label: string
+  icon: string
+  url: string
+  linkText: string
+}
 // GeoLocation Types for useUserLocation hooks
 export type LocationType = [number, number]
 export type UserLocationType = SuccessfulLocationState | UnavailableLocationState
@@ -93,6 +100,13 @@ export const mapMarker: MarkerConfig = {
 }
 
 export const openStreetMapCopyrightLink = 'https://www.openstreetmap.org/copyright'
+
+export const openStreeMapCopyright: OpenStreetMapCopyrightType = {
+  url: 'https://www.openstreetmap.org/copyright',
+  icon: '©',
+  linkText: 'OpenStreetMap',
+  label: 'contributors',
+}
 
 // Shared layer properties
 export const textOffsetY = 1.5
