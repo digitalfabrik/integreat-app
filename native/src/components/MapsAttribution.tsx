@@ -17,45 +17,44 @@ const AttributionContainer = styled.TouchableOpacity`
   top: 0;
   right: 0;
   justify-content: flex-end;
-  min-height: 20px;
   color: rgba(0, 0, 0, 0.75);
   font-family: ${props => props.theme.fonts.native.contentFontRegular};
 `
 
 const OpenStreetMapsLink = styled(Link)`
-  padding: 0;
+  padding: 4px 0;
   color: ${props => props.theme.colors.tunewsThemeColor};
   text-decoration-line: underline;
   text-decoration-style: solid;
   text-decoration-color: ${props => props.theme.colors.tunewsThemeColor};
+  align-self: center;
 `
 
 const Label = styled.Text`
-  padding: 0 4px;
-  color: rgba(0, 0, 0, 0.75);
+  padding: 4px;
 `
 
-const Copyright = styled.Text<{ minimized: boolean }>`
-  padding: 0 4px;
+const Copyright = styled.Text<{ expanded: boolean }>`
+  padding-right: 4px;
   color: rgba(0, 0, 0, 0.75);
-  font-size: ${props => (props.minimized ? '20px' : '14px')};
+  font-size: ${props => (props.expanded ? '14px' : '20px')};
   align-self: center;
 `
 
 const MapAttribution = (): ReactElement => {
   const { url, label, linkText, icon } = openStreeMapCopyright
-  const [minimized, setMinimized] = useState<boolean>(true)
+  const [expanded, setExpanded] = useState<boolean>(false)
   return (
-    <AttributionContainer onPress={() => setMinimized(!minimized)} accessibilityRole='button'>
-      {minimized ? (
-        <Copyright minimized={minimized}>{icon}</Copyright>
-      ) : (
-        <Attribution>
-          <Copyright minimized={minimized}>©</Copyright>
-          <OpenStreetMapsLink url={url} text={linkText} />
-          <Label>{label}</Label>
-        </Attribution>
-      )}
+    <AttributionContainer onPress={() => setExpanded(!expanded)} accessibilityRole='button'>
+      <Attribution>
+        <Copyright expanded={expanded}>{icon}</Copyright>
+        {expanded && (
+          <>
+            <OpenStreetMapsLink url={url} text={linkText} />
+            <Label>{label}</Label>
+          </>
+        )}
+      </Attribution>
     </AttributionContainer>
   )
 }

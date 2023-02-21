@@ -7,17 +7,25 @@ import { renderWithRouterAndTheme } from '../../testing/render'
 import MapAttribution from '../MapAttribution'
 
 describe('MapAttribution', () => {
-  it('should render copyright icon', () => {
+  it('should render copyright icon on mobile', () => {
     const { icon } = openStreeMapCopyright
-    const { getByText } = renderWithRouterAndTheme(<MapAttribution />)
+    const { getByText } = renderWithRouterAndTheme(<MapAttribution initialExpanded={false} />)
     expect(getByText(icon)).toBeTruthy()
   })
 
-  it('should render contribution link by clicking on copyright icon', () => {
-    const { url, icon, linkText } = openStreeMapCopyright
-    const { getByText } = renderWithRouterAndTheme(<MapAttribution />)
+  it('should render contribution link by clicking on icon on mobile', () => {
+    const { icon, linkText, url } = openStreeMapCopyright
+    const { getByText } = renderWithRouterAndTheme(<MapAttribution initialExpanded={false} />)
     expect(getByText(icon)).toBeTruthy()
     fireEvent.click(getByText(icon))
+    expect(getByText(linkText)).toBeTruthy()
+    expect(getByText(linkText)).toHaveAttribute('href', url)
+  })
+
+  it('should render contribution link on desktop', () => {
+    const { url, icon, linkText } = openStreeMapCopyright
+    const { getByText } = renderWithRouterAndTheme(<MapAttribution initialExpanded />)
+    expect(getByText(linkText)).toBeTruthy()
     expect(getByText(linkText)).toHaveAttribute('href', url)
   })
 })

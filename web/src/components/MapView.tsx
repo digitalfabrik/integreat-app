@@ -184,7 +184,7 @@ const MapView = forwardRef((props: MapViewProps, ref: React.Ref<MapRef>): ReactE
             <CityContentFooter city={cityCode} language={languageCode} mode='overlay' />
           </FooterContainer>
         )}
-        <MapAttribution />
+        <MapAttribution initialExpanded={!viewportSmall} />
       </Map>
     </MapContainer>
   )
