@@ -1,7 +1,7 @@
 import React, { ReactElement, useState } from 'react'
 import styled from 'styled-components'
 
-import { MapViewMercatorViewport, openStreeMapCopyright, PoiFeature, PoiFeatureCollection } from 'api-client'
+import { openStreeMapCopyright } from 'api-client'
 
 import CleanLink from './CleanLink'
 
