@@ -1,29 +1,26 @@
 import React, { ReactElement, useState } from 'react'
 import styled from 'styled-components'
 
-import { openStreetMapCopyrightLink } from 'api-client/src'
+import { openStreeMapCopyright } from 'api-client'
 
 import CleanLink from './CleanLink'
 
 const Attribution = styled.div`
   display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
   padding: 0 4px;
-  margin-top: auto;
-  background-color: rgba(255, 255, 255, 0.5);
+  background-color: rgba(255, 255, 255, 0.3);
   box-shadow: 0 2px 3px 3px rgb(0 0 0 / 10%);
   color: rgba(0, 0, 0, 0.75);
 `
-const AttributionContainer = styled.div`
+const AttributionContainer = styled.div<{ minimized: boolean }>`
   display: flex;
   width: 100%;
   position: absolute;
   top: 0;
   right: 0;
   justify-content: flex-end;
-  padding: 8px;
   cursor: pointer;
+  font-size: ${props => (props.minimized ? props.theme.fonts.contentFontSize : props.theme.fonts.hintFontSize)};
 `
 
 const OpenStreetMapsLink = styled(CleanLink)`
@@ -36,31 +33,27 @@ const Label = styled.span`
   color: rgba(0, 0, 0, 0.75);
 `
 
-const Copyright = styled.span<{ minimized: boolean }>`
-  padding: 0 4px;
-  color: rgba(0, 0, 0, 0.75);
-  font-size: ${props => (props.minimized ? '20px' : '12px')};
-`
-
 const MapAttribution = (): ReactElement => {
+  const { icon, linkText, url, label } = openStreeMapCopyright
   const [minimized, setMinimized] = useState<boolean>(true)
   return (
     <AttributionContainer
+      minimized={minimized}
       role='button'
       tabIndex={0}
       onKeyPress={() => setMinimized(!minimized)}
       onClick={() => setMinimized(!minimized)}>
-      {minimized ? (
-        <Copyright minimized={minimized}>©</Copyright>
-      ) : (
-        <Attribution>
-          <Copyright minimized={minimized}>©</Copyright>
-          <OpenStreetMapsLink newTab to={openStreetMapCopyrightLink}>
-            OpenStreetMap
-          </OpenStreetMapsLink>
-          <Label>contributors</Label>
-        </Attribution>
-      )}
+      <Attribution>
+        <Label>{icon}</Label>
+        {!minimized && (
+          <>
+            <OpenStreetMapsLink newTab to={url}>
+              {linkText}
+            </OpenStreetMapsLink>
+            <Label>{label}</Label>
+          </>
+        )}
+      </Attribution>
     </AttributionContainer>
   )
 }
