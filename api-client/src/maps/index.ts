@@ -99,8 +99,6 @@ export const mapMarker: MarkerConfig = {
   symbolActive: 'marker_90_active',
 }
 
-export const openStreetMapCopyrightLink = 'https://www.openstreetmap.org/copyright'
-
 export const openStreeMapCopyright: OpenStreetMapCopyrightType = {
   url: 'https://www.openstreetmap.org/copyright',
   icon: '©',

@@ -23,8 +23,6 @@ import '../styles/MapView.css'
 import CityContentFooter from './CityContentFooter'
 import MapAttribution from './MapAttribution'
 
-const PADDING = 12
-
 const MapContainer = styled.div`
   height: 100%;
   width: 100%;
@@ -158,13 +156,15 @@ const MapView = forwardRef((props: MapViewProps, ref: React.Ref<MapRef>): ReactE
             <StyledIcon icon={faArrowLeft} direction={direction} />
           </BackNavigation>
         )}
-        <NavigationControl showCompass={false} position={direction === 'rtl' ? 'bottom-left' : 'bottom-right'} />
+        {!viewportSmall && (
+          <NavigationControl showCompass={false} position={direction === 'rtl' ? 'bottom-left' : 'bottom-right'} />
+        )}
         {/* To use geolocation in a development build you have to start the dev server with "yarn start --https" */}
         <GeolocateControl
           style={
             viewportSmall
               ? {
-                  bottom: geolocationControlPosition + PADDING,
+                  bottom: geolocationControlPosition,
                   position: 'fixed',
                   right: 0,
                 }
