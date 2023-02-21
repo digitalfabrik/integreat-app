@@ -23,7 +23,7 @@ describe('MapAttribution', () => {
   })
 
   it('should render contribution link on desktop', () => {
-    const { url, icon, linkText } = openStreeMapCopyright
+    const { url, linkText } = openStreeMapCopyright
     const { getByText } = renderWithRouterAndTheme(<MapAttribution initialExpanded />)
     expect(getByText(linkText)).toBeTruthy()
     expect(getByText(linkText)).toHaveAttribute('href', url)
