@@ -18,7 +18,7 @@ type ParamsType = {
 export default (baseUrl: string): Endpoint<ParamsType, Array<EventModel>> =>
   new EndpointBuilder<ParamsType, Array<EventModel>>(EVENTS_ENDPOINT_NAME)
     .withParamsToUrlMapper(
-      (params: ParamsType): string => `${baseUrl}/${params.city}/${params.language}/wp-json/extensions/v3/events`
+      (params: ParamsType): string => `${baseUrl}/${params.city}/${params.language}/wp-json/extensions/v3/events/`
     )
     .withMapper(
       (json: Array<JsonEventType>): Array<EventModel> =>
