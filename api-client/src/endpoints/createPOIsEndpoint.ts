@@ -31,6 +31,7 @@ export default (baseUrl: string): Endpoint<ParamsType, Array<PoiModel>> =>
               thumbnail: poi.thumbnail,
               availableLanguages: mapAvailableLanguages(poi.available_languages),
               excerpt: poi.excerpt,
+              metaDescription: poi.meta_description ? poi.meta_description : null,
               website: poi.website,
               phoneNumber: poi.phone_number,
               email: poi.email,

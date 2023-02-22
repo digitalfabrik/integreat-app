@@ -1,0 +1,5 @@
+issue_key: IGAPP-1195
+show_in_stores: false
+platforms:
+  - web
+en: Use poi meta description for seo.

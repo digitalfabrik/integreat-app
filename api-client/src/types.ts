@@ -77,6 +77,7 @@ export type JsonPoiType = {
   title: string
   modified_gmt: string
   excerpt: string
+  meta_description: string | null
   content: string
   available_languages: JsonAvailableLanguagesType
   thumbnail: string
