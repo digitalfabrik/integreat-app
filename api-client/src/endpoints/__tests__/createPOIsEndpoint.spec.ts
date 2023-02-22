@@ -3,6 +3,7 @@ import moment from 'moment-timezone'
 import LocationModel from '../../models/LocationModel'
 import PoiCategoryModel from '../../models/PoiCategoryModel'
 import PoiModel from '../../models/PoiModel'
+import { JsonPoiType } from '../../types'
 import createPOIsEndpoint from '../createPOIsEndpoint'
 
 describe('pois', () => {
@@ -10,13 +11,15 @@ describe('pois', () => {
   const pois = createPOIsEndpoint(baseUrl)
   const path = '/augsburg/de/pois/asylpolitischer_fruehschoppen'
 
-  const createPoi = (id: number) => ({
+  const createPoi = (id: number): JsonPoiType => ({
     id,
     path,
+    url: baseUrl + path,
     title: 'Asylploitischer Frühschoppen',
     excerpt: 'Am Sonntag...',
+    meta_description: 'Meta',
     content: '<p>Am Sonntag...</p>',
-    available_languages: [],
+    available_languages: {},
     thumbnail: '',
     website: null,
     phone_number: null,
@@ -47,6 +50,7 @@ describe('pois', () => {
       path,
       title: 'Asylploitischer Frühschoppen',
       excerpt: 'Am Sonntag...',
+      metaDescription: 'Meta',
       content: '<p>Am Sonntag...</p>',
       availableLanguages: new Map(),
       thumbnail: '',
