@@ -11,6 +11,7 @@ const Attribution = styled.View`
   padding: 4px;
   align-self: center;
 `
+
 const AttributionContainer = styled.TouchableOpacity`
   display: flex;
   position: absolute;
