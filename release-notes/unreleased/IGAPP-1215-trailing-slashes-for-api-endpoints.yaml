@@ -1,0 +1,8 @@
+issue_key: IGAPP-1215
+show_in_stores: true
+platforms:
+  - web
+  - ios
+  - android
+en: Improve loading times.
+de: Ladezeiten wurden verkürzt.
