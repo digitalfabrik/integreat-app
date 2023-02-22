@@ -104,8 +104,8 @@ export const webIntegreatBuildConfig: WebBuildConfigType = {
   campaign: {
     campaignAppLogo: '/campaign-app-logo.png',
     campaignAppLogoMobile: '/campaign-app-logo-mobile.png',
-    startDate: '2023-03-08T00:00:00.000Z',
-    endDate: '2023-03-15T00:00:00.000Z',
+    startDate: '2023-03-06T00:00:00.000Z',
+    endDate: '2023-03-13T00:00:00.000Z',
   },
   apps: {
     android: {
