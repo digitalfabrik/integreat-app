@@ -207,16 +207,15 @@ const PoiDetails: React.FC<PoiDetailsProps> = ({
 
   return (
     <DetailsContainer>
-      {!viewportSmall ||
-        (isBottomSheetFullscreen && (
-          <>
-            <DetailsHeader onClick={onBackClick} role='button' tabIndex={0} onKeyPress={onBackClick}>
-              <ArrowBack src={iconArrowBack} alt='' direction={direction} />
-              <DetailsHeaderTitle>{t('detailsHeader')}</DetailsHeaderTitle>
-            </DetailsHeader>
-            <Spacer borderColor={theme.colors.poiBorderColor} />
-          </>
-        ))}
+      {(!viewportSmall || isBottomSheetFullscreen) && (
+        <>
+          <DetailsHeader onClick={onBackClick} role='button' tabIndex={0} onKeyPress={onBackClick}>
+            <ArrowBack src={iconArrowBack} alt='' direction={direction} />
+            <DetailsHeaderTitle>{t('detailsHeader')}</DetailsHeaderTitle>
+          </DetailsHeader>
+          <Spacer borderColor={theme.colors.poiBorderColor} />
+        </>
+      )}
       <HeadingSection>
         <Thumbnail alt='' src={thumb ?? PoiPlaceholder} />
         <Heading>{title}</Heading>
