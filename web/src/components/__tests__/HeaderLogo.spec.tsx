@@ -8,6 +8,7 @@ jest.useFakeTimers()
 describe('HeaderLogo', () => {
   const womensDayCampaign = {
     campaignAppLogo: '/campaign-app-logo.png',
+    campaignAppLogoMobile: '/campaign-app-logo-mobile.png',
     startDate: '2021-03-08T00:00:00.000Z',
     endDate: '2021-03-15T00:00:00.000Z',
   }
