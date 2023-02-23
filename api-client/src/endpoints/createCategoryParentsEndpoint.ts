@@ -22,7 +22,7 @@ export default (baseUrl: string): Endpoint<ParamsType, Array<CategoryModel>> =>
         throw new Error('This endpoint does not support the root category!')
       }
 
-      return `${baseUrl}/${city}/${language}/wp-json/extensions/v3/parents?url=${cityContentPath}`
+      return `${baseUrl}/${city}/${language}/wp-json/extensions/v3/parents/?url=${cityContentPath}`
     })
     .withMapper((json: Array<JsonCategoryType>, params: ParamsType): Array<CategoryModel> => {
       const basePath = `/${params.city}/${params.language}`
