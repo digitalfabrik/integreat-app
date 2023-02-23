@@ -40,7 +40,7 @@ describe('localnews', () => {
   }
   it('should map params to url', () => {
     expect(localNews.mapParamsToUrl(params)).toBe(
-      `https://cms.integreat-app.de/${params.city}/${params.language}/wp-json/extensions/v3/fcm?channel=news`
+      `https://cms.integreat-app.de/${params.city}/${params.language}/wp-json/extensions/v3/fcm/?channel=news`
     )
   })
   const json = [item1, item2, item3]
