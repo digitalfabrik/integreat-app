@@ -1,0 +1,8 @@
+issue_key: IGAPP-1137
+show_in_stores: false
+platforms:
+  - web
+  - ios
+  - android
+en: OpenStreetMaps copyright attribution is displayed.
+de: OpenStreetMaps Copyright Zuschreibung wird nun angezeigt.
