@@ -65,6 +65,7 @@ const PoisPage = ({ cityCode, languageCode, cityModel, pathname, languages }: Ci
   const [currentFeature, setCurrentFeature] = useState<PoiFeature | null>(
     data?.features.find(it => it.properties.slug === slug) ?? null
   )
+  const [bottomActionSheetHeight, setBottomActionSheetHeight] = useState<number>(0)
   const poi = data?.pois.find(it => it.slug === slug)
   const { viewportSmall, height } = useWindowDimensions()
   const sheetRef = useRef<BottomSheetRef>(null)
@@ -205,6 +206,7 @@ const PoisPage = ({ cityCode, languageCode, cityModel, pathname, languages }: Ci
 
   const mapView = cityModel.boundingBox && (
     <MapView
+      geolocationControlPosition={bottomActionSheetHeight}
       ref={updateMapRef}
       selectFeature={selectFeature}
       changeSnapPoint={changeSnapPoint}
@@ -222,7 +224,12 @@ const PoisPage = ({ cityCode, languageCode, cityModel, pathname, languages }: Ci
 
   return (
     <CityContentLayout isLoading={false} {...locationLayoutParams} fullWidth>
-      <Helmet pageTitle={pageTitle} languageChangePaths={languageChangePaths} cityModel={cityModel} />
+      <Helmet
+        pageTitle={pageTitle}
+        metaDescription={poi?.metaDescription}
+        languageChangePaths={languageChangePaths}
+        cityModel={cityModel}
+      />
       <PoisPageWrapper panelHeights={panelHeights}>
         {viewportSmall ? (
           <PoisMobile
@@ -234,6 +241,7 @@ const PoisPage = ({ cityCode, languageCode, cityModel, pathname, languages }: Ci
             poiList={poiList}
             selectFeature={selectFeature}
             direction={direction}
+            setBottomActionSheetHeight={setBottomActionSheetHeight}
           />
         ) : (
           <PoisDesktop
