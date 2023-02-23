@@ -224,7 +224,12 @@ const PoisPage = ({ cityCode, languageCode, cityModel, pathname, languages }: Ci
 
   return (
     <CityContentLayout isLoading={false} {...locationLayoutParams} fullWidth>
-      <Helmet pageTitle={pageTitle} languageChangePaths={languageChangePaths} cityModel={cityModel} />
+      <Helmet
+        pageTitle={pageTitle}
+        metaDescription={poi?.metaDescription}
+        languageChangePaths={languageChangePaths}
+        cityModel={cityModel}
+      />
       <PoisPageWrapper panelHeights={panelHeights}>
         {viewportSmall ? (
           <PoisMobile

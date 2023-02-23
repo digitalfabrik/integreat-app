@@ -17,7 +17,7 @@ describe('feedback', () => {
         feedbackCategory: TECHNICAL_FEEDBACK_CATEGORY,
         isPositiveRating: true,
       })
-    ).toBe('https://integreat-api-url.de/augsburg/de/wp-json/extensions/v3/feedback/categories')
+    ).toBe('https://integreat-api-url.de/augsburg/de/wp-json/extensions/v3/feedback/categories/')
   })
   it('should create the correct feedbackendpoint', () => {
     expect(
@@ -30,7 +30,7 @@ describe('feedback', () => {
         isPositiveRating: true,
         slug: `willkommen`,
       })
-    ).toBe('https://integreat-api-url.de/augsburg/de/wp-json/extensions/v3/feedback/page')
+    ).toBe('https://integreat-api-url.de/augsburg/de/wp-json/extensions/v3/feedback/page/')
   })
   it('should map the params to the body', () => {
     const formData = new FormData()

@@ -19,7 +19,7 @@ describe('disclaimer', () => {
   }
   it('should map router to url', () => {
     expect(disclaimer.mapParamsToUrl(params)).toBe(
-      'https://integreat-api-url.de/augsburg/de/wp-json/extensions/v3/disclaimer'
+      'https://integreat-api-url.de/augsburg/de/wp-json/extensions/v3/disclaimer/'
     )
   })
   it('should throw if there is no disclaimer', () => {

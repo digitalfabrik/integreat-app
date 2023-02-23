@@ -12,6 +12,7 @@ import PoiCategoryModel from './PoiCategoryModel'
 class PoiModel extends ExtendedPageModel {
   _location: LocationModel<number>
   _excerpt: string
+  _metaDescription: string | null
   _website: string | null
   _phoneNumber: string | null
   _email: string | null
@@ -25,6 +26,7 @@ class PoiModel extends ExtendedPageModel {
     content: string
     thumbnail: string
     availableLanguages: Map<string, string>
+    metaDescription: string | null
     excerpt: string
     location: LocationModel<number>
     lastUpdate: Moment
@@ -35,11 +37,22 @@ class PoiModel extends ExtendedPageModel {
     openingHours: OpeningHoursModel[] | null
     category: PoiCategoryModel | null
   }) {
-    const { category, openingHours, temporarilyClosed, location, excerpt, website, phoneNumber, email, ...other } =
-      params
+    const {
+      category,
+      openingHours,
+      temporarilyClosed,
+      location,
+      excerpt,
+      metaDescription,
+      website,
+      phoneNumber,
+      email,
+      ...other
+    } = params
     super(other)
     this._location = location
     this._excerpt = excerpt
+    this._metaDescription = metaDescription
     this._website = website
     this._phoneNumber = phoneNumber
     this._email = email
@@ -54,6 +67,10 @@ class PoiModel extends ExtendedPageModel {
 
   get excerpt(): string {
     return this._excerpt
+  }
+
+  get metaDescription(): string | null {
+    return this._metaDescription
   }
 
   get website(): string | null {
