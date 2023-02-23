@@ -13,7 +13,6 @@ import iconMarker from '../assets/IconMarker.svg'
 import PoiPlaceholder from '../assets/PoiPlaceholderLarge.jpg'
 import dimensions from '../constants/dimensions'
 import useWindowDimensions from '../hooks/useWindowDimensions'
-import bottomActionSheet from './BottomActionSheet'
 import CleanLink from './CleanLink'
 import Collapsible from './Collapsible'
 import ContactItem from './ContactItem'
@@ -51,7 +50,7 @@ const Marker = styled.img<{ direction?: string }>`
       transform: scaleX(-1);
     `};
 
-  @media ${dimensions.mediumLargeViewport} {
+  @media screen and ${dimensions.mediumLargeViewport} {
     padding: 0 8px;
   }
   object-fit: contain;
@@ -83,7 +82,7 @@ const Thumbnail = styled.img`
   object-fit: cover;
   border-radius: 10px;
 
-  @media ${dimensions.smallViewport} {
+  @media screen and ${dimensions.smallViewport} {
     order: 1;
     margin-top: 12px;
   }
@@ -170,7 +169,7 @@ const DetailSection = styled.div`
   display: flex;
   flex-direction: column;
 
-  @media ${dimensions.smallViewport} {
+  @media screen and ${dimensions.smallViewport} {
     flex-direction: row;
     justify-content: space-between;
   }
@@ -181,6 +180,7 @@ type PoiDetailsProps = {
   poi: PoiModel
   selectFeature: (feature: PoiFeature | null) => void
   direction: UiDirectionType
+  isBottomSheetFullscreen?: boolean
 }
 
 const PoiDetails: React.FC<PoiDetailsProps> = ({
@@ -188,11 +188,12 @@ const PoiDetails: React.FC<PoiDetailsProps> = ({
   poi,
   selectFeature,
   direction,
+  isBottomSheetFullscreen = false,
 }: PoiDetailsProps): ReactElement => {
   const onBackClick = () => {
     selectFeature(null)
   }
-  const { viewportSmall, height } = useWindowDimensions()
+  const { viewportSmall } = useWindowDimensions()
   const theme = useTheme()
   const { title, thumbnail, distance } = feature.properties
   const { content, location, website, phoneNumber, email, isCurrentlyOpen, openingHours, temporarilyClosed, category } =
@@ -204,14 +205,10 @@ const PoiDetails: React.FC<PoiDetailsProps> = ({
   const isAndroid = /Android/i.test(navigator.userAgent)
   const externalMapsLink = getExternalMapsLink(location, isAndroid ? 'android' : 'web')
 
-  // TODO get updated height of BottomActionSheet from MapsAttribution ticket
-  // @ts-expect-error can't get current on forwardRef
-  const bottomActionSheetFullscreen = bottomActionSheet.current?.height >= height
-
   return (
     <DetailsContainer>
       {!viewportSmall ||
-        (bottomActionSheetFullscreen && (
+        (isBottomSheetFullscreen && (
           <>
             <DetailsHeader onClick={onBackClick} role='button' tabIndex={0} onKeyPress={onBackClick}>
               <ArrowBack src={iconArrowBack} alt='' direction={direction} />
