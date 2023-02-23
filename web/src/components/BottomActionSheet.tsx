@@ -35,10 +35,14 @@ type BottomActionSheetProps = {
   children: ReactNode
   toolbar: ReactNode
   direction: UiDirectionType
+  setBottomActionSheetHeight: (height: number) => void
 }
 
 const BottomActionSheet = React.forwardRef(
-  ({ title, children, toolbar, direction }: BottomActionSheetProps, ref: React.Ref<BottomSheetRef>): ReactElement => {
+  (
+    { title, children, toolbar, direction, setBottomActionSheetHeight }: BottomActionSheetProps,
+    ref: React.Ref<BottomSheetRef>
+  ): ReactElement => {
     const theme = useTheme()
     const listRef = useRef<HTMLDivElement>(null)
 
@@ -56,6 +60,8 @@ const BottomActionSheet = React.forwardRef(
         open
         scrollLocking={false}
         blocking={false}
+        // @ts-expect-error current can't be used when forwardRef is used
+        onSpringEnd={() => setBottomActionSheetHeight(ref?.current?.height)}
         header={title ? <Title>{title}</Title> : null}
         snapPoints={({ maxHeight }) => getSnapPoints(maxHeight)}
         defaultSnap={({ snapPoints }) => snapPoints[1]!}>
