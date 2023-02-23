@@ -13,6 +13,7 @@ import iconMarker from '../assets/IconMarker.svg'
 import PoiPlaceholder from '../assets/PoiPlaceholderLarge.jpg'
 import dimensions from '../constants/dimensions'
 import useWindowDimensions from '../hooks/useWindowDimensions'
+import bottomActionSheet from './BottomActionSheet'
 import CleanLink from './CleanLink'
 import Collapsible from './Collapsible'
 import ContactItem from './ContactItem'
@@ -191,7 +192,7 @@ const PoiDetails: React.FC<PoiDetailsProps> = ({
   const onBackClick = () => {
     selectFeature(null)
   }
-  const { viewportSmall } = useWindowDimensions()
+  const { viewportSmall, height } = useWindowDimensions()
   const theme = useTheme()
   const { title, thumbnail, distance } = feature.properties
   const { content, location, website, phoneNumber, email, isCurrentlyOpen, openingHours, temporarilyClosed, category } =
@@ -203,17 +204,22 @@ const PoiDetails: React.FC<PoiDetailsProps> = ({
   const isAndroid = /Android/i.test(navigator.userAgent)
   const externalMapsLink = getExternalMapsLink(location, isAndroid ? 'android' : 'web')
 
+  // TODO get updated height of BottomActionSheet from MapsAttribution ticket
+  // @ts-expect-error can't get current on forwardRef
+  const bottomActionSheetFullscreen = bottomActionSheet.current?.height >= height
+
   return (
     <DetailsContainer>
-      {!viewportSmall && (
-        <>
-          <DetailsHeader onClick={onBackClick} role='button' tabIndex={0} onKeyPress={onBackClick}>
-            <ArrowBack src={iconArrowBack} alt='' direction={direction} />
-            <DetailsHeaderTitle>{t('detailsHeader')}</DetailsHeaderTitle>
-          </DetailsHeader>
-          <Spacer borderColor={theme.colors.poiBorderColor} />
-        </>
-      )}
+      {!viewportSmall ||
+        (bottomActionSheetFullscreen && (
+          <>
+            <DetailsHeader onClick={onBackClick} role='button' tabIndex={0} onKeyPress={onBackClick}>
+              <ArrowBack src={iconArrowBack} alt='' direction={direction} />
+              <DetailsHeaderTitle>{t('detailsHeader')}</DetailsHeaderTitle>
+            </DetailsHeader>
+            <Spacer borderColor={theme.colors.poiBorderColor} />
+          </>
+        ))}
       <HeadingSection>
         <Thumbnail alt='' src={thumb ?? PoiPlaceholder} />
         <Heading>{title}</Heading>
