@@ -40,6 +40,8 @@ module.exports = {
     '**/react-native.config.js',
     '**/www/iframe.js',
     '**/www/rasa-widget/chatbot.js',
+    '**/integreat-e2e/assets/**', //symlink
+    '**/integreat-test-cms/assets/**', //symlink
   ],
   rules: {
     // Overly strict rules (for now)
