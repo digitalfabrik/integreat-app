@@ -21,16 +21,7 @@ type PoisMobileProps = {
 
 const PoisMobile = React.forwardRef(
   (
-    {
-      mapView,
-      currentFeature,
-      toolbar,
-      poiList,
-      poi,
-      selectFeature,
-      direction,
-      setBottomActionSheetHeight,
-    }: PoisMobileProps,
+    { mapView, currentFeature, toolbar, poiList, poi, direction, setBottomActionSheetHeight }: PoisMobileProps,
     ref: React.Ref<BottomSheetRef>
   ): ReactElement => {
     const { t } = useTranslation('pois')
@@ -43,11 +34,7 @@ const PoisMobile = React.forwardRef(
           ref={ref}
           setBottomActionSheetHeight={setBottomActionSheetHeight}
           direction={direction}>
-          {currentFeature && poi ? (
-            <PoiDetails poi={poi} feature={currentFeature} selectFeature={selectFeature} direction={direction} />
-          ) : (
-            poiList
-          )}
+          {currentFeature && poi ? <PoiDetails poi={poi} feature={currentFeature} direction={direction} /> : poiList}
         </BottomActionSheet>
       </>
     )

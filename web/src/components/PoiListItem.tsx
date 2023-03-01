@@ -83,14 +83,14 @@ type PoiListItemProps = {
 
 const PoiListItem = ({ poi, selectFeature }: PoiListItemProps): ReactElement => {
   const { t } = useTranslation('pois')
-  const { thumbnail, title, distance, category } = poi.properties
+  const { thumbnail, title, distance, category, slug } = poi.properties
 
   const onClickItem = () => {
     selectFeature(poi)
   }
 
   return (
-    <ListItemContainer>
+    <ListItemContainer id={slug}>
       <LinkContainer onClick={onClickItem} role='button' tabIndex={0} onKeyPress={onClickItem} aria-label={title}>
         <Thumbnail alt='' src={thumbnail || PoiPlaceholder} />
         <Description>

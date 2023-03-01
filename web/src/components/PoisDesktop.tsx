@@ -1,8 +1,9 @@
-import React, { ReactElement } from 'react'
+import React, { ReactElement, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
+import { useLocation } from 'react-router-dom'
 import styled from 'styled-components'
 
-import { PoiFeature, PoiModel } from 'api-client'
+import { getSlugFromPath, PoiFeature, PoiModel } from 'api-client'
 import { UiDirectionType } from 'translations'
 
 import dimensions from '../constants/dimensions'
@@ -44,7 +45,6 @@ type PoisDesktopProps = {
   toolbar: ReactElement
   poi?: PoiModel
   switchFeature: (step: 1 | -1) => void
-  selectFeature: (feature: PoiFeature | null) => void
   direction: UiDirectionType
   showFeatureSwitch: boolean
 }
@@ -57,22 +57,25 @@ const PoisDesktop: React.FC<PoisDesktopProps> = ({
   toolbar,
   poi,
   switchFeature,
-  selectFeature,
   direction,
   showFeatureSwitch,
 }: PoisDesktopProps): ReactElement => {
   const { t } = useTranslation('pois')
+  const previousPath = useLocation().state?.from?.pathname
+
+  useEffect(() => {
+    // scrollTo the id of the selected element for detail view -> list view
+    if (previousPath) {
+      document.getElementById(getSlugFromPath(decodeURI(previousPath)))?.scrollIntoView({ behavior: 'auto' })
+    }
+  }, [previousPath])
 
   return (
     <>
       <div>
         <ListViewWrapper panelHeights={panelHeights}>
           {!currentFeature && <ListHeader>{t('listTitle')}</ListHeader>}
-          {currentFeature && poi ? (
-            <PoiDetails poi={poi} feature={currentFeature} selectFeature={selectFeature} direction={direction} />
-          ) : (
-            poiList
-          )}
+          {currentFeature && poi ? <PoiDetails poi={poi} feature={currentFeature} direction={direction} /> : poiList}
         </ListViewWrapper>
         {currentFeature && showFeatureSwitch ? (
           <PoiPanelNavigation switchFeature={switchFeature} direction={direction} />

@@ -1,9 +1,9 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import * as mapLibreGl from 'maplibre-gl'
 import 'maplibre-gl/dist/maplibre-gl.css'
-import React, { forwardRef, ReactElement, useCallback, useState, UIEvent } from 'react'
+import React, { forwardRef, ReactElement, useCallback, useState } from 'react'
 import Map, { GeolocateControl, Layer, MapRef, NavigationControl, Source, MapLayerMouseEvent } from 'react-map-gl'
-import { useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import styled, { css, useTheme } from 'styled-components'
 
 import {
@@ -91,41 +91,33 @@ const MapView = forwardRef((props: MapViewProps, ref: React.Ref<MapRef>): ReactE
   const [cursor, setCursor] = useState<MapCursorType>('auto')
   const theme = useTheme()
   const navigate = useNavigate()
+  const location = useLocation()
 
   const { viewportSmall } = useWindowDimensions()
 
-  const onDeselectFeature = useCallback(
-    (e: UIEvent<HTMLElement>) => {
-      // Currently selected feature should not be deselected if the user clicks on the controls like zoom or user location
-      if (e.target instanceof HTMLDivElement && e.target.classList.toString().includes('mapboxgl-canvas')) {
-        selectFeature(null)
-      }
-    },
-    [selectFeature]
-  )
+  const onDeselect = useCallback(() => {
+    navigate('.', { state: { from: location } })
+  }, [location, navigate])
 
   const onSelectFeature = useCallback(
     (event: MapLayerMouseEvent) => {
       // Stop propagation to children to prevent onClick select event as it is already handled
       event.originalEvent.stopPropagation()
-      const feature = event.features && event.features[0]
-      selectFeature(feature ? (feature as unknown as PoiFeature) : null)
+      const feature = event.features && (event.features[0] as unknown as PoiFeature)
       if (feature) {
+        selectFeature(feature)
         changeSnapPoint(1)
+      } else {
+        onDeselect()
       }
     },
-    [changeSnapPoint, selectFeature]
+    [changeSnapPoint, onDeselect, selectFeature]
   )
-
-  const onDeselect = () => {
-    navigate('.')
-    changeSnapPoint(1)
-  }
 
   const changeCursor = useCallback((cursor: MapCursorType) => setCursor(cursor), [])
 
   return (
-    <MapContainer onClick={onDeselectFeature} role='button' tabIndex={-1} onKeyPress={onDeselectFeature}>
+    <MapContainer>
       <Map
         mapLib={mapLibreGl}
         ref={ref}
