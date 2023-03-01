@@ -7,7 +7,7 @@ import React, { ReactElement, ReactNode, useCallback } from 'react'
 import { NativeScrollEvent, NativeSyntheticEvent } from 'react-native'
 import styled from 'styled-components/native'
 
-import { PoiFeature } from 'api-client/src'
+import { PoiFeature } from 'api-client'
 
 import BottomSheetHandler from './BottomSheetHandler'
 

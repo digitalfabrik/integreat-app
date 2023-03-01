@@ -4,7 +4,7 @@ import { BottomSheet, BottomSheetRef } from 'react-spring-bottom-sheet'
 import 'react-spring-bottom-sheet/dist/style.css'
 import styled, { useTheme } from 'styled-components'
 
-import { getSlugFromPath } from 'api-client/src'
+import { getSlugFromPath } from 'api-client'
 import { UiDirectionType } from 'translations'
 
 import '../styles/BottomActionSheet.css'
@@ -72,9 +72,7 @@ const BottomActionSheet = React.forwardRef(
         header={title ? <Title>{title}</Title> : null}
         snapPoints={({ maxHeight }) => getSnapPoints(maxHeight)}
         defaultSnap={({ snapPoints }) => snapPoints[1]!}>
-        <ListContainer id='scroller' ref={listRef}>
-          {children}
-        </ListContainer>
+        <ListContainer ref={listRef}>{children}</ListContainer>
         <StyledSpacer borderColor={theme.colors.poiBorderColor} />
         <ToolbarContainer>{toolbar}</ToolbarContainer>
       </StyledBottomSheet>
