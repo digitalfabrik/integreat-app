@@ -1,6 +1,6 @@
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
-import { useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import styled, { css, useTheme } from 'styled-components'
 
 import { getExternalMapsLink, PoiFeature, PoiModel } from 'api-client/src'
@@ -178,18 +178,14 @@ const DetailSection = styled.div`
 type PoiDetailsProps = {
   feature: PoiFeature
   poi: PoiModel
-  selectFeature: (feature: PoiFeature | null) => void
   direction: UiDirectionType
 }
 
-const PoiDetails: React.FC<PoiDetailsProps> = ({
-  feature,
-  poi,
-  selectFeature,
-  direction,
-}: PoiDetailsProps): ReactElement => {
+const PoiDetails: React.FC<PoiDetailsProps> = ({ feature, poi, direction }: PoiDetailsProps): ReactElement => {
+  const navigate = useNavigate()
+  const browserLocation = useLocation()
   const onBackClick = () => {
-    selectFeature(null)
+    navigate('.', { state: { from: browserLocation } })
   }
   const { viewportSmall } = useWindowDimensions()
   const theme = useTheme()
@@ -197,7 +193,6 @@ const PoiDetails: React.FC<PoiDetailsProps> = ({
   const { content, location, website, phoneNumber, email, isCurrentlyOpen, openingHours, temporarilyClosed, category } =
     poi
   const { t } = useTranslation('pois')
-  const navigate = useNavigate()
   // MapEvent parses null to 'null'
   const thumb = thumbnail === 'null' ? null : thumbnail?.replace('-150x150', '')
   const isAndroid = /Android/i.test(navigator.userAgent)
