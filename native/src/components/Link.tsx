@@ -1,4 +1,5 @@
 import React, { ReactElement } from 'react'
+import { StyleProp, TextStyle } from 'react-native'
 import styled from 'styled-components/native'
 
 import useSnackbar from '../hooks/useSnackbar'
@@ -14,13 +15,14 @@ const LinkText = styled.Text`
 type LinkProps = {
   url: string
   text: string
+  style?: StyleProp<TextStyle>
 }
 
-const Link = ({ url, text }: LinkProps): ReactElement => {
+const Link = ({ url, text, style }: LinkProps): ReactElement => {
   const showSnackbar = useSnackbar()
   return (
     <Touchable onPress={() => openExternalUrl(url, showSnackbar)} accessibilityRole='link' underlayColor='transparent'>
-      <LinkText>{text}</LinkText>
+      <LinkText style={style}>{text}</LinkText>
     </Touchable>
   )
 }
