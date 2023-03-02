@@ -56,10 +56,24 @@ const Marker = styled.img<{ direction?: string }>`
   object-fit: contain;
 `
 
-const DetailsHeader = styled.div`
+const DetailsHeader = styled.div<{ viewportSmall: boolean }>`
   display: flex;
   padding-top: 12px;
   cursor: pointer;
+
+  ${props =>
+    props.viewportSmall &&
+    css`
+      animation: fadeIn 3s;
+      @keyframes fadeIn {
+        0% {
+          opacity: 0;
+        }
+        100% {
+          opacity: 1;
+        }
+      }
+    `};
 `
 
 const DetailsHeaderTitle = styled.span`
@@ -209,7 +223,12 @@ const PoiDetails: React.FC<PoiDetailsProps> = ({
     <DetailsContainer>
       {(!viewportSmall || isBottomSheetFullscreen) && (
         <>
-          <DetailsHeader onClick={onBackClick} role='button' tabIndex={0} onKeyPress={onBackClick}>
+          <DetailsHeader
+            onClick={onBackClick}
+            role='button'
+            tabIndex={0}
+            onKeyPress={onBackClick}
+            viewportSmall={viewportSmall}>
             <ArrowBack src={iconArrowBack} alt='' direction={direction} />
             <DetailsHeaderTitle>{t('detailsHeader')}</DetailsHeaderTitle>
           </DetailsHeader>
