@@ -17,6 +17,7 @@ type PoisMobileProps = {
   selectFeature: (feature: PoiFeature | null) => void
   direction: UiDirectionType
   setBottomActionSheetHeight: (height: number) => void
+  isBottomSheetFullscreen: boolean
 }
 
 const PoisMobile = React.forwardRef(
@@ -30,6 +31,7 @@ const PoisMobile = React.forwardRef(
       selectFeature,
       direction,
       setBottomActionSheetHeight,
+      isBottomSheetFullscreen,
     }: PoisMobileProps,
     ref: React.Ref<BottomSheetRef>
   ): ReactElement => {
@@ -44,7 +46,13 @@ const PoisMobile = React.forwardRef(
           setBottomActionSheetHeight={setBottomActionSheetHeight}
           direction={direction}>
           {currentFeature && poi ? (
-            <PoiDetails poi={poi} feature={currentFeature} selectFeature={selectFeature} direction={direction} />
+            <PoiDetails
+              poi={poi}
+              feature={currentFeature}
+              selectFeature={selectFeature}
+              direction={direction}
+              isBottomSheetFullscreen={isBottomSheetFullscreen}
+            />
           ) : (
             poiList
           )}
