@@ -21,6 +21,7 @@ import { clusterCountLayer, clusterLayer, markerLayer } from '../constants/layer
 import useWindowDimensions from '../hooks/useWindowDimensions'
 import '../styles/MapView.css'
 import CityContentFooter from './CityContentFooter'
+import MapAttribution from './MapAttribution'
 
 const MapContainer = styled.div`
   height: 100%;
@@ -69,6 +70,7 @@ type MapViewProps = {
   direction: UiDirectionType
   cityCode: string
   languageCode: string
+  geolocationControlPosition: number
 }
 
 type MapCursorType = 'grab' | 'auto' | 'pointer'
@@ -83,6 +85,7 @@ const MapView = forwardRef((props: MapViewProps, ref: React.Ref<MapRef>): ReactE
     direction,
     cityCode,
     languageCode,
+    geolocationControlPosition,
   } = props
   const [viewport, setViewport] = useState<MapViewViewport>(bboxViewport)
   const [cursor, setCursor] = useState<MapCursorType>('auto')
@@ -141,7 +144,8 @@ const MapView = forwardRef((props: MapViewProps, ref: React.Ref<MapRef>): ReactE
         onMouseLeave={() => changeCursor('auto')}
         mapStyle={mapConfig.styleJSON}
         onClick={onSelectFeature}
-        onTouchMove={() => changeSnapPoint(0)}>
+        onTouchMove={() => changeSnapPoint(0)}
+        attributionControl={false}>
         {currentFeature && viewportSmall && (
           <BackNavigation
             onClick={onDeselect}
@@ -152,11 +156,23 @@ const MapView = forwardRef((props: MapViewProps, ref: React.Ref<MapRef>): ReactE
             <StyledIcon icon={faArrowLeft} direction={direction} />
           </BackNavigation>
         )}
+        {!viewportSmall && (
+          <NavigationControl showCompass={false} position={direction === 'rtl' ? 'bottom-left' : 'bottom-right'} />
+        )}
         {/* To use geolocation in a development build you have to start the dev server with "yarn start --https" */}
         <GeolocateControl
+          style={
+            viewportSmall
+              ? {
+                  bottom: geolocationControlPosition,
+                  position: 'fixed',
+                  right: 0,
+                }
+              : undefined
+          }
           positionOptions={{ enableHighAccuracy: true }}
           trackUserLocation
-          position={direction === 'rtl' ? 'top-left' : 'top-right'}
+          position='bottom-right'
         />
         <Source id='location-pois' type='geojson' data={featureCollection} cluster clusterRadius={clusterRadius}>
           <Layer {...clusterLayer(theme)} />
@@ -164,13 +180,11 @@ const MapView = forwardRef((props: MapViewProps, ref: React.Ref<MapRef>): ReactE
           <Layer {...markerLayer(currentFeature)} />
         </Source>
         {!viewportSmall && (
-          <>
-            <NavigationControl showCompass={false} position={direction === 'rtl' ? 'bottom-left' : 'bottom-right'} />
-            <FooterContainer>
-              <CityContentFooter city={cityCode} language={languageCode} mode='overlay' />
-            </FooterContainer>
-          </>
+          <FooterContainer>
+            <CityContentFooter city={cityCode} language={languageCode} mode='overlay' />
+          </FooterContainer>
         )}
+        <MapAttribution initialExpanded={!viewportSmall} />
       </Map>
     </MapContainer>
   )
