@@ -17,7 +17,7 @@
 		2E0440F826C127B000183828 /* NotoSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2E0440F426C127AF00183828 /* NotoSans-Bold.ttf */; };
 		2E0440FA26C127B000183828 /* NotoSansArabic-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2E0440F626C127B000183828 /* NotoSansArabic-Bold.ttf */; };
 		2E0440FC26C133EE00183828 /* NotoSans.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2E0440FB26C133EE00183828 /* NotoSans.ttf */; };
-		2E673E9226C3C27C00B97628 /* BuildFile in Frameworks */ = {isa = PBXBuildFile; };
+		2E673E9226C3C27C00B97628 /* (null) in Frameworks */ = {isa = PBXBuildFile; };
 		3083DDC92A72AA436042F7F6 /* libPods-Integreat.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 402A5479E2DCF9E7D5AD48AD /* libPods-Integreat.a */; };
 		616E1B072370E00100136B38 /* ConstantsModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 616E1B062370E00100136B38 /* ConstantsModule.swift */; };
 		616E1B092370E07D00136B38 /* ConstantsModule.m in Sources */ = {isa = PBXBuildFile; fileRef = 616E1B082370E07D00136B38 /* ConstantsModule.m */; };
@@ -116,7 +116,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				051E12C629AF8FEA007A0950 /* Mapbox in Frameworks */,
-				2E673E9226C3C27C00B97628 /* BuildFile in Frameworks */,
+				2E673E9226C3C27C00B97628 /* (null) in Frameworks */,
 				ED297163215061F000B7C4FE /* JavaScriptCore.framework in Frameworks */,
 				3083DDC92A72AA436042F7F6 /* libPods-Integreat.a in Frameworks */,
 			);
@@ -529,14 +529,14 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 49EED0C36D66FA4AB70F7809 /* Pods-Integreat.debug.xcconfig */;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = "$BUILD_CONFIG_APP_ICON";
+				ASSETCATALOG_COMPILER_APPICON_NAME = $BUILD_CONFIG_APP_ICON;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Integreat/Integreat.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 7272KE28TJ;
-				ENABLE_BITCODE = YES;
+				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(inherited)",
@@ -603,7 +603,7 @@
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 7272KE28TJ;
-				ENABLE_BITCODE = YES;
+				ENABLE_BITCODE = NO;
 				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = i386;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(PROJECT_DIR)/Pods/FirebaseAnalytics/Frameworks",
@@ -648,13 +648,13 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = DD14BEF1244BF70E95AA783F /* Pods-Integreat.release.xcconfig */;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = "$BUILD_CONFIG_APP_ICON";
+				ASSETCATALOG_COMPILER_APPICON_NAME = $BUILD_CONFIG_APP_ICON;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 7272KE28TJ;
-				ENABLE_BITCODE = YES;
+				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(inherited)",

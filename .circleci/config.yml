@@ -140,7 +140,6 @@ commands:
             - restore_cache:
                 keys:
                     - 6-pods-{{ arch }}-{{ checksum "native/ios/Podfile.lock" }}
-                    - 6-pods-{{ arch }}-
                 name: Restore CocoaPods Cache
             - run:
                 command: bundle exec pod install
