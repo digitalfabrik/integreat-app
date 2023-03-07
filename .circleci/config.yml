@@ -140,7 +140,6 @@ commands:
             - restore_cache:
                 keys:
                     - 6-pods-{{ arch }}-{{ checksum "native/ios/Podfile.lock" }}
-                    - 6-pods-{{ arch }}-
                 name: Restore CocoaPods Cache
             - run:
                 command: bundle exec pod install
@@ -355,7 +354,7 @@ jobs:
             FL_OUTPUT_DIR: output
             TOTAL_CPUS: 4
         macos:
-            xcode: 13.2.1
+            xcode: 14.2.0
         parameters:
             build_config_name:
                 default: integreat
@@ -580,7 +579,7 @@ jobs:
         environment:
             FASTLANE_SKIP_UPDATE_CHECK: true
         macos:
-            xcode: 13.2.1
+            xcode: 14.2.0
         parameters:
             build_config_name:
                 default: integreat
@@ -918,7 +917,7 @@ jobs:
         environment:
             FASTLANE_SKIP_UPDATE_CHECK: true
         macos:
-            xcode: 13.2.1
+            xcode: 14.2.0
         parameters:
             build_config_name:
                 default: integreat
