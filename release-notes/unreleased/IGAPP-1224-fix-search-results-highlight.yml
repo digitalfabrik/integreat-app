@@ -1,0 +1,8 @@
+issue_key: IGAPP-1224
+show_in_stores: true
+platforms:
+  - web
+  - android
+  - ios
+en: Highlight the correct word in search.
+de: Das richtige Wort wird nun in der Suche hervorgehoben.
