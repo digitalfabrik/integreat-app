@@ -1,0 +1,6 @@
+issue_key: IGAPP-1249
+show_in_stores: false
+platforms:
+  - android
+  - ios
+en: Update several packages with security issues
