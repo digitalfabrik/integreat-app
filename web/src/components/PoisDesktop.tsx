@@ -47,6 +47,7 @@ type PoisDesktopProps = {
   switchFeature: (step: 1 | -1) => void
   direction: UiDirectionType
   showFeatureSwitch: boolean
+  restoreScrollPosition: boolean
 }
 
 const PoisDesktop: React.FC<PoisDesktopProps> = ({
@@ -59,16 +60,17 @@ const PoisDesktop: React.FC<PoisDesktopProps> = ({
   switchFeature,
   direction,
   showFeatureSwitch,
+  restoreScrollPosition,
 }: PoisDesktopProps): ReactElement => {
   const { t } = useTranslation('pois')
   const previousPath = useLocation().state?.from?.pathname
 
   useEffect(() => {
     // scrollTo the id of the selected element for detail view -> list view
-    if (previousPath) {
+    if (previousPath && restoreScrollPosition) {
       document.getElementById(getSlugFromPath(decodeURI(previousPath)))?.scrollIntoView({ behavior: 'auto' })
     }
-  }, [previousPath])
+  }, [previousPath, restoreScrollPosition])
 
   return (
     <>

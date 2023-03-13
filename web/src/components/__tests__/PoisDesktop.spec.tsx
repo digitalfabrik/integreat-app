@@ -15,6 +15,7 @@ describe('PoisDesktop', () => {
   const renderPoisDesktop = (showFeatureSwitch: boolean, currentFeature?: PoiFeature) =>
     renderWithRouterAndTheme(
       <PoisDesktop
+        restoreScrollPosition
         direction='ltr'
         switchFeature={switchFeature}
         panelHeights={0}

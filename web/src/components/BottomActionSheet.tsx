@@ -38,11 +38,12 @@ type BottomActionSheetProps = {
   toolbar: ReactNode
   direction: UiDirectionType
   setBottomActionSheetHeight: (height: number) => void
+  restoreScrollPosition: boolean
 }
 
 const BottomActionSheet = React.forwardRef(
   (
-    { title, children, toolbar, direction, setBottomActionSheetHeight }: BottomActionSheetProps,
+    { title, children, toolbar, direction, setBottomActionSheetHeight, restoreScrollPosition }: BottomActionSheetProps,
     ref: React.Ref<BottomSheetRef>
   ): ReactElement => {
     const theme = useTheme()
@@ -51,13 +52,13 @@ const BottomActionSheet = React.forwardRef(
 
     useEffect(() => {
       // scrollTo the id of the selected element for detail view -> list view
-      if (previousPath) {
+      if (previousPath && restoreScrollPosition) {
         document.getElementById(getSlugFromPath(decodeURI(previousPath)))?.scrollIntoView({ behavior: 'auto' })
       } else {
         // ScrollToTop while title changes for indicating switch list->detail view
         listRef.current?.scrollIntoView({ behavior: 'auto' })
       }
-    }, [previousPath, title])
+    }, [previousPath, restoreScrollPosition, title])
 
     return (
       <StyledBottomSheet
