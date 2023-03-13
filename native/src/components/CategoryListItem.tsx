@@ -4,7 +4,6 @@ import styled, { useTheme } from 'styled-components/native'
 
 import { getExcerpt, normalizeString } from 'api-client'
 
-import iconPlaceholder from '../assets/IconPlaceholder.png'
 import { SEARCH_PREVIEW_MAX_CHARS } from '../constants'
 import { contentDirection } from '../constants/contentDirection'
 import dimensions from '../constants/dimensions'
@@ -99,7 +98,7 @@ const CategoryListItem = ({ language, item, onItemPress, query }: CategoryListIt
     <>
       <FlexStyledLink onPress={() => onItemPress(item)} underlayColor={theme.colors.backgroundAccentColor}>
         <DirectionContainer language={language}>
-          <CategoryThumbnail source={item.thumbnail || iconPlaceholder} />
+          {!!item.thumbnail && <CategoryThumbnail source={item.thumbnail} />}
           <CategoryEntryContainer>
             {Title}
             {Content}
