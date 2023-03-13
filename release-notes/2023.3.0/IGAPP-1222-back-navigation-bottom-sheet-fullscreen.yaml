@@ -1,0 +1,7 @@
+issue_key: IGAPP-1222
+show_in_stores: false
+platforms:
+  - web
+
+en: Back navigation was added for location detail view in fullscreen mode.
+de: Eine Zurück-Navigation für die Detailansicht eines Ort im Vollbildmodus wurde hinzugefügt.
