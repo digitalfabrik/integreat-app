@@ -50,16 +50,30 @@ const Marker = styled.img<{ direction?: string }>`
       transform: scaleX(-1);
     `};
 
-  @media ${dimensions.mediumLargeViewport} {
+  @media screen and ${dimensions.mediumLargeViewport} {
     padding: 0 8px;
   }
   object-fit: contain;
 `
 
-const DetailsHeader = styled.div`
+const DetailsHeader = styled.div<{ viewportSmall: boolean }>`
   display: flex;
   padding-top: 12px;
   cursor: pointer;
+
+  ${props =>
+    props.viewportSmall &&
+    css`
+      animation: fadeIn 3s;
+      @keyframes fadeIn {
+        0% {
+          opacity: 0;
+        }
+        100% {
+          opacity: 1;
+        }
+      }
+    `};
 `
 
 const DetailsHeaderTitle = styled.span`
@@ -82,7 +96,7 @@ const Thumbnail = styled.img`
   object-fit: cover;
   border-radius: 10px;
 
-  @media ${dimensions.smallViewport} {
+  @media screen and ${dimensions.smallViewport} {
     order: 1;
     margin-top: 12px;
   }
@@ -169,7 +183,7 @@ const DetailSection = styled.div`
   display: flex;
   flex-direction: column;
 
-  @media ${dimensions.smallViewport} {
+  @media screen and ${dimensions.smallViewport} {
     flex-direction: row;
     justify-content: space-between;
   }
@@ -179,9 +193,15 @@ type PoiDetailsProps = {
   feature: PoiFeature
   poi: PoiModel
   direction: UiDirectionType
+  isBottomSheetFullscreen?: boolean
 }
 
-const PoiDetails: React.FC<PoiDetailsProps> = ({ feature, poi, direction }: PoiDetailsProps): ReactElement => {
+const PoiDetails: React.FC<PoiDetailsProps> = ({
+  feature,
+  poi,
+  direction,
+  isBottomSheetFullscreen = false,
+}: PoiDetailsProps): ReactElement => {
   const navigate = useNavigate()
   const browserLocation = useLocation()
   const onBackClick = () => {
@@ -200,9 +220,14 @@ const PoiDetails: React.FC<PoiDetailsProps> = ({ feature, poi, direction }: PoiD
 
   return (
     <DetailsContainer>
-      {!viewportSmall && (
+      {(!viewportSmall || isBottomSheetFullscreen) && (
         <>
-          <DetailsHeader onClick={onBackClick} role='button' tabIndex={0} onKeyPress={onBackClick}>
+          <DetailsHeader
+            onClick={onBackClick}
+            role='button'
+            tabIndex={0}
+            onKeyPress={onBackClick}
+            viewportSmall={viewportSmall}>
             <ArrowBack src={iconArrowBack} alt='' direction={direction} />
             <DetailsHeaderTitle>{t('detailsHeader')}</DetailsHeaderTitle>
           </DetailsHeader>

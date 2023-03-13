@@ -30,6 +30,7 @@
     "moment-timezone": "^0.5.35",
     "normalize-path": "^3.0.0",
     "normalize-strings": "^1.1.1",
+    "rrule": "2.6.9",
     "uuid": "^9.0.0"
   },
   "devDependencies": {
