@@ -65,7 +65,7 @@ type MapViewProps = {
   bboxViewport: MapViewMercatorViewport
   featureCollection: PoiFeatureCollection
   currentFeature: PoiFeature | null
-  selectFeature: (feature: PoiFeature | null) => void
+  selectFeature: (feature: PoiFeature | null, restoreScrollPosition: boolean) => void
   changeSnapPoint: (snapPoint: number) => void
   direction: UiDirectionType
   cityCode: string
@@ -105,7 +105,7 @@ const MapView = forwardRef((props: MapViewProps, ref: React.Ref<MapRef>): ReactE
       event.originalEvent.stopPropagation()
       const feature = event.features && (event.features[0] as unknown as PoiFeature)
       if (feature) {
-        selectFeature(feature)
+        selectFeature(feature, false)
         changeSnapPoint(1)
       } else {
         onDeselect()
