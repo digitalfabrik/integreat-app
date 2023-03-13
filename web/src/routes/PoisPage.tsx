@@ -239,7 +239,6 @@ const PoisPage = ({ cityCode, languageCode, cityModel, pathname, languages }: Ci
             poi={poi}
             mapView={mapView}
             poiList={poiList}
-            selectFeature={selectFeature}
             direction={direction}
             isBottomSheetFullscreen={bottomActionSheetHeight >= height}
             setBottomActionSheetHeight={setBottomActionSheetHeight}
