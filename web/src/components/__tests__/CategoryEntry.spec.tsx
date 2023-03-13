@@ -3,7 +3,6 @@ import React from 'react'
 
 import { CategoryModel } from 'api-client'
 
-import iconPlaceholder from '../../assets/IconPlaceholder.svg'
 import { renderWithRouterAndTheme } from '../../testing/render'
 import CategoryEntry from '../CategoryEntry'
 
@@ -32,7 +31,6 @@ const childCategory = new CategoryModel({
   title: 'Child',
   parentPath: '/augsburg/de/lorem-ipsum',
 })
-const noThumbCategory = new CategoryModel({ ...categoryParams, thumbnail: '' })
 
 describe('CategoryEntry', () => {
   it('should render correctly', () => {
@@ -51,14 +49,6 @@ describe('CategoryEntry', () => {
     const texts = queryAllByText(regex)
     // Only category.title and childCategory.title, nothing split up because of highlighting
     expect(texts).toHaveLength(2)
-  })
-
-  it('should replace empty thumbnail', () => {
-    const { getByRole } = renderWithRouterAndTheme(
-      <CategoryEntry category={noThumbCategory} subCategories={[childCategory]} />
-    )
-
-    expect(getByRole('img')).toHaveProperty('src', `http://localhost/${iconPlaceholder}`)
   })
 
   describe('query', () => {

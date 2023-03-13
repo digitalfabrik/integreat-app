@@ -1,0 +1,8 @@
+issue_key: IGAPP-1256
+show_in_stores: true
+platforms:
+  - web
+  - ios
+  - android
+en: Remove placeholder icon in category lists.
+de: Entfernen des Platzhalter-Symbols in den Kategorienlisten.

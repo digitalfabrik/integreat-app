@@ -5,7 +5,6 @@ import styled, { useTheme } from 'styled-components'
 
 import { CategoryModel, getExcerpt, normalizeString } from 'api-client'
 
-import iconPlaceholder from '../assets/IconPlaceholder.svg'
 import { EXCERPT_MAX_CHARS } from '../constants'
 
 const Row = styled.div`
@@ -115,7 +114,7 @@ const CategoryEntry = ({ category, contentWithoutHtml, subCategories, query }: C
   return (
     <Row>
       <StyledLink to={category.path}>
-        <CategoryThumbnail alt='' src={category.thumbnail || iconPlaceholder} />
+        {!!category.thumbnail && <CategoryThumbnail alt='' src={category.thumbnail} />}
         <CategoryListItem dir='auto'>
           {Title}
           <div style={{ margin: '0 5px', fontSize: '12px' }} dir='auto'>
