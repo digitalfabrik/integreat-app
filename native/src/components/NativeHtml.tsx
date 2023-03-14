@@ -94,12 +94,12 @@ const NativeHtml = React.memo(({ content, cacheDictionary, language }: NativeHtm
         ul: { enableExperimentalRtl: true },
       }}
       baseStyle={{
-        fontSize: theme.fonts.contentFontSize,
-        letterSpacing: 0.5,
+        fontSize: '1.05rem',
         lineHeight: 24,
         color: theme.colors.textColor,
         textAlign: contentAlignment(language),
         direction: config.hasRTLScript(language) ? 'rtl' : 'ltr',
+        fontFamily: theme.fonts.native.webviewFont,
       }}
       customHTMLElementModels={{
         svg: defaultHTMLElementModels.svg.extend({
