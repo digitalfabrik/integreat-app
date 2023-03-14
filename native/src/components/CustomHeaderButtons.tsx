@@ -18,7 +18,7 @@ const Icon = (props: { name: string }): ReactElement => {
   if (name === 'search') {
     return <SimpleImage source={SearchIcon} />
   }
-  return <SimpleImage source={name} />
+  return <MaterialIcon name={name} />
 }
 const CustomHeaderButton = (props: {
   disabled: boolean

@@ -17,12 +17,11 @@ import {
 } from 'api-client'
 import { config } from 'translations'
 
-import { OffersIcon, SearchIcon } from '../assets'
+import { LocationIcon, OffersIcon, SearchIcon } from '../assets'
 import eventsIcon from '../assets/Events.svg'
 import localInformationIcon from '../assets/Local_Information.svg'
 import newsIcon from '../assets/News.svg'
 import poisIcon from '../assets/Pois.svg'
-import landingIcon from '../assets/location-icon.svg'
 import buildConfig from '../constants/buildConfig'
 import { LOCAL_NEWS_ROUTE, RouteType, TU_NEWS_DETAIL_ROUTE, TU_NEWS_ROUTE } from '../routes'
 import Header from './Header'
@@ -82,7 +81,7 @@ const CityContentHeader = ({
                 key='location'
                 href={landingPath}
                 text={t('changeLocation')}
-                iconSrc={landingIcon}
+                iconSrc={LocationIcon}
               />,
             ]
           : []),
@@ -99,7 +98,7 @@ const CityContentHeader = ({
       key='location'
       href={landingPath}
       text={t('changeLocation')}
-      iconSrc={landingIcon}
+      iconSrc={LocationIcon}
       direction={direction}
     />,
     <LanguageSelector
