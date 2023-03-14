@@ -11,6 +11,7 @@ import LgbtqiIcon from '../../../assets/icons/lgbtqi.svg'
 import OffersIcon from '../../../assets/icons/offers.svg'
 import PetIcon from '../../../assets/icons/pet.svg'
 import PhoneIcon from '../../../assets/icons/phone.svg'
+import SearchIcon from '../../../assets/icons/search.svg'
 import SmokingIcon from '../../../assets/icons/smoking.svg'
 import TimerIcon from '../../../assets/icons/timer.svg'
 import WebsiteIcon from '../../../assets/icons/website.svg'
@@ -28,6 +29,7 @@ export {
   OffersIcon,
   PetIcon,
   PhoneIcon,
+  SearchIcon,
   SmokingIcon,
   TimerIcon,
   WebsiteIcon,

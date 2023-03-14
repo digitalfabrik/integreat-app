@@ -17,14 +17,12 @@ import {
 } from 'api-client'
 import { config } from 'translations'
 
-import { OffersIcon } from '../assets'
+import { OffersIcon, SearchIcon } from '../assets'
 import eventsIcon from '../assets/Events.svg'
-import searchIconMobile from '../assets/IconSearch.svg'
 import localInformationIcon from '../assets/Local_Information.svg'
 import newsIcon from '../assets/News.svg'
 import poisIcon from '../assets/Pois.svg'
 import landingIcon from '../assets/location-icon.svg'
-import searchIcon from '../assets/magnifier.svg'
 import buildConfig from '../constants/buildConfig'
 import { LOCAL_NEWS_ROUTE, RouteType, TU_NEWS_DETAIL_ROUTE, TU_NEWS_ROUTE } from '../routes'
 import Header from './Header'
@@ -64,24 +62,20 @@ const CityContentHeader = ({
 
   const { t } = useTranslation('layout')
 
+  const SearchButton = (
+    <HeaderActionBarItemLink
+      key='search'
+      href={searchPath}
+      text={t('search')}
+      iconSrc={SearchIcon}
+      direction={direction}
+    />
+  )
+
   const actionItems = viewportSmall
-    ? [
-        <HeaderActionBarItemLink
-          key='search'
-          href={searchPath}
-          text={t('search')}
-          iconSrc={searchIconMobile}
-          direction={direction}
-        />,
-      ]
+    ? [SearchButton]
     : [
-        <HeaderActionBarItemLink
-          key='search'
-          href={searchPath}
-          text={t('search')}
-          iconSrc={searchIcon}
-          direction={direction}
-        />,
+        SearchButton,
         ...(!buildConfig().featureFlags.fixedCity
           ? [
               <HeaderActionBarItemLink

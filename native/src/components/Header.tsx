@@ -16,7 +16,7 @@ import navigateToLanguageChange from '../navigation/navigateToLanguageChange'
 import { forceNewlineAfterChar } from '../utils/forceNewLineAfterChar'
 import sendTrackingSignal from '../utils/sendTrackingSignal'
 import { reportError } from '../utils/sentry'
-import MaterialHeaderButtons from './MaterialHeaderButtons'
+import CustomHeaderButtons from './CustomHeaderButtons'
 
 const Horizontal = styled.View`
   flex: 1;
@@ -176,7 +176,7 @@ const Header = ({
             {city && isHome && cityDisplayName(city)}
           </HeaderText>
         </HorizontalLeft>
-        <MaterialHeaderButtons cancelLabel={t('cancel')} items={items} overflowItems={overflowItems} />
+        <CustomHeaderButtons cancelLabel={t('cancel')} items={items} overflowItems={overflowItems} />
       </Horizontal>
     </BoxShadow>
   )

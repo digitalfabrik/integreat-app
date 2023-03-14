@@ -10,12 +10,22 @@ import {
 } from 'react-navigation-header-buttons'
 import { useTheme } from 'styled-components'
 
-const MaterialHeaderButton = (props: {
+import { SearchIcon } from '../assets'
+import SimpleImage from './SimpleImage'
+
+const Icon = (props: { name: string }): ReactElement => {
+  const { name } = props
+  if (name === 'search') {
+    return <SimpleImage source={SearchIcon} />
+  }
+  return <SimpleImage source={name} />
+}
+const CustomHeaderButton = (props: {
   disabled: boolean
   title: string
   onPress: () => void
   getButtonElement: () => ReactNode
-}) => <HeaderButton {...props} IconComponent={MaterialIcon} iconSize={23} color='black' />
+}) => <HeaderButton {...props} IconComponent={Icon} iconSize={23} color='black' />
 
 // Adjust cancel label for ios overflow menu of HeaderButtons
 const onOverflowMenuPress = (cancelButtonLabel: string) => (props: OnOverflowMenuPressParams) =>
@@ -24,7 +34,7 @@ const onOverflowMenuPress = (cancelButtonLabel: string) => (props: OnOverflowMen
     cancelButtonLabel,
   })
 
-const MaterialHeaderButtons = (props: {
+const CustomHeaderButtons = (props: {
   cancelLabel: string
   items: Array<ReactNode>
   overflowItems: Array<ReactNode>
@@ -33,7 +43,7 @@ const MaterialHeaderButtons = (props: {
   const theme = useTheme()
   const { t } = useTranslation('common')
   return (
-    <HeaderButtons HeaderButtonComponent={MaterialHeaderButton}>
+    <HeaderButtons HeaderButtonComponent={CustomHeaderButton}>
       {items}
       <OverflowMenu
         onPress={onOverflowMenuPress(cancelLabel)}
@@ -45,4 +55,4 @@ const MaterialHeaderButtons = (props: {
   )
 }
 
-export default MaterialHeaderButtons
+export default CustomHeaderButtons
