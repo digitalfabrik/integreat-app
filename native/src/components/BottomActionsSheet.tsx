@@ -3,8 +3,11 @@ import BottomSheet, {
   BottomSheetScrollView,
   BottomSheetScrollViewMethods,
 } from '@gorhom/bottom-sheet'
-import React, { ReactElement, ReactNode, useCallback, useEffect, useRef } from 'react'
+import React, { ReactElement, ReactNode, useCallback } from 'react'
+import { NativeScrollEvent, NativeSyntheticEvent } from 'react-native'
 import styled from 'styled-components/native'
+
+import { PoiFeature } from 'api-client'
 
 import BottomSheetHandler from './BottomSheetHandler'
 
@@ -16,52 +19,58 @@ type BottomActionsSheetProps = {
   onChange?: (index: number) => void
   initialIndex: number
   snapPointIndex: number
+  setListScrollPosition: (position: number) => void
+  selectedFeature: PoiFeature | null
 }
 
 const StyledBottomSheet = styled(BottomSheet)<{ isFullscreen: boolean }>`
   ${props => props.isFullscreen && `background-color: white;`}
 `
 
-const BottomActionsSheet: React.FC<BottomActionsSheetProps> = ({
-  children,
-  title,
-  visible = true,
-  onChange,
-  snapPoints,
-  initialIndex = 0,
-  snapPointIndex,
-}: BottomActionsSheetProps): ReactElement | null => {
-  const renderHandle = useCallback(
-    (props: BottomSheetHandleProps) => <BottomSheetHandler title={title} {...props} />,
-    [title]
-  )
+const BottomActionsSheet = React.forwardRef(
+  (
+    {
+      children,
+      title,
+      visible = true,
+      onChange,
+      snapPoints,
+      initialIndex = 0,
+      snapPointIndex,
+      setListScrollPosition,
+      selectedFeature,
+    }: BottomActionsSheetProps,
+    scrollRef: React.Ref<BottomSheetScrollViewMethods>
+  ): ReactElement | null => {
+    const renderHandle = useCallback(
+      (props: BottomSheetHandleProps) => <BottomSheetHandler title={title} {...props} />,
+      [title]
+    )
 
-  const scrollRef = useRef<BottomSheetScrollViewMethods>(null)
-
-  useEffect(() => {
-    if (scrollRef.current) {
-      scrollRef.current.scrollTo({
-        y: 0,
-        animated: true,
-      })
+    if (!visible) {
+      return null
     }
-  }, [title])
 
-  if (!visible) {
-    return null
+    const onScrollEndDrag = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
+      if (!selectedFeature) {
+        setListScrollPosition(event.nativeEvent.contentOffset.y)
+      }
+    }
+
+    return (
+      <StyledBottomSheet
+        index={initialIndex}
+        isFullscreen={snapPointIndex === 2}
+        snapPoints={snapPoints}
+        animateOnMount
+        handleComponent={renderHandle}
+        onChange={onChange}>
+        <BottomSheetScrollView onScrollEndDrag={onScrollEndDrag} ref={scrollRef}>
+          {children}
+        </BottomSheetScrollView>
+      </StyledBottomSheet>
+    )
   }
-
-  return (
-    <StyledBottomSheet
-      index={initialIndex}
-      isFullscreen={snapPointIndex === 2}
-      snapPoints={snapPoints}
-      animateOnMount
-      handleComponent={renderHandle}
-      onChange={onChange}>
-      <BottomSheetScrollView ref={scrollRef}>{children}</BottomSheetScrollView>
-    </StyledBottomSheet>
-  )
-}
+)
 
 export default BottomActionsSheet
