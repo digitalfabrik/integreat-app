@@ -1,3 +1,4 @@
+import { BottomSheetScrollViewMethods } from '@gorhom/bottom-sheet'
 import MapboxGL from '@react-native-mapbox-gl/maps'
 import React, { ReactElement, useCallback, useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -59,11 +60,14 @@ type PoisProps = {
   navigation: NavigationProps<PoisRouteType>
 }
 
+const RESTORE_TIMEOUT = 100
+
 const Pois = ({ pois, language, cityModel, route, navigation }: PoisProps): ReactElement => {
   const { coordinates, requestAndDetermineLocation } = useUserLocation(true)
   const { slug } = route.params
   const [sheetSnapPointIndex, setSheetSnapPointIndex] = useState<number>(1)
   const [followUserLocation, setFollowUserLocation] = useState<boolean>(false)
+  const [listScrollPosition, setListScrollPosition] = useState<number>(0)
   const deviceHeight = useWindowDimensions().height
   const features = prepareFeatureLocations(pois, coordinates)
   const selectedFeature = slug ? features.find(it => it.properties.slug === slug) : null
@@ -71,17 +75,32 @@ const Pois = ({ pois, language, cityModel, route, navigation }: PoisProps): Reac
   const { t } = useTranslation('pois')
   const theme = useTheme()
   const cameraRef = useRef<MapboxGL.Camera | null>(null)
+  const scrollRef = useRef<BottomSheetScrollViewMethods>(null)
 
+  const scrollTo = (position: number) => {
+    setTimeout(() => {
+      if (scrollRef.current) {
+        scrollRef.current.scrollTo({
+          y: position,
+          animated: false,
+        })
+      }
+    }, RESTORE_TIMEOUT)
+  }
   const selectPoiFeature = (feature: PoiFeature | null) => {
     if (feature && cameraRef.current) {
       setFollowUserLocation(false)
       navigation.setParams({ slug: feature.properties.slug })
+      scrollTo(0)
     } else {
       navigation.setParams({ slug: undefined })
     }
   }
 
-  const deselectPoiFeature = useCallback(() => navigation.setParams({ slug: undefined }), [navigation])
+  const deselectPoiFeature = useCallback(() => {
+    navigation.setParams({ slug: undefined })
+    scrollTo(listScrollPosition)
+  }, [listScrollPosition, navigation])
   useOnBackNavigation(slug ? deselectPoiFeature : undefined)
 
   // Wait for followUserLocation change before moving the camera to avoid position lock
@@ -164,6 +183,9 @@ const Pois = ({ pois, language, cityModel, route, navigation }: PoisProps): Reac
         setFollowUserLocation={setFollowUserLocation}
       />
       <BottomActionsSheet
+        ref={scrollRef}
+        selectedFeature={selectedFeature ?? null}
+        setListScrollPosition={setListScrollPosition}
         title={!selectedFeature ? t('listTitle') : undefined}
         onChange={setSheetSnapPointIndex}
         initialIndex={sheetSnapPointIndex}
