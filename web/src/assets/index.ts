@@ -7,6 +7,7 @@ import EmailIcon from '../../../assets/icons/email.svg'
 import EuroIcon from '../../../assets/icons/euro.svg'
 import HouseIcon from '../../../assets/icons/house.svg'
 import KeyIcon from '../../../assets/icons/key.svg'
+import LanguageIcon from '../../../assets/icons/language.svg'
 import LgbtqiIcon from '../../../assets/icons/lgbtqi.svg'
 import LocationIcon from '../../../assets/icons/location.svg'
 import OffersIcon from '../../../assets/icons/offers.svg'
@@ -28,6 +29,7 @@ export {
   EuroIcon,
   HouseIcon,
   KeyIcon,
+  LanguageIcon,
   LgbtqiIcon,
   LocationIcon,
   OffersIcon,
