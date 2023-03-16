@@ -18,7 +18,7 @@ import SimpleImage from './SimpleImage'
 const Icon = (props: { name: string; style: StyleProp<ImageStyle> }): ReactElement => {
   const { name } = props
   if (name === 'search') {
-    return <SimpleImage {...props} source={SearchIcon} />
+    return <SimpleImage {...props} source={SearchIcon} style={style}/>
   }
   if (name === 'language') {
     const { style } = props
