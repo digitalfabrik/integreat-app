@@ -26,11 +26,5 @@
     "@wdio/selenium-standalone-service": "^8.3.2",
     "@wdio/types": "^8.3.0",
     "webdriverio": "^8.3.2"
-  },
-  "workspaces": {
-    "nohoist": [
-      "@wdio/**",
-      "**/@wdio/**"
-    ]
   }
 }

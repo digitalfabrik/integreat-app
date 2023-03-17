@@ -8,16 +8,9 @@
       "web",
       "e2e-tests",
       "api-client",
+      "tools",
       "translations",
       "build-configs"
-    ],
-    "nohoist": [
-      "native/**",
-      "web/**",
-      "e2e-tests/**",
-      "api-client/**",
-      "translations/**",
-      "build-configs/**"
     ]
   },
   "scripts": {
@@ -61,5 +54,6 @@
     "ts-jest": "^29.0.5",
     "ts-node": "^10.8.2",
     "typescript": "4.7.4"
-  }
+  },
+  "packageManager": "yarn@3.5.0"
 }
