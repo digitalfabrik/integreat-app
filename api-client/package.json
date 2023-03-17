@@ -5,19 +5,18 @@
   "main": "src/index.ts",
   "private": true,
   "scripts": {
-    "test": "jest --config jest.config.ts",
-    "test:changed": "yarn run test -o",
-    "test:coverage": "yarn run test --coverage",
-    "test:ci": "yarn run test:coverage --ci",
-    "test:watch": "yarn run test --watchAll",
-    "lint": "yarn run eslint .",
-    "lint:changed": "eslint . -c ../.eslintrc_changed.js",
-    "lint:fix": "yarn run eslint --fix",
-    "lint:ci": "yarn run eslint --quiet --format junit -o reports/lint/junit-lint.xml",
-    "ts:check": "tsc --build"
+    "test": "yarn g:test --selectProjects api-client",
+    "test:changed": "yarn g:test:changed --selectProjects api-client",
+    "test:coverage": "yarn g:test:coverage --selectProjects api-client",
+    "test:watch": "yarn g:test --watchAll --selectProjects api-client",
+    "lint": "yarn g:lint",
+    "lint:changed": "yarn g:lint:changed",
+    "lint:fix": "yarn g:lint:fix",
+    "lint:ci": "yarn g:lint:ci",
+    "ts:check": "yarn g:tsc"
   },
   "peerDependencies": {
-    "@types/react": "^18.0.26",
+    "@types/react": "^18.0.28",
     "react": "18.2.0"
   },
   "dependencies": {
@@ -38,10 +37,12 @@
     "@types/js-md5": "^0.4.3",
     "@types/lodash": "^4.14.182",
     "@types/normalize-path": "^3.0.0",
+    "@types/react": "18.0.28",
     "@types/seedrandom": "^3.0.2",
     "@types/uuid": "^9.0.0",
     "jest-fetch-mock": "^3.0.3",
-    "jest-junit": "^15.0.0",
+    "jest-mock": "29.5.0",
+    "react": "18.2.0",
     "seedrandom": "^3.0.3"
   }
 }

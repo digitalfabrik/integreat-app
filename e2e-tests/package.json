@@ -11,8 +11,8 @@
     "prepare:native:android": "yarn workspace native android:integreat-e2e",
     "prepare:native:start": "yarn workspace native start:integreat-e2e",
     "prepare:web:start": "yarn workspace web start:integreat-e2e",
-    "lint": "yarn eslint ./",
-    "ts:check": "tsc --build"
+    "lint": "yarn g:lint",
+    "ts:check": "yarn g:tsc"
   },
   "devDependencies": {
     "@types/jasmine": "4.3.1",
@@ -21,9 +21,9 @@
     "@wdio/cli": "^8.3.2",
     "@wdio/globals": "8.2.3",
     "@wdio/jasmine-framework": "^8.3.2",
-    "@wdio/spec-reporter": "^8.3.0",
     "@wdio/local-runner": "^8.3.2",
     "@wdio/selenium-standalone-service": "^8.3.2",
+    "@wdio/spec-reporter": "^8.3.0",
     "@wdio/types": "^8.3.0",
     "webdriverio": "^8.3.2"
   }

@@ -274,6 +274,3 @@ sentry.properties
 
 # Ruby Gems
 vendor/
-
-# JUnit output
-reports/

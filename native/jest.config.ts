@@ -14,38 +14,25 @@ const transformNodeModules = [
   '@dr.pogodin/react-native-static-server',
 ]
 export default {
-  rootDir: 'src',
+  displayName: 'native',
+  roots: ['src'],
   preset: 'react-native',
-  verbose: true,
   automock: false,
 
   /* Always explicitly mock modules. Also automocking seems to be broken right now:
         https://github.com/facebook/jest/issues/6127 */
   moduleNameMapper: {
     '.+\\.(css|styl|less|sass|scss|png|jpg|ttf|woff|woff2)$': 'jest-transform-stub',
-    '\\.svg': '<rootDir>/__mocks__/svgrMock.ts',
+    '\\.svg': '<rootDir>/src/__mocks__/svgrMock.ts',
   },
-  setupFilesAfterEnv: [
-    '<rootDir>/../jest.setup.ts',
-    '<rootDir>/../node_modules/@testing-library/jest-native/extend-expect',
-  ],
+  setupFilesAfterEnv: ['./jest.setup.ts', './node_modules/@testing-library/jest-native/extend-expect'],
   transform: {
-    '^.+\\.jsx?$': '../babel-jest.js',
+    '^.+\\.jsx?$': 'babel-jest',
     '^.+\\.tsx?$': 'ts-jest',
   },
   transformIgnorePatterns: [`node_modules/(?!${transformNodeModules.join('|')}/)`],
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json'],
-  modulePaths: ['<rootDir>'],
+  modulePaths: ['./src'],
   moduleDirectories: ['node_modules'],
   maxWorkers: '50%',
-  coverageDirectory: '<rootDir>/../reports/coverage',
-  reporters: [
-    'default',
-    [
-      'jest-junit',
-      {
-        outputDirectory: '<rootDir>/../reports/unit-test',
-      },
-    ],
-  ],
 }

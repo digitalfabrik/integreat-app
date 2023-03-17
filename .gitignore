@@ -128,3 +128,6 @@ runConfigurations.xml
 
 # Mac OS X
 .DS_Store
+
+# JUnit output
+reports/

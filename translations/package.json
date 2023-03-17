@@ -12,15 +12,13 @@
     "import:ods:translations": "./tools/ods-to-csv translations-ods translations-csv && yarn manage convert translations-csv translations.json json && rm -rf translations-csv",
     "import:ods:override-malte": "./tools/ods-to-csv malte-ods malte-csv && yarn manage convert malte-csv override-translations/malte.json json&& rm -rf malte-csv ",
     "import:ods:override-aschaffenburg": "./tools/ods-to-csv aschaffenburg-ods aschaffenburg-csv && yarn manage convert aschaffenburg-csv override-translations/aschaffenburg.json json && rm -rf aschaffenburg-csv",
-    "test": "jest --config jest.config.ts",
-    "test:coverage": "yarn run test --coverage",
-    "test:ci": "yarn run test:coverage --ci",
-    "lint": "yarn run eslint .",
-    "lint:fix": "yarn run eslint --fix",
-    "lint:ci": "yarn run eslint --quiet --format junit -o reports/lint/junit-lint.xml",
-    "ts:check": "tsc --build"
+    "test": "yarn g:test --selectProjects translations",
+    "test:coverage": "yarn g:test:coverage",
+    "lint": "yarn g:lint",
+    "lint:fix": "yarn g:lint:fix",
+    "lint:ci": "yarn g:lint:ci",
+    "ts:check": "yarn g:tsc"
   },
-  "dependencies": {},
   "devDependencies": {
     "@types/flat": "^5.0.2",
     "@types/lodash": "^4.14.182",
@@ -28,7 +26,6 @@
     "csv-parse": "^5.3.0",
     "csv-stringify": "^6.2.0",
     "flat": "^5.0.0",
-    "jest-junit": "^15.0.0",
     "lodash": "^4.17.19"
   }
 }

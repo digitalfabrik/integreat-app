@@ -1,6 +1,6 @@
 import { mocked } from 'jest-mock'
 
-import { useLoadFromEndpoint } from 'api-client'
+import {useLoadFromEndpoint} from '../index'
 
 const mockData = (data: unknown): typeof useLoadFromEndpoint =>
   (() => ({
@@ -15,7 +15,7 @@ export const mockUseLoadFromEndpointWithData = <T>(data: T): void => {
 }
 
 export const mockUseLoadFromEndpointOnceWithData = <T>(data: T): void => {
-  mocked(useLoadFromEndpoint).mockImplementationOnce(mockData(data))
+  mocked(useLoadFromEndpoint<T, never>).mockImplementationOnce(mockData(data))
 }
 
 export const mockUseLoadFromEndpointLoading = ({ data, error }: { data?: unknown; error?: string } = {}): void => {
