@@ -62,7 +62,7 @@
     "@sentry/react-native": "^5.0.0-alpha.11",
     "@sentry/types": "^7.33.0",
     "accordion-collapse-react-native": "^1.1.1",
-    "api-client": "0.0.1",
+    "api-client": "workspace:api-client",
     "build-configs": "0.0.1",
     "events": "^3.2.0",
     "htmlparser2": "^7.2.0",

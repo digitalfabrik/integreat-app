@@ -7,7 +7,7 @@
     "isolatedModules": true,
     "jsx": "react",
     "lib": ["dom", "dom.iterable", "ES5", "ES6"],
-    "module": "ES2020",
+    "module": "CommonJS",
     "noEmit": false,
     "outDir": "dist",
     "sourceMap": true,

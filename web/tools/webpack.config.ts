@@ -11,7 +11,6 @@ import ReactRefreshTypeScript from 'react-refresh-typescript'
 import { Configuration, DefinePlugin, LoaderOptionsPlugin, optimize, WebpackPluginInstance } from 'webpack'
 import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer'
 import 'webpack-dev-server'
-
 import loadBuildConfig, { WEB } from 'build-configs'
 import { WebBuildConfigType } from 'build-configs/BuildConfigType'
 import { config as translationsConfig } from 'translations'
@@ -142,7 +141,7 @@ const createConfig = (
   const configAssets = resolve(__dirname, `../node_modules/build-configs/${buildConfigName}/assets`)
 
   const nodeModules = resolve(__dirname, '../node_modules')
-  const rootNodeModules = resolve(__dirname, '../../node_modules')
+  const apiClientNodeModules = resolve(__dirname, '../../api-client/node_modules')
   const wwwDirectory = resolve(__dirname, '../www')
   const distDirectory = resolve(__dirname, `../dist/${buildConfigName}`)
   const srcDirectory = resolve(__dirname, '../src')
@@ -164,8 +163,8 @@ const createConfig = (
   const config: Configuration = {
     mode: devServer ? 'development' : 'production',
     resolve: {
-      extensions: ['.tsx', '.ts', '.js'],
-      modules: [nodeModules, rootNodeModules],
+      extensions: ['.tsx', '.ts', '.js', '.json'],
+      modules: [nodeModules, apiClientNodeModules],
       alias: {
         'mapbox-gl': 'maplibre-gl',
       },
