@@ -13,7 +13,8 @@ const config: JestConfigWithTsJest = {
         outputDirectory: '<rootDir>/reports/unit-test',
       },
     ],
-  ]
+  ],
+  maxWorkers: '50%'
 }
 
 export default config

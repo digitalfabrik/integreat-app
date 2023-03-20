@@ -7,5 +7,4 @@ export default {
   moduleDirectories: ['node_modules'],
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json'],
   testEnvironment: 'node',
-  maxWorkers: '50%'
 }

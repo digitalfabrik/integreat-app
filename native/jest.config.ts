@@ -34,5 +34,4 @@ export default {
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json'],
   modulePaths: ['./src'],
   moduleDirectories: ['node_modules'],
-  maxWorkers: '50%',
 }

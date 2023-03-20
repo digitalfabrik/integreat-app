@@ -1,9 +1,7 @@
-import { JestConfigWithTsJest } from 'ts-jest'
-
 import { webIntegreatTestCmsBuildConfig } from 'build-configs/integreat-test-cms'
 
 const transformNodeModules = ['api-client', 'build-configs', 'translations']
-const config: JestConfigWithTsJest = {
+const config = {
   displayName: 'web',
   roots: ['src'],
   preset: 'ts-jest',
@@ -17,7 +15,6 @@ const config: JestConfigWithTsJest = {
   },
   moduleFileExtensions: ['js', 'jsx', 'ts', 'tsx', 'json'],
   moduleDirectories: ['node_modules'],
-  maxWorkers: '50%',
 
   testEnvironment: 'jsdom',
   globals: {
