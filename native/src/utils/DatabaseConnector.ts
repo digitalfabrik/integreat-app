@@ -443,6 +443,7 @@ class DatabaseConnector {
         content: jsonObject.content,
         thumbnail: jsonObject.thumbnail,
         availableLanguages,
+        metaDescription: null, // not used in native
         excerpt: jsonObject.excerpt,
         website: jsonObject.website,
         phoneNumber: jsonObject.phoneNumber,

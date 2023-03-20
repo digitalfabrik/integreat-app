@@ -1,0 +1,8 @@
+issue_key: IGAPP-1172
+show_in_stores: false
+platforms:
+  - web
+  - ios
+  - android
+en: Restore scroll position of location list when navigating back from detail view.
+de: Scrollposition der Ortliste wird wiederhergestellt, wenn von der Detailansicht zurück navigiert wird.

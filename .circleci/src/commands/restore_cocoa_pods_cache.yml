@@ -4,7 +4,6 @@ steps:
       name: Restore CocoaPods Cache
       keys:
         - 6-pods-{{ arch }}-{{ checksum "native/ios/Podfile.lock" }}
-        - 6-pods-{{ arch }}-
   - run:
       name: '[CP] Install CocoaPods'
       command: bundle exec pod install

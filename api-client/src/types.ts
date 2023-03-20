@@ -77,6 +77,7 @@ export type JsonPoiType = {
   title: string
   modified_gmt: string
   excerpt: string
+  meta_description: string | null
   content: string
   available_languages: JsonAvailableLanguagesType
   thumbnail: string
@@ -101,6 +102,7 @@ export type JsonEventType = {
   event: JsonEventInfoType
   location: JsonLocationType<number | null>
   featured_image: JsonFeaturedImageType | null | undefined
+  recurrence_rule?: string | null
 }
 export type JsonTunewsType = {
   id: number

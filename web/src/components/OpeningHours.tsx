@@ -98,4 +98,4 @@ const OpeningHours = ({
   )
 }
 
-export default OpeningHours
+export default React.memo(OpeningHours)

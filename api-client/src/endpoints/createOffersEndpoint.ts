@@ -17,7 +17,7 @@ type ParamsType = {
 }
 export default (baseUrl: string): Endpoint<ParamsType, Array<OfferModel>> =>
   new EndpointBuilder<ParamsType, Array<OfferModel>>(OFFERS_ENDPOINT_NAME)
-    .withParamsToUrlMapper(params => `${baseUrl}/${params.city}/${params.language}/wp-json/extensions/v3/extras`)
+    .withParamsToUrlMapper(params => `${baseUrl}/${params.city}/${params.language}/wp-json/extensions/v3/extras/`)
     .withMapper((json: Array<JsonOfferType>) =>
       json.map(
         offer =>

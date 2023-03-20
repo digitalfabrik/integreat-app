@@ -78,7 +78,7 @@ const StyledLink = styled(Link)<{ $active: boolean }>`
 `
 
 const StyledText = styled.span<{ $active: boolean }>`
-  ${props => (props.$active ? 'font-weight: 800' : '')}
+  font-weight: ${props => (props.$active ? 'bold' : 'normal')};
 `
 
 const ICON_SIZE_LARGE = 50

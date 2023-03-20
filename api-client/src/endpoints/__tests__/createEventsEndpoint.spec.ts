@@ -167,7 +167,9 @@ describe('events', () => {
     language: 'de',
   }
   it('should map params to url', () => {
-    expect(events.mapParamsToUrl(params)).toBe('https://integreat-api-url.de/augsburg/de/wp-json/extensions/v3/events')
+    expect(events.mapParamsToUrl(params)).toBe(
+      'https://integreat-api-url.de/augsburg/de/wp-json/extensions/v3/events?combine_recurring=True'
+    )
   })
   const json = [event1, event2, event3, event4]
   it('should map fetched data to models', () => {

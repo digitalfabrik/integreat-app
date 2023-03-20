@@ -14,13 +14,25 @@ type PoisMobileProps = {
   poiList: ReactElement
   toolbar: ReactElement
   poi?: PoiModel
-  selectFeature: (feature: PoiFeature | null) => void
   direction: UiDirectionType
+  setBottomActionSheetHeight: (height: number) => void
+  isBottomSheetFullscreen: boolean
+  restoreScrollPosition: boolean
 }
 
 const PoisMobile = React.forwardRef(
   (
-    { mapView, currentFeature, toolbar, poiList, poi, selectFeature, direction }: PoisMobileProps,
+    {
+      mapView,
+      currentFeature,
+      toolbar,
+      poiList,
+      poi,
+      direction,
+      setBottomActionSheetHeight,
+      isBottomSheetFullscreen,
+      restoreScrollPosition,
+    }: PoisMobileProps,
     ref: React.Ref<BottomSheetRef>
   ): ReactElement => {
     const { t } = useTranslation('pois')
@@ -31,9 +43,16 @@ const PoisMobile = React.forwardRef(
           title={!currentFeature ? t('listTitle') : undefined}
           toolbar={toolbar}
           ref={ref}
+          restoreScrollPosition={restoreScrollPosition}
+          setBottomActionSheetHeight={setBottomActionSheetHeight}
           direction={direction}>
           {currentFeature && poi ? (
-            <PoiDetails poi={poi} feature={currentFeature} selectFeature={selectFeature} direction={direction} />
+            <PoiDetails
+              poi={poi}
+              feature={currentFeature}
+              direction={direction}
+              isBottomSheetFullscreen={isBottomSheetFullscreen}
+            />
           ) : (
             poiList
           )}
