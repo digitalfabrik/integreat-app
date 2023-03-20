@@ -11,6 +11,7 @@ import ReactRefreshTypeScript from 'react-refresh-typescript'
 import { Configuration, DefinePlugin, LoaderOptionsPlugin, optimize, WebpackPluginInstance } from 'webpack'
 import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer'
 import 'webpack-dev-server'
+
 import loadBuildConfig, { WEB } from 'build-configs'
 import { WebBuildConfigType } from 'build-configs/BuildConfigType'
 import { config as translationsConfig } from 'translations'

@@ -14,7 +14,7 @@ const config: JestConfigWithTsJest = {
       },
     ],
   ],
-  maxWorkers: '50%'
+  maxWorkers: '50%',
 }
 
 export default config
