@@ -18,7 +18,8 @@ steps:
       working_directory: tools
   - run:
       name: Create release notes
-      command: echo "export RELEASE_NOTES=$(yarn --silent --cwd tools manage-metadata parse-release-notes --web --language en)" >> ${BASH_ENV}
+      command: echo "export RELEASE_NOTES=$(yarn tools manage-metadata parse-release-notes --web --language en)" >> ${BASH_ENV}
+      working_directory: tools
   - when:
       condition: << parameters.production_delivery >>
       steps:

@@ -473,11 +473,11 @@ jobs:
             - checkout
             - restore_yarn_tools_cache
             - run:
-                command: echo "export NEW_VERSION_NAME=$(yarn --silent next-version calc | jq .versionName)" >> ${BASH_ENV}
+                command: echo "export NEW_VERSION_NAME=$(yarn next-version calc | jq .versionName)" >> ${BASH_ENV}
                 name: Calculate next version name
                 working_directory: tools
             - run:
-                command: echo "export NEW_VERSION_CODE=$(yarn --silent next-version calc | jq .versionCode)" >> ${BASH_ENV}
+                command: echo "export NEW_VERSION_CODE=$(yarn next-version calc | jq .versionCode)" >> ${BASH_ENV}
                 name: Calculate next version code
                 working_directory: tools
             - when:
@@ -504,19 +504,19 @@ jobs:
         steps:
             - skip_job
             - checkout
-            - check_config
             - restore_yarn_cache
+            - check_config
             - run:
-                command: yarn prettier:check
+                command: yarn g:prettier:check
                 name: Prettier
             - run:
-                command: yarn lint
+                command: yarn g:lint
                 name: Lint
             - run:
                 command: yarn workspace web stylelint
                 name: Stylelint
             - run:
-                command: yarn workspaces run ts:check
+                command: yarn workspaces foreach run ts:check
                 name: TS check
             - unit_test
             - notify
@@ -549,8 +549,9 @@ jobs:
             - restore_ruby_cache:
                 directory: native
             - run:
-                command: yarn --cwd tools manage-metadata prepare-metadata << parameters.build_config_name >> playstore
+                command: yarn manage-metadata prepare-metadata << parameters.build_config_name >> playstore
                 name: Prepare Play Store metadata
+                working_directory: tools
             - run:
                 command: bundle exec fastlane browserstack_upload_live path:attached_workspace/<< parameters.build_config_name >>.apk
                 name: '[FL] Browserstack Upload Live'
@@ -561,7 +562,7 @@ jobs:
                 working_directory: native
             - run:
                 command: |
-                    eval $(yarn workspace --silent build-configs --silent manage to-bash << parameters.build_config_name >> android)
+                    eval $(yarn workspace build-configs manage to-bash << parameters.build_config_name >> android)
                     tools/sentry-release "$BUILD_CONFIG_APPLICATION_ID" "${NEW_VERSION_NAME}" ~/attached_workspace/sourcemaps/<< parameters.build_config_name >> --version-code "${NEW_VERSION_CODE}"
                 name: Sentry Upload
             - notify
@@ -593,8 +594,9 @@ jobs:
             - restore_ruby_cache:
                 directory: native
             - run:
-                command: yarn --cwd tools manage-metadata prepare-metadata << parameters.build_config_name >> appstore
+                command: yarn manage-metadata prepare-metadata << parameters.build_config_name >> appstore
                 name: Prepare App Store metadata
+                working_directory: tools
             - run:
                 command: bundle exec fastlane browserstack_upload_live path:attached_workspace/<< parameters.build_config_name >>.ipa
                 name: '[FL] Browserstack Upload Live'
@@ -615,7 +617,7 @@ jobs:
                         working_directory: native
             - run:
                 command: |
-                    eval $(yarn workspace --silent build-configs --silent manage to-bash << parameters.build_config_name >> ios)
+                    eval $(yarn workspace build-configs manage to-bash << parameters.build_config_name >> ios)
                     tools/sentry-release "$BUILD_CONFIG_BUNDLE_IDENTIFIER" "${NEW_VERSION_NAME}" ~/attached_workspace/sourcemaps/<< parameters.build_config_name >> --version-code "${NEW_VERSION_CODE}"
                 name: Sentry Upload
             - notify
@@ -804,12 +806,13 @@ jobs:
                 name: Prepare artifact urls
                 working_directory: ~/attached_workspace
             - run:
-                command: yarn github-release create android ${NEW_VERSION_NAME} ${NEW_VERSION_CODE} --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME} --release-notes "$(yarn --silent manage-metadata parse-release-notes --android --language en)"<<^ parameters.production_delivery >> --beta-release<</ parameters.production_delivery >> --download-links "${ANDROID_ARTIFACT_URLS}"
+                command: yarn github-release create android ${NEW_VERSION_NAME} ${NEW_VERSION_CODE} --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME} --release-notes "$(yarn manage-metadata parse-release-notes --android --language en)"<<^ parameters.production_delivery >> --beta-release<</ parameters.production_delivery >> --download-links "${ANDROID_ARTIFACT_URLS}"
                 name: Create github release
                 working_directory: tools
             - run:
-                command: echo "export RELEASE_NOTES=$(yarn --silent --cwd tools manage-metadata parse-release-notes --android --language en)" >> ${BASH_ENV}
+                command: echo "export RELEASE_NOTES=$(yarn manage-metadata parse-release-notes --android --language en)" >> ${BASH_ENV}
                 name: Create release notes
+                working_directory: tools
             - notify:
                 channel: releases
                 success_message: <<^ parameters.production_delivery >>[Beta] <</ parameters.production_delivery >>Integreat, Malte and Aschaffenburg ${NEW_VERSION_NAME} have been released successfully on Android!\n${RELEASE_NOTES}\n${ANDROID_ARTIFACT_URLS}
@@ -832,12 +835,13 @@ jobs:
                 name: Prepare artifact urls
                 working_directory: ~/attached_workspace
             - run:
-                command: yarn github-release create ios ${NEW_VERSION_NAME} ${NEW_VERSION_CODE} --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME} --release-notes "$(yarn --silent manage-metadata parse-release-notes --ios --language en)"<<^ parameters.production_delivery >> --beta-release<</ parameters.production_delivery >> --download-links "${IOS_ARTIFACT_URLS}"
+                command: yarn github-release create ios ${NEW_VERSION_NAME} ${NEW_VERSION_CODE} --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME} --release-notes "$(yarn manage-metadata parse-release-notes --ios --language en)"<<^ parameters.production_delivery >> --beta-release<</ parameters.production_delivery >> --download-links "${IOS_ARTIFACT_URLS}"
                 name: Create github release
                 working_directory: tools
             - run:
-                command: echo "export RELEASE_NOTES=$(yarn --silent --cwd tools manage-metadata parse-release-notes --ios --language en)" >> ${BASH_ENV}
+                command: echo "export RELEASE_NOTES=$(yarn manage-metadata parse-release-notes --ios --language en)" >> ${BASH_ENV}
                 name: Create release notes
+                working_directory: tools
             - notify:
                 channel: releases
                 success_message: <<^ parameters.production_delivery >>[Beta] <</ parameters.production_delivery >>Integreat, Malte and Aschaffenburg ${NEW_VERSION_NAME} have been released successfully on iOS!\n${RELEASE_NOTES}\n${IOS_ARTIFACT_URLS}
@@ -860,8 +864,9 @@ jobs:
                 name: Create github release
                 working_directory: tools
             - run:
-                command: echo "export RELEASE_NOTES=$(yarn --silent --cwd tools manage-metadata parse-release-notes --web --language en)" >> ${BASH_ENV}
+                command: echo "export RELEASE_NOTES=$(yarn tools manage-metadata parse-release-notes --web --language en)" >> ${BASH_ENV}
                 name: Create release notes
+                working_directory: tools
             - when:
                 condition: << parameters.production_delivery >>
                 steps:

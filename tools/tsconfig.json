@@ -2,7 +2,7 @@
   "extends": "../tsconfig.json",
   "compilerOptions": {
     "types": ["node"],
-    "composite": true,
+    "outDir": "dist",
     "esModuleInterop": true,
     "noFallthroughCasesInSwitch": true,
     "noImplicitAny": true,

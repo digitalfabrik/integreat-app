@@ -42,7 +42,7 @@
     "eslint": "yarn g:eslint",
     "license-crawler": "npm-license-crawler -onlyDirectDependencies -json ./src/assets/licenses.json",
     "postinstall": "jetifier && patch-package && yarn license-crawler",
-    "ts:check": "tsc --build",
+    "ts:check": "yarn g:tsc",
     "prettier:check": "yarn g:prettier:check",
     "prettier:write": "yarn g:prettier:write"
   },

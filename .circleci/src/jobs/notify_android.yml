@@ -18,11 +18,12 @@ steps:
       working_directory: ~/attached_workspace
   - run:
       name: Create github release
-      command: yarn github-release create android ${NEW_VERSION_NAME} ${NEW_VERSION_CODE} --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME} --release-notes "$(yarn --silent manage-metadata parse-release-notes --android --language en)"<<^ parameters.production_delivery >> --beta-release<</ parameters.production_delivery >> --download-links "${ANDROID_ARTIFACT_URLS}"
+      command: yarn github-release create android ${NEW_VERSION_NAME} ${NEW_VERSION_CODE} --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME} --release-notes "$(yarn manage-metadata parse-release-notes --android --language en)"<<^ parameters.production_delivery >> --beta-release<</ parameters.production_delivery >> --download-links "${ANDROID_ARTIFACT_URLS}"
       working_directory: tools
   - run:
       name: Create release notes
-      command: echo "export RELEASE_NOTES=$(yarn --silent --cwd tools manage-metadata parse-release-notes --android --language en)" >> ${BASH_ENV}
+      command: echo "export RELEASE_NOTES=$(yarn manage-metadata parse-release-notes --android --language en)" >> ${BASH_ENV}
+      working_directory: tools
   - notify:
       success_message: <<^ parameters.production_delivery >>[Beta] <</ parameters.production_delivery >>Integreat, Malte and Aschaffenburg ${NEW_VERSION_NAME} have been released successfully on Android!\n${RELEASE_NOTES}\n${ANDROID_ARTIFACT_URLS}
       channel: releases

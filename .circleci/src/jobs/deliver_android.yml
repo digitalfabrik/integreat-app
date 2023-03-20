@@ -25,7 +25,8 @@ steps:
       directory: native
   - run:
       name: Prepare Play Store metadata
-      command: yarn --cwd tools manage-metadata prepare-metadata << parameters.build_config_name >> playstore
+      command: yarn manage-metadata prepare-metadata << parameters.build_config_name >> playstore
+      working_directory: tools
   - run:
       name: '[FL] Browserstack Upload Live'
       command: bundle exec fastlane browserstack_upload_live path:attached_workspace/<< parameters.build_config_name >>.apk
@@ -38,6 +39,6 @@ steps:
       name: 'Sentry Upload'
       # A react-native app reports its version as: application_id@version+build_number
       command: |
-        eval $(yarn workspace --silent build-configs --silent manage to-bash << parameters.build_config_name >> android)
+        eval $(yarn workspace build-configs manage to-bash << parameters.build_config_name >> android)
         tools/sentry-release "$BUILD_CONFIG_APPLICATION_ID" "${NEW_VERSION_NAME}" ~/attached_workspace/sourcemaps/<< parameters.build_config_name >> --version-code "${NEW_VERSION_CODE}"
   - notify

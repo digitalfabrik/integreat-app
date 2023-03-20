@@ -24,7 +24,8 @@ steps:
       directory: native
   - run:
       name: Prepare App Store metadata
-      command: yarn --cwd tools manage-metadata prepare-metadata << parameters.build_config_name >> appstore
+      command: yarn manage-metadata prepare-metadata << parameters.build_config_name >> appstore
+      working_directory: tools
   - run:
       name: '[FL] Browserstack Upload Live'
       command: bundle exec fastlane browserstack_upload_live path:attached_workspace/<< parameters.build_config_name >>.ipa
@@ -47,6 +48,6 @@ steps:
       name: 'Sentry Upload'
       # A react-native app reports its version as: bundle_identifier@bundle_version+bundle_code
       command: |
-        eval $(yarn workspace --silent build-configs --silent manage to-bash << parameters.build_config_name >> ios)
+        eval $(yarn workspace build-configs manage to-bash << parameters.build_config_name >> ios)
         tools/sentry-release "$BUILD_CONFIG_BUNDLE_IDENTIFIER" "${NEW_VERSION_NAME}" ~/attached_workspace/sourcemaps/<< parameters.build_config_name >> --version-code "${NEW_VERSION_CODE}"
   - notify
