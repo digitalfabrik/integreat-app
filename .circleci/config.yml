@@ -201,13 +201,13 @@ commands:
                     - 8-yarn-{{ arch }}-{{ checksum "yarn.lock" }}-{{ checksum "package.json" }}-{{ checksum "native/package.json" }}-{{ checksum "web/package.json" }}
                 name: Restore Yarn Package Cache
             - run:
-                command: yarn --frozen-lockfile --cache-folder ~/.cache/yarn
+                command: yarn install --immutable
                 name: Yarn
             - save_cache:
                 key: 8-yarn-{{ arch }}-{{ checksum "yarn.lock" }}-{{ checksum "package.json" }}-{{ checksum "native/package.json" }}-{{ checksum "web/package.json" }}
                 name: Save Yarn Package Cache
                 paths:
-                    - ~/.cache/yarn
+                    - .yarn/cache
                     - node_modules
                     - native/node_modules
                     - web/node_modules
@@ -259,17 +259,14 @@ commands:
                 name: Skip the current build if neccassary
     unit_test:
         description: Runs the test task and stores coverage and junit data
-        parameters:
-            directory:
-                type: string
         steps:
             - run:
-                command: yarn workspace << parameters.directory >> run test:ci --maxWorkers ${TOTAL_CPUS}
+                command: yarn test:ci --maxWorkers ${TOTAL_CPUS}
                 name: Unit Tests with Coverage
             - store_test_results:
-                path: << parameters.directory >>/reports/unit-test
+                path: reports/unit-test
             - store_artifacts:
-                path: << parameters.directory >>/reports/coverage
+                path: reports/coverage
 jobs:
     build_android:
         docker:
@@ -521,14 +518,7 @@ jobs:
             - run:
                 command: yarn workspaces run ts:check
                 name: TS check
-            - unit_test:
-                directory: api-client
-            - unit_test:
-                directory: native
-            - unit_test:
-                directory: translations
-            - unit_test:
-                directory: web
+            - unit_test
             - notify
     deliver_android:
         docker:
