@@ -15,6 +15,7 @@ import {
 } from 'api-client'
 
 import { clusterCountLayer, clusterLayer, markerLayer } from '../constants/layers'
+import MapAttribution from './MapsAttribution'
 
 const MapContainer = styled.View`
   flex: 1;
@@ -137,6 +138,7 @@ const MapView = React.forwardRef(
             ref={cameraRef}
           />
         </StyledMap>
+        <MapAttribution />
         <StyledFAB
           placement='right'
           onPress={onRequestLocation}

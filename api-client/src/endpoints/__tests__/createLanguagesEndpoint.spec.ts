@@ -27,7 +27,7 @@ describe('languages', () => {
 
   it('should map router to url', () => {
     expect(languages.mapParamsToUrl(params)).toBe(
-      'https://integreat-api-url.de/augsburg/de/wp-json/extensions/v3/languages'
+      'https://integreat-api-url.de/augsburg/de/wp-json/extensions/v3/languages/'
     )
   })
 

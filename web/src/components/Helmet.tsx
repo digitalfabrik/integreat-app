@@ -7,7 +7,7 @@ import buildConfig from '../constants/buildConfig'
 
 type HelmetProps = {
   pageTitle: string
-  metaDescription?: string
+  metaDescription?: string | null
   languageChangePaths?: Array<{ code: string; path: string | null; name: string }>
   cityModel?: CityModel
 }
