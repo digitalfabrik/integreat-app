@@ -6751,7 +6751,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"build-configs@0.0.1, build-configs@workspace:build-configs":
+"build-configs@workspace:build-configs":
   version: 0.0.0-use.local
   resolution: "build-configs@workspace:build-configs"
   dependencies:
@@ -6759,7 +6759,7 @@ __metadata:
     commander: ^8.3.0
     decamelize: ^5.0.1
     flat: ^5.0.0
-    translations: 0.0.1
+    translations: "workspace:translations"
   languageName: unknown
   linkType: soft
 
@@ -15094,16 +15094,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"moment-timezone-data-webpack-plugin@npm:1.5.0":
-  version: 1.5.0
-  resolution: "moment-timezone-data-webpack-plugin@npm:1.5.0"
+"moment-timezone-data-webpack-plugin@npm:1.5.1":
+  version: 1.5.1
+  resolution: "moment-timezone-data-webpack-plugin@npm:1.5.1"
   dependencies:
     find-cache-dir: ^3.0.0
     make-dir: ^3.0.0
   peerDependencies:
     moment-timezone: ">= 0.1.0"
     webpack: 4.x.x || 5.x.x
-  checksum: d6abf2ff7c3b9067b6318a9ee20e5b1e309eb58cce205f0c6fc41cb14d78d7671c1d736081601b17d0bc7d969b5d63d111741139a6dcb413659e90b3777ee391
+  checksum: 2725039dc7bad7084413584d7033f43bfd77ab844a84d8ecc9c0fa544d6e8ac613ff0df897c2adcaacf7b9897fbf8d2c955ee1b2975c5eafcf1df9ea362a492a
   languageName: node
   linkType: hard
 
@@ -15262,7 +15262,7 @@ __metadata:
     accordion-collapse-react-native: ^1.1.1
     api-client: "workspace:api-client"
     babel-jest: ^29.4.0
-    build-configs: 0.0.1
+    build-configs: "workspace:build-configs"
     commander: ^8.3.0
     cross-env: ^7.0.2
     events: ^3.2.0
@@ -15308,7 +15308,7 @@ __metadata:
     react-navigation-header-buttons: ^10.0.0
     react-test-renderer: ^18.2.0
     styled-components: ^5.3.5
-    translations: 0.0.1
+    translations: "workspace:translations"
     url-parse: ^1.5.10
     wait-for-expect: ^3.0.2
     wd: ^1.12.1
@@ -20169,7 +20169,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"translations@0.0.1, translations@workspace:translations":
+"translations@workspace:translations":
   version: 0.0.0-use.local
   resolution: "translations@workspace:translations"
   dependencies:
@@ -21048,7 +21048,7 @@ __metadata:
     "@types/webpack-bundle-analyzer": ^4.4.1
     api-client: "workspace:api-client"
     assets-webpack-plugin: ^7.1.1
-    build-configs: 0.0.1
+    build-configs: "workspace:build-configs"
     clean-webpack-plugin: ^4.0.0
     copy-webpack-plugin: ^11.0.0
     cross-env: ^7.0.3
@@ -21070,7 +21070,8 @@ __metadata:
     maplibre-gl: ^2.1.9
     moment: 2.29.4
     moment-locales-webpack-plugin: ^1.2.0
-    moment-timezone-data-webpack-plugin: 1.5.0
+    moment-timezone: 0.5.41
+    moment-timezone-data-webpack-plugin: 1.5.1
     normalize.css: ^8.0.1
     npm-license-crawler: ^0.2.1
     postcss: ^8.4.14
@@ -21094,7 +21095,7 @@ __metadata:
     styled-components: ^5.3.6
     stylelint: ^14.9.1
     stylelint-config-standard: ^26.0.0
-    translations: 0.0.1
+    translations: "workspace:translations"
     ts-loader: ^9.3.1
     tsconfig-paths: ^4.0.0
     tsconfig-paths-webpack-plugin: 4.0.1

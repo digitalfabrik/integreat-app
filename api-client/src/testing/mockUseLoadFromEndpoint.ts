@@ -15,7 +15,7 @@ export const mockUseLoadFromEndpointWithData = <T>(data: T): void => {
 }
 
 export const mockUseLoadFromEndpointOnceWithData = <T>(data: T): void => {
-  mocked(useLoadFromEndpoint<T, never>).mockImplementationOnce(mockData(data))
+  mocked(useLoadFromEndpoint).mockImplementationOnce(mockData(data))
 }
 
 export const mockUseLoadFromEndpointLoading = ({ data, error }: { data?: unknown; error?: string } = {}): void => {

@@ -7,7 +7,7 @@
     "isolatedModules": true,
     "jsx": "react",
     "lib": ["dom", "dom.iterable", "ES5", "ES6"],
-    "module": "CommonJS",
+    "module": "ES2020",
     "noEmit": false,
     "outDir": "dist",
     "sourceMap": true,
@@ -22,7 +22,7 @@
     "typeRoots": ["./src/@types", "./node_modules/@types", "../node_modules/@types"],
     "types": ["jest", "node", "react"]
   },
-  "include": ["src/**/*", "tools/*", "./jest.setup.ts", "jest.config.ts"],
+  "include": ["src/**/*", "./jest.setup.ts", "jest.config.ts"],
   "references": [
     {
       "path": "../translations"

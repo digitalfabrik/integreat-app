@@ -63,7 +63,7 @@
     "@sentry/types": "^7.33.0",
     "accordion-collapse-react-native": "^1.1.1",
     "api-client": "workspace:api-client",
-    "build-configs": "0.0.1",
+    "build-configs": "workspace:build-configs",
     "events": "^3.2.0",
     "htmlparser2": "^7.2.0",
     "i18next": "^20.6.1",
@@ -94,7 +94,7 @@
     "react-native-webview": "^11.22.7",
     "react-navigation-header-buttons": "^10.0.0",
     "styled-components": "^5.3.5",
-    "translations": "0.0.1",
+    "translations": "workspace:translations",
     "url-parse": "^1.5.10"
   },
   "devDependencies": {

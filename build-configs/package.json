@@ -5,7 +5,7 @@
   "description": "Build configs for the integreat project",
   "private": true,
   "dependencies": {
-    "translations": "0.0.1"
+    "translations": "workspace:translations"
   },
   "devDependencies": {
     "@types/flat": "^5.0.0",

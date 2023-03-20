@@ -6,11 +6,11 @@ steps:
         - 2-yarn-{{ arch }}-{{ checksum "tools/yarn.lock" }}-{{ checksum "tools/package.json" }}
   - run:
       name: Yarn tools
-      command: yarn --frozen-lockfile --cache-folder ~/.cache/yarn-tools
+      command: yarn workspace tools install --immutable
       working_directory: tools
   - save_cache:
       name: Save Yarn Tools Package Cache
       key: 2-yarn-{{ arch }}-{{ checksum "tools/yarn.lock" }}-{{ checksum "tools/package.json" }}
       paths:
-        - ~/.cache/yarn-tools
+        - .yarn/cache
         - tools/node_modules
