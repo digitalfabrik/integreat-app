@@ -3,14 +3,14 @@
   "name": "tools",
   "private": true,
   "scripts": {
-    "manage-metadata": "yarn g:tsnode manage-metadata.ts",
-    "git-version": "yarn g:tsnode git-version.ts",
-    "github-release": "yarn g:tsnode github-release.ts",
-    "jira-release": "yarn g:tsnode jira-release.ts",
-    "move-release-notes": "yarn g:tsnode move-release-notes.ts",
-    "next-version": "yarn g:tsnode next-version.ts",
-    "trigger-pipeline": "yarn g:tsnode trigger-pipeline.ts",
-    "ts:check": "yarn g:tsc"
+    "manage-metadata": "ts-node manage-metadata.ts",
+    "git-version": "ts-node git-version.ts",
+    "github-release": "ts-node github-release.ts",
+    "jira-release": "ts-node jira-release.ts",
+    "move-release-notes": "ts-node move-release-notes.ts",
+    "next-version": "ts-node next-version.ts",
+    "trigger-pipeline": "ts-node trigger-pipeline.ts",
+    "ts:check": "tsc --build"
   },
   "devDependencies": {
     "@octokit/auth-app": "^4.0.9",
@@ -22,6 +22,8 @@
     "commander": "^8.3.0",
     "jira-client": "^8.1.0",
     "js-yaml": "^4.1.0",
-    "node-fetch": "^2.6.7"
+    "node-fetch": "^2.6.7",
+    "ts-node": "^10.8.2",
+    "typescript": "^4.9.5"
   }
 }

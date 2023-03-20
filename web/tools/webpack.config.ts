@@ -164,7 +164,7 @@ const createConfig = (
   const config: Configuration = {
     mode: devServer ? 'development' : 'production',
     resolve: {
-      extensions: ['.tsx', '.ts', '.js', '.json'],
+      extensions: ['.tsx', '.ts', '.js'],
       modules: [nodeModules, apiClientNodeModules],
       alias: {
         'mapbox-gl': 'maplibre-gl',
