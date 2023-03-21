@@ -1,4 +1,4 @@
-const WAIT_FOR_SWIPE_FINISHED = 1000
+const WAIT_FOR_SWIPE_FINISHED = 2000
 
 type SelectorReturn = ReturnType<typeof $>
 
