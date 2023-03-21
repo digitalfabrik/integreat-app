@@ -1047,11 +1047,6 @@ workflows:
                 requires:
                     - bump_version
                     - check
-            - e2e_ios:
-                context:
-                    - browserstack
-                requires:
-                    - build_e2e_ios
         unless:
             or:
                 - equal:
@@ -1296,21 +1291,6 @@ workflows:
                     - deliver_malte_android
                     - deliver_aschaffenburg_android
             - build_ios:
-                build_config_name: integreat-e2e
-                context:
-                    - mattermost
-                    - tuerantuer-apple
-                    - fastlane-match
-                name: build_e2e_ios
-                requires:
-                    - bump_version
-            - e2e_ios:
-                context:
-                    - mattermost
-                    - browserstack
-                requires:
-                    - build_e2e_ios
-            - build_ios:
                 build_config_name: integreat
                 context:
                     - mattermost
@@ -1501,21 +1481,6 @@ workflows:
                     - deliver_malte_android
                     - deliver_aschaffenburg_android
             - build_ios:
-                build_config_name: integreat-e2e
-                context:
-                    - mattermost
-                    - tuerantuer-apple
-                    - fastlane-match
-                name: build_e2e_ios
-                requires:
-                    - bump_version
-            - e2e_ios:
-                context:
-                    - mattermost
-                    - browserstack
-                requires:
-                    - build_e2e_ios
-            - build_ios:
                 build_config_name: integreat
                 context:
                     - mattermost
@@ -1698,21 +1663,6 @@ workflows:
                     - deliver_integreat_android
                     - deliver_malte_android
                     - deliver_aschaffenburg_android
-            - build_ios:
-                build_config_name: integreat-e2e
-                context:
-                    - mattermost
-                    - tuerantuer-apple
-                    - fastlane-match
-                name: build_e2e_ios
-                requires:
-                    - bump_version
-            - e2e_ios:
-                context:
-                    - mattermost
-                    - browserstack
-                requires:
-                    - build_e2e_ios
             - build_ios:
                 build_config_name: integreat
                 context:

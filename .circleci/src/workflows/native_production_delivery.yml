@@ -110,22 +110,6 @@ jobs:
         - deliver_aschaffenburg_android
 
   - build_ios:
-      name: build_e2e_ios
-      build_config_name: integreat-e2e
-      context:
-        - mattermost
-        - tuerantuer-apple
-        - fastlane-match
-      requires:
-        - bump_version
-  - e2e_ios:
-      context:
-        - mattermost
-        - browserstack
-      requires:
-        - build_e2e_ios
-
-  - build_ios:
       name: build_integreat_ios
       build_config_name: integreat
       context:
