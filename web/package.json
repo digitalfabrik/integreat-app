@@ -2,10 +2,6 @@
   "name": "web",
   "version": "0.1.0",
   "private": true,
-  "engines": {
-    "node": ">=10.13.0",
-    "npm": ">=3.8"
-  },
   "scripts": {
     "webpack-ts": "cross-env TS_NODE_PROJECT=\"tools/tsconfig.webpack.json\" webpack --config tools/webpack.config.ts",
     "webpack-dev-server-ts": "cross-env TS_NODE_PROJECT=\"tools/tsconfig.webpack.json\" webpack-dev-server --config tools/webpack.config.ts --progress",
@@ -111,7 +107,7 @@
     "jest-fetch-mock": "^3.0.3",
     "jest-junit": "^15.0.0",
     "moment-locales-webpack-plugin": "^1.2.0",
-    "moment-timezone-data-webpack-plugin": "1.5.0",
+    "moment-timezone-data-webpack-plugin": "1.5.1",
     "postcss": "^8.4.14",
     "postcss-jsx": "^0.36.4",
     "postcss-syntax": "^0.36.2",
