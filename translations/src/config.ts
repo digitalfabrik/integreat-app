@@ -139,6 +139,7 @@ class Config {
     fa_pr: ['pes'],
     'de-si': ['de'],
     sr: ['sr-Cyrl'],
+    zh: ['zh-CN'],
     'zh-hans': ['zh-CN'],
     // Slugs from the CMS are (and have to be) lowercase
     'sr-cyrl': ['sr-Cyrl'],
