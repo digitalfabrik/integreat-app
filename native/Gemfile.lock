@@ -233,4 +233,4 @@ DEPENDENCIES
   octokit (~> 4.18)
 
 BUNDLED WITH
-   2.4.7
+   2.4.6
