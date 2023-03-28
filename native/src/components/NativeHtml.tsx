@@ -62,6 +62,8 @@ const NativeHtml = React.memo(({ content, cacheDictionary, language }: NativeHtm
   )
 
   const fonts = theme.fonts.native.webviewFont.split(', ')
+  const factorForRenderHtmlPackage = 1.1
+  const fontSize = `${parseFloat(theme.fonts.contentFontSize.slice(0, -'rem'.length)) * factorForRenderHtmlPackage}rem`
 
   const addExternalLinkMarkers = (text: string): string => {
     const externalAnchor = /<a.*class="link-external".*?(?=<\/a>)/g // ends before </a>
@@ -94,7 +96,7 @@ const NativeHtml = React.memo(({ content, cacheDictionary, language }: NativeHtm
         ul: { enableExperimentalRtl: true },
       }}
       baseStyle={{
-        fontSize: '1.05rem',
+        fontSize,
         lineHeight: 24,
         color: theme.colors.textColor,
         textAlign: contentAlignment(language),
