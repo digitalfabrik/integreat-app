@@ -273,7 +273,6 @@ Temporary Items
 sentry.properties
 
 # Ruby Gems
-.bundle/
 vendor/
 
 # JUnit output

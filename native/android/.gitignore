@@ -127,6 +127,5 @@ fastlane/readme.md
 *.hprof
 
 # Ruby Gems
-.bundle/
 vendor/
 
