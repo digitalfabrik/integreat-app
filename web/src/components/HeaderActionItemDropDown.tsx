@@ -9,8 +9,8 @@ import IconWithUiDirection from './IconWithUiDirection'
 import Tooltip from './Tooltip'
 
 export const Container = styled.div`
-  width: calc(0.8 * ${dimensions.headerHeightLarge}px);
-  height: calc(0.8 * ${dimensions.headerHeightLarge}px);
+  width: calc(0.6 * ${dimensions.headerHeightLarge}px);
+  height: calc(0.6 * ${dimensions.headerHeightLarge}px);
   box-sizing: border-box;
 
   @media ${dimensions.smallViewport} {
