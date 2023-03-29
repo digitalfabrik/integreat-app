@@ -11,6 +11,8 @@ import { DISCLAIMER_ROUTE, SEARCH_ROUTE, SETTINGS_ROUTE } from 'api-client/src/r
 import { NavigationProps, RouteProps, RoutesType } from '../constants/NavigationTypes'
 import buildConfig, { buildConfigAssets } from '../constants/buildConfig'
 import dimensions from '../constants/dimensions'
+import useCityAppContext from '../hooks/useCityAppContext'
+import useLoadCityContent from '../hooks/useLoadCityContent'
 import useSnackbar from '../hooks/useSnackbar'
 import navigateToLanguageChange from '../navigation/navigateToLanguageChange'
 import { forceNewlineAfterChar } from '../utils/forceNewLineAfterChar'
@@ -167,13 +169,28 @@ const Header = ({
       <HeaderBackButton onPress={navigation.goBack} labelVisible={false} />
     ))
 
+  const { cityCode, languageCode } = useCityAppContext()
+  const { data } = useLoadCityContent({ cityCode, languageCode })
+
+  const getHeaderText = (): string => {
+    if (!city) {
+      return ''
+    }
+    const routes = navigation.getState().routes
+    if (routes.length <= 2) {
+      return cityDisplayName(city)
+    }
+    const previousPath = (routes[routes.length - 2]?.params as { path: string }).path
+    return data?.categories.findCategoryByPath(previousPath)?.title ?? ''
+  }
+
   return (
     <BoxShadow>
       <Horizontal>
         <HorizontalLeft>
           {HeaderLeft}
           <HeaderText allowFontScaling={false} fontSize={deviceWidth * dimensions.fontScaling}>
-            {city && isHome && cityDisplayName(city)}
+            {getHeaderText()}
           </HeaderText>
         </HorizontalLeft>
         <MaterialHeaderButtons cancelLabel={t('cancel')} items={items} overflowItems={overflowItems} />
