@@ -62,6 +62,7 @@ const NativeHtml = React.memo(({ content, cacheDictionary, language }: NativeHtm
   )
 
   const fonts = theme.fonts.native.webviewFont.split(', ')
+  // rn-render-html renders fonts with rem units smaller than normal, and doesn't support calc()
   const factorForRenderHtmlPackage = 1.1
   const fontSize = `${parseFloat(theme.fonts.contentFontSize.slice(0, -'rem'.length)) * factorForRenderHtmlPackage}rem`
 
