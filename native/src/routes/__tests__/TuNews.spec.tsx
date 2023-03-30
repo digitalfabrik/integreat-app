@@ -28,6 +28,8 @@ jest.mock('api-client', () => ({
   useLoadFromEndpoint: jest.fn(),
 }))
 jest.mock('../../components/LanguageNotAvailablePage', () => () => <Text>languageNotAvailable</Text>)
+jest.mock('@react-native-community/netinfo')
+jest.mock('react-native/Libraries/EventEmitter/NativeEventEmitter')
 
 const news: [TunewsModel, TunewsModel] = [
   new TunewsModel({
