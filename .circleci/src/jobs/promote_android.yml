@@ -5,7 +5,7 @@ parameters:
     enum: [integreat, malte, aschaffenburg]
     default: integreat
 docker:
-  - image: cimg/android:2022.09.2-node
+  - image: cimg/android:2023.02.1-node
 resource_class: small
 shell: /bin/bash -eo pipefail
 environment:
