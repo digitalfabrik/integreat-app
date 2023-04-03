@@ -13,6 +13,7 @@
       url('noto-sans-v14-vietnamese_latin-ext_latin_greek-ext_greek_devanagari_cyrillic-ext_cyrillic-regular.ttf')
       format('truetype');
   /* Safari, Android, iOS */
+  font-display: swap;
 }
 
 /* noto-sans-700 - vietnamese_latin-ext_latin_greek-ext_greek_devanagari_cyrillic-ext_cyrillic */
@@ -30,4 +31,5 @@
       url('noto-sans-v14-vietnamese_latin-ext_latin_greek-ext_greek_devanagari_cyrillic-ext_cyrillic-700.ttf')
       format('truetype');
   /* Safari, Android, iOS */
+  font-display: swap;
 }
