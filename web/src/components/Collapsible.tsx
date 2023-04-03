@@ -22,7 +22,6 @@ const CollapsibleHeader = styled.div`
   display: flex;
   justify-content: space-between;
   cursor: pointer;
-  outline: none;
 `
 const Title = styled.div`
   display: flex;

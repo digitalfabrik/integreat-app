@@ -24,8 +24,20 @@ const RichLayout = styled.div`
 
   & a,
   button {
-    outline: none;
+    outline-color: ${props => props.theme.colors.textSecondaryColor};
     cursor: pointer;
+  }
+
+  div[role='button'] {
+    outline-color: ${props => props.theme.colors.textSecondaryColor};
+  }
+
+  input {
+    outline-color: ${props => props.theme.colors.textSecondaryColor};
+  }
+
+  textarea {
+    outline-color: ${props => props.theme.colors.textSecondaryColor};
   }
 `
 
@@ -50,13 +62,13 @@ const Body = styled.div<{ fullWidth: boolean; disableScrollingSafari: boolean }>
   ${props =>
     !props.fullWidth &&
     css`
-      @media ${dimensions.minMaxWidth} {
+      @media screen and ${dimensions.minMaxWidth} {
         padding-right: calc((200% - 100vw - ${dimensions.maxWidth}px) / 2);
         padding-left: calc((100vw - ${dimensions.maxWidth}px) / 2);
       }
     `};
 
-  @media ${dimensions.smallViewport} {
+  @media screen and ${dimensions.smallViewport} {
     display: flex;
     flex-direction: column-reverse;
   }
@@ -68,7 +80,6 @@ const Main = styled.main<{ fullWidth: boolean }>`
   max-width: calc(100% - ${dimensions.toolbarWidth}px);
   box-sizing: border-box;
   margin: 0 auto;
-  padding: 0 10px 30px;
   padding: ${props => (props.fullWidth ? '0' : '0 10px 30px')};
   text-align: start;
   word-wrap: break-word;
@@ -77,7 +88,7 @@ const Main = styled.main<{ fullWidth: boolean }>`
     margin: ${props => props.theme.fonts.standardParagraphMargin} 0;
   }
 
-  @media ${dimensions.smallViewport} {
+  @media screen and ${dimensions.smallViewport} {
     position: static;
     width: 100%;
     max-width: initial;
@@ -104,7 +115,7 @@ const Aside = styled.aside<{ languageSelectorHeight: number }>`
     max-width: 100%;
   }
 
-  @media ${dimensions.smallViewport} {
+  @media screen and ${dimensions.smallViewport} {
     position: static;
     width: 100%;
     max-width: initial;
