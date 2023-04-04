@@ -177,7 +177,8 @@ const Header = ({
       return ''
     }
     const routes = navigation.getState().routes
-    if (routes.length <= 2) {
+    const levelsDisplayingCityName = 2
+    if (routes.length <= levelsDisplayingCityName) {
       return cityDisplayName(city)
     }
     const previousPath = (routes[routes.length - 2]?.params as { path: string }).path
