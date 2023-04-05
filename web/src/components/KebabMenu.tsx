@@ -1,4 +1,5 @@
 import React, { ReactElement, ReactNode } from 'react'
+import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
 
 import { UiDirectionType } from 'translations'
@@ -84,6 +85,7 @@ const ToggleButton = styled.button`
 
 const KebabMenu = ({ items, direction, show, setShow, Footer }: KebabMenuProps): ReactElement | null => {
   const { locked, setLocked } = useLockedBody(show)
+  const { t } = useTranslation('layout')
 
   const onClick = () => {
     setShow(!show)
@@ -96,7 +98,7 @@ const KebabMenu = ({ items, direction, show, setShow, Footer }: KebabMenuProps):
 
   return (
     <ToggleContainer>
-      <ToggleButton onClick={onClick} data-testid='kebab-menu-button'>
+      <ToggleButton onClick={onClick} data-testid='kebab-menu-button' aria-label={t('sideBarOpenAriaLabel')}>
         <Icon src={iconKebabMenu} alt='' />
       </ToggleButton>
       <Portal
@@ -108,7 +110,7 @@ const KebabMenu = ({ items, direction, show, setShow, Footer }: KebabMenuProps):
         <Overlay onClick={onClick} show={show} />
         <List direction={direction} show={show}>
           <Heading direction={direction}>
-            <ToggleButton onClick={onClick}>
+            <ToggleButton onClick={onClick} aria-label={t('sideBarCloseAriaLabel')}>
               <Icon src={iconClose} alt='' />
             </ToggleButton>
           </Heading>
