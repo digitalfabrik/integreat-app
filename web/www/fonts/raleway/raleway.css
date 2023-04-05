@@ -8,6 +8,7 @@
     /* Super Modern Browsers */ url('raleway-v12-latin_latin-ext-regular.woff2') format('woff2'),
     /* Modern Browsers */ url('raleway-v12-latin_latin-ext-regular.woff') format('woff'),
     /* Safari, Android, iOS */ url('raleway-v12-latin_latin-ext-regular.ttf') format('truetype');
+  font-display: swap;
 }
 
 /* raleway-700 - latin_latin-ext */
@@ -19,4 +20,5 @@
     /* Super Modern Browsers */ url('raleway-v12-latin_latin-ext-700.woff2') format('woff2'),
     /* Modern Browsers */ url('raleway-v12-latin_latin-ext-700.woff') format('woff'),
     /* Safari, Android, iOS */ url('raleway-v12-latin_latin-ext-700.ttf') format('truetype');
+  font-display: swap;
 }
