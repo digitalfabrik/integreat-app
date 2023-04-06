@@ -177,12 +177,52 @@ const Header = ({
       return ''
     }
     const routes = navigation.getState().routes
-    const levelsDisplayingCityName = 2
-    if (routes.length <= levelsDisplayingCityName) {
-      return cityDisplayName(city)
+    const cityName = cityDisplayName(city)
+    if (isHome) {
+      return cityName
     }
-    const previousPath = (routes[routes.length - 2]?.params as { path: string }).path
-    return data?.categories.findCategoryByPath(previousPath)?.title ?? ''
+
+    const previousRoute = routes[routes.length - 2]
+    const currentRoute = routes[routes.length - 1]
+    const isInCategories = currentRoute?.name === 'categories'
+    const isInNews = currentRoute?.name === 'news'
+    const isInEvents = currentRoute?.name === 'events'
+    const isInOffers = previousRoute?.name === 'offers'
+    const isInPois = currentRoute?.name === 'locations'
+
+    // in news and pois, we don't add to the stack for navigation, we just change the parameters of the top of the stack
+    if (!isInNews && !isInPois) {
+      const levelsDisplayingCityName = 2
+      if (routes.length <= levelsDisplayingCityName) {
+        return cityDisplayName(city)
+      }
+    }
+
+    if (isInCategories) {
+      const previousPath = (previousRoute?.params as { path: string }).path
+      return data?.categories.findCategoryByPath(previousPath)?.title ?? ''
+    }
+    if (isInNews) {
+      const isInNewsOverview = !(currentRoute.params as { newsId: string }).newsId
+      if (isInNewsOverview) {
+        return cityName
+      }
+      return t('news')
+    }
+    if (isInEvents) {
+      return t('events')
+    }
+    if (isInOffers) {
+      return t('offers')
+    }
+    if (isInPois) {
+      const isInPoisOverview = !(currentRoute.params as { slug: string }).slug
+      if (isInPoisOverview) {
+        return cityName
+      }
+      return t('pois')
+    }
+    return ''
   }
 
   return (
