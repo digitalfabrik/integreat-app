@@ -9,6 +9,7 @@ export type MapViewViewport = {
   latitude: number
   longitude: number
   zoom: number
+  maxZoom?: number
 }
 
 // type is used to calculate the initial boundingBox using height and width
@@ -90,6 +91,7 @@ export const defaultMercatorViewportConfig: MapViewMercatorViewport = {
 
 export const normalDetailZoom = 15
 export const closerDetailZoom = 18
+export const maxMapZoom = 21
 export const clusterRadius = 50
 export const animationDuration = 2000
 
