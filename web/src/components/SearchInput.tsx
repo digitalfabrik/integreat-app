@@ -19,7 +19,7 @@ const TextInput = styled.input.attrs({ type: 'text' })`
   border-width: 0 0 1px;
   border-color: ${props => props.theme.colors.textSecondaryColor};
   border-radius: 0;
-  &:focus {
+  &:focus-visible {
     outline: none !important;
   }
 
