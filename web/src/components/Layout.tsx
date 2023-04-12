@@ -24,26 +24,26 @@ const RichLayout = styled.div`
 
   & a,
   button {
-    &:focus {
+    &:focus-visible {
       outline: 2px solid ${props => props.theme.colors.textSecondaryColor};
     }
     cursor: pointer;
   }
 
   div[role='button'] {
-    &:focus {
+    &:focus-visible {
       outline: 2px solid ${props => props.theme.colors.textSecondaryColor};
     }
   }
 
   input {
-    &:focus {
+    &:focus-visible {
       outline: 2px solid ${props => props.theme.colors.textSecondaryColor};
     }
   }
 
   textarea {
-    &:focus {
+    &:focus-visible {
       outline: 2px solid ${props => props.theme.colors.textSecondaryColor};
     }
   }
