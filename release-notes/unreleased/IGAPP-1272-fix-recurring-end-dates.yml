@@ -1,0 +1,8 @@
+issue_key: IGAPP-1272
+show_in_stores: true
+platforms:
+  - web
+  - android
+  - ios
+en: The end date of recurring events lasting several dates is shown correctly
+de: Das Enddatum von mehrtägigen, wiederkehrenden Events wird korrekt angezeigt
