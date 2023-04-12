@@ -5,6 +5,7 @@
   src: /* Super Modern Browsers */ url('NotoSansArabic-Regular.woff2') format('woff2'),
     /* Modern Browsers */ url('NotoSansArabic-Regular.woff') format('woff'),
     /* Safari, Android, iOS */ url('NotoSansArabic-Regular.ttf') format('truetype');
+  font-display: swap;
 }
 
 @font-face {
@@ -14,4 +15,5 @@
   src: /* Safari, Android, iOS */ url('NotoSansArabic-Bold.ttf') format('truetype'),
     /* Modern Browsers */ url('NotoSansArabic-Bold.woff') format('woff'),
     /* Super Modern Browsers */ url('NotoSansArabic-Bold.woff2') format('woff2');
+  font-display: swap;
 }
