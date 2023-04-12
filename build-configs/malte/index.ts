@@ -28,7 +28,7 @@ const commonMalteBuildConfig: CommonBuildConfigType = {
   hostName: 'malteapp.de',
   featureFlags: {
     floss: false,
-    pois: false,
+    pois: true,
     newsStream: true,
     pushNotifications: true,
     introSlides: true,
