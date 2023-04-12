@@ -18,8 +18,10 @@ const TextInput = styled.input.attrs({ type: 'text' })`
   background: transparent;
   border-width: 0 0 1px;
   border-color: ${props => props.theme.colors.textSecondaryColor};
-  outline: none;
   border-radius: 0;
+  &:focus {
+    outline: none !important;
+  }
 
   &::placeholder {
     color: ${props => props.theme.colors.textColor};

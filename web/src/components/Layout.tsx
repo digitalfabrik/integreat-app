@@ -24,20 +24,28 @@ const RichLayout = styled.div`
 
   & a,
   button {
-    outline-color: ${props => props.theme.colors.textSecondaryColor};
+    &:focus {
+      outline: 2px solid ${props => props.theme.colors.textSecondaryColor};
+    }
     cursor: pointer;
   }
 
   div[role='button'] {
-    outline-color: ${props => props.theme.colors.textSecondaryColor};
+    &:focus {
+      outline: 2px solid ${props => props.theme.colors.textSecondaryColor};
+    }
   }
 
   input {
-    outline-color: ${props => props.theme.colors.textSecondaryColor};
+    &:focus {
+      outline: 2px solid ${props => props.theme.colors.textSecondaryColor};
+    }
   }
 
   textarea {
-    outline-color: ${props => props.theme.colors.textSecondaryColor};
+    &:focus {
+      outline: 2px solid ${props => props.theme.colors.textSecondaryColor};
+    }
   }
 `
 
