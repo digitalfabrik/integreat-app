@@ -5,11 +5,11 @@ parameters:
     default: integreat
 macos:
   xcode: 14.2.0
-resource_class: medium
+resource_class: macos.x86.medium.gen2
 environment:
   FL_OUTPUT_DIR: output
   FASTLANE_SKIP_UPDATE_CHECK: true
-  TOTAL_CPUS: 4 # For mac with resource_class medium, used in metro.config.ci.js.
+  TOTAL_CPUS: 4 # For mac with resource_class macos.x86.medium.gen2, used in metro.config.ci.js.
 shell: /bin/bash --login -o pipefail
 steps:
   - skip_job:
