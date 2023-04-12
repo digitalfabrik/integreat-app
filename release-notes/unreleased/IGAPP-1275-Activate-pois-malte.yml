@@ -1,0 +1,8 @@
+issue_key: IGAPP-1275
+show_in_stores: true
+platforms:
+  - web
+  - android
+  - ios
+en: The map feature can now be used in the Malte App.
+de: Das Kartenfeature kann jetzt auch in der Malte App genutzt werden.
