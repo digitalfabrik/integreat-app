@@ -4223,7 +4223,9 @@
       "cancel": "Abbrechen",
       "shareMessage": "Gerade gefunden: {{message}}",
       "shareFailDefaultMessage": "Das Teilen des Inhalts ist leider fehlgeschlagen.",
-      "disclaimer": "Impressum"
+      "disclaimer": "Impressum",
+      "sideBarOpenAriaLabel": "Seitenleiste öffnen",
+      "sideBarCloseAriaLabel": "Seitenleiste schließen"
     },
     "am": {
       "imprintAndContact": "ዕትም እና የግንኙነት መረጃ",
@@ -4370,7 +4372,9 @@
       "cancel": "Cancel",
       "shareMessage": "Just found: {{message}}",
       "shareFailDefaultMessage": "Unfortunately an error occurred when sharing the content.",
-      "disclaimer": "Imprint"
+      "disclaimer": "Imprint",
+      "sideBarOpenAriaLabel": "Open sidebar",
+      "sideBarCloseAriaLabel": "Close sidebar"
     },
     "es": {
       "imprintAndContact": "Aviso legal y contacto",

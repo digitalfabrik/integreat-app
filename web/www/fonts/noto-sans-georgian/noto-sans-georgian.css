@@ -6,6 +6,7 @@
   src: /* Super Modern Browsers */ url('./noto-sans-georgian-regular.woff2') format('woff2'),
     /* Modern Browsers */ url('./noto-sans-georgian-regular.woff') format('woff'),
     /* Safari, Android, iOS */ url('./noto-sans-georgian-regular.ttf') format('truetype');
+  font-display: swap;
 }
 
 /* noto-sans-georgian-700 - georgian */
@@ -16,4 +17,5 @@
   src: /* Super Modern Browsers */ url('./noto-sans-georgian-700.woff2') format('woff2'),
     /* Modern Browsers */ url('./noto-sans-georgian-700.woff') format('woff'),
     /* Safari, Android, iOS */ url('./noto-sans-georgian-700.ttf') format('truetype');
+  font-display: swap;
 }
