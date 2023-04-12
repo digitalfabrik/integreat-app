@@ -1,0 +1,7 @@
+issue_key: IGAPP-919
+show_in_stores: true
+platforms:
+  - android
+  - ios
+en: The header now shows the title of the previous page if there is one
+de: Im Header wird jetzt der Name der vorherigen Seite (falls vorhanden) angezeigt
