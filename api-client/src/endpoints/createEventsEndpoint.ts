@@ -86,7 +86,7 @@ const mapJsonToEvent = (event: JsonEventType): EventModel => {
 const getEndDate = (event: JsonEventType, startDate: Date): Date => {
   const start = moment.tz(`${event.event.start_date} ${event.event.start_time}`, event.event.timezone)
   const end = moment.tz(`${event.event.end_date} ${event.event.end_time}`, event.event.timezone)
-  const durationInDays = start.diff(end, 'days')
+  const durationInDays = end.diff(start, 'days')
   return moment(startDate).add(durationInDays, 'days').toDate()
 }
 
