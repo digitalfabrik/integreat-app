@@ -1,5 +1,6 @@
 import { fireEvent, waitFor } from '@testing-library/react-native'
 import React from 'react'
+
 import { CATEGORIES_ROUTE, CategoriesRouteInformationType, SEARCH_FINISHED_SIGNAL_NAME } from 'api-client'
 import CategoriesMapModelBuilder from 'api-client/src/testing/CategoriesMapModelBuilder'
 

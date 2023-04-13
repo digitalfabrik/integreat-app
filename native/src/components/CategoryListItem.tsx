@@ -24,7 +24,7 @@ const CategoryEntryContainer = styled.View`
   flex: 1;
   flex-direction: column;
   align-self: center;
-  padding: 15px 5px;
+  padding: 15px 0px;
   border-bottom-width: 1px;
   border-bottom-color: ${props => props.theme.colors.themeColor};
 `
@@ -45,7 +45,7 @@ export const CategoryThumbnail = styled(SimpleImage)`
   flex-shrink: 0;
   width: ${dimensions.categoryListItem.iconSize}px;
   height: ${dimensions.categoryListItem.iconSize}px;
-  margin-right: ${dimensions.categoryListItem.margin}px;
+  margin: 0 ${dimensions.categoryListItem.margin}px;
 `
 
 type CategoryListItemProps = {
