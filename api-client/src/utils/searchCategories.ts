@@ -3,12 +3,12 @@ import CategoryModel from '../models/CategoryModel'
 import parseHTML from './parseHTML'
 import { normalizeString } from './search'
 
-type Result = {
+export type CategorySearchResult = {
   category: CategoryModel
   contentWithoutHtml: string
 }
 
-const searchCategories = (categoriesMapModel: CategoriesMapModel, query: string): Result[] => {
+const searchCategories = (categoriesMapModel: CategoriesMapModel, query: string): CategorySearchResult[] => {
   const normalizedQuery = normalizeString(query)
   const categories = categoriesMapModel.toArray().filter(it => !it.isRoot())
 

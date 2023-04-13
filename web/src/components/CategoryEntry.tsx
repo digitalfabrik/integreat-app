@@ -3,9 +3,7 @@ import Highlighter from 'react-highlight-words'
 import { Link } from 'react-router-dom'
 import styled, { useTheme } from 'styled-components'
 
-import { CategoryModel, getExcerpt, normalizeString } from 'api-client'
-
-import { EXCERPT_MAX_CHARS } from '../constants'
+import { CategoryModel  } from 'api-client'
 
 const Row = styled.div`
   margin: 12px 0;
@@ -75,10 +73,9 @@ type CategoryEntryProps = {
   query?: string
 }
 
-const CategoryEntry = ({ category, contentWithoutHtml, subCategories, query }: CategoryEntryProps): ReactElement => {
+const CategoryEntry = ({ category, subCategories }: CategoryEntryProps): ReactElement => {
   const theme = useTheme()
 
-  const excerpt = getExcerpt(contentWithoutHtml ?? '', { query, maxChars: EXCERPT_MAX_CHARS })
 
   const SubCategories = subCategories.map(subCategory => (
     <SubCategory key={subCategory.path} dir='auto'>
@@ -87,29 +84,6 @@ const CategoryEntry = ({ category, contentWithoutHtml, subCategories, query }: C
       </StyledLink>
     </SubCategory>
   ))
-
-  const Title = (
-    <Highlighter
-      dir='auto'
-      searchWords={query ? [query] : []}
-      aria-label={category.title}
-      autoEscape
-      sanitize={normalizeString}
-      highlightStyle={{ backgroundColor: theme.colors.backgroundColor, fontWeight: 'bold' }}
-      textToHighlight={category.title}
-    />
-  )
-
-  const Content = query && (
-    <StyledHighlighter
-      aria-label={excerpt}
-      searchWords={[query]}
-      autoEscape
-      sanitize={normalizeString}
-      textToHighlight={excerpt}
-      highlightStyle={{ backgroundColor: theme.colors.backgroundColor, fontWeight: 'bold' }}
-    />
-  )
 
   return (
     <Row>

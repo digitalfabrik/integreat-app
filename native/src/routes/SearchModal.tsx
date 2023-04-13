@@ -11,17 +11,20 @@ import {
   CATEGORIES_ROUTE,
   RouteInformationType,
   searchCategories,
+  CategorySearchResult,
+  CategoryModel,
 } from 'api-client'
 import { ThemeType } from 'build-configs'
 
-import CategoryListItem, { CategoryListItemType } from '../components/CategoryListItem'
 import FeedbackContainer from '../components/FeedbackContainer'
 import List from '../components/List'
 import NothingFound from '../components/NothingFound'
 import SearchHeader from '../components/SearchHeader'
+import SearchListItem from '../components/SearchListItem'
 import { urlFromRouteInformation } from '../navigation/url'
 import testID from '../testing/testID'
 import sendTrackingSignal from '../utils/sendTrackingSignal'
+import useResourceCache from '../hooks/useResourceCache'
 
 const Wrapper = styled.View`
   position: absolute;
@@ -36,7 +39,7 @@ export type SearchModalProps = {
   categories: CategoriesMapModel
   navigateTo: (routeInformation: RouteInformationType) => void
   theme: ThemeType
-  language: string
+  languageCode: string
   cityCode: string
   closeModal: (query: string) => void
   t: TFunction<'search'>
@@ -46,30 +49,22 @@ const SearchModal = ({
   categories,
   navigateTo,
   theme,
-  language,
+  languageCode,
   cityCode,
   closeModal,
   t,
 }: SearchModalProps): ReactElement => {
-  const [query, setQuery] = useState<string>('')
-  const searchResults = useMemo(
-    () =>
-      searchCategories(categories, query).map(({ category, contentWithoutHtml }) => ({
-        title: category.title,
-        path: category.path,
-        thumbnail: category.thumbnail,
-        contentWithoutHtml,
-        subCategories: [],
-      })),
-    [categories, query]
-  )
+  const [query, setQuery] = useState('')
+  const resourceCache = useResourceCache({ cityCode, languageCode})
 
-  const onItemPress = (category: { path: string }): void => {
+  const searchResults = useMemo(() => searchCategories(categories, query), [categories, query])
+
+  const onItemPress = (category: CategoryModel): void => {
     const routeInformation: CategoriesRouteInformationType = {
       route: CATEGORIES_ROUTE,
       cityContentPath: category.path,
       cityCode,
-      languageCode: language,
+      languageCode,
     }
     sendTrackingSignal({
       signal: {
@@ -81,7 +76,7 @@ const SearchModal = ({
     navigateTo({
       route: CATEGORIES_ROUTE,
       cityCode,
-      languageCode: language,
+      languageCode,
       cityContentPath: category.path,
     })
   }
@@ -97,15 +92,23 @@ const SearchModal = ({
     closeModal(query)
   }
 
-  const renderItem = ({ item }: { item: CategoryListItemType }) => (
-    <CategoryListItem key={item.path} item={item} language={language} query={query} onItemPress={onItemPress} />
+  const renderItem = ({ item }: { item: CategorySearchResult }) => (
+    <SearchListItem
+      key={item.category.path}
+      category={item.category}
+      resourceCache={resourceCache[item.category.path] ?? {}}
+      contentWithoutHtml={item.contentWithoutHtml}
+      language={languageCode}
+      query={query}
+      onItemPress={onItemPress}
+    />
   )
   const Feedback = (
     <FeedbackContainer
       routeType={SEARCH_ROUTE}
       isSearchFeedback
       isPositiveFeedback={false}
-      language={language}
+      language={languageCode}
       cityCode={cityCode}
       query={query}
       theme={theme}

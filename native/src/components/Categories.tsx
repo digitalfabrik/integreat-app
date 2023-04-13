@@ -7,8 +7,11 @@ import { CATEGORIES_ROUTE } from 'api-client/src/routes'
 import { RouteInformationType } from 'api-client/src/routes/RouteInformationTypes'
 
 import { URL_PREFIX } from '../constants/webview'
-import TileModel from '../models/TileModel'
-import { LanguageResourceCacheStateType, PageResourceCacheEntryStateType } from '../utils/DataContainer'
+import {
+  LanguageResourceCacheStateType,
+  PageResourceCacheEntryStateType,
+  PageResourceCacheStateType,
+} from '../utils/DataContainer'
 import { RESOURCE_CACHE_DIR_PATH } from '../utils/DatabaseConnector'
 import Caption from './Caption'
 import CategoryListContent from './CategoryListContent'
@@ -30,6 +33,16 @@ export type CategoriesProps = {
   resourceCacheUrl: string
 }
 
+export const getCachedThumbnail = (category: CategoryModel, resourceCache: PageResourceCacheStateType): string => {
+  const resource = resourceCache[category.thumbnail]
+
+  if (resource) {
+    return URL_PREFIX + resource.filePath
+  }
+
+  return category.thumbnail
+}
+
 /**
  * Displays a CategoryTable, CategoryList or a single category as page matching the route /<cityCode>/<language>*
  */
@@ -46,23 +59,6 @@ const Categories = ({
 }: CategoriesProps): ReactElement => {
   const children = categories.getChildren(category)
   const categoryResourceCache = resourceCache[category.path] || {}
-
-  const getCachedThumbnail = (category: CategoryModel): string => {
-    const categoryResourceCache = resourceCache[category.path] || {}
-    const resource = categoryResourceCache[category.thumbnail]
-
-    if (resource) {
-      return URL_PREFIX + resource.filePath
-    }
-
-    return category.thumbnail
-  }
-
-  const mapToItem = (category: CategoryModel) => ({
-    title: category.title,
-    path: category.path,
-    thumbnail: getCachedThumbnail(category),
-  })
 
   const navigateToCategory = ({ path }: { path: string }) =>
     navigateTo({
@@ -107,12 +103,15 @@ const Categories = ({
 
   if (category.isRoot()) {
     // first level, we want to display a table with all first order categories
-    const tiles = children.map(it => new TileModel({ ...mapToItem(it), isExternalUrl: false }))
-
     return (
       <SpaceBetween>
         <View>
-          <Tiles tiles={tiles} language={language} onTilePress={navigateToCategory} />
+          <Tiles
+            categories={children}
+            language={language}
+            resourceCache={resourceCache}
+            onTilePress={navigateToCategory}
+          />
         </View>
         <SiteHelpfulBox navigateToFeedback={navigateToFeedbackForCategory} />
       </SpaceBetween>
@@ -134,22 +133,21 @@ const Categories = ({
     />
   ) : undefined
 
-  const items = children.map(it => {
-    const children = categories.getChildren(it)
-    return {
-      ...mapToItem(it),
-      subCategories: children.map(mapToItem),
-    }
-  })
-
   // some level between, we want to display a list
   return (
     <SpaceBetween>
       <View>
         <Caption title={category.title} />
         {ListContent}
-        {items.map(it => (
-          <CategoryListItem key={it.path} item={it} language={language} onItemPress={navigateToCategory} />
+        {children.map(it => (
+          <CategoryListItem
+            key={it.path}
+            category={it}
+            subCategories={categories.getChildren(it)}
+            resourceCache={resourceCache}
+            language={language}
+            onItemPress={navigateToCategory}
+          />
         ))}
       </View>
       <SiteHelpfulBox navigateToFeedback={navigateToFeedbackForCategory} />

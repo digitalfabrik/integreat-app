@@ -24,7 +24,7 @@ const dimensions: DimensionsType = {
   headerHeight: 60,
   modalHeaderHeight: 40,
   categoryListItem: {
-    iconSize: 40,
+    iconSize: 20,
     margin: 10,
   },
   fontScaling: 0.04,
