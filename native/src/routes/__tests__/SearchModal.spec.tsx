@@ -1,6 +1,5 @@
 import { fireEvent, waitFor } from '@testing-library/react-native'
 import React from 'react'
-
 import { CATEGORIES_ROUTE, CategoriesRouteInformationType, SEARCH_FINISHED_SIGNAL_NAME } from 'api-client'
 import CategoriesMapModelBuilder from 'api-client/src/testing/CategoriesMapModelBuilder'
 
@@ -13,6 +12,7 @@ import SearchModal from '../SearchModal'
 jest.mock('../../utils/sendTrackingSignal')
 jest.mock('../../components/FeedbackContainer')
 jest.mock('../../components/TimeStamp')
+jest.mock('../../hooks/useResourceCache', () => () => ({}))
 jest.mock('react-i18next')
 
 describe('SearchModal', () => {
@@ -24,12 +24,12 @@ describe('SearchModal', () => {
   const t = (key: string) => key
 
   const categoriesMapModel = new CategoriesMapModelBuilder('augsburg', 'de', 2, 2).build()
-  const language = 'de'
+  const languageCode = 'de'
   const cityCode = 'augsburg'
   const props = {
     categories: categoriesMapModel,
     navigateTo: dummy,
-    language,
+    languageCode,
     cityCode,
     closeModal: dummy,
     navigateToLink: dummy,
@@ -67,7 +67,7 @@ describe('SearchModal', () => {
       route: CATEGORIES_ROUTE,
       cityContentPath: categoriesMapModel.toArray()[2]!.path,
       cityCode,
-      languageCode: language,
+      languageCode,
     }
     const expectedUrl = urlFromRouteInformation(routeInformation)
     expect(sendTrackingSignal).toHaveBeenCalledWith({

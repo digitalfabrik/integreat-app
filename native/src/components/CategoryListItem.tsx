@@ -1,12 +1,12 @@
 import React, { memo, ReactElement } from 'react'
-import Highlighter from 'react-native-highlight-words'
 import styled, { useTheme } from 'styled-components/native'
 
-import { getExcerpt, normalizeString } from 'api-client'
+import { CategoryModel } from 'api-client'
 
-import { SEARCH_PREVIEW_MAX_CHARS } from '../constants'
 import { contentDirection } from '../constants/contentDirection'
 import dimensions from '../constants/dimensions'
+import { LanguageResourceCacheStateType } from '../utils/DataContainer'
+import { getCachedThumbnail } from './Categories'
 import SimpleImage from './SimpleImage'
 import StyledLink from './StyledLink'
 import SubCategoryListItem from './SubCategoryListItem'
@@ -25,90 +25,63 @@ const CategoryEntryContainer = styled.View`
   flex-direction: column;
   align-self: center;
   padding: 15px 5px;
-  border-bottom-width: 2px;
+  border-bottom-width: 1px;
   border-bottom-color: ${props => props.theme.colors.themeColor};
 `
 
 const TitleDirectionContainer = styled.View<{ language: string }>`
+  align-items: center;
   flex-direction: ${props => contentDirection(props.language)};
 `
 
-const HighlighterCategoryTitle = styled(Highlighter)<{ language: string }>`
+const CategoryTitle = styled.Text<{ language: string }>`
   flex-direction: ${props => contentDirection(props.language)};
-  font-family: ${props => props.theme.fonts.native.decorativeFontRegular};
+  font-family: ${props => props.theme.fonts.native.decorativeFontBold};
   color: ${props => props.theme.colors.textColor};
 `
 
-const CategoryThumbnail = styled(SimpleImage)`
+export const CategoryThumbnail = styled(SimpleImage)`
   align-self: center;
   flex-shrink: 0;
   width: ${dimensions.categoryListItem.iconSize}px;
   height: ${dimensions.categoryListItem.iconSize}px;
-  margin: ${dimensions.categoryListItem.margin}px;
+  margin-right: ${dimensions.categoryListItem.margin}px;
 `
 
-export type SimpleCategoryListItem = {
-  title: string
-  path: string
-  thumbnail: string
-  contentWithoutHtml?: string
-}
-
-export type CategoryListItemType = SimpleCategoryListItem & {
-  subCategories: SimpleCategoryListItem[]
-}
-
 type CategoryListItemProps = {
-  item: CategoryListItemType
+  category: CategoryModel
+  subCategories: CategoryModel[]
+  resourceCache: LanguageResourceCacheStateType
   onItemPress: (item: { path: string }) => void
   language: string
-  query?: string
 }
 
-const CategoryListItem = ({ language, item, onItemPress, query }: CategoryListItemProps): ReactElement => {
+const CategoryListItem = ({
+  language,
+  category,
+  subCategories,
+  resourceCache,
+  onItemPress,
+}: CategoryListItemProps): ReactElement => {
   const theme = useTheme()
-  const excerpt = getExcerpt(item.contentWithoutHtml ?? '', { query, maxChars: SEARCH_PREVIEW_MAX_CHARS })
-
-  const Content = query ? (
-    <Highlighter
-      searchWords={[query]}
-      sanitize={normalizeString}
-      textToHighlight={excerpt}
-      autoEscape
-      highlightStyle={{ backgroundColor: theme.colors.backgroundColor, fontWeight: 'bold' }}
-    />
-  ) : null
-
-  const Title = (
-    <TitleDirectionContainer language={language}>
-      <HighlighterCategoryTitle
-        language={language}
-        autoEscape
-        textToHighlight={item.title}
-        sanitize={normalizeString}
-        searchWords={query ? [query] : []}
-        highlightStyle={{
-          fontWeight: 'bold',
-        }}
-      />
-    </TitleDirectionContainer>
-  )
-
+  const { title, thumbnail, path } = category
   return (
     <>
-      <FlexStyledLink onPress={() => onItemPress(item)} underlayColor={theme.colors.backgroundAccentColor}>
+      <FlexStyledLink onPress={() => onItemPress({ path })} underlayColor={theme.colors.backgroundAccentColor}>
         <DirectionContainer language={language}>
-          {!!item.thumbnail && <CategoryThumbnail source={item.thumbnail} />}
           <CategoryEntryContainer>
-            {Title}
-            {Content}
+            <TitleDirectionContainer language={language}>
+              {!!thumbnail && <CategoryThumbnail source={getCachedThumbnail(category, resourceCache[path] ?? {})} />}
+              <CategoryTitle language={language}>{title}</CategoryTitle>
+            </TitleDirectionContainer>
           </CategoryEntryContainer>
         </DirectionContainer>
       </FlexStyledLink>
-      {item.subCategories.map(subCategory => (
+      {subCategories.map(subCategory => (
         <SubCategoryListItem
           key={subCategory.path}
           subCategory={subCategory}
+          resourceCache={resourceCache[subCategory.path] ?? {}}
           onItemPress={onItemPress}
           language={language}
         />
