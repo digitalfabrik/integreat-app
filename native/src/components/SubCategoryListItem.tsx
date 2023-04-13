@@ -11,10 +11,8 @@ import { CategoryThumbnail } from './CategoryListItem'
 
 const SubCategoryTitleContainer = styled.View<{ language: string }>`
   flex: 1;
-  align-self: center;
-  padding: 8px 0;
-  border-bottom-width: 1px;
-  border-bottom-color: ${props => props.theme.colors.themeColor};
+  align-items: center;
+  margin: 8px 0;
   flex-direction: ${props => contentDirection(props.language)};
 `
 
@@ -22,6 +20,8 @@ const FlexStyledLink = styled.TouchableHighlight<{ language: string }>`
   display: flex;
   flex-direction: ${props => contentDirection(props.language)};
   margin: 0 20px 0 60px;
+  border-bottom-width: 1px;
+  border-bottom-color: ${props => props.theme.colors.themeColor};
 `
 
 const SubCategoryTitle = styled.Text`

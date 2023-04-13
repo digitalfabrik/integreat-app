@@ -21,10 +21,10 @@ import List from '../components/List'
 import NothingFound from '../components/NothingFound'
 import SearchHeader from '../components/SearchHeader'
 import SearchListItem from '../components/SearchListItem'
+import useResourceCache from '../hooks/useResourceCache'
 import { urlFromRouteInformation } from '../navigation/url'
 import testID from '../testing/testID'
 import sendTrackingSignal from '../utils/sendTrackingSignal'
-import useResourceCache from '../hooks/useResourceCache'
 
 const Wrapper = styled.View`
   position: absolute;
@@ -55,7 +55,7 @@ const SearchModal = ({
   t,
 }: SearchModalProps): ReactElement => {
   const [query, setQuery] = useState('')
-  const resourceCache = useResourceCache({ cityCode, languageCode})
+  const resourceCache = useResourceCache({ cityCode, languageCode })
 
   const searchResults = useMemo(() => searchCategories(categories, query), [categories, query])
 

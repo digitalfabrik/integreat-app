@@ -10,7 +10,10 @@ jest.mock('styled-components')
 describe('CategoryListItem', () => {
   const cityModel = new CityModelBuilder(1).build()[0]!
   const language = new LanguageModelBuilder(1).build()[0]!
-  const { categories: categoriesMapModel, resourceCache } = new CategoriesMapModelBuilder(cityModel.code, language.code).buildAll()
+  const { categories: categoriesMapModel, resourceCache } = new CategoriesMapModelBuilder(
+    cityModel.code,
+    language.code
+  ).buildAll()
   const categories = categoriesMapModel.toArray()
   const category = categories[0]!
   const subCategories = categories.filter(otherCategory => otherCategory.parentPath === category.path)
