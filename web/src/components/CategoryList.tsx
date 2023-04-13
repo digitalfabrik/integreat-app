@@ -5,11 +5,13 @@ import { CategoryModel, DateFormatter } from 'api-client'
 
 import { helpers } from '../constants/theme'
 import Caption from './Caption'
-import CategoryEntry from './CategoryEntry'
+import CategoryListItem from './CategoryListItem'
 import LastUpdateInfo from './LastUpdateInfo'
 import RemoteContent from './RemoteContent'
 
-const List = styled.div`
+const List = styled.ul`
+  list-style-type: none;
+
   & a {
     ${helpers.removeLinkHighlighting}
   }
@@ -17,13 +19,12 @@ const List = styled.div`
 
 type CategoryListProps = {
   items: { category: CategoryModel; subCategories: CategoryModel[]; contentWithoutHtml?: string }[]
-  query?: string
   formatter?: DateFormatter
   category?: CategoryModel
   onInternalLinkClick: (link: string) => void
 }
 
-const CategoryList = ({ items, query, formatter, category, onInternalLinkClick }: CategoryListProps): ReactElement => (
+const CategoryList = ({ items, formatter, category, onInternalLinkClick }: CategoryListProps): ReactElement => (
   <div>
     {!!category?.title && <Caption title={category.title} />}
     {!!category?.content && <RemoteContent html={category.content} onInternalLinkClick={onInternalLinkClick} />}
@@ -31,14 +32,8 @@ const CategoryList = ({ items, query, formatter, category, onInternalLinkClick }
       <LastUpdateInfo lastUpdate={category.lastUpdate} formatter={formatter} withText />
     )}
     <List>
-      {items.map(({ category, subCategories, contentWithoutHtml }) => (
-        <CategoryEntry
-          key={category.path}
-          query={query}
-          category={category}
-          subCategories={subCategories}
-          contentWithoutHtml={contentWithoutHtml}
-        />
+      {items.map(({ category, subCategories }) => (
+        <CategoryListItem key={category.path} category={category} subCategories={subCategories} />
       ))}
     </List>
   </div>
