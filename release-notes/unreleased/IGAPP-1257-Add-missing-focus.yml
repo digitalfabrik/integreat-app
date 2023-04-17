@@ -3,3 +3,4 @@ show_in_stores: false
 platforms:
   - web
 de: Fehlender Fokus für Bedienelemente wurde hinzugefügt.
+en: Added missing focus for controls.
