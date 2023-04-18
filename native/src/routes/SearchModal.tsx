@@ -54,7 +54,7 @@ const SearchModal = ({
   closeModal,
   t,
 }: SearchModalProps): ReactElement => {
-  const [query, setQuery] = useState('')
+  const [query, setQuery] = useState<string>('')
   const resourceCache = useResourceCache({ cityCode, languageCode })
 
   const searchResults = useMemo(() => searchCategories(categories, query), [categories, query])
