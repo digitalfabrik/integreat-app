@@ -3,7 +3,7 @@ import styled, { useTheme } from 'styled-components/native'
 
 import { CategoryModel } from 'api-client'
 
-import { contentDirection } from '../constants/contentDirection'
+import { contentDirection, isContentDirectionReversalRequired } from '../constants/contentDirection'
 import dimensions from '../constants/dimensions'
 import { LanguageResourceCacheStateType } from '../utils/DataContainer'
 import { getCachedThumbnail } from './Categories'
@@ -24,7 +24,7 @@ const CategoryEntryContainer = styled.View`
   flex: 1;
   flex-direction: column;
   align-self: center;
-  padding: 15px 0px;
+  padding: 15px 0;
   border-bottom-width: 1px;
   border-bottom-color: ${props => props.theme.colors.themeColor};
 `
@@ -40,12 +40,15 @@ const CategoryTitle = styled.Text<{ language: string }>`
   color: ${props => props.theme.colors.textColor};
 `
 
-export const CategoryThumbnail = styled(SimpleImage)`
+export const CategoryThumbnail = styled(SimpleImage)<{ language: string }>`
   align-self: center;
   flex-shrink: 0;
   width: ${dimensions.categoryListItem.iconSize}px;
   height: ${dimensions.categoryListItem.iconSize}px;
-  margin: 0 ${dimensions.categoryListItem.margin}px;
+  margin-right: ${props =>
+    isContentDirectionReversalRequired(props.language) ? 0 : dimensions.categoryListItem.margin}px;
+  margin-left: ${props =>
+    isContentDirectionReversalRequired(props.language) ? dimensions.categoryListItem.margin : 0}px;
 `
 
 type CategoryListItemProps = {
@@ -71,7 +74,12 @@ const CategoryListItem = ({
         <DirectionContainer language={language}>
           <CategoryEntryContainer>
             <TitleDirectionContainer language={language}>
-              {!!thumbnail && <CategoryThumbnail source={getCachedThumbnail(category, resourceCache[path] ?? {})} />}
+              {!!thumbnail && (
+                <CategoryThumbnail
+                  language={language}
+                  source={getCachedThumbnail(category, resourceCache[path] ?? {})}
+                />
+              )}
               <CategoryTitle language={language}>{title}</CategoryTitle>
             </TitleDirectionContainer>
           </CategoryEntryContainer>

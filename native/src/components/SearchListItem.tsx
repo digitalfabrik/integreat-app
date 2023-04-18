@@ -24,7 +24,7 @@ const SearchEntryContainer = styled.View`
   flex: 1;
   flex-direction: column;
   align-self: center;
-  padding: 15px 5px;
+  padding: 15px 0;
   border-bottom-width: 1px;
   border-bottom-color: ${props => props.theme.colors.themeColor};
 `
@@ -89,7 +89,9 @@ const SearchListItem = ({
       <DirectionContainer language={language}>
         <SearchEntryContainer>
           <TitleDirectionContainer language={language}>
-            {!!thumbnail && <CategoryThumbnail source={getCachedThumbnail(category, resourceCache)} />}
+            {!!thumbnail && (
+              <CategoryThumbnail language={language} source={getCachedThumbnail(category, resourceCache)} />
+            )}
             {Title}
           </TitleDirectionContainer>
           {Content}
