@@ -1,0 +1,8 @@
+issue_key: IGAPP-1248
+show_in_stores: true
+platforms:
+  - web
+  - android
+  - ios
+en: Use new icons in the header
+de: Icons im Header ersetzt
