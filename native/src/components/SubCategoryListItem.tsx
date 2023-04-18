@@ -49,7 +49,9 @@ const SubCategoryListItem = ({
       underlayColor={theme.colors.backgroundAccentColor}
       language={language}>
       <SubCategoryTitleContainer language={language}>
-        {!!subCategory.thumbnail && <CategoryThumbnail source={getCachedThumbnail(subCategory, resourceCache)} />}
+        {!!subCategory.thumbnail && (
+          <CategoryThumbnail language={language} source={getCachedThumbnail(subCategory, resourceCache)} />
+        )}
         <SubCategoryTitle>{subCategory.title}</SubCategoryTitle>
       </SubCategoryTitleContainer>
     </FlexStyledLink>
