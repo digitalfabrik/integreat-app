@@ -7,6 +7,7 @@ import { CATEGORIES_ROUTE } from 'api-client/src/routes'
 import { RouteInformationType } from 'api-client/src/routes/RouteInformationTypes'
 
 import { URL_PREFIX } from '../constants/webview'
+import TileModel from '../models/TileModel'
 import {
   LanguageResourceCacheStateType,
   PageResourceCacheEntryStateType,
@@ -102,16 +103,20 @@ const Categories = ({
   }
 
   if (category.isRoot()) {
+    const tiles = children.map(
+      category =>
+        new TileModel({
+          title: category.title,
+          path: category.path,
+          thumbnail: getCachedThumbnail(category, resourceCache[category.path] ?? {}),
+          isExternalUrl: false,
+        })
+    )
     // first level, we want to display a table with all first order categories
     return (
       <SpaceBetween>
         <View>
-          <Tiles
-            categories={children}
-            language={language}
-            resourceCache={resourceCache}
-            onTilePress={navigateToCategory}
-          />
+          <Tiles tiles={tiles} language={language} onTilePress={navigateToCategory} />
         </View>
         <SiteHelpfulBox navigateToFeedback={navigateToFeedbackForCategory} />
       </SpaceBetween>
