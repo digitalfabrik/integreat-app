@@ -199,8 +199,13 @@ const Header = ({
     }
 
     if (isInCategories) {
-      const previousPath = (previousRoute?.params as { path: string }).path
-      return data?.categories.findCategoryByPath(previousPath)?.title ?? ''
+      if (previousRoute?.name !== 'categories') {
+        return ''
+      }
+      const currentPath = (currentRoute.params as { path: string }).path
+      const category = data?.categories.findCategoryByPath(currentPath)
+      const parentCategory = data?.categories.findCategoryByPath(category?.parentPath ?? '')
+      return parentCategory?.title ?? ''
     }
     if (isInNews) {
       const isInNewsOverview = !(currentRoute.params as { newsId: string }).newsId
