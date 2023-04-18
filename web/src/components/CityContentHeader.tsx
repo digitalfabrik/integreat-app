@@ -17,11 +17,8 @@ import {
 } from 'api-client'
 import { config } from 'translations'
 
-import { LocationIcon, OffersIcon, SearchIcon } from '../assets'
-import eventsIcon from '../assets/Events.svg'
+import { EventsIcon, LocationIcon, NewsIcon, OffersIcon, POIsIcon, SearchIcon } from '../assets'
 import localInformationIcon from '../assets/Local_Information.svg'
-import newsIcon from '../assets/News.svg'
-import poisIcon from '../assets/Pois.svg'
 import buildConfig from '../constants/buildConfig'
 import { LOCAL_NEWS_ROUTE, RouteType, TU_NEWS_DETAIL_ROUTE, TU_NEWS_ROUTE } from '../routes'
 import Header from './Header'
@@ -134,7 +131,7 @@ const CityContentHeader = ({
           active={route === LOCAL_NEWS_ROUTE || route === TU_NEWS_ROUTE || route === TU_NEWS_DETAIL_ROUTE}
           href={newsPath}
           text={t('news')}
-          icon={newsIcon}
+          icon={NewsIcon}
           direction={direction}
         />
       )
@@ -147,7 +144,7 @@ const CityContentHeader = ({
           href={eventsPath}
           active={route === EVENTS_ROUTE}
           text={t('events')}
-          icon={eventsIcon}
+          icon={EventsIcon}
           direction={direction}
         />
       )
@@ -160,7 +157,7 @@ const CityContentHeader = ({
           href={poisPath}
           active={route === POIS_ROUTE}
           text={t('pois')}
-          icon={poisIcon}
+          icon={POIsIcon}
           direction={direction}
         />
       )

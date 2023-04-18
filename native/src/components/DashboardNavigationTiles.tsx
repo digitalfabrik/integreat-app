@@ -13,10 +13,7 @@ import {
   TU_NEWS_TYPE,
 } from 'api-client'
 
-import eventsIcon from '../assets/events.svg'
-import newsIcon from '../assets/news.svg'
-import offersIcon from '../assets/offers.svg'
-import poisIcon from '../assets/pois.svg'
+import { EventsIcon, NewsIcon, OffersIcon, POIsIcon } from '../assets'
 import buildConfig from '../constants/buildConfig'
 import TileModel from '../models/TileModel'
 import NavigationTiles from './NavigationTiles'
@@ -48,7 +45,7 @@ const DashboardNavigationTiles = ({
       new TileModel({
         title: t('news'),
         path: 'news',
-        thumbnail: newsIcon,
+        thumbnail: NewsIcon,
         isExternalUrl: false,
         onTilePress: () =>
           navigateTo({
@@ -67,7 +64,7 @@ const DashboardNavigationTiles = ({
       new TileModel({
         title: t('events'),
         path: 'events',
-        thumbnail: eventsIcon,
+        thumbnail: EventsIcon,
         isExternalUrl: false,
         onTilePress: () =>
           navigateTo({
@@ -85,7 +82,7 @@ const DashboardNavigationTiles = ({
       new TileModel({
         title: t('offers'),
         path: 'offers',
-        thumbnail: offersIcon,
+        thumbnail: OffersIcon,
         isExternalUrl: false,
         onTilePress: () =>
           navigateTo({
@@ -103,7 +100,7 @@ const DashboardNavigationTiles = ({
       new TileModel({
         title: t('pois'),
         path: 'pois',
-        thumbnail: poisIcon,
+        thumbnail: POIsIcon,
         isExternalUrl: false,
         onTilePress: () =>
           navigateTo({
