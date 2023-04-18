@@ -8,7 +8,7 @@ import Tile from './Tile'
 
 type TilesProps = {
   title?: string
-  tiles: Array<TileModel>
+  tiles: TileModel[]
   onTilePress: (tile: TileModel) => void
   language: string
 }
