@@ -13,6 +13,7 @@ import {
   PoiFeatureCollection,
   MapViewMercatorViewport,
   clusterRadius,
+  maxMapZoom,
 } from 'api-client'
 import { UiDirectionType } from 'translations'
 
@@ -87,7 +88,8 @@ const MapView = forwardRef((props: MapViewProps, ref: React.Ref<MapRef>): ReactE
     languageCode,
     geolocationControlPosition,
   } = props
-  const [viewport, setViewport] = useState<MapViewViewport>(bboxViewport)
+  // Workaround for https://github.com/mapbox/mapbox-gl-js/issues/8890
+  const [viewport, setViewport] = useState<MapViewViewport>({ ...bboxViewport, maxZoom: maxMapZoom })
   const [cursor, setCursor] = useState<MapCursorType>('auto')
   const theme = useTheme()
   const navigate = useNavigate()
@@ -129,7 +131,7 @@ const MapView = forwardRef((props: MapViewProps, ref: React.Ref<MapRef>): ReactE
           height: '100%',
           width: '100%',
         }}
-        onMove={evt => setViewport(evt.viewState)}
+        onMove={evt => setViewport(prevState => ({ ...prevState, ...evt.viewState }))}
         onDragStart={() => changeCursor('grab')}
         onDragEnd={() => changeCursor('auto')}
         onMouseEnter={() => changeCursor('pointer')}
