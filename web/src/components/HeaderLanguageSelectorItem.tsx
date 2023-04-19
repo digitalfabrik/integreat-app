@@ -3,7 +3,7 @@ import { TFunction } from 'react-i18next'
 
 import { UiDirectionType } from 'translations/src'
 
-import languageIcon from '../assets/language-icon.svg'
+import { LanguageIcon } from '../assets'
 import SelectorItemModel from '../models/SelectorItemModel'
 import HeaderActionItemDropDown from './HeaderActionItemDropDown'
 import HeaderActionBarItemLink from './HeaderActionItemLink'
@@ -43,7 +43,7 @@ const HeaderLanguageSelectorItem = ({
     if (inKebabMenu && closeSidebar) {
       return (
         <KebabActionItemDropDown
-          iconSrc={languageIcon}
+          iconSrc={LanguageIcon}
           text={t('changeLanguage')}
           direction={direction}
           closeSidebar={closeSidebar}>
@@ -53,7 +53,7 @@ const HeaderLanguageSelectorItem = ({
     }
 
     return (
-      <HeaderActionItemDropDown iconSrc={languageIcon} text={t('changeLanguage')} direction={direction}>
+      <HeaderActionItemDropDown iconSrc={LanguageIcon} text={t('changeLanguage')} direction={direction}>
         {renderItem}
       </HeaderActionItemDropDown>
     )
@@ -63,7 +63,7 @@ const HeaderLanguageSelectorItem = ({
     return renderActionItem()
   }
 
-  return <HeaderActionBarItemLink text={noLanguagesHint} iconSrc={languageIcon} direction={direction} />
+  return <HeaderActionBarItemLink text={noLanguagesHint} iconSrc={LanguageIcon} direction={direction} />
 }
 
 export default HeaderLanguageSelectorItem

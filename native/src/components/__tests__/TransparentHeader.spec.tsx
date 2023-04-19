@@ -19,7 +19,7 @@ jest.mock('react-navigation-header-buttons', () => ({
   ),
 }))
 jest.mock(
-  '../MaterialHeaderButtons',
+  '../CustomHeaderButtons',
   () =>
     ({ items, overflowItems }: { items: ReactElement; overflowItems: ReactElement }) =>
       (
