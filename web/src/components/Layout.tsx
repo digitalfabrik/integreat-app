@@ -70,7 +70,7 @@ const Body = styled.div<{ fullWidth: boolean; disableScrollingSafari: boolean }>
   ${props =>
     !props.fullWidth &&
     css`
-      @media screen and ${dimensions.minMaxWidth} {
+      @media ${dimensions.minMaxWidth} {
         padding-right: calc((200% - 100vw - ${dimensions.maxWidth}px) / 2);
         padding-left: calc((100vw - ${dimensions.maxWidth}px) / 2);
       }
