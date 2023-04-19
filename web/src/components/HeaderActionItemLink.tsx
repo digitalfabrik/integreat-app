@@ -11,8 +11,9 @@ import Tooltip from './Tooltip'
 const StyledLink = styled(Link)`
   display: block;
 
-  width: calc(0.8 * ${dimensions.headerHeightLarge}px);
-  height: calc(0.8 * ${dimensions.headerHeightLarge}px);
+  width: calc(0.5 * ${dimensions.headerHeightLarge}px);
+  height: calc(0.5 * ${dimensions.headerHeightLarge}px);
+  opacity: 0.85;
 
   @media ${dimensions.smallViewport} {
     width: calc(0.5 * ${dimensions.headerHeightSmall}px);
