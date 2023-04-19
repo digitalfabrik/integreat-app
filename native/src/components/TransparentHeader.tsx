@@ -13,7 +13,7 @@ import dimensions from '../constants/dimensions'
 import useSnackbar from '../hooks/useSnackbar'
 import sendTrackingSignal from '../utils/sendTrackingSignal'
 import { reportError } from '../utils/sentry'
-import MaterialHeaderButtons from './MaterialHeaderButtons'
+import CustomHeaderButtons from './CustomHeaderButtons'
 
 const Horizontal = styled.View`
   flex: 1;
@@ -88,7 +88,7 @@ const TransparentHeader = ({ navigation, route }: TransparentHeaderProps): React
         <HorizontalLeft>
           <HeaderBackButton onPress={navigation.goBack} labelVisible={false} />
         </HorizontalLeft>
-        <MaterialHeaderButtons cancelLabel={t('cancel')} items={[]} overflowItems={overflowItems} />
+        <CustomHeaderButtons cancelLabel={t('cancel')} items={[]} overflowItems={overflowItems} />
       </Horizontal>
     </BoxShadow>
   )
