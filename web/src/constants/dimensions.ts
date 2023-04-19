@@ -18,7 +18,7 @@ const dimensions: DimensionsType = {
   smallViewport: '(max-width: 768px)',
   mediumViewport: '(min-width: 769px) and (max-width: 1100px)',
   mediumLargeViewport: '(min-width: 769px)',
-  minMaxWidth: 'screen and (min-width: 1101px)',
+  minMaxWidth: '(min-width: 1101px)',
   maxWidth: 1100,
   toolbarWidth: 125,
   toolbarHeight: 44,
