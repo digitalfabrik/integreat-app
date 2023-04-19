@@ -5,6 +5,7 @@ resource_class: small
 environment:
   TOTAL_CPUS: 1 # For resource_class small
   TZ: 'Europe/Berlin' # Should be removed in IGAPP-39
+  NODE_OPTIONS: '--max_old_space_size=2048'
 shell: /bin/bash -eo pipefail
 steps:
   - skip_job

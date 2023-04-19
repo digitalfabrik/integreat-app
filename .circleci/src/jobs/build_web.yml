@@ -8,6 +8,7 @@ docker:
 resource_class: medium
 environment:
   TOTAL_CPUS: 2 # For resource_class medium
+  NODE_OPTIONS: '--max_old_space_size=4096'
 shell: /bin/bash -eo pipefail
 steps:
   - skip_job:

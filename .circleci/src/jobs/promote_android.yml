@@ -10,6 +10,7 @@ resource_class: small
 shell: /bin/bash -eo pipefail
 environment:
   FASTLANE_SKIP_UPDATE_CHECK: true
+  NODE_OPTIONS: '--max_old_space_size=2048'
 steps:
   - skip_job:
       build_config_name: << parameters.build_config_name >>
