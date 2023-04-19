@@ -26,3 +26,4 @@ web/www/rasa-widget
 version.json
 
 .yarn/releases/*
+.yarn/plugins/*

@@ -6,7 +6,7 @@ steps:
         - 8-yarn-{{ arch }}-{{ checksum "yarn.lock" }}-{{ checksum "package.json" }}-{{ checksum "native/package.json" }}-{{ checksum "web/package.json" }}
   - run:
       name: Yarn
-      command: yarn install --immutable
+      command: YARN_ENABLE_INLINE_BUILDS=true yarn install --immutable
   - save_cache:
       name: Save Yarn Package Cache
       key: 8-yarn-{{ arch }}-{{ checksum "yarn.lock" }}-{{ checksum "package.json" }}-{{ checksum "native/package.json" }}-{{ checksum "web/package.json" }}

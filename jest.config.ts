@@ -3,7 +3,6 @@ import type { JestConfigWithTsJest } from 'ts-jest'
 const config: JestConfigWithTsJest = {
   projects: ['native', 'web', 'api-client', 'translations'],
   verbose: true,
-  bail: !!process.env.CI, // fail fast
   coverageDirectory: '<rootDir>/reports/coverage',
   reporters: [
     'default',
@@ -14,7 +13,7 @@ const config: JestConfigWithTsJest = {
       },
     ],
   ],
-  maxWorkers: '50%',
+  maxWorkers: process.env.TOTAL_CPUS ?? '50%',
 }
 
 export default config
