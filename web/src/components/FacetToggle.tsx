@@ -10,7 +10,6 @@ const FilterIcon = styled.span<{ value: boolean }>`
   border-radius: 0.25rem;
   padding: 0.25rem;
   cursor: pointer;
-  outline: none;
 `
 const FilterFacet = styled.div`
   display: flex;

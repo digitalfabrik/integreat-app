@@ -362,7 +362,7 @@ jobs:
                     - integreat-test-cms
                     - aschaffenburg
                 type: enum
-        resource_class: medium
+        resource_class: macos.x86.medium.gen2
         shell: /bin/bash --login -o pipefail
         steps:
             - skip_job:
