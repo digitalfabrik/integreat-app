@@ -13,4 +13,3 @@ steps:
       key: 2-yarn-{{ arch }}-{{ checksum "yarn.lock" }}-{{ checksum "tools/package.json" }}
       paths:
         - .yarn/cache
-        - tools/node_modules
