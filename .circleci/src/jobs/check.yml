@@ -11,14 +11,13 @@ steps:
   - skip_job
   - checkout
   - restore_yarn_cache
-  - restore_yarn_tools_cache
   - check_config
   - run:
       name: Prettier
       command: yarn g:prettier:check
   - run:
       name: Lint
-      command: yarn g:lint
+      command: yarn g:lint:ci
   - run:
       name: Stylelint
       command: yarn workspace web stylelint

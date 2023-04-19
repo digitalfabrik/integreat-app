@@ -122,7 +122,6 @@
     "metro-react-native-babel-preset": "^0.74.0",
     "node-fetch": "^3.2.10",
     "npm-license-crawler": "^0.2.1",
-    "postinstall-postinstall": "2.1.0",
     "react-native-flipper": "0.176.0",
     "react-native-svg-asset-plugin": "0.5.0",
     "react-test-renderer": "^18.2.0",

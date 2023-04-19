@@ -14,8 +14,8 @@
     ]
   },
   "scripts": {
-    "g:lint": "cd $INIT_CWD && eslint",
-    "g:lint:ci": "yarn g:lint && --quiet --format junit -o reports/lint/junit-lint.xml",
+    "g:lint": "cd $INIT_CWD && eslint .",
+    "g:lint:ci": "yarn g:lint --format junit -o reports/lint/junit-lint.xml",
     "g:lint:changed": "cd $INIT_CWD && eslint . -c ${PROJECT_CWD}/.eslintrc_changed.js",
     "g:eslint": "cd $INIT_CWD && eslint .",
     "g:prettier:check": "cd $INIT_CWD && prettier --check . --ignore-path ${PROJECT_CWD}/.prettierignore",

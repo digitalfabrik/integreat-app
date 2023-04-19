@@ -219,7 +219,7 @@ commands:
                     - 2-yarn-{{ arch }}-{{ checksum "yarn.lock" }}-{{ checksum "tools/package.json" }}
                 name: Restore Yarn Tools Package Cache
             - run:
-                command: yarn workspace tools install --immutable
+                command: yarn workspaces focus tools
                 name: Yarn tools
                 working_directory: tools
             - save_cache:
@@ -261,7 +261,7 @@ commands:
         description: Runs the test task and stores coverage and junit data
         steps:
             - run:
-                command: yarn test:ci --maxWorkers ${TOTAL_CPUS}
+                command: yarn g:test:ci --maxWorkers ${TOTAL_CPUS}
                 name: Unit Tests with Coverage
             - store_test_results:
                 path: reports/unit-test
@@ -509,13 +509,12 @@ jobs:
             - skip_job
             - checkout
             - restore_yarn_cache
-            - restore_yarn_tools_cache
             - check_config
             - run:
                 command: yarn g:prettier:check
                 name: Prettier
             - run:
-                command: yarn g:lint
+                command: yarn g:lint:ci
                 name: Lint
             - run:
                 command: yarn workspace web stylelint

@@ -14827,7 +14827,6 @@ __metadata:
     moment-timezone: 0.5.41
     node-fetch: ^3.2.10
     npm-license-crawler: ^0.2.1
-    postinstall-postinstall: 2.1.0
     query-string: ^7.1.1
     react: 18.2.0
     react-i18next: ^11.18.0
@@ -16095,13 +16094,6 @@ __metadata:
     picocolors: ^1.0.0
     source-map-js: ^1.0.2
   checksum: a26e7cc86a1807d624d9965914c26c20faa3f237184cbd69db537387f6a4f62df97347549144284d47e9e8e27e7c60e797cb3b92ad36cb2f4c3c9cb3b73f9758
-  languageName: node
-  linkType: hard
-
-"postinstall-postinstall@npm:2.1.0":
-  version: 2.1.0
-  resolution: "postinstall-postinstall@npm:2.1.0"
-  checksum: 70488447292c712afa7806126824d6fe93362392cbe261ae60166d9119a350713e0dbf4deb2ca91637c1037bc030ed1de78d61d9041bf2504513070f1caacdfd
   languageName: node
   linkType: hard
 
