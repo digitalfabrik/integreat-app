@@ -2973,7 +2973,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@react-native-mapbox-gl/maps@npm:^8.5.0":
+"@react-native-mapbox-gl/maps@npm:8.5.0":
   version: 8.5.0
   resolution: "@react-native-mapbox-gl/maps@npm:8.5.0"
   dependencies:
@@ -2991,6 +2991,27 @@ __metadata:
     react: ">=16.6.1"
     react-native: ">=0.59.9"
   checksum: fb9db5530a6c9a241cdaf29947728a845f6ef98a5131606db912cd862eeaffbee8cf05ef47a5879f57961e7c05c6b9ce19d10c585c07799d166591ba6f2c96d4
+  languageName: node
+  linkType: hard
+
+"@react-native-mapbox-gl/maps@patch:@react-native-mapbox-gl/maps@npm%3A8.5.0#./.yarn/patches/@react-native-mapbox-gl-maps-npm-8.5.0-7a0d0c6c9b.patch::locator=integreat-app%40workspace%3A.":
+  version: 8.5.0
+  resolution: "@react-native-mapbox-gl/maps@patch:@react-native-mapbox-gl/maps@npm%3A8.5.0#./.yarn/patches/@react-native-mapbox-gl-maps-npm-8.5.0-7a0d0c6c9b.patch::version=8.5.0&hash=3340d7&locator=integreat-app%40workspace%3A."
+  dependencies:
+    "@expo/config-plugins": ^4.0.3
+    "@mapbox/geo-viewport": ">= 0.4.0"
+    "@turf/along": 6.5.0
+    "@turf/distance": 6.5.0
+    "@turf/helpers": 6.5.0
+    "@turf/length": 6.5.0
+    "@turf/nearest-point-on-line": 6.5.0
+    "@types/geojson": ^7946.0.7
+    debounce: ^1.2.0
+  peerDependencies:
+    prop-types: ">=15.5.8"
+    react: ">=16.6.1"
+    react-native: ">=0.59.9"
+  checksum: 2af2b42cc05b49d484f18d8052e2b013aae900f71cff228ec43e910eb548d6c07c90f80c612f9476d94cf2a01cea4324814c724808646ff71199c81caf95766a
   languageName: node
   linkType: hard
 
@@ -5296,13 +5317,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@yarnpkg/lockfile@npm:^1.1.0":
-  version: 1.1.0
-  resolution: "@yarnpkg/lockfile@npm:1.1.0"
-  checksum: 0bfa50a3d756623d1f3409bc23f225a1d069424dbc77c6fd2f14fb377390cd57ec703dc70286e081c564be9051ead9ba85d81d66a3e68eeb6eb506d4e0c0fbda
-  languageName: node
-  linkType: hard
-
 "abab@npm:^2.0.6":
   version: 2.0.6
   resolution: "abab@npm:2.0.6"
@@ -6002,13 +6016,6 @@ __metadata:
   version: 0.4.0
   resolution: "asynckit@npm:0.4.0"
   checksum: d73e2ddf20c4eb9337e1b3df1a0f6159481050a5de457c55b14ea2e5cb6d90bb69e004c9af54737a5ee0917fcf2c9e25de67777bbe58261847846066ba75bc9d
-  languageName: node
-  linkType: hard
-
-"at-least-node@npm:^1.0.0":
-  version: 1.0.0
-  resolution: "at-least-node@npm:1.0.0"
-  checksum: 4c058baf6df1bc5a1697cf182e2029c58cd99975288a13f9e70068ef5d6f4e1f1fd7c4d2c3c4912eae44797d1725be9700995736deca441b39f3e66d8dee97ef
   languageName: node
   linkType: hard
 
@@ -7635,7 +7642,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"cross-spawn@npm:^6.0.0, cross-spawn@npm:^6.0.5":
+"cross-spawn@npm:^6.0.0":
   version: 6.0.5
   resolution: "cross-spawn@npm:6.0.5"
   dependencies:
@@ -9917,15 +9924,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"find-yarn-workspace-root@npm:^2.0.0":
-  version: 2.0.0
-  resolution: "find-yarn-workspace-root@npm:2.0.0"
-  dependencies:
-    micromatch: ^4.0.2
-  checksum: b0d3843013fbdaf4e57140e0165889d09fa61745c9e85da2af86e54974f4cc9f1967e40f0d8fc36a79d53091f0829c651d06607d552582e53976f3cd8f4e5689
-  languageName: node
-  linkType: hard
-
 "flat-cache@npm:^3.0.4":
   version: 3.0.4
   resolution: "flat-cache@npm:3.0.4"
@@ -10165,18 +10163,6 @@ __metadata:
     jsonfile: ^4.0.0
     universalify: ^0.1.0
   checksum: 259f7b814d9e50d686899550c4f9ded85c46c643f7fe19be69504888e007fcbc08f306fae8ec495b8b998635e997c9e3e175ff2eeed230524ef1c1684cc96423
-  languageName: node
-  linkType: hard
-
-"fs-extra@npm:^9.0.0":
-  version: 9.1.0
-  resolution: "fs-extra@npm:9.1.0"
-  dependencies:
-    at-least-node: ^1.0.0
-    graceful-fs: ^4.2.0
-    jsonfile: ^6.0.1
-    universalify: ^2.0.0
-  checksum: 9b808bd884beff5cb940773018179a6b94a966381d005479f00adda6b44e5e3d4abf765135773d849cc27efe68c349e4a7b86acd7d3306d5932c14f3a4b17a92
   languageName: node
   linkType: hard
 
@@ -11641,17 +11627,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"is-ci@npm:^2.0.0":
-  version: 2.0.0
-  resolution: "is-ci@npm:2.0.0"
-  dependencies:
-    ci-info: ^2.0.0
-  bin:
-    is-ci: bin.js
-  checksum: 17de4e2cd8f993c56c86472dd53dd9e2c7f126d0ee55afe610557046cdd64de0e8feadbad476edc9eeff63b060523b8673d9094ed2ab294b59efb5a66dd05a9a
-  languageName: node
-  linkType: hard
-
 "is-core-module@npm:^2.11.0, is-core-module@npm:^2.5.0, is-core-module@npm:^2.9.0":
   version: 2.11.0
   resolution: "is-core-module@npm:2.11.0"
@@ -12075,7 +12050,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"is-wsl@npm:^2.1.1, is-wsl@npm:^2.2.0":
+"is-wsl@npm:^2.2.0":
   version: 2.2.0
   resolution: "is-wsl@npm:2.2.0"
   dependencies:
@@ -13209,15 +13184,6 @@ __metadata:
   version: 6.0.3
   resolution: "kind-of@npm:6.0.3"
   checksum: 61cdff9623dabf3568b6445e93e31376bee1cdb93f8ba7033d86022c2a9b1791a1d9510e026e6465ebd701a6dd2f7b0808483ad8838341ac52f003f512e0b4c4
-  languageName: node
-  linkType: hard
-
-"klaw-sync@npm:^6.0.0":
-  version: 6.0.0
-  resolution: "klaw-sync@npm:6.0.0"
-  dependencies:
-    graceful-fs: ^4.1.11
-  checksum: 00d8e4c48d0d699b743b3b028e807295ea0b225caf6179f51029e19783a93ad8bb9bccde617d169659fbe99559d73fb35f796214de031d0023c26b906cecd70a
   languageName: node
   linkType: hard
 
@@ -14861,7 +14827,6 @@ __metadata:
     moment-timezone: 0.5.41
     node-fetch: ^3.2.10
     npm-license-crawler: ^0.2.1
-    patch-package: 6.5.1
     postinstall-postinstall: 2.1.0
     query-string: ^7.1.1
     react: 18.2.0
@@ -15487,16 +15452,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"open@npm:^7.4.2":
-  version: 7.4.2
-  resolution: "open@npm:7.4.2"
-  dependencies:
-    is-docker: ^2.0.0
-    is-wsl: ^2.1.1
-  checksum: 77573a6a68f7364f3a19a4c80492712720746b63680ee304555112605ead196afe91052bd3c3d165efdf4e9d04d255e87de0d0a77acec11ef47fd5261251813f
-  languageName: node
-  linkType: hard
-
 "open@npm:^8.0.9":
   version: 8.4.0
   resolution: "open@npm:8.4.0"
@@ -15806,30 +15761,6 @@ __metadata:
   version: 0.1.1
   resolution: "pascalcase@npm:0.1.1"
   checksum: 48dfe90618e33810bf58211d8f39ad2c0262f19ad6354da1ba563935b5f429f36409a1fb9187c220328f7a4dc5969917f8e3e01ee089b5f1627b02aefe39567b
-  languageName: node
-  linkType: hard
-
-"patch-package@npm:6.5.1":
-  version: 6.5.1
-  resolution: "patch-package@npm:6.5.1"
-  dependencies:
-    "@yarnpkg/lockfile": ^1.1.0
-    chalk: ^4.1.2
-    cross-spawn: ^6.0.5
-    find-yarn-workspace-root: ^2.0.0
-    fs-extra: ^9.0.0
-    is-ci: ^2.0.0
-    klaw-sync: ^6.0.0
-    minimist: ^1.2.6
-    open: ^7.4.2
-    rimraf: ^2.6.3
-    semver: ^5.6.0
-    slash: ^2.0.0
-    tmp: ^0.0.33
-    yaml: ^1.10.2
-  bin:
-    patch-package: index.js
-  checksum: 0f74d6099b05431c88a60308bd9ec0b1f9d3ae436026f488cfe99476ae74e7a464be4a16a7c83c7b89c23764502c79d37227cf27b17c30b9b2e4d577f8aecedb
   languageName: node
   linkType: hard
 
@@ -16823,7 +16754,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-native-highlight-words@npm:^1.0.1":
+"react-native-highlight-words@npm:1.0.1":
   version: 1.0.1
   resolution: "react-native-highlight-words@npm:1.0.1"
   dependencies:
@@ -16832,6 +16763,18 @@ __metadata:
   peerDependencies:
     react: ^15.5.0
   checksum: 71b70cf04572b2f5654d60596e5567d8da156eaebcf13fb54dd15016ae712582a7e2b9ab9142d98d3faae0a2701bda4314440c322b375e518340ee09be8bcfa0
+  languageName: node
+  linkType: hard
+
+"react-native-highlight-words@patch:react-native-highlight-words@npm%3A1.0.1#./.yarn/patches/react-native-highlight-words-npm-1.0.1-0dfab0c882.patch::locator=integreat-app%40workspace%3A.":
+  version: 1.0.1
+  resolution: "react-native-highlight-words@patch:react-native-highlight-words@npm%3A1.0.1#./.yarn/patches/react-native-highlight-words-npm-1.0.1-0dfab0c882.patch::version=1.0.1&hash=bb4f44&locator=integreat-app%40workspace%3A."
+  dependencies:
+    highlight-words-core: ^1.0.3
+    prop-types: ^15.5.7
+  peerDependencies:
+    react: ^15.5.0
+  checksum: 445e2132b5276e93ffd79c6ed765442f71facd6e239ba06a8ee2d7a8b43e71e0f2f93673b4757750fe2c01648e71585c4eebc1a695ecdab2bc57ec95d6b96f87
   languageName: node
   linkType: hard
 
@@ -18395,13 +18338,6 @@ __metadata:
   version: 1.0.5
   resolution: "sisteransi@npm:1.0.5"
   checksum: 230ac975cca485b7f6fe2b96a711aa62a6a26ead3e6fb8ba17c5a00d61b8bed0d7adc21f5626b70d7c33c62ff4e63933017a6462942c719d1980bb0b1207ad46
-  languageName: node
-  linkType: hard
-
-"slash@npm:^2.0.0":
-  version: 2.0.0
-  resolution: "slash@npm:2.0.0"
-  checksum: f83dbd3cb62c41bb8fcbbc6bf5473f3234b97fa1d008f571710a9d3757a28c7169e1811cad1554ccb1cc531460b3d221c9a7b37f549398d9a30707f0a5af9193
   languageName: node
   linkType: hard
 
@@ -21358,7 +21294,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"yaml@npm:^1.10.0, yaml@npm:^1.10.2":
+"yaml@npm:^1.10.0":
   version: 1.10.2
   resolution: "yaml@npm:1.10.2"
   checksum: 5c28b9eb7adc46544f28d9a8d20c5b3cb1215a886609a2fd41f51628d8aaa5878ccd628b755dbcd29f6bb4921bd04ffbc6dcc370689bb96e594e2f9813d2605f

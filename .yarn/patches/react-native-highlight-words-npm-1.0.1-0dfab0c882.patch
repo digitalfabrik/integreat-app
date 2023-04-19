@@ -1,7 +1,7 @@
-diff --git a/node_modules/react-native-highlight-words/index.js b/node_modules/react-native-highlight-words/index.js
-index e15cc90..15f0b34 100644
---- a/node_modules/react-native-highlight-words/index.js
-+++ b/node_modules/react-native-highlight-words/index.js
+diff --git a/index.js b/index.js
+index e15cc90cff43267f40d3da09859d9c29d436dc44..15f0b3468b53204fab042d34f31a38d5f30ea0a3 100644
+--- a/index.js
++++ b/index.js
 @@ -2,14 +2,15 @@ import React from 'react';
  import {Text} from 'react-native';
  import {findAll} from 'highlight-words-core';

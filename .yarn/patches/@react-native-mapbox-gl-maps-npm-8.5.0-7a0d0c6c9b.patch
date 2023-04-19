@@ -1,7 +1,7 @@
-diff --git a/node_modules/@react-native-mapbox-gl/maps/javascript/utils/index.js b/node_modules/@react-native-mapbox-gl/maps/javascript/utils/index.js
-index bc3c28f..2218010 100644
---- a/node_modules/@react-native-mapbox-gl/maps/javascript/utils/index.js
-+++ b/node_modules/@react-native-mapbox-gl/maps/javascript/utils/index.js
+diff --git a/javascript/utils/index.js b/javascript/utils/index.js
+index bc3c28fe128f9775b0fbcd2e56e5ffa0a3b4a15c..9d5271ee33b838dec56d9f72a929d7f9afa0b596 100644
+--- a/javascript/utils/index.js
++++ b/javascript/utils/index.js
 @@ -1,11 +1,10 @@
  import React from 'react';
  import {
