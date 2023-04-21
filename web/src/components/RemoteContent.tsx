@@ -16,6 +16,7 @@ const SandBox = styled.div<{ centered: boolean; smallText: boolean }>`
   );`
       : props.theme.fonts.contentFontSize};
   line-height: ${props => props.theme.fonts.contentLineHeight};
+  display: flow-root; /* clearfix for the img floats */
 
   ${props => (props.centered ? 'text-align: center;' : '')}
   ${props => (props.centered ? 'list-style-position: inside;' : '')}
