@@ -34,7 +34,6 @@ const Icon = styled.img`
 `
 
 const ListHeading = styled(Heading)`
-  float: left;
   padding: 0;
   font-size: ${props => props.theme.fonts.decorativeFontSize};
 `
@@ -45,7 +44,6 @@ const ListItem = styled.div`
 `
 
 const StepNumber = styled.div`
-  float: left;
   border-radius: 50%;
   line-height: 2rem;
   min-width: 2rem;
