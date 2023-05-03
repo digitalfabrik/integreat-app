@@ -55,7 +55,9 @@ describe('useNavigate', () => {
 
   const MockComponent = ({ routeInformation }: { routeInformation: RouteInformationType }) => {
     const { navigateTo } = useNavigate()
-    useEffect(() => navigateTo(routeInformation), [navigateTo, routeInformation])
+    useEffect(() => {
+      navigateTo(routeInformation)
+    }, [navigateTo, routeInformation])
 
     return null
   }

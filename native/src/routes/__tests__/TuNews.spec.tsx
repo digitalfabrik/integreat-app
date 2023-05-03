@@ -1,9 +1,9 @@
-import { fireEvent, render } from '@testing-library/react-native'
+import { NavigationContainer } from '@react-navigation/native'
+import { fireEvent } from '@testing-library/react-native'
 import { mocked } from 'jest-mock'
 import moment from 'moment'
 import React from 'react'
 import { Text } from 'react-native'
-import { ThemeProvider } from 'styled-components/native'
 
 import {
   CategoriesMapModelBuilder,
@@ -15,9 +15,10 @@ import {
   TunewsModel,
 } from 'api-client'
 
-import buildConfig from '../../constants/buildConfig'
 import useLoadTuNews from '../../hooks/useLoadTuNews'
+import useNavigate from '../../hooks/useNavigate'
 import createNavigationScreenPropMock from '../../testing/createNavigationPropMock'
+import render from '../../testing/render'
 import TuNews from '../TuNews'
 
 jest.mock('react-i18next')
@@ -30,6 +31,7 @@ jest.mock('api-client', () => ({
 jest.mock('../../components/LanguageNotAvailablePage', () => () => <Text>languageNotAvailable</Text>)
 jest.mock('@react-native-community/netinfo')
 jest.mock('react-native/Libraries/EventEmitter/NativeEventEmitter')
+jest.mock('../../hooks/useNavigate')
 
 const news: [TunewsModel, TunewsModel] = [
   new TunewsModel({
@@ -59,8 +61,9 @@ describe('TuNews', () => {
   const selectNews = jest.fn()
   const loadMore = jest.fn()
   const refresh = jest.fn()
-
   const navigation = createNavigationScreenPropMock<NewsRouteType>()
+  mocked(useNavigate).mockImplementation(() => ({ navigateTo: jest.fn(), navigation }))
+
   const route = {
     key: 'route-id-0',
     params: {
@@ -87,9 +90,9 @@ describe('TuNews', () => {
 
   const renderNews = () =>
     render(
-      <ThemeProvider theme={buildConfig().lightTheme}>
+      <NavigationContainer>
         <TuNews data={data} route={route} navigation={navigation} navigateToNews={selectNews} />
-      </ThemeProvider>
+      </NavigationContainer>
     )
   const tuNewsResponse = {
     error: null,

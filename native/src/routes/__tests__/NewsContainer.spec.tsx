@@ -1,4 +1,3 @@
-import { useNavigation } from '@react-navigation/native'
 import { fireEvent } from '@testing-library/react-native'
 import { mocked } from 'jest-mock'
 import React from 'react'
@@ -17,6 +16,7 @@ import {
 
 import { AppContext } from '../../contexts/AppContextProvider'
 import useLoadCityContent from '../../hooks/useLoadCityContent'
+import useNavigate from '../../hooks/useNavigate'
 import createNavigationPropMock from '../../testing/createNavigationPropMock'
 import render from '../../testing/render'
 import NewsContainer from '../NewsContainer'
@@ -26,12 +26,13 @@ jest.mock('@react-navigation/native')
 jest.mock('@react-native-community/netinfo')
 jest.mock('../../hooks/useLoadCityContent')
 jest.mock('react-i18next')
+jest.mock('../../hooks/useNavigate')
 jest.mock('../LocalNews', () => () => <Text>LocalNewsContent</Text>)
-jest.mock('../TuNews', () => ({ selectNews }: { selectNews: (id: string) => void }) => (
+jest.mock('../TuNews', () => ({ navigateToNews }: { navigateToNews: (id: string) => void }) => (
   <View>
     <Text>TuNewsContent</Text>
-    <Pressable onPress={() => selectNews('1234')}>
-      <Text>selectNews</Text>
+    <Pressable onPress={() => navigateToNews('1234')}>
+      <Text>navigateToNews</Text>
     </Pressable>
   </View>
 ))
@@ -49,7 +50,8 @@ describe('NewsContainer', () => {
   })
 
   const navigation = createNavigationPropMock<NewsRouteType>()
-  mocked(useNavigation).mockImplementation(() => navigation as never)
+  const navigateTo = jest.fn()
+  mocked(useNavigate).mockImplementation(() => ({ navigateTo, navigation }))
   const cities = new CityModelBuilder(3).build()
   const city = cities[0]!
   const languages = new LanguageModelBuilder(3).build()
@@ -101,7 +103,7 @@ describe('NewsContainer', () => {
 
   it('should correctly handle switch between local and tu news', () => {
     mocked(useLoadCityContent).mockImplementation(() => returnValue)
-    const { getByLabelText } = renderNews({ newsId: '1234' })
+    const { getByLabelText } = renderNews({ newsId: null })
 
     fireEvent.press(getByLabelText('TüNews'))
     expect(navigation.setParams).toHaveBeenCalledTimes(1)
@@ -128,21 +130,12 @@ describe('NewsContainer', () => {
     expect(getByText('TuNewsDetail')).toBeTruthy()
   })
 
-  it('should add listener to handle back navigation if news detail selected', async () => {
-    mocked(useLoadCityContent).mockImplementation(() => returnValue)
-    const { getByText } = renderNews({})
-
-    expect(navigation.addListener).toHaveBeenCalledTimes(1)
-    expect(navigation.addListener).toHaveBeenCalledWith('beforeRemove', expect.anything())
-    expect(getByText('TuNewsContent')).toBeTruthy()
-  })
-
   it('should handle selection of news correctly', () => {
     mocked(useLoadCityContent).mockImplementation(() => returnValue)
     const { getByText } = renderNews({})
 
-    fireEvent.press(getByText('selectNews'))
-    expect(navigation.setParams).toHaveBeenCalledTimes(1)
-    expect(navigation.setParams).toHaveBeenCalledWith({ newsId: '1234' })
+    fireEvent.press(getByText('navigateToNews'))
+    expect(navigateTo).toHaveBeenCalledTimes(1)
+    expect(navigateTo).toHaveBeenCalledWith(expect.objectContaining({ newsId: '1234' }))
   })
 })
