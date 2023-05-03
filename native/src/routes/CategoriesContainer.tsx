@@ -14,6 +14,7 @@ import useLoadCityContent from '../hooks/useLoadCityContent'
 import useNavigate from '../hooks/useNavigate'
 import usePreviousProp from '../hooks/usePreviousProp'
 import useResourceCache from '../hooks/useResourceCache'
+import useSetRouteTitle from '../hooks/useSetRouteTitle'
 import createNavigateToFeedbackModal from '../navigation/createNavigateToFeedbackModal'
 import urlFromRouteInformation from '../navigation/url'
 import testID from '../testing/testID'
@@ -50,12 +51,12 @@ const CategoriesContainer = ({ navigation, route }: CategoriesContainerProps): R
     cityContentPath: path,
   })
   useHeader({ navigation, route, availableLanguages, data, isHome: !route.params.path, shareUrl })
+  useSetRouteTitle({ navigation, title: category?.title })
 
   const onLanguageChange = useCallback(
     (newLanguage: string) => {
       if (category) {
         const newPath = category.availableLanguages.get(newLanguage)
-        // TODO IGAPP-636: Handle language not available?
         navigation.setParams({ path: newPath })
       }
     },
