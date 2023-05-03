@@ -88,7 +88,7 @@ describe('TuNews', () => {
   const renderNews = () =>
     render(
       <ThemeProvider theme={buildConfig().lightTheme}>
-        <TuNews data={data} route={route} navigation={navigation} selectNews={selectNews} />
+        <TuNews data={data} route={route} navigation={navigation} navigateToNews={selectNews} />
       </ThemeProvider>
     )
   const tuNewsResponse = {

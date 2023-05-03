@@ -13,7 +13,7 @@ type NewsModelsType = Array<LocalNewsModel | TunewsModel>
 
 export type NewsProps = {
   news: NewsModelsType
-  selectNews: (newsId: string | null) => void
+  navigateToNews: (newsId: string) => void
   newsId: string | null | undefined
   languageCode: string
   selectedNewsType: NewsType
@@ -28,14 +28,14 @@ const News = ({
   newsId,
   languageCode,
   selectedNewsType,
-  selectNews,
+  navigateToNews,
   refresh,
   loadingMore,
 }: NewsProps): ReactElement => {
   const { t } = useTranslation('news')
 
   const rendersNewsListItem = ({ item, index }: { item: LocalNewsModel | TunewsModel; index: number }) => {
-    const navigateToNews = () => selectNews(item.id.toString())
+    const navigateToNewsDetail = () => navigateToNews(item.id.toString())
 
     return (
       <NewsListItem
@@ -43,7 +43,7 @@ const News = ({
         key={item.id}
         newsItem={item}
         isTunews={selectedNewsType === TU_NEWS_TYPE}
-        navigateToNews={navigateToNews}
+        navigateToNews={navigateToNewsDetail}
       />
     )
   }

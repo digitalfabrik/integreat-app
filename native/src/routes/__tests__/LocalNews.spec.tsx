@@ -74,7 +74,7 @@ describe('LocalNews', () => {
   }
 
   const renderNews = ({ newsId = null }: { newsId?: string | null }) =>
-    render(<LocalNews data={data} newsId={newsId} route={route} navigation={navigation} selectNews={selectNews} />)
+    render(<LocalNews data={data} newsId={newsId} route={route} navigation={navigation} navigateToNews={selectNews} />)
   const response = { data: news, error: null, loading: false, refresh }
 
   it('should show news list', () => {
