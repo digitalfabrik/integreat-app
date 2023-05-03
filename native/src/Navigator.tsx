@@ -32,7 +32,6 @@ import {
 
 import Header from './components/Header'
 import RedirectContainer from './components/RedirectContainer'
-import SettingsHeader from './components/SettingsHeader'
 import TransparentHeader from './components/TransparentHeader'
 import { NavigationProps, RouteProps, RoutesParamsType, RoutesType } from './constants/NavigationTypes'
 import buildConfig from './constants/buildConfig'
@@ -73,9 +72,8 @@ type HeaderProps = {
 
 const transparentHeader = (headerProps: StackHeaderProps) => <TransparentHeader {...(headerProps as HeaderProps)} />
 
-const settingsHeader = (headerProps: StackHeaderProps) => <SettingsHeader {...headerProps} />
-
 const defaultHeader = (headerProps: StackHeaderProps) => <Header {...(headerProps as HeaderProps)} isHome={null} />
+const settingsHeader = (headerProps: StackHeaderProps) => <Header {...(headerProps as HeaderProps)} isHome={false} />
 
 type InitialRouteType =
   | {
@@ -194,12 +192,10 @@ const Navigator = (): ReactElement | null => {
         <Stack.Screen name={CATEGORIES_ROUTE} initialParams={{}} component={CategoriesContainer} />
         <Stack.Screen name={OFFERS_ROUTE} component={OffersContainer} />
         <Stack.Screen name={SPRUNGBRETT_OFFER_ROUTE} component={SprungbrettOfferContainer} />
-        <Stack.Screen name={EXTERNAL_OFFER_ROUTE} component={ExternalOfferContainer} />
         <Stack.Screen name={POIS_ROUTE} component={PoisContainer} />
         <Stack.Screen name={EVENTS_ROUTE} component={EventsContainer} />
         <Stack.Screen name={NEWS_ROUTE} component={NewsContainer} />
         <Stack.Screen name={DISCLAIMER_ROUTE} component={DisclaimerContainer} />
-        <Stack.Screen name={LICENSES_ROUTE} component={Licenses} />
       </Stack.Group>
 
       <Stack.Group screenOptions={{ header: transparentHeader }}>
@@ -216,6 +212,8 @@ const Navigator = (): ReactElement | null => {
 
       <Stack.Group screenOptions={{ header: settingsHeader }}>
         <Stack.Screen name={SETTINGS_ROUTE} component={Settings} />
+        <Stack.Screen name={LICENSES_ROUTE} component={Licenses} />
+        <Stack.Screen name={EXTERNAL_OFFER_ROUTE} component={ExternalOfferContainer} />
       </Stack.Group>
     </Stack.Navigator>
   )
