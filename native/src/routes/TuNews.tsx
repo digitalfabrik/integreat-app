@@ -14,10 +14,10 @@ type TuNewsProps = {
   route: RouteProps<NewsRouteType>
   navigation: NavigationProps<NewsRouteType>
   data: CityContentData
-  selectNews: (newsId: string | null) => void
+  navigateToNews: (newsId: string) => void
 }
 
-const TuNewsNews = ({ route, navigation, data, selectNews }: TuNewsProps): ReactElement => {
+const TuNewsNews = ({ route, navigation, data, navigateToNews }: TuNewsProps): ReactElement => {
   const cityCode = data.city.code
   const languageCode = data.language.code
   const {
@@ -43,7 +43,7 @@ const TuNewsNews = ({ route, navigation, data, selectNews }: TuNewsProps): React
         <News
           languageCode={languageCode}
           selectedNewsType={TU_NEWS_TYPE}
-          selectNews={selectNews}
+          navigateToNews={navigateToNews}
           news={tuNews}
           refresh={response.refresh}
           loadingMore={loadingMore}
