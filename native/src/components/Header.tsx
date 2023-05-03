@@ -72,6 +72,7 @@ type HeaderProps = {
   route: RouteProps<RoutesType>
   navigation: NavigationProps<RoutesType>
   showItems?: boolean
+  showOverflowItems?: boolean
   city?: CityModel
   languages?: LanguageModel[]
   availableLanguages?: string[]
@@ -85,6 +86,7 @@ const Header = ({
   availableLanguages,
   shareUrl,
   showItems = false,
+  showOverflowItems = true,
   city,
   languages,
   isHome,
@@ -158,16 +160,18 @@ const Header = ({
     renderItem(HeaderButtonTitle.Language, 'language', visible, goToLanguageChange),
   ]
 
-  const overflowItems = [
-    ...(shareUrl ? [renderOverflowItem(HeaderButtonTitle.Share, onShare)] : []),
-    ...(!buildConfig().featureFlags.fixedCity
-      ? [renderOverflowItem(HeaderButtonTitle.Location, () => navigation.navigate(LANDING_ROUTE))]
-      : []),
-    renderOverflowItem(HeaderButtonTitle.Settings, () => navigation.navigate(SETTINGS_ROUTE)),
-    ...(route.name !== DISCLAIMER_ROUTE
-      ? [renderOverflowItem(HeaderButtonTitle.Disclaimer, () => navigation.navigate(DISCLAIMER_ROUTE))]
-      : []),
-  ]
+  const overflowItems = showOverflowItems
+    ? [
+        ...(shareUrl ? [renderOverflowItem(HeaderButtonTitle.Share, onShare)] : []),
+        ...(!buildConfig().featureFlags.fixedCity
+          ? [renderOverflowItem(HeaderButtonTitle.Location, () => navigation.navigate(LANDING_ROUTE))]
+          : []),
+        renderOverflowItem(HeaderButtonTitle.Settings, () => navigation.navigate(SETTINGS_ROUTE)),
+        ...(route.name !== DISCLAIMER_ROUTE
+          ? [renderOverflowItem(HeaderButtonTitle.Disclaimer, () => navigation.navigate(DISCLAIMER_ROUTE))]
+          : []),
+      ]
+    : []
 
   const HeaderLeft =
     isHome !== null &&
