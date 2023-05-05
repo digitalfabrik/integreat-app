@@ -1,0 +1,7 @@
+issue_key: IGAPP-1277
+show_in_stores: true
+platforms:
+  - android
+  - ios
+en: Show hint if no translation is available
+de: Anzeigen eines Hinweises falls keine Übersetzung verfügbar ist

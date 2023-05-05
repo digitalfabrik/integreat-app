@@ -1,5 +1,5 @@
 import { HeaderBackButton } from '@react-navigation/elements'
-import React, { ReactElement, useState } from 'react'
+import React, { ReactElement, useContext, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Share, useWindowDimensions } from 'react-native'
 import { HiddenItem, Item } from 'react-navigation-header-buttons'
@@ -11,6 +11,7 @@ import { DISCLAIMER_ROUTE, SEARCH_ROUTE, SETTINGS_ROUTE } from 'api-client/src/r
 import { NavigationProps, RouteProps, RoutesParamsType, RoutesType } from '../constants/NavigationTypes'
 import buildConfig, { buildConfigAssets } from '../constants/buildConfig'
 import dimensions from '../constants/dimensions'
+import { AppContext } from '../contexts/AppContextProvider'
 import useSnackbar from '../hooks/useSnackbar'
 import navigateToLanguageChange from '../navigation/navigateToLanguageChange'
 import sendTrackingSignal from '../utils/sendTrackingSignal'
@@ -80,6 +81,7 @@ const Header = ({
   languages,
   isHome,
 }: HeaderProps): ReactElement | null => {
+  const { languageCode } = useContext(AppContext)
   const { t } = useTranslation('layout')
   const showSnackbar = useSnackbar()
   const deviceWidth = useWindowDimensions().width
@@ -132,8 +134,13 @@ const Header = ({
     <HiddenItem key={title} title={t(title)} onPress={onPress} />
   )
 
-  const goToLanguageChange = () =>
-    languages && availableLanguages && navigateToLanguageChange({ navigation, availableLanguages, languages })
+  const goToLanguageChange = () => {
+    if (availableLanguages?.length === 1 && availableLanguages[0] === languageCode) {
+      showSnackbar({ text: 'layout:noTranslation' })
+    } else if (languages && availableLanguages) {
+      navigateToLanguageChange({ navigation, availableLanguages, languages })
+    }
+  }
 
   const visible = showItems && !!goToLanguageChange
   const items = [
