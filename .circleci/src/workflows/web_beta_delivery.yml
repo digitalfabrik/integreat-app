@@ -48,11 +48,19 @@ jobs:
   - deliver_web:
       context:
         - mattermost
-        - sentry
       delivery: beta
       requires:
         - check
         - e2e_web
+        - build_integreat_web
+        - build_malte_web
+        - build_aschaffenburg_web
+        - build_obdach_web
+  - sentry_web:
+      context:
+        - mattermost
+        - sentry
+      requires:
         - build_integreat_web
         - build_malte_web
         - build_aschaffenburg_web
