@@ -1,0 +1,23 @@
+# Upload the web sourcemaps to sentry
+docker:
+  - image: cimg/node:18.14.1
+resource_class: small
+shell: /bin/bash -eo pipefail
+steps:
+  - skip_job
+  - checkout
+  - prepare_workspace
+  - restore_environment_variables
+  - run:
+      name: 'Sentry Upload: integreat'
+      command: tools/sentry-release web-integreat "${NEW_VERSION_NAME}" ~/attached_workspace/dist/integreat
+  - run:
+      name: 'Sentry Upload: malte'
+      command: tools/sentry-release web-malte "${NEW_VERSION_NAME}" ~/attached_workspace/dist/malte
+  - run:
+      name: 'Sentry Upload: aschaffenburg'
+      command: tools/sentry-release web-aschaffenburg "${NEW_VERSION_NAME}" ~/attached_workspace/dist/aschaffenburg
+  - run:
+      name: 'Sentry Upload: obdach'
+      command: tools/sentry-release web-obdach "${NEW_VERSION_NAME}" ~/attached_workspace/dist/obdach
+  - notify

@@ -66,17 +66,4 @@ steps:
         - run:
             name: Obdach webnext delivery
             command: rsync -e "ssh -o StrictHostKeyChecking=no" -arv --delete $HOME/attached_workspace/dist/obdach/ web@web.integreat-app.de:/var/www/webnext.vernetztesobdach.de
-  - unless: # Don't upload to sentry for webnext deliveries
-      condition:
-        equal: [webnext, << parameters.delivery >>]
-      steps:
-        - run:
-            name: 'Sentry Upload: integreat'
-            command: tools/sentry-release web-integreat "${NEW_VERSION_NAME}" ~/attached_workspace/dist/integreat
-        - run:
-            name: 'Sentry Upload: malte'
-            command: tools/sentry-release web-malte "${NEW_VERSION_NAME}" ~/attached_workspace/dist/malte
-        - run:
-            name: 'Sentry Upload: aschaffenburg'
-            command: tools/sentry-release web-aschaffenburg "${NEW_VERSION_NAME}" ~/attached_workspace/dist/aschaffenburg
   - notify
