@@ -5,15 +5,7 @@ import { Share, useWindowDimensions } from 'react-native'
 import { HiddenItem, Item } from 'react-navigation-header-buttons'
 import styled from 'styled-components/native'
 
-import {
-  CATEGORIES_ROUTE,
-  CityModel,
-  LANDING_ROUTE,
-  LanguageModel,
-  POIS_ROUTE,
-  PoisRouteType,
-  SHARE_SIGNAL_NAME,
-} from 'api-client'
+import { LANDING_ROUTE, LanguageModel, POIS_ROUTE, PoisRouteType, SHARE_SIGNAL_NAME } from 'api-client'
 import { DISCLAIMER_ROUTE, SEARCH_ROUTE, SETTINGS_ROUTE } from 'api-client/src/routes'
 
 import { NavigationProps, RouteProps, RoutesParamsType, RoutesType } from '../constants/NavigationTypes'
@@ -21,7 +13,6 @@ import buildConfig, { buildConfigAssets } from '../constants/buildConfig'
 import dimensions from '../constants/dimensions'
 import useSnackbar from '../hooks/useSnackbar'
 import navigateToLanguageChange from '../navigation/navigateToLanguageChange'
-import { forceNewlineAfterChar } from '../utils/forceNewLineAfterChar'
 import sendTrackingSignal from '../utils/sendTrackingSignal'
 import { reportError } from '../utils/sentry'
 import CustomHeaderButtons from './CustomHeaderButtons'
@@ -73,7 +64,6 @@ type HeaderProps = {
   navigation: NavigationProps<RoutesType>
   showItems?: boolean
   showOverflowItems?: boolean
-  city?: CityModel
   languages?: LanguageModel[]
   availableLanguages?: string[]
   shareUrl?: string
@@ -87,7 +77,6 @@ const Header = ({
   shareUrl,
   showItems = false,
   showOverflowItems = true,
-  city,
   languages,
   isHome,
 }: HeaderProps): ReactElement | null => {
@@ -125,14 +114,6 @@ const Header = ({
       showSnackbar({ text: 'generalError' })
       reportError(e)
     }
-  }
-
-  const cityDisplayName = (city: CityModel) => {
-    const cityType = city.prefix ? ` (${city.prefix})` : ''
-    const shortCityName = city.sortingName.length < deviceWidth / dimensions.headerTextSize
-    return shortCityName
-      ? `${city.sortingName}${cityType}`
-      : `${forceNewlineAfterChar(city.sortingName, '-')}${cityType}`
   }
 
   const renderItem = (title: string, iconName: string, visible: boolean, onPress?: () => void): ReactElement => (
@@ -182,22 +163,18 @@ const Header = ({
     ))
 
   const getHeaderText = (): string => {
-    if (!city) {
-      return ''
+    const currentTitle = (route.params as { title?: string } | undefined)?.title
+    if (!previousRoute) {
+      // Home/Dashboard: Show current route title, i.e. city name
+      return currentTitle ?? ''
     }
-    const cityName = cityDisplayName(city)
 
-    const previousParams = previousRoute?.params
-    const isPreviousHome = previousRoute?.name === CATEGORIES_ROUTE && !(previousParams as { path: string }).path
+    const previousParams = previousRoute.params
     const isPoisDetail = route.name === POIS_ROUTE && (route.params as RoutesParamsType[PoisRouteType]).slug
 
     // Poi details are not opened in a new route
     if (isPoisDetail) {
       return t('pois')
-    }
-
-    if (!previousRoute || isPreviousHome) {
-      return cityName
     }
 
     const previousRouteTitle = (previousParams as { title?: string } | undefined)?.title

@@ -1,4 +1,5 @@
 import React, { ReactElement, useCallback, useContext } from 'react'
+import { useWindowDimensions } from 'react-native'
 import styled from 'styled-components/native'
 
 import { CATEGORIES_ROUTE, CategoriesRouteType, cityContentPath, ErrorCode } from 'api-client'
@@ -19,6 +20,7 @@ import createNavigateToFeedbackModal from '../navigation/createNavigateToFeedbac
 import urlFromRouteInformation from '../navigation/url'
 import testID from '../testing/testID'
 import dataContainer from '../utils/DefaultDataContainer'
+import cityDisplayName from '../utils/cityDisplayName'
 import { reportError } from '../utils/sentry'
 import LoadingErrorHandler from './LoadingErrorHandler'
 
@@ -33,12 +35,14 @@ type CategoriesContainerProps = {
 
 const CategoriesContainer = ({ navigation, route }: CategoriesContainerProps): ReactElement => {
   const { cityCode, languageCode } = useCityAppContext()
+  const deviceWidth = useWindowDimensions().width
   const resourceCache = useResourceCache({ cityCode, languageCode })
   const resourceCacheUrl = useContext(StaticServerContext)
   const { navigateTo } = useNavigate()
 
   const { data, refresh, ...response } = useLoadCityContent({ cityCode, languageCode })
 
+  const homeRouteTitle = cityDisplayName(data?.city, deviceWidth)
   const path = route.params.path ?? cityContentPath({ cityCode, languageCode })
   const category = data?.categories.findCategoryByPath(path)
   const availableLanguages =
@@ -51,7 +55,7 @@ const CategoriesContainer = ({ navigation, route }: CategoriesContainerProps): R
     cityContentPath: path,
   })
   useHeader({ navigation, route, availableLanguages, data, isHome: !route.params.path, shareUrl })
-  useSetRouteTitle({ navigation, title: category?.title })
+  useSetRouteTitle({ navigation, title: category?.isRoot() ? homeRouteTitle : category?.title })
 
   const onLanguageChange = useCallback(
     (newLanguage: string) => {

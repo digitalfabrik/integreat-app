@@ -27,7 +27,6 @@ const useHeader = <T extends RoutesType>({
         <Header
           route={route}
           navigation={navigation}
-          city={data?.city}
           languages={data?.languages}
           showItems={!!data}
           availableLanguages={availableLanguages}
