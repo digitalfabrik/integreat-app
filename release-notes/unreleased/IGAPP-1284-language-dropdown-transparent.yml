@@ -1,0 +1,5 @@
+issue_key: IGAPP-1284
+show_in_stores: false
+platforms:
+  - web
+en: Fix transparent language dropdown.

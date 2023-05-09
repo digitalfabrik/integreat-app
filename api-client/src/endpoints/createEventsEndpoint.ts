@@ -118,7 +118,7 @@ export default (baseUrl: string): Endpoint<ParamsType, Array<EventModel>> =>
   new EndpointBuilder<ParamsType, Array<EventModel>>(EVENTS_ENDPOINT_NAME)
     .withParamsToUrlMapper(
       (params: ParamsType): string =>
-        `${baseUrl}/${params.city}/${params.language}/wp-json/extensions/v3/events?combine_recurring=True`
+        `${baseUrl}/${params.city}/${params.language}/wp-json/extensions/v3/events/?combine_recurring=True`
     )
     .withMapper(
       (json: Array<JsonEventType>): Array<EventModel> =>

@@ -1,0 +1,7 @@
+issue_key: IGAPP-1282
+show_in_stores: true
+platforms:
+  - android
+  - ios
+en: Fix black loading spinner
+de: Schwarzer Ladeindikator ist nun wieder transparent
