@@ -48,6 +48,7 @@ const List = styled.div<{ direction: UiDirectionType; show: boolean }>`
 const Icon = styled.img`
   z-index: 50;
   position: relative;
+  cursor: pointer;
   width: 18px;
   height: 18px;
 `

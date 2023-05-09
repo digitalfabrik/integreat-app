@@ -12,6 +12,7 @@ import KebabActionItemLink from './KebabActionItemLink'
 const Button = styled.button`
   display: flex;
   border: none;
+  cursor: pointer;
   background-color: transparent;
   flex: 1;
   padding: 0;
