@@ -22,7 +22,7 @@ import localInformationIcon from '../assets/Local_Information.svg'
 import buildConfig from '../constants/buildConfig'
 import { LOCAL_NEWS_ROUTE, RouteType, TU_NEWS_DETAIL_ROUTE, TU_NEWS_ROUTE } from '../routes'
 import Header from './Header'
-import HeaderActionBarItemLink from './HeaderActionItemLink'
+import HeaderActionItemLink from './HeaderActionItemLink'
 import HeaderNavigationItem from './HeaderNavigationItem'
 import KebabActionItemLink from './KebabActionItemLink'
 import LanguageSelector from './LanguageSelector'
@@ -58,9 +58,7 @@ const CityContentHeader = ({
 
   const { t } = useTranslation('layout')
 
-  const SearchButton = (
-    <HeaderActionBarItemLink key='search' href={searchPath} text={t('search')} iconSrc={SearchIcon} />
-  )
+  const SearchButton = <HeaderActionItemLink key='search' href={searchPath} text={t('search')} iconSrc={SearchIcon} />
 
   const actionItems = viewportSmall
     ? [SearchButton]
@@ -68,7 +66,7 @@ const CityContentHeader = ({
         SearchButton,
         ...(!buildConfig().featureFlags.fixedCity
           ? [
-              <HeaderActionBarItemLink
+              <HeaderActionItemLink
                 key='location'
                 href={landingPath}
                 text={t('changeLocation')}

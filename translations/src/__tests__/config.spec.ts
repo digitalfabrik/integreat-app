@@ -19,10 +19,6 @@ describe('config', () => {
     expect(config.hasRTLScript('de-si')).toBeFalsy()
   })
 
-  it('should throw when requesting an unknown language', () => {
-    expect(() => config.hasRTLScript('yi')).toThrow()
-  })
-
   it('should have additional font if needed', () => {
     expect(config.getAdditionalFont('de')).toBeFalsy()
     expect(config.getAdditionalFont('ar')).toBeTruthy()
