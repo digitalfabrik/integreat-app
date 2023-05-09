@@ -6,7 +6,6 @@ import { Share, Text, View } from 'react-native'
 import {
   CategoriesMapModelBuilder,
   CATEGORIES_ROUTE,
-  CityModel,
   LanguageModel,
   LanguageModelBuilder,
   SEARCH_ROUTE,
@@ -98,14 +97,12 @@ describe('Header', () => {
 
   const renderHeader = ({
     showItems = true,
-    city = cityModel,
     availableLanguages = defaultAvailableLanguages,
     languages = languageModels,
     shareUrl = defaultShareUrl,
     isHome = false,
   }: {
     showItems?: boolean
-    city?: CityModel
     languages?: LanguageModel[]
     availableLanguages?: string[]
     shareUrl?: string
@@ -119,7 +116,6 @@ describe('Header', () => {
           isHome={isHome}
           availableLanguages={availableLanguages}
           languages={languages}
-          city={city}
           shareUrl={shareUrl}
           showItems={showItems}
         />
