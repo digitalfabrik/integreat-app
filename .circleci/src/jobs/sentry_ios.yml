@@ -1,0 +1,21 @@
+# Upload the iOS sourcemaps to sentry
+docker:
+  - image: cimg/node:18.14.1
+resource_class: small
+shell: /bin/bash -eo pipefail
+steps:
+  - skip_job
+  - checkout
+  - prepare_workspace
+  - restore_environment_variables
+  # A react-native app reports its version as: bundle_identifier@bundle_version+bundle_code
+  - run:
+      name: 'Sentry Upload: integreat'
+      command: tools/sentry-release de.integreat-app "${NEW_VERSION_NAME}" ~/attached_workspace/sourcemaps/integreat --version-code "${NEW_VERSION_CODE}"
+  - run:
+      name: 'Sentry Upload: malte'
+      command: tools/sentry-release de.malteapp "${NEW_VERSION_NAME}" ~/attached_workspace/sourcemaps/malte --version-code "${NEW_VERSION_CODE}"
+  - run:
+      name: 'Sentry Upload: aschaffenburg'
+      command: tools/sentry-release app.aschaffenburg "${NEW_VERSION_NAME}" ~/attached_workspace/sourcemaps/aschaffenburg --version-code "${NEW_VERSION_CODE}"
+  - notify
