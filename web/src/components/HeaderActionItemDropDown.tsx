@@ -12,7 +12,6 @@ export const Container = styled.div`
   width: calc(0.5 * ${dimensions.headerHeightLarge}px);
   height: calc(0.5 * ${dimensions.headerHeightLarge}px);
   box-sizing: border-box;
-  opacity: 0.85;
 
   @media ${dimensions.smallViewport} {
     width: calc(0.8 * ${dimensions.headerHeightSmall}px);
@@ -35,6 +34,7 @@ export const Container = styled.div`
     object-fit: contain;
     width: 100%;
     height: 100%;
+    opacity: 0.85;
   }
 `
 

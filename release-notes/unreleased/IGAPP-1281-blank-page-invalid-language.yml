@@ -1,0 +1,5 @@
+issue_key: IGAPP-1280
+show_in_stores: false
+platforms:
+  - web
+en: Prevent blank page for invalid or unknown language codes
