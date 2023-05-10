@@ -171,10 +171,6 @@ const renderHtml = (
         overflow-wrap: break-word;
       }
 
-      h1, h2, h3, h4, h5, h6 {
-        overflow-wrap: break-word;
-      }
-
       p {
         margin: ${theme.fonts.standardParagraphMargin} 0;
         overflow: auto;
@@ -206,10 +202,6 @@ const renderHtml = (
       th,
       td {
         border: 1px solid ${theme.colors.backgroundAccentColor};
-      }
-
-      a {
-        overflow-wrap: break-word;
       }
 
       details > * {
