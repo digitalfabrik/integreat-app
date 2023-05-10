@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next'
 import { ScrollView } from 'react-native'
 import styled from 'styled-components/native'
 
-import { ErrorCode, LocalNewsModel, NewsRouteType, NewsType, TU_NEWS_TYPE, TunewsModel } from 'api-client'
+import { ErrorCode, LocalNewsModel, NewsRouteType, NewsType, replaceLinks, TU_NEWS_TYPE, TunewsModel } from 'api-client'
 
 import { NavigationProps } from '../constants/NavigationTypes'
 import { contentAlignment } from '../constants/contentDirection'
@@ -73,7 +73,11 @@ const News = ({
         <ScrollView>
           <Page
             title={selectedNewsItem.title}
-            content={selectedNewsItem.content}
+            content={
+              selectedNewsItem instanceof LocalNewsModel
+                ? replaceLinks(selectedNewsItem.content)
+                : selectedNewsItem.content
+            }
             language={languageCode}
             AfterContent={
               selectedNewsItem instanceof LocalNewsModel && (

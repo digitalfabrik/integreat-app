@@ -5,9 +5,9 @@ import { Text } from 'react-native'
 
 import {
   CityModel,
-  LanguageModelBuilder,
-  LocalNewsModel,
+ LanguageModelBuilder, LocalNewsModel,
   LocalNewsType,
+  replaceLinks,
   TU_NEWS_TYPE,
   TunewsModel,
   TuNewsType,
@@ -35,7 +35,8 @@ const news: [TunewsModel, TunewsModel] = [
     title: 'Was ist ein Verein?',
     date: moment('2020-01-20T00:00:00.000Z'),
     tags: [],
-    content: 'Ein Verein ist eine Gruppe von Menschen. Sie haben ein gemeinsames Interesse und organisieren.',
+    content:
+      'Ein Verein ist eine Gruppe von Menschen. Sie haben ein gemeinsames Interesse und organisieren. https://example.com',
     eNewsNo: 'tun0000009902',
   }),
   new TunewsModel({
@@ -46,6 +47,15 @@ const news: [TunewsModel, TunewsModel] = [
     content:
       'In summer there are often ticks in forest and meadows with high grass. These are very small animals. They feed on the blood of people or animals they sting, like mosquitoes. But they stay in the skin longer and can transmit dangerous diseases. If you have been in high grass, you should search your body very thoroughly for ticks. They like to sit in the knees, armpits or in the groin area. If you discover a tick in your skin, you should carefully pull it out with tweezers without crushing it. If the sting inflames, you must see a doctor. tünews INTERNATIONAL',
     eNewsNo: 'tun0000009902',
+  }),
+]
+
+const localNews: [LocalNewsModel] = [
+  new LocalNewsModel({
+    id: 1234,
+    timestamp: moment('2019-03-01T00:00:00.000'),
+    title: 'Local News',
+    content: 'Local news with url: https://example.com',
   }),
 ]
 
@@ -136,5 +146,25 @@ describe('News', () => {
 
     expect(getByText(news[0].title)).toBeTruthy()
     expect(getByText(news[1].title)).toBeTruthy()
+  })
+
+  it('should not add links in list', () => {
+    const { getByText } = renderNews({ data: localNews })
+    expect(getByText(localNews[0].title)).toBeTruthy()
+    expect(getByText(localNews[0].content)).toBeTruthy()
+  })
+
+  it('should not add links for tünews', () => {
+    const { getByText, queryByText } = renderNews({ data: news, newsId: news[0].id.toString() })
+    expect(getByText(news[0].title)).toBeTruthy()
+    expect(getByText(news[0].content)).toBeTruthy()
+    expect(queryByText(replaceLinks(news[0].content))).toBeFalsy()
+  })
+
+  it('should add links in local news detail', () => {
+    const { getByText, queryByText } = renderNews({ data: localNews, newsId: localNews[0].id.toString() })
+    expect(getByText(localNews[0].title)).toBeTruthy()
+    expect(queryByText(localNews[0].content)).toBeFalsy()
+    expect(queryByText(replaceLinks(localNews[0].content))).toBeTruthy()
   })
 })

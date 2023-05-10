@@ -1,6 +1,6 @@
 import { mapValues } from 'lodash'
 import { Moment } from 'moment'
-import React, { ReactElement, ReactNode, useCallback, useContext, useState } from 'react'
+import React, { ReactElement, ReactNode, useCallback, useContext, useMemo, useState } from 'react'
 import { LayoutChangeEvent, View } from 'react-native'
 import styled from 'styled-components/native'
 
@@ -64,7 +64,10 @@ const Page = ({
   const navigateToLink = useNavigateToLink()
   const formatter = useContext(DateFormatterContext)
 
-  const cacheDictionary = createCacheDictionary(resourceCache, resourceCacheUrl, path)
+  const cacheDictionary = useMemo(
+    () => createCacheDictionary(resourceCache, resourceCacheUrl, path),
+    [resourceCache, resourceCacheUrl, path]
+  )
   const onLinkPress = useCallback(
     (url: string) => {
       const shareUrl = Object.keys(cacheDictionary).find(remoteUrl => cacheDictionary[remoteUrl] === url)
