@@ -3,13 +3,21 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title><%= config.appName %></title>
+    <script type="application/ld+json">
+        {
+            "@context" : "https://schema.org",
+            "@type" : "WebSite",
+            "name" : "<%= config.appName %>",
+            "url" : "https://<%= config.hostName %>"
+        }
+    </script>
 
     <!-- Nginx Server Side Include template for dynamic social media previews -->
     <!--# if expr="$render_title = yes" -->
     <!--# include virtual="/proxy/socialmeta/$request_uri" -->
     <!--# else -->
     <!-- Default tags for a prettier social media preview, will be overwritten in Helmet.tsx for most pages. -->
-    <title><%= config.appName %></title>
     <meta name="apple-mobile-web-app-title" content="<%= config.appName %>">
     <meta property="og:title" content="<%= config.appName %>" data-react-helmet="true">
     <meta property="og:site_name" content="<%= config.hostName %>">

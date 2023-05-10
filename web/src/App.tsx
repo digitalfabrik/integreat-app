@@ -6,7 +6,6 @@ import { setJpalTrackingCode } from 'api-client'
 
 import RootSwitcher from './RootSwitcher'
 import I18nProvider from './components/I18nProvider'
-import JsonLdWebSite from './components/JsonLdWebSite'
 import buildConfig from './constants/buildConfig'
 import safeLocalStorage, { JPAL_TRACKING_CODE_KEY } from './utils/safeLocalStorage'
 import { initSentry } from './utils/sentry'
@@ -21,10 +20,6 @@ const App = (): ReactElement => {
 
   return (
     <ThemeProvider theme={buildConfig().lightTheme}>
-      {
-        // Should be present at domain-level root https://developers.google.com/search/docs/appearance/site-names#technical-guidelines
-      }
-      <JsonLdWebSite />
       <I18nProvider contentLanguage={contentLanguage}>
         <Router>
           <RootSwitcher setContentLanguage={setContentLanguage} />
