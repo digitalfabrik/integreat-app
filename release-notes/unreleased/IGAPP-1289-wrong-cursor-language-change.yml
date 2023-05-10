@@ -1,0 +1,5 @@
+issue_key: IGAPP-1289
+show_in_stores: false
+platforms:
+  - web
+en: Use correct cursor for language change in small viewports.
