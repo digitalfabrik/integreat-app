@@ -43,6 +43,7 @@ import {
   CITY_NOT_COOPERATING_ROUTE,
   CityNotCooperatingRouteType,
   LICENSES_ROUTE,
+  LicensesRouteType,
 } from 'api-client'
 
 import { FeedbackInformationType } from '../components/FeedbackContainer'
@@ -67,6 +68,11 @@ export type RoutesType =
   | PdfViewModalRouteType
   | ImageViewModalRouteType
   | FeedbackModalRouteType
+  | LicensesRouteType
+
+type RouteTitle = {
+  title?: string
+}
 
 export type RoutesParamsType = {
   [REDIRECT_ROUTE]: {
@@ -77,16 +83,16 @@ export type RoutesParamsType = {
   }
   [LANDING_ROUTE]: undefined
   [CITY_NOT_COOPERATING_ROUTE]: undefined
-  [CATEGORIES_ROUTE]: {
+  [CATEGORIES_ROUTE]: RouteTitle & {
     path?: string
   }
-  [POIS_ROUTE]: {
+  [POIS_ROUTE]: RouteTitle & {
     slug?: string
   }
-  [EVENTS_ROUTE]: {
+  [EVENTS_ROUTE]: RouteTitle & {
     slug?: string
   }
-  [NEWS_ROUTE]: {
+  [NEWS_ROUTE]: RouteTitle & {
     newsId: string | null
     newsType: NewsType
   }
