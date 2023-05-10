@@ -23,7 +23,6 @@ export type CategoriesProps = {
   navigateTo: (routeInformation: RouteInformationType) => void
   navigateToFeedback: (feedbackInformation: FeedbackInformationType) => void
   resourceCache: LanguageResourceCacheStateType
-  resourceCacheUrl: string
 }
 
 export const getCachedThumbnail = (category: CategoryModel, resourceCache: PageResourceCacheStateType): string => {
@@ -48,10 +47,8 @@ const Categories = ({
   categories,
   category,
   resourceCache,
-  resourceCacheUrl,
 }: CategoriesProps): ReactElement => {
   const children = categories.getChildren(category)
-  const categoryResourceCache = resourceCache[category.path] || {}
 
   const navigateToCategory = ({ path }: { path: string }) =>
     navigateTo({
@@ -96,10 +93,9 @@ const Categories = ({
       title={category.title}
       content={category.content}
       lastUpdate={category.lastUpdate}
-      files={categoryResourceCache}
       language={language}
       navigateToFeedback={navigateToFeedbackForCategory}
-      resourceCacheUrl={resourceCacheUrl}
+      path={category.path}
       AfterContent={children.map(it => (
         <CategoryListItem
           key={it.path}

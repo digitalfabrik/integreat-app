@@ -75,8 +75,6 @@ const News = ({
             title={selectedNewsItem.title}
             content={`<div>${selectedNewsItem.content}</div>`}
             language={languageCode}
-            files={{}}
-            resourceCacheUrl=''
             AfterContent={
               selectedNewsItem instanceof LocalNewsModel && (
                 <TimeStampContent language={languageCode}>
