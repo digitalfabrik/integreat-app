@@ -33,13 +33,13 @@ const news: [LocalNewsModel, LocalNewsModel] = [
     id: 9902,
     title: 'Local news 1',
     timestamp: moment('2020-01-20T00:00:00.000Z'),
-    message: 'Local news content 2',
+    content: 'Local news content 2',
   }),
   new LocalNewsModel({
     id: 1234,
     title: 'Local news 2',
     timestamp: moment('2020-01-20T00:00:00.000Z'),
-    message: 'Local news content 2',
+    content: 'Local news content 2',
   }),
 ]
 
@@ -101,7 +101,7 @@ describe('LocalNews', () => {
 
     const { queryByText } = renderNews({ newsId: news[0].id.toString() })
     expect(queryByText(news[0].title)).toBeTruthy()
-    expect(queryByText(news[0].message)).toBeTruthy()
+    expect(queryByText(news[0].content)).toBeTruthy()
 
     expect(queryByText(news[1].title)).toBeFalsy()
   })

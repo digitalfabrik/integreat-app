@@ -47,7 +47,7 @@ type NewsDetailProps = {
 
 const NewsDetail = ({ newsItem, language }: NewsDetailProps): ReactElement => {
   const formatter = useContext(DateFormatterContext)
-  const content = newsItem instanceof TunewsModel ? newsItem.content : replaceLinks(newsItem.message)
+  const content = newsItem instanceof TunewsModel ? newsItem.content : replaceLinks(newsItem.content)
   return (
     <View
       style={{
