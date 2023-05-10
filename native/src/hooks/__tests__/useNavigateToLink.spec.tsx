@@ -37,7 +37,9 @@ describe('useNavigateToLink', () => {
 
   const MockComponent = ({ url, shareUrl }: { url: string; shareUrl: string }) => {
     const navigateToLink = useNavigateToLink()
-    useEffect(() => navigateToLink(url, shareUrl), [navigateToLink, url, shareUrl])
+    useEffect(() => {
+      navigateToLink(url, shareUrl)
+    }, [navigateToLink, url, shareUrl])
 
     return null
   }

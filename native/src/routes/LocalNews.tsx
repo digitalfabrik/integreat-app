@@ -15,10 +15,10 @@ type LocalNewsProps = {
   navigation: NavigationProps<NewsRouteType>
   newsId: string | null
   data: CityContentData
-  selectNews: (newsId: string | null) => void
+  navigateToNews: (newsId: string) => void
 }
 
-const LocalNews = ({ route, navigation, data, newsId, selectNews }: LocalNewsProps): ReactElement => {
+const LocalNews = ({ route, navigation, data, newsId, navigateToNews }: LocalNewsProps): ReactElement => {
   const cityCode = data.city.code
   const languageCode = data.language.code
   const { data: localNews, ...response } = useLoadLocalNews({ cityCode, languageCode })
@@ -40,7 +40,7 @@ const LocalNews = ({ route, navigation, data, newsId, selectNews }: LocalNewsPro
           newsId={newsId}
           languageCode={languageCode}
           selectedNewsType={LOCAL_NEWS_TYPE}
-          selectNews={selectNews}
+          navigateToNews={navigateToNews}
           news={localNews}
           refresh={response.refresh}
         />

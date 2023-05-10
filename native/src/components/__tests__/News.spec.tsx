@@ -5,11 +5,16 @@ import { Text } from 'react-native'
 
 import { CityModel, LocalNewsModel, LocalNewsType, TU_NEWS_TYPE, TunewsModel, TuNewsType } from 'api-client'
 
+import useNavigate from '../../hooks/useNavigate'
+import createNavigationPropMock from '../../testing/createNavigationPropMock'
 import render from '../../testing/render'
 import News from '../News'
 
+import mocked = jest.mocked
+
 jest.mock('react-i18next')
 jest.mock('../../components/NativeHtml', () => ({ content }: { content: string }) => <Text>{content}</Text>)
+jest.mock('../../hooks/useNavigate')
 
 const news: [TunewsModel, TunewsModel] = [
   new TunewsModel({
@@ -36,8 +41,10 @@ describe('News', () => {
     jest.clearAllMocks()
   })
 
+  const navigation = createNavigationPropMock()
+  mocked(useNavigate).mockImplementation(() => ({ navigateTo: jest.fn(), navigation }))
   const language = 'de'
-  const selectNews = jest.fn()
+  const navigateToNews = jest.fn()
   const loadMore = jest.fn()
   const refresh = jest.fn()
 
@@ -72,7 +79,7 @@ describe('News', () => {
       aliases: null,
       boundingBox: null,
     })
-    const props = { cityModel, language, selectNews, loadMore, refresh, selectedNewsType }
+    const props = { cityModel, language, navigateToNews, loadMore, refresh, selectedNewsType }
     return render(<News {...props} news={data} newsId={newsId} loadingMore={loadingMore} languageCode='de' />)
   }
 
@@ -98,7 +105,7 @@ describe('News', () => {
     expect(getByText(news[1].content)).toBeTruthy()
 
     fireEvent.press(getByText(news[1].title))
-    expect(selectNews).toHaveBeenCalledWith(news[1].id.toString())
+    expect(navigateToNews).toHaveBeenCalledWith(news[1].id.toString())
   })
 
   it('should show currently no news', () => {

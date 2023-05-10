@@ -1,3 +1,4 @@
+import { NavigationContainer } from '@react-navigation/native'
 import { fireEvent } from '@testing-library/react-native'
 import { mocked } from 'jest-mock'
 import moment from 'moment'
@@ -15,6 +16,7 @@ import {
 } from 'api-client'
 
 import useLoadLocalNews from '../../hooks/useLoadLocalNews'
+import useNavigate from '../../hooks/useNavigate'
 import createNavigationScreenPropMock from '../../testing/createNavigationPropMock'
 import render from '../../testing/render'
 import LocalNews from '../LocalNews'
@@ -24,6 +26,7 @@ jest.mock('../../components/NativeHtml', () => ({ content }: { content: string }
 jest.mock('../../hooks/useLoadLocalNews')
 jest.mock('@react-native-community/netinfo')
 jest.mock('react-native/Libraries/EventEmitter/NativeEventEmitter')
+jest.mock('../../hooks/useNavigate')
 
 const news: [LocalNewsModel, LocalNewsModel] = [
   new LocalNewsModel({
@@ -64,6 +67,7 @@ describe('LocalNews', () => {
   const refresh = jest.fn()
 
   const navigation = createNavigationScreenPropMock<NewsRouteType>()
+  mocked(useNavigate).mockImplementation(() => ({ navigateTo: jest.fn(), navigation }))
   const route = {
     key: 'route-id-0',
     params: {
@@ -74,7 +78,11 @@ describe('LocalNews', () => {
   }
 
   const renderNews = ({ newsId = null }: { newsId?: string | null }) =>
-    render(<LocalNews data={data} newsId={newsId} route={route} navigation={navigation} selectNews={selectNews} />)
+    render(
+      <NavigationContainer>
+        <LocalNews data={data} newsId={newsId} route={route} navigation={navigation} navigateToNews={selectNews} />
+      </NavigationContainer>
+    )
   const response = { data: news, error: null, loading: false, refresh }
 
   it('should show news list', () => {
