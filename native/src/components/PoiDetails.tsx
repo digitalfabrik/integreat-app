@@ -69,7 +69,6 @@ const PoiDetails = ({ poi, feature, language }: PoiDetailsProps): ReactElement =
   const { t } = useTranslation('pois')
   const showSnackbar = useSnackbar()
 
-  // TODO IGAPP-920: this has to be removed when we get proper images from CMS
   const thumbnail = feature.properties.thumbnail?.replace('-150x150', '') ?? Placeholder
   const { address, postcode, town } = poi.location
   const { distance } = feature.properties
