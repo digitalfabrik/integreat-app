@@ -1,7 +1,9 @@
 import React, { ReactElement } from 'react'
+import styled from 'styled-components/native'
 
 import { NEWS_ROUTE, NewsRouteType, TU_NEWS_TYPE } from 'api-client'
 
+import headerImage from '../assets/tu-news-header-details-icon.svg'
 import Page from '../components/Page'
 import { NavigationProps, RouteProps } from '../constants/NavigationTypes'
 import useHeader from '../hooks/useHeader'
@@ -9,6 +11,19 @@ import { CityContentData } from '../hooks/useLoadCityContent'
 import useLoadTuNewsElement from '../hooks/useLoadTuNewsElement'
 import urlFromRouteInformation from '../navigation/url'
 import LoadingErrorHandler from './LoadingErrorHandler'
+
+const HeaderImageWrapper = styled.View`
+  width: 90%;
+  align-self: center;
+  align-items: flex-start;
+  margin-top: 19px;
+  border-radius: 5px;
+  background-color: rgba(2, 121, 166, 0.4);
+`
+const HeaderImage = styled.Image`
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+`
 
 type TuNewsProps = {
   route: RouteProps<NewsRouteType>
@@ -32,9 +47,14 @@ const TuNewsDetail = ({ route, navigation, data, newsId }: TuNewsProps): ReactEl
   useHeader({ navigation, route, availableLanguages: [languageCode], data, shareUrl })
 
   return (
-    <LoadingErrorHandler {...response}>
+    <LoadingErrorHandler {...response} scrollView>
       {tuNews && (
-        <Page title={tuNews.title} content={tuNews.content} language={languageCode} files={{}} resourceCacheUrl='' />
+        <>
+          <HeaderImageWrapper>
+            <HeaderImage source={headerImage} />
+          </HeaderImageWrapper>
+          <Page title={tuNews.title} content={tuNews.content} language={languageCode} files={{}} resourceCacheUrl='' />
+        </>
       )}
     </LoadingErrorHandler>
   )
