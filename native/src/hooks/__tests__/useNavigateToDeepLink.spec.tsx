@@ -52,7 +52,9 @@ describe('useNavigateToDeepLink', () => {
 
   const MockComponent = ({ url }: { url: string }) => {
     const navigateToDeepLink = useNavigateToDeepLink()
-    useEffect(() => navigateToDeepLink(url), [navigateToDeepLink, url])
+    useEffect(() => {
+      navigateToDeepLink(url)
+    }, [navigateToDeepLink, url])
 
     return null
   }
