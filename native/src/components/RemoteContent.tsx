@@ -33,6 +33,7 @@ type RemoteContentProps = {
   webViewWidth: number
 }
 
+// If the app crashes without an error message while using RemoteContent, consider wrapping it in a ScrollView or setting a manual height
 const RemoteContent = (props: RemoteContentProps): ReactElement | null => {
   const { onLoad, content, cacheDirectory, resourceCacheUrl, language, onLinkPress, webViewWidth } = props
   const [error, setError] = useState<string | null>(null)

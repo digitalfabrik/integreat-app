@@ -4,7 +4,6 @@ import React, { ReactElement, ReactNode, useCallback, useContext, useState } fro
 import { LayoutChangeEvent, View } from 'react-native'
 import styled from 'styled-components/native'
 
-import dimensions from '../constants/dimensions'
 import DateFormatterContext from '../contexts/DateFormatterContext'
 import useNavigateToLink from '../hooks/useNavigateToLink'
 import { PageResourceCacheEntryStateType, PageResourceCacheStateType } from '../utils/DataContainer'
@@ -16,7 +15,7 @@ import SpaceBetween from './SpaceBetween'
 import TimeStamp from './TimeStamp'
 
 const Container = styled.View`
-  margin: 0 ${dimensions.page.horizontalMargin}px 8px;
+  margin: 0 16px 8px;
 `
 export type ParsedCacheDictionaryType = Record<string, string>
 
@@ -51,7 +50,7 @@ const Page = ({
   files,
 }: PageProps): ReactElement => {
   const [loading, setLoading] = useState(true)
-  const [webViewWidth, setWebViewWidth] = useState(0)
+  const [contentWidth, setContentWidth] = useState(0)
   const navigateToLink = useNavigateToLink()
   const formatter = useContext(DateFormatterContext)
 
@@ -64,14 +63,14 @@ const Page = ({
     [cacheDict, navigateToLink]
   )
   const onLoad = useCallback(() => setLoading(false), [setLoading])
-  const measureWebViewWidth = (event: LayoutChangeEvent) => {
-    setWebViewWidth(event.nativeEvent.layout.width)
+  const measureContentWidth = (event: LayoutChangeEvent) => {
+    setContentWidth(event.nativeEvent.layout.width)
   }
 
   return (
     <SpaceBetween>
       <View>
-        <Container onLayout={measureWebViewWidth}>
+        <Container onLayout={measureContentWidth}>
           {title ? <Caption title={title} /> : null}
           {BeforeContent}
           <RemoteContent
@@ -81,7 +80,7 @@ const Page = ({
             onLoad={onLoad}
             language={language}
             resourceCacheUrl={resourceCacheUrl}
-            webViewWidth={webViewWidth}
+            webViewWidth={contentWidth}
           />
           {!loading && !!content && lastUpdate && <TimeStamp formatter={formatter} lastUpdate={lastUpdate} />}
         </Container>
