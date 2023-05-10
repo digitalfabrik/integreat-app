@@ -96,18 +96,20 @@ const Events = ({
             language={language}
             files={files}
             resourceCacheUrl={resourceCacheUrl}
-            navigateToFeedback={createNavigateToFeedback(event)}>
-            <>
-              <PageDetail
-                identifier={t('date')}
-                information={event.date.toFormattedString(formatter)}
-                language={language}
-              />
-              {event.location && (
-                <PageDetail identifier={t('address')} information={event.location.fullAddress} language={language} />
-              )}
-            </>
-          </Page>
+            navigateToFeedback={createNavigateToFeedback(event)}
+            BeforeContent={
+              <>
+                <PageDetail
+                  identifier={t('date')}
+                  information={event.date.toFormattedString(formatter)}
+                  language={language}
+                />
+                {event.location && (
+                  <PageDetail identifier={t('address')} information={event.location.fullAddress} language={language} />
+                )}
+              </>
+            }
+          />
         </LayoutedScrollView>
       )
     }

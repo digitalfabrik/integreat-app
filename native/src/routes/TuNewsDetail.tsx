@@ -2,7 +2,7 @@ import React, { ReactElement } from 'react'
 
 import { NEWS_ROUTE, NewsRouteType, TU_NEWS_TYPE } from 'api-client'
 
-import NewsDetail from '../components/NewsDetail'
+import Page from '../components/Page'
 import { NavigationProps, RouteProps } from '../constants/NavigationTypes'
 import useHeader from '../hooks/useHeader'
 import { CityContentData } from '../hooks/useLoadCityContent'
@@ -33,7 +33,9 @@ const TuNewsDetail = ({ route, navigation, data, newsId }: TuNewsProps): ReactEl
 
   return (
     <LoadingErrorHandler {...response}>
-      {tuNews && <NewsDetail newsItem={tuNews} language={languageCode} />}
+      {tuNews && (
+        <Page title={tuNews.title} content={tuNews.content} language={languageCode} files={{}} resourceCacheUrl='' />
+      )}
     </LoadingErrorHandler>
   )
 }

@@ -1,7 +1,6 @@
 import { mapValues } from 'lodash'
 import { Moment } from 'moment'
-import * as React from 'react'
-import { ReactElement, useCallback, useContext, useState } from 'react'
+import React, { ReactElement, ReactNode, useCallback, useContext, useState } from 'react'
 import styled from 'styled-components/native'
 
 import dimensions from '../constants/dimensions'
@@ -19,16 +18,6 @@ const Container = styled.View`
   margin: 0 ${dimensions.page.horizontalMargin}px 8px;
 `
 export type ParsedCacheDictionaryType = Record<string, string>
-type PageProps = {
-  title: string
-  content: string
-  navigateToFeedback?: (positive: boolean) => void
-  files: PageResourceCacheStateType
-  children?: React.ReactNode
-  language: string
-  resourceCacheUrl: string
-  lastUpdate: Moment
-}
 
 const cacheDictionary = (files: PageResourceCacheStateType, resourceCacheUrl: string): ParsedCacheDictionaryType =>
   mapValues(files, (file: PageResourceCacheEntryStateType) =>
@@ -37,19 +26,33 @@ const cacheDictionary = (files: PageResourceCacheStateType, resourceCacheUrl: st
       : file.filePath
   )
 
+type PageProps = {
+  title?: string
+  content: string
+  BeforeContent?: ReactNode
+  AfterContent?: ReactNode
+  language: string
+  lastUpdate?: Moment
+  navigateToFeedback?: (positive: boolean) => void
+  files: PageResourceCacheStateType
+  resourceCacheUrl: string
+}
+
 const Page = ({
   title,
-  children,
   content,
+  BeforeContent,
+  AfterContent,
   language,
-  resourceCacheUrl,
   lastUpdate,
   navigateToFeedback,
+  resourceCacheUrl,
   files,
 }: PageProps): ReactElement => {
   const [loading, setLoading] = useState<boolean>(true)
   const navigateToLink = useNavigateToLink()
   const formatter = useContext(DateFormatterContext)
+
   const cacheDict = cacheDictionary(files, resourceCacheUrl)
   const onLinkPress = useCallback(
     (url: string) => {
@@ -59,22 +62,26 @@ const Page = ({
     [cacheDict, navigateToLink]
   )
   const onLoad = useCallback(() => setLoading(false), [setLoading])
+
   return (
     <SpaceBetween>
       <Container>
-        <Caption title={title} />
-        {children}
-        <RemoteContent
-          content={content}
-          cacheDirectory={cacheDict}
-          onLinkPress={onLinkPress}
-          onLoad={onLoad}
-          language={language}
-          resourceCacheUrl={resourceCacheUrl}
-        />
-        {!loading && <TimeStamp formatter={formatter} lastUpdate={lastUpdate} />}
+        {title ? <Caption title={title} /> : null}
+        {BeforeContent}
+        {content ? (
+          <RemoteContent
+            content={content}
+            cacheDirectory={cacheDict}
+            onLinkPress={onLinkPress}
+            onLoad={onLoad}
+            language={language}
+            resourceCacheUrl={resourceCacheUrl}
+          />
+        ) : null}
+        {!loading && lastUpdate && <TimeStamp formatter={formatter} lastUpdate={lastUpdate} />}
       </Container>
-      {navigateToFeedback && !loading && <SiteHelpfulBox navigateToFeedback={navigateToFeedback} />}
+      {!loading && AfterContent}
+      {!loading && navigateToFeedback && <SiteHelpfulBox navigateToFeedback={navigateToFeedback} />}
     </SpaceBetween>
   )
 }
