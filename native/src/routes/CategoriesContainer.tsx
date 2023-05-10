@@ -1,4 +1,5 @@
 import React, { ReactElement, useCallback, useContext } from 'react'
+import { useWindowDimensions } from 'react-native'
 import styled from 'styled-components/native'
 
 import { CATEGORIES_ROUTE, CategoriesRouteType, cityContentPath, ErrorCode } from 'api-client'
@@ -14,10 +15,12 @@ import useLoadCityContent from '../hooks/useLoadCityContent'
 import useNavigate from '../hooks/useNavigate'
 import usePreviousProp from '../hooks/usePreviousProp'
 import useResourceCache from '../hooks/useResourceCache'
+import useSetRouteTitle from '../hooks/useSetRouteTitle'
 import createNavigateToFeedbackModal from '../navigation/createNavigateToFeedbackModal'
 import urlFromRouteInformation from '../navigation/url'
 import testID from '../testing/testID'
 import dataContainer from '../utils/DefaultDataContainer'
+import cityDisplayName from '../utils/cityDisplayName'
 import { reportError } from '../utils/sentry'
 import LoadingErrorHandler from './LoadingErrorHandler'
 
@@ -32,12 +35,14 @@ type CategoriesContainerProps = {
 
 const CategoriesContainer = ({ navigation, route }: CategoriesContainerProps): ReactElement => {
   const { cityCode, languageCode } = useCityAppContext()
+  const deviceWidth = useWindowDimensions().width
   const resourceCache = useResourceCache({ cityCode, languageCode })
   const resourceCacheUrl = useContext(StaticServerContext)
   const { navigateTo } = useNavigate()
 
   const { data, refresh, ...response } = useLoadCityContent({ cityCode, languageCode })
 
+  const homeRouteTitle = cityDisplayName(data?.city, deviceWidth)
   const path = route.params.path ?? cityContentPath({ cityCode, languageCode })
   const category = data?.categories.findCategoryByPath(path)
   const availableLanguages =
@@ -50,12 +55,12 @@ const CategoriesContainer = ({ navigation, route }: CategoriesContainerProps): R
     cityContentPath: path,
   })
   useHeader({ navigation, route, availableLanguages, data, isHome: !route.params.path, shareUrl })
+  useSetRouteTitle({ navigation, title: category?.isRoot() ? homeRouteTitle : category?.title })
 
   const onLanguageChange = useCallback(
     (newLanguage: string) => {
       if (category) {
         const newPath = category.availableLanguages.get(newLanguage)
-        // TODO IGAPP-636: Handle language not available?
         navigation.setParams({ path: newPath })
       }
     },

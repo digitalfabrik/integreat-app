@@ -569,11 +569,6 @@ jobs:
                 command: bundle exec fastlane android playstore_upload build_config_name:<< parameters.build_config_name >> apk_path:attached_workspace/<< parameters.build_config_name >>.apk production_delivery:"<< parameters.production_delivery >>" version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE}
                 name: '[FL] Play Store Upload'
                 working_directory: native
-            - run:
-                command: |
-                    eval $(yarn workspace --silent build-configs --silent manage to-bash << parameters.build_config_name >> android)
-                    tools/sentry-release "$BUILD_CONFIG_APPLICATION_ID" "${NEW_VERSION_NAME}" ~/attached_workspace/sourcemaps/<< parameters.build_config_name >> --version-code "${NEW_VERSION_CODE}"
-                name: Sentry Upload
             - notify
     deliver_ios:
         environment:
@@ -623,11 +618,6 @@ jobs:
                         command: bundle exec fastlane ios testflight_upload build_config_name:<< parameters.build_config_name >> ipa_path:attached_workspace/<< parameters.build_config_name >>.ipa
                         name: '[FL] TestFlight Upload'
                         working_directory: native
-            - run:
-                command: |
-                    eval $(yarn workspace --silent build-configs --silent manage to-bash << parameters.build_config_name >> ios)
-                    tools/sentry-release "$BUILD_CONFIG_BUNDLE_IDENTIFIER" "${NEW_VERSION_NAME}" ~/attached_workspace/sourcemaps/<< parameters.build_config_name >> --version-code "${NEW_VERSION_CODE}"
-                name: Sentry Upload
             - notify
     deliver_web:
         docker:
@@ -707,21 +697,6 @@ jobs:
                     - run:
                         command: rsync -e "ssh -o StrictHostKeyChecking=no" -arv --delete $HOME/attached_workspace/dist/obdach/ web@web.integreat-app.de:/var/www/webnext.vernetztesobdach.de
                         name: Obdach webnext delivery
-            - unless:
-                condition:
-                    equal:
-                        - webnext
-                        - << parameters.delivery >>
-                steps:
-                    - run:
-                        command: tools/sentry-release web-integreat "${NEW_VERSION_NAME}" ~/attached_workspace/dist/integreat
-                        name: 'Sentry Upload: integreat'
-                    - run:
-                        command: tools/sentry-release web-malte "${NEW_VERSION_NAME}" ~/attached_workspace/dist/malte
-                        name: 'Sentry Upload: malte'
-                    - run:
-                        command: tools/sentry-release web-aschaffenburg "${NEW_VERSION_NAME}" ~/attached_workspace/dist/aschaffenburg
-                        name: 'Sentry Upload: aschaffenburg'
             - notify
     e2e_android:
         docker:
@@ -963,6 +938,69 @@ jobs:
                 command: ssh -o StrictHostKeyChecking=no web@web.integreat-app.de "rsync -arv --delete /var/www/beta.vernetztesobdach.de/ /var/www/vernetztesobdach.de"
                 name: Obdach production promotion
             - notify
+    sentry_android:
+        docker:
+            - image: cimg/node:18.14.1
+        resource_class: small
+        shell: /bin/bash -eo pipefail
+        steps:
+            - skip_job
+            - checkout
+            - prepare_workspace
+            - restore_environment_variables
+            - run:
+                command: tools/sentry-release tuerantuer.app.integreat "${NEW_VERSION_NAME}" ~/attached_workspace/sourcemaps/integreat --version-code "${NEW_VERSION_CODE}"
+                name: 'Sentry Upload: integreat'
+            - run:
+                command: tools/sentry-release de.malteapp "${NEW_VERSION_NAME}" ~/attached_workspace/sourcemaps/malte --version-code "${NEW_VERSION_CODE}"
+                name: 'Sentry Upload: malte'
+            - run:
+                command: tools/sentry-release app.aschaffenburg "${NEW_VERSION_NAME}" ~/attached_workspace/sourcemaps/aschaffenburg --version-code "${NEW_VERSION_CODE}"
+                name: 'Sentry Upload: aschaffenburg'
+            - notify
+    sentry_ios:
+        docker:
+            - image: cimg/node:18.14.1
+        resource_class: small
+        shell: /bin/bash -eo pipefail
+        steps:
+            - skip_job
+            - checkout
+            - prepare_workspace
+            - restore_environment_variables
+            - run:
+                command: tools/sentry-release de.integreat-app "${NEW_VERSION_NAME}" ~/attached_workspace/sourcemaps/integreat --version-code "${NEW_VERSION_CODE}"
+                name: 'Sentry Upload: integreat'
+            - run:
+                command: tools/sentry-release de.malteapp "${NEW_VERSION_NAME}" ~/attached_workspace/sourcemaps/malte --version-code "${NEW_VERSION_CODE}"
+                name: 'Sentry Upload: malte'
+            - run:
+                command: tools/sentry-release app.aschaffenburg "${NEW_VERSION_NAME}" ~/attached_workspace/sourcemaps/aschaffenburg --version-code "${NEW_VERSION_CODE}"
+                name: 'Sentry Upload: aschaffenburg'
+            - notify
+    sentry_web:
+        docker:
+            - image: cimg/node:18.14.1
+        resource_class: small
+        shell: /bin/bash -eo pipefail
+        steps:
+            - skip_job
+            - checkout
+            - prepare_workspace
+            - restore_environment_variables
+            - run:
+                command: tools/sentry-release web-integreat "${NEW_VERSION_NAME}" ~/attached_workspace/dist/integreat
+                name: 'Sentry Upload: integreat'
+            - run:
+                command: tools/sentry-release web-malte "${NEW_VERSION_NAME}" ~/attached_workspace/dist/malte
+                name: 'Sentry Upload: malte'
+            - run:
+                command: tools/sentry-release web-aschaffenburg "${NEW_VERSION_NAME}" ~/attached_workspace/dist/aschaffenburg
+                name: 'Sentry Upload: aschaffenburg'
+            - run:
+                command: tools/sentry-release web-obdach "${NEW_VERSION_NAME}" ~/attached_workspace/dist/obdach
+                name: 'Sentry Upload: obdach'
+            - notify
     upload_browserstack:
         docker:
             - image: cimg/ruby:3.1.1
@@ -1189,11 +1227,19 @@ workflows:
             - deliver_web:
                 context:
                     - mattermost
-                    - sentry
                 delivery: beta
                 requires:
                     - check
                     - e2e_web
+                    - build_integreat_web
+                    - build_malte_web
+                    - build_aschaffenburg_web
+                    - build_obdach_web
+            - sentry_web:
+                context:
+                    - mattermost
+                    - sentry
+                requires:
                     - build_integreat_web
                     - build_malte_web
                     - build_aschaffenburg_web
@@ -1233,7 +1279,6 @@ workflows:
                 build_config_name: integreat
                 context:
                     - mattermost
-                    - sentry
                     - browserstack
                     - tuerantuer-google-play
                 name: deliver_integreat_android
@@ -1255,7 +1300,6 @@ workflows:
                 build_config_name: malte
                 context:
                     - mattermost
-                    - sentry
                     - browserstack
                     - tuerantuer-google-play
                 name: deliver_malte_android
@@ -1277,7 +1321,6 @@ workflows:
                 build_config_name: aschaffenburg
                 context:
                     - mattermost
-                    - sentry
                     - browserstack
                     - tuerantuer-google-play
                 name: deliver_aschaffenburg_android
@@ -1285,6 +1328,14 @@ workflows:
                 requires:
                     - check
                     - e2e_android
+                    - build_aschaffenburg_android
+            - sentry_android:
+                context:
+                    - mattermost
+                    - sentry
+                requires:
+                    - build_integreat_android
+                    - build_malte_android
                     - build_aschaffenburg_android
             - notify_android:
                 context:
@@ -1323,7 +1374,6 @@ workflows:
                 build_config_name: integreat
                 context:
                     - mattermost
-                    - sentry
                     - browserstack
                     - tuerantuer-apple
                 name: deliver_integreat_ios
@@ -1345,7 +1395,6 @@ workflows:
                 build_config_name: malte
                 context:
                     - mattermost
-                    - sentry
                     - browserstack
                     - tuerantuer-apple
                 name: deliver_malte_ios
@@ -1367,7 +1416,6 @@ workflows:
                 build_config_name: aschaffenburg
                 context:
                     - mattermost
-                    - sentry
                     - browserstack
                     - tuerantuer-apple
                 name: deliver_aschaffenburg_ios
@@ -1375,6 +1423,14 @@ workflows:
                 requires:
                     - check
                     - e2e_ios
+                    - build_aschaffenburg_ios
+            - sentry_ios:
+                context:
+                    - mattermost
+                    - sentry
+                requires:
+                    - build_integreat_ios
+                    - build_malte_ios
                     - build_aschaffenburg_ios
             - notify_ios:
                 context:
@@ -1438,7 +1494,6 @@ workflows:
                 build_config_name: integreat
                 context:
                     - mattermost
-                    - sentry
                     - browserstack
                     - tuerantuer-google-play
                 name: deliver_integreat_android
@@ -1460,7 +1515,6 @@ workflows:
                 build_config_name: malte
                 context:
                     - mattermost
-                    - sentry
                     - browserstack
                     - tuerantuer-google-play
                 name: deliver_malte_android
@@ -1482,7 +1536,6 @@ workflows:
                 build_config_name: aschaffenburg
                 context:
                     - mattermost
-                    - sentry
                     - browserstack
                     - tuerantuer-google-play
                 name: deliver_aschaffenburg_android
@@ -1490,6 +1543,14 @@ workflows:
                 requires:
                     - check
                     - e2e_android
+                    - build_aschaffenburg_android
+            - sentry_android:
+                context:
+                    - mattermost
+                    - sentry
+                requires:
+                    - build_integreat_android
+                    - build_malte_android
                     - build_aschaffenburg_android
             - notify_android:
                 context:
@@ -1528,7 +1589,6 @@ workflows:
                 build_config_name: integreat
                 context:
                     - mattermost
-                    - sentry
                     - browserstack
                     - tuerantuer-apple
                 name: deliver_integreat_ios
@@ -1550,7 +1610,6 @@ workflows:
                 build_config_name: malte
                 context:
                     - mattermost
-                    - sentry
                     - browserstack
                     - tuerantuer-apple
                     - fastlane-match
@@ -1573,7 +1632,6 @@ workflows:
                 build_config_name: aschaffenburg
                 context:
                     - mattermost
-                    - sentry
                     - browserstack
                     - tuerantuer-apple
                 name: deliver_aschaffenburg_ios
@@ -1581,6 +1639,14 @@ workflows:
                 requires:
                     - check
                     - e2e_ios
+                    - build_aschaffenburg_ios
+            - sentry_ios:
+                context:
+                    - mattermost
+                    - sentry
+                requires:
+                    - build_integreat_ios
+                    - build_malte_ios
                     - build_aschaffenburg_ios
             - notify_ios:
                 context:
@@ -1636,7 +1702,6 @@ workflows:
                 build_config_name: integreat
                 context:
                     - mattermost
-                    - sentry
                     - browserstack
                     - tuerantuer-google-play
                 name: deliver_integreat_android
@@ -1658,7 +1723,6 @@ workflows:
                 build_config_name: malte
                 context:
                     - mattermost
-                    - sentry
                     - browserstack
                     - tuerantuer-google-play
                 name: deliver_malte_android
@@ -1680,7 +1744,6 @@ workflows:
                 build_config_name: aschaffenburg
                 context:
                     - mattermost
-                    - sentry
                     - browserstack
                     - tuerantuer-google-play
                 name: deliver_aschaffenburg_android
@@ -1688,6 +1751,14 @@ workflows:
                 requires:
                     - check
                     - e2e_android
+                    - build_aschaffenburg_android
+            - sentry_android:
+                context:
+                    - mattermost
+                    - sentry
+                requires:
+                    - build_integreat_android
+                    - build_malte_android
                     - build_aschaffenburg_android
             - notify_android:
                 context:
@@ -1726,7 +1797,6 @@ workflows:
                 build_config_name: integreat
                 context:
                     - mattermost
-                    - sentry
                     - browserstack
                     - tuerantuer-apple
                 name: deliver_integreat_ios
@@ -1748,7 +1818,6 @@ workflows:
                 build_config_name: malte
                 context:
                     - mattermost
-                    - sentry
                     - browserstack
                     - tuerantuer-apple
                 name: deliver_malte_ios
@@ -1770,7 +1839,6 @@ workflows:
                 build_config_name: aschaffenburg
                 context:
                     - mattermost
-                    - sentry
                     - browserstack
                     - tuerantuer-apple
                 name: deliver_aschaffenburg_ios
@@ -1778,6 +1846,14 @@ workflows:
                 requires:
                     - check
                     - e2e_ios
+                    - build_aschaffenburg_ios
+            - sentry_ios:
+                context:
+                    - mattermost
+                    - sentry
+                requires:
+                    - build_integreat_ios
+                    - build_malte_ios
                     - build_aschaffenburg_ios
             - notify_ios:
                 context:
@@ -1886,11 +1962,19 @@ workflows:
             - deliver_web:
                 context:
                     - mattermost
-                    - sentry
                 delivery: beta
                 requires:
                     - check
                     - e2e_web
+                    - build_integreat_web
+                    - build_malte_web
+                    - build_aschaffenburg_web
+                    - build_obdach_web
+            - sentry_web:
+                context:
+                    - mattermost
+                    - sentry
+                requires:
                     - build_integreat_web
                     - build_malte_web
                     - build_aschaffenburg_web
@@ -1955,11 +2039,19 @@ workflows:
             - deliver_web:
                 context:
                     - mattermost
-                    - sentry
                 delivery: production
                 requires:
                     - check
                     - e2e_web
+                    - build_integreat_web
+                    - build_malte_web
+                    - build_aschaffenburg_web
+                    - build_obdach_web
+            - sentry_web:
+                context:
+                    - mattermost
+                    - sentry
+                requires:
                     - build_integreat_web
                     - build_malte_web
                     - build_aschaffenburg_web
