@@ -25,7 +25,7 @@ export const renderWebviewError = (
 
 type RemoteContentProps = {
   content: string
-  cacheDirectory: ParsedCacheDictionaryType
+  cacheDictionary: ParsedCacheDictionaryType
   language: string
   resourceCacheUrl: string
   onLinkPress: (url: string) => void
@@ -35,7 +35,7 @@ type RemoteContentProps = {
 
 // If the app crashes without an error message while using RemoteContent, consider wrapping it in a ScrollView or setting a manual height
 const RemoteContent = (props: RemoteContentProps): ReactElement | null => {
-  const { onLoad, content, cacheDirectory, resourceCacheUrl, language, onLinkPress, webViewWidth } = props
+  const { onLoad, content, cacheDictionary, resourceCacheUrl, language, onLinkPress, webViewWidth } = props
   const [error, setError] = useState<string | null>(null)
   const [pressedUrl, setPressedUrl] = useState<string | null>(null)
   // https://github.com/react-native-webview/react-native-webview/issues/1069#issuecomment-651699461
@@ -100,7 +100,7 @@ const RemoteContent = (props: RemoteContentProps): ReactElement | null => {
     <WebView
       source={{
         baseUrl: resourceCacheUrl,
-        html: renderHtml(content, cacheDirectory, theme, language),
+        html: renderHtml(content, cacheDictionary, theme, language),
       }}
       originWhitelist={['*']} // Needed by iOS to load the initial html
       javaScriptEnabled

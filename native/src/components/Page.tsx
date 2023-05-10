@@ -5,13 +5,16 @@ import { LayoutChangeEvent, View } from 'react-native'
 import styled from 'styled-components/native'
 
 import DateFormatterContext from '../contexts/DateFormatterContext'
+import useCityAppContext from '../hooks/useCityAppContext'
 import useNavigateToLink from '../hooks/useNavigateToLink'
-import { PageResourceCacheEntryStateType, PageResourceCacheStateType } from '../utils/DataContainer'
+import useResourceCache from '../hooks/useResourceCache'
+import { LanguageResourceCacheStateType, PageResourceCacheEntryStateType } from '../utils/DataContainer'
 import { RESOURCE_CACHE_DIR_PATH } from '../utils/DatabaseConnector'
 import Caption from './Caption'
 import RemoteContent from './RemoteContent'
 import SiteHelpfulBox from './SiteHelpfulBox'
 import SpaceBetween from './SpaceBetween'
+import { StaticServerContext } from './StaticServerProvider'
 import TimeStamp from './TimeStamp'
 
 const Container = styled.View`
@@ -19,12 +22,18 @@ const Container = styled.View`
 `
 export type ParsedCacheDictionaryType = Record<string, string>
 
-const cacheDictionary = (files: PageResourceCacheStateType, resourceCacheUrl: string): ParsedCacheDictionaryType =>
-  mapValues(files, (file: PageResourceCacheEntryStateType) =>
-    file.filePath.startsWith(RESOURCE_CACHE_DIR_PATH)
-      ? file.filePath.replace(RESOURCE_CACHE_DIR_PATH, resourceCacheUrl)
-      : file.filePath
-  )
+const createCacheDictionary = (
+  resourceCache: LanguageResourceCacheStateType,
+  resourceCacheUrl: string,
+  pagePath?: string
+): ParsedCacheDictionaryType =>
+  pagePath
+    ? mapValues(resourceCache[pagePath] || {}, (file: PageResourceCacheEntryStateType) =>
+        file.filePath.startsWith(RESOURCE_CACHE_DIR_PATH)
+          ? file.filePath.replace(RESOURCE_CACHE_DIR_PATH, resourceCacheUrl)
+          : file.filePath
+      )
+    : {}
 
 type PageProps = {
   title?: string
@@ -34,8 +43,7 @@ type PageProps = {
   language: string
   lastUpdate?: Moment
   navigateToFeedback?: (positive: boolean) => void
-  files: PageResourceCacheStateType
-  resourceCacheUrl: string
+  path?: string
 }
 
 const Page = ({
@@ -46,21 +54,23 @@ const Page = ({
   language,
   lastUpdate,
   navigateToFeedback,
-  resourceCacheUrl,
-  files,
+  path,
 }: PageProps): ReactElement => {
+  const { cityCode, languageCode } = useCityAppContext()
+  const resourceCache = useResourceCache({ cityCode, languageCode })
+  const resourceCacheUrl = useContext(StaticServerContext)
   const [loading, setLoading] = useState(true)
   const [contentWidth, setContentWidth] = useState(0)
   const navigateToLink = useNavigateToLink()
   const formatter = useContext(DateFormatterContext)
 
-  const cacheDict = cacheDictionary(files, resourceCacheUrl)
+  const cacheDictionary = createCacheDictionary(resourceCache, resourceCacheUrl, path)
   const onLinkPress = useCallback(
     (url: string) => {
-      const shareUrl = Object.keys(cacheDict).find(remoteUrl => cacheDict[remoteUrl] === url)
+      const shareUrl = Object.keys(cacheDictionary).find(remoteUrl => cacheDictionary[remoteUrl] === url)
       navigateToLink(url, shareUrl || url)
     },
-    [cacheDict, navigateToLink]
+    [cacheDictionary, navigateToLink]
   )
   const onLoad = useCallback(() => setLoading(false), [setLoading])
   const measureContentWidth = (event: LayoutChangeEvent) => {
@@ -75,7 +85,7 @@ const Page = ({
           {BeforeContent}
           <RemoteContent
             content={content}
-            cacheDirectory={cacheDict}
+            cacheDictionary={cacheDictionary}
             onLinkPress={onLinkPress}
             onLoad={onLoad}
             language={language}

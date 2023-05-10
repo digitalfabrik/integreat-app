@@ -53,7 +53,7 @@ const TuNewsDetail = ({ route, navigation, data, newsId }: TuNewsProps): ReactEl
           <HeaderImageWrapper>
             <HeaderImage source={headerImage} />
           </HeaderImageWrapper>
-          <Page title={tuNews.title} content={tuNews.content} language={languageCode} files={{}} resourceCacheUrl='' />
+          <Page title={tuNews.title} content={tuNews.content} language={languageCode} />
         </>
       )}
     </LoadingErrorHandler>
