@@ -36,7 +36,7 @@ class LocalNewsModelBuilder {
           id: 12,
           title: 'first news item',
           timestamp: moment('2017-11-18T19:30:00.000Z'),
-          message: 'This is a sample news',
+          content: 'This is a sample news',
         }),
       })
     )

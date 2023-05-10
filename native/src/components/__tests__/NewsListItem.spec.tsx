@@ -21,7 +21,7 @@ const localNews = new LocalNewsModel({
   id: 9902,
   timestamp: moment('2020-01-20T00:00:00.000Z'),
   title: 'Test Push Notification',
-  message: 'Some &quot;test text with lots of &quot;html entities&quot; which won&#39;t be displayed.',
+  content: 'Some &quot;test text with lots of &quot;html entities&quot; which won&#39;t be displayed.',
 })
 describe('NewsListItem', () => {
   const navigateToNews = jest.fn()
