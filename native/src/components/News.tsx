@@ -73,7 +73,7 @@ const News = ({
         <ScrollView>
           <Page
             title={selectedNewsItem.title}
-            content={`<div>${selectedNewsItem.content}</div>`}
+            content={selectedNewsItem.content}
             language={languageCode}
             AfterContent={
               selectedNewsItem instanceof LocalNewsModel && (
