@@ -21,7 +21,7 @@ import News from '../News'
 import mocked = jest.mocked
 
 jest.mock('react-i18next')
-jest.mock('../../components/NativeHtml', () => ({ content }: { content: string }) => <Text>{content}</Text>)
+jest.mock('../../components/Page', () => ({ content }: { content: string }) => <Text>{content}</Text>)
 jest.mock('../../hooks/useNavigate')
 
 const news: [TunewsModel, TunewsModel] = [

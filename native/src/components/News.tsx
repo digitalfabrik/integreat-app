@@ -9,8 +9,8 @@ import useSetRouteTitle from '../hooks/useSetRouteTitle'
 import Failure from './Failure'
 import List from './List'
 import LoadingSpinner from './LoadingSpinner'
-import NewsDetail from './NewsDetail'
 import NewsListItem from './NewsListItem'
+import Page from './Page'
 
 type NewsModelsType = Array<LocalNewsModel | TunewsModel>
 
@@ -57,7 +57,16 @@ const News = ({
 
   if (newsId) {
     if (selectedNewsItem) {
-      return <NewsDetail newsItem={selectedNewsItem} language={languageCode} />
+      return (
+        <Page
+          title={selectedNewsItem.title}
+          content={selectedNewsItem.content}
+          language={languageCode}
+          lastUpdate={selectedNewsItem instanceof LocalNewsModel ? selectedNewsItem.timestamp : undefined}
+          files={{}}
+          resourceCacheUrl=''
+        />
+      )
     }
     return <Failure code={ErrorCode.PageNotFound} />
   }

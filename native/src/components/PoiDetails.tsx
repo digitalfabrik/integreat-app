@@ -15,8 +15,8 @@ import useSnackbar from '../hooks/useSnackbar'
 import openExternalUrl from '../utils/openExternalUrl'
 import CollapsibleItem from './CollapsibleItem'
 import HorizontalLine from './HorizontalLine'
-import NativeHtml from './NativeHtml'
 import OpeningHours from './OpeningHours'
+import Page from './Page'
 import PoiDetailItem from './PoiDetailItem'
 import PoiDetailRow from './PoiDetailRow'
 import SimpleImage from './SimpleImage'
@@ -142,7 +142,7 @@ const PoiDetails = ({ poi, feature, language }: PoiDetailsProps): ReactElement =
         <>
           <CollapsibleItem initExpanded headerContent={t('description')} language={language}>
             <ContentWrapper>
-              <NativeHtml content={content} language={language} />
+              <Page content={content} language={language} files={{}} resourceCacheUrl='' />
             </ContentWrapper>
           </CollapsibleItem>
           <HorizontalLine />
