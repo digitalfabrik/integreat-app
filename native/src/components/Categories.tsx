@@ -92,27 +92,25 @@ const Categories = ({
   }
 
   return (
-    <SpaceBetween>
-      <Page
-        title={category.title}
-        content={category.content}
-        lastUpdate={category.lastUpdate}
-        files={categoryResourceCache}
-        language={language}
-        navigateToFeedback={navigateToFeedbackForCategory}
-        resourceCacheUrl={resourceCacheUrl}
-        AfterContent={children.map(it => (
-          <CategoryListItem
-            key={it.path}
-            category={it}
-            subCategories={categories.getChildren(it)}
-            resourceCache={resourceCache}
-            language={language}
-            onItemPress={navigateToCategory}
-          />
-        ))}
-      />
-    </SpaceBetween>
+    <Page
+      title={category.title}
+      content={category.content}
+      lastUpdate={category.lastUpdate}
+      files={categoryResourceCache}
+      language={language}
+      navigateToFeedback={navigateToFeedbackForCategory}
+      resourceCacheUrl={resourceCacheUrl}
+      AfterContent={children.map(it => (
+        <CategoryListItem
+          key={it.path}
+          category={it}
+          subCategories={categories.getChildren(it)}
+          resourceCache={resourceCache}
+          language={language}
+          onItemPress={navigateToCategory}
+        />
+      ))}
+    />
   )
 }
 

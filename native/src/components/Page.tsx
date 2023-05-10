@@ -1,6 +1,7 @@
 import { mapValues } from 'lodash'
 import { Moment } from 'moment'
 import React, { ReactElement, ReactNode, useCallback, useContext, useState } from 'react'
+import { LayoutChangeEvent, View } from 'react-native'
 import styled from 'styled-components/native'
 
 import dimensions from '../constants/dimensions'
@@ -49,7 +50,8 @@ const Page = ({
   resourceCacheUrl,
   files,
 }: PageProps): ReactElement => {
-  const [loading, setLoading] = useState<boolean>(true)
+  const [loading, setLoading] = useState(true)
+  const [webViewWidth, setWebViewWidth] = useState(0)
   const navigateToLink = useNavigateToLink()
   const formatter = useContext(DateFormatterContext)
 
@@ -62,13 +64,16 @@ const Page = ({
     [cacheDict, navigateToLink]
   )
   const onLoad = useCallback(() => setLoading(false), [setLoading])
+  const measureWebViewWidth = (event: LayoutChangeEvent) => {
+    setWebViewWidth(event.nativeEvent.layout.width)
+  }
 
   return (
     <SpaceBetween>
-      <Container>
-        {title ? <Caption title={title} /> : null}
-        {BeforeContent}
-        {content ? (
+      <View>
+        <Container onLayout={measureWebViewWidth}>
+          {title ? <Caption title={title} /> : null}
+          {BeforeContent}
           <RemoteContent
             content={content}
             cacheDirectory={cacheDict}
@@ -76,11 +81,12 @@ const Page = ({
             onLoad={onLoad}
             language={language}
             resourceCacheUrl={resourceCacheUrl}
+            webViewWidth={webViewWidth}
           />
-        ) : null}
-        {!loading && lastUpdate && <TimeStamp formatter={formatter} lastUpdate={lastUpdate} />}
-      </Container>
-      {!loading && AfterContent}
+          {!loading && !!content && lastUpdate && <TimeStamp formatter={formatter} lastUpdate={lastUpdate} />}
+        </Container>
+        {!loading && AfterContent}
+      </View>
       {!loading && navigateToFeedback && <SiteHelpfulBox navigateToFeedback={navigateToFeedback} />}
     </SpaceBetween>
   )
