@@ -3,13 +3,7 @@ import { mocked } from 'jest-mock'
 import React, { ReactElement } from 'react'
 import { Share, Text, View } from 'react-native'
 
-import {
-  CATEGORIES_ROUTE,
-  LanguageModel,
-  LanguageModelBuilder,
-  SEARCH_ROUTE,
-  SHARE_SIGNAL_NAME,
-} from 'api-client'
+import { CATEGORIES_ROUTE, LanguageModel, LanguageModelBuilder, SEARCH_ROUTE, SHARE_SIGNAL_NAME } from 'api-client'
 import CityModelBuilder from 'api-client/src/testing/CityModelBuilder'
 
 import { AppContext } from '../../contexts/AppContextProvider'
