@@ -5,14 +5,14 @@ class LocalNewsModel {
   _id: number
   _timestamp: Moment
   _title: string
-  _message: string
+  _content: string
 
-  constructor(params: { id: number; timestamp: Moment; title: string; message: string }) {
-    const { id, timestamp, title, message } = params
+  constructor(params: { id: number; timestamp: Moment; title: string; content: string }) {
+    const { id, timestamp, title, content } = params
     this._id = id
     this._timestamp = timestamp
     this._title = decodeHTML(title)
-    this._message = decodeHTML(message)
+    this._content = decodeHTML(content)
   }
 
   get timestamp(): Moment {
@@ -23,8 +23,8 @@ class LocalNewsModel {
     return this._title
   }
 
-  get message(): string {
-    return this._message
+  get content(): string {
+    return this._content
   }
 
   get id(): number {
