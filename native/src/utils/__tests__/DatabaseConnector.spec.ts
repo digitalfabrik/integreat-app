@@ -1,3 +1,4 @@
+import { waitFor } from '@testing-library/react-native'
 import moment from 'moment'
 
 import CategoriesMapModelBuilder from 'api-client/src/testing/CategoriesMapModelBuilder'
@@ -8,7 +9,13 @@ import LanguageModelBuilder from 'api-client/src/testing/LanguageModelBuilder'
 import BlobUtil from '../../__mocks__/react-native-blob-util'
 import DatabaseContext from '../../models/DatabaseContext'
 import mockDate from '../../testing/mockDate'
-import DatabaseConnector from '../DatabaseConnector'
+import DatabaseConnector, {
+  CONTENT_DIR_PATH,
+  CONTENT_VERSION,
+  RESOURCE_CACHE_DIR_PATH,
+  UNVERSIONED_CONTENT_DIR_PATH,
+  UNVERSIONED_RESOURCE_CACHE_DIR_PATH,
+} from '../DatabaseConnector'
 
 const databaseConnector = new DatabaseConnector()
 afterEach(() => {
@@ -539,6 +546,27 @@ describe('DatabaseConnector', () => {
       await BlobUtil.fs.writeFile(path, '[', 'utf8')
       await expect(databaseConnector.readFile(path)).rejects.toEqual(new SyntaxError('Unexpected end of JSON input'))
       expect(BlobUtil.fs.unlink).toHaveBeenCalledWith(path)
+    })
+  })
+
+  describe('migration routine', () => {
+    it('should delete old content dir if version is upgraded', async () => {
+      BlobUtil.fs.isDir.mockImplementation(async path => path === UNVERSIONED_CONTENT_DIR_PATH)
+      const _ = new DatabaseConnector()
+      await waitFor(() => expect(BlobUtil.fs.unlink).toHaveBeenCalledWith(UNVERSIONED_CONTENT_DIR_PATH))
+    })
+
+    it('should delete old resource cache dir if version is upgraded', async () => {
+      BlobUtil.fs.isDir.mockImplementation(async path => path === UNVERSIONED_RESOURCE_CACHE_DIR_PATH)
+      const _ = new DatabaseConnector()
+      await waitFor(() => expect(BlobUtil.fs.unlink).toHaveBeenCalledWith(UNVERSIONED_RESOURCE_CACHE_DIR_PATH))
+    })
+
+    it('should not delete current cache if new version exists', async () => {
+      BlobUtil.fs.isDir.mockImplementation(async () => true)
+      const _ = new DatabaseConnector()
+      await waitFor(() => expect(BlobUtil.fs.isDir).toHaveBeenCalledWith(RESOURCE_CACHE_DIR_PATH))
+      expect(BlobUtil.fs.unlink).not.toHaveBeenCalled()
     })
   })
 })
