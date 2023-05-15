@@ -60,7 +60,7 @@ export default {
   fs: {
     ls: jest.fn<Promise<Array<string>>, [string]>(lsMock),
     exists: jest.fn<Promise<boolean>, [string]>(existsMock),
-    isDir: jest.fn<Promise<boolean>, [string]>(existsMock),
+    isDir: jest.fn<Promise<boolean>, [string]>(async () => true),
     writeFile: jest.fn<Promise<void>, [string, string, string]>(writeMockFile),
     readFile: jest.fn<Promise<string>, [string, string]>(readMockFile),
     unlink: jest.fn<Promise<void>, [string]>(unlink),
