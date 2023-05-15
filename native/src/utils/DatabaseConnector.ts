@@ -176,9 +176,9 @@ class DatabaseConnector {
 
   async migrationRoutine(): Promise<void> {
     const contentDirExists = await BlobUtil.fs.isDir(CONTENT_DIR_PATH)
-    const baseContentDirExists = await BlobUtil.fs.exists(UNVERSIONED_CONTENT_DIR_PATH)
+    const baseContentDirExists = await BlobUtil.fs.isDir(UNVERSIONED_CONTENT_DIR_PATH)
     const resourceCacheDirExists = await BlobUtil.fs.isDir(RESOURCE_CACHE_DIR_PATH)
-    const baseResourceCacheDirExists = await BlobUtil.fs.exists(UNVERSIONED_RESOURCE_CACHE_DIR_PATH)
+    const baseResourceCacheDirExists = await BlobUtil.fs.isDir(UNVERSIONED_RESOURCE_CACHE_DIR_PATH)
 
     // Delete old content if version is upgraded (if the base dir exists but the current content doesn't, the old content is still there)
     if (!contentDirExists && baseContentDirExists) {
