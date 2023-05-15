@@ -26,15 +26,20 @@ import {
   PageResourceCacheStateType,
 } from './DataContainer'
 import { deleteIfExists } from './helpers'
-import { log } from './sentry'
+import { log, reportError } from './sentry'
 
-export const CONTENT_VERSION = 'v1'
+export const CONTENT_VERSION = 'v2'
 export const RESOURCE_CACHE_VERSION = 'v1'
 
 // Our pdf view can only load from DocumentDir. Therefore we need to use that
 export const CACHE_DIR_PATH = BlobUtil.fs.dirs.DocumentDir
-export const CONTENT_DIR_PATH = `${CACHE_DIR_PATH}/content/${CONTENT_VERSION}`
-export const RESOURCE_CACHE_DIR_PATH = `${CACHE_DIR_PATH}/resource-cache/${RESOURCE_CACHE_VERSION}`
+export const UNVERSIONED_CONTENT_DIR_PATH = `${CACHE_DIR_PATH}/content`
+// Offline saved content like categories, events and pois
+export const CONTENT_DIR_PATH = `${UNVERSIONED_CONTENT_DIR_PATH}/${CONTENT_VERSION}`
+export const UNVERSIONED_RESOURCE_CACHE_DIR_PATH = `${CACHE_DIR_PATH}/resource-cache`
+// Offline saved resources like pictures and pdf documents
+export const RESOURCE_CACHE_DIR_PATH = `${UNVERSIONED_RESOURCE_CACHE_DIR_PATH}/${RESOURCE_CACHE_VERSION}`
+
 const MAX_STORED_CITIES = 3
 
 type ContentCategoryJsonType = {
@@ -165,6 +170,26 @@ const mapToObject = (map: Map<string, string>) => {
 }
 
 class DatabaseConnector {
+  constructor() {
+    this.migrationRoutine().catch(reportError)
+  }
+
+  async migrationRoutine(): Promise<void> {
+    const contentDirExists = await BlobUtil.fs.isDir(CONTENT_DIR_PATH)
+    const baseContentDirExists = await BlobUtil.fs.exists(UNVERSIONED_CONTENT_DIR_PATH)
+    const resourceCacheDirExists = await BlobUtil.fs.isDir(RESOURCE_CACHE_DIR_PATH)
+    const baseResourceCacheDirExists = await BlobUtil.fs.exists(UNVERSIONED_RESOURCE_CACHE_DIR_PATH)
+
+    // Delete old content if version is upgraded (if the base dir exists but the current content doesn't, the old content is still there)
+    if (!contentDirExists && baseContentDirExists) {
+      await BlobUtil.fs.unlink(UNVERSIONED_CONTENT_DIR_PATH)
+    }
+
+    // Delete old resource cache if version is upgraded (if the base dir exists but the current resource cache doesn't, the old resource cache is still there)
+    if (!resourceCacheDirExists && baseResourceCacheDirExists) {
+      await BlobUtil.fs.unlink(UNVERSIONED_RESOURCE_CACHE_DIR_PATH)
+    }
+  }
   getContentPath(key: string, context: DatabaseContext): string {
     if (!key) {
       throw Error("Key mustn't be empty")
@@ -199,11 +224,9 @@ class DatabaseConnector {
     await BlobUtil.fs.unlink(CACHE_DIR_PATH)
   }
 
-  /**
-   * Prior to storing lastUpdate, there needs to be a lastUsage of the city.
-   */
   async storeLastUpdate(lastUpdate: Moment | null, context: DatabaseContext): Promise<void> {
     if (lastUpdate === null) {
+      // Prior to storing lastUpdate, there needs to be a lastUsage of the city.
       throw Error('cannot set lastUsage to null')
     }
 
