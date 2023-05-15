@@ -68,7 +68,6 @@ type HeaderProps = {
   languages?: LanguageModel[]
   availableLanguages?: string[]
   shareUrl?: string
-  isHome: boolean | null
 }
 
 const Header = ({
@@ -79,14 +78,14 @@ const Header = ({
   showItems = false,
   showOverflowItems = true,
   languages,
-  isHome,
 }: HeaderProps): ReactElement | null => {
   const { languageCode } = useContext(AppContext)
   const { t } = useTranslation('layout')
   const showSnackbar = useSnackbar()
   const deviceWidth = useWindowDimensions().width
-  // Save previous route to state to prevent it from changing during navigating which would lead to flickering of the title
+  // Save route/canGoBack to state to prevent it from changing during navigating which would lead to flickering of the title and back button
   const [previousRoute] = useState(navigation.getState().routes[navigation.getState().routes.length - 2])
+  const [canGoBack] = useState(navigation.canGoBack())
 
   const onShare = async () => {
     if (!shareUrl) {
@@ -161,13 +160,11 @@ const Header = ({
       ]
     : []
 
-  const HeaderLeft =
-    isHome !== null &&
-    (isHome ? (
-      <Icon source={buildConfigAssets().appIcon} />
-    ) : (
-      <HeaderBackButton onPress={navigation.goBack} labelVisible={false} />
-    ))
+  const HeaderLeft = canGoBack ? (
+    <HeaderBackButton onPress={navigation.goBack} labelVisible={false} />
+  ) : (
+    <Icon source={buildConfigAssets().appIcon} />
+  )
 
   const getHeaderText = (): string => {
     const currentTitle = (route.params as { title?: string } | undefined)?.title
