@@ -9,8 +9,8 @@ import buildConfig from '../constants/buildConfig'
 import sendTrackingSignal from './sendTrackingSignal'
 import { reportError } from './sentry'
 
-const openExternalUrl = async (url: string, showSnackbar: (snackbar: SnackbarType) => void): Promise<void> => {
-  const encodedUrl = encodeURI(url)
+const openExternalUrl = async (rawUrl: string, showSnackbar: (snackbar: SnackbarType) => void): Promise<void> => {
+  const encodedUrl = encodeURI(rawUrl)
   const { protocol } = new URL(encodedUrl)
 
   try {

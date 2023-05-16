@@ -80,6 +80,21 @@ describe('openExternalUrl', () => {
     })
   })
 
+  it('should encode urls before opening them', async () => {
+    const rawUrl = 'https://kein.schö.ner/Link/zum/öffnen'
+    const encodedUrl = encodeURI(rawUrl)
+    await openExternalUrl(rawUrl, showSnackbar)
+    expect(InAppBrowser.open).toHaveBeenLastCalledWith(encodedUrl, expect.anything())
+    expect(Linking.openURL).not.toHaveBeenCalled()
+    expect(showSnackbar).not.toHaveBeenCalled()
+    expect(sendTrackingSignal).toHaveBeenCalledWith({
+      signal: {
+        name: OPEN_EXTERNAL_LINK_SIGNAL_NAME,
+        url: encodedUrl,
+      },
+    })
+  })
+
   it('should show snackbar if opening url is not supported', async () => {
     const url = 'mor:erando.mstu.ff'
     mocked(Linking.canOpenURL).mockImplementation(async () => false)
