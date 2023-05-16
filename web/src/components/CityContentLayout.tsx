@@ -1,9 +1,8 @@
 import React, { ReactElement, ReactNode, useState } from 'react'
 
-import { CityModel, POIS_ROUTE, SEARCH_ROUTE } from 'api-client'
+import { CityModel, SEARCH_ROUTE } from 'api-client'
 
 import { RouteType } from '../routes'
-import ChatBotWidget from './ChatBotWidget'
 import CityContentFooter from './CityContentFooter'
 import CityContentHeader from './CityContentHeader'
 import FeedbackModal from './FeedbackModal'
@@ -78,10 +77,7 @@ const CityContentLayout = (props: CityContentLayoutProps): ReactElement => {
       }
       modal={feedbackModal}
       toolbar={toolbar}>
-      <>
-        {children}
-        {cityModel.code === 'muenchen' && route !== POIS_ROUTE && <ChatBotWidget />}
-      </>
+      {children}
     </Layout>
   )
 }
