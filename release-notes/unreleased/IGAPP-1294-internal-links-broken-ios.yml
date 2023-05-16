@@ -1,0 +1,6 @@
+issue_key: IGAPP-1294
+show_in_stores: true
+platforms:
+  - ios
+en: Issue with opening internal links on iOS devices was fixed.
+de: Ein Problem mit dem Öffnen interner Links auf iOS-Geräten wurde behoben.
