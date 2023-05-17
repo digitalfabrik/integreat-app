@@ -537,14 +537,25 @@ describe('DatabaseConnector', () => {
       const content = ['this', 'is', 'my', 'custom', { content: 'CONTENT' }]
       const path = 'my-path'
       await BlobUtil.fs.writeFile(path, JSON.stringify(content), 'utf8')
-      const readContent = await databaseConnector.readFile<typeof content>(path)
+      const readContent = await databaseConnector.readFile(path, content => content)
       expect(readContent).toEqual(content)
     })
 
     it('should delete file if json is corrupted', async () => {
       const path = 'my-path'
       await BlobUtil.fs.writeFile(path, '[', 'utf8')
-      await expect(databaseConnector.readFile(path)).rejects.toEqual(new SyntaxError('Unexpected end of JSON input'))
+      await expect(databaseConnector.readFile(path, content => content)).rejects.toEqual(
+        new SyntaxError('Unexpected end of JSON input')
+      )
+      expect(BlobUtil.fs.unlink).toHaveBeenCalledWith(path)
+    })
+
+    it('should delete file if json cannot be mapped', async () => {
+      const path = 'my-path'
+      await BlobUtil.fs.writeFile(path, `[{ "_code": "de", "_name": "Deutsch" }]`, 'utf8')
+      await expect(databaseConnector.readFile<string, string>(path, content => content.toLowerCase())).rejects.toEqual(
+        new TypeError('content.toLowerCase is not a function')
+      )
       expect(BlobUtil.fs.unlink).toHaveBeenCalledWith(path)
     })
   })

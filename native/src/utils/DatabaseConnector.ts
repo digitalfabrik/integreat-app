@@ -190,6 +190,7 @@ class DatabaseConnector {
       await BlobUtil.fs.unlink(UNVERSIONED_RESOURCE_CACHE_DIR_PATH)
     }
   }
+
   getContentPath(key: string, context: DatabaseContext): string {
     if (!key) {
       throw Error("Key mustn't be empty")
@@ -281,20 +282,21 @@ class DatabaseConnector {
       return {}
     }
 
-    const citiesMetaJson = await this.readFile<MetaCitiesJsonType>(path)
-    return mapValues(citiesMetaJson, cityMeta => ({
-      languages: mapValues(
-        cityMeta.languages,
-        ({
-          last_update: jsonLastUpdate,
-        }): {
-          lastUpdate: Moment
-        } => ({
-          lastUpdate: moment(jsonLastUpdate, moment.ISO_8601),
-        })
-      ),
-      lastUsage: moment(cityMeta.last_usage, moment.ISO_8601),
-    }))
+    const mapCitiesMetaJson = (json: MetaCitiesJsonType) =>
+      mapValues(json, cityMeta => ({
+        languages: mapValues(
+          cityMeta.languages,
+          ({
+            last_update: jsonLastUpdate,
+          }): {
+            lastUpdate: Moment
+          } => ({
+            lastUpdate: moment(jsonLastUpdate, moment.ISO_8601),
+          })
+        ),
+        lastUsage: moment(cityMeta.last_usage, moment.ISO_8601),
+      }))
+    return this.readFile(path, mapCitiesMetaJson)
   }
 
   async _storeMetaCities(metaCities: MetaCitiesType): Promise<void> {
@@ -360,41 +362,31 @@ class DatabaseConnector {
 
   async loadCategories(context: DatabaseContext): Promise<CategoriesMapModel> {
     const path = this.getContentPath('categories', context)
-    const fileExists: boolean = await BlobUtil.fs.exists(path)
-
-    if (!fileExists) {
-      throw Error(`File ${path} does not exist`)
-    }
-
-    const json = await this.readFile<ContentCategoryJsonType[]>(path)
-    return new CategoriesMapModel(
-      json.map(jsonObject => {
-        const availableLanguages = new Map<string, string>(Object.entries(jsonObject.available_languages))
-        return new CategoryModel({
-          root: jsonObject.root,
-          path: jsonObject.path,
-          title: jsonObject.title,
-          content: jsonObject.content,
-          thumbnail: jsonObject.thumbnail,
-          parentPath: jsonObject.parent_path,
-          order: jsonObject.order,
-          availableLanguages,
-          lastUpdate: moment(jsonObject.last_update, moment.ISO_8601),
+    const mapCategoriesJson = (json: ContentCategoryJsonType[]) =>
+      new CategoriesMapModel(
+        json.map(jsonObject => {
+          const availableLanguages = new Map<string, string>(Object.entries(jsonObject.available_languages))
+          return new CategoryModel({
+            root: jsonObject.root,
+            path: jsonObject.path,
+            title: jsonObject.title,
+            content: jsonObject.content,
+            thumbnail: jsonObject.thumbnail,
+            parentPath: jsonObject.parent_path,
+            order: jsonObject.order,
+            availableLanguages,
+            lastUpdate: moment(jsonObject.last_update, moment.ISO_8601),
+          })
         })
-      })
-    )
+      )
+
+    return this.readFile(path, mapCategoriesJson)
   }
 
   async loadLanguages(context: DatabaseContext): Promise<Array<LanguageModel>> {
     const path = this.getContentPath('languages', context)
-    const fileExists: boolean = await BlobUtil.fs.exists(path)
-
-    if (!fileExists) {
-      throw Error(`File ${path} does not exist`)
-    }
-
-    const languages = await this.readFile<LanguageModel[]>(path)
-    return languages.map(language => new LanguageModel(language._code, language._name))
+    const mapLanguagesJson = (json: LanguageModel[]) => json.map(json => new LanguageModel(json._code, json._name))
+    return this.readFile(path, mapLanguagesJson)
   }
 
   async storeLanguages(languages: Array<LanguageModel>, context: DatabaseContext): Promise<void> {
@@ -450,61 +442,57 @@ class DatabaseConnector {
 
   async loadPois(context: DatabaseContext): Promise<Array<PoiModel>> {
     const path = this.getContentPath('pois', context)
-    const fileExists: boolean = await BlobUtil.fs.exists(path)
-
-    if (!fileExists) {
-      throw Error(`File ${path} does not exist`)
-    }
-
-    const json = await this.readFile<ContentPoiJsonType[]>(path)
-    return json.map(jsonObject => {
-      const jsonLocation = jsonObject.location
-      const availableLanguages = new Map<string, string>(Object.entries(jsonObject.availableLanguages))
-      return new PoiModel({
-        path: jsonObject.path,
-        title: jsonObject.title,
-        content: jsonObject.content,
-        thumbnail: jsonObject.thumbnail,
-        availableLanguages,
-        metaDescription: null, // not used in native
-        excerpt: jsonObject.excerpt,
-        website: jsonObject.website,
-        phoneNumber: jsonObject.phoneNumber,
-        email: jsonObject.email,
-        location: new LocationModel({
-          id: jsonLocation.id,
-          name: jsonLocation.name,
-          country: jsonLocation.country,
-          address: jsonLocation.address,
-          latitude: jsonLocation.latitude,
-          longitude: jsonLocation.longitude,
-          postcode: jsonLocation.postcode,
-          town: jsonLocation.town,
-        }),
-        lastUpdate: moment(jsonObject.lastUpdate, moment.ISO_8601),
-        category: jsonObject.category
-          ? new PoiCategoryModel({
-              id: jsonObject.category.id,
-              name: jsonObject.category.name,
-              color: jsonObject.category.color,
-              icon: jsonObject.category.icon,
-            })
-          : null,
-        openingHours:
-          jsonObject.openingHours?.map(
-            hours =>
-              new OpeningHoursModel({
-                allDay: hours.allDay,
-                closed: hours.closed,
-                timeSlots: hours.timeSlots.map(timeslot => ({
-                  start: timeslot.start,
-                  end: timeslot.end,
-                })),
+    const mapPoisJson = (json: ContentPoiJsonType[]) =>
+      json.map(jsonObject => {
+        const jsonLocation = jsonObject.location
+        const availableLanguages = new Map<string, string>(Object.entries(jsonObject.availableLanguages))
+        return new PoiModel({
+          path: jsonObject.path,
+          title: jsonObject.title,
+          content: jsonObject.content,
+          thumbnail: jsonObject.thumbnail,
+          availableLanguages,
+          metaDescription: null, // not used in native
+          excerpt: jsonObject.excerpt,
+          website: jsonObject.website,
+          phoneNumber: jsonObject.phoneNumber,
+          email: jsonObject.email,
+          location: new LocationModel({
+            id: jsonLocation.id,
+            name: jsonLocation.name,
+            country: jsonLocation.country,
+            address: jsonLocation.address,
+            latitude: jsonLocation.latitude,
+            longitude: jsonLocation.longitude,
+            postcode: jsonLocation.postcode,
+            town: jsonLocation.town,
+          }),
+          lastUpdate: moment(jsonObject.lastUpdate, moment.ISO_8601),
+          category: jsonObject.category
+            ? new PoiCategoryModel({
+                id: jsonObject.category.id,
+                name: jsonObject.category.name,
+                color: jsonObject.category.color,
+                icon: jsonObject.category.icon,
               })
-          ) ?? null,
-        temporarilyClosed: jsonObject.temporarilyClosed,
+            : null,
+          openingHours:
+            jsonObject.openingHours?.map(
+              hours =>
+                new OpeningHoursModel({
+                  allDay: hours.allDay,
+                  closed: hours.closed,
+                  timeSlots: hours.timeSlots.map(timeslot => ({
+                    start: timeslot.start,
+                    end: timeslot.end,
+                  })),
+                })
+            ) ?? null,
+          temporarilyClosed: jsonObject.temporarilyClosed,
+        })
       })
-    })
+
+    return this.readFile(path, mapPoisJson)
   }
 
   async storeCities(cities: Array<CityModel>): Promise<void> {
@@ -531,32 +519,28 @@ class DatabaseConnector {
 
   async loadCities(): Promise<Array<CityModel>> {
     const path = this.getCitiesPath()
-    const fileExists: boolean = await BlobUtil.fs.exists(path)
+    const mapCityJson = (json: ContentCityJsonType[]) =>
+      json.map(
+        jsonObject =>
+          new CityModel({
+            name: jsonObject.name,
+            code: jsonObject.code,
+            live: jsonObject.live,
+            eventsEnabled: jsonObject.events_enabled,
+            localNewsEnabled: jsonObject.pushNotificationsEnabled,
+            tunewsEnabled: jsonObject.tunewsEnabled,
+            offersEnabled: jsonObject.extras_enabled,
+            poisEnabled: jsonObject.pois_enabled,
+            sortingName: jsonObject.sorting_name,
+            prefix: jsonObject.prefix,
+            longitude: jsonObject.longitude,
+            latitude: jsonObject.latitude,
+            aliases: jsonObject.aliases,
+            boundingBox: jsonObject.bounding_box ?? null,
+          })
+      )
 
-    if (!fileExists) {
-      throw Error(`File ${path} does not exist`)
-    }
-
-    const json = await this.readFile<ContentCityJsonType[]>(path)
-    return json.map(
-      jsonObject =>
-        new CityModel({
-          name: jsonObject.name,
-          code: jsonObject.code,
-          live: jsonObject.live,
-          eventsEnabled: jsonObject.events_enabled,
-          localNewsEnabled: jsonObject.pushNotificationsEnabled,
-          tunewsEnabled: jsonObject.tunewsEnabled,
-          offersEnabled: jsonObject.extras_enabled,
-          poisEnabled: jsonObject.pois_enabled,
-          sortingName: jsonObject.sorting_name,
-          prefix: jsonObject.prefix,
-          longitude: jsonObject.longitude,
-          latitude: jsonObject.latitude,
-          aliases: jsonObject.aliases,
-          boundingBox: jsonObject.bounding_box ?? null,
-        })
-    )
+    return this.readFile(path, mapCityJson)
   }
 
   async storeEvents(events: Array<EventModel>, context: DatabaseContext): Promise<void> {
@@ -602,52 +586,48 @@ class DatabaseConnector {
 
   async loadEvents(context: DatabaseContext): Promise<Array<EventModel>> {
     const path = this.getContentPath('events', context)
-    const fileExists: boolean = await BlobUtil.fs.exists(path)
-
-    if (!fileExists) {
-      throw Error(`File ${path} does not exist`)
-    }
-
-    const json = await this.readFile<ContentEventJsonType[]>(path)
-    return json.map(jsonObject => {
-      const jsonDate = jsonObject.date
-      const availableLanguages = new Map<string, string>(Object.entries(jsonObject.available_languages))
-      return new EventModel({
-        path: jsonObject.path,
-        title: jsonObject.title,
-        content: jsonObject.content,
-        thumbnail: jsonObject.thumbnail,
-        featuredImage: jsonObject.featured_image
-          ? new FeaturedImageModel({
-              description: jsonObject.featured_image.description,
-              thumbnail: jsonObject.featured_image.thumbnail,
-              medium: jsonObject.featured_image.medium,
-              large: jsonObject.featured_image.large,
-              full: jsonObject.featured_image.full,
-            })
-          : null,
-        availableLanguages,
-        lastUpdate: moment(jsonObject.last_update, moment.ISO_8601),
-        excerpt: jsonObject.excerpt,
-        date: new DateModel({
-          startDate: moment(jsonDate.start_date, moment.ISO_8601),
-          endDate: moment(jsonDate.end_date, moment.ISO_8601),
-          allDay: jsonDate.all_day,
-        }),
-        location: jsonObject.location?.id
-          ? new LocationModel({
-              id: jsonObject.location.id,
-              name: jsonObject.location.name,
-              country: jsonObject.location.country,
-              address: jsonObject.location.address,
-              latitude: jsonObject.location.latitude,
-              longitude: jsonObject.location.longitude,
-              postcode: jsonObject.location.postcode,
-              town: jsonObject.location.town,
-            })
-          : null,
+    const mapEventsJson = (json: ContentEventJsonType[]) =>
+      json.map(jsonObject => {
+        const jsonDate = jsonObject.date
+        const availableLanguages = new Map<string, string>(Object.entries(jsonObject.available_languages))
+        return new EventModel({
+          path: jsonObject.path,
+          title: jsonObject.title,
+          content: jsonObject.content,
+          thumbnail: jsonObject.thumbnail,
+          featuredImage: jsonObject.featured_image
+            ? new FeaturedImageModel({
+                description: jsonObject.featured_image.description,
+                thumbnail: jsonObject.featured_image.thumbnail,
+                medium: jsonObject.featured_image.medium,
+                large: jsonObject.featured_image.large,
+                full: jsonObject.featured_image.full,
+              })
+            : null,
+          availableLanguages,
+          lastUpdate: moment(jsonObject.last_update, moment.ISO_8601),
+          excerpt: jsonObject.excerpt,
+          date: new DateModel({
+            startDate: moment(jsonDate.start_date, moment.ISO_8601),
+            endDate: moment(jsonDate.end_date, moment.ISO_8601),
+            allDay: jsonDate.all_day,
+          }),
+          location: jsonObject.location?.id
+            ? new LocationModel({
+                id: jsonObject.location.id,
+                name: jsonObject.location.name,
+                country: jsonObject.location.country,
+                address: jsonObject.location.address,
+                latitude: jsonObject.location.latitude,
+                longitude: jsonObject.location.longitude,
+                postcode: jsonObject.location.postcode,
+                town: jsonObject.location.town,
+              })
+            : null,
+        })
       })
-    })
+
+    return this.readFile(path, mapEventsJson)
   }
 
   async loadResourceCache(context: DatabaseContext): Promise<CityResourceCacheStateType> {
@@ -658,19 +638,20 @@ class DatabaseConnector {
       return {}
     }
 
-    const json = await this.readFile<CityResourceCacheJsonType>(path)
-    return mapValues(json, languageResourceCache =>
-      mapValues(languageResourceCache, (fileResourceCache: PageResourceCacheJsonType) =>
-        mapValues(
-          fileResourceCache,
-          (entry: PageResourceCacheEntryJsonType): PageResourceCacheEntryStateType => ({
-            filePath: entry.file_path,
-            lastUpdate: moment(entry.last_update, moment.ISO_8601),
-            hash: entry.hash,
-          })
+    const mapResourceCacheJson = (json: CityResourceCacheJsonType) =>
+      mapValues(json, languageResourceCache =>
+        mapValues(languageResourceCache, (fileResourceCache: PageResourceCacheJsonType) =>
+          mapValues(
+            fileResourceCache,
+            (entry: PageResourceCacheEntryJsonType): PageResourceCacheEntryStateType => ({
+              filePath: entry.file_path,
+              lastUpdate: moment(entry.last_update, moment.ISO_8601),
+              hash: entry.hash,
+            })
+          )
         )
       )
-    )
+    return this.readFile(path, mapResourceCacheJson)
   }
 
   async storeResourceCache(resourceCache: CityResourceCacheStateType, context: DatabaseContext): Promise<void> {
@@ -749,21 +730,29 @@ class DatabaseConnector {
     return BlobUtil.fs.exists(path)
   }
 
-  async readFile<T>(path: string, isRetry = false): Promise<T> {
-    const jsonString: number[] | string = await BlobUtil.fs.readFile(path, 'utf8')
+  async readFile<R, T>(path: string, mapJson: (json: R) => T, isRetry = false): Promise<T> {
+    const jsonString = await BlobUtil.fs.readFile(path, 'utf8')
+    const fileExists = await BlobUtil.fs.exists(path)
+
+    if (!fileExists) {
+      throw Error(`File ${path} does not exist`)
+    }
 
     try {
-      if (typeof jsonString !== 'string') {
-        throw new Error('readFile did not return a string')
-      }
-
-      return JSON.parse(jsonString)
+      const json: R = JSON.parse(jsonString)
+      return mapJson(json)
     } catch (e) {
       if (!isRetry) {
-        log(`An error occurred while trying to parse json '${jsonString}' from path '${path}', retrying.`, 'warning')
-        return this.readFile(path, true)
+        log(
+          `An error occurred while trying to parse or map json '${jsonString}' from path '${path}', retrying.`,
+          'warning'
+        )
+        return this.readFile(path, mapJson, true)
       }
-      log(`An error occurred while trying to parse json '${jsonString}' from path '${path}'`, 'warning')
+      log(
+        `An error occurred while trying to parse or map json '${jsonString}' from path '${path}', deleting file.`,
+        'warning'
+      )
       await deleteIfExists(path)
       throw e
     }
