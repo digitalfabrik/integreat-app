@@ -10,6 +10,7 @@ import Heading from '../components/Heading'
 import { NavigationProps } from '../constants/NavigationTypes'
 import { AppContext } from '../contexts/AppContextProvider'
 import useLoadCities from '../hooks/useLoadCities'
+import useSnackbar from '../hooks/useSnackbar'
 import testID from '../testing/testID'
 import dataContainer from '../utils/DefaultDataContainer'
 import { reportError } from '../utils/sentry'
@@ -27,7 +28,8 @@ type LandingProps = {
 }
 
 const Landing = ({ navigation }: LandingProps): ReactElement => {
-  const { data: cities, refresh, ...response } = useLoadCities()
+  const showSnackbar = useSnackbar()
+  const { data: cities, refresh, ...response } = useLoadCities({ showSnackbar })
   const { changeCityCode } = useContext(AppContext)
 
   const navigateToDashboard = (city: CityModel) => {

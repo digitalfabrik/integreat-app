@@ -88,7 +88,9 @@ type InitialRouteType =
 const Stack = createStackNavigator<RoutesParamsType>()
 
 const Navigator = (): ReactElement | null => {
+  const showSnackbar = useSnackbar()
   const { cityCode } = useContext(AppContext)
+  const navigation = useNavigation<NavigationProps<RoutesType>>()
   const [waitingForSettings, setWaitingForSettings] = useState<boolean>(true)
   const [errorMessage, setErrorMessage] = useState<string | null | undefined>(null)
   const [initialRoute, setInitialRoute] = useState<InitialRouteType>({
@@ -96,10 +98,7 @@ const Navigator = (): ReactElement | null => {
   })
 
   // Preload cities
-  useLoadCities()
-
-  const showSnackbar = useSnackbar()
-  const navigation = useNavigation<NavigationProps<RoutesType>>()
+  useLoadCities({ showSnackbar })
 
   useForegroundPushNotificationListener({ showSnackbar, navigate: navigation.navigate })
 
