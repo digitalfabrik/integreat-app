@@ -9,8 +9,9 @@ import buildConfig from '../constants/buildConfig'
 import sendTrackingSignal from './sendTrackingSignal'
 import { reportError } from './sentry'
 
-const openExternalUrl = async (url: string, showSnackbar: (snackbar: SnackbarType) => void): Promise<void> => {
-  const { protocol } = new URL(url)
+const openExternalUrl = async (rawUrl: string, showSnackbar: (snackbar: SnackbarType) => void): Promise<void> => {
+  const encodedUrl = encodeURI(rawUrl)
+  const { protocol } = new URL(encodedUrl)
 
   try {
     // Custom tabs are not available in all browsers and support only http and https
@@ -18,24 +19,24 @@ const openExternalUrl = async (url: string, showSnackbar: (snackbar: SnackbarTyp
       sendTrackingSignal({
         signal: {
           name: OPEN_EXTERNAL_LINK_SIGNAL_NAME,
-          url,
+          url: encodedUrl,
         },
       })
       InAppBrowser.close()
-      await InAppBrowser.open(url, {
+      await InAppBrowser.open(encodedUrl, {
         toolbarColor: buildConfig().lightTheme.colors.themeColor,
       })
     } else {
-      const canOpen = await Linking.canOpenURL(url)
+      const canOpen = await Linking.canOpenURL(encodedUrl)
 
       if (canOpen) {
         sendTrackingSignal({
           signal: {
             name: OPEN_OS_LINK_SIGNAL_NAME,
-            url,
+            url: encodedUrl,
           },
         })
-        await Linking.openURL(url)
+        await Linking.openURL(encodedUrl)
       } else {
         showSnackbar({ text: 'noSuitableAppInstalled' })
       }
