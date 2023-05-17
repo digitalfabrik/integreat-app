@@ -731,12 +731,13 @@ class DatabaseConnector {
   }
 
   async readFile<R, T>(path: string, mapJson: (json: R) => T, isRetry = false): Promise<T> {
-    const jsonString = await BlobUtil.fs.readFile(path, 'utf8')
     const fileExists = await BlobUtil.fs.exists(path)
 
     if (!fileExists) {
       throw Error(`File ${path} does not exist`)
     }
+
+    const jsonString = await BlobUtil.fs.readFile(path, 'utf8')
 
     try {
       const json: R = JSON.parse(jsonString)
