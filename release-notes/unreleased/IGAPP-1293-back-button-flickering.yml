@@ -1,0 +1,7 @@
+issue_key: IGAPP-1293
+show_in_stores: true
+platforms:
+  - android
+  - ios
+en: The back button does not flicker anymore while navigating to news.
+de: Der Zurück-Button flackert nicht mehr beim Navigieren zu den Nachrichten.
