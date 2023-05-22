@@ -1,4 +1,5 @@
 import { decodeHTML } from 'entities'
+import { mapValues } from 'lodash'
 import moment from 'moment-timezone'
 import { RRule, rrulestr } from 'rrule'
 
@@ -103,9 +104,15 @@ const createRecurringEvents = (event: JsonEventType): JsonEventType[] => {
   const today = moment().toDate()
   const lastValidDay = moment().add(MAX_FUTURE_EVENT_IN_MONTHS, 'months').toDate()
 
+  const appendDate = (path: string, date: Date) => `${removeTrailingSlash(path)}$${dateToString(date)}`
+
   const events: JsonEventType[] = rrule.between(today, lastValidDay).map(date => ({
     ...event,
-    path: `${removeTrailingSlash(event.path)}$${dateToString(date)}`,
+    path: appendDate(event.path, date),
+    available_languages: mapValues(event.available_languages, value => ({
+      ...value,
+      path: appendDate(value.path, date),
+    })),
     event: {
       ...event.event,
       start_date: dateToString(date),
