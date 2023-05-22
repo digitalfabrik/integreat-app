@@ -31,11 +31,9 @@ const Landing = ({ navigation }: LandingProps): ReactElement => {
   const { changeCityCode } = useContext(AppContext)
 
   useEffect(() => {
-    if (navigation.canGoBack()) {
-      // Update the available cities if navigating to the landing page
-      refresh()
-    }
-  }, [navigation, refresh])
+    // The cities are otherwise only updated by pull to refresh
+    refresh()
+  }, [refresh])
 
   const navigateToDashboard = (city: CityModel) => {
     changeCityCode(city.code)
