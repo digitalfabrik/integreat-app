@@ -10,6 +10,7 @@ import useLoadCityContent from '../hooks/useLoadCityContent'
 import useNavigate from '../hooks/useNavigate'
 import usePreviousProp from '../hooks/usePreviousProp'
 import useResourceCache from '../hooks/useResourceCache'
+import useSetRouteTitle from '../hooks/useSetRouteTitle'
 import createNavigateToFeedbackModal from '../navigation/createNavigateToFeedbackModal'
 import urlFromRouteInformation from '../navigation/url'
 import Events from './Events'
@@ -41,12 +42,12 @@ const EventsContainer = ({ navigation, route }: EventsContainerProps): ReactElem
     slug,
   })
   useHeader({ navigation, route, availableLanguages, data, shareUrl })
+  useSetRouteTitle({ navigation, title: currentEvent?.title })
 
   const onLanguageChange = useCallback(
     (newLanguage: string) => {
       if (currentEvent) {
         const newSlug = currentEvent.availableLanguageSlugs[newLanguage]
-        // TODO IGAPP-636: Handle language not available?
         navigation.setParams({ slug: newSlug })
       }
     },

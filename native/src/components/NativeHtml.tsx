@@ -7,7 +7,7 @@ import { useTheme } from 'styled-components'
 import { config } from 'translations'
 
 import ExternalIcon from '../assets/ExternalLink.svg'
-import { contentAlignment } from '../constants/contentDirection'
+import { contentAlignmentRTLText } from '../constants/contentDirection'
 import useNavigateToLink from '../hooks/useNavigateToLink'
 import { getErrorMessage } from '../utils/helpers'
 import { log, reportError } from '../utils/sentry'
@@ -62,6 +62,9 @@ const NativeHtml = React.memo(({ content, cacheDictionary, language }: NativeHtm
   )
 
   const fonts = theme.fonts.native.webviewFont.split(', ')
+  // rn-render-html renders fonts with rem units smaller than normal, and doesn't support calc()
+  const factorForRenderHtmlPackage = 1.1
+  const fontSize = `${parseFloat(theme.fonts.contentFontSize.slice(0, -'rem'.length)) * factorForRenderHtmlPackage}rem`
 
   const addExternalLinkMarkers = (text: string): string => {
     const externalAnchor = /<a.*class="link-external".*?(?=<\/a>)/g // ends before </a>
@@ -94,12 +97,12 @@ const NativeHtml = React.memo(({ content, cacheDictionary, language }: NativeHtm
         ul: { enableExperimentalRtl: true },
       }}
       baseStyle={{
-        fontSize: theme.fonts.contentFontSize,
-        letterSpacing: 0.5,
+        fontSize,
         lineHeight: 24,
         color: theme.colors.textColor,
-        textAlign: contentAlignment(language),
+        textAlign: contentAlignmentRTLText(content),
         direction: config.hasRTLScript(language) ? 'rtl' : 'ltr',
+        fontFamily: theme.fonts.native.webviewFont,
       }}
       customHTMLElementModels={{
         svg: defaultHTMLElementModels.svg.extend({

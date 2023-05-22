@@ -78,19 +78,19 @@ const LinkContainer = styled.div`
 
 type PoiListItemProps = {
   poi: PoiFeature
-  selectFeature: (feature: PoiFeature | null) => void
+  selectFeature: (feature: PoiFeature | null, restoreScrollPosition: boolean) => void
 }
 
 const PoiListItem = ({ poi, selectFeature }: PoiListItemProps): ReactElement => {
   const { t } = useTranslation('pois')
-  const { thumbnail, title, distance, category } = poi.properties
+  const { thumbnail, title, distance, category, slug } = poi.properties
 
   const onClickItem = () => {
-    selectFeature(poi)
+    selectFeature(poi, true)
   }
 
   return (
-    <ListItemContainer>
+    <ListItemContainer id={slug}>
       <LinkContainer onClick={onClickItem} role='button' tabIndex={0} onKeyPress={onClickItem} aria-label={title}>
         <Thumbnail alt='' src={thumbnail || PoiPlaceholder} />
         <Description>

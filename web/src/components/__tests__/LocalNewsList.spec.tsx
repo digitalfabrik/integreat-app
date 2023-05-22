@@ -13,10 +13,10 @@ describe('LocalNewsList', () => {
   const t = (key: string) => key
   const city = 'testcity'
 
-  const renderItem = ({ id, title, message, timestamp }: LocalNewsModel) => (
+  const renderItem = ({ id, title, content, timestamp }: LocalNewsModel) => (
     <NewsListItem
       title={title}
-      content={message}
+      content={content}
       timestamp={timestamp}
       type={LOCAL_NEWS_TYPE}
       key={id}
@@ -30,14 +30,14 @@ describe('LocalNewsList', () => {
     id: 217,
     title: 'Important',
     timestamp: date,
-    message: 'This is a very important message from your favourite city!',
+    content: 'This is a very important content from your favourite city!',
   })
 
   const localNews2 = new LocalNewsModel({
     id: 218,
     title: 'Love :)',
     timestamp: date,
-    message: 'I am a random local news content content and I like it!!!!!!!!!',
+    content: 'I am a random local news content content and I like it!!!!!!!!!',
   })
 
   const items = [localNews1, localNews2]

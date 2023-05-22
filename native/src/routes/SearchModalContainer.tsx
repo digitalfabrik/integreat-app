@@ -30,7 +30,7 @@ const SearchModalContainer = ({ navigation }: SearchModalContainerProps): ReactE
           navigateTo={navigateTo}
           closeModal={navigation.goBack}
           categories={data.categories}
-          language={languageCode}
+          languageCode={languageCode}
           theme={theme}
           t={t}
         />

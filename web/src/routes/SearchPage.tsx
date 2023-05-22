@@ -1,6 +1,7 @@
 import React, { ReactElement, useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useLocation, useNavigate } from 'react-router-dom'
+import styled from 'styled-components'
 
 import {
   createCategoriesEndpoint,
@@ -11,7 +12,6 @@ import {
 } from 'api-client'
 
 import { CityRouteProps } from '../CityContentSwitcher'
-import CategoryList from '../components/CategoryList'
 import CityContentLayout from '../components/CityContentLayout'
 import Failure from '../components/Failure'
 import FailureSwitcher from '../components/FailureSwitcher'
@@ -19,8 +19,17 @@ import FeedbackSearch from '../components/FeedbackSearch'
 import Helmet from '../components/Helmet'
 import LoadingSpinner from '../components/LoadingSpinner'
 import SearchInput from '../components/SearchInput'
+import SearchListItem from '../components/SearchListItem'
+import { helpers } from '../constants/theme'
 import { cmsApiBaseUrl } from '../constants/urls'
 import useWindowDimensions from '../hooks/useWindowDimensions'
+
+const List = styled.ul`
+  list-style-type: none;
+  & a {
+    ${helpers.removeLinkHighlighting}
+  }
+`
 
 const SearchPage = ({ cityModel, languages, cityCode, languageCode, pathname }: CityRouteProps): ReactElement => {
   const query = new URLSearchParams(useLocation().search).get('query') ?? ''
@@ -37,10 +46,7 @@ const SearchPage = ({ cityModel, languages, cityCode, languageCode, pathname }: 
     city: cityCode,
     language: languageCode,
   })
-  const searchResults = useMemo(
-    () => (categories ? searchCategories(categories, query).map(it => ({ ...it, subCategories: [] })) : null),
-    [categories, query]
-  )
+  const searchResults = useMemo(() => (categories ? searchCategories(categories, query) : null), [categories, query])
 
   const languageChangePaths = languages.map(({ code, name }) => ({
     path: pathnameFromRouteInformation({ route: SEARCH_ROUTE, cityCode, languageCode: code }),
@@ -91,7 +97,16 @@ const SearchPage = ({ cityModel, languages, cityCode, languageCode, pathname }: 
         onFilterTextChange={handleFilterTextChanged}
         spaceSearch
       />
-      <CategoryList items={searchResults} query={filterText} onInternalLinkClick={navigate} />
+      <List>
+        {searchResults.map(({ category, contentWithoutHtml }) => (
+          <SearchListItem
+            key={category.path}
+            query={query}
+            category={category}
+            contentWithoutHtml={contentWithoutHtml}
+          />
+        ))}
+      </List>
       {searchResults.length === 0 && <Failure errorMessage='nothingFound' t={t} />}
       <FeedbackSearch
         cityCode={cityCode}

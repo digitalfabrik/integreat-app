@@ -46,6 +46,7 @@ const ProgressSpinner = ({ progress }: ProgressSpinnerProps): ReactElement => {
           <Image width={logoSize} height={logoSize} xlinkHref={buildConfigAssets().loadingImage} />
         </G>
         <Circle
+          fill='none'
           stroke={theme.colors.themeColor}
           strokeDasharray={circumference}
           strokeDashoffset={circumference - progress * circumference}

@@ -3,16 +3,10 @@ import { mocked } from 'jest-mock'
 import React, { ReactElement } from 'react'
 import { Share, Text, View } from 'react-native'
 
-import {
-  CATEGORIES_ROUTE,
-  CityModel,
-  LanguageModel,
-  LanguageModelBuilder,
-  SEARCH_ROUTE,
-  SHARE_SIGNAL_NAME,
-} from 'api-client'
+import { CATEGORIES_ROUTE, LanguageModel, LanguageModelBuilder, SEARCH_ROUTE, SHARE_SIGNAL_NAME } from 'api-client'
 import CityModelBuilder from 'api-client/src/testing/CityModelBuilder'
 
+import { AppContext } from '../../contexts/AppContextProvider'
 import useSnackbar from '../../hooks/useSnackbar'
 import navigateToLanguageChange from '../../navigation/navigateToLanguageChange'
 import createNavigationMock from '../../testing/createNavigationPropMock'
@@ -27,7 +21,7 @@ jest.mock('react-navigation-header-buttons', () => ({
   HiddenItem: ({ title }: { title: string }) => <Text>hidden: {title}</Text>,
 }))
 jest.mock(
-  '../MaterialHeaderButtons',
+  '../CustomHeaderButtons',
   () =>
     ({ items, overflowItems }: { items: ReactElement; overflowItems: ReactElement }) =>
       (
@@ -46,6 +40,8 @@ jest.mock('@react-navigation/elements', () => ({
   HeaderBackButton: ({ onPress }: { onPress: () => void }) => <Text onPress={onPress}>HeaderBackButton</Text>,
 }))
 jest.mock('../../navigation/navigateToLanguageChange')
+jest.mock('@react-native-community/netinfo')
+jest.mock('react-native/Libraries/EventEmitter/NativeEventEmitter')
 
 describe('Header', () => {
   beforeEach(() => {
@@ -53,8 +49,10 @@ describe('Header', () => {
   })
 
   const t = (key: string) => `t_${key}`
-  const [cityModel] = new CityModelBuilder(1).build()
+  const cityModels = new CityModelBuilder(1).build()
+  const cityModel = cityModels[0]!
   const languageModels = new LanguageModelBuilder(3).build()
+  const languageModel = languageModels[0]!
   const defaultAvailableLanguages = ['de', 'en']
   const defaultShareUrl = 'https://example.com/share'
   const route = {
@@ -63,32 +61,38 @@ describe('Header', () => {
   }
   const navigation = createNavigationMock()
 
+  const context = {
+    changeCityCode: jest.fn(),
+    changeLanguageCode: jest.fn(),
+    cityCode: cityModel.code,
+    languageCode: languageModel.code,
+  }
+
   const renderHeader = ({
     showItems = true,
-    city = cityModel,
     availableLanguages = defaultAvailableLanguages,
     languages = languageModels,
     shareUrl = defaultShareUrl,
     isHome = false,
   }: {
     showItems?: boolean
-    city?: CityModel
     languages?: LanguageModel[]
     availableLanguages?: string[]
     shareUrl?: string
     isHome?: boolean | null
   }) =>
     render(
-      <Header
-        navigation={navigation}
-        route={route}
-        isHome={isHome}
-        availableLanguages={availableLanguages}
-        languages={languages}
-        city={city}
-        shareUrl={shareUrl}
-        showItems={showItems}
-      />
+      <AppContext.Provider value={context}>
+        <Header
+          navigation={navigation}
+          route={route}
+          isHome={isHome}
+          availableLanguages={availableLanguages}
+          languages={languages}
+          shareUrl={shareUrl}
+          showItems={showItems}
+        />
+      </AppContext.Provider>
     )
 
   it('search and language change buttons should be enabled and visible if showItems and all props available', async () => {
@@ -129,6 +133,20 @@ describe('Header', () => {
   it('should not show back button if it is the home', () => {
     const { queryByText } = renderHeader({ isHome: true })
     expect(queryByText('HeaderBackButton')).toBeFalsy()
+  })
+
+  it('should not open language change modal if no translation available', async () => {
+    const showSnackbar = jest.fn()
+    mocked(useSnackbar).mockImplementation(() => showSnackbar)
+    const { getByLabelText } = renderHeader({
+      showItems: true,
+      languages: languageModels,
+      availableLanguages: [languageModel.code],
+    })
+    fireEvent.press(getByLabelText(t('changeLanguage')))
+    expect(navigateToLanguageChange).not.toHaveBeenCalled()
+    await waitFor(() => expect(showSnackbar).toHaveBeenCalledWith({ text: 'layout:noTranslation' }))
+    expect(showSnackbar).toHaveBeenCalledTimes(1)
   })
 
   it('should show snackbar if sharing fails', () => {
