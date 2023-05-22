@@ -81,7 +81,8 @@ const Events = ({
   }
 
   if (slug) {
-    const event = events.find(_event => _event.slug === slug)
+    // TODO IGAPP-1078: Remove workaround of looking up path until '$'
+    const event = events.find(_event => _event.slug === slug || _event.slug.substring(0, _event.slug.indexOf('$')))
 
     if (event) {
       const files = resourceCache[event.path] || {}
