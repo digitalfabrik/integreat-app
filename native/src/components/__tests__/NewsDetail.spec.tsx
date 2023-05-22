@@ -37,7 +37,7 @@ const localNews = new LocalNewsModel({
   id: 9902,
   timestamp: moment('2020-01-20T00:00:00.000Z'),
   title: 'Test Push Notification',
-  message: 'Some test text mailto:app@integreat-app.de with lots of links https://integreat.app',
+  content: 'Some test text mailto:app@integreat-app.de with lots of links https://integreat.app',
 })
 
 describe('NewsDetail', () => {

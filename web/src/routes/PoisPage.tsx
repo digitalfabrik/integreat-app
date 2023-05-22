@@ -62,6 +62,7 @@ const PoisPage = ({ cityCode, languageCode, cityModel, pathname, languages }: Ci
   const { data, error: featureLocationsError, loading } = useFeatureLocations(cityCode, languageCode)
   const [mapRef, setMapRef] = useState<Map | null>(null)
   const [snapPoint, setSnapPoint] = useState<number>(1)
+  const [restoreScrollPosition, setRestoreScrollPosition] = useState<boolean>(false)
   const [currentFeature, setCurrentFeature] = useState<PoiFeature | null>(
     data?.features.find(it => it.properties.slug === slug) ?? null
   )
@@ -72,11 +73,12 @@ const PoisPage = ({ cityCode, languageCode, cityModel, pathname, languages }: Ci
   const [feedbackModalRating, setFeedbackModalRating] = useState<FeedbackRatingType | null>(null)
   const { t } = useTranslation('pois')
 
-  const selectFeature = (feature: PoiFeature | null) => {
+  const selectFeature = (feature: PoiFeature | null, restoreScrollPosition: boolean) => {
     if (mapRef?.isMoving()) {
       mapRef.stop()
     }
     navigate(feature?.properties.slug ?? '.')
+    setRestoreScrollPosition(restoreScrollPosition)
   }
 
   const updateMapRef = useCallback((node: MapRef | null) => {
@@ -195,7 +197,7 @@ const PoisPage = ({ cityCode, languageCode, cityModel, pathname, languages }: Ci
     )
     const updatedIndex = nextFeatureIndex(step, data.features.length, featureIndex)
     const feature = data.features[updatedIndex]
-    selectFeature(feature ?? null)
+    selectFeature(feature ?? null, false)
   }
 
   const renderPoiListItem = (poi: PoiFeature) => (
@@ -233,18 +235,20 @@ const PoisPage = ({ cityCode, languageCode, cityModel, pathname, languages }: Ci
       <PoisPageWrapper panelHeights={panelHeights}>
         {viewportSmall ? (
           <PoisMobile
+            restoreScrollPosition={restoreScrollPosition}
             currentFeature={currentFeature}
             toolbar={toolbar}
             ref={sheetRef}
             poi={poi}
             mapView={mapView}
             poiList={poiList}
-            selectFeature={selectFeature}
             direction={direction}
+            isBottomSheetFullscreen={bottomActionSheetHeight >= height}
             setBottomActionSheetHeight={setBottomActionSheetHeight}
           />
         ) : (
           <PoisDesktop
+            restoreScrollPosition={restoreScrollPosition}
             switchFeature={switchFeature}
             poi={poi}
             currentFeature={currentFeature}
@@ -253,7 +257,6 @@ const PoisPage = ({ cityCode, languageCode, cityModel, pathname, languages }: Ci
             mapView={mapView}
             poiList={poiList}
             showFeatureSwitch={data.features.length > 1}
-            selectFeature={selectFeature}
             direction={direction}
           />
         )}

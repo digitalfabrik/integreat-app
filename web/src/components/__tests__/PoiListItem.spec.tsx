@@ -26,6 +26,6 @@ describe('PoiListItem', () => {
 
     fireEvent.click(getByRole('button'))
     expect(selectFeature).toHaveBeenCalledTimes(1)
-    expect(selectFeature).toHaveBeenCalledWith(feature)
+    expect(selectFeature).toHaveBeenCalledWith(feature, true)
   })
 })

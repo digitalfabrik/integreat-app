@@ -1,8 +1,10 @@
 import React, { ReactElement, ReactNode, useEffect, useRef } from 'react'
+import { useLocation } from 'react-router-dom'
 import { BottomSheet, BottomSheetRef } from 'react-spring-bottom-sheet'
 import 'react-spring-bottom-sheet/dist/style.css'
 import styled, { useTheme } from 'styled-components'
 
+import { getSlugFromPath } from 'api-client'
 import { UiDirectionType } from 'translations'
 
 import '../styles/BottomActionSheet.css'
@@ -36,22 +38,27 @@ type BottomActionSheetProps = {
   toolbar: ReactNode
   direction: UiDirectionType
   setBottomActionSheetHeight: (height: number) => void
+  restoreScrollPosition: boolean
 }
 
 const BottomActionSheet = React.forwardRef(
   (
-    { title, children, toolbar, direction, setBottomActionSheetHeight }: BottomActionSheetProps,
+    { title, children, toolbar, direction, setBottomActionSheetHeight, restoreScrollPosition }: BottomActionSheetProps,
     ref: React.Ref<BottomSheetRef>
   ): ReactElement => {
     const theme = useTheme()
     const listRef = useRef<HTMLDivElement>(null)
+    const previousPath = useLocation().state?.from?.pathname
 
-    // ScrollToTop while title changes for indicating switch list/detail view
     useEffect(() => {
-      if (listRef.current) {
-        listRef.current.scrollIntoView({ behavior: 'smooth' })
+      // scrollTo the id of the selected element for detail view -> list view
+      if (previousPath && restoreScrollPosition) {
+        document.getElementById(getSlugFromPath(decodeURI(previousPath)))?.scrollIntoView({ behavior: 'auto' })
+      } else {
+        // ScrollToTop while title changes for indicating switch list->detail view
+        listRef.current?.scrollIntoView({ behavior: 'auto' })
       }
-    }, [title])
+    }, [previousPath, restoreScrollPosition, title])
 
     return (
       <StyledBottomSheet
@@ -60,6 +67,7 @@ const BottomActionSheet = React.forwardRef(
         open
         scrollLocking={false}
         blocking={false}
+        id='sheet'
         // @ts-expect-error current can't be used when forwardRef is used
         onSpringEnd={() => setBottomActionSheetHeight(ref?.current?.height)}
         header={title ? <Title>{title}</Title> : null}

@@ -68,7 +68,7 @@ const formatNotes = (params: {
     })
     .reduce((text, note) => {
       // Make sure release notes don't get longer than the maximal allowed length
-      if (production && text.length + note.length > MAX_RELEASE_NOTES_LENGTH) {
+      if (production && text.length + note.length >= MAX_RELEASE_NOTES_LENGTH) {
         return text
       }
       if (text.length === 0) {

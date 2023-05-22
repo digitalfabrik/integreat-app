@@ -8,7 +8,7 @@ parameters:
     description: Whether to deliver the build to production.
     type: boolean
 docker:
-  - image: cimg/android:2022.09.2-node
+  - image: cimg/android:2023.02.1-node
 resource_class: small
 shell: /bin/bash -eo pipefail
 environment:
@@ -34,10 +34,4 @@ steps:
       name: '[FL] Play Store Upload'
       command: bundle exec fastlane android playstore_upload build_config_name:<< parameters.build_config_name >> apk_path:attached_workspace/<< parameters.build_config_name >>.apk production_delivery:"<< parameters.production_delivery >>" version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE}
       working_directory: native
-  - run:
-      name: 'Sentry Upload'
-      # A react-native app reports its version as: application_id@version+build_number
-      command: |
-        eval $(yarn workspace --silent build-configs --silent manage to-bash << parameters.build_config_name >> android)
-        tools/sentry-release "$BUILD_CONFIG_APPLICATION_ID" "${NEW_VERSION_NAME}" ~/attached_workspace/sourcemaps/<< parameters.build_config_name >> --version-code "${NEW_VERSION_CODE}"
   - notify

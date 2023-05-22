@@ -5,35 +5,27 @@ import styled, { useTheme } from 'styled-components'
 
 import { CategoryModel, getExcerpt, normalizeString } from 'api-client'
 
-import iconPlaceholder from '../assets/IconPlaceholder.svg'
 import { EXCERPT_MAX_CHARS } from '../constants'
 
-const Row = styled.div`
-  margin: 12px 0;
-
-  & > * {
-    width: 100%;
-  }
-`
-
-const SubCategory = styled.div`
-  text-align: end;
-
-  & > * {
-    width: calc(100% - 60px);
-    text-align: start;
-  }
+const Row = styled.li`
+  width: 100%;
 `
 
 const CategoryThumbnail = styled.img`
-  width: 40px;
-  height: 40px;
+  width: 30px;
+  height: 30px;
+  padding: 0 5px;
   flex-shrink: 0;
-  padding: 8px;
   object-fit: contain;
 `
 
-const CategoryListItem = styled.div`
+const CategoryTitleContainer = styled.div`
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+`
+
+const CategoryItemContainer = styled.div`
   display: flex;
   flex-direction: column;
   padding: 15px 5px;
@@ -43,13 +35,6 @@ const CategoryListItem = styled.div`
   min-width: 1px; /* needed to enable line breaks for too long words, exact value doesn't matter */
   flex-grow: 1;
   word-wrap: break-word;
-  border-bottom: 1px solid ${props => props.theme.colors.themeColor};
-`
-
-const SubCategoryCaption = styled(CategoryListItem)`
-  margin: 0 15px;
-  padding: 8px 0;
-  border-bottom: 1px solid ${props => props.theme.colors.themeColor};
 `
 
 const StyledHighlighter = styled(Highlighter)`
@@ -58,8 +43,9 @@ const StyledHighlighter = styled(Highlighter)`
 
 const StyledLink = styled(Link)`
   display: inline-flex;
-  align-items: center;
   margin: 0 auto;
+  width: inherit;
+  border-bottom: 1px solid ${props => props.theme.colors.themeColor};
 
   &:hover {
     color: inherit;
@@ -69,25 +55,16 @@ const StyledLink = styled(Link)`
   }
 `
 
-type CategoryEntryProps = {
+type SearchListItemProps = {
   category: CategoryModel
-  subCategories: CategoryModel[]
-  contentWithoutHtml?: string
-  query?: string
+  contentWithoutHtml: string
+  query: string
 }
 
-const CategoryEntry = ({ category, contentWithoutHtml, subCategories, query }: CategoryEntryProps): ReactElement => {
+const SearchListItem = ({ category, contentWithoutHtml, query }: SearchListItemProps): ReactElement => {
   const theme = useTheme()
 
-  const excerpt = getExcerpt(contentWithoutHtml ?? '', { query, maxChars: EXCERPT_MAX_CHARS })
-
-  const SubCategories = subCategories.map(subCategory => (
-    <SubCategory key={subCategory.path} dir='auto'>
-      <StyledLink to={subCategory.path}>
-        <SubCategoryCaption aria-label={subCategory.title}>{subCategory.title}</SubCategoryCaption>
-      </StyledLink>
-    </SubCategory>
-  ))
+  const excerpt = getExcerpt(contentWithoutHtml, { query, maxChars: EXCERPT_MAX_CHARS })
 
   const Title = (
     <Highlighter
@@ -101,7 +78,7 @@ const CategoryEntry = ({ category, contentWithoutHtml, subCategories, query }: C
     />
   )
 
-  const Content = query && (
+  const Content = query && excerpt.length > 0 && (
     <StyledHighlighter
       aria-label={excerpt}
       searchWords={[query]}
@@ -115,17 +92,18 @@ const CategoryEntry = ({ category, contentWithoutHtml, subCategories, query }: C
   return (
     <Row>
       <StyledLink to={category.path}>
-        <CategoryThumbnail alt='' src={category.thumbnail || iconPlaceholder} />
-        <CategoryListItem dir='auto'>
-          {Title}
+        <CategoryItemContainer dir='auto'>
+          <CategoryTitleContainer>
+            {!!category.thumbnail && <CategoryThumbnail alt='' src={category.thumbnail} />}
+            {Title}
+          </CategoryTitleContainer>
           <div style={{ margin: '0 5px', fontSize: '12px' }} dir='auto'>
             {Content}
           </div>
-        </CategoryListItem>
+        </CategoryItemContainer>
       </StyledLink>
-      {SubCategories}
     </Row>
   )
 }
 
-export default CategoryEntry
+export default SearchListItem

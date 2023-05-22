@@ -73,7 +73,7 @@ class CategoriesMapModelBuilder {
         root: false,
         path,
         title: `Category with id ${id}`,
-        content: `<h1>This is a sample page</h1>
+        content: `<h1>Page of Category ${id}</h1>
                     <img src="${resourceUrl1}" alt="" />
                     <p>This is a sample page</p>
                     <img src="${resourceUrl2}" alt=""/>`,

@@ -43,7 +43,6 @@ jobs:
       build_config_name: integreat
       context:
         - mattermost
-        - sentry
         - browserstack
         - tuerantuer-google-play
       production_delivery: false
@@ -66,7 +65,6 @@ jobs:
       build_config_name: malte
       context:
         - mattermost
-        - sentry
         - browserstack
         - tuerantuer-google-play
       production_delivery: false
@@ -89,13 +87,21 @@ jobs:
       build_config_name: aschaffenburg
       context:
         - mattermost
-        - sentry
         - browserstack
         - tuerantuer-google-play
       production_delivery: false
       requires:
         - check
         - e2e_android
+        - build_aschaffenburg_android
+
+  - sentry_android:
+      context:
+        - mattermost
+        - sentry
+      requires:
+        - build_integreat_android
+        - build_malte_android
         - build_aschaffenburg_android
 
   - notify_android:
@@ -138,7 +144,6 @@ jobs:
       build_config_name: integreat
       context:
         - mattermost
-        - sentry
         - browserstack
         - tuerantuer-apple
       production_delivery: false
@@ -161,7 +166,6 @@ jobs:
       build_config_name: malte
       context:
         - mattermost
-        - sentry
         - browserstack
         - tuerantuer-apple
         - fastlane-match
@@ -185,13 +189,21 @@ jobs:
       build_config_name: aschaffenburg
       context:
         - mattermost
-        - sentry
         - browserstack
         - tuerantuer-apple
       production_delivery: false
       requires:
         - check
         - e2e_ios
+        - build_aschaffenburg_ios
+
+  - sentry_ios:
+      context:
+        - mattermost
+        - sentry
+      requires:
+        - build_integreat_ios
+        - build_malte_ios
         - build_aschaffenburg_ios
 
   - notify_ios:

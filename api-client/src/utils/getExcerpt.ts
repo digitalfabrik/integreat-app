@@ -37,9 +37,16 @@ type ExcerptOptions = {
 }
 
 const getExcerpt = (text: string, { query, maxChars, replaceLineBreaks }: ExcerptOptions): string => {
-  const match = query ? normalizeString(text).match(normalizeString(query)) : []
+  const normalizedText = normalizeString(text)
 
-  if (!query || !match?.index || text.trim().length <= maxChars) {
+  if (!query) {
+    return truncate(text, { maxChars, replaceLineBreaks })
+  }
+
+  const normalizedQuery = normalizeString(query)
+  const matchIndex = normalizedText.indexOf(normalizedQuery)
+
+  if (!matchIndex || text.trim().length <= maxChars) {
     return truncate(text, { maxChars, replaceLineBreaks })
   }
 
@@ -47,9 +54,9 @@ const getExcerpt = (text: string, { query, maxChars, replaceLineBreaks }: Excerp
     return truncate(query, { maxChars, replaceLineBreaks })
   }
 
-  const indexAfterMatch = match.index + query.length
+  const indexAfterMatch = matchIndex + query.length
   const remainingChars = maxChars - query.length
-  const charsBeforeMatch = match.index
+  const charsBeforeMatch = matchIndex
   const charsAfterMatch = text.length - indexAfterMatch
 
   const maxCharsBeforeMatch =
@@ -57,7 +64,7 @@ const getExcerpt = (text: string, { query, maxChars, replaceLineBreaks }: Excerp
   const maxCharsAfterMatch =
     charsBeforeMatch < remainingChars / 2 ? remainingChars - charsBeforeMatch : remainingChars / 2
 
-  const excerptBeforeMatch = truncate(text.substring(0, match.index), {
+  const excerptBeforeMatch = truncate(text.substring(0, matchIndex), {
     reverse: true,
     maxChars: maxCharsBeforeMatch,
     replaceLineBreaks,
@@ -66,11 +73,12 @@ const getExcerpt = (text: string, { query, maxChars, replaceLineBreaks }: Excerp
     maxChars: maxCharsAfterMatch,
     replaceLineBreaks,
   })
+  const match = text.substring(matchIndex, indexAfterMatch)
 
-  const spaceBeforeMatch = text.charAt(match.index - 1) === ' ' ? ' ' : ''
+  const spaceBeforeMatch = text.charAt(matchIndex - 1) === ' ' ? ' ' : ''
   const spaceAfterMatch = text.charAt(indexAfterMatch) === ' ' ? ' ' : ''
 
-  return `${excerptBeforeMatch}${spaceBeforeMatch}${query}${spaceAfterMatch}${excerptAfterMatch}`
+  return `${excerptBeforeMatch}${spaceBeforeMatch}${match}${spaceAfterMatch}${excerptAfterMatch}`
 }
 
 export default getExcerpt
