@@ -1,4 +1,4 @@
-import React, { ReactElement, useCallback, useContext } from 'react'
+import React, { ReactElement, useCallback, useContext, useEffect } from 'react'
 import { View } from 'react-native'
 import styled from 'styled-components/native'
 
@@ -10,7 +10,6 @@ import Heading from '../components/Heading'
 import { NavigationProps } from '../constants/NavigationTypes'
 import { AppContext } from '../contexts/AppContextProvider'
 import useLoadCities from '../hooks/useLoadCities'
-import useSnackbar from '../hooks/useSnackbar'
 import testID from '../testing/testID'
 import dataContainer from '../utils/DefaultDataContainer'
 import { reportError } from '../utils/sentry'
@@ -28,9 +27,15 @@ type LandingProps = {
 }
 
 const Landing = ({ navigation }: LandingProps): ReactElement => {
-  const showSnackbar = useSnackbar()
-  const { data: cities, refresh, ...response } = useLoadCities({ showSnackbar })
+  const { data: cities, refresh, ...response } = useLoadCities()
   const { changeCityCode } = useContext(AppContext)
+
+  useEffect(() => {
+    if (navigation.canGoBack()) {
+      // Update the available cities if navigating to the landing page
+      refresh()
+    }
+  }, [navigation, refresh])
 
   const navigateToDashboard = (city: CityModel) => {
     changeCityCode(city.code)

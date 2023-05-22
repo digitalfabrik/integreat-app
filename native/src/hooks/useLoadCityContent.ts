@@ -46,7 +46,7 @@ export type CityContentReturn = Omit<ReturnType<CityContentData>, 'error'> & { e
  */
 const useLoadCityContent = ({ cityCode, languageCode }: Params): CityContentReturn => {
   const showSnackbar = useSnackbar()
-  const citiesReturn = useLoadCities({ showSnackbar })
+  const citiesReturn = useLoadCities()
   const previousLanguageCode = usePreviousProp({ prop: languageCode })
   const params = { cityCode, languageCode, showSnackbar }
 

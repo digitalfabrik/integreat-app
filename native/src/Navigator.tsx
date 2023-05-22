@@ -98,7 +98,7 @@ const Navigator = (): ReactElement | null => {
   })
 
   // Preload cities
-  useLoadCities({ showSnackbar })
+  useLoadCities()
 
   useForegroundPushNotificationListener({ showSnackbar, navigate: navigation.navigate })
 

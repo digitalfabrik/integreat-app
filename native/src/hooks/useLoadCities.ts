@@ -5,13 +5,15 @@ import { CityModel, createCitiesEndpoint, fromError, ReturnType, useLoadAsync } 
 import { SnackbarType } from '../components/SnackbarContainer'
 import dataContainer from '../utils/DefaultDataContainer'
 import { determineApiUrl } from '../utils/helpers'
+import useSnackbar from './useSnackbar'
 
-type Params = {
+const loadWithCache = async ({
+  showSnackbar,
+  forceUpdate = false,
+}: {
   forceUpdate?: boolean
   showSnackbar: (snackbar: SnackbarType) => void
-}
-
-const loadWithCache = async ({ showSnackbar, forceUpdate = false }: Params): Promise<CityModel[] | null> => {
+}): Promise<CityModel[] | null> => {
   const cachedData = (await dataContainer.citiesAvailable()) ? await dataContainer.getCities() : null
 
   if (!forceUpdate && cachedData) {
@@ -35,9 +37,9 @@ const loadWithCache = async ({ showSnackbar, forceUpdate = false }: Params): Pro
   return cachedData
 }
 
-const useLoadCities = (params: Params): ReturnType<CityModel[]> =>
-  // Normally using params as dependency triggers infinite re-renders
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  useLoadAsync(useCallback(forceUpdate => loadWithCache({ ...params, forceUpdate }), []))
+const useLoadCities = (): ReturnType<CityModel[]> => {
+  const showSnackbar = useSnackbar()
+  return useLoadAsync(useCallback(forceUpdate => loadWithCache({ showSnackbar, forceUpdate }), [showSnackbar]))
+}
 
 export default useLoadCities
