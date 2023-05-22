@@ -94,6 +94,7 @@ const dateToString = (date: Date): string => date.toISOString().split('T')[0]!
 
 const removeTrailingSlash = (path: string): string => path.replace(/\/$/, '')
 
+// TODO IGAPP-1078: Remove creating of multiple events
 const createRecurringEvents = (event: JsonEventType): JsonEventType[] => {
   if (!event.recurrence_rule) {
     return [event]
