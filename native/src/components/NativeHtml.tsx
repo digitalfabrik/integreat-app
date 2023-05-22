@@ -7,7 +7,7 @@ import { useTheme } from 'styled-components'
 import { config } from 'translations'
 
 import ExternalIcon from '../assets/ExternalLink.svg'
-import { contentAlignment } from '../constants/contentDirection'
+import { contentAlignmentRTLText } from '../constants/contentDirection'
 import useNavigateToLink from '../hooks/useNavigateToLink'
 import { getErrorMessage } from '../utils/helpers'
 import { log, reportError } from '../utils/sentry'
@@ -100,7 +100,7 @@ const NativeHtml = React.memo(({ content, cacheDictionary, language }: NativeHtm
         fontSize,
         lineHeight: 24,
         color: theme.colors.textColor,
-        textAlign: contentAlignment(language),
+        textAlign: contentAlignmentRTLText(content),
         direction: config.hasRTLScript(language) ? 'rtl' : 'ltr',
         fontFamily: theme.fonts.native.webviewFont,
       }}
