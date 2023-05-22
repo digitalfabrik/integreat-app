@@ -1,0 +1,7 @@
+issue_key: IGAPP-1286
+show_in_stores: true
+platforms:
+  - android
+  - ios
+en: Fix text alignment for local news.
+de: Textausrichtung von lokalen Nachrichten korrigiert.
