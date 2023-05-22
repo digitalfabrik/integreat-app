@@ -1,4 +1,4 @@
-fastlane_version "2.210.0"
+fastlane_version "2.212.2"
 
 require_relative "read_build_config"
 
