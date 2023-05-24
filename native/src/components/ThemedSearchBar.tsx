@@ -25,6 +25,7 @@ const ThemedSearchBar = ({
     {...testID('Content-Search-Input')}
     accessibilityRole='search'
     allowFontScaling={false}
+    style={{ color: colors.textColor }}
     containerStyle={{
       flexGrow: 1,
       backgroundColor: colors.backgroundAccentColor,
