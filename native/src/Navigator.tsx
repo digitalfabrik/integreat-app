@@ -35,7 +35,6 @@ import RedirectContainer from './components/RedirectContainer'
 import TransparentHeader from './components/TransparentHeader'
 import { NavigationProps, RouteProps, RoutesParamsType, RoutesType } from './constants/NavigationTypes'
 import buildConfig from './constants/buildConfig'
-import { ASYNC_STORAGE_VERSION } from './constants/settings'
 import { AppContext } from './contexts/AppContextProvider'
 import useLoadCities from './hooks/useLoadCities'
 import useSnackbar from './hooks/useSnackbar'
@@ -58,7 +57,7 @@ import PoisContainer from './routes/PoisContainer'
 import SearchModalContainer from './routes/SearchModalContainer'
 import Settings from './routes/Settings'
 import SprungbrettOfferContainer from './routes/SprungbrettOfferContainer'
-import appSettings from './utils/AppSettings'
+import appSettings, { ASYNC_STORAGE_VERSION } from './utils/AppSettings'
 import {
   quitAppStatePushNotificationListener,
   useForegroundPushNotificationListener,

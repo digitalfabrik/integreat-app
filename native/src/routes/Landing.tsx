@@ -42,7 +42,7 @@ const Landing = ({ navigation }: LandingProps): ReactElement => {
 
   const clearResourcesAndCache = useCallback(() => {
     dataContainer.clearInMemoryCache()
-    dataContainer.clearOfflineCache().catch(reportError)
+    dataContainer._clearOfflineCache().catch(reportError)
     refresh()
   }, [refresh])
 
