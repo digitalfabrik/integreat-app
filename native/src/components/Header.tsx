@@ -3,7 +3,7 @@ import React, { ReactElement, useContext, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Share, useWindowDimensions } from 'react-native'
 import { HiddenItem, Item } from 'react-navigation-header-buttons'
-import styled from 'styled-components/native'
+import styled, { useTheme } from 'styled-components/native'
 
 import { LANDING_ROUTE, LanguageModel, POIS_ROUTE, PoisRouteType, SHARE_SIGNAL_NAME } from 'api-client'
 import { DISCLAIMER_ROUTE, SEARCH_ROUTE, SETTINGS_ROUTE } from 'api-client/src/routes'
@@ -81,6 +81,7 @@ const Header = ({
 }: HeaderProps): ReactElement | null => {
   const { languageCode } = useContext(AppContext)
   const { t } = useTranslation('layout')
+  const theme = useTheme()
   const showSnackbar = useSnackbar()
   const deviceWidth = useWindowDimensions().width
   // Save route/canGoBack to state to prevent it from changing during navigating which would lead to flickering of the title and back button
@@ -161,7 +162,7 @@ const Header = ({
     : []
 
   const HeaderLeft = canGoBack ? (
-    <HeaderBackButton onPress={navigation.goBack} labelVisible={false} />
+    <HeaderBackButton onPress={navigation.goBack} labelVisible={false} tintColor={theme.colors.textColor} />
   ) : (
     <Icon source={buildConfigAssets().appIcon} />
   )

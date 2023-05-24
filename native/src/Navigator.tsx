@@ -35,7 +35,6 @@ import RedirectContainer from './components/RedirectContainer'
 import TransparentHeader from './components/TransparentHeader'
 import { NavigationProps, RouteProps, RoutesParamsType, RoutesType } from './constants/NavigationTypes'
 import buildConfig from './constants/buildConfig'
-import { ASYNC_STORAGE_VERSION } from './constants/settings'
 import { AppContext } from './contexts/AppContextProvider'
 import useLoadCities from './hooks/useLoadCities'
 import useSnackbar from './hooks/useSnackbar'
@@ -58,7 +57,7 @@ import PoisContainer from './routes/PoisContainer'
 import SearchModalContainer from './routes/SearchModalContainer'
 import Settings from './routes/Settings'
 import SprungbrettOfferContainer from './routes/SprungbrettOfferContainer'
-import appSettings from './utils/AppSettings'
+import appSettings, { ASYNC_STORAGE_VERSION } from './utils/AppSettings'
 import {
   quitAppStatePushNotificationListener,
   useForegroundPushNotificationListener,
@@ -88,7 +87,9 @@ type InitialRouteType =
 const Stack = createStackNavigator<RoutesParamsType>()
 
 const Navigator = (): ReactElement | null => {
+  const showSnackbar = useSnackbar()
   const { cityCode } = useContext(AppContext)
+  const navigation = useNavigation<NavigationProps<RoutesType>>()
   const [waitingForSettings, setWaitingForSettings] = useState<boolean>(true)
   const [errorMessage, setErrorMessage] = useState<string | null | undefined>(null)
   const [initialRoute, setInitialRoute] = useState<InitialRouteType>({
@@ -97,9 +98,6 @@ const Navigator = (): ReactElement | null => {
 
   // Preload cities
   useLoadCities()
-
-  const showSnackbar = useSnackbar()
-  const navigation = useNavigation<NavigationProps<RoutesType>>()
 
   useForegroundPushNotificationListener({ showSnackbar, navigate: navigation.navigate })
 
