@@ -11,11 +11,6 @@ import DatabaseContext from '../../models/DatabaseContext'
 import DatabaseConnector from '../DatabaseConnector'
 import defaultDataContainer from '../DefaultDataContainer'
 
-beforeEach(() => {
-  BlobUtil.fs._reset()
-
-  jest.clearAllMocks()
-})
 const testResources = {
   '/path/to/page': {
     'https://test.de/path/to/resource/test.png': {
@@ -45,7 +40,11 @@ const anotherTestResources = {
 }
 
 describe('DefaultDataContainer', () => {
-  beforeEach(defaultDataContainer.clearInMemoryCache)
+  beforeEach(() => {
+    BlobUtil.fs._reset()
+    jest.clearAllMocks()
+    defaultDataContainer.clearInMemoryCache()
+  })
 
   const city = 'augsburg'
   const language = 'de'
