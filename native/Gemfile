@@ -2,7 +2,7 @@
 
 source "https://rubygems.org"
 
-gem "fastlane", ">= 2.210.0"
+gem "fastlane", ">= 2.212.2"
 
 gem "octokit", "~> 4.18"
 

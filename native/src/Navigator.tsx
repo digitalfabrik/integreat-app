@@ -71,9 +71,9 @@ type HeaderProps = {
 
 const transparentHeader = (headerProps: StackHeaderProps) => <TransparentHeader {...(headerProps as HeaderProps)} />
 
-const defaultHeader = (headerProps: StackHeaderProps) => <Header {...(headerProps as HeaderProps)} isHome={null} />
+const defaultHeader = (headerProps: StackHeaderProps) => <Header {...(headerProps as HeaderProps)} />
 const settingsHeader = (headerProps: StackHeaderProps) => (
-  <Header {...(headerProps as HeaderProps)} isHome={false} showOverflowItems={false} />
+  <Header {...(headerProps as HeaderProps)} showOverflowItems={false} />
 )
 
 type InitialRouteType =
@@ -87,7 +87,9 @@ type InitialRouteType =
 const Stack = createStackNavigator<RoutesParamsType>()
 
 const Navigator = (): ReactElement | null => {
+  const showSnackbar = useSnackbar()
   const { cityCode } = useContext(AppContext)
+  const navigation = useNavigation<NavigationProps<RoutesType>>()
   const [waitingForSettings, setWaitingForSettings] = useState<boolean>(true)
   const [errorMessage, setErrorMessage] = useState<string | null | undefined>(null)
   const [initialRoute, setInitialRoute] = useState<InitialRouteType>({
@@ -96,9 +98,6 @@ const Navigator = (): ReactElement | null => {
 
   // Preload cities
   useLoadCities()
-
-  const showSnackbar = useSnackbar()
-  const navigation = useNavigation<NavigationProps<RoutesType>>()
 
   useForegroundPushNotificationListener({ showSnackbar, navigate: navigation.navigate })
 
