@@ -1,6 +1,6 @@
 import { mapValues } from 'lodash'
 import React, { ReactElement } from 'react'
-import { View } from 'react-native'
+import { Platform, View } from 'react-native'
 
 import { CategoriesMapModel, CategoryModel, CityModel } from 'api-client'
 import { CATEGORIES_ROUTE } from 'api-client/src/routes'
@@ -38,7 +38,7 @@ export const getCachedThumbnail = (category: CategoryModel, resourceCache: PageR
   const resource = resourceCache[category.thumbnail]
 
   if (resource) {
-    return URL_PREFIX + resource.filePath
+    return Platform.OS === 'ios' ? resource.filePath : URL_PREFIX + resource.filePath
   }
 
   return category.thumbnail
