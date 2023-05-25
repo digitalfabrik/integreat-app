@@ -3,7 +3,15 @@ import moment from 'moment'
 import React from 'react'
 import { Text } from 'react-native'
 
-import { CityModel, LocalNewsModel, LocalNewsType, TU_NEWS_TYPE, TunewsModel, TuNewsType } from 'api-client'
+import {
+  CityModel,
+  LanguageModelBuilder,
+  LocalNewsModel,
+  LocalNewsType,
+  TU_NEWS_TYPE,
+  TunewsModel,
+  TuNewsType,
+} from 'api-client'
 
 import useNavigate from '../../hooks/useNavigate'
 import createNavigationPropMock from '../../testing/createNavigationPropMock'
@@ -67,6 +75,7 @@ describe('News', () => {
       name: 'Oldtown',
       code: 'oldtown',
       live: false,
+      languages: new LanguageModelBuilder(2).build(),
       eventsEnabled: true,
       offersEnabled: true,
       poisEnabled: false,

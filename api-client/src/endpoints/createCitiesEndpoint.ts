@@ -3,7 +3,8 @@ import { BBox } from 'geojson'
 import Endpoint from '../Endpoint'
 import EndpointBuilder from '../EndpointBuilder'
 import CityModel from '../models/CityModel'
-import { JsonCityType } from '../types'
+import LanguageModel from '../models/LanguageModel'
+import { JsonCityType, JsonLanguageType } from '../types'
 
 const stripSlashes = (path: string): string => {
   let code = path
@@ -19,6 +20,12 @@ const stripSlashes = (path: string): string => {
 }
 
 export const CITIES_ENDPOINT_NAME = 'cities'
+
+const mapLanguages = (json: JsonLanguageType[]) =>
+  json
+    .map((language: JsonLanguageType) => new LanguageModel(language.code, language.native_name))
+    .sort((lang1, lang2) => lang1.code.localeCompare(lang2.code))
+
 export default (baseUrl: string): Endpoint<void, Array<CityModel>> =>
   new EndpointBuilder<void, Array<CityModel>>(CITIES_ENDPOINT_NAME)
     .withParamsToUrlMapper(() => `${baseUrl}/wp-json/extensions/v3/sites/`)
@@ -30,6 +37,7 @@ export default (baseUrl: string): Endpoint<void, Array<CityModel>> =>
               name: city.name,
               code: stripSlashes(city.path),
               live: city.live,
+              languages: mapLanguages(city.languages),
               eventsEnabled: city.events,
               offersEnabled: city.extras,
               poisEnabled: city.pois,

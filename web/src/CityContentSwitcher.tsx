@@ -5,7 +5,6 @@ import {
   CATEGORIES_ROUTE,
   cityContentPath,
   CityModel,
-  createLanguagesEndpoint,
   DISCLAIMER_ROUTE,
   EVENTS_ROUTE,
   LanguageModel,
@@ -16,7 +15,6 @@ import {
   SEARCH_ROUTE,
   SHELTER_ROUTE,
   SPRUNGBRETT_OFFER_ROUTE,
-  useLoadFromEndpoint,
 } from 'api-client'
 
 import CityContentLayout from './components/CityContentLayout'
@@ -27,7 +25,6 @@ import LanguageFailure from './components/LanguageFailure'
 import Layout from './components/Layout'
 import LoadingSpinner from './components/LoadingSpinner'
 import buildConfig from './constants/buildConfig'
-import { cmsApiBaseUrl } from './constants/urls'
 import useWindowDimensions from './hooks/useWindowDimensions'
 import { LOCAL_NEWS_ROUTE, RoutePatterns, RouteType, TU_NEWS_DETAIL_ROUTE, TU_NEWS_ROUTE } from './routes'
 import ShelterPage from './routes/ShelterPage'
@@ -65,37 +62,20 @@ const CityContentSwitcher = ({ cities, languageCode }: CityContentSwitcherProps)
   const { viewportSmall } = useWindowDimensions()
   const cityModel = cities.find(it => it.code === cityCode)
 
-  const {
-    data: languages,
-    loading,
-    error: loadingError,
-  } = useLoadFromEndpoint(createLanguagesEndpoint, cmsApiBaseUrl, { city: cityCode })
-  const languageModel = languages?.find(it => it.code === languageCode)
+  if (!cityModel) {
+    const error = new NotFoundError({ type: 'city', id: cityCode, city: cityCode, language: languageCode })
 
-  if (!cityModel || !languageModel || !languages) {
-    if (loading) {
-      return (
-        <Layout>
-          <LoadingSpinner />
-        </Layout>
-      )
-    }
+    return (
+      <Layout
+        header={<GeneralHeader languageCode={languageCode} viewportSmall={viewportSmall} />}
+        footer={<GeneralFooter language={languageCode} />}>
+        <FailureSwitcher error={error} />
+      </Layout>
+    )
+  }
 
-    if (loadingError || !cityModel || !languages) {
-      const cityError = !cityModel
-        ? new NotFoundError({ type: 'city', id: cityCode, city: cityCode, language: languageCode })
-        : null
-      const error = cityError || loadingError || new Error('Languages should not be null!')
-
-      return (
-        <Layout
-          header={<GeneralHeader languageCode={languageCode} viewportSmall={viewportSmall} />}
-          footer={<GeneralFooter language={languageCode} />}>
-          <FailureSwitcher error={error} />
-        </Layout>
-      )
-    }
-
+  const languageModel = cityModel.languages.find(it => it.code === languageCode)
+  if (!languageModel) {
     return (
       <Layout
         header={<GeneralHeader languageCode={languageCode} viewportSmall={viewportSmall} />}
@@ -103,7 +83,7 @@ const CityContentSwitcher = ({ cities, languageCode }: CityContentSwitcherProps)
         <LanguageFailure
           cityModel={cityModel}
           languageCode={languageCode}
-          languageChangePaths={languages.map(({ code, name }) => ({
+          languageChangePaths={cityModel.languages.map(({ code, name }) => ({
             code,
             name,
             path: cityContentPath({ cityCode, languageCode: code }),
@@ -115,7 +95,7 @@ const CityContentSwitcher = ({ cities, languageCode }: CityContentSwitcherProps)
 
   const cityRouteProps: CityRouteProps = {
     cities,
-    languages,
+    languages: cityModel.languages,
     cityModel,
     languageModel,
     pathname,
