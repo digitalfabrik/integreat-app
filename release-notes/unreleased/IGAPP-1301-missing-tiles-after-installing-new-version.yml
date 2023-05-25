@@ -1,0 +1,5 @@
+issue_key: IGAPP-1301
+show_in_stores: true
+platforms:
+  - ios
+en: Fix images can not be loaded from cache
