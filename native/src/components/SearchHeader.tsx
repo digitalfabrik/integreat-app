@@ -39,7 +39,7 @@ const SearchHeader = ({ theme, query, closeSearchBar, onSearchChanged, t }: Sear
   return (
     <BoxShadow theme={theme}>
       <HorizontalLeft theme={theme}>
-        <HeaderBackButton onPress={onClose} labelVisible={false} />
+        <HeaderBackButton onPress={onClose} labelVisible={false} tintColor={theme.colors.textColor} />
         <ThemedSearchBar theme={theme} onChangeText={onSearchChanged} value={query} autofocus t={t} />
       </HorizontalLeft>
     </BoxShadow>

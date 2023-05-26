@@ -45,9 +45,9 @@ export type CityContentReturn = Omit<ReturnType<CityContentData>, 'error'> & { e
  * Takes care of updating the data regularly.
  */
 const useLoadCityContent = ({ cityCode, languageCode }: Params): CityContentReturn => {
+  const showSnackbar = useSnackbar()
   const citiesReturn = useLoadCities()
   const previousLanguageCode = usePreviousProp({ prop: languageCode })
-  const showSnackbar = useSnackbar()
   const params = { cityCode, languageCode, showSnackbar }
 
   const languagesReturn = useLoadWithCache({

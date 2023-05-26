@@ -128,7 +128,7 @@ export type DataContainer = {
   /**
    * Deletes all pages and files that are stored offline in the filesystem
    */
-  clearOfflineCache(): Promise<void>
+  _clearOfflineCache(): Promise<void>
 
   /**
    * Clears all in-memory caches

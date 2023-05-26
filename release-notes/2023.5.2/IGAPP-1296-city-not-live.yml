@@ -1,0 +1,7 @@
+issue_key: IGAPP-1296
+show_in_stores: true
+platforms:
+  - android
+  - ios
+en: New cities and districts are now displayed faster.
+de: Neue Städte und Lankreise werden nun schneller angzeigt.
