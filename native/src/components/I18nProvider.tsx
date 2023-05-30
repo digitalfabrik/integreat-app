@@ -46,7 +46,6 @@ const I18nProvider = ({ children }: I18nProviderProps): ReactElement | null => {
           /* Escaping is not needed for react apps:
              https://github.com/i18next/react-i18next/issues/277 */
         },
-        debug: buildConfig().featureFlags.developerFriendly,
       })
       // A language mentioned in the supportedLanguages array of the config.js in the translations package
       const matchedLanguage = i18nextInstance.languages[0]!

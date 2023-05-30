@@ -1,3 +1,4 @@
+import { waitFor } from '@testing-library/react-native'
 import moment from 'moment'
 
 import CategoriesMapModelBuilder from 'api-client/src/testing/CategoriesMapModelBuilder'
@@ -8,7 +9,13 @@ import LanguageModelBuilder from 'api-client/src/testing/LanguageModelBuilder'
 import BlobUtil from '../../__mocks__/react-native-blob-util'
 import DatabaseContext from '../../models/DatabaseContext'
 import mockDate from '../../testing/mockDate'
-import DatabaseConnector from '../DatabaseConnector'
+import DatabaseConnector, {
+  CONTENT_DIR_PATH,
+  CONTENT_VERSION,
+  RESOURCE_CACHE_DIR_PATH,
+  UNVERSIONED_CONTENT_DIR_PATH,
+  UNVERSIONED_RESOURCE_CACHE_DIR_PATH,
+} from '../DatabaseConnector'
 
 const databaseConnector = new DatabaseConnector()
 afterEach(() => {
@@ -530,15 +537,47 @@ describe('DatabaseConnector', () => {
       const content = ['this', 'is', 'my', 'custom', { content: 'CONTENT' }]
       const path = 'my-path'
       await BlobUtil.fs.writeFile(path, JSON.stringify(content), 'utf8')
-      const readContent = await databaseConnector.readFile<typeof content>(path)
+      const readContent = await databaseConnector.readFile(path, content => content)
       expect(readContent).toEqual(content)
     })
 
     it('should delete file if json is corrupted', async () => {
       const path = 'my-path'
       await BlobUtil.fs.writeFile(path, '[', 'utf8')
-      await expect(databaseConnector.readFile(path)).rejects.toEqual(new SyntaxError('Unexpected end of JSON input'))
+      await expect(databaseConnector.readFile(path, content => content)).rejects.toEqual(
+        new SyntaxError('Unexpected end of JSON input')
+      )
       expect(BlobUtil.fs.unlink).toHaveBeenCalledWith(path)
+    })
+
+    it('should delete file if json cannot be mapped', async () => {
+      const path = 'my-path'
+      await BlobUtil.fs.writeFile(path, `[{ "_code": "de", "_name": "Deutsch" }]`, 'utf8')
+      await expect(databaseConnector.readFile<string, string>(path, content => content.toLowerCase())).rejects.toEqual(
+        new TypeError('content.toLowerCase is not a function')
+      )
+      expect(BlobUtil.fs.unlink).toHaveBeenCalledWith(path)
+    })
+  })
+
+  describe('migration routine', () => {
+    it('should delete old content dir if version is upgraded', async () => {
+      BlobUtil.fs.isDir.mockImplementation(async path => path === UNVERSIONED_CONTENT_DIR_PATH)
+      const _ = new DatabaseConnector()
+      await waitFor(() => expect(BlobUtil.fs.unlink).toHaveBeenCalledWith(UNVERSIONED_CONTENT_DIR_PATH))
+    })
+
+    it('should delete old resource cache dir if version is upgraded', async () => {
+      BlobUtil.fs.isDir.mockImplementation(async path => path === UNVERSIONED_RESOURCE_CACHE_DIR_PATH)
+      const _ = new DatabaseConnector()
+      await waitFor(() => expect(BlobUtil.fs.unlink).toHaveBeenCalledWith(UNVERSIONED_RESOURCE_CACHE_DIR_PATH))
+    })
+
+    it('should not delete current cache if new version exists', async () => {
+      BlobUtil.fs.isDir.mockImplementation(async () => true)
+      const _ = new DatabaseConnector()
+      await waitFor(() => expect(BlobUtil.fs.isDir).toHaveBeenCalledWith(RESOURCE_CACHE_DIR_PATH))
+      expect(BlobUtil.fs.unlink).not.toHaveBeenCalled()
     })
   })
 })
