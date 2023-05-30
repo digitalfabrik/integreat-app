@@ -129,6 +129,9 @@ class Config {
     cs: {
       rtl: false,
     },
+    'pt-br': {
+      rtl: false,
+    },
   }
 
   // Fallbacks for unnormalized language codes from our backend
