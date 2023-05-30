@@ -3,7 +3,6 @@ import moment from 'moment'
 import CategoriesMapModelBuilder from 'api-client/src/testing/CategoriesMapModelBuilder'
 import CityModelBuilder from 'api-client/src/testing/CityModelBuilder'
 import EventModelBuilder from 'api-client/src/testing/EventModelBuilder'
-import LanguageModelBuilder from 'api-client/src/testing/LanguageModelBuilder'
 import PoiModelBuilder from 'api-client/src/testing/PoiModelBuilder'
 
 import BlobUtil from '../../__mocks__/react-native-blob-util'
