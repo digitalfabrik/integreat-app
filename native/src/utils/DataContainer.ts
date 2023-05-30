@@ -1,6 +1,6 @@
 import { Moment } from 'moment'
 
-import { CategoriesMapModel, CityModel, EventModel, LanguageModel, PoiModel } from 'api-client'
+import { CategoriesMapModel, CityModel, EventModel, PoiModel } from 'api-client'
 
 export type PageResourceCacheEntryStateType = {
   filePath: string
