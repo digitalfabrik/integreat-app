@@ -38,6 +38,7 @@ export default {
   modulePaths: ['<rootDir>'],
   moduleDirectories: ['node_modules'],
   maxWorkers: '50%',
+  workerIdleMemoryLimit: '500MB',
   coverageDirectory: '<rootDir>/../reports/coverage',
   reporters: [
     'default',
