@@ -2,6 +2,7 @@ import React, { ReactElement, ReactNode, useState } from 'react'
 
 import { CityModel, SEARCH_ROUTE } from 'api-client'
 
+import useWindowDimensions from '../hooks/useWindowDimensions'
 import { RouteType } from '../routes'
 import CityContentFooter from './CityContentFooter'
 import CityContentHeader from './CityContentHeader'
@@ -13,13 +14,12 @@ export type ToolbarProps = (openFeedbackModal: (rating: FeedbackRatingType) => v
 
 type CityContentLayoutProps = {
   toolbar?: ToolbarProps
-  viewportSmall: boolean
   children?: ReactNode
   route: RouteType
   feedbackTargetInformation: { slug?: string } | null
   languageChangePaths: Array<{ code: string; path: string | null; name: string }> | null
   isLoading: boolean
-  cityModel: CityModel
+  city: CityModel
   languageCode: string
   fullWidth?: boolean
   disableScrollingSafari?: boolean
@@ -28,9 +28,9 @@ type CityContentLayoutProps = {
 
 const CityContentLayout = (props: CityContentLayoutProps): ReactElement => {
   const [feedbackModalRating, setFeedbackModalRating] = useState<FeedbackRatingType | null>(null)
+  const { viewportSmall } = useWindowDimensions()
 
   const {
-    viewportSmall,
     children,
     languageCode,
     languageChangePaths,
@@ -41,12 +41,12 @@ const CityContentLayout = (props: CityContentLayoutProps): ReactElement => {
     disableScrollingSafari = false,
     showFooter = true,
   } = props
-  const { feedbackTargetInformation, cityModel } = props
+  const { feedbackTargetInformation, city } = props
 
   const feedbackModal =
     route !== SEARCH_ROUTE && feedbackModalRating ? (
       <FeedbackModal
-        cityCode={cityModel.code}
+        cityCode={city.code}
         language={languageCode}
         routeType={route}
         feedbackRating={feedbackModalRating}
@@ -63,7 +63,7 @@ const CityContentLayout = (props: CityContentLayoutProps): ReactElement => {
       fullWidth={fullWidth}
       header={
         <CityContentHeader
-          cityModel={cityModel}
+          cityModel={city}
           languageChangePaths={languageChangePaths}
           viewportSmall={viewportSmall}
           languageCode={languageCode}
@@ -72,7 +72,7 @@ const CityContentLayout = (props: CityContentLayoutProps): ReactElement => {
       }
       footer={
         !isLoading && showFooter && !viewportSmall ? (
-          <CityContentFooter city={cityModel.code} language={languageCode} />
+          <CityContentFooter city={city.code} language={languageCode} />
         ) : null
       }
       modal={feedbackModal}

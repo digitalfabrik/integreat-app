@@ -32,7 +32,6 @@ describe('TuNewsPage', () => {
 
   const cities = new CityModelBuilder(2).build()
   const tuNewsLanguages = new LanguageModelBuilder(2).build()
-  const languages = new LanguageModelBuilder(3).build()
   const city = cities[0]!
   const language = tuNewsLanguages[0]!
 
@@ -54,15 +53,7 @@ describe('TuNewsPage', () => {
   const renderTuNewsRoute = (languageModel = language, tuNewsLanguages = languagesReturn) => {
     mocked(useLoadFromEndpoint).mockImplementation(() => tuNewsLanguages as never)
     return renderRoute(
-      <TuNewsPage
-        cities={cities}
-        cityModel={city}
-        languages={languages}
-        languageModel={languageModel}
-        pathname={pathname}
-        cityCode={city.code}
-        languageCode={languageModel.code}
-      />,
+      <TuNewsPage city={city} pathname={pathname} cityCode={city.code} languageCode={languageModel.code} />,
       { routePattern, pathname }
     )
   }
@@ -73,7 +64,7 @@ describe('TuNewsPage', () => {
   })
 
   it('should render language failure if language is not available', () => {
-    const { getAllByText, queryByText } = renderTuNewsRoute(languages[2]!)
+    const { getAllByText, queryByText } = renderTuNewsRoute(city.languages[2]!)
     expect(getAllByText('error:notFound.language error:chooseALanguage')).toBeTruthy()
     // Available languages
     tuNewsLanguages.forEach(({ name, code }) => {
@@ -84,7 +75,7 @@ describe('TuNewsPage', () => {
     })
 
     // Unavailable language is not a link
-    expect(queryByText(languages[2]!.name)).toBeFalsy()
+    expect(queryByText(city.languages[2]!.name)).toBeFalsy()
   })
 
   it('should render list', () => {
