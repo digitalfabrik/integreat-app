@@ -3,6 +3,8 @@ import { fromPairs, mapValues, toPairs } from 'lodash'
 
 import { SignalType } from 'api-client'
 
+export const ASYNC_STORAGE_VERSION = '1'
+
 export type SettingsType = {
   storageVersion: string | null
   contentLanguage: string | null
