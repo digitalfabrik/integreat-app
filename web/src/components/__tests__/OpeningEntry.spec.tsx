@@ -3,6 +3,8 @@ import React from 'react'
 import { renderWithTheme } from '../../testing/render'
 import OpeningEntry from '../OpeningEntry'
 
+jest.mock('react-i18next')
+
 describe('OpeningEntrySpec', () => {
   const timeSlots = [
     { end: '18:00', start: '13:00' },
@@ -27,12 +29,12 @@ describe('OpeningEntrySpec', () => {
 
   it('should display all day opened for the weekday if allDay flag is true', () => {
     const { getByText } = renderOpeningEntries(true, false, false)
-    expect(getByText('openingHoursAllDay')).toBeTruthy()
+    expect(getByText('pois:openingHoursAllDay')).toBeTruthy()
   })
 
   it('should display closed for the weekday if closed flag is true', () => {
     const { getByText } = renderOpeningEntries(false, true, false)
-    expect(getByText('openingHoursClosed')).toBeTruthy()
+    expect(getByText('pois:openingHoursClosed')).toBeTruthy()
   })
 
   it('should highlight the timeslot of the current weekday bold', () => {

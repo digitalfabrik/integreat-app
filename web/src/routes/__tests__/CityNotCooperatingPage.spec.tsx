@@ -11,6 +11,8 @@ Object.assign(navigator, {
   },
 })
 
+jest.mock('react-i18next')
+
 describe('CityNotCooperatingPage', () => {
   beforeEach(() => {
     jest.clearAllMocks()
@@ -23,17 +25,17 @@ describe('CityNotCooperatingPage', () => {
 
   it('should render texts', () => {
     const { getByText } = renderPage()
-    expect(getByText('callToAction')).toBeDefined()
-    expect(getByText('explanation')).toBeDefined()
+    expect(getByText('cityNotCooperating:callToAction')).toBeDefined()
+    expect(getByText('cityNotCooperating:explanation')).toBeDefined()
     expect(template).toBeDefined()
   })
 
   it('should handle button click correctly', async () => {
     const { getByText, queryByText } = renderPage()
-    expect(queryByText('textCopied')).toBeNull()
-    const button = getByText('copyText')
+    expect(queryByText('cityNotCooperating:textCopied')).toBeNull()
+    const button = getByText('cityNotCooperating:copyText')
     fireEvent.click(button)
-    await waitFor(() => expect(getByText('textCopied')).toBeDefined())
+    await waitFor(() => expect(getByText('cityNotCooperating:textCopied')).toBeDefined())
     expect(navigator.clipboard.writeText).toHaveBeenCalled()
   })
 })
