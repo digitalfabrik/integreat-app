@@ -5,9 +5,9 @@ import {
   CATEGORIES_ROUTE,
   cityContentPath,
   CityModel,
+  createCityEndpoint,
   DISCLAIMER_ROUTE,
   EVENTS_ROUTE,
-  LanguageModel,
   normalizePath,
   NotFoundError,
   OFFERS_ROUTE,
@@ -15,6 +15,7 @@ import {
   SEARCH_ROUTE,
   SHELTER_ROUTE,
   SPRUNGBRETT_OFFER_ROUTE,
+  useLoadFromEndpoint,
 } from 'api-client'
 
 import CityContentLayout from './components/CityContentLayout'
@@ -25,6 +26,7 @@ import LanguageFailure from './components/LanguageFailure'
 import Layout from './components/Layout'
 import LoadingSpinner from './components/LoadingSpinner'
 import buildConfig from './constants/buildConfig'
+import { cmsApiBaseUrl } from './constants/urls'
 import useWindowDimensions from './hooks/useWindowDimensions'
 import { LOCAL_NEWS_ROUTE, RoutePatterns, RouteType, TU_NEWS_DETAIL_ROUTE, TU_NEWS_ROUTE } from './routes'
 import ShelterPage from './routes/ShelterPage'
@@ -42,27 +44,23 @@ const SearchPage = lazyWithRetry(() => import('./routes/SearchPage'))
 const DisclaimerPage = lazyWithRetry(() => import('./routes/DisclaimerPage'))
 
 type CityContentSwitcherProps = {
-  cities: CityModel[]
   languageCode: string
 }
 
 export type CityRouteProps = {
-  cities: Array<CityModel>
-  cityModel: CityModel
-  languages: Array<LanguageModel>
-  languageModel: LanguageModel
+  city: CityModel | null
   pathname: string
   cityCode: string
   languageCode: string
 }
 
-const CityContentSwitcher = ({ cities, languageCode }: CityContentSwitcherProps): ReactElement => {
+const CityContentSwitcher = ({ languageCode }: CityContentSwitcherProps): ReactElement => {
   const cityCode = useParams().cityCode!
+  const { data: city, loading } = useLoadFromEndpoint(createCityEndpoint, cmsApiBaseUrl, { city: cityCode })
   const pathname = normalizePath(useLocation().pathname)
   const { viewportSmall } = useWindowDimensions()
-  const cityModel = cities.find(it => it.code === cityCode)
 
-  if (!cityModel) {
+  if (!city && !loading) {
     const error = new NotFoundError({ type: 'city', id: cityCode, city: cityCode, language: languageCode })
 
     return (
@@ -74,16 +72,16 @@ const CityContentSwitcher = ({ cities, languageCode }: CityContentSwitcherProps)
     )
   }
 
-  const languageModel = cityModel.languages.find(it => it.code === languageCode)
-  if (!languageModel) {
+  const language = city?.languages.find(it => it.code === languageCode) ?? null
+  if (city && !language) {
     return (
       <Layout
         header={<GeneralHeader languageCode={languageCode} viewportSmall={viewportSmall} />}
         footer={<GeneralFooter language={languageCode} />}>
         <LanguageFailure
-          cityModel={cityModel}
+          cityModel={city}
           languageCode={languageCode}
-          languageChangePaths={cityModel.languages.map(({ code, name }) => ({
+          languageChangePaths={city.languages.map(({ code, name }) => ({
             code,
             name,
             path: cityContentPath({ cityCode, languageCode: code }),
@@ -94,21 +92,19 @@ const CityContentSwitcher = ({ cities, languageCode }: CityContentSwitcherProps)
   }
 
   const cityRouteProps: CityRouteProps = {
-    cities,
-    languages: cityModel.languages,
-    cityModel,
-    languageModel,
+    city,
     pathname,
     cityCode,
     languageCode,
   }
-  const { eventsEnabled, offersEnabled } = cityModel
-  const localNewsEnabled = buildConfig().featureFlags.newsStream && cityModel.localNewsEnabled
-  const tuNewsEnabled = buildConfig().featureFlags.newsStream && cityModel.tunewsEnabled
-  const poisEnabled = buildConfig().featureFlags.pois && cityModel.poisEnabled
+
+  const eventsEnabled = !city || city.eventsEnabled
+  const offersEnabled = !city || city.offersEnabled
+  const localNewsEnabled = buildConfig().featureFlags.newsStream && (!city || city.localNewsEnabled)
+  const tuNewsEnabled = buildConfig().featureFlags.newsStream && (!city || city.tunewsEnabled)
+  const poisEnabled = buildConfig().featureFlags.pois && (!city || city.poisEnabled)
 
   const suspenseLayoutProps = {
-    cityModel,
     viewportSmall,
     feedbackTargetInformation: null,
     languageChangePaths: null,
@@ -127,9 +123,13 @@ const CityContentSwitcher = ({ cities, languageCode }: CityContentSwitcherProps)
       element={
         <Suspense
           fallback={
-            <CityContentLayout {...suspenseLayoutProps} route={route}>
-              <LoadingSpinner />
-            </CityContentLayout>
+            city ? (
+              <CityContentLayout {...suspenseLayoutProps} route={route} city={city}>
+                <LoadingSpinner />
+              </CityContentLayout>
+            ) : (
+              <Layout />
+            )
           }>
           <Component {...cityRouteProps} />
         </Suspense>

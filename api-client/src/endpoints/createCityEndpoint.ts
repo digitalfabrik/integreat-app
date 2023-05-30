@@ -10,6 +10,6 @@ type Params = {
 
 export default (baseUrl: string): Endpoint<Params, CityModel> =>
   new EndpointBuilder<Params, CityModel>(CITY_ENDPOINT_NAME)
-    .withParamsToUrlMapper(({ city }: Params) => `${baseUrl}/wp-json/extensions/v3/sites/${city}`)
+    .withParamsToUrlMapper(({ city }: Params) => `${baseUrl}/wp-json/extensions/v3/sites/${city}/`)
     .withMapper(mapCityJson)
     .build()
