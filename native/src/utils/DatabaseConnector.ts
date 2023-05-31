@@ -28,7 +28,7 @@ import {
 import { deleteIfExists } from './helpers'
 import { log, reportError } from './sentry'
 
-export const CONTENT_VERSION = 'v2'
+export const CONTENT_VERSION = 'v3'
 export const RESOURCE_CACHE_VERSION = 'v1'
 
 // Our pdf view can only load from DocumentDir. Therefore we need to use that
@@ -92,10 +92,15 @@ type ContentEventJsonType = {
   location: LocationJsonType<number | null> | null
   featured_image: FeaturedImageJsonType | null | undefined
 }
+type ContentLanguageJsonType = {
+  code: string
+  name: string
+}
 type ContentCityJsonType = {
   name: string
   live: boolean
   code: string
+  languages: ContentLanguageJsonType[]
   prefix: string | null | undefined
   extras_enabled: boolean
   events_enabled: boolean
@@ -383,17 +388,6 @@ class DatabaseConnector {
     return this.readFile(path, mapCategoriesJson)
   }
 
-  async loadLanguages(context: DatabaseContext): Promise<Array<LanguageModel>> {
-    const path = this.getContentPath('languages', context)
-    const mapLanguagesJson = (json: LanguageModel[]) => json.map(json => new LanguageModel(json._code, json._name))
-    return this.readFile(path, mapLanguagesJson)
-  }
-
-  async storeLanguages(languages: Array<LanguageModel>, context: DatabaseContext): Promise<void> {
-    const path = this.getContentPath('languages', context)
-    await this.writeFile(path, JSON.stringify(languages))
-  }
-
   async storePois(pois: Array<PoiModel>, context: DatabaseContext): Promise<void> {
     const jsonModels = pois.map(
       (poi: PoiModel): ContentPoiJsonType => ({
@@ -501,6 +495,7 @@ class DatabaseConnector {
         name: city.name,
         live: city.live,
         code: city.code,
+        languages: city.languages.map(it => ({ code: it.code, name: it.name })),
         prefix: city.prefix,
         extras_enabled: city.offersEnabled,
         events_enabled: city.eventsEnabled,
@@ -526,6 +521,7 @@ class DatabaseConnector {
             name: jsonObject.name,
             code: jsonObject.code,
             live: jsonObject.live,
+            languages: jsonObject.languages.map(it => new LanguageModel(it.code, it.name)),
             eventsEnabled: jsonObject.events_enabled,
             localNewsEnabled: jsonObject.pushNotificationsEnabled,
             tunewsEnabled: jsonObject.tunewsEnabled,
@@ -716,10 +712,6 @@ class DatabaseConnector {
 
   isCategoriesPersisted(context: DatabaseContext): Promise<boolean> {
     return this._isPersisted(this.getContentPath('categories', context))
-  }
-
-  isLanguagesPersisted(context: DatabaseContext): Promise<boolean> {
-    return this._isPersisted(this.getContentPath('languages', context))
   }
 
   isEventsPersisted(context: DatabaseContext): Promise<boolean> {
