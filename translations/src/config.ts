@@ -129,9 +129,6 @@ class Config {
     cs: {
       rtl: false,
     },
-    'pt-br': {
-      rtl: false,
-    },
   }
 
   // Fallbacks for unnormalized language codes from our backend
@@ -142,6 +139,7 @@ class Config {
     fa_pr: ['pes'],
     'de-si': ['de'],
     sr: ['sr-Cyrl'],
+    'pt-br': ['pt'],
     'zh-hans': ['zh-CN'],
     // Slugs from the CMS are (and have to be) lowercase
     'sr-cyrl': ['sr-Cyrl'],
