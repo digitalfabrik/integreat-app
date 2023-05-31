@@ -41,7 +41,7 @@
     "@types/seedrandom": "^3.0.2",
     "@types/uuid": "^9.0.0",
     "jest-fetch-mock": "^3.0.3",
-    "jest-junit": "^15.0.0",
+    "jest-junit": "^16.0.0",
     "seedrandom": "^3.0.3"
   }
 }

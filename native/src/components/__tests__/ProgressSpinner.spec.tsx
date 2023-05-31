@@ -4,6 +4,7 @@ import React from 'react'
 import ProgressSpinner from '../ProgressSpinner'
 
 jest.mock('styled-components')
+jest.mock('react-i18next')
 
 describe('ProgressSpinner', () => {
   it('should display a progress text', () => {
