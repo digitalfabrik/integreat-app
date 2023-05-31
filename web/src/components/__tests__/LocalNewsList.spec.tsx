@@ -7,6 +7,8 @@ import { renderWithRouterAndTheme } from '../../testing/render'
 import LocalNewsList from '../LocalNewsList'
 import NewsListItem from '../NewsListItem'
 
+jest.mock('react-i18next')
+
 describe('LocalNewsList', () => {
   const language = 'en'
   const link = '/testumgebung/en/news/local'
