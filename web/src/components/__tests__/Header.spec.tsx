@@ -7,6 +7,8 @@ import HeaderActionItemLink from '../HeaderActionItemLink'
 import HeaderNavigationItem from '../HeaderNavigationItem'
 import KebabActionItemLink from '../KebabActionItemLink'
 
+jest.mock('react-i18next')
+
 describe('Header', () => {
   const cityName = 'TestCity'
   it('should render correctly', () => {
