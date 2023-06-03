@@ -82,7 +82,6 @@ export { CONTENT_FEEDBACK_CATEGORY } from './endpoints/createFeedbackEndpoint'
 export { TECHNICAL_FEEDBACK_CATEGORY } from './endpoints/createFeedbackEndpoint'
 export { INTEGREAT_INSTANCE } from './endpoints/createFeedbackEndpoint'
 export { DEFAULT_FEEDBACK_LANGUAGE } from './endpoints/createFeedbackEndpoint'
-export { default as createLanguagesEndpoint, LANGUAGES_ENDPOINT_NAME } from './endpoints/createLanguagesEndpoint'
 export {
   default as createTunewsLanguagesEndpoint,
   TUNEWS_LANGUAGES_ENDPOINT_NAME,

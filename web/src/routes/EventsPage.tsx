@@ -48,9 +48,8 @@ const EventsPage = ({ cityModel, languages, pathname, languageCode, cityCode }: 
 
   // TODO IGAPP-1078: Remove workaround of looking up path until '$'
   const event = eventId
-    ? events?.find(
-        (event: EventModel) => event.path === pathname || event.path.substring(0, event.path.indexOf('$')) === pathname
-      )
+    ? events?.find(it => it.path === pathname) ??
+      events?.find(it => it.path.substring(0, it.path.indexOf('$')) === pathname)
     : null
 
   const toolbar = (openFeedback: (rating: FeedbackRatingType) => void) => (
