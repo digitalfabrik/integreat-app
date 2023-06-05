@@ -142,30 +142,33 @@ const Navigator = (): ReactElement | null => {
   }, [settings])
 
   useEffect(() => {
-    if (!settings || !cities || initialRoute) {
+    if (!settings || initialRoute) {
       return
     }
     if (buildConfig().featureFlags.introSlides && !settings.introShown) {
       setInitialRoute({ name: INTRO_ROUTE })
-    } else if (cityCode && cities.find(it => it.code === cityCode)) {
+    } else if (!cityCode) {
+      setInitialRoute({ name: LANDING_ROUTE })
+    } else if (cities?.find(it => it.code === cityCode)) {
       setInitialRoute({ name: CATEGORIES_ROUTE })
-    } else {
-      if (cityCode) {
-        // City is not available anymore
-        changeCityCode(null)
-        showSnackbar({ text: 'notFound.city' })
-        dataContainer.deleteCity(cityCode).catch(reportError)
-      }
+    } else if (cities) {
+      // City is not available anymore
+      changeCityCode(null)
+      showSnackbar({ text: 'notFound.city' })
+      dataContainer.deleteCity(cityCode).catch(reportError)
       setInitialRoute({ name: LANDING_ROUTE })
     }
   }, [cities, changeCityCode, cityCode, showSnackbar, settings, initialRoute])
 
-  if (citiesError || settingsError || !initialRoute) {
+  if (!initialRoute && (citiesError || settingsError)) {
     const refresh = () => {
       refreshSettings()
       refreshCities()
     }
     return <LoadingErrorHandler error={citiesError || settingsError} loading={!initialRoute} refresh={refresh} />
+  }
+  if (!initialRoute) {
+    return null
   }
 
   // Keeps our previous transition we used in v4 of react-navigation on android. Fixes weird showing of splash screen on every navigate.
