@@ -5,7 +5,8 @@ import { Text } from 'react-native'
 
 import {
   CityModel,
- LanguageModelBuilder, LocalNewsModel,
+  LanguageModelBuilder,
+  LocalNewsModel,
   LocalNewsType,
   replaceLinks,
   TU_NEWS_TYPE,
