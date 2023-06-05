@@ -1,7 +1,7 @@
 import { useNavigation } from '@react-navigation/native'
 import { createStackNavigator, StackHeaderProps, TransitionPresets } from '@react-navigation/stack'
-import React, { ReactElement, useCallback, useContext, useEffect, useState } from 'react'
-import { Platform, Text } from 'react-native'
+import React, { ReactElement, useContext, useEffect, useState } from 'react'
+import { Platform } from 'react-native'
 
 import {
   CATEGORIES_ROUTE,
@@ -28,6 +28,7 @@ import {
   SEARCH_ROUTE,
   SETTINGS_ROUTE,
   SPRUNGBRETT_OFFER_ROUTE,
+  useLoadAsync,
 } from 'api-client'
 
 import Header from './components/Header'
@@ -50,6 +51,7 @@ import Intro from './routes/Intro'
 import JpalTracking from './routes/JpalTracking'
 import Landing from './routes/Landing'
 import Licenses from './routes/Licenses'
+import LoadingErrorHandler from './routes/LoadingErrorHandler'
 import NewsContainer from './routes/NewsContainer'
 import OffersContainer from './routes/OffersContainer'
 import PDFViewModal from './routes/PDFViewModal'
@@ -58,11 +60,12 @@ import SearchModalContainer from './routes/SearchModalContainer'
 import Settings from './routes/Settings'
 import SprungbrettOfferContainer from './routes/SprungbrettOfferContainer'
 import appSettings, { ASYNC_STORAGE_VERSION } from './utils/AppSettings'
+import dataContainer from './utils/DefaultDataContainer'
 import {
   quitAppStatePushNotificationListener,
   useForegroundPushNotificationListener,
 } from './utils/PushNotificationsManager'
-import { initSentry, log } from './utils/sentry'
+import { initSentry, log, reportError } from './utils/sentry'
 
 type HeaderProps = {
   route: RouteProps<RoutesType>
@@ -84,20 +87,18 @@ type InitialRouteType =
       name: RedirectRouteType
       url: string
     }
+  | null
 const Stack = createStackNavigator<RoutesParamsType>()
 
 const Navigator = (): ReactElement | null => {
   const showSnackbar = useSnackbar()
-  const { cityCode } = useContext(AppContext)
+  const { cityCode, changeCityCode } = useContext(AppContext)
   const navigation = useNavigation<NavigationProps<RoutesType>>()
-  const [waitingForSettings, setWaitingForSettings] = useState<boolean>(true)
-  const [errorMessage, setErrorMessage] = useState<string | null | undefined>(null)
-  const [initialRoute, setInitialRoute] = useState<InitialRouteType>({
-    name: INTRO_ROUTE,
-  })
+  const { data: settings, error: settingsError, refresh: refreshSettings } = useLoadAsync(appSettings.loadSettings)
+  const [initialRoute, setInitialRoute] = useState<InitialRouteType>(null)
 
   // Preload cities
-  useLoadCities()
+  const { data: cities, error: citiesError, refresh: refreshCities } = useLoadCities()
 
   useForegroundPushNotificationListener({ showSnackbar, navigate: navigation.navigate })
 
@@ -112,64 +113,59 @@ const Navigator = (): ReactElement | null => {
     )
   }, [])
 
-  const updateInitialRoute = useCallback(
-    (initialRoute: InitialRouteType) =>
-      // Do not override initial route set by opening push notification
-      setInitialRoute(previous => (previous.name === REDIRECT_ROUTE ? previous : initialRoute)),
-    []
-  )
-
   useEffect(() => {
-    const initialize = async () => {
-      const usingHermes = typeof HermesInternal === 'object' && HermesInternal !== null
+    if (!settings) {
+      return
+    }
+    const { errorTracking, storageVersion, introShown } = settings
+    const usingHermes = typeof HermesInternal === 'object' && HermesInternal !== null
 
-      if (usingHermes) {
-        log('App is using Hermes: https://reactnative.dev/docs/hermes')
-      }
-
-      const { introShown, storageVersion, errorTracking } = await appSettings.loadSettings()
-
-      if (errorTracking) {
-        initSentry()
-      }
-
-      if (!storageVersion) {
-        await appSettings.setVersion(ASYNC_STORAGE_VERSION)
-      }
-
-      if (storageVersion !== ASYNC_STORAGE_VERSION) {
-        // start a migration routine
-      }
-
-      if (!buildConfig().featureFlags.introSlides && !introShown) {
-        await appSettings.setIntroShown()
-      }
-
-      if (buildConfig().featureFlags.introSlides && !introShown) {
-        updateInitialRoute({
-          name: INTRO_ROUTE,
-        })
-      } else if (cityCode) {
-        updateInitialRoute({
-          name: CATEGORIES_ROUTE,
-        })
-      } else {
-        updateInitialRoute({
-          name: LANDING_ROUTE,
-        })
-      }
-
-      setWaitingForSettings(false)
+    if (usingHermes) {
+      log('App is using Hermes: https://reactnative.dev/docs/hermes')
     }
 
-    initialize().catch(error => setErrorMessage(error.message))
-  }, [cityCode, updateInitialRoute, setErrorMessage])
+    if (errorTracking) {
+      initSentry()
+    }
 
-  if (errorMessage) {
-    return <Text>{errorMessage}</Text>
-  }
-  if (waitingForSettings) {
-    return null
+    if (!storageVersion) {
+      appSettings.setVersion(ASYNC_STORAGE_VERSION).catch(reportError)
+    }
+
+    if (storageVersion !== ASYNC_STORAGE_VERSION) {
+      // start a migration routine
+    }
+
+    if (!buildConfig().featureFlags.introSlides && !introShown) {
+      appSettings.setIntroShown().catch(reportError)
+    }
+  }, [settings])
+
+  useEffect(() => {
+    if (!settings || !cities || initialRoute) {
+      return
+    }
+    if (buildConfig().featureFlags.introSlides && !settings.introShown) {
+      setInitialRoute({ name: INTRO_ROUTE })
+    } else if (cityCode && cities.find(it => it.code === cityCode)) {
+      setInitialRoute({ name: CATEGORIES_ROUTE })
+    } else {
+      if (cityCode) {
+        // City is not available anymore
+        changeCityCode(null)
+        showSnackbar({ text: 'notFound.city' })
+        dataContainer.deleteCity(cityCode).catch(reportError)
+      }
+      setInitialRoute({ name: LANDING_ROUTE })
+    }
+  }, [cities, changeCityCode, cityCode, showSnackbar, settings, initialRoute])
+
+  if (citiesError || settingsError || !initialRoute) {
+    const refresh = () => {
+      refreshSettings()
+      refreshCities()
+    }
+    return <LoadingErrorHandler error={citiesError || settingsError} loading={!initialRoute} refresh={refresh} />
   }
 
   // Keeps our previous transition we used in v4 of react-navigation on android. Fixes weird showing of splash screen on every navigate.
