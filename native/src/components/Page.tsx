@@ -84,8 +84,8 @@ const Page = ({
     <SpaceBetween>
       <View>
         <Container onLayout={measureContentWidth}>
-          {title ? <Caption title={title} /> : null}
-          {BeforeContent}
+          {!loading && title ? <Caption title={title} /> : null}
+          {!loading && BeforeContent}
           <RemoteContent
             content={content}
             cacheDictionary={cacheDictionary}
