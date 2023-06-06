@@ -168,11 +168,9 @@ export type JsonSprungbrettJobType = {
   employment: string
   apprenticeship: string
 }
-export type LanguageDirectionType = 'ltr' | 'rtl'
 export type JsonLanguageType = {
   code: string
   native_name: string
-  dir: LanguageDirectionType
 }
 export type JsonTunewsLanguageType = {
   code: string
@@ -182,6 +180,7 @@ export type JsonCityType = {
   name: string
   path: string
   live: boolean
+  languages: JsonLanguageType[]
   events: boolean
   extras: boolean
   pois: boolean
@@ -192,7 +191,7 @@ export type JsonCityType = {
   latitude: number
   longitude: number
   aliases: Record<string, { longitude: number; latitude: number }> | null
-  bounding_box: number[][] | null
+  bounding_box: [[number, number], [number, number]] | null
 }
 
 export type TimeSlot = {

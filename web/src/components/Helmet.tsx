@@ -24,12 +24,13 @@ const Helmet = ({ pageTitle, metaDescription, languageChangePaths, cityModel }: 
       <meta name='robots' content='noindex' />
     ) : null
 
+  const title = `${pageTitle} | ${buildConfig().hostName}`
   const description = metaDescription ?? pageTitle
   const previewImage = buildConfig().icons.socialMediaPreview
 
   return (
     <ReactHelmet>
-      <title>{pageTitle}</title>
+      <title>{title}</title>
       <meta name='description' content={description} />
       {noIndex}
       {languageLinks}
@@ -41,6 +42,7 @@ const Helmet = ({ pageTitle, metaDescription, languageChangePaths, cityModel }: 
       <meta property='og:description' content={description} />
       <meta property='og:url' content={window.location.href} />
       <meta property='og:type' content='website' />
+      <meta property='integreat:version' content={__VERSION_NAME__} />
     </ReactHelmet>
   )
 }

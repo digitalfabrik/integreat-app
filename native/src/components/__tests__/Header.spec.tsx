@@ -73,20 +73,17 @@ describe('Header', () => {
     availableLanguages = defaultAvailableLanguages,
     languages = languageModels,
     shareUrl = defaultShareUrl,
-    isHome = false,
   }: {
     showItems?: boolean
     languages?: LanguageModel[]
     availableLanguages?: string[]
     shareUrl?: string
-    isHome?: boolean | null
   }) =>
     render(
       <AppContext.Provider value={context}>
         <Header
           navigation={navigation}
           route={route}
-          isHome={isHome}
           availableLanguages={availableLanguages}
           languages={languages}
           shareUrl={shareUrl}
@@ -125,13 +122,15 @@ describe('Header', () => {
   })
 
   it('should show back button and navigate back on click', () => {
-    const { getByText } = renderHeader({ isHome: false })
+    mocked(navigation.canGoBack).mockImplementation(() => true)
+    const { getByText } = renderHeader({})
     fireEvent.press(getByText('HeaderBackButton'))
     expect(navigation.goBack).toHaveBeenCalledTimes(1)
   })
 
   it('should not show back button if it is the home', () => {
-    const { queryByText } = renderHeader({ isHome: true })
+    mocked(navigation.canGoBack).mockImplementation(() => false)
+    const { queryByText } = renderHeader({})
     expect(queryByText('HeaderBackButton')).toBeFalsy()
   })
 

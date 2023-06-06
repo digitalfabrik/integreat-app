@@ -3,7 +3,7 @@ import React, { ReactElement, useContext, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Share, useWindowDimensions } from 'react-native'
 import { HiddenItem, Item } from 'react-navigation-header-buttons'
-import styled from 'styled-components/native'
+import styled, { useTheme } from 'styled-components/native'
 
 import { LANDING_ROUTE, LanguageModel, POIS_ROUTE, PoisRouteType, SHARE_SIGNAL_NAME } from 'api-client'
 import { DISCLAIMER_ROUTE, SEARCH_ROUTE, SETTINGS_ROUTE } from 'api-client/src/routes'
@@ -68,7 +68,6 @@ type HeaderProps = {
   languages?: LanguageModel[]
   availableLanguages?: string[]
   shareUrl?: string
-  isHome: boolean | null
 }
 
 const Header = ({
@@ -79,14 +78,15 @@ const Header = ({
   showItems = false,
   showOverflowItems = true,
   languages,
-  isHome,
 }: HeaderProps): ReactElement | null => {
   const { languageCode } = useContext(AppContext)
   const { t } = useTranslation('layout')
+  const theme = useTheme()
   const showSnackbar = useSnackbar()
   const deviceWidth = useWindowDimensions().width
-  // Save previous route to state to prevent it from changing during navigating which would lead to flickering of the title
+  // Save route/canGoBack to state to prevent it from changing during navigating which would lead to flickering of the title and back button
   const [previousRoute] = useState(navigation.getState().routes[navigation.getState().routes.length - 2])
+  const [canGoBack] = useState(navigation.canGoBack())
 
   const onShare = async () => {
     if (!shareUrl) {
@@ -161,13 +161,11 @@ const Header = ({
       ]
     : []
 
-  const HeaderLeft =
-    isHome !== null &&
-    (isHome ? (
-      <Icon source={buildConfigAssets().appIcon} />
-    ) : (
-      <HeaderBackButton onPress={navigation.goBack} labelVisible={false} />
-    ))
+  const HeaderLeft = canGoBack ? (
+    <HeaderBackButton onPress={navigation.goBack} labelVisible={false} tintColor={theme.colors.textColor} />
+  ) : (
+    <Icon source={buildConfigAssets().appIcon} />
+  )
 
   const getHeaderText = (): string => {
     const currentTitle = (route.params as { title?: string } | undefined)?.title
