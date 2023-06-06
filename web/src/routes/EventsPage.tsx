@@ -46,7 +46,11 @@ const EventsPage = ({ cityModel, languages, pathname, languageCode, cityCode }: 
     error: eventsError,
   } = useLoadFromEndpoint(createEventsEndpoint, cmsApiBaseUrl, { city: cityCode, language: languageCode })
 
-  const event = eventId ? events?.find((event: EventModel) => event.path === pathname) : null
+  // TODO IGAPP-1078: Remove workaround of looking up path until '$'
+  const event = eventId
+    ? events?.find(it => it.path === pathname) ??
+      events?.find(it => it.path.substring(0, it.path.indexOf('$')) === pathname)
+    : null
 
   const toolbar = (openFeedback: (rating: FeedbackRatingType) => void) => (
     <CityContentToolbar openFeedbackModal={openFeedback} viewportSmall={viewportSmall} />

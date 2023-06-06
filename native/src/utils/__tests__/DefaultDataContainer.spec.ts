@@ -3,7 +3,6 @@ import moment from 'moment'
 import CategoriesMapModelBuilder from 'api-client/src/testing/CategoriesMapModelBuilder'
 import CityModelBuilder from 'api-client/src/testing/CityModelBuilder'
 import EventModelBuilder from 'api-client/src/testing/EventModelBuilder'
-import LanguageModelBuilder from 'api-client/src/testing/LanguageModelBuilder'
 import PoiModelBuilder from 'api-client/src/testing/PoiModelBuilder'
 
 import BlobUtil from '../../__mocks__/react-native-blob-util'
@@ -11,11 +10,6 @@ import DatabaseContext from '../../models/DatabaseContext'
 import DatabaseConnector from '../DatabaseConnector'
 import defaultDataContainer from '../DefaultDataContainer'
 
-beforeEach(() => {
-  BlobUtil.fs._reset()
-
-  jest.clearAllMocks()
-})
 const testResources = {
   '/path/to/page': {
     'https://test.de/path/to/resource/test.png': {
@@ -45,13 +39,16 @@ const anotherTestResources = {
 }
 
 describe('DefaultDataContainer', () => {
-  beforeEach(defaultDataContainer.clearInMemoryCache)
+  beforeEach(() => {
+    BlobUtil.fs._reset()
+    jest.clearAllMocks()
+    defaultDataContainer.clearInMemoryCache()
+  })
 
   const city = 'augsburg'
   const language = 'de'
   const testPois = new PoiModelBuilder(2).build()
   const testCities = new CityModelBuilder(2).build()
-  const testLanguages = new LanguageModelBuilder(2).build()
   const testCategoriesMap = new CategoriesMapModelBuilder(city, language).build()
   const anotherTestCategoriesMap = new CategoriesMapModelBuilder(city, language, 1, 1).build()
   const testEvents = new EventModelBuilder('seed', 2, city, language).build()
@@ -86,14 +83,6 @@ describe('DefaultDataContainer', () => {
     defaultDataContainer.clearInMemoryCache()
     const cities = await defaultDataContainer.getCities()
     expect(cities).toEqual(testCities)
-  })
-  it('should return the language associated with the city', async () => {
-    await defaultDataContainer.setLanguages('testCity', [testLanguages[0]!])
-    await defaultDataContainer.setLanguages('anotherTestCity', [testLanguages[1]!])
-    const receivedTestLanguage = await defaultDataContainer.getLanguages('testCity')
-    const receivedAnotherTestLanguage = await defaultDataContainer.getLanguages('anotherTestCity')
-    expect(receivedTestLanguage).toEqual([testLanguages[0]])
-    expect(receivedAnotherTestLanguage).toEqual([testLanguages[1]])
   })
   it('should return the category associated with the context', async () => {
     await defaultDataContainer.setCategoriesMap('testCity', 'de', testCategoriesMap)
@@ -169,13 +158,6 @@ describe('DefaultDataContainer', () => {
     it('should return true, if categories are cached', async () => {
       await defaultDataContainer.setCategoriesMap('testCity', 'de', testCategoriesMap)
       const isAvailable = await defaultDataContainer.categoriesAvailable('testCity', 'de')
-      expect(isAvailable).toBe(true)
-    })
-  })
-  describe('languagesAvailable', () => {
-    it('should return true, if languages are cached', async () => {
-      await defaultDataContainer.setLanguages('testCity', testLanguages)
-      const isAvailable = await defaultDataContainer.languagesAvailable('testCity')
       expect(isAvailable).toBe(true)
     })
   })
