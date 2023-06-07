@@ -1,12 +1,11 @@
 import React, { ReactElement, useCallback, useEffect, useState } from 'react'
-import { Text, useWindowDimensions } from 'react-native'
+import { Text } from 'react-native'
 import WebView, { WebViewMessageEvent } from 'react-native-webview'
 import { WebViewNavigation } from 'react-native-webview/lib/WebViewTypes'
 import { useTheme } from 'styled-components/native'
 
 import { ErrorCode } from 'api-client'
 
-import dimensions from '../constants/dimensions'
 import { userAgent } from '../constants/endpoint'
 import { HEIGHT_MESSAGE_TYPE, WARNING_MESSAGE_TYPE } from '../constants/webview'
 import renderHtml from '../utils/renderHtml'
@@ -26,22 +25,22 @@ export const renderWebviewError = (
 
 type RemoteContentProps = {
   content: string
-  cacheDirectory: ParsedCacheDictionaryType
+  cacheDictionary: ParsedCacheDictionaryType
   language: string
   resourceCacheUrl: string
   onLinkPress: (url: string) => void
   onLoad: () => void
+  webViewWidth: number
 }
 
+// If the app crashes without an error message while using RemoteContent, consider wrapping it in a ScrollView or setting a manual height
 const RemoteContent = (props: RemoteContentProps): ReactElement | null => {
-  const { onLoad, content, cacheDirectory, resourceCacheUrl, language, onLinkPress } = props
+  const { onLoad, content, cacheDictionary, resourceCacheUrl, language, onLinkPress, webViewWidth } = props
   const [error, setError] = useState<string | null>(null)
   const [pressedUrl, setPressedUrl] = useState<string | null>(null)
   // https://github.com/react-native-webview/react-native-webview/issues/1069#issuecomment-651699461
   const defaultWebviewHeight = 1
   const [webViewHeight, setWebViewHeight] = useState<number>(defaultWebviewHeight)
-  const { width } = useWindowDimensions()
-  const webViewWidth = width - 2 * dimensions.page.horizontalMargin
   const theme = useTheme()
 
   useEffect(() => {
@@ -54,10 +53,10 @@ const RemoteContent = (props: RemoteContentProps): ReactElement | null => {
   }, [onLinkPress, pressedUrl])
 
   useEffect(() => {
-    if (webViewHeight !== defaultWebviewHeight) {
+    if (webViewHeight !== defaultWebviewHeight || content.length === 0) {
       onLoad()
     }
-  }, [onLoad, webViewHeight])
+  }, [onLoad, webViewHeight, content])
 
   // messages are triggered in renderHtml.ts
   const onMessage = useCallback((event: WebViewMessageEvent) => {
@@ -101,7 +100,7 @@ const RemoteContent = (props: RemoteContentProps): ReactElement | null => {
     <WebView
       source={{
         baseUrl: resourceCacheUrl,
-        html: renderHtml(content, cacheDirectory, theme, language),
+        html: renderHtml(content, cacheDictionary, theme, language),
       }}
       originWhitelist={['*']} // Needed by iOS to load the initial html
       javaScriptEnabled
