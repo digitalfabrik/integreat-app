@@ -2,6 +2,7 @@
   "categories": {
     "de": {
       "createPdf": "PDF erstellen",
+      "copyLink": "Link kopieren",
       "metaDescription": "{{appName}} ist Ihr digitaler Guide für Deutschland. Finden Sie lokale Informationen, Veranstaltungen und Beratung. Immer aktuell und in Ihrer Sprache."
     },
     "am": {
@@ -30,6 +31,7 @@
     },
     "en": {
       "createPdf": "Create a PDF",
+      "copyLink": "Copy link",
       "metaDescription": "{{appName}} is your digital guide to life in Germany. Discover local information, events and advice. Always up to date and available in your own language."
     },
     "es": {

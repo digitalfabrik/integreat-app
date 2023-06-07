@@ -1,5 +1,4 @@
 import React, { ReactElement, ReactNode } from 'react'
-import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
 
 import dimensions from '../constants/dimensions'
@@ -28,32 +27,21 @@ const ToolbarContainer = styled.div<{ direction: 'row' | 'column'; hasPadding: b
   }
 `
 
-const Headline = styled.h5`
-  width: 100vw;
-  margin: 0;
-  text-align: center;
-  font-size: 90%;
-`
-
 type ToolbarProps = {
   className?: string
   children?: ReactNode
-  viewportSmall: boolean
   iconDirection?: 'row' | 'column'
 }
 
 const Toolbar: React.FC<ToolbarProps> = ({
   children,
   className,
-  viewportSmall,
   iconDirection = 'column',
 }: ToolbarProps): ReactElement => {
-  const { t } = useTranslation('feedback')
   const hasPadding = iconDirection === 'column'
   return (
     <div>
       <ToolbarContainer className={className} direction={iconDirection} hasPadding={hasPadding}>
-        {viewportSmall && <Headline>{t('isThisSiteUseful')}</Headline>}
         {children}
       </ToolbarContainer>
     </div>

@@ -122,13 +122,6 @@ const Aside = styled.aside<{ languageSelectorHeight: number }>`
     display: block;
     max-width: 100%;
   }
-
-  @media screen and ${dimensions.smallViewport} {
-    position: static;
-    width: 100%;
-    max-width: initial;
-    margin-top: 0;
-  }
 `
 
 type LayoutProps = {
@@ -156,7 +149,7 @@ const Layout = ({
   disableScrollingSafari = false,
 }: LayoutProps): JSX.Element => {
   const modalVisible = !!modal
-  const { width } = useWindowDimensions()
+  const { width, viewportSmall } = useWindowDimensions()
   const [languageSelectorHeight, setLanguageSelectorHeight] = useState<number>(0)
 
   useEffect(() => {
@@ -170,9 +163,10 @@ const Layout = ({
         <div aria-hidden={modalVisible}>
           {header}
           <Body fullWidth={fullWidth} disableScrollingSafari={disableScrollingSafari}>
-            <Aside languageSelectorHeight={languageSelectorHeight}>{toolbar}</Aside>
+            {!viewportSmall && <Aside languageSelectorHeight={languageSelectorHeight}>{toolbar}</Aside>}
             <Main fullWidth={fullWidth}>{children}</Main>
           </Body>
+          {viewportSmall && toolbar}
         </div>
         {modal}
         <div aria-hidden={modalVisible}>{footer}</div>
