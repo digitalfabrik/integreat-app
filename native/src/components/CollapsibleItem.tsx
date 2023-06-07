@@ -21,6 +21,7 @@ type CollapsibleHeaderIconProps = 'expand-less' | 'expand-more'
 
 const PageContainer = styled.View`
   align-self: center;
+  width: 100%;
 `
 
 const CollapseHeaderText = styled.Text`
