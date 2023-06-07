@@ -3,6 +3,8 @@ import React from 'react'
 import renderWithTheme from '../../testing/render'
 import OpeningEntry from '../OpeningEntry'
 
+jest.mock('react-i18next')
+
 describe('OpeningEntrySpec', () => {
   const timeSlots = [
     { end: '18:00', start: '13:00' },

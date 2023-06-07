@@ -5,7 +5,6 @@ import { webIntegreatTestCmsBuildConfig } from 'build-configs/integreat-test-cms
 const transformNodeModules = ['api-client', 'build-configs', 'translations']
 const config: InitialOptionsTsJest = {
   rootDir: 'src',
-  preset: 'ts-jest',
   verbose: true,
   automock: false,
   setupFilesAfterEnv: [
@@ -21,6 +20,14 @@ const config: InitialOptionsTsJest = {
   moduleFileExtensions: ['js', 'jsx', 'ts', 'tsx', 'json'],
   moduleDirectories: ['node_modules'],
   maxWorkers: '50%',
+  transform: {
+    '^.+\\.(j|t)sx?$': [
+      'ts-jest',
+      {
+        isolatedModules: true,
+      },
+    ],
+  },
   coverageDirectory: '<rootDir>/../reports/coverage',
   reporters: [
     'default',

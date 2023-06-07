@@ -22,7 +22,12 @@ import render from '../../testing/render'
 import LocalNews from '../LocalNews'
 
 jest.mock('react-i18next')
-jest.mock('../../components/NativeHtml', () => ({ content }: { content: string }) => <Text>{content}</Text>)
+jest.mock('../../components/Page', () => ({ content, title }: { title: string; content: string }) => (
+  <>
+    <Text>{title}</Text>
+    <Text>{content}</Text>
+  </>
+))
 jest.mock('../../hooks/useLoadLocalNews')
 jest.mock('@react-native-community/netinfo')
 jest.mock('react-native/Libraries/EventEmitter/NativeEventEmitter')

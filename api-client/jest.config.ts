@@ -8,6 +8,14 @@ export default {
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json'],
   coverageDirectory: '<rootDir>/../reports/coverage',
   testEnvironment: 'node',
+  transform: {
+    '^.+\\.(j|t)sx?$': [
+      'ts-jest',
+      {
+        isolatedModules: true,
+      },
+    ],
+  },
   maxWorkers: '50%',
   reporters: [
     'default',

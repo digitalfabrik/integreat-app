@@ -30,14 +30,15 @@ export default {
     '<rootDir>/../node_modules/@testing-library/jest-native/extend-expect',
   ],
   transform: {
-    '^.+\\.jsx?$': '../babel-jest.js',
-    '^.+\\.tsx?$': 'ts-jest',
+    '^.+\\.jsx?$': ['babel-jest', { rootMode: 'upward' }],
+    '^.+\\.tsx?$': ['ts-jest', { isolatedModules: true }],
   },
   transformIgnorePatterns: [`node_modules/(?!${transformNodeModules.join('|')}/)`],
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json'],
   modulePaths: ['<rootDir>'],
   moduleDirectories: ['node_modules'],
   maxWorkers: '50%',
+  workerIdleMemoryLimit: '500MB',
   coverageDirectory: '<rootDir>/../reports/coverage',
   reporters: [
     'default',
