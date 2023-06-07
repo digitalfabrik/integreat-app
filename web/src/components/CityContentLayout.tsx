@@ -65,7 +65,6 @@ const CityContentLayout = (props: CityContentLayoutProps): ReactElement => {
         <CityContentHeader
           cityModel={city}
           languageChangePaths={languageChangePaths}
-          viewportSmall={viewportSmall}
           languageCode={languageCode}
           route={route}
         />

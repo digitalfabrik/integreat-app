@@ -7,6 +7,7 @@ import CityNotCooperatingFooter from '../components/CityNotCooperatingFooter'
 import CitySelector from '../components/CitySelector'
 import FailureSwitcher from '../components/FailureSwitcher'
 import GeneralFooter from '../components/GeneralFooter'
+import GeneralHeader from '../components/GeneralHeader'
 import Helmet from '../components/Helmet'
 import Layout from '../components/Layout'
 import LoadingSpinner from '../components/LoadingSpinner'
@@ -34,7 +35,7 @@ const LandingPage = ({ languageCode }: LandingPageProps): ReactElement => {
 
   if (error || !cities) {
     return (
-      <Layout>
+      <Layout header={<GeneralHeader languageCode={languageCode} />} footer={<GeneralFooter language={languageCode} />}>
         <FailureSwitcher error={error ?? new Error('Uknown error')} />
       </Layout>
     )
