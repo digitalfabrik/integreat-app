@@ -1,4 +1,4 @@
-import React, { ReactElement, useCallback, useContext } from 'react'
+import React, { ReactElement, useCallback } from 'react'
 import { useWindowDimensions } from 'react-native'
 import styled from 'styled-components/native'
 
@@ -7,7 +7,6 @@ import { CATEGORIES_ROUTE, CategoriesRouteType, cityContentPath, ErrorCode } fro
 import Categories from '../components/Categories'
 import DashboardNavigationTiles from '../components/DashboardNavigationTiles'
 import SpaceBetween from '../components/SpaceBetween'
-import { StaticServerContext } from '../components/StaticServerProvider'
 import { NavigationProps, RouteProps } from '../constants/NavigationTypes'
 import useCityAppContext from '../hooks/useCityAppContext'
 import useHeader from '../hooks/useHeader'
@@ -35,7 +34,6 @@ const CategoriesContainer = ({ navigation, route }: CategoriesContainerProps): R
   const { cityCode, languageCode } = useCityAppContext()
   const deviceWidth = useWindowDimensions().width
   const resourceCache = useResourceCache({ cityCode, languageCode })
-  const resourceCacheUrl = useContext(StaticServerContext)
   const { navigateTo } = useNavigate()
 
   const { data, ...response } = useLoadCityContent({ cityCode, languageCode })
@@ -86,7 +84,6 @@ const CategoriesContainer = ({ navigation, route }: CategoriesContainerProps): R
             categories={data.categories}
             category={category}
             resourceCache={resourceCache}
-            resourceCacheUrl={resourceCacheUrl}
           />
         </SpaceBetween>
       )}
