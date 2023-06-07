@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next'
 
 import { CategoryModel } from 'api-client'
 
-import { faFilePdf } from '../constants/icons'
+import { PdfIcon } from '../assets'
 import { cmsApiBaseUrl } from '../constants/urls'
 import CityContentToolbar from './CityContentToolbar'
 import { FeedbackRatingType } from './FeedbackToolbarItem'
@@ -28,7 +28,7 @@ const CategoriesToolbar = (props: CategoriesToolbarProps): ReactElement => {
 
   return (
     <CityContentToolbar openFeedbackModal={openFeedbackModal} viewportSmall={viewportSmall}>
-      <ToolbarItem icon={faFilePdf} text={t('createPdf')} href={pdfUrl} viewportSmall={viewportSmall} />
+      <ToolbarItem icon={PdfIcon} text={t('createPdf')} href={pdfUrl} viewportSmall={viewportSmall} />
     </CityContentToolbar>
   )
 }

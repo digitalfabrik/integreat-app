@@ -77,7 +77,11 @@ const PoisDesktop: React.FC<PoisDesktopProps> = ({
       <div>
         <ListViewWrapper panelHeights={panelHeights}>
           {!currentFeature && <ListHeader>{t('listTitle')}</ListHeader>}
-          {currentFeature && poi ? <PoiDetails poi={poi} feature={currentFeature} direction={direction} /> : poiList}
+          {currentFeature && poi ? (
+            <PoiDetails poi={poi} feature={currentFeature} direction={direction} toolbar={toolbar} />
+          ) : (
+            poiList
+          )}
         </ListViewWrapper>
         {currentFeature && showFeatureSwitch ? (
           <PoiPanelNavigation switchFeature={switchFeature} direction={direction} />

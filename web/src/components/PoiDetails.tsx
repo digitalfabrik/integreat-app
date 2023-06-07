@@ -19,6 +19,7 @@ import ContactItem from './ContactItem'
 import OpeningHours from './OpeningHours'
 import RemoteContent from './RemoteContent'
 import Spacer from './Spacer'
+import Toolbar from './Toolbar'
 
 const DetailsContainer = styled.div`
   font-family: ${props => props.theme.fonts.web.contentFont};
@@ -189,11 +190,16 @@ const DetailSection = styled.div`
   }
 `
 
+const ToolbarWrapper = styled(Toolbar)`
+  justify-content: center;
+`
+
 type PoiDetailsProps = {
   feature: PoiFeature
   poi: PoiModel
   direction: UiDirectionType
   isBottomSheetFullscreen?: boolean
+  toolbar: ReactElement
 }
 
 const PoiDetails: React.FC<PoiDetailsProps> = ({
@@ -201,6 +207,7 @@ const PoiDetails: React.FC<PoiDetailsProps> = ({
   poi,
   direction,
   isBottomSheetFullscreen = false,
+  toolbar,
 }: PoiDetailsProps): ReactElement => {
   const navigate = useNavigate()
   const browserLocation = useLocation()
@@ -301,6 +308,8 @@ const PoiDetails: React.FC<PoiDetailsProps> = ({
           </Collapsible>
         </>
       )}
+      <Spacer borderColor={theme.colors.poiBorderColor} />
+      <ToolbarWrapper>{toolbar}</ToolbarWrapper>
     </DetailsContainer>
   )
 }
