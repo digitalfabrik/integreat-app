@@ -27,7 +27,6 @@ import Layout from './components/Layout'
 import LoadingSpinner from './components/LoadingSpinner'
 import buildConfig from './constants/buildConfig'
 import { cmsApiBaseUrl } from './constants/urls'
-import useWindowDimensions from './hooks/useWindowDimensions'
 import { LOCAL_NEWS_ROUTE, RoutePatterns, RouteType, TU_NEWS_DETAIL_ROUTE, TU_NEWS_ROUTE } from './routes'
 import ShelterPage from './routes/ShelterPage'
 import lazyWithRetry from './utils/retryImport'
@@ -56,18 +55,15 @@ export type CityRouteProps = {
 
 const CityContentSwitcher = ({ languageCode }: CityContentSwitcherProps): ReactElement => {
   const cityCode = useParams().cityCode!
-  const { data: city, loading } = useLoadFromEndpoint(createCityEndpoint, cmsApiBaseUrl, { city: cityCode })
+  const { data: city, error, loading } = useLoadFromEndpoint(createCityEndpoint, cmsApiBaseUrl, { city: cityCode })
   const pathname = normalizePath(useLocation().pathname)
-  const { viewportSmall } = useWindowDimensions()
 
   if (!city && !loading) {
-    const error = new NotFoundError({ type: 'city', id: cityCode, city: cityCode, language: languageCode })
+    const notFoundError = new NotFoundError({ type: 'city', id: cityCode, city: cityCode, language: languageCode })
 
     return (
-      <Layout
-        header={<GeneralHeader languageCode={languageCode} viewportSmall={viewportSmall} />}
-        footer={<GeneralFooter language={languageCode} />}>
-        <FailureSwitcher error={error} />
+      <Layout header={<GeneralHeader languageCode={languageCode} />} footer={<GeneralFooter language={languageCode} />}>
+        <FailureSwitcher error={error ?? notFoundError} />
       </Layout>
     )
   }
@@ -75,9 +71,7 @@ const CityContentSwitcher = ({ languageCode }: CityContentSwitcherProps): ReactE
   const language = city?.languages.find(it => it.code === languageCode) ?? null
   if (city && !language) {
     return (
-      <Layout
-        header={<GeneralHeader languageCode={languageCode} viewportSmall={viewportSmall} />}
-        footer={<GeneralFooter language={languageCode} />}>
+      <Layout header={<GeneralHeader languageCode={languageCode} />} footer={<GeneralFooter language={languageCode} />}>
         <LanguageFailure
           cityModel={city}
           languageCode={languageCode}
@@ -98,20 +92,12 @@ const CityContentSwitcher = ({ languageCode }: CityContentSwitcherProps): ReactE
     languageCode,
   }
 
+  // If the city is not available yet, nothing is rendered in the routes. Therefore we can render the route until we know whether the feature is enabled.
   const eventsEnabled = !city || city.eventsEnabled
   const offersEnabled = !city || city.offersEnabled
   const localNewsEnabled = buildConfig().featureFlags.newsStream && (!city || city.localNewsEnabled)
   const tuNewsEnabled = buildConfig().featureFlags.newsStream && (!city || city.tunewsEnabled)
   const poisEnabled = buildConfig().featureFlags.pois && (!city || city.poisEnabled)
-
-  const suspenseLayoutProps = {
-    viewportSmall,
-    feedbackTargetInformation: null,
-    languageChangePaths: null,
-    languageCode,
-    pathname,
-    isLoading: true,
-  }
 
   const render = <S extends RouteType>(
     route: S,
@@ -124,7 +110,13 @@ const CityContentSwitcher = ({ languageCode }: CityContentSwitcherProps): ReactE
         <Suspense
           fallback={
             city ? (
-              <CityContentLayout {...suspenseLayoutProps} route={route} city={city}>
+              <CityContentLayout
+                feedbackTargetInformation={null}
+                languageChangePaths={null}
+                languageCode={languageCode}
+                isLoading
+                route={route}
+                city={city}>
                 <LoadingSpinner />
               </CityContentLayout>
             ) : (
