@@ -132,10 +132,6 @@ const Navigator = (): ReactElement | null => {
       appSettings.setVersion(ASYNC_STORAGE_VERSION).catch(reportError)
     }
 
-    if (storageVersion !== ASYNC_STORAGE_VERSION) {
-      // start a migration routine
-    }
-
     if (!buildConfig().featureFlags.introSlides && !introShown) {
       appSettings.setIntroShown().catch(reportError)
     }
