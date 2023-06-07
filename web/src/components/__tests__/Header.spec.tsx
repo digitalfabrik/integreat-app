@@ -10,6 +10,7 @@ import HeaderNavigationItem from '../HeaderNavigationItem'
 import KebabActionItemLink from '../KebabActionItemLink'
 
 jest.mock('../../hooks/useWindowDimensions')
+jest.mock('react-i18next')
 
 describe('Header', () => {
   beforeEach(jest.clearAllMocks)
