@@ -21,7 +21,6 @@ const getImageSource = (uri: string | number): ImageSourcePropType =>
     ? uri
     : {
         uri: getLocalPlatformFilepath(uri),
-        cache: 'reload',
       }
 
 const SimpleImage = ({ source, style, resizeMode = 'contain' }: SimpleImageProps): ReactElement => {

@@ -1,0 +1,6 @@
+issue_key: IGAPP-1308
+show_in_stores: false
+platforms:
+  - ios
+en: Remove ios image caching
+de: Entferne Bildercaching für ios.
