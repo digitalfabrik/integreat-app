@@ -44,6 +44,7 @@ type PageProps = {
   lastUpdate?: Moment
   navigateToFeedback?: (positive: boolean) => void
   path?: string
+  bottom?: React.ReactNode
 }
 
 const Page = ({
@@ -55,6 +56,7 @@ const Page = ({
   lastUpdate,
   navigateToFeedback,
   path,
+  bottom,
 }: PageProps): ReactElement => {
   const { cityCode, languageCode } = useCityAppContext()
   const resourceCache = useResourceCache({ cityCode, languageCode })
@@ -96,6 +98,7 @@ const Page = ({
             webViewWidth={contentWidth}
           />
           {!loading && !!content && lastUpdate && <TimeStamp formatter={formatter} lastUpdate={lastUpdate} />}
+          {bottom}
         </Container>
         {!loading && AfterContent}
       </View>

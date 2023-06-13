@@ -6,6 +6,7 @@ const Container = styled(Animated.View)<{ row: boolean }>`
   background-color: ${props => props.theme.colors.textSecondaryColor};
   flex-direction: ${props => (props.row ? 'row' : 'column')};
   align-items: center;
+  justify-content: space-between;
   padding: 10px;
   min-height: 70px;
 `
@@ -21,7 +22,6 @@ const ActionContainer = styled.View<{ row: boolean }>`
   align-items: center;
 `
 const Action = styled.Text`
-  flex: 1;
   color: ${props => props.theme.colors.themeColor};
   font-size: 18px;
   justify-content: center;

@@ -1064,7 +1064,8 @@
       "generalError": "Ein Fehler ist aufgetreten",
       "notSupportedByDevice": "Diese Funktion wird auf diesem Gerät nicht unterstützt.",
       "languageSwitchFailedTitle": "Leider ist der Sprachwechsel fehlgeschlagen.",
-      "languageSwitchFailedMessage": "Die ausgewählte Sprache ist nicht offline verfügbar. Eine aktive Internetverbinding ist notwendig."
+      "languageSwitchFailedMessage": "Die ausgewählte Sprache ist nicht offline verfügbar. Eine aktive Internetverbinding ist notwendig.",
+      "noCalendarPermission": "Kein Zugriff auf den Kalender"
     },
     "am": {
       "notFound": {
@@ -2261,8 +2262,12 @@
       "date": "Datum",
       "events": "Veranstaltungen",
       "exportAsICal": "Als iCal exportieren",
+      "addToCalendar": "Zum Kalender hinzufügen",
       "currentlyNoEvents": "Es gibt aktuell keine Veranstaltungen.",
-      "pageTitle": "Veranstaltungen"
+      "pageTitle": "Veranstaltungen",
+      "chooseCalendar": "Wähle einen Kalender aus",
+      "added": "Hinzugefügt",
+      "goToCalendar": "Zum Kalender"
     },
     "am": {
       "address": "ኣድራሻ",
@@ -2311,8 +2316,12 @@
       "date": "Date",
       "events": "Events",
       "exportAsICal": "Export as iCal",
+      "addToCalendar": "Add to calendar",
       "currentlyNoEvents": "No events are currently available.",
-      "pageTitle": "Events"
+      "pageTitle": "Events",
+      "chooseCalendar": "Choose a calendar",
+      "added": "Added",
+      "goToCalendar": "Go to calendar"
     },
     "es": {
       "address": "Dirección",
