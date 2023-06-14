@@ -2269,7 +2269,7 @@
       "chooseCalendar": "Wähle einen Kalender aus",
       "added": "Hinzugefügt",
       "goToCalendar": "Zum Kalender",
-      "close": "Schließen",
+      "back": "Zurück",
       "settings": "Einstellungen"
     },
     "am": {
@@ -2325,7 +2325,7 @@
       "chooseCalendar": "Choose a calendar",
       "added": "Added",
       "goToCalendar": "Go to calendar",
-      "close": "Close",
+      "back": "Back",
       "settings": "Settings"
     },
     "es": {

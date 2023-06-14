@@ -1,3 +1,4 @@
+import { HeaderBackButton } from '@react-navigation/elements'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Modal, TouchableOpacity } from 'react-native'
@@ -7,13 +8,21 @@ import styled from 'styled-components/native'
 const StyledView = styled.View`
   flex: 1;
   justify-content: center;
+  margin: 0 20px;
+`
+
+const TitleContainer = styled.View`
+  flex-direction: row;
+  align-items: center;
+  margin-bottom: 5px;
+  margin-top: 50px;
 `
 
 const Title = styled.Text`
   font-family: ${props => props.theme.fonts.native.decorativeFontBold};
   text-align: center;
-  padding-top: 70px;
-  padding-bottom: 20px;
+  flex: 1;
+  padding-right: 16px;
 `
 
 const CalendarButton = styled(TouchableOpacity)<{ color: string }>`
@@ -21,19 +30,11 @@ const CalendarButton = styled(TouchableOpacity)<{ color: string }>`
   background-color: ${props => props.color};
   justify-content: center;
   align-items: center;
-  margin: 5px 20px;
+  margin: 5px 0;
 `
 
 const ButtonText = styled.Text`
   font-family: ${props => props.theme.fonts.native.decorativeFontRegular};
-`
-
-const CloseButton = styled(TouchableOpacity)`
-  flex: 0.05;
-  justify-content: center;
-  align-items: center;
-  margin: 5px 20px;
-  padding-bottom: 20px;
 `
 
 type CalendarChoiceProps = {
@@ -53,15 +54,15 @@ const CalendarChoice = ({
   return (
     <Modal visible={overlayVisible} onRequestClose={closeOverlay} animationType='fade'>
       <StyledView>
-        <Title>{t('chooseCalendar')}</Title>
+        <TitleContainer>
+          <HeaderBackButton onPress={closeOverlay} label={t('back')} />
+          <Title>{t('chooseCalendar')}</Title>
+        </TitleContainer>
         {calendars.map(cal => (
           <CalendarButton key={cal.id} onPress={() => chooseCalendar(cal.id)} color={cal.color}>
             <ButtonText>{cal.title}</ButtonText>
           </CalendarButton>
         ))}
-        <CloseButton onPress={closeOverlay}>
-          <ButtonText>{t('close')}</ButtonText>
-        </CloseButton>
       </StyledView>
     </Modal>
   )

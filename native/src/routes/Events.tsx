@@ -149,6 +149,7 @@ const Events = ({
           setShowCalendarChoiceOverlay(true)
         }
       }
+
       return (
         <LayoutedScrollView refreshControl={<RefreshControl onRefresh={refresh} refreshing={false} />}>
           {!!calendars?.length && (
