@@ -107,7 +107,7 @@ const Events = ({
               text: t('added'),
               positiveAction: {
                 label: t('goToCalendar'),
-                onPress: async () => {
+                onPress: () => {
                   if (Platform.OS === 'ios') {
                     const appleRefDate = moment('Jan 1 2001', 'MMM DD YYYY')
                     const secondsSinceRefDate = event.date.startDate.diff(appleRefDate, 'seconds')
@@ -130,7 +130,13 @@ const Events = ({
           permission = await RNCalendarEvents.requestPermissions()
         }
         if (permission === 'denied' || permission === 'restricted') {
-          showSnackbar({ text: 'noCalendarPermission' })
+          showSnackbar({
+            text: 'noCalendarPermission',
+            positiveAction: {
+              label: t('settings'),
+              onPress: Linking.openSettings,
+            },
+          })
           return
         }
         const editableCalendars = (await RNCalendarEvents.findCalendars()).filter(cal => cal.allowsModifications)

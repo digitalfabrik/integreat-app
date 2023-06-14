@@ -10,11 +10,12 @@ const Container = styled(Animated.View)<{ row: boolean }>`
   padding: 10px;
   min-height: 70px;
 `
-const Message = styled.Text`
+const Message = styled.Text<{ hasActions: boolean }>`
   padding: 0 10px;
   color: ${props => props.theme.colors.backgroundColor};
   font-size: 18px;
-  text-align: center;
+  text-align: ${props => (props.hasActions ? 'auto' : 'center')};
+  flex-shrink: 1;
 `
 const ActionContainer = styled.View<{ row: boolean }>`
   flex-direction: ${props => (props.row ? 'row' : 'column')};
@@ -44,7 +45,7 @@ const Snackbar = ({ text, positiveAction, negativeAction }: SnackbarProps): Reac
   const horizontal = !(positiveAction && negativeAction)
   return (
     <Container row={horizontal}>
-      <Message>{text}</Message>
+      <Message hasActions={!!(negativeAction || positiveAction)}>{text}</Message>
       <ActionContainer row={!horizontal}>
         {negativeAction && <Action onPress={negativeAction.onPress}>{negativeAction.label}</Action>}
         {positiveAction && <Action onPress={positiveAction.onPress}>{positiveAction.label}</Action>}
