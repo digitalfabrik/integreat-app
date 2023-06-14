@@ -9,13 +9,13 @@ const StyledView = styled.View`
   flex: 1;
   justify-content: center;
   margin: 0 20px;
+  padding: 50px 0;
 `
 
 const TitleContainer = styled.View`
   flex-direction: row;
   align-items: center;
   margin-bottom: 5px;
-  margin-top: 50px;
 `
 
 const Title = styled.Text`
