@@ -124,7 +124,7 @@ const Events = ({
           })
       }
 
-      const handlePress = async (): Promise<void> => {
+      const checkCalendarsAndSaveEvent = async (): Promise<void> => {
         let permission = await RNCalendarEvents.checkPermissions()
         if (permission === 'undetermined') {
           permission = await RNCalendarEvents.requestPermissions()
@@ -145,15 +145,19 @@ const Events = ({
       }
       return (
         <LayoutedScrollView refreshControl={<RefreshControl onRefresh={refresh} refreshing={false} />}>
-          <CalendarChoice
-            closeOverlay={() => setShowCalendarChoiceOverlay(false)}
-            overlayVisible={showCalendarChoiceOverlay}
-            chooseCalendar={(id: string) => {
-              setShowCalendarChoiceOverlay(false)
-              saveEventToCalendar(id)
-            }}
-            calendars={calendars}
-          />
+          {!!calendars?.length && (
+            <CalendarChoice
+              closeOverlay={() => setShowCalendarChoiceOverlay(false)}
+              overlayVisible={showCalendarChoiceOverlay}
+              chooseCalendar={async (id: string) => {
+                setShowCalendarChoiceOverlay(false)
+                await saveEventToCalendar(id).catch(() => {
+                  showSnackbar({ text: 'generalError' })
+                })
+              }}
+              calendars={calendars}
+            />
+          )}
           <Page
             content={event.content}
             title={event.title}
@@ -173,10 +177,10 @@ const Events = ({
                 )}
               </>
             }
-            bottom={
+            pageFooter={
               <Button
                 title={t('addToCalendar')}
-                onPress={handlePress}
+                onPress={checkCalendarsAndSaveEvent}
                 buttonStyle={{
                   backgroundColor: theme.colors.themeColor,
                   marginTop: 20,

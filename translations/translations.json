@@ -1065,7 +1065,8 @@
       "notSupportedByDevice": "Diese Funktion wird auf diesem Gerät nicht unterstützt.",
       "languageSwitchFailedTitle": "Leider ist der Sprachwechsel fehlgeschlagen.",
       "languageSwitchFailedMessage": "Die ausgewählte Sprache ist nicht offline verfügbar. Eine aktive Internetverbinding ist notwendig.",
-      "noCalendarPermission": "Kein Zugriff auf den Kalender möglich."
+      "noCalendarPermission": "Der Zugriff auf den Kalender ist nicht möglich.",
+      "noCalendarFound": "Es wurde kein geeigneter Kalender gefunden."
     },
     "am": {
       "notFound": {

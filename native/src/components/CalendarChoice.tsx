@@ -28,7 +28,7 @@ const ButtonText = styled.Text`
 `
 
 type CalendarChoiceProps = {
-  calendars?: Calendar[]
+  calendars: Calendar[]
   chooseCalendar: (id: string) => void
   overlayVisible: boolean
   closeOverlay: () => void
@@ -45,7 +45,7 @@ const CalendarChoice = ({
     <Modal visible={overlayVisible} onRequestClose={closeOverlay} animationType='fade'>
       <StyledView>
         <Title>{t('chooseCalendar')}</Title>
-        {calendars?.map(cal => (
+        {calendars.map(cal => (
           <CalendarButton key={cal.id} onPress={() => chooseCalendar(cal.id)} color={cal.color}>
             <ButtonText>{cal.title}</ButtonText>
           </CalendarButton>
