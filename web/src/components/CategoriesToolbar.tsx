@@ -28,7 +28,7 @@ const CategoriesToolbar = (props: CategoriesToolbarProps): ReactElement => {
 
   return (
     <CityContentToolbar openFeedbackModal={openFeedbackModal} viewportSmall={viewportSmall}>
-      <ToolbarItem icon={PdfIcon} text={t('createPdf')} href={pdfUrl} viewportSmall={viewportSmall} />
+      <ToolbarItem icon={PdfIcon} text={t('createPdf')} href={pdfUrl} />
     </CityContentToolbar>
   )
 }
