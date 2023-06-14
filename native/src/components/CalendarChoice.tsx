@@ -12,6 +12,7 @@ const StyledView = styled.View`
 const Title = styled.Text`
   font-family: ${props => props.theme.fonts.native.decorativeFontBold};
   text-align: center;
+  padding-top: 70px;
   padding-bottom: 20px;
 `
 
@@ -25,6 +26,14 @@ const CalendarButton = styled(TouchableOpacity)<{ color: string }>`
 
 const ButtonText = styled.Text`
   font-family: ${props => props.theme.fonts.native.decorativeFontRegular};
+`
+
+const CloseButton = styled(TouchableOpacity)`
+  flex: 0.05;
+  justify-content: center;
+  align-items: center;
+  margin: 5px 20px;
+  padding-bottom: 20px;
 `
 
 type CalendarChoiceProps = {
@@ -50,6 +59,9 @@ const CalendarChoice = ({
             <ButtonText>{cal.title}</ButtonText>
           </CalendarButton>
         ))}
+        <CloseButton onPress={closeOverlay}>
+          <ButtonText>{t('close')}</ButtonText>
+        </CloseButton>
       </StyledView>
     </Modal>
   )

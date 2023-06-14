@@ -2268,7 +2268,8 @@
       "pageTitle": "Veranstaltungen",
       "chooseCalendar": "Wähle einen Kalender aus",
       "added": "Hinzugefügt",
-      "goToCalendar": "Zum Kalender"
+      "goToCalendar": "Zum Kalender",
+      "close": "Schließen"
     },
     "am": {
       "address": "ኣድራሻ",
@@ -2322,7 +2323,8 @@
       "pageTitle": "Events",
       "chooseCalendar": "Choose a calendar",
       "added": "Added",
-      "goToCalendar": "Go to calendar"
+      "goToCalendar": "Go to calendar",
+      "close": "Close"
     },
     "es": {
       "address": "Dirección",
