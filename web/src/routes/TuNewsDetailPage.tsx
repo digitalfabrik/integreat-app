@@ -7,7 +7,9 @@ import { createTunewsElementEndpoint, NotFoundError, TU_NEWS_TYPE, useLoadFromEn
 import { CityRouteProps } from '../CityContentSwitcher'
 import TunewsIcon from '../assets/TunewsActiveLogo.png'
 import CityContentLayout from '../components/CityContentLayout'
+import CityContentToolbar from '../components/CityContentToolbar'
 import FailureSwitcher from '../components/FailureSwitcher'
+import { FeedbackRatingType } from '../components/FeedbackToolbarItem'
 import Helmet from '../components/Helmet'
 import LoadingSpinner from '../components/LoadingSpinner'
 import Page from '../components/Page'
@@ -63,6 +65,11 @@ const TuNewsDetailPage = ({ cityModel, languages, pathname, cityCode, languageCo
   // Language change is not possible between tuNews detail views because we don't know the id of other languages
   const languageChangePaths = languages.map(({ code, name }) => ({ path: null, name, code }))
 
+  // TODO check why divider not rendered
+  const toolbar = (openFeedback: (rating: FeedbackRatingType) => void) => (
+    <CityContentToolbar openFeedbackModal={openFeedback} hasFeedbackOption={false} hasDivider={viewportSmall} />
+  )
+
   const locationLayoutParams = {
     cityModel,
     viewportSmall,
@@ -70,6 +77,7 @@ const TuNewsDetailPage = ({ cityModel, languages, pathname, cityCode, languageCo
     languageChangePaths,
     route: TU_NEWS_DETAIL_ROUTE,
     languageCode,
+    toolbar,
   }
 
   if (loading) {

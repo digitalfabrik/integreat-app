@@ -22,6 +22,7 @@ const Title = styled.h1`
 
 const ToolbarContainer = styled.div`
   margin-top: 16px;
+  font-family: ${props => props.theme.fonts.web.contentFont};
 `
 
 const StyledSpacer = styled(Spacer)`

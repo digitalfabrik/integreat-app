@@ -14,11 +14,11 @@ type CategoriesToolbarProps = {
   cityCode: string
   languageCode: string
   openFeedbackModal: (rating: FeedbackRatingType) => void
-  viewportSmall: boolean
+  hasDivider: boolean
 }
 
 const CategoriesToolbar = (props: CategoriesToolbarProps): ReactElement => {
-  const { category, openFeedbackModal, viewportSmall, cityCode, languageCode } = props
+  const { category, openFeedbackModal, cityCode, languageCode, hasDivider } = props
   const { t } = useTranslation('categories')
 
   const pdfUrl =
@@ -27,7 +27,7 @@ const CategoriesToolbar = (props: CategoriesToolbarProps): ReactElement => {
       : `${cmsApiBaseUrl}/${cityCode}/${languageCode}/wp-json/ig-mpdf/v1/pdf?url=${encodeURIComponent(category.path)}`
 
   return (
-    <CityContentToolbar openFeedbackModal={openFeedbackModal} viewportSmall={viewportSmall}>
+    <CityContentToolbar openFeedbackModal={openFeedbackModal} hasDivider={hasDivider}>
       <ToolbarItem icon={PdfIcon} text={t('createPdf')} href={pdfUrl} />
     </CityContentToolbar>
   )

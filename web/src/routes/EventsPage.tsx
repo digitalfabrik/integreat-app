@@ -53,7 +53,7 @@ const EventsPage = ({ cityModel, languages, pathname, languageCode, cityCode }: 
     : null
 
   const toolbar = (openFeedback: (rating: FeedbackRatingType) => void) => (
-    <CityContentToolbar openFeedbackModal={openFeedback} viewportSmall={viewportSmall} />
+    <CityContentToolbar openFeedbackModal={openFeedback} hasDivider={viewportSmall && !!event} />
   )
 
   const languageChangePaths = languages.map(({ code, name }) => {
