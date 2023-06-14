@@ -112,7 +112,7 @@ const CategoriesPage = ({ cityModel, pathname, languages, cityCode, languageCode
       cityCode={cityCode}
       languageCode={languageCode}
       openFeedbackModal={openFeedback}
-      viewportSmall={viewportSmall}
+      hasDivider={viewportSmall}
     />
   )
 

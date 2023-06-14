@@ -41,7 +41,7 @@ const SprungbrettOfferPage = ({ cityModel, cityCode, languageCode, languages }: 
   const { data, error, loading } = useLoadAsync(load)
 
   const toolbar = (openFeedback: (rating: FeedbackRatingType) => void) => (
-    <CityContentToolbar openFeedbackModal={openFeedback} viewportSmall={viewportSmall} />
+    <CityContentToolbar openFeedbackModal={openFeedback} hasDivider={viewportSmall} />
   )
 
   const languageChangePaths = languages.map(({ code, name }) => ({

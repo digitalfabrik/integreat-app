@@ -142,7 +142,7 @@ const PoisPage = ({ cityCode, languageCode, cityModel, pathname, languages }: Ci
   }
 
   const toolbar = (
-    <CityContentToolbar openFeedbackModal={setFeedbackModalRating} viewportSmall={viewportSmall} iconDirection='row' />
+    <CityContentToolbar openFeedbackModal={setFeedbackModalRating} iconDirection='row' hasDivider={false} />
   )
 
   const feedbackModal = feedbackModalRating && (

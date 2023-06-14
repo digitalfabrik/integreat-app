@@ -9,25 +9,22 @@ import ToolbarItem from './ToolbarItem'
 type CityContentToolbarProps = {
   openFeedbackModal: (rating: FeedbackRatingType) => void
   children?: ReactNode
-  viewportSmall: boolean
   iconDirection?: 'row' | 'column'
+  hasFeedbackOption?: boolean
+  hasDivider: boolean
 }
 
 const CityContentToolbar = (props: CityContentToolbarProps) => {
-  const { viewportSmall, children, openFeedbackModal, iconDirection } = props
+  const { children, openFeedbackModal, iconDirection, hasFeedbackOption = true, hasDivider } = props
   const { t } = useTranslation('categories')
   const copyToClipboard = () => navigator.clipboard.writeText(window.location.href)
 
   return (
-    <Toolbar iconDirection={iconDirection}>
+    <Toolbar iconDirection={iconDirection} hasDivider={hasDivider}>
       {children}
-      <ToolbarItem icon={CopyIcon} text={t('copyLink')} onClick={copyToClipboard} viewportSmall={viewportSmall} />
-      <FeedbackToolbarItem isPositiveRatingLink openFeedbackModal={openFeedbackModal} viewportSmall={viewportSmall} />
-      <FeedbackToolbarItem
-        isPositiveRatingLink={false}
-        openFeedbackModal={openFeedbackModal}
-        viewportSmall={viewportSmall}
-      />
+      <ToolbarItem icon={CopyIcon} text={t('copyLink')} onClick={copyToClipboard} />
+      {hasFeedbackOption && <FeedbackToolbarItem isPositiveRatingLink openFeedbackModal={openFeedbackModal} />}
+      {hasFeedbackOption && <FeedbackToolbarItem isPositiveRatingLink={false} openFeedbackModal={openFeedbackModal} />}
     </Toolbar>
   )
 }

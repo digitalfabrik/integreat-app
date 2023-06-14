@@ -29,7 +29,7 @@ const OffersPage = ({ cityModel, cityCode, languageCode, languages }: CityRouteP
   const { viewportSmall } = useWindowDimensions()
 
   const toolbar = (openFeedback: (rating: FeedbackRatingType) => void) => (
-    <CityContentToolbar openFeedbackModal={openFeedback} viewportSmall={viewportSmall} />
+    <CityContentToolbar openFeedbackModal={openFeedback} hasDivider={viewportSmall} />
   )
 
   const {

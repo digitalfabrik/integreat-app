@@ -15,7 +15,9 @@ import {
 
 import { CityRouteProps } from '../CityContentSwitcher'
 import CityContentLayout from '../components/CityContentLayout'
+import CityContentToolbar from '../components/CityContentToolbar'
 import FailureSwitcher from '../components/FailureSwitcher'
+import { FeedbackRatingType } from '../components/FeedbackToolbarItem'
 import Helmet from '../components/Helmet'
 import LoadingSpinner from '../components/LoadingSpinner'
 import LocalNewsList from '../components/LocalNewsList'
@@ -73,6 +75,16 @@ const LocalNewsPage = ({ cityModel, languages, pathname, languageCode, cityCode 
     code,
   }))
 
+  // TODO check when toolbar shall be rendered
+
+  const toolbar = (openFeedback: (rating: FeedbackRatingType) => void) => (
+    <CityContentToolbar
+      openFeedbackModal={openFeedback}
+      hasFeedbackOption={false}
+      hasDivider={!!newsModel && viewportSmall}
+    />
+  )
+
   const locationLayoutParams = {
     cityModel,
     viewportSmall,
@@ -80,6 +92,7 @@ const LocalNewsPage = ({ cityModel, languages, pathname, languageCode, cityCode 
     languageChangePaths,
     route: LOCAL_NEWS_ROUTE,
     languageCode,
+    toolbar,
   }
 
   if (loading) {

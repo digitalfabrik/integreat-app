@@ -7,6 +7,7 @@ export type DimensionsType = {
   maxWidth: number
   toolbarWidth: number
   toolbarHeight: number
+  poiDetailNavigation: number
   headerHeightLarge: number
   headerHeightSmall: number
   footerHeight: number
@@ -21,7 +22,8 @@ const dimensions: DimensionsType = {
   minMaxWidth: '(min-width: 1101px)',
   maxWidth: 1100,
   toolbarWidth: 125,
-  toolbarHeight: 44,
+  poiDetailNavigation: 44,
+  toolbarHeight: 66,
   headerHeightLarge: 90,
   headerHeightSmall: 70,
   footerHeight: 50,
