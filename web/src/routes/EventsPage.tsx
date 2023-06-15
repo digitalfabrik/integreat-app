@@ -17,7 +17,6 @@ import CityContentLayout from '../components/CityContentLayout'
 import CityContentToolbar from '../components/CityContentToolbar'
 import EventListItem from '../components/EventListItem'
 import FailureSwitcher from '../components/FailureSwitcher'
-import { FeedbackRatingType } from '../components/FeedbackToolbarItem'
 import Helmet from '../components/Helmet'
 import JsonLdEvent from '../components/JsonLdEvent'
 import List from '../components/List'
@@ -52,7 +51,7 @@ const EventsPage = ({ cityModel, languages, pathname, languageCode, cityCode }: 
       events?.find(it => it.path.substring(0, it.path.indexOf('$')) === pathname)
     : null
 
-  const toolbar = (openFeedback: (rating: FeedbackRatingType) => void) => (
+  const toolbar = (openFeedback: React.Dispatch<React.SetStateAction<boolean>>) => (
     <CityContentToolbar openFeedbackModal={openFeedback} hasDivider={viewportSmall && !!event} />
   )
 

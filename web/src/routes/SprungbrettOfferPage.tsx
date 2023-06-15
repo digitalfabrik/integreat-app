@@ -17,7 +17,6 @@ import CityContentLayout from '../components/CityContentLayout'
 import CityContentToolbar from '../components/CityContentToolbar'
 import CleanLink from '../components/CleanLink'
 import FailureSwitcher from '../components/FailureSwitcher'
-import { FeedbackRatingType } from '../components/FeedbackToolbarItem'
 import Helmet from '../components/Helmet'
 import List from '../components/List'
 import LoadingSpinner from '../components/LoadingSpinner'
@@ -40,7 +39,7 @@ const SprungbrettOfferPage = ({ cityModel, cityCode, languageCode, languages }: 
   )
   const { data, error, loading } = useLoadAsync(load)
 
-  const toolbar = (openFeedback: (rating: FeedbackRatingType) => void) => (
+  const toolbar = (openFeedback: React.Dispatch<React.SetStateAction<boolean>>) => (
     <CityContentToolbar openFeedbackModal={openFeedback} hasDivider={viewportSmall} />
   )
 

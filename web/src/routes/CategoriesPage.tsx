@@ -23,7 +23,6 @@ import CategoriesContent from '../components/CategoriesContent'
 import CategoriesToolbar from '../components/CategoriesToolbar'
 import CityContentLayout from '../components/CityContentLayout'
 import FailureSwitcher from '../components/FailureSwitcher'
-import { FeedbackRatingType } from '../components/FeedbackToolbarItem'
 import Helmet from '../components/Helmet'
 import LoadingSpinner from '../components/LoadingSpinner'
 import buildConfig from '../constants/buildConfig'
@@ -106,7 +105,7 @@ const CategoriesPage = ({ cityModel, pathname, languages, cityCode, languageCode
 
   const category = categories?.find(it => it.path === pathname)
 
-  const toolbar = (openFeedback: (rating: FeedbackRatingType) => void) => (
+  const toolbar = (openFeedback: React.Dispatch<React.SetStateAction<boolean>>) => (
     <CategoriesToolbar
       category={category}
       cityCode={cityCode}

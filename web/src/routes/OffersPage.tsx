@@ -16,7 +16,6 @@ import { CityRouteProps } from '../CityContentSwitcher'
 import CityContentLayout from '../components/CityContentLayout'
 import CityContentToolbar from '../components/CityContentToolbar'
 import FailureSwitcher from '../components/FailureSwitcher'
-import { FeedbackRatingType } from '../components/FeedbackToolbarItem'
 import Helmet from '../components/Helmet'
 import LoadingSpinner from '../components/LoadingSpinner'
 import Tiles from '../components/Tiles'
@@ -28,7 +27,7 @@ const OffersPage = ({ cityModel, cityCode, languageCode, languages }: CityRouteP
   const { t } = useTranslation('offers')
   const { viewportSmall } = useWindowDimensions()
 
-  const toolbar = (openFeedback: (rating: FeedbackRatingType) => void) => (
+  const toolbar = (openFeedback: React.Dispatch<React.SetStateAction<boolean>>) => (
     <CityContentToolbar openFeedbackModal={openFeedback} hasDivider={viewportSmall} />
   )
 

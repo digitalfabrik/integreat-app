@@ -1,16 +1,15 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import FocusTrap from 'focus-trap-react'
-import React, { ReactElement } from 'react'
+import React, { ReactElement, useLayoutEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
 
-import { POSITIVE_RATING } from 'api-client'
-
 import dimensions from '../constants/dimensions'
 import { faTimes } from '../constants/icons'
+import useScrollToTop from '../hooks/useScrollToTop'
+import useWindowDimensions from '../hooks/useWindowDimensions'
 import { RouteType } from '../routes'
 import FeedbackContainer from './FeedbackContainer'
-import { FeedbackRatingType } from './FeedbackToolbarItem'
 
 const Overlay = styled.div`
   position: absolute;
@@ -21,9 +20,9 @@ const Overlay = styled.div`
   background-color: ${props => props.theme.colors.textSecondaryColor};
   opacity: 0.9;
 `
-const ModalContainer = styled.div`
+const ModalContainer = styled.div<{ topPosition: number }>`
   position: fixed;
-  top: 0;
+  top: ${props => props.topPosition}px;
   right: 0;
   bottom: 0;
   left: 0;
@@ -47,11 +46,11 @@ const ModalContent = styled.div`
 `
 const Header = styled.div`
   display: flex;
-  width: 360px;
   padding: 20px;
   flex-direction: row;
   justify-content: space-between;
   font-size: ${props => props.theme.fonts.subTitleFontSize};
+  font-weight: 700;
 `
 
 const CloseButton = styled.button`
@@ -69,30 +68,42 @@ type FeedbackModalProps = {
   cityCode: string
   language: string
   routeType: RouteType
-  feedbackRating: FeedbackRatingType
+  visible: boolean
   closeModal: () => void
 }
 
 const FeedbackModal = (props: FeedbackModalProps): ReactElement => {
-  const { feedbackRating, closeModal, ...otherProps } = props
+  const { visible, closeModal, ...otherProps } = props
+  const [isSubmitted, setIsSubmitted] = useState<boolean>(false)
   const { t } = useTranslation('feedback')
+  const headline = isSubmitted ? `${t('thanksHeadline')}` : `${t('headline')}`
+  const { viewportSmall } = useWindowDimensions()
+  useScrollToTop()
+
+  useLayoutEffect(() => {
+    // document.getElementById('feedback-modal-container')?.scrollIntoView({ behavior: 'auto' })
+  }, [visible])
 
   return (
     <FocusTrap focusTrapOptions={{ clickOutsideDeactivates: true }}>
-      <ModalContainer role='dialog' aria-modal>
+      <ModalContainer
+        role='dialog'
+        aria-modal
+        topPosition={viewportSmall ? dimensions.headerHeightSmall : 0}
+        id='feedback-modal-container'>
         <Overlay onClick={closeModal} role='button' tabIndex={0} onKeyPress={closeModal} />
         <ModalContent>
           <Header>
-            <div>{t('feedback')}</div>
+            <div>{headline}</div>
             <CloseButton aria-label={t('close')} onClick={closeModal}>
               <FontAwesomeIcon icon={faTimes} />
             </CloseButton>
           </Header>
           <FeedbackContainer
-            isPositiveFeedback={feedbackRating === POSITIVE_RATING}
             isSearchFeedback={false}
             closeModal={closeModal}
             {...otherProps}
+            onSubmitted={setIsSubmitted}
           />
         </ModalContent>
       </ModalContainer>
