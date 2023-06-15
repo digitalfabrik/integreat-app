@@ -6,10 +6,9 @@ import { RouteType } from '../routes'
 import CityContentFooter from './CityContentFooter'
 import CityContentHeader from './CityContentHeader'
 import FeedbackModal from './FeedbackModal'
-import { FeedbackRatingType } from './FeedbackToolbarItem'
 import Layout from './Layout'
 
-export type ToolbarProps = (openFeedbackModal: (rating: FeedbackRatingType) => void) => ReactNode
+export type ToolbarProps = (openFeedbackModal: React.Dispatch<React.SetStateAction<boolean>>) => ReactNode
 
 type CityContentLayoutProps = {
   toolbar?: ToolbarProps
@@ -27,7 +26,7 @@ type CityContentLayoutProps = {
 }
 
 const CityContentLayout = (props: CityContentLayoutProps): ReactElement => {
-  const [feedbackModalRating, setFeedbackModalRating] = useState<FeedbackRatingType | null>(null)
+  const [openFeedbackModal, setOpenFeedbackModal] = useState<boolean>(false)
 
   const {
     viewportSmall,
@@ -44,18 +43,18 @@ const CityContentLayout = (props: CityContentLayoutProps): ReactElement => {
   const { feedbackTargetInformation, cityModel } = props
 
   const feedbackModal =
-    route !== SEARCH_ROUTE && feedbackModalRating ? (
+    route !== SEARCH_ROUTE && openFeedbackModal ? (
       <FeedbackModal
         cityCode={cityModel.code}
         language={languageCode}
         routeType={route}
-        feedbackRating={feedbackModalRating}
-        closeModal={() => setFeedbackModalRating(null)}
+        visible={openFeedbackModal}
+        closeModal={() => setOpenFeedbackModal(false)}
         {...feedbackTargetInformation}
       />
     ) : null
 
-  const toolbar = toolbarProp && !isLoading ? toolbarProp(setFeedbackModalRating) : null
+  const toolbar = toolbarProp && !isLoading ? toolbarProp(setOpenFeedbackModal) : null
 
   return (
     <Layout

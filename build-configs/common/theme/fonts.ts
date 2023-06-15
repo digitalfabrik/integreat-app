@@ -36,7 +36,7 @@ export const commonFonts = {
   contentFontSize: '0.95rem',
   contentLineHeight: 1.4,
   standardParagraphMargin: '0.75rem',
-  subTitleFontSize: '1.8rem',
+  subTitleFontSize: '1.1rem',
   hintFontSize: '0.85rem',
   adaptiveFontSizeSmall: { min: '0.55rem', value: '1.6vh', max: '0.85rem' },
 }

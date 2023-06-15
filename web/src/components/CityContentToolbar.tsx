@@ -1,13 +1,12 @@
 import React, { memo, ReactNode } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { CopyIcon } from '../assets'
-import FeedbackToolbarItem, { FeedbackRatingType } from './FeedbackToolbarItem'
+import { CopyIcon, FeedbackIcon } from '../assets'
 import Toolbar from './Toolbar'
 import ToolbarItem from './ToolbarItem'
 
 type CityContentToolbarProps = {
-  openFeedbackModal: (rating: FeedbackRatingType) => void
+  openFeedbackModal: React.Dispatch<React.SetStateAction<boolean>>
   children?: ReactNode
   iconDirection?: 'row' | 'column'
   hasFeedbackOption?: boolean
@@ -16,15 +15,16 @@ type CityContentToolbarProps = {
 
 const CityContentToolbar = (props: CityContentToolbarProps) => {
   const { children, openFeedbackModal, iconDirection, hasFeedbackOption = true, hasDivider } = props
-  const { t } = useTranslation('categories')
+  const { t } = useTranslation(['categories', 'feedback'])
   const copyToClipboard = () => navigator.clipboard.writeText(window.location.href)
 
   return (
     <Toolbar iconDirection={iconDirection} hasDivider={hasDivider}>
       {children}
-      <ToolbarItem icon={CopyIcon} text={t('copyLink')} onClick={copyToClipboard} />
-      {hasFeedbackOption && <FeedbackToolbarItem isPositiveRatingLink openFeedbackModal={openFeedbackModal} />}
-      {hasFeedbackOption && <FeedbackToolbarItem isPositiveRatingLink={false} openFeedbackModal={openFeedbackModal} />}
+      <ToolbarItem icon={CopyIcon} text={t('categories:copyLink')} onClick={copyToClipboard} />
+      {hasFeedbackOption && (
+        <ToolbarItem icon={FeedbackIcon} text={t('feedback:feedback')} onClick={() => openFeedbackModal(true)} />
+      )}
     </Toolbar>
   )
 }

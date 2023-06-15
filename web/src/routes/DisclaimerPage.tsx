@@ -13,7 +13,6 @@ import { CityRouteProps } from '../CityContentSwitcher'
 import CityContentLayout from '../components/CityContentLayout'
 import CityContentToolbar from '../components/CityContentToolbar'
 import FailureSwitcher from '../components/FailureSwitcher'
-import { FeedbackRatingType } from '../components/FeedbackToolbarItem'
 import Helmet from '../components/Helmet'
 import LoadingSpinner from '../components/LoadingSpinner'
 import Page from '../components/Page'
@@ -36,7 +35,7 @@ const DisclaimerPage = ({ cityCode, languageCode, pathname, languages, cityModel
     language: languageCode,
   })
 
-  const toolbar = (openFeedback: (rating: FeedbackRatingType) => void) => (
+  const toolbar = (openFeedback: React.Dispatch<React.SetStateAction<boolean>>) => (
     <CityContentToolbar openFeedbackModal={openFeedback} hasDivider={viewportSmall} />
   )
 

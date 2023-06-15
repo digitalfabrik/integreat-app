@@ -1,4 +1,3 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React, { ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
@@ -16,22 +15,12 @@ import {
   SEARCH_ROUTE,
 } from 'api-client'
 
-import buildConfig from '../constants/buildConfig'
-import { faSmile } from '../constants/icons'
 import { cmsApiBaseUrl } from '../constants/urls'
 import { RouteType } from '../routes'
 import { reportError } from '../utils/sentry'
-import Feedback from './Feedback'
+import Feedback, { Container } from './Feedback'
 import TextButton from './TextButton'
 
-const IconTextContainer = styled.div`
-  margin-top: 30px;
-  width: 340px;
-  padding: 0 30px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-`
 const Text = styled.div`
   padding: 10px;
   text-align: center;
@@ -41,11 +30,11 @@ type FeedbackContainerProps = {
   cityCode: string
   language: string
   routeType: RouteType
-  isPositiveFeedback: boolean
   isSearchFeedback: boolean
   closeModal?: () => void
   query?: string
   slug?: string
+  onSubmitted: (isSubmitted: boolean) => void
 }
 
 export enum SendingState {
@@ -56,10 +45,11 @@ export enum SendingState {
 }
 
 export const FeedbackContainer = (props: FeedbackContainerProps): ReactElement => {
+  const [isPositiveFeedback, setIsPositiveFeedback] = useState<boolean | null>(null)
   const [comment, setComment] = useState<string>('')
   const [contactMail, setContactMail] = useState<string>('')
   const [sendingStatus, setSendingStatus] = useState<SendingState>(SendingState.IDLE)
-  const { query, language, isPositiveFeedback, isSearchFeedback, routeType, cityCode, slug, closeModal } = props
+  const { query, language, isSearchFeedback, routeType, cityCode, slug, closeModal, onSubmitted } = props
   const { t } = useTranslation('feedback')
 
   const getFeedbackType = (): FeedbackType => {
@@ -111,6 +101,7 @@ export const FeedbackContainer = (props: FeedbackContainerProps): ReactElement =
       const feedbackEndpoint = createFeedbackEndpoint(cmsApiBaseUrl)
       await feedbackEndpoint.request(feedbackData)
       setSendingStatus(SendingState.SUCCESS)
+      onSubmitted(true)
     }
 
     request().catch(err => {
@@ -129,20 +120,16 @@ export const FeedbackContainer = (props: FeedbackContainerProps): ReactElement =
         isPositiveFeedback={isPositiveFeedback}
         isSearchFeedback={isSearchFeedback}
         comment={comment}
+        onFeedbackChanged={setIsPositiveFeedback}
         contactMail={contactMail}
       />
     )
   }
   return (
-    <IconTextContainer>
-      <FontAwesomeIcon icon={faSmile} size='4x' />
-      <Text>
-        {t('thanksMessage', {
-          appName: buildConfig().appName,
-        })}
-      </Text>
+    <Container>
+      <Text>{t('thanksMessage')}</Text>
       {!!closeModal && !isSearchFeedback && <TextButton onClick={closeModal} text={t('close')} />}
-    </IconTextContainer>
+    </Container>
   )
 }
 

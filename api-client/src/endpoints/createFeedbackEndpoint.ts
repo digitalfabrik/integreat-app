@@ -28,7 +28,7 @@ export type ParamsType = {
   city: string
   language: string
   comment: string | null
-  isPositiveRating: boolean
+  isPositiveRating: boolean | null
   query?: string
   slug?: string
 }

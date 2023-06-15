@@ -3,14 +3,16 @@ import { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
 
+import { NegativeFeedbackIcon, NoteIcon, PositiveFeedbackIcon } from '../assets'
 import { SendingState } from './FeedbackContainer'
+import StyledSmallViewTip from './StyledSmallViewTip'
 import TextButton from './TextButton'
 import TextInput from './TextInput'
 
 export const Container = styled.div`
   display: flex;
   width: 400px;
-  height: auto;
+  max-height: 80vh;
   box-sizing: border-box;
   flex-direction: column;
   justify-content: space-between;
@@ -18,9 +20,11 @@ export const Container = styled.div`
   border-radius: 10px;
   border-color: ${props => props.theme.colors.textSecondaryColor};
   font-size: ${props => props.theme.fonts.contentFontSize};
+  overflow: auto;
 `
 
 const CommentField = styled.textarea`
+  margin-top: 8px;
   resize: none;
 `
 
@@ -40,13 +44,42 @@ export const ErrorSendingStatus = styled.div`
   font-weight: 700;
 `
 
+const ButtonContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  padding: 16px;
+`
+
+const FeedbackButton = styled.button<{ $active: boolean | null }>`
+  border: none;
+  box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.25), 0px 1px 4px 1px rgba(0, 0, 0, 0.15);
+  border-radius: 18px;
+  width: 100px;
+  height: 80px;
+  background-color: ${props => (props.$active ? `${props.theme.colors.themeColor}` : 'transparent')};
+  &:not(:last-child) {
+    margin-right: 14px;
+  }
+`
+
+const NoteContainer = styled.div`
+  display: flex;
+  margin-top: 8px;
+`
+
+const NoteText = styled(StyledSmallViewTip)`
+  margin-block-start: 0;
+  margin-left: 12px;
+`
+
 type FeedbackProps = {
-  isPositiveFeedback: boolean
+  isPositiveFeedback: boolean | null
   isSearchFeedback: boolean
   comment: string
   contactMail: string
   onCommentChanged: (comment: string) => void
   onContactMailChanged: (contactMail: string) => void
+  onFeedbackChanged: (isPositiveFeedback: boolean | null) => void
   onSubmit: () => void
   sendingStatus: SendingState
 }
@@ -61,19 +94,44 @@ const Feedback = (props: FeedbackProps): ReactElement => {
     onSubmit,
     onCommentChanged,
     onContactMailChanged,
+    onFeedbackChanged,
   } = props
   const { t } = useTranslation('feedback')
-  const feedbackModalDescription = isPositiveFeedback ? 'positiveComment' : 'negativeComment'
-  const description = isSearchFeedback ? 'wantedInformation' : feedbackModalDescription
+
+  const description = isSearchFeedback ? 'wantedInformation' : 'commentHeadline'
+  const sendFeedbackDisabled = isPositiveFeedback === null && !comment
 
   return (
     <Container>
       <TextContainer>
+        <div>{t('description')}</div>
+      </TextContainer>
+      <ButtonContainer>
+        <FeedbackButton
+          type='button'
+          aria-label={t('useful')}
+          onClick={() => onFeedbackChanged(isPositiveFeedback ? null : true)}
+          $active={isPositiveFeedback}>
+          <img src={PositiveFeedbackIcon} alt='' />
+          <StyledSmallViewTip>{t('useful')}</StyledSmallViewTip>
+        </FeedbackButton>
+        <FeedbackButton
+          type='button'
+          aria-label={t('notUseful')}
+          onClick={() => onFeedbackChanged(isPositiveFeedback === false ? null : false)}
+          $active={isPositiveFeedback === false}>
+          <img src={NegativeFeedbackIcon} alt='' />
+          <StyledSmallViewTip>{t('notUseful')}</StyledSmallViewTip>
+        </FeedbackButton>
+      </ButtonContainer>
+      <TextContainer>
         <Description htmlFor='comment'>{t(description)}</Description>
-        {isPositiveFeedback && <div>({t('optionalInfo')})</div>}
+        <div>({t('optionalInfo')})</div>
+      </TextContainer>
+      <TextContainer>
+        <div>{t('commentDescription')}</div>
       </TextContainer>
       <CommentField id='comment' rows={7} value={comment} onChange={event => onCommentChanged(event.target.value)} />
-
       <TextContainer>
         <Description htmlFor='email'>{t('contactMailAddress')}</Description>
         <div>({t('optionalInfo')})</div>
@@ -88,7 +146,13 @@ const Feedback = (props: FeedbackProps): ReactElement => {
       {sendingStatus === SendingState.ERROR && (
         <ErrorSendingStatus role='alert'>{t('failedSendingFeedback')}</ErrorSendingStatus>
       )}
-      <TextButton disabled={!isPositiveFeedback && !comment} onClick={onSubmit} text={t('send')} />
+      {sendFeedbackDisabled && (
+        <NoteContainer>
+          <img src={NoteIcon} alt='' />
+          <NoteText>{t('note')}</NoteText>
+        </NoteContainer>
+      )}
+      <TextButton disabled={sendFeedbackDisabled} onClick={onSubmit} text={t('send')} />
     </Container>
   )
 }

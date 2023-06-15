@@ -27,7 +27,6 @@ import CityContentLayout from '../components/CityContentLayout'
 import CityContentToolbar from '../components/CityContentToolbar'
 import FailureSwitcher from '../components/FailureSwitcher'
 import FeedbackModal from '../components/FeedbackModal'
-import { FeedbackRatingType } from '../components/FeedbackToolbarItem'
 import Helmet from '../components/Helmet'
 import List from '../components/List'
 import LoadingSpinner from '../components/LoadingSpinner'
@@ -70,7 +69,7 @@ const PoisPage = ({ cityCode, languageCode, cityModel, pathname, languages }: Ci
   const poi = data?.pois.find(it => it.slug === slug)
   const { viewportSmall, height } = useWindowDimensions()
   const sheetRef = useRef<BottomSheetRef>(null)
-  const [feedbackModalRating, setFeedbackModalRating] = useState<FeedbackRatingType | null>(null)
+  const [openFeedbackModal, setOpenFeedbackModal] = useState<boolean>(false)
   const { t } = useTranslation('pois')
 
   const selectFeature = (feature: PoiFeature | null, restoreScrollPosition: boolean) => {
@@ -141,17 +140,15 @@ const PoisPage = ({ cityCode, languageCode, cityModel, pathname, languages }: Ci
     }
   }
 
-  const toolbar = (
-    <CityContentToolbar openFeedbackModal={setFeedbackModalRating} iconDirection='row' hasDivider={false} />
-  )
+  const toolbar = <CityContentToolbar openFeedbackModal={setOpenFeedbackModal} iconDirection='row' hasDivider={false} />
 
-  const feedbackModal = feedbackModalRating && (
+  const feedbackModal = openFeedbackModal && (
     <FeedbackModal
       cityCode={cityModel.code}
       language={languageCode}
       routeType={POIS_ROUTE}
-      feedbackRating={feedbackModalRating}
-      closeModal={() => setFeedbackModalRating(null)}
+      visible={openFeedbackModal}
+      closeModal={() => setOpenFeedbackModal(false)}
     />
   )
 

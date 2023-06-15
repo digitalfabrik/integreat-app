@@ -6,14 +6,13 @@ import { CategoryModel } from 'api-client'
 import { PdfIcon } from '../assets'
 import { cmsApiBaseUrl } from '../constants/urls'
 import CityContentToolbar from './CityContentToolbar'
-import { FeedbackRatingType } from './FeedbackToolbarItem'
 import ToolbarItem from './ToolbarItem'
 
 type CategoriesToolbarProps = {
   category?: CategoryModel
   cityCode: string
   languageCode: string
-  openFeedbackModal: (rating: FeedbackRatingType) => void
+  openFeedbackModal: React.Dispatch<React.SetStateAction<boolean>>
   hasDivider: boolean
 }
 
