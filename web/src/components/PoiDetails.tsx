@@ -188,12 +188,17 @@ const DetailSection = styled.div`
     justify-content: space-between;
   }
 `
+const ToolbarWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+`
 
 type PoiDetailsProps = {
   feature: PoiFeature
   poi: PoiModel
   direction: UiDirectionType
   isBottomSheetFullscreen?: boolean
+  toolbar: ReactElement
 }
 
 const PoiDetails: React.FC<PoiDetailsProps> = ({
@@ -201,6 +206,7 @@ const PoiDetails: React.FC<PoiDetailsProps> = ({
   poi,
   direction,
   isBottomSheetFullscreen = false,
+  toolbar,
 }: PoiDetailsProps): ReactElement => {
   const navigate = useNavigate()
   const browserLocation = useLocation()
@@ -301,6 +307,8 @@ const PoiDetails: React.FC<PoiDetailsProps> = ({
           </Collapsible>
         </>
       )}
+      <Spacer borderColor={theme.colors.poiBorderColor} />
+      <ToolbarWrapper>{toolbar}</ToolbarWrapper>
     </DetailsContainer>
   )
 }

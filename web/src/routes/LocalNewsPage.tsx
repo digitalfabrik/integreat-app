@@ -75,13 +75,11 @@ const LocalNewsPage = ({ cityModel, languages, pathname, languageCode, cityCode 
     code,
   }))
 
-  // TODO check when toolbar shall be rendered
-
   const toolbar = (openFeedback: (rating: FeedbackRatingType) => void) => (
     <CityContentToolbar
       openFeedbackModal={openFeedback}
       hasFeedbackOption={false}
-      hasDivider={!!newsModel && viewportSmall}
+      hasDivider={localNews?.length === 0 && viewportSmall}
     />
   )
 

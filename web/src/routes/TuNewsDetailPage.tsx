@@ -15,15 +15,13 @@ import LoadingSpinner from '../components/LoadingSpinner'
 import Page from '../components/Page'
 import { tunewsApiBaseUrl } from '../constants/urls'
 import DateFormatterContext from '../contexts/DateFormatterContext'
+import useWindowDimensions from '../hooks/useWindowDimensions'
 import { TU_NEWS_DETAIL_ROUTE } from './index'
 
 const StyledContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-`
-const StyledWrapper = styled.div`
-  padding-bottom: 50px;
 `
 const StyledBanner = styled.div`
   position: relative;
@@ -54,7 +52,7 @@ const TuNewsDetailPage = ({ cityModel, languages, pathname, cityCode, languageCo
   const newsId = useParams().newsId!
   const formatter = useContext(DateFormatterContext)
   const navigate = useNavigate()
-  const viewportSmall = false
+  const { viewportSmall } = useWindowDimensions()
 
   const {
     data: newsModel,
@@ -64,8 +62,6 @@ const TuNewsDetailPage = ({ cityModel, languages, pathname, cityCode, languageCo
 
   // Language change is not possible between tuNews detail views because we don't know the id of other languages
   const languageChangePaths = languages.map(({ code, name }) => ({ path: null, name, code }))
-
-  // TODO check why divider not rendered
   const toolbar = (openFeedback: (rating: FeedbackRatingType) => void) => (
     <CityContentToolbar openFeedbackModal={openFeedback} hasFeedbackOption={false} hasDivider={viewportSmall} />
   )
@@ -111,7 +107,7 @@ const TuNewsDetailPage = ({ cityModel, languages, pathname, cityCode, languageCo
     <CityContentLayout isLoading={false} {...locationLayoutParams}>
       <Helmet pageTitle={pageTitle} languageChangePaths={languageChangePaths} cityModel={cityModel} />
       <StyledContainer>
-        <StyledWrapper>
+        <>
           <StyledBanner>
             <StyledTitle>
               <StyledBannerImage src={TunewsIcon} alt='' />
@@ -126,7 +122,7 @@ const TuNewsDetailPage = ({ cityModel, languages, pathname, cityCode, languageCo
             showLastUpdateText={false}
             onInternalLinkClick={navigate}
           />
-        </StyledWrapper>
+        </>
       </StyledContainer>
     </CityContentLayout>
   )
