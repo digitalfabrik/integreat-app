@@ -198,7 +198,7 @@ type PoiDetailsProps = {
   poi: PoiModel
   direction: UiDirectionType
   isBottomSheetFullscreen?: boolean
-  toolbar: ReactElement
+  toolbar?: ReactElement
 }
 
 const PoiDetails: React.FC<PoiDetailsProps> = ({
@@ -307,8 +307,12 @@ const PoiDetails: React.FC<PoiDetailsProps> = ({
           </Collapsible>
         </>
       )}
-      <Spacer borderColor={theme.colors.poiBorderColor} />
-      <ToolbarWrapper>{toolbar}</ToolbarWrapper>
+      {toolbar && (
+        <>
+          <Spacer borderColor={theme.colors.poiBorderColor} />
+          <ToolbarWrapper>{toolbar}</ToolbarWrapper>
+        </>
+      )}
     </DetailsContainer>
   )
 }
