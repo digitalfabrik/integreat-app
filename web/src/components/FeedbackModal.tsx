@@ -1,11 +1,11 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import FocusTrap from 'focus-trap-react'
-import React, { ReactElement, useLayoutEffect, useState } from 'react'
+import React, { ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
 
 import dimensions from '../constants/dimensions'
-import { faTimes } from '../constants/icons'
+import { faChevronLeft, faTimes } from '../constants/icons'
 import useScrollToTop from '../hooks/useScrollToTop'
 import useWindowDimensions from '../hooks/useWindowDimensions'
 import { RouteType } from '../routes'
@@ -38,24 +38,28 @@ const ModalContent = styled.div`
   background-color: ${props => props.theme.colors.backgroundColor};
 
   @media ${dimensions.smallViewport} {
-    width: 100%;
     height: 100%;
     align-items: center;
     justify-content: center;
+    justify-content: flex-start;
   }
 `
-const Header = styled.div`
+const Header = styled.div<{ flexDirection: string }>`
   display: flex;
   padding: 20px;
-  flex-direction: row;
+  flex-direction: ${props => props.flexDirection};
   justify-content: space-between;
   font-size: ${props => props.theme.fonts.subTitleFontSize};
   font-weight: 700;
+  @media ${dimensions.smallViewport} {
+    align-self: flex-start;
+  }
 `
 
 const CloseButton = styled.button`
   background-color: ${props => props.theme.colors.backgroundColor};
   border: none;
+  padding: 0;
 
   & * {
     font-size: 0.8em;
@@ -80,10 +84,6 @@ const FeedbackModal = (props: FeedbackModalProps): ReactElement => {
   const { viewportSmall } = useWindowDimensions()
   useScrollToTop()
 
-  useLayoutEffect(() => {
-    // document.getElementById('feedback-modal-container')?.scrollIntoView({ behavior: 'auto' })
-  }, [visible])
-
   return (
     <FocusTrap focusTrapOptions={{ clickOutsideDeactivates: true }}>
       <ModalContainer
@@ -93,10 +93,13 @@ const FeedbackModal = (props: FeedbackModalProps): ReactElement => {
         id='feedback-modal-container'>
         <Overlay onClick={closeModal} role='button' tabIndex={0} onKeyPress={closeModal} />
         <ModalContent>
-          <Header>
-            <div>{headline}</div>
+          <Header flexDirection={viewportSmall ? 'row-reverse' : 'row'}>
+            <span>{headline}</span>
             <CloseButton aria-label={t('close')} onClick={closeModal}>
-              <FontAwesomeIcon icon={faTimes} />
+              <FontAwesomeIcon
+                icon={viewportSmall ? faChevronLeft : faTimes}
+                style={{ marginRight: viewportSmall ? '15vw' : '0' }}
+              />
             </CloseButton>
           </Header>
           <FeedbackContainer

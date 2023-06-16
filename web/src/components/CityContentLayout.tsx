@@ -28,6 +28,14 @@ type CityContentLayoutProps = {
 const CityContentLayout = (props: CityContentLayoutProps): ReactElement => {
   const [openFeedbackModal, setOpenFeedbackModal] = useState<boolean>(false)
 
+  const onCloseFeedbackModal = () => {
+    const { viewportSmall } = props
+    setOpenFeedbackModal(false)
+    if (viewportSmall) {
+      document.body.style.overflow = 'auto'
+    }
+  }
+
   const {
     viewportSmall,
     children,
@@ -49,7 +57,7 @@ const CityContentLayout = (props: CityContentLayoutProps): ReactElement => {
         language={languageCode}
         routeType={route}
         visible={openFeedbackModal}
-        closeModal={() => setOpenFeedbackModal(false)}
+        closeModal={onCloseFeedbackModal}
         {...feedbackTargetInformation}
       />
     ) : null

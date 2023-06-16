@@ -142,13 +142,20 @@ const PoisPage = ({ cityCode, languageCode, cityModel, pathname, languages }: Ci
 
   const toolbar = <CityContentToolbar openFeedbackModal={setOpenFeedbackModal} iconDirection='row' hasDivider={false} />
 
+  const onCloseFeedbackModal = () => {
+    setOpenFeedbackModal(false)
+    if (viewportSmall) {
+      document.body.style.overflow = 'auto'
+    }
+  }
+
   const feedbackModal = openFeedbackModal && (
     <FeedbackModal
       cityCode={cityModel.code}
       language={languageCode}
       routeType={POIS_ROUTE}
       visible={openFeedbackModal}
-      closeModal={() => setOpenFeedbackModal(false)}
+      closeModal={onCloseFeedbackModal}
     />
   )
 
