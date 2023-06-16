@@ -34,7 +34,7 @@ type FeedbackContainerProps = {
   closeModal?: () => void
   query?: string
   slug?: string
-  onSubmitted: (isSubmitted: boolean) => void
+  onSubmitted?: (isSubmitted: boolean) => void
 }
 
 export enum SendingState {
@@ -101,7 +101,9 @@ export const FeedbackContainer = (props: FeedbackContainerProps): ReactElement =
       const feedbackEndpoint = createFeedbackEndpoint(cmsApiBaseUrl)
       await feedbackEndpoint.request(feedbackData)
       setSendingStatus(SendingState.SUCCESS)
-      onSubmitted(true)
+      if (onSubmitted) {
+        onSubmitted(true)
+      }
     }
 
     request().catch(err => {

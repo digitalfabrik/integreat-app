@@ -27,7 +27,7 @@ describe('FeedbackModal', () => {
         language={language}
         routeType={CATEGORIES_ROUTE}
         closeModal={closeModal}
-        feedbackRating='up'
+        visible
       />
     )
     const button = getByRole('button', {
