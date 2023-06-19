@@ -1,5 +1,6 @@
 import { decodeHTML } from 'entities'
 import { mapValues } from 'lodash'
+
 import { DateTime } from 'luxon'
 import { RRule, rrulestr } from 'rrule'
 
@@ -107,6 +108,8 @@ const createRecurringEvents = (event: JsonEventType): JsonEventType[] => {
   const rrule: RRule = rrulestr(event.recurrence_rule)
   const today = DateTime.now().toJSDate()
   const lastValidDay = DateTime.now().plus({ months: MAX_FUTURE_EVENT_IN_MONTHS }).toJSDate()
+
+  const appendDate = (path: string, date: Date) => `${removeTrailingSlash(path)}$${dateToString(date)}`
 
   const appendDate = (path: string, date: Date) => `${removeTrailingSlash(path)}$${dateToString(date)}`
 
