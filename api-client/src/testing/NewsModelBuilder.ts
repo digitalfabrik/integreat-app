@@ -1,4 +1,4 @@
-import moment from 'moment'
+import { DateTime } from 'luxon'
 
 import LocalNewsModel from '../models/LocalNewsModel'
 
@@ -35,8 +35,8 @@ class LocalNewsModelBuilder {
         newsItem: new LocalNewsModel({
           id: 12,
           title: 'first news item',
-          timestamp: moment('2017-11-18T19:30:00.000Z'),
-          message: 'This is a sample news',
+          timestamp: DateTime.fromISO('2017-11-18T19:30:00.000Z', { zone: 'utc' }),
+          content: 'This is a sample news',
         }),
       })
     )

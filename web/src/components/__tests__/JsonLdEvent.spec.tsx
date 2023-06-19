@@ -1,4 +1,4 @@
-import moment from 'moment'
+import { DateTime } from 'luxon'
 
 import { DateModel, EventModel, FeaturedImageModel, LocationModel } from 'api-client'
 import DateFormatter from 'api-client/src/i18n/DateFormatter'
@@ -8,8 +8,8 @@ import { createJsonLd } from '../JsonLdEvent'
 describe('JsonLdEvent', () => {
   it('should create correct json-ld', () => {
     const dateModel = new DateModel({
-      startDate: moment('2017-11-18T09:30:00.000Z'),
-      endDate: moment('2017-11-19T09:30:00.000Z'),
+      startDate: DateTime.fromISO('2017-W33-4T06:45:32.343'),
+      endDate: DateTime.fromISO('2017-W33-5T07:45:32.343'),
       allDay: false,
     })
     const locationModel = new LocationModel({
@@ -31,7 +31,7 @@ describe('JsonLdEvent', () => {
       location: locationModel,
       excerpt: 'This is a sample event. Have fun sampling.',
       availableLanguages: new Map([]),
-      lastUpdate: moment('2017-11-18T09:30:00.000Z'),
+      lastUpdate: DateTime.fromISO('2017-W33-4T04:45:32.343'),
       featuredImage: new FeaturedImageModel({
         description: 'whoohoo',
         thumbnail: {
@@ -61,7 +61,7 @@ describe('JsonLdEvent', () => {
       '@context': 'https://schema.org',
       '@type': 'Event',
       name: 'Sample Event',
-      startDate: '2017-11-18T10:30:00+01:00',
+      startDate: 'August 17, 2017',
       eventStatus: 'https://schema.org/EventScheduled',
       description: 'This is a sample event. Have fun sampling.',
       location: {
@@ -75,7 +75,7 @@ describe('JsonLdEvent', () => {
           addressCountry: 'DE',
         },
       },
-      endDate: '2017-11-19T10:30:00+01:00',
+      endDate: '2017-08-18T05:45:32.343Z',
       image: ['/thumbnail.jpg', '/medium.jpg', '/medium.jpg', '/full.jpg'],
     })
   })

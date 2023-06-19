@@ -139,6 +139,7 @@ class Config {
     fa_pr: ['pes'],
     'de-si': ['de'],
     sr: ['sr-Cyrl'],
+    'pt-br': ['pt'],
     'zh-hans': ['zh-CN'],
     // Slugs from the CMS are (and have to be) lowercase
     'sr-cyrl': ['sr-Cyrl'],
@@ -194,8 +195,8 @@ class Config {
    * disclose the system script direction. On Android and iOS system libraries are used instead of this method
    * ({@link https://github.com/zoontek/react-native-localize/blob/de9c01ab99f69bcf655ed2cb83c7081b75298bd2/android/src/main/java/com/zoontek/rnlocalize/RNLocalizeModule.java#L191|Android})
    * ({@link https://github.com/zoontek/react-native-localize/blob/d8f265ee665cf593f98ef92b308f4416cd251b30/ios/RNLocalize.m#L113|iOS}).
-   * This onlyworks for {@link #supportedLanguages} and not for arbitrary ones. This is because we simply do now know
-   * it and cannot know it.
+   * This only works for {@link #supportedLanguages} and not for arbitrary ones in which case we just return false.
+   * This is because we simply do now know it and cannot know it.
    *
    * @see http://www.i18nguy.com/temp/rtl.html
    * @param languageTag for the check
@@ -205,8 +206,7 @@ class Config {
     const language = this.getSupportedLanguage(languageTag)
 
     if (!language) {
-      throw new Error(`Unable to determine whether ${languageTag} uses a RTL script. 
-                        Only supported languages have a defined direction.`)
+      return false
     }
 
     return language.rtl

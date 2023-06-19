@@ -1,4 +1,4 @@
-import { Moment } from 'moment'
+import { DateTime } from 'luxon'
 import React, { ReactElement } from 'react'
 import { TFunction } from 'react-i18next'
 import styled from 'styled-components'
@@ -46,14 +46,24 @@ const StyledContainer = styled.div`
 type NewsListItemProps = {
   title: string
   content: string
-  timestamp: Moment
+  timestamp: DateTime
   formatter: DateFormatter
+  format?: string
   link: string
   type: NewsType
   t: TFunction<'news'>
 }
 
-const NewsListItem = ({ title, content, timestamp, formatter, t, type, link }: NewsListItemProps): ReactElement => {
+const NewsListItem = ({
+  title,
+  content,
+  timestamp,
+  formatter,
+  t,
+  type,
+  link,
+  format,
+}: NewsListItemProps): ReactElement => {
   const readMoreLinkText = `${t('readMore')} >`
   const excerpt = getExcerpt(content, { maxChars: EXCERPT_MAX_CHARS, replaceLineBreaks: false })
 
@@ -64,7 +74,7 @@ const NewsListItem = ({ title, content, timestamp, formatter, t, type, link }: N
           <Title dir='auto'>{title}</Title>
           <Body dir='auto'>{excerpt}</Body>
           <StyledContainer>
-            <LastUpdateInfo lastUpdate={timestamp} formatter={formatter} withText={false} />
+            <LastUpdateInfo lastUpdate={timestamp} formatter={formatter} withText={false} format={format} />
             <ReadMore $type={type}>{readMoreLinkText}</ReadMore>
           </StyledContainer>
         </Description>

@@ -1,4 +1,4 @@
-import moment from 'moment-timezone'
+import { DateTime } from 'luxon'
 
 import CategoryModel from '../../models/CategoryModel'
 import mapCategoryJson from '../mapCategoryJson'
@@ -64,7 +64,7 @@ describe('categories', () => {
     order: 75,
     availableLanguages: new Map([['en', '/augsburg/en/anlaufstellen']]),
     thumbnail: 'https://cms.integreat-ap…/03/Hotline-150x150.png',
-    lastUpdate: moment.tz('2017-01-01 05:10:05', 'GMT'),
+    lastUpdate: DateTime.fromJSDate(new Date('2017-01-01 05:10:05'), { zone: 'GMT' }),
   })
   const categoryModel2 = new CategoryModel({
     root: false,
@@ -75,7 +75,7 @@ describe('categories', () => {
     parentPath: '/augsburg/fa/erste-schritte/خوش-آمدید-به-آگزبورگ',
     order: 3,
     thumbnail: 'https://example.com/thumbnail',
-    lastUpdate: moment.tz('2016-01-07 10:36:24', 'GMT'),
+    lastUpdate: DateTime.fromJSDate(new Date('2016-01-07 10:36:24'), { zone: 'GMT' }),
   })
 
   it('should map json correctly', () => {

@@ -1,4 +1,4 @@
-import { Moment } from 'moment'
+import { DateTime } from 'luxon'
 
 import normalizePath from '../normalizePath'
 import ExtendedPageModel from './ExtendedPageModel'
@@ -18,7 +18,7 @@ class CategoryModel extends ExtendedPageModel {
     parentPath: string
     order: number
     availableLanguages: Map<string, string>
-    lastUpdate: Moment
+    lastUpdate: DateTime
   }) {
     const { order, parentPath, root, ...other } = params
     super(other)

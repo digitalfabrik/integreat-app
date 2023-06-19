@@ -82,9 +82,6 @@ export const ReadMore = styled(Text)<{ isTunews: boolean }>`
 const NewsListItem = ({ index, newsItem, navigateToNews, isTunews }: NewsListItemProps): ReactElement => {
   const { t, i18n } = useTranslation('news')
   const formatter = useContext(DateFormatterContext)
-  const localNewsContent = newsItem instanceof LocalNewsModel ? newsItem.message : ''
-  const tuNewsContent = newsItem instanceof TunewsModel ? newsItem.content : ''
-  const content = localNewsContent || tuNewsContent
   const timestamp = newsItem instanceof LocalNewsModel ? newsItem.timestamp : null
 
   return (
@@ -94,7 +91,7 @@ const NewsListItem = ({ index, newsItem, navigateToNews, isTunews }: NewsListIte
         <StyledTouchableOpacity onPress={navigateToNews}>
           <Description>
             <Title>{newsItem.title}</Title>
-            <Content numberOfLines={EXCERPT_MAX_LINES}>{content}</Content>
+            <Content numberOfLines={EXCERPT_MAX_LINES}>{newsItem.content}</Content>
             {timestamp && (
               <TimeStampContent>
                 <TimeStamp formatter={formatter} lastUpdate={timestamp} showText={false} />

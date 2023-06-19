@@ -1,21 +1,19 @@
 import { HeaderBackButton } from '@react-navigation/elements'
-import React, { ReactElement } from 'react'
+import React, { ReactElement, useContext, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Share, useWindowDimensions } from 'react-native'
 import { HiddenItem, Item } from 'react-navigation-header-buttons'
-import styled from 'styled-components/native'
+import styled, { useTheme } from 'styled-components/native'
 
-import { CityModel, LANDING_ROUTE, LanguageModel, SHARE_SIGNAL_NAME } from 'api-client'
+import { LANDING_ROUTE, LanguageModel, POIS_ROUTE, PoisRouteType, SHARE_SIGNAL_NAME } from 'api-client'
 import { DISCLAIMER_ROUTE, SEARCH_ROUTE, SETTINGS_ROUTE } from 'api-client/src/routes'
 
-import { NavigationProps, RouteProps, RoutesType } from '../constants/NavigationTypes'
+import { NavigationProps, RouteProps, RoutesParamsType, RoutesType } from '../constants/NavigationTypes'
 import buildConfig, { buildConfigAssets } from '../constants/buildConfig'
 import dimensions from '../constants/dimensions'
-import useCityAppContext from '../hooks/useCityAppContext'
-import useLoadCityContent from '../hooks/useLoadCityContent'
+import { AppContext } from '../contexts/AppContextProvider'
 import useSnackbar from '../hooks/useSnackbar'
 import navigateToLanguageChange from '../navigation/navigateToLanguageChange'
-import { forceNewlineAfterChar } from '../utils/forceNewLineAfterChar'
 import sendTrackingSignal from '../utils/sendTrackingSignal'
 import { reportError } from '../utils/sentry'
 import CustomHeaderButtons from './CustomHeaderButtons'
@@ -66,11 +64,10 @@ type HeaderProps = {
   route: RouteProps<RoutesType>
   navigation: NavigationProps<RoutesType>
   showItems?: boolean
-  city?: CityModel
+  showOverflowItems?: boolean
   languages?: LanguageModel[]
   availableLanguages?: string[]
   shareUrl?: string
-  isHome: boolean | null
 }
 
 const Header = ({
@@ -79,13 +76,17 @@ const Header = ({
   availableLanguages,
   shareUrl,
   showItems = false,
-  city,
+  showOverflowItems = true,
   languages,
-  isHome,
 }: HeaderProps): ReactElement | null => {
+  const { languageCode } = useContext(AppContext)
   const { t } = useTranslation('layout')
+  const theme = useTheme()
   const showSnackbar = useSnackbar()
   const deviceWidth = useWindowDimensions().width
+  // Save route/canGoBack to state to prevent it from changing during navigating which would lead to flickering of the title and back button
+  const [previousRoute] = useState(navigation.getState().routes[navigation.getState().routes.length - 2])
+  const [canGoBack] = useState(navigation.canGoBack())
 
   const onShare = async () => {
     if (!shareUrl) {
@@ -117,14 +118,6 @@ const Header = ({
     }
   }
 
-  const cityDisplayName = (city: CityModel) => {
-    const cityType = city.prefix ? ` (${city.prefix})` : ''
-    const shortCityName = city.sortingName.length < deviceWidth / dimensions.headerTextSize
-    return shortCityName
-      ? `${city.sortingName}${cityType}`
-      : `${forceNewlineAfterChar(city.sortingName, '-')}${cityType}`
-  }
-
   const renderItem = (title: string, iconName: string, visible: boolean, onPress?: () => void): ReactElement => (
     <Item
       key={title}
@@ -141,8 +134,13 @@ const Header = ({
     <HiddenItem key={title} title={t(title)} onPress={onPress} />
   )
 
-  const goToLanguageChange = () =>
-    languages && availableLanguages && navigateToLanguageChange({ navigation, availableLanguages, languages })
+  const goToLanguageChange = () => {
+    if (availableLanguages?.length === 1 && availableLanguages[0] === languageCode) {
+      showSnackbar({ text: 'layout:noTranslation' })
+    } else if (languages && availableLanguages) {
+      navigateToLanguageChange({ navigation, availableLanguages, languages })
+    }
+  }
 
   const visible = showItems && !!goToLanguageChange
   const items = [
@@ -150,84 +148,42 @@ const Header = ({
     renderItem(HeaderButtonTitle.Language, 'language', visible, goToLanguageChange),
   ]
 
-  const overflowItems = [
-    ...(shareUrl ? [renderOverflowItem(HeaderButtonTitle.Share, onShare)] : []),
-    ...(!buildConfig().featureFlags.fixedCity
-      ? [renderOverflowItem(HeaderButtonTitle.Location, () => navigation.navigate(LANDING_ROUTE))]
-      : []),
-    renderOverflowItem(HeaderButtonTitle.Settings, () => navigation.navigate(SETTINGS_ROUTE)),
-    ...(route.name !== DISCLAIMER_ROUTE
-      ? [renderOverflowItem(HeaderButtonTitle.Disclaimer, () => navigation.navigate(DISCLAIMER_ROUTE))]
-      : []),
-  ]
+  const overflowItems = showOverflowItems
+    ? [
+        ...(shareUrl ? [renderOverflowItem(HeaderButtonTitle.Share, onShare)] : []),
+        ...(!buildConfig().featureFlags.fixedCity
+          ? [renderOverflowItem(HeaderButtonTitle.Location, () => navigation.navigate(LANDING_ROUTE))]
+          : []),
+        renderOverflowItem(HeaderButtonTitle.Settings, () => navigation.navigate(SETTINGS_ROUTE)),
+        ...(route.name !== DISCLAIMER_ROUTE
+          ? [renderOverflowItem(HeaderButtonTitle.Disclaimer, () => navigation.navigate(DISCLAIMER_ROUTE))]
+          : []),
+      ]
+    : []
 
-  const HeaderLeft =
-    isHome !== null &&
-    (isHome ? (
-      <Icon source={buildConfigAssets().appIcon} />
-    ) : (
-      <HeaderBackButton onPress={navigation.goBack} labelVisible={false} />
-    ))
-
-  const { cityCode, languageCode } = useCityAppContext()
-  const { data } = useLoadCityContent({ cityCode, languageCode })
+  const HeaderLeft = canGoBack ? (
+    <HeaderBackButton onPress={navigation.goBack} labelVisible={false} tintColor={theme.colors.textColor} />
+  ) : (
+    <Icon source={buildConfigAssets().appIcon} />
+  )
 
   const getHeaderText = (): string => {
-    if (!city) {
-      return ''
-    }
-    const routes = navigation.getState().routes
-    const cityName = cityDisplayName(city)
-    if (isHome) {
-      return cityName
+    const currentTitle = (route.params as { title?: string } | undefined)?.title
+    if (!previousRoute) {
+      // Home/Dashboard: Show current route title, i.e. city name
+      return currentTitle ?? ''
     }
 
-    const previousRoute = routes[routes.length - 2]
-    const currentRoute = routes[routes.length - 1]
-    const isInCategories = currentRoute?.name === 'categories'
-    const isInNews = currentRoute?.name === 'news'
-    const isInEvents = currentRoute?.name === 'events'
-    const isInOffers = previousRoute?.name === 'offers'
-    const isInPois = currentRoute?.name === 'locations'
+    const previousParams = previousRoute.params
+    const isPoisDetail = route.name === POIS_ROUTE && (route.params as RoutesParamsType[PoisRouteType]).slug
 
-    // in news and pois, we don't add to the stack for navigation, we just change the parameters of the top of the stack
-    if (!isInNews && !isInPois) {
-      const levelsDisplayingCityName = 2
-      if (routes.length <= levelsDisplayingCityName) {
-        return cityDisplayName(city)
-      }
-    }
-
-    if (isInCategories) {
-      if (previousRoute?.name !== 'categories') {
-        return ''
-      }
-      const currentPath = (currentRoute.params as { path: string }).path
-      const category = data?.categories.findCategoryByPath(currentPath)
-      const parentCategory = data?.categories.findCategoryByPath(category?.parentPath ?? '')
-      return parentCategory?.title ?? ''
-    }
-    if (isInNews) {
-      const isInNewsOverview = !(currentRoute.params as { newsId: string }).newsId
-      if (isInNewsOverview) {
-        return cityName
-      }
-      return t('news')
-    }
-    if (isInEvents) {
-      return t('events')
-    }
-    if (isInOffers) {
-      return t('offers')
-    }
-    if (isInPois) {
-      const isInPoisOverview = !(currentRoute.params as { slug: string }).slug
-      if (isInPoisOverview) {
-        return cityName
-      }
+    // Poi details are not opened in a new route
+    if (isPoisDetail) {
       return t('pois')
     }
-    return ''
+
+    const previousRouteTitle = (previousParams as { title?: string } | undefined)?.title
+    return previousRouteTitle ?? t(previousRoute.name)
   }
 
   return (

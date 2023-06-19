@@ -1,4 +1,4 @@
-import moment from 'moment-timezone'
+import { DateTime } from 'luxon'
 
 import Endpoint from '../Endpoint'
 import EndpointBuilder from '../EndpointBuilder'
@@ -55,7 +55,7 @@ export default (baseUrl: string): Endpoint<ParamsType, Array<PoiModel>> =>
                 latitude: poi.location.latitude,
                 longitude: poi.location.longitude,
               }),
-              lastUpdate: moment.tz(poi.modified_gmt, 'GMT'),
+              lastUpdate: DateTime.fromJSDate(new Date(poi.modified_gmt), { zone: 'GMT' }),
             })
         )
     )

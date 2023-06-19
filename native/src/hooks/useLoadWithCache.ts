@@ -1,4 +1,4 @@
-import moment from 'moment'
+import { DateTime } from 'luxon'
 import { useCallback } from 'react'
 
 import { Endpoint, fromError, ReturnType, useLoadAsync } from 'api-client'
@@ -38,7 +38,7 @@ const loadWithCache = async <T>({
     : null
 
   const lastUpdate = await dataContainer.getLastUpdate(cityCode, languageCode)
-  const shouldUpdate = forceUpdate || !lastUpdate || lastUpdate.isBefore(moment.utc().startOf('day'))
+  const shouldUpdate = forceUpdate || !lastUpdate || lastUpdate.toUTC().startOf('day') < DateTime.utc().startOf('day')
 
   if (!shouldUpdate && cachedData) {
     return cachedData

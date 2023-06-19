@@ -17,10 +17,10 @@ export const createJsonLd = (event: EventModel, formatter: DateFormatter): WithC
     name: event.title,
     startDate: date.allDay
       ? formatter.format(date.startDate, {
-          format: 'YYYY-MM-DD',
+          format: 'MM-dd-yyyy',
         }) // ISO 8601 date format
       : formatter.format(date.startDate, {
-          format: undefined,
+          format: 'DDD',
         }),
     // ISO 8601 date-time format
     eventStatus: 'https://schema.org/EventScheduled',
@@ -38,8 +38,8 @@ export const createJsonLd = (event: EventModel, formatter: DateFormatter): WithC
     },
   }
 
-  if (date.endDate.isValid()) {
-    jsonLd.endDate = date.allDay ? date.endDate.format('YYYY-MM-DD') : date.endDate.format()
+  if (date.endDate.isValid) {
+    jsonLd.endDate = date.allDay ? date.endDate.toUTC().toFormat('ff') : date.endDate.toUTC().toISO() ?? ''
   }
 
   if (event.featuredImage) {
@@ -50,7 +50,6 @@ export const createJsonLd = (event: EventModel, formatter: DateFormatter): WithC
       event.featuredImage.full.url,
     ]
   }
-
   return jsonLd
 }
 

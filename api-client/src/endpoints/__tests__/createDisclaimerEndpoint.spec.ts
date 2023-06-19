@@ -1,4 +1,4 @@
-import moment from 'moment-timezone'
+import { DateTime } from 'luxon'
 
 import PageModel from '../../models/PageModel'
 import createDisclaimerEndpoint from '../createDisclaimerEndpoint'
@@ -32,7 +32,7 @@ describe('disclaimer', () => {
         path: '/augsburg/en/disclaimer/feedback-contact-and-opportunities-to-take-part',
         title: pageJson.title,
         content: '<div>Some disclaimer test content :)</div>',
-        lastUpdate: moment.tz('2017-06-12 12:27:57', 'GMT'),
+        lastUpdate: DateTime.fromJSDate(new Date('2017-06-12 12:27:57'), { zone: 'GMT' }),
       })
     )
   })

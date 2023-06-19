@@ -1,5 +1,5 @@
 import { RenderAPI } from '@testing-library/react-native'
-import moment from 'moment-timezone'
+import { DateTime } from 'luxon'
 import React from 'react'
 
 import { DateFormatter } from 'api-client'
@@ -11,7 +11,7 @@ jest.mock('react-i18next')
 
 describe('TimeStamp', () => {
   const dateFormatter = new DateFormatter('de')
-  const lastUpdate = moment.tz('2020-03-20 17:50:00', 'GMT')
+  const lastUpdate = DateTime.fromISO('2020-03-20 17:50:00', { zone: 'GMT' })
 
   const renderTimeStamp = (format: string | null, showText: boolean | null): RenderAPI =>
     render(
@@ -24,10 +24,12 @@ describe('TimeStamp', () => {
     )
 
   it('should display last update text and formatted timestamp', () => {
-    const { getByText } = renderTimeStamp(null, null)
+    const { getByText, debug } = renderTimeStamp(null, null)
     const formattedDate = dateFormatter.format(lastUpdate, {
       format: 'LL',
     })
+
+    debug()
     expect(getByText(/lastUpdate/)).toBeTruthy()
     expect(getByText(formattedDate)).toBeTruthy()
   })

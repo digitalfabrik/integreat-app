@@ -1,4 +1,4 @@
-import moment from 'moment'
+import { DateTime } from 'luxon'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
@@ -82,9 +82,10 @@ const ShelterInformation = ({ shelter, cityCode, extended = false }: ShelterInfo
   const bedsText = beds === 1 ? t('bed') : t('beds', { beds })
   const titleText = t('shelterTitle', { beds: bedsText, location: city })
   const titleHint = `(#${id})`
-  const startDateText = moment(startDate, 'DD.MM.YYYY').isSameOrBefore(moment.now())
-    ? t('now')
-    : `${t('starting')} ${startDate}`
+  const startDateText =
+    DateTime.fromFormat(startDate, 'dd.LL.yyyy').startOf('day') <= DateTime.now()
+      ? t('now')
+      : `${t('starting')} ${startDate}`
 
   const allowedPets = info.filter(it => it.includes('haustier'))
   const petsTooltip = allowedPets.length === 2 ? t('haustier') : t(allowedPets[0] ?? 'notSpecified')

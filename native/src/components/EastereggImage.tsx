@@ -1,4 +1,4 @@
-import moment, { Moment } from 'moment'
+import { DateTime } from 'luxon'
 import React, { ReactElement, ReactNode, useEffect, useState } from 'react'
 import { TouchableOpacity } from 'react-native'
 import { Button } from 'react-native-elements'
@@ -28,7 +28,7 @@ type EastereggImageProps = {
 const EastereggImage = ({ clearResourcesAndCache }: EastereggImageProps): ReactElement => {
   const [clickCount, setClickCount] = useState(0)
   const [apiUrlOverride, setApiUrlOverride] = useState<string | null>(null)
-  const [clickStart, setClickStart] = useState<null | Moment>(null)
+  const [clickStart, setClickStart] = useState<null | DateTime>(null)
   const { cmsUrl, switchCmsUrl } = buildConfig()
   const theme = useTheme()
 
@@ -50,7 +50,7 @@ const EastereggImage = ({ clearResourcesAndCache }: EastereggImageProps): ReactE
     }
 
     const prevClickCount = clickCount
-    const clickedInTimeInterval = clickStart && clickStart.isAfter(moment().subtract(CLICK_TIMEOUT, 's'))
+    const clickedInTimeInterval = clickStart && clickStart > DateTime.now().minus(CLICK_TIMEOUT)
 
     if (prevClickCount + 1 >= API_URL_OVERRIDE_MIN_CLICKS && clickedInTimeInterval) {
       const apiUrlOverride = await appSettings.loadApiUrlOverride()
@@ -58,7 +58,7 @@ const EastereggImage = ({ clearResourcesAndCache }: EastereggImageProps): ReactE
       setApiUrl(newApiUrl)
       log(`Switching to new API-Url: ${newApiUrl}`)
     } else {
-      const newClickStart = clickedInTimeInterval ? clickStart : moment()
+      const newClickStart = clickedInTimeInterval ? clickStart : DateTime.now()
       const newClickCount = clickedInTimeInterval ? prevClickCount + 1 : 1
       setClickCount(newClickCount)
       setClickStart(newClickStart)

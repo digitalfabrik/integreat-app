@@ -45,6 +45,7 @@ const CategoriesContent = ({ categories, categoryModel, formatter, t }: Categori
         content={categoryModel.content}
         lastUpdate={categoryModel.lastUpdate}
         formatter={formatter}
+        format='DDD'
         onInternalLinkClick={navigate}
       />
     )

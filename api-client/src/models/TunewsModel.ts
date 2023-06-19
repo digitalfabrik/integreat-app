@@ -1,18 +1,18 @@
 import { decodeHTML } from 'entities'
-import { Moment } from 'moment'
+import { DateTime } from 'luxon'
 
 class TunewsModel {
   _id: number
   _title: string
   _tags: Array<string>
-  _date: Moment
+  _date: DateTime
   _content: string
   _eNewsNo: string
 
   constructor(params: {
     id: number
     title: string
-    date: Moment
+    date: DateTime
     tags: Array<string>
     content: string
     eNewsNo: string
@@ -34,7 +34,7 @@ class TunewsModel {
     return this._title
   }
 
-  get date(): Moment {
+  get date(): DateTime {
     return this._date
   }
 

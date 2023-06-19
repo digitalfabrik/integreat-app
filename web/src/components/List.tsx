@@ -23,7 +23,6 @@ class List<T> extends React.PureComponent<ListProps<T>> {
     if (items.length === 0) {
       return <NoItemsMessage>{noItemsMessage}</NoItemsMessage>
     }
-
     return <StyledList borderless={borderless}>{items.map(item => renderItem(item))}</StyledList>
   }
 }

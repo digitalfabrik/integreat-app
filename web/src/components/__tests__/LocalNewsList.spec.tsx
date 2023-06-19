@@ -1,4 +1,4 @@
-import moment from 'moment'
+import { DateTime } from 'luxon'
 import React from 'react'
 
 import { DateFormatter, LOCAL_NEWS_TYPE, LocalNewsModel } from 'api-client'
@@ -7,16 +7,18 @@ import { renderWithRouterAndTheme } from '../../testing/render'
 import LocalNewsList from '../LocalNewsList'
 import NewsListItem from '../NewsListItem'
 
+jest.mock('react-i18next')
+
 describe('LocalNewsList', () => {
   const language = 'en'
   const link = '/testumgebung/en/news/local'
   const t = (key: string) => key
   const city = 'testcity'
 
-  const renderItem = ({ id, title, message, timestamp }: LocalNewsModel) => (
+  const renderItem = ({ id, title, content, timestamp }: LocalNewsModel) => (
     <NewsListItem
       title={title}
-      content={message}
+      content={content}
       timestamp={timestamp}
       type={LOCAL_NEWS_TYPE}
       key={id}
@@ -25,19 +27,19 @@ describe('LocalNewsList', () => {
       formatter={new DateFormatter(language)}
     />
   )
-  const date = moment('2017-11-18T09:30:00.000Z')
+  const date = DateTime.fromISO('2017-11-18T09:30:00.000Z')
   const localNews1 = new LocalNewsModel({
     id: 217,
     title: 'Important',
     timestamp: date,
-    message: 'This is a very important message from your favourite city!',
+    content: 'This is a very important content from your favourite city!',
   })
 
   const localNews2 = new LocalNewsModel({
     id: 218,
     title: 'Love :)',
     timestamp: date,
-    message: 'I am a random local news content content and I like it!!!!!!!!!',
+    content: 'I am a random local news content content and I like it!!!!!!!!!',
   })
 
   const items = [localNews1, localNews2]

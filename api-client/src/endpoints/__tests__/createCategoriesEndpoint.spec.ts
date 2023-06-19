@@ -1,5 +1,5 @@
 import { mocked } from 'jest-mock'
-import moment from 'moment-timezone'
+import { DateTime } from 'luxon'
 
 import mapCategoryJson from '../../mapping/mapCategoryJson'
 import CategoriesMapModel from '../../models/CategoriesMapModel'
@@ -30,7 +30,7 @@ describe('createCategoriesEndpoint', () => {
     thumbnail: '',
     order: -1,
     availableLanguages: new Map(),
-    lastUpdate: moment(0),
+    lastUpdate: DateTime.fromMillis(0),
   })
   const endpoint = createCategoriesEndpoint(baseUrl)
 

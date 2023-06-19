@@ -46,7 +46,11 @@ const EventsPage = ({ cityModel, languages, pathname, languageCode, cityCode }: 
     error: eventsError,
   } = useLoadFromEndpoint(createEventsEndpoint, cmsApiBaseUrl, { city: cityCode, language: languageCode })
 
-  const event = eventId ? events?.find((event: EventModel) => event.path === pathname) : null
+  // TODO IGAPP-1078: Remove workaround of looking up path until '$'
+  const event = eventId
+    ? events?.find(it => it.path === pathname) ??
+      events?.find(it => it.path.substring(0, it.path.indexOf('$')) === pathname)
+    : null
 
   const toolbar = (openFeedback: (rating: FeedbackRatingType) => void) => (
     <CityContentToolbar openFeedbackModal={openFeedback} viewportSmall={viewportSmall} />
@@ -115,11 +119,9 @@ const EventsPage = ({ cityModel, languages, pathname, languageCode, cityCode }: 
     const { featuredImage, thumbnail, lastUpdate, content, title, location, date } = event
     const defaultThumbnail = featuredImage ? featuredImage.medium.url : thumbnail
     const pageTitle = `${event.title} - ${cityModel.name}`
-
     const PageFooter = (
       <TextButton fullWidth={viewportSmall} onClick={() => downloadEventAsIcsFile(event)} text={t('exportAsICal')} />
     )
-
     return (
       <CityContentLayout isLoading={false} {...locationLayoutParams}>
         <Helmet pageTitle={pageTitle} languageChangePaths={languageChangePaths} cityModel={cityModel} />
@@ -131,6 +133,7 @@ const EventsPage = ({ cityModel, languages, pathname, languageCode, cityCode }: 
           content={content}
           title={title}
           formatter={formatter}
+          format='DDD'
           onInternalLinkClick={navigate}
           pageFooter={PageFooter}>
           <>
@@ -145,7 +148,6 @@ const EventsPage = ({ cityModel, languages, pathname, languageCode, cityCode }: 
   const renderEventListItem = (event: EventModel) => (
     <EventListItem event={event} formatter={formatter} key={event.path} />
   )
-
   const pageTitle = `${t('pageTitle')} - ${cityModel.name}`
 
   return (

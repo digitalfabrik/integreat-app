@@ -44,7 +44,7 @@ const CityNotCooperatingFooter = ({
 
   return (
     <FooterContainer>
-      <Icon source={buildConfigAssets().cityNotCooperatingIcon!} />
+      <Icon source={buildConfigAssets().cityNotCooperatingIcon} />
       <Question>{t('cityNotFound')}</Question>
       <ButtonContainer>
         <Button

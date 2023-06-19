@@ -1,4 +1,4 @@
-import moment from 'moment'
+import { DateTime } from 'luxon'
 
 import CategoriesMapModel from '../CategoriesMapModel'
 import CategoryModel from '../CategoryModel'
@@ -13,7 +13,7 @@ describe('CategoriesMapModel', () => {
     thumbnail: 'https://cms.integreat-app.de/augsburg/wp-content/uploads/sites/2/2015/09/pin66-150x150.png',
     order: 3,
     availableLanguages: new Map([['ar', '/augsburg/ar/erste-schritte/خريطة-المدينة']]),
-    lastUpdate: moment('2016-01-07 10:36:24'),
+    lastUpdate: DateTime.fromISO('2016-01-07 10:36:24'),
   })
   const categories = [
     new CategoryModel({
@@ -23,7 +23,7 @@ describe('CategoriesMapModel', () => {
       parentPath: '',
       availableLanguages: new Map(),
       content: 'exampleContent0',
-      lastUpdate: moment('2016-01-07 10:36:24'),
+      lastUpdate: DateTime.fromISO('2016-01-07 10:36:24'),
       order: 0,
       thumbnail: 'thumb-nail',
     }),
@@ -35,7 +35,7 @@ describe('CategoriesMapModel', () => {
       order: 1,
       availableLanguages: new Map(),
       content: 'exampleContent0',
-      lastUpdate: moment('2016-01-07 10:36:24'),
+      lastUpdate: DateTime.fromISO('2016-01-07 10:36:24'),
       thumbnail: 'thumb-nail',
     }),
     new CategoryModel({
@@ -46,7 +46,7 @@ describe('CategoriesMapModel', () => {
       order: 2,
       availableLanguages: new Map(),
       content: 'exampleContent0',
-      lastUpdate: moment('2016-01-07 10:36:24'),
+      lastUpdate: DateTime.fromISO('2016-01-07 10:36:24'),
       thumbnail: 'thumb-nail',
     }),
     new CategoryModel({
@@ -57,7 +57,7 @@ describe('CategoriesMapModel', () => {
       order: 3,
       availableLanguages: new Map(),
       content: 'exampleContent0',
-      lastUpdate: moment('2016-01-07 10:36:24'),
+      lastUpdate: DateTime.fromISO('2016-01-07 10:36:24'),
       thumbnail: 'thumb-nail',
     }),
   ]

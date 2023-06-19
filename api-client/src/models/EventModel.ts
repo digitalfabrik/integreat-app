@@ -1,5 +1,5 @@
 import { decodeHTML } from 'entities'
-import moment, { Moment } from 'moment'
+import { DateTime } from 'luxon'
 import { v5 } from 'uuid'
 
 import { getExcerpt } from '../index'
@@ -24,7 +24,7 @@ class EventModel extends ExtendedPageModel {
     location: LocationModel<number | null> | null
     excerpt: string
     availableLanguages: Map<string, string>
-    lastUpdate: Moment
+    lastUpdate: DateTime
     featuredImage: FeaturedImageModel | null | undefined
   }) {
     const { date, location, excerpt, featuredImage, ...other } = params
@@ -55,9 +55,9 @@ class EventModel extends ExtendedPageModel {
     const { title, location, path, date, excerpt, lastUpdate } = this
     const url = `${baseUrl}${path}`
     const uid = v5(`${url}/${formatDateICal(lastUpdate)}`, v5.URL)
-    const timezone = date.startDate.tz()
+    const timezone = date.startDate.zone
     const body: string[] = []
-    body.push(`DTSTAMP:${formatDateICal(moment())}`)
+    body.push(`DTSTAMP:${formatDateICal(DateTime.now())}`)
     body.push(`UID:${uid}`)
     body.push(`SUMMARY:${title}`)
     body.push(`DTSTART;TZID=${timezone}:${formatDateICal(date.startDate)}`)

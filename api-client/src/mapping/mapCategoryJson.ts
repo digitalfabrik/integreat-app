@@ -1,4 +1,4 @@
-import moment from 'moment-timezone'
+import { DateTime } from 'luxon'
 
 import mapAvailableLanguages from '../mapAvailableLanguages'
 import CategoryModel from '../models/CategoryModel'
@@ -14,7 +14,7 @@ const mapCategoryJson = (json: JsonCategoryType, basePath: string): CategoryMode
     order: json.order,
     availableLanguages: mapAvailableLanguages(json.available_languages),
     parentPath: json.parent.path || basePath,
-    lastUpdate: moment.tz(json.modified_gmt, 'GMT'),
+    lastUpdate: DateTime.fromJSDate(new Date(json.modified_gmt), { zone: 'GMT' }),
   })
 
 export default mapCategoryJson

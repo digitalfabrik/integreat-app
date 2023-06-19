@@ -1,4 +1,4 @@
-import moment from 'moment'
+import { DateTime, Info } from 'luxon'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Text } from 'react-native'
@@ -56,8 +56,7 @@ const OpeningHours = ({
   const { t } = useTranslation('pois')
 
   // The opening hours loaded from the cms are ordered according to the german weekday order
-  // @ts-expect-error Interface has wrong type, supplying true is necessary and works
-  const weekdays = moment.localeData('de').weekdays(true)
+  const weekdays = Info.weekdays('long', { locale: 'de' })
 
   const openingHoursTitle = (
     <TitleContainer language={language}>
@@ -85,12 +84,12 @@ const OpeningHours = ({
         <Content>
           {openingHours.map((entry, index) => (
             <OpeningEntry
-              key={`${weekdays[index]!}-OpeningEntry`}
+              key={`${weekdays[index]}-OpeningEntry`}
               weekday={t(weekdays[index]!.toLowerCase())}
               allDay={entry.allDay}
               closed={entry.closed}
               timeSlots={entry.timeSlots}
-              isCurrentDay={index === moment().isoWeekday() - 1}
+              isCurrentDay={index === DateTime.now().weekday - 1}
               language={language}
             />
           ))}

@@ -20,8 +20,8 @@ describe('HeaderLogo', () => {
   })
 
   it('should show the regular header app icon if there is no campaign', () => {
-    jest.setSystemTime(1615374110000) // Wed Mar 10 2021 11:01:50 GMT+0000
-    config.campaign = undefined
+    jest.setSystemTime(11686641878) // Tue Jun 13 2023 07:37:58 GMT+0000
+    config.campaign = womensDayCampaign
     config.icons.appLogo = '/my-regular-logo'
     const { getByAltText } = renderWithRouter(<HeaderLogo link='https://example.com' />)
 

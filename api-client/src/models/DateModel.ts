@@ -1,23 +1,23 @@
-import { Moment } from 'moment'
+import { DateTime } from 'luxon'
 
 import DateFormatter from '../i18n/DateFormatter'
 
 class DateModel {
-  _startDate: Moment
-  _endDate: Moment
+  _startDate: DateTime
+  _endDate: DateTime
   _allDay: boolean
 
-  constructor({ startDate, endDate, allDay }: { startDate: Moment; endDate: Moment; allDay: boolean }) {
+  constructor({ startDate, endDate, allDay }: { startDate: DateTime; endDate: DateTime; allDay: boolean }) {
     this._allDay = allDay
     this._startDate = startDate
     this._endDate = endDate
   }
 
-  get startDate(): Moment {
+  get startDate(): DateTime {
     return this._startDate
   }
 
-  get endDate(): Moment {
+  get endDate(): DateTime {
     return this._endDate
   }
 
@@ -34,21 +34,21 @@ class DateModel {
     // if allDay: only date, else: date + time
     let span = this._allDay
       ? formatter.format(this._startDate, {
-          format: 'LL',
+          format: 'DDD',
         })
       : formatter.format(this._startDate, {
-          format: 'LLL',
+          format: 'ff',
         })
 
-    if (this._endDate.isValid() && !this._startDate.isSame(this._endDate)) {
+    if (this._endDate.isValid && !this._startDate.hasSame(this._endDate, 'day')) {
       // endDate is valid and different from startDate
-      if (this._startDate.isSame(this._endDate, 'day')) {
+      if (this._startDate.hasSame(this._endDate, 'day')) {
         // startDate and endDate are on the same day
         // if allDay: we don't need anything more, because we are on the same day, else: only time
         span += this._allDay
           ? ''
           : ` - ${formatter.format(this._endDate, {
-              format: 'LT',
+              format: 't',
             })}`
       } else {
         // startDate and endDate are not on the same day
@@ -56,10 +56,10 @@ class DateModel {
         // if allDay: only date, else: date + time
         span += this._allDay
           ? formatter.format(this._endDate, {
-              format: 'LL',
+              format: 'DDD',
             })
           : formatter.format(this._endDate, {
-              format: 'LLL',
+              format: 'ff',
             })
       }
     }
@@ -68,7 +68,11 @@ class DateModel {
   }
 
   isEqual(other: DateModel): boolean {
-    return this.startDate.isSame(other.startDate) && this.endDate.isSame(other.endDate) && this.allDay === other.allDay
+    return (
+      this.startDate.hasSame(other.startDate, 'day') &&
+      this.endDate.hasSame(other.endDate, 'day') &&
+      this.allDay === other.allDay
+    )
   }
 }
 

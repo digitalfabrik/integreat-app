@@ -1,4 +1,4 @@
-import moment from 'moment'
+import { DateTime } from 'luxon'
 import { useEffect } from 'react'
 
 import {
@@ -6,7 +6,6 @@ import {
   CityModel,
   createCategoriesEndpoint,
   createEventsEndpoint,
-  createLanguagesEndpoint,
   createPOIsEndpoint,
   ErrorCode,
   EventModel,
@@ -45,18 +44,11 @@ export type CityContentReturn = Omit<ReturnType<CityContentData>, 'error'> & { e
  * Takes care of updating the data regularly.
  */
 const useLoadCityContent = ({ cityCode, languageCode }: Params): CityContentReturn => {
+  const showSnackbar = useSnackbar()
   const citiesReturn = useLoadCities()
   const previousLanguageCode = usePreviousProp({ prop: languageCode })
-  const showSnackbar = useSnackbar()
   const params = { cityCode, languageCode, showSnackbar }
 
-  const languagesReturn = useLoadWithCache({
-    ...params,
-    isAvailable: dataContainer.languagesAvailable,
-    createEndpoint: createLanguagesEndpoint,
-    getFromDataContainer: dataContainer.getLanguages,
-    setToDataContainer: (cityCode, languageCode, data) => dataContainer.setLanguages(cityCode, data),
-  })
   const categoriesReturn = useLoadWithCache({
     ...params,
     isAvailable: dataContainer.categoriesAvailable,
@@ -80,10 +72,10 @@ const useLoadCityContent = ({ cityCode, languageCode }: Params): CityContentRetu
   })
 
   useEffect(() => {
-    if (languagesReturn.data && categoriesReturn.data && eventsReturn.data && poisReturn.data) {
+    if (categoriesReturn.data && eventsReturn.data && poisReturn.data) {
       // Load the resource cache in the background once a day and do not wait for it
       dataContainer.getLastUpdate(cityCode, languageCode).then(lastUpdate => {
-        if (!lastUpdate || lastUpdate.isBefore(moment.utc().startOf('day'))) {
+        if (!lastUpdate || lastUpdate.toUTC().startOf('day') < DateTime.utc().startOf('day')) {
           loadResourceCache({
             cityCode,
             languageCode,
@@ -96,12 +88,12 @@ const useLoadCityContent = ({ cityCode, languageCode }: Params): CityContentRetu
 
       // Update last update if all data is available.
       // WARNING: This also means that the last update is updated if everything is just loaded from the cache.
-      dataContainer.setLastUpdate(cityCode, languageCode, moment()).catch(reportError)
+      dataContainer.setLastUpdate(cityCode, languageCode, DateTime.utc()).catch(reportError)
     }
-  }, [languagesReturn, categoriesReturn, eventsReturn, poisReturn, cityCode, languageCode])
+  }, [categoriesReturn, eventsReturn, poisReturn, cityCode, languageCode])
 
   const city = citiesReturn.data?.find(it => it.code === cityCode)
-  const language = languagesReturn.data?.find(it => it.code === languageCode)
+  const language = city?.languages.find(it => it.code === languageCode)
 
   const getError = () => {
     if (previousLanguageCode !== languageCode) {
@@ -111,47 +103,28 @@ const useLoadCityContent = ({ cityCode, languageCode }: Params): CityContentRetu
     if (citiesReturn.data && !city) {
       return ErrorCode.CityUnavailable
     }
-    if (languagesReturn.data && !language) {
+    if (city && !language) {
       return ErrorCode.LanguageUnavailable
     }
-    return (
-      citiesReturn.error ??
-      languagesReturn.error ??
-      categoriesReturn.error ??
-      eventsReturn.error ??
-      poisReturn.error ??
-      null
-    )
+    return citiesReturn.error ?? categoriesReturn.error ?? eventsReturn.error ?? poisReturn.error ?? null
   }
 
-  const loading =
-    citiesReturn.loading ||
-    languagesReturn.loading ||
-    categoriesReturn.loading ||
-    eventsReturn.loading ||
-    poisReturn.loading
+  const loading = citiesReturn.loading || categoriesReturn.loading || eventsReturn.loading || poisReturn.loading
 
   const refresh = () => {
     citiesReturn.refresh()
-    languagesReturn.refresh()
     categoriesReturn.refresh()
     eventsReturn.refresh()
     poisReturn.refresh()
   }
 
   const data =
-    city &&
-    language &&
-    citiesReturn.data &&
-    languagesReturn.data &&
-    categoriesReturn.data &&
-    eventsReturn.data &&
-    poisReturn.data
+    city && language && citiesReturn.data && categoriesReturn.data && eventsReturn.data && poisReturn.data
       ? {
           city,
           language,
           cities: citiesReturn.data,
-          languages: languagesReturn.data,
+          languages: city.languages,
           categories: categoriesReturn.data,
           events: eventsReturn.data,
           pois: poisReturn.data,

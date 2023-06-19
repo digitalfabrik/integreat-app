@@ -1,6 +1,4 @@
-import moment, { Moment } from 'moment'
-// Fix for minifying js issue with hermes using moment().locale https://github.com/moment/moment/issues/5789
-import 'moment/locale/de'
+import { DateTime, Interval } from 'luxon'
 
 import { mapMarker, PoiFeature } from '../maps'
 import ExtendedPageModel from './ExtendedPageModel'
@@ -29,7 +27,7 @@ class PoiModel extends ExtendedPageModel {
     metaDescription: string | null
     excerpt: string
     location: LocationModel<number>
-    lastUpdate: Moment
+    lastUpdate: DateTime
     email: string | null
     website: string | null
     phoneNumber: string | null
@@ -134,18 +132,21 @@ class PoiModel extends ExtendedPageModel {
     if (!this.openingHours) {
       return false
     }
-    // isoWeekday return 1-7 for the weekdays
-    const currentWeekday = moment().isoWeekday() - 1
+    // weekday returns 1-7 for the weekdays
+    const currentWeekday = DateTime.now().weekday - 1
     const currentDay = this.openingHours[currentWeekday]
 
     if (currentDay) {
       if (currentDay.allDay) {
         return true
       }
-      const dateFormat = 'LT'
-      const currentTime = moment().locale('de').format(dateFormat)
+      const dateFormat = DateTime.now().toLocaleString(DateTime.TIME_SIMPLE)
+      const currentTime = DateTime.now().setLocale('de').toFormat(dateFormat)
       return currentDay.timeSlots.some(timeslot =>
-        moment(currentTime, dateFormat).isBetween(moment(timeslot.start, dateFormat), moment(timeslot.end, dateFormat))
+        Interval.fromDateTimes(
+          DateTime.fromFormat(timeslot.start, dateFormat),
+          DateTime.fromFormat(timeslot.end, dateFormat)
+        ).contains(DateTime.fromFormat(currentTime, dateFormat))
       )
     }
     return false

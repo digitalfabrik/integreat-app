@@ -72,7 +72,7 @@ const JpalTracking = ({ navigation }: JpalTrackingProps): ReactElement => {
 
   const onBackNavigation = useCallback(
     (action: NavigationAction) => {
-      if (!trackingEnabled) {
+      if (trackingEnabled) {
         Alert.alert(t('trackingLeaveTitle'), t('trackingLeaveDescription', { appName: buildConfig().appName }), [
           {
             text: t('decline'),

@@ -1,5 +1,5 @@
 import * as Sentry from '@sentry/react-native'
-import { TFunction } from 'react-i18next'
+import { TFunction } from 'i18next'
 import { AccessibilityRole, SectionListData } from 'react-native'
 import { openSettings } from 'react-native-permissions'
 

@@ -1,9 +1,9 @@
-import { fireEvent, render } from '@testing-library/react-native'
+import { NavigationContainer } from '@react-navigation/native'
+import { fireEvent } from '@testing-library/react-native'
 import { mocked } from 'jest-mock'
-import moment from 'moment'
+import { DateTime } from 'luxon'
 import React from 'react'
 import { Text } from 'react-native'
-import { ThemeProvider } from 'styled-components/native'
 
 import {
   CategoriesMapModelBuilder,
@@ -15,13 +15,14 @@ import {
   TunewsModel,
 } from 'api-client'
 
-import buildConfig from '../../constants/buildConfig'
 import useLoadTuNews from '../../hooks/useLoadTuNews'
+import useNavigate from '../../hooks/useNavigate'
 import createNavigationScreenPropMock from '../../testing/createNavigationPropMock'
+import render from '../../testing/render'
 import TuNews from '../TuNews'
 
 jest.mock('react-i18next')
-jest.mock('../../components/NativeHtml', () => ({ content }: { content: string }) => <Text>{content}</Text>)
+jest.mock('../../components/Page', () => ({ content }: { content: string }) => <Text>{content}</Text>)
 jest.mock('../../hooks/useLoadTuNews')
 jest.mock('api-client', () => ({
   ...jest.requireActual('api-client'),
@@ -30,12 +31,13 @@ jest.mock('api-client', () => ({
 jest.mock('../../components/LanguageNotAvailablePage', () => () => <Text>languageNotAvailable</Text>)
 jest.mock('@react-native-community/netinfo')
 jest.mock('react-native/Libraries/EventEmitter/NativeEventEmitter')
+jest.mock('../../hooks/useNavigate')
 
 const news: [TunewsModel, TunewsModel] = [
   new TunewsModel({
     id: 9902,
     title: 'Was ist ein Verein?',
-    date: moment('2020-01-20T00:00:00.000Z'),
+    date: DateTime.fromISO('2020-01-20T00:00:00.000Z', { zone: 'GMT' }),
     tags: [],
     content: 'Ein Verein ist eine Gruppe von Menschen. Sie haben ein gemeinsames Interesse und organisieren.',
     eNewsNo: 'tun0000009902',
@@ -44,7 +46,7 @@ const news: [TunewsModel, TunewsModel] = [
     id: 1234,
     title: 'Tick bite - What to do?',
     tags: ['8 Gesundheit'],
-    date: moment('2020-01-20T00:00:00.000Z'),
+    date: DateTime.fromISO('2020-01-20T00:00:00.000Z', { zone: 'GMT' }),
     content:
       'In summer there are often ticks in forest and meadows with high grass. These are very small animals. They feed on the blood of people or animals they sting, like mosquitoes. But they stay in the skin longer and can transmit dangerous diseases. If you have been in high grass, you should search your body very thoroughly for ticks. They like to sit in the knees, armpits or in the groin area. If you discover a tick in your skin, you should carefully pull it out with tweezers without crushing it. If the sting inflames, you must see a doctor. tünews INTERNATIONAL',
     eNewsNo: 'tun0000009902',
@@ -59,8 +61,9 @@ describe('TuNews', () => {
   const selectNews = jest.fn()
   const loadMore = jest.fn()
   const refresh = jest.fn()
-
   const navigation = createNavigationScreenPropMock<NewsRouteType>()
+  mocked(useNavigate).mockImplementation(() => ({ navigateTo: jest.fn(), navigation }))
+
   const route = {
     key: 'route-id-0',
     params: {
@@ -87,9 +90,9 @@ describe('TuNews', () => {
 
   const renderNews = () =>
     render(
-      <ThemeProvider theme={buildConfig().lightTheme}>
-        <TuNews data={data} route={route} navigation={navigation} selectNews={selectNews} />
-      </ThemeProvider>
+      <NavigationContainer>
+        <TuNews data={data} route={route} navigation={navigation} navigateToNews={selectNews} />
+      </NavigationContainer>
     )
   const tuNewsResponse = {
     error: null,

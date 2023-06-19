@@ -1,4 +1,4 @@
-import { Moment } from 'moment'
+import { DateTime } from 'luxon'
 import React, { ReactElement, ReactNode } from 'react'
 import styled from 'styled-components'
 
@@ -24,9 +24,9 @@ type PageProps = {
   defaultThumbnailSrc?: string // necessary for IE11 support
   thumbnailSrcSet?: string
   content: string
-  lastUpdate?: Moment
+  lastUpdate?: DateTime
+  format?: string
   showLastUpdateText?: boolean
-  lastUpdateFormat?: string
   formatter: DateFormatter
   onInternalLinkClick: (url: string) => void
   children?: ReactNode
@@ -43,7 +43,7 @@ const Page = ({
   content,
   lastUpdate,
   showLastUpdateText = true,
-  lastUpdateFormat,
+  format,
   formatter,
   children,
   onInternalLinkClick,
@@ -55,12 +55,7 @@ const Page = ({
     {children}
     <RemoteContent html={content} onInternalLinkClick={onInternalLinkClick} />
     {lastUpdate && (
-      <LastUpdateInfo
-        lastUpdate={lastUpdate}
-        format={lastUpdateFormat}
-        formatter={formatter}
-        withText={showLastUpdateText}
-      />
+      <LastUpdateInfo lastUpdate={lastUpdate} format={format} formatter={formatter} withText={showLastUpdateText} />
     )}
     {pageFooter}
   </>

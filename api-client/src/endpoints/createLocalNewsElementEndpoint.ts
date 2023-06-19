@@ -1,4 +1,4 @@
-import moment from 'moment-timezone'
+import { DateTime } from 'luxon'
 
 import Endpoint from '../Endpoint'
 import EndpointBuilder from '../EndpointBuilder'
@@ -35,9 +35,9 @@ export default (baseUrl: string): Endpoint<ParamsType, LocalNewsModel> =>
       const { id, timestamp, title, message } = localNewsModel
       return new LocalNewsModel({
         id,
-        timestamp: moment.tz(timestamp, 'GMT'),
+        timestamp: DateTime.fromJSDate(new Date(timestamp), { zone: 'GMT' }),
         title,
-        message,
+        content: message,
       })
     })
     .build()

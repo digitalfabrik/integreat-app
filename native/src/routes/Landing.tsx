@@ -1,4 +1,4 @@
-import React, { ReactElement, useCallback, useContext } from 'react'
+import React, { ReactElement, useCallback, useContext, useEffect } from 'react'
 import { View } from 'react-native'
 import styled from 'styled-components/native'
 
@@ -30,6 +30,11 @@ const Landing = ({ navigation }: LandingProps): ReactElement => {
   const { data: cities, refresh, ...response } = useLoadCities()
   const { changeCityCode } = useContext(AppContext)
 
+  useEffect(() => {
+    // The cities are otherwise only updated by pull to refresh
+    refresh()
+  }, [refresh])
+
   const navigateToDashboard = (city: CityModel) => {
     changeCityCode(city.code)
     navigation.reset({ index: 0, routes: [{ name: CATEGORIES_ROUTE, params: {} }] })
@@ -37,7 +42,7 @@ const Landing = ({ navigation }: LandingProps): ReactElement => {
 
   const clearResourcesAndCache = useCallback(() => {
     dataContainer.clearInMemoryCache()
-    dataContainer.clearOfflineCache().catch(reportError)
+    dataContainer._clearOfflineCache().catch(reportError)
     refresh()
   }, [refresh])
 

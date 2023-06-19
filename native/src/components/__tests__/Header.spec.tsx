@@ -3,19 +3,10 @@ import { mocked } from 'jest-mock'
 import React, { ReactElement } from 'react'
 import { Share, Text, View } from 'react-native'
 
-import {
-  CategoriesMapModelBuilder,
-  CATEGORIES_ROUTE,
-  CityModel,
-  LanguageModel,
-  LanguageModelBuilder,
-  SEARCH_ROUTE,
-  SHARE_SIGNAL_NAME,
-} from 'api-client'
+import { CATEGORIES_ROUTE, LanguageModel, LanguageModelBuilder, SEARCH_ROUTE, SHARE_SIGNAL_NAME } from 'api-client'
 import CityModelBuilder from 'api-client/src/testing/CityModelBuilder'
 
 import { AppContext } from '../../contexts/AppContextProvider'
-import useLoadCityContent from '../../hooks/useLoadCityContent'
 import useSnackbar from '../../hooks/useSnackbar'
 import navigateToLanguageChange from '../../navigation/navigateToLanguageChange'
 import createNavigationMock from '../../testing/createNavigationPropMock'
@@ -50,7 +41,6 @@ jest.mock('@react-navigation/elements', () => ({
 }))
 jest.mock('../../navigation/navigateToLanguageChange')
 jest.mock('@react-native-community/netinfo')
-jest.mock('../../hooks/useLoadCityContent')
 jest.mock('react-native/Libraries/EventEmitter/NativeEventEmitter')
 
 describe('Header', () => {
@@ -71,24 +61,6 @@ describe('Header', () => {
   }
   const navigation = createNavigationMock()
 
-  const data = {
-    cities: cityModels,
-    languages: languageModels,
-    city: cityModel,
-    language: languageModel,
-    categories: new CategoriesMapModelBuilder(cityModel.code, languageModel.code).build(),
-    events: [],
-    pois: [],
-    extra: [],
-  }
-
-  const returnValue = {
-    refresh: jest.fn(),
-    loading: false,
-    error: null,
-    data,
-  }
-
   const context = {
     changeCityCode: jest.fn(),
     changeLanguageCode: jest.fn(),
@@ -98,28 +70,22 @@ describe('Header', () => {
 
   const renderHeader = ({
     showItems = true,
-    city = cityModel,
     availableLanguages = defaultAvailableLanguages,
     languages = languageModels,
     shareUrl = defaultShareUrl,
-    isHome = false,
   }: {
     showItems?: boolean
-    city?: CityModel
     languages?: LanguageModel[]
     availableLanguages?: string[]
     shareUrl?: string
-    isHome?: boolean | null
   }) =>
     render(
       <AppContext.Provider value={context}>
         <Header
           navigation={navigation}
           route={route}
-          isHome={isHome}
           availableLanguages={availableLanguages}
           languages={languages}
-          city={city}
           shareUrl={shareUrl}
           showItems={showItems}
         />
@@ -127,7 +93,6 @@ describe('Header', () => {
     )
 
   it('search and language change buttons should be enabled and visible if showItems and all props available', async () => {
-    mocked(useLoadCityContent).mockImplementation(() => returnValue)
     const { getByLabelText } = renderHeader({
       showItems: true,
       languages: languageModels,
@@ -143,7 +108,6 @@ describe('Header', () => {
   })
 
   it('search and language change buttons should be disabled and invisible if showItems is false', () => {
-    mocked(useLoadCityContent).mockImplementation(() => returnValue)
     const { getByLabelText } = renderHeader({
       showItems: false,
       languages: languageModels,
@@ -158,20 +122,33 @@ describe('Header', () => {
   })
 
   it('should show back button and navigate back on click', () => {
-    mocked(useLoadCityContent).mockImplementation(() => returnValue)
-    const { getByText } = renderHeader({ isHome: false })
+    mocked(navigation.canGoBack).mockImplementation(() => true)
+    const { getByText } = renderHeader({})
     fireEvent.press(getByText('HeaderBackButton'))
     expect(navigation.goBack).toHaveBeenCalledTimes(1)
   })
 
   it('should not show back button if it is the home', () => {
-    mocked(useLoadCityContent).mockImplementation(() => returnValue)
-    const { queryByText } = renderHeader({ isHome: true })
+    mocked(navigation.canGoBack).mockImplementation(() => false)
+    const { queryByText } = renderHeader({})
     expect(queryByText('HeaderBackButton')).toBeFalsy()
   })
 
+  it('should not open language change modal if no translation available', async () => {
+    const showSnackbar = jest.fn()
+    mocked(useSnackbar).mockImplementation(() => showSnackbar)
+    const { getByLabelText } = renderHeader({
+      showItems: true,
+      languages: languageModels,
+      availableLanguages: [languageModel.code],
+    })
+    fireEvent.press(getByLabelText(t('changeLanguage')))
+    expect(navigateToLanguageChange).not.toHaveBeenCalled()
+    await waitFor(() => expect(showSnackbar).toHaveBeenCalledWith({ text: 'layout:noTranslation' }))
+    expect(showSnackbar).toHaveBeenCalledTimes(1)
+  })
+
   it('should show snackbar if sharing fails', () => {
-    mocked(useLoadCityContent).mockImplementation(() => returnValue)
     const showSnackbar = jest.fn()
     mocked(useSnackbar).mockImplementation(() => showSnackbar)
     const share = jest.fn(() => {

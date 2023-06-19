@@ -43,11 +43,11 @@ const LocalNewsPage = ({ cityModel, languages, pathname, languageCode, cityCode 
   const newsModel = newsId && localNews?.find((it: LocalNewsModel) => it.id.toString() === newsId)
 
   const renderLocalNewsListItem = (localNewsItem: LocalNewsModel) => {
-    const { id, title, message, timestamp } = localNewsItem
+    const { id, title, content, timestamp } = localNewsItem
     return (
       <NewsListItem
         title={title}
-        content={message}
+        content={content}
         timestamp={timestamp}
         key={id}
         link={pathnameFromRouteInformation({
@@ -117,7 +117,7 @@ const LocalNewsPage = ({ cityModel, languages, pathname, languageCode, cityCode 
 
   if (newsModel) {
     const pageTitle = `${newsModel.title} - ${cityModel.name}`
-    const linkedContent = replaceLinks(newsModel.message)
+    const linkedContent = replaceLinks(newsModel.content)
     return (
       <CityContentLayout isLoading={false} {...locationLayoutParams}>
         <Helmet pageTitle={pageTitle} languageChangePaths={languageChangePaths} cityModel={cityModel} />
@@ -125,7 +125,7 @@ const LocalNewsPage = ({ cityModel, languages, pathname, languageCode, cityCode 
           title={newsModel.title}
           content={linkedContent}
           formatter={formatter}
-          lastUpdateFormat='LLL'
+          format='DDD'
           lastUpdate={newsModel.timestamp}
           showLastUpdateText={false}
           onInternalLinkClick={navigate}

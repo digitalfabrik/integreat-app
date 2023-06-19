@@ -2,7 +2,7 @@ import { mocked } from 'jest-mock'
 import React from 'react'
 import TestRenderer from 'react-test-renderer'
 
-import { CityModel } from 'api-client/src'
+import { CityModel, LanguageModelBuilder } from 'api-client'
 
 import buildConfig from '../../constants/buildConfig'
 import TileModel from '../../models/TileModel'
@@ -26,6 +26,7 @@ describe('DashboardNavigationTiles', () => {
       name: 'Stadt Augsburg',
       code: 'augsburg',
       live: true,
+      languages: new LanguageModelBuilder(2).build(),
       eventsEnabled: events,
       offersEnabled: offers,
       localNewsEnabled: local,

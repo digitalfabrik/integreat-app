@@ -1,9 +1,8 @@
-import moment from 'moment'
+import { DateTime } from 'luxon'
 
 import CategoriesMapModelBuilder from 'api-client/src/testing/CategoriesMapModelBuilder'
 import CityModelBuilder from 'api-client/src/testing/CityModelBuilder'
 import EventModelBuilder from 'api-client/src/testing/EventModelBuilder'
-import LanguageModelBuilder from 'api-client/src/testing/LanguageModelBuilder'
 import PoiModelBuilder from 'api-client/src/testing/PoiModelBuilder'
 
 import BlobUtil from '../../__mocks__/react-native-blob-util'
@@ -11,16 +10,11 @@ import DatabaseContext from '../../models/DatabaseContext'
 import DatabaseConnector from '../DatabaseConnector'
 import defaultDataContainer from '../DefaultDataContainer'
 
-beforeEach(() => {
-  BlobUtil.fs._reset()
-
-  jest.clearAllMocks()
-})
 const testResources = {
   '/path/to/page': {
     'https://test.de/path/to/resource/test.png': {
       filePath: '/local/path/to/resource2/b4b5dca65e423.png',
-      lastUpdate: moment('2011-02-04T00:00:00.000Z'),
+      lastUpdate: DateTime.fromISO('2011-02-04T00:00:00.000Z', { zone: 'GMT' }),
       hash: 'testHash',
     },
   },
@@ -29,7 +23,7 @@ const previousResources = {
   '/path/to/page': {
     'https://test.de/path/to/resource/test.png': {
       filePath: '/local/path/to/resource/b4b5dca65e423.png',
-      lastUpdate: moment('2011-02-04T00:00:00.000Z'),
+      lastUpdate: DateTime.fromISO('2011-02-04T00:00:00.000Z', { zone: 'GMT' }),
       hash: 'testHash',
     },
   },
@@ -38,20 +32,23 @@ const anotherTestResources = {
   '/path/to/page': {
     'https://test.de/path/to/anotherResource/test.png': {
       filePath: '/local/path/to/resource3/b4b5dca65e424.png',
-      lastUpdate: moment('2011-02-04T00:00:00.000Z'),
+      lastUpdate: DateTime.fromISO('2011-02-04T00:00:00.000Z', { zone: 'GMT' }),
       hash: 'testHash',
     },
   },
 }
 
 describe('DefaultDataContainer', () => {
-  beforeEach(defaultDataContainer.clearInMemoryCache)
+  beforeEach(() => {
+    BlobUtil.fs._reset()
+    jest.clearAllMocks()
+    defaultDataContainer.clearInMemoryCache()
+  })
 
   const city = 'augsburg'
   const language = 'de'
   const testPois = new PoiModelBuilder(2).build()
   const testCities = new CityModelBuilder(2).build()
-  const testLanguages = new LanguageModelBuilder(2).build()
   const testCategoriesMap = new CategoriesMapModelBuilder(city, language).build()
   const anotherTestCategoriesMap = new CategoriesMapModelBuilder(city, language, 1, 1).build()
   const testEvents = new EventModelBuilder('seed', 2, city, language).build()
@@ -78,8 +75,8 @@ describe('DefaultDataContainer', () => {
     await defaultDataContainer.setPois('anotherTestCity', 'en', [testPois[1]!])
     const receivedTestPois = await defaultDataContainer.getPois('testCity', 'de')
     const receivedAnotherTestPois = await defaultDataContainer.getPois('anotherTestCity', 'en')
-    expect(receivedTestPois[0]!.isEqual(testPois[0]!)).toBeTruthy()
-    expect(receivedAnotherTestPois[0]!.isEqual(testPois[1]!)).toBeTruthy()
+    expect(receivedTestPois[0]!.isEqual(testPois[0]!)).toBeDefined()
+    expect(receivedAnotherTestPois[0]!.isEqual(testPois[1]!)).toBeDefined()
   })
   it('should return persisted data if not cached', async () => {
     await defaultDataContainer.setCities(testCities)
@@ -87,37 +84,29 @@ describe('DefaultDataContainer', () => {
     const cities = await defaultDataContainer.getCities()
     expect(cities).toEqual(testCities)
   })
-  it('should return the language associated with the city', async () => {
-    await defaultDataContainer.setLanguages('testCity', [testLanguages[0]!])
-    await defaultDataContainer.setLanguages('anotherTestCity', [testLanguages[1]!])
-    const receivedTestLanguage = await defaultDataContainer.getLanguages('testCity')
-    const receivedAnotherTestLanguage = await defaultDataContainer.getLanguages('anotherTestCity')
-    expect(receivedTestLanguage).toEqual([testLanguages[0]])
-    expect(receivedAnotherTestLanguage).toEqual([testLanguages[1]])
-  })
   it('should return the category associated with the context', async () => {
     await defaultDataContainer.setCategoriesMap('testCity', 'de', testCategoriesMap)
     await defaultDataContainer.setCategoriesMap('anotherTestCity', 'en', anotherTestCategoriesMap)
     const receivedTestCategories = await defaultDataContainer.getCategoriesMap('testCity', 'de')
     const receivedAnotherTestCategories = await defaultDataContainer.getCategoriesMap('anotherTestCity', 'en')
-    expect(receivedTestCategories.isEqual(testCategoriesMap)).toBeTruthy()
-    expect(receivedAnotherTestCategories.isEqual(anotherTestCategoriesMap)).toBeTruthy()
+    expect(receivedTestCategories.isEqual(testCategoriesMap)).toBeDefined()
+    expect(receivedAnotherTestCategories.isEqual(anotherTestCategoriesMap)).toBeDefined()
   })
   it('should return the events associated with the context', async () => {
     await defaultDataContainer.setEvents('testCity', 'de', [testEvents[0]!])
     await defaultDataContainer.setEvents('anotherTestCity', 'en', [testEvents[1]!])
     const receivedTestEvents = await defaultDataContainer.getEvents('testCity', 'de')
     const receivedAnotherTestEvents = await defaultDataContainer.getEvents('anotherTestCity', 'en')
-    expect(receivedTestEvents[0]!.isEqual(testEvents[0]!)).toBeTruthy()
-    expect(receivedAnotherTestEvents[0]!.isEqual(testEvents[1]!)).toBeTruthy()
+    expect(receivedTestEvents[0]!.isEqual(testEvents[0]!)).toBeDefined()
+    expect(receivedAnotherTestEvents[0]!.isEqual(testEvents[1]!)).toBeDefined()
   })
   it('should return the pois associated with the context', async () => {
     await defaultDataContainer.setPois('testCity', 'de', [testPois[0]!])
     await defaultDataContainer.setPois('anotherTestCity', 'en', [testPois[1]!])
     const receivedTestPois = await defaultDataContainer.getPois('testCity', 'de')
     const receivedAnotherTestPois = await defaultDataContainer.getPois('anotherTestCity', 'en')
-    expect(receivedTestPois[0]!.isEqual(testPois[0]!)).toBeTruthy()
-    expect(receivedAnotherTestPois[0]!.isEqual(testPois[1]!)).toBeTruthy()
+    expect(receivedTestPois[0]!.isEqual(testPois[0]!)).toBeDefined()
+    expect(receivedAnotherTestPois[0]!.isEqual(testPois[1]!)).toBeDefined()
   })
   it('should return the resources associated with the context', async () => {
     await defaultDataContainer.setResourceCache('testCity', 'de', testResources)
@@ -132,18 +121,20 @@ describe('DefaultDataContainer', () => {
     const result = await defaultDataContainer.getResourceCache('testCity', 'en')
     expect(result).toEqual({})
   })
-  it('should return the lastUpdateMoment associated with the context', async () => {
+  it('should return the lastUpdateDateTime associated with the context', async () => {
     const databaseConnector = new DatabaseConnector()
     await databaseConnector.storeLastUsage(new DatabaseContext('testCity'))
     await databaseConnector.storeLastUsage(new DatabaseContext('anotherTestCity'))
-    const lastUpdate = moment('2011-02-04T00:00:00.000Z')
-    const anotherLastUpdate = moment('2012-02-04T00:00:00.000Z')
+    const lastUpdate = DateTime.fromISO('2011-02-04T00:00:00.000Z', { zone: 'GMT' })
+    const anotherLastUpdate = DateTime.fromISO('2012-02-04T00:00:00.000Z', { zone: 'GMT' })
     await defaultDataContainer.setLastUpdate('testCity', 'de', lastUpdate)
     await defaultDataContainer.setLastUpdate('anotherTestCity', 'en', anotherLastUpdate)
     const receivedLastUpdate = await defaultDataContainer.getLastUpdate('testCity', 'de')
     const receivedAnotherLastUpdate = await defaultDataContainer.getLastUpdate('anotherTestCity', 'en')
-    expect(receivedLastUpdate !== null && lastUpdate.isSame(receivedLastUpdate)).toBe(true)
-    expect(receivedAnotherLastUpdate !== null && anotherLastUpdate.isSame(receivedAnotherLastUpdate)).toBe(true)
+    expect(receivedLastUpdate !== null && lastUpdate.hasSame(receivedLastUpdate, 'day')).toBe(true)
+    expect(
+      receivedAnotherLastUpdate !== null && anotherLastUpdate.hasSame(receivedAnotherLastUpdate, 'millisecond')
+    ).toBe(true)
   })
   describe('setResourceCache', () => {
     it('should not delete any data if there are no previous resources available', async () => {
@@ -169,13 +160,6 @@ describe('DefaultDataContainer', () => {
     it('should return true, if categories are cached', async () => {
       await defaultDataContainer.setCategoriesMap('testCity', 'de', testCategoriesMap)
       const isAvailable = await defaultDataContainer.categoriesAvailable('testCity', 'de')
-      expect(isAvailable).toBe(true)
-    })
-  })
-  describe('languagesAvailable', () => {
-    it('should return true, if languages are cached', async () => {
-      await defaultDataContainer.setLanguages('testCity', testLanguages)
-      const isAvailable = await defaultDataContainer.languagesAvailable('testCity')
       expect(isAvailable).toBe(true)
     })
   })

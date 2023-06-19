@@ -1,4 +1,4 @@
-import { Moment } from 'moment'
+import { DateTime } from 'luxon'
 import * as React from 'react'
 import { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -22,13 +22,13 @@ const DirectionContainer = styled.View<DirectionContainerProps>`
   flex-direction: ${props => contentDirection(props.language)};
 `
 type TimeStampProps = {
-  lastUpdate: Moment
+  lastUpdate: DateTime
   formatter: DateFormatter
   showText?: boolean
   format?: string
 }
 
-export const TimeStamp = ({ lastUpdate, formatter, showText = true, format = 'LL' }: TimeStampProps): ReactElement => {
+export const TimeStamp = ({ lastUpdate, formatter, showText = true, format = 'DDD' }: TimeStampProps): ReactElement => {
   const { i18n, t } = useTranslation('common')
   // only show day, month and year
   const dateText = formatter.format(lastUpdate, {

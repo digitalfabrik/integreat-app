@@ -1,6 +1,7 @@
+import { NavigationContainer } from '@react-navigation/native'
 import { fireEvent } from '@testing-library/react-native'
 import { mocked } from 'jest-mock'
-import moment from 'moment'
+import { DateTime } from 'luxon'
 import React from 'react'
 import { Text } from 'react-native'
 
@@ -15,28 +16,35 @@ import {
 } from 'api-client'
 
 import useLoadLocalNews from '../../hooks/useLoadLocalNews'
+import useNavigate from '../../hooks/useNavigate'
 import createNavigationScreenPropMock from '../../testing/createNavigationPropMock'
 import render from '../../testing/render'
 import LocalNews from '../LocalNews'
 
 jest.mock('react-i18next')
-jest.mock('../../components/NativeHtml', () => ({ content }: { content: string }) => <Text>{content}</Text>)
+jest.mock('../../components/Page', () => ({ content, title }: { title: string; content: string }) => (
+  <>
+    <Text>{title}</Text>
+    <Text>{content}</Text>
+  </>
+))
 jest.mock('../../hooks/useLoadLocalNews')
 jest.mock('@react-native-community/netinfo')
 jest.mock('react-native/Libraries/EventEmitter/NativeEventEmitter')
+jest.mock('../../hooks/useNavigate')
 
 const news: [LocalNewsModel, LocalNewsModel] = [
   new LocalNewsModel({
     id: 9902,
     title: 'Local news 1',
-    timestamp: moment('2020-01-20T00:00:00.000Z'),
-    message: 'Local news content 2',
+    timestamp: DateTime.fromISO('2020-01-20T00:00:00.000Z', { zone: 'GMT' }),
+    content: 'Local news content 2',
   }),
   new LocalNewsModel({
     id: 1234,
     title: 'Local news 2',
-    timestamp: moment('2020-01-20T00:00:00.000Z'),
-    message: 'Local news content 2',
+    timestamp: DateTime.fromISO('2020-01-20T00:00:00.000Z', { zone: 'GMT' }),
+    content: 'Local news content 2',
   }),
 ]
 
@@ -64,6 +72,7 @@ describe('LocalNews', () => {
   const refresh = jest.fn()
 
   const navigation = createNavigationScreenPropMock<NewsRouteType>()
+  mocked(useNavigate).mockImplementation(() => ({ navigateTo: jest.fn(), navigation }))
   const route = {
     key: 'route-id-0',
     params: {
@@ -74,7 +83,11 @@ describe('LocalNews', () => {
   }
 
   const renderNews = ({ newsId = null }: { newsId?: string | null }) =>
-    render(<LocalNews data={data} newsId={newsId} route={route} navigation={navigation} selectNews={selectNews} />)
+    render(
+      <NavigationContainer>
+        <LocalNews data={data} newsId={newsId} route={route} navigation={navigation} navigateToNews={selectNews} />
+      </NavigationContainer>
+    )
   const response = { data: news, error: null, loading: false, refresh }
 
   it('should show news list', () => {
@@ -93,7 +106,7 @@ describe('LocalNews', () => {
 
     const { queryByText } = renderNews({ newsId: news[0].id.toString() })
     expect(queryByText(news[0].title)).toBeTruthy()
-    expect(queryByText(news[0].message)).toBeTruthy()
+    expect(queryByText(news[0].content)).toBeTruthy()
 
     expect(queryByText(news[1].title)).toBeFalsy()
   })

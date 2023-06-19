@@ -32,11 +32,9 @@ import {
 
 import Header from './components/Header'
 import RedirectContainer from './components/RedirectContainer'
-import SettingsHeader from './components/SettingsHeader'
 import TransparentHeader from './components/TransparentHeader'
 import { NavigationProps, RouteProps, RoutesParamsType, RoutesType } from './constants/NavigationTypes'
 import buildConfig from './constants/buildConfig'
-import { ASYNC_STORAGE_VERSION } from './constants/settings'
 import { AppContext } from './contexts/AppContextProvider'
 import useLoadCities from './hooks/useLoadCities'
 import useSnackbar from './hooks/useSnackbar'
@@ -59,7 +57,7 @@ import PoisContainer from './routes/PoisContainer'
 import SearchModalContainer from './routes/SearchModalContainer'
 import Settings from './routes/Settings'
 import SprungbrettOfferContainer from './routes/SprungbrettOfferContainer'
-import appSettings from './utils/AppSettings'
+import appSettings, { ASYNC_STORAGE_VERSION } from './utils/AppSettings'
 import {
   quitAppStatePushNotificationListener,
   useForegroundPushNotificationListener,
@@ -73,9 +71,10 @@ type HeaderProps = {
 
 const transparentHeader = (headerProps: StackHeaderProps) => <TransparentHeader {...(headerProps as HeaderProps)} />
 
-const settingsHeader = (headerProps: StackHeaderProps) => <SettingsHeader {...headerProps} />
-
-const defaultHeader = (headerProps: StackHeaderProps) => <Header {...(headerProps as HeaderProps)} isHome={null} />
+const defaultHeader = (headerProps: StackHeaderProps) => <Header {...(headerProps as HeaderProps)} />
+const settingsHeader = (headerProps: StackHeaderProps) => (
+  <Header {...(headerProps as HeaderProps)} showOverflowItems={false} />
+)
 
 type InitialRouteType =
   | {
@@ -88,7 +87,9 @@ type InitialRouteType =
 const Stack = createStackNavigator<RoutesParamsType>()
 
 const Navigator = (): ReactElement | null => {
+  const showSnackbar = useSnackbar()
   const { cityCode } = useContext(AppContext)
+  const navigation = useNavigation<NavigationProps<RoutesType>>()
   const [waitingForSettings, setWaitingForSettings] = useState<boolean>(true)
   const [errorMessage, setErrorMessage] = useState<string | null | undefined>(null)
   const [initialRoute, setInitialRoute] = useState<InitialRouteType>({
@@ -97,9 +98,6 @@ const Navigator = (): ReactElement | null => {
 
   // Preload cities
   useLoadCities()
-
-  const showSnackbar = useSnackbar()
-  const navigation = useNavigation<NavigationProps<RoutesType>>()
 
   useForegroundPushNotificationListener({ showSnackbar, navigate: navigation.navigate })
 
@@ -194,12 +192,10 @@ const Navigator = (): ReactElement | null => {
         <Stack.Screen name={CATEGORIES_ROUTE} initialParams={{}} component={CategoriesContainer} />
         <Stack.Screen name={OFFERS_ROUTE} component={OffersContainer} />
         <Stack.Screen name={SPRUNGBRETT_OFFER_ROUTE} component={SprungbrettOfferContainer} />
-        <Stack.Screen name={EXTERNAL_OFFER_ROUTE} component={ExternalOfferContainer} />
         <Stack.Screen name={POIS_ROUTE} component={PoisContainer} />
         <Stack.Screen name={EVENTS_ROUTE} component={EventsContainer} />
         <Stack.Screen name={NEWS_ROUTE} component={NewsContainer} />
         <Stack.Screen name={DISCLAIMER_ROUTE} component={DisclaimerContainer} />
-        <Stack.Screen name={LICENSES_ROUTE} component={Licenses} />
       </Stack.Group>
 
       <Stack.Group screenOptions={{ header: transparentHeader }}>
@@ -216,6 +212,8 @@ const Navigator = (): ReactElement | null => {
 
       <Stack.Group screenOptions={{ header: settingsHeader }}>
         <Stack.Screen name={SETTINGS_ROUTE} component={Settings} />
+        <Stack.Screen name={LICENSES_ROUTE} component={Licenses} />
+        <Stack.Screen name={EXTERNAL_OFFER_ROUTE} component={ExternalOfferContainer} />
       </Stack.Group>
     </Stack.Navigator>
   )

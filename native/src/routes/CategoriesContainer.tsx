@@ -1,4 +1,5 @@
-import React, { ReactElement, useCallback, useContext } from 'react'
+import React, { ReactElement, useCallback } from 'react'
+import { useWindowDimensions } from 'react-native'
 import styled from 'styled-components/native'
 
 import { CATEGORIES_ROUTE, CategoriesRouteType, cityContentPath, ErrorCode } from 'api-client'
@@ -6,7 +7,6 @@ import { CATEGORIES_ROUTE, CategoriesRouteType, cityContentPath, ErrorCode } fro
 import Categories from '../components/Categories'
 import DashboardNavigationTiles from '../components/DashboardNavigationTiles'
 import SpaceBetween from '../components/SpaceBetween'
-import { StaticServerContext } from '../components/StaticServerProvider'
 import { NavigationProps, RouteProps } from '../constants/NavigationTypes'
 import useCityAppContext from '../hooks/useCityAppContext'
 import useHeader from '../hooks/useHeader'
@@ -14,11 +14,11 @@ import useLoadCityContent from '../hooks/useLoadCityContent'
 import useNavigate from '../hooks/useNavigate'
 import usePreviousProp from '../hooks/usePreviousProp'
 import useResourceCache from '../hooks/useResourceCache'
+import useSetRouteTitle from '../hooks/useSetRouteTitle'
 import createNavigateToFeedbackModal from '../navigation/createNavigateToFeedbackModal'
 import urlFromRouteInformation from '../navigation/url'
 import testID from '../testing/testID'
-import dataContainer from '../utils/DefaultDataContainer'
-import { reportError } from '../utils/sentry'
+import cityDisplayName from '../utils/cityDisplayName'
 import LoadingErrorHandler from './LoadingErrorHandler'
 
 const Spacing = styled.View`
@@ -32,12 +32,13 @@ type CategoriesContainerProps = {
 
 const CategoriesContainer = ({ navigation, route }: CategoriesContainerProps): ReactElement => {
   const { cityCode, languageCode } = useCityAppContext()
+  const deviceWidth = useWindowDimensions().width
   const resourceCache = useResourceCache({ cityCode, languageCode })
-  const resourceCacheUrl = useContext(StaticServerContext)
   const { navigateTo } = useNavigate()
 
-  const { data, refresh, ...response } = useLoadCityContent({ cityCode, languageCode })
+  const { data, ...response } = useLoadCityContent({ cityCode, languageCode })
 
+  const homeRouteTitle = cityDisplayName(data?.city, deviceWidth)
   const path = route.params.path ?? cityContentPath({ cityCode, languageCode })
   const category = data?.categories.findCategoryByPath(path)
   const availableLanguages =
@@ -49,13 +50,13 @@ const CategoriesContainer = ({ navigation, route }: CategoriesContainerProps): R
     cityCode,
     cityContentPath: path,
   })
-  useHeader({ navigation, route, availableLanguages, data, isHome: !route.params.path, shareUrl })
+  useHeader({ navigation, route, availableLanguages, data, shareUrl })
+  useSetRouteTitle({ navigation, title: category?.isRoot() ? homeRouteTitle : category?.title })
 
   const onLanguageChange = useCallback(
     (newLanguage: string) => {
       if (category) {
         const newPath = category.availableLanguages.get(newLanguage)
-        // TODO IGAPP-636: Handle language not available?
         navigation.setParams({ path: newPath })
       }
     },
@@ -66,16 +67,8 @@ const CategoriesContainer = ({ navigation, route }: CategoriesContainerProps): R
   const error =
     data?.categories && !category && previousLanguageCode === languageCode ? ErrorCode.PageNotFound : response.error
 
-  // Workaround clear cache on refresh if city content can't be loaded.
-  // TODO IGAPP-1231: Proper cache invalidation for version updates
-  const clearResourcesAndCache = useCallback(() => {
-    dataContainer.clearInMemoryCache()
-    dataContainer.clearOfflineCache().catch(reportError)
-    refresh()
-  }, [refresh])
-
   return (
-    <LoadingErrorHandler {...response} error={error} refresh={clearResourcesAndCache} scrollView>
+    <LoadingErrorHandler {...response} error={error} scrollView>
       {data && category && (
         <SpaceBetween {...(category.isRoot() ? testID('Dashboard-Page') : {})}>
           {category.isRoot() ? (
@@ -91,7 +84,6 @@ const CategoriesContainer = ({ navigation, route }: CategoriesContainerProps): R
             categories={data.categories}
             category={category}
             resourceCache={resourceCache}
-            resourceCacheUrl={resourceCacheUrl}
           />
         </SpaceBetween>
       )}

@@ -1,5 +1,5 @@
 import { decodeHTML } from 'entities'
-import { Moment } from 'moment'
+import { DateTime } from 'luxon'
 
 import normalizePath from '../normalizePath'
 import { getSlugFromPath } from '../utils'
@@ -8,7 +8,7 @@ class PageModel {
   _path: string
   _title: string
   _content: string
-  _lastUpdate: Moment
+  _lastUpdate: DateTime
 
   constructor({
     path,
@@ -19,7 +19,7 @@ class PageModel {
     path: string
     title: string
     content: string
-    lastUpdate: Moment
+    lastUpdate: DateTime
   }) {
     this._path = normalizePath(path)
     this._title = decodeHTML(title)
@@ -43,12 +43,14 @@ class PageModel {
     return this._content
   }
 
-  get lastUpdate(): Moment {
+  get lastUpdate(): DateTime {
     return this._lastUpdate
   }
 
   isEqual(other: PageModel): boolean {
-    return this.path === other.path && this.content === other.content && this.lastUpdate.isSame(other.lastUpdate)
+    return (
+      this.path === other.path && this.content === other.content && this.lastUpdate.hasSame(other.lastUpdate, 'day')
+    )
   }
 }
 

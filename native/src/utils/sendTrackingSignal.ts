@@ -1,4 +1,4 @@
-import moment from 'moment'
+import { DateTime } from 'luxon'
 
 import { createTrackingEndpoint, ErrorCode, fromError, SpecificSignalType, SignalType } from 'api-client'
 
@@ -42,7 +42,7 @@ const sendTrackingSignal = async ({
         ...specificSignal,
         trackingCode: jpalTrackingCode,
         offline,
-        timestamp: moment().toISOString(),
+        timestamp: DateTime.now().toJSDate().toISOString(),
         currentCity: selectedCity,
         currentLanguage: contentLanguage,
         systemLanguage: systemLanguage ?? 'unknown',

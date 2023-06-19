@@ -1,4 +1,4 @@
-import moment from 'moment-timezone'
+import { DateTime } from 'luxon'
 
 import Endpoint from '../Endpoint'
 import EndpointBuilder from '../EndpointBuilder'
@@ -25,7 +25,7 @@ export default (baseUrl: string): Endpoint<ParamsType, PageModel> =>
         path: json.path,
         title: json.title,
         content: json.content,
-        lastUpdate: moment.tz(json.modified_gmt, 'GMT'),
+        lastUpdate: DateTime.fromJSDate(new Date(json.modified_gmt), { zone: 'GMT' }),
       })
     })
     .build()

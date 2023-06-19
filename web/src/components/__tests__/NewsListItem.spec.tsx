@@ -1,4 +1,4 @@
-import moment from 'moment'
+import { DateTime } from 'luxon'
 import React from 'react'
 
 import { DateFormatter, getExcerpt, LOCAL_NEWS_TYPE } from 'api-client'
@@ -11,7 +11,7 @@ jest.mock('../LastUpdateInfo', () =>
   jest.fn(({ lastUpdate, withText }) => (
     <div>
       {withText ? 'lastUpdate ' : ''}
-      {lastUpdate.toISOString()}
+      {lastUpdate.toLocaleString()}
     </div>
   ))
 )
@@ -21,7 +21,7 @@ describe('NewsListItem', () => {
   const link = '/testumgebung/en/news/local'
   const t = (key: string) => key
 
-  const lastUpdate = moment('2020-03-20T17:50:00.000Z')
+  const lastUpdate = DateTime.fromISO('2020-03-20T17:50:00.000Z')
   const title = 'Tick bite - What to do?'
 
   it('should show all the relevant information', () => {
@@ -48,7 +48,7 @@ describe('NewsListItem', () => {
 
     expect(getByText(title)).toBeTruthy()
     expect(getByText(getExcerpt(message, { maxChars: EXCERPT_MAX_CHARS, replaceLineBreaks: false }))).toBeTruthy()
-    expect(getByText(lastUpdate.toISOString())).toBeTruthy()
+    expect(getByText(lastUpdate.toLocaleString())).toBeTruthy()
     expect(() => getByText('lastUpdate')).toThrow()
   })
 })

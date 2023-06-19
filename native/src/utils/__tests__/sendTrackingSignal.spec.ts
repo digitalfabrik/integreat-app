@@ -15,9 +15,7 @@ jest.mock('api-client', () => ({
     request: jest.fn(),
   })),
 }))
-jest.mock('moment', () => () => ({
-  toISOString: () => '2020-01-20T00:00:00.000Z',
-}))
+jest.spyOn(global.Date, 'now').mockImplementationOnce(() => new Date('2020-01-20T01:00:00.000+01:00').valueOf())
 jest.mock('@sentry/react-native')
 
 describe('sendTrackingSignal', () => {

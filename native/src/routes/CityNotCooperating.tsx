@@ -76,7 +76,7 @@ const CityNotCooperating = (): ReactElement => {
   const { t } = useTranslation('cityNotCooperating')
   const [isCopied, setIsCopied] = useState<boolean>(false)
   const theme = useTheme()
-  const template = buildConfig().featureFlags.cityNotCooperatingTemplate!
+  const template = buildConfig().featureFlags.cityNotCooperatingTemplate ?? ''
 
   const copyToClipboard = () => {
     Clipboard.setString(template)
@@ -88,7 +88,7 @@ const CityNotCooperating = (): ReactElement => {
       <Heading>{t('callToAction')}</Heading>
 
       <Description>{t('explanation')}</Description>
-      <Icon source={buildConfigAssets().cityNotCooperatingIcon!} />
+      <Icon source={buildConfigAssets().cityNotCooperatingIcon} />
       <ListHeading>{t('whatToDo')}</ListHeading>
       <ListItem>
         <StepNumber>1</StepNumber>

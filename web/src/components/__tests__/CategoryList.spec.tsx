@@ -1,4 +1,4 @@
-import moment from 'moment'
+import { DateTime } from 'luxon'
 import React from 'react'
 
 import { CategoryModel } from 'api-client'
@@ -14,7 +14,7 @@ const modelWithTitle = new CategoryModel({
   order: 3,
   availableLanguages: new Map(),
   content: '<div>This is some special test content</div>',
-  lastUpdate: moment('2016-01-07 10:36:24'),
+  lastUpdate: DateTime.fromISO('2016-01-07 10:36:24', { zone: 'utc' }),
   thumbnail: 'title-thumbnail',
 })
 const categoryModels: [CategoryModel, CategoryModel, CategoryModel, CategoryModel] = [
@@ -25,7 +25,7 @@ const categoryModels: [CategoryModel, CategoryModel, CategoryModel, CategoryMode
     parentPath: '',
     availableLanguages: new Map(),
     content: 'exampleContent0',
-    lastUpdate: moment('2016-01-07 10:36:24'),
+    lastUpdate: DateTime.fromISO('2016-01-07 10:36:24', { zone: 'utc' }),
     order: 0,
     thumbnail: 'thumb-nail',
   }),
@@ -37,7 +37,7 @@ const categoryModels: [CategoryModel, CategoryModel, CategoryModel, CategoryMode
     order: 1,
     availableLanguages: new Map(),
     content: 'exampleContent0',
-    lastUpdate: moment('2016-01-07 10:36:24'),
+    lastUpdate: DateTime.fromISO('2016-01-07 10:36:24', { zone: 'utc' }),
     thumbnail: 'thumb-nail',
   }),
   new CategoryModel({
@@ -48,7 +48,7 @@ const categoryModels: [CategoryModel, CategoryModel, CategoryModel, CategoryMode
     order: 2,
     availableLanguages: new Map(),
     content: 'exampleContent0',
-    lastUpdate: moment('2016-01-07 10:36:24'),
+    lastUpdate: DateTime.fromISO('2016-01-07 10:36:24', { zone: 'utc' }),
     thumbnail: 'thumb-nail',
   }),
   new CategoryModel({
@@ -59,7 +59,7 @@ const categoryModels: [CategoryModel, CategoryModel, CategoryModel, CategoryMode
     order: 3,
     availableLanguages: new Map(),
     content: 'exampleContent0',
-    lastUpdate: moment('2016-01-07 10:36:24'),
+    lastUpdate: DateTime.fromISO('2016-01-07 10:36:24', { zone: 'utc' }),
     thumbnail: 'thumb-nail',
   }),
 ]

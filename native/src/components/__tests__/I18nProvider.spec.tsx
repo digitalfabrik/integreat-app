@@ -1,7 +1,7 @@
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { render, waitFor } from '@testing-library/react-native'
 import { mocked } from 'jest-mock'
-import moment from 'moment'
+import { DateTime } from 'luxon'
 import React, { useContext } from 'react'
 import { Translation } from 'react-i18next'
 import { Text } from 'react-native'
@@ -88,7 +88,7 @@ describe('I18nProvider', () => {
     const ReceivingComponent = () => {
       const formatter = useContext(DateFormatterContext)
       // eslint-disable-next-line react/destructuring-assignment
-      const formated = formatter.format(moment.utc('2020-12-21T14:58:57+01:00'), {})
+      const formated = formatter.format(DateTime.fromISO('2020-12-21T14:58:57+01:00', { zone: 'GMT' }), {})
       return <Text>{formated}</Text>
     }
 
@@ -97,8 +97,8 @@ describe('I18nProvider', () => {
         <ReceivingComponent />
       </I18nProvider>
     )
-    await waitFor(() => getByText('2020-12-21T13:58:57Z'))
-    expect(getByText('2020-12-21T13:58:57Z')).toBeTruthy()
+    await waitFor(() => getByText('2020-12-21T13:58:57.000Z'))
+    expect(getByText('2020-12-21T13:58:57.000Z')).toBeTruthy()
   })
 
   it('should use zh-CN if any chinese variant is chosen', async () => {

@@ -98,7 +98,6 @@ const TuNewsDetailPage = ({ cityModel, languages, pathname, cityCode, languageCo
   }
 
   const pageTitle = `${newsModel.title} - ${cityModel.name}`
-
   return (
     <CityContentLayout isLoading={false} {...locationLayoutParams}>
       <Helmet pageTitle={pageTitle} languageChangePaths={languageChangePaths} cityModel={cityModel} />
@@ -113,7 +112,7 @@ const TuNewsDetailPage = ({ cityModel, languages, pathname, cityCode, languageCo
             title={newsModel.title}
             content={newsModel.content}
             formatter={formatter}
-            lastUpdateFormat='LLL'
+            format='DDD'
             lastUpdate={newsModel.date}
             showLastUpdateText={false}
             onInternalLinkClick={navigate}

@@ -1,4 +1,4 @@
-import moment from 'moment-timezone'
+import { DateTime } from 'luxon'
 
 import Endpoint from '../Endpoint'
 import EndpointBuilder from '../EndpointBuilder'
@@ -31,7 +31,7 @@ export default (baseUrl: string): Endpoint<ParamsType, TunewsModel> =>
         id: json.id,
         title: json.title,
         tags: json.tags,
-        date: moment.tz(json.date, 'GMT'),
+        date: DateTime.fromJSDate(new Date(json.date)).setZone('GMT'),
         content: json.content,
         eNewsNo: json.enewsno,
       })

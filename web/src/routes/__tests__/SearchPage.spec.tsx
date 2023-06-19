@@ -1,5 +1,5 @@
 import { fireEvent, waitFor } from '@testing-library/react'
-import moment from 'moment'
+import { DateTime } from 'luxon'
 import React from 'react'
 
 import {
@@ -97,7 +97,7 @@ describe('SearchPage', () => {
         order: 1,
         availableLanguages: new Map(),
         thumbnail: 'https://cms.integreat-ap…03/Beratung-150x150.png',
-        lastUpdate: moment('2017-11-18T19:30:00.000Z'),
+        lastUpdate: DateTime.fromISO('2017-11-18T19:30:00.000Z', { zone: 'utc' }),
       })
     const categoryModels = [
       // should be 1st because 'abc' is in the title and it is lexicographically smaller than category 2

@@ -1,7 +1,7 @@
-import moment, { Moment } from 'moment'
+import { DateTime } from 'luxon'
 
 export type FormatFunctionType = (
-  date: Moment,
+  date: DateTime,
   options: {
     format?: string
   }
@@ -18,18 +18,19 @@ class DateFormatter {
   }
 
   format: FormatFunctionType = (
-    date: Moment,
+    date: DateTime,
     options: {
       format?: string
     }
   ) => {
     const format = options.format || this.fallbackFormat
     // TODO IGAPP-399: Uncomment again and use locale instead of hardcoded 'en'
-    // const requestedLocale = defaultLocale
     const requestedLocale = 'en'
-    const allLocales = moment.locales()
-    const locale = allLocales.includes(requestedLocale) ? requestedLocale : this.defaultLocale
-    return date.locale(locale).format(format)
+    const invalidDate = date.setLocale(requestedLocale)
+    const defaultDate = date.setLocale(this.defaultLocale)
+
+    const dateWithCorrectLocal = invalidDate.isValid ? invalidDate : defaultDate
+    return format ? dateWithCorrectLocal.toFormat(format) : dateWithCorrectLocal.toJSDate().toISOString()
   }
 }
 

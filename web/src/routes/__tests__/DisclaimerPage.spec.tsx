@@ -1,4 +1,4 @@
-import moment from 'moment'
+import { DateTime } from 'luxon'
 import React from 'react'
 
 import {
@@ -31,7 +31,7 @@ describe('DisclaimerPage', () => {
     path: '/disclaimer',
     title: 'Feedback, Kontakt und mögliches Engagement',
     content: 'this is a test content',
-    lastUpdate: moment('2017-11-18T19:30:00.000Z'),
+    lastUpdate: DateTime.fromISO('2017-11-18T19:30:00.000Z', { zone: 'utc' }),
   })
 
   const city = cities[0]!

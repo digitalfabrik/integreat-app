@@ -1,4 +1,4 @@
-import moment from 'moment'
+import { DateTime } from 'luxon'
 import React from 'react'
 
 import { CategoryModel } from 'api-client'
@@ -20,7 +20,7 @@ const categoryParams = {
     ['fa', '4868'],
   ]),
   thumbnail: 'https://cms.integreat-ap…03/Beratung-150x150.png',
-  lastUpdate: moment('2017-11-18T19:30:00.000Z'),
+  lastUpdate: DateTime.fromISO('2017-11-18T19:30:00.000Z', { zone: 'utc' }),
 }
 
 const category = new CategoryModel(categoryParams)

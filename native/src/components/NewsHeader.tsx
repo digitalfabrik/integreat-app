@@ -42,25 +42,25 @@ const HeaderContainer = styled.View`
 type NewsHeaderProps = {
   cityModel: CityModel
   selectedNewsType: NewsType
-  navigateToNews: (newsType: NewsType) => void
+  selectNewsType: (newsType: NewsType) => void
 }
 
-const NewsHeader = ({ cityModel, selectedNewsType, navigateToNews }: NewsHeaderProps): ReactElement => {
+const NewsHeader = ({ cityModel, selectedNewsType, selectNewsType }: NewsHeaderProps): ReactElement => {
   const { t } = useTranslation('news')
-  const navigateToLocalNews = () => navigateToNews(LOCAL_NEWS_TYPE)
-  const navigateToTuNews = () => navigateToNews(TU_NEWS_TYPE)
+  const selectLocalNews = () => selectNewsType(LOCAL_NEWS_TYPE)
+  const selectTuNews = () => selectNewsType(TU_NEWS_TYPE)
 
   return (
     <>
       <Caption title={t('news')} />
       {cityModel.localNewsEnabled && cityModel.tunewsEnabled && (
         <HeaderContainer>
-          <TouchableWrapper onPress={navigateToLocalNews} accessibilityRole='button' accessibilityLabel={t('local')}>
+          <TouchableWrapper onPress={selectLocalNews} accessibilityRole='button' accessibilityLabel={t('local')}>
             <LocalTabWrapper isSelected={selectedNewsType === LOCAL_NEWS_TYPE}>
               <LocalText>{t('local')}</LocalText>
             </LocalTabWrapper>
           </TouchableWrapper>
-          <TouchableWrapper onPress={navigateToTuNews} accessibilityRole='button' accessibilityLabel='TüNews'>
+          <TouchableWrapper onPress={selectTuNews} accessibilityRole='button' accessibilityLabel='TüNews'>
             <NewsTypeIcon source={selectedNewsType === TU_NEWS_TYPE ? activeInternational : inactiveInternational} />
           </TouchableWrapper>
         </HeaderContainer>

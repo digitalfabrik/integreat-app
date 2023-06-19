@@ -16,7 +16,6 @@ import Page from '../components/Page'
 import PageDetail from '../components/PageDetail'
 import SiteHelpfulBox from '../components/SiteHelpfulBox'
 import DateFormatterContext from '../contexts/DateFormatterContext'
-import { LanguageResourceCacheStateType } from '../utils/DataContainer'
 
 const Separator = styled.View`
   border-top-width: 2px;
@@ -32,8 +31,6 @@ export type EventsProps = {
   events: Array<EventModel>
   cityModel: CityModel
   language: string
-  resourceCache: LanguageResourceCacheStateType
-  resourceCacheUrl: string
   navigateTo: (routeInformation: RouteInformationType) => void
   navigateToFeedback: (feedbackInformation: FeedbackInformationType) => void
   refresh: () => void
@@ -48,8 +45,6 @@ const Events = ({
   navigateTo,
   events,
   slug,
-  resourceCache,
-  resourceCacheUrl,
   navigateToFeedback,
   refresh,
 }: EventsProps): ReactElement => {
@@ -81,10 +76,11 @@ const Events = ({
   }
 
   if (slug) {
-    const event = events.find(_event => _event.slug === slug)
+    // TODO IGAPP-1078: Remove workaround of looking up path until '$'
+    const event =
+      events.find(it => it.slug === slug) ?? events.find(it => it.slug.substring(0, it.slug.indexOf('$')) === slug)
 
     if (event) {
-      const files = resourceCache[event.path] || {}
       return (
         <LayoutedScrollView refreshControl={<RefreshControl onRefresh={refresh} refreshing={false} />}>
           <Page
@@ -92,20 +88,21 @@ const Events = ({
             title={event.title}
             lastUpdate={event.lastUpdate}
             language={language}
-            files={files}
-            resourceCacheUrl={resourceCacheUrl}
-            navigateToFeedback={createNavigateToFeedback(event)}>
-            <>
-              <PageDetail
-                identifier={t('date')}
-                information={event.date.toFormattedString(formatter)}
-                language={language}
-              />
-              {event.location && (
-                <PageDetail identifier={t('address')} information={event.location.fullAddress} language={language} />
-              )}
-            </>
-          </Page>
+            path={event.path}
+            navigateToFeedback={createNavigateToFeedback(event)}
+            BeforeContent={
+              <>
+                <PageDetail
+                  identifier={t('date')}
+                  information={event.date.toFormattedString(formatter)}
+                  language={language}
+                />
+                {event.location && (
+                  <PageDetail identifier={t('address')} information={event.location.fullAddress} language={language} />
+                )}
+              </>
+            }
+          />
         </LayoutedScrollView>
       )
     }

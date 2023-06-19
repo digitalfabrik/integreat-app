@@ -1,4 +1,3 @@
-import { mapValues } from 'lodash'
 import React, { ReactElement } from 'react'
 import { View } from 'react-native'
 
@@ -8,14 +7,7 @@ import { RouteInformationType } from 'api-client/src/routes/RouteInformationType
 
 import { URL_PREFIX } from '../constants/webview'
 import TileModel from '../models/TileModel'
-import {
-  LanguageResourceCacheStateType,
-  PageResourceCacheEntryStateType,
-  PageResourceCacheStateType,
-} from '../utils/DataContainer'
-import { RESOURCE_CACHE_DIR_PATH } from '../utils/DatabaseConnector'
-import Caption from './Caption'
-import CategoryListContent from './CategoryListContent'
+import { LanguageResourceCacheStateType, PageResourceCacheStateType } from '../utils/DataContainer'
 import CategoryListItem from './CategoryListItem'
 import { FeedbackInformationType } from './FeedbackContainer'
 import Page from './Page'
@@ -31,7 +23,6 @@ export type CategoriesProps = {
   navigateTo: (routeInformation: RouteInformationType) => void
   navigateToFeedback: (feedbackInformation: FeedbackInformationType) => void
   resourceCache: LanguageResourceCacheStateType
-  resourceCacheUrl: string
 }
 
 export const getCachedThumbnail = (category: CategoryModel, resourceCache: PageResourceCacheStateType): string => {
@@ -56,10 +47,8 @@ const Categories = ({
   categories,
   category,
   resourceCache,
-  resourceCacheUrl,
 }: CategoriesProps): ReactElement => {
   const children = categories.getChildren(category)
-  const categoryResourceCache = resourceCache[category.path] || {}
 
   const navigateToCategory = ({ path }: { path: string }) =>
     navigateTo({
@@ -79,29 +68,6 @@ const Categories = ({
     })
   }
 
-  /**
-   * Returns the content to be displayed, based on the current category, which is
-   * a) page with information
-   * b) table with categories
-   * c) list with categories
-   * @return {*} The content to be displayed
-   */
-
-  if (children.length === 0) {
-    // last level, our category is a simple page
-    return (
-      <Page
-        title={category.title}
-        content={category.content}
-        lastUpdate={category.lastUpdate}
-        files={categoryResourceCache}
-        language={language}
-        navigateToFeedback={navigateToFeedbackForCategory}
-        resourceCacheUrl={resourceCacheUrl}
-      />
-    )
-  }
-
   if (category.isRoot()) {
     const tiles = children.map(
       category =>
@@ -112,7 +78,6 @@ const Categories = ({
           isExternalUrl: false,
         })
     )
-    // first level, we want to display a table with all first order categories
     return (
       <SpaceBetween>
         <View>
@@ -123,40 +88,25 @@ const Categories = ({
     )
   }
 
-  const cacheDictionary = mapValues(categoryResourceCache, (file: PageResourceCacheEntryStateType): string =>
-    file.filePath.startsWith(RESOURCE_CACHE_DIR_PATH)
-      ? file.filePath.replace(RESOURCE_CACHE_DIR_PATH, resourceCacheUrl)
-      : file.filePath
-  )
-
-  const ListContent = category.content ? (
-    <CategoryListContent
-      content={category.content}
-      language={language}
-      cacheDictionary={cacheDictionary}
-      lastUpdate={category.lastUpdate}
-    />
-  ) : undefined
-
-  // some level between, we want to display a list
   return (
-    <SpaceBetween>
-      <View>
-        <Caption title={category.title} />
-        {ListContent}
-        {children.map(it => (
-          <CategoryListItem
-            key={it.path}
-            category={it}
-            subCategories={categories.getChildren(it)}
-            resourceCache={resourceCache}
-            language={language}
-            onItemPress={navigateToCategory}
-          />
-        ))}
-      </View>
-      <SiteHelpfulBox navigateToFeedback={navigateToFeedbackForCategory} />
-    </SpaceBetween>
+    <Page
+      title={category.title}
+      content={category.content}
+      lastUpdate={category.lastUpdate}
+      language={language}
+      navigateToFeedback={navigateToFeedbackForCategory}
+      path={category.path}
+      AfterContent={children.map(it => (
+        <CategoryListItem
+          key={it.path}
+          category={it}
+          subCategories={categories.getChildren(it)}
+          resourceCache={resourceCache}
+          language={language}
+          onItemPress={navigateToCategory}
+        />
+      ))}
+    />
   )
 }
 

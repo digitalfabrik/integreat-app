@@ -6,6 +6,7 @@ import styled from 'styled-components/native'
 
 import { SettingsRouteType } from 'api-client'
 
+import Caption from '../components/Caption'
 import Layout from '../components/Layout'
 import SettingItem from '../components/SettingItem'
 import { NavigationProps } from '../constants/NavigationTypes'
@@ -107,6 +108,7 @@ const Settings = ({ navigation }: SettingsProps): ReactElement => {
 
   return (
     <Layout>
+      <Caption title={t('layout:settings')} />
       <SectionList
         sections={sections}
         extraData={settings}

@@ -1,4 +1,4 @@
-import moment from 'moment-timezone'
+import { DateTime } from 'luxon'
 
 import LocationModel from '../../models/LocationModel'
 import PoiCategoryModel from '../../models/PoiCategoryModel'
@@ -73,7 +73,7 @@ describe('pois', () => {
         longitude: 10.89779,
         latitude: 48.3705449,
       }),
-      lastUpdate: moment.tz('2017-01-09 15:30:00', 'GMT'),
+      lastUpdate: DateTime.fromJSDate(new Date('2017-01-09 15:30:00'), { zone: 'GMT' }),
       temporarilyClosed: false,
       openingHours: null,
     })
