@@ -20,7 +20,7 @@ describe('EventListItem', () => {
     const { getByText, getByRole } = renderWithRouterAndTheme(<EventListItem event={event} formatter={formatter} />)
 
     expect(getByText(event.title)).toBeTruthy()
-    expect(getByText(event.date.toFormattedString(formatter))).toBeTruthy()
+    expect(getByText('Mar 6, 2019, 11:04 PM - Jan 1, 2015, 4:10 AM')).toBeInTheDocument()
     expect(getByText(event.location!.fullAddress)).toBeTruthy()
     expect(getByRole('img')).toHaveProperty('src', event.thumbnail)
     expect(getByText(excerpt)).toBeTruthy()
@@ -34,7 +34,7 @@ describe('EventListItem', () => {
     )
 
     expect(getByText(event.title)).toBeTruthy()
-    expect(getByText(event.date.toFormattedString(formatter))).toBeTruthy()
+    expect(getByText('Mar 6, 2019, 11:04 PM - Jan 1, 2015, 4:10 AM')).toBeInTheDocument()
     const src = (getByRole('img') as HTMLMediaElement).src
     expect([EventPlaceholder1, EventPlaceholder2, EventPlaceholder3].some(img => src.endsWith(img))).toBeTruthy()
     expect(getByText(excerpt)).toBeTruthy()
