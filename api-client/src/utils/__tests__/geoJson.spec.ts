@@ -45,7 +45,10 @@ describe('geoJson', () => {
       expect(prepareFeatureLocation([poi1, poi3], userLocation, 0, [30, 30])).toEqual({
         ...geoJsonMarkerFeature(0, poi1, poi3),
         properties: {
-          pois: [{ ...poi1.feature, distance: '0.0' }, {...poi3.feature, distance: '0.0'}],
+          pois: [
+            { ...poi1.feature, distance: '0.0' },
+            { ...poi3.feature, distance: '0.0' },
+          ],
         },
       })
     })
@@ -65,8 +68,8 @@ describe('geoJson', () => {
     it('should group close poiFeatures into single features', () => {
       expect(prepareFeatureLocations([poi1, poi2, poi3], null)).toEqual([
         geoJsonMarkerFeature(0, poi1, poi3),
-        geoJsonMarkerFeature(1, poi2)
-    ])
+        geoJsonMarkerFeature(1, poi2),
+      ])
     })
   })
 
@@ -75,7 +78,7 @@ describe('geoJson', () => {
       const features = prepareFeatureLocations([poi1, poi2, poi3], userLocation)
       const poiFeatures = features.flatMap(feature => feature.properties.pois)
       const poiFeature1 = poiFeatures[0]!
-      const poiFeature2 = poiFeatures[2 ]!
+      const poiFeature2 = poiFeatures[2]!
       const poiFeature3 = poiFeatures[1]!
 
       expect(sortPoiFeatures([poiFeature2, poiFeature1, poiFeature3])).toEqual([poiFeature1, poiFeature3, poiFeature2])
