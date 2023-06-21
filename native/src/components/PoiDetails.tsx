@@ -7,7 +7,7 @@ import { useTranslation } from 'react-i18next'
 import { Platform, Pressable, Text } from 'react-native'
 import styled from 'styled-components/native'
 
-import { getExternalMapsLink, PoiFeature, PoiModel } from 'api-client'
+import { GeoJsonPoi, getExternalMapsLink, PoiModel } from 'api-client'
 
 import ExternalLinkIcon from '../assets/ExternalLink.svg'
 import Placeholder from '../assets/PoiPlaceholderLarge.jpg'
@@ -61,18 +61,17 @@ const ContentWrapper = styled.View`
 
 type PoiDetailsProps = {
   poi: PoiModel
-  feature: PoiFeature
+  poiFeature: GeoJsonPoi
   language: string
 }
 
-const PoiDetails = ({ poi, feature, language }: PoiDetailsProps): ReactElement => {
+const PoiDetails = ({ poi, poiFeature, language }: PoiDetailsProps): ReactElement => {
   const { t } = useTranslation('pois')
   const showSnackbar = useSnackbar()
-
   // TODO IGAPP-920: this has to be removed when we get proper images from CMS
-  const thumbnail = feature.properties.thumbnail?.replace('-150x150', '') ?? Placeholder
+  const thumbnail = poiFeature.thumbnail?.replace('-150x150', '') ?? Placeholder
   const { address, postcode, town } = poi.location
-  const { distance } = feature.properties
+  const distance = poiFeature.distance
   const { title, content, email, website, phoneNumber, openingHours, temporarilyClosed, isCurrentlyOpen, category } =
     poi
 

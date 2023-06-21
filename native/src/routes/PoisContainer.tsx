@@ -1,4 +1,4 @@
-import React, { ReactElement, useCallback } from 'react'
+import React, { ReactElement, useCallback, useMemo } from 'react'
 
 import { POIS_ROUTE, PoisRouteType } from 'api-client'
 

@@ -33,11 +33,16 @@ export const markerLayer = (selectedFeature: PoiFeature | null, featureLayerId: 
     iconIgnorePlacement: true,
     iconImage: [
       'case',
-      ['==', ['get', 'id'], selectedFeature?.properties.id ?? -1],
+      ['==', ['get', 'id', ['at', 0, ['get', 'pois']]], selectedFeature?.properties.pois[0]?.id ?? -1],
       mapMarker.symbolActive,
-      ['get', 'symbol'],
+      [
+        'case',
+        ['==', ['length', ['get', 'pois']], 1],
+        ['get', 'symbol', ['at', 0, ['get', 'pois']]],
+        mapMarker.multipoi,
+      ],
     ],
-    textField: ['get', 'title'],
+    textField: ['case', ['==', ['length', ['get', 'pois']], 1], ['get', 'title', ['at', 0, ['get', 'pois']]], ''],
     textFont: ['Roboto Regular'],
     textOffset: [0, textOffsetY],
     textAnchor: 'top',
@@ -48,6 +53,7 @@ export const markerLayer = (selectedFeature: PoiFeature | null, featureLayerId: 
 
 export const clusterCountLayer: SymbolLayerProps = {
   id: 'pointCount',
+  filter: ['has', 'point_count'],
   style: {
     textField: '{point_count_abbreviated}',
     textFont: ['Roboto Regular'],

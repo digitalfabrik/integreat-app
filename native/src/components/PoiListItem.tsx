@@ -2,7 +2,7 @@ import React, { PureComponent, ReactElement } from 'react'
 import { TFunction } from 'react-i18next'
 import styled from 'styled-components/native'
 
-import { PoiFeature } from 'api-client'
+import { GeoJsonPoi } from 'api-client'
 
 import Placeholder from '../assets/PoiPlaceholderThumbnail.jpg'
 import { contentDirection } from '../constants/contentDirection'
@@ -48,7 +48,7 @@ const Title = styled.Text`
 `
 
 type PoiListItemProps = {
-  poi: PoiFeature
+  poi: GeoJsonPoi
   language: string
   navigateToPoi: () => void
   t: TFunction
@@ -58,16 +58,14 @@ type PoiListItemProps = {
 class PoiListItem extends PureComponent<PoiListItemProps> {
   render(): ReactElement {
     const { poi, language, navigateToPoi, t } = this.props
-    const thumbnail = poi.properties.thumbnail ?? Placeholder
+    const thumbnail = poi.thumbnail ?? Placeholder
     return (
       <StyledTouchableOpacity onPress={navigateToPoi} activeOpacity={1} language={language}>
         <Thumbnail source={thumbnail} resizeMode='cover' />
         <Description>
-          <Title>{poi.properties.title}</Title>
-          {!!poi.properties.distance && (
-            <Distance>{t('distanceKilometre', { distance: poi.properties.distance })}</Distance>
-          )}
-          {!!poi.properties.category && <Category>{poi.properties.category}</Category>}
+          <Title>{poi.title}</Title>
+          {!!poi.distance && <Distance>{t('distanceKilometre', { distance: poi.distance })}</Distance>}
+          {!!poi.category && <Category>{poi.category}</Category>}
         </Description>
       </StyledTouchableOpacity>
     )

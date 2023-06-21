@@ -29,7 +29,7 @@ target 'Integreat' do
     # use maplibre
     $RNMBGL_Use_SPM = true
     $RNMGL_USE_MAPLIBRE = true
-
+    
   pre_install do |installer|
     # Required for Mapbox
     $RNMBGL.pre_install(installer)

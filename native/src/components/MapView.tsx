@@ -38,7 +38,7 @@ type MapViewProps = {
   onRequestLocationPermission: () => Promise<void>
   locationPermissionGranted: boolean
   fabPosition: string | number
-  selectPoiFeature: (feature: PoiFeature | null) => void
+  selectFeature: (feature: PoiFeature | null) => void
   setSheetSnapPointIndex: (index: number) => void
   followUserLocation: boolean
   setFollowUserLocation: (value: boolean) => void
@@ -57,7 +57,7 @@ const MapView = React.forwardRef(
       fabPosition,
       onRequestLocationPermission,
       locationPermissionGranted,
-      selectPoiFeature,
+      selectFeature,
       setSheetSnapPointIndex,
       followUserLocation,
       setFollowUserLocation,
@@ -88,7 +88,9 @@ const MapView = React.forwardRef(
     const onUserTrackingModeChange = (
       event: MapboxGLEvent<'usertrackingmodechange', { followUserLocation: boolean }>
     ) => {
-      setFollowUserLocation(event.nativeEvent.payload.followUserLocation)
+      if (!event.nativeEvent.payload.followUserLocation) {
+        setFollowUserLocation(event.nativeEvent.payload.followUserLocation)
+      }
     }
 
     const locationPermissionGrantedIcon = followUserLocation ? 'my-location' : 'location-searching'
@@ -105,14 +107,8 @@ const MapView = React.forwardRef(
       )
 
       const feature = featureCollection?.features.find((it): it is PoiFeature => it.geometry.type === 'Point')
-
-      if (feature) {
-        selectPoiFeature(feature)
-        setSheetSnapPointIndex(1)
-      } else {
-        selectPoiFeature(null)
-        setSheetSnapPointIndex(1)
-      }
+      selectFeature(feature ?? null)
+      setSheetSnapPointIndex(1)
     }
 
     return (

@@ -175,11 +175,13 @@ const Header = ({
     }
 
     const previousParams = previousRoute.params
-    const isPoisDetail = route.name === POIS_ROUTE && (route.params as RoutesParamsType[PoisRouteType]).slug
 
     // Poi details are not opened in a new route
-    if (isPoisDetail) {
-      return t('pois')
+    if (route.name === POIS_ROUTE) {
+      const poisRouteParams = route.params as RoutesParamsType[PoisRouteType]
+      if (poisRouteParams.slug || poisRouteParams.multipoi) {
+        return t('pois')
+      }
     }
 
     const previousRouteTitle = (previousParams as { title?: string } | undefined)?.title

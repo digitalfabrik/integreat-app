@@ -47,14 +47,17 @@ const BottomActionsSheet = React.forwardRef(
       [title]
     )
 
+    const onScrollEndDrag = useCallback(
+      (event: NativeSyntheticEvent<NativeScrollEvent>) => {
+        if (!selectedFeature) {
+          setListScrollPosition(event.nativeEvent.contentOffset.y)
+        }
+      },
+      [selectedFeature, setListScrollPosition]
+    )
+
     if (!visible) {
       return null
-    }
-
-    const onScrollEndDrag = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
-      if (!selectedFeature) {
-        setListScrollPosition(event.nativeEvent.contentOffset.y)
-      }
     }
 
     return (
