@@ -107,7 +107,6 @@ const MapView = ({
     const coordinates = currentFeature?.geometry.coordinates ?? []
     if (mapRef && coordinates[0] && coordinates[1]) {
       const coords: mapLibreGl.LngLatLike = [coordinates[0], coordinates[1]]
-      // TODO IGAPP-1154 - remove setTimeout
       mapRef.flyTo({
         center: coords,
         zoom: closerDetailZoom,
