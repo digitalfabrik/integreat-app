@@ -42,31 +42,31 @@ const Icon = styled.img<{ direction: string }>`
 `
 
 type PoiPanelNavigationProps = {
-  switchFeature: (step: 1 | -1) => void
+  switchPoi: (step: 1 | -1) => void
   direction: UiDirectionType
 }
 
 const PoiPanelNavigation: React.FC<PoiPanelNavigationProps> = ({
-  switchFeature,
+  switchPoi,
   direction,
 }: PoiPanelNavigationProps): ReactElement => {
   const { t } = useTranslation('pois')
   return (
     <NavigationContainer>
       <NavItem
-        onClick={() => switchFeature(-1)}
+        onClick={() => switchPoi(-1)}
         role='button'
         tabIndex={0}
-        onKeyPress={() => switchFeature(-1)}
+        onKeyPress={() => switchPoi(-1)}
         aria-label='previous location'>
         <Icon src={iconArrowBack} alt='' direction={direction} />
         <Label>{t('detailsPreviousPoi')}</Label>
       </NavItem>
       <NavItem
-        onClick={() => switchFeature(1)}
+        onClick={() => switchPoi(1)}
         role='button'
         tabIndex={0}
-        onKeyPress={() => switchFeature(1)}
+        onKeyPress={() => switchPoi(1)}
         aria-label='next location'>
         <Label>{t('detailsNextPoi')}</Label>
         <Icon src={iconArrowForward} alt='' direction={direction} />

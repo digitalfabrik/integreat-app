@@ -11,7 +11,7 @@ import {
 } from 'api-client'
 
 import { renderWithRouterAndTheme } from '../../testing/render'
-import PoisDesktop from '../PoisDesktop'
+import PoisMobile from '../PoisMobile'
 
 jest.mock('react-i18next')
 jest.mock('../MapView', () => {
@@ -22,24 +22,25 @@ jest.mock('../MapView', () => {
   }
 })
 
-describe('PoisDesktop', () => {
+describe('PoisMobile', () => {
   const cityModel = new CityModelBuilder(1).build()[0]!
   const pois = new PoiModelBuilder(3).build()
   const features = prepareFeatureLocations(pois, [10.994217, 48.415402])
   const poiFeatures = features.flatMap(feature => feature.properties.pois)
+  const setRestoreScrollPosition = jest.fn()
 
   const renderPoisDesktop = (currentPoi?: PoiModel, currentFeature?: PoiFeature) =>
     renderWithRouterAndTheme(
-      <PoisDesktop
+      <PoisMobile
         direction='ltr'
-        panelHeights={0}
         toolbar={<div>Toolbar</div>}
         features={features}
         currentFeatureOnMap={currentFeature ?? null}
         currentPoi={currentPoi ?? null}
         cityModel={cityModel}
         languageCode='de'
-        t={(key: string) => key}
+        restoreScrollPosition={false}
+        setRestoreScrollPosition={setRestoreScrollPosition}
       />
     )
 
@@ -59,25 +60,22 @@ describe('PoisDesktop', () => {
     const singlePoiFeature = poiFeatures.find(poiFeature => poiFeature.title === singlePoi.location.name)!
     const singleFeature = features.find(feature => feature.properties.pois.includes(singlePoiFeature))!
 
-    const { queryByText, queryByLabelText } = renderPoisDesktop(singlePoi, singleFeature)
-
+    const { queryByText } = renderPoisDesktop(singlePoi, singleFeature)
     expect(queryByText(singlePoiFeature.title)).toBeTruthy()
     expect(queryByText(singlePoiFeature.category!)).toBeTruthy()
     expect(queryByText('distanceKilometre')).toBeTruthy()
     expect(queryByText(singlePoi.location.address!)).toBeTruthy()
     expect(queryByText(singlePoi.content)).toBeTruthy()
-    expect(queryByText('detailsHeader')).toBeTruthy()
+    expect(queryByText('Toolbar')).toBeTruthy()
+    expect(queryByText('detailsHeader')).toBeNull() // because bottomsheet is not fullscreen
     expect(queryByText('listTitle')).toBeNull()
-    expect(queryByText('Toolbar')).toBeNull()
-    expect(queryByLabelText('previous location')).toBeTruthy()
-    expect(queryByLabelText('next location')).toBeTruthy()
   })
 
   it('should render filtered poiList & toolbar components for multipoi feature', () => {
     const multipoiFeature = features.find(feature => feature.properties.pois.length > 1)!
     const { queryByText } = renderPoisDesktop(undefined, multipoiFeature)
 
-    expect(queryByText('detailsHeader')).toBeTruthy()
+    expect(queryByText('detailsHeader')).toBeFalsy() // because bottomsheet is not fullscreen
     expect(queryByText('listTitle')).toBeFalsy()
     expectPoiList(queryByText, multipoiFeature.properties.pois)
   })

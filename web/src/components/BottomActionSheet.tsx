@@ -1,19 +1,14 @@
-import React, { ReactElement, ReactNode, useEffect, useRef } from 'react'
-import { useLocation } from 'react-router-dom'
+import React, { createRef, ReactElement, ReactNode, useImperativeHandle, useState } from 'react'
 import { BottomSheet, BottomSheetRef } from 'react-spring-bottom-sheet'
 import 'react-spring-bottom-sheet/dist/style.css'
+import { SpringEvent } from 'react-spring-bottom-sheet/dist/types'
 import styled, { useTheme } from 'styled-components'
 
-import { getSlugFromPath } from 'api-client'
 import { UiDirectionType } from 'translations'
 
 import '../styles/BottomActionSheet.css'
 import { getSnapPoints } from '../utils/getSnapPoints'
 import Spacer from './Spacer'
-
-const ListContainer = styled.div`
-  padding: 0 30px;
-`
 
 const Title = styled.h1`
   font-size: 1.25rem;
@@ -38,42 +33,52 @@ type BottomActionSheetProps = {
   toolbar: ReactNode
   direction: UiDirectionType
   setBottomActionSheetHeight: (height: number) => void
-  restoreScrollPosition: boolean
+}
+
+export type ScrollableBottomSheetRef = {
+  scrollElement: HTMLElement | null
+  sheet?: BottomSheetRef | null
 }
 
 const BottomActionSheet = React.forwardRef(
   (
-    { title, children, toolbar, direction, setBottomActionSheetHeight, restoreScrollPosition }: BottomActionSheetProps,
-    ref: React.Ref<BottomSheetRef>
+    { title, children, toolbar, direction, setBottomActionSheetHeight }: BottomActionSheetProps,
+    ref: React.Ref<ScrollableBottomSheetRef>
   ): ReactElement => {
     const theme = useTheme()
-    const listRef = useRef<HTMLDivElement>(null)
-    const previousPath = useLocation().state?.from?.pathname
-
-    useEffect(() => {
-      // scrollTo the id of the selected element for detail view -> list view
-      if (previousPath && restoreScrollPosition) {
-        document.getElementById(getSlugFromPath(decodeURI(previousPath)))?.scrollIntoView({ behavior: 'auto' })
-      } else {
-        // ScrollToTop while title changes for indicating switch list->detail view
-        listRef.current?.scrollIntoView({ behavior: 'auto' })
+    const [scrollElement, setScrollElement] = useState<HTMLElement | null>(null)
+    const bottomSheetRef = createRef<BottomSheetRef>()
+    useImperativeHandle(
+      ref,
+      () => ({
+        sheet: bottomSheetRef.current,
+        scrollElement,
+      }),
+      [bottomSheetRef, scrollElement]
+    )
+    const initializeScrollElement = (e: SpringEvent) => {
+      if (e.type === 'OPEN' && !scrollElement) {
+        const scrollElement = document.querySelector('[data-rsbs-scroll]') as HTMLElement | null
+        setScrollElement(scrollElement)
       }
-    }, [previousPath, restoreScrollPosition, title])
+    }
 
     return (
       <StyledBottomSheet
         direction={direction}
-        ref={ref}
+        ref={bottomSheetRef}
         open
         scrollLocking={false}
         blocking={false}
         id='sheet'
-        // @ts-expect-error current can't be used when forwardRef is used
-        onSpringEnd={() => setBottomActionSheetHeight(ref?.current?.height)}
+        onSpringStart={initializeScrollElement}
+        onSpringEnd={() => {
+          setBottomActionSheetHeight(bottomSheetRef.current?.height ?? 0)
+        }}
         header={title ? <Title>{title}</Title> : null}
         snapPoints={({ maxHeight }) => getSnapPoints(maxHeight)}
         defaultSnap={({ snapPoints }) => snapPoints[1]!}>
-        <ListContainer ref={listRef}>{children}</ListContainer>
+        {children}
         <StyledSpacer borderColor={theme.colors.poiBorderColor} />
         <ToolbarContainer>{toolbar}</ToolbarContainer>
       </StyledBottomSheet>
