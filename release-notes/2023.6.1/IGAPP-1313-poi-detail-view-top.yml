@@ -1,0 +1,5 @@
+issue_key: IGAPP-1313
+show_in_stores: true
+platforms:
+  - web
+en: Fix scroll to top when selecting a poi in desktop view.
