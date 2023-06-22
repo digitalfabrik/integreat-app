@@ -1,0 +1,5 @@
+issue_key: IGAPP-1217
+show_in_stores: false
+platforms:
+  - web
+en: Cut loading times by using single city endpoint and executing requests simultaneously
