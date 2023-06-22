@@ -152,7 +152,6 @@ const Layout = ({
   const { width, viewportSmall } = useWindowDimensions()
   const [languageSelectorHeight, setLanguageSelectorHeight] = useState<number>(0)
 
-  // TODO fix wrong panel height when switching from local to tunews
   useEffect(() => {
     const panelHeight = document.getElementById('languageSelector')?.clientHeight
     setLanguageSelectorHeight(panelHeight ?? 0)
