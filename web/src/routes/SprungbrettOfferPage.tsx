@@ -30,7 +30,7 @@ const Image = styled.img`
   margin: 0 auto;
 `
 
-const SprungbrettOfferPage = ({ cityModel, cityCode, languageCode, languages }: CityRouteProps): ReactElement => {
+const SprungbrettOfferPage = ({ city, cityCode, languageCode }: CityRouteProps): ReactElement | null => {
   const { viewportSmall } = useWindowDimensions()
   const { t } = useTranslation('sprungbrett')
 
@@ -40,18 +40,22 @@ const SprungbrettOfferPage = ({ cityModel, cityCode, languageCode, languages }: 
   )
   const { data, error, loading } = useLoadAsync(load)
 
+  if (!city) {
+    return null
+  }
+
   const toolbar = (openFeedback: (rating: FeedbackRatingType) => void) => (
     <CityContentToolbar openFeedbackModal={openFeedback} viewportSmall={viewportSmall} />
   )
 
-  const languageChangePaths = languages.map(({ code, name }) => ({
+  const languageChangePaths = city.languages.map(({ code, name }) => ({
     path: pathnameFromRouteInformation({ route: SPRUNGBRETT_OFFER_ROUTE, cityCode, languageCode: code }),
     name,
     code,
   }))
 
   const locationLayoutParams = {
-    cityModel,
+    city,
     viewportSmall,
     feedbackTargetInformation: data?.sprungbrettOffer ? { slug: getSlugFromPath(data.sprungbrettOffer.path) } : null,
     languageChangePaths,
@@ -82,11 +86,11 @@ const SprungbrettOfferPage = ({ cityModel, cityCode, languageCode, languages }: 
 
   const { sprungbrettOffer: offer, sprungbrettJobs } = data
 
-  const pageTitle = `${offer.title} - ${cityModel.name}`
+  const pageTitle = `${offer.title} - ${city.name}`
 
   return (
     <CityContentLayout isLoading={false} {...locationLayoutParams}>
-      <Helmet pageTitle={pageTitle} languageChangePaths={languageChangePaths} cityModel={cityModel} />
+      <Helmet pageTitle={pageTitle} languageChangePaths={languageChangePaths} cityModel={city} />
       <Caption title={offer.title} />
       <List noItemsMessage={t('noOffersAvailable')} renderItem={renderSprungbrettListItem} items={sprungbrettJobs} />
       <CleanLink to='https://www.sprungbrett-intowork.de'>

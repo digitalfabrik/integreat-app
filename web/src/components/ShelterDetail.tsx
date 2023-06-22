@@ -3,7 +3,6 @@ import React, { ReactElement } from 'react'
 import {
   CityModel,
   createShelterEndpoint,
-  LanguageModel,
   NotFoundError,
   pathnameFromRouteInformation,
   SHELTER_ROUTE,
@@ -16,21 +15,19 @@ import LoadingSpinner from './LoadingSpinner'
 import ShelterInformation from './ShelterInformation'
 
 type ShelterDetailProps = {
-  cityModel: CityModel
+  city: CityModel
   cityCode: string
   languageCode: string
   pathname: string
-  languages: LanguageModel[]
   shelterId: string
   viewportSmall: boolean
 }
 
 const ShelterDetail = ({
-  cityModel,
+  city,
   cityCode,
   languageCode,
   pathname,
-  languages,
   shelterId,
   viewportSmall,
 }: ShelterDetailProps): ReactElement => {
@@ -44,13 +41,13 @@ const ShelterDetail = ({
     cityCode,
   })
 
-  const languageChangePaths = languages.map(({ code, name }) => ({
+  const languageChangePaths = city.languages.map(({ code, name }) => ({
     path: `${pathnameFromRouteInformation({ route: SHELTER_ROUTE, cityCode, languageCode: code })}/${shelterId}`,
     name,
     code,
   }))
   const locationLayoutParams = {
-    cityModel,
+    city,
     viewportSmall,
     feedbackTargetInformation: null,
     languageChangePaths,

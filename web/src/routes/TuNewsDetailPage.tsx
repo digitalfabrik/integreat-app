@@ -48,7 +48,7 @@ const StyledTitle = styled.div`
   font-weight: 700;
 `
 
-const TuNewsDetailPage = ({ cityModel, languages, pathname, cityCode, languageCode }: CityRouteProps): ReactElement => {
+const TuNewsDetailPage = ({ city, pathname, cityCode, languageCode }: CityRouteProps): ReactElement | null => {
   const newsId = useParams().newsId!
   const formatter = useContext(DateFormatterContext)
   const navigate = useNavigate()
@@ -60,11 +60,15 @@ const TuNewsDetailPage = ({ cityModel, languages, pathname, cityCode, languageCo
     error: newsError,
   } = useLoadFromEndpoint(createTunewsElementEndpoint, tunewsApiBaseUrl, { id: parseInt(newsId, 10) })
 
+  if (!city) {
+    return null
+  }
+
   // Language change is not possible between tuNews detail views because we don't know the id of other languages
-  const languageChangePaths = languages.map(({ code, name }) => ({ path: null, name, code }))
+  const languageChangePaths = city.languages.map(({ code, name }) => ({ path: null, name, code }))
 
   const locationLayoutParams = {
-    cityModel,
+    city,
     viewportSmall,
     feedbackTargetInformation: null,
     languageChangePaths,
@@ -97,11 +101,11 @@ const TuNewsDetailPage = ({ cityModel, languages, pathname, cityCode, languageCo
     )
   }
 
-  const pageTitle = `${newsModel.title} - ${cityModel.name}`
+  const pageTitle = `${newsModel.title} - ${city.name}`
 
   return (
     <CityContentLayout isLoading={false} {...locationLayoutParams}>
-      <Helmet pageTitle={pageTitle} languageChangePaths={languageChangePaths} cityModel={cityModel} />
+      <Helmet pageTitle={pageTitle} languageChangePaths={languageChangePaths} cityModel={city} />
       <StyledContainer>
         <StyledWrapper>
           <StyledBanner>

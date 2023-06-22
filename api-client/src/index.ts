@@ -55,6 +55,7 @@ export {
   SHELTER_CONTACT_ENDPOINT_NAME,
 } from './endpoints/createShelterContactEndpoint'
 export { default as createCitiesEndpoint, CITIES_ENDPOINT_NAME } from './endpoints/createCitiesEndpoint'
+export { default as createCityEndpoint, CITY_ENDPOINT_NAME } from './endpoints/createCityEndpoint'
 export { default as createDisclaimerEndpoint, DISCLAIMER_ENDPOINT_NAME } from './endpoints/createDisclaimerEndpoint'
 export { default as createEventsEndpoint, EVENTS_ENDPOINT_NAME } from './endpoints/createEventsEndpoint'
 export { default as createLocalNewsEndpoint, LOCAL_NEWS_ENDPOINT_NAME } from './endpoints/createLocalNewsEndpoint'
