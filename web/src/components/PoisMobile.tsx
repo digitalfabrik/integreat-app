@@ -1,6 +1,6 @@
 import { height } from '@fortawesome/free-solid-svg-icons/faSearch'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import React, { ReactElement, useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import React, { ReactElement, useCallback, useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { GeolocateControl } from 'react-map-gl'
 import styled, { css } from 'styled-components'
@@ -9,7 +9,7 @@ import { CityModel, embedInCollection, GeoJsonPoi, PoiFeature, PoiModel, sortPoi
 import { UiDirectionType } from 'translations'
 
 import { faArrowLeft } from '../constants/icons'
-import { usePoiHandles } from '../hooks/usePoiFeatures'
+import usePoiFeatures from '../hooks/usePoiFeatures'
 import { getSnapPoints } from '../utils/getSnapPoints'
 import BottomActionSheet, { ScrollableBottomSheetRef } from './BottomActionSheet'
 import List from './List'
@@ -50,30 +50,29 @@ const StyledIcon = styled(FontAwesomeIcon)<{ direction: string }>`
 
 type PoisMobileProps = {
   toolbar: ReactElement
-  currentPoi: PoiModel | null
-  currentFeatureOnMap: PoiFeature | null
   features: PoiFeature[]
+  pois: PoiModel[]
   direction: UiDirectionType
   cityModel: CityModel
   languageCode: string
+  slug: string | undefined
 }
 
 const PoisMobile = ({
   toolbar,
   cityModel,
   languageCode,
-  currentPoi,
-  currentFeatureOnMap,
+  pois,
   features,
   direction,
+  slug,
 }: PoisMobileProps): ReactElement => {
   const { t } = useTranslation('pois')
   const [bottomActionSheetHeight, setBottomActionSheetHeight] = useState(0)
-  const { selectFeatureOnMap, selectPoiFeatureInList } = usePoiHandles(currentFeatureOnMap, currentPoi)
   const [scrollOffset, setScrollOffset] = useState<number>(0)
   const sheetRef = useRef<ScrollableBottomSheetRef>(null)
-  const poiFeatures = useMemo(() => features.flatMap(feature => feature.properties.pois), [features])
-  const currentPoiFeature = currentFeatureOnMap?.properties.pois.find(poi => poi.slug === currentPoi?.slug)
+  const { selectPoiFeatureInList, selectFeatureOnMap, currentFeatureOnMap, currentPoi, poiListFeatures } =
+    usePoiFeatures(features, pois, slug)
 
   const isBottomActionSheetFullScreen = bottomActionSheetHeight >= height
   const changeSnapPoint = (snapPoint: number) => {
@@ -87,7 +86,6 @@ const PoisMobile = ({
     selectPoiFeatureInList(poiFeature)
   }
 
-  const poiFeatureListItems = currentFeatureOnMap && !currentPoi ? currentFeatureOnMap.properties.pois : poiFeatures
   const renderPoiListItem = (poi: GeoJsonPoi) => (
     <PoiListItem key={poi.path} poi={poi} selectPoi={handleSelectFeatureInList} />
   )
@@ -116,7 +114,7 @@ const PoisMobile = ({
   const poiList = (
     <List
       noItemsMessage={t('noPois')}
-      items={sortPoiFeatures(poiFeatureListItems)}
+      items={sortPoiFeatures(poiListFeatures)}
       renderItem={renderPoiListItem}
       borderless
     />
@@ -163,8 +161,8 @@ const PoisMobile = ({
           <PoiGoBack goBack={() => selectPoiFeatureInList(null)} direction={direction} viewportSmall t={t} />
         )}
         <ListContainer>
-          {currentPoi && currentPoiFeature ? (
-            <PoiDetails poi={currentPoi} feature={currentPoiFeature} direction={direction} t={t} />
+          {currentPoi ? (
+            <PoiDetails poi={currentPoi} feature={currentPoi.feature} direction={direction} t={t} />
           ) : (
             poiList
           )}

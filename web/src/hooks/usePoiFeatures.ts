@@ -7,44 +7,34 @@ import { GeoJsonPoi, isMultipoi, PoiFeature, PoiModel } from 'api-client'
 const multipoiKey = 'multipoi'
 
 const usePoiFeatures = (
+  features: PoiFeature[],
+  pois: PoiModel[],
   slug?: string,
-  features?: PoiFeature[],
-  pois?: PoiModel[]
-): { currentFeatureOnMap: PoiFeature | null; currentPoi: PoiModel | null } => {
+  mapRef?: Map
+): {
+  selectFeatureOnMap: (newFeatureOnMap: PoiFeature | null) => void
+  selectPoiFeatureInList: (newPoiFeature: GeoJsonPoi | null) => void
+  currentFeatureOnMap: PoiFeature | null
+  currentPoi: PoiModel | null
+  poiListFeatures: GeoJsonPoi[]
+} => {
+  const poiFeatures = useMemo(() => features.flatMap(feature => feature.properties.pois), [features])
+  const currentPoi = useMemo(() => pois.find(poi => slug === poi.slug) ?? null, [pois, slug])
   const [searchParams, setSearchParams] = useSearchParams()
+  const navigate = useNavigate()
 
   const currentFeatureOnMap =
     useMemo(
       () =>
         searchParams.has(multipoiKey)
-          ? features?.find(feature => feature.id === searchParams.get(multipoiKey))
-          : features?.find(feature => feature.properties.pois.some(poi => poi.slug === slug)),
+          ? features.find(feature => feature.id === searchParams.get(multipoiKey))
+          : features.find(feature => feature.properties.pois.some(poi => poi.slug === slug)),
       [features, searchParams, slug]
     ) ?? null
-  const currentPoi = useMemo(() => (slug ? pois?.find(poi => slug === poi.slug) : undefined), [pois, slug]) ?? null
 
   useEffect(() => {
     if (currentPoi && !currentFeatureOnMap?.properties.pois.some(poiFeature => poiFeature.slug === currentPoi.slug)) {
-      // remove multipoi from search params if current poi is no part of this multipoi
-      setSearchParams(new URLSearchParams())
-    }
-  }, [currentFeatureOnMap?.properties.pois, currentPoi, setSearchParams])
-  return { currentFeatureOnMap, currentPoi }
-}
-
-export const usePoiHandles = (
-  currentFeatureOnMap: PoiFeature | null,
-  currentPoi: PoiModel | null,
-  mapRef?: Map
-): {
-  selectFeatureOnMap: (newFeatureOnMap: PoiFeature | null) => void
-  selectPoiFeatureInList: (newPoiFeature: GeoJsonPoi | null) => void
-} => {
-  const [searchParams, setSearchParams] = useSearchParams()
-  const navigate = useNavigate()
-
-  useEffect(() => {
-    if (currentPoi && !currentFeatureOnMap?.properties.pois.some(poiFeature => poiFeature.slug === currentPoi.slug)) {
+      // remove multipoi from search params if current poi is not part of this multipoi
       setSearchParams(new URLSearchParams())
     }
   }, [currentFeatureOnMap?.properties.pois, currentPoi, setSearchParams])
@@ -92,7 +82,8 @@ export const usePoiHandles = (
     [deselectFeature, mapRef, navigate, searchParams]
   )
 
-  return { selectFeatureOnMap, selectPoiFeatureInList }
+  const poiListFeatures = currentFeatureOnMap && !currentPoi ? currentFeatureOnMap.properties.pois : poiFeatures
+  return { selectFeatureOnMap, selectPoiFeatureInList, currentFeatureOnMap, currentPoi, poiListFeatures }
 }
 
 export default usePoiFeatures

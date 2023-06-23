@@ -1,4 +1,4 @@
-import React, { ReactElement, useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import React, { ReactElement, useCallback, useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { GeolocateControl, NavigationControl } from 'react-map-gl'
 import styled from 'styled-components'
@@ -7,7 +7,7 @@ import { CityModel, embedInCollection, GeoJsonPoi, PoiFeature, PoiModel, sortPoi
 import { UiDirectionType } from 'translations'
 
 import dimensions from '../constants/dimensions'
-import { usePoiHandles } from '../hooks/usePoiFeatures'
+import usePoiFeatures from '../hooks/usePoiFeatures'
 import CityContentFooter from './CityContentFooter'
 import List from './List'
 import MapView from './MapView'
@@ -59,10 +59,10 @@ type PoisDesktopProps = {
   toolbar: ReactElement
   direction: UiDirectionType
   cityModel: CityModel
-  currentFeatureOnMap: PoiFeature | null
+  pois: PoiModel[]
   features: PoiFeature[]
-  currentPoi: PoiModel | null
   languageCode: string
+  slug: string | undefined
 }
 
 const nextPoiIndex = (step: 1 | -1, arrayLength: number, currentIndex: number): number => {
@@ -79,18 +79,17 @@ const PoisDesktop = ({
   panelHeights,
   toolbar,
   direction,
-  currentFeatureOnMap,
+  pois,
   features,
-  currentPoi,
   cityModel,
   languageCode,
+  slug,
 }: PoisDesktopProps): ReactElement => {
   const { t } = useTranslation('pois')
-  const poiFeatures = useMemo(() => features.flatMap(feature => feature.properties.pois), [features])
   const [scrollOffset, setScrollOffset] = useState<number>(0)
   const ref = useRef<HTMLDivElement>(null)
-  const currentPoiFeature = currentFeatureOnMap?.properties.pois.find(poi => poi.slug === currentPoi?.slug)
-  const { selectPoiFeatureInList, selectFeatureOnMap } = usePoiHandles(currentFeatureOnMap, currentPoi)
+  const { selectPoiFeatureInList, selectFeatureOnMap, currentFeatureOnMap, currentPoi, poiListFeatures } =
+    usePoiFeatures(features, pois, slug)
 
   const selectPoiFeature = useCallback(
     (poiFeature: GeoJsonPoi | null) => {
@@ -101,13 +100,11 @@ const PoisDesktop = ({
     },
     [currentPoi, selectPoiFeatureInList]
   )
-
-  const poiFeatureListItems = currentFeatureOnMap && !currentPoi ? currentFeatureOnMap.properties.pois : poiFeatures
   const renderPoiListItem = (poi: GeoJsonPoi) => <PoiListItem key={poi.path} poi={poi} selectPoi={selectPoiFeature} />
   const poiList = (
     <List
       noItemsMessage={t('noPois')}
-      items={sortPoiFeatures(poiFeatureListItems)}
+      items={sortPoiFeatures(poiListFeatures)}
       renderItem={renderPoiListItem}
       borderless
     />
@@ -116,9 +113,9 @@ const PoisDesktop = ({
     if (!currentPoi) {
       return
     }
-    const currentPoiIndex = poiFeatureListItems.findIndex(poi => poi.slug === currentPoi.slug)
-    const updatedIndex = nextPoiIndex(step, poiFeatureListItems.length, currentPoiIndex)
-    const poiFeature = poiFeatureListItems[updatedIndex]
+    const currentPoiIndex = poiListFeatures.findIndex(poi => poi.slug === currentPoi.slug)
+    const updatedIndex = nextPoiIndex(step, poiListFeatures.length, currentPoiIndex)
+    const poiFeature = poiListFeatures[updatedIndex]
     selectPoiFeatureInList(poiFeature ?? null)
   }
 
@@ -141,8 +138,8 @@ const PoisDesktop = ({
             <ListHeader>{t('listTitle')}</ListHeader>
           )}
 
-          {currentPoi && currentPoiFeature ? (
-            <PoiDetails poi={currentPoi} feature={currentPoiFeature} direction={direction} t={t} />
+          {currentPoi ? (
+            <PoiDetails poi={currentPoi} feature={currentPoi.feature} direction={direction} t={t} />
           ) : (
             <>{poiList}</>
           )}

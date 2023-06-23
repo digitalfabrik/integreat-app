@@ -1,4 +1,4 @@
-import React, { ReactElement, useState } from 'react'
+import React, { ReactElement, useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useParams } from 'react-router-dom'
 import styled from 'styled-components'
@@ -19,7 +19,6 @@ import PoisMobile from '../components/PoisMobile'
 import buildConfig from '../constants/buildConfig'
 import dimensions from '../constants/dimensions'
 import useFeatureLocations from '../hooks/useFeatureLocations'
-import usePoiFeatures from '../hooks/usePoiFeatures'
 import useWindowDimensions from '../hooks/useWindowDimensions'
 import { log } from '../utils/sentry'
 
@@ -35,7 +34,7 @@ const PoisPage = ({ cityCode, languageCode, cityModel, pathname, languages }: Ci
   const [feedbackModalRating, setFeedbackModalRating] = useState<FeedbackRatingType | null>(null)
 
   const { data, error: featureLocationsError, loading } = useFeatureLocations(cityCode, languageCode)
-  const { currentPoi, currentFeatureOnMap } = usePoiFeatures(slug, data?.features, data?.pois)
+  const currentPoi = useMemo(() => data?.pois.find(poi => slug === poi.slug) ?? null, [data?.pois, slug])
   const { viewportSmall } = useWindowDimensions()
 
   if (buildConfig().featureFlags.developerFriendly) {
@@ -122,11 +121,11 @@ const PoisPage = ({ cityCode, languageCode, cityModel, pathname, languages }: Ci
           <PoisMobile
             toolbar={toolbar}
             features={data.features}
-            currentPoi={currentPoi}
-            currentFeatureOnMap={currentFeatureOnMap}
+            pois={data.pois}
             direction={direction}
             cityModel={cityModel}
             languageCode={languageCode}
+            slug={slug}
           />
         ) : (
           <PoisDesktop
@@ -134,10 +133,10 @@ const PoisPage = ({ cityCode, languageCode, cityModel, pathname, languages }: Ci
             panelHeights={panelHeights}
             direction={direction}
             cityModel={cityModel}
-            currentFeatureOnMap={currentFeatureOnMap}
-            currentPoi={currentPoi}
+            pois={data.pois}
             features={data.features}
             languageCode={languageCode}
+            slug={slug}
           />
         )}
         {feedbackModal}
