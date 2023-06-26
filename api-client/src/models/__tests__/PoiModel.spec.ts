@@ -23,7 +23,11 @@ describe('PoiModel', () => {
   ]
 
   it('should return geo location', () => {
-    expect(poi[0]!.feature).toEqual(expectedGeoJsonPoiFeature)
+    expect(poi[0]!.getFeature()).toEqual(expectedGeoJsonPoiFeature)
+  })
+
+  it('should return geo location with distance', () => {
+    expect(poi[0]!.getFeature(poi[0]!.location.coordinates)).toEqual({ ...expectedGeoJsonPoiFeature, distance: '0.0' })
   })
 
   it('should return openingHours', () => {
