@@ -22,10 +22,11 @@ const IconContainer = styled.Image`
 
 export type FailureProps = {
   code: ErrorCode
-  tryAgain?: () => void
+  buttonAction?: () => void
+  buttonLabel?: string
 }
 
-const Failure = ({ code, tryAgain }: FailureProps): ReactElement => {
+const Failure = ({ code, buttonAction, buttonLabel }: FailureProps): ReactElement => {
   const { t } = useTranslation('error')
   const theme = useTheme()
   let errorIcon
@@ -46,8 +47,8 @@ const Failure = ({ code, tryAgain }: FailureProps): ReactElement => {
   return (
     <ViewContainer>
       <IconContainer source={errorIcon} />
-      <Text>{t(code)}</Text>
-      {tryAgain && (
+      <Text>{t(code === ErrorCode.CityUnavailable ? 'notFound.city' : code)}</Text>
+      {buttonAction && (
         <Button
           testID='button-tryAgain'
           titleStyle={{
@@ -57,8 +58,8 @@ const Failure = ({ code, tryAgain }: FailureProps): ReactElement => {
             backgroundColor: theme.colors.themeColor,
             marginTop: 40,
           }}
-          onPress={tryAgain}
-          title={t('tryAgain')}
+          onPress={buttonAction}
+          title={t(buttonLabel ?? 'tryAgain')}
         />
       )}
     </ViewContainer>
