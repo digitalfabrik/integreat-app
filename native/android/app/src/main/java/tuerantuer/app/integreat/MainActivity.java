@@ -55,12 +55,9 @@ public class MainActivity extends ReactActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         cleanXamarinData();
-        // https://github.com/software-mansion/react-native-screens/issues/17#issuecomment-862283867
-        if (savedInstanceState != null) {
-            savedInstanceState.remove("android:support:fragments");
-            savedInstanceState.remove("android:fragments");
-        }
-        super.onCreate(savedInstanceState);
+        // https://github.com/software-mansion/react-native-screens#android
+        // https://reactnavigation.org/docs/getting-started/#installing-dependencies-into-a-bare-react-native-project
+        super.onCreate(null);
         currentLocale = getResources().getConfiguration().locale;
     }
 
@@ -72,6 +69,11 @@ public class MainActivity extends ReactActivity {
     @Override
     protected String getMainComponentName() {
         return "Integreat";
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(null);
     }
 
     /**
@@ -91,7 +93,7 @@ public class MainActivity extends ReactActivity {
     protected ReactRootView createRootView() {
       ReactRootView reactRootView = new ReactRootView(getContext());
       // If you opted-in for the New Architecture, we enable the Fabric Renderer.
-	
+
       reactRootView.setIsFabric(BuildConfig.IS_NEW_ARCHITECTURE_ENABLED);
       return reactRootView;
     }
