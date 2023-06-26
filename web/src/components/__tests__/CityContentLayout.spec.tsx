@@ -1,15 +1,19 @@
 import { RenderResult } from '@testing-library/react'
+import { mocked } from 'jest-mock'
 import React from 'react'
 
 import { CATEGORIES_ROUTE, CityModelBuilder } from 'api-client'
 
+import useWindowDimensions from '../../hooks/useWindowDimensions'
 import { renderWithTheme } from '../../testing/render'
 import CityContentLayout, { ToolbarProps } from '../CityContentLayout'
 
+jest.mock('../../hooks/useWindowDimensions', () => jest.fn(() => ({ viewportSmall: false })))
 jest.mock('../CityContentFooter', () => () => <div>CityContentFooter</div>)
 jest.mock('../CityContentHeader', () => () => <div>CityContentHeader</div>)
 
 describe('CityContentLayout', () => {
+  beforeEach(jest.clearAllMocks)
   const language = 'de'
   const cityModel = new CityModelBuilder(1).build()[0]!
 
@@ -21,42 +25,45 @@ describe('CityContentLayout', () => {
   const feedbackTargetInformation = { slug: 'category' }
 
   const MockNode = () => <div />
-  const renderCityContentLayout = (isLoading: boolean, viewportSmall: boolean, toolbar?: ToolbarProps): RenderResult =>
+  const renderCityContentLayout = (isLoading: boolean, toolbar?: ToolbarProps): RenderResult =>
     renderWithTheme(
       <CityContentLayout
         toolbar={toolbar}
-        cityModel={cityModel}
+        city={cityModel}
         languageCode={language}
         route={CATEGORIES_ROUTE}
         languageChangePaths={languageChangePaths}
         feedbackTargetInformation={feedbackTargetInformation}
-        viewportSmall={viewportSmall}
         isLoading={isLoading}>
         <MockNode />
       </CityContentLayout>
     )
 
   it('should render a toolbar', () => {
+    mocked(useWindowDimensions).mockImplementation(() => ({ viewportSmall: true, width: 400, height: 400 }))
     const toolbar = () => 'CityContentToolbar'
 
-    const { getByText } = renderCityContentLayout(false, true, toolbar)
+    const { getByText } = renderCityContentLayout(false, toolbar)
     expect(getByText('CityContentToolbar')).toBeTruthy()
   })
 
   it('should show CityContentHeader and CityContentFooter if not loading and on a big screen', () => {
-    const { getByText } = renderCityContentLayout(false, false)
+    mocked(useWindowDimensions).mockImplementation(() => ({ viewportSmall: false, width: 400, height: 400 }))
+    const { getByText } = renderCityContentLayout(false)
     expect(getByText('CityContentHeader')).toBeTruthy()
     expect(getByText('CityContentFooter')).toBeTruthy()
   })
 
   it('should show CityContentHeader and not CityContentFooter if not loading and on a small screen', () => {
-    const { getByText } = renderCityContentLayout(false, true)
+    mocked(useWindowDimensions).mockImplementation(() => ({ viewportSmall: true, width: 400, height: 400 }))
+    const { getByText } = renderCityContentLayout(false)
     expect(getByText('CityContentHeader')).toBeTruthy()
     expect(() => getByText('CityContentFooter')).toThrow()
   })
 
   it('should not render CityContentFooter if loading', () => {
-    const { getByText } = renderCityContentLayout(true, true)
+    mocked(useWindowDimensions).mockImplementation(() => ({ viewportSmall: true, width: 400, height: 400 }))
+    const { getByText } = renderCityContentLayout(true)
     expect(getByText('CityContentHeader')).toBeTruthy()
     expect(() => getByText('CityContentFooter')).toThrow()
   })

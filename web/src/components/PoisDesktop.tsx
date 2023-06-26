@@ -70,6 +70,10 @@ const PoisDesktop: React.FC<PoisDesktopProps> = ({
     if (previousPath && restoreScrollPosition) {
       document.getElementById(getSlugFromPath(decodeURI(previousPath)))?.scrollIntoView({ behavior: 'auto' })
     }
+    // scrollTo top of the list container for list view -> detail view
+    if (!previousPath) {
+      document.getElementById('poi-list-scroller')?.scrollTo(0, 0)
+    }
   }, [previousPath, restoreScrollPosition])
 
   return (
@@ -77,6 +81,7 @@ const PoisDesktop: React.FC<PoisDesktopProps> = ({
       <div>
         <ListViewWrapper
           panelHeights={panelHeights}
+          id='poi-list-scroller'
           bottomBarHeight={currentFeature ? dimensions.poiDetailNavigation : dimensions.toolbarHeight}>
           {!currentFeature && <ListHeader>{t('listTitle')}</ListHeader>}
           {currentFeature && poi ? (

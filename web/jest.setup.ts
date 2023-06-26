@@ -54,3 +54,4 @@ Object.defineProperty(URL, 'createObjectURL', {
 })
 
 Element.prototype.scroll = () => undefined
+Element.prototype.scrollTo = () => undefined
