@@ -68,6 +68,11 @@ export type JsonCategoryType = {
     path: string | null
   }
   order: number
+  organization: {
+    name: string
+    logo: string | null
+    url: string | null
+  } | null
 }
 export type JsonDisclaimerType = JsonCategoryType
 export type JsonPoiType = {
