@@ -1,9 +1,9 @@
-import React, { ReactElement, useMemo, useState } from 'react'
+import React, { ReactElement, useEffect, useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useParams } from 'react-router-dom'
 import styled from 'styled-components'
 
-import { normalizePath, NotFoundError, pathnameFromRouteInformation, POIS_ROUTE } from 'api-client'
+import { LocationType, normalizePath, NotFoundError, pathnameFromRouteInformation, POIS_ROUTE } from 'api-client'
 import { config } from 'translations'
 
 import { CityRouteProps } from '../CityContentSwitcher'
@@ -20,6 +20,7 @@ import buildConfig from '../constants/buildConfig'
 import dimensions from '../constants/dimensions'
 import useFeatureLocations from '../hooks/useFeatureLocations'
 import useWindowDimensions from '../hooks/useWindowDimensions'
+import getUserLocation from '../utils/getUserLocation'
 import { log } from '../utils/sentry'
 
 const PoisPageWrapper = styled.div<{ panelHeights: number }>`
@@ -32,14 +33,19 @@ const PoisPage = ({ cityCode, languageCode, cityModel, pathname, languages }: Ci
   const { slug: unsafeSlug } = useParams()
   const slug = unsafeSlug ? normalizePath(unsafeSlug) : undefined
   const [feedbackModalRating, setFeedbackModalRating] = useState<FeedbackRatingType | null>(null)
-
-  const { data, error: featureLocationsError, loading } = useFeatureLocations(cityCode, languageCode)
+  const [userLocation, setUserLocation] = useState<LocationType | undefined>(undefined)
+  const { data, error: featureLocationsError, loading } = useFeatureLocations(cityCode, languageCode, userLocation)
   const currentPoi = useMemo(() => data?.pois.find(poi => slug === poi.slug) ?? null, [data?.pois, slug])
   const { viewportSmall } = useWindowDimensions()
 
   if (buildConfig().featureFlags.developerFriendly) {
     log('To use geolocation in a development build you have to start the dev server with\n "yarn start --https"')
   }
+  useEffect(() => {
+    getUserLocation().then(userLocation =>
+      userLocation.status === 'ready' ? setUserLocation(userLocation.coordinates) : null
+    )
+  }, [])
 
   const languageChangePaths = languages.map(({ code, name }) => ({
     path: pathnameFromRouteInformation({
@@ -123,6 +129,7 @@ const PoisPage = ({ cityCode, languageCode, cityModel, pathname, languages }: Ci
             features={data.features}
             pois={data.pois}
             direction={direction}
+            userLocation={userLocation}
             cityModel={cityModel}
             languageCode={languageCode}
             slug={slug}
@@ -133,6 +140,7 @@ const PoisPage = ({ cityCode, languageCode, cityModel, pathname, languages }: Ci
             panelHeights={panelHeights}
             direction={direction}
             cityModel={cityModel}
+            userLocation={userLocation}
             pois={data.pois}
             features={data.features}
             languageCode={languageCode}

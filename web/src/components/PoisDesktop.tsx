@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next'
 import { GeolocateControl, NavigationControl } from 'react-map-gl'
 import styled from 'styled-components'
 
-import { CityModel, embedInCollection, GeoJsonPoi, PoiFeature, PoiModel, sortPoiFeatures } from 'api-client'
+import { CityModel, embedInCollection, GeoJsonPoi, LocationType, PoiFeature, PoiModel, sortPoiFeatures } from 'api-client'
 import { UiDirectionType } from 'translations'
 
 import dimensions from '../constants/dimensions'
@@ -60,6 +60,7 @@ type PoisDesktopProps = {
   direction: UiDirectionType
   cityModel: CityModel
   pois: PoiModel[]
+  userLocation: LocationType | undefined
   features: PoiFeature[]
   languageCode: string
   slug: string | undefined
@@ -80,6 +81,7 @@ const PoisDesktop = ({
   toolbar,
   direction,
   pois,
+  userLocation,
   features,
   cityModel,
   languageCode,
@@ -139,7 +141,7 @@ const PoisDesktop = ({
           )}
 
           {currentPoi ? (
-            <PoiDetails poi={currentPoi} feature={currentPoi.feature} direction={direction} t={t} />
+            <PoiDetails poi={currentPoi} feature={currentPoi.getFeature(userLocation)} direction={direction} t={t} />
           ) : (
             <>{poiList}</>
           )}

@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next'
 import { GeolocateControl } from 'react-map-gl'
 import styled, { css } from 'styled-components'
 
-import { CityModel, embedInCollection, GeoJsonPoi, PoiFeature, PoiModel, sortPoiFeatures } from 'api-client'
+import { CityModel, embedInCollection, GeoJsonPoi, LocationType, PoiFeature, PoiModel, sortPoiFeatures } from 'api-client'
 import { UiDirectionType } from 'translations'
 
 import { faArrowLeft } from '../constants/icons'
@@ -53,6 +53,7 @@ type PoisMobileProps = {
   features: PoiFeature[]
   pois: PoiModel[]
   direction: UiDirectionType
+  userLocation: LocationType | undefined
   cityModel: CityModel
   languageCode: string
   slug: string | undefined
@@ -64,6 +65,7 @@ const PoisMobile = ({
   languageCode,
   pois,
   features,
+  userLocation,
   direction,
   slug,
 }: PoisMobileProps): ReactElement => {
@@ -162,7 +164,7 @@ const PoisMobile = ({
         )}
         <ListContainer>
           {currentPoi ? (
-            <PoiDetails poi={currentPoi} feature={currentPoi.feature} direction={direction} t={t} />
+            <PoiDetails poi={currentPoi} feature={currentPoi.getFeature(userLocation)} direction={direction} t={t} />
           ) : (
             poiList
           )}
