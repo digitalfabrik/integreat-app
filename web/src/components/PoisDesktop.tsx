@@ -97,14 +97,14 @@ const PoisDesktop = ({
 }: PoisDesktopProps): ReactElement => {
   const { t } = useTranslation('pois')
   const [scrollOffset, setScrollOffset] = useState<number>(0)
-  const ref = useRef<HTMLDivElement>(null)
+  const listRef = useRef<HTMLDivElement>(null)
   const { selectPoiFeatureInList, selectFeatureOnMap, currentFeatureOnMap, currentPoi, poiListFeatures } =
     usePoiFeatures(features, pois, slug)
 
   const selectPoiFeature = useCallback(
     (poiFeature: GeoJsonPoi | null) => {
-      if (ref.current && !currentPoi) {
-        setScrollOffset(ref.current.scrollTop)
+      if (listRef.current && !currentPoi) {
+        setScrollOffset(listRef.current.scrollTop)
       }
       selectPoiFeatureInList(poiFeature)
     },
@@ -130,20 +130,19 @@ const PoisDesktop = ({
   }
 
   useEffect(() => {
-    // scrollTo the id of the selected element for detail view -> list view
-    if (!currentFeatureOnMap && ref.current) {
-      ref.current.scrollTo({ top: scrollOffset })
+    if (!currentFeatureOnMap && listRef.current) {
+      listRef.current.scrollTo({ top: scrollOffset })
     } else {
-      ref.current?.scrollTo({ top: 0 })
+      listRef.current?.scrollTo({ top: 0 })
     }
   }, [currentFeatureOnMap, currentPoi, scrollOffset])
 
   return (
     <>
       <PanelContainer>
-        <ListViewWrapper ref={ref} panelHeights={panelHeights}>
+        <ListViewWrapper ref={listRef} panelHeights={panelHeights}>
           {currentFeatureOnMap ? (
-            <PoiGoBack goBack={() => selectPoiFeatureInList(null)} direction={direction} t={t} />
+            <PoiGoBack goBack={() => selectPoiFeatureInList(null)} direction={direction} text={t('detailsHeader')} />
           ) : (
             <ListHeader>{t('listTitle')}</ListHeader>
           )}

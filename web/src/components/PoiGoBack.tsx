@@ -1,5 +1,4 @@
-import React, { ReactElement } from 'react'
-import { TFunction } from 'react-i18next'
+import React, { memo, ReactElement } from 'react'
 import styled, { css, useTheme } from 'styled-components'
 
 import iconArrowBack from '../assets/IconArrowBackLong.svg'
@@ -53,23 +52,23 @@ const DetailsHeaderTitle = styled.span`
 `
 
 type PoiGoBackProps = {
+  text: string
   goBack: () => void
   direction: string
   viewportSmall?: boolean
-  t: TFunction<'pois'>
 }
 
-const PoiGoBack = ({ goBack, direction, viewportSmall = false, t }: PoiGoBackProps): ReactElement => {
+const PoiGoBack = ({ goBack, direction, viewportSmall = false, text }: PoiGoBackProps): ReactElement => {
   const theme = useTheme()
   return (
     <>
       <DetailsHeader viewportSmall={viewportSmall} onClick={goBack} role='button' tabIndex={0} onKeyPress={goBack}>
         <ArrowBack src={iconArrowBack} alt='' direction={direction} />
-        <DetailsHeaderTitle>{t('detailsHeader')}</DetailsHeaderTitle>
+        <DetailsHeaderTitle>{text}</DetailsHeaderTitle>
       </DetailsHeader>
       <Spacer borderColor={theme.colors.poiBorderColor} />
     </>
   )
 }
 
-export default PoiGoBack
+export default memo(PoiGoBack)

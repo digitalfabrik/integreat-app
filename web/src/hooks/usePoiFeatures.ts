@@ -1,4 +1,3 @@
-import { Map } from 'maplibre-gl'
 import { useCallback, useEffect, useMemo } from 'react'
 import { useNavigate, useSearchParams } from 'react-router-dom'
 
@@ -10,7 +9,6 @@ const usePoiFeatures = (
   features: PoiFeature[],
   pois: PoiModel[],
   slug?: string,
-  mapRef?: Map
 ): {
   selectFeatureOnMap: (newFeatureOnMap: PoiFeature | null) => void
   selectPoiFeatureInList: (newPoiFeature: GeoJsonPoi | null) => void
@@ -49,9 +47,6 @@ const usePoiFeatures = (
 
   const selectFeatureOnMap = useCallback(
     (newFeatureOnMap: PoiFeature | null) => {
-      if (mapRef?.isMoving()) {
-        mapRef.stop()
-      }
       if (!newFeatureOnMap) {
         deselectFeature()
       } else if (isMultipoi(newFeatureOnMap)) {
@@ -65,21 +60,18 @@ const usePoiFeatures = (
         }
       }
     },
-    [currentFeatureOnMap?.properties.pois, deselectFeature, mapRef, navigate, searchParams]
+    [currentFeatureOnMap?.properties.pois, deselectFeature, navigate, searchParams]
   )
 
   const selectPoiFeatureInList = useCallback(
     (newPoiFeature: GeoJsonPoi | null) => {
-      if (mapRef?.isMoving()) {
-        mapRef.stop()
-      }
       if (!newPoiFeature) {
         deselectFeature()
       } else {
         navigate(`${newPoiFeature.slug}?${searchParams}`)
       }
     },
-    [deselectFeature, mapRef, navigate, searchParams]
+    [deselectFeature, navigate, searchParams]
   )
 
   const poiListFeatures = currentFeatureOnMap && !currentPoi ? currentFeatureOnMap.properties.pois : poiFeatures

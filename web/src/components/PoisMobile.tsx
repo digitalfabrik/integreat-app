@@ -168,7 +168,12 @@ const PoisMobile = ({
         setBottomActionSheetHeight={setBottomActionSheetHeight}
         direction={direction}>
         {currentFeatureOnMap && isBottomActionSheetFullScreen && (
-          <PoiGoBack goBack={() => selectPoiFeatureInList(null)} direction={direction} viewportSmall t={t} />
+          <PoiGoBack
+            goBack={() => selectPoiFeatureInList(null)}
+            direction={direction}
+            viewportSmall
+            text={t('detailsHeader')}
+          />
         )}
         <ListContainer>
           {currentPoi ? (

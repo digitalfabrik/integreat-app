@@ -91,6 +91,7 @@ const MapView = ({
           {
             ...feature,
             properties: {
+              // https://github.com/maplibre/maplibre-gl-js/issues/1325
               pois: JSON.parse(feature.properties.pois as unknown as string),
             },
           },
