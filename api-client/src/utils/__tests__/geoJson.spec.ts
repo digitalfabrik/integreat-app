@@ -27,7 +27,6 @@ describe('geoJson', () => {
     },
   })
 
-
   describe('embedInCollection', () => {
     const expectedGeoJsonFeatureCollection: PoiFeatureCollection = {
       features: [geoJsonMarkerFeature(0, poi1, poi3)],

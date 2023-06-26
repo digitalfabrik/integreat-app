@@ -5,7 +5,15 @@ import { useTranslation } from 'react-i18next'
 import { GeolocateControl } from 'react-map-gl'
 import styled, { css } from 'styled-components'
 
-import { CityModel, embedInCollection, GeoJsonPoi, LocationType, PoiFeature, PoiModel, sortPoiFeatures } from 'api-client'
+import {
+  CityModel,
+  embedInCollection,
+  GeoJsonPoi,
+  LocationType,
+  PoiFeature,
+  PoiModel,
+  sortPoiFeatures,
+} from 'api-client'
 import { UiDirectionType } from 'translations'
 
 import { faArrowLeft } from '../constants/icons'
