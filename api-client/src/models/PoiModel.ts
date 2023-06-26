@@ -1,8 +1,9 @@
+import distance from '@turf/distance'
 import moment, { Moment } from 'moment'
 // Fix for minifying js issue with hermes using moment().locale https://github.com/moment/moment/issues/5789
 import 'moment/locale/de'
 
-import { GeoJsonPoi, mapMarker } from '../maps'
+import { GeoJsonPoi, LocationType, mapMarker } from '../maps'
 import ExtendedPageModel from './ExtendedPageModel'
 import LocationModel from './LocationModel'
 import OpeningHoursModel from './OpeningHoursModel'
@@ -95,8 +96,8 @@ class PoiModel extends ExtendedPageModel {
     return mapMarker.defaultSymbol
   }
 
-  get feature(): GeoJsonPoi {
-    const { name, id, address } = this.location
+  getFeature(userLocation?: LocationType): GeoJsonPoi {
+    const { name, id, address, coordinates } = this.location
 
     return {
       title: name,
@@ -107,6 +108,7 @@ class PoiModel extends ExtendedPageModel {
       path: this.path,
       slug: this.slug,
       address,
+      distance: userLocation ? distance(userLocation, coordinates).toFixed(1) : undefined,
     }
   }
 

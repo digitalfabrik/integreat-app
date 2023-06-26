@@ -104,7 +104,7 @@ export const animationDuration = 2000
 export const mapMarker: MarkerConfig = {
   iconSize: 0.6,
   defaultSymbol: 'marker_55',
-  multipoi: 'other_#1DC6C6',
+  multipoi: 'multipoi',
   symbolActive: 'marker_90_active',
 }
 
