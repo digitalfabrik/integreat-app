@@ -80,11 +80,22 @@ const TuNewsPage = ({ cityCode, languageCode, cityModel, languages }: CityRouteP
     <CityContentToolbar openFeedbackModal={openFeedback} hasFeedbackOption={false} hasDivider={false} />
   )
 
+  const languageChangePaths = languages.map(({ code, name }) => {
+    const isLanguageAvailable = tuNewsLanguages?.find(language => language.code === code)
+    return {
+      path: isLanguageAvailable
+        ? pathnameFromRouteInformation({ route: NEWS_ROUTE, newsType: TU_NEWS_TYPE, cityCode, languageCode: code })
+        : null,
+      name,
+      code,
+    }
+  })
+
   const locationLayoutParams = {
     cityModel,
     viewportSmall,
     feedbackTargetInformation: null,
-    languageChangePaths: null,
+    languageChangePaths,
     route: TU_NEWS_ROUTE,
     languageCode,
     toolbar,
@@ -114,20 +125,9 @@ const TuNewsPage = ({ cityCode, languageCode, cityModel, languages }: CityRouteP
     )
   }
 
-  const languageChangePaths = languages.map(({ code, name }) => {
-    const isLanguageAvailable = tuNewsLanguages.find(language => language.code === code)
-    return {
-      path: isLanguageAvailable
-        ? pathnameFromRouteInformation({ route: NEWS_ROUTE, newsType: TU_NEWS_TYPE, cityCode, languageCode: code })
-        : null,
-      name,
-      code,
-    }
-  })
-
   if (!tuNewsLanguages.find(({ code }) => code === languageCode)) {
     return (
-      <CityContentLayout isLoading={false} {...locationLayoutParams} languageChangePaths={languageChangePaths}>
+      <CityContentLayout isLoading={false} {...locationLayoutParams}>
         <NewsTabs
           type={TU_NEWS_TYPE}
           city={cityCode}
@@ -148,7 +148,7 @@ const TuNewsPage = ({ cityCode, languageCode, cityModel, languages }: CityRouteP
   const pageTitle = `${tunewsLabel} - ${cityModel.name}`
 
   return (
-    <CityContentLayout isLoading={false} {...locationLayoutParams} languageChangePaths={languageChangePaths}>
+    <CityContentLayout isLoading={false} {...locationLayoutParams}>
       <Helmet pageTitle={pageTitle} languageChangePaths={languageChangePaths} cityModel={cityModel} />
       <NewsTabs
         type={TU_NEWS_TYPE}
