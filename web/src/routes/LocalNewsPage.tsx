@@ -79,6 +79,7 @@ const LocalNewsPage = ({ cityModel, languages, pathname, languageCode, cityCode 
     <CityContentToolbar
       openFeedbackModal={openFeedback}
       hasFeedbackOption={false}
+      // if there is no border of a list item, a divider should be rendered
       hasDivider={localNews?.length === 0 && viewportSmall}
     />
   )

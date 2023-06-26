@@ -33,7 +33,7 @@ const ListHeader = styled.div`
   font-family: ${props => props.theme.fonts.web.decorativeFont};
   line-height: ${props => props.theme.fonts.decorativeLineHeight};
   font-weight: 600;
-  border-bottom: 1px solid ${props => props.theme.colors.poiBorderColor};
+  border-bottom: 1px solid ${props => props.theme.colors.borderColor};
   margin-bottom: clamp(10px, 1vh, 20px);
 `
 

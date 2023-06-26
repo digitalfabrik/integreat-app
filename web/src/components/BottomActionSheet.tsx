@@ -22,7 +22,6 @@ const Title = styled.h1`
 
 const ToolbarContainer = styled.div`
   margin-top: 16px;
-  font-family: ${props => props.theme.fonts.web.contentFont};
 `
 
 const StyledSpacer = styled(Spacer)`
@@ -75,7 +74,7 @@ const BottomActionSheet = React.forwardRef(
         snapPoints={({ maxHeight }) => getSnapPoints(maxHeight)}
         defaultSnap={({ snapPoints }) => snapPoints[1]!}>
         <ListContainer ref={listRef}>{children}</ListContainer>
-        <StyledSpacer borderColor={theme.colors.poiBorderColor} />
+        <StyledSpacer borderColor={theme.colors.borderColor} />
         <ToolbarContainer>{toolbar}</ToolbarContainer>
       </StyledBottomSheet>
     )
