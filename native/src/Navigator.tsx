@@ -1,6 +1,6 @@
 import { useNavigation } from '@react-navigation/native'
 import { createStackNavigator, StackHeaderProps, TransitionPresets } from '@react-navigation/stack'
-import React, { ReactElement, useContext, useEffect, useState } from 'react'
+import React, { ReactElement, useCallback, useContext, useEffect, useState } from 'react'
 import { Platform } from 'react-native'
 
 import {
@@ -113,6 +113,13 @@ const Navigator = (): ReactElement | null => {
     )
   }, [])
 
+  const updateInitialRoute = useCallback(
+    (initialRoute: InitialRouteType) =>
+      // Do not override initial route set by opening push notification
+      setInitialRoute(previous => (previous?.name === REDIRECT_ROUTE ? previous : initialRoute)),
+    []
+  )
+
   useEffect(() => {
     if (!settings) {
       return
@@ -142,19 +149,19 @@ const Navigator = (): ReactElement | null => {
       return
     }
     if (buildConfig().featureFlags.introSlides && !settings.introShown) {
-      setInitialRoute({ name: INTRO_ROUTE })
+      updateInitialRoute({ name: INTRO_ROUTE })
     } else if (!cityCode) {
-      setInitialRoute({ name: LANDING_ROUTE })
+      updateInitialRoute({ name: LANDING_ROUTE })
     } else if (cities?.find(it => it.code === cityCode)) {
-      setInitialRoute({ name: CATEGORIES_ROUTE })
+      updateInitialRoute({ name: CATEGORIES_ROUTE })
     } else if (cities) {
       // City is not available anymore
       changeCityCode(null)
       showSnackbar({ text: 'notFound.city' })
       dataContainer.deleteCity(cityCode).catch(reportError)
-      setInitialRoute({ name: LANDING_ROUTE })
+      updateInitialRoute({ name: LANDING_ROUTE })
     }
-  }, [cities, changeCityCode, cityCode, showSnackbar, settings, initialRoute])
+  }, [cities, changeCityCode, cityCode, showSnackbar, settings, initialRoute, updateInitialRoute])
 
   if (!initialRoute && (citiesError || settingsError)) {
     const refresh = () => {
