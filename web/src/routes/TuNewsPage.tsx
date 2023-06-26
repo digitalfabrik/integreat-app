@@ -31,7 +31,7 @@ import { TU_NEWS_ROUTE } from './index'
 const DEFAULT_PAGE = 1
 const DEFAULT_COUNT = 10
 
-const TuNewsPage = ({ cityCode, languageCode, city, languages }: CityRouteProps): ReactElement | null => {
+const TuNewsPage = ({ cityCode, languageCode, city }: CityRouteProps): ReactElement | null => {
   const formatter = useContext(DateFormatterContext)
   const { t } = useTranslation('news')
   const { viewportSmall } = useWindowDimensions()
@@ -84,7 +84,7 @@ const TuNewsPage = ({ cityCode, languageCode, city, languages }: CityRouteProps)
     <CityContentToolbar openFeedbackModal={openFeedback} hasFeedbackOption={false} hasDivider={false} />
   )
 
-  const languageChangePaths = languages.map(({ code, name }) => {
+  const languageChangePaths = city.languages.map(({ code, name }) => {
     const isLanguageAvailable = tuNewsLanguages?.find(language => language.code === code)
     return {
       path: isLanguageAvailable
