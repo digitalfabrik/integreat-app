@@ -24,7 +24,7 @@ import { cmsApiBaseUrl } from '../constants/urls'
 import useWindowDimensions from '../hooks/useWindowDimensions'
 import TileModel from '../models/TileModel'
 
-const OffersPage = ({ cityModel, cityCode, languageCode, languages }: CityRouteProps): ReactElement => {
+const OffersPage = ({ city, cityCode, languageCode }: CityRouteProps): ReactElement | null => {
   const { t } = useTranslation('offers')
   const { viewportSmall } = useWindowDimensions()
 
@@ -60,7 +60,11 @@ const OffersPage = ({ cityModel, cityCode, languageCode, languages }: CityRouteP
     [cityCode, languageCode, t]
   )
 
-  const languageChangePaths = languages.map(({ code, name }) => {
+  if (!city) {
+    return null
+  }
+
+  const languageChangePaths = city.languages.map(({ code, name }) => {
     const offersPath = pathnameFromRouteInformation({ route: OFFERS_ROUTE, cityCode, languageCode: code })
     return {
       path: offersPath,
@@ -70,7 +74,7 @@ const OffersPage = ({ cityModel, cityCode, languageCode, languages }: CityRouteP
   })
 
   const locationLayoutParams = {
-    cityModel,
+    city,
     viewportSmall,
     feedbackTargetInformation: null,
     languageChangePaths,
@@ -97,11 +101,11 @@ const OffersPage = ({ cityModel, cityCode, languageCode, languages }: CityRouteP
     )
   }
 
-  const pageTitle = `${t('pageTitle')} - ${cityModel.name}`
+  const pageTitle = `${t('pageTitle')} - ${city.name}`
 
   return (
     <CityContentLayout isLoading={false} {...locationLayoutParams}>
-      <Helmet pageTitle={pageTitle} languageChangePaths={languageChangePaths} cityModel={cityModel} />
+      <Helmet pageTitle={pageTitle} languageChangePaths={languageChangePaths} cityModel={city} />
       <Tiles title={t('offers')} tiles={toTileModels(offers)} />
     </CityContentLayout>
   )
