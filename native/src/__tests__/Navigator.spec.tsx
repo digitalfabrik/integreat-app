@@ -2,7 +2,6 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 import { NavigationContainer } from '@react-navigation/native'
 import { mocked } from 'jest-mock'
 import React from 'react'
-import waitForExpect from 'wait-for-expect'
 
 import { CityModelBuilder, ReturnType, useLoadAsync } from 'api-client'
 
@@ -180,9 +179,9 @@ describe('Navigator', () => {
     mocked(quitAppStatePushNotificationListener).mockImplementation(async navigate =>
       navigate('https://integreat.app/augsbug/de/news/local/1234')
     )
-    const { getByText } = renderNavigator()
+    const { findByText } = renderNavigator()
 
-    waitForExpect(() => expect(getByText('Redirect')).toBeTruthy())
+    await findByText('Redirect')
     expect(quitAppStatePushNotificationListener).toHaveBeenCalledTimes(1)
   })
 })
