@@ -16,6 +16,7 @@ import {
   OpeningHoursModel,
   PoiModel,
   PoiCategoryModel,
+  OrganizationModel,
 } from 'api-client'
 
 import DatabaseContext from '../models/DatabaseContext'
@@ -53,6 +54,11 @@ type ContentCategoryJsonType = {
   parent_path: string
   children: Array<string>
   order: number
+  organization: {
+    name: string
+    logo: string | null
+    url: string | null
+  } | null
 }
 type LocationJsonType<T> = {
   id: number
@@ -360,6 +366,13 @@ class DatabaseConnector {
         parent_path: category.parentPath,
         children: categoriesMap.getChildren(category).map(category => category.path),
         order: category.order,
+        organization: category.organization
+          ? {
+              name: category.organization.name,
+              logo: category.organization.logo,
+              url: category.organization.url,
+            }
+          : null,
       })
     )
     await this.writeFile(this.getContentPath('categories', context), JSON.stringify(jsonModels))
@@ -381,6 +394,13 @@ class DatabaseConnector {
             order: jsonObject.order,
             availableLanguages,
             lastUpdate: moment(jsonObject.last_update, moment.ISO_8601),
+            organization: jsonObject.organization
+              ? new OrganizationModel({
+                  name: jsonObject.organization.name,
+                  logo: jsonObject.organization.logo,
+                  url: jsonObject.organization.url,
+                })
+              : null,
           })
         })
       )
