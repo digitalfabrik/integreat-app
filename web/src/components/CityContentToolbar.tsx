@@ -22,7 +22,7 @@ const CityContentToolbar = (props: CityContentToolbarProps) => {
   return (
     <Toolbar iconDirection={iconDirection} hasDivider={hasDivider}>
       {children}
-      <ToolbarItem icon={CopyIcon} text={t('copyLink')} onClick={copyToClipboard} />
+      <ToolbarItem icon={CopyIcon} text={t('copyUrl')} onClick={copyToClipboard} />
       {hasFeedbackOption && <FeedbackToolbarItem isPositiveRatingLink openFeedbackModal={openFeedbackModal} />}
       {hasFeedbackOption && <FeedbackToolbarItem isPositiveRatingLink={false} openFeedbackModal={openFeedbackModal} />}
     </Toolbar>

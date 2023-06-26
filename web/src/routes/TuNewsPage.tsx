@@ -98,7 +98,7 @@ const TuNewsPage = ({ cityCode, languageCode, cityModel, languages }: CityRouteP
     languageChangePaths,
     route: TU_NEWS_ROUTE,
     languageCode,
-    toolbar,
+    toolbar: viewportSmall ? undefined : toolbar,
   }
 
   if (error) {

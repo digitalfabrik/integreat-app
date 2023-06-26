@@ -21,7 +21,7 @@ const dimensions: DimensionsType = {
   mediumLargeViewport: '(min-width: 769px)',
   minMaxWidth: '(min-width: 1101px)',
   maxWidth: 1100,
-  toolbarWidth: 125,
+  toolbarWidth: 200,
   poiDetailNavigation: 44,
   toolbarHeight: 66,
   headerHeightLarge: 90,
