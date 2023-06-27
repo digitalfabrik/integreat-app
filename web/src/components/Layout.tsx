@@ -1,4 +1,4 @@
-import React, { ReactNode, useEffect, useState } from 'react'
+import React, { ReactNode, useLayoutEffect, useState } from 'react'
 import styled, { css } from 'styled-components'
 
 import dimensions from '../constants/dimensions'
@@ -151,7 +151,7 @@ const Layout = ({
   const { width, viewportSmall } = useWindowDimensions()
   const [languageSelectorHeight, setLanguageSelectorHeight] = useState<number>(0)
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const panelHeight = document.getElementById('languageSelector')?.clientHeight
     setLanguageSelectorHeight(panelHeight ?? 0)
   }, [width])
