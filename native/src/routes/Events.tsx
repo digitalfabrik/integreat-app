@@ -1,16 +1,13 @@
-import moment from 'moment'
-import React, { ReactElement, useContext, useState } from 'react'
+import React, { ReactElement, useContext } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Linking, Platform, RefreshControl } from 'react-native'
-import RNCalendarEvents, { Calendar } from 'react-native-calendar-events'
-import { Button } from 'react-native-elements'
-import styled, { useTheme } from 'styled-components/native'
+import { RefreshControl } from 'react-native'
+import styled from 'styled-components/native'
 
 import { CityModel, EventModel, EVENTS_ROUTE, fromError, NotFoundError, RouteInformationType } from 'api-client'
 
-import CalendarChoice from '../components/CalendarChoice'
 import Caption from '../components/Caption'
 import EventListItem from '../components/EventListItem'
+import ExportEventButton from '../components/ExportEventButton'
 import Failure from '../components/Failure'
 import { FeedbackInformationType } from '../components/FeedbackContainer'
 import Layout from '../components/Layout'
@@ -20,7 +17,6 @@ import Page from '../components/Page'
 import PageDetail from '../components/PageDetail'
 import SiteHelpfulBox from '../components/SiteHelpfulBox'
 import DateFormatterContext from '../contexts/DateFormatterContext'
-import useSnackbar from '../hooks/useSnackbar'
 
 const Separator = styled.View`
   border-top-width: 2px;
@@ -55,12 +51,6 @@ const Events = ({
 }: EventsProps): ReactElement => {
   const { t } = useTranslation('events')
   const formatter = useContext(DateFormatterContext)
-  const theme = useTheme()
-  const showSnackbar = useSnackbar()
-
-  const [eventExported, setEventExported] = useState<boolean>(false)
-  const [showCalendarChoiceOverlay, setShowCalendarChoiceOverlay] = useState<boolean>(false)
-  const [calendars, setCalendars] = useState<Calendar[]>()
 
   const createNavigateToFeedback = (event?: EventModel) => (isPositiveFeedback: boolean) => {
     navigateToFeedback({
@@ -92,79 +82,8 @@ const Events = ({
       events.find(it => it.slug === slug) ?? events.find(it => it.slug.substring(0, it.slug.indexOf('$')) === slug)
 
     if (event) {
-      const saveEventToCalendar = async (calendarId: string | undefined): Promise<void> => {
-        await RNCalendarEvents.saveEvent(event.title, {
-          startDate: event.date.startDate.toISOString(),
-          endDate: event.date.endDate.toISOString(),
-          allDay: event.date.allDay,
-          location: event.location?.fullAddress,
-          description: event.excerpt,
-          calendarId,
-        })
-          .then(id => {
-            setEventExported(true)
-            showSnackbar({
-              text: t('added'),
-              positiveAction: {
-                label: t('goToCalendar'),
-                onPress: () => {
-                  if (Platform.OS === 'ios') {
-                    const appleRefDate = moment('Jan 1 2001', 'MMM DD YYYY')
-                    const secondsSinceRefDate = event.date.startDate.diff(appleRefDate, 'seconds')
-                    Linking.openURL(`calshow:${secondsSinceRefDate}`)
-                  } else if (Platform.OS === 'android') {
-                    Linking.openURL(`content://com.android.calendar/events/${id}`)
-                  }
-                },
-              },
-            })
-          })
-          .catch(() => {
-            showSnackbar({ text: 'generalError' })
-          })
-      }
-
-      const checkCalendarsAndSaveEvent = async (): Promise<void> => {
-        let permission = await RNCalendarEvents.checkPermissions()
-        if (permission === 'undetermined') {
-          permission = await RNCalendarEvents.requestPermissions()
-        }
-        if (permission === 'denied' || permission === 'restricted') {
-          showSnackbar({
-            text: 'noCalendarPermission',
-            positiveAction: {
-              label: t('settings'),
-              onPress: Linking.openSettings,
-            },
-          })
-          return
-        }
-        const editableCalendars = (await RNCalendarEvents.findCalendars()).filter(cal => cal.allowsModifications)
-        if (editableCalendars.length === 0) {
-          showSnackbar({ text: 'noCalendarFound' })
-        } else if (editableCalendars.length === 1) {
-          saveEventToCalendar(editableCalendars[0]?.id)
-        } else {
-          setCalendars(editableCalendars)
-          setShowCalendarChoiceOverlay(true)
-        }
-      }
-
       return (
         <LayoutedScrollView refreshControl={<RefreshControl onRefresh={refresh} refreshing={false} />}>
-          {!!calendars?.length && (
-            <CalendarChoice
-              closeOverlay={() => setShowCalendarChoiceOverlay(false)}
-              overlayVisible={showCalendarChoiceOverlay}
-              chooseCalendar={async (id: string) => {
-                setShowCalendarChoiceOverlay(false)
-                await saveEventToCalendar(id).catch(() => {
-                  showSnackbar({ text: 'generalError' })
-                })
-              }}
-              calendars={calendars}
-            />
-          )}
           <Page
             content={event.content}
             title={event.title}
@@ -184,21 +103,7 @@ const Events = ({
                 )}
               </>
             }
-            AfterContent={
-              <Button
-                title={t('addToCalendar')}
-                onPress={checkCalendarsAndSaveEvent}
-                buttonStyle={{
-                  backgroundColor: theme.colors.themeColor,
-                  margin: 14,
-                }}
-                titleStyle={{
-                  color: theme.colors.textColor,
-                  fontFamily: theme.fonts.native.contentFontRegular,
-                }}
-                disabled={eventExported}
-              />
-            }
+            AfterContent={<ExportEventButton event={event} />}
           />
         </LayoutedScrollView>
       )
