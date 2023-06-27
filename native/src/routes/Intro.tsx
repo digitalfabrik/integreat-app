@@ -2,7 +2,7 @@ import React, { ReactElement, useCallback, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { FlatList, useWindowDimensions, ViewToken } from 'react-native'
 import { useTheme } from 'styled-components'
-import styled from 'styled-components/native'
+import styled, { css } from 'styled-components/native'
 
 import { IntroRouteType, LANDING_ROUTE } from 'api-client'
 
@@ -20,19 +20,30 @@ const Container = styled.View<{ width: number }>`
   width: ${props => props.width}px;
   justify-content: space-between;
 `
-const AppIcon = styled.Image`
+
+const ImageStyle = css`
   align-self: center;
   flex: 1;
-  height: 40%;
-  width: 40%;
-  resize-mode: contain;
 `
-const ImageContent = styled.Image`
-  align-self: center;
-  flex: 1;
-  height: 100%;
-  width: 60%;
-  resize-mode: contain;
+const icons = buildConfigAssets().intro
+const styledIcons = icons
+  ? {
+      Search: styled(icons.Search)`
+        ${ImageStyle}
+      `,
+      Events: styled(icons.Events)`
+        ${ImageStyle}
+      `,
+      Offers: styled(icons.Offers)`
+        ${ImageStyle}
+      `,
+      Language: styled(icons.Language)`
+        ${ImageStyle}
+      `,
+    }
+  : null
+const AppIcon = styled(buildConfigAssets().AppIcon)`
+  ${ImageStyle}
 `
 
 type IntroProps = {
@@ -49,52 +60,44 @@ const Intro = ({ route, navigation }: IntroProps): ReactElement => {
   const { deepLink } = route.params
   const navigateToDeepLink = useNavigateToDeepLink()
 
-  const icons = buildConfigAssets().intro
-  const slides = icons
-    ? [
-        {
-          key: 'integreat',
-          title: buildConfig().appName,
-          description: t('appDescription', {
-            appName: buildConfig().appName,
-          }),
-          Content: <AppIcon source={buildConfigAssets().appIcon} />,
-        },
-        {
-          key: 'search',
-          title: t('search'),
-          description: t('searchDescription'),
-          Content: <ImageContent source={icons.search} />,
-        },
-        {
-          key: 'events',
-          title: t('events'),
-          description: t('eventsDescription'),
-          Content: <ImageContent source={icons.events} />,
-        },
-        {
-          key: 'offers',
-          title: t('offers'),
-          description: t('offersDescription'),
-          Content: <ImageContent source={icons.offers} />,
-        },
-        {
-          key: 'languageChange',
-          title: t('languageChange'),
-          description: t('languageChangeDescription'),
-          Content: <ImageContent source={icons.language} />,
-        },
-      ]
-    : [
-        {
-          key: 'integreat',
-          title: buildConfig().appName,
-          description: t('appDescription', {
-            appName: buildConfig().appName,
-          }),
-          Content: <AppIcon source={buildConfigAssets().appIcon} />,
-        },
-      ]
+  const slides = [
+    {
+      key: 'integreat',
+      title: buildConfig().appName,
+      description: t('appDescription', {
+        appName: buildConfig().appName,
+      }),
+      Content: <AppIcon width='40%' height='40%' />,
+    },
+  ]
+  if (styledIcons) {
+    slides.push(
+      {
+        key: 'search',
+        title: t('search'),
+        description: t('searchDescription'),
+        Content: <styledIcons.Search height='100%' width='60%' />,
+      },
+      {
+        key: 'events',
+        title: t('events'),
+        description: t('eventsDescription'),
+        Content: <styledIcons.Events height='100%' width='60%' />,
+      },
+      {
+        key: 'offers',
+        title: t('offers'),
+        description: t('offersDescription'),
+        Content: <styledIcons.Offers height='100%' width='60%' />,
+      },
+      {
+        key: 'languageChange',
+        title: t('languageChange'),
+        description: t('languageChangeDescription'),
+        Content: <styledIcons.Language height='100%' width='60%' />,
+      }
+    )
+  }
 
   const onDone = useCallback(async () => {
     try {

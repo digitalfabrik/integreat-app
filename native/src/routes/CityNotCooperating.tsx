@@ -52,12 +52,6 @@ const StepExplanation = styled.Text`
   padding-bottom: 4px;
 `
 
-const Icon = styled.Image`
-  align-self: center;
-  width: 50%;
-  resize-mode: contain;
-`
-
 const ButtonContainer = styled.View`
   z-index: 1;
   margin: 15px auto 0;
@@ -83,12 +77,13 @@ const CityNotCooperating = (): ReactElement => {
     setIsCopied(true)
   }
 
+  const CityNotCooperatingIcon = buildConfigAssets().CityNotCooperatingIcon!
   return (
     <Container>
       <Heading>{t('callToAction')}</Heading>
 
       <Description>{t('explanation')}</Description>
-      <Icon source={buildConfigAssets().cityNotCooperatingIcon!} />
+      <CityNotCooperatingIcon width='50%' style={{ alignSelf: 'center' }} />
       <ListHeading>{t('whatToDo')}</ListHeading>
       <ListItem>
         <StepNumber>1</StepNumber>

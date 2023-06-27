@@ -29,11 +29,7 @@ const HorizontalLeft = styled.View`
   flex-direction: row;
   align-items: center;
 `
-const Icon = styled.Image`
-  width: 70px;
-  height: 50px;
-  resize-mode: contain;
-`
+
 const HeaderText = styled.Text<{ fontSize: number }>`
   flex: 1;
   flex-direction: column;
@@ -161,10 +157,11 @@ const Header = ({
       ]
     : []
 
+  const AppIcon = buildConfigAssets().AppIcon
   const HeaderLeft = canGoBack ? (
     <HeaderBackButton onPress={navigation.goBack} labelVisible={false} tintColor={theme.colors.textColor} />
   ) : (
-    <Icon source={buildConfigAssets().appIcon} />
+    <AppIcon width={70} height={50} />
   )
 
   const getHeaderText = (): string => {

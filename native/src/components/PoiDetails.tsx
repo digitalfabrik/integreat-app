@@ -50,11 +50,6 @@ const StyledCategory = styled.Text`
   color: ${props => props.theme.colors.textSecondaryColor};
 `
 
-const ExternalLink = styled.Image`
-  border-top-left-radius: 5px;
-  border-bottom-left-radius: 5px;
-`
-
 const ContentWrapper = styled.View`
   padding-right: 32px;
 `
@@ -115,7 +110,7 @@ const PoiDetails = ({ poi, feature, language }: PoiDetailsProps): ReactElement =
       <HorizontalLine />
       <PoiDetailItem
         onIconPress={openExternalMaps}
-        icon={<ExternalLink accessibilityLabel={t('openExternalMaps')} source={ExternalLinkIcon} />}
+        icon={<ExternalLinkIcon accessibilityLabel={t('openExternalMaps')} />}
         language={language}>
         <Pressable onPress={copyLocationToClipboard}>
           <Text>{address}</Text>
