@@ -1,9 +1,8 @@
-import React, { ReactElement, useContext } from 'react'
+import React, { ReactElement } from 'react'
 
 import { createDisclaimerEndpoint, DISCLAIMER_ROUTE, DisclaimerRouteType } from 'api-client'
 
 import SiteHelpfulBox from '../components/SiteHelpfulBox'
-import { StaticServerContext } from '../components/StaticServerProvider'
 import { NavigationProps, RouteProps } from '../constants/NavigationTypes'
 import useCityAppContext from '../hooks/useCityAppContext'
 import useHeader from '../hooks/useHeader'
@@ -20,7 +19,6 @@ type DisclaimerContainerProps = {
 
 const DisclaimerContainer = ({ navigation, route }: DisclaimerContainerProps): ReactElement => {
   const { cityCode, languageCode } = useCityAppContext()
-  const resourceCacheUrl = useContext(StaticServerContext)
   const { data, ...response } = useLoadExtraCityContent({
     createEndpoint: createDisclaimerEndpoint,
     cityCode,
@@ -45,7 +43,7 @@ const DisclaimerContainer = ({ navigation, route }: DisclaimerContainerProps): R
     <LoadingErrorHandler {...response} scrollView>
       {data && (
         <>
-          <Disclaimer resourceCacheUrl={resourceCacheUrl} disclaimer={data.extra} language={languageCode} />
+          <Disclaimer disclaimer={data.extra} language={languageCode} />
           <SiteHelpfulBox navigateToFeedback={navigateToFeedback} />
         </>
       )}

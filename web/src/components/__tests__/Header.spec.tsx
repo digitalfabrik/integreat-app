@@ -1,24 +1,29 @@
 import { fireEvent } from '@testing-library/react'
+import { mocked } from 'jest-mock'
 import React from 'react'
 
+import useWindowDimensions from '../../hooks/useWindowDimensions'
 import { renderWithRouterAndTheme } from '../../testing/render'
 import { Header } from '../Header'
 import HeaderActionItemLink from '../HeaderActionItemLink'
 import HeaderNavigationItem from '../HeaderNavigationItem'
 import KebabActionItemLink from '../KebabActionItemLink'
 
+jest.mock('../../hooks/useWindowDimensions')
 jest.mock('react-i18next')
 
 describe('Header', () => {
+  beforeEach(jest.clearAllMocks)
   const cityName = 'TestCity'
+
   it('should render correctly', () => {
+    mocked(useWindowDimensions).mockImplementation(() => ({ viewportSmall: true, width: 400, height: 400 }))
     const { getByText } = renderWithRouterAndTheme(
       <Header
         logoHref='/random_route'
         actionItems={[]}
         kebabItems={[]}
         navigationItems={[]}
-        viewportSmall
         cityName={cityName}
         direction='ltr'
         language='de'
@@ -28,6 +33,7 @@ describe('Header', () => {
   })
 
   it('should render KebabMenu with elements on small viewport', () => {
+    mocked(useWindowDimensions).mockImplementation(() => ({ viewportSmall: true, width: 400, height: 400 }))
     const setShowSidebar = jest.fn()
     const { getByTestId } = renderWithRouterAndTheme(
       <Header
@@ -37,7 +43,6 @@ describe('Header', () => {
         kebabItems={[
           <KebabActionItemLink key='location' href='/kebab_route' text='Change Locaction' iconSrc='icon.jpg' />,
         ]}
-        viewportSmall
         direction='ltr'
         cityName={cityName}
         isSidebarOpen
@@ -50,6 +55,7 @@ describe('Header', () => {
     expect(getByTestId('kebab-action-item')).toHaveProperty('href', 'http://localhost/kebab_route')
   })
   it('should not render KebabMenu on large viewport', () => {
+    mocked(useWindowDimensions).mockImplementation(() => ({ viewportSmall: false, width: 1400, height: 1400 }))
     const { queryByTestId } = renderWithRouterAndTheme(
       <Header
         logoHref='/random_route'
@@ -58,7 +64,6 @@ describe('Header', () => {
         kebabItems={[
           <KebabActionItemLink key='location' href='/kebab_route' text='Change Locaction' iconSrc='icon.jpg' />,
         ]}
-        viewportSmall={false}
         direction='ltr'
         language='de'
       />
