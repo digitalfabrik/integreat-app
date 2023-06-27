@@ -76,6 +76,8 @@ const TooltipContainer = styled.div<{
   flow: FlowType
   smallViewportFlow: FlowType
   mediumViewportFlow: FlowType
+  active: boolean
+  trigger: 'click' | 'hover'
 }>`
   position: relative;
 
@@ -117,11 +119,26 @@ const TooltipContainer = styled.div<{
     color: ${props => props.theme.colors.backgroundColor};
   }
 
-  :hover::before,
-  :hover::after {
-    display: block;
-    animation: tooltips 300ms ease-out forwards;
-  }
+  ${props =>
+    props.active &&
+    props.trigger === 'click' &&
+    css`
+      ::after,
+      ::before {
+        display: block;
+        animation: tooltips 300ms ease-out forwards;
+      }
+    `};
+
+  ${props =>
+    props.trigger === 'hover' &&
+    css`
+      :hover::before,
+      :hover::after {
+        display: block;
+        animation: tooltips 300ms ease-out forwards;
+      }
+    `};
 
   /* over 1100px */
   @media ${dimensions.minMaxWidth} {
@@ -150,6 +167,8 @@ type TooltipProps = {
   mediumViewportFlow?: FlowType
   smallViewportFlow?: FlowType
   className?: string
+  active?: boolean
+  trigger: 'click' | 'hover'
 }
 
 type ViewportDimensionsType = {
@@ -229,6 +248,8 @@ export default ({
   flow,
   mediumViewportFlow,
   smallViewportFlow,
+  active = false,
+  trigger,
   ...props
 }: TooltipProps): ReactElement => {
   const [container, setContainer] = useState<Element | null>(null)
@@ -270,6 +291,8 @@ export default ({
       text={text}
       ref={onRefSet}
       flow={fixedFlow}
+      active={active}
+      trigger={trigger}
       mediumViewportFlow={fixedMediumFlow}
       smallViewportFlow={fixedSmallFlow}>
       {children}

@@ -107,7 +107,14 @@ const Selector = ({
         )
       }
       return (
-        <Element as={Tooltip} key={item.code} text={disabledItemTooltip} flow='up' $enabled={false} $selected={false}>
+        <Element
+          as={Tooltip}
+          key={item.code}
+          text={disabledItemTooltip}
+          flow='up'
+          $enabled={false}
+          $selected={false}
+          trigger='hover'>
           <BoldSpacer>{item.name}</BoldSpacer>
           {item.name}
         </Element>
