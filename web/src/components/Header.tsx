@@ -5,6 +5,7 @@ import styled from 'styled-components'
 import { UiDirectionType } from 'translations'
 
 import dimensions from '../constants/dimensions'
+import useWindowDimensions from '../hooks/useWindowDimensions'
 import CityContentFooter from './CityContentFooter'
 import HeaderLogo from './HeaderLogo'
 import { HeaderNavigationItemProps } from './HeaderNavigationItem'
@@ -17,7 +18,6 @@ type HeaderProps = {
   actionItems: Array<ReactNode>
   kebabItems: Array<ReactNode>
   logoHref: string
-  viewportSmall: boolean
   cityName?: string
   direction: UiDirectionType
   isSidebarOpen?: boolean
@@ -110,7 +110,6 @@ const NavigationBar = styled.nav`
  * Uses Headroom to save space when scrolling.
  */
 export const Header = ({
-  viewportSmall,
   actionItems = [],
   kebabItems = [],
   logoHref,
@@ -121,6 +120,7 @@ export const Header = ({
   setIsSidebarOpen,
   language,
 }: HeaderProps): ReactElement => {
+  const { viewportSmall } = useWindowDimensions()
   const { headerHeightSmall, headerHeightLarge } = dimensions
   const hasNavigationBar = navigationItems.length > 0
   const height = viewportSmall

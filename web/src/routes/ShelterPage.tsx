@@ -23,7 +23,7 @@ import useWindowDimensions from '../hooks/useWindowDimensions'
 const DEFAULT_PAGE = 1
 const ITEMS_PER_PAGE = 10
 
-const ShelterPage = ({ cityModel, cityCode, languageCode, pathname, languages }: CityRouteProps): ReactElement => {
+const ShelterPage = ({ city, cityCode, languageCode, pathname }: CityRouteProps): ReactElement | null => {
   const { shelterId } = useParams()
   const { viewportSmall } = useWindowDimensions()
   const { t } = useTranslation('shelter')
@@ -46,7 +46,11 @@ const ShelterPage = ({ cityModel, cityCode, languageCode, pathname, languages }:
     [cityCode, filter]
   )
 
-  const languageChangePaths = languages.map(({ code, name }) => ({
+  if (!city) {
+    return null
+  }
+
+  const languageChangePaths = city.languages.map(({ code, name }) => ({
     path: pathnameFromRouteInformation({ route: SHELTER_ROUTE, cityCode, languageCode: code }),
     name,
     code,
@@ -67,7 +71,7 @@ const ShelterPage = ({ cityModel, cityCode, languageCode, pathname, languages }:
   }
 
   const locationLayoutParams = {
-    cityModel,
+    city,
     viewportSmall,
     feedbackTargetInformation: null,
     languageChangePaths,
@@ -78,18 +82,17 @@ const ShelterPage = ({ cityModel, cityCode, languageCode, pathname, languages }:
   if (shelterId) {
     return (
       <ShelterDetail
-        cityModel={cityModel}
+        city={city}
         cityCode={cityCode}
         languageCode={languageCode}
         pathname={pathname}
-        languages={languages}
         shelterId={shelterId}
         viewportSmall={viewportSmall}
       />
     )
   }
 
-  const pageTitle = `${t('title')} - ${cityModel.name}`
+  const pageTitle = `${t('title')} - ${city.name}`
 
   const renderListItem = (shelter: ShelterModel): ReactElement => (
     <ShelterListItem key={shelter.id} shelter={shelter} cityCode={cityCode} languageCode={languageCode} />
@@ -97,7 +100,7 @@ const ShelterPage = ({ cityModel, cityCode, languageCode, pathname, languages }:
 
   return (
     <CityContentLayout isLoading={false} {...locationLayoutParams}>
-      <Helmet pageTitle={pageTitle} languageChangePaths={languageChangePaths} cityModel={cityModel} />
+      <Helmet pageTitle={pageTitle} languageChangePaths={languageChangePaths} cityModel={city} />
       <Caption title={t('title')} />
       <ShelterFilterBar filter={filter} updateSearchFilter={updateSearchFilter} />
       <InfiniteScrollList
