@@ -33,9 +33,6 @@ type PageProps = {
   pageFooter?: ReactNode
 }
 
-/**
- * Display a single page with all necessary information
- */
 const Page = ({
   title,
   defaultThumbnailSrc,
@@ -54,6 +51,7 @@ const Page = ({
     <Caption title={title} />
     {children}
     <RemoteContent html={content} onInternalLinkClick={onInternalLinkClick} />
+    {pageFooter}
     {lastUpdate && (
       <LastUpdateInfo
         lastUpdate={lastUpdate}
@@ -62,7 +60,6 @@ const Page = ({
         withText={showLastUpdateText}
       />
     )}
-    {pageFooter}
   </>
 )
 

@@ -3,7 +3,9 @@
     "de": {
       "createPdf": "PDF erstellen",
       "copyUrl": "Link kopieren",
-      "metaDescription": "{{appName}} ist Ihr digitaler Guide für Deutschland. Finden Sie lokale Informationen, Veranstaltungen und Beratung. Immer aktuell und in Ihrer Sprache."
+      "metaDescription": "{{appName}} ist Ihr digitaler Guide für Deutschland. Finden Sie lokale Informationen, Veranstaltungen und Beratung. Immer aktuell und in Ihrer Sprache.",
+      "organizationContent": "Die Inhalte dieser Seite sind von {{organization}}.",
+      "organizationWebsite": "Mehr Informationen zu {{organization}} findest du hier."
     },
     "am": {
       "createPdf": "PDF ይፍጠሩ",

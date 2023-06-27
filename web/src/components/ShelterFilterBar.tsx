@@ -8,19 +8,16 @@ import { BedIcon, PetIcon } from '../assets'
 import dimensions from '../constants/dimensions'
 import FacetInput from './FacetInput'
 import FacetToggle from './FacetToggle'
+import HighlightBox from './HighlightBox'
 
 type ShelterFilterBarProps = {
   filter: FilterProps
   updateSearchFilter: (key: string, value: string) => void
 }
 
-const FilterContainer = styled.div`
-  background-color: #f8f8f8;
-  border-radius: 4px;
+const FilterContainer = styled(HighlightBox)`
   margin: 12px;
   font-size: 14px;
-  padding: 20px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.15);
   display: flex;
   justify-content: space-between;
 

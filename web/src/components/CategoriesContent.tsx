@@ -7,6 +7,7 @@ import { CategoriesMapModel, CategoryModel, DateFormatter } from 'api-client'
 
 import TileModel from '../models/TileModel'
 import CategoryList from './CategoryList'
+import OrganizationContentInfo from './OrganizationContentInfo'
 import Page from './Page'
 import Tiles from './Tiles'
 
@@ -38,6 +39,9 @@ const CategoriesContent = ({ categories, categoryModel, formatter, t }: Categori
   const navigate = useNavigate()
 
   if (categories.isLeaf(categoryModel)) {
+    const OrganizationFooter = categoryModel.organization ? (
+      <OrganizationContentInfo organization={categoryModel.organization} />
+    ) : null
     // last level, our category is a simple page
     return (
       <Page
@@ -46,6 +50,7 @@ const CategoriesContent = ({ categories, categoryModel, formatter, t }: Categori
         lastUpdate={categoryModel.lastUpdate}
         formatter={formatter}
         onInternalLinkClick={navigate}
+        pageFooter={OrganizationFooter}
       />
     )
   }
