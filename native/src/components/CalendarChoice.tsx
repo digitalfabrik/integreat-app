@@ -1,28 +1,23 @@
-import { HeaderBackButton } from '@react-navigation/elements'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Modal, TouchableOpacity } from 'react-native'
 import { Calendar } from 'react-native-calendar-events'
 import styled from 'styled-components/native'
 
-const StyledView = styled.View`
+import dimensions from '../constants/dimensions'
+import HeaderBox from './HeaderBox'
+
+const Container = styled.SafeAreaView`
   flex: 1;
-  justify-content: center;
+`
+
+const Header = styled.View`
+  height: ${dimensions.headerHeight}px;
+`
+
+const ButtonContainer = styled.ScrollView`
   margin: 0 20px;
   padding: 50px 0;
-`
-
-const TitleContainer = styled.View`
-  flex-direction: row;
-  align-items: center;
-  margin-bottom: 5px;
-`
-
-const Title = styled.Text`
-  font-family: ${props => props.theme.fonts.native.decorativeFontBold};
-  text-align: center;
-  flex: 1;
-  padding-right: 16px;
 `
 
 const CalendarButton = styled(TouchableOpacity)<{ color: string }>`
@@ -53,17 +48,22 @@ const CalendarChoice = ({
   const { t } = useTranslation('events')
   return (
     <Modal visible={overlayVisible} onRequestClose={closeOverlay} animationType='fade'>
-      <StyledView>
-        <TitleContainer>
-          <HeaderBackButton onPress={closeOverlay} label={t('back')} />
-          <Title>{t('chooseCalendar')}</Title>
-        </TitleContainer>
-        {calendars.map(cal => (
-          <CalendarButton key={cal.id} onPress={() => chooseCalendar(cal.id)} color={cal.color}>
-            <ButtonText>{cal.title}</ButtonText>
-          </CalendarButton>
-        ))}
-      </StyledView>
+      <Container>
+        <Header>
+          <HeaderBox goBack={closeOverlay} text={t('chooseCalendar')} textCentered />
+        </Header>
+        <ButtonContainer
+          contentContainerStyle={{
+            flex: 1,
+            justifyContent: 'center',
+          }}>
+          {calendars.map(cal => (
+            <CalendarButton key={cal.id} onPress={() => chooseCalendar(cal.id)} color={cal.color}>
+              <ButtonText>{cal.title}</ButtonText>
+            </CalendarButton>
+          ))}
+        </ButtonContainer>
+      </Container>
     </Modal>
   )
 }

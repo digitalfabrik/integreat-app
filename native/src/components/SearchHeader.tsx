@@ -9,7 +9,7 @@ import { ThemeType } from 'build-configs'
 import dimensions from '../constants/dimensions'
 import ThemedSearchBar from './ThemedSearchBar'
 
-const HorizontalLeft = styled.View`
+const Horizontal = styled.View`
   flex: 1;
   flex-direction: row;
   align-items: center;
@@ -38,10 +38,10 @@ const SearchHeader = ({ theme, query, closeSearchBar, onSearchChanged, t }: Sear
 
   return (
     <BoxShadow theme={theme}>
-      <HorizontalLeft theme={theme}>
+      <Horizontal theme={theme}>
         <HeaderBackButton onPress={onClose} labelVisible={false} tintColor={theme.colors.textColor} />
         <ThemedSearchBar theme={theme} onChangeText={onSearchChanged} value={query} autofocus t={t} />
-      </HorizontalLeft>
+      </Horizontal>
     </BoxShadow>
   )
 }

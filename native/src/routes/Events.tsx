@@ -141,7 +141,7 @@ const Events = ({
         }
         const editableCalendars = (await RNCalendarEvents.findCalendars()).filter(cal => cal.allowsModifications)
         if (editableCalendars.length === 0) {
-          showSnackbar({ text: 'generalError' })
+          showSnackbar({ text: 'noCalendarFound' })
         } else if (editableCalendars.length === 1) {
           saveEventToCalendar(editableCalendars[0]?.id)
         } else {
@@ -184,13 +184,13 @@ const Events = ({
                 )}
               </>
             }
-            pageFooter={
+            AfterContent={
               <Button
                 title={t('addToCalendar')}
                 onPress={checkCalendarsAndSaveEvent}
                 buttonStyle={{
                   backgroundColor: theme.colors.themeColor,
-                  marginTop: 20,
+                  margin: 14,
                 }}
                 titleStyle={{
                   color: theme.colors.textColor,
