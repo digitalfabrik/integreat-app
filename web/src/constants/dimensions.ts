@@ -22,7 +22,7 @@ const dimensions: DimensionsType = {
   minMaxWidth: '(min-width: 1101px)',
   maxWidth: 1100,
   toolbarWidth: 200,
-  poiDetailNavigation: 44,
+  poiDetailNavigation: 42,
   toolbarHeight: 66,
   headerHeightLarge: 90,
   headerHeightSmall: 70,
