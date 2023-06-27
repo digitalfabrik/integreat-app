@@ -104,7 +104,7 @@ const HeaderActionItemDropDown = ({
 
   return (
     <Container ref={wrapperRef}>
-      <Tooltip text={text} flow='down' mediumViewportFlow='left'>
+      <Tooltip text={text} flow='down' mediumViewportFlow='left' trigger='hover'>
         <button type='button' aria-label={text} onClick={toggleDropDown}>
           <IconWithUiDirection alt='' src={iconSrc} direction={direction} />
         </button>

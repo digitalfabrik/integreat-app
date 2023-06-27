@@ -1,10 +1,11 @@
-import React, { memo, ReactNode } from 'react'
+import React, { memo, ReactNode, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { CopyIcon } from '../assets'
+import { CopyIcon, DoneIcon } from '../assets'
 import FeedbackToolbarItem, { FeedbackRatingType } from './FeedbackToolbarItem'
 import Toolbar from './Toolbar'
 import ToolbarItem from './ToolbarItem'
+import Tooltip from './Tooltip'
 
 type CityContentToolbarProps = {
   openFeedbackModal: (rating: FeedbackRatingType) => void
@@ -14,15 +15,26 @@ type CityContentToolbarProps = {
   hasDivider: boolean
 }
 
+const COPY_TIMEOUT = 3000
+
 const CityContentToolbar = (props: CityContentToolbarProps) => {
   const { children, openFeedbackModal, iconDirection, hasFeedbackOption = true, hasDivider } = props
+  const [linkCopied, setLinkCopied] = useState<boolean>(false)
   const { t } = useTranslation('categories')
-  const copyToClipboard = () => navigator.clipboard.writeText(window.location.href)
+  const copyToClipboard = () => {
+    navigator.clipboard.writeText(window.location.href)
+    setLinkCopied(true)
+    setTimeout(() => {
+      setLinkCopied(false)
+    }, COPY_TIMEOUT)
+  }
 
   return (
     <Toolbar iconDirection={iconDirection} hasDivider={hasDivider}>
       {children}
-      <ToolbarItem icon={CopyIcon} text={t('copyUrl')} onClick={copyToClipboard} />
+      <Tooltip text={t('copyUrlTooltip')} flow='up' active={linkCopied} trigger='click'>
+        <ToolbarItem icon={linkCopied ? DoneIcon : CopyIcon} text={t('copyUrl')} onClick={copyToClipboard} />
+      </Tooltip>
       {hasFeedbackOption && <FeedbackToolbarItem isPositiveRatingLink openFeedbackModal={openFeedbackModal} />}
       {hasFeedbackOption && <FeedbackToolbarItem isPositiveRatingLink={false} openFeedbackModal={openFeedbackModal} />}
     </Toolbar>
