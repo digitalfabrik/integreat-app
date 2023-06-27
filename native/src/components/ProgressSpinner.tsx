@@ -1,7 +1,7 @@
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Dimensions } from 'react-native'
-import Svg, { Circle, G, Image } from 'react-native-svg'
+import Svg, { Circle, G } from 'react-native-svg'
 import { useTheme } from 'styled-components'
 import styled from 'styled-components/native'
 
@@ -38,12 +38,13 @@ export type ProgressSpinnerProps = {
 const ProgressSpinner = ({ progress }: ProgressSpinnerProps): ReactElement => {
   const { t } = useTranslation('common')
   const theme = useTheme()
+  const LoadingImage = buildConfigAssets().LoadingImage
 
   return (
     <Container>
       <Svg width={svgSize} height={svgSize} testID='loading-image'>
         <G transform={`translate(${logoXY}, ${logoXY})`}>
-          <Image width={logoSize} height={logoSize} xlinkHref={buildConfigAssets().loadingImage} />
+          <LoadingImage width={logoSize} height={logoSize} />
         </G>
         <Circle
           fill='none'

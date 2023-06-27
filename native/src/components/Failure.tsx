@@ -1,6 +1,5 @@
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Text } from 'react-native'
 import { Button } from 'react-native-elements'
 import styled, { useTheme } from 'styled-components/native'
 
@@ -16,8 +15,8 @@ const ViewContainer = styled.View`
   justify-content: center;
   margin-bottom: 15%;
 `
-const IconContainer = styled.Image`
-  margin-bottom: 10px;
+const Message = styled.Text`
+  margin: 10px;
 `
 
 export type FailureProps = {
@@ -29,25 +28,25 @@ export type FailureProps = {
 const Failure = ({ code, buttonAction, buttonLabel }: FailureProps): ReactElement => {
   const { t } = useTranslation('error')
   const theme = useTheme()
-  let errorIcon
+  let ErrorIcon
   switch (code) {
     case ErrorCode.NetworkConnectionFailed: {
-      errorIcon = NoInternetIcon
+      ErrorIcon = NoInternetIcon
       break
     }
     case ErrorCode.UnknownError: {
-      errorIcon = UnknownIcon
+      ErrorIcon = UnknownIcon
       break
     }
     default: {
-      errorIcon = SadIcon
+      ErrorIcon = SadIcon
       break
     }
   }
   return (
     <ViewContainer>
-      <IconContainer source={errorIcon} />
-      <Text>{t(code === ErrorCode.CityUnavailable ? 'notFound.city' : code)}</Text>
+      <ErrorIcon width={60} height={60} />
+      <Message>{t(code === ErrorCode.CityUnavailable ? 'notFound.city' : code)}</Message>
       {buttonAction && (
         <Button
           testID='button-tryAgain'
