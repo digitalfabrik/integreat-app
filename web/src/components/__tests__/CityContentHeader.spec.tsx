@@ -88,7 +88,6 @@ describe('CityContentHeader', () => {
         <CityContentHeader
           languageCode={languageCode}
           route={CATEGORIES_ROUTE}
-          viewportSmall
           cityModel={cityModel(false, false, false, false, false)}
           languageChangePaths={languageChangePaths}
         />
@@ -101,7 +100,6 @@ describe('CityContentHeader', () => {
         <CityContentHeader
           languageCode={languageCode}
           route={CATEGORIES_ROUTE}
-          viewportSmall
           cityModel={cityModel(false, true, false, false, false)}
           languageChangePaths={languageChangePaths}
         />
@@ -114,7 +112,6 @@ describe('CityContentHeader', () => {
         <CityContentHeader
           languageCode={languageCode}
           route={CATEGORIES_ROUTE}
-          viewportSmall
           cityModel={cityModel(false, false, false, false, true)}
           languageChangePaths={languageChangePaths}
         />
@@ -127,7 +124,6 @@ describe('CityContentHeader', () => {
         <CityContentHeader
           languageCode={languageCode}
           route={CATEGORIES_ROUTE}
-          viewportSmall
           cityModel={cityModel(true, true, true, true, true)}
           languageChangePaths={languageChangePaths}
         />
@@ -140,7 +136,6 @@ describe('CityContentHeader', () => {
         <CityContentHeader
           languageCode={languageCode}
           route={CATEGORIES_ROUTE}
-          viewportSmall
           cityModel={cityModel(true, true, true, true, true)}
           languageChangePaths={languageChangePaths}
         />
@@ -157,7 +152,6 @@ describe('CityContentHeader', () => {
         <CityContentHeader
           languageCode={languageCode}
           route={LOCAL_NEWS_ROUTE}
-          viewportSmall
           cityModel={cityModel(true, true, true, true, true)}
           languageChangePaths={languageChangePaths}
         />
@@ -174,7 +168,6 @@ describe('CityContentHeader', () => {
         <CityContentHeader
           languageCode={languageCode}
           route={TU_NEWS_ROUTE}
-          viewportSmall
           cityModel={cityModel(true, true, true, true, true)}
           languageChangePaths={languageChangePaths}
         />
@@ -191,7 +184,6 @@ describe('CityContentHeader', () => {
         <CityContentHeader
           languageCode={languageCode}
           route={TU_NEWS_DETAIL_ROUTE}
-          viewportSmall
           cityModel={cityModel(true, true, true, true, true)}
           languageChangePaths={languageChangePaths}
         />
@@ -208,7 +200,6 @@ describe('CityContentHeader', () => {
         <CityContentHeader
           languageCode={languageCode}
           route={EVENTS_ROUTE}
-          viewportSmall
           cityModel={cityModel(true, true, true, true, true)}
           languageChangePaths={languageChangePaths}
         />
@@ -225,7 +216,6 @@ describe('CityContentHeader', () => {
         <CityContentHeader
           languageCode={languageCode}
           route={OFFERS_ROUTE}
-          viewportSmall
           cityModel={cityModel(true, true, true, true, true)}
           languageChangePaths={languageChangePaths}
         />
@@ -242,7 +232,6 @@ describe('CityContentHeader', () => {
         <CityContentHeader
           languageCode={languageCode}
           route={SPRUNGBRETT_OFFER_ROUTE}
-          viewportSmall
           cityModel={cityModel(true, true, true, true, true)}
           languageChangePaths={languageChangePaths}
         />
@@ -259,7 +248,6 @@ describe('CityContentHeader', () => {
         <CityContentHeader
           languageCode={languageCode}
           route={POIS_ROUTE}
-          viewportSmall
           cityModel={cityModel(true, true, true, true, true)}
           languageChangePaths={languageChangePaths}
         />

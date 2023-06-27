@@ -55,7 +55,7 @@ const moveViewToBBox = (bBox: BBox, defaultVp: MapViewMercatorViewport): MapView
   ])
 }
 
-const PoisPage = ({ cityCode, languageCode, cityModel, pathname, languages }: CityRouteProps): ReactElement => {
+const PoisPage = ({ cityCode, languageCode, city, pathname }: CityRouteProps): ReactElement | null => {
   const { slug: unsafeSlug } = useParams()
   const slug = unsafeSlug ? normalizePath(unsafeSlug) : undefined
   const navigate = useNavigate()
@@ -109,11 +109,15 @@ const PoisPage = ({ cityCode, languageCode, cityModel, pathname, languages }: Ci
     }
   }, [mapRef, data, slug, height, snapPoint, viewportSmall])
 
+  if (!city) {
+    return null
+  }
+
   if (buildConfig().featureFlags.developerFriendly) {
     log('To use geolocation in a development build you have to start the dev server with\n "yarn start --https"')
   }
 
-  const languageChangePaths = languages.map(({ code, name }) => ({
+  const languageChangePaths = city.languages.map(({ code, name }) => ({
     path: pathnameFromRouteInformation({
       route: POIS_ROUTE,
       cityCode,
@@ -147,7 +151,7 @@ const PoisPage = ({ cityCode, languageCode, cityModel, pathname, languages }: Ci
 
   const feedbackModal = feedbackModalRating && (
     <FeedbackModal
-      cityCode={cityModel.code}
+      cityCode={city.code}
       language={languageCode}
       routeType={POIS_ROUTE}
       feedbackRating={feedbackModalRating}
@@ -156,7 +160,7 @@ const PoisPage = ({ cityCode, languageCode, cityModel, pathname, languages }: Ci
   )
 
   const locationLayoutParams = {
-    cityModel,
+    city,
     viewportSmall,
     feedbackTargetInformation: poi ? { slug: poi.slug } : null,
     languageChangePaths,
@@ -203,17 +207,17 @@ const PoisPage = ({ cityCode, languageCode, cityModel, pathname, languages }: Ci
   const renderPoiListItem = (poi: PoiFeature) => (
     <PoiListItem key={poi.properties.path} poi={poi} selectFeature={selectFeature} />
   )
-  const pageTitle = `${t('pageTitle')} - ${cityModel.name}`
+  const pageTitle = `${t('pageTitle')} - ${city.name}`
   const direction = config.getScriptDirection(languageCode)
 
-  const mapView = cityModel.boundingBox && (
+  const mapView = city.boundingBox && (
     <MapView
       geolocationControlPosition={bottomActionSheetHeight}
       ref={updateMapRef}
       selectFeature={selectFeature}
       changeSnapPoint={changeSnapPoint}
       featureCollection={embedInCollection(data.features)}
-      bboxViewport={moveViewToBBox(cityModel.boundingBox, defaultMercatorViewportConfig)}
+      bboxViewport={moveViewToBBox(city.boundingBox, defaultMercatorViewportConfig)}
       currentFeature={currentFeature}
       direction={direction}
       cityCode={cityCode}
@@ -230,7 +234,7 @@ const PoisPage = ({ cityCode, languageCode, cityModel, pathname, languages }: Ci
         pageTitle={pageTitle}
         metaDescription={poi?.metaDescription}
         languageChangePaths={languageChangePaths}
-        cityModel={cityModel}
+        cityModel={city}
       />
       <PoisPageWrapper panelHeights={panelHeights}>
         {viewportSmall ? (
