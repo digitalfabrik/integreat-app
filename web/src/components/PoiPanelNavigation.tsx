@@ -9,7 +9,7 @@ import iconArrowForward from '../assets/IconArrowForward.svg'
 
 const NavigationContainer = styled.div`
   display: flex;
-  padding: 16px;
+  padding: 12px;
   justify-content: space-between;
 `
 
