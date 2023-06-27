@@ -109,6 +109,11 @@ export type DataContainer = {
   _clearOfflineCache(): Promise<void>
 
   /**
+   * Deletes the resources and all content of a city
+   */
+  deleteCity(city: string): Promise<void>
+
+  /**
    * Clears all in-memory caches
    */
   clearInMemoryCache(): void

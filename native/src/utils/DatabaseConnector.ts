@@ -690,16 +690,19 @@ class DatabaseConnector {
         return a.lastUsage.isSame(b.lastUsage) ? 0 : 1
       }) // We only have to remove MAX_STORED_CITIES - 1 since we already filtered for the current resource cache
       .slice(0, -(MAX_STORED_CITIES - 1))
-    await Promise.all(
-      cachesToDelete.map(cityLastUpdate => {
-        const { city } = cityLastUpdate
+    await this.deleteCities(cachesToDelete.map(it => it.city))
+  }
+
+  async deleteCities(cityCodes: string[]): Promise<void> {
+    await Promise.all([
+      ...cityCodes.map(city => {
         log(`Deleting content and resource cache of city '${city}'`)
         const cityResourceCachePath = `${RESOURCE_CACHE_DIR_PATH}/${city}`
         const cityContentPath = `${CONTENT_DIR_PATH}/${city}`
         return Promise.all([deleteIfExists(cityResourceCachePath), deleteIfExists(cityContentPath)])
-      })
-    )
-    await this._deleteMetaOfCities(cachesToDelete.map(it => it.city))
+      }),
+      this._deleteMetaOfCities(cityCodes),
+    ])
   }
 
   isPoisPersisted(context: DatabaseContext): Promise<boolean> {
