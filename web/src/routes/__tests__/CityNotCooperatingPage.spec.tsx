@@ -32,10 +32,10 @@ describe('CityNotCooperatingPage', () => {
 
   it('should handle button click correctly', async () => {
     const { getByText, queryByText } = renderPage()
-    expect(queryByText('cityNotCooperating:textCopied')).toBeNull()
+    expect(queryByText('cityNotCooperating:common:textCopied')).toBeNull()
     const button = getByText('cityNotCooperating:copyText')
     fireEvent.click(button)
-    await waitFor(() => expect(getByText('cityNotCooperating:textCopied')).toBeDefined())
+    await waitFor(() => expect(getByText('cityNotCooperating:common:textCopied')).toBeDefined())
     expect(navigator.clipboard.writeText).toHaveBeenCalled()
   })
 })
