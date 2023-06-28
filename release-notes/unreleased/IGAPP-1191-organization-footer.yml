@@ -1,0 +1,8 @@
+issue_key: IGAPP-1191
+show_in_stores: true
+platforms:
+  - web
+  - android
+  - ios
+en: For content from our cooperation partners we now show some info.
+de: Für Inhalte von unseren Kooperationspartnern zeigen wir nun einen Hinweis an.
