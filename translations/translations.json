@@ -1008,8 +1008,7 @@
         "event": "Dieses Event wurde leider nicht gefunden.",
         "offer": "Dieses Angebot wurde leider nicht gefunden.",
         "poi": "Dieser Ort wurde leider nicht gefunden.",
-        "localNews": "Diese Nachricht wurde leider nicht gefunden.",
-        "tunews": "Diese tünews wurde leider nicht gefunden.",
+        "news": "Diese Nachricht wurde leider nicht gefunden.",
         "pageTitle": "Seite nicht gefunden"
       },
       "pageNotFound": "Diese Seite wurde leider nicht gefunden.",
@@ -1027,8 +1026,7 @@
         "events": "Zu den Veranstaltungen",
         "offers": "Zu den Angeboten",
         "pois": "Zur Karte",
-        "localNews": "Zu den Nachrichten",
-        "tunews": "Zu den tünews"
+        "news": "Zu den Nachrichten"
       },
       "pageTitle": "Fehler",
       "generalError": "Ein Fehler ist aufgetreten",
@@ -1044,8 +1042,7 @@
         "event": "ይቅርታ፣ ይህ ጽግጅት አልተገኘም።",
         "offer": "ይቅርታ፣ ይህ ግብዣ/መጥሪያ አልተገኘም።",
         "poi": "ይህ ቦታ ሊገኝ ኣልቻለም።",
-        "localNews": "ይቅርታ፣ ይህ ዜና አልተገኘም።",
-        "tunews": "ይቅርታ፣ ይህ tünews አልተገኘም።",
+        "news": "ይቅርታ፣ ይህ ዜና አልተገኘም።",
         "pageTitle": "ገጹ አልተገኘም"
       },
       "pageNotFound": "ይቅርታ፣ ይህ ገጽ አልተገኘም።",
@@ -1063,8 +1060,7 @@
         "events": "ወደ ዝግጅቶች",
         "offers": "ወደ ግብዣዎች/መጥሪያዎች",
         "pois": "ወደ ካርታ",
-        "localNews": "ወደ ዜናዎች",
-        "tunews": "ወደ tünews"
+        "news": "ወደ ዜናዎች"
       },
       "pageTitle": "ስህተት",
       "generalError": "ስህተት ተፈጥሯል",
@@ -1080,8 +1076,7 @@
         "event": "للأسف، تعذر العثور على هذا الحدث.",
         "offer": "للأسف، تعذر العثور على هذا العرض.",
         "poi": "للأسف لم يتم العثور على هذا المكان.",
-        "localNews": "للأسف، لم يتم العثور على هذا الخبر.",
-        "tunews": "للأسف، لم يتم العثور على tünews.",
+        "news": "للأسف، لم يتم العثور على هذا الخبر.",
         "pageTitle": "تعذر العثور على الصفحة"
       },
       "pageNotFound": "للأسف، تعذر العثور على هذه الصفحة.",
@@ -1099,8 +1094,7 @@
         "events": "إلى الفعاليات",
         "offers": "إلى العروض",
         "pois": "إلى الخريطة",
-        "localNews": "إلى الأخبار",
-        "tunews": "إلى tünews"
+        "news": "إلى الأخبار"
       },
       "pageTitle": "خطأ",
       "generalError": "حدث خطأ ما",
@@ -1116,8 +1110,7 @@
         "event": "За съжаление това събитие не беше намерено.",
         "offer": "За съжаление тази оферта не беше намерена.",
         "poi": "За съжаление това населено място не беше намерено.",
-        "localNews": "За съжаление това съобщение не бе намерено.",
-        "tunews": "За съжаление тези tünews не бяха намерени.",
+        "news": "За съжаление това съобщение не бе намерено.",
         "pageTitle": "Страницата не е намерена"
       },
       "pageNotFound": "За съжаление тази страница не беше намерена.",
@@ -1135,8 +1128,7 @@
         "events": "Към събитията",
         "offers": "Към офертите",
         "pois": "Към картата",
-        "localNews": "Към новините",
-        "tunews": "Към tünews"
+        "news": "Към новините"
       },
       "pageTitle": "Грешка",
       "generalError": "Възникна грешка",
@@ -1152,8 +1144,7 @@
         "event": "بەداخەوە ئەم ڕووداوە نەدۆزرایەوە.",
         "offer": "بەداخەوە ئەم پێشنیارە نەدۆزرایەوە.",
         "poi": "بەداخەوە ئەم شوێنە نەدۆزرایەوە.",
-        "localNews": "بەداخەوە ئەم هەواڵە نەدۆزرایەوە.",
-        "tunews": "بەداخەوە ئەم هەواڵی توبینگێنە نەدۆزرایەوە.",
+        "news": "بەداخەوە ئەم هەواڵە نەدۆزرایەوە.",
         "pageTitle": "لاپەڕە نەدۆزرایەوە"
       },
       "pageNotFound": "بەداخەوە ئەم لاپەڕە نەدۆزرایەوە.",
@@ -1171,8 +1162,7 @@
         "events": "بۆ ڕووداوەکان",
         "offers": "بۆ پێشنیارەکان",
         "pois": "بۆ نەخشە",
-        "localNews": "بۆ هەواڵ",
-        "tunews": "بۆ هەواڵی توبینگێن"
+        "news": "بۆ هەواڵ"
       },
       "pageTitle": "هەڵە",
       "generalError": "هەڵەیەک ڕووی داوە",
@@ -1188,8 +1178,7 @@
         "event": "Je nám líto, tato akce nebyla nalezena.",
         "offer": "Je nám líto, tato nabídka nebyla nalezena.",
         "poi": "Je nám líto, toto místo nebylo nalezeno.",
-        "localNews": "Je nám líto, tato zpráva nebyla nalezena.",
-        "tunews": "Je nám líto, tato zpráva nebyla nalezena.",
+        "news": "Je nám líto, tato zpráva nebyla nalezena.",
         "pageTitle": "Stránka nebyla nalezena"
       },
       "pageNotFound": "Je nám líto, tato stránka nebyla nalezena.",
@@ -1207,8 +1196,7 @@
         "events": "K akcím",
         "offers": "K nabídkám",
         "pois": "Na mapu",
-        "localNews": "Ke zprávám",
-        "tunews": "Ke zprávám"
+        "news": "Ke zprávám"
       },
       "pageTitle": "Chyba",
       "generalError": "Došlo k chybě",
@@ -1224,8 +1212,7 @@
         "event": "Δυστυχώς, αυτή η εκδήλωση δεν βρέθηκε.",
         "offer": "Δυστυχώς, αυτή η προσφορά δεν βρέθηκε.",
         "poi": "Δυστυχώς δεν βρέθηκε αυτή η τοποθεσία.",
-        "localNews": "Δυστυχώς, αυτό το μήνυμα δεν βρέθηκε.",
-        "tunews": "Δυστυχώς, δεν βρέθηκαν αυτά τα νέα.",
+        "news": "Δυστυχώς, αυτό το μήνυμα δεν βρέθηκε.",
         "pageTitle": "Η σελίδα δεν βρέθηκε"
       },
       "pageNotFound": "Δυστυχώς, αυτή η σελίδα δεν βρέθηκε.",
@@ -1243,8 +1230,7 @@
         "events": "Προς εκδηλώσεις",
         "offers": "Προς προσφορές",
         "pois": "Μετάβαση στο χάρτη",
-        "localNews": "Προς ειδήσεις",
-        "tunews": "Προς νέα"
+        "news": "Προς ειδήσεις"
       },
       "pageTitle": "Σφάλμα",
       "generalError": "Παρουσιάστηκε σφάλμα",
@@ -1260,8 +1246,7 @@
         "event": "Sorry, but this event could not be found.",
         "offer": "Sorry, but this offer could not be found.",
         "poi": "Sorry, this place was not found.",
-        "localNews": "Sorry, but this message could not be found.",
-        "tunews": "Sorry, but this tünews could not be found.",
+        "news": "Sorry, but this message could not be found.",
         "pageTitle": "Page not found"
       },
       "pageNotFound": "Sorry, but the requested page could not be found.",
@@ -1279,8 +1264,7 @@
         "events": "Go to events",
         "offers": "Go to offers",
         "pois": "Go to map",
-        "localNews": "Go to news",
-        "tunews": "Go to tünews"
+        "news": "Go to news"
       },
       "pageTitle": "Error",
       "generalError": "An error occurred",
@@ -1296,8 +1280,7 @@
         "event": "No se ha encontrado este evento.",
         "offer": "No se ha encontrado esta oferta.",
         "poi": "No se ha encontrado esta localidad.",
-        "localNews": "No se ha encontrado este mensaje.",
-        "tunews": "No se ha encontrado este tünews.",
+        "news": "No se ha encontrado este mensaje.",
         "pageTitle": "No se ha encontrado la página"
       },
       "pageNotFound": "No se ha encontrado esta página.",
@@ -1315,8 +1298,7 @@
         "events": "Ir a las actividades",
         "offers": "Ir a las ofertas",
         "pois": "Ir al mapa",
-        "localNews": "Ir a los mensajes",
-        "tunews": "Ir a los tünews"
+        "news": "Ir a los mensajes"
       },
       "pageTitle": "Error",
       "generalError": "Se ha producido un error",
@@ -1332,8 +1314,7 @@
         "event": "Tapahtumaa ei löydetty.",
         "offer": "Tarjousta ei löydetty.",
         "poi": "Paikkaa ei löydetty.",
-        "localNews": "Viestiä ei löydetty.",
-        "tunews": "tünews-uutisia ei löydetty.",
+        "news": "Viestiä ei löydetty.",
         "pageTitle": "Sivua ei löytynyt"
       },
       "pageNotFound": "Sivua ei löydetty.",
@@ -1351,8 +1332,7 @@
         "events": "Siirry tapahtumiin",
         "offers": "Siirry tarjouksiin",
         "pois": "Siirry karttaan",
-        "localNews": "Siirry uutisiin",
-        "tunews": "Siirry kohteeseen tünews"
+        "news": "Siirry uutisiin"
       },
       "pageTitle": "Virhe",
       "generalError": "Ilmeni virhe",
@@ -1368,8 +1348,7 @@
         "event": "Malheureusement, cet événement est introuvable.",
         "offer": "Malheureusement, cette offre est introuvable.",
         "poi": "Cette localité n’a malheureusement pas été trouvée.",
-        "localNews": "Malheureusement, ce message est introuvable.",
-        "tunews": "Malheureusement, cette tünews est introuvable.",
+        "news": "Malheureusement, ce message est introuvable.",
         "pageTitle": "Page introuvable"
       },
       "pageNotFound": "Malheureusement, cette page est introuvable.",
@@ -1387,8 +1366,7 @@
         "events": "Vers les événements",
         "offers": "Vers les offres",
         "pois": "Aller à la carte",
-        "localNews": "Accéder aux messages",
-        "tunews": "Accéder aux tünews"
+        "news": "Accéder aux messages"
       },
       "pageTitle": "Erreur",
       "generalError": "Une erreur s'est produite",
@@ -1404,8 +1382,7 @@
         "event": "Ovo događanje nažalost nije pronađeno.",
         "offer": "Ova ponuda nažalost nije pronađena.",
         "poi": "To mjesto nažalost nije pronađeno.",
-        "localNews": "Ova vijest nažalost nije pronađena.",
-        "tunews": "Ova vijest tünews nažalost nije pronađena.",
+        "news": "Ova vijest nažalost nije pronađena.",
         "pageTitle": "Stranica nije pronađena"
       },
       "pageNotFound": "Ova stranica nažalost nije pronađena.",
@@ -1423,8 +1400,7 @@
         "events": "Na događanja",
         "offers": "Na ponude",
         "pois": "Idi na kartu",
-        "localNews": "Na vijesti",
-        "tunews": "Na tünews"
+        "news": "Na vijesti"
       },
       "pageTitle": "Pogreške",
       "generalError": "Došlo je do pogreške",
@@ -1440,8 +1416,7 @@
         "event": "Ez az esemény sajnos nem található.",
         "offer": "Ez az ajánlat sajnos nem található.",
         "poi": "Ez a hely nem található.",
-        "localNews": "Ez az üzenet sajnos nem található.",
-        "tunews": "Ez a tünews sajnos nem található.",
+        "news": "Ez az üzenet sajnos nem található.",
         "pageTitle": "Az oldal nem található"
       },
       "pageNotFound": "Ez az oldal sajnos nem található.",
@@ -1459,8 +1434,7 @@
         "events": "Az Eseményekhez",
         "offers": "Az Ajánlatokhoz",
         "pois": "A térképhez",
-        "localNews": "A hírekhez",
-        "tunews": "A tünews-hoz"
+        "news": "A hírekhez"
       },
       "pageTitle": "Hiba",
       "generalError": "Hiba lépett fel.",
@@ -1476,8 +1450,7 @@
         "event": "Purtroppo questo evento non è stato trovato.",
         "offer": "Purtroppo questa offerta non è stata trovata.",
         "poi": "Purtroppo questa località non è stata trovata.",
-        "localNews": "Purtroppo questo messaggio non è stato trovato.",
-        "tunews": "Purtroppo questo tünews non è stato trovato.",
+        "news": "Purtroppo questo messaggio non è stato trovato.",
         "pageTitle": "Pagina non trovata"
       },
       "pageNotFound": "Purtroppo questa pagina non è stata trovata.",
@@ -1495,8 +1468,7 @@
         "events": "Vai su Eventi",
         "offers": "Vai su Offerte",
         "pois": "Vai alla mappa",
-        "localNews": "Vai su Messaggi",
-        "tunews": "Vai su tünews"
+        "news": "Vai su Messaggi"
       },
       "pageTitle": "Errore",
       "generalError": "Si è verificato un errore",
@@ -1512,8 +1484,7 @@
         "event": "სამწუხაროდ ეს ღონისძიება ვერ მოიძებნა.",
         "offer": "სამწუხაროდ ეს შეთავაზება ვერ მოიძებნა.",
         "poi": "ეს ადგილი სამწუხაროდ ვერ მოიძებნა.",
-        "localNews": "სამწუხაროდ ეს ინფორმაცია ვერ მოიძებნა.",
-        "tunews": "ეს ტუნიუს ინფორმაციები სამწუხაროდ ვერ მოიძებნა",
+        "news": "სამწუხაროდ ეს ინფორმაცია ვერ მოიძებნა.",
         "pageTitle": "გვერდი არ იძებნება"
       },
       "pageNotFound": "სამწუხაროდ ეს გვერდი ვერ მოიძებნა.",
@@ -1531,8 +1502,7 @@
         "events": "ღონისძიებებისაკენ",
         "offers": "შეთავაზებებისაკენ",
         "pois": "რუქაზე გადასვლა",
-        "localNews": "ინფორმაციებისაკენ",
-        "tunews": "ტუნიუსისაკენ"
+        "news": "ინფორმაციებისაკენ"
       },
       "pageTitle": "შეცდომა",
       "generalError": "გამოვლინდა შეცდომა",
@@ -1548,8 +1518,7 @@
         "event": "Mixabin ev rûdan peyde nebû.",
         "offer": "Mixabin ev xizmet peyde nebû.",
         "poi": "Mixabin, ev der peyda nebû.",
-        "localNews": "Mixabin ev peyam nehat peydakirin.",
-        "tunews": "Mixabin, ev nûçeyta taybet (tünews) nehat dîtin.",
+        "news": "Mixabin ev peyam nehat peydakirin.",
         "pageTitle": "Rûpel nehat dîtin"
       },
       "pageNotFound": "Mixabin ev rûpel peyde nebû.",
@@ -1567,8 +1536,7 @@
         "events": "Ber bi rûdanan va",
         "offers": "Ber bi xizmetan va",
         "pois": "Bo nexşeyê",
-        "localNews": "Bo nûçeyan",
-        "tunews": "Bo nûçeyên taybet (tünews)"
+        "news": "Bo nûçeyan"
       },
       "pageTitle": "Şaşitî (Eror)",
       "generalError": "Şaşitiyek qewimiye",
@@ -1584,8 +1552,7 @@
         "event": "За жал овој настан не е пронајден.",
         "offer": "За жал оваа понуда не е пронајдена.",
         "poi": "За жал, ова место не беше пронајдено.",
-        "localNews": "За жал оваа вест не е пронајдена.",
-        "tunews": "За жал овие tünews не се пронајдени.",
+        "news": "За жал оваа вест не е пронајдена.",
         "pageTitle": "Страницата не е пронајдена"
       },
       "pageNotFound": "За жал оваа страница не е пронајдена.",
@@ -1603,8 +1570,7 @@
         "events": "Кон настаните",
         "offers": "Кон понудите",
         "pois": "Кон мапата",
-        "localNews": "Кон вестите",
-        "tunews": "Кон tünews"
+        "news": "Кон вестите"
       },
       "pageTitle": "Грешка",
       "generalError": "Настапи грешка",
@@ -1620,8 +1586,7 @@
         "event": "Sorry, dit evenement kan niet worden gevonden.",
         "offer": "Sorry, dit aanbod kan niet worden gevonden.",
         "poi": "Sorry, deze locatie is niet gevonden.",
-        "localNews": "Sorry, dit bericht kan niet worden gevonden.",
-        "tunews": "Sorry, dit nieuws kan niet worden gevonden.",
+        "news": "Sorry, dit bericht kan niet worden gevonden.",
         "pageTitle": "Pagina niet gevonden."
       },
       "pageNotFound": "Sorry, de gevraagde pagina kan niet worden gevonden.",
@@ -1639,8 +1604,7 @@
         "events": "Ga naar evenementen",
         "offers": "Ga naar aanbod",
         "pois": "Ga naar de kaart",
-        "localNews": "Ga naar nieuws",
-        "tunews": "Ga naar nieuws"
+        "news": "Ga naar nieuws"
       },
       "pageTitle": "Fout",
       "generalError": "Er is een fout opgetreden.",
@@ -1656,8 +1620,7 @@
         "event": "متأسفانه این رویداد یافت نشد.",
         "offer": "متأسفانه این خدمات یافت نشد.",
         "poi": "متاسفانه این محل پیدا نشد.",
-        "localNews": "متاسفانه این خبر یافت نشد.",
-        "tunews": "متاسفانه این اخبار توبینگن یافت نشد.",
+        "news": "متاسفانه این خبر یافت نشد.",
         "pageTitle": "صفحه یافت نشد"
       },
       "pageNotFound": "متاسفانه این صفحه یافت نشد.",
@@ -1675,8 +1638,7 @@
         "events": "به سوی رویدادها",
         "offers": "به سوی خدمات",
         "pois": "به نقشه",
-        "localNews": "به اخبار",
-        "tunews": "به اخبار توبینگن"
+        "news": "به اخبار"
       },
       "pageTitle": "خطا",
       "generalError": "خطایی رخ داده است",
@@ -1692,8 +1654,7 @@
         "event": "Niestety nie znaleziono tego wydarzenia.",
         "offer": "Niestety nie znaleziono tej oferty.",
         "poi": "Niestety ta miejscowość nie została znaleziona.",
-        "localNews": "Niestety nie znaleziono tej wiadomości.",
-        "tunews": "Niestety nie znaleziono tej tünews.",
+        "news": "Niestety nie znaleziono tej wiadomości.",
         "pageTitle": "Nie znaleziono strony"
       },
       "pageNotFound": "Niestety nie znaleziono tej strony.",
@@ -1711,8 +1672,7 @@
         "events": "Do wydarzeń",
         "offers": "Do ofert",
         "pois": "Przejdź do mapy",
-        "localNews": "Do wiadomości",
-        "tunews": "Do tünews"
+        "news": "Do wiadomości"
       },
       "pageTitle": "Błąd",
       "generalError": "Wystąpił błąd",
@@ -1728,8 +1688,7 @@
         "event": "متاسفانه این رویداد پیدا نشد‎.",
         "offer": "متاسفانه این پیشنهاد پیدا نشد‎.",
         "poi": "متاسفانه این محل پیدا نشد.",
-        "localNews": "متاسفانه این خبر پیدا نشد‎.",
-        "tunews": "متاسفانه این‎ ‎اخبار توبینگن‎ ‎پیدا نشد‎.",
+        "news": "متاسفانه این خبر پیدا نشد‎.",
         "pageTitle": "صفحه پیدا نشد"
       },
       "pageNotFound": "متاسفانه این صفحه پیدا نشد.",
@@ -1747,8 +1706,7 @@
         "events": "به رویدادها",
         "offers": "به پیشنهادات",
         "pois": "به نقشه",
-        "localNews": "به اخبار",
-        "tunews": "به اخبار توبینگن"
+        "news": "به اخبار"
       },
       "pageTitle": "خطا",
       "generalError": "خطایی رخ داده است",
@@ -1764,8 +1722,7 @@
         "event": "دا غونډه له بده مرغه پیدا نشوه.",
         "offer": "دا وړاندیز له بده مرغه پیدا نشو.",
         "poi": "دا ځای له بده مرغه پیدا نه شو.",
-        "localNews": ".بخښنه غواړم، دا پیغام ونه موندل شو.",
-        "tunews": "بخښنه غواړم دا  خبر پیدا نشو.",
+        "news": ".بخښنه غواړم، دا پیغام ونه موندل شو.",
         "pageTitle": "پاڼه پیدا نشوه"
       },
       "pageNotFound": "دا پاڼه له بده مرغه پیدا نشوه.",
@@ -1783,8 +1740,7 @@
         "events": "غونډو ته تلل",
         "offers": "وړاندیزونو ته تلل",
         "pois": "نقشی تہ تلل",
-        "localNews": "خبرونو ته",
-        "tunews": "تو خبرونو ته"
+        "news": "خبرونو ته"
       },
       "pageTitle": "اشتباه",
       "generalError": "یوه اشتباه رامینځته شوه",
@@ -1800,8 +1756,7 @@
         "event": "No hemos encontrado este evento.",
         "offer": "No hemos encontrado esta oferta.",
         "poi": "No hemos encontrado este lugar.",
-        "localNews": "No hemos encontrado esta noticia.",
-        "tunews": "No hemos encontrado esta tünews.",
+        "news": "No hemos encontrado esta noticia.",
         "pageTitle": "Página no encontrada"
       },
       "pageNotFound": "No hemos encontrado esta página.",
@@ -1819,8 +1774,7 @@
         "events": "Ir a los eventos",
         "offers": "Ir a las ofertas",
         "pois": "Ir al mapa",
-        "localNews": "Ir a las noticias",
-        "tunews": "Ir a las tünews"
+        "news": "Ir a las noticias"
       },
       "pageTitle": "Error",
       "generalError": "Se ha producido un error",
@@ -1836,8 +1790,7 @@
         "event": "Acest eveniment nu a fost găsit, din păcate.",
         "offer": "Această ofertă nu a fost găsită, din păcate.",
         "poi": "Ne pare rău, această localitate nu a fost găsită.",
-        "localNews": "Această știre nu a fost găsită, din păcate.",
-        "tunews": "Această tünews nu a fost găsită, din păcate.",
+        "news": "Această știre nu a fost găsită, din păcate.",
         "pageTitle": "Pagină nu a fost găsită"
       },
       "pageNotFound": "Această pagină nu a fost găsită, din păcate.",
@@ -1855,8 +1808,7 @@
         "events": "Spre evenimente",
         "offers": "Spre oferte",
         "pois": "Spre hartă",
-        "localNews": "Spre știri",
-        "tunews": "Spre tünews"
+        "news": "Spre știri"
       },
       "pageTitle": "Erori",
       "generalError": "A apărut o eroare",
@@ -1872,8 +1824,7 @@
         "event": "К сожалению, это событие не найдено.",
         "offer": "К сожалению, это предложение не найдено.",
         "poi": "К сожалению, этот населенный пункт не найден.",
-        "localNews": "К сожалению, это сообщение не найдено.",
-        "tunews": "К сожалению, эта новость tünews не найдена.",
+        "news": "К сожалению, это сообщение не найдено.",
         "pageTitle": "Страница не найдена"
       },
       "pageNotFound": "К сожалению, эта страница не найдена.",
@@ -1891,8 +1842,7 @@
         "events": "К мероприятиям",
         "offers": "К предложениям",
         "pois": "К карте",
-        "localNews": "К сообщениям",
-        "tunews": "К новостям tünews"
+        "news": "К сообщениям"
       },
       "pageTitle": "Ошибка",
       "generalError": "Произошла ошибка",
@@ -1908,8 +1858,7 @@
         "event": "Nasiib darro, dhacdadan lama helin.",
         "offer": "Nasiib darro, dalabkan lama helin.",
         "poi": "Nasiib darro, goobtan lama helin.",
-        "localNews": "Nasiib daro, fariintaan lama helin.",
-        "tunews": "Nasiib daro, aqbaarahaan gaarka ah (tünews) lama helin.",
+        "news": "Nasiib daro, fariintaan lama helin.",
         "pageTitle": "Bogga lama helin"
       },
       "pageNotFound": "Nasiib darro, boggan lama helin.",
@@ -1927,8 +1876,7 @@
         "events": "Aad dhacdooyinka",
         "offers": "Ku saabsan dalabyada",
         "pois": "Aad khariidadda",
-        "localNews": "Ee aqbaaraha",
-        "tunews": "Ee aqbaaraha gaarka ah (tünews)"
+        "news": "Ee aqbaaraha"
       },
       "pageTitle": "Qalad",
       "generalError": "Khalad ayaa dhacay",
@@ -1944,8 +1892,7 @@
         "event": "Ky eveniment për fat të keq nuk u gjet.",
         "offer": "Kjo ofertë për fat të keq nuk u gjet.",
         "poi": "Fatkeqësisht, ky vend nuk u gjet.",
-        "localNews": "Ky lajm për fat të keq nuk u gjet.",
-        "tunews": "Ky tünews për fat të keq nuk u gjet.",
+        "news": "Ky lajm për fat të keq nuk u gjet.",
         "pageTitle": "Faqja nuk u gjet"
       },
       "pageNotFound": "Kjo faqe për fat të keq nuk u gjet.",
@@ -1963,8 +1910,7 @@
         "events": "Tek evenimentet",
         "offers": "Tek ofertat",
         "pois": "Tek harta",
-        "localNews": "Tek lajmet",
-        "tunews": "Tek tünews"
+        "news": "Tek lajmet"
       },
       "pageTitle": "Gabim",
       "generalError": "Një gabim ka ndodhur",
@@ -1980,8 +1926,7 @@
         "event": "Нажалост, овај догађај није пронађен.",
         "offer": "Нажалост, ова понуда није пронађена.",
         "poi": "Нажалост, ова локација није пронађена.",
-        "localNews": "Нажалост, ова порука није пронађена.",
-        "tunews": "Ове tünews вести нажалост нису пронађене.",
+        "news": "Нажалост, ова порука није пронађена.",
         "pageTitle": "Страна није пронађена"
       },
       "pageNotFound": "Нажалост, ова страница није пронађена.",
@@ -1999,8 +1944,7 @@
         "events": "Ка догађајима",
         "offers": "Ка понудама",
         "pois": "Ка картама",
-        "localNews": "Ка вестима",
-        "tunews": "Ка tünews"
+        "news": "Ка вестима"
       },
       "pageTitle": "Грешка",
       "generalError": "Дошло је до грешке",
@@ -2016,8 +1960,7 @@
         "event": "Nažalost, ovaj događaj nije pronađen.",
         "offer": "Nažalost, ova ponuda nije pronađena.",
         "poi": "Nažalost, ova lokacija nije pronađena.",
-        "localNews": "Nažalost, ova poruka nije pronađena.",
-        "tunews": "Ove tünews vesti nažalost nisu pronađene.",
+        "news": "Nažalost, ova poruka nije pronađena.",
         "pageTitle": "Strana nije pronađena"
       },
       "pageNotFound": "Nažalost, ova stranica nije pronađena.",
@@ -2035,8 +1978,7 @@
         "events": "Ka događajima",
         "offers": "Ka ponudama",
         "pois": "Ka kartama",
-        "localNews": "Ka vestima",
-        "tunews": "Ka tünews"
+        "news": "Ka vestima"
       },
       "pageTitle": "Greška",
       "generalError": "Došlo je do greške",
@@ -2052,8 +1994,7 @@
         "event": "ሕማቕ ኣጋጣሚ ኮይኑ፡ እዚ ኣጋጣሚ እዚ ኣይተረኽበን።",
         "offer": "ሕማቕ ኣጋጣሚ ኮይኑ፡ እዚ ኣቕርቦት’ዚ ኣይተረኽበን።",
         "poi": "እዚ ቦታ ክርከብ ኣይተኸኣለን።",
-        "localNews": "ሕማቕ ኣጋጣሚ ኾይኑ፡ እዚ መልእኽቲ እዚ ኣይተረኽበን።",
-        "tunews": "ሕማቕ ኣጋጣሚ ኾይኑ፡ እዚ ፍሉይ ዜና'ዚ (tünews) ኣየተረኽበን።",
+        "news": "ሕማቕ ኣጋጣሚ ኾይኑ፡ እዚ መልእኽቲ እዚ ኣይተረኽበን።",
         "pageTitle": "ገጽ ኣይተረኽበን"
       },
       "pageNotFound": "ሕማቕ ኣጋጣሚ ኮይኑ፡ እዚ ገጽ’ዚ ኣይተረኽበን።",
@@ -2071,8 +2012,7 @@
         "events": "ናብቶም ኣጋጣሚታት",
         "offers": "ብዛዕባ እቶም ኣቕርቦታት",
         "pois": "ናብ ካርታ",
-        "localNews": "ነቲ ዜና",
-        "tunews": "ነቲ ፍሉይ ዜና (tünews)"
+        "news": "ነቲ ዜና"
       },
       "pageTitle": "ጌጋ",
       "generalError": "ሓደ ጌጋ ተኸሲቱ ኣሎ",
@@ -2088,8 +2028,7 @@
         "event": "Bu etkinlik maalesef bulunamadı.",
         "offer": "Bu teklif maalesef bulunamadı.",
         "poi": "Maalesef, bu yer bulunamadı.",
-        "localNews": "Bu mesaj ne yazık ki bulunamadı.",
-        "tunews": "Bu tünews ne yazık ki bulunamadı.",
+        "news": "Bu mesaj ne yazık ki bulunamadı.",
         "pageTitle": "Sayfa bulunamadı"
       },
       "pageNotFound": "Bu sayfa maalesef bulunamadı.",
@@ -2107,8 +2046,7 @@
         "events": "Etkinliklere git",
         "offers": "Tekliflere git",
         "pois": "Haritaya git",
-        "localNews": "Mesajlara git",
-        "tunews": "tünews'a git"
+        "news": "Mesajlara git"
       },
       "pageTitle": "Hata",
       "generalError": "Bir hata oluştu",
@@ -2124,8 +2062,7 @@
         "event": "Вибачте, це не знайдено.",
         "offer": "Вибачте, ця пропозиція не знайдена.",
         "poi": "Вибачте, це місце не знайдено.",
-        "localNews": "На жаль, ця новина не знайдена.",
-        "tunews": "На жаль, це повідомлення не було знайдено.",
+        "news": "На жаль, ця новина не знайдена.",
         "pageTitle": "Сторінка не знайдена"
       },
       "pageNotFound": "Вибачте, ця сторінка не знайдено.",
@@ -2143,8 +2080,7 @@
         "events": "До подій",
         "offers": "До пропозицій",
         "pois": "До карти",
-        "localNews": "До новин",
-        "tunews": "До tünews"
+        "news": "До новин"
       },
       "pageTitle": "Помилка",
       "generalError": "Виникла помилка",
@@ -2160,8 +2096,7 @@
         "event": "معذرت، یہ ایونٹ نہیں ملا۔",
         "offer": "معذرت، یہ پیش کش نہیں ملی۔",
         "poi": "معذرت، یہ جگہ  یہاں نہیں ملی۔",
-        "localNews": "معذرت، یہ خبر نہیں ملی۔",
-        "tunews": "معذرت، یہ tünews نہیں ملا۔",
+        "news": "معذرت، یہ خبر نہیں ملی۔",
         "pageTitle": "صفحہ نہیں ملا"
       },
       "pageNotFound": "معذرت، یہ صفحہ نہیں ملا۔",
@@ -2179,8 +2114,7 @@
         "events": "ایونٹس پر",
         "offers": "پیش کشوں کے متعلق",
         "pois": "نقشے سے متعلق",
-        "localNews": "خبروں پر",
-        "tunews": "Tünews پر"
+        "news": "خبروں پر"
       },
       "pageTitle": "خرابی",
       "generalError": "ایک خرابی پیش آئی ہے",
@@ -2196,8 +2130,7 @@
         "event": "很抱歉，找不到此活动。",
         "offer": "很抱歉，找不到此提供项目。",
         "poi": "很遗憾，未找到此地点。",
-        "localNews": "很抱歉，找不到此新闻。",
-        "tunews": "很抱歉，找不到此 tünews。",
+        "news": "很抱歉，找不到此新闻。",
         "pageTitle": "未找到网页"
       },
       "pageNotFound": "很抱歉，找不到此页面。",
@@ -2215,8 +2148,7 @@
         "events": "前往活动",
         "offers": "前往提供项目",
         "pois": "前往地图",
-        "localNews": "前往新闻",
-        "tunews": "前往 tünews"
+        "news": "前往新闻"
       },
       "pageTitle": "错误",
       "generalError": "发生了错误",
