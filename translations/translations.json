@@ -114,8 +114,7 @@
       "whatToDo": "Das kannst Du tun:",
       "findOutMail": "E-Mail Adresse Deiner Region herausfinden",
       "sendText": "Diesen Text kopieren, die [ ]-Inhalte mit Deinen Angaben füllen und abschicken",
-      "copyText": "Text kopieren",
-      "textCopied": "Kopiert"
+      "copyText": "Text kopieren"
     },
     "am": {
       "callToAction": "የኣከባቢህን መወሃድ የሚመለከት ሃሳብ ኣቅርብ!",
@@ -123,8 +122,7 @@
       "whatToDo": "ይሄንን ማድረግ ትችላለህ:",
       "findOutMail": "ያንተን ኣከባቢ ኢ-ሜይል ኣድራሻ ማግኘት",
       "sendText": "ያንተን ጽሑፍ መቅዳት፣ የ [ ]-ይዞታውን በራስህ ቃል ሞልተህ መላክ",
-      "copyText": "ጽሑፍ መቅዳት",
-      "textCopied": "ተቀድቷል"
+      "copyText": "ጽሑፍ መቅዳት"
     },
     "ar": {
       "callToAction": "اقترح تطبيق Integreat في منطقتك!",
@@ -132,8 +130,7 @@
       "whatToDo": "الذي يمكنك فعله:",
       "findOutMail": "الحصول على البريد الإليكتروني لمنطقتك",
       "sendText": "نسخ هذا النص وتعبئة المحتويات [] ببياناتك وإسالها",
-      "copyText": "نسخ النص",
-      "textCopied": "تم النسخ"
+      "copyText": "نسخ النص"
     },
     "bg": {
       "callToAction": "Предложете Integreat на Вашия регион!",
@@ -141,8 +138,7 @@
       "whatToDo": "Можете да направите това:",
       "findOutMail": "Да намерите имейл адреса на Вашия регион",
       "sendText": "Копирайте този текст, попълнете съдържанието в  [ ] с вашите данни и изпратете.",
-      "copyText": "Копирайте текста",
-      "textCopied": "Копиран"
+      "copyText": "Копирайте текста"
     },
     "ckb": {
       "callToAction": "Integreat پێشنیار بدە بە ناوچەکەت!",
@@ -150,8 +146,7 @@
       "whatToDo": "تۆ دەتوانی ئەم کارانەی خوارەوە بکەیت:",
       "findOutMail": "ناونیشانی ئیمەیلی ناوچەکەت بدۆزەوە",
       "sendText": "ئەم تێکستە کۆپی بکە، پاشان بەشی [ ] بە زانیاریی خۆت پڕ بکەوە و بینێرە.",
-      "copyText": "تێکست کۆپی بکە",
-      "textCopied": "کۆپی کرا"
+      "copyText": "تێکست کۆپی بکە"
     },
     "cs": {
       "callToAction": "Navrhněte Integreat pro svůj region!",
@@ -159,8 +154,7 @@
       "whatToDo": "To můžete udělat:",
       "findOutMail": "Zjistěte e-mailovou adresu svého regionu",
       "sendText": "Zkopírujte tento text, vyplňte []-obsah svými údaji a odešlete jej.",
-      "copyText": "Kopírovat text",
-      "textCopied": "Kopírovat"
+      "copyText": "Kopírovat text"
     },
     "el": {
       "callToAction": "Προτείνετε το Integreat στην περιοχή σας!",
@@ -168,8 +162,7 @@
       "whatToDo": "Μπορείτε να κάνετε το εξής:",
       "findOutMail": "Μάθετε τη διεύθυνση e-mail στην περιοχή σας",
       "sendText": "Αντιγράψτε αυτό το κείμενο, συμπληρώστε το περιεχόμενο [ ] με τα στοιχεία σας και στείλτε το",
-      "copyText": "Αντιγραφή κειμένου",
-      "textCopied": "Αντιγράφηκε"
+      "copyText": "Αντιγραφή κειμένου"
     },
     "en": {
       "callToAction": "Suggest your region to Integreat!",
@@ -177,8 +170,7 @@
       "whatToDo": "This is what you can do:",
       "findOutMail": "Get the e-mail address of your region",
       "sendText": "Copy this text, complete the [ ]-contents with your details and send off",
-      "copyText": "Copy text",
-      "textCopied": "Copied"
+      "copyText": "Copy text"
     },
     "es": {
       "callToAction": "¡Proponga Integreat en su región!",
@@ -186,8 +178,7 @@
       "whatToDo": "Esto es lo que debe de hacer:",
       "findOutMail": "Encontrar el correo electrónico de su región",
       "sendText": "Copiar este texto, rellenar los [ ] con sus datos y enviar",
-      "copyText": "Copiar texto",
-      "textCopied": "Copiado"
+      "copyText": "Copiar texto"
     },
     "fi": {
       "callToAction": "Ehdota aluettasi Integreatille!",
@@ -195,8 +186,7 @@
       "whatToDo": "Toimi näin:",
       "findOutMail": "Selvitä alueesi sähköpostiosoite",
       "sendText": "Kopioi tämä teksti, täytä tietosi [ ]-sisältöihin ja lähetä",
-      "copyText": "Kopioi teksti",
-      "textCopied": "Kopioitu"
+      "copyText": "Kopioi teksti"
     },
     "fr": {
       "callToAction": "Propose Integreat à ta région !",
@@ -204,8 +194,7 @@
       "whatToDo": "Voici ce que tu peux faire :",
       "findOutMail": "Trouver l’adresse électronique de ta région",
       "sendText": "Copier ce texte, remplir les contenus [ ] avec tes données et envoyer",
-      "copyText": "Copier le texte",
-      "textCopied": "Copié"
+      "copyText": "Copier le texte"
     },
     "hr": {
       "callToAction": "Predloži Integreat svojoj regiji!",
@@ -213,8 +202,7 @@
       "whatToDo": "Ovo možeš napraviti:",
       "findOutMail": "pronaći adresu e-pošte svoje regije",
       "sendText": "kopirati ovaj tekst, ispuniti sadržaje [ ] svojim podacima i poslati",
-      "copyText": "Kopiraj tekst",
-      "textCopied": "kopirano"
+      "copyText": "Kopiraj tekst"
     },
     "hu": {
       "callToAction": "Add meg az Integreatnek a régiódat!",
@@ -222,8 +210,7 @@
       "whatToDo": "A következőt teheted:",
       "findOutMail": "Érdeklődd meg régiód e-mail címét",
       "sendText": "Másold be ezt a szöveget, [ ]-töltsd ki a tartalmat az adataiddal és küldd el",
-      "copyText": "Szöveg bemásolása",
-      "textCopied": "Bemásolva"
+      "copyText": "Szöveg bemásolása"
     },
     "it": {
       "callToAction": "Suggerisci Integreat nella tua regione!",
@@ -231,8 +218,7 @@
       "whatToDo": "Cosa puoi fare:",
       "findOutMail": "Scopri l'indirizzo email della tua regione",
       "sendText": "Copia questo testo, compila i contenuti [ ] con i tuoi dati e invia",
-      "copyText": "Copia testo",
-      "textCopied": "Copiato"
+      "copyText": "Copia testo"
     },
     "ka": {
       "callToAction": "შემოგვთავაზე შენი რეგიონის დამატება!",
@@ -240,8 +226,7 @@
       "whatToDo": "შენ შეგიძლია გააკეთო შემდეგი:",
       "findOutMail": "მოიძიე შენი რეგიონის ელფოსტის მისამართი",
       "sendText": "ჩააკოპირე ეს ტექსტი, [ ]-შინაარსში შეიყვანე შენი მონაცემები და გაგზავნე",
-      "copyText": "დააკოპირე ტექსტი",
-      "textCopied": "დაკოპირებულია"
+      "copyText": "დააკოპირე ტექსტი"
     },
     "kmr": {
       "callToAction": "Integreatê pêşniyarî navçeya xwe bike!",
@@ -249,8 +234,7 @@
       "whatToDo": "Hûn dikarin van karan bikin:",
       "findOutMail": "Navnîşana navçeya xwe peyda bikin",
       "sendText": "Vê nivîsê kopî bikin, piştre beşa [ ] bi zanebûna xwe tijî bike û bişînin.",
-      "copyText": "Nivîsê kopî bike",
-      "textCopied": "Kopî bû"
+      "copyText": "Nivîsê kopî bike"
     },
     "mk": {
       "callToAction": "Предложи Integreat во твојот регион!",
@@ -258,8 +242,7 @@
       "whatToDo": "Можеш да го направиш ова:",
       "findOutMail": "Да ја дознаеш адресата на е-пошта во твојот регион",
       "sendText": "Да го копираш овој текст, да ги пополниш [ ]-содржините со твоите податоци и да ги испратиш",
-      "copyText": "Копирај го текстот",
-      "textCopied": "Копирано"
+      "copyText": "Копирај го текстот"
     },
     "nl": {
       "callToAction": "Geef je regio op!",
@@ -267,8 +250,7 @@
       "whatToDo": "Dit is wat je kunt doen:",
       "findOutMail": "Krijg het emailadres van jouw regio",
       "sendText": "Kopieer deze tekst, vul de […] content aan met jouw details en verstuur",
-      "copyText": "Kopieer tekst",
-      "textCopied": "Gekopieerd"
+      "copyText": "Kopieer tekst"
     },
     "pes": {
       "callToAction": "Integreat را به منطقه خود معرفی کنید!",
@@ -276,8 +258,7 @@
       "whatToDo": "این کار را می‌توانید انجام دهید:",
       "findOutMail": "نشانی ایمیل منطقه‌تان را پیدا کنید",
       "sendText": "این متن را کپی کنید، محتوای [ ] را با مشخصات خود پر کنید و بفرستید",
-      "copyText": "متن را کپی کنید",
-      "textCopied": "کپی شد"
+      "copyText": "متن را کپی کنید"
     },
     "pl": {
       "callToAction": "Zaproponuj Integreat w swoim regionie!",
@@ -285,8 +266,7 @@
       "whatToDo": "To możesz zrobić:",
       "findOutMail": "Dowiedz się, jaki jest adres mailowy Twojego regionu",
       "sendText": "Skopiuj ten tekst, wypełnij część w [ ] swoimi danymi i wyślij go",
-      "copyText": "Skopiuj tekst",
-      "textCopied": "Skopiowano"
+      "copyText": "Skopiuj tekst"
     },
     "prs": {
       "callToAction": "منطقه خود را به Integreat معرفی کنید!",
@@ -294,8 +274,7 @@
       "whatToDo": "می‌توانید این کار را انجام دهید:",
       "findOutMail": "آدرس ایمیل منطقه خود را پیدا کنید",
       "sendText": "این متن را کپی کنید، محتویات [ ] را با مشخصات خود پر کنید و بفرستید",
-      "copyText": "متن را کپی کنید",
-      "textCopied": "کپی شد"
+      "copyText": "متن را کپی کنید"
     },
     "ps": {
       "callToAction": "ستاسو د سیمې سره د یوځای کیدو وړاندیز وکړی",
@@ -303,8 +282,7 @@
       "whatToDo": "دلتہ بہ تاسو اومومئ چی دا بہ څنګه کوئ:",
       "findOutMail": "تاسو دی خپلی علاقی ای میل ایدریس معلوم کړئ۔",
       "sendText": "دا متن کاپی کړئ ، د خپلو تفصیلاتو سره د [ ] محتوا ډکه کړئ او  او یی لیږئ۔",
-      "copyText": "متن کاپی کړئ",
-      "textCopied": "کاپی شولو"
+      "copyText": "متن کاپی کړئ"
     },
     "pt": {
       "callToAction": "¡Propón Integreat en tu región!",
@@ -312,8 +290,7 @@
       "whatToDo": "Esto es lo que puedes hacer:",
       "findOutMail": "Averigua el correo electrónico de tu zona",
       "sendText": "Copia este texto, rellena el contenido de [ ] con tus datos y envíalo",
-      "copyText": "Copiar el texto",
-      "textCopied": "Copiado"
+      "copyText": "Copiar el texto"
     },
     "ro": {
       "callToAction": "Propuneți Integreat pentru regiunea dumneavoastră!",
@@ -321,8 +298,7 @@
       "whatToDo": "Iată ce puteți face:",
       "findOutMail": "Aflați adresa de e-mail a regiunii dvs.",
       "sendText": "Copiați acest text, completați conținutul [ ] cu datele dumneavoastră și trimiteți-l.",
-      "copyText": "Copiați textul",
-      "textCopied": "Copiat"
+      "copyText": "Copiați textul"
     },
     "ru": {
       "callToAction": "Предложите Integreat своему региону!",
@@ -330,8 +306,7 @@
       "whatToDo": "Вам нужно выполнить следующие простые шаги:",
       "findOutMail": "найти адрес электронной почты вашего региона;",
       "sendText": "скопировать этот текст, заполнить содержимое [ ], указав ваши данные, и отправить.",
-      "copyText": "Копировать текст",
-      "textCopied": "Скопировано"
+      "copyText": "Копировать текст"
     },
     "so": {
       "callToAction": "Ablikeeshinka Recomment Integreat ee gobolkaaga!",
@@ -339,8 +314,7 @@
       "whatToDo": "Halkaan waxaa ku qoran waxa aad sameyn karto:",
       "findOutMail": "Ka hel ciwaanka iimaylka ee gobolkaaga",
       "sendText": "Koobiyeyso qoraalkan, buuxi qeybta [ ] adigoo isticmaalaya macluumaadkaaga kadibna dir",
-      "copyText": "Koobiyeey qoraalka",
-      "textCopied": "la koobiyeeyay"
+      "copyText": "Koobiyeey qoraalka"
     },
     "sq": {
       "callToAction": "Sugjeroni Integreat në rajonin tuaj!",
@@ -348,8 +322,7 @@
       "whatToDo": "Ti mund ta besh kete:",
       "findOutMail": "Gjeni adresën e emailit në rajonin tuaj",
       "sendText": "Kopjojeni këtë tekst, plotësoni përmbajtjen [ ] me të dhënat tuaja dhe dërgojeni",
-      "copyText": "kopjoni tekstin",
-      "textCopied": "e kopjuar"
+      "copyText": "kopjoni tekstin"
     },
     "sr-Cyrl": {
       "callToAction": "Предложите Интегреат у свом региону!",
@@ -357,8 +330,7 @@
       "whatToDo": "Ово можете учинити:",
       "findOutMail": "Сазнајте адресу е-поште у вашем региону",
       "sendText": "Копирајте овај текст, попуните [ ] садржај својим подацима и пошаљите",
-      "copyText": "копирај текст",
-      "textCopied": "копирано"
+      "copyText": "копирај текст"
     },
     "sr-Latn": {
       "callToAction": "Predložite Integreat u svom regionu!",
@@ -366,17 +338,15 @@
       "whatToDo": "Ovo možete učiniti:",
       "findOutMail": "Saznajte adresu e-pošte u vašem regionu",
       "sendText": "Kopirajte ovaj tekst, popunite [ ] sadržaj svojim podacima i pošaljite",
-      "copyText": "kopiraj tekst",
-      "textCopied": "kopirano"
+      "copyText": "kopiraj tekst"
     },
     "ti": {
       "callToAction": "ናይ ከባቢኻ ምጽንባር ሓሳብ ኣቕርብ!",
-      "explanation": "እዚ ንምኽሳብ ዘይኮነ ናይ ምጽንባር ኣፕ ጽንሰ ሓሳብ ንዓኻ ኣእሚንካዶ፣ ከምኡ ከኣ በዚ ናይ ዲጂታል ፍታሕ ንከተማኻ፣ ንከባቢኻ ወይ ድማ ንማሕበር መንበሪ ዓድኻ ክጠቅም ይኽእል ትብልዶ? ስለዚ ኣብዚ ብቐሊሉ ክትነጥፍ ትኽእል።  ",
+      "explanation": "እዚ ንምኽሳብ ዘይኮነ ናይ ምጽንባር ኣፕ ጽንሰ ሓሳብ ንዓኻ ኣእሚንካዶ፣ ከምኡ ከኣ በዚ ናይ ዲጂታል ፍታሕ ንከተማኻ፣ ንከባቢኻ ወይ ድማ ንማሕበር መንበሪ ዓድኻ ክጠቅም ይኽእል ትብልዶ? ስለዚ ኣብዚ ብቐሊሉ ክትነጥፍ ትኽእል።",
       "whatToDo": "ነዚ ክትገብር ትኽእል:",
       "findOutMail": "ናይ ከባቢኻ ኢ-ሜይል ኣድራሻ ምርካብ",
       "sendText": "ነዚ ጽሑፍ ምቕዳሕ፣ ነዚ [ ]-ትሕዝቶ ብናትካ ቃላት መሊእካ ምልኣኽ",
-      "copyText": "ጽሑፍ ምቕዳሕ",
-      "textCopied": "ተቐዲሑ"
+      "copyText": "ጽሑፍ ምቕዳሕ"
     },
     "tr": {
       "callToAction": "Bölgen için Integreat uygulamasını öner!",
@@ -384,8 +354,7 @@
       "whatToDo": "Bunu yapabilirsin:",
       "findOutMail": "Bölgenin e-posta adresini öğrenebilirsin",
       "sendText": "Bu metni kopyala, [ ]-içerikleri kendi bilgilerinle doldur ve gönder",
-      "copyText": "Metni kopyala",
-      "textCopied": "kopyalandı"
+      "copyText": "Metni kopyala"
     },
     "uk": {
       "callToAction": "Запропонуйте підключити Integreat у вашому регіоні!",
@@ -393,8 +362,7 @@
       "whatToDo": "Ось що ви можете зробити:",
       "findOutMail": "Дізнайтесь адресу електронної пошти вашого регіону",
       "sendText": "Скопіюйте цей текст, заповніть пропуски [ ] вашими даними та надішліть його.",
-      "copyText": "Скопіюйте текст",
-      "textCopied": "Копіювати"
+      "copyText": "Скопіюйте текст"
     },
     "ur": {
       "callToAction": "اپنے علاقے کو شامل کرنے کے لئے تجویز کریں۔",
@@ -402,8 +370,7 @@
       "whatToDo": "یہاں آپ کو اس کو کرنے کا طریقہ ملے گا:",
       "findOutMail": "آپ اپنے علاقے کا ای میل ایڈریس معلوم کریں۔",
       "sendText": "اس ٹیکسٹ کو کاپی کریں اور اپنی تفصیلات اس [ ] میں درج کریں اور بھیج دیں۔",
-      "copyText": "ٹیکسٹ کو کاپی کریں۔",
-      "textCopied": "کاپی کیا گیا"
+      "copyText": "ٹیکسٹ کو کاپی کریں۔"
     },
     "zh-CN": {
       "callToAction": "向你所在地区推荐Integreat！",
@@ -411,12 +378,12 @@
       "whatToDo": "你可以这么做：",
       "findOutMail": "找出你所在地区的电子邮件地址",
       "sendText": "复制此文本，用你的信息填充[]内容并发送",
-      "copyText": "复制文本",
-      "textCopied": "已复制"
+      "copyText": "复制文本"
     }
   },
   "common": {
     "de": {
+      "textCopied": "Kopiert",
       "moreOptions": "Mehr Optionen",
       "languageNotAvailable": "Deine Sprache ist hier leider nicht verfügbar.",
       "chooseALanguage": "Wähle eine Sprache.",
@@ -424,6 +391,7 @@
       "loading": "Lade ..."
     },
     "am": {
+      "textCopied": "ተቀድቷል",
       "moreOptions": "የበዛ ኣማራጭ",
       "languageNotAvailable": "ይቅርታ፣ ቋንቋዎ እዚህ ላይ የለም።",
       "chooseALanguage": "ቋንቋ ይምረጡ።",
@@ -431,6 +399,7 @@
       "loading": "እየጫነ ነው ..."
     },
     "ar": {
+      "textCopied": "تم النسخ",
       "moreOptions": "مزيد من الخيارات",
       "languageNotAvailable": "للأسف، لغتك ليست متاحة.",
       "chooseALanguage": "اختر لغة.",
@@ -438,6 +407,7 @@
       "loading": "حمّل..."
     },
     "bg": {
+      "textCopied": "Копиран",
       "moreOptions": "Още опции",
       "languageNotAvailable": "За съжаление, езикът Ви не е наличен тук.",
       "chooseALanguage": "Изберете език.",
@@ -445,6 +415,7 @@
       "loading": "Зареждане..."
     },
     "ckb": {
+      "textCopied": "کۆپی کرا",
       "moreOptions": "بژاردەی زیاتر",
       "languageNotAvailable": "بەداخەوە زمانەکەتی تێدا نییە.",
       "chooseALanguage": "زمانێک هەڵبژێرە.",
@@ -452,6 +423,7 @@
       "loading": "خەریکی بارکردنە..."
     },
     "cs": {
+      "textCopied": "Kopírovat",
       "moreOptions": "Další možnosti",
       "languageNotAvailable": "Váš jazyk zde není k dispozici.",
       "chooseALanguage": "Vyberte si jazyk.",
@@ -459,6 +431,7 @@
       "loading": "Načítání ..."
     },
     "el": {
+      "textCopied": "Αντιγράφηκε",
       "moreOptions": "Περισσότερες επιλογές",
       "languageNotAvailable": "Δυστυχώς, η γλώσσα σας δεν είναι διαθέσιμη εδώ.",
       "chooseALanguage": "Επιλέξτε μια γλώσσα.",
@@ -466,6 +439,7 @@
       "loading": "Φόρτωση ..."
     },
     "en": {
+      "textCopied": "Copied",
       "moreOptions": "More options",
       "languageNotAvailable": "Sorry, but your language is not available here.",
       "chooseALanguage": "Choose a language.",
@@ -473,6 +447,7 @@
       "loading": "Loading ..."
     },
     "es": {
+      "textCopied": "Copiado",
       "moreOptions": "Más opciones",
       "languageNotAvailable": "Tu idioma no está disponible aquí.",
       "chooseALanguage": "Selecciona un idioma.",
@@ -480,6 +455,7 @@
       "loading": "Cargando..."
     },
     "fi": {
+      "textCopied": "Kopioitu",
       "moreOptions": "Lisää vaihtoehtoja",
       "languageNotAvailable": "Kielesi ei ole saatavilla.",
       "chooseALanguage": "Valitse kieli.",
@@ -487,6 +463,7 @@
       "loading": "Lataa..."
     },
     "fr": {
+      "textCopied": "Copié",
       "moreOptions": "Plus d’options",
       "languageNotAvailable": "Malheureusement, ta langue n'est pas disponible ici.",
       "chooseALanguage": "Choisis une langue.",
@@ -494,6 +471,7 @@
       "loading": "Chargement ..."
     },
     "hr": {
+      "textCopied": "kopirano",
       "moreOptions": "Više opcija",
       "languageNotAvailable": "Tvoj jezik ovdje nažalost nije dostupan.",
       "chooseALanguage": "Odaberi jezik.",
@@ -501,6 +479,7 @@
       "loading": "Učitava se..."
     },
     "hu": {
+      "textCopied": "Bemásolva",
       "moreOptions": "További lehetőségek",
       "languageNotAvailable": "A nyelved sajnos nem elérhető.",
       "chooseALanguage": "Válassz ki egy nyelvet.",
@@ -508,6 +487,7 @@
       "loading": "Betöltés..."
     },
     "it": {
+      "textCopied": "Copiato",
       "moreOptions": "Più opzioni",
       "languageNotAvailable": "Purtroppo la tua lingua non è disponibile qui.",
       "chooseALanguage": "Scegli una lingua.",
@@ -515,6 +495,7 @@
       "loading": "Caricamento..."
     },
     "ka": {
+      "textCopied": "დაკოპირებულია",
       "moreOptions": "მეტი ვარიანტი",
       "languageNotAvailable": "შენი ენა აქ არ მოიხმარება",
       "chooseALanguage": "აირჩიე ენა.",
@@ -522,6 +503,7 @@
       "loading": "ატვირთე…"
     },
     "kmr": {
+      "textCopied": "Kopî bû",
       "moreOptions": "Bijardeyên zêdetir",
       "languageNotAvailable": "Mixabin zimanê te li vir li ber dest nîne.",
       "chooseALanguage": "Zimanekî bibijêre.",
@@ -529,6 +511,7 @@
       "loading": "Di halê birojkirinê da..."
     },
     "mk": {
+      "textCopied": "Копирано",
       "moreOptions": "Повеќе опции",
       "languageNotAvailable": "За жал твојот јазик не е достапен.",
       "chooseALanguage": "Избери јазик.",
@@ -536,6 +519,7 @@
       "loading": "Вчитај..."
     },
     "nl": {
+      "textCopied": "Gekopieerd",
       "moreOptions": "Meer opties",
       "languageNotAvailable": "Sorry, jouw taal is hier niet beschikbaar",
       "chooseALanguage": "Kies een taal",
@@ -543,6 +527,7 @@
       "loading": "Aan het laden…"
     },
     "pes": {
+      "textCopied": "کپی شد",
       "moreOptions": "گزینه‌های بیشتر",
       "languageNotAvailable": "متاسفانه زبان شما در اینجا در دسترس نیست.",
       "chooseALanguage": "یک زبان را انتخاب کنید.",
@@ -550,6 +535,7 @@
       "loading": "در حال بارگیری ..."
     },
     "pl": {
+      "textCopied": "Skopiowano",
       "moreOptions": "Więcej opcji",
       "languageNotAvailable": "Niestety Twój język nie jest tutaj dostępny.",
       "chooseALanguage": "Wybierz język.",
@@ -557,6 +543,7 @@
       "loading": "Załaduj..."
     },
     "prs": {
+      "textCopied": "کپی شد",
       "moreOptions": "انتخاب‌‌های بیشتر",
       "languageNotAvailable": "متاسفانه لسان شما در اینجا موجود نیست‎.",
       "chooseALanguage": "یک لسان انتخاب کنید.",
@@ -564,6 +551,7 @@
       "loading": "در حال دانلود ..."
     },
     "ps": {
+      "textCopied": "کاپی شولو",
       "moreOptions": "نور اختیارونه",
       "languageNotAvailable": "له بده مرغه ستا ژبه دلته موجوده نده.",
       "chooseALanguage": "یوه ژبه انتخاب کړه.",
@@ -571,6 +559,7 @@
       "loading": "بارولے کیږی ۔۔۔"
     },
     "pt": {
+      "textCopied": "Copiado",
       "moreOptions": "Más opciones",
       "languageNotAvailable": "Lamentablemente, tu idioma no está disponible.",
       "chooseALanguage": "Elige un idioma.",
@@ -578,6 +567,7 @@
       "loading": "Cargar ..."
     },
     "ro": {
+      "textCopied": "Copiat",
       "moreOptions": "Mai multe opțiuni",
       "languageNotAvailable": "Din păcate, aici nu este disponibilă limba ta.",
       "chooseALanguage": "Alege o limbă.",
@@ -585,6 +575,7 @@
       "loading": "Se încarcă ..."
     },
     "ru": {
+      "textCopied": "Скопировано",
       "moreOptions": "дополнительные опции",
       "languageNotAvailable": "К сожалению, ваш язык здесь не используется.",
       "chooseALanguage": "Выбор языка.",
@@ -592,6 +583,7 @@
       "loading": "Загрузка..."
     },
     "so": {
+      "textCopied": "la koobiyeeyay",
       "moreOptions": "Xulashooyin dheeraad ah",
       "languageNotAvailable": "Nasiib darro, luqaddaada halkan lagama heli karo.",
       "chooseALanguage": "Dooro luuqad.",
@@ -599,6 +591,7 @@
       "loading": "Xareysmeyso ..."
     },
     "sq": {
+      "textCopied": "e kopjuar",
       "moreOptions": "Me shumë opsione",
       "languageNotAvailable": "Fatkeqësisht, gjuha juaj nuk është në dispozicion këtu.",
       "chooseALanguage": "Zgjidh një gjuhë.",
@@ -606,6 +599,7 @@
       "loading": "Ngarko ..."
     },
     "sr-Cyrl": {
+      "textCopied": "копирано",
       "moreOptions": "Више опција",
       "languageNotAvailable": "Нажалост, твој језик овде није доступан.",
       "chooseALanguage": "Изабери језик.",
@@ -613,6 +607,7 @@
       "loading": "Учитава се ..."
     },
     "sr-Latn": {
+      "textCopied": "kopirano",
       "moreOptions": "Više opcija",
       "languageNotAvailable": "Nažalost, tvoj jezik ovde nije dostupan.",
       "chooseALanguage": "Izaberi jezik.",
@@ -620,6 +615,7 @@
       "loading": "Učitava se ..."
     },
     "ti": {
+      "textCopied": "ተቐዲሑ",
       "moreOptions": "ዝበዝሐ ኣማራጺ",
       "languageNotAvailable": "ሕማቕ ኣጋጣሚ ኮይኑ፡ ቋንቋኻ ኣብዚ የለን።",
       "chooseALanguage": "ቋንቋ ምረጽ።",
@@ -627,6 +623,7 @@
       "loading": "ይጽዓን ኣሎ ..."
     },
     "tr": {
+      "textCopied": "kopyalandı",
       "moreOptions": "Daha fazla seçenek",
       "languageNotAvailable": "Senin dilin burada maalesef yok.",
       "chooseALanguage": "Bir dil seçin.",
@@ -634,6 +631,7 @@
       "loading": "Yükleniyor ..."
     },
     "uk": {
+      "textCopied": "Копіювати",
       "moreOptions": "Більше опцій",
       "languageNotAvailable": "Ваша мова тут недоступна.",
       "chooseALanguage": "Виберіть мову.",
@@ -641,6 +639,7 @@
       "loading": "Завантаження ..."
     },
     "ur": {
+      "textCopied": "کاپی کیا گیا",
       "moreOptions": "نسخہ:",
       "languageNotAvailable": "معذرت، آپ کی زبان یہاں دستیاب نہیں۔",
       "chooseALanguage": "زبان منتخب کریں۔",
@@ -648,6 +647,7 @@
       "loading": "لوڈ ہو رہا ہے ‎…"
     },
     "zh-CN": {
+      "textCopied": "已复制",
       "moreOptions": "更多选项",
       "languageNotAvailable": "很抱歉，这里没有提供您的语言。",
       "chooseALanguage": "请选择一种语言。",
@@ -4421,7 +4421,7 @@
       "cancel": "Annuleer",
       "shareMessage": "Zojuist gevonden: {{message}}",
       "shareFailDefaultMessage": "Helaas is er een fout opgetreden bij het delen van de content",
-      "disclaimer": "Impressum  "
+      "disclaimer": "Impressum"
     },
     "pes": {
       "imprintAndContact": "اطلاعات ناشر و تماس",
@@ -4903,7 +4903,7 @@
     },
     "sr-Latn": {
       "version": "Verzija:",
-      "license": "Licenca: ",
+      "license": "Licenca:",
       "noLicensesMessage": "Nema dostupnih informacija o licenci"
     },
     "ti": {
@@ -5385,7 +5385,7 @@
         "localNews": "Lokaal nieuws",
         "pageTitle": "Lokaal nieuws"
       },
-      "local": "Lokaal   ",
+      "local": "Lokaal",
       "readMore": "Ga door",
       "currentlyNoNews": "Op dit moment is er geen nieuws."
     },
@@ -6704,7 +6704,7 @@
       "distanceKilometreAlternative": "{{distance}} km",
       "distanceMetre": "{{distance}} m udaljen",
       "distanceMetreAlternative": "{{distance}} m",
-      "contactInformation": " Kontakt informacije ",
+      "contactInformation": " Kontakt informacije",
       "address": "Adresa",
       "phone": "Telefon",
       "eMail": "Adresa e-pošte",
@@ -6715,14 +6715,14 @@
       "phoneCopied": "Broj telefona je kopiran na klipbordu",
       "eMailCopied": "Adresa e-pošte je kopirana na klipbordu",
       "websiteCopied": "Veb strana je kopirana na klipbordu",
-      "listTitle": "U vašoj blizini ",
-      "detailsHeader": " Nazad u pregled ",
+      "listTitle": "U vašoj blizini",
+      "detailsHeader": " Nazad u pregled",
       "detailsAddress": "Opis puta",
-      "detailsMapLink": "Otvori u Google mapama ",
-      "detailsInformation": "Informacije ",
-      "detailsNextPoi": "Sledeći ",
-      "detailsPreviousPoi": "Prethodni ",
-      "openExternalMaps": "Otvori u aplikaciji mape "
+      "detailsMapLink": "Otvori u Google mapama",
+      "detailsInformation": "Informacije",
+      "detailsNextPoi": "Sledeći",
+      "detailsPreviousPoi": "Prethodni",
+      "openExternalMaps": "Otvori u aplikaciji mape"
     },
     "ti": {
       "pageTitle": "ካርታ",
@@ -6749,7 +6749,7 @@
       "eMailCopied": "ኢ-ሜይል ኣድራሻ ኣብ መጽንሒ ማሕደር ተቐዲሑ",
       "websiteCopied": "መርበብ ሓበሬታ ኣብ መጽንሒ ማሕደር ተቐዲሑ",
       "listTitle": "ኣብ ጥቓኻ",
-      "detailsHeader": "ናብ መርኣዪ ትሕዝቶ ይመለስ ",
+      "detailsHeader": "ናብ መርኣዪ ትሕዝቶ ይመለስ",
       "detailsAddress": "መገዲ ምሕባር",
       "detailsMapLink": "ኣብ ጉግል ማፕ ክፈት",
       "detailsInformation": "ሓበሬታት",
@@ -7094,7 +7094,7 @@
       "openSourceLicenses": "የምንጭ ፍቃዶችን ይክፈቱ",
       "tracking": "የJ-PAL ግምገማ",
       "allowTracking": "ክትትሉን ይፍቀዱ",
-      "trackingMoreInformation": "የ J-PAL የግምገማ ጥናትን የሚመለከት ተጨማሪ መረጃና የጥናቱ ዓላማ  ",
+      "trackingMoreInformation": "የ J-PAL የግምገማ ጥናትን የሚመለከት ተጨማሪ መረጃና የጥናቱ ዓላማ",
       "trackingLeaveTitle": "ዱካ መከታተልን መፍቀድ?",
       "enabled": "ሰርቷል",
       "disabled": "አይሰራም",
@@ -7570,7 +7570,7 @@
       "openSourceLicenses": "ናጻ-ዝምንጮም ፍቓዳት ስራሕ",
       "tracking": "ግምገማ J-PAL",
       "allowTracking": "ክትትል ኣፍቅድ",
-      "trackingMoreInformation": "ተወሳኺ ሓበሬታ ብዛዕባ ናይ J-Pal ግምገማ መጽናዕቲን ናይ መጽናዕቲ ዕላማን  ",
+      "trackingMoreInformation": "ተወሳኺ ሓበሬታ ብዛዕባ ናይ J-Pal ግምገማ መጽናዕቲን ናይ መጽናዕቲ ዕላማን",
       "trackingLeaveTitle": "ኣሰር ንምክትታል ምፍቃድ?",
       "enabled": "ከምዝነጥፍ ተገይሩ",
       "disabled": "ከምዘይነጥፍ ተገይሩ",
@@ -8027,7 +8027,7 @@
         "phone": "Telefoonnummer",
         "error": "Helaas, er is iets misgegaan.",
         "invalid_accommodation": "Dit aanbod is niet langer beschikbaar.",
-        "send": "Stuur   "
+        "send": "Stuur"
       },
       "facetBeds": "Aantal bedden",
       "facetCity": "Plaats/postcode",
@@ -8109,7 +8109,7 @@
       "title": "مسکن"
     },
     "ps": {
-      "title": "د اوسیدلو کوټہ "
+      "title": "د اوسیدلو کوټہ"
     },
     "pt": {
       "title": "Habitaciones",
@@ -8323,7 +8323,7 @@
       "wg": "Комунальна квартира",
       "comments": "Коментарі",
       "noSheltersAvailable": "Немає доступного житла",
-      "shelterType": "вид квартири ",
+      "shelterType": "вид квартири",
       "startDate": "Доступне з",
       "availableBeds": "наявні ліжка",
       "duration": "можлива тривалість перебування",
