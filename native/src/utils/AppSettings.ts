@@ -85,7 +85,7 @@ class AppSettings {
     return settings.contentLanguage
   }
 
-  setSelectedCity = async (city: string): Promise<void> => {
+  setSelectedCity = async (city: string | null): Promise<void> => {
     await this.setSettings({
       selectedCity: city,
     })

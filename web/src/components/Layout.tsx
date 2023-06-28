@@ -1,4 +1,4 @@
-import React, { ReactNode, useEffect, useState } from 'react'
+import React, { ReactNode, useLayoutEffect, useState } from 'react'
 import styled, { css } from 'styled-components'
 
 import dimensions from '../constants/dimensions'
@@ -105,10 +105,9 @@ const Main = styled.main<{ fullWidth: boolean }>`
 `
 
 const Aside = styled.aside<{ languageSelectorHeight: number }>`
-  top: ${props => props.languageSelectorHeight + dimensions.headerHeightLarge}px;
+  margin-top: ${props => props.languageSelectorHeight - dimensions.navigationMenuHeight}px;
   display: inline-block;
   position: sticky;
-  padding-top: 32px;
   width: ${dimensions.toolbarWidth}px;
   vertical-align: top;
   transition: top 0.2s ease-in-out;
@@ -152,8 +151,7 @@ const Layout = ({
   const { width, viewportSmall } = useWindowDimensions()
   const [languageSelectorHeight, setLanguageSelectorHeight] = useState<number>(0)
 
-  // TODO fix wrong panel height when switching from local to tunews
-  useEffect(() => {
+  useLayoutEffect(() => {
     const panelHeight = document.getElementById('languageSelector')?.clientHeight
     setLanguageSelectorHeight(panelHeight ?? 0)
   }, [width])

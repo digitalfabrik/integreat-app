@@ -47,7 +47,7 @@ const getBreadcrumb = (category: CategoryModel, cityName: string) => {
   })
 }
 
-const CategoriesPage = ({ cityModel, pathname, languages, cityCode, languageCode }: CityRouteProps): ReactElement => {
+const CategoriesPage = ({ city, pathname, cityCode, languageCode }: CityRouteProps): ReactElement | null => {
   const previousPathname = usePreviousProp({ prop: pathname })
   const categoryId = useParams()['*']
   const { t } = useTranslation('layout')
@@ -86,13 +86,17 @@ const CategoriesPage = ({ cityModel, pathname, languages, cityCode, languageCode
   }, [cityCode, languageCode, pathname, categoryId])
   const { data: parents, loading: parentsLoading, error: parentsError } = useLoadAsync(requestParents)
 
+  if (!city) {
+    return null
+  }
+
   if (!categoryId && categories) {
     // The root category is not delivered via our endpoints
     categories.push(
       new CategoryModel({
         root: true,
         path: pathname,
-        title: cityModel.name,
+        title: city.name,
         parentPath: '',
         content: '',
         thumbnail: '',
@@ -115,7 +119,7 @@ const CategoriesPage = ({ cityModel, pathname, languages, cityCode, languageCode
     />
   )
 
-  const languageChangePaths = languages.map(({ code, name }) => {
+  const languageChangePaths = city.languages.map(({ code, name }) => {
     const isCurrentLanguage = code === languageCode
     const path = category?.isRoot()
       ? cityContentPath({ cityCode, languageCode: code })
@@ -129,8 +133,7 @@ const CategoriesPage = ({ cityModel, pathname, languages, cityCode, languageCode
   })
 
   const locationLayoutParams = {
-    cityModel,
-    viewportSmall,
+    city,
     feedbackTargetInformation: category && !category.isRoot() ? { slug: category.slug } : null,
     languageChangePaths,
     route: CATEGORIES_ROUTE,
@@ -170,10 +173,10 @@ const CategoriesPage = ({ cityModel, pathname, languages, cityCode, languageCode
 
   const ancestorBreadcrumbs = parents
     .sort((a, b) => a.parentPath.length - b.parentPath.length)
-    .map((categoryModel: CategoryModel) => getBreadcrumb(categoryModel, cityModel.name))
+    .map((categoryModel: CategoryModel) => getBreadcrumb(categoryModel, city.name))
 
   const metaDescription = t('categories:metaDescription', { appName: buildConfig().appName })
-  const pageTitle = `${!category.isRoot() ? `${category.title} - ` : ''}${cityModel.name}`
+  const pageTitle = `${!category.isRoot() ? `${category.title} - ` : ''}${city.name}`
 
   return (
     <CityContentLayout isLoading={false} {...locationLayoutParams}>
@@ -181,11 +184,11 @@ const CategoriesPage = ({ cityModel, pathname, languages, cityCode, languageCode
         pageTitle={pageTitle}
         metaDescription={metaDescription}
         languageChangePaths={languageChangePaths}
-        cityModel={cityModel}
+        cityModel={city}
       />
       <Breadcrumbs
         ancestorBreadcrumbs={ancestorBreadcrumbs}
-        currentBreadcrumb={getBreadcrumb(category, cityModel.name)}
+        currentBreadcrumb={getBreadcrumb(category, city.name)}
         direction={uiDirection}
       />
       <CategoriesContent

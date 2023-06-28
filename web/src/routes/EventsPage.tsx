@@ -31,7 +31,7 @@ import usePreviousProp from '../hooks/usePreviousProp'
 import useWindowDimensions from '../hooks/useWindowDimensions'
 import featuredImageToSrcSet from '../utils/featuredImageToSrcSet'
 
-const EventsPage = ({ cityModel, languages, pathname, languageCode, cityCode }: CityRouteProps): ReactElement => {
+const EventsPage = ({ city, pathname, languageCode, cityCode }: CityRouteProps): ReactElement | null => {
   const previousPathname = usePreviousProp({ prop: pathname })
   const { eventId } = useParams()
   const { t } = useTranslation('events')
@@ -45,6 +45,10 @@ const EventsPage = ({ cityModel, languages, pathname, languageCode, cityCode }: 
     error: eventsError,
   } = useLoadFromEndpoint(createEventsEndpoint, cmsApiBaseUrl, { city: cityCode, language: languageCode })
 
+  if (!city) {
+    return null
+  }
+
   // TODO IGAPP-1078: Remove workaround of looking up path until '$'
   const event = eventId
     ? events?.find(it => it.path === pathname) ??
@@ -55,7 +59,7 @@ const EventsPage = ({ cityModel, languages, pathname, languageCode, cityCode }: 
     <CityContentToolbar openFeedbackModal={openFeedback} hasDivider={viewportSmall && !!event} />
   )
 
-  const languageChangePaths = languages.map(({ code, name }) => {
+  const languageChangePaths = city.languages.map(({ code, name }) => {
     const isCurrentLanguage = code === languageCode
     const path = event
       ? event.availableLanguages.get(code) || null
@@ -68,7 +72,7 @@ const EventsPage = ({ cityModel, languages, pathname, languageCode, cityCode }: 
   })
 
   const locationLayoutParams = {
-    cityModel,
+    city,
     viewportSmall,
     feedbackTargetInformation: event ? { slug: event.slug } : null,
     languageChangePaths,
@@ -117,7 +121,7 @@ const EventsPage = ({ cityModel, languages, pathname, languageCode, cityCode }: 
   if (event) {
     const { featuredImage, thumbnail, lastUpdate, content, title, location, date } = event
     const defaultThumbnail = featuredImage ? featuredImage.medium.url : thumbnail
-    const pageTitle = `${event.title} - ${cityModel.name}`
+    const pageTitle = `${event.title} - ${city.name}`
 
     const PageFooter = (
       <TextButton fullWidth={viewportSmall} onClick={() => downloadEventAsIcsFile(event)} text={t('exportAsICal')} />
@@ -125,7 +129,7 @@ const EventsPage = ({ cityModel, languages, pathname, languageCode, cityCode }: 
 
     return (
       <CityContentLayout isLoading={false} {...locationLayoutParams}>
-        <Helmet pageTitle={pageTitle} languageChangePaths={languageChangePaths} cityModel={cityModel} />
+        <Helmet pageTitle={pageTitle} languageChangePaths={languageChangePaths} cityModel={city} />
         <JsonLdEvent event={event} formatter={formatter} />
         <Page
           defaultThumbnailSrc={defaultThumbnail}
@@ -149,11 +153,11 @@ const EventsPage = ({ cityModel, languages, pathname, languageCode, cityCode }: 
     <EventListItem event={event} formatter={formatter} key={event.path} />
   )
 
-  const pageTitle = `${t('pageTitle')} - ${cityModel.name}`
+  const pageTitle = `${t('pageTitle')} - ${city.name}`
 
   return (
     <CityContentLayout isLoading={false} {...locationLayoutParams}>
-      <Helmet pageTitle={pageTitle} languageChangePaths={languageChangePaths} cityModel={cityModel} />
+      <Helmet pageTitle={pageTitle} languageChangePaths={languageChangePaths} cityModel={city} />
       <Caption title={t('events')} />
       <List noItemsMessage={t('currentlyNoEvents')} items={events} renderItem={renderEventListItem} />
     </CityContentLayout>

@@ -20,7 +20,7 @@ import { cmsApiBaseUrl } from '../constants/urls'
 import DateFormatterContext from '../contexts/DateFormatterContext'
 import useWindowDimensions from '../hooks/useWindowDimensions'
 
-const DisclaimerPage = ({ cityCode, languageCode, pathname, languages, cityModel }: CityRouteProps): ReactElement => {
+const DisclaimerPage = ({ cityCode, languageCode, pathname, city }: CityRouteProps): ReactElement | null => {
   const { viewportSmall } = useWindowDimensions()
   const dateFormatter = useContext(DateFormatterContext)
   const navigate = useNavigate()
@@ -35,17 +35,21 @@ const DisclaimerPage = ({ cityCode, languageCode, pathname, languages, cityModel
     language: languageCode,
   })
 
+  if (!city) {
+    return null
+  }
+
   const toolbar = (openFeedback: React.Dispatch<React.SetStateAction<boolean>>) => (
     <CityContentToolbar openFeedbackModal={openFeedback} hasDivider={viewportSmall} />
   )
 
-  const languageChangePaths = languages.map(({ code, name }) => {
+  const languageChangePaths = city.languages.map(({ code, name }) => {
     const disclaimerPath = pathnameFromRouteInformation({ route: DISCLAIMER_ROUTE, cityCode, languageCode: code })
     return { path: disclaimerPath, name, code }
   })
 
   const locationLayoutParams = {
-    cityModel,
+    city,
     viewportSmall,
     feedbackTargetInformation: disclaimer ? { slug: disclaimer.slug } : null,
     languageChangePaths,
@@ -72,11 +76,11 @@ const DisclaimerPage = ({ cityCode, languageCode, pathname, languages, cityModel
     )
   }
 
-  const pageTitle = `${t('pageTitle')} - ${cityModel.name}`
+  const pageTitle = `${t('pageTitle')} - ${city.name}`
 
   return (
     <CityContentLayout isLoading={false} {...locationLayoutParams}>
-      <Helmet pageTitle={pageTitle} languageChangePaths={languageChangePaths} cityModel={cityModel} />
+      <Helmet pageTitle={pageTitle} languageChangePaths={languageChangePaths} cityModel={city} />
       <Page
         lastUpdate={disclaimer.lastUpdate}
         title={disclaimer.title}

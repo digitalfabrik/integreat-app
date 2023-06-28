@@ -8,6 +8,7 @@ const ToolbarContainer = styled.div<{ direction: 'row' | 'column'; hasPadding: b
   box-sizing: border-box;
   flex-direction: ${props => props.direction};
   align-items: center;
+  font-family: ${props => props.theme.fonts.web.contentFont};
 
   & > * {
     font-size: 1.5rem;
@@ -31,7 +32,7 @@ const ToolbarContainer = styled.div<{ direction: 'row' | 'column'; hasPadding: b
 
 const Divider = styled.hr`
   margin: 12px 24px;
-  background-color: ${props => props.theme.colors.poiBorderColor};
+  background-color: ${props => props.theme.colors.borderColor};
   height: 1px;
   border: none;
 `
