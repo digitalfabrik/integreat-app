@@ -1,8 +1,6 @@
-import WebMercatorViewport from '@math.gl/web-mercator'
-import { BBox } from 'geojson'
 import * as mapLibreGl from 'maplibre-gl'
 import 'maplibre-gl/dist/maplibre-gl.css'
-import React, { ReactElement, ReactNode, useCallback, useEffect, useMemo, useState } from 'react'
+import React, { ReactElement, ReactNode, useCallback, useEffect, useState } from 'react'
 import Map, { Layer, MapRef, Source, MapLayerMouseEvent } from 'react-map-gl'
 import styled, { useTheme } from 'styled-components'
 
@@ -13,9 +11,6 @@ import {
   PoiFeatureCollection,
   MapViewMercatorViewport,
   clusterRadius,
-  maxMapZoom,
-  CityModel,
-  defaultMercatorViewportConfig,
   closerDetailZoom,
 } from 'api-client'
 
@@ -37,35 +32,24 @@ type MapViewProps = {
   currentFeature: PoiFeature | null
   selectFeature: (feature: PoiFeature | null, restoreScrollPosition: boolean) => void
   changeSnapPoint?: (snapPoint: number) => void
-  cityModel: CityModel
   languageCode: string
   children: ReactNode
+  mapViewport: MapViewMercatorViewport
 }
 
 type MapCursorType = 'grab' | 'auto' | 'pointer'
-
-const moveViewToBBox = (bBox: BBox, defaultVp: MapViewMercatorViewport): MapViewMercatorViewport => {
-  const mercatorVp = new WebMercatorViewport(defaultVp)
-  return mercatorVp.fitBounds([
-    [bBox[0], bBox[1]],
-    [bBox[2], bBox[3]],
-  ])
-}
 
 const MapView = ({
   featureCollection,
   selectFeature,
   changeSnapPoint,
   currentFeature,
-  cityModel,
+  mapViewport,
   children,
 }: MapViewProps): ReactElement => {
-  const bboxViewport = useMemo(
-    () => moveViewToBBox(cityModel.boundingBox!, defaultMercatorViewportConfig),
-    [cityModel.boundingBox]
-  )
+
   // Workaround for https://github.com/mapbox/mapbox-gl-js/issues/8890
-  const [viewport, setViewport] = useState<MapViewViewport>({ ...bboxViewport, maxZoom: maxMapZoom })
+  const [viewport, setViewport] = useState<MapViewViewport>(mapViewport)
   const [cursor, setCursor] = useState<MapCursorType>('auto')
   const [mapRef, setMapRef] = useState<mapLibreGl.Map | null>(null)
   const theme = useTheme()

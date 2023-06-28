@@ -8,6 +8,7 @@ import {
   embedInCollection,
   GeoJsonPoi,
   LocationType,
+  MapViewMercatorViewport,
   PoiFeature,
   PoiModel,
   sortPoiFeatures,
@@ -70,15 +71,16 @@ type PoisDesktopProps = {
   pois: PoiModel[]
   userLocation: LocationType | undefined
   features: PoiFeature[]
+  mapViewport: MapViewMercatorViewport
   languageCode: string
   slug: string | undefined
 }
 
 const nextPoiIndex = (step: 1 | -1, arrayLength: number, currentIndex: number): number => {
-  if (currentIndex === arrayLength - 1 && step > 0) {
+  if (currentIndex === arrayLength - 1 && step === 1) {
     return 0
   }
-  if (currentIndex === 0 && step < 0) {
+  if (currentIndex === 0 && step === -1) {
     return arrayLength - 1
   }
   return currentIndex + step
@@ -93,6 +95,7 @@ const PoisDesktop = ({
   features,
   cityModel,
   languageCode,
+  mapViewport,
   slug,
 }: PoisDesktopProps): ReactElement => {
   const { t } = useTranslation('pois')
@@ -132,8 +135,8 @@ const PoisDesktop = ({
   useEffect(() => {
     if (!currentFeatureOnMap && listRef.current) {
       listRef.current.scrollTo({ top: scrollOffset })
-    } else {
-      listRef.current?.scrollTo({ top: 0 })
+    } else if (listRef.current) {
+      listRef.current.scrollTo({ top: 0 })
     }
   }, [currentFeatureOnMap, currentPoi, scrollOffset])
 
@@ -163,7 +166,7 @@ const PoisDesktop = ({
         selectFeature={selectFeatureOnMap}
         featureCollection={embedInCollection(features)}
         currentFeature={currentFeatureOnMap}
-        cityModel={cityModel}
+          mapViewport={mapViewport}
         languageCode={languageCode}>
         <NavigationControl showCompass={false} position={direction === 'rtl' ? 'bottom-left' : 'bottom-right'} />
         {/* To use geolocation in a development build you have to start the dev server with "yarn start --https" */}

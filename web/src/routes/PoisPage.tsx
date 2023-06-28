@@ -2,10 +2,11 @@ import React, { ReactElement, useEffect, useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useParams } from 'react-router-dom'
 import styled from 'styled-components'
-
-import { LocationType, normalizePath, NotFoundError, pathnameFromRouteInformation, POIS_ROUTE } from 'api-client'
+import {BBox } from 'geojson'
+import { defaultMercatorViewportConfig, LocationType, MapViewMercatorViewport, normalizePath, NotFoundError, pathnameFromRouteInformation, POIS_ROUTE } from 'api-client'
 import { config } from 'translations'
 
+import WebMercatorViewport from '@math.gl/web-mercator'
 import { CityRouteProps } from '../CityContentSwitcher'
 import CityContentLayout from '../components/CityContentLayout'
 import CityContentToolbar from '../components/CityContentToolbar'
@@ -28,6 +29,14 @@ const PoisPageWrapper = styled.div<{ panelHeights: number }>`
   ${({ panelHeights }) => `height: calc(100vh - ${panelHeights}px);`};
 `
 
+const moveViewToBBox = (bBox: BBox, defaultVp: MapViewMercatorViewport): MapViewMercatorViewport => {
+  const mercatorVp = new WebMercatorViewport(defaultVp)
+  return mercatorVp.fitBounds([
+    [bBox[0], bBox[1]],
+    [bBox[2], bBox[3]],
+  ])
+}
+
 const PoisPage = ({ cityCode, languageCode, cityModel, pathname, languages }: CityRouteProps): ReactElement => {
   const { t } = useTranslation('pois')
   const { slug: unsafeSlug } = useParams()
@@ -36,6 +45,10 @@ const PoisPage = ({ cityCode, languageCode, cityModel, pathname, languages }: Ci
   const [userLocation, setUserLocation] = useState<LocationType | undefined>(undefined)
   const { data, error: featureLocationsError, loading } = useFeatureLocations(cityCode, languageCode, userLocation)
   const currentPoi = useMemo(() => data?.pois.find(poi => slug === poi.slug) ?? null, [data?.pois, slug])
+  const bboxViewport = useMemo(
+    () => moveViewToBBox(cityModel.boundingBox!, defaultMercatorViewportConfig),
+    [cityModel.boundingBox]
+  )
   const { viewportSmall } = useWindowDimensions()
 
   if (buildConfig().featureFlags.developerFriendly) {
@@ -130,8 +143,8 @@ const PoisPage = ({ cityCode, languageCode, cityModel, pathname, languages }: Ci
             pois={data.pois}
             direction={direction}
             userLocation={userLocation}
-            cityModel={cityModel}
             languageCode={languageCode}
+            mapViewport={bboxViewport}
             slug={slug}
           />
         ) : (
@@ -141,6 +154,7 @@ const PoisPage = ({ cityCode, languageCode, cityModel, pathname, languages }: Ci
             direction={direction}
             cityModel={cityModel}
             userLocation={userLocation}
+            mapViewport={bboxViewport}
             pois={data.pois}
             features={data.features}
             languageCode={languageCode}

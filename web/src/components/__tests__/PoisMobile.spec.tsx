@@ -1,46 +1,44 @@
 import { RenderResult } from '@testing-library/react'
 import React from 'react'
-
+import {mocked} from 'jest-mock'
 import {
   CityModelBuilder,
   GeoJsonPoi,
-  PoiFeature,
-  PoiModel,
+  LocationType,
+
   PoiModelBuilder,
   prepareFeatureLocations,
 } from 'api-client'
 
+import { useSearchParams } from 'react-router-dom'
 import { renderWithRouterAndTheme } from '../../testing/render'
 import PoisMobile from '../PoisMobile'
 
 jest.mock('react-i18next')
-jest.mock('../MapView', () => {
-  const { forwardRef } = jest.requireActual('react')
-  return {
-    __esModule: true,
-    default: forwardRef((_: object, ref: React.Ref<HTMLDivElement>) => <div ref={ref}>MapView</div>),
-  }
-})
+jest.mock('../MapView', () => () => <div >MapView</div>)
+jest.mock('react-router-dom', () => ({
+  ...jest.requireActual('react-router-dom'),
+  useSearchParams: jest.fn()
+}))
 
 describe('PoisMobile', () => {
   const cityModel = new CityModelBuilder(1).build()[0]!
   const pois = new PoiModelBuilder(3).build()
-  const features = prepareFeatureLocations(pois, [10.994217, 48.415402])
+  const userLocation = [10.994217, 48.415402] as LocationType
+  const features = prepareFeatureLocations(pois, userLocation)
   const poiFeatures = features.flatMap(feature => feature.properties.pois)
-  const setRestoreScrollPosition = jest.fn()
 
-  const renderPoisDesktop = (currentPoi?: PoiModel, currentFeature?: PoiFeature) =>
+  const renderPoisDesktop = (slug?: string) =>
     renderWithRouterAndTheme(
       <PoisMobile
         direction='ltr'
         toolbar={<div>Toolbar</div>}
+        pois={pois}
+        userLocation={userLocation}
         features={features}
-        currentFeatureOnMap={currentFeature ?? null}
-        currentPoi={currentPoi ?? null}
         cityModel={cityModel}
         languageCode='de'
-        restoreScrollPosition={false}
-        setRestoreScrollPosition={setRestoreScrollPosition}
+        slug={slug}
       />
     )
 
@@ -57,23 +55,24 @@ describe('PoisMobile', () => {
 
   it('should list detail information about the current feature and the poi if feature and poi provided', async () => {
     const singlePoi = pois[1]!
+    mocked(useSearchParams).mockReturnValue([new URLSearchParams([]), jest.fn()])
     const singlePoiFeature = poiFeatures.find(poiFeature => poiFeature.title === singlePoi.location.name)!
-    const singleFeature = features.find(feature => feature.properties.pois.includes(singlePoiFeature))!
 
-    const { queryByText } = renderPoisDesktop(singlePoi, singleFeature)
+    const { queryByText } = renderPoisDesktop(singlePoi.slug)
     expect(queryByText(singlePoiFeature.title)).toBeTruthy()
     expect(queryByText(singlePoiFeature.category!)).toBeTruthy()
-    expect(queryByText('distanceKilometre')).toBeTruthy()
+    expect(queryByText('pois:distanceKilometre')).toBeTruthy()
     expect(queryByText(singlePoi.location.address!)).toBeTruthy()
     expect(queryByText(singlePoi.content)).toBeTruthy()
     expect(queryByText('Toolbar')).toBeTruthy()
-    expect(queryByText('detailsHeader')).toBeNull() // because bottomsheet is not fullscreen
-    expect(queryByText('listTitle')).toBeNull()
+    expect(queryByText('pois:detailsHeader')).toBeNull() // because bottomsheet is not fullscreen
+    expect(queryByText('pois:listTitle')).toBeNull()
   })
 
   it('should render filtered poiList & toolbar components for multipoi feature', () => {
     const multipoiFeature = features.find(feature => feature.properties.pois.length > 1)!
-    const { queryByText } = renderPoisDesktop(undefined, multipoiFeature)
+    mocked(useSearchParams).mockReturnValue([new URLSearchParams([["multipoi", multipoiFeature.id as string]]), jest.fn()])
+    const { queryByText } = renderPoisDesktop()
 
     expect(queryByText('detailsHeader')).toBeFalsy() // because bottomsheet is not fullscreen
     expect(queryByText('listTitle')).toBeFalsy()
@@ -81,9 +80,10 @@ describe('PoisMobile', () => {
   })
 
   it('should render poiList & toolbar components no poi is provided', () => {
+    mocked(useSearchParams).mockReturnValue([new URLSearchParams([]), jest.fn()])
     const { queryByText } = renderPoisDesktop()
 
-    expect(queryByText('listTitle')).toBeTruthy()
+    expect(queryByText('pois:listTitle')).toBeTruthy()
     expectPoiList(queryByText, poiFeatures)
   })
 })

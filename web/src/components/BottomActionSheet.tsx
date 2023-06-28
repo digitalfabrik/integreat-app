@@ -1,4 +1,4 @@
-import React, { createRef, ReactElement, ReactNode, useImperativeHandle, useState } from 'react'
+import React, { ReactElement, ReactNode, useImperativeHandle, useRef, useState } from 'react'
 import { BottomSheet, BottomSheetRef } from 'react-spring-bottom-sheet'
 import 'react-spring-bottom-sheet/dist/style.css'
 import { SpringEvent } from 'react-spring-bottom-sheet/dist/types'
@@ -47,7 +47,7 @@ const BottomActionSheet = React.forwardRef(
   ): ReactElement => {
     const theme = useTheme()
     const [scrollElement, setScrollElement] = useState<HTMLElement | null>(null)
-    const bottomSheetRef = createRef<BottomSheetRef>()
+    const bottomSheetRef = useRef<BottomSheetRef>(null)
     useImperativeHandle(
       ref,
       () => ({

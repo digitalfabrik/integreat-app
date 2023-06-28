@@ -1,4 +1,3 @@
-import { height } from '@fortawesome/free-solid-svg-icons/faSearch'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React, { ReactElement, useCallback, useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -6,15 +5,16 @@ import { GeolocateControl } from 'react-map-gl'
 import styled, { css } from 'styled-components'
 
 import {
-  CityModel,
   embedInCollection,
   GeoJsonPoi,
   LocationType,
+  MapViewMercatorViewport,
   PoiFeature,
   PoiModel,
   sortPoiFeatures,
 } from 'api-client'
 import { UiDirectionType } from 'translations'
+import useWindowDimensions from '../hooks/useWindowDimensions'
 
 import { faArrowLeft } from '../constants/icons'
 import usePoiFeatures from '../hooks/usePoiFeatures'
@@ -62,19 +62,19 @@ type PoisMobileProps = {
   pois: PoiModel[]
   direction: UiDirectionType
   userLocation: LocationType | undefined
-  cityModel: CityModel
   languageCode: string
+  mapViewport: MapViewMercatorViewport
   slug: string | undefined
 }
 
 const PoisMobile = ({
   toolbar,
-  cityModel,
   languageCode,
   pois,
   features,
   userLocation,
   direction,
+  mapViewport,
   slug,
 }: PoisMobileProps): ReactElement => {
   const { t } = useTranslation('pois')
@@ -83,6 +83,7 @@ const PoisMobile = ({
   const sheetRef = useRef<ScrollableBottomSheetRef>(null)
   const { selectPoiFeatureInList, selectFeatureOnMap, currentFeatureOnMap, currentPoi, poiListFeatures } =
     usePoiFeatures(features, pois, slug)
+  const { height } = useWindowDimensions()
 
   const isBottomActionSheetFullScreen = bottomActionSheetHeight >= height
   const changeSnapPoint = (snapPoint: number) => {
@@ -137,7 +138,7 @@ const PoisMobile = ({
         changeSnapPoint={changeSnapPoint}
         featureCollection={embedInCollection(features)}
         currentFeature={currentFeatureOnMap}
-        cityModel={cityModel}
+        mapViewport={mapViewport}
         languageCode={languageCode}>
         {currentFeatureOnMap && (
           <BackNavigation

@@ -148,7 +148,7 @@ type PoiDetailsProps = {
   t: TFunction<'pois'>
 }
 
-const PoiDetails: React.FC<PoiDetailsProps> = ({ feature, poi, direction, t }: PoiDetailsProps): ReactElement => {
+const PoiDetails = ({ feature, poi, direction, t }: PoiDetailsProps): ReactElement => {
   const navigate = useNavigate()
   const { viewportSmall } = useWindowDimensions()
   const theme = useTheme()
