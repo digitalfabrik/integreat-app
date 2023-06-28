@@ -98,7 +98,7 @@ const PoisDesktop = ({
   languageCode,
   slug,
   mapViewport,
-  setMapViewport
+  setMapViewport,
 }: PoisDesktopProps): ReactElement => {
   const { t } = useTranslation('pois')
   const [scrollOffset, setScrollOffset] = useState<number>(0)

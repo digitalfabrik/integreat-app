@@ -1,30 +1,32 @@
 import { RenderResult } from '@testing-library/react'
+import { mocked } from 'jest-mock'
 import React from 'react'
+import { useSearchParams } from 'react-router-dom'
 
 import {
   CityModelBuilder,
   GeoJsonPoi,
   LocationType,
+  MapViewViewport,
   PoiModelBuilder,
   prepareFeatureLocations,
 } from 'api-client'
-import {mocked} from 'jest-mock'
-import { useSearchParams } from 'react-router-dom'
+
 import { renderWithRouterAndTheme } from '../../testing/render'
 import PoisDesktop from '../PoisDesktop'
 
 jest.mock('react-i18next')
-jest.mock('../MapView', () => () => <div >MapView</div>)
+jest.mock('../MapView', () => () => <div>MapView</div>)
 
 jest.mock('react-router-dom', () => ({
   ...jest.requireActual('react-router-dom'),
-  useSearchParams: jest.fn()
+  useSearchParams: jest.fn(),
 }))
 
 describe('PoisDesktop', () => {
   const cityModel = new CityModelBuilder(1).build()[0]!
   const pois = new PoiModelBuilder(3).build()
-  const userLocation: LocationType =[10.994217, 48.415402]
+  const userLocation: LocationType = [10.994217, 48.415402]
   const features = prepareFeatureLocations(pois, userLocation)
   const poiFeatures = features.flatMap(feature => feature.properties.pois)
 
@@ -40,6 +42,8 @@ describe('PoisDesktop', () => {
         cityModel={cityModel}
         languageCode='de'
         slug={slug}
+        mapViewport={{} as MapViewViewport}
+        setMapViewport={jest.fn()}
       />
     )
 
@@ -75,7 +79,10 @@ describe('PoisDesktop', () => {
 
   it('should render filtered poiList & toolbar components for multipoi feature', () => {
     const multipoiFeature = features.find(feature => feature.properties.pois.length > 1)!
-    mocked(useSearchParams).mockReturnValue([new URLSearchParams([["multipoi", multipoiFeature.id as string]]), jest.fn()])
+    mocked(useSearchParams).mockReturnValue([
+      new URLSearchParams([['multipoi', multipoiFeature.id as string]]),
+      jest.fn(),
+    ])
     const { queryByText } = renderPoisDesktop()
 
     expect(queryByText('pois:detailsHeader')).toBeTruthy()

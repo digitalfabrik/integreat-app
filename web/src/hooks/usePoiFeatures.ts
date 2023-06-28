@@ -8,7 +8,7 @@ const multipoiKey = 'multipoi'
 const usePoiFeatures = (
   features: PoiFeature[],
   pois: PoiModel[],
-  slug?: string,
+  slug?: string
 ): {
   selectFeatureOnMap: (newFeatureOnMap: PoiFeature | null) => void
   selectPoiFeatureInList: (newPoiFeature: GeoJsonPoi | null) => void
