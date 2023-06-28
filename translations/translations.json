@@ -383,7 +383,7 @@
   },
   "common": {
     "de": {
-      "textCopied": "Kopiert",
+      "copied": "Kopiert",
       "moreOptions": "Mehr Optionen",
       "languageNotAvailable": "Deine Sprache ist hier leider nicht verfügbar.",
       "chooseALanguage": "Wähle eine Sprache.",
@@ -391,7 +391,7 @@
       "loading": "Lade ..."
     },
     "am": {
-      "textCopied": "ተቀድቷል",
+      "copied": "ተቀድቷል",
       "moreOptions": "የበዛ ኣማራጭ",
       "languageNotAvailable": "ይቅርታ፣ ቋንቋዎ እዚህ ላይ የለም።",
       "chooseALanguage": "ቋንቋ ይምረጡ።",
@@ -399,7 +399,7 @@
       "loading": "እየጫነ ነው ..."
     },
     "ar": {
-      "textCopied": "تم النسخ",
+      "copied": "تم النسخ",
       "moreOptions": "مزيد من الخيارات",
       "languageNotAvailable": "للأسف، لغتك ليست متاحة.",
       "chooseALanguage": "اختر لغة.",
@@ -407,7 +407,7 @@
       "loading": "حمّل..."
     },
     "bg": {
-      "textCopied": "Копиран",
+      "copied": "Копиран",
       "moreOptions": "Още опции",
       "languageNotAvailable": "За съжаление, езикът Ви не е наличен тук.",
       "chooseALanguage": "Изберете език.",
@@ -415,7 +415,7 @@
       "loading": "Зареждане..."
     },
     "ckb": {
-      "textCopied": "کۆپی کرا",
+      "copied": "کۆپی کرا",
       "moreOptions": "بژاردەی زیاتر",
       "languageNotAvailable": "بەداخەوە زمانەکەتی تێدا نییە.",
       "chooseALanguage": "زمانێک هەڵبژێرە.",
@@ -423,7 +423,7 @@
       "loading": "خەریکی بارکردنە..."
     },
     "cs": {
-      "textCopied": "Kopírovat",
+      "copied": "Kopírovat",
       "moreOptions": "Další možnosti",
       "languageNotAvailable": "Váš jazyk zde není k dispozici.",
       "chooseALanguage": "Vyberte si jazyk.",
@@ -431,7 +431,7 @@
       "loading": "Načítání ..."
     },
     "el": {
-      "textCopied": "Αντιγράφηκε",
+      "copied": "Αντιγράφηκε",
       "moreOptions": "Περισσότερες επιλογές",
       "languageNotAvailable": "Δυστυχώς, η γλώσσα σας δεν είναι διαθέσιμη εδώ.",
       "chooseALanguage": "Επιλέξτε μια γλώσσα.",
@@ -439,7 +439,7 @@
       "loading": "Φόρτωση ..."
     },
     "en": {
-      "textCopied": "Copied",
+      "copied": "Copied",
       "moreOptions": "More options",
       "languageNotAvailable": "Sorry, but your language is not available here.",
       "chooseALanguage": "Choose a language.",
@@ -447,7 +447,7 @@
       "loading": "Loading ..."
     },
     "es": {
-      "textCopied": "Copiado",
+      "copied": "Copiado",
       "moreOptions": "Más opciones",
       "languageNotAvailable": "Tu idioma no está disponible aquí.",
       "chooseALanguage": "Selecciona un idioma.",
@@ -455,7 +455,7 @@
       "loading": "Cargando..."
     },
     "fi": {
-      "textCopied": "Kopioitu",
+      "copied": "Kopioitu",
       "moreOptions": "Lisää vaihtoehtoja",
       "languageNotAvailable": "Kielesi ei ole saatavilla.",
       "chooseALanguage": "Valitse kieli.",
@@ -463,7 +463,7 @@
       "loading": "Lataa..."
     },
     "fr": {
-      "textCopied": "Copié",
+      "copied": "Copié",
       "moreOptions": "Plus d’options",
       "languageNotAvailable": "Malheureusement, ta langue n'est pas disponible ici.",
       "chooseALanguage": "Choisis une langue.",
@@ -471,7 +471,7 @@
       "loading": "Chargement ..."
     },
     "hr": {
-      "textCopied": "kopirano",
+      "copied": "kopirano",
       "moreOptions": "Više opcija",
       "languageNotAvailable": "Tvoj jezik ovdje nažalost nije dostupan.",
       "chooseALanguage": "Odaberi jezik.",
@@ -479,7 +479,7 @@
       "loading": "Učitava se..."
     },
     "hu": {
-      "textCopied": "Bemásolva",
+      "copied": "Bemásolva",
       "moreOptions": "További lehetőségek",
       "languageNotAvailable": "A nyelved sajnos nem elérhető.",
       "chooseALanguage": "Válassz ki egy nyelvet.",
@@ -487,7 +487,7 @@
       "loading": "Betöltés..."
     },
     "it": {
-      "textCopied": "Copiato",
+      "copied": "Copiato",
       "moreOptions": "Più opzioni",
       "languageNotAvailable": "Purtroppo la tua lingua non è disponibile qui.",
       "chooseALanguage": "Scegli una lingua.",
@@ -495,7 +495,7 @@
       "loading": "Caricamento..."
     },
     "ka": {
-      "textCopied": "დაკოპირებულია",
+      "copied": "დაკოპირებულია",
       "moreOptions": "მეტი ვარიანტი",
       "languageNotAvailable": "შენი ენა აქ არ მოიხმარება",
       "chooseALanguage": "აირჩიე ენა.",
@@ -503,7 +503,7 @@
       "loading": "ატვირთე…"
     },
     "kmr": {
-      "textCopied": "Kopî bû",
+      "copied": "Kopî bû",
       "moreOptions": "Bijardeyên zêdetir",
       "languageNotAvailable": "Mixabin zimanê te li vir li ber dest nîne.",
       "chooseALanguage": "Zimanekî bibijêre.",
@@ -511,7 +511,7 @@
       "loading": "Di halê birojkirinê da..."
     },
     "mk": {
-      "textCopied": "Копирано",
+      "copied": "Копирано",
       "moreOptions": "Повеќе опции",
       "languageNotAvailable": "За жал твојот јазик не е достапен.",
       "chooseALanguage": "Избери јазик.",
@@ -519,7 +519,7 @@
       "loading": "Вчитај..."
     },
     "nl": {
-      "textCopied": "Gekopieerd",
+      "copied": "Gekopieerd",
       "moreOptions": "Meer opties",
       "languageNotAvailable": "Sorry, jouw taal is hier niet beschikbaar",
       "chooseALanguage": "Kies een taal",
@@ -527,7 +527,7 @@
       "loading": "Aan het laden…"
     },
     "pes": {
-      "textCopied": "کپی شد",
+      "copied": "کپی شد",
       "moreOptions": "گزینه‌های بیشتر",
       "languageNotAvailable": "متاسفانه زبان شما در اینجا در دسترس نیست.",
       "chooseALanguage": "یک زبان را انتخاب کنید.",
@@ -535,7 +535,7 @@
       "loading": "در حال بارگیری ..."
     },
     "pl": {
-      "textCopied": "Skopiowano",
+      "copied": "Skopiowano",
       "moreOptions": "Więcej opcji",
       "languageNotAvailable": "Niestety Twój język nie jest tutaj dostępny.",
       "chooseALanguage": "Wybierz język.",
@@ -543,7 +543,7 @@
       "loading": "Załaduj..."
     },
     "prs": {
-      "textCopied": "کپی شد",
+      "copied": "کپی شد",
       "moreOptions": "انتخاب‌‌های بیشتر",
       "languageNotAvailable": "متاسفانه لسان شما در اینجا موجود نیست‎.",
       "chooseALanguage": "یک لسان انتخاب کنید.",
@@ -551,7 +551,7 @@
       "loading": "در حال دانلود ..."
     },
     "ps": {
-      "textCopied": "کاپی شولو",
+      "copied": "کاپی شولو",
       "moreOptions": "نور اختیارونه",
       "languageNotAvailable": "له بده مرغه ستا ژبه دلته موجوده نده.",
       "chooseALanguage": "یوه ژبه انتخاب کړه.",
@@ -559,7 +559,7 @@
       "loading": "بارولے کیږی ۔۔۔"
     },
     "pt": {
-      "textCopied": "Copiado",
+      "copied": "Copiado",
       "moreOptions": "Más opciones",
       "languageNotAvailable": "Lamentablemente, tu idioma no está disponible.",
       "chooseALanguage": "Elige un idioma.",
@@ -567,7 +567,7 @@
       "loading": "Cargar ..."
     },
     "ro": {
-      "textCopied": "Copiat",
+      "copied": "Copiat",
       "moreOptions": "Mai multe opțiuni",
       "languageNotAvailable": "Din păcate, aici nu este disponibilă limba ta.",
       "chooseALanguage": "Alege o limbă.",
@@ -575,7 +575,7 @@
       "loading": "Se încarcă ..."
     },
     "ru": {
-      "textCopied": "Скопировано",
+      "copied": "Скопировано",
       "moreOptions": "дополнительные опции",
       "languageNotAvailable": "К сожалению, ваш язык здесь не используется.",
       "chooseALanguage": "Выбор языка.",
@@ -583,7 +583,7 @@
       "loading": "Загрузка..."
     },
     "so": {
-      "textCopied": "la koobiyeeyay",
+      "copied": "la koobiyeeyay",
       "moreOptions": "Xulashooyin dheeraad ah",
       "languageNotAvailable": "Nasiib darro, luqaddaada halkan lagama heli karo.",
       "chooseALanguage": "Dooro luuqad.",
@@ -591,7 +591,7 @@
       "loading": "Xareysmeyso ..."
     },
     "sq": {
-      "textCopied": "e kopjuar",
+      "copied": "e kopjuar",
       "moreOptions": "Me shumë opsione",
       "languageNotAvailable": "Fatkeqësisht, gjuha juaj nuk është në dispozicion këtu.",
       "chooseALanguage": "Zgjidh një gjuhë.",
@@ -599,7 +599,7 @@
       "loading": "Ngarko ..."
     },
     "sr-Cyrl": {
-      "textCopied": "копирано",
+      "copied": "копирано",
       "moreOptions": "Више опција",
       "languageNotAvailable": "Нажалост, твој језик овде није доступан.",
       "chooseALanguage": "Изабери језик.",
@@ -607,7 +607,7 @@
       "loading": "Учитава се ..."
     },
     "sr-Latn": {
-      "textCopied": "kopirano",
+      "copied": "kopirano",
       "moreOptions": "Više opcija",
       "languageNotAvailable": "Nažalost, tvoj jezik ovde nije dostupan.",
       "chooseALanguage": "Izaberi jezik.",
@@ -615,7 +615,7 @@
       "loading": "Učitava se ..."
     },
     "ti": {
-      "textCopied": "ተቐዲሑ",
+      "copied": "ተቐዲሑ",
       "moreOptions": "ዝበዝሐ ኣማራጺ",
       "languageNotAvailable": "ሕማቕ ኣጋጣሚ ኮይኑ፡ ቋንቋኻ ኣብዚ የለን።",
       "chooseALanguage": "ቋንቋ ምረጽ።",
@@ -623,7 +623,7 @@
       "loading": "ይጽዓን ኣሎ ..."
     },
     "tr": {
-      "textCopied": "kopyalandı",
+      "copied": "kopyalandı",
       "moreOptions": "Daha fazla seçenek",
       "languageNotAvailable": "Senin dilin burada maalesef yok.",
       "chooseALanguage": "Bir dil seçin.",
@@ -631,7 +631,7 @@
       "loading": "Yükleniyor ..."
     },
     "uk": {
-      "textCopied": "Копіювати",
+      "copied": "Копіювати",
       "moreOptions": "Більше опцій",
       "languageNotAvailable": "Ваша мова тут недоступна.",
       "chooseALanguage": "Виберіть мову.",
@@ -639,7 +639,7 @@
       "loading": "Завантаження ..."
     },
     "ur": {
-      "textCopied": "کاپی کیا گیا",
+      "copied": "کاپی کیا گیا",
       "moreOptions": "نسخہ:",
       "languageNotAvailable": "معذرت، آپ کی زبان یہاں دستیاب نہیں۔",
       "chooseALanguage": "زبان منتخب کریں۔",
@@ -647,7 +647,7 @@
       "loading": "لوڈ ہو رہا ہے ‎…"
     },
     "zh-CN": {
-      "textCopied": "已复制",
+      "copied": "已复制",
       "moreOptions": "更多选项",
       "languageNotAvailable": "很抱歉，这里没有提供您的语言。",
       "chooseALanguage": "请选择一种语言。",

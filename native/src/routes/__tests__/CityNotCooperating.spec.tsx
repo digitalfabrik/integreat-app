@@ -27,15 +27,15 @@ describe('CityNotCooperating', () => {
     expect(getByText('findOutMail')).toBeDefined()
     expect(getByText('sendText')).toBeDefined()
     expect(getByText('copyText')).toBeDefined()
-    expect(queryByText('textCopied')).toBeNull()
+    expect(queryByText('common:copied')).toBeNull()
   })
 
   it('should call setString and copy text on button click', () => {
     const { getByText, queryByText } = render(<CityNotCooperating />)
-    expect(queryByText('textCopied')).toBeNull()
+    expect(queryByText('common:copied')).toBeNull()
     const button = getByText('copyText')
     fireEvent.press(button)
-    expect(getByText('textCopied')).toBeDefined()
+    expect(getByText('common:copied')).toBeDefined()
     expect(queryByText('copyText')).toBeNull()
     expect(Clipboard.setString).toHaveBeenCalledWith(buildConfig().featureFlags.cityNotCooperatingTemplate)
   })
