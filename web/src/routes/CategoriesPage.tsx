@@ -116,7 +116,7 @@ const CategoriesPage = ({ city, pathname, cityCode, languageCode }: CityRoutePro
       cityCode={cityCode}
       languageCode={languageCode}
       openFeedbackModal={openFeedback}
-      viewportSmall={viewportSmall}
+      hasDivider={viewportSmall}
     />
   )
 

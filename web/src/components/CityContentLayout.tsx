@@ -55,7 +55,9 @@ const CityContentLayout = (props: CityContentLayoutProps): ReactElement => {
       />
     ) : null
 
-  const toolbar = toolbarProp && !isLoading ? toolbarProp(setFeedbackModalRating) : null
+  // to avoid jumping issues for desktop, isLoading is only checked on mobile viewport
+  const isLoadingMobile = isLoading && viewportSmall
+  const toolbar = toolbarProp && !isLoadingMobile ? toolbarProp(setFeedbackModalRating) : null
 
   return (
     <Layout

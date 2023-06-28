@@ -1,5 +1,4 @@
 import React, { ReactElement, ReactNode } from 'react'
-import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
 
 import dimensions from '../constants/dimensions'
@@ -9,16 +8,19 @@ const ToolbarContainer = styled.div<{ direction: 'row' | 'column'; hasPadding: b
   box-sizing: border-box;
   flex-direction: ${props => props.direction};
   align-items: center;
-  ${props => props.hasPadding && `padding: 15px 0;`};
+  font-family: ${props => props.theme.fonts.web.contentFont};
 
   & > * {
-    opacity: 0.7;
     font-size: 1.5rem;
     transition: 0.2s opacity;
   }
 
   & > *:hover {
     opacity: 1;
+  }
+
+  & p {
+    margin: 0.5rem 0 0 0;
   }
 
   @media ${dimensions.smallViewport} {
@@ -28,35 +30,34 @@ const ToolbarContainer = styled.div<{ direction: 'row' | 'column'; hasPadding: b
   }
 `
 
-const Headline = styled.h5`
-  width: 100vw;
-  margin: 0;
-  text-align: center;
-  font-size: 90%;
+const Divider = styled.hr`
+  margin: 12px 24px;
+  background-color: ${props => props.theme.colors.borderColor};
+  height: 1px;
+  border: none;
 `
 
 type ToolbarProps = {
   className?: string
   children?: ReactNode
-  viewportSmall: boolean
   iconDirection?: 'row' | 'column'
+  hasDivider: boolean
 }
 
 const Toolbar: React.FC<ToolbarProps> = ({
   children,
   className,
-  viewportSmall,
   iconDirection = 'column',
+  hasDivider,
 }: ToolbarProps): ReactElement => {
-  const { t } = useTranslation('feedback')
   const hasPadding = iconDirection === 'column'
   return (
-    <div>
+    <>
+      {hasDivider && <Divider />}
       <ToolbarContainer className={className} direction={iconDirection} hasPadding={hasPadding}>
-        {viewportSmall && <Headline>{t('isThisSiteUseful')}</Headline>}
         {children}
       </ToolbarContainer>
-    </div>
+    </>
   )
 }
 

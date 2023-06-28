@@ -188,12 +188,17 @@ const DetailSection = styled.div`
     justify-content: space-between;
   }
 `
+const ToolbarWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+`
 
 type PoiDetailsProps = {
   feature: PoiFeature
   poi: PoiModel
   direction: UiDirectionType
   isBottomSheetFullscreen?: boolean
+  toolbar?: ReactElement
 }
 
 const PoiDetails: React.FC<PoiDetailsProps> = ({
@@ -201,6 +206,7 @@ const PoiDetails: React.FC<PoiDetailsProps> = ({
   poi,
   direction,
   isBottomSheetFullscreen = false,
+  toolbar,
 }: PoiDetailsProps): ReactElement => {
   const navigate = useNavigate()
   const browserLocation = useLocation()
@@ -231,7 +237,7 @@ const PoiDetails: React.FC<PoiDetailsProps> = ({
             <ArrowBack src={iconArrowBack} alt='' direction={direction} />
             <DetailsHeaderTitle>{t('detailsHeader')}</DetailsHeaderTitle>
           </DetailsHeader>
-          <Spacer borderColor={theme.colors.poiBorderColor} />
+          <Spacer borderColor={theme.colors.borderColor} />
         </>
       )}
       <HeadingSection>
@@ -240,7 +246,7 @@ const PoiDetails: React.FC<PoiDetailsProps> = ({
         {!!distance && <Distance>{t('distanceKilometre', { distance })}</Distance>}
         {!!category?.name && <Category>{category.name}</Category>}
       </HeadingSection>
-      <Spacer borderColor={theme.colors.poiBorderColor} />
+      <Spacer borderColor={theme.colors.borderColor} />
       {!viewportSmall && <Subheading>{t('detailsAddress')}</Subheading>}
       <DetailSection>
         <AddressContentWrapper>
@@ -261,7 +267,7 @@ const PoiDetails: React.FC<PoiDetailsProps> = ({
       </DetailSection>
       {(!!website || !!phoneNumber || !!email) && (
         <>
-          <Spacer borderColor={theme.colors.poiBorderColor} />
+          <Spacer borderColor={theme.colors.borderColor} />
           <Collapsible title={t('contactInformation')} direction={direction}>
             <>
               {!!website && (
@@ -284,7 +290,7 @@ const PoiDetails: React.FC<PoiDetailsProps> = ({
       )}
       <>
         {((openingHours && openingHours.length > 0) || temporarilyClosed) && (
-          <Spacer borderColor={theme.colors.poiBorderColor} />
+          <Spacer borderColor={theme.colors.borderColor} />
         )}
         <OpeningHours
           direction={direction}
@@ -295,10 +301,16 @@ const PoiDetails: React.FC<PoiDetailsProps> = ({
       </>
       {content.length > 0 && (
         <>
-          <Spacer borderColor={theme.colors.poiBorderColor} />
+          <Spacer borderColor={theme.colors.borderColor} />
           <Collapsible title={t('detailsInformation')} direction={direction}>
             <RemoteContent html={content} onInternalLinkClick={navigate} smallText />
           </Collapsible>
+        </>
+      )}
+      {toolbar && (
+        <>
+          <Spacer borderColor={theme.colors.borderColor} />
+          <ToolbarWrapper>{toolbar}</ToolbarWrapper>
         </>
       )}
     </DetailsContainer>
