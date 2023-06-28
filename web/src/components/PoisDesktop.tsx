@@ -10,11 +10,11 @@ import dimensions from '../constants/dimensions'
 import PoiDetails from './PoiDetails'
 import PoiPanelNavigation from './PoiPanelNavigation'
 
-const ListViewWrapper = styled.div<{ panelHeights: number }>`
+const ListViewWrapper = styled.div<{ panelHeights: number; bottomBarHeight: number }>`
   width: 300px;
   padding: 0 clamp(16px, 1.4vh, 32px);
   overflow: auto;
-  ${({ panelHeights }) => `height: calc(100vh - ${panelHeights}px - ${dimensions.toolbarHeight}px);`};
+  ${({ panelHeights, bottomBarHeight }) => `height: calc(100vh - ${panelHeights}px - ${bottomBarHeight}px);`};
 `
 
 const ToolbarContainer = styled.div`
@@ -33,7 +33,7 @@ const ListHeader = styled.div`
   font-family: ${props => props.theme.fonts.web.decorativeFont};
   line-height: ${props => props.theme.fonts.decorativeLineHeight};
   font-weight: 600;
-  border-bottom: 1px solid ${props => props.theme.colors.poiBorderColor};
+  border-bottom: 1px solid ${props => props.theme.colors.borderColor};
   margin-bottom: clamp(10px, 1vh, 20px);
 `
 
@@ -79,9 +79,16 @@ const PoisDesktop: React.FC<PoisDesktopProps> = ({
   return (
     <>
       <div>
-        <ListViewWrapper panelHeights={panelHeights} id='poi-list-scroller'>
+        <ListViewWrapper
+          panelHeights={panelHeights}
+          id='poi-list-scroller'
+          bottomBarHeight={currentFeature ? dimensions.poiDetailNavigation : dimensions.toolbarHeight}>
           {!currentFeature && <ListHeader>{t('listTitle')}</ListHeader>}
-          {currentFeature && poi ? <PoiDetails poi={poi} feature={currentFeature} direction={direction} /> : poiList}
+          {currentFeature && poi ? (
+            <PoiDetails poi={poi} feature={currentFeature} direction={direction} toolbar={toolbar} />
+          ) : (
+            poiList
+          )}
         </ListViewWrapper>
         {currentFeature && showFeatureSwitch ? (
           <PoiPanelNavigation switchFeature={switchFeature} direction={direction} />
