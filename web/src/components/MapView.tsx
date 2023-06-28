@@ -98,8 +98,6 @@ const MapView = ({
     }
   }, [currentFeature?.geometry.coordinates, height, mapRef, viewportSmall])
 
-  const changeCursor = useCallback((cursor: MapCursorType) => setCursor(cursor), [])
-
   return (
     <MapContainer>
       <Map
@@ -114,10 +112,10 @@ const MapView = ({
           width: '100%',
         }}
         onMove={evt => setViewport(prevState => ({ ...prevState, ...evt.viewState }))}
-        onDragStart={() => changeCursor('grab')}
-        onDragEnd={() => changeCursor('auto')}
-        onMouseEnter={() => changeCursor('pointer')}
-        onMouseLeave={() => changeCursor('auto')}
+        onDragStart={() => setCursor('grab')}
+        onDragEnd={() => setCursor('auto')}
+        onMouseEnter={() => setCursor('pointer')}
+        onMouseLeave={() => setCursor('auto')}
         mapStyle={mapConfig.styleJSON}
         onClick={onSelectFeature}
         onTouchMove={() => (changeSnapPoint ? changeSnapPoint(0) : null)}
