@@ -7,21 +7,21 @@ import { createTunewsElementEndpoint, NotFoundError, TU_NEWS_TYPE, useLoadFromEn
 import { CityRouteProps } from '../CityContentSwitcher'
 import TunewsIcon from '../assets/TunewsActiveLogo.png'
 import CityContentLayout from '../components/CityContentLayout'
+import CityContentToolbar from '../components/CityContentToolbar'
 import FailureSwitcher from '../components/FailureSwitcher'
+import { FeedbackRatingType } from '../components/FeedbackToolbarItem'
 import Helmet from '../components/Helmet'
 import LoadingSpinner from '../components/LoadingSpinner'
 import Page from '../components/Page'
 import { tunewsApiBaseUrl } from '../constants/urls'
 import DateFormatterContext from '../contexts/DateFormatterContext'
+import useWindowDimensions from '../hooks/useWindowDimensions'
 import { TU_NEWS_DETAIL_ROUTE } from './index'
 
 const StyledContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-`
-const StyledWrapper = styled.div`
-  padding-bottom: 50px;
 `
 const StyledBanner = styled.div`
   position: relative;
@@ -52,7 +52,7 @@ const TuNewsDetailPage = ({ city, pathname, cityCode, languageCode }: CityRouteP
   const newsId = useParams().newsId!
   const formatter = useContext(DateFormatterContext)
   const navigate = useNavigate()
-  const viewportSmall = false
+  const { viewportSmall } = useWindowDimensions()
 
   const {
     data: newsModel,
@@ -66,6 +66,9 @@ const TuNewsDetailPage = ({ city, pathname, cityCode, languageCode }: CityRouteP
 
   // Language change is not possible between tuNews detail views because we don't know the id of other languages
   const languageChangePaths = city.languages.map(({ code, name }) => ({ path: null, name, code }))
+  const toolbar = (openFeedback: (rating: FeedbackRatingType) => void) => (
+    <CityContentToolbar openFeedbackModal={openFeedback} hasFeedbackOption={false} hasDivider={viewportSmall} />
+  )
 
   const locationLayoutParams = {
     city,
@@ -74,6 +77,7 @@ const TuNewsDetailPage = ({ city, pathname, cityCode, languageCode }: CityRouteP
     languageChangePaths,
     route: TU_NEWS_DETAIL_ROUTE,
     languageCode,
+    toolbar,
   }
 
   if (loading) {
@@ -107,7 +111,7 @@ const TuNewsDetailPage = ({ city, pathname, cityCode, languageCode }: CityRouteP
     <CityContentLayout isLoading={false} {...locationLayoutParams}>
       <Helmet pageTitle={pageTitle} languageChangePaths={languageChangePaths} cityModel={city} />
       <StyledContainer>
-        <StyledWrapper>
+        <>
           <StyledBanner>
             <StyledTitle>
               <StyledBannerImage src={TunewsIcon} alt='' />
@@ -122,7 +126,7 @@ const TuNewsDetailPage = ({ city, pathname, cityCode, languageCode }: CityRouteP
             showLastUpdateText={false}
             onInternalLinkClick={navigate}
           />
-        </StyledWrapper>
+        </>
       </StyledContainer>
     </CityContentLayout>
   )

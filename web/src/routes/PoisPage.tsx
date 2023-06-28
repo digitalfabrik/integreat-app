@@ -146,7 +146,7 @@ const PoisPage = ({ cityCode, languageCode, city, pathname }: CityRouteProps): R
   }
 
   const toolbar = (
-    <CityContentToolbar openFeedbackModal={setFeedbackModalRating} viewportSmall={viewportSmall} iconDirection='row' />
+    <CityContentToolbar openFeedbackModal={setFeedbackModalRating} iconDirection='row' hasDivider={false} />
   )
 
   const feedbackModal = feedbackModalRating && (

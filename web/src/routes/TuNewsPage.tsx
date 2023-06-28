@@ -13,7 +13,9 @@ import {
 
 import { CityRouteProps } from '../CityContentSwitcher'
 import CityContentLayout from '../components/CityContentLayout'
+import CityContentToolbar from '../components/CityContentToolbar'
 import FailureSwitcher from '../components/FailureSwitcher'
+import { FeedbackRatingType } from '../components/FeedbackToolbarItem'
 import Helmet from '../components/Helmet'
 import InfiniteScrollList from '../components/InfiniteScrollList'
 import LanguageFailure from '../components/LanguageFailure'
@@ -78,13 +80,29 @@ const TuNewsPage = ({ cityCode, languageCode, city }: CityRouteProps): ReactElem
     )
   }
 
+  const toolbar = (openFeedback: (rating: FeedbackRatingType) => void) => (
+    <CityContentToolbar openFeedbackModal={openFeedback} hasFeedbackOption={false} hasDivider={false} />
+  )
+
+  const languageChangePaths = city.languages.map(({ code, name }) => {
+    const isLanguageAvailable = tuNewsLanguages?.find(language => language.code === code)
+    return {
+      path: isLanguageAvailable
+        ? pathnameFromRouteInformation({ route: NEWS_ROUTE, newsType: TU_NEWS_TYPE, cityCode, languageCode: code })
+        : null,
+      name,
+      code,
+    }
+  })
+
   const locationLayoutParams = {
     city,
     viewportSmall,
     feedbackTargetInformation: null,
-    languageChangePaths: null,
+    languageChangePaths,
     route: TU_NEWS_ROUTE,
     languageCode,
+    toolbar: viewportSmall ? undefined : toolbar,
   }
 
   if (error) {
@@ -111,20 +129,9 @@ const TuNewsPage = ({ cityCode, languageCode, city }: CityRouteProps): ReactElem
     )
   }
 
-  const languageChangePaths = city.languages.map(({ code, name }) => {
-    const isLanguageAvailable = tuNewsLanguages.find(language => language.code === code)
-    return {
-      path: isLanguageAvailable
-        ? pathnameFromRouteInformation({ route: NEWS_ROUTE, newsType: TU_NEWS_TYPE, cityCode, languageCode: code })
-        : null,
-      name,
-      code,
-    }
-  })
-
   if (!tuNewsLanguages.find(({ code }) => code === languageCode)) {
     return (
-      <CityContentLayout isLoading={false} {...locationLayoutParams} languageChangePaths={languageChangePaths}>
+      <CityContentLayout isLoading={false} {...locationLayoutParams}>
         <NewsTabs
           type={TU_NEWS_TYPE}
           city={cityCode}
@@ -141,7 +148,7 @@ const TuNewsPage = ({ cityCode, languageCode, city }: CityRouteProps): ReactElem
   const pageTitle = `${tunewsLabel} - ${city.name}`
 
   return (
-    <CityContentLayout isLoading={false} {...locationLayoutParams} languageChangePaths={languageChangePaths}>
+    <CityContentLayout isLoading={false} {...locationLayoutParams}>
       <Helmet pageTitle={pageTitle} languageChangePaths={languageChangePaths} cityModel={city} />
       <NewsTabs
         type={TU_NEWS_TYPE}
