@@ -37,7 +37,7 @@ const FacetToggle: React.FC<FacetToggleProps> = ({
 
   return (
     <FilterFacet>
-      <Tooltip text={tooltip} flow='up' trigger='hover'>
+      <Tooltip text={tooltip} flow='up'>
         <FilterIcon value={value} onClick={onClickToggle} role='button' tabIndex={0} onKeyPress={onClickToggle}>
           <img alt={tooltip} src={icon} />
         </FilterIcon>

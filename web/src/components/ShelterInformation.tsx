@@ -61,7 +61,7 @@ type IconWithTooltipProps = {
 
 const IconWithTooltip = ({ tooltip, icon }: IconWithTooltipProps): ReactElement => (
   <IconContainer>
-    <Tooltip text={tooltip} flow='up' trigger='hover'>
+    <Tooltip text={tooltip} flow='up'>
       <img alt={tooltip} src={icon} width='20px' height='20px' />
     </Tooltip>
   </IconContainer>

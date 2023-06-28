@@ -118,7 +118,7 @@ const ShelterInformationSection = ({
           return (
             <Detail key={text} extended={extended} as={link ? CleanLink : 'div'} to={link}>
               {tooltip ? (
-                <StyledTooltip text={tooltip} flow='up' trigger='hover'>
+                <StyledTooltip text={tooltip} flow='up'>
                   {content}
                 </StyledTooltip>
               ) : (
