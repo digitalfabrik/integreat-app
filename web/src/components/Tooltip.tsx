@@ -168,7 +168,7 @@ type TooltipProps = {
   smallViewportFlow?: FlowType
   className?: string
   active?: boolean
-  trigger: 'click' | 'hover'
+  trigger?: 'click' | 'hover'
 }
 
 type ViewportDimensionsType = {
@@ -249,7 +249,7 @@ export default ({
   mediumViewportFlow,
   smallViewportFlow,
   active = false,
-  trigger,
+  trigger = 'hover',
   ...props
 }: TooltipProps): ReactElement => {
   const [container, setContainer] = useState<Element | null>(null)

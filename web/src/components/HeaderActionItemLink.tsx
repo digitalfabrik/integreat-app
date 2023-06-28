@@ -43,7 +43,7 @@ type HeaderActionItemLinkProps = {
  * 'Change language', 'Change location' and similar items.
  */
 const HeaderActionItemLink = ({ href, text, iconSrc, direction }: HeaderActionItemLinkProps): ReactElement => (
-  <Tooltip text={text} flow='down' smallViewportFlow='left' trigger='hover'>
+  <Tooltip text={text} flow='down' smallViewportFlow='left'>
     {href ? (
       <StyledLink to={href} aria-label={text}>
         <IconWithUiDirection alt='' src={iconSrc} direction={direction} />
