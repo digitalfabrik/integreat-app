@@ -105,6 +105,7 @@ const Main = styled.main<{ fullWidth: boolean }>`
 `
 
 const Aside = styled.aside<{ languageSelectorHeight: number }>`
+  top: ${props => props.languageSelectorHeight + dimensions.headerHeightLarge}px;
   margin-top: ${props => props.languageSelectorHeight - dimensions.navigationMenuHeight}px;
   display: inline-block;
   position: sticky;
