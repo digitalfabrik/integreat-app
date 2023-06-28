@@ -74,6 +74,10 @@ class DefaultDataContainer implements DataContainer {
     Object.keys(this.caches).forEach(cache => this.caches[cache as keyof CacheType].evict())
   }
 
+  deleteCity = async (city: string): Promise<void> => {
+    await this._databaseConnector.deleteCities([city])
+  }
+
   // WARNING: Be careful using this method, it deletes ALL offline content, including meta data which may lead to inconsistent app states and break our offline functionality.
   _clearOfflineCache = async (): Promise<void> => {
     await this._databaseConnector.deleteAllFiles()

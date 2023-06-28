@@ -28,7 +28,7 @@ import DateFormatterContext from '../contexts/DateFormatterContext'
 import useWindowDimensions from '../hooks/useWindowDimensions'
 import { LOCAL_NEWS_ROUTE } from './index'
 
-const LocalNewsPage = ({ cityModel, languages, pathname, languageCode, cityCode }: CityRouteProps): ReactElement => {
+const LocalNewsPage = ({ city, pathname, languageCode, cityCode }: CityRouteProps): ReactElement | null => {
   const { newsId } = useParams()
   const formatter = useContext(DateFormatterContext)
   const { t } = useTranslation('news')
@@ -40,6 +40,10 @@ const LocalNewsPage = ({ cityModel, languages, pathname, languageCode, cityCode 
     loading,
     error: newsError,
   } = useLoadFromEndpoint(createLocalNewsEndpoint, cmsApiBaseUrl, { city: cityCode, language: languageCode })
+
+  if (!city) {
+    return null
+  }
 
   const newsModel = newsId && localNews?.find((it: LocalNewsModel) => it.id.toString() === newsId)
 
@@ -66,7 +70,7 @@ const LocalNewsPage = ({ cityModel, languages, pathname, languageCode, cityCode 
   }
 
   // Language change is not possible between local news detail views because we don't know the id of other languages
-  const languageChangePaths = languages.map(({ code, name }) => ({
+  const languageChangePaths = city.languages.map(({ code, name }) => ({
     path: newsId
       ? null
       : pathnameFromRouteInformation({ route: NEWS_ROUTE, newsType: LOCAL_NEWS_TYPE, cityCode, languageCode: code }),
@@ -78,12 +82,13 @@ const LocalNewsPage = ({ cityModel, languages, pathname, languageCode, cityCode 
     <CityContentToolbar
       openFeedbackModal={openFeedback}
       hasFeedbackOption={false}
+      // if there is no border of a list item, a divider should be rendered
       hasDivider={localNews?.length === 0 && viewportSmall}
     />
   )
 
   const locationLayoutParams = {
-    cityModel,
+    city,
     viewportSmall,
     feedbackTargetInformation: null,
     languageChangePaths,
@@ -98,8 +103,8 @@ const LocalNewsPage = ({ cityModel, languages, pathname, languageCode, cityCode 
         <NewsTabs
           type={LOCAL_NEWS_TYPE}
           city={cityCode}
-          tunewsEnabled={cityModel.tunewsEnabled}
-          localNewsEnabled={cityModel.localNewsEnabled}
+          tunewsEnabled={city.tunewsEnabled}
+          localNewsEnabled={city.localNewsEnabled}
           t={t}
           language={languageCode}>
           <LoadingSpinner />
@@ -126,11 +131,11 @@ const LocalNewsPage = ({ cityModel, languages, pathname, languageCode, cityCode 
   }
 
   if (newsModel) {
-    const pageTitle = `${newsModel.title} - ${cityModel.name}`
+    const pageTitle = `${newsModel.title} - ${city.name}`
     const linkedContent = replaceLinks(newsModel.content)
     return (
       <CityContentLayout isLoading={false} {...locationLayoutParams}>
-        <Helmet pageTitle={pageTitle} languageChangePaths={languageChangePaths} cityModel={cityModel} />
+        <Helmet pageTitle={pageTitle} languageChangePaths={languageChangePaths} cityModel={city} />
         <Page
           title={newsModel.title}
           content={linkedContent}
@@ -144,16 +149,16 @@ const LocalNewsPage = ({ cityModel, languages, pathname, languageCode, cityCode 
     )
   }
 
-  const pageTitle = `${t('localNews.pageTitle')} - ${cityModel.name}`
+  const pageTitle = `${t('localNews.pageTitle')} - ${city.name}`
 
   return (
     <CityContentLayout isLoading={false} {...locationLayoutParams}>
-      <Helmet pageTitle={pageTitle} languageChangePaths={languageChangePaths} cityModel={cityModel} />
+      <Helmet pageTitle={pageTitle} languageChangePaths={languageChangePaths} cityModel={city} />
       <NewsTabs
         type={LOCAL_NEWS_TYPE}
         city={cityCode}
-        tunewsEnabled={cityModel.tunewsEnabled}
-        localNewsEnabled={cityModel.localNewsEnabled}
+        tunewsEnabled={city.tunewsEnabled}
+        localNewsEnabled={city.localNewsEnabled}
         t={t}
         language={languageCode}>
         <LocalNewsList
