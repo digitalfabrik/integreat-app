@@ -41,7 +41,7 @@ const CityContentToolbar = (props: CityContentToolbarProps) => {
     <Toolbar iconDirection={iconDirection} hasDivider={hasDivider}>
       {children}
       <Tooltip text={t('cityNotCooperating:textCopied')} flow='up' active={linkCopied} trigger='click'>
-        <ToolbarItem icon={linkCopied ? DoneIcon : CopyIcon} text={t('copyLink')} onClick={copyToClipboard} />
+        <ToolbarItem icon={linkCopied ? DoneIcon : CopyIcon} text={t('copyUrl')} onClick={copyToClipboard} />
       </Tooltip>
       {hasFeedbackOption && <ToolbarItem icon={FeedbackIcon} text={t('feedback:feedback')} onClick={onOpenToolbar} />}
     </Toolbar>
