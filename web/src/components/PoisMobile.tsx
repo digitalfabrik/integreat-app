@@ -8,16 +8,16 @@ import {
   embedInCollection,
   GeoJsonPoi,
   LocationType,
-  MapViewMercatorViewport,
+  MapViewViewport,
   PoiFeature,
   PoiModel,
   sortPoiFeatures,
 } from 'api-client'
 import { UiDirectionType } from 'translations'
-import useWindowDimensions from '../hooks/useWindowDimensions'
 
 import { faArrowLeft } from '../constants/icons'
 import usePoiFeatures from '../hooks/usePoiFeatures'
+import useWindowDimensions from '../hooks/useWindowDimensions'
 import { getSnapPoints } from '../utils/getSnapPoints'
 import BottomActionSheet, { ScrollableBottomSheetRef } from './BottomActionSheet'
 import List from './List'
@@ -63,8 +63,9 @@ type PoisMobileProps = {
   direction: UiDirectionType
   userLocation: LocationType | undefined
   languageCode: string
-  mapViewport: MapViewMercatorViewport
   slug: string | undefined
+  mapViewport: MapViewViewport
+  setMapViewport: (mapViewport: React.SetStateAction<MapViewViewport>) => void
 }
 
 const PoisMobile = ({
@@ -74,8 +75,9 @@ const PoisMobile = ({
   features,
   userLocation,
   direction,
-  mapViewport,
   slug,
+  mapViewport,
+  setMapViewport,
 }: PoisMobileProps): ReactElement => {
   const { t } = useTranslation('pois')
   const [bottomActionSheetHeight, setBottomActionSheetHeight] = useState(0)
@@ -134,11 +136,12 @@ const PoisMobile = ({
   return (
     <>
       <MapView
+        viewport={mapViewport}
+        setViewport={setMapViewport}
         selectFeature={handleSelectFeatureOnMap}
         changeSnapPoint={changeSnapPoint}
         featureCollection={embedInCollection(features)}
         currentFeature={currentFeatureOnMap}
-        mapViewport={mapViewport}
         languageCode={languageCode}>
         {currentFeatureOnMap && (
           <BackNavigation

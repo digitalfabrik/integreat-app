@@ -9,7 +9,6 @@ import {
   MapViewViewport,
   PoiFeature,
   PoiFeatureCollection,
-  MapViewMercatorViewport,
   clusterRadius,
   closerDetailZoom,
 } from 'api-client'
@@ -34,8 +33,10 @@ type MapViewProps = {
   changeSnapPoint?: (snapPoint: number) => void
   languageCode: string
   children: ReactNode
-  mapViewport: MapViewMercatorViewport
+  viewport: MapViewViewport
+  setViewport: (mapViewport: React.SetStateAction<MapViewViewport>) => void
 }
+
 
 type MapCursorType = 'grab' | 'auto' | 'pointer'
 
@@ -44,12 +45,10 @@ const MapView = ({
   selectFeature,
   changeSnapPoint,
   currentFeature,
-  mapViewport,
+  viewport,
+  setViewport,
   children,
 }: MapViewProps): ReactElement => {
-
-  // Workaround for https://github.com/mapbox/mapbox-gl-js/issues/8890
-  const [viewport, setViewport] = useState<MapViewViewport>(mapViewport)
   const [cursor, setCursor] = useState<MapCursorType>('auto')
   const [mapRef, setMapRef] = useState<mapLibreGl.Map | null>(null)
   const theme = useTheme()

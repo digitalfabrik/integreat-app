@@ -1,12 +1,22 @@
+import WebMercatorViewport from '@math.gl/web-mercator'
+import { BBox } from 'geojson'
 import React, { ReactElement, useEffect, useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useParams } from 'react-router-dom'
 import styled from 'styled-components'
-import {BBox } from 'geojson'
-import { defaultMercatorViewportConfig, LocationType, MapViewMercatorViewport, normalizePath, NotFoundError, pathnameFromRouteInformation, POIS_ROUTE } from 'api-client'
+
+import {
+  defaultMercatorViewportConfig,
+  LocationType,
+  MapViewMercatorViewport,
+  MapViewViewport,
+  normalizePath,
+  NotFoundError,
+  pathnameFromRouteInformation,
+  POIS_ROUTE,
+} from 'api-client'
 import { config } from 'translations'
 
-import WebMercatorViewport from '@math.gl/web-mercator'
 import { CityRouteProps } from '../CityContentSwitcher'
 import CityContentLayout from '../components/CityContentLayout'
 import CityContentToolbar from '../components/CityContentToolbar'
@@ -49,6 +59,8 @@ const PoisPage = ({ cityCode, languageCode, cityModel, pathname, languages }: Ci
     () => moveViewToBBox(cityModel.boundingBox!, defaultMercatorViewportConfig),
     [cityModel.boundingBox]
   )
+  // Workaround for https://github.com/mapbox/mapbox-gl-js/issues/8890
+  const [mapViewport, setMapViewport] = useState<MapViewViewport>(bboxViewport)
   const { viewportSmall } = useWindowDimensions()
 
   if (buildConfig().featureFlags.developerFriendly) {
@@ -127,6 +139,18 @@ const PoisPage = ({ cityCode, languageCode, cityModel, pathname, languages }: Ci
     <CityContentToolbar openFeedbackModal={setFeedbackModalRating} viewportSmall={viewportSmall} iconDirection='row' />
   )
 
+  const sharedPoiProps = {
+    toolbar,
+    features: data.features,
+    pois: data.pois,
+    direction,
+    userLocation,
+    languageCode,
+    slug,
+    mapViewport,
+    setMapViewport,
+  }
+
   return (
     <CityContentLayout isLoading={false} {...locationLayoutParams} fullWidth>
       <Helmet
@@ -137,29 +161,9 @@ const PoisPage = ({ cityCode, languageCode, cityModel, pathname, languages }: Ci
       />
       <PoisPageWrapper panelHeights={panelHeights}>
         {viewportSmall ? (
-          <PoisMobile
-            toolbar={toolbar}
-            features={data.features}
-            pois={data.pois}
-            direction={direction}
-            userLocation={userLocation}
-            languageCode={languageCode}
-            mapViewport={bboxViewport}
-            slug={slug}
-          />
+          <PoisMobile {...sharedPoiProps} />
         ) : (
-          <PoisDesktop
-            toolbar={toolbar}
-            panelHeights={panelHeights}
-            direction={direction}
-            cityModel={cityModel}
-            userLocation={userLocation}
-            mapViewport={bboxViewport}
-            pois={data.pois}
-            features={data.features}
-            languageCode={languageCode}
-            slug={slug}
-          />
+          <PoisDesktop {...sharedPoiProps} panelHeights={panelHeights} cityModel={cityModel} />
         )}
         {feedbackModal}
       </PoisPageWrapper>
