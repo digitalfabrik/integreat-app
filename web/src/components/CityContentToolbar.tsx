@@ -2,7 +2,6 @@ import React, { memo, ReactNode, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { CopyIcon, DoneIcon, FeedbackIcon } from '../assets'
-import useWindowDimensions from '../hooks/useWindowDimensions'
 import Toolbar from './Toolbar'
 import ToolbarItem from './ToolbarItem'
 import Tooltip from './Tooltip'
@@ -20,7 +19,6 @@ const COPY_TIMEOUT = 3000
 const CityContentToolbar = (props: CityContentToolbarProps) => {
   const { children, openFeedbackModal, iconDirection, hasFeedbackOption = true, hasDivider } = props
   const [linkCopied, setLinkCopied] = useState<boolean>(false)
-  const { viewportSmall } = useWindowDimensions()
   const { t } = useTranslation('categories')
   const copyToClipboard = () => {
     navigator.clipboard.writeText(window.location.href)
@@ -30,11 +28,8 @@ const CityContentToolbar = (props: CityContentToolbarProps) => {
     }, COPY_TIMEOUT)
   }
 
-  const onOpenToolbar = () => {
+  const onOpenFeedback = () => {
     openFeedbackModal(true)
-    if (viewportSmall) {
-      document.body.style.overflow = 'hidden'
-    }
   }
 
   return (
@@ -43,7 +38,7 @@ const CityContentToolbar = (props: CityContentToolbarProps) => {
       <Tooltip text={t('cityNotCooperating:textCopied')} flow='up' active={linkCopied} trigger='click'>
         <ToolbarItem icon={linkCopied ? DoneIcon : CopyIcon} text={t('copyUrl')} onClick={copyToClipboard} />
       </Tooltip>
-      {hasFeedbackOption && <ToolbarItem icon={FeedbackIcon} text={t('feedback:feedback')} onClick={onOpenToolbar} />}
+      {hasFeedbackOption && <ToolbarItem icon={FeedbackIcon} text={t('feedback:feedback')} onClick={onOpenFeedback} />}
     </Toolbar>
   )
 }

@@ -31,9 +31,6 @@ const CityContentLayout = (props: CityContentLayoutProps): ReactElement => {
 
   const onCloseFeedbackModal = () => {
     setOpenFeedbackModal(false)
-    if (viewportSmall) {
-      document.body.style.overflow = 'auto'
-    }
   }
 
   const {
