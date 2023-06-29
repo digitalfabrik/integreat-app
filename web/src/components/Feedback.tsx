@@ -66,6 +66,8 @@ const FeedbackButton = styled.button<{ $active: boolean | null }>`
 const NoteContainer = styled.div`
   display: flex;
   margin-top: 8px;
+  background-color: ${props => props.theme.colors.themeColor};
+  padding: 8px;
 `
 
 const NoteText = styled(StyledSmallViewTip)`
