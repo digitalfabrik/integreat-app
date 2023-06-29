@@ -37,18 +37,10 @@ const usePoiFeatures = (
     }
   }, [currentFeatureOnMap?.properties.pois, currentPoi, setSearchParams])
 
-  const deselectFeature = useCallback(() => {
-    if (currentFeatureOnMap && isMultipoi(currentFeatureOnMap) && currentPoi) {
-      navigate(`.?${searchParams}`)
-    } else {
-      navigate('.')
-    }
-  }, [currentFeatureOnMap, currentPoi, navigate, searchParams])
-
   const selectFeatureOnMap = useCallback(
     (newFeatureOnMap: PoiFeature | null) => {
       if (!newFeatureOnMap) {
-        deselectFeature()
+        navigate('.')
       } else if (isMultipoi(newFeatureOnMap)) {
         navigate(`.?${new URLSearchParams([[multipoiKey, newFeatureOnMap.id as string]])}`)
       } else {
@@ -60,18 +52,22 @@ const usePoiFeatures = (
         }
       }
     },
-    [currentFeatureOnMap?.properties.pois, deselectFeature, navigate, searchParams]
+    [currentFeatureOnMap?.properties.pois, navigate, searchParams]
   )
 
   const selectPoiFeatureInList = useCallback(
     (newPoiFeature: GeoJsonPoi | null) => {
       if (!newPoiFeature) {
-        deselectFeature()
+        if (currentFeatureOnMap && isMultipoi(currentFeatureOnMap) && currentPoi) {
+          navigate(`.?${searchParams}`)
+        } else {
+          navigate('.')
+        }
       } else {
         navigate(`${newPoiFeature.slug}?${searchParams}`)
       }
     },
-    [deselectFeature, navigate, searchParams]
+    [currentFeatureOnMap, currentPoi, navigate, searchParams]
   )
 
   const poiListFeatures = currentFeatureOnMap && !currentPoi ? currentFeatureOnMap.properties.pois : poiFeatures
