@@ -148,9 +148,6 @@ const PoisPage = ({ cityCode, languageCode, city, pathname }: CityRouteProps): R
 
   const onCloseFeedbackModal = () => {
     setOpenFeedbackModal(false)
-    if (viewportSmall) {
-      document.body.style.overflow = 'auto'
-    }
   }
 
   const feedbackModal = openFeedbackModal && (
