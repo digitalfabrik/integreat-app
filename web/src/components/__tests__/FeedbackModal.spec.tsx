@@ -30,6 +30,10 @@ describe('FeedbackModal', () => {
         visible
       />
     )
+    const buttonRating = getByRole('button', {
+      name: 'feedback:useful',
+    })
+    fireEvent.click(buttonRating)
     const button = getByRole('button', {
       name: 'feedback:send',
     })

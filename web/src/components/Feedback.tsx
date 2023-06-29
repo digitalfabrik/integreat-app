@@ -16,11 +16,12 @@ export const Container = styled.div`
   box-sizing: border-box;
   flex-direction: column;
   justify-content: space-between;
-  padding: 20px;
+  padding: 16px;
   border-radius: 10px;
   border-color: ${props => props.theme.colors.textSecondaryColor};
   font-size: ${props => props.theme.fonts.contentFontSize};
   overflow: auto;
+  align-self: center;
 `
 
 const CommentField = styled.textarea`
@@ -32,10 +33,10 @@ const TextContainer = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  padding: 10px 0 5px;
 `
 
 export const Description = styled.label`
-  padding: 10px 0 5px;
   font-weight: 700;
 `
 
@@ -69,7 +70,11 @@ const NoteContainer = styled.div`
 
 const NoteText = styled(StyledSmallViewTip)`
   margin-block-start: 0;
-  margin-left: 12px;
+  margin-left: 12px !important;
+`
+
+const FeedbackRatingTooltip = styled(StyledSmallViewTip)`
+  margin-bottom: 0 !important;
 `
 
 type FeedbackProps = {
@@ -113,7 +118,7 @@ const Feedback = (props: FeedbackProps): ReactElement => {
           onClick={() => onFeedbackChanged(isPositiveFeedback ? null : true)}
           $active={isPositiveFeedback}>
           <img src={PositiveFeedbackIcon} alt='' />
-          <StyledSmallViewTip>{t('useful')}</StyledSmallViewTip>
+          <FeedbackRatingTooltip>{t('useful')}</FeedbackRatingTooltip>
         </FeedbackButton>
         <FeedbackButton
           type='button'
@@ -121,7 +126,7 @@ const Feedback = (props: FeedbackProps): ReactElement => {
           onClick={() => onFeedbackChanged(isPositiveFeedback === false ? null : false)}
           $active={isPositiveFeedback === false}>
           <img src={NegativeFeedbackIcon} alt='' />
-          <StyledSmallViewTip>{t('notUseful')}</StyledSmallViewTip>
+          <FeedbackRatingTooltip>{t('notUseful')}</FeedbackRatingTooltip>
         </FeedbackButton>
       </ButtonContainer>
       <TextContainer>

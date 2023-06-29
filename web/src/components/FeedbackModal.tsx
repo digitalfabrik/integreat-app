@@ -41,15 +41,14 @@ const ModalContent = styled.div`
     height: 100%;
     align-items: center;
     justify-content: center;
-    justify-content: flex-start;
   }
 `
 const Header = styled.div<{ flexDirection: string }>`
   display: flex;
-  padding: 20px;
+  padding: 16px;
   flex-direction: ${props => props.flexDirection};
   justify-content: space-between;
-  font-size: ${props => props.theme.fonts.subTitleFontSize};
+  font-size: 18px;
   font-weight: 700;
   @media ${dimensions.smallViewport} {
     align-self: flex-start;

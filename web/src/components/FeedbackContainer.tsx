@@ -80,8 +80,6 @@ export const FeedbackContainer = (props: FeedbackContainerProps): ReactElement =
   const getFeedbackData = (comment: string, contactMail: string): FeedbackParamsType => {
     const feedbackType = getFeedbackType()
     const commentWithMail = `${comment}    Kontaktadresse: ${contactMail || 'Keine Angabe'}`
-    // TODO check neutral feedback and fix tests
-    console.log(isPositiveFeedback)
 
     return {
       feedbackType,

@@ -41,7 +41,9 @@ export default (baseUrl: string): Endpoint<ParamsType, void> =>
     })
     .withParamsToBodyMapper((params: ParamsType): FormData => {
       const formData = new FormData()
-      formData.append('rating', params.isPositiveRating ? POSITIVE_RATING : NEGATIVE_RATING)
+      if (params.isPositiveRating !== null) {
+        formData.append('rating', params.isPositiveRating ? POSITIVE_RATING : NEGATIVE_RATING)
+      }
 
       if (params.comment !== null) {
         formData.append('comment', params.comment)
