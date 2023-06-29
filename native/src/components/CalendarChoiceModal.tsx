@@ -15,9 +15,19 @@ const Header = styled.View`
   height: ${dimensions.headerHeight}px;
 `
 
-const ButtonContainer = styled.ScrollView`
+const Content = styled.ScrollView.attrs(() => ({
+  contentContainerStyle: {
+    flex: 1,
+    justifyContent: 'center',
+  },
+}))`
   margin: 0 20px;
   padding: 50px 0;
+`
+
+const Title = styled.Text`
+  font-family: ${props => props.theme.fonts.native.decorativeFontBold};
+  margin-bottom: 5px;
 `
 
 const CalendarButton = styled(TouchableOpacity)<{ color: string }>`
@@ -34,38 +44,37 @@ const ButtonText = styled.Text`
 
 type CalendarChoiceProps = {
   calendars: Calendar[]
-  chooseCalendar: (id: string) => void
-  overlayVisible: boolean
-  closeOverlay: () => void
+  chooseCalendar: (id: string) => Promise<void>
+  modalVisible: boolean
+  closeModal: () => void
+  eventTitle: string
 }
 
-const CalendarChoice = ({
+const CalendarChoiceModal = ({
   calendars,
   chooseCalendar,
-  overlayVisible,
-  closeOverlay,
+  modalVisible,
+  closeModal,
+  eventTitle,
 }: CalendarChoiceProps): ReactElement => {
   const { t } = useTranslation('events')
   return (
-    <Modal visible={overlayVisible} onRequestClose={closeOverlay} animationType='fade'>
+    <Modal visible={modalVisible} onRequestClose={closeModal} animationType='fade'>
       <Container>
         <Header>
-          <HeaderBox goBack={closeOverlay} text={t('chooseCalendar')} textCentered />
+          <HeaderBox goBack={closeModal} text={eventTitle} />
         </Header>
-        <ButtonContainer
-          contentContainerStyle={{
-            flex: 1,
-            justifyContent: 'center',
-          }}>
+        <Content>
+          <Title>{t('chooseCalendar')}</Title>
           {calendars.map(cal => (
             <CalendarButton key={cal.id} onPress={() => chooseCalendar(cal.id)} color={cal.color}>
               <ButtonText>{cal.title}</ButtonText>
             </CalendarButton>
           ))}
-        </ButtonContainer>
+        </Content>
       </Container>
     </Modal>
   )
 }
 
-export default CalendarChoice
+export default CalendarChoiceModal

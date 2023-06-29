@@ -18,23 +18,20 @@ const HorizontalLeft = styled.View`
   align-items: center;
 `
 
-const HeaderText = styled.Text<{ fontSize: number; centered: boolean }>`
+const HeaderText = styled.Text<{ fontSize: number }>`
   flex: 1;
   font-size: ${props => Math.min(props.fontSize, dimensions.headerTextSize)}px;
   color: ${props => props.theme.colors.textColor};
   font-family: ${props => props.theme.fonts.native.decorativeFontBold};
-  text-align: ${props => (props.centered ? 'center' : 'auto')};
-  padding-right: ${props => (props.centered ? '16px' : '0')};
 `
 
 type HeaderBoxProps = {
   goBack?: () => void
   canGoBack?: boolean
   text?: string
-  textCentered?: boolean
 }
 
-const HeaderBox = ({ goBack, canGoBack = true, text, textCentered = false }: HeaderBoxProps): ReactElement => {
+const HeaderBox = ({ goBack, canGoBack = true, text }: HeaderBoxProps): ReactElement => {
   const deviceWidth = useWindowDimensions().width
   const theme = useTheme()
 
@@ -46,7 +43,7 @@ const HeaderBox = ({ goBack, canGoBack = true, text, textCentered = false }: Hea
   return (
     <HorizontalLeft>
       {HeaderIcon}
-      <HeaderText allowFontScaling={false} fontSize={deviceWidth * dimensions.fontScaling} centered={textCentered}>
+      <HeaderText allowFontScaling={false} fontSize={deviceWidth * dimensions.fontScaling}>
         {text}
       </HeaderText>
     </HorizontalLeft>
