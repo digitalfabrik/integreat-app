@@ -59,7 +59,7 @@ const PoisPage = ({ cityCode, languageCode, cityModel, pathname, languages }: Ci
     () => moveViewToBBox(cityModel.boundingBox!, defaultMercatorViewportConfig),
     [cityModel.boundingBox]
   )
-  // Workaround for https://github.com/mapbox/mapbox-gl-js/issues/8890
+  // keep the old mapViewport when changing the viewport
   const [mapViewport, setMapViewport] = useState<MapViewViewport>(bboxViewport)
   const { viewportSmall } = useWindowDimensions()
 

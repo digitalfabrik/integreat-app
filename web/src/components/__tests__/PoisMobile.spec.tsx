@@ -3,13 +3,7 @@ import { mocked } from 'jest-mock'
 import React from 'react'
 import { useSearchParams } from 'react-router-dom'
 
-import {
-  GeoJsonPoi,
-  LocationType,
-  MapViewViewport,
-  PoiModelBuilder,
-  prepareFeatureLocations,
-} from 'api-client'
+import { GeoJsonPoi, LocationType, MapViewViewport, PoiModelBuilder, prepareFeatureLocations } from 'api-client'
 
 import { renderWithRouterAndTheme } from '../../testing/render'
 import PoisMobile from '../PoisMobile'

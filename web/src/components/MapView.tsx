@@ -86,6 +86,22 @@ const MapView = ({
     [selectFeature]
   )
 
+  useEffect(
+    () => () => {
+      if (mapRef) {
+        // we only need the viewport on unmount
+        const center = mapRef.getCenter()
+        setViewport({
+          longitude: center.lng,
+          latitude: center.lat,
+          zoom: mapRef.getZoom(),
+          maxZoom: mapRef.getMaxZoom(),
+        })
+      }
+    },
+    [mapRef, setViewport]
+  )
+
   useEffect(() => {
     const coordinates = currentFeature?.geometry.coordinates ?? []
     if (mapRef && coordinates[0] && coordinates[1]) {
@@ -105,17 +121,18 @@ const MapView = ({
         ref={updateMapRef}
         reuseMaps
         cursor={cursor}
+        initialViewState={viewport}
         interactiveLayerIds={[markerLayer(currentFeature).id!]}
-        {...viewport}
         style={{
           height: '100%',
           width: '100%',
         }}
-        onMove={evt => setViewport(prevState => ({ ...prevState, ...evt.viewState }))}
+        onMoveEnd={evt => setViewport(prevState => ({ ...prevState, ...evt.viewState }))}
         onDragStart={() => setCursor('grab')}
         onDragEnd={() => setCursor('auto')}
         onMouseEnter={() => setCursor('pointer')}
         onMouseLeave={() => setCursor('auto')}
+        maxZoom={viewport.maxZoom}
         mapStyle={mapConfig.styleJSON}
         onClick={onSelectFeature}
         onTouchMove={() => (changeSnapPoint ? changeSnapPoint(0) : null)}
