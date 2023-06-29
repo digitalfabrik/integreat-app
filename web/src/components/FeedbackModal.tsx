@@ -1,11 +1,12 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import FocusTrap from 'focus-trap-react'
-import React, { ReactElement, useLayoutEffect, useState } from 'react'
+import React, { ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
 
 import dimensions from '../constants/dimensions'
 import { faChevronLeft, faTimes } from '../constants/icons'
+import useLockedBody from '../hooks/useLockedBody'
 import useScrollToTop from '../hooks/useScrollToTop'
 import useWindowDimensions from '../hooks/useWindowDimensions'
 import { RouteType } from '../routes'
@@ -82,17 +83,7 @@ const FeedbackModal = (props: FeedbackModalProps): ReactElement => {
   const headline = isSubmitted ? `${t('thanksHeadline')}` : `${t('headline')}`
   const { viewportSmall } = useWindowDimensions()
   useScrollToTop()
-
-  useLayoutEffect(() => {
-    if (visible) {
-      document.body.style.overflow = 'hidden'
-    }
-  }, [visible])
-
-  const onClose = () => {
-    document.body.style.overflow = 'auto'
-    closeModal()
-  }
+  useLockedBody(visible)
 
   return (
     <FocusTrap focusTrapOptions={{ clickOutsideDeactivates: true }}>
@@ -101,11 +92,11 @@ const FeedbackModal = (props: FeedbackModalProps): ReactElement => {
         aria-modal
         topPosition={viewportSmall ? dimensions.headerHeightSmall : 0}
         id='feedback-modal-container'>
-        <Overlay onClick={onClose} role='button' tabIndex={0} onKeyPress={onClose} />
+        <Overlay onClick={closeModal} role='button' tabIndex={0} onKeyPress={closeModal} />
         <ModalContent>
           <Header flexDirection={viewportSmall ? 'row-reverse' : 'row'}>
             <span>{headline}</span>
-            <CloseButton aria-label={t('close')} onClick={onClose}>
+            <CloseButton aria-label={t('close')} onClick={closeModal}>
               <FontAwesomeIcon
                 icon={viewportSmall ? faChevronLeft : faTimes}
                 style={{ marginRight: viewportSmall ? '15vw' : '0' }}
@@ -114,7 +105,7 @@ const FeedbackModal = (props: FeedbackModalProps): ReactElement => {
           </Header>
           <FeedbackContainer
             isSearchFeedback={false}
-            closeModal={onClose}
+            closeModal={closeModal}
             {...otherProps}
             onSubmitted={setIsSubmitted}
           />
