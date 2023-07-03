@@ -5,6 +5,7 @@ import { Calendar } from 'react-native-calendar-events'
 import styled from 'styled-components/native'
 
 import dimensions from '../constants/dimensions'
+import Caption from './Caption'
 import HeaderBox from './HeaderBox'
 
 const Container = styled.SafeAreaView`
@@ -18,24 +19,18 @@ const Header = styled.View`
 const Content = styled.ScrollView.attrs(() => ({
   contentContainerStyle: {
     flex: 1,
-    justifyContent: 'center',
   },
 }))`
   margin: 0 20px;
   padding: 50px 0;
 `
 
-const Title = styled.Text`
-  font-family: ${props => props.theme.fonts.native.decorativeFontBold};
-  margin-bottom: 5px;
-`
-
 const CalendarButton = styled(TouchableOpacity)<{ color: string }>`
-  flex: 0.1;
   background-color: ${props => props.color};
   justify-content: center;
   align-items: center;
   margin: 5px 0;
+  height: ${dimensions.headerHeight}px;
 `
 
 const ButtonText = styled.Text`
@@ -59,13 +54,17 @@ const CalendarChoiceModal = ({
 }: CalendarChoiceProps): ReactElement => {
   const { t } = useTranslation('events')
   return (
-    <Modal visible={modalVisible} onRequestClose={closeModal} animationType='fade'>
+    <Modal
+      visible={modalVisible}
+      onRequestClose={closeModal}
+      animationType='fade'
+      supportedOrientations={['portrait', 'landscape']}>
       <Container>
         <Header>
           <HeaderBox goBack={closeModal} text={eventTitle} />
         </Header>
         <Content>
-          <Title>{t('chooseCalendar')}</Title>
+          <Caption title={t('chooseCalendar')} />
           {calendars.map(cal => (
             <CalendarButton key={cal.id} onPress={() => chooseCalendar(cal.id)} color={cal.color}>
               <ButtonText>{cal.title}</ButtonText>
