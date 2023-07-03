@@ -87,9 +87,7 @@ const ExportEventButton = ({ event }: ExportEventButtonType): ReactElement => {
 
   const chooseCalendar = async (id: string): Promise<void> => {
     setShowCalendarChoiceModal(false)
-    await exportEventToCalendar(id).catch(() => {
-      showSnackbar({ text: 'generalError' })
-    })
+    await exportEventToCalendar(id).catch(() => showSnackbar({ text: 'generalError' }))
   }
 
   return (
