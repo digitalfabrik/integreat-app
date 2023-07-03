@@ -1,3 +1,4 @@
+import { Settings as LuxonSettings } from 'luxon'
 import React, { ReactElement, useEffect, useState } from 'react'
 import { BrowserRouter as Router } from 'react-router-dom'
 import { ThemeProvider } from 'styled-components'
@@ -10,6 +11,8 @@ import I18nProvider from './components/I18nProvider'
 import buildConfig from './constants/buildConfig'
 import safeLocalStorage, { JPAL_TRACKING_CODE_KEY } from './utils/safeLocalStorage'
 import { initSentry } from './utils/sentry'
+
+LuxonSettings.throwOnInvalid = true
 
 const App = (): ReactElement => {
   const [contentLanguage, setContentLanguage] = useState<string>()
