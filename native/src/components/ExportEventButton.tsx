@@ -50,9 +50,7 @@ const ExportEventButton = ({ event }: ExportEventButtonType): ReactElement => {
         text: t('added'),
         positiveAction: {
           label: t('goToCalendar'),
-          onPress: () => {
-            openCalendarApp(event, id)
-          },
+          onPress: () => openCalendarApp(event, id),
         },
       })
     } catch {
