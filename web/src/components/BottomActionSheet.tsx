@@ -74,7 +74,7 @@ const BottomActionSheet = React.forwardRef(
         snapPoints={({ maxHeight }) => getSnapPoints(maxHeight)}
         defaultSnap={({ snapPoints }) => snapPoints[1]!}>
         <ListContainer ref={listRef}>{children}</ListContainer>
-        <StyledSpacer borderColor={theme.colors.poiBorderColor} />
+        <StyledSpacer borderColor={theme.colors.borderColor} />
         <ToolbarContainer>{toolbar}</ToolbarContainer>
       </StyledBottomSheet>
     )

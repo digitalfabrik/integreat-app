@@ -83,5 +83,7 @@
 	<string>Light</string>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+	<key>NSCalendarsUsageDescription</key>
+	<string>Integreat wants to access the calendar to add an event.</string>
 </dict>
 </plist>

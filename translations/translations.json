@@ -2,6 +2,7 @@
   "categories": {
     "de": {
       "createPdf": "PDF erstellen",
+      "copyUrl": "Link kopieren",
       "metaDescription": "{{appName}} ist Ihr digitaler Guide für Deutschland. Finden Sie lokale Informationen, Veranstaltungen und Beratung. Immer aktuell und in Ihrer Sprache."
     },
     "am": {
@@ -30,6 +31,7 @@
     },
     "en": {
       "createPdf": "Create a PDF",
+      "copyUrl": "Copy link",
       "metaDescription": "{{appName}} is your digital guide to life in Germany. Discover local information, events and advice. Always up to date and available in your own language."
     },
     "es": {
@@ -1064,7 +1066,9 @@
       "generalError": "Ein Fehler ist aufgetreten",
       "notSupportedByDevice": "Diese Funktion wird auf diesem Gerät nicht unterstützt.",
       "languageSwitchFailedTitle": "Leider ist der Sprachwechsel fehlgeschlagen.",
-      "languageSwitchFailedMessage": "Die ausgewählte Sprache ist nicht offline verfügbar. Eine aktive Internetverbinding ist notwendig."
+      "languageSwitchFailedMessage": "Die ausgewählte Sprache ist nicht offline verfügbar. Eine aktive Internetverbinding ist notwendig.",
+      "noCalendarPermission": "Der Zugriff auf den Kalender ist nicht erlaubt.",
+      "noCalendarFound": "Es wurde kein geeigneter Kalender gefunden."
     },
     "am": {
       "notFound": {
@@ -2261,8 +2265,14 @@
       "date": "Datum",
       "events": "Veranstaltungen",
       "exportAsICal": "Als iCal exportieren",
+      "addToCalendar": "Zum Kalender hinzufügen",
       "currentlyNoEvents": "Es gibt aktuell keine Veranstaltungen.",
-      "pageTitle": "Veranstaltungen"
+      "pageTitle": "Veranstaltungen",
+      "chooseCalendar": "Wähle einen Kalender aus",
+      "added": "Hinzugefügt",
+      "goToCalendar": "Zum Kalender",
+      "back": "Zurück",
+      "settings": "Einstellungen"
     },
     "am": {
       "address": "ኣድራሻ",
@@ -2311,8 +2321,14 @@
       "date": "Date",
       "events": "Events",
       "exportAsICal": "Export as iCal",
+      "addToCalendar": "Add to calendar",
       "currentlyNoEvents": "No events are currently available.",
-      "pageTitle": "Events"
+      "pageTitle": "Events",
+      "chooseCalendar": "Choose a calendar",
+      "added": "Added",
+      "goToCalendar": "Go to calendar",
+      "back": "Back",
+      "settings": "Settings"
     },
     "es": {
       "address": "Dirección",
