@@ -46,7 +46,7 @@ const Failure = ({ code, buttonAction, buttonLabel }: FailureProps): ReactElemen
     <ViewContainer>
       <ErrorIcon width={60} height={60} />
       <Message>{t(code === ErrorCode.CityUnavailable ? 'notFound.city' : code)}</Message>
-      {buttonAction && <PrimaryTextButton onPress={buttonAction} text={t(buttonLabel ?? 'tryAgain')} marginTop={40} />}
+      {buttonAction && <PrimaryTextButton onPress={buttonAction} text={t(buttonLabel ?? 'tryAgain')} />}
     </ViewContainer>
   )
 }

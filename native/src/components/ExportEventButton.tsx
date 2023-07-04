@@ -3,13 +3,12 @@ import React, { ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Linking, Platform } from 'react-native'
 import RNCalendarEvents, { Calendar } from 'react-native-calendar-events'
-import { Button } from 'react-native-elements'
-import { useTheme } from 'styled-components'
 
 import { EventModel } from 'api-client'
 
 import useSnackbar from '../hooks/useSnackbar'
 import CalendarChoice from './CalendarChoiceModal'
+import PrimaryTextButton from './PrimaryTextButton'
 
 type ExportEventButtonType = {
   event: EventModel
@@ -17,7 +16,6 @@ type ExportEventButtonType = {
 
 const ExportEventButton = ({ event }: ExportEventButtonType): ReactElement => {
   const { t } = useTranslation('events')
-  const theme = useTheme()
   const showSnackbar = useSnackbar()
 
   const [eventExported, setEventExported] = useState<boolean>(false)
@@ -99,19 +97,7 @@ const ExportEventButton = ({ event }: ExportEventButtonType): ReactElement => {
           eventTitle={event.title}
         />
       )}
-      <Button
-        title={t('addToCalendar')}
-        onPress={checkCalendarsAndExportEvent}
-        buttonStyle={{
-          backgroundColor: theme.colors.themeColor,
-          margin: 14,
-        }}
-        titleStyle={{
-          color: theme.colors.textColor,
-          fontFamily: theme.fonts.native.contentFontRegular,
-        }}
-        disabled={eventExported}
-      />
+      <PrimaryTextButton text={t('addToCalendar')} onPress={checkCalendarsAndExportEvent} disabled={eventExported} />
     </>
   )
 }

@@ -95,7 +95,6 @@ const Feedback = (props: FeedbackProps): ReactElement => {
           {sendingStatus === 'failed' && <Description theme={theme}>{t('failedSendingFeedback')}</Description>}
           <PrimaryTextButton
             Icon={<Icon name='send' size={15} color='black' />}
-            marginTop={15}
             disabled={!isPositiveFeedback && !comment}
             onPress={onSubmit}
             text={t('send')}

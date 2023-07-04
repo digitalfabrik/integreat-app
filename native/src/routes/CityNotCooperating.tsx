@@ -99,7 +99,11 @@ const CityNotCooperating = (): ReactElement => {
       </ListItem>
 
       <ButtonContainer>
-        <PrimaryTextButton onPress={copyToClipboard} text={isCopied ? t('textCopied') : t('copyText')} />
+        <PrimaryTextButton
+          onPress={copyToClipboard}
+          text={isCopied ? t('textCopied') : t('copyText')}
+          padding={false}
+        />
       </ButtonContainer>
       <TemplateText>{template}</TemplateText>
     </Container>

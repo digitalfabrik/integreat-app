@@ -7,12 +7,11 @@ type SlideButtonProps = {
   label: string
   onPress: () => void | Promise<void>
   theme: ThemeType
-  highlighted?: boolean
 }
 
-const SlideButton = ({ label, onPress, theme, highlighted }: SlideButtonProps): ReactElement => (
+const SlideButton = ({ label, onPress, theme }: SlideButtonProps): ReactElement => (
   <Button
-    type={highlighted ? 'solid' : 'clear'}
+    type='clear'
     title={label}
     onPress={onPress}
     titleStyle={{
@@ -24,7 +23,7 @@ const SlideButton = ({ label, onPress, theme, highlighted }: SlideButtonProps): 
     }}
     buttonStyle={{
       margin: 0,
-      backgroundColor: highlighted ? theme.colors.themeColor : theme.colors.backgroundColor,
+      backgroundColor: theme.colors.backgroundColor,
     }}
   />
 )

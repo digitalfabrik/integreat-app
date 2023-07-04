@@ -64,7 +64,7 @@ const EastereggImage = ({ clearResourcesAndCache }: EastereggImageProps): ReactE
       return (
         <>
           <ApiUrlText>{`Currently using API: ${apiUrlOverride.toString()}`}</ApiUrlText>
-          <PrimaryTextButton onPress={() => setApiUrl(cmsUrl)} text='Switch back to default API' marginTop={10} />
+          <PrimaryTextButton onPress={() => setApiUrl(cmsUrl)} text='Switch back to default API' />
         </>
       )
     }

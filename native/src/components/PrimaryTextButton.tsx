@@ -3,41 +3,45 @@ import { Button } from 'react-native-elements'
 import { IconNode } from 'react-native-elements/dist/icons/Icon'
 import styled, { useTheme } from 'styled-components/native'
 
-const StyledButton = styled(Button)<{ marginTop: number }>`
-  background-color: ${props => props.theme.colors.themeColor};
-  margin-top: ${props => props.marginTop}px;
-  border-radius: 8px;
+const Container = styled.View<{ $padding: boolean }>`
+  padding: ${props => (props.$padding ? '16px' : '0')};
 `
 
 type PrimaryTextButtonProps = {
   onPress: () => void
   text: string
   disabled?: boolean
-  marginTop?: number
   Icon?: IconNode
+  padding?: boolean
 }
 
 const PrimaryTextButton = ({
   onPress,
   text,
+  padding = true,
   disabled = false,
-  marginTop,
   Icon,
 }: PrimaryTextButtonProps): ReactElement => {
   const theme = useTheme()
 
   return (
-    <StyledButton
-      icon={Icon}
-      onPress={onPress}
-      title={text}
-      marginTop={marginTop ?? 0}
-      disabled={disabled}
-      titleStyle={{
-        color: theme.colors.textColor,
-        fontFamily: theme.fonts.native.contentFontRegular,
-      }}
-    />
+    <Container $padding={padding}>
+      <Button
+        icon={Icon}
+        onPress={onPress}
+        title={text}
+        disabled={disabled}
+        titleStyle={{
+          color: theme.colors.textColor,
+          fontFamily: theme.fonts.native.contentFontBold,
+          fontSize: 14,
+        }}
+        buttonStyle={{
+          backgroundColor: theme.colors.themeColor,
+          borderRadius: 8,
+        }}
+      />
+    </Container>
   )
 }
 
