@@ -5,7 +5,7 @@
       "copyUrl": "Link kopieren",
       "metaDescription": "{{appName}} ist Ihr digitaler Guide für Deutschland. Finden Sie lokale Informationen, Veranstaltungen und Beratung. Immer aktuell und in Ihrer Sprache.",
       "organizationContent": "Die Inhalte dieser Seite sind von {{organization}}.",
-      "organizationWebsite": "Mehr Informationen zu {{organization}} findest du hier."
+      "organizationMoreInformation": "Mehr Informationen zu <1>{{organization}}</1> findest du auf <3>{{domain}}</3>."
     },
     "am": {
       "createPdf": "PDF ይፍጠሩ",
@@ -34,7 +34,8 @@
     "en": {
       "createPdf": "Create a PDF",
       "copyUrl": "Copy link",
-      "metaDescription": "{{appName}} is your digital guide to life in Germany. Discover local information, events and advice. Always up to date and available in your own language."
+      "metaDescription": "{{appName}} is your digital guide to life in Germany. Discover local information, events and advice. Always up to date and available in your own language.",
+      "organizationMoreInformation": "You can find more information about <1>{{organization}}</1> on <3>{{domain}}</3>."
     },
     "es": {
       "createPdf": "Crear PDF",

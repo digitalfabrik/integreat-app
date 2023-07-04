@@ -15,7 +15,7 @@ class OrganizationModel {
 
   get url(): string {
     // TODO: Remove fallback
-    return this._url ?? 'https://example.com'
+    return this._url ?? 'https://example.com/my-custom-url'
   }
 
   get logo(): string {
