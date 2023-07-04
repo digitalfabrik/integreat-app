@@ -1,17 +1,26 @@
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { NavigationContainer } from '@react-navigation/native'
-import { render } from '@testing-library/react-native'
 import { mocked } from 'jest-mock'
 import React from 'react'
 
+import { CityModelBuilder, ReturnType, useLoadAsync } from 'api-client'
+
 import Navigator from '../Navigator'
 import { AppContext } from '../contexts/AppContextProvider'
-import useLoadCities from '../hooks/useLoadCities'
-import appSettings from '../utils/AppSettings'
+import render from '../testing/render'
+import { defaultSettings, SettingsType } from '../utils/AppSettings'
+import dataContainer from '../utils/DefaultDataContainer'
 import { quitAppStatePushNotificationListener } from '../utils/PushNotificationsManager'
 
+const cities = new CityModelBuilder(3).build()
+jest.mock('styled-components')
+jest.mock('../utils/DefaultDataContainer', () => ({ deleteCity: jest.fn(async () => undefined) }))
 jest.mock('@react-native-community/netinfo')
-jest.mock('../hooks/useLoadCities')
+jest.mock('../hooks/useLoadCities', () => jest.fn(() => ({ data: cities, error: null })))
+jest.mock('api-client', () => ({
+  ...jest.requireActual('api-client'),
+  useLoadAsync: jest.fn(() => ({ data: null, error: null })),
+}))
 jest.mock('../utils/sentry')
 jest.mock('react-native/Libraries/Utilities/useWindowDimensions')
 jest.mock('react-i18next')
@@ -113,10 +122,10 @@ jest.mock('../utils/PushNotificationsManager', () => ({
 }))
 jest.mock('../utils/FetcherModule')
 
+const changeCityCode = jest.fn()
 const renderNavigator = (cityCode: string | null = null) =>
   render(
-    <AppContext.Provider
-      value={{ changeCityCode: jest.fn(), changeLanguageCode: jest.fn(), cityCode, languageCode: 'de' }}>
+    <AppContext.Provider value={{ changeCityCode, changeLanguageCode: jest.fn(), cityCode, languageCode: 'de' }}>
       <NavigationContainer>
         <Navigator />
       </NavigationContainer>
@@ -129,36 +138,47 @@ describe('Navigator', () => {
     jest.clearAllMocks()
   })
 
-  it('should preload cities', async () => {
-    const { findByText } = renderNavigator()
-
-    await findByText('Intro')
-    expect(useLoadCities).toHaveBeenCalled()
-  })
+  const mockSettings = (settings: Partial<SettingsType>) =>
+    mocked<(_: never) => ReturnType<SettingsType>>(useLoadAsync).mockImplementation(() => ({
+      data: { ...defaultSettings, ...settings },
+      error: null,
+      loading: false,
+      refresh: jest.fn(),
+    }))
 
   it('should display categories if a city is selected and the intro was shown', async () => {
-    await appSettings.setIntroShown()
+    mockSettings({ introShown: true })
     const { findByText } = renderNavigator('augsburg')
     await findByText('Categories')
   })
 
+  it('should display landing if the selected city is not available anymore', async () => {
+    mockSettings({ introShown: true })
+    const { findByText } = renderNavigator('disabledCity')
+    await findByText('Landing')
+    expect(changeCityCode).toHaveBeenCalledTimes(1)
+    expect(changeCityCode).toHaveBeenCalledWith(null)
+    expect(dataContainer.deleteCity).toHaveBeenCalledTimes(1)
+    expect(dataContainer.deleteCity).toHaveBeenCalledWith('disabledCity')
+  })
+
   it('should display Landing if no city is selected in settings and intro was shown', async () => {
-    await appSettings.clearSelectedCity()
-    await appSettings.setIntroShown()
+    mockSettings({ introShown: true })
     const { findByText } = renderNavigator()
     await findByText('Landing')
   })
 
   it('should display Intro if intro was not shown yet', async () => {
+    mockSettings({ introShown: false })
     const { findByText } = renderNavigator()
     await findByText('Intro')
   })
 
   it('should listen for push notification press in quit state', async () => {
+    mockSettings({ introShown: true })
     mocked(quitAppStatePushNotificationListener).mockImplementation(async navigate =>
       navigate('https://integreat.app/augsbug/de/news/local/1234')
     )
-    await appSettings.setIntroShown()
     const { findByText } = renderNavigator()
 
     await findByText('Redirect')

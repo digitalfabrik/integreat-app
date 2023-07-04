@@ -11,7 +11,7 @@ const ListItemContainer = styled.article`
   font-family: ${props => props.theme.fonts.web.contentFont};
   display: flex;
   padding: clamp(10px, 1vh, 20px) 0;
-  border-bottom: 1px solid ${props => props.theme.colors.poiBorderColor};
+  border-bottom: 1px solid ${props => props.theme.colors.borderColor};
   cursor: pointer;
 
   @media screen and ${dimensions.smallViewport} {

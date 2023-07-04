@@ -15,7 +15,9 @@ import {
 
 import { CityRouteProps } from '../CityContentSwitcher'
 import CityContentLayout from '../components/CityContentLayout'
+import CityContentToolbar from '../components/CityContentToolbar'
 import FailureSwitcher from '../components/FailureSwitcher'
+import { FeedbackRatingType } from '../components/FeedbackToolbarItem'
 import Helmet from '../components/Helmet'
 import LoadingSpinner from '../components/LoadingSpinner'
 import LocalNewsList from '../components/LocalNewsList'
@@ -77,6 +79,15 @@ const LocalNewsPage = ({ city, pathname, languageCode, cityCode }: CityRouteProp
     code,
   }))
 
+  const toolbar = (openFeedback: (rating: FeedbackRatingType) => void) => (
+    <CityContentToolbar
+      openFeedbackModal={openFeedback}
+      hasFeedbackOption={false}
+      // if there is no border of a list item, a divider should be rendered
+      hasDivider={localNews?.length === 0 && viewportSmall}
+    />
+  )
+
   const locationLayoutParams = {
     city,
     viewportSmall,
@@ -84,6 +95,7 @@ const LocalNewsPage = ({ city, pathname, languageCode, cityCode }: CityRouteProp
     languageChangePaths,
     route: LOCAL_NEWS_ROUTE,
     languageCode,
+    toolbar,
   }
 
   if (loading) {
