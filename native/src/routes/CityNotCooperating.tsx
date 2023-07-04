@@ -66,6 +66,13 @@ const TemplateText = styled.Text`
   margin-bottom: 40px;
 `
 
+const CityNotCooperatingIcon = buildConfigAssets().CityNotCooperatingIcon
+const StyledCityNotCooperatingIcon = CityNotCooperatingIcon
+  ? styled(CityNotCooperatingIcon)`
+      alignself: center;
+    `
+  : null
+
 const CityNotCooperating = (): ReactElement => {
   const { t } = useTranslation('cityNotCooperating')
   const [isCopied, setIsCopied] = useState<boolean>(false)
@@ -77,13 +84,12 @@ const CityNotCooperating = (): ReactElement => {
     setIsCopied(true)
   }
 
-  const CityNotCooperatingIcon = buildConfigAssets().CityNotCooperatingIcon!
   return (
     <Container>
       <Heading>{t('callToAction')}</Heading>
 
       <Description>{t('explanation')}</Description>
-      <CityNotCooperatingIcon width='50%' style={{ alignSelf: 'center' }} />
+      {StyledCityNotCooperatingIcon && <StyledCityNotCooperatingIcon width='50%' />}
       <ListHeading>{t('whatToDo')}</ListHeading>
       <ListItem>
         <StepNumber>1</StepNumber>
