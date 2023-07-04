@@ -1,9 +1,9 @@
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Button } from 'react-native-elements'
-import styled, { useTheme } from 'styled-components/native'
+import styled from 'styled-components/native'
 
 import buildConfig, { buildConfigAssets } from '../constants/buildConfig'
+import PrimaryTextButton from './PrimaryTextButton'
 
 const FooterContainer = styled.View`
   background-color: ${props => props.theme.colors.backgroundAccentColor};
@@ -32,7 +32,6 @@ type CityNotCooperatingFooterProps = {
 const CityNotCooperatingFooter = ({
   navigateToCityNotCooperating,
 }: CityNotCooperatingFooterProps): ReactElement | null => {
-  const theme = useTheme()
   const { t } = useTranslation('landing')
 
   if (!buildConfig().featureFlags.cityNotCooperating) {
@@ -45,17 +44,7 @@ const CityNotCooperatingFooter = ({
       <CityNotCooperatingIcon width='30%' height='100' />
       <Question>{t('cityNotFound')}</Question>
       <ButtonContainer>
-        <Button
-          title={t('clickHere')}
-          onPress={navigateToCityNotCooperating}
-          buttonStyle={{
-            backgroundColor: theme.colors.themeColor,
-          }}
-          titleStyle={{
-            color: theme.colors.textColor,
-            fontFamily: theme.fonts.native.contentFontRegular,
-          }}
-        />
+        <PrimaryTextButton text={t('clickHere')} onPress={navigateToCityNotCooperating} />
       </ButtonContainer>
     </FooterContainer>
   )

@@ -1,13 +1,13 @@
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Button } from 'react-native-elements'
-import styled, { useTheme } from 'styled-components/native'
+import styled from 'styled-components/native'
 
 import { ErrorCode } from 'api-client'
 
 import NoInternetIcon from '../assets/no-internet.svg'
 import SadIcon from '../assets/smile-sad.svg'
 import UnknownIcon from '../assets/warning.svg'
+import PrimaryTextButton from './PrimaryTextButton'
 
 const ViewContainer = styled.View`
   flex: 1;
@@ -27,7 +27,6 @@ export type FailureProps = {
 
 const Failure = ({ code, buttonAction, buttonLabel }: FailureProps): ReactElement => {
   const { t } = useTranslation('error')
-  const theme = useTheme()
   let ErrorIcon
   switch (code) {
     case ErrorCode.NetworkConnectionFailed: {
@@ -47,20 +46,7 @@ const Failure = ({ code, buttonAction, buttonLabel }: FailureProps): ReactElemen
     <ViewContainer>
       <ErrorIcon width={60} height={60} />
       <Message>{t(code === ErrorCode.CityUnavailable ? 'notFound.city' : code)}</Message>
-      {buttonAction && (
-        <Button
-          testID='button-tryAgain'
-          titleStyle={{
-            color: theme.colors.textColor,
-          }}
-          buttonStyle={{
-            backgroundColor: theme.colors.themeColor,
-            marginTop: 40,
-          }}
-          onPress={buttonAction}
-          title={t(buttonLabel ?? 'tryAgain')}
-        />
-      )}
+      {buttonAction && <PrimaryTextButton onPress={buttonAction} text={t(buttonLabel ?? 'tryAgain')} marginTop={40} />}
     </ViewContainer>
   )
 }

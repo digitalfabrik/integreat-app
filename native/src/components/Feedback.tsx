@@ -2,7 +2,6 @@ import * as React from 'react'
 import { ReactElement } from 'react'
 import { TFunction } from 'react-i18next'
 import { ActivityIndicator, ScrollView, Text, TextInput } from 'react-native'
-import { Button } from 'react-native-elements'
 import Icon from 'react-native-vector-icons/MaterialIcons'
 import styled from 'styled-components/native'
 
@@ -12,6 +11,7 @@ import HappyIcon from '../assets/smile-happy.svg'
 import buildConfig from '../constants/buildConfig'
 import Caption from './Caption'
 import { SendingStatusType } from './FeedbackContainer'
+import PrimaryTextButton from './PrimaryTextButton'
 
 const Input = styled(TextInput)`
   padding: 15px;
@@ -93,18 +93,12 @@ const Feedback = (props: FeedbackProps): ReactElement => {
             value={contactMail}
           />
           {sendingStatus === 'failed' && <Description theme={theme}>{t('failedSendingFeedback')}</Description>}
-          <Button
-            icon={<Icon name='send' size={15} color='black' />}
-            titleStyle={{
-              color: theme.colors.textColor,
-            }}
-            buttonStyle={{
-              backgroundColor: theme.colors.themeColor,
-              marginTop: 15,
-            }}
+          <PrimaryTextButton
+            Icon={<Icon name='send' size={15} color='black' />}
+            marginTop={15}
             disabled={!isPositiveFeedback && !comment}
             onPress={onSubmit}
-            title={t('send')}
+            text={t('send')}
           />
         </>
       )

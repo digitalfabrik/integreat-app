@@ -1,13 +1,12 @@
 import moment, { Moment } from 'moment'
 import React, { ReactElement, ReactNode, useEffect, useState } from 'react'
 import { TouchableOpacity } from 'react-native'
-import { Button } from 'react-native-elements'
-import { useTheme } from 'styled-components'
 import styled from 'styled-components/native'
 
 import buildConfig, { buildConfigAssets } from '../constants/buildConfig'
 import appSettings from '../utils/AppSettings'
 import { log, reportError } from '../utils/sentry'
+import PrimaryTextButton from './PrimaryTextButton'
 
 const API_URL_OVERRIDE_MIN_CLICKS = 10
 const CLICK_TIMEOUT = 8
@@ -26,7 +25,6 @@ const EastereggImage = ({ clearResourcesAndCache }: EastereggImageProps): ReactE
   const [apiUrlOverride, setApiUrlOverride] = useState<string | null>(null)
   const [clickStart, setClickStart] = useState<null | Moment>(null)
   const { cmsUrl, switchCmsUrl } = buildConfig()
-  const theme = useTheme()
 
   useEffect(() => {
     appSettings.loadApiUrlOverride().then(setApiUrlOverride).catch(reportError)
@@ -66,17 +64,7 @@ const EastereggImage = ({ clearResourcesAndCache }: EastereggImageProps): ReactE
       return (
         <>
           <ApiUrlText>{`Currently using API: ${apiUrlOverride.toString()}`}</ApiUrlText>
-          <Button
-            titleStyle={{
-              color: theme.colors.textColor,
-            }}
-            buttonStyle={{
-              backgroundColor: theme.colors.themeColor,
-              marginTop: 10,
-            }}
-            onPress={() => setApiUrl(cmsUrl)}
-            title='Switch back to default API'
-          />
+          <PrimaryTextButton onPress={() => setApiUrl(cmsUrl)} text='Switch back to default API' marginTop={10} />
         </>
       )
     }

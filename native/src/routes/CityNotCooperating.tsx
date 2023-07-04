@@ -1,10 +1,9 @@
 import Clipboard from '@react-native-clipboard/clipboard'
 import React, { ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Button } from 'react-native-elements'
-import { useTheme } from 'styled-components'
 import styled from 'styled-components/native'
 
+import PrimaryTextButton from '../components/PrimaryTextButton'
 import buildConfig, { buildConfigAssets } from '../constants/buildConfig'
 
 const Container = styled.ScrollView`
@@ -76,7 +75,6 @@ const StyledCityNotCooperatingIcon = CityNotCooperatingIcon
 const CityNotCooperating = (): ReactElement => {
   const { t } = useTranslation('cityNotCooperating')
   const [isCopied, setIsCopied] = useState<boolean>(false)
-  const theme = useTheme()
   const template = buildConfig().featureFlags.cityNotCooperatingTemplate!
 
   const copyToClipboard = () => {
@@ -101,17 +99,7 @@ const CityNotCooperating = (): ReactElement => {
       </ListItem>
 
       <ButtonContainer>
-        <Button
-          onPress={copyToClipboard}
-          title={isCopied ? t('textCopied') : t('copyText')}
-          buttonStyle={{
-            backgroundColor: theme.colors.themeColor,
-          }}
-          titleStyle={{
-            color: theme.colors.textColor,
-            fontFamily: theme.fonts.native.contentFontRegular,
-          }}
-        />
+        <PrimaryTextButton onPress={copyToClipboard} text={isCopied ? t('textCopied') : t('copyText')} />
       </ButtonContainer>
       <TemplateText>{template}</TemplateText>
     </Container>
