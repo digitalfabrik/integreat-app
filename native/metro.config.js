@@ -1,3 +1,4 @@
+/* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable @typescript-eslint/no-var-requires */
 /**
  * Metro configuration for React Native
@@ -8,15 +9,10 @@
 const path = require('path')
 const Resolver = require('metro-resolver')
 
-// eslint-disable-next-line import/no-extraneous-dependencies
-const { getDefaultConfig, mergeConfig } = require('@react-native/metro-config')
-// eslint-disable-next-line import/no-extraneous-dependencies
 const defaultSourceExts = require('metro-config/src/defaults/defaults').sourceExts
-// eslint-disable-next-line import/no-extraneous-dependencies
 const defaultAssetExts = require('metro-config/src/defaults/defaults').assetExts
 
-module.exports = mergeConfig(
-  getDefaultConfig(__dirname),
+module.exports =
   // https://github.com/facebook/react-native/issues/21310#issuecomment-544071895
   // https://github.com/facebook/metro/issues/1#issuecomment-453450709
   // Per default metro is looking for the babel dependencies in the node_modules of the corresponding package.
@@ -52,6 +48,7 @@ module.exports = mergeConfig(
     },
     watchFolders: [path.resolve(__dirname, '../')],
     transformer: {
+      allowOptionalDependencies: true,
       babelTransformerPath: require.resolve('react-native-svg-transformer'),
       getTransformOptions: async () => ({
         transform: {
@@ -61,4 +58,3 @@ module.exports = mergeConfig(
       }),
     },
   }
-)
