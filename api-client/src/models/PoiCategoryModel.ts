@@ -26,6 +26,10 @@ class PoiCategoryModel {
   get icon(): string | undefined {
     return this._icon
   }
+
+  isEqual(other: PoiCategoryModel): boolean {
+    return this.id === other.id && this.name === other.name && this.color === other.color && this.icon === other.icon
+  }
 }
 
 export default PoiCategoryModel

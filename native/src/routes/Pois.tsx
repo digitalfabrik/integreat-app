@@ -1,5 +1,5 @@
 import { BottomSheetScrollViewMethods } from '@gorhom/bottom-sheet'
-import React, { ReactElement, useCallback, useRef, useState } from 'react'
+import React, { ReactElement, useCallback, useMemo, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { ScrollView } from 'react-native'
 import { useTheme } from 'styled-components'
@@ -18,9 +18,11 @@ import {
   prepareFeatureLocations,
 } from 'api-client'
 
+import { EditLocationIcon } from '../assets'
 import BottomActionsSheet from '../components/BottomActionsSheet'
 import Failure from '../components/Failure'
 import MapView from '../components/MapView'
+import OverlayButton from '../components/OverlayButton'
 import PoiDetails from '../components/PoiDetails'
 import PoiListItem from '../components/PoiListItem'
 import SiteHelpfulBox from '../components/SiteHelpfulBox'
@@ -58,18 +60,30 @@ type PoisProps = {
 
 const RESTORE_TIMEOUT = 100
 
-const Pois = ({ pois, language, cityModel, route, navigation }: PoisProps): ReactElement => {
+const Pois = ({ pois: allPois, language, cityModel, route, navigation }: PoisProps): ReactElement => {
+  const poiCategories = [...new Set(allPois.map(it => it.category))]
+  const [poiCategoryFilter, setPoiCategoryFilter] = useState<string | null>(null)
+  const [poiCurrentlyOpenFilter, setPoiCurrentlyOpenFilter] = useState(false)
+  const [showFilterSelection, setShowFilterSelection] = useState(false)
   const { coordinates, requestAndDetermineLocation } = useUserLocation(true)
   const { slug } = route.params
   const [sheetSnapPointIndex, setSheetSnapPointIndex] = useState<number>(1)
   const [followUserLocation, setFollowUserLocation] = useState<boolean>(false)
   const [listScrollPosition, setListScrollPosition] = useState<number>(0)
-  const features = prepareFeatureLocations(pois, coordinates)
-  const selectedFeature = slug ? features.find(it => it.properties.slug === slug) : null
-  const poi = pois.find(it => it.slug === slug)
   const { t } = useTranslation('pois')
   const theme = useTheme()
   const scrollRef = useRef<BottomSheetScrollViewMethods>(null)
+
+  const pois = useMemo(
+    () =>
+      allPois
+        .filter(poi => !poiCategoryFilter || poi.category?.icon === poiCategoryFilter)
+        .filter(poi => !poiCurrentlyOpenFilter || poi.isCurrentlyOpen),
+    [allPois, poiCategoryFilter, poiCurrentlyOpenFilter]
+  )
+  const poi = pois.find(it => it.slug === slug)
+  const features = prepareFeatureLocations(pois, coordinates)
+  const selectedFeature = slug ? features.find(it => it.properties.slug === slug) : null
 
   const scrollTo = (position: number) => {
     setTimeout(() => {
@@ -161,6 +175,31 @@ const Pois = ({ pois, language, cityModel, route, navigation }: PoisProps): Reac
         }
         followUserLocation={followUserLocation}
         setFollowUserLocation={setFollowUserLocation}
+        Overlay={
+          <>
+            <OverlayButton
+              text='Ansicht filtern'
+              Icon={EditLocationIcon}
+              onPress={() => setShowFilterSelection(true)}
+            />
+            {poiCurrentlyOpenFilter && (
+              <OverlayButton
+                text='Ansicht filtern'
+                Icon={EditLocationIcon}
+                onPress={() => setPoiCurrentlyOpenFilter(false)}
+                closeButton
+              />
+            )}
+            {!!poiCategoryFilter && (
+              <OverlayButton
+                text='Ansicht filtern'
+                Icon={EditLocationIcon}
+                onPress={() => setPoiCategoryFilter(null)}
+                closeButton
+              />
+            )}
+          </>
+        }
       />
       <BottomActionsSheet
         ref={scrollRef}
