@@ -44,12 +44,9 @@ type OpeningHoursProps = {
 
 const getOpeningLabel = (isTemporarilyClosed: boolean, isCurrentlyOpened: boolean): string => {
   if (isTemporarilyClosed) {
-    return 'openingHoursTemporarilyClosed'
+    return 'temporarilyClosed'
   }
-  if (isCurrentlyOpened) {
-    return 'openingHoursOpened'
-  }
-  return 'openingHoursClosed'
+  return isCurrentlyOpened ? 'opened' : 'closed'
 }
 
 const OpeningHours = ({

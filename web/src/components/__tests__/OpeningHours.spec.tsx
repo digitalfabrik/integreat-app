@@ -8,7 +8,7 @@ import OpeningHours from '../OpeningHours'
 
 jest.mock('react-i18next')
 
-describe('OpeningHoursSpec', () => {
+describe('OpeningHours', () => {
   const renderOpeningHours = (
     isCurrentlyOpen: boolean,
     isTemporarilyClosed: boolean,

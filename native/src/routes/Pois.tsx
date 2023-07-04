@@ -11,6 +11,7 @@ import {
   ErrorCode,
   fromError,
   NotFoundError,
+  PoiCategoryModel,
   PoiFeature,
   PoiModel,
   POIS_ROUTE,
@@ -18,7 +19,7 @@ import {
   prepareFeatureLocations,
 } from 'api-client'
 
-import { EditLocationIcon } from '../assets'
+import { ClockIcon, EditLocationIcon } from '../assets'
 import BottomActionsSheet from '../components/BottomActionsSheet'
 import Failure from '../components/Failure'
 import MapView from '../components/MapView'
@@ -62,7 +63,7 @@ const RESTORE_TIMEOUT = 100
 
 const Pois = ({ pois: allPois, language, cityModel, route, navigation }: PoisProps): ReactElement => {
   const poiCategories = [...new Set(allPois.map(it => it.category))]
-  const [poiCategoryFilter, setPoiCategoryFilter] = useState<string | null>(null)
+  const [poiCategoryFilter, setPoiCategoryFilter] = useState<PoiCategoryModel | null>(null)
   const [poiCurrentlyOpenFilter, setPoiCurrentlyOpenFilter] = useState(false)
   const [showFilterSelection, setShowFilterSelection] = useState(false)
   const { coordinates, requestAndDetermineLocation } = useUserLocation(true)
@@ -77,7 +78,7 @@ const Pois = ({ pois: allPois, language, cityModel, route, navigation }: PoisPro
   const pois = useMemo(
     () =>
       allPois
-        .filter(poi => !poiCategoryFilter || poi.category?.icon === poiCategoryFilter)
+        .filter(poi => !poiCategoryFilter || poi.category === poiCategoryFilter)
         .filter(poi => !poiCurrentlyOpenFilter || poi.isCurrentlyOpen),
     [allPois, poiCategoryFilter, poiCurrentlyOpenFilter]
   )
@@ -184,15 +185,15 @@ const Pois = ({ pois: allPois, language, cityModel, route, navigation }: PoisPro
             />
             {poiCurrentlyOpenFilter && (
               <OverlayButton
-                text='Ansicht filtern'
-                Icon={EditLocationIcon}
+                text={t('opened')}
+                Icon={ClockIcon}
                 onPress={() => setPoiCurrentlyOpenFilter(false)}
                 closeButton
               />
             )}
             {!!poiCategoryFilter && (
               <OverlayButton
-                text='Ansicht filtern'
+                text={poiCategoryFilter.name}
                 Icon={EditLocationIcon}
                 onPress={() => setPoiCategoryFilter(null)}
                 closeButton
