@@ -24,6 +24,7 @@ const Horizontal = styled.View`
   justify-content: space-between;
   align-items: center;
 `
+
 const BoxShadow = styled.View`
   elevation: 1;
   shadow-color: #000;
