@@ -38,8 +38,8 @@ const OpeningEntry = ({ allDay, closed, timeSlots, weekday, isCurrentDay }: Open
   return (
     <EntryContainer isCurrentDay={isCurrentDay} id={`openingEntryContainer-${weekday}`}>
       <span>{weekday}</span>
-      {allDay && <span>{t('openingHoursAllDay')}</span>}
-      {closed && <span>{t('openingHoursClosed')}</span>}
+      {allDay && <span>{t('allDay')}</span>}
+      {closed && <span>{t('closed')}</span>}
       {!allDay && !closed && timeSlots.length > 0 && (
         <Timeslot>
           {timeSlots.map(timeSlot => (
