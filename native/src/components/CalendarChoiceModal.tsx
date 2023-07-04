@@ -53,6 +53,8 @@ const CalendarChoiceModal = ({
   eventTitle,
 }: CalendarChoiceProps): ReactElement => {
   const { t } = useTranslation('events')
+
+  // TODO IGAPP-1331: Check if that solves transparent header issues https://github.com/facebook/react-native/issues/34350
   return (
     <Modal
       visible={modalVisible}
