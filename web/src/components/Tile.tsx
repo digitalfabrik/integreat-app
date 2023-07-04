@@ -3,13 +3,33 @@ import styled from 'styled-components'
 
 import TileModel from '../models/TileModel'
 import CleanLink from './CleanLink'
-import Thumbnail from './Thumbnail'
 
 type TileProps = {
   tile: TileModel
 }
 
-const StyledThumbnail = styled(Thumbnail)`
+const Thumbnail = styled.div`
+  position: relative;
+  display: block;
+  width: 100%;
+  margin: 0 auto;
+  padding-top: 100%;
+
+  & img {
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    transition: transform 0.2s;
+    object-fit: contain;
+  }
+`
+
+const ThumbnailSizer = styled.div`
+  width: 150px;
+  max-width: 33.3vw;
   margin: 0 auto;
 `
 
@@ -48,7 +68,11 @@ class Tile extends React.PureComponent<TileProps> {
     const { tile } = this.props
     return (
       <>
-        <StyledThumbnail src={tile.thumbnail} />
+        <ThumbnailSizer>
+          <Thumbnail>
+            <img alt='' src={tile.thumbnail} />
+          </Thumbnail>
+        </ThumbnailSizer>
         <TileTitle>{tile.title}</TileTitle>
       </>
     )
