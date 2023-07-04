@@ -28,6 +28,10 @@ const OffersPage = ({ city, cityCode, languageCode }: CityRouteProps): ReactElem
   const { t } = useTranslation('offers')
   const { viewportSmall } = useWindowDimensions()
 
+  const toolbar = (openFeedback: (rating: FeedbackRatingType) => void) => (
+    <CityContentToolbar openFeedbackModal={openFeedback} hasDivider={viewportSmall} />
+  )
+
   const {
     data: offers,
     loading,
@@ -59,10 +63,6 @@ const OffersPage = ({ city, cityCode, languageCode }: CityRouteProps): ReactElem
   if (!city) {
     return null
   }
-
-  const toolbar = (openFeedback: (rating: FeedbackRatingType) => void) => (
-    <CityContentToolbar openFeedbackModal={openFeedback} viewportSmall={viewportSmall} />
-  )
 
   const languageChangePaths = city.languages.map(({ code, name }) => {
     const offersPath = pathnameFromRouteInformation({ route: OFFERS_ROUTE, cityCode, languageCode: code })

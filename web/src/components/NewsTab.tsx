@@ -17,7 +17,6 @@ const StyledTab = styled(Link)<{ $active: boolean }>`
   flex-shrink: 0;
   align-items: center;
   justify-content: center;
-  margin-right: 30px;
   cursor: pointer;
   padding: 13px 15px;
   color: ${({ theme }) => theme.colors.backgroundColor};
@@ -27,6 +26,9 @@ const StyledTab = styled(Link)<{ $active: boolean }>`
   font-size: 18px;
   font-weight: 700;
   text-decoration: none;
+  &:not(:last-child) {
+    margin-right: 30px;
+  }
 `
 
 const TuStyledTab = styled(StyledTab)`
