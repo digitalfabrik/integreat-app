@@ -20,6 +20,7 @@ const categoryParams = {
   ]),
   thumbnail: '',
   lastUpdate: moment('2017-11-18T19:30:00.000Z'),
+  organization: null,
 }
 
 const category = new CategoryModel(categoryParams)

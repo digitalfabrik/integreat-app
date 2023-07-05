@@ -1,6 +1,7 @@
 import moment from 'moment-timezone'
 
 import CategoryModel from '../../models/CategoryModel'
+import OrganizationModel from '../../models/OrganizationModel'
 import mapCategoryJson from '../mapCategoryJson'
 
 describe('categories', () => {
@@ -27,6 +28,7 @@ describe('categories', () => {
     },
     thumbnail: 'https://cms.integreat-ap…/03/Hotline-150x150.png',
     modified_gmt: '2017-01-01 05:10:05',
+    organization: null,
   }
   const categoryJson2 = {
     id: 404,
@@ -54,6 +56,11 @@ describe('categories', () => {
       },
     },
     thumbnail: 'https://example.com/thumbnail',
+    organization: {
+      name: 'Tür an Tür',
+      logo: 'https://example.com/my-icon',
+      url: 'https://example.com',
+    },
   }
   const categoryModel1 = new CategoryModel({
     root: false,
@@ -65,6 +72,7 @@ describe('categories', () => {
     availableLanguages: new Map([['en', '/augsburg/en/anlaufstellen']]),
     thumbnail: 'https://cms.integreat-ap…/03/Hotline-150x150.png',
     lastUpdate: moment.tz('2017-01-01 05:10:05', 'GMT'),
+    organization: null,
   })
   const categoryModel2 = new CategoryModel({
     root: false,
@@ -76,6 +84,11 @@ describe('categories', () => {
     order: 3,
     thumbnail: 'https://example.com/thumbnail',
     lastUpdate: moment.tz('2016-01-07 10:36:24', 'GMT'),
+    organization: new OrganizationModel({
+      name: 'Tür an Tür',
+      logo: 'https://example.com/my-icon',
+      url: 'https://example.com',
+    }),
   })
 
   it('should map json correctly', () => {

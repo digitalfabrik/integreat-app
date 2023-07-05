@@ -1,5 +1,5 @@
 import React, { ReactElement } from 'react'
-import { useTranslation } from 'react-i18next'
+import { Trans, useTranslation } from 'react-i18next'
 import styled from 'styled-components/native'
 
 import { OrganizationModel } from 'api-client'
@@ -7,25 +7,26 @@ import { OrganizationModel } from 'api-client'
 import HighlightBox from './HighlightBox'
 import Link from './Link'
 import SimpleImage from './SimpleImage'
+import Text from './base/Text'
 
 const Thumbnail = styled(SimpleImage)`
-  height: 150px;
+  height: 80px;
 `
 
 const Box = styled(HighlightBox)`
   display: flex;
-  justify-content: space-evenly;
   font-family: ${props => props.theme.fonts.native.decorativeFontRegular};
+  margin-bottom: 16px;
 `
 
 const Column = styled.View`
   display: flex;
   flex-direction: column;
-  justify-content: space-evenly;
 `
 
 const OrganizationContent = styled.Text`
   font-family: ${props => props.theme.fonts.native.decorativeFontBold};
+  padding: 16px 0 8px;
 `
 
 type OrganizationContentInfoProps = {
@@ -35,11 +36,17 @@ type OrganizationContentInfoProps = {
 const OrganizationContentInfo = ({ organization }: OrganizationContentInfoProps): ReactElement => {
   const { t } = useTranslation('categories')
   return (
-    <Box>
+    <Box $padding>
       <Thumbnail source={organization.logo} />
       <Column>
         <OrganizationContent>{t('organizationContent', { organization: organization.name })}</OrganizationContent>
-        <Link url={organization.url} text={t('organizationWebsite', { organization: organization.name })} />
+        <Text>
+          <Trans i18nKey='categories:organizationMoreInformation' domain={new URL(organization.url).hostname}>
+            This gets{{ organization: organization.name }}replaced
+            <Link url={organization.url} text={new URL(organization.url).hostname} />
+            by i18n
+          </Trans>
+        </Text>
       </Column>
     </Box>
   )

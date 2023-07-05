@@ -23,6 +23,10 @@ class OrganizationModel {
     // return this._logo ?? 'https://webnext.integreat.app/app-logo.png'
     return 'https://admin.integreat-app.de/media/regions/214/2023/02/TaT_DF_LOGO.png'
   }
+
+  isEqual(other: OrganizationModel | null): boolean {
+    return !!other && this.name === other.name && this.url === other.url && this.logo === other.logo
+  }
 }
 
 export default OrganizationModel

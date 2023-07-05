@@ -29,8 +29,9 @@ type PageProps = {
   lastUpdateFormat?: string
   formatter: DateFormatter
   onInternalLinkClick: (url: string) => void
-  children?: ReactNode
-  pageFooter?: ReactNode
+  BeforeContent?: ReactNode
+  AfterContent?: ReactNode
+  Footer?: ReactNode
 }
 
 const Page = ({
@@ -42,16 +43,17 @@ const Page = ({
   showLastUpdateText = true,
   lastUpdateFormat,
   formatter,
-  children,
   onInternalLinkClick,
-  pageFooter,
+  BeforeContent,
+  AfterContent,
+  Footer,
 }: PageProps): ReactElement => (
   <>
     {!!defaultThumbnailSrc && <Thumbnail alt='' src={defaultThumbnailSrc} srcSet={thumbnailSrcSet} />}
     <Caption title={title} />
-    {children}
+    {BeforeContent}
     <RemoteContent html={content} onInternalLinkClick={onInternalLinkClick} />
-    {pageFooter}
+    {AfterContent}
     {lastUpdate && (
       <LastUpdateInfo
         lastUpdate={lastUpdate}
@@ -60,6 +62,7 @@ const Page = ({
         withText={showLastUpdateText}
       />
     )}
+    {Footer}
   </>
 )
 

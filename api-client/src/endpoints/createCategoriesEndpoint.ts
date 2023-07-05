@@ -31,6 +31,7 @@ export default (baseUrl: string): Endpoint<ParamsType, CategoriesMapModel> =>
           order: -1,
           availableLanguages: new Map(),
           lastUpdate: moment(0),
+          organization: null,
         })
       )
       return new CategoriesMapModel(categories)

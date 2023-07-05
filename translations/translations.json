@@ -35,6 +35,7 @@
       "createPdf": "Create a PDF",
       "copyUrl": "Copy link",
       "metaDescription": "{{appName}} is your digital guide to life in Germany. Discover local information, events and advice. Always up to date and available in your own language.",
+      "organizationContent": "The contents of this page are from {{organization}}.",
       "organizationMoreInformation": "You can find more information about <1>{{organization}}</1> on <3>{{domain}}</3>."
     },
     "es": {

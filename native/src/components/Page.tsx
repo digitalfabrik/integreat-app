@@ -40,6 +40,7 @@ type PageProps = {
   content: string
   BeforeContent?: ReactNode
   AfterContent?: ReactNode
+  Footer?: ReactNode
   language: string
   lastUpdate?: Moment
   navigateToFeedback?: (positive: boolean) => void
@@ -51,6 +52,7 @@ const Page = ({
   content,
   BeforeContent,
   AfterContent,
+  Footer,
   language,
   lastUpdate,
   navigateToFeedback,
@@ -95,9 +97,10 @@ const Page = ({
             resourceCacheUrl={resourceCacheUrl}
             webViewWidth={contentWidth}
           />
+          {!loading && AfterContent}
           {!loading && !!content && lastUpdate && <TimeStamp formatter={formatter} lastUpdate={lastUpdate} />}
         </Container>
-        {!loading && AfterContent}
+        {!loading && Footer}
       </View>
       {!loading && navigateToFeedback && <SiteHelpfulBox navigateToFeedback={navigateToFeedback} />}
     </SpaceBetween>

@@ -17,6 +17,7 @@ import sendTrackingSignal from '../utils/sendTrackingSignal'
 import { reportError } from '../utils/sentry'
 import CustomHeaderButtons from './CustomHeaderButtons'
 import HeaderBox from './HeaderBox'
+import HighlightBox from './HighlightBox'
 
 const Horizontal = styled.View`
   flex: 1;
@@ -25,13 +26,7 @@ const Horizontal = styled.View`
   align-items: center;
 `
 
-const BoxShadow = styled.View`
-  elevation: 1;
-  shadow-color: #000;
-  shadow-offset: 0px 1px;
-  shadow-opacity: 0.18;
-  shadow-radius: 1px;
-  background-color: ${props => props.theme.colors.backgroundAccentColor};
+const BoxShadow = styled(HighlightBox)`
   height: ${dimensions.headerHeight}px;
 `
 

@@ -97,21 +97,17 @@ const Categories = ({
       language={language}
       navigateToFeedback={navigateToFeedbackForCategory}
       path={category.path}
-      AfterContent={
-        <>
-          {children.map(it => (
-            <CategoryListItem
-              key={it.path}
-              category={it}
-              subCategories={categories.getChildren(it)}
-              resourceCache={resourceCache}
-              language={language}
-              onItemPress={navigateToCategory}
-            />
-          ))}
-          {category.organization && <OrganizationContentInfo organization={category.organization} />}
-        </>
-      }
+      AfterContent={category.organization && <OrganizationContentInfo organization={category.organization} />}
+      Footer={children.map(it => (
+        <CategoryListItem
+          key={it.path}
+          category={it}
+          subCategories={categories.getChildren(it)}
+          resourceCache={resourceCache}
+          language={language}
+          onItemPress={navigateToCategory}
+        />
+      ))}
     />
   )
 }

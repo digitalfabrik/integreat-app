@@ -21,6 +21,7 @@ const categoryParams = {
   ]),
   thumbnail: 'https://cms.integreat-ap…03/Beratung-150x150.png',
   lastUpdate: moment('2017-11-18T19:30:00.000Z'),
+  organization: null,
 }
 
 const category = new CategoryModel(categoryParams)
