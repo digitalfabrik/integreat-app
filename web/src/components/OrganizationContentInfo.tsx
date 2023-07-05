@@ -7,10 +7,11 @@ import { OrganizationModel } from 'api-client'
 import useWindowDimensions from '../hooks/useWindowDimensions'
 import HighlightBox from './HighlightBox'
 
-const StyledImage = styled.img`
+const StyledImage = styled.img<{ viewportSmall: boolean }>`
   width: 100%;
   transition: transform 0.2s;
   object-fit: contain;
+  ${props => props.viewportSmall && 'margin-bottom: 8px;'}
 `
 
 const ThumbnailSizer = styled.div`
@@ -48,18 +49,18 @@ const OrganizationContentInfo = ({ organization }: OrganizationContentInfoProps)
   return (
     <Box viewportSmall={viewportSmall}>
       <ThumbnailSizer>
-        <StyledImage alt='' src={organization.logo} />
+        <StyledImage alt='' src={organization.logo} viewportSmall={viewportSmall} />
       </ThumbnailSizer>
       <Column>
         <OrganizationContent>{t('organizationContent', { organization: organization.name })}</OrganizationContent>
         <span>
           <Trans i18nKey='categories:organizationMoreInformation' domain={new URL(organization.url).hostname}>
-            A{{ organization: organization.name }}B
+            This gets{{ organization: organization.name }}replaced
             <a href={organization.url} target='_blank' rel='noopener noreferrer'>
               {/* @ts-expect-error gets replaced by Trans component */}
               {{ domain: new URL(organization.url).hostname }}
             </a>
-            D
+            by i18n
           </Trans>
         </span>
       </Column>

@@ -31,6 +31,7 @@ describe('createCategoryParentsEndpoint', () => {
     order: -1,
     availableLanguages: new Map(),
     lastUpdate: moment(0),
+    organization: null,
   })
   const endpoint = createCategoryParentsEndpoint(baseUrl)
 

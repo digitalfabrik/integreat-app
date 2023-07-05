@@ -4,6 +4,7 @@ import seedrandom from 'seedrandom'
 import hashUrl from '../hashUrl'
 import CategoriesMapModel from '../models/CategoriesMapModel'
 import CategoryModel from '../models/CategoryModel'
+import OrganizationModel from '../models/OrganizationModel'
 
 type PageResourceCacheEntryStateType = {
   readonly filePath: string
@@ -82,6 +83,11 @@ class CategoriesMapModelBuilder {
         thumbnail,
         parentPath: category.path,
         lastUpdate,
+        organization: new OrganizationModel({
+          name: 'Tür an Tür',
+          logo: 'https://example.com/my-icon',
+          url: 'https://example.com',
+        }),
       })
       this._resourceCache[path] = {
         [resourceUrl1]: this.createResource(resourceUrl1, id, lastUpdate),
@@ -121,6 +127,7 @@ class CategoriesMapModelBuilder {
         thumbnail: '',
         parentPath: '',
         lastUpdate: moment('2017-11-18T19:30:00.000Z', moment.ISO_8601),
+        organization: null,
       }),
       0
     )
