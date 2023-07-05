@@ -11,9 +11,9 @@ import CollapsibleItem from './CollapsibleItem'
 import HorizontalLine from './HorizontalLine'
 import OpeningEntry from './OpeningEntry'
 
-const OpeningLabel = styled.Text<{ isOpened: boolean; direction: string }>`
+const OpeningLabel = styled.Text<{ isOpened: boolean; contentDirection: string }>`
   color: ${props => (props.isOpened ? props.theme.colors.positiveHighlight : props.theme.colors.negativeHighlight)};
-  ${props => (props.direction === 'rtl' ? `padding-left: 12px;` : `padding-right: 12px;`)}
+  ${props => (props.contentDirection === 'rtl' ? `padding-left: 12px;` : `padding-right: 12px;`)}
   font-weight: bold;
   align-self: center;
 `
@@ -62,7 +62,7 @@ const OpeningHours = ({
   const openingHoursTitle = (
     <TitleContainer language={language}>
       <Text style={{ fontWeight: 'bold', alignSelf: 'center' }}>{t('openingHours')}</Text>
-      <OpeningLabel isOpened={isCurrentlyOpen} direction={contentDirection(language)}>
+      <OpeningLabel isOpened={isCurrentlyOpen} contentDirection={contentDirection(language)}>
         {t(getOpeningLabel(isTemporarilyClosed, isCurrentlyOpen))}
       </OpeningLabel>
     </TitleContainer>
