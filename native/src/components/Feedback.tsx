@@ -1,5 +1,4 @@
-import * as React from 'react'
-import { ReactElement } from 'react'
+import React, { ReactElement } from 'react'
 import { TFunction } from 'react-i18next'
 import { ActivityIndicator, ScrollView, Text, TextInput } from 'react-native'
 import Icon from 'react-native-vector-icons/MaterialIcons'
@@ -44,6 +43,10 @@ const Description = styled(ThemedText)`
 `
 const HappyIconContainer = styled(HappyIcon)`
   margin: 100px auto 10px;
+`
+
+const ButtonContainer = styled.View`
+  padding: 16px 0;
 `
 
 export type FeedbackProps = {
@@ -93,12 +96,15 @@ const Feedback = (props: FeedbackProps): ReactElement => {
             value={contactMail}
           />
           {sendingStatus === 'failed' && <Description theme={theme}>{t('failedSendingFeedback')}</Description>}
-          <PrimaryTextButton
-            Icon={<Icon name='send' size={15} color='black' />}
-            disabled={!isPositiveFeedback && !comment}
-            onPress={onSubmit}
-            text={t('send')}
-          />
+          <ButtonContainer>
+            <PrimaryTextButton
+              Icon={<Icon name='send' size={15} color='black' />}
+              disabled={!isPositiveFeedback && !comment}
+              onPress={onSubmit}
+              text={t('send')}
+              padding={false}
+            />
+          </ButtonContainer>
         </>
       )
     }
