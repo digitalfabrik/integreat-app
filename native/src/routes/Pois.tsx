@@ -25,6 +25,7 @@ import Failure from '../components/Failure'
 import MapView from '../components/MapView'
 import OverlayButton from '../components/OverlayButton'
 import PoiDetails from '../components/PoiDetails'
+import PoiFiltersModal from '../components/PoiFiltersModal'
 import PoiListItem from '../components/PoiListItem'
 import SiteHelpfulBox from '../components/SiteHelpfulBox'
 import { NavigationProps, RouteProps } from '../constants/NavigationTypes'
@@ -163,6 +164,15 @@ const Pois = ({ pois: allPois, language, cityModel, route, navigation }: PoisPro
 
   return (
     <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+      <PoiFiltersModal
+        modalVisible={showFilterSelection}
+        closeModal={() => setShowFilterSelection(false)}
+        poiCategories={poiCategories}
+        selectedPoiCategory={poiCategoryFilter}
+        setSelectedPoiCategory={setPoiCategoryFilter}
+        currentlyOpenFilter={poiCurrentlyOpenFilter}
+        setCurrentlyOpenFilter={setPoiCurrentlyOpenFilter}
+      />
       <MapView
         selectPoiFeature={selectPoiFeature}
         boundingBox={cityModel.boundingBox}
