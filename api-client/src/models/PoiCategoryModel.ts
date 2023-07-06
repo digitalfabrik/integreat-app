@@ -1,10 +1,10 @@
 class PoiCategoryModel {
   _id: number
   _name: string
-  _color?: string
-  _icon?: string
+  _color: string
+  _icon: string
 
-  constructor({ id, name, color, icon }: { id: number; name: string; icon?: string; color?: string }) {
+  constructor({ id, name, color, icon }: { id: number; name: string; icon: string; color: string }) {
     this._icon = icon
     this._name = name
     this._id = id
@@ -19,11 +19,11 @@ class PoiCategoryModel {
     return this._name
   }
 
-  get color(): string | undefined {
+  get color(): string {
     return this._color
   }
 
-  get icon(): string | undefined {
+  get icon(): string {
     return this._icon
   }
 

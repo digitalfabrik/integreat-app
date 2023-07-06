@@ -125,7 +125,7 @@ type ContentPoiJsonType = {
   excerpt: string
   location: LocationJsonType<number>
   lastUpdate: string
-  category: { id: number; name: string; color?: string; icon?: string } | null
+  category: { id: number; name: string; color: string; icon: string }
   openingHours: { allDay: boolean; closed: boolean; timeSlots: { start: string; end: string }[] }[] | null
   temporarilyClosed: boolean
 }
@@ -411,14 +411,12 @@ class DatabaseConnector {
           name: poi.location.name,
         },
         lastUpdate: poi.lastUpdate.toISOString(),
-        category: poi.category
-          ? {
-              id: poi.category.id,
-              name: poi.category.name,
-              icon: poi.category.icon,
-              color: poi.category.color,
-            }
-          : null,
+        category: {
+          id: poi.category.id,
+          name: poi.category.name,
+          icon: poi.category.icon,
+          color: poi.category.color,
+        },
         openingHours:
           poi.openingHours?.map(hours => ({
             allDay: hours.allDay,
@@ -462,14 +460,12 @@ class DatabaseConnector {
             town: jsonLocation.town,
           }),
           lastUpdate: moment(jsonObject.lastUpdate, moment.ISO_8601),
-          category: jsonObject.category
-            ? new PoiCategoryModel({
-                id: jsonObject.category.id,
-                name: jsonObject.category.name,
-                color: jsonObject.category.color,
-                icon: jsonObject.category.icon,
-              })
-            : null,
+          category: new PoiCategoryModel({
+            id: jsonObject.category.id,
+            name: jsonObject.category.name,
+            color: jsonObject.category.color,
+            icon: jsonObject.category.icon,
+          }),
           openingHours:
             jsonObject.openingHours?.map(
               hours =>

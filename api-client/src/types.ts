@@ -26,8 +26,8 @@ type JsonOpeningHoursType = {
 export type JsonPoiCategoryType = {
   id: number
   name: string
-  color?: string
-  icon?: string
+  color: string
+  icon: string
 }
 type JsonFeaturedImageInstanceType = {
   url: string

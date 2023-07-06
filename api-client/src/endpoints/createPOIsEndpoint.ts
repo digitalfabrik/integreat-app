@@ -37,14 +37,14 @@ export default (baseUrl: string): Endpoint<ParamsType, Array<PoiModel>> =>
               email: poi.email,
               temporarilyClosed: poi.temporarily_closed,
               openingHours: poi.opening_hours?.map(openingHour => new OpeningHoursModel(openingHour)) ?? null,
-              category: poi.category
-                ? new PoiCategoryModel({
-                    id: poi.category.id,
-                    name: poi.category.name,
-                    color: poi.category.color,
-                    icon: poi.category.icon,
-                  })
-                : null,
+              // TODO Remove fallbacks
+              category: new PoiCategoryModel({
+                // eslint-disable-next-line no-magic-numbers
+                id: poi.category?.id ?? 12,
+                name: poi.category?.name ?? 'Sonstiges',
+                color: poi.category?.color ?? '#2E98FB',
+                icon: poi.category?.icon ?? 'other',
+              }),
               location: new LocationModel({
                 id: poi.location.id,
                 name: poi.location.name,
