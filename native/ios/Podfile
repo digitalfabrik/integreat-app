@@ -6,6 +6,7 @@ platform :ios, '12.4'
 install! 'cocoapods', :deterministic_uuids => false
 
 target 'Integreat' do
+  $RNMapboxMapsImpl = 'maplibre'
   config = use_native_modules!
 
   # Flags change depending on the env values.
@@ -26,13 +27,10 @@ target 'Integreat' do
     # An absolute path to your application root.
     :app_path => "#{Pod::Config.instance.installation_root}/.."
   )
-    # use maplibre
-    $RNMBGL_Use_SPM = true
-    $RNMGL_USE_MAPLIBRE = true
 
   pre_install do |installer|
     # Required for Mapbox
-    $RNMBGL.pre_install(installer)
+    $RNMapboxMaps.pre_install(installer)
   end
 
   post_install do |installer|
@@ -48,7 +46,7 @@ target 'Integreat' do
     )
 
     # Required for Mapbox
-    $RNMBGL.post_install(installer)
+    $RNMapboxMaps.post_install(installer)
   end
 
   permissions_path = '../node_modules/react-native-permissions/ios'
