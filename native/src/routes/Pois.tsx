@@ -1,5 +1,5 @@
 import { BottomSheetScrollViewMethods } from '@gorhom/bottom-sheet'
-import MapboxGL from '@react-native-mapbox-gl/maps'
+import MapboxGL from '@rnmapbox/maps'
 import React, { ReactElement, useCallback, useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { ScrollView, useWindowDimensions } from 'react-native'
@@ -111,7 +111,12 @@ const Pois = ({ pois, language, cityModel, route, navigation }: PoisProps): Reac
         centerCoordinate: selectedFeature.geometry.coordinates,
         zoomLevel: selectedFeature.properties.closeToOtherPoi ? closerDetailZoom : normalDetailZoom,
         animationDuration,
-        padding: { paddingBottom: deviceHeight * midSnapPointPercentage },
+        padding: {
+          paddingBottom: deviceHeight * midSnapPointPercentage,
+          paddingLeft: 0,
+          paddingRight: 0,
+          paddingTop: 0,
+        },
       })
     }
   }, [deviceHeight, followUserLocation, selectedFeature])

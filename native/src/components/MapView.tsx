@@ -1,4 +1,5 @@
-import MapboxGL, { CameraSettings, MapboxGLEvent } from '@react-native-mapbox-gl/maps'
+import MapboxGL, { UserTrackingMode } from '@rnmapbox/maps'
+import { CameraStop, UserTrackingModeChangeCallback } from '@rnmapbox/maps/lib/typescript/components/Camera'
 import type { BBox, Feature } from 'geojson'
 import React, { ReactElement, useCallback } from 'react'
 import { FAB } from 'react-native-elements'
@@ -74,7 +75,7 @@ const MapView = React.forwardRef(
 
     // if there is a current feature use the coordinates; if not use bounding box
     const coordinates = selectedFeature?.geometry.coordinates
-    const defaultSettings: CameraSettings = {
+    const defaultSettings: CameraStop = {
       zoomLevel: coordinates ? normalDetailZoom : defaultViewportConfig.zoom,
       centerCoordinate: coordinates,
       bounds: coordinates ? undefined : bounds,
@@ -85,10 +86,10 @@ const MapView = React.forwardRef(
       setFollowUserLocation(true)
     }, [onRequestLocationPermission, setFollowUserLocation])
 
-    const onUserTrackingModeChange = (
-      event: MapboxGLEvent<'usertrackingmodechange', { followUserLocation: boolean }>
-    ) => {
-      setFollowUserLocation(event.nativeEvent.payload.followUserLocation)
+    const onUserTrackingModeChange: UserTrackingModeChangeCallback = event => {
+      if (!event.nativeEvent.payload.followUserLocation) {
+        setFollowUserLocation(event.nativeEvent.payload.followUserLocation)
+      }
     }
 
     const locationPermissionGrantedIcon = followUserLocation ? 'my-location' : 'location-searching'
@@ -132,7 +133,7 @@ const MapView = React.forwardRef(
           </MapboxGL.ShapeSource>
           <MapboxGL.Camera
             defaultSettings={defaultSettings}
-            followUserMode='normal'
+            followUserMode={UserTrackingMode.Follow}
             followUserLocation={followUserLocation && locationPermissionGranted}
             onUserTrackingModeChange={onUserTrackingModeChange}
             ref={cameraRef}
