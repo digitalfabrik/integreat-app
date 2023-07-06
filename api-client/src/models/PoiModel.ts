@@ -2,7 +2,7 @@ import moment, { Moment } from 'moment'
 // Fix for minifying js issue with hermes using moment().locale https://github.com/moment/moment/issues/5789
 import 'moment/locale/de'
 
-import { mapMarker, PoiFeature } from '../maps'
+import { PoiFeature } from '../maps'
 import ExtendedPageModel from './ExtendedPageModel'
 import LocationModel from './LocationModel'
 import OpeningHoursModel from './OpeningHoursModel'
@@ -18,7 +18,7 @@ class PoiModel extends ExtendedPageModel {
   _email: string | null
   _openingHours: OpeningHoursModel[] | null
   _temporarilyClosed: boolean
-  _category: PoiCategoryModel | null
+  _category: PoiCategoryModel
 
   constructor(params: {
     path: string
@@ -35,7 +35,7 @@ class PoiModel extends ExtendedPageModel {
     phoneNumber: string | null
     temporarilyClosed: boolean
     openingHours: OpeningHoursModel[] | null
-    category: PoiCategoryModel | null
+    category: PoiCategoryModel
   }) {
     const {
       category,
@@ -86,13 +86,8 @@ class PoiModel extends ExtendedPageModel {
   }
 
   private getMarkerSymbol(): string {
-    if (this.category) {
-      if (this.category.color && this.category.icon) {
-        const { color, icon } = this.category
-        return `${icon}_${color}`
-      }
-    }
-    return mapMarker.defaultSymbol
+    const { color, icon } = this.category
+    return `${icon}_${color}`
   }
 
   get featureLocation(): PoiFeature {
@@ -106,7 +101,7 @@ class PoiModel extends ExtendedPageModel {
       },
       properties: {
         title: name,
-        category: this.category?.name,
+        category: this.category.name,
         id,
         symbol: this.getMarkerSymbol(),
         thumbnail: this.thumbnail,
@@ -126,7 +121,7 @@ class PoiModel extends ExtendedPageModel {
     return this._temporarilyClosed
   }
 
-  get category(): PoiCategoryModel | null {
+  get category(): PoiCategoryModel {
     return this._category
   }
 
