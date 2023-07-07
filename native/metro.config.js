@@ -49,7 +49,7 @@ module.exports =
     watchFolders: [path.resolve(__dirname, '../')],
     transformer: {
       allowOptionalDependencies: true,
-      babelTransformerPath: require.resolve('react-native-svg-transformer'),
+      babelTransformerPath: require.resolve('./customTransformer.js'),
       getTransformOptions: async () => ({
         transform: {
           experimentalImportSupport: false,
