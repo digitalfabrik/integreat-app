@@ -1,7 +1,7 @@
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Dimensions } from 'react-native'
-import Svg, { Circle, G, Image } from 'react-native-svg'
+import Svg, { Circle, G } from 'react-native-svg'
 import { useTheme } from 'styled-components'
 import styled from 'styled-components/native'
 
@@ -20,6 +20,15 @@ const Text = styled.Text`
   font-size: 20px;
   font-weight: 700;
 `
+
+const LoadingImage = styled(buildConfigAssets().LoadingImage)`
+  shadow-color: #000;
+  shadow-offset: 0px 2px;
+  shadow-opacity: 0.25;
+  shadow-radius: 3.84px;
+  elevation: 5;
+`
+
 const SVG_SIZE_FRACTION = 0.333
 const svgSize = Dimensions.get('window').width * SVG_SIZE_FRACTION
 const LOGO_SIZE_FRACTION = 0.6
@@ -38,12 +47,11 @@ export type ProgressSpinnerProps = {
 const ProgressSpinner = ({ progress }: ProgressSpinnerProps): ReactElement => {
   const { t } = useTranslation('common')
   const theme = useTheme()
-
   return (
     <Container>
       <Svg width={svgSize} height={svgSize} testID='loading-image'>
         <G transform={`translate(${logoXY}, ${logoXY})`}>
-          <Image width={logoSize} height={logoSize} xlinkHref={buildConfigAssets().loadingImage} />
+          <LoadingImage width={logoSize} height={logoSize} />
         </G>
         <Circle
           fill='none'
