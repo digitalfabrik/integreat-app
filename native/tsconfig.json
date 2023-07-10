@@ -20,15 +20,7 @@
     "typeRoots": ["./src/@types", "./node_modules/@types", "../node_modules/@types"],
     "types": ["jest", "node", "react-native", "styled-components-react-native"]
   },
-  "include": [
-    "src/**/*",
-    "./jest.setup.ts",
-    "index.ts",
-    "jest.config.ts",
-    "metro.config.ci.js",
-    "metro.config.js",
-    "customTransformer.js"
-  ],
+  "include": ["src/**/*", "./jest.setup.ts", "index.ts", "jest.config.ts", "metro.config.ci.js", "metro.config.js"],
   "references": [
     {
       "path": "../translations"
