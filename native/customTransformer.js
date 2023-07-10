@@ -5,7 +5,7 @@ const upstreamTransformer = require('metro-react-native-babel-transformer')
 const svgTransformer = require('react-native-svg-transformer')
 
 module.exports.transform = ({ src, filename, options }) => {
-  if (filename.endsWith('.svg') && !filename.includes('mapbox')) {
+  if (filename.endsWith('.svg') && !filename.includes('maps.tuerantuer.org')) {
     return svgTransformer.transform({ src, filename, options })
   }
   return upstreamTransformer.transform({ src, filename, options })
