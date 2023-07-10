@@ -30,6 +30,7 @@ export const Container = styled.div`
 const CommentField = styled.textarea`
   margin-top: 8px;
   resize: none;
+  min-height: 60px;
 `
 
 const TextContainer = styled.div`
@@ -110,7 +111,7 @@ const Feedback = (props: FeedbackProps): ReactElement => {
   const { t } = useTranslation('feedback')
 
   const description = isSearchFeedback ? 'wantedInformation' : 'commentHeadline'
-  const sendFeedbackDisabled = isPositiveFeedback === null && !comment
+  const sendFeedbackDisabled = isPositiveFeedback === null && comment.trim().length === 0
 
   return (
     <Container>
