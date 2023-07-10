@@ -7,6 +7,7 @@ import { CityModel, EventModel, EVENTS_ROUTE, fromError, NotFoundError, RouteInf
 
 import Caption from '../components/Caption'
 import EventListItem from '../components/EventListItem'
+import ExportEventButton from '../components/ExportEventButton'
 import Failure from '../components/Failure'
 import { FeedbackInformationType } from '../components/FeedbackContainer'
 import Layout from '../components/Layout'
@@ -102,6 +103,7 @@ const Events = ({
                 )}
               </>
             }
+            AfterContent={<ExportEventButton event={event} />}
           />
         </LayoutedScrollView>
       )

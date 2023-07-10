@@ -1,4 +1,4 @@
-import React, { PureComponent, ReactElement } from 'react'
+import React, { memo, ReactElement } from 'react'
 import styled from 'styled-components/native'
 
 import { DateFormatter, EventModel, parseHTML } from 'api-client'
@@ -23,20 +23,16 @@ type EventListItemProps = {
   formatter: DateFormatter
 }
 
-// This should stay a PureComponent for performance reasons
-class EventListItem extends PureComponent<EventListItemProps> {
-  render(): ReactElement {
-    const { formatter, language, event, navigateToEvent } = this.props
-    const thumbnail = event.thumbnail || placeholderThumbnails[event.path.length % placeholderThumbnails.length]!
-    const content = parseHTML(event.content)
+const EventListItem = ({ formatter, language, event, navigateToEvent }: EventListItemProps): ReactElement => {
+  const thumbnail = event.thumbnail || placeholderThumbnails[event.path.length % placeholderThumbnails.length]!
+  const content = parseHTML(event.content)
 
-    return (
-      <ListItem thumbnail={thumbnail} title={event.title} language={language} navigateTo={navigateToEvent}>
-        <Description>{event.date.toFormattedString(formatter)}</Description>
-        <Description numberOfLines={EXCERPT_MAX_LINES}>{content}</Description>
-      </ListItem>
-    )
-  }
+  return (
+    <ListItem thumbnail={thumbnail} title={event.title} language={language} navigateTo={navigateToEvent}>
+      <Description>{event.date.toFormattedString(formatter)}</Description>
+      <Description numberOfLines={EXCERPT_MAX_LINES}>{content}</Description>
+    </ListItem>
+  )
 }
 
-export default EventListItem
+export default memo(EventListItem)

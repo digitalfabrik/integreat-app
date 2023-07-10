@@ -89,13 +89,14 @@ const TuNewsDetailPage = ({ city, pathname, cityCode, languageCode }: CityRouteP
 
   if (!newsModel) {
     const error =
-      newsError ||
-      new NotFoundError({
-        type: TU_NEWS_TYPE,
-        id: pathname,
-        city: cityCode,
-        language: languageCode,
-      })
+      !newsError || newsError instanceof NotFoundError
+        ? new NotFoundError({
+            type: TU_NEWS_TYPE,
+            id: pathname,
+            city: cityCode,
+            language: languageCode,
+          })
+        : newsError
 
     return (
       <CityContentLayout isLoading={false} {...locationLayoutParams}>
