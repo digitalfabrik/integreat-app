@@ -2,6 +2,7 @@ import React, { ReactElement } from 'react'
 import styled from 'styled-components/native'
 
 import { CloseIcon } from '../assets'
+import Text from './base/Text'
 
 const Container = styled.Pressable`
   flex: 1;
@@ -19,7 +20,7 @@ const IconContainer = styled.View`
   width: 16px;
 `
 
-const Text = styled.Text`
+const StyledText = styled(Text)`
   color: ${props => props.theme.colors.textSecondaryColor};
   font-family: ${props => props.theme.fonts.native.decorativeFontBold};
 `
@@ -36,7 +37,7 @@ const OverlayButton = ({ Icon, text, onPress, closeButton }: OverlayButtonProps)
     <IconContainer>
       <Icon />
     </IconContainer>
-    <Text>{text}</Text>
+    <StyledText>{text}</StyledText>
     {closeButton && (
       <IconContainer>
         <CloseIcon />
