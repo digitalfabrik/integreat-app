@@ -65,8 +65,8 @@ const TuNewsDetailPage = ({ city, pathname, cityCode, languageCode }: CityRouteP
 
   // Language change is not possible between tuNews detail views because we don't know the id of other languages
   const languageChangePaths = city.languages.map(({ code, name }) => ({ path: null, name, code }))
-  const toolbar = (openFeedback: React.Dispatch<React.SetStateAction<boolean>>) => (
-    <CityContentToolbar openFeedbackModal={openFeedback} hasFeedbackOption={false} hasDivider={viewportSmall} />
+  const toolbar = (openFeedback: () => void) => (
+    <CityContentToolbar openFeedback={openFeedback} hasFeedbackOption={false} hasDivider={viewportSmall} />
   )
 
   const locationLayoutParams = {

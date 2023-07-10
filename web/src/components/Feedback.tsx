@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
 
 import { NegativeFeedbackIcon, NoteIcon, PositiveFeedbackIcon } from '../assets'
+import dimensions from '../constants/dimensions'
 import { SendingState } from './FeedbackContainer'
 import StyledSmallViewTip from './StyledSmallViewTip'
 import TextButton from './TextButton'
@@ -11,7 +12,6 @@ import TextInput from './TextInput'
 
 export const Container = styled.div`
   display: flex;
-  width: 400px;
   max-height: 80vh;
   box-sizing: border-box;
   flex-direction: column;
@@ -22,6 +22,9 @@ export const Container = styled.div`
   font-size: ${props => props.theme.fonts.contentFontSize};
   overflow: auto;
   align-self: center;
+  @media ${dimensions.mediumLargeViewport} {
+    width: 400px;
+  }
 `
 
 const CommentField = styled.textarea`
@@ -63,11 +66,12 @@ const FeedbackButton = styled.button<{ $active: boolean | null }>`
   }
 `
 
-const NoteContainer = styled.div`
+const NoteContainer = styled.div<{ showContainer: boolean }>`
   display: flex;
-  margin-top: 8px;
+  margin-top: 12px;
   background-color: ${props => props.theme.colors.themeColor};
   padding: 8px;
+  opacity: ${props => (props.showContainer ? 1 : 0)};
 `
 
 const NoteText = styled(StyledSmallViewTip)`
@@ -153,12 +157,12 @@ const Feedback = (props: FeedbackProps): ReactElement => {
       {sendingStatus === SendingState.ERROR && (
         <ErrorSendingStatus role='alert'>{t('failedSendingFeedback')}</ErrorSendingStatus>
       )}
-      {sendFeedbackDisabled && (
-        <NoteContainer>
-          <img src={NoteIcon} alt='' />
-          <NoteText>{t('note')}</NoteText>
-        </NoteContainer>
-      )}
+
+      <NoteContainer showContainer={sendFeedbackDisabled}>
+        <img src={NoteIcon} alt='' />
+        <NoteText>{t('note')}</NoteText>
+      </NoteContainer>
+
       <TextButton disabled={sendFeedbackDisabled} onClick={onSubmit} text={t('send')} />
     </Container>
   )

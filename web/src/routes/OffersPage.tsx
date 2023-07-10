@@ -27,8 +27,8 @@ const OffersPage = ({ city, cityCode, languageCode }: CityRouteProps): ReactElem
   const { t } = useTranslation('offers')
   const { viewportSmall } = useWindowDimensions()
 
-  const toolbar = (openFeedback: React.Dispatch<React.SetStateAction<boolean>>) => (
-    <CityContentToolbar openFeedbackModal={openFeedback} hasDivider={viewportSmall} />
+  const toolbar = (openFeedback: () => void) => (
+    <CityContentToolbar openFeedback={openFeedback} hasDivider={viewportSmall} />
   )
 
   const {

@@ -55,8 +55,8 @@ const EventsPage = ({ city, pathname, languageCode, cityCode }: CityRouteProps):
       events?.find(it => it.path.substring(0, it.path.indexOf('$')) === pathname)
     : null
 
-  const toolbar = (openFeedback: React.Dispatch<React.SetStateAction<boolean>>) => (
-    <CityContentToolbar openFeedbackModal={openFeedback} hasDivider={viewportSmall && !!event} />
+  const toolbar = (openFeedback: () => void) => (
+    <CityContentToolbar openFeedback={openFeedback} hasDivider={viewportSmall && !!event} />
   )
 
   const languageChangePaths = city.languages.map(({ code, name }) => {

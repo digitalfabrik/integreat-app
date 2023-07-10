@@ -69,8 +69,9 @@ const PoisPage = ({ cityCode, languageCode, city, pathname }: CityRouteProps): R
   const poi = data?.pois.find(it => it.slug === slug)
   const { viewportSmall, height } = useWindowDimensions()
   const sheetRef = useRef<BottomSheetRef>(null)
-  const [openFeedbackModal, setOpenFeedbackModal] = useState<boolean>(false)
+  const [isFeedbackModalOpen, setIsFeedbackModalOpen] = useState<boolean>(false)
   const { t } = useTranslation('pois')
+  const isBottomActionSheetFullscreen = bottomActionSheetHeight >= height
 
   const selectFeature = (feature: PoiFeature | null, restoreScrollPosition: boolean) => {
     if (mapRef?.isMoving()) {
@@ -144,19 +145,18 @@ const PoisPage = ({ cityCode, languageCode, city, pathname }: CityRouteProps): R
     }
   }
 
-  const toolbar = <CityContentToolbar openFeedbackModal={setOpenFeedbackModal} iconDirection='row' hasDivider={false} />
+  const toolbar = (
+    <CityContentToolbar openFeedback={() => setIsFeedbackModalOpen(true)} iconDirection='row' hasDivider={false} />
+  )
 
-  const onCloseFeedbackModal = () => {
-    setOpenFeedbackModal(false)
-  }
-
-  const feedbackModal = openFeedbackModal && (
+  const feedbackModal = isFeedbackModalOpen && (
     <FeedbackModal
       cityCode={city.code}
       language={languageCode}
       routeType={POIS_ROUTE}
-      visible={openFeedbackModal}
-      closeModal={onCloseFeedbackModal}
+      visible={isFeedbackModalOpen}
+      closeModal={() => setIsFeedbackModalOpen(false)}
+      topPosition={isBottomActionSheetFullscreen ? 0 : undefined}
     />
   )
 
@@ -248,7 +248,7 @@ const PoisPage = ({ cityCode, languageCode, city, pathname }: CityRouteProps): R
             mapView={mapView}
             poiList={poiList}
             direction={direction}
-            isBottomSheetFullscreen={bottomActionSheetHeight >= height}
+            isBottomSheetFullscreen={isBottomActionSheetFullscreen}
             setBottomActionSheetHeight={setBottomActionSheetHeight}
           />
         ) : (

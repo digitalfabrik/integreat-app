@@ -78,9 +78,9 @@ const LocalNewsPage = ({ city, pathname, languageCode, cityCode }: CityRouteProp
     code,
   }))
 
-  const toolbar = (openFeedback: React.Dispatch<React.SetStateAction<boolean>>) => (
+  const toolbar = (openFeedback: () => void) => (
     <CityContentToolbar
-      openFeedbackModal={openFeedback}
+      openFeedback={openFeedback}
       hasFeedbackOption={false}
       // if there is no border of a list item, a divider should be rendered
       hasDivider={localNews?.length === 0 && viewportSmall}

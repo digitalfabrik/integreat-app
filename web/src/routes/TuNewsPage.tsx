@@ -79,8 +79,8 @@ const TuNewsPage = ({ cityCode, languageCode, city }: CityRouteProps): ReactElem
     )
   }
 
-  const toolbar = (openFeedback: React.Dispatch<React.SetStateAction<boolean>>) => (
-    <CityContentToolbar openFeedbackModal={openFeedback} hasFeedbackOption={false} hasDivider={false} />
+  const toolbar = (openFeedback: () => void) => (
+    <CityContentToolbar openFeedback={openFeedback} hasFeedbackOption={false} hasDivider={false} />
   )
 
   const languageChangePaths = city.languages.map(({ code, name }) => {
