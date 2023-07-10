@@ -74,24 +74,21 @@ type FeedbackModalProps = {
   routeType: RouteType
   visible: boolean
   closeModal: () => void
+  topPosition?: number
 }
 
 const FeedbackModal = (props: FeedbackModalProps): ReactElement => {
-  const { visible, closeModal, ...otherProps } = props
+  const { viewportSmall } = useWindowDimensions()
+  const { visible, closeModal, topPosition = viewportSmall ? dimensions.headerHeightSmall : 0, ...otherProps } = props
   const [isSubmitted, setIsSubmitted] = useState<boolean>(false)
   const { t } = useTranslation('feedback')
   const headline = isSubmitted ? `${t('thanksHeadline')}` : `${t('headline')}`
-  const { viewportSmall } = useWindowDimensions()
   useScrollToTop()
   useLockedBody(visible)
 
   return (
     <FocusTrap focusTrapOptions={{ clickOutsideDeactivates: true }}>
-      <ModalContainer
-        role='dialog'
-        aria-modal
-        topPosition={viewportSmall ? dimensions.headerHeightSmall : 0}
-        id='feedback-modal-container'>
+      <ModalContainer role='dialog' aria-modal topPosition={topPosition} id='feedback-modal-container'>
         <Overlay onClick={closeModal} role='button' tabIndex={0} onKeyPress={closeModal} />
         <ModalContent>
           <Header flexDirection={viewportSmall ? 'row-reverse' : 'row'}>
@@ -107,7 +104,7 @@ const FeedbackModal = (props: FeedbackModalProps): ReactElement => {
             isSearchFeedback={false}
             closeModal={closeModal}
             {...otherProps}
-            onSubmitted={setIsSubmitted}
+            onSubmit={() => setIsSubmitted(true)}
           />
         </ModalContent>
       </ModalContainer>

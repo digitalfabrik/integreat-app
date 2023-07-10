@@ -2506,9 +2506,9 @@
       "failedSendingFeedback": "Beim Senden des Feedbacks ist ein Fehler aufgetreten.",
       "feedback": "Feedback",
       "headline": "Wie findest du diese Seite?",
-      "description": "Wähle eine Reaktion aus und/oder schreibe eine Anmerkung.",
-      "commentHeadline": "Anmerkung",
-      "commentDescription": "Teile uns dein Feedback mit! Wir schätzen sowohl positive als auch negative Rückmeldungen, da sie uns helfen, Integreat zu verbessern.",
+      "description": "Wähle eine Reaktion aus und/oder schreibe einen Kommentar.",
+      "commentHeadline": "Kommentar",
+      "commentDescription": "Teile uns dein Feedback mit! Wir schätzen sowohl positives als auch negatives Feedback, da es uns hilft, Integreat zu verbessern.",
       "isThisSiteUseful": "Ist diese Seite hilfreich?",
       "useful": "Hilfreich",
       "notUseful": "Nicht hilfreich",
@@ -2516,13 +2516,13 @@
       "wantedInformation": "Welche Informationen fehlen hier?",
       "feedbackSent": "Feedback abgeschickt",
       "thanksHeadline": "Vielen Dank für dein Feedback.",
-      "thanksMessage": "Deine Rückmeldung wurde erfolgreich abgesendet.",
+      "thanksMessage": "Dein Feedback wurde erfolgreich abgesendet.",
       "close": "Schließen",
       "negativeRating": "Diese Seite ist nicht hilfreich",
       "positiveRating": "Diese Seite ist hilfreich",
       "contactMailAddress": "E-Mail für Rückfragen",
       "optionalInfo": "optional",
-      "note": "Bitte wähle eine Reaktion oder schreibe eine Anmerkung, um das Formular abschicken zu können."
+      "note": "Bitte wähle eine Reaktion oder schreibe einen Kommentar, um das Feedback abschicken zu können."
     },
     "am": {
       "disclaimer": "የግንኙነት መረጃና ዕትም",

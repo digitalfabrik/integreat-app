@@ -43,8 +43,8 @@ const SprungbrettOfferPage = ({ city, cityCode, languageCode }: CityRouteProps):
     return null
   }
 
-  const toolbar = (openFeedback: React.Dispatch<React.SetStateAction<boolean>>) => (
-    <CityContentToolbar openFeedbackModal={openFeedback} hasDivider={viewportSmall} />
+  const toolbar = (openFeedback: () => void) => (
+    <CityContentToolbar openFeedback={openFeedback} hasDivider={viewportSmall} />
   )
 
   const languageChangePaths = city.languages.map(({ code, name }) => ({

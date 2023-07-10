@@ -9,7 +9,7 @@ import CityContentHeader from './CityContentHeader'
 import FeedbackModal from './FeedbackModal'
 import Layout from './Layout'
 
-export type ToolbarProps = (openFeedbackModal: React.Dispatch<React.SetStateAction<boolean>>) => ReactNode
+export type ToolbarProps = (openFeedback: () => void) => ReactNode
 
 type CityContentLayoutProps = {
   toolbar?: ToolbarProps
@@ -26,12 +26,8 @@ type CityContentLayoutProps = {
 }
 
 const CityContentLayout = (props: CityContentLayoutProps): ReactElement => {
-  const [openFeedbackModal, setOpenFeedbackModal] = useState<boolean>(false)
+  const [isFeedbackModalOpen, setIsFeedbackModalOpen] = useState<boolean>(false)
   const { viewportSmall } = useWindowDimensions()
-
-  const onCloseFeedbackModal = () => {
-    setOpenFeedbackModal(false)
-  }
 
   const {
     children,
@@ -47,20 +43,20 @@ const CityContentLayout = (props: CityContentLayoutProps): ReactElement => {
   const { feedbackTargetInformation, city } = props
 
   const feedbackModal =
-    route !== SEARCH_ROUTE && openFeedbackModal ? (
+    route !== SEARCH_ROUTE && isFeedbackModalOpen ? (
       <FeedbackModal
         cityCode={city.code}
         language={languageCode}
         routeType={route}
-        visible={openFeedbackModal}
-        closeModal={onCloseFeedbackModal}
+        visible={isFeedbackModalOpen}
+        closeModal={() => setIsFeedbackModalOpen(false)}
         {...feedbackTargetInformation}
       />
     ) : null
 
   // to avoid jumping issues for desktop, isLoading is only checked on mobile viewport
   const isLoadingMobile = isLoading && viewportSmall
-  const toolbar = toolbarProp && !isLoadingMobile ? toolbarProp(setOpenFeedbackModal) : null
+  const toolbar = toolbarProp && !isLoadingMobile ? toolbarProp(() => setIsFeedbackModalOpen(true)) : null
 
   return (
     <Layout

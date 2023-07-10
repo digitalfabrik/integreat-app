@@ -39,8 +39,8 @@ const DisclaimerPage = ({ cityCode, languageCode, pathname, city }: CityRoutePro
     return null
   }
 
-  const toolbar = (openFeedback: React.Dispatch<React.SetStateAction<boolean>>) => (
-    <CityContentToolbar openFeedbackModal={openFeedback} hasDivider={viewportSmall} />
+  const toolbar = (openFeedback: () => void) => (
+    <CityContentToolbar openFeedback={openFeedback} hasDivider={viewportSmall} />
   )
 
   const languageChangePaths = city.languages.map(({ code, name }) => {

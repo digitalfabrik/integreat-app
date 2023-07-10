@@ -109,12 +109,12 @@ const CategoriesPage = ({ city, pathname, cityCode, languageCode }: CityRoutePro
 
   const category = categories?.find(it => it.path === pathname)
 
-  const toolbar = (openFeedback: React.Dispatch<React.SetStateAction<boolean>>) => (
+  const toolbar = (openFeedback: () => void) => (
     <CategoriesToolbar
       category={category}
       cityCode={cityCode}
       languageCode={languageCode}
-      openFeedbackModal={openFeedback}
+      openFeedback={openFeedback}
       hasDivider={viewportSmall}
     />
   )
