@@ -2,141 +2,109 @@
   "categories": {
     "de": {
       "createPdf": "PDF erstellen",
-      "copyUrl": "Link kopieren",
-      "metaDescription": "{{appName}} ist Ihr digitaler Guide für Deutschland. Finden Sie lokale Informationen, Veranstaltungen und Beratung. Immer aktuell und in Ihrer Sprache."
+      "metaDescription": "{{appName}} ist Dein digitaler Guide für Deutschland. Finde lokale Informationen, Veranstaltungen und Beratung. Immer aktuell und in Deiner Sprache.",
+      "copyUrl": "Link kopieren"
     },
     "am": {
-      "createPdf": "PDF ይፍጠሩ",
-      "metaDescription": "{{appName}} የእርስዎ የጀርመን የዲጂታል መሪዎ ነው። አካባቢያዊ መረጃዎችን፣ ዝግጅቶች እና ምክር ያግኙ። ሁልጊዜም ወቅታዊና በእርስዎ ቋንቋ የሚቀርብ ነው።"
+      "createPdf": "PDF ይፍጠሩ"
     },
     "ar": {
-      "createPdf": "إصدار ملف PDF",
-      "metaDescription": "تطبيق{{appName}} هو دليلك الرقمي لألمانيا. اعثر على المعلومات والفعاليات والمشورة المحلية. مُحدَّثة دائمًا وبلغتك."
+      "createPdf": "إصدار ملف PDF"
     },
     "bg": {
-      "createPdf": "Създайте PDF",
-      "metaDescription": "{{appName}} е Вашето дигитално ръководство за Германия. Открийте местни центрове за информация, събития и консултации. Винаги актуални и на Вашия език."
+      "createPdf": "Създайте PDF"
     },
     "ckb": {
-      "createPdf": "دروستکردنی PDF",
-      "metaDescription": "{{appName}} ڕێنمایی دیجیتاڵی تۆ لەبارەی ئەڵمانیایە. زانیارییە خۆجێیەکان، ڕووداوەکان و ڕاوێژکاری بدۆزەوە. هەمیشە بەڕۆژ و بە زمانی خۆت."
+      "createPdf": "دروستکردنی PDF"
     },
     "cs": {
-      "createPdf": "Vytvořit PDF",
-      "metaDescription": "{{appName}} je váš digitální průvodce po Německu. Najděte místní informace, akce a rady. Na adrese"
+      "createPdf": "Vytvořit PDF"
     },
     "el": {
-      "createPdf": "Δημιουργία PDF",
-      "metaDescription": "Το {{appName}} είναι ο ψηφιακός σας οδηγός για τη Γερμανία. Βρείτε τοπικές πληροφορίες, εκδηλώσεις και συμβουλές. Πάντα ενημερωμένο και στη γλώσσα σας."
+      "createPdf": "Δημιουργία PDF"
     },
     "en": {
       "createPdf": "Create a PDF",
-      "copyUrl": "Copy link",
-      "metaDescription": "{{appName}} is your digital guide to life in Germany. Discover local information, events and advice. Always up to date and available in your own language."
+      "metaDescription": "{{appName}} is your digital guide to life in Germany. Discover local information, events and advice. Always up to date and available in your own language.",
+      "copyUrl": "Copy link"
     },
     "es": {
-      "createPdf": "Crear PDF",
-      "metaDescription": "{{appName}} es su guía digital para Alemania. Encuentre información local, eventos y consejos. Siempre actualizados y en su idioma."
+      "createPdf": "Crear PDF"
     },
     "fi": {
-      "createPdf": "Luo PDF",
-      "metaDescription": "{{appName}} on digitaalinen oppaasi Saksaa varten. Etsi paikallisia tietoja, tapahtumia ja neuvoja. Aina ajantasaista tietoa omalla kielelläsi."
+      "createPdf": "Luo PDF"
     },
     "fr": {
-      "createPdf": "Créer PDF",
-      "metaDescription": "{{appName}} est votre guide numérique pour l'Allemagne. Vous y trouverez des informations locales, des événements et des conseils, toujours à jour et dans votre langue."
+      "createPdf": "Créer PDF"
     },
     "hr": {
-      "createPdf": "Kreiraj PDF",
-      "metaDescription": "{{appName}} je vaš digitalni vodič za Njemačku. Pronađite lokalne informacije, događanja i savjetovanje. Uvijek s najaktualnijim podacima i na vašem jeziku."
+      "createPdf": "Kreiraj PDF"
     },
     "hu": {
-      "createPdf": "PDF létrehozása",
-      "metaDescription": "{{appName}} a digitális idegenvezetőd Németországban. Helyi információk, események és tanácsadás. Mindig naprakészen és a te nyelveden."
+      "createPdf": "PDF létrehozása"
     },
     "it": {
-      "createPdf": "Crea PDF",
-      "metaDescription": "{{appName}} è la tua guida digitale per la Germania. Qui troverai informazioni locali, eventi e consigli. Sempre aggiornata e nella tua lingua."
+      "createPdf": "Crea PDF"
     },
     "ka": {
-      "createPdf": "PDF. შექმნა",
-      "metaDescription": "‎{{appName}} არის თქვენი ციფრული გზამკვლევი გერმანიისათვის. იპოვეთ ადგილობრივი ინფორმაციები, ღონისძიებები და მიიღეთ რჩევები მუდამ აქტუალური და თქვენს გვერდით."
+      "createPdf": "PDF. შექმნა"
     },
     "kmr": {
-      "createPdf": "Pêkanîna PDF'ê",
-      "metaDescription": "{{appName}}' rêbera te ya dîcîtal li Almanyayê ye. Zzanyarî, rûdan û şêwirîna xwecihî peyde bike. Hertim birojkirî û bi zimanê te bixwe."
+      "createPdf": "Pêkanîna PDF'ê"
     },
     "mk": {
-      "createPdf": "Креирај PDF",
-      "metaDescription": "{{appName}} е вашиот дигитален водич за Германија. Пронајдете локални информации, настани и совети. Секогаш актуелно и на вашиот јазик."
+      "createPdf": "Креирај PDF"
     },
     "nl": {
-      "createPdf": "Maak een PDF",
-      "metaDescription": "{{appName}} is jouw digitale gids voor het leven in Duitsland. Ontdek lokale informatie, evenementen en krijg advies. Altijd up to date en beschikbaar in jouw eigen taal."
+      "createPdf": "Maak een PDF"
     },
     "pes": {
-      "createPdf": "ایجاد PDF",
-      "metaDescription": "{{appName}} راهنمای دیجیتال شما برای آلمان است. اطلاعات محلی، رویدادها و مشاوره را بیابید. همواره به روز و به زبان شما."
+      "createPdf": "ایجاد PDF"
     },
     "pl": {
-      "createPdf": "Wygeneruj PDF",
-      "metaDescription": "{{appName}} to e-przewodnik po Niemczech. Znajdziesz tu aktualne informacje, najnowsze wydarzenia i porady. Zawsze aktualne i w Twoim języku."
+      "createPdf": "Wygeneruj PDF"
     },
     "prs": {
-      "createPdf": "ایجاد PDF",
-      "metaDescription": "{{appName}} رهنمای دیجیتل شما برای جرمنی است. معلومات محلی، رویدادها و مشاوره را پیدا نمایید. همواره به‎​روز و به لسان شما."
+      "createPdf": "ایجاد PDF"
     },
     "ps": {
-      "createPdf": "پي ډي ایف جوړول",
-      "metaDescription": "{{appName}} آلمان لپاره ستاسو ډیجیټال لارښود دی. په دې کې تاسو سیمه ییز معلومات،  دہ غونډو  او مشورو معلومات موندلی شئ. همېشه نوی معلومات ستاسو په ژبه کې."
+      "createPdf": "پي ډي ایف جوړول"
     },
     "pt": {
-      "createPdf": "Crear PDF",
-      "metaDescription": "{{appName}} es su guía digital para Alemania. Buscar información, eventos y asesoramiento en la zona. Siempre actualizada y en su idioma."
+      "createPdf": "Crear PDF"
     },
     "ro": {
-      "createPdf": "Creați PDF",
-      "metaDescription": "{{appName}} este ghidul dvs. digital pentru Germania. Găsiți informații locale, evenimente și consiliere. Acestea sunt întotdeauna la zi și în limba dvs."
+      "createPdf": "Creați PDF"
     },
     "ru": {
-      "createPdf": "Создать PDF",
-      "metaDescription": "{{appName}} – это ваш виртуальный гид по Германии. Здесь вы узнаете местную информацию и информацию о мероприятиях, а также сможете получить консультации – всегда актуально и на вашем языке."
+      "createPdf": "Создать PDF"
     },
     "so": {
-      "createPdf": "Abuur PDF",
-      "metaDescription": "{{appName}} waa tusahaaga dijitaalka ah ee Jarmalka. Raadi macluumaadka deegaanka, dhacdooyin iyo talobixino. Had iyo jeer cusbooneysan/casriyeysan oo luuqadaada ah."
+      "createPdf": "Abuur PDF"
     },
     "sq": {
-      "createPdf": "Krijo PDF",
-      "metaDescription": "{{appName}} është guida juaj dixhitale për Gjermani. Gjeni informacione lokale, evenimente dhe këshilla. Gjithnjë aktuale dhe në gjuhën tuaj."
+      "createPdf": "Krijo PDF"
     },
     "sr-Cyrl": {
-      "createPdf": "Креирање PDF документа",
-      "metaDescription": "{{appName}} је ваш дигитални водич за Немачку. Пронађите локалне информације, догађаје и саветовање. Увек актуелно на важем језику."
+      "createPdf": "Креирање PDF документа"
     },
     "sr-Latn": {
-      "createPdf": "Kreiranje PDF dokumenta",
-      "metaDescription": "{{appName}} je vaš digitalni vodič za Nemačku. Pronađite lokalne informacije, događaje i savetovanje. Uvek aktuelno na važem jeziku."
+      "createPdf": "Kreiranje PDF dokumenta"
     },
     "ti": {
-      "createPdf": "PDF ፍጠር",
-      "metaDescription": "{{appName}} ናይ ጀርመን ዲጂታላዊ መምርሒኻ እዩ። ከባብያዊ ሓበሬታ፡ ኣጋጣሚታትን ምኽርን ርኸብ። ኩሉግዜ ዝተሓደሰን ብቋንቋኻን።"
+      "createPdf": "PDF ፍጠር"
     },
     "tr": {
-      "createPdf": "PDF oluşturun",
-      "metaDescription": "{{appName}}, Almanya'daki dijital rehberinizdir. Burada yerel bilgiler, etkinlikler ve öneriler bulabilirsiniz. Her zaman günceldir ve kendi dilinizdedir."
+      "createPdf": "PDF oluşturun"
     },
     "uk": {
-      "createPdf": "Створити PDF",
-      "metaDescription": "{{appName}} - це ваш цифровий путівник у Німеччині. Тут ви знайдете місцеву інформацію, події та поради. Завжди актуально і вашою мовою."
+      "createPdf": "Створити PDF"
     },
     "ur": {
-      "createPdf": "PDF بنائیں",
-      "metaDescription": "‎{{appName}}‎، جرمنی کے لئے آپ کی ڈیجیٹل رہنما ہے۔ یہاں مقامی معلومات، ایونٹس اور مشورے حاصل کریں۔ ہمیشہ تازہ ترین اور آپ کی زبان میں۔"
+      "createPdf": "PDF بنائیں"
     },
     "zh-CN": {
-      "createPdf": "创建 PDF",
-      "metaDescription": "{{appName}}是您在德国生活的数字指南。查找本地信息、活动和建议。信息始终保持最新并以您自己的语言提供。"
+      "createPdf": "创建 PDF"
     }
   },
   "cityNotCooperating": {
@@ -146,8 +114,7 @@
       "whatToDo": "Das kannst Du tun:",
       "findOutMail": "E-Mail Adresse Deiner Region herausfinden",
       "sendText": "Diesen Text kopieren, die [ ]-Inhalte mit Deinen Angaben füllen und abschicken",
-      "copyText": "Text kopieren",
-      "textCopied": "Kopiert"
+      "copyText": "Text kopieren"
     },
     "am": {
       "callToAction": "የኣከባቢህን መወሃድ የሚመለከት ሃሳብ ኣቅርብ!",
@@ -155,8 +122,7 @@
       "whatToDo": "ይሄንን ማድረግ ትችላለህ:",
       "findOutMail": "ያንተን ኣከባቢ ኢ-ሜይል ኣድራሻ ማግኘት",
       "sendText": "ያንተን ጽሑፍ መቅዳት፣ የ [ ]-ይዞታውን በራስህ ቃል ሞልተህ መላክ",
-      "copyText": "ጽሑፍ መቅዳት",
-      "textCopied": "ተቀድቷል"
+      "copyText": "ጽሑፍ መቅዳት"
     },
     "ar": {
       "callToAction": "اقترح تطبيق Integreat في منطقتك!",
@@ -164,8 +130,7 @@
       "whatToDo": "الذي يمكنك فعله:",
       "findOutMail": "الحصول على البريد الإليكتروني لمنطقتك",
       "sendText": "نسخ هذا النص وتعبئة المحتويات [] ببياناتك وإسالها",
-      "copyText": "نسخ النص",
-      "textCopied": "تم النسخ"
+      "copyText": "نسخ النص"
     },
     "bg": {
       "callToAction": "Предложете Integreat на Вашия регион!",
@@ -173,8 +138,7 @@
       "whatToDo": "Можете да направите това:",
       "findOutMail": "Да намерите имейл адреса на Вашия регион",
       "sendText": "Копирайте този текст, попълнете съдържанието в  [ ] с вашите данни и изпратете.",
-      "copyText": "Копирайте текста",
-      "textCopied": "Копиран"
+      "copyText": "Копирайте текста"
     },
     "ckb": {
       "callToAction": "Integreat پێشنیار بدە بە ناوچەکەت!",
@@ -182,8 +146,7 @@
       "whatToDo": "تۆ دەتوانی ئەم کارانەی خوارەوە بکەیت:",
       "findOutMail": "ناونیشانی ئیمەیلی ناوچەکەت بدۆزەوە",
       "sendText": "ئەم تێکستە کۆپی بکە، پاشان بەشی [ ] بە زانیاریی خۆت پڕ بکەوە و بینێرە.",
-      "copyText": "تێکست کۆپی بکە",
-      "textCopied": "کۆپی کرا"
+      "copyText": "تێکست کۆپی بکە"
     },
     "cs": {
       "callToAction": "Navrhněte Integreat pro svůj region!",
@@ -191,8 +154,7 @@
       "whatToDo": "To můžete udělat:",
       "findOutMail": "Zjistěte e-mailovou adresu svého regionu",
       "sendText": "Zkopírujte tento text, vyplňte []-obsah svými údaji a odešlete jej.",
-      "copyText": "Kopírovat text",
-      "textCopied": "Kopírovat"
+      "copyText": "Kopírovat text"
     },
     "el": {
       "callToAction": "Προτείνετε το Integreat στην περιοχή σας!",
@@ -200,8 +162,7 @@
       "whatToDo": "Μπορείτε να κάνετε το εξής:",
       "findOutMail": "Μάθετε τη διεύθυνση e-mail στην περιοχή σας",
       "sendText": "Αντιγράψτε αυτό το κείμενο, συμπληρώστε το περιεχόμενο [ ] με τα στοιχεία σας και στείλτε το",
-      "copyText": "Αντιγραφή κειμένου",
-      "textCopied": "Αντιγράφηκε"
+      "copyText": "Αντιγραφή κειμένου"
     },
     "en": {
       "callToAction": "Suggest your region to Integreat!",
@@ -209,8 +170,7 @@
       "whatToDo": "This is what you can do:",
       "findOutMail": "Get the e-mail address of your region",
       "sendText": "Copy this text, complete the [ ]-contents with your details and send off",
-      "copyText": "Copy text",
-      "textCopied": "Copied"
+      "copyText": "Copy text"
     },
     "es": {
       "callToAction": "¡Proponga Integreat en su región!",
@@ -218,8 +178,7 @@
       "whatToDo": "Esto es lo que debe de hacer:",
       "findOutMail": "Encontrar el correo electrónico de su región",
       "sendText": "Copiar este texto, rellenar los [ ] con sus datos y enviar",
-      "copyText": "Copiar texto",
-      "textCopied": "Copiado"
+      "copyText": "Copiar texto"
     },
     "fi": {
       "callToAction": "Ehdota aluettasi Integreatille!",
@@ -227,8 +186,7 @@
       "whatToDo": "Toimi näin:",
       "findOutMail": "Selvitä alueesi sähköpostiosoite",
       "sendText": "Kopioi tämä teksti, täytä tietosi [ ]-sisältöihin ja lähetä",
-      "copyText": "Kopioi teksti",
-      "textCopied": "Kopioitu"
+      "copyText": "Kopioi teksti"
     },
     "fr": {
       "callToAction": "Propose Integreat à ta région !",
@@ -236,8 +194,7 @@
       "whatToDo": "Voici ce que tu peux faire :",
       "findOutMail": "Trouver l’adresse électronique de ta région",
       "sendText": "Copier ce texte, remplir les contenus [ ] avec tes données et envoyer",
-      "copyText": "Copier le texte",
-      "textCopied": "Copié"
+      "copyText": "Copier le texte"
     },
     "hr": {
       "callToAction": "Predloži Integreat svojoj regiji!",
@@ -245,8 +202,7 @@
       "whatToDo": "Ovo možeš napraviti:",
       "findOutMail": "pronaći adresu e-pošte svoje regije",
       "sendText": "kopirati ovaj tekst, ispuniti sadržaje [ ] svojim podacima i poslati",
-      "copyText": "Kopiraj tekst",
-      "textCopied": "kopirano"
+      "copyText": "Kopiraj tekst"
     },
     "hu": {
       "callToAction": "Add meg az Integreatnek a régiódat!",
@@ -254,8 +210,7 @@
       "whatToDo": "A következőt teheted:",
       "findOutMail": "Érdeklődd meg régiód e-mail címét",
       "sendText": "Másold be ezt a szöveget, [ ]-töltsd ki a tartalmat az adataiddal és küldd el",
-      "copyText": "Szöveg bemásolása",
-      "textCopied": "Bemásolva"
+      "copyText": "Szöveg bemásolása"
     },
     "it": {
       "callToAction": "Suggerisci Integreat nella tua regione!",
@@ -263,8 +218,7 @@
       "whatToDo": "Cosa puoi fare:",
       "findOutMail": "Scopri l'indirizzo email della tua regione",
       "sendText": "Copia questo testo, compila i contenuti [ ] con i tuoi dati e invia",
-      "copyText": "Copia testo",
-      "textCopied": "Copiato"
+      "copyText": "Copia testo"
     },
     "ka": {
       "callToAction": "შემოგვთავაზე შენი რეგიონის დამატება!",
@@ -272,8 +226,7 @@
       "whatToDo": "შენ შეგიძლია გააკეთო შემდეგი:",
       "findOutMail": "მოიძიე შენი რეგიონის ელფოსტის მისამართი",
       "sendText": "ჩააკოპირე ეს ტექსტი, [ ]-შინაარსში შეიყვანე შენი მონაცემები და გაგზავნე",
-      "copyText": "დააკოპირე ტექსტი",
-      "textCopied": "დაკოპირებულია"
+      "copyText": "დააკოპირე ტექსტი"
     },
     "kmr": {
       "callToAction": "Integreatê pêşniyarî navçeya xwe bike!",
@@ -281,8 +234,7 @@
       "whatToDo": "Hûn dikarin van karan bikin:",
       "findOutMail": "Navnîşana navçeya xwe peyda bikin",
       "sendText": "Vê nivîsê kopî bikin, piştre beşa [ ] bi zanebûna xwe tijî bike û bişînin.",
-      "copyText": "Nivîsê kopî bike",
-      "textCopied": "Kopî bû"
+      "copyText": "Nivîsê kopî bike"
     },
     "mk": {
       "callToAction": "Предложи Integreat во твојот регион!",
@@ -290,8 +242,7 @@
       "whatToDo": "Можеш да го направиш ова:",
       "findOutMail": "Да ја дознаеш адресата на е-пошта во твојот регион",
       "sendText": "Да го копираш овој текст, да ги пополниш [ ]-содржините со твоите податоци и да ги испратиш",
-      "copyText": "Копирај го текстот",
-      "textCopied": "Копирано"
+      "copyText": "Копирај го текстот"
     },
     "nl": {
       "callToAction": "Geef je regio op!",
@@ -299,8 +250,7 @@
       "whatToDo": "Dit is wat je kunt doen:",
       "findOutMail": "Krijg het emailadres van jouw regio",
       "sendText": "Kopieer deze tekst, vul de […] content aan met jouw details en verstuur",
-      "copyText": "Kopieer tekst",
-      "textCopied": "Gekopieerd"
+      "copyText": "Kopieer tekst"
     },
     "pes": {
       "callToAction": "Integreat را به منطقه خود معرفی کنید!",
@@ -308,8 +258,7 @@
       "whatToDo": "این کار را می‌توانید انجام دهید:",
       "findOutMail": "نشانی ایمیل منطقه‌تان را پیدا کنید",
       "sendText": "این متن را کپی کنید، محتوای [ ] را با مشخصات خود پر کنید و بفرستید",
-      "copyText": "متن را کپی کنید",
-      "textCopied": "کپی شد"
+      "copyText": "متن را کپی کنید"
     },
     "pl": {
       "callToAction": "Zaproponuj Integreat w swoim regionie!",
@@ -317,8 +266,7 @@
       "whatToDo": "To możesz zrobić:",
       "findOutMail": "Dowiedz się, jaki jest adres mailowy Twojego regionu",
       "sendText": "Skopiuj ten tekst, wypełnij część w [ ] swoimi danymi i wyślij go",
-      "copyText": "Skopiuj tekst",
-      "textCopied": "Skopiowano"
+      "copyText": "Skopiuj tekst"
     },
     "prs": {
       "callToAction": "منطقه خود را به Integreat معرفی کنید!",
@@ -326,8 +274,7 @@
       "whatToDo": "می‌توانید این کار را انجام دهید:",
       "findOutMail": "آدرس ایمیل منطقه خود را پیدا کنید",
       "sendText": "این متن را کپی کنید، محتویات [ ] را با مشخصات خود پر کنید و بفرستید",
-      "copyText": "متن را کپی کنید",
-      "textCopied": "کپی شد"
+      "copyText": "متن را کپی کنید"
     },
     "ps": {
       "callToAction": "ستاسو د سیمې سره د یوځای کیدو وړاندیز وکړی",
@@ -335,8 +282,7 @@
       "whatToDo": "دلتہ بہ تاسو اومومئ چی دا بہ څنګه کوئ:",
       "findOutMail": "تاسو دی خپلی علاقی ای میل ایدریس معلوم کړئ۔",
       "sendText": "دا متن کاپی کړئ ، د خپلو تفصیلاتو سره د [ ] محتوا ډکه کړئ او  او یی لیږئ۔",
-      "copyText": "متن کاپی کړئ",
-      "textCopied": "کاپی شولو"
+      "copyText": "متن کاپی کړئ"
     },
     "pt": {
       "callToAction": "¡Propón Integreat en tu región!",
@@ -344,8 +290,7 @@
       "whatToDo": "Esto es lo que puedes hacer:",
       "findOutMail": "Averigua el correo electrónico de tu zona",
       "sendText": "Copia este texto, rellena el contenido de [ ] con tus datos y envíalo",
-      "copyText": "Copiar el texto",
-      "textCopied": "Copiado"
+      "copyText": "Copiar el texto"
     },
     "ro": {
       "callToAction": "Propuneți Integreat pentru regiunea dumneavoastră!",
@@ -353,8 +298,7 @@
       "whatToDo": "Iată ce puteți face:",
       "findOutMail": "Aflați adresa de e-mail a regiunii dvs.",
       "sendText": "Copiați acest text, completați conținutul [ ] cu datele dumneavoastră și trimiteți-l.",
-      "copyText": "Copiați textul",
-      "textCopied": "Copiat"
+      "copyText": "Copiați textul"
     },
     "ru": {
       "callToAction": "Предложите Integreat своему региону!",
@@ -362,8 +306,7 @@
       "whatToDo": "Вам нужно выполнить следующие простые шаги:",
       "findOutMail": "найти адрес электронной почты вашего региона;",
       "sendText": "скопировать этот текст, заполнить содержимое [ ], указав ваши данные, и отправить.",
-      "copyText": "Копировать текст",
-      "textCopied": "Скопировано"
+      "copyText": "Копировать текст"
     },
     "so": {
       "callToAction": "Ablikeeshinka Recomment Integreat ee gobolkaaga!",
@@ -371,8 +314,7 @@
       "whatToDo": "Halkaan waxaa ku qoran waxa aad sameyn karto:",
       "findOutMail": "Ka hel ciwaanka iimaylka ee gobolkaaga",
       "sendText": "Koobiyeyso qoraalkan, buuxi qeybta [ ] adigoo isticmaalaya macluumaadkaaga kadibna dir",
-      "copyText": "Koobiyeey qoraalka",
-      "textCopied": "la koobiyeeyay"
+      "copyText": "Koobiyeey qoraalka"
     },
     "sq": {
       "callToAction": "Sugjeroni Integreat në rajonin tuaj!",
@@ -380,8 +322,7 @@
       "whatToDo": "Ti mund ta besh kete:",
       "findOutMail": "Gjeni adresën e emailit në rajonin tuaj",
       "sendText": "Kopjojeni këtë tekst, plotësoni përmbajtjen [ ] me të dhënat tuaja dhe dërgojeni",
-      "copyText": "kopjoni tekstin",
-      "textCopied": "e kopjuar"
+      "copyText": "kopjoni tekstin"
     },
     "sr-Cyrl": {
       "callToAction": "Предложите Интегреат у свом региону!",
@@ -389,8 +330,7 @@
       "whatToDo": "Ово можете учинити:",
       "findOutMail": "Сазнајте адресу е-поште у вашем региону",
       "sendText": "Копирајте овај текст, попуните [ ] садржај својим подацима и пошаљите",
-      "copyText": "копирај текст",
-      "textCopied": "копирано"
+      "copyText": "копирај текст"
     },
     "sr-Latn": {
       "callToAction": "Predložite Integreat u svom regionu!",
@@ -398,17 +338,15 @@
       "whatToDo": "Ovo možete učiniti:",
       "findOutMail": "Saznajte adresu e-pošte u vašem regionu",
       "sendText": "Kopirajte ovaj tekst, popunite [ ] sadržaj svojim podacima i pošaljite",
-      "copyText": "kopiraj tekst",
-      "textCopied": "kopirano"
+      "copyText": "kopiraj tekst"
     },
     "ti": {
       "callToAction": "ናይ ከባቢኻ ምጽንባር ሓሳብ ኣቕርብ!",
-      "explanation": "እዚ ንምኽሳብ ዘይኮነ ናይ ምጽንባር ኣፕ ጽንሰ ሓሳብ ንዓኻ ኣእሚንካዶ፣ ከምኡ ከኣ በዚ ናይ ዲጂታል ፍታሕ ንከተማኻ፣ ንከባቢኻ ወይ ድማ ንማሕበር መንበሪ ዓድኻ ክጠቅም ይኽእል ትብልዶ? ስለዚ ኣብዚ ብቐሊሉ ክትነጥፍ ትኽእል።  ",
+      "explanation": "እዚ ንምኽሳብ ዘይኮነ ናይ ምጽንባር ኣፕ ጽንሰ ሓሳብ ንዓኻ ኣእሚንካዶ፣ ከምኡ ከኣ በዚ ናይ ዲጂታል ፍታሕ ንከተማኻ፣ ንከባቢኻ ወይ ድማ ንማሕበር መንበሪ ዓድኻ ክጠቅም ይኽእል ትብልዶ? ስለዚ ኣብዚ ብቐሊሉ ክትነጥፍ ትኽእል።",
       "whatToDo": "ነዚ ክትገብር ትኽእል:",
       "findOutMail": "ናይ ከባቢኻ ኢ-ሜይል ኣድራሻ ምርካብ",
       "sendText": "ነዚ ጽሑፍ ምቕዳሕ፣ ነዚ [ ]-ትሕዝቶ ብናትካ ቃላት መሊእካ ምልኣኽ",
-      "copyText": "ጽሑፍ ምቕዳሕ",
-      "textCopied": "ተቐዲሑ"
+      "copyText": "ጽሑፍ ምቕዳሕ"
     },
     "tr": {
       "callToAction": "Bölgen için Integreat uygulamasını öner!",
@@ -416,8 +354,7 @@
       "whatToDo": "Bunu yapabilirsin:",
       "findOutMail": "Bölgenin e-posta adresini öğrenebilirsin",
       "sendText": "Bu metni kopyala, [ ]-içerikleri kendi bilgilerinle doldur ve gönder",
-      "copyText": "Metni kopyala",
-      "textCopied": "kopyalandı"
+      "copyText": "Metni kopyala"
     },
     "uk": {
       "callToAction": "Запропонуйте підключити Integreat у вашому регіоні!",
@@ -425,8 +362,7 @@
       "whatToDo": "Ось що ви можете зробити:",
       "findOutMail": "Дізнайтесь адресу електронної пошти вашого регіону",
       "sendText": "Скопіюйте цей текст, заповніть пропуски [ ] вашими даними та надішліть його.",
-      "copyText": "Скопіюйте текст",
-      "textCopied": "Копіювати"
+      "copyText": "Скопіюйте текст"
     },
     "ur": {
       "callToAction": "اپنے علاقے کو شامل کرنے کے لئے تجویز کریں۔",
@@ -434,8 +370,7 @@
       "whatToDo": "یہاں آپ کو اس کو کرنے کا طریقہ ملے گا:",
       "findOutMail": "آپ اپنے علاقے کا ای میل ایڈریس معلوم کریں۔",
       "sendText": "اس ٹیکسٹ کو کاپی کریں اور اپنی تفصیلات اس [ ] میں درج کریں اور بھیج دیں۔",
-      "copyText": "ٹیکسٹ کو کاپی کریں۔",
-      "textCopied": "کاپی کیا گیا"
+      "copyText": "ٹیکسٹ کو کاپی کریں۔"
     },
     "zh-CN": {
       "callToAction": "向你所在地区推荐Integreat！",
@@ -443,12 +378,12 @@
       "whatToDo": "你可以这么做：",
       "findOutMail": "找出你所在地区的电子邮件地址",
       "sendText": "复制此文本，用你的信息填充[]内容并发送",
-      "copyText": "复制文本",
-      "textCopied": "已复制"
+      "copyText": "复制文本"
     }
   },
   "common": {
     "de": {
+      "copied": "Kopiert",
       "moreOptions": "Mehr Optionen",
       "languageNotAvailable": "Deine Sprache ist hier leider nicht verfügbar.",
       "chooseALanguage": "Wähle eine Sprache.",
@@ -456,6 +391,7 @@
       "loading": "Lade ..."
     },
     "am": {
+      "copied": "ተቀድቷል",
       "moreOptions": "የበዛ ኣማራጭ",
       "languageNotAvailable": "ይቅርታ፣ ቋንቋዎ እዚህ ላይ የለም።",
       "chooseALanguage": "ቋንቋ ይምረጡ።",
@@ -463,6 +399,7 @@
       "loading": "እየጫነ ነው ..."
     },
     "ar": {
+      "copied": "تم النسخ",
       "moreOptions": "مزيد من الخيارات",
       "languageNotAvailable": "للأسف، لغتك ليست متاحة.",
       "chooseALanguage": "اختر لغة.",
@@ -470,6 +407,7 @@
       "loading": "حمّل..."
     },
     "bg": {
+      "copied": "Копиран",
       "moreOptions": "Още опции",
       "languageNotAvailable": "За съжаление, езикът Ви не е наличен тук.",
       "chooseALanguage": "Изберете език.",
@@ -477,6 +415,7 @@
       "loading": "Зареждане..."
     },
     "ckb": {
+      "copied": "کۆپی کرا",
       "moreOptions": "بژاردەی زیاتر",
       "languageNotAvailable": "بەداخەوە زمانەکەتی تێدا نییە.",
       "chooseALanguage": "زمانێک هەڵبژێرە.",
@@ -484,6 +423,7 @@
       "loading": "خەریکی بارکردنە..."
     },
     "cs": {
+      "copied": "Kopírovat",
       "moreOptions": "Další možnosti",
       "languageNotAvailable": "Váš jazyk zde není k dispozici.",
       "chooseALanguage": "Vyberte si jazyk.",
@@ -491,6 +431,7 @@
       "loading": "Načítání ..."
     },
     "el": {
+      "copied": "Αντιγράφηκε",
       "moreOptions": "Περισσότερες επιλογές",
       "languageNotAvailable": "Δυστυχώς, η γλώσσα σας δεν είναι διαθέσιμη εδώ.",
       "chooseALanguage": "Επιλέξτε μια γλώσσα.",
@@ -498,6 +439,7 @@
       "loading": "Φόρτωση ..."
     },
     "en": {
+      "copied": "Copied",
       "moreOptions": "More options",
       "languageNotAvailable": "Sorry, but your language is not available here.",
       "chooseALanguage": "Choose a language.",
@@ -505,6 +447,7 @@
       "loading": "Loading ..."
     },
     "es": {
+      "copied": "Copiado",
       "moreOptions": "Más opciones",
       "languageNotAvailable": "Tu idioma no está disponible aquí.",
       "chooseALanguage": "Selecciona un idioma.",
@@ -512,6 +455,7 @@
       "loading": "Cargando..."
     },
     "fi": {
+      "copied": "Kopioitu",
       "moreOptions": "Lisää vaihtoehtoja",
       "languageNotAvailable": "Kielesi ei ole saatavilla.",
       "chooseALanguage": "Valitse kieli.",
@@ -519,6 +463,7 @@
       "loading": "Lataa..."
     },
     "fr": {
+      "copied": "Copié",
       "moreOptions": "Plus d’options",
       "languageNotAvailable": "Malheureusement, ta langue n'est pas disponible ici.",
       "chooseALanguage": "Choisis une langue.",
@@ -526,6 +471,7 @@
       "loading": "Chargement ..."
     },
     "hr": {
+      "copied": "kopirano",
       "moreOptions": "Više opcija",
       "languageNotAvailable": "Tvoj jezik ovdje nažalost nije dostupan.",
       "chooseALanguage": "Odaberi jezik.",
@@ -533,6 +479,7 @@
       "loading": "Učitava se..."
     },
     "hu": {
+      "copied": "Bemásolva",
       "moreOptions": "További lehetőségek",
       "languageNotAvailable": "A nyelved sajnos nem elérhető.",
       "chooseALanguage": "Válassz ki egy nyelvet.",
@@ -540,6 +487,7 @@
       "loading": "Betöltés..."
     },
     "it": {
+      "copied": "Copiato",
       "moreOptions": "Più opzioni",
       "languageNotAvailable": "Purtroppo la tua lingua non è disponibile qui.",
       "chooseALanguage": "Scegli una lingua.",
@@ -547,6 +495,7 @@
       "loading": "Caricamento..."
     },
     "ka": {
+      "copied": "დაკოპირებულია",
       "moreOptions": "მეტი ვარიანტი",
       "languageNotAvailable": "შენი ენა აქ არ მოიხმარება",
       "chooseALanguage": "აირჩიე ენა.",
@@ -554,6 +503,7 @@
       "loading": "ატვირთე…"
     },
     "kmr": {
+      "copied": "Kopî bû",
       "moreOptions": "Bijardeyên zêdetir",
       "languageNotAvailable": "Mixabin zimanê te li vir li ber dest nîne.",
       "chooseALanguage": "Zimanekî bibijêre.",
@@ -561,6 +511,7 @@
       "loading": "Di halê birojkirinê da..."
     },
     "mk": {
+      "copied": "Копирано",
       "moreOptions": "Повеќе опции",
       "languageNotAvailable": "За жал твојот јазик не е достапен.",
       "chooseALanguage": "Избери јазик.",
@@ -568,6 +519,7 @@
       "loading": "Вчитај..."
     },
     "nl": {
+      "copied": "Gekopieerd",
       "moreOptions": "Meer opties",
       "languageNotAvailable": "Sorry, jouw taal is hier niet beschikbaar",
       "chooseALanguage": "Kies een taal",
@@ -575,6 +527,7 @@
       "loading": "Aan het laden…"
     },
     "pes": {
+      "copied": "کپی شد",
       "moreOptions": "گزینه‌های بیشتر",
       "languageNotAvailable": "متاسفانه زبان شما در اینجا در دسترس نیست.",
       "chooseALanguage": "یک زبان را انتخاب کنید.",
@@ -582,6 +535,7 @@
       "loading": "در حال بارگیری ..."
     },
     "pl": {
+      "copied": "Skopiowano",
       "moreOptions": "Więcej opcji",
       "languageNotAvailable": "Niestety Twój język nie jest tutaj dostępny.",
       "chooseALanguage": "Wybierz język.",
@@ -589,6 +543,7 @@
       "loading": "Załaduj..."
     },
     "prs": {
+      "copied": "کپی شد",
       "moreOptions": "انتخاب‌‌های بیشتر",
       "languageNotAvailable": "متاسفانه لسان شما در اینجا موجود نیست‎.",
       "chooseALanguage": "یک لسان انتخاب کنید.",
@@ -596,6 +551,7 @@
       "loading": "در حال دانلود ..."
     },
     "ps": {
+      "copied": "کاپی شولو",
       "moreOptions": "نور اختیارونه",
       "languageNotAvailable": "له بده مرغه ستا ژبه دلته موجوده نده.",
       "chooseALanguage": "یوه ژبه انتخاب کړه.",
@@ -603,6 +559,7 @@
       "loading": "بارولے کیږی ۔۔۔"
     },
     "pt": {
+      "copied": "Copiado",
       "moreOptions": "Más opciones",
       "languageNotAvailable": "Lamentablemente, tu idioma no está disponible.",
       "chooseALanguage": "Elige un idioma.",
@@ -610,6 +567,7 @@
       "loading": "Cargar ..."
     },
     "ro": {
+      "copied": "Copiat",
       "moreOptions": "Mai multe opțiuni",
       "languageNotAvailable": "Din păcate, aici nu este disponibilă limba ta.",
       "chooseALanguage": "Alege o limbă.",
@@ -617,6 +575,7 @@
       "loading": "Se încarcă ..."
     },
     "ru": {
+      "copied": "Скопировано",
       "moreOptions": "дополнительные опции",
       "languageNotAvailable": "К сожалению, ваш язык здесь не используется.",
       "chooseALanguage": "Выбор языка.",
@@ -624,6 +583,7 @@
       "loading": "Загрузка..."
     },
     "so": {
+      "copied": "la koobiyeeyay",
       "moreOptions": "Xulashooyin dheeraad ah",
       "languageNotAvailable": "Nasiib darro, luqaddaada halkan lagama heli karo.",
       "chooseALanguage": "Dooro luuqad.",
@@ -631,6 +591,7 @@
       "loading": "Xareysmeyso ..."
     },
     "sq": {
+      "copied": "e kopjuar",
       "moreOptions": "Me shumë opsione",
       "languageNotAvailable": "Fatkeqësisht, gjuha juaj nuk është në dispozicion këtu.",
       "chooseALanguage": "Zgjidh një gjuhë.",
@@ -638,6 +599,7 @@
       "loading": "Ngarko ..."
     },
     "sr-Cyrl": {
+      "copied": "копирано",
       "moreOptions": "Више опција",
       "languageNotAvailable": "Нажалост, твој језик овде није доступан.",
       "chooseALanguage": "Изабери језик.",
@@ -645,6 +607,7 @@
       "loading": "Учитава се ..."
     },
     "sr-Latn": {
+      "copied": "kopirano",
       "moreOptions": "Više opcija",
       "languageNotAvailable": "Nažalost, tvoj jezik ovde nije dostupan.",
       "chooseALanguage": "Izaberi jezik.",
@@ -652,6 +615,7 @@
       "loading": "Učitava se ..."
     },
     "ti": {
+      "copied": "ተቐዲሑ",
       "moreOptions": "ዝበዝሐ ኣማራጺ",
       "languageNotAvailable": "ሕማቕ ኣጋጣሚ ኮይኑ፡ ቋንቋኻ ኣብዚ የለን።",
       "chooseALanguage": "ቋንቋ ምረጽ።",
@@ -659,6 +623,7 @@
       "loading": "ይጽዓን ኣሎ ..."
     },
     "tr": {
+      "copied": "kopyalandı",
       "moreOptions": "Daha fazla seçenek",
       "languageNotAvailable": "Senin dilin burada maalesef yok.",
       "chooseALanguage": "Bir dil seçin.",
@@ -666,6 +631,7 @@
       "loading": "Yükleniyor ..."
     },
     "uk": {
+      "copied": "Копіювати",
       "moreOptions": "Більше опцій",
       "languageNotAvailable": "Ваша мова тут недоступна.",
       "chooseALanguage": "Виберіть мову.",
@@ -673,6 +639,7 @@
       "loading": "Завантаження ..."
     },
     "ur": {
+      "copied": "کاپی کیا گیا",
       "moreOptions": "نسخہ:",
       "languageNotAvailable": "معذرت، آپ کی زبان یہاں دستیاب نہیں۔",
       "chooseALanguage": "زبان منتخب کریں۔",
@@ -680,6 +647,7 @@
       "loading": "لوڈ ہو رہا ہے ‎…"
     },
     "zh-CN": {
+      "copied": "已复制",
       "moreOptions": "更多选项",
       "languageNotAvailable": "很抱歉，这里没有提供您的语言。",
       "chooseALanguage": "请选择一种语言。",
@@ -1040,8 +1008,7 @@
         "event": "Dieses Event wurde leider nicht gefunden.",
         "offer": "Dieses Angebot wurde leider nicht gefunden.",
         "poi": "Dieser Ort wurde leider nicht gefunden.",
-        "localNews": "Diese Nachricht wurde leider nicht gefunden.",
-        "tunews": "Diese tünews wurde leider nicht gefunden.",
+        "news": "Diese Nachricht wurde leider nicht gefunden.",
         "pageTitle": "Seite nicht gefunden"
       },
       "pageNotFound": "Diese Seite wurde leider nicht gefunden.",
@@ -1059,14 +1026,15 @@
         "events": "Zu den Veranstaltungen",
         "offers": "Zu den Angeboten",
         "pois": "Zur Karte",
-        "localNews": "Zu den Nachrichten",
-        "tunews": "Zu den tünews"
+        "news": "Zu den Nachrichten"
       },
       "pageTitle": "Fehler",
       "generalError": "Ein Fehler ist aufgetreten",
       "notSupportedByDevice": "Diese Funktion wird auf diesem Gerät nicht unterstützt.",
       "languageSwitchFailedTitle": "Leider ist der Sprachwechsel fehlgeschlagen.",
-      "languageSwitchFailedMessage": "Die ausgewählte Sprache ist nicht offline verfügbar. Eine aktive Internetverbinding ist notwendig."
+      "languageSwitchFailedMessage": "Die ausgewählte Sprache ist nicht offline verfügbar. Eine aktive Internetverbinding ist notwendig.",
+      "noCalendarPermission": "Der Zugriff auf den Kalender ist nicht erlaubt.",
+      "noCalendarFound": "Es wurde kein geeigneter Kalender gefunden."
     },
     "am": {
       "notFound": {
@@ -1076,8 +1044,7 @@
         "event": "ይቅርታ፣ ይህ ጽግጅት አልተገኘም።",
         "offer": "ይቅርታ፣ ይህ ግብዣ/መጥሪያ አልተገኘም።",
         "poi": "ይህ ቦታ ሊገኝ ኣልቻለም።",
-        "localNews": "ይቅርታ፣ ይህ ዜና አልተገኘም።",
-        "tunews": "ይቅርታ፣ ይህ tünews አልተገኘም።",
+        "news": "ይቅርታ፣ ይህ ዜና አልተገኘም።",
         "pageTitle": "ገጹ አልተገኘም"
       },
       "pageNotFound": "ይቅርታ፣ ይህ ገጽ አልተገኘም።",
@@ -1095,8 +1062,7 @@
         "events": "ወደ ዝግጅቶች",
         "offers": "ወደ ግብዣዎች/መጥሪያዎች",
         "pois": "ወደ ካርታ",
-        "localNews": "ወደ ዜናዎች",
-        "tunews": "ወደ tünews"
+        "news": "ወደ ዜናዎች"
       },
       "pageTitle": "ስህተት",
       "generalError": "ስህተት ተፈጥሯል",
@@ -1112,8 +1078,7 @@
         "event": "للأسف، تعذر العثور على هذا الحدث.",
         "offer": "للأسف، تعذر العثور على هذا العرض.",
         "poi": "للأسف لم يتم العثور على هذا المكان.",
-        "localNews": "للأسف، لم يتم العثور على هذا الخبر.",
-        "tunews": "للأسف، لم يتم العثور على tünews.",
+        "news": "للأسف، لم يتم العثور على هذا الخبر.",
         "pageTitle": "تعذر العثور على الصفحة"
       },
       "pageNotFound": "للأسف، تعذر العثور على هذه الصفحة.",
@@ -1131,8 +1096,7 @@
         "events": "إلى الفعاليات",
         "offers": "إلى العروض",
         "pois": "إلى الخريطة",
-        "localNews": "إلى الأخبار",
-        "tunews": "إلى tünews"
+        "news": "إلى الأخبار"
       },
       "pageTitle": "خطأ",
       "generalError": "حدث خطأ ما",
@@ -1148,8 +1112,7 @@
         "event": "За съжаление това събитие не беше намерено.",
         "offer": "За съжаление тази оферта не беше намерена.",
         "poi": "За съжаление това населено място не беше намерено.",
-        "localNews": "За съжаление това съобщение не бе намерено.",
-        "tunews": "За съжаление тези tünews не бяха намерени.",
+        "news": "За съжаление това съобщение не бе намерено.",
         "pageTitle": "Страницата не е намерена"
       },
       "pageNotFound": "За съжаление тази страница не беше намерена.",
@@ -1167,8 +1130,7 @@
         "events": "Към събитията",
         "offers": "Към офертите",
         "pois": "Към картата",
-        "localNews": "Към новините",
-        "tunews": "Към tünews"
+        "news": "Към новините"
       },
       "pageTitle": "Грешка",
       "generalError": "Възникна грешка",
@@ -1184,8 +1146,7 @@
         "event": "بەداخەوە ئەم ڕووداوە نەدۆزرایەوە.",
         "offer": "بەداخەوە ئەم پێشنیارە نەدۆزرایەوە.",
         "poi": "بەداخەوە ئەم شوێنە نەدۆزرایەوە.",
-        "localNews": "بەداخەوە ئەم هەواڵە نەدۆزرایەوە.",
-        "tunews": "بەداخەوە ئەم هەواڵی توبینگێنە نەدۆزرایەوە.",
+        "news": "بەداخەوە ئەم هەواڵە نەدۆزرایەوە.",
         "pageTitle": "لاپەڕە نەدۆزرایەوە"
       },
       "pageNotFound": "بەداخەوە ئەم لاپەڕە نەدۆزرایەوە.",
@@ -1203,8 +1164,7 @@
         "events": "بۆ ڕووداوەکان",
         "offers": "بۆ پێشنیارەکان",
         "pois": "بۆ نەخشە",
-        "localNews": "بۆ هەواڵ",
-        "tunews": "بۆ هەواڵی توبینگێن"
+        "news": "بۆ هەواڵ"
       },
       "pageTitle": "هەڵە",
       "generalError": "هەڵەیەک ڕووی داوە",
@@ -1220,8 +1180,7 @@
         "event": "Je nám líto, tato akce nebyla nalezena.",
         "offer": "Je nám líto, tato nabídka nebyla nalezena.",
         "poi": "Je nám líto, toto místo nebylo nalezeno.",
-        "localNews": "Je nám líto, tato zpráva nebyla nalezena.",
-        "tunews": "Je nám líto, tato zpráva nebyla nalezena.",
+        "news": "Je nám líto, tato zpráva nebyla nalezena.",
         "pageTitle": "Stránka nebyla nalezena"
       },
       "pageNotFound": "Je nám líto, tato stránka nebyla nalezena.",
@@ -1239,8 +1198,7 @@
         "events": "K akcím",
         "offers": "K nabídkám",
         "pois": "Na mapu",
-        "localNews": "Ke zprávám",
-        "tunews": "Ke zprávám"
+        "news": "Ke zprávám"
       },
       "pageTitle": "Chyba",
       "generalError": "Došlo k chybě",
@@ -1256,8 +1214,7 @@
         "event": "Δυστυχώς, αυτή η εκδήλωση δεν βρέθηκε.",
         "offer": "Δυστυχώς, αυτή η προσφορά δεν βρέθηκε.",
         "poi": "Δυστυχώς δεν βρέθηκε αυτή η τοποθεσία.",
-        "localNews": "Δυστυχώς, αυτό το μήνυμα δεν βρέθηκε.",
-        "tunews": "Δυστυχώς, δεν βρέθηκαν αυτά τα νέα.",
+        "news": "Δυστυχώς, αυτό το μήνυμα δεν βρέθηκε.",
         "pageTitle": "Η σελίδα δεν βρέθηκε"
       },
       "pageNotFound": "Δυστυχώς, αυτή η σελίδα δεν βρέθηκε.",
@@ -1275,8 +1232,7 @@
         "events": "Προς εκδηλώσεις",
         "offers": "Προς προσφορές",
         "pois": "Μετάβαση στο χάρτη",
-        "localNews": "Προς ειδήσεις",
-        "tunews": "Προς νέα"
+        "news": "Προς ειδήσεις"
       },
       "pageTitle": "Σφάλμα",
       "generalError": "Παρουσιάστηκε σφάλμα",
@@ -1292,8 +1248,7 @@
         "event": "Sorry, but this event could not be found.",
         "offer": "Sorry, but this offer could not be found.",
         "poi": "Sorry, this place was not found.",
-        "localNews": "Sorry, but this message could not be found.",
-        "tunews": "Sorry, but this tünews could not be found.",
+        "news": "Sorry, but this message could not be found.",
         "pageTitle": "Page not found"
       },
       "pageNotFound": "Sorry, but the requested page could not be found.",
@@ -1311,8 +1266,7 @@
         "events": "Go to events",
         "offers": "Go to offers",
         "pois": "Go to map",
-        "localNews": "Go to news",
-        "tunews": "Go to tünews"
+        "news": "Go to news"
       },
       "pageTitle": "Error",
       "generalError": "An error occurred",
@@ -1328,8 +1282,7 @@
         "event": "No se ha encontrado este evento.",
         "offer": "No se ha encontrado esta oferta.",
         "poi": "No se ha encontrado esta localidad.",
-        "localNews": "No se ha encontrado este mensaje.",
-        "tunews": "No se ha encontrado este tünews.",
+        "news": "No se ha encontrado este mensaje.",
         "pageTitle": "No se ha encontrado la página"
       },
       "pageNotFound": "No se ha encontrado esta página.",
@@ -1347,8 +1300,7 @@
         "events": "Ir a las actividades",
         "offers": "Ir a las ofertas",
         "pois": "Ir al mapa",
-        "localNews": "Ir a los mensajes",
-        "tunews": "Ir a los tünews"
+        "news": "Ir a los mensajes"
       },
       "pageTitle": "Error",
       "generalError": "Se ha producido un error",
@@ -1364,8 +1316,7 @@
         "event": "Tapahtumaa ei löydetty.",
         "offer": "Tarjousta ei löydetty.",
         "poi": "Paikkaa ei löydetty.",
-        "localNews": "Viestiä ei löydetty.",
-        "tunews": "tünews-uutisia ei löydetty.",
+        "news": "Viestiä ei löydetty.",
         "pageTitle": "Sivua ei löytynyt"
       },
       "pageNotFound": "Sivua ei löydetty.",
@@ -1383,8 +1334,7 @@
         "events": "Siirry tapahtumiin",
         "offers": "Siirry tarjouksiin",
         "pois": "Siirry karttaan",
-        "localNews": "Siirry uutisiin",
-        "tunews": "Siirry kohteeseen tünews"
+        "news": "Siirry uutisiin"
       },
       "pageTitle": "Virhe",
       "generalError": "Ilmeni virhe",
@@ -1400,8 +1350,7 @@
         "event": "Malheureusement, cet événement est introuvable.",
         "offer": "Malheureusement, cette offre est introuvable.",
         "poi": "Cette localité n’a malheureusement pas été trouvée.",
-        "localNews": "Malheureusement, ce message est introuvable.",
-        "tunews": "Malheureusement, cette tünews est introuvable.",
+        "news": "Malheureusement, ce message est introuvable.",
         "pageTitle": "Page introuvable"
       },
       "pageNotFound": "Malheureusement, cette page est introuvable.",
@@ -1419,8 +1368,7 @@
         "events": "Vers les événements",
         "offers": "Vers les offres",
         "pois": "Aller à la carte",
-        "localNews": "Accéder aux messages",
-        "tunews": "Accéder aux tünews"
+        "news": "Accéder aux messages"
       },
       "pageTitle": "Erreur",
       "generalError": "Une erreur s'est produite",
@@ -1436,8 +1384,7 @@
         "event": "Ovo događanje nažalost nije pronađeno.",
         "offer": "Ova ponuda nažalost nije pronađena.",
         "poi": "To mjesto nažalost nije pronađeno.",
-        "localNews": "Ova vijest nažalost nije pronađena.",
-        "tunews": "Ova vijest tünews nažalost nije pronađena.",
+        "news": "Ova vijest nažalost nije pronađena.",
         "pageTitle": "Stranica nije pronađena"
       },
       "pageNotFound": "Ova stranica nažalost nije pronađena.",
@@ -1455,8 +1402,7 @@
         "events": "Na događanja",
         "offers": "Na ponude",
         "pois": "Idi na kartu",
-        "localNews": "Na vijesti",
-        "tunews": "Na tünews"
+        "news": "Na vijesti"
       },
       "pageTitle": "Pogreške",
       "generalError": "Došlo je do pogreške",
@@ -1472,8 +1418,7 @@
         "event": "Ez az esemény sajnos nem található.",
         "offer": "Ez az ajánlat sajnos nem található.",
         "poi": "Ez a hely nem található.",
-        "localNews": "Ez az üzenet sajnos nem található.",
-        "tunews": "Ez a tünews sajnos nem található.",
+        "news": "Ez az üzenet sajnos nem található.",
         "pageTitle": "Az oldal nem található"
       },
       "pageNotFound": "Ez az oldal sajnos nem található.",
@@ -1491,8 +1436,7 @@
         "events": "Az Eseményekhez",
         "offers": "Az Ajánlatokhoz",
         "pois": "A térképhez",
-        "localNews": "A hírekhez",
-        "tunews": "A tünews-hoz"
+        "news": "A hírekhez"
       },
       "pageTitle": "Hiba",
       "generalError": "Hiba lépett fel.",
@@ -1508,8 +1452,7 @@
         "event": "Purtroppo questo evento non è stato trovato.",
         "offer": "Purtroppo questa offerta non è stata trovata.",
         "poi": "Purtroppo questa località non è stata trovata.",
-        "localNews": "Purtroppo questo messaggio non è stato trovato.",
-        "tunews": "Purtroppo questo tünews non è stato trovato.",
+        "news": "Purtroppo questo messaggio non è stato trovato.",
         "pageTitle": "Pagina non trovata"
       },
       "pageNotFound": "Purtroppo questa pagina non è stata trovata.",
@@ -1527,8 +1470,7 @@
         "events": "Vai su Eventi",
         "offers": "Vai su Offerte",
         "pois": "Vai alla mappa",
-        "localNews": "Vai su Messaggi",
-        "tunews": "Vai su tünews"
+        "news": "Vai su Messaggi"
       },
       "pageTitle": "Errore",
       "generalError": "Si è verificato un errore",
@@ -1544,8 +1486,7 @@
         "event": "სამწუხაროდ ეს ღონისძიება ვერ მოიძებნა.",
         "offer": "სამწუხაროდ ეს შეთავაზება ვერ მოიძებნა.",
         "poi": "ეს ადგილი სამწუხაროდ ვერ მოიძებნა.",
-        "localNews": "სამწუხაროდ ეს ინფორმაცია ვერ მოიძებნა.",
-        "tunews": "ეს ტუნიუს ინფორმაციები სამწუხაროდ ვერ მოიძებნა",
+        "news": "სამწუხაროდ ეს ინფორმაცია ვერ მოიძებნა.",
         "pageTitle": "გვერდი არ იძებნება"
       },
       "pageNotFound": "სამწუხაროდ ეს გვერდი ვერ მოიძებნა.",
@@ -1563,8 +1504,7 @@
         "events": "ღონისძიებებისაკენ",
         "offers": "შეთავაზებებისაკენ",
         "pois": "რუქაზე გადასვლა",
-        "localNews": "ინფორმაციებისაკენ",
-        "tunews": "ტუნიუსისაკენ"
+        "news": "ინფორმაციებისაკენ"
       },
       "pageTitle": "შეცდომა",
       "generalError": "გამოვლინდა შეცდომა",
@@ -1580,8 +1520,7 @@
         "event": "Mixabin ev rûdan peyde nebû.",
         "offer": "Mixabin ev xizmet peyde nebû.",
         "poi": "Mixabin, ev der peyda nebû.",
-        "localNews": "Mixabin ev peyam nehat peydakirin.",
-        "tunews": "Mixabin, ev nûçeyta taybet (tünews) nehat dîtin.",
+        "news": "Mixabin ev peyam nehat peydakirin.",
         "pageTitle": "Rûpel nehat dîtin"
       },
       "pageNotFound": "Mixabin ev rûpel peyde nebû.",
@@ -1599,8 +1538,7 @@
         "events": "Ber bi rûdanan va",
         "offers": "Ber bi xizmetan va",
         "pois": "Bo nexşeyê",
-        "localNews": "Bo nûçeyan",
-        "tunews": "Bo nûçeyên taybet (tünews)"
+        "news": "Bo nûçeyan"
       },
       "pageTitle": "Şaşitî (Eror)",
       "generalError": "Şaşitiyek qewimiye",
@@ -1616,8 +1554,7 @@
         "event": "За жал овој настан не е пронајден.",
         "offer": "За жал оваа понуда не е пронајдена.",
         "poi": "За жал, ова место не беше пронајдено.",
-        "localNews": "За жал оваа вест не е пронајдена.",
-        "tunews": "За жал овие tünews не се пронајдени.",
+        "news": "За жал оваа вест не е пронајдена.",
         "pageTitle": "Страницата не е пронајдена"
       },
       "pageNotFound": "За жал оваа страница не е пронајдена.",
@@ -1635,8 +1572,7 @@
         "events": "Кон настаните",
         "offers": "Кон понудите",
         "pois": "Кон мапата",
-        "localNews": "Кон вестите",
-        "tunews": "Кон tünews"
+        "news": "Кон вестите"
       },
       "pageTitle": "Грешка",
       "generalError": "Настапи грешка",
@@ -1652,8 +1588,7 @@
         "event": "Sorry, dit evenement kan niet worden gevonden.",
         "offer": "Sorry, dit aanbod kan niet worden gevonden.",
         "poi": "Sorry, deze locatie is niet gevonden.",
-        "localNews": "Sorry, dit bericht kan niet worden gevonden.",
-        "tunews": "Sorry, dit nieuws kan niet worden gevonden.",
+        "news": "Sorry, dit bericht kan niet worden gevonden.",
         "pageTitle": "Pagina niet gevonden."
       },
       "pageNotFound": "Sorry, de gevraagde pagina kan niet worden gevonden.",
@@ -1671,8 +1606,7 @@
         "events": "Ga naar evenementen",
         "offers": "Ga naar aanbod",
         "pois": "Ga naar de kaart",
-        "localNews": "Ga naar nieuws",
-        "tunews": "Ga naar nieuws"
+        "news": "Ga naar nieuws"
       },
       "pageTitle": "Fout",
       "generalError": "Er is een fout opgetreden.",
@@ -1688,8 +1622,7 @@
         "event": "متأسفانه این رویداد یافت نشد.",
         "offer": "متأسفانه این خدمات یافت نشد.",
         "poi": "متاسفانه این محل پیدا نشد.",
-        "localNews": "متاسفانه این خبر یافت نشد.",
-        "tunews": "متاسفانه این اخبار توبینگن یافت نشد.",
+        "news": "متاسفانه این خبر یافت نشد.",
         "pageTitle": "صفحه یافت نشد"
       },
       "pageNotFound": "متاسفانه این صفحه یافت نشد.",
@@ -1707,8 +1640,7 @@
         "events": "به سوی رویدادها",
         "offers": "به سوی خدمات",
         "pois": "به نقشه",
-        "localNews": "به اخبار",
-        "tunews": "به اخبار توبینگن"
+        "news": "به اخبار"
       },
       "pageTitle": "خطا",
       "generalError": "خطایی رخ داده است",
@@ -1724,8 +1656,7 @@
         "event": "Niestety nie znaleziono tego wydarzenia.",
         "offer": "Niestety nie znaleziono tej oferty.",
         "poi": "Niestety ta miejscowość nie została znaleziona.",
-        "localNews": "Niestety nie znaleziono tej wiadomości.",
-        "tunews": "Niestety nie znaleziono tej tünews.",
+        "news": "Niestety nie znaleziono tej wiadomości.",
         "pageTitle": "Nie znaleziono strony"
       },
       "pageNotFound": "Niestety nie znaleziono tej strony.",
@@ -1743,8 +1674,7 @@
         "events": "Do wydarzeń",
         "offers": "Do ofert",
         "pois": "Przejdź do mapy",
-        "localNews": "Do wiadomości",
-        "tunews": "Do tünews"
+        "news": "Do wiadomości"
       },
       "pageTitle": "Błąd",
       "generalError": "Wystąpił błąd",
@@ -1760,8 +1690,7 @@
         "event": "متاسفانه این رویداد پیدا نشد‎.",
         "offer": "متاسفانه این پیشنهاد پیدا نشد‎.",
         "poi": "متاسفانه این محل پیدا نشد.",
-        "localNews": "متاسفانه این خبر پیدا نشد‎.",
-        "tunews": "متاسفانه این‎ ‎اخبار توبینگن‎ ‎پیدا نشد‎.",
+        "news": "متاسفانه این خبر پیدا نشد‎.",
         "pageTitle": "صفحه پیدا نشد"
       },
       "pageNotFound": "متاسفانه این صفحه پیدا نشد.",
@@ -1779,8 +1708,7 @@
         "events": "به رویدادها",
         "offers": "به پیشنهادات",
         "pois": "به نقشه",
-        "localNews": "به اخبار",
-        "tunews": "به اخبار توبینگن"
+        "news": "به اخبار"
       },
       "pageTitle": "خطا",
       "generalError": "خطایی رخ داده است",
@@ -1796,8 +1724,7 @@
         "event": "دا غونډه له بده مرغه پیدا نشوه.",
         "offer": "دا وړاندیز له بده مرغه پیدا نشو.",
         "poi": "دا ځای له بده مرغه پیدا نه شو.",
-        "localNews": ".بخښنه غواړم، دا پیغام ونه موندل شو.",
-        "tunews": "بخښنه غواړم دا  خبر پیدا نشو.",
+        "news": ".بخښنه غواړم، دا پیغام ونه موندل شو.",
         "pageTitle": "پاڼه پیدا نشوه"
       },
       "pageNotFound": "دا پاڼه له بده مرغه پیدا نشوه.",
@@ -1815,8 +1742,7 @@
         "events": "غونډو ته تلل",
         "offers": "وړاندیزونو ته تلل",
         "pois": "نقشی تہ تلل",
-        "localNews": "خبرونو ته",
-        "tunews": "تو خبرونو ته"
+        "news": "خبرونو ته"
       },
       "pageTitle": "اشتباه",
       "generalError": "یوه اشتباه رامینځته شوه",
@@ -1832,8 +1758,7 @@
         "event": "No hemos encontrado este evento.",
         "offer": "No hemos encontrado esta oferta.",
         "poi": "No hemos encontrado este lugar.",
-        "localNews": "No hemos encontrado esta noticia.",
-        "tunews": "No hemos encontrado esta tünews.",
+        "news": "No hemos encontrado esta noticia.",
         "pageTitle": "Página no encontrada"
       },
       "pageNotFound": "No hemos encontrado esta página.",
@@ -1851,8 +1776,7 @@
         "events": "Ir a los eventos",
         "offers": "Ir a las ofertas",
         "pois": "Ir al mapa",
-        "localNews": "Ir a las noticias",
-        "tunews": "Ir a las tünews"
+        "news": "Ir a las noticias"
       },
       "pageTitle": "Error",
       "generalError": "Se ha producido un error",
@@ -1868,8 +1792,7 @@
         "event": "Acest eveniment nu a fost găsit, din păcate.",
         "offer": "Această ofertă nu a fost găsită, din păcate.",
         "poi": "Ne pare rău, această localitate nu a fost găsită.",
-        "localNews": "Această știre nu a fost găsită, din păcate.",
-        "tunews": "Această tünews nu a fost găsită, din păcate.",
+        "news": "Această știre nu a fost găsită, din păcate.",
         "pageTitle": "Pagină nu a fost găsită"
       },
       "pageNotFound": "Această pagină nu a fost găsită, din păcate.",
@@ -1887,8 +1810,7 @@
         "events": "Spre evenimente",
         "offers": "Spre oferte",
         "pois": "Spre hartă",
-        "localNews": "Spre știri",
-        "tunews": "Spre tünews"
+        "news": "Spre știri"
       },
       "pageTitle": "Erori",
       "generalError": "A apărut o eroare",
@@ -1904,8 +1826,7 @@
         "event": "К сожалению, это событие не найдено.",
         "offer": "К сожалению, это предложение не найдено.",
         "poi": "К сожалению, этот населенный пункт не найден.",
-        "localNews": "К сожалению, это сообщение не найдено.",
-        "tunews": "К сожалению, эта новость tünews не найдена.",
+        "news": "К сожалению, это сообщение не найдено.",
         "pageTitle": "Страница не найдена"
       },
       "pageNotFound": "К сожалению, эта страница не найдена.",
@@ -1923,8 +1844,7 @@
         "events": "К мероприятиям",
         "offers": "К предложениям",
         "pois": "К карте",
-        "localNews": "К сообщениям",
-        "tunews": "К новостям tünews"
+        "news": "К сообщениям"
       },
       "pageTitle": "Ошибка",
       "generalError": "Произошла ошибка",
@@ -1940,8 +1860,7 @@
         "event": "Nasiib darro, dhacdadan lama helin.",
         "offer": "Nasiib darro, dalabkan lama helin.",
         "poi": "Nasiib darro, goobtan lama helin.",
-        "localNews": "Nasiib daro, fariintaan lama helin.",
-        "tunews": "Nasiib daro, aqbaarahaan gaarka ah (tünews) lama helin.",
+        "news": "Nasiib daro, fariintaan lama helin.",
         "pageTitle": "Bogga lama helin"
       },
       "pageNotFound": "Nasiib darro, boggan lama helin.",
@@ -1959,8 +1878,7 @@
         "events": "Aad dhacdooyinka",
         "offers": "Ku saabsan dalabyada",
         "pois": "Aad khariidadda",
-        "localNews": "Ee aqbaaraha",
-        "tunews": "Ee aqbaaraha gaarka ah (tünews)"
+        "news": "Ee aqbaaraha"
       },
       "pageTitle": "Qalad",
       "generalError": "Khalad ayaa dhacay",
@@ -1976,8 +1894,7 @@
         "event": "Ky eveniment për fat të keq nuk u gjet.",
         "offer": "Kjo ofertë për fat të keq nuk u gjet.",
         "poi": "Fatkeqësisht, ky vend nuk u gjet.",
-        "localNews": "Ky lajm për fat të keq nuk u gjet.",
-        "tunews": "Ky tünews për fat të keq nuk u gjet.",
+        "news": "Ky lajm për fat të keq nuk u gjet.",
         "pageTitle": "Faqja nuk u gjet"
       },
       "pageNotFound": "Kjo faqe për fat të keq nuk u gjet.",
@@ -1995,8 +1912,7 @@
         "events": "Tek evenimentet",
         "offers": "Tek ofertat",
         "pois": "Tek harta",
-        "localNews": "Tek lajmet",
-        "tunews": "Tek tünews"
+        "news": "Tek lajmet"
       },
       "pageTitle": "Gabim",
       "generalError": "Një gabim ka ndodhur",
@@ -2012,8 +1928,7 @@
         "event": "Нажалост, овај догађај није пронађен.",
         "offer": "Нажалост, ова понуда није пронађена.",
         "poi": "Нажалост, ова локација није пронађена.",
-        "localNews": "Нажалост, ова порука није пронађена.",
-        "tunews": "Ове tünews вести нажалост нису пронађене.",
+        "news": "Нажалост, ова порука није пронађена.",
         "pageTitle": "Страна није пронађена"
       },
       "pageNotFound": "Нажалост, ова страница није пронађена.",
@@ -2031,8 +1946,7 @@
         "events": "Ка догађајима",
         "offers": "Ка понудама",
         "pois": "Ка картама",
-        "localNews": "Ка вестима",
-        "tunews": "Ка tünews"
+        "news": "Ка вестима"
       },
       "pageTitle": "Грешка",
       "generalError": "Дошло је до грешке",
@@ -2048,8 +1962,7 @@
         "event": "Nažalost, ovaj događaj nije pronađen.",
         "offer": "Nažalost, ova ponuda nije pronađena.",
         "poi": "Nažalost, ova lokacija nije pronađena.",
-        "localNews": "Nažalost, ova poruka nije pronađena.",
-        "tunews": "Ove tünews vesti nažalost nisu pronađene.",
+        "news": "Nažalost, ova poruka nije pronađena.",
         "pageTitle": "Strana nije pronađena"
       },
       "pageNotFound": "Nažalost, ova stranica nije pronađena.",
@@ -2067,8 +1980,7 @@
         "events": "Ka događajima",
         "offers": "Ka ponudama",
         "pois": "Ka kartama",
-        "localNews": "Ka vestima",
-        "tunews": "Ka tünews"
+        "news": "Ka vestima"
       },
       "pageTitle": "Greška",
       "generalError": "Došlo je do greške",
@@ -2084,8 +1996,7 @@
         "event": "ሕማቕ ኣጋጣሚ ኮይኑ፡ እዚ ኣጋጣሚ እዚ ኣይተረኽበን።",
         "offer": "ሕማቕ ኣጋጣሚ ኮይኑ፡ እዚ ኣቕርቦት’ዚ ኣይተረኽበን።",
         "poi": "እዚ ቦታ ክርከብ ኣይተኸኣለን።",
-        "localNews": "ሕማቕ ኣጋጣሚ ኾይኑ፡ እዚ መልእኽቲ እዚ ኣይተረኽበን።",
-        "tunews": "ሕማቕ ኣጋጣሚ ኾይኑ፡ እዚ ፍሉይ ዜና'ዚ (tünews) ኣየተረኽበን።",
+        "news": "ሕማቕ ኣጋጣሚ ኾይኑ፡ እዚ መልእኽቲ እዚ ኣይተረኽበን።",
         "pageTitle": "ገጽ ኣይተረኽበን"
       },
       "pageNotFound": "ሕማቕ ኣጋጣሚ ኮይኑ፡ እዚ ገጽ’ዚ ኣይተረኽበን።",
@@ -2103,8 +2014,7 @@
         "events": "ናብቶም ኣጋጣሚታት",
         "offers": "ብዛዕባ እቶም ኣቕርቦታት",
         "pois": "ናብ ካርታ",
-        "localNews": "ነቲ ዜና",
-        "tunews": "ነቲ ፍሉይ ዜና (tünews)"
+        "news": "ነቲ ዜና"
       },
       "pageTitle": "ጌጋ",
       "generalError": "ሓደ ጌጋ ተኸሲቱ ኣሎ",
@@ -2120,8 +2030,7 @@
         "event": "Bu etkinlik maalesef bulunamadı.",
         "offer": "Bu teklif maalesef bulunamadı.",
         "poi": "Maalesef, bu yer bulunamadı.",
-        "localNews": "Bu mesaj ne yazık ki bulunamadı.",
-        "tunews": "Bu tünews ne yazık ki bulunamadı.",
+        "news": "Bu mesaj ne yazık ki bulunamadı.",
         "pageTitle": "Sayfa bulunamadı"
       },
       "pageNotFound": "Bu sayfa maalesef bulunamadı.",
@@ -2139,8 +2048,7 @@
         "events": "Etkinliklere git",
         "offers": "Tekliflere git",
         "pois": "Haritaya git",
-        "localNews": "Mesajlara git",
-        "tunews": "tünews'a git"
+        "news": "Mesajlara git"
       },
       "pageTitle": "Hata",
       "generalError": "Bir hata oluştu",
@@ -2156,8 +2064,7 @@
         "event": "Вибачте, це не знайдено.",
         "offer": "Вибачте, ця пропозиція не знайдена.",
         "poi": "Вибачте, це місце не знайдено.",
-        "localNews": "На жаль, ця новина не знайдена.",
-        "tunews": "На жаль, це повідомлення не було знайдено.",
+        "news": "На жаль, ця новина не знайдена.",
         "pageTitle": "Сторінка не знайдена"
       },
       "pageNotFound": "Вибачте, ця сторінка не знайдено.",
@@ -2175,8 +2082,7 @@
         "events": "До подій",
         "offers": "До пропозицій",
         "pois": "До карти",
-        "localNews": "До новин",
-        "tunews": "До tünews"
+        "news": "До новин"
       },
       "pageTitle": "Помилка",
       "generalError": "Виникла помилка",
@@ -2192,8 +2098,7 @@
         "event": "معذرت، یہ ایونٹ نہیں ملا۔",
         "offer": "معذرت، یہ پیش کش نہیں ملی۔",
         "poi": "معذرت، یہ جگہ  یہاں نہیں ملی۔",
-        "localNews": "معذرت، یہ خبر نہیں ملی۔",
-        "tunews": "معذرت، یہ tünews نہیں ملا۔",
+        "news": "معذرت، یہ خبر نہیں ملی۔",
         "pageTitle": "صفحہ نہیں ملا"
       },
       "pageNotFound": "معذرت، یہ صفحہ نہیں ملا۔",
@@ -2211,8 +2116,7 @@
         "events": "ایونٹس پر",
         "offers": "پیش کشوں کے متعلق",
         "pois": "نقشے سے متعلق",
-        "localNews": "خبروں پر",
-        "tunews": "Tünews پر"
+        "news": "خبروں پر"
       },
       "pageTitle": "خرابی",
       "generalError": "ایک خرابی پیش آئی ہے",
@@ -2228,8 +2132,7 @@
         "event": "很抱歉，找不到此活动。",
         "offer": "很抱歉，找不到此提供项目。",
         "poi": "很遗憾，未找到此地点。",
-        "localNews": "很抱歉，找不到此新闻。",
-        "tunews": "很抱歉，找不到此 tünews。",
+        "news": "很抱歉，找不到此新闻。",
         "pageTitle": "未找到网页"
       },
       "pageNotFound": "很抱歉，找不到此页面。",
@@ -2247,8 +2150,7 @@
         "events": "前往活动",
         "offers": "前往提供项目",
         "pois": "前往地图",
-        "localNews": "前往新闻",
-        "tunews": "前往 tünews"
+        "news": "前往新闻"
       },
       "pageTitle": "错误",
       "generalError": "发生了错误",
@@ -2263,8 +2165,14 @@
       "date": "Datum",
       "events": "Veranstaltungen",
       "exportAsICal": "Als iCal exportieren",
+      "addToCalendar": "Zum Kalender hinzufügen",
       "currentlyNoEvents": "Es gibt aktuell keine Veranstaltungen.",
-      "pageTitle": "Veranstaltungen"
+      "pageTitle": "Veranstaltungen",
+      "chooseCalendar": "Wähle einen Kalender aus",
+      "added": "Hinzugefügt",
+      "goToCalendar": "Zum Kalender",
+      "back": "Zurück",
+      "settings": "Einstellungen"
     },
     "am": {
       "address": "ኣድራሻ",
@@ -2313,8 +2221,14 @@
       "date": "Date",
       "events": "Events",
       "exportAsICal": "Export as iCal",
+      "addToCalendar": "Add to calendar",
       "currentlyNoEvents": "No events are currently available.",
-      "pageTitle": "Events"
+      "pageTitle": "Events",
+      "chooseCalendar": "Choose a calendar",
+      "added": "Added",
+      "goToCalendar": "Go to calendar",
+      "back": "Back",
+      "settings": "Settings"
     },
     "es": {
       "address": "Dirección",
@@ -3088,7 +3002,7 @@
   },
   "intro": {
     "de": {
-      "appDescription": "{{appName}} ist Ihr digitaler Guide für Deutschland",
+      "appDescription": "{{appName}} ist Dein digitaler Guide für Deutschland",
       "search": "Suche",
       "searchDescription": "Anhand von Schlagwörtern schnell die richtige Information finden",
       "languageChange": "Sprachwechsel",
@@ -3544,7 +3458,7 @@
       "timeout": "Standortbestimmung fehlgeschlagen",
       "refresh": "Liste der nahegelegenen Regionen aktualisieren",
       "pageTitle": "Regionen",
-      "metaDescription": "{{appName}} ist Ihr digitaler Guide für Deutschland. Finden Sie lokale Informationen, Veranstaltungen und Beratung. Immer aktuell und in Ihrer Sprache.",
+      "metaDescription": "{{appName}} ist Dein digitaler Guide für Deutschland. Finde lokale Informationen, Veranstaltungen und Beratung. Immer aktuell und in Deiner Sprache.",
       "cityNotFound": "Deine Region nicht gefunden?",
       "clickHere": "Hier klicken"
     },
@@ -3561,7 +3475,6 @@
       "timeout": "ቦታ መወሰን አልተሳካም",
       "refresh": "በቅርብ የሚገኙት ኣከባቢዎች መዝገብ ማሻሻል",
       "pageTitle": "ኣከባቢዎች",
-      "metaDescription": "{{appName}} የእርስዎ የጀርመን የዲጂታል መሪዎ ነው። አካባቢያዊ መረጃዎችን፣ ዝግጅቶች እና ምክር ያግኙ። ሁልጊዜም ወቅታዊና በእርስዎ ቋንቋ የሚቀርብ ነው።",
       "cityNotFound": "ያንተ ኣከባቢ ኣልተገኘምን?",
       "clickHere": "እዚህ ተጫን"
     },
@@ -3578,7 +3491,6 @@
       "timeout": "فشل في تحديد الموقع",
       "refresh": "تحديث قائمة المناطق القريبة",
       "pageTitle": "المناطق",
-      "metaDescription": "تطبيق{{appName}} هو دليلك الرقمي لألمانيا. اعثر على المعلومات والفعاليات والمشورة المحلية. مُحدَّثة دائمًا وبلغتك.",
       "cityNotFound": "لم يتم العثور على منطقتك؟",
       "clickHere": "اضغط هنا"
     },
@@ -3595,7 +3507,6 @@
       "timeout": "Неуспешно определяне на местоположението",
       "refresh": "Актуализиране на списъка с близки региони",
       "pageTitle": "Региони",
-      "metaDescription": "{{appName}} е Вашето дигитално ръководство за Германия. Открийте местни центрове за информация, събития и консултации. Винаги актуални и на Вашия език.",
       "cityNotFound": "Вашият регион не е намерен?",
       "clickHere": "Кликнете тук"
     },
@@ -3612,7 +3523,6 @@
       "timeout": "دیاریکردنی شوێن سەرکەوتوو نەبوو",
       "refresh": "لیستی ناوچە نزیکەکان بەڕۆژ بکەوە",
       "pageTitle": "ناوچەکان",
-      "metaDescription": "{{appName}} ڕێنمایی دیجیتاڵی تۆ بۆ ئەلمانیایە. زانیارییە خۆجێیەکان، ڕووداوەکان و ڕاوێژکاری بدۆزەوە. هەمیشە بەڕۆژ و بە زمانی خۆت.",
       "cityNotFound": "ناوچەکەت نەدۆزرایەوە؟",
       "clickHere": "لێرە کرتە بکە"
     },
@@ -3629,7 +3539,6 @@
       "timeout": "Lokalizace se nezdařila",
       "refresh": "Aktualizace seznamu okolních regionů",
       "pageTitle": "Regiony",
-      "metaDescription": "{{appName}} je váš digitální průvodce po Německu. Najděte místní informace, akce a rady. Vždy aktuální a ve vašem jazyce.",
       "cityNotFound": "Váš region nebyl nalezen?",
       "clickHere": "Klikněte zde"
     },
@@ -3646,7 +3555,6 @@
       "timeout": "Ο προσδιορισμός της τοποθεσίας απέτυχε",
       "refresh": "Ενημέρωση της λίστας κοντινών περιοχών",
       "pageTitle": "Περιοχές",
-      "metaDescription": "Το {{appName}} είναι ο ψηφιακός σας οδηγός για τη Γερμανία. Βρείτε τοπικές πληροφορίες, εκδηλώσεις και συμβουλές. Πάντα ενημερωμένο και στη γλώσσα σας.",
       "cityNotFound": "Δεν μπορείτε να βρείτε την περιοχή σας;",
       "clickHere": "Κάντε κλικ εδώ"
     },
@@ -3680,7 +3588,6 @@
       "timeout": "La localización falló",
       "refresh": "Actualizar la lista de las regiones cercanas",
       "pageTitle": "Regiones",
-      "metaDescription": "{{appName}} es su guía digital para Alemania. Encuentre información local, eventos y consejos. Siempre actualizados y en su idioma.",
       "cityNotFound": "¿No ha encontrado su región?",
       "clickHere": "Haga clic aquí"
     },
@@ -3697,7 +3604,6 @@
       "timeout": "Sijainninmääritys epäonnistui",
       "refresh": "Päivitä läheisten alueiden luettelo",
       "pageTitle": "Alueet",
-      "metaDescription": "{{appName}} on digitaalinen oppaasi Saksaa varten. Etsi paikallisia tietoja, tapahtumia ja neuvoja. Aina ajantasaista tietoa omalla kielelläsi.",
       "cityNotFound": "Etkö löytänyt aluettasi?",
       "clickHere": "Klikkaa tästä"
     },
@@ -3714,7 +3620,6 @@
       "timeout": "Échec de la localisation",
       "refresh": "Mettre à jour la liste des régions proches",
       "pageTitle": "Régions",
-      "metaDescription": "{{appName}} est votre guide numérique pour l'Allemagne. Vous y trouverez des informations locales, des événements et des conseils, toujours à jour et dans votre langue.",
       "cityNotFound": "Ta région n’a pas été trouvée ?",
       "clickHere": "Cliquer ici"
     },
@@ -3731,7 +3636,6 @@
       "timeout": "Neuspješno određivanje lokacije",
       "refresh": "Ažuriraj popis obližnjih regija",
       "pageTitle": "Regije",
-      "metaDescription": "{{appName}} je vaš digitalni vodič za Njemačku. Pronađite lokalne informacije, događanja i savjetovanje. Uvijek s najaktualnijim podacima i na vašem jeziku.",
       "cityNotFound": "Nije pronađena tvoja regija?",
       "clickHere": "Kliknite ovdje"
     },
@@ -3748,7 +3652,6 @@
       "timeout": "Helymeghatározás sikertelen",
       "refresh": "A környékbeli régiók listájának aktualizálása",
       "pageTitle": "Régiók",
-      "metaDescription": "{{appName}} a digitális idegenvezetőd Németországban. Helyi információk, események és tanácsadás. Mindig naprakészen és a te nyelveden.",
       "cityNotFound": "Nem találtad meg a régiódat?",
       "clickHere": "Kattints ide"
     },
@@ -3765,7 +3668,6 @@
       "timeout": "Geolocalizzazione non riuscita",
       "refresh": "Aggiorna l'elenco delle regioni vicine",
       "pageTitle": "Regioni",
-      "metaDescription": "{{appName}} è la tua guida digitale per la Germania. Qui troverai informazioni locali, eventi e consigli. Sempre aggiornata e nella tua lingua.",
       "cityNotFound": "Non hai trovato la tua regione?",
       "clickHere": "Clicca qui"
     },
@@ -3782,7 +3684,6 @@
       "timeout": "ვერ განისაზღვრა მდებარეობის ადგილი",
       "refresh": "ახლოსმდებარე რეგიონების სიის განახლება",
       "pageTitle": "რეგიონები",
-      "metaDescription": "‎{{appName}} არის თქვენი ციფრული გზამკვლევი გერმანიისათვის. იპოვეთ ადგილობრივი ინფორმაციები, ღონისძიებები და მიიღეთ რჩევები მუდამ აქტუალური და თქვენს გვერდით.",
       "cityNotFound": "ვერ მოიძებნა ეს რეგიონი?",
       "clickHere": "დააჭირეთ აქ"
     },
@@ -3799,7 +3700,6 @@
       "timeout": "Diyarkirinê mekanê serketî nebû",
       "refresh": "Lîsteya navçeyên nêzîk biroj bike",
       "pageTitle": "Navçe",
-      "metaDescription": "{{appName}}' rêbera te ya dîcîtal li Almanyayê ye. Zzanyarî, rûdan û şêwirîna xwecihî peyde bike. Hertim birojkirî û bi zimanê te bixwe.",
       "cityNotFound": "Navçeya we peyda nebû?",
       "clickHere": "Vir bitikîne"
     },
@@ -3816,7 +3716,6 @@
       "timeout": "Не може да се активира опцијата за одредување на локацијата",
       "refresh": "Ажурирај го списокот со региони во близина",
       "pageTitle": "Региони",
-      "metaDescription": "{{appName}} е вашиот дигитален водич за Германија. Пронајдете локални информации, настани и совети. Секогаш актуелно и на вашиот јазик.",
       "cityNotFound": "Не го пронајде твојот регион?",
       "clickHere": "Кликни тука"
     },
@@ -3833,7 +3732,6 @@
       "timeout": "Automatische plaatsbepaling is mislukt.",
       "refresh": "Update de lijst met de dichtstbijzijnde regio's",
       "pageTitle": "Regio's",
-      "metaDescription": "{{appName}} is jouw digitale gids voor het leven in Duitsland. Ontdek lokale informatie, evenementen en krijg advies. Altijd up to date en beschikbaar in jouw eigen taal.",
       "cityNotFound": "Heb je jouw regio niet gevonden?",
       "clickHere": "Klik hier"
     },
@@ -3850,7 +3748,6 @@
       "timeout": "تعیین موقعیت مکانی انجام نشد",
       "refresh": "فهرست مناطق نزدیک را فعال کنید",
       "pageTitle": "مناطق",
-      "metaDescription": "{{appName}} راهنمای دیجیتال شما برای آلمان است. اطلاعات محلی، رویدادها و مشاوره را بیابید. همواره به روز و به زبان شما.",
       "cityNotFound": "منطقه شما یافت نشد؟",
       "clickHere": "اینجا را کلیک کنید"
     },
@@ -3867,7 +3764,6 @@
       "timeout": "Ustalenie placówki nie powiodło się",
       "refresh": "Aktualizuje listę regionów w pobliżu",
       "pageTitle": "Regiony",
-      "metaDescription": "{{appName}} to e-przewodnik po Niemczech. Znajdziesz tu aktualne informacje, najnowsze wydarzenia i porady. Zawsze aktualne i w Twoim języku.",
       "cityNotFound": "Twój region nie został znaleziony?",
       "clickHere": "Kliknij tutaj"
     },
@@ -3884,7 +3780,6 @@
       "timeout": "تعیین مکان ناموفق بود",
       "refresh": "فهرست مناطق نزدیک را به روز کنید",
       "pageTitle": "مناطق",
-      "metaDescription": "{{appName}} رهنمای دیجیتل شما برای جرمنی است. معلومات محلی، رویدادها و مشاوره را پیدا نمایید. همواره به‎​روز و به لسان شما.",
       "cityNotFound": "منطقه شما پیدا نشد؟",
       "clickHere": "اینجا را کلیک کنید"
     },
@@ -3901,7 +3796,6 @@
       "timeout": "د موقعیت تعینول ناکام شو",
       "refresh": "دہ شا و خوا علاقہ لیست اپډیټ کہ",
       "pageTitle": "سیمی",
-      "metaDescription": "{{appName}} آلمان لپاره ستاسو ډیجیټال لارښود دی. په دې کې تاسو سیمه ییز معلومات،  دہ غونډو او مشورو معلومات موندلی شئ. همېشه تازه معلومات ستاسو په ژبه کې.",
       "cityNotFound": "آیا ستاسو سیمہ او نہ موندلے شوہ؟",
       "clickHere": "دلتہ کلک کړئ"
     },
@@ -3918,7 +3812,6 @@
       "timeout": "Detección de la ubicación fallida",
       "refresh": "Actualizar la lista de las regiones próximas",
       "pageTitle": "Regiones",
-      "metaDescription": "{{appName}} es su guía digital para Alemania. Buscar información, eventos y asesoramiento en la zona. Siempre actualizada y en su idioma.",
       "cityNotFound": "¿No has encontrado tu región?",
       "clickHere": "Haz clic aquí"
     },
@@ -3935,7 +3828,6 @@
       "timeout": "Identificare locație eșuată",
       "refresh": "Actualizați lista de regiuni din apropiere",
       "pageTitle": "Regiuni",
-      "metaDescription": "{{appName}} este ghidul dvs. digital pentru Germania. Găsiți informații locale, evenimente și consiliere. Acestea sunt întotdeauna la zi și în limba dvs.",
       "cityNotFound": "Regiunea dvs. nu a fost găsită?",
       "clickHere": "Faceți clic aici"
     },
@@ -3952,7 +3844,6 @@
       "timeout": "Не удалось определить местоположение",
       "refresh": "Обновить список близлежащих регионов",
       "pageTitle": "Регионы",
-      "metaDescription": "{{appName}} – это ваш виртуальный гид по Германии. Здесь вы узнаете местную информацию и информацию о мероприятиях, а также сможете получить консультации – всегда актуально и на вашем языке.",
       "cityNotFound": "Не найден ваш регион?",
       "clickHere": "Нажмите здесь"
     },
@@ -3969,7 +3860,6 @@
       "timeout": "Helitaanka goobta waa lagu guuldareystay",
       "refresh": "Cusbooneysii liiska gobollada iigu dhow",
       "pageTitle": "gobolada",
-      "metaDescription": "{{appName}} waa tusahaaga dijitaalka ah ee Jarmalka. Raadi macluumaadka deegaanka, dhacdooyin iyo talobixino. Had iyo jeer cusbooneysan/casriyeysan oo luuqadaada ah.",
       "cityNotFound": "Lama helin gobolkaaga?",
       "clickHere": "Halkan guji"
     },
@@ -3986,7 +3876,6 @@
       "timeout": "Përcaktimi i vendndodhjes dështoi",
       "refresh": "Përditëso listën e rajoneve të afërta",
       "pageTitle": "Rajone",
-      "metaDescription": "{{appName}} është guida juaj dixhitale për Gjermani. Gjeni informacione lokale, evenimente dhe këshilla. Gjithnjë aktuale dhe në gjuhën tuaj.",
       "cityNotFound": "Nuk e gjetët rajonin tuaj?",
       "clickHere": "Kliko këtu"
     },
@@ -4003,7 +3892,6 @@
       "timeout": "Неуспешно одређивање локације",
       "refresh": "Ажурирајте листу оближњих региона",
       "pageTitle": "Региони",
-      "metaDescription": "{{appName}} је ваш дигитални водич за Немачку. Пронађите локалне информације, догађаје и саветовање. Увек актуелно на важем језику.",
       "cityNotFound": "Нисте пронашли свој регион?",
       "clickHere": "Кликните овде"
     },
@@ -4020,7 +3908,6 @@
       "timeout": "Neuspešno određivanje lokacije",
       "refresh": "Ažurirajte listu obližnjih regiona",
       "pageTitle": "Regioni",
-      "metaDescription": "{{appName}} je vaš digitalni vodič za Nemačku. Pronađite lokalne informacije, događaje i savetovanje. Uvek aktuelno na važem jeziku.",
       "cityNotFound": "Niste pronašli svoj region?",
       "clickHere": "Kliknite ovde"
     },
@@ -4037,7 +3924,6 @@
       "timeout": "ምርካብ ቦታ ዕዉት ኣይነበረን",
       "refresh": "ናይተን ኣብ ቀረባ ዝርከባ ከባቢታት መዝገብ ምሕዳስ",
       "pageTitle": "ከባቢታት",
-      "metaDescription": "{{appName}} ናይ ጀርመን ዲጂታላዊ መምርሒኻ እዩ። ከባብያዊ ሓበሬታ፡ ኣጋጣሚታትን ምኽርን ርኸብ። ኩሉግዜ ዝተሓደሰን ብቋንቋኻን።",
       "cityNotFound": "ናትካ ከባቢ ኣይተረኸበንድዩ?",
       "clickHere": "ኣብዚ ጠውቕ"
     },
@@ -4054,7 +3940,6 @@
       "timeout": "Konum belirleme başarısız",
       "refresh": "Yakın bölgelerin listesini güncelleyin",
       "pageTitle": "Bölge",
-      "metaDescription": "{{appName}}, Almanya'daki dijital rehberinizdir. Burada yerel bilgiler, etkinlikler ve öneriler bulabilirsiniz. Her zaman günceldir ve kendi dilinizdedir.",
       "cityNotFound": "Bölgeni bulamadın mı?",
       "clickHere": "Buraya tıkla"
     },
@@ -4071,7 +3956,6 @@
       "timeout": "Розташування не вдалося встановити",
       "refresh": "Оновлення списку сусідніх регіонів",
       "pageTitle": "Регіони",
-      "metaDescription": "{{appName}} - це ваш цифровий путівник у Німеччині. Знайдіть місцеву інформацію, події та поради. Завжди актуально і вашою мовою.",
       "cityNotFound": "Ваш регіон не знайдено?",
       "clickHere": "Натисніть тут"
     },
@@ -4088,7 +3972,6 @@
       "timeout": "مقام کا تعین ناکام رہا",
       "refresh": "قریبی علاقوں کی لسٹ کو اپڈیٹ کریں۔",
       "pageTitle": "علاقے",
-      "metaDescription": "‎{{appName}}‎، جرمنی کے لئے آپ کی ڈیجیٹل رہنما ہے۔ یہاں مقامی معلومات، ایونٹس اور مشورے حاصل کریں۔ ہمیشہ تازہ ترین اور آپ کی زبان میں۔",
       "cityNotFound": "کیا آب کو آب کا شہر نہیں ملا؟",
       "clickHere": "یہاں کلک کریں۔"
     },
@@ -4105,7 +3988,6 @@
       "timeout": "定位失败",
       "refresh": "更新附近地区列表",
       "pageTitle": "地区",
-      "metaDescription": "{{appName}}是您在德国生活的数字指南。查找本地信息、活动和建议。信息始终保持最新并以您自己的语言提供。",
       "cityNotFound": "未找到你的地区吗？",
       "clickHere": "点击此处"
     }
@@ -4491,7 +4373,7 @@
       "cancel": "Annuleer",
       "shareMessage": "Zojuist gevonden: {{message}}",
       "shareFailDefaultMessage": "Helaas is er een fout opgetreden bij het delen van de content",
-      "disclaimer": "Impressum  "
+      "disclaimer": "Impressum"
     },
     "pes": {
       "imprintAndContact": "اطلاعات ناشر و تماس",
@@ -4973,7 +4855,7 @@
     },
     "sr-Latn": {
       "version": "Verzija:",
-      "license": "Licenca: ",
+      "license": "Licenca:",
       "noLicensesMessage": "Nema dostupnih informacija o licenci"
     },
     "ti": {
@@ -5455,7 +5337,7 @@
         "localNews": "Lokaal nieuws",
         "pageTitle": "Lokaal nieuws"
       },
-      "local": "Lokaal   ",
+      "local": "Lokaal",
       "readMore": "Ga door",
       "currentlyNoNews": "Op dit moment is er geen nieuws."
     },
@@ -6774,7 +6656,7 @@
       "distanceKilometreAlternative": "{{distance}} km",
       "distanceMetre": "{{distance}} m udaljen",
       "distanceMetreAlternative": "{{distance}} m",
-      "contactInformation": " Kontakt informacije ",
+      "contactInformation": " Kontakt informacije",
       "address": "Adresa",
       "phone": "Telefon",
       "eMail": "Adresa e-pošte",
@@ -6785,14 +6667,14 @@
       "phoneCopied": "Broj telefona je kopiran na klipbordu",
       "eMailCopied": "Adresa e-pošte je kopirana na klipbordu",
       "websiteCopied": "Veb strana je kopirana na klipbordu",
-      "listTitle": "U vašoj blizini ",
-      "detailsHeader": " Nazad u pregled ",
+      "listTitle": "U vašoj blizini",
+      "detailsHeader": " Nazad u pregled",
       "detailsAddress": "Opis puta",
-      "detailsMapLink": "Otvori u Google mapama ",
-      "detailsInformation": "Informacije ",
-      "detailsNextPoi": "Sledeći ",
-      "detailsPreviousPoi": "Prethodni ",
-      "openExternalMaps": "Otvori u aplikaciji mape "
+      "detailsMapLink": "Otvori u Google mapama",
+      "detailsInformation": "Informacije",
+      "detailsNextPoi": "Sledeći",
+      "detailsPreviousPoi": "Prethodni",
+      "openExternalMaps": "Otvori u aplikaciji mape"
     },
     "ti": {
       "pageTitle": "ካርታ",
@@ -6819,7 +6701,7 @@
       "eMailCopied": "ኢ-ሜይል ኣድራሻ ኣብ መጽንሒ ማሕደር ተቐዲሑ",
       "websiteCopied": "መርበብ ሓበሬታ ኣብ መጽንሒ ማሕደር ተቐዲሑ",
       "listTitle": "ኣብ ጥቓኻ",
-      "detailsHeader": "ናብ መርኣዪ ትሕዝቶ ይመለስ ",
+      "detailsHeader": "ናብ መርኣዪ ትሕዝቶ ይመለስ",
       "detailsAddress": "መገዲ ምሕባር",
       "detailsMapLink": "ኣብ ጉግል ማፕ ክፈት",
       "detailsInformation": "ሓበሬታት",
@@ -7144,11 +7026,11 @@
       "openSourceLicenses": "Open-Source-Lizenzen",
       "tracking": "J-PAL Evaluation",
       "allowTracking": "Tracking zulassen",
-      "trackingShortDescription": "Nehmen Sie an der J-PAL Evaluierungsstudie teil, um {{appName}} zu verbessern.",
+      "trackingShortDescription": "Nimm an der J-PAL Evaluierungsstudie teil, um {{appName}} zu verbessern.",
       "trackingMoreInformation": "Weitere Informationen über die J-Pal Evaluierungsstudie und die Forschungsziele",
-      "trackingDescription": "{{appName}} bittet um die Erlaubnis, Ihre Nutzung innerhalb der App zu verfolgen. Ihre Daten werden anonymisiert und nur zu Forschungszwecken und zur Verbesserung der App verwendet. Die Tracking-Daten werden nicht geteilt oder für Werbung oder andere kommerzielle Zwecke verarbeitet.",
+      "trackingDescription": "{{appName}} bittet um die Erlaubnis, Ihre Nutzung innerhalb der App zu verfolgen. Deine Daten werden anonymisiert und nur zu Forschungszwecken und zur Verbesserung der App verwendet. Die Tracking-Daten werden nicht geteilt oder für Werbung oder andere kommerzielle Zwecke verarbeitet.",
       "trackingLeaveTitle": "Tracking zulassen?",
-      "trackingLeaveDescription": "Sie haben das Tracking nicht erlaubt. Das Tracking hilft uns, die {{appName}}-App zu verbessern und bessere Informationen für Einwanderer bereitzustellen. Sind Sie sicher, dass Sie den Bildschirm verlassen möchten, ohne das Tracking zu erlauben?",
+      "trackingLeaveDescription": "Du hast das Tracking nicht erlaubt. Das Tracking hilft uns, die {{appName}}-App zu verbessern und bessere Informationen für Einwanderer bereitzustellen. Bist du sicher, dass du den Bildschirm verlassen möchten, ohne das Tracking zu erlauben?",
       "enabled": "aktiviert",
       "disabled": "deaktiviert",
       "decline": "Ablehnen"
@@ -7164,11 +7046,8 @@
       "openSourceLicenses": "የምንጭ ፍቃዶችን ይክፈቱ",
       "tracking": "የJ-PAL ግምገማ",
       "allowTracking": "ክትትሉን ይፍቀዱ",
-      "trackingShortDescription": "በ J-PAL የግምገማ ጥናት ላይ ተሳተፉ፣ የ {{appName}} ለማሻሻል።",
-      "trackingMoreInformation": "የ J-PAL የግምገማ ጥናትን የሚመለከት ተጨማሪ መረጃና የጥናቱ ዓላማ  ",
-      "trackingDescription": "{{appName}} በዚህ ኣፕ ውስጥ የመጠቀምን ዱካ ለመከታተል፣ ፈቃድ ይጠየቃል። የርስዎ ዳታ በሚስጢር በተያዘ መንገድና ዓላማው ለጥናት ለሆነና ኣፑን ለማሻሻል ተብሎ ብቻ ጥቅም ላይ ይውላል። የዱካ መከታተል ዳታዎች ለሌላ ተላልፈው ኣይሰጡም ወይ ደግሞ ለማስታወቂያ ወይም ለሌላ ንግዳዊ ለሆነ ዓላማ ተብለው ኣይሰሩም።",
+      "trackingMoreInformation": "የ J-PAL የግምገማ ጥናትን የሚመለከት ተጨማሪ መረጃና የጥናቱ ዓላማ",
       "trackingLeaveTitle": "ዱካ መከታተልን መፍቀድ?",
-      "trackingLeaveDescription": "ዱካ መከታተሉን ኣልፈቀዱም።ዱካ መከታተሉ እኛን የሚረዳን፣ የ {{appName}}-ኣፕ ለማሻሻልና ወደ ኣገር እንግዳ ለሆኑ የተሻለ መረጃ ለማዘጋጀት ነው። የዱካ መከታተሉን ሳይፈቅዱ ከስክሪኑ ለመለየት እርግጠኛ ነዎት?                                                                                                                                                                                                                          ",
       "enabled": "ሰርቷል",
       "disabled": "አይሰራም",
       "decline": "አትቀበል"
@@ -7184,11 +7063,8 @@
       "openSourceLicenses": "تراخيص مفتوحة المصدر",
       "tracking": "تقييم J-PAL",
       "allowTracking": "السماح بالتتبع",
-      "trackingShortDescription": "شارك في تقييم J-PAL لتحسين تطبيق {{appName}}.",
       "trackingMoreInformation": "مزيد من المعلومات حول تقييم J-PAL واغراض البحث.",
-      "trackingDescription": "يريد {{appName}} إنتجريت  إذنًا لتتبع استخدامك للتطبيق. ستكون بياناتك مجهولة المصدر وستستخدم فقط لأغراض البحث ولتحسين التطبيق. لن تتم مشاركة بيانات التتبع أو معالجتها للإعلانات أو لأي أغراض تجارية أخرى",
       "trackingLeaveTitle": "السماح بالتتبع؟",
-      "trackingLeaveDescription": "أنت لم تسمح بالتتبع، يساعد التتبع على تحسين تطبيق {{appName}} وتوفير معلومات أفضل للمهاجرين .هل أنت متأكد أنك تريد مغادرة الشاشة دون السماح بالتتبع؟",
       "enabled": "مفعل",
       "disabled": "غير مفعل",
       "decline": "رفض"
@@ -7204,11 +7080,8 @@
       "openSourceLicenses": "Лицензи с отворен код",
       "tracking": "Оценка на J-PAL",
       "allowTracking": "Разрешаване на проследяване",
-      "trackingShortDescription": "Участвайте в проучването за оценка на J-PAL, за да подобрите {{appName}}.",
       "trackingMoreInformation": "Повече информация за проучването за оценка на J-Pal и целите на изследването",
-      "trackingDescription": "{{appName}} иска разрешение за проследяване на използването ви в рамките на приложението. Вашите данни ще бъдат анонимизирани и използвани само за изследователски цели и за подобряване на приложението. Данните за проследяване няма да бъдат споделяни или обработвани за рекламни или други търговски цели.",
       "trackingLeaveTitle": "Разрешаване на проследяването?",
-      "trackingLeaveDescription": "Не сте разрешили проследяване. Проследяването ни помага да подобрим приложението {{appName}} и да предоставим по-добра информация за имигрантите. Сигурни ли сте, че искате да напуснете екрана, без да разрешите проследяването?",
       "enabled": "активирано",
       "disabled": "деактивирано",
       "decline": "Отказване"
@@ -7224,11 +7097,8 @@
       "openSourceLicenses": "مۆڵەتەکانی سەرچاوەی ئازاد",
       "tracking": "هەڵسەنگاندنی J-PAL",
       "allowTracking": "مۆڵەتی بەدواداچوون",
-      "trackingShortDescription": "لە توێژینەوەی هەڵسەنگاندنی J-PAL بۆ باشترکردنی {{appName}} بەشداری بکە.",
       "trackingMoreInformation": "بۆ زانیاریی زیاتر لەبارەی توێژینەوەی هەڵسەنگاندنی J-Pal و ئامانجەکانی توێژینەوە.",
-      "trackingDescription": "{{appName}} داوا دەکات ڕێگەی پێ بدرێت کە ڕچەی چۆنیەتی کەڵکوەرگرتنی تۆ لەنێو ئەم ئەپە تۆمار بکات. داتاکانت بێ ناو و نیشان دەکرێن و تەنیا بۆ مەبەستی توێژینەوە و باشترکردنی ئەپەکە بە کار دەهێنرێن. داتای ڕچەتۆمارکردن نادرێت بە لایەنی تر و بە کار ناهێنرێت بۆ مەبەستی رێکلامکردن یان مەبەستی تری بازرگانی.",
       "trackingLeaveTitle": "ڕێگەی رچەتۆمارکردن دەدەیت؟",
-      "trackingLeaveDescription": "تۆ ڕێگەی رچەتۆمارکردنت نەداوە. ڕچەتۆمارکردن یارمەتیمان دەدات کە ئەپی {{appName}} باشتر بکەین و زانیاریی باشتر بدەین بە کۆچبەران. ئایا دڵنیایت کە دەتەوێت لەم پەنجەرەیە بچیتە دەرەوە بێ ئەوەی ڕێگەی ڕچەتۆمارکردن بدەیت؟",
       "enabled": "چالاک کراوە",
       "disabled": "ناچالاک کراوە",
       "decline": "ڕەتکردنەوە"
@@ -7244,11 +7114,8 @@
       "openSourceLicenses": "Licence open-source",
       "tracking": "Hodnocení J-PAL",
       "allowTracking": "Povolit tracking",
-      "trackingShortDescription": "Účast na hodnotící studii J-PAL s cílem zlepšit {{appName}}.",
       "trackingMoreInformation": "Další informace o hodnotící studii J-Pal a cílech výzkumu",
-      "trackingDescription": "{{appName}} žádá o povolení sledovat vaše používání v rámci aplikace.  Vaše údaje budou anonymizovány a použity pouze pro výzkumné účely a ke zlepšení aplikace. Sledovací údaje nebudou sdíleny ani zpracovávány pro reklamní či jiné komerční účely.",
       "trackingLeaveTitle": "Povolit tracking?",
-      "trackingLeaveDescription": "Tracking jste nepovolili. Tracking nám pomáhá zlepšovat aplikaci {{appName}} a poskytovat lepší informace pro přistěhovalce. Jste si jisti, že chcete opustit obrazovku bez povolení trackingu?",
       "enabled": "aktivní",
       "disabled": "neaktivní",
       "decline": "Zakázat"
@@ -7264,11 +7131,8 @@
       "openSourceLicenses": "Άδειες",
       "tracking": "Αξιολόγηση J-PAL",
       "allowTracking": "Να επιτρέπεται ο εντοπισμός",
-      "trackingShortDescription": "Λάβετε μέρος στην έρευνα αξιολόγησης J-PAL για τη βελτίωση της εφαρμογής {{appName}}.",
       "trackingMoreInformation": "Μάθετε περισσότερα σχετικά με την έρευνα αξιολόγησης J-Pal και τους ερευνητικούς στόχους",
-      "trackingDescription": "Η εφαρμογή {{appName}} ζητά άδεια παρακολούθησης της χρήσης σας εντός της εφαρμογής. Τα δεδομένα σας θα είναι ανώνυμα και θα χρησιμοποιηθούν μόνο για ερευνητικούς σκοπούς, καθώς και για τη βελτίωση της εφαρμογής. Τα δεδομένα παρακολούθησης δεν θα κοινοποιηθούν ούτε θα υποβληθούν σε επεξεργασία για διαφημιστικούς ή άλλους εμπορικούς σκοπούς.",
       "trackingLeaveTitle": "Να επιτρέπεται η παρακολούθηση;",
-      "trackingLeaveDescription": "Δεν έχετε επιτρέψει την παρακολούθηση. Η παρακολούθηση μάς βοηθά να βελτιώσουμε την εφαρμογή {{appName}} και να παρέχουμε καλύτερες πληροφορίες για τους μετανάστες. Είστε βέβαιοι ότι θέλετε να φύγετε από την οθόνη χωρίς να επιτρέπεται η παρακολούθηση;",
       "enabled": "ενεργοποιήθηκε",
       "disabled": "απενεργοποιήθηκε",
       "decline": "Απόρριψη"
@@ -7284,11 +7148,8 @@
       "openSourceLicenses": "Open source licences",
       "tracking": "J-PAL evaluation",
       "allowTracking": "Allow tracking",
-      "trackingShortDescription": "Participate in the J-PAL evaluation to improve {{appName}}.",
       "trackingMoreInformation": "More information on the J-Pal evaluation and the research purposes",
-      "trackingDescription": "{{appName}} would like permission to track your usage within the app. Your data will be anonymised and only used for research purposes and to improve the app. The tracking data will not be shared or processed for advertising or other commercial purposes.",
       "trackingLeaveTitle": "Allow tracking?",
-      "trackingLeaveDescription": "You have not allowed tracking. Tracking helps us to improve the {{appName}}-App and to provide better information for immigrants. Are you sure you want to leave the screen without allowing tracking?",
       "enabled": "activated",
       "disabled": "deactivated",
       "decline": "Refuse"
@@ -7304,11 +7165,8 @@
       "openSourceLicenses": "Licencias de fuente abierta",
       "tracking": "Evaluación J-PAL",
       "allowTracking": "Permitir seguimiento",
-      "trackingShortDescription": "Participe en el estudio de evaluación J-PAL para mejorar {{appName}}.",
       "trackingMoreInformation": "Para más información sobre el estudio de evaluación J-Pal y los objetivos de la investigación",
-      "trackingDescription": "{{appName}} pide permiso para rastrear su uso dentro de la aplicación. Sus datos serán utilizados de manera anónima, únicamente con fines de investigación y para mejorar la aplicación. Los datos de seguimiento no se compartirán ni se procesarán con fines publicitarios u otros fines comerciales.",
       "trackingLeaveTitle": "¿Permitir el seguimiento?",
-      "trackingLeaveDescription": "Usted no ha permitido el seguimiento. El seguimiento nos ayuda a mejorar la aplicación {{appName}} y a ofrecer mejor información a los inmigrantes.¿Está seguro de que quiere abandonar la pantalla sin permitir el seguimiento?",
       "enabled": "activado",
       "disabled": "desactivado",
       "decline": "Rechazar"
@@ -7324,11 +7182,8 @@
       "openSourceLicenses": "Avoimen lähdekoodin lisenssit",
       "tracking": "J-PAL Evaluation",
       "allowTracking": "Salli seuranta",
-      "trackingShortDescription": "Osallistu J-PAL-arviointitutkimukseen auttaaksesi parantamaan {{appName}}-sovellusta.",
       "trackingMoreInformation": "Lisätietoja J-Pal-arviointitutkimuksesta ja tutkimustavoitteet",
-      "trackingDescription": "{{appName}} pyytää lupaasi seurata sovelluksen sisästä käyttöäsi. Tietosi anonymisoidaan ja niitä käytetään vain tutkimustarkoituksiin ja sovelluksen parantamiseen. Seurantatietoja ei jaeta tai käsitellä mainos- tai muissa kaupallisissa tarkoituksissa.",
       "trackingLeaveTitle": "Sallitaanko seuranta?",
-      "trackingLeaveDescription": "Et ole sallinut seurantaa. Seuranta auttaa meitä parantamaan {{appName}}-sovellusta ja tarjoamaan parempia tietoja maahanmuuttajille. Haluatko varmasti poistua näytöltä sallimatta seurantaa?",
       "enabled": "Aktivoitu",
       "disabled": "Pois käytöstä",
       "decline": "Hylkää"
@@ -7344,11 +7199,8 @@
       "openSourceLicenses": "Licences en open source",
       "tracking": "Evaluation J-PAL",
       "allowTracking": "Autoriser le suivi",
-      "trackingShortDescription": "Participez à l'évaluation de J-PAL pour améliorer l'application {{appName}}.",
       "trackingMoreInformation": "Plus d'informations sur l'évaluation J-Pal et les objectifs de la recherche.",
-      "trackingDescription": "{{appName}} souhaiterait avoir votre accord pour suivre vos données d’utilisation de l'application. Vos données seront anonymisées et utilisées uniquement à des fins de recherche et pour améliorer le fonctionnement de l'application. Les données de suivi ne seront en aucun cas partagées ou traitées pour des activités publicitaires ou commerciales.",
       "trackingLeaveTitle": "Autoriser le suivi ?",
-      "trackingLeaveDescription": "Vous n'avez pas autorisé le suivi. Le suivi nous aide à améliorer l'application {{appName}} et à fournir de meilleures informations aux immigrants. Êtes-vous sûr de vouloir quitter l'écran sans autoriser le suivi ?",
       "enabled": "activé",
       "disabled": "désactivé",
       "decline": "Refuser"
@@ -7364,11 +7216,8 @@
       "openSourceLicenses": "Licencije otvorenog koda",
       "tracking": "Procjena istraživačkog centra J-PAL",
       "allowTracking": "Dopusti praćenje",
-      "trackingShortDescription": "Sudjelujte u evaluacijskoj studiji istraživačkog centra J-PAL da biste poboljšali {{appName}}.",
       "trackingMoreInformation": "Ostale informacije o evaluacijskoj studiji istraživačkog centra J-Pal te o ciljevima istraživanja",
-      "trackingDescription": "{{appName}} traži dopuštenje za praćenje vaših aktivnosti u aplikaciji. Vaši se podaci anonimiziraju i koriste samo u istraživačke svrhe i radi poboljšanja aplikacije. Praćenje podataka ne dijeli se niti se obrađuje u reklamne ili druge komercijalne svrhe.",
       "trackingLeaveTitle": "Dopusti praćenje?",
-      "trackingLeaveDescription": "Niste dopustili praćenje. Praćenje nam pomaže da poboljšamo aplikaciju {{appName}} i pružimo bolje informacije useljenicima. Jeste li sigurni da želite napustiti zaslon, a da pritom niste dopustili praćenje?",
       "enabled": "aktivirano",
       "disabled": "deaktivirano",
       "decline": "Odbaci"
@@ -7384,11 +7233,8 @@
       "openSourceLicenses": "Open-Source-licencek",
       "tracking": "J-PAL Evaluation",
       "allowTracking": "Követés engedélyezése",
-      "trackingShortDescription": "Vegyen részt a J-PAL értékelő tanulmányban az {{appName}} javítása érdekében.",
       "trackingMoreInformation": "További információk a J-PAL értékelő tanulmányról és a kutatási célokról",
-      "trackingDescription": "{{appName}} engedélyt kér, hogy követhesse az Ön általi használatot az alkalmazáson belül. Az Ön adatait anonimizáljuk, és kizárólag kutatási célokra és az alkalmazás fejlesztésére használjuk fel. A nyomon követési adatokat nem osztjuk meg vagy nem dolgozzuk fel reklám vagy egyéb kereskedelmi célokra.",
       "trackingLeaveTitle": "Engedélyezi a nyomon követést?",
-      "trackingLeaveDescription": "Nem engedélyezte a nyomon követést. A nyomon követés segít nekünk az {{appName}} alkalmazás fejlesztésében és a bevándorlók jobb tájékoztatásában. Biztos benne, hogy be szeretné zárni a képernyőt anélkül, hogy engedélyezné a nyomon követést?",
       "enabled": "aktiválva",
       "disabled": "deaktiválva",
       "decline": "Elutasítás"
@@ -7404,11 +7250,8 @@
       "openSourceLicenses": "Licenze open source",
       "tracking": "Valutazione J-PAL",
       "allowTracking": "Consenti il tracciamento",
-      "trackingShortDescription": "Partecipa allo studio di valutazione J-PAL per migliorare {{appName}}",
       "trackingMoreInformation": "Ulteriori informazioni sullo studio di valutazione J-Pal e sugli obiettivi della ricerca",
-      "trackingDescription": "{{appName}} richiede l'autorizzazione per tenere traccia del tuo utilizzo all'interno dell'app. I tuoi dati saranno resi anonimi e utilizzati soltanto per scopi di ricerca e per migliorare l'app. I dati di tracciamento non verranno condivisi o elaborati per scopi pubblicitari o altri scopi commerciali",
       "trackingLeaveTitle": "Consenti il tracciamento?",
-      "trackingLeaveDescription": "Non hai consentito il tracciamento. Il tracciamento ci aiuta a migliorare l'app {{appName}} e a fornire informazioni migliori per gli immigrati. Sei quindi sicuro di voler uscire dallo schermo senza consentire il tracciamento?",
       "enabled": "attivato",
       "disabled": "disattivato",
       "decline": "Rifiuta"
@@ -7424,11 +7267,8 @@
       "openSourceLicenses": "ლიცენზია ღია ინტერნეტ რესურსებზე",
       "tracking": "J-PAL ევალუაცია",
       "allowTracking": "თვალთვალის ჩართვა",
-      "trackingShortDescription": "მიიღმთ მონაწილეობა სხვა J-PAL შეფასების კვლევაში, რათა გააუმჯობესოთ {{appName}}.",
       "trackingMoreInformation": "დამატებითი ინფორმაცია J-Pal შეფასების კვლევასა და კვლევით მიზნებზე",
-      "trackingDescription": "{{appName}} გთხოვთ უფლებას, თვალი მიედევნოს თქვენს მიერ აპის გამოყენებას. თქვენი მონაცემები იქნება ანონიმიზირებული და მხოლოდ კვლევითი და აპის გაუმჯობესების მიზნით გამოყენებული. მიდევნებული მონაცემების გაზიარება არ მოხდება და ასევე არ დამუშავდება რეკლამის ან სხვა კომერციული მიზნებისთვის.",
       "trackingLeaveTitle": "მიკვლევადობაზე გასცემთ უფლებას?",
-      "trackingLeaveDescription": "თქვენ არ გაეცით უფლება მიკვლევადობაზე. მიკვლევადობა ჩვენ გვეხმარება გავაუმჯობესოთ {{appName}}-აპი და მივაწოდოთ მომხმარებელს ინფორმაცია. დარწმუნებული ხართ, რომ გსურთ ეკრანის დატოვება ისე, რომ არ ადასურებთ მიკვლევადობას?",
       "enabled": "აქტივირებული",
       "disabled": "დეაქტივირებული",
       "decline": "უარყოფა"
@@ -7444,11 +7284,8 @@
       "openSourceLicenses": "Lîsansa Çavkanî-Vekirî",
       "tracking": "Nirxandina J-PAL",
       "allowTracking": "Şopandinê rêpêdayî bike",
-      "trackingShortDescription": "Li lêkolîna nirxandina J-PAL beşdar bibin ku {{appName}} baştir bikin.",
       "trackingMoreInformation": "Bo zanyariyên pirtir ser lêkolîna nirxandina J-Pal û armancên lêkolînê.",
-      "trackingDescription": "{{appName}} daxwaz dike rê bidin ku şopa sûdwergirtina we li Appê tomar bike. Daneyên we dê bê navnîşan bin û tenê bo mebesta lêkolînê û baştirkirina Appê werin bikaranîn. Daneyên tomara şopê nadin kesên din û bo mebesta reklaman yan mebestên bazirganiyê bi kar nayên.  ",
       "trackingLeaveTitle": "Rê didin tomara şopê?",
-      "trackingLeaveDescription": "We rê neda tomara şopê. Rêşop dihêle em Appa {{appName}} baştir bikin û zanyariyên baştir bidin koçberan. Gelo hûn piştrast in dixwazin ekranê biterikînin bêyî rê bidin tomara şopê?",
       "enabled": "Çalakbûyî",
       "disabled": "Neçalakbûyî",
       "decline": "Nepejirandin"
@@ -7464,11 +7301,8 @@
       "openSourceLicenses": "Лиценца за отворени содржини",
       "tracking": "J-PAL евалуација",
       "allowTracking": "Дозволено следење",
-      "trackingShortDescription": "Учествувајте во студијата за евалуација на J-PAL за да го подобрите {{appName}}.",
       "trackingMoreInformation": "Дознајте повеќе за студијата за евалуација на J-Pal и целите за истражување",
-      "trackingDescription": "{{appName}} бара дозвола да го следи вашето користење во апликацијата. Вашите податоци ќе бидат анонимизирани и ќе се користат само за истражувачки цели и за подобрување на апликацијата. Податоците за следење нема да се споделуваат или обработуваат за рекламирање или други комерцијални цели.",
       "trackingLeaveTitle": "Дозволи следење?",
-      "trackingLeaveDescription": "Не дозволивте следење. Следењето ни помага да ја подобриме апликацијата {{appName}} и да обезбедиме подобри информации за имигрантите. Дали сте сигурни дека сакате да го напуштите екранот без да дозволите следење?",
       "enabled": "активирано",
       "disabled": "деактивирано",
       "decline": "Отфрли"
@@ -7484,11 +7318,8 @@
       "openSourceLicenses": "Open bron licenties",
       "tracking": "J-PAL evaluatie",
       "allowTracking": "Sta tracking toe",
-      "trackingShortDescription": "Neem deel aan de J-PAL evaluatie om {{appName}} te verbeteren.",
       "trackingMoreInformation": "Meer informatie over de J-PAL evaluatie en onderzoeksdoelen.",
-      "trackingDescription": "{{appName}} wil toestemming om jouw gebruik van de app te volgen. Jouw data wordt geanonimiseerd en alleen gebruik voor onderzoeksdoeleinden en om de app te verbeteren. De getraceerde data wordt niet gedeeld of gebruikt voor reclame of andere commerciële doeleinden.",
       "trackingLeaveTitle": "Tracking toestaan?",
-      "trackingLeaveDescription": "Je hebt de tracking niet toegestaan.Tracking helpt ons om de {{appName}}-App te verbeteren en om immigranten van betere informatie te voorzien. Weet je zeker dat je de pagina wil verlaten zonder tracking toe te staan?",
       "enabled": "Geactiveerd",
       "disabled": "Gedeactiveerd",
       "decline": "Weiger"
@@ -7504,11 +7335,8 @@
       "openSourceLicenses": "لیسانس منبع باز",
       "tracking": "ارزیابی J-PAL",
       "allowTracking": "اجازه رهگیری",
-      "trackingShortDescription": "برای بهبود برنامه {{appName}} در ارزیابی J-PAL شرکت کنید.",
       "trackingMoreInformation": "برای کسب اطلاعات بیشتر در مورد ارزیابی J-Pal و اهداف تحقیق.",
-      "trackingDescription": "انتیگریت میخواهد میزان استفاده شما از این اپلیکیشن را پیگیری کند. معلومات شما به شکل نا شناس نگهداری میشود و فقط برای اهداف تحقیق علمی استفاده میشود. معلومات شما که برای پیگیری نگهداری میشود برای تبلیغات یا سایر اهداف تجاری استفاده و پروسس نمیشود.",
       "trackingLeaveTitle": "ردیابی مجاز است؟",
-      "trackingLeaveDescription": "شما اجازه ردیابی را نداده اید. ردیابی به ما کمک می کند تا برنامه {{appName}} را بهبود بخشیم و اطلاعات بهتری برای مهاجران ارائه دهیم. آیا مطمئن هستید که می‌خواهید بدون اجازه ردیابی صفحه را ترک کنید؟",
       "enabled": "فعال شده",
       "disabled": "غیرفعال شده",
       "decline": "رد کردن"
@@ -7524,11 +7352,8 @@
       "openSourceLicenses": "Licencje open source",
       "tracking": "Ocena J-PAL",
       "allowTracking": "Zezwalaj na śledzenie",
-      "trackingShortDescription": "Weź udział w badaniu ewaluacyjnym J-PAL, aby ulepszyć {{appName}}.",
       "trackingMoreInformation": "Więcej informacji o badaniu ewaluacyjnym J-Pal i celach badania",
-      "trackingDescription": "{{appName}} prosi o pozwolenie na śledzenie Twojej aktywności w aplikacji. Twoje dane zostaną zanonimizowane i wykorzystane wyłącznie do celów badawczych oraz do ulepszenia aplikacji. Dane śledzące nie będą udostępniane ani przetwarzane w celach reklamowych lub innych celach komercyjnych.",
       "trackingLeaveTitle": "Zezwolić na śledzenie?",
-      "trackingLeaveDescription": "Nie zezwoliłeś(aś) na śledzenie. Śledzenie pomaga nam ulepszać aplikację {{appName}} i udostępniać lepsze informacje dla imigrantów. Czy na pewno chcesz opuścić tę maskę bez udzielania zgody na śledzenie?",
       "enabled": "włączone",
       "disabled": "niewłączone",
       "decline": "Odrzuć"
@@ -7544,11 +7369,8 @@
       "openSourceLicenses": "جوازهای منبع آزاد",
       "tracking": "ارزیابی ‎ J-PAL",
       "allowTracking": "اجازه رهگیری",
-      "trackingShortDescription": "برای بهبود برنامه {{appName}} در ارزیابی J-PAL شرکت کنید.",
       "trackingMoreInformation": "برای کسب اطلاعات بیشتر در مورد ارزیابی J-Pal و اهداف تحقیق.",
-      "trackingDescription": "انتیگریت میخواهد میزان استفاده شما از این اپلیکیشن را پیگیری کند. معلومات شما به شکل نا شناس نگهداری میشود و فقط برای اهداف تحقیق علمی استفاده میشود. معلومات شما که برای پیگیری نگهداری میشود برای تبلیغات یا سایر اهداف تجاری استفاده و پروسس نمیشود.",
       "trackingLeaveTitle": "به ردیابی اجازه می‌دهید؟",
-      "trackingLeaveDescription": "شما اجازه ردیابی را نداده اید. ردیابی به ما کمک می کند تا برنامه {{appName}} را بهبود بخشیم و اطلاعات بهتری برای مهاجران ارائه دهیم. آیا مطمئن هستید که می‌خواهید بدون اجازه ردیابی صفحه را ترک کنید؟",
       "enabled": "فعال شده",
       "disabled": "غیرفعال شده",
       "decline": "رد نمودن"
@@ -7564,11 +7386,8 @@
       "openSourceLicenses": "د آزادې-سرچینې لیسنس",
       "tracking": "د J-PAL ارزونه",
       "allowTracking": "د تعقیبولو اجازه",
-      "trackingShortDescription": "د {{appName}} ایپ ښه کولو لپاره د J-PAL ارزونې کې برخه واخلئ.",
       "trackingMoreInformation": "د J-PAL د ارزونې او څېړنې د اهدافو په اړه نور معلومات ترلاسه کول.",
-      "trackingDescription": "{{appName}} په اپلیکیشن کې ستاسو د کارونې تعقیب لپاره اجازه غواړي. ستاسو ډاټا به پټ وي او یوازې د څیړنې موخو او د اپلیکیشن ښه کولو لپاره کارول کیږي. د تعقیب ډاټا به د اعلاناتو یا نورو سوداګریزو موخو لپاره شریک یا پروسس نشي",
       "trackingLeaveTitle": "دہ تعقیب اجازہ ورکړئ",
-      "trackingLeaveDescription": "تاسو د تعقیب اجازه نه ده ورکړې. تعقیب موږ سره د {{appName}} ایپ ښه کولو او د مهاجرینو لپاره غوره معلوماتو چمتو کولو کې مرسته کوي. ایا تاسو ډاډه یاست چې د تعقیب اجازه ورکړئ",
       "enabled": "فعال شوی",
       "disabled": "غیرفعال شوی",
       "decline": "رد کول"
@@ -7584,11 +7403,8 @@
       "openSourceLicenses": "Licencias de código abierto",
       "tracking": "Evaluación J-PAL",
       "allowTracking": "Permitir el seguimiento",
-      "trackingShortDescription": "Participe en el estudio de evaluación J-PAL para mejorar {{appName}}.",
       "trackingMoreInformation": "Más información sobre el estudio de evaluación J-Pal y los objetivos de investigación",
-      "trackingDescription": "{{appName}} le pide permiso para hacer un seguimiento de su uso de la aplicación. Sus datos son anonimizados y solo se utilizan para investigación y mejora de la aplicación. Los datos de seguimiento no se comparten ni se tratan con fines publicitarios o de otro tipo.",
       "trackingLeaveTitle": "¿Permitir el seguimiento?",
-      "trackingLeaveDescription": "No ha permitido el seguimiento. El seguimiento nos ayuda a mejorar la aplicación {{appName}} y a facilitar una mejor información a los inmigrantes. ¿Está seguro de que desea salir de la pantalla sin permitir el seguimiento?",
       "enabled": "Activado",
       "disabled": "Desactivado",
       "decline": "Rechazar"
@@ -7604,11 +7420,8 @@
       "openSourceLicenses": "Licențe open source",
       "tracking": "Evaluare J-PAL",
       "allowTracking": "Permitere tracking",
-      "trackingShortDescription": "Participați la studiul de evaluare J-PAL pentru a îmbunătăți {{appName}}.",
       "trackingMoreInformation": "Informații suplimentare despre studiul de evaluare J-Pal și obiectivele cercetării.",
-      "trackingDescription": "{{appName}}} solicită permisiunea de a vă urmări utilizarea în cadrul aplicației. Datele dvs. vor fi anonimizate și vor fi utilizate numai în scopuri de cercetare și pentru a îmbunătăți aplicația. Datele de tracking nu vor fi partajate sau prelucrate în scopuri publicitare sau în alte scopuri comerciale.",
       "trackingLeaveTitle": "Permiteți tracking?",
-      "trackingLeaveDescription": "Nu ați permis tracking. Tracking ne ajută să îmbunătățim aplicația {{appName}} și să oferim informații mai bune pentru imigranți. Sunteți sigur că doriți să părăsiți ecranul fără a permite tracking?",
       "enabled": "activat",
       "disabled": "dezactivat",
       "decline": "Refuzați"
@@ -7624,11 +7437,8 @@
       "openSourceLicenses": "Лицензии на ПО с открытым исходным кодом",
       "tracking": "Оценивание J-PAL",
       "allowTracking": "Разрешить отслеживание",
-      "trackingShortDescription": "Примите участие в исследовании J-PAL, чтобы  улучшить приложение {{appName}}",
       "trackingMoreInformation": "Подробнее об исследовании J-Pal и научных целях",
-      "trackingDescription": "{{appName}} просит разрешения отслеживать использование вами данного приложения. Собранные данные будут анонимизированы и использованы только в научных целях и для улучшения работы приложения. Данные не будут передаваться или обрабатываться для рекламы или других коммерческих целей.",
       "trackingLeaveTitle": "Разрешить отслеживание?",
-      "trackingLeaveDescription": "Вы не активировали функцию отслеживания. Отслеживание использования приложения помогает нам улучшать {{appName}} и предоставлять актуальную информацию для иммигрантов. Вы уверены, что хотите покинуть эту вкладку без активации отслеживания?",
       "enabled": "активировано",
       "disabled": "деактивировано",
       "decline": "Отклонить"
@@ -7644,11 +7454,8 @@
       "openSourceLicenses": "Ruqsadaha-il-furan",
       "tracking": "qiimeynta J-PAL",
       "allowTracking": "U ogolow raadraaca",
-      "trackingShortDescription": "Ka qayb qaado daraasadda qiimaynta J-PAL si loo wanaajiyo {{appName}}",
       "trackingMoreInformation": "Wax badan ka ogow daraasadda qiimaynta J-Pal iyo ujeedooyinka cilmi-baarista",
-      "trackingDescription": "{{appName}} waxa uu codsanayaa ogolaanshahaaga si uu ula socdo isticmaalkaaga ablikeeshinka. Xogtaada waa la qarin doonaa waxaana kaliya loo isticmaali doonaa ujeeddooyin cilmi baaris iyo horumarinta ablikeeshinka. Xogta dabagalka lama wadaagi doono ama looma isticmaali doono xayaysiis ama ujeedooyin kale oo ganacsi.",
       "trackingLeaveTitle": "Ogolow la socoshada isticmaalkaaga?",
-      "trackingLeaveDescription": "Ma aadan ogolayn la socodka isticmaalkaaga. La socoshada isticmaalkaaga waxay naga caawinaysaa horumarinta ablikeeshinka {{appName}} iyo in aanu bixino macluumaad fiican oo loogu talagalay soogalootiga. Ma hubtaa inaad rabto inaad ka baxdo shaashadda adigoon oggolaan la socoshada isticmaalkaaga?",
       "enabled": "Shaqeynayo",
       "disabled": "Aan shaqeyneynin",
       "decline": "Diid"
@@ -7664,11 +7471,8 @@
       "openSourceLicenses": "Licencat me burim të hapur",
       "tracking": "J-PAL Evaluation",
       "allowTracking": "Lejo gjurmuesin",
-      "trackingShortDescription": "Merrni pjesë në vlerësimin e J-PAL për të përmirësuar aplikacionin {{appName}}-App.",
       "trackingMoreInformation": "Më shumë informacion lidhur me vlerësimin e J-Pal dhe qëllimet e kërkimit.",
-      "trackingDescription": "{{appName}-App kërkon leje për të monitoruar përdorimin tuaj brenda aplikacionit. Të dhënat tuaja do të jenë anonime dhe do të përdoren vetëm për qëllime kërkimore dhe për të përmirësuar aplikacionin. Të dhënat e ndjekjes nuk do të shpërndahen ose përpunohen për reklama ose qëllime të tjera komerciale.",
       "trackingLeaveTitle": "Lejoni monitorimin?",
-      "trackingLeaveDescription": "Nuk keni lejuar monitorimin. Monitorimi na ndihmon të përmirësojmë aplikacionin {{appName}}App dhe të ofrojmë informacion më të mirë për emigrantët. Jeni të sigurtë që dëshironi të largoheni nga faqja pa lejuar monitorimin?",
       "enabled": "aktivizuar",
       "disabled": "çaktivizuar",
       "decline": "Refuzo"
@@ -7684,11 +7488,8 @@
       "openSourceLicenses": "Лиценце отвореног кода",
       "tracking": "J-PAL Evaluation",
       "allowTracking": "Дозвољено праћење",
-      "trackingShortDescription": "Учествујте у Ј-PAL истраживању ради побољшања {{appName}} апликације.",
       "trackingMoreInformation": "Више информација о J-Pal истраживању и сврси итраживања.",
-      "trackingDescription": "{{appName}} жели дозволу да прати Ваше коришћење унутар апликације. Ваши подаци ће бити анонимни и користиће се само у истраживачке сврхе и за побољшање апликације. Подаци за праћење се неће делити или обрађивати у рекламне или друге коменцијалне сврхе.",
       "trackingLeaveTitle": "Дозволити праћење?",
-      "trackingLeaveDescription": "Нисте дозволили праћење. Праћење нам помаже да побољшамо апликацију {{appName}} и пружимо боље информације имигрантима. Да ли сте сигурни да желите да напустите екран без давања дозволе за праћење?",
       "enabled": "активирано",
       "disabled": "деактивирано",
       "decline": "Одбиј"
@@ -7704,11 +7505,8 @@
       "openSourceLicenses": "Licence otvorenog koda",
       "tracking": "J-PAL Evaluation",
       "allowTracking": "Dozvoljeno praćenje",
-      "trackingShortDescription": "Učestvujte u J-PAL istraživanju radi poboljšanja {{appName}} aplikacije.",
       "trackingMoreInformation": "Više informacija o J-Pal istraživanju i svrsi istraživanja.",
-      "trackingDescription": "{{appName}} želi dozvolu da prati Vaše korišćenje unutar aplikacije. Vaši podaci će biti anonimni i koristiće se samo u istraživačke svrhe i za poboljšanje aplikacije. Podaci za praćenje se neće deliti ili obrađivati ​​u reklamne ili druge komercijalne svrhe.",
       "trackingLeaveTitle": "Dozvoliti praćenje?",
-      "trackingLeaveDescription": "Niste dozvolili praćenje. Praćenje nam pomaže da poboljšamo aplikaciju {{appName}} i pružimo bolje informacije imigrantima. Da li ste sigurni da želite da napustite ekran bez davanja dozvole za praćenje?",
       "enabled": "aktivirano",
       "disabled": "deaktivirano",
       "decline": "Odbij"
@@ -7724,11 +7522,8 @@
       "openSourceLicenses": "ናጻ-ዝምንጮም ፍቓዳት ስራሕ",
       "tracking": "ግምገማ J-PAL",
       "allowTracking": "ክትትል ኣፍቅድ",
-      "trackingShortDescription": "ኣብ ናይ J-PAL ናይ ግምገማ መጽናዕቲ ተሳተፉ፣ ነቲ {{appName}} ንምምሕያሽ።",
-      "trackingMoreInformation": "ተወሳኺ ሓበሬታ ብዛዕባ ናይ J-Pal ግምገማ መጽናዕቲን ናይ መጽናዕቲ ዕላማን  ",
-      "trackingDescription": "{{appName}} ኣብ ውሽጢ እዚ ኣፕ ናይ ምጥቃም ኣሰር ንምክትታል፣ ፍቓድ ይሓትት። ናትኩም ዳታ ብሚስጢር እዩ ዝተሓዝ ከምኡ ድማ ንመጽናዕታዊ ዕላማን ነዚ ኣፕ ንምምሕያሽን ጥራሕ እዩ ኣብ ስራሕ ዝውዕል። ናይ ኣሰር ምክትታል ዳታ ንካልእ ኣካል ሓሊፉ ኣይወሃብን እዩ ወይ ድማ ንሬክላም ወይ ድማ ንኻልእ ሸቐጣዊ ኣገልግሎት ኣይውዕልን እዩ።.",
+      "trackingMoreInformation": "ተወሳኺ ሓበሬታ ብዛዕባ ናይ J-Pal ግምገማ መጽናዕቲን ናይ መጽናዕቲ ዕላማን",
       "trackingLeaveTitle": "ኣሰር ንምክትታል ምፍቃድ?",
-      "trackingLeaveDescription": "እስኩም ነቲ ምክትታል ኣሰር ኣይፈቐድኩምን። እቲ ምክትታል ኣሰር ንዓና ዝጠቕመና፣ ነቲ {{appName}} ንምምሕያሽን ነቶም ኣጋይሽ ሃገር ዝሓሸ ሓበሬታ ንምድላው እዩ። ርግጸኛ ዲኹም፣ ኣሰር ምክትታል ከይፈቐድኩም ካብ ስክሪን ክትፍለዩ?  ",
       "enabled": "ከምዝነጥፍ ተገይሩ",
       "disabled": "ከምዘይነጥፍ ተገይሩ",
       "decline": "ንጸግ"
@@ -7744,11 +7539,8 @@
       "openSourceLicenses": "Açık kaynak lisansları",
       "tracking": "J-PAL değerlendirmesi",
       "allowTracking": "İzlemeye izin ver",
-      "trackingShortDescription": "İntegreat uygulamasını geliştirmek için J-PAL değerlendirme anketine katılın.",
       "trackingMoreInformation": "J-Pal değerlendirme anketi ve araştırma amaçları hakkında daha fazla bilgi.",
-      "trackingDescription": "{{appName}}, uygulama içi kullanımınızı takip izni istiyor. Verileriniz anonim hale getirilecek ve yalnızca araştırma amacıyla ve uygulamayı iyileştirmek için kullanılacaktır. Takip verileri, reklam veya diğer ticari amaçlarla paylaşılmayacak ve işlenmeyecektir.",
       "trackingLeaveTitle": "Uygulama takip izni ver?",
-      "trackingLeaveDescription": "Uygulama içi kullanım için takip izni vermediniz. Uygulama içi kullanımınızı takip etmek, {{appName}} uygulamasını geliştirmemize ve göçmenler için daha iyi bilgi sağlamamıza yardımcı olur. Takip izni vermeden ekrandan çıkmak istediğinizden emin misiniz?",
       "enabled": "etkin",
       "disabled": "devre dışı",
       "decline": "Sil"
@@ -7764,11 +7556,8 @@
       "openSourceLicenses": "Ліцензії на відкритий вихідний код",
       "tracking": "Дослідження J-PAL",
       "allowTracking": "Дозволити відстеження?",
-      "trackingShortDescription": "Візьміть участь у дослідженні J-PAL, щоб покращити {{appName}}.",
       "trackingMoreInformation": "Для отримання додаткової інформації про дослідження J-Pal та цілі дослідження",
-      "trackingDescription": "{{appName}} запитує дозвіл на відстеження використання програми. Ваші дані будуть анонімізовані та використані лише в дослідницьких цілях та для покращення програми. Дані відстеження не будуть передаватися або оброблятися з рекламною чи іншою комерційною метою.",
       "trackingLeaveTitle": "Дозволити відстеження використання програми",
-      "trackingLeaveDescription": "Ви не дозволили відстеження. Відстеження допомагає нам покращити програму {{appName}} та надати найкращу інформацію для іммігрантів. Ви впевнені, що хочете залишити екран без дозволу відстеження? дозволити заборонити Відхилити Пропозиції відсутні",
       "enabled": "дозволити",
       "disabled": "заборонити",
       "decline": "Відхилити"
@@ -7784,11 +7573,8 @@
       "openSourceLicenses": "اوپن سورس لائسنس",
       "tracking": "J-PAL تجزیہ",
       "allowTracking": "ٹریکنگ کی اجازت دیں",
-      "trackingShortDescription": "اس {{appName}} کو بہتر بنانے کے لئے  J-PAL جائزے میں حصہ لیں۔",
       "trackingMoreInformation": "اس  J-Pal کے جائزے اور تحقیق کے بارے میں مزید معلومات جانئے۔",
-      "trackingDescription": "اس {{appName}} کو آپ کے اس ایپلیکیشن کو استعمال کرنے کی ٹریکنگ کی اجازت چاہئے۔ آپ کا ڈیٹا محفوظ اور راز میں رہے گا اور صرف تحقیق اور ایپلیکیشن کو بہتر بنانے کے لئے استعمال ہوگا۔ ٹریکنگ ڈیٹا کو مارکیٹنگ یا دیگر تجارتی مقاصد کے لئے شٰئر یا پروسیس نہیں کیا جائیگا۔",
       "trackingLeaveTitle": "ٹریکنگ کی اجازت دیں",
-      "trackingLeaveDescription": "آپ نے ٹریکنگ کی اجازت نہیں دی ہے۔ ٹریکنگ ہمیں {{appName}} کو بہتر بنانے اور مہاجرین کے لئے بہتر معلومات فراہم کرنے میں مدد کرتی ہے۔ کیا آپ ٹریکنگ کی اجازت دینے کے لئے مطمئن ہیں؟",
       "enabled": "فعال",
       "disabled": "غیر فعال",
       "decline": "مسترد کریں"
@@ -7804,11 +7590,8 @@
       "openSourceLicenses": "开源许可证",
       "tracking": "J-PAL评估",
       "allowTracking": "允许跟踪",
-      "trackingShortDescription": "请参与J-PAL评估研究，以改进{{AppName}}。",
       "trackingMoreInformation": "有关J-PAL评估研究和研究目标的更多信息",
-      "trackingDescription": "{{AppName}}请求允许在应用程序中跟踪您的使用情况。您的数据被匿名化处理，仅用于研究目的和改进应用程序。跟踪数据不会被共享，也不会出于广告或其他商业目的而被处理。",
       "trackingLeaveTitle": "允许追踪吗？",
-      "trackingLeaveDescription": "您未允许跟踪。跟踪帮助我们改进{{appname}}应用程序，并为移民提供更好的信息。您确定要在不允许跟踪的情况下离开屏幕吗？",
       "enabled": "已激活",
       "disabled": "已停用",
       "decline": "拒绝"
@@ -7874,13 +7657,13 @@
       "duration": "mögliche Aufenthaltsdauer",
       "contactRequest": {
         "title": "Kontaktanfrage",
-        "description": "Falls Sie Interesse am angebotenen Wohnraum haben, können wir Ihre Kontaktinformationen an den Anbietenden weiterleiten.",
+        "description": "Falls du Interesse am angebotenen Wohnraum hast, können wir Deine Kontaktinformationen an den Anbietenden weiterleiten.",
         "email": "E-Mail-Adresse",
         "phone": "Telefonnummer",
-        "success": "Ihre Kontaktinformationen wurden erfolgreich weitergeleitet.",
+        "success": "Deine Kontaktinformationen wurden erfolgreich weitergeleitet.",
         "error": "Etwas ist leider fehlgeschlagen.",
         "invalid_accommodation": "Dieses Angebot ist nicht mehr verfügbar.",
-        "invalid_contact_data": "Ihre Kontaktinformation waren leider inkorrekt oder wurden bereits zur Kontaktanfrage verwendet.",
+        "invalid_contact_data": "Deine Kontaktinformation waren leider inkorrekt oder wurden bereits zur Kontaktanfrage verwendet.",
         "send": "Abschicken"
       },
       "facetBeds": "min. Anzahl Betten",
@@ -7958,13 +7741,10 @@
       "duration": "možná délka pobytu",
       "contactRequest": {
         "title": "Kontakt",
-        "description": "Pokud vás nabídka ubytování zaujala, můžeme předat vaše kontaktní údaje osobě, která ubytování nabízí.",
         "email": "E-mail",
         "phone": "Telefonní číslo",
-        "success": "Vaše kontaktní údaje byly úspěšně předány.",
         "error": "Něco se bohužel pokazilo.",
         "invalid_accommodation": "Tato nabídka již není k dispozici.",
-        "invalid_contact_data": "Je nám líto, ale vaše kontaktní údaje byly nesprávné nebo již byly použity ke kontaktování.",
         "send": "Odeslat"
       },
       "facetBeds": "min. počet lůžek",
@@ -8033,13 +7813,10 @@
       "duration": "Possible length of stay",
       "contactRequest": {
         "title": "Contact request",
-        "description": "If you are interested in the housing offered, we can forward your contact information to the provider.",
         "email": "E-mail address",
         "phone": "Telephone number",
-        "success": "Your contact information has been successfully forwarded.",
         "error": "Something failed, unfortunately.",
         "invalid_accommodation": "This offer is no longer available.",
-        "invalid_contact_data": "Sorry, your contact information was incorrect or has already been used.",
         "send": "Send"
       },
       "facetBeds": "Number of beds",
@@ -8123,13 +7900,10 @@
       "duration": "დარჩენის შესაძლო ხანგრძლივობა",
       "contactRequest": {
         "title": "კონტაქტის მოთხოვნა",
-        "description": "თუ გაქვთ ინტერესი შეთავაზებულ საცხოვრებელ ოთახზე, შეგვიძლია თქვენი საკონტაქტო მონაცემები გადავცეთ მესაკუთრეს.",
         "email": "ელფოსტის მისამართი",
         "phone": "ტელეფონის ნომერი",
-        "success": "თქვენი საკონტაქტო ინფორმაცია წარმატებით გაიგზავნა",
         "error": "სამწუხაროდ რაღაც დახარვეზდა.",
         "invalid_accommodation": "ეს შეთავაზება აღარ არის ხელმისაწვდომი.",
-        "invalid_contact_data": "თქვენი საკონტაქტო ინფორმაცია სამწუხაროდ არ იყო სწორი ან უკვე გამოყენებულია კონტაქტის მოთხოვნაში.",
         "send": "გაგზავნა"
       },
       "facetBeds": "ლოგინების მინ.რაოდენობა",
@@ -8201,14 +7975,11 @@
       "duration": "Mogelijke verblijfsduur",
       "contactRequest": {
         "title": "Contact aanvraag",
-        "description": "Als je geïnteresseerd bent in de aangeboden opvang, dan kunnen we jouw contactgegevens doorsturen naar de aanbieder van de opvang.",
         "email": "E-mailadres",
         "phone": "Telefoonnummer",
-        "success": "Het is gelukt je contactgegevens door te sturen.",
         "error": "Helaas, er is iets misgegaan.",
         "invalid_accommodation": "Dit aanbod is niet langer beschikbaar.",
-        "invalid_contact_data": "Sorry, je contactgegevens zijn niet juist of zijn al in gebruik.",
-        "send": "Stuur   "
+        "send": "Stuur"
       },
       "facetBeds": "Aantal bedden",
       "facetCity": "Plaats/postcode",
@@ -8276,13 +8047,10 @@
       "duration": "możliwa długość pobytu",
       "contactRequest": {
         "title": "Kontakt",
-        "description": "Jeśli jesteś zainteresowany ofertą zakwaterowania, możemy przekazać Twoje dane kontaktowe osobie, która je oferuje.",
         "email": "Adres e-mail",
         "phone": "Numer telefonu",
-        "success": "Twoje dane kontaktowe zostały z powodzeniem przekazane.",
         "error": "Przepraszamy, coś poszło nie tak.",
         "invalid_accommodation": "Ta oferta nie jest już dostępna.",
-        "invalid_contact_data": "Przepraszamy, Twoje dane kontaktowe są nieprawidłowe lub zostały już użyte.",
         "send": "Wyślij"
       },
       "facetBeds": "min. liczba łóżek",
@@ -8293,7 +8061,7 @@
       "title": "مسکن"
     },
     "ps": {
-      "title": "د اوسیدلو کوټہ "
+      "title": "د اوسیدلو کوټہ"
     },
     "pt": {
       "title": "Habitaciones",
@@ -8354,13 +8122,10 @@
       "duration": "Posible duración de la estancia",
       "contactRequest": {
         "title": "Solicitud de contacto",
-        "description": "Si tiene interés en la habitación ofrecida, podemos facilitar su información de contacto a la persona ofertante.",
         "email": "Correo electrónico",
         "phone": "Número de teléfono",
-        "success": "Su información de contacto se ha facilitado correctamente.",
         "error": "Lamentablemente, algo ha fallado.",
         "invalid_accommodation": "Esta oferta ya no está disponible.",
-        "invalid_contact_data": "Su información de contacto era incorrecta o ya se ha utilizado para solicitar el contacto.",
         "send": "Enviar"
       },
       "facetBeds": "Cantidad de camas mín.",
@@ -8429,13 +8194,10 @@
       "duration": "возможный срок пребывания",
       "contactRequest": {
         "title": "Контактная информация",
-        "description": "Если вас заинтересовало предлагаемое жилье, мы можем передать ваши контактные данные тому, кто его предлагает.",
         "email": "адрес электронной почты",
         "phone": "Телефонный номер",
-        "success": "Ваша контактная информация была успешно передана.",
         "error": "Извините, что-то пошло не так.",
         "invalid_accommodation": "Это предложение больше не доступно.",
-        "invalid_contact_data": "Извините, ваша контактная информация неверна или уже была использована.",
         "send": "Отправить"
       },
       "facetBeds": "минимальное количество кроватей",
@@ -8513,19 +8275,16 @@
       "wg": "Комунальна квартира",
       "comments": "Коментарі",
       "noSheltersAvailable": "Немає доступного житла",
-      "shelterType": "вид квартири ",
+      "shelterType": "вид квартири",
       "startDate": "Доступне з",
       "availableBeds": "наявні ліжка",
       "duration": "можлива тривалість перебування",
       "contactRequest": {
         "title": "Форма для запиту",
-        "description": "Якщо вас зацікавило якесь житло, ми можемо надіслати вашу контактну інформацію господарю житла.",
         "email": "Електронна адреса",
         "phone": "Номер телефону",
-        "success": "Ваш запит був успішно надіслан.",
         "error": "Помилка,щось пішло не так.",
         "invalid_accommodation": "Ця пропозиція більше не дійсна.",
-        "invalid_contact_data": "Вибачте, але ваши контакті є неправильнимі або вже були зареєстровані.",
         "send": "Відправлено"
       },
       "facetBeds": "кількість ліжок",
