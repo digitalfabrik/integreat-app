@@ -5719,9 +5719,10 @@
       "samstag": "Samstag",
       "sonntag": "Sonntag",
       "adjustFilters": "Orte filtern",
-      "onlyCurrentlyOpened": "nur aktuell geöffnete Orte anzeigen",
-      "categories": "Kategorien",
-      "showPois": "Orte anzeigen"
+      "onlyCurrentlyOpen": "nur aktuell geöffnete Orte anzeigen",
+      "poiCategories": "Kategorien",
+      "showPois": "Orte anzeigen",
+      "alphabetLetters": "A-Z"
     },
     "am": {
       "pageTitle": "ካርታ",

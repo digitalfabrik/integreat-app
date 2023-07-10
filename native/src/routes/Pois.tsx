@@ -63,7 +63,6 @@ type PoisProps = {
 const RESTORE_TIMEOUT = 100
 
 const Pois = ({ pois: allPois, language, cityModel, route, navigation }: PoisProps): ReactElement => {
-  const poiCategories = [...new Set(allPois.map(it => it.category))]
   const [poiCategoryFilter, setPoiCategoryFilter] = useState<PoiCategoryModel | null>(null)
   const [poiCurrentlyOpenFilter, setPoiCurrentlyOpenFilter] = useState(false)
   const [showFilterSelection, setShowFilterSelection] = useState(false)
@@ -167,7 +166,7 @@ const Pois = ({ pois: allPois, language, cityModel, route, navigation }: PoisPro
       <PoiFiltersModal
         modalVisible={showFilterSelection}
         closeModal={() => setShowFilterSelection(false)}
-        poiCategories={poiCategories}
+        pois={allPois}
         selectedPoiCategory={poiCategoryFilter}
         setSelectedPoiCategory={setPoiCategoryFilter}
         currentlyOpenFilter={poiCurrentlyOpenFilter}
@@ -189,7 +188,7 @@ const Pois = ({ pois: allPois, language, cityModel, route, navigation }: PoisPro
         Overlay={
           <>
             <OverlayButton
-              text='Ansicht filtern'
+              text={t('adjustFilters')}
               Icon={EditLocationIcon}
               onPress={() => setShowFilterSelection(true)}
             />
