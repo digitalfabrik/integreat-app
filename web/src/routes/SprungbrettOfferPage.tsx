@@ -17,7 +17,6 @@ import CityContentLayout from '../components/CityContentLayout'
 import CityContentToolbar from '../components/CityContentToolbar'
 import CleanLink from '../components/CleanLink'
 import FailureSwitcher from '../components/FailureSwitcher'
-import { FeedbackRatingType } from '../components/FeedbackToolbarItem'
 import Helmet from '../components/Helmet'
 import List from '../components/List'
 import LoadingSpinner from '../components/LoadingSpinner'
@@ -44,8 +43,8 @@ const SprungbrettOfferPage = ({ city, cityCode, languageCode }: CityRouteProps):
     return null
   }
 
-  const toolbar = (openFeedback: (rating: FeedbackRatingType) => void) => (
-    <CityContentToolbar openFeedbackModal={openFeedback} hasDivider={viewportSmall} />
+  const toolbar = (openFeedback: () => void) => (
+    <CityContentToolbar openFeedback={openFeedback} hasDivider={viewportSmall} />
   )
 
   const languageChangePaths = city.languages.map(({ code, name }) => ({

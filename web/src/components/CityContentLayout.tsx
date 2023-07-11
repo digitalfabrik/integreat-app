@@ -7,10 +7,9 @@ import { RouteType } from '../routes'
 import CityContentFooter from './CityContentFooter'
 import CityContentHeader from './CityContentHeader'
 import FeedbackModal from './FeedbackModal'
-import { FeedbackRatingType } from './FeedbackToolbarItem'
 import Layout from './Layout'
 
-export type ToolbarProps = (openFeedbackModal: (rating: FeedbackRatingType) => void) => ReactNode
+export type ToolbarProps = (openFeedback: () => void) => ReactNode
 
 type CityContentLayoutProps = {
   toolbar?: ToolbarProps
@@ -27,7 +26,7 @@ type CityContentLayoutProps = {
 }
 
 const CityContentLayout = (props: CityContentLayoutProps): ReactElement => {
-  const [feedbackModalRating, setFeedbackModalRating] = useState<FeedbackRatingType | null>(null)
+  const [isFeedbackModalOpen, setIsFeedbackModalOpen] = useState<boolean>(false)
   const { viewportSmall } = useWindowDimensions()
 
   const {
@@ -44,20 +43,20 @@ const CityContentLayout = (props: CityContentLayoutProps): ReactElement => {
   const { feedbackTargetInformation, city } = props
 
   const feedbackModal =
-    route !== SEARCH_ROUTE && feedbackModalRating ? (
+    route !== SEARCH_ROUTE && isFeedbackModalOpen ? (
       <FeedbackModal
         cityCode={city.code}
         language={languageCode}
         routeType={route}
-        feedbackRating={feedbackModalRating}
-        closeModal={() => setFeedbackModalRating(null)}
+        visible={isFeedbackModalOpen}
+        closeModal={() => setIsFeedbackModalOpen(false)}
         {...feedbackTargetInformation}
       />
     ) : null
 
   // to avoid jumping issues for desktop, isLoading is only checked on mobile viewport
   const isLoadingMobile = isLoading && viewportSmall
-  const toolbar = toolbarProp && !isLoadingMobile ? toolbarProp(setFeedbackModalRating) : null
+  const toolbar = toolbarProp && !isLoadingMobile ? toolbarProp(() => setIsFeedbackModalOpen(true)) : null
 
   return (
     <Layout
