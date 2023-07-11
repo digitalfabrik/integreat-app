@@ -20,6 +20,15 @@ const Text = styled.Text`
   font-size: 20px;
   font-weight: 700;
 `
+
+const LoadingImage = styled(buildConfigAssets().LoadingImage)`
+  shadow-color: #000;
+  shadow-offset: 0px 2px;
+  shadow-opacity: 0.25;
+  shadow-radius: 3.84px;
+  elevation: 5;
+`
+
 const SVG_SIZE_FRACTION = 0.333
 const svgSize = Dimensions.get('window').width * SVG_SIZE_FRACTION
 const LOGO_SIZE_FRACTION = 0.6
@@ -38,8 +47,6 @@ export type ProgressSpinnerProps = {
 const ProgressSpinner = ({ progress }: ProgressSpinnerProps): ReactElement => {
   const { t } = useTranslation('common')
   const theme = useTheme()
-  const LoadingImage = buildConfigAssets().LoadingImage
-
   return (
     <Container>
       <Svg width={svgSize} height={svgSize} testID='loading-image'>
