@@ -23,7 +23,7 @@ const StyledTab = styled(Link)<{ $active: boolean }>`
   object-fit: contain;
   background-color: ${({ $active, theme }) => ($active ? theme.colors.themeColor : theme.colors.textDisabledColor)};
   border-radius: 11px;
-  font-size: 18px;
+  font-size: ${props => props.theme.fonts.subTitleFontSize};
   font-weight: 700;
   text-decoration: none;
   &:not(:last-child) {

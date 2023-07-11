@@ -1,0 +1,6 @@
+issue_key: IGAPP-1310
+show_in_stores: false
+platforms:
+  - android
+  - ios
+en: Use SVG transformer to directly manipulate SVG images.
