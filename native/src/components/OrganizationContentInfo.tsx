@@ -29,6 +29,10 @@ const OrganizationContent = styled.Text`
   padding: 16px 0 8px;
 `
 
+const StyledLink = styled(Link)`
+  padding: 0;
+`
+
 type OrganizationContentInfoProps = {
   organization: OrganizationModel
 }
@@ -43,7 +47,7 @@ const OrganizationContentInfo = ({ organization }: OrganizationContentInfoProps)
         <Text>
           <Trans i18nKey='categories:organizationMoreInformation' domain={new URL(organization.url).hostname}>
             This gets{{ organization: organization.name }}replaced
-            <Link url={organization.url} text={new URL(organization.url).hostname} />
+            <StyledLink url={organization.url} text={new URL(organization.url).hostname} />
             by i18n
           </Trans>
         </Text>
