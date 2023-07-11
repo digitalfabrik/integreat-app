@@ -29,21 +29,21 @@ const icons = buildConfigAssets().intro
 const styledIcons = icons
   ? {
       Search: styled(icons.Search)`
-        ${ImageStyle}
+        ${ImageStyle};
       `,
       Events: styled(icons.Events)`
-        ${ImageStyle}
+        ${ImageStyle};
       `,
       Offers: styled(icons.Offers)`
-        ${ImageStyle}
+        ${ImageStyle};
       `,
       Language: styled(icons.Language)`
-        ${ImageStyle}
+        ${ImageStyle};
       `,
     }
   : null
 const AppIcon = styled(buildConfigAssets().AppIcon)`
-  ${ImageStyle}
+  ${ImageStyle};
 `
 
 type IntroProps = {

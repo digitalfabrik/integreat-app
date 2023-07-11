@@ -45,7 +45,7 @@ const Failure = ({ code, buttonAction, buttonLabel }: FailureProps): ReactElemen
   }
   return (
     <ViewContainer>
-      <ErrorIcon width={60} height={60} />
+      <ErrorIcon width={150} height={150} />
       <Message>{t(code === ErrorCode.CityUnavailable ? 'notFound.city' : code)}</Message>
       {buttonAction && (
         <Button

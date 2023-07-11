@@ -10,7 +10,14 @@ import DashboardNavigationTiles from '../DashboardNavigationTiles'
 import NavigationTiles from '../NavigationTiles'
 
 jest.mock('react-i18next')
-
+jest.mock('../../constants/buildConfig', () => {
+  const actualImplementation = jest.requireActual('../../constants/buildConfig')
+  return {
+    ...actualImplementation,
+    __esModule: true,
+    default: jest.fn(actualImplementation.default),
+  }
+})
 jest.mock('../../components/NavigationTiles', () => {
   const { Text } = require('react-native')
 
