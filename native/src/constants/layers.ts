@@ -1,4 +1,4 @@
-import { CircleLayerStyle, SymbolLayerStyle } from '@rnmapbox/maps'
+import { CircleLayerProps, SymbolLayerProps } from '@maplibre/maplibre-react-native'
 
 import {
   circleRadiusLarge,
@@ -12,7 +12,7 @@ import {
 } from 'api-client'
 import { ThemeType } from 'build-configs/ThemeType'
 
-export const clusterLayer = (theme: ThemeType): CircleLayerStyle => ({
+export const clusterLayer = (theme: ThemeType): CircleLayerProps => ({
   id: 'clusteredPoints',
   belowLayerID: 'pointCount',
   filter: ['has', 'point_count'],
@@ -22,7 +22,7 @@ export const clusterLayer = (theme: ThemeType): CircleLayerStyle => ({
   },
 })
 
-export const markerLayer = (selectedFeature: PoiFeature | null, featureLayerId: string): SymbolLayerStyle => ({
+export const markerLayer = (selectedFeature: PoiFeature | null, featureLayerId: string): SymbolLayerProps => ({
   id: featureLayerId,
   style: {
     symbolPlacement: 'point',
@@ -46,7 +46,7 @@ export const markerLayer = (selectedFeature: PoiFeature | null, featureLayerId: 
   },
 })
 
-export const clusterCountLayer: SymbolLayerStyle = {
+export const clusterCountLayer: SymbolLayerProps = {
   id: 'pointCount',
   style: {
     textField: '{point_count_abbreviated}',

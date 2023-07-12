@@ -6,7 +6,6 @@ platform :ios, '12.4'
 install! 'cocoapods', :deterministic_uuids => false
 
 target 'Integreat' do
-  $RNMapboxMapsImpl = 'maplibre'
   config = use_native_modules!
 
   # Flags change depending on the env values.
@@ -28,11 +27,6 @@ target 'Integreat' do
     :app_path => "#{Pod::Config.instance.installation_root}/.."
   )
 
-  pre_install do |installer|
-    # Required for Mapbox
-    $RNMapboxMaps.pre_install(installer)
-  end
-
   post_install do |installer|
     if !ENV['CI']
       flipper_post_install(installer)
@@ -46,7 +40,7 @@ target 'Integreat' do
     )
 
     # Required for Mapbox
-    $RNMapboxMaps.post_install(installer)
+    $RNMBGL.post_install(installer)
   end
 
   permissions_path = '../node_modules/react-native-permissions/ios'

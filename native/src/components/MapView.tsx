@@ -1,5 +1,4 @@
-import MapboxGL, { UserTrackingMode } from '@rnmapbox/maps'
-import { CameraStop, UserTrackingModeChangeCallback } from '@rnmapbox/maps/lib/typescript/components/Camera'
+import MapLibreGL, { CameraSettings, MapLibreGLEvent } from '@maplibre/maplibre-react-native'
 import type { BBox, Feature } from 'geojson'
 import React, { ReactElement, useCallback } from 'react'
 import { FAB } from 'react-native-elements'
@@ -23,7 +22,7 @@ const MapContainer = styled.View`
   flex-direction: row;
   justify-content: center;
 `
-const StyledMap = styled(MapboxGL.MapView)`
+const StyledMap = styled(MapLibreGL.MapView)`
   width: 100%;
 `
 
@@ -48,7 +47,7 @@ type MapViewProps = {
 const featureLayerId = 'point'
 
 // Has to be set even if we use map libre
-MapboxGL.setAccessToken(mapConfig.accessToken)
+MapLibreGL.setAccessToken(null)
 const MapView = React.forwardRef(
   (
     {
@@ -63,9 +62,9 @@ const MapView = React.forwardRef(
       followUserLocation,
       setFollowUserLocation,
     }: MapViewProps,
-    cameraRef: React.Ref<MapboxGL.Camera>
+    cameraRef: React.Ref<MapLibreGL.Camera>
   ): ReactElement => {
-    const mapRef = React.useRef<MapboxGL.MapView | null>(null)
+    const mapRef = React.useRef<MapLibreGL.MapView | null>(null)
     const theme = useTheme()
 
     const bounds = {
@@ -75,7 +74,7 @@ const MapView = React.forwardRef(
 
     // if there is a current feature use the coordinates; if not use bounding box
     const coordinates = selectedFeature?.geometry.coordinates
-    const defaultSettings: CameraStop = {
+    const defaultSettings: CameraSettings = {
       zoomLevel: coordinates ? normalDetailZoom : defaultViewportConfig.zoom,
       centerCoordinate: coordinates,
       bounds: coordinates ? undefined : bounds,
@@ -86,7 +85,9 @@ const MapView = React.forwardRef(
       setFollowUserLocation(true)
     }, [onRequestLocationPermission, setFollowUserLocation])
 
-    const onUserTrackingModeChange: UserTrackingModeChangeCallback = event => {
+    const onUserTrackingModeChange = (
+      event: MapLibreGLEvent<'usertrackingmodechange', { followUserLocation: boolean }>
+    ) => {
       if (!event.nativeEvent.payload.followUserLocation) {
         setFollowUserLocation(event.nativeEvent.payload.followUserLocation)
       }
@@ -125,15 +126,15 @@ const MapView = React.forwardRef(
           ref={mapRef}
           attributionEnabled={false}
           logoEnabled={false}>
-          <MapboxGL.UserLocation visible={locationPermissionGranted} />
-          <MapboxGL.ShapeSource id='location-pois' shape={featureCollection} cluster clusterRadius={clusterRadius}>
-            <MapboxGL.SymbolLayer {...clusterCountLayer} />
-            <MapboxGL.CircleLayer {...clusterLayer(theme)} />
-            <MapboxGL.SymbolLayer {...markerLayer(selectedFeature, featureLayerId)} />
-          </MapboxGL.ShapeSource>
-          <MapboxGL.Camera
+          <MapLibreGL.UserLocation visible={locationPermissionGranted} />
+          <MapLibreGL.ShapeSource id='location-pois' shape={featureCollection} cluster clusterRadius={clusterRadius}>
+            <MapLibreGL.SymbolLayer {...clusterCountLayer} />
+            <MapLibreGL.CircleLayer {...clusterLayer(theme)} />
+            <MapLibreGL.SymbolLayer {...markerLayer(selectedFeature, featureLayerId)} />
+          </MapLibreGL.ShapeSource>
+          <MapLibreGL.Camera
             defaultSettings={defaultSettings}
-            followUserMode={UserTrackingMode.Follow}
+            followUserMode='normal'
             followUserLocation={followUserLocation && locationPermissionGranted}
             onUserTrackingModeChange={onUserTrackingModeChange}
             ref={cameraRef}
