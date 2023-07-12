@@ -19,7 +19,6 @@ const FeedbackTouchableOpacity = styled(TouchableOpacity)`
   border-radius: 18px;
   width: 100px;
   height: 80px;
-
   justify-content: center;
 `
 const CardShadow = styled.View<{ $active: boolean | null }>`
@@ -42,9 +41,8 @@ const Spacing = styled.View`
 `
 
 const ICON_SIZE = 50
-
-const MAXIMAL_ICON_SIZE = ICON_SIZE / Math.sqrt(2)
 const ICON_SCALE_FACTOR = 0.85
+const MAXIMAL_ICON_SIZE = (ICON_SIZE / Math.sqrt(2)) * ICON_SCALE_FACTOR
 
 type FeedbackButtonsProps = {
   isPositiveFeedback: boolean | null
@@ -59,7 +57,7 @@ const FeedbackButtons = ({ isPositiveFeedback, setIsPositiveFeedback }: Feedback
         <FeedbackTouchableOpacity
           onPress={() => setIsPositiveFeedback(isPositiveFeedback !== true ? true : null)}
           testID='feedback-positive-rating'>
-          <HappyIcon height={MAXIMAL_ICON_SIZE * ICON_SCALE_FACTOR} width={MAXIMAL_ICON_SIZE * ICON_SCALE_FACTOR} />
+          <HappyIcon height={MAXIMAL_ICON_SIZE} width={MAXIMAL_ICON_SIZE} />
           <FeedbackText>{t('useful')}</FeedbackText>
         </FeedbackTouchableOpacity>
       </CardShadow>
@@ -68,7 +66,7 @@ const FeedbackButtons = ({ isPositiveFeedback, setIsPositiveFeedback }: Feedback
         <FeedbackTouchableOpacity
           onPress={() => setIsPositiveFeedback(isPositiveFeedback !== false ? false : null)}
           testID='feedback-negative-rating'>
-          <SadIcon height={MAXIMAL_ICON_SIZE * ICON_SCALE_FACTOR} width={MAXIMAL_ICON_SIZE * ICON_SCALE_FACTOR} />
+          <SadIcon height={MAXIMAL_ICON_SIZE} width={MAXIMAL_ICON_SIZE} />
           <FeedbackText>{t('notUseful')}</FeedbackText>
         </FeedbackTouchableOpacity>
       </CardShadow>

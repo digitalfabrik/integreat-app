@@ -76,8 +76,7 @@ const NoteContainer = styled.div<{ showContainer: boolean }>`
 `
 
 const NoteText = styled(StyledSmallViewTip)`
-  margin-block-start: 0;
-  margin-left: 12px !important;
+  margin: 0 0 0 12px !important;
 `
 
 const FeedbackRatingTooltip = styled(StyledSmallViewTip)`
