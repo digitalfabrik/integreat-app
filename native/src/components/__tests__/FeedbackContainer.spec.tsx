@@ -3,7 +3,6 @@ import React from 'react'
 
 import { FeedbackType, CATEGORIES_ROUTE, CONTENT_FEEDBACK_CATEGORY, SEND_FEEDBACK_SIGNAL_NAME } from 'api-client'
 
-import buildConfig from '../../constants/buildConfig'
 import render from '../../testing/render'
 import sendTrackingSignal from '../../utils/sendTrackingSignal'
 import FeedbackContainer from '../FeedbackContainer'
@@ -26,14 +25,7 @@ describe('FeedbackContainer', () => {
   const language = 'de'
   it('should send feedback request on submit', async () => {
     const { getByText, findByText } = render(
-      <FeedbackContainer
-        routeType={CATEGORIES_ROUTE}
-        isPositiveFeedback
-        isSearchFeedback={false}
-        language={language}
-        cityCode={city}
-        theme={buildConfig().lightTheme}
-      />
+      <FeedbackContainer routeType={CATEGORIES_ROUTE} isSearchFeedback={false} language={language} cityCode={city} />
     )
     const button = getByText('send')
     fireEvent.press(button)
@@ -63,14 +55,7 @@ describe('FeedbackContainer', () => {
     const comment = 'my comment'
     const contactMail = 'test@example.com'
     const { getByText, findByText, getAllByDisplayValue } = render(
-      <FeedbackContainer
-        routeType={CATEGORIES_ROUTE}
-        isPositiveFeedback
-        isSearchFeedback={false}
-        language={language}
-        cityCode={city}
-        theme={buildConfig().lightTheme}
-      />
+      <FeedbackContainer routeType={CATEGORIES_ROUTE} isSearchFeedback={false} language={language} cityCode={city} />
     )
     const [commentField, emailField] = getAllByDisplayValue('')
     fireEvent.changeText(commentField!, comment)
