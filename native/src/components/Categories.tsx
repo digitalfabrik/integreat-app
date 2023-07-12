@@ -9,10 +9,7 @@ import { URL_PREFIX } from '../constants/webview'
 import TileModel from '../models/TileModel'
 import { LanguageResourceCacheStateType, PageResourceCacheStateType } from '../utils/DataContainer'
 import CategoryListItem from './CategoryListItem'
-import { FeedbackInformationType } from './FeedbackContainer'
 import Page from './Page'
-import SiteHelpfulBox from './SiteHelpfulBox'
-import SpaceBetween from './SpaceBetween'
 import Tiles from './Tiles'
 
 export type CategoriesProps = {
@@ -21,7 +18,6 @@ export type CategoriesProps = {
   categories: CategoriesMapModel
   category: CategoryModel
   navigateTo: (routeInformation: RouteInformationType) => void
-  navigateToFeedback: (feedbackInformation: FeedbackInformationType) => void
   resourceCache: LanguageResourceCacheStateType
 }
 
@@ -43,7 +39,6 @@ const Categories = ({
   cityModel,
   language,
   navigateTo,
-  navigateToFeedback,
   categories,
   category,
   resourceCache,
@@ -58,16 +53,6 @@ const Categories = ({
       cityContentPath: path,
     })
 
-  const navigateToFeedbackForCategory = (isPositiveFeedback: boolean) => {
-    navigateToFeedback({
-      routeType: CATEGORIES_ROUTE,
-      language,
-      cityCode: cityModel.code,
-      slug: !category.isRoot() ? category.slug : undefined,
-      isPositiveFeedback,
-    })
-  }
-
   if (category.isRoot()) {
     const tiles = children.map(
       category =>
@@ -79,12 +64,9 @@ const Categories = ({
         })
     )
     return (
-      <SpaceBetween>
-        <View>
-          <Tiles tiles={tiles} language={language} onTilePress={navigateToCategory} />
-        </View>
-        <SiteHelpfulBox navigateToFeedback={navigateToFeedbackForCategory} />
-      </SpaceBetween>
+      <View>
+        <Tiles tiles={tiles} language={language} onTilePress={navigateToCategory} />
+      </View>
     )
   }
 
@@ -94,7 +76,6 @@ const Categories = ({
       content={category.content}
       lastUpdate={category.lastUpdate}
       language={language}
-      navigateToFeedback={navigateToFeedbackForCategory}
       path={category.path}
       AfterContent={children.map(it => (
         <CategoryListItem

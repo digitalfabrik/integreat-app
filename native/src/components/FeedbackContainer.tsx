@@ -1,5 +1,4 @@
 import React, { ReactElement, useState } from 'react'
-import { useTranslation } from 'react-i18next'
 
 import {
   CategoriesRouteType,
@@ -20,7 +19,6 @@ import {
   SEARCH_ROUTE,
   SEND_FEEDBACK_SIGNAL_NAME,
 } from 'api-client'
-import { ThemeType } from 'build-configs/ThemeType'
 
 import { determineApiUrl } from '../utils/helpers'
 import sendTrackingSignal from '../utils/sendTrackingSignal'
@@ -29,7 +27,7 @@ import Feedback from './Feedback'
 
 export type SendingStatusType = 'idle' | 'sending' | 'failed' | 'successful'
 
-type RouteType =
+export type RouteType =
   | CategoriesRouteType
   | EventsRouteType
   | PoisRouteType
@@ -38,7 +36,6 @@ type RouteType =
   | SearchRouteType
 export type FeedbackInformationType = {
   routeType: RouteType
-  isPositiveFeedback: boolean
   language: string
   cityCode: string
   slug?: string
@@ -46,20 +43,18 @@ export type FeedbackInformationType = {
 export type FeedbackContainerProps = {
   routeType: RouteType
   isSearchFeedback: boolean
-  isPositiveFeedback: boolean
   language: string
   cityCode: string
   query?: string
   slug?: string
-  theme: ThemeType
 }
 
 const FeedbackContainer = (props: FeedbackContainerProps): ReactElement => {
   const [comment, setComment] = useState<string>('')
   const [contactMail, setContactMail] = useState<string>('')
+  const [isPositiveFeedback, setIsPositiveFeedback] = useState<boolean | null>(null)
   const [sendingStatus, setSendingStatus] = useState<SendingStatusType>('idle')
-  const { query, language, isPositiveFeedback, isSearchFeedback, routeType, cityCode, slug, theme } = props
-  const { t } = useTranslation('feedback')
+  const { query, language, isSearchFeedback, routeType, cityCode, slug } = props
 
   const getFeedbackType = (): FeedbackType => {
     switch (routeType) {
@@ -142,9 +137,8 @@ const FeedbackContainer = (props: FeedbackContainerProps): ReactElement => {
       onFeedbackContactMailChanged={onFeedbackContactMailChanged}
       isSearchFeedback={isSearchFeedback}
       isPositiveFeedback={isPositiveFeedback}
+      setIsPositiveFeedback={setIsPositiveFeedback}
       onSubmit={handleSubmit}
-      theme={theme}
-      t={t}
     />
   )
 }

@@ -4,7 +4,7 @@ import { Share } from 'react-native'
 import { HiddenItem, Item } from 'react-navigation-header-buttons'
 import styled from 'styled-components/native'
 
-import { LANDING_ROUTE, LanguageModel, POIS_ROUTE, PoisRouteType, SHARE_SIGNAL_NAME } from 'api-client'
+import { LANDING_ROUTE, LanguageModel, NEWS_ROUTE, POIS_ROUTE, PoisRouteType, SHARE_SIGNAL_NAME } from 'api-client'
 import { DISCLAIMER_ROUTE, SEARCH_ROUTE, SETTINGS_ROUTE } from 'api-client/src/routes'
 
 import { NavigationProps, RouteProps, RoutesParamsType, RoutesType } from '../constants/NavigationTypes'
@@ -12,10 +12,12 @@ import buildConfig from '../constants/buildConfig'
 import dimensions from '../constants/dimensions'
 import { AppContext } from '../contexts/AppContextProvider'
 import useSnackbar from '../hooks/useSnackbar'
+import createNavigateToFeedbackModal from '../navigation/createNavigateToFeedbackModal'
 import navigateToLanguageChange from '../navigation/navigateToLanguageChange'
 import sendTrackingSignal from '../utils/sendTrackingSignal'
 import { reportError } from '../utils/sentry'
 import CustomHeaderButtons from './CustomHeaderButtons'
+import { RouteType } from './FeedbackContainer'
 import HeaderBox from './HeaderBox'
 
 const Horizontal = styled.View`
@@ -42,6 +44,7 @@ enum HeaderButtonTitle {
   Search = 'search',
   Share = 'share',
   Settings = 'settings',
+  Feedback = 'feedback',
 }
 
 type HeaderProps = {
@@ -63,7 +66,7 @@ const Header = ({
   showOverflowItems = true,
   languages,
 }: HeaderProps): ReactElement | null => {
-  const { languageCode } = useContext(AppContext)
+  const { languageCode, cityCode } = useContext(AppContext)
   const { t } = useTranslation('layout')
   const showSnackbar = useSnackbar()
   // Save route/canGoBack to state to prevent it from changing during navigating which would lead to flickering of the title and back button
@@ -124,6 +127,21 @@ const Header = ({
     }
   }
 
+  // TODO Modal Header Back Title
+  const navigateToFeedback = () => {
+    if (cityCode) {
+      createNavigateToFeedbackModal(navigation)({
+        routeType: route.name as RouteType,
+        language: languageCode,
+        cityCode,
+        // TODO fix type
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-expect-error
+        slug: route.params?.slug,
+      })
+    }
+  }
+
   const visible = showItems && !!goToLanguageChange
   const items = [
     renderItem(HeaderButtonTitle.Search, 'search', visible, () => navigation.navigate(SEARCH_ROUTE)),
@@ -137,6 +155,9 @@ const Header = ({
           ? [renderOverflowItem(HeaderButtonTitle.Location, () => navigation.navigate(LANDING_ROUTE))]
           : []),
         renderOverflowItem(HeaderButtonTitle.Settings, () => navigation.navigate(SETTINGS_ROUTE)),
+        ...(route.name !== NEWS_ROUTE
+          ? [renderOverflowItem(HeaderButtonTitle.Feedback, () => navigateToFeedback())]
+          : []),
         ...(route.name !== DISCLAIMER_ROUTE
           ? [renderOverflowItem(HeaderButtonTitle.Disclaimer, () => navigation.navigate(DISCLAIMER_ROUTE))]
           : []),

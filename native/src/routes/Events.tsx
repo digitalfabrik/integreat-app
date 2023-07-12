@@ -15,16 +15,11 @@ import LayoutedScrollView from '../components/LayoutedScrollView'
 import List from '../components/List'
 import Page from '../components/Page'
 import PageDetail from '../components/PageDetail'
-import SiteHelpfulBox from '../components/SiteHelpfulBox'
 import DateFormatterContext from '../contexts/DateFormatterContext'
 
 const Separator = styled.View`
   border-top-width: 2px;
   border-top-color: ${props => props.theme.colors.themeColor};
-`
-
-const StyledSiteHelpfulBox = styled(SiteHelpfulBox)`
-  margin-top: 0;
 `
 
 export type EventsProps = {
@@ -52,13 +47,12 @@ const Events = ({
   const { t } = useTranslation('events')
   const formatter = useContext(DateFormatterContext)
 
-  const createNavigateToFeedback = (event?: EventModel) => (isPositiveFeedback: boolean) => {
+  const createNavigateToFeedback = (event?: EventModel) => () => {
     navigateToFeedback({
       routeType: EVENTS_ROUTE,
       slug: event?.slug,
       cityCode: cityModel.code,
       language,
-      isPositiveFeedback,
     })
   }
 
@@ -90,7 +84,6 @@ const Events = ({
             lastUpdate={event.lastUpdate}
             language={language}
             path={event.path}
-            navigateToFeedback={createNavigateToFeedback(event)}
             BeforeContent={
               <>
                 <PageDetail
@@ -148,7 +141,6 @@ const Events = ({
             <Separator />
           </>
         }
-        Footer={<StyledSiteHelpfulBox navigateToFeedback={createNavigateToFeedback()} />}
         refresh={refresh}
         noItemsMessage={t('currentlyNoEvents')}
       />
