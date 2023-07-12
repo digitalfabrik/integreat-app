@@ -127,7 +127,6 @@ const MapView = ({
           height: '100%',
           width: '100%',
         }}
-        onMoveEnd={evt => setViewport(prevState => ({ ...prevState, ...evt.viewState }))}
         onDragStart={() => setCursor('grab')}
         onDragEnd={() => setCursor('auto')}
         onMouseEnter={() => setCursor('pointer')}

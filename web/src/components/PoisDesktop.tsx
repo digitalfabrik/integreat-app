@@ -21,7 +21,7 @@ import CityContentFooter from './CityContentFooter'
 import List from './List'
 import MapView from './MapView'
 import PoiDetails from './PoiDetails'
-import PoiGoBack from './PoiGoBack'
+import GoBack from './GoBack'
 import PoiListItem from './PoiListItem'
 import PoiPanelNavigation from './PoiPanelNavigation'
 
@@ -147,7 +147,7 @@ const PoisDesktop = ({
       <PanelContainer>
         <ListViewWrapper ref={listRef} panelHeights={panelHeights}>
           {currentFeatureOnMap ? (
-            <PoiGoBack goBack={() => selectPoiFeatureInList(null)} direction={direction} text={t('detailsHeader')} />
+            <GoBack goBack={() => selectPoiFeatureInList(null)} direction={direction} text={t('detailsHeader')} />
           ) : (
             <ListHeader>{t('listTitle')}</ListHeader>
           )}

@@ -23,7 +23,7 @@ import BottomActionSheet, { ScrollableBottomSheetRef } from './BottomActionSheet
 import List from './List'
 import MapView from './MapView'
 import PoiDetails from './PoiDetails'
-import PoiGoBack from './PoiGoBack'
+import GoBack from './GoBack'
 import PoiListItem from './PoiListItem'
 
 const ListContainer = styled.div`
@@ -172,7 +172,7 @@ const PoisMobile = ({
         setBottomActionSheetHeight={setBottomActionSheetHeight}
         direction={direction}>
         {currentFeatureOnMap && isBottomActionSheetFullScreen && (
-          <PoiGoBack
+          <GoBack
             goBack={() => selectPoiFeatureInList(null)}
             direction={direction}
             viewportSmall

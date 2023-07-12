@@ -51,14 +51,14 @@ const DetailsHeaderTitle = styled.span`
   font-family: ${props => props.theme.fonts.web.contentFont};
 `
 
-type PoiGoBackProps = {
+type GoBackProps = {
   text: string
   goBack: () => void
   direction: string
   viewportSmall?: boolean
 }
 
-const PoiGoBack = ({ goBack, direction, viewportSmall = false, text }: PoiGoBackProps): ReactElement => {
+const GoBack = ({ goBack, direction, viewportSmall = false, text }: GoBackProps): ReactElement => {
   const theme = useTheme()
   return (
     <>
@@ -71,4 +71,4 @@ const PoiGoBack = ({ goBack, direction, viewportSmall = false, text }: PoiGoBack
   )
 }
 
-export default memo(PoiGoBack)
+export default memo(GoBack)
