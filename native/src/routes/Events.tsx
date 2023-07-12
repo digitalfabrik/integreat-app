@@ -35,26 +35,9 @@ export type EventsProps = {
 /**
  * Displays a list of events or a single event, matching the route /<location>/<language>/events(/<id>)
  */
-const Events = ({
-  cityModel,
-  language,
-  navigateTo,
-  events,
-  slug,
-  navigateToFeedback,
-  refresh,
-}: EventsProps): ReactElement => {
+const Events = ({ cityModel, language, navigateTo, events, slug, refresh }: EventsProps): ReactElement => {
   const { t } = useTranslation('events')
   const formatter = useContext(DateFormatterContext)
-
-  const createNavigateToFeedback = (event?: EventModel) => () => {
-    navigateToFeedback({
-      routeType: EVENTS_ROUTE,
-      slug: event?.slug,
-      cityCode: cityModel.code,
-      language,
-    })
-  }
 
   if (!cityModel.eventsEnabled) {
     const error = new NotFoundError({

@@ -1,8 +1,7 @@
+import SadIcon from 'integreat-app/assets/icons/negative-feedback.svg'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 import styled from 'styled-components/native'
-
-import SadIcon from '../assets/smile-sad.svg'
 
 const Container = styled.View<{ paddingTop: boolean }>`
   padding-top: ${props => (props.paddingTop ? '20px' : 0)};

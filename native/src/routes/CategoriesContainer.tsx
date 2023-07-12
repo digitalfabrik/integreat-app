@@ -15,7 +15,6 @@ import useNavigate from '../hooks/useNavigate'
 import usePreviousProp from '../hooks/usePreviousProp'
 import useResourceCache from '../hooks/useResourceCache'
 import useSetRouteTitle from '../hooks/useSetRouteTitle'
-import createNavigateToFeedbackModal from '../navigation/createNavigateToFeedbackModal'
 import urlFromRouteInformation from '../navigation/url'
 import testID from '../testing/testID'
 import cityDisplayName from '../utils/cityDisplayName'
@@ -78,7 +77,6 @@ const CategoriesContainer = ({ navigation, route }: CategoriesContainerProps): R
           )}
           <Categories
             navigateTo={navigateTo}
-            navigateToFeedback={createNavigateToFeedbackModal(navigation)}
             language={languageCode}
             cityModel={data.city}
             categories={data.categories}

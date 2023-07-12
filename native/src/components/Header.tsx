@@ -127,17 +127,13 @@ const Header = ({
     }
   }
 
-  // TODO Modal Header Back Title
   const navigateToFeedback = () => {
     if (cityCode) {
       createNavigateToFeedbackModal(navigation)({
         routeType: route.name as RouteType,
         language: languageCode,
         cityCode,
-        // TODO fix type
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-expect-error
-        slug: route.params?.slug,
+        slug: (route.params as RoutesParamsType[PoisRouteType]).slug,
       })
     }
   }

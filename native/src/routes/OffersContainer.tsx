@@ -16,7 +16,6 @@ import useLoadExtraCityContent from '../hooks/useLoadExtraCityContent'
 import useNavigate from '../hooks/useNavigate'
 import useSnackbar from '../hooks/useSnackbar'
 import TileModel from '../models/TileModel'
-import createNavigateToFeedbackModal from '../navigation/createNavigateToFeedbackModal'
 import urlFromRouteInformation from '../navigation/url'
 import openExternalUrl from '../utils/openExternalUrl'
 import LoadingErrorHandler from './LoadingErrorHandler'
@@ -57,25 +56,10 @@ const OffersContainer = ({ navigation, route }: OffersContainerProps): ReactElem
     }
   }
 
-  const navigateToFeedback = (isPositiveFeedback: boolean) => {
-    createNavigateToFeedbackModal(navigation)({
-      routeType: OFFERS_ROUTE,
-      language: languageCode,
-      cityCode,
-      isPositiveFeedback,
-    })
-  }
-
   return (
     <LoadingErrorHandler {...response} error={error} scrollView>
       {data?.city.offersEnabled && (
-        <Offers
-          offers={data.extra}
-          navigateToOffer={navigateToOffer}
-          navigateToFeedback={navigateToFeedback}
-          languageCode={languageCode}
-          cityCode={cityCode}
-        />
+        <Offers offers={data.extra} navigateToOffer={navigateToOffer} languageCode={languageCode} cityCode={cityCode} />
       )}
     </LoadingErrorHandler>
   )

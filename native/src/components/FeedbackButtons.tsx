@@ -56,14 +56,18 @@ const FeedbackButtons = ({ isPositiveFeedback, setIsPositiveFeedback }: Feedback
   return (
     <Container>
       <CardShadow $active={isPositiveFeedback}>
-        <FeedbackTouchableOpacity onPress={() => setIsPositiveFeedback(isPositiveFeedback !== true ? true : null)}>
+        <FeedbackTouchableOpacity
+          onPress={() => setIsPositiveFeedback(isPositiveFeedback !== true ? true : null)}
+          testID='feedback-positive-rating'>
           <HappyIcon height={MAXIMAL_ICON_SIZE * ICON_SCALE_FACTOR} width={MAXIMAL_ICON_SIZE * ICON_SCALE_FACTOR} />
           <FeedbackText>{t('useful')}</FeedbackText>
         </FeedbackTouchableOpacity>
       </CardShadow>
       <Spacing />
       <CardShadow $active={isPositiveFeedback === false}>
-        <FeedbackTouchableOpacity onPress={() => setIsPositiveFeedback(isPositiveFeedback !== false ? false : null)}>
+        <FeedbackTouchableOpacity
+          onPress={() => setIsPositiveFeedback(isPositiveFeedback !== false ? false : null)}
+          testID='feedback-negative-rating'>
           <SadIcon height={MAXIMAL_ICON_SIZE * ICON_SCALE_FACTOR} width={MAXIMAL_ICON_SIZE * ICON_SCALE_FACTOR} />
           <FeedbackText>{t('notUseful')}</FeedbackText>
         </FeedbackTouchableOpacity>
