@@ -127,6 +127,13 @@ PODS:
     - GoogleUtilities/Logger
   - hermes-engine (0.70.9)
   - libevent (2.1.12)
+  - maplibre-react-native (9.0.1):
+    - maplibre-react-native/DynamicLibrary (= 9.0.1)
+    - React
+    - React-Core
+  - maplibre-react-native/DynamicLibrary (9.0.1):
+    - React
+    - React-Core
   - nanopb (2.30908.0):
     - nanopb/decode (= 2.30908.0)
     - nanopb/encode (= 2.30908.0)
@@ -470,13 +477,6 @@ PODS:
     - React-Core
   - RNLocalize (2.2.4):
     - React-Core
-  - rnmapbox-maps (10.0.8):
-    - React
-    - React-Core
-    - rnmapbox-maps/DynamicLibrary (= 10.0.8)
-  - rnmapbox-maps/DynamicLibrary (10.0.8):
-    - React
-    - React-Core
   - RNPermissions (3.6.1):
     - React-Core
   - RNReanimated (2.14.4):
@@ -553,6 +553,7 @@ DEPENDENCIES:
   - glog (from `../node_modules/react-native/third-party-podspecs/glog.podspec`)
   - hermes-engine (from `../node_modules/react-native/sdks/hermes/hermes-engine.podspec`)
   - libevent (~> 2.1.12)
+  - "maplibre-react-native (from `../node_modules/@maplibre/maplibre-react-native`)"
   - OpenSSL-Universal (= 1.1.1100)
   - Permission-LocationWhenInUse (from `../node_modules/react-native-permissions/ios/LocationWhenInUse`)
   - Permission-Notifications (from `../node_modules/react-native-permissions/ios/Notifications`)
@@ -601,7 +602,6 @@ DEPENDENCIES:
   - RNGestureHandler (from `../node_modules/react-native-gesture-handler`)
   - RNInAppBrowser (from `../node_modules/react-native-inappbrowser-reborn`)
   - RNLocalize (from `../node_modules/react-native-localize`)
-  - "rnmapbox-maps (from `../node_modules/@rnmapbox/maps`)"
   - RNPermissions (from `../node_modules/react-native-permissions`)
   - RNReanimated (from `../node_modules/react-native-reanimated`)
   - RNScreens (from `../node_modules/react-native-screens`)
@@ -653,6 +653,8 @@ EXTERNAL SOURCES:
     :podspec: "../node_modules/react-native/third-party-podspecs/glog.podspec"
   hermes-engine:
     :podspec: "../node_modules/react-native/sdks/hermes/hermes-engine.podspec"
+  maplibre-react-native:
+    :path: "../node_modules/@maplibre/maplibre-react-native"
   Permission-LocationWhenInUse:
     :path: "../node_modules/react-native-permissions/ios/LocationWhenInUse"
   Permission-Notifications:
@@ -743,8 +745,6 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-inappbrowser-reborn"
   RNLocalize:
     :path: "../node_modules/react-native-localize"
-  rnmapbox-maps:
-    :path: "../node_modules/@rnmapbox/maps"
   RNPermissions:
     :path: "../node_modules/react-native-permissions"
   RNReanimated:
@@ -787,6 +787,7 @@ SPEC CHECKSUMS:
   GoogleUtilities: c2bdc4cf2ce786c4d2e6b3bcfd599a25ca78f06f
   hermes-engine: 918ec5addfbc430c9f443376d739f088b6dc96c3
   libevent: 4049cae6c81cdb3654a443be001fb9bdceff7913
+  maplibre-react-native: f08cc1b867c4b3080b34955f8e2ce938361df4c2
   nanopb: a0ba3315591a9ae0a16a309ee504766e90db0c96
   OpenSSL-Universal: ebc357f1e6bc71fa463ccb2fe676756aff50e88c
   Permission-LocationWhenInUse: 3ba99e45c852763f730eabecec2870c2382b7bd4
@@ -835,7 +836,6 @@ SPEC CHECKSUMS:
   RNGestureHandler: 071d7a9ad81e8b83fe7663b303d132406a7d8f39
   RNInAppBrowser: e36d6935517101ccba0e875bac8ad7b0cb655364
   RNLocalize: 0df7970cfc60389f00eb62fd7c097dc75af3fb4f
-  rnmapbox-maps: 71781a20e3b964c9b7b6e8be7f52c0b058595322
   RNPermissions: dcdb7b99796bbeda6975a6e79ad519c41b251b1c
   RNReanimated: 6668b0587bebd4b15dd849b99e5a9c70fc12ed95
   RNScreens: ea4cd3a853063cda19a4e3c28d2e52180c80f4eb
@@ -848,6 +848,6 @@ SPEC CHECKSUMS:
   Yoga: dc109b79db907f0f589fc423e991b09ec42d2295
   YogaKit: f782866e155069a2cca2517aafea43200b01fd5a
 
-PODFILE CHECKSUM: a646555aacbbf7b40a85e9108530c0bd1e696b6d
+PODFILE CHECKSUM: 5c1158740c9f3d9874363084ecb30c9fec3ff5a8
 
 COCOAPODS: 1.11.2
