@@ -19,8 +19,8 @@ const Input = styled(TextInput)`
   text-align-vertical: top;
   color: ${props => props.theme.colors.textColor};
 `
-const MailInput = styled(Input)`
-  height: 50px;
+const CommentInput = styled(Input)`
+  height: 100px;
 `
 const Wrapper = styled.View`
   padding: 20px;
@@ -99,7 +99,7 @@ const Feedback = ({
     if (['idle', 'failed'].includes(sendingStatus)) {
       return (
         <>
-          {!isSearchFeedback && <Caption title={t('headline')} />}
+          <Caption title={t(isSearchFeedback ? 'informationNotFound' : 'headline')} />
           <DescriptionContainer>
             <Text>{t('description')}</Text>
           </DescriptionContainer>
@@ -111,7 +111,7 @@ const Feedback = ({
           <DescriptionContainer>
             <Text>{t('commentDescription')}</Text>
           </DescriptionContainer>
-          <Input
+          <CommentInput
             onChangeText={onCommentChanged}
             value={comment}
             multiline
@@ -122,13 +122,12 @@ const Feedback = ({
             <Description>{t('contactMailAddress')}</Description>
             <Text>({t('optionalInfo')})</Text>
           </HeadlineContainer>
-          <MailInput keyboardType='email-address' onChangeText={onFeedbackContactMailChanged} value={contactMail} />
+          <Input keyboardType='email-address' onChangeText={onFeedbackContactMailChanged} value={contactMail} />
           {sendingStatus === 'failed' && <Description>{t('failedSendingFeedback')}</Description>}
           <NoteBox visible={submitDisabled}>
             <StyledNoteIcon height={20} width={20} />
             <NoteText>{t('note')}</NoteText>
           </NoteBox>
-
           <Button
             titleStyle={{
               color: theme.colors.textColor,

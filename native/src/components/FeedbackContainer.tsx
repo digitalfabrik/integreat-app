@@ -24,6 +24,7 @@ import { determineApiUrl } from '../utils/helpers'
 import sendTrackingSignal from '../utils/sendTrackingSignal'
 import { reportError } from '../utils/sentry'
 import Feedback from './Feedback'
+import HorizontalLine from './HorizontalLine'
 
 export type SendingStatusType = 'idle' | 'sending' | 'failed' | 'successful'
 
@@ -47,6 +48,7 @@ export type FeedbackContainerProps = {
   cityCode: string
   query?: string
   slug?: string
+  hasDivider?: boolean
 }
 
 const FeedbackContainer = (props: FeedbackContainerProps): ReactElement => {
@@ -54,7 +56,7 @@ const FeedbackContainer = (props: FeedbackContainerProps): ReactElement => {
   const [contactMail, setContactMail] = useState<string>('')
   const [isPositiveFeedback, setIsPositiveFeedback] = useState<boolean | null>(null)
   const [sendingStatus, setSendingStatus] = useState<SendingStatusType>('idle')
-  const { query, language, isSearchFeedback, routeType, cityCode, slug } = props
+  const { query, language, isSearchFeedback, routeType, cityCode, slug, hasDivider } = props
 
   const getFeedbackType = (): FeedbackType => {
     switch (routeType) {
@@ -129,17 +131,20 @@ const FeedbackContainer = (props: FeedbackContainerProps): ReactElement => {
   }
 
   return (
-    <Feedback
-      comment={comment}
-      contactMail={contactMail}
-      sendingStatus={sendingStatus}
-      onCommentChanged={onFeedbackCommentChanged}
-      onFeedbackContactMailChanged={onFeedbackContactMailChanged}
-      isSearchFeedback={isSearchFeedback}
-      isPositiveFeedback={isPositiveFeedback}
-      setIsPositiveFeedback={setIsPositiveFeedback}
-      onSubmit={handleSubmit}
-    />
+    <>
+      {hasDivider && <HorizontalLine />}
+      <Feedback
+        comment={comment}
+        contactMail={contactMail}
+        sendingStatus={sendingStatus}
+        onCommentChanged={onFeedbackCommentChanged}
+        onFeedbackContactMailChanged={onFeedbackContactMailChanged}
+        isSearchFeedback={isSearchFeedback}
+        isPositiveFeedback={isPositiveFeedback}
+        setIsPositiveFeedback={setIsPositiveFeedback}
+        onSubmit={handleSubmit}
+      />
+    </>
   )
 }
 
