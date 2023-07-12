@@ -26,18 +26,17 @@ const commonObdachBuildConfig: CommonBuildConfigType = {
     cityNotCooperatingTemplate: null,
   },
   aboutUrls: {
-    default: 'https://netzwerkobdachwohnen.de/about/',
-    en: 'https://netzwerkobdachwohnen.de/en/about/',
+    default: 'https://tuerantuer.de/digitalfabrik/projekte/vernetztesobdach/',
   },
   privacyUrls: {
-    default: 'https://netzwerkobdachwohnen.de/datenschutz/',
-    en: 'https://netzwerkobdachwohnen.de/en/privacy/',
+    default: 'https://integreat-app.de/datenschutz/',
+    en: 'https://integreat-app.de/en/privacy-policy/',
   },
 }
 export const webObdachBuildConfig: WebBuildConfigType = {
   ...commonObdachBuildConfig,
   appDescription:
-    'Netzwerk Obdach Wohnen – die lokale und mehrsprachige Plattform für Obdachlose und Menschen die von Obdachlosigkeit bedroht sind',
+    'Netzwerk Obdach & Wohnen – die lokale und mehrsprachige Plattform für Obdachlose und Menschen die von Obdachlosigkeit bedroht sind',
   mainImprint,
   manifestUrl: '/manifest.json',
   icons: {
