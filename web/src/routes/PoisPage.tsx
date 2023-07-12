@@ -56,11 +56,20 @@ const PoisPage = ({ cityCode, languageCode, cityModel, pathname, languages }: Ci
   const { data, error: featureLocationsError, loading } = useFeatureLocations(cityCode, languageCode, userLocation)
   const currentPoi = useMemo(() => data?.pois.find(poi => slug === poi.slug) ?? null, [data?.pois, slug])
   // keep the old mapViewport when changing the viewport
-  const [mapViewport, setMapViewport] = useState<MapViewViewport>(() => moveViewToBBox(cityModel.boundingBox!, defaultMercatorViewportConfig))
+  const [mapViewport, setMapViewport] = useState<MapViewViewport>(() =>
+    moveViewToBBox(cityModel.boundingBox!, defaultMercatorViewportConfig)
+  )
   const { viewportSmall } = useWindowDimensions()
-  const toolbar = useMemo(() => (
-    <CityContentToolbar openFeedbackModal={setFeedbackModalRating} viewportSmall={viewportSmall} iconDirection='row' />
-  ), [viewportSmall])
+  const toolbar = useMemo(
+    () => (
+      <CityContentToolbar
+        openFeedbackModal={setFeedbackModalRating}
+        viewportSmall={viewportSmall}
+        iconDirection='row'
+      />
+    ),
+    [viewportSmall]
+  )
 
   if (buildConfig().featureFlags.developerFriendly) {
     log('To use geolocation in a development build you have to start the dev server with\n "yarn start --https"')

@@ -20,10 +20,10 @@ import usePoiFeatures from '../hooks/usePoiFeatures'
 import useWindowDimensions from '../hooks/useWindowDimensions'
 import { getSnapPoints } from '../utils/getSnapPoints'
 import BottomActionSheet, { ScrollableBottomSheetRef } from './BottomActionSheet'
+import GoBack from './GoBack'
 import List from './List'
 import MapView from './MapView'
 import PoiDetails from './PoiDetails'
-import GoBack from './GoBack'
 import PoiListItem from './PoiListItem'
 
 const ListContainer = styled.div`
