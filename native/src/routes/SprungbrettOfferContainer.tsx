@@ -1,18 +1,11 @@
 import React, { ReactElement, useCallback } from 'react'
 
-import {
-  ErrorCode,
-  loadSprungbrettJobs,
-  OFFERS_ROUTE,
-  SPRUNGBRETT_OFFER_ROUTE,
-  SprungbrettOfferRouteType,
-} from 'api-client'
+import { ErrorCode, loadSprungbrettJobs, SPRUNGBRETT_OFFER_ROUTE, SprungbrettOfferRouteType } from 'api-client'
 
 import { NavigationProps, RouteProps } from '../constants/NavigationTypes'
 import useCityAppContext from '../hooks/useCityAppContext'
 import useHeader from '../hooks/useHeader'
 import useLoadExtraCityContent from '../hooks/useLoadExtraCityContent'
-import createNavigateToFeedbackModal from '../navigation/createNavigateToFeedbackModal'
 import urlFromRouteInformation from '../navigation/url'
 import { determineApiUrl } from '../utils/helpers'
 import LoadingErrorHandler from './LoadingErrorHandler'
@@ -36,16 +29,6 @@ const SprungbrettOfferContainer = ({ route, navigation }: SprungbrettOfferContai
   const shareUrl = urlFromRouteInformation({ route: SPRUNGBRETT_OFFER_ROUTE, languageCode, cityCode })
   useHeader({ navigation, route, availableLanguages, data, shareUrl })
 
-  const navigateToFeedback = (isPositiveFeedback: boolean) => {
-    createNavigateToFeedbackModal(navigation)({
-      routeType: OFFERS_ROUTE,
-      cityCode,
-      slug: SPRUNGBRETT_OFFER_ROUTE,
-      language: languageCode,
-      isPositiveFeedback,
-    })
-  }
-
   return (
     <LoadingErrorHandler {...response} error={error}>
       {data && (
@@ -53,7 +36,6 @@ const SprungbrettOfferContainer = ({ route, navigation }: SprungbrettOfferContai
           title={data.extra.sprungbrettOffer.title}
           jobs={data.extra.sprungbrettJobs}
           language={languageCode}
-          navigateToFeedback={navigateToFeedback}
           refresh={response.refresh}
         />
       )}

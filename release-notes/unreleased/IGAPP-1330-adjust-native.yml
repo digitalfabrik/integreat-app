@@ -1,0 +1,7 @@
+issue_key: IGAPP-1330
+show_in_stores: true
+platforms:
+  - ios
+  - android
+en: The feedback function was optimized and can be found in the overflow menu.
+de: Die Feedbackfunktion wurde verbessert und befindet sich jetzt im Überlaufmenü.
