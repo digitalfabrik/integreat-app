@@ -1,7 +1,7 @@
 import React, { ReactElement, ReactNode } from 'react'
 import styled from 'styled-components'
 
-import CleanLink from './CleanLink'
+import { StyledCleanLink } from './CleanLink'
 
 const ListItemContainer = styled.article`
   border-bottom: 2px solid ${props => props.theme.colors.themeColor};
@@ -34,6 +34,10 @@ const Title = styled.div`
   font-weight: 700;
 `
 
+const FullWidthLink = styled(StyledCleanLink)`
+  flex: 1;
+`
+
 type ListItemProps = {
   thumbnail?: string
   path: string
@@ -43,13 +47,13 @@ type ListItemProps = {
 
 const ListItem: React.FC<ListItemProps> = ({ path, title, thumbnail, children }: ListItemProps): ReactElement => (
   <ListItemContainer dir='auto'>
-    <CleanLink to={path}>
+    <FullWidthLink to={path}>
       {!!thumbnail && <Thumbnail alt='' src={thumbnail} />}
       <Description>
         <Title dir='auto'>{title}</Title>
         {children}
       </Description>
-    </CleanLink>
+    </FullWidthLink>
   </ListItemContainer>
 )
 
