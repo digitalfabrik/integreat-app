@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0513F1BA2A56E64D00A09ADE /* Mapbox in Frameworks */ = {isa = PBXBuildFile; productRef = CE1C50092AED80D00564BD5C /* Mapbox */; };
+		051E12C629AF8FEA007A0950 /* Mapbox in Frameworks */ = {isa = PBXBuildFile; productRef = 58DA50835FA4C55D1A53318C /* Mapbox */; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.mm */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
@@ -115,7 +115,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0513F1BA2A56E64D00A09ADE /* Mapbox in Frameworks */,
+				051E12C629AF8FEA007A0950 /* Mapbox in Frameworks */,
 				2E673E9226C3C27C00B97628 /* BuildFile in Frameworks */,
 				ED297163215061F000B7C4FE /* JavaScriptCore.framework in Frameworks */,
 				3083DDC92A72AA436042F7F6 /* libPods-Integreat.a in Frameworks */,
@@ -269,7 +269,7 @@
 			);
 			name = Integreat;
 			packageProductDependencies = (
-				CE1C50092AED80D00564BD5C /* Mapbox */,
+				58DA50835FA4C55D1A53318C /* Mapbox */,
 			);
 			productName = "Hello World";
 			productReference = 13B07F961A680F5B00A75B9A /* Integreat.app */;
@@ -328,7 +328,7 @@
 			);
 			mainGroup = 83CBB9F61A601CBA00E9B192;
 			packageReferences = (
-				B1434CC29527675DF8C45577 /* XCRemoteSwiftPackageReference "maplibre-gl-native-distribution" */,
+				51FBDE884E168E57485F8AA0 /* XCRemoteSwiftPackageReference "maplibre-gl-native-distribution" */,
 			);
 			productRefGroup = 83CBBA001A601CBA00E9B192 /* Products */;
 			projectDirPath = "";
@@ -797,20 +797,20 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		B1434CC29527675DF8C45577 /* XCRemoteSwiftPackageReference "maplibre-gl-native-distribution" */ = {
+		51FBDE884E168E57485F8AA0 /* XCRemoteSwiftPackageReference "maplibre-gl-native-distribution" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/maplibre/maplibre-gl-native-distribution";
 			requirement = {
 				kind = exactVersion;
-				version = 5.13.0;
+				version = 5.12.1;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		CE1C50092AED80D00564BD5C /* Mapbox */ = {
+		58DA50835FA4C55D1A53318C /* Mapbox */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = B1434CC29527675DF8C45577 /* XCRemoteSwiftPackageReference "maplibre-gl-native-distribution" */;
+			package = 51FBDE884E168E57485F8AA0 /* XCRemoteSwiftPackageReference "maplibre-gl-native-distribution" */;
 			productName = Mapbox;
 		};
 /* End XCSwiftPackageProductDependency section */
