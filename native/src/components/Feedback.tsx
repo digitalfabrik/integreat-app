@@ -52,18 +52,21 @@ const Description = styled(ThemedText)`
 const NoteBox = styled.View<{ visible: boolean }>`
   background-color: ${props => props.theme.colors.themeColor};
   margin-top: 12px;
-  padding: 8px;
+  padding: 12px;
   opacity: ${props => (props.visible ? 1 : 0)};
   flex-direction: row;
 `
 
 const NoteText = styled.Text`
   font-family: ${props => props.theme.fonts.native.decorativeFontRegular};
-  padding-left: 8px;
+  font-size: 12px;
+  flex: 1;
+  flex-wrap: wrap;
 `
 
 const StyledNoteIcon = styled(NoteIcon)`
   align-self: center;
+  margin-right: 12px;
 `
 
 export type FeedbackProps = {
