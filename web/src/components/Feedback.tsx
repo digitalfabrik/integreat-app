@@ -6,7 +6,6 @@ import styled from 'styled-components'
 import { NegativeFeedbackIcon, NoteIcon, PositiveFeedbackIcon } from '../assets'
 import dimensions from '../constants/dimensions'
 import { SendingState } from './FeedbackContainer'
-import StyledSmallViewTip from './StyledSmallViewTip'
 import TextButton from './TextButton'
 import TextInput from './TextInput'
 
@@ -71,16 +70,21 @@ const NoteContainer = styled.div<{ showContainer: boolean }>`
   display: flex;
   margin-top: 12px;
   background-color: ${props => props.theme.colors.themeColor};
-  padding: 8px;
+  padding: 12px;
   opacity: ${props => (props.showContainer ? 1 : 0)};
 `
 
-const NoteText = styled(StyledSmallViewTip)`
-  margin: 0 0 0 12px !important;
+const NoteText = styled.span`
+  margin-left: 12px;
+  font-size: 12px;
+  font-weight: 400;
 `
 
-const FeedbackRatingTooltip = styled(StyledSmallViewTip)`
-  margin-bottom: 0 !important;
+const FeedbackRatingTooltip = styled.span`
+  font-size: 12px;
+  font-weight: 400;
+  display: block;
+  margin-top: 8px;
 `
 
 type FeedbackProps = {
