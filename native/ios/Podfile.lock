@@ -421,7 +421,7 @@ PODS:
   - react-native-static-server (0.5.5):
     - GCDWebServer (~> 3.0)
     - React
-  - react-native-webview (12.4.0):
+  - react-native-webview (13.2.2):
     - React-Core
   - React-perflogger (0.71.12)
   - React-RCTActionSheet (0.71.12):
@@ -863,7 +863,7 @@ SPEC CHECKSUMS:
   react-native-pdf: 33c622cbdf776a649929e8b9d1ce2d313347c4fa
   react-native-safe-area-context: 36cc67648134e89465663b8172336a19eeda493d
   react-native-static-server: 9bb6c921baf4f2ad7e84832b82fa0eb5fe57c9f0
-  react-native-webview: 65f1143983cfeaedf02fd25b2621d3f4a37075de
+  react-native-webview: b8ec89966713985111a14d6e4bf98d8b54bced0d
   React-perflogger: 75b0e25075c67565a830985f3c373e2eae5389e0
   React-RCTActionSheet: a0c3e916b327e297d124d9ebe8b0c721840ee04d
   React-RCTAnimation: 3da7025801d7bf0f8cfd94574d6278d5b82a8b88

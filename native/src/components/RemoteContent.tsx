@@ -119,8 +119,6 @@ const RemoteContent = (props: RemoteContentProps): ReactElement | null => {
       style={{
         height: webViewHeight,
         width: webViewWidth,
-        opacity: 0.99, // fixes crashing in Android https://github.com/react-native-webview/react-native-webview/issues/811
-        overflow: 'hidden',
       }}
     />
   )
