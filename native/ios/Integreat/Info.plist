@@ -85,5 +85,10 @@
 	<false/>
 	<key>NSCalendarsUsageDescription</key>
 	<string>Integreat wants to access the calendar to add an event.</string>
+	<key>LSApplicationQueriesSchemes</key>
+    <array>
+        <string>mailto</string>
+        <string>tel</string>
+    </array>
 </dict>
 </plist>
