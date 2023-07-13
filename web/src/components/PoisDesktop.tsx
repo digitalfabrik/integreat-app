@@ -1,14 +1,35 @@
-import React, { ReactElement, useEffect } from 'react'
+import React, { ReactElement, useCallback, useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { useLocation } from 'react-router-dom'
+import { GeolocateControl, NavigationControl } from 'react-map-gl'
 import styled from 'styled-components'
 
-import { getSlugFromPath, PoiFeature, PoiModel } from 'api-client'
+import {
+  CityModel,
+  embedInCollection,
+  GeoJsonPoi,
+  LocationType,
+  MapViewViewport,
+  PoiFeature,
+  PoiModel,
+  sortPoiFeatures,
+} from 'api-client'
 import { UiDirectionType } from 'translations'
 
 import dimensions from '../constants/dimensions'
+import usePoiFeatures from '../hooks/usePoiFeatures'
+import CityContentFooter from './CityContentFooter'
+import GoBack from './GoBack'
+import List from './List'
+import MapView from './MapView'
 import PoiDetails from './PoiDetails'
+import PoiListItem from './PoiListItem'
 import PoiPanelNavigation from './PoiPanelNavigation'
+
+const PanelContainer = styled.article`
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+`
 
 const ListViewWrapper = styled.div<{ panelHeights: number }>`
   width: 300px;
@@ -37,55 +58,126 @@ const ListHeader = styled.div`
   margin-bottom: clamp(10px, 1vh, 20px);
 `
 
+const FooterContainer = styled.div`
+  position: absolute;
+  bottom: 0;
+`
+
 type PoisDesktopProps = {
   panelHeights: number
-  currentFeature: PoiFeature | null
-  poiList: ReactElement
-  mapView: ReactElement | null
   toolbar: ReactElement
-  poi?: PoiModel
-  switchFeature: (step: 1 | -1) => void
   direction: UiDirectionType
-  showFeatureSwitch: boolean
-  restoreScrollPosition: boolean
+  cityModel: CityModel
+  pois: PoiModel[]
+  userLocation: LocationType | undefined
+  features: PoiFeature[]
+  languageCode: string
+  slug: string | undefined
+  mapViewport: MapViewViewport
+  setMapViewport: (mapViewport: React.SetStateAction<MapViewViewport>) => void
 }
 
-const PoisDesktop: React.FC<PoisDesktopProps> = ({
+const nextPoiIndex = (step: 1 | -1, arrayLength: number, currentIndex: number): number => {
+  if (currentIndex === arrayLength - 1 && step === 1) {
+    return 0
+  }
+  if (currentIndex === 0 && step === -1) {
+    return arrayLength - 1
+  }
+  return currentIndex + step
+}
+
+const PoisDesktop = ({
   panelHeights,
-  currentFeature,
-  poiList,
-  mapView,
   toolbar,
-  poi,
-  switchFeature,
   direction,
-  showFeatureSwitch,
-  restoreScrollPosition,
+  pois,
+  userLocation,
+  features,
+  cityModel,
+  languageCode,
+  slug,
+  mapViewport,
+  setMapViewport,
 }: PoisDesktopProps): ReactElement => {
   const { t } = useTranslation('pois')
-  const previousPath = useLocation().state?.from?.pathname
+  const [scrollOffset, setScrollOffset] = useState<number>(0)
+  const listRef = useRef<HTMLDivElement>(null)
+  const { selectPoiFeatureInList, selectFeatureOnMap, currentFeatureOnMap, currentPoi, poiListFeatures } =
+    usePoiFeatures(features, pois, slug)
+
+  const selectPoiFeature = useCallback(
+    (poiFeature: GeoJsonPoi | null) => {
+      if (listRef.current && !currentPoi) {
+        setScrollOffset(listRef.current.scrollTop)
+      }
+      selectPoiFeatureInList(poiFeature)
+    },
+    [currentPoi, selectPoiFeatureInList]
+  )
+  const renderPoiListItem = (poi: GeoJsonPoi) => <PoiListItem key={poi.path} poi={poi} selectPoi={selectPoiFeature} />
+  const poiList = (
+    <List
+      noItemsMessage={t('noPois')}
+      items={sortPoiFeatures(poiListFeatures)}
+      renderItem={renderPoiListItem}
+      borderless
+    />
+  )
+  const switchPoi = (step: 1 | -1) => {
+    if (!currentPoi) {
+      return
+    }
+    const currentPoiIndex = poiListFeatures.findIndex(poi => poi.slug === currentPoi.slug)
+    const updatedIndex = nextPoiIndex(step, poiListFeatures.length, currentPoiIndex)
+    const poiFeature = poiListFeatures[updatedIndex]
+    selectPoiFeatureInList(poiFeature ?? null)
+  }
 
   useEffect(() => {
-    // scrollTo the id of the selected element for detail view -> list view
-    if (previousPath && restoreScrollPosition) {
-      document.getElementById(getSlugFromPath(decodeURI(previousPath)))?.scrollIntoView({ behavior: 'auto' })
+    if (!currentFeatureOnMap && listRef.current) {
+      listRef.current.scrollTo({ top: scrollOffset })
+    } else if (listRef.current) {
+      listRef.current.scrollTo({ top: 0 })
     }
-  }, [previousPath, restoreScrollPosition])
+  }, [currentFeatureOnMap, currentPoi, scrollOffset])
 
   return (
     <>
-      <div>
-        <ListViewWrapper panelHeights={panelHeights}>
-          {!currentFeature && <ListHeader>{t('listTitle')}</ListHeader>}
-          {currentFeature && poi ? <PoiDetails poi={poi} feature={currentFeature} direction={direction} /> : poiList}
+      <PanelContainer>
+        <ListViewWrapper ref={listRef} panelHeights={panelHeights}>
+          {currentFeatureOnMap ? (
+            <GoBack goBack={() => selectPoiFeatureInList(null)} direction={direction} text={t('detailsHeader')} />
+          ) : (
+            <ListHeader>{t('listTitle')}</ListHeader>
+          )}
+
+          {currentPoi ? (
+            <PoiDetails poi={currentPoi} feature={currentPoi.getFeature(userLocation)} direction={direction} t={t} />
+          ) : (
+            <>{poiList}</>
+          )}
         </ListViewWrapper>
-        {currentFeature && showFeatureSwitch ? (
-          <PoiPanelNavigation switchFeature={switchFeature} direction={direction} />
+        {currentPoi && features.length > 0 ? (
+          <PoiPanelNavigation switchPoi={switchPoi} direction={direction} />
         ) : (
           <ToolbarContainer>{toolbar}</ToolbarContainer>
         )}
-      </div>
-      {mapView}
+      </PanelContainer>
+      <MapView
+        viewport={mapViewport}
+        setViewport={setMapViewport}
+        selectFeature={selectFeatureOnMap}
+        featureCollection={embedInCollection(features)}
+        currentFeature={currentFeatureOnMap}
+        languageCode={languageCode}>
+        <NavigationControl showCompass={false} position={direction === 'rtl' ? 'bottom-left' : 'bottom-right'} />
+        {/* To use geolocation in a development build you have to start the dev server with "yarn start --https" */}
+        <GeolocateControl positionOptions={{ enableHighAccuracy: true }} trackUserLocation position='bottom-right' />
+        <FooterContainer>
+          <CityContentFooter city={cityModel.code} language={languageCode} mode='overlay' />
+        </FooterContainer>
+      </MapView>
     </>
   )
 }
