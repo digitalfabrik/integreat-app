@@ -1,0 +1,5 @@
+issue_key: IGAPP-1323
+show_in_stores: false
+platforms:
+  - web
+en: List item are now clickable in fullwidth.
