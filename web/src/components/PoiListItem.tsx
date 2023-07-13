@@ -2,12 +2,12 @@ import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
 
-import { PoiFeature } from 'api-client'
+import { GeoJsonPoi } from 'api-client'
 
 import PoiPlaceholder from '../assets/PoiPlaceholderThumbnail.jpg'
 import dimensions from '../constants/dimensions'
 
-const ListItemContainer = styled.article`
+const ListItemContainer = styled.ul`
   font-family: ${props => props.theme.fonts.web.contentFont};
   display: flex;
   padding: clamp(10px, 1vh, 20px) 0;
@@ -77,16 +77,16 @@ const LinkContainer = styled.div`
 `
 
 type PoiListItemProps = {
-  poi: PoiFeature
-  selectFeature: (feature: PoiFeature | null, restoreScrollPosition: boolean) => void
+  poi: GeoJsonPoi
+  selectPoi: (feature: GeoJsonPoi | null, restoreScrollPosition: boolean) => void
 }
 
-const PoiListItem = ({ poi, selectFeature }: PoiListItemProps): ReactElement => {
+const PoiListItem = ({ poi, selectPoi }: PoiListItemProps): ReactElement => {
   const { t } = useTranslation('pois')
-  const { thumbnail, title, distance, category, slug } = poi.properties
+  const { thumbnail, title, distance, category, slug } = poi
 
   const onClickItem = () => {
-    selectFeature(poi, true)
+    selectPoi(poi, true)
   }
 
   return (

@@ -14,7 +14,6 @@ const Attribution = styled.div`
 `
 const AttributionContainer = styled.div<{ expanded: boolean }>`
   display: flex;
-  width: 100%;
   position: absolute;
   top: 0;
   right: 0;
