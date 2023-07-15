@@ -12,7 +12,7 @@ import {
 } from 'api-client'
 
 import { CityRouteProps } from '../CityContentSwitcher'
-import CityContentLayout from '../components/CityContentLayout'
+import CityContentLayout, { CityContentLayoutProps } from '../components/CityContentLayout'
 import CityContentToolbar from '../components/CityContentToolbar'
 import FailureSwitcher from '../components/FailureSwitcher'
 import Helmet from '../components/Helmet'
@@ -79,10 +79,6 @@ const TuNewsPage = ({ cityCode, languageCode, city }: CityRouteProps): ReactElem
     )
   }
 
-  const toolbar = (openFeedback: () => void) => (
-    <CityContentToolbar openFeedback={openFeedback} hasFeedbackOption={false} hasDivider={false} />
-  )
-
   const languageChangePaths = city.languages.map(({ code, name }) => {
     const isLanguageAvailable = tuNewsLanguages?.find(language => language.code === code)
     return {
@@ -94,14 +90,12 @@ const TuNewsPage = ({ cityCode, languageCode, city }: CityRouteProps): ReactElem
     }
   })
 
-  const locationLayoutParams = {
+  const locationLayoutParams: Omit<CityContentLayoutProps, 'isLoading'> = {
     city,
-    viewportSmall,
-    feedbackTargetInformation: null,
     languageChangePaths,
     route: TU_NEWS_ROUTE,
     languageCode,
-    toolbar: viewportSmall ? undefined : toolbar,
+    Toolbar: !viewportSmall && <CityContentToolbar route={TU_NEWS_ROUTE} hasFeedbackOption={false} hideDivider />,
   }
 
   if (error) {

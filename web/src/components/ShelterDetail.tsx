@@ -46,7 +46,7 @@ const ShelterDetail = ({
     name,
     code,
   }))
-  const locationLayoutParams = {
+  const locationLayoutParams: Omit<CityContentLayoutProps, 'isLoading'> = {
     city,
     viewportSmall,
     feedbackTargetInformation: null,

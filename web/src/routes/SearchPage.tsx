@@ -12,7 +12,7 @@ import {
 } from 'api-client'
 
 import { CityRouteProps } from '../CityContentSwitcher'
-import CityContentLayout from '../components/CityContentLayout'
+import CityContentLayout, { CityContentLayoutProps } from '../components/CityContentLayout'
 import Failure from '../components/Failure'
 import FailureSwitcher from '../components/FailureSwitcher'
 import FeedbackSearch from '../components/FeedbackSearch'
@@ -22,7 +22,6 @@ import SearchInput from '../components/SearchInput'
 import SearchListItem from '../components/SearchListItem'
 import { helpers } from '../constants/theme'
 import { cmsApiBaseUrl } from '../constants/urls'
-import useWindowDimensions from '../hooks/useWindowDimensions'
 
 const List = styled.ul`
   list-style-type: none;
@@ -34,7 +33,6 @@ const List = styled.ul`
 const SearchPage = ({ city, cityCode, languageCode, pathname }: CityRouteProps): ReactElement | null => {
   const query = new URLSearchParams(useLocation().search).get('query') ?? ''
   const [filterText, setFilterText] = useState<string>(query)
-  const { viewportSmall } = useWindowDimensions()
   const { t } = useTranslation('search')
   const navigate = useNavigate()
 
@@ -58,10 +56,8 @@ const SearchPage = ({ city, cityCode, languageCode, pathname }: CityRouteProps):
     code,
   }))
 
-  const locationLayoutParams = {
+  const locationLayoutParams: Omit<CityContentLayoutProps, 'isLoading'> = {
     city,
-    viewportSmall,
-    feedbackTargetInformation: null,
     languageChangePaths,
     route: SEARCH_ROUTE,
     languageCode,

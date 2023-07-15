@@ -12,7 +12,7 @@ import {
 
 import { CityRouteProps } from '../CityContentSwitcher'
 import Caption from '../components/Caption'
-import CityContentLayout from '../components/CityContentLayout'
+import CityContentLayout, { CityContentLayoutProps } from '../components/CityContentLayout'
 import Helmet from '../components/Helmet'
 import InfiniteScrollList from '../components/InfiniteScrollList'
 import ShelterDetail from '../components/ShelterDetail'
@@ -70,10 +70,8 @@ const ShelterPage = ({ city, cityCode, languageCode, pathname }: CityRouteProps)
     }
   }
 
-  const locationLayoutParams = {
+  const locationLayoutParams: Omit<CityContentLayoutProps, 'isLoading'> = {
     city,
-    viewportSmall,
-    feedbackTargetInformation: null,
     languageChangePaths,
     route: SHELTER_ROUTE,
     languageCode,

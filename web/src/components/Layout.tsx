@@ -128,27 +128,19 @@ type LayoutProps = {
   footer?: ReactNode
   header?: ReactNode
   toolbar?: ReactNode
-  modal?: ReactNode
   children?: ReactNode
   fullWidth?: boolean
   disableScrollingSafari?: boolean
 }
 
-/**
- * The standard Layout, used for any view in this app as a container.
- * If a footer is supplied and there's not enough content (in header and children) to fill the viewbox, the footer will
- * always stick to the bottom of the viewbox.
- */
 const Layout = ({
   footer,
   header,
   toolbar,
-  modal,
   children,
   fullWidth = false,
   disableScrollingSafari = false,
 }: LayoutProps): JSX.Element => {
-  const modalVisible = !!modal
   const { width, viewportSmall } = useWindowDimensions()
   const [languageSelectorHeight, setLanguageSelectorHeight] = useState<number>(0)
 
@@ -160,7 +152,7 @@ const Layout = ({
   return (
     <FlexWrapper>
       <RichLayout>
-        <div aria-hidden={modalVisible}>
+        <div>
           {header}
           <Body fullWidth={fullWidth} disableScrollingSafari={disableScrollingSafari}>
             {!viewportSmall && <Aside languageSelectorHeight={languageSelectorHeight}>{toolbar}</Aside>}
@@ -168,8 +160,7 @@ const Layout = ({
           </Body>
           {viewportSmall && toolbar}
         </div>
-        {modal}
-        <div aria-hidden={modalVisible}>{footer}</div>
+        {footer}
       </RichLayout>
     </FlexWrapper>
   )

@@ -21,7 +21,7 @@ import { CityRouteProps } from '../CityContentSwitcher'
 import Breadcrumbs from '../components/Breadcrumbs'
 import CategoriesContent from '../components/CategoriesContent'
 import CategoriesToolbar from '../components/CategoriesToolbar'
-import CityContentLayout from '../components/CityContentLayout'
+import CityContentLayout, { CityContentLayoutProps } from '../components/CityContentLayout'
 import FailureSwitcher from '../components/FailureSwitcher'
 import Helmet from '../components/Helmet'
 import LoadingSpinner from '../components/LoadingSpinner'
@@ -29,7 +29,6 @@ import buildConfig from '../constants/buildConfig'
 import { cmsApiBaseUrl } from '../constants/urls'
 import DateFormatterContext from '../contexts/DateFormatterContext'
 import usePreviousProp from '../hooks/usePreviousProp'
-import useWindowDimensions from '../hooks/useWindowDimensions'
 import BreadcrumbModel from '../models/BreadcrumbModel'
 
 const CATEGORY_NOT_FOUND_STATUS_CODE = 400
@@ -53,7 +52,6 @@ const CategoriesPage = ({ city, pathname, cityCode, languageCode }: CityRoutePro
   const { t } = useTranslation('layout')
   const formatter = useContext(DateFormatterContext)
   const uiDirection = config.getScriptDirection(languageCode)
-  const { viewportSmall } = useWindowDimensions()
 
   const {
     data: categories,
@@ -108,17 +106,6 @@ const CategoriesPage = ({ city, pathname, cityCode, languageCode }: CityRoutePro
   }
 
   const category = categories?.find(it => it.path === pathname)
-
-  const toolbar = (openFeedback: () => void) => (
-    <CategoriesToolbar
-      category={category}
-      cityCode={cityCode}
-      languageCode={languageCode}
-      openFeedback={openFeedback}
-      hasDivider={viewportSmall}
-    />
-  )
-
   const languageChangePaths = city.languages.map(({ code, name }) => {
     const isCurrentLanguage = code === languageCode
     const path = category?.isRoot()
@@ -132,13 +119,12 @@ const CategoriesPage = ({ city, pathname, cityCode, languageCode }: CityRoutePro
     }
   })
 
-  const locationLayoutParams = {
+  const locationLayoutParams: Omit<CityContentLayoutProps, 'isLoading'> = {
     city,
-    feedbackTargetInformation: category && !category.isRoot() ? { slug: category.slug } : null,
     languageChangePaths,
     route: CATEGORIES_ROUTE,
     languageCode,
-    toolbar,
+    Toolbar: <CategoriesToolbar category={category} cityCode={cityCode} languageCode={languageCode} />,
   }
 
   if (categoriesLoading || parentsLoading || pathname !== previousPathname) {

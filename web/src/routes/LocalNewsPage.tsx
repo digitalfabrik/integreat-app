@@ -14,7 +14,7 @@ import {
 } from 'api-client'
 
 import { CityRouteProps } from '../CityContentSwitcher'
-import CityContentLayout from '../components/CityContentLayout'
+import CityContentLayout, { CityContentLayoutProps } from '../components/CityContentLayout'
 import CityContentToolbar from '../components/CityContentToolbar'
 import FailureSwitcher from '../components/FailureSwitcher'
 import Helmet from '../components/Helmet'
@@ -25,7 +25,6 @@ import NewsTabs from '../components/NewsTabs'
 import Page from '../components/Page'
 import { cmsApiBaseUrl } from '../constants/urls'
 import DateFormatterContext from '../contexts/DateFormatterContext'
-import useWindowDimensions from '../hooks/useWindowDimensions'
 import { LOCAL_NEWS_ROUTE } from './index'
 
 const LocalNewsPage = ({ city, pathname, languageCode, cityCode }: CityRouteProps): ReactElement | null => {
@@ -33,7 +32,6 @@ const LocalNewsPage = ({ city, pathname, languageCode, cityCode }: CityRouteProp
   const formatter = useContext(DateFormatterContext)
   const { t } = useTranslation('news')
   const navigate = useNavigate()
-  const { viewportSmall } = useWindowDimensions()
 
   const {
     data: localNews,
@@ -77,24 +75,14 @@ const LocalNewsPage = ({ city, pathname, languageCode, cityCode }: CityRouteProp
     name,
     code,
   }))
-
-  const toolbar = (openFeedback: () => void) => (
-    <CityContentToolbar
-      openFeedback={openFeedback}
-      hasFeedbackOption={false}
-      // if there is no border of a list item, a divider should be rendered
-      hasDivider={localNews?.length === 0 && viewportSmall}
-    />
-  )
-
-  const locationLayoutParams = {
+  const locationLayoutParams: Omit<CityContentLayoutProps, 'isLoading'> = {
     city,
-    viewportSmall,
-    feedbackTargetInformation: null,
     languageChangePaths,
     route: LOCAL_NEWS_ROUTE,
     languageCode,
-    toolbar,
+    Toolbar: (
+      <CityContentToolbar route={LOCAL_NEWS_ROUTE} hasFeedbackOption={false} hideDivider={localNews?.length === 0} />
+    ),
   }
 
   if (loading) {

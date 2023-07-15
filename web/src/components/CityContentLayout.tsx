@@ -1,21 +1,19 @@
-import React, { ReactElement, ReactNode, useState } from 'react'
+import React, { ReactElement, ReactNode } from 'react'
 
-import { CityModel, SEARCH_ROUTE } from 'api-client'
+import { CityModel } from 'api-client'
 
 import useWindowDimensions from '../hooks/useWindowDimensions'
 import { RouteType } from '../routes'
 import CityContentFooter from './CityContentFooter'
 import CityContentHeader from './CityContentHeader'
-import FeedbackModal from './FeedbackModal'
 import Layout from './Layout'
 
 export type ToolbarProps = (openFeedback: () => void) => ReactNode
 
-type CityContentLayoutProps = {
-  toolbar?: ToolbarProps
+export type CityContentLayoutProps = {
+  Toolbar?: ReactNode
   children?: ReactNode
   route: RouteType
-  feedbackTargetInformation: { slug?: string } | null
   languageChangePaths: Array<{ code: string; path: string | null; name: string }> | null
   isLoading: boolean
   city: CityModel
@@ -26,7 +24,6 @@ type CityContentLayoutProps = {
 }
 
 const CityContentLayout = (props: CityContentLayoutProps): ReactElement => {
-  const [isFeedbackModalOpen, setIsFeedbackModalOpen] = useState<boolean>(false)
   const { viewportSmall } = useWindowDimensions()
 
   const {
@@ -35,28 +32,15 @@ const CityContentLayout = (props: CityContentLayoutProps): ReactElement => {
     languageChangePaths,
     isLoading,
     route,
-    toolbar: toolbarProp,
+    Toolbar,
     fullWidth = false,
     disableScrollingSafari = false,
     showFooter = true,
+    city,
   } = props
-  const { feedbackTargetInformation, city } = props
-
-  const feedbackModal =
-    route !== SEARCH_ROUTE && isFeedbackModalOpen ? (
-      <FeedbackModal
-        cityCode={city.code}
-        language={languageCode}
-        routeType={route}
-        visible={isFeedbackModalOpen}
-        closeModal={() => setIsFeedbackModalOpen(false)}
-        {...feedbackTargetInformation}
-      />
-    ) : null
 
   // to avoid jumping issues for desktop, isLoading is only checked on mobile viewport
   const isLoadingMobile = isLoading && viewportSmall
-  const toolbar = toolbarProp && !isLoadingMobile ? toolbarProp(() => setIsFeedbackModalOpen(true)) : null
 
   return (
     <Layout
@@ -75,8 +59,7 @@ const CityContentLayout = (props: CityContentLayoutProps): ReactElement => {
           <CityContentFooter city={city.code} language={languageCode} />
         ) : null
       }
-      modal={feedbackModal}
-      toolbar={toolbar}>
+      toolbar={!isLoadingMobile && Toolbar}>
       {children}
     </Layout>
   )
