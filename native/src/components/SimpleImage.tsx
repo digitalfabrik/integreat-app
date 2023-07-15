@@ -1,5 +1,10 @@
-import React, { ReactElement } from 'react'
-import { Image, View, ImageSourcePropType, StyleProp, ImageStyle, ImageResizeMode, Platform } from 'react-native'
+import React, { ReactElement, useEffect, useState } from 'react'
+import { Image, View, StyleProp, ImageStyle, ImageResizeMode, Platform } from 'react-native'
+import styled from 'styled-components/native'
+
+const StyledImage = styled.Image<{ aspectRatio?: number }>`
+  ${props => props.aspectRatio && `aspect-ratio: ${props.aspectRatio};`}
+`
 
 export type ImageSourceType = string | number | null
 type SimpleImageProps = {
@@ -16,19 +21,32 @@ const getLocalPlatformFilepath = (uri: string): string => {
   }
   return uri
 }
-const getImageSource = (uri: string | number): ImageSourcePropType =>
-  typeof uri === 'number'
-    ? uri
-    : {
-        uri: getLocalPlatformFilepath(uri),
-      }
 
 const SimpleImage = ({ source, style, resizeMode = 'contain' }: SimpleImageProps): ReactElement => {
+  const [aspectRatio, setAspectRatio] = useState<number | undefined>(undefined)
+
+  useEffect(() => {
+    if (typeof source === 'string') {
+      Image.getSize(getLocalPlatformFilepath(source), (width, height) => setAspectRatio(width / height))
+    }
+  }, [source])
+
   if (source === null) {
     return <View style={style} />
   }
 
-  return <Image source={getImageSource(source)} resizeMode={resizeMode} style={style} />
+  if (typeof source === 'number') {
+    return <Image source={source} resizeMode={resizeMode} style={style} />
+  }
+
+  return (
+    <StyledImage
+      aspectRatio={aspectRatio}
+      source={{ uri: getLocalPlatformFilepath(source) }}
+      resizeMode={resizeMode}
+      style={style}
+    />
+  )
 }
 
 export default SimpleImage
