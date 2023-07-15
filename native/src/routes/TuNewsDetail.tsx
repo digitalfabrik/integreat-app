@@ -3,7 +3,7 @@ import styled from 'styled-components/native'
 
 import { NEWS_ROUTE, NewsRouteType, TU_NEWS_TYPE } from 'api-client'
 
-import headerImage from '../assets/tu-news-header-details-icon.svg'
+import HeaderIcon from '../assets/tu-news-header-details-icon.svg'
 import Page from '../components/Page'
 import { NavigationProps, RouteProps } from '../constants/NavigationTypes'
 import useHeader from '../hooks/useHeader'
@@ -20,7 +20,7 @@ const HeaderImageWrapper = styled.View`
   border-radius: 5px;
   background-color: rgba(2, 121, 166, 0.4);
 `
-const HeaderImage = styled.Image`
+const HeaderImage = styled(HeaderIcon)`
   border-top-left-radius: 5px;
   border-bottom-left-radius: 5px;
 `
@@ -51,7 +51,7 @@ const TuNewsDetail = ({ route, navigation, data, newsId }: TuNewsProps): ReactEl
       {tuNews && (
         <>
           <HeaderImageWrapper>
-            <HeaderImage source={headerImage} />
+            <HeaderImage />
           </HeaderImageWrapper>
           <Page title={tuNews.title} content={tuNews.content} language={languageCode} />
         </>

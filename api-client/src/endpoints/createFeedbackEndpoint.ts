@@ -17,6 +17,7 @@ export enum FeedbackType {
   poi = 'poi',
   map = 'map',
 }
+
 export const CONTENT_FEEDBACK_CATEGORY = 'Inhalte'
 export const TECHNICAL_FEEDBACK_CATEGORY = 'Technisches Feedback'
 export type FeedbackCategoryType = 'Inhalte' | 'Technisches Feedback'
@@ -27,21 +28,31 @@ export type ParamsType = {
   feedbackCategory?: FeedbackCategoryType
   city: string
   language: string
-  comment: string | null
-  isPositiveRating: boolean
   query?: string
   slug?: string
 }
-export default (baseUrl: string): Endpoint<ParamsType, void> =>
-  new EndpointBuilder<ParamsType, void>(FEEDBACK_ENDPOINT_NAME)
+export type AdditionalParamsType =
+  | {
+      isPositiveRating: boolean
+      comment: string | null
+    }
+  | {
+      isPositiveRating: boolean | null
+      comment: string
+    }
+
+export default (baseUrl: string): Endpoint<ParamsType & AdditionalParamsType, void> =>
+  new EndpointBuilder<ParamsType & AdditionalParamsType, void>(FEEDBACK_ENDPOINT_NAME)
     .withParamsToUrlMapper(params => {
       const { city, language } = params
 
       return `${baseUrl}/${city}/${language}/wp-json/extensions/v3/feedback/${params.feedbackType}/`
     })
-    .withParamsToBodyMapper((params: ParamsType): FormData => {
+    .withParamsToBodyMapper((params: ParamsType & AdditionalParamsType): FormData => {
       const formData = new FormData()
-      formData.append('rating', params.isPositiveRating ? POSITIVE_RATING : NEGATIVE_RATING)
+      if (params.isPositiveRating !== null) {
+        formData.append('rating', params.isPositiveRating ? POSITIVE_RATING : NEGATIVE_RATING)
+      }
 
       if (params.comment !== null) {
         formData.append('comment', params.comment)

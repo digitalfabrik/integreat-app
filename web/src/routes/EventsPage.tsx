@@ -17,7 +17,6 @@ import CityContentLayout from '../components/CityContentLayout'
 import CityContentToolbar from '../components/CityContentToolbar'
 import EventListItem from '../components/EventListItem'
 import FailureSwitcher from '../components/FailureSwitcher'
-import { FeedbackRatingType } from '../components/FeedbackToolbarItem'
 import Helmet from '../components/Helmet'
 import JsonLdEvent from '../components/JsonLdEvent'
 import List from '../components/List'
@@ -56,8 +55,8 @@ const EventsPage = ({ city, pathname, languageCode, cityCode }: CityRouteProps):
       events?.find(it => it.path.substring(0, it.path.indexOf('$')) === pathname)
     : null
 
-  const toolbar = (openFeedback: (rating: FeedbackRatingType) => void) => (
-    <CityContentToolbar openFeedbackModal={openFeedback} hasDivider={viewportSmall && !!event} />
+  const toolbar = (openFeedback: () => void) => (
+    <CityContentToolbar openFeedback={openFeedback} hasDivider={viewportSmall && !!event} />
   )
 
   const languageChangePaths = city.languages.map(({ code, name }) => {

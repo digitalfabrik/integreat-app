@@ -1,0 +1,33 @@
+<svg id="Ebene_1" data-name="Ebene 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024">
+    <defs>
+        <style>
+            .cls-1{fill:none;}.cls-2{clip-path:url(#clip-path);}.cls-3{clip-path:url(#clip-path-2);}.cls-4{fill:url(#Unbenannter_Verlauf_5);}.cls-5{fill:#fff;}
+        </style>
+        <clipPath id="clip-path">
+            <rect class="cls-1" width="1024" height="1024"/>
+        </clipPath>
+        <clipPath id="clip-path-2">
+            <rect class="cls-1" width="1024" height="1024" rx="164.09"/>
+        </clipPath>
+        <linearGradient id="Unbenannter_Verlauf_5" y1="1024.02" x2="1" y2="1024.02"
+                        gradientTransform="matrix(860.66, 0, 0, -860.66, 101.85, 881838.46)"
+                        gradientUnits="userSpaceOnUse">
+            <stop offset="0" stop-color="#003b40"/>
+            <stop offset="0.51" stop-color="#009281"/>
+            <stop offset="1" stop-color="#5bbcac"/>
+        </linearGradient>
+    </defs>
+    <title>aschaffenburg_app_piktogramme</title>
+    <g class="cls-2">
+        <g class="cls-3">
+            <rect class="cls-4" x="-121.29" y="-121.29" width="1266.58" height="1266.58"
+                  transform="translate(-121.29 160.96) rotate(-16)"/>
+        </g>
+        <g class="cls-2">
+            <path class="cls-5"
+                  d="M121.2,613.41h0c0,70.87,26,135,86.84,169.49,45.11,25.6,106.64,23.27,145.23,3.23,9.48-4.93,22.08-17.19,28.18-23.54a5.5,5.5,0,0,1,7.69-.23l21.78,19.87A33.64,33.64,0,0,0,433.58,791h48.31a5.53,5.53,0,0,0,5.53-5.52V451.15a25.7,25.7,0,0,0-25.71-25.7H309.16c-103.81,0-188,84.15-188,188"/>
+            <path class="cls-5"
+                  d="M745,425.44l9.57-31,23.85-110.58.73-8c0-10.78-4.71-20.52-11.93-27.82L738.61,220.6,560.05,408.09A51.4,51.4,0,0,0,544.15,445V791h174.1A182.78,182.78,0,0,0,901,608.23c0-91.88-67.8-169.86-156.08-182.79"/>
+        </g>
+    </g>
+</svg>

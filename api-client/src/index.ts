@@ -4,6 +4,7 @@ import { MapResponseType as ImportedMapResponseType } from './MapResponseType'
 import {
   FeedbackCategoryType as ImportedFeedbackCategoryType,
   ParamsType as ImportedFeedbackParamsType,
+  AdditionalParamsType as ImportedFeedbackAdditionalParamsType,
 } from './endpoints/createFeedbackEndpoint'
 import { Status as ImportedShelterContactStatus } from './endpoints/createShelterContactEndpoint'
 import { FilterProps as ImportedShelterFilterProps } from './endpoints/createShelterEndpoint'
@@ -14,7 +15,7 @@ export type ShelterFilterProps = ImportedShelterFilterProps
 export type MapParamsToBodyType<P> = ImportedMapParamsToBodyType<P>
 export type MapParamsToUrlType<P> = ImportedMapParamsToUrlType<P>
 export type MapResponseType<P, T> = ImportedMapResponseType<P, T>
-export type FeedbackParamsType = ImportedFeedbackParamsType
+export type FeedbackParamsType = ImportedFeedbackParamsType & ImportedFeedbackAdditionalParamsType
 export type FeedbackCategoryType = ImportedFeedbackCategoryType
 export type ReturnType<T> = ImportedReturnType<T>
 export { default as InternalPathnameParser } from './routes/InternalPathnameParser'
@@ -74,7 +75,6 @@ export { default as createTrackingEndpoint, TRACKING_ENDPOINT_NAME } from './end
 export { default as loadSprungbrettJobs } from './endpoints/loadSprungbrettJobs'
 export * from './i18n/DateFormatter'
 export { default as DateFormatter } from './i18n/DateFormatter'
-export { default as hashUrl } from './hashUrl'
 export * from './replaceLinks'
 export { POSITIVE_RATING } from './endpoints/createFeedbackEndpoint'
 export { NEGATIVE_RATING } from './endpoints/createFeedbackEndpoint'
