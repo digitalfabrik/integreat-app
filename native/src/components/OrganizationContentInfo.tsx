@@ -1,5 +1,6 @@
 import React, { ReactElement } from 'react'
 import { Trans, useTranslation } from 'react-i18next'
+import { View } from 'react-native'
 import styled from 'styled-components/native'
 
 import { OrganizationModel } from 'api-client'
@@ -7,21 +8,19 @@ import { OrganizationModel } from 'api-client'
 import HighlightBox from './HighlightBox'
 import Link from './Link'
 import SimpleImage from './SimpleImage'
-import Text from './base/Text'
 
 const Thumbnail = styled(SimpleImage)`
   height: 80px;
 `
 
-const Box = styled(HighlightBox)`
-  display: flex;
-  font-family: ${props => props.theme.fonts.native.decorativeFontRegular};
-  margin-bottom: 16px;
+const StyledText = styled.Text`
+  flex-direction: row;
+  flex-wrap: wrap;
 `
 
-const Column = styled.View`
-  display: flex;
-  flex-direction: column;
+const Box = styled(HighlightBox)`
+  font-family: ${props => props.theme.fonts.native.decorativeFontRegular};
+  margin-bottom: 16px;
 `
 
 const OrganizationContent = styled.Text`
@@ -42,16 +41,16 @@ const OrganizationContentInfo = ({ organization }: OrganizationContentInfoProps)
   return (
     <Box $padding>
       <Thumbnail source={organization.logo} />
-      <Column>
+      <View>
         <OrganizationContent>{t('organizationContent', { organization: organization.name })}</OrganizationContent>
-        <Text>
+        <StyledText>
           <Trans i18nKey='categories:organizationMoreInformation' domain={new URL(organization.url).hostname}>
             This gets{{ organization: organization.name }}replaced
             <StyledLink url={organization.url} text={new URL(organization.url).hostname} />
             by i18n
           </Trans>
-        </Text>
-      </Column>
+        </StyledText>
+      </View>
     </Box>
   )
 }
