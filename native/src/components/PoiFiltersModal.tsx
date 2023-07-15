@@ -1,5 +1,7 @@
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
+import { Button } from 'react-native-elements'
+import { useTheme } from 'styled-components'
 import styled from 'styled-components/native'
 
 import { PoiCategoryModel, PoiModel } from 'api-client'
@@ -10,6 +12,7 @@ import SettingsSwitch from './SettingsSwitch'
 import Text from './base/Text'
 
 const Container = styled.View`
+  flex: 1;
   flex-direction: column;
   align-items: flex-start;
   padding: 0 16px;
@@ -53,42 +56,24 @@ const FlexEnd = styled.View`
 
 const TileRow = styled(Row)`
   justify-content: space-between;
+  align-content: space-between;
+  flex-wrap: wrap;
 `
 
-const PoiCategoryTile = styled.Pressable`
+const PoiCategoryTile = styled.Pressable<{ active: boolean }>`
+  background-color: ${props => (props.active ? props.theme.colors.themeColor : props.theme.colors.backgroundColor)};
   padding: 8px;
   align-items: center;
   width: 100px;
   height: 80px;
   border-radius: 18px;
-  elevation: 1;
+  elevation: 5;
   shadow-color: ${props => props.theme.colors.textColor};
   shadow-offset: 0px 1px;
   shadow-opacity: 0.2;
   shadow-radius: 1px;
+  margin-bottom: 24px;
 `
-//   <svg width="110" height="90" viewBox="0 0 110 90" fill="none" xmlns="http://www.w3.org/2000/svg">
-//   <g filter="url(#filter0_dd_1439_222)">
-//   <rect x="5" y="4" width="100" height="80" rx="18" fill="#FAFAFA"/>
-//   </g>
-// <defs>
-//   <filter id="filter0_dd_1439_222" x="0" y="0" width="110" height="90" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
-//     <feFlood flood-opacity="0" result="BackgroundImageFix"/>
-//     <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
-//     <feMorphology radius="1" operator="dilate" in="SourceAlpha" result="effect1_dropShadow_1439_222"/>
-//     <feOffset dy="1"/>
-//     <feGaussianBlur stdDeviation="2"/>
-//     <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.15 0"/>
-//     <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_1439_222"/>
-//     <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
-//     <feOffset dy="1"/>
-//     <feGaussianBlur stdDeviation="1"/>
-//     <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0"/>
-//     <feBlend mode="normal" in2="effect1_dropShadow_1439_222" result="effect2_dropShadow_1439_222"/>
-//     <feBlend mode="normal" in="SourceGraphic" in2="effect2_dropShadow_1439_222" result="shape"/>
-//   </filter>
-// </defs>
-// </svg>
 
 const PoiCategoryText = styled.Text`
   font-size: 12px;
@@ -118,8 +103,8 @@ const PoiFiltersModal = ({
   const poiCategories = pois
     .map(it => it.category)
     .filter((it, index, array) => array.findIndex(value => value.id === it.id) === index)
-    .slice(0, 3)
   const { t } = useTranslation('pois')
+  const theme = useTheme()
 
   return (
     <Modal modalVisible={modalVisible} closeModal={closeModal} headerTitle='' title={t('adjustFilters')}>
@@ -141,12 +126,29 @@ const PoiFiltersModal = ({
           </Row>
           <TileRow>
             {poiCategories.map(it => (
-              <PoiCategoryTile key={it.id} onPress={() => setSelectedPoiCategory(it)}>
+              <PoiCategoryTile
+                key={it.id}
+                active={it === selectedPoiCategory}
+                onPress={() => setSelectedPoiCategory(it === selectedPoiCategory ? null : it)}>
+                {/* TOOD: Use correct icon */}
                 <MobilityIcon />
                 <PoiCategoryText>{it.name}</PoiCategoryText>
               </PoiCategoryTile>
             ))}
           </TileRow>
+        </Section>
+        <Section>
+          <Button
+            onPress={closeModal}
+            title={t('showPois')}
+            buttonStyle={{
+              backgroundColor: theme.colors.themeColor,
+            }}
+            titleStyle={{
+              color: theme.colors.textColor,
+              fontFamily: theme.fonts.native.contentFontRegular,
+            }}
+          />
         </Section>
       </Container>
     </Modal>
