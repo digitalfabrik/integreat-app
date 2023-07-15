@@ -27,7 +27,6 @@ import CityContentLayout from '../components/CityContentLayout'
 import CityContentToolbar from '../components/CityContentToolbar'
 import FailureSwitcher from '../components/FailureSwitcher'
 import FeedbackModal from '../components/FeedbackModal'
-import { FeedbackRatingType } from '../components/FeedbackToolbarItem'
 import Helmet from '../components/Helmet'
 import List from '../components/List'
 import LoadingSpinner from '../components/LoadingSpinner'
@@ -70,8 +69,9 @@ const PoisPage = ({ cityCode, languageCode, city, pathname }: CityRouteProps): R
   const poi = data?.pois.find(it => it.slug === slug)
   const { viewportSmall, height } = useWindowDimensions()
   const sheetRef = useRef<BottomSheetRef>(null)
-  const [feedbackModalRating, setFeedbackModalRating] = useState<FeedbackRatingType | null>(null)
+  const [isFeedbackModalOpen, setIsFeedbackModalOpen] = useState<boolean>(false)
   const { t } = useTranslation('pois')
+  const isBottomActionSheetFullscreen = bottomActionSheetHeight >= height
 
   const selectFeature = (feature: PoiFeature | null, restoreScrollPosition: boolean) => {
     if (mapRef?.isMoving()) {
@@ -146,16 +146,17 @@ const PoisPage = ({ cityCode, languageCode, city, pathname }: CityRouteProps): R
   }
 
   const toolbar = (
-    <CityContentToolbar openFeedbackModal={setFeedbackModalRating} iconDirection='row' hasDivider={false} />
+    <CityContentToolbar openFeedback={() => setIsFeedbackModalOpen(true)} iconDirection='row' hasDivider={false} />
   )
 
-  const feedbackModal = feedbackModalRating && (
+  const feedbackModal = isFeedbackModalOpen && (
     <FeedbackModal
       cityCode={city.code}
       language={languageCode}
       routeType={POIS_ROUTE}
-      feedbackRating={feedbackModalRating}
-      closeModal={() => setFeedbackModalRating(null)}
+      visible={isFeedbackModalOpen}
+      closeModal={() => setIsFeedbackModalOpen(false)}
+      topPosition={isBottomActionSheetFullscreen ? 0 : undefined}
     />
   )
 
@@ -247,7 +248,7 @@ const PoisPage = ({ cityCode, languageCode, city, pathname }: CityRouteProps): R
             mapView={mapView}
             poiList={poiList}
             direction={direction}
-            isBottomSheetFullscreen={bottomActionSheetHeight >= height}
+            isBottomSheetFullscreen={isBottomActionSheetFullscreen}
             setBottomActionSheetHeight={setBottomActionSheetHeight}
           />
         ) : (
