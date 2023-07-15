@@ -161,6 +161,28 @@ const Pois = ({ pois: allPois, language, cityModel, route, navigation }: PoisPro
     </ListWrapper>
   )
 
+  const FiltersOverlayButtons = (
+    <>
+      <OverlayButton text={t('adjustFilters')} Icon={EditLocationIcon} onPress={() => setShowFilterSelection(true)} />
+      {poiCurrentlyOpenFilter && (
+        <OverlayButton
+          text={t('opened')}
+          Icon={ClockIcon}
+          onPress={() => setPoiCurrentlyOpenFilter(false)}
+          closeButton
+        />
+      )}
+      {!!poiCategoryFilter && (
+        <OverlayButton
+          text={poiCategoryFilter.name}
+          Icon={EditLocationIcon}
+          onPress={() => setPoiCategoryFilter(null)}
+          closeButton
+        />
+      )}
+    </>
+  )
+
   return (
     <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
       <PoiFiltersModal
@@ -185,31 +207,7 @@ const Pois = ({ pois: allPois, language, cityModel, route, navigation }: PoisPro
         }
         followUserLocation={followUserLocation}
         setFollowUserLocation={setFollowUserLocation}
-        Overlay={
-          <>
-            <OverlayButton
-              text={t('adjustFilters')}
-              Icon={EditLocationIcon}
-              onPress={() => setShowFilterSelection(true)}
-            />
-            {poiCurrentlyOpenFilter && (
-              <OverlayButton
-                text={t('opened')}
-                Icon={ClockIcon}
-                onPress={() => setPoiCurrentlyOpenFilter(false)}
-                closeButton
-              />
-            )}
-            {!!poiCategoryFilter && (
-              <OverlayButton
-                text={poiCategoryFilter.name}
-                Icon={EditLocationIcon}
-                onPress={() => setPoiCategoryFilter(null)}
-                closeButton
-              />
-            )}
-          </>
-        }
+        Overlay={FiltersOverlayButtons}
       />
       <BottomActionsSheet
         ref={scrollRef}
