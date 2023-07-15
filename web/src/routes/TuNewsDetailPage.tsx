@@ -9,7 +9,6 @@ import TunewsIcon from '../assets/TunewsActiveLogo.png'
 import CityContentLayout from '../components/CityContentLayout'
 import CityContentToolbar from '../components/CityContentToolbar'
 import FailureSwitcher from '../components/FailureSwitcher'
-import { FeedbackRatingType } from '../components/FeedbackToolbarItem'
 import Helmet from '../components/Helmet'
 import LoadingSpinner from '../components/LoadingSpinner'
 import Page from '../components/Page'
@@ -66,8 +65,8 @@ const TuNewsDetailPage = ({ city, pathname, cityCode, languageCode }: CityRouteP
 
   // Language change is not possible between tuNews detail views because we don't know the id of other languages
   const languageChangePaths = city.languages.map(({ code, name }) => ({ path: null, name, code }))
-  const toolbar = (openFeedback: (rating: FeedbackRatingType) => void) => (
-    <CityContentToolbar openFeedbackModal={openFeedback} hasFeedbackOption={false} hasDivider={viewportSmall} />
+  const toolbar = (openFeedback: () => void) => (
+    <CityContentToolbar openFeedback={openFeedback} hasFeedbackOption={false} hasDivider={viewportSmall} />
   )
 
   const locationLayoutParams = {
