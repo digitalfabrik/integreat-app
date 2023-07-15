@@ -21,6 +21,8 @@ const StyledText = styled.Text`
 const Box = styled(HighlightBox)`
   font-family: ${props => props.theme.fonts.native.decorativeFontRegular};
   margin-bottom: 16px;
+  padding: 20px;
+  border-radius: 4px;
 `
 
 const OrganizationContent = styled.Text`
@@ -39,7 +41,7 @@ type OrganizationContentInfoProps = {
 const OrganizationContentInfo = ({ organization }: OrganizationContentInfoProps): ReactElement => {
   const { t } = useTranslation('categories')
   return (
-    <Box $padding>
+    <Box>
       <Thumbnail source={organization.logo} />
       <View>
         <OrganizationContent>{t('organizationContent', { organization: organization.name })}</OrganizationContent>
