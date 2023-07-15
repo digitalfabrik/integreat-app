@@ -23,7 +23,6 @@ import CategoriesContent from '../components/CategoriesContent'
 import CategoriesToolbar from '../components/CategoriesToolbar'
 import CityContentLayout from '../components/CityContentLayout'
 import FailureSwitcher from '../components/FailureSwitcher'
-import { FeedbackRatingType } from '../components/FeedbackToolbarItem'
 import Helmet from '../components/Helmet'
 import LoadingSpinner from '../components/LoadingSpinner'
 import buildConfig from '../constants/buildConfig'
@@ -110,12 +109,12 @@ const CategoriesPage = ({ city, pathname, cityCode, languageCode }: CityRoutePro
 
   const category = categories?.find(it => it.path === pathname)
 
-  const toolbar = (openFeedback: (rating: FeedbackRatingType) => void) => (
+  const toolbar = (openFeedback: () => void) => (
     <CategoriesToolbar
       category={category}
       cityCode={cityCode}
       languageCode={languageCode}
-      openFeedbackModal={openFeedback}
+      openFeedback={openFeedback}
       hasDivider={viewportSmall}
     />
   )
