@@ -244,7 +244,7 @@ const PoiDetails: React.FC<PoiDetailsProps> = ({
         <Thumbnail alt='' src={thumb ?? PoiPlaceholder} />
         <Heading>{title}</Heading>
         {!!distance && <Distance>{t('distanceKilometre', { distance })}</Distance>}
-        {!!category?.name && <Category>{category.name}</Category>}
+        <Category>{category.name}</Category>
       </HeadingSection>
       <Spacer borderColor={theme.colors.borderColor} />
       {!viewportSmall && <Subheading>{t('detailsAddress')}</Subheading>}

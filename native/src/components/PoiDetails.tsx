@@ -105,7 +105,7 @@ const PoiDetails = ({ poi, feature, language }: PoiDetailsProps): ReactElement =
     <PoiDetailsContainer>
       <StyledText>{title}</StyledText>
       {!!distance && <StyledDistance>{t('distanceKilometre', { distance })}</StyledDistance>}
-      {!!category?.name && <StyledCategory>{category.name}</StyledCategory>}
+      <StyledCategory>{category.name}</StyledCategory>
       <Thumbnail source={thumbnail} resizeMode='cover' />
       <HorizontalLine />
       <PoiDetailItem

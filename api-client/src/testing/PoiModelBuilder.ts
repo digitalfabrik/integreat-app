@@ -56,10 +56,10 @@ const pois = [
     phoneNumber: null,
     email: null,
     category: new PoiCategoryModel({
-      color: '#1DC6C6',
-      icon: 'gastronomy',
-      id: 10,
-      name: 'Gastronomie',
+      color: '#3700D2',
+      icon: 'service',
+      id: 6,
+      name: 'Dienstleistung',
     }),
     location: new LocationModel({
       id: 1,
