@@ -13,24 +13,17 @@ import {
 } from 'api-client'
 
 import { CityRouteProps } from '../CityContentSwitcher'
-import CityContentLayout from '../components/CityContentLayout'
+import CityContentLayout, { CityContentLayoutProps } from '../components/CityContentLayout'
 import CityContentToolbar from '../components/CityContentToolbar'
 import FailureSwitcher from '../components/FailureSwitcher'
 import Helmet from '../components/Helmet'
 import LoadingSpinner from '../components/LoadingSpinner'
 import Tiles from '../components/Tiles'
 import { cmsApiBaseUrl } from '../constants/urls'
-import useWindowDimensions from '../hooks/useWindowDimensions'
 import TileModel from '../models/TileModel'
 
 const OffersPage = ({ city, cityCode, languageCode }: CityRouteProps): ReactElement | null => {
   const { t } = useTranslation('offers')
-  const { viewportSmall } = useWindowDimensions()
-
-  const toolbar = (openFeedback: () => void) => (
-    <CityContentToolbar openFeedback={openFeedback} hasDivider={viewportSmall} />
-  )
-
   const {
     data: offers,
     loading,
@@ -72,14 +65,12 @@ const OffersPage = ({ city, cityCode, languageCode }: CityRouteProps): ReactElem
     }
   })
 
-  const locationLayoutParams = {
+  const locationLayoutParams: Omit<CityContentLayoutProps, 'isLoading'> = {
     city,
-    viewportSmall,
-    feedbackTargetInformation: null,
     languageChangePaths,
     route: OFFERS_ROUTE,
     languageCode,
-    toolbar,
+    Toolbar: <CityContentToolbar route={OFFERS_ROUTE} />,
   }
 
   if (loading) {

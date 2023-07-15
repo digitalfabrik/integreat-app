@@ -2,6 +2,7 @@ import React, { ReactElement, ReactNode } from 'react'
 import styled from 'styled-components'
 
 import dimensions from '../constants/dimensions'
+import useWindowDimensions from '../hooks/useWindowDimensions'
 
 const ToolbarContainer = styled.div<{ direction: 'row' | 'column'; hasPadding: boolean }>`
   display: flex;
@@ -41,19 +42,20 @@ type ToolbarProps = {
   className?: string
   children?: ReactNode
   iconDirection?: 'row' | 'column'
-  hasDivider: boolean
+  hideDivider?: boolean
 }
 
 const Toolbar: React.FC<ToolbarProps> = ({
   children,
   className,
   iconDirection = 'column',
-  hasDivider,
+  hideDivider = false,
 }: ToolbarProps): ReactElement => {
+  const { viewportSmall } = useWindowDimensions()
   const hasPadding = iconDirection === 'column'
   return (
     <>
-      {hasDivider && <Divider />}
+      {viewportSmall && !hideDivider && <Divider />}
       <ToolbarContainer className={className} direction={iconDirection} hasPadding={hasPadding}>
         {children}
       </ToolbarContainer>
