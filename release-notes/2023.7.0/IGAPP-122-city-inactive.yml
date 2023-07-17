@@ -1,0 +1,6 @@
+issue_key: IGAPP-122
+show_in_stores: false
+platforms:
+  - android
+  - ios
+en: Show message and send user to landing if selected city disabled.

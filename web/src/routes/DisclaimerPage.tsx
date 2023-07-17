@@ -13,7 +13,6 @@ import { CityRouteProps } from '../CityContentSwitcher'
 import CityContentLayout from '../components/CityContentLayout'
 import CityContentToolbar from '../components/CityContentToolbar'
 import FailureSwitcher from '../components/FailureSwitcher'
-import { FeedbackRatingType } from '../components/FeedbackToolbarItem'
 import Helmet from '../components/Helmet'
 import LoadingSpinner from '../components/LoadingSpinner'
 import Page from '../components/Page'
@@ -21,7 +20,7 @@ import { cmsApiBaseUrl } from '../constants/urls'
 import DateFormatterContext from '../contexts/DateFormatterContext'
 import useWindowDimensions from '../hooks/useWindowDimensions'
 
-const DisclaimerPage = ({ cityCode, languageCode, pathname, languages, cityModel }: CityRouteProps): ReactElement => {
+const DisclaimerPage = ({ cityCode, languageCode, pathname, city }: CityRouteProps): ReactElement | null => {
   const { viewportSmall } = useWindowDimensions()
   const dateFormatter = useContext(DateFormatterContext)
   const navigate = useNavigate()
@@ -36,17 +35,21 @@ const DisclaimerPage = ({ cityCode, languageCode, pathname, languages, cityModel
     language: languageCode,
   })
 
-  const toolbar = (openFeedback: (rating: FeedbackRatingType) => void) => (
-    <CityContentToolbar openFeedbackModal={openFeedback} viewportSmall={viewportSmall} />
+  if (!city) {
+    return null
+  }
+
+  const toolbar = (openFeedback: () => void) => (
+    <CityContentToolbar openFeedback={openFeedback} hasDivider={viewportSmall} />
   )
 
-  const languageChangePaths = languages.map(({ code, name }) => {
+  const languageChangePaths = city.languages.map(({ code, name }) => {
     const disclaimerPath = pathnameFromRouteInformation({ route: DISCLAIMER_ROUTE, cityCode, languageCode: code })
     return { path: disclaimerPath, name, code }
   })
 
   const locationLayoutParams = {
-    cityModel,
+    city,
     viewportSmall,
     feedbackTargetInformation: disclaimer ? { slug: disclaimer.slug } : null,
     languageChangePaths,
@@ -73,11 +76,11 @@ const DisclaimerPage = ({ cityCode, languageCode, pathname, languages, cityModel
     )
   }
 
-  const pageTitle = `${t('pageTitle')} - ${cityModel.name}`
+  const pageTitle = `${t('pageTitle')} - ${city.name}`
 
   return (
     <CityContentLayout isLoading={false} {...locationLayoutParams}>
-      <Helmet pageTitle={pageTitle} languageChangePaths={languageChangePaths} cityModel={cityModel} />
+      <Helmet pageTitle={pageTitle} languageChangePaths={languageChangePaths} cityModel={city} />
       <Page
         lastUpdate={disclaimer.lastUpdate}
         title={disclaimer.title}

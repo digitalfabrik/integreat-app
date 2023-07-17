@@ -11,10 +11,9 @@ import HeaderActionItemLink from './HeaderActionItemLink'
 
 type GeneralHeaderProps = {
   languageCode: string
-  viewportSmall: boolean
 }
 
-const GeneralHeader = ({ languageCode, viewportSmall }: GeneralHeaderProps): ReactElement => {
+const GeneralHeader = ({ languageCode }: GeneralHeaderProps): ReactElement => {
   const { t } = useTranslation('layout')
   const landingPath = pathnameFromRouteInformation({ route: LANDING_ROUTE, languageCode })
   const actionItems = !buildConfig().featureFlags.fixedCity
@@ -23,7 +22,6 @@ const GeneralHeader = ({ languageCode, viewportSmall }: GeneralHeaderProps): Rea
 
   return (
     <Header
-      viewportSmall={viewportSmall}
       logoHref={landingPath}
       actionItems={actionItems}
       navigationItems={[]}

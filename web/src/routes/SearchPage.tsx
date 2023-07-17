@@ -31,7 +31,7 @@ const List = styled.ul`
   }
 `
 
-const SearchPage = ({ cityModel, languages, cityCode, languageCode, pathname }: CityRouteProps): ReactElement => {
+const SearchPage = ({ city, cityCode, languageCode, pathname }: CityRouteProps): ReactElement | null => {
   const query = new URLSearchParams(useLocation().search).get('query') ?? ''
   const [filterText, setFilterText] = useState<string>(query)
   const { viewportSmall } = useWindowDimensions()
@@ -48,14 +48,18 @@ const SearchPage = ({ cityModel, languages, cityCode, languageCode, pathname }: 
   })
   const searchResults = useMemo(() => (categories ? searchCategories(categories, query) : null), [categories, query])
 
-  const languageChangePaths = languages.map(({ code, name }) => ({
+  if (!city) {
+    return null
+  }
+
+  const languageChangePaths = city.languages.map(({ code, name }) => ({
     path: pathnameFromRouteInformation({ route: SEARCH_ROUTE, cityCode, languageCode: code }),
     name,
     code,
   }))
 
   const locationLayoutParams = {
-    cityModel,
+    city,
     viewportSmall,
     feedbackTargetInformation: null,
     languageChangePaths,
@@ -86,11 +90,11 @@ const SearchPage = ({ cityModel, languages, cityCode, languageCode, pathname }: 
     navigate(`${pathname}/${appendToUrl}`, { replace: true })
   }
 
-  const pageTitle = `${t('pageTitle')} - ${cityModel.name}`
+  const pageTitle = `${t('pageTitle')} - ${city.name}`
 
   return (
     <CityContentLayout isLoading={false} {...locationLayoutParams}>
-      <Helmet pageTitle={pageTitle} languageChangePaths={languageChangePaths} cityModel={cityModel} />
+      <Helmet pageTitle={pageTitle} languageChangePaths={languageChangePaths} cityModel={city} />
       <SearchInput
         filterText={filterText}
         placeholderText={t('searchPlaceholder')}

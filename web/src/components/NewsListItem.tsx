@@ -23,7 +23,7 @@ const ReadMore = styled.div<{ $type: NewsType }>`
 const Title = styled.h3`
   margin-bottom: 0;
   font-family: ${props => props.theme.fonts.web.decorativeFont};
-  font-size: 18px;
+  font-size: ${props => props.theme.fonts.subTitleFontSize};
   font-weight: 700;
 `
 const Body = styled.p`

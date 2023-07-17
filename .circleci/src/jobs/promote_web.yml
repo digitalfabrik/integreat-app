@@ -18,5 +18,5 @@ steps:
       command: ssh -o StrictHostKeyChecking=no web@web.integreat-app.de "rsync -arv --delete /var/www/beta.aschaffenburg.app/ /var/www/aschaffenburg.app"
   - run:
       name: Obdach production promotion
-      command: ssh -o StrictHostKeyChecking=no web@web.integreat-app.de "rsync -arv --delete /var/www/beta.vernetztesobdach.de/ /var/www/vernetztesobdach.de"
+      command: ssh -o StrictHostKeyChecking=no web@web.integreat-app.de "rsync -arv --delete /var/www/beta.netzwerkobdachwohnen.de/ /var/www/netzwerkobdachwohnen.de"
   - notify

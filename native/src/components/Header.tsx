@@ -1,15 +1,14 @@
-import { HeaderBackButton } from '@react-navigation/elements'
 import React, { ReactElement, useContext, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Share, useWindowDimensions } from 'react-native'
+import { Share } from 'react-native'
 import { HiddenItem, Item } from 'react-navigation-header-buttons'
-import styled, { useTheme } from 'styled-components/native'
+import styled from 'styled-components/native'
 
 import { LANDING_ROUTE, LanguageModel, POIS_ROUTE, PoisRouteType, SHARE_SIGNAL_NAME } from 'api-client'
 import { DISCLAIMER_ROUTE, SEARCH_ROUTE, SETTINGS_ROUTE } from 'api-client/src/routes'
 
 import { NavigationProps, RouteProps, RoutesParamsType, RoutesType } from '../constants/NavigationTypes'
-import buildConfig, { buildConfigAssets } from '../constants/buildConfig'
+import buildConfig from '../constants/buildConfig'
 import dimensions from '../constants/dimensions'
 import { AppContext } from '../contexts/AppContextProvider'
 import useSnackbar from '../hooks/useSnackbar'
@@ -17,6 +16,7 @@ import navigateToLanguageChange from '../navigation/navigateToLanguageChange'
 import sendTrackingSignal from '../utils/sendTrackingSignal'
 import { reportError } from '../utils/sentry'
 import CustomHeaderButtons from './CustomHeaderButtons'
+import HeaderBox from './HeaderBox'
 
 const Horizontal = styled.View`
   flex: 1;
@@ -24,23 +24,7 @@ const Horizontal = styled.View`
   justify-content: space-between;
   align-items: center;
 `
-const HorizontalLeft = styled.View`
-  flex: 1;
-  flex-direction: row;
-  align-items: center;
-`
-const Icon = styled.Image`
-  width: 70px;
-  height: 50px;
-  resize-mode: contain;
-`
-const HeaderText = styled.Text<{ fontSize: number }>`
-  flex: 1;
-  flex-direction: column;
-  font-size: ${props => Math.min(props.fontSize, dimensions.headerTextSize)}px;
-  color: ${props => props.theme.colors.textColor};
-  font-family: ${props => props.theme.fonts.native.decorativeFontBold};
-`
+
 const BoxShadow = styled.View`
   elevation: 1;
   shadow-color: #000;
@@ -81,9 +65,7 @@ const Header = ({
 }: HeaderProps): ReactElement | null => {
   const { languageCode } = useContext(AppContext)
   const { t } = useTranslation('layout')
-  const theme = useTheme()
   const showSnackbar = useSnackbar()
-  const deviceWidth = useWindowDimensions().width
   // Save route/canGoBack to state to prevent it from changing during navigating which would lead to flickering of the title and back button
   const [previousRoute] = useState(navigation.getState().routes[navigation.getState().routes.length - 2])
   const [canGoBack] = useState(navigation.canGoBack())
@@ -161,12 +143,6 @@ const Header = ({
       ]
     : []
 
-  const HeaderLeft = canGoBack ? (
-    <HeaderBackButton onPress={navigation.goBack} labelVisible={false} tintColor={theme.colors.textColor} />
-  ) : (
-    <Icon source={buildConfigAssets().appIcon} />
-  )
-
   const getHeaderText = (): string => {
     const currentTitle = (route.params as { title?: string } | undefined)?.title
     if (!previousRoute) {
@@ -189,12 +165,7 @@ const Header = ({
   return (
     <BoxShadow>
       <Horizontal>
-        <HorizontalLeft>
-          {HeaderLeft}
-          <HeaderText allowFontScaling={false} fontSize={deviceWidth * dimensions.fontScaling}>
-            {getHeaderText()}
-          </HeaderText>
-        </HorizontalLeft>
+        <HeaderBox goBack={navigation.goBack} canGoBack={canGoBack} text={getHeaderText()} />
         <CustomHeaderButtons cancelLabel={t('cancel')} items={items} overflowItems={overflowItems} />
       </Horizontal>
     </BoxShadow>

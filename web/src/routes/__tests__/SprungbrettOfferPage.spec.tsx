@@ -4,7 +4,6 @@ import React from 'react'
 
 import {
   CityModelBuilder,
-  LanguageModelBuilder,
   OffersModelBuilder,
   pathnameFromRouteInformation,
   SPRUNGBRETT_OFFER_ROUTE,
@@ -27,10 +26,9 @@ describe('SprungbrettOfferPage', () => {
     jest.clearAllMocks()
   })
 
-  const languages = new LanguageModelBuilder(2).build()
   const cities = new CityModelBuilder(2).build()
   const city = cities[0]!
-  const language = languages[0]!
+  const languageCode = 'en'
   const offers = new OffersModelBuilder(1).build()
   const sprungbrettJobs = [
     new SprungbrettJobModel({
@@ -61,7 +59,7 @@ describe('SprungbrettOfferPage', () => {
   const pathname = pathnameFromRouteInformation({
     route: SPRUNGBRETT_OFFER_ROUTE,
     cityCode: city.code,
-    languageCode: language.code,
+    languageCode,
   })
   const routePattern = `/:cityCode/:languageCode/${RoutePatterns[SPRUNGBRETT_OFFER_ROUTE]}`
 
@@ -78,15 +76,7 @@ describe('SprungbrettOfferPage', () => {
 
   const renderSprungbrett = (): RenderResult =>
     renderRoute(
-      <SprungbrettOfferPage
-        cities={cities}
-        cityModel={city}
-        languages={languages}
-        languageModel={language}
-        pathname={pathname}
-        cityCode={city.code}
-        languageCode={language.code}
-      />,
+      <SprungbrettOfferPage city={city} pathname={pathname} cityCode={city.code} languageCode={languageCode} />,
       { routePattern, pathname }
     )
 

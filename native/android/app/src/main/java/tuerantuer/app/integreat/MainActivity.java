@@ -17,50 +17,12 @@ import java.util.Locale;
 public class MainActivity extends ReactActivity {
 
     private Locale currentLocale;
-    private static final int DOES_NOT_EXIST = -123456;
-
-    private void resetApp() {
-        PackageManager m = getPackageManager();
-
-        try {
-            PackageInfo info = m.getPackageInfo(getPackageName(), 0);
-            deleteRecursive(new File(info.applicationInfo.dataDir));
-        } catch (PackageManager.NameNotFoundException e) {
-            Log.e("WRAPPER", "Failed to get data directory!", e);
-        }
-    }
-
-    private void deleteRecursive(File fileOrDirectory) {
-        if (fileOrDirectory.isDirectory()) {
-            for (File child : fileOrDirectory.listFiles()) {
-                deleteRecursive(child);
-            }
-        }
-
-        fileOrDirectory.delete();
-    }
-
-    private void cleanXamarinData() {
-        // check if last version was a xamarin version
-        // last_location is the key Xamarin uses to save the lastLocationId
-        // if no location is selected, last_location will be -1
-        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-        int lastLocation = sharedPref.getInt("last_location", DOES_NOT_EXIST);
-
-        if (lastLocation != DOES_NOT_EXIST) {
-            resetApp();
-        }
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        cleanXamarinData();
-        // https://github.com/software-mansion/react-native-screens/issues/17#issuecomment-862283867
-        if (savedInstanceState != null) {
-            savedInstanceState.remove("android:support:fragments");
-            savedInstanceState.remove("android:fragments");
-        }
-        super.onCreate(savedInstanceState);
+        // https://github.com/software-mansion/react-native-screens#android
+        // https://reactnavigation.org/docs/getting-started/#installing-dependencies-into-a-bare-react-native-project
+        super.onCreate(null);
         currentLocale = getResources().getConfiguration().locale;
     }
 
@@ -91,7 +53,7 @@ public class MainActivity extends ReactActivity {
     protected ReactRootView createRootView() {
       ReactRootView reactRootView = new ReactRootView(getContext());
       // If you opted-in for the New Architecture, we enable the Fabric Renderer.
-	
+
       reactRootView.setIsFabric(BuildConfig.IS_NEW_ARCHITECTURE_ENABLED);
       return reactRootView;
     }
