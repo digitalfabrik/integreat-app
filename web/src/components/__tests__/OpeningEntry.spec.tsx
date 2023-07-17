@@ -5,7 +5,7 @@ import OpeningEntry from '../OpeningEntry'
 
 jest.mock('react-i18next')
 
-describe('OpeningEntrySpec', () => {
+describe('OpeningEntry', () => {
   const timeSlots = [
     { end: '18:00', start: '13:00' },
     { end: '12:00', start: '08:00' },
@@ -29,12 +29,12 @@ describe('OpeningEntrySpec', () => {
 
   it('should display all day opened for the weekday if allDay flag is true', () => {
     const { getByText } = renderOpeningEntries(true, false, false)
-    expect(getByText('pois:openingHoursAllDay')).toBeTruthy()
+    expect(getByText('pois:allDay')).toBeTruthy()
   })
 
   it('should display closed for the weekday if closed flag is true', () => {
     const { getByText } = renderOpeningEntries(false, true, false)
-    expect(getByText('pois:openingHoursClosed')).toBeTruthy()
+    expect(getByText('pois:closed')).toBeTruthy()
   })
 
   it('should highlight the timeslot of the current weekday bold', () => {

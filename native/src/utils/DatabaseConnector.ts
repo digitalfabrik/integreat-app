@@ -125,7 +125,7 @@ type ContentPoiJsonType = {
   excerpt: string
   location: LocationJsonType<number>
   lastUpdate: string
-  category: { id: number; name: string; color: string; icon: string }
+  category: { id: number; name: string; color: string; icon: string } | null
   openingHours: { allDay: boolean; closed: boolean; timeSlots: { start: string; end: string }[] }[] | null
   temporarilyClosed: boolean
 }
@@ -460,12 +460,14 @@ class DatabaseConnector {
             town: jsonLocation.town,
           }),
           lastUpdate: moment(jsonObject.lastUpdate, moment.ISO_8601),
-          category: new PoiCategoryModel({
-            id: jsonObject.category.id,
-            name: jsonObject.category.name,
-            color: jsonObject.category.color,
-            icon: jsonObject.category.icon,
-          }),
+          category: jsonObject.category
+            ? new PoiCategoryModel({
+                id: jsonObject.category.id,
+                name: jsonObject.category.name,
+                color: jsonObject.category.color,
+                icon: jsonObject.category.icon,
+              })
+            : null,
           openingHours:
             jsonObject.openingHours?.map(
               hours =>
