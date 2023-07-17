@@ -7,7 +7,6 @@ import {
   CategoriesMapModelBuilder,
   CategoryModel,
   CityModelBuilder,
-  LanguageModelBuilder,
   pathnameFromRouteInformation,
   SEARCH_ROUTE,
 } from 'api-client'
@@ -26,8 +25,7 @@ jest.mock('api-client', () => ({
 describe('SearchPage', () => {
   const cities = new CityModelBuilder(2).build()
   const cityModel = cities[0]!
-  const languages = new LanguageModelBuilder(2).build()
-  const languageModel = languages[0]!
+  const languageCode = 'en'
 
   const categoriesMap = new CategoriesMapModelBuilder('augsburg', 'en').build()
   const categoryModels = categoriesMap.toArray()
@@ -37,20 +35,12 @@ describe('SearchPage', () => {
   const pathname = pathnameFromRouteInformation({
     route: SEARCH_ROUTE,
     cityCode: cityModel.code,
-    languageCode: languageModel.code,
+    languageCode,
   })
   const routePattern = `/:cityCode/:languageCode/${RoutePatterns[SEARCH_ROUTE]}`
 
   const searchPage = (
-    <SearchPage
-      cities={cities}
-      cityModel={cityModel}
-      languages={languages}
-      languageModel={languageModel}
-      pathname={pathname}
-      cityCode={cityModel.code}
-      languageCode={languageModel.code}
-    />
+    <SearchPage city={cityModel} pathname={pathname} cityCode={cityModel.code} languageCode={languageCode} />
   )
 
   const renderSearch = ({ query }: { query?: string } = {}) => {

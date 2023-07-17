@@ -4,16 +4,14 @@ import styled from 'styled-components/native'
 
 import { CityModel, LOCAL_NEWS_TYPE, NewsType, TU_NEWS_TYPE } from 'api-client'
 
-import activeInternational from '../assets/tu-news-active.svg'
-import inactiveInternational from '../assets/tu-news-inactive.svg'
+import ActiveInternational from '../assets/tu-news-active.svg'
+import InactiveInternational from '../assets/tu-news-inactive.svg'
 import Caption from './Caption'
 
-const NewsTypeIcon = styled.Image`
-  align-self: center;
-`
 const TouchableWrapper = styled.TouchableOpacity`
   margin-bottom: 5px;
   margin-horizontal: 10px;
+  align-items: center;
 `
 const LocalTabWrapper = styled.View<{ isSelected: boolean }>`
   padding-horizontal: 10px;
@@ -61,7 +59,7 @@ const NewsHeader = ({ cityModel, selectedNewsType, selectNewsType }: NewsHeaderP
             </LocalTabWrapper>
           </TouchableWrapper>
           <TouchableWrapper onPress={selectTuNews} accessibilityRole='button' accessibilityLabel='TüNews'>
-            <NewsTypeIcon source={selectedNewsType === TU_NEWS_TYPE ? activeInternational : inactiveInternational} />
+            {selectedNewsType === TU_NEWS_TYPE ? <ActiveInternational /> : <InactiveInternational />}
           </TouchableWrapper>
         </HeaderContainer>
       )}

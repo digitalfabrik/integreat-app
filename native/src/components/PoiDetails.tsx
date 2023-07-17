@@ -15,8 +15,8 @@ import useSnackbar from '../hooks/useSnackbar'
 import openExternalUrl from '../utils/openExternalUrl'
 import CollapsibleItem from './CollapsibleItem'
 import HorizontalLine from './HorizontalLine'
-import NativeHtml from './NativeHtml'
 import OpeningHours from './OpeningHours'
+import Page from './Page'
 import PoiDetailItem from './PoiDetailItem'
 import PoiDetailRow from './PoiDetailRow'
 import SimpleImage from './SimpleImage'
@@ -50,11 +50,6 @@ const StyledCategory = styled.Text`
   color: ${props => props.theme.colors.textSecondaryColor};
 `
 
-const ExternalLink = styled.Image`
-  border-top-left-radius: 5px;
-  border-bottom-left-radius: 5px;
-`
-
 const ContentWrapper = styled.View`
   padding-right: 32px;
 `
@@ -69,7 +64,6 @@ const PoiDetails = ({ poi, feature, language }: PoiDetailsProps): ReactElement =
   const { t } = useTranslation('pois')
   const showSnackbar = useSnackbar()
 
-  // TODO IGAPP-920: this has to be removed when we get proper images from CMS
   const thumbnail = feature.properties.thumbnail?.replace('-150x150', '') ?? Placeholder
   const { address, postcode, town } = poi.location
   const { distance } = feature.properties
@@ -116,7 +110,7 @@ const PoiDetails = ({ poi, feature, language }: PoiDetailsProps): ReactElement =
       <HorizontalLine />
       <PoiDetailItem
         onIconPress={openExternalMaps}
-        icon={<ExternalLink accessibilityLabel={t('openExternalMaps')} source={ExternalLinkIcon} />}
+        icon={<ExternalLinkIcon accessibilityLabel={t('openExternalMaps')} />}
         language={language}>
         <Pressable onPress={copyLocationToClipboard}>
           <Text>{address}</Text>
@@ -142,7 +136,7 @@ const PoiDetails = ({ poi, feature, language }: PoiDetailsProps): ReactElement =
         <>
           <CollapsibleItem initExpanded headerContent={t('description')} language={language}>
             <ContentWrapper>
-              <NativeHtml content={content} language={language} />
+              <Page content={content} language={language} path={poi.path} />
             </ContentWrapper>
           </CollapsibleItem>
           <HorizontalLine />

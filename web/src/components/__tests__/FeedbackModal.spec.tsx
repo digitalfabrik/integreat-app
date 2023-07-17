@@ -27,9 +27,13 @@ describe('FeedbackModal', () => {
         language={language}
         routeType={CATEGORIES_ROUTE}
         closeModal={closeModal}
-        feedbackRating='up'
+        visible
       />
     )
+    const buttonRating = getByRole('button', {
+      name: 'feedback:useful',
+    })
+    fireEvent.click(buttonRating)
     const button = getByRole('button', {
       name: 'feedback:send',
     })

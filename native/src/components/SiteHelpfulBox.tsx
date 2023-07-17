@@ -3,9 +3,8 @@ import { useTranslation } from 'react-i18next'
 import { StyleProp, Text, TouchableOpacity, View, ViewStyle } from 'react-native'
 import styled from 'styled-components/native'
 
-import happyIcon from '../assets/smile-happy.svg'
-import sadIcon from '../assets/smile-sad.svg'
-import SimpleImage from './SimpleImage'
+import HappyIcon from '../assets/smile-happy.svg'
+import SadIcon from '../assets/smile-sad.svg'
 
 const FeedbackBox = styled.View<{ backgroundColor?: string }>`
   margin-top: 25px;
@@ -44,10 +43,6 @@ const Circle = styled(View)`
 `
 const MAXIMAL_ICON_SIZE = ICON_SIZE / Math.sqrt(2)
 const ICON_SCALE_FACTOR = 0.85
-const Thumbnail = styled(SimpleImage)`
-  height: ${MAXIMAL_ICON_SIZE * ICON_SCALE_FACTOR}px;
-  width: ${MAXIMAL_ICON_SIZE * ICON_SCALE_FACTOR}px;
-`
 
 type SiteHelpfulBoxProps = {
   navigateToFeedback: (positive: boolean) => void
@@ -63,13 +58,13 @@ const SiteHelpfulBox = ({ navigateToFeedback, backgroundColor, style }: SiteHelp
       <FeedbackButtons>
         <FeedbackTouchableOpacity onPress={() => navigateToFeedback(true)}>
           <Circle>
-            <Thumbnail source={happyIcon} />
+            <HappyIcon height={MAXIMAL_ICON_SIZE * ICON_SCALE_FACTOR} width={MAXIMAL_ICON_SIZE * ICON_SCALE_FACTOR} />
           </Circle>
           <FeedbackText>{t('useful')}</FeedbackText>
         </FeedbackTouchableOpacity>
         <FeedbackTouchableOpacity onPress={() => navigateToFeedback(false)}>
           <Circle>
-            <Thumbnail source={sadIcon} />
+            <SadIcon height={MAXIMAL_ICON_SIZE * ICON_SCALE_FACTOR} width={MAXIMAL_ICON_SIZE * ICON_SCALE_FACTOR} />
           </Circle>
           <FeedbackText>{t('notUseful')}</FeedbackText>
         </FeedbackTouchableOpacity>

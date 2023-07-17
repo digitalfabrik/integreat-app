@@ -27,7 +27,6 @@ import CityContentLayout from '../components/CityContentLayout'
 import CityContentToolbar from '../components/CityContentToolbar'
 import FailureSwitcher from '../components/FailureSwitcher'
 import FeedbackModal from '../components/FeedbackModal'
-import { FeedbackRatingType } from '../components/FeedbackToolbarItem'
 import Helmet from '../components/Helmet'
 import List from '../components/List'
 import LoadingSpinner from '../components/LoadingSpinner'
@@ -55,7 +54,7 @@ const moveViewToBBox = (bBox: BBox, defaultVp: MapViewMercatorViewport): MapView
   ])
 }
 
-const PoisPage = ({ cityCode, languageCode, cityModel, pathname, languages }: CityRouteProps): ReactElement => {
+const PoisPage = ({ cityCode, languageCode, city, pathname }: CityRouteProps): ReactElement | null => {
   const { slug: unsafeSlug } = useParams()
   const slug = unsafeSlug ? normalizePath(unsafeSlug) : undefined
   const navigate = useNavigate()
@@ -70,8 +69,9 @@ const PoisPage = ({ cityCode, languageCode, cityModel, pathname, languages }: Ci
   const poi = data?.pois.find(it => it.slug === slug)
   const { viewportSmall, height } = useWindowDimensions()
   const sheetRef = useRef<BottomSheetRef>(null)
-  const [feedbackModalRating, setFeedbackModalRating] = useState<FeedbackRatingType | null>(null)
+  const [isFeedbackModalOpen, setIsFeedbackModalOpen] = useState<boolean>(false)
   const { t } = useTranslation('pois')
+  const isBottomActionSheetFullscreen = bottomActionSheetHeight >= height
 
   const selectFeature = (feature: PoiFeature | null, restoreScrollPosition: boolean) => {
     if (mapRef?.isMoving()) {
@@ -109,11 +109,15 @@ const PoisPage = ({ cityCode, languageCode, cityModel, pathname, languages }: Ci
     }
   }, [mapRef, data, slug, height, snapPoint, viewportSmall])
 
+  if (!city) {
+    return null
+  }
+
   if (buildConfig().featureFlags.developerFriendly) {
     log('To use geolocation in a development build you have to start the dev server with\n "yarn start --https"')
   }
 
-  const languageChangePaths = languages.map(({ code, name }) => ({
+  const languageChangePaths = city.languages.map(({ code, name }) => ({
     path: pathnameFromRouteInformation({
       route: POIS_ROUTE,
       cityCode,
@@ -142,21 +146,22 @@ const PoisPage = ({ cityCode, languageCode, cityModel, pathname, languages }: Ci
   }
 
   const toolbar = (
-    <CityContentToolbar openFeedbackModal={setFeedbackModalRating} viewportSmall={viewportSmall} iconDirection='row' />
+    <CityContentToolbar openFeedback={() => setIsFeedbackModalOpen(true)} iconDirection='row' hasDivider={false} />
   )
 
-  const feedbackModal = feedbackModalRating && (
+  const feedbackModal = isFeedbackModalOpen && (
     <FeedbackModal
-      cityCode={cityModel.code}
+      cityCode={city.code}
       language={languageCode}
       routeType={POIS_ROUTE}
-      feedbackRating={feedbackModalRating}
-      closeModal={() => setFeedbackModalRating(null)}
+      visible={isFeedbackModalOpen}
+      closeModal={() => setIsFeedbackModalOpen(false)}
+      topPosition={isBottomActionSheetFullscreen ? 0 : undefined}
     />
   )
 
   const locationLayoutParams = {
-    cityModel,
+    city,
     viewportSmall,
     feedbackTargetInformation: poi ? { slug: poi.slug } : null,
     languageChangePaths,
@@ -203,17 +208,17 @@ const PoisPage = ({ cityCode, languageCode, cityModel, pathname, languages }: Ci
   const renderPoiListItem = (poi: PoiFeature) => (
     <PoiListItem key={poi.properties.path} poi={poi} selectFeature={selectFeature} />
   )
-  const pageTitle = `${t('pageTitle')} - ${cityModel.name}`
+  const pageTitle = `${t('pageTitle')} - ${city.name}`
   const direction = config.getScriptDirection(languageCode)
 
-  const mapView = cityModel.boundingBox && (
+  const mapView = city.boundingBox && (
     <MapView
       geolocationControlPosition={bottomActionSheetHeight}
       ref={updateMapRef}
       selectFeature={selectFeature}
       changeSnapPoint={changeSnapPoint}
       featureCollection={embedInCollection(data.features)}
-      bboxViewport={moveViewToBBox(cityModel.boundingBox, defaultMercatorViewportConfig)}
+      bboxViewport={moveViewToBBox(city.boundingBox, defaultMercatorViewportConfig)}
       currentFeature={currentFeature}
       direction={direction}
       cityCode={cityCode}
@@ -230,7 +235,7 @@ const PoisPage = ({ cityCode, languageCode, cityModel, pathname, languages }: Ci
         pageTitle={pageTitle}
         metaDescription={poi?.metaDescription}
         languageChangePaths={languageChangePaths}
-        cityModel={cityModel}
+        cityModel={city}
       />
       <PoisPageWrapper panelHeights={panelHeights}>
         {viewportSmall ? (
@@ -243,7 +248,7 @@ const PoisPage = ({ cityCode, languageCode, cityModel, pathname, languages }: Ci
             mapView={mapView}
             poiList={poiList}
             direction={direction}
-            isBottomSheetFullscreen={bottomActionSheetHeight >= height}
+            isBottomSheetFullscreen={isBottomActionSheetFullscreen}
             setBottomActionSheetHeight={setBottomActionSheetHeight}
           />
         ) : (

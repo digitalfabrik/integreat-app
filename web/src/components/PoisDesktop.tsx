@@ -10,11 +10,11 @@ import dimensions from '../constants/dimensions'
 import PoiDetails from './PoiDetails'
 import PoiPanelNavigation from './PoiPanelNavigation'
 
-const ListViewWrapper = styled.div<{ panelHeights: number }>`
+const ListViewWrapper = styled.div<{ panelHeights: number; bottomBarHeight: number }>`
   width: 300px;
   padding: 0 clamp(16px, 1.4vh, 32px);
   overflow: auto;
-  ${({ panelHeights }) => `height: calc(100vh - ${panelHeights}px - ${dimensions.toolbarHeight}px);`};
+  ${({ panelHeights, bottomBarHeight }) => `height: calc(100vh - ${panelHeights}px - ${bottomBarHeight}px);`};
 `
 
 const ToolbarContainer = styled.div`
@@ -29,11 +29,11 @@ const ListHeader = styled.div`
   padding-top: clamp(16px, 1.4vh, 32px);
   padding-bottom: clamp(10px, 1vh, 20px);
   text-align: center;
-  font-size: 18px;
+  font-size: ${props => props.theme.fonts.subTitleFontSize};
   font-family: ${props => props.theme.fonts.web.decorativeFont};
   line-height: ${props => props.theme.fonts.decorativeLineHeight};
   font-weight: 600;
-  border-bottom: 1px solid ${props => props.theme.colors.poiBorderColor};
+  border-bottom: 1px solid ${props => props.theme.colors.borderColor};
   margin-bottom: clamp(10px, 1vh, 20px);
 `
 
@@ -70,14 +70,25 @@ const PoisDesktop: React.FC<PoisDesktopProps> = ({
     if (previousPath && restoreScrollPosition) {
       document.getElementById(getSlugFromPath(decodeURI(previousPath)))?.scrollIntoView({ behavior: 'auto' })
     }
+    // scrollTo top of the list container for list view -> detail view
+    if (!previousPath) {
+      document.getElementById('poi-list-scroller')?.scrollTo(0, 0)
+    }
   }, [previousPath, restoreScrollPosition])
 
   return (
     <>
       <div>
-        <ListViewWrapper panelHeights={panelHeights}>
+        <ListViewWrapper
+          panelHeights={panelHeights}
+          id='poi-list-scroller'
+          bottomBarHeight={currentFeature ? dimensions.poiDetailNavigation : dimensions.toolbarHeight}>
           {!currentFeature && <ListHeader>{t('listTitle')}</ListHeader>}
-          {currentFeature && poi ? <PoiDetails poi={poi} feature={currentFeature} direction={direction} /> : poiList}
+          {currentFeature && poi ? (
+            <PoiDetails poi={poi} feature={currentFeature} direction={direction} toolbar={toolbar} />
+          ) : (
+            poiList
+          )}
         </ListViewWrapper>
         {currentFeature && showFeatureSwitch ? (
           <PoiPanelNavigation switchFeature={switchFeature} direction={direction} />

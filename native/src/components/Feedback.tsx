@@ -42,7 +42,7 @@ const ThemedText = styled.Text`
 const Description = styled(ThemedText)`
   font-weight: bold;
 `
-const HappyIconContainer = styled.Image`
+const HappyIconContainer = styled(HappyIcon)`
   margin: 100px auto 10px;
 `
 
@@ -115,7 +115,7 @@ const Feedback = (props: FeedbackProps): ReactElement => {
     // sendingStatus === 'successful'
     return (
       <>
-        <HappyIconContainer source={HappyIcon} />
+        <HappyIconContainer width={60} height={60} />
         <Caption title={t('feedback:feedbackSent')} />
         <ThemedText theme={theme}>
           {t('feedback:thanksMessage', {

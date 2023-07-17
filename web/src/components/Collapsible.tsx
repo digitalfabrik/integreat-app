@@ -35,7 +35,7 @@ const Title = styled.div`
   justify-content: space-between;
 `
 const StyledIcon = styled(FontAwesomeIcon)`
-  font-size: 18px;
+  font-size: ${props => props.theme.fonts.subTitleFontSize};
 `
 
 const Collapsible: React.FC<CollapsibleProps> = ({

@@ -37,7 +37,7 @@ describe('PoisDesktop', () => {
     expect(queryByText(poi.location.address!)).toBeTruthy()
     expect(queryByText(poi.content)).toBeTruthy()
     expect(queryByText('poiList')).toBeNull()
-    expect(queryByText('Toolbar')).toBeNull()
+    expect(queryByText('Toolbar')).toBeTruthy()
     expect(queryByLabelText('previous location')).toBeTruthy()
     expect(queryByLabelText('next location')).toBeTruthy()
   })
