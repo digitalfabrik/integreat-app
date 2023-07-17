@@ -11,6 +11,8 @@ type SimpleImageProps = {
   source: ImageSourceType
   style?: StyleProp<ImageStyle>
   resizeMode?: ImageResizeMode
+  // In order to be able to align an image, its width or aspect ratio has to be set
+  specifyAspectRatio?: boolean
 }
 
 // For ios you should not use the absolute path, since it can change with a future build version, therefore we use home directory
@@ -22,7 +24,12 @@ const getLocalPlatformFilepath = (uri: string): string => {
   return uri
 }
 
-const SimpleImage = ({ source, style, resizeMode = 'contain' }: SimpleImageProps): ReactElement => {
+const SimpleImage = ({
+  source,
+  style,
+  resizeMode = 'contain',
+  specifyAspectRatio = false,
+}: SimpleImageProps): ReactElement => {
   const [aspectRatio, setAspectRatio] = useState<number | undefined>(undefined)
 
   useEffect(() => {
@@ -41,7 +48,7 @@ const SimpleImage = ({ source, style, resizeMode = 'contain' }: SimpleImageProps
 
   return (
     <StyledImage
-      aspectRatio={aspectRatio}
+      aspectRatio={specifyAspectRatio ? aspectRatio : undefined}
       source={{ uri: getLocalPlatformFilepath(source) }}
       resizeMode={resizeMode}
       style={style}
