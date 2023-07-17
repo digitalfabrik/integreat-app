@@ -13,6 +13,10 @@ type TextLinkProps = {
   url: string
 }
 
+/**
+ * Touchable has a bottom spacing that we can't remove, hence this component for a link surrounded by text
+ */
+
 const TextLink = ({ text, url }: TextLinkProps): ReactElement => {
   const showSnackbar = useSnackbar()
   return (
