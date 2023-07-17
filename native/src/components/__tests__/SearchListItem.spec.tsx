@@ -7,6 +7,9 @@ import render from '../../testing/render'
 import SearchListItem from '../SearchListItem'
 
 jest.mock('styled-components')
+jest.mock('react-native-webview', () => ({
+  default: () => jest.fn(),
+}))
 
 describe('SearchListItem', () => {
   const cityModel = new CityModelBuilder(1).build()[0]!

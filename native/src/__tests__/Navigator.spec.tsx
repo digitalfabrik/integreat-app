@@ -25,6 +25,9 @@ jest.mock('../utils/sentry')
 jest.mock('react-native/Libraries/Utilities/useWindowDimensions')
 jest.mock('react-i18next')
 jest.mock('react-native/Libraries/EventEmitter/NativeEventEmitter')
+jest.mock('react-native-webview', () => ({
+  default: () => jest.fn(),
+}))
 jest.mock('../routes/Intro', () => {
   const { Text } = require('react-native')
 
