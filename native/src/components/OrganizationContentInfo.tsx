@@ -42,7 +42,7 @@ const OrganizationContentInfo = ({ organization }: OrganizationContentInfoProps)
   const { t } = useTranslation('categories')
   return (
     <Box>
-      <Thumbnail source={organization.logo} />
+      <Thumbnail source={organization.logo} specifyAspectRatio />
       <View>
         <OrganizationContent>{t('organizationContent', { organization: organization.name })}</OrganizationContent>
         <StyledText>

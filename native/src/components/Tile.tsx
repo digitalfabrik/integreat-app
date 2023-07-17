@@ -21,7 +21,6 @@ const TileTitle = styled.Text`
 const TileContainer = styled.View`
   margin-bottom: 20px;
   width: 50%;
-  align-items: center;
 `
 
 const Tile = ({ onTilePress, tile }: TileProps): ReactElement => (
