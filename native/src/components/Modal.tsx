@@ -27,7 +27,6 @@ type ModalProps = {
 }
 
 const Modal = ({ modalVisible, closeModal, headerTitle, title, children }: ModalProps): ReactElement => (
-  // TODO IGAPP-1331: Check if that solves transparent header issues https://github.com/facebook/react-native/issues/34350
   <RNModal
     visible={modalVisible}
     onRequestClose={closeModal}

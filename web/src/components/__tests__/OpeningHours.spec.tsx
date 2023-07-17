@@ -24,12 +24,12 @@ describe('OpeningHours', () => {
     )
   it('should display that the location is temporarily closed', () => {
     const { getByText } = renderOpeningHours(false, true, null)
-    expect(getByText('pois:openingHoursTemporarilyClosed')).toBeTruthy()
+    expect(getByText('pois:temporarilyClosed')).toBeTruthy()
   })
   it('should display that the location is opened', () => {
     const { getByText } = renderOpeningHours(true, false, [
       new OpenHoursModel({ allDay: false, closed: false, timeSlots: [{ end: '18:00', start: '08:00' }] }),
     ])
-    expect(getByText('pois:openingHoursOpened')).toBeTruthy()
+    expect(getByText('pois:opened')).toBeTruthy()
   })
 })
