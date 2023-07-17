@@ -18,14 +18,12 @@ import InfiniteScrollList from '../components/InfiniteScrollList'
 import ShelterDetail from '../components/ShelterDetail'
 import ShelterFilterBar from '../components/ShelterFilterBar'
 import ShelterListItem from '../components/ShelterListItem'
-import useWindowDimensions from '../hooks/useWindowDimensions'
 
 const DEFAULT_PAGE = 1
 const ITEMS_PER_PAGE = 10
 
 const ShelterPage = ({ city, cityCode, languageCode, pathname }: CityRouteProps): ReactElement | null => {
   const { shelterId } = useParams()
-  const { viewportSmall } = useWindowDimensions()
   const { t } = useTranslation('shelter')
   const [filter, setFilter] = useState<ShelterFilterProps>({ beds: null, city: null, pets: null })
 
@@ -85,7 +83,6 @@ const ShelterPage = ({ city, cityCode, languageCode, pathname }: CityRouteProps)
         languageCode={languageCode}
         pathname={pathname}
         shelterId={shelterId}
-        viewportSmall={viewportSmall}
       />
     )
   }

@@ -1,12 +1,12 @@
 import { RenderResult } from '@testing-library/react'
 import { mocked } from 'jest-mock'
-import React from 'react'
+import React, { ReactNode } from 'react'
 
 import { CATEGORIES_ROUTE, CityModelBuilder } from 'api-client'
 
 import useWindowDimensions from '../../hooks/useWindowDimensions'
 import { renderWithTheme } from '../../testing/render'
-import CityContentLayout, { ToolbarProps } from '../CityContentLayout'
+import CityContentLayout from '../CityContentLayout'
 
 jest.mock('../../hooks/useWindowDimensions', () => jest.fn(() => ({ viewportSmall: false })))
 jest.mock('../CityContentFooter', () => () => <div>CityContentFooter</div>)
@@ -22,18 +22,15 @@ describe('CityContentLayout', () => {
     { code: 'en', name: 'English', path: '/augsburg/en' },
   ]
 
-  const feedbackTargetInformation = { slug: 'category' }
-
   const MockNode = () => <div />
-  const renderCityContentLayout = (isLoading: boolean, toolbar?: ToolbarProps): RenderResult =>
+  const renderCityContentLayout = (isLoading: boolean, Toolbar?: ReactNode): RenderResult =>
     renderWithTheme(
       <CityContentLayout
-        toolbar={toolbar}
+        Toolbar={Toolbar}
         city={cityModel}
         languageCode={language}
         route={CATEGORIES_ROUTE}
         languageChangePaths={languageChangePaths}
-        feedbackTargetInformation={feedbackTargetInformation}
         isLoading={isLoading}>
         <MockNode />
       </CityContentLayout>
@@ -41,10 +38,8 @@ describe('CityContentLayout', () => {
 
   it('should render a toolbar', () => {
     mocked(useWindowDimensions).mockImplementation(() => ({ viewportSmall: true, width: 400, height: 400 }))
-    const toolbar = () => 'CityContentToolbar'
-
-    const { getByText } = renderCityContentLayout(false, toolbar)
-    expect(getByText('CityContentToolbar')).toBeTruthy()
+    const { getByText } = renderCityContentLayout(false, <div>Toolbar</div>)
+    expect(getByText('Toolbar')).toBeTruthy()
   })
 
   it('should show CityContentHeader and CityContentFooter if not loading and on a big screen', () => {

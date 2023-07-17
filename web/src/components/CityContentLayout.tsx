@@ -8,8 +8,6 @@ import CityContentFooter from './CityContentFooter'
 import CityContentHeader from './CityContentHeader'
 import Layout from './Layout'
 
-export type ToolbarProps = (openFeedback: () => void) => ReactNode
-
 export type CityContentLayoutProps = {
   Toolbar?: ReactNode
   children?: ReactNode
