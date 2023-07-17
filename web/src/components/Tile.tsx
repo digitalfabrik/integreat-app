@@ -1,5 +1,7 @@
-import React, { ReactNode } from 'react'
+import React, { ReactElement, ReactNode, useRef } from 'react'
 import styled from 'styled-components'
+
+import { request } from 'api-client/src/request'
 
 import TileModel from '../models/TileModel'
 import CleanLink from './CleanLink'
@@ -63,14 +65,27 @@ const TileContainer = styled.div`
 /**
  * Displays a single Tile
  */
-class Tile extends React.PureComponent<TileProps> {
-  getTileContent(): ReactNode {
-    const { tile } = this.props
+const Tile = (props: TileProps): ReactElement => {
+  const imageRef = useRef<HTMLImageElement>(null)
+  const { tile } = props
+
+  const fetchImageWithCaching = (): void => {
+    request(tile.thumbnail, {})
+      .then(res => res.blob())
+      .then(blob => {
+        if (imageRef.current) {
+          imageRef.current.src = URL.createObjectURL(blob)
+        }
+      })
+  }
+
+  const getTileContent = (): ReactNode => {
+    fetchImageWithCaching()
     return (
       <>
         <ThumbnailSizer>
           <Thumbnail>
-            <img alt='' src={tile.thumbnail} />
+            <img alt='' ref={imageRef} />
           </Thumbnail>
         </ThumbnailSizer>
         <TileTitle>{tile.title}</TileTitle>
@@ -78,10 +93,10 @@ class Tile extends React.PureComponent<TileProps> {
     )
   }
 
-  getTile(): ReactNode {
-    const { tile } = this.props
+  const getTile = (): ReactNode => {
+    const { tile } = props
     if (!tile.postData) {
-      return <CleanLink to={tile.path}>{this.getTileContent()}</CleanLink>
+      return <CleanLink to={tile.path}>{getTileContent()}</CleanLink>
     }
     const inputs: ReactNode[] = []
     // tile.postData is not an array so key is actually a string with the name of the post data field
@@ -91,15 +106,13 @@ class Tile extends React.PureComponent<TileProps> {
       <form method='POST' action={tile.path}>
         {inputs}
         <button type='submit' role='link'>
-          {this.getTileContent()}
+          {getTileContent()}
         </button>
       </form>
     )
   }
 
-  render(): ReactNode {
-    return <TileContainer>{this.getTile()}</TileContainer>
-  }
+  return <TileContainer>{getTile()}</TileContainer>
 }
 
 export default Tile
