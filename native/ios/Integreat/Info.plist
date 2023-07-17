@@ -37,6 +37,12 @@
 	<false/>
 	<key>ITSAppUsesNonExemptEncryption</key>
 	<false/>
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+		<string>https</string>
+		<string>mailto</string>
+		<string>tel</string>
+	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSAppTransportSecurity</key>
@@ -52,6 +58,8 @@
 			</dict>
 		</dict>
 	</dict>
+	<key>NSCalendarsUsageDescription</key>
+	<string>Integreat wants to access the calendar to add an event.</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>NotoSansArabic-Regular.ttf</string>
@@ -83,12 +91,5 @@
 	<string>Light</string>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
-	<key>NSCalendarsUsageDescription</key>
-	<string>Integreat wants to access the calendar to add an event.</string>
-	<key>LSApplicationQueriesSchemes</key>
-    <array>
-        <string>mailto</string>
-        <string>tel</string>
-    </array>
 </dict>
 </plist>
