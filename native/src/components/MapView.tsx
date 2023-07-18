@@ -1,6 +1,7 @@
 import MapLibreGL, { CameraSettings, MapLibreGLEvent } from '@maplibre/maplibre-react-native'
 import type { BBox, Feature } from 'geojson'
-import React, { ReactElement, useCallback } from 'react'
+import React, { ReactElement, useCallback, useEffect, useRef } from 'react'
+import { useWindowDimensions } from 'react-native'
 import { FAB } from 'react-native-elements'
 import { useTheme } from 'styled-components'
 import styled from 'styled-components/native'
@@ -12,9 +13,12 @@ import {
   mapConfig,
   PoiFeature,
   PoiFeatureCollection,
+  closerDetailZoom,
+  animationDuration,
 } from 'api-client'
 
 import { clusterCountLayer, clusterLayer, markerLayer } from '../constants/layers'
+import { midSnapPointPercentage } from '../routes/Pois'
 import MapAttribution from './MapsAttribution'
 
 const MapContainer = styled.View`
@@ -48,110 +52,120 @@ const featureLayerId = 'point'
 
 // Has to be set even if we use map libre
 MapLibreGL.setAccessToken(null)
-const MapView = React.forwardRef(
-  (
-    {
-      boundingBox,
-      featureCollection,
-      selectedFeature,
-      fabPosition,
-      onRequestLocationPermission,
-      locationPermissionGranted,
-      selectPoiFeature,
-      setSheetSnapPointIndex,
-      followUserLocation,
-      setFollowUserLocation,
-    }: MapViewProps,
-    cameraRef: React.Ref<MapLibreGL.Camera>
-  ): ReactElement => {
-    const mapRef = React.useRef<MapLibreGL.MapView | null>(null)
-    const theme = useTheme()
+const MapView = ({
+  boundingBox,
+  featureCollection,
+  selectedFeature,
+  fabPosition,
+  onRequestLocationPermission,
+  locationPermissionGranted,
+  selectPoiFeature,
+  setSheetSnapPointIndex,
+  followUserLocation,
+  setFollowUserLocation,
+}: MapViewProps): ReactElement => {
+  const deviceHeight = useWindowDimensions().height
+  const cameraRef = useRef<MapLibreGL.Camera | null>(null)
+  const mapRef = React.useRef<MapLibreGL.MapView | null>(null)
+  const theme = useTheme()
 
-    const bounds = {
-      ne: [boundingBox[2], boundingBox[3]],
-      sw: [boundingBox[0], boundingBox[1]],
-    }
-
-    // if there is a current feature use the coordinates; if not use bounding box
-    const coordinates = selectedFeature?.geometry.coordinates
-    const defaultSettings: CameraSettings = {
-      zoomLevel: coordinates ? normalDetailZoom : defaultViewportConfig.zoom,
-      centerCoordinate: coordinates,
-      bounds: coordinates ? undefined : bounds,
-    }
-
-    const onRequestLocation = useCallback(async () => {
-      await onRequestLocationPermission()
-      setFollowUserLocation(true)
-    }, [onRequestLocationPermission, setFollowUserLocation])
-
-    const onUserTrackingModeChange = (
-      event: MapLibreGLEvent<'usertrackingmodechange', { followUserLocation: boolean }>
-    ) => {
-      if (!event.nativeEvent.payload.followUserLocation) {
-        setFollowUserLocation(event.nativeEvent.payload.followUserLocation)
-      }
-    }
-
-    const locationPermissionGrantedIcon = followUserLocation ? 'my-location' : 'location-searching'
-    const locationPermissionIcon = locationPermissionGranted ? locationPermissionGrantedIcon : 'location-disabled'
-
-    const onPress = async (pressedLocation: Feature) => {
-      if (!mapRef.current || !pressedLocation.properties) {
-        return
-      }
-      const featureCollection = await mapRef.current.queryRenderedFeaturesAtPoint(
-        [pressedLocation.properties.screenPointX, pressedLocation.properties.screenPointY],
-        undefined,
-        [featureLayerId]
-      )
-
-      const feature = featureCollection?.features.find((it): it is PoiFeature => it.geometry.type === 'Point')
-
-      if (feature) {
-        selectPoiFeature(feature)
-        setSheetSnapPointIndex(1)
-      } else {
-        selectPoiFeature(null)
-        setSheetSnapPointIndex(1)
-      }
-    }
-
-    return (
-      <MapContainer>
-        <StyledMap
-          styleJSON={mapConfig.styleJSON}
-          zoomEnabled
-          onPress={onPress}
-          ref={mapRef}
-          attributionEnabled={false}
-          logoEnabled={false}>
-          <MapLibreGL.UserLocation visible={locationPermissionGranted} />
-          <MapLibreGL.ShapeSource id='location-pois' shape={featureCollection} cluster clusterRadius={clusterRadius}>
-            <MapLibreGL.SymbolLayer {...clusterCountLayer} />
-            <MapLibreGL.CircleLayer {...clusterLayer(theme)} />
-            <MapLibreGL.SymbolLayer {...markerLayer(selectedFeature, featureLayerId)} />
-          </MapLibreGL.ShapeSource>
-          <MapLibreGL.Camera
-            defaultSettings={defaultSettings}
-            followUserMode='normal'
-            followUserLocation={followUserLocation && locationPermissionGranted}
-            onUserTrackingModeChange={onUserTrackingModeChange}
-            ref={cameraRef}
-          />
-        </StyledMap>
-        <MapAttribution />
-        <StyledFAB
-          placement='right'
-          onPress={onRequestLocation}
-          buttonStyle={{ borderRadius: 50 }}
-          icon={{ name: locationPermissionIcon }}
-          color={theme.colors.themeColor}
-          position={fabPosition}
-        />
-      </MapContainer>
-    )
+  const bounds = {
+    ne: [boundingBox[2], boundingBox[3]],
+    sw: [boundingBox[0], boundingBox[1]],
   }
-)
+
+  // if there is a current feature use the coordinates; if not use bounding box
+  const coordinates = selectedFeature?.geometry.coordinates
+  const defaultSettings: CameraSettings = {
+    zoomLevel: coordinates ? normalDetailZoom : defaultViewportConfig.zoom,
+    centerCoordinate: coordinates,
+    bounds: coordinates ? undefined : bounds,
+  }
+
+  const onRequestLocation = useCallback(async () => {
+    await onRequestLocationPermission()
+    setFollowUserLocation(true)
+  }, [onRequestLocationPermission, setFollowUserLocation])
+
+  const onUserTrackingModeChange = (
+    event: MapLibreGLEvent<'usertrackingmodechange', { followUserLocation: boolean }>
+  ) => {
+    if (!event.nativeEvent.payload.followUserLocation) {
+      setFollowUserLocation(event.nativeEvent.payload.followUserLocation)
+    }
+  }
+
+  // Wait for followUserLocation change before moving the camera to avoid position lock
+  // https://github.com/rnmapbox/maps/issues/1079
+  useEffect(() => {
+    if (!followUserLocation && selectedFeature && cameraRef.current) {
+      cameraRef.current.setCamera({
+        centerCoordinate: selectedFeature.geometry.coordinates,
+        zoomLevel: selectedFeature.properties.closeToOtherPoi ? closerDetailZoom : normalDetailZoom,
+        animationDuration,
+        padding: { paddingBottom: deviceHeight * midSnapPointPercentage },
+      })
+    }
+  }, [deviceHeight, followUserLocation, selectedFeature])
+
+  const locationPermissionGrantedIcon = followUserLocation ? 'my-location' : 'location-searching'
+  const locationPermissionIcon = locationPermissionGranted ? locationPermissionGrantedIcon : 'location-disabled'
+
+  const onPress = async (pressedLocation: Feature) => {
+    if (!mapRef.current || !pressedLocation.properties) {
+      return
+    }
+    const featureCollection = await mapRef.current.queryRenderedFeaturesAtPoint(
+      [pressedLocation.properties.screenPointX, pressedLocation.properties.screenPointY],
+      undefined,
+      [featureLayerId]
+    )
+
+    const feature = featureCollection?.features.find((it): it is PoiFeature => it.geometry.type === 'Point')
+
+    if (feature) {
+      selectPoiFeature(feature)
+      setSheetSnapPointIndex(1)
+    } else {
+      selectPoiFeature(null)
+      setSheetSnapPointIndex(1)
+    }
+  }
+
+  return (
+    <MapContainer>
+      <StyledMap
+        styleJSON={mapConfig.styleJSON}
+        zoomEnabled
+        onPress={onPress}
+        ref={mapRef}
+        attributionEnabled={false}
+        logoEnabled={false}>
+        <MapLibreGL.UserLocation visible={locationPermissionGranted} />
+        <MapLibreGL.ShapeSource id='location-pois' shape={featureCollection} cluster clusterRadius={clusterRadius}>
+          <MapLibreGL.SymbolLayer {...clusterCountLayer} />
+          <MapLibreGL.CircleLayer {...clusterLayer(theme)} />
+          <MapLibreGL.SymbolLayer {...markerLayer(selectedFeature, featureLayerId)} />
+        </MapLibreGL.ShapeSource>
+        <MapLibreGL.Camera
+          defaultSettings={defaultSettings}
+          followUserMode='normal'
+          followUserLocation={followUserLocation && locationPermissionGranted}
+          onUserTrackingModeChange={onUserTrackingModeChange}
+          ref={cameraRef}
+        />
+      </StyledMap>
+      <MapAttribution />
+      <StyledFAB
+        placement='right'
+        onPress={onRequestLocation}
+        buttonStyle={{ borderRadius: 50 }}
+        icon={{ name: locationPermissionIcon }}
+        color={theme.colors.themeColor}
+        position={fabPosition}
+      />
+    </MapContainer>
+  )
+}
 
 export default MapView

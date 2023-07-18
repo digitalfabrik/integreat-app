@@ -6,12 +6,6 @@ import styled, { useTheme } from 'styled-components/native'
 import { buildConfigAssets } from '../constants/buildConfig'
 import dimensions from '../constants/dimensions'
 
-const IntegreatIcon = styled.Image`
-  width: 70px;
-  height: 50px;
-  resize-mode: contain;
-`
-
 const HorizontalLeft = styled.View`
   flex: 1;
   flex-direction: row;
@@ -35,10 +29,11 @@ const HeaderBox = ({ goBack, canGoBack = true, text }: HeaderBoxProps): ReactEle
   const deviceWidth = useWindowDimensions().width
   const theme = useTheme()
 
+  const AppIcon = buildConfigAssets().AppIcon
   const HeaderIcon = canGoBack ? (
     <HeaderBackButton onPress={goBack} labelVisible={false} tintColor={theme.colors.textColor} />
   ) : (
-    <IntegreatIcon source={buildConfigAssets().appIcon} />
+    <AppIcon width={70} height={50} />
   )
   return (
     <HorizontalLeft>
