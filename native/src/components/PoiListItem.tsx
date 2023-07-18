@@ -1,4 +1,4 @@
-import React, { PureComponent, ReactElement } from 'react'
+import React, { memo } from 'react'
 import { TFunction } from 'react-i18next'
 import styled from 'styled-components/native'
 
@@ -54,22 +54,18 @@ type PoiListItemProps = {
   t: TFunction
 }
 
-// This should stay a PureComponent for performance reasons
-class PoiListItem extends PureComponent<PoiListItemProps> {
-  render(): ReactElement {
-    const { poi, language, navigateToPoi, t } = this.props
-    const thumbnail = poi.thumbnail ?? Placeholder
-    return (
-      <StyledTouchableOpacity onPress={navigateToPoi} activeOpacity={1} language={language}>
-        <Thumbnail source={thumbnail} resizeMode='cover' />
-        <Description>
-          <Title>{poi.title}</Title>
-          {!!poi.distance && <Distance>{t('distanceKilometre', { distance: poi.distance })}</Distance>}
-          {!!poi.category && <Category>{poi.category}</Category>}
-        </Description>
-      </StyledTouchableOpacity>
-    )
-  }
+const PoiListItem = ({ poi, language, navigateToPoi, t }: PoiListItemProps) => {
+  const thumbnail = poi.thumbnail ?? Placeholder
+  return (
+    <StyledTouchableOpacity onPress={navigateToPoi} activeOpacity={1} language={language}>
+      <Thumbnail source={thumbnail} resizeMode='cover' />
+      <Description>
+        <Title>{poi.title}</Title>
+        {!!poi.distance && <Distance>{t('distanceKilometre', { distance: poi.distance })}</Distance>}
+        {!!poi.category && <Category>{poi.category}</Category>}
+      </Description>
+    </StyledTouchableOpacity>
+  )
 }
 
-export default PoiListItem
+export default memo(PoiListItem)

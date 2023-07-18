@@ -17,6 +17,8 @@ import {
   PoiFeature,
   isMultipoi,
   sortPoiFeatures,
+  NotFoundError,
+  fromError,
 } from 'api-client'
 
 import BottomActionsSheet from '../components/BottomActionsSheet'
@@ -141,6 +143,47 @@ const Pois = ({ pois, language, cityModel, route, navigation }: PoisProps): Reac
     [language, selectPoiFeatureInList, t]
   )
 
+  const setScrollPosition = useCallback(
+    (position: number) => {
+      if (!currentPoi) {
+        setListScrollPosition(position)
+      }
+    },
+    [currentPoi]
+  )
+  const content = useMemo(() => {
+    if (currentPoi) {
+      return <PoiDetails language={language} poi={currentPoi} poiFeature={currentPoi.getFeature(coordinates)} />
+    }
+    if (slug) {
+      return (
+        <Failure
+          code={fromError(
+            new NotFoundError({
+              type: 'poi',
+              id: '',
+              city: cityModel.code,
+              language,
+            })
+          )}
+        />
+      )
+    }
+    const list = currentFeatureOnMap
+      ? currentFeatureOnMap.properties.pois
+      : features.flatMap(feature => feature.properties.pois)
+
+    return (
+      <ListWrapper>
+        {list.length === 0 ? (
+          <NoItemsMessage>{t('noPois')}</NoItemsMessage>
+        ) : (
+          sortPoiFeatures(list).map(renderPoiListItem)
+        )}
+      </ListWrapper>
+    )
+  }, [cityModel.code, coordinates, currentFeatureOnMap, currentPoi, features, language, renderPoiListItem, slug, t])
+
   const navigateToFeedback = (isPositiveFeedback: boolean) => {
     createNavigateToFeedbackModal(navigation)({
       routeType: POIS_ROUTE,
@@ -155,24 +198,6 @@ const Pois = ({ pois, language, cityModel, route, navigation }: PoisProps): Reac
     reportError(new Error(`Bounding box not set for city ${cityModel.code}!`))
     return <Failure code={ErrorCode.PageNotFound} />
   }
-
-  const selectedFeatureContent = currentPoi && (
-    <PoiDetails language={language} poi={currentPoi} poiFeature={currentPoi.getFeature(coordinates)} />
-  )
-  const filteredList = currentFeatureOnMap
-    ? currentFeatureOnMap.properties.pois
-    : features.flatMap(feature => feature.properties.pois)
-  const content = currentPoi ? (
-    selectedFeatureContent
-  ) : (
-    <ListWrapper>
-      {features.length === 0 ? (
-        <NoItemsMessage>{t('noPois')}</NoItemsMessage>
-      ) : (
-        sortPoiFeatures(filteredList).map(renderPoiListItem)
-      )}
-    </ListWrapper>
-  )
 
   return (
     <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
@@ -192,8 +217,7 @@ const Pois = ({ pois, language, cityModel, route, navigation }: PoisProps): Reac
       />
       <BottomActionsSheet
         ref={scrollRef}
-        selectedFeature={currentFeatureOnMap ?? null}
-        setListScrollPosition={setListScrollPosition}
+        setScrollPosition={setScrollPosition}
         title={!currentPoi && !multipoi ? t('listTitle') : undefined}
         onChange={setSheetSnapPointIndex}
         initialIndex={sheetSnapPointIndex}
