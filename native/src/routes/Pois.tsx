@@ -92,14 +92,14 @@ const Pois = ({ pois, language, cityModel, route, navigation }: PoisProps): Reac
     }, RESTORE_TIMEOUT)
   }
 
-  const deselectFeature = useCallback(() => {
+  const deselectFeature = () => {
     if (multipoi && currentPoi) {
       navigation.setParams({ slug: undefined })
     } else {
       navigation.setParams({ slug: undefined, multipoi: undefined })
       scrollTo(listScrollPosition)
     }
-  }, [currentPoi, listScrollPosition, multipoi, navigation])
+  }
   useOnBackNavigation(slug || multipoi ? deselectFeature : undefined)
 
   const selectFeatureOnMap = (feature: PoiFeature | null) => {
@@ -118,29 +118,17 @@ const Pois = ({ pois, language, cityModel, route, navigation }: PoisProps): Reac
     }
   }
 
-  const selectPoiFeatureInList = useCallback(
-    (newPoiFeature: GeoJsonPoi | null) => {
-      if (!newPoiFeature) {
-        return
-      }
-      setFollowUserLocation(false)
-      navigation.setParams({ slug: newPoiFeature.slug })
-      scrollTo(0)
-    },
-    [navigation]
-  )
+  const selectPoiFeatureInList = (newPoiFeature: GeoJsonPoi | null) => {
+    if (!newPoiFeature) {
+      return
+    }
+    setFollowUserLocation(false)
+    navigation.setParams({ slug: newPoiFeature.slug })
+    scrollTo(0)
+  }
 
-  const renderPoiListItem = useCallback(
-    (poi: GeoJsonPoi): ReactElement => (
-      <PoiListItem
-        key={poi.path}
-        poi={poi}
-        language={language}
-        navigateToPoi={() => selectPoiFeatureInList(poi)}
-        t={t}
-      />
-    ),
-    [language, selectPoiFeatureInList, t]
+  const renderPoiListItem = (poi: GeoJsonPoi): ReactElement => (
+    <PoiListItem key={poi.path} poi={poi} language={language} navigateToPoi={() => selectPoiFeatureInList(poi)} t={t} />
   )
 
   const setScrollPosition = useCallback(
@@ -151,38 +139,36 @@ const Pois = ({ pois, language, cityModel, route, navigation }: PoisProps): Reac
     },
     [currentPoi]
   )
-  const content = useMemo(() => {
-    if (currentPoi) {
-      return <PoiDetails language={language} poi={currentPoi} poiFeature={currentPoi.getFeature(coordinates)} />
-    }
-    if (slug) {
-      return (
-        <Failure
-          code={fromError(
-            new NotFoundError({
-              type: 'poi',
-              id: '',
-              city: cityModel.code,
-              language,
-            })
-          )}
-        />
-      )
-    }
-    const list = currentFeatureOnMap
-      ? currentFeatureOnMap.properties.pois
-      : features.flatMap(feature => feature.properties.pois)
 
-    return (
-      <ListWrapper>
-        {list.length === 0 ? (
-          <NoItemsMessage>{t('noPois')}</NoItemsMessage>
-        ) : (
-          sortPoiFeatures(list).map(renderPoiListItem)
-        )}
-      </ListWrapper>
-    )
-  }, [cityModel.code, coordinates, currentFeatureOnMap, currentPoi, features, language, renderPoiListItem, slug, t])
+  const singlePoiContent = currentPoi && (
+    <PoiDetails language={language} poi={currentPoi} poiFeature={currentPoi.getFeature(coordinates)} />
+  )
+  const failurePoiContent = !currentPoi && slug && (
+    <Failure
+      code={fromError(
+        new NotFoundError({
+          type: 'poi',
+          id: '',
+          city: cityModel.code,
+          language,
+        })
+      )}
+    />
+  )
+
+  const list = currentFeatureOnMap
+    ? currentFeatureOnMap.properties.pois
+    : features.flatMap(feature => feature.properties.pois)
+
+  const listPoiContent = (
+    <ListWrapper>
+      {list.length === 0 ? (
+        <NoItemsMessage>{t('noPois')}</NoItemsMessage>
+      ) : (
+        sortPoiFeatures(list).map(renderPoiListItem)
+      )}
+    </ListWrapper>
+  )
 
   const navigateToFeedback = (isPositiveFeedback: boolean) => {
     createNavigateToFeedbackModal(navigation)({
@@ -223,7 +209,7 @@ const Pois = ({ pois, language, cityModel, route, navigation }: PoisProps): Reac
         initialIndex={sheetSnapPointIndex}
         snapPoints={BOTTOM_SHEET_SNAP_POINTS}
         snapPointIndex={sheetSnapPointIndex}>
-        {content}
+        {singlePoiContent ?? failurePoiContent ?? listPoiContent}
         <SiteHelpfulBox backgroundColor={theme.colors.backgroundColor} navigateToFeedback={navigateToFeedback} />
       </BottomActionsSheet>
     </ScrollView>
