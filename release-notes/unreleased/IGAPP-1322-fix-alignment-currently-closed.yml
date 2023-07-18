@@ -1,5 +1,5 @@
 issue_key: IGAPP-1322
-show_in_stores:false
+show_in_stores: false
 platforms:
   - web
 en: Fixed the alignment of the notice that a location is currently closed.
