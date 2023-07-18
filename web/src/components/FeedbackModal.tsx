@@ -88,7 +88,7 @@ const FeedbackModal = (props: FeedbackModalProps): ReactElement => {
 
   return (
     <FocusTrap focusTrapOptions={{ clickOutsideDeactivates: true }}>
-      <ModalContainer role='dialog' aria-modal topPosition={topPosition} id='feedback-modal-container'>
+      <ModalContainer role='dialog' aria-hidden={false} aria-modal topPosition={topPosition}>
         <Overlay onClick={closeModal} role='button' tabIndex={0} onKeyPress={closeModal} />
         <ModalContent>
           <Header flexDirection={viewportSmall ? 'row-reverse' : 'row'}>

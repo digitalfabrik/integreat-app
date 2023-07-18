@@ -7,6 +7,7 @@ import { FeedbackIcon } from '../assets'
 import useCityContentParams from '../hooks/useCityContentParams'
 import { RouteType } from '../routes'
 import FeedbackModal from './FeedbackModal'
+import { LAYOUT_ELEMENT_ID } from './Layout'
 import ToolbarItem from './ToolbarItem'
 
 type FeedbackToolbarItemProps = {
@@ -19,7 +20,16 @@ const FeedbackToolbarItem = ({ route, slug }: FeedbackToolbarItemProps): ReactEl
   const [isFeedbackOpen, setIsFeedbackOpen] = useState(false)
   const { t } = useTranslation('feedback')
 
-  // TODO Set aria-hidden on rest
+  const openFeedback = () => {
+    setIsFeedbackOpen(true)
+    document.getElementById(LAYOUT_ELEMENT_ID)?.setAttribute('aria-hidden', 'true')
+  }
+
+  const closeFeedback = () => {
+    setIsFeedbackOpen(false)
+    document.getElementById(LAYOUT_ELEMENT_ID)?.setAttribute('aria-hidden', 'false')
+  }
+
   return (
     <>
       {route !== SEARCH_ROUTE && isFeedbackOpen && (
@@ -29,10 +39,10 @@ const FeedbackToolbarItem = ({ route, slug }: FeedbackToolbarItemProps): ReactEl
           routeType={route}
           slug={slug}
           visible={isFeedbackOpen}
-          closeModal={() => setIsFeedbackOpen(false)}
+          closeModal={closeFeedback}
         />
       )}
-      <ToolbarItem icon={FeedbackIcon} text={t('feedback')} onClick={() => setIsFeedbackOpen(true)} />
+      <ToolbarItem icon={FeedbackIcon} text={t('feedback')} onClick={openFeedback} />
     </>
   )
 }

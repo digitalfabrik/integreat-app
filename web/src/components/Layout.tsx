@@ -4,12 +4,6 @@ import styled, { css } from 'styled-components'
 import dimensions from '../constants/dimensions'
 import useWindowDimensions from '../hooks/useWindowDimensions'
 
-// Needed for sticky footer on IE - see https://stackoverflow.com/a/31835167
-const FlexWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-`
-
 const RichLayout = styled.div`
   position: relative;
   display: flex;
@@ -27,6 +21,7 @@ const RichLayout = styled.div`
     &:focus-visible {
       outline: 2px solid ${props => props.theme.colors.textSecondaryColor};
     }
+
     cursor: pointer;
   }
 
@@ -124,6 +119,8 @@ const Aside = styled.aside<{ languageSelectorHeight: number }>`
   }
 `
 
+export const LAYOUT_ELEMENT_ID = 'layout'
+
 type LayoutProps = {
   footer?: ReactNode
   header?: ReactNode
@@ -150,19 +147,15 @@ const Layout = ({
   }, [width])
 
   return (
-    <FlexWrapper>
-      <RichLayout>
-        <div>
-          {header}
-          <Body fullWidth={fullWidth} disableScrollingSafari={disableScrollingSafari}>
-            {!viewportSmall && <Aside languageSelectorHeight={languageSelectorHeight}>{toolbar}</Aside>}
-            <Main fullWidth={fullWidth}>{children}</Main>
-          </Body>
-          {viewportSmall && toolbar}
-        </div>
-        {footer}
-      </RichLayout>
-    </FlexWrapper>
+    <RichLayout id={LAYOUT_ELEMENT_ID}>
+      {header}
+      <Body fullWidth={fullWidth} disableScrollingSafari={disableScrollingSafari}>
+        {!viewportSmall && <Aside languageSelectorHeight={languageSelectorHeight}>{toolbar}</Aside>}
+        <Main fullWidth={fullWidth}>{children}</Main>
+      </Body>
+      {viewportSmall && toolbar}
+      {footer}
+    </RichLayout>
   )
 }
 
