@@ -16,7 +16,7 @@ jest.mock('@react-native-clipboard/clipboard', () => ({
 }))
 jest.mock('../../hooks/useSnackbar')
 jest.mock('styled-components')
-jest.mock('../NativeHtml', () => {
+jest.mock('../Page', () => {
   const { Text } = require('react-native')
   return ({ content }: { content: string }) => <Text>{content}</Text>
 })

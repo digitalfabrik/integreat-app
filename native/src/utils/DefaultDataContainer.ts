@@ -2,7 +2,7 @@ import { difference, flatMap, isEmpty, map, omitBy } from 'lodash'
 import { Moment } from 'moment'
 import BlobUtil from 'react-native-blob-util'
 
-import { CategoriesMapModel, CityModel, EventModel, LanguageModel, PoiModel } from 'api-client'
+import { CategoriesMapModel, CityModel, EventModel, PoiModel } from 'api-client'
 
 import Cache from '../models/Cache'
 import DatabaseContext from '../models/DatabaseContext'
@@ -20,7 +20,6 @@ type CacheType = {
   cities: Cache<Array<CityModel>>
   events: Cache<Array<EventModel>>
   categories: Cache<CategoriesMapModel>
-  languages: Cache<Array<LanguageModel>>
   resourceCache: Cache<CityResourceCacheStateType>
   lastUpdate: Cache<Moment | null>
 }
@@ -56,12 +55,6 @@ class DefaultDataContainer implements DataContainer {
         (value: CategoriesMapModel, connector: DatabaseConnector, context: DatabaseContext) =>
           connector.storeCategories(value, context)
       ),
-      languages: new Cache<Array<LanguageModel>>(
-        this._databaseConnector,
-        (connector: DatabaseConnector, context: DatabaseContext) => connector.loadLanguages(context),
-        (value: Array<LanguageModel>, connector: DatabaseConnector, context: DatabaseContext) =>
-          connector.storeLanguages(value, context)
-      ),
       resourceCache: new Cache<CityResourceCacheStateType>(
         this._databaseConnector,
         (connector: DatabaseConnector, context: DatabaseContext) => connector.loadResourceCache(context),
@@ -79,6 +72,10 @@ class DefaultDataContainer implements DataContainer {
 
   clearInMemoryCache = (): void => {
     Object.keys(this.caches).forEach(cache => this.caches[cache as keyof CacheType].evict())
+  }
+
+  deleteCity = async (city: string): Promise<void> => {
+    await this._databaseConnector.deleteCities([city])
   }
 
   // WARNING: Be careful using this method, it deletes ALL offline content, including meta data which may lead to inconsistent app states and break our offline functionality.
@@ -111,11 +108,6 @@ class DefaultDataContainer implements DataContainer {
     const context = new DatabaseContext(city, language)
     const cache: Cache<Array<PoiModel>> = this.caches.pois
     return cache.get(context)
-  }
-
-  getLanguages = (city: string): Promise<Array<LanguageModel>> => {
-    const cache: Cache<Array<LanguageModel>> = this.caches.languages
-    return cache.get(new DatabaseContext(city))
   }
 
   getResourceCache = async (city: string, language: string): Promise<LanguageResourceCacheStateType> => {
@@ -153,12 +145,6 @@ class DefaultDataContainer implements DataContainer {
     const context = new DatabaseContext(city, language)
     const cache: Cache<Array<EventModel>> = this.caches.events
     await cache.cache(events, context)
-  }
-
-  setLanguages = async (city: string, languages: Array<LanguageModel>): Promise<void> => {
-    const context = new DatabaseContext(city)
-    const cache: Cache<Array<LanguageModel>> = this.caches.languages
-    await cache.cache(languages, context)
   }
 
   getFilePathsFromLanguageResourceCache(languageResourceCache: LanguageResourceCacheStateType): Array<string> {
@@ -236,20 +222,10 @@ class DefaultDataContainer implements DataContainer {
     return this.isCached('categories', context) || this._databaseConnector.isCategoriesPersisted(context)
   }
 
-  languagesAvailable = async (city: string): Promise<boolean> => {
-    const context = new DatabaseContext(city)
-    return this.isCached('languages', context) || this._databaseConnector.isLanguagesPersisted(context)
-  }
-
   eventsAvailable = async (city: string, language: string): Promise<boolean> => {
     const context = new DatabaseContext(city, language)
     return this.isCached('events', context) || this._databaseConnector.isEventsPersisted(context)
   }
-
-  cityContentAvailable = async (city: string, language: string): Promise<boolean> =>
-    (await this.categoriesAvailable(city, language)) &&
-    (await this.eventsAvailable(city, language)) &&
-    this.languagesAvailable(city)
 
   storeLastUsage = async (city: string): Promise<void> => {
     await this._databaseConnector.storeLastUsage(new DatabaseContext(city))

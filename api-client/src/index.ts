@@ -4,6 +4,7 @@ import { MapResponseType as ImportedMapResponseType } from './MapResponseType'
 import {
   FeedbackCategoryType as ImportedFeedbackCategoryType,
   ParamsType as ImportedFeedbackParamsType,
+  AdditionalParamsType as ImportedFeedbackAdditionalParamsType,
 } from './endpoints/createFeedbackEndpoint'
 import { Status as ImportedShelterContactStatus } from './endpoints/createShelterContactEndpoint'
 import { FilterProps as ImportedShelterFilterProps } from './endpoints/createShelterEndpoint'
@@ -14,7 +15,7 @@ export type ShelterFilterProps = ImportedShelterFilterProps
 export type MapParamsToBodyType<P> = ImportedMapParamsToBodyType<P>
 export type MapParamsToUrlType<P> = ImportedMapParamsToUrlType<P>
 export type MapResponseType<P, T> = ImportedMapResponseType<P, T>
-export type FeedbackParamsType = ImportedFeedbackParamsType
+export type FeedbackParamsType = ImportedFeedbackParamsType & ImportedFeedbackAdditionalParamsType
 export type FeedbackCategoryType = ImportedFeedbackCategoryType
 export type ReturnType<T> = ImportedReturnType<T>
 export { default as InternalPathnameParser } from './routes/InternalPathnameParser'
@@ -55,6 +56,7 @@ export {
   SHELTER_CONTACT_ENDPOINT_NAME,
 } from './endpoints/createShelterContactEndpoint'
 export { default as createCitiesEndpoint, CITIES_ENDPOINT_NAME } from './endpoints/createCitiesEndpoint'
+export { default as createCityEndpoint, CITY_ENDPOINT_NAME } from './endpoints/createCityEndpoint'
 export { default as createDisclaimerEndpoint, DISCLAIMER_ENDPOINT_NAME } from './endpoints/createDisclaimerEndpoint'
 export { default as createEventsEndpoint, EVENTS_ENDPOINT_NAME } from './endpoints/createEventsEndpoint'
 export { default as createLocalNewsEndpoint, LOCAL_NEWS_ENDPOINT_NAME } from './endpoints/createLocalNewsEndpoint'
@@ -73,7 +75,6 @@ export { default as createTrackingEndpoint, TRACKING_ENDPOINT_NAME } from './end
 export { default as loadSprungbrettJobs } from './endpoints/loadSprungbrettJobs'
 export * from './i18n/DateFormatter'
 export { default as DateFormatter } from './i18n/DateFormatter'
-export { default as hashUrl } from './hashUrl'
 export * from './replaceLinks'
 export { POSITIVE_RATING } from './endpoints/createFeedbackEndpoint'
 export { NEGATIVE_RATING } from './endpoints/createFeedbackEndpoint'
@@ -82,7 +83,6 @@ export { CONTENT_FEEDBACK_CATEGORY } from './endpoints/createFeedbackEndpoint'
 export { TECHNICAL_FEEDBACK_CATEGORY } from './endpoints/createFeedbackEndpoint'
 export { INTEGREAT_INSTANCE } from './endpoints/createFeedbackEndpoint'
 export { DEFAULT_FEEDBACK_LANGUAGE } from './endpoints/createFeedbackEndpoint'
-export { default as createLanguagesEndpoint, LANGUAGES_ENDPOINT_NAME } from './endpoints/createLanguagesEndpoint'
 export {
   default as createTunewsLanguagesEndpoint,
   TUNEWS_LANGUAGES_ENDPOINT_NAME,

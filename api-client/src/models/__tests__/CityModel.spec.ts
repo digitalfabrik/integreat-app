@@ -1,3 +1,4 @@
+import LanguageModelBuilder from '../../testing/LanguageModelBuilder'
 import CityModel from '../CityModel'
 
 describe('CityModel', () => {
@@ -6,6 +7,7 @@ describe('CityModel', () => {
       name: 'City',
       code: 'city',
       live: true,
+      languages: new LanguageModelBuilder(2).build(),
       eventsEnabled: false,
       offersEnabled: false,
       poisEnabled: false,

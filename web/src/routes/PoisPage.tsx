@@ -22,7 +22,6 @@ import CityContentLayout from '../components/CityContentLayout'
 import CityContentToolbar from '../components/CityContentToolbar'
 import FailureSwitcher from '../components/FailureSwitcher'
 import FeedbackModal from '../components/FeedbackModal'
-import { FeedbackRatingType } from '../components/FeedbackToolbarItem'
 import Helmet from '../components/Helmet'
 import LoadingSpinner from '../components/LoadingSpinner'
 import PoisDesktop from '../components/PoisDesktop'
@@ -47,40 +46,41 @@ const moveViewToBBox = (bBox: BBox, defaultVp: MapViewMercatorViewport): MapView
   ])
 }
 
-const PoisPage = ({ cityCode, languageCode, cityModel, pathname, languages }: CityRouteProps): ReactElement => {
+const PoisPage = ({ cityCode, languageCode, city, pathname }: CityRouteProps): ReactElement | null => {
   const { t } = useTranslation('pois')
   const { slug: unsafeSlug } = useParams()
   const slug = unsafeSlug ? normalizePath(unsafeSlug) : undefined
-  const [feedbackModalRating, setFeedbackModalRating] = useState<FeedbackRatingType | null>(null)
+  const [isFeedbackModalOpen, setIsFeedbackModalOpen] = useState<boolean>(false)
   const [userLocation, setUserLocation] = useState<LocationType | undefined>(undefined)
   const { data, error: featureLocationsError, loading } = useFeatureLocations(cityCode, languageCode, userLocation)
   const currentPoi = useMemo(() => data?.pois.find(poi => slug === poi.slug) ?? null, [data?.pois, slug])
   // keep the old mapViewport when changing the viewport
-  const [mapViewport, setMapViewport] = useState<MapViewViewport>(() =>
-    moveViewToBBox(cityModel.boundingBox!, defaultMercatorViewportConfig)
+  const [mapViewport, setMapViewport] = useState<MapViewViewport | null>(() =>
+    city ? moveViewToBBox(city.boundingBox!, defaultMercatorViewportConfig) : null
   )
   const { viewportSmall } = useWindowDimensions()
   const toolbar = useMemo(
     () => (
-      <CityContentToolbar
-        openFeedbackModal={setFeedbackModalRating}
-        viewportSmall={viewportSmall}
-        iconDirection='row'
-      />
+      <CityContentToolbar openFeedback={() => setIsFeedbackModalOpen(true)} iconDirection='row' hasDivider={false} />
     ),
-    [viewportSmall]
+    []
   )
 
-  if (buildConfig().featureFlags.developerFriendly) {
-    log('To use geolocation in a development build you have to start the dev server with\n "yarn start --https"')
-  }
   useEffect(() => {
     getUserLocation().then(userLocation =>
       userLocation.status === 'ready' ? setUserLocation(userLocation.coordinates) : null
     )
   }, [])
 
-  const languageChangePaths = languages.map(({ code, name }) => ({
+  if (!city || !mapViewport) {
+    return null
+  }
+
+  if (buildConfig().featureFlags.developerFriendly) {
+    log('To use geolocation in a development build you have to start the dev server with\n "yarn start --https"')
+  }
+
+  const languageChangePaths = city.languages.map(({ code, name }) => ({
     path: pathnameFromRouteInformation({
       route: POIS_ROUTE,
       cityCode,
@@ -92,7 +92,7 @@ const PoisPage = ({ cityCode, languageCode, cityModel, pathname, languages }: Ci
   }))
 
   const locationLayoutParams = {
-    cityModel,
+    city,
     viewportSmall,
     feedbackTargetInformation: currentPoi ? { slug: currentPoi.slug } : null,
     languageChangePaths,
@@ -101,6 +101,17 @@ const PoisPage = ({ cityCode, languageCode, cityModel, pathname, languages }: Ci
     disableScrollingSafari: true,
     showFooter: false,
   }
+
+  const feedbackModal = isFeedbackModalOpen && (
+    <FeedbackModal
+      cityCode={city.code}
+      language={languageCode}
+      routeType={POIS_ROUTE}
+      visible={isFeedbackModalOpen}
+      closeModal={() => setIsFeedbackModalOpen(false)}
+      topPosition={undefined}
+    />
+  )
 
   if (loading) {
     return (
@@ -127,21 +138,11 @@ const PoisPage = ({ cityCode, languageCode, cityModel, pathname, languages }: Ci
     )
   }
 
-  const pageTitle = `${t('pageTitle')} - ${cityModel.name}`
+  const pageTitle = `${t('pageTitle')} - ${city.name}`
 
   // To calculate the height of the PoisPage container, we have to reduce 100vh by header, footer, navMenu
   const panelHeights = dimensions.headerHeightLarge + dimensions.navigationMenuHeight
   const direction = config.getScriptDirection(languageCode)
-
-  const feedbackModal = feedbackModalRating && (
-    <FeedbackModal
-      cityCode={cityModel.code}
-      language={languageCode}
-      routeType={POIS_ROUTE}
-      feedbackRating={feedbackModalRating}
-      closeModal={() => setFeedbackModalRating(null)}
-    />
-  )
 
   const sharedPoiProps = {
     toolbar,
@@ -161,13 +162,13 @@ const PoisPage = ({ cityCode, languageCode, cityModel, pathname, languages }: Ci
         pageTitle={pageTitle}
         metaDescription={currentPoi?.metaDescription}
         languageChangePaths={languageChangePaths}
-        cityModel={cityModel}
+        cityModel={city}
       />
       <PoisPageWrapper panelHeights={panelHeights}>
         {viewportSmall ? (
           <PoisMobile {...sharedPoiProps} />
         ) : (
-          <PoisDesktop {...sharedPoiProps} panelHeights={panelHeights} cityModel={cityModel} />
+          <PoisDesktop {...sharedPoiProps} panelHeights={panelHeights} cityModel={city} />
         )}
         {feedbackModal}
       </PoisPageWrapper>

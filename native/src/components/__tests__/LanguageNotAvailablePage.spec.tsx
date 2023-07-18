@@ -7,17 +7,13 @@ import { AppContext } from '../../contexts/AppContextProvider'
 import render from '../../testing/render'
 import LanguageNotAvailablePage from '../LanguageNotAvailablePage'
 
-jest.mock('../../hooks/useLoadLanguages', () => () => ({
+jest.mock('../../hooks/useLoadCities', () => () => ({
   data: null,
   loading: false,
   error: null,
   refresh: () => null,
 }))
-jest.mock('react-i18next', () => ({
-  useTranslation: () => ({
-    t: (key: string) => key,
-  }),
-}))
+jest.mock('react-i18next')
 
 describe('LanguageNotAvailablePage', () => {
   beforeEach(() => {

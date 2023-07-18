@@ -15,12 +15,13 @@ describe('Feedback', () => {
   const t = (key: string): string => key
 
   const onCommentChanged = jest.fn()
+  const onFeedbackChanged = jest.fn()
   const onContactMailChangedDummy = jest.fn()
   const onSubmit = jest.fn()
   const closeFeedbackModal = jest.fn()
 
   const buildProps = (
-    isPositiveFeedback: boolean,
+    isPositiveFeedback: boolean | null,
     comment: string,
     isSearchFeedback = false,
     sendingStatus = SendingState.IDLE,
@@ -32,15 +33,21 @@ describe('Feedback', () => {
     contactMail: 'test@example.com',
     sendingStatus,
     onCommentChanged,
+    onFeedbackChanged,
     onContactMailChanged,
     onSubmit,
     t,
     closeFeedbackModal,
   })
 
-  it('button should be disabled for negative Feedback and no input', () => {
-    const { getByText } = renderWithTheme(<Feedback {...buildProps(false, '')} />)
+  it('button should be disabled for no rating and no input', () => {
+    const { getByText } = renderWithTheme(<Feedback {...buildProps(null, '')} />)
     expect(getByText('feedback:send')).toBeDisabled()
+  })
+
+  it('note should be shown for no rating and no input', () => {
+    const { getByText } = renderWithTheme(<Feedback {...buildProps(null, '')} />)
+    expect(getByText('feedback:note')).toBeTruthy()
   })
 
   it('button should be enabled for positive Feedback and no input', () => {
@@ -48,8 +55,13 @@ describe('Feedback', () => {
     expect(getByText('feedback:send')).toBeEnabled()
   })
 
-  it('button should be enabled for negative Feedback and input', () => {
-    const { getByText } = renderWithTheme(<Feedback {...buildProps(false, 'comment')} />)
+  it('button should be enabled for negative Feedback and no input', () => {
+    const { getByText } = renderWithTheme(<Feedback {...buildProps(true, '')} />)
+    expect(getByText('feedback:send')).toBeEnabled()
+  })
+
+  it('button should be enabled no rating and input', () => {
+    const { getByText } = renderWithTheme(<Feedback {...buildProps(null, 'comment')} />)
     expect(getByText('feedback:send')).toBeEnabled()
   })
 

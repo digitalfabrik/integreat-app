@@ -5,26 +5,18 @@ import { Navigate, Route, Routes, useMatch } from 'react-router-dom'
 import {
   CITY_NOT_COOPERATING_ROUTE,
   cityContentPath,
-  createCitiesEndpoint,
   JPAL_TRACKING_ROUTE,
   LANDING_ROUTE,
   LICENSES_ROUTE,
   MAIN_DISCLAIMER_ROUTE,
   NOT_FOUND_ROUTE,
   pathnameFromRouteInformation,
-  useLoadFromEndpoint,
 } from 'api-client'
 
 import CityContentSwitcher from './CityContentSwitcher'
-import FailureSwitcher from './components/FailureSwitcher'
-import GeneralFooter from './components/GeneralFooter'
-import GeneralHeader from './components/GeneralHeader'
-import Layout from './components/Layout'
 import LoadingSpinner from './components/LoadingSpinner'
 import buildConfig from './constants/buildConfig'
-import { cmsApiBaseUrl } from './constants/urls'
 import useScrollToTop from './hooks/useScrollToTop'
-import useWindowDimensions from './hooks/useWindowDimensions'
 import { cityContentPattern, RoutePatterns } from './routes'
 import CityNotCooperatingPage from './routes/CityNotCooperatingPage'
 import JpalTrackingPage from './routes/JpalTrackingPage'
@@ -40,11 +32,9 @@ const NotFoundPage = lazyWithRetry(() => import('./routes/NotFoundPage'))
 const LicensesPage = lazyWithRetry(() => import('./routes/LicensesPage'))
 
 const RootSwitcher = ({ setContentLanguage }: RootSwitcherProps): ReactElement => {
-  const { data: cities, loading, error } = useLoadFromEndpoint(createCitiesEndpoint, cmsApiBaseUrl, undefined)
   const { i18n } = useTranslation()
   const { fixedCity, cityNotCooperating, jpalTracking } = buildConfig().featureFlags
   const languageCode = useMatch('/:slug/:languageCode/*')?.params.languageCode
-  const { viewportSmall } = useWindowDimensions()
   useScrollToTop()
 
   const detectedLanguageCode = i18n.language
@@ -59,41 +49,20 @@ const RootSwitcher = ({ setContentLanguage }: RootSwitcherProps): ReactElement =
   const landingPath = pathnameFromRouteInformation({ route: LANDING_ROUTE, languageCode: language })
   const fixedCityPath = fixedCity ? cityContentPath({ cityCode: fixedCity, languageCode: language }) : null
 
-  if (loading) {
-    return (
-      <Layout>
-        <LoadingSpinner />
-      </Layout>
-    )
-  }
-
-  if (!cities || error) {
-    return (
-      <Layout
-        header={<GeneralHeader languageCode={language} viewportSmall={viewportSmall} />}
-        footer={<GeneralFooter language={language} />}>
-        <FailureSwitcher error={error ?? new Error('Cities not available')} />
-      </Layout>
-    )
-  }
-  const relevantCities = fixedCity ? cities.filter(city => city.code === fixedCity) : cities
-
-  const props = {
-    cities: relevantCities,
-    languageCode: language,
-  }
-
   return (
     <Suspense fallback={<LoadingSpinner />}>
       <Routes>
-        <Route path={RoutePatterns[LANDING_ROUTE]} element={<LandingPage {...props} />} />
-        <Route path={RoutePatterns[MAIN_DISCLAIMER_ROUTE]} element={<MainDisclaimerPage {...props} />} />
+        <Route path={RoutePatterns[LANDING_ROUTE]} element={<LandingPage languageCode={language} />} />
+        <Route path={RoutePatterns[MAIN_DISCLAIMER_ROUTE]} element={<MainDisclaimerPage languageCode={language} />} />
         <Route path={RoutePatterns[NOT_FOUND_ROUTE]} element={<NotFoundPage />} />
-        <Route path={RoutePatterns[LICENSES_ROUTE]} element={<LicensesPage {...props} />} />
-        <Route path={cityContentPattern} element={<CityContentSwitcher {...props} />} />
+        <Route path={RoutePatterns[LICENSES_ROUTE]} element={<LicensesPage languageCode={language} />} />
+        <Route path={cityContentPattern} element={<CityContentSwitcher languageCode={language} />} />
 
         {cityNotCooperating && (
-          <Route path={RoutePatterns[CITY_NOT_COOPERATING_ROUTE]} element={<CityNotCooperatingPage {...props} />} />
+          <Route
+            path={RoutePatterns[CITY_NOT_COOPERATING_ROUTE]}
+            element={<CityNotCooperatingPage languageCode={language} />}
+          />
         )}
         {jpalTracking && (
           <Route path={RoutePatterns[JPAL_TRACKING_ROUTE]} element={<JpalTrackingPage />}>

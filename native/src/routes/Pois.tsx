@@ -1,13 +1,11 @@
 import { BottomSheetScrollViewMethods } from '@gorhom/bottom-sheet'
-import MapboxGL from '@react-native-mapbox-gl/maps'
-import React, { ReactElement, useCallback, useLayoutEffect, useMemo, useRef, useState } from 'react'
+import React, { ReactElement, useCallback, useMemo, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { ScrollView, useWindowDimensions } from 'react-native'
+import { ScrollView } from 'react-native'
 import { useTheme } from 'styled-components'
 import styled from 'styled-components/native'
 
 import {
-  animationDuration,
   CityModel,
   embedInCollection,
   ErrorCode,
@@ -15,7 +13,6 @@ import {
   POIS_ROUTE,
   PoisRouteType,
   prepareFeatureLocations,
-  closerDetailZoom,
   GeoJsonPoi,
   PoiFeature,
   isMultipoi,
@@ -44,7 +41,7 @@ const NoItemsMessage = styled.Text`
   text-align: center;
 `
 
-const midSnapPointPercentage = 0.35
+export const midSnapPointPercentage = 0.35
 const percentage = 100
 const BOTTOM_SHEET_SNAP_POINTS = [
   dimensions.bottomSheetHandler.height,
@@ -68,11 +65,9 @@ const Pois = ({ pois, language, cityModel, route, navigation }: PoisProps): Reac
   const [sheetSnapPointIndex, setSheetSnapPointIndex] = useState<number>(1)
   const [followUserLocation, setFollowUserLocation] = useState<boolean>(false)
   const [listScrollPosition, setListScrollPosition] = useState<number>(0)
-  const deviceHeight = useWindowDimensions().height
   const features = useMemo(() => prepareFeatureLocations(pois, coordinates), [pois, coordinates])
   const { t } = useTranslation('pois')
   const theme = useTheme()
-  const cameraRef = useRef<MapboxGL.Camera | null>(null)
   const scrollRef = useRef<BottomSheetScrollViewMethods>(null)
 
   const currentFeatureOnMap = useMemo(
@@ -106,9 +101,6 @@ const Pois = ({ pois, language, cityModel, route, navigation }: PoisProps): Reac
   useOnBackNavigation(slug || multipoi ? deselectFeature : undefined)
 
   const selectFeatureOnMap = (feature: PoiFeature | null) => {
-    if (!cameraRef.current) {
-      return
-    }
     if (!feature) {
       deselectFeature()
       return
@@ -126,7 +118,7 @@ const Pois = ({ pois, language, cityModel, route, navigation }: PoisProps): Reac
 
   const selectPoiFeatureInList = useCallback(
     (newPoiFeature: GeoJsonPoi | null) => {
-      if (!newPoiFeature || !cameraRef.current) {
+      if (!newPoiFeature) {
         return
       }
       setFollowUserLocation(false)
@@ -135,21 +127,6 @@ const Pois = ({ pois, language, cityModel, route, navigation }: PoisProps): Reac
     },
     [navigation]
   )
-
-  // Wait for followUserLocation change before moving the camera to avoid position lock
-  // https://github.com/rnmapbox/maps/issues/1079
-  useLayoutEffect(() => {
-    if (!followUserLocation && currentFeatureOnMap && cameraRef.current) {
-      cameraRef.current.setCamera({
-        centerCoordinate: currentFeatureOnMap.geometry.coordinates,
-        zoomLevel: closerDetailZoom,
-        animationDuration,
-        padding: {
-          paddingBottom: deviceHeight * midSnapPointPercentage,
-        },
-      })
-    }
-  }, [currentFeatureOnMap, deviceHeight, followUserLocation])
 
   const renderPoiListItem = useCallback(
     (poi: GeoJsonPoi): ReactElement => (
@@ -200,7 +177,6 @@ const Pois = ({ pois, language, cityModel, route, navigation }: PoisProps): Reac
   return (
     <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
       <MapView
-        ref={cameraRef}
         selectFeature={selectFeatureOnMap}
         boundingBox={cityModel.boundingBox}
         setSheetSnapPointIndex={setSheetSnapPointIndex}

@@ -31,18 +31,11 @@ const PanelContainer = styled.article`
   flex-direction: column;
 `
 
-const ListViewWrapper = styled.div<{ panelHeights: number }>`
+const ListViewWrapper = styled.div<{ panelHeights: number; bottomBarHeight: number }>`
   width: 300px;
   padding: 0 clamp(16px, 1.4vh, 32px);
   overflow: auto;
-  ${({ panelHeights }) => `height: calc(100vh - ${panelHeights}px - ${dimensions.toolbarHeight}px);`};
-`
-
-const ToolbarContainer = styled.div`
-  display: flex;
-  justify-content: center;
-  background-color: ${props => props.theme.colors.backgroundAccentColor};
-  box-shadow: 1px 0 4px 0 rgba(0, 0, 0, 0.2);
+  ${({ panelHeights, bottomBarHeight }) => `height: calc(100vh - ${panelHeights}px - ${bottomBarHeight}px);`};
 `
 
 const ListHeader = styled.div`
@@ -50,11 +43,11 @@ const ListHeader = styled.div`
   padding-top: clamp(16px, 1.4vh, 32px);
   padding-bottom: clamp(10px, 1vh, 20px);
   text-align: center;
-  font-size: 18px;
+  font-size: ${props => props.theme.fonts.subTitleFontSize};
   font-family: ${props => props.theme.fonts.web.decorativeFont};
   line-height: ${props => props.theme.fonts.decorativeLineHeight};
   font-weight: 600;
-  border-bottom: 1px solid ${props => props.theme.colors.poiBorderColor};
+  border-bottom: 1px solid ${props => props.theme.colors.borderColor};
   margin-bottom: clamp(10px, 1vh, 20px);
 `
 
@@ -74,7 +67,7 @@ type PoisDesktopProps = {
   languageCode: string
   slug: string | undefined
   mapViewport: MapViewViewport
-  setMapViewport: (mapViewport: React.SetStateAction<MapViewViewport>) => void
+  setMapViewport: (mapViewport: MapViewViewport | null) => void
 }
 
 const nextPoiIndex = (step: 1 | -1, arrayLength: number, currentIndex: number): number => {
@@ -145,7 +138,10 @@ const PoisDesktop = ({
   return (
     <>
       <PanelContainer>
-        <ListViewWrapper ref={listRef} panelHeights={panelHeights}>
+        <ListViewWrapper
+          ref={listRef}
+          panelHeights={panelHeights}
+          bottomBarHeight={currentPoi ? dimensions.poiDetailNavigation : dimensions.toolbarHeight}>
           {currentFeatureOnMap ? (
             <GoBack goBack={() => selectPoiFeatureInList(null)} direction={direction} text={t('detailsHeader')} />
           ) : (
@@ -153,16 +149,18 @@ const PoisDesktop = ({
           )}
 
           {currentPoi ? (
-            <PoiDetails poi={currentPoi} feature={currentPoi.getFeature(userLocation)} direction={direction} t={t} />
+            <PoiDetails
+              poi={currentPoi}
+              feature={currentPoi.getFeature(userLocation)}
+              direction={direction}
+              toolbar={toolbar}
+              t={t}
+            />
           ) : (
             <>{poiList}</>
           )}
         </ListViewWrapper>
-        {currentPoi && features.length > 0 ? (
-          <PoiPanelNavigation switchPoi={switchPoi} direction={direction} />
-        ) : (
-          <ToolbarContainer>{toolbar}</ToolbarContainer>
-        )}
+        {currentPoi && features.length > 0 && <PoiPanelNavigation switchPoi={switchPoi} direction={direction} />}
       </PanelContainer>
       <MapView
         viewport={mapViewport}

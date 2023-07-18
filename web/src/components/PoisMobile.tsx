@@ -65,7 +65,7 @@ type PoisMobileProps = {
   languageCode: string
   slug: string | undefined
   mapViewport: MapViewViewport
-  setMapViewport: (mapViewport: React.SetStateAction<MapViewViewport>) => void
+  setMapViewport: (mapViewport: MapViewViewport | null) => void
 }
 
 const PoisMobile = ({

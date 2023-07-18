@@ -2,24 +2,23 @@ import React, { ReactElement, ReactNode, useState } from 'react'
 
 import { CityModel, SEARCH_ROUTE } from 'api-client'
 
+import useWindowDimensions from '../hooks/useWindowDimensions'
 import { RouteType } from '../routes'
 import CityContentFooter from './CityContentFooter'
 import CityContentHeader from './CityContentHeader'
 import FeedbackModal from './FeedbackModal'
-import { FeedbackRatingType } from './FeedbackToolbarItem'
 import Layout from './Layout'
 
-export type ToolbarProps = (openFeedbackModal: (rating: FeedbackRatingType) => void) => ReactNode
+export type ToolbarProps = (openFeedback: () => void) => ReactNode
 
 type CityContentLayoutProps = {
   toolbar?: ToolbarProps
-  viewportSmall: boolean
   children?: ReactNode
   route: RouteType
   feedbackTargetInformation: { slug?: string } | null
   languageChangePaths: Array<{ code: string; path: string | null; name: string }> | null
   isLoading: boolean
-  cityModel: CityModel
+  city: CityModel
   languageCode: string
   fullWidth?: boolean
   disableScrollingSafari?: boolean
@@ -27,10 +26,10 @@ type CityContentLayoutProps = {
 }
 
 const CityContentLayout = (props: CityContentLayoutProps): ReactElement => {
-  const [feedbackModalRating, setFeedbackModalRating] = useState<FeedbackRatingType | null>(null)
+  const [isFeedbackModalOpen, setIsFeedbackModalOpen] = useState<boolean>(false)
+  const { viewportSmall } = useWindowDimensions()
 
   const {
-    viewportSmall,
     children,
     languageCode,
     languageChangePaths,
@@ -41,21 +40,23 @@ const CityContentLayout = (props: CityContentLayoutProps): ReactElement => {
     disableScrollingSafari = false,
     showFooter = true,
   } = props
-  const { feedbackTargetInformation, cityModel } = props
+  const { feedbackTargetInformation, city } = props
 
   const feedbackModal =
-    route !== SEARCH_ROUTE && feedbackModalRating ? (
+    route !== SEARCH_ROUTE && isFeedbackModalOpen ? (
       <FeedbackModal
-        cityCode={cityModel.code}
+        cityCode={city.code}
         language={languageCode}
         routeType={route}
-        feedbackRating={feedbackModalRating}
-        closeModal={() => setFeedbackModalRating(null)}
+        visible={isFeedbackModalOpen}
+        closeModal={() => setIsFeedbackModalOpen(false)}
         {...feedbackTargetInformation}
       />
     ) : null
 
-  const toolbar = toolbarProp && !isLoading ? toolbarProp(setFeedbackModalRating) : null
+  // to avoid jumping issues for desktop, isLoading is only checked on mobile viewport
+  const isLoadingMobile = isLoading && viewportSmall
+  const toolbar = toolbarProp && !isLoadingMobile ? toolbarProp(() => setIsFeedbackModalOpen(true)) : null
 
   return (
     <Layout
@@ -63,16 +64,15 @@ const CityContentLayout = (props: CityContentLayoutProps): ReactElement => {
       fullWidth={fullWidth}
       header={
         <CityContentHeader
-          cityModel={cityModel}
+          cityModel={city}
           languageChangePaths={languageChangePaths}
-          viewportSmall={viewportSmall}
           languageCode={languageCode}
           route={route}
         />
       }
       footer={
         !isLoading && showFooter && !viewportSmall ? (
-          <CityContentFooter city={cityModel.code} language={languageCode} />
+          <CityContentFooter city={city.code} language={languageCode} />
         ) : null
       }
       modal={feedbackModal}

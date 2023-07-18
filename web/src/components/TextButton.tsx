@@ -8,6 +8,7 @@ export const StyledButton = styled.button<{ disabled: boolean; fullWidth?: boole
   color: ${props => props.theme.colors.textColor};
   border: none;
   text-align: center;
+  font-weight: 700;
   border-radius: 0.25em;
   cursor: ${props => (props.disabled ? 'default' : 'pointer')};
   pointer-events: ${props => (props.disabled ? 'none' : 'default')};
