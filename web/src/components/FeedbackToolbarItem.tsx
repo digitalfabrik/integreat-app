@@ -38,7 +38,6 @@ const FeedbackToolbarItem = ({ route, slug }: FeedbackToolbarItemProps): ReactEl
           language={languageCode}
           routeType={route}
           slug={slug}
-          visible={isFeedbackOpen}
           closeModal={closeFeedback}
         />
       )}

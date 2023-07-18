@@ -152,7 +152,6 @@ const PoisPage = ({ cityCode, languageCode, city, pathname }: CityRouteProps): R
       cityCode={city.code}
       language={languageCode}
       routeType={POIS_ROUTE}
-      visible={isFeedbackModalOpen}
       closeModal={() => setIsFeedbackModalOpen(false)}
       topPosition={isBottomActionSheetFullscreen ? 0 : undefined}
     />
