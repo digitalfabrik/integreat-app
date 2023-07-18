@@ -36,14 +36,12 @@ describe('FeedbackContainer', () => {
 
   const buildDefaultProps = (
     routeType: RouteType,
-    isPositiveFeedback: boolean,
     isSearchFeedback: boolean
   ): ComponentProps<typeof FeedbackContainer> => ({
     routeType,
     cityCode,
     language,
     closeModal,
-    isPositiveFeedback,
     isSearchFeedback,
   })
 
@@ -60,33 +58,83 @@ describe('FeedbackContainer', () => {
     ${POIS_ROUTE}       | ${{}}                          | ${FeedbackType.map}
     ${SEARCH_ROUTE}     | ${{ query: 'query ' }}         | ${FeedbackType.search}
     ${TU_NEWS_ROUTE}    | ${{}}                          | ${FeedbackType.categories}
-  `('should successfully request feedback for $feedbackType', async ({ route, inputProps, feedbackType }) => {
-    const { getByRole } = renderWithTheme(
-      <FeedbackContainer {...buildDefaultProps(route, true, false)} {...inputProps} />
-    )
-    const button = getByRole('button', {
-      name: 'feedback:send',
-    })
-    fireEvent.click(button)
-    // Needed as submitFeedback is asynchronous
-    await waitFor(() => expect(button).toBeEnabled())
-    expect(mockRequest).toHaveBeenCalledTimes(1)
-    expect(mockRequest).toHaveBeenCalledWith({
-      feedbackType,
-      city: 'augsburg',
-      language: 'de',
-      comment: '    Kontaktadresse: Keine Angabe',
-      feedbackCategory: 'Inhalte',
-      isPositiveRating: true,
-      query: inputProps.query,
-      slug: inputProps.slug,
-    })
-  })
+  `(
+    'should successfully request feedback for $feedbackType if rating was set',
+    async ({ route, inputProps, feedbackType }) => {
+      const { getByRole } = renderWithTheme(<FeedbackContainer {...buildDefaultProps(route, false)} {...inputProps} />)
+      const buttonRating = getByRole('button', {
+        name: 'feedback:useful',
+      })
+      fireEvent.click(buttonRating)
+      const button = getByRole('button', {
+        name: 'feedback:send',
+      })
+      fireEvent.click(button)
+      // Needed as submitFeedback is asynchronous
+      await waitFor(() => expect(button).toBeEnabled())
+      expect(mockRequest).toHaveBeenCalledTimes(1)
+      expect(mockRequest).toHaveBeenCalledWith({
+        feedbackType,
+        city: 'augsburg',
+        language: 'de',
+        comment: '    Kontaktadresse: Keine Angabe',
+        feedbackCategory: 'Inhalte',
+        isPositiveRating: true,
+        query: inputProps.query,
+        slug: inputProps.slug,
+      })
+    }
+  )
+
+  it.each`
+    route               | inputProps                     | feedbackType
+    ${CATEGORIES_ROUTE} | ${{}}                          | ${FeedbackType.categories}
+    ${CATEGORIES_ROUTE} | ${{ slug: 'willkommen' }}      | ${FeedbackType.page}
+    ${EVENTS_ROUTE}     | ${{}}                          | ${FeedbackType.events}
+    ${EVENTS_ROUTE}     | ${{ slug: '1234' }}            | ${FeedbackType.event}
+    ${OFFERS_ROUTE}     | ${{ slug: SPRUNGBRETT_OFFER }} | ${FeedbackType.offer}
+    ${OFFERS_ROUTE}     | ${{}}                          | ${FeedbackType.offers}
+    ${DISCLAIMER_ROUTE} | ${{}}                          | ${FeedbackType.imprint}
+    ${POIS_ROUTE}       | ${{ slug: '1234' }}            | ${FeedbackType.poi}
+    ${POIS_ROUTE}       | ${{}}                          | ${FeedbackType.map}
+    ${SEARCH_ROUTE}     | ${{ query: 'query ' }}         | ${FeedbackType.search}
+    ${TU_NEWS_ROUTE}    | ${{}}                          | ${FeedbackType.categories}
+  `(
+    'should successfully request feedback for $feedbackType if rating was set',
+    async ({ route, inputProps, feedbackType }) => {
+      const { getByRole } = renderWithTheme(<FeedbackContainer {...buildDefaultProps(route, false)} {...inputProps} />)
+      const buttonRating = getByRole('button', {
+        name: 'feedback:useful',
+      })
+      fireEvent.click(buttonRating)
+      const button = getByRole('button', {
+        name: 'feedback:send',
+      })
+      fireEvent.click(button)
+      // Needed as submitFeedback is asynchronous
+      await waitFor(() => expect(button).toBeEnabled())
+      expect(mockRequest).toHaveBeenCalledTimes(1)
+      expect(mockRequest).toHaveBeenCalledWith({
+        feedbackType,
+        city: 'augsburg',
+        language: 'de',
+        comment: '    Kontaktadresse: Keine Angabe',
+        feedbackCategory: 'Inhalte',
+        isPositiveRating: true,
+        query: inputProps.query,
+        slug: inputProps.slug,
+      })
+    }
+  )
 
   it('should display thanks message for modal', async () => {
     const { getByRole, findByText } = renderWithTheme(
-      <FeedbackContainer {...buildDefaultProps(CATEGORIES_ROUTE, true, false)} />
+      <FeedbackContainer {...buildDefaultProps(CATEGORIES_ROUTE, false)} />
     )
+    const buttonRating = getByRole('button', {
+      name: 'feedback:useful',
+    })
+    fireEvent.click(buttonRating)
     const button = getByRole('button', {
       name: 'feedback:send',
     })
@@ -98,8 +146,12 @@ describe('FeedbackContainer', () => {
 
   it('should display thanks message for search', async () => {
     const { getByRole, findByText, queryByRole } = renderWithTheme(
-      <FeedbackContainer {...buildDefaultProps(CATEGORIES_ROUTE, true, true)} />
+      <FeedbackContainer {...buildDefaultProps(CATEGORIES_ROUTE, true)} />
     )
+    const buttonRating = getByRole('button', {
+      name: 'feedback:useful',
+    })
+    fireEvent.click(buttonRating)
     const button = getByRole('button', {
       name: 'feedback:send',
     })
@@ -113,9 +165,11 @@ describe('FeedbackContainer', () => {
     mockRequest.mockImplementationOnce(() => {
       throw new Error()
     })
-    const { getByRole, findByText } = renderWithTheme(
-      <FeedbackContainer {...buildDefaultProps(SEARCH_ROUTE, true, true)} />
-    )
+    const { getByRole, findByText } = renderWithTheme(<FeedbackContainer {...buildDefaultProps(SEARCH_ROUTE, true)} />)
+    const buttonRating = getByRole('button', {
+      name: 'feedback:useful',
+    })
+    fireEvent.click(buttonRating)
     const button = getByRole('button', {
       name: 'feedback:send',
     })

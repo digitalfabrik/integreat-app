@@ -1,16 +1,27 @@
-import React, { ReactElement } from 'react'
+import React, { ReactElement, useContext } from 'react'
 import { useTranslation } from 'react-i18next'
+import { ScrollView } from 'react-native'
+import styled from 'styled-components/native'
 
-import { ErrorCode, LocalNewsModel, NewsRouteType, NewsType, TU_NEWS_TYPE, TunewsModel } from 'api-client'
+import { ErrorCode, LocalNewsModel, NewsRouteType, NewsType, replaceLinks, TU_NEWS_TYPE, TunewsModel } from 'api-client'
 
 import { NavigationProps } from '../constants/NavigationTypes'
+import { contentAlignment } from '../constants/contentDirection'
+import DateFormatterContext from '../contexts/DateFormatterContext'
 import useNavigate from '../hooks/useNavigate'
 import useSetRouteTitle from '../hooks/useSetRouteTitle'
 import Failure from './Failure'
 import List from './List'
 import LoadingSpinner from './LoadingSpinner'
-import NewsDetail from './NewsDetail'
 import NewsListItem from './NewsListItem'
+import Page from './Page'
+import TimeStamp from './TimeStamp'
+
+const TimeStampContent = styled.Text<{ language: string }>`
+  padding: 17px 0;
+  text-align: ${props => contentAlignment(props.language)};
+  align-self: center;
+`
 
 type NewsModelsType = Array<LocalNewsModel | TunewsModel>
 
@@ -36,6 +47,7 @@ const News = ({
   loadingMore,
 }: NewsProps): ReactElement => {
   const selectedNewsItem = newsId ? news.find(_newsItem => _newsItem.id.toString() === newsId) : null
+  const formatter = useContext(DateFormatterContext)
   const { t } = useTranslation('news')
 
   const navigation = useNavigate().navigation as NavigationProps<NewsRouteType>
@@ -57,7 +69,31 @@ const News = ({
 
   if (newsId) {
     if (selectedNewsItem) {
-      return <NewsDetail newsItem={selectedNewsItem} language={languageCode} />
+      return (
+        <ScrollView>
+          <Page
+            title={selectedNewsItem.title}
+            content={
+              selectedNewsItem instanceof LocalNewsModel
+                ? replaceLinks(selectedNewsItem.content)
+                : selectedNewsItem.content
+            }
+            language={languageCode}
+            AfterContent={
+              selectedNewsItem instanceof LocalNewsModel && (
+                <TimeStampContent language={languageCode}>
+                  <TimeStamp
+                    formatter={formatter}
+                    lastUpdate={selectedNewsItem.timestamp}
+                    showText={false}
+                    format='LLL'
+                  />
+                </TimeStampContent>
+              )
+            }
+          />
+        </ScrollView>
+      )
     }
     return <Failure code={ErrorCode.PageNotFound} />
   }

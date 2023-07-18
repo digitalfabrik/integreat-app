@@ -2,7 +2,7 @@ import { mocked } from 'jest-mock'
 import React from 'react'
 import TestRenderer from 'react-test-renderer'
 
-import { CityModel } from 'api-client/src'
+import { CityModel, LanguageModelBuilder } from 'api-client'
 
 import buildConfig from '../../constants/buildConfig'
 import TileModel from '../../models/TileModel'
@@ -10,7 +10,14 @@ import DashboardNavigationTiles from '../DashboardNavigationTiles'
 import NavigationTiles from '../NavigationTiles'
 
 jest.mock('react-i18next')
-
+jest.mock('../../constants/buildConfig', () => {
+  const actualImplementation = jest.requireActual('../../constants/buildConfig')
+  return {
+    ...actualImplementation,
+    __esModule: true,
+    default: jest.fn(actualImplementation.default),
+  }
+})
 jest.mock('../../components/NavigationTiles', () => {
   const { Text } = require('react-native')
 
@@ -26,6 +33,7 @@ describe('DashboardNavigationTiles', () => {
       name: 'Stadt Augsburg',
       code: 'augsburg',
       live: true,
+      languages: new LanguageModelBuilder(2).build(),
       eventsEnabled: events,
       offersEnabled: offers,
       localNewsEnabled: local,

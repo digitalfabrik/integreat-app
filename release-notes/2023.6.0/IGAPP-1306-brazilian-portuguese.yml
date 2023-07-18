@@ -1,0 +1,8 @@
+issue_key: IGAPP-1306
+show_in_stores: true
+platforms:
+  - android
+  - ios
+  - web
+en: Add support for Brazilian Portuguese.
+de: Unterstützung für brasilianisches Portugiesisch hinzugefügt.
