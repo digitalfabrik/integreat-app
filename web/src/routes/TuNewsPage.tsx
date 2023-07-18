@@ -15,7 +15,6 @@ import { CityRouteProps } from '../CityContentSwitcher'
 import CityContentLayout from '../components/CityContentLayout'
 import CityContentToolbar from '../components/CityContentToolbar'
 import FailureSwitcher from '../components/FailureSwitcher'
-import { FeedbackRatingType } from '../components/FeedbackToolbarItem'
 import Helmet from '../components/Helmet'
 import InfiniteScrollList from '../components/InfiniteScrollList'
 import LanguageFailure from '../components/LanguageFailure'
@@ -80,8 +79,8 @@ const TuNewsPage = ({ cityCode, languageCode, city }: CityRouteProps): ReactElem
     )
   }
 
-  const toolbar = (openFeedback: (rating: FeedbackRatingType) => void) => (
-    <CityContentToolbar openFeedbackModal={openFeedback} hasFeedbackOption={false} hasDivider={false} />
+  const toolbar = (openFeedback: () => void) => (
+    <CityContentToolbar openFeedback={openFeedback} hasFeedbackOption={false} hasDivider={false} />
   )
 
   const languageChangePaths = city.languages.map(({ code, name }) => {
