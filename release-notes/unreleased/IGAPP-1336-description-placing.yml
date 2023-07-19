@@ -1,0 +1,7 @@
+issue_key: IGAPP-1336
+show_in_stores: true
+platforms:
+  - ios
+  - android
+en: The description is shown with the right amount of space now.
+de: Die Beschreibung wird nun mit der richtigen Menge an Platz angezeigt.
