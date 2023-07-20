@@ -66,7 +66,7 @@ const MapView = ({
 }: MapViewProps): ReactElement => {
   const deviceHeight = useWindowDimensions().height
   const cameraRef = useRef<MapLibreGL.Camera | null>(null)
-  const mapRef = React.useRef<MapLibreGL.MapView | null>(null)
+  const mapRef = useRef<MapLibreGL.MapView | null>(null)
   const theme = useTheme()
 
   const bounds = {
