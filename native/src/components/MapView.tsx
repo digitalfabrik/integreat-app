@@ -1,4 +1,4 @@
-import MapboxGL, { CameraSettings, MapboxGLEvent } from '@react-native-mapbox-gl/maps'
+import MapLibreGL, { CameraSettings, MapLibreGLEvent } from '@maplibre/maplibre-react-native'
 import type { BBox, Feature } from 'geojson'
 import React, { ReactElement, useCallback, useEffect, useRef } from 'react'
 import { useWindowDimensions } from 'react-native'
@@ -26,7 +26,7 @@ const MapContainer = styled.View`
   flex-direction: row;
   justify-content: center;
 `
-const StyledMap = styled(MapboxGL.MapView)`
+const StyledMap = styled(MapLibreGL.MapView)`
   width: 100%;
 `
 
@@ -51,7 +51,7 @@ type MapViewProps = {
 const featureLayerId = 'point'
 
 // Has to be set even if we use map libre
-MapboxGL.setAccessToken(mapConfig.accessToken)
+MapLibreGL.setAccessToken(null)
 const MapView = ({
   boundingBox,
   featureCollection,
@@ -65,8 +65,8 @@ const MapView = ({
   setFollowUserLocation,
 }: MapViewProps): ReactElement => {
   const deviceHeight = useWindowDimensions().height
-  const mapRef = useRef<MapboxGL.MapView | null>(null)
-  const cameraRef = useRef<MapboxGL.Camera | null>(null)
+  const cameraRef = useRef<MapLibreGL.Camera | null>(null)
+  const mapRef = useRef<MapLibreGL.MapView | null>(null)
   const theme = useTheme()
 
   const bounds = {
@@ -87,6 +87,14 @@ const MapView = ({
     setFollowUserLocation(true)
   }, [onRequestLocationPermission, setFollowUserLocation])
 
+  const onUserTrackingModeChange = (
+    event: MapLibreGLEvent<'usertrackingmodechange', { followUserLocation: boolean }>
+  ) => {
+    if (!event.nativeEvent.payload.followUserLocation) {
+      setFollowUserLocation(event.nativeEvent.payload.followUserLocation)
+    }
+  }
+
   // Wait for followUserLocation change before moving the camera to avoid position lock
   // https://github.com/rnmapbox/maps/issues/1079
   useEffect(() => {
@@ -99,12 +107,6 @@ const MapView = ({
       })
     }
   }, [deviceHeight, followUserLocation, selectedFeature])
-
-  const onUserTrackingModeChange = (
-    event: MapboxGLEvent<'usertrackingmodechange', { followUserLocation: boolean }>
-  ) => {
-    setFollowUserLocation(event.nativeEvent.payload.followUserLocation)
-  }
 
   const locationPermissionGrantedIcon = followUserLocation ? 'my-location' : 'location-searching'
   const locationPermissionIcon = locationPermissionGranted ? locationPermissionGrantedIcon : 'location-disabled'
@@ -139,13 +141,13 @@ const MapView = ({
         ref={mapRef}
         attributionEnabled={false}
         logoEnabled={false}>
-        <MapboxGL.UserLocation visible={locationPermissionGranted} />
-        <MapboxGL.ShapeSource id='location-pois' shape={featureCollection} cluster clusterRadius={clusterRadius}>
-          <MapboxGL.SymbolLayer {...clusterCountLayer} />
-          <MapboxGL.CircleLayer {...clusterLayer(theme)} />
-          <MapboxGL.SymbolLayer {...markerLayer(selectedFeature, featureLayerId)} />
-        </MapboxGL.ShapeSource>
-        <MapboxGL.Camera
+        <MapLibreGL.UserLocation visible={locationPermissionGranted} />
+        <MapLibreGL.ShapeSource id='location-pois' shape={featureCollection} cluster clusterRadius={clusterRadius}>
+          <MapLibreGL.SymbolLayer {...clusterCountLayer} />
+          <MapLibreGL.CircleLayer {...clusterLayer(theme)} />
+          <MapLibreGL.SymbolLayer {...markerLayer(selectedFeature, featureLayerId)} />
+        </MapLibreGL.ShapeSource>
+        <MapLibreGL.Camera
           defaultSettings={defaultSettings}
           followUserMode='normal'
           followUserLocation={followUserLocation && locationPermissionGranted}
