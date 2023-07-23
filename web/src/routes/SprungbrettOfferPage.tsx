@@ -13,7 +13,7 @@ import {
 
 import { CityRouteProps } from '../CityContentSwitcher'
 import Caption from '../components/Caption'
-import CityContentLayout from '../components/CityContentLayout'
+import CityContentLayout, { CityContentLayoutProps } from '../components/CityContentLayout'
 import CityContentToolbar from '../components/CityContentToolbar'
 import CleanLink from '../components/CleanLink'
 import FailureSwitcher from '../components/FailureSwitcher'
@@ -22,7 +22,6 @@ import List from '../components/List'
 import LoadingSpinner from '../components/LoadingSpinner'
 import SprungbrettListItem from '../components/SprungbrettListItem'
 import { cmsApiBaseUrl } from '../constants/urls'
-import useWindowDimensions from '../hooks/useWindowDimensions'
 
 const Image = styled.img`
   display: block;
@@ -30,7 +29,6 @@ const Image = styled.img`
 `
 
 const SprungbrettOfferPage = ({ city, cityCode, languageCode }: CityRouteProps): ReactElement | null => {
-  const { viewportSmall } = useWindowDimensions()
   const { t } = useTranslation('sprungbrett')
 
   const load = useCallback(
@@ -43,24 +41,19 @@ const SprungbrettOfferPage = ({ city, cityCode, languageCode }: CityRouteProps):
     return null
   }
 
-  const toolbar = (openFeedback: () => void) => (
-    <CityContentToolbar openFeedback={openFeedback} hasDivider={viewportSmall} />
-  )
-
   const languageChangePaths = city.languages.map(({ code, name }) => ({
     path: pathnameFromRouteInformation({ route: SPRUNGBRETT_OFFER_ROUTE, cityCode, languageCode: code }),
     name,
     code,
   }))
 
-  const locationLayoutParams = {
+  const feedbackTarget = data?.sprungbrettOffer ? getSlugFromPath(data.sprungbrettOffer.path) : undefined
+  const locationLayoutParams: Omit<CityContentLayoutProps, 'isLoading'> = {
     city,
-    viewportSmall,
-    feedbackTargetInformation: data?.sprungbrettOffer ? { slug: getSlugFromPath(data.sprungbrettOffer.path) } : null,
     languageChangePaths,
     route: SPRUNGBRETT_OFFER_ROUTE,
     languageCode,
-    toolbar,
+    Toolbar: <CityContentToolbar feedbackTarget={feedbackTarget} route={SPRUNGBRETT_OFFER_ROUTE} />,
   }
 
   if (loading) {

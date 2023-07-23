@@ -4,12 +4,6 @@ import styled, { css } from 'styled-components'
 import dimensions from '../constants/dimensions'
 import useWindowDimensions from '../hooks/useWindowDimensions'
 
-// Needed for sticky footer on IE - see https://stackoverflow.com/a/31835167
-const FlexWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-`
-
 const RichLayout = styled.div`
   position: relative;
   display: flex;
@@ -124,31 +118,25 @@ const Aside = styled.aside<{ languageSelectorHeight: number }>`
   }
 `
 
+export const LAYOUT_ELEMENT_ID = 'layout'
+
 type LayoutProps = {
   footer?: ReactNode
   header?: ReactNode
   toolbar?: ReactNode
-  modal?: ReactNode
   children?: ReactNode
   fullWidth?: boolean
   disableScrollingSafari?: boolean
 }
 
-/**
- * The standard Layout, used for any view in this app as a container.
- * If a footer is supplied and there's not enough content (in header and children) to fill the viewbox, the footer will
- * always stick to the bottom of the viewbox.
- */
 const Layout = ({
   footer,
   header,
   toolbar,
-  modal,
   children,
   fullWidth = false,
   disableScrollingSafari = false,
 }: LayoutProps): JSX.Element => {
-  const modalVisible = !!modal
   const { width, viewportSmall } = useWindowDimensions()
   const [languageSelectorHeight, setLanguageSelectorHeight] = useState<number>(0)
 
@@ -158,20 +146,15 @@ const Layout = ({
   }, [width])
 
   return (
-    <FlexWrapper>
-      <RichLayout>
-        <div aria-hidden={modalVisible}>
-          {header}
-          <Body fullWidth={fullWidth} disableScrollingSafari={disableScrollingSafari}>
-            {!viewportSmall && <Aside languageSelectorHeight={languageSelectorHeight}>{toolbar}</Aside>}
-            <Main fullWidth={fullWidth}>{children}</Main>
-          </Body>
-          {viewportSmall && toolbar}
-        </div>
-        {modal}
-        <div aria-hidden={modalVisible}>{footer}</div>
-      </RichLayout>
-    </FlexWrapper>
+    <RichLayout id={LAYOUT_ELEMENT_ID}>
+      {header}
+      <Body fullWidth={fullWidth} disableScrollingSafari={disableScrollingSafari}>
+        {!viewportSmall && <Aside languageSelectorHeight={languageSelectorHeight}>{toolbar}</Aside>}
+        <Main fullWidth={fullWidth}>{children}</Main>
+      </Body>
+      {viewportSmall && toolbar}
+      {footer}
+    </RichLayout>
   )
 }
 

@@ -1,7 +1,7 @@
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { CategoryModel } from 'api-client'
+import { CATEGORIES_ROUTE, CategoryModel } from 'api-client'
 
 import { PdfIcon } from '../assets'
 import { cmsApiBaseUrl } from '../constants/urls'
@@ -12,12 +12,10 @@ type CategoriesToolbarProps = {
   category?: CategoryModel
   cityCode: string
   languageCode: string
-  openFeedback: () => void
-  hasDivider: boolean
 }
 
 const CategoriesToolbar = (props: CategoriesToolbarProps): ReactElement => {
-  const { category, openFeedback, cityCode, languageCode, hasDivider } = props
+  const { category, cityCode, languageCode } = props
   const { t } = useTranslation('categories')
 
   const pdfUrl =
@@ -26,7 +24,9 @@ const CategoriesToolbar = (props: CategoriesToolbarProps): ReactElement => {
       : `${cmsApiBaseUrl}/${cityCode}/${languageCode}/wp-json/ig-mpdf/v1/pdf?url=${encodeURIComponent(category.path)}`
 
   return (
-    <CityContentToolbar openFeedback={openFeedback} hasDivider={hasDivider}>
+    <CityContentToolbar
+      route={CATEGORIES_ROUTE}
+      feedbackTarget={category && !category.isRoot() ? category.slug : undefined}>
       <ToolbarItem icon={PdfIcon} text={t('createPdf')} href={pdfUrl} />
     </CityContentToolbar>
   )
