@@ -21,7 +21,6 @@ const RichLayout = styled.div`
     &:focus-visible {
       outline: 2px solid ${props => props.theme.colors.textSecondaryColor};
     }
-
     cursor: pointer;
   }
 
