@@ -314,7 +314,7 @@ jobs:
                 command: |
                     mkdir -p sourcemaps/<< parameters.build_config_name >>
                     cp native/android/app/build/generated/sourcemaps/react/release/index.android.bundle.map sourcemaps/<< parameters.build_config_name >>/
-                    cp native/android/app/build/generated/assets/react/release/index.android.bundle sourcemaps/<< parameters.build_config_name >>/
+                    cp native/android/app/build/ASSETS/createBundleReleaseJsAndAssets/index.android.bundle sourcemaps/<< parameters.build_config_name >>/
                 name: Prepare Sourcemaps
             - persist_to_workspace:
                 paths:

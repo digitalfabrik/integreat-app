@@ -1,4 +1,4 @@
-import { CircleLayerProps, SymbolLayerProps } from '@react-native-mapbox-gl/maps'
+import { CircleLayerProps, SymbolLayerProps } from '@maplibre/maplibre-react-native'
 
 import {
   circleRadiusLarge,
