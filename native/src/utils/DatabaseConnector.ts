@@ -56,8 +56,8 @@ type ContentCategoryJsonType = {
   order: number
   organization: {
     name: string
-    logo: string | null
-    url: string | null
+    logo: string
+    url: string
   } | null
 }
 type LocationJsonType<T> = {
