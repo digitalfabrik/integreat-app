@@ -1,27 +1,30 @@
 import React, { memo, ReactNode, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { CopyIcon, DoneIcon, FeedbackIcon } from '../assets'
+import { CopyIcon, DoneIcon } from '../assets'
+import { RouteType } from '../routes'
+import FeedbackToolbarItem from './FeedbackToolbarItem'
 import Toolbar from './Toolbar'
 import ToolbarItem from './ToolbarItem'
 import Tooltip from './Tooltip'
 
 type CityContentToolbarProps = {
-  openFeedback: () => void
+  feedbackTarget?: string
   children?: ReactNode
   iconDirection?: 'row' | 'column'
   hasFeedbackOption?: boolean
-  hasDivider: boolean
+  hideDivider?: boolean
+  route: RouteType
 }
 
 const COPY_TIMEOUT = 3000
 
 const CityContentToolbar = (props: CityContentToolbarProps) => {
-  const { children, openFeedback, iconDirection, hasFeedbackOption = true, hasDivider } = props
+  const { feedbackTarget, children, iconDirection, hasFeedbackOption = true, hideDivider, route } = props
   const [linkCopied, setLinkCopied] = useState<boolean>(false)
   const { t } = useTranslation('categories')
   const copyToClipboard = () => {
-    navigator.clipboard.writeText(window.location.href)
+    navigator.clipboard.writeText(window.location.href).catch(reportError)
     setLinkCopied(true)
     setTimeout(() => {
       setLinkCopied(false)
@@ -29,12 +32,12 @@ const CityContentToolbar = (props: CityContentToolbarProps) => {
   }
 
   return (
-    <Toolbar iconDirection={iconDirection} hasDivider={hasDivider}>
+    <Toolbar iconDirection={iconDirection} hideDivider={hideDivider}>
       {children}
       <Tooltip text={t('common:copied')} flow='up' active={linkCopied} trigger='click'>
         <ToolbarItem icon={linkCopied ? DoneIcon : CopyIcon} text={t('copyUrl')} onClick={copyToClipboard} />
       </Tooltip>
-      {hasFeedbackOption && <ToolbarItem icon={FeedbackIcon} text={t('feedback:feedback')} onClick={openFeedback} />}
+      {hasFeedbackOption && <FeedbackToolbarItem route={route} slug={feedbackTarget} />}
     </Toolbar>
   )
 }

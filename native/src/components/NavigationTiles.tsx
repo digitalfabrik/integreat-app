@@ -6,6 +6,7 @@ import styled from 'styled-components/native'
 
 import TileModel from '../models/TileModel'
 import AnchorIcon from './AnchorIcon'
+import HighlightBox from './HighlightBox'
 import NavigationTile from './NavigationTile'
 
 const widthBreakPoint = 400
@@ -14,16 +15,11 @@ const wideScreenItemsCount = 4
 const smallScreenItemsCount = 3
 const scrolledToEndThreshold = 0.95
 
-const TilesRow = styled.View`
-  background-color: ${props => props.theme.colors.backgroundAccentColor};
+const TilesRow = styled(HighlightBox)`
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: space-around;
-  elevation: 1;
-  shadow-color: #000000;
-  shadow-opacity: 0.2;
-  shadow-radius: 1px;
   shadow-offset: 1px;
 `
 

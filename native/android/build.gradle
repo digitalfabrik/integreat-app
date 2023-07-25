@@ -13,32 +13,11 @@ buildscript {
         ndkVersion = "23.1.7779620"
         // stick to browser 1.4.0 until we upgrade to SDK 33 https://stackoverflow.com/questions/69208613/getting-error-while-running-react-native-app
         androidXBrowser = "1.4.0"
-
-        // Config for MapLibre
-        rnmbglMapboxLibs = {
-            implementation("org.maplibre.gl:android-sdk:9.2.1")
-            implementation ("com.mapbox.mapboxsdk:mapbox-sdk-turf:5.8.0")
-        }
-        rnmbglMapboxPlugins = {
-            implementation("com.mapbox.mapboxsdk:mapbox-android-gestures:0.7.0")
-            implementation("com.mapbox.mapboxsdk:mapbox-android-plugin-localization-v9:0.12.0") {
-                exclude group: 'com.mapbox.mapboxsdk', module: 'mapbox-android-sdk'
-            }
-            implementation("com.mapbox.mapboxsdk:mapbox-android-plugin-annotation-v9:0.8.0") {
-                exclude group: 'com.mapbox.mapboxsdk', module: 'mapbox-android-sdk'
-            }
-            implementation("com.mapbox.mapboxsdk:mapbox-android-plugin-markerview-v9:0.4.0") {
-                exclude group: 'com.mapbox.mapboxsdk', module: 'mapbox-android-sdk'
-            }
-        }
     }
     repositories {
         google()
         mavenCentral()
         jcenter()
-        maven {
-            url = "https://dl.bintray.com/maplibre/maplibre-gl-native"
-        }
     }
     dependencies {
         classpath("com.android.tools.build:gradle:7.3.1")

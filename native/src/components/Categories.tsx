@@ -10,6 +10,7 @@ import TileModel from '../models/TileModel'
 import { LanguageResourceCacheStateType, PageResourceCacheStateType } from '../utils/DataContainer'
 import CategoryListItem from './CategoryListItem'
 import { FeedbackInformationType } from './FeedbackContainer'
+import OrganizationContentInfo from './OrganizationContentInfo'
 import Page from './Page'
 import SiteHelpfulBox from './SiteHelpfulBox'
 import SpaceBetween from './SpaceBetween'
@@ -96,7 +97,8 @@ const Categories = ({
       language={language}
       navigateToFeedback={navigateToFeedbackForCategory}
       path={category.path}
-      AfterContent={children.map(it => (
+      AfterContent={category.organization && <OrganizationContentInfo organization={category.organization} />}
+      Footer={children.map(it => (
         <CategoryListItem
           key={it.path}
           category={it}
