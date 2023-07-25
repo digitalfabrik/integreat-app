@@ -12,6 +12,7 @@ import OpeningEntry from './OpeningEntry'
 const OpeningLabel = styled.span<{ isOpened: boolean; direction: string }>`
   color: ${props => (props.isOpened ? props.theme.colors.positiveHighlight : props.theme.colors.negativeHighlight)};
   padding-right: 12px;
+  flex: 0;
   ${props => (props.direction === 'rtl' ? `padding-left: 12px;` : `padding-right: 12px;`)}
 `
 
