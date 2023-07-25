@@ -59,7 +59,7 @@ describe('categories', () => {
     organization: {
       name: 'Tür an Tür',
       logo: 'https://example.com/my-icon',
-      url: 'https://example.com',
+      website: 'https://example.com',
     },
   }
   const categoryModel1 = new CategoryModel({
