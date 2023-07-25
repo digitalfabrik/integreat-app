@@ -86,6 +86,20 @@ const Pois = ({ pois: allPois, language, cityModel, route, navigation }: PoisPro
   const features = prepareFeatureLocations(pois, coordinates)
   const selectedFeature = slug ? features.find(it => it.properties.slug === slug) : null
 
+  const updatePoiCategoryFilter = (poiCategoryFilter: PoiCategoryModel | null) => {
+    if (poi && poiCategoryFilter && poi.category !== poiCategoryFilter) {
+      navigation.setParams({ slug: undefined })
+    }
+    setPoiCategoryFilter(poiCategoryFilter)
+  }
+
+  const updatePoiCurrentlyOpenFilter = (poiCurrentlyOpenFilter: boolean) => {
+    if (poi && poiCurrentlyOpenFilter && !poi.isCurrentlyOpen) {
+      navigation.setParams({ slug: undefined })
+    }
+    setPoiCurrentlyOpenFilter(poiCurrentlyOpenFilter)
+  }
+
   const scrollTo = (position: number) => {
     setTimeout(() => {
       if (scrollRef.current) {
@@ -190,9 +204,9 @@ const Pois = ({ pois: allPois, language, cityModel, route, navigation }: PoisPro
         closeModal={() => setShowFilterSelection(false)}
         pois={allPois}
         selectedPoiCategory={poiCategoryFilter}
-        setSelectedPoiCategory={setPoiCategoryFilter}
+        setSelectedPoiCategory={updatePoiCategoryFilter}
         currentlyOpenFilter={poiCurrentlyOpenFilter}
-        setCurrentlyOpenFilter={setPoiCurrentlyOpenFilter}
+        setCurrentlyOpenFilter={updatePoiCurrentlyOpenFilter}
       />
       <MapView
         selectPoiFeature={selectPoiFeature}

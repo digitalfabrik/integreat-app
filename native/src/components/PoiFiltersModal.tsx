@@ -32,7 +32,6 @@ const Section = styled.View`
 const Row = styled.View`
   flex-direction: row;
   padding-top: 16px;
-  width: 100%;
 `
 
 const StyledText = styled.Text`
@@ -42,7 +41,7 @@ const StyledText = styled.Text`
   padding: 4px;
 `
 
-const SortHint = styled.Text`
+const SortingHint = styled.Text`
   align-self: flex-end;
   font-size: 12px;
   color: ${props => props.theme.colors.textColor};
@@ -52,6 +51,7 @@ const SortHint = styled.Text`
 
 const FlexEnd = styled.View`
   flex: 1;
+  justify-content: flex-end;
 `
 
 const TileRow = styled(Row)`
@@ -73,6 +73,7 @@ const PoiCategoryTile = styled.Pressable<{ active: boolean }>`
   shadow-opacity: 0.2;
   shadow-radius: 1px;
   margin-bottom: 24px;
+  justify-content: space-around;
 `
 
 const PoiCategoryText = styled.Text`
@@ -122,7 +123,7 @@ const PoiFiltersModal = ({
         <Section>
           <Row>
             <SubTitle>{t('poiCategories')}</SubTitle>
-            <SortHint>{t('alphabetLetters')}</SortHint>
+            <SortingHint>{t('alphabetLetters')}</SortingHint>
           </Row>
           <TileRow>
             {poiCategories.map(it => (
