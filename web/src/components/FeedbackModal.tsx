@@ -72,23 +72,22 @@ type FeedbackModalProps = {
   cityCode: string
   language: string
   routeType: RouteType
-  visible: boolean
   closeModal: () => void
   topPosition?: number
 }
 
 const FeedbackModal = (props: FeedbackModalProps): ReactElement => {
   const { viewportSmall } = useWindowDimensions()
-  const { visible, closeModal, topPosition = viewportSmall ? dimensions.headerHeightSmall : 0, ...otherProps } = props
+  const { closeModal, topPosition = viewportSmall ? dimensions.headerHeightSmall : 0, ...otherProps } = props
   const [isSubmitted, setIsSubmitted] = useState<boolean>(false)
   const { t } = useTranslation('feedback')
   const headline = isSubmitted ? `${t('thanksHeadline')}` : `${t('headline')}`
   useScrollToTop()
-  useLockedBody(visible)
+  useLockedBody(true)
 
   return (
     <FocusTrap focusTrapOptions={{ clickOutsideDeactivates: true }}>
-      <ModalContainer role='dialog' aria-modal topPosition={topPosition} id='feedback-modal-container'>
+      <ModalContainer role='dialog' aria-hidden={false} aria-modal topPosition={topPosition}>
         <Overlay onClick={closeModal} role='button' tabIndex={0} onKeyPress={closeModal} />
         <ModalContent>
           <Header flexDirection={viewportSmall ? 'row-reverse' : 'row'}>
