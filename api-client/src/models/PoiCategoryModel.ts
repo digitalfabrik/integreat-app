@@ -3,12 +3,26 @@ class PoiCategoryModel {
   _name: string
   _color: string
   _icon: string
+  _iconName: string
 
-  constructor({ id, name, color, icon }: { id: number; name: string; icon: string; color: string }) {
-    this._icon = icon
+  constructor({
+    id,
+    name,
+    color,
+    icon,
+    iconName,
+  }: {
+    id: number
+    name: string
+    icon: string
+    iconName: string
+    color: string
+  }) {
     this._name = name
     this._id = id
     this._color = color
+    this._icon = icon
+    this._iconName = iconName
   }
 
   get id(): number {
@@ -27,8 +41,18 @@ class PoiCategoryModel {
     return this._icon
   }
 
+  get iconName(): string {
+    return this._iconName
+  }
+
   isEqual(other: PoiCategoryModel): boolean {
-    return this.id === other.id && this.name === other.name && this.color === other.color && this.icon === other.icon
+    return (
+      this.id === other.id &&
+      this.name === other.name &&
+      this.color === other.color &&
+      this.icon === other.icon &&
+      this.iconName === other.iconName
+    )
   }
 }
 

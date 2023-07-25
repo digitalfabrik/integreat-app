@@ -42,6 +42,7 @@ export default (baseUrl: string): Endpoint<ParamsType, Array<PoiModel>> =>
                     id: poi.category.id,
                     name: poi.category.name,
                     color: poi.category.color,
+                    iconName: poi.category.icon,
                     icon: poi.category.icon_url,
                   })
                 : null,
