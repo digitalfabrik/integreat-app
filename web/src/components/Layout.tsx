@@ -46,7 +46,6 @@ const RichLayout = styled.div`
 const Body = styled.div<{ fullWidth: boolean; disableScrollingSafari: boolean }>`
   width: 100%;
   box-sizing: border-box;
-  flex-grow: 1;
   margin: 0 auto;
   background-color: ${props => props.theme.colors.backgroundColor};
   word-wrap: break-word;
