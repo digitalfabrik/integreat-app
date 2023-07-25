@@ -111,7 +111,6 @@ const CityContentSwitcher = ({ languageCode }: CityContentSwitcherProps): ReactE
           fallback={
             city ? (
               <CityContentLayout
-                feedbackTargetInformation={null}
                 languageChangePaths={null}
                 languageCode={languageCode}
                 isLoading

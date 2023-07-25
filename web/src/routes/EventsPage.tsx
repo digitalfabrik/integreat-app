@@ -13,7 +13,7 @@ import {
 
 import { CityRouteProps } from '../CityContentSwitcher'
 import Caption from '../components/Caption'
-import CityContentLayout from '../components/CityContentLayout'
+import CityContentLayout, { CityContentLayoutProps } from '../components/CityContentLayout'
 import CityContentToolbar from '../components/CityContentToolbar'
 import EventListItem from '../components/EventListItem'
 import FailureSwitcher from '../components/FailureSwitcher'
@@ -54,11 +54,6 @@ const EventsPage = ({ city, pathname, languageCode, cityCode }: CityRouteProps):
     ? events?.find(it => it.path === pathname) ??
       events?.find(it => it.path.substring(0, it.path.indexOf('$')) === pathname)
     : null
-
-  const toolbar = (openFeedback: () => void) => (
-    <CityContentToolbar openFeedback={openFeedback} hasDivider={viewportSmall && !!event} />
-  )
-
   const languageChangePaths = city.languages.map(({ code, name }) => {
     const isCurrentLanguage = code === languageCode
     const path = event
@@ -71,14 +66,12 @@ const EventsPage = ({ city, pathname, languageCode, cityCode }: CityRouteProps):
     }
   })
 
-  const locationLayoutParams = {
+  const locationLayoutParams: Omit<CityContentLayoutProps, 'isLoading'> = {
     city,
-    viewportSmall,
-    feedbackTargetInformation: event ? { slug: event.slug } : null,
     languageChangePaths,
     route: EVENTS_ROUTE,
     languageCode,
-    toolbar,
+    Toolbar: <CityContentToolbar feedbackTarget={event?.slug} route={EVENTS_ROUTE} hideDivider={!event} />,
   }
 
   if (loading || pathname !== previousPathname) {
@@ -139,12 +132,14 @@ const EventsPage = ({ city, pathname, languageCode, cityCode }: CityRouteProps):
           title={title}
           formatter={formatter}
           onInternalLinkClick={navigate}
-          pageFooter={PageFooter}>
-          <>
-            <PageDetail identifier={t('date')} information={date.toFormattedString(formatter)} />
-            {location && <PageDetail identifier={t('address')} information={location.fullAddress} />}
-          </>
-        </Page>
+          BeforeContent={
+            <>
+              <PageDetail identifier={t('date')} information={date.toFormattedString(formatter)} />
+              {location && <PageDetail identifier={t('address')} information={location.fullAddress} />}
+            </>
+          }
+          Footer={PageFooter}
+        />
       </CityContentLayout>
     )
   }

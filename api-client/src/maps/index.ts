@@ -2,7 +2,6 @@ import { Feature, FeatureCollection, Point } from 'geojson'
 
 type MapConfigProps = {
   styleJSON: string
-  accessToken: string
 }
 
 export type MapViewViewport = {
@@ -74,7 +73,6 @@ export type PoiFeatureCollection = FeatureCollection<Point, GeoJsonPoiProperties
 
 export const mapConfig: MapConfigProps = {
   styleJSON: 'https://maps.tuerantuer.org/styles/integreat/style.json',
-  accessToken: 'dummy',
 }
 
 export const defaultViewportConfig: MapViewViewport = {

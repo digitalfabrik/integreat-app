@@ -16,6 +16,7 @@ parameters:
         web_production_delivery,
         web_promotion,
         delivery,
+        e2e_tests,
         none,
       ]
     default: none

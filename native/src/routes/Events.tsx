@@ -103,7 +103,7 @@ const Events = ({
                 )}
               </>
             }
-            AfterContent={<ExportEventButton event={event} />}
+            Footer={<ExportEventButton event={event} />}
           />
         </LayoutedScrollView>
       )
