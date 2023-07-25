@@ -79,7 +79,7 @@ const Events = ({ cityModel, language, navigateTo, events, slug, refresh }: Even
                 )}
               </>
             }
-            AfterContent={<ExportEventButton event={event} />}
+            Footer={<ExportEventButton event={event} />}
           />
         </LayoutedScrollView>
       )

@@ -23,7 +23,7 @@ import {
 import { config } from 'translations'
 
 import { CityRouteProps } from '../CityContentSwitcher'
-import CityContentLayout from '../components/CityContentLayout'
+import CityContentLayout, { CityContentLayoutProps } from '../components/CityContentLayout'
 import CityContentToolbar from '../components/CityContentToolbar'
 import FailureSwitcher from '../components/FailureSwitcher'
 import FeedbackModal from '../components/FeedbackModal'
@@ -145,25 +145,20 @@ const PoisPage = ({ cityCode, languageCode, city, pathname }: CityRouteProps): R
     }
   }
 
-  const toolbar = (
-    <CityContentToolbar openFeedback={() => setIsFeedbackModalOpen(true)} iconDirection='row' hasDivider={false} />
-  )
+  const toolbar = <CityContentToolbar feedbackTarget={poi?.slug} route={POIS_ROUTE} iconDirection='row' hideDivider />
 
   const feedbackModal = isFeedbackModalOpen && (
     <FeedbackModal
       cityCode={city.code}
       language={languageCode}
       routeType={POIS_ROUTE}
-      visible={isFeedbackModalOpen}
       closeModal={() => setIsFeedbackModalOpen(false)}
       topPosition={isBottomActionSheetFullscreen ? 0 : undefined}
     />
   )
 
-  const locationLayoutParams = {
+  const locationLayoutParams: Omit<CityContentLayoutProps, 'isLoading'> = {
     city,
-    viewportSmall,
-    feedbackTargetInformation: poi ? { slug: poi.slug } : null,
     languageChangePaths,
     route: POIS_ROUTE,
     languageCode,
