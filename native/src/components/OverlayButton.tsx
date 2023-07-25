@@ -25,6 +25,10 @@ const StyledText = styled(Text)`
   font-family: ${props => props.theme.fonts.native.decorativeFontBold};
 `
 
+const Spacer = styled.View`
+  width: 4px;
+`
+
 type OverlayButtonProps = {
   text: string
   Icon: ReactElement
@@ -35,6 +39,7 @@ type OverlayButtonProps = {
 const OverlayButton = ({ Icon, text, onPress, closeButton }: OverlayButtonProps): ReactElement => (
   <Container onPress={onPress}>
     <IconContainer>{Icon}</IconContainer>
+    <Spacer />
     <StyledText>{text}</StyledText>
     {closeButton && (
       <IconContainer>
