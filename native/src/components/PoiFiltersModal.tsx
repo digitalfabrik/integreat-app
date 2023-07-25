@@ -1,12 +1,13 @@
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Button } from 'react-native-elements'
+import { SvgUri } from 'react-native-svg'
 import { useTheme } from 'styled-components'
 import styled from 'styled-components/native'
 
 import { PoiCategoryModel, PoiModel } from 'api-client'
 
-import { ClockIcon, MobilityIcon } from '../assets'
+import { ClockIcon } from '../assets'
 import Modal from './Modal'
 import SettingsSwitch from './SettingsSwitch'
 import Text from './base/Text'
@@ -131,8 +132,7 @@ const PoiFiltersModal = ({
                 key={it.id}
                 active={it === selectedPoiCategory}
                 onPress={() => setSelectedPoiCategory(it === selectedPoiCategory ? null : it)}>
-                {/* TOOD: Use correct icon */}
-                <MobilityIcon />
+                <SvgUri uri={it.icon} />
                 <PoiCategoryText>{it.name}</PoiCategoryText>
               </PoiCategoryTile>
             ))}

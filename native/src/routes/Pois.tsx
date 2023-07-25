@@ -2,6 +2,7 @@ import { BottomSheetScrollViewMethods } from '@gorhom/bottom-sheet'
 import React, { ReactElement, useCallback, useMemo, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { ScrollView } from 'react-native'
+import { SvgUri } from 'react-native-svg'
 import { useTheme } from 'styled-components'
 import styled from 'styled-components/native'
 
@@ -177,11 +178,15 @@ const Pois = ({ pois: allPois, language, cityModel, route, navigation }: PoisPro
 
   const FiltersOverlayButtons = (
     <>
-      <OverlayButton text={t('adjustFilters')} Icon={EditLocationIcon} onPress={() => setShowFilterSelection(true)} />
+      <OverlayButton
+        text={t('adjustFilters')}
+        Icon={<EditLocationIcon />}
+        onPress={() => setShowFilterSelection(true)}
+      />
       {poiCurrentlyOpenFilter && (
         <OverlayButton
           text={t('opened')}
-          Icon={ClockIcon}
+          Icon={<ClockIcon />}
           onPress={() => setPoiCurrentlyOpenFilter(false)}
           closeButton
         />
@@ -189,7 +194,7 @@ const Pois = ({ pois: allPois, language, cityModel, route, navigation }: PoisPro
       {!!poiCategoryFilter && (
         <OverlayButton
           text={poiCategoryFilter.name}
-          Icon={EditLocationIcon}
+          Icon={<SvgUri uri={poiCategoryFilter.icon} height={16} width={16} />}
           onPress={() => setPoiCategoryFilter(null)}
           closeButton
         />

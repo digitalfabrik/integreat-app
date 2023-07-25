@@ -27,16 +27,14 @@ const StyledText = styled(Text)`
 
 type OverlayButtonProps = {
   text: string
-  Icon: React.JSXElementConstructor<SVGElement>
+  Icon: ReactElement
   onPress: () => void
   closeButton?: boolean
 }
 
 const OverlayButton = ({ Icon, text, onPress, closeButton }: OverlayButtonProps): ReactElement => (
   <Container onPress={onPress}>
-    <IconContainer>
-      <Icon />
-    </IconContainer>
+    <IconContainer>{Icon}</IconContainer>
     <StyledText>{text}</StyledText>
     {closeButton && (
       <IconContainer>
