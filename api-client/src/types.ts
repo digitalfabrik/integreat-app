@@ -27,6 +27,7 @@ export type JsonPoiCategoryType = {
   id: number
   name: string
   color: string
+  icon: string
   icon_url: string
 }
 type JsonFeaturedImageInstanceType = {

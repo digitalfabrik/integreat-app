@@ -86,8 +86,8 @@ class PoiModel extends ExtendedPageModel {
   }
 
   private getMarkerSymbol(): string {
-    const { color, icon } = this.category
-    return `${icon}_${color}`
+    const { color, iconName } = this.category
+    return `${iconName}_${color}`
   }
 
   get featureLocation(): PoiFeature {
@@ -128,9 +128,10 @@ class PoiModel extends ExtendedPageModel {
       new PoiCategoryModel({
         // eslint-disable-next-line no-magic-numbers
         id: 12,
-        name: 'Other',
+        name: 'Others',
         color: '2E98FB',
-        icon: 'other',
+        iconName: 'other',
+        icon: 'https://integreat-test.tuerantuer.org/static/svg/poi-category-icons/other.svg',
       })
     )
   }
