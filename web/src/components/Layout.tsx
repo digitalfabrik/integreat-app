@@ -69,11 +69,6 @@ const Body = styled.div<{ fullWidth: boolean; disableScrollingSafari: boolean }>
         padding-left: calc((100vw - ${dimensions.maxWidth}px) / 2);
       }
     `};
-
-  @media screen and ${dimensions.smallViewport} {
-    display: flex;
-    flex-direction: column-reverse;
-  }
 `
 
 const Main = styled.main<{ fullWidth: boolean }>`
