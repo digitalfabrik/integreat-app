@@ -19,7 +19,7 @@ const mapCategoryJson = (json: JsonCategoryType, basePath: string): CategoryMode
     organization: json.organization
       ? new OrganizationModel({
           name: json.organization.name,
-          url: json.organization.url,
+          url: json.organization.website,
           logo: json.organization.logo,
         })
       : null,

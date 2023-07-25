@@ -70,8 +70,8 @@ export type JsonCategoryType = {
   order: number
   organization: {
     name: string
-    logo: string | null
-    url: string | null
+    logo: string
+    website: string
   } | null
 }
 export type JsonDisclaimerType = JsonCategoryType
