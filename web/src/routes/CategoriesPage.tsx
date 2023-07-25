@@ -101,6 +101,7 @@ const CategoriesPage = ({ city, pathname, cityCode, languageCode }: CityRoutePro
         order: -1,
         availableLanguages: new Map(),
         lastUpdate: moment(0),
+        organization: null,
       })
     )
   }
