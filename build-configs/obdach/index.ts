@@ -4,15 +4,15 @@ import mainImprint from './mainImprint'
 import { lightTheme } from './theme'
 
 const commonObdachBuildConfig: CommonBuildConfigType = {
-  appName: 'Vernetztes Obdach',
+  appName: 'Netzwerk Obdach & Wohnen',
   appIcon: 'app_icon_obdach',
   lightTheme,
   assets: OBDACH_ASSETS,
-  cmsUrl: 'https://cms.vernetztesobdach.de',
-  hostName: 'vernetztesobdach.de',
-  allowedHostNames: ['cms.vernetztesobdach.de', 'admin.vernetztesobdach.de'],
+  cmsUrl: 'https://cms.netzwerkobdachwohnen.de',
+  hostName: 'netzwerkobdachwohnen.de',
+  allowedHostNames: ['cms.netzwerkobdachwohnen.de', 'admin.netzwerkobdachwohnen.de'],
   internalLinksHijackPattern:
-    'https?:\\/\\/((cms\\.)?vernetztesobdach\\.de)(?!\\/(media|[^/]*\\/(wp-content|wp-admin|wp-json))\\/.*).*',
+    'https?:\\/\\/((cms\\.)?netzwerkobdachwohnen\\.de)(?!\\/(media|[^/]*\\/(wp-content|wp-admin|wp-json))\\/.*).*',
   featureFlags: {
     floss: false,
     pois: true,
@@ -26,18 +26,17 @@ const commonObdachBuildConfig: CommonBuildConfigType = {
     cityNotCooperatingTemplate: null,
   },
   aboutUrls: {
-    default: 'https://vernetztesobdach.de/about/',
-    en: 'https://vernetztesobdach.de/en/about/',
+    default: 'https://tuerantuer.de/digitalfabrik/projekte/vernetztesobdach/',
   },
   privacyUrls: {
-    default: 'https://vernetztesobdach.de/datenschutz/',
-    en: 'https://vernetztesobdach.de/en/privacy/',
+    default: 'https://integreat-app.de/datenschutz/',
+    en: 'https://integreat-app.de/en/privacy-policy/',
   },
 }
 export const webObdachBuildConfig: WebBuildConfigType = {
   ...commonObdachBuildConfig,
   appDescription:
-    'Vernetztes Obdach – die lokale und mehrsprachige Plattform für Obdachlose und Menschen die von Obdachlosigkeit bedroht sind',
+    'Netzwerk Obdach & Wohnen – die lokale und mehrsprachige Plattform für Obdachlose und Menschen die von Obdachlosigkeit bedroht sind',
   mainImprint,
   manifestUrl: '/manifest.json',
   icons: {

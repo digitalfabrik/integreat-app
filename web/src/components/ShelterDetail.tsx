@@ -9,7 +9,7 @@ import {
   useLoadFromEndpoint,
 } from 'api-client'
 
-import CityContentLayout from './CityContentLayout'
+import CityContentLayout, { CityContentLayoutProps } from './CityContentLayout'
 import FailureSwitcher from './FailureSwitcher'
 import LoadingSpinner from './LoadingSpinner'
 import ShelterInformation from './ShelterInformation'
@@ -20,17 +20,9 @@ type ShelterDetailProps = {
   languageCode: string
   pathname: string
   shelterId: string
-  viewportSmall: boolean
 }
 
-const ShelterDetail = ({
-  city,
-  cityCode,
-  languageCode,
-  pathname,
-  shelterId,
-  viewportSmall,
-}: ShelterDetailProps): ReactElement => {
+const ShelterDetail = ({ city, cityCode, languageCode, pathname, shelterId }: ShelterDetailProps): ReactElement => {
   const {
     data: shelters,
     loading,
@@ -46,10 +38,8 @@ const ShelterDetail = ({
     name,
     code,
   }))
-  const locationLayoutParams = {
+  const locationLayoutParams: Omit<CityContentLayoutProps, 'isLoading'> = {
     city,
-    viewportSmall,
-    feedbackTargetInformation: null,
     languageChangePaths,
     route: SHELTER_ROUTE,
     languageCode,

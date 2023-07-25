@@ -314,7 +314,7 @@ jobs:
                 command: |
                     mkdir -p sourcemaps/<< parameters.build_config_name >>
                     cp native/android/app/build/generated/sourcemaps/react/release/index.android.bundle.map sourcemaps/<< parameters.build_config_name >>/
-                    cp native/android/app/build/generated/assets/react/release/index.android.bundle sourcemaps/<< parameters.build_config_name >>/
+                    cp native/android/app/build/ASSETS/createBundleReleaseJsAndAssets/index.android.bundle sourcemaps/<< parameters.build_config_name >>/
                 name: Prepare Sourcemaps
             - persist_to_workspace:
                 paths:
@@ -659,7 +659,7 @@ jobs:
                         command: rsync -e "ssh -o StrictHostKeyChecking=no" -arv --delete $HOME/attached_workspace/dist/aschaffenburg/ web@web.integreat-app.de:/var/www/aschaffenburg.app
                         name: Aschaffenburg production delivery
                     - run:
-                        command: rsync -e "ssh -o StrictHostKeyChecking=no" -arv --delete $HOME/attached_workspace/dist/obdach/ web@web.integreat-app.de:/var/www/vernetztesobdach.de
+                        command: rsync -e "ssh -o StrictHostKeyChecking=no" -arv --delete $HOME/attached_workspace/dist/obdach/ web@web.integreat-app.de:/var/www/netzwerkobdachwohnen.de
                         name: Obdach production delivery
             - when:
                 condition:
@@ -677,7 +677,7 @@ jobs:
                         command: rsync -e "ssh -o StrictHostKeyChecking=no" -arv --delete $HOME/attached_workspace/dist/aschaffenburg/ web@web.integreat-app.de:/var/www/beta.aschaffenburg.app
                         name: Aschaffenburg beta delivery
                     - run:
-                        command: rsync -e "ssh -o StrictHostKeyChecking=no" -arv --delete $HOME/attached_workspace/dist/obdach/ web@web.integreat-app.de:/var/www/beta.vernetztesobdach.de
+                        command: rsync -e "ssh -o StrictHostKeyChecking=no" -arv --delete $HOME/attached_workspace/dist/obdach/ web@web.integreat-app.de:/var/www/beta.netzwerkobdachwohnen.de
                         name: Obdach beta delivery
             - when:
                 condition:
@@ -695,7 +695,7 @@ jobs:
                         command: rsync -e "ssh -o StrictHostKeyChecking=no" -arv --delete $HOME/attached_workspace/dist/aschaffenburg/ web@web.integreat-app.de:/var/www/webnext.aschaffenburg.app
                         name: Aschaffenburg webnext delivery
                     - run:
-                        command: rsync -e "ssh -o StrictHostKeyChecking=no" -arv --delete $HOME/attached_workspace/dist/obdach/ web@web.integreat-app.de:/var/www/webnext.vernetztesobdach.de
+                        command: rsync -e "ssh -o StrictHostKeyChecking=no" -arv --delete $HOME/attached_workspace/dist/obdach/ web@web.integreat-app.de:/var/www/webnext.netzwerkobdachwohnen.de
                         name: Obdach webnext delivery
             - notify
     e2e_android:
@@ -852,14 +852,14 @@ jobs:
                 steps:
                     - notify:
                         channel: releases
-                        success_message: WebApp version ${NEW_VERSION_NAME} was delivered successfully to integreat.app, malteapp.de, aschaffenburg.app and vernetztesobdach.de!\n${RELEASE_NOTES}
+                        success_message: WebApp version ${NEW_VERSION_NAME} was delivered successfully to integreat.app, malteapp.de, aschaffenburg.app and netzwerkobdachwohnen.de!\n${RELEASE_NOTES}
             - unless:
                 condition: << parameters.production_delivery >>
                 steps:
                     - notify:
                         channel: releases
                         success_message: |-
-                            [Beta] WebApp version ${NEW_VERSION_NAME} was delivered successfully to beta.integreat.app, beta.malteapp.de, beta.aschaffenburg.app and beta.vernetztesobdach.de!
+                            [Beta] WebApp version ${NEW_VERSION_NAME} was delivered successfully to beta.integreat.app, beta.malteapp.de, beta.aschaffenburg.app and beta.netzwerkobdachwohnen.de!
                             ${RELEASE_NOTES}
     promote_android:
         docker:
@@ -935,7 +935,7 @@ jobs:
                 command: ssh -o StrictHostKeyChecking=no web@web.integreat-app.de "rsync -arv --delete /var/www/beta.aschaffenburg.app/ /var/www/aschaffenburg.app"
                 name: Aschaffenburg production promotion
             - run:
-                command: ssh -o StrictHostKeyChecking=no web@web.integreat-app.de "rsync -arv --delete /var/www/beta.vernetztesobdach.de/ /var/www/vernetztesobdach.de"
+                command: ssh -o StrictHostKeyChecking=no web@web.integreat-app.de "rsync -arv --delete /var/www/beta.netzwerkobdachwohnen.de/ /var/www/netzwerkobdachwohnen.de"
                 name: Obdach production promotion
             - notify
     sentry_android:
@@ -1043,6 +1043,7 @@ parameters:
             - web_production_delivery
             - web_promotion
             - delivery
+            - e2e_tests
             - none
         type: enum
 version: 2.1
@@ -1062,34 +1063,6 @@ workflows:
                 requires:
                     - bump_version
                     - check
-            - build_android:
-                build_config_name: integreat-e2e
-                context:
-                    - credentials-repo
-                    - credentials-integreat
-                name: build_e2e_android
-                requires:
-                    - bump_version
-                    - check
-            - e2e_android:
-                context:
-                    - browserstack
-                requires:
-                    - build_e2e_android
-            - build_ios:
-                build_config_name: integreat-e2e
-                context:
-                    - tuerantuer-apple
-                    - fastlane-match
-                name: build_e2e_ios
-                requires:
-                    - bump_version
-                    - check
-            - e2e_ios:
-                context:
-                    - browserstack
-                requires:
-                    - build_e2e_ios
         unless:
             or:
                 - equal:
@@ -1455,6 +1428,54 @@ workflows:
                 - equal:
                     - << pipeline.parameters.workflow_type >>
                     - delivery
+    e2e_tests:
+        jobs:
+            - bump_version:
+                prepare_delivery: false
+            - build_web:
+                build_config_name: integreat-test-cms
+                name: build_ig_test_cms_web
+                requires:
+                    - bump_version
+            - e2e_web
+            - build_android:
+                build_config_name: integreat-e2e
+                context:
+                    - credentials-repo
+                    - credentials-integreat
+                name: build_e2e_android
+                requires:
+                    - bump_version
+            - e2e_android:
+                context:
+                    - browserstack
+                requires:
+                    - build_e2e_android
+            - build_ios:
+                build_config_name: integreat-e2e
+                context:
+                    - tuerantuer-apple
+                    - fastlane-match
+                name: build_e2e_ios
+                requires:
+                    - bump_version
+            - e2e_ios:
+                context:
+                    - browserstack
+                requires:
+                    - build_e2e_ios
+        when:
+            or:
+                - and:
+                    - << pipeline.parameters.api_triggered >>
+                    - equal:
+                        - << pipeline.parameters.workflow_type >>
+                        - e2e_tests
+                - and:
+                    - equal:
+                        - main
+                        - << pipeline.git.branch >>
+                    - not: << pipeline.parameters.api_triggered >>
     native_beta_delivery:
         jobs:
             - bump_version:

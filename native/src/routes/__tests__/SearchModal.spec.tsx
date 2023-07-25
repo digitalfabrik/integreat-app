@@ -15,6 +15,9 @@ jest.mock('../../components/FeedbackContainer')
 jest.mock('../../components/TimeStamp')
 jest.mock('../../hooks/useResourceCache', () => () => ({}))
 jest.mock('react-i18next')
+jest.mock('react-native-webview', () => ({
+  default: () => jest.fn(),
+}))
 
 describe('SearchModal', () => {
   beforeEach(() => {

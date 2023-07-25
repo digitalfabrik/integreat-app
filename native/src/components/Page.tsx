@@ -39,12 +39,22 @@ type PageProps = {
   content: string
   BeforeContent?: ReactNode
   AfterContent?: ReactNode
+  Footer?: ReactNode
   language: string
   lastUpdate?: Moment
   path?: string
 }
 
-const Page = ({ title, content, BeforeContent, AfterContent, language, lastUpdate, path }: PageProps): ReactElement => {
+const Page = ({
+  title,
+  content,
+  BeforeContent,
+  AfterContent,
+  Footer,
+  language,
+  lastUpdate,
+  path,
+}: PageProps): ReactElement => {
   const { cityCode, languageCode } = useCityAppContext()
   const resourceCache = useResourceCache({ cityCode, languageCode })
   const resourceCacheUrl = useContext(StaticServerContext)
@@ -84,9 +94,10 @@ const Page = ({ title, content, BeforeContent, AfterContent, language, lastUpdat
             resourceCacheUrl={resourceCacheUrl}
             webViewWidth={contentWidth}
           />
+          {!loading && AfterContent}
           {!loading && !!content && lastUpdate && <TimeStamp formatter={formatter} lastUpdate={lastUpdate} />}
         </Container>
-        {!loading && AfterContent}
+        {!loading && Footer}
       </View>
     </SpaceBetween>
   )
