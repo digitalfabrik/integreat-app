@@ -38,6 +38,7 @@ export default (baseUrl: string): Endpoint<ParamsType, Array<CategoryModel>> =>
           order: -1,
           availableLanguages: new Map(),
           lastUpdate: moment(0),
+          organization: null,
         })
       )
       return parents

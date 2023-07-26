@@ -24,6 +24,7 @@ export default {
   moduleNameMapper: {
     '.+\\.(css|styl|less|sass|scss|png|jpg|ttf|woff|woff2)$': 'jest-transform-stub',
     '\\.svg': '<rootDir>/__mocks__/svgrMock.ts',
+    uuid: require.resolve('uuid'),
   },
   setupFilesAfterEnv: [
     '<rootDir>/../jest.setup.ts',

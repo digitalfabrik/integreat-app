@@ -16,6 +16,7 @@ const modelWithTitle = new CategoryModel({
   content: '<div>This is some special test content</div>',
   lastUpdate: moment('2016-01-07 10:36:24'),
   thumbnail: 'title-thumbnail',
+  organization: null,
 })
 const categoryModels: [CategoryModel, CategoryModel, CategoryModel, CategoryModel] = [
   new CategoryModel({
@@ -28,6 +29,7 @@ const categoryModels: [CategoryModel, CategoryModel, CategoryModel, CategoryMode
     lastUpdate: moment('2016-01-07 10:36:24'),
     order: 0,
     thumbnail: 'thumb-nail',
+    organization: null,
   }),
   new CategoryModel({
     root: false,
@@ -39,6 +41,7 @@ const categoryModels: [CategoryModel, CategoryModel, CategoryModel, CategoryMode
     content: 'exampleContent0',
     lastUpdate: moment('2016-01-07 10:36:24'),
     thumbnail: 'thumb-nail',
+    organization: null,
   }),
   new CategoryModel({
     root: false,
@@ -50,6 +53,7 @@ const categoryModels: [CategoryModel, CategoryModel, CategoryModel, CategoryMode
     content: 'exampleContent0',
     lastUpdate: moment('2016-01-07 10:36:24'),
     thumbnail: 'thumb-nail',
+    organization: null,
   }),
   new CategoryModel({
     root: false,
@@ -61,6 +65,7 @@ const categoryModels: [CategoryModel, CategoryModel, CategoryModel, CategoryMode
     content: 'exampleContent0',
     lastUpdate: moment('2016-01-07 10:36:24'),
     thumbnail: 'thumb-nail',
+    organization: null,
   }),
 ]
 
