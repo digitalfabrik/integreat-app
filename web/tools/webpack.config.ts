@@ -2,6 +2,7 @@ import ReactRefreshPlugin from '@pmmmwh/react-refresh-webpack-plugin'
 import AssetsPlugin from 'assets-webpack-plugin'
 import { CleanWebpackPlugin } from 'clean-webpack-plugin'
 import CopyPlugin from 'copy-webpack-plugin'
+import CssMinimizerPlugin from 'css-minimizer-webpack-plugin'
 import { readFileSync } from 'fs'
 import HtmlWebpackPlugin from 'html-webpack-plugin'
 import MomentLocalesPlugin from 'moment-locales-webpack-plugin'
@@ -190,6 +191,7 @@ const createConfig = (
     optimization: {
       usedExports: true,
       runtimeChunk: 'single',
+      minimizer: [new CssMinimizerPlugin()],
     },
     devtool: 'source-map',
     devServer: {
