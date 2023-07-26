@@ -63,7 +63,7 @@ enum HeaderButtonTitle {
 type HeaderProps = {
   route: RouteProps<RoutesType>
   navigation: NavigationProps<RoutesType>
-  data: UseLoadExtraCityContentData<PageModel> | CityContentData | null
+  data?: UseLoadExtraCityContentData<PageModel> | CityContentData
   showItems?: boolean
   showOverflowItems?: boolean
   languages?: LanguageModel[]
