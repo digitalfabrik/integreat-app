@@ -1,26 +1,27 @@
 import React, { ReactElement, useState } from 'react'
 
 import {
-  CategoriesRouteType,
   CATEGORIES_ROUTE,
+  CategoriesRouteType,
   CONTENT_FEEDBACK_CATEGORY,
   createFeedbackEndpoint,
-  DisclaimerRouteType,
   DISCLAIMER_ROUTE,
-  EventsRouteType,
+  DisclaimerRouteType,
   EVENTS_ROUTE,
+  EventsRouteType,
   FeedbackParamsType,
   FeedbackType,
-  OffersRouteType,
   OFFERS_ROUTE,
-  PoisRouteType,
+  OffersRouteType,
   POIS_ROUTE,
-  SearchRouteType,
+  PoisRouteType,
   SEARCH_ROUTE,
+  SearchRouteType,
   SEND_FEEDBACK_SIGNAL_NAME,
+  SPRUNGBRETT_OFFER_ROUTE,
+  SprungbrettOfferRouteType,
 } from 'api-client'
 
-import { RouteProps, RoutesParamsType, RoutesType } from '../constants/NavigationTypes'
 import { determineApiUrl } from '../utils/helpers'
 import sendTrackingSignal from '../utils/sendTrackingSignal'
 import { reportError } from '../utils/sentry'
@@ -36,6 +37,7 @@ export type RouteType =
   | OffersRouteType
   | DisclaimerRouteType
   | SearchRouteType
+  | SprungbrettOfferRouteType
 export type FeedbackInformationType = {
   routeType: RouteType
   language: string
@@ -60,8 +62,6 @@ const FeedbackContainer = (props: FeedbackContainerProps): ReactElement => {
   const { query, language, isSearchFeedback, routeType, cityCode, slug, hasDivider } = props
 
   const getFeedbackType = (): FeedbackType => {
-    console.log('slug', slug)
-    console.log('route', routeType)
     switch (routeType) {
       case EVENTS_ROUTE:
         return slug ? FeedbackType.event : FeedbackType.events
@@ -81,6 +81,9 @@ const FeedbackContainer = (props: FeedbackContainerProps): ReactElement => {
       case SEARCH_ROUTE:
         return FeedbackType.search
 
+      case SPRUNGBRETT_OFFER_ROUTE:
+        return FeedbackType.offer
+
       default:
         return FeedbackType.categories
     }
@@ -88,7 +91,6 @@ const FeedbackContainer = (props: FeedbackContainerProps): ReactElement => {
 
   const getFeedbackData = (comment: string, contactMail: string): FeedbackParamsType => {
     const feedbackType = getFeedbackType()
-    console.log(feedbackType)
     const commentWithMail = `${comment}    Kontaktadresse: ${contactMail || 'Keine Angabe'}`
     return {
       feedbackType,
@@ -98,7 +100,7 @@ const FeedbackContainer = (props: FeedbackContainerProps): ReactElement => {
       language,
       comment: commentWithMail,
       query,
-      slug: 'Test',
+      slug,
     }
   }
 
@@ -113,7 +115,6 @@ const FeedbackContainer = (props: FeedbackContainerProps): ReactElement => {
 
     const request = async () => {
       const apiUrl = await determineApiUrl()
-      console.log(feedbackData)
       const feedbackEndpoint = createFeedbackEndpoint(apiUrl)
       await feedbackEndpoint.request(feedbackData)
       setSendingStatus('successful')
@@ -130,7 +131,6 @@ const FeedbackContainer = (props: FeedbackContainerProps): ReactElement => {
       },
     })
     request().catch(err => {
-      console.log('err', err)
       reportError(err)
       setSendingStatus('failed')
     })

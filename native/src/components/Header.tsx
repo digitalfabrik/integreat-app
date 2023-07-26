@@ -9,21 +9,26 @@ import {
   CategoriesRouteType,
   EVENTS_ROUTE,
   EventsRouteType,
-  FeedbackType,
+  getSlugFromPath,
   LANDING_ROUTE,
   LanguageModel,
   NEWS_ROUTE,
-  OFFERS_ROUTE,
+  PageModel,
   POIS_ROUTE,
   PoisRouteType,
   SHARE_SIGNAL_NAME,
+  SPRUNGBRETT_OFFER_ROUTE,
+  DISCLAIMER_ROUTE,
+  SEARCH_ROUTE,
+  SETTINGS_ROUTE,
 } from 'api-client'
-import { DISCLAIMER_ROUTE, SEARCH_ROUTE, SETTINGS_ROUTE } from 'api-client/src/routes'
 
 import { NavigationProps, RouteProps, RoutesParamsType, RoutesType } from '../constants/NavigationTypes'
 import buildConfig from '../constants/buildConfig'
 import dimensions from '../constants/dimensions'
 import { AppContext } from '../contexts/AppContextProvider'
+import { CityContentData } from '../hooks/useLoadCityContent'
+import { UseLoadExtraCityContentData } from '../hooks/useLoadExtraCityContent'
 import useSnackbar from '../hooks/useSnackbar'
 import createNavigateToFeedbackModal from '../navigation/createNavigateToFeedbackModal'
 import navigateToLanguageChange from '../navigation/navigateToLanguageChange'
@@ -58,6 +63,7 @@ enum HeaderButtonTitle {
 type HeaderProps = {
   route: RouteProps<RoutesType>
   navigation: NavigationProps<RoutesType>
+  data: UseLoadExtraCityContentData<PageModel> | CityContentData | null
   showItems?: boolean
   showOverflowItems?: boolean
   languages?: LanguageModel[]
@@ -68,6 +74,7 @@ type HeaderProps = {
 const Header = ({
   navigation,
   route,
+  data,
   availableLanguages,
   shareUrl,
   showItems = false,
@@ -135,14 +142,30 @@ const Header = ({
     }
   }
 
+  const getCategorySlug = (path?: string): string | undefined => {
+    if (!path) {
+      return undefined
+    }
+    return getSlugFromPath(path)
+  }
+
   const getSlugForRoute = (): string | undefined => {
     switch (route.name) {
       case EVENTS_ROUTE:
         return (route.params as RoutesParamsType[EventsRouteType]).slug
+
       case POIS_ROUTE:
         return (route.params as RoutesParamsType[PoisRouteType]).slug
+
       case CATEGORIES_ROUTE:
-        return (route.params as RoutesParamsType[CategoriesRouteType]).path
+        return getCategorySlug((route.params as RoutesParamsType[CategoriesRouteType]).path)
+
+      case SPRUNGBRETT_OFFER_ROUTE:
+        return SPRUNGBRETT_OFFER_ROUTE
+
+      case DISCLAIMER_ROUTE:
+        return (data as UseLoadExtraCityContentData<PageModel>).extra.slug
+
       default:
         return undefined
     }
@@ -172,9 +195,7 @@ const Header = ({
           ? [renderOverflowItem(HeaderButtonTitle.Location, () => navigation.navigate(LANDING_ROUTE))]
           : []),
         renderOverflowItem(HeaderButtonTitle.Settings, () => navigation.navigate(SETTINGS_ROUTE)),
-        ...(route.name !== NEWS_ROUTE
-          ? [renderOverflowItem(HeaderButtonTitle.Feedback, () => navigateToFeedback())]
-          : []),
+        ...(route.name !== NEWS_ROUTE ? [renderOverflowItem(HeaderButtonTitle.Feedback, navigateToFeedback)] : []),
         ...(route.name !== DISCLAIMER_ROUTE
           ? [renderOverflowItem(HeaderButtonTitle.Disclaimer, () => navigation.navigate(DISCLAIMER_ROUTE))]
           : []),

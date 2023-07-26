@@ -22,7 +22,7 @@ type Load<T> =
 
 type UseLoadExtraCityContentParams<T> = Params & Load<T>
 
-type UseLoadExtraCityContentData<T> = CityContentData & { extra: T }
+export type UseLoadExtraCityContentData<T> = CityContentData & { extra: T }
 export type UseLoadExtraCityContentReturn<T> = Omit<ReturnType<UseLoadExtraCityContentData<T>>, 'error'> & {
   error: ErrorCode | Error | null
 }

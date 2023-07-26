@@ -22,7 +22,8 @@ const FeedbackTouchableOpacity = styled(TouchableOpacity)`
   justify-content: center;
 `
 const CardShadow = styled.View<{ $active: boolean | null }>`
-  background-color: ${props => (props.$active ? `${props.theme.colors.themeColor}` : 'white')};
+  background-color: ${props =>
+    props.$active ? `${props.theme.colors.themeColor}` : `${props.theme.colors.backgroundColor}`};
   border-radius: 18px;
   shadow-color: #171717;
   shadow-offset: 1px 2px;
