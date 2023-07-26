@@ -20,6 +20,7 @@ import {
   SEND_FEEDBACK_SIGNAL_NAME,
 } from 'api-client'
 
+import { RouteProps, RoutesParamsType, RoutesType } from '../constants/NavigationTypes'
 import { determineApiUrl } from '../utils/helpers'
 import sendTrackingSignal from '../utils/sendTrackingSignal'
 import { reportError } from '../utils/sentry'
@@ -59,6 +60,8 @@ const FeedbackContainer = (props: FeedbackContainerProps): ReactElement => {
   const { query, language, isSearchFeedback, routeType, cityCode, slug, hasDivider } = props
 
   const getFeedbackType = (): FeedbackType => {
+    console.log('slug', slug)
+    console.log('route', routeType)
     switch (routeType) {
       case EVENTS_ROUTE:
         return slug ? FeedbackType.event : FeedbackType.events
@@ -85,6 +88,7 @@ const FeedbackContainer = (props: FeedbackContainerProps): ReactElement => {
 
   const getFeedbackData = (comment: string, contactMail: string): FeedbackParamsType => {
     const feedbackType = getFeedbackType()
+    console.log(feedbackType)
     const commentWithMail = `${comment}    Kontaktadresse: ${contactMail || 'Keine Angabe'}`
     return {
       feedbackType,
@@ -94,7 +98,7 @@ const FeedbackContainer = (props: FeedbackContainerProps): ReactElement => {
       language,
       comment: commentWithMail,
       query,
-      slug,
+      slug: 'Test',
     }
   }
 
@@ -109,6 +113,7 @@ const FeedbackContainer = (props: FeedbackContainerProps): ReactElement => {
 
     const request = async () => {
       const apiUrl = await determineApiUrl()
+      console.log(feedbackData)
       const feedbackEndpoint = createFeedbackEndpoint(apiUrl)
       await feedbackEndpoint.request(feedbackData)
       setSendingStatus('successful')
@@ -125,6 +130,7 @@ const FeedbackContainer = (props: FeedbackContainerProps): ReactElement => {
       },
     })
     request().catch(err => {
+      console.log('err', err)
       reportError(err)
       setSendingStatus('failed')
     })
