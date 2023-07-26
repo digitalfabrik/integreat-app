@@ -114,13 +114,7 @@ const Feedback = ({
           <DescriptionContainer>
             <Text>{t('commentDescription')}</Text>
           </DescriptionContainer>
-          <CommentInput
-            onChangeText={onCommentChanged}
-            value={comment}
-            multiline
-            numberOfLines={3}
-            autoFocus={!isSearchFeedback}
-          />
+          <CommentInput onChangeText={onCommentChanged} value={comment} multiline numberOfLines={3} />
           <HeadlineContainer>
             <Description>{t('contactMailAddress')}</Description>
             <Text>({t('optionalInfo')})</Text>

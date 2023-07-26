@@ -4,7 +4,20 @@ import { Share } from 'react-native'
 import { HiddenItem, Item } from 'react-navigation-header-buttons'
 import styled from 'styled-components/native'
 
-import { LANDING_ROUTE, LanguageModel, NEWS_ROUTE, POIS_ROUTE, PoisRouteType, SHARE_SIGNAL_NAME } from 'api-client'
+import {
+  CATEGORIES_ROUTE,
+  CategoriesRouteType,
+  EVENTS_ROUTE,
+  EventsRouteType,
+  FeedbackType,
+  LANDING_ROUTE,
+  LanguageModel,
+  NEWS_ROUTE,
+  OFFERS_ROUTE,
+  POIS_ROUTE,
+  PoisRouteType,
+  SHARE_SIGNAL_NAME,
+} from 'api-client'
 import { DISCLAIMER_ROUTE, SEARCH_ROUTE, SETTINGS_ROUTE } from 'api-client/src/routes'
 
 import { NavigationProps, RouteProps, RoutesParamsType, RoutesType } from '../constants/NavigationTypes'
@@ -122,13 +135,26 @@ const Header = ({
     }
   }
 
+  const getSlugForRoute = (): string | undefined => {
+    switch (route.name) {
+      case EVENTS_ROUTE:
+        return (route.params as RoutesParamsType[EventsRouteType]).slug
+      case POIS_ROUTE:
+        return (route.params as RoutesParamsType[PoisRouteType]).slug
+      case CATEGORIES_ROUTE:
+        return (route.params as RoutesParamsType[CategoriesRouteType]).path
+      default:
+        return undefined
+    }
+  }
+
   const navigateToFeedback = () => {
     if (cityCode) {
       createNavigateToFeedbackModal(navigation)({
         routeType: route.name as RouteType,
         language: languageCode,
         cityCode,
-        slug: (route.params as RoutesParamsType[PoisRouteType]).slug,
+        slug: getSlugForRoute(),
       })
     }
   }
