@@ -7,6 +7,7 @@ import { CategoriesMapModel, CategoryModel, DateFormatter } from 'api-client'
 
 import TileModel from '../models/TileModel'
 import CategoryList from './CategoryList'
+import OrganizationContentInfo from './OrganizationContentInfo'
 import Page from './Page'
 import Tiles from './Tiles'
 
@@ -46,6 +47,9 @@ const CategoriesContent = ({ categories, categoryModel, formatter, t }: Categori
         lastUpdate={categoryModel.lastUpdate}
         formatter={formatter}
         onInternalLinkClick={navigate}
+        AfterContent={
+          categoryModel.organization && <OrganizationContentInfo organization={categoryModel.organization} />
+        }
       />
     )
   }

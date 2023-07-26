@@ -84,18 +84,18 @@ const PoiDetails = ({ poi, feature, language }: PoiDetailsProps): ReactElement =
     <CollapsibleItem initExpanded headerContent={t('contactInformation')} language={language}>
       <ContentWrapper>
         {!!website && (
-          <PoiDetailRow externalUrl={website} accessibilityLabel={t('website')} text={website} icon={WebsiteIcon} />
+          <PoiDetailRow externalUrl={website} accessibilityLabel={t('website')} text={website} Icon={WebsiteIcon} />
         )}
         {!!phoneNumber && (
           <PoiDetailRow
             externalUrl={`tel:${phoneNumber}`}
             accessibilityLabel={t('phone')}
             text={phoneNumber}
-            icon={PhoneIcon}
+            Icon={PhoneIcon}
           />
         )}
         {!!email && (
-          <PoiDetailRow externalUrl={`mailto:${email}`} accessibilityLabel={t('eMail')} text={email} icon={EmailIcon} />
+          <PoiDetailRow externalUrl={`mailto:${email}`} accessibilityLabel={t('eMail')} text={email} Icon={EmailIcon} />
         )}
       </ContentWrapper>
     </CollapsibleItem>

@@ -88,6 +88,8 @@ const JpalTracking = ({ navigation }: JpalTrackingProps): ReactElement => {
             onPress: () => updateTrackingEnabled(true),
           },
         ])
+      } else {
+        navigation.dispatch(action)
       }
     },
     [navigation, trackingEnabled, updateTrackingEnabled, t]
