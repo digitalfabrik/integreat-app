@@ -26,7 +26,7 @@ const commonObdachBuildConfig: CommonBuildConfigType = {
     cityNotCooperatingTemplate: null,
   },
   aboutUrls: {
-    default: 'https://tuerantuer.de/digitalfabrik/projekte/vernetztesobdach/',
+    default: 'https://tuerantuer.de/digitalfabrik/projekte/netzwerkobdachwohnen/',
   },
   privacyUrls: {
     default: 'https://integreat-app.de/datenschutz/',
