@@ -9,7 +9,6 @@ import Caption from '../components/Caption'
 import EventListItem from '../components/EventListItem'
 import ExportEventButton from '../components/ExportEventButton'
 import Failure from '../components/Failure'
-import { FeedbackInformationType } from '../components/FeedbackContainer'
 import Layout from '../components/Layout'
 import LayoutedScrollView from '../components/LayoutedScrollView'
 import List from '../components/List'
@@ -28,7 +27,6 @@ export type EventsProps = {
   cityModel: CityModel
   language: string
   navigateTo: (routeInformation: RouteInformationType) => void
-  navigateToFeedback: (feedbackInformation: FeedbackInformationType) => void
   refresh: () => void
 }
 
