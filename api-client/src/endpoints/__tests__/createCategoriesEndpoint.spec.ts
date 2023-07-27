@@ -31,6 +31,7 @@ describe('createCategoriesEndpoint', () => {
     order: -1,
     availableLanguages: new Map(),
     lastUpdate: moment(0),
+    organization: null,
   })
   const endpoint = createCategoriesEndpoint(baseUrl)
 

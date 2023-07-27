@@ -1,0 +1,5 @@
+issue_key: IGAPP-1351
+show_in_stores: false
+platforms:
+  - web
+en: Improve the display of the message thanking for feedback in small screens

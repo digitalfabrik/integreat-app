@@ -46,8 +46,8 @@ const RichLayout = styled.div`
 const Body = styled.div<{ fullWidth: boolean; disableScrollingSafari: boolean }>`
   width: 100%;
   box-sizing: border-box;
-  flex-grow: 1;
   margin: 0 auto;
+  flex-grow: 1;
   background-color: ${props => props.theme.colors.backgroundColor};
   word-wrap: break-word;
   /* Fix jumping iOS Safari Toolbar by prevent scrolling on body */
@@ -69,11 +69,6 @@ const Body = styled.div<{ fullWidth: boolean; disableScrollingSafari: boolean }>
         padding-left: calc((100vw - ${dimensions.maxWidth}px) / 2);
       }
     `};
-
-  @media screen and ${dimensions.smallViewport} {
-    display: flex;
-    flex-direction: column-reverse;
-  }
 `
 
 const Main = styled.main<{ fullWidth: boolean }>`
