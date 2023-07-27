@@ -12,6 +12,7 @@ import TextInput from './TextInput'
 
 export const Container = styled.div`
   display: flex;
+  flex: 1;
   max-height: 80vh;
   box-sizing: border-box;
   flex-direction: column;

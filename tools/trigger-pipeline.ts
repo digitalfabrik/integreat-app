@@ -13,6 +13,7 @@ const WORKFLOW_TYPES = [
   'web_production_delivery',
   'web_promotion',
   'delivery',
+  'e2e_tests',
 ]
 
 program
