@@ -14,7 +14,9 @@ class OrganizationModel {
   }
 
   get url(): string {
-    return this._url
+    // TODO IGAPP-1356: Remove fallback
+    // Using empty strings as url crashes the app
+    return this._url ? this._url : 'https://example.com'
   }
 
   get logo(): string {
