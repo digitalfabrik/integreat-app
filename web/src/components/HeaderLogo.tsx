@@ -18,7 +18,7 @@ const LogoContainer = styled.div`
   display: flex;
   justify-content: start;
   align-items: center;
-  flex: 0 1 220px;
+  flex: initial;
   order: 1;
 
   & a {
