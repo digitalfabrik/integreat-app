@@ -2,7 +2,7 @@ import React from 'react'
 
 import { SprungbrettJobModel } from 'api-client'
 
-import { renderWithTheme } from '../../testing/render'
+import { renderWithRouterAndTheme } from '../../testing/render'
 import SprungbrettListItem from '../SprungbrettListItem'
 
 describe('SprungbrettListItem', () => {
@@ -16,7 +16,7 @@ describe('SprungbrettListItem', () => {
   })
 
   it('should render a sprungbrett list item', () => {
-    const { getByText } = renderWithTheme(<SprungbrettListItem job={job} />)
+    const { getByText } = renderWithRouterAndTheme(<SprungbrettListItem job={job} />)
 
     expect(getByText(job.title)).toBeTruthy()
     expect(getByText(job.title).closest('a')).toHaveAttribute('href', job.url)

@@ -4,7 +4,7 @@ import styled from 'styled-components'
 
 import { isExternalUrl } from '../utils/UrlCheck'
 
-const StyledCleanLink = styled(Link)`
+export const StyledCleanLink = styled(Link)`
   color: inherit;
   text-decoration: none;
   display: flex;
