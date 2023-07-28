@@ -31,7 +31,9 @@ const Helmet = ({
       <meta name='robots' content='noindex' />
     ) : null
 
-  const title = rootPage ? `${buildConfig().appName} | Web-App | ${pageTitle}` : `${pageTitle} | ${buildConfig().appName}`
+  const title = rootPage
+    ? `${buildConfig().appName} | Web-App | ${pageTitle}`
+    : `${pageTitle} | ${buildConfig().appName}`
   const description = metaDescription ?? pageTitle
   const previewImage = buildConfig().icons.socialMediaPreview
 
