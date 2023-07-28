@@ -4,6 +4,7 @@ import { ThemeProvider } from 'styled-components'
 
 import { setJpalTrackingCode } from 'api-client'
 
+import { useTranslation } from 'react-i18next'
 import RootSwitcher from './RootSwitcher'
 import Helmet from './components/Helmet'
 import I18nProvider from './components/I18nProvider'
@@ -13,6 +14,7 @@ import { initSentry } from './utils/sentry'
 
 const App = (): ReactElement => {
   const [contentLanguage, setContentLanguage] = useState<string>()
+  const { t } = useTranslation('landing')
 
   useEffect(() => {
     initSentry()
@@ -22,7 +24,7 @@ const App = (): ReactElement => {
   return (
     <ThemeProvider theme={buildConfig().lightTheme}>
       <I18nProvider contentLanguage={contentLanguage}>
-        <Helmet pageTitle={buildConfig().appName} />
+        <Helmet pageTitle={t('pageTitle')} rootPage />
         <Router>
           <RootSwitcher setContentLanguage={setContentLanguage} />
         </Router>
