@@ -3461,7 +3461,7 @@
       "notAvailable": "Standortbestimmung deaktiviert",
       "timeout": "Standortbestimmung fehlgeschlagen",
       "refresh": "Liste der nahegelegenen Regionen aktualisieren",
-      "pageTitle": "Regionen",
+      "pageTitle": "Lokale Informationen für Dich",
       "metaDescription": "{{appName}} ist Dein digitaler Guide für Deutschland. Finde lokale Informationen, Veranstaltungen und Beratung. Immer aktuell und in Deiner Sprache.",
       "cityNotFound": "Deine Region nicht gefunden?",
       "clickHere": "Hier klicken"
@@ -3574,7 +3574,7 @@
       "notAvailable": "Location determination is deactivated",
       "timeout": "Location determination failed",
       "refresh": "Update list of regions close-by",
-      "pageTitle": "Regions",
+      "pageTitle": "Local Information for You",
       "metaDescription": "{{appName}} is your digital guide to life in Germany. Discover local information, events and advice. Always up to date and available in your own language.",
       "cityNotFound": "Your region not found?",
       "clickHere": "Click here"

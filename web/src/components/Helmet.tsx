@@ -9,10 +9,17 @@ type HelmetProps = {
   pageTitle: string
   metaDescription?: string | null
   languageChangePaths?: Array<{ code: string; path: string | null; name: string }>
+  rootPage?: boolean
   cityModel?: CityModel
 }
 
-const Helmet = ({ pageTitle, metaDescription, languageChangePaths, cityModel }: HelmetProps): ReactElement => {
+const Helmet = ({
+  pageTitle,
+  metaDescription,
+  languageChangePaths,
+  cityModel,
+  rootPage = false,
+}: HelmetProps): ReactElement => {
   const languageLinks =
     languageChangePaths?.map(
       ({ code, path }) =>
@@ -24,7 +31,7 @@ const Helmet = ({ pageTitle, metaDescription, languageChangePaths, cityModel }: 
       <meta name='robots' content='noindex' />
     ) : null
 
-  const title = `${pageTitle} | ${buildConfig().hostName}`
+  const title = rootPage ? `${buildConfig().appName} | Web-App | ${pageTitle}` : `${pageTitle} | ${buildConfig().appName}`
   const description = metaDescription ?? pageTitle
   const previewImage = buildConfig().icons.socialMediaPreview
 
