@@ -13,7 +13,6 @@ import {
   LANDING_ROUTE,
   LanguageModel,
   NEWS_ROUTE,
-  PageModel,
   POIS_ROUTE,
   PoisRouteType,
   SHARE_SIGNAL_NAME,
@@ -27,8 +26,6 @@ import { NavigationProps, RouteProps, RoutesParamsType, RoutesType } from '../co
 import buildConfig from '../constants/buildConfig'
 import dimensions from '../constants/dimensions'
 import { AppContext } from '../contexts/AppContextProvider'
-import { CityContentData } from '../hooks/useLoadCityContent'
-import { UseLoadExtraCityContentData } from '../hooks/useLoadExtraCityContent'
 import useSnackbar from '../hooks/useSnackbar'
 import createNavigateToFeedbackModal from '../navigation/createNavigateToFeedbackModal'
 import navigateToLanguageChange from '../navigation/navigateToLanguageChange'
@@ -63,7 +60,6 @@ enum HeaderButtonTitle {
 type HeaderProps = {
   route: RouteProps<RoutesType>
   navigation: NavigationProps<RoutesType>
-  data?: UseLoadExtraCityContentData<PageModel> | CityContentData
   showItems?: boolean
   showOverflowItems?: boolean
   languages?: LanguageModel[]
@@ -74,7 +70,6 @@ type HeaderProps = {
 const Header = ({
   navigation,
   route,
-  data,
   availableLanguages,
   shareUrl,
   showItems = false,
@@ -164,7 +159,7 @@ const Header = ({
         return SPRUNGBRETT_OFFER_ROUTE
 
       case DISCLAIMER_ROUTE:
-        return (data as UseLoadExtraCityContentData<PageModel>).extra.slug
+        return DISCLAIMER_ROUTE
 
       default:
         return undefined
