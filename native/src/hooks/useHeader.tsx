@@ -29,7 +29,6 @@ const useHeader = <T extends RoutesType>({
           showItems={!!data}
           availableLanguages={availableLanguages}
           shareUrl={shareUrl}
-          data={data ?? undefined}
         />
       ),
     })
