@@ -91,7 +91,16 @@ const getEndDate = (event: JsonEventType, startDate: Date): Date => {
   return moment(startDate).add(durationInDays, 'days').toDate()
 }
 
-const dateToString = (date: Date): string => date.toISOString().split('T')[0]!
+const leftPad = (number: number): string => {
+  const numberAsString = number.toString()
+  if (numberAsString.length === 1) {
+    return `0${number}`
+  }
+  return numberAsString
+}
+
+export const dateToString = (date: Date): string =>
+  `${date.getFullYear()}-${leftPad(date.getMonth() + 1)}-${leftPad(date.getDate())}`
 
 const removeTrailingSlash = (path: string): string => path.replace(/\/$/, '')
 
