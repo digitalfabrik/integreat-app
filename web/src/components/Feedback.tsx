@@ -76,9 +76,9 @@ const NoteContainer = styled.div<{ showContainer: boolean }>`
   opacity: ${props => (props.showContainer ? 1 : 0)};
 `
 
-const NoteText = styled(StyledSmallViewTip)`
-  margin-block-start: 0;
-  margin-left: 12px !important;
+const NoteText = styled.span`
+  margin-left: 12px;
+  font-size: ${props => props.theme.fonts.decorativeFontSizeSmall};
 `
 
 const FeedbackRatingTooltip = styled(StyledSmallViewTip)`
