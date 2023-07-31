@@ -1,0 +1,7 @@
+issue_key: IGAPP-1347
+show_in_stores: false
+platforms:
+  - android
+  - ios
+en: Background for expanded map attribution added.
+de: Es wurde ein Hintergrund für die ausgeklappte Karten Attribution hinzugefügt.
