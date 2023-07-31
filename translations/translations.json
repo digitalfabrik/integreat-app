@@ -3,6 +3,7 @@
     "de": {
       "createPdf": "PDF erstellen",
       "copyUrl": "Link kopieren",
+      "shareUrl": "Teilen",
       "metaDescription": "{{appName}} ist Dein digitaler Guide für Deutschland. Finde lokale Informationen, Veranstaltungen und Beratung. Immer aktuell und in Deiner Sprache.",
       "organizationContent": "Die Inhalte dieser Seite sind von {{organization}}.",
       "organizationMoreInformation": "Mehr Informationen zu <1>{{organization}}</1> findest du auf <3>{{domain}}</3>."

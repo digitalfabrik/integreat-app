@@ -26,7 +26,8 @@ const CategoriesToolbar = (props: CategoriesToolbarProps): ReactElement => {
   return (
     <CityContentToolbar
       route={CATEGORIES_ROUTE}
-      feedbackTarget={category && !category.isRoot() ? category.slug : undefined}>
+      feedbackTarget={category && !category.isRoot() ? category.slug : undefined}
+      title={category?.title}>
       <ToolbarItem icon={PdfIcon} text={t('createPdf')} href={pdfUrl} />
     </CityContentToolbar>
   )
