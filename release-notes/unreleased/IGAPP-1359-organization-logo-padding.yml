@@ -1,0 +1,5 @@
+issue_key: IGAPP-1359
+show_in_stores: false
+platforms:
+  - web
+en: Improved the layout of the organization maintaining a page
