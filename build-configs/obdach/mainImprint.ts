@@ -17,7 +17,7 @@ const mainImprint = `
   <tbody>
   <tr>
     <td>Telefon:</td>
-    <td>&nbsp;0821/90799-0</td>
+    <td>0821 20991254</td>
   </tr>
   <tr>
     <td>E-Mail:</td>
@@ -66,6 +66,10 @@ const mainImprint = `
   gekennzeichnet. Sollten Sie trotzdem auf eine Urheberrechtsverletzung aufmerksam werden, bitten wir um einen
   entsprechenden Hinweis. Bei Bekanntwerden von Rechtsverletzungen werden wir derartige Inhalte umgehend
   entfernen.
+</p>
+<p><strong>Urheber- und Nutzungsrecht</strong></p>
+<p>Die durch die Seitenbetreiber erstellten Inhalte und Werke auf diesen Seiten unterliegen dem deutschen Urheberrecht. 
+Alle auf www.netzwerkobdachwohnen.de befindlichen Inhalte sind unter der Creative Commons-Lizenz <a href="https://creativecommons.org/licenses/by/4.0/">CC BY-NC 4.0</a> lizenziert.
 </p>
 `
 export default mainImprint
