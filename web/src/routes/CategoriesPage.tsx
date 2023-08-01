@@ -125,7 +125,7 @@ const CategoriesPage = ({ city, pathname, cityCode, languageCode }: CityRoutePro
     languageChangePaths,
     route: CATEGORIES_ROUTE,
     languageCode,
-    Toolbar: <CategoriesToolbar category={category} cityCode={cityCode} languageCode={languageCode} />,
+    Toolbar: <CategoriesToolbar category={category} cityCode={cityCode} languageCode={languageCode} city={city} />,
   }
 
   if (categoriesLoading || parentsLoading || pathname !== previousPathname) {
