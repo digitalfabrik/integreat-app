@@ -1,39 +1,71 @@
 import React, { ReactElement, ReactNode } from 'react'
+import { useTranslation } from 'react-i18next'
 import styled, { css } from 'styled-components'
 
-import { CloseIcon, FacebookIcon, MailSocialIcon, TwitterIcon, WhatsappIcon } from '../assets'
+import { getSlugFromPath, POIS_ROUTE } from 'api-client/src'
+import { UiDirectionType } from 'translations/src'
+
+import { CloseIcon, FacebookIcon, MailSocialIcon, WhatsappIcon } from '../assets'
+import dimensions from '../constants/dimensions'
+import useWindowDimensions from '../hooks/useWindowDimensions'
+import { RouteType } from '../routes'
+import Tooltip from './Tooltip'
 
 type SocialMediaTooltipProps = {
   active: boolean
   children: ReactNode
   shareLink: string
-  title?: string
+  title: string
   onClose: () => void
-  direction: 'top' | 'right'
+  flow: 'top' | 'right'
+  direction: UiDirectionType
+  route: RouteType
 }
 
-const Tooltip = styled.div<{ direction: 'top' | 'right' }>`
-  background: #ffffff;
+const SHARE_BUTTON_WIDTH = 50
+const TooltipContainer = styled.div<{
+  flow: 'top' | 'right'
+  active: boolean
+  direction: UiDirectionType
+  additionalPadding: number
+}>`
+  background-color: ${props => props.theme.colors.backgroundColor};
   padding: 8px;
-  border: 2px solid #c7c7c7;
+  border: 2px solid ${props => props.theme.colors.textDecorationColor};
   width: max-content;
   position: absolute;
-  color: #555555;
   display: flex;
   z-index: 2000;
+  opacity: 0;
 
   ${props =>
-    props.direction === 'top' &&
+    props.flow === 'top' &&
     css`
-      bottom: 70px;
-      flex-direction: column-reverse;
+      bottom: ${dimensions.toolbarHeight + props.additionalPadding}px;
+      flex-flow: column-reverse;
       margin-left: -10px;
     `};
 
   ${props =>
-    props.direction === 'right' &&
+    props.flow === 'right' &&
+    props.direction === 'ltr' &&
     css`
-      left: 150px;
+      left: ${dimensions.toolbarWidth - SHARE_BUTTON_WIDTH}px;
+    `};
+
+  ${props =>
+    props.flow === 'right' &&
+    props.direction === 'rtl' &&
+    css`
+      right: ${dimensions.toolbarWidth - SHARE_BUTTON_WIDTH}px;
+      transform: scaleX(-1);
+      flex-direction: row-reverse;
+    `};
+
+  ${props =>
+    props.active &&
+    css`
+      animation: tooltips 300ms ease-out forwards;
     `};
 
   &:before,
@@ -44,48 +76,63 @@ const Tooltip = styled.div<{ direction: 'top' | 'right' }>`
   }
 
   &:before {
-    z-index: 2;
-    border-bottom: 10px solid #ffffff;
+    z-index: 2000;
+    border-bottom: 10px solid ${props => props.theme.colors.backgroundColor};
     border-left: 10px solid transparent;
     border-right: 10px solid transparent;
 
     ${props =>
-      props.direction === 'top' &&
+      props.flow === 'top' &&
       css`
         left: 20px;
         bottom: -8px;
         transform: rotate(-180deg);
       `};
     ${props =>
-      props.direction === 'right' &&
+      props.flow === 'right' &&
       css`
-        top: 45%;
         left: -14px;
         transform: rotate(-90deg);
+        top: 45%;
+      `};
+    ${props =>
+      props.active &&
+      css`
+        animation: tooltips 300ms ease-out forwards;
       `};
   }
 
   &:after {
-    z-index: 1;
-    border-bottom: 11px solid #c7c7c7;
+    z-index: 1000;
+    border-bottom: 11px solid ${props => props.theme.colors.textDecorationColor};
     border-left: 11px solid transparent;
     border-right: 11px solid transparent;
 
-    transform: rotate(-90deg);
     ${props =>
-      props.direction === 'top' &&
+      props.flow === 'top' &&
       css`
         left: 20px;
         bottom: -11px;
         transform: rotate(-180deg);
       `};
     ${props =>
-      props.direction === 'right' &&
+      props.flow === 'right' &&
       css`
         left: -17px;
-        top: 45%;
         transform: rotate(-90deg);
+        top: 45%;
       `};
+    ${props =>
+      props.active &&
+      css`
+        animation: tooltips 300ms ease-out forwards;
+      `};
+  }
+
+  @keyframes tooltips {
+    to {
+      opacity: 1;
+    }
   }
 `
 
@@ -118,38 +165,63 @@ const Icon = styled.img<{ direction: string }>`
     `};
 `
 
-// TODO consider rtl, find title fallback or sharing message including title "Teile Stadt Augsburg von Integreat"
+const BackdropContainer = styled.div`
+  background: transparent;
+  width: 100%;
+  height: 100%;
+  z-index: 2000;
+  top: 0;
+  left: 0;
+  position: fixed;
+`
 
 const SocialMediaTooltip = ({
   active,
   children,
   shareLink,
   onClose,
-  title = 'Integreat',
+  title,
+  flow,
   direction,
-}: SocialMediaTooltipProps): ReactElement => (
-  <div>
-    {active && (
-      <Tooltip direction={direction}>
-        <Link href={`https://api.whatsapp.com/send?text=${title}%0a${shareLink}`} target='_blank'>
-          <Icon src={WhatsappIcon} direction='ltr' alt='' />
-        </Link>
-        <Link href={`http://www.facebook.com/sharer/sharer.php?u=${shareLink}&t${title}`} target='_blank'>
-          <Icon src={FacebookIcon} direction='ltr' alt='' />
-        </Link>
-        <Link href={`http://www.twitter.com/intent/tweet?url=${shareLink}&text=${title}`} target='_blank'>
-          <Icon src={TwitterIcon} direction='ltr' alt='' />
-        </Link>
-        <Link href={`mailto:?subject=${title}&body=${shareLink}`}>
-          <Icon src={MailSocialIcon} direction='ltr' alt='' />
-        </Link>
-        <CloseButton onClick={onClose}>
-          <Icon src={CloseIcon} direction='ltr' alt='' />
-        </CloseButton>
-      </Tooltip>
-    )}
-    {children}
-  </div>
-)
+  route,
+}: SocialMediaTooltipProps): ReactElement => {
+  const { t } = useTranslation('socialMedia')
+  const { viewportSmall } = useWindowDimensions()
+  const isPoisDetailPage = route === POIS_ROUTE && getSlugFromPath(window.location.pathname) !== POIS_ROUTE
+  return (
+    <div>
+      {active && (
+        <>
+          <BackdropContainer onClick={onClose} role='button' tabIndex={0} onKeyPress={onClose} />
+          <TooltipContainer
+            flow={flow}
+            active={active}
+            direction={direction}
+            additionalPadding={isPoisDetailPage && !viewportSmall ? dimensions.poiDetailNavigation : 0}>
+            <Tooltip text={t('whatappTooltip')} flow='up'>
+              <Link href={`https://api.whatsapp.com/send?text=${title}%0a${shareLink}`} target='_blank'>
+                <Icon src={WhatsappIcon} direction={direction} alt='' />
+              </Link>
+            </Tooltip>
+            <Tooltip text={t('facebookTooltip')} flow='up'>
+              <Link href={`http://www.facebook.com/sharer/sharer.php?u=${shareLink}&t${title}`} target='_blank'>
+                <Icon src={FacebookIcon} direction={direction} alt='' />
+              </Link>
+            </Tooltip>
+            <Tooltip text={t('mailTooltip')} flow='up'>
+              <Link href={`mailto:?subject=${title}&body=${shareLink}`}>
+                <Icon src={MailSocialIcon} direction={direction} alt='' />
+              </Link>
+            </Tooltip>
+            <CloseButton onClick={onClose}>
+              <Icon src={CloseIcon} alt='' direction={direction} />
+            </CloseButton>
+          </TooltipContainer>
+        </>
+      )}
+      {children}
+    </div>
+  )
+}
 
 export default SocialMediaTooltip

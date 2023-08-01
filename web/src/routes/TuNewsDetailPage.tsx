@@ -1,4 +1,5 @@
 import React, { ReactElement, useContext } from 'react'
+import { useTranslation } from 'react-i18next'
 import { useNavigate, useParams } from 'react-router-dom'
 import styled from 'styled-components'
 
@@ -50,6 +51,7 @@ const TuNewsDetailPage = ({ city, pathname, cityCode, languageCode }: CityRouteP
   const newsId = useParams().newsId!
   const formatter = useContext(DateFormatterContext)
   const navigate = useNavigate()
+  const { t } = useTranslation('news')
 
   const {
     data: newsModel,
@@ -68,7 +70,14 @@ const TuNewsDetailPage = ({ city, pathname, cityCode, languageCode }: CityRouteP
     languageChangePaths,
     route: TU_NEWS_DETAIL_ROUTE,
     languageCode,
-    Toolbar: <CityContentToolbar hasFeedbackOption={false} route={TU_NEWS_DETAIL_ROUTE} />,
+    Toolbar: (
+      <CityContentToolbar
+        hasFeedbackOption={false}
+        route={TU_NEWS_DETAIL_ROUTE}
+        languageCode={languageCode}
+        title={newsModel ? newsModel.title : t('pageTitle')}
+      />
+    ),
   }
 
   if (loading) {

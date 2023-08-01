@@ -1,8 +1,9 @@
 import React, { memo, ReactNode, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
+import { config } from 'translations/src'
+
 import { CopyIcon, DoneIcon, ShareActiveIcon, ShareIcon } from '../assets'
-import useWindowDimensions from '../hooks/useWindowDimensions'
 import { RouteType } from '../routes'
 import FeedbackToolbarItem from './FeedbackToolbarItem'
 import SocialMediaTooltip from './SocialMediaTooltip'
@@ -16,18 +17,27 @@ type CityContentToolbarProps = {
   iconDirection?: 'row' | 'column'
   hasFeedbackOption?: boolean
   hideDivider?: boolean
-  title?: string
+  title: string
   route: RouteType
+  languageCode: string
 }
 
 const COPY_TIMEOUT = 3000
 
 const CityContentToolbar = (props: CityContentToolbarProps) => {
-  const { feedbackTarget, children, iconDirection, hasFeedbackOption = true, hideDivider, route, title } = props
+  const {
+    feedbackTarget,
+    children,
+    iconDirection,
+    hasFeedbackOption = true,
+    hideDivider,
+    route,
+    title,
+    languageCode,
+  } = props
   const [linkCopied, setLinkCopied] = useState<boolean>(false)
   const [shareOptionsVisible, setShareOptionsVisible] = useState<boolean>(false)
   const { t } = useTranslation('categories')
-  const { viewportSmall } = useWindowDimensions()
   const copyToClipboard = () => {
     navigator.clipboard.writeText(window.location.href).catch(reportError)
     setLinkCopied(true)
@@ -42,7 +52,9 @@ const CityContentToolbar = (props: CityContentToolbarProps) => {
       <SocialMediaTooltip
         active={shareOptionsVisible}
         shareLink={window.location.href}
-        direction={viewportSmall ? 'top' : 'right'}
+        route={route}
+        flow={iconDirection === 'row' ? 'top' : 'right'}
+        direction={config.getScriptDirection(languageCode)}
         title={title}
         onClose={() => setShareOptionsVisible(false)}>
         <ToolbarItem

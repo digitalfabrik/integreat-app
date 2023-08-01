@@ -32,7 +32,6 @@ import ShareActiveIcon from '../../../assets/icons/share-active.svg'
 import ShareIcon from '../../../assets/icons/share.svg'
 import SmokingIcon from '../../../assets/icons/smoking.svg'
 import TimerIcon from '../../../assets/icons/timer.svg'
-import TwitterIcon from '../../../assets/icons/twitter.svg'
 import WebsiteIcon from '../../../assets/icons/website.svg'
 import WhatsappIcon from '../../../assets/icons/whatsapp.svg'
 
@@ -72,7 +71,6 @@ export {
   ShareActiveIcon,
   SmokingIcon,
   TimerIcon,
-  TwitterIcon,
   WebsiteIcon,
   WhatsappIcon,
 }

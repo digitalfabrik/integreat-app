@@ -66,12 +66,22 @@ const EventsPage = ({ city, pathname, languageCode, cityCode }: CityRouteProps):
     }
   })
 
+  const pageTitle = `${event ? event.title : t('pageTitle')} - ${city.name}`
+
   const locationLayoutParams: Omit<CityContentLayoutProps, 'isLoading'> = {
     city,
     languageChangePaths,
     route: EVENTS_ROUTE,
     languageCode,
-    Toolbar: <CityContentToolbar feedbackTarget={event?.slug} route={EVENTS_ROUTE} hideDivider={!event} />,
+    Toolbar: (
+      <CityContentToolbar
+        feedbackTarget={event?.slug}
+        route={EVENTS_ROUTE}
+        hideDivider={!event}
+        languageCode={languageCode}
+        title={pageTitle}
+      />
+    ),
   }
 
   if (loading || pathname !== previousPathname) {
@@ -114,7 +124,6 @@ const EventsPage = ({ city, pathname, languageCode, cityCode }: CityRouteProps):
   if (event) {
     const { featuredImage, thumbnail, lastUpdate, content, title, location, date } = event
     const defaultThumbnail = featuredImage ? featuredImage.medium.url : thumbnail
-    const pageTitle = `${event.title} - ${city.name}`
 
     const PageFooter = (
       <TextButton fullWidth={viewportSmall} onClick={() => downloadEventAsIcsFile(event)} text={t('exportAsICal')} />
@@ -147,8 +156,6 @@ const EventsPage = ({ city, pathname, languageCode, cityCode }: CityRouteProps):
   const renderEventListItem = (event: EventModel) => (
     <EventListItem event={event} formatter={formatter} key={event.path} />
   )
-
-  const pageTitle = `${t('pageTitle')} - ${city.name}`
 
   return (
     <CityContentLayout isLoading={false} {...locationLayoutParams}>
