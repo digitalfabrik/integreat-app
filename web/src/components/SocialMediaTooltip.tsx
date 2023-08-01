@@ -2,8 +2,8 @@ import React, { ReactElement, ReactNode } from 'react'
 import { useTranslation } from 'react-i18next'
 import styled, { css } from 'styled-components'
 
-import { getSlugFromPath, POIS_ROUTE } from 'api-client/src'
-import { UiDirectionType } from 'translations/src'
+import { getSlugFromPath, POIS_ROUTE } from 'api-client'
+import { UiDirectionType } from 'translations'
 
 import { CloseIcon, FacebookIcon, MailSocialIcon, WhatsappIcon } from '../assets'
 import dimensions from '../constants/dimensions'
