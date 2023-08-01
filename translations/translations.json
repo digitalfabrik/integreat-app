@@ -8303,6 +8303,13 @@
       "title": "居住空间"
     }
   },
+  "socialMedia": {
+    "de": {
+      "facebookTooltip": "in Facebook teilen",
+      "mailTooltip": "via E-Mail empfehlen",
+      "whatappTooltip": "in WhatsApp teilen"
+    }
+  },
   "sprungbrett": {
     "de": {
       "noOffersAvailable": "Keine Angebote verfügbar"
