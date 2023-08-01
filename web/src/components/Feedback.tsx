@@ -77,8 +77,7 @@ const NoteContainer = styled.div<{ showContainer: boolean }>`
 
 const NoteText = styled.span`
   margin-left: 12px;
-  font-size: 12px;
-  font-weight: 400;
+  font-size: ${props => props.theme.fonts.decorativeFontSizeSmall};
 `
 
 const FeedbackRatingTooltip = styled.span`
