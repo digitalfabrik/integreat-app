@@ -16,6 +16,7 @@ const StyledImage = styled.img<{ viewportSmall: boolean }>`
 
 const ThumbnailSizer = styled.div`
   width: 150px;
+  margin-right: 20px;
 `
 
 const Box = styled(HighlightBox)<{ viewportSmall: boolean }>`
