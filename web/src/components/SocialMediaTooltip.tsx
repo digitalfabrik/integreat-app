@@ -188,6 +188,9 @@ const SocialMediaTooltip = ({
   const { t } = useTranslation('socialMedia')
   const { viewportSmall } = useWindowDimensions()
   const isPoisDetailPage = route === POIS_ROUTE && getSlugFromPath(window.location.pathname) !== POIS_ROUTE
+  const encodedTitle = encodeURIComponent(title)
+  const encodedShareLink = encodeURIComponent(shareLink)
+
   return (
     <div>
       {active && (
@@ -199,17 +202,23 @@ const SocialMediaTooltip = ({
             direction={direction}
             additionalPadding={isPoisDetailPage && !viewportSmall ? dimensions.poiDetailNavigation : 0}>
             <Tooltip text={t('whatappTooltip')} flow='up'>
-              <Link href={`https://api.whatsapp.com/send?text=${title}%0a${shareLink}`} target='_blank'>
+              <Link
+                href={`https://api.whatsapp.com/send?text=${encodedTitle}%0a${encodedShareLink}`}
+                target='_blank'
+                data-testid='whatsapp'>
                 <Icon src={WhatsappIcon} direction={direction} alt='' />
               </Link>
             </Tooltip>
             <Tooltip text={t('facebookTooltip')} flow='up'>
-              <Link href={`http://www.facebook.com/sharer/sharer.php?u=${shareLink}&t${title}`} target='_blank'>
+              <Link
+                href={`http://www.facebook.com/sharer/sharer.php?u=${encodedShareLink}&t${encodedTitle}`}
+                target='_blank'
+                data-testid='facebook'>
                 <Icon src={FacebookIcon} direction={direction} alt='' />
               </Link>
             </Tooltip>
             <Tooltip text={t('mailTooltip')} flow='up'>
-              <Link href={`mailto:?subject=${title}&body=${shareLink}`}>
+              <Link href={`mailto:?subject=${encodedTitle}&body=${encodedShareLink}`} data-testid='mail'>
                 <Icon src={MailSocialIcon} direction={direction} alt='' />
               </Link>
             </Tooltip>
