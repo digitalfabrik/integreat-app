@@ -72,6 +72,8 @@ const EastereggImage = ({ clearResourcesAndCache }: EastereggImageProps): ReactE
             }}
             buttonStyle={{
               backgroundColor: theme.colors.themeColor,
+            }}
+            containerStyle={{
               marginTop: 10,
             }}
             onPress={() => setApiUrl(cmsUrl)}

@@ -104,6 +104,8 @@ const ExportEventButton = ({ event }: ExportEventButtonType): ReactElement => {
         onPress={checkCalendarsAndExportEvent}
         buttonStyle={{
           backgroundColor: theme.colors.themeColor,
+        }}
+        containerStyle={{
           margin: 14,
         }}
         titleStyle={{

@@ -100,6 +100,8 @@ const Feedback = (props: FeedbackProps): ReactElement => {
             }}
             buttonStyle={{
               backgroundColor: theme.colors.themeColor,
+            }}
+            containerStyle={{
               marginTop: 15,
             }}
             disabled={!isPositiveFeedback && !comment}

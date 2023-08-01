@@ -55,6 +55,8 @@ const Failure = ({ code, buttonAction, buttonLabel }: FailureProps): ReactElemen
           }}
           buttonStyle={{
             backgroundColor: theme.colors.themeColor,
+          }}
+          containerStyle={{
             marginTop: 40,
           }}
           onPress={buttonAction}
