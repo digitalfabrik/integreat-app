@@ -74,6 +74,7 @@ const Title = styled.span`
 
 const LinkContainer = styled.div`
   display: flex;
+  flex: 1;
 `
 
 type PoiListItemProps = {

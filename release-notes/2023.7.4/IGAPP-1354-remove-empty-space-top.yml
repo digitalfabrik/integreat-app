@@ -1,0 +1,5 @@
+issue_key: IGAPP-1354
+show_in_stores: false
+platforms:
+  - web
+en: Remove empty space at the top of small screens when the content is short
