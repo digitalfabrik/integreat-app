@@ -41,7 +41,7 @@ const ModalContent = styled.div`
   @media ${dimensions.smallViewport} {
     height: 100%;
     align-items: center;
-    justify-content: center;
+    width: 100%;
   }
 `
 const Header = styled.div<{ flexDirection: string }>`
