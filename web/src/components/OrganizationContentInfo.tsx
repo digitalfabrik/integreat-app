@@ -16,7 +16,6 @@ const StyledImage = styled.img<{ viewportSmall: boolean }>`
 
 const ThumbnailSizer = styled.div`
   width: 150px;
-  margin-right: 20px;
 `
 
 const Box = styled(HighlightBox)<{ viewportSmall: boolean }>`
@@ -26,6 +25,7 @@ const Box = styled(HighlightBox)<{ viewportSmall: boolean }>`
   font-family: ${props => props.theme.fonts.web.decorativeFont};
   font-size: 14px;
   flex-direction: ${props => (props.viewportSmall ? 'column' : 'row')};
+  gap: 20px;
 `
 
 const Column = styled.div`
