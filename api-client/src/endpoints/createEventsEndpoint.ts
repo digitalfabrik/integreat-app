@@ -91,6 +91,7 @@ const getEndDate = (event: JsonEventType, startDate: Date): Date => {
   return moment(startDate).add(durationInDays, 'days').toDate()
 }
 
+// TODO IGAPP-281: The workaround of the next two functions can probably be removed
 const leftPad = (number: number): string => {
   const numberAsString = number.toString()
   if (numberAsString.length === 1) {
