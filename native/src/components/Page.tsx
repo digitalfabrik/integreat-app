@@ -12,7 +12,6 @@ import { LanguageResourceCacheStateType, PageResourceCacheEntryStateType } from 
 import { RESOURCE_CACHE_DIR_PATH } from '../utils/DatabaseConnector'
 import Caption from './Caption'
 import RemoteContent from './RemoteContent'
-import SiteHelpfulBox from './SiteHelpfulBox'
 import SpaceBetween from './SpaceBetween'
 import { StaticServerContext } from './StaticServerProvider'
 import TimeStamp from './TimeStamp'
@@ -43,7 +42,6 @@ type PageProps = {
   Footer?: ReactNode
   language: string
   lastUpdate?: Moment
-  navigateToFeedback?: (positive: boolean) => void
   path?: string
 }
 
@@ -55,7 +53,6 @@ const Page = ({
   Footer,
   language,
   lastUpdate,
-  navigateToFeedback,
   path,
 }: PageProps): ReactElement => {
   const { cityCode, languageCode } = useCityAppContext()
@@ -102,7 +99,6 @@ const Page = ({
         </Container>
         {!loading && Footer}
       </View>
-      {!loading && navigateToFeedback && <SiteHelpfulBox navigateToFeedback={navigateToFeedback} />}
     </SpaceBetween>
   )
 }
