@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next'
 import { config } from 'translations/src'
 
 import { CopyIcon, DoneIcon, ShareActiveIcon, ShareIcon } from '../assets'
+import useWindowDimensions from '../hooks/useWindowDimensions'
 import { RouteType } from '../routes'
 import FeedbackToolbarItem from './FeedbackToolbarItem'
 import SocialMediaTooltip from './SocialMediaTooltip'
@@ -25,10 +26,11 @@ type CityContentToolbarProps = {
 const COPY_TIMEOUT = 3000
 
 const CityContentToolbar = (props: CityContentToolbarProps) => {
+  const { viewportSmall } = useWindowDimensions()
   const {
     feedbackTarget,
     children,
-    iconDirection,
+    iconDirection = viewportSmall ? 'row' : 'column',
     hasFeedbackOption = true,
     hideDivider,
     route,

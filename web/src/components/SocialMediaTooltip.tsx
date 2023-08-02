@@ -201,7 +201,7 @@ const SocialMediaTooltip = ({
             active={active}
             direction={direction}
             additionalPadding={isPoisDetailPage && !viewportSmall ? dimensions.poiDetailNavigation : 0}>
-            <Tooltip text={t('whatappTooltip')} flow='up'>
+            <Tooltip text={t('whatsappTooltip')} flow='up'>
               <Link
                 href={`https://api.whatsapp.com/send?text=${encodedTitle}%0a${encodedShareLink}`}
                 target='_blank'
