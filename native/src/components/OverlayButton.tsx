@@ -10,7 +10,7 @@ const Container = styled.Pressable`
   height: 30px;
   padding: 4px 8px;
   align-items: center;
-  margin: 0 2px;
+  margin: 0 4px;
   border-radius: 20px;
   background-color: ${props => props.theme.colors.backgroundColor};
 `
