@@ -109,6 +109,7 @@ module.exports = {
     '@typescript-eslint/no-use-before-define': 'error',
     '@typescript-eslint/prefer-ts-expect-error': 'error',
     '@typescript-eslint/switch-exhaustiveness-check': 'error',
+    '@typescript-eslint/no-non-null-assertion': 'off',
 
     'jest/consistent-test-it': 'error',
     'jest/no-alias-methods': 'error',
