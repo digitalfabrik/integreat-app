@@ -147,7 +147,7 @@ describe('Endpoint', () => {
     mockedFetch.mockRejectedValue(error)
     const endpoint = new Endpoint('endpoint', defaultMapParamsToUrl, null, defaultJsonMapper)
     await expect(endpoint.request(params)).rejects.toThrow(
-      new FetchError({ endpointName: 'endpoint', innerError: error, url, requestOptions: { method: 'GET' } })
+      new FetchError({ endpointName: 'endpoint', innerError: error, url, requestOptions: { method: 'GET' } }),
     )
   })
 
@@ -155,7 +155,7 @@ describe('Endpoint', () => {
     mockedFetch.mockImplementation(async () => responseNotOk)
     const endpoint = new Endpoint('endpoint', defaultMapParamsToUrl, null, defaultJsonMapper)
     await expect(endpoint.request(params)).rejects.toThrow(
-      new ResponseError({ endpointName: 'endpoint', response: responseNotOk, url, requestOptions: { method: 'GET' } })
+      new ResponseError({ endpointName: 'endpoint', response: responseNotOk, url, requestOptions: { method: 'GET' } }),
     )
   })
 
@@ -170,7 +170,7 @@ describe('Endpoint', () => {
     mockedFetch.mockImplementation(async () => responseFailingJson)
     const endpoint = new Endpoint('endpoint', defaultMapParamsToUrl, null, defaultJsonMapper)
     await expect(endpoint.request(params)).rejects.toThrow(
-      new FetchError({ endpointName: 'endpoint', innerError: error, url, requestOptions: { method: 'GET' } })
+      new FetchError({ endpointName: 'endpoint', innerError: error, url, requestOptions: { method: 'GET' } }),
     )
   })
 })

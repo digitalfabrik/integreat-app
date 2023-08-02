@@ -129,7 +129,7 @@ class CategoriesMapModelBuilder {
         lastUpdate: moment('2017-11-18T19:30:00.000Z', moment.ISO_8601),
         organization: null,
       }),
-      0
+      0,
     )
 
     return {

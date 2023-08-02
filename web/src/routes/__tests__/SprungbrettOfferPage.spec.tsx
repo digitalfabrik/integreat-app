@@ -77,7 +77,7 @@ describe('SprungbrettOfferPage', () => {
   const renderSprungbrett = (): RenderResult =>
     renderRoute(
       <SprungbrettOfferPage city={city} pathname={pathname} cityCode={city.code} languageCode={languageCode} />,
-      { routePattern, pathname }
+      { routePattern, pathname },
     )
 
   it('should render page with title and content', () => {

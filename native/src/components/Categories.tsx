@@ -62,7 +62,7 @@ const Categories = ({
           path: category.path,
           thumbnail: getCachedThumbnail(category, resourceCache[category.path] ?? {}),
           isExternalUrl: false,
-        })
+        }),
     )
     return (
       <View>

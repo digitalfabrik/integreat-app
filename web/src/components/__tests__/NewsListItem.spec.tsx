@@ -13,7 +13,7 @@ jest.mock('../LastUpdateInfo', () =>
       {withText ? 'lastUpdate ' : ''}
       {lastUpdate.toISOString()}
     </div>
-  ))
+  )),
 )
 
 describe('NewsListItem', () => {
@@ -43,7 +43,7 @@ describe('NewsListItem', () => {
         formatter={new DateFormatter(language)}
         t={t}
         link={link}
-      />
+      />,
     )
 
     expect(getByText(title)).toBeTruthy()

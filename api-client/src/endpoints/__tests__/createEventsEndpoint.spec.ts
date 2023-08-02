@@ -19,7 +19,7 @@ describe('events', () => {
     startTime: string,
     endDate: string,
     endTime: string,
-    timezone: string
+    timezone: string,
   ): JsonEventType => ({
     id,
     url: 'https://inegreat.app/augsburg/de/events/asylpolitischer_fruehschoppen',
@@ -142,25 +142,25 @@ describe('events', () => {
     2730,
     false,
     moment.tz('2016-01-31 10:00:00', 'Europe/Berlin'),
-    moment.tz('2016-01-31 13:00:00', 'Europe/Berlin')
+    moment.tz('2016-01-31 13:00:00', 'Europe/Berlin'),
   )
   const eventModel2 = createEventModel(
     1889,
     false,
     moment.tz('2015-11-29 10:00:00', 'Europe/Berlin'),
-    moment.tz('2015-11-29 13:00:00', 'Europe/Berlin')
+    moment.tz('2015-11-29 13:00:00', 'Europe/Berlin'),
   )
   const eventModel3 = createEventModel(
     4768,
     true,
     moment.tz('2017-09-29 00:00:00', 'Europe/Berlin'),
-    moment.tz('2017-09-29 23:59:59', 'Europe/Berlin')
+    moment.tz('2017-09-29 23:59:59', 'Europe/Berlin'),
   )
   const eventModel4 = createEventModel(
     4826,
     true,
     moment.tz('2018-03-01 00:00:00', 'America/New_York'),
-    moment.tz('2018-06-01 23:59:59', 'America/New_York')
+    moment.tz('2018-06-01 23:59:59', 'America/New_York'),
   )
   const params = {
     city: 'augsburg',
@@ -168,7 +168,7 @@ describe('events', () => {
   }
   it('should map params to url', () => {
     expect(events.mapParamsToUrl(params)).toBe(
-      'https://integreat-api-url.de/augsburg/de/wp-json/extensions/v3/events/?combine_recurring=True'
+      'https://integreat-api-url.de/augsburg/de/wp-json/extensions/v3/events/?combine_recurring=True',
     )
   })
   const json = [event1, event2, event3, event4]

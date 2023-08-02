@@ -44,7 +44,7 @@ type BottomActionSheetProps = {
 const BottomActionSheet = React.forwardRef(
   (
     { title, children, toolbar, direction, setBottomActionSheetHeight, restoreScrollPosition }: BottomActionSheetProps,
-    ref: React.Ref<BottomSheetRef>
+    ref: React.Ref<BottomSheetRef>,
   ): ReactElement => {
     const theme = useTheme()
     const listRef = useRef<HTMLDivElement>(null)
@@ -78,7 +78,7 @@ const BottomActionSheet = React.forwardRef(
         <ToolbarContainer>{toolbar}</ToolbarContainer>
       </StyledBottomSheet>
     )
-  }
+  },
 )
 
 export default BottomActionSheet

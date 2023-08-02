@@ -8,7 +8,7 @@ type TruncateTextOptions = {
 
 export const truncate = (
   text: string,
-  { maxChars, replaceLineBreaks = true, reverse = false }: TruncateTextOptions
+  { maxChars, replaceLineBreaks = true, reverse = false }: TruncateTextOptions,
 ): string => {
   const inlinedText = replaceLineBreaks ? text.replace(/\n/g, ' ') : text
   const trimmedText = inlinedText.trim()

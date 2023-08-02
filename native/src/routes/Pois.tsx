@@ -119,7 +119,7 @@ const Pois = ({ pois, language, cityModel, route, navigation }: PoisProps): Reac
             id: slug ?? '',
             city: cityModel.code,
             language,
-          })
+          }),
         )}
       />
     )

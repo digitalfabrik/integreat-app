@@ -103,7 +103,7 @@ class InternalPathnameParser {
   }
 
   cityContentParams = (
-    feature: string
+    feature: string,
   ): {
     cityCode: string
     languageCode: string
@@ -231,7 +231,7 @@ class InternalPathnameParser {
     if (
       this._length > 2 &&
       !([SEARCH_ROUTE, DISCLAIMER_ROUTE, POIS_ROUTE, EVENTS_ROUTE, OFFERS_ROUTE, NEWS_ROUTE] as string[]).includes(
-        this._parts[2]!
+        this._parts[2]!,
       )
     ) {
       return {

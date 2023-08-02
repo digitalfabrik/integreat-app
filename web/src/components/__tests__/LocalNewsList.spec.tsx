@@ -46,7 +46,7 @@ describe('LocalNewsList', () => {
 
   it('should have two NewsListItem', () => {
     const { getByText } = renderWithRouterAndTheme(
-      <LocalNewsList items={items} renderItem={renderItem} city={city} noItemsMessage='no item' />
+      <LocalNewsList items={items} renderItem={renderItem} city={city} noItemsMessage='no item' />,
     )
     expect(getByText('Love :)')).toBeDefined()
     expect(getByText('Important')).toBeDefined()
@@ -54,7 +54,7 @@ describe('LocalNewsList', () => {
 
   it('should render "noItemsMessage" if the items is an empty array', () => {
     const { getByText } = renderWithRouterAndTheme(
-      <LocalNewsList items={[]} renderItem={renderItem} city={city} noItemsMessage='No items' />
+      <LocalNewsList items={[]} renderItem={renderItem} city={city} noItemsMessage='No items' />,
     )
     expect(getByText('No items')).toBeDefined()
   })

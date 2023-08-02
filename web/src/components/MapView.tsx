@@ -113,7 +113,7 @@ const MapView = forwardRef((props: MapViewProps, ref: React.Ref<MapRef>): ReactE
         onDeselect()
       }
     },
-    [changeSnapPoint, onDeselect, selectFeature]
+    [changeSnapPoint, onDeselect, selectFeature],
   )
 
   const changeCursor = useCallback((cursor: MapCursorType) => setCursor(cursor), [])

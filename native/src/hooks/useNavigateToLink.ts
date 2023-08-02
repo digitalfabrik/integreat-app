@@ -28,7 +28,7 @@ const navigateToLink = <T extends RoutesType>(
   languageCode: string,
   navigateTo: (routeInformation: RouteInformationType) => void,
   shareUrl: string,
-  showSnackbar: (snackbar: SnackbarType) => void
+  showSnackbar: (snackbar: SnackbarType) => void,
 ): void => {
   if (url.includes('.pdf')) {
     sendTrackingSignal({
@@ -75,7 +75,7 @@ const useNavigateToLink = (): ((url: string, shareUrl: string) => void) => {
   return useCallback(
     (url: string, shareUrl: string) =>
       navigateToLink(url, navigation, languageCode, navigateTo, shareUrl, showSnackbar),
-    [navigation, navigateTo, languageCode, showSnackbar]
+    [navigation, navigateTo, languageCode, showSnackbar],
   )
 }
 

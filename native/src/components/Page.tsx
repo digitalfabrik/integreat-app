@@ -24,13 +24,13 @@ export type ParsedCacheDictionaryType = Record<string, string>
 const createCacheDictionary = (
   resourceCache: LanguageResourceCacheStateType,
   resourceCacheUrl: string,
-  pagePath?: string
+  pagePath?: string,
 ): ParsedCacheDictionaryType =>
   pagePath
     ? mapValues(resourceCache[pagePath] || {}, (file: PageResourceCacheEntryStateType) =>
         file.filePath.startsWith(RESOURCE_CACHE_DIR_PATH)
           ? file.filePath.replace(RESOURCE_CACHE_DIR_PATH, resourceCacheUrl)
-          : file.filePath
+          : file.filePath,
       )
     : {}
 
@@ -65,14 +65,14 @@ const Page = ({
 
   const cacheDictionary = useMemo(
     () => createCacheDictionary(resourceCache, resourceCacheUrl, path),
-    [resourceCache, resourceCacheUrl, path]
+    [resourceCache, resourceCacheUrl, path],
   )
   const onLinkPress = useCallback(
     (url: string) => {
       const shareUrl = Object.keys(cacheDictionary).find(remoteUrl => cacheDictionary[remoteUrl] === url)
       navigateToLink(url, shareUrl || url)
     },
-    [cacheDictionary, navigateToLink]
+    [cacheDictionary, navigateToLink],
   )
   const onLoad = useCallback(() => setLoading(false), [setLoading])
   const measureContentWidth = (event: LayoutChangeEvent) => {

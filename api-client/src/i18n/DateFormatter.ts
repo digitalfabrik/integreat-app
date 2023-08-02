@@ -4,7 +4,7 @@ export type FormatFunctionType = (
   date: Moment,
   options: {
     format?: string
-  }
+  },
 ) => string
 export const ISO8601_FORMAT = undefined
 
@@ -21,7 +21,7 @@ class DateFormatter {
     date: Moment,
     options: {
       format?: string
-    }
+    },
   ) => {
     const format = options.format || this.fallbackFormat
     // TODO IGAPP-399: Uncomment again and use locale instead of hardcoded 'en'

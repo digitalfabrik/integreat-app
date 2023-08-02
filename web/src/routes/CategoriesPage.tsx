@@ -102,7 +102,7 @@ const CategoriesPage = ({ city, pathname, cityCode, languageCode }: CityRoutePro
         availableLanguages: new Map(),
         lastUpdate: moment(0),
         organization: null,
-      })
+      }),
     )
   }
 

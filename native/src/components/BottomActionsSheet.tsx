@@ -40,11 +40,11 @@ const BottomActionsSheet = React.forwardRef(
       setListScrollPosition,
       selectedFeature,
     }: BottomActionsSheetProps,
-    scrollRef: React.Ref<BottomSheetScrollViewMethods>
+    scrollRef: React.Ref<BottomSheetScrollViewMethods>,
   ): ReactElement | null => {
     const renderHandle = useCallback(
       (props: BottomSheetHandleProps) => <BottomSheetHandler title={title} {...props} />,
-      [title]
+      [title],
     )
 
     if (!visible) {
@@ -70,7 +70,7 @@ const BottomActionsSheet = React.forwardRef(
         </BottomSheetScrollView>
       </StyledBottomSheet>
     )
-  }
+  },
 )
 
 export default BottomActionsSheet

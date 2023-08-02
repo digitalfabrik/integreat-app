@@ -49,7 +49,7 @@ const OffersPage = ({ city, cityCode, languageCode }: CityRouteProps): ReactElem
           postData: offer.postData,
         })
       }),
-    [cityCode, languageCode, t]
+    [cityCode, languageCode, t],
   )
 
   if (!city) {

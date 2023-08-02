@@ -47,7 +47,7 @@ type Options = {
 const commitAndTag = async (
   versionName: string,
   versionCodeString: string,
-  { deliverinoPrivateKey, owner, repo, branch }: Options
+  { deliverinoPrivateKey, owner, repo, branch }: Options,
 ) => {
   if (branch !== MAIN_BRANCH) {
     throw new Error(`Version bumps are only allowed on the ${MAIN_BRANCH} branch!`)
@@ -89,8 +89,8 @@ const commitAndTag = async (
         owner,
         repo,
         platform,
-      })
-    )
+      }),
+    ),
   )
 }
 
@@ -99,7 +99,7 @@ program
   .description('commits the supplied version name and code to github and tags the commit')
   .requiredOption(
     '--deliverino-private-key <deliverino-private-key>',
-    'private key of the deliverino github app in pem format with base64 encoding'
+    'private key of the deliverino github app in pem format with base64 encoding',
   )
   .requiredOption('--owner <owner>', 'owner of the current repository, usually "digitalfabrik"')
   .requiredOption('--repo <repo>', 'the current repository, should be integreat-app')

@@ -15,7 +15,7 @@ type ParamsType = {
 export default (baseUrl: string): Endpoint<ParamsType, CategoriesMapModel> =>
   new EndpointBuilder<ParamsType, CategoriesMapModel>(CATEGORIES_ENDPOINT_NAME)
     .withParamsToUrlMapper(
-      (params: ParamsType): string => `${baseUrl}/${params.city}/${params.language}/wp-json/extensions/v3/pages/`
+      (params: ParamsType): string => `${baseUrl}/${params.city}/${params.language}/wp-json/extensions/v3/pages/`,
     )
     .withMapper((json: Array<JsonCategoryType>, params: ParamsType): CategoriesMapModel => {
       const basePath = `/${params.city}/${params.language}`
@@ -32,7 +32,7 @@ export default (baseUrl: string): Endpoint<ParamsType, CategoriesMapModel> =>
           availableLanguages: new Map(),
           lastUpdate: moment(0),
           organization: null,
-        })
+        }),
       )
       return new CategoriesMapModel(categories)
     })

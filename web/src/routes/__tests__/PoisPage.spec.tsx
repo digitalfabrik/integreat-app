@@ -37,7 +37,7 @@ describe('PoisPage', () => {
           <Route element={null} path=':slug' />
         </Route>
       </Routes>,
-      { pathname: '/locations' }
+      { pathname: '/locations' },
     )
 
   it('should render a list with all pois', () => {
