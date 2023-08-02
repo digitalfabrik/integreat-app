@@ -7,5 +7,6 @@ module.exports = {
     'function-no-unknown': null,
     'at-rule-no-unknown': null,
     'no-extra-semicolons': null,
+    'media-query-no-invalid': null,
   },
 }
