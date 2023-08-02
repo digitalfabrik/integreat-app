@@ -18,7 +18,7 @@ export default (baseUrl: string): Endpoint<ParamsType, LocalNewsModel> =>
   new EndpointBuilder<ParamsType, LocalNewsModel>(LOCAL_NEWS_ELEMENT_ENDPOINT_NAME)
     .withParamsToUrlMapper(
       (params: ParamsType): string =>
-        `${baseUrl}/${params.city}/${params.language}/wp-json/extensions/v3/fcm/?id=${params.id}`
+        `${baseUrl}/${params.city}/${params.language}/wp-json/extensions/v3/fcm/?id=${params.id}`,
     )
     .withMapper((localNews: Array<JsonLocalNewsType>, params: ParamsType): LocalNewsModel => {
       const localNewsModel = localNews[0]
@@ -28,7 +28,7 @@ export default (baseUrl: string): Endpoint<ParamsType, LocalNewsModel> =>
       } else if (localNews.length > 1) {
         throw new MappingError(
           LOCAL_NEWS_ELEMENT_ENDPOINT_NAME,
-          `Expected count of local news to be one. Received ${localNews.length} instead`
+          `Expected count of local news to be one. Received ${localNews.length} instead`,
         )
       }
 

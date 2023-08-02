@@ -43,7 +43,7 @@ const writePairs = (toPath: string, sourceLanguagePairs: LanguagePair[], pairs: 
         console.log('Missing translation:', key, '[', name, ']')
       }
       return [key, sourceTranslation, translation]
-    }
+    },
   )
   stringify([['key', 'source_language', 'target_language'], ...withSourceLanguagePairs]).pipe(output)
 }
@@ -75,7 +75,7 @@ const createSkeleton = (language: string, moduleArray: KeyModuleType[]): ModuleT
 const mergeByLanguageModule = (
   byLanguageModule: ModuleType[],
   skeleton: ModuleType[],
-  sourceLanguage: string
+  sourceLanguage: string,
 ): ModuleType[] => {
   const zippedModuleArray = zip(skeleton, byLanguageModule) as [ModuleType, ModuleType][]
   return zippedModuleArray.map(([[_unusedSkModuleKey, skModule], [moduleKey, module]]) => {
@@ -94,23 +94,23 @@ const writeCsvFromJson = (
   json: TranslationsType,
   toPath: string,
   sourceLanguage: string,
-  supportedLanguages: string[]
+  supportedLanguages: string[],
 ) => {
   const moduleArray = sortBy(toPairs(json), ([moduleKey, _unusedModule]) => moduleKey) // Sort by module key
 
   const byLanguageModuleArray = fromPairs<ModuleType[]>(
     supportedLanguages
       .filter(language => language !== sourceLanguage) // source language is not a target language
-      .map(targetLanguage => [targetLanguage, getModulesByLanguage(moduleArray, targetLanguage)])
+      .map(targetLanguage => [targetLanguage, getModulesByLanguage(moduleArray, targetLanguage)]),
   )
   const skeleton = createSkeleton(sourceLanguage, moduleArray)
   const filledByLanguageModuleArray = mapValues(byLanguageModuleArray, byLanguageModule =>
-    mergeByLanguageModule(byLanguageModule, skeleton, sourceLanguage)
+    mergeByLanguageModule(byLanguageModule, skeleton, sourceLanguage),
   )
   const flattenByLanguage = mapValues(filledByLanguageModuleArray, modules => flattenModules(fromPairs(modules)))
   const flattenSourceLanguage = flattenModules(fromPairs(getModulesByLanguage(moduleArray, sourceLanguage)))
   Object.entries(flattenByLanguage).forEach(([languageKey, modules]) =>
-    writePairs(toPath, toPairs(flattenSourceLanguage), toPairs(modules), languageKey)
+    writePairs(toPath, toPairs(flattenSourceLanguage), toPairs(modules), languageKey),
   )
   console.log(`Keys in source language ${sourceLanguage}: ${Object.keys(flattenSourceLanguage).length}`)
 }
@@ -127,7 +127,7 @@ const loadModules = (csvFile: string, csvColumn: string): Record<string, KeyValu
     skip_empty_lines: true,
   })
   const flattened = fromPairs(
-    records.map(record => [record.key, record[csvColumn]]).filter(([_unusedKey, translation]) => !!translation)
+    records.map(record => [record.key, record[csvColumn]]).filter(([_unusedKey, translation]) => !!translation),
   )
   return unflatten(flattened)
 }
@@ -145,7 +145,7 @@ const writeJsonFromCsv = (translations: string, toPath: string, sourceLanguage: 
     }
 
     const byLanguageModules = fromPairs(
-      csvs.map(csvFile => [path.basename(csvFile, '.csv'), loadModules(csvFile, 'target_language')])
+      csvs.map(csvFile => [path.basename(csvFile, '.csv'), loadModules(csvFile, 'target_language')]),
     )
     const sourceLanguageCsv = csvs[0]
     if (!sourceLanguageCsv) {
@@ -180,14 +180,14 @@ const writeJsonFromCsv = (translations: string, toPath: string, sourceLanguage: 
       moduleKeys.map(moduleKey => [
         moduleKey,
         fromPairs(
-          languageKeys.map(languageKey => [languageKey, byLanguageModulesWithSourceLanguage[languageKey]![moduleKey]])
+          languageKeys.map(languageKey => [languageKey, byLanguageModulesWithSourceLanguage[languageKey]![moduleKey]]),
         ),
-      ])
+      ]),
     )
     fs.writeFileSync(toPath, `${JSON.stringify(json, null, 2)}\n`, 'utf-8')
     const logMessages = Object.entries(json).map(
       ([moduleKey, module]) =>
-        `Languages in module ${moduleKey}: ${Object.keys(module).length} (${Object.keys(module)})`
+        `Languages in module ${moduleKey}: ${Object.keys(module).length} (${Object.keys(module)})`,
     )
     logMessages.forEach(message => console.log(message))
   })

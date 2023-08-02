@@ -49,7 +49,7 @@ describe('useNavigateToLink', () => {
     render(
       <AppContext.Provider value={context}>
         <MockComponent url={url} shareUrl={shareUrl} />
-      </AppContext.Provider>
+      </AppContext.Provider>,
     )
   const shareUrl = 'https://example.com/my/share/url'
 

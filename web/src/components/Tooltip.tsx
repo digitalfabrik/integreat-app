@@ -257,7 +257,7 @@ export default ({
     (ref: Element | null) => {
       setContainer(ref)
     },
-    [setContainer]
+    [setContainer],
   )
 
   const [dimensions, setDimensions] = useState<ViewportDimensionsType>({

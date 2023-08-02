@@ -34,7 +34,7 @@ module.exports =
 
             return path.resolve(__dirname, `node_modules/${name}`)
           },
-        }
+        },
       ),
       // Make sure we use the local copy of react and react-native to avoid multiple copies in the bundle
       // https://github.com/facebook/react/issues/13991#issuecomment-830308729

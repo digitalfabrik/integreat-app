@@ -145,7 +145,7 @@ class PoiModel extends ExtendedPageModel {
       const dateFormat = 'LT'
       const currentTime = moment().locale('de').format(dateFormat)
       return currentDay.timeSlots.some(timeslot =>
-        moment(currentTime, dateFormat).isBetween(moment(timeslot.start, dateFormat), moment(timeslot.end, dateFormat))
+        moment(currentTime, dateFormat).isBetween(moment(timeslot.start, dateFormat), moment(timeslot.end, dateFormat)),
       )
     }
     return false

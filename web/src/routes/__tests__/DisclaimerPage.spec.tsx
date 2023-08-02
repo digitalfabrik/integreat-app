@@ -41,7 +41,7 @@ describe('DisclaimerPage', () => {
     mockUseLoadFromEndpointOnceWithData(disclaimer)
     return renderRoute(
       <DisclaimerPage city={city} languageCode={languageCode} cityCode={city.code} pathname={pathname} />,
-      { pathname, routePattern }
+      { pathname, routePattern },
     )
   }
 

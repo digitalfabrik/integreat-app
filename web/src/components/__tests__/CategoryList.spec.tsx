@@ -88,7 +88,7 @@ describe('CategoryList', () => {
 
   it('should render category list', () => {
     const { getByText } = renderWithRouterAndTheme(
-      <CategoryList onInternalLinkClick={onInternalLinkClick} items={items} />
+      <CategoryList onInternalLinkClick={onInternalLinkClick} items={items} />,
     )
     categoryModels.forEach(() => {
       expect(getByText(categoryModels[0].title)).toBeTruthy()
@@ -97,7 +97,7 @@ describe('CategoryList', () => {
 
   it('should render title, content and thumbnail of category', () => {
     const { getByText } = renderWithRouterAndTheme(
-      <CategoryList onInternalLinkClick={onInternalLinkClick} items={[]} category={modelWithTitle} />
+      <CategoryList onInternalLinkClick={onInternalLinkClick} items={[]} category={modelWithTitle} />,
     )
     expect(getByText('Asylantrag')).toBeTruthy()
     expect(getByText('This is some special test content')).toBeTruthy()

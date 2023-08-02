@@ -52,7 +52,7 @@ const AppContextProvider = ({ children }: AppContextProviderProps): ReactElement
       .then(permissionGranted =>
         permissionGranted
           ? PushNotificationsManager.subscribeNews(cityCode, languageCode)
-          : appSettings.setSettings({ allowPushNotifications: false })
+          : appSettings.setSettings({ allowPushNotifications: false }),
       )
       .catch(reportError)
   }, [])
@@ -60,7 +60,7 @@ const AppContextProvider = ({ children }: AppContextProviderProps): ReactElement
   const unsubscribe = useCallback(
     (cityCode: string, languageCode: string) =>
       PushNotificationsManager.unsubscribeNews(cityCode, languageCode).catch(reportError),
-    []
+    [],
   )
 
   const changeCityCode = useCallback(
@@ -74,7 +74,7 @@ const AppContextProvider = ({ children }: AppContextProviderProps): ReactElement
         subscribe(newCityCode, languageCode)
       }
     },
-    [cityCode, languageCode, subscribe, unsubscribe]
+    [cityCode, languageCode, subscribe, unsubscribe],
   )
 
   const changeLanguageCode = useCallback(
@@ -88,12 +88,12 @@ const AppContextProvider = ({ children }: AppContextProviderProps): ReactElement
         subscribe(cityCode, newLanguageCode)
       }
     },
-    [cityCode, languageCode, subscribe, unsubscribe]
+    [cityCode, languageCode, subscribe, unsubscribe],
   )
 
   const appContext = useMemo(
     () => ({ cityCode, changeCityCode, languageCode, changeLanguageCode }),
-    [cityCode, changeCityCode, languageCode, changeLanguageCode]
+    [cityCode, changeCityCode, languageCode, changeLanguageCode],
   )
 
   return appContext.languageCode !== null ? (

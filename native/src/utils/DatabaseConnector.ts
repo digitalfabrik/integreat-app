@@ -303,7 +303,7 @@ class DatabaseConnector {
             lastUpdate: Moment
           } => ({
             lastUpdate: moment(jsonLastUpdate, moment.ISO_8601),
-          })
+          }),
         ),
         lastUsage: moment(cityMeta.last_usage, moment.ISO_8601),
       }))
@@ -321,7 +321,7 @@ class DatabaseConnector {
           last_update: string
         } => ({
           last_update: lastUpdate.toISOString(),
-        })
+        }),
       ),
       last_usage: cityMeta.lastUsage.toISOString(),
     }))
@@ -343,7 +343,7 @@ class DatabaseConnector {
       throw Error("cityCode mustn't be null")
     }
 
-    const metaData = await this._loadMetaCities().catch(() => ({} as MetaCitiesType))
+    const metaData = await this._loadMetaCities().catch(() => ({}) as MetaCitiesType)
     metaData[city] = {
       lastUsage: moment(),
       languages: metaData[city]?.languages || {},
@@ -373,7 +373,7 @@ class DatabaseConnector {
               url: category.organization.url,
             }
           : null,
-      })
+      }),
     )
     await this.writeFile(this.getContentPath('categories', context), JSON.stringify(jsonModels))
   }
@@ -402,7 +402,7 @@ class DatabaseConnector {
                 })
               : null,
           })
-        })
+        }),
       )
 
     return this.readFile(path, mapCategoriesJson)
@@ -449,7 +449,7 @@ class DatabaseConnector {
             })),
           })) ?? null,
         temporarilyClosed: poi.temporarilyClosed,
-      })
+      }),
     )
     await this.writeFile(this.getContentPath('pois', context), JSON.stringify(jsonModels))
   }
@@ -500,7 +500,7 @@ class DatabaseConnector {
                     start: timeslot.start,
                     end: timeslot.end,
                   })),
-                })
+                }),
             ) ?? null,
           temporarilyClosed: jsonObject.temporarilyClosed,
         })
@@ -527,7 +527,7 @@ class DatabaseConnector {
         latitude: city.latitude,
         aliases: city.aliases,
         bounding_box: city.boundingBox,
-      })
+      }),
     )
     await this.writeFile(this.getCitiesPath(), JSON.stringify(jsonModels))
   }
@@ -553,7 +553,7 @@ class DatabaseConnector {
             latitude: jsonObject.latitude,
             aliases: jsonObject.aliases,
             boundingBox: jsonObject.bounding_box ?? null,
-          })
+          }),
       )
 
     return this.readFile(path, mapCityJson)
@@ -595,7 +595,7 @@ class DatabaseConnector {
               full: event.featuredImage.full,
             }
           : null,
-      })
+      }),
     )
     await this.writeFile(this.getContentPath('events', context), JSON.stringify(jsonModels))
   }
@@ -663,9 +663,9 @@ class DatabaseConnector {
               filePath: entry.file_path,
               lastUpdate: moment(entry.last_update, moment.ISO_8601),
               hash: entry.hash,
-            })
-          )
-        )
+            }),
+          ),
+        ),
       )
     return this.readFile(path, mapResourceCacheJson)
   }
@@ -682,9 +682,9 @@ class DatabaseConnector {
               file_path: entry.filePath,
               last_update: entry.lastUpdate.toISOString(),
               hash: entry.hash,
-            })
-          )
-        )
+            }),
+          ),
+        ),
     )
     await this.writeFile(path, JSON.stringify(json))
   }
@@ -761,13 +761,13 @@ class DatabaseConnector {
       if (!isRetry) {
         log(
           `An error occurred while trying to parse or map json '${jsonString}' from path '${path}', retrying.`,
-          'warning'
+          'warning',
         )
         return this.readFile(path, mapJson, true)
       }
       log(
         `An error occurred while trying to parse or map json '${jsonString}' from path '${path}', deleting file.`,
-        'warning'
+        'warning',
       )
       await deleteIfExists(path)
       throw e

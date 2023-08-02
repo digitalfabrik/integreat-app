@@ -102,7 +102,7 @@ const CityContentSwitcher = ({ languageCode }: CityContentSwitcherProps): ReactE
   const render = <S extends RouteType>(
     route: S,
     Component: FunctionComponent<CityRouteProps>,
-    childPattern?: string
+    childPattern?: string,
   ) => (
     <Route
       key={route}

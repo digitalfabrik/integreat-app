@@ -63,7 +63,7 @@ const PoisPage = ({ cityCode, languageCode, city, pathname }: CityRouteProps): R
   const [snapPoint, setSnapPoint] = useState<number>(1)
   const [restoreScrollPosition, setRestoreScrollPosition] = useState<boolean>(false)
   const [currentFeature, setCurrentFeature] = useState<PoiFeature | null>(
-    data?.features.find(it => it.properties.slug === slug) ?? null
+    data?.features.find(it => it.properties.slug === slug) ?? null,
   )
   const [bottomActionSheetHeight, setBottomActionSheetHeight] = useState<number>(0)
   const poi = data?.pois.find(it => it.slug === slug)
@@ -104,7 +104,7 @@ const PoisPage = ({ cityCode, languageCode, city, pathname }: CityRouteProps): R
             zoom: currentFeature?.properties.closeToOtherPoi ? closerDetailZoom : normalDetailZoom,
             padding: { bottom: viewportSmall ? height * midSnapPercentage : 0 },
           }),
-        0
+        0,
       )
     }
   }, [mapRef, data, slug, height, snapPoint, viewportSmall])
@@ -193,7 +193,7 @@ const PoisPage = ({ cityCode, languageCode, city, pathname }: CityRouteProps): R
 
   const switchFeature = (step: 1 | -1) => {
     const featureIndex = data.features.findIndex(
-      (poi: PoiFeature) => poi.properties.slug === currentFeature?.properties.slug
+      (poi: PoiFeature) => poi.properties.slug === currentFeature?.properties.slug,
     )
     const updatedIndex = nextFeatureIndex(step, data.features.length, featureIndex)
     const feature = data.features[updatedIndex]

@@ -36,7 +36,7 @@ describe('Helmet', () => {
         cityModel={city}
         languageChangePaths={languageChangePaths}
         metaDescription={metaDescription}
-      />
+      />,
     )
 
   const meta = (name: string) => document.getElementsByTagName('meta').namedItem(name)?.getAttribute('content')
@@ -110,12 +110,12 @@ describe('Helmet', () => {
 
     expect(linkByHrefLang(languageChangePaths[0].code)?.getAttribute('rel')).toBe('alternate')
     expect(linkByHrefLang(languageChangePaths[0].code)?.getAttribute('href')).toBe(
-      `http://localhost${languageChangePaths[0].path}`
+      `http://localhost${languageChangePaths[0].path}`,
     )
 
     expect(linkByHrefLang(languageChangePaths[2].code)?.getAttribute('rel')).toBe('alternate')
     expect(linkByHrefLang(languageChangePaths[2].code)?.getAttribute('href')).toBe(
-      `http://localhost${languageChangePaths[2].path}`
+      `http://localhost${languageChangePaths[2].path}`,
     )
 
     expect(linkByHrefLang(languageChangePaths[1].code)).toBeNull()

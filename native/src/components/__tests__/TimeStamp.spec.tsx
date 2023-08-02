@@ -20,7 +20,7 @@ describe('TimeStamp', () => {
         lastUpdate={lastUpdate}
         format={format ?? undefined}
         showText={showText ?? undefined}
-      />
+      />,
     )
 
   it('should display last update text and formatted timestamp', () => {

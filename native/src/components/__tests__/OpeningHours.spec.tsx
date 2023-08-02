@@ -12,7 +12,7 @@ describe('OpeningHoursSpec', () => {
   const renderOpeningHours = (
     isCurrentlyOpen: boolean,
     isTemporarilyClosed: boolean,
-    openingHours: OpeningHoursModel[] | null = null
+    openingHours: OpeningHoursModel[] | null = null,
   ) =>
     renderWithTheme(
       <OpeningHours
@@ -20,7 +20,7 @@ describe('OpeningHoursSpec', () => {
         isTemporarilyClosed={isTemporarilyClosed}
         openingHours={openingHours}
         language='de'
-      />
+      />,
     )
   it('should display that the location is temporarily closed', () => {
     const { getByText } = renderOpeningHours(false, true, null)

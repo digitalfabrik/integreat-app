@@ -92,7 +92,7 @@ describe('TuNews', () => {
     render(
       <NavigationContainer>
         <TuNews data={data} route={route} navigation={navigation} navigateToNews={selectNews} />
-      </NavigationContainer>
+      </NavigationContainer>,
     )
   const tuNewsResponse = {
     error: null,

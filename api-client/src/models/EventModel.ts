@@ -67,7 +67,7 @@ class EventModel extends ExtendedPageModel {
         query: undefined,
         maxChars: 150,
         replaceLineBreaks: false,
-      })}\\n\\n${url}`
+      })}\\n\\n${url}`,
     )
     if (location) {
       body.push(`LOCATION:${location.fullAddress}`)

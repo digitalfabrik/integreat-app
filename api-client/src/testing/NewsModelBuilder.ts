@@ -38,7 +38,7 @@ class LocalNewsModelBuilder {
           timestamp: moment('2017-11-18T19:30:00.000Z'),
           content: 'This is a sample news',
         }),
-      })
+      }),
     )
   }
 }

@@ -27,7 +27,7 @@ describe('Header', () => {
         cityName={cityName}
         direction='ltr'
         language='de'
-      />
+      />,
     )
     expect(getByText(cityName)).toBeDefined()
   })
@@ -48,7 +48,7 @@ describe('Header', () => {
         isSidebarOpen
         setIsSidebarOpen={setShowSidebar}
         language='de'
-      />
+      />,
     )
     expect(getByTestId('kebab-menu-button')).toBeInTheDocument()
     fireEvent.click(getByTestId('kebab-menu-button'))
@@ -66,7 +66,7 @@ describe('Header', () => {
         ]}
         direction='ltr'
         language='de'
-      />
+      />,
     )
     expect(queryByTestId('kebab-menu-button')).not.toBeInTheDocument()
   })

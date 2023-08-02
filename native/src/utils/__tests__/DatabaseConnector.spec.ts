@@ -61,7 +61,7 @@ describe('DatabaseConnector', () => {
       expect(BlobUtil.fs.writeFile).toHaveBeenCalledWith(
         expect.stringContaining('/cities.json'),
         expect.any(String),
-        expect.any(String)
+        expect.any(String),
       )
     })
   })
@@ -135,7 +135,7 @@ describe('DatabaseConnector', () => {
       expect(BlobUtil.fs.writeFile).toHaveBeenCalledWith(
         expect.stringContaining('cities-meta.json'),
         expect.any(String),
-        expect.any(String)
+        expect.any(String),
       )
     })
   })
@@ -159,7 +159,7 @@ describe('DatabaseConnector', () => {
       expect(BlobUtil.fs.writeFile).toHaveBeenCalledWith(
         expect.stringContaining('tcc/de/categories.json'),
         expect.any(String),
-        expect.any(String)
+        expect.any(String),
       )
     })
   })
@@ -195,7 +195,7 @@ describe('DatabaseConnector', () => {
       expect(BlobUtil.fs.writeFile).toHaveBeenCalledWith(
         expect.stringContaining('tcc/de/events.json'),
         expect.any(String),
-        expect.any(String)
+        expect.any(String),
       )
     })
   })
@@ -218,7 +218,7 @@ describe('DatabaseConnector', () => {
       expect(BlobUtil.fs.writeFile).toHaveBeenCalledWith(
         expect.stringContaining('tcc/files.json'),
         expect.any(String),
-        expect.any(String)
+        expect.any(String),
       )
     })
   })
@@ -291,7 +291,7 @@ describe('DatabaseConnector', () => {
             last_usage: '2012-05-04T00:00:00.000Z',
           },
         }),
-        ''
+        '',
       )
       const { restoreDate } = mockDate(moment('2013-05-04T00:00:00.000Z'))
       await databaseConnector.storeLastUsage(new DatabaseContext('regensburg'))
@@ -356,7 +356,7 @@ describe('DatabaseConnector', () => {
             last_usage: '2013-05-04T00:00:00.000Z',
           },
         }),
-        ''
+        '',
       )
       expect(await databaseConnector.loadLastUsages()).toEqual([
         {
@@ -419,7 +419,7 @@ describe('DatabaseConnector', () => {
             last_usage: '2013-05-04T00:00:00.000Z',
           },
         }),
-        ''
+        '',
       )
       await databaseConnector.deleteOldFiles(new DatabaseContext('augsburg'))
       await expectCityFilesExist('muenchen', false)
@@ -468,7 +468,7 @@ describe('DatabaseConnector', () => {
             last_usage: '2013-05-04T00:00:00.000Z',
           },
         }),
-        ''
+        '',
       )
       await databaseConnector.deleteOldFiles(new DatabaseContext('augsburg'))
       await expectCityFilesExist('dortmund', false)
@@ -505,7 +505,7 @@ describe('DatabaseConnector', () => {
       const path = 'my-path'
       await BlobUtil.fs.writeFile(path, '[', 'utf8')
       await expect(databaseConnector.readFile(path, content => content)).rejects.toEqual(
-        new SyntaxError('Unexpected end of JSON input')
+        new SyntaxError('Unexpected end of JSON input'),
       )
       expect(BlobUtil.fs.unlink).toHaveBeenCalledWith(path)
     })
@@ -514,7 +514,7 @@ describe('DatabaseConnector', () => {
       const path = 'my-path'
       await BlobUtil.fs.writeFile(path, `[{ "_code": "de", "_name": "Deutsch" }]`, 'utf8')
       await expect(databaseConnector.readFile<string, string>(path, content => content.toLowerCase())).rejects.toEqual(
-        new TypeError('content.toLowerCase is not a function')
+        new TypeError('content.toLowerCase is not a function'),
       )
       expect(BlobUtil.fs.unlink).toHaveBeenCalledWith(path)
     })
