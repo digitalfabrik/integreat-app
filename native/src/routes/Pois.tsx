@@ -2,7 +2,6 @@ import { BottomSheetScrollViewMethods } from '@gorhom/bottom-sheet'
 import React, { ReactElement, useCallback, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { ScrollView } from 'react-native'
-import { useTheme } from 'styled-components'
 import styled from 'styled-components/native'
 
 import {
@@ -23,12 +22,10 @@ import Failure from '../components/Failure'
 import MapView from '../components/MapView'
 import PoiDetails from '../components/PoiDetails'
 import PoiListItem from '../components/PoiListItem'
-import SiteHelpfulBox from '../components/SiteHelpfulBox'
 import { NavigationProps, RouteProps } from '../constants/NavigationTypes'
 import dimensions from '../constants/dimensions'
 import useOnBackNavigation from '../hooks/useOnBackNavigation'
 import useUserLocation from '../hooks/useUserLocation'
-import createNavigateToFeedbackModal from '../navigation/createNavigateToFeedbackModal'
 import { reportError } from '../utils/sentry'
 
 const ListWrapper = styled.View`
@@ -68,7 +65,6 @@ const Pois = ({ pois, language, cityModel, route, navigation }: PoisProps): Reac
   const selectedFeature = slug ? features.find(it => it.properties.slug === slug) : null
   const poi = pois.find(it => it.slug === slug)
   const { t } = useTranslation('pois')
-  const theme = useTheme()
   const scrollRef = useRef<BottomSheetScrollViewMethods>(null)
 
   const scrollTo = (position: number) => {
@@ -106,16 +102,6 @@ const Pois = ({ pois, language, cityModel, route, navigation }: PoisProps): Reac
       t={t}
     />
   )
-
-  const navigateToFeedback = (isPositiveFeedback: boolean) => {
-    createNavigateToFeedbackModal(navigation)({
-      routeType: POIS_ROUTE,
-      language,
-      cityCode: cityModel.code,
-      isPositiveFeedback,
-      slug: poi?.slug,
-    })
-  }
 
   if (!cityModel.boundingBox) {
     reportError(new Error(`Bounding box not set for city ${cityModel.code}!`))
@@ -172,7 +158,6 @@ const Pois = ({ pois, language, cityModel, route, navigation }: PoisProps): Reac
         snapPoints={BOTTOM_SHEET_SNAP_POINTS}
         snapPointIndex={sheetSnapPointIndex}>
         {content}
-        <SiteHelpfulBox backgroundColor={theme.colors.backgroundColor} navigateToFeedback={navigateToFeedback} />
       </BottomActionsSheet>
     </ScrollView>
   )

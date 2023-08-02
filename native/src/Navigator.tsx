@@ -198,6 +198,7 @@ const Navigator = (): ReactElement | null => {
         <Stack.Screen name={EVENTS_ROUTE} component={EventsContainer} />
         <Stack.Screen name={NEWS_ROUTE} component={NewsContainer} />
         <Stack.Screen name={DISCLAIMER_ROUTE} component={DisclaimerContainer} />
+        <Stack.Screen name={FEEDBACK_MODAL_ROUTE} component={FeedbackModalContainer} />
       </Stack.Group>
 
       <Stack.Group screenOptions={{ header: transparentHeader }}>
@@ -205,7 +206,6 @@ const Navigator = (): ReactElement | null => {
         <Stack.Screen name={PDF_VIEW_MODAL_ROUTE} component={PDFViewModal} />
         <Stack.Screen name={CHANGE_LANGUAGE_MODAL_ROUTE} component={ChangeLanguageModal} />
         <Stack.Screen name={IMAGE_VIEW_MODAL_ROUTE} component={ImageViewModal} />
-        <Stack.Screen name={FEEDBACK_MODAL_ROUTE} component={FeedbackModalContainer} />
         <Stack.Screen name={JPAL_TRACKING_ROUTE} component={JpalTracking} />
         {buildConfig().featureFlags.cityNotCooperating && (
           <Stack.Screen name={CITY_NOT_COOPERATING_ROUTE} component={CityNotCooperating} />
