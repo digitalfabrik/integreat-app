@@ -107,11 +107,10 @@ const SearchModal = ({
     <FeedbackContainer
       routeType={SEARCH_ROUTE}
       isSearchFeedback
-      isPositiveFeedback={false}
       language={languageCode}
       cityCode={cityCode}
       query={query}
-      theme={theme}
+      hasDivider={!searchResults}
     />
   )
 

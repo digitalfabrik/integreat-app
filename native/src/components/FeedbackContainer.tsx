@@ -1,44 +1,45 @@
 import React, { ReactElement, useState } from 'react'
-import { useTranslation } from 'react-i18next'
 
 import {
-  CategoriesRouteType,
   CATEGORIES_ROUTE,
+  CategoriesRouteType,
   CONTENT_FEEDBACK_CATEGORY,
   createFeedbackEndpoint,
-  DisclaimerRouteType,
   DISCLAIMER_ROUTE,
-  EventsRouteType,
+  DisclaimerRouteType,
   EVENTS_ROUTE,
+  EventsRouteType,
   FeedbackParamsType,
   FeedbackType,
-  OffersRouteType,
   OFFERS_ROUTE,
-  PoisRouteType,
+  OffersRouteType,
   POIS_ROUTE,
-  SearchRouteType,
+  PoisRouteType,
   SEARCH_ROUTE,
+  SearchRouteType,
   SEND_FEEDBACK_SIGNAL_NAME,
+  SPRUNGBRETT_OFFER_ROUTE,
+  SprungbrettOfferRouteType,
 } from 'api-client'
-import { ThemeType } from 'build-configs/ThemeType'
 
 import { determineApiUrl } from '../utils/helpers'
 import sendTrackingSignal from '../utils/sendTrackingSignal'
 import { reportError } from '../utils/sentry'
 import Feedback from './Feedback'
+import HorizontalLine from './HorizontalLine'
 
 export type SendingStatusType = 'idle' | 'sending' | 'failed' | 'successful'
 
-type RouteType =
+export type RouteType =
   | CategoriesRouteType
   | EventsRouteType
   | PoisRouteType
   | OffersRouteType
   | DisclaimerRouteType
   | SearchRouteType
+  | SprungbrettOfferRouteType
 export type FeedbackInformationType = {
   routeType: RouteType
-  isPositiveFeedback: boolean
   language: string
   cityCode: string
   slug?: string
@@ -46,20 +47,19 @@ export type FeedbackInformationType = {
 export type FeedbackContainerProps = {
   routeType: RouteType
   isSearchFeedback: boolean
-  isPositiveFeedback: boolean
   language: string
   cityCode: string
   query?: string
   slug?: string
-  theme: ThemeType
+  hasDivider?: boolean
 }
 
 const FeedbackContainer = (props: FeedbackContainerProps): ReactElement => {
   const [comment, setComment] = useState<string>('')
   const [contactMail, setContactMail] = useState<string>('')
+  const [isPositiveFeedback, setIsPositiveFeedback] = useState<boolean | null>(null)
   const [sendingStatus, setSendingStatus] = useState<SendingStatusType>('idle')
-  const { query, language, isPositiveFeedback, isSearchFeedback, routeType, cityCode, slug, theme } = props
-  const { t } = useTranslation('feedback')
+  const { query, language, isSearchFeedback, routeType, cityCode, slug, hasDivider } = props
 
   const getFeedbackType = (): FeedbackType => {
     switch (routeType) {
@@ -80,6 +80,9 @@ const FeedbackContainer = (props: FeedbackContainerProps): ReactElement => {
 
       case SEARCH_ROUTE:
         return FeedbackType.search
+
+      case SPRUNGBRETT_OFFER_ROUTE:
+        return FeedbackType.offer
 
       default:
         return FeedbackType.categories
@@ -134,18 +137,20 @@ const FeedbackContainer = (props: FeedbackContainerProps): ReactElement => {
   }
 
   return (
-    <Feedback
-      comment={comment}
-      contactMail={contactMail}
-      sendingStatus={sendingStatus}
-      onCommentChanged={onFeedbackCommentChanged}
-      onFeedbackContactMailChanged={onFeedbackContactMailChanged}
-      isSearchFeedback={isSearchFeedback}
-      isPositiveFeedback={isPositiveFeedback}
-      onSubmit={handleSubmit}
-      theme={theme}
-      t={t}
-    />
+    <>
+      {hasDivider && <HorizontalLine />}
+      <Feedback
+        comment={comment}
+        contactMail={contactMail}
+        sendingStatus={sendingStatus}
+        onCommentChanged={onFeedbackCommentChanged}
+        onFeedbackContactMailChanged={onFeedbackContactMailChanged}
+        isSearchFeedback={isSearchFeedback}
+        isPositiveFeedback={isPositiveFeedback}
+        setIsPositiveFeedback={setIsPositiveFeedback}
+        onSubmit={handleSubmit}
+      />
+    </>
   )
 }
 
