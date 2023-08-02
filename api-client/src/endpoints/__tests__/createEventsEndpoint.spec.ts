@@ -6,7 +6,7 @@ import EventModel from '../../models/EventModel'
 import FeaturedImageModel from '../../models/FeaturedImageModel'
 import LocationModel from '../../models/LocationModel'
 import { JsonEventType } from '../../types'
-import createEventsEndpoint from '../createEventsEndpoint'
+import createEventsEndpoint, { dateToString } from '../createEventsEndpoint'
 
 describe('events', () => {
   const baseUrl = 'https://integreat-api-url.de'
@@ -176,5 +176,20 @@ describe('events', () => {
     const eventsModels = events.mapResponse(json, params)
     const value = [eventModel2, eventModel1, eventModel3, eventModel4]
     expect(eventsModels).toEqual(value)
+  })
+})
+
+describe('dateToString', () => {
+  it('should return the correct date in summer time', () => {
+    const date1: Date = new Date('Fri Aug 04 2023 00:00:00 GMT+0200')
+    expect(dateToString(date1)).toBe('2023-08-04')
+
+    const date2: Date = new Date('Fri Jul 28 2023 00:00:00 GMT+0200')
+    expect(dateToString(date2)).toBe('2023-07-28')
+  })
+
+  it('should return the correct date in winter time', () => {
+    const date: Date = new Date('Fri Nov 24 2023 00:00:00 GMT+0100')
+    expect(dateToString(date)).toBe('2023-11-24')
   })
 })
