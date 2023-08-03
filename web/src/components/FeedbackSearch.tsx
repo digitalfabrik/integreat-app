@@ -4,8 +4,8 @@ import styled from 'styled-components'
 
 import { FeedbackType } from 'api-client'
 
+import Button from './Button'
 import FeedbackContainer from './FeedbackContainer'
-import TextButton from './TextButton'
 
 const Container = styled.div`
   display: flex;
@@ -43,7 +43,7 @@ const FeedbackSearch = ({ cityCode, languageCode, query, resultsFound }: Feedbac
   }
   return (
     <Container>
-      <TextButton onClick={handleFeedbackLinkClicked} text={t('informationNotFound')} />
+      <Button type='primary' onClick={handleFeedbackLinkClicked} text={t('informationNotFound')} />
     </Container>
   )
 }

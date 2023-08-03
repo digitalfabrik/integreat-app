@@ -20,11 +20,11 @@ import {
   SmokingIcon,
   TimerIcon,
 } from '../assets'
+import Button from './Button'
 import Caption from './Caption'
 import HighlightBox from './HighlightBox'
 import ShelterContactRequestForm from './ShelterContactRequestForm'
 import ShelterInformationSection from './ShelterInformationSection'
-import { StyledButton } from './TextButton'
 import Tooltip from './Tooltip'
 
 const FullWidth = styled.div`
@@ -34,11 +34,6 @@ const FullWidth = styled.div`
 const Container = styled(HighlightBox)`
   flex-direction: column;
   margin: 12px;
-`
-
-const DetailButton = styled(StyledButton)`
-  margin-left: 8px;
-  margin-bottom: 0;
 `
 
 const Detail = styled.div`
@@ -156,11 +151,7 @@ const ShelterInformation = ({ shelter, cityCode, extended = false }: ShelterInfo
             )}
           </>
         )}
-        {!extended && (
-          <DetailButton onClick={() => undefined} disabled={false}>
-            {t('shelterButton')}
-          </DetailButton>
-        )}
+        {!extended && <Button type='primary' onClick={() => undefined} text={t('shelterButton')} />}
       </Container>
     </FullWidth>
   )

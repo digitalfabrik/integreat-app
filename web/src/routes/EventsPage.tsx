@@ -1,6 +1,7 @@
 import React, { ReactElement, useContext } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useNavigate, useParams } from 'react-router-dom'
+import styled from 'styled-components'
 
 import {
   createEventsEndpoint,
@@ -12,6 +13,7 @@ import {
 } from 'api-client'
 
 import { CityRouteProps } from '../CityContentSwitcher'
+import Button from '../components/Button'
 import Caption from '../components/Caption'
 import CityContentLayout, { CityContentLayoutProps } from '../components/CityContentLayout'
 import CityContentToolbar from '../components/CityContentToolbar'
@@ -23,13 +25,16 @@ import List from '../components/List'
 import LoadingSpinner from '../components/LoadingSpinner'
 import Page, { THUMBNAIL_WIDTH } from '../components/Page'
 import PageDetail from '../components/PageDetail'
-import TextButton from '../components/TextButton'
 import buildConfig from '../constants/buildConfig'
 import { cmsApiBaseUrl } from '../constants/urls'
 import DateFormatterContext from '../contexts/DateFormatterContext'
 import usePreviousProp from '../hooks/usePreviousProp'
 import useWindowDimensions from '../hooks/useWindowDimensions'
 import featuredImageToSrcSet from '../utils/featuredImageToSrcSet'
+
+const StyledButton = styled(Button)<{ fullWidth: boolean }>`
+  ${props => props.fullWidth && 'width: 100%;'}
+`
 
 const EventsPage = ({ city, pathname, languageCode, cityCode }: CityRouteProps): ReactElement | null => {
   const previousPathname = usePreviousProp({ prop: pathname })
@@ -117,7 +122,12 @@ const EventsPage = ({ city, pathname, languageCode, cityCode }: CityRouteProps):
     const pageTitle = `${event.title} - ${city.name}`
 
     const PageFooter = (
-      <TextButton fullWidth={viewportSmall} onClick={() => downloadEventAsIcsFile(event)} text={t('exportAsICal')} />
+      <StyledButton
+        type='primary'
+        onClick={() => downloadEventAsIcsFile(event)}
+        text={t('exportAsICal')}
+        fullWidth={viewportSmall}
+      />
     )
 
     return (

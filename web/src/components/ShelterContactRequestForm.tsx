@@ -4,8 +4,8 @@ import styled from 'styled-components'
 
 import { createShelterContactEndpoint, ShelterContactStatus } from 'api-client'
 
+import Button from './Button'
 import ShelterInformationSection from './ShelterInformationSection'
-import { StyledButton } from './TextButton'
 import TextInput from './TextInput'
 
 const Container = styled.form`
@@ -27,10 +27,6 @@ const StyledTextInput = styled(TextInput)`
 
 const Label = styled.label`
   padding: 10px 0 5px;
-`
-
-const SendButton = styled(StyledButton)`
-  margin-right: auto;
 `
 
 const ErrorText = styled.div`
@@ -120,9 +116,12 @@ const ShelterContactRequestForm = ({ shelterId, cityCode }: ShelterContactReques
               value={phone}
             />
 
-            <SendButton disabled={buttonDisabled} onClick={postContactRequest}>
-              {t('contactRequest.send')}
-            </SendButton>
+            <Button
+              type='primary'
+              disabled={buttonDisabled}
+              onClick={postContactRequest}
+              text={t('contactRequest.send')}
+            />
           </>
         )}
       </Container>

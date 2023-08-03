@@ -18,8 +18,8 @@ import {
 import { cmsApiBaseUrl } from '../constants/urls'
 import { RouteType } from '../routes'
 import { reportError } from '../utils/sentry'
+import Button from './Button'
 import Feedback, { Container } from './Feedback'
-import TextButton from './TextButton'
 
 const Text = styled.div`
   padding: 10px;
@@ -130,7 +130,7 @@ export const FeedbackContainer = (props: FeedbackContainerProps): ReactElement =
   return (
     <Container>
       <Text>{t('thanksMessage')}</Text>
-      {!!closeModal && !isSearchFeedback && <TextButton onClick={closeModal} text={t('close')} />}
+      {!!closeModal && !isSearchFeedback && <Button type='primary' onClick={closeModal} text={t('close')} />}
     </Container>
   )
 }
