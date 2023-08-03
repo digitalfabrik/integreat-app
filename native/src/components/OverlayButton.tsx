@@ -4,7 +4,7 @@ import styled from 'styled-components/native'
 import { CloseIcon } from '../assets'
 import Text from './base/Text'
 
-const Container = styled.Pressable`
+const Container = styled.TouchableOpacity`
   flex: 1;
   flex-direction: row;
   height: 30px;

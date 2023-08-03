@@ -1,11 +1,10 @@
 import React, { ReactElement } from 'react'
 import { StyleProp, ViewStyle } from 'react-native'
-import { Button } from 'react-native-elements'
-import styled, { useTheme } from 'styled-components/native'
+import styled from 'styled-components/native'
 
 import Text from './base/Text'
 
-const TileButton = styled.Pressable<{ active: boolean }>`
+const TileButton = styled.TouchableOpacity<{ active: boolean }>`
   background-color: ${props => (props.active ? props.theme.colors.themeColor : props.theme.colors.backgroundColor)};
   padding: 8px;
   align-items: center;
@@ -26,6 +25,22 @@ const TileButtonText = styled(Text)`
   font-family: ${props => props.theme.fonts.native.decorativeFontRegular};
 `
 
+const Button = styled.TouchableOpacity<{ primary: boolean; disabled: boolean }>`
+  padding: 8px;
+  border-radius: 8px;
+  background-color: ${props => {
+    const buttonColor = props.primary ? props.theme.colors.themeColor : props.theme.colors.backgroundColor
+    return props.disabled ? props.theme.colors.textDecorationColor : buttonColor
+  }};
+`
+
+const ButtonText = styled.Text`
+  color: ${props => props.theme.colors.textColor};
+  font-weight: 500;
+  font-size: 18px;
+  text-align: center;
+`
+
 type ButtonSpecificProps =
   | {
       type: 'primary' | 'clear'
@@ -44,8 +59,6 @@ type TextButtonProps = {
 } & ButtonSpecificProps
 
 const TextButton = ({ text, onPress, style, ...props }: TextButtonProps): ReactElement => {
-  const theme = useTheme()
-
   switch (props.type) {
     case 'tile':
       return (
@@ -57,18 +70,9 @@ const TextButton = ({ text, onPress, style, ...props }: TextButtonProps): ReactE
 
     default:
       return (
-        <Button
-          onPress={onPress}
-          title={text}
-          disabled={props.disabled}
-          titleStyle={{
-            color: theme.colors.textColor,
-          }}
-          buttonStyle={{
-            backgroundColor: props.type === 'primary' ? theme.colors.themeColor : theme.colors.backgroundColor,
-            borderRadius: 8,
-          }}
-        />
+        <Button onPress={onPress} primary={props.type === 'primary'} disabled={!!props.disabled} style={style}>
+          <ButtonText>{text}</ButtonText>
+        </Button>
       )
   }
 }

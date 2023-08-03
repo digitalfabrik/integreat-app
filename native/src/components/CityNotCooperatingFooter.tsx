@@ -20,7 +20,7 @@ const Question = styled.Text`
   font-size: 16px;
 `
 
-const ButtonContainer = styled.View`
+const StyledButton = styled(TextButton)`
   width: 40%;
   margin: 30px 0 40px 0;
 `
@@ -43,9 +43,7 @@ const CityNotCooperatingFooter = ({
     <FooterContainer>
       <CityNotCooperatingIcon width='30%' height='100' />
       <Question>{t('cityNotFound')}</Question>
-      <ButtonContainer>
-        <TextButton type='primary' text={t('clickHere')} onPress={navigateToCityNotCooperating} />
-      </ButtonContainer>
+      <StyledButton type='primary' text={t('clickHere')} onPress={navigateToCityNotCooperating} />
     </FooterContainer>
   )
 }

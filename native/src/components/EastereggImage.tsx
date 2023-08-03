@@ -15,8 +15,8 @@ const ApiUrlText = styled.Text`
   padding-top: 10px;
   color: red;
 `
-const ButtonContainer = styled.View`
-  padding-top: 16px;
+const StyledButton = styled(TextButton)`
+  margin-top: 16px;
 `
 
 type EastereggImageProps = {
@@ -67,9 +67,7 @@ const EastereggImage = ({ clearResourcesAndCache }: EastereggImageProps): ReactE
       return (
         <>
           <ApiUrlText>{`Currently using API: ${apiUrlOverride.toString()}`}</ApiUrlText>
-          <ButtonContainer>
-            <TextButton type='primary' onPress={() => setApiUrl(cmsUrl)} text='Switch back to default API' />
-          </ButtonContainer>
+          <StyledButton type='primary' onPress={() => setApiUrl(cmsUrl)} text='Switch back to default API' />
         </>
       )
     }
