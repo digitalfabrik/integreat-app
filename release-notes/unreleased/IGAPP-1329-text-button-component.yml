@@ -1,0 +1,8 @@
+issue_key: IGAPP-1329
+show_in_stores: true
+platforms:
+  - web
+  - android
+  - ios
+en: Improved and unified the look and feel of our buttons.
+de: Die Darstellung und das Verhalten unserer Buttons wurde verbessert und vereinheitlicht.
