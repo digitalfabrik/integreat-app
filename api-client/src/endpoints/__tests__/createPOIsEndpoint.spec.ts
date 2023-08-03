@@ -24,12 +24,13 @@ describe('pois', () => {
     website: null,
     phone_number: null,
     email: null,
-    category: new PoiCategoryModel({
+    category: {
       color: '#1DC6C6',
       icon: 'gastronomy',
       id: 10,
       name: 'Gastronomie',
-    }),
+      icon_url: 'https://example.com/icon',
+    },
     location: {
       id: 1,
       name: 'Café Tür an Tür',
@@ -59,9 +60,10 @@ describe('pois', () => {
       email: null,
       category: new PoiCategoryModel({
         color: '#1DC6C6',
-        icon: 'gastronomy',
+        iconName: 'gastronomy',
         id: 10,
         name: 'Gastronomie',
+        icon: 'https://example.com/icon',
       }),
       location: new LocationModel({
         id: 1,
