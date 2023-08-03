@@ -53,18 +53,7 @@ const ButtonContainer = styled.div`
   display: flex;
   justify-content: center;
   padding: 16px;
-`
-
-const FeedbackButton = styled.button<{ $active: boolean | null }>`
-  border: none;
-  box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.25), 0px 1px 4px 1px rgba(0, 0, 0, 0.15);
-  border-radius: 18px;
-  width: 100px;
-  height: 80px;
-  background-color: ${props => (props.$active ? `${props.theme.colors.themeColor}` : 'transparent')};
-  &:not(:last-child) {
-    margin-right: 14px;
-  }
+  gap: 16px;
 `
 
 const NoteContainer = styled.div<{ showContainer: boolean }>`
@@ -78,13 +67,6 @@ const NoteContainer = styled.div<{ showContainer: boolean }>`
 const NoteText = styled.span`
   margin-left: 12px;
   font-size: ${props => props.theme.fonts.decorativeFontSizeSmall};
-`
-
-const FeedbackRatingTooltip = styled.span`
-  font-size: 12px;
-  font-weight: 400;
-  display: block;
-  margin-top: 8px;
 `
 
 type FeedbackProps = {
@@ -122,22 +104,20 @@ const Feedback = (props: FeedbackProps): ReactElement => {
         <div>{t('description')}</div>
       </TextContainer>
       <ButtonContainer>
-        <FeedbackButton
-          type='button'
-          aria-label={t('useful')}
+        <TextButton
+          type='tile'
           onClick={() => onFeedbackChanged(isPositiveFeedback ? null : true)}
-          $active={isPositiveFeedback}>
-          <img src={PositiveFeedbackIcon} alt='' />
-          <FeedbackRatingTooltip>{t('useful')}</FeedbackRatingTooltip>
-        </FeedbackButton>
-        <FeedbackButton
-          type='button'
-          aria-label={t('notUseful')}
+          active={isPositiveFeedback === true}
+          icon={PositiveFeedbackIcon}
+          text={t('useful')}
+        />
+        <TextButton
+          type='tile'
           onClick={() => onFeedbackChanged(isPositiveFeedback === false ? null : false)}
-          $active={isPositiveFeedback === false}>
-          <img src={NegativeFeedbackIcon} alt='' />
-          <FeedbackRatingTooltip>{t('notUseful')}</FeedbackRatingTooltip>
-        </FeedbackButton>
+          active={isPositiveFeedback === false}
+          icon={NegativeFeedbackIcon}
+          text={t('notUseful')}
+        />
       </ButtonContainer>
       <TextContainer>
         <Description htmlFor='comment'>{t(description)}</Description>
@@ -167,7 +147,7 @@ const Feedback = (props: FeedbackProps): ReactElement => {
         <NoteText>{t('note')}</NoteText>
       </NoteContainer>
 
-      <TextButton disabled={sendFeedbackDisabled} onClick={onSubmit} text={t('send')} />
+      <TextButton type='primary' disabled={sendFeedbackDisabled} onClick={onSubmit} text={t('send')} />
     </Container>
   )
 }

@@ -43,7 +43,7 @@ const FeedbackSearch = ({ cityCode, languageCode, query, resultsFound }: Feedbac
   }
   return (
     <Container>
-      <TextButton onClick={handleFeedbackLinkClicked} text={t('informationNotFound')} />
+      <TextButton type='primary' onClick={handleFeedbackLinkClicked} text={t('informationNotFound')} />
     </Container>
   )
 }
