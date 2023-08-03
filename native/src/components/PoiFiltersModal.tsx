@@ -60,26 +60,8 @@ const TileRow = styled(Row)`
   flex-wrap: wrap;
 `
 
-const PoiCategoryTile = styled.Pressable<{ active: boolean }>`
-  background-color: ${props => (props.active ? props.theme.colors.themeColor : props.theme.colors.backgroundColor)};
-  padding: 8px;
-  align-items: center;
-  width: 100px;
-  height: 80px;
-  border-radius: 18px;
-  elevation: 5;
-  shadow-color: ${props => props.theme.colors.textColor};
-  shadow-offset: 0px 1px;
-  shadow-opacity: 0.2;
-  shadow-radius: 1px;
+const StyledTextButton = styled(TextButton)`
   margin-bottom: 24px;
-  justify-content: space-around;
-`
-
-const PoiCategoryText = styled.Text`
-  font-size: 12px;
-  color: ${props => props.theme.colors.textSecondaryColor};
-  font-family: ${props => props.theme.fonts.native.decorativeFontRegular};
 `
 
 type PoiFiltersModalProps = {
@@ -126,13 +108,14 @@ const PoiFiltersModal = ({
           </Row>
           <TileRow>
             {poiCategories.map(it => (
-              <PoiCategoryTile
+              <StyledTextButton
                 key={it.id}
+                type='tile'
+                text={it.name}
                 active={it === selectedPoiCategory}
-                onPress={() => setSelectedPoiCategory(it === selectedPoiCategory ? null : it)}>
-                <SvgUri uri={it.icon} />
-                <PoiCategoryText>{it.name}</PoiCategoryText>
-              </PoiCategoryTile>
+                onPress={() => setSelectedPoiCategory(it === selectedPoiCategory ? null : it)}
+                Icon={<SvgUri uri={it.icon} />}
+              />
             ))}
           </TileRow>
         </Section>

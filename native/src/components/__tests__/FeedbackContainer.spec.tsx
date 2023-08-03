@@ -26,12 +26,12 @@ describe('FeedbackContainer', () => {
   const city = 'augsburg'
   const language = 'de'
   it('should send feedback request with rating and no other inputs on submit', async () => {
-    const { getByText, findByText, getByTestId } = render(
+    const { getByText, findByText, getByLabelText } = render(
       <NavigationContainer>
         <FeedbackContainer routeType={CATEGORIES_ROUTE} isSearchFeedback={false} language={language} cityCode={city} />
       </NavigationContainer>
     )
-    const positiveRatingButton = getByTestId('feedback-positive-rating')
+    const positiveRatingButton = getByLabelText('feedback:useful')
     fireEvent.press(positiveRatingButton)
     expect(await findByText('send')).not.toBeDisabled()
     const submitButton = getByText('send')
@@ -95,12 +95,12 @@ describe('FeedbackContainer', () => {
     })
   })
   it('should disable send feedback button if rating button is clicked twice', async () => {
-    const { findByText, getByTestId } = render(
+    const { findByText, getByLabelText } = render(
       <NavigationContainer>
         <FeedbackContainer routeType={CATEGORIES_ROUTE} isSearchFeedback={false} language={language} cityCode={city} />
       </NavigationContainer>
     )
-    const positiveRatingButton = getByTestId('feedback-positive-rating')
+    const positiveRatingButton = getByLabelText('feedback:useful')
     fireEvent.press(positiveRatingButton)
     expect(await findByText('send')).not.toBeDisabled()
     fireEvent.press(positiveRatingButton)

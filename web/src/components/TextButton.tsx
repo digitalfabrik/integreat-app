@@ -52,6 +52,7 @@ const TextButton = ({ text, onClick, className, ...props }: TextButtonProps): Re
           <StyledSmallViewTip>{text}</StyledSmallViewTip>
         </TileButton>
       )
+
     default:
       return (
         <PrimaryButton
