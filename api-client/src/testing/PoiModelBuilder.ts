@@ -24,9 +24,10 @@ const pois = [
     email: 'test@example.com',
     category: new PoiCategoryModel({
       color: '#1DC6C6',
-      icon: 'gastronomy',
+      iconName: 'gastronomy',
       id: 10,
       name: 'Gastronomie',
+      icon: 'https://exmaple.com/icon',
     }),
     location: new LocationModel({
       id: 0,
@@ -57,9 +58,10 @@ const pois = [
     email: null,
     category: new PoiCategoryModel({
       color: '#3700D2',
-      icon: 'service',
+      iconName: 'service',
       id: 6,
       name: 'Dienstleistung',
+      icon: 'https://exmaple.com/icon',
     }),
     location: new LocationModel({
       id: 1,
@@ -90,9 +92,10 @@ const pois = [
     email: null,
     category: new PoiCategoryModel({
       color: '#1DC6C6',
-      icon: 'gastronomy',
+      iconName: 'gastronomy',
       id: 10,
       name: 'Gastronomie',
+      icon: 'https://exmaple.com/icon',
     }),
     location: new LocationModel({
       id: 2,
