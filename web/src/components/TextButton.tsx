@@ -47,7 +47,7 @@ const TextButton = ({ text, onClick, className, ...props }: TextButtonProps): Re
   switch (props.type) {
     case 'tile':
       return (
-        <TileButton type='button' aria-label={text} onClick={onClick} $active={!!props.active} className={className}>
+        <TileButton type='button' onClick={onClick} $active={!!props.active} className={className}>
           <img src={props.icon} alt='' />
           <StyledSmallViewTip>{text}</StyledSmallViewTip>
         </TileButton>
@@ -55,12 +55,7 @@ const TextButton = ({ text, onClick, className, ...props }: TextButtonProps): Re
 
     default:
       return (
-        <PrimaryButton
-          type='button'
-          aria-label={text}
-          onClick={onClick}
-          disabled={!!props.disabled}
-          className={className}>
+        <PrimaryButton type='button' onClick={onClick} disabled={!!props.disabled} className={className}>
           {text}
         </PrimaryButton>
       )
