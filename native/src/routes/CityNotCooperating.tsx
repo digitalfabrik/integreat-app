@@ -51,11 +51,10 @@ const StepExplanation = styled.Text`
   padding-bottom: 4px;
 `
 
-const ButtonContainer = styled.View`
+const StyledButton = styled(TextButton)`
   z-index: 1;
   margin: 15px auto 0;
   width: 70%;
-  height: 40px;
 `
 
 const TemplateText = styled.Text`
@@ -98,9 +97,7 @@ const CityNotCooperating = (): ReactElement => {
         <StepExplanation>{t('sendText')}</StepExplanation>
       </ListItem>
 
-      <ButtonContainer>
-        <TextButton type='primary' onPress={copyToClipboard} text={isCopied ? t('common:copied') : t('copyText')} />
-      </ButtonContainer>
+      <StyledButton type='primary' onPress={copyToClipboard} text={isCopied ? t('common:copied') : t('copyText')} />
       <TemplateText>{template}</TemplateText>
     </Container>
   )

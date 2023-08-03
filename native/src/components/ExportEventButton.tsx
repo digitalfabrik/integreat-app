@@ -11,8 +11,8 @@ import useSnackbar from '../hooks/useSnackbar'
 import CalendarChoice from './CalendarChoiceModal'
 import TextButton from './TextButton'
 
-const ButtonContainer = styled.View`
-  padding: 0 16px;
+const StyledButton = styled(TextButton)`
+  margin: 16px;
 `
 
 type ExportEventButtonType = {
@@ -102,14 +102,12 @@ const ExportEventButton = ({ event }: ExportEventButtonType): ReactElement => {
           eventTitle={event.title}
         />
       )}
-      <ButtonContainer>
-        <TextButton
-          type='primary'
-          text={t('addToCalendar')}
-          onPress={checkCalendarsAndExportEvent}
-          disabled={eventExported}
-        />
-      </ButtonContainer>
+      <StyledButton
+        type='primary'
+        text={t('addToCalendar')}
+        onPress={checkCalendarsAndExportEvent}
+        disabled={eventExported}
+      />
     </>
   )
 }

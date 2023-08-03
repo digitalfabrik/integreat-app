@@ -13,7 +13,11 @@ const ButtonContainer = styled.View`
   background-color: ${props => props.theme.colors.backgroundColor};
 `
 
-const Flex = styled.View`
+const StyledButton = styled(TextButton)`
+  flex: 1;
+`
+
+const Placeholder = styled.View`
   flex: 1;
 `
 
@@ -32,10 +36,8 @@ const SlideFooter = ({ onDone, slideCount, goToSlide, currentSlide, t }: SlideFo
   return (
     <View>
       <ButtonContainer>
-        <Flex>{!isLastSlide && <TextButton type='clear' text={t('skip')} onPress={onDone} />}</Flex>
-        <Flex>
-          <TextButton type='clear' text={t('next')} onPress={isLastSlide ? onDone : goToNextSlide} />
-        </Flex>
+        {!isLastSlide ? <StyledButton type='clear' text={t('skip')} onPress={onDone} /> : <Placeholder />}
+        <StyledButton type='clear' text={t('next')} onPress={isLastSlide ? onDone : goToNextSlide} />
       </ButtonContainer>
       <Pagination slideCount={slideCount} currentSlide={currentSlide} goToSlide={goToSlide} />
     </View>

@@ -68,8 +68,8 @@ const StyledNoteIcon = styled(NoteIcon)`
   margin-right: 12px;
 `
 
-const ButtonContainer = styled.View`
-  padding-top: 16px;
+const StyledButton = styled(TextButton)`
+  margin-top: 16px;
 `
 
 export type FeedbackProps = {
@@ -128,10 +128,7 @@ const Feedback = ({
             <StyledNoteIcon height={20} width={20} />
             <NoteText>{t('note')}</NoteText>
           </NoteBox>
-
-          <ButtonContainer>
-            <TextButton type='primary' disabled={submitDisabled} onPress={onSubmit} text={t('send')} />
-          </ButtonContainer>
+          <StyledButton type='primary' disabled={submitDisabled} onPress={onSubmit} text={t('send')} />
         </>
       )
     }
@@ -143,10 +140,7 @@ const Feedback = ({
       <>
         <Caption title={t('thanksHeadline')} />
         <ThemedText>{t('thanksMessage')}</ThemedText>
-
-        <ButtonContainer>
-          <TextButton type='primary' disabled={submitDisabled} onPress={navigation.goBack} text={t('close')} />
-        </ButtonContainer>
+        <StyledButton type='primary' disabled={submitDisabled} onPress={navigation.goBack} text={t('close')} />
       </>
     )
   }
