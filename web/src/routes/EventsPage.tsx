@@ -1,6 +1,7 @@
 import React, { ReactElement, useContext } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useNavigate, useParams } from 'react-router-dom'
+import styled from 'styled-components'
 
 import {
   createEventsEndpoint,
@@ -30,6 +31,10 @@ import DateFormatterContext from '../contexts/DateFormatterContext'
 import usePreviousProp from '../hooks/usePreviousProp'
 import useWindowDimensions from '../hooks/useWindowDimensions'
 import featuredImageToSrcSet from '../utils/featuredImageToSrcSet'
+
+const StyledButton = styled(TextButton)<{ fullWidth: boolean }>`
+  ${props => props.fullWidth && 'width: 100%;'}
+`
 
 const EventsPage = ({ city, pathname, languageCode, cityCode }: CityRouteProps): ReactElement | null => {
   const previousPathname = usePreviousProp({ prop: pathname })
@@ -117,7 +122,12 @@ const EventsPage = ({ city, pathname, languageCode, cityCode }: CityRouteProps):
     const pageTitle = `${event.title} - ${city.name}`
 
     const PageFooter = (
-      <TextButton fullWidth={viewportSmall} onClick={() => downloadEventAsIcsFile(event)} text={t('exportAsICal')} />
+      <StyledButton
+        type='primary'
+        onClick={() => downloadEventAsIcsFile(event)}
+        text={t('exportAsICal')}
+        fullWidth={viewportSmall}
+      />
     )
 
     return (
