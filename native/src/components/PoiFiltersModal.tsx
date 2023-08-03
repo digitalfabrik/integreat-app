@@ -1,8 +1,6 @@
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Button } from 'react-native-elements'
 import { SvgUri } from 'react-native-svg'
-import { useTheme } from 'styled-components'
 import styled from 'styled-components/native'
 
 import { PoiCategoryModel, PoiModel } from 'api-client'
@@ -10,6 +8,7 @@ import { PoiCategoryModel, PoiModel } from 'api-client'
 import { ClockIcon } from '../assets'
 import Modal from './Modal'
 import SettingsSwitch from './SettingsSwitch'
+import TextButton from './TextButton'
 import Text from './base/Text'
 
 const Container = styled.View`
@@ -106,7 +105,6 @@ const PoiFiltersModal = ({
     .map(it => it.category)
     .filter((it, index, array) => array.findIndex(value => value.id === it.id) === index)
   const { t } = useTranslation('pois')
-  const theme = useTheme()
 
   return (
     <Modal modalVisible={modalVisible} closeModal={closeModal} headerTitle='' title={t('adjustFilters')}>
@@ -139,17 +137,7 @@ const PoiFiltersModal = ({
           </TileRow>
         </Section>
         <Section>
-          <Button
-            onPress={closeModal}
-            title={t('showPois')}
-            buttonStyle={{
-              backgroundColor: theme.colors.themeColor,
-            }}
-            titleStyle={{
-              color: theme.colors.textColor,
-              fontFamily: theme.fonts.native.contentFontRegular,
-            }}
-          />
+          <TextButton type='primary' onPress={closeModal} text={t('showPois')} />
         </Section>
       </Container>
     </Modal>

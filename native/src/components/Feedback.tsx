@@ -1,9 +1,7 @@
 import NoteIcon from 'integreat-app/assets/icons/note.svg'
-import * as React from 'react'
-import { ReactElement } from 'react'
+import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 import { ActivityIndicator, ScrollView, Text, TextInput } from 'react-native'
-import { Button } from 'react-native-elements'
 import { useTheme } from 'styled-components'
 import styled from 'styled-components/native'
 
@@ -11,6 +9,7 @@ import useNavigate from '../hooks/useNavigate'
 import Caption from './Caption'
 import FeedbackButtons from './FeedbackButtons'
 import { SendingStatusType } from './FeedbackContainer'
+import TextButton from './TextButton'
 
 const Input = styled(TextInput)`
   padding: 15px;
@@ -69,6 +68,10 @@ const StyledNoteIcon = styled(NoteIcon)`
   margin-right: 12px;
 `
 
+const ButtonContainer = styled.View`
+  padding-top: 16px;
+`
+
 export type FeedbackProps = {
   comment: string
   contactMail: string
@@ -125,20 +128,10 @@ const Feedback = ({
             <StyledNoteIcon height={20} width={20} />
             <NoteText>{t('note')}</NoteText>
           </NoteBox>
-          <Button
-            titleStyle={{
-              color: theme.colors.textColor,
-              fontWeight: '600',
-            }}
-            buttonStyle={{
-              backgroundColor: theme.colors.themeColor,
-              marginTop: 15,
-              borderRadius: 4,
-            }}
-            disabled={submitDisabled}
-            onPress={onSubmit}
-            title={t('send')}
-          />
+
+          <ButtonContainer>
+            <TextButton type='primary' disabled={submitDisabled} onPress={onSubmit} text={t('send')} />
+          </ButtonContainer>
         </>
       )
     }
@@ -150,19 +143,10 @@ const Feedback = ({
       <>
         <Caption title={t('thanksHeadline')} />
         <ThemedText>{t('thanksMessage')}</ThemedText>
-        <Button
-          titleStyle={{
-            color: theme.colors.textColor,
-            fontWeight: '600',
-          }}
-          buttonStyle={{
-            backgroundColor: theme.colors.themeColor,
-            marginTop: 15,
-            borderRadius: 4,
-          }}
-          onPress={navigation.goBack}
-          title={t('close')}
-        />
+
+        <ButtonContainer>
+          <TextButton type='primary' disabled={submitDisabled} onPress={navigation.goBack} text={t('close')} />
+        </ButtonContainer>
       </>
     )
   }
@@ -173,7 +157,7 @@ const Feedback = ({
       style={{
         backgroundColor: theme.colors.backgroundColor,
       }}>
-      <Wrapper theme={theme}>{renderBox()}</Wrapper>
+      <Wrapper>{renderBox()}</Wrapper>
     </ScrollView>
   )
 }
