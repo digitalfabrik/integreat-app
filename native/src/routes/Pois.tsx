@@ -3,7 +3,6 @@ import React, { ReactElement, useCallback, useMemo, useRef, useState } from 'rea
 import { useTranslation } from 'react-i18next'
 import { ScrollView } from 'react-native'
 import { SvgUri } from 'react-native-svg'
-import { useTheme } from 'styled-components'
 import styled from 'styled-components/native'
 
 import {
@@ -28,12 +27,10 @@ import OverlayButton from '../components/OverlayButton'
 import PoiDetails from '../components/PoiDetails'
 import PoiFiltersModal from '../components/PoiFiltersModal'
 import PoiListItem from '../components/PoiListItem'
-import SiteHelpfulBox from '../components/SiteHelpfulBox'
 import { NavigationProps, RouteProps } from '../constants/NavigationTypes'
 import dimensions from '../constants/dimensions'
 import useOnBackNavigation from '../hooks/useOnBackNavigation'
 import useUserLocation from '../hooks/useUserLocation'
-import createNavigateToFeedbackModal from '../navigation/createNavigateToFeedbackModal'
 import { reportError } from '../utils/sentry'
 
 const ListWrapper = styled.View`
@@ -73,7 +70,6 @@ const Pois = ({ pois: allPois, language, cityModel, route, navigation }: PoisPro
   const [followUserLocation, setFollowUserLocation] = useState<boolean>(false)
   const [listScrollPosition, setListScrollPosition] = useState<number>(0)
   const { t } = useTranslation('pois')
-  const theme = useTheme()
   const scrollRef = useRef<BottomSheetScrollViewMethods>(null)
 
   const pois = useMemo(
@@ -136,16 +132,6 @@ const Pois = ({ pois: allPois, language, cityModel, route, navigation }: PoisPro
       t={t}
     />
   )
-
-  const navigateToFeedback = (isPositiveFeedback: boolean) => {
-    createNavigateToFeedbackModal(navigation)({
-      routeType: POIS_ROUTE,
-      language,
-      cityCode: cityModel.code,
-      isPositiveFeedback,
-      slug: poi?.slug,
-    })
-  }
 
   if (!cityModel.boundingBox) {
     reportError(new Error(`Bounding box not set for city ${cityModel.code}!`))
@@ -238,7 +224,6 @@ const Pois = ({ pois: allPois, language, cityModel, route, navigation }: PoisPro
         snapPoints={BOTTOM_SHEET_SNAP_POINTS}
         snapPointIndex={sheetSnapPointIndex}>
         {content}
-        <SiteHelpfulBox backgroundColor={theme.colors.backgroundColor} navigateToFeedback={navigateToFeedback} />
       </BottomActionsSheet>
     </ScrollView>
   )

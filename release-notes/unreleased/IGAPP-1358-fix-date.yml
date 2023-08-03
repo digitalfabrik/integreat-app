@@ -1,0 +1,8 @@
+issue_key: IGAPP-1358
+show_in_stores: true
+platforms:
+  - web
+  - android
+  - ios
+en: Fixed the date on recurring all day events
+de: Fehler beim Datum von ganztägigen wiederkehrenden Events behoben

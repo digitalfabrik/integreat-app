@@ -25,6 +25,7 @@ const Box = styled(HighlightBox)<{ viewportSmall: boolean }>`
   font-family: ${props => props.theme.fonts.web.decorativeFont};
   font-size: 14px;
   flex-direction: ${props => (props.viewportSmall ? 'column' : 'row')};
+  gap: 20px;
 `
 
 const Column = styled.div`
