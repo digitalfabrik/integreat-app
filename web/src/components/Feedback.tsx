@@ -147,7 +147,7 @@ const Feedback = (props: FeedbackProps): ReactElement => {
         <NoteText>{t('note')}</NoteText>
       </NoteContainer>
 
-      <TextButton type='primary' onClick={onSubmit} text={t('send')} />
+      <TextButton type='primary' disabled={sendFeedbackDisabled} onClick={onSubmit} text={t('send')} />
     </Container>
   )
 }
