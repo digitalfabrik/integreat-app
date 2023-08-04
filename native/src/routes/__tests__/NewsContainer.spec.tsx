@@ -1,7 +1,7 @@
 import { fireEvent } from '@testing-library/react-native'
 import { mocked } from 'jest-mock'
 import React from 'react'
-import { Pressable, Text, View } from 'react-native'
+import { TouchableOpacity, Text, View } from 'react-native'
 
 import {
   CategoriesMapModelBuilder,
@@ -31,9 +31,9 @@ jest.mock('../LocalNews', () => () => <Text>LocalNewsContent</Text>)
 jest.mock('../TuNews', () => ({ navigateToNews }: { navigateToNews: (id: string) => void }) => (
   <View>
     <Text>TuNewsContent</Text>
-    <Pressable onPress={() => navigateToNews('1234')}>
+    <TouchableOpacity onPress={() => navigateToNews('1234')}>
       <Text>navigateToNews</Text>
-    </Pressable>
+    </TouchableOpacity>
   </View>
 ))
 

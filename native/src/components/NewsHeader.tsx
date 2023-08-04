@@ -9,12 +9,10 @@ import InactiveInternational from '../assets/tu-news-inactive.svg'
 import Caption from './Caption'
 
 const TouchableWrapper = styled.TouchableOpacity`
-  margin-bottom: 5px;
-  margin-horizontal: 10px;
+  margin: 0 10px 5px;
   align-items: center;
 `
 const LocalTabWrapper = styled.View<{ isSelected: boolean }>`
-  padding-horizontal: 10px;
   border-radius: 10px;
   height: 34px;
   text-align: center;

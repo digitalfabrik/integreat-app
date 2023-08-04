@@ -1,5 +1,4 @@
 import React, { ReactElement } from 'react'
-import { useTheme } from 'styled-components'
 import styled from 'styled-components/native'
 
 import { CategoryModel } from 'api-client'
@@ -16,10 +15,10 @@ const SubCategoryTitleContainer = styled.View<{ language: string }>`
   flex-direction: ${props => contentDirection(props.language)};
 `
 
-const FlexStyledLink = styled.TouchableHighlight<{ language: string }>`
+const FlexStyledLink = styled.TouchableOpacity<{ language: string }>`
   display: flex;
   flex-direction: ${props => contentDirection(props.language)};
-  margin: 0 20px 0 60px;
+  margin: 0 0 0 24px;
   border-bottom-width: 1px;
   border-bottom-color: ${props => props.theme.colors.themeColor};
 `
@@ -41,21 +40,15 @@ const SubCategoryListItem = ({
   resourceCache,
   onItemPress,
   language,
-}: SubCategoryListItemProps): ReactElement => {
-  const theme = useTheme()
-  return (
-    <FlexStyledLink
-      onPress={() => onItemPress(subCategory)}
-      underlayColor={theme.colors.backgroundAccentColor}
-      language={language}>
-      <SubCategoryTitleContainer language={language}>
-        {!!subCategory.thumbnail && (
-          <CategoryThumbnail language={language} source={getCachedThumbnail(subCategory, resourceCache)} />
-        )}
-        <SubCategoryTitle>{subCategory.title}</SubCategoryTitle>
-      </SubCategoryTitleContainer>
-    </FlexStyledLink>
-  )
-}
+}: SubCategoryListItemProps): ReactElement => (
+  <FlexStyledLink onPress={() => onItemPress(subCategory)} language={language}>
+    <SubCategoryTitleContainer language={language}>
+      {!!subCategory.thumbnail && (
+        <CategoryThumbnail language={language} source={getCachedThumbnail(subCategory, resourceCache)} />
+      )}
+      <SubCategoryTitle>{subCategory.title}</SubCategoryTitle>
+    </SubCategoryTitleContainer>
+  </FlexStyledLink>
+)
 
 export default SubCategoryListItem

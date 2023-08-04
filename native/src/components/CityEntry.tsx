@@ -1,7 +1,7 @@
 import React, { Fragment, memo, ReactElement } from 'react'
 import { Text } from 'react-native'
 import Highlighter from 'react-native-highlight-words'
-import styled, { useTheme } from 'styled-components/native'
+import styled from 'styled-components/native'
 
 import { CityModel, normalizeString } from 'api-client'
 
@@ -9,7 +9,7 @@ import testID from '../testing/testID'
 
 const MAX_NUMBER_OF_ALIASES_SHOWN = 3
 
-const CityListItem = styled.TouchableHighlight`
+const CityListItem = styled.TouchableOpacity`
   flex: 1;
   padding: 7px;
   width: 100%;
@@ -85,13 +85,8 @@ const CityEntry = ({ city, query, navigateToDashboard }: CityEntryProps): ReactE
       </AliasesWrapper>
     ) : null
 
-  const theme = useTheme()
-
   return (
-    <CityListItem
-      {...testID('City-Entry')}
-      onPress={() => navigateToDashboard(city)}
-      underlayColor={theme.colors.backgroundAccentColor}>
+    <CityListItem {...testID('City-Entry')} onPress={() => navigateToDashboard(city)}>
       <>
         <Label
           searchWords={[normalizedQuery]}
