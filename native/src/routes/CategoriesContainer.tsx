@@ -1,12 +1,10 @@
 import React, { ReactElement, useCallback } from 'react'
 import { useWindowDimensions } from 'react-native'
-import styled from 'styled-components/native'
 
 import { CATEGORIES_ROUTE, CategoriesRouteType, cityContentPath, ErrorCode } from 'api-client'
 
 import Categories from '../components/Categories'
 import DashboardNavigationTiles from '../components/DashboardNavigationTiles'
-import SpaceBetween from '../components/SpaceBetween'
 import { NavigationProps, RouteProps } from '../constants/NavigationTypes'
 import useCityAppContext from '../hooks/useCityAppContext'
 import useHeader from '../hooks/useHeader'
@@ -19,10 +17,6 @@ import urlFromRouteInformation from '../navigation/url'
 import testID from '../testing/testID'
 import cityDisplayName from '../utils/cityDisplayName'
 import LoadingErrorHandler from './LoadingErrorHandler'
-
-const Spacing = styled.View`
-  padding: 10px;
-`
 
 type CategoriesContainerProps = {
   route: RouteProps<CategoriesRouteType>
@@ -67,13 +61,15 @@ const CategoriesContainer = ({ navigation, route }: CategoriesContainerProps): R
     data?.categories && !category && previousLanguageCode === languageCode ? ErrorCode.PageNotFound : response.error
 
   return (
-    <LoadingErrorHandler {...response} error={error} scrollView>
+    <LoadingErrorHandler
+      {...(category?.isRoot() ? testID('Dashboard-Page') : {})}
+      {...response}
+      error={error}
+      scrollView>
       {data && category && (
-        <SpaceBetween {...(category.isRoot() ? testID('Dashboard-Page') : {})}>
-          {category.isRoot() ? (
+        <>
+          {category.isRoot() && (
             <DashboardNavigationTiles cityModel={data.city} languageCode={languageCode} navigateTo={navigateTo} />
-          ) : (
-            <Spacing />
           )}
           <Categories
             navigateTo={navigateTo}
@@ -83,7 +79,7 @@ const CategoriesContainer = ({ navigation, route }: CategoriesContainerProps): R
             category={category}
             resourceCache={resourceCache}
           />
-        </SpaceBetween>
+        </>
       )}
     </LoadingErrorHandler>
   )
