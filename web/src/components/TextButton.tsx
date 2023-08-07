@@ -49,7 +49,7 @@ const TextButton = ({ text, onClick, className, ...props }: TextButtonProps): Re
       return (
         <TileButton type='button' onClick={onClick} $active={!!props.active} className={className}>
           <img src={props.icon} alt='' />
-          <StyledSmallViewTip>{text}</StyledSmallViewTip>
+          <StyledSmallViewTip as='span'>{text}</StyledSmallViewTip>
         </TileButton>
       )
 
