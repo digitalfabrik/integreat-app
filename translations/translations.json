@@ -3980,6 +3980,7 @@
       "changeLocation": "Standort wechseln",
       "changeLanguage": "Sprache wechseln",
       "settings": "Einstellungen",
+      "feedback": "Feedback",
       "share": "Teilen",
       "cancel": "Abbrechen",
       "shareMessage": "Gerade gefunden: {{message}}",
