@@ -28,14 +28,16 @@ describe('Helmet', () => {
     city?: CityModel
     languageChangePaths?: LanguageChangePath[]
     metaDescription?: string
+    rootPage?: boolean
   }
-  const renderHelmet = ({ city, languageChangePaths, metaDescription }: renderHelmetProps) =>
+  const renderHelmet = ({ city, languageChangePaths, metaDescription, rootPage }: renderHelmetProps) =>
     render(
       <Helmet
         pageTitle={pageTitle}
         cityModel={city}
         languageChangePaths={languageChangePaths}
         metaDescription={metaDescription}
+        rootPage={rootPage}
       />
     )
 
@@ -63,13 +65,18 @@ describe('Helmet', () => {
 
   it('should set title and meta tags', async () => {
     renderHelmet({ city: liveCity, metaDescription, languageChangePaths })
-    await waitFor(() => expect(document.title).toBe(`${pageTitle} | integreat.app`))
+    await waitFor(() => expect(document.title).toBe(`${pageTitle} | ${buildConfig().appName}`))
     expect(meta('description')).toBe(metaDescription)
     expect(metaByProperty('og:title')).toBe(pageTitle)
     expect(metaByProperty('og:image')).toBe('/social-media-preview.png')
     expect(metaByProperty('og:description')).toBe(metaDescription)
     expect(metaByProperty('og:url')).toBe('http://localhost/')
     expect(metaByProperty('og:type')).toBe('website')
+  })
+
+  it('should set root title', async () => {
+    renderHelmet({ city: liveCity, metaDescription, languageChangePaths, rootPage: true })
+    await waitFor(() => expect(document.title).toBe(`${buildConfig().appName} | Web-App | ${pageTitle}`))
   })
 
   it('should fall back to page title if no meta description is available', async () => {
@@ -80,27 +87,27 @@ describe('Helmet', () => {
 
   it('should not set noindex if no city model passed', async () => {
     renderHelmet({})
-    await waitFor(() => expect(document.title).toBe(`${pageTitle} | integreat.app`))
+    await waitFor(() => expect(document.title).toBe(`${pageTitle} | ${buildConfig().appName}`))
     expect(meta('robots')).toBeUndefined()
   })
 
   it('should not set noindex if city is live', async () => {
     renderHelmet({ city: liveCity })
-    await waitFor(() => expect(document.title).toBe(`${pageTitle} | integreat.app`))
+    await waitFor(() => expect(document.title).toBe(`${pageTitle} | ${buildConfig().appName}`))
     expect(meta('robots')).toBeUndefined()
   })
 
   it('should not set noindex if fixed city set in build config', async () => {
     config.featureFlags.fixedCity = 'oldtown'
     renderHelmet({ city: hiddenCity })
-    await waitFor(() => expect(document.title).toBe(`${pageTitle} | integreat.app`))
+    await waitFor(() => expect(document.title).toBe(`${pageTitle} | ${buildConfig().appName}`))
     expect(meta('robots')).toBeUndefined()
     config.featureFlags.fixedCity = null
   })
 
   it('should set noindex if city is not live', async () => {
     renderHelmet({ city: hiddenCity })
-    await waitFor(() => expect(document.title).toBe(`${pageTitle} | integreat.app`))
+    await waitFor(() => expect(document.title).toBe(`${pageTitle} | ${buildConfig().appName}`))
     await waitFor(() => expect(meta('robots')).toBe('noindex'))
   })
 
