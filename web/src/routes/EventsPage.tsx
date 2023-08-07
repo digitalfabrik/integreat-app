@@ -66,7 +66,7 @@ const EventsPage = ({ city, pathname, languageCode, cityCode }: CityRouteProps):
     }
   })
 
-  const pageTitle = `${event ? event.title : t('pageTitle')} - ${city.name}`
+  const pageTitle = `${event?.title ?? t('pageTitle')} - ${city.name}`
 
   const locationLayoutParams: Omit<CityContentLayoutProps, 'isLoading'> = {
     city,
