@@ -48,7 +48,7 @@ const I18nProvider = ({ children }: I18nProviderProps): ReactElement | null => {
         },
       })
       // A language mentioned in the supportedLanguages array of the config.js in the translations package
-      const matchedLanguage = i18nextInstance.languages[0]!
+      const matchedLanguage = i18nextInstance.languages[0] as string
       await setContentLanguage(matchedLanguage).catch(reportError)
       setSystemLanguage(matchedLanguage)
       setI18nextInstance(i18nextInstance)

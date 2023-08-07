@@ -143,7 +143,9 @@ const Pois = ({ pois, language, cityModel, route, navigation }: PoisProps): Reac
         locationPermissionGranted={coordinates !== null}
         onRequestLocationPermission={requestAndDetermineLocation}
         fabPosition={
-          sheetSnapPointIndex < BOTTOM_SHEET_SNAP_POINTS.length - 1 ? BOTTOM_SHEET_SNAP_POINTS[sheetSnapPointIndex]! : 0
+          sheetSnapPointIndex < BOTTOM_SHEET_SNAP_POINTS.length - 1
+            ? (BOTTOM_SHEET_SNAP_POINTS[sheetSnapPointIndex] as string | number)
+            : 0
         }
         followUserLocation={followUserLocation}
         setFollowUserLocation={setFollowUserLocation}

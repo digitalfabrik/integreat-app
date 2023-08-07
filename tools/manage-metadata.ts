@@ -281,10 +281,10 @@ const metadataFromTranslations = (
   language: string,
   translations: StoreTranslationType,
 ): Record<string, string> => {
-  const commonTranslation = translations.common![language]!
-  const name = commonTranslation.name!
-  const description = commonTranslation.description!
-  const storeTranslation = translations[storeName]![language]!
+  const commonTranslation = translations.common?.[language]
+  const name = commonTranslation?.name as string
+  const description = commonTranslation?.description as string
+  const storeTranslation = translations[storeName]?.[language]
 
   return storeName === 'appstore'
     ? {
@@ -320,7 +320,7 @@ const writeMetadata = (appName: string, storeName: string, overrideVersionName?:
       })
 
       Object.keys(metadata).forEach(metadataKey => {
-        fs.writeFileSync(`${path}/${metadataKey}.txt`, metadata[metadataKey]!)
+        fs.writeFileSync(`${path}/${metadataKey}.txt`, metadata[metadataKey] as string)
       })
 
       // Prepare release notes

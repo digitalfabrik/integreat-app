@@ -77,7 +77,7 @@ const CityNotCooperating = (): ReactElement => {
   const { t } = useTranslation('cityNotCooperating')
   const [isCopied, setIsCopied] = useState<boolean>(false)
   const theme = useTheme()
-  const template = buildConfig().featureFlags.cityNotCooperatingTemplate!
+  const template = buildConfig().featureFlags.cityNotCooperatingTemplate as string
 
   const copyToClipboard = () => {
     Clipboard.setString(template)

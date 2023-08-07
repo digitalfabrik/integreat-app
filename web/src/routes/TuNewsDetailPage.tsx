@@ -47,7 +47,7 @@ const StyledTitle = styled.div`
 `
 
 const TuNewsDetailPage = ({ city, pathname, cityCode, languageCode }: CityRouteProps): ReactElement | null => {
-  const newsId = useParams().newsId!
+  const newsId = useParams().newsId as string
   const formatter = useContext(DateFormatterContext)
   const navigate = useNavigate()
 

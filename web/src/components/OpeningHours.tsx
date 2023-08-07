@@ -86,8 +86,8 @@ const OpeningHours = ({
       <Content>
         {openingHours.map((entry, index) => (
           <OpeningEntry
-            key={`${weekdays[index]!}-OpeningEntry`}
-            weekday={t(weekdays[index]!.toLowerCase())}
+            key={`${weekdays[index]}-OpeningEntry`}
+            weekday={t(weekdays[index]?.toLowerCase() as string)}
             allDay={entry.allDay}
             closed={entry.closed}
             timeSlots={entry.timeSlots}

@@ -125,7 +125,7 @@ const MapView = forwardRef((props: MapViewProps, ref: React.Ref<MapRef>): ReactE
         ref={ref}
         reuseMaps
         cursor={cursor}
-        interactiveLayerIds={[markerLayer(currentFeature).id!]}
+        interactiveLayerIds={[markerLayer(currentFeature).id as string]}
         {...viewport}
         style={{
           height: '100%',

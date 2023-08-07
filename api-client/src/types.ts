@@ -29,7 +29,7 @@ export type JsonPoiCategoryType = {
   color?: string
   icon?: string
 }
-type JsonFeaturedImageInstanceType = {
+export type JsonFeaturedImageInstanceType = {
   url: string
   width: number
   height: number

@@ -81,7 +81,7 @@ type CityNotCooperatingPageProps = {
 const CityNotCooperatingPage = ({ languageCode }: CityNotCooperatingPageProps): ReactElement => {
   const { t } = useTranslation('cityNotCooperating')
   const [isCopied, setIsCopied] = useState<boolean>(false)
-  const template = buildConfig().featureFlags.cityNotCooperatingTemplate!
+  const template = buildConfig().featureFlags.cityNotCooperatingTemplate as string
   const cityNotCooperatingIcon = buildConfig().icons.cityNotCooperating
   useScrollToTopOnMount()
 
