@@ -76,7 +76,7 @@ const LocalNewsPage = ({ city, pathname, languageCode, cityCode }: CityRouteProp
     code,
   }))
 
-  const pageTitle = `${newsModel ? newsModel.title : t('localNews.pageTitle')} - ${city.name}`
+  const pageTitle = `${newsModel?.title ?? t('localNews.pageTitle')} - ${city.name}`
   const locationLayoutParams: Omit<CityContentLayoutProps, 'isLoading'> = {
     city,
     languageChangePaths,
