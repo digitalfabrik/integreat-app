@@ -26,7 +26,7 @@ const Helmet = ({ pageTitle, metaDescription, languageChangePaths, cityModel }: 
 
   const title = `${pageTitle} | ${buildConfig().hostName}`
   const description = metaDescription ?? pageTitle
-  const previewImage = `${window.location.origin}${buildConfig().icons.socialMediaPreview}`
+  const previewImage = buildConfig().icons.socialMediaPreview
 
   return (
     <ReactHelmet>

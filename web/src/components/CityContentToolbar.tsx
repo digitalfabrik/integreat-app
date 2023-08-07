@@ -18,7 +18,7 @@ type CityContentToolbarProps = {
   iconDirection?: 'row' | 'column'
   hasFeedbackOption?: boolean
   hideDivider?: boolean
-  title: string
+  pageTitle: string
   route: RouteType
   languageCode: string
 }
@@ -34,12 +34,12 @@ const CityContentToolbar = (props: CityContentToolbarProps) => {
     hasFeedbackOption = true,
     hideDivider,
     route,
-    title,
+    pageTitle,
     languageCode,
   } = props
   const [linkCopied, setLinkCopied] = useState<boolean>(false)
   const [shareOptionsVisible, setShareOptionsVisible] = useState<boolean>(false)
-  const { t } = useTranslation('categories')
+  const { t } = useTranslation('layout')
   const copyToClipboard = () => {
     navigator.clipboard.writeText(window.location.href).catch(reportError)
     setLinkCopied(true)
@@ -53,15 +53,15 @@ const CityContentToolbar = (props: CityContentToolbarProps) => {
       {children}
       <SharingPopup
         active={shareOptionsVisible}
-        shareLink={window.location.href}
+        shareUrl={window.location.href}
         route={route}
-        flow={iconDirection === 'row' ? 'top' : 'right'}
+        flow={iconDirection === 'row' ? 'vertical' : 'horizontal'}
         direction={config.getScriptDirection(languageCode)}
-        title={title}
+        title={pageTitle}
         onClose={() => setShareOptionsVisible(false)}>
         <ToolbarItem
           icon={shareOptionsVisible ? ShareActiveIcon : ShareIcon}
-          text={t('shareUrl')}
+          text={t('share')}
           onClick={() => setShareOptionsVisible(true)}
         />
       </SharingPopup>
