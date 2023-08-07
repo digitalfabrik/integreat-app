@@ -7,7 +7,7 @@ import { CopyIcon, DoneIcon, ShareActiveIcon, ShareIcon } from '../assets'
 import useWindowDimensions from '../hooks/useWindowDimensions'
 import { RouteType } from '../routes'
 import FeedbackToolbarItem from './FeedbackToolbarItem'
-import SocialMediaTooltip from './SocialMediaTooltip'
+import SharingPopup from './SharingPopup'
 import Toolbar from './Toolbar'
 import ToolbarItem from './ToolbarItem'
 import Tooltip from './Tooltip'
@@ -51,7 +51,7 @@ const CityContentToolbar = (props: CityContentToolbarProps) => {
   return (
     <Toolbar iconDirection={iconDirection} hideDivider={hideDivider}>
       {children}
-      <SocialMediaTooltip
+      <SharingPopup
         active={shareOptionsVisible}
         shareLink={window.location.href}
         route={route}
@@ -64,7 +64,7 @@ const CityContentToolbar = (props: CityContentToolbarProps) => {
           text={t('shareUrl')}
           onClick={() => setShareOptionsVisible(true)}
         />
-      </SocialMediaTooltip>
+      </SharingPopup>
       <Tooltip text={t('common:copied')} flow='up' active={linkCopied} trigger='click'>
         <ToolbarItem icon={linkCopied ? DoneIcon : CopyIcon} text={t('copyUrl')} onClick={copyToClipboard} />
       </Tooltip>

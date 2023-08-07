@@ -17,7 +17,6 @@ import LanguageIcon from '../../../assets/icons/language.svg'
 import LgbtqiIcon from '../../../assets/icons/lgbtqi.svg'
 import LocationIcon from '../../../assets/icons/location.svg'
 import MailSocialIcon from '../../../assets/icons/mail-social.svg'
-import MessengerIcon from '../../../assets/icons/messenger.svg'
 import NegativeFeedbackIcon from '../../../assets/icons/negative-feedback.svg'
 import NewsIcon from '../../../assets/icons/news.svg'
 import NoteIcon from '../../../assets/icons/note.svg'
@@ -56,7 +55,6 @@ export {
   LgbtqiIcon,
   LocationIcon,
   MailSocialIcon,
-  MessengerIcon,
   NegativeFeedbackIcon,
   NewsIcon,
   NoteIcon,
