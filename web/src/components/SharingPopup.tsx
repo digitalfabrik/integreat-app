@@ -1,33 +1,32 @@
-import React, { ReactElement, ReactNode } from 'react'
+import React, { ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import styled, { css } from 'styled-components'
 
 import { getSlugFromPath, POIS_ROUTE } from 'api-client'
 import { UiDirectionType } from 'translations'
 
-import { CloseIcon, FacebookIcon, MailSocialIcon, WhatsappIcon } from '../assets'
+import { CloseIcon, FacebookIcon, MailSocialIcon, ShareActiveIcon, ShareIcon, WhatsappIcon } from '../assets'
 import dimensions from '../constants/dimensions'
 import useWindowDimensions from '../hooks/useWindowDimensions'
 import { RouteType } from '../routes'
+import Portal from './Portal'
+import ToolbarItem from './ToolbarItem'
 import Tooltip from './Tooltip'
 
 type SharingPopupProps = {
-  active: boolean
-  children: ReactNode
   shareUrl: string
   title: string
-  onClose: () => void
   flow: 'vertical' | 'horizontal'
   direction: UiDirectionType
   route: RouteType
 }
 
-const SHARE_BUTTON_WIDTH = 50
 const TooltipContainer = styled.div<{
   flow: 'vertical' | 'horizontal'
   active: boolean
   direction: UiDirectionType
   additionalPadding: number
+  horizontalPosition?: number
 }>`
   background-color: ${props => props.theme.colors.backgroundColor};
   padding: 8px;
@@ -41,21 +40,18 @@ const TooltipContainer = styled.div<{
   ${props =>
     props.flow === 'vertical' &&
     css`
-      bottom: ${dimensions.toolbarHeight + props.additionalPadding}px;
       flex-flow: column-reverse;
-      margin-left: -10px;
+      transform: translateY(-100%);
     `};
 
   ${props =>
     props.flow === 'horizontal' &&
     (props.direction === 'ltr'
       ? css`
-          left: ${dimensions.toolbarWidth - SHARE_BUTTON_WIDTH}px;
+          transform: translateX(30%);
         `
       : css`
-          right: ${dimensions.toolbarWidth - SHARE_BUTTON_WIDTH}px;
-          transform: scaleX(-1);
-          flex-direction: row-reverse;
+          transform: translate(-30%);
         `)};
 
   ${props =>
@@ -78,17 +74,32 @@ const TooltipContainer = styled.div<{
     border-right: 10px solid transparent;
 
     ${props =>
-      props.flow === 'vertical'
+      props.flow === 'vertical' &&
+      (props.direction === 'ltr'
         ? css`
             left: 20px;
             bottom: -8px;
             transform: rotate(-180deg);
           `
         : css`
-            left: -14px;
+            bottom: -8px;
+            transform: translateX(-55%) rotate(180deg);
+          `)};
+
+    ${props =>
+      props.flow === 'horizontal' &&
+      (props.direction === 'ltr'
+        ? css`
+            left: -15px;
             transform: rotate(-90deg);
             top: 45%;
-          `};
+          `
+        : css`
+            right: -15px;
+            transform: rotate(90deg);
+            top: 45%;
+          `)};
+
     ${props =>
       props.active &&
       css`
@@ -103,17 +114,32 @@ const TooltipContainer = styled.div<{
     border-right: 11px solid transparent;
 
     ${props =>
-      props.flow === 'vertical'
+      props.flow === 'vertical' &&
+      (props.direction === 'ltr'
         ? css`
             left: 20px;
             bottom: -11px;
             transform: rotate(-180deg);
           `
         : css`
+            bottom: -11px;
+            transform: translateX(-45%) rotate(180deg);
+          `)};
+
+    ${props =>
+      props.flow === 'horizontal' &&
+      (props.direction === 'ltr'
+        ? css`
             left: -17px;
-            transform: rotate(-90deg);
+            transform: rotate(-90deg) scaleX(-1);
             top: 45%;
-          `};
+          `
+        : css`
+            right: -18px;
+            transform: rotate(90deg) scaleX(-1);
+            top: 45%;
+          `)};
+
     ${props =>
       props.active &&
       css`
@@ -149,35 +175,25 @@ const Icon = styled.img<{ direction: string }>`
   padding: 8px;
   object-fit: contain;
   align-self: center;
-
-  ${props =>
-    props.direction === 'rtl' &&
-    css`
-      transform: scaleX(-1);
-    `};
 `
 
 const BackdropContainer = styled.div`
-  background: red;
+  background: transparent;
   width: 100%;
   height: 100%;
-  z-index: 2000;
+  z-index: 500;
   top: 0;
   left: 0;
   position: fixed;
 `
 
-const SharingPopup = ({
-  active,
-  children,
-  shareUrl,
-  onClose,
-  title,
-  flow,
-  direction,
-  route,
-}: SharingPopupProps): ReactElement => {
+const SharingPopupContainer = styled.div`
+  position: relative;
+`
+
+const SharingPopup = ({ shareUrl, title, flow, direction, route }: SharingPopupProps): ReactElement => {
   const { t } = useTranslation('socialMedia')
+  const [shareOptionsVisible, setShareOptionsVisible] = useState<boolean>(false)
   const { viewportSmall } = useWindowDimensions()
   const isPoisDetailPage = route === POIS_ROUTE && getSlugFromPath(window.location.pathname) !== POIS_ROUTE
   const encodedTitle = encodeURIComponent(title)
@@ -185,48 +201,57 @@ const SharingPopup = ({
   const shareMessage = t('layout:shareMessage')
 
   return (
-    <div>
-      {active && (
-        <>
-          <BackdropContainer onClick={onClose} role='button' tabIndex={0} onKeyPress={onClose} />
-          <TooltipContainer
-            flow={flow}
-            active={active}
-            direction={direction}
-            additionalPadding={isPoisDetailPage && !viewportSmall ? dimensions.poiDetailNavigation : 0}>
-            <Tooltip text={t('whatsappTooltip')} flow='up'>
-              <Link
-                href={`https://api.whatsapp.com/send?text=${shareMessage}${encodedTitle}%0a${encodedShareUrl}`}
-                target='_blank'
-                aria-label={t('whatsappTooltip')}>
-                <Icon src={WhatsappIcon} direction={direction} alt='' />
-              </Link>
-            </Tooltip>
-            <Tooltip text={t('facebookTooltip')} flow='up'>
-              <Link
-                href={`http://www.facebook.com/sharer/sharer.php?u=${encodedShareUrl}&t${shareMessage}${encodedTitle}`}
-                target='_blank'
-                aria-label={t('facebookTooltip')}>
-                <Icon src={FacebookIcon} direction={direction} alt='' />
-              </Link>
-            </Tooltip>
-            <Tooltip text={t('mailTooltip')} flow='up'>
-              <Link
-                href={`mailto:?subject=${encodedTitle}&body=${shareMessage}${encodedShareUrl}`}
-                aria-label={t('mailTooltip')}>
-                <Icon src={MailSocialIcon} direction={direction} alt='' />
-              </Link>
-            </Tooltip>
-            <Tooltip text={t('closeTooltip')} flow='up'>
-              <CloseButton onClick={onClose} aria-label={t('mailTooltip')}>
-                <Icon src={CloseIcon} alt='' direction={direction} />
-              </CloseButton>
-            </Tooltip>
-          </TooltipContainer>
-        </>
+    <SharingPopupContainer>
+      <Portal className='sharing-popup-backdrop' show={shareOptionsVisible}>
+        <BackdropContainer
+          onClick={() => setShareOptionsVisible(false)}
+          role='button'
+          tabIndex={0}
+          onKeyPress={() => setShareOptionsVisible(false)}
+        />
+      </Portal>
+      {shareOptionsVisible && (
+        <TooltipContainer
+          flow={flow}
+          active={shareOptionsVisible}
+          direction={direction}
+          additionalPadding={isPoisDetailPage && !viewportSmall ? dimensions.poiDetailNavigation : 0}>
+          <Tooltip text={t('whatsappTooltip')} flow='up'>
+            <Link
+              href={`https://api.whatsapp.com/send?text=${shareMessage}${encodedTitle}%0a${encodedShareUrl}`}
+              target='_blank'
+              aria-label={t('whatsappTooltip')}>
+              <Icon src={WhatsappIcon} direction={direction} alt='' />
+            </Link>
+          </Tooltip>
+          <Tooltip text={t('facebookTooltip')} flow='up'>
+            <Link
+              href={`http://www.facebook.com/sharer/sharer.php?u=${encodedShareUrl}&t${shareMessage}${encodedTitle}`}
+              target='_blank'
+              aria-label={t('facebookTooltip')}>
+              <Icon src={FacebookIcon} direction={direction} alt='' />
+            </Link>
+          </Tooltip>
+          <Tooltip text={t('mailTooltip')} flow='up'>
+            <Link
+              href={`mailto:?subject=${encodedTitle}&body=${shareMessage}${encodedShareUrl}`}
+              aria-label={t('mailTooltip')}>
+              <Icon src={MailSocialIcon} direction={direction} alt='' />
+            </Link>
+          </Tooltip>
+          <Tooltip text={t('closeTooltip')} flow='up'>
+            <CloseButton onClick={() => setShareOptionsVisible(false)} aria-label={t('mailTooltip')}>
+              <Icon src={CloseIcon} alt='' direction={direction} />
+            </CloseButton>
+          </Tooltip>
+        </TooltipContainer>
       )}
-      {children}
-    </div>
+      <ToolbarItem
+        icon={shareOptionsVisible ? ShareActiveIcon : ShareIcon}
+        text={t('layout:share')}
+        onClick={() => setShareOptionsVisible(true)}
+      />
+    </SharingPopupContainer>
   )
 }
 
