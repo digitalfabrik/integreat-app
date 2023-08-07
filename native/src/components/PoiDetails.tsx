@@ -102,7 +102,7 @@ const PoiDetails = ({ poi, feature, language }: PoiDetailsProps): ReactElement =
       {content.length > 0 && (
         <>
           <CollapsibleItem initExpanded headerContent={t('description')} language={language}>
-            <Page content={content} language={language} path={poi.path} />
+            <Page content={content} language={language} path={poi.path} padding={false} />
           </CollapsibleItem>
           <HorizontalLine />
         </>
