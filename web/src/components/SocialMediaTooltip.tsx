@@ -109,15 +109,12 @@ const TooltipContainer = styled.div<{
     border-right: 11px solid transparent;
 
     ${props =>
-      props.flow === 'top' &&
+      props.flow === 'top' ?
       css`
         left: 20px;
         bottom: -11px;
         transform: rotate(-180deg);
-      `};
-    ${props =>
-      props.flow === 'right' &&
-      css`
+      ` : css`
         left: -17px;
         transform: rotate(-90deg);
         top: 45%;
