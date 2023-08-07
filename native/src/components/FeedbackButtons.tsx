@@ -29,6 +29,7 @@ const CardShadow = styled.View<{ $active: boolean | null }>`
   shadow-offset: 1px 2px;
   shadow-opacity: 0.25;
   shadow-radius: 3px;
+  elevation: 5;
 `
 
 const FeedbackText = styled(Text)`
