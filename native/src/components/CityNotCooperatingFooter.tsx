@@ -1,6 +1,7 @@
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Button } from 'react-native-elements'
+import { SvgProps } from 'react-native-svg'
 import styled, { useTheme } from 'styled-components/native'
 
 import buildConfig, { buildConfigAssets } from '../constants/buildConfig'
@@ -38,7 +39,7 @@ const CityNotCooperatingFooter = ({
   if (!buildConfig().featureFlags.cityNotCooperating) {
     return null
   }
-  const CityNotCooperatingIcon = buildConfigAssets().CityNotCooperatingIcon!
+  const CityNotCooperatingIcon = buildConfigAssets().CityNotCooperatingIcon as React.JSXElementConstructor<SvgProps>
 
   return (
     <FooterContainer>

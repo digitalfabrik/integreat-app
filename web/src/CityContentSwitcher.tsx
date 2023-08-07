@@ -54,7 +54,7 @@ export type CityRouteProps = {
 }
 
 const CityContentSwitcher = ({ languageCode }: CityContentSwitcherProps): ReactElement => {
-  const cityCode = useParams().cityCode!
+  const cityCode = useParams().cityCode as string
   const { data: city, error, loading } = useLoadFromEndpoint(createCityEndpoint, cmsApiBaseUrl, { city: cityCode })
   const pathname = normalizePath(useLocation().pathname)
 

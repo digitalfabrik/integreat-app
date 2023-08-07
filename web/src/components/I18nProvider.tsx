@@ -45,7 +45,7 @@ const I18nProvider = ({ children, contentLanguage }: I18nProviderProps): ReactEl
       i18nextInstance.on('languageChanged', () => {
         log(i18nextInstance.languages.toString())
         // A language mentioned in the supportedLanguages array of the config.js in the translations package
-        const matchedLanguage = i18nextInstance.languages[0]!
+        const matchedLanguage = i18nextInstance.languages[0] as string
         setLanguage(matchedLanguage)
       })
     }

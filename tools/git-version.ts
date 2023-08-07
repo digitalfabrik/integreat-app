@@ -84,7 +84,7 @@ const commitAndTag = async (
       createTag({
         versionName,
         versionCode,
-        commitSha: commitSha!,
+        commitSha: commitSha as string,
         appOctokit,
         owner,
         repo,

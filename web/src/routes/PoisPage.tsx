@@ -141,7 +141,7 @@ const PoisPage = ({ cityCode, languageCode, city, pathname }: CityRouteProps): R
 
   const changeSnapPoint = (snapPoint: number) => {
     if (viewportSmall) {
-      sheetRef.current?.snapTo(({ maxHeight }) => getSnapPoints(maxHeight)[snapPoint]!)
+      sheetRef.current?.snapTo(({ maxHeight }) => getSnapPoints(maxHeight)[snapPoint] as number)
       setSnapPoint(snapPoint)
     }
   }

@@ -24,7 +24,8 @@ type EventListItemProps = {
 }
 
 const EventListItem = ({ formatter, language, event, navigateToEvent }: EventListItemProps): ReactElement => {
-  const thumbnail = event.thumbnail || placeholderThumbnails[event.path.length % placeholderThumbnails.length]!
+  const thumbnail =
+    event.thumbnail || (placeholderThumbnails[event.path.length % placeholderThumbnails.length] as number)
   const content = parseHTML(event.content)
 
   return (

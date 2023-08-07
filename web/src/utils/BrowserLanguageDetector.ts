@@ -23,7 +23,7 @@ const languageDetector: LanguageDetectorModule = {
       if (navigator.languages) {
         // chrome only; not an array, so can't use .push.apply instead of iterating
         for (let i = 0; i < navigator.languages.length; i += 1) {
-          bcp47Tags.push(navigator.languages[i]!)
+          bcp47Tags.push(navigator.languages[i] as string)
         }
       }
 

@@ -180,7 +180,7 @@ const writeJsonFromCsv = (translations: string, toPath: string, sourceLanguage: 
       moduleKeys.map(moduleKey => [
         moduleKey,
         fromPairs(
-          languageKeys.map(languageKey => [languageKey, byLanguageModulesWithSourceLanguage[languageKey]![moduleKey]]),
+          languageKeys.map(languageKey => [languageKey, byLanguageModulesWithSourceLanguage[languageKey]?.[moduleKey]]),
         ),
       ]),
     )
