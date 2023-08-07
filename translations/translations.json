@@ -8307,7 +8307,8 @@
     "de": {
       "facebookTooltip": "auf Facebook teilen",
       "mailTooltip": "via E-Mail empfehlen",
-      "whatsappTooltip": "in WhatsApp teilen"
+      "whatsappTooltip": "in WhatsApp teilen",
+      "closeTooltip": "Schließen"
     }
   },
   "sprungbrett": {

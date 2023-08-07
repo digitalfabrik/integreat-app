@@ -11,7 +11,7 @@ import useWindowDimensions from '../hooks/useWindowDimensions'
 import { RouteType } from '../routes'
 import Tooltip from './Tooltip'
 
-type SocialMediaTooltipProps = {
+type SharingPopupProps = {
   active: boolean
   children: ReactNode
   shareLink: string
@@ -48,19 +48,15 @@ const TooltipContainer = styled.div<{
 
   ${props =>
     props.flow === 'right' &&
-    props.direction === 'ltr' &&
-    css`
-      left: ${dimensions.toolbarWidth - SHARE_BUTTON_WIDTH}px;
-    `};
-
-  ${props =>
-    props.flow === 'right' &&
-    props.direction === 'rtl' &&
-    css`
-      right: ${dimensions.toolbarWidth - SHARE_BUTTON_WIDTH}px;
-      transform: scaleX(-1);
-      flex-direction: row-reverse;
-    `};
+    (props.direction === 'ltr'
+      ? css`
+          left: ${dimensions.toolbarWidth - SHARE_BUTTON_WIDTH}px;
+        `
+      : css`
+          right: ${dimensions.toolbarWidth - SHARE_BUTTON_WIDTH}px;
+          transform: scaleX(-1);
+          flex-direction: row-reverse;
+        `)};
 
   ${props =>
     props.active &&
@@ -82,16 +78,17 @@ const TooltipContainer = styled.div<{
     border-right: 10px solid transparent;
 
     ${props =>
-      props.flow === 'top' ?
-      css`
-        left: 20px;
-        bottom: -8px;
-        transform: rotate(-180deg);
-      ` : css`
-        left: -14px;
-        transform: rotate(-90deg);
-        top: 45%;
-      `};
+      props.flow === 'top'
+        ? css`
+            left: 20px;
+            bottom: -8px;
+            transform: rotate(-180deg);
+          `
+        : css`
+            left: -14px;
+            transform: rotate(-90deg);
+            top: 45%;
+          `};
     ${props =>
       props.active &&
       css`
@@ -106,16 +103,17 @@ const TooltipContainer = styled.div<{
     border-right: 11px solid transparent;
 
     ${props =>
-      props.flow === 'top' ?
-      css`
-        left: 20px;
-        bottom: -11px;
-        transform: rotate(-180deg);
-      ` : css`
-        left: -17px;
-        transform: rotate(-90deg);
-        top: 45%;
-      `};
+      props.flow === 'top'
+        ? css`
+            left: 20px;
+            bottom: -11px;
+            transform: rotate(-180deg);
+          `
+        : css`
+            left: -17px;
+            transform: rotate(-90deg);
+            top: 45%;
+          `};
     ${props =>
       props.active &&
       css`
@@ -169,7 +167,7 @@ const BackdropContainer = styled.div`
   position: fixed;
 `
 
-const SocialMediaTooltip = ({
+const SharingPopup = ({
   active,
   children,
   shareLink,
@@ -178,7 +176,7 @@ const SocialMediaTooltip = ({
   flow,
   direction,
   route,
-}: SocialMediaTooltipProps): ReactElement => {
+}: SharingPopupProps): ReactElement => {
   const { t } = useTranslation('socialMedia')
   const { viewportSmall } = useWindowDimensions()
   const isPoisDetailPage = route === POIS_ROUTE && getSlugFromPath(window.location.pathname) !== POIS_ROUTE
@@ -216,9 +214,11 @@ const SocialMediaTooltip = ({
                 <Icon src={MailSocialIcon} direction={direction} alt='' />
               </Link>
             </Tooltip>
-            <CloseButton onClick={onClose}>
-              <Icon src={CloseIcon} alt='' direction={direction} />
-            </CloseButton>
+            <Tooltip text={t('closeTooltip')} flow='up'>
+              <CloseButton onClick={onClose}>
+                <Icon src={CloseIcon} alt='' direction={direction} />
+              </CloseButton>
+            </Tooltip>
           </TooltipContainer>
         </>
       )}
@@ -227,4 +227,4 @@ const SocialMediaTooltip = ({
   )
 }
 
-export default SocialMediaTooltip
+export default SharingPopup
