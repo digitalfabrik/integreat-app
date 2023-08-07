@@ -145,7 +145,7 @@ const PoisPage = ({ cityCode, languageCode, city, pathname }: CityRouteProps): R
     }
   }
 
-  const pageTitle = `${poi ? poi.title : t('pageTitle')} - ${city.name}`
+  const pageTitle = `${poi?.title ?? t('pageTitle')} - ${city.name}`
   const toolbar = (
     <CityContentToolbar
       feedbackTarget={poi?.slug}
@@ -153,7 +153,7 @@ const PoisPage = ({ cityCode, languageCode, city, pathname }: CityRouteProps): R
       iconDirection='row'
       hideDivider
       languageCode={languageCode}
-      title={pageTitle}
+      pageTitle={pageTitle}
     />
   )
 

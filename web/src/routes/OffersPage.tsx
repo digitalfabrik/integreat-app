@@ -70,7 +70,7 @@ const OffersPage = ({ city, cityCode, languageCode }: CityRouteProps): ReactElem
     languageChangePaths,
     route: OFFERS_ROUTE,
     languageCode,
-    Toolbar: <CityContentToolbar route={OFFERS_ROUTE} languageCode={languageCode} title={pageTitle} />,
+    Toolbar: <CityContentToolbar route={OFFERS_ROUTE} languageCode={languageCode} pageTitle={pageTitle} />,
   }
 
   if (loading) {

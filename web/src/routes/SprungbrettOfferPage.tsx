@@ -47,7 +47,7 @@ const SprungbrettOfferPage = ({ city, cityCode, languageCode }: CityRouteProps):
     code,
   }))
 
-  const pageTitle = `${data ? data.sprungbrettOffer.title : t('dashboard:offers')} - ${city.name}`
+  const pageTitle = `${data?.sprungbrettOffer.title ?? t('dashboard:offers')} - ${city.name}`
   const feedbackTarget = data?.sprungbrettOffer ? getSlugFromPath(data.sprungbrettOffer.path) : undefined
   const locationLayoutParams: Omit<CityContentLayoutProps, 'isLoading'> = {
     city,
@@ -59,7 +59,7 @@ const SprungbrettOfferPage = ({ city, cityCode, languageCode }: CityRouteProps):
         languageCode={languageCode}
         feedbackTarget={feedbackTarget}
         route={SPRUNGBRETT_OFFER_ROUTE}
-        title={pageTitle}
+        pageTitle={pageTitle}
       />
     ),
   }

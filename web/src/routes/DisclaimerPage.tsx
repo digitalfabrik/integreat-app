@@ -43,7 +43,7 @@ const DisclaimerPage = ({ cityCode, languageCode, city }: CityRouteProps): React
       feedbackTarget={disclaimer?.slug}
       route={DISCLAIMER_ROUTE}
       languageCode={languageCode}
-      title={pageTitle}
+      pageTitle={pageTitle}
     />
   )
 

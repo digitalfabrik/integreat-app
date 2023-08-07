@@ -102,7 +102,7 @@ const TuNewsPage = ({ cityCode, languageCode, city }: CityRouteProps): ReactElem
         hasFeedbackOption={false}
         hideDivider
         languageCode={languageCode}
-        title={pageTitle}
+        pageTitle={pageTitle}
       />
     ),
   }

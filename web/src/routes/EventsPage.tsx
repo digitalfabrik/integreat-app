@@ -79,7 +79,7 @@ const EventsPage = ({ city, pathname, languageCode, cityCode }: CityRouteProps):
         route={EVENTS_ROUTE}
         hideDivider={!event}
         languageCode={languageCode}
-        title={pageTitle}
+        pageTitle={pageTitle}
       />
     ),
   }
