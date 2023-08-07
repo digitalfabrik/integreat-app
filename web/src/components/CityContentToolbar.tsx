@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next'
 
 import { config } from 'translations/src'
 
-import { CopyIcon, DoneIcon, ShareActiveIcon, ShareIcon } from '../assets'
+import { CopyIcon, DoneIcon } from '../assets'
 import useWindowDimensions from '../hooks/useWindowDimensions'
 import { RouteType } from '../routes'
 import FeedbackToolbarItem from './FeedbackToolbarItem'
@@ -38,7 +38,6 @@ const CityContentToolbar = (props: CityContentToolbarProps) => {
     languageCode,
   } = props
   const [linkCopied, setLinkCopied] = useState<boolean>(false)
-  const [shareOptionsVisible, setShareOptionsVisible] = useState<boolean>(false)
   const { t } = useTranslation('layout')
   const copyToClipboard = () => {
     navigator.clipboard.writeText(window.location.href).catch(reportError)
@@ -52,19 +51,12 @@ const CityContentToolbar = (props: CityContentToolbarProps) => {
     <Toolbar iconDirection={iconDirection} hideDivider={hideDivider}>
       {children}
       <SharingPopup
-        active={shareOptionsVisible}
         shareUrl={window.location.href}
         route={route}
         flow={iconDirection === 'row' ? 'vertical' : 'horizontal'}
         direction={config.getScriptDirection(languageCode)}
         title={pageTitle}
-        onClose={() => setShareOptionsVisible(false)}>
-        <ToolbarItem
-          icon={shareOptionsVisible ? ShareActiveIcon : ShareIcon}
-          text={t('share')}
-          onClick={() => setShareOptionsVisible(true)}
-        />
-      </SharingPopup>
+      />
       <Tooltip text={t('common:copied')} flow='up' active={linkCopied} trigger='click'>
         <ToolbarItem icon={linkCopied ? DoneIcon : CopyIcon} text={t('copyUrl')} onClick={copyToClipboard} />
       </Tooltip>
