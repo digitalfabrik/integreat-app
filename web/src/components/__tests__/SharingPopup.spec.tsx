@@ -1,7 +1,6 @@
 import { fireEvent } from '@testing-library/react'
 import React from 'react'
 
-import { TU_NEWS_ROUTE } from '../../routes'
 import { renderWithTheme } from '../../testing/render'
 import SharingPopup from '../SharingPopup'
 
@@ -14,7 +13,6 @@ describe('SharingPopup', () => {
       title='Aktuelle Themen und Informationen'
       flow='horizontal'
       shareUrl='https://integreat.app/augsburg/de/aktuelle-themen-und-informationen'
-      route={TU_NEWS_ROUTE}
     />
   )
 

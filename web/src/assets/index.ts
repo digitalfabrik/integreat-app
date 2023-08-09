@@ -27,7 +27,6 @@ import PhoneIcon from '../../../assets/icons/phone.svg'
 import POIsIcon from '../../../assets/icons/pois.svg'
 import PositiveFeedbackIcon from '../../../assets/icons/positive-feedback.svg'
 import SearchIcon from '../../../assets/icons/search.svg'
-import ShareActiveIcon from '../../../assets/icons/share-active.svg'
 import ShareIcon from '../../../assets/icons/share.svg'
 import SmokingIcon from '../../../assets/icons/smoking.svg'
 import TimerIcon from '../../../assets/icons/timer.svg'
@@ -66,7 +65,6 @@ export {
   PositiveFeedbackIcon,
   SearchIcon,
   ShareIcon,
-  ShareActiveIcon,
   SmokingIcon,
   TimerIcon,
   WebsiteIcon,
