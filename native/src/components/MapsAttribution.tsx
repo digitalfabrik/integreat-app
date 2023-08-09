@@ -4,6 +4,7 @@ import styled from 'styled-components/native'
 import { openStreeMapCopyright } from 'api-client'
 
 import Link from './Link'
+import Pressable from './base/Pressable'
 
 const Attribution = styled.View`
   flex-direction: row;
@@ -12,7 +13,7 @@ const Attribution = styled.View`
   align-self: center;
 `
 
-const AttributionContainer = styled.TouchableOpacity<{ expanded: boolean }>`
+const AttributionContainer = styled(Pressable)<{ expanded: boolean }>`
   display: flex;
   position: absolute;
   top: 0;

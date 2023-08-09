@@ -1,8 +1,9 @@
 import React, { ReactElement, ReactNode } from 'react'
-import { Pressable, View } from 'react-native'
+import { View } from 'react-native'
 import styled from 'styled-components/native'
 
 import { contentDirection } from '../constants/contentDirection'
+import Pressable from './base/Pressable'
 
 type PoiDetailItemProps = {
   language: string

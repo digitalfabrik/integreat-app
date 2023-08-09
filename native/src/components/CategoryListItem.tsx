@@ -9,8 +9,9 @@ import { LanguageResourceCacheStateType } from '../utils/DataContainer'
 import { getCachedThumbnail } from './Categories'
 import SimpleImage from './SimpleImage'
 import SubCategoryListItem from './SubCategoryListItem'
+import Pressable from './base/Pressable'
 
-const FlexStyledLink = styled.TouchableOpacity`
+const FlexStyledLink = styled(Pressable)`
   display: flex;
   flex-direction: column;
 `

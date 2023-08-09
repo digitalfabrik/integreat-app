@@ -6,6 +6,7 @@ import styled from 'styled-components/native'
 import { ThemeType } from 'build-configs'
 
 import TileModel from '../models/TileModel'
+import Pressable from './base/Pressable'
 
 const NEWS_DOT_RADIUS = 20
 const ICON_SIZE = 50
@@ -36,7 +37,7 @@ const TileTitle = styled.Text`
   font-size: 11px;
   margin-bottom: 5px;
 `
-const TileTouchable = styled.TouchableOpacity<{ width: number }>`
+const TileTouchable = styled(Pressable)<{ width: number }>`
   padding: 10px 3px;
   width: ${props => props.width}px;
   align-items: center;

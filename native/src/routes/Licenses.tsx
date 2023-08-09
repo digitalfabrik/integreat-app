@@ -7,11 +7,12 @@ import { License, parseLicenses } from 'api-client'
 
 import Caption from '../components/Caption'
 import Layout from '../components/Layout'
+import Pressable from '../components/base/Pressable'
 import useSnackbar from '../hooks/useSnackbar'
 import openExternalUrl from '../utils/openExternalUrl'
 import { reportError } from '../utils/sentry'
 
-const LicenseItemContainer = styled.TouchableOpacity`
+const LicenseItemContainer = styled(Pressable)`
   padding: 16px;
   flex-direction: row;
   align-items: center;

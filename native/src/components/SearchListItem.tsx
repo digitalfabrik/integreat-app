@@ -9,8 +9,9 @@ import { contentDirection } from '../constants/contentDirection'
 import { PageResourceCacheStateType } from '../utils/DataContainer'
 import { getCachedThumbnail } from './Categories'
 import { CategoryThumbnail } from './CategoryListItem'
+import Pressable from './base/Pressable'
 
-const FlexStyledLink = styled.TouchableOpacity`
+const FlexStyledLink = styled(Pressable)`
   display: flex;
   flex-direction: column;
   margin: 0 20px;

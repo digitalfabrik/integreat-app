@@ -7,8 +7,9 @@ import { CityModel, LOCAL_NEWS_TYPE, NewsType, TU_NEWS_TYPE } from 'api-client'
 import ActiveInternational from '../assets/tu-news-active.svg'
 import InactiveInternational from '../assets/tu-news-inactive.svg'
 import Caption from './Caption'
+import Pressable from './base/Pressable'
 
-const TouchableWrapper = styled.TouchableOpacity`
+const TouchableWrapper = styled(Pressable)`
   margin: 0 10px 5px;
   align-items: center;
 `

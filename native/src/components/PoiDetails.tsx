@@ -4,7 +4,7 @@ import PhoneIcon from 'integreat-app/assets/icons/phone.svg'
 import WebsiteIcon from 'integreat-app/assets/icons/website.svg'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Platform, Pressable, Text } from 'react-native'
+import { Platform, Text } from 'react-native'
 import styled from 'styled-components/native'
 
 import { getExternalMapsLink, PoiFeature, PoiModel } from 'api-client'
@@ -20,6 +20,7 @@ import Page from './Page'
 import PoiDetailItem from './PoiDetailItem'
 import PoiDetailRow from './PoiDetailRow'
 import SimpleImage from './SimpleImage'
+import Pressable from './base/Pressable'
 
 const Thumbnail = styled(SimpleImage)`
   flex: 1;

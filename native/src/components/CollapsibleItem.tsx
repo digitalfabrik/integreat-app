@@ -67,7 +67,7 @@ const CollapsibleItem: React.FC<CollapsibleItemProps> = ({
       <Collapse
         isExpanded={isExpanded}
         onToggle={() => setIsExpanded(!isExpanded)}
-        touchableOpacityProps={{ activeOpacity: 1 }}>
+        PressableProps={{ activeOpacity: 1 }}>
         <CollapseHeader style={{ flexDirection: 'row' }}>
           <CollapseHeaderWrapper language={language}>
             {renderHeaderContent(headerContent)}

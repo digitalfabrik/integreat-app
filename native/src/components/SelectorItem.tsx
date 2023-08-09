@@ -3,8 +3,9 @@ import styled from 'styled-components/native'
 
 import dimensions from '../constants/dimensions'
 import SelectorItemModel from '../models/SelectorItemModel'
+import Pressable from './base/Pressable'
 
-export const TouchTarget = styled.TouchableOpacity`
+export const TouchTarget = styled(Pressable)`
   width: 100%;
 `
 

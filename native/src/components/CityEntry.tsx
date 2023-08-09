@@ -6,10 +6,11 @@ import styled from 'styled-components/native'
 import { CityModel, normalizeString } from 'api-client'
 
 import testID from '../testing/testID'
+import Pressable from './base/Pressable'
 
 const MAX_NUMBER_OF_ALIASES_SHOWN = 3
 
-const CityListItem = styled.TouchableOpacity`
+const CityListItem = styled(Pressable)`
   flex: 1;
   padding: 7px;
   width: 100%;

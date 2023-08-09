@@ -7,6 +7,7 @@ import { contentDirection } from '../constants/contentDirection'
 import { PageResourceCacheStateType } from '../utils/DataContainer'
 import { getCachedThumbnail } from './Categories'
 import { CategoryThumbnail } from './CategoryListItem'
+import Pressable from './base/Pressable'
 
 const SubCategoryTitleContainer = styled.View<{ language: string }>`
   flex: 1;
@@ -15,7 +16,7 @@ const SubCategoryTitleContainer = styled.View<{ language: string }>`
   flex-direction: ${props => contentDirection(props.language)};
 `
 
-const FlexStyledLink = styled.TouchableOpacity<{ language: string }>`
+const FlexStyledLink = styled(Pressable)<{ language: string }>`
   display: flex;
   flex-direction: ${props => contentDirection(props.language)};
   margin: 0 0 0 24px;

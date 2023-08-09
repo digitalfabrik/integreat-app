@@ -5,12 +5,13 @@ import styled from 'styled-components/native'
 
 import useSnackbar from '../hooks/useSnackbar'
 import openExternalUrl from '../utils/openExternalUrl'
+import Pressable from './base/Pressable'
 
 const IconContainer = styled.View`
   margin-right: 5px;
 `
 
-const StyledPressable = styled.Pressable`
+const StyledPressable = styled(Pressable)`
   flex-direction: row;
   padding-vertical: 3px;
 `
