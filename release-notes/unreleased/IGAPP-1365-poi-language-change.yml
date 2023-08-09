@@ -1,0 +1,5 @@
+issue_key: IGAPP-1365
+show_in_stores: false
+platforms:
+  - web
+en: Fixed poi language change in certain cases
