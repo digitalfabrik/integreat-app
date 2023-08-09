@@ -77,7 +77,9 @@ const CityNotCooperating = (): ReactElement => {
   const { t } = useTranslation('cityNotCooperating')
   const [isCopied, setIsCopied] = useState<boolean>(false)
   const theme = useTheme()
-  const template = buildConfig().featureFlags.cityNotCooperatingTemplate as string
+  // Only displayed in the Integreat configuration, which has the template
+  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+  const template = buildConfig().featureFlags.cityNotCooperatingTemplate!
 
   const copyToClipboard = () => {
     Clipboard.setString(template)

@@ -47,7 +47,9 @@ const StyledTitle = styled.div`
 `
 
 const TuNewsDetailPage = ({ city, pathname, cityCode, languageCode }: CityRouteProps): ReactElement | null => {
-  const newsId = useParams().newsId as string
+  // This component is only opened when there is a news ID in the route
+  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+  const newsId = useParams().newsId!
   const formatter = useContext(DateFormatterContext)
   const navigate = useNavigate()
 

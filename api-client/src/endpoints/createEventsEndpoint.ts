@@ -10,7 +10,7 @@ import DateModel from '../models/DateModel'
 import EventModel from '../models/EventModel'
 import FeaturedImageModel from '../models/FeaturedImageModel'
 import LocationModel from '../models/LocationModel'
-import { JsonEventType, JsonFeaturedImageInstanceType } from '../types'
+import { JsonEventType } from '../types'
 
 export const EVENTS_ENDPOINT_NAME = 'events'
 type ParamsType = {
@@ -72,15 +72,17 @@ const mapJsonToEvent = (event: JsonEventType): EventModel => {
     excerpt: decodeHTML(event.excerpt),
     availableLanguages: mapAvailableLanguages(event.available_languages),
     lastUpdate: moment.tz(event.modified_gmt, 'GMT'),
+    /* eslint-disable @typescript-eslint/no-non-null-assertion */
     featuredImage: event.featured_image
       ? new FeaturedImageModel({
           description: event.featured_image.description,
-          thumbnail: event.featured_image.thumbnail[0] as JsonFeaturedImageInstanceType,
-          medium: event.featured_image.medium[0] as JsonFeaturedImageInstanceType,
-          large: event.featured_image.large[0] as JsonFeaturedImageInstanceType,
-          full: event.featured_image.full[0] as JsonFeaturedImageInstanceType,
+          thumbnail: event.featured_image.thumbnail[0]!,
+          medium: event.featured_image.medium[0]!,
+          large: event.featured_image.large[0]!,
+          full: event.featured_image.full[0]!,
         })
       : null,
+    /* eslint-enable @typescript-eslint/no-non-null-assertion */
   })
 }
 

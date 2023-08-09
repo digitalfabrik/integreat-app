@@ -3,20 +3,12 @@ import decamelize from 'decamelize'
 import flat from 'flat'
 import fs from 'fs'
 
-import {
-  CommonBuildConfigType,
-  AndroidBuildConfigType,
-  iOSBuildConfigType,
-  WebBuildConfigType,
-} from '../BuildConfigType'
 import loadBuildConfig, { PlatformType } from '../index'
 
 const loadBuildConfigAsKeyValue = (buildConfigName: string, platform: PlatformType, spaces = true, quotes = false) => {
-  const buildConfig = loadBuildConfig(buildConfigName, platform) as
-    | CommonBuildConfigType
-    | AndroidBuildConfigType
-    | iOSBuildConfigType
-    | WebBuildConfigType
+  // If no buildConfig is found, that is handled in the the loadBuildConfig function
+  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+  const buildConfig = loadBuildConfig(buildConfigName, platform)!
   const xcconfigOptions = flat<Record<string, unknown>, Record<string, string | number | boolean>>(buildConfig, {
     delimiter: '_',
     // Dashes are not supported in keys in xcconfigs and android resources

@@ -281,10 +281,12 @@ const metadataFromTranslations = (
   language: string,
   translations: StoreTranslationType,
 ): Record<string, string> => {
-  const commonTranslation = translations.common?.[language]
-  const name = commonTranslation?.name as string
-  const description = commonTranslation?.description as string
+  /* eslint-disable @typescript-eslint/no-non-null-assertion */
+  const commonTranslation = translations.common![language]!
+  const name = commonTranslation.name!
+  const description = commonTranslation.description!
   const storeTranslation = translations[storeName]?.[language]
+  /* eslint-enable @typescript-eslint/no-non-null-assertion */
 
   return storeName === 'appstore'
     ? {
@@ -320,7 +322,8 @@ const writeMetadata = (appName: string, storeName: string, overrideVersionName?:
       })
 
       Object.keys(metadata).forEach(metadataKey => {
-        fs.writeFileSync(`${path}/${metadataKey}.txt`, metadata[metadataKey] as string)
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+        fs.writeFileSync(`${path}/${metadataKey}.txt`, metadata[metadataKey]!)
       })
 
       // Prepare release notes

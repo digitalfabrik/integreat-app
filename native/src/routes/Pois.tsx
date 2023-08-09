@@ -144,7 +144,8 @@ const Pois = ({ pois, language, cityModel, route, navigation }: PoisProps): Reac
         onRequestLocationPermission={requestAndDetermineLocation}
         fabPosition={
           sheetSnapPointIndex < BOTTOM_SHEET_SNAP_POINTS.length - 1
-            ? (BOTTOM_SHEET_SNAP_POINTS[sheetSnapPointIndex] as string | number)
+            // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+            ? BOTTOM_SHEET_SNAP_POINTS[sheetSnapPointIndex]!
             : 0
         }
         followUserLocation={followUserLocation}
