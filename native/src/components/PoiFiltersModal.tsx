@@ -81,6 +81,8 @@ const PoiCategoryText = styled.Text`
   font-size: 12px;
   color: ${props => props.theme.colors.textSecondaryColor};
   font-family: ${props => props.theme.fonts.native.decorativeFontRegular};
+  text-align: center;
+  width: 84px;
 `
 
 type PoiFiltersModalProps = {
@@ -133,7 +135,7 @@ const PoiFiltersModal = ({
                 active={it === selectedPoiCategory}
                 onPress={() => setSelectedPoiCategory(it === selectedPoiCategory ? null : it)}>
                 <SvgUri uri={it.icon} />
-                <PoiCategoryText>{it.name}</PoiCategoryText>
+                <PoiCategoryText numberOfLines={1}>{it.name}</PoiCategoryText>
               </PoiCategoryTile>
             ))}
           </TileRow>
