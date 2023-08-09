@@ -56,24 +56,19 @@ const Marker = styled.img<{ direction?: string }>`
   object-fit: contain;
 `
 
-const DetailsHeader = styled.div<{ viewportSmall: boolean }>`
+const DetailsHeaderContainer = styled.div<{ hidden: boolean }>`
   display: flex;
-  padding-top: 12px;
-  cursor: pointer;
+  flex-direction: column;
+  max-height: ${props => (props.hidden ? '0' : '10vh')};
+  opacity: ${props => (props.hidden ? '0' : '1')};
+  overflow: hidden;
+  transition: all 2s;
+`
 
-  ${props =>
-    props.viewportSmall &&
-    css`
-      animation: fadeIn 3s;
-      @keyframes fadeIn {
-        0% {
-          opacity: 0;
-        }
-        100% {
-          opacity: 1;
-        }
-      }
-    `};
+const DetailsHeader = styled.div`
+  display: flex;
+  cursor: pointer;
+  padding-top: ${props => (props.hidden ? '0' : '12px')};
 `
 
 const DetailsHeaderTitle = styled.span`
@@ -226,20 +221,13 @@ const PoiDetails: React.FC<PoiDetailsProps> = ({
 
   return (
     <DetailsContainer>
-      {(!viewportSmall || isBottomSheetFullscreen) && (
-        <>
-          <DetailsHeader
-            onClick={onBackClick}
-            role='button'
-            tabIndex={0}
-            onKeyPress={onBackClick}
-            viewportSmall={viewportSmall}>
-            <ArrowBack src={iconArrowBack} alt='' direction={direction} />
-            <DetailsHeaderTitle>{t('detailsHeader')}</DetailsHeaderTitle>
-          </DetailsHeader>
-          <Spacer borderColor={theme.colors.borderColor} />
-        </>
-      )}
+      <DetailsHeaderContainer hidden={viewportSmall && !isBottomSheetFullscreen}>
+        <DetailsHeader onClick={onBackClick} role='button' tabIndex={0} onKeyPress={onBackClick}>
+          <ArrowBack src={iconArrowBack} alt='' direction={direction} />
+          <DetailsHeaderTitle>{t('detailsHeader')}</DetailsHeaderTitle>
+        </DetailsHeader>
+        <Spacer borderColor={theme.colors.borderColor} />
+      </DetailsHeaderContainer>
       <HeadingSection>
         <Thumbnail alt='' src={thumb ?? PoiPlaceholder} />
         <Heading>{title}</Heading>
