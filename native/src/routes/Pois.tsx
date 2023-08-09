@@ -77,7 +77,7 @@ const Pois = ({ pois: allPois, language, cityModel, route, navigation }: PoisPro
       allPois
         .filter(poi => !poiCategoryFilter || poi.category === poiCategoryFilter)
         .filter(poi => !poiCurrentlyOpenFilter || poi.isCurrentlyOpen),
-    [allPois, poiCategoryFilter, poiCurrentlyOpenFilter]
+    [allPois, poiCategoryFilter, poiCurrentlyOpenFilter],
   )
   const poi = pois.find(it => it.slug === slug)
   const features = prepareFeatureLocations(pois, coordinates)
@@ -209,8 +209,8 @@ const Pois = ({ pois: allPois, language, cityModel, route, navigation }: PoisPro
         onRequestLocationPermission={requestAndDetermineLocation}
         fabPosition={
           sheetSnapPointIndex < BOTTOM_SHEET_SNAP_POINTS.length - 1
-            // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-            ? BOTTOM_SHEET_SNAP_POINTS[sheetSnapPointIndex]!
+            ? // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+              BOTTOM_SHEET_SNAP_POINTS[sheetSnapPointIndex]!
             : 0
         }
         followUserLocation={followUserLocation}
