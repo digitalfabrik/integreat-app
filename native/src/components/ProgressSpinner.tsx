@@ -31,7 +31,7 @@ const LoadingImage = styled(buildConfigAssets().LoadingImage)`
 
 const SVG_SIZE_FRACTION = 0.333
 const svgSize = Dimensions.get('window').width * SVG_SIZE_FRACTION
-const LOGO_SIZE_FRACTION = 0.6
+const LOGO_SIZE_FRACTION = 0.8
 const logoSize = svgSize * LOGO_SIZE_FRACTION
 const logoXY = (svgSize - logoSize) / 2
 const STROKE_WIDTH_FRACTION = 0.09

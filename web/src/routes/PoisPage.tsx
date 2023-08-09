@@ -117,16 +117,17 @@ const PoisPage = ({ cityCode, languageCode, city, pathname }: CityRouteProps): R
     log('To use geolocation in a development build you have to start the dev server with\n "yarn start --https"')
   }
 
-  const languageChangePaths = city.languages.map(({ code, name }) => ({
-    path: pathnameFromRouteInformation({
-      route: POIS_ROUTE,
-      cityCode,
-      languageCode: code,
-      slug: poi?.slug,
-    }),
-    name,
-    code,
-  }))
+  const languageChangePaths = city.languages.map(({ code, name }) => {
+    const isCurrentLanguage = code === languageCode
+    const path = poi
+      ? poi.availableLanguages.get(code) || null
+      : pathnameFromRouteInformation({ route: POIS_ROUTE, cityCode, languageCode: code })
+    return {
+      path: isCurrentLanguage ? pathname : path,
+      name,
+      code,
+    }
+  })
 
   const nextFeatureIndex = (step: 1 | -1, arrayLength: number, currentIndex: number): number => {
     if (currentIndex === arrayLength - 1 && step > 0) {
