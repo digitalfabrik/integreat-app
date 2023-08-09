@@ -33,7 +33,7 @@ describe('PoiFiltersModal', () => {
         setSelectedPoiCategory={setSelectedPoiCategory}
         currentlyOpenFilter={currentlyOpen}
         setCurrentlyOpenFilter={setCurrentlyOpenFilter}
-      />
+      />,
     )
 
   it('should set toggle open filter', () => {
