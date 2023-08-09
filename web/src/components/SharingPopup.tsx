@@ -84,12 +84,12 @@ const TooltipContainer = styled.div<{
       props.flow === 'horizontal' &&
       (props.direction === 'ltr'
         ? css`
-            left: -15px;
+            left: -14px;
             transform: rotate(-90deg);
             top: 45%;
           `
         : css`
-            right: -15px;
+            right: -14px;
             transform: rotate(90deg);
             top: 45%;
           `)};
@@ -125,12 +125,12 @@ const TooltipContainer = styled.div<{
       props.flow === 'horizontal' &&
       (props.direction === 'ltr'
         ? css`
-            left: -18px;
+            left: -17px;
             transform: rotate(-90deg) scaleX(-1);
             top: 45%;
           `
         : css`
-            right: -18px;
+            right: -17px;
             transform: rotate(90deg) scaleX(-1);
             top: 45%;
           `)};
@@ -179,6 +179,7 @@ const BackdropContainer = styled.div`
   top: 0;
   left: 0;
   position: fixed;
+  z-index: 1;
 `
 
 const SharingPopupContainer = styled.div`
@@ -192,49 +193,55 @@ const SharingPopup = ({ shareUrl, title, flow, direction }: SharingPopupProps): 
   const encodedShareUrl = encodeURIComponent(shareUrl)
   const shareMessage = t('layout:shareMessage')
 
+  const Backdrop = (
+    <BackdropContainer
+      onClick={() => setShareOptionsVisible(false)}
+      role='button'
+      tabIndex={0}
+      onKeyPress={() => setShareOptionsVisible(false)}
+    />
+  )
+
   return (
     <SharingPopupContainer>
       {shareOptionsVisible && (
-        <Portal className='sharing-popup-backdrop' show={shareOptionsVisible}>
-          <BackdropContainer
-            onClick={() => setShareOptionsVisible(false)}
-            role='button'
-            tabIndex={0}
-            onKeyPress={() => setShareOptionsVisible(false)}
-          />
-        </Portal>
-      )}
-      {shareOptionsVisible && (
-        <TooltipContainer flow={flow} active={shareOptionsVisible} direction={direction}>
-          <Tooltip text={t('whatsappTooltip')} flow='up'>
-            <Link
-              href={`https://api.whatsapp.com/send?text=${shareMessage}${encodedTitle}%0a${encodedShareUrl}`}
-              target='_blank'
-              aria-label={t('whatsappTooltip')}>
-              <Icon src={WhatsappIcon} direction={direction} alt='' />
-            </Link>
-          </Tooltip>
-          <Tooltip text={t('facebookTooltip')} flow='up'>
-            <Link
-              href={`http://www.facebook.com/sharer/sharer.php?u=${encodedShareUrl}&t${shareMessage}${encodedTitle}`}
-              target='_blank'
-              aria-label={t('facebookTooltip')}>
-              <Icon src={FacebookIcon} direction={direction} alt='' />
-            </Link>
-          </Tooltip>
-          <Tooltip text={t('mailTooltip')} flow='up'>
-            <Link
-              href={`mailto:?subject=${encodedTitle}&body=${shareMessage}${encodedShareUrl}`}
-              aria-label={t('mailTooltip')}>
-              <Icon src={MailSocialIcon} direction={direction} alt='' />
-            </Link>
-          </Tooltip>
-          <Tooltip text={t('closeTooltip')} flow='up'>
-            <CloseButton onClick={() => setShareOptionsVisible(false)} aria-label={t('mailTooltip')}>
-              <Icon src={CloseIcon} alt='' direction={direction} />
-            </CloseButton>
-          </Tooltip>
-        </TooltipContainer>
+        <>
+          {/* We need a backdrop for the current node where the clicked event lives and also for click areas that live outside of that node f.e. triggered inside bottomActionSheet that is a separate node */}
+          <Portal className='sharing-popup-backdrop-portal' show={shareOptionsVisible}>
+            {Backdrop}
+          </Portal>
+          {Backdrop}
+          <TooltipContainer flow={flow} active={shareOptionsVisible} direction={direction}>
+            <Tooltip text={t('whatsappTooltip')} flow='up'>
+              <Link
+                href={`https://api.whatsapp.com/send?text=${shareMessage}${encodedTitle}%0a${encodedShareUrl}`}
+                target='_blank'
+                aria-label={t('whatsappTooltip')}>
+                <Icon src={WhatsappIcon} direction={direction} alt='' />
+              </Link>
+            </Tooltip>
+            <Tooltip text={t('facebookTooltip')} flow='up'>
+              <Link
+                href={`http://www.facebook.com/sharer/sharer.php?u=${encodedShareUrl}&t${shareMessage}${encodedTitle}`}
+                target='_blank'
+                aria-label={t('facebookTooltip')}>
+                <Icon src={FacebookIcon} direction={direction} alt='' />
+              </Link>
+            </Tooltip>
+            <Tooltip text={t('mailTooltip')} flow='up'>
+              <Link
+                href={`mailto:?subject=${encodedTitle}&body=${shareMessage}${encodedShareUrl}`}
+                aria-label={t('mailTooltip')}>
+                <Icon src={MailSocialIcon} direction={direction} alt='' />
+              </Link>
+            </Tooltip>
+            <Tooltip text={t('closeTooltip')} flow='up'>
+              <CloseButton onClick={() => setShareOptionsVisible(false)} aria-label={t('mailTooltip')}>
+                <Icon src={CloseIcon} alt='' direction={direction} />
+              </CloseButton>
+            </Tooltip>
+          </TooltipContainer>
+        </>
       )}
       <ToolbarItem icon={ShareIcon} text={t('layout:share')} onClick={() => setShareOptionsVisible(true)} />
     </SharingPopupContainer>
