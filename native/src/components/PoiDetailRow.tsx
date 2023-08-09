@@ -1,22 +1,19 @@
 import React, { ReactElement } from 'react'
-import { Text } from 'react-native'
 import { SvgProps } from 'react-native-svg'
 import styled from 'styled-components/native'
 
 import useSnackbar from '../hooks/useSnackbar'
 import openExternalUrl from '../utils/openExternalUrl'
+import Text from './base/Text'
 
-const IconContainer = styled.View`
-  margin-right: 5px;
-`
-
-const StyledPressable = styled.Pressable`
+const Container = styled.TouchableOpacity`
   flex-direction: row;
-  padding-vertical: 3px;
+  padding: 2px 0;
 `
 
 const StyledText = styled(Text)`
   align-self: center;
+  padding: 0 8px;
 `
 
 type PoiDetailRowProps = {
@@ -29,12 +26,10 @@ type PoiDetailRowProps = {
 const PoiDetailRow = ({ externalUrl, text, accessibilityLabel, Icon }: PoiDetailRowProps): ReactElement => {
   const showSnackbar = useSnackbar()
   return (
-    <StyledPressable onPress={() => openExternalUrl(externalUrl, showSnackbar)}>
-      <IconContainer>
-        <Icon accessibilityLabel={accessibilityLabel} />
-      </IconContainer>
+    <Container onPress={() => openExternalUrl(externalUrl, showSnackbar)}>
+      <Icon accessibilityLabel={accessibilityLabel} />
       <StyledText>{text}</StyledText>
-    </StyledPressable>
+    </Container>
   )
 }
 

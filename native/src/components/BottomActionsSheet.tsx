@@ -24,7 +24,7 @@ type BottomActionsSheetProps = {
 }
 
 const StyledBottomSheet = styled(BottomSheet)<{ isFullscreen: boolean }>`
-  ${props => props.isFullscreen && `background-color: white;`}
+  ${props => props.isFullscreen && `background-color: ${props.theme.colors.backgroundColor};`}
 `
 
 const BottomActionsSheet = React.forwardRef(
