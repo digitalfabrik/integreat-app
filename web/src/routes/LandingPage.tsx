@@ -49,7 +49,7 @@ const LandingPage = ({ languageCode }: LandingPageProps): ReactElement => {
           <GeneralFooter language={languageCode} />
         </>
       }>
-      <Helmet pageTitle={pageTitle} metaDescription={metaDescription} />
+      <Helmet pageTitle={pageTitle} metaDescription={metaDescription} rootPage />
       <CitySelector cities={cities} language={languageCode} />
     </Layout>
   )

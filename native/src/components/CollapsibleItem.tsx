@@ -51,7 +51,7 @@ const renderHeaderContent = (headerContent: string | ReactElement): ReactElement
   return headerContent
 }
 
-const CollapsibleItem: React.FC<CollapsibleItemProps> = ({
+const CollapsibleItem = ({
   initExpanded,
   iconSize = DEFAULT_ICON_SIZE,
   children,
