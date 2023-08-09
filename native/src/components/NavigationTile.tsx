@@ -37,7 +37,7 @@ const TileTitle = styled.Text`
   font-size: 11px;
   margin-bottom: 5px;
 `
-const TileTouchable = styled(Pressable)<{ width: number }>`
+const StyledPressable = styled(Pressable)<{ width: number }>`
   padding: 10px 3px;
   width: ${props => props.width}px;
   align-items: center;
@@ -93,9 +93,9 @@ class NavigationTile extends React.Component<NavigationTileProps> {
   render(): ReactNode {
     const { tile, theme, width } = this.props
     return (
-      <TileTouchable theme={theme} onPress={tile.onTilePress} width={width}>
+      <StyledPressable theme={theme} onPress={tile.onTilePress} width={width}>
         {this.getTileContent()}
-      </TileTouchable>
+      </StyledPressable>
     )
   }
 }

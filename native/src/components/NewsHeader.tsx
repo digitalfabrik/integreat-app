@@ -9,7 +9,7 @@ import InactiveInternational from '../assets/tu-news-inactive.svg'
 import Caption from './Caption'
 import Pressable from './base/Pressable'
 
-const TouchableWrapper = styled(Pressable)`
+const StyledPressable = styled(Pressable)`
   margin: 0 10px 5px;
   align-items: center;
 `
@@ -52,14 +52,14 @@ const NewsHeader = ({ cityModel, selectedNewsType, selectNewsType }: NewsHeaderP
       <Caption title={t('news')} />
       {cityModel.localNewsEnabled && cityModel.tunewsEnabled && (
         <HeaderContainer>
-          <TouchableWrapper onPress={selectLocalNews} accessibilityRole='button' accessibilityLabel={t('local')}>
+          <StyledPressable onPress={selectLocalNews} accessibilityRole='button' accessibilityLabel={t('local')}>
             <LocalTabWrapper isSelected={selectedNewsType === LOCAL_NEWS_TYPE}>
               <LocalText>{t('local')}</LocalText>
             </LocalTabWrapper>
-          </TouchableWrapper>
-          <TouchableWrapper onPress={selectTuNews} accessibilityRole='button' accessibilityLabel='TüNews'>
+          </StyledPressable>
+          <StyledPressable onPress={selectTuNews} accessibilityRole='button' accessibilityLabel='TüNews'>
             {selectedNewsType === TU_NEWS_TYPE ? <ActiveInternational /> : <InactiveInternational />}
-          </TouchableWrapper>
+          </StyledPressable>
         </HeaderContainer>
       )}
     </>
