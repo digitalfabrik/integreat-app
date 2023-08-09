@@ -87,7 +87,9 @@ const OpeningHours = ({
         {openingHours.map((entry, index) => (
           <OpeningEntry
             key={`${weekdays[index]}-OpeningEntry`}
-            weekday={t(weekdays[index]?.toLowerCase() as string)}
+            // always supplied by Moment
+            // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+            weekday={t(weekdays[index]!.toLowerCase())}
             allDay={entry.allDay}
             closed={entry.closed}
             timeSlots={entry.timeSlots}

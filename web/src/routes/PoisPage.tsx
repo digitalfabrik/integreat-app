@@ -141,7 +141,8 @@ const PoisPage = ({ cityCode, languageCode, city, pathname }: CityRouteProps): R
 
   const changeSnapPoint = (snapPoint: number) => {
     if (viewportSmall) {
-      sheetRef.current?.snapTo(({ maxHeight }) => getSnapPoints(maxHeight)[snapPoint] as number)
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+      sheetRef.current?.snapTo(({ maxHeight }) => getSnapPoints(maxHeight)[snapPoint]!)
       setSnapPoint(snapPoint)
     }
   }

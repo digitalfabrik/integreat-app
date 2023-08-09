@@ -1,7 +1,6 @@
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Button } from 'react-native-elements'
-import { SvgProps } from 'react-native-svg'
 import styled, { useTheme } from 'styled-components/native'
 
 import buildConfig, { buildConfigAssets } from '../constants/buildConfig'
@@ -39,7 +38,9 @@ const CityNotCooperatingFooter = ({
   if (!buildConfig().featureFlags.cityNotCooperating) {
     return null
   }
-  const CityNotCooperatingIcon = buildConfigAssets().CityNotCooperatingIcon as React.JSXElementConstructor<SvgProps>
+  // This footer is only displayed in the Integreat configuration, and that has the CityNotCooperatingIcon
+  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+  const CityNotCooperatingIcon = buildConfigAssets().CityNotCooperatingIcon!
 
   return (
     <FooterContainer>

@@ -72,7 +72,9 @@ const BottomActionSheet = React.forwardRef(
         onSpringEnd={() => setBottomActionSheetHeight(ref?.current?.height)}
         header={title ? <Title>{title}</Title> : null}
         snapPoints={({ maxHeight }) => getSnapPoints(maxHeight)}
-        defaultSnap={({ snapPoints }) => snapPoints[1] as number}>
+        // snapPoints have been supplied in the previous line
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+        defaultSnap={({ snapPoints }) => snapPoints[1]!}>
         <ListContainer ref={listRef}>{children}</ListContainer>
         <StyledSpacer borderColor={theme.colors.borderColor} />
         <ToolbarContainer>{toolbar}</ToolbarContainer>

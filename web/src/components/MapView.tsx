@@ -125,7 +125,8 @@ const MapView = forwardRef((props: MapViewProps, ref: React.Ref<MapRef>): ReactE
         ref={ref}
         reuseMaps
         cursor={cursor}
-        interactiveLayerIds={[markerLayer(currentFeature).id as string]}
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+        interactiveLayerIds={[markerLayer(currentFeature).id!]}
         {...viewport}
         style={{
           height: '100%',

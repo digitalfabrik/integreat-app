@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
 import {
   CATEGORIES_ROUTE,
   DISCLAIMER_ROUTE,
@@ -88,7 +89,7 @@ class InternalPathnameParser {
         }
       }
     } else if (this._length > 0 && this._length <= 2 && this._parts[0] !== LANDING_ROUTE) {
-      const cityCode = this._parts[0] as string
+      const cityCode = this._parts[0]!
       // '/ansbach/de', '/ansbach'
       const cityContentPath = `/${cityCode}/${this.languageCode()}`
       return {
@@ -114,8 +115,8 @@ class InternalPathnameParser {
 
     // '/augsburg/de/<feature>' or '/augsburg/de/<feature>/id'
     return {
-      cityCode: this._parts[0] as string,
-      languageCode: this._parts[1] as string,
+      cityCode: this._parts[0]!,
+      languageCode: this._parts[1]!,
     }
   }
 
@@ -161,8 +162,8 @@ class InternalPathnameParser {
     const newsId = this._length > ENTITY_ID_INDEX + 1 ? this._parts[ENTITY_ID_INDEX + 1] : undefined
     return {
       route: NEWS_ROUTE,
-      cityCode: this._parts[0] as string,
-      languageCode: this._parts[1] as string,
+      cityCode: this._parts[0]!,
+      languageCode: this._parts[1]!,
       newsType,
       newsId,
     }
@@ -231,13 +232,13 @@ class InternalPathnameParser {
     if (
       this._length > 2 &&
       !([SEARCH_ROUTE, DISCLAIMER_ROUTE, POIS_ROUTE, EVENTS_ROUTE, OFFERS_ROUTE, NEWS_ROUTE] as string[]).includes(
-        this._parts[2] as string,
+        this._parts[2]!,
       )
     ) {
       return {
         route: CATEGORIES_ROUTE,
-        cityCode: this._parts[0] as string,
-        languageCode: this._parts[1] as string,
+        cityCode: this._parts[0]!,
+        languageCode: this._parts[1]!,
         cityContentPath: this._pathname,
       }
     }

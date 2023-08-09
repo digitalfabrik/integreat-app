@@ -25,7 +25,8 @@ type EventListItemProps = {
 
 const EventListItem = ({ formatter, language, event, navigateToEvent }: EventListItemProps): ReactElement => {
   const thumbnail =
-    event.thumbnail || (placeholderThumbnails[event.path.length % placeholderThumbnails.length] as number)
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    event.thumbnail || placeholderThumbnails[event.path.length % placeholderThumbnails.length]!
   const content = parseHTML(event.content)
 
   return (
