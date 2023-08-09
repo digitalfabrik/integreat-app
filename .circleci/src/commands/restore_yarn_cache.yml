@@ -4,6 +4,7 @@ steps:
       name: Restore Yarn Package Cache
       keys:
         - 8-yarn-{{ arch }}-{{ checksum "yarn.lock" }}-{{ checksum "package.json" }}-{{ checksum "native/package.json" }}-{{ checksum "web/package.json" }}
+        - 8-yarn-{{ arch }}-
   - run:
       name: Yarn
       command: yarn --frozen-lockfile --cache-folder ~/.cache/yarn
