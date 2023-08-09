@@ -1,0 +1,7 @@
+issue_key: IGAPP-1368
+show_in_stores: true
+platforms:
+  - android
+  - ios
+en: Fixed the positioning of contact icons of places.
+de: Die Positionierung der Icons für die Kontaktinformationen von Orten wurde verbessert.
