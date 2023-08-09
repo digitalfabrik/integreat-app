@@ -25,7 +25,7 @@ type BottomSheetHandlerProps = {
   title?: string
 }
 
-const BottomSheetHandler: React.FC<BottomSheetHandlerProps> = ({ title }: BottomSheetHandlerProps): ReactElement => (
+const BottomSheetHandler = ({ title }: BottomSheetHandlerProps): ReactElement => (
   <View>
     <Indicator />
     {!!title && (
