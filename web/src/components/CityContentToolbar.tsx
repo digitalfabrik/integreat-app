@@ -52,7 +52,6 @@ const CityContentToolbar = (props: CityContentToolbarProps) => {
       {children}
       <SharingPopup
         shareUrl={window.location.href}
-        route={route}
         flow={iconDirection === 'row' ? 'vertical' : 'horizontal'}
         direction={config.getScriptDirection(languageCode)}
         title={pageTitle}

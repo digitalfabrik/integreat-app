@@ -2,13 +2,9 @@ import React, { ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import styled, { css } from 'styled-components'
 
-import { getSlugFromPath, POIS_ROUTE } from 'api-client'
 import { UiDirectionType } from 'translations'
 
-import { CloseIcon, FacebookIcon, MailSocialIcon, ShareActiveIcon, ShareIcon, WhatsappIcon } from '../assets'
-import dimensions from '../constants/dimensions'
-import useWindowDimensions from '../hooks/useWindowDimensions'
-import { RouteType } from '../routes'
+import { CloseIcon, FacebookIcon, MailSocialIcon, ShareIcon, WhatsappIcon } from '../assets'
 import Portal from './Portal'
 import ToolbarItem from './ToolbarItem'
 import Tooltip from './Tooltip'
@@ -18,15 +14,12 @@ type SharingPopupProps = {
   title: string
   flow: 'vertical' | 'horizontal'
   direction: UiDirectionType
-  route: RouteType
 }
 
 const TooltipContainer = styled.div<{
   flow: 'vertical' | 'horizontal'
   active: boolean
   direction: UiDirectionType
-  additionalPadding: number
-  horizontalPosition?: number
 }>`
   background-color: ${props => props.theme.colors.backgroundColor};
   padding: 8px;
@@ -82,6 +75,7 @@ const TooltipContainer = styled.div<{
             transform: rotate(-180deg);
           `
         : css`
+            right: 11px;
             bottom: -8px;
             transform: translateX(-55%) rotate(180deg);
           `)};
@@ -122,6 +116,7 @@ const TooltipContainer = styled.div<{
             transform: rotate(-180deg);
           `
         : css`
+            right: 11px;
             bottom: -11px;
             transform: translateX(-45%) rotate(180deg);
           `)};
@@ -130,7 +125,7 @@ const TooltipContainer = styled.div<{
       props.flow === 'horizontal' &&
       (props.direction === 'ltr'
         ? css`
-            left: -17px;
+            left: -18px;
             transform: rotate(-90deg) scaleX(-1);
             top: 45%;
           `
@@ -181,7 +176,6 @@ const BackdropContainer = styled.div`
   background: transparent;
   width: 100%;
   height: 100%;
-  z-index: 500;
   top: 0;
   left: 0;
   position: fixed;
@@ -191,31 +185,27 @@ const SharingPopupContainer = styled.div`
   position: relative;
 `
 
-const SharingPopup = ({ shareUrl, title, flow, direction, route }: SharingPopupProps): ReactElement => {
+const SharingPopup = ({ shareUrl, title, flow, direction }: SharingPopupProps): ReactElement => {
   const { t } = useTranslation('socialMedia')
   const [shareOptionsVisible, setShareOptionsVisible] = useState<boolean>(false)
-  const { viewportSmall } = useWindowDimensions()
-  const isPoisDetailPage = route === POIS_ROUTE && getSlugFromPath(window.location.pathname) !== POIS_ROUTE
   const encodedTitle = encodeURIComponent(title)
   const encodedShareUrl = encodeURIComponent(shareUrl)
   const shareMessage = t('layout:shareMessage')
 
   return (
     <SharingPopupContainer>
-      <Portal className='sharing-popup-backdrop' show={shareOptionsVisible}>
-        <BackdropContainer
-          onClick={() => setShareOptionsVisible(false)}
-          role='button'
-          tabIndex={0}
-          onKeyPress={() => setShareOptionsVisible(false)}
-        />
-      </Portal>
       {shareOptionsVisible && (
-        <TooltipContainer
-          flow={flow}
-          active={shareOptionsVisible}
-          direction={direction}
-          additionalPadding={isPoisDetailPage && !viewportSmall ? dimensions.poiDetailNavigation : 0}>
+        <Portal className='sharing-popup-backdrop' show={shareOptionsVisible}>
+          <BackdropContainer
+            onClick={() => setShareOptionsVisible(false)}
+            role='button'
+            tabIndex={0}
+            onKeyPress={() => setShareOptionsVisible(false)}
+          />
+        </Portal>
+      )}
+      {shareOptionsVisible && (
+        <TooltipContainer flow={flow} active={shareOptionsVisible} direction={direction}>
           <Tooltip text={t('whatsappTooltip')} flow='up'>
             <Link
               href={`https://api.whatsapp.com/send?text=${shareMessage}${encodedTitle}%0a${encodedShareUrl}`}
@@ -246,11 +236,7 @@ const SharingPopup = ({ shareUrl, title, flow, direction, route }: SharingPopupP
           </Tooltip>
         </TooltipContainer>
       )}
-      <ToolbarItem
-        icon={shareOptionsVisible ? ShareActiveIcon : ShareIcon}
-        text={t('layout:share')}
-        onClick={() => setShareOptionsVisible(true)}
-      />
+      <ToolbarItem icon={ShareIcon} text={t('layout:share')} onClick={() => setShareOptionsVisible(true)} />
     </SharingPopupContainer>
   )
 }
