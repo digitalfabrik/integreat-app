@@ -7,7 +7,7 @@ import PoiModel from '../models/PoiModel'
 
 const availableLanguages = new Map([
   ['de', '/augsburg/de/locations/test'],
-  ['en', '/en/test'],
+  ['en', '/augsburg/en/locations/test-translated'],
 ])
 
 const pois = [
