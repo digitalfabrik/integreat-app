@@ -24,6 +24,8 @@ const TileButtonText = styled(Text)`
   font-size: 12px;
   color: ${props => props.theme.colors.textSecondaryColor};
   font-family: ${props => props.theme.fonts.native.decorativeFontRegular};
+  text-align: center;
+  width: 84px;
 `
 
 const OverlayButton = styled.TouchableOpacity`
@@ -95,7 +97,7 @@ const TextButton = ({ text, onPress, style, ...props }: TextButtonProps): ReactE
       return (
         <TileButton active={props.active} onPress={onPress} style={style}>
           {props.Icon}
-          <TileButtonText>{text}</TileButtonText>
+          <TileButtonText numberOfLines={1}>{text}</TileButtonText>
         </TileButton>
       )
 
