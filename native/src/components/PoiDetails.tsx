@@ -15,7 +15,6 @@ import OpeningHours from './OpeningHours'
 import Page from './Page'
 import PoiDetailRow from './PoiDetailRow'
 import SimpleImage from './SimpleImage'
-import Pressable from './base/Pressable'
 
 const Thumbnail = styled(SimpleImage)`
   flex: 1;
