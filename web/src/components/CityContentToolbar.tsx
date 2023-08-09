@@ -55,6 +55,7 @@ const CityContentToolbar = (props: CityContentToolbarProps) => {
         flow={iconDirection === 'row' ? 'vertical' : 'horizontal'}
         direction={config.getScriptDirection(languageCode)}
         title={pageTitle}
+        route={route}
       />
       <Tooltip text={t('common:copied')} flow='up' active={linkCopied} trigger='click'>
         <ToolbarItem icon={linkCopied ? DoneIcon : CopyIcon} text={t('copyUrl')} onClick={copyToClipboard} />
