@@ -33,8 +33,8 @@ type MapViewProps = {
   changeSnapPoint?: (snapPoint: number) => void
   languageCode: string
   children: ReactNode
-  viewport: MapViewViewport
-  setViewport: (mapViewport: MapViewViewport) => void
+  viewport?: MapViewViewport
+  setViewport: (mapViewport?: MapViewViewport) => void
 }
 
 type MapCursorType = 'grab' | 'auto' | 'pointer'
@@ -121,7 +121,7 @@ const MapView = ({
         ref={updateMapRef}
         reuseMaps
         cursor={cursor}
-        initialViewState={viewport}
+        initialViewState={viewport ?? undefined}
         interactiveLayerIds={[markerLayer(currentFeature).id!]}
         style={{
           height: '100%',
@@ -131,7 +131,7 @@ const MapView = ({
         onDragEnd={() => setCursor('auto')}
         onMouseEnter={() => setCursor('pointer')}
         onMouseLeave={() => setCursor('auto')}
-        maxZoom={viewport.maxZoom}
+        maxZoom={viewport?.maxZoom}
         mapStyle={mapConfig.styleJSON}
         onClick={onSelectFeature}
         onTouchMove={() => (changeSnapPoint ? changeSnapPoint(0) : null)}

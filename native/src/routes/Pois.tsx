@@ -98,7 +98,6 @@ const Pois = ({ pois: allPois, language, cityModel, route, navigation }: PoisPro
     setPoiCurrentlyOpenFilter(poiCurrentlyOpenFilter)
   }
 
-
   const currentFeatureOnMap = useMemo(
     () =>
       multipoi
@@ -119,19 +118,23 @@ const Pois = ({ pois: allPois, language, cityModel, route, navigation }: PoisPro
     }, RESTORE_TIMEOUT)
   }
 
+  const deselectAll = () => {
+    navigation.setParams({ slug: undefined, multipoi: undefined })
+    scrollTo(listScrollPosition)
+  }
+
   const deselectFeature = () => {
     if (multipoi && currentPoi) {
       navigation.setParams({ slug: undefined })
     } else {
-      navigation.setParams({ slug: undefined, multipoi: undefined })
-      scrollTo(listScrollPosition)
+      deselectAll()
     }
   }
   useOnBackNavigation(slug || multipoi ? deselectFeature : undefined)
 
   const selectFeatureOnMap = (feature: MapFeature | null) => {
     if (!feature) {
-      deselectFeature()
+      deselectAll()
       return
     }
     setFollowUserLocation(false)

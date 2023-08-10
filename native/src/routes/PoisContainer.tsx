@@ -18,7 +18,7 @@ type PoisContainerProps = {
 }
 
 const PoisContainer = ({ navigation, route }: PoisContainerProps): ReactElement => {
-  const { slug } = route.params
+  const { slug, multipoi } = route.params
   const { cityCode, languageCode } = useCityAppContext()
 
   const { data, ...response } = useLoadCityContent({ cityCode, languageCode })
@@ -32,6 +32,7 @@ const PoisContainer = ({ navigation, route }: PoisContainerProps): ReactElement 
     languageCode,
     cityCode,
     slug,
+    multipoi,
   })
   useHeader({ navigation, route, availableLanguages, data, shareUrl })
   useSetRouteTitle({ navigation, title: currentPoi?.title })
