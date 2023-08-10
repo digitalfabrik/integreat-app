@@ -96,7 +96,7 @@ export { SPRUNGBRETT_OFFER } from './endpoints/createSprungbrettJobsEndpoint'
 export { default as useLoadFromEndpoint, loadFromEndpoint } from './endpoints/hooks/useLoadFromEndpoint'
 export { default as useLoadAsync, loadAsync } from './endpoints/hooks/useLoadAsync'
 export { default as parseHTML } from './utils/parseHTML'
-export { embedInCollection } from './utils/geoJson'
+export { embedInCollection, sortPoiFeatures } from './utils/geoJson'
 export { prepareFeatureLocations, prepareFeatureLocation } from './utils/geoJson'
 
 export { default as CategoriesMapModel } from './models/CategoriesMapModel'
