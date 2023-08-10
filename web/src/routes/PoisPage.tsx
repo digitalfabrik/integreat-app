@@ -55,7 +55,7 @@ const PoisPage = ({ cityCode, languageCode, city, pathname }: CityRouteProps): R
   const { data, error: featureLocationsError, loading } = useFeatureLocations(cityCode, languageCode, userLocation)
   const currentPoi = useMemo(() => data?.pois.find(poi => slug === poi.slug) ?? null, [data?.pois, slug])
   // keep the old mapViewport when changing the viewport
-  const [mapViewport, setMapViewport] = useState<MapViewViewport | undefined>()
+  const [mapViewport, setMapViewport] = useState<MapViewViewport>()
   const { viewportSmall } = useWindowDimensions()
   useEffect(() => {
     getUserLocation().then(userLocation =>
@@ -64,7 +64,8 @@ const PoisPage = ({ cityCode, languageCode, city, pathname }: CityRouteProps): R
   }, [])
 
   useEffect(
-    () => (city ? setMapViewport(moveViewToBBox(city.boundingBox!, defaultMercatorViewportConfig)) : undefined),
+    () =>
+      city?.boundingBox ? setMapViewport(moveViewToBBox(city.boundingBox, defaultMercatorViewportConfig)) : undefined,
     [city]
   )
 
