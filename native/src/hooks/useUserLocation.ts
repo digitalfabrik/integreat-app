@@ -12,20 +12,20 @@ const locationStateOnError = (error: GeolocationError): UnavailableLocationState
     return {
       status: 'unavailable',
       message: 'noPermission',
-      coordinates: null,
+      coordinates: undefined,
     }
   }
   if (error.code === error.POSITION_UNAVAILABLE) {
     return {
       status: 'unavailable',
       message: 'notAvailable',
-      coordinates: null,
+      coordinates: undefined,
     }
   }
   return {
     status: 'unavailable',
     message: 'timeout',
-    coordinates: null,
+    coordinates: undefined,
   }
 }
 
@@ -37,7 +37,7 @@ const useUserLocation = (useSettingsListener = false): LocationInformationType =
   const [locationState, setLocationState] = useState<LocationStateType>({
     status: 'loading',
     message: 'loading',
-    coordinates: null,
+    coordinates: undefined,
   })
 
   const determineLocation = useCallback(() => {
@@ -73,7 +73,7 @@ const useUserLocation = (useSettingsListener = false): LocationInformationType =
         setLocationState({
           status: 'unavailable',
           message: 'noPermission',
-          coordinates: null,
+          coordinates: undefined,
         })
       }
     })
@@ -93,7 +93,7 @@ const useUserLocation = (useSettingsListener = false): LocationInformationType =
       setLocationState({
         message: 'noPermission',
         status: 'unavailable',
-        coordinates: null,
+        coordinates: undefined,
       })
       if (locationPermissionStatus === RESULTS.BLOCKED) {
         await openSettings()
@@ -110,7 +110,7 @@ const useUserLocation = (useSettingsListener = false): LocationInformationType =
           setLocationState({
             status: 'unavailable',
             message: 'notAvailable',
-            coordinates: null,
+            coordinates: undefined,
           })
         }
       }

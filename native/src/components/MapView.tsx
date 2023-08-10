@@ -1,6 +1,6 @@
 import MapLibreGL, { CameraSettings, MapLibreGLEvent } from '@maplibre/maplibre-react-native'
 import type { BBox, Feature } from 'geojson'
-import React, { ReactElement, useCallback, useEffect, useRef } from 'react'
+import React, { ReactElement, useCallback, useLayoutEffect, useRef } from 'react'
 import { useWindowDimensions } from 'react-native'
 import { FAB } from 'react-native-elements'
 import { useTheme } from 'styled-components'
@@ -13,7 +13,6 @@ import {
   mapConfig,
   PoiFeature,
   PoiFeatureCollection,
-  closerDetailZoom,
   animationDuration,
 } from 'api-client'
 
@@ -50,7 +49,7 @@ type MapViewProps = {
   onRequestLocationPermission: () => Promise<void>
   locationPermissionGranted: boolean
   fabPosition: string | number
-  selectPoiFeature: (feature: PoiFeature | null) => void
+  selectFeature: (feature: PoiFeature | null) => void
   setSheetSnapPointIndex: (index: number) => void
   followUserLocation: boolean
   setFollowUserLocation: (value: boolean) => void
@@ -68,7 +67,7 @@ const MapView = ({
   fabPosition,
   onRequestLocationPermission,
   locationPermissionGranted,
-  selectPoiFeature,
+  selectFeature,
   setSheetSnapPointIndex,
   followUserLocation,
   setFollowUserLocation,
@@ -107,17 +106,17 @@ const MapView = ({
 
   // Wait for followUserLocation change before moving the camera to avoid position lock
   // https://github.com/rnmapbox/maps/issues/1079
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (!followUserLocation && selectedFeature && cameraRef.current) {
       cameraRef.current.setCamera({
         centerCoordinate: selectedFeature.geometry.coordinates,
-        zoomLevel: selectedFeature.properties.closeToOtherPoi ? closerDetailZoom : normalDetailZoom,
+        zoomLevel: normalDetailZoom,
         animationDuration,
         padding: { paddingBottom: deviceHeight * midSnapPointPercentage },
       })
     }
   }, [deviceHeight, followUserLocation, selectedFeature])
-
+  
   const locationPermissionGrantedIcon = followUserLocation ? 'my-location' : 'location-searching'
   const locationPermissionIcon = locationPermissionGranted ? locationPermissionGrantedIcon : 'location-disabled'
 
@@ -132,14 +131,8 @@ const MapView = ({
     )
 
     const feature = featureCollection?.features.find((it): it is PoiFeature => it.geometry.type === 'Point')
-
-    if (feature) {
-      selectPoiFeature(feature)
-      setSheetSnapPointIndex(1)
-    } else {
-      selectPoiFeature(null)
-      setSheetSnapPointIndex(1)
-    }
+    selectFeature(feature ?? null)
+    setSheetSnapPointIndex(1)
   }
 
   return (

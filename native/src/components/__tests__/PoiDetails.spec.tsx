@@ -40,9 +40,10 @@ describe('PoiDetails', () => {
 
   it('should render poi information', () => {
     const poi = pois[0]!
-    const feature = prepareFeatureLocation(poi, userLocation, [])!
+    const feature = prepareFeatureLocation([poi], 0, poi.location.coordinates, userLocation)!
+    const poiFeature = feature.properties.pois[0]!
 
-    const { getByText } = renderWithTheme(<PoiDetails poi={poi} feature={feature} language={language} />)
+    const { getByText } = renderWithTheme(<PoiDetails poi={poi} poiFeature={poiFeature} language={language} />)
 
     expect(getByText(poi.title)).toBeTruthy()
     expect(getByText(poi.category!.name!)).toBeTruthy()
@@ -60,19 +61,25 @@ describe('PoiDetails', () => {
 
   it('should not render distance if there is no user location', () => {
     const poi = pois[0]!
-    const feature = prepareFeatureLocation(poi, null, [])!
+    const feature = prepareFeatureLocation([poi], 0, poi.location.coordinates)!
+    const poiFeature = feature.properties.pois[0]!
 
-    const { queryByText } = renderWithTheme(<PoiDetails poi={poi} feature={feature} language={language} />)
+    const { queryByText } = renderWithTheme(<PoiDetails poi={poi} poiFeature={poiFeature} language={language} />)
 
     expect(queryByText('distanceKilometre', { exact: false })).toBeFalsy()
   })
 
   it('should not render contact information if there is none', () => {
     const poiWithoutContactInformation = pois[1]!
-    const feature = prepareFeatureLocation(poiWithoutContactInformation, null, [])!
+    const feature = prepareFeatureLocation(
+      [poiWithoutContactInformation],
+      0,
+      poiWithoutContactInformation.location.coordinates
+    )!
+    const poiFeature = feature.properties.pois[0]!
 
     const { queryByText } = renderWithTheme(
-      <PoiDetails poi={poiWithoutContactInformation} feature={feature} language={language} />
+      <PoiDetails poi={poiWithoutContactInformation} poiFeature={poiFeature} language={language} />
     )
 
     expect(queryByText('contactInformation')).toBeFalsy()
@@ -80,20 +87,22 @@ describe('PoiDetails', () => {
 
   it('should open external maps app on icon click', async () => {
     const poi = pois[0]!
-    const feature = prepareFeatureLocation(poi, userLocation, [])!
+    const feature = prepareFeatureLocation([poi], 0, poi.location.coordinates, userLocation)!
+    const poiFeature = feature.properties.pois[0]!
 
-    const { getByLabelText } = renderWithTheme(<PoiDetails poi={poi} feature={feature} language={language} />)
+    const { getByLabelText } = renderWithTheme(<PoiDetails poi={poi} poiFeature={poiFeature} language={language} />)
 
     fireEvent.press(getByLabelText('openExternalMaps'))
-    const externalMapsUrl = 'maps:29.979848,31.133859?q=Test Title, Test Address 1, 12345 Test Town'
+    const externalMapsUrl = 'maps:30,30?q=Test Title, Test Address 1, 12345 Test Town'
     await waitFor(() => expect(openExternalUrl).toHaveBeenCalledWith(externalMapsUrl, expect.any(Function)))
   })
 
   it('should copy address to clipboard', () => {
     const poi = pois[0]!
-    const feature = prepareFeatureLocation(poi, userLocation, [])!
+    const feature = prepareFeatureLocation([poi], 0, poi.location.coordinates, userLocation)!
+    const poiFeature = feature.properties.pois[0]!
 
-    const { getByText } = renderWithTheme(<PoiDetails poi={poi} feature={feature} language={language} />)
+    const { getByText } = renderWithTheme(<PoiDetails poi={poi} poiFeature={poiFeature} language={language} />)
 
     fireEvent.press(getByText(poi.location.address))
     expect(Clipboard.setString).toHaveBeenCalledWith('Test Address 1, 12345 Test Town')
