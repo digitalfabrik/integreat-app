@@ -1,9 +1,9 @@
 import React, { ReactElement } from 'react'
-import { TouchableOpacity } from 'react-native'
 import styled from 'styled-components/native'
 
 import TileModel from '../models/TileModel'
 import SimpleImage from './SimpleImage'
+import Pressable from './base/Pressable'
 
 type TileProps = {
   tile: TileModel
@@ -25,14 +25,14 @@ const TileContainer = styled.View`
 
 const Tile = ({ onTilePress, tile }: TileProps): ReactElement => (
   <TileContainer>
-    <TouchableOpacity onPress={() => onTilePress(tile)}>
+    <Pressable onPress={() => onTilePress(tile)}>
       {!tile.thumbnail || typeof tile.thumbnail === 'string' ? (
         <ThumbnailContainer source={tile.thumbnail} />
       ) : (
         <tile.thumbnail height={150} />
       )}
       <TileTitle android_hyphenationFrequency='full'>{tile.title}</TileTitle>
-    </TouchableOpacity>
+    </Pressable>
   </TileContainer>
 )
 
