@@ -26,8 +26,8 @@ export const prepareFeatureLocation = (
   properties: { pois: pois.map(poi => poi.getFeature(userLocation)) },
 })
 
-export const prepareFeatureLocations = (pois: Array<PoiModel>, userLocation?: LocationType): MapFeature[] => {
-  const clusterCoordinates = [] as Array<[number, number]>
+export const prepareFeatureLocations = (pois: PoiModel[], userLocation?: LocationType): MapFeature[] => {
+  const clusterCoordinates: [number, number][] = []
   const poiClusters = pois.reduce((prev, poi) => {
     const clusterIndex = clusterCoordinates.findIndex(
       coordinate => distance(coordinate, poi.location.coordinates) < maxDistanceForOverlap
@@ -38,7 +38,7 @@ export const prepareFeatureLocations = (pois: Array<PoiModel>, userLocation?: Lo
     }
     const newClusterIndex = clusterCoordinates.push(poi.location.coordinates)
     return { ...prev, [newClusterIndex - 1]: [poi] }
-  }, {} as Record<number, Array<PoiModel>>)
+  }, {} as { [clusterIndex: number]: PoiModel[] })
   const poiFeatures = Object.values(poiClusters).map((poiCluster, clusterCoordinateIndex) =>
     prepareFeatureLocation(
       poiCluster,
@@ -58,7 +58,7 @@ export const prepareFeatureLocations = (pois: Array<PoiModel>, userLocation?: Lo
 }
 
 export const sortMapFeatures = (geoJsonPois: GeoJsonPoi[]): GeoJsonPoi[] =>
-geoJsonPois[0]?.distance // if one feature has distance all features have distance
+  geoJsonPois[0]?.distance // if one feature has distance all features have distance
     ? geoJsonPois.sort(
         (geoJsonPoi1, geoJsonPoi2) => parseFloat(geoJsonPoi1.distance ?? '0') - parseFloat(geoJsonPoi2.distance ?? '0')
       )

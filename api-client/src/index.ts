@@ -21,6 +21,7 @@ export type ReturnType<T> = ImportedReturnType<T>
 export { default as InternalPathnameParser } from './routes/InternalPathnameParser'
 export * from './routes'
 export * from './routes/RouteInformationTypes'
+export * from './routes/query'
 export * from './routes/pathname'
 export * from './tracking'
 export * from './maps'

@@ -1,11 +1,11 @@
 import React, { ReactElement } from 'react'
+import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router-dom'
 import styled, { css, useTheme } from 'styled-components'
 
 import { GeoJsonPoi, getExternalMapsLink, PoiModel } from 'api-client/src'
 import { UiDirectionType } from 'translations'
 
-import { useTranslation } from 'react-i18next'
 import { EmailIcon, PhoneIcon, WebsiteIcon } from '../assets'
 import iconExternalLink from '../assets/IconExternalLink.svg'
 import iconMarker from '../assets/IconMarker.svg'

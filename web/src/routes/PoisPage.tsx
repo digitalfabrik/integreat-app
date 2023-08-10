@@ -55,15 +55,18 @@ const PoisPage = ({ cityCode, languageCode, city, pathname }: CityRouteProps): R
   const { data, error: featureLocationsError, loading } = useFeatureLocations(cityCode, languageCode, userLocation)
   const currentPoi = useMemo(() => data?.pois.find(poi => slug === poi.slug) ?? null, [data?.pois, slug])
   // keep the old mapViewport when changing the viewport
-  const [mapViewport, setMapViewport] = useState<MapViewViewport>(() =>
-    moveViewToBBox(city!.boundingBox!, defaultMercatorViewportConfig)
-  )
+  const [mapViewport, setMapViewport] = useState<MapViewViewport | undefined>()
   const { viewportSmall } = useWindowDimensions()
   useEffect(() => {
     getUserLocation().then(userLocation =>
       userLocation.status === 'ready' ? setUserLocation(userLocation.coordinates) : null
     )
   }, [])
+
+  useEffect(
+    () => (city ? setMapViewport(moveViewToBBox(city.boundingBox!, defaultMercatorViewportConfig)) : undefined),
+    [city]
+  )
 
   if (!city) {
     return null
@@ -85,8 +88,9 @@ const PoisPage = ({ cityCode, languageCode, city, pathname }: CityRouteProps): R
     }
   })
 
-
-  const toolbar = <CityContentToolbar feedbackTarget={currentPoi?.slug} route={POIS_ROUTE} iconDirection='row' hideDivider />
+  const toolbar = (
+    <CityContentToolbar feedbackTarget={currentPoi?.slug} route={POIS_ROUTE} iconDirection='row' hideDivider />
+  )
 
   const feedbackModal = isFeedbackModalOpen && (
     <FeedbackModal
