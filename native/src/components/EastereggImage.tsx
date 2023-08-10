@@ -1,6 +1,5 @@
 import moment, { Moment } from 'moment'
 import React, { ReactElement, ReactNode, useEffect, useState } from 'react'
-import { TouchableOpacity } from 'react-native'
 import { Button } from 'react-native-elements'
 import { useTheme } from 'styled-components'
 import styled from 'styled-components/native'
@@ -8,6 +7,7 @@ import styled from 'styled-components/native'
 import buildConfig, { buildConfigAssets } from '../constants/buildConfig'
 import appSettings from '../utils/AppSettings'
 import { log, reportError } from '../utils/sentry'
+import Pressable from './base/Pressable'
 
 const API_URL_OVERRIDE_MIN_CLICKS = 10
 const CLICK_TIMEOUT = 8
@@ -15,6 +15,10 @@ const CLICK_TIMEOUT = 8
 const ApiUrlText = styled.Text`
   padding-top: 10px;
   color: red;
+`
+
+const StyledPressable = styled(Pressable)`
+  opacity: 1;
 `
 
 type EastereggImageProps = {
@@ -87,9 +91,9 @@ const EastereggImage = ({ clearResourcesAndCache }: EastereggImageProps): ReactE
 
   return (
     <>
-      <TouchableOpacity activeOpacity={1} onPress={onImagePress}>
+      <StyledPressable onPress={onImagePress}>
         {LocationMarker && <LocationMarker height={70} width={100} />}
-      </TouchableOpacity>
+      </StyledPressable>
       {renderApiUrlText()}
     </>
   )
