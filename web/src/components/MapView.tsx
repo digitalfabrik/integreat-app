@@ -7,8 +7,8 @@ import styled, { useTheme } from 'styled-components'
 import {
   mapConfig,
   MapViewViewport,
-  PoiFeature,
-  PoiFeatureCollection,
+  MapFeature,
+  MapFeatureCollection,
   clusterRadius,
   closerDetailZoom,
 } from 'api-client'
@@ -27,9 +27,9 @@ const MapContainer = styled.div`
 `
 
 type MapViewProps = {
-  featureCollection: PoiFeatureCollection
-  currentFeature: PoiFeature | null
-  selectFeature: (feature: PoiFeature | null, restoreScrollPosition: boolean) => void
+  featureCollection: MapFeatureCollection
+  currentFeature: MapFeature | null
+  selectFeature: (feature: MapFeature | null, restoreScrollPosition: boolean) => void
   changeSnapPoint?: (snapPoint: number) => void
   languageCode: string
   children: ReactNode
@@ -67,7 +67,7 @@ const MapView = ({
     (event: MapLayerMouseEvent) => {
       // Stop propagation to children to prevent onClick select event as it is already handled
       event.originalEvent.stopPropagation()
-      const feature = event.features && (event.features[0] as unknown as PoiFeature)
+      const feature = event.features && (event.features[0] as unknown as MapFeature)
       if (feature) {
         selectFeature(
           {

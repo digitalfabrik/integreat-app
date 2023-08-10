@@ -11,8 +11,8 @@ import {
   defaultViewportConfig,
   normalDetailZoom,
   mapConfig,
-  PoiFeature,
-  PoiFeatureCollection,
+  MapFeature,
+  MapFeatureCollection,
   animationDuration,
 } from 'api-client'
 
@@ -44,12 +44,12 @@ const OverlayContainer = styled.View`
 
 type MapViewProps = {
   boundingBox: BBox
-  featureCollection: PoiFeatureCollection
-  selectedFeature: PoiFeature | null
+  featureCollection: MapFeatureCollection
+  selectedFeature: MapFeature | null
   onRequestLocationPermission: () => Promise<void>
   locationPermissionGranted: boolean
   fabPosition: string | number
-  selectPoiFeature: (feature: PoiFeature | null) => void
+  selectFeature: (feature: MapFeature | null) => void
   setSheetSnapPointIndex: (index: number) => void
   followUserLocation: boolean
   setFollowUserLocation: (value: boolean) => void
@@ -130,7 +130,7 @@ const MapView = ({
       [featureLayerId]
     )
 
-    const feature = featureCollection?.features.find((it): it is PoiFeature => it.geometry.type === 'Point')
+    const feature = featureCollection?.features.find((it): it is MapFeature => it.geometry.type === 'Point')
     selectFeature(feature ?? null)
     setSheetSnapPointIndex(1)
   }

@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router-dom'
 import styled, { css, useTheme } from 'styled-components'
 
-import { GeoJsonPoi, getExternalMapsLink, PoiModel } from 'api-client/src'
+import { MapPoi, getExternalMapsLink, PoiModel } from 'api-client/src'
 import { UiDirectionType } from 'translations'
 
 import { EmailIcon, PhoneIcon, WebsiteIcon } from '../assets'
@@ -146,7 +146,7 @@ const ToolbarWrapper = styled.div`
 `
 
 type PoiDetailsProps = {
-  feature: GeoJsonPoi
+  feature: MapPoi
   poi: PoiModel
   direction: UiDirectionType
   toolbar?: ReactElement

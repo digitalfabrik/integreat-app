@@ -2,7 +2,7 @@ import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
 
-import { GeoJsonPoi } from 'api-client'
+import { MapPoi } from 'api-client'
 
 import PoiPlaceholder from '../assets/PoiPlaceholderThumbnail.jpg'
 import dimensions from '../constants/dimensions'
@@ -78,8 +78,8 @@ const LinkContainer = styled.div`
 `
 
 type PoiListItemProps = {
-  poi: GeoJsonPoi
-  selectPoi: (feature: GeoJsonPoi | null, restoreScrollPosition: boolean) => void
+  poi: MapPoi
+  selectPoi: (feature: MapPoi | null, restoreScrollPosition: boolean) => void
 }
 
 const PoiListItem = ({ poi, selectPoi }: PoiListItemProps): ReactElement => {

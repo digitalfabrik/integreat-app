@@ -11,10 +11,10 @@ import {
   PoiModel,
   PoisRouteType,
   prepareFeatureLocations,
-  GeoJsonPoi,
-  PoiFeature,
+  MapPoi,
+  MapFeature,
   isMultipoi,
-  sortPoiFeatures,
+  sortMapPois,
   NotFoundError,
   fromError,
 } from 'api-client'
@@ -63,16 +63,16 @@ const Pois = ({ pois, language, cityModel, route, navigation }: PoisProps): Reac
   const [sheetSnapPointIndex, setSheetSnapPointIndex] = useState<number>(1)
   const [followUserLocation, setFollowUserLocation] = useState<boolean>(false)
   const [listScrollPosition, setListScrollPosition] = useState<number>(0)
-  const features = useMemo(() => prepareFeatureLocations(pois, coordinates), [pois, coordinates])
+  const mapFeatures = useMemo(() => prepareFeatureLocations(pois, coordinates), [pois, coordinates])
   const { t } = useTranslation('pois')
   const scrollRef = useRef<BottomSheetScrollViewMethods>(null)
 
   const currentFeatureOnMap = useMemo(
     () =>
       multipoi
-        ? features.find(feature => feature.id === multipoi)
-        : features.find(feature => feature.properties.pois.some(poi => poi.slug === slug)),
-    [features, multipoi, slug]
+        ? mapFeatures.find(feature => feature.id === multipoi)
+        : mapFeatures.find(feature => feature.properties.pois.some(poi => poi.slug === slug)),
+    [mapFeatures, multipoi, slug]
   )
   const currentPoi = useMemo(() => (slug ? pois.find(poi => slug === poi.slug) : undefined), [pois, slug])
 
@@ -87,20 +87,24 @@ const Pois = ({ pois, language, cityModel, route, navigation }: PoisProps): Reac
     }, RESTORE_TIMEOUT)
   }
 
+  const deselectAll = () => {
+    navigation.setParams({ slug: undefined, multipoi: undefined })
+    scrollTo(listScrollPosition)
+  }
+
   const deselectFeature = () => {
     if (multipoi && currentPoi) {
       navigation.setParams({ slug: undefined })
     } else {
-      navigation.setParams({ slug: undefined, multipoi: undefined })
-      scrollTo(listScrollPosition)    
+      deselectAll()
     }
   }
 
   useOnBackNavigation(slug || multipoi ? deselectFeature : undefined)
 
-  const selectFeatureOnMap = (feature: PoiFeature | null) => {
+  const selectFeatureOnMap = (feature: MapFeature | null) => {
     if (!feature) {
-      deselectFeature()
+      deselectAll()
       return
     }
     setFollowUserLocation(false)
@@ -114,17 +118,17 @@ const Pois = ({ pois, language, cityModel, route, navigation }: PoisProps): Reac
     }
   }
 
-  const selectPoiFeatureInList = (newPoiFeature: GeoJsonPoi | null) => {
-    if (!newPoiFeature) {
+  const selectPoiInList = (newMapPoi: MapPoi | null) => {
+    if (!newMapPoi) {
       return
     }
     setFollowUserLocation(false)
-    navigation.setParams({ slug: newPoiFeature.slug })
+    navigation.setParams({ slug: newMapPoi.slug })
     scrollTo(0)
   }
 
-  const renderPoiListItem = (poi: GeoJsonPoi): ReactElement => (
-    <PoiListItem key={poi.path} poi={poi} language={language} navigateToPoi={() => selectPoiFeatureInList(poi)} t={t} />
+  const renderPoiListItem = (mapPoi: MapPoi): ReactElement => (
+    <PoiListItem key={mapPoi.path} mapPoi={mapPoi} language={language} navigateToPoi={() => selectPoiInList(mapPoi)} t={t} />
   )
 
   const setScrollPosition = useCallback(
@@ -137,14 +141,14 @@ const Pois = ({ pois, language, cityModel, route, navigation }: PoisProps): Reac
   )
 
   const singlePoiContent = currentPoi && (
-    <PoiDetails language={language} poi={currentPoi} poiFeature={currentPoi.getFeature(coordinates)} />
+    <PoiDetails language={language} poi={currentPoi} mapPoi={currentPoi.getMapPoi(coordinates)} />
   )
   const failurePoiContent = !currentPoi && slug && (
     <Failure
       code={fromError(
         new NotFoundError({
           type: 'poi',
-          id: '',
+          id: slug,
           city: cityModel.code,
           language,
         })
@@ -154,15 +158,11 @@ const Pois = ({ pois, language, cityModel, route, navigation }: PoisProps): Reac
 
   const list = currentFeatureOnMap
     ? currentFeatureOnMap.properties.pois
-    : features.flatMap(feature => feature.properties.pois)
+    : mapFeatures.flatMap(feature => feature.properties.pois)
 
   const listPoiContent = (
     <ListWrapper>
-      {list.length === 0 ? (
-        <NoItemsMessage>{t('noPois')}</NoItemsMessage>
-      ) : (
-        sortPoiFeatures(list).map(renderPoiListItem)
-      )}
+      {list.length === 0 ? <NoItemsMessage>{t('noPois')}</NoItemsMessage> : sortMapPois(list).map(renderPoiListItem)}
     </ListWrapper>
   )
 
@@ -177,7 +177,7 @@ const Pois = ({ pois, language, cityModel, route, navigation }: PoisProps): Reac
         selectFeature={selectFeatureOnMap}
         boundingBox={cityModel.boundingBox}
         setSheetSnapPointIndex={setSheetSnapPointIndex}
-        featureCollection={embedInCollection(features)}
+        featureCollection={embedInCollection(mapFeatures)}
         selectedFeature={currentFeatureOnMap ?? null}
         locationPermissionGranted={!!coordinates}
         onRequestLocationPermission={requestAndDetermineLocation}

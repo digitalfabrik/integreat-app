@@ -5,7 +5,7 @@ import { useSearchParams } from 'react-router-dom'
 
 import {
   CityModelBuilder,
-  GeoJsonPoi,
+  MapPoi,
   LocationType,
   MapViewViewport,
   PoiModelBuilder,
@@ -47,7 +47,7 @@ describe('PoisDesktop', () => {
       />
     )
 
-  const expectPoiList = (queryByText: RenderResult['queryByText'], features: GeoJsonPoi[]) => {
+  const expectPoiList = (queryByText: RenderResult['queryByText'], features: MapPoi[]) => {
     poiFeatures.forEach(poiFeature => {
       if (features.includes(poiFeature)) {
         expect(queryByText(poiFeature.title)).toBeTruthy()
@@ -72,7 +72,7 @@ describe('PoisDesktop', () => {
     expect(queryByText(singlePoi.content)).toBeTruthy()
     expect(queryByText('pois:detailsHeader')).toBeTruthy()
     expect(queryByText('pois:listTitle')).toBeNull()
-    expect(queryByText('Toolbar')).toBeNull()
+    expect(queryByLabelText('Toolbar')).toBeNull()
     expect(queryByLabelText('previous location')).toBeTruthy()
     expect(queryByLabelText('next location')).toBeTruthy()
   })

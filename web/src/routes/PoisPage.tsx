@@ -59,13 +59,7 @@ const PoisPage = ({ cityCode, languageCode, city, pathname }: CityRouteProps): R
     city ? moveViewToBBox(city.boundingBox!, defaultMercatorViewportConfig) : null
   )
   const { viewportSmall } = useWindowDimensions()
-  const toolbar = useMemo(
-    () => (
-      <CityContentToolbar openFeedback={() => setIsFeedbackModalOpen(true)} iconDirection='row' hasDivider={false} />
-    ),
-    []
-  )
-  
+
   useEffect(() => {
     getUserLocation().then(userLocation =>
       userLocation.status === 'ready' ? setUserLocation(userLocation.coordinates) : null
@@ -80,18 +74,22 @@ const PoisPage = ({ cityCode, languageCode, city, pathname }: CityRouteProps): R
     log('To use geolocation in a development build you have to start the dev server with\n "yarn start --https"')
   }
 
-  const languageChangePaths = city.languages.map(({ code, name }) => ({
-    path: pathnameFromRouteInformation({
-      route: POIS_ROUTE,
-      cityCode,
-      languageCode: code,
-      slug,
-    }),
-    name,
-    code,
-  }))
 
+  const languageChangePaths = city.languages.map(({ code, name }) => {
+    const isCurrentLanguage = code === languageCode
+    const path = currentPoi
+      ? currentPoi.availableLanguages.get(code) || null
+      : pathnameFromRouteInformation({ route: POIS_ROUTE, cityCode, languageCode: code })
+    return {
+      path: isCurrentLanguage ? pathname : path,
+      name,
+      code,
+    }
+  })
 
+  const toolbar = (
+    <CityContentToolbar feedbackTarget={currentPoi?.slug} route={POIS_ROUTE} iconDirection='row' hideDivider />
+  )
 
   const feedbackModal = isFeedbackModalOpen && (
     <FeedbackModal
@@ -103,6 +101,14 @@ const PoisPage = ({ cityCode, languageCode, city, pathname }: CityRouteProps): R
     />
   )
 
+  const locationLayoutParams: Omit<CityContentLayoutProps, 'isLoading'> = {
+    city,
+    languageChangePaths,
+    route: POIS_ROUTE,
+    languageCode,
+    disableScrollingSafari: true,
+    showFooter: false,
+  }
 
   if (loading) {
     return (

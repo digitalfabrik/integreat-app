@@ -5,7 +5,7 @@ import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 import styled from 'styled-components/native'
 
-import { GeoJsonPoi, getExternalMapsLink, PoiModel } from 'api-client'
+import { MapPoi, PoiModel } from 'api-client'
 
 import Placeholder from '../assets/PoiPlaceholderLarge.jpg'
 import AddressInfo from './AddressInfo'
@@ -47,17 +47,16 @@ const StyledCategory = styled.Text`
 
 type PoiDetailsProps = {
   poi: PoiModel
-  poiFeature: GeoJsonPoi
+  mapPoi: MapPoi
   language: string
 }
 
-const PoiDetails = ({ poi, poiFeature, language }: PoiDetailsProps): ReactElement => {
+const PoiDetails = ({ poi, mapPoi, language }: PoiDetailsProps): ReactElement => {
   const { t } = useTranslation('pois')
 
   // TODO IGAPP-920: this has to be removed when we get proper images from CMS
-  const thumbnail = poiFeature.thumbnail?.replace('-150x150', '') ?? Placeholder
-  const { address, postcode, town } = poi.location
-  const distance = poiFeature.distance
+  const thumbnail = mapPoi.thumbnail?.replace('-150x150', '') ?? Placeholder
+  const distance = mapPoi.distance
   const { title, content, email, website, phoneNumber, openingHours, temporarilyClosed, isCurrentlyOpen, category } =
     poi
 

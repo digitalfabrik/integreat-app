@@ -6,17 +6,17 @@ import styled from 'styled-components'
 import {
   CityModel,
   embedInCollection,
-  GeoJsonPoi,
+  MapPoi,
   LocationType,
   MapViewViewport,
-  PoiFeature,
+  MapFeature,
   PoiModel,
-  sortPoiFeatures,
+  sortMapPois,
 } from 'api-client'
 import { UiDirectionType } from 'translations'
 
 import dimensions from '../constants/dimensions'
-import usePoiFeatures from '../hooks/useMapFeatures'
+import useMapFeatures from '../hooks/useMapFeatures'
 import CityContentFooter from './CityContentFooter'
 import GoBack from './GoBack'
 import List from './List'
@@ -29,6 +29,13 @@ const PanelContainer = styled.article`
   height: 100%;
   display: flex;
   flex-direction: column;
+`
+
+const ToolbarContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  background-color: ${props => props.theme.colors.backgroundAccentColor};
+  box-shadow: 1px 0 4px 0 rgba(0, 0, 0, 0.2);
 `
 
 const ListViewWrapper = styled.div<{ panelHeights: number; bottomBarHeight: number }>`
@@ -63,7 +70,7 @@ type PoisDesktopProps = {
   cityModel: CityModel
   pois: PoiModel[]
   userLocation: LocationType | undefined
-  features: PoiFeature[]
+  features: MapFeature[]
   languageCode: string
   slug: string | undefined
   mapViewport: MapViewViewport
@@ -96,24 +103,24 @@ const PoisDesktop = ({
   const { t } = useTranslation('pois')
   const [scrollOffset, setScrollOffset] = useState<number>(0)
   const listRef = useRef<HTMLDivElement>(null)
+  const { selectPoiInList, selectFeatureOnMap, currentFeatureOnMap, currentPoi, poiListFeatures } = useMapFeatures(
+    features,
+    pois,
+    slug
+  )
 
-  const selectPoiFeature = useCallback(
-    (poiFeature: GeoJsonPoi | null) => {
+  const selectPoi = useCallback(
+    (poiFeature: MapPoi | null) => {
       if (listRef.current && !currentPoi) {
         setScrollOffset(listRef.current.scrollTop)
       }
-      selectPoiFeatureInList(poiFeature)
+      selectPoiInList(poiFeature)
     },
-    [currentPoi, selectPoiFeatureInList]
+    [currentPoi, selectPoiInList]
   )
-  const renderPoiListItem = (poi: GeoJsonPoi) => <PoiListItem key={poi.path} poi={poi} selectPoi={selectPoiFeature} />
+  const renderPoiListItem = (poi: MapPoi) => <PoiListItem key={poi.path} poi={poi} selectPoi={selectPoi} />
   const poiList = (
-    <List
-      noItemsMessage={t('noPois')}
-      items={sortPoiFeatures(poiListFeatures)}
-      renderItem={renderPoiListItem}
-      borderless
-    />
+    <List noItemsMessage={t('noPois')} items={sortMapPois(poiListFeatures)} renderItem={renderPoiListItem} borderless />
   )
   const switchPoi = (step: 1 | -1) => {
     if (!currentPoi) {
@@ -122,7 +129,7 @@ const PoisDesktop = ({
     const currentPoiIndex = poiListFeatures.findIndex(poi => poi.slug === currentPoi.slug)
     const updatedIndex = nextPoiIndex(step, poiListFeatures.length, currentPoiIndex)
     const poiFeature = poiListFeatures[updatedIndex]
-    selectPoiFeatureInList(poiFeature ?? null)
+    selectPoiInList(poiFeature ?? null)
   }
 
   useEffect(() => {
@@ -149,7 +156,7 @@ const PoisDesktop = ({
           {currentPoi ? (
             <PoiDetails
               poi={currentPoi}
-              feature={currentPoi.getFeature(userLocation)}
+              feature={currentPoi.getMapPoi(userLocation)}
               direction={direction}
               toolbar={toolbar}
             />

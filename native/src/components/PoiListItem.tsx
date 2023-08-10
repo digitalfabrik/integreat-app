@@ -2,7 +2,7 @@ import React, { memo } from 'react'
 import { TFunction } from 'react-i18next'
 import styled from 'styled-components/native'
 
-import { GeoJsonPoi } from 'api-client'
+import { MapPoi } from 'api-client'
 
 import Placeholder from '../assets/PoiPlaceholderThumbnail.jpg'
 import { contentDirection } from '../constants/contentDirection'
@@ -48,7 +48,7 @@ const Title = styled.Text`
 `
 
 type PoiListItemProps = {
-  poi: GeoJsonPoi
+  mapPoi: MapPoi
   language: string
   navigateToPoi: () => void
   t: TFunction

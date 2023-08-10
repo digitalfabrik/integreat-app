@@ -1,9 +1,9 @@
 import distance from '@turf/distance'
 
 import { LocationType, PoiModel } from '../index'
-import { GeoJsonPoi, PoiFeature, PoiFeatureCollection } from '../maps'
+import { MapPoi, MapFeature, MapFeatureCollection } from '../maps'
 
-export const embedInCollection = (features: PoiFeature[]): PoiFeatureCollection => ({
+export const embedInCollection = (features: MapFeature[]): MapFeatureCollection => ({
   type: 'FeatureCollection',
   features,
 })
@@ -16,16 +16,17 @@ export const prepareFeatureLocation = (
   id: number,
   coordinates: [number, number],
   userLocation?: LocationType
+): MapFeature => ({
   type: 'Feature',
   id: id.toString(),
   geometry: {
     type: 'Point',
     coordinates,
   },
-  properties: { pois: pois.map(poi => poi.getFeature(userLocation)) },
+  properties: { pois: pois.map(poi => poi.getMapPoi(userLocation)) },
 })
 
-export const prepareFeatureLocations = (pois: Array<PoiModel>, userLocation?: LocationType): PoiFeature[] => {
+export const prepareFeatureLocations = (pois: Array<PoiModel>, userLocation?: LocationType): MapFeature[] => {
   const clusterCoordinates = [] as Array<[number, number]>
   const poiClusters = pois.reduce((prev, poi) => {
     const clusterIndex = clusterCoordinates.findIndex(
@@ -38,7 +39,7 @@ export const prepareFeatureLocations = (pois: Array<PoiModel>, userLocation?: Lo
     const newClusterIndex = clusterCoordinates.push(poi.location.coordinates)
     return { ...prev, [newClusterIndex - 1]: [poi] }
   }, {} as Record<number, Array<PoiModel>>)
-  const poiFeatures = Object.values(poiClusters).map((poiCluster, clusterCoordinateIndex) =>
+  return Object.values(poiClusters).map((poiCluster, clusterCoordinateIndex) =>
     prepareFeatureLocation(
       poiCluster,
       clusterCoordinateIndex,
@@ -48,9 +49,7 @@ export const prepareFeatureLocations = (pois: Array<PoiModel>, userLocation?: Lo
   )
 }
 
-export const sortPoiFeatures = (poiFeatures: GeoJsonPoi[]): GeoJsonPoi[] =>
-  poiFeatures[0]?.distance // if one feature has distance all features have distance
-    ? poiFeatures.sort(
-        (poiFeature1, poiFeature2) => parseFloat(poiFeature1.distance ?? '0') - parseFloat(poiFeature2.distance ?? '0')
-      )
-    : poiFeatures.sort((poiFeature1, poiFeature2) => poiFeature1.title.localeCompare(poiFeature2.title))
+export const sortMapPois = (mapPois: MapPoi[]): MapPoi[] =>
+  mapPois[0]?.distance // if one feature has distance all features have distance
+    ? mapPois.sort((mapPoi1, mapPoi2) => parseFloat(mapPoi1.distance ?? '0') - parseFloat(mapPoi2.distance ?? '0'))
+    : mapPois.sort((mapPoi1, mapPoi2) => mapPoi1.title.localeCompare(mapPoi2.title))

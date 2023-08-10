@@ -3,7 +3,7 @@ import { mocked } from 'jest-mock'
 import React from 'react'
 import { useSearchParams } from 'react-router-dom'
 
-import { GeoJsonPoi, LocationType, MapViewViewport, PoiModelBuilder, prepareFeatureLocations } from 'api-client'
+import { MapPoi, LocationType, MapViewViewport, PoiModelBuilder, prepareFeatureLocations } from 'api-client'
 
 import { renderWithRouterAndTheme } from '../../testing/render'
 import PoisMobile from '../PoisMobile'
@@ -36,7 +36,7 @@ describe('PoisMobile', () => {
       />
     )
 
-  const expectPoiList = (queryByText: RenderResult['queryByText'], features: GeoJsonPoi[]) => {
+  const expectPoiList = (queryByText: RenderResult['queryByText'], features: MapPoi[]) => {
     poiFeatures.forEach(poiFeature => {
       if (features.includes(poiFeature)) {
         expect(queryByText(poiFeature.title)).toBeTruthy()

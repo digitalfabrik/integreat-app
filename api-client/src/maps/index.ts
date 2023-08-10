@@ -21,7 +21,7 @@ export type MapViewMercatorViewport = MapViewViewport & {
  * Override existing GeoJsonProperties from types/geojson to be more precise
  */
 
-export type GeoJsonPoi = {
+export type MapPoi = {
   id: number
   title: string
   path: string
@@ -34,7 +34,7 @@ export type GeoJsonPoi = {
 }
 
 export type GeoJsonPoiProperties = {
-  pois: GeoJsonPoi[]
+  pois: MapPoi[]
 }
 
 export type MarkerConfig = {
@@ -73,9 +73,9 @@ export type UnavailableLocationState = {
 export type LocationStateType = SuccessfulLocationState | LoadingLocationState | UnavailableLocationState
 
 // aliases for Features and FeatureCollections using custom GeoJsonProperties and Point
-export type PoiFeature = Feature<Point, GeoJsonPoiProperties>
-export type PoiFeatureCollection = FeatureCollection<Point, GeoJsonPoiProperties>
-export const isMultipoi = (poiFeature: PoiFeature): boolean => poiFeature.properties.pois.length > 1
+export type MapFeature = Feature<Point, GeoJsonPoiProperties>
+export type MapFeatureCollection = FeatureCollection<Point, GeoJsonPoiProperties>
+export const isMultipoi = (poiFeature: MapFeature): boolean => poiFeature.properties.pois.length > 1
 
 export const mapConfig: MapConfigProps = {
   styleJSON: 'https://maps.tuerantuer.org/styles/integreat/style.json',

@@ -1,7 +1,7 @@
-import { PoiFeature, PoiFeatureCollection, LocationType } from '../../maps'
+import { MapFeature, MapFeatureCollection, LocationType } from '../../maps'
 import PoiModel from '../../models/PoiModel'
 import { PoiModelBuilder } from '../../testing'
-import { embedInCollection, prepareFeatureLocation, prepareFeatureLocations, sortPoiFeatures } from '../geoJson'
+import { embedInCollection, prepareFeatureLocation, prepareFeatureLocations, sortMapPois } from '../geoJson'
 
 describe('geoJson', () => {
   const pois = new PoiModelBuilder(3).build()
@@ -15,7 +15,7 @@ describe('geoJson', () => {
 
   const userLocation: LocationType = [longitude, latitude]
 
-  const geoJsonMarkerFeature = (id: number, ...pois: PoiModel[]): PoiFeature => ({
+  const geoJsonMarkerFeature = (id: number, ...pois: PoiModel[]): MapFeature => ({
     type: 'Feature',
     id: id.toString(),
     geometry: {
@@ -23,12 +23,12 @@ describe('geoJson', () => {
       coordinates: pois[0]!.location.coordinates,
     },
     properties: {
-      pois: pois.map(poi => poi.getFeature()),
+      pois: pois.map(poi => poi.getMapPoi()),
     },
   })
 
   describe('embedInCollection', () => {
-    const expectedGeoJsonFeatureCollection: PoiFeatureCollection = {
+    const expectedGeoJsonFeatureCollection: MapFeatureCollection = {
       features: [geoJsonMarkerFeature(0, poi1, poi3)],
       type: 'FeatureCollection',
     }
@@ -46,8 +46,8 @@ describe('geoJson', () => {
         ...geoJsonMarkerFeature(0, poi1, poi3),
         properties: {
           pois: [
-            { ...poi1.getFeature(userLocation), distance: '0.0' },
-            { ...poi3.getFeature(userLocation), distance: '0.0' },
+            { ...poi1.getMapPoi(userLocation), distance: '0.0' },
+            { ...poi3.getMapPoi(userLocation), distance: '0.0' },
           ],
         },
       })
@@ -59,21 +59,15 @@ describe('geoJson', () => {
   })
 
   describe('prepareFeatureLocations', () => {
-    it('should sort feature location by distance ascending', () => {
-      const poiFeature1 = prepareFeatureLocation([poi1], userLocation, 1, poi1.location.coordinates)
-      const poiFeature2 = prepareFeatureLocation([poi2], userLocation, 0, poi2.location.coordinates)
-      expect(prepareFeatureLocations([poi2, poi1], userLocation)).toEqual([poiFeature1, poiFeature2])
-    })
-
     it('should group close poiFeatures into single features', () => {
       expect(prepareFeatureLocations([poi1, poi2, poi3])).toEqual([
         geoJsonMarkerFeature(0, poi1, poi3),
-        geoJsonMarkerFeature(1, poi2)
-    ])
+        geoJsonMarkerFeature(1, poi2),
+      ])
     })
   })
 
-  describe('sortPoiFeatures', () => {
+  describe('sortMapPois', () => {
     it('should sort features by distance ascending', () => {
       const features = prepareFeatureLocations([poi1, poi2, poi3], userLocation)
       const poiFeatures = features.flatMap(feature => feature.properties.pois)
@@ -81,7 +75,7 @@ describe('geoJson', () => {
       const poiFeature2 = poiFeatures[2]!
       const poiFeature3 = poiFeatures[1]!
 
-      expect(sortPoiFeatures([poiFeature2, poiFeature1, poiFeature3])).toEqual([poiFeature1, poiFeature3, poiFeature2])
+      expect(sortMapPois([poiFeature2, poiFeature1, poiFeature3])).toEqual([poiFeature1, poiFeature3, poiFeature2])
     })
 
     it('should sort features by name if no userlocation ascending', () => {
@@ -90,7 +84,7 @@ describe('geoJson', () => {
       const poiFeature1 = poiFeatures[0]! // Test Title
       const poiFeature2 = poiFeatures[2]! // name 2
       const poiFeature3 = poiFeatures[1]! // another name
-      expect(sortPoiFeatures([poiFeature2, poiFeature1, poiFeature3])).toEqual([poiFeature3, poiFeature2, poiFeature1])
+      expect(sortMapPois([poiFeature2, poiFeature1, poiFeature3])).toEqual([poiFeature3, poiFeature2, poiFeature1])
     })
   })
 })
