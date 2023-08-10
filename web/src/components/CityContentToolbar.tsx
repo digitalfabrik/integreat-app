@@ -1,6 +1,7 @@
 import React, { memo, ReactNode, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
+import { POIS_ROUTE } from 'api-client/src'
 import { config } from 'translations/src'
 
 import { CopyIcon, DoneIcon } from '../assets'
@@ -55,7 +56,7 @@ const CityContentToolbar = (props: CityContentToolbarProps) => {
         flow={iconDirection === 'row' ? 'vertical' : 'horizontal'}
         direction={config.getScriptDirection(languageCode)}
         title={pageTitle}
-        route={route}
+        isWithinPortal={route === POIS_ROUTE && viewportSmall}
       />
       <Tooltip text={t('common:copied')} flow='up' active={linkCopied} trigger='click'>
         <ToolbarItem icon={linkCopied ? DoneIcon : CopyIcon} text={t('copyUrl')} onClick={copyToClipboard} />
