@@ -28,7 +28,7 @@ describe('PoisDesktop', () => {
   const pois = new PoiModelBuilder(3).build()
   const userLocation: LocationType = [10.994217, 48.415402]
   const features = prepareFeatureLocations(pois, userLocation)
-  const poiFeatures = features.flatMap(feature => feature.properties.pois)
+  const geoJsonPois = features.flatMap(feature => feature.properties.pois)
 
   const renderPoisDesktop = (slug?: string) =>
     renderWithRouterAndTheme(
@@ -48,7 +48,7 @@ describe('PoisDesktop', () => {
     )
 
   const expectPoiList = (queryByText: RenderResult['queryByText'], features: GeoJsonPoi[]) => {
-    poiFeatures.forEach(poiFeature => {
+    geoJsonPois.forEach(poiFeature => {
       if (features.includes(poiFeature)) {
         expect(queryByText(poiFeature.title)).toBeTruthy()
       } else {
@@ -60,19 +60,19 @@ describe('PoisDesktop', () => {
 
   it('should list detail information about the current feature and the poi if feature and poi provided', async () => {
     const singlePoi = pois[1]!
-    const singlePoiFeature = poiFeatures.find(poiFeature => poiFeature.title === singlePoi.location.name)!
+    const singleGeoJsonPoi = geoJsonPois.find(poiFeature => poiFeature.title === singlePoi.location.name)!
     mocked(useSearchParams).mockReturnValue([new URLSearchParams([]), jest.fn()])
 
     const { queryByText, queryByLabelText } = renderPoisDesktop(singlePoi.slug)
 
-    expect(queryByText(singlePoiFeature.title)).toBeTruthy()
-    expect(queryByText(singlePoiFeature.category!)).toBeTruthy()
+    expect(queryByText(singleGeoJsonPoi.title)).toBeTruthy()
+    expect(queryByText(singleGeoJsonPoi.category!)).toBeTruthy()
     expect(queryByText('pois:distanceKilometre')).toBeTruthy()
     expect(queryByText(singlePoi.location.address!)).toBeTruthy()
     expect(queryByText(singlePoi.content)).toBeTruthy()
     expect(queryByText('pois:detailsHeader')).toBeTruthy()
     expect(queryByText('pois:listTitle')).toBeNull()
-    expect(queryByText('Toolbar')).toBeNull()
+    expect(queryByLabelText('Toolbar')).toBeNull()
     expect(queryByLabelText('previous location')).toBeTruthy()
     expect(queryByLabelText('next location')).toBeTruthy()
   })
@@ -95,6 +95,6 @@ describe('PoisDesktop', () => {
     const { queryByText } = renderPoisDesktop()
 
     expect(queryByText('pois:listTitle')).toBeTruthy()
-    expectPoiList(queryByText, poiFeatures)
+    expectPoiList(queryByText, geoJsonPois)
   })
 })

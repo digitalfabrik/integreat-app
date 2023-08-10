@@ -1,9 +1,9 @@
 import distance from '@turf/distance'
 
 import { LocationType, PoiModel } from '../index'
-import { GeoJsonPoi, PoiFeature, PoiFeatureCollection } from '../maps'
+import { GeoJsonPoi, MapFeature, MapFeatureCollection } from '../maps'
 
-export const embedInCollection = (features: PoiFeature[]): PoiFeatureCollection => ({
+export const embedInCollection = (features: MapFeature[]): MapFeatureCollection => ({
   type: 'FeatureCollection',
   features,
 })
@@ -16,7 +16,7 @@ export const prepareFeatureLocation = (
   id: number,
   coordinates: [number, number],
   userLocation?: LocationType
-): PoiFeature => ({
+): MapFeature => ({
   type: 'Feature',
   id: id.toString(),
   geometry: {
@@ -26,7 +26,7 @@ export const prepareFeatureLocation = (
   properties: { pois: pois.map(poi => poi.getFeature(userLocation)) },
 })
 
-export const prepareFeatureLocations = (pois: Array<PoiModel>, userLocation?: LocationType): PoiFeature[] => {
+export const prepareFeatureLocations = (pois: Array<PoiModel>, userLocation?: LocationType): MapFeature[] => {
   const clusterCoordinates = [] as Array<[number, number]>
   const poiClusters = pois.reduce((prev, poi) => {
     const clusterIndex = clusterCoordinates.findIndex(
@@ -57,9 +57,9 @@ export const prepareFeatureLocations = (pois: Array<PoiModel>, userLocation?: Lo
   return poiFeatures
 }
 
-export const sortPoiFeatures = (poiFeatures: GeoJsonPoi[]): GeoJsonPoi[] =>
-  poiFeatures[0]?.distance // if one feature has distance all features have distance
-    ? poiFeatures.sort(
-        (poiFeature1, poiFeature2) => parseFloat(poiFeature1.distance ?? '0') - parseFloat(poiFeature2.distance ?? '0')
+export const sortMapFeatures = (geoJsonPois: GeoJsonPoi[]): GeoJsonPoi[] =>
+geoJsonPois[0]?.distance // if one feature has distance all features have distance
+    ? geoJsonPois.sort(
+        (geoJsonPoi1, geoJsonPoi2) => parseFloat(geoJsonPoi1.distance ?? '0') - parseFloat(geoJsonPoi2.distance ?? '0')
       )
-    : poiFeatures.sort((poiFeature1, poiFeature2) => poiFeature1.title.localeCompare(poiFeature2.title))
+    : geoJsonPois.sort((geoJsonPoi1, geoJsonPoi2) => geoJsonPoi1.title.localeCompare(geoJsonPoi2.title))

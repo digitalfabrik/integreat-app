@@ -3,7 +3,7 @@ import { useCallback } from 'react'
 import {
   createPOIsEndpoint,
   LocationType,
-  PoiFeature,
+  MapFeature,
   PoiModel,
   prepareFeatureLocations,
   ReturnType,
@@ -12,7 +12,7 @@ import {
 
 import { cmsApiBaseUrl } from '../constants/urls'
 
-type FeatureLocationsType = { features: PoiFeature[]; pois: PoiModel[] }
+type FeatureLocationsType = { features: MapFeature[]; pois: PoiModel[] }
 
 const useFeatureLocations = (
   cityCode: string,

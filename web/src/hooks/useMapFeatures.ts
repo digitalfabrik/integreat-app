@@ -1,22 +1,22 @@
 import { useCallback, useEffect, useMemo } from 'react'
 import { useNavigate, useSearchParams } from 'react-router-dom'
 
-import { GeoJsonPoi, isMultipoi, PoiFeature, PoiModel } from 'api-client'
+import { GeoJsonPoi, isMultipoi, MapFeature, PoiModel } from 'api-client'
 
 const multipoiKey = 'multipoi'
 
-const usePoiFeatures = (
-  features: PoiFeature[],
+const useMapFeatures = (
+  features: MapFeature[],
   pois: PoiModel[],
   slug?: string
 ): {
-  selectFeatureOnMap: (newFeatureOnMap: PoiFeature | null) => void
-  selectPoiFeatureInList: (newPoiFeature: GeoJsonPoi | null) => void
-  currentFeatureOnMap: PoiFeature | null
+  selectFeatureOnMap: (newFeatureOnMap: MapFeature | null) => void
+  selectGeoJsonPoiInList: (newGeoJsonPoi: GeoJsonPoi | null) => void
+  currentFeatureOnMap: MapFeature | null
   currentPoi: PoiModel | null
   poiListFeatures: GeoJsonPoi[]
 } => {
-  const poiFeatures = useMemo(() => features.flatMap(feature => feature.properties.pois), [features])
+  const geoJsonPois = useMemo(() => features.flatMap(feature => feature.properties.pois), [features])
   const currentPoi = useMemo(() => pois.find(poi => slug === poi.slug) ?? null, [pois, slug])
   const [searchParams, setSearchParams] = useSearchParams()
   const navigate = useNavigate()
@@ -38,40 +38,40 @@ const usePoiFeatures = (
   }, [currentFeatureOnMap?.properties.pois, currentPoi, setSearchParams])
 
   const selectFeatureOnMap = useCallback(
-    (newFeatureOnMap: PoiFeature | null) => {
+    (newFeatureOnMap: MapFeature | null) => {
       if (!newFeatureOnMap) {
         navigate('.')
       } else if (isMultipoi(newFeatureOnMap)) {
         navigate(`.?${new URLSearchParams([[multipoiKey, newFeatureOnMap.id as string]])}`)
       } else {
-        const newPoiFeature = newFeatureOnMap.properties.pois[0]
-        if (newPoiFeature && currentFeatureOnMap?.properties.pois.includes(newPoiFeature)) {
-          navigate(`${newPoiFeature.slug}?${searchParams}`)
-        } else if (newPoiFeature) {
-          navigate(newPoiFeature.slug)
+        const newGeoJsonPoi = newFeatureOnMap.properties.pois[0]
+        if (newGeoJsonPoi && currentFeatureOnMap?.properties.pois.includes(newGeoJsonPoi)) {
+          navigate(`${newGeoJsonPoi.slug}?${searchParams}`)
+        } else if (newGeoJsonPoi) {
+          navigate(newGeoJsonPoi.slug)
         }
       }
     },
     [currentFeatureOnMap?.properties.pois, navigate, searchParams]
   )
 
-  const selectPoiFeatureInList = useCallback(
-    (newPoiFeature: GeoJsonPoi | null) => {
-      if (!newPoiFeature) {
+  const selectGeoJsonPoiInList = useCallback(
+    (newGeoJsonPoi: GeoJsonPoi | null) => {
+      if (!newGeoJsonPoi) {
         if (currentFeatureOnMap && isMultipoi(currentFeatureOnMap) && currentPoi) {
           navigate(`.?${searchParams}`)
         } else {
           navigate('.')
         }
       } else {
-        navigate(`${newPoiFeature.slug}?${searchParams}`)
+        navigate(`${newGeoJsonPoi.slug}?${searchParams}`)
       }
     },
     [currentFeatureOnMap, currentPoi, navigate, searchParams]
   )
 
-  const poiListFeatures = currentFeatureOnMap && !currentPoi ? currentFeatureOnMap.properties.pois : poiFeatures
-  return { selectFeatureOnMap, selectPoiFeatureInList, currentFeatureOnMap, currentPoi, poiListFeatures }
+  const poiListFeatures = currentFeatureOnMap && !currentPoi ? currentFeatureOnMap.properties.pois : geoJsonPois
+  return { selectFeatureOnMap, selectGeoJsonPoiInList, currentFeatureOnMap, currentPoi, poiListFeatures }
 }
 
-export default usePoiFeatures
+export default useMapFeatures

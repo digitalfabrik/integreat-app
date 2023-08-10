@@ -3,7 +3,7 @@ import moment, { Moment } from 'moment'
 // Fix for minifying js issue with hermes using moment().locale https://github.com/moment/moment/issues/5789
 import 'moment/locale/de'
 
-import { GeoJsonPoi, LocationType, mapMarker } from '../maps'
+import { GeoJsonPoi, LocationType } from '../maps'
 import ExtendedPageModel from './ExtendedPageModel'
 import LocationModel from './LocationModel'
 import OpeningHoursModel from './OpeningHoursModel'
@@ -96,7 +96,7 @@ class PoiModel extends ExtendedPageModel {
 
     return {
       title: name,
-      category: this.category?.name,
+      category: this.category.name,
       id,
       symbol: this.getMarkerSymbol(),
       thumbnail: this.thumbnail,

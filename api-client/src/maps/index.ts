@@ -73,9 +73,9 @@ export type UnavailableLocationState = {
 export type LocationStateType = SuccessfulLocationState | LoadingLocationState | UnavailableLocationState
 
 // aliases for Features and FeatureCollections using custom GeoJsonProperties and Point
-export type PoiFeature = Feature<Point, GeoJsonPoiProperties>
-export type PoiFeatureCollection = FeatureCollection<Point, GeoJsonPoiProperties>
-export const isMultipoi = (poiFeature: PoiFeature): boolean => poiFeature.properties.pois.length > 1
+export type MapFeature = Feature<Point, GeoJsonPoiProperties>
+export type MapFeatureCollection = FeatureCollection<Point, GeoJsonPoiProperties>
+export const isMultipoi = (poiFeature: MapFeature): boolean => poiFeature.properties.pois.length > 1
 
 export const mapConfig: MapConfigProps = {
   styleJSON: 'https://maps.tuerantuer.org/styles/integreat/style.json',

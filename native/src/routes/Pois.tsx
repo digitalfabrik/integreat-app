@@ -10,13 +10,12 @@ import {
   embedInCollection,
   ErrorCode,
   PoiModel,
-  POIS_ROUTE,
   PoisRouteType,
   prepareFeatureLocations,
   GeoJsonPoi,
-  PoiFeature,
+  MapFeature,
   isMultipoi,
-  sortPoiFeatures,
+  sortMapFeatures,
   NotFoundError,
   fromError,
   PoiCategoryModel,
@@ -130,7 +129,7 @@ const Pois = ({ pois: allPois, language, cityModel, route, navigation }: PoisPro
   }
   useOnBackNavigation(slug || multipoi ? deselectFeature : undefined)
 
-  const selectFeatureOnMap = (feature: PoiFeature | null) => {
+  const selectFeatureOnMap = (feature: MapFeature | null) => {
     if (!feature) {
       deselectFeature()
       return
@@ -146,17 +145,17 @@ const Pois = ({ pois: allPois, language, cityModel, route, navigation }: PoisPro
     }
   }
 
-  const selectPoiFeatureInList = (newPoiFeature: GeoJsonPoi | null) => {
-    if (!newPoiFeature) {
+  const selectGeoJsonPoiInList = (newGeoJsonPoi: GeoJsonPoi | null) => {
+    if (!newGeoJsonPoi) {
       return
     }
     setFollowUserLocation(false)
-    navigation.setParams({ slug: newPoiFeature.slug })
+    navigation.setParams({ slug: newGeoJsonPoi.slug })
     scrollTo(0)
   }
 
   const renderPoiListItem = (poi: GeoJsonPoi): ReactElement => (
-    <PoiListItem key={poi.path} poi={poi} language={language} navigateToPoi={() => selectPoiFeatureInList(poi)} t={t} />
+    <PoiListItem key={poi.path} poi={poi} language={language} navigateToPoi={() => selectGeoJsonPoiInList(poi)} t={t} />
   )
 
   const setScrollPosition = useCallback(
@@ -193,7 +192,7 @@ const Pois = ({ pois: allPois, language, cityModel, route, navigation }: PoisPro
       {list.length === 0 ? (
         <NoItemsMessage>{t('noPois')}</NoItemsMessage>
       ) : (
-        sortPoiFeatures(list).map(renderPoiListItem)
+        sortMapFeatures(list).map(renderPoiListItem)
       )}
     </ListWrapper>
   )
