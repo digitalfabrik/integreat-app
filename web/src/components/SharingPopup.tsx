@@ -4,7 +4,7 @@ import styled, { css } from 'styled-components'
 
 import { UiDirectionType } from 'translations'
 
-import { CloseSocialIcon, FacebookIcon, MailSocialIcon, ShareIcon, WhatsappIcon } from '../assets'
+import { CloseSharingIcon, FacebookIcon, MailSocialIcon, ShareIcon, WhatsappIcon } from '../assets'
 import Portal from './Portal'
 import ToolbarItem from './ToolbarItem'
 import Tooltip from './Tooltip'
@@ -243,7 +243,7 @@ const SharingPopup = ({ shareUrl, title, flow, direction, isWithinPortal }: Shar
             </Tooltip>
             <Tooltip text={t('closeTooltip')} flow='up'>
               <CloseButton onClick={() => setShareOptionsVisible(false)} aria-label={t('mailTooltip')}>
-                <Icon src={CloseSocialIcon} alt='' direction={direction} />
+                <Icon src={CloseSharingIcon} alt='' direction={direction} />
               </CloseButton>
             </Tooltip>
           </TooltipContainer>

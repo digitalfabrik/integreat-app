@@ -3,7 +3,7 @@ import AccessibleIcon from '../../../assets/icons/accessible.svg'
 import BathroomIcon from '../../../assets/icons/bathroom.svg'
 import BedIcon from '../../../assets/icons/bed.svg'
 import CalendarIcon from '../../../assets/icons/calendar.svg'
-import CloseSharing from '../../../assets/icons/close-sharing.svg'
+import CloseSharingIcon from '../../../assets/icons/close-sharing.svg'
 import CopyIcon from '../../../assets/icons/copy.svg'
 import DoneIcon from '../../../assets/icons/done.svg'
 import EmailIcon from '../../../assets/icons/email.svg'
@@ -40,7 +40,7 @@ export {
   BathroomIcon,
   BedIcon,
   CalendarIcon,
-  CloseSocialIcon,
+  CloseSharingIcon,
   CopyIcon,
   DoneIcon,
   EmailIcon,
