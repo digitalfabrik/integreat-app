@@ -1,4 +1,4 @@
-import moment from 'moment-timezone'
+import { DateTime } from 'luxon'
 
 import LocationModel from '../../models/LocationModel'
 import PoiCategoryModel from '../../models/PoiCategoryModel'
@@ -24,12 +24,13 @@ describe('pois', () => {
     website: null,
     phone_number: null,
     email: null,
-    category: new PoiCategoryModel({
+    category: {
       color: '#1DC6C6',
       icon: 'gastronomy',
       id: 10,
       name: 'Gastronomie',
-    }),
+      icon_url: 'https://example.com/icon',
+    },
     location: {
       id: 1,
       name: 'Café Tür an Tür',
@@ -40,7 +41,7 @@ describe('pois', () => {
       longitude: 10.89779,
       latitude: 48.3705449,
     },
-    modified_gmt: '2017-01-09 15:30:00',
+    last_updated: '2017-01-09T15:30:00+02:00',
     temporarily_closed: false,
     opening_hours: null,
   })
@@ -59,9 +60,10 @@ describe('pois', () => {
       email: null,
       category: new PoiCategoryModel({
         color: '#1DC6C6',
-        icon: 'gastronomy',
+        iconName: 'gastronomy',
         id: 10,
         name: 'Gastronomie',
+        icon: 'https://example.com/icon',
       }),
       location: new LocationModel({
         id: 1,
@@ -73,7 +75,7 @@ describe('pois', () => {
         longitude: 10.89779,
         latitude: 48.3705449,
       }),
-      lastUpdate: moment.tz('2017-01-09 15:30:00', 'GMT'),
+      lastUpdate: DateTime.fromISO('2017-01-09T15:30:00+02:00'),
       temporarilyClosed: false,
       openingHours: null,
     })

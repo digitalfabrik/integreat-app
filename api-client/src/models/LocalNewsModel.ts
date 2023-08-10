@@ -1,13 +1,13 @@
 import { decodeHTML } from 'entities'
-import { Moment } from 'moment'
+import { DateTime } from 'luxon'
 
 class LocalNewsModel {
   _id: number
-  _timestamp: Moment
+  _timestamp: DateTime
   _title: string
   _content: string
 
-  constructor(params: { id: number; timestamp: Moment; title: string; content: string }) {
+  constructor(params: { id: number; timestamp: DateTime; title: string; content: string }) {
     const { id, timestamp, title, content } = params
     this._id = id
     this._timestamp = timestamp
@@ -15,7 +15,7 @@ class LocalNewsModel {
     this._content = decodeHTML(content)
   }
 
-  get timestamp(): Moment {
+  get timestamp(): DateTime {
     return this._timestamp
   }
 

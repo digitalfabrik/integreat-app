@@ -1,5 +1,5 @@
 import { mapValues } from 'lodash'
-import { Moment } from 'moment'
+import { DateTime } from 'luxon'
 import React, { ReactElement, ReactNode, useCallback, useContext, useMemo, useState } from 'react'
 import { LayoutChangeEvent } from 'react-native'
 import styled from 'styled-components/native'
@@ -40,7 +40,7 @@ type PageProps = {
   AfterContent?: ReactNode
   Footer?: ReactNode
   language: string
-  lastUpdate?: Moment
+  lastUpdate?: DateTime
   path?: string
   padding?: boolean
 }

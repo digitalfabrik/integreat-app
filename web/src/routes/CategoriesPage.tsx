@@ -1,4 +1,4 @@
-import moment from 'moment'
+import { DateTime } from 'luxon'
 import React, { ReactElement, useCallback, useContext } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Link, Navigate, useParams } from 'react-router-dom'
@@ -100,7 +100,7 @@ const CategoriesPage = ({ city, pathname, cityCode, languageCode }: CityRoutePro
         thumbnail: '',
         order: -1,
         availableLanguages: new Map(),
-        lastUpdate: moment(0),
+        lastUpdate: DateTime.fromMillis(0),
         organization: null,
       })
     )
