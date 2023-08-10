@@ -74,7 +74,7 @@ type PoisDesktopProps = {
   languageCode: string
   slug: string | undefined
   mapViewport?: MapViewViewport
-  setMapViewport: (mapViewport?: MapViewViewport) => void
+  setMapViewport: (mapViewport: MapViewViewport) => void
 }
 
 const nextPoiIndex = (step: 1 | -1, arrayLength: number, currentIndex: number): number => {

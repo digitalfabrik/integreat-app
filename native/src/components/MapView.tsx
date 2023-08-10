@@ -116,7 +116,7 @@ const MapView = ({
       })
     }
   }, [deviceHeight, followUserLocation, selectedFeature])
-  
+
   const locationPermissionGrantedIcon = followUserLocation ? 'my-location' : 'location-searching'
   const locationPermissionIcon = locationPermissionGranted ? locationPermissionGrantedIcon : 'location-disabled'
 
