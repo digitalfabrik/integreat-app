@@ -65,7 +65,7 @@ type PoisMobileProps = {
   languageCode: string
   slug: string | undefined
   mapViewport: MapViewViewport
-  setMapViewport: (mapViewport: React.SetStateAction<MapViewViewport>) => void
+  setMapViewport: (mapViewport: MapViewViewport) => void
 }
 
 const PoisMobile = ({
@@ -181,7 +181,7 @@ const PoisMobile = ({
         )}
         <ListContainer>
           {currentPoi ? (
-            <PoiDetails poi={currentPoi} feature={currentPoi.getFeature(userLocation)} direction={direction} t={t} />
+            <PoiDetails poi={currentPoi} feature={currentPoi.getFeature(userLocation)} direction={direction} />
           ) : (
             poiList
           )}

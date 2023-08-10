@@ -34,7 +34,7 @@ type MapViewProps = {
   languageCode: string
   children: ReactNode
   viewport: MapViewViewport
-  setViewport: (mapViewport: React.SetStateAction<MapViewViewport>) => void
+  setViewport: (mapViewport: MapViewViewport) => void
 }
 
 type MapCursorType = 'grab' | 'auto' | 'pointer'

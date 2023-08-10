@@ -62,12 +62,12 @@ export type SuccessfulLocationState = {
 export type LoadingLocationState = {
   status: 'loading'
   message: 'loading'
-  coordinates: LocationType | null
+  coordinates: LocationType | undefined
 }
 export type UnavailableLocationState = {
   status: 'unavailable'
   message: 'noPermission' | 'notAvailable' | 'timeout'
-  coordinates: null
+  coordinates: undefined
 }
 
 export type LocationStateType = SuccessfulLocationState | LoadingLocationState | UnavailableLocationState

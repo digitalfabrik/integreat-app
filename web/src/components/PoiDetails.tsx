@@ -1,11 +1,11 @@
 import React, { ReactElement } from 'react'
-import { TFunction } from 'react-i18next'
 import { useNavigate } from 'react-router-dom'
 import styled, { css, useTheme } from 'styled-components'
 
 import { GeoJsonPoi, getExternalMapsLink, PoiModel } from 'api-client/src'
 import { UiDirectionType } from 'translations'
 
+import { useTranslation } from 'react-i18next'
 import { EmailIcon, PhoneIcon, WebsiteIcon } from '../assets'
 import iconExternalLink from '../assets/IconExternalLink.svg'
 import iconMarker from '../assets/IconMarker.svg'
@@ -34,7 +34,7 @@ const Marker = styled.img<{ direction?: string }>`
       transform: scaleX(-1);
     `};
 
-  @media screen and ${dimensions.mediumLargeViewport} {
+  @media screen and (${dimensions.mediumLargeViewport}) {
     padding: 0 8px;
   }
   object-fit: contain;
@@ -48,7 +48,7 @@ const Thumbnail = styled.img`
   object-fit: cover;
   border-radius: 10px;
 
-  @media screen and ${dimensions.smallViewport} {
+  @media screen and (${dimensions.smallViewport}) {
     order: 1;
     margin-top: 12px;
   }
@@ -135,7 +135,7 @@ const DetailSection = styled.div`
   display: flex;
   flex-direction: column;
 
-  @media screen and ${dimensions.smallViewport} {
+  @media screen and (${dimensions.smallViewport}) {
     flex-direction: row;
     justify-content: space-between;
   }
@@ -149,13 +149,14 @@ type PoiDetailsProps = {
   feature: GeoJsonPoi
   poi: PoiModel
   direction: UiDirectionType
-  t: TFunction<'pois'>
+  toolbar?: ReactElement
 }
 
-const PoiDetails = ({ feature, poi, direction, t }: PoiDetailsProps): ReactElement => {
+const PoiDetails: React.FC<PoiDetailsProps> = ({ feature, poi, direction, toolbar }: PoiDetailsProps): ReactElement => {
   const navigate = useNavigate()
   const { viewportSmall } = useWindowDimensions()
   const theme = useTheme()
+  const { t } = useTranslation('pois')
   const { title, thumbnail, distance } = feature
   const { content, location, website, phoneNumber, email, isCurrentlyOpen, openingHours, temporarilyClosed, category } =
     poi

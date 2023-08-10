@@ -31,7 +31,7 @@ const PanelContainer = styled.article`
   flex-direction: column;
 `
 
-const ListViewWrapper = styled.div<{ panelHeights: number }>`
+const ListViewWrapper = styled.div<{ panelHeights: number; bottomBarHeight: number }>`
   width: 300px;
   padding: 0 clamp(16px, 1.4vh, 32px);
   overflow: auto;
@@ -74,7 +74,7 @@ type PoisDesktopProps = {
   languageCode: string
   slug: string | undefined
   mapViewport: MapViewViewport
-  setMapViewport: (mapViewport: React.SetStateAction<MapViewViewport>) => void
+  setMapViewport: (mapViewport: MapViewViewport) => void
 }
 
 const nextPoiIndex = (step: 1 | -1, arrayLength: number, currentIndex: number): number => {
@@ -145,7 +145,10 @@ const PoisDesktop = ({
   return (
     <>
       <PanelContainer>
-        <ListViewWrapper ref={listRef} panelHeights={panelHeights}>
+        <ListViewWrapper
+          ref={listRef}
+          panelHeights={panelHeights}
+          bottomBarHeight={currentPoi ? dimensions.poiDetailNavigation : dimensions.toolbarHeight}>
           {currentFeatureOnMap ? (
             <GoBack goBack={() => selectPoiFeatureInList(null)} direction={direction} text={t('detailsHeader')} />
           ) : (
@@ -153,7 +156,12 @@ const PoisDesktop = ({
           )}
 
           {currentPoi ? (
-            <PoiDetails poi={currentPoi} feature={currentPoi.getFeature(userLocation)} direction={direction} t={t} />
+            <PoiDetails
+              poi={currentPoi}
+              feature={currentPoi.getFeature(userLocation)}
+              direction={direction}
+              toolbar={toolbar}
+            />
           ) : (
             <>{poiList}</>
           )}
