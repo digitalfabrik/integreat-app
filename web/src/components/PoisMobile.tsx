@@ -9,14 +9,14 @@ import {
   GeoJsonPoi,
   LocationType,
   MapViewViewport,
-  PoiFeature,
+  MapFeature,
   PoiModel,
-  sortPoiFeatures,
+  sortMapFeatures,
 } from 'api-client'
 import { UiDirectionType } from 'translations'
 
 import { faArrowLeft } from '../constants/icons'
-import usePoiFeatures from '../hooks/usePoiFeatures'
+import useMapFeatures from '../hooks/useMapFeatures'
 import useWindowDimensions from '../hooks/useWindowDimensions'
 import { getSnapPoints } from '../utils/getSnapPoints'
 import BottomActionSheet, { ScrollableBottomSheetRef } from './BottomActionSheet'
@@ -58,7 +58,7 @@ const StyledIcon = styled(FontAwesomeIcon)<{ direction: string }>`
 
 type PoisMobileProps = {
   toolbar: ReactElement
-  features: PoiFeature[]
+  features: MapFeature[]
   pois: PoiModel[]
   direction: UiDirectionType
   userLocation: LocationType | undefined
@@ -83,8 +83,8 @@ const PoisMobile = ({
   const [bottomActionSheetHeight, setBottomActionSheetHeight] = useState(0)
   const [scrollOffset, setScrollOffset] = useState<number>(0)
   const sheetRef = useRef<ScrollableBottomSheetRef>(null)
-  const { selectPoiFeatureInList, selectFeatureOnMap, currentFeatureOnMap, currentPoi, poiListFeatures } =
-    usePoiFeatures(features, pois, slug)
+  const { selectGeoJsonPoiInList, selectFeatureOnMap, currentFeatureOnMap, currentPoi, poiListFeatures } =
+    useMapFeatures(features, pois, slug)
   const { height } = useWindowDimensions()
 
   const isBottomActionSheetFullScreen = bottomActionSheetHeight >= height
@@ -96,7 +96,7 @@ const PoisMobile = ({
     if (poiFeature && !currentPoi && sheetRef.current?.scrollElement) {
       setScrollOffset(sheetRef.current.scrollElement.scrollTop)
     }
-    selectPoiFeatureInList(poiFeature)
+    selectGeoJsonPoiInList(poiFeature)
   }
 
   const renderPoiListItem = (poi: GeoJsonPoi) => (
@@ -104,7 +104,7 @@ const PoisMobile = ({
   )
 
   const handleSelectFeatureOnMap = useCallback(
-    (feature: PoiFeature | null) => {
+    (feature: MapFeature | null) => {
       if (feature) {
         changeSnapPoint(1)
         if (!currentFeatureOnMap && sheetRef.current?.scrollElement) {
@@ -127,7 +127,7 @@ const PoisMobile = ({
   const poiList = (
     <List
       noItemsMessage={t('noPois')}
-      items={sortPoiFeatures(poiListFeatures)}
+      items={sortMapFeatures(poiListFeatures)}
       renderItem={renderPoiListItem}
       borderless
     />
@@ -173,7 +173,7 @@ const PoisMobile = ({
         direction={direction}>
         {currentFeatureOnMap && isBottomActionSheetFullScreen && (
           <GoBack
-            goBack={() => selectPoiFeatureInList(null)}
+            goBack={() => selectGeoJsonPoiInList(null)}
             direction={direction}
             viewportSmall
             text={t('detailsHeader')}

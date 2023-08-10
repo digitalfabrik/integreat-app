@@ -8,7 +8,7 @@ import {
   fontSizeSmall,
   groupCount,
   mapMarker,
-  PoiFeature,
+  MapFeature,
   textOffsetY,
 } from 'api-client'
 import { ThemeType } from 'build-configs/ThemeType'
@@ -23,7 +23,7 @@ export const clusterLayer = (theme: ThemeType): LayerProps => ({
     'circle-radius': ['step', ['get', 'point_count'], circleRadiusSmall, groupCount, circleRadiusLarge],
   },
 })
-export const markerLayer = (currentFeature: PoiFeature | null): LayerProps => ({
+export const markerLayer = (currentFeature: MapFeature | null): LayerProps => ({
   id: 'point',
   type: 'symbol',
   source: 'point',

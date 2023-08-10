@@ -3,7 +3,7 @@ import { PoiModelBuilder } from '../../testing'
 describe('PoiModel', () => {
   const poi = new PoiModelBuilder(1).build()
 
-  const expectedGeoJsonPoiFeature = {
+  const expectedGeoJsonPoi = {
     id: 0,
     title: 'Test Title',
     category: 'Gastronomie',
@@ -23,11 +23,11 @@ describe('PoiModel', () => {
   ]
 
   it('should return geo location', () => {
-    expect(poi[0]!.getFeature()).toEqual(expectedGeoJsonPoiFeature)
+    expect(poi[0]!.getFeature()).toEqual(expectedGeoJsonPoi)
   })
 
   it('should return geo location with distance', () => {
-    expect(poi[0]!.getFeature(poi[0]!.location.coordinates)).toEqual({ ...expectedGeoJsonPoiFeature, distance: '0.0' })
+    expect(poi[0]!.getFeature(poi[0]!.location.coordinates)).toEqual({ ...expectedGeoJsonPoi, distance: '0.0' })
   })
 
   it('should return openingHours', () => {
