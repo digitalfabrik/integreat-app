@@ -65,7 +65,7 @@ describe('cities', () => {
     latitude: 48.369696,
     longitude: 10.892578,
     aliases: null,
-    bounding_box: null,
+    boundingBox: [12.055, 48.995, 12.145, 49.085],
   }
 
   const cityJson = [city1, city2]
@@ -114,7 +114,7 @@ describe('cities', () => {
         latitude: 48.369696,
         longitude: 10.892578,
         aliases: null,
-        boundingBox: null,
+        boundingBox: [12.055, 48.995, 12.145, 49.085],
       }),
     ])
   })

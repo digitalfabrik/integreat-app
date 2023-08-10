@@ -64,8 +64,7 @@ const PoisPage = ({ cityCode, languageCode, city, pathname }: CityRouteProps): R
   }, [])
 
   useEffect(
-    () =>
-      city?.boundingBox ? setMapViewport(moveViewToBBox(city.boundingBox, defaultMercatorViewportConfig)) : undefined,
+    () => (city ? setMapViewport(moveViewToBBox(city.boundingBox, defaultMercatorViewportConfig)) : undefined),
     [city]
   )
 
