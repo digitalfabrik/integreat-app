@@ -26,7 +26,6 @@ import { CityRouteProps } from '../CityContentSwitcher'
 import CityContentLayout, { CityContentLayoutProps } from '../components/CityContentLayout'
 import CityContentToolbar from '../components/CityContentToolbar'
 import FailureSwitcher from '../components/FailureSwitcher'
-import FeedbackModal from '../components/FeedbackModal'
 import Helmet from '../components/Helmet'
 import List from '../components/List'
 import LoadingSpinner from '../components/LoadingSpinner'
@@ -69,7 +68,6 @@ const PoisPage = ({ cityCode, languageCode, city, pathname }: CityRouteProps): R
   const poi = data?.pois.find(it => it.slug === slug)
   const { viewportSmall, height } = useWindowDimensions()
   const sheetRef = useRef<BottomSheetRef>(null)
-  const [isFeedbackModalOpen, setIsFeedbackModalOpen] = useState<boolean>(false)
   const { t } = useTranslation('pois')
   const isBottomActionSheetFullscreen = bottomActionSheetHeight >= height
 
@@ -155,16 +153,6 @@ const PoisPage = ({ cityCode, languageCode, city, pathname }: CityRouteProps): R
       hideDivider
       languageCode={languageCode}
       pageTitle={pageTitle}
-    />
-  )
-
-  const feedbackModal = isFeedbackModalOpen && (
-    <FeedbackModal
-      cityCode={city.code}
-      language={languageCode}
-      routeType={POIS_ROUTE}
-      closeModal={() => setIsFeedbackModalOpen(false)}
-      topPosition={isBottomActionSheetFullscreen ? 0 : undefined}
     />
   )
 
@@ -270,7 +258,6 @@ const PoisPage = ({ cityCode, languageCode, city, pathname }: CityRouteProps): R
             direction={direction}
           />
         )}
-        {feedbackModal}
       </PoisPageWrapper>
     </CityContentLayout>
   )

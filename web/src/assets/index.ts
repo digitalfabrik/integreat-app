@@ -1,9 +1,11 @@
 /* eslint-disable import/no-relative-packages */
 import AccessibleIcon from '../../../assets/icons/accessible.svg'
+import ArrowBackIcon from '../../../assets/icons/arrow_back.svg'
 import BathroomIcon from '../../../assets/icons/bathroom.svg'
 import BedIcon from '../../../assets/icons/bed.svg'
 import CalendarIcon from '../../../assets/icons/calendar.svg'
 import CloseSharingIcon from '../../../assets/icons/close-sharing.svg'
+import CloseIcon from '../../../assets/icons/close.svg'
 import CopyIcon from '../../../assets/icons/copy.svg'
 import DoneIcon from '../../../assets/icons/done.svg'
 import EmailIcon from '../../../assets/icons/email.svg'
@@ -37,9 +39,11 @@ import WhatsappIcon from '../../../assets/icons/whatsapp.svg'
 
 export {
   AccessibleIcon,
+  ArrowBackIcon,
   BathroomIcon,
   BedIcon,
   CalendarIcon,
+  CloseIcon,
   CloseSharingIcon,
   CopyIcon,
   DoneIcon,
