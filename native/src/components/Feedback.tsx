@@ -1,16 +1,15 @@
+import NoteIcon from 'integreat-app/assets/icons/note.svg'
 import * as React from 'react'
 import { ReactElement } from 'react'
-import { TFunction } from 'react-i18next'
+import { useTranslation } from 'react-i18next'
 import { ActivityIndicator, ScrollView, Text, TextInput } from 'react-native'
 import { Button } from 'react-native-elements'
-import Icon from 'react-native-vector-icons/MaterialIcons'
+import { useTheme } from 'styled-components'
 import styled from 'styled-components/native'
 
-import { ThemeType } from 'build-configs/ThemeType'
-
-import HappyIcon from '../assets/smile-happy.svg'
-import buildConfig from '../constants/buildConfig'
+import useNavigate from '../hooks/useNavigate'
 import Caption from './Caption'
+import FeedbackButtons from './FeedbackButtons'
 import { SendingStatusType } from './FeedbackContainer'
 
 const Input = styled(TextInput)`
@@ -20,30 +19,54 @@ const Input = styled(TextInput)`
   text-align-vertical: top;
   color: ${props => props.theme.colors.textColor};
 `
-const MailInput = styled(Input)`
-  height: 50px;
+const CommentInput = styled(Input)`
+  height: 100px;
 `
 const Wrapper = styled.View`
-  padding: 40px;
+  padding: 20px;
   background-color: ${props => props.theme.colors.backgroundColor};
 `
-const DescriptionContainer = styled.View`
+const HeadlineContainer = styled.View`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   padding: 15px 0 5px;
 `
+
+const DescriptionContainer = styled.View`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin: 12px 0;
+`
 const ThemedText = styled.Text`
   display: flex;
-  text-align: left;
+  text-align: center;
   color: ${props => props.theme.colors.textColor};
   font-family: ${props => props.theme.fonts.native.decorativeFontRegular};
 `
 const Description = styled(ThemedText)`
   font-weight: bold;
 `
-const HappyIconContainer = styled.Image`
-  margin: 100px auto 10px;
+
+const NoteBox = styled.View<{ visible: boolean }>`
+  background-color: ${props => props.theme.colors.themeColor};
+  margin-top: 12px;
+  padding: 12px;
+  opacity: ${props => (props.visible ? 1 : 0)};
+  flex-direction: row;
+`
+
+const NoteText = styled.Text`
+  font-family: ${props => props.theme.fonts.native.decorativeFontRegular};
+  font-size: 12px;
+  flex: 1;
+  flex-wrap: wrap;
+`
+
+const StyledNoteIcon = styled(NoteIcon)`
+  align-self: center;
+  margin-right: 12px;
 `
 
 export type FeedbackProps = {
@@ -53,56 +76,66 @@ export type FeedbackProps = {
   onCommentChanged: (comment: string) => void
   onFeedbackContactMailChanged: (contactMail: string) => void
   isSearchFeedback: boolean
-  isPositiveFeedback: boolean
+  isPositiveFeedback: boolean | null
+  setIsPositiveFeedback: (isPositive: boolean | null) => void
   onSubmit: () => void
-  theme: ThemeType
-  t: TFunction<'feedback'>
 }
 
-const Feedback = (props: FeedbackProps): ReactElement => {
-  const { theme, t, isSearchFeedback, isPositiveFeedback, comment, contactMail, sendingStatus } = props
-  const { onFeedbackContactMailChanged, onCommentChanged, onSubmit } = props
-  const renderBox = (): React.ReactNode => {
-    const feedbackModalDescription = isPositiveFeedback ? 'positiveComment' : 'negativeComment'
-    const description = isSearchFeedback ? 'wantedInformation' : feedbackModalDescription
+const Feedback = ({
+  isSearchFeedback,
+  isPositiveFeedback,
+  comment,
+  contactMail,
+  sendingStatus,
+  setIsPositiveFeedback,
+  onFeedbackContactMailChanged,
+  onCommentChanged,
+  onSubmit,
+}: FeedbackProps): ReactElement => {
+  const { t } = useTranslation('feedback')
+  const theme = useTheme()
+  const navigation = useNavigate().navigation
 
+  const submitDisabled = isPositiveFeedback === null && comment.trim().length === 0
+
+  const renderBox = (): React.ReactNode => {
     if (['idle', 'failed'].includes(sendingStatus)) {
       return (
         <>
-          {!isSearchFeedback && <Caption title={t('feedback')} />}
-          <DescriptionContainer theme={theme}>
-            <Description theme={theme}>{t(description)}</Description>
-            {isPositiveFeedback && <Text>({t('optionalInfo')})</Text>}
+          <Caption title={t(isSearchFeedback ? 'informationNotFound' : 'headline')} />
+          <DescriptionContainer>
+            <Text>{t('description')}</Text>
           </DescriptionContainer>
-          <Input
-            theme={theme}
-            onChangeText={onCommentChanged}
-            value={comment}
-            multiline
-            numberOfLines={3}
-            autoFocus={!isSearchFeedback}
-          />
-          <DescriptionContainer theme={theme}>
-            <Description theme={theme}>{t('contactMailAddress')}</Description>
+          <FeedbackButtons isPositiveFeedback={isPositiveFeedback} setIsPositiveFeedback={setIsPositiveFeedback} />
+          <HeadlineContainer>
+            <Description>{t('commentHeadline')}</Description>
             <Text>({t('optionalInfo')})</Text>
+          </HeadlineContainer>
+          <DescriptionContainer>
+            <Text>{t('commentDescription')}</Text>
           </DescriptionContainer>
-          <MailInput
-            theme={theme}
-            keyboardType='email-address'
-            onChangeText={onFeedbackContactMailChanged}
-            value={contactMail}
-          />
-          {sendingStatus === 'failed' && <Description theme={theme}>{t('failedSendingFeedback')}</Description>}
+          <CommentInput onChangeText={onCommentChanged} value={comment} multiline numberOfLines={3} />
+          <HeadlineContainer>
+            <Description>{t('contactMailAddress')}</Description>
+            <Text>({t('optionalInfo')})</Text>
+          </HeadlineContainer>
+          <Input keyboardType='email-address' onChangeText={onFeedbackContactMailChanged} value={contactMail} />
+          {sendingStatus === 'failed' && <Description>{t('failedSendingFeedback')}</Description>}
+          <NoteBox visible={submitDisabled}>
+            <StyledNoteIcon height={20} width={20} />
+            <NoteText>{t('note')}</NoteText>
+          </NoteBox>
           <Button
-            icon={<Icon name='send' size={15} color='black' />}
             titleStyle={{
               color: theme.colors.textColor,
+              fontWeight: '600',
             }}
             buttonStyle={{
               backgroundColor: theme.colors.themeColor,
               marginTop: 15,
+              borderRadius: 4,
             }}
-            disabled={!isPositiveFeedback && !comment}
+            disabled={submitDisabled}
             onPress={onSubmit}
             title={t('send')}
           />
@@ -115,13 +148,21 @@ const Feedback = (props: FeedbackProps): ReactElement => {
     // sendingStatus === 'successful'
     return (
       <>
-        <HappyIconContainer source={HappyIcon} />
-        <Caption title={t('feedback:feedbackSent')} />
-        <ThemedText theme={theme}>
-          {t('feedback:thanksMessage', {
-            appName: buildConfig().appName,
-          })}
-        </ThemedText>
+        <Caption title={t('thanksHeadline')} />
+        <ThemedText>{t('thanksMessage')}</ThemedText>
+        <Button
+          titleStyle={{
+            color: theme.colors.textColor,
+            fontWeight: '600',
+          }}
+          buttonStyle={{
+            backgroundColor: theme.colors.themeColor,
+            marginTop: 15,
+            borderRadius: 4,
+          }}
+          onPress={navigation.goBack}
+          title={t('close')}
+        />
       </>
     )
   }

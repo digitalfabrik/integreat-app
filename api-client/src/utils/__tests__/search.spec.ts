@@ -1,4 +1,5 @@
 import { CityModel, filterSortCities } from '../../index'
+import LanguageModelBuilder from '../../testing/LanguageModelBuilder'
 import { normalizeString } from '../search'
 
 describe('search', () => {
@@ -25,6 +26,7 @@ describe('search', () => {
         name: [prefix, sortingName].join(' '),
         code: sortingName.toLowerCase(),
         live,
+        languages: new LanguageModelBuilder(2).build(),
         eventsEnabled: true,
         offersEnabled: true,
         poisEnabled: true,

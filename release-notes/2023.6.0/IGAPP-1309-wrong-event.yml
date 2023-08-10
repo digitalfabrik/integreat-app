@@ -1,0 +1,7 @@
+issue_key: IGAPP-1309
+show_in_stores: true
+platforms:
+  - android
+  - ios
+en: Fix opening of different events on selection in list.
+de: Anzeigen falscher Veranstaltung beim Anklicken in der Liste behoben.

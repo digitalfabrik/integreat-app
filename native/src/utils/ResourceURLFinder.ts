@@ -1,8 +1,7 @@
 import { Parser } from 'htmlparser2'
 import { reduce } from 'lodash'
+import md5 from 'md5'
 import Url from 'url-parse'
-
-import { hashUrl } from 'api-client'
 
 import { getExtension } from './helpers'
 import { FetchMapType } from './loadResourceCache'
@@ -86,7 +85,7 @@ export default class ResourceURLFinder {
 
         const newFetchMap = fetchMap
         newFetchMap[path] = Array.from(urlSet).map(url => {
-          const urlHash = hashUrl(url)
+          const urlHash = md5(url)
           const filePath = buildFilePath(url, urlHash)
           return {
             url,

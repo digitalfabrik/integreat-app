@@ -35,7 +35,6 @@ const FeedbackSearch = ({ cityCode, languageCode, query, resultsFound }: Feedbac
           cityCode={cityCode}
           language={languageCode}
           routeType={FeedbackType.search}
-          isPositiveFeedback={false}
           isSearchFeedback
           query={query}
         />

@@ -23,11 +23,11 @@ steps:
       condition: << parameters.production_delivery >>
       steps:
         - notify:
-            success_message: WebApp version ${NEW_VERSION_NAME} was delivered successfully to integreat.app, malteapp.de, aschaffenburg.app and vernetztesobdach.de!\n${RELEASE_NOTES}
+            success_message: WebApp version ${NEW_VERSION_NAME} was delivered successfully to integreat.app, malteapp.de, aschaffenburg.app and netzwerkobdachwohnen.de!\n${RELEASE_NOTES}
             channel: releases
   - unless:
       condition: << parameters.production_delivery >>
       steps:
         - notify:
-            success_message: "[Beta] WebApp version ${NEW_VERSION_NAME} was delivered successfully to beta.integreat.app, beta.malteapp.de, beta.aschaffenburg.app and beta.vernetztesobdach.de!\n${RELEASE_NOTES}"
+            success_message: "[Beta] WebApp version ${NEW_VERSION_NAME} was delivered successfully to beta.integreat.app, beta.malteapp.de, beta.aschaffenburg.app and beta.netzwerkobdachwohnen.de!\n${RELEASE_NOTES}"
             channel: releases

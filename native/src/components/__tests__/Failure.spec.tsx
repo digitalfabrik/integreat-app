@@ -10,7 +10,7 @@ jest.mock('react-i18next')
 
 describe('Failure', () => {
   const renderFailure = (tryAgain?: () => void, code: ErrorCode = ErrorCode.UnknownError): RenderAPI =>
-    render(<Failure code={code} tryAgain={tryAgain} />)
+    render(<Failure code={code} buttonAction={tryAgain} />)
 
   it('should render a retry button if tryAgain is passed', () => {
     const { getByTestId } = renderFailure(() => undefined)

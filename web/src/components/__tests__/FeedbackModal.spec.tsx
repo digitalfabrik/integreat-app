@@ -22,14 +22,12 @@ describe('FeedbackModal', () => {
 
   it('should display thanks message after successfully submitting feedback', async () => {
     const { getByRole, findByText } = renderWithRouterAndTheme(
-      <FeedbackModal
-        cityCode={cityCode}
-        language={language}
-        routeType={CATEGORIES_ROUTE}
-        closeModal={closeModal}
-        feedbackRating='up'
-      />
+      <FeedbackModal cityCode={cityCode} language={language} routeType={CATEGORIES_ROUTE} closeModal={closeModal} />
     )
+    const buttonRating = getByRole('button', {
+      name: 'feedback:useful',
+    })
+    fireEvent.click(buttonRating)
     const button = getByRole('button', {
       name: 'feedback:send',
     })

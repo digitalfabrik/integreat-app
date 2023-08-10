@@ -33,8 +33,6 @@ const NewsContainer = ({ route, navigation }: NewsContainerProps): ReactElement 
   const isDisabled = data && (newsType === LOCAL_NEWS_TYPE ? !data.city.localNewsEnabled : !data.city.tunewsEnabled)
   const error = isDisabled ? ErrorCode.PageNotFound : response.error
 
-  const props = { route, navigation, navigateToNews }
-
   return (
     <LoadingErrorHandler {...response} error={error}>
       {data && (
@@ -42,9 +40,21 @@ const NewsContainer = ({ route, navigation }: NewsContainerProps): ReactElement 
           {newsId === null && (
             <NewsHeader selectedNewsType={newsType} cityModel={data.city} selectNewsType={selectNewsType} />
           )}
-          {newsType === LOCAL_NEWS_TYPE && <LocalNews {...props} newsId={newsId} data={data} />}
+          {newsType === LOCAL_NEWS_TYPE && (
+            <LocalNews
+              route={route}
+              navigation={navigation}
+              navigateToNews={navigateToNews}
+              newsId={newsId}
+              data={data}
+            />
+          )}
           {newsType === TU_NEWS_TYPE &&
-            (newsId ? <TuNewsDetail {...props} newsId={newsId} data={data} /> : <TuNews {...props} data={data} />)}
+            (newsId ? (
+              <TuNewsDetail route={route} navigation={navigation} newsId={newsId} data={data} />
+            ) : (
+              <TuNews route={route} navigation={navigation} navigateToNews={navigateToNews} data={data} />
+            ))}
         </>
       )}
     </LoadingErrorHandler>

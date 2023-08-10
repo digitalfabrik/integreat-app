@@ -1,9 +1,8 @@
-import { HeaderBackButton } from '@react-navigation/elements'
 import React, { ReactElement, useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Share } from 'react-native'
 import { HiddenItem } from 'react-navigation-header-buttons'
-import styled, { useTheme } from 'styled-components/native'
+import styled from 'styled-components/native'
 
 import { SHARE_SIGNAL_NAME } from 'api-client'
 
@@ -14,6 +13,7 @@ import useSnackbar from '../hooks/useSnackbar'
 import sendTrackingSignal from '../utils/sendTrackingSignal'
 import { reportError } from '../utils/sentry'
 import CustomHeaderButtons from './CustomHeaderButtons'
+import HeaderBox from './HeaderBox'
 
 const Horizontal = styled.View`
   flex: 1;
@@ -21,15 +21,10 @@ const Horizontal = styled.View`
   justify-content: space-between;
   align-items: center;
 `
-const HorizontalLeft = styled.View`
-  flex: 1;
-  flex-direction: row;
-  align-items: center;
-`
-const BoxShadow = styled.View`
+
+const Container = styled.View`
   background-color: ${props => props.theme.colors.backgroundAccentColor};
   height: ${dimensions.modalHeaderHeight}px;
-}
 `
 
 type TransparentHeaderProps = {
@@ -39,7 +34,6 @@ type TransparentHeaderProps = {
 
 const TransparentHeader = ({ navigation, route }: TransparentHeaderProps): ReactElement | null => {
   const { t } = useTranslation('layout')
-  const theme = useTheme()
   const showSnackbar = useSnackbar()
 
   const shareUrl = (route.params as { shareUrl: string } | undefined)?.shareUrl
@@ -84,14 +78,12 @@ const TransparentHeader = ({ navigation, route }: TransparentHeaderProps): React
   }
 
   return (
-    <BoxShadow testID='transparent-header'>
+    <Container testID='transparent-header'>
       <Horizontal>
-        <HorizontalLeft>
-          <HeaderBackButton onPress={navigation.goBack} labelVisible={false} tintColor={theme.colors.textColor} />
-        </HorizontalLeft>
+        <HeaderBox goBack={navigation.goBack} />
         <CustomHeaderButtons cancelLabel={t('cancel')} items={[]} overflowItems={overflowItems} />
       </Horizontal>
-    </BoxShadow>
+    </Container>
   )
 }
 

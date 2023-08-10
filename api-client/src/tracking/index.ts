@@ -96,7 +96,7 @@ export const SEND_FEEDBACK_SIGNAL_NAME: SendFeedbackSignalNameType = 'send_feedb
 export type SendFeedbackSignalType = {
   name: SendFeedbackSignalNameType
   feedback: {
-    positive: boolean
+    positive: boolean | null
     numCharacters: number
     contactMail: boolean
   }

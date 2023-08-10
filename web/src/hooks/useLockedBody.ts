@@ -1,8 +1,6 @@
 import { useEffect, useLayoutEffect, useState } from 'react'
 
-type UseLockedBodyProps = { locked: boolean; setLocked: (locked: boolean) => void }
-
-const useLockedBody = (initialLocked = false): UseLockedBodyProps => {
+const useLockedBody = (initialLocked = false): void => {
   const [locked, setLocked] = useState<boolean>(initialLocked)
 
   useLayoutEffect(() => {
@@ -21,8 +19,6 @@ const useLockedBody = (initialLocked = false): UseLockedBodyProps => {
       setLocked(initialLocked)
     }
   }, [initialLocked, locked])
-
-  return { locked, setLocked }
 }
 
 export default useLockedBody

@@ -2,7 +2,6 @@ import { Feature, FeatureCollection, Point } from 'geojson'
 
 type MapConfigProps = {
   styleJSON: string
-  accessToken: string
 }
 
 export type MapViewViewport = {
@@ -63,12 +62,12 @@ export type SuccessfulLocationState = {
 export type LoadingLocationState = {
   status: 'loading'
   message: 'loading'
-  coordinates: LocationType | null
+  coordinates: LocationType | undefined
 }
 export type UnavailableLocationState = {
   status: 'unavailable'
   message: 'noPermission' | 'notAvailable' | 'timeout'
-  coordinates: null
+  coordinates: undefined
 }
 
 export type LocationStateType = SuccessfulLocationState | LoadingLocationState | UnavailableLocationState
@@ -80,7 +79,6 @@ export const isMultipoi = (poiFeature: PoiFeature): boolean => poiFeature.proper
 
 export const mapConfig: MapConfigProps = {
   styleJSON: 'https://maps.tuerantuer.org/styles/integreat/style.json',
-  accessToken: 'dummy',
 }
 
 export const defaultViewportConfig: MapViewViewport = {
@@ -104,7 +102,7 @@ export const animationDuration = 2000
 export const mapMarker: MarkerConfig = {
   iconSize: 0.6,
   defaultSymbol: 'marker_55',
-  multipoi: 'other_#1DC6C6',
+  multipoi: 'multipois_#585858',
   symbolActive: 'marker_90_active',
 }
 

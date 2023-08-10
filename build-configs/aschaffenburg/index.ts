@@ -92,7 +92,7 @@ export const webAschaffenburgBuildConfig: WebBuildConfigType = {
   mainImprint,
   icons: {
     appLogo: '/app-logo.png',
-    appLogoMobile: '/app-icon-round.png',
+    appLogoMobile: '/app-icon-round.svg',
     appleTouchIcon: '/apple-touch-icon.png',
     socialMediaPreview: '/social-media-preview.png',
     favicons: '/favicons/',

@@ -52,12 +52,6 @@ const StepExplanation = styled.Text`
   padding-bottom: 4px;
 `
 
-const Icon = styled.Image`
-  align-self: center;
-  width: 50%;
-  resize-mode: contain;
-`
-
 const ButtonContainer = styled.View`
   z-index: 1;
   margin: 15px auto 0;
@@ -71,6 +65,13 @@ const TemplateText = styled.Text`
   padding: 50px 30px 30px;
   margin-bottom: 40px;
 `
+
+const CityNotCooperatingIcon = buildConfigAssets().CityNotCooperatingIcon
+const StyledCityNotCooperatingIcon = CityNotCooperatingIcon
+  ? styled(CityNotCooperatingIcon)`
+      alignself: center;
+    `
+  : null
 
 const CityNotCooperating = (): ReactElement => {
   const { t } = useTranslation('cityNotCooperating')
@@ -88,7 +89,7 @@ const CityNotCooperating = (): ReactElement => {
       <Heading>{t('callToAction')}</Heading>
 
       <Description>{t('explanation')}</Description>
-      <Icon source={buildConfigAssets().cityNotCooperatingIcon!} />
+      {StyledCityNotCooperatingIcon && <StyledCityNotCooperatingIcon width='50%' />}
       <ListHeading>{t('whatToDo')}</ListHeading>
       <ListItem>
         <StepNumber>1</StepNumber>
@@ -102,7 +103,7 @@ const CityNotCooperating = (): ReactElement => {
       <ButtonContainer>
         <Button
           onPress={copyToClipboard}
-          title={isCopied ? t('textCopied') : t('copyText')}
+          title={isCopied ? t('common:copied') : t('copyText')}
           buttonStyle={{
             backgroundColor: theme.colors.themeColor,
           }}

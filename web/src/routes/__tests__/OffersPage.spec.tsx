@@ -3,7 +3,6 @@ import React from 'react'
 
 import {
   CityModelBuilder,
-  LanguageModelBuilder,
   OfferModel,
   OFFERS_ROUTE,
   pathnameFromRouteInformation,
@@ -27,9 +26,8 @@ describe('OffersPage', () => {
   })
 
   const cities = new CityModelBuilder(2).build()
-  const languages = new LanguageModelBuilder(2).build()
   const city = cities[0]!
-  const language = languages[0]!
+  const languageCode = 'en'
   const sprungbrettOffer = new OfferModel({
     alias: 'sprungbrett',
     path: 'path to fetch jobs from',
@@ -60,22 +58,14 @@ describe('OffersPage', () => {
   const pathname = pathnameFromRouteInformation({
     route: OFFERS_ROUTE,
     cityCode: city.code,
-    languageCode: language.code,
+    languageCode,
   })
   const routePattern = `/:cityCode/:languageCode/${RoutePatterns[OFFERS_ROUTE]}`
 
   const renderOffersRoute = (mockData: ReturnType<OfferModel[]>) => {
     mocked(useLoadFromEndpoint).mockImplementationOnce(() => mockData as never)
     return renderRoute(
-      <OffersPage
-        cities={cities}
-        cityModel={city}
-        languages={languages}
-        languageModel={language}
-        pathname={pathname}
-        cityCode={city.code}
-        languageCode={language.code}
-      />,
+      <OffersPage city={city} pathname={pathname} cityCode={city.code} languageCode={languageCode} />,
       { routePattern, pathname }
     )
   }

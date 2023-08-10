@@ -1,9 +1,9 @@
 declare module '*.svg' {
-  import React = require('react')
+  import React from 'react'
+  import { SvgProps } from 'react-native-svg'
 
-  export const ReactComponent: React.SFC<React.SVGProps<SVGSVGElement>>
-  const src: number
-  export default src
+  const content: React.JSXElementConstructor<SvgProps>
+  export default content
 }
 declare module '*.jpg' {
   const content: number

@@ -9,13 +9,11 @@ import GeneralHeader from '../components/GeneralHeader'
 import Layout from '../components/Layout'
 import LicenseItem from '../components/LicenseItem'
 import List from '../components/List'
-import useWindowDimensions from '../hooks/useWindowDimensions'
 import { reportError } from '../utils/sentry'
 
 type LicensesPageProps = { languageCode: string }
 const LicensesPage = ({ languageCode }: LicensesPageProps): ReactElement => {
   const { t } = useTranslation(['settings', 'licenses'])
-  const { viewportSmall } = useWindowDimensions()
   const [licenses, setLicenses] = useState<License[] | null>(null)
 
   useEffect(() => {
@@ -35,9 +33,7 @@ const LicensesPage = ({ languageCode }: LicensesPageProps): ReactElement => {
   )
 
   return (
-    <Layout
-      header={<GeneralHeader languageCode={languageCode} viewportSmall={viewportSmall} />}
-      footer={<GeneralFooter language={languageCode} />}>
+    <Layout header={<GeneralHeader languageCode={languageCode} />} footer={<GeneralFooter language={languageCode} />}>
       <Caption title={t('settings:openSourceLicenses')} />
       <List items={licenses ?? []} renderItem={renderItem} noItemsMessage={t('licenses:noLicensesMessage')} />
     </Layout>

@@ -2,21 +2,22 @@
 // to the directory in the corresponding build config to allow passing the selected build config to the runtime code.
 // More information can be found in native/docs/build-configs.md#technical-information
 import name from 'build-config-name'
+import { SvgProps } from 'react-native-svg'
 
 import loadBuildConfig, { COMMON } from 'build-configs'
 import { INTEGREAT_ASSETS, MALTE_ASSETS, ASCHAFFENBURG_ASSETS } from 'build-configs/AssetsType'
 import { CommonBuildConfigType } from 'build-configs/BuildConfigType'
 import aschaffenburgLoadingImage from 'build-configs/aschaffenburg/assets/app-icon-inverted.svg'
-import aschaffenburgAppIcon from 'build-configs/aschaffenburg/assets/app-icon-round.png'
+import aschaffenburgAppIcon from 'build-configs/aschaffenburg/assets/app-icon-round.svg'
 import integreatLoadingImage from 'build-configs/integreat/assets/app-icon-inverted.svg'
-import integreatAppIcon from 'build-configs/integreat/assets/app-icon-round.png'
+import integreatAppIcon from 'build-configs/integreat/assets/app-icon-round.svg'
 import integreatCityNotCooperatingIcon from 'build-configs/integreat/assets/city-not-cooperating.svg'
 import integreatIntroEventsIcon from 'build-configs/integreat/assets/intro-slides/Events.svg'
 import integreatIntroLanguageIcon from 'build-configs/integreat/assets/intro-slides/Language.svg'
 import integreatIntroOffersIcon from 'build-configs/integreat/assets/intro-slides/Offers.svg'
 import integreatIntroSearchIcon from 'build-configs/integreat/assets/intro-slides/Search.svg'
 import integreatLocationMarker from 'build-configs/integreat/assets/location-marker.svg'
-import malteLoadingImage from 'build-configs/malte/assets/app-icon-circle.png'
+import malteLoadingImage from 'build-configs/malte/assets/app-icon-circle.svg'
 import malteAppIcon from 'build-configs/malte/assets/app-icon-round.svg'
 import malteIntroEventsIcon from 'build-configs/malte/assets/intro-slides/Events.svg'
 import malteIntroLanguageIcon from 'build-configs/malte/assets/intro-slides/Language.svg'
@@ -25,15 +26,15 @@ import malteIntroSearchIcon from 'build-configs/malte/assets/intro-slides/Search
 import malteLocationMarker from 'build-configs/malte/assets/location-marker.svg'
 
 type AssetsType = {
-  appIcon: number
-  loadingImage: number
-  locationMarker?: number
-  cityNotCooperatingIcon?: number
+  AppIcon: React.JSXElementConstructor<SvgProps>
+  LoadingImage: React.JSXElementConstructor<SvgProps>
+  LocationMarker?: React.JSXElementConstructor<SvgProps>
+  CityNotCooperatingIcon?: React.JSXElementConstructor<SvgProps>
   intro?: {
-    events: number
-    language: number
-    offers: number
-    search: number
+    Events: React.JSXElementConstructor<SvgProps>
+    Language: React.JSXElementConstructor<SvgProps>
+    Offers: React.JSXElementConstructor<SvgProps>
+    Search: React.JSXElementConstructor<SvgProps>
   }
 }
 
@@ -44,35 +45,35 @@ export const buildConfigAssets = (): AssetsType => {
 
   if (assetsName === INTEGREAT_ASSETS) {
     return {
-      appIcon: integreatAppIcon,
-      loadingImage: integreatLoadingImage,
-      locationMarker: integreatLocationMarker,
-      cityNotCooperatingIcon: integreatCityNotCooperatingIcon,
+      AppIcon: integreatAppIcon,
+      LoadingImage: integreatLoadingImage,
+      LocationMarker: integreatLocationMarker,
+      CityNotCooperatingIcon: integreatCityNotCooperatingIcon,
       intro: {
-        events: integreatIntroEventsIcon,
-        language: integreatIntroLanguageIcon,
-        offers: integreatIntroOffersIcon,
-        search: integreatIntroSearchIcon,
+        Events: integreatIntroEventsIcon,
+        Language: integreatIntroLanguageIcon,
+        Offers: integreatIntroOffersIcon,
+        Search: integreatIntroSearchIcon,
       },
     }
   }
   if (assetsName === MALTE_ASSETS) {
     return {
-      appIcon: malteAppIcon,
-      loadingImage: malteLoadingImage,
-      locationMarker: malteLocationMarker,
+      AppIcon: malteAppIcon,
+      LoadingImage: malteLoadingImage,
+      LocationMarker: malteLocationMarker,
       intro: {
-        events: malteIntroEventsIcon,
-        language: malteIntroLanguageIcon,
-        offers: malteIntroOffersIcon,
-        search: malteIntroSearchIcon,
+        Events: malteIntroEventsIcon,
+        Language: malteIntroLanguageIcon,
+        Offers: malteIntroOffersIcon,
+        Search: malteIntroSearchIcon,
       },
     }
   }
   if (assetsName === ASCHAFFENBURG_ASSETS) {
     return {
-      appIcon: aschaffenburgAppIcon,
-      loadingImage: aschaffenburgLoadingImage,
+      AppIcon: aschaffenburgAppIcon,
+      LoadingImage: aschaffenburgLoadingImage,
     }
   }
 

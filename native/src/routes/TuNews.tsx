@@ -17,7 +17,7 @@ type TuNewsProps = {
   navigateToNews: (newsId: string) => void
 }
 
-const TuNewsNews = ({ route, navigation, data, navigateToNews }: TuNewsProps): ReactElement => {
+const TuNews = ({ route, navigation, data, navigateToNews }: TuNewsProps): ReactElement => {
   const cityCode = data.city.code
   const languageCode = data.language.code
   const {
@@ -55,4 +55,4 @@ const TuNewsNews = ({ route, navigation, data, navigateToNews }: TuNewsProps): R
   )
 }
 
-export default TuNewsNews
+export default TuNews

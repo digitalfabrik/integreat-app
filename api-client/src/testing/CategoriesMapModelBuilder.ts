@@ -1,9 +1,10 @@
+import md5 from 'md5'
 import moment, { Moment } from 'moment'
 import seedrandom from 'seedrandom'
 
-import hashUrl from '../hashUrl'
 import CategoriesMapModel from '../models/CategoriesMapModel'
 import CategoryModel from '../models/CategoryModel'
+import OrganizationModel from '../models/OrganizationModel'
 
 type PageResourceCacheEntryStateType = {
   readonly filePath: string
@@ -42,7 +43,7 @@ class CategoriesMapModelBuilder {
   }
 
   createResource(url: string, index: number, lastUpdate: Moment): PageResourceCacheEntryStateType {
-    const hash = hashUrl(url)
+    const hash = md5(url)
     return {
       filePath: `path/to/documentDir/resource-cache/v1/${this._city}/files/${hash}.png`,
       lastUpdate: moment(lastUpdate).add(this._predictableNumber(index), 'days'),
@@ -82,6 +83,11 @@ class CategoriesMapModelBuilder {
         thumbnail,
         parentPath: category.path,
         lastUpdate,
+        organization: new OrganizationModel({
+          name: 'Tür an Tür',
+          logo: 'https://example.com/my-icon',
+          url: 'https://example.com',
+        }),
       })
       this._resourceCache[path] = {
         [resourceUrl1]: this.createResource(resourceUrl1, id, lastUpdate),
@@ -121,6 +127,7 @@ class CategoriesMapModelBuilder {
         thumbnail: '',
         parentPath: '',
         lastUpdate: moment('2017-11-18T19:30:00.000Z', moment.ISO_8601),
+        organization: null,
       }),
       0
     )

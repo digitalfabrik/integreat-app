@@ -1,4 +1,5 @@
 import CityModel from '../../models/CityModel'
+import LanguageModelBuilder from '../../testing/LanguageModelBuilder'
 import getNearbyCities from '../getNearbyCities'
 
 describe('getNearbyCities', () => {
@@ -11,6 +12,7 @@ describe('getNearbyCities', () => {
       name: 'Stadt Augsburg',
       code: 'augsburg',
       live: true,
+      languages: new LanguageModelBuilder(2).build(),
       eventsEnabled: true,
       offersEnabled: true,
       poisEnabled: true,

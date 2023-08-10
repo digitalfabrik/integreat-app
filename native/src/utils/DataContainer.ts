@@ -1,6 +1,6 @@
 import { Moment } from 'moment'
 
-import { CategoriesMapModel, CityModel, EventModel, LanguageModel, PoiModel } from 'api-client'
+import { CategoriesMapModel, CityModel, EventModel, PoiModel } from 'api-client'
 
 export type PageResourceCacheEntryStateType = {
   filePath: string
@@ -34,17 +34,6 @@ export type DataContainer = {
    * For now switching cities when offline is not possible.
    */
   setCities: (cities: Array<CityModel>) => Promise<void>
-
-  /**
-   * Returns an Array of LanguageModels.
-   * @throws Will throw an error if the array is null.
-   */
-  getLanguages: (city: string) => Promise<Array<LanguageModel>>
-
-  /**
-   * Sets the languages and persists them.
-   */
-  setLanguages: (city: string, languages: Array<LanguageModel>) => Promise<void>
 
   /**
    * Returns the CategoriesMapModel.
@@ -95,11 +84,6 @@ export type DataContainer = {
   categoriesAvailable(city: string, language: string): Promise<boolean>
 
   /**
-   * Returns whether the languages have been loaded or not.
-   */
-  languagesAvailable(city: string): Promise<boolean>
-
-  /**
    * Returns whether the events have been loaded or not.
    */
   eventsAvailable(city: string, language: string): Promise<boolean>
@@ -108,12 +92,6 @@ export type DataContainer = {
    * Returns whether the pois have been loaded or not.
    */
   poisAvailable(city: string, language: string): Promise<boolean>
-
-  /**
-   * Returns whether the city content (events, categories, languages) has been loaded or not.
-   * A simple peek won't suffice (since it does not load languages).
-   */
-  cityContentAvailable(city: string, language: string): Promise<boolean>
 
   /**
    * Returns whether the cities have been loaded or not.
@@ -129,6 +107,11 @@ export type DataContainer = {
    * Deletes all pages and files that are stored offline in the filesystem
    */
   _clearOfflineCache(): Promise<void>
+
+  /**
+   * Deletes the resources and all content of a city
+   */
+  deleteCity(city: string): Promise<void>
 
   /**
    * Clears all in-memory caches

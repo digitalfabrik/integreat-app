@@ -1,7 +1,7 @@
+import md5 from 'md5'
 import moment, { Moment } from 'moment'
 import seedrandom from 'seedrandom'
 
-import hashUrl from '../hashUrl'
 import DateModel from '../models/DateModel'
 import EventModel from '../models/EventModel'
 import LocationModel from '../models/LocationModel'
@@ -45,7 +45,7 @@ class EventModelBuilder {
   }
 
   createResource(url: string, index: number, lastUpdate: Moment): PageResourceCacheEntryStateType {
-    const hash = hashUrl(url)
+    const hash = md5(url)
     return {
       filePath: `path/to/documentDir/resource-cache/v1/${this._city}/files/${hash}.png`,
       lastUpdate: moment(lastUpdate).add(this._predictableNumber(index), 'days'),

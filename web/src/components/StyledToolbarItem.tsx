@@ -5,7 +5,6 @@ import CleanAnchor from './CleanAnchor'
 
 const StyledToolbarItem = styled(CleanAnchor)`
   display: inline-block;
-  margin: 0 10px;
   padding: 8px;
   cursor: pointer;
   border: none;

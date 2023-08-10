@@ -7,24 +7,18 @@ import { CityModel, EventModel, EVENTS_ROUTE, fromError, NotFoundError, RouteInf
 
 import Caption from '../components/Caption'
 import EventListItem from '../components/EventListItem'
+import ExportEventButton from '../components/ExportEventButton'
 import Failure from '../components/Failure'
-import { FeedbackInformationType } from '../components/FeedbackContainer'
 import Layout from '../components/Layout'
 import LayoutedScrollView from '../components/LayoutedScrollView'
 import List from '../components/List'
 import Page from '../components/Page'
 import PageDetail from '../components/PageDetail'
-import SiteHelpfulBox from '../components/SiteHelpfulBox'
 import DateFormatterContext from '../contexts/DateFormatterContext'
-import { LanguageResourceCacheStateType } from '../utils/DataContainer'
 
 const Separator = styled.View`
   border-top-width: 2px;
   border-top-color: ${props => props.theme.colors.themeColor};
-`
-
-const StyledSiteHelpfulBox = styled(SiteHelpfulBox)`
-  margin-top: 0;
 `
 
 export type EventsProps = {
@@ -32,39 +26,16 @@ export type EventsProps = {
   events: Array<EventModel>
   cityModel: CityModel
   language: string
-  resourceCache: LanguageResourceCacheStateType
-  resourceCacheUrl: string
   navigateTo: (routeInformation: RouteInformationType) => void
-  navigateToFeedback: (feedbackInformation: FeedbackInformationType) => void
   refresh: () => void
 }
 
 /**
  * Displays a list of events or a single event, matching the route /<location>/<language>/events(/<id>)
  */
-const Events = ({
-  cityModel,
-  language,
-  navigateTo,
-  events,
-  slug,
-  resourceCache,
-  resourceCacheUrl,
-  navigateToFeedback,
-  refresh,
-}: EventsProps): ReactElement => {
+const Events = ({ cityModel, language, navigateTo, events, slug, refresh }: EventsProps): ReactElement => {
   const { t } = useTranslation('events')
   const formatter = useContext(DateFormatterContext)
-
-  const createNavigateToFeedback = (event?: EventModel) => (isPositiveFeedback: boolean) => {
-    navigateToFeedback({
-      routeType: EVENTS_ROUTE,
-      slug: event?.slug,
-      cityCode: cityModel.code,
-      language,
-      isPositiveFeedback,
-    })
-  }
 
   if (!cityModel.eventsEnabled) {
     const error = new NotFoundError({
@@ -82,10 +53,10 @@ const Events = ({
 
   if (slug) {
     // TODO IGAPP-1078: Remove workaround of looking up path until '$'
-    const event = events.find(_event => _event.slug === slug || _event.slug.substring(0, _event.slug.indexOf('$')))
+    const event =
+      events.find(it => it.slug === slug) ?? events.find(it => it.slug.substring(0, it.slug.indexOf('$')) === slug)
 
     if (event) {
-      const files = resourceCache[event.path] || {}
       return (
         <LayoutedScrollView refreshControl={<RefreshControl onRefresh={refresh} refreshing={false} />}>
           <Page
@@ -93,20 +64,21 @@ const Events = ({
             title={event.title}
             lastUpdate={event.lastUpdate}
             language={language}
-            files={files}
-            resourceCacheUrl={resourceCacheUrl}
-            navigateToFeedback={createNavigateToFeedback(event)}>
-            <>
-              <PageDetail
-                identifier={t('date')}
-                information={event.date.toFormattedString(formatter)}
-                language={language}
-              />
-              {event.location && (
-                <PageDetail identifier={t('address')} information={event.location.fullAddress} language={language} />
-              )}
-            </>
-          </Page>
+            path={event.path}
+            BeforeContent={
+              <>
+                <PageDetail
+                  identifier={t('date')}
+                  information={event.date.toFormattedString(formatter)}
+                  language={language}
+                />
+                {event.location && (
+                  <PageDetail identifier={t('address')} information={event.location.fullAddress} language={language} />
+                )}
+              </>
+            }
+            Footer={<ExportEventButton event={event} />}
+          />
         </LayoutedScrollView>
       )
     }
@@ -150,7 +122,6 @@ const Events = ({
             <Separator />
           </>
         }
-        Footer={<StyledSiteHelpfulBox navigateToFeedback={createNavigateToFeedback()} />}
         refresh={refresh}
         noItemsMessage={t('currentlyNoEvents')}
       />

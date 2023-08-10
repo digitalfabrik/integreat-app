@@ -1,0 +1,5 @@
+issue_key: IGAPP-1316
+show_in_stores: false
+platforms:
+  - web
+en: The feedback function was optimized.

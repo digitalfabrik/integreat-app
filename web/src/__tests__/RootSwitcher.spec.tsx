@@ -16,6 +16,7 @@ jest.mock('api-client', () => ({
   ...jest.requireActual('api-client'),
   useLoadFromEndpoint: jest.fn(),
 }))
+jest.mock('../CityContentSwitcher')
 
 jest.mock('i18next', () => ({
   ...jest.requireActual('i18next'),

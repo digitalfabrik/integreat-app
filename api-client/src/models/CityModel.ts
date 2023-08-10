@@ -1,11 +1,14 @@
 import { BBox } from 'geojson'
 
+import LanguageModel from './LanguageModel'
+
 type CoordinateType = { latitude: number; longitude: number }
 
 class CityModel {
   _name: string
   _code: string
   _live: boolean
+  _languages: LanguageModel[]
   _eventsEnabled: boolean
   _offersEnabled: boolean
   _poisEnabled: boolean
@@ -20,6 +23,7 @@ class CityModel {
     name: string
     code: string
     live: boolean
+    languages: LanguageModel[]
     poisEnabled: boolean
     eventsEnabled: boolean
     offersEnabled: boolean
@@ -35,6 +39,7 @@ class CityModel {
     this._name = params.name
     this._code = params.code
     this._live = params.live
+    this._languages = params.languages
     this._eventsEnabled = params.eventsEnabled
     this._offersEnabled = params.offersEnabled
     this._poisEnabled = params.poisEnabled
@@ -60,6 +65,10 @@ class CityModel {
 
   get name(): string {
     return this._name
+  }
+
+  get languages(): LanguageModel[] {
+    return this._languages
   }
 
   get code(): string {

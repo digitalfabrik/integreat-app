@@ -1,10 +1,14 @@
 import CityModel from '../models/CityModel'
+import LanguageModelBuilder from './LanguageModelBuilder'
+
+const languages = new LanguageModelBuilder(3).build()
 
 const cities = [
   new CityModel({
     name: 'Stadt Augsburg',
     code: 'augsburg',
     live: true,
+    languages,
     eventsEnabled: true,
     offersEnabled: true,
     poisEnabled: true,
@@ -26,8 +30,9 @@ const cities = [
     name: 'Oldtown',
     code: 'oldtown',
     live: false,
+    languages,
     eventsEnabled: true,
-    offersEnabled: true,
+    offersEnabled: false,
     poisEnabled: false,
     localNewsEnabled: false,
     tunewsEnabled: false,
@@ -47,6 +52,7 @@ const cities = [
     name: 'City',
     code: 'city',
     live: true,
+    languages,
     eventsEnabled: false,
     offersEnabled: false,
     poisEnabled: true,
@@ -63,6 +69,7 @@ const cities = [
     name: 'Other city',
     code: 'otherCity',
     live: true,
+    languages,
     eventsEnabled: false,
     offersEnabled: false,
     poisEnabled: false,
@@ -79,6 +86,7 @@ const cities = [
     name: 'Notlive',
     code: 'nonlive',
     live: false,
+    languages,
     eventsEnabled: false,
     offersEnabled: false,
     poisEnabled: true,
@@ -95,6 +103,7 @@ const cities = [
     name: 'Yet another city',
     code: 'yetanothercity',
     live: true,
+    languages,
     eventsEnabled: false,
     offersEnabled: false,
     poisEnabled: false,

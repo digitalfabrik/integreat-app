@@ -1,0 +1,7 @@
+issue_key: IGAPP-1265
+show_in_stores: true
+platforms:
+  - android
+  - ios
+en: Improved displaying of content for categories with sub categories.
+de: Verbesserte Anzeige von Inhalten bei Kategorien mit Unterkategorien.

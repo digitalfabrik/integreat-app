@@ -6,7 +6,6 @@ import styled from 'styled-components/native'
 import { ThemeType } from 'build-configs'
 
 import TileModel from '../models/TileModel'
-import SimpleImage from './SimpleImage'
 
 const NEWS_DOT_RADIUS = 20
 const ICON_SIZE = 50
@@ -30,10 +29,7 @@ const Circle = styled(View)`
   shadow-opacity: 0.2;
   shadow-radius: 1.41px;
 `
-const ThumbnailContainer = styled(SimpleImage)`
-  height: ${ICON_SIZE / Math.sqrt(2)}px;
-  width: ${ICON_SIZE / Math.sqrt(2)}px;
-`
+
 const TileTitle = styled.Text`
   color: ${props => props.theme.colors.textColor};
   text-align: center;
@@ -85,7 +81,7 @@ class NavigationTile extends React.Component<NavigationTileProps> {
     return (
       <>
         <Circle theme={theme}>
-          <ThumbnailContainer source={tile.thumbnail} />
+          <tile.thumbnail height={ICON_SIZE / Math.sqrt(2)} width={ICON_SIZE / Math.sqrt(2)} />
           {this.getNewsDot()}
         </Circle>
         <TileTitle theme={theme}>{tile.title}</TileTitle>

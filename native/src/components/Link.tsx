@@ -4,7 +4,6 @@ import styled from 'styled-components/native'
 
 import useSnackbar from '../hooks/useSnackbar'
 import openExternalUrl from '../utils/openExternalUrl'
-import Touchable from './Touchable'
 
 const LinkText = styled.Text`
   padding: 30px 0;
@@ -21,9 +20,9 @@ type LinkProps = {
 const Link = ({ url, text, style }: LinkProps): ReactElement => {
   const showSnackbar = useSnackbar()
   return (
-    <Touchable onPress={() => openExternalUrl(url, showSnackbar)} accessibilityRole='link' underlayColor='transparent'>
-      <LinkText style={style}>{text}</LinkText>
-    </Touchable>
+    <LinkText style={style} onPress={() => openExternalUrl(url, showSnackbar)} accessibilityRole='link'>
+      {text}
+    </LinkText>
   )
 }
 

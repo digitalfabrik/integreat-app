@@ -1,3 +1,4 @@
+import { Expression } from 'mapbox-gl'
 import { LayerProps } from 'react-map-gl'
 
 import {
@@ -33,11 +34,16 @@ export const markerLayer = (currentFeature: PoiFeature | null): LayerProps => ({
     'icon-size': mapMarker.iconSize,
     'icon-image': [
       'case',
-      ['==', ['get', 'id'], currentFeature?.properties.id ?? -1],
+      ['==', ['get', 'id', ['at', 0, ['get', 'pois']]], currentFeature?.properties.pois[0]?.id ?? -1],
       mapMarker.symbolActive,
-      ['get', 'symbol'],
+      [
+        'case',
+        ['==', ['length', ['get', 'pois']], 1],
+        ['get', 'symbol', ['at', 0, ['get', 'pois']]],
+        mapMarker.multipoi,
+      ],
     ],
-    'text-field': ['get', 'title'],
+    'text-field': ['case', ['==', ['length', ['get', 'pois']], 1], ['get', 'title', ['at', 0, ['get', 'pois']]], ''],
     'text-font': ['Roboto Regular'],
     'text-offset': [0, textOffsetY],
     'text-anchor': 'top',
@@ -47,13 +53,17 @@ export const markerLayer = (currentFeature: PoiFeature | null): LayerProps => ({
   paint: {},
 })
 
+export const clusterProperties: { [key: string]: Expression } = {
+  sum: ['+', ['length', ['get', 'pois']]],
+}
+
 export const clusterCountLayer: LayerProps = {
   id: 'cluster-count',
   type: 'symbol',
   source: 'point',
   filter: ['has', 'point_count'],
   layout: {
-    'text-field': '{point_count_abbreviated}',
+    'text-field': ['get', 'sum'],
     'text-font': ['Roboto Regular'],
     'text-size': ['step', ['get', 'point_count'], fontSizeSmall, groupCount, fontSizeLarge],
     'text-allow-overlap': true,

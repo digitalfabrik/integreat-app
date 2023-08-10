@@ -1,0 +1,7 @@
+issue_key: IGAPP-1130
+show_in_stores: true
+platforms:
+  - android
+  - ios
+en: Events can be added to the calendar now
+de: Veranstaltungen können jetzt zum Kalender hinzugefügt werden

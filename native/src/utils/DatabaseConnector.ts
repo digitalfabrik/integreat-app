@@ -16,6 +16,7 @@ import {
   OpeningHoursModel,
   PoiModel,
   PoiCategoryModel,
+  OrganizationModel,
 } from 'api-client'
 
 import DatabaseContext from '../models/DatabaseContext'
@@ -28,7 +29,7 @@ import {
 import { deleteIfExists } from './helpers'
 import { log, reportError } from './sentry'
 
-export const CONTENT_VERSION = 'v2'
+export const CONTENT_VERSION = 'v3'
 export const RESOURCE_CACHE_VERSION = 'v1'
 
 // Our pdf view can only load from DocumentDir. Therefore we need to use that
@@ -53,6 +54,11 @@ type ContentCategoryJsonType = {
   parent_path: string
   children: Array<string>
   order: number
+  organization: {
+    name: string
+    logo: string
+    url: string
+  } | null
 }
 type LocationJsonType<T> = {
   id: number
@@ -92,10 +98,15 @@ type ContentEventJsonType = {
   location: LocationJsonType<number | null> | null
   featured_image: FeaturedImageJsonType | null | undefined
 }
+type ContentLanguageJsonType = {
+  code: string
+  name: string
+}
 type ContentCityJsonType = {
   name: string
   live: boolean
   code: string
+  languages: ContentLanguageJsonType[]
   prefix: string | null | undefined
   extras_enabled: boolean
   events_enabled: boolean
@@ -120,7 +131,7 @@ type ContentPoiJsonType = {
   excerpt: string
   location: LocationJsonType<number>
   lastUpdate: string
-  category: { id: number; name: string; color?: string; icon?: string } | null
+  category: { id: number; name: string; color: string; icon: string; iconName: string } | null
   openingHours: { allDay: boolean; closed: boolean; timeSlots: { start: string; end: string }[] }[] | null
   temporarilyClosed: boolean
 }
@@ -355,6 +366,13 @@ class DatabaseConnector {
         parent_path: category.parentPath,
         children: categoriesMap.getChildren(category).map(category => category.path),
         order: category.order,
+        organization: category.organization
+          ? {
+              name: category.organization.name,
+              logo: category.organization.logo,
+              url: category.organization.url,
+            }
+          : null,
       })
     )
     await this.writeFile(this.getContentPath('categories', context), JSON.stringify(jsonModels))
@@ -376,22 +394,18 @@ class DatabaseConnector {
             order: jsonObject.order,
             availableLanguages,
             lastUpdate: moment(jsonObject.last_update, moment.ISO_8601),
+            organization: jsonObject.organization
+              ? new OrganizationModel({
+                  name: jsonObject.organization.name,
+                  logo: jsonObject.organization.logo,
+                  url: jsonObject.organization.url,
+                })
+              : null,
           })
         })
       )
 
     return this.readFile(path, mapCategoriesJson)
-  }
-
-  async loadLanguages(context: DatabaseContext): Promise<Array<LanguageModel>> {
-    const path = this.getContentPath('languages', context)
-    const mapLanguagesJson = (json: LanguageModel[]) => json.map(json => new LanguageModel(json._code, json._name))
-    return this.readFile(path, mapLanguagesJson)
-  }
-
-  async storeLanguages(languages: Array<LanguageModel>, context: DatabaseContext): Promise<void> {
-    const path = this.getContentPath('languages', context)
-    await this.writeFile(path, JSON.stringify(languages))
   }
 
   async storePois(pois: Array<PoiModel>, context: DatabaseContext): Promise<void> {
@@ -417,14 +431,13 @@ class DatabaseConnector {
           name: poi.location.name,
         },
         lastUpdate: poi.lastUpdate.toISOString(),
-        category: poi.category
-          ? {
-              id: poi.category.id,
-              name: poi.category.name,
-              icon: poi.category.icon,
-              color: poi.category.color,
-            }
-          : null,
+        category: {
+          id: poi.category.id,
+          name: poi.category.name,
+          icon: poi.category.icon,
+          iconName: poi.category.iconName,
+          color: poi.category.color,
+        },
         openingHours:
           poi.openingHours?.map(hours => ({
             allDay: hours.allDay,
@@ -474,6 +487,7 @@ class DatabaseConnector {
                 name: jsonObject.category.name,
                 color: jsonObject.category.color,
                 icon: jsonObject.category.icon,
+                iconName: jsonObject.category.iconName,
               })
             : null,
           openingHours:
@@ -501,6 +515,7 @@ class DatabaseConnector {
         name: city.name,
         live: city.live,
         code: city.code,
+        languages: city.languages.map(it => ({ code: it.code, name: it.name })),
         prefix: city.prefix,
         extras_enabled: city.offersEnabled,
         events_enabled: city.eventsEnabled,
@@ -526,6 +541,7 @@ class DatabaseConnector {
             name: jsonObject.name,
             code: jsonObject.code,
             live: jsonObject.live,
+            languages: jsonObject.languages.map(it => new LanguageModel(it.code, it.name)),
             eventsEnabled: jsonObject.events_enabled,
             localNewsEnabled: jsonObject.pushNotificationsEnabled,
             tunewsEnabled: jsonObject.tunewsEnabled,
@@ -694,16 +710,19 @@ class DatabaseConnector {
         return a.lastUsage.isSame(b.lastUsage) ? 0 : 1
       }) // We only have to remove MAX_STORED_CITIES - 1 since we already filtered for the current resource cache
       .slice(0, -(MAX_STORED_CITIES - 1))
-    await Promise.all(
-      cachesToDelete.map(cityLastUpdate => {
-        const { city } = cityLastUpdate
+    await this.deleteCities(cachesToDelete.map(it => it.city))
+  }
+
+  async deleteCities(cityCodes: string[]): Promise<void> {
+    await Promise.all([
+      ...cityCodes.map(city => {
         log(`Deleting content and resource cache of city '${city}'`)
         const cityResourceCachePath = `${RESOURCE_CACHE_DIR_PATH}/${city}`
         const cityContentPath = `${CONTENT_DIR_PATH}/${city}`
         return Promise.all([deleteIfExists(cityResourceCachePath), deleteIfExists(cityContentPath)])
-      })
-    )
-    await this._deleteMetaOfCities(cachesToDelete.map(it => it.city))
+      }),
+      this._deleteMetaOfCities(cityCodes),
+    ])
   }
 
   isPoisPersisted(context: DatabaseContext): Promise<boolean> {
@@ -716,10 +735,6 @@ class DatabaseConnector {
 
   isCategoriesPersisted(context: DatabaseContext): Promise<boolean> {
     return this._isPersisted(this.getContentPath('categories', context))
-  }
-
-  isLanguagesPersisted(context: DatabaseContext): Promise<boolean> {
-    return this._isPersisted(this.getContentPath('languages', context))
   }
 
   isEventsPersisted(context: DatabaseContext): Promise<boolean> {

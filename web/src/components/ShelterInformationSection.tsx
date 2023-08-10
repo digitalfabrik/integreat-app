@@ -27,14 +27,14 @@ const RowDetail = styled.div<{ singleColumn: boolean }>`
 
 const Title = styled.span`
   padding: 16px 12px;
-  font-size: 18px;
+  font-size: ${props => props.theme.fonts.subTitleFontSize};
   font-weight: 700;
 `
 
 const TitleHint = styled.span`
   padding: 16px 0;
   margin: 0 8px;
-  font-size: 18px;
+  font-size: ${props => props.theme.fonts.subTitleFontSize};
   color: ${props => props.theme.colors.textSecondaryColor};
 `
 

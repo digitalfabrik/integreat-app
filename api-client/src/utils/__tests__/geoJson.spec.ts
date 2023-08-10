@@ -13,6 +13,8 @@ describe('geoJson', () => {
   const longitude = 30
   const latitude = 30
 
+  const userLocation: LocationType = [longitude, latitude]
+
   const geoJsonMarkerFeature = (id: number, ...pois: PoiModel[]): PoiFeature => ({
     type: 'Feature',
     id: id.toString(),
@@ -21,11 +23,9 @@ describe('geoJson', () => {
       coordinates: pois[0]!.location.coordinates,
     },
     properties: {
-      pois: pois.map(poi => poi.feature),
+      pois: pois.map(poi => poi.getFeature()),
     },
   })
-
-  const userLocation: LocationType = [longitude, latitude]
 
   describe('embedInCollection', () => {
     const expectedGeoJsonFeatureCollection: PoiFeatureCollection = {
@@ -34,7 +34,7 @@ describe('geoJson', () => {
     }
 
     it('should embed feature to GeoJson', () => {
-      expect(embedInCollection([prepareFeatureLocation([poi1, poi3], null, 0, [30, 30])])).toEqual(
+      expect(embedInCollection([prepareFeatureLocation([poi1, poi3], 0, [30, 30])])).toEqual(
         expectedGeoJsonFeatureCollection
       )
     })
@@ -42,16 +42,19 @@ describe('geoJson', () => {
 
   describe('prepareFeatureLocation', () => {
     it('should prepare feature location with distance', () => {
-      expect(prepareFeatureLocation([poi1, poi3], userLocation, 0, [30, 30])).toEqual({
+      expect(prepareFeatureLocation([poi1, poi3], 0, [30, 30], userLocation)).toEqual({
         ...geoJsonMarkerFeature(0, poi1, poi3),
         properties: {
-          pois: [{ ...poi1.feature, distance: '0.0' }, {...poi3.feature, distance: '0.0'}],
+          pois: [
+            { ...poi1.getFeature(userLocation), distance: '0.0' },
+            { ...poi3.getFeature(userLocation), distance: '0.0' },
+          ],
         },
       })
     })
 
     it('should prepare feature location without distance', () => {
-      expect(prepareFeatureLocation([poi1, poi3], null, 0, [30, 30])).toEqual(geoJsonMarkerFeature(0, poi1, poi3))
+      expect(prepareFeatureLocation([poi1, poi3], 0, [30, 30])).toEqual(geoJsonMarkerFeature(0, poi1, poi3))
     })
   })
 
@@ -63,7 +66,7 @@ describe('geoJson', () => {
     })
 
     it('should group close poiFeatures into single features', () => {
-      expect(prepareFeatureLocations([poi1, poi2, poi3], null)).toEqual([
+      expect(prepareFeatureLocations([poi1, poi2, poi3])).toEqual([
         geoJsonMarkerFeature(0, poi1, poi3),
         geoJsonMarkerFeature(1, poi2)
     ])
@@ -75,14 +78,14 @@ describe('geoJson', () => {
       const features = prepareFeatureLocations([poi1, poi2, poi3], userLocation)
       const poiFeatures = features.flatMap(feature => feature.properties.pois)
       const poiFeature1 = poiFeatures[0]!
-      const poiFeature2 = poiFeatures[2 ]!
+      const poiFeature2 = poiFeatures[2]!
       const poiFeature3 = poiFeatures[1]!
 
       expect(sortPoiFeatures([poiFeature2, poiFeature1, poiFeature3])).toEqual([poiFeature1, poiFeature3, poiFeature2])
     })
 
     it('should sort features by name if no userlocation ascending', () => {
-      const features = prepareFeatureLocations([poi1, poi2, poi3], null)
+      const features = prepareFeatureLocations([poi1, poi2, poi3])
       const poiFeatures = features.flatMap(feature => feature.properties.pois)
       const poiFeature1 = poiFeatures[0]! // Test Title
       const poiFeature2 = poiFeatures[2]! // name 2

@@ -21,13 +21,13 @@ describe('FailureSwitcher', () => {
   })
 
   it.each`
-    type               | id               | notFoundKey    | goToKey         | goToPath
-    ${'category'}      | ${'willkommen'}  | ${'category'}  | ${'categories'} | ${'/augsburg/de'}
-    ${'event'}         | ${'1234'}        | ${'event'}     | ${'events'}     | ${'/augsburg/de/events'}
-    ${LOCAL_NEWS_TYPE} | ${'1'}           | ${'localNews'} | ${'localNews'}  | ${'/augsburg/de/news/local'}
-    ${TU_NEWS_TYPE}    | ${'1'}           | ${'tunews'}    | ${'tunews'}     | ${'/augsburg/de/news/tu-news'}
-    ${'offer'}         | ${'sprungbrett'} | ${'offer'}     | ${'offers'}     | ${'/augsburg/de/offers'}
-    ${'poi'}           | ${'1234'}        | ${'poi'}       | ${'pois'}       | ${'/augsburg/de/locations'}
+    type               | id               | notFoundKey   | goToKey         | goToPath
+    ${'category'}      | ${'willkommen'}  | ${'category'} | ${'categories'} | ${'/augsburg/de'}
+    ${'event'}         | ${'1234'}        | ${'event'}    | ${'events'}     | ${'/augsburg/de/events'}
+    ${LOCAL_NEWS_TYPE} | ${'1'}           | ${'news'}     | ${'news'}       | ${'/augsburg/de/news/local'}
+    ${TU_NEWS_TYPE}    | ${'1'}           | ${'news'}     | ${'news'}       | ${'/augsburg/de/news/tu-news'}
+    ${'offer'}         | ${'sprungbrett'} | ${'offer'}    | ${'offers'}     | ${'/augsburg/de/offers'}
+    ${'poi'}           | ${'1234'}        | ${'poi'}      | ${'pois'}       | ${'/augsburg/de/locations'}
   `('should render $type not found failure', ({ type, id, notFoundKey, goToKey, goToPath }) => {
     const error = new NotFoundError({ type, id, language, city })
     const { getByText } = renderWithRouter(<FailureSwitcher error={error} />)

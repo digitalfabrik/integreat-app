@@ -20,6 +20,7 @@ import { config } from 'translations'
 import { EventsIcon, LocationIcon, NewsIcon, OffersIcon, POIsIcon, SearchIcon } from '../assets'
 import localInformationIcon from '../assets/Local_Information.svg'
 import buildConfig from '../constants/buildConfig'
+import useWindowDimensions from '../hooks/useWindowDimensions'
 import { LOCAL_NEWS_ROUTE, RouteType, TU_NEWS_DETAIL_ROUTE, TU_NEWS_ROUTE } from '../routes'
 import Header from './Header'
 import HeaderActionItemLink from './HeaderActionItemLink'
@@ -31,17 +32,16 @@ type CityContentHeaderProps = {
   cityModel: CityModel
   route: RouteType
   languageCode: string
-  viewportSmall: boolean
   languageChangePaths: Array<{ code: string; path: string | null; name: string }> | null
 }
 
 const CityContentHeader = ({
-  viewportSmall,
   cityModel,
   languageCode,
   languageChangePaths,
   route,
 }: CityContentHeaderProps): ReactElement => {
+  const { viewportSmall } = useWindowDimensions()
   const { eventsEnabled, poisEnabled, offersEnabled, tunewsEnabled, localNewsEnabled } = cityModel
   const [isSidebarOpen, setIsSidebarOpen] = useState(false)
 
@@ -180,7 +180,6 @@ const CityContentHeader = ({
   return (
     <Header
       direction={config.getScriptDirection(languageCode)}
-      viewportSmall={viewportSmall}
       logoHref={categoriesPath}
       actionItems={actionItems}
       kebabItems={kebabItems}

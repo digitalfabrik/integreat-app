@@ -109,7 +109,7 @@ const CityNotCooperatingPage = ({ languageCode }: CityNotCooperatingPageProps): 
           <StepNumber>2</StepNumber>
           <StepExplanation>{t('sendText')}</StepExplanation>
         </ListItem>
-        <Button onClick={copyToClipboard}>{isCopied ? t('textCopied') : t('copyText')}</Button>
+        <Button onClick={copyToClipboard}>{isCopied ? t('common:copied') : t('copyText')}</Button>
         <TemplateText>{template}</TemplateText>
       </Container>
     </Layout>

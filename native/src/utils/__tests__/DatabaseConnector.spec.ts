@@ -4,14 +4,11 @@ import moment from 'moment'
 import CategoriesMapModelBuilder from 'api-client/src/testing/CategoriesMapModelBuilder'
 import CityModelBuilder from 'api-client/src/testing/CityModelBuilder'
 import EventModelBuilder from 'api-client/src/testing/EventModelBuilder'
-import LanguageModelBuilder from 'api-client/src/testing/LanguageModelBuilder'
 
 import BlobUtil from '../../__mocks__/react-native-blob-util'
 import DatabaseContext from '../../models/DatabaseContext'
 import mockDate from '../../testing/mockDate'
 import DatabaseConnector, {
-  CONTENT_DIR_PATH,
-  CONTENT_VERSION,
   RESOURCE_CACHE_DIR_PATH,
   UNVERSIONED_CONTENT_DIR_PATH,
   UNVERSIONED_RESOURCE_CACHE_DIR_PATH,
@@ -28,7 +25,6 @@ describe('DatabaseConnector', () => {
   const language = 'de'
   const testCities = new CityModelBuilder(2).build()
   const testCategoriesMap = new CategoriesMapModelBuilder(city, language, 2, 2).build()
-  const testLanguages = new LanguageModelBuilder(2).build()
   const testEvents = new EventModelBuilder('testSeed', 2, city, language).build()
   const testResources = {
     de: {
@@ -177,42 +173,6 @@ describe('DatabaseConnector', () => {
       await databaseConnector.storeCategories(testCategoriesMap, context)
       const categories = await databaseConnector.loadCategories(context)
       expect(categories.isEqual(testCategoriesMap)).toBe(true)
-    })
-  })
-  describe('isLanguagesPersisted', () => {
-    it('should return false if languages are not persisted', async () => {
-      const context = new DatabaseContext('tcc', 'de')
-      const isPersisted = await databaseConnector.isLanguagesPersisted(context)
-      expect(isPersisted).toBe(false)
-    })
-    it('should return true if languages are persisted', async () => {
-      const context = new DatabaseContext('tcc', 'de')
-      await databaseConnector.storeLanguages(testLanguages, context)
-      const isPersisted = await databaseConnector.isLanguagesPersisted(context)
-      expect(isPersisted).toBe(true)
-    })
-  })
-  describe('storeLanguages', () => {
-    it('should store the json file in the correct path', async () => {
-      const context = new DatabaseContext('tcc', 'de')
-      await databaseConnector.storeLanguages(testLanguages, context)
-      expect(BlobUtil.fs.writeFile).toHaveBeenCalledWith(
-        expect.stringContaining('tcc/de/languages.json'),
-        expect.any(String),
-        expect.any(String)
-      )
-    })
-  })
-  describe('loadLanguages', () => {
-    it('should throw error if languages are not persisted', async () => {
-      const context = new DatabaseContext('tcc', 'de')
-      await expect(databaseConnector.loadLanguages(context)).rejects.toThrow()
-    })
-    it('should return a value that matches the one that was stored', async () => {
-      const context = new DatabaseContext('tcc', 'de')
-      await databaseConnector.storeLanguages(testLanguages, context)
-      const languages = await databaseConnector.loadLanguages(context)
-      expect(languages).toEqual(testLanguages)
     })
   })
   describe('isEventsPersisted', () => {

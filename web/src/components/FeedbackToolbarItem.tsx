@@ -1,45 +1,48 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import React, { ReactElement, useCallback } from 'react'
+import React, { ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { NEGATIVE_RATING, POSITIVE_RATING } from 'api-client'
+import { SEARCH_ROUTE } from 'api-client'
 
-import { faFrown, faSmile } from '../constants/icons'
-import StyledSmallViewTip from './StyledSmallViewTip'
-import StyledToolbarItem from './StyledToolbarItem'
-import Tooltip from './Tooltip'
-
-export type FeedbackRatingType = 'up' | 'down'
+import { FeedbackIcon } from '../assets'
+import useCityContentParams from '../hooks/useCityContentParams'
+import { RouteType } from '../routes'
+import FeedbackModal from './FeedbackModal'
+import { LAYOUT_ELEMENT_ID } from './Layout'
+import ToolbarItem from './ToolbarItem'
 
 type FeedbackToolbarItemProps = {
-  isPositiveRatingLink: boolean
-  openFeedbackModal: (rating: FeedbackRatingType) => void
-  className?: string
-  viewportSmall: boolean
+  route: RouteType
+  slug?: string
 }
 
-const StyledFeedbackToolbarItem = StyledToolbarItem.withComponent('button')
-
-const FeedbackToolbarItem = ({
-  openFeedbackModal,
-  isPositiveRatingLink,
-  className,
-  viewportSmall,
-}: FeedbackToolbarItemProps): ReactElement => {
+const FeedbackToolbarItem = ({ route, slug }: FeedbackToolbarItemProps): ReactElement => {
+  const { cityCode, languageCode } = useCityContentParams()
+  const [isFeedbackOpen, setIsFeedbackOpen] = useState(false)
   const { t } = useTranslation('feedback')
-  const handleLinkClick = useCallback(
-    () => openFeedbackModal(isPositiveRatingLink ? POSITIVE_RATING : NEGATIVE_RATING),
-    [isPositiveRatingLink, openFeedbackModal]
-  )
-  const dataTip = isPositiveRatingLink ? t('positiveRating') : t('negativeRating')
-  const smallViewTip = isPositiveRatingLink ? t('useful') : t('notUseful')
+
+  const openFeedback = () => {
+    setIsFeedbackOpen(true)
+    document.getElementById(LAYOUT_ELEMENT_ID)?.setAttribute('aria-hidden', 'true')
+  }
+
+  const closeFeedback = () => {
+    setIsFeedbackOpen(false)
+    document.getElementById(LAYOUT_ELEMENT_ID)?.setAttribute('aria-hidden', 'false')
+  }
+
   return (
-    <Tooltip text={viewportSmall ? null : dataTip} flow='up' mediumViewportFlow='right' smallViewportFlow='down'>
-      <StyledFeedbackToolbarItem className={className} onClick={handleLinkClick} aria-label={dataTip}>
-        <FontAwesomeIcon className={className} icon={isPositiveRatingLink ? faSmile : faFrown} />
-        {viewportSmall && <StyledSmallViewTip>{smallViewTip}</StyledSmallViewTip>}
-      </StyledFeedbackToolbarItem>
-    </Tooltip>
+    <>
+      {route !== SEARCH_ROUTE && isFeedbackOpen && (
+        <FeedbackModal
+          cityCode={cityCode}
+          language={languageCode}
+          routeType={route}
+          slug={slug}
+          closeModal={closeFeedback}
+        />
+      )}
+      <ToolbarItem icon={FeedbackIcon} text={t('feedback')} onClick={openFeedback} />
+    </>
   )
 }
 

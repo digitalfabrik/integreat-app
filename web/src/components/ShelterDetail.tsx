@@ -3,37 +3,26 @@ import React, { ReactElement } from 'react'
 import {
   CityModel,
   createShelterEndpoint,
-  LanguageModel,
   NotFoundError,
   pathnameFromRouteInformation,
   SHELTER_ROUTE,
   useLoadFromEndpoint,
 } from 'api-client'
 
-import CityContentLayout from './CityContentLayout'
+import CityContentLayout, { CityContentLayoutProps } from './CityContentLayout'
 import FailureSwitcher from './FailureSwitcher'
 import LoadingSpinner from './LoadingSpinner'
 import ShelterInformation from './ShelterInformation'
 
 type ShelterDetailProps = {
-  cityModel: CityModel
+  city: CityModel
   cityCode: string
   languageCode: string
   pathname: string
-  languages: LanguageModel[]
   shelterId: string
-  viewportSmall: boolean
 }
 
-const ShelterDetail = ({
-  cityModel,
-  cityCode,
-  languageCode,
-  pathname,
-  languages,
-  shelterId,
-  viewportSmall,
-}: ShelterDetailProps): ReactElement => {
+const ShelterDetail = ({ city, cityCode, languageCode, pathname, shelterId }: ShelterDetailProps): ReactElement => {
   const {
     data: shelters,
     loading,
@@ -44,15 +33,13 @@ const ShelterDetail = ({
     cityCode,
   })
 
-  const languageChangePaths = languages.map(({ code, name }) => ({
+  const languageChangePaths = city.languages.map(({ code, name }) => ({
     path: `${pathnameFromRouteInformation({ route: SHELTER_ROUTE, cityCode, languageCode: code })}/${shelterId}`,
     name,
     code,
   }))
-  const locationLayoutParams = {
-    cityModel,
-    viewportSmall,
-    feedbackTargetInformation: null,
+  const locationLayoutParams: Omit<CityContentLayoutProps, 'isLoading'> = {
+    city,
     languageChangePaths,
     route: SHELTER_ROUTE,
     languageCode,

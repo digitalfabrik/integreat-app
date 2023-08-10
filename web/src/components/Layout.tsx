@@ -1,14 +1,8 @@
-import React, { ReactNode, useEffect, useState } from 'react'
+import React, { ReactNode, useLayoutEffect, useState } from 'react'
 import styled, { css } from 'styled-components'
 
 import dimensions from '../constants/dimensions'
 import useWindowDimensions from '../hooks/useWindowDimensions'
-
-// Needed for sticky footer on IE - see https://stackoverflow.com/a/31835167
-const FlexWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-`
 
 const RichLayout = styled.div`
   position: relative;
@@ -52,8 +46,8 @@ const RichLayout = styled.div`
 const Body = styled.div<{ fullWidth: boolean; disableScrollingSafari: boolean }>`
   width: 100%;
   box-sizing: border-box;
-  flex-grow: 1;
   margin: 0 auto;
+  flex-grow: 1;
   background-color: ${props => props.theme.colors.backgroundColor};
   word-wrap: break-word;
   /* Fix jumping iOS Safari Toolbar by prevent scrolling on body */
@@ -75,11 +69,6 @@ const Body = styled.div<{ fullWidth: boolean; disableScrollingSafari: boolean }>
         padding-left: calc((100vw - ${dimensions.maxWidth}px) / 2);
       }
     `};
-
-  @media screen and ${dimensions.smallViewport} {
-    display: flex;
-    flex-direction: column-reverse;
-  }
 `
 
 const Main = styled.main<{ fullWidth: boolean }>`
@@ -106,9 +95,9 @@ const Main = styled.main<{ fullWidth: boolean }>`
 
 const Aside = styled.aside<{ languageSelectorHeight: number }>`
   top: ${props => props.languageSelectorHeight + dimensions.headerHeightLarge}px;
+  margin-top: ${props => props.languageSelectorHeight - dimensions.navigationMenuHeight}px;
   display: inline-block;
   position: sticky;
-  padding-top: 32px;
   width: ${dimensions.toolbarWidth}px;
   vertical-align: top;
   transition: top 0.2s ease-in-out;
@@ -122,62 +111,45 @@ const Aside = styled.aside<{ languageSelectorHeight: number }>`
     display: block;
     max-width: 100%;
   }
-
-  @media screen and ${dimensions.smallViewport} {
-    position: static;
-    width: 100%;
-    max-width: initial;
-    margin-top: 0;
-  }
 `
+
+export const LAYOUT_ELEMENT_ID = 'layout'
 
 type LayoutProps = {
   footer?: ReactNode
   header?: ReactNode
   toolbar?: ReactNode
-  modal?: ReactNode
   children?: ReactNode
   fullWidth?: boolean
   disableScrollingSafari?: boolean
 }
 
-/**
- * The standard Layout, used for any view in this app as a container.
- * If a footer is supplied and there's not enough content (in header and children) to fill the viewbox, the footer will
- * always stick to the bottom of the viewbox.
- */
 const Layout = ({
   footer,
   header,
   toolbar,
-  modal,
   children,
   fullWidth = false,
   disableScrollingSafari = false,
 }: LayoutProps): JSX.Element => {
-  const modalVisible = !!modal
-  const { width } = useWindowDimensions()
+  const { width, viewportSmall } = useWindowDimensions()
   const [languageSelectorHeight, setLanguageSelectorHeight] = useState<number>(0)
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const panelHeight = document.getElementById('languageSelector')?.clientHeight
     setLanguageSelectorHeight(panelHeight ?? 0)
   }, [width])
 
   return (
-    <FlexWrapper>
-      <RichLayout>
-        <div aria-hidden={modalVisible}>
-          {header}
-          <Body fullWidth={fullWidth} disableScrollingSafari={disableScrollingSafari}>
-            <Aside languageSelectorHeight={languageSelectorHeight}>{toolbar}</Aside>
-            <Main fullWidth={fullWidth}>{children}</Main>
-          </Body>
-        </div>
-        {modal}
-        <div aria-hidden={modalVisible}>{footer}</div>
-      </RichLayout>
-    </FlexWrapper>
+    <RichLayout id={LAYOUT_ELEMENT_ID}>
+      {header}
+      <Body fullWidth={fullWidth} disableScrollingSafari={disableScrollingSafari}>
+        {!viewportSmall && <Aside languageSelectorHeight={languageSelectorHeight}>{toolbar}</Aside>}
+        <Main fullWidth={fullWidth}>{children}</Main>
+      </Body>
+      {viewportSmall && toolbar}
+      {footer}
+    </RichLayout>
   )
 }
 

@@ -48,6 +48,7 @@ walkDir(mocksPath, name => {
 })
 jest.doMock('react-native/Libraries/ReactNative/I18nManager', () => I18nManager)
 jest.doMock('constants/NativeConstants')
+jest.doMock('build-config-name')
 jest.doMock('constants/buildConfig')
 jest.doMock('react-native-blob-util')
 jest.doMock('path', () => path.posix)

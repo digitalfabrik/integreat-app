@@ -1,31 +1,44 @@
-import React, { ReactNode } from 'react'
+import React, { memo, ReactNode, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 
-import FeedbackToolbarItem, { FeedbackRatingType } from './FeedbackToolbarItem'
+import { CopyIcon, DoneIcon } from '../assets'
+import { RouteType } from '../routes'
+import FeedbackToolbarItem from './FeedbackToolbarItem'
 import Toolbar from './Toolbar'
+import ToolbarItem from './ToolbarItem'
+import Tooltip from './Tooltip'
 
 type CityContentToolbarProps = {
-  openFeedbackModal: (rating: FeedbackRatingType) => void
+  feedbackTarget?: string
   children?: ReactNode
-  viewportSmall: boolean
   iconDirection?: 'row' | 'column'
+  hasFeedbackOption?: boolean
+  hideDivider?: boolean
+  route: RouteType
 }
 
-class CityContentToolbar extends React.PureComponent<CityContentToolbarProps> {
-  render(): ReactNode {
-    const { viewportSmall, children, openFeedbackModal, iconDirection } = this.props
+const COPY_TIMEOUT = 3000
 
-    return (
-      <Toolbar viewportSmall={viewportSmall} iconDirection={iconDirection}>
-        {children}
-        <FeedbackToolbarItem isPositiveRatingLink openFeedbackModal={openFeedbackModal} viewportSmall={viewportSmall} />
-        <FeedbackToolbarItem
-          isPositiveRatingLink={false}
-          openFeedbackModal={openFeedbackModal}
-          viewportSmall={viewportSmall}
-        />
-      </Toolbar>
-    )
+const CityContentToolbar = (props: CityContentToolbarProps) => {
+  const { feedbackTarget, children, iconDirection, hasFeedbackOption = true, hideDivider, route } = props
+  const [linkCopied, setLinkCopied] = useState<boolean>(false)
+  const { t } = useTranslation('categories')
+  const copyToClipboard = () => {
+    navigator.clipboard.writeText(window.location.href).catch(reportError)
+    setLinkCopied(true)
+    setTimeout(() => {
+      setLinkCopied(false)
+    }, COPY_TIMEOUT)
   }
-}
 
-export default CityContentToolbar
+  return (
+    <Toolbar iconDirection={iconDirection} hideDivider={hideDivider}>
+      {children}
+      <Tooltip text={t('common:copied')} flow='up' active={linkCopied} trigger='click'>
+        <ToolbarItem icon={linkCopied ? DoneIcon : CopyIcon} text={t('copyUrl')} onClick={copyToClipboard} />
+      </Tooltip>
+      {hasFeedbackOption && <FeedbackToolbarItem route={route} slug={feedbackTarget} />}
+    </Toolbar>
+  )
+}
+export default memo(CityContentToolbar)

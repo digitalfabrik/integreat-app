@@ -4,7 +4,6 @@ import React from 'react'
 
 import {
   CategoriesMapModelBuilder,
-  CityModel,
   ErrorCode,
   LanguageModelBuilder,
   OfferModel,
@@ -55,6 +54,7 @@ describe('OffersContainer', () => {
 
   const cities = new CityModelBuilder(3).build()
   const city = cities[0]!
+  const cityDisabledOffers = cities[1]!
   const languages = new LanguageModelBuilder(3).build()
   const language = languages[0]!
   const data = {
@@ -122,27 +122,6 @@ describe('OffersContainer', () => {
   })
 
   it('should display a page not found error if offers disabled for city', async () => {
-    const cityDisabledOffers = new CityModel({
-      name: 'Stadt Augsburg',
-      code: 'augsburg',
-      live: true,
-      eventsEnabled: true,
-      offersEnabled: false,
-      poisEnabled: true,
-      localNewsEnabled: false,
-      tunewsEnabled: false,
-      sortingName: 'Augsburg',
-      prefix: 'Stadt',
-      latitude: 48.369696,
-      longitude: 10.892578,
-      aliases: {
-        Konigsbrunn: {
-          latitude: 48.267499,
-          longitude: 10.889586,
-        },
-      },
-      boundingBox: [10.7880103, 48.447238, 11.0174493, 48.297834],
-    })
     mocked(useLoadExtraCityContent).mockImplementation(
       () =>
         ({

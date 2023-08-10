@@ -26,6 +26,7 @@ Several workflows exist for different purposes:
 | native_production_delivery | script                 | :heavy_check_mark: | production      | :x:          | :heavy_check_mark: | :x:                |
 | web_beta_delivery          | script                 | :heavy_check_mark: | :x:             | beta         | :heavy_check_mark: | :x:                |
 | web_production_delivery    | script                 | :heavy_check_mark: | :x:             | production   | :heavy_check_mark: | :x:                |
+| e2e_tests                  | commits on main        | :x:                | :x:             | :x:          | :x:                | :x:                |
 
 Steps executed if _Checks_ is checked :heavy_check_mark::
 

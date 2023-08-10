@@ -1,6 +1,6 @@
 import React, { ReactElement, ReactNode } from 'react'
 import { useTranslation } from 'react-i18next'
-import { ImageStyle, StyleProp } from 'react-native'
+import { StyleProp } from 'react-native'
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons'
 import {
   defaultOnOverflowMenuPress,
@@ -13,31 +13,18 @@ import { useTheme } from 'styled-components'
 
 import { LanguageIcon, SearchIcon } from '../assets'
 import { isRTL } from '../constants/contentDirection'
-import SimpleImage from './SimpleImage'
 
-const Icon = (props: { name: string; style: StyleProp<ImageStyle> }): ReactElement => {
-  const { name, style } = props
+const Icon = (props: { name: string; style: StyleProp<SVGImageElement> }): ReactElement => {
+  const { name } = props
   if (name === 'search') {
-    return <SimpleImage {...props} source={SearchIcon} style={style} />
+    return <SearchIcon {...props} />
   }
   if (name === 'language') {
-    return (
-      <SimpleImage
-        {...props}
-        source={LanguageIcon}
-        style={{
-          ...(style as ImageStyle),
-          transform: [
-            {
-              scaleX: isRTL() ? -1 : 1,
-            },
-          ],
-        }}
-      />
-    )
+    return <LanguageIcon scaleX={isRTL() ? -1 : 1} {...props} />
   }
   return <MaterialIcon {...props} name={name} />
 }
+
 const CustomHeaderButton = (props: {
   disabled: boolean
   title: string

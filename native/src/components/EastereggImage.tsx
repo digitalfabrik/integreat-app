@@ -12,10 +12,6 @@ import { log, reportError } from '../utils/sentry'
 const API_URL_OVERRIDE_MIN_CLICKS = 10
 const CLICK_TIMEOUT = 8
 
-const LocationImage = styled.Image`
-  height: 70px;
-  resize-mode: contain;
-`
 const ApiUrlText = styled.Text`
   padding-top: 10px;
   color: red;
@@ -87,12 +83,12 @@ const EastereggImage = ({ clearResourcesAndCache }: EastereggImageProps): ReactE
     return null
   }
 
-  const { locationMarker } = buildConfigAssets()
+  const { LocationMarker } = buildConfigAssets()
 
   return (
     <>
       <TouchableOpacity activeOpacity={1} onPress={onImagePress}>
-        {!!locationMarker && <LocationImage source={locationMarker} />}
+        {LocationMarker && <LocationMarker height={70} width={100} />}
       </TouchableOpacity>
       {renderApiUrlText()}
     </>

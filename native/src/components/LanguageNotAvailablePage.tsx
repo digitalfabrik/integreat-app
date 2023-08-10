@@ -6,7 +6,7 @@ import styled from 'styled-components/native'
 import { fromError, LanguageModel } from 'api-client'
 
 import useCityAppContext from '../hooks/useCityAppContext'
-import useLoadLanguages from '../hooks/useLoadLanguages'
+import useLoadCities from '../hooks/useLoadCities'
 import SelectorItemModel from '../models/SelectorItemModel'
 import Caption from './Caption'
 import Failure from './Failure'
@@ -24,11 +24,12 @@ type LanguageNotAvailablePageProps = {
 
 const LanguageNotAvailablePage = ({ availableLanguages, refresh }: LanguageNotAvailablePageProps): ReactElement => {
   const { cityCode, changeLanguageCode } = useCityAppContext()
-  const { data, error, refresh: refreshLanguages, loading } = useLoadLanguages({ cityCode })
+  const { data: cities, error, refresh: refreshCities, loading } = useLoadCities()
+  const languages = cities?.find(it => it.code === cityCode)?.languages
   const { t } = useTranslation('common')
 
-  const items = (availableLanguages ?? data)?.map(
-    ({ code, name }) =>
+  const items = (availableLanguages ?? languages)?.map(
+    ({ code, name }: LanguageModel) =>
       new SelectorItemModel({
         code,
         name,
@@ -40,8 +41,7 @@ const LanguageNotAvailablePage = ({ availableLanguages, refresh }: LanguageNotAv
   )
 
   return (
-    <LayoutedScrollView
-      refreshControl={<RefreshControl refreshing={loading} onRefresh={refresh ?? refreshLanguages} />}>
+    <LayoutedScrollView refreshControl={<RefreshControl refreshing={loading} onRefresh={refresh ?? refreshCities} />}>
       {items ? (
         <Wrapper contentContainerStyle={{ alignItems: 'center' }}>
           <Caption title={t('languageNotAvailable')} />

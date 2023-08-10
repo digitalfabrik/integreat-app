@@ -85,12 +85,11 @@ const ToggleButton = styled.button`
 `
 
 const KebabMenu = ({ items, direction, show, setShow, Footer }: KebabMenuProps): ReactElement | null => {
-  const { locked, setLocked } = useLockedBody(show)
+  useLockedBody(show)
   const { t } = useTranslation('layout')
 
   const onClick = () => {
     setShow(!show)
-    setLocked(!locked)
   }
 
   if (items.length === 0) {

@@ -13,11 +13,10 @@ import {
 
 import { CityRouteProps } from '../CityContentSwitcher'
 import Caption from '../components/Caption'
-import CityContentLayout from '../components/CityContentLayout'
+import CityContentLayout, { CityContentLayoutProps } from '../components/CityContentLayout'
 import CityContentToolbar from '../components/CityContentToolbar'
 import EventListItem from '../components/EventListItem'
 import FailureSwitcher from '../components/FailureSwitcher'
-import { FeedbackRatingType } from '../components/FeedbackToolbarItem'
 import Helmet from '../components/Helmet'
 import JsonLdEvent from '../components/JsonLdEvent'
 import List from '../components/List'
@@ -32,7 +31,7 @@ import usePreviousProp from '../hooks/usePreviousProp'
 import useWindowDimensions from '../hooks/useWindowDimensions'
 import featuredImageToSrcSet from '../utils/featuredImageToSrcSet'
 
-const EventsPage = ({ cityModel, languages, pathname, languageCode, cityCode }: CityRouteProps): ReactElement => {
+const EventsPage = ({ city, pathname, languageCode, cityCode }: CityRouteProps): ReactElement | null => {
   const previousPathname = usePreviousProp({ prop: pathname })
   const { eventId } = useParams()
   const { t } = useTranslation('events')
@@ -46,18 +45,16 @@ const EventsPage = ({ cityModel, languages, pathname, languageCode, cityCode }: 
     error: eventsError,
   } = useLoadFromEndpoint(createEventsEndpoint, cmsApiBaseUrl, { city: cityCode, language: languageCode })
 
+  if (!city) {
+    return null
+  }
+
   // TODO IGAPP-1078: Remove workaround of looking up path until '$'
   const event = eventId
-    ? events?.find(
-        (event: EventModel) => event.path === pathname || event.path.substring(0, event.path.indexOf('$')) === pathname
-      )
+    ? events?.find(it => it.path === pathname) ??
+      events?.find(it => it.path.substring(0, it.path.indexOf('$')) === pathname)
     : null
-
-  const toolbar = (openFeedback: (rating: FeedbackRatingType) => void) => (
-    <CityContentToolbar openFeedbackModal={openFeedback} viewportSmall={viewportSmall} />
-  )
-
-  const languageChangePaths = languages.map(({ code, name }) => {
+  const languageChangePaths = city.languages.map(({ code, name }) => {
     const isCurrentLanguage = code === languageCode
     const path = event
       ? event.availableLanguages.get(code) || null
@@ -69,14 +66,12 @@ const EventsPage = ({ cityModel, languages, pathname, languageCode, cityCode }: 
     }
   })
 
-  const locationLayoutParams = {
-    cityModel,
-    viewportSmall,
-    feedbackTargetInformation: event ? { slug: event.slug } : null,
+  const locationLayoutParams: Omit<CityContentLayoutProps, 'isLoading'> = {
+    city,
     languageChangePaths,
     route: EVENTS_ROUTE,
     languageCode,
-    toolbar,
+    Toolbar: <CityContentToolbar feedbackTarget={event?.slug} route={EVENTS_ROUTE} hideDivider={!event} />,
   }
 
   if (loading || pathname !== previousPathname) {
@@ -119,7 +114,7 @@ const EventsPage = ({ cityModel, languages, pathname, languageCode, cityCode }: 
   if (event) {
     const { featuredImage, thumbnail, lastUpdate, content, title, location, date } = event
     const defaultThumbnail = featuredImage ? featuredImage.medium.url : thumbnail
-    const pageTitle = `${event.title} - ${cityModel.name}`
+    const pageTitle = `${event.title} - ${city.name}`
 
     const PageFooter = (
       <TextButton fullWidth={viewportSmall} onClick={() => downloadEventAsIcsFile(event)} text={t('exportAsICal')} />
@@ -127,7 +122,7 @@ const EventsPage = ({ cityModel, languages, pathname, languageCode, cityCode }: 
 
     return (
       <CityContentLayout isLoading={false} {...locationLayoutParams}>
-        <Helmet pageTitle={pageTitle} languageChangePaths={languageChangePaths} cityModel={cityModel} />
+        <Helmet pageTitle={pageTitle} languageChangePaths={languageChangePaths} cityModel={city} />
         <JsonLdEvent event={event} formatter={formatter} />
         <Page
           defaultThumbnailSrc={defaultThumbnail}
@@ -137,12 +132,14 @@ const EventsPage = ({ cityModel, languages, pathname, languageCode, cityCode }: 
           title={title}
           formatter={formatter}
           onInternalLinkClick={navigate}
-          pageFooter={PageFooter}>
-          <>
-            <PageDetail identifier={t('date')} information={date.toFormattedString(formatter)} />
-            {location && <PageDetail identifier={t('address')} information={location.fullAddress} />}
-          </>
-        </Page>
+          BeforeContent={
+            <>
+              <PageDetail identifier={t('date')} information={date.toFormattedString(formatter)} />
+              {location && <PageDetail identifier={t('address')} information={location.fullAddress} />}
+            </>
+          }
+          Footer={PageFooter}
+        />
       </CityContentLayout>
     )
   }
@@ -151,11 +148,11 @@ const EventsPage = ({ cityModel, languages, pathname, languageCode, cityCode }: 
     <EventListItem event={event} formatter={formatter} key={event.path} />
   )
 
-  const pageTitle = `${t('pageTitle')} - ${cityModel.name}`
+  const pageTitle = `${t('pageTitle')} - ${city.name}`
 
   return (
     <CityContentLayout isLoading={false} {...locationLayoutParams}>
-      <Helmet pageTitle={pageTitle} languageChangePaths={languageChangePaths} cityModel={cityModel} />
+      <Helmet pageTitle={pageTitle} languageChangePaths={languageChangePaths} cityModel={city} />
       <Caption title={t('events')} />
       <List noItemsMessage={t('currentlyNoEvents')} items={events} renderItem={renderEventListItem} />
     </CityContentLayout>

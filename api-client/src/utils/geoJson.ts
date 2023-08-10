@@ -13,27 +13,19 @@ const maxDistanceForOverlap = 0.005
 
 export const prepareFeatureLocation = (
   pois: PoiModel[],
-  userLocation: LocationType | null,
   id: number,
-  coordinates: [number, number]
-): PoiFeature => {
-  const featureLocation: PoiFeature = {
-    type: 'Feature',
-    id: id.toString(),
-    geometry: {
-      type: 'Point',
-      coordinates,
-    },
-    properties: { pois: pois.map(poi => poi.feature) },
-  }
-  if (userLocation) {
-    const distanceValue = distance(userLocation, coordinates).toFixed(1)
-    featureLocation.properties = { pois: pois.map(poi => ({ ...poi.feature, distance: distanceValue })) }
-  }
-  return featureLocation
-}
+  coordinates: [number, number],
+  userLocation?: LocationType
+  type: 'Feature',
+  id: id.toString(),
+  geometry: {
+    type: 'Point',
+    coordinates,
+  },
+  properties: { pois: pois.map(poi => poi.getFeature(userLocation)) },
+})
 
-export const prepareFeatureLocations = (pois: Array<PoiModel>, userLocation: LocationType | null): PoiFeature[] => {
+export const prepareFeatureLocations = (pois: Array<PoiModel>, userLocation?: LocationType): PoiFeature[] => {
   const clusterCoordinates = [] as Array<[number, number]>
   const poiClusters = pois.reduce((prev, poi) => {
     const clusterIndex = clusterCoordinates.findIndex(
@@ -49,19 +41,11 @@ export const prepareFeatureLocations = (pois: Array<PoiModel>, userLocation: Loc
   const poiFeatures = Object.values(poiClusters).map((poiCluster, clusterCoordinateIndex) =>
     prepareFeatureLocation(
       poiCluster,
-      userLocation,
       clusterCoordinateIndex,
-      clusterCoordinates[clusterCoordinateIndex]!
+      clusterCoordinates[clusterCoordinateIndex]!,
+      userLocation
     )
   )
-
-  if (userLocation) {
-    return poiFeatures.sort(
-      (poi1, poi2) =>
-        parseFloat(poi1.properties.pois[0]?.distance ?? '0') - parseFloat(poi2.properties.pois[0]?.distance ?? '0')
-    )
-  }
-  return poiFeatures
 }
 
 export const sortPoiFeatures = (poiFeatures: GeoJsonPoi[]): GeoJsonPoi[] =>

@@ -1,13 +1,34 @@
 import CityModel from '../../models/CityModel'
-import { JsonCityType } from '../../types'
+import LanguageModel from '../../models/LanguageModel'
+import { JsonCityType, JsonLanguageType } from '../../types'
 import createCitiesEndpoint from '../createCitiesEndpoint'
 
 describe('cities', () => {
   const baseUrl = 'https://integreat-api-url.de'
   const cities = createCitiesEndpoint(baseUrl)
+  const languagesJson: JsonLanguageType[] = [
+    {
+      code: 'en',
+      native_name: 'English',
+    },
+    {
+      code: 'de',
+      native_name: 'Deutsch',
+    },
+    {
+      code: 'ar',
+      native_name: '\u0627\u0644\u0639\u0631\u0628\u064a\u0629',
+    },
+  ]
+  const languages = [
+    new LanguageModel('ar', '\u0627\u0644\u0639\u0631\u0628\u064a\u0629'),
+    new LanguageModel('de', 'Deutsch'),
+    new LanguageModel('en', 'English'),
+  ]
   const city1: JsonCityType = {
     name: 'Augsburg',
     path: '/augsburg/',
+    languages: languagesJson,
     live: true,
     events: true,
     extras: true,
@@ -33,6 +54,7 @@ describe('cities', () => {
     name: 'Stadt Regensburg',
     path: '/regensburg/',
     live: true,
+    languages: languagesJson,
     events: false,
     extras: false,
     tunews: false,
@@ -59,6 +81,7 @@ describe('cities', () => {
         name: city1.name,
         code: 'augsburg',
         live: city1.live,
+        languages,
         eventsEnabled: true,
         offersEnabled: true,
         poisEnabled: true,
@@ -80,6 +103,7 @@ describe('cities', () => {
         name: city2.name,
         code: 'regensburg',
         live: city2.live,
+        languages,
         eventsEnabled: false,
         offersEnabled: false,
         poisEnabled: false,

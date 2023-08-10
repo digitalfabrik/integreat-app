@@ -20,7 +20,7 @@ type PageDetailProps = {
   language: string
 }
 
-const PageDetail: React.FC<PageDetailProps> = (props: PageDetailProps): ReactElement => {
+const PageDetail = (props: PageDetailProps): ReactElement => {
   const { identifier, information, language } = props
 
   return (

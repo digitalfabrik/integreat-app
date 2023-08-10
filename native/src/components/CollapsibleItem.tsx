@@ -21,6 +21,7 @@ type CollapsibleHeaderIconProps = 'expand-less' | 'expand-more'
 
 const PageContainer = styled.View`
   align-self: center;
+  width: 100%;
 `
 
 const CollapseHeaderText = styled.Text`
@@ -50,7 +51,7 @@ const renderHeaderContent = (headerContent: string | ReactElement): ReactElement
   return headerContent
 }
 
-const CollapsibleItem: React.FC<CollapsibleItemProps> = ({
+const CollapsibleItem = ({
   initExpanded,
   iconSize = DEFAULT_ICON_SIZE,
   children,

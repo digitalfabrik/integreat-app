@@ -10,7 +10,7 @@ import { reportError } from '../utils/sentry'
 
 type AppContextType = {
   cityCode: string | null
-  changeCityCode: (cityCode: string) => void
+  changeCityCode: (cityCode: string | null) => void
   languageCode: string
   changeLanguageCode: (languageCode: string) => void
 }
@@ -64,13 +64,13 @@ const AppContextProvider = ({ children }: AppContextProviderProps): ReactElement
   )
 
   const changeCityCode = useCallback(
-    (newCityCode: string): void => {
+    (newCityCode: string | null): void => {
       setCityCode(newCityCode)
       appSettings.setSelectedCity(newCityCode).catch(reportError)
       if (languageCode && cityCode) {
         unsubscribe(cityCode, languageCode)
       }
-      if (languageCode) {
+      if (languageCode && newCityCode) {
         subscribe(newCityCode, languageCode)
       }
     },

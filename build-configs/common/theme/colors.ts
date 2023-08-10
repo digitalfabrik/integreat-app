@@ -10,7 +10,7 @@ export type ColorsType = {
   backgroundColor: string
   tunewsThemeColor: string
   tunewsThemeColorLight: string
-  poiBorderColor: string
+  borderColor: string
   positiveHighlight: string
   negativeHighlight: string
 }
@@ -24,7 +24,7 @@ export const commonLightColors = {
   backgroundColor: '#ffffff',
   tunewsThemeColor: '#007aa8',
   tunewsThemeColorLight: 'rgba(0, 122, 168, 0.4)',
-  poiBorderColor: '#F1F1F1',
+  borderColor: '#F1F1F1',
   positiveHighlight: '#188038',
   negativeHighlight: '#8b0000',
 }

@@ -26,8 +26,9 @@ type JsonOpeningHoursType = {
 export type JsonPoiCategoryType = {
   id: number
   name: string
-  color?: string
-  icon?: string
+  color: string
+  icon: string
+  icon_url: string
 }
 type JsonFeaturedImageInstanceType = {
   url: string
@@ -68,6 +69,11 @@ export type JsonCategoryType = {
     path: string | null
   }
   order: number
+  organization: {
+    name: string
+    logo: string
+    website: string
+  } | null
 }
 export type JsonDisclaimerType = JsonCategoryType
 export type JsonPoiType = {
@@ -168,11 +174,9 @@ export type JsonSprungbrettJobType = {
   employment: string
   apprenticeship: string
 }
-export type LanguageDirectionType = 'ltr' | 'rtl'
 export type JsonLanguageType = {
   code: string
   native_name: string
-  dir: LanguageDirectionType
 }
 export type JsonTunewsLanguageType = {
   code: string
@@ -182,6 +186,7 @@ export type JsonCityType = {
   name: string
   path: string
   live: boolean
+  languages: JsonLanguageType[]
   events: boolean
   extras: boolean
   pois: boolean

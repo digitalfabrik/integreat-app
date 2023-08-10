@@ -49,16 +49,11 @@ const FailureSwitcher = ({ error }: FailureSwitcherProps): ReactElement => {
             errorMessage: 'notFound.event',
           }
         case LOCAL_NEWS_TYPE:
-          return {
-            goToPath: pathnameFromRouteInformation({ route: NEWS_ROUTE, newsType: LOCAL_NEWS_TYPE, ...params }),
-            goToMessage: 'goTo.localNews',
-            errorMessage: 'notFound.localNews',
-          }
         case TU_NEWS_TYPE:
           return {
-            goToPath: pathnameFromRouteInformation({ route: NEWS_ROUTE, newsType: TU_NEWS_TYPE, ...params }),
-            goToMessage: 'goTo.tunews',
-            errorMessage: 'notFound.tunews',
+            goToPath: pathnameFromRouteInformation({ route: NEWS_ROUTE, newsType: error.type, ...params }),
+            goToMessage: 'goTo.news',
+            errorMessage: 'notFound.news',
           }
         case 'offer':
           return {

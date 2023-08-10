@@ -26,7 +26,11 @@ const TileContainer = styled.View`
 const Tile = ({ onTilePress, tile }: TileProps): ReactElement => (
   <TileContainer>
     <TouchableOpacity onPress={() => onTilePress(tile)}>
-      <ThumbnailContainer source={tile.thumbnail} />
+      {!tile.thumbnail || typeof tile.thumbnail === 'string' ? (
+        <ThumbnailContainer source={tile.thumbnail} />
+      ) : (
+        <tile.thumbnail height={150} />
+      )}
       <TileTitle android_hyphenationFrequency='full'>{tile.title}</TileTitle>
     </TouchableOpacity>
   </TileContainer>

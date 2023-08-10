@@ -11,14 +11,11 @@ const FooterContainer = styled.View`
   flex-direction: column;
   align-items: center;
   border-bottom: 2px solid ${props => props.theme.colors.textColor};
-`
-const Icon = styled.Image`
-  margin: -5%;
-  width: 30%;
-  resize-mode: contain;
+  padding-top: 5%;
 `
 
 const Question = styled.Text`
+  margin-top: 5%;
   font-family: ${props => props.theme.fonts.native.decorativeFontBold};
   font-size: 16px;
 `
@@ -41,10 +38,11 @@ const CityNotCooperatingFooter = ({
   if (!buildConfig().featureFlags.cityNotCooperating) {
     return null
   }
+  const CityNotCooperatingIcon = buildConfigAssets().CityNotCooperatingIcon!
 
   return (
     <FooterContainer>
-      <Icon source={buildConfigAssets().cityNotCooperatingIcon!} />
+      <CityNotCooperatingIcon width='30%' height='100' />
       <Question>{t('cityNotFound')}</Question>
       <ButtonContainer>
         <Button
