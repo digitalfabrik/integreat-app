@@ -2,12 +2,9 @@ import React, { ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import styled, { css } from 'styled-components'
 
-import { POIS_ROUTE } from 'api-client'
 import { UiDirectionType } from 'translations'
 
 import { CloseSocialIcon, FacebookIcon, MailSocialIcon, ShareIcon, WhatsappIcon } from '../assets'
-import useWindowDimensions from '../hooks/useWindowDimensions'
-import { RouteType } from '../routes'
 import Portal from './Portal'
 import ToolbarItem from './ToolbarItem'
 import Tooltip from './Tooltip'
@@ -17,7 +14,7 @@ type SharingPopupProps = {
   title: string
   flow: 'vertical' | 'horizontal'
   direction: UiDirectionType
-  route: RouteType
+  isWithinPortal: boolean
 }
 
 const TooltipContainer = styled.div<{
@@ -45,10 +42,10 @@ const TooltipContainer = styled.div<{
     props.flow === 'horizontal' &&
     (props.direction === 'ltr'
       ? css`
-          transform: translateX(30%);
+          transform: translate(30%, -8px);
         `
       : css`
-          transform: translate(-30%);
+          transform: translate(-30%, -8px);
         `)};
 
   ${props =>
@@ -190,16 +187,13 @@ const SharingPopupContainer = styled.div`
   position: relative;
 `
 
-const SharingPopup = ({ shareUrl, title, flow, direction, route }: SharingPopupProps): ReactElement => {
+const SharingPopup = ({ shareUrl, title, flow, direction, isWithinPortal }: SharingPopupProps): ReactElement => {
   const { t } = useTranslation('socialMedia')
   const [shareOptionsVisible, setShareOptionsVisible] = useState<boolean>(false)
-  const { viewportSmall } = useWindowDimensions()
+
   const encodedTitle = encodeURIComponent(title)
   const encodedShareUrl = encodeURIComponent(shareUrl)
   const shareMessage = t('layout:shareMessage')
-
-  // We need an additional backdrop that lives outside the bottomActionSheet dom node to cover the whole screen
-  const isWithinBottomActionSheet = route === POIS_ROUTE && viewportSmall
 
   const Backdrop = (
     <BackdropContainer
@@ -214,13 +208,16 @@ const SharingPopup = ({ shareUrl, title, flow, direction, route }: SharingPopupP
     <SharingPopupContainer>
       {shareOptionsVisible && (
         <>
-          {isWithinBottomActionSheet && (
+          {isWithinPortal && (
             <Portal className='sharing-popup-backdrop-portal' show={shareOptionsVisible}>
               {Backdrop}
             </Portal>
           )}
           {Backdrop}
-          <TooltipContainer flow={flow} active={shareOptionsVisible} direction={direction}>
+          <TooltipContainer
+            flow={isWithinPortal ? 'horizontal' : flow}
+            active={shareOptionsVisible}
+            direction={direction}>
             <Tooltip text={t('whatsappTooltip')} flow='up'>
               <Link
                 href={`https://api.whatsapp.com/send?text=${shareMessage}${encodedTitle}%0a${encodedShareUrl}`}
