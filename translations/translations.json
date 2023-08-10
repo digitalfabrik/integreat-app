@@ -390,7 +390,8 @@
       "languageNotAvailable": "Deine Sprache ist hier leider nicht verfügbar.",
       "chooseALanguage": "Wähle eine Sprache.",
       "lastUpdate": "Letzte Aktualisierung:",
-      "loading": "Lade ..."
+      "loading": "Lade ...",
+      "close": "Schließen"
     },
     "am": {
       "copied": "ተቀድቷል",
@@ -398,7 +399,8 @@
       "languageNotAvailable": "ይቅርታ፣ ቋንቋዎ እዚህ ላይ የለም።",
       "chooseALanguage": "ቋንቋ ይምረጡ።",
       "lastUpdate": "መጨረሻ የተሻሻለበት ጊዜ:",
-      "loading": "እየጫነ ነው ..."
+      "loading": "እየጫነ ነው ...",
+      "close": "ይዝጉ"
     },
     "ar": {
       "copied": "تم النسخ",
@@ -406,7 +408,8 @@
       "languageNotAvailable": "للأسف، لغتك ليست متاحة.",
       "chooseALanguage": "اختر لغة.",
       "lastUpdate": "التحديث الأخير:",
-      "loading": "حمّل..."
+      "loading": "حمّل...",
+      "close": "إغلاق"
     },
     "bg": {
       "copied": "Копиран",
@@ -414,7 +417,8 @@
       "languageNotAvailable": "За съжаление, езикът Ви не е наличен тук.",
       "chooseALanguage": "Изберете език.",
       "lastUpdate": "Последна актуализация:",
-      "loading": "Зареждане..."
+      "loading": "Зареждане...",
+      "close": "Затваряне"
     },
     "ckb": {
       "copied": "کۆپی کرا",
@@ -422,7 +426,8 @@
       "languageNotAvailable": "بەداخەوە زمانەکەتی تێدا نییە.",
       "chooseALanguage": "زمانێک هەڵبژێرە.",
       "lastUpdate": "دوایین بەڕۆژکردنەوە:",
-      "loading": "خەریکی بارکردنە..."
+      "loading": "خەریکی بارکردنە...",
+      "close": "داخستن"
     },
     "cs": {
       "copied": "Kopírovat",
@@ -430,7 +435,8 @@
       "languageNotAvailable": "Váš jazyk zde není k dispozici.",
       "chooseALanguage": "Vyberte si jazyk.",
       "lastUpdate": "Poslední aktualizace:",
-      "loading": "Načítání ..."
+      "loading": "Načítání ...",
+      "close": "Zavřít"
     },
     "el": {
       "copied": "Αντιγράφηκε",
@@ -438,7 +444,8 @@
       "languageNotAvailable": "Δυστυχώς, η γλώσσα σας δεν είναι διαθέσιμη εδώ.",
       "chooseALanguage": "Επιλέξτε μια γλώσσα.",
       "lastUpdate": "Τελευταία ενημέρωση:",
-      "loading": "Φόρτωση ..."
+      "loading": "Φόρτωση ...",
+      "close": "Κλείσιμο"
     },
     "en": {
       "copied": "Copied",
@@ -446,7 +453,8 @@
       "languageNotAvailable": "Sorry, but your language is not available here.",
       "chooseALanguage": "Choose a language.",
       "lastUpdate": "Last update:",
-      "loading": "Loading ..."
+      "loading": "Loading ...",
+      "close": "Close"
     },
     "es": {
       "copied": "Copiado",
@@ -454,7 +462,8 @@
       "languageNotAvailable": "Tu idioma no está disponible aquí.",
       "chooseALanguage": "Selecciona un idioma.",
       "lastUpdate": "Última actualización:",
-      "loading": "Cargando..."
+      "loading": "Cargando...",
+      "close": "Cerrar"
     },
     "fi": {
       "copied": "Kopioitu",
@@ -462,7 +471,8 @@
       "languageNotAvailable": "Kielesi ei ole saatavilla.",
       "chooseALanguage": "Valitse kieli.",
       "lastUpdate": "Viimeisin päivitys:",
-      "loading": "Lataa..."
+      "loading": "Lataa...",
+      "close": "Sulje"
     },
     "fr": {
       "copied": "Copié",
@@ -470,7 +480,8 @@
       "languageNotAvailable": "Malheureusement, ta langue n'est pas disponible ici.",
       "chooseALanguage": "Choisis une langue.",
       "lastUpdate": "Dernière actualisation :",
-      "loading": "Chargement ..."
+      "loading": "Chargement ...",
+      "close": "Fermer"
     },
     "hr": {
       "copied": "kopirano",
@@ -478,7 +489,8 @@
       "languageNotAvailable": "Tvoj jezik ovdje nažalost nije dostupan.",
       "chooseALanguage": "Odaberi jezik.",
       "lastUpdate": "Zadnje ažuriranje:",
-      "loading": "Učitava se..."
+      "loading": "Učitava se...",
+      "close": "Zatvori"
     },
     "hu": {
       "copied": "Bemásolva",
@@ -486,7 +498,8 @@
       "languageNotAvailable": "A nyelved sajnos nem elérhető.",
       "chooseALanguage": "Válassz ki egy nyelvet.",
       "lastUpdate": "Utolsó aktualizálás:",
-      "loading": "Betöltés..."
+      "loading": "Betöltés...",
+      "close": "Bezárás"
     },
     "it": {
       "copied": "Copiato",
@@ -494,7 +507,8 @@
       "languageNotAvailable": "Purtroppo la tua lingua non è disponibile qui.",
       "chooseALanguage": "Scegli una lingua.",
       "lastUpdate": "Ultimo aggiornamento:",
-      "loading": "Caricamento..."
+      "loading": "Caricamento...",
+      "close": "Chiudi"
     },
     "ka": {
       "copied": "დაკოპირებულია",
@@ -502,7 +516,8 @@
       "languageNotAvailable": "შენი ენა აქ არ მოიხმარება",
       "chooseALanguage": "აირჩიე ენა.",
       "lastUpdate": "ბოლო აქტუალიზირება:",
-      "loading": "ატვირთე…"
+      "loading": "ატვირთე…",
+      "close": "დახურვა"
     },
     "kmr": {
       "copied": "Kopî bû",
@@ -510,7 +525,8 @@
       "languageNotAvailable": "Mixabin zimanê te li vir li ber dest nîne.",
       "chooseALanguage": "Zimanekî bibijêre.",
       "lastUpdate": "Birojkirina herî dawî:",
-      "loading": "Di halê birojkirinê da..."
+      "loading": "Di halê birojkirinê da...",
+      "close": "Girêdan"
     },
     "mk": {
       "copied": "Копирано",
@@ -518,7 +534,8 @@
       "languageNotAvailable": "За жал твојот јазик не е достапен.",
       "chooseALanguage": "Избери јазик.",
       "lastUpdate": "Последно ажурирање:",
-      "loading": "Вчитај..."
+      "loading": "Вчитај...",
+      "close": "Затвори"
     },
     "nl": {
       "copied": "Gekopieerd",
@@ -526,7 +543,8 @@
       "languageNotAvailable": "Sorry, jouw taal is hier niet beschikbaar",
       "chooseALanguage": "Kies een taal",
       "lastUpdate": "Laatste update:",
-      "loading": "Aan het laden…"
+      "loading": "Aan het laden…",
+      "close": "sluit af"
     },
     "pes": {
       "copied": "کپی شد",
@@ -534,7 +552,8 @@
       "languageNotAvailable": "متاسفانه زبان شما در اینجا در دسترس نیست.",
       "chooseALanguage": "یک زبان را انتخاب کنید.",
       "lastUpdate": "آخرین تغییرات:",
-      "loading": "در حال بارگیری ..."
+      "loading": "در حال بارگیری ...",
+      "close": "بستن"
     },
     "pl": {
       "copied": "Skopiowano",
@@ -542,7 +561,8 @@
       "languageNotAvailable": "Niestety Twój język nie jest tutaj dostępny.",
       "chooseALanguage": "Wybierz język.",
       "lastUpdate": "Ostatnia aktualizacja",
-      "loading": "Załaduj..."
+      "loading": "Załaduj...",
+      "close": "Zamknij"
     },
     "prs": {
       "copied": "کپی شد",
@@ -550,7 +570,8 @@
       "languageNotAvailable": "متاسفانه لسان شما در اینجا موجود نیست‎.",
       "chooseALanguage": "یک لسان انتخاب کنید.",
       "lastUpdate": "آخرین به‎​روز رسانی:",
-      "loading": "در حال دانلود ..."
+      "loading": "در حال دانلود ...",
+      "close": "بستن"
     },
     "ps": {
       "copied": "کاپی شولو",
@@ -558,7 +579,8 @@
       "languageNotAvailable": "له بده مرغه ستا ژبه دلته موجوده نده.",
       "chooseALanguage": "یوه ژبه انتخاب کړه.",
       "lastUpdate": "آخري تغیر شوے:",
-      "loading": "بارولے کیږی ۔۔۔"
+      "loading": "بارولے کیږی ۔۔۔",
+      "close": "پای ته رسول"
     },
     "pt": {
       "copied": "Copiado",
@@ -566,7 +588,8 @@
       "languageNotAvailable": "Lamentablemente, tu idioma no está disponible.",
       "chooseALanguage": "Elige un idioma.",
       "lastUpdate": "Última actualización:",
-      "loading": "Cargar ..."
+      "loading": "Cargar ...",
+      "close": "Cerrar"
     },
     "ro": {
       "copied": "Copiat",
@@ -574,7 +597,8 @@
       "languageNotAvailable": "Din păcate, aici nu este disponibilă limba ta.",
       "chooseALanguage": "Alege o limbă.",
       "lastUpdate": "Ultima actualizare:",
-      "loading": "Se încarcă ..."
+      "loading": "Se încarcă ...",
+      "close": "Închideți"
     },
     "ru": {
       "copied": "Скопировано",
@@ -582,7 +606,8 @@
       "languageNotAvailable": "К сожалению, ваш язык здесь не используется.",
       "chooseALanguage": "Выбор языка.",
       "lastUpdate": "Последнее обновление:",
-      "loading": "Загрузка..."
+      "loading": "Загрузка...",
+      "close": "Закрыть"
     },
     "so": {
       "copied": "la koobiyeeyay",
@@ -590,7 +615,8 @@
       "languageNotAvailable": "Nasiib darro, luqaddaada halkan lagama heli karo.",
       "chooseALanguage": "Dooro luuqad.",
       "lastUpdate": "Cusbooneysiinta ugu dambeyso:",
-      "loading": "Xareysmeyso ..."
+      "loading": "Xareysmeyso ...",
+      "close": "Xidh"
     },
     "sq": {
       "copied": "e kopjuar",
@@ -598,7 +624,8 @@
       "languageNotAvailable": "Fatkeqësisht, gjuha juaj nuk është në dispozicion këtu.",
       "chooseALanguage": "Zgjidh një gjuhë.",
       "lastUpdate": "Përditësimi i fundit:",
-      "loading": "Ngarko ..."
+      "loading": "Ngarko ...",
+      "close": "Mbyll"
     },
     "sr-Cyrl": {
       "copied": "копирано",
@@ -606,7 +633,8 @@
       "languageNotAvailable": "Нажалост, твој језик овде није доступан.",
       "chooseALanguage": "Изабери језик.",
       "lastUpdate": "Последње ажурирање:",
-      "loading": "Учитава се ..."
+      "loading": "Учитава се ...",
+      "close": "Затвори"
     },
     "sr-Latn": {
       "copied": "kopirano",
@@ -614,7 +642,8 @@
       "languageNotAvailable": "Nažalost, tvoj jezik ovde nije dostupan.",
       "chooseALanguage": "Izaberi jezik.",
       "lastUpdate": "Poslednje ažuriranje:",
-      "loading": "Učitava se ..."
+      "loading": "Učitava se ...",
+      "close": "Zatvorite"
     },
     "ti": {
       "copied": "ተቐዲሑ",
@@ -622,7 +651,8 @@
       "languageNotAvailable": "ሕማቕ ኣጋጣሚ ኮይኑ፡ ቋንቋኻ ኣብዚ የለን።",
       "chooseALanguage": "ቋንቋ ምረጽ።",
       "lastUpdate": "መወዳእታ ዝተሓደሰ",
-      "loading": "ይጽዓን ኣሎ ..."
+      "loading": "ይጽዓን ኣሎ ...",
+      "close": "ዕጾ"
     },
     "tr": {
       "copied": "kopyalandı",
@@ -630,7 +660,8 @@
       "languageNotAvailable": "Senin dilin burada maalesef yok.",
       "chooseALanguage": "Bir dil seçin.",
       "lastUpdate": "Son güncelleme:",
-      "loading": "Yükleniyor ..."
+      "loading": "Yükleniyor ...",
+      "close": "Kapat"
     },
     "uk": {
       "copied": "Копіювати",
@@ -638,7 +669,8 @@
       "languageNotAvailable": "Ваша мова тут недоступна.",
       "chooseALanguage": "Виберіть мову.",
       "lastUpdate": "Останнє оновлення:",
-      "loading": "Завантаження ..."
+      "loading": "Завантаження ...",
+      "close": "Закрити"
     },
     "ur": {
       "copied": "کاپی کیا گیا",
@@ -646,7 +678,8 @@
       "languageNotAvailable": "معذرت، آپ کی زبان یہاں دستیاب نہیں۔",
       "chooseALanguage": "زبان منتخب کریں۔",
       "lastUpdate": "آخری ترمیم:",
-      "loading": "لوڈ ہو رہا ہے ‎…"
+      "loading": "لوڈ ہو رہا ہے ‎…",
+      "close": "بند کریں"
     },
     "zh-CN": {
       "copied": "已复制",
@@ -654,7 +687,8 @@
       "languageNotAvailable": "很抱歉，这里没有提供您的语言。",
       "chooseALanguage": "请选择一种语言。",
       "lastUpdate": "上次更新：",
-      "loading": "加载中。。。"
+      "loading": "加载中。。。",
+      "close": "关闭"
     }
   },
   "dashboard": {
@@ -2433,7 +2467,6 @@
       "feedbackSent": "Feedback abgeschickt",
       "thanksHeadline": "Vielen Dank für dein Feedback.",
       "thanksMessage": "Dein Feedback wurde erfolgreich abgesendet.",
-      "close": "Schließen",
       "negativeRating": "Diese Seite ist nicht hilfreich",
       "positiveRating": "Diese Seite ist hilfreich",
       "contactMailAddress": "E-Mail für Rückfragen",
@@ -2451,7 +2484,6 @@
       "informationNotFound": "የሚፈልጉት ነገር አልተገኘም?",
       "wantedInformation": "እዚህ ላይ የጎደለው መረጃ ምንድን ነው?",
       "feedbackSent": "ግብረ መልሱ ተልኳል",
-      "close": "ይዝጉ",
       "negativeRating": "ይህ ገጽ ጠቃሚ አይደለም",
       "positiveRating": "ይህ ገጽ ጠቃሚ ነው",
       "contactMailAddress": "ለጥያቄዎች ኢሜይል",
@@ -2468,7 +2500,6 @@
       "informationNotFound": "لم يتم العثور على المعلومة المناسبة؟",
       "wantedInformation": "ما هي المعلومات المفقودة هنا؟",
       "feedbackSent": "تم إرسال الملاحظة",
-      "close": "إغلاق",
       "negativeRating": "هذه الصفحة ليست مفيدة",
       "positiveRating": "هذه الصفحة مفيدة",
       "contactMailAddress": "البريد الإلكتروني للاستفسارات",
@@ -2485,7 +2516,6 @@
       "informationNotFound": "Не сте намерили правилната?",
       "wantedInformation": "Каква информация липсва тук?",
       "feedbackSent": "Отзивът е изпратен",
-      "close": "Затваряне",
       "negativeRating": "Тази страница не е полезна",
       "positiveRating": "Тази страница е полезна",
       "contactMailAddress": "Имейл за запитвания",
@@ -2502,7 +2532,6 @@
       "informationNotFound": "بڕگەی گونجاوت نەدۆزییەوە؟",
       "wantedInformation": "چ زانیارییەک لێرەدا نییە؟",
       "feedbackSent": "بۆچوون ناردرا",
-      "close": "داخستن",
       "negativeRating": "ئەم لاپەڕەیە بەکەڵک نییە",
       "positiveRating": "ئەم لاپەڕەیە بەکەڵکە",
       "contactMailAddress": "ئیمەیل بۆ پرسیارەکان",
@@ -2519,7 +2548,6 @@
       "informationNotFound": "Nenašli jste, co jste hledali?",
       "wantedInformation": "Jaké informace zde chybí?",
       "feedbackSent": "Zpětná vazba byla odeslána",
-      "close": "Zavřít",
       "negativeRating": "Tato stránka není užitečná",
       "positiveRating": "Tato stránka je užitečná",
       "contactMailAddress": "E-mail pro dotazy",
@@ -2536,7 +2564,6 @@
       "informationNotFound": "Δεν βρήκατε το σωστό;",
       "wantedInformation": "Ποιες πληροφορίες λείπουν;",
       "feedbackSent": "Τα σχόλια στάλθηκαν",
-      "close": "Κλείσιμο",
       "negativeRating": "Αυτή η σελίδα δεν είναι χρήσιμη",
       "positiveRating": "Αυτή η σελίδα είναι χρήσιμη",
       "contactMailAddress": "E-mail για ερωτήσεις",
@@ -2553,7 +2580,6 @@
       "informationNotFound": "Not found what you were looking for?",
       "wantedInformation": "What information is missing?",
       "feedbackSent": "Feedback sent",
-      "close": "Close",
       "negativeRating": "This site is not useful",
       "positiveRating": "This site is useful",
       "contactMailAddress": "E-Mail for further questions",
@@ -2570,7 +2596,6 @@
       "informationNotFound": "¿No ha encontrado lo que buscaba?",
       "wantedInformation": "¿Qué información falta aquí?",
       "feedbackSent": "Comentarios enviados",
-      "close": "Cerrar",
       "negativeRating": "Esta página no sirve de ayuda",
       "positiveRating": "Esta página sirve de ayuda",
       "contactMailAddress": "Correo electrónico para consultas",
@@ -2587,7 +2612,6 @@
       "informationNotFound": "Etkö löytänyt etsimääsi?",
       "wantedInformation": "Mitkä tiedot puuttuvat?",
       "feedbackSent": "Palaute lähetetty",
-      "close": "Sulje",
       "negativeRating": "Tästä sivusta ei ole apua",
       "positiveRating": "Tämä sivu on hyödyllinen",
       "contactMailAddress": "Sähköpostiosoite tiedusteluita varten",
@@ -2604,7 +2628,6 @@
       "informationNotFound": "Vous n'avez pas trouvé ce qu'il vous faut ?",
       "wantedInformation": "Quelles sont les informations manquantes ici ?",
       "feedbackSent": "Avis envoyé",
-      "close": "Fermer",
       "negativeRating": "Cette page n'est pas utile",
       "positiveRating": "Cette page est utile",
       "contactMailAddress": "E-mail en cas de question",
@@ -2621,7 +2644,6 @@
       "informationNotFound": "Niste pronašli pravu stvar?",
       "wantedInformation": "Koje informacije nedostaju?",
       "feedbackSent": "Povratna informacija poslana",
-      "close": "Zatvori",
       "negativeRating": "Ova stranica nije korisna",
       "positiveRating": "Ova stranica je korisna",
       "contactMailAddress": "E-pošta za povratna pitanja",
@@ -2638,7 +2660,6 @@
       "informationNotFound": "Nem találtad meg a megfelelőt?",
       "wantedInformation": "Mely információk hiányoznak itt?",
       "feedbackSent": "A visszajelzést elküldtük",
-      "close": "Bezárás",
       "negativeRating": "Ez az oldal nem hasznos",
       "positiveRating": "Ez az oldal hasznos",
       "contactMailAddress": "E-mail visszajelzések számára",
@@ -2655,7 +2676,6 @@
       "informationNotFound": "Non hai trovato quello che cercavi?",
       "wantedInformation": "Quali informazioni mancano qui?",
       "feedbackSent": "Feedback inviato",
-      "close": "Chiudi",
       "negativeRating": "Questa pagina non è utile",
       "positiveRating": "Questa pagina è utile",
       "contactMailAddress": "E-mail per chiarimenti",
@@ -2672,7 +2692,6 @@
       "informationNotFound": "ვერ იპოვეთ შესაბამისი?",
       "wantedInformation": "რა ინფორმაციები აკლია აქ?",
       "feedbackSent": "შეფასება გაიგზავნა",
-      "close": "დახურვა",
       "negativeRating": "ეს გვერდი გამოუსადეგარია",
       "positiveRating": "ეს გვერდი ეხმარება",
       "contactMailAddress": "ელექტრონული ფოსტა შეკითხვებისათვის",
@@ -2689,7 +2708,6 @@
       "informationNotFound": "Gelo tiştê ku lê digeriyayî, nehat dîtin?",
       "wantedInformation": "Çi cûre zanyarî li vir tunene?",
       "feedbackSent": "'Feedback' hat şandin",
-      "close": "Girêdan",
       "negativeRating": "Ev rûpel sûdmend nîne",
       "positiveRating": "Ev rûpel sûdmend e",
       "contactMailAddress": "Email jibo pirsan",
@@ -2706,7 +2724,6 @@
       "informationNotFound": "Не го пронајде тоа што ти е потребно?",
       "wantedInformation": "Кои информации недостасуваат тука?",
       "feedbackSent": "Испратена е повратната информација",
-      "close": "Затвори",
       "negativeRating": "Оваа страница не ми помогна",
       "positiveRating": "Оваа страница ми помогна",
       "contactMailAddress": "Е-адреса за прашања",
@@ -2723,7 +2740,6 @@
       "informationNotFound": "Heb je niet gevonden waar je naar zocht?",
       "wantedInformation": "Welke informatie mist?",
       "feedbackSent": "De feedback is verzonden",
-      "close": "sluit af",
       "negativeRating": "Deze website is niet nuttig.",
       "positiveRating": "Deze website is nuttig.",
       "contactMailAddress": "Stuur een email voor overige vragen.",
@@ -2740,7 +2756,6 @@
       "informationNotFound": "آنچه را که جستجو می کردید پیدا نکردید؟",
       "wantedInformation": "چه اطلاعاتی در اینجا موجود نیست؟",
       "feedbackSent": "بازخورد ارسال شد",
-      "close": "بستن",
       "negativeRating": "این صفحه مفید نیست",
       "positiveRating": "این صفحه مفید است",
       "contactMailAddress": "ایمیل برای سئوالات",
@@ -2757,7 +2772,6 @@
       "informationNotFound": "Nie znalazłeś właściwej rzeczy?",
       "wantedInformation": "Jakich informacji tutaj brakuje?",
       "feedbackSent": "Wysłano opinię",
-      "close": "Zamknij",
       "negativeRating": "Ta strona nie jest pomocna",
       "positiveRating": "Ta strona jest pomocna",
       "contactMailAddress": "E-mail do zapytań",
@@ -2774,7 +2788,6 @@
       "informationNotFound": "مورد مناسب را پیدا نکردید؟",
       "wantedInformation": "کدام نوع معلومات در اینجا موجود نیست؟",
       "feedbackSent": "فیدبک ارسال شد",
-      "close": "بستن",
       "negativeRating": "این صفحه موثر نیست",
       "positiveRating": "این صفحه موثر است",
       "contactMailAddress": "ایمیل برای سوالات",
@@ -2791,7 +2804,6 @@
       "informationNotFound": "آیا صحیح پیدا نشو؟",
       "wantedInformation": "کوم معلومات پکې نشته؟",
       "feedbackSent": "تبصره ولېږل شوه",
-      "close": "پای ته رسول",
       "negativeRating": "دا پاڼه ګټوره نده",
       "positiveRating": "دا پاڼه ګټوره ده",
       "contactMailAddress": "د پوښتنو لپاره بریښنالیک",
@@ -2808,7 +2820,6 @@
       "informationNotFound": "¿No ha encontrado lo que buscaba?",
       "wantedInformation": "¿Qué información falta aquí?",
       "feedbackSent": "Valoración enviada",
-      "close": "Cerrar",
       "negativeRating": "Esta página no es útil",
       "positiveRating": "Esta página es útil",
       "contactMailAddress": "Correo electrónico para dudas",
@@ -2825,7 +2836,6 @@
       "informationNotFound": "Nu ați găsit ce ați căutat?",
       "wantedInformation": "Ce informații lipsesc aici?",
       "feedbackSent": "Feedback expediat",
-      "close": "Închideți",
       "negativeRating": "Această pagină nu este utilă",
       "positiveRating": "Această pagină este utilă",
       "contactMailAddress": "E-mail pentru întrebări ulterioare",
@@ -2842,7 +2852,6 @@
       "informationNotFound": "Не нашли того, что искали?",
       "wantedInformation": "Какая информация здесь отсутствует?",
       "feedbackSent": "Отзыв отправлен",
-      "close": "Закрыть",
       "negativeRating": "Эта страница не содержит полезной информации",
       "positiveRating": "Эта страница содержит полезную информацию",
       "contactMailAddress": "Эл. почта для встречных вопросов",
@@ -2859,7 +2868,6 @@
       "informationNotFound": "Ma aanan helin midka saxda ah?",
       "wantedInformation": "Macluumaad noocee ah ayaa halkan ka maqan?",
       "feedbackSent": "Jawaab celinta waa la diray",
-      "close": "Xidh",
       "negativeRating": "Boggan waxtar ma leh",
       "positiveRating": "Boggan waa mid waxtar badan",
       "contactMailAddress": "I-meelka weydiimaha",
@@ -2876,7 +2884,6 @@
       "informationNotFound": "Nuk gjetët atë që kërkonit?",
       "wantedInformation": "Çfarë informacioni mungon këtu?",
       "feedbackSent": "Komenti u dërgua",
-      "close": "Mbyll",
       "negativeRating": "Kjo faqe nuk është e dobishme",
       "positiveRating": "Kjo faqe është e dobishme",
       "contactMailAddress": "E-mail për pyetje",
@@ -2893,7 +2900,6 @@
       "informationNotFound": "Нисте пронашло одговарајућу информацију?",
       "wantedInformation": "Које информације недостају овде?",
       "feedbackSent": "Послата повратна информација",
-      "close": "Затвори",
       "negativeRating": "Ова страница није корисна",
       "positiveRating": "Ова страница је корисна",
       "contactMailAddress": "Е-пошта за питања",
@@ -2910,7 +2916,6 @@
       "informationNotFound": "Niste pronašli ono pravo?",
       "wantedInformation": "Koje informacije ovde nedostaju?",
       "feedbackSent": "Povratne informacije poslane",
-      "close": "Zatvorite",
       "negativeRating": "Ova stranica nije od pomoći",
       "positiveRating": "Ova stranica je od pomoći",
       "contactMailAddress": "E-pošta za pitanja",
@@ -2927,7 +2932,6 @@
       "informationNotFound": "ነቲ ቅኑዕ ኣይረኸቦን፧",
       "wantedInformation": "እንታይ ሓበሬታ እዩ ኣብዚ ጎዲሉ ዘሎ፧",
       "feedbackSent": "መልሰ-ሓበሬታ ተሰዲዱ",
-      "close": "ዕጾ",
       "negativeRating": "እዚ ገጽ’ዚ ሓጋዚ ኣይኮነን",
       "positiveRating": "እዚ ገጽ’ዚ ሓጋዚ እዩ",
       "contactMailAddress": "ኢመይል ንሕቶታት",
@@ -2944,7 +2948,6 @@
       "informationNotFound": "Doğru şeyi bulamadınız mı?",
       "wantedInformation": "Burada hangi bilgiler eksik?",
       "feedbackSent": "Geri bildirim gönderildi",
-      "close": "Kapat",
       "negativeRating": "Bu sayfa yardımcı olmadı",
       "positiveRating": "Bu sayfa yardımcı oldu",
       "contactMailAddress": "Sorularınız için e-posta",
@@ -2961,7 +2964,6 @@
       "informationNotFound": "Чи не знайшли те, що шукали?",
       "wantedInformation": "Якої інформації тут не вистачає?",
       "feedbackSent": "Відгук надіслано",
-      "close": "Закрити",
       "negativeRating": "Ця сторінка не є корисною",
       "positiveRating": "Ця сторінка корисна",
       "contactMailAddress": "Електронна пошта для запитів",
@@ -2978,7 +2980,6 @@
       "informationNotFound": "درست والا نہیں ملا؟",
       "wantedInformation": "یہاں کون سی معلومات موجود نہیں؟",
       "feedbackSent": "رائے بھیج دی گئی",
-      "close": "بند کریں",
       "negativeRating": "یہ صفحہ مددگار نہیں ہے",
       "positiveRating": "یہ صفحہ مددگار ہے",
       "contactMailAddress": "سوالات کے لئے ای میل",
@@ -2995,7 +2996,6 @@
       "informationNotFound": "找不到您要找的？",
       "wantedInformation": "这里缺少什么信息？",
       "feedbackSent": "反馈已发送",
-      "close": "关闭",
       "negativeRating": "这个网站没有帮助",
       "positiveRating": "这个网站很有帮助",
       "contactMailAddress": "反问的电子邮件",
@@ -5861,10 +5861,10 @@
       "detailsNextPoi": "další",
       "detailsPreviousPoi": "předchozí",
       "openExternalMaps": "Otevření v aplikaci Mapy",
-      "openingHoursAllDay": "celý den",
-      "openingHoursOpened": "otevřeno",
-      "openingHoursClosed": "zavřeno",
-      "openingHoursTemporarilyClosed": "dočasně uzavřeno",
+      "allDay": "celý den",
+      "opened": "otevřeno",
+      "closed": "zavřeno",
+      "temporarilyClosed": "dočasně uzavřeno",
       "montag": "pondělí",
       "dienstag": "úterý",
       "mittwoch": "středa",
@@ -5938,10 +5938,10 @@
       "detailsNextPoi": "Next",
       "detailsPreviousPoi": "Previous",
       "openExternalMaps": "Open in maps app",
-      "openingHoursAllDay": "all day",
-      "openingHoursOpened": "open",
-      "openingHoursClosed": "closed",
-      "openingHoursTemporarilyClosed": "temporarily closed",
+      "allDay": "all day",
+      "opened": "open",
+      "closed": "closed",
+      "temporarilyClosed": "temporarily closed",
       "montag": "Monday",
       "dienstag": "Tuesday",
       "mittwoch": "Wednesday",
@@ -6444,10 +6444,10 @@
       "detailsNextPoi": "Siguiente",
       "detailsPreviousPoi": "Anterior",
       "openExternalMaps": "Abrir en la aplicación de mapas",
-      "openingHoursAllDay": "Todo el día",
-      "openingHoursOpened": "Abierto",
-      "openingHoursClosed": "Cerrado",
-      "openingHoursTemporarilyClosed": "Cerrado temporalmente",
+      "allDay": "Todo el día",
+      "opened": "Abierto",
+      "closed": "Cerrado",
+      "temporarilyClosed": "Cerrado temporalmente",
       "montag": "Lunes",
       "dienstag": "Martes",
       "mittwoch": "Miércoles",

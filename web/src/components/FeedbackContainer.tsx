@@ -130,7 +130,7 @@ export const FeedbackContainer = (props: FeedbackContainerProps): ReactElement =
   return (
     <Container>
       <Text>{t('thanksMessage')}</Text>
-      {!!closeModal && !isSearchFeedback && <TextButton onClick={closeModal} text={t('close')} />}
+      {!!closeModal && !isSearchFeedback && <TextButton onClick={closeModal} text={t('common:close')} />}
     </Container>
   )
 }
