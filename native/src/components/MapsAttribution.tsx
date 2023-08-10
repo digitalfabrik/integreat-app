@@ -8,7 +8,6 @@ import Link from './Link'
 const Attribution = styled.View`
   flex-direction: row;
   display: flex;
-  padding: 4px;
   align-self: center;
 `
 

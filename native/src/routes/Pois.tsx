@@ -1,7 +1,8 @@
 import { BottomSheetScrollViewMethods } from '@gorhom/bottom-sheet'
-import React, { ReactElement, useCallback, useRef, useState } from 'react'
+import React, { ReactElement, useCallback, useMemo, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { ScrollView } from 'react-native'
+import { SvgUri } from 'react-native-svg'
 import styled from 'styled-components/native'
 
 import {
@@ -10,6 +11,7 @@ import {
   ErrorCode,
   fromError,
   NotFoundError,
+  PoiCategoryModel,
   PoiFeature,
   PoiModel,
   POIS_ROUTE,
@@ -17,10 +19,13 @@ import {
   prepareFeatureLocations,
 } from 'api-client'
 
+import { ClockIcon, EditLocationIcon } from '../assets'
 import BottomActionsSheet from '../components/BottomActionsSheet'
 import Failure from '../components/Failure'
 import MapView from '../components/MapView'
+import OverlayButton from '../components/OverlayButton'
 import PoiDetails from '../components/PoiDetails'
+import PoiFiltersModal from '../components/PoiFiltersModal'
 import PoiListItem from '../components/PoiListItem'
 import { NavigationProps, RouteProps } from '../constants/NavigationTypes'
 import dimensions from '../constants/dimensions'
@@ -55,17 +60,42 @@ type PoisProps = {
 
 const RESTORE_TIMEOUT = 100
 
-const Pois = ({ pois, language, cityModel, route, navigation }: PoisProps): ReactElement => {
+const Pois = ({ pois: allPois, language, cityModel, route, navigation }: PoisProps): ReactElement => {
+  const [poiCategoryFilter, setPoiCategoryFilter] = useState<PoiCategoryModel | null>(null)
+  const [poiCurrentlyOpenFilter, setPoiCurrentlyOpenFilter] = useState(false)
+  const [showFilterSelection, setShowFilterSelection] = useState(false)
   const { coordinates, requestAndDetermineLocation } = useUserLocation(true)
   const { slug } = route.params
   const [sheetSnapPointIndex, setSheetSnapPointIndex] = useState<number>(1)
   const [followUserLocation, setFollowUserLocation] = useState<boolean>(false)
   const [listScrollPosition, setListScrollPosition] = useState<number>(0)
-  const features = prepareFeatureLocations(pois, coordinates)
-  const selectedFeature = slug ? features.find(it => it.properties.slug === slug) : null
-  const poi = pois.find(it => it.slug === slug)
   const { t } = useTranslation('pois')
   const scrollRef = useRef<BottomSheetScrollViewMethods>(null)
+
+  const pois = useMemo(
+    () =>
+      allPois
+        .filter(poi => !poiCategoryFilter || poi.category === poiCategoryFilter)
+        .filter(poi => !poiCurrentlyOpenFilter || poi.isCurrentlyOpen),
+    [allPois, poiCategoryFilter, poiCurrentlyOpenFilter]
+  )
+  const poi = pois.find(it => it.slug === slug)
+  const features = prepareFeatureLocations(pois, coordinates)
+  const selectedFeature = slug ? features.find(it => it.properties.slug === slug) : null
+
+  const updatePoiCategoryFilter = (poiCategoryFilter: PoiCategoryModel | null) => {
+    if (poi && poiCategoryFilter && poi.category !== poiCategoryFilter) {
+      navigation.setParams({ slug: undefined })
+    }
+    setPoiCategoryFilter(poiCategoryFilter)
+  }
+
+  const updatePoiCurrentlyOpenFilter = (poiCurrentlyOpenFilter: boolean) => {
+    if (poi && poiCurrentlyOpenFilter && !poi.isCurrentlyOpen) {
+      navigation.setParams({ slug: undefined })
+    }
+    setPoiCurrentlyOpenFilter(poiCurrentlyOpenFilter)
+  }
 
   const scrollTo = (position: number) => {
     setTimeout(() => {
@@ -132,8 +162,43 @@ const Pois = ({ pois, language, cityModel, route, navigation }: PoisProps): Reac
     </ListWrapper>
   )
 
+  const FiltersOverlayButtons = (
+    <>
+      <OverlayButton
+        text={t('adjustFilters')}
+        Icon={<EditLocationIcon />}
+        onPress={() => setShowFilterSelection(true)}
+      />
+      {poiCurrentlyOpenFilter && (
+        <OverlayButton
+          text={t('opened')}
+          Icon={<ClockIcon />}
+          onPress={() => setPoiCurrentlyOpenFilter(false)}
+          closeButton
+        />
+      )}
+      {!!poiCategoryFilter && (
+        <OverlayButton
+          text={poiCategoryFilter.name}
+          Icon={<SvgUri uri={poiCategoryFilter.icon} height={16} width={16} />}
+          onPress={() => setPoiCategoryFilter(null)}
+          closeButton
+        />
+      )}
+    </>
+  )
+
   return (
     <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+      <PoiFiltersModal
+        modalVisible={showFilterSelection}
+        closeModal={() => setShowFilterSelection(false)}
+        pois={allPois}
+        selectedPoiCategory={poiCategoryFilter}
+        setSelectedPoiCategory={updatePoiCategoryFilter}
+        currentlyOpenFilter={poiCurrentlyOpenFilter}
+        setCurrentlyOpenFilter={updatePoiCurrentlyOpenFilter}
+      />
       <MapView
         selectPoiFeature={selectPoiFeature}
         boundingBox={cityModel.boundingBox}
@@ -147,6 +212,7 @@ const Pois = ({ pois, language, cityModel, route, navigation }: PoisProps): Reac
         }
         followUserLocation={followUserLocation}
         setFollowUserLocation={setFollowUserLocation}
+        Overlay={FiltersOverlayButtons}
       />
       <BottomActionsSheet
         ref={scrollRef}

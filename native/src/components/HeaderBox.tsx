@@ -10,6 +10,7 @@ const HorizontalLeft = styled.View`
   flex: 1;
   flex-direction: row;
   align-items: center;
+  background-color: ${props => props.theme.colors.backgroundAccentColor};
 `
 
 const HeaderText = styled.Text<{ fontSize: number }>`
