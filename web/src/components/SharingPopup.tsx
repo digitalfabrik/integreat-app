@@ -14,7 +14,7 @@ type SharingPopupProps = {
   title: string
   flow: 'vertical' | 'horizontal'
   direction: UiDirectionType
-  isWithinPortal: boolean
+  portalNeeded: boolean
 }
 
 const TooltipContainer = styled.div<{
@@ -155,6 +155,7 @@ const CloseButton = styled.button`
   border: none;
   padding: 0;
   display: flex;
+  cursor: pointer;
 `
 
 const Link = styled.a`
@@ -187,7 +188,7 @@ const SharingPopupContainer = styled.div`
   position: relative;
 `
 
-const SharingPopup = ({ shareUrl, title, flow, direction, isWithinPortal }: SharingPopupProps): ReactElement => {
+const SharingPopup = ({ shareUrl, title, flow, direction, portalNeeded }: SharingPopupProps): ReactElement => {
   const { t } = useTranslation('socialMedia')
   const [shareOptionsVisible, setShareOptionsVisible] = useState<boolean>(false)
 
@@ -208,14 +209,14 @@ const SharingPopup = ({ shareUrl, title, flow, direction, isWithinPortal }: Shar
     <SharingPopupContainer>
       {shareOptionsVisible && (
         <>
-          {isWithinPortal && (
+          {portalNeeded && (
             <Portal className='sharing-popup-backdrop-portal' show={shareOptionsVisible}>
               {Backdrop}
             </Portal>
           )}
           {Backdrop}
           <TooltipContainer
-            flow={isWithinPortal ? 'horizontal' : flow}
+            flow={portalNeeded ? 'horizontal' : flow}
             active={shareOptionsVisible}
             direction={direction}>
             <Tooltip text={t('whatsappTooltip')} flow='up'>

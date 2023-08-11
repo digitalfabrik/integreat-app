@@ -13,7 +13,7 @@ describe('SharingPopup', () => {
       title='Aktuelle Themen und Informationen'
       flow='horizontal'
       shareUrl='https://integreat.app/augsburg/de/aktuelle-themen-und-informationen'
-      isWithinPortal={false}
+      portalNeeded={false}
     />
   )
 

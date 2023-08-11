@@ -1,5 +1,5 @@
 import FocusTrap from 'focus-trap-react'
-import React, { ReactElement, ReactNode } from 'react'
+import React, { ReactElement, ReactNode, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
 
@@ -11,6 +11,8 @@ import useLockedBody from '../hooks/useLockedBody'
 import useScrollToTop from '../hooks/useScrollToTop'
 import useWindowDimensions from '../hooks/useWindowDimensions'
 import IconWithUiDirection from './IconWithUiDirection'
+import { LAYOUT_ELEMENT_ID } from './Layout'
+import Portal from './Portal'
 
 const Overlay = styled.div`
   position: absolute;
@@ -73,18 +75,26 @@ type ModalProps = {
   children: ReactNode
   closeModal: () => void
   direction: UiDirectionType
+  wrapInPortal?: boolean
 }
 
-const FeedbackModal = ({ title, closeModal, children, direction }: ModalProps): ReactElement => {
+const Modal = ({ title, closeModal, children, direction, wrapInPortal = false }: ModalProps): ReactElement => {
   const { viewportSmall } = useWindowDimensions()
   const { t } = useTranslation('common')
   useScrollToTop()
   useLockedBody(true)
 
-  return (
+  useEffect(() => {
+    const layoutElement = document.getElementById(LAYOUT_ELEMENT_ID)
+    layoutElement?.setAttribute('aria-hidden', 'true')
+
+    return () => layoutElement?.setAttribute('aria-hidden', 'false')
+  }, [])
+
+  const Modal = (
     <FocusTrap focusTrapOptions={{ clickOutsideDeactivates: true }}>
       <ModalContainer role='dialog' aria-hidden={false} aria-modal>
-        <Overlay onClick={closeModal} role='button' tabIndex={0} onKeyPress={closeModal} />
+        <Overlay onClick={closeModal} role='button' tabIndex={0} onKeyPress={closeModal} aria-label={t('close')} />
         <ModalContent>
           <Header flexDirection={viewportSmall ? 'row-reverse' : 'row'}>
             <span>{title}</span>
@@ -103,6 +113,16 @@ const FeedbackModal = ({ title, closeModal, children, direction }: ModalProps): 
       </ModalContainer>
     </FocusTrap>
   )
+
+  if (wrapInPortal) {
+    return (
+      <Portal className='modal' show>
+        <div dir={direction}>{Modal}</div>
+      </Portal>
+    )
+  }
+
+  return Modal
 }
 
-export default FeedbackModal
+export default Modal

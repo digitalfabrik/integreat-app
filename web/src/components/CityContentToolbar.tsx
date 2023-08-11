@@ -1,8 +1,7 @@
 import React, { memo, ReactNode, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { POIS_ROUTE } from 'api-client/src'
-import { config } from 'translations/src'
+import { config } from 'translations'
 
 import { CopyIcon, DoneIcon } from '../assets'
 import useWindowDimensions from '../hooks/useWindowDimensions'
@@ -22,6 +21,7 @@ type CityContentToolbarProps = {
   pageTitle: string
   route: RouteType
   languageCode: string
+  isInBottomActionSheet?: boolean
 }
 
 const COPY_TIMEOUT = 3000
@@ -37,6 +37,7 @@ const CityContentToolbar = (props: CityContentToolbarProps) => {
     route,
     pageTitle,
     languageCode,
+    isInBottomActionSheet = false,
   } = props
   const [linkCopied, setLinkCopied] = useState<boolean>(false)
   const { t } = useTranslation('layout')
@@ -56,12 +57,14 @@ const CityContentToolbar = (props: CityContentToolbarProps) => {
         flow={iconDirection === 'row' ? 'vertical' : 'horizontal'}
         direction={config.getScriptDirection(languageCode)}
         title={pageTitle}
-        isWithinPortal={route === POIS_ROUTE && viewportSmall}
+        portalNeeded={isInBottomActionSheet}
       />
       <Tooltip text={t('common:copied')} flow='up' active={linkCopied} trigger='click'>
         <ToolbarItem icon={linkCopied ? DoneIcon : CopyIcon} text={t('copyUrl')} onClick={copyToClipboard} />
       </Tooltip>
-      {hasFeedbackOption && <FeedbackToolbarItem route={route} slug={feedbackTarget} />}
+      {hasFeedbackOption && (
+        <FeedbackToolbarItem route={route} slug={feedbackTarget} isInBottomActionSheet={isInBottomActionSheet} />
+      )}
     </Toolbar>
   )
 }

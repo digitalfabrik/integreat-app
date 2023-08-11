@@ -1,39 +1,44 @@
 import { fireEvent } from '@testing-library/react'
-import React from 'react'
+import React, { ReactElement } from 'react'
 
-import { CATEGORIES_ROUTE } from 'api-client/src'
+import { CATEGORIES_ROUTE } from 'api-client'
 
-import { renderWithTheme } from '../../testing/render'
+import { renderWithRouterAndTheme } from '../../testing/render'
 import FeedbackToolbarItem from '../FeedbackToolbarItem'
-import Layout, { LAYOUT_ELEMENT_ID } from '../Layout'
 
-jest.mock('../FeedbackModal', () => ({ closeModal }: { closeModal: () => void }) => (
-  <div onClick={closeModal}>FeedbackModal</div>
-))
 jest.mock('react-i18next')
-jest.mock('../../hooks/useCityContentParams', () => () => ({ cityCode: 'augsburg', languageCode: 'de' }))
+jest.mock('api-client', () => ({
+  ...jest.requireActual('api-client'),
+  createFeedbackEndpoint: () => ({
+    request: () => undefined,
+  }),
+}))
+jest.mock('focus-trap-react', () => ({ children }: { children: ReactElement }) => <div>{children}</div>)
 
 describe('FeedbackToolbarItem', () => {
-  beforeEach(jest.clearAllMocks)
-
-  const renderFeedbackToolbarItem = () =>
-    renderWithTheme(
-      <Layout>
-        <FeedbackToolbarItem route={CATEGORIES_ROUTE} slug='my-slug' />
-      </Layout>
+  it('should open and update title on submit feedback', async () => {
+    const { queryByText, findByText, getByText } = renderWithRouterAndTheme(
+      <FeedbackToolbarItem route={CATEGORIES_ROUTE} slug='my-slug' isInBottomActionSheet={false} />
     )
 
-  it('should open and close feedback modal on click', () => {
-    const { getByText, queryByText, container } = renderFeedbackToolbarItem()
+    expect(queryByText('feedback:headline')).toBeFalsy()
+    expect(queryByText('feedback:thanksHeadline')).toBeFalsy()
 
     fireEvent.click(getByText('feedback:feedback'))
 
-    expect(getByText('FeedbackModal')).toBeTruthy()
-    expect(container.querySelector(`[id="${LAYOUT_ELEMENT_ID}"]`)?.getAttribute('aria-hidden')).toBe('true')
+    expect(getByText('feedback:headline')).toBeTruthy()
+    expect(queryByText('feedback:thanksHeadline')).toBeFalsy()
 
-    fireEvent.click(getByText('FeedbackModal'))
+    fireEvent.click(getByText('feedback:useful'))
+    fireEvent.click(getByText('feedback:send'))
 
-    expect(queryByText('FeedbackModal')).toBeFalsy()
-    expect(container.querySelector(`[id="${LAYOUT_ELEMENT_ID}"]`)?.getAttribute('aria-hidden')).toBe('false')
+    expect(await findByText('feedback:thanksMessage')).toBeTruthy()
+    expect(queryByText('feedback:headline')).toBeFalsy()
+    expect(getByText('feedback:thanksHeadline')).toBeTruthy()
+
+    fireEvent.click(getByText('feedback:common:close'))
+
+    expect(queryByText('feedback:headline')).toBeFalsy()
+    expect(queryByText('feedback:thanksHeadline')).toBeFalsy()
   })
 })
