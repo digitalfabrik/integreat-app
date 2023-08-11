@@ -6,7 +6,6 @@ import { SprungbrettJobModel } from 'api-client'
 
 import Caption from '../components/Caption'
 import List from '../components/List'
-import SiteHelpfulBox from '../components/SiteHelpfulBox'
 import SprungbrettListItem from '../components/SprungbrettListItem'
 import useSnackbar from '../hooks/useSnackbar'
 import openExternalUrl from '../utils/openExternalUrl'
@@ -20,17 +19,10 @@ type SprungbrettOfferProps = {
   jobs: Array<SprungbrettJobModel>
   language: string
   title: string
-  navigateToFeedback: (isPositiveFeedback: boolean) => void
   refresh: () => void
 }
 
-const SprungbrettOffer = ({
-  jobs,
-  title,
-  navigateToFeedback,
-  language,
-  refresh,
-}: SprungbrettOfferProps): ReactElement => {
+const SprungbrettOffer = ({ jobs, title, language, refresh }: SprungbrettOfferProps): ReactElement => {
   const { t } = useTranslation('sprungbrett')
   const showSnackbar = useSnackbar()
 
@@ -49,7 +41,6 @@ const SprungbrettOffer = ({
           <Separator />
         </>
       }
-      Footer={<SiteHelpfulBox navigateToFeedback={navigateToFeedback} />}
       refresh={refresh}
       noItemsMessage={t('noOffersAvailable')}
     />

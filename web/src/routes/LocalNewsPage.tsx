@@ -81,7 +81,11 @@ const LocalNewsPage = ({ city, pathname, languageCode, cityCode }: CityRouteProp
     route: LOCAL_NEWS_ROUTE,
     languageCode,
     Toolbar: (
-      <CityContentToolbar route={LOCAL_NEWS_ROUTE} hasFeedbackOption={false} hideDivider={localNews?.length !== 0} />
+      <CityContentToolbar
+        route={LOCAL_NEWS_ROUTE}
+        hasFeedbackOption={false}
+        hideDivider={localNews?.length !== 0 && !newsId}
+      />
     ),
   }
 

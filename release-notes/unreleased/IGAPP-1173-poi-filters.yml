@@ -1,0 +1,7 @@
+issue_key: IGAPP-1173
+show_in_stores: true
+platforms:
+  - android
+  - ios
+en: Places can now be filtered by category and opening hours.
+de: Orte können jetzt nach Kategorie und Öffnungszeit gefiltert werden.

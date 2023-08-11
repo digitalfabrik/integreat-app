@@ -3,7 +3,7 @@ import { Switch } from 'react-native'
 import { useTheme } from 'styled-components'
 
 type SettingsSwitchProps = {
-  onPress: () => void
+  onPress: (value: boolean) => void
   value: boolean
 }
 

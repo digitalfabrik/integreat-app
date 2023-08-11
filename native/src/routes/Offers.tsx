@@ -4,21 +4,18 @@ import { View } from 'react-native'
 
 import { OfferModel, SHELTER_ROUTE, SPRUNGBRETT_OFFER_ROUTE } from 'api-client'
 
-import SiteHelpfulBox from '../components/SiteHelpfulBox'
-import SpaceBetween from '../components/SpaceBetween'
 import Tiles from '../components/Tiles'
 import TileModel from '../models/TileModel'
 import urlFromRouteInformation from '../navigation/url'
 
 type OffersProps = {
   offers: Array<OfferModel>
-  navigateToFeedback: (isPositiveFeedback: boolean) => void
   navigateToOffer: (tile: TileModel) => void
   languageCode: string
   cityCode: string
 }
 
-const Offers = ({ offers, navigateToFeedback, navigateToOffer, languageCode, cityCode }: OffersProps): ReactElement => {
+const Offers = ({ offers, navigateToOffer, languageCode, cityCode }: OffersProps): ReactElement => {
   const { t } = useTranslation('offers')
 
   const tiles = offers.map(offer => {
@@ -38,12 +35,9 @@ const Offers = ({ offers, navigateToFeedback, navigateToOffer, languageCode, cit
   })
 
   return (
-    <SpaceBetween>
-      <View>
-        <Tiles title={t('offers')} tiles={tiles} onTilePress={navigateToOffer} language={languageCode} />
-      </View>
-      <SiteHelpfulBox navigateToFeedback={navigateToFeedback} />
-    </SpaceBetween>
+    <View>
+      <Tiles title={t('offers')} tiles={tiles} onTilePress={navigateToOffer} language={languageCode} />
+    </View>
   )
 }
 

@@ -30,12 +30,12 @@ describe('OpeningEntrySpec', () => {
 
   it('should display all day opened for the weekday if allDay flag is true', () => {
     const { getByText } = renderOpeningEntries(true, false, false)
-    expect(getByText('openingHoursAllDay')).toBeTruthy()
+    expect(getByText('allDay')).toBeTruthy()
   })
 
   it('should display closed for the weekday if closed flag is true', () => {
     const { getByText } = renderOpeningEntries(false, true, false)
-    expect(getByText('openingHoursClosed')).toBeTruthy()
+    expect(getByText('closed')).toBeTruthy()
   })
 
   it('should highlight the timeslot of the current weekday bold', () => {

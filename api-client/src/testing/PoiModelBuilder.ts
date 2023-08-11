@@ -7,7 +7,7 @@ import PoiModel from '../models/PoiModel'
 
 const availableLanguages = new Map([
   ['de', '/augsburg/de/locations/test'],
-  ['en', '/en/test'],
+  ['en', '/augsburg/en/locations/test-translated'],
 ])
 
 const pois = [
@@ -24,9 +24,10 @@ const pois = [
     email: 'test@example.com',
     category: new PoiCategoryModel({
       color: '#1DC6C6',
-      icon: 'gastronomy',
+      iconName: 'gastronomy',
       id: 10,
       name: 'Gastronomie',
+      icon: 'https://exmaple.com/icon',
     }),
     location: new LocationModel({
       id: 0,
@@ -56,10 +57,11 @@ const pois = [
     phoneNumber: null,
     email: null,
     category: new PoiCategoryModel({
-      color: '#1DC6C6',
-      icon: 'gastronomy',
-      id: 10,
-      name: 'Gastronomie',
+      color: '#3700D2',
+      iconName: 'service',
+      id: 6,
+      name: 'Dienstleistung',
+      icon: 'https://exmaple.com/icon',
     }),
     location: new LocationModel({
       id: 1,
@@ -90,9 +92,10 @@ const pois = [
     email: null,
     category: new PoiCategoryModel({
       color: '#1DC6C6',
-      icon: 'gastronomy',
+      iconName: 'gastronomy',
       id: 10,
       name: 'Gastronomie',
+      icon: 'https://exmaple.com/icon',
     }),
     location: new LocationModel({
       id: 2,
