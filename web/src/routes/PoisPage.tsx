@@ -153,6 +153,7 @@ const PoisPage = ({ cityCode, languageCode, city, pathname }: CityRouteProps): R
       hideDivider
       languageCode={languageCode}
       pageTitle={pageTitle}
+      isInBottomActionSheet={viewportSmall}
     />
   )
 

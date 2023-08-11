@@ -1,47 +1,49 @@
 import React, { ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { SEARCH_ROUTE } from 'api-client'
+import { config } from 'translations/src'
 
 import { FeedbackIcon } from '../assets'
 import useCityContentParams from '../hooks/useCityContentParams'
 import { RouteType } from '../routes'
-import FeedbackModal from './FeedbackModal'
-import { LAYOUT_ELEMENT_ID } from './Layout'
+import FeedbackContainer from './FeedbackContainer'
+import Modal from './Modal'
 import ToolbarItem from './ToolbarItem'
 
 type FeedbackToolbarItemProps = {
   route: RouteType
   slug?: string
+  isInBottomActionSheet: boolean
 }
 
-const FeedbackToolbarItem = ({ route, slug }: FeedbackToolbarItemProps): ReactElement => {
+const FeedbackToolbarItem = ({ route, slug, isInBottomActionSheet }: FeedbackToolbarItemProps): ReactElement => {
   const { cityCode, languageCode } = useCityContentParams()
   const [isFeedbackOpen, setIsFeedbackOpen] = useState(false)
+  const [isSubmitted, setIsSubmitted] = useState(false)
   const { t } = useTranslation('feedback')
-
-  const openFeedback = () => {
-    setIsFeedbackOpen(true)
-    document.getElementById(LAYOUT_ELEMENT_ID)?.setAttribute('aria-hidden', 'true')
-  }
-
-  const closeFeedback = () => {
-    setIsFeedbackOpen(false)
-    document.getElementById(LAYOUT_ELEMENT_ID)?.setAttribute('aria-hidden', 'false')
-  }
+  const title = isSubmitted ? t('thanksHeadline') : t('headline')
+  const direction = config.getScriptDirection(languageCode)
 
   return (
     <>
-      {route !== SEARCH_ROUTE && isFeedbackOpen && (
-        <FeedbackModal
-          cityCode={cityCode}
-          language={languageCode}
-          routeType={route}
-          slug={slug}
-          closeModal={closeFeedback}
-        />
+      {isFeedbackOpen && (
+        <Modal
+          title={title}
+          closeModal={() => setIsFeedbackOpen(false)}
+          direction={direction}
+          wrapInPortal={isInBottomActionSheet}>
+          <FeedbackContainer
+            isSearchFeedback={false}
+            closeModal={() => setIsFeedbackOpen(false)}
+            onSubmit={() => setIsSubmitted(true)}
+            routeType={route}
+            cityCode={cityCode}
+            language={languageCode}
+            slug={slug}
+          />
+        </Modal>
       )}
-      <ToolbarItem icon={FeedbackIcon} text={t('feedback')} onClick={openFeedback} />
+      <ToolbarItem icon={FeedbackIcon} text={t('feedback')} onClick={() => setIsFeedbackOpen(true)} />
     </>
   )
 }
