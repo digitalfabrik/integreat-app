@@ -3,13 +3,14 @@ import styled from 'styled-components/native'
 
 import { contentDirection } from '../constants/contentDirection'
 import SimpleImage, { ImageSourceType } from './SimpleImage'
+import Pressable from './base/Pressable'
 import Text from './base/Text'
 
 const ListItemView = styled.View<{ language: string }>`
   flex-direction: ${props => contentDirection(props.language)};
   padding: 15px 5px 0;
 `
-const StyledTouchableOpacity = styled.TouchableOpacity`
+const StyledPressable = styled(Pressable)`
   flex-direction: column;
   padding-bottom: 10px;
   border-bottom-width: 2px;
@@ -42,7 +43,7 @@ type ListItemProps = {
 }
 
 const ListItem = ({ language, title, thumbnail, children, navigateTo }: ListItemProps): ReactElement => (
-  <StyledTouchableOpacity onPress={navigateTo}>
+  <StyledPressable onPress={navigateTo}>
     <ListItemView language={language}>
       {!!thumbnail && <Thumbnail source={thumbnail} />}
       <Description>
@@ -50,7 +51,7 @@ const ListItem = ({ language, title, thumbnail, children, navigateTo }: ListItem
         {children}
       </Description>
     </ListItemView>
-  </StyledTouchableOpacity>
+  </StyledPressable>
 )
 
 export default ListItem

@@ -3461,7 +3461,7 @@
       "notAvailable": "Standortbestimmung deaktiviert",
       "timeout": "Standortbestimmung fehlgeschlagen",
       "refresh": "Liste der nahegelegenen Regionen aktualisieren",
-      "pageTitle": "Regionen",
+      "pageTitle": "Lokale Informationen für Dich",
       "metaDescription": "{{appName}} ist Dein digitaler Guide für Deutschland. Finde lokale Informationen, Veranstaltungen und Beratung. Immer aktuell und in Deiner Sprache.",
       "cityNotFound": "Deine Region nicht gefunden?",
       "clickHere": "Hier klicken"
@@ -3478,7 +3478,6 @@
       "notAvailable": "የቦታ አገልግሎቶች እንዳይሰሩ ተደርገዋል",
       "timeout": "ቦታ መወሰን አልተሳካም",
       "refresh": "በቅርብ የሚገኙት ኣከባቢዎች መዝገብ ማሻሻል",
-      "pageTitle": "ኣከባቢዎች",
       "cityNotFound": "ያንተ ኣከባቢ ኣልተገኘምን?",
       "clickHere": "እዚህ ተጫን"
     },
@@ -3494,7 +3493,6 @@
       "notAvailable": "تحديد الموقع غير مُفعَّل",
       "timeout": "فشل في تحديد الموقع",
       "refresh": "تحديث قائمة المناطق القريبة",
-      "pageTitle": "المناطق",
       "cityNotFound": "لم يتم العثور على منطقتك؟",
       "clickHere": "اضغط هنا"
     },
@@ -3510,7 +3508,6 @@
       "notAvailable": "Определянето на местоположението е деактивирано",
       "timeout": "Неуспешно определяне на местоположението",
       "refresh": "Актуализиране на списъка с близки региони",
-      "pageTitle": "Региони",
       "cityNotFound": "Вашият регион не е намерен?",
       "clickHere": "Кликнете тук"
     },
@@ -3526,7 +3523,6 @@
       "notAvailable": "دیاریکردنی شوێن ناچالاک کرا",
       "timeout": "دیاریکردنی شوێن سەرکەوتوو نەبوو",
       "refresh": "لیستی ناوچە نزیکەکان بەڕۆژ بکەوە",
-      "pageTitle": "ناوچەکان",
       "cityNotFound": "ناوچەکەت نەدۆزرایەوە؟",
       "clickHere": "لێرە کرتە بکە"
     },
@@ -3542,7 +3538,6 @@
       "notAvailable": "Vypnuté služby lokalizace",
       "timeout": "Lokalizace se nezdařila",
       "refresh": "Aktualizace seznamu okolních regionů",
-      "pageTitle": "Regiony",
       "cityNotFound": "Váš region nebyl nalezen?",
       "clickHere": "Klikněte zde"
     },
@@ -3558,7 +3553,6 @@
       "notAvailable": "Οι υπηρεσίες τοποθεσίας απενεργοποιήθηκαν",
       "timeout": "Ο προσδιορισμός της τοποθεσίας απέτυχε",
       "refresh": "Ενημέρωση της λίστας κοντινών περιοχών",
-      "pageTitle": "Περιοχές",
       "cityNotFound": "Δεν μπορείτε να βρείτε την περιοχή σας;",
       "clickHere": "Κάντε κλικ εδώ"
     },
@@ -3574,7 +3568,7 @@
       "notAvailable": "Location determination is deactivated",
       "timeout": "Location determination failed",
       "refresh": "Update list of regions close-by",
-      "pageTitle": "Regions",
+      "pageTitle": "Local Information for You",
       "metaDescription": "{{appName}} is your digital guide to life in Germany. Discover local information, events and advice. Always up to date and available in your own language.",
       "cityNotFound": "Your region not found?",
       "clickHere": "Click here"
@@ -3591,7 +3585,6 @@
       "notAvailable": "Localización desactivada",
       "timeout": "La localización falló",
       "refresh": "Actualizar la lista de las regiones cercanas",
-      "pageTitle": "Regiones",
       "cityNotFound": "¿No ha encontrado su región?",
       "clickHere": "Haga clic aquí"
     },
@@ -3607,7 +3600,6 @@
       "notAvailable": "Sijainninmääritys poistettu käytöstä",
       "timeout": "Sijainninmääritys epäonnistui",
       "refresh": "Päivitä läheisten alueiden luettelo",
-      "pageTitle": "Alueet",
       "cityNotFound": "Etkö löytänyt aluettasi?",
       "clickHere": "Klikkaa tästä"
     },
@@ -3623,7 +3615,6 @@
       "notAvailable": "Localisation désactivée",
       "timeout": "Échec de la localisation",
       "refresh": "Mettre à jour la liste des régions proches",
-      "pageTitle": "Régions",
       "cityNotFound": "Ta région n’a pas été trouvée ?",
       "clickHere": "Cliquer ici"
     },
@@ -3639,7 +3630,6 @@
       "notAvailable": "Deaktivirano je određivanje lokacije",
       "timeout": "Neuspješno određivanje lokacije",
       "refresh": "Ažuriraj popis obližnjih regija",
-      "pageTitle": "Regije",
       "cityNotFound": "Nije pronađena tvoja regija?",
       "clickHere": "Kliknite ovdje"
     },
@@ -3655,7 +3645,6 @@
       "notAvailable": "Helymeghatározás deaktiválva",
       "timeout": "Helymeghatározás sikertelen",
       "refresh": "A környékbeli régiók listájának aktualizálása",
-      "pageTitle": "Régiók",
       "cityNotFound": "Nem találtad meg a régiódat?",
       "clickHere": "Kattints ide"
     },
@@ -3671,7 +3660,6 @@
       "notAvailable": "Geolocalizzazione disattivata",
       "timeout": "Geolocalizzazione non riuscita",
       "refresh": "Aggiorna l'elenco delle regioni vicine",
-      "pageTitle": "Regioni",
       "cityNotFound": "Non hai trovato la tua regione?",
       "clickHere": "Clicca qui"
     },
@@ -3687,7 +3675,6 @@
       "notAvailable": "მდებარეობის ადგილის განსაზღვრა დეაქტივირებულია",
       "timeout": "ვერ განისაზღვრა მდებარეობის ადგილი",
       "refresh": "ახლოსმდებარე რეგიონების სიის განახლება",
-      "pageTitle": "რეგიონები",
       "cityNotFound": "ვერ მოიძებნა ეს რეგიონი?",
       "clickHere": "დააჭირეთ აქ"
     },
@@ -3703,7 +3690,6 @@
       "notAvailable": "Diyarkirina mekan neçalak e",
       "timeout": "Diyarkirinê mekanê serketî nebû",
       "refresh": "Lîsteya navçeyên nêzîk biroj bike",
-      "pageTitle": "Navçe",
       "cityNotFound": "Navçeya we peyda nebû?",
       "clickHere": "Vir bitikîne"
     },
@@ -3719,7 +3705,6 @@
       "notAvailable": "Деактивирана е опцијата за одредување на локацијата",
       "timeout": "Не може да се активира опцијата за одредување на локацијата",
       "refresh": "Ажурирај го списокот со региони во близина",
-      "pageTitle": "Региони",
       "cityNotFound": "Не го пронајде твојот регион?",
       "clickHere": "Кликни тука"
     },
@@ -3735,7 +3720,6 @@
       "notAvailable": "Automatische plaatsbepaling is gedactiveerd.",
       "timeout": "Automatische plaatsbepaling is mislukt.",
       "refresh": "Update de lijst met de dichtstbijzijnde regio's",
-      "pageTitle": "Regio's",
       "cityNotFound": "Heb je jouw regio niet gevonden?",
       "clickHere": "Klik hier"
     },
@@ -3751,7 +3735,6 @@
       "notAvailable": "تعیین موقعیت مکانی غیرفعال شده است",
       "timeout": "تعیین موقعیت مکانی انجام نشد",
       "refresh": "فهرست مناطق نزدیک را فعال کنید",
-      "pageTitle": "مناطق",
       "cityNotFound": "منطقه شما یافت نشد؟",
       "clickHere": "اینجا را کلیک کنید"
     },
@@ -3767,7 +3750,6 @@
       "notAvailable": "Ustalenie placówki wyłączone",
       "timeout": "Ustalenie placówki nie powiodło się",
       "refresh": "Aktualizuje listę regionów w pobliżu",
-      "pageTitle": "Regiony",
       "cityNotFound": "Twój region nie został znaleziony?",
       "clickHere": "Kliknij tutaj"
     },
@@ -3783,7 +3765,6 @@
       "notAvailable": "تعیین مکان غیرفعال شد",
       "timeout": "تعیین مکان ناموفق بود",
       "refresh": "فهرست مناطق نزدیک را به روز کنید",
-      "pageTitle": "مناطق",
       "cityNotFound": "منطقه شما پیدا نشد؟",
       "clickHere": "اینجا را کلیک کنید"
     },
@@ -3799,7 +3780,6 @@
       "notAvailable": "د موقعیت تعینول غیر فعال شوي",
       "timeout": "د موقعیت تعینول ناکام شو",
       "refresh": "دہ شا و خوا علاقہ لیست اپډیټ کہ",
-      "pageTitle": "سیمی",
       "cityNotFound": "آیا ستاسو سیمہ او نہ موندلے شوہ؟",
       "clickHere": "دلتہ کلک کړئ"
     },
@@ -3815,7 +3795,6 @@
       "notAvailable": "Detección de la ubicación desactivada",
       "timeout": "Detección de la ubicación fallida",
       "refresh": "Actualizar la lista de las regiones próximas",
-      "pageTitle": "Regiones",
       "cityNotFound": "¿No has encontrado tu región?",
       "clickHere": "Haz clic aquí"
     },
@@ -3831,7 +3810,6 @@
       "notAvailable": "Identificare locație dezactivată",
       "timeout": "Identificare locație eșuată",
       "refresh": "Actualizați lista de regiuni din apropiere",
-      "pageTitle": "Regiuni",
       "cityNotFound": "Regiunea dvs. nu a fost găsită?",
       "clickHere": "Faceți clic aici"
     },
@@ -3847,7 +3825,6 @@
       "notAvailable": "Определение местоположения деактивировано",
       "timeout": "Не удалось определить местоположение",
       "refresh": "Обновить список близлежащих регионов",
-      "pageTitle": "Регионы",
       "cityNotFound": "Не найден ваш регион?",
       "clickHere": "Нажмите здесь"
     },
@@ -3863,7 +3840,6 @@
       "notAvailable": "Helitaanka goobta waa la demiyey",
       "timeout": "Helitaanka goobta waa lagu guuldareystay",
       "refresh": "Cusbooneysii liiska gobollada iigu dhow",
-      "pageTitle": "gobolada",
       "cityNotFound": "Lama helin gobolkaaga?",
       "clickHere": "Halkan guji"
     },
@@ -3879,7 +3855,6 @@
       "notAvailable": "Përcaktimi i vendndodhjes i çaktivizuar",
       "timeout": "Përcaktimi i vendndodhjes dështoi",
       "refresh": "Përditëso listën e rajoneve të afërta",
-      "pageTitle": "Rajone",
       "cityNotFound": "Nuk e gjetët rajonin tuaj?",
       "clickHere": "Kliko këtu"
     },
@@ -3895,7 +3870,6 @@
       "notAvailable": "Деактивирано одређивање локације",
       "timeout": "Неуспешно одређивање локације",
       "refresh": "Ажурирајте листу оближњих региона",
-      "pageTitle": "Региони",
       "cityNotFound": "Нисте пронашли свој регион?",
       "clickHere": "Кликните овде"
     },
@@ -3911,7 +3885,6 @@
       "notAvailable": "Deaktivirano određivanje lokacije",
       "timeout": "Neuspešno određivanje lokacije",
       "refresh": "Ažurirajte listu obližnjih regiona",
-      "pageTitle": "Regioni",
       "cityNotFound": "Niste pronašli svoj region?",
       "clickHere": "Kliknite ovde"
     },
@@ -3927,7 +3900,6 @@
       "notAvailable": "ምርካብ ቦታ ጠፊኡ ኣሎ",
       "timeout": "ምርካብ ቦታ ዕዉት ኣይነበረን",
       "refresh": "ናይተን ኣብ ቀረባ ዝርከባ ከባቢታት መዝገብ ምሕዳስ",
-      "pageTitle": "ከባቢታት",
       "cityNotFound": "ናትካ ከባቢ ኣይተረኸበንድዩ?",
       "clickHere": "ኣብዚ ጠውቕ"
     },
@@ -3943,7 +3915,6 @@
       "notAvailable": "Konum belirlemeyi devre dışı bırak",
       "timeout": "Konum belirleme başarısız",
       "refresh": "Yakın bölgelerin listesini güncelleyin",
-      "pageTitle": "Bölge",
       "cityNotFound": "Bölgeni bulamadın mı?",
       "clickHere": "Buraya tıkla"
     },
@@ -3959,7 +3930,6 @@
       "notAvailable": "Служби розташування відключені",
       "timeout": "Розташування не вдалося встановити",
       "refresh": "Оновлення списку сусідніх регіонів",
-      "pageTitle": "Регіони",
       "cityNotFound": "Ваш регіон не знайдено?",
       "clickHere": "Натисніть тут"
     },
@@ -3975,7 +3945,6 @@
       "notAvailable": "مقام کی خدمات یعنی لوکیشن سروسز غیر فعال کر دی گئیں",
       "timeout": "مقام کا تعین ناکام رہا",
       "refresh": "قریبی علاقوں کی لسٹ کو اپڈیٹ کریں۔",
-      "pageTitle": "علاقے",
       "cityNotFound": "کیا آب کو آب کا شہر نہیں ملا؟",
       "clickHere": "یہاں کلک کریں۔"
     },
@@ -3991,7 +3960,6 @@
       "notAvailable": "定位功能已停用",
       "timeout": "定位失败",
       "refresh": "更新附近地区列表",
-      "pageTitle": "地区",
       "cityNotFound": "未找到你的地区吗？",
       "clickHere": "点击此处"
     }
@@ -4012,6 +3980,7 @@
       "changeLocation": "Standort wechseln",
       "changeLanguage": "Sprache wechseln",
       "settings": "Einstellungen",
+      "feedback": "Feedback",
       "share": "Teilen",
       "cancel": "Abbrechen",
       "shareMessage": "Gerade gefunden: {{message}}",
@@ -5711,17 +5680,22 @@
       "detailsNextPoi": "nächster",
       "detailsPreviousPoi": "vorheriger",
       "openExternalMaps": "In Karten-App öffnen",
-      "openingHoursAllDay": "ganztägig",
-      "openingHoursOpened": "geöffnet",
-      "openingHoursClosed": "geschlossen",
-      "openingHoursTemporarilyClosed": "Vorübergehend geschlossen",
+      "allDay": "ganztägig",
+      "opened": "geöffnet",
+      "closed": "geschlossen",
+      "temporarilyClosed": "Vorübergehend geschlossen",
       "montag": "Montag",
       "dienstag": "Dienstag",
       "mittwoch": "Mittwoch",
       "donnerstag": "Donnerstag",
       "freitag": "Freitag",
       "samstag": "Samstag",
-      "sonntag": "Sonntag"
+      "sonntag": "Sonntag",
+      "adjustFilters": "Orte filtern",
+      "onlyCurrentlyOpen": "nur aktuell geöffnete Orte anzeigen",
+      "poiCategories": "Kategorien",
+      "showPois": "Orte anzeigen",
+      "alphabetLetters": "A-Z"
     },
     "am": {
       "pageTitle": "ካርታ",

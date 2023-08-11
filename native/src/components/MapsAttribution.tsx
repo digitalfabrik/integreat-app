@@ -4,15 +4,15 @@ import styled from 'styled-components/native'
 import { openStreeMapCopyright } from 'api-client'
 
 import Link from './Link'
+import Pressable from './base/Pressable'
 
 const Attribution = styled.View`
   flex-direction: row;
   display: flex;
-  padding: 4px;
   align-self: center;
 `
 
-const AttributionContainer = styled.TouchableOpacity`
+const AttributionContainer = styled(Pressable)<{ expanded: boolean }>`
   display: flex;
   position: absolute;
   top: 0;
@@ -20,6 +20,7 @@ const AttributionContainer = styled.TouchableOpacity`
   justify-content: flex-end;
   color: rgba(0, 0, 0, 0.75);
   font-family: ${props => props.theme.fonts.native.contentFontRegular};
+  ${props => props.expanded && `background-color: rgba(255, 255, 255, 0.75);`}
 `
 
 const OpenStreetMapsLink = styled(Link)`
@@ -46,7 +47,7 @@ const MapAttribution = (): ReactElement => {
   const { url, label, linkText, icon } = openStreeMapCopyright
   const [expanded, setExpanded] = useState<boolean>(false)
   return (
-    <AttributionContainer onPress={() => setExpanded(!expanded)} accessibilityRole='button'>
+    <AttributionContainer onPress={() => setExpanded(!expanded)} accessibilityRole='button' expanded={expanded}>
       <Attribution>
         <Copyright expanded={expanded}>{icon}</Copyright>
         {expanded && (

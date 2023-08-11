@@ -26,7 +26,7 @@ const commonObdachBuildConfig: CommonBuildConfigType = {
     cityNotCooperatingTemplate: null,
   },
   aboutUrls: {
-    default: 'https://tuerantuer.de/digitalfabrik/projekte/vernetztesobdach/',
+    default: 'https://tuerantuer.de/digitalfabrik/projekte/netzwerkobdachwohnen/',
   },
   privacyUrls: {
     default: 'https://integreat-app.de/datenschutz/',
@@ -41,7 +41,7 @@ export const webObdachBuildConfig: WebBuildConfigType = {
   manifestUrl: '/manifest.json',
   icons: {
     appLogo: '/app-logo.png',
-    appLogoMobile: '/app-icon-round.png',
+    appLogoMobile: '/app-icon-round.svg',
     locationMarker: '/location-marker.svg',
     appleTouchIcon: '/apple-touch-icon.png',
     socialMediaPreview: '/social-media-preview.png',

@@ -8,7 +8,7 @@ import OpeningHours from '../OpeningHours'
 
 jest.mock('react-i18next')
 
-describe('OpeningHoursSpec', () => {
+describe('OpeningHours', () => {
   const renderOpeningHours = (
     isCurrentlyOpen: boolean,
     isTemporarilyClosed: boolean,
@@ -24,12 +24,12 @@ describe('OpeningHoursSpec', () => {
     )
   it('should display that the location is temporarily closed', () => {
     const { getByText } = renderOpeningHours(false, true, null)
-    expect(getByText('openingHoursTemporarilyClosed')).toBeTruthy()
+    expect(getByText('temporarilyClosed')).toBeTruthy()
   })
   it('should display that the location is opened', () => {
     const { getByText } = renderOpeningHours(true, false, [
       new OpenHoursModel({ allDay: false, closed: false, timeSlots: [{ end: '18:00', start: '08:00' }] }),
     ])
-    expect(getByText('openingHoursOpened')).toBeTruthy()
+    expect(getByText('opened')).toBeTruthy()
   })
 })
