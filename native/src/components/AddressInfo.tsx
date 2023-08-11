@@ -1,7 +1,7 @@
 import Clipboard from '@react-native-clipboard/clipboard'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Platform, TouchableOpacity } from 'react-native'
+import { Platform } from 'react-native'
 import styled from 'styled-components/native'
 
 import { getExternalMapsLink, LocationModel } from 'api-client'
@@ -11,6 +11,7 @@ import { contentDirection } from '../constants/contentDirection'
 import useSnackbar from '../hooks/useSnackbar'
 import openExternalUrl from '../utils/openExternalUrl'
 import { reportError } from '../utils/sentry'
+import Pressable from './base/Pressable'
 import Text from './base/Text'
 
 const Container = styled.View<{ language: string }>`
@@ -18,7 +19,7 @@ const Container = styled.View<{ language: string }>`
   flex-direction: ${props => contentDirection(props.language)};
 `
 
-const IconContainer = styled.TouchableOpacity`
+const IconContainer = styled(Pressable)`
   align-self: center;
   padding: 0 8px;
 `
@@ -45,12 +46,12 @@ const AddressInfo = ({ location, language }: AddressInfoProps): ReactElement => 
 
   return (
     <Container language={language}>
-      <TouchableOpacity onPress={copyLocationToClipboard}>
+      <Pressable onPress={copyLocationToClipboard}>
         <Text>{address}</Text>
         <Text>
           {postcode} {town}
         </Text>
-      </TouchableOpacity>
+      </Pressable>
       <IconContainer onPress={openExternalMaps}>
         <ExternalLinkIcon accessibilityLabel={t('openExternalMaps')} />
       </IconContainer>

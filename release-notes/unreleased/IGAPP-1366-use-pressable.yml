@@ -1,0 +1,7 @@
+issue_key: IGAPP-1366
+show_in_stores: true
+platforms:
+  - android
+  - ios
+en: Improved and unified the look and feel of our pressable elements.
+de: Die Darstellung und das Verhalten unserer pressbaren Elemente wurde verbessert und vereinheitlicht.
