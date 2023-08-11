@@ -1,11 +1,11 @@
 import React, { ReactElement } from 'react'
-import { TouchableHighlight } from 'react-native'
 import styled from 'styled-components/native'
 
 import dimensions from '../constants/dimensions'
 import SelectorItemModel from '../models/SelectorItemModel'
+import Pressable from './base/Pressable'
 
-export const TouchTarget = styled(TouchableHighlight)`
+export const TouchTarget = styled(Pressable)`
   width: 100%;
 `
 
