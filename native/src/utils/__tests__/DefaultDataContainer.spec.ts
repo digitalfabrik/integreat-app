@@ -1,4 +1,4 @@
-import moment from 'moment'
+import { DateTime } from 'luxon'
 
 import CategoriesMapModelBuilder from 'api-client/src/testing/CategoriesMapModelBuilder'
 import CityModelBuilder from 'api-client/src/testing/CityModelBuilder'
@@ -14,7 +14,7 @@ const testResources = {
   '/path/to/page': {
     'https://test.de/path/to/resource/test.png': {
       filePath: '/local/path/to/resource2/b4b5dca65e423.png',
-      lastUpdate: moment('2011-02-04T00:00:00.000Z'),
+      lastUpdate: DateTime.fromISO('2011-02-04T00:00:00.000Z'),
       hash: 'testHash',
     },
   },
@@ -23,7 +23,7 @@ const previousResources = {
   '/path/to/page': {
     'https://test.de/path/to/resource/test.png': {
       filePath: '/local/path/to/resource/b4b5dca65e423.png',
-      lastUpdate: moment('2011-02-04T00:00:00.000Z'),
+      lastUpdate: DateTime.fromISO('2011-02-04T00:00:00.000Z'),
       hash: 'testHash',
     },
   },
@@ -32,7 +32,7 @@ const anotherTestResources = {
   '/path/to/page': {
     'https://test.de/path/to/anotherResource/test.png': {
       filePath: '/local/path/to/resource3/b4b5dca65e424.png',
-      lastUpdate: moment('2011-02-04T00:00:00.000Z'),
+      lastUpdate: DateTime.fromISO('2011-02-04T00:00:00.000Z'),
       hash: 'testHash',
     },
   },
@@ -121,18 +121,20 @@ describe('DefaultDataContainer', () => {
     const result = await defaultDataContainer.getResourceCache('testCity', 'en')
     expect(result).toEqual({})
   })
-  it('should return the lastUpdateMoment associated with the context', async () => {
+  it('should return the lastUpdateDateTime associated with the context', async () => {
     const databaseConnector = new DatabaseConnector()
     await databaseConnector.storeLastUsage(new DatabaseContext('testCity'))
     await databaseConnector.storeLastUsage(new DatabaseContext('anotherTestCity'))
-    const lastUpdate = moment('2011-02-04T00:00:00.000Z')
-    const anotherLastUpdate = moment('2012-02-04T00:00:00.000Z')
+    const lastUpdate = DateTime.fromISO('2011-02-04T00:00:00.000Z')
+    const anotherLastUpdate = DateTime.fromISO('2012-02-04T00:00:00.000Z')
     await defaultDataContainer.setLastUpdate('testCity', 'de', lastUpdate)
     await defaultDataContainer.setLastUpdate('anotherTestCity', 'en', anotherLastUpdate)
     const receivedLastUpdate = await defaultDataContainer.getLastUpdate('testCity', 'de')
     const receivedAnotherLastUpdate = await defaultDataContainer.getLastUpdate('anotherTestCity', 'en')
-    expect(receivedLastUpdate !== null && lastUpdate.isSame(receivedLastUpdate)).toBe(true)
-    expect(receivedAnotherLastUpdate !== null && anotherLastUpdate.isSame(receivedAnotherLastUpdate)).toBe(true)
+    expect(receivedLastUpdate !== null && lastUpdate.hasSame(receivedLastUpdate, 'day')).toBe(true)
+    expect(
+      receivedAnotherLastUpdate !== null && anotherLastUpdate.hasSame(receivedAnotherLastUpdate, 'millisecond')
+    ).toBe(true)
   })
   describe('setResourceCache', () => {
     it('should not delete any data if there are no previous resources available', async () => {
