@@ -2,6 +2,8 @@ import { range } from 'lodash'
 import React, { ReactElement } from 'react'
 import styled from 'styled-components/native'
 
+import Pressable from './base/Pressable'
+
 const DotsContainer = styled.View`
   flex: 1;
   height: 10px;
@@ -11,11 +13,11 @@ const DotsContainer = styled.View`
   align-items: center;
   background-color: ${props => props.theme.colors.backgroundColor};
 `
-const Dot = styled.TouchableOpacity<{ isActive: boolean }>`
+const Dot = styled(Pressable)<{ isActive: boolean }>`
   width: 10px;
   height: 10px;
   border-radius: 5px;
-  margin-horizontal: 4px;
+  margin: 0 4px;
   background-color: ${props =>
     props.isActive ? props.theme.colors.textSecondaryColor : props.theme.colors.textDecorationColor};
 `
