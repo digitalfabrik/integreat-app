@@ -14,13 +14,13 @@ const ToolbarItem = ({ href, text, icon, onClick }: ToolbarItemProps): ReactElem
   <>
     {!!href && (
       <StyledToolbarItem href={href} ariaLabel={text}>
-        <img src={icon} alt='' />
+        <img src={icon} alt='' width={20} height={20} />
         <StyledSmallViewTip>{text}</StyledSmallViewTip>
       </StyledToolbarItem>
     )}
     {!!onClick && (
       <StyledToolbarButtonItem onClick={() => onClick()} aria-label={text}>
-        <img src={icon} alt='' />
+        <img src={icon} alt='' width={20} height={20} />
         <StyledSmallViewTip>{text}</StyledSmallViewTip>
       </StyledToolbarButtonItem>
     )}
