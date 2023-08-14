@@ -12,10 +12,11 @@ type CategoriesToolbarProps = {
   category?: CategoryModel
   cityCode: string
   languageCode: string
+  pageTitle: string
 }
 
 const CategoriesToolbar = (props: CategoriesToolbarProps): ReactElement => {
-  const { category, cityCode, languageCode } = props
+  const { category, cityCode, languageCode, pageTitle } = props
   const { t } = useTranslation('categories')
 
   const pdfUrl =
@@ -25,8 +26,10 @@ const CategoriesToolbar = (props: CategoriesToolbarProps): ReactElement => {
 
   return (
     <CityContentToolbar
+      languageCode={languageCode}
       route={CATEGORIES_ROUTE}
-      feedbackTarget={category && !category.isRoot() ? category.slug : undefined}>
+      feedbackTarget={category && !category.isRoot() ? category.slug : undefined}
+      pageTitle={pageTitle}>
       <ToolbarItem icon={PdfIcon} text={t('createPdf')} href={pdfUrl} />
     </CityContentToolbar>
   )
