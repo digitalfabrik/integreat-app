@@ -120,12 +120,17 @@ const CategoriesPage = ({ city, pathname, cityCode, languageCode }: CityRoutePro
     }
   })
 
+  const pageTitle = `${category && !category.isRoot() ? category.title : t('dashboard:localInformation')} - ${
+    city.name
+  }`
   const locationLayoutParams: Omit<CityContentLayoutProps, 'isLoading'> = {
     city,
     languageChangePaths,
     route: CATEGORIES_ROUTE,
     languageCode,
-    Toolbar: <CategoriesToolbar category={category} cityCode={cityCode} languageCode={languageCode} />,
+    Toolbar: (
+      <CategoriesToolbar category={category} cityCode={cityCode} languageCode={languageCode} pageTitle={pageTitle} />
+    ),
   }
 
   if (categoriesLoading || parentsLoading || pathname !== previousPathname) {
@@ -163,7 +168,6 @@ const CategoriesPage = ({ city, pathname, cityCode, languageCode }: CityRoutePro
     .map((categoryModel: CategoryModel) => getBreadcrumb(categoryModel, city.name))
 
   const metaDescription = t('categories:metaDescription', { appName: buildConfig().appName })
-  const pageTitle = `${!category.isRoot() ? `${category.title} - ` : ''}${city.name}`
 
   return (
     <CityContentLayout isLoading={false} {...locationLayoutParams}>
