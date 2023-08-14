@@ -37,6 +37,12 @@ export const markerLayer = (selectedFeature: PoiFeature | null, featureLayerId: 
       mapMarker.symbolActive,
       ['get', 'symbol'],
     ],
+    iconOffset: [
+      'case',
+      ['==', ['get', 'id'], selectedFeature?.properties.id ?? -1],
+      ['literal', [0, mapMarker.offsetY ?? 0]],
+      ['literal', [0, 0]],
+    ],
     textField: ['get', 'title'],
     textFont: ['Roboto Regular'],
     textOffset: [0, textOffsetY],
