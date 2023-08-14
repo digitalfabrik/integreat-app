@@ -17,7 +17,7 @@ export const createJsonLd = (event: EventModel, formatter: DateFormatter): WithC
     name: event.title,
     startDate: date.allDay
       ? formatter.format(date.startDate, {
-          format: 'YYYY-MM-DD',
+          format: date.startDate.toISO(),
         }) // ISO 8601 date format
       : formatter.format(date.startDate, {
           format: undefined,
@@ -38,8 +38,8 @@ export const createJsonLd = (event: EventModel, formatter: DateFormatter): WithC
     },
   }
 
-  if (date.endDate.isValid()) {
-    jsonLd.endDate = date.allDay ? date.endDate.format('YYYY-MM-DD') : date.endDate.format()
+  if (date.endDate.isValid) {
+    jsonLd.endDate = date.allDay ? date.endDate.toISODate() : date.endDate.toISO()
   }
 
   if (event.featuredImage) {
