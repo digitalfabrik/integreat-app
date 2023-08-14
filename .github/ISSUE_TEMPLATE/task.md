@@ -1,5 +1,5 @@
 ---
-name: Task \U0001F4A1
+name: "Task \U0001F4A1"
 about: Suggest an idea or enhancement for this project
 title: ''
 labels: Task
