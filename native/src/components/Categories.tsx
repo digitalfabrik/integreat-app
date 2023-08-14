@@ -65,7 +65,7 @@ const Categories = ({
         })
     )
     return (
-      <View>
+      <View testID='Dashboard-Page'>
         <Tiles tiles={tiles} language={language} onTilePress={navigateToCategory} />
       </View>
     )
