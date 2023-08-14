@@ -1,9 +1,8 @@
 import { TFunction } from 'i18next'
-import * as React from 'react'
-import { ReactElement } from 'react'
+import React, { ReactElement } from 'react'
 import { useNavigate } from 'react-router-dom'
 
-import { CategoriesMapModel, CategoryModel, DateFormatter } from 'api-client'
+import { CategoriesMapModel, CategoryModel } from 'api-client'
 
 import TileModel from '../models/TileModel'
 import CategoryList from './CategoryList'
@@ -25,7 +24,6 @@ type CategoriesContentProps = {
   categories: CategoriesMapModel
   categoryModel: CategoryModel
   t: TFunction
-  formatter: DateFormatter
 }
 
 /**
@@ -34,7 +32,7 @@ type CategoriesContentProps = {
  * b) table with categories
  * c) list with categories
  */
-const CategoriesContent = ({ categories, categoryModel, formatter, t }: CategoriesContentProps): ReactElement => {
+const CategoriesContent = ({ categories, categoryModel, t }: CategoriesContentProps): ReactElement => {
   const children = categories.getChildren(categoryModel)
   const navigate = useNavigate()
 
@@ -45,8 +43,6 @@ const CategoriesContent = ({ categories, categoryModel, formatter, t }: Categori
         title={categoryModel.title}
         content={categoryModel.content}
         lastUpdate={categoryModel.lastUpdate}
-        formatter={formatter}
-        lastUpdateFormat='DDD'
         onInternalLinkClick={navigate}
         AfterContent={
           categoryModel.organization && <OrganizationContentInfo organization={categoryModel.organization} />
@@ -64,7 +60,6 @@ const CategoriesContent = ({ categories, categoryModel, formatter, t }: Categori
       items={children.map(it => ({ category: it, subCategories: categories.getChildren(it) }))}
       category={categoryModel}
       onInternalLinkClick={navigate}
-      formatter={formatter}
     />
   )
 }

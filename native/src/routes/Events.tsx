@@ -1,4 +1,4 @@
-import React, { ReactElement, useContext } from 'react'
+import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 import { RefreshControl } from 'react-native'
 import styled from 'styled-components/native'
@@ -14,7 +14,6 @@ import LayoutedScrollView from '../components/LayoutedScrollView'
 import List from '../components/List'
 import Page from '../components/Page'
 import PageDetail from '../components/PageDetail'
-import DateFormatterContext from '../contexts/DateFormatterContext'
 
 const Separator = styled.View`
   border-top-width: 2px;
@@ -30,12 +29,8 @@ export type EventsProps = {
   refresh: () => void
 }
 
-/**
- * Displays a list of events or a single event, matching the route /<location>/<language>/events(/<id>)
- */
 const Events = ({ cityModel, language, navigateTo, events, slug, refresh }: EventsProps): ReactElement => {
   const { t } = useTranslation('events')
-  const formatter = useContext(DateFormatterContext)
 
   if (!cityModel.eventsEnabled) {
     const error = new NotFoundError({
@@ -69,7 +64,7 @@ const Events = ({ cityModel, language, navigateTo, events, slug, refresh }: Even
               <>
                 <PageDetail
                   identifier={t('date')}
-                  information={event.date.toFormattedString(formatter)}
+                  information={event.date.toFormattedString(language)}
                   language={language}
                 />
                 {event.location && (
@@ -100,15 +95,7 @@ const Events = ({ cityModel, language, navigateTo, events, slug, refresh }: Even
         languageCode: language,
         slug: item.slug,
       })
-    return (
-      <EventListItem
-        key={item.slug}
-        formatter={formatter}
-        event={item}
-        language={language}
-        navigateToEvent={navigateToEvent}
-      />
-    )
+    return <EventListItem key={item.slug} event={item} language={language} navigateToEvent={navigateToEvent} />
   }
 
   return (

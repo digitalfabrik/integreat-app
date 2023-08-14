@@ -73,8 +73,6 @@ export { default as createOffersEndpoint, OFFERS_ENDPOINT_NAME } from './endpoin
 export { default as createFeedbackEndpoint, FEEDBACK_ENDPOINT_NAME } from './endpoints/createFeedbackEndpoint'
 export { default as createTrackingEndpoint, TRACKING_ENDPOINT_NAME } from './endpoints/createTrackingEndpoint'
 export { default as loadSprungbrettJobs } from './endpoints/loadSprungbrettJobs'
-export * from './i18n/DateFormatter'
-export { default as DateFormatter } from './i18n/DateFormatter'
 export * from './replaceLinks'
 export { POSITIVE_RATING } from './endpoints/createFeedbackEndpoint'
 export { NEGATIVE_RATING } from './endpoints/createFeedbackEndpoint'

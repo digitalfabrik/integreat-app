@@ -4,7 +4,6 @@ import React, { ReactElement, ReactNode, useCallback, useContext, useMemo, useSt
 import { LayoutChangeEvent } from 'react-native'
 import styled from 'styled-components/native'
 
-import DateFormatterContext from '../contexts/DateFormatterContext'
 import useCityAppContext from '../hooks/useCityAppContext'
 import useNavigateToLink from '../hooks/useNavigateToLink'
 import useResourceCache from '../hooks/useResourceCache'
@@ -62,7 +61,6 @@ const Page = ({
   const [loading, setLoading] = useState(true)
   const [contentWidth, setContentWidth] = useState(0)
   const navigateToLink = useNavigateToLink()
-  const formatter = useContext(DateFormatterContext)
 
   const cacheDictionary = useMemo(
     () => createCacheDictionary(resourceCache, resourceCacheUrl, path),
@@ -94,7 +92,7 @@ const Page = ({
         webViewWidth={contentWidth}
       />
       {!loading && AfterContent}
-      {!loading && !!content && lastUpdate && <TimeStamp formatter={formatter} lastUpdate={lastUpdate} />}
+      {!loading && !!content && lastUpdate && <TimeStamp lastUpdate={lastUpdate} />}
       {!loading && Footer}
     </Container>
   )

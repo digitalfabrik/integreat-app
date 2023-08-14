@@ -1,7 +1,7 @@
 import React, { ReactElement } from 'react'
 import styled from 'styled-components'
 
-import { DateFormatter, EventModel, getExcerpt } from 'api-client'
+import { EventModel, getExcerpt } from 'api-client'
 
 import EventPlaceholder1 from '../assets/EventPlaceholder1.jpg'
 import EventPlaceholder2 from '../assets/EventPlaceholder2.jpg'
@@ -15,7 +15,7 @@ const Content = styled.div`
 
 type EventListItemProps = {
   event: EventModel
-  formatter: DateFormatter
+  languageCode: string
 }
 
 /**
@@ -28,10 +28,10 @@ const getEventPlaceholder = (path: string): string => {
   return placeholders[pseudoId % placeholders.length]!
 }
 
-const EventListItem = ({ event, formatter }: EventListItemProps): ReactElement => (
+const EventListItem = ({ event, languageCode }: EventListItemProps): ReactElement => (
   <ListItem thumbnail={event.thumbnail || getEventPlaceholder(event.path)} title={event.title} path={event.path}>
     <Content>
-      <Content dir='auto'>{event.date.toFormattedString(formatter)}</Content>
+      <Content dir='auto'>{event.date.toFormattedString(languageCode)}</Content>
       {event.location && <Content dir='auto'>{event.location.fullAddress}</Content>}
     </Content>
     <Content dir='auto'>{getExcerpt(event.excerpt, { maxChars: EXCERPT_MAX_CHARS })}</Content>

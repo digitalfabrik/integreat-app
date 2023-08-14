@@ -1,7 +1,7 @@
 import { DateTime } from 'luxon'
 import React from 'react'
 
-import { DateFormatter, getExcerpt, LOCAL_NEWS_TYPE } from 'api-client'
+import { getExcerpt, LOCAL_NEWS_TYPE } from 'api-client'
 
 import { EXCERPT_MAX_CHARS } from '../../constants'
 import { renderWithRouterAndTheme } from '../../testing/render'
@@ -17,7 +17,6 @@ jest.mock('../LastUpdateInfo', () =>
 )
 
 describe('NewsListItem', () => {
-  const language = 'en'
   const link = '/testumgebung/en/news/local'
   const t = (key: string) => key
 
@@ -35,15 +34,7 @@ describe('NewsListItem', () => {
       'If the sting inflames, you must see a doctor.'
 
     const { getByText } = renderWithRouterAndTheme(
-      <NewsListItem
-        type={LOCAL_NEWS_TYPE}
-        title={title}
-        content={message}
-        timestamp={lastUpdate}
-        formatter={new DateFormatter(language)}
-        t={t}
-        link={link}
-      />
+      <NewsListItem type={LOCAL_NEWS_TYPE} title={title} content={message} timestamp={lastUpdate} t={t} link={link} />
     )
 
     expect(getByText(title)).toBeTruthy()

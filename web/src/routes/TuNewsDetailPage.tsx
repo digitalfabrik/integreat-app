@@ -1,4 +1,4 @@
-import React, { ReactElement, useContext } from 'react'
+import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useNavigate, useParams } from 'react-router-dom'
 import styled from 'styled-components'
@@ -14,7 +14,6 @@ import Helmet from '../components/Helmet'
 import LoadingSpinner from '../components/LoadingSpinner'
 import Page from '../components/Page'
 import { tunewsApiBaseUrl } from '../constants/urls'
-import DateFormatterContext from '../contexts/DateFormatterContext'
 import { TU_NEWS_DETAIL_ROUTE } from './index'
 
 const StyledContainer = styled.div`
@@ -49,7 +48,6 @@ const StyledTitle = styled.div`
 
 const TuNewsDetailPage = ({ city, pathname, cityCode, languageCode }: CityRouteProps): ReactElement | null => {
   const newsId = useParams().newsId!
-  const formatter = useContext(DateFormatterContext)
   const navigate = useNavigate()
   const { t } = useTranslation('news')
 
@@ -121,8 +119,6 @@ const TuNewsDetailPage = ({ city, pathname, cityCode, languageCode }: CityRouteP
           <Page
             title={newsModel.title}
             content={newsModel.content}
-            formatter={formatter}
-            lastUpdateFormat='DDD'
             lastUpdate={newsModel.date}
             showLastUpdateText={false}
             onInternalLinkClick={navigate}

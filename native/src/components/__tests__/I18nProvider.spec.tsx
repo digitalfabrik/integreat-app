@@ -1,12 +1,10 @@
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { render, waitFor } from '@testing-library/react-native'
 import { mocked } from 'jest-mock'
-import { DateTime } from 'luxon'
-import React, { useContext } from 'react'
+import React from 'react'
 import { Translation } from 'react-i18next'
 import { Text } from 'react-native'
 
-import DateFormatterContext from '../../contexts/DateFormatterContext'
 import appSettings from '../../utils/AppSettings'
 import NativeLanguageDetector from '../../utils/NativeLanguageDetector'
 import { setSystemLanguage } from '../../utils/sendTrackingSignal'
@@ -82,23 +80,6 @@ describe('I18nProvider', () => {
     )
     await waitFor(() => getByText('Lokale Informationen'))
     expect(getByText('Lokale Informationen')).toBeTruthy()
-  })
-
-  it('should have formatter with german fallback format', async () => {
-    const ReceivingComponent = () => {
-      const formatter = useContext(DateFormatterContext)
-      // eslint-disable-next-line react/destructuring-assignment
-      const formated = formatter.format(DateTime.fromISO('2020-12-21T14:58:57.000'), {})
-      return <Text>{formated}</Text>
-    }
-
-    const { getByText } = render(
-      <I18nProvider>
-        <ReceivingComponent />
-      </I18nProvider>
-    )
-    await waitFor(() => getByText('2020-12-21T14:58:57.000+01:00'))
-    expect(getByText('2020-12-21T14:58:57.000+01:00')).toBeTruthy()
   })
 
   it('should use zh-CN if any chinese variant is chosen', async () => {
