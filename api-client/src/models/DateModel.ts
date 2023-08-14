@@ -36,7 +36,6 @@ class DateModel {
       return this.allDay ? localizedStartDate : `${localizedStartDate} - ${localizedEndDate.toFormat('t')}`
     }
 
-    // startDate and endDate are not on the same day
     return `${localizedStartDate} - ${localizedEndDate.toFormat(format)}`
   }
 

@@ -80,7 +80,7 @@ const News = ({
             Footer={
               selectedNewsItem instanceof LocalNewsModel && (
                 <TimeStampContent language={languageCode}>
-                  <TimeStamp lastUpdate={selectedNewsItem.timestamp} showText={false} format='DDD' />
+                  <TimeStamp lastUpdate={selectedNewsItem.timestamp} showText={false} />
                 </TimeStampContent>
               )
             }
