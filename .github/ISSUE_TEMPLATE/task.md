@@ -1,6 +1,6 @@
 ---
-name: Technical Task \U0001F4A1
-about: Suggest an idea for this project
+name: Task \U0001F4A1
+about: Suggest an idea or enhancement for this project
 title: ''
 labels: Task
 assignees: ''

@@ -1,6 +1,6 @@
 ---
 name: User Story
-about: This a user story
+about: Bundle multiple tasks/ideas into one user story
 title: ''
 labels: Story
 assignees: ''
