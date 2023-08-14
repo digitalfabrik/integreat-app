@@ -86,7 +86,7 @@ const News = ({
                     formatter={formatter}
                     lastUpdate={selectedNewsItem.timestamp}
                     showText={false}
-                    format='LLL'
+                    format='DDD'
                   />
                 </TimeStampContent>
               )

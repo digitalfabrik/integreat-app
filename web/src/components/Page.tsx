@@ -1,4 +1,4 @@
-import { Moment } from 'moment'
+import { DateTime } from 'luxon'
 import React, { ReactElement, ReactNode } from 'react'
 import styled from 'styled-components'
 
@@ -24,7 +24,7 @@ type PageProps = {
   defaultThumbnailSrc?: string // necessary for IE11 support
   thumbnailSrcSet?: string
   content: string
-  lastUpdate?: Moment
+  lastUpdate?: DateTime
   showLastUpdateText?: boolean
   lastUpdateFormat?: string
   formatter: DateFormatter

@@ -9,11 +9,12 @@ import { contentDirection } from '../constants/contentDirection'
 import { PageResourceCacheStateType } from '../utils/DataContainer'
 import { getCachedThumbnail } from './Categories'
 import { CategoryThumbnail } from './CategoryListItem'
-import StyledLink from './StyledLink'
+import Pressable from './base/Pressable'
 
-const FlexStyledLink = styled(StyledLink)`
+const FlexStyledLink = styled(Pressable)`
   display: flex;
   flex-direction: column;
+  margin: 0 20px;
 `
 const DirectionContainer = styled.View<{ language: string }>`
   display: flex;
@@ -85,7 +86,7 @@ const SearchListItem = ({
     />
   )
   return (
-    <FlexStyledLink onPress={() => onItemPress(category)} underlayColor={theme.colors.backgroundAccentColor}>
+    <FlexStyledLink onPress={() => onItemPress(category)}>
       <DirectionContainer language={language}>
         <SearchEntryContainer>
           <TitleDirectionContainer language={language}>
