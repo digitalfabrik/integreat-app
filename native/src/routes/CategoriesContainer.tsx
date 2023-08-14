@@ -14,7 +14,6 @@ import usePreviousProp from '../hooks/usePreviousProp'
 import useResourceCache from '../hooks/useResourceCache'
 import useSetRouteTitle from '../hooks/useSetRouteTitle'
 import urlFromRouteInformation from '../navigation/url'
-import testID from '../testing/testID'
 import cityDisplayName from '../utils/cityDisplayName'
 import LoadingErrorHandler from './LoadingErrorHandler'
 
