@@ -4,7 +4,6 @@ import { CategoriesMapModel, CityModel, EventModel, PoiModel } from 'api-client'
 
 export type PageResourceCacheEntryStateType = {
   filePath: string
-  lastUpdate: DateTime
   hash: string
 }
 export type PageResourceCacheStateType = Record<string, PageResourceCacheEntryStateType>
