@@ -75,6 +75,8 @@ const LocalNewsPage = ({ city, pathname, languageCode, cityCode }: CityRouteProp
     name,
     code,
   }))
+
+  const pageTitle = `${newsModel && newsModel.title ? newsModel.title : t('localNews.pageTitle')} - ${city.name}`
   const locationLayoutParams: Omit<CityContentLayoutProps, 'isLoading'> = {
     city,
     languageChangePaths,
@@ -82,9 +84,11 @@ const LocalNewsPage = ({ city, pathname, languageCode, cityCode }: CityRouteProp
     languageCode,
     Toolbar: (
       <CityContentToolbar
+        languageCode={languageCode}
         route={LOCAL_NEWS_ROUTE}
         hasFeedbackOption={false}
         hideDivider={localNews?.length !== 0 && !newsId}
+        pageTitle={pageTitle}
       />
     ),
   }
@@ -123,7 +127,6 @@ const LocalNewsPage = ({ city, pathname, languageCode, cityCode }: CityRouteProp
   }
 
   if (newsModel) {
-    const pageTitle = `${newsModel.title} - ${city.name}`
     const linkedContent = replaceLinks(newsModel.content)
     return (
       <CityContentLayout isLoading={false} {...locationLayoutParams}>
@@ -140,8 +143,6 @@ const LocalNewsPage = ({ city, pathname, languageCode, cityCode }: CityRouteProp
       </CityContentLayout>
     )
   }
-
-  const pageTitle = `${t('localNews.pageTitle')} - ${city.name}`
 
   return (
     <CityContentLayout isLoading={false} {...locationLayoutParams}>
