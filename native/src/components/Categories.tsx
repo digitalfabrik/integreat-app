@@ -5,6 +5,7 @@ import { CategoriesMapModel, CategoryModel, CityModel } from 'api-client'
 import { CATEGORIES_ROUTE } from 'api-client/src/routes'
 import { RouteInformationType } from 'api-client/src/routes/RouteInformationTypes'
 
+import testID from '../testing/testID'
 import { URL_PREFIX } from '../constants/webview'
 import TileModel from '../models/TileModel'
 import { LanguageResourceCacheStateType, PageResourceCacheStateType } from '../utils/DataContainer'
@@ -65,7 +66,7 @@ const Categories = ({
         })
     )
     return (
-      <View testID='Dashboard-Page'>
+      <View {...testID('Dashboard-Page')}>
         <Tiles tiles={tiles} language={language} onTilePress={navigateToCategory} />
       </View>
     )
