@@ -1,4 +1,4 @@
-import React, { ReactElement, useContext } from 'react'
+import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons'
 import styled from 'styled-components/native'
@@ -8,7 +8,6 @@ import { config } from 'translations'
 
 import { EXCERPT_MAX_LINES } from '../constants'
 import { contentDirection } from '../constants/contentDirection'
-import DateFormatterContext from '../contexts/DateFormatterContext'
 import TimeStamp from './TimeStamp'
 import Pressable from './base/Pressable'
 import Text from './base/Text'
@@ -82,7 +81,6 @@ export const ReadMore = styled(Text)<{ isTunews: boolean }>`
 
 const NewsListItem = ({ index, newsItem, navigateToNews, isTunews }: NewsListItemProps): ReactElement => {
   const { t, i18n } = useTranslation('news')
-  const formatter = useContext(DateFormatterContext)
   const timestamp = newsItem instanceof LocalNewsModel ? newsItem.timestamp : null
 
   return (
@@ -95,7 +93,7 @@ const NewsListItem = ({ index, newsItem, navigateToNews, isTunews }: NewsListIte
             <Content numberOfLines={EXCERPT_MAX_LINES}>{newsItem.content}</Content>
             {timestamp && (
               <TimeStampContent>
-                <TimeStamp formatter={formatter} lastUpdate={timestamp} showText={false} />
+                <TimeStamp lastUpdate={timestamp} showText={false} />
               </TimeStampContent>
             )}
           </Description>

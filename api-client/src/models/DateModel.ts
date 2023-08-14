@@ -1,7 +1,5 @@
 import { DateTime } from 'luxon'
 
-import DateFormatter from '../i18n/DateFormatter'
-
 class DateModel {
   _startDate: DateTime
   _endDate: DateTime
@@ -25,46 +23,21 @@ class DateModel {
     return this._allDay
   }
 
-  /**
-   * Returns a formatted string containing all relevant start and end date and time information
-   * @param {DateFormatter} formatter formats the string according to the correct locale
-   * @return {String} The formatted span string
-   */
-  toFormattedString(formatter: DateFormatter): string {
-    // if allDay: only date, else: date + time
-    let span = this._allDay
-      ? formatter.format(this._startDate, {
-          format: 'DDD',
-        })
-      : formatter.format(this._startDate, {
-          format: 'DDD t',
-        })
+  toFormattedString(locale: string): string {
+    const format = this.allDay ? 'DDD' : 'DDD t'
+    const localizedStartDate = this.startDate.setLocale(locale).toFormat(format)
+    const localizedEndDate = this.endDate.setLocale(locale)
 
-    if (this._endDate.isValid && !this._startDate.equals(this._endDate)) {
-      // endDate is valid and different from startDate
-      if (this._startDate.hasSame(this._endDate, 'day')) {
-        // startDate and endDate are on the same day
-        // if allDay: we don't need anything more, because we are on the same day, else: only time
-        span += this._allDay
-          ? ''
-          : ` - ${formatter.format(this._endDate, {
-              format: 't',
-            })}`
-      } else {
-        // startDate and endDate are not on the same day
-        span += ' - '
-        // if allDay: only date, else: date + time
-        span += this._allDay
-          ? formatter.format(this._endDate, {
-              format: 'DDD',
-            })
-          : formatter.format(this._endDate, {
-              format: 'DDD t',
-            })
-      }
+    if (this.startDate.equals(this.endDate)) {
+      return localizedStartDate
     }
 
-    return span
+    if (this.startDate.hasSame(this.endDate, 'day')) {
+      return this.allDay ? localizedStartDate : `${localizedStartDate} - ${localizedEndDate.toFormat('t')}`
+    }
+
+    // startDate and endDate are not on the same day
+    return `${localizedStartDate} - ${localizedEndDate.toFormat(format)}`
   }
 
   isEqual(other: DateModel): boolean {
