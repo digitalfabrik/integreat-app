@@ -165,7 +165,6 @@ type CityLastUsageType = {
 type MetaCitiesType = Record<CityCodeType, MetaCitiesEntryType>
 type PageResourceCacheEntryJsonType = {
   file_path: string
-  last_update: string
   hash: string
 }
 type PageResourceCacheJsonType = Record<string, PageResourceCacheEntryJsonType>
@@ -661,7 +660,6 @@ class DatabaseConnector {
             fileResourceCache,
             (entry: PageResourceCacheEntryJsonType): PageResourceCacheEntryStateType => ({
               filePath: entry.file_path,
-              lastUpdate: DateTime.fromISO(entry.last_update),
               hash: entry.hash,
             })
           )
@@ -680,7 +678,6 @@ class DatabaseConnector {
             fileResourceCache,
             (entry: PageResourceCacheEntryStateType): PageResourceCacheEntryJsonType => ({
               file_path: entry.filePath,
-              last_update: entry.lastUpdate.toISO(),
               hash: entry.hash,
             })
           )
