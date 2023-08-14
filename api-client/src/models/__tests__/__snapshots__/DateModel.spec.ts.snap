@@ -1,16 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`DateModel toTimeSpanString() should only return start date (+ time) if endDate is not valid 1`] = `
-[
-  "de: 27. November 2017 19:30",
-  "en: November 27, 2017 7:30 PM",
-  "fr: 27 novembre 2017 19:30",
-  "ar: ٢٧ نوفمبر ٢٠١٧ ٧:٣٠ م",
-  "fa: ۶ آذر ۱۳۹۶ ۱۹:۳۰",
-  "ru: 27 ноября 2017 г. 19:30",
-]
-`;
-
 exports[`DateModel toTimeSpanString() should return only start date + end date if allDay is true 1`] = `
 [
   "de: 27. November 2017 - 28. November 2017",
