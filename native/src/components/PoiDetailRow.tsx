@@ -4,9 +4,10 @@ import styled from 'styled-components/native'
 
 import useSnackbar from '../hooks/useSnackbar'
 import openExternalUrl from '../utils/openExternalUrl'
+import Pressable from './base/Pressable'
 import Text from './base/Text'
 
-const Container = styled.TouchableOpacity`
+const Container = styled(Pressable)`
   flex-direction: row;
   padding: 2px 0;
 `

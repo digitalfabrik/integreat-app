@@ -1,4 +1,4 @@
-import { Moment } from 'moment'
+import { DateTime } from 'luxon'
 import React, { ReactElement } from 'react'
 import { TFunction } from 'react-i18next'
 import styled from 'styled-components'
@@ -46,7 +46,7 @@ const StyledContainer = styled.div`
 type NewsListItemProps = {
   title: string
   content: string
-  timestamp: Moment
+  timestamp: DateTime
   formatter: DateFormatter
   link: string
   type: NewsType

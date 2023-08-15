@@ -1,5 +1,5 @@
 import { waitFor } from '@testing-library/react-native'
-import moment from 'moment'
+import { DateTime } from 'luxon'
 
 import CategoriesMapModelBuilder from 'api-client/src/testing/CategoriesMapModelBuilder'
 import CityModelBuilder from 'api-client/src/testing/CityModelBuilder'
@@ -31,14 +31,12 @@ describe('DatabaseConnector', () => {
       '/path/to/page': {
         'https://test.de/path/to/resource/test.png': {
           filePath: '/local/path/to/resource/b4b5dca65e423.png',
-          lastUpdate: moment('2011-02-04T00:00:00.000Z'),
           hash: 'testHash',
         },
       },
       '/path/to/page/child': {
         'https://test.de/path/to/resource/test2.jpg': {
           filePath: '/local/path/to/resource/970c65c41eac0.jpg',
-          lastUpdate: moment('2011-05-04T00:00:00.000Z'),
           hash: 'testHash',
         },
       },
@@ -78,8 +76,8 @@ describe('DatabaseConnector', () => {
   describe('loadLastUpdate', () => {
     it('should return null if no data is persisted for a given city-language pair', async () => {
       const context = new DatabaseContext('tcc', 'de')
-      const moment = await databaseConnector.loadLastUpdate(context)
-      expect(moment).toBeNull()
+      const dateTime = await databaseConnector.loadLastUpdate(context)
+      expect(dateTime).toBeNull()
     })
     it('should throw if persisted data is malformed for a given city-language pair', async () => {
       const context = new DatabaseContext('tcc', 'de')
@@ -94,9 +92,9 @@ describe('DatabaseConnector', () => {
       const context = new DatabaseContext('tcc')
       await expect(databaseConnector.loadLastUpdate(context)).rejects.toThrow()
     })
-    it('should return a moment that matches the one that was stored', async () => {
+    it('should return a DateTime that matches the one that was stored', async () => {
       const context = new DatabaseContext('tcc', 'de')
-      const dateExpected = moment('2011-05-04T00:00:00.000Z')
+      const dateExpected = DateTime.fromISO('2011-05-04T00:00:00.000Z')
       await databaseConnector.storeLastUsage(context)
       await databaseConnector.storeLastUpdate(dateExpected, context)
       expect(dateExpected).toStrictEqual(await databaseConnector.loadLastUpdate(context))
@@ -105,23 +103,23 @@ describe('DatabaseConnector', () => {
   describe('storeLastUpdate', () => {
     it('should throw error if currentCity in context is null', async () => {
       const context = new DatabaseContext(undefined, 'de')
-      const date = moment('2011-05-04T00:00:00.000Z')
+      const date = DateTime.fromISO('2011-05-04T00:00:00.000Z')
       await expect(databaseConnector.storeLastUpdate(date, context)).rejects.toThrow()
     })
     it('should throw error if currentLanguage in context is null', async () => {
       const context = new DatabaseContext('tcc')
-      const date = moment('2011-05-04T00:00:00.000Z')
+      const date = DateTime.fromISO('2011-05-04T00:00:00.000Z')
       await expect(databaseConnector.storeLastUpdate(date, context)).rejects.toThrow()
     })
     it('should throw error if meta of city is null', async () => {
       const context = new DatabaseContext('tcc')
-      const date = moment('2011-05-04T00:00:00.000Z')
+      const date = DateTime.fromISO('2011-05-04T00:00:00.000Z')
       await expect(databaseConnector.storeLastUpdate(date, context)).rejects.toThrow()
     })
     it('should override multiple lastUpdates of the same context', async () => {
       const context = new DatabaseContext('tcc', 'de')
-      const date = moment('2011-05-04T00:00:00.000Z')
-      const date2 = moment('2012-05-04T00:00:00.000Z')
+      const date = DateTime.fromISO('2011-05-04T00:00:00.000Z')
+      const date2 = DateTime.fromISO('2012-05-04T00:00:00.000Z')
       await databaseConnector.storeLastUsage(context)
       await databaseConnector.storeLastUpdate(date, context)
       await databaseConnector.storeLastUpdate(date2, context)
@@ -129,7 +127,7 @@ describe('DatabaseConnector', () => {
     })
     it('should store the json file in the correct path', async () => {
       const context = new DatabaseContext('tcc', 'de')
-      const date = moment('2011-05-04T00:00:00.000Z')
+      const date = DateTime.fromISO('2011-05-04T00:00:00.000Z')
       await databaseConnector.storeLastUsage(context)
       await databaseConnector.storeLastUpdate(date, context)
       expect(BlobUtil.fs.writeFile).toHaveBeenCalledWith(
@@ -257,13 +255,13 @@ describe('DatabaseConnector', () => {
 
   describe('storeLastUsage', () => {
     it('should store the usage of the passed city', async () => {
-      const date = moment('2014-05-04T00:00:00.000Z')
+      const date = DateTime.fromISO('2014-05-04T00:00:00.000')
       const { restoreDate } = mockDate(date)
       const context = new DatabaseContext('augsburg')
       await databaseConnector.storeLastUsage(context)
       expect(JSON.parse(await BlobUtil.fs.readFile(databaseConnector.getMetaCitiesPath(), ''))).toEqual({
         augsburg: {
-          last_usage: date.toISOString(),
+          last_usage: date.toISO(),
           languages: {},
         },
       })
@@ -280,20 +278,20 @@ describe('DatabaseConnector', () => {
         JSON.stringify({
           muenchen: {
             languages: {},
-            last_usage: '2010-05-04T00:00:00.000Z',
+            last_usage: '2010-05-04T00:00:00.000',
           },
           dortmund: {
             languages: {},
-            last_usage: '2011-05-04T00:00:00.000Z',
+            last_usage: '2011-05-04T00:00:00.000',
           },
           ansbach: {
             languages: {},
-            last_usage: '2012-05-04T00:00:00.000Z',
+            last_usage: '2012-05-04T00:00:00.000',
           },
         }),
         ''
       )
-      const { restoreDate } = mockDate(moment('2013-05-04T00:00:00.000Z'))
+      const { restoreDate } = mockDate(DateTime.fromISO('2013-05-04T00:00:00.000'))
       await databaseConnector.storeLastUsage(new DatabaseContext('regensburg'))
       await expectCityFilesExist('muenchen', false)
       await expectCityFilesExist('dortmund')
@@ -302,15 +300,15 @@ describe('DatabaseConnector', () => {
       expect(JSON.parse(await BlobUtil.fs.readFile(databaseConnector.getMetaCitiesPath(), ''))).toEqual({
         ansbach: {
           languages: {},
-          last_usage: '2012-05-04T00:00:00.000Z',
+          last_usage: '2012-05-04T00:00:00.000+02:00',
         },
         dortmund: {
           languages: {},
-          last_usage: '2011-05-04T00:00:00.000Z',
+          last_usage: '2011-05-04T00:00:00.000+02:00',
         },
         regensburg: {
           languages: {},
-          last_usage: '2013-05-04T00:00:00.000Z',
+          last_usage: '2013-05-04T00:00:00.000+02:00',
         },
       })
       restoreDate()
@@ -319,12 +317,12 @@ describe('DatabaseConnector', () => {
       const context = new DatabaseContext('tcc', 'de')
       const path = databaseConnector.getMetaCitiesPath()
       BlobUtil.fs.writeFile(path, '{ "i": "am": "malformed" } }', 'utf8')
-      const { restoreDate } = mockDate(moment('2013-05-04T00:00:00.000Z'))
+      const { restoreDate } = mockDate(DateTime.fromISO('2013-05-04T00:00:00.000'))
       await databaseConnector.storeLastUsage(context)
       expect(JSON.parse(await BlobUtil.fs.readFile(path, 'utf8'))).toEqual({
         tcc: {
           languages: {},
-          last_usage: '2013-05-04T00:00:00.000Z',
+          last_usage: '2013-05-04T00:00:00.000+02:00',
         },
       })
       restoreDate()
@@ -337,23 +335,23 @@ describe('DatabaseConnector', () => {
         JSON.stringify({
           muenchen: {
             languages: {},
-            last_usage: '2010-05-04T00:00:00.000Z',
+            last_usage: '2010-05-04T00:00:00.000',
           },
           dortmund: {
             languages: {},
-            last_usage: '2011-05-04T00:00:00.000Z',
+            last_usage: '2011-05-04T00:00:00.000',
           },
           ansbach: {
             languages: {},
-            last_usage: '2012-05-04T00:00:00.000Z',
+            last_usage: '2012-05-04T00:00:00.000',
           },
           augsburg: {
             languages: {},
-            last_usage: '2014-05-04T00:00:00.000Z',
+            last_usage: '2014-05-04T00:00:00.000',
           },
           regensburg: {
             languages: {},
-            last_usage: '2013-05-04T00:00:00.000Z',
+            last_usage: '2013-05-04T00:00:00.000',
           },
         }),
         ''
@@ -361,23 +359,23 @@ describe('DatabaseConnector', () => {
       expect(await databaseConnector.loadLastUsages()).toEqual([
         {
           city: 'muenchen',
-          lastUsage: moment('2010-05-04T00:00:00.000Z'),
+          lastUsage: DateTime.fromISO('2010-05-04T00:00:00.000'),
         },
         {
           city: 'dortmund',
-          lastUsage: moment('2011-05-04T00:00:00.000Z'),
+          lastUsage: DateTime.fromISO('2011-05-04T00:00:00.000'),
         },
         {
           city: 'ansbach',
-          lastUsage: moment('2012-05-04T00:00:00.000Z'),
+          lastUsage: DateTime.fromISO('2012-05-04T00:00:00.000'),
         },
         {
           city: 'augsburg',
-          lastUsage: moment('2014-05-04T00:00:00.000Z'),
+          lastUsage: DateTime.fromISO('2014-05-04T00:00:00.000'),
         },
         {
           city: 'regensburg',
-          lastUsage: moment('2013-05-04T00:00:00.000Z'),
+          lastUsage: DateTime.fromISO('2013-05-04T00:00:00.000'),
         },
       ])
     })
@@ -400,23 +398,23 @@ describe('DatabaseConnector', () => {
         JSON.stringify({
           muenchen: {
             languages: {},
-            last_usage: '2010-05-04T00:00:00.000Z',
+            last_usage: '2010-05-04T00:00:00.000',
           },
           dortmund: {
             languages: {},
-            last_usage: '2011-05-04T00:00:00.000Z',
+            last_usage: '2011-05-04T00:00:00.000',
           },
           ansbach: {
             languages: {},
-            last_usage: '2012-05-04T00:00:00.000Z',
+            last_usage: '2012-05-04T00:00:00.000',
           },
           augsburg: {
             languages: {},
-            last_usage: '2014-05-04T00:00:00.000Z',
+            last_usage: '2014-05-04T00:00:00.000',
           },
           regensburg: {
             languages: {},
-            last_usage: '2013-05-04T00:00:00.000Z',
+            last_usage: '2013-05-04T00:00:00.000',
           },
         }),
         ''
@@ -430,15 +428,15 @@ describe('DatabaseConnector', () => {
       expect(JSON.parse(await BlobUtil.fs.readFile(databaseConnector.getMetaCitiesPath(), ''))).toEqual({
         ansbach: {
           languages: {},
-          last_usage: '2012-05-04T00:00:00.000Z',
+          last_usage: '2012-05-04T00:00:00.000+02:00',
         },
         augsburg: {
           languages: {},
-          last_usage: '2014-05-04T00:00:00.000Z',
+          last_usage: '2014-05-04T00:00:00.000+02:00',
         },
         regensburg: {
           languages: {},
-          last_usage: '2013-05-04T00:00:00.000Z',
+          last_usage: '2013-05-04T00:00:00.000+02:00',
         },
       })
     })
@@ -453,19 +451,19 @@ describe('DatabaseConnector', () => {
         JSON.stringify({
           augsburg: {
             languages: {},
-            last_usage: '2010-05-04T00:00:00.000Z',
+            last_usage: '2010-05-04T00:00:00.000',
           },
           dortmund: {
             languages: {},
-            last_usage: '2011-05-04T00:00:00.000Z',
+            last_usage: '2011-05-04T00:00:00.000',
           },
           ansbach: {
             languages: {},
-            last_usage: '2012-05-04T00:00:00.000Z',
+            last_usage: '2012-05-04T00:00:00.000',
           },
           regensburg: {
             languages: {},
-            last_usage: '2013-05-04T00:00:00.000Z',
+            last_usage: '2013-05-04T00:00:00.000',
           },
         }),
         ''
@@ -478,15 +476,15 @@ describe('DatabaseConnector', () => {
       expect(JSON.parse(await BlobUtil.fs.readFile(databaseConnector.getMetaCitiesPath(), ''))).toEqual({
         ansbach: {
           languages: {},
-          last_usage: '2012-05-04T00:00:00.000Z',
+          last_usage: '2012-05-04T00:00:00.000+02:00',
         },
         augsburg: {
           languages: {},
-          last_usage: '2010-05-04T00:00:00.000Z',
+          last_usage: '2010-05-04T00:00:00.000+02:00',
         },
         regensburg: {
           languages: {},
-          last_usage: '2013-05-04T00:00:00.000Z',
+          last_usage: '2013-05-04T00:00:00.000+02:00',
         },
       })
     })

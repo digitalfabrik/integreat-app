@@ -10,6 +10,7 @@ import { EXCERPT_MAX_LINES } from '../constants'
 import { contentDirection } from '../constants/contentDirection'
 import DateFormatterContext from '../contexts/DateFormatterContext'
 import TimeStamp from './TimeStamp'
+import Pressable from './base/Pressable'
 import Text from './base/Text'
 
 type NewsListItemProps = {
@@ -35,7 +36,7 @@ const Icon = styled(MaterialIcon)<{ isTunews: boolean }>`
 const ListItemWrapper = styled.View`
   padding: 0 5%;
 `
-const StyledTouchableOpacity = styled.TouchableOpacity`
+const StyledPressable = styled(Pressable)`
   flex-direction: column;
 `
 
@@ -88,7 +89,7 @@ const NewsListItem = ({ index, newsItem, navigateToNews, isTunews }: NewsListIte
     <>
       <Divider firstItem={index === 0} />
       <ListItemWrapper>
-        <StyledTouchableOpacity onPress={navigateToNews}>
+        <StyledPressable onPress={navigateToNews}>
           <Description>
             <Title>{newsItem.title}</Title>
             <Content numberOfLines={EXCERPT_MAX_LINES}>{newsItem.content}</Content>
@@ -112,7 +113,7 @@ const NewsListItem = ({ index, newsItem, navigateToNews, isTunews }: NewsListIte
               }}
             />
           </ReadMoreWrapper>
-        </StyledTouchableOpacity>
+        </StyledPressable>
       </ListItemWrapper>
     </>
   )

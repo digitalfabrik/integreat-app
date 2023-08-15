@@ -1,13 +1,13 @@
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
-import { TouchableOpacity } from 'react-native'
 import { Calendar } from 'react-native-calendar-events'
 import styled from 'styled-components/native'
 
 import dimensions from '../constants/dimensions'
 import Modal from './Modal'
+import Pressable from './base/Pressable'
 
-const CalendarButton = styled(TouchableOpacity)<{ color: string }>`
+const CalendarButton = styled(Pressable)<{ color: string }>`
   background-color: ${props => props.color};
   justify-content: center;
   align-items: center;

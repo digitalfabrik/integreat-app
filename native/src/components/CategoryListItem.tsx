@@ -1,5 +1,5 @@
 import React, { memo, ReactElement } from 'react'
-import styled, { useTheme } from 'styled-components/native'
+import styled from 'styled-components/native'
 
 import { CategoryModel } from 'api-client'
 
@@ -8,10 +8,10 @@ import dimensions from '../constants/dimensions'
 import { LanguageResourceCacheStateType } from '../utils/DataContainer'
 import { getCachedThumbnail } from './Categories'
 import SimpleImage from './SimpleImage'
-import StyledLink from './StyledLink'
 import SubCategoryListItem from './SubCategoryListItem'
+import Pressable from './base/Pressable'
 
-const FlexStyledLink = styled(StyledLink)`
+const FlexStyledLink = styled(Pressable)`
   display: flex;
   flex-direction: column;
 `
@@ -65,37 +65,33 @@ const CategoryListItem = ({
   subCategories,
   resourceCache,
   onItemPress,
-}: CategoryListItemProps): ReactElement => {
-  const theme = useTheme()
-  const { title, thumbnail, path } = category
-  return (
-    <>
-      <FlexStyledLink onPress={() => onItemPress({ path })} underlayColor={theme.colors.backgroundAccentColor}>
-        <DirectionContainer language={language}>
-          <CategoryEntryContainer>
-            <TitleDirectionContainer language={language}>
-              {!!thumbnail && (
-                <CategoryThumbnail
-                  language={language}
-                  source={getCachedThumbnail(category, resourceCache[path] ?? {})}
-                />
-              )}
-              <CategoryTitle language={language}>{title}</CategoryTitle>
-            </TitleDirectionContainer>
-          </CategoryEntryContainer>
-        </DirectionContainer>
-      </FlexStyledLink>
-      {subCategories.map(subCategory => (
-        <SubCategoryListItem
-          key={subCategory.path}
-          subCategory={subCategory}
-          resourceCache={resourceCache[subCategory.path] ?? {}}
-          onItemPress={onItemPress}
-          language={language}
-        />
-      ))}
-    </>
-  )
-}
+}: CategoryListItemProps): ReactElement => (
+  <>
+    <FlexStyledLink onPress={() => onItemPress({ path: category.path })}>
+      <DirectionContainer language={language}>
+        <CategoryEntryContainer>
+          <TitleDirectionContainer language={language}>
+            {!!category.thumbnail && (
+              <CategoryThumbnail
+                language={language}
+                source={getCachedThumbnail(category, resourceCache[category.path] ?? {})}
+              />
+            )}
+            <CategoryTitle language={language}>{category.title}</CategoryTitle>
+          </TitleDirectionContainer>
+        </CategoryEntryContainer>
+      </DirectionContainer>
+    </FlexStyledLink>
+    {subCategories.map(subCategory => (
+      <SubCategoryListItem
+        key={subCategory.path}
+        subCategory={subCategory}
+        resourceCache={resourceCache[subCategory.path] ?? {}}
+        onItemPress={onItemPress}
+        language={language}
+      />
+    ))}
+  </>
+)
 
 export default memo(CategoryListItem)
