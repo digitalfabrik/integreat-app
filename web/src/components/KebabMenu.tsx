@@ -80,8 +80,6 @@ const Content = styled.div`
 const ToggleButton = styled.button`
   background-color: transparent;
   border: none;
-  /* TODO IGAPP-889 (#1854) remove this margin after implementing new search icon to fix wrong viewBox of svg */
-  margin-top: 6px;
 `
 
 const KebabMenu = ({ items, direction, show, setShow, Footer }: KebabMenuProps): ReactElement | null => {

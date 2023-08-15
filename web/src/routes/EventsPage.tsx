@@ -49,7 +49,7 @@ const EventsPage = ({ city, pathname, languageCode, cityCode }: CityRouteProps):
     return null
   }
 
-  // TODO IGAPP-1078: Remove workaround of looking up path until '$'
+  // TODO #2031: Remove workaround of looking up path until '$'
   const event = eventId
     ? events?.find(it => it.path === pathname) ??
       events?.find(it => it.path.substring(0, it.path.indexOf('$')) === pathname)

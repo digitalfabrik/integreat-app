@@ -96,7 +96,7 @@ const PoisPage = ({ cityCode, languageCode, city, pathname }: CityRouteProps): R
     const coordinates = currentFeature?.geometry.coordinates ?? []
     if (mapRef && coordinates[0] && coordinates[1] && snapPoint === 1) {
       const coords: LngLatLike = [coordinates[0], coordinates[1]]
-      // TODO IGAPP-1154 (#2100) - remove setTimeout
+      // TODO #2100: remove setTimeout
       setTimeout(
         () =>
           mapRef.flyTo({
