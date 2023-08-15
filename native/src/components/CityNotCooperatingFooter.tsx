@@ -35,12 +35,11 @@ const CityNotCooperatingFooter = ({
   const theme = useTheme()
   const { t } = useTranslation('landing')
 
-  if (!buildConfig().featureFlags.cityNotCooperating) {
+  const CityNotCooperatingIcon = buildConfigAssets().CityNotCooperatingIcon
+  
+  if (!buildConfig().featureFlags.cityNotCooperating || !CityNotCooperatingIcon) {
     return null
   }
-  // This footer is only displayed in the Integreat configuration, and that has the CityNotCooperatingIcon
-  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-  const CityNotCooperatingIcon = buildConfigAssets().CityNotCooperatingIcon!
 
   return (
     <FooterContainer>
