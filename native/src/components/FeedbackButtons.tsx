@@ -4,8 +4,7 @@ import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 import styled from 'styled-components/native'
 
-import TextButton from './TextButton'
-import Pressable from './base/Pressable'
+import ToggleButton from './base/ToggleButton'
 
 const Container = styled.View`
   flex-direction: row;
@@ -31,16 +30,14 @@ const FeedbackButtons = ({ isPositiveFeedback, setIsPositiveFeedback }: Feedback
   const { t } = useTranslation('feedback')
   return (
     <Container>
-      <TextButton
-        type='tile'
+      <ToggleButton
         text={t('useful')}
         onPress={() => setIsPositiveFeedback(isPositiveFeedback !== true ? true : null)}
         Icon={<HappyIcon height={MAXIMAL_ICON_SIZE} width={MAXIMAL_ICON_SIZE} />}
         active={isPositiveFeedback === true}
       />
       <Spacing />
-      <TextButton
-        type='tile'
+      <ToggleButton
         text={t('notUseful')}
         onPress={() => setIsPositiveFeedback(isPositiveFeedback !== false ? false : null)}
         Icon={<SadIcon height={MAXIMAL_ICON_SIZE} width={MAXIMAL_ICON_SIZE} />}

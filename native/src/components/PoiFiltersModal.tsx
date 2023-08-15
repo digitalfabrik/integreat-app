@@ -8,8 +8,9 @@ import { PoiCategoryModel, PoiModel } from 'api-client'
 import { ClockIcon } from '../assets'
 import Modal from './Modal'
 import SettingsSwitch from './SettingsSwitch'
-import TextButton from './TextButton'
 import Text from './base/Text'
+import TextButton from './base/TextButton'
+import ToggleButton from './base/ToggleButton'
 
 const Container = styled.View`
   flex: 1;
@@ -60,7 +61,7 @@ const TileRow = styled(Row)`
   flex-wrap: wrap;
 `
 
-const StyledTextButton = styled(TextButton)`
+const StyledToggleButton = styled(ToggleButton)`
   margin-bottom: 24px;
 `
 
@@ -108,9 +109,8 @@ const PoiFiltersModal = ({
           </Row>
           <TileRow>
             {poiCategories.map(it => (
-              <StyledTextButton
+              <StyledToggleButton
                 key={it.id}
-                type='tile'
                 text={it.name}
                 active={it === selectedPoiCategory}
                 onPress={() => setSelectedPoiCategory(it === selectedPoiCategory ? null : it)}
@@ -120,7 +120,7 @@ const PoiFiltersModal = ({
           </TileRow>
         </Section>
         <Section>
-          <TextButton type='primary' onPress={closeModal} text={t('showPois')} />
+          <TextButton onPress={closeModal} text={t('showPois')} />
         </Section>
       </Container>
     </Modal>

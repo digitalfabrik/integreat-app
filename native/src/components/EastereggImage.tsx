@@ -1,13 +1,12 @@
 import { DateTime } from 'luxon'
 import React, { ReactElement, ReactNode, useEffect, useState } from 'react'
-import { TouchableOpacity } from 'react-native'
 import styled from 'styled-components/native'
 
 import buildConfig, { buildConfigAssets } from '../constants/buildConfig'
 import appSettings from '../utils/AppSettings'
 import { log, reportError } from '../utils/sentry'
-import TextButton from './TextButton'
 import Pressable from './base/Pressable'
+import TextButton from './base/TextButton'
 
 const API_URL_OVERRIDE_MIN_CLICKS = 10
 const CLICK_TIMEOUT = 8
@@ -72,7 +71,7 @@ const EastereggImage = ({ clearResourcesAndCache }: EastereggImageProps): ReactE
       return (
         <>
           <ApiUrlText>{`Currently using API: ${apiUrlOverride.toString()}`}</ApiUrlText>
-          <StyledButton type='primary' onPress={() => setApiUrl(cmsUrl)} text='Switch back to default API' />
+          <StyledButton onPress={() => setApiUrl(cmsUrl)} text='Switch back to default API' />
         </>
       )
     }

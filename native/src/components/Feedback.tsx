@@ -9,7 +9,7 @@ import useNavigate from '../hooks/useNavigate'
 import Caption from './Caption'
 import FeedbackButtons from './FeedbackButtons'
 import { SendingStatusType } from './FeedbackContainer'
-import TextButton from './TextButton'
+import TextButton from './base/TextButton'
 
 const Input = styled(TextInput)`
   padding: 15px;
@@ -128,7 +128,7 @@ const Feedback = ({
             <StyledNoteIcon height={20} width={20} />
             <NoteText>{t('note')}</NoteText>
           </NoteBox>
-          <StyledButton type='primary' disabled={submitDisabled} onPress={onSubmit} text={t('send')} />
+          <StyledButton disabled={submitDisabled} onPress={onSubmit} text={t('send')} />
         </>
       )
     }
@@ -140,7 +140,7 @@ const Feedback = ({
       <>
         <Caption title={t('thanksHeadline')} />
         <ThemedText>{t('thanksMessage')}</ThemedText>
-        <StyledButton type='primary' onPress={navigation.goBack} text={t('common:close')} />
+        <StyledButton onPress={navigation.goBack} text={t('common:close')} />
       </>
     )
   }

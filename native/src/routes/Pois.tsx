@@ -27,7 +27,7 @@ import MapView from '../components/MapView'
 import PoiDetails from '../components/PoiDetails'
 import PoiFiltersModal from '../components/PoiFiltersModal'
 import PoiListItem from '../components/PoiListItem'
-import TextButton from '../components/TextButton'
+import ChipButton from '../components/base/ChipButton'
 import { NavigationProps, RouteProps } from '../constants/NavigationTypes'
 import dimensions from '../constants/dimensions'
 import useOnBackNavigation from '../hooks/useOnBackNavigation'
@@ -200,15 +200,9 @@ const Pois = ({ pois: allPois, language, cityModel, route, navigation }: PoisPro
 
   const FiltersOverlayButtons = (
     <>
-      <TextButton
-        type='overlay'
-        text={t('adjustFilters')}
-        Icon={<EditLocationIcon />}
-        onPress={() => setShowFilterSelection(true)}
-      />
+      <ChipButton text={t('adjustFilters')} Icon={<EditLocationIcon />} onPress={() => setShowFilterSelection(true)} />
       {poiCurrentlyOpenFilter && (
-        <TextButton
-          type='overlay'
+        <ChipButton
           text={t('opened')}
           Icon={<ClockIcon />}
           onPress={() => setPoiCurrentlyOpenFilter(false)}
@@ -216,8 +210,7 @@ const Pois = ({ pois: allPois, language, cityModel, route, navigation }: PoisPro
         />
       )}
       {!!poiCategoryFilter && (
-        <TextButton
-          type='overlay'
+        <ChipButton
           text={poiCategoryFilter.name}
           Icon={<SvgUri uri={poiCategoryFilter.icon} height={16} width={16} />}
           onPress={() => setPoiCategoryFilter(null)}
