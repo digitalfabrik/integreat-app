@@ -1,4 +1,4 @@
-import moment from 'moment'
+import { DateTime } from 'luxon'
 import { useEffect } from 'react'
 
 import {
@@ -75,7 +75,7 @@ const useLoadCityContent = ({ cityCode, languageCode }: Params): CityContentRetu
     if (categoriesReturn.data && eventsReturn.data && poisReturn.data) {
       // Load the resource cache in the background once a day and do not wait for it
       dataContainer.getLastUpdate(cityCode, languageCode).then(lastUpdate => {
-        if (!lastUpdate || lastUpdate.isBefore(moment.utc().startOf('day'))) {
+        if (!lastUpdate || lastUpdate < DateTime.utc().startOf('day')) {
           loadResourceCache({
             cityCode,
             languageCode,
@@ -88,7 +88,7 @@ const useLoadCityContent = ({ cityCode, languageCode }: Params): CityContentRetu
 
       // Update last update if all data is available.
       // WARNING: This also means that the last update is updated if everything is just loaded from the cache.
-      dataContainer.setLastUpdate(cityCode, languageCode, moment()).catch(reportError)
+      dataContainer.setLastUpdate(cityCode, languageCode, DateTime.utc()).catch(reportError)
     }
   }, [categoriesReturn, eventsReturn, poisReturn, cityCode, languageCode])
 

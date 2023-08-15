@@ -1,5 +1,6 @@
 import NetInfo from '@react-native-community/netinfo'
 import { LinkingOptions, NavigationContainer, NavigationState } from '@react-navigation/native'
+import { Settings as LuxonSettings } from 'luxon'
 import React, { ReactElement, useCallback, useState } from 'react'
 import { LogBox } from 'react-native'
 import { SafeAreaProvider } from 'react-native-safe-area-context'
@@ -25,7 +26,7 @@ import { backgroundAppStatePushNotificationListener } from './utils/PushNotifica
 import sendTrackingSignal from './utils/sendTrackingSignal'
 
 enableScreens(true)
-
+LuxonSettings.throwOnInvalid = true
 LogBox.ignoreLogs(['NativeEventEmitter'])
 
 NetInfo.configure({

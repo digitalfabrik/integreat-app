@@ -2,9 +2,9 @@ import SadIcon from 'integreat-app/assets/icons/negative-feedback.svg'
 import HappyIcon from 'integreat-app/assets/icons/positive-feedback.svg'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
-import { TouchableOpacity } from 'react-native'
 import styled from 'styled-components/native'
 
+import Pressable from './base/Pressable'
 import Text from './base/Text'
 
 const Container = styled.View`
@@ -14,7 +14,7 @@ const Container = styled.View`
   margin: 12px 0;
 `
 
-const FeedbackTouchableOpacity = styled(TouchableOpacity)`
+const FeedbackPressable = styled(Pressable)`
   align-items: center;
   border-radius: 18px;
   width: 100px;
@@ -56,21 +56,21 @@ const FeedbackButtons = ({ isPositiveFeedback, setIsPositiveFeedback }: Feedback
   return (
     <Container>
       <CardShadow $active={isPositiveFeedback}>
-        <FeedbackTouchableOpacity
+        <FeedbackPressable
           onPress={() => setIsPositiveFeedback(isPositiveFeedback !== true ? true : null)}
           testID='feedback-positive-rating'>
           <HappyIcon height={MAXIMAL_ICON_SIZE} width={MAXIMAL_ICON_SIZE} />
           <FeedbackText>{t('useful')}</FeedbackText>
-        </FeedbackTouchableOpacity>
+        </FeedbackPressable>
       </CardShadow>
       <Spacing />
       <CardShadow $active={isPositiveFeedback === false}>
-        <FeedbackTouchableOpacity
+        <FeedbackPressable
           onPress={() => setIsPositiveFeedback(isPositiveFeedback !== false ? false : null)}
           testID='feedback-negative-rating'>
           <SadIcon height={MAXIMAL_ICON_SIZE} width={MAXIMAL_ICON_SIZE} />
           <FeedbackText>{t('notUseful')}</FeedbackText>
-        </FeedbackTouchableOpacity>
+        </FeedbackPressable>
       </CardShadow>
     </Container>
   )
