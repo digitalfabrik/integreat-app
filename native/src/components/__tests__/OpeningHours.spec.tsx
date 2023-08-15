@@ -27,7 +27,10 @@ describe('OpeningHours', () => {
     expect(getByText('temporarilyClosed')).toBeTruthy()
   })
   it('should display that the location is opened', () => {
-    const openingHours = Array.from({ length: 7 }, () => new OpenHoursModel({ allDay: false, closed: false, timeSlots: [{ end: '18:00', start: '08:00' }] }))
+    const openingHours = Array.from(
+      { length: 7 },
+      () => new OpenHoursModel({ allDay: false, closed: false, timeSlots: [{ end: '18:00', start: '08:00' }] }),
+    )
     const { getByText } = renderOpeningHours(true, false, openingHours)
     expect(getByText('opened')).toBeTruthy()
   })
