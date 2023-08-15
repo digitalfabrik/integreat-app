@@ -7,14 +7,13 @@ import { CityModel, LOCAL_NEWS_TYPE, NewsType, TU_NEWS_TYPE } from 'api-client'
 import ActiveInternational from '../assets/tu-news-active.svg'
 import InactiveInternational from '../assets/tu-news-inactive.svg'
 import Caption from './Caption'
+import Pressable from './base/Pressable'
 
-const TouchableWrapper = styled.TouchableOpacity`
-  margin-bottom: 5px;
-  margin-horizontal: 10px;
+const StyledPressable = styled(Pressable)`
+  margin: 0 10px 5px;
   align-items: center;
 `
 const LocalTabWrapper = styled.View<{ isSelected: boolean }>`
-  padding-horizontal: 10px;
   border-radius: 10px;
   height: 34px;
   text-align: center;
@@ -53,14 +52,14 @@ const NewsHeader = ({ cityModel, selectedNewsType, selectNewsType }: NewsHeaderP
       <Caption title={t('news')} />
       {cityModel.localNewsEnabled && cityModel.tunewsEnabled && (
         <HeaderContainer>
-          <TouchableWrapper onPress={selectLocalNews} accessibilityRole='button' accessibilityLabel={t('local')}>
+          <StyledPressable onPress={selectLocalNews} accessibilityRole='button' accessibilityLabel={t('local')}>
             <LocalTabWrapper isSelected={selectedNewsType === LOCAL_NEWS_TYPE}>
               <LocalText>{t('local')}</LocalText>
             </LocalTabWrapper>
-          </TouchableWrapper>
-          <TouchableWrapper onPress={selectTuNews} accessibilityRole='button' accessibilityLabel='TüNews'>
+          </StyledPressable>
+          <StyledPressable onPress={selectTuNews} accessibilityRole='button' accessibilityLabel='TüNews'>
             {selectedNewsType === TU_NEWS_TYPE ? <ActiveInternational /> : <InactiveInternational />}
-          </TouchableWrapper>
+          </StyledPressable>
         </HeaderContainer>
       )}
     </>

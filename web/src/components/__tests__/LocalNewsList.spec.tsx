@@ -1,4 +1,4 @@
-import moment from 'moment'
+import { DateTime } from 'luxon'
 import React from 'react'
 
 import { DateFormatter, LOCAL_NEWS_TYPE, LocalNewsModel } from 'api-client'
@@ -27,7 +27,7 @@ describe('LocalNewsList', () => {
       formatter={new DateFormatter(language)}
     />
   )
-  const date = moment('2017-11-18T09:30:00.000Z')
+  const date = DateTime.fromISO('2017-11-18T09:30:00.000Z')
   const localNews1 = new LocalNewsModel({
     id: 217,
     title: 'Important',

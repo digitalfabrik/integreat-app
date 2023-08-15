@@ -1,5 +1,5 @@
 import { difference, flatMap, isEmpty, map, omitBy } from 'lodash'
-import { Moment } from 'moment'
+import { DateTime } from 'luxon'
 import BlobUtil from 'react-native-blob-util'
 
 import { CategoriesMapModel, CityModel, EventModel, PoiModel } from 'api-client'
@@ -21,7 +21,7 @@ type CacheType = {
   events: Cache<Array<EventModel>>
   categories: Cache<CategoriesMapModel>
   resourceCache: Cache<CityResourceCacheStateType>
-  lastUpdate: Cache<Moment | null>
+  lastUpdate: Cache<DateTime | null>
 }
 type CacheKeyType = keyof CacheType
 
@@ -61,10 +61,10 @@ class DefaultDataContainer implements DataContainer {
         (value: CityResourceCacheStateType, connector: DatabaseConnector, context: DatabaseContext) =>
           connector.storeResourceCache(value, context),
       ),
-      lastUpdate: new Cache<Moment | null>(
+      lastUpdate: new Cache<DateTime | null>(
         this._databaseConnector,
         (connector: DatabaseConnector, context: DatabaseContext) => connector.loadLastUpdate(context),
-        (value: Moment | null, connector: DatabaseConnector, context: DatabaseContext) =>
+        (value: DateTime | null, connector: DatabaseConnector, context: DatabaseContext) =>
           connector.storeLastUpdate(value, context),
       ),
     }
@@ -118,9 +118,9 @@ class DefaultDataContainer implements DataContainer {
     return resourceCache[language] ?? {}
   }
 
-  getLastUpdate = (city: string, language: string): Promise<Moment | null> => {
+  getLastUpdate = (city: string, language: string): Promise<DateTime | null> => {
     const context = new DatabaseContext(city, language)
-    const cache: Cache<Moment | null> = this.caches.lastUpdate
+    const cache: Cache<DateTime | null> = this.caches.lastUpdate
     return cache.get(context)
   }
 
@@ -201,9 +201,9 @@ class DefaultDataContainer implements DataContainer {
     await cache.cache(newResourceCache, context)
   }
 
-  setLastUpdate = async (city: string, language: string, lastUpdate: Moment | null): Promise<void> => {
+  setLastUpdate = async (city: string, language: string, lastUpdate: DateTime | null): Promise<void> => {
     const context = new DatabaseContext(city, language)
-    const cache: Cache<Moment | null> = this.caches.lastUpdate
+    const cache: Cache<DateTime | null> = this.caches.lastUpdate
     await cache.cache(lastUpdate, context)
   }
 

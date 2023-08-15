@@ -82,7 +82,7 @@ const createSettingsSections = ({
                       const status = await NotificationsManager.requestPushNotificationPermission()
 
                       if (status) {
-                        await NotificationsManager.subscribeNews(cityCode, languageCode)
+                        await NotificationsManager.subscribeNews(cityCode, languageCode, true)
                       } else {
                         // If the user has rejected the permission once, it can only be changed in the system settings
                         openSettings()

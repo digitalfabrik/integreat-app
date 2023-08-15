@@ -147,7 +147,17 @@ const PoisPage = ({ cityCode, languageCode, city, pathname }: CityRouteProps): R
     }
   }
 
-  const toolbar = <CityContentToolbar feedbackTarget={poi?.slug} route={POIS_ROUTE} iconDirection='row' hideDivider />
+  const pageTitle = `${poi?.title ?? t('pageTitle')} - ${city.name}`
+  const toolbar = (
+    <CityContentToolbar
+      feedbackTarget={poi?.slug}
+      route={POIS_ROUTE}
+      iconDirection='row'
+      hideDivider
+      languageCode={languageCode}
+      pageTitle={pageTitle}
+    />
+  )
 
   const feedbackModal = isFeedbackModalOpen && (
     <FeedbackModal
@@ -205,7 +215,6 @@ const PoisPage = ({ cityCode, languageCode, city, pathname }: CityRouteProps): R
   const renderPoiListItem = (poi: PoiFeature) => (
     <PoiListItem key={poi.properties.path} poi={poi} selectFeature={selectFeature} />
   )
-  const pageTitle = `${t('pageTitle')} - ${city.name}`
   const direction = config.getScriptDirection(languageCode)
 
   const mapView = city.boundingBox && (

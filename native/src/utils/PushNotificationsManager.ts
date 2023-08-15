@@ -60,10 +60,10 @@ export const unsubscribeNews = async (city: string, language: string): Promise<v
   }
   log(`Unsubscribed from ${topic} topic!`)
 }
-export const subscribeNews = async (city: string, language: string): Promise<void> => {
+export const subscribeNews = async (city: string, language: string, skipSettingsCheck = false): Promise<void> => {
   try {
     const { allowPushNotifications } = await appSettings.loadSettings()
-    if (!pushNotificationsEnabled() || !allowPushNotifications) {
+    if (!pushNotificationsEnabled() || (!allowPushNotifications && !skipSettingsCheck)) {
       log('Push notifications disabled, subscription skipped.')
       return
     }

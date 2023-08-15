@@ -60,6 +60,7 @@ const StyledIcon = styled(FontAwesomeIcon)<{ direction: string }>`
 const FooterContainer = styled.div`
   position: absolute;
   bottom: 0;
+  max-width: calc(100% - 50px);
 `
 
 type MapViewProps = {

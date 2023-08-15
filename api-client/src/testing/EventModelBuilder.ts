@@ -1,5 +1,5 @@
+import { DateTime } from 'luxon'
 import md5 from 'md5'
-import moment, { Moment } from 'moment'
 import seedrandom from 'seedrandom'
 
 import DateModel from '../models/DateModel'
@@ -8,7 +8,7 @@ import LocationModel from '../models/LocationModel'
 
 type PageResourceCacheEntryStateType = {
   readonly filePath: string
-  readonly lastUpdate: Moment
+  readonly lastUpdate: DateTime
   readonly hash: string
 }
 type PageResourceCacheStateType = Record<string, PageResourceCacheEntryStateType>
@@ -44,11 +44,11 @@ class EventModelBuilder {
     }, {})
   }
 
-  createResource(url: string, index: number, lastUpdate: Moment): PageResourceCacheEntryStateType {
+  createResource(url: string, index: number, lastUpdate: DateTime): PageResourceCacheEntryStateType {
     const hash = md5(url)
     return {
       filePath: `path/to/documentDir/resource-cache/v1/${this._city}/files/${hash}.png`,
-      lastUpdate: moment(lastUpdate).add(this._predictableNumber(index), 'days'),
+      lastUpdate: lastUpdate.plus({ days: this._predictableNumber(index) }),
       hash,
     }
   }
@@ -70,13 +70,10 @@ class EventModelBuilder {
         length: this._eventCount,
       },
       (x, index) => {
-        const mockDate = moment('2015-01-01T00:00:00.000Z', moment.ISO_8601)
-        const startDate = moment(mockDate.add(this._predictableNumber(index), 'years').toISOString(), moment.ISO_8601)
-        const endDate = moment(mockDate.add(this._predictableNumber(index), 'hours').toISOString(), moment.ISO_8601)
-        const lastUpdate = moment(
-          mockDate.subtract(this._predictableNumber(index), 'months').toISOString(),
-          moment.ISO_8601,
-        )
+        const mockDate = DateTime.fromISO('2015-01-01T00:00:00.000Z')
+        const startDate = mockDate.plus({ years: this._predictableNumber(index) }).set({ millisecond: 0 })
+        const endDate = mockDate.plus({ hours: this._predictableNumber(index) }).set({ millisecond: 0 })
+        const lastUpdate = mockDate.minus({ months: this._predictableNumber(index) }).set({ millisecond: 0 })
         const path = `/${this._city}/${this._language}/events/event${index}`
         const resourceUrl1 = `https://cms.integreat-app.de/title_${index}-300x300.png`
         const resourceUrl2 = `https://cms.integreat-app.de/event_${index}-300x300.png`
