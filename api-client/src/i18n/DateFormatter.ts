@@ -23,7 +23,7 @@ class DateFormatter {
     }
   ) => {
     const format = options.format || this.fallbackFormat
-    // TODO IGAPP-399: the actual locale should be used
+    // TODO #1384: the actual locale should be used
     // const requestedLocale = defaultLocale
     return format ? date.toFormat(format) : date.toISO()
   }
