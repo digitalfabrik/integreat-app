@@ -1,4 +1,4 @@
-import moment from 'moment'
+import { DateTime } from 'luxon'
 
 import { EventModelBuilder } from '../../testing'
 import DateModel from '../DateModel'
@@ -12,8 +12,8 @@ describe('EventModel', () => {
     content: '<h1> html content </h1>',
     thumbnail: 'event.thumbnail',
     date: new DateModel({
-      startDate: moment('2019-03-01T00:00:00.000'),
-      endDate: moment('2019-03-01T04:10:40.714'),
+      startDate: DateTime.fromISO('2020-03-20T10:50:00+02:00'),
+      endDate: DateTime.fromISO('2020-03-20T17:50:00+02:00'),
       allDay: false,
     }),
     location: new LocationModel({
@@ -28,7 +28,7 @@ describe('EventModel', () => {
     }),
     excerpt: 'bal bla bla text',
     availableLanguages: new Map<string, string>([['', '']]),
-    lastUpdate: moment('2022-06-05'),
+    lastUpdate: DateTime.fromISO('2022-06-05T17:50:00+02:00'),
     featuredImage: null,
   })
   const baseUrl = 'https://example.com'
@@ -55,9 +55,9 @@ describe('EventModel', () => {
   })
 
   it('should have dates formatted correctly in iCal', () => {
-    const timezone = event.date.startDate.tz()
+    const timezone = event.date.startDate.zone
     const eventFields = iCalEvent.split('\n')
-    expect(eventFields[7]).toBe(`DTSTART;TZID=${timezone}:20190301T000000`)
-    expect(eventFields[8]).toBe(`DTEND;TZID=${timezone}:20190301T041000`)
+    expect(eventFields[7]).toBe(`DTSTART;TZID=${timezone}:2020032009:50095000`)
+    expect(eventFields[8]).toBe(`DTEND;TZID=${timezone}:2020032016:50165000`)
   })
 })

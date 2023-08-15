@@ -1,4 +1,5 @@
 import React, { ReactElement, useContext } from 'react'
+import { useTranslation } from 'react-i18next'
 import { useNavigate, useParams } from 'react-router-dom'
 import styled from 'styled-components'
 
@@ -52,6 +53,7 @@ const TuNewsDetailPage = ({ city, pathname, cityCode, languageCode }: CityRouteP
   const newsId = useParams().newsId!
   const formatter = useContext(DateFormatterContext)
   const navigate = useNavigate()
+  const { t } = useTranslation('news')
 
   const {
     data: newsModel,
@@ -63,6 +65,8 @@ const TuNewsDetailPage = ({ city, pathname, cityCode, languageCode }: CityRouteP
     return null
   }
 
+  const pageTitle = `${newsModel?.title ?? t('pageTitle')} - ${city.name}`
+
   // Language change is not possible between tuNews detail views because we don't know the id of other languages
   const languageChangePaths = city.languages.map(({ code, name }) => ({ path: null, name, code }))
   const locationLayoutParams: Omit<CityContentLayoutProps, 'isLoading'> = {
@@ -70,7 +74,14 @@ const TuNewsDetailPage = ({ city, pathname, cityCode, languageCode }: CityRouteP
     languageChangePaths,
     route: TU_NEWS_DETAIL_ROUTE,
     languageCode,
-    Toolbar: <CityContentToolbar hasFeedbackOption={false} route={TU_NEWS_DETAIL_ROUTE} />,
+    Toolbar: (
+      <CityContentToolbar
+        hasFeedbackOption={false}
+        route={TU_NEWS_DETAIL_ROUTE}
+        languageCode={languageCode}
+        pageTitle={pageTitle}
+      />
+    ),
   }
 
   if (loading) {
@@ -99,8 +110,6 @@ const TuNewsDetailPage = ({ city, pathname, cityCode, languageCode }: CityRouteP
     )
   }
 
-  const pageTitle = `${newsModel.title} - ${city.name}`
-
   return (
     <CityContentLayout isLoading={false} {...locationLayoutParams}>
       <Helmet pageTitle={pageTitle} languageChangePaths={languageChangePaths} cityModel={city} />
@@ -115,7 +124,7 @@ const TuNewsDetailPage = ({ city, pathname, cityCode, languageCode }: CityRouteP
             title={newsModel.title}
             content={newsModel.content}
             formatter={formatter}
-            lastUpdateFormat='LLL'
+            lastUpdateFormat='DDD'
             lastUpdate={newsModel.date}
             showLastUpdateText={false}
             onInternalLinkClick={navigate}

@@ -1,4 +1,4 @@
-import moment from 'moment-timezone'
+import { DateTime } from 'luxon'
 
 import LocationModel from '../../models/LocationModel'
 import PoiCategoryModel from '../../models/PoiCategoryModel'
@@ -41,7 +41,7 @@ describe('pois', () => {
       longitude: 10.89779,
       latitude: 48.3705449,
     },
-    modified_gmt: '2017-01-09 15:30:00',
+    last_updated: '2017-01-09T15:30:00+02:00',
     temporarily_closed: false,
     opening_hours: null,
   })
@@ -75,7 +75,7 @@ describe('pois', () => {
         longitude: 10.89779,
         latitude: 48.3705449,
       }),
-      lastUpdate: moment.tz('2017-01-09 15:30:00', 'GMT'),
+      lastUpdate: DateTime.fromISO('2017-01-09T15:30:00+02:00'),
       temporarilyClosed: false,
       openingHours: null,
     })

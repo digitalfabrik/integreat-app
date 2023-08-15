@@ -11,6 +11,7 @@ import Layout from '../components/Layout'
 import Link from '../components/Link'
 import LoadingSpinner from '../components/LoadingSpinner'
 import SettingsSwitch from '../components/SettingsSwitch'
+import Pressable from '../components/base/Pressable'
 import { NavigationProps } from '../constants/NavigationTypes'
 import buildConfig from '../constants/buildConfig'
 import useOnBackNavigation from '../hooks/useOnBackNavigation'
@@ -26,7 +27,7 @@ const ThemedText = styled.Text`
   font-family: ${props => props.theme.fonts.native.decorativeFontRegular};
   padding: 10px 0;
 `
-const DescriptionContainer = styled.TouchableOpacity`
+const DescriptionContainer = styled(Pressable)`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
