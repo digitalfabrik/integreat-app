@@ -72,9 +72,11 @@ const OpeningHours = ({
       </>
     )
   }
+
   if (!openingHours || openingHours.length !== weekdays.length) {
     return null
   }
+
   return (
     <>
       <CollapsibleItem headerContent={openingHoursTitle} language={language} initExpanded>
