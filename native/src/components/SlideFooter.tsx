@@ -4,7 +4,7 @@ import { View } from 'react-native'
 import styled from 'styled-components/native'
 
 import Pagination from './Pagination'
-import TextButton from './TextButton'
+import TextButton from './base/TextButton'
 
 const ButtonContainer = styled.View`
   flex-grow: 1;

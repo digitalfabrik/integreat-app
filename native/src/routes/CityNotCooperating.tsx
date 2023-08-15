@@ -3,7 +3,7 @@ import React, { ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import styled from 'styled-components/native'
 
-import TextButton from '../components/TextButton'
+import TextButton from '../components/base/TextButton'
 import buildConfig, { buildConfigAssets } from '../constants/buildConfig'
 
 const Container = styled.ScrollView`
@@ -101,7 +101,7 @@ const CityNotCooperating = (): ReactElement | null => {
         <StepExplanation>{t('sendText')}</StepExplanation>
       </ListItem>
 
-      <StyledButton type='primary' onPress={copyToClipboard} text={isCopied ? t('common:copied') : t('copyText')} />
+      <StyledButton onPress={copyToClipboard} text={isCopied ? t('common:copied') : t('copyText')} />
       <TemplateText>{template}</TemplateText>
     </Container>
   )

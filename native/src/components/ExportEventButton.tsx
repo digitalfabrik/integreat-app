@@ -9,7 +9,7 @@ import { EventModel } from 'api-client'
 
 import useSnackbar from '../hooks/useSnackbar'
 import CalendarChoice from './CalendarChoiceModal'
-import TextButton from './TextButton'
+import TextButton from './base/TextButton'
 
 const StyledButton = styled(TextButton)`
   margin: 16px;
@@ -102,12 +102,7 @@ const ExportEventButton = ({ event }: ExportEventButtonType): ReactElement => {
           eventTitle={event.title}
         />
       )}
-      <StyledButton
-        type='primary'
-        text={t('addToCalendar')}
-        onPress={checkCalendarsAndExportEvent}
-        disabled={eventExported}
-      />
+      <StyledButton text={t('addToCalendar')} onPress={checkCalendarsAndExportEvent} disabled={eventExported} />
     </>
   )
 }

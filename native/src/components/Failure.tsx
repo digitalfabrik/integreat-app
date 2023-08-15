@@ -7,7 +7,7 @@ import { ErrorCode } from 'api-client'
 import NoInternetIcon from '../assets/no-internet.svg'
 import SadIcon from '../assets/smile-sad.svg'
 import UnknownIcon from '../assets/warning.svg'
-import TextButton from './TextButton'
+import TextButton from './base/TextButton'
 
 const ViewContainer = styled.View`
   flex: 1;
@@ -46,7 +46,7 @@ const Failure = ({ code, buttonAction, buttonLabel }: FailureProps): ReactElemen
     <ViewContainer>
       <ErrorIcon width={150} height={150} />
       <Message>{t(code === ErrorCode.CityUnavailable ? 'notFound.city' : code)}</Message>
-      {buttonAction && <TextButton type='primary' onPress={buttonAction} text={t(buttonLabel ?? 'tryAgain')} />}
+      {buttonAction && <TextButton onPress={buttonAction} text={t(buttonLabel ?? 'tryAgain')} />}
     </ViewContainer>
   )
 }

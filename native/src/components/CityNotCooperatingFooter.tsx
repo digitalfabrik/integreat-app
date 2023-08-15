@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next'
 import styled from 'styled-components/native'
 
 import buildConfig, { buildConfigAssets } from '../constants/buildConfig'
-import TextButton from './TextButton'
+import TextButton from './base/TextButton'
 
 const FooterContainer = styled.View`
   background-color: ${props => props.theme.colors.backgroundAccentColor};
@@ -44,7 +44,7 @@ const CityNotCooperatingFooter = ({
     <FooterContainer>
       <CityNotCooperatingIcon width='30%' height='100' />
       <Question>{t('cityNotFound')}</Question>
-      <StyledButton type='primary' text={t('clickHere')} onPress={navigateToCityNotCooperating} />
+      <StyledButton text={t('clickHere')} onPress={navigateToCityNotCooperating} />
     </FooterContainer>
   )
 }
