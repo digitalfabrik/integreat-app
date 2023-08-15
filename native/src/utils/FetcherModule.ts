@@ -6,7 +6,7 @@ export type TargetFilePathsType = Record<string, string>
 export type FetchResultType = Record<string, { url: string; errorMessage: string | null | undefined }>
 
 class FetcherModule {
-  // TODO IGAPP-217: Correctly handle already fetching
+  // TODO IGAPP-217 (#1099): Correctly handle already fetching
   static currentlyFetching = false
 
   async fetchAsync(targetFilePaths: TargetFilePathsType): Promise<FetchResultType> {
