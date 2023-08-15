@@ -1,13 +1,13 @@
-import * as React from 'react'
-import { ReactElement } from 'react'
+import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
 
 import { NegativeFeedbackIcon, NoteIcon, PositiveFeedbackIcon } from '../assets'
 import dimensions from '../constants/dimensions'
 import { SendingState } from './FeedbackContainer'
-import TextButton from './TextButton'
 import TextInput from './TextInput'
+import TextButton from './base/TextButton'
+import ToggleButton from './base/ToggleButton'
 
 export const Container = styled.div`
   display: flex;
@@ -104,15 +104,13 @@ const Feedback = (props: FeedbackProps): ReactElement => {
         <div>{t('description')}</div>
       </TextContainer>
       <ButtonContainer>
-        <TextButton
-          type='tile'
+        <ToggleButton
           onClick={() => onFeedbackChanged(isPositiveFeedback ? null : true)}
           active={isPositiveFeedback === true}
           icon={PositiveFeedbackIcon}
           text={t('useful')}
         />
-        <TextButton
-          type='tile'
+        <ToggleButton
           onClick={() => onFeedbackChanged(isPositiveFeedback === false ? null : false)}
           active={isPositiveFeedback === false}
           icon={NegativeFeedbackIcon}
@@ -147,7 +145,7 @@ const Feedback = (props: FeedbackProps): ReactElement => {
         <NoteText>{t('note')}</NoteText>
       </NoteContainer>
 
-      <TextButton type='primary' disabled={sendFeedbackDisabled} onClick={onSubmit} text={t('send')} />
+      <TextButton disabled={sendFeedbackDisabled} onClick={onSubmit} text={t('send')} />
     </Container>
   )
 }

@@ -5,8 +5,8 @@ import styled from 'styled-components'
 import { createShelterContactEndpoint, ShelterContactStatus } from 'api-client'
 
 import ShelterInformationSection from './ShelterInformationSection'
-import TextButton from './TextButton'
 import TextInput from './TextInput'
+import TextButton from './base/TextButton'
 
 const Container = styled.form`
   padding: 0 12px;
@@ -116,12 +116,7 @@ const ShelterContactRequestForm = ({ shelterId, cityCode }: ShelterContactReques
               value={phone}
             />
 
-            <TextButton
-              type='primary'
-              disabled={buttonDisabled}
-              onClick={postContactRequest}
-              text={t('contactRequest.send')}
-            />
+            <TextButton disabled={buttonDisabled} onClick={postContactRequest} text={t('contactRequest.send')} />
           </>
         )}
       </Container>

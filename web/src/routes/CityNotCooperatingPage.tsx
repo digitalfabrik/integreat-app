@@ -4,7 +4,7 @@ import styled from 'styled-components'
 
 import GeneralFooter from '../components/GeneralFooter'
 import Layout from '../components/Layout'
-import TextButton from '../components/TextButton'
+import TextButton from '../components/base/TextButton'
 import buildConfig from '../constants/buildConfig'
 import useScrollToTopOnMount from '../hooks/useScrollToTopOnMount'
 
@@ -113,7 +113,7 @@ const CityNotCooperatingPage = ({ languageCode }: CityNotCooperatingPageProps): 
           <StepNumber>2</StepNumber>
           <StepExplanation>{t('sendText')}</StepExplanation>
         </ListItem>
-        <StyledButton type='primary' onClick={copyToClipboard} text={isCopied ? t('common:copied') : t('copyText')} />
+        <StyledButton onClick={copyToClipboard} text={isCopied ? t('common:copied') : t('copyText')} />
         <TemplateText>{template}</TemplateText>
       </Container>
     </Layout>

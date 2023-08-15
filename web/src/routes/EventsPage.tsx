@@ -24,7 +24,7 @@ import List from '../components/List'
 import LoadingSpinner from '../components/LoadingSpinner'
 import Page, { THUMBNAIL_WIDTH } from '../components/Page'
 import PageDetail from '../components/PageDetail'
-import TextButton from '../components/TextButton'
+import TextButton from '../components/base/TextButton'
 import buildConfig from '../constants/buildConfig'
 import { cmsApiBaseUrl } from '../constants/urls'
 import DateFormatterContext from '../contexts/DateFormatterContext'
@@ -131,12 +131,7 @@ const EventsPage = ({ city, pathname, languageCode, cityCode }: CityRouteProps):
     const defaultThumbnail = featuredImage ? featuredImage.medium.url : thumbnail
 
     const PageFooter = (
-      <StyledButton
-        type='primary'
-        onClick={() => downloadEventAsIcsFile(event)}
-        text={t('exportAsICal')}
-        fullWidth={viewportSmall}
-      />
+      <StyledButton onClick={() => downloadEventAsIcsFile(event)} text={t('exportAsICal')} fullWidth={viewportSmall} />
     )
 
     return (
