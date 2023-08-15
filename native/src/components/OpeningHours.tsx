@@ -1,4 +1,4 @@
-import { DateTime, Info } from 'luxon'
+import { DateTime } from 'luxon'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Text } from 'react-native'
@@ -53,7 +53,7 @@ const OpeningHours = ({
   const { t } = useTranslation('pois')
 
   // The opening hours loaded from the cms are ordered according to the german weekday order
-  const weekdays = Info.weekdays('long', { locale: 'de' })
+  const weekdays = ['montag', 'dienstag', 'mittwoch', 'donnerstag', 'freitag', 'samstag', 'sonntag']
 
   const openingHoursTitle = (
     <TitleContainer language={language}>
@@ -82,7 +82,7 @@ const OpeningHours = ({
           {openingHours.map((entry, index) => (
             <OpeningEntry
               key={`${weekdays[index]!}-OpeningEntry`}
-              weekday={t(weekdays[index]!.toLowerCase())}
+              weekday={t(weekdays[index]!)}
               allDay={entry.allDay}
               closed={entry.closed}
               timeSlots={entry.timeSlots}
