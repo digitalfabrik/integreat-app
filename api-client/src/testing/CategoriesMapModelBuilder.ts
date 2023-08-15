@@ -1,5 +1,5 @@
+import { DateTime } from 'luxon'
 import md5 from 'md5'
-import moment, { Moment } from 'moment'
 import seedrandom from 'seedrandom'
 
 import CategoriesMapModel from '../models/CategoriesMapModel'
@@ -8,7 +8,7 @@ import OrganizationModel from '../models/OrganizationModel'
 
 type PageResourceCacheEntryStateType = {
   readonly filePath: string
-  readonly lastUpdate: Moment
+  readonly lastUpdate: DateTime
   readonly hash: string
 }
 type PageResourceCacheStateType = Record<string, PageResourceCacheEntryStateType>
@@ -42,11 +42,11 @@ class CategoriesMapModelBuilder {
     return seedrandom(`${index}-seed`)() * max
   }
 
-  createResource(url: string, index: number, lastUpdate: Moment): PageResourceCacheEntryStateType {
+  createResource(url: string, index: number, lastUpdate: DateTime): PageResourceCacheEntryStateType {
     const hash = md5(url)
     return {
       filePath: `path/to/documentDir/resource-cache/v1/${this._city}/files/${hash}.png`,
-      lastUpdate: moment(lastUpdate).add(this._predictableNumber(index), 'days'),
+      lastUpdate: lastUpdate.plus({ days: this._predictableNumber(index) }),
       hash,
     }
   }
@@ -66,7 +66,7 @@ class CategoriesMapModelBuilder {
       const id = this._id
       this._id += 1
       const path = `${category.path}/category_${i}`
-      const lastUpdate = moment('2017-11-18T19:30:00.000Z', moment.ISO_8601)
+      const lastUpdate = DateTime.fromISO('2017-11-18T19:30:00.000Z')
       const resourceUrl1 = `https://cms.integreat-app.de/title_${id}-300x300.png`
       const resourceUrl2 = `https://cms.integreat-app.de/category_${id}-300x300.png`
       const thumbnail = `https://cms.integreat-app.de/thumbnails/category_${id}.png`
@@ -126,7 +126,7 @@ class CategoriesMapModelBuilder {
         availableLanguages: new Map(),
         thumbnail: '',
         parentPath: '',
-        lastUpdate: moment('2017-11-18T19:30:00.000Z', moment.ISO_8601),
+        lastUpdate: DateTime.fromISO('2017-11-18T19:30:00.000Z'),
         organization: null,
       }),
       0

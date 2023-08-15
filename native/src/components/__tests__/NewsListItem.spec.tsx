@@ -1,5 +1,5 @@
 import { fireEvent, RenderAPI } from '@testing-library/react-native'
-import moment from 'moment'
+import { DateTime } from 'luxon'
 import React from 'react'
 
 import { LocalNewsModel, TunewsModel } from 'api-client'
@@ -12,14 +12,14 @@ jest.mock('react-i18next')
 const tuNews = new TunewsModel({
   id: 9902,
   title: 'Was ist ein Verein?',
-  date: moment('2020-01-20T00:00:00.000Z'),
+  date: DateTime.fromISO('2020-01-20T00:00:00.000Z'),
   tags: [],
   content: 'Ein Verein ist eine Gruppe von Menschen. Sie haben ein gemeinsames Interesse und organisieren.',
   eNewsNo: 'tun0000009902',
 })
 const localNews = new LocalNewsModel({
   id: 9902,
-  timestamp: moment('2020-01-20T00:00:00.000Z'),
+  timestamp: DateTime.fromISO('2020-01-20T00:00:00.000Z'),
   title: 'Test Push Notification',
   content: 'Some &quot;test text with lots of &quot;html entities&quot; which won&#39;t be displayed.',
 })
