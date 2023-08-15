@@ -21,7 +21,7 @@ describe('Modal', () => {
         <Modal title={title} closeModal={closeModal} direction='ltr' wrapInPortal={wrapInPortal}>
           {content}
         </Modal>
-      </Layout>
+      </Layout>,
     )
 
   it('should set and unset aria-hidden for background', () => {
