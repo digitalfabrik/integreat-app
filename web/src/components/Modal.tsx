@@ -11,7 +11,7 @@ import useLockedBody from '../hooks/useLockedBody'
 import useScrollToTop from '../hooks/useScrollToTop'
 import useWindowDimensions from '../hooks/useWindowDimensions'
 import IconWithUiDirection from './IconWithUiDirection'
-import { LAYOUT_ELEMENT_ID } from './Layout'
+import { LAYOUT_ELEMENT_ID, RichLayout } from './Layout'
 import Portal from './Portal'
 
 const Overlay = styled.div`
@@ -117,7 +117,9 @@ const Modal = ({ title, closeModal, children, direction, wrapInPortal = false }:
   if (wrapInPortal) {
     return (
       <Portal className='modal' show>
-        <div dir={direction}>{Modal}</div>
+        <RichLayout>
+          <div dir={direction}>{Modal}</div>
+        </RichLayout>
       </Portal>
     )
   }
