@@ -78,14 +78,16 @@ type CityNotCooperatingPageProps = {
   languageCode: string
 }
 
-const CityNotCooperatingPage = ({ languageCode }: CityNotCooperatingPageProps): ReactElement => {
+const CityNotCooperatingPage = ({ languageCode }: CityNotCooperatingPageProps): ReactElement | null => {
   const { t } = useTranslation('cityNotCooperating')
   const [isCopied, setIsCopied] = useState<boolean>(false)
-  // Only displayed in the Integreat configuration, which has the template
-  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-  const template = buildConfig().featureFlags.cityNotCooperatingTemplate!
+  const template = buildConfig().featureFlags.cityNotCooperatingTemplate
   const cityNotCooperatingIcon = buildConfig().icons.cityNotCooperating
   useScrollToTopOnMount()
+
+  if (!template) {
+    return null
+  }
 
   const copyToClipboard = () => {
     navigator.clipboard

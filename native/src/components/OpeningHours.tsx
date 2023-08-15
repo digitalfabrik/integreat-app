@@ -72,7 +72,7 @@ const OpeningHours = ({
       </>
     )
   }
-  if (!openingHours) {
+  if (!openingHours || openingHours.length !== weekdays.length) {
     return null
   }
   return (
@@ -82,7 +82,6 @@ const OpeningHours = ({
           {openingHours.map((entry, index) => (
             <OpeningEntry
               key={`${weekdays[index]}-OpeningEntry`}
-              // always supplied by Moment
               // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
               weekday={t(weekdays[index]!.toLowerCase())}
               allDay={entry.allDay}
