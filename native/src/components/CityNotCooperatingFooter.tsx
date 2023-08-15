@@ -36,7 +36,7 @@ const CityNotCooperatingFooter = ({
   const { t } = useTranslation('landing')
 
   const CityNotCooperatingIcon = buildConfigAssets().CityNotCooperatingIcon
-  
+
   if (!buildConfig().featureFlags.cityNotCooperating || !CityNotCooperatingIcon) {
     return null
   }
