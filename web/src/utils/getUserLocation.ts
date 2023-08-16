@@ -7,19 +7,19 @@ const locationStateOnError = (error: GeolocationPositionError): UnavailableLocat
       return {
         status: 'unavailable',
         message: 'noPermission',
-        coordinates: null,
+        coordinates: undefined,
       }
     case GeolocationPositionError.POSITION_UNAVAILABLE:
       return {
         status: 'unavailable',
         message: 'notAvailable',
-        coordinates: null,
+        coordinates: undefined,
       }
     default:
       return {
         status: 'unavailable',
         message: 'timeout',
-        coordinates: null,
+        coordinates: undefined,
       }
   }
 }
@@ -34,7 +34,7 @@ const getUserLocation = async (): Promise<UserLocationType> =>
       (error: GeolocationPositionError) => {
         resolve(locationStateOnError(error))
       },
-      { timeout: 50000 },
+      { timeout: 50000 }
     )
   })
 
