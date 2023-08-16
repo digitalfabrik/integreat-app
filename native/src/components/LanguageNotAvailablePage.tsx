@@ -37,7 +37,7 @@ const LanguageNotAvailablePage = ({ availableLanguages, refresh }: LanguageNotAv
         onPress: () => {
           changeLanguageCode(code)
         },
-      })
+      }),
   )
 
   return (

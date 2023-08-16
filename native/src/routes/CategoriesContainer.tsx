@@ -52,7 +52,7 @@ const CategoriesContainer = ({ navigation, route }: CategoriesContainerProps): R
         navigation.setParams({ path: newPath })
       }
     },
-    [category, navigation]
+    [category, navigation],
   )
   const previousLanguageCode = usePreviousProp({ prop: languageCode, onPropChange: onLanguageChange })
 

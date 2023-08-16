@@ -43,7 +43,7 @@ const PoisContainer = ({ navigation, route }: PoisContainerProps): ReactElement 
         navigation.setParams({ slug: newSlug })
       }
     },
-    [currentPoi, navigation]
+    [currentPoi, navigation],
   )
   usePreviousProp({ prop: languageCode, onPropChange: onLanguageChange })
 

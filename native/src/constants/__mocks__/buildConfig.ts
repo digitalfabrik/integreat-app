@@ -42,6 +42,6 @@ const buildConfig = jest.fn<CommonBuildConfigType, []>(
       default: 'https://integreat-app.de/datenschutz/',
       en: 'https://integreat-app.de/en/privacy/',
     },
-  })
+  }),
 )
 export default buildConfig

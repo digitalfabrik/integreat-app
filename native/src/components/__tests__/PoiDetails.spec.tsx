@@ -72,7 +72,7 @@ describe('PoiDetails', () => {
     const feature = prepareFeatureLocation(poiWithoutContactInformation, null, [])!
 
     const { queryByText } = renderWithTheme(
-      <PoiDetails poi={poiWithoutContactInformation} feature={feature} language={language} />
+      <PoiDetails poi={poiWithoutContactInformation} feature={feature} language={language} />,
     )
 
     expect(queryByText('contactInformation')).toBeFalsy()

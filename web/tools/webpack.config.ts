@@ -49,7 +49,7 @@ const generateAssetLinks = (buildConfig: WebBuildConfigType) => {
       },
     ],
     null,
-    2
+    2,
   )
 }
 
@@ -71,7 +71,7 @@ const generateAppleAppSiteAssociation = (buildConfig: WebBuildConfigType) => {
       },
     },
     null,
-    2
+    2,
   )
 }
 
@@ -103,7 +103,7 @@ const generateManifest = (content: Buffer, buildConfig: WebBuildConfigType) => {
 
 const createConfig = (
   // eslint-disable-next-line camelcase
-  env: { config_name?: string; dev_server?: boolean; version_name?: string; commit_sha?: string } = {}
+  env: { config_name?: string; dev_server?: boolean; version_name?: string; commit_sha?: string } = {},
 ): Configuration => {
   const {
     config_name: buildConfigName,

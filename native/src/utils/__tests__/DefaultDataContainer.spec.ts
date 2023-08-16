@@ -130,7 +130,7 @@ describe('DefaultDataContainer', () => {
     const receivedAnotherLastUpdate = await defaultDataContainer.getLastUpdate('anotherTestCity', 'en')
     expect(receivedLastUpdate !== null && lastUpdate.hasSame(receivedLastUpdate, 'day')).toBe(true)
     expect(
-      receivedAnotherLastUpdate !== null && anotherLastUpdate.hasSame(receivedAnotherLastUpdate, 'millisecond')
+      receivedAnotherLastUpdate !== null && anotherLastUpdate.hasSame(receivedAnotherLastUpdate, 'millisecond'),
     ).toBe(true)
   })
   describe('setResourceCache', () => {

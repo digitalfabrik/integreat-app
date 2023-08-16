@@ -97,7 +97,9 @@ const Circle = styled.div`
     height: ${ICON_SIZE_LARGE}px;
     width: ${ICON_SIZE_LARGE}px;
     box-shadow: 0 2px 5px -3px rgba(0, 0, 0, 0.7);
-    transition: box-shadow 0.2s, border 0.2s;
+    transition:
+      box-shadow 0.2s,
+      border 0.2s;
     border: ${props => props.theme.colors.backgroundColor} 2px solid;
   }
 
