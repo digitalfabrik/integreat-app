@@ -62,7 +62,7 @@ const DetailsHeaderContainer = styled.div<{ hidden: boolean }>`
   max-height: ${props => (props.hidden ? '0' : '10vh')};
   opacity: ${props => (props.hidden ? '0' : '1')};
   overflow: hidden;
-  transition: all 2s;
+  transition: all 1s;
 `
 
 const DetailsHeader = styled.div`
