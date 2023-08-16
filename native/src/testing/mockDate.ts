@@ -1,7 +1,7 @@
 import { DateTime } from 'luxon'
 
 export default (
-  mockDate: DateTime
+  mockDate: DateTime,
 ): {
   restoreDate: () => void
 } => {

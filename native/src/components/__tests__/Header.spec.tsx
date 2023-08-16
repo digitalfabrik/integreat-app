@@ -23,13 +23,12 @@ jest.mock('react-navigation-header-buttons', () => ({
 jest.mock(
   '../CustomHeaderButtons',
   () =>
-    ({ items, overflowItems }: { items: ReactElement; overflowItems: ReactElement }) =>
-      (
-        <View>
-          {items}
-          {overflowItems}
-        </View>
-      )
+    ({ items, overflowItems }: { items: ReactElement; overflowItems: ReactElement }) => (
+      <View>
+        {items}
+        {overflowItems}
+      </View>
+    ),
 )
 jest.mock('react-i18next', () => ({
   useTranslation: () => ({
@@ -89,7 +88,7 @@ describe('Header', () => {
           shareUrl={shareUrl}
           showItems={showItems}
         />
-      </AppContext.Provider>
+      </AppContext.Provider>,
     )
 
   it('search and language change buttons should be enabled and visible if showItems and all props available', async () => {

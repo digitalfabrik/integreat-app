@@ -6,7 +6,7 @@ describe('getNearbyCities', () => {
   const createCity = (
     longitude: number,
     latitude: number,
-    aliases: { [name: string]: { longitude: number; latitude: number } } | null
+    aliases: { [name: string]: { longitude: number; latitude: number } } | null,
   ) =>
     new CityModel({
       name: 'Stadt Augsburg',

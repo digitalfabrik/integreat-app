@@ -12,7 +12,9 @@ export const StyledButton = styled.button<{ disabled: boolean; fullWidth?: boole
   border-radius: 0.25em;
   cursor: ${props => (props.disabled ? 'default' : 'pointer')};
   pointer-events: ${props => (props.disabled ? 'none' : 'default')};
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.15);
+  box-shadow:
+    0 1px 3px rgba(0, 0, 0, 0.1),
+    0 1px 2px rgba(0, 0, 0, 0.15);
   ${props =>
     props.fullWidth &&
     css`

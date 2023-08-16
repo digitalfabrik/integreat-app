@@ -86,7 +86,7 @@ describe('LocalNews', () => {
     render(
       <NavigationContainer>
         <LocalNews data={data} newsId={newsId} route={route} navigation={navigation} navigateToNews={selectNews} />
-      </NavigationContainer>
+      </NavigationContainer>,
     )
   const response = { data: news, error: null, loading: false, refresh }
 

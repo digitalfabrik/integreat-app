@@ -59,13 +59,14 @@ const PoisPage = ({ cityCode, languageCode, city, pathname }: CityRouteProps): R
   const { viewportSmall } = useWindowDimensions()
   useEffect(() => {
     getUserLocation().then(userLocation =>
-      userLocation.status === 'ready' ? setUserLocation(userLocation.coordinates) : null
+      userLocation.status === 'ready' ? setUserLocation(userLocation.coordinates) : null,
     )
   }, [])
 
   useEffect(
-    () => (city ? setMapViewport(moveViewToBBox(city.boundingBox, defaultMercatorViewportConfig)) : undefined),
-    [city]
+    () =>
+      city?.boundingBox ? setMapViewport(moveViewToBBox(city.boundingBox, defaultMercatorViewportConfig)) : undefined,
+    [city?.boundingBox],
   )
 
   if (!city) {

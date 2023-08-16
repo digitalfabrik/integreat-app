@@ -10,11 +10,11 @@ export const fetch = jest.fn<Promise<NetInfoState>, []>(
       details: {
         isConnectionExpensive: false,
       },
-    } as NetInfoState)
+    }) as NetInfoState,
 )
 export const addEventListener = (
   listener: (arg0: NetInfoState) => unknown,
-  deprecatedHandler?: unknown
+  deprecatedHandler?: unknown,
 ): NetInfoSubscription => {
   if (deprecatedHandler) {
     throw Error('Function is deprecated')

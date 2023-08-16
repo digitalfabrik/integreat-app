@@ -77,13 +77,13 @@ const MapView = ({
               pois: JSON.parse(feature.properties.pois as unknown as string),
             },
           },
-          false
+          false,
         )
       } else {
         selectFeature(null, false)
       }
     },
-    [selectFeature]
+    [selectFeature],
   )
 
   useEffect(
@@ -99,7 +99,7 @@ const MapView = ({
         })
       }
     },
-    [mapRef, setViewport]
+    [mapRef, setViewport],
   )
 
   useEffect(() => {
@@ -122,6 +122,7 @@ const MapView = ({
         reuseMaps
         cursor={cursor}
         initialViewState={viewport ?? undefined}
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
         interactiveLayerIds={[markerLayer(currentFeature).id!]}
         style={{
           height: '100%',

@@ -113,7 +113,7 @@ const PoisDesktop = ({
       }
       selectGeoJsonPoiInList(geoJsonPoi)
     },
-    [currentPoi, selectGeoJsonPoiInList]
+    [currentPoi, selectGeoJsonPoiInList],
   )
   const renderPoiListItem = (poi: GeoJsonPoi) => <PoiListItem key={poi.path} poi={poi} selectPoi={selectGeoJsonPoi} />
   const poiList = (

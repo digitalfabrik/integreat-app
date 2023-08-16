@@ -42,6 +42,12 @@ export const markerLayer = (selectedFeature: MapFeature | null, featureLayerId: 
         mapMarker.multipoi,
       ],
     ],
+    iconOffset: [
+      'case',
+      ['==', ['get', 'id', ['at', 0, ['get', 'pois']]], selectedFeature?.properties.pois[0]?.id ?? -1],
+      ['literal', [0, mapMarker.offsetY ?? 0]],
+      ['literal', [0, 0]],
+    ],
     textField: ['case', ['==', ['length', ['get', 'pois']], 1], ['get', 'title', ['at', 0, ['get', 'pois']]], ''],
     textFont: ['Roboto Regular'],
     textOffset: [0, textOffsetY],

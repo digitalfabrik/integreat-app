@@ -43,7 +43,7 @@ export type ScrollableBottomSheetRef = {
 const BottomActionSheet = React.forwardRef(
   (
     { title, children, toolbar, direction, setBottomActionSheetHeight }: BottomActionSheetProps,
-    ref: React.Ref<ScrollableBottomSheetRef>
+    ref: React.Ref<ScrollableBottomSheetRef>,
   ): ReactElement => {
     const theme = useTheme()
     const [scrollElement, setScrollElement] = useState<HTMLElement | null>(null)
@@ -54,7 +54,7 @@ const BottomActionSheet = React.forwardRef(
         sheet: bottomSheetRef.current,
         scrollElement,
       }),
-      [bottomSheetRef, scrollElement]
+      [bottomSheetRef, scrollElement],
     )
     const initializeScrollElement = (e: SpringEvent) => {
       if (e.type === 'OPEN' && !scrollElement) {
@@ -77,13 +77,15 @@ const BottomActionSheet = React.forwardRef(
         }}
         header={title ? <Title>{title}</Title> : null}
         snapPoints={({ maxHeight }) => getSnapPoints(maxHeight)}
+        // snapPoints have been supplied in the previous line
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
         defaultSnap={({ snapPoints }) => snapPoints[1]!}>
         {children}
         <StyledSpacer borderColor={theme.colors.borderColor} />
         <ToolbarContainer>{toolbar}</ToolbarContainer>
       </StyledBottomSheet>
     )
-  }
+  },
 )
 
 export default BottomActionSheet

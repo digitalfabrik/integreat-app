@@ -77,7 +77,7 @@ const Pois = ({ pois: allPois, language, cityModel, route, navigation }: PoisPro
       allPois
         .filter(poi => !poiCategoryFilter || poi.category === poiCategoryFilter)
         .filter(poi => !poiCurrentlyOpenFilter || poi.isCurrentlyOpen),
-    [allPois, poiCategoryFilter, poiCurrentlyOpenFilter]
+    [allPois, poiCategoryFilter, poiCurrentlyOpenFilter],
   )
   const poi = pois.find(it => it.slug === slug)
   const features = useMemo(() => prepareFeatureLocations(pois, coordinates), [pois, coordinates])
@@ -101,7 +101,7 @@ const Pois = ({ pois: allPois, language, cityModel, route, navigation }: PoisPro
       multipoi
         ? features.find(feature => feature.id === multipoi)
         : features.find(feature => feature.properties.pois.some(poi => poi.slug === slug)),
-    [features, multipoi, slug]
+    [features, multipoi, slug],
   )
   const currentPoi = useMemo(() => (slug ? pois.find(poi => slug === poi.slug) : undefined), [pois, slug])
 
@@ -165,7 +165,7 @@ const Pois = ({ pois: allPois, language, cityModel, route, navigation }: PoisPro
         setListScrollPosition(position)
       }
     },
-    [currentPoi]
+    [currentPoi],
   )
 
   const singlePoiContent = currentPoi && (
@@ -179,7 +179,7 @@ const Pois = ({ pois: allPois, language, cityModel, route, navigation }: PoisPro
           id: '',
           city: cityModel.code,
           language,
-        })
+        }),
       )}
     />
   )
@@ -244,7 +244,10 @@ const Pois = ({ pois: allPois, language, cityModel, route, navigation }: PoisPro
         locationPermissionGranted={!!coordinates}
         onRequestLocationPermission={requestAndDetermineLocation}
         fabPosition={
-          sheetSnapPointIndex < BOTTOM_SHEET_SNAP_POINTS.length - 1 ? BOTTOM_SHEET_SNAP_POINTS[sheetSnapPointIndex]! : 0
+          sheetSnapPointIndex < BOTTOM_SHEET_SNAP_POINTS.length - 1
+            ? // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+              BOTTOM_SHEET_SNAP_POINTS[sheetSnapPointIndex]!
+            : 0
         }
         followUserLocation={followUserLocation}
         setFollowUserLocation={setFollowUserLocation}

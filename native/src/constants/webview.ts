@@ -14,7 +14,7 @@ export const getFontFaceSource = (fontName: string): string | undefined =>
 export const createPostSource = (
   uri: string,
   body: string,
-  contentType = 'application/x-www-form-urlencoded'
+  contentType = 'application/x-www-form-urlencoded',
 ): WebViewSource => ({
   uri,
   method: 'POST',

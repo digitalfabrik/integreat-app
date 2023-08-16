@@ -42,6 +42,7 @@ export type MarkerConfig = {
   symbolActive: string
   multipoi: string
   iconSize: number
+  offsetY?: number
 }
 
 type OpenStreetMapCopyrightType = {
@@ -104,6 +105,7 @@ export const mapMarker: MarkerConfig = {
   defaultSymbol: 'marker_55',
   multipoi: 'multipois_#585858',
   symbolActive: 'marker_90_active',
+  offsetY: -25,
 }
 
 export const openStreeMapCopyright: OpenStreetMapCopyrightType = {

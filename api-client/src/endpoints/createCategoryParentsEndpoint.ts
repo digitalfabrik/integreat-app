@@ -39,7 +39,7 @@ export default (baseUrl: string): Endpoint<ParamsType, Array<CategoryModel>> =>
           availableLanguages: new Map(),
           lastUpdate: DateTime.fromMillis(0),
           organization: null,
-        })
+        }),
       )
       return parents
     })

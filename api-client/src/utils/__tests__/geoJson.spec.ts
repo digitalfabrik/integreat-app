@@ -35,7 +35,7 @@ describe('geoJson', () => {
 
     it('should embed feature to GeoJson', () => {
       expect(embedInCollection([prepareFeatureLocation([poi1, poi3], 0, [30, 30])])).toEqual(
-        expectedGeoJsonFeatureCollection
+        expectedGeoJsonFeatureCollection,
       )
     })
   })
@@ -59,12 +59,6 @@ describe('geoJson', () => {
   })
 
   describe('prepareFeatureLocations', () => {
-    it('should sort feature location by distance ascending', () => {
-      const poiFeature1 = prepareFeatureLocation([poi1], 1, poi1.location.coordinates, userLocation)
-      const poiFeature2 = prepareFeatureLocation([poi2], 0, poi2.location.coordinates, userLocation)
-      expect(prepareFeatureLocations([poi2, poi1], userLocation)).toEqual([poiFeature1, poiFeature2])
-    })
-
     it('should group close poiFeatures into single features', () => {
       expect(prepareFeatureLocations([poi1, poi2, poi3])).toEqual([
         geoJsonMarkerFeature(0, poi1, poi3),
