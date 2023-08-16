@@ -14,7 +14,6 @@ import usePreviousProp from '../hooks/usePreviousProp'
 import useResourceCache from '../hooks/useResourceCache'
 import useSetRouteTitle from '../hooks/useSetRouteTitle'
 import urlFromRouteInformation from '../navigation/url'
-import testID from '../testing/testID'
 import cityDisplayName from '../utils/cityDisplayName'
 import LoadingErrorHandler from './LoadingErrorHandler'
 
@@ -61,11 +60,7 @@ const CategoriesContainer = ({ navigation, route }: CategoriesContainerProps): R
     data?.categories && !category && previousLanguageCode === languageCode ? ErrorCode.PageNotFound : response.error
 
   return (
-    <LoadingErrorHandler
-      {...(category?.isRoot() ? testID('Dashboard-Page') : {})}
-      {...response}
-      error={error}
-      scrollView>
+    <LoadingErrorHandler {...response} error={error} scrollView>
       {data && category && (
         <>
           {category.isRoot() && (
