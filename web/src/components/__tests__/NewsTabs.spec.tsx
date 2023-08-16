@@ -14,7 +14,7 @@ describe('NewsTabs', () => {
     const { getByLabelText } = renderWithRouterAndTheme(
       <NewsTabs type={LOCAL_NEWS_TYPE} city='testcity' localNewsEnabled tunewsEnabled language={language} t={t}>
         <div>dummy child</div>
-      </NewsTabs>
+      </NewsTabs>,
     )
     expect(getByLabelText(tunewsLabel)).toBeDefined()
     expect(getByLabelText('local')).toBeDefined()

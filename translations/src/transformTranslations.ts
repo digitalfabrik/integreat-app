@@ -21,5 +21,5 @@ export default (translations: TranslationsType): TransformedTranslationsType =>
       })
       return newTransformedTranslations
     },
-    {}
+    {},
   )

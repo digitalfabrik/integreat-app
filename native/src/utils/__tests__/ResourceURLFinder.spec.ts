@@ -33,7 +33,7 @@ describe('ResourceURLFinder', () => {
         'https://ex.am/pl2.jpg',
         'https://ex.am/pl2.jpeg',
         'https://ex.am/pl2.pdf',
-      ])
+      ]),
     )
   })
   it('should build a fetchMap including thumbnails if supplied', () => {

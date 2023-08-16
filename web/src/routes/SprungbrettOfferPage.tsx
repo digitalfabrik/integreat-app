@@ -33,7 +33,7 @@ const SprungbrettOfferPage = ({ city, cityCode, languageCode }: CityRouteProps):
 
   const load = useCallback(
     () => loadSprungbrettJobs({ cityCode, languageCode, baseUrl: cmsApiBaseUrl }),
-    [cityCode, languageCode]
+    [cityCode, languageCode],
   )
   const { data, error, loading } = useLoadAsync(load)
 

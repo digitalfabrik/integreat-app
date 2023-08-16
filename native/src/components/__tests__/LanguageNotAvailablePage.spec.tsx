@@ -31,7 +31,7 @@ describe('LanguageNotAvailablePage', () => {
     render(
       <AppContext.Provider value={context}>
         <LanguageNotAvailablePage availableLanguages={languages} />
-      </AppContext.Provider>
+      </AppContext.Provider>,
     )
 
   it('should render', () => {

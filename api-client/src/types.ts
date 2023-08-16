@@ -194,7 +194,7 @@ export type JsonCityType = {
   latitude: number
   longitude: number
   aliases: Record<string, { longitude: number; latitude: number }> | null
-  bounding_box: [[number, number], [number, number]] | null
+  bounding_box: [[number, number], [number, number]]
 }
 
 export type TimeSlot = {
