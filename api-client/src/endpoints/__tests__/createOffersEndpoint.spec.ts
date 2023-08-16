@@ -62,7 +62,7 @@ describe('endpoint', () => {
   }
   it('should map router to url', () => {
     expect(offers.mapParamsToUrl(params)).toBe(
-      'https://integreat-api-url.de/bad-toelz/en/wp-json/extensions/v3/extras/'
+      'https://integreat-api-url.de/bad-toelz/en/wp-json/extensions/v3/extras/',
     )
   })
   it('should map json to models', () => {

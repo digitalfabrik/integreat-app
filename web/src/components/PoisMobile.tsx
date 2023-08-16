@@ -33,7 +33,7 @@ const PoisMobile = React.forwardRef(
       isBottomSheetFullscreen,
       restoreScrollPosition,
     }: PoisMobileProps,
-    ref: React.Ref<BottomSheetRef>
+    ref: React.Ref<BottomSheetRef>,
   ): ReactElement => {
     const { t } = useTranslation('pois')
     return (
@@ -59,7 +59,7 @@ const PoisMobile = React.forwardRef(
         </BottomActionSheet>
       </>
     )
-  }
+  },
 )
 
 export default PoisMobile

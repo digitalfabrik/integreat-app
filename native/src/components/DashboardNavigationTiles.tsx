@@ -55,7 +55,7 @@ const DashboardNavigationTiles = ({
             newsType: localNewsEnabled ? LOCAL_NEWS_TYPE : TU_NEWS_TYPE,
           }),
         notifications: 0,
-      })
+      }),
     )
   }
 
@@ -73,7 +73,7 @@ const DashboardNavigationTiles = ({
             languageCode,
           }),
         notifications: 0,
-      })
+      }),
     )
   }
 
@@ -91,7 +91,7 @@ const DashboardNavigationTiles = ({
             languageCode,
           }),
         notifications: 0,
-      })
+      }),
     )
   }
 
@@ -109,7 +109,7 @@ const DashboardNavigationTiles = ({
             languageCode,
           }),
         notifications: 0,
-      })
+      }),
     )
   }
 

@@ -162,7 +162,7 @@ class Config {
    */
   getLanguageTagIfSupported(languageTag: string): string | undefined {
     return this.getSupportedLanguageTags().find(
-      key => key === languageTag || this.fallbacks[languageTag]?.includes(key)
+      key => key === languageTag || this.fallbacks[languageTag]?.includes(key),
     )
   }
 

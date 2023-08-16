@@ -7,6 +7,7 @@ import { RouteInformationType } from 'api-client/src/routes/RouteInformationType
 
 import { URL_PREFIX } from '../constants/webview'
 import TileModel from '../models/TileModel'
+import testID from '../testing/testID'
 import { LanguageResourceCacheStateType, PageResourceCacheStateType } from '../utils/DataContainer'
 import CategoryListItem from './CategoryListItem'
 import OrganizationContentInfo from './OrganizationContentInfo'
@@ -62,10 +63,10 @@ const Categories = ({
           path: category.path,
           thumbnail: getCachedThumbnail(category, resourceCache[category.path] ?? {}),
           isExternalUrl: false,
-        })
+        }),
     )
     return (
-      <View>
+      <View {...testID('Dashboard-Page')}>
         <Tiles tiles={tiles} language={language} onTilePress={navigateToCategory} />
       </View>
     )

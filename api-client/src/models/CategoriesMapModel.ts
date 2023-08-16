@@ -58,7 +58,7 @@ class CategoriesMapModel {
 
       if (!temp) {
         throw new Error(
-          `The category ${currentCategory.parentPath} does not exist but should be the parent of ${currentCategory.path}`
+          `The category ${currentCategory.parentPath} does not exist but should be the parent of ${currentCategory.path}`,
         )
       }
 

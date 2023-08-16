@@ -28,7 +28,7 @@ describe('createTrackingEndpoint', () => {
     fetch.mockRejectOnce(() => Promise.reject(error))
 
     await expect(createTrackingEndpoint().request(signal)).rejects.toThrow(
-      'FetchError: Failed to POST the request for the tracking endpoint with the url'
+      'FetchError: Failed to POST the request for the tracking endpoint with the url',
     )
   })
   it('should throw response error if response is not ok', async () => {
@@ -38,7 +38,7 @@ describe('createTrackingEndpoint', () => {
     })
 
     await expect(createTrackingEndpoint().request(signal)).rejects.toThrow(
-      'ResponseError: Failed to POST the request for the tracking endpoint with the url'
+      'ResponseError: Failed to POST the request for the tracking endpoint with the url',
     )
   })
   it('should call the endpoint correctly', async () => {
@@ -51,7 +51,7 @@ describe('createTrackingEndpoint', () => {
           'Content-Type': 'application/json',
         },
         method: 'POST',
-      })
+      }),
     )
   })
   it('should use passed endpoint url', async () => {
@@ -87,7 +87,7 @@ describe('createTrackingEndpoint', () => {
             },
           },
         }),
-      })
+      }),
     )
   })
 })

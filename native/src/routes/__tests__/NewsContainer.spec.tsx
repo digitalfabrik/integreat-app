@@ -97,7 +97,7 @@ describe('NewsContainer', () => {
     return render(
       <AppContext.Provider value={context}>
         <NewsContainer route={route} navigation={navigation} />
-      </AppContext.Provider>
+      </AppContext.Provider>,
     )
   }
 
