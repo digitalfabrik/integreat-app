@@ -14,7 +14,7 @@ describe('SearchInput', () => {
         placeholderText='Placeholder'
         onClickInput={onClickInput}
         onFilterTextChange={outerFilterTextChange}
-      />
+      />,
     )
     fireEvent.click(getByPlaceholderText('Placeholder'))
     expect(onClickInput).toHaveBeenCalled()

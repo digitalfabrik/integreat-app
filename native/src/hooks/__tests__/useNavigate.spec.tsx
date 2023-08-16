@@ -66,7 +66,7 @@ describe('useNavigate', () => {
     render(
       <AppContext.Provider value={context}>
         <MockComponent routeInformation={routeInformation} />
-      </AppContext.Provider>
+      </AppContext.Provider>,
     )
 
   beforeEach(() => {

@@ -1,4 +1,4 @@
-import moment from 'moment'
+import { DateTime } from 'luxon'
 import React from 'react'
 
 import { DateFormatter, LOCAL_NEWS_TYPE, LocalNewsModel } from 'api-client'
@@ -27,7 +27,7 @@ describe('LocalNewsList', () => {
       formatter={new DateFormatter(language)}
     />
   )
-  const date = moment('2017-11-18T09:30:00.000Z')
+  const date = DateTime.fromISO('2017-11-18T09:30:00.000Z')
   const localNews1 = new LocalNewsModel({
     id: 217,
     title: 'Important',
@@ -46,7 +46,7 @@ describe('LocalNewsList', () => {
 
   it('should have two NewsListItem', () => {
     const { getByText } = renderWithRouterAndTheme(
-      <LocalNewsList items={items} renderItem={renderItem} city={city} noItemsMessage='no item' />
+      <LocalNewsList items={items} renderItem={renderItem} city={city} noItemsMessage='no item' />,
     )
     expect(getByText('Love :)')).toBeDefined()
     expect(getByText('Important')).toBeDefined()
@@ -54,7 +54,7 @@ describe('LocalNewsList', () => {
 
   it('should render "noItemsMessage" if the items is an empty array', () => {
     const { getByText } = renderWithRouterAndTheme(
-      <LocalNewsList items={[]} renderItem={renderItem} city={city} noItemsMessage='No items' />
+      <LocalNewsList items={[]} renderItem={renderItem} city={city} noItemsMessage='No items' />,
     )
     expect(getByText('No items')).toBeDefined()
   })

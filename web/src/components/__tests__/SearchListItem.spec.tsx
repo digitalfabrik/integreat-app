@@ -1,4 +1,4 @@
-import moment from 'moment'
+import { DateTime } from 'luxon'
 import React from 'react'
 
 import { CategoryModel } from 'api-client'
@@ -20,7 +20,7 @@ const categoryParams = {
     ['fa', '4868'],
   ]),
   thumbnail: 'https://cms.integreat-ap…03/Beratung-150x150.png',
-  lastUpdate: moment('2017-11-18T19:30:00.000Z'),
+  lastUpdate: DateTime.fromISO('2017-11-18T19:30:00.000Z'),
   organization: null,
 }
 
@@ -43,7 +43,7 @@ describe('SearchListItem', () => {
     const excerpt = `${excerptBeforeQuery} ${query} ${excerptAfterQuery}`
 
     const { queryAllByText, getByText, getByLabelText } = renderWithRouterAndTheme(
-      <SearchListItem category={category} query={query} contentWithoutHtml={category.content} />
+      <SearchListItem category={category} query={query} contentWithoutHtml={category.content} />,
     )
 
     expect(getByLabelText(excerpt)).toBeTruthy()
@@ -63,7 +63,7 @@ describe('SearchListItem', () => {
         category={categoryWithDifferentName}
         query={query}
         contentWithoutHtml={categoryWithDifferentName.content}
-      />
+      />,
     )
 
     expect(getByText(query)).toHaveProperty('style', expect.objectContaining(highlightStyle))
@@ -78,7 +78,7 @@ describe('SearchListItem', () => {
     const excerpt = `${excerptBeforeQuery} ${query} ${excerptAfterQuery}`
 
     const { getByText, getByLabelText } = renderWithRouterAndTheme(
-      <SearchListItem category={category} query={query} contentWithoutHtml={category.content} />
+      <SearchListItem category={category} query={query} contentWithoutHtml={category.content} />,
     )
 
     expect(getByLabelText(excerpt)).toBeTruthy()
@@ -93,7 +93,7 @@ describe('SearchListItem', () => {
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ...'
 
     const { getByText } = renderWithRouterAndTheme(
-      <SearchListItem category={category} query={query} contentWithoutHtml={category.content} />
+      <SearchListItem category={category} query={query} contentWithoutHtml={category.content} />,
     )
 
     expect(getByText(category.title)).not.toHaveProperty('style', expect.objectContaining(highlightStyle))

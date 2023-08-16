@@ -57,7 +57,9 @@ const ButtonContainer = styled.div`
 
 const FeedbackButton = styled.button<{ $active: boolean | null }>`
   border: none;
-  box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.25), 0px 1px 4px 1px rgba(0, 0, 0, 0.15);
+  box-shadow:
+    0px 1px 2px rgba(0, 0, 0, 0.25),
+    0px 1px 4px 1px rgba(0, 0, 0, 0.15);
   border-radius: 18px;
   width: 100px;
   height: 80px;

@@ -1,5 +1,4 @@
-import { Moment } from 'moment'
-import moment from 'moment-timezone'
+import { DateTime } from 'luxon'
 
 import TunewsModel from '../../models/TunewsModel'
 import { JsonTunewsType } from '../../types'
@@ -19,9 +18,9 @@ describe('tunews', () => {
     enewsno: 'tun0000009902',
   })
 
-  const item1 = createNewsItem(1, '2020-01-20 12:04:22+00:00')
+  const item1 = createNewsItem(1, '2020-01-20T12:04:22+00:00')
 
-  const createNewsItemModel = (id: number, date: Moment): TunewsModel =>
+  const createNewsItemModel = (id: number, date: DateTime): TunewsModel =>
     new TunewsModel({
       id,
       title: 'Tick bite - What to do?',
@@ -32,7 +31,7 @@ describe('tunews', () => {
       eNewsNo: 'tun0000009902',
     })
 
-  const itemModel1 = createNewsItemModel(1, moment.tz('2020-01-20 12:04:22+00:00', 'GMT'))
+  const itemModel1 = createNewsItemModel(1, DateTime.fromISO('2020-01-20T12:04:22+00:00'))
   const params = {
     city: 'augsburg',
     language: 'de',

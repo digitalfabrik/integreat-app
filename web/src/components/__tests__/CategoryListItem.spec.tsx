@@ -1,4 +1,4 @@
-import moment from 'moment'
+import { DateTime } from 'luxon'
 import React from 'react'
 
 import { CategoryModel } from 'api-client'
@@ -19,7 +19,7 @@ const categoryParams = {
     ['fa', '4868'],
   ]),
   thumbnail: '',
-  lastUpdate: moment('2017-11-18T19:30:00.000Z'),
+  lastUpdate: DateTime.fromISO('2017-11-18T19:30:00.000Z'),
   organization: null,
 }
 
@@ -35,7 +35,7 @@ const childCategory = new CategoryModel({
 describe('CategoryListItem', () => {
   it('should render a list item with a subcategory', () => {
     const { getByText, getByRole } = renderWithRouterAndTheme(
-      <CategoryListItem category={category} subCategories={[childCategory]} />
+      <CategoryListItem category={category} subCategories={[childCategory]} />,
     )
 
     expect(getByText(category.title)).toBeTruthy()

@@ -20,7 +20,7 @@ describe('FeedbackToolbarItem', () => {
     renderWithTheme(
       <Layout>
         <FeedbackToolbarItem route={CATEGORIES_ROUTE} slug='my-slug' />
-      </Layout>
+      </Layout>,
     )
 
   it('should open and close feedback modal on click', () => {

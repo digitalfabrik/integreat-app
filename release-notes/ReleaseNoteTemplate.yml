@@ -1,4 +1,4 @@
-issue_key: <jira issue key> # e.g. IGAPP-123 (NATIVE-587, WEBAPP-42)
+issue_key: <github issue number> # e.g. #1234
 show_in_stores: <boolean> # whether this note should be shown in the stores, either true or false
 platforms: # relevant platforms, possible values: web, android and ios
   - <platform1>

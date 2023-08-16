@@ -15,9 +15,7 @@ jest.mock('api-client', () => ({
     request: jest.fn(),
   })),
 }))
-jest.mock('moment', () => () => ({
-  toISOString: () => '2020-01-20T00:00:00.000Z',
-}))
+jest.useFakeTimers({ now: new Date('2020-01-20T01:00:00.000+01:00'), doNotFake: ['nextTick'] })
 jest.mock('@sentry/react-native')
 
 describe('sendTrackingSignal', () => {
@@ -57,7 +55,7 @@ describe('sendTrackingSignal', () => {
         allowPushNotifications: true,
         errorTracking: false,
       },
-      timestamp: '2020-01-20T00:00:00.000Z',
+      timestamp: '2020-01-20T00:00:00.000',
     }
 
     it('should request the tracking endpoint if tracking enabled and tracking code set', async () => {
@@ -188,7 +186,7 @@ describe('sendTrackingSignal', () => {
           allowPushNotifications: true,
           errorTracking: false,
         },
-        timestamp: '2020-01-20T00:00:00.000Z',
+        timestamp: '2020-01-20T01:00:00.000+01:00',
       })
     })
   })

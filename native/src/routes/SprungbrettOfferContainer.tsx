@@ -20,7 +20,7 @@ const SprungbrettOfferContainer = ({ route, navigation }: SprungbrettOfferContai
   const { cityCode, languageCode } = useCityAppContext()
   const load = useCallback(
     () => loadSprungbrettJobs({ cityCode, languageCode, baseUrl: determineApiUrl }),
-    [cityCode, languageCode]
+    [cityCode, languageCode],
   )
   const { data, ...response } = useLoadExtraCityContent({ cityCode, languageCode, load })
   const error = data?.city && !data.city.offersEnabled ? ErrorCode.PageNotFound : response.error

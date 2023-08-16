@@ -16,7 +16,7 @@ const useOnBackNavigation = (onBackNavigation?: (action: NavigationAction) => vo
           onBackNavigation(event.data.action)
         }
       }),
-    [navigation, onBackNavigation]
+    [navigation, onBackNavigation],
   )
 }
 

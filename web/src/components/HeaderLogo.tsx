@@ -1,4 +1,4 @@
-import moment from 'moment'
+import { DateTime } from 'luxon'
 import React, { ReactElement } from 'react'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
@@ -49,8 +49,9 @@ const LogoContainer = styled.div`
 export const HeaderLogo = ({ link }: HeaderLogoProps): ReactElement => {
   const { viewportSmall } = useWindowDimensions()
   const { campaign, appName, icons } = buildConfig()
-  const currentDate = moment()
-  const showCampaignLogo = campaign && currentDate.isAfter(campaign.startDate) && currentDate.isBefore(campaign.endDate)
+  const currentDate = DateTime.now()
+  const showCampaignLogo =
+    campaign && currentDate > DateTime.fromISO(campaign.startDate) && currentDate < DateTime.fromISO(campaign.endDate)
   const src = showCampaignLogo ? campaign.campaignAppLogo : icons.appLogo
   const srcMobile = showCampaignLogo ? campaign.campaignAppLogoMobile : icons.appLogoMobile
 
