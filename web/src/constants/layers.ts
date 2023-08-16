@@ -37,6 +37,12 @@ export const markerLayer = (currentFeature: PoiFeature | null): LayerProps => ({
       mapMarker.symbolActive,
       ['get', 'symbol'],
     ],
+    'icon-offset': [
+      'case',
+      ['==', ['get', 'id'], currentFeature?.properties.id ?? -1],
+      ['literal', [0, mapMarker.offsetY ?? 0]],
+      ['literal', [0, 0]],
+    ],
     'text-field': ['get', 'title'],
     'text-font': ['Roboto Regular'],
     'text-offset': [0, textOffsetY],
