@@ -31,14 +31,12 @@ describe('DatabaseConnector', () => {
       '/path/to/page': {
         'https://test.de/path/to/resource/test.png': {
           filePath: '/local/path/to/resource/b4b5dca65e423.png',
-          lastUpdate: DateTime.fromISO('2011-02-04T00:00:00.000'),
           hash: 'testHash',
         },
       },
       '/path/to/page/child': {
         'https://test.de/path/to/resource/test2.jpg': {
           filePath: '/local/path/to/resource/970c65c41eac0.jpg',
-          lastUpdate: DateTime.fromISO('2011-05-04T00:00:00.000'),
           hash: 'testHash',
         },
       },
