@@ -1,6 +1,7 @@
+import distance from '@turf/distance'
 import { DateTime, Interval } from 'luxon'
 
-import { PoiFeature } from '../maps'
+import { GeoJsonPoi, LocationType } from '../maps'
 import ExtendedPageModel from './ExtendedPageModel'
 import LocationModel from './LocationModel'
 import OpeningHoursModel from './OpeningHoursModel'
@@ -88,26 +89,19 @@ class PoiModel extends ExtendedPageModel {
     return `${iconName}_${color}`
   }
 
-  get featureLocation(): PoiFeature {
-    const { coordinates, name, id, address } = this.location
+  getFeature(userLocation?: LocationType): GeoJsonPoi {
+    const { name, id, address, coordinates } = this.location
 
     return {
-      type: 'Feature',
-      geometry: {
-        type: 'Point',
-        coordinates,
-      },
-      properties: {
-        title: name,
-        category: this.category.name,
-        id,
-        symbol: this.getMarkerSymbol(),
-        thumbnail: this.thumbnail,
-        path: this.path,
-        slug: this.slug,
-        address,
-        closeToOtherPoi: false,
-      },
+      title: name,
+      category: this.category.name,
+      id,
+      symbol: this.getMarkerSymbol(),
+      thumbnail: this.thumbnail,
+      path: this.path,
+      slug: this.slug,
+      address,
+      distance: userLocation ? distance(userLocation, coordinates).toFixed(1) : undefined,
     }
   }
 
