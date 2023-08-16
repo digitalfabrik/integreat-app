@@ -1,6 +1,5 @@
 import NetInfo from '@react-native-community/netinfo'
 import { flatten, mapValues, pickBy, reduce, values } from 'lodash'
-import { DateTime } from 'luxon'
 
 import { CategoriesMapModel, EventModel, ExtendedPageModel, PoiModel } from 'api-client/src'
 
@@ -81,7 +80,6 @@ const loadResourceCache = async ({
         if (downloadResult) {
           acc[downloadResult.url] = {
             filePath,
-            lastUpdate: DateTime.fromISO(downloadResult.lastUpdate),
             hash: fetchMapTarget.urlHash,
           }
         }
