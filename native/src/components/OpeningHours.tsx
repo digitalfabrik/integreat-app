@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next'
 import { Text } from 'react-native'
 import styled from 'styled-components/native'
 
-import { OpeningHoursModel } from 'api-client'
+import { OpeningHoursModel, weekdays } from 'api-client'
 
 import { contentDirection } from '../constants/contentDirection'
 import CollapsibleItem from './CollapsibleItem'
@@ -44,6 +44,7 @@ const getOpeningLabel = (isTemporarilyClosed: boolean, isCurrentlyOpened: boolea
   }
   return isCurrentlyOpened ? 'opened' : 'closed'
 }
+
 const OpeningHours = ({
   isCurrentlyOpen,
   language,
@@ -51,9 +52,6 @@ const OpeningHours = ({
   isTemporarilyClosed,
 }: OpeningHoursProps): ReactElement | null => {
   const { t } = useTranslation('pois')
-
-  // The opening hours loaded from the cms are ordered according to the german weekday order
-  const weekdays = ['montag', 'dienstag', 'mittwoch', 'donnerstag', 'freitag', 'samstag', 'sonntag']
 
   const openingHoursTitle = (
     <TitleContainer language={language}>
