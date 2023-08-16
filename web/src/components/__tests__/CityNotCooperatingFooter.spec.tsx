@@ -14,7 +14,7 @@ jest.mock('../../constants/buildConfig', () =>
     icons: {
       cityNotCooperating: 'test',
     },
-  }))
+  })),
 )
 jest.mock('react-i18next', () => ({
   useTranslation: () => ({

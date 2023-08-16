@@ -30,7 +30,7 @@ const LanguageSelector = (props: LanguageSelectorProps): ReactElement => {
           code,
           name,
           href: path,
-        })
+        }),
     ) ?? []
 
   if (isHeaderActionItem) {

@@ -43,7 +43,7 @@ describe('Landing', () => {
     render(
       <NavigationContainer>
         <Landing navigation={navigation} />
-      </NavigationContainer>
+      </NavigationContainer>,
     )
 
   it('should show live cities', () => {

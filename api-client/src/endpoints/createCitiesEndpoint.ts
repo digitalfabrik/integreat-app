@@ -10,6 +10,6 @@ export default (baseUrl: string): Endpoint<void, CityModel[]> =>
   new EndpointBuilder<void, CityModel[]>(CITIES_ENDPOINT_NAME)
     .withParamsToUrlMapper(() => `${baseUrl}/wp-json/extensions/v3/sites/`)
     .withMapper((json: JsonCityType[]) =>
-      json.map(mapCityJson).sort((city1, city2) => city1.sortingName.localeCompare(city2.sortingName))
+      json.map(mapCityJson).sort((city1, city2) => city1.sortingName.localeCompare(city2.sortingName)),
     )
     .build()

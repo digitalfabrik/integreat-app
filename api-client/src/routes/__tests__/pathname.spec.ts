@@ -59,7 +59,7 @@ describe('pathname', () => {
         pathnameFromRouteInformation({
           route: LANDING_ROUTE,
           languageCode,
-        })
+        }),
       ).toBe(`/${LANDING_ROUTE}/${languageCode}`)
     })
     it('should match landing route if pathname with tracking code', () => {
@@ -67,7 +67,7 @@ describe('pathname', () => {
         pathnameFromRouteInformation({
           route: JPAL_TRACKING_ROUTE,
           trackingCode: 'abcdef12345',
-        })
+        }),
       ).toBe('/jpal')
     })
     it('should match categories route if pathname is a city with a language', () => {
@@ -77,7 +77,7 @@ describe('pathname', () => {
           languageCode: 'ar',
           cityCode,
           cityContentPath: `/${cityCode}/ar`,
-        })
+        }),
       ).toBe(`/${cityCode}/ar`)
     })
     it('should match events route', () => {
@@ -86,7 +86,7 @@ describe('pathname', () => {
           route: EVENTS_ROUTE,
           languageCode,
           cityCode,
-        })
+        }),
       ).toBe(`/${cityCode}/${languageCode}/${EVENTS_ROUTE}`)
     })
     it('should match single events route', () => {
@@ -97,7 +97,7 @@ describe('pathname', () => {
           languageCode,
           cityCode,
           slug: '1234',
-        })
+        }),
       ).toBe(pathname)
     })
     it('should match pois route', () => {
@@ -106,7 +106,7 @@ describe('pathname', () => {
           route: POIS_ROUTE,
           languageCode,
           cityCode,
-        })
+        }),
       ).toBe(`/${cityCode}/${languageCode}/${POIS_ROUTE}`)
     })
     it('should match single pois route', () => {
@@ -118,7 +118,7 @@ describe('pathname', () => {
           languageCode,
           cityCode,
           slug,
-        })
+        }),
       ).toBe(pathname)
     })
     it('should match disclaimer route', () => {
@@ -127,7 +127,7 @@ describe('pathname', () => {
           route: DISCLAIMER_ROUTE,
           languageCode,
           cityCode,
-        })
+        }),
       ).toBe(`/${cityCode}/${languageCode}/${DISCLAIMER_ROUTE}`)
     })
     it('should match offers route', () => {
@@ -136,7 +136,7 @@ describe('pathname', () => {
           route: OFFERS_ROUTE,
           languageCode,
           cityCode,
-        })
+        }),
       ).toBe(`/${cityCode}/${languageCode}/${OFFERS_ROUTE}`)
     })
     it('should match sprungbrett offers route', () => {
@@ -145,7 +145,7 @@ describe('pathname', () => {
           route: SPRUNGBRETT_OFFER_ROUTE,
           languageCode,
           cityCode,
-        })
+        }),
       ).toBe(`/${cityCode}/${languageCode}/${OFFERS_ROUTE}/${SPRUNGBRETT_OFFER_ROUTE}`)
     })
     it('should match search route', () => {
@@ -154,7 +154,7 @@ describe('pathname', () => {
           route: SEARCH_ROUTE,
           languageCode,
           cityCode,
-        })
+        }),
       ).toBe(`/${cityCode}/${languageCode}/${SEARCH_ROUTE}`)
     })
     it('should match local news route', () => {
@@ -165,7 +165,7 @@ describe('pathname', () => {
           newsId: undefined,
           languageCode,
           cityCode,
-        })
+        }),
       ).toBe(`/${cityCode}/${languageCode}/${NEWS_ROUTE}/${LOCAL_NEWS_TYPE}`)
     })
     it('should match single local news route', () => {
@@ -176,7 +176,7 @@ describe('pathname', () => {
           newsId: '1234',
           languageCode,
           cityCode,
-        })
+        }),
       ).toBe(`/${cityCode}/${languageCode}/${NEWS_ROUTE}/${LOCAL_NEWS_TYPE}/1234`)
     })
     it('should match tunews route', () => {
@@ -187,7 +187,7 @@ describe('pathname', () => {
           newsId: undefined,
           languageCode,
           cityCode,
-        })
+        }),
       ).toBe(`/${cityCode}/${languageCode}/${NEWS_ROUTE}/${TU_NEWS_TYPE}`)
     })
     it('should match single tunews route', () => {
@@ -198,7 +198,7 @@ describe('pathname', () => {
           newsId: '1234',
           languageCode,
           cityCode,
-        })
+        }),
       ).toBe(`/${cityCode}/${languageCode}/${NEWS_ROUTE}/${TU_NEWS_TYPE}/1234`)
     })
     it('should match categories route', () => {
@@ -209,7 +209,7 @@ describe('pathname', () => {
           languageCode,
           cityCode,
           cityContentPath: pathname,
-        })
+        }),
       ).toBe(pathname)
     })
   })

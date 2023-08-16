@@ -43,7 +43,7 @@ describe('tunews', () => {
   }
   it('should map params to url', () => {
     expect(tunews.mapParamsToUrl(params)).toBe(
-      `${baseUrl}/v1/news/${params.language}?page=${params.page}&count=${params.count}`
+      `${baseUrl}/v1/news/${params.language}?page=${params.page}&count=${params.count}`,
     )
   })
   const json = [item1, item2, item3]

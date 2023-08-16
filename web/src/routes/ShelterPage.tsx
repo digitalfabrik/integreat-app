@@ -41,7 +41,7 @@ const ShelterPage = ({ city, cityCode, languageCode, pathname }: CityRouteProps)
       }
       return data
     },
-    [cityCode, filter]
+    [cityCode, filter],
   )
 
   if (!city) {

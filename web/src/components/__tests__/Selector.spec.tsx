@@ -36,7 +36,7 @@ describe('Selector', () => {
         items={selectorItems}
         disabledItemTooltip='tooltip'
         closeDropDown={closeDropDown}
-      />
+      />,
     )
     const hrefItem1 = getAllByText(selectorItems[0].name)[0]!
     expect(hrefItem1.closest('a')).toHaveProperty('href', `http://localhost${selectorItems[0].href}`)
@@ -55,7 +55,7 @@ describe('Selector', () => {
         items={selectorItems}
         disabledItemTooltip='tooltip'
         closeDropDown={closeDropDown}
-      />
+      />,
     )
     fireEvent.click(getAllByText(selectorItems[0].name)[0]!)
     expect(closeDropDown).toHaveBeenCalledTimes(1)

@@ -39,7 +39,7 @@ describe('RootSwitcher', () => {
         <RootSwitcher setContentLanguage={setContentLanguage} />
         <MockComponent />
       </>,
-      { pathname }
+      { pathname },
     )
 
   beforeEach(() => {

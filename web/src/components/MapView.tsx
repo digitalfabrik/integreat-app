@@ -114,7 +114,7 @@ const MapView = forwardRef((props: MapViewProps, ref: React.Ref<MapRef>): ReactE
         onDeselect()
       }
     },
-    [changeSnapPoint, onDeselect, selectFeature]
+    [changeSnapPoint, onDeselect, selectFeature],
   )
 
   const changeCursor = useCallback((cursor: MapCursorType) => setCursor(cursor), [])
@@ -126,6 +126,7 @@ const MapView = forwardRef((props: MapViewProps, ref: React.Ref<MapRef>): ReactE
         ref={ref}
         reuseMaps
         cursor={cursor}
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
         interactiveLayerIds={[markerLayer(currentFeature).id!]}
         {...viewport}
         style={{

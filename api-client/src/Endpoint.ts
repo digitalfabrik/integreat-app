@@ -26,7 +26,7 @@ class Endpoint<P, T> {
     mapParamsToBody: MapParamsToBodyType<P> | null | undefined,
     mapResponse: MapResponseType<P, T>,
     responseOverride?: T | null,
-    errorOverride?: Error | null
+    errorOverride?: Error | null,
   ) {
     this.mapParamsToUrl = mapParamsToUrl
     this.mapParamsToBody = mapParamsToBody

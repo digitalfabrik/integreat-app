@@ -37,13 +37,13 @@ describe('createCategoryParentsEndpoint', () => {
 
   it('should map params to url', () => {
     expect(endpoint.mapParamsToUrl(params)).toBe(
-      `${baseUrl}/${params.city}/${params.language}/wp-json/extensions/v3/parents/?url=${params.cityContentPath}`
+      `${baseUrl}/${params.city}/${params.language}/wp-json/extensions/v3/parents/?url=${params.cityContentPath}`,
     )
   })
 
   it('should throw if using the endpoint for the root category', () => {
     expect(() => endpoint.mapParamsToUrl({ ...params, cityContentPath: `/${params.city}/${params.language}` })).toThrow(
-      'This endpoint does not support the root category!'
+      'This endpoint does not support the root category!',
     )
   })
 

@@ -16,7 +16,7 @@ describe('NewsTab', () => {
     const { getByText, queryByLabelText } = renderWithRouter(
       <ThemeProvider theme={buildConfig().lightTheme}>
         <NewsTab type={LOCAL_NEWS_TYPE} active={active} destination={destination} t={t} />
-      </ThemeProvider>
+      </ThemeProvider>,
     )
     expect(getByText('LOCAL').closest('a')).toHaveProperty('href', `http://localhost${destination}`)
     expect(queryByLabelText('tuNews')).toBeFalsy()
@@ -26,7 +26,7 @@ describe('NewsTab', () => {
     const { queryByText, getByLabelText } = renderWithRouter(
       <ThemeProvider theme={buildConfig().lightTheme}>
         <NewsTab type={TU_NEWS_TYPE} active={active} destination={destination} t={t} />
-      </ThemeProvider>
+      </ThemeProvider>,
     )
     expect(getByLabelText('tünews INTERNATIONAL')).toHaveProperty('href', `http://localhost${destination}`)
     expect(queryByText('LOCAL')).toBeFalsy()
