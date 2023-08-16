@@ -1,4 +1,4 @@
-import moment from 'moment'
+import { DateTime } from 'luxon'
 import React, { ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Linking, Platform } from 'react-native'
@@ -27,7 +27,7 @@ const ExportEventButton = ({ event }: ExportEventButtonType): ReactElement => {
   const openCalendarApp = (event: EventModel, id: string): void => {
     if (Platform.OS === 'ios') {
       // can't open a specific event but at a specific time
-      const appleRefDate = moment('Jan 1 2001', 'MMM DD YYYY')
+      const appleRefDate = DateTime.fromFormat('Jan 1 2001', 'MMM DD YYYY')
       const secondsSinceRefDate = event.date.startDate.diff(appleRefDate, 'seconds')
       Linking.openURL(`calshow:${secondsSinceRefDate}`)
     } else if (Platform.OS === 'android') {
@@ -38,8 +38,8 @@ const ExportEventButton = ({ event }: ExportEventButtonType): ReactElement => {
   const exportEventToCalendar = async (calendarId: string | undefined): Promise<void> => {
     try {
       const id = await RNCalendarEvents.saveEvent(event.title, {
-        startDate: event.date.startDate.toISOString(),
-        endDate: event.date.endDate.toISOString(),
+        startDate: event.date.startDate.toISO(),
+        endDate: event.date.endDate.toISO(),
         allDay: event.date.allDay,
         location: event.location?.fullAddress,
         description: event.excerpt,

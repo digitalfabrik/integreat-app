@@ -1,10 +1,9 @@
-import { Moment } from 'moment'
+import { DateTime } from 'luxon'
 
 import { CategoriesMapModel, CityModel, EventModel, PoiModel } from 'api-client'
 
 export type PageResourceCacheEntryStateType = {
   filePath: string
-  lastUpdate: Moment
   hash: string
 }
 export type PageResourceCacheStateType = Record<string, PageResourceCacheEntryStateType>
@@ -71,12 +70,12 @@ export type DataContainer = {
   /**
    * Returns the lastUpdate timestamp..
    */
-  getLastUpdate: (city: string, language: string) => Promise<Moment | null>
+  getLastUpdate: (city: string, language: string) => Promise<DateTime | null>
 
   /**
    * Sets the lastUpdate timestamp and persists it.
    */
-  setLastUpdate: (city: string, language: string, lastUpdate: Moment) => Promise<void>
+  setLastUpdate: (city: string, language: string, lastUpdate: DateTime) => Promise<void>
 
   /**
    * Returns whether the CategoriesMap has been loaded or not.

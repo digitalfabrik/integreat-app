@@ -1,5 +1,5 @@
 import { RenderAPI } from '@testing-library/react-native'
-import moment from 'moment-timezone'
+import { DateTime } from 'luxon'
 import React from 'react'
 
 import { DateFormatter } from 'api-client'
@@ -11,7 +11,7 @@ jest.mock('react-i18next')
 
 describe('TimeStamp', () => {
   const dateFormatter = new DateFormatter('de')
-  const lastUpdate = moment.tz('2020-03-20 17:50:00', 'GMT')
+  const lastUpdate = DateTime.fromISO('2020-03-20T17:50:00+02:00')
 
   const renderTimeStamp = (format: string | null, showText: boolean | null): RenderAPI =>
     render(
@@ -26,7 +26,7 @@ describe('TimeStamp', () => {
   it('should display last update text and formatted timestamp', () => {
     const { getByText } = renderTimeStamp(null, null)
     const formattedDate = dateFormatter.format(lastUpdate, {
-      format: 'LL',
+      format: 'DDD',
     })
     expect(getByText(/lastUpdate/)).toBeTruthy()
     expect(getByText(formattedDate)).toBeTruthy()
@@ -34,7 +34,7 @@ describe('TimeStamp', () => {
   it('should display last update text and formatted timestamp explicitly', () => {
     const { getByText } = renderTimeStamp(null, true)
     const formattedDate = dateFormatter.format(lastUpdate, {
-      format: 'LL',
+      format: 'DDD',
     })
     expect(getByText(/lastUpdate/)).toBeTruthy()
     expect(getByText(formattedDate)).toBeTruthy()
@@ -42,13 +42,13 @@ describe('TimeStamp', () => {
   it('should only display formatted timestamp', () => {
     const { getByText, queryByText } = renderTimeStamp(null, false)
     const formattedDate = dateFormatter.format(lastUpdate, {
-      format: 'LL',
+      format: 'DDD',
     })
     expect(queryByText(/lastUpdate/)).toBeNull()
     expect(getByText(formattedDate)).toBeTruthy()
   })
   it('should display formatted timestamp with format provided', () => {
-    const format = 'LLL'
+    const format = 'DDD'
     const { getByText } = renderTimeStamp(format, false)
     const formattedDate = dateFormatter.format(lastUpdate, {
       format,

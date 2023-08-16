@@ -1,4 +1,4 @@
-import { Moment } from 'moment'
+import { DateTime } from 'luxon'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
@@ -13,7 +13,7 @@ const TimeStamp = styled.p`
 `
 
 type LastUpdateInfoProps = {
-  lastUpdate: Moment
+  lastUpdate: DateTime
   withText: boolean
   format?: string
   className?: string
@@ -25,7 +25,7 @@ export const LastUpdateInfo = ({
   withText,
   className,
   formatter,
-  format = 'LL',
+  format = 'DDD',
 }: LastUpdateInfoProps): ReactElement => {
   const { t } = useTranslation('common')
   // only show day, month and year
