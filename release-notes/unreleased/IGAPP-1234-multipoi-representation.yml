@@ -1,0 +1,8 @@
+issue_key: IGAPP-1234
+show_in_stores: true
+platforms:
+  - web
+  - android
+  - ios
+en: Properly visualize overlapping locations on the map.
+de: Visualisierung von überlappenden Orten auf der Karte.

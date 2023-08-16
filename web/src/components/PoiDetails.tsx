@@ -1,13 +1,12 @@
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
-import { useLocation, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import styled, { css, useTheme } from 'styled-components'
 
-import { getExternalMapsLink, PoiFeature, PoiModel } from 'api-client/src'
+import { GeoJsonPoi, getExternalMapsLink, PoiModel } from 'api-client/src'
 import { UiDirectionType } from 'translations'
 
 import { EmailIcon, PhoneIcon, WebsiteIcon } from '../assets'
-import iconArrowBack from '../assets/IconArrowBackLong.svg'
 import iconExternalLink from '../assets/IconExternalLink.svg'
 import iconMarker from '../assets/IconMarker.svg'
 import PoiPlaceholder from '../assets/PoiPlaceholderLarge.jpg'
@@ -24,21 +23,6 @@ const DetailsContainer = styled.div`
   font-family: ${props => props.theme.fonts.web.contentFont};
 `
 
-const ArrowBack = styled.img<{ direction: string }>`
-  width: 16px;
-  height: 14px;
-  flex-shrink: 0;
-  padding: 0 8px;
-  object-fit: contain;
-  align-self: center;
-
-  ${props =>
-    props.direction === 'rtl' &&
-    css`
-      transform: scaleX(-1);
-    `};
-`
-
 const Marker = styled.img<{ direction?: string }>`
   width: 20px;
   height: 20px;
@@ -50,37 +34,10 @@ const Marker = styled.img<{ direction?: string }>`
       transform: scaleX(-1);
     `};
 
-  @media screen and ${dimensions.mediumLargeViewport} {
+  @media screen and (${dimensions.mediumLargeViewport}) {
     padding: 0 8px;
   }
   object-fit: contain;
-`
-
-const DetailsHeaderContainer = styled.div<{ hidden: boolean }>`
-  display: flex;
-  flex-direction: column;
-  max-height: ${props => (props.hidden ? '0' : '10vh')};
-  opacity: ${props => (props.hidden ? '0' : '1')};
-  overflow: hidden;
-  transition: all 1s;
-`
-
-const DetailsHeader = styled.div`
-  display: flex;
-  cursor: pointer;
-  padding-top: ${props => (props.hidden ? '0' : '12px')};
-`
-
-const DetailsHeaderTitle = styled.span`
-  align-self: center;
-  white-space: pre;
-  padding-left: 8px;
-  font-size: clamp(
-    ${props => props.theme.fonts.adaptiveFontSizeSmall.min},
-    ${props => props.theme.fonts.adaptiveFontSizeSmall.value},
-    ${props => props.theme.fonts.adaptiveFontSizeSmall.max}
-  );
-  font-family: ${props => props.theme.fonts.web.contentFont};
 `
 
 const Thumbnail = styled.img`
@@ -91,7 +48,7 @@ const Thumbnail = styled.img`
   object-fit: cover;
   border-radius: 10px;
 
-  @media screen and ${dimensions.smallViewport} {
+  @media screen and (${dimensions.smallViewport}) {
     order: 1;
     margin-top: 12px;
   }
@@ -178,7 +135,7 @@ const DetailSection = styled.div`
   display: flex;
   flex-direction: column;
 
-  @media screen and ${dimensions.smallViewport} {
+  @media screen and (${dimensions.smallViewport}) {
     flex-direction: row;
     justify-content: space-between;
   }
@@ -189,31 +146,20 @@ const ToolbarWrapper = styled.div`
 `
 
 type PoiDetailsProps = {
-  feature: PoiFeature
+  feature: GeoJsonPoi
   poi: PoiModel
   direction: UiDirectionType
-  isBottomSheetFullscreen?: boolean
   toolbar?: ReactElement
 }
 
-const PoiDetails: React.FC<PoiDetailsProps> = ({
-  feature,
-  poi,
-  direction,
-  isBottomSheetFullscreen = false,
-  toolbar,
-}: PoiDetailsProps): ReactElement => {
+const PoiDetails = ({ feature, poi, direction, toolbar }: PoiDetailsProps): ReactElement => {
   const navigate = useNavigate()
-  const browserLocation = useLocation()
-  const onBackClick = () => {
-    navigate('.', { state: { from: browserLocation } })
-  }
   const { viewportSmall } = useWindowDimensions()
   const theme = useTheme()
-  const { title, thumbnail, distance } = feature.properties
+  const { t } = useTranslation('pois')
+  const { title, thumbnail, distance } = feature
   const { content, location, website, phoneNumber, email, isCurrentlyOpen, openingHours, temporarilyClosed, category } =
     poi
-  const { t } = useTranslation('pois')
   // MapEvent parses null to 'null'
   const thumb = thumbnail === 'null' ? null : thumbnail?.replace('-150x150', '')
   const isAndroid = /Android/i.test(navigator.userAgent)
@@ -221,13 +167,6 @@ const PoiDetails: React.FC<PoiDetailsProps> = ({
 
   return (
     <DetailsContainer>
-      <DetailsHeaderContainer hidden={viewportSmall && !isBottomSheetFullscreen}>
-        <DetailsHeader onClick={onBackClick} role='button' tabIndex={0} onKeyPress={onBackClick}>
-          <ArrowBack src={iconArrowBack} alt='' direction={direction} />
-          <DetailsHeaderTitle>{t('detailsHeader')}</DetailsHeaderTitle>
-        </DetailsHeader>
-        <Spacer borderColor={theme.colors.borderColor} />
-      </DetailsHeaderContainer>
       <HeadingSection>
         <Thumbnail alt='' src={thumb ?? PoiPlaceholder} />
         <Heading>{title}</Heading>
