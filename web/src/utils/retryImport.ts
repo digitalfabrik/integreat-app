@@ -20,7 +20,7 @@ const wait = (interval: number) =>
 const retry = async <T>(
   componentImport: () => Promise<{ default: ComponentType<T> }>,
   retriesLeft = DEFAULT_RETRIES,
-  interval = DEFAULT_INTERVAL
+  interval = DEFAULT_INTERVAL,
 ): Promise<{ default: ComponentType<T> }> => {
   try {
     const component = await componentImport()
@@ -50,7 +50,7 @@ const retry = async <T>(
 const lazyWithRetry = <T>(
   componentImport: () => Promise<{ default: ComponentType<T> }>,
   retriesLeft = DEFAULT_RETRIES,
-  interval = DEFAULT_INTERVAL
+  interval = DEFAULT_INTERVAL,
 ): LazyExoticComponent<ComponentType<T>> => lazy(() => retry(componentImport, retriesLeft, interval))
 
 export default lazyWithRetry

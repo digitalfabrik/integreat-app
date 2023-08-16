@@ -26,7 +26,7 @@ describe('CityContentHeader', () => {
     eventsEnabled: boolean,
     poisEnabled: boolean,
     tunewsEnabled: boolean,
-    localNewsEnabled: boolean
+    localNewsEnabled: boolean,
   ) =>
     new CityModel({
       name: 'Stadt Augsburg',
@@ -73,7 +73,7 @@ describe('CityContentHeader', () => {
     offers: boolean,
     events: boolean,
     pois: boolean,
-    news: boolean
+    news: boolean,
   ) => {
     expectNavigationItem(getByText, categories, 'localInformation')
     expectNavigationItem(getByText, offers, 'offers')
@@ -90,7 +90,7 @@ describe('CityContentHeader', () => {
           route={CATEGORIES_ROUTE}
           cityModel={cityModel(false, false, false, false, false)}
           languageChangePaths={languageChangePaths}
-        />
+        />,
       )
       expectNavigationItems(getByText, false, false, false, false, false)
     })
@@ -102,7 +102,7 @@ describe('CityContentHeader', () => {
           route={CATEGORIES_ROUTE}
           cityModel={cityModel(false, true, false, false, false)}
           languageChangePaths={languageChangePaths}
-        />
+        />,
       )
       expectNavigationItems(getByText, true, false, true, false, false)
     })
@@ -114,7 +114,7 @@ describe('CityContentHeader', () => {
           route={CATEGORIES_ROUTE}
           cityModel={cityModel(false, false, false, false, true)}
           languageChangePaths={languageChangePaths}
-        />
+        />,
       )
       expectNavigationItems(getByText, true, false, false, false, true)
     })
@@ -126,7 +126,7 @@ describe('CityContentHeader', () => {
           route={CATEGORIES_ROUTE}
           cityModel={cityModel(true, true, true, true, true)}
           languageChangePaths={languageChangePaths}
-        />
+        />,
       )
       expectNavigationItems(getByText, true, true, true, true, true)
     })
@@ -138,7 +138,7 @@ describe('CityContentHeader', () => {
           route={CATEGORIES_ROUTE}
           cityModel={cityModel(true, true, true, true, true)}
           languageChangePaths={languageChangePaths}
-        />
+        />,
       )
       expect(getByText('layout:localInformation active')).toBeTruthy()
       expect(getByText('layout:offers inactive')).toBeTruthy()
@@ -154,7 +154,7 @@ describe('CityContentHeader', () => {
           route={LOCAL_NEWS_ROUTE}
           cityModel={cityModel(true, true, true, true, true)}
           languageChangePaths={languageChangePaths}
-        />
+        />,
       )
       expect(getByText('layout:localInformation inactive')).toBeTruthy()
       expect(getByText('layout:offers inactive')).toBeTruthy()
@@ -170,7 +170,7 @@ describe('CityContentHeader', () => {
           route={TU_NEWS_ROUTE}
           cityModel={cityModel(true, true, true, true, true)}
           languageChangePaths={languageChangePaths}
-        />
+        />,
       )
       expect(getByText('layout:localInformation inactive')).toBeTruthy()
       expect(getByText('layout:offers inactive')).toBeTruthy()
@@ -186,7 +186,7 @@ describe('CityContentHeader', () => {
           route={TU_NEWS_DETAIL_ROUTE}
           cityModel={cityModel(true, true, true, true, true)}
           languageChangePaths={languageChangePaths}
-        />
+        />,
       )
       expect(getByText('layout:localInformation inactive')).toBeTruthy()
       expect(getByText('layout:offers inactive')).toBeTruthy()
@@ -202,7 +202,7 @@ describe('CityContentHeader', () => {
           route={EVENTS_ROUTE}
           cityModel={cityModel(true, true, true, true, true)}
           languageChangePaths={languageChangePaths}
-        />
+        />,
       )
       expect(getByText('layout:localInformation inactive')).toBeTruthy()
       expect(getByText('layout:offers inactive')).toBeTruthy()
@@ -218,7 +218,7 @@ describe('CityContentHeader', () => {
           route={OFFERS_ROUTE}
           cityModel={cityModel(true, true, true, true, true)}
           languageChangePaths={languageChangePaths}
-        />
+        />,
       )
       expect(getByText('layout:localInformation inactive')).toBeTruthy()
       expect(getByText('layout:offers active')).toBeTruthy()
@@ -234,7 +234,7 @@ describe('CityContentHeader', () => {
           route={SPRUNGBRETT_OFFER_ROUTE}
           cityModel={cityModel(true, true, true, true, true)}
           languageChangePaths={languageChangePaths}
-        />
+        />,
       )
       expect(getByText('layout:localInformation inactive')).toBeTruthy()
       expect(getByText('layout:offers active')).toBeTruthy()
@@ -250,7 +250,7 @@ describe('CityContentHeader', () => {
           route={POIS_ROUTE}
           cityModel={cityModel(true, true, true, true, true)}
           languageChangePaths={languageChangePaths}
-        />
+        />,
       )
       expect(getByText('layout:localInformation inactive')).toBeTruthy()
       expect(getByText('layout:offers inactive')).toBeTruthy()

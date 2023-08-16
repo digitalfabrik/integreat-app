@@ -20,7 +20,7 @@ describe('HeaderActionItemDropDown', () => {
         <HeaderActionItemDropDown iconSrc='/someImg' text='some text'>
           {closeDropDown => <InnerComponent closeDropDown={closeDropDown} />}
         </HeaderActionItemDropDown>
-      </>
+      </>,
     )
 
     inner = wrapperComponent.getByText('Do you see me?')

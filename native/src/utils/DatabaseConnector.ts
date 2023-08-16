@@ -117,7 +117,7 @@ type ContentCityJsonType = {
   aliases: Record<string, { longitude: number; latitude: number }> | null
   pushNotificationsEnabled: boolean
   tunewsEnabled: boolean
-  bounding_box: BBox | null
+  bounding_box: BBox
 }
 type ContentPoiJsonType = {
   path: string
@@ -302,7 +302,7 @@ class DatabaseConnector {
             lastUpdate: DateTime
           } => ({
             lastUpdate: DateTime.fromISO(jsonLastUpdate),
-          })
+          }),
         ),
         lastUsage: DateTime.fromISO(cityMeta.last_usage),
       }))
@@ -320,7 +320,7 @@ class DatabaseConnector {
           last_update: string
         } => ({
           last_update: lastUpdate.toISO(),
-        })
+        }),
       ),
       last_usage: cityMeta.lastUsage.toISO(),
     }))
@@ -342,7 +342,7 @@ class DatabaseConnector {
       throw Error("cityCode mustn't be null")
     }
 
-    const metaData = await this._loadMetaCities().catch(() => ({} as MetaCitiesType))
+    const metaData = await this._loadMetaCities().catch(() => ({}) as MetaCitiesType)
     metaData[city] = {
       lastUsage: DateTime.now(),
       languages: metaData[city]?.languages || {},
@@ -372,7 +372,7 @@ class DatabaseConnector {
               url: category.organization.url,
             }
           : null,
-      })
+      }),
     )
     await this.writeFile(this.getContentPath('categories', context), JSON.stringify(jsonModels))
   }
@@ -401,7 +401,7 @@ class DatabaseConnector {
                 })
               : null,
           })
-        })
+        }),
       )
 
     return this.readFile(path, mapCategoriesJson)
@@ -447,7 +447,7 @@ class DatabaseConnector {
             })),
           })) ?? null,
         temporarilyClosed: poi.temporarilyClosed,
-      })
+      }),
     )
     await this.writeFile(this.getContentPath('pois', context), JSON.stringify(jsonModels))
   }
@@ -499,7 +499,7 @@ class DatabaseConnector {
                     start: timeslot.start,
                     end: timeslot.end,
                   })),
-                })
+                }),
             ) ?? null,
           temporarilyClosed: jsonObject.temporarilyClosed,
         })
@@ -526,7 +526,7 @@ class DatabaseConnector {
         latitude: city.latitude,
         aliases: city.aliases,
         bounding_box: city.boundingBox,
-      })
+      }),
     )
     await this.writeFile(this.getCitiesPath(), JSON.stringify(jsonModels))
   }
@@ -551,8 +551,8 @@ class DatabaseConnector {
             longitude: jsonObject.longitude,
             latitude: jsonObject.latitude,
             aliases: jsonObject.aliases,
-            boundingBox: jsonObject.bounding_box ?? null,
-          })
+            boundingBox: jsonObject.bounding_box,
+          }),
       )
 
     return this.readFile(path, mapCityJson)
@@ -594,7 +594,7 @@ class DatabaseConnector {
               full: event.featuredImage.full,
             }
           : null,
-      })
+      }),
     )
     await this.writeFile(this.getContentPath('events', context), JSON.stringify(jsonModels))
   }
@@ -661,9 +661,9 @@ class DatabaseConnector {
             (entry: PageResourceCacheEntryJsonType): PageResourceCacheEntryStateType => ({
               filePath: entry.file_path,
               hash: entry.hash,
-            })
-          )
-        )
+            }),
+          ),
+        ),
       )
     return this.readFile(path, mapResourceCacheJson)
   }
@@ -679,9 +679,9 @@ class DatabaseConnector {
             (entry: PageResourceCacheEntryStateType): PageResourceCacheEntryJsonType => ({
               file_path: entry.filePath,
               hash: entry.hash,
-            })
-          )
-        )
+            }),
+          ),
+        ),
     )
     await this.writeFile(path, JSON.stringify(json))
   }
@@ -758,13 +758,13 @@ class DatabaseConnector {
       if (!isRetry) {
         log(
           `An error occurred while trying to parse or map json '${jsonString}' from path '${path}', retrying.`,
-          'warning'
+          'warning',
         )
         return this.readFile(path, mapJson, true)
       }
       log(
         `An error occurred while trying to parse or map json '${jsonString}' from path '${path}', deleting file.`,
-        'warning'
+        'warning',
       )
       await deleteIfExists(path)
       throw e

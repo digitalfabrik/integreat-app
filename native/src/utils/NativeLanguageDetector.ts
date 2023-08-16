@@ -15,13 +15,16 @@ const NativeLanguageDetector: LanguageDetectorModule = {
     // All languageTags and codes of the users locales that are supported in the app
     // languageTags should be checked first as they contain more information
     // e.g. the normal fallback of `fa` is `pes` (iranian farsi), but the fallback for `fa-AF` is `prs` (Afghan persian/Dari)
-    const supportedKeys = locales.reduce((acc, locale) => {
-      acc.push(
-        config.getLanguageTagIfSupported(locale.languageTag),
-        config.getLanguageTagIfSupported(locale.languageCode)
-      )
-      return acc
-    }, [] as Array<string | undefined>)
+    const supportedKeys = locales.reduce(
+      (acc, locale) => {
+        acc.push(
+          config.getLanguageTagIfSupported(locale.languageTag),
+          config.getLanguageTagIfSupported(locale.languageCode),
+        )
+        return acc
+      },
+      [] as Array<string | undefined>,
+    )
     // Return the first supported languageTag or our fallback
     return supportedKeys.find(it => it !== undefined) ?? config.defaultFallback
   },

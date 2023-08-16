@@ -7,7 +7,7 @@ import {
   fontSizeSmall,
   groupCount,
   mapMarker,
-  PoiFeature,
+  MapFeature,
   textOffsetY,
 } from 'api-client'
 import { ThemeType } from 'build-configs/ThemeType'
@@ -22,7 +22,7 @@ export const clusterLayer = (theme: ThemeType): CircleLayerProps => ({
   },
 })
 
-export const markerLayer = (selectedFeature: PoiFeature | null, featureLayerId: string): SymbolLayerProps => ({
+export const markerLayer = (selectedFeature: MapFeature | null, featureLayerId: string): SymbolLayerProps => ({
   id: featureLayerId,
   style: {
     symbolPlacement: 'point',
@@ -33,11 +33,22 @@ export const markerLayer = (selectedFeature: PoiFeature | null, featureLayerId: 
     iconIgnorePlacement: true,
     iconImage: [
       'case',
-      ['==', ['get', 'id'], selectedFeature?.properties.id ?? -1],
+      ['==', ['get', 'id', ['at', 0, ['get', 'pois']]], selectedFeature?.properties.pois[0]?.id ?? -1],
       mapMarker.symbolActive,
-      ['get', 'symbol'],
+      [
+        'case',
+        ['==', ['length', ['get', 'pois']], 1],
+        ['get', 'symbol', ['at', 0, ['get', 'pois']]],
+        mapMarker.multipoi,
+      ],
     ],
-    textField: ['get', 'title'],
+    iconOffset: [
+      'case',
+      ['==', ['get', 'id', ['at', 0, ['get', 'pois']]], selectedFeature?.properties.pois[0]?.id ?? -1],
+      ['literal', [0, mapMarker.offsetY ?? 0]],
+      ['literal', [0, 0]],
+    ],
+    textField: ['case', ['==', ['length', ['get', 'pois']], 1], ['get', 'title', ['at', 0, ['get', 'pois']]], ''],
     textFont: ['Roboto Regular'],
     textOffset: [0, textOffsetY],
     textAnchor: 'top',
@@ -48,6 +59,7 @@ export const markerLayer = (selectedFeature: PoiFeature | null, featureLayerId: 
 
 export const clusterCountLayer: SymbolLayerProps = {
   id: 'pointCount',
+  filter: ['has', 'point_count'],
   style: {
     textField: '{point_count_abbreviated}',
     textFont: ['Roboto Regular'],

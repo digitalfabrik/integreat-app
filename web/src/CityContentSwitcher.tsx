@@ -54,6 +54,8 @@ export type CityRouteProps = {
 }
 
 const CityContentSwitcher = ({ languageCode }: CityContentSwitcherProps): ReactElement => {
+  // This component is only opened when there is a cityCode in the route
+  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   const cityCode = useParams().cityCode!
   const { data: city, error, loading } = useLoadFromEndpoint(createCityEndpoint, cmsApiBaseUrl, { city: cityCode })
   const pathname = normalizePath(useLocation().pathname)
@@ -102,7 +104,7 @@ const CityContentSwitcher = ({ languageCode }: CityContentSwitcherProps): ReactE
   const render = <S extends RouteType>(
     route: S,
     Component: FunctionComponent<CityRouteProps>,
-    childPattern?: string
+    childPattern?: string,
   ) => (
     <Route
       key={route}

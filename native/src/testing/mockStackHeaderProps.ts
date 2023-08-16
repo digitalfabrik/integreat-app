@@ -16,7 +16,7 @@ type mockStackHeaderPropsProps = {
 
 const mockStackHeaderProps = (
   props: DeepPartial<mockStackHeaderPropsProps> = {},
-  routeIndex = 0
+  routeIndex = 0,
 ): mockStackHeaderPropsProps =>
   merge(
     {
@@ -45,7 +45,7 @@ const mockStackHeaderProps = (
       },
       styleInterpolator: jest.fn(),
     },
-    props as StackHeaderProps
+    props as StackHeaderProps,
   )
 
 export default mockStackHeaderProps
