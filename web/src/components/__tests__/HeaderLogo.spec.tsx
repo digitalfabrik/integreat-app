@@ -35,7 +35,7 @@ describe('HeaderLogo', () => {
     const { getByAltText } = renderWithRouter(<HeaderLogo link='https://example.com' />)
 
     expect((getByAltText('IntegreatTestCms') as HTMLMediaElement).src).toBe(
-      `http://localhost${womensDayCampaign.campaignAppLogo}`
+      `http://localhost${womensDayCampaign.campaignAppLogo}`,
     )
   })
 

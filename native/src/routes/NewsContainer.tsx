@@ -25,7 +25,7 @@ const NewsContainer = ({ route, navigation }: NewsContainerProps): ReactElement 
 
   const navigateToNews = useCallback(
     (newsId: string) => navigateTo({ route: NEWS_ROUTE, cityCode, languageCode, newsType, newsId }),
-    [cityCode, languageCode, newsType, navigateTo]
+    [cityCode, languageCode, newsType, navigateTo],
   )
 
   const selectNewsType = (newsType: NewsType) => navigation.setParams({ newsType, newsId: null })

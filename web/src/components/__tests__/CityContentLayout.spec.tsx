@@ -33,7 +33,7 @@ describe('CityContentLayout', () => {
         languageChangePaths={languageChangePaths}
         isLoading={isLoading}>
         <MockNode />
-      </CityContentLayout>
+      </CityContentLayout>,
     )
 
   it('should render a toolbar', () => {

@@ -48,7 +48,7 @@ const CityNotCooperatingFooter = ({ languageCode }: CityNotCooperatingFooterProp
 
   return (
     <FooterContainer>
-      <Icon alt='' src={buildConfig().icons.cityNotCooperating!} />
+      <Icon alt='' src={buildConfig().icons.cityNotCooperating} />
       <Question>{t('cityNotFound')}</Question>
       <Button to={pathnameFromRouteInformation({ route: CITY_NOT_COOPERATING_ROUTE, ...{ languageCode } })}>
         {t('clickHere')}

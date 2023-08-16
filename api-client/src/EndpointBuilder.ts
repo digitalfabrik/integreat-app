@@ -91,7 +91,7 @@ class EndpointBuilder<P, T> {
       this.paramsToBodyMapper,
       this.mapper,
       this.responseOverride,
-      this.errorOverride
+      this.errorOverride,
     )
   }
 }

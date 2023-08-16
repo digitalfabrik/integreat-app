@@ -58,7 +58,7 @@ const NearbyCities = ({ cities, navigateToDashboard, filterText }: NearbyCitiesP
 
   const nearbyCities = getNearbyCities(
     coordinates,
-    cities.filter(city => city.live)
+    cities.filter(city => city.live),
   )
 
   if (nearbyCities.length === 0) {

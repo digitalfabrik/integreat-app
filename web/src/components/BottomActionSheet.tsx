@@ -44,7 +44,7 @@ type BottomActionSheetProps = {
 const BottomActionSheet = React.forwardRef(
   (
     { title, children, toolbar, direction, setBottomActionSheetHeight, restoreScrollPosition }: BottomActionSheetProps,
-    ref: React.Ref<BottomSheetRef>
+    ref: React.Ref<BottomSheetRef>,
   ): ReactElement => {
     const theme = useTheme()
     const listRef = useRef<HTMLDivElement>(null)
@@ -72,13 +72,15 @@ const BottomActionSheet = React.forwardRef(
         onSpringEnd={() => setBottomActionSheetHeight(ref?.current?.height)}
         header={title ? <Title>{title}</Title> : null}
         snapPoints={({ maxHeight }) => getSnapPoints(maxHeight)}
+        // snapPoints have been supplied in the previous line
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
         defaultSnap={({ snapPoints }) => snapPoints[1]!}>
         <ListContainer ref={listRef}>{children}</ListContainer>
         <StyledSpacer borderColor={theme.colors.borderColor} />
         <ToolbarContainer>{toolbar}</ToolbarContainer>
       </StyledBottomSheet>
     )
-  }
+  },
 )
 
 export default BottomActionSheet

@@ -129,7 +129,7 @@ class CategoriesMapModelBuilder {
         lastUpdate: DateTime.fromISO('2017-11-18T19:30:00.000Z'),
         organization: null,
       }),
-      0
+      0,
     )
 
     return {

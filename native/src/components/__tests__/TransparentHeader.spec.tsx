@@ -21,13 +21,12 @@ jest.mock('react-navigation-header-buttons', () => ({
 jest.mock(
   '../CustomHeaderButtons',
   () =>
-    ({ items, overflowItems }: { items: ReactElement; overflowItems: ReactElement }) =>
-      (
-        <View>
-          {items}
-          {overflowItems}
-        </View>
-      )
+    ({ items, overflowItems }: { items: ReactElement; overflowItems: ReactElement }) => (
+      <View>
+        {items}
+        {overflowItems}
+      </View>
+    ),
 )
 jest.mock('react-i18next', () => ({
   useTranslation: () => ({
@@ -45,7 +44,7 @@ describe('TransparentHeader', () => {
 
   const buildProps = (
     routeIndex: number,
-    shareUrl = 'https://example.com'
+    shareUrl = 'https://example.com',
   ): React.ComponentProps<typeof TransparentHeader> => ({
     navigation: createNavigationMock(routeIndex),
     route: {

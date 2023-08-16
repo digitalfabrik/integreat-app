@@ -25,7 +25,7 @@ describe('PoisDesktop', () => {
         poiList={<div>poiList</div>}
         poi={poi}
         showFeatureSwitch={showFeatureSwitch}
-      />
+      />,
     )
 
   it('should list detail information about the current feature and the poi if feature and poi provided', () => {

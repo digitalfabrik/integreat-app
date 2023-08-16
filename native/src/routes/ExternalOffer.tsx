@@ -34,7 +34,7 @@ const ExternalOffer = (props: ExternalOfferProps): ReactElement => {
     (navState: WebViewNavigation) => {
       setCanGoBack(navState.canGoBack)
     },
-    [setCanGoBack]
+    [setCanGoBack],
   )
   return (
     <WebView

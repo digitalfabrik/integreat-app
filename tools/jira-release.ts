@@ -104,14 +104,14 @@ const createRelease = async ({ newVersionName, accessToken, privateKey, consumer
         },
       }
       return jiraApi.updateIssue(issueId, issueUpdate, { notifyUsers: false })
-    })
+    }),
   )
 }
 
 program
   .command('create <new-version-name>')
   .description(
-    'create a new release with the name <new-version-name> on jira and assign all issues resolved since the last release'
+    'create a new release with the name <new-version-name> on jira and assign all issues resolved since the last release',
   )
   .requiredOption('--project-name <project-name>', 'the name of the jira project, e.g. integreat-app')
   .requiredOption('--access-token <access-token>', 'version name of the new release')
