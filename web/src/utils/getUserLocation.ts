@@ -34,7 +34,7 @@ const getUserLocation = async (): Promise<UserLocationType> =>
       (error: GeolocationPositionError) => {
         resolve(locationStateOnError(error))
       },
-      { timeout: 50000 }
+      { timeout: 50000 },
     )
   })
 
