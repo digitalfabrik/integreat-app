@@ -1,4 +1,4 @@
-import moment from 'moment-timezone'
+import { DateTime } from 'luxon'
 
 import CategoryModel from '../../models/CategoryModel'
 import OrganizationModel from '../../models/OrganizationModel'
@@ -27,7 +27,7 @@ describe('categories', () => {
       },
     },
     thumbnail: 'https://cms.integreat-ap…/03/Hotline-150x150.png',
-    modified_gmt: '2017-01-01 05:10:05',
+    last_updated: '2017-01-01T05:10:05+02:00',
     organization: null,
   }
   const categoryJson2 = {
@@ -35,7 +35,7 @@ describe('categories', () => {
     url: 'https://cms.integreat-app.de/augsburg/fa/erste-schritte/%d9%86%d9%82%d8%b4%d9%87-%d8%b4%d9%87%d8%b1/',
     path: '/augsburg/fa/erste-schritte/%d9%86%d9%82%d8%b4%d9%87-%d8%b4%d9%87%d8%b1/',
     title: 'نقشه شهر',
-    modified_gmt: '2016-01-07 10:36:24',
+    last_updated: '2016-01-07T10:36:24+02:00',
     content: '',
     excerpt: 'excerpt',
     parent: {
@@ -71,7 +71,7 @@ describe('categories', () => {
     order: 75,
     availableLanguages: new Map([['en', '/augsburg/en/anlaufstellen']]),
     thumbnail: 'https://cms.integreat-ap…/03/Hotline-150x150.png',
-    lastUpdate: moment.tz('2017-01-01 05:10:05', 'GMT'),
+    lastUpdate: DateTime.fromISO('2017-01-01T05:10:05+02:00'),
     organization: null,
   })
   const categoryModel2 = new CategoryModel({
@@ -83,7 +83,7 @@ describe('categories', () => {
     parentPath: '/augsburg/fa/erste-schritte/خوش-آمدید-به-آگزبورگ',
     order: 3,
     thumbnail: 'https://example.com/thumbnail',
-    lastUpdate: moment.tz('2016-01-07 10:36:24', 'GMT'),
+    lastUpdate: DateTime.fromISO('2016-01-07T10:36:24+02:00'),
     organization: new OrganizationModel({
       name: 'Tür an Tür',
       logo: 'https://example.com/my-icon',

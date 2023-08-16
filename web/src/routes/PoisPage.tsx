@@ -88,8 +88,17 @@ const PoisPage = ({ cityCode, languageCode, city, pathname }: CityRouteProps): R
     }
   })
 
+  const pageTitle = `${t('pageTitle')} - ${city.name}`
+
   const toolbar = (
-    <CityContentToolbar feedbackTarget={currentPoi?.slug} route={POIS_ROUTE} iconDirection='row' hideDivider />
+    <CityContentToolbar
+      feedbackTarget={currentPoi?.slug}
+      route={POIS_ROUTE}
+      iconDirection='row'
+      hideDivider
+      languageCode={languageCode}
+      pageTitle={pageTitle}
+    />
   )
 
   const feedbackModal = isFeedbackModalOpen && (
@@ -135,8 +144,6 @@ const PoisPage = ({ cityCode, languageCode, city, pathname }: CityRouteProps): R
       </CityContentLayout>
     )
   }
-
-  const pageTitle = `${t('pageTitle')} - ${city.name}`
 
   // To calculate the height of the PoisPage container, we have to reduce 100vh by header, footer, navMenu
   const panelHeights = dimensions.headerHeightLarge + dimensions.navigationMenuHeight

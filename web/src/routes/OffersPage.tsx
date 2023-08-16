@@ -64,13 +64,13 @@ const OffersPage = ({ city, cityCode, languageCode }: CityRouteProps): ReactElem
       code,
     }
   })
-
+  const pageTitle = `${t('pageTitle')} - ${city.name}`
   const locationLayoutParams: Omit<CityContentLayoutProps, 'isLoading'> = {
     city,
     languageChangePaths,
     route: OFFERS_ROUTE,
     languageCode,
-    Toolbar: <CityContentToolbar route={OFFERS_ROUTE} />,
+    Toolbar: <CityContentToolbar route={OFFERS_ROUTE} languageCode={languageCode} pageTitle={pageTitle} />,
   }
 
   if (loading) {
@@ -90,8 +90,6 @@ const OffersPage = ({ city, cityCode, languageCode }: CityRouteProps): ReactElem
       </CityContentLayout>
     )
   }
-
-  const pageTitle = `${t('pageTitle')} - ${city.name}`
 
   return (
     <CityContentLayout isLoading={false} {...locationLayoutParams}>

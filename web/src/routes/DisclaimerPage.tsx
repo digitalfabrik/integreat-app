@@ -37,7 +37,15 @@ const DisclaimerPage = ({ cityCode, languageCode, city }: CityRouteProps): React
     return null
   }
 
-  const Toolbar = <CityContentToolbar feedbackTarget={disclaimer?.slug} route={DISCLAIMER_ROUTE} />
+  const pageTitle = `${t('pageTitle')} - ${city.name}`
+  const Toolbar = (
+    <CityContentToolbar
+      feedbackTarget={disclaimer?.slug}
+      route={DISCLAIMER_ROUTE}
+      languageCode={languageCode}
+      pageTitle={pageTitle}
+    />
+  )
 
   const languageChangePaths = city.languages.map(({ code, name }) => {
     const disclaimerPath = pathnameFromRouteInformation({ route: DISCLAIMER_ROUTE, cityCode, languageCode: code })
@@ -68,8 +76,6 @@ const DisclaimerPage = ({ cityCode, languageCode, city }: CityRouteProps): React
       </CityContentLayout>
     )
   }
-
-  const pageTitle = `${t('pageTitle')} - ${city.name}`
 
   return (
     <CityContentLayout isLoading={false} {...locationLayoutParams}>

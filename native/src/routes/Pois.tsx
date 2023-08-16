@@ -8,7 +8,6 @@ import styled from 'styled-components/native'
 import {
   CityModel,
   embedInCollection,
-  ErrorCode,
   PoiModel,
   PoisRouteType,
   prepareFeatureLocations,
@@ -33,7 +32,6 @@ import { NavigationProps, RouteProps } from '../constants/NavigationTypes'
 import dimensions from '../constants/dimensions'
 import useOnBackNavigation from '../hooks/useOnBackNavigation'
 import useUserLocation from '../hooks/useUserLocation'
-import { reportError } from '../utils/sentry'
 
 const ListWrapper = styled.View`
   margin: 0 32px;
@@ -199,11 +197,6 @@ const Pois = ({ pois: allPois, language, cityModel, route, navigation }: PoisPro
       )}
     </ListWrapper>
   )
-
-  if (!cityModel.boundingBox) {
-    reportError(new Error(`Bounding box not set for city ${cityModel.code}!`))
-    return <Failure code={ErrorCode.PageNotFound} />
-  }
 
   const FiltersOverlayButtons = (
     <>
