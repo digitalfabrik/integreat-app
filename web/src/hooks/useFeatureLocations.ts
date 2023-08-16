@@ -17,7 +17,7 @@ type FeatureLocationsType = { features: MapFeature[]; pois: PoiModel[] }
 const useFeatureLocations = (
   cityCode: string,
   languageCode: string,
-  coordinates?: LocationType
+  coordinates?: LocationType,
 ): ReturnType<FeatureLocationsType> => {
   const requestFeatureLocations = useCallback(async () => {
     const { data, error } = await createPOIsEndpoint(cmsApiBaseUrl).request({ city: cityCode, language: languageCode })

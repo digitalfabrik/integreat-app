@@ -30,6 +30,15 @@ const ListContainer = styled.div`
   padding: 0 30px;
 `
 
+const GoBackContainer = styled.div<{ hidden: boolean }>`
+  display: flex;
+  flex-direction: column;
+  max-height: ${props => (props.hidden ? '0' : '10vh')};
+  opacity: ${props => (props.hidden ? '0' : '1')};
+  overflow: hidden;
+  transition: all 1s;
+`
+
 const BackNavigation = styled.div<{ direction: string }>`
   position: absolute;
   top: 10px;
@@ -89,6 +98,7 @@ const PoisMobile = ({
 
   const isBottomActionSheetFullScreen = bottomActionSheetHeight >= height
   const changeSnapPoint = (snapPoint: number) => {
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     sheetRef.current?.sheet?.snapTo(({ maxHeight }) => getSnapPoints(maxHeight)[snapPoint]!)
   }
 
@@ -113,7 +123,7 @@ const PoisMobile = ({
       }
       selectFeatureOnMap(feature)
     },
-    [currentFeatureOnMap, selectFeatureOnMap]
+    [currentFeatureOnMap, selectFeatureOnMap],
   )
 
   useEffect(() => {
@@ -171,14 +181,14 @@ const PoisMobile = ({
         ref={sheetRef}
         setBottomActionSheetHeight={setBottomActionSheetHeight}
         direction={direction}>
-        {currentFeatureOnMap && isBottomActionSheetFullScreen && (
+        <GoBackContainer hidden={!isBottomActionSheetFullScreen}>
           <GoBack
             goBack={() => selectGeoJsonPoiInList(null)}
             direction={direction}
             viewportSmall
             text={t('detailsHeader')}
           />
-        )}
+        </GoBackContainer>
         <ListContainer>
           {currentPoi ? (
             <PoiDetails poi={currentPoi} feature={currentPoi.getFeature(userLocation)} direction={direction} />

@@ -44,7 +44,7 @@ describe('PoisDesktop', () => {
         slug={slug}
         mapViewport={{} as MapViewViewport}
         setMapViewport={jest.fn()}
-      />
+      />,
     )
 
   const expectPoiList = (queryByText: RenderResult['queryByText'], features: GeoJsonPoi[]) => {

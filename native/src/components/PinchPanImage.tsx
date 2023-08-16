@@ -87,7 +87,7 @@ class PinchPanImage extends React.Component<PinchPanImageProps, StateType> {
           },
         },
       ],
-      { useNativeDriver: USE_NATIVE_DRIVER }
+      { useNativeDriver: USE_NATIVE_DRIVER },
     )
     this.translateXOffset = new Animated.Value(0)
     this.translateYOffset = new Animated.Value(0)
@@ -105,7 +105,7 @@ class PinchPanImage extends React.Component<PinchPanImageProps, StateType> {
       },
       (error: unknown) => {
         onError(error)
-      }
+      },
     )
   }
 
@@ -161,7 +161,7 @@ class PinchPanImage extends React.Component<PinchPanImageProps, StateType> {
     realImageHeight: number,
     newX: number,
     newY: number,
-    newScale: number
+    newScale: number,
   ) {
     // Calculate the minima and maxima which should not be violated
     const widthIncreaseByScale = (Math.max(0, this.lastScale - 1) * realImageWidth) / 2
@@ -223,7 +223,7 @@ class PinchPanImage extends React.Component<PinchPanImageProps, StateType> {
           realImageHeight,
           this.lastOffset.x,
           this.lastOffset.y,
-          this.lastScale
+          this.lastScale,
         )
       }
     }
@@ -289,7 +289,7 @@ class PinchPanImage extends React.Component<PinchPanImageProps, StateType> {
             viewWidth,
             viewHeight,
             realImageWidth,
-            realImageHeight
+            realImageHeight,
           )}
           minDist={10}>
           <Animated.View
@@ -304,7 +304,7 @@ class PinchPanImage extends React.Component<PinchPanImageProps, StateType> {
                 viewWidth,
                 viewHeight,
                 realImageWidth,
-                realImageHeight
+                realImageHeight,
               )}
               shouldCancelWhenOutside={false}>
               <Animated.Image

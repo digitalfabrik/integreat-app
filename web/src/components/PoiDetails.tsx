@@ -152,7 +152,7 @@ type PoiDetailsProps = {
   toolbar?: ReactElement
 }
 
-const PoiDetails: React.FC<PoiDetailsProps> = ({ feature, poi, direction, toolbar }: PoiDetailsProps): ReactElement => {
+const PoiDetails = ({ feature, poi, direction, toolbar }: PoiDetailsProps): ReactElement => {
   const navigate = useNavigate()
   const { viewportSmall } = useWindowDimensions()
   const theme = useTheme()

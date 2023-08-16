@@ -8,7 +8,7 @@ const multipoiKey = 'multipoi'
 const useMapFeatures = (
   features: MapFeature[],
   pois: PoiModel[],
-  slug?: string
+  slug?: string,
 ): {
   selectFeatureOnMap: (newFeatureOnMap: MapFeature | null) => void
   selectGeoJsonPoiInList: (newGeoJsonPoi: GeoJsonPoi | null) => void
@@ -27,7 +27,7 @@ const useMapFeatures = (
         searchParams.has(multipoiKey)
           ? features.find(feature => feature.id === searchParams.get(multipoiKey))
           : features.find(feature => feature.properties.pois.some(poi => poi.slug === slug)),
-      [features, searchParams, slug]
+      [features, searchParams, slug],
     ) ?? null
 
   useEffect(() => {
@@ -52,7 +52,7 @@ const useMapFeatures = (
         }
       }
     },
-    [currentFeatureOnMap?.properties.pois, navigate, searchParams]
+    [currentFeatureOnMap?.properties.pois, navigate, searchParams],
   )
 
   const selectGeoJsonPoiInList = useCallback(
@@ -67,7 +67,7 @@ const useMapFeatures = (
         navigate(`${newGeoJsonPoi.slug}?${searchParams}`)
       }
     },
-    [currentFeatureOnMap, currentPoi, navigate, searchParams]
+    [currentFeatureOnMap, currentPoi, navigate, searchParams],
   )
 
   const poiListFeatures = currentFeatureOnMap && !currentPoi ? currentFeatureOnMap.properties.pois : geoJsonPois

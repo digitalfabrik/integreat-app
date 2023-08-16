@@ -97,7 +97,7 @@ const MapView = ({
   }, [onRequestLocationPermission, setFollowUserLocation])
 
   const onUserTrackingModeChange = (
-    event: MapLibreGLEvent<'usertrackingmodechange', { followUserLocation: boolean }>
+    event: MapLibreGLEvent<'usertrackingmodechange', { followUserLocation: boolean }>,
   ) => {
     if (!event.nativeEvent.payload.followUserLocation) {
       setFollowUserLocation(event.nativeEvent.payload.followUserLocation)
@@ -127,7 +127,7 @@ const MapView = ({
     const featureCollection = await mapRef.current.queryRenderedFeaturesAtPoint(
       [pressedLocation.properties.screenPointX, pressedLocation.properties.screenPointY],
       undefined,
-      [featureLayerId]
+      [featureLayerId],
     )
 
     const feature = featureCollection?.features.find((it): it is MapFeature => it.geometry.type === 'Point')

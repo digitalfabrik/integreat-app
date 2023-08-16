@@ -15,7 +15,7 @@ describe('CategoryListItem', () => {
   const language = new LanguageModelBuilder(1).build()[0]!
   const { categories: categoriesMapModel, resourceCache } = new CategoriesMapModelBuilder(
     cityModel.code,
-    language.code
+    language.code,
   ).buildAll()
   const categories = categoriesMapModel.toArray()
   const category = categories[0]!
@@ -35,7 +35,7 @@ describe('CategoryListItem', () => {
         onItemPress={onItemPress}
         resourceCache={resourceCache}
         language={language.code}
-      />
+      />,
     )
 
     expect(getByText(category.title)).toBeTruthy()

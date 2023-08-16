@@ -23,7 +23,7 @@ describe('replaceLinks', () => {
   })
   it('should linkify links correctly', () => {
     expect(replaceLinks('some content https://asdf.gh with the correct mailto:links@qwer.tz')).toBe(
-      'some content <a href="https://asdf.gh">https://asdf.gh</a> with the correct <a href="mailto:links@qwer.tz">mailto:links@qwer.tz</a>'
+      'some content <a href="https://asdf.gh">https://asdf.gh</a> with the correct <a href="mailto:links@qwer.tz">mailto:links@qwer.tz</a>',
     )
   })
   it('should not match trailing "."', () => {

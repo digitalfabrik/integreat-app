@@ -33,7 +33,7 @@ describe('PoisMobile', () => {
         slug={slug}
         mapViewport={{} as MapViewViewport}
         setMapViewport={jest.fn()}
-      />
+      />,
     )
 
   const expectPoiList = (queryByText: RenderResult['queryByText'], features: GeoJsonPoi[]) => {
@@ -59,8 +59,8 @@ describe('PoisMobile', () => {
     expect(queryByText(singlePoi.location.address!)).toBeTruthy()
     expect(queryByText(singlePoi.content)).toBeTruthy()
     expect(queryByText('Toolbar')).toBeTruthy()
-    expect(queryByText('pois:detailsHeader')).toBeNull() // because bottomsheet is not fullscreen
-    expect(queryByText('pois:listTitle')).toBeNull()
+    expect(queryByText('detailsHeader')).toBeNull() // because bottomsheet is not fullscreen
+    expect(queryByText('listTitle')).toBeNull()
   })
 
   it('should render filtered poiList & toolbar components for multipoi feature', () => {

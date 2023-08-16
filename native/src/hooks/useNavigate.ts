@@ -33,7 +33,7 @@ const navigate = <T extends RoutesType>(
   navigation: NavigationProps<T>,
   appCityCode: string | null,
   appLanguageCode: string,
-  showSnackbar: (snackbar: SnackbarType) => void
+  showSnackbar: (snackbar: SnackbarType) => void,
 ): void => {
   if (!routeInformation) {
     return
@@ -146,7 +146,7 @@ const useNavigate = (): UseNavigateReturn => {
   const navigateTo = useCallback(
     (routeInformation: RouteInformationType) =>
       navigate(routeInformation, navigation, cityCode, languageCode, showSnackbar),
-    [navigation, cityCode, languageCode, showSnackbar]
+    [navigation, cityCode, languageCode, showSnackbar],
   )
 
   return { navigateTo, navigation }

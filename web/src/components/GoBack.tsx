@@ -66,7 +66,7 @@ const GoBack = ({ goBack, direction, viewportSmall = false, text }: GoBackProps)
         <ArrowBack src={iconArrowBack} alt='' direction={direction} />
         <DetailsHeaderTitle>{text}</DetailsHeaderTitle>
       </DetailsHeader>
-      <Spacer borderColor={theme.colors.poiBorderColor} />
+      <Spacer borderColor={theme.colors.borderColor} />
     </>
   )
 }

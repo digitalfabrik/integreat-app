@@ -17,7 +17,7 @@ describe('ScrollingSearchBox', () => {
         onFilterTextChange={outerFilterTextChange}
         onStickyTopChanged={outerStickyTopChanged}>
         <MockNode />
-      </ScrollingSearchBox>
+      </ScrollingSearchBox>,
     )
 
     fireEvent.change(getByPlaceholderText('Placeholder'), {
