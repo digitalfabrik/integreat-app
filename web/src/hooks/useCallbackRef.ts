@@ -6,7 +6,7 @@ type UseRefWithCallbackReturnProps<T> = {
 }
 
 const useCallbackRef = <T extends HTMLSpanElement | HTMLDivElement | HTMLParagraphElement>(
-  callback: (ref: RefObject<T>) => void
+  callback: (ref: RefObject<T>) => void,
 ): UseRefWithCallbackReturnProps<T> => {
   const ref = useRef<T | null>(null)
   const refCallback = useCallback(
@@ -14,7 +14,7 @@ const useCallbackRef = <T extends HTMLSpanElement | HTMLDivElement | HTMLParagra
       ref.current = node
       callback(ref)
     },
-    [callback]
+    [callback],
   )
   return { ref: refCallback, current: ref.current }
 }

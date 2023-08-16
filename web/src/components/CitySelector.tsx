@@ -49,10 +49,10 @@ const CitySelector = ({ cities, language }: CitySelectorProps): ReactElement => 
           {cities.map(city => (
             <CityEntry key={city.code} city={city} language={language} filterText={filterText} />
           ))}
-        </div>
+        </div>,
       )
     },
-    []
+    [],
   )
 
   return (

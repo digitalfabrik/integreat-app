@@ -12,7 +12,7 @@ export const embedInCollection = (features: PoiFeature[]): PoiFeatureCollection 
 export const prepareFeatureLocation = (
   poi: PoiModel,
   userLocation: LocationType | null,
-  coordinateList: Position[]
+  coordinateList: Position[],
 ): PoiFeature => {
   const { featureLocation } = poi
   const { coordinates } = featureLocation.geometry
@@ -35,7 +35,7 @@ export const prepareFeatureLocations = (pois: Array<PoiModel>, userLocation: Loc
 
   if (userLocation) {
     return poiFeatures.sort(
-      (poi1, poi2) => parseFloat(poi1.properties.distance ?? '0') - parseFloat(poi2.properties.distance ?? '0')
+      (poi1, poi2) => parseFloat(poi1.properties.distance ?? '0') - parseFloat(poi2.properties.distance ?? '0'),
     )
   }
   return poiFeatures.sort((poi1, poi2) => poi1.properties.title.localeCompare(poi2.properties.title))

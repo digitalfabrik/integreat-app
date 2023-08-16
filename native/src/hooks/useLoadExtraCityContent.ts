@@ -43,7 +43,7 @@ const useLoadExtraCityContent = <T>({
       load
         ? load()
         : loadFromEndpoint(createEndpoint, await determineApiUrl(), { city: cityCode, language: languageCode }),
-    [createEndpoint, load, cityCode, languageCode]
+    [createEndpoint, load, cityCode, languageCode],
   )
   const { refresh: refreshExtra, ...extraReturn } = useLoadAsync(loadAsync)
 

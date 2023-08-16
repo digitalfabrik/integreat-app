@@ -1,5 +1,5 @@
 import { difference, flatMap, isEmpty, map, omitBy } from 'lodash'
-import { Moment } from 'moment'
+import { DateTime } from 'luxon'
 import BlobUtil from 'react-native-blob-util'
 
 import { CategoriesMapModel, CityModel, EventModel, PoiModel } from 'api-client'
@@ -21,7 +21,7 @@ type CacheType = {
   events: Cache<Array<EventModel>>
   categories: Cache<CategoriesMapModel>
   resourceCache: Cache<CityResourceCacheStateType>
-  lastUpdate: Cache<Moment | null>
+  lastUpdate: Cache<DateTime | null>
 }
 type CacheKeyType = keyof CacheType
 
@@ -36,36 +36,36 @@ class DefaultDataContainer implements DataContainer {
         this._databaseConnector,
         (connector: DatabaseConnector, context: DatabaseContext) => connector.loadPois(context),
         (value: Array<PoiModel>, connector: DatabaseConnector, context: DatabaseContext) =>
-          connector.storePois(value, context)
+          connector.storePois(value, context),
       ),
       cities: new Cache<Array<CityModel>>(
         this._databaseConnector,
         (connector: DatabaseConnector) => connector.loadCities(),
-        (value: Array<CityModel>, connector: DatabaseConnector) => connector.storeCities(value)
+        (value: Array<CityModel>, connector: DatabaseConnector) => connector.storeCities(value),
       ),
       events: new Cache<Array<EventModel>>(
         this._databaseConnector,
         (connector: DatabaseConnector, context: DatabaseContext) => connector.loadEvents(context),
         (value: Array<EventModel>, connector: DatabaseConnector, context: DatabaseContext) =>
-          connector.storeEvents(value, context)
+          connector.storeEvents(value, context),
       ),
       categories: new Cache<CategoriesMapModel>(
         this._databaseConnector,
         (connector: DatabaseConnector, context: DatabaseContext) => connector.loadCategories(context),
         (value: CategoriesMapModel, connector: DatabaseConnector, context: DatabaseContext) =>
-          connector.storeCategories(value, context)
+          connector.storeCategories(value, context),
       ),
       resourceCache: new Cache<CityResourceCacheStateType>(
         this._databaseConnector,
         (connector: DatabaseConnector, context: DatabaseContext) => connector.loadResourceCache(context),
         (value: CityResourceCacheStateType, connector: DatabaseConnector, context: DatabaseContext) =>
-          connector.storeResourceCache(value, context)
+          connector.storeResourceCache(value, context),
       ),
-      lastUpdate: new Cache<Moment | null>(
+      lastUpdate: new Cache<DateTime | null>(
         this._databaseConnector,
         (connector: DatabaseConnector, context: DatabaseContext) => connector.loadLastUpdate(context),
-        (value: Moment | null, connector: DatabaseConnector, context: DatabaseContext) =>
-          connector.storeLastUpdate(value, context)
+        (value: DateTime | null, connector: DatabaseConnector, context: DatabaseContext) =>
+          connector.storeLastUpdate(value, context),
       ),
     }
   }
@@ -118,9 +118,9 @@ class DefaultDataContainer implements DataContainer {
     return resourceCache[language] ?? {}
   }
 
-  getLastUpdate = (city: string, language: string): Promise<Moment | null> => {
+  getLastUpdate = (city: string, language: string): Promise<DateTime | null> => {
     const context = new DatabaseContext(city, language)
-    const cache: Cache<Moment | null> = this.caches.lastUpdate
+    const cache: Cache<DateTime | null> = this.caches.lastUpdate
     return cache.get(context)
   }
 
@@ -151,14 +151,14 @@ class DefaultDataContainer implements DataContainer {
     const pageResourceCaches: Array<PageResourceCacheStateType> = Object.values(languageResourceCache)
     return flatMap(
       pageResourceCaches,
-      (file: PageResourceCacheStateType): Array<string> => map(file, ({ filePath }) => filePath)
+      (file: PageResourceCacheStateType): Array<string> => map(file, ({ filePath }) => filePath),
     )
   }
 
   setResourceCache = async (
     city: string,
     language: string,
-    resourceCache: LanguageResourceCacheStateType
+    resourceCache: LanguageResourceCacheStateType,
   ): Promise<void> => {
     const context = new DatabaseContext(city)
     const cache: Cache<CityResourceCacheStateType> = this.caches.resourceCache
@@ -169,7 +169,7 @@ class DefaultDataContainer implements DataContainer {
         {
           [language]: resourceCache,
         },
-        context
+        context,
       )
       return
     }
@@ -186,10 +186,10 @@ class DefaultDataContainer implements DataContainer {
       if (!isEmpty(removedPaths)) {
         const collection: CityResourceCacheStateType = omitBy(
           previousResourceCache,
-          (val, key: string) => key === language
+          (val, key: string) => key === language,
         )
         const pathsOfOtherLanguages = flatMap(collection, (languageCache: LanguageResourceCacheStateType) =>
-          this.getFilePathsFromLanguageResourceCache(languageCache)
+          this.getFilePathsFromLanguageResourceCache(languageCache),
         )
         const pathsToClean = difference(removedPaths, pathsOfOtherLanguages)
         log('Cleaning up the following resources:')
@@ -201,9 +201,9 @@ class DefaultDataContainer implements DataContainer {
     await cache.cache(newResourceCache, context)
   }
 
-  setLastUpdate = async (city: string, language: string, lastUpdate: Moment | null): Promise<void> => {
+  setLastUpdate = async (city: string, language: string, lastUpdate: DateTime | null): Promise<void> => {
     const context = new DatabaseContext(city, language)
-    const cache: Cache<Moment | null> = this.caches.lastUpdate
+    const cache: Cache<DateTime | null> = this.caches.lastUpdate
     await cache.cache(lastUpdate, context)
   }
 

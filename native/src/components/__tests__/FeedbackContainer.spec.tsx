@@ -29,7 +29,7 @@ describe('FeedbackContainer', () => {
     const { getByText, findByText, getByTestId } = render(
       <NavigationContainer>
         <FeedbackContainer routeType={CATEGORIES_ROUTE} isSearchFeedback={false} language={language} cityCode={city} />
-      </NavigationContainer>
+      </NavigationContainer>,
     )
     const positiveRatingButton = getByTestId('feedback-positive-rating')
     fireEvent.press(positiveRatingButton)
@@ -65,7 +65,7 @@ describe('FeedbackContainer', () => {
       <NavigationContainer>
         {' '}
         <FeedbackContainer routeType={CATEGORIES_ROUTE} isSearchFeedback={false} language={language} cityCode={city} />
-      </NavigationContainer>
+      </NavigationContainer>,
     )
     const [commentField, emailField] = getAllByDisplayValue('')
     fireEvent.changeText(commentField!, comment)
@@ -98,7 +98,7 @@ describe('FeedbackContainer', () => {
     const { findByText, getByTestId } = render(
       <NavigationContainer>
         <FeedbackContainer routeType={CATEGORIES_ROUTE} isSearchFeedback={false} language={language} cityCode={city} />
-      </NavigationContainer>
+      </NavigationContainer>,
     )
     const positiveRatingButton = getByTestId('feedback-positive-rating')
     fireEvent.press(positiveRatingButton)

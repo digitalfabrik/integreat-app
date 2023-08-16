@@ -62,7 +62,7 @@ describe('DashboardNavigationTiles', () => {
 
   const renderDashboardNavigationTiles = (cityModel: CityModel): TestRenderer.ReactTestRenderer =>
     TestRenderer.create(
-      <DashboardNavigationTiles navigateTo={navigateTo} languageCode={language} cityModel={cityModel} />
+      <DashboardNavigationTiles navigateTo={navigateTo} languageCode={language} cityModel={cityModel} />,
     )
 
   it('should show navigation tiles if there is at least one feature enabled', () => {

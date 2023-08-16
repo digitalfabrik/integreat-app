@@ -1,6 +1,6 @@
 import { decodeHTML } from 'entities'
 import { mapValues } from 'lodash'
-import moment from 'moment-timezone'
+import { DateTime } from 'luxon'
 import { RRule, rrulestr } from 'rrule'
 
 import Endpoint from '../Endpoint'
@@ -22,19 +22,19 @@ const MAX_FUTURE_EVENT_IN_MONTHS = 6
 const MAX_NUMBERS_OF_RECURRING_EVENTS = 10
 
 const eventCompare = (event1: EventModel, event2: EventModel): number => {
-  if (event1.date.startDate.isBefore(event2.date.startDate)) {
+  if (event1.date.startDate < event2.date.startDate) {
     return -1
   }
 
-  if (event1.date.startDate.isAfter(event2.date.startDate)) {
+  if (event1.date.startDate > event2.date.startDate) {
     return 1
   }
 
-  if (event1.date.endDate.isBefore(event2.date.endDate)) {
+  if (event1.date.endDate < event2.date.endDate) {
     return -1
   }
 
-  if (event1.date.endDate.isAfter(event2.date.endDate)) {
+  if (event1.date.endDate > event2.date.endDate) {
     return 1
   }
 
@@ -44,16 +44,14 @@ const eventCompare = (event1: EventModel, event2: EventModel): number => {
 const mapJsonToEvent = (event: JsonEventType): EventModel => {
   const eventData = event.event
   const allDay = eventData.all_day
-  const startTime = allDay ? '00:00:00' : eventData.start_time
-  const endTime = allDay ? '23:59:59' : eventData.end_time
   return new EventModel({
     path: event.path,
     title: event.title,
     content: event.content,
     thumbnail: event.thumbnail,
     date: new DateModel({
-      startDate: moment.tz(`${eventData.start_date} ${startTime}`, eventData.timezone),
-      endDate: moment.tz(`${eventData.end_date} ${endTime}`, eventData.timezone),
+      startDate: DateTime.fromISO(eventData.start),
+      endDate: DateTime.fromISO(eventData.end),
       allDay,
     }),
     location:
@@ -71,7 +69,8 @@ const mapJsonToEvent = (event: JsonEventType): EventModel => {
         : null,
     excerpt: decodeHTML(event.excerpt),
     availableLanguages: mapAvailableLanguages(event.available_languages),
-    lastUpdate: moment.tz(event.modified_gmt, 'GMT'),
+    lastUpdate: DateTime.fromISO(event.last_updated),
+    /* eslint-disable @typescript-eslint/no-non-null-assertion */
     featuredImage: event.featured_image
       ? new FeaturedImageModel({
           description: event.featured_image.description,
@@ -81,14 +80,15 @@ const mapJsonToEvent = (event: JsonEventType): EventModel => {
           full: event.featured_image.full[0]!,
         })
       : null,
+    /* eslint-enable @typescript-eslint/no-non-null-assertion */
   })
 }
 
 const getEndDate = (event: JsonEventType, startDate: Date): Date => {
-  const start = moment.tz(`${event.event.start_date} ${event.event.start_time}`, event.event.timezone)
-  const end = moment.tz(`${event.event.end_date} ${event.event.end_time}`, event.event.timezone)
-  const durationInDays = end.diff(start, 'days')
-  return moment(startDate).add(durationInDays, 'days').toDate()
+  const start = DateTime.fromISO(event.event.start)
+  const end = DateTime.fromISO(event.event.end)
+  const durationInDays = end.diff(start, 'days').days
+  return DateTime.fromJSDate(new Date(startDate)).startOf('day').plus({ days: durationInDays }).toJSDate()
 }
 
 // TODO IGAPP-281: The workaround of the next two functions can probably be removed
@@ -111,8 +111,8 @@ const createRecurringEvents = (event: JsonEventType): JsonEventType[] => {
     return [event]
   }
   const rrule: RRule = rrulestr(event.recurrence_rule)
-  const today = moment().toDate()
-  const lastValidDay = moment().add(MAX_FUTURE_EVENT_IN_MONTHS, 'months').toDate()
+  const today = DateTime.now().toJSDate()
+  const lastValidDay = DateTime.now().plus({ months: MAX_FUTURE_EVENT_IN_MONTHS }).toJSDate()
 
   const appendDate = (path: string, date: Date) => `${removeTrailingSlash(path)}$${dateToString(date)}`
 
@@ -136,10 +136,10 @@ export default (baseUrl: string): Endpoint<ParamsType, Array<EventModel>> =>
   new EndpointBuilder<ParamsType, Array<EventModel>>(EVENTS_ENDPOINT_NAME)
     .withParamsToUrlMapper(
       (params: ParamsType): string =>
-        `${baseUrl}/${params.city}/${params.language}/wp-json/extensions/v3/events/?combine_recurring=True`
+        `${baseUrl}/${params.city}/${params.language}/wp-json/extensions/v3/events/?combine_recurring=True`,
     )
     .withMapper(
       (json: Array<JsonEventType>): Array<EventModel> =>
-        json.flatMap(createRecurringEvents).map(mapJsonToEvent).sort(eventCompare)
+        json.flatMap(createRecurringEvents).map(mapJsonToEvent).sort(eventCompare),
     )
     .build()

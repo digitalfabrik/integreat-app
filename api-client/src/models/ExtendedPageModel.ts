@@ -1,5 +1,5 @@
 import { isEqual } from 'lodash'
-import { Moment } from 'moment'
+import { DateTime } from 'luxon'
 
 import { getSlugFromPath } from '../utils'
 import PageModel from './PageModel'
@@ -13,7 +13,7 @@ class ExtendedPageModel extends PageModel {
     title: string
     content: string
     thumbnail: string
-    lastUpdate: Moment
+    lastUpdate: DateTime
     availableLanguages: Map<string, string>
   }) {
     const { thumbnail, availableLanguages, ...other } = params
@@ -33,7 +33,7 @@ class ExtendedPageModel extends PageModel {
   get availableLanguageSlugs(): { [languageCode: string]: string } {
     return Array.from(this._availableLanguages.entries()).reduce(
       (acc, [code, path]) => ({ ...acc, [code]: getSlugFromPath(path) }),
-      {}
+      {},
     )
   }
 

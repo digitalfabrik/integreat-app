@@ -35,6 +35,14 @@ const StyledFAB = styled(FAB)<{ position: number | string }>`
   bottom: ${props => props.position}${props => (typeof props.position === 'number' ? 'px' : '')};
 `
 
+const OverlayContainer = styled.View`
+  flex: 1;
+  flex-direction: row;
+  position: absolute;
+  top: 24px;
+  left: 8px;
+`
+
 type MapViewProps = {
   boundingBox: BBox
   featureCollection: PoiFeatureCollection
@@ -46,6 +54,7 @@ type MapViewProps = {
   setSheetSnapPointIndex: (index: number) => void
   followUserLocation: boolean
   setFollowUserLocation: (value: boolean) => void
+  Overlay?: ReactElement
 }
 
 const featureLayerId = 'point'
@@ -63,6 +72,7 @@ const MapView = ({
   setSheetSnapPointIndex,
   followUserLocation,
   setFollowUserLocation,
+  Overlay,
 }: MapViewProps): ReactElement => {
   const deviceHeight = useWindowDimensions().height
   const cameraRef = useRef<MapLibreGL.Camera | null>(null)
@@ -88,7 +98,7 @@ const MapView = ({
   }, [onRequestLocationPermission, setFollowUserLocation])
 
   const onUserTrackingModeChange = (
-    event: MapLibreGLEvent<'usertrackingmodechange', { followUserLocation: boolean }>
+    event: MapLibreGLEvent<'usertrackingmodechange', { followUserLocation: boolean }>,
   ) => {
     if (!event.nativeEvent.payload.followUserLocation) {
       setFollowUserLocation(event.nativeEvent.payload.followUserLocation)
@@ -118,7 +128,7 @@ const MapView = ({
     const featureCollection = await mapRef.current.queryRenderedFeaturesAtPoint(
       [pressedLocation.properties.screenPointX, pressedLocation.properties.screenPointY],
       undefined,
-      [featureLayerId]
+      [featureLayerId],
     )
 
     const feature = featureCollection?.features.find((it): it is PoiFeature => it.geometry.type === 'Point')
@@ -155,6 +165,7 @@ const MapView = ({
           ref={cameraRef}
         />
       </StyledMap>
+      <OverlayContainer>{Overlay}</OverlayContainer>
       <MapAttribution />
       <StyledFAB
         placement='right'
