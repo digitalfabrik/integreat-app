@@ -9,7 +9,7 @@ const parseHTML = (html: string, options: ParserOptions = { decodeEntities: true
         decodedContent += data
       },
     },
-    options
+    options,
   )
 
   parser.write(html)

@@ -72,7 +72,7 @@ const NavigationBarScrollContainer = ({
     (ref: RefObject<HTMLDivElement>) => {
       ref.current?.scroll({ left: getActiveItemScrollPosition(activeIndex) })
     },
-    [activeIndex]
+    [activeIndex],
   )
   const { ref, current: scrollContainer } = useCallbackRef(scrollToActiveItem)
   const scrollableWidth = scrollContainer ? scrollContainer.scrollWidth - scrollContainer.clientWidth : 0

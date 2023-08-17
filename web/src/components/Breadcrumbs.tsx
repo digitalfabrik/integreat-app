@@ -75,7 +75,7 @@ const Breadcrumbs = ({ direction, ancestorBreadcrumbs, currentBreadcrumb }: Brea
             <Breadcrumb key={breadcrumb.title} shrink={breadcrumb.title.length >= MIN_SHRINK_CHARS}>
               {breadcrumb.node}
             </Breadcrumb>
-          )
+          ),
         )}
       </OrderedList>
     </Wrapper>

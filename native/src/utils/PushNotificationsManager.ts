@@ -114,7 +114,7 @@ export const useForegroundPushNotificationListener = ({
             // })
           }, WAITING_TIME_FOR_CMS)
         }
-      })
+      }),
     )
     return () => {
       mounted = false
@@ -122,7 +122,7 @@ export const useForegroundPushNotificationListener = ({
   }, [showSnackbar, navigate])
 
 export const quitAppStatePushNotificationListener = async (
-  navigateToDeepLink: (url: string) => void
+  navigateToDeepLink: (url: string) => void,
 ): Promise<void> => {
   const messaging = await importFirebaseMessaging()
   const message = (await messaging().getInitialNotification()) as Message | null
@@ -142,7 +142,7 @@ export const backgroundAppStatePushNotificationListener = (listener: (url: strin
         const onReceiveURLListener = Linking.addListener('url', onReceiveURL)
 
         const unsubscribeNotification = messaging().onNotificationOpenedApp(message =>
-          listener(urlFromMessage(message as Message))
+          listener(urlFromMessage(message as Message)),
         )
 
         return () => {

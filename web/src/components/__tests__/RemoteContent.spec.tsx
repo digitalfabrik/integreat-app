@@ -8,7 +8,7 @@ describe('RemoteContent', () => {
   it('should render the html content', () => {
     const content = 'Test html'
     const { getByText } = renderWithTheme(
-      <RemoteContent html={`<div>${content}</div>`} onInternalLinkClick={() => undefined} />
+      <RemoteContent html={`<div>${content}</div>`} onInternalLinkClick={() => undefined} />,
     )
     expect(getByText(content)).toBeTruthy()
   })
@@ -20,7 +20,7 @@ describe('RemoteContent', () => {
     const onInternalLinkClick = jest.fn()
 
     const { getByRole, getAllByRole } = renderWithTheme(
-      <RemoteContent html={html} onInternalLinkClick={onInternalLinkClick} />
+      <RemoteContent html={html} onInternalLinkClick={onInternalLinkClick} />,
     )
 
     expect(getAllByRole('link')).toHaveLength(1)
@@ -36,7 +36,7 @@ describe('RemoteContent', () => {
     const onInternalLinkClick = jest.fn()
 
     const { getByRole, getAllByRole } = renderWithTheme(
-      <RemoteContent html={html} onInternalLinkClick={onInternalLinkClick} />
+      <RemoteContent html={html} onInternalLinkClick={onInternalLinkClick} />,
     )
 
     expect(getAllByRole('link')).toHaveLength(1)
@@ -52,7 +52,7 @@ describe('RemoteContent', () => {
     const content =
       '<div><p>Ich bleib aber da.<iframe//src=jAva&Tab;script:alert(3)>def</p><math><mi//xlink:href="data:x,<script>alert(4)</script>">'
     const { getByText } = renderWithTheme(
-      <RemoteContent html={`<div>${content}</div>`} onInternalLinkClick={() => undefined} />
+      <RemoteContent html={`<div>${content}</div>`} onInternalLinkClick={() => undefined} />,
     )
 
     expect(alertSpy).not.toHaveBeenCalled()

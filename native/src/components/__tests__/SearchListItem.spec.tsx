@@ -16,7 +16,7 @@ describe('SearchListItem', () => {
   const language = new LanguageModelBuilder(1).build()[0]!
   const { categories: categoriesMapModel, resourceCache } = new CategoriesMapModelBuilder(
     cityModel.code,
-    language.code
+    language.code,
   ).buildAll()
   const categories = categoriesMapModel.toArray()
   const category = categories[1]!
@@ -46,7 +46,7 @@ describe('SearchListItem', () => {
         onItemPress={onItemPress}
         language={language.code}
         query={query}
-      />
+      />,
     )
 
     assertHighlighting(getByText(excerptBeforeQuery, { exact: false }), false)
@@ -64,7 +64,7 @@ describe('SearchListItem', () => {
         onItemPress={onItemPress}
         language={language.code}
         query={category.title}
-      />
+      />,
     )
 
     assertHighlighting(getByText(category.title), true)
@@ -84,7 +84,7 @@ describe('SearchListItem', () => {
         onItemPress={onItemPress}
         language={language.code}
         query={query}
-      />
+      />,
     )
 
     assertHighlighting(getByText(category.title), false)
@@ -104,7 +104,7 @@ describe('SearchListItem', () => {
         onItemPress={onItemPress}
         language={language.code}
         query={query}
-      />
+      />,
     )
 
     assertHighlighting(getByText(category.title), false)

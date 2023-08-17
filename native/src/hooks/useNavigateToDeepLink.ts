@@ -116,7 +116,7 @@ const useNavigateToDeepLink = (): ((url: string) => void) => {
   return useCallback(
     async (url: string) =>
       navigateToDeepLink({ url, navigation, navigateTo, ...appContext, showSnackbar }).catch(reportError),
-    [appContext, navigation, navigateTo, showSnackbar]
+    [appContext, navigation, navigateTo, showSnackbar],
   )
 }
 

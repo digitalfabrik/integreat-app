@@ -106,7 +106,7 @@ program
   .description("move the release notes in 'unreleased' to a new subdirectory <new-version-name>")
   .requiredOption(
     '--deliverino-private-key <deliverino-private-key>',
-    'private key of the deliverino github app in pem format with base64 encoding'
+    'private key of the deliverino github app in pem format with base64 encoding',
   )
   .requiredOption('--owner <owner>', 'owner of the current repository, usually "digitalfabrik"')
   .requiredOption('--repo <repo>', 'the current repository, usually "integreat-app"')

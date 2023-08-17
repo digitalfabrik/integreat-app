@@ -51,7 +51,10 @@ export const DropDownContainer = styled.div<{ active: boolean; height?: number }
   transform-origin: center top;
   justify-content: center;
   box-shadow: 0 2px 5px -3px rgba(0, 0, 0, 0.2);
-  transition: transform 0.2s, opacity 0.2s, visibility 0s ${props => (props.active ? '0s' : '0.2s')};
+  transition:
+    transform 0.2s,
+    opacity 0.2s,
+    visibility 0s ${props => (props.active ? '0s' : '0.2s')};
   background-color: ${props => props.theme.colors.backgroundColor};
   visibility: ${props => (props.active ? 'visible' : 'hidden')};
 

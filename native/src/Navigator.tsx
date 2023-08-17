@@ -109,7 +109,7 @@ const Navigator = (): ReactElement | null => {
       setInitialRoute({
         name: REDIRECT_ROUTE,
         url,
-      })
+      }),
     )
   }, [])
 
@@ -117,7 +117,7 @@ const Navigator = (): ReactElement | null => {
     (initialRoute: InitialRouteType) =>
       // Do not override initial route set by opening push notification
       setInitialRoute(previous => (previous?.name === REDIRECT_ROUTE ? previous : initialRoute)),
-    []
+    [],
   )
 
   useEffect(() => {

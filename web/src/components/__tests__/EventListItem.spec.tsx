@@ -30,7 +30,7 @@ describe('EventListItem', () => {
     const eventWithoutThumbnail = Object.assign(event, { _thumbnail: undefined })
 
     const { getByText, getByRole } = renderWithRouterAndTheme(
-      <EventListItem event={eventWithoutThumbnail} formatter={formatter} />
+      <EventListItem event={eventWithoutThumbnail} formatter={formatter} />,
     )
 
     expect(getByText(event.title)).toBeTruthy()

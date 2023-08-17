@@ -4,7 +4,7 @@ export type FormatFunctionType = (
   date: DateTime,
   options: {
     format?: string
-  }
+  },
 ) => string
 export const ISO8601_FORMAT = undefined
 
@@ -20,7 +20,7 @@ class DateFormatter {
     date: DateTime,
     options: {
       format?: string
-    }
+    },
   ) => {
     const format = options.format || this.fallbackFormat
     // TODO #1384: the actual locale should be used

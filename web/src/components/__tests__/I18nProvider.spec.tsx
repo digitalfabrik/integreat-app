@@ -29,11 +29,11 @@ describe('I18nProvider', () => {
         <I18nProvider contentLanguage={contentLanguage}>
           <Translation>{(t, { i18n }) => <p>{i18n.languages[0]}</p>}</Translation>
           <Translation>{t => <p>{t('dashboard:localInformation')}</p>}</Translation>
-        </I18nProvider>
+        </I18nProvider>,
       )
       expect(await findByText(expectedLanguage)).toBeTruthy()
       expect(await findByText(expectedTranslation)).toBeTruthy()
-    }
+    },
   )
 
   it(`should set the browser direction correctly to rtl for ar`, async () => {
@@ -41,7 +41,7 @@ describe('I18nProvider', () => {
     const { findByText, getByTestId } = render(
       <I18nProvider contentLanguage={undefined}>
         <Translation>{(t, { i18n }) => <p>{i18n.languages[0]}</p>}</Translation>
-      </I18nProvider>
+      </I18nProvider>,
     )
 
     expect((await findByText('ar')).parentElement?.dir).toBe('rtl')
@@ -53,7 +53,7 @@ describe('I18nProvider', () => {
     const { findByText, getByTestId } = render(
       <I18nProvider contentLanguage={undefined}>
         <Translation>{(t, { i18n }) => <p>{i18n.languages[0]}</p>}</Translation>
-      </I18nProvider>
+      </I18nProvider>,
     )
 
     expect((await findByText('de')).parentElement?.dir).toBe('ltr')
@@ -64,7 +64,7 @@ describe('I18nProvider', () => {
     const { findByText } = render(
       <I18nProvider contentLanguage='fa'>
         <Translation>{(t, { i18n }) => <p>{i18n.languages[0]}</p>}</Translation>
-      </I18nProvider>
+      </I18nProvider>,
     )
     expect(await findByText('pes')).toBeTruthy()
   })
@@ -74,10 +74,10 @@ describe('I18nProvider', () => {
     render(
       <I18nProvider contentLanguage={undefined}>
         <Translation>{(t, { i18n }) => <p>{i18n.languages[0]}</p>}</Translation>
-      </I18nProvider>
+      </I18nProvider>,
     )
     await waitFor(() =>
-      expect(document.querySelector('link')?.getAttribute('href')).toBe('/fonts/noto-sans-arabic/noto-sans-arabic.css')
+      expect(document.querySelector('link')?.getAttribute('href')).toBe('/fonts/noto-sans-arabic/noto-sans-arabic.css'),
     )
   })
 
@@ -86,10 +86,10 @@ describe('I18nProvider', () => {
     render(
       <I18nProvider contentLanguage={undefined}>
         <Translation>{(t, { i18n }) => <p>{i18n.languages[0]}</p>}</Translation>
-      </I18nProvider>
+      </I18nProvider>,
     )
     await waitFor(() =>
-      expect(document.querySelector('link')?.getAttribute('href')).toBe('/fonts/noto-sans-sc/noto-sans-sc.css')
+      expect(document.querySelector('link')?.getAttribute('href')).toBe('/fonts/noto-sans-sc/noto-sans-sc.css'),
     )
   })
 
@@ -98,12 +98,12 @@ describe('I18nProvider', () => {
     render(
       <I18nProvider contentLanguage={undefined}>
         <Translation>{(t, { i18n }) => <p>{i18n.languages[0]}</p>}</Translation>
-      </I18nProvider>
+      </I18nProvider>,
     )
     await waitFor(() =>
       expect(document.querySelector('link')?.getAttribute('href')).toBe(
-        '/fonts/noto-sans-georgian/noto-sans-georgian.css'
-      )
+        '/fonts/noto-sans-georgian/noto-sans-georgian.css',
+      ),
     )
   })
 
@@ -112,7 +112,7 @@ describe('I18nProvider', () => {
     const { findByText } = render(
       <I18nProvider contentLanguage={undefined}>
         <Translation>{t => <p>{t('dashboard:localInformation')}</p>}</Translation>
-      </I18nProvider>
+      </I18nProvider>,
     )
     expect(await findByText('Lokale Informationen')).toBeTruthy()
   })
