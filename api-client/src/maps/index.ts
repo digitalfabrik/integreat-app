@@ -122,3 +122,6 @@ export const circleRadiusSmall = 20
 export const circleRadiusLarge = 30
 export const fontSizeSmall = 12
 export const fontSizeLarge = 16
+
+// The opening hours loaded from the cms are ordered according to the german weekday order
+export const weekdays = ['montag', 'dienstag', 'mittwoch', 'donnerstag', 'freitag', 'samstag', 'sonntag']
