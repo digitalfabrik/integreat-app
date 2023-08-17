@@ -13,7 +13,7 @@ class Gestures {
   static async swipeIntoViewAndroid(
     selector: SelectorReturn,
     maxScrolls: number,
-    amount = 0
+    amount = 0,
   ): Promise<WebdriverIO.Element> {
     const scrollForward = `android=new UiScrollable(new UiSelector().scrollable(true)).scrollForward()`
     if (!(await selector.isDisplayed()) && amount <= maxScrolls) {
@@ -30,7 +30,7 @@ class Gestures {
   static async swipeIntoViewIOS(
     selector: SelectorReturn,
     maxScrolls: number,
-    amount = 0
+    amount = 0,
   ): Promise<WebdriverIO.Element> {
     // If the element is not displayed and we haven't scrolled the max amount of scrolls
     // then scroll and execute the method again

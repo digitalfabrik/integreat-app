@@ -70,6 +70,7 @@ const mapJsonToEvent = (event: JsonEventType): EventModel => {
     excerpt: decodeHTML(event.excerpt),
     availableLanguages: mapAvailableLanguages(event.available_languages),
     lastUpdate: DateTime.fromISO(event.last_updated),
+    /* eslint-disable @typescript-eslint/no-non-null-assertion */
     featuredImage: event.featured_image
       ? new FeaturedImageModel({
           description: event.featured_image.description,
@@ -79,6 +80,7 @@ const mapJsonToEvent = (event: JsonEventType): EventModel => {
           full: event.featured_image.full[0]!,
         })
       : null,
+    /* eslint-enable @typescript-eslint/no-non-null-assertion */
   })
 }
 
@@ -134,10 +136,10 @@ export default (baseUrl: string): Endpoint<ParamsType, Array<EventModel>> =>
   new EndpointBuilder<ParamsType, Array<EventModel>>(EVENTS_ENDPOINT_NAME)
     .withParamsToUrlMapper(
       (params: ParamsType): string =>
-        `${baseUrl}/${params.city}/${params.language}/wp-json/extensions/v3/events/?combine_recurring=True`
+        `${baseUrl}/${params.city}/${params.language}/wp-json/extensions/v3/events/?combine_recurring=True`,
     )
     .withMapper(
       (json: Array<JsonEventType>): Array<EventModel> =>
-        json.flatMap(createRecurringEvents).map(mapJsonToEvent).sort(eventCompare)
+        json.flatMap(createRecurringEvents).map(mapJsonToEvent).sort(eventCompare),
     )
     .build()

@@ -17,7 +17,7 @@ const githubRelease = async (
   platform: string,
   newVersionName: string,
   newVersionCode: string,
-  { deliverinoPrivateKey, owner, repo, releaseNotes, downloadLinks, betaRelease, dryRun }: Options
+  { deliverinoPrivateKey, owner, repo, releaseNotes, downloadLinks, betaRelease, dryRun }: Options,
 ) => {
   const versionCode = parseInt(newVersionCode, 10)
   if (Number.isNaN(versionCode)) {
@@ -52,7 +52,7 @@ program
   .description('creates a new release for the specified platform')
   .requiredOption(
     '--deliverino-private-key <deliverino-private-key>',
-    'private key of the deliverino github app in pem format with base64 encoding'
+    'private key of the deliverino github app in pem format with base64 encoding',
   )
   .requiredOption('--owner <owner>', 'owner of the current repository, usually "digitalfabrik"')
   .requiredOption('--repo <repo>', 'the current repository, should be integreat-app')

@@ -80,7 +80,7 @@ describe('NearbyCities', () => {
           longitude: 0,
           latitude: 0,
         },
-      })
+      }),
     )
     const { queryByText, getByText } = renderNearbyCities()
     await waitFor(() => expect(getByText('noNearbyCities')).toBeTruthy())

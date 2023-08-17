@@ -64,7 +64,7 @@ export default (): Endpoint<Params, ShelterModel[]> =>
             hostType: it.host_type,
             costs: it.costs,
             comments: it.comments,
-          })
-      )
+          }),
+      ),
     )
     .build()

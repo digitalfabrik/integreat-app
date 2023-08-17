@@ -18,7 +18,9 @@ const Element = styled.span<{ $selected: boolean; $enabled: boolean }>`
   text-align: center;
   white-space: nowrap;
   border-radius: 30px;
-  transition: background-color 0.2s, border-radius 0.2s;
+  transition:
+    background-color 0.2s,
+    border-radius 0.2s;
   user-select: none;
 
   @media ${dimensions.smallViewport} {

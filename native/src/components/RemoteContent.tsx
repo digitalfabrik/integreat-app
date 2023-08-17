@@ -16,7 +16,7 @@ import { ParsedCacheDictionaryType } from './Page'
 export const renderWebviewError = (
   errorDomain: string | null | undefined,
   errorCode: number,
-  errorDesc: string
+  errorDesc: string,
 ): React.ReactElement => (
   <Text>
     ${errorDomain} ${errorCode} ${errorDesc}
@@ -86,7 +86,7 @@ const RemoteContent = (props: RemoteContentProps): ReactElement | null => {
       setPressedUrl(event.url)
       return false
     },
-    [resourceCacheUrl]
+    [resourceCacheUrl],
   )
 
   if (content.length === 0) {
