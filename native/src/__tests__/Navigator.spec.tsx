@@ -132,7 +132,7 @@ const renderNavigator = (cityCode: string | null = null) =>
       <NavigationContainer>
         <Navigator />
       </NavigationContainer>
-    </AppContext.Provider>
+    </AppContext.Provider>,
   )
 
 describe('Navigator', () => {
@@ -180,7 +180,7 @@ describe('Navigator', () => {
   it('should listen for push notification press in quit state', async () => {
     mockSettings({ introShown: true })
     mocked(quitAppStatePushNotificationListener).mockImplementation(async navigate =>
-      navigate('https://integreat.app/augsbug/de/news/local/1234')
+      navigate('https://integreat.app/augsbug/de/news/local/1234'),
     )
     const { findByText } = renderNavigator()
 

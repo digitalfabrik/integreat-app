@@ -85,7 +85,7 @@ describe('CategoriesMapModel', () => {
   it('should normalize url components correctly for special characters', () => {
     const map = new CategoriesMapModel([farsiCategory])
     const foundFarsiCategory = map.findCategoryByPath(
-      '/augsburg/fa/erste-schritte/%D9%86%D9%82%D8%B4%D9%87-%D8%B4%D9%87%D8%B1'
+      '/augsburg/fa/erste-schritte/%D9%86%D9%82%D8%B4%D9%87-%D8%B4%D9%87%D8%B1',
     )
     expect(foundFarsiCategory).toEqual(farsiCategory)
   })

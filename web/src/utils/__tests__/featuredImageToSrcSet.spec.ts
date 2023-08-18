@@ -12,7 +12,7 @@ describe('featuredImageToSrcSet', () => {
         large: { url: 'large', width: 30, height: 45 },
         full: { url: 'full', width: 40, height: 60 },
       }),
-      20
+      20,
     )
 
     expect(srcSet).toBe('thumbnail%20 0.5x, medium 1x, large 1.5x, full 2x')

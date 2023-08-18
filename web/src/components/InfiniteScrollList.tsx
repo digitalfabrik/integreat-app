@@ -63,7 +63,7 @@ const InfiniteScrollList = <T,>({
       setHasMore(true)
       setPage(defaultPage)
     },
-    [loadPage, defaultPage]
+    [loadPage, defaultPage],
   )
 
   if (error) {

@@ -33,7 +33,7 @@ describe('Feedback', () => {
     const { getByText, queryByText } = render(
       <NavigationContainer>
         <Feedback {...buildProps(null, false, '')} />
-      </NavigationContainer>
+      </NavigationContainer>,
     )
     expect(getByText('send')).toBeDisabled()
     expect(queryByText('informationNotFound')).toBeFalsy()
@@ -44,7 +44,7 @@ describe('Feedback', () => {
     const { getByText } = render(
       <NavigationContainer>
         <Feedback {...buildProps(null, true, '')} />
-      </NavigationContainer>
+      </NavigationContainer>,
     )
     expect(getByText('send')).toBeDisabled()
     expect(getByText('informationNotFound')).toBeTruthy()
@@ -54,7 +54,7 @@ describe('Feedback', () => {
     const { getByText, queryByText } = render(
       <NavigationContainer>
         <Feedback {...buildProps(true, false, '')} />
-      </NavigationContainer>
+      </NavigationContainer>,
     )
     expect(getByText('send')).not.toBeDisabled()
     expect(queryByText('informationNotFound')).toBeFalsy()
@@ -64,7 +64,7 @@ describe('Feedback', () => {
     const { getByText } = render(
       <NavigationContainer>
         <Feedback {...buildProps(null, false, 'comment')} />
-      </NavigationContainer>
+      </NavigationContainer>,
     )
     expect(getByText('send')).not.toBeDisabled()
     expect(getByText('note')).toBeTruthy()
@@ -74,7 +74,7 @@ describe('Feedback', () => {
     const { getByText } = render(
       <NavigationContainer>
         <Feedback {...buildProps(false, true, 'comment')} />
-      </NavigationContainer>
+      </NavigationContainer>,
     )
     expect(getByText('informationNotFound')).toBeDefined()
   })
@@ -82,7 +82,7 @@ describe('Feedback', () => {
     const { getByText } = render(
       <NavigationContainer>
         <Feedback {...buildProps(false, true, 'My test comment')} />
-      </NavigationContainer>
+      </NavigationContainer>,
     )
     const button = getByText('send')
     fireEvent.press(button)
@@ -92,7 +92,7 @@ describe('Feedback', () => {
     const { getByDisplayValue, queryByDisplayValue } = render(
       <NavigationContainer>
         <Feedback {...buildProps(false, false, 'my old comment')} />
-      </NavigationContainer>
+      </NavigationContainer>,
     )
     expect(getByDisplayValue('my old comment')).toBeTruthy()
     expect(queryByDisplayValue('my new comment')).toBeFalsy()
@@ -105,7 +105,7 @@ describe('Feedback', () => {
     const { getByDisplayValue, queryByDisplayValue } = render(
       <NavigationContainer>
         <Feedback {...buildProps(false, false, 'my comment')} />
-      </NavigationContainer>
+      </NavigationContainer>,
     )
     expect(getByDisplayValue('test@example.com')).toBeTruthy()
     expect(queryByDisplayValue('new@example.com')).toBeFalsy()

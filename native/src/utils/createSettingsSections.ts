@@ -17,7 +17,7 @@ import { initSentry } from './sentry'
 
 export type SetSettingFunctionType = (
   changeSetting: (settings: SettingsType) => Partial<SettingsType>,
-  changeAction?: (newSettings: SettingsType) => Promise<boolean>
+  changeAction?: (newSettings: SettingsType) => Promise<boolean>,
 ) => Promise<void>
 
 export type SettingsSectionType = {
@@ -93,7 +93,7 @@ const createSettingsSections = ({
                       await NotificationsManager.unsubscribeNews(cityCode, languageCode)
                     }
                     return true
-                  }
+                  },
                 )
               },
             },
@@ -118,7 +118,7 @@ const createSettingsSections = ({
                 client.getOptions().enabled = !!newSettings.errorTracking
               }
               return true
-            }
+            },
           )
         },
       },

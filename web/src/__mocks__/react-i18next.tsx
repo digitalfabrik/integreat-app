@@ -2,7 +2,7 @@ import i18next, { i18n, TFunction } from 'i18next'
 import { ReactNode } from 'react'
 
 const useTranslation = (
-  namespace: string
+  namespace: string,
 ): {
   t: TFunction
   i18n: i18n
