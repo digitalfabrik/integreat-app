@@ -23,7 +23,7 @@ const Helmet = ({
   const languageLinks =
     languageChangePaths?.map(
       ({ code, path }) =>
-        path && <link key={code} rel='alternate' hrefLang={code} href={`${window.location.origin}${path}`} />
+        path && <link key={code} rel='alternate' hrefLang={code} href={`${window.location.origin}${path}`} />,
     ) ?? null
 
   const noIndex =

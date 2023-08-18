@@ -87,7 +87,7 @@ class EventModelBuilder {
               LANGUAGES.filter(language => language !== this._language).map(lng => [
                 lng,
                 `/${this._city}/${lng}/events/event${index}`,
-              ])
+              ]),
             ),
             date: new DateModel({
               startDate,
@@ -119,7 +119,7 @@ class EventModelBuilder {
             [thumbnail]: this.createResource(thumbnail, index, lastUpdate),
           },
         }
-      }
+      },
     )
   }
 }

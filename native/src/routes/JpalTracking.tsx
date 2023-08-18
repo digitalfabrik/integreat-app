@@ -93,7 +93,7 @@ const JpalTracking = ({ navigation }: JpalTrackingProps): ReactElement => {
         navigation.dispatch(action)
       }
     },
-    [navigation, trackingEnabled, updateTrackingEnabled, t]
+    [navigation, trackingEnabled, updateTrackingEnabled, t],
   )
   useOnBackNavigation(onBackNavigation)
 

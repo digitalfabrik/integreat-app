@@ -19,7 +19,7 @@ describe('OpeningEntry', () => {
         closed={closed}
         timeSlots={timeSlots}
         isCurrentDay={isCurrentDay}
-      />
+      />,
     )
   it('should display the timeslots of a weekday', () => {
     const { getByText } = renderOpeningEntries(false, false, false)

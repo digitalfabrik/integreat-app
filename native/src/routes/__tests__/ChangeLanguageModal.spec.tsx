@@ -45,7 +45,7 @@ describe('ChangeLanguageModal', () => {
     render(
       <AppContext.Provider value={context}>
         <ChangeLanguageModal route={route} navigation={navigation} />
-      </AppContext.Provider>
+      </AppContext.Provider>,
     )
 
   it('should change language if language is available and not selected', () => {

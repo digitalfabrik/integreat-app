@@ -1,9 +1,9 @@
-import { DateTime, Info } from 'luxon'
+import { DateTime } from 'luxon'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
 
-import { OpeningHoursModel } from 'api-client'
+import { OpeningHoursModel, weekdays } from 'api-client'
 import { UiDirectionType } from 'translations/src'
 
 import Collapsible from './Collapsible'
@@ -58,9 +58,6 @@ const OpeningHours = ({
 }: OpeningHoursProps): ReactElement | null => {
   const { t } = useTranslation('pois')
 
-  // The opening hours loaded from the cms are ordered according to the german weekday order
-  const weekdays = Info.weekdays('short', { locale: 'de' })
-
   const openingHoursTitle = (
     <>
       <span>{t('openingHours')}</span>
@@ -73,7 +70,7 @@ const OpeningHours = ({
     return <TitleContainer>{openingHoursTitle}</TitleContainer>
   }
 
-  if (!openingHours) {
+  if (!openingHours || openingHours.length !== weekdays.length) {
     return null
   }
 
@@ -82,7 +79,8 @@ const OpeningHours = ({
       <Content>
         {openingHours.map((entry, index) => (
           <OpeningEntry
-            key={`${weekdays[index]!}-OpeningEntry`}
+            key={`${weekdays[index]}-OpeningEntry`}
+            // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
             weekday={t(weekdays[index]!.toLowerCase())}
             allDay={entry.allDay}
             closed={entry.closed}

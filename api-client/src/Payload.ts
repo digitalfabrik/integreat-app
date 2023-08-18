@@ -10,7 +10,7 @@ class Payload<T> {
     requestUrl: string | null | undefined = null,
     data: T | null | undefined = null,
     error: Error | null | undefined = null,
-    fetchDate: number = Date.now()
+    fetchDate: number = Date.now(),
   ) {
     this._isFetching = isFetching
     this._fetchDate = fetchDate
