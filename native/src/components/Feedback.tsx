@@ -161,7 +161,7 @@ const Feedback = ({
             borderRadius: 4,
           }}
           onPress={navigation.goBack}
-          title={t('close')}
+          title={t('common:close')}
         />
       </>
     )

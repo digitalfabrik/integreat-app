@@ -21,7 +21,6 @@ import { CityRouteProps } from '../CityContentSwitcher'
 import CityContentLayout, { CityContentLayoutProps } from '../components/CityContentLayout'
 import CityContentToolbar from '../components/CityContentToolbar'
 import FailureSwitcher from '../components/FailureSwitcher'
-import FeedbackModal from '../components/FeedbackModal'
 import Helmet from '../components/Helmet'
 import LoadingSpinner from '../components/LoadingSpinner'
 import PoisDesktop from '../components/PoisDesktop'
@@ -50,7 +49,6 @@ const PoisPage = ({ cityCode, languageCode, city, pathname }: CityRouteProps): R
   const { t } = useTranslation('pois')
   const { slug: unsafeSlug } = useParams()
   const slug = unsafeSlug ? normalizePath(unsafeSlug) : undefined
-  const [isFeedbackModalOpen, setIsFeedbackModalOpen] = useState<boolean>(false)
   const [userLocation, setUserLocation] = useState<LocationType | undefined>(undefined)
   const { data, error: featureLocationsError, loading } = useFeatureLocations(cityCode, languageCode, userLocation)
   const currentPoi = useMemo(() => data?.pois.find(poi => slug === poi.slug) ?? null, [data?.pois, slug])
@@ -99,16 +97,7 @@ const PoisPage = ({ cityCode, languageCode, city, pathname }: CityRouteProps): R
       hideDivider
       languageCode={languageCode}
       pageTitle={pageTitle}
-    />
-  )
-
-  const feedbackModal = isFeedbackModalOpen && (
-    <FeedbackModal
-      cityCode={city.code}
-      language={languageCode}
-      routeType={POIS_ROUTE}
-      closeModal={() => setIsFeedbackModalOpen(false)}
-      topPosition={undefined}
+      isInBottomActionSheet={viewportSmall}
     />
   )
 
@@ -176,7 +165,6 @@ const PoisPage = ({ cityCode, languageCode, city, pathname }: CityRouteProps): R
         ) : (
           <PoisDesktop {...sharedPoiProps} panelHeights={panelHeights} cityModel={city} />
         )}
-        {feedbackModal}
       </PoisPageWrapper>
     </CityContentLayout>
   )
