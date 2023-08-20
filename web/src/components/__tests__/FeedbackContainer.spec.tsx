@@ -141,7 +141,7 @@ describe('FeedbackContainer', () => {
     fireEvent.click(button)
 
     expect(await findByText('feedback:thanksMessage')).toBeTruthy()
-    expect(getByRole('button', { name: 'feedback:close' })).toBeTruthy()
+    expect(getByRole('button', { name: 'feedback:common:close' })).toBeTruthy()
   })
 
   it('should display thanks message for search', async () => {
