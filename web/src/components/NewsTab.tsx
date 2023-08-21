@@ -5,8 +5,7 @@ import styled from 'styled-components'
 
 import { NewsType, TU_NEWS_TYPE } from 'api-client'
 
-import tunewsLogoActive from '../assets/TunewsActiveLogo.png'
-import tunewsLogoInactive from '../assets/TunewsInactiveLogo.png'
+import { TuNewsActiveIcon, TuNewsInactiveIcon } from '../assets'
 import { tunewsLabel } from '../constants/news'
 
 const StyledTab = styled(Link)<{ $active: boolean }>`
@@ -32,7 +31,7 @@ const StyledTab = styled(Link)<{ $active: boolean }>`
 `
 
 const TuStyledTab = styled(StyledTab)`
-  background-image: ${({ $active }) => ($active ? `url(${tunewsLogoActive})` : `url(${tunewsLogoInactive})`)};
+  background-image: ${({ $active }) => ($active ? `url(${TuNewsActiveIcon})` : `url(${TuNewsInactiveIcon})`)};
   background-color: ${({ $active, theme }) =>
     $active ? theme.colors.tunewsThemeColor : theme.colors.textDisabledColor};
   background-size: cover;

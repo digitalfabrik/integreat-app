@@ -1,9 +1,9 @@
-import SadIcon from 'integreat-app/assets/icons/negative-feedback.svg'
-import HappyIcon from 'integreat-app/assets/icons/positive-feedback.svg'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 import styled from 'styled-components/native'
 
+import { HappySmileyIcon, SadSmileyIcon } from '../assets'
+import Icon from './base/Icon'
 import ToggleButton from './base/ToggleButton'
 
 const Container = styled.View`
@@ -33,14 +33,14 @@ const FeedbackButtons = ({ isPositiveFeedback, setIsPositiveFeedback }: Feedback
       <ToggleButton
         text={t('useful')}
         onPress={() => setIsPositiveFeedback(isPositiveFeedback !== true ? true : null)}
-        Icon={<HappyIcon height={MAXIMAL_ICON_SIZE} width={MAXIMAL_ICON_SIZE} />}
+        Icon={<Icon Icon={HappySmileyIcon} height={MAXIMAL_ICON_SIZE} width={MAXIMAL_ICON_SIZE} />}
         active={isPositiveFeedback === true}
       />
       <Spacing />
       <ToggleButton
         text={t('notUseful')}
         onPress={() => setIsPositiveFeedback(isPositiveFeedback !== false ? false : null)}
-        Icon={<SadIcon height={MAXIMAL_ICON_SIZE} width={MAXIMAL_ICON_SIZE} />}
+        Icon={<Icon Icon={SadSmileyIcon} height={MAXIMAL_ICON_SIZE} width={MAXIMAL_ICON_SIZE} />}
         active={isPositiveFeedback === false}
       />
     </Container>

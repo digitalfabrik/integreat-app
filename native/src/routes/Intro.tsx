@@ -7,6 +7,7 @@ import { IntroRouteType, LANDING_ROUTE } from 'api-client'
 
 import SlideContent, { SlideContentType } from '../components/SlideContent'
 import SlideFooter from '../components/SlideFooter'
+import Icon from '../components/base/Icon'
 import { NavigationProps, RouteProps } from '../constants/NavigationTypes'
 import buildConfig, { buildConfigAssets } from '../constants/buildConfig'
 import useNavigateToDeepLink from '../hooks/useNavigateToDeepLink'
@@ -65,7 +66,7 @@ const Intro = ({ route, navigation }: IntroProps): ReactElement => {
       description: t('appDescription', {
         appName: buildConfig().appName,
       }),
-      Content: <AppIcon width='40%' height='40%' />,
+      Content: <Icon Icon={AppIcon} width='40%' height='40%' />,
     },
   ]
   if (styledIcons) {
@@ -74,25 +75,25 @@ const Intro = ({ route, navigation }: IntroProps): ReactElement => {
         key: 'search',
         title: t('search'),
         description: t('searchDescription'),
-        Content: <styledIcons.Search height='100%' width='60%' />,
+        Content: <Icon Icon={styledIcons.Search} height='100%' width='60%' />,
       },
       {
         key: 'events',
         title: t('events'),
         description: t('eventsDescription'),
-        Content: <styledIcons.Events height='100%' width='60%' />,
+        Content: <Icon Icon={styledIcons.Events} height='100%' width='60%' />,
       },
       {
         key: 'offers',
         title: t('offers'),
         description: t('offersDescription'),
-        Content: <styledIcons.Offers height='100%' width='60%' />,
+        Content: <Icon Icon={styledIcons.Offers} height='100%' width='60%' />,
       },
       {
         key: 'languageChange',
         title: t('languageChange'),
         description: t('languageChangeDescription'),
-        Content: <styledIcons.Language height='100%' width='60%' />,
+        Content: <Icon Icon={styledIcons.Language} height='100%' width='60%' />,
       },
     )
   }

@@ -6,13 +6,14 @@ import styled from 'styled-components'
 import { createTunewsElementEndpoint, NotFoundError, TU_NEWS_TYPE, useLoadFromEndpoint } from 'api-client'
 
 import { CityRouteProps } from '../CityContentSwitcher'
-import TunewsIcon from '../assets/TunewsActiveLogo.png'
+import { TuNewsActiveIcon } from '../assets'
 import CityContentLayout, { CityContentLayoutProps } from '../components/CityContentLayout'
 import CityContentToolbar from '../components/CityContentToolbar'
 import FailureSwitcher from '../components/FailureSwitcher'
 import Helmet from '../components/Helmet'
 import LoadingSpinner from '../components/LoadingSpinner'
 import Page from '../components/Page'
+import Icon from '../components/base/Icon'
 import { tunewsApiBaseUrl } from '../constants/urls'
 import DateFormatterContext from '../contexts/DateFormatterContext'
 import { TU_NEWS_DETAIL_ROUTE } from './index'
@@ -32,8 +33,8 @@ const StyledBanner = styled.div`
   background-color: ${props => props.theme.colors.tunewsThemeColorLight};
   border-radius: 11px;
 `
-const StyledBannerImage = styled.img`
-  max-height: 100%;
+const StyledIcon = styled(Icon)`
+  width: 100%;
 `
 const StyledTitle = styled.div`
   display: flex;
@@ -117,7 +118,7 @@ const TuNewsDetailPage = ({ city, pathname, cityCode, languageCode }: CityRouteP
         <>
           <StyledBanner>
             <StyledTitle>
-              <StyledBannerImage src={TunewsIcon} alt='' />
+              <StyledIcon src={TuNewsActiveIcon} />
             </StyledTitle>
           </StyledBanner>
           <Page

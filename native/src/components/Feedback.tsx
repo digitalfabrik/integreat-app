@@ -1,14 +1,15 @@
-import NoteIcon from 'integreat-app/assets/icons/note.svg'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 import { ActivityIndicator, ScrollView, Text, TextInput } from 'react-native'
 import { useTheme } from 'styled-components'
 import styled from 'styled-components/native'
 
+import { NoteIcon } from '../assets'
 import useNavigate from '../hooks/useNavigate'
 import Caption from './Caption'
 import FeedbackButtons from './FeedbackButtons'
 import { SendingStatusType } from './FeedbackContainer'
+import Icon from './base/Icon'
 import TextButton from './base/TextButton'
 
 const Input = styled(TextInput)`
@@ -63,7 +64,7 @@ const NoteText = styled.Text`
   flex-wrap: wrap;
 `
 
-const StyledNoteIcon = styled(NoteIcon)`
+const StyledIcon = styled(Icon)`
   align-self: center;
   margin-right: 12px;
 `
@@ -125,7 +126,7 @@ const Feedback = ({
           <Input keyboardType='email-address' onChangeText={onFeedbackContactMailChanged} value={contactMail} />
           {sendingStatus === 'failed' && <Description>{t('failedSendingFeedback')}</Description>}
           <NoteBox visible={submitDisabled}>
-            <StyledNoteIcon height={20} width={20} />
+            <StyledIcon Icon={NoteIcon} height={20} width={20} />
             <NoteText>{t('note')}</NoteText>
           </NoteBox>
           <StyledButton disabled={submitDisabled} onPress={onSubmit} text={t('send')} />

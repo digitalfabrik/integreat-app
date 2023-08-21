@@ -1,12 +1,10 @@
 import React, { ReactElement, ReactNode, useRef, useState } from 'react'
 import styled from 'styled-components'
 
-import { UiDirectionType } from 'translations/src'
-
 import dimensions from '../constants/dimensions'
 import useOnClickOutside from '../hooks/useOnClickOutside'
-import IconWithUiDirection from './IconWithUiDirection'
 import Tooltip from './Tooltip'
+import Icon from './base/Icon'
 
 export const Container = styled.div`
   width: calc(0.5 * ${dimensions.headerHeightLarge}px);
@@ -78,7 +76,6 @@ type HeaderActionItemDropDownProps = {
   children: (closeDropDown: () => void) => ReactNode
   iconSrc: string
   text: string
-  direction?: UiDirectionType
 }
 
 /**
@@ -86,12 +83,7 @@ type HeaderActionItemDropDownProps = {
  * Header. Once the user clicks outside, the node is hidden again. Additionally, the inner node gets a
  * closeDropDownCallback through its props to close the dropDown and hide itself.
  */
-const HeaderActionItemDropDown = ({
-  iconSrc,
-  text,
-  children,
-  direction,
-}: HeaderActionItemDropDownProps): ReactElement => {
+const HeaderActionItemDropDown = ({ iconSrc, text, children }: HeaderActionItemDropDownProps): ReactElement => {
   const [dropDownActive, setDropDownActive] = useState(false)
 
   const toggleDropDown = (): void => {
@@ -109,7 +101,7 @@ const HeaderActionItemDropDown = ({
     <Container ref={wrapperRef}>
       <Tooltip text={text} flow='down' mediumViewportFlow='left'>
         <button type='button' aria-label={text} onClick={toggleDropDown}>
-          <IconWithUiDirection alt='' src={iconSrc} direction={direction} />
+          <Icon src={iconSrc} />
         </button>
       </Tooltip>
       <DropDownContainer

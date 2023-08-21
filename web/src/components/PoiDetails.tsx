@@ -1,15 +1,19 @@
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router-dom'
-import styled, { css, useTheme } from 'styled-components'
+import styled, { useTheme } from 'styled-components'
 
-import { GeoJsonPoi, getExternalMapsLink, PoiModel } from 'api-client/src'
+import { GeoJsonPoi, getExternalMapsLink, PoiModel } from 'api-client'
 import { UiDirectionType } from 'translations'
 
-import { EmailIcon, PhoneIcon, WebsiteIcon } from '../assets'
-import iconExternalLink from '../assets/IconExternalLink.svg'
-import iconMarker from '../assets/IconMarker.svg'
-import PoiPlaceholder from '../assets/PoiPlaceholderLarge.jpg'
+import {
+  EmailIcon,
+  ExternalLinkIcon,
+  LocationIcon,
+  PhoneIcon,
+  PoiThumbnailPlaceholderLarge,
+  WebsiteIcon,
+} from '../assets'
 import dimensions from '../constants/dimensions'
 import useWindowDimensions from '../hooks/useWindowDimensions'
 import CleanLink from './CleanLink'
@@ -18,26 +22,19 @@ import ContactItem from './ContactItem'
 import OpeningHours from './OpeningHours'
 import RemoteContent from './RemoteContent'
 import Spacer from './Spacer'
+import Icon from './base/Icon'
 
 const DetailsContainer = styled.div`
   font-family: ${props => props.theme.fonts.web.contentFont};
 `
 
-const Marker = styled.img<{ direction?: string }>`
+const StyledIcon = styled(Icon)`
   width: 20px;
   height: 20px;
   flex-shrink: 0;
-
-  ${props =>
-    props.direction === 'rtl' &&
-    css`
-      transform: scaleX(-1);
-    `};
-
-  @media screen and (${dimensions.mediumLargeViewport}) {
-    padding: 0 8px;
-  }
+  padding: 0 8px;
   object-fit: contain;
+  align-self: center;
 `
 
 const Thumbnail = styled.img`
@@ -168,7 +165,7 @@ const PoiDetails = ({ feature, poi, direction, toolbar }: PoiDetailsProps): Reac
   return (
     <DetailsContainer>
       <HeadingSection>
-        <Thumbnail alt='' src={thumb ?? PoiPlaceholder} />
+        <Thumbnail alt='' src={thumb ?? PoiThumbnailPlaceholderLarge} />
         <Heading>{title}</Heading>
         {!!distance && <Distance>{t('distanceKilometre', { distance })}</Distance>}
         <Category>{category.name}</Category>
@@ -177,7 +174,7 @@ const PoiDetails = ({ feature, poi, direction, toolbar }: PoiDetailsProps): Reac
       {!viewportSmall && <Subheading>{t('detailsAddress')}</Subheading>}
       <DetailSection>
         <AddressContentWrapper>
-          {!viewportSmall && <Marker src={iconMarker} alt='' direction={direction} />}
+          {!viewportSmall && <StyledIcon src={LocationIcon} />}
           <AddressContent>
             <span>{location.address}</span>
             <span>
@@ -188,7 +185,7 @@ const PoiDetails = ({ feature, poi, direction, toolbar }: PoiDetailsProps): Reac
         <LinkContainer>
           <CleanLink to={externalMapsLink} newTab>
             {!viewportSmall && <LinkLabel>{t('detailsMapLink')}</LinkLabel>}
-            <Marker src={iconExternalLink} alt='' direction={direction} />
+            <StyledIcon src={ExternalLinkIcon} directionDependent />
           </CleanLink>
         </LinkContainer>
       </DetailSection>

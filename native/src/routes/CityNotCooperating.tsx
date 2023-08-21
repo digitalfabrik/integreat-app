@@ -3,6 +3,7 @@ import React, { ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import styled from 'styled-components/native'
 
+import Icon from '../components/base/Icon'
 import TextButton from '../components/base/TextButton'
 import buildConfig, { buildConfigAssets } from '../constants/buildConfig'
 
@@ -90,7 +91,7 @@ const CityNotCooperating = (): ReactElement | null => {
       <Heading>{t('callToAction')}</Heading>
 
       <Description>{t('explanation')}</Description>
-      {StyledCityNotCooperatingIcon && <StyledCityNotCooperatingIcon width='50%' />}
+      {StyledCityNotCooperatingIcon && <Icon Icon={StyledCityNotCooperatingIcon} width='50%' />}
       <ListHeading>{t('whatToDo')}</ListHeading>
       <ListItem>
         <StepNumber>1</StepNumber>
