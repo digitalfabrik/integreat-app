@@ -12,7 +12,7 @@ import CalendarChoice from './CalendarChoiceModal'
 import TextButton from './base/TextButton'
 
 const StyledButton = styled(TextButton)`
-  margin: 16px;
+  margin: 16px 0;
 `
 
 type ExportEventButtonType = {
