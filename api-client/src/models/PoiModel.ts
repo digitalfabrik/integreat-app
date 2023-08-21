@@ -121,7 +121,7 @@ class PoiModel extends ExtendedPageModel {
         // eslint-disable-next-line no-magic-numbers
         id: 12,
         name: 'Others',
-        color: '2E98FB',
+        color: '#2E98FB',
         iconName: 'other',
         icon: 'https://integreat-test.tuerantuer.org/static/svg/poi-category-icons/other.svg',
       })
@@ -145,8 +145,8 @@ class PoiModel extends ExtendedPageModel {
       return currentDay.timeSlots.some(timeslot =>
         Interval.fromDateTimes(
           DateTime.fromFormat(timeslot.start, dateFormat, { locale: 'de' }),
-          DateTime.fromFormat(timeslot.end, dateFormat, { locale: 'de' }),
-        ).contains(DateTime.fromFormat(currentTime, dateFormat, { locale: 'de' })),
+          DateTime.fromFormat(timeslot.end, dateFormat, { locale: 'de' })
+        ).contains(DateTime.fromFormat(currentTime, dateFormat, { locale: 'de' }))
       )
     }
     return false
