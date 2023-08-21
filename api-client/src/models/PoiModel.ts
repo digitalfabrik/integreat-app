@@ -145,8 +145,8 @@ class PoiModel extends ExtendedPageModel {
       return currentDay.timeSlots.some(timeslot =>
         Interval.fromDateTimes(
           DateTime.fromFormat(timeslot.start, dateFormat, { locale: 'de' }),
-          DateTime.fromFormat(timeslot.end, dateFormat, { locale: 'de' })
-        ).contains(DateTime.fromFormat(currentTime, dateFormat, { locale: 'de' }))
+          DateTime.fromFormat(timeslot.end, dateFormat, { locale: 'de' }),
+        ).contains(DateTime.fromFormat(currentTime, dateFormat, { locale: 'de' })),
       )
     }
     return false
