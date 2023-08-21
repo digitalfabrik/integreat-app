@@ -19,7 +19,7 @@ import { cmsApiBaseUrl } from '../constants/urls'
 import { RouteType } from '../routes'
 import { reportError } from '../utils/sentry'
 import Feedback, { Container } from './Feedback'
-import TextButton from './TextButton'
+import TextButton from './base/TextButton'
 
 const Text = styled.div`
   padding: 10px;

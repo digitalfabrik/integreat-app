@@ -24,8 +24,8 @@ import Caption from './Caption'
 import HighlightBox from './HighlightBox'
 import ShelterContactRequestForm from './ShelterContactRequestForm'
 import ShelterInformationSection from './ShelterInformationSection'
-import { StyledButton } from './TextButton'
 import Tooltip from './Tooltip'
+import TextButton from './base/TextButton'
 
 const FullWidth = styled.div`
   flex: 1;
@@ -34,11 +34,6 @@ const FullWidth = styled.div`
 const Container = styled(HighlightBox)`
   flex-direction: column;
   margin: 12px;
-`
-
-const DetailButton = styled(StyledButton)`
-  margin-left: 8px;
-  margin-bottom: 0;
 `
 
 const Detail = styled.div`
@@ -155,11 +150,7 @@ const ShelterInformation = ({ shelter, cityCode, extended = false }: ShelterInfo
             )}
           </>
         )}
-        {!extended && (
-          <DetailButton onClick={() => undefined} disabled={false}>
-            {t('shelterButton')}
-          </DetailButton>
-        )}
+        {!extended && <TextButton onClick={() => undefined} text={t('shelterButton')} />}
       </Container>
     </FullWidth>
   )

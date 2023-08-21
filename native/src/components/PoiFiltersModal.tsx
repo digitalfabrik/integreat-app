@@ -1,8 +1,6 @@
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Button } from 'react-native-elements'
 import { SvgUri } from 'react-native-svg'
-import { useTheme } from 'styled-components'
 import styled from 'styled-components/native'
 
 import { PoiCategoryModel, PoiModel } from 'api-client'
@@ -11,6 +9,8 @@ import { ClockIcon } from '../assets'
 import Modal from './Modal'
 import SettingsSwitch from './SettingsSwitch'
 import Text from './base/Text'
+import TextButton from './base/TextButton'
+import ToggleButton from './base/ToggleButton'
 
 const Container = styled.View`
   flex: 1;
@@ -61,28 +61,8 @@ const TileRow = styled(Row)`
   flex-wrap: wrap;
 `
 
-const PoiCategoryTile = styled.Pressable<{ active: boolean }>`
-  background-color: ${props => (props.active ? props.theme.colors.themeColor : props.theme.colors.backgroundColor)};
-  padding: 8px;
-  align-items: center;
-  width: 100px;
-  height: 80px;
-  border-radius: 18px;
-  elevation: 5;
-  shadow-color: ${props => props.theme.colors.textColor};
-  shadow-offset: 0px 1px;
-  shadow-opacity: 0.2;
-  shadow-radius: 1px;
+const StyledToggleButton = styled(ToggleButton)`
   margin-bottom: 24px;
-  justify-content: space-around;
-`
-
-const PoiCategoryText = styled.Text`
-  font-size: 12px;
-  color: ${props => props.theme.colors.textSecondaryColor};
-  font-family: ${props => props.theme.fonts.native.decorativeFontRegular};
-  text-align: center;
-  width: 84px;
 `
 
 type PoiFiltersModalProps = {
@@ -108,7 +88,6 @@ const PoiFiltersModal = ({
     .map(it => it.category)
     .filter((it, index, array) => array.findIndex(value => value.id === it.id) === index)
   const { t } = useTranslation('pois')
-  const theme = useTheme()
 
   return (
     <Modal modalVisible={modalVisible} closeModal={closeModal} headerTitle='' title={t('adjustFilters')}>
@@ -130,28 +109,18 @@ const PoiFiltersModal = ({
           </Row>
           <TileRow>
             {poiCategories.map(it => (
-              <PoiCategoryTile
+              <StyledToggleButton
                 key={it.id}
+                text={it.name}
                 active={it === selectedPoiCategory}
-                onPress={() => setSelectedPoiCategory(it === selectedPoiCategory ? null : it)}>
-                <SvgUri uri={it.icon} />
-                <PoiCategoryText numberOfLines={1}>{it.name}</PoiCategoryText>
-              </PoiCategoryTile>
+                onPress={() => setSelectedPoiCategory(it === selectedPoiCategory ? null : it)}
+                Icon={<SvgUri uri={it.icon} />}
+              />
             ))}
           </TileRow>
         </Section>
         <Section>
-          <Button
-            onPress={closeModal}
-            title={t('showPois')}
-            buttonStyle={{
-              backgroundColor: theme.colors.themeColor,
-            }}
-            titleStyle={{
-              color: theme.colors.textColor,
-              fontFamily: theme.fonts.native.contentFontRegular,
-            }}
-          />
+          <TextButton onPress={closeModal} text={t('showPois')} />
         </Section>
       </Container>
     </Modal>

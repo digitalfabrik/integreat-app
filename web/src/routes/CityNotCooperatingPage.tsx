@@ -4,6 +4,7 @@ import styled from 'styled-components'
 
 import GeneralFooter from '../components/GeneralFooter'
 import Layout from '../components/Layout'
+import TextButton from '../components/base/TextButton'
 import buildConfig from '../constants/buildConfig'
 import useScrollToTopOnMount from '../hooks/useScrollToTopOnMount'
 
@@ -56,13 +57,12 @@ const StepExplanation = styled(Text)`
   padding: 0 10px;
 `
 
-const Button = styled.button`
-  background-color: ${props => props.theme.colors.themeColor};
-  border: none;
-  padding: 8px 25px;
+const StyledButton = styled(TextButton)`
   align-self: center;
   z-index: 10;
-  margin-top: 40px;
+  margin: 40px 0 0 0;
+  font-weight: normal;
+  box-shadow: none;
 `
 
 const TemplateText = styled(Text)`
@@ -113,7 +113,7 @@ const CityNotCooperatingPage = ({ languageCode }: CityNotCooperatingPageProps): 
           <StepNumber>2</StepNumber>
           <StepExplanation>{t('sendText')}</StepExplanation>
         </ListItem>
-        <Button onClick={copyToClipboard}>{isCopied ? t('common:copied') : t('copyText')}</Button>
+        <StyledButton onClick={copyToClipboard} text={isCopied ? t('common:copied') : t('copyText')} />
         <TemplateText>{template}</TemplateText>
       </Container>
     </Layout>
