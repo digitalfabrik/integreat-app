@@ -3,7 +3,7 @@ import styled from 'styled-components/native'
 
 import { NEWS_ROUTE, NewsRouteType, TU_NEWS_TYPE } from 'api-client'
 
-import HeaderIcon from '../assets/tu-news-header-details-icon.svg'
+import { TuNewsActiveIcon } from '../assets'
 import Page from '../components/Page'
 import { NavigationProps, RouteProps } from '../constants/NavigationTypes'
 import useHeader from '../hooks/useHeader'
@@ -20,7 +20,7 @@ const HeaderImageWrapper = styled.View`
   border-radius: 5px;
   background-color: rgba(2, 121, 166, 0.4);
 `
-const HeaderImage = styled(HeaderIcon)`
+const HeaderImage = styled(TuNewsActiveIcon)`
   border-top-left-radius: 5px;
   border-bottom-left-radius: 5px;
 `

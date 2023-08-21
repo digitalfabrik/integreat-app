@@ -4,9 +4,9 @@ import styled from 'styled-components/native'
 
 import { CityModel, LOCAL_NEWS_TYPE, NewsType, TU_NEWS_TYPE } from 'api-client'
 
-import ActiveInternational from '../assets/tu-news-active.svg'
-import InactiveInternational from '../assets/tu-news-inactive.svg'
+import { TuNewsActiveIcon, TuNewsInactiveIcon } from '../assets'
 import Caption from './Caption'
+import Icon from './base/Icon'
 import Pressable from './base/Pressable'
 
 const StyledPressable = styled(Pressable)`
@@ -58,7 +58,7 @@ const NewsHeader = ({ cityModel, selectedNewsType, selectNewsType }: NewsHeaderP
             </LocalTabWrapper>
           </StyledPressable>
           <StyledPressable onPress={selectTuNews} accessibilityRole='button' accessibilityLabel='TüNews'>
-            {selectedNewsType === TU_NEWS_TYPE ? <ActiveInternational /> : <InactiveInternational />}
+            <Icon Icon={selectedNewsType === TU_NEWS_TYPE ? TuNewsActiveIcon : TuNewsInactiveIcon} />
           </StyledPressable>
         </HeaderContainer>
       )}

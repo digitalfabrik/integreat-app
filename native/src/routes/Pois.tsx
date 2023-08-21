@@ -28,6 +28,7 @@ import PoiDetails from '../components/PoiDetails'
 import PoiFiltersModal from '../components/PoiFiltersModal'
 import PoiListItem from '../components/PoiListItem'
 import ChipButton from '../components/base/ChipButton'
+import Icon from '../components/base/Icon'
 import { NavigationProps, RouteProps } from '../constants/NavigationTypes'
 import dimensions from '../constants/dimensions'
 import useOnBackNavigation from '../hooks/useOnBackNavigation'
@@ -200,11 +201,15 @@ const Pois = ({ pois: allPois, language, cityModel, route, navigation }: PoisPro
 
   const FiltersOverlayButtons = (
     <>
-      <ChipButton text={t('adjustFilters')} Icon={<EditLocationIcon />} onPress={() => setShowFilterSelection(true)} />
+      <ChipButton
+        text={t('adjustFilters')}
+        Icon={<Icon Icon={EditLocationIcon} />}
+        onPress={() => setShowFilterSelection(true)}
+      />
       {poiCurrentlyOpenFilter && (
         <ChipButton
           text={t('opened')}
-          Icon={<ClockIcon />}
+          Icon={<Icon Icon={ClockIcon} />}
           onPress={() => setPoiCurrentlyOpenFilter(false)}
           closeButton
         />

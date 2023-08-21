@@ -1,8 +1,6 @@
 import React, { ReactElement, ReactNode, useRef, useState } from 'react'
 import styled from 'styled-components'
 
-import { UiDirectionType } from 'translations/src'
-
 import dimensions from '../constants/dimensions'
 import useOnClickOutside from '../hooks/useOnClickOutside'
 import useWindowDimensions from '../hooks/useWindowDimensions'
@@ -26,7 +24,6 @@ type KebabActionItemDropDownProps = {
   children: (closeDropDown: () => void) => ReactNode
   iconSrc: string
   text: string
-  direction?: UiDirectionType
   closeSidebar: () => void
 }
 
@@ -39,7 +36,6 @@ const KebabActionItemDropDown = ({
   iconSrc,
   text,
   children,
-  direction,
   closeSidebar,
 }: KebabActionItemDropDownProps): ReactElement => {
   const [dropDownActive, setDropDownActive] = useState(false)
@@ -64,7 +60,7 @@ const KebabActionItemDropDown = ({
   return (
     <Container ref={wrapperRef}>
       <Button type='button' aria-label={text} onClick={toggleDropDown}>
-        <KebabActionItemLink text={text} iconSrc={iconSrc} direction={direction} />
+        <KebabActionItemLink text={text} iconSrc={iconSrc} />
       </Button>
       <DropDownContainer
         data-testid='headerActionItemDropDown'

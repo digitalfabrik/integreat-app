@@ -1,16 +1,17 @@
 import React, { ReactElement } from 'react'
-import Icon from 'react-native-vector-icons/MaterialIcons'
 import styled, { useTheme } from 'styled-components/native'
 
+import { SearchIcon } from '../assets'
 import testID from '../testing/testID'
+import Icon from './base/Icon'
 
-export const Input = styled.TextInput`
+const Input = styled.TextInput`
   margin: 0 5px;
   flex-grow: 1;
   border-bottom-width: 1px;
   border-bottom-color: ${props => props.theme.colors.textSecondaryColor};
 `
-export const Wrapper = styled.View<{ space: boolean }>`
+const Wrapper = styled.View<{ space: boolean }>`
   flex-direction: row;
   ${props => (props.space ? 'margin: 50px 0;' : '')}
   justify-content: center;
@@ -36,7 +37,7 @@ const SearchInput = ({
 
   return (
     <Wrapper space={spaceSearch}>
-      <Icon name='search' size={30} color={theme.colors.textSecondaryColor} />
+      <Icon Icon={SearchIcon} width={24} height={24} />
       <Input
         {...testID('Search-Input')}
         multiline={false}

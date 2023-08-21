@@ -38,10 +38,6 @@
     "postinstall": "npm-license-crawler -onlyDirectDependencies -json ./assets/licenses.json"
   },
   "dependencies": {
-    "@fortawesome/fontawesome-svg-core": "^6.1.1",
-    "@fortawesome/free-regular-svg-icons": "^6.1.1",
-    "@fortawesome/free-solid-svg-icons": "^6.1.1",
-    "@fortawesome/react-fontawesome": "^0.2.0",
     "@integreat-app/react-sticky-headroom": "^1.2.2",
     "@math.gl/web-mercator": "^3.6.2",
     "@sentry/react": "^7.6.0",

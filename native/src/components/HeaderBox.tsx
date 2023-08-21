@@ -5,6 +5,7 @@ import styled, { useTheme } from 'styled-components/native'
 
 import { buildConfigAssets } from '../constants/buildConfig'
 import dimensions from '../constants/dimensions'
+import Icon from './base/Icon'
 
 const HorizontalLeft = styled.View`
   flex: 1;
@@ -34,7 +35,7 @@ const HeaderBox = ({ goBack, canGoBack = true, text }: HeaderBoxProps): ReactEle
   const HeaderIcon = canGoBack ? (
     <HeaderBackButton onPress={goBack} labelVisible={false} tintColor={theme.colors.textColor} />
   ) : (
-    <AppIcon width={70} height={50} />
+    <Icon Icon={AppIcon} width={70} height={50} />
   )
   return (
     <HorizontalLeft>

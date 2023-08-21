@@ -1,13 +1,14 @@
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Button } from 'react-native-elements'
-import Icon from 'react-native-vector-icons/MaterialIcons'
-import styled, { useTheme } from 'styled-components/native'
+import styled from 'styled-components/native'
 
 import { CityModel, getNearbyCities } from 'api-client'
 
+import { RefreshIcon } from '../assets'
 import useUserLocation from '../hooks/useUserLocation'
 import CityEntry from './CityEntry'
+import Icon from './base/Icon'
 
 const NearbyMessageContainer = styled.View`
   padding: 7px;
@@ -34,7 +35,6 @@ const NearbyCities = ({ cities, navigateToDashboard, filterText }: NearbyCitiesP
   const locationInformation = useUserLocation()
   const { status, coordinates, message, requestAndDetermineLocation } = locationInformation
   const { t } = useTranslation('landing')
-  const theme = useTheme()
 
   if (!coordinates) {
     return (
@@ -43,7 +43,8 @@ const NearbyCities = ({ cities, navigateToDashboard, filterText }: NearbyCitiesP
         <RetryButtonContainer>
           {status !== 'loading' && (
             <Button
-              icon={<Icon name='refresh' size={30} color={theme.colors.textSecondaryColor} />}
+              // TODO #2330: Set color to textSecondaryColor
+              icon={<Icon Icon={RefreshIcon} width={28} height={28} />}
               title=''
               type='clear'
               onPress={requestAndDetermineLocation}

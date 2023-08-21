@@ -2,25 +2,12 @@ import React, { ReactElement } from 'react'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 
-import { UiDirectionType } from 'translations/src'
-
 import dimensions from '../constants/dimensions'
 import { helpers } from '../constants/theme'
+import Icon from './base/Icon'
 
-const Container = styled.div<{ direction?: UiDirectionType }>`
+const Container = styled.div`
   flex: 1 1 135px;
-
-  @media ${dimensions.smallViewport} {
-    padding: 0 12px;
-
-    &:first-child {
-      ${props => (props.direction === 'rtl' ? 'padding-right: 0;' : 'padding-left: 0;')}
-    }
-
-    &:last-child {
-      ${props => (props.direction === 'rtl' ? 'padding-left: 0;' : 'padding-right: 0;')}
-    }
-  }
 `
 
 const StyledLink = styled(Link)<{ $active: boolean }>`
@@ -127,14 +114,13 @@ export type HeaderNavigationItemProps = {
   href: string
   active: boolean
   icon: string
-  direction?: UiDirectionType
 }
 
-const HeaderNavigationItem = ({ active, text, href, icon, direction }: HeaderNavigationItemProps): ReactElement => (
-  <Container direction={direction} className='header-navigation-item'>
+const HeaderNavigationItem = ({ active, text, href, icon }: HeaderNavigationItemProps): ReactElement => (
+  <Container className='header-navigation-item'>
     <StyledLink to={href} $active={active}>
       <Circle>
-        <img src={icon} alt='' />
+        <Icon src={icon} />
       </Circle>
       <StyledText $active={active}>{text}</StyledText>
     </StyledLink>

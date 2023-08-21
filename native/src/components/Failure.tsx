@@ -4,9 +4,8 @@ import styled from 'styled-components/native'
 
 import { ErrorCode } from 'api-client'
 
-import NoInternetIcon from '../assets/no-internet.svg'
-import SadIcon from '../assets/smile-sad.svg'
-import UnknownIcon from '../assets/warning.svg'
+import { NoInternetIcon, SadSmileyIcon, WarningIcon } from '../assets'
+import Icon from './base/Icon'
 import TextButton from './base/TextButton'
 
 const ViewContainer = styled.View`
@@ -34,17 +33,17 @@ const Failure = ({ code, buttonAction, buttonLabel }: FailureProps): ReactElemen
       break
     }
     case ErrorCode.UnknownError: {
-      ErrorIcon = UnknownIcon
+      ErrorIcon = WarningIcon
       break
     }
     default: {
-      ErrorIcon = SadIcon
+      ErrorIcon = SadSmileyIcon
       break
     }
   }
   return (
     <ViewContainer>
-      <ErrorIcon width={150} height={150} />
+      <Icon Icon={ErrorIcon} width={150} height={150} />
       <Message>{t(code === ErrorCode.CityUnavailable ? 'notFound.city' : code)}</Message>
       {buttonAction && <TextButton onPress={buttonAction} text={t(buttonLabel ?? 'tryAgain')} />}
     </ViewContainer>

@@ -6,11 +6,12 @@ import styled from 'styled-components/native'
 
 import { getExternalMapsLink, LocationModel } from 'api-client'
 
-import ExternalLinkIcon from '../assets/ExternalLink.svg'
+import { ExternalLinkIcon } from '../assets'
 import { contentDirection } from '../constants/contentDirection'
 import useSnackbar from '../hooks/useSnackbar'
 import openExternalUrl from '../utils/openExternalUrl'
 import { reportError } from '../utils/sentry'
+import Icon from './base/Icon'
 import Pressable from './base/Pressable'
 import Text from './base/Text'
 
@@ -52,8 +53,8 @@ const AddressInfo = ({ location, language }: AddressInfoProps): ReactElement => 
           {postcode} {town}
         </Text>
       </Pressable>
-      <IconContainer onPress={openExternalMaps}>
-        <ExternalLinkIcon accessibilityLabel={t('openExternalMaps')} />
+      <IconContainer onPress={openExternalMaps} accessibilityLabel={t('openExternalMaps')}>
+        <Icon Icon={ExternalLinkIcon} />
       </IconContainer>
     </Container>
   )

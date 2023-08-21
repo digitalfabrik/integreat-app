@@ -10,9 +10,9 @@ import dimensions from '../constants/dimensions'
 import useLockedBody from '../hooks/useLockedBody'
 import useScrollToTop from '../hooks/useScrollToTop'
 import useWindowDimensions from '../hooks/useWindowDimensions'
-import IconWithUiDirection from './IconWithUiDirection'
 import { LAYOUT_ELEMENT_ID, RichLayout } from './Layout'
 import Portal from './Portal'
+import Icon from './base/Icon'
 
 const Overlay = styled.div`
   position: absolute;
@@ -70,6 +70,11 @@ const CloseButton = styled.button`
   cursor: pointer;
 `
 
+const StyledIcon = styled(Icon)`
+  width: 24px;
+  height: 24px;
+`
+
 type ModalProps = {
   title: string
   children: ReactNode
@@ -99,13 +104,7 @@ const Modal = ({ title, closeModal, children, direction, wrapInPortal = false }:
           <Header flexDirection={viewportSmall ? 'row-reverse' : 'row'}>
             <span>{title}</span>
             <CloseButton aria-label={t('close')} onClick={closeModal}>
-              <IconWithUiDirection
-                src={viewportSmall ? ArrowBackIcon : CloseIcon}
-                direction={direction}
-                width='24px'
-                height='24px'
-                alt=''
-              />
+              <StyledIcon src={viewportSmall ? ArrowBackIcon : CloseIcon} directionDependent />
             </CloseButton>
           </Header>
           {children}
