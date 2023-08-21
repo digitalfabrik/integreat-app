@@ -1,5 +1,5 @@
 import { mocked } from 'jest-mock'
-import moment from 'moment-timezone'
+import { DateTime } from 'luxon'
 
 import mapCategoryJson from '../../mapping/mapCategoryJson'
 import CategoryModel from '../../models/CategoryModel'
@@ -30,20 +30,20 @@ describe('createCategoryParentsEndpoint', () => {
     thumbnail: '',
     order: -1,
     availableLanguages: new Map(),
-    lastUpdate: moment(0),
+    lastUpdate: DateTime.fromMillis(0),
     organization: null,
   })
   const endpoint = createCategoryParentsEndpoint(baseUrl)
 
   it('should map params to url', () => {
     expect(endpoint.mapParamsToUrl(params)).toBe(
-      `${baseUrl}/${params.city}/${params.language}/wp-json/extensions/v3/parents/?url=${params.cityContentPath}`
+      `${baseUrl}/${params.city}/${params.language}/wp-json/extensions/v3/parents/?url=${params.cityContentPath}`,
     )
   })
 
   it('should throw if using the endpoint for the root category', () => {
     expect(() => endpoint.mapParamsToUrl({ ...params, cityContentPath: `/${params.city}/${params.language}` })).toThrow(
-      'This endpoint does not support the root category!'
+      'This endpoint does not support the root category!',
     )
   })
 

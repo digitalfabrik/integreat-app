@@ -54,7 +54,7 @@ const EventsPage = ({ city, pathname, languageCode, cityCode }: CityRouteProps):
     return null
   }
 
-  // TODO IGAPP-1078: Remove workaround of looking up path until '$'
+  // TODO #2031: Remove workaround of looking up path until '$'
   const event = eventId
     ? events?.find(it => it.path === pathname) ??
       events?.find(it => it.path.substring(0, it.path.indexOf('$')) === pathname)
@@ -71,12 +71,22 @@ const EventsPage = ({ city, pathname, languageCode, cityCode }: CityRouteProps):
     }
   })
 
+  const pageTitle = `${event?.title ?? t('pageTitle')} - ${city.name}`
+
   const locationLayoutParams: Omit<CityContentLayoutProps, 'isLoading'> = {
     city,
     languageChangePaths,
     route: EVENTS_ROUTE,
     languageCode,
-    Toolbar: <CityContentToolbar feedbackTarget={event?.slug} route={EVENTS_ROUTE} hideDivider={!event} />,
+    Toolbar: (
+      <CityContentToolbar
+        feedbackTarget={event?.slug}
+        route={EVENTS_ROUTE}
+        hideDivider={!event}
+        languageCode={languageCode}
+        pageTitle={pageTitle}
+      />
+    ),
   }
 
   if (loading || pathname !== previousPathname) {
@@ -119,7 +129,6 @@ const EventsPage = ({ city, pathname, languageCode, cityCode }: CityRouteProps):
   if (event) {
     const { featuredImage, thumbnail, lastUpdate, content, title, location, date } = event
     const defaultThumbnail = featuredImage ? featuredImage.medium.url : thumbnail
-    const pageTitle = `${event.title} - ${city.name}`
 
     const PageFooter = (
       <StyledButton
@@ -157,8 +166,6 @@ const EventsPage = ({ city, pathname, languageCode, cityCode }: CityRouteProps):
   const renderEventListItem = (event: EventModel) => (
     <EventListItem event={event} formatter={formatter} key={event.path} />
   )
-
-  const pageTitle = `${t('pageTitle')} - ${city.name}`
 
   return (
     <CityContentLayout isLoading={false} {...locationLayoutParams}>

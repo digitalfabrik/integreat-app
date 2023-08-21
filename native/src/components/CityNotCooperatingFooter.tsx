@@ -34,10 +34,11 @@ const CityNotCooperatingFooter = ({
 }: CityNotCooperatingFooterProps): ReactElement | null => {
   const { t } = useTranslation('landing')
 
-  if (!buildConfig().featureFlags.cityNotCooperating) {
+  const CityNotCooperatingIcon = buildConfigAssets().CityNotCooperatingIcon
+
+  if (!buildConfig().featureFlags.cityNotCooperating || !CityNotCooperatingIcon) {
     return null
   }
-  const CityNotCooperatingIcon = buildConfigAssets().CityNotCooperatingIcon!
 
   return (
     <FooterContainer>

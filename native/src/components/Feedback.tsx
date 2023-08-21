@@ -140,7 +140,7 @@ const Feedback = ({
       <>
         <Caption title={t('thanksHeadline')} />
         <ThemedText>{t('thanksMessage')}</ThemedText>
-        <StyledButton type='primary' onPress={navigation.goBack} text={t('close')} />
+        <StyledButton type='primary' onPress={navigation.goBack} text={t('common:close')} />
       </>
     )
   }

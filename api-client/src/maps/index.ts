@@ -20,7 +20,8 @@ export type MapViewMercatorViewport = MapViewViewport & {
 /**
  * Override existing GeoJsonProperties from types/geojson to be more precise
  */
-export type GeoJsonPoiProperties = {
+
+export type GeoJsonPoi = {
   id: number
   title: string
   path: string
@@ -30,13 +31,18 @@ export type GeoJsonPoiProperties = {
   address?: string
   distance?: string
   thumbnail?: string
-  closeToOtherPoi: boolean
+}
+
+export type GeoJsonPoiProperties = {
+  pois: GeoJsonPoi[]
 }
 
 export type MarkerConfig = {
   defaultSymbol: string
   symbolActive: string
+  multipoi: string
   iconSize: number
+  offsetY?: number
 }
 
 type OpenStreetMapCopyrightType = {
@@ -57,19 +63,20 @@ export type SuccessfulLocationState = {
 export type LoadingLocationState = {
   status: 'loading'
   message: 'loading'
-  coordinates: LocationType | null
+  coordinates: LocationType | undefined
 }
 export type UnavailableLocationState = {
   status: 'unavailable'
   message: 'noPermission' | 'notAvailable' | 'timeout'
-  coordinates: null
+  coordinates: undefined
 }
 
 export type LocationStateType = SuccessfulLocationState | LoadingLocationState | UnavailableLocationState
 
 // aliases for Features and FeatureCollections using custom GeoJsonProperties and Point
-export type PoiFeature = Feature<Point, GeoJsonPoiProperties>
-export type PoiFeatureCollection = FeatureCollection<Point, GeoJsonPoiProperties>
+export type MapFeature = Feature<Point, GeoJsonPoiProperties>
+export type MapFeatureCollection = FeatureCollection<Point, GeoJsonPoiProperties>
+export const isMultipoi = (poiFeature: MapFeature): boolean => poiFeature.properties.pois.length > 1
 
 export const mapConfig: MapConfigProps = {
   styleJSON: 'https://maps.tuerantuer.org/styles/integreat/style.json',
@@ -96,7 +103,9 @@ export const animationDuration = 2000
 export const mapMarker: MarkerConfig = {
   iconSize: 0.6,
   defaultSymbol: 'marker_55',
+  multipoi: 'multipois_#585858',
   symbolActive: 'marker_90_active',
+  offsetY: -25,
 }
 
 export const openStreeMapCopyright: OpenStreetMapCopyrightType = {
@@ -113,3 +122,6 @@ export const circleRadiusSmall = 20
 export const circleRadiusLarge = 30
 export const fontSizeSmall = 12
 export const fontSizeLarge = 16
+
+// The opening hours loaded from the cms are ordered according to the german weekday order
+export const weekdays = ['montag', 'dienstag', 'mittwoch', 'donnerstag', 'freitag', 'samstag', 'sonntag']

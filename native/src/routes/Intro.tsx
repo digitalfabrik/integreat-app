@@ -93,7 +93,7 @@ const Intro = ({ route, navigation }: IntroProps): ReactElement => {
         title: t('languageChange'),
         description: t('languageChangeDescription'),
         Content: <styledIcons.Language height='100%' width='60%' />,
-      }
+      },
     )
   }
 

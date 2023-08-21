@@ -1,7 +1,7 @@
 import { NavigationContainer } from '@react-navigation/native'
 import { fireEvent } from '@testing-library/react-native'
 import { mocked } from 'jest-mock'
-import moment from 'moment'
+import { DateTime } from 'luxon'
 import React from 'react'
 import { Text } from 'react-native'
 
@@ -37,13 +37,13 @@ const news: [LocalNewsModel, LocalNewsModel] = [
   new LocalNewsModel({
     id: 9902,
     title: 'Local news 1',
-    timestamp: moment('2020-01-20T00:00:00.000Z'),
+    timestamp: DateTime.fromISO('2020-01-20T00:00:00.000Z'),
     content: 'Local news content 2',
   }),
   new LocalNewsModel({
     id: 1234,
     title: 'Local news 2',
-    timestamp: moment('2020-01-20T00:00:00.000Z'),
+    timestamp: DateTime.fromISO('2020-01-20T00:00:00.000Z'),
     content: 'Local news content 2',
   }),
 ]
@@ -86,7 +86,7 @@ describe('LocalNews', () => {
     render(
       <NavigationContainer>
         <LocalNews data={data} newsId={newsId} route={route} navigation={navigation} navigateToNews={selectNews} />
-      </NavigationContainer>
+      </NavigationContainer>,
     )
   const response = { data: news, error: null, loading: false, refresh }
 

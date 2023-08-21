@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next'
 import styled from 'styled-components/native'
 
 import TextButton from './TextButton'
+import Pressable from './base/Pressable'
 
 const Container = styled.View`
   flex-direction: row;

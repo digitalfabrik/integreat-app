@@ -1,4 +1,4 @@
-import moment from 'moment'
+import { DateTime } from 'luxon'
 
 import CategoriesMapModel from '../CategoriesMapModel'
 import CategoryModel from '../CategoryModel'
@@ -13,7 +13,7 @@ describe('CategoriesMapModel', () => {
     thumbnail: 'https://cms.integreat-app.de/augsburg/wp-content/uploads/sites/2/2015/09/pin66-150x150.png',
     order: 3,
     availableLanguages: new Map([['ar', '/augsburg/ar/erste-schritte/خريطة-المدينة']]),
-    lastUpdate: moment('2016-01-07 10:36:24'),
+    lastUpdate: DateTime.fromISO('2016-01-07 10:36:24'),
     organization: null,
   })
   const categories = [
@@ -24,7 +24,7 @@ describe('CategoriesMapModel', () => {
       parentPath: '',
       availableLanguages: new Map(),
       content: 'exampleContent0',
-      lastUpdate: moment('2016-01-07 10:36:24'),
+      lastUpdate: DateTime.fromISO('2016-01-07 10:36:24'),
       order: 0,
       thumbnail: 'thumb-nail',
       organization: null,
@@ -37,7 +37,7 @@ describe('CategoriesMapModel', () => {
       order: 1,
       availableLanguages: new Map(),
       content: 'exampleContent0',
-      lastUpdate: moment('2016-01-07 10:36:24'),
+      lastUpdate: DateTime.fromISO('2016-01-07 10:36:24'),
       thumbnail: 'thumb-nail',
       organization: null,
     }),
@@ -49,7 +49,7 @@ describe('CategoriesMapModel', () => {
       order: 2,
       availableLanguages: new Map(),
       content: 'exampleContent0',
-      lastUpdate: moment('2016-01-07 10:36:24'),
+      lastUpdate: DateTime.fromISO('2016-01-07 10:36:24'),
       thumbnail: 'thumb-nail',
       organization: null,
     }),
@@ -61,7 +61,7 @@ describe('CategoriesMapModel', () => {
       order: 3,
       availableLanguages: new Map(),
       content: 'exampleContent0',
-      lastUpdate: moment('2016-01-07 10:36:24'),
+      lastUpdate: DateTime.fromISO('2016-01-07 10:36:24'),
       thumbnail: 'thumb-nail',
       organization: null,
     }),
@@ -85,7 +85,7 @@ describe('CategoriesMapModel', () => {
   it('should normalize url components correctly for special characters', () => {
     const map = new CategoriesMapModel([farsiCategory])
     const foundFarsiCategory = map.findCategoryByPath(
-      '/augsburg/fa/erste-schritte/%D9%86%D9%82%D8%B4%D9%87-%D8%B4%D9%87%D8%B1'
+      '/augsburg/fa/erste-schritte/%D9%86%D9%82%D8%B4%D9%87-%D8%B4%D9%87%D8%B1',
     )
     expect(foundFarsiCategory).toEqual(farsiCategory)
   })

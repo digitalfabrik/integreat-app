@@ -55,10 +55,17 @@ export type IdCityContentFeatureType = ParamsType & {
   route: ShelterRouteType
   id?: string
 }
-export type EventsPoisRouteInformationType = ParamsType & {
-  // Routes with customizable ids, e.g. '/augsburg/de/pois/1234/
-  route: EventsRouteType | PoisRouteType
+export type EventsRouteInformationType = ParamsType & {
+  // Routes with customizable ids, e.g. '/augsburg/de/events/1234/
+  route: EventsRouteType
   slug?: string
+}
+
+export type PoisRouteInformationType = ParamsType & {
+  // Route with customizable ids and query, e.g. '/augsburg/de/pois/1234?multipoi=2
+  route: PoisRouteType
+  slug?: string
+  multipoi?: number
 }
 
 export type NonNullableRouteInformationType =
@@ -68,7 +75,8 @@ export type NonNullableRouteInformationType =
   | CategoriesRouteInformationType
   | NewsRouteInformationType
   | SimpleCityContentFeatureType
-  | EventsPoisRouteInformationType
+  | EventsRouteInformationType
+  | PoisRouteInformationType
   | IdCityContentFeatureType
   | LicensesInformationType
 
