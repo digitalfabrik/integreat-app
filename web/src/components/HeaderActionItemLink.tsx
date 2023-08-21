@@ -2,32 +2,13 @@ import React, { ReactElement } from 'react'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 
-import dimensions from '../constants/dimensions'
 import Tooltip from './Tooltip'
 import Icon from './base/Icon'
 
-const StyledLink = styled(Link)`
-  display: block;
-
-  width: calc(0.5 * ${dimensions.headerHeightLarge}px);
-  height: calc(0.5 * ${dimensions.headerHeightLarge}px);
-  opacity: 0.85;
-
-  @media ${dimensions.smallViewport} {
-    width: calc(0.5 * ${dimensions.headerHeightSmall}px);
-    height: calc(0.5 * ${dimensions.headerHeightSmall}px);
-  }
-
-  & > img {
-    width: 100%;
-    height: 100%;
-    box-sizing: border-box;
-    padding: 22%;
-    object-fit: contain;
-  }
+const StyledIcon = styled(Icon)`
+  width: 28px;
+  height: 28px;
 `
-
-const StyledSpan = StyledLink.withComponent('span')
 
 type HeaderActionItemLinkProps = {
   href?: string
@@ -35,20 +16,16 @@ type HeaderActionItemLinkProps = {
   iconSrc: string
 }
 
-/**
- * Designed to work with Header. In the ActionBar you can display icons as link or dropDown involving actions like
- * 'Change language', 'Change location' and similar items.
- */
 const HeaderActionItemLink = ({ href, text, iconSrc }: HeaderActionItemLinkProps): ReactElement => (
   <Tooltip text={text} flow='down' smallViewportFlow='left'>
     {href ? (
-      <StyledLink to={href} aria-label={text}>
-        <Icon src={iconSrc} />
-      </StyledLink>
+      <Link to={href} aria-label={text}>
+        <StyledIcon src={iconSrc} />
+      </Link>
     ) : (
-      <StyledSpan aria-label={text}>
-        <Icon src={iconSrc} />
-      </StyledSpan>
+      <span aria-label={text}>
+        <StyledIcon src={iconSrc} />
+      </span>
     )}
   </Tooltip>
 )

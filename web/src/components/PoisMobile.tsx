@@ -14,7 +14,7 @@ import {
 } from 'api-client'
 import { UiDirectionType } from 'translations'
 
-import { ArrowBackspaceWhiteIcon } from '../assets'
+import { ArrowBackspaceIcon } from '../assets'
 import useMapFeatures from '../hooks/useMapFeatures'
 import useWindowDimensions from '../hooks/useWindowDimensions'
 import { getSnapPoints } from '../utils/getSnapPoints'
@@ -54,6 +54,10 @@ const BackNavigation = styled.div<{ direction: string }>`
   justify-content: center;
   align-items: center;
   display: flex;
+`
+
+const StyledIcon = styled(Icon)`
+  color ${props => props.theme.colors.backgroundColor};
 `
 
 type PoisMobileProps = {
@@ -151,7 +155,7 @@ const PoisMobile = ({
             tabIndex={0}
             onKeyPress={() => handleSelectFeatureOnMap(null)}
             direction={direction}>
-            <Icon src={ArrowBackspaceWhiteIcon} directionDependent />
+            <StyledIcon src={ArrowBackspaceIcon} directionDependent />
           </BackNavigation>
         )}
         {/* To use geolocation in a development build you have to start the dev server with "yarn start --https" */}

@@ -109,6 +109,11 @@ const Circle = styled.div`
   }
 `
 
+const StyledIcon = styled(Icon)`
+  width: 28px;
+  height: 28px;
+`
+
 export type HeaderNavigationItemProps = {
   text: string
   href: string
@@ -120,7 +125,7 @@ const HeaderNavigationItem = ({ active, text, href, icon }: HeaderNavigationItem
   <Container className='header-navigation-item'>
     <StyledLink to={href} $active={active}>
       <Circle>
-        <Icon src={icon} />
+        <StyledIcon src={icon} />
       </Circle>
       <StyledText $active={active}>{text}</StyledText>
     </StyledLink>

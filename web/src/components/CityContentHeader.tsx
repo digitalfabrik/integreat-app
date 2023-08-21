@@ -17,7 +17,7 @@ import {
 } from 'api-client'
 import { config } from 'translations'
 
-import { CategoriesIcon, EventsIcon, LocationIcon, NewsIcon, OffersIcon, POIsIcon, SearchIcon } from '../assets'
+import { CalendarIcon, CategoriesIcon, LocationIcon, NewsIcon, OffersIcon, POIsIcon, SearchIcon } from '../assets'
 import buildConfig from '../constants/buildConfig'
 import useWindowDimensions from '../hooks/useWindowDimensions'
 import { LOCAL_NEWS_ROUTE, RouteType, TU_NEWS_DETAIL_ROUTE, TU_NEWS_ROUTE } from '../routes'
@@ -132,7 +132,7 @@ const CityContentHeader = ({
           href={eventsPath}
           active={route === EVENTS_ROUTE}
           text={t('events')}
-          icon={EventsIcon}
+          icon={CalendarIcon}
         />,
       )
     }

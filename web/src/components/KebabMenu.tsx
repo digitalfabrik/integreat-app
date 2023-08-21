@@ -45,11 +45,6 @@ const List = styled.div<{ direction: UiDirectionType; show: boolean }>`
   flex-direction: column;
 `
 
-const StyledIcon = styled(Icon)`
-  width: 100%;
-  height: 100%;
-`
-
 const Overlay = styled.div<{ show: boolean }>`
   position: absolute;
   width: 100%;
@@ -77,6 +72,12 @@ const Content = styled.div`
 const ToggleButton = styled.button`
   background-color: transparent;
   border: none;
+  padding: 0;
+`
+
+const StyledIcon = styled(Icon)`
+  width: 28px;
+  height: 28px;
 `
 
 const KebabMenu = ({ items, direction, show, setShow, Footer }: KebabMenuProps): ReactElement | null => {
@@ -106,7 +107,7 @@ const KebabMenu = ({ items, direction, show, setShow, Footer }: KebabMenuProps):
         <List direction={direction} show={show}>
           <Heading direction={direction}>
             <ToggleButton onClick={onClick} aria-label={t('sideBarCloseAriaLabel')}>
-              <StyledIcon src={CloseIcon} />
+              <Icon src={CloseIcon} />
             </ToggleButton>
           </Heading>
           <Content>{items}</Content>

@@ -4,20 +4,15 @@ import EventThumbnailPlaceholder2 from '../../../assets/event-thumbnail-placehol
 import EventThumbnailPlaceholder3 from '../../../assets/event-thumbnail-placeholder-3.jpg'
 import AccessibleIcon from '../../../assets/icons/accessible.svg'
 import ArrowBackIcon from '../../../assets/icons/arrow-back.svg'
-import ArrowBackspaceWhiteIcon from '../../../assets/icons/arrow-backspace-white.svg'
 import ArrowBackspaceIcon from '../../../assets/icons/arrow-backspace.svg'
 import BathroomIcon from '../../../assets/icons/bathroom.svg'
 import BedIcon from '../../../assets/icons/bed.svg'
 import CalendarIcon from '../../../assets/icons/calendar.svg'
 import CategoriesIcon from '../../../assets/icons/categories.svg'
-import CloseGreyIcon from '../../../assets/icons/close-grey.svg'
 import CloseIcon from '../../../assets/icons/close.svg'
 import CopyIcon from '../../../assets/icons/copy.svg'
 import DoneIcon from '../../../assets/icons/done.svg'
-import EmailGreyIcon from '../../../assets/icons/email-grey.svg'
-import EmailIcon from '../../../assets/icons/email.svg'
 import EuroIcon from '../../../assets/icons/euro.svg'
-import EventsIcon from '../../../assets/icons/events.svg'
 import ExternalLinkIcon from '../../../assets/icons/external-link.svg'
 import FacebookIcon from '../../../assets/icons/facebook.svg'
 import FeedbackIcon from '../../../assets/icons/feedback.svg'
@@ -27,6 +22,7 @@ import KeyIcon from '../../../assets/icons/key.svg'
 import LanguageIcon from '../../../assets/icons/language.svg'
 import LgbtqiIcon from '../../../assets/icons/lgbtqi.svg'
 import LocationIcon from '../../../assets/icons/location.svg'
+import MailIcon from '../../../assets/icons/mail.svg'
 import MenuIcon from '../../../assets/icons/menu.svg'
 import NewsIcon from '../../../assets/icons/news.svg'
 import NoteIcon from '../../../assets/icons/note.svg'
@@ -51,19 +47,14 @@ export {
   AccessibleIcon,
   ArrowBackIcon,
   ArrowBackspaceIcon,
-  ArrowBackspaceWhiteIcon,
   BathroomIcon,
   BedIcon,
   CalendarIcon,
   CategoriesIcon,
   CloseIcon,
-  CloseGreyIcon,
   CopyIcon,
   DoneIcon,
-  EmailIcon,
-  EmailGreyIcon,
   EuroIcon,
-  EventsIcon,
   EventThumbnailPlaceholder1,
   EventThumbnailPlaceholder2,
   EventThumbnailPlaceholder3,
@@ -76,6 +67,7 @@ export {
   LanguageIcon,
   LgbtqiIcon,
   LocationIcon,
+  MailIcon,
   MenuIcon,
   NewsIcon,
   NoteIcon,

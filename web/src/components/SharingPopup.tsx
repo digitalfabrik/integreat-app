@@ -4,7 +4,7 @@ import styled, { css } from 'styled-components'
 
 import { UiDirectionType } from 'translations'
 
-import { CloseGreyIcon, FacebookIcon, EmailGreyIcon, ShareIcon, WhatsappIcon } from '../assets'
+import { CloseIcon, FacebookIcon, MailIcon, ShareIcon, WhatsappIcon } from '../assets'
 import Portal from './Portal'
 import ToolbarItem from './ToolbarItem'
 import Tooltip from './Tooltip'
@@ -173,6 +173,7 @@ const StyledIcon = styled(Icon)`
   padding: 8px;
   object-fit: contain;
   align-self: center;
+  color: ${props => props.theme.colors.textSecondaryColor};
 `
 
 const BackdropContainer = styled.div`
@@ -240,12 +241,12 @@ const SharingPopup = ({ shareUrl, title, flow, direction, portalNeeded }: Sharin
               <Link
                 href={`mailto:?subject=${encodedTitle}&body=${shareMessage}${encodedShareUrl}`}
                 aria-label={t('mailTooltip')}>
-                <StyledIcon src={EmailGreyIcon} />
+                <StyledIcon src={MailIcon} />
               </Link>
             </Tooltip>
             <Tooltip text={t('closeTooltip')} flow='up'>
               <CloseButton onClick={() => setShareOptionsVisible(false)} aria-label={t('mailTooltip')}>
-                <StyledIcon src={CloseGreyIcon} />
+                <StyledIcon src={CloseIcon} />
               </CloseButton>
             </Tooltip>
           </TooltipContainer>
