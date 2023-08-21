@@ -8,8 +8,7 @@ import Icon from './base/Icon'
 const StyledToolbarButtonItem = StyledToolbarItem.withComponent('button')
 
 const StyledIcon = styled(Icon)`
-  width: 20px;
-  height: 20px;
+  color: ${props => props.theme.colors.textSecondaryColor};
 `
 
 type ToolbarItemProps = {
