@@ -45,20 +45,17 @@ type JsonFeaturedImageType = {
 }
 type JsonEventInfoType = {
   id: number
-  start_date: string
-  end_date: string
+  start: string
+  end: string
   all_day: boolean
-  start_time: string
-  end_time: string
   recurrence_id: string | null | undefined
-  timezone: string
 }
 export type JsonCategoryType = {
   id: number
   url: string
   path: string
   title: string
-  modified_gmt: string
+  last_updated: string
   excerpt: string
   content: string
   available_languages: JsonAvailableLanguagesType
@@ -81,7 +78,7 @@ export type JsonPoiType = {
   url: string
   path: string
   title: string
-  modified_gmt: string
+  last_updated: string
   excerpt: string
   meta_description: string | null
   content: string
@@ -100,7 +97,7 @@ export type JsonEventType = {
   url: string
   path: string
   title: string
-  modified_gmt: string
+  last_updated: string
   excerpt: string
   content: string
   available_languages: JsonAvailableLanguagesType
@@ -197,7 +194,7 @@ export type JsonCityType = {
   latitude: number
   longitude: number
   aliases: Record<string, { longitude: number; latitude: number }> | null
-  bounding_box: [[number, number], [number, number]] | null
+  bounding_box: [[number, number], [number, number]]
 }
 
 export type TimeSlot = {

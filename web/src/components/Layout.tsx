@@ -4,7 +4,7 @@ import styled, { css } from 'styled-components'
 import dimensions from '../constants/dimensions'
 import useWindowDimensions from '../hooks/useWindowDimensions'
 
-const RichLayout = styled.div`
+export const RichLayout = styled.div`
   position: relative;
   display: flex;
   min-height: 100vh;

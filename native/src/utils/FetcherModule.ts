@@ -3,17 +3,9 @@ import { isEmpty } from 'lodash'
 import NativeFetcherModule from './NativeFetcherModule'
 
 export type TargetFilePathsType = Record<string, string>
-export type FetchResultType = Record<
-  string,
-  {
-    lastUpdate: string
-    url: string
-    errorMessage: string | null | undefined
-  }
->
+export type FetchResultType = Record<string, { url: string; errorMessage: string | null | undefined }>
 
 class FetcherModule {
-  // TODO IGAPP-217: Correctly handle already fetching
   static currentlyFetching = false
 
   async fetchAsync(targetFilePaths: TargetFilePathsType): Promise<FetchResultType> {

@@ -1,4 +1,4 @@
-import moment from 'moment'
+import { DateTime } from 'luxon'
 
 import LocationModel from '../models/LocationModel'
 import OpeningHoursModel from '../models/OpeningHoursModel'
@@ -35,11 +35,11 @@ const pois = [
       address: 'Test Address 1',
       town: 'Test Town',
       postcode: '12345',
-      longitude: 31.133859,
-      latitude: 29.979848,
+      longitude: 30,
+      latitude: 30,
       name: 'Test Title',
     }),
-    lastUpdate: moment('2011-02-04T00:00:00.000Z'),
+    lastUpdate: DateTime.fromISO('2011-02-04T00:00:00.000Z'),
     temporarilyClosed: false,
     openingHours: [
       new OpeningHoursModel({ allDay: true, closed: false, timeSlots: [{ end: '18:00', start: '08:00' }] }),
@@ -73,7 +73,7 @@ const pois = [
       latitude: 15,
       name: 'name 2',
     }),
-    lastUpdate: moment('2011-02-04T00:00:00.000Z'),
+    lastUpdate: DateTime.fromISO('2011-02-04T00:00:00.000Z'),
     temporarilyClosed: false,
     openingHours: [
       new OpeningHoursModel({ allDay: false, closed: false, timeSlots: [{ end: '18:00', start: '08:00' }] }),
@@ -103,11 +103,11 @@ const pois = [
       address: 'another test address',
       town: 'another test town',
       postcode: 'anothre test postcode',
-      longitude: 30,
-      latitude: 30,
+      longitude: 30 + 0.00001,
+      latitude: 30 - 0.00001,
       name: 'another name',
     }),
-    lastUpdate: moment('2011-02-04T00:00:00.000Z'),
+    lastUpdate: DateTime.fromISO('2011-02-04T00:00:00.000Z'),
     temporarilyClosed: false,
     openingHours: null,
   }),

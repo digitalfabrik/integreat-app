@@ -48,10 +48,10 @@ const CitySelector = ({ cities, navigateToDashboard }: CitySelectorProps): React
         <CityGroupContainer key={key}>
           <CityGroup>{key}</CityGroup>
           {cities.map(renderCity)}
-        </CityGroupContainer>
+        </CityGroupContainer>,
       )
     },
-    []
+    [],
   )
 
   return (

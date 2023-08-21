@@ -60,10 +60,10 @@ export const unsubscribeNews = async (city: string, language: string): Promise<v
   }
   log(`Unsubscribed from ${topic} topic!`)
 }
-export const subscribeNews = async (city: string, language: string): Promise<void> => {
+export const subscribeNews = async (city: string, language: string, skipSettingsCheck = false): Promise<void> => {
   try {
     const { allowPushNotifications } = await appSettings.loadSettings()
-    if (!pushNotificationsEnabled() || !allowPushNotifications) {
+    if (!pushNotificationsEnabled() || (!allowPushNotifications && !skipSettingsCheck)) {
       log('Push notifications disabled, subscription skipped.')
       return
     }
@@ -102,7 +102,7 @@ export const useForegroundPushNotificationListener = ({
         if (mounted) {
           // The CMS needs some time until the push notification is available in the API response
           setTimeout(() => {
-            // TODO IGAPP-1024: Uncomment and improve snackbar
+            // TODO #2140: Uncomment and improve snackbar
             log(JSON.stringify(message))
             // showSnackbar({
             //   text: message.notification.title,
@@ -114,7 +114,7 @@ export const useForegroundPushNotificationListener = ({
             // })
           }, WAITING_TIME_FOR_CMS)
         }
-      })
+      }),
     )
     return () => {
       mounted = false
@@ -122,7 +122,7 @@ export const useForegroundPushNotificationListener = ({
   }, [showSnackbar, navigate])
 
 export const quitAppStatePushNotificationListener = async (
-  navigateToDeepLink: (url: string) => void
+  navigateToDeepLink: (url: string) => void,
 ): Promise<void> => {
   const messaging = await importFirebaseMessaging()
   const message = (await messaging().getInitialNotification()) as Message | null
@@ -142,7 +142,7 @@ export const backgroundAppStatePushNotificationListener = (listener: (url: strin
         const onReceiveURLListener = Linking.addListener('url', onReceiveURL)
 
         const unsubscribeNotification = messaging().onNotificationOpenedApp(message =>
-          listener(urlFromMessage(message as Message))
+          listener(urlFromMessage(message as Message)),
         )
 
         return () => {

@@ -1,4 +1,4 @@
-import moment from 'moment-timezone'
+import { DateTime } from 'luxon'
 
 import Endpoint from '../Endpoint'
 import EndpointBuilder from '../EndpointBuilder'
@@ -14,7 +14,7 @@ export default (baseUrl: string): Endpoint<ParamsType, Array<LocalNewsModel>> =>
   new EndpointBuilder<ParamsType, Array<LocalNewsModel>>(LOCAL_NEWS_ENDPOINT_NAME)
     .withParamsToUrlMapper(
       (params: ParamsType): string =>
-        `${baseUrl}/${params.city}/${params.language}/wp-json/extensions/v3/fcm/?channel=news`
+        `${baseUrl}/${params.city}/${params.language}/wp-json/extensions/v3/fcm/?channel=news`,
     )
     .withMapper(
       (json: Array<JsonLocalNewsType>): Array<LocalNewsModel> =>
@@ -22,10 +22,10 @@ export default (baseUrl: string): Endpoint<ParamsType, Array<LocalNewsModel>> =>
           (localNews: JsonLocalNewsType) =>
             new LocalNewsModel({
               id: localNews.id,
-              timestamp: moment.tz(localNews.timestamp, 'GMT'),
+              timestamp: DateTime.fromISO(localNews.timestamp),
               title: localNews.title,
               content: localNews.message,
-            })
-        )
+            }),
+        ),
     )
     .build()

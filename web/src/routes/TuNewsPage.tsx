@@ -38,7 +38,7 @@ const TuNewsPage = ({ cityCode, languageCode, city }: CityRouteProps): ReactElem
   const { data: tuNewsLanguages, error } = useLoadFromEndpoint(
     createTunewsLanguagesEndpoint,
     tunewsApiBaseUrl,
-    undefined
+    undefined,
   )
 
   const loadTuNews = useCallback(
@@ -50,7 +50,7 @@ const TuNewsPage = ({ cityCode, languageCode, city }: CityRouteProps): ReactElem
       }
       return data
     },
-    [languageCode]
+    [languageCode],
   )
 
   if (!city) {
@@ -90,12 +90,21 @@ const TuNewsPage = ({ cityCode, languageCode, city }: CityRouteProps): ReactElem
     }
   })
 
+  const pageTitle = `${tunewsLabel} - ${city.name}`
   const locationLayoutParams: Omit<CityContentLayoutProps, 'isLoading'> = {
     city,
     languageChangePaths,
     route: TU_NEWS_ROUTE,
     languageCode,
-    Toolbar: !viewportSmall && <CityContentToolbar route={TU_NEWS_ROUTE} hasFeedbackOption={false} hideDivider />,
+    Toolbar: !viewportSmall && (
+      <CityContentToolbar
+        route={TU_NEWS_ROUTE}
+        hasFeedbackOption={false}
+        hideDivider
+        languageCode={languageCode}
+        pageTitle={pageTitle}
+      />
+    ),
   }
 
   if (error) {
@@ -137,8 +146,6 @@ const TuNewsPage = ({ cityCode, languageCode, city }: CityRouteProps): ReactElem
       </CityContentLayout>
     )
   }
-
-  const pageTitle = `${tunewsLabel} - ${city.name}`
 
   return (
     <CityContentLayout isLoading={false} {...locationLayoutParams}>

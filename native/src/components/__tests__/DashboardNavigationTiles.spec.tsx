@@ -49,7 +49,7 @@ describe('DashboardNavigationTiles', () => {
           longitude: 10.889586,
         },
       },
-      boundingBox: null,
+      boundingBox: [10.7880103, 48.447238, 11.0174493, 48.297834],
     })
 
   const mockBuildConfig = (pois: boolean, newsStream: boolean) => {
@@ -62,7 +62,7 @@ describe('DashboardNavigationTiles', () => {
 
   const renderDashboardNavigationTiles = (cityModel: CityModel): TestRenderer.ReactTestRenderer =>
     TestRenderer.create(
-      <DashboardNavigationTiles navigateTo={navigateTo} languageCode={language} cityModel={cityModel} />
+      <DashboardNavigationTiles navigateTo={navigateTo} languageCode={language} cityModel={cityModel} />,
     )
 
   it('should show navigation tiles if there is at least one feature enabled', () => {

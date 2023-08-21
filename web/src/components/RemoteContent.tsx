@@ -151,7 +151,7 @@ const RemoteContent = ({
         onInternalLinkClick(decodeURIComponent(new URL(decodeURIComponent(href)).pathname))
       }
     },
-    [onInternalLinkClick]
+    [onInternalLinkClick],
   )
 
   useEffect(() => {

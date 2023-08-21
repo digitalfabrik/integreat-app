@@ -63,7 +63,7 @@ describe('useNavigateToDeepLink', () => {
     render(
       <AppContext.Provider value={{ changeCityCode, changeLanguageCode, cityCode, languageCode }}>
         <MockComponent url={url} />
-      </AppContext.Provider>
+      </AppContext.Provider>,
     )
 
   const expectTrackingSignal = (url: string) => {

@@ -46,7 +46,7 @@ const EventsContainer = ({ navigation, route }: EventsContainerProps): ReactElem
         navigation.setParams({ slug: newSlug })
       }
     },
-    [currentEvent, navigation]
+    [currentEvent, navigation],
   )
   usePreviousProp({ prop: languageCode, onPropChange: onLanguageChange })
 

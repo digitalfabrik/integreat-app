@@ -1,4 +1,4 @@
-import moment from 'moment-timezone'
+import { DateTime } from 'luxon'
 
 import PageModel from '../../models/PageModel'
 import createDisclaimerEndpoint from '../createDisclaimerEndpoint'
@@ -10,7 +10,7 @@ describe('disclaimer', () => {
     path: '/augsburg/en/disclaimer/feedback-contact-and-opportunities-to-take-part/',
     title: 'Feedback, Kontakt und mögliches Engagement',
     type: 'disclaimer',
-    modified_gmt: '2017-06-12 12:27:57',
+    last_updated: '2022-06-29T09:19:57.443+02:00',
     content: '<div>Some disclaimer test content :)</div>',
   }
   const params = {
@@ -19,7 +19,7 @@ describe('disclaimer', () => {
   }
   it('should map router to url', () => {
     expect(disclaimer.mapParamsToUrl(params)).toBe(
-      'https://integreat-api-url.de/augsburg/de/wp-json/extensions/v3/disclaimer/'
+      'https://integreat-api-url.de/augsburg/de/wp-json/extensions/v3/disclaimer/',
     )
   })
   it('should throw if there is no disclaimer', () => {
@@ -32,8 +32,8 @@ describe('disclaimer', () => {
         path: '/augsburg/en/disclaimer/feedback-contact-and-opportunities-to-take-part',
         title: pageJson.title,
         content: '<div>Some disclaimer test content :)</div>',
-        lastUpdate: moment.tz('2017-06-12 12:27:57', 'GMT'),
-      })
+        lastUpdate: DateTime.fromISO('2022-06-29T09:19:57.443+02:00'),
+      }),
     )
   })
 })

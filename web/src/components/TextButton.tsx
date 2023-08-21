@@ -14,12 +14,16 @@ const PrimaryButton = styled.button<{ disabled: boolean; fullWidth?: boolean }>`
   border-radius: 0.25em;
   cursor: ${props => (props.disabled ? 'default' : 'pointer')};
   pointer-events: ${props => (props.disabled ? 'none' : 'default')};
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.15);
+  box-shadow:
+    0 1px 3px rgba(0, 0, 0, 0.1),
+    0 1px 2px rgba(0, 0, 0, 0.15);
 `
 
 const TileButton = styled.button<{ $active: boolean | null }>`
   border: none;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.25), 0 1px 4px 1px rgba(0, 0, 0, 0.15);
+  box-shadow:
+    0 1px 2px rgba(0, 0, 0, 0.25),
+    0 1px 4px 1px rgba(0, 0, 0, 0.15);
   border-radius: 18px;
   width: 100px;
   height: 80px;

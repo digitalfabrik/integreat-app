@@ -13,7 +13,7 @@ describe('Collapsible', () => {
     const { getByText } = renderWithTheme(
       <Collapsible direction='ltr' title={title}>
         {content}
-      </Collapsible>
+      </Collapsible>,
     )
     expect(getByText(content)).toBeTruthy()
   })
@@ -22,7 +22,7 @@ describe('Collapsible', () => {
     const { queryByText } = renderWithTheme(
       <Collapsible direction='ltr' initialCollapsed={false} title={title}>
         {content}
-      </Collapsible>
+      </Collapsible>,
     )
     expect(queryByText(content)).toBeNull()
   })
@@ -31,7 +31,7 @@ describe('Collapsible', () => {
     const { getByText, queryByText } = renderWithTheme(
       <Collapsible direction='ltr' title={title}>
         {content}
-      </Collapsible>
+      </Collapsible>,
     )
     expect(getByText(content)).toBeTruthy()
     fireEvent.click(getByText(title))
@@ -42,7 +42,7 @@ describe('Collapsible', () => {
     const { getByText, queryByText } = renderWithTheme(
       <Collapsible direction='ltr' initialCollapsed={false} title={title}>
         {content}
-      </Collapsible>
+      </Collapsible>,
     )
     expect(queryByText(content)).toBeNull()
     fireEvent.click(getByText(title))
