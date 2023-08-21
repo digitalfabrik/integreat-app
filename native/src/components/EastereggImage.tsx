@@ -1,13 +1,12 @@
 import { DateTime } from 'luxon'
 import React, { ReactElement, ReactNode, useEffect, useState } from 'react'
-import { Button } from 'react-native-elements'
-import { useTheme } from 'styled-components'
 import styled from 'styled-components/native'
 
 import buildConfig, { buildConfigAssets } from '../constants/buildConfig'
 import appSettings from '../utils/AppSettings'
 import { log, reportError } from '../utils/sentry'
 import Pressable from './base/Pressable'
+import TextButton from './base/TextButton'
 
 const API_URL_OVERRIDE_MIN_CLICKS = 10
 const CLICK_TIMEOUT = 8
@@ -15,6 +14,9 @@ const CLICK_TIMEOUT = 8
 const ApiUrlText = styled.Text`
   padding-top: 10px;
   color: red;
+`
+const StyledButton = styled(TextButton)`
+  margin-top: 16px;
 `
 
 const StyledPressable = styled(Pressable)`
@@ -30,7 +32,6 @@ const EastereggImage = ({ clearResourcesAndCache }: EastereggImageProps): ReactE
   const [apiUrlOverride, setApiUrlOverride] = useState<string | null>(null)
   const [clickStart, setClickStart] = useState<null | DateTime>(null)
   const { cmsUrl, switchCmsUrl } = buildConfig()
-  const theme = useTheme()
 
   useEffect(() => {
     appSettings.loadApiUrlOverride().then(setApiUrlOverride).catch(reportError)
@@ -70,17 +71,7 @@ const EastereggImage = ({ clearResourcesAndCache }: EastereggImageProps): ReactE
       return (
         <>
           <ApiUrlText>{`Currently using API: ${apiUrlOverride.toString()}`}</ApiUrlText>
-          <Button
-            titleStyle={{
-              color: theme.colors.textColor,
-            }}
-            buttonStyle={{
-              backgroundColor: theme.colors.themeColor,
-              marginTop: 10,
-            }}
-            onPress={() => setApiUrl(cmsUrl)}
-            title='Switch back to default API'
-          />
+          <StyledButton onPress={() => setApiUrl(cmsUrl)} text='Switch back to default API' />
         </>
       )
     }

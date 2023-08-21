@@ -2,8 +2,6 @@ import React, { ReactElement } from 'react'
 import { ScrollView } from 'react-native'
 import styled from 'styled-components/native'
 
-import { ThemeType } from 'build-configs'
-
 const Container = styled.View<{ width: number }>`
   display: flex;
   justify-content: space-around;
@@ -38,23 +36,22 @@ export type SlideContentType = {
 }
 type SlideContentProps = {
   item: SlideContentType
-  theme: ThemeType
   width: number
 }
 
-const SlideContent = ({ item, theme, width }: SlideContentProps): ReactElement => (
+const SlideContent = ({ item, width }: SlideContentProps): ReactElement => (
   <ScrollView
     contentContainerStyle={{
       flexGrow: 1,
     }}>
-    <Container theme={theme} width={width}>
+    <Container width={width}>
       <TextContainer>
-        <Heading theme={theme}>{item.title}</Heading>
+        <Heading>{item.title}</Heading>
       </TextContainer>
       <ContentContainer description={item.description !== undefined}>{item.Content}</ContentContainer>
       {!!item.description && (
         <TextContainer>
-          <Description theme={theme}>{item.description}</Description>
+          <Description>{item.description}</Description>
         </TextContainer>
       )}
     </Container>
