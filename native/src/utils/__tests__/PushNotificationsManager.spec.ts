@@ -184,7 +184,7 @@ describe('PushNotificationsManager', () => {
   })
 
   describe('quitAppStatePushNotificationsListener', () => {
-    const message = {
+    const message: FirebaseMessagingTypes.RemoteMessage = {
       notification: { title: 'Test PN' },
       data: {
         city_code: 'augsburg',

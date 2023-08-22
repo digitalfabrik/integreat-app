@@ -1,7 +1,7 @@
 import * as mapLibreGl from 'maplibre-gl'
 import 'maplibre-gl/dist/maplibre-gl.css'
 import React, { ReactElement, ReactNode, useCallback, useEffect, useState } from 'react'
-import Map, { Layer, MapRef, Source, MapLayerMouseEvent } from 'react-map-gl'
+import Map, { Layer, MapRef, Source, MapLayerMouseEvent } from 'react-map-gl/maplibre'
 import styled, { useTheme } from 'styled-components'
 
 import {

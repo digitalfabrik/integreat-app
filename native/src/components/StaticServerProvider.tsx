@@ -18,17 +18,18 @@ const staticServer = new StaticServer(SERVER_PORT, SERVER_PATH, {
 export const StaticServerContext = createContext('')
 
 const StaticServerProvider = ({ children }: StaticServerProps): ReactElement | null => {
-  const [resourceCacheUrl, setResourceCacheUrl] = useState<string | null>(null)
+  const [resourceCacheUrl, setResourceCacheUrl] = useState<string>('')
 
   useEffect(() => {
     staticServer.start().then(setResourceCacheUrl).catch(reportError)
 
     return () => {
+      setResourceCacheUrl('')
       staticServer.stop()
     }
   }, [])
 
-  if (resourceCacheUrl === null) {
+  if (resourceCacheUrl.length === 0) {
     return null
   }
 
