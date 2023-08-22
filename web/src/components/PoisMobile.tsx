@@ -1,7 +1,7 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { GeolocateControl } from 'maplibre-gl'
 import React, { ReactElement, useCallback, useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { GeolocateControl } from 'react-map-gl'
 import styled, { css } from 'styled-components'
 
 import {
@@ -22,7 +22,7 @@ import { getSnapPoints } from '../utils/getSnapPoints'
 import BottomActionSheet, { ScrollableBottomSheetRef } from './BottomActionSheet'
 import GoBack from './GoBack'
 import List from './List'
-import MapView from './MapView'
+import MapView, { MapViewRef } from './MapView'
 import PoiDetails from './PoiDetails'
 import PoiListItem from './PoiListItem'
 
@@ -92,6 +92,8 @@ const PoisMobile = ({
   const [bottomActionSheetHeight, setBottomActionSheetHeight] = useState(0)
   const [scrollOffset, setScrollOffset] = useState<number>(0)
   const sheetRef = useRef<ScrollableBottomSheetRef>(null)
+  const geolocatePosition = useRef<HTMLDivElement>(null)
+  const [mapViewRef, setMapViewRef] = useState<MapViewRef | null>(null)
   const { selectGeoJsonPoiInList, selectFeatureOnMap, currentFeatureOnMap, currentPoi, poiListFeatures } =
     useMapFeatures(features, pois, slug)
   const { height } = useWindowDimensions()
@@ -143,9 +145,21 @@ const PoisMobile = ({
     />
   )
 
+  useEffect(() => {
+    if (mapViewRef && geolocatePosition.current) {
+      const geolocate = new GeolocateControl({
+        positionOptions: { enableHighAccuracy: true },
+        trackUserLocation: true,
+      })
+      mapViewRef.addGeolocatePosition(geolocatePosition.current, 'geolocate')
+      mapViewRef.setGeocontrol('geolocate', geolocate)
+    }
+  }, [mapViewRef])
+
   return (
     <>
       <MapView
+        ref={setMapViewRef}
         viewport={mapViewport}
         setViewport={setMapViewport}
         selectFeature={handleSelectFeatureOnMap}
@@ -163,17 +177,6 @@ const PoisMobile = ({
             <StyledIcon icon={faArrowLeft} direction={direction} />
           </BackNavigation>
         )}
-        {/* To use geolocation in a development build you have to start the dev server with "yarn start --https" */}
-        <GeolocateControl
-          style={{
-            bottom: bottomActionSheetHeight,
-            position: 'absolute',
-            right: 0,
-          }}
-          positionOptions={{ enableHighAccuracy: true }}
-          trackUserLocation
-          position='bottom-right'
-        />
       </MapView>
       <BottomActionSheet
         title={!currentFeatureOnMap ? t('listTitle') : undefined}
@@ -181,6 +184,7 @@ const PoisMobile = ({
         ref={sheetRef}
         setBottomActionSheetHeight={setBottomActionSheetHeight}
         direction={direction}>
+        <div ref={geolocatePosition} style={{ position: 'absolute', right: 10, top: -40 }} />
         <GoBackContainer hidden={!isBottomActionSheetFullScreen}>
           <GoBack
             goBack={() => selectGeoJsonPoiInList(null)}
