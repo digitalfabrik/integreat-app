@@ -1,8 +1,8 @@
-import React, { PureComponent, ReactElement } from 'react'
+import React, { memo } from 'react'
 import { TFunction } from 'react-i18next'
 import styled from 'styled-components/native'
 
-import { PoiFeature } from 'api-client'
+import { GeoJsonPoi } from 'api-client'
 
 import Placeholder from '../assets/PoiPlaceholderThumbnail.jpg'
 import { contentDirection } from '../constants/contentDirection'
@@ -49,30 +49,24 @@ const Title = styled.Text`
 `
 
 type PoiListItemProps = {
-  poi: PoiFeature
+  poi: GeoJsonPoi
   language: string
   navigateToPoi: () => void
   t: TFunction
 }
 
-// This should stay a PureComponent for performance reasons
-class PoiListItem extends PureComponent<PoiListItemProps> {
-  render(): ReactElement {
-    const { poi, language, navigateToPoi, t } = this.props
-    const thumbnail = poi.properties.thumbnail ?? Placeholder
-    return (
-      <StyledPressable onPress={navigateToPoi} language={language}>
-        <Thumbnail source={thumbnail} resizeMode='cover' />
-        <Description>
-          <Title>{poi.properties.title}</Title>
-          {!!poi.properties.distance && (
-            <Distance>{t('distanceKilometre', { distance: poi.properties.distance })}</Distance>
-          )}
-          {!!poi.properties.category && <Category>{poi.properties.category}</Category>}
-        </Description>
-      </StyledPressable>
-    )
-  }
+const PoiListItem = ({ poi, language, navigateToPoi, t }: PoiListItemProps) => {
+  const thumbnail = poi.thumbnail ?? Placeholder
+  return (
+    <StyledPressable onPress={navigateToPoi} language={language}>
+      <Thumbnail source={thumbnail} resizeMode='cover' />
+      <Description>
+        <Title>{poi.title}</Title>
+        {!!poi.distance && <Distance>{t('distanceKilometre', { distance: poi.distance })}</Distance>}
+        {!!poi.category && <Category>{poi.category}</Category>}
+      </Description>
+    </StyledPressable>
+  )
 }
 
-export default PoiListItem
+export default memo(PoiListItem)

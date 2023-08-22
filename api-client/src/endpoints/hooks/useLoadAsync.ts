@@ -4,7 +4,7 @@ export const loadAsync = async <T>(
   request: () => Promise<T>,
   setData: (data: T | null) => void,
   setError: (error: Error | null) => void,
-  setLoading: (loading: boolean) => void
+  setLoading: (loading: boolean) => void,
 ): Promise<void> => {
   setLoading(true)
 
@@ -36,7 +36,7 @@ export const useLoadAsync = <T>(request: (refresh: boolean) => Promise<T>): Retu
     (refresh = false) => {
       loadAsync<T>(() => request(refresh), setData, setError, setLoading).catch(setError)
     },
-    [request]
+    [request],
   )
 
   useEffect(() => {

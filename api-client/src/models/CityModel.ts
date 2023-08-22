@@ -34,7 +34,7 @@ class CityModel {
     latitude: number
     longitude: number
     aliases: Record<string, CoordinateType> | null
-    boundingBox: BBox | null
+    boundingBox: BBox
   }) {
     this._name = params.name
     this._code = params.code
@@ -53,9 +53,9 @@ class CityModel {
     this._boundingBox = params.boundingBox
   }
 
-  _boundingBox: BBox | null
+  _boundingBox: BBox
 
-  get boundingBox(): BBox | null {
+  get boundingBox(): BBox {
     return this._boundingBox
   }
 

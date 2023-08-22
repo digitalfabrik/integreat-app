@@ -1,7 +1,6 @@
 import React, { ReactElement, useCallback, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { FlatList, useWindowDimensions, ViewToken } from 'react-native'
-import { useTheme } from 'styled-components'
 import styled, { css } from 'styled-components/native'
 
 import { IntroRouteType, LANDING_ROUTE } from 'api-client'
@@ -55,7 +54,6 @@ const Intro = ({ route, navigation }: IntroProps): ReactElement => {
   const [currentSlide, setCurrentSlide] = useState(0)
   const { width } = useWindowDimensions()
   const { t } = useTranslation<['intro', 'settings']>(['intro', 'settings'])
-  const theme = useTheme()
   const flatListRef = useRef<FlatList>(null)
   const { deepLink } = route.params
   const navigateToDeepLink = useNavigateToDeepLink()
@@ -95,7 +93,7 @@ const Intro = ({ route, navigation }: IntroProps): ReactElement => {
         title: t('languageChange'),
         description: t('languageChangeDescription'),
         Content: <styledIcons.Language height='100%' width='60%' />,
-      }
+      },
     )
   }
 
@@ -119,7 +117,7 @@ const Intro = ({ route, navigation }: IntroProps): ReactElement => {
     })
   }, [])
 
-  const renderSlide = ({ item }: { item: SlideContentType }) => <SlideContent item={item} theme={theme} width={width} />
+  const renderSlide = ({ item }: { item: SlideContentType }) => <SlideContent item={item} width={width} />
 
   const onViewableItemsChanged = useCallback(({ viewableItems }: { viewableItems: Array<ViewToken> }) => {
     const viewableItem = viewableItems[0]
@@ -146,14 +144,7 @@ const Intro = ({ route, navigation }: IntroProps): ReactElement => {
         bounces={false}
         renderItem={renderSlide}
       />
-      <SlideFooter
-        slideCount={slides.length}
-        onDone={onDone}
-        currentSlide={currentSlide}
-        goToSlide={goToSlide}
-        theme={theme}
-        t={t}
-      />
+      <SlideFooter slideCount={slides.length} onDone={onDone} currentSlide={currentSlide} goToSlide={goToSlide} t={t} />
     </Container>
   )
 }

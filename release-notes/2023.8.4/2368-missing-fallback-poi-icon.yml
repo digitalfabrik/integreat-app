@@ -1,0 +1,8 @@
+issue_key: 2368
+show_in_stores: true
+platforms:
+  - ios
+  - android
+  - web
+en: Missing icon for location category will be displayed.
+de: Fehlendes Icon für Ortskategorie wird nun angezeigt.

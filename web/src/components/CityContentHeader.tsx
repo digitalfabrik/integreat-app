@@ -131,7 +131,7 @@ const CityContentHeader = ({
           text={t('news')}
           icon={NewsIcon}
           direction={direction}
-        />
+        />,
       )
     }
 
@@ -144,7 +144,7 @@ const CityContentHeader = ({
           text={t('events')}
           icon={EventsIcon}
           direction={direction}
-        />
+        />,
       )
     }
 
@@ -157,7 +157,7 @@ const CityContentHeader = ({
           text={t('pois')}
           icon={POIsIcon}
           direction={direction}
-        />
+        />,
       )
     }
 
@@ -170,7 +170,7 @@ const CityContentHeader = ({
           text={t('offers')}
           icon={OffersIcon}
           direction={direction}
-        />
+        />,
       )
     }
 

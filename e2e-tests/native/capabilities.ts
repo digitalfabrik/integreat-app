@@ -4,7 +4,7 @@ import { getGitBranch, getGitHeadReference } from '../shared/git'
 
 const browserstackCaps = (
   config: Capabilities.AppiumW3CCapabilities | Capabilities.AppiumXCUITestCapabilities,
-  platformName: 'ios' | 'android'
+  platformName: 'ios' | 'android',
 ): Capabilities.Capabilities => {
   // is set by circleci https://github.com/circleci/circleci-docs/blob/master/jekyll/_cci1/environment-variables.md
   const isCi = !!process.env.CI
@@ -33,7 +33,7 @@ export default {
       'appium:platformVersion': '13.0',
       'appium:deviceName': 'Google Pixel 7',
     },
-    'android'
+    'android',
   ),
   ios: browserstackCaps(
     {
@@ -41,6 +41,6 @@ export default {
       'appium:deviceName': 'iPhone 14',
       'appium:waitForIdleTimeout': 10000,
     },
-    'ios'
+    'ios',
   ),
 } as Record<string, Capabilities.Capabilities>

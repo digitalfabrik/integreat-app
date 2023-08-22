@@ -75,7 +75,7 @@ const App = (): ReactElement => {
         setRouteIndex(state.index)
       }
     },
-    [routeIndex]
+    [routeIndex],
   )
 
   return (

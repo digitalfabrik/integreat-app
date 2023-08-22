@@ -1,10 +1,12 @@
 import React, { ReactElement } from 'react'
+import { StyleProp, ViewStyle } from 'react-native'
 import styled from 'styled-components/native'
 
-import { CloseIcon } from '../assets'
-import Text from './base/Text'
+import { CloseIcon } from '../../assets'
+import Pressable from './Pressable'
+import Text from './Text'
 
-const Container = styled.Pressable`
+const StyledPressable = styled(Pressable)`
   flex: 1;
   flex-direction: row;
   height: 30px;
@@ -29,15 +31,16 @@ const Spacer = styled.View`
   width: 4px;
 `
 
-type OverlayButtonProps = {
+type TextButtonProps = {
   text: string
+  onPress: () => Promise<void> | void
   Icon: ReactElement
-  onPress: () => void
   closeButton?: boolean
+  style?: StyleProp<ViewStyle>
 }
 
-const OverlayButton = ({ Icon, text, onPress, closeButton }: OverlayButtonProps): ReactElement => (
-  <Container onPress={onPress}>
+const ChipButton = ({ text, onPress, Icon, closeButton, style }: TextButtonProps): ReactElement => (
+  <StyledPressable onPress={onPress} style={style}>
     <IconContainer>{Icon}</IconContainer>
     <Spacer />
     <StyledText>{text}</StyledText>
@@ -46,7 +49,7 @@ const OverlayButton = ({ Icon, text, onPress, closeButton }: OverlayButtonProps)
         <CloseIcon />
       </IconContainer>
     )}
-  </Container>
+  </StyledPressable>
 )
 
-export default OverlayButton
+export default ChipButton

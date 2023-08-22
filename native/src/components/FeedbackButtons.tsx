@@ -4,8 +4,7 @@ import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 import styled from 'styled-components/native'
 
-import Pressable from './base/Pressable'
-import Text from './base/Text'
+import ToggleButton from './base/ToggleButton'
 
 const Container = styled.View`
   flex-direction: row;
@@ -14,30 +13,6 @@ const Container = styled.View`
   margin: 12px 0;
 `
 
-const FeedbackPressable = styled(Pressable)`
-  align-items: center;
-  border-radius: 18px;
-  width: 100px;
-  height: 80px;
-  justify-content: center;
-`
-const CardShadow = styled.View<{ $active: boolean | null }>`
-  background-color: ${props =>
-    props.$active ? `${props.theme.colors.themeColor}` : `${props.theme.colors.backgroundColor}`};
-  border-radius: 18px;
-  shadow-color: #171717;
-  shadow-offset: 1px 2px;
-  shadow-opacity: 0.25;
-  shadow-radius: 3px;
-  elevation: 5;
-`
-
-const FeedbackText = styled(Text)`
-  color: ${props => props.theme.colors.textColor};
-  font-family: ${props => props.theme.fonts.native.decorativeFontRegular};
-  font-size: 12px;
-  margin-top: 8px;
-`
 const Spacing = styled.View`
   padding: 10px;
 `
@@ -55,23 +30,19 @@ const FeedbackButtons = ({ isPositiveFeedback, setIsPositiveFeedback }: Feedback
   const { t } = useTranslation('feedback')
   return (
     <Container>
-      <CardShadow $active={isPositiveFeedback}>
-        <FeedbackPressable
-          onPress={() => setIsPositiveFeedback(isPositiveFeedback !== true ? true : null)}
-          testID='feedback-positive-rating'>
-          <HappyIcon height={MAXIMAL_ICON_SIZE} width={MAXIMAL_ICON_SIZE} />
-          <FeedbackText>{t('useful')}</FeedbackText>
-        </FeedbackPressable>
-      </CardShadow>
+      <ToggleButton
+        text={t('useful')}
+        onPress={() => setIsPositiveFeedback(isPositiveFeedback !== true ? true : null)}
+        Icon={<HappyIcon height={MAXIMAL_ICON_SIZE} width={MAXIMAL_ICON_SIZE} />}
+        active={isPositiveFeedback === true}
+      />
       <Spacing />
-      <CardShadow $active={isPositiveFeedback === false}>
-        <FeedbackPressable
-          onPress={() => setIsPositiveFeedback(isPositiveFeedback !== false ? false : null)}
-          testID='feedback-negative-rating'>
-          <SadIcon height={MAXIMAL_ICON_SIZE} width={MAXIMAL_ICON_SIZE} />
-          <FeedbackText>{t('notUseful')}</FeedbackText>
-        </FeedbackPressable>
-      </CardShadow>
+      <ToggleButton
+        text={t('notUseful')}
+        onPress={() => setIsPositiveFeedback(isPositiveFeedback !== false ? false : null)}
+        Icon={<SadIcon height={MAXIMAL_ICON_SIZE} width={MAXIMAL_ICON_SIZE} />}
+        active={isPositiveFeedback === false}
+      />
     </Container>
   )
 }

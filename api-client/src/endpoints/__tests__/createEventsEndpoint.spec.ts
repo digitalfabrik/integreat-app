@@ -130,25 +130,25 @@ describe('events', () => {
     2730,
     false,
     DateTime.fromISO('2016-01-31T10:00:00+01:00'),
-    DateTime.fromISO('2016-01-31T13:00:00+01:00')
+    DateTime.fromISO('2016-01-31T13:00:00+01:00'),
   )
   const eventModel2 = createEventModel(
     1889,
     false,
     DateTime.fromISO('2015-11-29T10:00:00+01:00'),
-    DateTime.fromISO('2015-11-29T13:00:00+01:00')
+    DateTime.fromISO('2015-11-29T13:00:00+01:00'),
   )
   const eventModel3 = createEventModel(
     4768,
     true,
     DateTime.fromISO('2017-09-29T00:00:00.000+02:00'),
-    DateTime.fromISO('2017-09-29T23:59:59.000+02:00')
+    DateTime.fromISO('2017-09-29T23:59:59.000+02:00'),
   )
   const eventModel4 = createEventModel(
     4826,
     true,
     DateTime.fromISO('2018-02-28T18:00:00.000-05:00'),
-    DateTime.fromISO('2018-06-01T17:59:59.000-04:00')
+    DateTime.fromISO('2018-06-01T17:59:59.000-04:00'),
   )
   const params = {
     city: 'augsburg',
@@ -156,7 +156,7 @@ describe('events', () => {
   }
   it('should map params to url', () => {
     expect(events.mapParamsToUrl(params)).toBe(
-      'https://integreat-api-url.de/augsburg/de/wp-json/extensions/v3/events/?combine_recurring=True'
+      'https://integreat-api-url.de/augsburg/de/wp-json/extensions/v3/events/?combine_recurring=True',
     )
   })
   const json = [event1, event2, event3, event4]

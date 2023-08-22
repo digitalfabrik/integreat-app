@@ -66,7 +66,7 @@ describe('OffersPage', () => {
     mocked(useLoadFromEndpoint).mockImplementationOnce(() => mockData as never)
     return renderRoute(
       <OffersPage city={city} pathname={pathname} cityCode={city.code} languageCode={languageCode} />,
-      { routePattern, pathname }
+      { routePattern, pathname },
     )
   }
 

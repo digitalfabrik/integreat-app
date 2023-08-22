@@ -179,21 +179,21 @@ const parseNotesProgram = (options: ParseOptions) => {
 program
   .command('parse-release-notes')
   .description(
-    'parse the release notes and outputs the release notes as JSON string and writes them to the specified file'
+    'parse the release notes and outputs the release notes as JSON string and writes them to the specified file',
   )
   .option('--ios', 'include release notes for ios')
   .option('--android', 'include release notes for android')
   .option('--web', 'include release notes for web.')
   .option(
     '--production',
-    'whether to hide extra information, e.g. issue keys, hidden notes and platforms and prepare the notes for a store. may not be used with multiple platforms. If set to true, make sure to pass the app name as well.'
+    'whether to hide extra information, e.g. issue keys, hidden notes and platforms and prepare the notes for a store. may not be used with multiple platforms. If set to true, make sure to pass the app name as well.',
   )
   .option('--app-name <app-name>', 'the name of the app to prepare the notes for. Only used if production flag is set.')
   .option('--destination <destination>', 'if specified the parsed notes are saved to the directory')
   .requiredOption(
     '--source <source>',
     'the directory of the release notes to parse',
-    `../${RELEASE_NOTES_DIR}/${UNRELEASED_DIR}`
+    `../${RELEASE_NOTES_DIR}/${UNRELEASED_DIR}`,
   )
   .requiredOption('--language <language>', 'the language of the release notes to parse', DEFAULT_NOTES_LANGUAGE)
   .action(parseNotesProgram)
@@ -279,12 +279,14 @@ type StoreTranslationType = Record<string, Record<string, Record<string, string>
 const metadataFromTranslations = (
   storeName: StoreName,
   language: string,
-  translations: StoreTranslationType
+  translations: StoreTranslationType,
 ): Record<string, string> => {
+  /* eslint-disable @typescript-eslint/no-non-null-assertion */
   const commonTranslation = translations.common![language]!
   const name = commonTranslation.name!
   const description = commonTranslation.description!
-  const storeTranslation = translations[storeName]![language]!
+  const storeTranslation = translations[storeName]?.[language]
+  /* eslint-enable @typescript-eslint/no-non-null-assertion */
 
   return storeName === 'appstore'
     ? {
@@ -320,6 +322,7 @@ const writeMetadata = (appName: string, storeName: string, overrideVersionName?:
       })
 
       Object.keys(metadata).forEach(metadataKey => {
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
         fs.writeFileSync(`${path}/${metadataKey}.txt`, metadata[metadataKey]!)
       })
 
@@ -344,7 +347,7 @@ program
   .description('prepare metadata for store')
   .option(
     '--override-version-name <override-version-name>',
-    'if specified the release notes will be generated from the specified version name instead of the unreleased notes'
+    'if specified the release notes will be generated from the specified version name instead of the unreleased notes',
   )
   .action((appName: string, storeName: string, options: { overrideVersionName: string }) => {
     try {
