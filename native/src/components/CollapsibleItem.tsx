@@ -36,6 +36,8 @@ const StyledIcon = styled(Icon)<{ collapsed: boolean }>`
   transform: rotate(90deg) ${props => (props.collapsed ? 'scale(-1)' : '')};
   margin: 0 4px;
   align-self: center;
+  width: 16px;
+  height: 16px;
 `
 
 const renderHeaderContent = (headerContent: string | ReactElement): ReactElement => {
@@ -57,7 +59,7 @@ const CollapsibleItem = ({ initExpanded, children, headerContent, language }: Co
         <CollapseHeader style={{ flexDirection: 'row' }}>
           <CollapseHeaderWrapper language={language}>
             {renderHeaderContent(headerContent)}
-            <StyledIcon Icon={ArrowBackIcon} collapsed={!isExpanded} width={16} height={16} />
+            <StyledIcon Icon={ArrowBackIcon} collapsed={!isExpanded} />
           </CollapseHeaderWrapper>
         </CollapseHeader>
         <CollapseBody>{children}</CollapseBody>

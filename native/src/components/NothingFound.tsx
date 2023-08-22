@@ -19,6 +19,8 @@ const Description = styled.Text`
 
 const StyledIcon = styled(Icon)`
   margin: 10px auto;
+  width: 60px;
+  height: 60px;
 `
 
 type NothingFoundProps = {
@@ -29,7 +31,7 @@ const NothingFound = ({ paddingTop = false }: NothingFoundProps): ReactElement =
   const { t } = useTranslation('search')
   return (
     <Container paddingTop={paddingTop}>
-      <StyledIcon Icon={SadSmileyIcon} height={60} width={60} />
+      <StyledIcon Icon={SadSmileyIcon} />
       <Description accessibilityRole='alert'>{t('search:nothingFound')}</Description>
     </Container>
   )

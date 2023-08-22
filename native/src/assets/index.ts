@@ -3,15 +3,15 @@ import EventThumbnailPlaceholder1 from '../../../assets/event-thumbnail-placehol
 import EventThumbnailPlaceholder2 from '../../../assets/event-thumbnail-placeholder-2.jpg'
 import EventThumbnailPlaceholder3 from '../../../assets/event-thumbnail-placeholder-3.jpg'
 import ArrowBackIcon from '../../../assets/icons/arrow-back.svg'
+import CalendarIcon from '../../../assets/icons/calendar.svg'
 import CategoriesIcon from '../../../assets/icons/categories.svg'
 import ClockIcon from '../../../assets/icons/clock.svg'
 import CloseIcon from '../../../assets/icons/close.svg'
 import EditLocationIcon from '../../../assets/icons/edit-location.svg'
-import EmailIcon from '../../../assets/icons/email.svg'
-import EventsIcon from '../../../assets/icons/events.svg'
 import ExternalLinkIcon from '../../../assets/icons/external-link.svg'
 import HappySmileyIcon from '../../../assets/icons/happy-smiley.svg'
 import LanguageIcon from '../../../assets/icons/language.svg'
+import MailIcon from '../../../assets/icons/mail.svg'
 import MenuIcon from '../../../assets/icons/menu.svg'
 import NewsIcon from '../../../assets/icons/news.svg'
 import NoInternetIcon from '../../../assets/icons/no-internet.svg'
@@ -32,17 +32,17 @@ import PoiThumbnailPlaceholder from '../../../assets/poi-thumbnail-placeholder.j
 export {
   ArrowBackIcon,
   CategoriesIcon,
+  CalendarIcon,
   ClockIcon,
   CloseIcon,
   EditLocationIcon,
-  EmailIcon,
-  EventsIcon,
   EventThumbnailPlaceholder1,
   EventThumbnailPlaceholder2,
   EventThumbnailPlaceholder3,
   ExternalLinkIcon,
   HappySmileyIcon,
   LanguageIcon,
+  MailIcon,
   MenuIcon,
   NewsIcon,
   NoInternetIcon,

@@ -37,7 +37,7 @@ const SearchInput = ({
 
   return (
     <Wrapper space={spaceSearch}>
-      <Icon Icon={SearchIcon} width={24} height={24} />
+      <Icon Icon={SearchIcon} />
       <Input
         {...testID('Search-Input')}
         multiline={false}

@@ -36,6 +36,11 @@ const HeaderContainer = styled.View`
   margin-bottom: 12px;
 `
 
+const StyledIcon = styled(Icon)`
+  width: 110px;
+  height: 34px;
+`
+
 type NewsHeaderProps = {
   cityModel: CityModel
   selectedNewsType: NewsType
@@ -58,7 +63,7 @@ const NewsHeader = ({ cityModel, selectedNewsType, selectNewsType }: NewsHeaderP
             </LocalTabWrapper>
           </StyledPressable>
           <StyledPressable onPress={selectTuNews} accessibilityRole='button' accessibilityLabel='TüNews'>
-            <Icon Icon={selectedNewsType === TU_NEWS_TYPE ? TuNewsActiveIcon : TuNewsInactiveIcon} />
+            <StyledIcon Icon={selectedNewsType === TU_NEWS_TYPE ? TuNewsActiveIcon : TuNewsInactiveIcon} />
           </StyledPressable>
         </HeaderContainer>
       )}
