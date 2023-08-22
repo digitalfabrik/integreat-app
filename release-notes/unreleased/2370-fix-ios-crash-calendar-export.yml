@@ -1,0 +1,6 @@
+issue_key: 2370
+show_in_stores: true
+platforms:
+  - ios
+en: Opening the calendar app after an event export works again
+de: Das Öffnen des Kalenders nach einem Eventexport funktioniert wieder
