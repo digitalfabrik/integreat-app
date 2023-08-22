@@ -57,7 +57,7 @@ const BackNavigation = styled.div<{ direction: string }>`
 `
 
 const StyledIcon = styled(Icon)`
-  color ${props => props.theme.colors.backgroundColor};
+  color: ${props => props.theme.colors.backgroundColor};
 `
 
 type PoisMobileProps = {
