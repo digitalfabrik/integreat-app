@@ -13,7 +13,7 @@ jest.mock('../LastUpdateInfo', () =>
       {withText ? 'lastUpdate ' : ''}
       {lastUpdate.toISO()}
     </div>
-  ))
+  )),
 )
 
 describe('NewsListItem', () => {
@@ -34,7 +34,7 @@ describe('NewsListItem', () => {
       'If the sting inflames, you must see a doctor.'
 
     const { getByText } = renderWithRouterAndTheme(
-      <NewsListItem type={LOCAL_NEWS_TYPE} title={title} content={message} timestamp={lastUpdate} t={t} link={link} />
+      <NewsListItem type={LOCAL_NEWS_TYPE} title={title} content={message} timestamp={lastUpdate} t={t} link={link} />,
     )
 
     expect(getByText(title)).toBeTruthy()

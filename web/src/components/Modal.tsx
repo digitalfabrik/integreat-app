@@ -1,16 +1,18 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import FocusTrap from 'focus-trap-react'
-import React, { ReactElement, useState } from 'react'
+import React, { ReactElement, ReactNode, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
 
+import { UiDirectionType } from 'translations'
+
+import { ArrowBackIcon, CloseIcon } from '../assets'
 import dimensions from '../constants/dimensions'
-import { faChevronLeft, faTimes } from '../constants/icons'
 import useLockedBody from '../hooks/useLockedBody'
 import useScrollToTop from '../hooks/useScrollToTop'
 import useWindowDimensions from '../hooks/useWindowDimensions'
-import { RouteType } from '../routes'
-import FeedbackContainer from './FeedbackContainer'
+import IconWithUiDirection from './IconWithUiDirection'
+import { LAYOUT_ELEMENT_ID, RichLayout } from './Layout'
+import Portal from './Portal'
 
 const Overlay = styled.div`
   position: absolute;
@@ -21,9 +23,10 @@ const Overlay = styled.div`
   background-color: ${props => props.theme.colors.textSecondaryColor};
   opacity: 0.9;
 `
-const ModalContainer = styled.div<{ topPosition: number }>`
+
+const ModalContainer = styled.div`
   position: fixed;
-  top: ${props => props.topPosition}px;
+  top: 0;
   right: 0;
   bottom: 0;
   left: 0;
@@ -32,6 +35,7 @@ const ModalContainer = styled.div<{ topPosition: number }>`
   align-items: center;
   justify-content: center;
 `
+
 const ModalContent = styled.div`
   position: relative;
   display: flex;
@@ -44,6 +48,7 @@ const ModalContent = styled.div`
     width: 100%;
   }
 `
+
 const Header = styled.div<{ flexDirection: string }>`
   display: flex;
   padding: 16px;
@@ -51,8 +56,10 @@ const Header = styled.div<{ flexDirection: string }>`
   justify-content: space-between;
   font-size: ${props => props.theme.fonts.subTitleFontSize};
   font-weight: 700;
+
   @media ${dimensions.smallViewport} {
     align-self: flex-start;
+    gap: 16px;
   }
 `
 
@@ -60,55 +67,64 @@ const CloseButton = styled.button`
   background-color: ${props => props.theme.colors.backgroundColor};
   border: none;
   padding: 0;
-
-  & * {
-    font-size: 0.8em;
-    vertical-align: baseline;
-  }
+  cursor: pointer;
 `
 
-type FeedbackModalProps = {
-  slug?: string
-  cityCode: string
-  language: string
-  routeType: RouteType
+type ModalProps = {
+  title: string
+  children: ReactNode
   closeModal: () => void
-  topPosition?: number
+  direction: UiDirectionType
+  wrapInPortal?: boolean
 }
 
-const FeedbackModal = (props: FeedbackModalProps): ReactElement => {
+const Modal = ({ title, closeModal, children, direction, wrapInPortal = false }: ModalProps): ReactElement => {
   const { viewportSmall } = useWindowDimensions()
-  const { closeModal, topPosition = viewportSmall ? dimensions.headerHeightSmall : 0, ...otherProps } = props
-  const [isSubmitted, setIsSubmitted] = useState<boolean>(false)
-  const { t } = useTranslation('feedback')
-  const headline = isSubmitted ? `${t('thanksHeadline')}` : `${t('headline')}`
+  const { t } = useTranslation('common')
   useScrollToTop()
   useLockedBody(true)
 
-  return (
+  useEffect(() => {
+    const layoutElement = document.getElementById(LAYOUT_ELEMENT_ID)
+    layoutElement?.setAttribute('aria-hidden', 'true')
+
+    return () => layoutElement?.setAttribute('aria-hidden', 'false')
+  }, [])
+
+  const Modal = (
     <FocusTrap focusTrapOptions={{ clickOutsideDeactivates: true }}>
-      <ModalContainer role='dialog' aria-hidden={false} aria-modal topPosition={topPosition}>
-        <Overlay onClick={closeModal} role='button' tabIndex={0} onKeyPress={closeModal} />
+      <ModalContainer role='dialog' aria-hidden={false} aria-modal>
+        <Overlay onClick={closeModal} role='button' tabIndex={0} onKeyPress={closeModal} aria-label={t('close')} />
         <ModalContent>
           <Header flexDirection={viewportSmall ? 'row-reverse' : 'row'}>
-            <span>{headline}</span>
+            <span>{title}</span>
             <CloseButton aria-label={t('close')} onClick={closeModal}>
-              <FontAwesomeIcon
-                icon={viewportSmall ? faChevronLeft : faTimes}
-                style={{ marginRight: viewportSmall ? '15vw' : '0' }}
+              <IconWithUiDirection
+                src={viewportSmall ? ArrowBackIcon : CloseIcon}
+                direction={direction}
+                width='24px'
+                height='24px'
+                alt=''
               />
             </CloseButton>
           </Header>
-          <FeedbackContainer
-            isSearchFeedback={false}
-            closeModal={closeModal}
-            {...otherProps}
-            onSubmit={() => setIsSubmitted(true)}
-          />
+          {children}
         </ModalContent>
       </ModalContainer>
     </FocusTrap>
   )
+
+  if (wrapInPortal) {
+    return (
+      <Portal className='modal' show>
+        <RichLayout>
+          <div dir={direction}>{Modal}</div>
+        </RichLayout>
+      </Portal>
+    )
+  }
+
+  return Modal
 }
 
-export default FeedbackModal
+export default Modal

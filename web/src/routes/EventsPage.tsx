@@ -1,6 +1,7 @@
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useNavigate, useParams } from 'react-router-dom'
+import styled from 'styled-components'
 
 import {
   createEventsEndpoint,
@@ -23,12 +24,16 @@ import List from '../components/List'
 import LoadingSpinner from '../components/LoadingSpinner'
 import Page, { THUMBNAIL_WIDTH } from '../components/Page'
 import PageDetail from '../components/PageDetail'
-import TextButton from '../components/TextButton'
+import TextButton from '../components/base/TextButton'
 import buildConfig from '../constants/buildConfig'
 import { cmsApiBaseUrl } from '../constants/urls'
 import usePreviousProp from '../hooks/usePreviousProp'
 import useWindowDimensions from '../hooks/useWindowDimensions'
 import featuredImageToSrcSet from '../utils/featuredImageToSrcSet'
+
+const StyledButton = styled(TextButton)<{ fullWidth: boolean }>`
+  ${props => props.fullWidth && 'width: 100%;'}
+`
 
 const EventsPage = ({ city, pathname, languageCode, cityCode }: CityRouteProps): ReactElement | null => {
   const previousPathname = usePreviousProp({ prop: pathname })
@@ -47,7 +52,7 @@ const EventsPage = ({ city, pathname, languageCode, cityCode }: CityRouteProps):
     return null
   }
 
-  // TODO IGAPP-1078: Remove workaround of looking up path until '$'
+  // TODO #2031: Remove workaround of looking up path until '$'
   const event = eventId
     ? events?.find(it => it.path === pathname) ??
       events?.find(it => it.path.substring(0, it.path.indexOf('$')) === pathname)
@@ -124,7 +129,7 @@ const EventsPage = ({ city, pathname, languageCode, cityCode }: CityRouteProps):
     const defaultThumbnail = featuredImage ? featuredImage.medium.url : thumbnail
 
     const PageFooter = (
-      <TextButton fullWidth={viewportSmall} onClick={() => downloadEventAsIcsFile(event)} text={t('exportAsICal')} />
+      <StyledButton onClick={() => downloadEventAsIcsFile(event)} text={t('exportAsICal')} fullWidth={viewportSmall} />
     )
 
     return (

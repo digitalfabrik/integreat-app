@@ -88,6 +88,7 @@ export type RoutesParamsType = {
   }
   [POIS_ROUTE]: RouteTitle & {
     slug?: string
+    multipoi?: number
   }
   [EVENTS_ROUTE]: RouteTitle & {
     slug?: string

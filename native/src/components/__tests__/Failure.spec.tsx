@@ -13,12 +13,12 @@ describe('Failure', () => {
     render(<Failure code={code} buttonAction={tryAgain} />)
 
   it('should render a retry button if tryAgain is passed', () => {
-    const { getByTestId } = renderFailure(() => undefined)
-    expect(getByTestId('button-tryAgain')).toBeTruthy()
+    const { getByText } = renderFailure(() => undefined)
+    expect(getByText('tryAgain')).toBeTruthy()
   })
   it('should not render a retry button if tryAgain is not passed', () => {
-    const { queryByTestId } = renderFailure()
-    expect(queryByTestId('button-tryAgain')).toBeNull()
+    const { queryByText } = renderFailure()
+    expect(queryByText('tryAgain')).toBeNull()
   })
   it('should have a correct message as title', () => {
     const { getByText } = renderFailure()
@@ -26,8 +26,8 @@ describe('Failure', () => {
   })
   it('should try again if button is pressed', () => {
     const tryAgain = jest.fn()
-    const { getByTestId } = renderFailure(tryAgain)
-    fireEvent.press(getByTestId('button-tryAgain'))
+    const { getByText } = renderFailure(tryAgain)
+    fireEvent.press(getByText('tryAgain'))
     expect(tryAgain).toHaveBeenCalled()
   })
 })

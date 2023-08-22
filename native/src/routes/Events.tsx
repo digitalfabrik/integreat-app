@@ -47,7 +47,7 @@ const Events = ({ cityModel, language, navigateTo, events, slug, refresh }: Even
   }
 
   if (slug) {
-    // TODO IGAPP-1078: Remove workaround of looking up path until '$'
+    // TODO #2031: Remove workaround of looking up path until '$'
     const event =
       events.find(it => it.slug === slug) ?? events.find(it => it.slug.substring(0, it.slug.indexOf('$')) === slug)
 

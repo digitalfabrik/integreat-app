@@ -25,6 +25,7 @@ type EventListItemProps = {
 const getEventPlaceholder = (path: string): string => {
   const pseudoId = path.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0)
   const placeholders = [EventPlaceholder1, EventPlaceholder2, EventPlaceholder3]
+  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   return placeholders[pseudoId % placeholders.length]!
 }
 

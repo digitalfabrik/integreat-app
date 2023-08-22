@@ -36,7 +36,7 @@ describe('FeedbackContainer', () => {
 
   const buildDefaultProps = (
     routeType: RouteType,
-    isSearchFeedback: boolean
+    isSearchFeedback: boolean,
   ): ComponentProps<typeof FeedbackContainer> => ({
     routeType,
     cityCode,
@@ -83,7 +83,7 @@ describe('FeedbackContainer', () => {
         query: inputProps.query,
         slug: inputProps.slug,
       })
-    }
+    },
   )
 
   it.each`
@@ -124,12 +124,12 @@ describe('FeedbackContainer', () => {
         query: inputProps.query,
         slug: inputProps.slug,
       })
-    }
+    },
   )
 
   it('should display thanks message for modal', async () => {
     const { getByRole, findByText } = renderWithTheme(
-      <FeedbackContainer {...buildDefaultProps(CATEGORIES_ROUTE, false)} />
+      <FeedbackContainer {...buildDefaultProps(CATEGORIES_ROUTE, false)} />,
     )
     const buttonRating = getByRole('button', {
       name: 'feedback:useful',
@@ -141,12 +141,12 @@ describe('FeedbackContainer', () => {
     fireEvent.click(button)
 
     expect(await findByText('feedback:thanksMessage')).toBeTruthy()
-    expect(getByRole('button', { name: 'feedback:close' })).toBeTruthy()
+    expect(getByRole('button', { name: 'feedback:common:close' })).toBeTruthy()
   })
 
   it('should display thanks message for search', async () => {
     const { getByRole, findByText, queryByRole } = renderWithTheme(
-      <FeedbackContainer {...buildDefaultProps(CATEGORIES_ROUTE, true)} />
+      <FeedbackContainer {...buildDefaultProps(CATEGORIES_ROUTE, true)} />,
     )
     const buttonRating = getByRole('button', {
       name: 'feedback:useful',

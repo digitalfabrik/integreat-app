@@ -35,7 +35,7 @@ const childCategory = new CategoryModel({
 describe('CategoryListItem', () => {
   it('should render a list item with a subcategory', () => {
     const { getByText, getByRole } = renderWithRouterAndTheme(
-      <CategoryListItem category={category} subCategories={[childCategory]} />
+      <CategoryListItem category={category} subCategories={[childCategory]} />,
     )
 
     expect(getByText(category.title)).toBeTruthy()

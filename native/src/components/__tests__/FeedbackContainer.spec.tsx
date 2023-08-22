@@ -23,15 +23,17 @@ describe('FeedbackContainer', () => {
   beforeEach(() => {
     jest.clearAllMocks()
   })
+
   const city = 'augsburg'
   const language = 'de'
+
   it('should send feedback request with rating and no other inputs on submit', async () => {
-    const { getByText, findByText, getByTestId } = render(
+    const { getByText, findByText } = render(
       <NavigationContainer>
         <FeedbackContainer routeType={CATEGORIES_ROUTE} isSearchFeedback={false} language={language} cityCode={city} />
-      </NavigationContainer>
+      </NavigationContainer>,
     )
-    const positiveRatingButton = getByTestId('feedback-positive-rating')
+    const positiveRatingButton = getByText('useful')
     fireEvent.press(positiveRatingButton)
     expect(await findByText('send')).not.toBeDisabled()
     const submitButton = getByText('send')
@@ -58,6 +60,7 @@ describe('FeedbackContainer', () => {
       },
     })
   })
+
   it('should send feedback request with comment and contact information on submit without rating', async () => {
     const comment = 'my comment'
     const contactMail = 'test@example.com'
@@ -65,7 +68,7 @@ describe('FeedbackContainer', () => {
       <NavigationContainer>
         {' '}
         <FeedbackContainer routeType={CATEGORIES_ROUTE} isSearchFeedback={false} language={language} cityCode={city} />
-      </NavigationContainer>
+      </NavigationContainer>,
     )
     const [commentField, emailField] = getAllByDisplayValue('')
     fireEvent.changeText(commentField!, comment)
@@ -94,13 +97,14 @@ describe('FeedbackContainer', () => {
       },
     })
   })
+
   it('should disable send feedback button if rating button is clicked twice', async () => {
-    const { findByText, getByTestId } = render(
+    const { getByText, findByText } = render(
       <NavigationContainer>
         <FeedbackContainer routeType={CATEGORIES_ROUTE} isSearchFeedback={false} language={language} cityCode={city} />
-      </NavigationContainer>
+      </NavigationContainer>,
     )
-    const positiveRatingButton = getByTestId('feedback-positive-rating')
+    const positiveRatingButton = getByText('useful')
     fireEvent.press(positiveRatingButton)
     expect(await findByText('send')).not.toBeDisabled()
     fireEvent.press(positiveRatingButton)

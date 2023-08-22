@@ -98,7 +98,7 @@ const renderHtml = (
   html: string,
   cacheDictionary: ParsedCacheDictionaryType,
   theme: ThemeType,
-  language: string
+  language: string,
 ): string => `
   <!-- The lang attribute makes TalkBack use the appropriate language. -->
   <html lang='${language}'>

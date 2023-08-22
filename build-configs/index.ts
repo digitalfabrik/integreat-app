@@ -52,7 +52,7 @@ export const buildConfigs: Record<string, BuildConfigPlatformType> = {
 
 const loadBuildConfig = <T extends PlatformType>(
   buildConfigName: string | null | undefined,
-  platform: T
+  platform: T,
 ): BuildConfigPlatformType[T] => {
   if (!buildConfigName) {
     throw Error('No BUILD_CONFIG_NAME supplied!')

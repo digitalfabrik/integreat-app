@@ -80,7 +80,7 @@ describe('OffersContainer', () => {
     render(
       <AppContext.Provider value={context}>
         <OffersContainer route={route} navigation={navigation} />
-      </AppContext.Provider>
+      </AppContext.Provider>,
     )
 
   beforeEach(() => {
@@ -97,7 +97,7 @@ describe('OffersContainer', () => {
 
   it('should display error', () => {
     mocked(useLoadExtraCityContent).mockImplementation(
-      () => ({ ...returnValue, error: ErrorCode.UnknownError } as never)
+      () => ({ ...returnValue, error: ErrorCode.UnknownError }) as never,
     )
     const { queryByText } = renderOffersContainer()
     expect(queryByText(errorText)).toBeTruthy()
@@ -106,7 +106,7 @@ describe('OffersContainer', () => {
   })
 
   it('should display offers with a Loading spinner', async () => {
-    mocked(useLoadExtraCityContent).mockImplementation(() => ({ ...returnValue, loading: true } as never))
+    mocked(useLoadExtraCityContent).mockImplementation(() => ({ ...returnValue, loading: true }) as never)
     const { queryByText } = renderOffersContainer()
     await waitFor(() => expect(queryByText('Offers')).toBeTruthy())
     expect(queryByText('loading')).toBeTruthy()
@@ -127,7 +127,7 @@ describe('OffersContainer', () => {
         ({
           ...returnValue,
           data: { ...data, city: cityDisabledOffers },
-        } as never)
+        }) as never,
     )
     const { queryByText } = renderOffersContainer()
     await waitFor(() => expect(queryByText('Offers')).toBeFalsy())

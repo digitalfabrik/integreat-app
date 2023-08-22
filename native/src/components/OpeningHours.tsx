@@ -1,10 +1,10 @@
-import { DateTime, Info } from 'luxon'
+import { DateTime } from 'luxon'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Text } from 'react-native'
 import styled from 'styled-components/native'
 
-import { OpeningHoursModel } from 'api-client'
+import { OpeningHoursModel, weekdays } from 'api-client'
 
 import { contentDirection } from '../constants/contentDirection'
 import CollapsibleItem from './CollapsibleItem'
@@ -44,6 +44,7 @@ const getOpeningLabel = (isTemporarilyClosed: boolean, isCurrentlyOpened: boolea
   }
   return isCurrentlyOpened ? 'opened' : 'closed'
 }
+
 const OpeningHours = ({
   isCurrentlyOpen,
   language,
@@ -51,9 +52,6 @@ const OpeningHours = ({
   isTemporarilyClosed,
 }: OpeningHoursProps): ReactElement | null => {
   const { t } = useTranslation('pois')
-
-  // The opening hours loaded from the cms are ordered according to the german weekday order
-  const weekdays = Info.weekdays('long', { locale: 'de' })
 
   const openingHoursTitle = (
     <TitleContainer language={language}>
@@ -72,17 +70,20 @@ const OpeningHours = ({
       </>
     )
   }
-  if (!openingHours) {
+
+  if (!openingHours || openingHours.length !== weekdays.length) {
     return null
   }
+
   return (
     <>
       <CollapsibleItem headerContent={openingHoursTitle} language={language} initExpanded>
         <Content>
           {openingHours.map((entry, index) => (
             <OpeningEntry
-              key={`${weekdays[index]!}-OpeningEntry`}
-              weekday={t(weekdays[index]!.toLowerCase())}
+              key={`${weekdays[index]}-OpeningEntry`}
+              // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+              weekday={t(weekdays[index]!)}
               allDay={entry.allDay}
               closed={entry.closed}
               timeSlots={entry.timeSlots}

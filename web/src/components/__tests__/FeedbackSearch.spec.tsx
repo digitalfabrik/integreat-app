@@ -12,7 +12,7 @@ describe('FeedbackSearch', () => {
 
   it('should open FeedbackSection on button click', () => {
     const { queryByText, getByRole } = renderWithTheme(
-      <FeedbackSearch cityCode={cityCode} languageCode={languageCode} query='ab' resultsFound />
+      <FeedbackSearch cityCode={cityCode} languageCode={languageCode} query='ab' resultsFound />,
     )
     const button = getByRole('button', { name: 'feedback:informationNotFound' })
     expect(queryByText('feedback:wantedInformation')).toBeNull()

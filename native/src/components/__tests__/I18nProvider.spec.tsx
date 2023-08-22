@@ -27,7 +27,7 @@ describe('I18nProvider', () => {
     render(
       <I18nProvider>
         <Text>Hello</Text>
-      </I18nProvider>
+      </I18nProvider>,
     )
     await waitFor(async () => expect(await appSettings.loadContentLanguage()).toBe('kmr'))
     expect(setSystemLanguage).toHaveBeenCalledTimes(1)
@@ -40,7 +40,7 @@ describe('I18nProvider', () => {
     render(
       <I18nProvider>
         <Text>Hello</Text>
-      </I18nProvider>
+      </I18nProvider>,
     )
     expect(await appSettings.loadContentLanguage()).toBe('ar')
     await waitFor(() => expect(setSystemLanguage).toHaveBeenCalledTimes(1))
@@ -54,7 +54,7 @@ describe('I18nProvider', () => {
     const { getByText } = render(
       <I18nProvider>
         <Text>Content</Text>
-      </I18nProvider>
+      </I18nProvider>,
     )
     await waitFor(() => getByText('An Error occurred while getting settings!'))
     expect(getByText('An Error occurred while getting settings!')).toBeTruthy()
@@ -66,7 +66,7 @@ describe('I18nProvider', () => {
     const { getByText } = render(
       <I18nProvider>
         <Translation>{t => <Text>{t('dashboard:localInformation')}</Text>}</Translation>
-      </I18nProvider>
+      </I18nProvider>,
     )
     await waitFor(() => expect(getByText('Zanyariyên xwecihî')).toBeTruthy())
   })
@@ -76,7 +76,7 @@ describe('I18nProvider', () => {
     const { getByText } = render(
       <I18nProvider>
         <Translation>{t => <Text>{t('dashboard:localInformation')}</Text>}</Translation>
-      </I18nProvider>
+      </I18nProvider>,
     )
     await waitFor(() => getByText('Lokale Informationen'))
     expect(getByText('Lokale Informationen')).toBeTruthy()
@@ -87,7 +87,7 @@ describe('I18nProvider', () => {
     const { getByText } = render(
       <I18nProvider>
         <Translation>{t => <Text>{t('dashboard:localInformation')}</Text>}</Translation>
-      </I18nProvider>
+      </I18nProvider>,
     )
     await waitFor(() => getByText('本地信息'))
     expect(getByText('本地信息')).toBeTruthy()
@@ -98,7 +98,7 @@ describe('I18nProvider', () => {
     const { getByText } = render(
       <I18nProvider>
         <Translation>{t => <Text>{t('dashboard:localInformation')}</Text>}</Translation>
-      </I18nProvider>
+      </I18nProvider>,
     )
     await waitFor(() => getByText('本地信息'))
     expect(getByText('本地信息')).toBeTruthy()
@@ -110,7 +110,7 @@ describe('I18nProvider', () => {
       <I18nProvider>
         <Translation>{t => <Text>{t('dashboard:localInformation')}</Text>}</Translation>
         <Translation>{(t, { i18n }) => <Text>{i18n.languages[0]}</Text>}</Translation>
-      </I18nProvider>
+      </I18nProvider>,
     )
     await waitFor(() => getByText('Lokale Informationen'))
     expect(getByText('Lokale Informationen')).toBeTruthy()

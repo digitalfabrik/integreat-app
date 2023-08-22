@@ -36,7 +36,7 @@ const TuNewsPage = ({ cityCode, languageCode, city }: CityRouteProps): ReactElem
   const { data: tuNewsLanguages, error } = useLoadFromEndpoint(
     createTunewsLanguagesEndpoint,
     tunewsApiBaseUrl,
-    undefined
+    undefined,
   )
 
   const loadTuNews = useCallback(
@@ -48,7 +48,7 @@ const TuNewsPage = ({ cityCode, languageCode, city }: CityRouteProps): ReactElem
       }
       return data
     },
-    [languageCode]
+    [languageCode],
   )
 
   if (!city) {
