@@ -1,0 +1,6 @@
+issue_key: 2370
+show_in_stores: true
+platforms:
+  - ios
+en: Exporting an event to the calendar app works again
+de: Der Eventexport funktioniert wieder
