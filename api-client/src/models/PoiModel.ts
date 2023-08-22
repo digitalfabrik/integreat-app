@@ -121,7 +121,7 @@ class PoiModel extends ExtendedPageModel {
         // eslint-disable-next-line no-magic-numbers
         id: 12,
         name: 'Others',
-        color: '2E98FB',
+        color: '#2E98FB',
         iconName: 'other',
         icon: 'https://integreat-test.tuerantuer.org/static/svg/poi-category-icons/other.svg',
       })
