@@ -17,6 +17,7 @@ jest.mock('../../constants/buildConfig', () =>
   })),
 )
 jest.mock('react-i18next')
+jest.mock('react-inlinesvg')
 
 describe('CityNotCooperatingFooter', () => {
   beforeEach(() => {

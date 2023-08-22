@@ -1,7 +1,7 @@
 import React, { ReactElement } from 'react'
 import { ColorValue } from 'react-native'
 import { SvgProps } from 'react-native-svg'
-import { useTheme } from 'styled-components'
+import { useTheme } from 'styled-components/native'
 
 import { isRTL } from '../../constants/contentDirection'
 
