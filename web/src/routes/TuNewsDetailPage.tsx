@@ -35,10 +35,11 @@ const StyledBanner = styled.div`
 `
 const StyledIcon = styled(Icon)`
   width: 100%;
+  height: 100%;
 `
 const StyledTitle = styled.div`
   display: flex;
-  width: 205px;
+  width: 185px;
   height: 100%;
   align-items: center;
   justify-content: center;

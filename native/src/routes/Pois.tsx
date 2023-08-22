@@ -44,6 +44,12 @@ const NoItemsMessage = styled.Text`
   text-align: center;
 `
 
+const StyledIcon = styled(Icon)`
+  color: ${props => props.theme.colors.textSecondaryColor};
+  width: 16px;
+  height: 16px;
+`
+
 export const midSnapPointPercentage = 0.35
 const percentage = 100
 const BOTTOM_SHEET_SNAP_POINTS = [
@@ -204,13 +210,13 @@ const Pois = ({ pois: allPois, language, cityModel, route, navigation }: PoisPro
     <>
       <ChipButton
         text={t('adjustFilters')}
-        Icon={<Icon Icon={EditLocationIcon} />}
+        Icon={<StyledIcon Icon={EditLocationIcon} />}
         onPress={() => setShowFilterSelection(true)}
       />
       {poiCurrentlyOpenFilter && (
         <ChipButton
           text={t('opened')}
-          Icon={<Icon Icon={ClockIcon} />}
+          Icon={<StyledIcon Icon={ClockIcon} />}
           onPress={() => setPoiCurrentlyOpenFilter(false)}
           closeButton
         />

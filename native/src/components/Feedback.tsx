@@ -126,7 +126,7 @@ const Feedback = ({
           <Input keyboardType='email-address' onChangeText={onFeedbackContactMailChanged} value={contactMail} />
           {sendingStatus === 'failed' && <Description>{t('failedSendingFeedback')}</Description>}
           <NoteBox visible={submitDisabled}>
-            <StyledIcon Icon={NoteIcon} height={20} width={20} />
+            <StyledIcon Icon={NoteIcon} />
             <NoteText>{t('note')}</NoteText>
           </NoteBox>
           <StyledButton disabled={submitDisabled} onPress={onSubmit} text={t('send')} />

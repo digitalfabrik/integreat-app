@@ -26,6 +26,11 @@ const StyledButton = styled(TextButton)`
   margin: 30px 0 40px 0;
 `
 
+const StyledIcon = styled(Icon)`
+  height: 100px;
+  width: 30%;
+`
+
 type CityNotCooperatingFooterProps = {
   navigateToCityNotCooperating: () => void
 }
@@ -43,7 +48,7 @@ const CityNotCooperatingFooter = ({
 
   return (
     <FooterContainer>
-      <Icon Icon={CityNotCooperatingIcon} width='30%' height='100' />
+      <StyledIcon Icon={CityNotCooperatingIcon} />
       <Question>{t('cityNotFound')}</Question>
       <StyledButton text={t('clickHere')} onPress={navigateToCityNotCooperating} />
     </FooterContainer>

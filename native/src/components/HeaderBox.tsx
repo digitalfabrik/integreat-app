@@ -21,6 +21,11 @@ const HeaderText = styled.Text<{ fontSize: number }>`
   font-family: ${props => props.theme.fonts.native.decorativeFontBold};
 `
 
+const StyledIcon = styled(Icon)`
+  width: 70px;
+  height: 50px;
+`
+
 type HeaderBoxProps = {
   goBack?: () => void
   canGoBack?: boolean
@@ -35,7 +40,7 @@ const HeaderBox = ({ goBack, canGoBack = true, text }: HeaderBoxProps): ReactEle
   const HeaderIcon = canGoBack ? (
     <HeaderBackButton onPress={goBack} labelVisible={false} tintColor={theme.colors.textColor} />
   ) : (
-    <Icon Icon={AppIcon} width={70} height={50} />
+    <StyledIcon Icon={AppIcon} />
   )
   return (
     <HorizontalLeft>

@@ -18,6 +18,11 @@ const Message = styled.Text`
   margin: 10px;
 `
 
+const StyledIcon = styled(Icon)`
+  width: 150px;
+  height: 150px;
+`
+
 export type FailureProps = {
   code: ErrorCode
   buttonAction?: () => void
@@ -43,7 +48,7 @@ const Failure = ({ code, buttonAction, buttonLabel }: FailureProps): ReactElemen
   }
   return (
     <ViewContainer>
-      <Icon Icon={ErrorIcon} width={150} height={150} />
+      <StyledIcon Icon={ErrorIcon} />
       <Message>{t(code === ErrorCode.CityUnavailable ? 'notFound.city' : code)}</Message>
       {buttonAction && <TextButton onPress={buttonAction} text={t(buttonLabel ?? 'tryAgain')} />}
     </ViewContainer>

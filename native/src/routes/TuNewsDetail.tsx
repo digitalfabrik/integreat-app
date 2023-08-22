@@ -5,6 +5,7 @@ import { NEWS_ROUTE, NewsRouteType, TU_NEWS_TYPE } from 'api-client'
 
 import { TuNewsActiveIcon } from '../assets'
 import Page from '../components/Page'
+import Icon from '../components/base/Icon'
 import { NavigationProps, RouteProps } from '../constants/NavigationTypes'
 import useHeader from '../hooks/useHeader'
 import { CityContentData } from '../hooks/useLoadCityContent'
@@ -13,16 +14,13 @@ import urlFromRouteInformation from '../navigation/url'
 import LoadingErrorHandler from './LoadingErrorHandler'
 
 const HeaderImageWrapper = styled.View`
-  width: 90%;
-  align-self: center;
-  align-items: flex-start;
-  margin-top: 19px;
-  border-radius: 5px;
+  margin: 20px 16px 0;
+  border-radius: 8px;
   background-color: rgba(2, 121, 166, 0.4);
 `
-const HeaderImage = styled(TuNewsActiveIcon)`
-  border-top-left-radius: 5px;
-  border-bottom-left-radius: 5px;
+const StyledIcon = styled(Icon)`
+  height: 34px;
+  width: 100px;
 `
 
 type TuNewsProps = {
@@ -51,7 +49,7 @@ const TuNewsDetail = ({ route, navigation, data, newsId }: TuNewsProps): ReactEl
       {tuNews && (
         <>
           <HeaderImageWrapper>
-            <HeaderImage />
+            <StyledIcon Icon={TuNewsActiveIcon} />
           </HeaderImageWrapper>
           <Page title={tuNews.title} content={tuNews.content} language={languageCode} />
         </>

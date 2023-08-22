@@ -4,7 +4,7 @@ import styled from 'styled-components/native'
 
 import { GeoJsonPoi, PoiModel } from 'api-client'
 
-import { EmailIcon, PhoneIcon, PoiThumbnailPlaceholderLarge, WebsiteIcon } from '../assets'
+import { MailIcon, PhoneIcon, PoiThumbnailPlaceholderLarge, WebsiteIcon } from '../assets'
 import AddressInfo from './AddressInfo'
 import CollapsibleItem from './CollapsibleItem'
 import HorizontalLine from './HorizontalLine'
@@ -70,7 +70,7 @@ const PoiDetails = ({ poi, poiFeature, language }: PoiDetailsProps): ReactElemen
         />
       )}
       {!!email && (
-        <PoiDetailRow externalUrl={`mailto:${email}`} accessibilityLabel={t('eMail')} text={email} Icon={EmailIcon} />
+        <PoiDetailRow externalUrl={`mailto:${email}`} accessibilityLabel={t('eMail')} text={email} Icon={MailIcon} />
       )}
     </CollapsibleItem>
   )
