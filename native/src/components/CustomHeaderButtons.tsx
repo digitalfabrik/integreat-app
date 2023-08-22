@@ -1,20 +1,23 @@
-import React, { ReactElement, ReactNode } from 'react'
+import React, { ComponentType, ReactElement, ReactNode } from 'react'
 import { useTranslation } from 'react-i18next'
-import { StyleProp } from 'react-native'
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons'
 import {
   defaultOnOverflowMenuPress,
   HeaderButton,
+  HeaderButtonProps,
   HeaderButtons,
   OnOverflowMenuPressParams,
   OverflowMenu,
+  VisibleButtonProps,
 } from 'react-navigation-header-buttons'
 import { useTheme } from 'styled-components'
 
 import { LanguageIcon, SearchIcon } from '../assets'
 import { isRTL } from '../constants/contentDirection'
 
-const Icon = (props: { name: string; style: StyleProp<SVGImageElement> }): ReactElement => {
+type IconPropType = VisibleButtonProps['IconComponent'] extends ComponentType<infer T> | undefined ? T : never
+
+const Icon = (props: IconPropType): ReactElement => {
   const { name } = props
   if (name === 'search') {
     return <SearchIcon {...props} />
@@ -25,12 +28,9 @@ const Icon = (props: { name: string; style: StyleProp<SVGImageElement> }): React
   return <MaterialIcon {...props} name={name} />
 }
 
-const CustomHeaderButton = (props: {
-  disabled: boolean
-  title: string
-  onPress: () => void
-  getButtonElement: () => ReactNode
-}) => <HeaderButton {...props} IconComponent={Icon} iconSize={23} color='black' />
+const CustomHeaderButton = (props: HeaderButtonProps) => (
+  <HeaderButton {...props} IconComponent={Icon} iconSize={23} color='black' />
+)
 
 // Adjust cancel label for ios overflow menu of HeaderButtons
 const onOverflowMenuPress = (cancelButtonLabel: string) => (props: OnOverflowMenuPressParams) =>
@@ -50,6 +50,7 @@ const CustomHeaderButtons = (props: {
   return (
     <HeaderButtons HeaderButtonComponent={CustomHeaderButton}>
       {items}
+
       <OverflowMenu
         onPress={onOverflowMenuPress(cancelLabel)}
         accessibilityLabel={t('moreOptions')}

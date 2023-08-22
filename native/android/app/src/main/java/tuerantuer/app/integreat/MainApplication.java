@@ -9,7 +9,6 @@ import com.facebook.react.defaults.DefaultNewArchitectureEntryPoint;
 import com.facebook.react.defaults.DefaultReactNativeHost;
 import com.facebook.soloader.SoLoader;
 import com.facebook.react.bridge.JSIModulePackage;
-import com.swmansion.reanimated.ReanimatedJSIModulePackage;
 
 import java.util.List;
 
@@ -31,11 +30,6 @@ public class MainApplication extends MultiDexApplication implements ReactApplica
         @Override
         protected String getJSMainModuleName() {
             return "index";
-        }
-
-        @Override
-        protected JSIModulePackage getJSIModulePackage() {
-            return new ReanimatedJSIModulePackage();
         }
 
         @Override

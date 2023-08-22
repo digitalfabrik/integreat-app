@@ -92,6 +92,7 @@ def reactNativeArchitectures() {
 }
 
 android {
+    namespace "tuerantuer.app.integreat"
     ndkVersion rootProject.ext.ndkVersion
     
     compileSdkVersion rootProject.ext.compileSdkVersion
