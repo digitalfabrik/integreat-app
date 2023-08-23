@@ -65,6 +65,20 @@ const StyledIcon = styled(FontAwesomeIcon)<{ direction: string }>`
     `};
 `
 
+const GeoLocateContainer = styled.div<{ isLastSnapPoint: boolean }>`
+  position: absolute;
+  right: 10px;
+  top: -40px;
+  ${props =>
+    props.isLastSnapPoint
+      ? css`
+          transform: translateY(40px);
+          opacity: 0;
+        `
+      : ''};
+  transition: all 0.3s ease-out;
+`
+
 type PoisMobileProps = {
   toolbar: ReactElement
   features: MapFeature[]
@@ -184,7 +198,11 @@ const PoisMobile = ({
         ref={sheetRef}
         setBottomActionSheetHeight={setBottomActionSheetHeight}
         direction={direction}>
-        <div ref={geolocatePosition} style={{ position: 'absolute', right: 10, top: -40 }} />
+        <GeoLocateContainer
+          id='geolocate'
+          ref={geolocatePosition}
+          isLastSnapPoint={bottomActionSheetHeight >= getSnapPoints(height)[2]}
+        />
         <GoBackContainer hidden={!isBottomActionSheetFullScreen}>
           <GoBack
             goBack={() => selectGeoJsonPoiInList(null)}
