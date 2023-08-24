@@ -1,0 +1,6 @@
+issue_key: 2380
+show_in_stores: false
+platforms:
+  - native
+en: The correct header title will be shown in back navigation for locations.
+de: Der korrekte Titel der Überschrift wird in der Zurücknavigation für Standorte angezeigt.
