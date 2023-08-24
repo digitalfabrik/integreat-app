@@ -8,6 +8,7 @@ import { GeoJsonPoi, LocationType, MapViewViewport, PoiModelBuilder, prepareFeat
 import { renderWithRouterAndTheme } from '../../testing/render'
 import PoisMobile from '../PoisMobile'
 
+jest.mock('react-inlinesvg')
 jest.mock('react-i18next')
 jest.mock('../MapView', () => () => <div>MapView</div>)
 jest.mock('react-router-dom', () => ({

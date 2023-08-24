@@ -7,6 +7,7 @@ import buildConfig from '../../constants/buildConfig'
 import { renderWithRouterAndTheme } from '../../testing/render'
 import CitySelector from '../CitySelector'
 
+jest.mock('react-inlinesvg')
 jest.mock('react-i18next')
 
 describe('CitySelector', () => {

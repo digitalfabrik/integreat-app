@@ -15,6 +15,7 @@ import { LOCAL_NEWS_ROUTE, TU_NEWS_DETAIL_ROUTE, TU_NEWS_ROUTE } from '../../rou
 import { renderWithRouterAndTheme } from '../../testing/render'
 import CityContentHeader from '../CityContentHeader'
 
+jest.mock('react-inlinesvg')
 jest.mock('react-i18next')
 jest.mock('../HeaderNavigationItem', () => ({ text, active }: { text: string; active: boolean }) => (
   <div>{`${text} ${active ? 'active' : 'inactive'}`}</div>

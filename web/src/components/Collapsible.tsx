@@ -1,10 +1,10 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React, { ReactElement, useEffect, useState } from 'react'
 import styled from 'styled-components'
 
 import { UiDirectionType } from 'translations'
 
-import { faAngleDown, faAngleUp } from '../constants/icons'
+import { ArrowBackIcon } from '../assets'
+import Icon from './base/Icon'
 
 type CollapsibleProps = {
   children: ReactElement | string | number
@@ -34,8 +34,11 @@ const Title = styled.div`
   );
   justify-content: space-between;
 `
-const StyledIcon = styled(FontAwesomeIcon)`
+const CollapseIcon = styled(Icon)<{ collapsed: boolean }>`
   font-size: ${props => props.theme.fonts.subTitleFontSize};
+  transform: rotate(-90deg) ${props => (props.collapsed ? 'scale(-1)' : '')};
+  width: 16px;
+  height: 16px;
 `
 
 const Collapsible: React.FC<CollapsibleProps> = ({
@@ -59,7 +62,7 @@ const Collapsible: React.FC<CollapsibleProps> = ({
         tabIndex={0}
         onKeyPress={() => setCollapsed(!collapsed)}>
         <Title>{title}</Title>
-        <StyledIcon icon={collapsed ? faAngleUp : faAngleDown} />
+        <CollapseIcon src={ArrowBackIcon} collapsed={collapsed} directionDependent />
       </CollapsibleHeader>
       {collapsed && <ContentWrapper direction={direction}>{children}</ContentWrapper>}
     </>
