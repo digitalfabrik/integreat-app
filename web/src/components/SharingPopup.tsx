@@ -196,7 +196,7 @@ const SharingPopup = ({ shareUrl, title, flow, direction, portalNeeded }: Sharin
 
   const encodedTitle = encodeURIComponent(title)
   const encodedShareUrl = encodeURIComponent(shareUrl)
-  const shareMessage = t('layout:shareMessage')
+  const shareMessage = t('layout:shareMessage', { message: encodedTitle })
 
   const Backdrop = (
     <BackdropContainer
@@ -223,7 +223,7 @@ const SharingPopup = ({ shareUrl, title, flow, direction, portalNeeded }: Sharin
             direction={direction}>
             <Tooltip text={t('whatsappTooltip')} flow='up'>
               <Link
-                href={`https://api.whatsapp.com/send?text=${shareMessage}${encodedTitle}%0a${encodedShareUrl}`}
+                href={`https://api.whatsapp.com/send?text=${shareMessage}%0a${encodedShareUrl}`}
                 target='_blank'
                 aria-label={t('whatsappTooltip')}>
                 <StyledIcon src={WhatsappIcon} />
@@ -231,7 +231,7 @@ const SharingPopup = ({ shareUrl, title, flow, direction, portalNeeded }: Sharin
             </Tooltip>
             <Tooltip text={t('facebookTooltip')} flow='up'>
               <Link
-                href={`http://www.facebook.com/sharer/sharer.php?u=${encodedShareUrl}&t${shareMessage}${encodedTitle}`}
+                href={`https://www.facebook.com/sharer/sharer.php?u=${encodedShareUrl}&t${shareMessage}`}
                 target='_blank'
                 aria-label={t('facebookTooltip')}>
                 <StyledIcon src={FacebookIcon} />
