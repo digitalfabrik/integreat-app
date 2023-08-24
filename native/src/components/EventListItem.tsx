@@ -1,7 +1,7 @@
 import React, { memo, ReactElement } from 'react'
 import styled from 'styled-components/native'
 
-import { DateFormatter, EventModel, parseHTML } from 'api-client'
+import { EventModel, parseHTML } from 'api-client'
 
 import { EventThumbnailPlaceholder1, EventThumbnailPlaceholder2, EventThumbnailPlaceholder3 } from '../assets'
 import { EXCERPT_MAX_LINES } from '../constants'
@@ -18,10 +18,9 @@ type EventListItemProps = {
   event: EventModel
   language: string
   navigateToEvent: () => void
-  formatter: DateFormatter
 }
 
-const EventListItem = ({ formatter, language, event, navigateToEvent }: EventListItemProps): ReactElement => {
+const EventListItem = ({ language, event, navigateToEvent }: EventListItemProps): ReactElement => {
   const thumbnail =
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     event.thumbnail || placeholderThumbnails[event.path.length % placeholderThumbnails.length]!
@@ -29,7 +28,7 @@ const EventListItem = ({ formatter, language, event, navigateToEvent }: EventLis
 
   return (
     <ListItem thumbnail={thumbnail} title={event.title} language={language} navigateTo={navigateToEvent}>
-      <Description>{event.date.toFormattedString(formatter)}</Description>
+      <Description>{event.date.toFormattedString(language)}</Description>
       <Description numberOfLines={EXCERPT_MAX_LINES}>{content}</Description>
     </ListItem>
   )

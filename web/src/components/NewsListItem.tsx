@@ -3,7 +3,7 @@ import React, { ReactElement } from 'react'
 import { TFunction } from 'react-i18next'
 import styled from 'styled-components'
 
-import { DateFormatter, getExcerpt, LOCAL_NEWS_TYPE, NewsType } from 'api-client'
+import { getExcerpt, LOCAL_NEWS_TYPE, NewsType } from 'api-client'
 
 import { EXCERPT_MAX_CHARS } from '../constants'
 import CleanLink from './CleanLink'
@@ -47,13 +47,12 @@ type NewsListItemProps = {
   title: string
   content: string
   timestamp: DateTime
-  formatter: DateFormatter
   link: string
   type: NewsType
   t: TFunction<'news'>
 }
 
-const NewsListItem = ({ title, content, timestamp, formatter, t, type, link }: NewsListItemProps): ReactElement => {
+const NewsListItem = ({ title, content, timestamp, t, type, link }: NewsListItemProps): ReactElement => {
   const readMoreLinkText = `${t('readMore')} >`
   const excerpt = getExcerpt(content, { maxChars: EXCERPT_MAX_CHARS, replaceLineBreaks: false })
 
@@ -64,7 +63,7 @@ const NewsListItem = ({ title, content, timestamp, formatter, t, type, link }: N
           <Title dir='auto'>{title}</Title>
           <Body dir='auto'>{excerpt}</Body>
           <StyledContainer>
-            <LastUpdateInfo lastUpdate={timestamp} formatter={formatter} withText={false} />
+            <LastUpdateInfo lastUpdate={timestamp} withText={false} />
             <ReadMore $type={type}>{readMoreLinkText}</ReadMore>
           </StyledContainer>
         </Description>

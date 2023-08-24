@@ -1,4 +1,4 @@
-import React, { ReactElement, useContext } from 'react'
+import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router-dom'
 
@@ -17,10 +17,8 @@ import Helmet from '../components/Helmet'
 import LoadingSpinner from '../components/LoadingSpinner'
 import Page from '../components/Page'
 import { cmsApiBaseUrl } from '../constants/urls'
-import DateFormatterContext from '../contexts/DateFormatterContext'
 
 const DisclaimerPage = ({ cityCode, languageCode, city }: CityRouteProps): ReactElement | null => {
-  const dateFormatter = useContext(DateFormatterContext)
   const navigate = useNavigate()
   const { t } = useTranslation('disclaimer')
 
@@ -84,7 +82,6 @@ const DisclaimerPage = ({ cityCode, languageCode, city }: CityRouteProps): React
         lastUpdate={disclaimer.lastUpdate}
         title={disclaimer.title}
         content={disclaimer.content}
-        formatter={dateFormatter}
         onInternalLinkClick={navigate}
       />
     </CityContentLayout>

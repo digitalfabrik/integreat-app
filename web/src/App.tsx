@@ -5,6 +5,7 @@ import { BrowserRouter as Router } from 'react-router-dom'
 import { ThemeProvider } from 'styled-components'
 
 import { setJpalTrackingCode } from 'api-client'
+import { config } from 'translations'
 
 import RootSwitcher from './RootSwitcher'
 import Helmet from './components/Helmet'
@@ -14,6 +15,7 @@ import safeLocalStorage, { JPAL_TRACKING_CODE_KEY } from './utils/safeLocalStora
 import { initSentry } from './utils/sentry'
 
 LuxonSettings.throwOnInvalid = true
+LuxonSettings.defaultLocale = config.defaultFallback
 
 const App = (): ReactElement => {
   const [contentLanguage, setContentLanguage] = useState<string>()

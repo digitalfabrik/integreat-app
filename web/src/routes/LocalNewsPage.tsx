@@ -1,4 +1,4 @@
-import React, { ReactElement, useContext } from 'react'
+import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useNavigate, useParams } from 'react-router-dom'
 
@@ -24,12 +24,10 @@ import NewsListItem from '../components/NewsListItem'
 import NewsTabs from '../components/NewsTabs'
 import Page from '../components/Page'
 import { cmsApiBaseUrl } from '../constants/urls'
-import DateFormatterContext from '../contexts/DateFormatterContext'
 import { LOCAL_NEWS_ROUTE } from './index'
 
 const LocalNewsPage = ({ city, pathname, languageCode, cityCode }: CityRouteProps): ReactElement | null => {
   const { newsId } = useParams()
-  const formatter = useContext(DateFormatterContext)
   const { t } = useTranslation('news')
   const navigate = useNavigate()
 
@@ -61,7 +59,6 @@ const LocalNewsPage = ({ city, pathname, languageCode, cityCode }: CityRouteProp
           newsId: id.toString(),
         })}
         t={t}
-        formatter={formatter}
         type={LOCAL_NEWS_TYPE}
       />
     )
@@ -134,8 +131,6 @@ const LocalNewsPage = ({ city, pathname, languageCode, cityCode }: CityRouteProp
         <Page
           title={newsModel.title}
           content={linkedContent}
-          formatter={formatter}
-          lastUpdateFormat='DDD'
           lastUpdate={newsModel.timestamp}
           showLastUpdateText={false}
           onInternalLinkClick={navigate}
