@@ -1,6 +1,5 @@
 import React, { ReactElement, ReactNode } from 'react'
 import { useTranslation } from 'react-i18next'
-import { StyleProp } from 'react-native'
 import {
   defaultOnOverflowMenuPress,
   HeaderButton,
@@ -12,7 +11,7 @@ import {
 import { LanguageIcon, MenuIcon, SearchIcon } from '../assets'
 import Icon from './base/Icon'
 
-const HeaderIcon = ({ name, ...props }: { name: string; style: StyleProp<SVGImageElement> }): ReactElement => {
+const HeaderIcon = ({ name, ...props }: { name: string }): ReactElement => {
   if (!['language', 'search'].includes(name)) {
     throw new Error('Invalid icon name!')
   }

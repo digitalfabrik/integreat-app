@@ -25,6 +25,10 @@ const NearbyMessage = styled.Text`
   padding-top: 15px;
 `
 
+const StyledIcon = styled(Icon)`
+  color: ${props => props.theme.colors.textSecondaryColor};
+`
+
 type NearbyCitiesProps = {
   cities: Array<CityModel>
   navigateToDashboard: (city: CityModel) => void
@@ -43,8 +47,7 @@ const NearbyCities = ({ cities, navigateToDashboard, filterText }: NearbyCitiesP
         <RetryButtonContainer>
           {status !== 'loading' && (
             <Button
-              // TODO #2330: Set color to textSecondaryColor
-              icon={<Icon Icon={RefreshIcon} width={28} height={28} />}
+              icon={<StyledIcon Icon={RefreshIcon} />}
               title=''
               type='clear'
               onPress={requestAndDetermineLocation}

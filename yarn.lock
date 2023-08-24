@@ -12331,6 +12331,11 @@ react-freeze@^1.0.0:
   resolved "https://registry.yarnpkg.com/react-freeze/-/react-freeze-1.0.3.tgz#5e3ca90e682fed1d73a7cb50c2c7402b3e85618d"
   integrity sha512-ZnXwLQnGzrDpHBHiC56TXFXvmolPeMjTn1UOm610M4EXGzbEDR7oOIyS2ZiItgbs6eZc4oU/a0hpk8PrcKvv5g==
 
+react-from-dom@^0.6.2:
+  version "0.6.2"
+  resolved "https://registry.yarnpkg.com/react-from-dom/-/react-from-dom-0.6.2.tgz#9da903a508c91c013b55afcd59348b8b0a39bdb4"
+  integrity sha512-qvWWTL/4xw4k/Dywd41RBpLQUSq97csuv15qrxN+izNeLYlD9wn5W8LspbfYe5CWbaSdkZ72BsaYBPQf2x4VbQ==
+
 react-helmet@^6.1.0:
   version "6.1.0"
   resolved "https://registry.yarnpkg.com/react-helmet/-/react-helmet-6.1.0.tgz#a750d5165cb13cf213e44747502652e794468726"
@@ -12364,6 +12369,13 @@ react-infinite-scroller@^1.2.6:
   integrity sha512-mGdMyOD00YArJ1S1F3TVU9y4fGSfVVl6p5gh/Vt4u99CJOptfVu/q5V/Wlle72TMgYlBwIhbxK5wF0C/R33PXQ==
   dependencies:
     prop-types "^15.5.8"
+
+react-inlinesvg@^4.0.2:
+  version "4.0.2"
+  resolved "https://registry.yarnpkg.com/react-inlinesvg/-/react-inlinesvg-4.0.2.tgz#3f653582600634231db356114a7d91a32c5e3579"
+  integrity sha512-JHYNAABfVsFe6RXJtwS4q38XRVm75GCAof6fVvOJ+AwXi15SVWK1Ow6ZXbI/azbaZ6vjD/4gnjag2VnDoD2NvA==
+  dependencies:
+    react-from-dom "^0.6.2"
 
 "react-is@^16.12.0 || ^17.0.0 || ^18.0.0", react-is@^18.0.0, react-is@^18.2.0:
   version "18.2.0"

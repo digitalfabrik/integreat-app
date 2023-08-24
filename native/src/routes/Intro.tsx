@@ -46,6 +46,16 @@ const AppIcon = styled(buildConfigAssets().AppIcon)`
   ${ImageStyle};
 `
 
+const StyledAppIcon = styled(Icon)`
+  width: 40%;
+  height: 40%;
+`
+
+const StyledIcon = styled(Icon)`
+  height: 100%;
+  width: 60%;
+`
+
 type IntroProps = {
   route: RouteProps<IntroRouteType>
   navigation: NavigationProps<IntroRouteType>
@@ -66,7 +76,7 @@ const Intro = ({ route, navigation }: IntroProps): ReactElement => {
       description: t('appDescription', {
         appName: buildConfig().appName,
       }),
-      Content: <Icon Icon={AppIcon} width='40%' height='40%' />,
+      Content: <StyledAppIcon Icon={AppIcon} />,
     },
   ]
   if (styledIcons) {
@@ -75,25 +85,25 @@ const Intro = ({ route, navigation }: IntroProps): ReactElement => {
         key: 'search',
         title: t('search'),
         description: t('searchDescription'),
-        Content: <Icon Icon={styledIcons.Search} height='100%' width='60%' />,
+        Content: <StyledIcon Icon={styledIcons.Search} />,
       },
       {
         key: 'events',
         title: t('events'),
         description: t('eventsDescription'),
-        Content: <Icon Icon={styledIcons.Events} height='100%' width='60%' />,
+        Content: <StyledIcon Icon={styledIcons.Events} />,
       },
       {
         key: 'offers',
         title: t('offers'),
         description: t('offersDescription'),
-        Content: <Icon Icon={styledIcons.Offers} height='100%' width='60%' />,
+        Content: <StyledIcon Icon={styledIcons.Offers} />,
       },
       {
         key: 'languageChange',
         title: t('languageChange'),
         description: t('languageChangeDescription'),
-        Content: <Icon Icon={styledIcons.Language} height='100%' width='60%' />,
+        Content: <StyledIcon Icon={styledIcons.Language} />,
       },
     )
   }

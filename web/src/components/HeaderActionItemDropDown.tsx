@@ -6,34 +6,15 @@ import useOnClickOutside from '../hooks/useOnClickOutside'
 import Tooltip from './Tooltip'
 import Icon from './base/Icon'
 
-export const Container = styled.div`
-  width: calc(0.5 * ${dimensions.headerHeightLarge}px);
-  height: calc(0.5 * ${dimensions.headerHeightLarge}px);
-  box-sizing: border-box;
+const Button = styled.button`
+  background-color: transparent;
+  border: none;
+  padding: 0;
+`
 
-  @media ${dimensions.smallViewport} {
-    width: calc(0.8 * ${dimensions.headerHeightSmall}px);
-    height: calc(0.8 * ${dimensions.headerHeightSmall}px);
-  }
-
-  & button {
-    width: 100%;
-    height: 100%;
-    margin: 0;
-    padding: 0;
-    cursor: pointer;
-    background-color: ${props => props.theme.colors.backgroundAccentColor};
-    border: none;
-  }
-
-  & button > img {
-    box-sizing: border-box;
-    padding: 22%;
-    object-fit: contain;
-    width: 100%;
-    height: 100%;
-    opacity: 0.85;
-  }
+const StyledIcon = styled(Icon)`
+  width: 28px;
+  height: 28px;
 `
 
 export const DropDownContainer = styled.div<{ active: boolean; height?: number }>`
@@ -98,11 +79,11 @@ const HeaderActionItemDropDown = ({ iconSrc, text, children }: HeaderActionItemD
   useOnClickOutside(wrapperRef, closeDropDown)
 
   return (
-    <Container ref={wrapperRef}>
+    <div ref={wrapperRef}>
       <Tooltip text={text} flow='down' mediumViewportFlow='left'>
-        <button type='button' aria-label={text} onClick={toggleDropDown}>
-          <Icon src={iconSrc} />
-        </button>
+        <Button type='button' aria-label={text} onClick={toggleDropDown}>
+          <StyledIcon src={iconSrc} />
+        </Button>
       </Tooltip>
       <DropDownContainer
         data-testid='headerActionItemDropDown'
@@ -111,7 +92,7 @@ const HeaderActionItemDropDown = ({ iconSrc, text, children }: HeaderActionItemD
         style={{ visibility: dropDownActive ? 'visible' : 'hidden' }}>
         {children(closeDropDown)}
       </DropDownContainer>
-    </Container>
+    </div>
   )
 }
 

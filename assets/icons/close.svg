@@ -1,5 +1,5 @@
-<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <g id="close">
-        <path id="Vector" d="M12.6667 4.27337L11.7267 3.33337L8.00004 7.06004L4.27337 3.33337L3.33337 4.27337L7.06004 8.00004L3.33337 11.7267L4.27337 12.6667L8.00004 8.94004L11.7267 12.6667L12.6667 11.7267L8.94004 8.00004L12.6667 4.27337Z" fill="black"/>
-    </g>
+<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="close">
+<path id="Vector" d="M19 6.41L17.59 5L12 10.59L6.41 5L5 6.41L10.59 12L5 17.59L6.41 19L12 13.41L17.59 19L19 17.59L13.41 12L19 6.41Z" fill="currentColor"/>
+</g>
 </svg>
