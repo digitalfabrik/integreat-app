@@ -4,10 +4,11 @@ import styled, { css } from 'styled-components'
 
 import { UiDirectionType } from 'translations'
 
-import { CloseSharingIcon, FacebookIcon, MailSocialIcon, ShareIcon, WhatsappIcon } from '../assets'
+import { CloseIcon, FacebookIcon, MailIcon, ShareIcon, WhatsappIcon } from '../assets'
 import Portal from './Portal'
 import ToolbarItem from './ToolbarItem'
 import Tooltip from './Tooltip'
+import Icon from './base/Icon'
 
 type SharingPopupProps = {
   shareUrl: string
@@ -165,13 +166,14 @@ const Link = styled.a`
   display: flex;
 `
 
-const Icon = styled.img<{ direction: string }>`
+const StyledIcon = styled(Icon)`
   width: 32px;
   height: 32px;
   flex-shrink: 0;
   padding: 8px;
   object-fit: contain;
   align-self: center;
+  color: ${props => props.theme.colors.textSecondaryColor};
 `
 
 const BackdropContainer = styled.div`
@@ -194,7 +196,7 @@ const SharingPopup = ({ shareUrl, title, flow, direction, portalNeeded }: Sharin
 
   const encodedTitle = encodeURIComponent(title)
   const encodedShareUrl = encodeURIComponent(shareUrl)
-  const shareMessage = t('layout:shareMessage')
+  const shareMessage = t('layout:shareMessage', { message: encodedTitle })
 
   const Backdrop = (
     <BackdropContainer
@@ -221,30 +223,30 @@ const SharingPopup = ({ shareUrl, title, flow, direction, portalNeeded }: Sharin
             direction={direction}>
             <Tooltip text={t('whatsappTooltip')} flow='up'>
               <Link
-                href={`https://api.whatsapp.com/send?text=${shareMessage}${encodedTitle}%0a${encodedShareUrl}`}
+                href={`https://api.whatsapp.com/send?text=${shareMessage}%0a${encodedShareUrl}`}
                 target='_blank'
                 aria-label={t('whatsappTooltip')}>
-                <Icon src={WhatsappIcon} direction={direction} alt='' />
+                <StyledIcon src={WhatsappIcon} />
               </Link>
             </Tooltip>
             <Tooltip text={t('facebookTooltip')} flow='up'>
               <Link
-                href={`http://www.facebook.com/sharer/sharer.php?u=${encodedShareUrl}&t${shareMessage}${encodedTitle}`}
+                href={`https://www.facebook.com/sharer/sharer.php?u=${encodedShareUrl}&t${shareMessage}`}
                 target='_blank'
                 aria-label={t('facebookTooltip')}>
-                <Icon src={FacebookIcon} direction={direction} alt='' />
+                <StyledIcon src={FacebookIcon} />
               </Link>
             </Tooltip>
             <Tooltip text={t('mailTooltip')} flow='up'>
               <Link
                 href={`mailto:?subject=${encodedTitle}&body=${shareMessage}${encodedShareUrl}`}
                 aria-label={t('mailTooltip')}>
-                <Icon src={MailSocialIcon} direction={direction} alt='' />
+                <StyledIcon src={MailIcon} />
               </Link>
             </Tooltip>
             <Tooltip text={t('closeTooltip')} flow='up'>
               <CloseButton onClick={() => setShareOptionsVisible(false)} aria-label={t('mailTooltip')}>
-                <Icon src={CloseSharingIcon} alt='' direction={direction} />
+                <StyledIcon src={CloseIcon} />
               </CloseButton>
             </Tooltip>
           </TooltipContainer>

@@ -1,7 +1,7 @@
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Text, View, AccessibilityRole } from 'react-native'
-import { Badge, Icon } from 'react-native-elements'
+import { Badge } from 'react-native-elements'
 import styled from 'styled-components/native'
 
 import SettingsSwitch from './SettingsSwitch'
@@ -69,7 +69,6 @@ const SettingItem = (props: SettingItemProps): ReactElement => {
               }}>
               <Badge status={value ? 'success' : 'error'} />
               <Text> {value ? t('enabled') : t('disabled')}</Text>
-              <Icon name='chevron-right' />
             </View>
           )}
         </RightContentContainer>

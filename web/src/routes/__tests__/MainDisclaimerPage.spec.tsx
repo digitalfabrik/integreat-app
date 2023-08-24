@@ -3,6 +3,7 @@ import React from 'react'
 import { renderWithRouterAndTheme } from '../../testing/render'
 import MainDisclaimerPage from '../MainDisclaimerPage'
 
+jest.mock('react-inlinesvg')
 jest.mock('react-i18next')
 
 describe('MainDisclaimerPage', () => {

@@ -1,10 +1,10 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React, { ReactElement } from 'react'
 import { TFunction } from 'react-i18next'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 
-import { faFrown } from '../constants/icons'
+import { SadSmileyIcon } from '../assets'
+import Icon from './base/Icon'
 
 const Centered = styled.div`
   & > * {
@@ -12,6 +12,11 @@ const Centered = styled.div`
     margin-top: 50px;
     text-align: center;
   }
+`
+
+const StyledIcon = styled(Icon)`
+  width: 64px;
+  height: 64px;
 `
 
 type FailureProps = {
@@ -24,7 +29,7 @@ type FailureProps = {
 const Failure = ({ errorMessage, goToPath, goToMessage = 'goTo.start', t }: FailureProps): ReactElement => (
   <Centered>
     <div>
-      <FontAwesomeIcon icon={faFrown} size='4x' />
+      <StyledIcon src={SadSmileyIcon} />
     </div>
     <div role='alert'>{t(errorMessage)}</div>
     {!!goToPath && <Link to={goToPath}>{goToMessage ? t(goToMessage) : goToPath}</Link>}

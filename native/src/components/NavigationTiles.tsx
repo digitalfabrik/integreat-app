@@ -4,10 +4,12 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { useTheme } from 'styled-components'
 import styled from 'styled-components/native'
 
+import { ArrowBackIcon } from '../assets'
 import TileModel from '../models/TileModel'
-import AnchorIcon from './AnchorIcon'
 import HighlightBox from './HighlightBox'
 import NavigationTile from './NavigationTile'
+import Icon from './base/Icon'
+import Pressable from './base/Pressable'
 
 const widthBreakPoint = 400
 const anchorWidth = 30
@@ -21,6 +23,12 @@ const TilesRow = styled(HighlightBox)`
   align-items: center;
   justify-content: space-around;
   shadow-offset: 1px;
+`
+
+const StyledPressable = styled(Pressable)<{ disabled: boolean }>`
+  // TODO #2330: Set color to grey
+  ${props => props.disabled && 'opacity: 0.3;'}
+  padding: 0 4px;
 `
 
 type NavigationTilesProps = {
@@ -56,7 +64,11 @@ const NavigationTiles = ({ tiles }: NavigationTilesProps): ReactElement => {
 
   return (
     <TilesRow>
-      {isScrollable && <AnchorIcon isLeftAnchor onPress={scrollToStart} disabled={scrolledToStart} />}
+      {isScrollable && (
+        <StyledPressable onPress={scrollToStart} disabled={scrolledToStart}>
+          <Icon Icon={ArrowBackIcon} directionDependent />
+        </StyledPressable>
+      )}
       <ScrollView
         horizontal
         ref={scrollViewRef}
@@ -79,7 +91,11 @@ const NavigationTiles = ({ tiles }: NavigationTilesProps): ReactElement => {
           <NavigationTile key={tile.path} tile={tile} theme={theme} width={navigationItemWidth} />
         ))}
       </ScrollView>
-      {isScrollable && <AnchorIcon isLeftAnchor={false} onPress={scrollToEnd} disabled={scrolledToEnd} />}
+      {isScrollable && (
+        <StyledPressable onPress={scrollToEnd} disabled={scrolledToEnd}>
+          <Icon Icon={ArrowBackIcon} directionDependent reverse />
+        </StyledPressable>
+      )}
     </TilesRow>
   )
 }
