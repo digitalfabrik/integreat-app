@@ -32,6 +32,12 @@ const Spacer = styled.View`
   width: 4px;
 `
 
+const StyledIcon = styled(Icon)`
+  color: ${props => props.theme.colors.textSecondaryColor};
+  width: 16px;
+  height: 16px;
+`
+
 type TextButtonProps = {
   text: string
   onPress: () => Promise<void> | void
@@ -47,7 +53,7 @@ const ChipButton = ({ text, onPress, Icon: IconProp, closeButton, style }: TextB
     <StyledText>{text}</StyledText>
     {closeButton && (
       <IconContainer>
-        <Icon Icon={CloseIcon} />
+        <StyledIcon Icon={CloseIcon} />
       </IconContainer>
     )}
   </StyledPressable>

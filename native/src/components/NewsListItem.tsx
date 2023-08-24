@@ -28,8 +28,9 @@ const ReadMoreWrapper = styled.View<{ language: string }>`
 `
 const StyledIcon = styled(Icon)<{ isTunews: boolean }>`
   margin: 6px 4px 0;
-  // TODO #2330: Fix color
-  // color: ${props => (props.isTunews ? props.theme.colors.tunewsThemeColor : props.theme.colors.themeColor)};
+  color: ${props => (props.isTunews ? props.theme.colors.tunewsThemeColor : props.theme.colors.themeColor)};
+  width: 14px;
+  height: 14px;
 `
 const ListItemWrapper = styled.View`
   padding: 0 5%;
@@ -99,7 +100,7 @@ const NewsListItem = ({ index, newsItem, navigateToNews, isTunews }: NewsListIte
           </Description>
           <ReadMoreWrapper language={i18n.language}>
             <ReadMore isTunews={isTunews} onPress={navigateToNews}>{`${t('readMore')}`}</ReadMore>
-            <StyledIcon Icon={ArrowBackIcon} width={14} height={14} directionDependent reverse isTunews={isTunews} />
+            <StyledIcon Icon={ArrowBackIcon} directionDependent reverse isTunews={isTunews} />
           </ReadMoreWrapper>
         </StyledPressable>
       </ListItemWrapper>

@@ -96,7 +96,7 @@ const PoiFiltersModal = ({
         <Section>
           <SubTitle>{t('openingHours')}</SubTitle>
           <Row>
-            <Icon Icon={ClockIcon} width={24} height={24} />
+            <Icon Icon={ClockIcon} />
             <StyledText>{t('onlyCurrentlyOpen')}</StyledText>
             <FlexEnd>
               <SettingsSwitch onPress={setCurrentlyOpenFilter} value={currentlyOpenFilter} />

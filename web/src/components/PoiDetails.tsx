@@ -7,7 +7,7 @@ import { GeoJsonPoi, getExternalMapsLink, PoiModel } from 'api-client'
 import { UiDirectionType } from 'translations'
 
 import {
-  EmailIcon,
+  MailIcon,
   ExternalLinkIcon,
   LocationIcon,
   PhoneIcon,
@@ -206,7 +206,7 @@ const PoiDetails = ({ feature, poi, direction, toolbar }: PoiDetailsProps): Reac
                 />
               )}
               {!!email && (
-                <ContactItem iconSrc={EmailIcon} iconAlt={t('eMail')} link={`mailto:${email}`} content={email} />
+                <ContactItem iconSrc={MailIcon} iconAlt={t('eMail')} link={`mailto:${email}`} content={email} />
               )}
             </>
           </Collapsible>
