@@ -21,6 +21,7 @@ jest.mock('api-client', () => ({
   loadFromEndpoint: jest.fn(),
   useLoadFromEndpoint: jest.fn(),
 }))
+jest.mock('react-inlinesvg')
 jest.mock('react-i18next')
 jest.mock('../../components/InfiniteScrollList', () => () => 'List')
 jest.mock('../../components/CityContentHeader', () => () => null)

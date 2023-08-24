@@ -10,6 +10,7 @@ import { renderWithRouterAndTheme } from '../../testing/render'
 import PoisPage from '../PoisPage'
 import { RoutePatterns } from '../index'
 
+jest.mock('react-inlinesvg')
 jest.mock('react-i18next')
 jest.mock('../../utils/getUserLocation', () => async () => ({ status: 'ready', coordinates: [10.8, 48.3] }))
 jest.mock('../../hooks/useFeatureLocations')

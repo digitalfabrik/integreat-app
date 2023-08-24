@@ -1,23 +1,9 @@
 import React, { memo, ReactElement } from 'react'
 import styled, { css, useTheme } from 'styled-components'
 
-import iconArrowBack from '../assets/IconArrowBackLong.svg'
+import { ArrowBackspaceIcon } from '../assets'
 import Spacer from './Spacer'
-
-const ArrowBack = styled.img<{ direction: string }>`
-  width: 16px;
-  height: 14px;
-  flex-shrink: 0;
-  padding: 0 8px;
-  object-fit: contain;
-  align-self: center;
-
-  ${props =>
-    props.direction === 'rtl' &&
-    css`
-      transform: scaleX(-1);
-    `};
-`
+import Icon from './base/Icon'
 
 const DetailsHeader = styled.div<{ viewportSmall: boolean }>`
   display: flex;
@@ -51,19 +37,23 @@ const DetailsHeaderTitle = styled.span`
   font-family: ${props => props.theme.fonts.web.contentFont};
 `
 
+const StyledIcon = styled(Icon)`
+  height: 24px;
+  width: 24px;
+`
+
 type GoBackProps = {
   text: string
   goBack: () => void
-  direction: string
   viewportSmall?: boolean
 }
 
-const GoBack = ({ goBack, direction, viewportSmall = false, text }: GoBackProps): ReactElement => {
+const GoBack = ({ goBack, viewportSmall = false, text }: GoBackProps): ReactElement => {
   const theme = useTheme()
   return (
     <>
       <DetailsHeader viewportSmall={viewportSmall} onClick={goBack} role='button' tabIndex={0} onKeyPress={goBack}>
-        <ArrowBack src={iconArrowBack} alt='' direction={direction} />
+        <StyledIcon src={ArrowBackspaceIcon} directionDependent />
         <DetailsHeaderTitle>{text}</DetailsHeaderTitle>
       </DetailsHeader>
       <Spacer borderColor={theme.colors.borderColor} />

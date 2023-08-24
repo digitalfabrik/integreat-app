@@ -1,9 +1,10 @@
-import { faSearch } from '@fortawesome/free-solid-svg-icons/faSearch'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React, { ChangeEvent, ReactElement } from 'react'
 import styled from 'styled-components'
 
-const searchLogoWidth = '25px'
+import { SearchIcon } from '../assets'
+import Icon from './base/Icon'
+
+const searchLogoWidth = '24px'
 
 const Spacer = styled.div<{ space: boolean }>`
   ${props => props.space && 'margin: 15px 0;'}
@@ -19,6 +20,7 @@ const TextInput = styled.input.attrs({ type: 'text' })`
   border-width: 0 0 1px;
   border-color: ${props => props.theme.colors.textSecondaryColor};
   border-radius: 0;
+
   &:focus-visible {
     outline: none !important;
   }
@@ -36,10 +38,9 @@ const Wrapper = styled.div`
   background-color: ${props => props.theme.colors.backgroundColor};
 `
 
-const SearchIcon = styled(FontAwesomeIcon).attrs({ icon: faSearch })`
-  width: 25px;
-  font-size: 1.2em;
-  text-align: center;
+const StyledIcon = styled(Icon)`
+  width: 20px;
+  height: 20px;
 `
 
 type SearchInputProps = {
@@ -66,7 +67,7 @@ const SearchInput = ({
   return (
     <Spacer space={spaceSearch}>
       <Wrapper>
-        <SearchIcon />
+        <StyledIcon src={SearchIcon} />
         {/* eslint-disable-next-line styled-components-a11y/no-autofocus -- in a dedicated search modal autofocus is fine */}
         <TextInput
           placeholder={placeholderText}
