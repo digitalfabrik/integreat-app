@@ -15,9 +15,9 @@ const StyledPressable = styled(Pressable)`
 `
 const LocalTabWrapper = styled.View<{ isSelected: boolean }>`
   border-radius: 10px;
-  height: 34px;
+  height: 50px;
   text-align: center;
-  min-width: 110px;
+  min-width: 160px;
   align-items: center;
   justify-content: center;
   background-color: ${props =>
@@ -37,8 +37,8 @@ const HeaderContainer = styled.View`
 `
 
 const StyledIcon = styled(Icon)`
-  width: 110px;
-  height: 34px;
+  width: 160px;
+  height: 50px;
 `
 
 type NewsHeaderProps = {
