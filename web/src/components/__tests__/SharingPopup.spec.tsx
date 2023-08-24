@@ -21,7 +21,7 @@ describe('SharingPopup', () => {
   )
 
   it('should render correct share link for facebook', () => {
-    const facebookShareLink = `http://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fintegreat.app%2Faugsburg%2Fde%2Faktuelle-themen-und-informationen&t${shareMessage}Aktuelle%20Themen%20und%20Informationen`
+    const facebookShareLink = `https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fintegreat.app%2Faugsburg%2Fde%2Faktuelle-themen-und-informationen&t${shareMessage}`
     const { getAllByLabelText, getByText } = renderWithTheme(SharingPopupComponent)
     fireEvent.click(getByText('socialMedia:layout:share'))
     expect(getAllByLabelText('socialMedia:facebookTooltip')[0]).toBeTruthy()
@@ -29,7 +29,7 @@ describe('SharingPopup', () => {
   })
 
   it('should render correct share link for whatsapp', () => {
-    const whatsAppShareLink = `https://api.whatsapp.com/send?text=${shareMessage}Aktuelle%20Themen%20und%20Informationen%0ahttps%3A%2F%2Fintegreat.app%2Faugsburg%2Fde%2Faktuelle-themen-und-informationen`
+    const whatsAppShareLink = `https://api.whatsapp.com/send?text=${shareMessage}%0ahttps%3A%2F%2Fintegreat.app%2Faugsburg%2Fde%2Faktuelle-themen-und-informationen`
     const { getAllByLabelText, getByText } = renderWithTheme(SharingPopupComponent)
     fireEvent.click(getByText('socialMedia:layout:share'))
     expect(getAllByLabelText('socialMedia:whatsappTooltip')[0]).toBeTruthy()
