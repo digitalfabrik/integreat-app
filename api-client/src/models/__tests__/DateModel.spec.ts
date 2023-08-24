@@ -18,7 +18,7 @@ describe('DateModel', () => {
         allDay,
       })
       expect(
-        locales.map(locale => `${locale}: ${normalizeWhitespaces(date.toFormattedString(locale))}`)
+        locales.map(locale => `${locale}: ${normalizeWhitespaces(date.toFormattedString(locale))}`),
       ).toMatchSnapshot()
     })
 
@@ -32,7 +32,7 @@ describe('DateModel', () => {
         allDay,
       })
       expect(
-        locales.map(locale => `${locale}: ${normalizeWhitespaces(date.toFormattedString(locale))}`)
+        locales.map(locale => `${locale}: ${normalizeWhitespaces(date.toFormattedString(locale))}`),
       ).toMatchSnapshot()
     })
 
@@ -46,7 +46,7 @@ describe('DateModel', () => {
         allDay,
       })
       expect(
-        locales.map(locale => `${locale}: ${normalizeWhitespaces(date.toFormattedString(locale))}`)
+        locales.map(locale => `${locale}: ${normalizeWhitespaces(date.toFormattedString(locale))}`),
       ).toMatchSnapshot()
     })
 
@@ -60,7 +60,7 @@ describe('DateModel', () => {
         allDay,
       })
       expect(
-        locales.map(locale => `${locale}: ${normalizeWhitespaces(date.toFormattedString(locale))}`)
+        locales.map(locale => `${locale}: ${normalizeWhitespaces(date.toFormattedString(locale))}`),
       ).toMatchSnapshot()
     })
 
@@ -74,7 +74,7 @@ describe('DateModel', () => {
         allDay,
       })
       expect(
-        locales.map(locale => `${locale}: ${normalizeWhitespaces(date.toFormattedString(locale))}`)
+        locales.map(locale => `${locale}: ${normalizeWhitespaces(date.toFormattedString(locale))}`),
       ).toMatchSnapshot()
     })
   })
