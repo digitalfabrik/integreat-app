@@ -137,7 +137,7 @@ const EventsPage = ({ city, pathname, languageCode, cityCode }: CityRouteProps):
     return (
       <CityContentLayout isLoading={false} {...locationLayoutParams}>
         <Helmet pageTitle={pageTitle} languageChangePaths={languageChangePaths} cityModel={city} />
-        <JsonLdEvent event={event} formatter={formatter} />
+        <JsonLdEvent event={event} />
         <Page
           defaultThumbnailSrc={defaultThumbnail}
           thumbnailSrcSet={featuredImage ? featuredImageToSrcSet(featuredImage, THUMBNAIL_WIDTH) : undefined}
