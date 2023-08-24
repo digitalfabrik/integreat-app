@@ -1,6 +1,6 @@
 import React, { ReactElement } from 'react'
 import { Link } from 'react-router-dom'
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 
 import dimensions from '../constants/dimensions'
 import { helpers } from '../constants/theme'
@@ -24,14 +24,22 @@ const StyledLink = styled(Link)<{ $active: boolean }>`
   transition: color 0.2s;
   height: 100%;
 
-  &:active {
-    font-weight: 800;
-  }
-
   @media ${dimensions.smallViewport} {
     font-size: ${props => props.theme.fonts.decorativeFontSizeSmall};
     font-weight: 400;
     min-width: 50px;
+  }
+
+  & > div > svg {
+    color: ${props => (props.$active ? props.theme.colors.textColor : props.theme.colors.textSecondaryColor)};
+  }
+
+  &:hover {
+    color: ${props => props.theme.colors.textColor};
+  }
+
+  &:hover > div > svg {
+    color: ${props => props.theme.colors.textColor};
   }
 
   &:hover > div:first-child {
@@ -39,29 +47,16 @@ const StyledLink = styled(Link)<{ $active: boolean }>`
     border-color: ${props => props.theme.colors.themeColor};
   }
 
-  &:hover {
-    color: ${props => props.theme.colors.textColor};
-  }
-
-  &:hover > div > img {
-    opacity: 1;
-  }
-
   ${props =>
-    props.$active
-      ? `
-      color: ${props.theme.colors.textColor};
-
-      & > div > img {
-        opacity: 1;
-      }
+    props.$active &&
+    css`
+      color: ${props => props.theme.colors.textColor};
 
       & > div:first-child {
-        box-shadow: 0 0px 0px 0px rgba(0, 0, 0, 0.3);
+        box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.3);
         border-color: ${props.theme.colors.themeColor};
       }
-   `
-      : ''}
+    `}
 `
 
 const StyledText = styled.span<{ $active: boolean }>`
@@ -70,7 +65,6 @@ const StyledText = styled.span<{ $active: boolean }>`
 
 const ICON_SIZE_LARGE = 50
 const ICON_SIZE_SMALL = 35
-const PADDING_CIRCLE = 8
 
 const Circle = styled.div`
   display: flex;
@@ -90,28 +84,16 @@ const Circle = styled.div`
     border: ${props => props.theme.colors.backgroundColor} 2px solid;
   }
 
-  & img {
-    position: relative;
-    opacity: 0.7;
-    transition: opacity 0.2s;
-    height: ${ICON_SIZE_LARGE / Math.sqrt(2) - PADDING_CIRCLE}px;
-    width: ${ICON_SIZE_LARGE / Math.sqrt(2) - PADDING_CIRCLE}px;
-  }
-
   @media ${dimensions.smallViewport} {
     height: ${ICON_SIZE_SMALL}px;
     width: ${ICON_SIZE_SMALL}px;
-
-    & img {
-      height: ${ICON_SIZE_SMALL / Math.sqrt(2) - PADDING_CIRCLE / 2}px;
-      width: ${ICON_SIZE_SMALL / Math.sqrt(2) - PADDING_CIRCLE / 2}px;
-    }
   }
 `
 
 const StyledIcon = styled(Icon)`
   width: 28px;
   height: 28px;
+  color: yellow;
 `
 
 export type HeaderNavigationItemProps = {
