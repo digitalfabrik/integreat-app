@@ -87,8 +87,15 @@ const mapJsonToEvent = (event: JsonEventType): EventModel => {
 const getEndDate = (event: JsonEventType, startDate: Date): Date => {
   const start = DateTime.fromISO(event.event.start)
   const end = DateTime.fromISO(event.event.end)
-  const durationInDays = end.diff(start, 'days').days
-  return DateTime.fromJSDate(new Date(startDate)).startOf('day').plus({ days: durationInDays }).toJSDate()
+  const durationInDays = Math.floor(end.diff(start, 'days').days)
+  return DateTime.fromJSDate(new Date(startDate))
+    .startOf('day')
+    .plus({ days: durationInDays })
+    .set({
+      hour: end.toJSDate().getHours(),
+      minute: end.toJSDate().getMinutes(),
+    })
+    .toJSDate()
 }
 
 // TODO IGAPP-281: The workaround of the next two functions can probably be removed
@@ -125,10 +132,11 @@ const createRecurringEvents = (event: JsonEventType): JsonEventType[] => {
     })),
     event: {
       ...event.event,
-      start_date: dateToString(date),
-      end_date: dateToString(getEndDate(event, date)),
+      start: date.toISOString(),
+      end: getEndDate(event, date).toISOString(),
     },
   }))
+  //console.log(events[0].event)
   return events.slice(0, MAX_NUMBERS_OF_RECURRING_EVENTS)
 }
 
