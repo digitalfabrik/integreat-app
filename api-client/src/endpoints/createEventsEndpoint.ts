@@ -133,11 +133,10 @@ const createRecurringEvents = (event: JsonEventType): JsonEventType[] => {
     event: {
       ...event.event,
       start: date.toISOString(),
-      start_date: dateToString(date),
       end: getEndDate(event, date).toISOString(),
-      end_date: dateToString(getEndDate(event, date)),
     },
   }))
+  //console.log(events[0].event)
   return events.slice(0, MAX_NUMBERS_OF_RECURRING_EVENTS)
 }
 
