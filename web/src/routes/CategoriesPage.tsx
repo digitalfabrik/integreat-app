@@ -1,5 +1,5 @@
 import { DateTime } from 'luxon'
-import React, { ReactElement, useCallback, useContext } from 'react'
+import React, { ReactElement, useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Link, Navigate, useParams } from 'react-router-dom'
 
@@ -27,7 +27,6 @@ import Helmet from '../components/Helmet'
 import LoadingSpinner from '../components/LoadingSpinner'
 import buildConfig from '../constants/buildConfig'
 import { cmsApiBaseUrl } from '../constants/urls'
-import DateFormatterContext from '../contexts/DateFormatterContext'
 import usePreviousProp from '../hooks/usePreviousProp'
 import BreadcrumbModel from '../models/BreadcrumbModel'
 
@@ -50,7 +49,6 @@ const CategoriesPage = ({ city, pathname, cityCode, languageCode }: CityRoutePro
   const previousPathname = usePreviousProp({ prop: pathname })
   const categoryId = useParams()['*']
   const { t } = useTranslation('layout')
-  const formatter = useContext(DateFormatterContext)
   const uiDirection = config.getScriptDirection(languageCode)
 
   const {
@@ -182,12 +180,7 @@ const CategoriesPage = ({ city, pathname, cityCode, languageCode }: CityRoutePro
         currentBreadcrumb={getBreadcrumb(category, city.name)}
         direction={uiDirection}
       />
-      <CategoriesContent
-        categories={new CategoriesMapModel(categories)}
-        categoryModel={category}
-        formatter={formatter}
-        t={t}
-      />
+      <CategoriesContent categories={new CategoriesMapModel(categories)} categoryModel={category} t={t} />
     </CityContentLayout>
   )
 }

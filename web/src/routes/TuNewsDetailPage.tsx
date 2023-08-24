@@ -1,4 +1,4 @@
-import React, { ReactElement, useContext } from 'react'
+import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useNavigate, useParams } from 'react-router-dom'
 import styled from 'styled-components'
@@ -15,7 +15,6 @@ import LoadingSpinner from '../components/LoadingSpinner'
 import Page from '../components/Page'
 import Icon from '../components/base/Icon'
 import { tunewsApiBaseUrl } from '../constants/urls'
-import DateFormatterContext from '../contexts/DateFormatterContext'
 import { TU_NEWS_DETAIL_ROUTE } from './index'
 
 const StyledContainer = styled.div`
@@ -53,7 +52,6 @@ const TuNewsDetailPage = ({ city, pathname, cityCode, languageCode }: CityRouteP
   // This component is only opened when there is a news ID in the route
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   const newsId = useParams().newsId!
-  const formatter = useContext(DateFormatterContext)
   const navigate = useNavigate()
   const { t } = useTranslation('news')
 
@@ -125,8 +123,6 @@ const TuNewsDetailPage = ({ city, pathname, cityCode, languageCode }: CityRouteP
           <Page
             title={newsModel.title}
             content={newsModel.content}
-            formatter={formatter}
-            lastUpdateFormat='DDD'
             lastUpdate={newsModel.date}
             showLastUpdateText={false}
             onInternalLinkClick={navigate}
