@@ -1,7 +1,9 @@
-import SadIcon from 'integreat-app/assets/icons/negative-feedback.svg'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 import styled from 'styled-components/native'
+
+import { SadSmileyIcon } from '../assets'
+import Icon from './base/Icon'
 
 const Container = styled.View<{ paddingTop: boolean }>`
   padding-top: ${props => (props.paddingTop ? '20px' : 0)};
@@ -15,8 +17,10 @@ const Description = styled.Text`
   padding: 10px 30px 30px;
 `
 
-const StyledSadIcon = styled(SadIcon)`
+const StyledIcon = styled(Icon)`
   margin: 10px auto;
+  width: 60px;
+  height: 60px;
 `
 
 type NothingFoundProps = {
@@ -27,7 +31,7 @@ const NothingFound = ({ paddingTop = false }: NothingFoundProps): ReactElement =
   const { t } = useTranslation('search')
   return (
     <Container paddingTop={paddingTop}>
-      <StyledSadIcon height={60} width={60} />
+      <StyledIcon Icon={SadSmileyIcon} />
       <Description accessibilityRole='alert'>{t('search:nothingFound')}</Description>
     </Container>
   )

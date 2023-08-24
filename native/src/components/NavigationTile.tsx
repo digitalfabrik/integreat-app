@@ -6,15 +6,11 @@ import styled from 'styled-components/native'
 import { ThemeType } from 'build-configs'
 
 import TileModel from '../models/TileModel'
+import Icon from './base/Icon'
 import Pressable from './base/Pressable'
 
 const NEWS_DOT_RADIUS = 20
 const ICON_SIZE = 50
-type NavigationTileProps = {
-  tile: TileModel
-  theme: ThemeType
-  width: number
-}
 const Circle = styled(View)`
   margin-top: 9px;
   margin-bottom: 5px;
@@ -60,9 +56,16 @@ const NewsDot = styled.Text`
   shadow-radius: 3.84px;
 `
 
-/**
- * Displays a single NavigationTile
- */
+const StyledIcon = styled(Icon)`
+  width: ${ICON_SIZE / Math.sqrt(2)}px;
+  height: ${ICON_SIZE / Math.sqrt(2)}px;
+`
+
+type NavigationTileProps = {
+  tile: TileModel
+  theme: ThemeType
+  width: number
+}
 
 class NavigationTile extends React.Component<NavigationTileProps> {
   getNewsDot(): ReactNode {
@@ -82,7 +85,7 @@ class NavigationTile extends React.Component<NavigationTileProps> {
     return (
       <>
         <Circle theme={theme}>
-          <tile.thumbnail height={ICON_SIZE / Math.sqrt(2)} width={ICON_SIZE / Math.sqrt(2)} />
+          {typeof tile.thumbnail === 'string' ? <tile.thumbnail /> : <StyledIcon Icon={tile.thumbnail} />}
           {this.getNewsDot()}
         </Circle>
         <TileTitle theme={theme}>{tile.title}</TileTitle>

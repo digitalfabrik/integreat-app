@@ -63,7 +63,7 @@ const Row = styled.div`
     box-shadow: 0 2px 5px -3px rgba(0, 0, 0, 0.2);
     :first-child {
       box-shadow: 0 2px 5px -3px rgba(0, 0, 0, 0.12);
-      padding: 0px 4px;
+      padding: 0 4px;
     }
   }
 `
@@ -86,29 +86,27 @@ const ActionBar = styled.nav`
   display: flex;
   align-items: center;
   justify-content: flex-end;
+  gap: 12px;
+  padding: 0 16px;
 
   @media ${dimensions.smallViewport} {
     order: 2;
-    flex: 1 1 0%; /* The % unit is necessary for IE11 */
+    flex: 1 1 0;
   }
 `
 
 const NavigationBar = styled.nav`
   display: flex;
-  flex: 1 1 0%; /* The % unit is necessary for IE11 */
+  flex: 1 1 0;
   align-items: stretch;
   justify-content: center;
+  gap: 24px;
+
   @media ${dimensions.mediumLargeViewport} {
     padding: 0 10px;
   }
 `
 
-/**
- * The standard header which can supplied to a Layout. Displays a logo left, a HeaderMenuBar in the middle and a
- * HeaderActionBar at the right (RTL: vice versa). On small viewports the HeaderMenuBar is shown underneath the rest
- * of the Header.
- * Uses Headroom to save space when scrolling.
- */
 export const Header = ({
   actionItems = [],
   kebabItems = [],

@@ -2,9 +2,7 @@ import React from 'react'
 
 import { EventModelBuilder, getExcerpt } from 'api-client'
 
-import EventPlaceholder1 from '../../assets/EventPlaceholder1.jpg'
-import EventPlaceholder2 from '../../assets/EventPlaceholder2.jpg'
-import EventPlaceholder3 from '../../assets/EventPlaceholder3.jpg'
+import { EventThumbnailPlaceholder1, EventThumbnailPlaceholder2, EventThumbnailPlaceholder3 } from '../../assets'
 import { EXCERPT_MAX_CHARS } from '../../constants'
 import { renderWithRouterAndTheme } from '../../testing/render'
 import EventListItem from '../EventListItem'
@@ -35,7 +33,11 @@ describe('EventListItem', () => {
     expect(getByText(event.title)).toBeTruthy()
     expect(getByText(event.date.toFormattedString(language), { collapseWhitespace: false })).toBeTruthy()
     const src = (getByRole('img') as HTMLMediaElement).src
-    expect([EventPlaceholder1, EventPlaceholder2, EventPlaceholder3].some(img => src.endsWith(img))).toBeTruthy()
+    expect(
+      [EventThumbnailPlaceholder1, EventThumbnailPlaceholder2, EventThumbnailPlaceholder3].some(img =>
+        src.endsWith(img),
+      ),
+    ).toBeTruthy()
     expect(getByText(excerpt)).toBeTruthy()
   })
 })

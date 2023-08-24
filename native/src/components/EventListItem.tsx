@@ -3,9 +3,7 @@ import styled from 'styled-components/native'
 
 import { EventModel, parseHTML } from 'api-client'
 
-import EventPlaceholder1 from '../assets/EventPlaceholder1.jpg'
-import EventPlaceholder2 from '../assets/EventPlaceholder2.jpg'
-import EventPlaceholder3 from '../assets/EventPlaceholder3.jpg'
+import { EventThumbnailPlaceholder1, EventThumbnailPlaceholder2, EventThumbnailPlaceholder3 } from '../assets'
 import { EXCERPT_MAX_LINES } from '../constants'
 import ListItem from './ListItem'
 
@@ -14,7 +12,7 @@ const Description = styled.Text`
   font-family: ${props => props.theme.fonts.native.contentFontRegular};
 `
 
-const placeholderThumbnails = [EventPlaceholder1, EventPlaceholder2, EventPlaceholder3]
+const placeholderThumbnails = [EventThumbnailPlaceholder1, EventThumbnailPlaceholder2, EventThumbnailPlaceholder3]
 
 type EventListItemProps = {
   event: EventModel

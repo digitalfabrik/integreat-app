@@ -5,6 +5,7 @@ import { renderWithTheme } from '../../testing/render'
 import Feedback from '../Feedback'
 import { SendingState } from '../FeedbackContainer'
 
+jest.mock('react-inlinesvg')
 jest.mock('react-i18next')
 
 describe('Feedback', () => {

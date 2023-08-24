@@ -4,10 +4,11 @@ import styled from 'styled-components'
 
 import { UiDirectionType } from 'translations'
 
-import iconHome from '../assets/IconHome.svg'
+import { HouseIcon } from '../assets'
 import BreadcrumbModel from '../models/BreadcrumbModel'
 import Breadcrumb from './Breadcrumb'
 import JsonLdBreadcrumbs from './JsonLdBreadcrumbs'
+import Icon from './base/Icon'
 
 const opposite = (direction: UiDirectionType) => (direction === 'ltr' ? 'rtl' : 'ltr')
 
@@ -37,7 +38,7 @@ const OrderedList = styled.ol<{ direction: UiDirectionType }>`
   }
 `
 
-const HomeIcon = styled.img`
+const StyledIcon = styled(Icon)`
   width: 24px;
   height: 24px;
 `
@@ -69,7 +70,7 @@ const Breadcrumbs = ({ direction, ancestorBreadcrumbs, currentBreadcrumb }: Brea
         {ancestorBreadcrumbs.map((breadcrumb, index) =>
           ancestorBreadcrumbs.length > 1 && index === 0 ? (
             <StyledLink to={breadcrumb.pathname} key={breadcrumb.pathname}>
-              <HomeIcon src={iconHome} alt='' />
+              <StyledIcon src={HouseIcon} />
             </StyledLink>
           ) : (
             <Breadcrumb key={breadcrumb.title} shrink={breadcrumb.title.length >= MIN_SHRINK_CHARS}>

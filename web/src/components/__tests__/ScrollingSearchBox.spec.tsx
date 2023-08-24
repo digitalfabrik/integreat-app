@@ -4,6 +4,9 @@ import React from 'react'
 import { renderWithTheme } from '../../testing/render'
 import ScrollingSearchBox from '../ScrollingSearchBox'
 
+jest.mock('react-inlinesvg')
+jest.mock('react-i18next')
+
 describe('ScrollingSearchBox', () => {
   const MockNode = () => <div />
 
