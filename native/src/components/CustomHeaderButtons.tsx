@@ -12,9 +12,12 @@ import {
 import { LanguageIcon, MenuIcon, SearchIcon } from '../assets'
 import Icon from './base/Icon'
 
-const HeaderIcon = ({ name, ...props }: { name: string; style: StyleProp<SVGImageElement> }): ReactElement => (
-  <Icon Icon={name === 'search' ? SearchIcon : LanguageIcon} {...props} />
-)
+const HeaderIcon = ({ name, ...props }: { name: string; style: StyleProp<SVGImageElement> }): ReactElement => {
+  if (!['language', 'search'].includes(name)) {
+    throw new Error('Invalid icon name!')
+  }
+  return <Icon Icon={name === 'search' ? SearchIcon : LanguageIcon} {...props} />
+}
 
 const CustomHeaderButton = (props: {
   disabled: boolean
