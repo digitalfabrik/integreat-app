@@ -7,12 +7,14 @@ import EventModelBuilder from 'api-client/src/testing/EventModelBuilder'
 
 import BlobUtil from '../../__mocks__/react-native-blob-util'
 import DatabaseContext from '../../models/DatabaseContext'
-import mockDate from '../../testing/mockDate'
 import DatabaseConnector, {
   RESOURCE_CACHE_DIR_PATH,
   UNVERSIONED_CONTENT_DIR_PATH,
   UNVERSIONED_RESOURCE_CACHE_DIR_PATH,
 } from '../DatabaseConnector'
+
+const now = DateTime.fromISO('2013-05-04T00:00:00.000')
+jest.useFakeTimers({ now: now.toJSDate() })
 
 const databaseConnector = new DatabaseConnector()
 afterEach(() => {
@@ -255,17 +257,14 @@ describe('DatabaseConnector', () => {
 
   describe('storeLastUsage', () => {
     it('should store the usage of the passed city', async () => {
-      const date = DateTime.fromISO('2014-05-04T00:00:00.000')
-      const { restoreDate } = mockDate(date)
       const context = new DatabaseContext('augsburg')
       await databaseConnector.storeLastUsage(context)
       expect(JSON.parse(await BlobUtil.fs.readFile(databaseConnector.getMetaCitiesPath(), ''))).toEqual({
         augsburg: {
-          last_usage: date.toISO(),
+          last_usage: now.toISO(),
           languages: {},
         },
       })
-      restoreDate()
     })
     it('should delete old files if there are more than MAX_STORED_CITIES', async () => {
       await populateCityContent('muenchen')
@@ -291,7 +290,6 @@ describe('DatabaseConnector', () => {
         }),
         '',
       )
-      const { restoreDate } = mockDate(DateTime.fromISO('2013-05-04T00:00:00.000'))
       await databaseConnector.storeLastUsage(new DatabaseContext('regensburg'))
       await expectCityFilesExist('muenchen', false)
       await expectCityFilesExist('dortmund')
@@ -311,13 +309,11 @@ describe('DatabaseConnector', () => {
           last_usage: '2013-05-04T00:00:00.000+02:00',
         },
       })
-      restoreDate()
     })
     it('should override if persisted data is malformed for a given city-language pair', async () => {
       const context = new DatabaseContext('tcc', 'de')
       const path = databaseConnector.getMetaCitiesPath()
       BlobUtil.fs.writeFile(path, '{ "i": "am": "malformed" } }', 'utf8')
-      const { restoreDate } = mockDate(DateTime.fromISO('2013-05-04T00:00:00.000'))
       await databaseConnector.storeLastUsage(context)
       expect(JSON.parse(await BlobUtil.fs.readFile(path, 'utf8'))).toEqual({
         tcc: {
@@ -325,7 +321,6 @@ describe('DatabaseConnector', () => {
           last_usage: '2013-05-04T00:00:00.000+02:00',
         },
       })
-      restoreDate()
     })
   })
   describe('loadLastUsages', () => {
