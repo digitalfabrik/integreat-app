@@ -19,6 +19,7 @@ jest.mock('api-client', () => ({
   ...jest.requireActual('api-client'),
   useLoadAsync: jest.fn(),
 }))
+jest.mock('react-inlinesvg')
 jest.mock('react-i18next')
 
 describe('SprungbrettOfferPage', () => {

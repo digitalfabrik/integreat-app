@@ -8,6 +8,7 @@ import { PoiCategoryModel, PoiModel } from 'api-client'
 import { ClockIcon } from '../assets'
 import Modal from './Modal'
 import SettingsSwitch from './SettingsSwitch'
+import Icon from './base/Icon'
 import Text from './base/Text'
 import TextButton from './base/TextButton'
 import ToggleButton from './base/ToggleButton'
@@ -95,7 +96,7 @@ const PoiFiltersModal = ({
         <Section>
           <SubTitle>{t('openingHours')}</SubTitle>
           <Row>
-            <ClockIcon width={24} height={24} />
+            <Icon Icon={ClockIcon} />
             <StyledText>{t('onlyCurrentlyOpen')}</StyledText>
             <FlexEnd>
               <SettingsSwitch onPress={setCurrentlyOpenFilter} value={currentlyOpenFilter} />

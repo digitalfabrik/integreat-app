@@ -2,10 +2,11 @@ import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
 
-import { NegativeFeedbackIcon, NoteIcon, PositiveFeedbackIcon } from '../assets'
+import { SadSmileyIcon, NoteIcon, HappySmileyIcon } from '../assets'
 import dimensions from '../constants/dimensions'
 import { SendingState } from './FeedbackContainer'
 import TextInput from './TextInput'
+import Icon from './base/Icon'
 import TextButton from './base/TextButton'
 import ToggleButton from './base/ToggleButton'
 
@@ -107,13 +108,13 @@ const Feedback = (props: FeedbackProps): ReactElement => {
         <ToggleButton
           onClick={() => onFeedbackChanged(isPositiveFeedback ? null : true)}
           active={isPositiveFeedback === true}
-          icon={PositiveFeedbackIcon}
+          icon={HappySmileyIcon}
           text={t('useful')}
         />
         <ToggleButton
           onClick={() => onFeedbackChanged(isPositiveFeedback === false ? null : false)}
           active={isPositiveFeedback === false}
-          icon={NegativeFeedbackIcon}
+          icon={SadSmileyIcon}
           text={t('notUseful')}
         />
       </ButtonContainer>
@@ -141,7 +142,7 @@ const Feedback = (props: FeedbackProps): ReactElement => {
       )}
 
       <NoteContainer showContainer={sendFeedbackDisabled}>
-        <img src={NoteIcon} alt='' />
+        <Icon src={NoteIcon} />
         <NoteText>{t('note')}</NoteText>
       </NoteContainer>
 
