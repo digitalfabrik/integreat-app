@@ -10,7 +10,7 @@ import {
   BathroomIcon,
   BedIcon,
   CalendarIcon,
-  EmailIcon,
+  MailIcon,
   EuroIcon,
   HouseIcon,
   KeyIcon,
@@ -141,7 +141,7 @@ const ShelterInformation = ({ shelter, cityCode, extended = false }: ShelterInfo
                 title={t('contactInformation').toUpperCase()}
                 elevated
                 information={[
-                  { icon: EmailIcon, text: email ?? notSpecified, link: email ? `mailto:${email}` : undefined },
+                  { icon: MailIcon, text: email ?? notSpecified, link: email ? `mailto:${email}` : undefined },
                   { icon: PhoneIcon, text: phone ?? notSpecified, link: phone ? `tel:${phone}` : undefined },
                 ]}
               />

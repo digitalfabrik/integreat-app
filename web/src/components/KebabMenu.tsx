@@ -4,12 +4,12 @@ import styled from 'styled-components'
 
 import { UiDirectionType } from 'translations'
 
-import iconClose from '../assets/IconClose.svg'
-import iconKebabMenu from '../assets/IconKebabMenu.svg'
+import { CloseIcon, MenuIcon } from '../assets'
 import dimensions from '../constants/dimensions'
 import useLockedBody from '../hooks/useLockedBody'
 import '../styles/KebabMenu.css'
 import Portal from './Portal'
+import Icon from './base/Icon'
 
 type KebabMenuProps = {
   items: Array<ReactNode>
@@ -35,7 +35,7 @@ const List = styled.div<{ direction: UiDirectionType; show: boolean }>`
   box-shadow: -3px 3px 3px 0 rgba(0, 0, 0, 0.13);
   /* to stop flickering of text in safari */
   -webkit-font-smoothing: antialiased;
-  transform-origin: 0% 0%;
+  transform-origin: 0 0;
   transition: transform 0.5s cubic-bezier(0.77, 0.2, 0.05, 1);
   z-index: 40;
   ${props => (props.direction === 'rtl' ? `left: 0;` : `right:0;`)}
@@ -43,14 +43,6 @@ const List = styled.div<{ direction: UiDirectionType; show: boolean }>`
   ${props => props.show && `opacity: 1;transform: none;`}
   display: flex;
   flex-direction: column;
-`
-
-const Icon = styled.img`
-  z-index: 50;
-  position: relative;
-  cursor: pointer;
-  width: 18px;
-  height: 18px;
 `
 
 const Overlay = styled.div<{ show: boolean }>`
@@ -80,8 +72,12 @@ const Content = styled.div`
 const ToggleButton = styled.button`
   background-color: transparent;
   border: none;
-  /* TODO #1882 remove this margin after implementing new search icon to fix wrong viewBox of svg */
-  margin-top: 6px;
+  padding: 0;
+`
+
+const StyledIcon = styled(Icon)`
+  width: 28px;
+  height: 28px;
 `
 
 const KebabMenu = ({ items, direction, show, setShow, Footer }: KebabMenuProps): ReactElement | null => {
@@ -99,7 +95,7 @@ const KebabMenu = ({ items, direction, show, setShow, Footer }: KebabMenuProps):
   return (
     <ToggleContainer>
       <ToggleButton onClick={onClick} data-testid='kebab-menu-button' aria-label={t('sideBarOpenAriaLabel')}>
-        <Icon src={iconKebabMenu} alt='' />
+        <StyledIcon src={MenuIcon} />
       </ToggleButton>
       <Portal
         className='kebab-menu'
@@ -111,7 +107,7 @@ const KebabMenu = ({ items, direction, show, setShow, Footer }: KebabMenuProps):
         <List direction={direction} show={show}>
           <Heading direction={direction}>
             <ToggleButton onClick={onClick} aria-label={t('sideBarCloseAriaLabel')}>
-              <Icon src={iconClose} alt='' />
+              <Icon src={CloseIcon} />
             </ToggleButton>
           </Heading>
           <Content>{items}</Content>

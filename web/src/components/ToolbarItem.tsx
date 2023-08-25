@@ -1,7 +1,15 @@
 import React, { ReactElement } from 'react'
+import styled from 'styled-components'
 
 import StyledSmallViewTip from './StyledSmallViewTip'
 import StyledToolbarItem from './StyledToolbarItem'
+import Icon from './base/Icon'
+
+const StyledToolbarButtonItem = StyledToolbarItem.withComponent('button')
+
+const StyledIcon = styled(Icon)`
+  color: ${props => props.theme.colors.textSecondaryColor};
+`
 
 type ToolbarItemProps = {
   href?: string
@@ -9,18 +17,18 @@ type ToolbarItemProps = {
   icon: string
   text: string
 }
-const StyledToolbarButtonItem = StyledToolbarItem.withComponent('button')
+
 const ToolbarItem = ({ href, text, icon, onClick }: ToolbarItemProps): ReactElement => (
   <>
     {!!href && (
       <StyledToolbarItem href={href} ariaLabel={text}>
-        <img src={icon} alt='' width={20} height={20} />
+        <StyledIcon src={icon} />
         <StyledSmallViewTip>{text}</StyledSmallViewTip>
       </StyledToolbarItem>
     )}
     {!!onClick && (
       <StyledToolbarButtonItem onClick={() => onClick()} aria-label={text}>
-        <img src={icon} alt='' width={20} height={20} />
+        <StyledIcon src={icon} />
         <StyledSmallViewTip>{text}</StyledSmallViewTip>
       </StyledToolbarButtonItem>
     )}

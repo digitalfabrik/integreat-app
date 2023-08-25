@@ -7,6 +7,9 @@ import buildConfig from '../../constants/buildConfig'
 import { renderWithRouter } from '../../testing/render'
 import NewsTab from '../NewsTab'
 
+jest.mock('react-inlinesvg')
+jest.mock('react-i18next')
+
 describe('NewsTab', () => {
   const active = true
   const destination = '/testcity/en/news/local'

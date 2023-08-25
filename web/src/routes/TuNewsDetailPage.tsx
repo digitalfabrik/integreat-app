@@ -1,4 +1,4 @@
-import React, { ReactElement, useContext } from 'react'
+import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useNavigate, useParams } from 'react-router-dom'
 import styled from 'styled-components'
@@ -6,15 +6,15 @@ import styled from 'styled-components'
 import { createTunewsElementEndpoint, NotFoundError, TU_NEWS_TYPE, useLoadFromEndpoint } from 'api-client'
 
 import { CityRouteProps } from '../CityContentSwitcher'
-import TunewsIcon from '../assets/TunewsActiveLogo.png'
+import { TuNewsActiveIcon } from '../assets'
 import CityContentLayout, { CityContentLayoutProps } from '../components/CityContentLayout'
 import CityContentToolbar from '../components/CityContentToolbar'
 import FailureSwitcher from '../components/FailureSwitcher'
 import Helmet from '../components/Helmet'
 import LoadingSpinner from '../components/LoadingSpinner'
 import Page from '../components/Page'
+import Icon from '../components/base/Icon'
 import { tunewsApiBaseUrl } from '../constants/urls'
-import DateFormatterContext from '../contexts/DateFormatterContext'
 import { TU_NEWS_DETAIL_ROUTE } from './index'
 
 const StyledContainer = styled.div`
@@ -32,12 +32,13 @@ const StyledBanner = styled.div`
   background-color: ${props => props.theme.colors.tunewsThemeColorLight};
   border-radius: 11px;
 `
-const StyledBannerImage = styled.img`
-  max-height: 100%;
+const StyledIcon = styled(Icon)`
+  width: 100%;
+  height: 100%;
 `
 const StyledTitle = styled.div`
   display: flex;
-  width: 205px;
+  width: 185px;
   height: 100%;
   align-items: center;
   justify-content: center;
@@ -51,7 +52,6 @@ const TuNewsDetailPage = ({ city, pathname, cityCode, languageCode }: CityRouteP
   // This component is only opened when there is a news ID in the route
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   const newsId = useParams().newsId!
-  const formatter = useContext(DateFormatterContext)
   const navigate = useNavigate()
   const { t } = useTranslation('news')
 
@@ -117,14 +117,12 @@ const TuNewsDetailPage = ({ city, pathname, cityCode, languageCode }: CityRouteP
         <>
           <StyledBanner>
             <StyledTitle>
-              <StyledBannerImage src={TunewsIcon} alt='' />
+              <StyledIcon src={TuNewsActiveIcon} />
             </StyledTitle>
           </StyledBanner>
           <Page
             title={newsModel.title}
             content={newsModel.content}
-            formatter={formatter}
-            lastUpdateFormat='DDD'
             lastUpdate={newsModel.date}
             showLastUpdateText={false}
             onInternalLinkClick={navigate}

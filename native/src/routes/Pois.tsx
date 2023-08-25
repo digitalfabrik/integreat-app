@@ -20,6 +20,7 @@ import {
   PoiCategoryModel,
 } from 'api-client'
 
+// TODO fix color secondary
 import { ClockIcon, EditLocationIcon } from '../assets'
 import BottomActionsSheet from '../components/BottomActionsSheet'
 import Failure from '../components/Failure'
@@ -28,6 +29,7 @@ import PoiDetails from '../components/PoiDetails'
 import PoiFiltersModal from '../components/PoiFiltersModal'
 import PoiListItem from '../components/PoiListItem'
 import ChipButton from '../components/base/ChipButton'
+import Icon from '../components/base/Icon'
 import { NavigationProps, RouteProps } from '../constants/NavigationTypes'
 import dimensions from '../constants/dimensions'
 import useOnBackNavigation from '../hooks/useOnBackNavigation'
@@ -40,6 +42,12 @@ const ListWrapper = styled.View`
 const NoItemsMessage = styled.Text`
   padding-top: 25px;
   text-align: center;
+`
+
+const StyledIcon = styled(Icon)`
+  color: ${props => props.theme.colors.textSecondaryColor};
+  width: 16px;
+  height: 16px;
 `
 
 export const midSnapPointPercentage = 0.35
@@ -200,11 +208,15 @@ const Pois = ({ pois: allPois, language, cityModel, route, navigation }: PoisPro
 
   const FiltersOverlayButtons = (
     <>
-      <ChipButton text={t('adjustFilters')} Icon={<EditLocationIcon />} onPress={() => setShowFilterSelection(true)} />
+      <ChipButton
+        text={t('adjustFilters')}
+        Icon={<StyledIcon Icon={EditLocationIcon} />}
+        onPress={() => setShowFilterSelection(true)}
+      />
       {poiCurrentlyOpenFilter && (
         <ChipButton
           text={t('opened')}
-          Icon={<ClockIcon />}
+          Icon={<StyledIcon Icon={ClockIcon} />}
           onPress={() => setPoiCurrentlyOpenFilter(false)}
           closeButton
         />
