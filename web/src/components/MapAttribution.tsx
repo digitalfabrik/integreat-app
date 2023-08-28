@@ -2,20 +2,23 @@ import React, { ReactElement, useState } from 'react'
 import styled from 'styled-components'
 
 import { openStreeMapCopyright } from 'api-client'
+import { UiDirectionType } from 'translations'
 
 import CleanLink from './CleanLink'
 
 const Attribution = styled.div`
   display: flex;
+  direction: ltr;
   padding: 0 4px;
   background-color: rgba(255, 255, 255, 0.5);
   box-shadow: 0 2px 3px 3px rgba(0, 0, 0, 0.1);
   color: rgba(0, 0, 0, 0.75);
 `
-const AttributionContainer = styled.div<{ expanded: boolean }>`
+const AttributionContainer = styled.div<{ expanded: boolean; direction: string }>`
   display: flex;
   position: absolute;
   top: 0;
+  ${props => (props.direction === 'rtl' ? 'left: 0' : 'right: 0')};
   right: 0;
   justify-content: flex-end;
   cursor: pointer;
@@ -36,9 +39,10 @@ const Label = styled.span`
 
 type MapAttributionProps = {
   initialExpanded: boolean
+  direction: UiDirectionType
 }
 
-const MapAttribution = ({ initialExpanded }: MapAttributionProps): ReactElement => {
+const MapAttribution = ({ initialExpanded, direction }: MapAttributionProps): ReactElement => {
   const { icon, linkText, url, label } = openStreeMapCopyright
   const [expanded, setExpanded] = useState<boolean>(initialExpanded)
   return (
@@ -46,6 +50,7 @@ const MapAttribution = ({ initialExpanded }: MapAttributionProps): ReactElement 
       expanded={expanded}
       role='button'
       tabIndex={0}
+      direction={direction}
       onKeyPress={() => setExpanded(!expanded)}
       onClick={() => setExpanded(!expanded)}>
       <Attribution>

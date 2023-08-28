@@ -1,7 +1,6 @@
-import { GeolocateControl } from 'maplibre-gl'
 import React, { ReactElement, useCallback, useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { NavigationControl } from 'react-map-gl'
+import { GeolocateControl, NavigationControl } from 'react-map-gl'
 import styled from 'styled-components'
 
 import {
@@ -21,7 +20,7 @@ import useMapFeatures from '../hooks/useMapFeatures'
 import CityContentFooter from './CityContentFooter'
 import GoBack from './GoBack'
 import List from './List'
-import MapView, { MapViewRef } from './MapView'
+import MapView from './MapView'
 import PoiDetails from './PoiDetails'
 import PoiListItem from './PoiListItem'
 import PoiPanelNavigation from './PoiPanelNavigation'
@@ -104,7 +103,6 @@ const PoisDesktop = ({
   const { t } = useTranslation('pois')
   const [scrollOffset, setScrollOffset] = useState<number>(0)
   const listRef = useRef<HTMLDivElement>(null)
-  const [mapViewRef, setMapViewRef] = useState<MapViewRef | null>(null)
   const { selectGeoJsonPoiInList, selectFeatureOnMap, currentFeatureOnMap, currentPoi, poiListFeatures } =
     useMapFeatures(features, pois, slug)
 
@@ -144,16 +142,6 @@ const PoisDesktop = ({
     }
   }, [currentFeatureOnMap, currentPoi, scrollOffset])
 
-  useEffect(() => {
-    if (mapViewRef) {
-      const geolocate = new GeolocateControl({
-        positionOptions: { enableHighAccuracy: true },
-        trackUserLocation: true,
-      })
-      mapViewRef.setGeocontrol('bottom-right', geolocate)
-    }
-  }, [mapViewRef])
-
   return (
     <>
       <PanelContainer>
@@ -185,7 +173,6 @@ const PoisDesktop = ({
         )}
       </PanelContainer>
       <MapView
-        ref={setMapViewRef}
         viewport={mapViewport}
         setViewport={setMapViewport}
         selectFeature={selectFeatureOnMap}
@@ -194,6 +181,11 @@ const PoisDesktop = ({
         languageCode={languageCode}>
         <NavigationControl showCompass={false} position={direction === 'rtl' ? 'bottom-left' : 'bottom-right'} />
         {/* To use geolocation in a development build you have to start the dev server with "yarn start --https" */}
+        <GeolocateControl
+          positionOptions={{ enableHighAccuracy: true }}
+          trackUserLocation
+          position={direction === 'rtl' ? 'bottom-left' : 'bottom-right'}
+        />
         <FooterContainer>
           <CityContentFooter city={cityModel.code} language={languageCode} mode='overlay' />
         </FooterContainer>
