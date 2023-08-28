@@ -25,6 +25,20 @@ const MapContainer = styled.div`
   width: 100%;
   display: flex;
   justify-content: center;
+  position: relative;
+`
+
+const OverlayContainer = styled.div`
+  display: flex;
+  padding: 12px 8px;
+  flex: 1;
+  z-index: 1;
+  flex-direction: row;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  gap: 8px;
 `
 
 type MapViewProps = {
@@ -36,6 +50,7 @@ type MapViewProps = {
   children: ReactNode
   viewport?: MapViewViewport
   setViewport: (mapViewport: MapViewViewport) => void
+  Overlay?: ReactElement
 }
 
 type MapCursorType = 'grab' | 'auto' | 'pointer'
@@ -49,6 +64,7 @@ const MapView = ({
   setViewport,
   languageCode,
   children,
+  Overlay,
 }: MapViewProps): ReactElement => {
   const [cursor, setCursor] = useState<MapCursorType>('auto')
   const [mapRef, setMapRef] = useState<mapLibreGl.Map | null>(null)
@@ -139,6 +155,7 @@ const MapView = ({
         onClick={onSelectFeature}
         onTouchMove={() => (changeSnapPoint ? changeSnapPoint(0) : null)}
         attributionControl={false}>
+        <OverlayContainer>{Overlay}</OverlayContainer>
         {children}
         <Source
           id='location-pois'

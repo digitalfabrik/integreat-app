@@ -12,6 +12,9 @@ const StyledButton = styled.button<{ $active: boolean | null }>`
   width: 100px;
   height: 80px;
   background-color: ${props => (props.$active ? props.theme.colors.themeColor : props.theme.colors.backgroundColor)};
+  color: ${props => props.theme.colors.textSecondaryColor};
+  padding: 8px;
+  cursor: pointer;
 `
 
 type TextButtonProps = {
