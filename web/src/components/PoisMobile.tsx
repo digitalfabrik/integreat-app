@@ -26,6 +26,8 @@ import MapView, { MapViewRef } from './MapView'
 import PoiDetails from './PoiDetails'
 import PoiListItem from './PoiListItem'
 
+const geolocatorTopOffset = 40
+
 const ListContainer = styled.div`
   padding: 0 30px;
 `
@@ -65,18 +67,25 @@ const StyledIcon = styled(FontAwesomeIcon)<{ direction: string }>`
     `};
 `
 
-const GeoLocateContainer = styled.div<{ isLastSnapPoint: boolean }>`
+const GeoLocateContainer = styled.div<{ isCurrentPositionVisible: boolean; direction: string }>`
   position: absolute;
-  right: 10px;
-  top: -40px;
   ${props =>
-    props.isLastSnapPoint
+    props.direction === 'ltr'
       ? css`
-          transform: translateY(40px);
+          right: 10px;
+        `
+      : css`
+          left: 10px;
+        `};
+  top: -${geolocatorTopOffset}px;
+  ${props =>
+    props.isCurrentPositionVisible
+      ? css`
+          transform: translateY(${geolocatorTopOffset}px);
           opacity: 0;
         `
       : ''};
-  transition: all 0.3s ease-out;
+  transition: all 0.2s ease-out;
 `
 
 type PoisMobileProps = {
@@ -176,6 +185,7 @@ const PoisMobile = ({
         ref={setMapViewRef}
         viewport={mapViewport}
         setViewport={setMapViewport}
+        direction={direction}
         selectFeature={handleSelectFeatureOnMap}
         changeSnapPoint={changeSnapPoint}
         featureCollection={embedInCollection(features)}
@@ -200,8 +210,9 @@ const PoisMobile = ({
         direction={direction}>
         <GeoLocateContainer
           id='geolocate'
+          direction={direction}
           ref={geolocatePosition}
-          isLastSnapPoint={bottomActionSheetHeight >= getSnapPoints(height)[2]}
+          isCurrentPositionVisible={bottomActionSheetHeight >= getSnapPoints(height)[2]}
         />
         <GoBackContainer hidden={!isBottomActionSheetFullScreen}>
           <GoBack
