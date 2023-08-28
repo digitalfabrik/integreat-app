@@ -1,0 +1,7 @@
+issue_key: 2377
+show_in_stores: true
+platforms:
+  - android
+  - ios
+en: The filter Other can now be selected.
+de: Der Filter Other kann nun ausgewählt werden.
