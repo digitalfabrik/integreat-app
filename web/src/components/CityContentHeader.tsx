@@ -17,8 +17,7 @@ import {
 } from 'api-client'
 import { config } from 'translations'
 
-import { EventsIcon, LocationIcon, NewsIcon, OffersIcon, POIsIcon, SearchIcon } from '../assets'
-import localInformationIcon from '../assets/Local_Information.svg'
+import { CalendarIcon, CategoriesIcon, LocationIcon, NewsIcon, OffersIcon, POIsIcon, SearchIcon } from '../assets'
 import buildConfig from '../constants/buildConfig'
 import useWindowDimensions from '../hooks/useWindowDimensions'
 import { LOCAL_NEWS_ROUTE, RouteType, TU_NEWS_DETAIL_ROUTE, TU_NEWS_ROUTE } from '../routes'
@@ -54,7 +53,6 @@ const CityContentHeader = ({
   const newsPath = pathnameFromRouteInformation({ route: NEWS_ROUTE, newsType, ...params })
   const searchPath = pathnameFromRouteInformation({ route: SEARCH_ROUTE, ...params })
   const landingPath = pathnameFromRouteInformation({ route: LANDING_ROUTE, ...{ languageCode } })
-  const direction = config.getScriptDirection(languageCode)
 
   const { t } = useTranslation('layout')
 
@@ -83,13 +81,7 @@ const CityContentHeader = ({
       ]
 
   const kebabItems = [
-    <KebabActionItemLink
-      key='location'
-      href={landingPath}
-      text={t('changeLocation')}
-      iconSrc={LocationIcon}
-      direction={direction}
-    />,
+    <KebabActionItemLink key='location' href={landingPath} text={t('changeLocation')} iconSrc={LocationIcon} />,
     <LanguageSelector
       key='language'
       languageChangePaths={languageChangePaths}
@@ -117,8 +109,7 @@ const CityContentHeader = ({
         href={categoriesPath}
         active={route === CATEGORIES_ROUTE}
         text={t('localInformation')}
-        icon={localInformationIcon}
-        direction={direction}
+        icon={CategoriesIcon}
       />,
     ]
 
@@ -130,7 +121,6 @@ const CityContentHeader = ({
           href={newsPath}
           text={t('news')}
           icon={NewsIcon}
-          direction={direction}
         />,
       )
     }
@@ -142,8 +132,7 @@ const CityContentHeader = ({
           href={eventsPath}
           active={route === EVENTS_ROUTE}
           text={t('events')}
-          icon={EventsIcon}
-          direction={direction}
+          icon={CalendarIcon}
         />,
       )
     }
@@ -151,12 +140,11 @@ const CityContentHeader = ({
     if (isPoisVisible) {
       items.push(
         <HeaderNavigationItem
-          key='pois'
+          key='locations'
           href={poisPath}
           active={route === POIS_ROUTE}
-          text={t('pois')}
+          text={t('locations')}
           icon={POIsIcon}
-          direction={direction}
         />,
       )
     }
@@ -169,7 +157,6 @@ const CityContentHeader = ({
           active={route === OFFERS_ROUTE || route === SPRUNGBRETT_OFFER_ROUTE || route === SHELTER_ROUTE}
           text={t('offers')}
           icon={OffersIcon}
-          direction={direction}
         />,
       )
     }

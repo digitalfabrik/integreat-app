@@ -4,6 +4,7 @@ import React from 'react'
 import { renderWithTheme } from '../../testing/render'
 import Collapsible from '../Collapsible'
 
+jest.mock('react-inlinesvg')
 jest.mock('react-i18next')
 
 describe('Collapsible', () => {

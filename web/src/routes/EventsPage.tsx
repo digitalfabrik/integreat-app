@@ -1,4 +1,4 @@
-import React, { ReactElement, useContext } from 'react'
+import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useNavigate, useParams } from 'react-router-dom'
 import styled from 'styled-components'
@@ -27,7 +27,6 @@ import PageDetail from '../components/PageDetail'
 import TextButton from '../components/base/TextButton'
 import buildConfig from '../constants/buildConfig'
 import { cmsApiBaseUrl } from '../constants/urls'
-import DateFormatterContext from '../contexts/DateFormatterContext'
 import usePreviousProp from '../hooks/usePreviousProp'
 import useWindowDimensions from '../hooks/useWindowDimensions'
 import featuredImageToSrcSet from '../utils/featuredImageToSrcSet'
@@ -40,7 +39,6 @@ const EventsPage = ({ city, pathname, languageCode, cityCode }: CityRouteProps):
   const previousPathname = usePreviousProp({ prop: pathname })
   const { eventId } = useParams()
   const { t } = useTranslation('events')
-  const formatter = useContext(DateFormatterContext)
   const { viewportSmall } = useWindowDimensions()
   const navigate = useNavigate()
 
@@ -137,18 +135,17 @@ const EventsPage = ({ city, pathname, languageCode, cityCode }: CityRouteProps):
     return (
       <CityContentLayout isLoading={false} {...locationLayoutParams}>
         <Helmet pageTitle={pageTitle} languageChangePaths={languageChangePaths} cityModel={city} />
-        <JsonLdEvent event={event} formatter={formatter} />
+        <JsonLdEvent event={event} />
         <Page
           defaultThumbnailSrc={defaultThumbnail}
           thumbnailSrcSet={featuredImage ? featuredImageToSrcSet(featuredImage, THUMBNAIL_WIDTH) : undefined}
           lastUpdate={lastUpdate}
           content={content}
           title={title}
-          formatter={formatter}
           onInternalLinkClick={navigate}
           BeforeContent={
             <>
-              <PageDetail identifier={t('date')} information={date.toFormattedString(formatter)} />
+              <PageDetail identifier={t('date')} information={date.toFormattedString(languageCode)} />
               {location && <PageDetail identifier={t('address')} information={location.fullAddress} />}
             </>
           }
@@ -159,7 +156,7 @@ const EventsPage = ({ city, pathname, languageCode, cityCode }: CityRouteProps):
   }
 
   const renderEventListItem = (event: EventModel) => (
-    <EventListItem event={event} formatter={formatter} key={event.path} />
+    <EventListItem event={event} languageCode={languageCode} key={event.path} />
   )
 
   return (

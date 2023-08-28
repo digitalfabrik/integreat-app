@@ -1,7 +1,7 @@
 import React, { ReactElement } from 'react'
 import styled from 'styled-components'
 
-import { CategoryModel, DateFormatter } from 'api-client'
+import { CategoryModel } from 'api-client'
 
 import { helpers } from '../constants/theme'
 import Caption from './Caption'
@@ -19,18 +19,15 @@ const List = styled.ul`
 
 type CategoryListProps = {
   items: { category: CategoryModel; subCategories: CategoryModel[]; contentWithoutHtml?: string }[]
-  formatter?: DateFormatter
   category?: CategoryModel
   onInternalLinkClick: (link: string) => void
 }
 
-const CategoryList = ({ items, formatter, category, onInternalLinkClick }: CategoryListProps): ReactElement => (
+const CategoryList = ({ items, category, onInternalLinkClick }: CategoryListProps): ReactElement => (
   <div>
     {!!category?.title && <Caption title={category.title} />}
     {!!category?.content && <RemoteContent html={category.content} onInternalLinkClick={onInternalLinkClick} />}
-    {!!category?.content && formatter && (
-      <LastUpdateInfo lastUpdate={category.lastUpdate} formatter={formatter} withText />
-    )}
+    {!!category?.content && <LastUpdateInfo lastUpdate={category.lastUpdate} withText />}
     <List>
       {items.map(({ category, subCategories }) => (
         <CategoryListItem key={category.path} category={category} subCategories={subCategories} />

@@ -21,7 +21,7 @@ import {
   clusterRadius,
   closerDetailZoom,
 } from 'api-client'
-import { UiDirectionType } from 'translations'
+import { config } from 'translations'
 
 import { clusterCountLayer, clusterLayer, clusterProperties, markerLayer } from '../constants/layers'
 import useWindowDimensions from '../hooks/useWindowDimensions'
@@ -41,7 +41,6 @@ type MapViewProps = {
   currentFeature: MapFeature | null
   selectFeature: (feature: MapFeature | null, restoreScrollPosition: boolean) => void
   changeSnapPoint?: (snapPoint: number) => void
-  direction: UiDirectionType
   languageCode: string
   children: ReactNode
   viewport?: MapViewViewport
@@ -64,7 +63,7 @@ const MapView = forwardRef(
       currentFeature,
       viewport,
       setViewport,
-      direction,
+      languageCode,
       children,
     }: MapViewProps,
     ref: ForwardedRef<MapViewRef>,
@@ -185,7 +184,7 @@ const MapView = forwardRef(
             <Layer {...clusterCountLayer} />
             <Layer {...markerLayer(currentFeature)} />
           </Source>
-          <MapAttribution initialExpanded={!viewportSmall} direction={direction} />
+          <MapAttribution initialExpanded={!viewportSmall} direction={config.getScriptDirection(languageCode)} />
         </Map>
       </MapContainer>
     )

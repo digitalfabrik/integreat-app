@@ -4,6 +4,7 @@ import React from 'react'
 import { renderWithTheme } from '../../testing/render'
 import FeedbackSearch from '../FeedbackSearch'
 
+jest.mock('react-inlinesvg')
 jest.mock('react-i18next')
 
 describe('FeedbackSearch', () => {
