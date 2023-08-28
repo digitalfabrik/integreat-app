@@ -191,7 +191,7 @@ const createConfig = (
     optimization: {
       usedExports: true,
       runtimeChunk: 'single',
-      minimizer: [new CssMinimizerPlugin()],
+      minimizer: [new CssMinimizerPlugin(), '...'],
     },
     devtool: 'source-map',
     devServer: {
