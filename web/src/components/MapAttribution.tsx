@@ -14,12 +14,11 @@ const Attribution = styled.div`
   box-shadow: 0 2px 3px 3px rgba(0, 0, 0, 0.1);
   color: rgba(0, 0, 0, 0.75);
 `
-const AttributionContainer = styled.div<{ expanded: boolean; direction: string }>`
+const AttributionContainer = styled.div<{ expanded: boolean; direction: UiDirectionType }>`
   display: flex;
   position: absolute;
   top: 0;
-  ${props => (props.direction === 'rtl' ? 'left: 0' : 'right: 0')};
-  right: 0;
+  ${props => (props.direction === 'ltr' ? 'right: 0' : 'left: 0')};
   justify-content: flex-end;
   cursor: pointer;
   font-size: ${props =>
@@ -47,10 +46,10 @@ const MapAttribution = ({ initialExpanded, direction }: MapAttributionProps): Re
   const [expanded, setExpanded] = useState<boolean>(initialExpanded)
   return (
     <AttributionContainer
+      direction={direction}
       expanded={expanded}
       role='button'
       tabIndex={0}
-      direction={direction}
       onKeyPress={() => setExpanded(!expanded)}
       onClick={() => setExpanded(!expanded)}>
       <Attribution>

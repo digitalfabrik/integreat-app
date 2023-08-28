@@ -1,10 +1,7 @@
 import { DateTime } from 'luxon'
-import * as React from 'react'
-import { ReactElement } from 'react'
+import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 import styled from 'styled-components/native'
-
-import DateFormatter from 'api-client/src/i18n/DateFormatter'
 
 import { contentDirection } from '../constants/contentDirection'
 
@@ -23,21 +20,16 @@ const DirectionContainer = styled.View<DirectionContainerProps>`
 `
 type TimeStampProps = {
   lastUpdate: DateTime
-  formatter: DateFormatter
   showText?: boolean
   format?: string
 }
 
-export const TimeStamp = ({ lastUpdate, formatter, showText = true, format = 'DDD' }: TimeStampProps): ReactElement => {
+export const TimeStamp = ({ lastUpdate, showText = true, format = 'DDD' }: TimeStampProps): ReactElement => {
   const { i18n, t } = useTranslation('common')
-  // only show day, month and year
-  const dateText = formatter.format(lastUpdate, {
-    format,
-  })
   return (
     <DirectionContainer language={i18n.language}>
       {showText && <TimeStampText>{t('lastUpdate')} </TimeStampText>}
-      <TimeStampText>{dateText}</TimeStampText>
+      <TimeStampText>{lastUpdate.setLocale(i18n.language).toFormat(format)}</TimeStampText>
     </DirectionContainer>
   )
 }

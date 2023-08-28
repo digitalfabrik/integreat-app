@@ -4,7 +4,7 @@ import styled from 'styled-components'
 
 import { GeoJsonPoi } from 'api-client'
 
-import PoiPlaceholder from '../assets/PoiPlaceholderThumbnail.jpg'
+import { PoiThumbnailPlaceholder } from '../assets'
 import dimensions from '../constants/dimensions'
 
 const ListItemContainer = styled.ul`
@@ -93,7 +93,7 @@ const PoiListItem = ({ poi, selectPoi }: PoiListItemProps): ReactElement => {
   return (
     <ListItemContainer id={slug}>
       <LinkContainer onClick={onClickItem} role='button' tabIndex={0} onKeyPress={onClickItem} aria-label={title}>
-        <Thumbnail alt='' src={thumbnail || PoiPlaceholder} />
+        <Thumbnail alt='' src={thumbnail || PoiThumbnailPlaceholder} />
         <Description>
           <Title>{title}</Title>
           {!!distance && <Distance>{t('distanceKilometre', { distance })}</Distance>}

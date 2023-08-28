@@ -1,7 +1,6 @@
 import { DateTime } from 'luxon'
 
 import { DateModel, EventModel, FeaturedImageModel, LocationModel } from 'api-client'
-import DateFormatter from 'api-client/src/i18n/DateFormatter'
 
 import { createJsonLd } from '../JsonLdEvent'
 
@@ -56,8 +55,7 @@ describe('JsonLdEvent', () => {
         },
       }),
     })
-    const formatter = new DateFormatter('en')
-    expect(createJsonLd(eventModel, formatter)).toEqual({
+    expect(createJsonLd(eventModel)).toEqual({
       '@context': 'https://schema.org',
       '@type': 'Event',
       name: 'Sample Event',

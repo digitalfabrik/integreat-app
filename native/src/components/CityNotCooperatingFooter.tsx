@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next'
 import styled from 'styled-components/native'
 
 import buildConfig, { buildConfigAssets } from '../constants/buildConfig'
+import Icon from './base/Icon'
 import TextButton from './base/TextButton'
 
 const FooterContainer = styled.View`
@@ -25,6 +26,11 @@ const StyledButton = styled(TextButton)`
   margin: 30px 0 40px 0;
 `
 
+const StyledIcon = styled(Icon)`
+  height: 100px;
+  width: 30%;
+`
+
 type CityNotCooperatingFooterProps = {
   navigateToCityNotCooperating: () => void
 }
@@ -42,7 +48,7 @@ const CityNotCooperatingFooter = ({
 
   return (
     <FooterContainer>
-      <CityNotCooperatingIcon width='30%' height='100' />
+      <StyledIcon Icon={CityNotCooperatingIcon} />
       <Question>{t('cityNotFound')}</Question>
       <StyledButton text={t('clickHere')} onPress={navigateToCityNotCooperating} />
     </FooterContainer>

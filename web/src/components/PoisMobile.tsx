@@ -1,7 +1,6 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { GeolocateControl } from 'maplibre-gl'
 import React, { ReactElement, useCallback, useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
+import { GeolocateControl } from 'maplibre-gl'
 import styled, { css } from 'styled-components'
 
 import {
@@ -15,7 +14,7 @@ import {
 } from 'api-client'
 import { UiDirectionType } from 'translations'
 
-import { faArrowLeft } from '../constants/icons'
+import { ArrowBackspaceIcon } from '../assets'
 import useMapFeatures from '../hooks/useMapFeatures'
 import useWindowDimensions from '../hooks/useWindowDimensions'
 import { getSnapPoints } from '../utils/getSnapPoints'
@@ -25,6 +24,7 @@ import List from './List'
 import MapView, { MapViewRef } from './MapView'
 import PoiDetails from './PoiDetails'
 import PoiListItem from './PoiListItem'
+import Icon from './base/Icon'
 
 const geolocatorTopOffset = 40
 
@@ -39,6 +39,7 @@ const GoBackContainer = styled.div<{ hidden: boolean }>`
   opacity: ${props => (props.hidden ? '0' : '1')};
   overflow: hidden;
   transition: all 1s;
+  padding: 0 30px;
 `
 
 const BackNavigation = styled.div<{ direction: string }>`
@@ -57,14 +58,8 @@ const BackNavigation = styled.div<{ direction: string }>`
   display: flex;
 `
 
-const StyledIcon = styled(FontAwesomeIcon)<{ direction: string }>`
-  font-size: 12px;
-  color: white;
-  ${props =>
-    props.direction === 'rtl' &&
-    css`
-      transform: scaleX(-1);
-    `};
+const StyledIcon = styled(Icon)`
+  color: ${props => props.theme.colors.backgroundColor};
 `
 
 const GeoLocateContainer = styled.div<{ isCurrentPositionVisible: boolean; direction: string }>`
@@ -185,7 +180,6 @@ const PoisMobile = ({
         ref={setMapViewRef}
         viewport={mapViewport}
         setViewport={setMapViewport}
-        direction={direction}
         selectFeature={handleSelectFeatureOnMap}
         changeSnapPoint={changeSnapPoint}
         featureCollection={embedInCollection(features)}
@@ -198,7 +192,7 @@ const PoisMobile = ({
             tabIndex={0}
             onKeyPress={() => handleSelectFeatureOnMap(null)}
             direction={direction}>
-            <StyledIcon icon={faArrowLeft} direction={direction} />
+            <StyledIcon src={ArrowBackspaceIcon} directionDependent />
           </BackNavigation>
         )}
       </MapView>
@@ -215,12 +209,7 @@ const PoisMobile = ({
           isCurrentPositionVisible={bottomActionSheetHeight >= getSnapPoints(height)[2]}
         />
         <GoBackContainer hidden={!isBottomActionSheetFullScreen}>
-          <GoBack
-            goBack={() => selectGeoJsonPoiInList(null)}
-            direction={direction}
-            viewportSmall
-            text={t('detailsHeader')}
-          />
+          <GoBack goBack={() => selectGeoJsonPoiInList(null)} viewportSmall text={t('detailsHeader')} />
         </GoBackContainer>
         <ListContainer>
           {currentPoi ? (

@@ -15,6 +15,7 @@ import { LOCAL_NEWS_ROUTE, TU_NEWS_DETAIL_ROUTE, TU_NEWS_ROUTE } from '../../rou
 import { renderWithRouterAndTheme } from '../../testing/render'
 import CityContentHeader from '../CityContentHeader'
 
+jest.mock('react-inlinesvg')
 jest.mock('react-i18next')
 jest.mock('../HeaderNavigationItem', () => ({ text, active }: { text: string; active: boolean }) => (
   <div>{`${text} ${active ? 'active' : 'inactive'}`}</div>
@@ -78,7 +79,7 @@ describe('CityContentHeader', () => {
     expectNavigationItem(getByText, categories, 'localInformation')
     expectNavigationItem(getByText, offers, 'offers')
     expectNavigationItem(getByText, events, 'events')
-    expectNavigationItem(getByText, pois, 'pois')
+    expectNavigationItem(getByText, pois, 'locations')
     expectNavigationItem(getByText, news, 'news')
   }
 
@@ -144,7 +145,7 @@ describe('CityContentHeader', () => {
       expect(getByText('layout:offers inactive')).toBeTruthy()
       expect(getByText('layout:news inactive')).toBeTruthy()
       expect(getByText('layout:events inactive')).toBeTruthy()
-      expect(getByText('layout:pois inactive')).toBeTruthy()
+      expect(getByText('layout:locations inactive')).toBeTruthy()
     })
 
     it('should highlight news if the local news route is selected', () => {
@@ -160,7 +161,7 @@ describe('CityContentHeader', () => {
       expect(getByText('layout:offers inactive')).toBeTruthy()
       expect(getByText('layout:news active')).toBeTruthy()
       expect(getByText('layout:events inactive')).toBeTruthy()
-      expect(getByText('layout:pois inactive')).toBeTruthy()
+      expect(getByText('layout:locations inactive')).toBeTruthy()
     })
 
     it('should highlight news if the tu news route is selected', () => {
@@ -176,7 +177,7 @@ describe('CityContentHeader', () => {
       expect(getByText('layout:offers inactive')).toBeTruthy()
       expect(getByText('layout:news active')).toBeTruthy()
       expect(getByText('layout:events inactive')).toBeTruthy()
-      expect(getByText('layout:pois inactive')).toBeTruthy()
+      expect(getByText('layout:locations inactive')).toBeTruthy()
     })
 
     it('should highlight news if the tu news detail route is selected', () => {
@@ -192,7 +193,7 @@ describe('CityContentHeader', () => {
       expect(getByText('layout:offers inactive')).toBeTruthy()
       expect(getByText('layout:news active')).toBeTruthy()
       expect(getByText('layout:events inactive')).toBeTruthy()
-      expect(getByText('layout:pois inactive')).toBeTruthy()
+      expect(getByText('layout:locations inactive')).toBeTruthy()
     })
 
     it('should highlight events if route corresponds', () => {
@@ -208,7 +209,7 @@ describe('CityContentHeader', () => {
       expect(getByText('layout:offers inactive')).toBeTruthy()
       expect(getByText('layout:news inactive')).toBeTruthy()
       expect(getByText('layout:events active')).toBeTruthy()
-      expect(getByText('layout:pois inactive')).toBeTruthy()
+      expect(getByText('layout:locations inactive')).toBeTruthy()
     })
 
     it('layout:should highlight offers if offers route is active', () => {
@@ -224,7 +225,7 @@ describe('CityContentHeader', () => {
       expect(getByText('layout:offers active')).toBeTruthy()
       expect(getByText('layout:news inactive')).toBeTruthy()
       expect(getByText('layout:events inactive')).toBeTruthy()
-      expect(getByText('layout:pois inactive')).toBeTruthy()
+      expect(getByText('layout:locations inactive')).toBeTruthy()
     })
 
     it('should highlight offers if sprungbrett route is selected', () => {
@@ -240,7 +241,7 @@ describe('CityContentHeader', () => {
       expect(getByText('layout:offers active')).toBeTruthy()
       expect(getByText('layout:news inactive')).toBeTruthy()
       expect(getByText('layout:events inactive')).toBeTruthy()
-      expect(getByText('layout:pois inactive')).toBeTruthy()
+      expect(getByText('layout:locations inactive')).toBeTruthy()
     })
 
     it('should highlight pois if pois route is selected', () => {
@@ -256,7 +257,7 @@ describe('CityContentHeader', () => {
       expect(getByText('layout:offers inactive')).toBeTruthy()
       expect(getByText('layout:news inactive')).toBeTruthy()
       expect(getByText('layout:events inactive')).toBeTruthy()
-      expect(getByText('layout:pois active')).toBeTruthy()
+      expect(getByText('layout:locations active')).toBeTruthy()
     })
   })
 })

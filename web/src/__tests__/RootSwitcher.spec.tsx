@@ -18,6 +18,7 @@ jest.mock('api-client', () => ({
 }))
 jest.mock('../CityContentSwitcher')
 
+jest.mock('react-inlinesvg')
 jest.mock('i18next', () => ({
   ...jest.requireActual('i18next'),
   createInstance: () => ({ language: 'de' }),

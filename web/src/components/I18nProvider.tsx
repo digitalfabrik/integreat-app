@@ -1,13 +1,11 @@
 import i18next, { i18n } from 'i18next'
-import React, { ReactElement, ReactNode, useEffect, useMemo, useState } from 'react'
+import React, { ReactElement, ReactNode, useEffect, useState } from 'react'
 import { Helmet as ReactHelmet } from 'react-helmet'
 import { I18nextProvider } from 'react-i18next'
 
-import { DateFormatter } from 'api-client'
 import { config, loadTranslations } from 'translations'
 
 import buildConfig from '../constants/buildConfig'
-import DateFormatterContext from '../contexts/DateFormatterContext'
 import BrowserLanguageDetectorService from '../utils/BrowserLanguageDetector'
 import { log, reportError } from '../utils/sentry'
 
@@ -20,7 +18,6 @@ const I18nProvider = ({ children, contentLanguage }: I18nProviderProps): ReactEl
   const [language, setLanguage] = useState<string>(config.defaultFallback)
   const [errorMessage, setErrorMessage] = useState<string | null | undefined>(null)
   const [i18nextInstance, setI18nextInstance] = useState<i18n | null>(null)
-  const dateFormatter = useMemo(() => new DateFormatter(config.defaultFallback), [])
 
   useEffect(() => {
     const initI18Next = async () => {
@@ -102,7 +99,7 @@ const I18nProvider = ({ children, contentLanguage }: I18nProviderProps): ReactEl
             <link href='/fonts/noto-sans-georgian/noto-sans-georgian.css' rel='stylesheet' />
           )}
         </ReactHelmet>
-        <DateFormatterContext.Provider value={dateFormatter}>{children}</DateFormatterContext.Provider>
+        {children}
       </div>
     </I18nextProvider>
   )
