@@ -28,13 +28,15 @@ class InternalPathnameParser {
   _length: number
   _fallbackLanguageCode: string
   _fixedCity: string | null
+  _query: string | undefined
 
-  constructor(pathname: string, languageCode: string, fixedCity: string | null) {
+  constructor(pathname: string, languageCode: string, fixedCity: string | null, query?: string | null) {
     this._pathname = normalizePath(pathname)
     this._fixedCity = fixedCity
     this._parts = this.pathnameParts(this._pathname)
     this._length = this._parts.length
     this._fallbackLanguageCode = languageCode
+    this._query = query?.slice(1) // don't need the '?' in position 0
   }
 
   pathnameParts = (pathname: string): string[] => pathname.split('/').filter(Boolean)
@@ -55,6 +57,19 @@ class InternalPathnameParser {
     }
 
     return null
+  }
+
+  query = (): Record<string, string> => {
+    const queryItems = this._query?.split('&')
+    const queryObject: Record<string, string> = {}
+    queryItems?.forEach(query => {
+      const [key, value] = query.split('=')
+      if (!key || !value) {
+        return
+      }
+      queryObject[key] = value
+    })
+    return queryObject
   }
 
   landing = (): RouteInformationType => {
@@ -141,7 +156,7 @@ class InternalPathnameParser {
 
     // Single pois are identified via their slug, e.g. 'my-poi-1234'
     const slug = this._length > ENTITY_ID_INDEX ? this._parts[ENTITY_ID_INDEX] : undefined
-    return { ...params, route: POIS_ROUTE, slug }
+    return { ...params, route: POIS_ROUTE, slug, multipoi: this.query().multipoi }
   }
 
   news = (): RouteInformationType => {

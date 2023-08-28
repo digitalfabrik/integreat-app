@@ -59,8 +59,8 @@ const navigateToDeepLink = async <T extends RoutesType>({
     return
   }
 
-  const { pathname } = new Url(url)
-  const routeInformation = new InternalPathnameParser(pathname, languageCode, fixedCity).route()
+  const { pathname, query } = new Url(url)
+  const routeInformation = new InternalPathnameParser(pathname, languageCode, fixedCity, query).route()
 
   if (!routeInformation) {
     showSnackbar({ text: 'notFound.category' })

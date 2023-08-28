@@ -145,7 +145,7 @@ const Pois = ({ pois: allPois, language, cityModel, route, navigation }: PoisPro
     }
     setFollowUserLocation(false)
     if (isMultipoi(feature)) {
-      navigation.setParams({ multipoi: feature.id as number })
+      navigation.setParams({ multipoi: feature.id as string })
       scrollTo(0)
     } else {
       const poiFeature = feature.properties.pois[0]

@@ -65,7 +65,7 @@ export type PoisRouteInformationType = ParamsType & {
   // Route with customizable ids and query, e.g. '/augsburg/de/pois/1234?multipoi=2
   route: PoisRouteType
   slug?: string
-  multipoi?: number
+  multipoi?: string
 }
 
 export type NonNullableRouteInformationType =
