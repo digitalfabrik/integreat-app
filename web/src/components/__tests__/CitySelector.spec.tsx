@@ -7,6 +7,7 @@ import buildConfig from '../../constants/buildConfig'
 import { renderWithRouterAndTheme } from '../../testing/render'
 import CitySelector from '../CitySelector'
 
+jest.mock('react-inlinesvg')
 jest.mock('react-i18next')
 
 describe('CitySelector', () => {
@@ -41,7 +42,7 @@ describe('CitySelector', () => {
 
   it('should show live cities matching filter text', () => {
     const { queryByLabelText, getByPlaceholderText } = renderWithRouterAndTheme(
-      <CitySelector language='de' cities={cities} />
+      <CitySelector language='de' cities={cities} />,
     )
 
     changeFilterText(getByPlaceholderText, city.name.slice(5, 9))
@@ -52,7 +53,7 @@ describe('CitySelector', () => {
 
   it('should not show any city if filter text does not match', () => {
     const { queryByLabelText, getByPlaceholderText } = renderWithRouterAndTheme(
-      <CitySelector language='de' cities={cities} />
+      <CitySelector language='de' cities={cities} />,
     )
 
     changeFilterText(getByPlaceholderText, 'Does not exist')
@@ -63,7 +64,7 @@ describe('CitySelector', () => {
 
   it('should not show any city if filter text does not match a live city', () => {
     const { queryByLabelText, getByPlaceholderText } = renderWithRouterAndTheme(
-      <CitySelector language='de' cities={cities} />
+      <CitySelector language='de' cities={cities} />,
     )
 
     changeFilterText(getByPlaceholderText, 'oldtown')
@@ -73,7 +74,7 @@ describe('CitySelector', () => {
 
   it('should show all non-live cities if filter text is "wirschaffendas"', () => {
     const { queryByLabelText, getByPlaceholderText } = renderWithRouterAndTheme(
-      <CitySelector language='de' cities={cities} />
+      <CitySelector language='de' cities={cities} />,
     )
 
     changeFilterText(getByPlaceholderText, 'wirschaffendas')

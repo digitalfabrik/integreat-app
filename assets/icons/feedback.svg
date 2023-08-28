@@ -1,3 +1,5 @@
-<svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M2 0H18C19.1 0 20 0.9 20 2V20L16 16H2C0.9 16 0 15.1 0 14V2C0 0.9 0.9 0 2 0ZM2 14H16L18 16V2H2V14Z" fill="black"/>
+<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="mode_comment">
+<path id="Vector" d="M20 17.17L18.83 16H4V4H20V17.17ZM20 2H4C2.9 2 2 2.9 2 4V16C2 17.1 2.9 18 4 18H18L22 22V4C22 2.9 21.1 2 20 2Z" fill="currentColor"/>
+</g>
 </svg>

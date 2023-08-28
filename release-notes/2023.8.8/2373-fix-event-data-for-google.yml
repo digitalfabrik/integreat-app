@@ -1,0 +1,5 @@
+issue_key: 2373
+show_in_stores: false
+platforms:
+  - web
+en: Fixing the format of the start date on events for Google

@@ -1,9 +1,10 @@
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Button } from 'react-native-elements'
-import styled, { useTheme } from 'styled-components/native'
+import styled from 'styled-components/native'
 
 import buildConfig, { buildConfigAssets } from '../constants/buildConfig'
+import Icon from './base/Icon'
+import TextButton from './base/TextButton'
 
 const FooterContainer = styled.View`
   background-color: ${props => props.theme.colors.backgroundAccentColor};
@@ -20,9 +21,14 @@ const Question = styled.Text`
   font-size: 16px;
 `
 
-const ButtonContainer = styled.View`
+const StyledButton = styled(TextButton)`
   width: 40%;
   margin: 30px 0 40px 0;
+`
+
+const StyledIcon = styled(Icon)`
+  height: 100px;
+  width: 30%;
 `
 
 type CityNotCooperatingFooterProps = {
@@ -32,31 +38,19 @@ type CityNotCooperatingFooterProps = {
 const CityNotCooperatingFooter = ({
   navigateToCityNotCooperating,
 }: CityNotCooperatingFooterProps): ReactElement | null => {
-  const theme = useTheme()
   const { t } = useTranslation('landing')
 
-  if (!buildConfig().featureFlags.cityNotCooperating) {
+  const CityNotCooperatingIcon = buildConfigAssets().CityNotCooperatingIcon
+
+  if (!buildConfig().featureFlags.cityNotCooperating || !CityNotCooperatingIcon) {
     return null
   }
-  const CityNotCooperatingIcon = buildConfigAssets().CityNotCooperatingIcon!
 
   return (
     <FooterContainer>
-      <CityNotCooperatingIcon width='30%' height='100' />
+      <StyledIcon Icon={CityNotCooperatingIcon} />
       <Question>{t('cityNotFound')}</Question>
-      <ButtonContainer>
-        <Button
-          title={t('clickHere')}
-          onPress={navigateToCityNotCooperating}
-          buttonStyle={{
-            backgroundColor: theme.colors.themeColor,
-          }}
-          titleStyle={{
-            color: theme.colors.textColor,
-            fontFamily: theme.fonts.native.contentFontRegular,
-          }}
-        />
-      </ButtonContainer>
+      <StyledButton text={t('clickHere')} onPress={navigateToCityNotCooperating} />
     </FooterContainer>
   )
 }

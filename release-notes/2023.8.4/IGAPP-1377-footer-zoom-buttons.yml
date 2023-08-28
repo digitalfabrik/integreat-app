@@ -1,0 +1,5 @@
+issue_key: IGAPP-1377
+show_in_stores: false
+platforms:
+  - web
+en: Fix footer hiding zoom buttons on map view.

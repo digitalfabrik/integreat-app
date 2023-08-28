@@ -1,5 +1,4 @@
-import { Moment } from 'moment'
-import moment from 'moment-timezone'
+import { DateTime } from 'luxon'
 
 import TunewsModel from '../../models/TunewsModel'
 import { JsonTunewsType } from '../../types'
@@ -19,11 +18,11 @@ describe('tunews', () => {
     enewsno: 'tun0000009902',
   })
 
-  const item1 = createNewsItem(1, '2020-01-20 12:04:22+00:00')
-  const item2 = createNewsItem(2, '2020-01-24 10:05:22+00:00')
-  const item3 = createNewsItem(3, '2020-01-22 11:06:22+00:00')
+  const item1 = createNewsItem(1, '2020-01-20T12:04:22+00:00')
+  const item2 = createNewsItem(2, '2020-01-24T10:05:22+00:00')
+  const item3 = createNewsItem(3, '2020-01-22T11:06:22+00:00')
 
-  const createNewsItemModel = (id: number, date: Moment): TunewsModel =>
+  const createNewsItemModel = (id: number, date: DateTime): TunewsModel =>
     new TunewsModel({
       id,
       title: 'Tick bite - What to do?',
@@ -34,9 +33,9 @@ describe('tunews', () => {
       eNewsNo: 'tun0000009902',
     })
 
-  const itemModel1 = createNewsItemModel(1, moment.tz('2020-01-20 12:04:22+00:00', 'GMT'))
-  const itemModel2 = createNewsItemModel(2, moment.tz('2020-01-24 10:05:22+00:00', 'GMT'))
-  const itemModel3 = createNewsItemModel(3, moment.tz('2020-01-22 11:06:22+00:00', 'GMT'))
+  const itemModel1 = createNewsItemModel(1, DateTime.fromISO('2020-01-20T12:04:22+00:00'))
+  const itemModel2 = createNewsItemModel(2, DateTime.fromISO('2020-01-24T10:05:22+00:00'))
+  const itemModel3 = createNewsItemModel(3, DateTime.fromISO('2020-01-22T11:06:22+00:00'))
   const params = {
     language: 'de',
     page: 1,
@@ -44,7 +43,7 @@ describe('tunews', () => {
   }
   it('should map params to url', () => {
     expect(tunews.mapParamsToUrl(params)).toBe(
-      `${baseUrl}/v1/news/${params.language}?page=${params.page}&count=${params.count}`
+      `${baseUrl}/v1/news/${params.language}?page=${params.page}&count=${params.count}`,
     )
   })
   const json = [item1, item2, item3]

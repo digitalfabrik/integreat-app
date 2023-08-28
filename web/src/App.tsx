@@ -1,8 +1,11 @@
+import { Settings as LuxonSettings } from 'luxon'
 import React, { ReactElement, useEffect, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import { BrowserRouter as Router } from 'react-router-dom'
 import { ThemeProvider } from 'styled-components'
 
 import { setJpalTrackingCode } from 'api-client'
+import { config } from 'translations'
 
 import RootSwitcher from './RootSwitcher'
 import Helmet from './components/Helmet'
@@ -11,8 +14,12 @@ import buildConfig from './constants/buildConfig'
 import safeLocalStorage, { JPAL_TRACKING_CODE_KEY } from './utils/safeLocalStorage'
 import { initSentry } from './utils/sentry'
 
+LuxonSettings.throwOnInvalid = true
+LuxonSettings.defaultLocale = config.defaultFallback
+
 const App = (): ReactElement => {
   const [contentLanguage, setContentLanguage] = useState<string>()
+  const { t } = useTranslation('landing')
 
   useEffect(() => {
     initSentry()
@@ -22,7 +29,7 @@ const App = (): ReactElement => {
   return (
     <ThemeProvider theme={buildConfig().lightTheme}>
       <I18nProvider contentLanguage={contentLanguage}>
-        <Helmet pageTitle={buildConfig().appName} />
+        <Helmet pageTitle={t('pageTitle')} rootPage />
         <Router>
           <RootSwitcher setContentLanguage={setContentLanguage} />
         </Router>

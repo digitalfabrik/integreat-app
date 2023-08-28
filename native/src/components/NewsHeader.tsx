@@ -4,21 +4,20 @@ import styled from 'styled-components/native'
 
 import { CityModel, LOCAL_NEWS_TYPE, NewsType, TU_NEWS_TYPE } from 'api-client'
 
-import ActiveInternational from '../assets/tu-news-active.svg'
-import InactiveInternational from '../assets/tu-news-inactive.svg'
+import { TuNewsActiveIcon, TuNewsInactiveIcon } from '../assets'
 import Caption from './Caption'
+import Icon from './base/Icon'
+import Pressable from './base/Pressable'
 
-const TouchableWrapper = styled.TouchableOpacity`
-  margin-bottom: 5px;
-  margin-horizontal: 10px;
+const StyledPressable = styled(Pressable)`
+  margin: 0 10px 5px;
   align-items: center;
 `
 const LocalTabWrapper = styled.View<{ isSelected: boolean }>`
-  padding-horizontal: 10px;
   border-radius: 10px;
-  height: 34px;
+  height: 50px;
   text-align: center;
-  min-width: 110px;
+  min-width: 160px;
   align-items: center;
   justify-content: center;
   background-color: ${props =>
@@ -37,6 +36,11 @@ const HeaderContainer = styled.View`
   margin-bottom: 12px;
 `
 
+const StyledIcon = styled(Icon)`
+  width: 160px;
+  height: 50px;
+`
+
 type NewsHeaderProps = {
   cityModel: CityModel
   selectedNewsType: NewsType
@@ -53,14 +57,14 @@ const NewsHeader = ({ cityModel, selectedNewsType, selectNewsType }: NewsHeaderP
       <Caption title={t('news')} />
       {cityModel.localNewsEnabled && cityModel.tunewsEnabled && (
         <HeaderContainer>
-          <TouchableWrapper onPress={selectLocalNews} accessibilityRole='button' accessibilityLabel={t('local')}>
+          <StyledPressable onPress={selectLocalNews} accessibilityRole='button' accessibilityLabel={t('local')}>
             <LocalTabWrapper isSelected={selectedNewsType === LOCAL_NEWS_TYPE}>
               <LocalText>{t('local')}</LocalText>
             </LocalTabWrapper>
-          </TouchableWrapper>
-          <TouchableWrapper onPress={selectTuNews} accessibilityRole='button' accessibilityLabel='TüNews'>
-            {selectedNewsType === TU_NEWS_TYPE ? <ActiveInternational /> : <InactiveInternational />}
-          </TouchableWrapper>
+          </StyledPressable>
+          <StyledPressable onPress={selectTuNews} accessibilityRole='button' accessibilityLabel='TüNews'>
+            <StyledIcon Icon={selectedNewsType === TU_NEWS_TYPE ? TuNewsActiveIcon : TuNewsInactiveIcon} />
+          </StyledPressable>
         </HeaderContainer>
       )}
     </>

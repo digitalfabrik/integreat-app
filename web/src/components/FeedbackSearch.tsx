@@ -5,7 +5,7 @@ import styled from 'styled-components'
 import { FeedbackType } from 'api-client'
 
 import FeedbackContainer from './FeedbackContainer'
-import TextButton from './TextButton'
+import TextButton from './base/TextButton'
 
 const Container = styled.div`
   display: flex;

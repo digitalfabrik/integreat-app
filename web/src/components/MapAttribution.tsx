@@ -2,6 +2,7 @@ import React, { ReactElement, useState } from 'react'
 import styled from 'styled-components'
 
 import { openStreeMapCopyright } from 'api-client'
+import { UiDirectionType } from 'translations'
 
 import CleanLink from './CleanLink'
 
@@ -12,12 +13,11 @@ const Attribution = styled.div`
   box-shadow: 0 2px 3px 3px rgba(0, 0, 0, 0.1);
   color: rgba(0, 0, 0, 0.75);
 `
-const AttributionContainer = styled.div<{ expanded: boolean }>`
+const AttributionContainer = styled.div<{ expanded: boolean; direction: UiDirectionType }>`
   display: flex;
-  width: 100%;
   position: absolute;
   top: 0;
-  right: 0;
+  ${props => (props.direction === 'ltr' ? 'right: 0' : 'left: 0')};
   justify-content: flex-end;
   cursor: pointer;
   font-size: ${props =>
@@ -37,13 +37,15 @@ const Label = styled.span`
 
 type MapAttributionProps = {
   initialExpanded: boolean
+  direction: UiDirectionType
 }
 
-const MapAttribution = ({ initialExpanded }: MapAttributionProps): ReactElement => {
+const MapAttribution = ({ initialExpanded, direction }: MapAttributionProps): ReactElement => {
   const { icon, linkText, url, label } = openStreeMapCopyright
   const [expanded, setExpanded] = useState<boolean>(initialExpanded)
   return (
     <AttributionContainer
+      direction={direction}
       expanded={expanded}
       role='button'
       tabIndex={0}

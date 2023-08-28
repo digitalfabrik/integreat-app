@@ -1,4 +1,4 @@
-import React, { ReactElement, useContext } from 'react'
+import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 import { RefreshControl } from 'react-native'
 import styled from 'styled-components/native'
@@ -9,22 +9,15 @@ import Caption from '../components/Caption'
 import EventListItem from '../components/EventListItem'
 import ExportEventButton from '../components/ExportEventButton'
 import Failure from '../components/Failure'
-import { FeedbackInformationType } from '../components/FeedbackContainer'
 import Layout from '../components/Layout'
 import LayoutedScrollView from '../components/LayoutedScrollView'
 import List from '../components/List'
 import Page from '../components/Page'
 import PageDetail from '../components/PageDetail'
-import SiteHelpfulBox from '../components/SiteHelpfulBox'
-import DateFormatterContext from '../contexts/DateFormatterContext'
 
 const Separator = styled.View`
   border-top-width: 2px;
   border-top-color: ${props => props.theme.colors.themeColor};
-`
-
-const StyledSiteHelpfulBox = styled(SiteHelpfulBox)`
-  margin-top: 0;
 `
 
 export type EventsProps = {
@@ -33,34 +26,11 @@ export type EventsProps = {
   cityModel: CityModel
   language: string
   navigateTo: (routeInformation: RouteInformationType) => void
-  navigateToFeedback: (feedbackInformation: FeedbackInformationType) => void
   refresh: () => void
 }
 
-/**
- * Displays a list of events or a single event, matching the route /<location>/<language>/events(/<id>)
- */
-const Events = ({
-  cityModel,
-  language,
-  navigateTo,
-  events,
-  slug,
-  navigateToFeedback,
-  refresh,
-}: EventsProps): ReactElement => {
+const Events = ({ cityModel, language, navigateTo, events, slug, refresh }: EventsProps): ReactElement => {
   const { t } = useTranslation('events')
-  const formatter = useContext(DateFormatterContext)
-
-  const createNavigateToFeedback = (event?: EventModel) => (isPositiveFeedback: boolean) => {
-    navigateToFeedback({
-      routeType: EVENTS_ROUTE,
-      slug: event?.slug,
-      cityCode: cityModel.code,
-      language,
-      isPositiveFeedback,
-    })
-  }
 
   if (!cityModel.eventsEnabled) {
     const error = new NotFoundError({
@@ -77,7 +47,7 @@ const Events = ({
   }
 
   if (slug) {
-    // TODO IGAPP-1078: Remove workaround of looking up path until '$'
+    // TODO #2031: Remove workaround of looking up path until '$'
     const event =
       events.find(it => it.slug === slug) ?? events.find(it => it.slug.substring(0, it.slug.indexOf('$')) === slug)
 
@@ -90,12 +60,11 @@ const Events = ({
             lastUpdate={event.lastUpdate}
             language={language}
             path={event.path}
-            navigateToFeedback={createNavigateToFeedback(event)}
             BeforeContent={
               <>
                 <PageDetail
                   identifier={t('date')}
-                  information={event.date.toFormattedString(formatter)}
+                  information={event.date.toFormattedString(language)}
                   language={language}
                 />
                 {event.location && (
@@ -126,15 +95,7 @@ const Events = ({
         languageCode: language,
         slug: item.slug,
       })
-    return (
-      <EventListItem
-        key={item.slug}
-        formatter={formatter}
-        event={item}
-        language={language}
-        navigateToEvent={navigateToEvent}
-      />
-    )
+    return <EventListItem key={item.slug} event={item} language={language} navigateToEvent={navigateToEvent} />
   }
 
   return (
@@ -148,7 +109,6 @@ const Events = ({
             <Separator />
           </>
         }
-        Footer={<StyledSiteHelpfulBox navigateToFeedback={createNavigateToFeedback()} />}
         refresh={refresh}
         noItemsMessage={t('currentlyNoEvents')}
       />

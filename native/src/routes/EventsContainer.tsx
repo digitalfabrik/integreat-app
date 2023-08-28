@@ -9,7 +9,6 @@ import useLoadCityContent from '../hooks/useLoadCityContent'
 import useNavigate from '../hooks/useNavigate'
 import usePreviousProp from '../hooks/usePreviousProp'
 import useSetRouteTitle from '../hooks/useSetRouteTitle'
-import createNavigateToFeedbackModal from '../navigation/createNavigateToFeedbackModal'
 import urlFromRouteInformation from '../navigation/url'
 import Events from './Events'
 import LoadingErrorHandler from './LoadingErrorHandler'
@@ -47,7 +46,7 @@ const EventsContainer = ({ navigation, route }: EventsContainerProps): ReactElem
         navigation.setParams({ slug: newSlug })
       }
     },
-    [currentEvent, navigation]
+    [currentEvent, navigation],
   )
   usePreviousProp({ prop: languageCode, onPropChange: onLanguageChange })
 
@@ -60,7 +59,6 @@ const EventsContainer = ({ navigation, route }: EventsContainerProps): ReactElem
           cityModel={data.city}
           language={languageCode}
           navigateTo={navigateTo}
-          navigateToFeedback={createNavigateToFeedbackModal(navigation)}
           refresh={response.refresh}
         />
       )}

@@ -1,15 +1,15 @@
-import React, { ReactElement, useContext } from 'react'
+import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
-import MaterialIcon from 'react-native-vector-icons/MaterialIcons'
 import styled from 'styled-components/native'
 
 import { LocalNewsModel, TunewsModel } from 'api-client'
-import { config } from 'translations'
 
+import { ArrowBackIcon } from '../assets'
 import { EXCERPT_MAX_LINES } from '../constants'
 import { contentDirection } from '../constants/contentDirection'
-import DateFormatterContext from '../contexts/DateFormatterContext'
 import TimeStamp from './TimeStamp'
+import Icon from './base/Icon'
+import Pressable from './base/Pressable'
 import Text from './base/Text'
 
 type NewsListItemProps = {
@@ -25,17 +25,16 @@ const ReadMoreWrapper = styled.View<{ language: string }>`
   width: 100%;
   align-self: center;
 `
-const Icon = styled(MaterialIcon)<{ isTunews: boolean }>`
-  font-size: 20px;
-  top: 4px;
-  right: 5px;
-  left: 0;
+const StyledIcon = styled(Icon)<{ isTunews: boolean }>`
+  margin: 6px 4px 0;
   color: ${props => (props.isTunews ? props.theme.colors.tunewsThemeColor : props.theme.colors.themeColor)};
+  width: 14px;
+  height: 14px;
 `
 const ListItemWrapper = styled.View`
   padding: 0 5%;
 `
-const StyledTouchableOpacity = styled.TouchableOpacity`
+const StyledPressable = styled(Pressable)`
   flex-direction: column;
 `
 
@@ -81,38 +80,27 @@ export const ReadMore = styled(Text)<{ isTunews: boolean }>`
 
 const NewsListItem = ({ index, newsItem, navigateToNews, isTunews }: NewsListItemProps): ReactElement => {
   const { t, i18n } = useTranslation('news')
-  const formatter = useContext(DateFormatterContext)
   const timestamp = newsItem instanceof LocalNewsModel ? newsItem.timestamp : null
 
   return (
     <>
       <Divider firstItem={index === 0} />
       <ListItemWrapper>
-        <StyledTouchableOpacity onPress={navigateToNews}>
+        <StyledPressable onPress={navigateToNews}>
           <Description>
             <Title>{newsItem.title}</Title>
             <Content numberOfLines={EXCERPT_MAX_LINES}>{newsItem.content}</Content>
             {timestamp && (
               <TimeStampContent>
-                <TimeStamp formatter={formatter} lastUpdate={timestamp} showText={false} />
+                <TimeStamp lastUpdate={timestamp} showText={false} />
               </TimeStampContent>
             )}
           </Description>
           <ReadMoreWrapper language={i18n.language}>
             <ReadMore isTunews={isTunews} onPress={navigateToNews}>{`${t('readMore')}`}</ReadMore>
-            <Icon
-              isTunews={isTunews}
-              name='keyboard-arrow-right'
-              style={{
-                transform: [
-                  {
-                    scaleX: config.hasRTLScript(i18n.language) ? -1 : 1,
-                  },
-                ],
-              }}
-            />
+            <StyledIcon Icon={ArrowBackIcon} directionDependent reverse isTunews={isTunews} />
           </ReadMoreWrapper>
-        </StyledTouchableOpacity>
+        </StyledPressable>
       </ListItemWrapper>
     </>
   )

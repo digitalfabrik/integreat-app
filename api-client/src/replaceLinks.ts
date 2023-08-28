@@ -7,7 +7,7 @@ const hash = /(?:#([.!/\\\w]*[!/\\\w]+)?)?/
 const mail = /[.\-;:&=+$,\w]+@([A-Za-z0-9-]+(?:\.[A-Za-z0-9-]+)*)/
 const regex = new RegExp(
   `(${protocol.source}${hostname.source}${path.source}${query.source}${hash.source}|${mail.source})`,
-  'g'
+  'g',
 )
 type ReplaceType = (match: string) => string
 export const linkify = (link: string): string => `<a href="${link}">${link}</a>`

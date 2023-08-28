@@ -4,6 +4,9 @@ import React from 'react'
 import { renderWithTheme } from '../../testing/render'
 import HeaderActionItemDropDown from '../HeaderActionItemDropDown'
 
+jest.mock('react-inlinesvg')
+jest.mock('react-i18next')
+
 describe('HeaderActionItemDropDown', () => {
   let wrapperComponent: RenderResult
   let inner: HTMLElement
@@ -20,7 +23,7 @@ describe('HeaderActionItemDropDown', () => {
         <HeaderActionItemDropDown iconSrc='/someImg' text='some text'>
           {closeDropDown => <InnerComponent closeDropDown={closeDropDown} />}
         </HeaderActionItemDropDown>
-      </>
+      </>,
     )
 
     inner = wrapperComponent.getByText('Do you see me?')

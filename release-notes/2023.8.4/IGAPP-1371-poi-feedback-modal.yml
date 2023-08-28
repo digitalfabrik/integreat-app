@@ -1,0 +1,5 @@
+issue_key: IGAPP-1371
+show_in_stores: false
+platforms:
+  - web
+en: Display feedback for pois full screen

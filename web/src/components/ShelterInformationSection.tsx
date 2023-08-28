@@ -4,6 +4,7 @@ import styled from 'styled-components'
 import useWindowDimensions from '../hooks/useWindowDimensions'
 import CleanLink from './CleanLink'
 import Tooltip from './Tooltip'
+import Icon from './base/Icon'
 
 const Container = styled.div<{ extended: boolean; elevated: boolean }>`
   ${props => (props.elevated ? `background-color: ${props.theme.colors.backgroundColor};` : '')}
@@ -62,7 +63,9 @@ const Label = styled.span`
   border-radius: 4px;
   color: ${props => props.theme.colors.backgroundColor};
   font-size: 14px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.15);
+  box-shadow:
+    0 1px 3px rgba(0, 0, 0, 0.1),
+    0 1px 2px rgba(0, 0, 0, 0.15);
 `
 
 const StyledTooltip = styled(Tooltip)`
@@ -110,7 +113,11 @@ const ShelterInformationSection = ({
         {information.map(({ text, icon, rightText, link, tooltip }) => {
           const content = (
             <>
-              {!!icon && <img alt={tooltip} src={icon} />}
+              {!!icon && (
+                <span aria-label={tooltip}>
+                  <Icon src={icon} />
+                </span>
+              )}
               <DetailText hasText={!!rightText}>{text}</DetailText>
               {!!rightText && <RightTextContainer>{rightText}</RightTextContainer>}
             </>

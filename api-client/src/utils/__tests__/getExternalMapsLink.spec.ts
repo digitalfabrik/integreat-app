@@ -24,7 +24,7 @@ describe('getExternalMapsLink', () => {
 
   it('should throw for unsupported platforms', () => {
     expect(() => getExternalMapsLink(location, 'unsupported')).toThrow(
-      new Error('Platform unsupported is not supported!')
+      new Error('Platform unsupported is not supported!'),
     )
   })
 })

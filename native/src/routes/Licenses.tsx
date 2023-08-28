@@ -7,16 +7,16 @@ import { License, parseLicenses } from 'api-client'
 
 import Caption from '../components/Caption'
 import Layout from '../components/Layout'
+import Pressable from '../components/base/Pressable'
 import useSnackbar from '../hooks/useSnackbar'
 import openExternalUrl from '../utils/openExternalUrl'
 import { reportError } from '../utils/sentry'
 
-const StyledPressable = styled.Pressable`
+const LicenseItemContainer = styled(Pressable)`
   padding: 16px;
   flex-direction: row;
   align-items: center;
   background-color: ${props => props.theme.colors.backgroundColor};
-  padding-vertical: 8px;
 `
 
 const Name = styled.Text`
@@ -39,7 +39,7 @@ const LicenseItem = (props: LicenseItemProps): ReactElement => {
   const { name, version, license, onPress } = props
   const { t } = useTranslation('licenses')
   return (
-    <StyledPressable onPress={onPress}>
+    <LicenseItemContainer onPress={onPress}>
       <View>
         <Name>{name}</Name>
         <Description>
@@ -49,7 +49,7 @@ const LicenseItem = (props: LicenseItemProps): ReactElement => {
           {t('license')} {license}
         </Description>
       </View>
-    </StyledPressable>
+    </LicenseItemContainer>
   )
 }
 
@@ -72,8 +72,11 @@ const Licenses = (): ReactElement => {
 
   return (
     <Layout>
-      <Caption title={t('openSourceLicenses')} />
-      <FlatList data={licenses} renderItem={renderItem} />
+      <FlatList
+        data={licenses}
+        renderItem={renderItem}
+        ListHeaderComponent={<Caption title={t('openSourceLicenses')} />}
+      />
     </Layout>
   )
 }

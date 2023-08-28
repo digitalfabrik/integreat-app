@@ -1,41 +1,20 @@
 import React, { ReactElement, ReactNode, useRef, useState } from 'react'
 import styled from 'styled-components'
 
-import { UiDirectionType } from 'translations/src'
-
 import dimensions from '../constants/dimensions'
 import useOnClickOutside from '../hooks/useOnClickOutside'
-import IconWithUiDirection from './IconWithUiDirection'
 import Tooltip from './Tooltip'
+import Icon from './base/Icon'
 
-export const Container = styled.div`
-  width: calc(0.5 * ${dimensions.headerHeightLarge}px);
-  height: calc(0.5 * ${dimensions.headerHeightLarge}px);
-  box-sizing: border-box;
+const Button = styled.button`
+  background-color: transparent;
+  border: none;
+  padding: 0;
+`
 
-  @media ${dimensions.smallViewport} {
-    width: calc(0.8 * ${dimensions.headerHeightSmall}px);
-    height: calc(0.8 * ${dimensions.headerHeightSmall}px);
-  }
-
-  & button {
-    width: 100%;
-    height: 100%;
-    margin: 0;
-    padding: 0;
-    cursor: pointer;
-    background-color: ${props => props.theme.colors.backgroundAccentColor};
-    border: none;
-  }
-
-  & button > img {
-    box-sizing: border-box;
-    padding: 22%;
-    object-fit: contain;
-    width: 100%;
-    height: 100%;
-    opacity: 0.85;
-  }
+const StyledIcon = styled(Icon)`
+  width: 28px;
+  height: 28px;
 `
 
 export const DropDownContainer = styled.div<{ active: boolean; height?: number }>`
@@ -51,7 +30,10 @@ export const DropDownContainer = styled.div<{ active: boolean; height?: number }
   transform-origin: center top;
   justify-content: center;
   box-shadow: 0 2px 5px -3px rgba(0, 0, 0, 0.2);
-  transition: transform 0.2s, opacity 0.2s, visibility 0s ${props => (props.active ? '0s' : '0.2s')};
+  transition:
+    transform 0.2s,
+    opacity 0.2s,
+    visibility 0s ${props => (props.active ? '0s' : '0.2s')};
   background-color: ${props => props.theme.colors.backgroundColor};
   visibility: ${props => (props.active ? 'visible' : 'hidden')};
 
@@ -75,7 +57,6 @@ type HeaderActionItemDropDownProps = {
   children: (closeDropDown: () => void) => ReactNode
   iconSrc: string
   text: string
-  direction?: UiDirectionType
 }
 
 /**
@@ -83,12 +64,7 @@ type HeaderActionItemDropDownProps = {
  * Header. Once the user clicks outside, the node is hidden again. Additionally, the inner node gets a
  * closeDropDownCallback through its props to close the dropDown and hide itself.
  */
-const HeaderActionItemDropDown = ({
-  iconSrc,
-  text,
-  children,
-  direction,
-}: HeaderActionItemDropDownProps): ReactElement => {
+const HeaderActionItemDropDown = ({ iconSrc, text, children }: HeaderActionItemDropDownProps): ReactElement => {
   const [dropDownActive, setDropDownActive] = useState(false)
 
   const toggleDropDown = (): void => {
@@ -103,11 +79,11 @@ const HeaderActionItemDropDown = ({
   useOnClickOutside(wrapperRef, closeDropDown)
 
   return (
-    <Container ref={wrapperRef}>
+    <div ref={wrapperRef}>
       <Tooltip text={text} flow='down' mediumViewportFlow='left'>
-        <button type='button' aria-label={text} onClick={toggleDropDown}>
-          <IconWithUiDirection alt='' src={iconSrc} direction={direction} />
-        </button>
+        <Button type='button' aria-label={text} onClick={toggleDropDown}>
+          <StyledIcon src={iconSrc} />
+        </Button>
       </Tooltip>
       <DropDownContainer
         data-testid='headerActionItemDropDown'
@@ -116,7 +92,7 @@ const HeaderActionItemDropDown = ({
         style={{ visibility: dropDownActive ? 'visible' : 'hidden' }}>
         {children(closeDropDown)}
       </DropDownContainer>
-    </Container>
+    </div>
   )
 }
 

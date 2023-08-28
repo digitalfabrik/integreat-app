@@ -1,4 +1,4 @@
-import React, { ReactElement, useContext } from 'react'
+import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useNavigate, useParams } from 'react-router-dom'
 
@@ -24,12 +24,10 @@ import NewsListItem from '../components/NewsListItem'
 import NewsTabs from '../components/NewsTabs'
 import Page from '../components/Page'
 import { cmsApiBaseUrl } from '../constants/urls'
-import DateFormatterContext from '../contexts/DateFormatterContext'
 import { LOCAL_NEWS_ROUTE } from './index'
 
 const LocalNewsPage = ({ city, pathname, languageCode, cityCode }: CityRouteProps): ReactElement | null => {
   const { newsId } = useParams()
-  const formatter = useContext(DateFormatterContext)
   const { t } = useTranslation('news')
   const navigate = useNavigate()
 
@@ -61,7 +59,6 @@ const LocalNewsPage = ({ city, pathname, languageCode, cityCode }: CityRouteProp
           newsId: id.toString(),
         })}
         t={t}
-        formatter={formatter}
         type={LOCAL_NEWS_TYPE}
       />
     )
@@ -75,13 +72,21 @@ const LocalNewsPage = ({ city, pathname, languageCode, cityCode }: CityRouteProp
     name,
     code,
   }))
+
+  const pageTitle = `${newsModel && newsModel.title ? newsModel.title : t('localNews.pageTitle')} - ${city.name}`
   const locationLayoutParams: Omit<CityContentLayoutProps, 'isLoading'> = {
     city,
     languageChangePaths,
     route: LOCAL_NEWS_ROUTE,
     languageCode,
     Toolbar: (
-      <CityContentToolbar route={LOCAL_NEWS_ROUTE} hasFeedbackOption={false} hideDivider={localNews?.length !== 0} />
+      <CityContentToolbar
+        languageCode={languageCode}
+        route={LOCAL_NEWS_ROUTE}
+        hasFeedbackOption={false}
+        hideDivider={localNews?.length !== 0 && !newsId}
+        pageTitle={pageTitle}
+      />
     ),
   }
 
@@ -119,7 +124,6 @@ const LocalNewsPage = ({ city, pathname, languageCode, cityCode }: CityRouteProp
   }
 
   if (newsModel) {
-    const pageTitle = `${newsModel.title} - ${city.name}`
     const linkedContent = replaceLinks(newsModel.content)
     return (
       <CityContentLayout isLoading={false} {...locationLayoutParams}>
@@ -127,8 +131,6 @@ const LocalNewsPage = ({ city, pathname, languageCode, cityCode }: CityRouteProp
         <Page
           title={newsModel.title}
           content={linkedContent}
-          formatter={formatter}
-          lastUpdateFormat='LLL'
           lastUpdate={newsModel.timestamp}
           showLastUpdateText={false}
           onInternalLinkClick={navigate}
@@ -136,8 +138,6 @@ const LocalNewsPage = ({ city, pathname, languageCode, cityCode }: CityRouteProp
       </CityContentLayout>
     )
   }
-
-  const pageTitle = `${t('localNews.pageTitle')} - ${city.name}`
 
   return (
     <CityContentLayout isLoading={false} {...locationLayoutParams}>

@@ -133,7 +133,7 @@ describe('createSettingsSections', () => {
       expect(successful).toBe(true)
       expect(mockRequestPushNotificationPermission).toHaveBeenCalledTimes(1)
       expect(mockSubscribeNews).toHaveBeenCalledTimes(1)
-      expect(mockSubscribeNews).toHaveBeenCalledWith(cityCode, languageCode)
+      expect(mockSubscribeNews).toHaveBeenCalledWith(cityCode, languageCode, true)
       expect(mockUnsubscribeNews).not.toHaveBeenCalled()
     })
 

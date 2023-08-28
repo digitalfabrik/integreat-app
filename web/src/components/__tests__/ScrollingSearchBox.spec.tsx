@@ -4,6 +4,9 @@ import React from 'react'
 import { renderWithTheme } from '../../testing/render'
 import ScrollingSearchBox from '../ScrollingSearchBox'
 
+jest.mock('react-inlinesvg')
+jest.mock('react-i18next')
+
 describe('ScrollingSearchBox', () => {
   const MockNode = () => <div />
 
@@ -17,7 +20,7 @@ describe('ScrollingSearchBox', () => {
         onFilterTextChange={outerFilterTextChange}
         onStickyTopChanged={outerStickyTopChanged}>
         <MockNode />
-      </ScrollingSearchBox>
+      </ScrollingSearchBox>,
     )
 
     fireEvent.change(getByPlaceholderText('Placeholder'), {

@@ -3,11 +3,8 @@ import BottomSheet, {
   BottomSheetScrollView,
   BottomSheetScrollViewMethods,
 } from '@gorhom/bottom-sheet'
-import React, { ReactElement, ReactNode, useCallback } from 'react'
-import { NativeScrollEvent, NativeSyntheticEvent } from 'react-native'
+import React, { memo, ReactElement, ReactNode, useCallback } from 'react'
 import styled from 'styled-components/native'
-
-import { PoiFeature } from 'api-client'
 
 import BottomSheetHandler from './BottomSheetHandler'
 
@@ -19,12 +16,11 @@ type BottomActionsSheetProps = {
   onChange?: (index: number) => void
   initialIndex: number
   snapPointIndex: number
-  setListScrollPosition: (position: number) => void
-  selectedFeature: PoiFeature | null
+  setScrollPosition: (position: number) => void
 }
 
 const StyledBottomSheet = styled(BottomSheet)<{ isFullscreen: boolean }>`
-  ${props => props.isFullscreen && `background-color: white;`}
+  ${props => props.isFullscreen && `background-color: ${props.theme.colors.backgroundColor};`}
 `
 
 const BottomActionsSheet = React.forwardRef(
@@ -36,25 +32,18 @@ const BottomActionsSheet = React.forwardRef(
       onChange,
       snapPoints,
       initialIndex = 0,
+      setScrollPosition,
       snapPointIndex,
-      setListScrollPosition,
-      selectedFeature,
     }: BottomActionsSheetProps,
-    scrollRef: React.Ref<BottomSheetScrollViewMethods>
+    scrollRef: React.Ref<BottomSheetScrollViewMethods>,
   ): ReactElement | null => {
     const renderHandle = useCallback(
       (props: BottomSheetHandleProps) => <BottomSheetHandler title={title} {...props} />,
-      [title]
+      [title],
     )
 
     if (!visible) {
       return null
-    }
-
-    const onScrollEndDrag = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
-      if (!selectedFeature) {
-        setListScrollPosition(event.nativeEvent.contentOffset.y)
-      }
     }
 
     return (
@@ -65,12 +54,14 @@ const BottomActionsSheet = React.forwardRef(
         animateOnMount
         handleComponent={renderHandle}
         onChange={onChange}>
-        <BottomSheetScrollView onScrollEndDrag={onScrollEndDrag} ref={scrollRef}>
+        <BottomSheetScrollView
+          onScrollEndDrag={event => setScrollPosition(event.nativeEvent.contentOffset.y)}
+          ref={scrollRef}>
           {children}
         </BottomSheetScrollView>
       </StyledBottomSheet>
     )
-  }
+  },
 )
 
-export default BottomActionsSheet
+export default memo(BottomActionsSheet)

@@ -1,4 +1,4 @@
-import moment from 'moment'
+import { DateTime } from 'luxon'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
@@ -10,7 +10,7 @@ import {
   BathroomIcon,
   BedIcon,
   CalendarIcon,
-  EmailIcon,
+  MailIcon,
   EuroIcon,
   HouseIcon,
   KeyIcon,
@@ -24,8 +24,8 @@ import Caption from './Caption'
 import HighlightBox from './HighlightBox'
 import ShelterContactRequestForm from './ShelterContactRequestForm'
 import ShelterInformationSection from './ShelterInformationSection'
-import { StyledButton } from './TextButton'
 import Tooltip from './Tooltip'
+import TextButton from './base/TextButton'
 
 const FullWidth = styled.div`
   flex: 1;
@@ -34,11 +34,6 @@ const FullWidth = styled.div`
 const Container = styled(HighlightBox)`
   flex-direction: column;
   margin: 12px;
-`
-
-const DetailButton = styled(StyledButton)`
-  margin-left: 8px;
-  margin-bottom: 0;
 `
 
 const Detail = styled.div`
@@ -80,9 +75,8 @@ const ShelterInformation = ({ shelter, cityCode, extended = false }: ShelterInfo
   const bedsText = beds === 1 ? t('bed') : t('beds', { beds })
   const titleText = t('shelterTitle', { beds: bedsText, location: city })
   const titleHint = `(#${id})`
-  const startDateText = moment(startDate, 'DD.MM.YYYY').isSameOrBefore(moment.now())
-    ? t('now')
-    : `${t('starting')} ${startDate}`
+  const startDateText =
+    DateTime.fromFormat(startDate, 'dd.LL.yyyy') <= DateTime.now() ? t('now') : `${t('starting')} ${startDate}`
 
   const allowedPets = info.filter(it => it.includes('haustier'))
   const petsTooltip = allowedPets.length === 2 ? t('haustier') : t(allowedPets[0] ?? 'notSpecified')
@@ -147,7 +141,7 @@ const ShelterInformation = ({ shelter, cityCode, extended = false }: ShelterInfo
                 title={t('contactInformation').toUpperCase()}
                 elevated
                 information={[
-                  { icon: EmailIcon, text: email ?? notSpecified, link: email ? `mailto:${email}` : undefined },
+                  { icon: MailIcon, text: email ?? notSpecified, link: email ? `mailto:${email}` : undefined },
                   { icon: PhoneIcon, text: phone ?? notSpecified, link: phone ? `tel:${phone}` : undefined },
                 ]}
               />
@@ -156,11 +150,7 @@ const ShelterInformation = ({ shelter, cityCode, extended = false }: ShelterInfo
             )}
           </>
         )}
-        {!extended && (
-          <DetailButton onClick={() => undefined} disabled={false}>
-            {t('shelterButton')}
-          </DetailButton>
-        )}
+        {!extended && <TextButton onClick={() => undefined} text={t('shelterButton')} />}
       </Container>
     </FullWidth>
   )

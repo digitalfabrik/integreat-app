@@ -1,6 +1,6 @@
 import MapLibreGL, { CameraSettings, MapLibreGLEvent } from '@maplibre/maplibre-react-native'
 import type { BBox, Feature } from 'geojson'
-import React, { ReactElement, useCallback, useEffect, useRef } from 'react'
+import React, { ReactElement, useCallback, useLayoutEffect, useRef } from 'react'
 import { useWindowDimensions } from 'react-native'
 import { FAB } from 'react-native-elements'
 import { useTheme } from 'styled-components'
@@ -11,9 +11,8 @@ import {
   defaultViewportConfig,
   normalDetailZoom,
   mapConfig,
-  PoiFeature,
-  PoiFeatureCollection,
-  closerDetailZoom,
+  MapFeature,
+  MapFeatureCollection,
   animationDuration,
 } from 'api-client'
 
@@ -35,17 +34,26 @@ const StyledFAB = styled(FAB)<{ position: number | string }>`
   bottom: ${props => props.position}${props => (typeof props.position === 'number' ? 'px' : '')};
 `
 
+const OverlayContainer = styled.View`
+  flex: 1;
+  flex-direction: row;
+  position: absolute;
+  top: 24px;
+  left: 8px;
+`
+
 type MapViewProps = {
   boundingBox: BBox
-  featureCollection: PoiFeatureCollection
-  selectedFeature: PoiFeature | null
+  featureCollection: MapFeatureCollection
+  selectedFeature: MapFeature | null
   onRequestLocationPermission: () => Promise<void>
   locationPermissionGranted: boolean
   fabPosition: string | number
-  selectPoiFeature: (feature: PoiFeature | null) => void
+  selectFeature: (feature: MapFeature | null) => void
   setSheetSnapPointIndex: (index: number) => void
   followUserLocation: boolean
   setFollowUserLocation: (value: boolean) => void
+  Overlay?: ReactElement
 }
 
 const featureLayerId = 'point'
@@ -59,10 +67,11 @@ const MapView = ({
   fabPosition,
   onRequestLocationPermission,
   locationPermissionGranted,
-  selectPoiFeature,
+  selectFeature,
   setSheetSnapPointIndex,
   followUserLocation,
   setFollowUserLocation,
+  Overlay,
 }: MapViewProps): ReactElement => {
   const deviceHeight = useWindowDimensions().height
   const cameraRef = useRef<MapLibreGL.Camera | null>(null)
@@ -88,7 +97,7 @@ const MapView = ({
   }, [onRequestLocationPermission, setFollowUserLocation])
 
   const onUserTrackingModeChange = (
-    event: MapLibreGLEvent<'usertrackingmodechange', { followUserLocation: boolean }>
+    event: MapLibreGLEvent<'usertrackingmodechange', { followUserLocation: boolean }>,
   ) => {
     if (!event.nativeEvent.payload.followUserLocation) {
       setFollowUserLocation(event.nativeEvent.payload.followUserLocation)
@@ -97,11 +106,11 @@ const MapView = ({
 
   // Wait for followUserLocation change before moving the camera to avoid position lock
   // https://github.com/rnmapbox/maps/issues/1079
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (!followUserLocation && selectedFeature && cameraRef.current) {
       cameraRef.current.setCamera({
         centerCoordinate: selectedFeature.geometry.coordinates,
-        zoomLevel: selectedFeature.properties.closeToOtherPoi ? closerDetailZoom : normalDetailZoom,
+        zoomLevel: normalDetailZoom,
         animationDuration,
         padding: { paddingBottom: deviceHeight * midSnapPointPercentage },
       })
@@ -118,18 +127,12 @@ const MapView = ({
     const featureCollection = await mapRef.current.queryRenderedFeaturesAtPoint(
       [pressedLocation.properties.screenPointX, pressedLocation.properties.screenPointY],
       undefined,
-      [featureLayerId]
+      [featureLayerId],
     )
 
-    const feature = featureCollection?.features.find((it): it is PoiFeature => it.geometry.type === 'Point')
-
-    if (feature) {
-      selectPoiFeature(feature)
-      setSheetSnapPointIndex(1)
-    } else {
-      selectPoiFeature(null)
-      setSheetSnapPointIndex(1)
-    }
+    const feature = featureCollection?.features.find((it): it is MapFeature => it.geometry.type === 'Point')
+    selectFeature(feature ?? null)
+    setSheetSnapPointIndex(1)
   }
 
   return (
@@ -155,6 +158,7 @@ const MapView = ({
           ref={cameraRef}
         />
       </StyledMap>
+      <OverlayContainer>{Overlay}</OverlayContainer>
       <MapAttribution />
       <StyledFAB
         placement='right'

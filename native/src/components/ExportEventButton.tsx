@@ -1,15 +1,19 @@
-import moment from 'moment'
+import { DateTime } from 'luxon'
 import React, { ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Linking, Platform } from 'react-native'
 import RNCalendarEvents, { Calendar } from 'react-native-calendar-events'
-import { Button } from 'react-native-elements'
-import { useTheme } from 'styled-components'
+import styled from 'styled-components/native'
 
 import { EventModel } from 'api-client'
 
 import useSnackbar from '../hooks/useSnackbar'
 import CalendarChoice from './CalendarChoiceModal'
+import TextButton from './base/TextButton'
+
+const StyledButton = styled(TextButton)`
+  margin: 16px 0;
+`
 
 type ExportEventButtonType = {
   event: EventModel
@@ -17,7 +21,6 @@ type ExportEventButtonType = {
 
 const ExportEventButton = ({ event }: ExportEventButtonType): ReactElement => {
   const { t } = useTranslation('events')
-  const theme = useTheme()
   const showSnackbar = useSnackbar()
 
   const [eventExported, setEventExported] = useState<boolean>(false)
@@ -27,8 +30,8 @@ const ExportEventButton = ({ event }: ExportEventButtonType): ReactElement => {
   const openCalendarApp = (event: EventModel, id: string): void => {
     if (Platform.OS === 'ios') {
       // can't open a specific event but at a specific time
-      const appleRefDate = moment('Jan 1 2001', 'MMM DD YYYY')
-      const secondsSinceRefDate = event.date.startDate.diff(appleRefDate, 'seconds')
+      const appleRefDate = DateTime.fromISO('2001-01-01').toSeconds()
+      const secondsSinceRefDate = event.date.startDate.toSeconds() - appleRefDate
       Linking.openURL(`calshow:${secondsSinceRefDate}`)
     } else if (Platform.OS === 'android') {
       Linking.openURL(`content://com.android.calendar/events/${id}`)
@@ -38,8 +41,8 @@ const ExportEventButton = ({ event }: ExportEventButtonType): ReactElement => {
   const exportEventToCalendar = async (calendarId: string | undefined): Promise<void> => {
     try {
       const id = await RNCalendarEvents.saveEvent(event.title, {
-        startDate: event.date.startDate.toISOString(),
-        endDate: event.date.endDate.toISOString(),
+        startDate: event.date.startDate.toISO(),
+        endDate: event.date.endDate.toISO(),
         allDay: event.date.allDay,
         location: event.location?.fullAddress,
         description: event.excerpt,
@@ -99,19 +102,7 @@ const ExportEventButton = ({ event }: ExportEventButtonType): ReactElement => {
           eventTitle={event.title}
         />
       )}
-      <Button
-        title={t('addToCalendar')}
-        onPress={checkCalendarsAndExportEvent}
-        buttonStyle={{
-          backgroundColor: theme.colors.themeColor,
-          margin: 14,
-        }}
-        titleStyle={{
-          color: theme.colors.textColor,
-          fontFamily: theme.fonts.native.contentFontRegular,
-        }}
-        disabled={eventExported}
-      />
+      <StyledButton text={t('addToCalendar')} onPress={checkCalendarsAndExportEvent} disabled={eventExported} />
     </>
   )
 }

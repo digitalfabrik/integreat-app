@@ -33,7 +33,7 @@ const SprungbrettOfferPage = ({ city, cityCode, languageCode }: CityRouteProps):
 
   const load = useCallback(
     () => loadSprungbrettJobs({ cityCode, languageCode, baseUrl: cmsApiBaseUrl }),
-    [cityCode, languageCode]
+    [cityCode, languageCode],
   )
   const { data, error, loading } = useLoadAsync(load)
 
@@ -47,13 +47,21 @@ const SprungbrettOfferPage = ({ city, cityCode, languageCode }: CityRouteProps):
     code,
   }))
 
+  const pageTitle = `${data?.sprungbrettOffer.title ?? t('dashboard:offers')} - ${city.name}`
   const feedbackTarget = data?.sprungbrettOffer ? getSlugFromPath(data.sprungbrettOffer.path) : undefined
   const locationLayoutParams: Omit<CityContentLayoutProps, 'isLoading'> = {
     city,
     languageChangePaths,
     route: SPRUNGBRETT_OFFER_ROUTE,
     languageCode,
-    Toolbar: <CityContentToolbar feedbackTarget={feedbackTarget} route={SPRUNGBRETT_OFFER_ROUTE} />,
+    Toolbar: (
+      <CityContentToolbar
+        languageCode={languageCode}
+        feedbackTarget={feedbackTarget}
+        route={SPRUNGBRETT_OFFER_ROUTE}
+        pageTitle={pageTitle}
+      />
+    ),
   }
 
   if (loading) {
@@ -77,8 +85,6 @@ const SprungbrettOfferPage = ({ city, cityCode, languageCode }: CityRouteProps):
   )
 
   const { sprungbrettOffer: offer, sprungbrettJobs } = data
-
-  const pageTitle = `${offer.title} - ${city.name}`
 
   return (
     <CityContentLayout isLoading={false} {...locationLayoutParams}>

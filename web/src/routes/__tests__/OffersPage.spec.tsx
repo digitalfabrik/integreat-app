@@ -18,6 +18,7 @@ jest.mock('api-client', () => ({
   ...jest.requireActual('api-client'),
   useLoadFromEndpoint: jest.fn(),
 }))
+jest.mock('react-inlinesvg')
 jest.mock('react-i18next')
 
 describe('OffersPage', () => {
@@ -66,7 +67,7 @@ describe('OffersPage', () => {
     mocked(useLoadFromEndpoint).mockImplementationOnce(() => mockData as never)
     return renderRoute(
       <OffersPage city={city} pathname={pathname} cityCode={city.code} languageCode={languageCode} />,
-      { routePattern, pathname }
+      { routePattern, pathname },
     )
   }
 

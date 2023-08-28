@@ -1,12 +1,10 @@
 import React, { ReactElement, useCallback } from 'react'
 import { useWindowDimensions } from 'react-native'
-import styled from 'styled-components/native'
 
 import { CATEGORIES_ROUTE, CategoriesRouteType, cityContentPath, ErrorCode } from 'api-client'
 
 import Categories from '../components/Categories'
 import DashboardNavigationTiles from '../components/DashboardNavigationTiles'
-import SpaceBetween from '../components/SpaceBetween'
 import { NavigationProps, RouteProps } from '../constants/NavigationTypes'
 import useCityAppContext from '../hooks/useCityAppContext'
 import useHeader from '../hooks/useHeader'
@@ -15,15 +13,9 @@ import useNavigate from '../hooks/useNavigate'
 import usePreviousProp from '../hooks/usePreviousProp'
 import useResourceCache from '../hooks/useResourceCache'
 import useSetRouteTitle from '../hooks/useSetRouteTitle'
-import createNavigateToFeedbackModal from '../navigation/createNavigateToFeedbackModal'
 import urlFromRouteInformation from '../navigation/url'
-import testID from '../testing/testID'
 import cityDisplayName from '../utils/cityDisplayName'
 import LoadingErrorHandler from './LoadingErrorHandler'
-
-const Spacing = styled.View`
-  padding: 10px;
-`
 
 type CategoriesContainerProps = {
   route: RouteProps<CategoriesRouteType>
@@ -60,7 +52,7 @@ const CategoriesContainer = ({ navigation, route }: CategoriesContainerProps): R
         navigation.setParams({ path: newPath })
       }
     },
-    [category, navigation]
+    [category, navigation],
   )
   const previousLanguageCode = usePreviousProp({ prop: languageCode, onPropChange: onLanguageChange })
 
@@ -70,22 +62,19 @@ const CategoriesContainer = ({ navigation, route }: CategoriesContainerProps): R
   return (
     <LoadingErrorHandler {...response} error={error} scrollView>
       {data && category && (
-        <SpaceBetween {...(category.isRoot() ? testID('Dashboard-Page') : {})}>
-          {category.isRoot() ? (
+        <>
+          {category.isRoot() && (
             <DashboardNavigationTiles cityModel={data.city} languageCode={languageCode} navigateTo={navigateTo} />
-          ) : (
-            <Spacing />
           )}
           <Categories
             navigateTo={navigateTo}
-            navigateToFeedback={createNavigateToFeedbackModal(navigation)}
             language={languageCode}
             cityModel={data.city}
             categories={data.categories}
             category={category}
             resourceCache={resourceCache}
           />
-        </SpaceBetween>
+        </>
       )}
     </LoadingErrorHandler>
   )

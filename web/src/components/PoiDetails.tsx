@@ -1,16 +1,19 @@
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
-import { useLocation, useNavigate } from 'react-router-dom'
-import styled, { css, useTheme } from 'styled-components'
+import { useNavigate } from 'react-router-dom'
+import styled, { useTheme } from 'styled-components'
 
-import { getExternalMapsLink, PoiFeature, PoiModel } from 'api-client/src'
+import { GeoJsonPoi, getExternalMapsLink, PoiModel } from 'api-client'
 import { UiDirectionType } from 'translations'
 
-import { EmailIcon, PhoneIcon, WebsiteIcon } from '../assets'
-import iconArrowBack from '../assets/IconArrowBackLong.svg'
-import iconExternalLink from '../assets/IconExternalLink.svg'
-import iconMarker from '../assets/IconMarker.svg'
-import PoiPlaceholder from '../assets/PoiPlaceholderLarge.jpg'
+import {
+  MailIcon,
+  ExternalLinkIcon,
+  LocationIcon,
+  PhoneIcon,
+  PoiThumbnailPlaceholderLarge,
+  WebsiteIcon,
+} from '../assets'
 import dimensions from '../constants/dimensions'
 import useWindowDimensions from '../hooks/useWindowDimensions'
 import CleanLink from './CleanLink'
@@ -19,73 +22,19 @@ import ContactItem from './ContactItem'
 import OpeningHours from './OpeningHours'
 import RemoteContent from './RemoteContent'
 import Spacer from './Spacer'
+import Icon from './base/Icon'
 
 const DetailsContainer = styled.div`
   font-family: ${props => props.theme.fonts.web.contentFont};
 `
 
-const ArrowBack = styled.img<{ direction: string }>`
-  width: 16px;
-  height: 14px;
+const StyledIcon = styled(Icon)`
+  width: 20px;
+  height: 20px;
   flex-shrink: 0;
   padding: 0 8px;
   object-fit: contain;
   align-self: center;
-
-  ${props =>
-    props.direction === 'rtl' &&
-    css`
-      transform: scaleX(-1);
-    `};
-`
-
-const Marker = styled.img<{ direction?: string }>`
-  width: 20px;
-  height: 20px;
-  flex-shrink: 0;
-
-  ${props =>
-    props.direction === 'rtl' &&
-    css`
-      transform: scaleX(-1);
-    `};
-
-  @media screen and ${dimensions.mediumLargeViewport} {
-    padding: 0 8px;
-  }
-  object-fit: contain;
-`
-
-const DetailsHeader = styled.div<{ viewportSmall: boolean }>`
-  display: flex;
-  padding-top: 12px;
-  cursor: pointer;
-
-  ${props =>
-    props.viewportSmall &&
-    css`
-      animation: fadeIn 3s;
-      @keyframes fadeIn {
-        0% {
-          opacity: 0;
-        }
-        100% {
-          opacity: 1;
-        }
-      }
-    `};
-`
-
-const DetailsHeaderTitle = styled.span`
-  align-self: center;
-  white-space: pre;
-  padding-left: 8px;
-  font-size: clamp(
-    ${props => props.theme.fonts.adaptiveFontSizeSmall.min},
-    ${props => props.theme.fonts.adaptiveFontSizeSmall.value},
-    ${props => props.theme.fonts.adaptiveFontSizeSmall.max}
-  );
-  font-family: ${props => props.theme.fonts.web.contentFont};
 `
 
 const Thumbnail = styled.img`
@@ -96,7 +45,7 @@ const Thumbnail = styled.img`
   object-fit: cover;
   border-radius: 10px;
 
-  @media screen and ${dimensions.smallViewport} {
+  @media screen and (${dimensions.smallViewport}) {
     order: 1;
     margin-top: 12px;
   }
@@ -183,7 +132,7 @@ const DetailSection = styled.div`
   display: flex;
   flex-direction: column;
 
-  @media screen and ${dimensions.smallViewport} {
+  @media screen and (${dimensions.smallViewport}) {
     flex-direction: row;
     justify-content: space-between;
   }
@@ -194,31 +143,20 @@ const ToolbarWrapper = styled.div`
 `
 
 type PoiDetailsProps = {
-  feature: PoiFeature
+  feature: GeoJsonPoi
   poi: PoiModel
   direction: UiDirectionType
-  isBottomSheetFullscreen?: boolean
   toolbar?: ReactElement
 }
 
-const PoiDetails: React.FC<PoiDetailsProps> = ({
-  feature,
-  poi,
-  direction,
-  isBottomSheetFullscreen = false,
-  toolbar,
-}: PoiDetailsProps): ReactElement => {
+const PoiDetails = ({ feature, poi, direction, toolbar }: PoiDetailsProps): ReactElement => {
   const navigate = useNavigate()
-  const browserLocation = useLocation()
-  const onBackClick = () => {
-    navigate('.', { state: { from: browserLocation } })
-  }
   const { viewportSmall } = useWindowDimensions()
   const theme = useTheme()
-  const { title, thumbnail, distance } = feature.properties
+  const { t } = useTranslation('pois')
+  const { title, thumbnail, distance } = feature
   const { content, location, website, phoneNumber, email, isCurrentlyOpen, openingHours, temporarilyClosed, category } =
     poi
-  const { t } = useTranslation('pois')
   // MapEvent parses null to 'null'
   const thumb = thumbnail === 'null' ? null : thumbnail?.replace('-150x150', '')
   const isAndroid = /Android/i.test(navigator.userAgent)
@@ -226,31 +164,17 @@ const PoiDetails: React.FC<PoiDetailsProps> = ({
 
   return (
     <DetailsContainer>
-      {(!viewportSmall || isBottomSheetFullscreen) && (
-        <>
-          <DetailsHeader
-            onClick={onBackClick}
-            role='button'
-            tabIndex={0}
-            onKeyPress={onBackClick}
-            viewportSmall={viewportSmall}>
-            <ArrowBack src={iconArrowBack} alt='' direction={direction} />
-            <DetailsHeaderTitle>{t('detailsHeader')}</DetailsHeaderTitle>
-          </DetailsHeader>
-          <Spacer borderColor={theme.colors.borderColor} />
-        </>
-      )}
       <HeadingSection>
-        <Thumbnail alt='' src={thumb ?? PoiPlaceholder} />
+        <Thumbnail alt='' src={thumb ?? PoiThumbnailPlaceholderLarge} />
         <Heading>{title}</Heading>
         {!!distance && <Distance>{t('distanceKilometre', { distance })}</Distance>}
-        {!!category?.name && <Category>{category.name}</Category>}
+        <Category>{category.name}</Category>
       </HeadingSection>
       <Spacer borderColor={theme.colors.borderColor} />
       {!viewportSmall && <Subheading>{t('detailsAddress')}</Subheading>}
       <DetailSection>
         <AddressContentWrapper>
-          {!viewportSmall && <Marker src={iconMarker} alt='' direction={direction} />}
+          {!viewportSmall && <StyledIcon src={LocationIcon} />}
           <AddressContent>
             <span>{location.address}</span>
             <span>
@@ -261,7 +185,7 @@ const PoiDetails: React.FC<PoiDetailsProps> = ({
         <LinkContainer>
           <CleanLink to={externalMapsLink} newTab>
             {!viewportSmall && <LinkLabel>{t('detailsMapLink')}</LinkLabel>}
-            <Marker src={iconExternalLink} alt='' direction={direction} />
+            <StyledIcon src={ExternalLinkIcon} directionDependent />
           </CleanLink>
         </LinkContainer>
       </DetailSection>
@@ -282,7 +206,7 @@ const PoiDetails: React.FC<PoiDetailsProps> = ({
                 />
               )}
               {!!email && (
-                <ContactItem iconSrc={EmailIcon} iconAlt={t('eMail')} link={`mailto:${email}`} content={email} />
+                <ContactItem iconSrc={MailIcon} iconAlt={t('eMail')} link={`mailto:${email}`} content={email} />
               )}
             </>
           </Collapsible>

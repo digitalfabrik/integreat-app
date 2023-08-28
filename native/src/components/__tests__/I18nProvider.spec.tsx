@@ -1,12 +1,10 @@
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { render, waitFor } from '@testing-library/react-native'
 import { mocked } from 'jest-mock'
-import moment from 'moment'
-import React, { useContext } from 'react'
+import React from 'react'
 import { Translation } from 'react-i18next'
 import { Text } from 'react-native'
 
-import DateFormatterContext from '../../contexts/DateFormatterContext'
 import appSettings from '../../utils/AppSettings'
 import NativeLanguageDetector from '../../utils/NativeLanguageDetector'
 import { setSystemLanguage } from '../../utils/sendTrackingSignal'
@@ -29,7 +27,7 @@ describe('I18nProvider', () => {
     render(
       <I18nProvider>
         <Text>Hello</Text>
-      </I18nProvider>
+      </I18nProvider>,
     )
     await waitFor(async () => expect(await appSettings.loadContentLanguage()).toBe('kmr'))
     expect(setSystemLanguage).toHaveBeenCalledTimes(1)
@@ -42,7 +40,7 @@ describe('I18nProvider', () => {
     render(
       <I18nProvider>
         <Text>Hello</Text>
-      </I18nProvider>
+      </I18nProvider>,
     )
     expect(await appSettings.loadContentLanguage()).toBe('ar')
     await waitFor(() => expect(setSystemLanguage).toHaveBeenCalledTimes(1))
@@ -56,7 +54,7 @@ describe('I18nProvider', () => {
     const { getByText } = render(
       <I18nProvider>
         <Text>Content</Text>
-      </I18nProvider>
+      </I18nProvider>,
     )
     await waitFor(() => getByText('An Error occurred while getting settings!'))
     expect(getByText('An Error occurred while getting settings!')).toBeTruthy()
@@ -68,7 +66,7 @@ describe('I18nProvider', () => {
     const { getByText } = render(
       <I18nProvider>
         <Translation>{t => <Text>{t('dashboard:localInformation')}</Text>}</Translation>
-      </I18nProvider>
+      </I18nProvider>,
     )
     await waitFor(() => expect(getByText('Zanyariyên xwecihî')).toBeTruthy())
   })
@@ -78,27 +76,10 @@ describe('I18nProvider', () => {
     const { getByText } = render(
       <I18nProvider>
         <Translation>{t => <Text>{t('dashboard:localInformation')}</Text>}</Translation>
-      </I18nProvider>
+      </I18nProvider>,
     )
     await waitFor(() => getByText('Lokale Informationen'))
     expect(getByText('Lokale Informationen')).toBeTruthy()
-  })
-
-  it('should have formatter with german fallback format', async () => {
-    const ReceivingComponent = () => {
-      const formatter = useContext(DateFormatterContext)
-      // eslint-disable-next-line react/destructuring-assignment
-      const formated = formatter.format(moment.utc('2020-12-21T14:58:57+01:00'), {})
-      return <Text>{formated}</Text>
-    }
-
-    const { getByText } = render(
-      <I18nProvider>
-        <ReceivingComponent />
-      </I18nProvider>
-    )
-    await waitFor(() => getByText('2020-12-21T13:58:57Z'))
-    expect(getByText('2020-12-21T13:58:57Z')).toBeTruthy()
   })
 
   it('should use zh-CN if any chinese variant is chosen', async () => {
@@ -106,7 +87,7 @@ describe('I18nProvider', () => {
     const { getByText } = render(
       <I18nProvider>
         <Translation>{t => <Text>{t('dashboard:localInformation')}</Text>}</Translation>
-      </I18nProvider>
+      </I18nProvider>,
     )
     await waitFor(() => getByText('本地信息'))
     expect(getByText('本地信息')).toBeTruthy()
@@ -117,7 +98,7 @@ describe('I18nProvider', () => {
     const { getByText } = render(
       <I18nProvider>
         <Translation>{t => <Text>{t('dashboard:localInformation')}</Text>}</Translation>
-      </I18nProvider>
+      </I18nProvider>,
     )
     await waitFor(() => getByText('本地信息'))
     expect(getByText('本地信息')).toBeTruthy()
@@ -129,7 +110,7 @@ describe('I18nProvider', () => {
       <I18nProvider>
         <Translation>{t => <Text>{t('dashboard:localInformation')}</Text>}</Translation>
         <Translation>{(t, { i18n }) => <Text>{i18n.languages[0]}</Text>}</Translation>
-      </I18nProvider>
+      </I18nProvider>,
     )
     await waitFor(() => getByText('Lokale Informationen'))
     expect(getByText('Lokale Informationen')).toBeTruthy()

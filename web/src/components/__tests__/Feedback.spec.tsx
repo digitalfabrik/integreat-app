@@ -5,6 +5,7 @@ import { renderWithTheme } from '../../testing/render'
 import Feedback from '../Feedback'
 import { SendingState } from '../FeedbackContainer'
 
+jest.mock('react-inlinesvg')
 jest.mock('react-i18next')
 
 describe('Feedback', () => {
@@ -25,7 +26,7 @@ describe('Feedback', () => {
     comment: string,
     isSearchFeedback = false,
     sendingStatus = SendingState.IDLE,
-    onContactMailChanged = onContactMailChangedDummy
+    onContactMailChanged = onContactMailChangedDummy,
   ) => ({
     comment,
     isPositiveFeedback,
@@ -85,7 +86,7 @@ describe('Feedback', () => {
   it('should call callback on contact mail changed', () => {
     const onContactMailChanged = jest.fn()
     const { getByDisplayValue, queryByDisplayValue } = renderWithTheme(
-      <Feedback {...buildProps(false, 'my comment', false, SendingState.IDLE, onContactMailChanged)} />
+      <Feedback {...buildProps(false, 'my comment', false, SendingState.IDLE, onContactMailChanged)} />,
     )
     expect(getByDisplayValue('test@example.com')).toBeTruthy()
     expect(queryByDisplayValue('new@example.com')).toBeFalsy()
@@ -101,7 +102,7 @@ describe('Feedback', () => {
 
   it('should call callback on comment changed', () => {
     const { getByDisplayValue, queryByDisplayValue } = renderWithTheme(
-      <Feedback {...buildProps(false, 'my comment')} />
+      <Feedback {...buildProps(false, 'my comment')} />,
     )
     expect(getByDisplayValue('my comment')).toBeTruthy()
     expect(queryByDisplayValue('new comment')).toBeFalsy()

@@ -48,12 +48,12 @@ const Settings = ({ navigation }: SettingsProps): ReactElement => {
           log('Failed to load settings.', 'error')
           reportError(e)
         })
-    }, [])
+    }, []),
   )
 
   const setSetting = async (
     changeSetting: (settings: SettingsType) => Partial<SettingsType>,
-    changeAction?: (settings: SettingsType) => Promise<boolean>
+    changeAction?: (settings: SettingsType) => Promise<boolean>,
   ) => {
     if (!settings) {
       return

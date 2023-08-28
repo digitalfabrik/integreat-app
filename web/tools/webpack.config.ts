@@ -5,8 +5,6 @@ import CopyPlugin from 'copy-webpack-plugin'
 import CssMinimizerPlugin from 'css-minimizer-webpack-plugin'
 import { readFileSync } from 'fs'
 import HtmlWebpackPlugin from 'html-webpack-plugin'
-import MomentLocalesPlugin from 'moment-locales-webpack-plugin'
-import MomentTimezoneDataPlugin from 'moment-timezone-data-webpack-plugin'
 import { join, resolve } from 'path'
 import ReactRefreshTypeScript from 'react-refresh-typescript'
 import { Configuration, DefinePlugin, LoaderOptionsPlugin, optimize, WebpackPluginInstance } from 'webpack'
@@ -15,11 +13,9 @@ import 'webpack-dev-server'
 
 import loadBuildConfig, { WEB } from 'build-configs'
 import { WebBuildConfigType } from 'build-configs/BuildConfigType'
-import { config as translationsConfig } from 'translations'
 
 // reset the tsconfig to the default configuration
 delete process.env.TS_NODE_PROJECT
-const currentYear = new Date().getFullYear()
 
 const SHORT_COMMIT_SHA_LENGTH = 8
 
@@ -54,7 +50,7 @@ const generateAssetLinks = (buildConfig: WebBuildConfigType) => {
       },
     ],
     null,
-    2
+    2,
   )
 }
 
@@ -76,7 +72,7 @@ const generateAppleAppSiteAssociation = (buildConfig: WebBuildConfigType) => {
       },
     },
     null,
-    2
+    2,
   )
 }
 
@@ -108,7 +104,7 @@ const generateManifest = (content: Buffer, buildConfig: WebBuildConfigType) => {
 
 const createConfig = (
   // eslint-disable-next-line camelcase
-  env: { config_name?: string; dev_server?: boolean; version_name?: string; commit_sha?: string } = {}
+  env: { config_name?: string; dev_server?: boolean; version_name?: string; commit_sha?: string } = {},
 ): Configuration => {
   const {
     config_name: buildConfigName,
@@ -270,16 +266,6 @@ const createConfig = (
       new LoaderOptionsPlugin({
         debug: devServer,
         minimize: !devServer,
-      }),
-      // We use moment-timezone for parsing a limited range of years here with GTM data in the integreat-api-client
-      new MomentTimezoneDataPlugin({
-        startYear: currentYear,
-        endYear: currentYear + 2,
-      }),
-      // moment has no support for 'ti' (Tigrinya) and 'so' (Somali), hence we have to use the ignoreInvalidLocales flag
-      new MomentLocalesPlugin({
-        localesToKeep: translationsConfig.getSupportedLanguageTags(),
-        ignoreInvalidLocales: true,
       }),
       ...plugins,
     ],

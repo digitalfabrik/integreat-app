@@ -1,8 +1,6 @@
-import { Moment } from 'moment'
+import { DateTime } from 'luxon'
 import React, { ReactElement, ReactNode } from 'react'
 import styled from 'styled-components'
-
-import DateFormatter from 'api-client/src/i18n/DateFormatter'
 
 import Caption from './Caption'
 import LastUpdateInfo from './LastUpdateInfo'
@@ -24,10 +22,8 @@ type PageProps = {
   defaultThumbnailSrc?: string // necessary for IE11 support
   thumbnailSrcSet?: string
   content: string
-  lastUpdate?: Moment
+  lastUpdate?: DateTime
   showLastUpdateText?: boolean
-  lastUpdateFormat?: string
-  formatter: DateFormatter
   onInternalLinkClick: (url: string) => void
   BeforeContent?: ReactNode
   AfterContent?: ReactNode
@@ -41,8 +37,6 @@ const Page = ({
   content,
   lastUpdate,
   showLastUpdateText = true,
-  lastUpdateFormat,
-  formatter,
   onInternalLinkClick,
   BeforeContent,
   AfterContent,
@@ -54,14 +48,7 @@ const Page = ({
     {BeforeContent}
     <RemoteContent html={content} onInternalLinkClick={onInternalLinkClick} />
     {AfterContent}
-    {lastUpdate && (
-      <LastUpdateInfo
-        lastUpdate={lastUpdate}
-        format={lastUpdateFormat}
-        formatter={formatter}
-        withText={showLastUpdateText}
-      />
-    )}
+    {lastUpdate && <LastUpdateInfo lastUpdate={lastUpdate} withText={showLastUpdateText} />}
     {Footer}
   </>
 )

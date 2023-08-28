@@ -1,13 +1,11 @@
 import i18next from 'i18next'
-import React, { ReactElement, ReactNode, useCallback, useEffect, useMemo, useState } from 'react'
+import React, { ReactElement, ReactNode, useCallback, useEffect, useState } from 'react'
 import { I18nextProvider } from 'react-i18next'
 import { Text } from 'react-native'
 
-import DateFormatter from 'api-client/src/i18n/DateFormatter'
 import { config, loadTranslations } from 'translations'
 
 import buildConfig from '../constants/buildConfig'
-import DateFormatterContext from '../contexts/DateFormatterContext'
 import appSettings from '../utils/AppSettings'
 import NativeLanguageDetector from '../utils/NativeLanguageDetector'
 import { setSystemLanguage } from '../utils/sendTrackingSignal'
@@ -48,6 +46,8 @@ const I18nProvider = ({ children }: I18nProviderProps): ReactElement | null => {
         },
       })
       // A language mentioned in the supportedLanguages array of the config.js in the translations package
+      // If no language is found, we use the fallback language
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       const matchedLanguage = i18nextInstance.languages[0]!
       await setContentLanguage(matchedLanguage).catch(reportError)
       setSystemLanguage(matchedLanguage)
@@ -60,8 +60,6 @@ const I18nProvider = ({ children }: I18nProviderProps): ReactElement | null => {
     })
   }, [setContentLanguage])
 
-  const dateFormatter = useMemo(() => new DateFormatter(config.defaultFallback), [])
-
   if (errorMessage) {
     return <Text>{errorMessage}</Text>
   }
@@ -70,11 +68,7 @@ const I18nProvider = ({ children }: I18nProviderProps): ReactElement | null => {
     return null
   }
 
-  return (
-    <I18nextProvider i18n={i18nextInstance}>
-      <DateFormatterContext.Provider value={dateFormatter}>{children}</DateFormatterContext.Provider>
-    </I18nextProvider>
-  )
+  return <I18nextProvider i18n={i18nextInstance}>{children}</I18nextProvider>
 }
 
 export default I18nProvider

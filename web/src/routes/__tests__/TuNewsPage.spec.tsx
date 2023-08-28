@@ -21,6 +21,7 @@ jest.mock('api-client', () => ({
   loadFromEndpoint: jest.fn(),
   useLoadFromEndpoint: jest.fn(),
 }))
+jest.mock('react-inlinesvg')
 jest.mock('react-i18next')
 jest.mock('../../components/InfiniteScrollList', () => () => 'List')
 jest.mock('../../components/CityContentHeader', () => () => null)
@@ -54,7 +55,7 @@ describe('TuNewsPage', () => {
     mocked(useLoadFromEndpoint).mockImplementation(() => tuNewsLanguages as never)
     return renderRoute(
       <TuNewsPage city={city} pathname={pathname} cityCode={city.code} languageCode={languageModel.code} />,
-      { routePattern, pathname }
+      { routePattern, pathname },
     )
   }
 
@@ -70,7 +71,7 @@ describe('TuNewsPage', () => {
     tuNewsLanguages.forEach(({ name, code }) => {
       expect(getAllByText(name)[0]!.closest('a')).toHaveProperty(
         'href',
-        `http://localhost/augsburg/${code}/news/tu-news`
+        `http://localhost/augsburg/${code}/news/tu-news`,
       )
     })
 

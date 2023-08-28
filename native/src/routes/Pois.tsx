@@ -1,35 +1,39 @@
 import { BottomSheetScrollViewMethods } from '@gorhom/bottom-sheet'
-import React, { ReactElement, useCallback, useRef, useState } from 'react'
+import React, { ReactElement, useCallback, useMemo, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { ScrollView } from 'react-native'
-import { useTheme } from 'styled-components'
+import { SvgUri } from 'react-native-svg'
 import styled from 'styled-components/native'
 
 import {
   CityModel,
   embedInCollection,
-  ErrorCode,
-  fromError,
-  NotFoundError,
-  PoiFeature,
   PoiModel,
-  POIS_ROUTE,
   PoisRouteType,
   prepareFeatureLocations,
+  GeoJsonPoi,
+  MapFeature,
+  isMultipoi,
+  sortMapFeatures,
+  NotFoundError,
+  fromError,
+  PoiCategoryModel,
 } from 'api-client'
 
+// TODO fix color secondary
+import { ClockIcon, EditLocationIcon } from '../assets'
 import BottomActionsSheet from '../components/BottomActionsSheet'
 import Failure from '../components/Failure'
 import MapView from '../components/MapView'
 import PoiDetails from '../components/PoiDetails'
+import PoiFiltersModal from '../components/PoiFiltersModal'
 import PoiListItem from '../components/PoiListItem'
-import SiteHelpfulBox from '../components/SiteHelpfulBox'
+import ChipButton from '../components/base/ChipButton'
+import Icon from '../components/base/Icon'
 import { NavigationProps, RouteProps } from '../constants/NavigationTypes'
 import dimensions from '../constants/dimensions'
 import useOnBackNavigation from '../hooks/useOnBackNavigation'
 import useUserLocation from '../hooks/useUserLocation'
-import createNavigateToFeedbackModal from '../navigation/createNavigateToFeedbackModal'
-import { reportError } from '../utils/sentry'
 
 const ListWrapper = styled.View`
   margin: 0 32px;
@@ -38,6 +42,12 @@ const ListWrapper = styled.View`
 const NoItemsMessage = styled.Text`
   padding-top: 25px;
   text-align: center;
+`
+
+const StyledIcon = styled(Icon)`
+  color: ${props => props.theme.colors.textSecondaryColor};
+  width: 16px;
+  height: 16px;
 `
 
 export const midSnapPointPercentage = 0.35
@@ -58,18 +68,50 @@ type PoisProps = {
 
 const RESTORE_TIMEOUT = 100
 
-const Pois = ({ pois, language, cityModel, route, navigation }: PoisProps): ReactElement => {
+const Pois = ({ pois: allPois, language, cityModel, route, navigation }: PoisProps): ReactElement => {
+  const [poiCategoryFilter, setPoiCategoryFilter] = useState<PoiCategoryModel | null>(null)
+  const [poiCurrentlyOpenFilter, setPoiCurrentlyOpenFilter] = useState(false)
+  const [showFilterSelection, setShowFilterSelection] = useState(false)
   const { coordinates, requestAndDetermineLocation } = useUserLocation(true)
-  const { slug } = route.params
+  const { slug, multipoi } = route.params
   const [sheetSnapPointIndex, setSheetSnapPointIndex] = useState<number>(1)
   const [followUserLocation, setFollowUserLocation] = useState<boolean>(false)
   const [listScrollPosition, setListScrollPosition] = useState<number>(0)
-  const features = prepareFeatureLocations(pois, coordinates)
-  const selectedFeature = slug ? features.find(it => it.properties.slug === slug) : null
-  const poi = pois.find(it => it.slug === slug)
   const { t } = useTranslation('pois')
-  const theme = useTheme()
   const scrollRef = useRef<BottomSheetScrollViewMethods>(null)
+
+  const pois = useMemo(
+    () =>
+      allPois
+        .filter(poi => !poiCategoryFilter || poi.category === poiCategoryFilter)
+        .filter(poi => !poiCurrentlyOpenFilter || poi.isCurrentlyOpen),
+    [allPois, poiCategoryFilter, poiCurrentlyOpenFilter],
+  )
+  const poi = pois.find(it => it.slug === slug)
+  const features = useMemo(() => prepareFeatureLocations(pois, coordinates), [pois, coordinates])
+
+  const updatePoiCategoryFilter = (poiCategoryFilter: PoiCategoryModel | null) => {
+    if (poi && poiCategoryFilter && poi.category !== poiCategoryFilter) {
+      navigation.setParams({ slug: undefined })
+    }
+    setPoiCategoryFilter(poiCategoryFilter)
+  }
+
+  const updatePoiCurrentlyOpenFilter = (poiCurrentlyOpenFilter: boolean) => {
+    if (poi && poiCurrentlyOpenFilter && !poi.isCurrentlyOpen) {
+      navigation.setParams({ slug: undefined })
+    }
+    setPoiCurrentlyOpenFilter(poiCurrentlyOpenFilter)
+  }
+
+  const currentFeatureOnMap = useMemo(
+    () =>
+      multipoi
+        ? features.find(feature => feature.id === multipoi)
+        : features.find(feature => feature.properties.pois.some(poi => poi.slug === slug)),
+    [features, multipoi, slug],
+  )
+  const currentPoi = useMemo(() => (slug ? pois.find(poi => slug === poi.slug) : undefined), [pois, slug])
 
   const scrollTo = (position: number) => {
     setTimeout(() => {
@@ -81,98 +123,153 @@ const Pois = ({ pois, language, cityModel, route, navigation }: PoisProps): Reac
       }
     }, RESTORE_TIMEOUT)
   }
-  const selectPoiFeature = (feature: PoiFeature | null) => {
-    if (feature) {
-      setFollowUserLocation(false)
-      navigation.setParams({ slug: feature.properties.slug })
+
+  const deselectAll = () => {
+    navigation.setParams({ slug: undefined, multipoi: undefined })
+    scrollTo(listScrollPosition)
+  }
+
+  const deselectFeature = () => {
+    if (multipoi && currentPoi) {
+      navigation.setParams({ slug: undefined })
+    } else {
+      deselectAll()
+    }
+  }
+  useOnBackNavigation(slug || multipoi ? deselectFeature : undefined)
+
+  const selectFeatureOnMap = (feature: MapFeature | null) => {
+    if (!feature) {
+      deselectAll()
+      return
+    }
+    setFollowUserLocation(false)
+    if (isMultipoi(feature)) {
+      navigation.setParams({ multipoi: feature.id as number })
       scrollTo(0)
     } else {
-      navigation.setParams({ slug: undefined })
+      const poiFeature = feature.properties.pois[0]
+      navigation.setParams({ slug: poiFeature?.slug })
+      scrollTo(0)
     }
   }
 
-  const deselectPoiFeature = useCallback(() => {
-    navigation.setParams({ slug: undefined })
-    scrollTo(listScrollPosition)
-  }, [listScrollPosition, navigation])
-  useOnBackNavigation(slug ? deselectPoiFeature : undefined)
+  const selectGeoJsonPoiInList = (newGeoJsonPoi: GeoJsonPoi | null) => {
+    if (!newGeoJsonPoi) {
+      return
+    }
+    setFollowUserLocation(false)
+    navigation.setParams({ slug: newGeoJsonPoi.slug })
+    scrollTo(0)
+  }
 
-  const renderPoiListItem = (poi: PoiFeature): ReactElement => (
-    <PoiListItem
-      key={poi.properties.id}
-      poi={poi}
-      language={language}
-      navigateToPoi={() => selectPoiFeature(poi)}
-      t={t}
+  const renderPoiListItem = (poi: GeoJsonPoi): ReactElement => (
+    <PoiListItem key={poi.path} poi={poi} language={language} navigateToPoi={() => selectGeoJsonPoiInList(poi)} t={t} />
+  )
+
+  const setScrollPosition = useCallback(
+    (position: number) => {
+      if (!currentPoi) {
+        setListScrollPosition(position)
+      }
+    },
+    [currentPoi],
+  )
+
+  const singlePoiContent = currentPoi && (
+    <PoiDetails language={language} poi={currentPoi} poiFeature={currentPoi.getFeature(coordinates)} />
+  )
+  const failurePoiContent = !currentPoi && slug && (
+    <Failure
+      code={fromError(
+        new NotFoundError({
+          type: 'poi',
+          id: '',
+          city: cityModel.code,
+          language,
+        }),
+      )}
     />
   )
 
-  const navigateToFeedback = (isPositiveFeedback: boolean) => {
-    createNavigateToFeedbackModal(navigation)({
-      routeType: POIS_ROUTE,
-      language,
-      cityCode: cityModel.code,
-      isPositiveFeedback,
-      slug: poi?.slug,
-    })
-  }
+  const list = currentFeatureOnMap
+    ? currentFeatureOnMap.properties.pois
+    : features.flatMap(feature => feature.properties.pois)
 
-  if (!cityModel.boundingBox) {
-    reportError(new Error(`Bounding box not set for city ${cityModel.code}!`))
-    return <Failure code={ErrorCode.PageNotFound} />
-  }
-
-  const selectedFeatureContent =
-    selectedFeature && poi ? (
-      <PoiDetails language={language} poi={poi} feature={selectedFeature} />
-    ) : (
-      <Failure
-        code={fromError(
-          new NotFoundError({
-            type: 'poi',
-            id: slug ?? '',
-            city: cityModel.code,
-            language,
-          })
-        )}
-      />
-    )
-
-  const content = slug ? (
-    selectedFeatureContent
-  ) : (
+  const listPoiContent = (
     <ListWrapper>
-      {features.length === 0 ? <NoItemsMessage>{t('noPois')}</NoItemsMessage> : features.map(renderPoiListItem)}
+      {list.length === 0 ? (
+        <NoItemsMessage>{t('noPois')}</NoItemsMessage>
+      ) : (
+        sortMapFeatures(list).map(renderPoiListItem)
+      )}
     </ListWrapper>
+  )
+
+  const FiltersOverlayButtons = (
+    <>
+      <ChipButton
+        text={t('adjustFilters')}
+        Icon={<StyledIcon Icon={EditLocationIcon} />}
+        onPress={() => setShowFilterSelection(true)}
+      />
+      {poiCurrentlyOpenFilter && (
+        <ChipButton
+          text={t('opened')}
+          Icon={<StyledIcon Icon={ClockIcon} />}
+          onPress={() => setPoiCurrentlyOpenFilter(false)}
+          closeButton
+        />
+      )}
+      {!!poiCategoryFilter && (
+        <ChipButton
+          text={poiCategoryFilter.name}
+          Icon={<SvgUri uri={poiCategoryFilter.icon} height={16} width={16} />}
+          onPress={() => setPoiCategoryFilter(null)}
+          closeButton
+        />
+      )}
+    </>
   )
 
   return (
     <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+      <PoiFiltersModal
+        modalVisible={showFilterSelection}
+        closeModal={() => setShowFilterSelection(false)}
+        pois={allPois}
+        selectedPoiCategory={poiCategoryFilter}
+        setSelectedPoiCategory={updatePoiCategoryFilter}
+        currentlyOpenFilter={poiCurrentlyOpenFilter}
+        setCurrentlyOpenFilter={updatePoiCurrentlyOpenFilter}
+      />
       <MapView
-        selectPoiFeature={selectPoiFeature}
+        selectFeature={selectFeatureOnMap}
         boundingBox={cityModel.boundingBox}
         setSheetSnapPointIndex={setSheetSnapPointIndex}
         featureCollection={embedInCollection(features)}
-        selectedFeature={selectedFeature ?? null}
-        locationPermissionGranted={coordinates !== null}
+        selectedFeature={currentFeatureOnMap ?? null}
+        locationPermissionGranted={!!coordinates}
         onRequestLocationPermission={requestAndDetermineLocation}
         fabPosition={
-          sheetSnapPointIndex < BOTTOM_SHEET_SNAP_POINTS.length - 1 ? BOTTOM_SHEET_SNAP_POINTS[sheetSnapPointIndex]! : 0
+          sheetSnapPointIndex < BOTTOM_SHEET_SNAP_POINTS.length - 1
+            ? // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+              BOTTOM_SHEET_SNAP_POINTS[sheetSnapPointIndex]!
+            : 0
         }
         followUserLocation={followUserLocation}
         setFollowUserLocation={setFollowUserLocation}
+        Overlay={FiltersOverlayButtons}
       />
       <BottomActionsSheet
         ref={scrollRef}
-        selectedFeature={selectedFeature ?? null}
-        setListScrollPosition={setListScrollPosition}
-        title={!selectedFeature ? t('listTitle') : undefined}
+        setScrollPosition={setScrollPosition}
+        title={!currentPoi && !multipoi ? t('listTitle') : undefined}
         onChange={setSheetSnapPointIndex}
         initialIndex={sheetSnapPointIndex}
         snapPoints={BOTTOM_SHEET_SNAP_POINTS}
         snapPointIndex={sheetSnapPointIndex}>
-        {content}
-        <SiteHelpfulBox backgroundColor={theme.colors.backgroundColor} navigateToFeedback={navigateToFeedback} />
+        {singlePoiContent ?? failurePoiContent ?? listPoiContent}
       </BottomActionsSheet>
     </ScrollView>
   )

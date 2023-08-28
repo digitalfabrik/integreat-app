@@ -1,4 +1,4 @@
-import moment from 'moment'
+import { DateTime } from 'luxon'
 import React from 'react'
 
 import { CityModelBuilder, DISCLAIMER_ROUTE, PageModel, pathnameFromRouteInformation } from 'api-client'
@@ -12,6 +12,7 @@ jest.mock('api-client', () => ({
   ...jest.requireActual('api-client'),
   useLoadFromEndpoint: jest.fn(),
 }))
+jest.mock('react-inlinesvg')
 jest.mock('react-i18next')
 
 describe('DisclaimerPage', () => {
@@ -24,7 +25,7 @@ describe('DisclaimerPage', () => {
     path: '/disclaimer',
     title: 'Feedback, Kontakt und mögliches Engagement',
     content: 'this is a test content',
-    lastUpdate: moment('2017-11-18T19:30:00.000Z'),
+    lastUpdate: DateTime.fromISO('2017-11-18T19:30:00.000Z'),
   })
 
   const city = cities[0]!
@@ -41,7 +42,7 @@ describe('DisclaimerPage', () => {
     mockUseLoadFromEndpointOnceWithData(disclaimer)
     return renderRoute(
       <DisclaimerPage city={city} languageCode={languageCode} cityCode={city.code} pathname={pathname} />,
-      { pathname, routePattern }
+      { pathname, routePattern },
     )
   }
 

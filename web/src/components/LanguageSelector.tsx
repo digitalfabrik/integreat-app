@@ -1,8 +1,6 @@
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { config } from 'translations/src'
-
 import Selector from '../components/Selector'
 import SelectorItemModel from '../models/SelectorItemModel'
 import HeaderLanguageSelectorItem from './HeaderLanguageSelectorItem'
@@ -30,7 +28,7 @@ const LanguageSelector = (props: LanguageSelectorProps): ReactElement => {
           code,
           name,
           href: path,
-        })
+        }),
     ) ?? []
 
   if (isHeaderActionItem) {
@@ -40,7 +38,6 @@ const LanguageSelector = (props: LanguageSelectorProps): ReactElement => {
         activeItemCode={activeItemCode}
         t={t}
         inKebabMenu={inKebabMenu}
-        direction={config.getScriptDirection(languageCode)}
         closeSidebar={closeSidebar}
       />
     )

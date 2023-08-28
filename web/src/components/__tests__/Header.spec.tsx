@@ -10,6 +10,7 @@ import HeaderNavigationItem from '../HeaderNavigationItem'
 import KebabActionItemLink from '../KebabActionItemLink'
 
 jest.mock('../../hooks/useWindowDimensions')
+jest.mock('react-inlinesvg')
 jest.mock('react-i18next')
 
 describe('Header', () => {
@@ -27,7 +28,7 @@ describe('Header', () => {
         cityName={cityName}
         direction='ltr'
         language='de'
-      />
+      />,
     )
     expect(getByText(cityName)).toBeDefined()
   })
@@ -48,7 +49,7 @@ describe('Header', () => {
         isSidebarOpen
         setIsSidebarOpen={setShowSidebar}
         language='de'
-      />
+      />,
     )
     expect(getByTestId('kebab-menu-button')).toBeInTheDocument()
     fireEvent.click(getByTestId('kebab-menu-button'))
@@ -66,7 +67,7 @@ describe('Header', () => {
         ]}
         direction='ltr'
         language='de'
-      />
+      />,
     )
     expect(queryByTestId('kebab-menu-button')).not.toBeInTheDocument()
   })

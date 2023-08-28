@@ -4,6 +4,9 @@ import React from 'react'
 import { renderWithTheme } from '../../testing/render'
 import SearchInput from '../SearchInput'
 
+jest.mock('react-inlinesvg')
+jest.mock('react-i18next')
+
 describe('SearchInput', () => {
   it('should pass onFilterTextChange and onClickInput', () => {
     const outerFilterTextChange = jest.fn()
@@ -14,7 +17,7 @@ describe('SearchInput', () => {
         placeholderText='Placeholder'
         onClickInput={onClickInput}
         onFilterTextChange={outerFilterTextChange}
-      />
+      />,
     )
     fireEvent.click(getByPlaceholderText('Placeholder'))
     expect(onClickInput).toHaveBeenCalled()

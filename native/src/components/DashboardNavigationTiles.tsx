@@ -13,7 +13,7 @@ import {
   TU_NEWS_TYPE,
 } from 'api-client'
 
-import { EventsIcon, NewsIcon, OffersIcon, POIsIcon } from '../assets'
+import { CalendarIcon, NewsIcon, OffersIcon, POIsIcon } from '../assets'
 import buildConfig from '../constants/buildConfig'
 import TileModel from '../models/TileModel'
 import NavigationTiles from './NavigationTiles'
@@ -55,7 +55,7 @@ const DashboardNavigationTiles = ({
             newsType: localNewsEnabled ? LOCAL_NEWS_TYPE : TU_NEWS_TYPE,
           }),
         notifications: 0,
-      })
+      }),
     )
   }
 
@@ -64,7 +64,7 @@ const DashboardNavigationTiles = ({
       new TileModel({
         title: t('events'),
         path: 'events',
-        thumbnail: EventsIcon,
+        thumbnail: CalendarIcon,
         isExternalUrl: false,
         onTilePress: () =>
           navigateTo({
@@ -73,7 +73,7 @@ const DashboardNavigationTiles = ({
             languageCode,
           }),
         notifications: 0,
-      })
+      }),
     )
   }
 
@@ -91,7 +91,7 @@ const DashboardNavigationTiles = ({
             languageCode,
           }),
         notifications: 0,
-      })
+      }),
     )
   }
 
@@ -109,7 +109,7 @@ const DashboardNavigationTiles = ({
             languageCode,
           }),
         notifications: 0,
-      })
+      }),
     )
   }
 

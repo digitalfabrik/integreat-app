@@ -1,5 +1,6 @@
 import NetInfo from '@react-native-community/netinfo'
 import { LinkingOptions, NavigationContainer, NavigationState } from '@react-navigation/native'
+import { Settings as LuxonSettings } from 'luxon'
 import React, { ReactElement, useCallback, useState } from 'react'
 import { LogBox } from 'react-native'
 import { SafeAreaProvider } from 'react-native-safe-area-context'
@@ -8,6 +9,7 @@ import { OverflowMenuProvider } from 'react-navigation-header-buttons'
 import { ThemeProvider } from 'styled-components'
 
 import { CLOSE_PAGE_SIGNAL_NAME, REDIRECT_ROUTE, setUserAgent } from 'api-client'
+import { config } from 'translations'
 
 import Navigator from './Navigator'
 import AppStateListener from './components/AppStateListener'
@@ -25,7 +27,8 @@ import { backgroundAppStatePushNotificationListener } from './utils/PushNotifica
 import sendTrackingSignal from './utils/sendTrackingSignal'
 
 enableScreens(true)
-
+LuxonSettings.throwOnInvalid = true
+LuxonSettings.defaultLocale = config.defaultFallback
 LogBox.ignoreLogs(['NativeEventEmitter'])
 
 NetInfo.configure({
@@ -72,7 +75,7 @@ const App = (): ReactElement => {
         setRouteIndex(state.index)
       }
     },
-    [routeIndex]
+    [routeIndex],
   )
 
   return (

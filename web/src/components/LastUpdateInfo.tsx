@@ -1,9 +1,7 @@
-import { Moment } from 'moment'
+import { DateTime } from 'luxon'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
-
-import DateFormatter from 'api-client/src/i18n/DateFormatter'
 
 const TimeStamp = styled.p`
   padding-top: 15px;
@@ -13,26 +11,22 @@ const TimeStamp = styled.p`
 `
 
 type LastUpdateInfoProps = {
-  lastUpdate: Moment
+  lastUpdate: DateTime
   withText: boolean
   format?: string
   className?: string
-  formatter: DateFormatter
 }
 
 export const LastUpdateInfo = ({
   lastUpdate,
   withText,
   className,
-  formatter,
-  format = 'LL',
+  format = 'DDD',
 }: LastUpdateInfoProps): ReactElement => {
-  const { t } = useTranslation('common')
-  // only show day, month and year
-  const timestamp = formatter.format(lastUpdate, { format })
+  const { i18n, t } = useTranslation('common')
   return (
     <TimeStamp className={className}>
-      {withText && t('lastUpdate')} {timestamp}
+      {withText && t('lastUpdate')} {lastUpdate.setLocale(i18n.language).toFormat(format)}
     </TimeStamp>
   )
 }

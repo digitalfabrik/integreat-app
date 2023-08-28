@@ -1,4 +1,4 @@
-import React, { ReactElement, useContext } from 'react'
+import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router-dom'
 
@@ -17,10 +17,8 @@ import Helmet from '../components/Helmet'
 import LoadingSpinner from '../components/LoadingSpinner'
 import Page from '../components/Page'
 import { cmsApiBaseUrl } from '../constants/urls'
-import DateFormatterContext from '../contexts/DateFormatterContext'
 
 const DisclaimerPage = ({ cityCode, languageCode, city }: CityRouteProps): ReactElement | null => {
-  const dateFormatter = useContext(DateFormatterContext)
   const navigate = useNavigate()
   const { t } = useTranslation('disclaimer')
 
@@ -37,7 +35,15 @@ const DisclaimerPage = ({ cityCode, languageCode, city }: CityRouteProps): React
     return null
   }
 
-  const Toolbar = <CityContentToolbar feedbackTarget={disclaimer?.slug} route={DISCLAIMER_ROUTE} />
+  const pageTitle = `${t('pageTitle')} - ${city.name}`
+  const Toolbar = (
+    <CityContentToolbar
+      feedbackTarget={disclaimer?.slug}
+      route={DISCLAIMER_ROUTE}
+      languageCode={languageCode}
+      pageTitle={pageTitle}
+    />
+  )
 
   const languageChangePaths = city.languages.map(({ code, name }) => {
     const disclaimerPath = pathnameFromRouteInformation({ route: DISCLAIMER_ROUTE, cityCode, languageCode: code })
@@ -69,8 +75,6 @@ const DisclaimerPage = ({ cityCode, languageCode, city }: CityRouteProps): React
     )
   }
 
-  const pageTitle = `${t('pageTitle')} - ${city.name}`
-
   return (
     <CityContentLayout isLoading={false} {...locationLayoutParams}>
       <Helmet pageTitle={pageTitle} languageChangePaths={languageChangePaths} cityModel={city} />
@@ -78,7 +82,6 @@ const DisclaimerPage = ({ cityCode, languageCode, city }: CityRouteProps): React
         lastUpdate={disclaimer.lastUpdate}
         title={disclaimer.title}
         content={disclaimer.content}
-        formatter={dateFormatter}
         onInternalLinkClick={navigate}
       />
     </CityContentLayout>

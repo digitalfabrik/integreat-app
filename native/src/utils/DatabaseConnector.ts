@@ -1,7 +1,7 @@
 /* eslint-disable camelcase */
 import { BBox } from 'geojson'
 import { map, mapValues } from 'lodash'
-import moment, { Moment } from 'moment'
+import { DateTime } from 'luxon'
 import BlobUtil from 'react-native-blob-util'
 
 import {
@@ -117,7 +117,7 @@ type ContentCityJsonType = {
   aliases: Record<string, { longitude: number; latitude: number }> | null
   pushNotificationsEnabled: boolean
   tunewsEnabled: boolean
-  bounding_box: BBox | null
+  bounding_box: BBox
 }
 type ContentPoiJsonType = {
   path: string
@@ -131,7 +131,7 @@ type ContentPoiJsonType = {
   excerpt: string
   location: LocationJsonType<number>
   lastUpdate: string
-  category: { id: number; name: string; color?: string; icon?: string } | null
+  category: { id: number; name: string; color: string; icon: string; iconName: string } | null
   openingHours: { allDay: boolean; closed: boolean; timeSlots: { start: string; end: string }[] }[] | null
   temporarilyClosed: boolean
 }
@@ -141,10 +141,10 @@ type MetaCitiesEntryType = {
   languages: Record<
     LanguageCodeType,
     {
-      lastUpdate: Moment
+      lastUpdate: DateTime
     }
   >
-  lastUsage: Moment
+  lastUsage: DateTime
 }
 type MetaCitiesJsonType = Record<
   CityCodeType,
@@ -160,12 +160,11 @@ type MetaCitiesJsonType = Record<
 >
 type CityLastUsageType = {
   city: CityCodeType
-  lastUsage: Moment
+  lastUsage: DateTime
 }
 type MetaCitiesType = Record<CityCodeType, MetaCitiesEntryType>
 type PageResourceCacheEntryJsonType = {
   file_path: string
-  last_update: string
   hash: string
 }
 type PageResourceCacheJsonType = Record<string, PageResourceCacheEntryJsonType>
@@ -236,7 +235,7 @@ class DatabaseConnector {
     await BlobUtil.fs.unlink(CACHE_DIR_PATH)
   }
 
-  async storeLastUpdate(lastUpdate: Moment | null, context: DatabaseContext): Promise<void> {
+  async storeLastUpdate(lastUpdate: DateTime | null, context: DatabaseContext): Promise<void> {
     if (lastUpdate === null) {
       // Prior to storing lastUpdate, there needs to be a lastUsage of the city.
       throw Error('cannot set lastUsage to null')
@@ -271,7 +270,7 @@ class DatabaseConnector {
     await this._storeMetaCities(metaCities)
   }
 
-  async loadLastUpdate(context: DatabaseContext): Promise<Moment | null> {
+  async loadLastUpdate(context: DatabaseContext): Promise<DateTime | null> {
     const { cityCode } = context
     const { languageCode } = context
 
@@ -300,12 +299,12 @@ class DatabaseConnector {
           ({
             last_update: jsonLastUpdate,
           }): {
-            lastUpdate: Moment
+            lastUpdate: DateTime
           } => ({
-            lastUpdate: moment(jsonLastUpdate, moment.ISO_8601),
-          })
+            lastUpdate: DateTime.fromISO(jsonLastUpdate),
+          }),
         ),
-        lastUsage: moment(cityMeta.last_usage, moment.ISO_8601),
+        lastUsage: DateTime.fromISO(cityMeta.last_usage),
       }))
     return this.readFile(path, mapCitiesMetaJson)
   }
@@ -320,10 +319,10 @@ class DatabaseConnector {
         }): {
           last_update: string
         } => ({
-          last_update: lastUpdate.toISOString(),
-        })
+          last_update: lastUpdate.toISO(),
+        }),
       ),
-      last_usage: cityMeta.lastUsage.toISOString(),
+      last_usage: cityMeta.lastUsage.toISO(),
     }))
     await this.writeFile(path, JSON.stringify(citiesMetaJson))
   }
@@ -343,9 +342,9 @@ class DatabaseConnector {
       throw Error("cityCode mustn't be null")
     }
 
-    const metaData = await this._loadMetaCities().catch(() => ({} as MetaCitiesType))
+    const metaData = await this._loadMetaCities().catch(() => ({}) as MetaCitiesType)
     metaData[city] = {
-      lastUsage: moment(),
+      lastUsage: DateTime.now(),
       languages: metaData[city]?.languages || {},
     }
     await this._storeMetaCities(metaData)
@@ -360,7 +359,7 @@ class DatabaseConnector {
         path: category.path,
         title: category.title,
         content: category.content,
-        last_update: category.lastUpdate.toISOString(),
+        last_update: category.lastUpdate.toISO(),
         thumbnail: category.thumbnail,
         available_languages: mapToObject(category.availableLanguages),
         parent_path: category.parentPath,
@@ -373,7 +372,7 @@ class DatabaseConnector {
               url: category.organization.url,
             }
           : null,
-      })
+      }),
     )
     await this.writeFile(this.getContentPath('categories', context), JSON.stringify(jsonModels))
   }
@@ -393,7 +392,7 @@ class DatabaseConnector {
             parentPath: jsonObject.parent_path,
             order: jsonObject.order,
             availableLanguages,
-            lastUpdate: moment(jsonObject.last_update, moment.ISO_8601),
+            lastUpdate: DateTime.fromISO(jsonObject.last_update),
             organization: jsonObject.organization
               ? new OrganizationModel({
                   name: jsonObject.organization.name,
@@ -402,7 +401,7 @@ class DatabaseConnector {
                 })
               : null,
           })
-        })
+        }),
       )
 
     return this.readFile(path, mapCategoriesJson)
@@ -430,15 +429,14 @@ class DatabaseConnector {
           country: poi.location.country,
           name: poi.location.name,
         },
-        lastUpdate: poi.lastUpdate.toISOString(),
-        category: poi.category
-          ? {
-              id: poi.category.id,
-              name: poi.category.name,
-              icon: poi.category.icon,
-              color: poi.category.color,
-            }
-          : null,
+        lastUpdate: poi.lastUpdate.toISO(),
+        category: {
+          id: poi.category.id,
+          name: poi.category.name,
+          icon: poi.category.icon,
+          iconName: poi.category.iconName,
+          color: poi.category.color,
+        },
         openingHours:
           poi.openingHours?.map(hours => ({
             allDay: hours.allDay,
@@ -449,7 +447,7 @@ class DatabaseConnector {
             })),
           })) ?? null,
         temporarilyClosed: poi.temporarilyClosed,
-      })
+      }),
     )
     await this.writeFile(this.getContentPath('pois', context), JSON.stringify(jsonModels))
   }
@@ -481,13 +479,14 @@ class DatabaseConnector {
             postcode: jsonLocation.postcode,
             town: jsonLocation.town,
           }),
-          lastUpdate: moment(jsonObject.lastUpdate, moment.ISO_8601),
+          lastUpdate: DateTime.fromISO(jsonObject.lastUpdate),
           category: jsonObject.category
             ? new PoiCategoryModel({
                 id: jsonObject.category.id,
                 name: jsonObject.category.name,
                 color: jsonObject.category.color,
                 icon: jsonObject.category.icon,
+                iconName: jsonObject.category.iconName,
               })
             : null,
           openingHours:
@@ -500,7 +499,7 @@ class DatabaseConnector {
                     start: timeslot.start,
                     end: timeslot.end,
                   })),
-                })
+                }),
             ) ?? null,
           temporarilyClosed: jsonObject.temporarilyClosed,
         })
@@ -527,7 +526,7 @@ class DatabaseConnector {
         latitude: city.latitude,
         aliases: city.aliases,
         bounding_box: city.boundingBox,
-      })
+      }),
     )
     await this.writeFile(this.getCitiesPath(), JSON.stringify(jsonModels))
   }
@@ -552,8 +551,8 @@ class DatabaseConnector {
             longitude: jsonObject.longitude,
             latitude: jsonObject.latitude,
             aliases: jsonObject.aliases,
-            boundingBox: jsonObject.bounding_box ?? null,
-          })
+            boundingBox: jsonObject.bounding_box,
+          }),
       )
 
     return this.readFile(path, mapCityJson)
@@ -565,13 +564,13 @@ class DatabaseConnector {
         path: event.path,
         title: event.title,
         content: event.content,
-        last_update: event.lastUpdate.toISOString(),
+        last_update: event.lastUpdate.toISO(),
         thumbnail: event.thumbnail,
         available_languages: mapToObject(event.availableLanguages),
         excerpt: event.excerpt,
         date: {
-          start_date: event.date.startDate.toISOString(),
-          end_date: event.date.endDate.toISOString(),
+          start_date: event.date.startDate.toISO(),
+          end_date: event.date.endDate.toISO(),
           all_day: event.date.allDay,
         },
         location: event.location
@@ -595,7 +594,7 @@ class DatabaseConnector {
               full: event.featuredImage.full,
             }
           : null,
-      })
+      }),
     )
     await this.writeFile(this.getContentPath('events', context), JSON.stringify(jsonModels))
   }
@@ -621,11 +620,11 @@ class DatabaseConnector {
               })
             : null,
           availableLanguages,
-          lastUpdate: moment(jsonObject.last_update, moment.ISO_8601),
+          lastUpdate: DateTime.fromISO(jsonObject.last_update),
           excerpt: jsonObject.excerpt,
           date: new DateModel({
-            startDate: moment(jsonDate.start_date, moment.ISO_8601),
-            endDate: moment(jsonDate.end_date, moment.ISO_8601),
+            startDate: DateTime.fromISO(jsonDate.start_date),
+            endDate: DateTime.fromISO(jsonDate.end_date),
             allDay: jsonDate.all_day,
           }),
           location: jsonObject.location?.id
@@ -661,11 +660,10 @@ class DatabaseConnector {
             fileResourceCache,
             (entry: PageResourceCacheEntryJsonType): PageResourceCacheEntryStateType => ({
               filePath: entry.file_path,
-              lastUpdate: moment(entry.last_update, moment.ISO_8601),
               hash: entry.hash,
-            })
-          )
-        )
+            }),
+          ),
+        ),
       )
     return this.readFile(path, mapResourceCacheJson)
   }
@@ -680,11 +678,10 @@ class DatabaseConnector {
             fileResourceCache,
             (entry: PageResourceCacheEntryStateType): PageResourceCacheEntryJsonType => ({
               file_path: entry.filePath,
-              last_update: entry.lastUpdate.toISOString(),
               hash: entry.hash,
-            })
-          )
-        )
+            }),
+          ),
+        ),
     )
     await this.writeFile(path, JSON.stringify(json))
   }
@@ -704,10 +701,10 @@ class DatabaseConnector {
     const cachesToDelete = lastUsages
       .filter(it => it.city !== city) // Sort last usages chronological, from oldest to newest
       .sort((a, b) => {
-        if (a.lastUsage.isBefore(b.lastUsage)) {
+        if (a.lastUsage < b.lastUsage) {
           return -1
         }
-        return a.lastUsage.isSame(b.lastUsage) ? 0 : 1
+        return a.lastUsage.equals(b.lastUsage) ? 0 : 1
       }) // We only have to remove MAX_STORED_CITIES - 1 since we already filtered for the current resource cache
       .slice(0, -(MAX_STORED_CITIES - 1))
     await this.deleteCities(cachesToDelete.map(it => it.city))
@@ -761,13 +758,13 @@ class DatabaseConnector {
       if (!isRetry) {
         log(
           `An error occurred while trying to parse or map json '${jsonString}' from path '${path}', retrying.`,
-          'warning'
+          'warning',
         )
         return this.readFile(path, mapJson, true)
       }
       log(
         `An error occurred while trying to parse or map json '${jsonString}' from path '${path}', deleting file.`,
-        'warning'
+        'warning',
       )
       await deleteIfExists(path)
       throw e

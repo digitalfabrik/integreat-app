@@ -1,17 +1,18 @@
-import * as React from 'react'
-import { ReactElement } from 'react'
+import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
 
-import { NegativeFeedbackIcon, NoteIcon, PositiveFeedbackIcon } from '../assets'
+import { SadSmileyIcon, NoteIcon, HappySmileyIcon } from '../assets'
 import dimensions from '../constants/dimensions'
 import { SendingState } from './FeedbackContainer'
-import StyledSmallViewTip from './StyledSmallViewTip'
-import TextButton from './TextButton'
 import TextInput from './TextInput'
+import Icon from './base/Icon'
+import TextButton from './base/TextButton'
+import ToggleButton from './base/ToggleButton'
 
 export const Container = styled.div`
   display: flex;
+  flex: 1;
   max-height: 80vh;
   box-sizing: border-box;
   flex-direction: column;
@@ -53,35 +54,20 @@ const ButtonContainer = styled.div`
   display: flex;
   justify-content: center;
   padding: 16px;
-`
-
-const FeedbackButton = styled.button<{ $active: boolean | null }>`
-  border: none;
-  box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.25), 0px 1px 4px 1px rgba(0, 0, 0, 0.15);
-  border-radius: 18px;
-  width: 100px;
-  height: 80px;
-  background-color: ${props => (props.$active ? `${props.theme.colors.themeColor}` : 'transparent')};
-  &:not(:last-child) {
-    margin-right: 14px;
-  }
+  gap: 16px;
 `
 
 const NoteContainer = styled.div<{ showContainer: boolean }>`
   display: flex;
   margin-top: 12px;
   background-color: ${props => props.theme.colors.themeColor};
-  padding: 8px;
+  padding: 12px;
   opacity: ${props => (props.showContainer ? 1 : 0)};
 `
 
-const NoteText = styled(StyledSmallViewTip)`
-  margin-block-start: 0;
-  margin-left: 12px !important;
-`
-
-const FeedbackRatingTooltip = styled(StyledSmallViewTip)`
-  margin-bottom: 0 !important;
+const NoteText = styled.span`
+  margin-left: 12px;
+  font-size: ${props => props.theme.fonts.decorativeFontSizeSmall};
 `
 
 type FeedbackProps = {
@@ -119,22 +105,18 @@ const Feedback = (props: FeedbackProps): ReactElement => {
         <div>{t('description')}</div>
       </TextContainer>
       <ButtonContainer>
-        <FeedbackButton
-          type='button'
-          aria-label={t('useful')}
+        <ToggleButton
           onClick={() => onFeedbackChanged(isPositiveFeedback ? null : true)}
-          $active={isPositiveFeedback}>
-          <img src={PositiveFeedbackIcon} alt='' />
-          <FeedbackRatingTooltip>{t('useful')}</FeedbackRatingTooltip>
-        </FeedbackButton>
-        <FeedbackButton
-          type='button'
-          aria-label={t('notUseful')}
+          active={isPositiveFeedback === true}
+          icon={HappySmileyIcon}
+          text={t('useful')}
+        />
+        <ToggleButton
           onClick={() => onFeedbackChanged(isPositiveFeedback === false ? null : false)}
-          $active={isPositiveFeedback === false}>
-          <img src={NegativeFeedbackIcon} alt='' />
-          <FeedbackRatingTooltip>{t('notUseful')}</FeedbackRatingTooltip>
-        </FeedbackButton>
+          active={isPositiveFeedback === false}
+          icon={SadSmileyIcon}
+          text={t('notUseful')}
+        />
       </ButtonContainer>
       <TextContainer>
         <Description htmlFor='comment'>{t(description)}</Description>
@@ -160,7 +142,7 @@ const Feedback = (props: FeedbackProps): ReactElement => {
       )}
 
       <NoteContainer showContainer={sendFeedbackDisabled}>
-        <img src={NoteIcon} alt='' />
+        <Icon src={NoteIcon} />
         <NoteText>{t('note')}</NoteText>
       </NoteContainer>
 

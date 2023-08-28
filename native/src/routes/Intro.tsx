@@ -1,13 +1,13 @@
 import React, { ReactElement, useCallback, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { FlatList, useWindowDimensions, ViewToken } from 'react-native'
-import { useTheme } from 'styled-components'
 import styled, { css } from 'styled-components/native'
 
 import { IntroRouteType, LANDING_ROUTE } from 'api-client'
 
 import SlideContent, { SlideContentType } from '../components/SlideContent'
 import SlideFooter from '../components/SlideFooter'
+import Icon from '../components/base/Icon'
 import { NavigationProps, RouteProps } from '../constants/NavigationTypes'
 import buildConfig, { buildConfigAssets } from '../constants/buildConfig'
 import useNavigateToDeepLink from '../hooks/useNavigateToDeepLink'
@@ -46,6 +46,16 @@ const AppIcon = styled(buildConfigAssets().AppIcon)`
   ${ImageStyle};
 `
 
+const StyledAppIcon = styled(Icon)`
+  width: 40%;
+  height: 40%;
+`
+
+const StyledIcon = styled(Icon)`
+  height: 100%;
+  width: 60%;
+`
+
 type IntroProps = {
   route: RouteProps<IntroRouteType>
   navigation: NavigationProps<IntroRouteType>
@@ -55,7 +65,6 @@ const Intro = ({ route, navigation }: IntroProps): ReactElement => {
   const [currentSlide, setCurrentSlide] = useState(0)
   const { width } = useWindowDimensions()
   const { t } = useTranslation<['intro', 'settings']>(['intro', 'settings'])
-  const theme = useTheme()
   const flatListRef = useRef<FlatList>(null)
   const { deepLink } = route.params
   const navigateToDeepLink = useNavigateToDeepLink()
@@ -67,7 +76,7 @@ const Intro = ({ route, navigation }: IntroProps): ReactElement => {
       description: t('appDescription', {
         appName: buildConfig().appName,
       }),
-      Content: <AppIcon width='40%' height='40%' />,
+      Content: <StyledAppIcon Icon={AppIcon} />,
     },
   ]
   if (styledIcons) {
@@ -76,26 +85,26 @@ const Intro = ({ route, navigation }: IntroProps): ReactElement => {
         key: 'search',
         title: t('search'),
         description: t('searchDescription'),
-        Content: <styledIcons.Search height='100%' width='60%' />,
+        Content: <StyledIcon Icon={styledIcons.Search} />,
       },
       {
         key: 'events',
         title: t('events'),
         description: t('eventsDescription'),
-        Content: <styledIcons.Events height='100%' width='60%' />,
+        Content: <StyledIcon Icon={styledIcons.Events} />,
       },
       {
         key: 'offers',
         title: t('offers'),
         description: t('offersDescription'),
-        Content: <styledIcons.Offers height='100%' width='60%' />,
+        Content: <StyledIcon Icon={styledIcons.Offers} />,
       },
       {
         key: 'languageChange',
         title: t('languageChange'),
         description: t('languageChangeDescription'),
-        Content: <styledIcons.Language height='100%' width='60%' />,
-      }
+        Content: <StyledIcon Icon={styledIcons.Language} />,
+      },
     )
   }
 
@@ -119,7 +128,7 @@ const Intro = ({ route, navigation }: IntroProps): ReactElement => {
     })
   }, [])
 
-  const renderSlide = ({ item }: { item: SlideContentType }) => <SlideContent item={item} theme={theme} width={width} />
+  const renderSlide = ({ item }: { item: SlideContentType }) => <SlideContent item={item} width={width} />
 
   const onViewableItemsChanged = useCallback(({ viewableItems }: { viewableItems: Array<ViewToken> }) => {
     const viewableItem = viewableItems[0]
@@ -146,14 +155,7 @@ const Intro = ({ route, navigation }: IntroProps): ReactElement => {
         bounces={false}
         renderItem={renderSlide}
       />
-      <SlideFooter
-        slideCount={slides.length}
-        onDone={onDone}
-        currentSlide={currentSlide}
-        goToSlide={goToSlide}
-        theme={theme}
-        t={t}
-      />
+      <SlideFooter slideCount={slides.length} onDone={onDone} currentSlide={currentSlide} goToSlide={goToSlide} t={t} />
     </Container>
   )
 }

@@ -3,15 +3,15 @@ import styled from 'styled-components'
 
 import { UiDirectionType } from 'translations/src'
 
-import iconArrowBack from '../assets/IconArrowBack.svg'
-import iconArrowForward from '../assets/IconArrowForward.svg'
+import { ArrowBackIcon } from '../assets'
 import dimensions from '../constants/dimensions'
 import useCallbackRef from '../hooks/useCallbackRef'
 import useWindowDimensions from '../hooks/useWindowDimensions'
+import Icon from './base/Icon'
 
 type NavigationBarScrollContainerProps = {
   children: ReactNode
-  direction?: UiDirectionType
+  direction: UiDirectionType
   activeIndex: number
 }
 
@@ -19,13 +19,12 @@ const Container = styled.div`
   display: flex;
 `
 
-const Arrow = styled.img<{ direction?: string; visible: boolean }>`
-  width: 12px;
-  height: 10px;
+const Arrow = styled(Icon)<{ visible: boolean }>`
+  width: 16px;
+  height: 16px;
   padding: 0 8px;
   align-self: center;
   opacity: ${props => (props.visible ? 1 : 0)};
-  transform: ${props => (props.direction === 'rtl' ? 'scaleX(-1)' : '')};
 `
 
 const Button = styled.button`
@@ -72,7 +71,7 @@ const NavigationBarScrollContainer = ({
     (ref: RefObject<HTMLDivElement>) => {
       ref.current?.scroll({ left: getActiveItemScrollPosition(activeIndex) })
     },
-    [activeIndex]
+    [activeIndex],
   )
   const { ref, current: scrollContainer } = useCallbackRef(scrollToActiveItem)
   const scrollableWidth = scrollContainer ? scrollContainer.scrollWidth - scrollContainer.clientWidth : 0
@@ -102,11 +101,11 @@ const NavigationBarScrollContainer = ({
   return (
     <Container>
       <Button disabled={!showArrowLeft} onClick={scrollToStart}>
-        <Arrow src={iconArrowBack} direction={direction} visible={showArrowLeft} alt='' />
+        <Arrow src={ArrowBackIcon} visible={showArrowLeft} />
       </Button>
       {Content}
       <Button disabled={!showArrowRight} onClick={scrollToEnd}>
-        <Arrow src={iconArrowForward} direction={direction} visible={showArrowRight} alt='' />
+        <Arrow src={ArrowBackIcon} visible={showArrowRight} reverse />
       </Button>
     </Container>
   )

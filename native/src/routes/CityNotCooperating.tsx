@@ -1,10 +1,10 @@
 import Clipboard from '@react-native-clipboard/clipboard'
 import React, { ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Button } from 'react-native-elements'
-import { useTheme } from 'styled-components'
 import styled from 'styled-components/native'
 
+import Icon from '../components/base/Icon'
+import TextButton from '../components/base/TextButton'
 import buildConfig, { buildConfigAssets } from '../constants/buildConfig'
 
 const Container = styled.ScrollView`
@@ -52,11 +52,10 @@ const StepExplanation = styled.Text`
   padding-bottom: 4px;
 `
 
-const ButtonContainer = styled.View`
+const StyledButton = styled(TextButton)`
   z-index: 1;
   margin: 15px auto 0;
   width: 70%;
-  height: 40px;
 `
 
 const TemplateText = styled.Text`
@@ -66,18 +65,21 @@ const TemplateText = styled.Text`
   margin-bottom: 40px;
 `
 
-const CityNotCooperatingIcon = buildConfigAssets().CityNotCooperatingIcon
-const StyledCityNotCooperatingIcon = CityNotCooperatingIcon
-  ? styled(CityNotCooperatingIcon)`
-      alignself: center;
-    `
-  : null
+const StyledIcon = styled(Icon)`
+  align-self: center;
+  width: 50%;
+  height: 20%;
+`
 
-const CityNotCooperating = (): ReactElement => {
+const CityNotCooperating = (): ReactElement | null => {
   const { t } = useTranslation('cityNotCooperating')
   const [isCopied, setIsCopied] = useState<boolean>(false)
-  const theme = useTheme()
-  const template = buildConfig().featureFlags.cityNotCooperatingTemplate!
+  const template = buildConfig().featureFlags.cityNotCooperatingTemplate
+  const CityNotCooperatingIcon = buildConfigAssets().CityNotCooperatingIcon
+
+  if (!template) {
+    return null
+  }
 
   const copyToClipboard = () => {
     Clipboard.setString(template)
@@ -89,7 +91,7 @@ const CityNotCooperating = (): ReactElement => {
       <Heading>{t('callToAction')}</Heading>
 
       <Description>{t('explanation')}</Description>
-      {StyledCityNotCooperatingIcon && <StyledCityNotCooperatingIcon width='50%' />}
+      {CityNotCooperatingIcon && <StyledIcon Icon={CityNotCooperatingIcon} />}
       <ListHeading>{t('whatToDo')}</ListHeading>
       <ListItem>
         <StepNumber>1</StepNumber>
@@ -100,19 +102,7 @@ const CityNotCooperating = (): ReactElement => {
         <StepExplanation>{t('sendText')}</StepExplanation>
       </ListItem>
 
-      <ButtonContainer>
-        <Button
-          onPress={copyToClipboard}
-          title={isCopied ? t('common:copied') : t('copyText')}
-          buttonStyle={{
-            backgroundColor: theme.colors.themeColor,
-          }}
-          titleStyle={{
-            color: theme.colors.textColor,
-            fontFamily: theme.fonts.native.contentFontRegular,
-          }}
-        />
-      </ButtonContainer>
+      <StyledButton onPress={copyToClipboard} text={isCopied ? t('common:copied') : t('copyText')} />
       <TemplateText>{template}</TemplateText>
     </Container>
   )

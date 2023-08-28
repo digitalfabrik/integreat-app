@@ -1,6 +1,5 @@
 import NetInfo from '@react-native-community/netinfo'
 import { flatten, mapValues, pickBy, reduce, values } from 'lodash'
-import moment from 'moment'
 
 import { CategoriesMapModel, EventModel, ExtendedPageModel, PoiModel } from 'api-client/src'
 
@@ -53,7 +52,7 @@ const loadResourceCache = async ({
   }
 
   const fetchMap = resourceURLFinder.buildFetchMap(input, (url, urlHash) =>
-    buildResourceFilePath(url, cityCode, urlHash)
+    buildResourceFilePath(url, cityCode, urlHash),
   )
   resourceURLFinder.finalize()
 
@@ -64,7 +63,7 @@ const loadResourceCache = async ({
       acc[value.filePath] = value.url
       return acc
     },
-    {}
+    {},
   )
 
   const fetcherModule = new FetcherModule()
@@ -81,15 +80,14 @@ const loadResourceCache = async ({
         if (downloadResult) {
           acc[downloadResult.url] = {
             filePath,
-            lastUpdate: moment(downloadResult.lastUpdate),
             hash: fetchMapTarget.urlHash,
           }
         }
 
         return acc
       },
-      {}
-    )
+      {},
+    ),
   )
   await dataContainer.setResourceCache(cityCode, languageCode, resourceCache)
 }

@@ -2,9 +2,7 @@ import React, { ReactElement } from 'react'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 
-import { UiDirectionType } from 'translations/src'
-
-import IconWithUiDirection from './IconWithUiDirection'
+import Icon from './base/Icon'
 
 const StyledLink = styled(Link)`
   display: flex;
@@ -20,25 +18,29 @@ const StyledLink = styled(Link)`
 `
 const StyledSpan = StyledLink.withComponent('span')
 
+const StyledIcon = styled(Icon)`
+  width: 24px;
+  height: 24px;
+`
+
 type KebabActionItemLinkProps = {
   href?: string
   text: string
   iconSrc: string
-  direction?: UiDirectionType
 }
 
-const KebabActionItemLink = ({ href, text, iconSrc, direction }: KebabActionItemLinkProps): ReactElement => {
+const KebabActionItemLink = ({ href, text, iconSrc }: KebabActionItemLinkProps): ReactElement => {
   if (href) {
     return (
       <StyledLink to={href} aria-label={text} dir='auto' data-testid='kebab-action-item'>
-        <IconWithUiDirection alt='' src={iconSrc} width='24px' height='24px' direction={direction} />
+        <StyledIcon src={iconSrc} />
         <span>{text}</span>
       </StyledLink>
     )
   }
   return (
     <StyledSpan aria-label={text} dir='auto' style={{ flex: 1 }} data-testid='kebab-action-item'>
-      <IconWithUiDirection alt='' src={iconSrc} width='24px' height='24px' direction={direction} />
+      <StyledIcon src={iconSrc} />
       <span>{text}</span>
     </StyledSpan>
   )

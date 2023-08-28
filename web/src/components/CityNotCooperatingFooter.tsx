@@ -6,6 +6,7 @@ import styled from 'styled-components'
 import { CITY_NOT_COOPERATING_ROUTE, pathnameFromRouteInformation } from 'api-client/src'
 
 import buildConfig from '../constants/buildConfig'
+import Icon from './base/Icon'
 
 const FooterContainer = styled.div`
   background-color: ${props => props.theme.colors.backgroundAccentColor};
@@ -16,7 +17,7 @@ const FooterContainer = styled.div`
   border-bottom: 2px solid ${props => props.theme.colors.footerLineColor};
 `
 
-const Icon = styled.img`
+const StyledIcon = styled(Icon)`
   width: calc(30px + 8vw);
   height: calc(30px + 8vw);
   flex-shrink: 0;
@@ -41,14 +42,15 @@ type CityNotCooperatingFooterProps = {
 
 const CityNotCooperatingFooter = ({ languageCode }: CityNotCooperatingFooterProps): ReactElement | null => {
   const { t } = useTranslation('landing')
+  const CityNotCooperatingIcon = buildConfig().icons.cityNotCooperating
 
-  if (!buildConfig().featureFlags.cityNotCooperating) {
+  if (!buildConfig().featureFlags.cityNotCooperating || !CityNotCooperatingIcon) {
     return null
   }
 
   return (
     <FooterContainer>
-      <Icon alt='' src={buildConfig().icons.cityNotCooperating!} />
+      <StyledIcon src={CityNotCooperatingIcon} />
       <Question>{t('cityNotFound')}</Question>
       <Button to={pathnameFromRouteInformation({ route: CITY_NOT_COOPERATING_ROUTE, ...{ languageCode } })}>
         {t('clickHere')}

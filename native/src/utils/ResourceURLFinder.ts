@@ -49,7 +49,7 @@ export default class ResourceURLFinder {
       },
       {
         decodeEntities: true,
-      }
+      },
     )
   }
 
@@ -95,7 +95,7 @@ export default class ResourceURLFinder {
         })
         return newFetchMap
       },
-      {}
+      {},
     )
   }
 }

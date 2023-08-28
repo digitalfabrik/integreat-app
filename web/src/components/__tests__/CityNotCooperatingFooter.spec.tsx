@@ -14,13 +14,10 @@ jest.mock('../../constants/buildConfig', () =>
     icons: {
       cityNotCooperating: 'test',
     },
-  }))
+  })),
 )
-jest.mock('react-i18next', () => ({
-  useTranslation: () => ({
-    t: (key: string) => key,
-  }),
-}))
+jest.mock('react-i18next')
+jest.mock('react-inlinesvg')
 
 describe('CityNotCooperatingFooter', () => {
   beforeEach(() => {
@@ -28,7 +25,7 @@ describe('CityNotCooperatingFooter', () => {
   })
   it('should render text and button', () => {
     const { getByText } = renderWithRouterAndTheme(<CityNotCooperatingFooter languageCode='de' />)
-    expect(getByText('cityNotFound')).toBeDefined()
-    expect(getByText('clickHere')).toBeDefined()
+    expect(getByText('landing:cityNotFound')).toBeDefined()
+    expect(getByText('landing:clickHere')).toBeDefined()
   })
 })

@@ -4,6 +4,7 @@ import React from 'react'
 import { renderWithTheme } from '../../testing/render'
 import FeedbackSearch from '../FeedbackSearch'
 
+jest.mock('react-inlinesvg')
 jest.mock('react-i18next')
 
 describe('FeedbackSearch', () => {
@@ -12,7 +13,7 @@ describe('FeedbackSearch', () => {
 
   it('should open FeedbackSection on button click', () => {
     const { queryByText, getByRole } = renderWithTheme(
-      <FeedbackSearch cityCode={cityCode} languageCode={languageCode} query='ab' resultsFound />
+      <FeedbackSearch cityCode={cityCode} languageCode={languageCode} query='ab' resultsFound />,
     )
     const button = getByRole('button', { name: 'feedback:informationNotFound' })
     expect(queryByText('feedback:wantedInformation')).toBeNull()
