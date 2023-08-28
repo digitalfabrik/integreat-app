@@ -210,7 +210,7 @@ const Header = ({
     if (route.name === POIS_ROUTE) {
       const poisRouteParams = route.params as RoutesParamsType[PoisRouteType]
       if (poisRouteParams.slug || poisRouteParams.multipoi) {
-        return t('pois')
+        return t('locations')
       }
     }
 

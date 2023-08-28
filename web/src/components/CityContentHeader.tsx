@@ -140,10 +140,10 @@ const CityContentHeader = ({
     if (isPoisVisible) {
       items.push(
         <HeaderNavigationItem
-          key='pois'
+          key='locations'
           href={poisPath}
           active={route === POIS_ROUTE}
-          text={t('pois')}
+          text={t('locations')}
           icon={POIsIcon}
         />,
       )
