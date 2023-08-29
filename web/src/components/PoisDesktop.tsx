@@ -29,11 +29,12 @@ const PanelContainer = styled.article`
   height: 100%;
   display: flex;
   flex-direction: column;
+  width: 332px;
+  min-width: 332px;
 `
 
 const ListViewWrapper = styled.div<{ panelHeights: number; bottomBarHeight: number }>`
-  width: 300px;
-  padding: 0 clamp(16px, 1.4vh, 32px);
+  padding: 16px;
   overflow: auto;
   ${({ panelHeights, bottomBarHeight }) => `height: calc(100vh - ${panelHeights}px - ${bottomBarHeight}px);`};
 `
@@ -74,6 +75,8 @@ type PoisDesktopProps = {
   slug: string | undefined
   mapViewport?: MapViewViewport
   setMapViewport: (mapViewport: MapViewViewport) => void
+  MapOverlay: ReactElement
+  PanelContent?: ReactElement
 }
 
 const nextPoiIndex = (step: 1 | -1, arrayLength: number, currentIndex: number): number => {
@@ -98,6 +101,8 @@ const PoisDesktop = ({
   slug,
   mapViewport,
   setMapViewport,
+  MapOverlay,
+  PanelContent: PanelContentProp,
 }: PoisDesktopProps): ReactElement => {
   const { t } = useTranslation('pois')
   const [scrollOffset, setScrollOffset] = useState<number>(0)
@@ -141,43 +146,48 @@ const PoisDesktop = ({
     }
   }, [currentFeatureOnMap, currentPoi, scrollOffset])
 
+  const PanelContent = (
+    <>
+      <ListViewWrapper
+        ref={listRef}
+        panelHeights={panelHeights}
+        bottomBarHeight={currentPoi ? dimensions.poiDetailNavigation : dimensions.toolbarHeight}>
+        {currentFeatureOnMap ? (
+          <GoBack goBack={() => selectGeoJsonPoiInList(null)} text={t('detailsHeader')} />
+        ) : (
+          <ListHeader>{t('listTitle')}</ListHeader>
+        )}
+
+        {currentPoi ? (
+          <PoiDetails
+            poi={currentPoi}
+            feature={currentPoi.getFeature(userLocation)}
+            direction={direction}
+            toolbar={toolbar}
+          />
+        ) : (
+          <>{poiList}</>
+        )}
+      </ListViewWrapper>
+      {currentPoi && features.length > 0 ? (
+        <PoiPanelNavigation switchPoi={switchPoi} />
+      ) : (
+        <ToolbarContainer>{toolbar}</ToolbarContainer>
+      )}
+    </>
+  )
+
   return (
     <>
-      <PanelContainer>
-        <ListViewWrapper
-          ref={listRef}
-          panelHeights={panelHeights}
-          bottomBarHeight={currentPoi ? dimensions.poiDetailNavigation : dimensions.toolbarHeight}>
-          {currentFeatureOnMap ? (
-            <GoBack goBack={() => selectGeoJsonPoiInList(null)} text={t('detailsHeader')} />
-          ) : (
-            <ListHeader>{t('listTitle')}</ListHeader>
-          )}
-
-          {currentPoi ? (
-            <PoiDetails
-              poi={currentPoi}
-              feature={currentPoi.getFeature(userLocation)}
-              direction={direction}
-              toolbar={toolbar}
-            />
-          ) : (
-            <>{poiList}</>
-          )}
-        </ListViewWrapper>
-        {currentPoi && features.length > 0 ? (
-          <PoiPanelNavigation switchPoi={switchPoi} />
-        ) : (
-          <ToolbarContainer>{toolbar}</ToolbarContainer>
-        )}
-      </PanelContainer>
+      <PanelContainer>{PanelContentProp ?? PanelContent}</PanelContainer>
       <MapView
         viewport={mapViewport}
         setViewport={setMapViewport}
         selectFeature={selectFeatureOnMap}
         featureCollection={embedInCollection(features)}
         currentFeature={currentFeatureOnMap}
-        languageCode={languageCode}>
+        languageCode={languageCode}
+        Overlay={MapOverlay}>
         <NavigationControl showCompass={false} position={direction === 'rtl' ? 'bottom-left' : 'bottom-right'} />
         {/* To use geolocation in a development build you have to start the dev server with "yarn start --https" */}
         <GeolocateControl positionOptions={{ enableHighAccuracy: true }} trackUserLocation position='bottom-right' />

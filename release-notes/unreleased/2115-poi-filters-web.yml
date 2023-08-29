@@ -1,0 +1,5 @@
+issue_key: 2115
+show_in_stores: true
+platforms:
+  - web
+en: Places can now be filtered by category and opening hours.
