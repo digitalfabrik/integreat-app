@@ -66,7 +66,6 @@
     "accordion-collapse-react-native": "^1.1.1",
     "api-client": "0.0.1",
     "build-configs": "0.0.1",
-    "events": "^3.3.0",
     "htmlparser2": "^9.0.0",
     "i18next": "^20.6.1",
     "lodash": "^4.17.21",
