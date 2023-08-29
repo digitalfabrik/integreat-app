@@ -1,6 +1,6 @@
+import { GeolocateControl } from 'maplibre-gl'
 import React, { ReactElement, useCallback, useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { GeolocateControl } from 'maplibre-gl'
 import styled, { css } from 'styled-components'
 
 import {
@@ -26,7 +26,7 @@ import PoiDetails from './PoiDetails'
 import PoiListItem from './PoiListItem'
 import Icon from './base/Icon'
 
-const geolocatorTopOffset = 40
+const geolocatorTopOffset = 10
 
 const ListContainer = styled.div`
   padding: 0 30px;
@@ -62,7 +62,8 @@ const StyledIcon = styled(Icon)`
   color: ${props => props.theme.colors.backgroundColor};
 `
 
-const GeoLocateContainer = styled.div<{ isCurrentPositionVisible: boolean; direction: string }>`
+const GeoLocateContainer = styled.div<{ height: number; direction: string }>`
+  --max-icon-height: calc(${props => getSnapPoints(props.height)[1]}px + ${geolocatorTopOffset}px);
   position: absolute;
   ${props =>
     props.direction === 'ltr'
@@ -72,15 +73,7 @@ const GeoLocateContainer = styled.div<{ isCurrentPositionVisible: boolean; direc
       : css`
           left: 10px;
         `};
-  top: -${geolocatorTopOffset}px;
-  ${props =>
-    props.isCurrentPositionVisible
-      ? css`
-          transform: translateY(${geolocatorTopOffset}px);
-          opacity: 0;
-        `
-      : ''};
-  transition: all 0.2s ease-out;
+  bottom: min(calc(var(--rsbs-overlay-h, 0) + ${geolocatorTopOffset}px), var(--max-icon-height));
 `
 
 type PoisMobileProps = {
@@ -169,8 +162,8 @@ const PoisMobile = ({
         positionOptions: { enableHighAccuracy: true },
         trackUserLocation: true,
       })
-      mapViewRef.addGeolocatePosition(geolocatePosition.current, 'geolocate')
       mapViewRef.setGeocontrol('geolocate', geolocate)
+      geolocatePosition.current.appendChild(geolocate._container)
     }
   }, [mapViewRef])
 
@@ -201,13 +194,8 @@ const PoisMobile = ({
         toolbar={toolbar}
         ref={sheetRef}
         setBottomActionSheetHeight={setBottomActionSheetHeight}
-        direction={direction}>
-        <GeoLocateContainer
-          id='geolocate'
-          direction={direction}
-          ref={geolocatePosition}
-          isCurrentPositionVisible={bottomActionSheetHeight >= getSnapPoints(height)[2]}
-        />
+        direction={direction}
+        sibling={<GeoLocateContainer id='geolocate' direction={direction} ref={geolocatePosition} height={height} />}>
         <GoBackContainer hidden={!isBottomActionSheetFullScreen}>
           <GoBack goBack={() => selectGeoJsonPoiInList(null)} viewportSmall text={t('detailsHeader')} />
         </GoBackContainer>
