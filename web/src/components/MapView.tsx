@@ -50,7 +50,7 @@ type MapViewProps = {
 type MapCursorType = 'grab' | 'auto' | 'pointer'
 
 export type MapViewRef = {
-  setGeocontrol: (position: string, control: mapLibreGl.IControl) => void
+  setGeocontrol: (control: mapLibreGl.IControl) => void
 }
 
 const MapView = forwardRef(
@@ -76,7 +76,7 @@ const MapView = forwardRef(
     useImperativeHandle(
       ref,
       () => ({
-        setGeocontrol: (position: string, control: mapLibreGl.IControl) => mapRef?.addControl(control),
+        setGeocontrol: (control: mapLibreGl.IControl) => mapRef?.addControl(control),
       }),
       [mapRef],
     )
