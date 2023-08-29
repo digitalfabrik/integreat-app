@@ -43,9 +43,6 @@ const GoBackContainer = styled.div<{ hidden: boolean }>`
 `
 
 const BackNavigation = styled.div<{ direction: string }>`
-  position: absolute;
-  top: 10px;
-  ${props => (props.direction === 'rtl' ? `right: 10px;` : `left: 10px;`)}
   background-color: ${props => props.theme.colors.textDisabledColor};
   height: 28px;
   width: 28px;
@@ -86,6 +83,7 @@ type PoisMobileProps = {
   slug: string | undefined
   mapViewport?: MapViewViewport
   setMapViewport: (mapViewport: MapViewViewport) => void
+  MapOverlay: ReactElement
 }
 
 const PoisMobile = ({
@@ -98,6 +96,7 @@ const PoisMobile = ({
   slug,
   mapViewport,
   setMapViewport,
+  MapOverlay,
 }: PoisMobileProps): ReactElement => {
   const { t } = useTranslation('pois')
   const [bottomActionSheetHeight, setBottomActionSheetHeight] = useState(0)
@@ -177,18 +176,23 @@ const PoisMobile = ({
         changeSnapPoint={changeSnapPoint}
         featureCollection={embedInCollection(features)}
         currentFeature={currentFeatureOnMap}
-        languageCode={languageCode}>
-        {currentFeatureOnMap && (
-          <BackNavigation
-            onClick={() => handleSelectFeatureOnMap(null)}
-            role='button'
-            tabIndex={0}
-            onKeyPress={() => handleSelectFeatureOnMap(null)}
-            direction={direction}>
-            <StyledIcon src={ArrowBackspaceIcon} directionDependent />
-          </BackNavigation>
-        )}
-      </MapView>
+        languageCode={languageCode}
+        Overlay={
+          <>
+            {currentFeatureOnMap && (
+              <BackNavigation
+                onClick={() => handleSelectFeatureOnMap(null)}
+                role='button'
+                tabIndex={0}
+                onKeyPress={() => handleSelectFeatureOnMap(null)}
+                direction={direction}>
+                <StyledIcon src={ArrowBackspaceIcon} directionDependent />
+              </BackNavigation>
+            )}
+            {MapOverlay}
+          </>
+        }
+      />
       <BottomActionSheet
         title={!currentFeatureOnMap ? t('listTitle') : undefined}
         toolbar={toolbar}
@@ -196,9 +200,11 @@ const PoisMobile = ({
         setBottomActionSheetHeight={setBottomActionSheetHeight}
         direction={direction}
         sibling={<GeocontrolContainer id='geolocate' direction={direction} ref={geocontrolPosition} height={height} />}>
-        <GoBackContainer hidden={!isBottomActionSheetFullScreen}>
-          <GoBack goBack={() => selectGeoJsonPoiInList(null)} viewportSmall text={t('detailsHeader')} />
-        </GoBackContainer>
+        {currentFeatureOnMap && (
+          <GoBackContainer hidden={!isBottomActionSheetFullScreen}>
+            <GoBack goBack={() => selectGeoJsonPoiInList(null)} viewportSmall text={t('detailsHeader')} />
+          </GoBackContainer>
+        )}
         <ListContainer>
           {currentPoi ? (
             <PoiDetails poi={currentPoi} feature={currentPoi.getFeature(userLocation)} direction={direction} />

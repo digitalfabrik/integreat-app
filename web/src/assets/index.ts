@@ -9,9 +9,11 @@ import BathroomIcon from '../../../assets/icons/bathroom.svg'
 import BedIcon from '../../../assets/icons/bed.svg'
 import CalendarIcon from '../../../assets/icons/calendar.svg'
 import CategoriesIcon from '../../../assets/icons/categories.svg'
+import ClockIcon from '../../../assets/icons/clock.svg'
 import CloseIcon from '../../../assets/icons/close.svg'
 import CopyIcon from '../../../assets/icons/copy.svg'
 import DoneIcon from '../../../assets/icons/done.svg'
+import EditLocationIcon from '../../../assets/icons/edit-location.svg'
 import EuroIcon from '../../../assets/icons/euro.svg'
 import ExternalLinkIcon from '../../../assets/icons/external-link.svg'
 import FacebookIcon from '../../../assets/icons/facebook.svg'
@@ -51,9 +53,11 @@ export {
   BedIcon,
   CalendarIcon,
   CategoriesIcon,
+  ClockIcon,
   CloseIcon,
   CopyIcon,
   DoneIcon,
+  EditLocationIcon,
   EuroIcon,
   EventThumbnailPlaceholder1,
   EventThumbnailPlaceholder2,

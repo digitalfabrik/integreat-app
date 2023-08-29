@@ -34,6 +34,17 @@ const MapContainer = styled.div`
   width: 100%;
   display: flex;
   justify-content: center;
+  position: relative;
+`
+
+const OverlayContainer = styled.div`
+  display: flex;
+  padding: 12px 8px;
+  flex: 1;
+  z-index: 1;
+  position: absolute;
+  top: 0;
+  gap: 8px;
 `
 
 type MapViewProps = {
@@ -42,9 +53,10 @@ type MapViewProps = {
   selectFeature: (feature: MapFeature | null, restoreScrollPosition: boolean) => void
   changeSnapPoint?: (snapPoint: number) => void
   languageCode: string
-  children: ReactNode
+  children?: ReactNode
   viewport?: MapViewViewport
   setViewport: (mapViewport: MapViewViewport) => void
+  Overlay?: ReactElement
 }
 
 type MapCursorType = 'grab' | 'auto' | 'pointer'
@@ -64,6 +76,7 @@ const MapView = forwardRef(
       setViewport,
       languageCode,
       children,
+      Overlay,
     }: MapViewProps,
     ref: ForwardedRef<MapViewRef>,
   ): ReactElement => {
@@ -86,8 +99,7 @@ const MapView = forwardRef(
       // This is needed because on initial render the ref is null such that flyTo is not possible.
       // https://reactjs.org/docs/hooks-faq.html#how-can-i-measure-a-dom-node
       if (node) {
-        const ref = node.getMap() as unknown as mapLibreGl.Map
-        setMapRef(ref)
+        setMapRef(node.getMap() as unknown as mapLibreGl.Map)
       }
     }, [])
 
@@ -165,6 +177,7 @@ const MapView = forwardRef(
           onClick={onSelectFeature}
           onTouchMove={() => (changeSnapPoint ? changeSnapPoint(0) : null)}
           attributionControl={false}>
+          <OverlayContainer>{Overlay}</OverlayContainer>
           {children}
           <Source
             id='location-pois'
