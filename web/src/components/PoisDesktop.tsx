@@ -189,7 +189,6 @@ const PoisDesktop = ({
         languageCode={languageCode}
         Overlay={MapOverlay}>
         <NavigationControl showCompass={false} position={direction === 'rtl' ? 'bottom-left' : 'bottom-right'} />
-        {/* To use geolocation in a development build you have to start the dev server with "yarn start --https" */}
         <GeolocateControl
           positionOptions={{ enableHighAccuracy: true }}
           trackUserLocation
