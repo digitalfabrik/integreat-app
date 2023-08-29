@@ -17,7 +17,7 @@ const Header = styled.div<{ small: boolean }>`
   flex-direction: ${props => (props.small ? 'row-reverse' : 'row')};
   justify-content: space-between;
   font-size: ${props => props.theme.fonts.subTitleFontSize};
-  font-weight: 700;
+  font-weight: bold;
 
   ${props =>
     props.small &&

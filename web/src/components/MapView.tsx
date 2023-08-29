@@ -33,11 +33,8 @@ const OverlayContainer = styled.div`
   padding: 12px 8px;
   flex: 1;
   z-index: 1;
-  flex-direction: row;
   position: absolute;
   top: 0;
-  left: 0;
-  right: 0;
   gap: 8px;
 `
 

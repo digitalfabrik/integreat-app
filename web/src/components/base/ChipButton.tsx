@@ -6,7 +6,6 @@ import Icon from './Icon'
 
 const StyledButton = styled.button`
   display: flex;
-  flex-direction: row;
   height: 30px;
   padding: 4px 8px;
   align-items: center;
@@ -15,8 +14,8 @@ const StyledButton = styled.button`
   gap: 4px;
   background-color: ${props => props.theme.colors.backgroundColor};
   color: ${props => props.theme.colors.textSecondaryColor};
-  font-family: ${props => props.theme.fonts.native.contentFontBold};
-  font-size: 14px;
+  font-family: ${props => props.theme.fonts.web.contentFont};
+  font-size: 0.875rem;
   border: none;
   cursor: pointer;
 `
@@ -31,12 +30,13 @@ type ChipButtonProps = {
   text: string
   icon: string
   onClick: () => void
+  ariaLabel?: string
   closeButton?: boolean
   className?: string
 }
 
-const ChipButton = ({ text, onClick, className, ...props }: ChipButtonProps): ReactElement => (
-  <StyledButton type='button' aria-label={text} onClick={onClick} className={className}>
+const ChipButton = ({ text, onClick, ariaLabel, className, ...props }: ChipButtonProps): ReactElement => (
+  <StyledButton type='button' aria-label={ariaLabel ?? text} onClick={onClick} className={className}>
     <StyledIcon src={props.icon} />
     <div>{text}</div>
     {props.closeButton && <StyledIcon src={CloseIcon} />}
