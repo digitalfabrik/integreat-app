@@ -8,6 +8,7 @@ import PoiFiltersModal from '../PoiFiltersModal'
 
 jest.mock('styled-components')
 jest.mock('react-i18next')
+jest.mock('react-native-svg')
 
 describe('PoiFiltersModal', () => {
   beforeEach(jest.clearAllMocks)
