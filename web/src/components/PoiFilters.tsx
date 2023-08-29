@@ -20,7 +20,7 @@ const Container = styled.div`
 `
 
 const SubTitle = styled.div`
-  font-size: 14px;
+  font-size: 0.875rem;
   color: ${props => props.theme.colors.textColor};
   font-family: ${props => props.theme.fonts.web.decorativeFont};
   font-weight: bold;
@@ -35,28 +35,14 @@ const Section = styled.div`
 
 const Row = styled.div`
   display: flex;
-  flex-direction: row;
-`
-
-const StyledText = styled.div`
-  font-size: 14px;
-  color: ${props => props.theme.colors.textColor};
-  font-family: ${props => props.theme.fonts.web.decorativeFont};
-  padding: 4px;
 `
 
 const SortingHint = styled.div`
   align-self: flex-end;
-  font-size: 12px;
+  font-size: 0.75rem;
   color: ${props => props.theme.colors.textColor};
   font-family: ${props => props.theme.fonts.native.decorativeFontRegular};
   padding: 0 4px;
-`
-
-const FlexEnd = styled.div`
-  display: flex;
-  flex: 1;
-  justify-content: flex-end;
 `
 
 const TileRow = styled.div`
@@ -106,10 +92,11 @@ const PoiFilters = ({
           <SubTitle>{t('openingHours')}</SubTitle>
           <Row>
             <StyledIcon src={ClockIcon} />
-            <StyledText>{t('onlyCurrentlyOpen')}</StyledText>
-            <FlexEnd>
-              <Checkbox checked={currentlyOpenFilter} setChecked={setCurrentlyOpenFilter} />
-            </FlexEnd>
+            <Checkbox
+              checked={currentlyOpenFilter}
+              setChecked={setCurrentlyOpenFilter}
+              label={t('onlyCurrentlyOpen')}
+            />
           </Row>
         </Section>
         <Section>

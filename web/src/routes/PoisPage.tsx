@@ -197,11 +197,18 @@ const PoisPage = ({ cityCode, languageCode, city, pathname }: CityRouteProps): R
     <>
       <ChipButton text={t('adjustFilters')} icon={EditLocationIcon} onClick={() => setShowFilterSelection(it => !it)} />
       {poiCurrentlyOpenFilter && (
-        <ChipButton text={t('opened')} icon={ClockIcon} onClick={() => setPoiCurrentlyOpenFilter(false)} closeButton />
+        <ChipButton
+          text={t('opened')}
+          ariaLabel={t('clearFilter', { filter: t('opened') })}
+          icon={ClockIcon}
+          onClick={() => setPoiCurrentlyOpenFilter(false)}
+          closeButton
+        />
       )}
       {!!poiCategoryFilter && (
         <ChipButton
           text={poiCategoryFilter.name}
+          ariaLabel={t('clearFilter', { filter: poiCategoryFilter.name })}
           icon={poiCategoryFilter.icon}
           onClick={() => setPoiCategoryFilter(null)}
           closeButton
