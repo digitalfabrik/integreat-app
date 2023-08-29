@@ -3,6 +3,7 @@ import { StyleProp, ViewStyle } from 'react-native'
 import styled from 'styled-components/native'
 
 import { CloseIcon } from '../../assets'
+import Icon from './Icon'
 import Pressable from './Pressable'
 import Text from './Text'
 
@@ -31,6 +32,12 @@ const Spacer = styled.View`
   width: 4px;
 `
 
+const StyledIcon = styled(Icon)`
+  color: ${props => props.theme.colors.textSecondaryColor};
+  width: 16px;
+  height: 16px;
+`
+
 type TextButtonProps = {
   text: string
   onPress: () => Promise<void> | void
@@ -39,14 +46,14 @@ type TextButtonProps = {
   style?: StyleProp<ViewStyle>
 }
 
-const ChipButton = ({ text, onPress, Icon, closeButton, style }: TextButtonProps): ReactElement => (
+const ChipButton = ({ text, onPress, Icon: IconProp, closeButton, style }: TextButtonProps): ReactElement => (
   <StyledPressable onPress={onPress} style={style}>
-    <IconContainer>{Icon}</IconContainer>
+    <IconContainer>{IconProp}</IconContainer>
     <Spacer />
     <StyledText>{text}</StyledText>
     {closeButton && (
       <IconContainer>
-        <CloseIcon />
+        <StyledIcon Icon={CloseIcon} />
       </IconContainer>
     )}
   </StyledPressable>

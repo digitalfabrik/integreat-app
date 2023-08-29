@@ -4,6 +4,7 @@ import styled from 'styled-components/native'
 
 import useSnackbar from '../hooks/useSnackbar'
 import openExternalUrl from '../utils/openExternalUrl'
+import Icon from './base/Icon'
 import Pressable from './base/Pressable'
 import Text from './base/Text'
 
@@ -24,11 +25,11 @@ type PoiDetailRowProps = {
   Icon: React.JSXElementConstructor<SvgProps>
 }
 
-const PoiDetailRow = ({ externalUrl, text, accessibilityLabel, Icon }: PoiDetailRowProps): ReactElement => {
+const PoiDetailRow = ({ externalUrl, text, accessibilityLabel, Icon: IconProp }: PoiDetailRowProps): ReactElement => {
   const showSnackbar = useSnackbar()
   return (
-    <Container onPress={() => openExternalUrl(externalUrl, showSnackbar)}>
-      <Icon accessibilityLabel={accessibilityLabel} />
+    <Container onPress={() => openExternalUrl(externalUrl, showSnackbar)} accessibilityLabel={accessibilityLabel}>
+      <Icon Icon={IconProp} />
       <StyledText>{text}</StyledText>
     </Container>
   )

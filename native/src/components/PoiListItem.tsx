@@ -4,7 +4,7 @@ import styled from 'styled-components/native'
 
 import { GeoJsonPoi } from 'api-client'
 
-import Placeholder from '../assets/PoiPlaceholderThumbnail.jpg'
+import { PoiThumbnailPlaceholder } from '../assets'
 import { contentDirection } from '../constants/contentDirection'
 import SimpleImage from './SimpleImage'
 import Pressable from './base/Pressable'
@@ -56,7 +56,7 @@ type PoiListItemProps = {
 }
 
 const PoiListItem = ({ poi, language, navigateToPoi, t }: PoiListItemProps) => {
-  const thumbnail = poi.thumbnail ?? Placeholder
+  const thumbnail = poi.thumbnail ?? PoiThumbnailPlaceholder
   return (
     <StyledPressable onPress={navigateToPoi} language={language}>
       <Thumbnail source={thumbnail} resizeMode='cover' />

@@ -12,6 +12,7 @@ import {
   clusterRadius,
   closerDetailZoom,
 } from 'api-client'
+import { config } from 'translations'
 
 import { clusterCountLayer, clusterLayer, clusterProperties, markerLayer } from '../constants/layers'
 import useWindowDimensions from '../hooks/useWindowDimensions'
@@ -46,6 +47,7 @@ const MapView = ({
   currentFeature,
   viewport,
   setViewport,
+  languageCode,
   children,
 }: MapViewProps): ReactElement => {
   const [cursor, setCursor] = useState<MapCursorType>('auto')
@@ -149,7 +151,7 @@ const MapView = ({
           <Layer {...clusterCountLayer} />
           <Layer {...markerLayer(currentFeature)} />
         </Source>
-        <MapAttribution initialExpanded={!viewportSmall} />
+        <MapAttribution initialExpanded={!viewportSmall} direction={config.getScriptDirection(languageCode)} />
       </Map>
     </MapContainer>
   )

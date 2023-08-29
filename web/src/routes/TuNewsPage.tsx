@@ -1,4 +1,4 @@
-import React, { ReactElement, useCallback, useContext } from 'react'
+import React, { ReactElement, useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import {
@@ -23,7 +23,6 @@ import NewsListItem from '../components/NewsListItem'
 import NewsTabs from '../components/NewsTabs'
 import { tunewsLabel } from '../constants/news'
 import { tunewsApiBaseUrl } from '../constants/urls'
-import DateFormatterContext from '../contexts/DateFormatterContext'
 import useWindowDimensions from '../hooks/useWindowDimensions'
 import { TU_NEWS_ROUTE } from './index'
 
@@ -31,7 +30,6 @@ const DEFAULT_PAGE = 1
 const DEFAULT_COUNT = 10
 
 const TuNewsPage = ({ cityCode, languageCode, city }: CityRouteProps): ReactElement | null => {
-  const formatter = useContext(DateFormatterContext)
   const { t } = useTranslation('news')
   const { viewportSmall } = useWindowDimensions()
 
@@ -73,7 +71,6 @@ const TuNewsPage = ({ cityCode, languageCode, city }: CityRouteProps): ReactElem
           newsId: id.toString(),
         })}
         t={t}
-        formatter={formatter}
         type={TU_NEWS_TYPE}
       />
     )

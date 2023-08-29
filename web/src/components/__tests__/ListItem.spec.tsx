@@ -3,6 +3,9 @@ import React from 'react'
 import { renderWithRouterAndTheme } from '../../testing/render'
 import ListItem from '../ListItem'
 
+jest.mock('react-i18next')
+jest.mock('react-inlinesvg')
+
 describe('ListItemSpec', () => {
   const path = 'https://tuerantuer.org'
 

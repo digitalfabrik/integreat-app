@@ -46,7 +46,6 @@ const ToolbarContainer = styled.div`
 `
 
 const ListHeader = styled.div`
-  padding-top: 32px;
   padding-top: clamp(16px, 1.4vh, 32px);
   padding-bottom: clamp(10px, 1vh, 20px);
   text-align: center;
@@ -150,7 +149,7 @@ const PoisDesktop = ({
           panelHeights={panelHeights}
           bottomBarHeight={currentPoi ? dimensions.poiDetailNavigation : dimensions.toolbarHeight}>
           {currentFeatureOnMap ? (
-            <GoBack goBack={() => selectGeoJsonPoiInList(null)} direction={direction} text={t('detailsHeader')} />
+            <GoBack goBack={() => selectGeoJsonPoiInList(null)} text={t('detailsHeader')} />
           ) : (
             <ListHeader>{t('listTitle')}</ListHeader>
           )}
@@ -167,7 +166,7 @@ const PoisDesktop = ({
           )}
         </ListViewWrapper>
         {currentPoi && features.length > 0 ? (
-          <PoiPanelNavigation switchPoi={switchPoi} direction={direction} />
+          <PoiPanelNavigation switchPoi={switchPoi} />
         ) : (
           <ToolbarContainer>{toolbar}</ToolbarContainer>
         )}
