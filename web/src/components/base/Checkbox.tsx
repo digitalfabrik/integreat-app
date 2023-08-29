@@ -19,6 +19,7 @@ const StyledLabel = styled.label`
   color: ${props => props.theme.colors.textColor};
   font-family: ${props => props.theme.fonts.web.decorativeFont};
   padding: 4px;
+  cursor: pointer;
 `
 
 const FlexEnd = styled.div`
