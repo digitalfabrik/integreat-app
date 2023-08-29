@@ -35,5 +35,5 @@ export const mockUseLoadFromEndpointWithError = (error: string): void => {
     error: new Error(error),
     refresh: () => null,
   })) as typeof useLoadFromEndpoint
-  mocked(useLoadFromEndpoint).mockImplementationOnce(useLoadFromEndpointMock)
+  mocked(useLoadFromEndpoint).mockImplementation(useLoadFromEndpointMock)
 }
