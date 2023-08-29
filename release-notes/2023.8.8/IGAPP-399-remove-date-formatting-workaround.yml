@@ -1,0 +1,8 @@
+issue_key: IGAPP-399
+show_in_stores: true
+platforms:
+  - android
+  - ios
+  - web
+en: Dates and times are now displayed in your language.
+de: Daten und Uhrzeiten werden jetzt in deiner Sprache angezeigt.

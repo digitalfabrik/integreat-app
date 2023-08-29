@@ -9,6 +9,7 @@ import { HeaderButtonsProvider } from 'react-navigation-header-buttons'
 import { ThemeProvider } from 'styled-components'
 
 import { CLOSE_PAGE_SIGNAL_NAME, REDIRECT_ROUTE, setUserAgent } from 'api-client'
+import { config } from 'translations'
 
 import Navigator from './Navigator'
 import AppStateListener from './components/AppStateListener'
@@ -27,6 +28,7 @@ import sendTrackingSignal from './utils/sendTrackingSignal'
 
 enableScreens(true)
 LuxonSettings.throwOnInvalid = true
+LuxonSettings.defaultLocale = config.defaultFallback
 LogBox.ignoreLogs(['NativeEventEmitter'])
 
 NetInfo.configure({

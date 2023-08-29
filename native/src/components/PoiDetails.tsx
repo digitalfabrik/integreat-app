@@ -1,13 +1,10 @@
-import EmailIcon from 'integreat-app/assets/icons/email.svg'
-import PhoneIcon from 'integreat-app/assets/icons/phone.svg'
-import WebsiteIcon from 'integreat-app/assets/icons/website.svg'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 import styled from 'styled-components/native'
 
 import { GeoJsonPoi, PoiModel } from 'api-client'
 
-import Placeholder from '../assets/PoiPlaceholderLarge.jpg'
+import { MailIcon, PhoneIcon, PoiThumbnailPlaceholderLarge, WebsiteIcon } from '../assets'
 import AddressInfo from './AddressInfo'
 import CollapsibleItem from './CollapsibleItem'
 import HorizontalLine from './HorizontalLine'
@@ -53,9 +50,8 @@ type PoiDetailsProps = {
 
 const PoiDetails = ({ poi, poiFeature, language }: PoiDetailsProps): ReactElement => {
   const { t } = useTranslation('pois')
-
   // TODO IGAPP-920: this has to be removed when we get proper images from CMS
-  const thumbnail = poiFeature.thumbnail?.replace('-150x150', '') ?? Placeholder
+  const thumbnail = poiFeature.thumbnail?.replace('-150x150', '') ?? PoiThumbnailPlaceholderLarge
   const distance = poiFeature.distance
   const { title, content, email, website, phoneNumber, openingHours, temporarilyClosed, isCurrentlyOpen, category } =
     poi
@@ -74,7 +70,7 @@ const PoiDetails = ({ poi, poiFeature, language }: PoiDetailsProps): ReactElemen
         />
       )}
       {!!email && (
-        <PoiDetailRow externalUrl={`mailto:${email}`} accessibilityLabel={t('eMail')} text={email} Icon={EmailIcon} />
+        <PoiDetailRow externalUrl={`mailto:${email}`} accessibilityLabel={t('eMail')} text={email} Icon={MailIcon} />
       )}
     </CollapsibleItem>
   )

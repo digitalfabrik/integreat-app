@@ -1,8 +1,7 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React, { ReactElement, useCallback, useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { GeolocateControl } from 'react-map-gl'
-import styled, { css } from 'styled-components'
+import styled from 'styled-components'
 
 import {
   embedInCollection,
@@ -15,7 +14,7 @@ import {
 } from 'api-client'
 import { UiDirectionType } from 'translations'
 
-import { faArrowLeft } from '../constants/icons'
+import { ArrowBackspaceIcon } from '../assets'
 import useMapFeatures from '../hooks/useMapFeatures'
 import useWindowDimensions from '../hooks/useWindowDimensions'
 import { getSnapPoints } from '../utils/getSnapPoints'
@@ -25,6 +24,7 @@ import List from './List'
 import MapView from './MapView'
 import PoiDetails from './PoiDetails'
 import PoiListItem from './PoiListItem'
+import Icon from './base/Icon'
 
 const ListContainer = styled.div`
   padding: 0 30px;
@@ -37,6 +37,7 @@ const GoBackContainer = styled.div<{ hidden: boolean }>`
   opacity: ${props => (props.hidden ? '0' : '1')};
   overflow: hidden;
   transition: all 1s;
+  padding: 0 30px;
 `
 
 const BackNavigation = styled.div<{ direction: string }>`
@@ -55,14 +56,8 @@ const BackNavigation = styled.div<{ direction: string }>`
   display: flex;
 `
 
-const StyledIcon = styled(FontAwesomeIcon)<{ direction: string }>`
-  font-size: 12px;
-  color: white;
-  ${props =>
-    props.direction === 'rtl' &&
-    css`
-      transform: scaleX(-1);
-    `};
+const StyledIcon = styled(Icon)`
+  color: ${props => props.theme.colors.backgroundColor};
 `
 
 type PoisMobileProps = {
@@ -160,7 +155,7 @@ const PoisMobile = ({
             tabIndex={0}
             onKeyPress={() => handleSelectFeatureOnMap(null)}
             direction={direction}>
-            <StyledIcon icon={faArrowLeft} direction={direction} />
+            <StyledIcon src={ArrowBackspaceIcon} directionDependent />
           </BackNavigation>
         )}
         {/* To use geolocation in a development build you have to start the dev server with "yarn start --https" */}
@@ -182,12 +177,7 @@ const PoisMobile = ({
         setBottomActionSheetHeight={setBottomActionSheetHeight}
         direction={direction}>
         <GoBackContainer hidden={!isBottomActionSheetFullScreen}>
-          <GoBack
-            goBack={() => selectGeoJsonPoiInList(null)}
-            direction={direction}
-            viewportSmall
-            text={t('detailsHeader')}
-          />
+          <GoBack goBack={() => selectGeoJsonPoiInList(null)} viewportSmall text={t('detailsHeader')} />
         </GoBackContainer>
         <ListContainer>
           {currentPoi ? (

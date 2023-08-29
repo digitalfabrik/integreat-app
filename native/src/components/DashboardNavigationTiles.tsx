@@ -13,7 +13,7 @@ import {
   TU_NEWS_TYPE,
 } from 'api-client'
 
-import { EventsIcon, NewsIcon, OffersIcon, POIsIcon } from '../assets'
+import { CalendarIcon, NewsIcon, OffersIcon, POIsIcon } from '../assets'
 import buildConfig from '../constants/buildConfig'
 import TileModel from '../models/TileModel'
 import NavigationTiles from './NavigationTiles'
@@ -64,7 +64,7 @@ const DashboardNavigationTiles = ({
       new TileModel({
         title: t('events'),
         path: 'events',
-        thumbnail: EventsIcon,
+        thumbnail: CalendarIcon,
         isExternalUrl: false,
         onTilePress: () =>
           navigateTo({

@@ -30,8 +30,8 @@ const ExportEventButton = ({ event }: ExportEventButtonType): ReactElement => {
   const openCalendarApp = (event: EventModel, id: string): void => {
     if (Platform.OS === 'ios') {
       // can't open a specific event but at a specific time
-      const appleRefDate = DateTime.fromFormat('Jan 1 2001', 'MMM DD YYYY')
-      const secondsSinceRefDate = event.date.startDate.diff(appleRefDate, 'seconds')
+      const appleRefDate = DateTime.fromISO('2001-01-01').toSeconds()
+      const secondsSinceRefDate = event.date.startDate.toSeconds() - appleRefDate
       Linking.openURL(`calshow:${secondsSinceRefDate}`)
     } else if (Platform.OS === 'android') {
       Linking.openURL(`content://com.android.calendar/events/${id}`)
