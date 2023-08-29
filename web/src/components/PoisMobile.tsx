@@ -62,7 +62,7 @@ const StyledIcon = styled(Icon)`
   color: ${props => props.theme.colors.backgroundColor};
 `
 
-const GeoLocateContainer = styled.div<{ height: number; direction: string }>`
+const GeocontrolContainer = styled.div<{ height: number; direction: string }>`
   --max-icon-height: calc(${props => getSnapPoints(props.height)[1]}px + ${geolocatorTopOffset}px);
   position: absolute;
   ${props =>
@@ -103,7 +103,7 @@ const PoisMobile = ({
   const [bottomActionSheetHeight, setBottomActionSheetHeight] = useState(0)
   const [scrollOffset, setScrollOffset] = useState<number>(0)
   const sheetRef = useRef<ScrollableBottomSheetRef>(null)
-  const geolocatePosition = useRef<HTMLDivElement>(null)
+  const geocontrolPosition = useRef<HTMLDivElement>(null)
   const [mapViewRef, setMapViewRef] = useState<MapViewRef | null>(null)
   const { selectGeoJsonPoiInList, selectFeatureOnMap, currentFeatureOnMap, currentPoi, poiListFeatures } =
     useMapFeatures(features, pois, slug)
@@ -157,13 +157,13 @@ const PoisMobile = ({
   )
 
   useEffect(() => {
-    if (mapViewRef && geolocatePosition.current) {
-      const geolocate = new GeolocateControl({
+    if (mapViewRef && geocontrolPosition.current) {
+      const geocontrol = new GeolocateControl({
         positionOptions: { enableHighAccuracy: true },
         trackUserLocation: true,
       })
-      mapViewRef.setGeocontrol('geolocate', geolocate)
-      geolocatePosition.current.appendChild(geolocate._container)
+      mapViewRef.setGeocontrol(geocontrol)
+      geocontrolPosition.current.appendChild(geocontrol._container)
     }
   }, [mapViewRef])
 
@@ -195,7 +195,7 @@ const PoisMobile = ({
         ref={sheetRef}
         setBottomActionSheetHeight={setBottomActionSheetHeight}
         direction={direction}
-        sibling={<GeoLocateContainer id='geolocate' direction={direction} ref={geolocatePosition} height={height} />}>
+        sibling={<GeocontrolContainer id='geolocate' direction={direction} ref={geocontrolPosition} height={height} />}>
         <GoBackContainer hidden={!isBottomActionSheetFullScreen}>
           <GoBack goBack={() => selectGeoJsonPoiInList(null)} viewportSmall text={t('detailsHeader')} />
         </GoBackContainer>
