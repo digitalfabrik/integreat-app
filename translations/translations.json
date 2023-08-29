@@ -5695,7 +5695,8 @@
       "onlyCurrentlyOpen": "nur aktuell geöffnete Orte anzeigen",
       "poiCategories": "Kategorien",
       "showPois": "Orte anzeigen",
-      "alphabetLetters": "A-Z"
+      "alphabetLetters": "A-Z",
+      "clearFilter": "Filter {{filter}} löschen"
     },
     "am": {
       "pageTitle": "ካርታ",
