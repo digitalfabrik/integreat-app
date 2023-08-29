@@ -32,12 +32,10 @@ import PoiFilters from '../components/PoiFilters'
 import PoisDesktop from '../components/PoisDesktop'
 import PoisMobile from '../components/PoisMobile'
 import ChipButton from '../components/base/ChipButton'
-import buildConfig from '../constants/buildConfig'
 import dimensions from '../constants/dimensions'
 import { cmsApiBaseUrl } from '../constants/urls'
 import useWindowDimensions from '../hooks/useWindowDimensions'
 import getUserLocation from '../utils/getUserLocation'
-import { log } from '../utils/sentry'
 
 const PoisPageWrapper = styled.div<{ panelHeights: number }>`
   display: flex;
@@ -109,10 +107,6 @@ const PoisPage = ({ cityCode, languageCode, city, pathname }: CityRouteProps): R
 
   if (!city) {
     return null
-  }
-
-  if (buildConfig().featureFlags.developerFriendly) {
-    log('To use geolocation in a development build you have to start the dev server with\n "yarn start --https"')
   }
 
   const languageChangePaths = city.languages.map(({ code, name }) => {
