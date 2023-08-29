@@ -9,6 +9,7 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   background-color: ${props => props.theme.colors.backgroundColor};
+  font-family: ${props => props.theme.fonts.web.decorativeFont};
 `
 
 const Header = styled.div<{ small: boolean }>`
