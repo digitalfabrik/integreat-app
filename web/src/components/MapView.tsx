@@ -50,7 +50,6 @@ type MapViewProps = {
 type MapCursorType = 'grab' | 'auto' | 'pointer'
 
 export type MapViewRef = {
-  addGeolocatePosition: (position: HTMLDivElement, name: string) => void
   setGeocontrol: (position: string, control: mapLibreGl.IControl) => void
 }
 
@@ -77,13 +76,7 @@ const MapView = forwardRef(
     useImperativeHandle(
       ref,
       () => ({
-        addGeolocatePosition: (position: HTMLDivElement, name: string) => {
-          if (mapRef) {
-            mapRef._controlPositions[name] = position
-          }
-        },
-        setGeocontrol: (position: string, control: mapLibreGl.IControl) =>
-          mapRef?.addControl(control, position as mapLibreGl.ControlPosition),
+        setGeocontrol: (position: string, control: mapLibreGl.IControl) => mapRef?.addControl(control),
       }),
       [mapRef],
     )
