@@ -6,6 +6,10 @@ import { FetchError, NotFoundError } from 'api-client'
 
 import buildConfig from '../constants/buildConfig'
 
+console.error = () => {
+  // Do nothing.
+};
+
 const sentryEnabled = (): boolean => buildConfig().featureFlags.sentry
 const developerFriendly = (): boolean => buildConfig().featureFlags.developerFriendly
 
