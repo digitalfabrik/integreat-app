@@ -97,6 +97,7 @@ const PoiFilters = ({
           <Row>
             <StyledIcon src={ClockIcon} />
             <Checkbox
+              id='poi-filters-currently-opened'
               checked={currentlyOpenFilter}
               setChecked={setCurrentlyOpenFilter}
               label={t('onlyCurrentlyOpen')}
