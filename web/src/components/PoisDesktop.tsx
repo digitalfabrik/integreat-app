@@ -29,8 +29,8 @@ const PanelContainer = styled.article`
   height: 100%;
   display: flex;
   flex-direction: column;
-  width: 332px;
-  min-width: 332px;
+  width: ${dimensions.poiDesktopPanelWidth}px;
+  min-width: ${dimensions.poiDesktopPanelWidth}px;
 `
 
 const ListViewWrapper = styled.div<{ panelHeights: number; bottomBarHeight: number }>`
