@@ -6,7 +6,7 @@ import { VERSION_FILE } from './constants'
 
 const calculateNewVersion = () => {
   const versionFile = fs.readFileSync(path.resolve(__dirname, '..', VERSION_FILE), 'utf-8')
-  // versionCode is just used in the integreat-react-native-app
+  // versionCode is just used in native
   const { versionName, versionCode } = JSON.parse(versionFile)
   const versionNameParts = versionName.split('.').map((it: string) => parseInt(it, 10))
 
