@@ -1,0 +1,7 @@
+issue_key: 2398
+show_in_stores: true
+platforms:
+  - android
+  - ios
+en: Cut off text is now displayed correctly
+de: Angeschnittene Text werden nun korrekt angezeigt
