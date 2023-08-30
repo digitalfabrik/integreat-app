@@ -1,8 +1,8 @@
 # Contributing
 
-Contributing to Integreat is always appreciated! Just start
+Contributing to Integreat is always appreciated! You can start
 by [reporting a bug](#reporting-issues-and-bugs), [opening a pull request](#pull-requests),
-or [contact us](#contact-us) if you don't know where to start. Please make sure to have a look at
+or [contacting us](#contact-us) if you don't know where to start. Please make sure to have a look at
 our [conventions](conventions.md).
 
 ## Contact us
