@@ -1,6 +1,15 @@
 import * as mapLibreGl from 'maplibre-gl'
 import 'maplibre-gl/dist/maplibre-gl.css'
-import React, { ReactElement, ReactNode, useCallback, useEffect, useState } from 'react'
+import React, {
+  ForwardedRef,
+  ReactElement,
+  ReactNode,
+  forwardRef,
+  useCallback,
+  useEffect,
+  useImperativeHandle,
+  useState,
+} from 'react'
 import Map, { Layer, MapRef, Source, MapLayerMouseEvent } from 'react-map-gl'
 import styled, { useTheme } from 'styled-components'
 
@@ -25,6 +34,17 @@ const MapContainer = styled.div`
   width: 100%;
   display: flex;
   justify-content: center;
+  position: relative;
+`
+
+const OverlayContainer = styled.div`
+  display: flex;
+  padding: 12px 8px;
+  flex: 1;
+  z-index: 1;
+  position: absolute;
+  top: 0;
+  gap: 8px;
 `
 
 type MapViewProps = {
@@ -33,128 +53,148 @@ type MapViewProps = {
   selectFeature: (feature: MapFeature | null, restoreScrollPosition: boolean) => void
   changeSnapPoint?: (snapPoint: number) => void
   languageCode: string
-  children: ReactNode
+  children?: ReactNode
   viewport?: MapViewViewport
   setViewport: (mapViewport: MapViewViewport) => void
+  Overlay?: ReactElement
 }
 
 type MapCursorType = 'grab' | 'auto' | 'pointer'
 
-const MapView = ({
-  featureCollection,
-  selectFeature,
-  changeSnapPoint,
-  currentFeature,
-  viewport,
-  setViewport,
-  languageCode,
-  children,
-}: MapViewProps): ReactElement => {
-  const [cursor, setCursor] = useState<MapCursorType>('auto')
-  const [mapRef, setMapRef] = useState<mapLibreGl.Map | null>(null)
-  const theme = useTheme()
+export type MapViewRef = {
+  setGeocontrol: (control: mapLibreGl.IControl) => void
+}
 
-  const { viewportSmall, height } = useWindowDimensions()
+const MapView = forwardRef(
+  (
+    {
+      featureCollection,
+      selectFeature,
+      changeSnapPoint,
+      currentFeature,
+      viewport,
+      setViewport,
+      languageCode,
+      children,
+      Overlay,
+    }: MapViewProps,
+    ref: ForwardedRef<MapViewRef>,
+  ): ReactElement => {
+    const [cursor, setCursor] = useState<MapCursorType>('auto')
+    const [mapRef, setMapRef] = useState<mapLibreGl.Map | null>(null)
+    const theme = useTheme()
 
-  const updateMapRef = useCallback((node: MapRef | null) => {
-    // This allows us to use the map (ref) as dependency in hooks which is not possible using useRef.
-    // This is needed because on initial render the ref is null such that flyTo is not possible.
-    // https://reactjs.org/docs/hooks-faq.html#how-can-i-measure-a-dom-node
-    if (node) {
-      setMapRef(node.getMap() as unknown as mapLibreGl.Map)
-    }
-  }, [])
+    const { viewportSmall, height } = useWindowDimensions()
 
-  const onSelectFeature = useCallback(
-    (event: MapLayerMouseEvent) => {
-      // Stop propagation to children to prevent onClick select event as it is already handled
-      event.originalEvent.stopPropagation()
-      const feature = event.features && (event.features[0] as unknown as MapFeature)
-      if (feature) {
-        selectFeature(
-          {
-            ...feature,
-            properties: {
-              // https://github.com/maplibre/maplibre-gl-js/issues/1325
-              pois: JSON.parse(feature.properties.pois as unknown as string),
-            },
-          },
-          false,
-        )
-      } else {
-        selectFeature(null, false)
+    useImperativeHandle(
+      ref,
+      () => ({
+        setGeocontrol: (control: mapLibreGl.IControl) => mapRef?.addControl(control),
+      }),
+      [mapRef],
+    )
+
+    const updateMapRef = useCallback((node: MapRef | null) => {
+      // This allows us to use the map (ref) as dependency in hooks which is not possible using useRef.
+      // This is needed because on initial render the ref is null such that flyTo is not possible.
+      // https://reactjs.org/docs/hooks-faq.html#how-can-i-measure-a-dom-node
+      if (node) {
+        setMapRef(node.getMap() as unknown as mapLibreGl.Map)
       }
-    },
-    [selectFeature],
-  )
+    }, [])
 
-  useEffect(
-    () => () => {
-      if (mapRef) {
-        // we only need the viewport on unmount
-        const center = mapRef.getCenter()
-        setViewport({
-          longitude: center.lng,
-          latitude: center.lat,
-          zoom: mapRef.getZoom(),
-          maxZoom: mapRef.getMaxZoom(),
+    const onSelectFeature = useCallback(
+      (event: MapLayerMouseEvent) => {
+        // Stop propagation to children to prevent onClick select event as it is already handled
+        event.originalEvent.stopPropagation()
+        const feature = event.features && (event.features[0] as unknown as MapFeature)
+        if (feature) {
+          selectFeature(
+            {
+              ...feature,
+              properties: {
+                // https://github.com/maplibre/maplibre-gl-js/issues/1325
+                pois: JSON.parse(feature.properties.pois as unknown as string),
+              },
+            },
+            false,
+          )
+        } else {
+          selectFeature(null, false)
+        }
+      },
+      [selectFeature],
+    )
+
+    useEffect(
+      () => () => {
+        if (mapRef) {
+          // we only need the viewport on unmount
+          const center = mapRef.getCenter()
+          setViewport({
+            longitude: center.lng,
+            latitude: center.lat,
+            zoom: mapRef.getZoom(),
+            maxZoom: mapRef.getMaxZoom(),
+          })
+        }
+      },
+      [mapRef, setViewport],
+    )
+
+    useEffect(() => {
+      const coordinates = currentFeature?.geometry.coordinates ?? []
+      if (mapRef && coordinates[0] && coordinates[1]) {
+        const coords: mapLibreGl.LngLatLike = [coordinates[0], coordinates[1]]
+        mapRef.flyTo({
+          center: coords,
+          zoom: closerDetailZoom,
+          padding: { bottom: viewportSmall ? height * midSnapPercentage : 0, top: 0, left: 0, right: 0 },
         })
       }
-    },
-    [mapRef, setViewport],
-  )
+    }, [currentFeature?.geometry.coordinates, height, mapRef, viewportSmall])
 
-  useEffect(() => {
-    const coordinates = currentFeature?.geometry.coordinates ?? []
-    if (mapRef && coordinates[0] && coordinates[1]) {
-      const coords: mapLibreGl.LngLatLike = [coordinates[0], coordinates[1]]
-      mapRef.flyTo({
-        center: coords,
-        zoom: closerDetailZoom,
-        padding: { bottom: viewportSmall ? height * midSnapPercentage : 0, top: 0, left: 0, right: 0 },
-      })
-    }
-  }, [currentFeature?.geometry.coordinates, height, mapRef, viewportSmall])
-
-  return (
-    <MapContainer>
-      <Map
-        mapLib={mapLibreGl}
-        ref={updateMapRef}
-        reuseMaps
-        cursor={cursor}
-        initialViewState={viewport ?? undefined}
-        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-        interactiveLayerIds={[markerLayer(currentFeature).id!]}
-        style={{
-          height: '100%',
-          width: '100%',
-        }}
-        onDragStart={() => setCursor('grab')}
-        onDragEnd={() => setCursor('auto')}
-        onMouseEnter={() => setCursor('pointer')}
-        onMouseLeave={() => setCursor('auto')}
-        maxZoom={viewport?.maxZoom}
-        mapStyle={mapConfig.styleJSON}
-        onClick={onSelectFeature}
-        onTouchMove={() => (changeSnapPoint ? changeSnapPoint(0) : null)}
-        attributionControl={false}>
-        {children}
-        <Source
-          id='location-pois'
-          type='geojson'
-          data={featureCollection}
-          cluster
-          clusterRadius={clusterRadius}
-          clusterProperties={clusterProperties}>
-          <Layer {...clusterLayer(theme)} />
-          <Layer {...clusterCountLayer} />
-          <Layer {...markerLayer(currentFeature)} />
-        </Source>
-        <MapAttribution initialExpanded={!viewportSmall} direction={config.getScriptDirection(languageCode)} />
-      </Map>
-    </MapContainer>
-  )
-}
+    return (
+      <MapContainer>
+        <Map
+          mapLib={mapLibreGl}
+          ref={updateMapRef}
+          reuseMaps
+          cursor={cursor}
+          initialViewState={viewport ?? undefined}
+          // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+          interactiveLayerIds={[markerLayer(currentFeature).id!]}
+          style={{
+            height: '100%',
+            width: '100%',
+          }}
+          onDragStart={() => setCursor('grab')}
+          onDragEnd={() => setCursor('auto')}
+          onMouseEnter={() => setCursor('pointer')}
+          onMouseLeave={() => setCursor('auto')}
+          maxZoom={viewport?.maxZoom}
+          mapStyle={mapConfig.styleJSON}
+          onClick={onSelectFeature}
+          onTouchMove={() => (changeSnapPoint ? changeSnapPoint(0) : null)}
+          attributionControl={false}>
+          <OverlayContainer>{Overlay}</OverlayContainer>
+          {children}
+          <Source
+            id='location-pois'
+            type='geojson'
+            data={featureCollection}
+            cluster
+            clusterRadius={clusterRadius}
+            clusterProperties={clusterProperties}>
+            <Layer {...clusterLayer(theme)} />
+            <Layer {...clusterCountLayer} />
+            <Layer {...markerLayer(currentFeature)} />
+          </Source>
+          <MapAttribution initialExpanded={!viewportSmall} direction={config.getScriptDirection(languageCode)} />
+        </Map>
+      </MapContainer>
+    )
+  },
+)
 
 export default MapView

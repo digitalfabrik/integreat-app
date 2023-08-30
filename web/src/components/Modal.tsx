@@ -5,14 +5,13 @@ import styled from 'styled-components'
 
 import { UiDirectionType } from 'translations'
 
-import { ArrowBackIcon, CloseIcon } from '../assets'
 import dimensions from '../constants/dimensions'
 import useLockedBody from '../hooks/useLockedBody'
 import useScrollToTop from '../hooks/useScrollToTop'
 import useWindowDimensions from '../hooks/useWindowDimensions'
 import { LAYOUT_ELEMENT_ID, RichLayout } from './Layout'
+import ModalContent from './ModalContent'
 import Portal from './Portal'
-import Icon from './base/Icon'
 
 const Overlay = styled.div`
   position: absolute;
@@ -36,7 +35,7 @@ const ModalContainer = styled.div`
   justify-content: center;
 `
 
-const ModalContent = styled.div`
+const ModalContentContainer = styled.div`
   position: relative;
   display: flex;
   flex-direction: column;
@@ -47,32 +46,6 @@ const ModalContent = styled.div`
     align-items: center;
     width: 100%;
   }
-`
-
-const Header = styled.div<{ flexDirection: string }>`
-  display: flex;
-  padding: 16px;
-  flex-direction: ${props => props.flexDirection};
-  justify-content: space-between;
-  font-size: ${props => props.theme.fonts.subTitleFontSize};
-  font-weight: 700;
-
-  @media ${dimensions.smallViewport} {
-    align-self: flex-start;
-    gap: 16px;
-  }
-`
-
-const CloseButton = styled.button`
-  background-color: ${props => props.theme.colors.backgroundColor};
-  border: none;
-  padding: 0;
-  cursor: pointer;
-`
-
-const StyledIcon = styled(Icon)`
-  width: 24px;
-  height: 24px;
 `
 
 type ModalProps = {
@@ -100,15 +73,11 @@ const Modal = ({ title, closeModal, children, direction, wrapInPortal = false }:
     <FocusTrap focusTrapOptions={{ clickOutsideDeactivates: true }}>
       <ModalContainer role='dialog' aria-hidden={false} aria-modal>
         <Overlay onClick={closeModal} role='button' tabIndex={0} onKeyPress={closeModal} aria-label={t('close')} />
-        <ModalContent>
-          <Header flexDirection={viewportSmall ? 'row-reverse' : 'row'}>
-            <span>{title}</span>
-            <CloseButton aria-label={t('close')} onClick={closeModal}>
-              <StyledIcon src={viewportSmall ? ArrowBackIcon : CloseIcon} directionDependent />
-            </CloseButton>
-          </Header>
-          {children}
-        </ModalContent>
+        <ModalContentContainer>
+          <ModalContent title={title} closeModal={closeModal} small={viewportSmall}>
+            {children}
+          </ModalContent>
+        </ModalContentContainer>
       </ModalContainer>
     </FocusTrap>
   )
