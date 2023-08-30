@@ -1,11 +1,13 @@
 import { fireEvent } from '@testing-library/react'
-import { mocked } from 'jest-mock'
 import React from 'react'
 import { Route, Routes } from 'react-router-dom'
 
-import { cityContentPath, CityModelBuilder, PoiModelBuilder, POIS_ROUTE, prepareFeatureLocations } from 'api-client'
+import { cityContentPath, CityModelBuilder, PoiModelBuilder, POIS_ROUTE } from 'api-client'
+import {
+  mockUseLoadFromEndpointWithData,
+  mockUseLoadFromEndpointWithError,
+} from 'api-client/src/testing/mockUseLoadFromEndpoint'
 
-import useFeatureLocations from '../../hooks/useFeatureLocations'
 import { renderWithRouterAndTheme } from '../../testing/render'
 import PoisPage from '../PoisPage'
 import { RoutePatterns } from '../index'
@@ -13,7 +15,10 @@ import { RoutePatterns } from '../index'
 jest.mock('react-inlinesvg')
 jest.mock('react-i18next')
 jest.mock('../../utils/getUserLocation', () => async () => ({ status: 'ready', coordinates: [10.8, 48.3] }))
-jest.mock('../../hooks/useFeatureLocations')
+jest.mock('api-client', () => ({
+  ...jest.requireActual('api-client'),
+  useLoadFromEndpoint: jest.fn(),
+}))
 
 describe('PoisPage', () => {
   beforeEach(() => {
@@ -25,7 +30,6 @@ describe('PoisPage', () => {
   const languageCode = 'ar'
   const poi0 = pois[0]!
   const poi1 = pois[1]!
-  const features = prepareFeatureLocations(pois, undefined)
 
   const pathname = cityContentPath({ route: POIS_ROUTE, cityCode: city.code, languageCode })
 
@@ -42,35 +46,20 @@ describe('PoisPage', () => {
     )
 
   it('should render a list with all pois', () => {
-    mocked(useFeatureLocations).mockImplementation(() => ({
-      data: { pois, features },
-      loading: false,
-      error: null,
-      refresh: jest.fn(),
-    }))
+    mockUseLoadFromEndpointWithData(pois)
     const { getByText } = renderPois()
     expect(getByText(poi0.location.name)).toBeTruthy()
     expect(getByText(poi1.location.name)).toBeTruthy()
   })
 
   it('should render an error', () => {
-    mocked(useFeatureLocations).mockImplementation(() => ({
-      data: null,
-      loading: false,
-      error: new Error('Something went wrong'),
-      refresh: jest.fn(),
-    }))
+    mockUseLoadFromEndpointWithError('something went wrong')
     const { getByText } = renderPois()
     expect(getByText('error:unknownError')).toBeTruthy()
   })
 
   it('should render poi details page when list item was clicked', () => {
-    mocked(useFeatureLocations).mockImplementation(() => ({
-      data: { pois, features },
-      loading: false,
-      error: null,
-      refresh: jest.fn(),
-    }))
+    mockUseLoadFromEndpointWithData(pois)
     const { getByText, getByLabelText } = renderPois()
     fireEvent.click(getByLabelText(poi0.location.name))
     expect(getByText(poi0.location.name)).toBeTruthy()
@@ -79,12 +68,7 @@ describe('PoisPage', () => {
   })
 
   it('should switch between pois using the PanelNavigation on poi details page', () => {
-    mocked(useFeatureLocations).mockImplementation(() => ({
-      data: { pois, features },
-      loading: false,
-      error: null,
-      refresh: jest.fn(),
-    }))
+    mockUseLoadFromEndpointWithData(pois)
     const { getByText, getByLabelText } = renderPois()
     fireEvent.click(getByLabelText(poi0.location.name))
     fireEvent.click(getByText('pois:detailsNextPoi'))
@@ -98,12 +82,7 @@ describe('PoisPage', () => {
   })
 
   it('should calculate correct language change paths', () => {
-    mocked(useFeatureLocations).mockImplementation(() => ({
-      data: { pois, features },
-      loading: false,
-      error: null,
-      refresh: jest.fn(),
-    }))
+    mockUseLoadFromEndpointWithData(pois)
     const { getByTestId, getByLabelText } = renderPois()
     fireEvent.click(getByLabelText(poi0.location.name))
     expect(getByTestId('en')).toHaveAttribute('href', poi0.availableLanguages.get('en'))

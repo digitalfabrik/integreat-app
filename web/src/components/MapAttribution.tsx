@@ -8,6 +8,7 @@ import CleanLink from './CleanLink'
 
 const Attribution = styled.div`
   display: flex;
+  direction: ltr;
   padding: 0 4px;
   background-color: rgba(255, 255, 255, 0.5);
   box-shadow: 0 2px 3px 3px rgba(0, 0, 0, 0.1);
