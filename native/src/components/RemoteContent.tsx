@@ -30,12 +30,11 @@ type RemoteContentProps = {
   resourceCacheUrl: string
   onLinkPress: (url: string) => void
   onLoad: () => void
-  webViewWidth: number
 }
 
 // If the app crashes without an error message while using RemoteContent, consider wrapping it in a ScrollView or setting a manual height
 const RemoteContent = (props: RemoteContentProps): ReactElement | null => {
-  const { onLoad, content, cacheDictionary, resourceCacheUrl, language, onLinkPress, webViewWidth } = props
+  const { onLoad, content, cacheDictionary, resourceCacheUrl, language, onLinkPress } = props
   const [error, setError] = useState<string | null>(null)
   const [pressedUrl, setPressedUrl] = useState<string | null>(null)
   // https://github.com/react-native-webview/react-native-webview/issues/1069#issuecomment-651699461
@@ -118,9 +117,7 @@ const RemoteContent = (props: RemoteContentProps): ReactElement | null => {
       setSupportMultipleWindows={false}
       style={{
         height: webViewHeight,
-        width: webViewWidth,
         opacity: 0.99, // fixes crashing in Android https://github.com/react-native-webview/react-native-webview/issues/811
-        overflow: 'hidden',
       }}
     />
   )
