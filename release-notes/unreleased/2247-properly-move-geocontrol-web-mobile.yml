@@ -1,0 +1,5 @@
+issue_key: 2247
+show_in_stores: false
+platforms:
+  - web
+en: The "find my location" button moves with the bottom action sheet in web mobile.
