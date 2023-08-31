@@ -179,7 +179,11 @@ const Header = ({
 
   const visible = showItems && !!goToLanguageChange
   const items = [
-    renderItem(HeaderButtonTitle.Search, 'search', visible, () => navigation.navigate(SEARCH_ROUTE)),
+    renderItem(HeaderButtonTitle.Search, 'search', visible, () =>
+      navigation.navigate(SEARCH_ROUTE, {
+        searchText: '',
+      }),
+    ),
     renderItem(HeaderButtonTitle.Language, 'language', visible, goToLanguageChange),
   ]
 

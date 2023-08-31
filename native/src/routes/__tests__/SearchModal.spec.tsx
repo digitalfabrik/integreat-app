@@ -90,4 +90,10 @@ describe('SearchModal', () => {
 
     expect(getByText('search:nothingFound')).toBeTruthy()
   })
+
+  it('should open with an initial search text if one is supplied', () => {
+    const initialSearchText = 'zeugnis'
+    const { getByTestId } = render(<SearchModal initialSearchText={initialSearchText} {...props} />)
+    expect(getByTestId('searchInput').props.value).toBe(initialSearchText)
+  })
 })

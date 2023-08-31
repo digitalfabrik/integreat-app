@@ -4,7 +4,7 @@ import { ThemeContext } from 'styled-components'
 
 import { SearchRouteType } from 'api-client'
 
-import { NavigationProps } from '../constants/NavigationTypes'
+import { NavigationProps, RouteProps } from '../constants/NavigationTypes'
 import useCityAppContext from '../hooks/useCityAppContext'
 import useLoadCityContent from '../hooks/useLoadCityContent'
 import useNavigate from '../hooks/useNavigate'
@@ -13,10 +13,12 @@ import SearchModal from './SearchModal'
 
 export type SearchModalContainerProps = {
   navigation: NavigationProps<SearchRouteType>
+  route: RouteProps<SearchRouteType>
 }
 
-const SearchModalContainer = ({ navigation }: SearchModalContainerProps): ReactElement | null => {
+const SearchModalContainer = ({ navigation, route }: SearchModalContainerProps): ReactElement | null => {
   const { cityCode, languageCode } = useCityAppContext()
+  const { searchText } = route.params
   const { data, ...response } = useLoadCityContent({ cityCode, languageCode })
   const theme = useContext(ThemeContext)
   const { t } = useTranslation('search')
@@ -33,6 +35,7 @@ const SearchModalContainer = ({ navigation }: SearchModalContainerProps): ReactE
           languageCode={languageCode}
           theme={theme}
           t={t}
+          initialSearchText={searchText}
         />
       )}
     </LoadingErrorHandler>

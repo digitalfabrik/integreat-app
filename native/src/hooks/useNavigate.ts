@@ -124,7 +124,7 @@ const navigate = <T extends RoutesType>(
       return
 
     case SEARCH_ROUTE:
-      navigation.push(SEARCH_ROUTE)
+      navigation.push(SEARCH_ROUTE, { searchText: routeInformation.searchText })
       return
 
     // Not implemented in native apps, should be opened in InAppBrowser

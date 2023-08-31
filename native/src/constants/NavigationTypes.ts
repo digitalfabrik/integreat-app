@@ -106,7 +106,9 @@ export type RoutesParamsType = {
   }
   [SPRUNGBRETT_OFFER_ROUTE]: undefined
   [SETTINGS_ROUTE]: undefined
-  [SEARCH_ROUTE]: undefined
+  [SEARCH_ROUTE]: {
+    searchText?: string
+  }
   [LICENSES_ROUTE]: undefined
   [CHANGE_LANGUAGE_MODAL_ROUTE]: {
     languages: Array<LanguageModel>

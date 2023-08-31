@@ -235,6 +235,7 @@ class InternalPathnameParser {
 
     return {
       route: SEARCH_ROUTE,
+      searchText: this.query().query,
       ...params,
     }
   }
