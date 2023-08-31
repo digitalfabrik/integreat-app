@@ -39,7 +39,6 @@ Steps executed if _Checks_ is checked :heavy_check_mark::
 
 Steps executed if _Version bump_ is checked :heavy_check_mark::
 
-- Jira release
 - Bump version: Bump the version(s) and create a tag and release on github
 
 ## Failed Delivery

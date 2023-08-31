@@ -63,7 +63,7 @@ To change the cms, enter the following command in the console of your web browse
 > window.localStorage.setItem('api-url', <cms_url>)
 
 The cms repository can be found [here](https://github.com/digitalfabrik/integreat-cms).
-There is no up-to-date api documentation but an outdated one can be found [here](https://github.com/Integreat/cms/wiki/REST-APIv3-Documentation).
+The api documentation can be found [here](https://digitalfabrik.github.io/integreat-cms/api-docs.html).
 
 ### Testing CMS Content
 
