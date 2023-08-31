@@ -7,7 +7,6 @@ jobs:
       context:
         - mattermost
         - deliverino
-        - jira
       prepare_delivery: true
   - check:
       context:

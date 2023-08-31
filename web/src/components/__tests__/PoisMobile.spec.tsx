@@ -34,6 +34,7 @@ describe('PoisMobile', () => {
         slug={slug}
         mapViewport={{} as MapViewViewport}
         setMapViewport={jest.fn()}
+        MapOverlay={<div />}
       />,
     )
 

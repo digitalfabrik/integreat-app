@@ -1,4 +1,4 @@
-import React, { ReactElement, useEffect, useState } from 'react'
+import React, { ReactElement, useMemo } from 'react'
 import { Image, View, StyleProp, ImageStyle, ImageResizeMode, Platform } from 'react-native'
 import styled from 'styled-components/native'
 
@@ -30,12 +30,14 @@ const SimpleImage = ({
   resizeMode = 'contain',
   specifyAspectRatio = false,
 }: SimpleImageProps): ReactElement => {
-  const [aspectRatio, setAspectRatio] = useState<number | undefined>(undefined)
-
-  useEffect(() => {
+  const aspectRatio = useMemo(() => {
+    let value: undefined | number
     if (typeof source === 'string') {
-      Image.getSize(getLocalPlatformFilepath(source), (width, height) => setAspectRatio(width / height))
+      Image.getSize(getLocalPlatformFilepath(source), (width, height) => {
+        value = width / height
+      })
     }
+    return value
   }, [source])
 
   if (source === null) {
