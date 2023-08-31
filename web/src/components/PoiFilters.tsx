@@ -9,7 +9,9 @@ import ModalContent from './ModalContent'
 import Checkbox from './base/Checkbox'
 import Icon from './base/Icon'
 import TextButton from './base/TextButton'
-import ToggleButton from './base/ToggleButton'
+import ToggleButton, { toggleButtonWidth } from './base/ToggleButton'
+
+const tileColumnGap = 16
 
 const Container = styled.div`
   display: flex;
@@ -41,16 +43,16 @@ const SortingHint = styled.div`
   align-self: flex-end;
   font-size: 0.75rem;
   color: ${props => props.theme.colors.textColor};
-  font-family: ${props => props.theme.fonts.native.decorativeFontRegular};
+  font-family: ${props => props.theme.fonts.web.decorativeFont};
   padding: 0 4px;
 `
 
-const TileRow = styled.div`
-  display: flex;
-  justify-content: space-around;
-  flex-wrap: wrap;
-  column-gap: 16px;
+const TileRow = styled.div<{ itemCount: number }>`
+  display: grid;
+  column-gap: ${tileColumnGap}px;
   row-gap: 24px;
+  justify-content: center;
+  grid-template-columns: repeat(${props => props.itemCount}, ${toggleButtonWidth}px);
 `
 
 const StyledButton = styled(TextButton)`
@@ -70,6 +72,7 @@ type PoiFiltersProps = {
   setSelectedPoiCategory: (poiCategory: PoiCategoryModel | null) => void
   currentlyOpenFilter: boolean
   setCurrentlyOpenFilter: (currentlyOpen: boolean) => void
+  panelWidth: number
 }
 
 const PoiFilters = ({
@@ -79,6 +82,7 @@ const PoiFilters = ({
   setSelectedPoiCategory,
   currentlyOpenFilter,
   setCurrentlyOpenFilter,
+  panelWidth,
 }: PoiFiltersProps): ReactElement => {
   const poiCategories = pois
     .map(it => it.category)
@@ -93,6 +97,7 @@ const PoiFilters = ({
           <Row>
             <StyledIcon src={ClockIcon} />
             <Checkbox
+              id='poi-filters-currently-opened'
               checked={currentlyOpenFilter}
               setChecked={setCurrentlyOpenFilter}
               label={t('onlyCurrentlyOpen')}
@@ -104,7 +109,7 @@ const PoiFilters = ({
             <SubTitle>{t('poiCategories')}</SubTitle>
             <SortingHint>{t('alphabetLetters')}</SortingHint>
           </Row>
-          <TileRow>
+          <TileRow itemCount={Math.floor(panelWidth / (toggleButtonWidth + tileColumnGap))}>
             {poiCategories.map(it => (
               <ToggleButton
                 key={it.id}
