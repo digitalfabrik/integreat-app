@@ -1,7 +1,7 @@
-# First step of each workflow. Reads and bumps the current version code and name. For deliveries the bump is committed and a JIRA release is created.
+# First step of each workflow. Reads and bumps the current version code and name. For deliveries the bump is committed.
 parameters:
   prepare_delivery:
-    description: Whether to prepare for a delivery. If true, the version bump is committed and a JIRA release is created.
+    description: Whether to prepare for a delivery. If true, the version bump is committed.
     type: boolean
     default: false
 docker:
@@ -25,10 +25,6 @@ steps:
         - run:
             name: Bump git version
             command: yarn git-version bump-to ${NEW_VERSION_NAME} ${NEW_VERSION_CODE} --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME} --branch ${CIRCLE_BRANCH}
-            working_directory: tools
-        - run:
-            name: Create jira release # The jira project has to have the same name as the github project. Otherwise this has to be configured.
-            command: yarn jira-release create ${NEW_VERSION_NAME} --private-key ${JIRA_PRIVATE_KEY} --access-token ${JIRA_OAUTH_TOKEN} --consumer-key ${JIRA_CONSUMER_KEY} --project-name ${CIRCLE_PROJECT_REPONAME}
             working_directory: tools
   - persist_environment_variables
   - notify
