@@ -29,8 +29,8 @@ const PanelContainer = styled.article`
   height: 100%;
   display: flex;
   flex-direction: column;
-  width: 332px;
-  min-width: 332px;
+  width: ${dimensions.poiDesktopPanelWidth}px;
+  min-width: ${dimensions.poiDesktopPanelWidth}px;
 `
 
 const ListViewWrapper = styled.div<{ panelHeights: number; bottomBarHeight: number }>`
@@ -189,8 +189,11 @@ const PoisDesktop = ({
         languageCode={languageCode}
         Overlay={MapOverlay}>
         <NavigationControl showCompass={false} position={direction === 'rtl' ? 'bottom-left' : 'bottom-right'} />
-        {/* To use geolocation in a development build you have to start the dev server with "yarn start --https" */}
-        <GeolocateControl positionOptions={{ enableHighAccuracy: true }} trackUserLocation position='bottom-right' />
+        <GeolocateControl
+          positionOptions={{ enableHighAccuracy: true }}
+          trackUserLocation
+          position={direction === 'rtl' ? 'bottom-left' : 'bottom-right'}
+        />
         <FooterContainer>
           <CityContentFooter city={cityModel.code} language={languageCode} mode='overlay' />
         </FooterContainer>

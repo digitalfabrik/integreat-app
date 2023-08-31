@@ -1,7 +1,6 @@
 import { mapValues } from 'lodash'
 import { DateTime } from 'luxon'
 import React, { ReactElement, ReactNode, useCallback, useContext, useMemo, useState } from 'react'
-import { LayoutChangeEvent } from 'react-native'
 import styled from 'styled-components/native'
 
 import useCityAppContext from '../hooks/useCityAppContext'
@@ -59,7 +58,6 @@ const Page = ({
   const resourceCache = useResourceCache({ cityCode, languageCode })
   const resourceCacheUrl = useContext(StaticServerContext)
   const [loading, setLoading] = useState(true)
-  const [contentWidth, setContentWidth] = useState(0)
   const navigateToLink = useNavigateToLink()
 
   const cacheDictionary = useMemo(
@@ -74,12 +72,9 @@ const Page = ({
     [cacheDictionary, navigateToLink],
   )
   const onLoad = useCallback(() => setLoading(false), [setLoading])
-  const measureContentWidth = (event: LayoutChangeEvent) => {
-    setContentWidth(event.nativeEvent.layout.width)
-  }
 
   return (
-    <Container onLayout={measureContentWidth} $padding={padding}>
+    <Container $padding={padding}>
       {!loading && title ? <Caption title={title} /> : null}
       {!loading && BeforeContent}
       <RemoteContent
@@ -89,7 +84,6 @@ const Page = ({
         onLoad={onLoad}
         language={language}
         resourceCacheUrl={resourceCacheUrl}
-        webViewWidth={contentWidth}
       />
       {!loading && AfterContent}
       {!loading && !!content && lastUpdate && <TimeStamp lastUpdate={lastUpdate} />}

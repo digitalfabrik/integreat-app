@@ -1,7 +1,7 @@
+import { GeolocateControl } from 'maplibre-gl'
 import React, { ReactElement, useCallback, useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { GeolocateControl } from 'react-map-gl'
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 
 import {
   embedInCollection,
@@ -21,10 +21,12 @@ import { getSnapPoints } from '../utils/getSnapPoints'
 import BottomActionSheet, { ScrollableBottomSheetRef } from './BottomActionSheet'
 import GoBack from './GoBack'
 import List from './List'
-import MapView from './MapView'
+import MapView, { MapViewRef } from './MapView'
 import PoiDetails from './PoiDetails'
 import PoiListItem from './PoiListItem'
 import Icon from './base/Icon'
+
+const geolocatorTopOffset = 10
 
 const ListContainer = styled.div`
   padding: 0 30px;
@@ -57,6 +59,20 @@ const StyledIcon = styled(Icon)`
   color: ${props => props.theme.colors.backgroundColor};
 `
 
+const GeocontrolContainer = styled.div<{ height: number; direction: string }>`
+  --max-icon-height: calc(${props => getSnapPoints(props.height)[1]}px + ${geolocatorTopOffset}px);
+  position: absolute;
+  ${props =>
+    props.direction === 'ltr'
+      ? css`
+          right: 10px;
+        `
+      : css`
+          left: 10px;
+        `};
+  bottom: min(calc(var(--rsbs-overlay-h, 0) + ${geolocatorTopOffset}px), var(--max-icon-height));
+`
+
 type PoisMobileProps = {
   toolbar: ReactElement
   features: MapFeature[]
@@ -86,6 +102,8 @@ const PoisMobile = ({
   const [bottomActionSheetHeight, setBottomActionSheetHeight] = useState(0)
   const [scrollOffset, setScrollOffset] = useState<number>(0)
   const sheetRef = useRef<ScrollableBottomSheetRef>(null)
+  const geocontrolPosition = useRef<HTMLDivElement>(null)
+  const [mapViewRef, setMapViewRef] = useState<MapViewRef | null>(null)
   const { selectGeoJsonPoiInList, selectFeatureOnMap, currentFeatureOnMap, currentPoi, poiListFeatures } =
     useMapFeatures(features, pois, slug)
   const { height } = useWindowDimensions()
@@ -137,9 +155,21 @@ const PoisMobile = ({
     />
   )
 
+  useEffect(() => {
+    if (mapViewRef && geocontrolPosition.current) {
+      const geocontrol = new GeolocateControl({
+        positionOptions: { enableHighAccuracy: true },
+        trackUserLocation: true,
+      })
+      mapViewRef.setGeocontrol(geocontrol)
+      geocontrolPosition.current.appendChild(geocontrol._container)
+    }
+  }, [mapViewRef])
+
   return (
     <>
       <MapView
+        ref={setMapViewRef}
         viewport={mapViewport}
         setViewport={setMapViewport}
         selectFeature={handleSelectFeatureOnMap}
@@ -161,28 +191,20 @@ const PoisMobile = ({
             )}
             {MapOverlay}
           </>
-        }>
-        {/* To use geolocation in a development build you have to start the dev server with "yarn start --https" */}
-        <GeolocateControl
-          style={{
-            bottom: bottomActionSheetHeight,
-            position: 'absolute',
-            right: 0,
-          }}
-          positionOptions={{ enableHighAccuracy: true }}
-          trackUserLocation
-          position='bottom-right'
-        />
-      </MapView>
+        }
+      />
       <BottomActionSheet
         title={!currentFeatureOnMap ? t('listTitle') : undefined}
         toolbar={toolbar}
         ref={sheetRef}
         setBottomActionSheetHeight={setBottomActionSheetHeight}
-        direction={direction}>
-        <GoBackContainer hidden={!isBottomActionSheetFullScreen}>
-          <GoBack goBack={() => selectGeoJsonPoiInList(null)} viewportSmall text={t('detailsHeader')} />
-        </GoBackContainer>
+        direction={direction}
+        sibling={<GeocontrolContainer id='geolocate' direction={direction} ref={geocontrolPosition} height={height} />}>
+        {currentFeatureOnMap && (
+          <GoBackContainer hidden={!isBottomActionSheetFullScreen}>
+            <GoBack goBack={() => selectGeoJsonPoiInList(null)} viewportSmall text={t('detailsHeader')} />
+          </GoBackContainer>
+        )}
         <ListContainer>
           {currentPoi ? (
             <PoiDetails poi={currentPoi} feature={currentPoi.getFeature(userLocation)} direction={direction} />

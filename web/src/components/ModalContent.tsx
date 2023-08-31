@@ -19,6 +19,7 @@ const Header = styled.div<{ small: boolean }>`
   justify-content: space-between;
   font-size: ${props => props.theme.fonts.subTitleFontSize};
   font-weight: bold;
+  align-items: center;
 
   ${props =>
     props.small &&
@@ -38,6 +39,8 @@ const CloseButton = styled.button`
 const StyledIcon = styled(Icon)`
   width: 24px;
   height: 24px;
+  align-self: center;
+  display: flex;
 `
 
 type ModalProps = {

@@ -31,6 +31,7 @@ type BottomActionSheetProps = {
   title?: string
   children: ReactNode
   toolbar: ReactNode
+  sibling: ReactNode
   direction: UiDirectionType
   setBottomActionSheetHeight: (height: number) => void
 }
@@ -42,7 +43,7 @@ export type ScrollableBottomSheetRef = {
 
 const BottomActionSheet = React.forwardRef(
   (
-    { title, children, toolbar, direction, setBottomActionSheetHeight }: BottomActionSheetProps,
+    { title, children, toolbar, sibling, direction, setBottomActionSheetHeight }: BottomActionSheetProps,
     ref: React.Ref<ScrollableBottomSheetRef>,
   ): ReactElement => {
     const theme = useTheme()
@@ -68,6 +69,7 @@ const BottomActionSheet = React.forwardRef(
         direction={direction}
         ref={bottomSheetRef}
         open
+        sibling={sibling}
         scrollLocking={false}
         blocking={false}
         id='sheet'
