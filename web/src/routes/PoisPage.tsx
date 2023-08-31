@@ -66,7 +66,7 @@ const PoisPage = ({ cityCode, languageCode, city, pathname }: CityRouteProps): R
   } = useLoadFromEndpoint(createPOIsEndpoint, cmsApiBaseUrl, { city: cityCode, language: languageCode })
   // keep the old mapViewport when changing the viewport
   const [mapViewport, setMapViewport] = useState<MapViewViewport>()
-  const { viewportSmall } = useWindowDimensions()
+  const { viewportSmall, width } = useWindowDimensions()
   const direction = config.getScriptDirection(languageCode)
 
   const pois = useMemo(
@@ -177,9 +177,9 @@ const PoisPage = ({ cityCode, languageCode, city, pathname }: CityRouteProps): R
       setSelectedPoiCategory={updatePoiCategoryFilter}
       currentlyOpenFilter={poiCurrentlyOpenFilter}
       setCurrentlyOpenFilter={updatePoiCurrentlyOpenFilter}
+      panelWidth={viewportSmall ? width : dimensions.poiDesktopPanelWidth}
     />
   )
-
   if (showFilterSelection && viewportSmall) {
     return FiltersModal
   }
