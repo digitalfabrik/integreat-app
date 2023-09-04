@@ -42,6 +42,7 @@ const TitleHint = styled.span`
 const Detail = styled.div<{ extended: boolean; to?: string }>`
   padding: 5px 10px;
   display: flex;
+  align-items: center;
   ${props => (props.to ? 'cursor: pointer;' : '')}
 `
 
