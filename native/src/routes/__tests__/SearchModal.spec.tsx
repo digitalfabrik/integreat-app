@@ -1,4 +1,5 @@
 import { fireEvent, waitFor } from '@testing-library/react-native'
+import { TFunction } from 'i18next'
 import React from 'react'
 
 import { CATEGORIES_ROUTE, CategoriesRouteInformationType, SEARCH_FINISHED_SIGNAL_NAME } from 'api-client'
@@ -25,7 +26,7 @@ describe('SearchModal', () => {
   })
   const dummy = jest.fn()
 
-  const t = (key: string) => key
+  const t = ((key: string) => key) as TFunction
 
   const categoriesMapModel = new CategoriesMapModelBuilder('augsburg', 'de', 2, 2).build()
   const languageCode = 'de'

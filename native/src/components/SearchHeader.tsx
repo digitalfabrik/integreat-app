@@ -1,6 +1,6 @@
 import { HeaderBackButton } from '@react-navigation/elements'
+import { TFunction } from 'i18next'
 import React, { ReactElement } from 'react'
-import { TFunction } from 'react-i18next'
 import styled from 'styled-components/native'
 
 import { ThemeType } from 'build-configs'
