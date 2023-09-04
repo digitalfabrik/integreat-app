@@ -31,7 +31,6 @@ const StaticServerProvider = ({ children }: StaticServerProps): ReactElement | n
   if (resourceCacheUrl === null) {
     return null
   }
-  console.log(resourceCacheUrl)
   return <StaticServerContext.Provider value={resourceCacheUrl}>{children}</StaticServerContext.Provider>
 }
 
