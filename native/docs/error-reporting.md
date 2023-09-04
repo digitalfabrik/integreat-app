@@ -55,14 +55,14 @@ yarn react-native bundle --dev false --platform android --entry-file src/index.j
 Uploading the bundle:
 
 ```bash
-yarn sentry-cli releases --project integreat-react-native-app --org tur-an-tur-digitalfabrik files <release> upload-sourcemaps --dist <distribution> --strip-prefix <prefix> --rewrite index.android.bundle index.android.bundle.map
+yarn sentry-cli releases --project integreat-app --org tur-an-tur-digitalfabrik files <release> upload-sourcemaps --dist <distribution> --strip-prefix <prefix> --rewrite index.android.bundle index.android.bundle.map
 ```
 
 `<release>` is the `applicationId` concatenated with the version string e.g. `tuerantuer.app.integreat-2020.1.0`
 
 `<distribution>` is the `versionCode` on Android.
 
-`<prefix>` is your project directory e.g. `/home/max/projects/integreat/integreat-react-native-app/src/`
+`<prefix>` is your project directory e.g. `/home/max/projects/digitalfabrik/integreat-app/native/src/`
 
 ### iOS
 
@@ -75,7 +75,7 @@ yarn react-native bundle --dev false --platform ios --entry-file src/index.js --
 Uploading the bundle:
 
 ```bash
-yarn sentry-cli releases --project integreat-react-native-app --org tur-an-tur-digitalfabrik files <release> upload-sourcemaps --dist <distribution> --rewrite main.jsbundle main.jsbundle.map
+yarn sentry-cli releases --project integreat-app --org tur-an-tur-digitalfabrik files <release> upload-sourcemaps --dist <distribution> --rewrite main.jsbundle main.jsbundle.map
 ```
 
 `<release>` is the bundle identifier concatenated with the version string e.g. `de.integreat-app-2020.1.0`

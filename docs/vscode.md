@@ -149,5 +149,5 @@ https://marketplace.visualstudio.com/items?itemName=yzhang.markdown-all-in-one
 code --install-extension yzhang.markdown-all-in-one
 ```
 
-... and many more like e.g. yarn support and jira support  
+... and many more like e.g. yarn support
 Try out and enjoy! :)

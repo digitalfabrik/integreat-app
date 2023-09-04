@@ -6,6 +6,7 @@ import render from '../../testing/render'
 import Feedback from '../Feedback'
 
 jest.mock('styled-components')
+jest.mock('react-i18next')
 
 describe('Feedback', () => {
   beforeEach(() => {

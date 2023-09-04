@@ -113,8 +113,8 @@ const PoiFiltersModal = ({
               <StyledToggleButton
                 key={it.id}
                 text={it.name}
-                active={it === selectedPoiCategory}
-                onPress={() => setSelectedPoiCategory(it === selectedPoiCategory ? null : it)}
+                active={it.id === selectedPoiCategory?.id}
+                onPress={() => setSelectedPoiCategory(it.id === selectedPoiCategory?.id ? null : it)}
                 Icon={<SvgUri uri={it.icon} />}
               />
             ))}
