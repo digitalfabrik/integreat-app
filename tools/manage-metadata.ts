@@ -37,7 +37,7 @@ type ParseOptions = {
 }
 const MAX_RELEASE_NOTES_LENGTH = 500
 const DEFAULT_NOTES_LANGUAGE = 'de'
-
+const ISSUE_URL = 'https://github.com/digitalfabrik/integreat-app/issues'
 const prepareDefaultReleaseNote = (language: string, production: boolean, appName?: string): string => {
   if (!production) {
     return ''
@@ -64,7 +64,7 @@ const formatNotes = (params: {
       const localizedNote = language === 'en' || !note.de ? note.en : note.de
       // Double quotes make mattermost status alerts fail
       const escapedNote = localizedNote.replace(/"/g, "'")
-      return production ? `* ${escapedNote}` : `* [ ${note.issue_key} ] ${escapedNote}`
+      return production ? `* ${escapedNote}` : `* [[${note.issue_key}](${ISSUE_URL}/${note.issue_key})] ${escapedNote}`
     })
     .reduce((text, note) => {
       // Make sure release notes don't get longer than the maximal allowed length

@@ -12,6 +12,7 @@ export type DimensionsType = {
   headerHeightSmall: number
   footerHeight: number
   navigationMenuHeight: number
+  poiDesktopPanelWidth: number
 }
 
 const dimensions: DimensionsType = {
@@ -28,6 +29,7 @@ const dimensions: DimensionsType = {
   headerHeightSmall: 70,
   footerHeight: 50,
   navigationMenuHeight: 90,
+  poiDesktopPanelWidth: 332,
 }
 
 export default dimensions

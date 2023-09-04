@@ -85,7 +85,7 @@ StyledComponents.
 
 See [this guide](https://github.com/erlang/otp/wiki/Writing-good-commit-messages) for a general reference on how to
 write good commit messages. Commit messages should have the following schema:
-**`<Issue key>: Your commit message`**, e.g. `IGAPP-612: Add commit message documentation`
+**`<Issue key>: Your commit message`**, e.g. `1234: Add commit message documentation`
 
 The same applies for PR names.
 

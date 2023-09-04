@@ -8,7 +8,7 @@ const mapIconsHeight = 60
 const getLargeSnapPoint = (maxHeight: number) =>
   maxHeight - dimensions.headerHeightLarge - dimensions.navigationMenuHeight - mapIconsHeight
 
-export const getSnapPoints = (maxHeight: number): number[] => [
+export const getSnapPoints = (maxHeight: number): [number, number, number, number] => [
   maxHeight * minSnapPercentage,
   maxHeight * midSnapPercentage,
   getLargeSnapPoint(maxHeight),
