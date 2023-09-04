@@ -10,7 +10,7 @@ import React, {
   useImperativeHandle,
   useState,
 } from 'react'
-import Map, { Layer, MapRef, Source, MapLayerMouseEvent } from 'react-map-gl'
+import Map, { Layer, MapRef, Source, MapLayerMouseEvent } from 'react-map-gl/maplibre'
 import styled, { useTheme } from 'styled-components'
 
 import {
