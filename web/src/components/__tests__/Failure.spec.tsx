@@ -1,3 +1,4 @@
+import { TFunction } from 'i18next'
 import React from 'react'
 
 import { renderWithRouterAndTheme } from '../../testing/render'
@@ -7,7 +8,7 @@ jest.mock('react-i18next')
 jest.mock('react-inlinesvg')
 
 describe('Failure', () => {
-  const mockTranslate = (key: string) => key
+  const mockTranslate = ((key: string) => key) as TFunction
 
   it('should render a simple failure and match snapshot', () => {
     const errorMessage = 'error message'
