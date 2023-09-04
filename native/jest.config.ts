@@ -39,7 +39,7 @@ export default {
   modulePaths: ['<rootDir>'],
   moduleDirectories: ['node_modules'],
   maxWorkers: '50%',
-  workerIdleMemoryLimit: '500MB',
+  workerIdleMemoryLimit: process.env.CI ? '500MB' : undefined,
   coverageDirectory: '<rootDir>/../reports/coverage',
   reporters: [
     'default',

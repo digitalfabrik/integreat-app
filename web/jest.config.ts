@@ -17,6 +17,7 @@ const config: InitialOptionsTsJest = {
   moduleFileExtensions: ['js', 'jsx', 'ts', 'tsx', 'json'],
   moduleDirectories: ['node_modules'],
   maxWorkers: '50%',
+  workerIdleMemoryLimit: process.env.CI ? '500MB' : undefined,
   transform: {
     '^.+\\.(j|t)sx?$': [
       'ts-jest',
