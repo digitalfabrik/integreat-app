@@ -1,5 +1,5 @@
 import { fromPairs } from 'lodash'
-import { stringify } from 'query-string'
+import queryString from 'query-string'
 import React, { useState, useRef, useEffect, useCallback, ReactElement } from 'react'
 import { BackHandler } from 'react-native'
 import { WebView, WebViewNavigation } from 'react-native-webview'
@@ -38,7 +38,11 @@ const ExternalOffer = (props: ExternalOfferProps): ReactElement => {
   )
   return (
     <WebView
-      source={postData ? createPostSource(url, stringify(fromPairs([...postData.entries()]))) : createGetSource(url)}
+      source={
+        postData
+          ? createPostSource(url, queryString.stringify(fromPairs([...postData.entries()])))
+          : createGetSource(url)
+      }
       javaScriptEnabled
       dataDetectorTypes='none'
       domStorageEnabled={false}

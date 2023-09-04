@@ -37,6 +37,7 @@ describe('Endpoint', () => {
     has: jest.fn(),
     set: jest.fn(),
     forEach: jest.fn(),
+    getSetCookie: jest.fn(),
   }
 
   const responseBody: Body = {
