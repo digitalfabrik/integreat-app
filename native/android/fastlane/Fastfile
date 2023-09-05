@@ -53,8 +53,8 @@ lane :build do |options|
   ENV["BUILD_CONFIG_NAME"] = build_config_name
 
   gradle_system_properties = {
-    # 2GB Gradle + 1GB dex + 2-2.5GB RN < 6GB of circleci resource class medium+
-    :"org.gradle.jvmargs" => "-XX:MaxMetaspaceSize=512m -Xmx2024m -XX:+HeapDumpOnOutOfMemoryError",
+    # 2GB Gradle + 2-2.5GB RN < 6GB of circleci resource class medium+
+    :"org.gradle.jvmargs" => "-XX:MaxMetaspaceSize=512m -Xmx2024m -Xms512m -XX:MaxPermSize=1024m -XX:+HeapDumpOnOutOfMemoryError",
     :"org.gradle.daemon" => false
   }
 
