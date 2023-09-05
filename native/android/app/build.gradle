@@ -123,9 +123,6 @@ android {
             versionCode project.VERSION_CODE.toInteger()
             versionName project.VERSION_NAME
         }
-
-        // https://rnfirebase.io/enabling-multidex
-        multiDexEnabled true
     }
     signingConfigs {
         release {
@@ -205,9 +202,6 @@ dependencies {
     // The version of react-native is set by the React Native Gradle Plugin
     implementation("com.facebook.react:react-android")
     implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.0.0")
-
-    // https://rnfirebase.io/enabling-multidex
-    implementation 'androidx.multidex:multidex:2.0.1'
 
     implementation 'com.squareup.okio:okio:2.8.0'
     implementation 'com.squareup.okhttp3:okhttp:4.9.0'
