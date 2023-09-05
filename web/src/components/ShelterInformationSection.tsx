@@ -114,11 +114,7 @@ const ShelterInformationSection = ({
         {information.map(({ text, icon, rightText, link, tooltip }) => {
           const content = (
             <>
-              {!!icon && (
-                <span aria-label={tooltip}>
-                  <Icon src={icon} />
-                </span>
-              )}
+              {!!icon && <Icon src={icon} aria-label={tooltip} />}
               <DetailText hasText={!!rightText}>{text}</DetailText>
               {!!rightText && <RightTextContainer>{rightText}</RightTextContainer>}
             </>
