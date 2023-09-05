@@ -1,5 +1,5 @@
 import { Expression } from 'mapbox-gl'
-import { LayerProps } from 'react-map-gl'
+import { LayerProps } from 'react-map-gl/maplibre'
 
 import {
   circleRadiusLarge,
