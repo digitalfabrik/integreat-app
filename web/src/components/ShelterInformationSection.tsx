@@ -54,6 +54,7 @@ const DetailText = styled.span<{ hasText: boolean }>`
 
 const RightTextContainer = styled.span`
   margin-left: 8px;
+  align-self: flex-start;
 `
 
 const Label = styled.span`
