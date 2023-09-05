@@ -92,6 +92,12 @@ def reactNativeArchitectures() {
 }
 
 android {
+    externalNativeBuild {
+        cmake {
+            version "3.19.0+"
+        }
+    }
+
     namespace "tuerantuer.app.integreat"
     ndkVersion rootProject.ext.ndkVersion
     

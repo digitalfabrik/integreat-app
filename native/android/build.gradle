@@ -11,8 +11,8 @@ buildscript {
         targetSdkVersion = 33
         // We use NDK 23 which has both M1 support and is the side-by-side NDK version from AGP.
         ndkVersion = "23.1.7779620"
-        // stick to browser 1.4.0 until we upgrade to SDK 33 https://stackoverflow.com/questions/69208613/getting-error-while-running-react-native-app
-        androidXBrowser = "1.4.0"
+        // stick to browser 1.5.0 until we upgrade to SDK 33 https://stackoverflow.com/questions/69208613/getting-error-while-running-react-native-app
+        androidXBrowser = "1.5.0"
     }
     repositories {
         google()
