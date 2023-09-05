@@ -11,11 +11,16 @@ const StyledButton = styled.button<{ $active: boolean | null }>`
     0 1px 4px 1px rgba(0, 0, 0, 0.15);
   border-radius: 18px;
   width: ${toggleButtonWidth}px;
-  height: 80px;
+  height: 100px;
   background-color: ${props => (props.$active ? props.theme.colors.themeColor : props.theme.colors.backgroundColor)};
   color: ${props => props.theme.colors.textSecondaryColor};
   padding: 8px;
   cursor: pointer;
+`
+
+const Text = styled(StyledSmallViewTip)`
+  white-space: normal;
+  word-break: break-word;
 `
 
 type TextButtonProps = {
@@ -29,7 +34,7 @@ type TextButtonProps = {
 const ToggleButton = ({ text, onClick, className, ...props }: TextButtonProps): ReactElement => (
   <StyledButton type='button' onClick={onClick} $active={!!props.active} className={className}>
     <img src={props.icon} alt='' />
-    <StyledSmallViewTip as='span'>{text}</StyledSmallViewTip>
+    <Text as='span'>{text}</Text>
   </StyledButton>
 )
 
