@@ -59,17 +59,8 @@ class InternalPathnameParser {
     return null
   }
 
-  query = (): Record<string, string> => {
-    const queryItems = this._query?.split('&')
-    const queryObject: Record<string, string> = {}
-    queryItems?.forEach(query => {
-      const [key, value] = query.split('=')
-      if (!key || !value) {
-        return
-      }
-      queryObject[key] = value
-    })
-    return queryObject
+  query = (): URLSearchParams | undefined => {
+    return this._query ? new URLSearchParams(this._query) : undefined
   }
 
   landing = (): RouteInformationType => {
