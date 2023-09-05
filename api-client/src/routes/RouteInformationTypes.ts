@@ -72,13 +72,13 @@ export type PoisRouteInformationType = ParamsType & {
   // Route with customizable ids and query, e.g. '/augsburg/de/pois/1234?multipoi=2'
   route: PoisRouteType
   slug?: string
-  multipoi?: string
+  multipoi?: string | null
 }
 
 export type SearchRouteInformationType = ParamsType & {
   // Route with query, e.g. '/augsburg/de/search?query=zeugnis'
   route: SearchRouteType
-  searchText?: string
+  searchText?: string | null
 }
 
 export type NonNullableRouteInformationType =
