@@ -55,7 +55,8 @@ lane :build do |options|
   gradle_system_properties = {
     # 3GB Gradle + 2-2.5GB RN < 6GB of circleci resource class medium+
     :"org.gradle.jvmargs" => "-Xmx3072m -Xms512m -XX:MaxMetaspaceSize=512m -XX:+HeapDumpOnOutOfMemoryError",
-    :"org.gradle.daemon" => false
+    :"org.gradle.daemon" => false,
+    :"org.gradle.parallel" => true
   }
 
   if ENV['TOTAL_CPUS']
