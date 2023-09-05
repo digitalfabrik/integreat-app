@@ -1,0 +1,5 @@
+issue_key: 2424
+show_in_stores: false
+platforms:
+  - web
+en: Increase readability of location filter button labels
