@@ -92,13 +92,7 @@ def reactNativeArchitectures() {
 }
 
 android {
-    externalNativeBuild {
-        cmake {
-            version "3.19.0+"
-        }
-    }
 
-    namespace "tuerantuer.app.integreat"
     ndkVersion rootProject.ext.ndkVersion
     
     compileSdkVersion rootProject.ext.compileSdkVersion
@@ -109,7 +103,7 @@ android {
     def buildConfigName = determineBuildConfigName()
     def buildConfig = createBuildConfig(buildConfigName)
 
-    namespace "tuerantuer.app.integreat"
+    namespace buildConfig.applicationId ?: "tuerantuer.app.integreat"
     defaultConfig {
         applicationId buildConfig.applicationId ?: "tuerantuer.app.integreat"
 

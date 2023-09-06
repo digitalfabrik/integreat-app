@@ -55,8 +55,7 @@ lane :build do |options|
   gradle_system_properties = {
     # 3GB Gradle + 2-2.5GB RN < 6GB of circleci resource class medium+
     :"org.gradle.jvmargs" => "-Xmx3072m -Xms512m -XX:MaxMetaspaceSize=512m -XX:+HeapDumpOnOutOfMemoryError",
-    :"org.gradle.daemon" => false,
-    :"org.gradle.parallel" => true
+    :"org.gradle.daemon" => false
   }
 
   if ENV['TOTAL_CPUS']
@@ -64,17 +63,26 @@ lane :build do |options|
     gradle_system_properties["org.gradle.workers.max"] = ENV['TOTAL_CPUS']
   end
 
+  gradle_properties = {
+      :BUILD_CONFIG_NAME => build_config_name,
+      :VERSION_CODE => version_code,
+      :VERSION_NAME => version_name,
+      :KEYSTORE_PATH => KEYSTORE_PATH,
+      :KEYSTORE_KEY_ALIAS => KEYSTORE_KEY_ALIAS,
+      :KEYSTORE_PASSWORD => KEYSTORE_PASSWORD,
+      :KEYSTORE_KEY_PASSWORD => KEYSTORE_KEY_PASSWORD
+}.compact
+
+  gradle(
+    task: "createBundleReleaseJsAndAssets",
+    properties: gradle_properties,
+    system_properties: gradle_system_properties, 
+    print_command: false
+  )
   gradle(
       task: "assembleRelease",
-      properties: {
-          :BUILD_CONFIG_NAME => build_config_name,
-          :VERSION_CODE => version_code,
-          :VERSION_NAME => version_name,
-          :KEYSTORE_PATH => KEYSTORE_PATH,
-          :KEYSTORE_KEY_ALIAS => KEYSTORE_KEY_ALIAS,
-          :KEYSTORE_PASSWORD => KEYSTORE_PASSWORD,
-          :KEYSTORE_KEY_PASSWORD => KEYSTORE_KEY_PASSWORD
-      }.compact,
+      flags: " -x createBundleReleaseJsAndAssets",
+      properties: gradle_properties,
       system_properties: gradle_system_properties,
       print_command: false
   )
