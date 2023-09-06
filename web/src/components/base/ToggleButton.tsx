@@ -18,11 +18,6 @@ const StyledButton = styled.button<{ $active: boolean | null }>`
   cursor: pointer;
 `
 
-const Text = styled(StyledSmallViewTip)`
-  white-space: normal;
-  word-break: break-word;
-`
-
 type TextButtonProps = {
   text: string
   onClick: () => void
@@ -34,7 +29,7 @@ type TextButtonProps = {
 const ToggleButton = ({ text, onClick, className, ...props }: TextButtonProps): ReactElement => (
   <StyledButton type='button' onClick={onClick} $active={!!props.active} className={className}>
     <img src={props.icon} alt='' />
-    <Text as='span'>{text}</Text>
+    <StyledSmallViewTip as='span'>{text}</StyledSmallViewTip>
   </StyledButton>
 )
 
