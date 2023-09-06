@@ -18,7 +18,7 @@ export type SearchModalContainerProps = {
 
 const SearchModalContainer = ({ navigation, route }: SearchModalContainerProps): ReactElement | null => {
   const { cityCode, languageCode } = useCityAppContext()
-  const { searchText } = route.params
+  const initialSearchText = route.params.searchText ?? ''
   const { data, ...response } = useLoadCityContent({ cityCode, languageCode })
   const theme = useContext(ThemeContext)
   const { t } = useTranslation('search')
@@ -35,7 +35,7 @@ const SearchModalContainer = ({ navigation, route }: SearchModalContainerProps):
           languageCode={languageCode}
           theme={theme}
           t={t}
-          initialSearchText={searchText}
+          initialSearchText={initialSearchText}
         />
       )}
     </LoadingErrorHandler>

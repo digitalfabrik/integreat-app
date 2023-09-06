@@ -43,7 +43,7 @@ export type SearchModalProps = {
   cityCode: string
   closeModal: (query: string) => void
   t: TFunction<'search'>
-  initialSearchText?: string | null
+  initialSearchText: string
 }
 
 const SearchModal = ({
@@ -56,7 +56,7 @@ const SearchModal = ({
   t,
   initialSearchText = '',
 }: SearchModalProps): ReactElement => {
-  const [query, setQuery] = useState<string>(initialSearchText ?? '')
+  const [query, setQuery] = useState<string>(initialSearchText)
   const resourceCache = useResourceCache({ cityCode, languageCode })
 
   const searchResults = useMemo(() => searchCategories(categories, query), [categories, query])

@@ -8,7 +8,7 @@ import buildConfig from '../../constants/buildConfig'
 import { urlFromRouteInformation } from '../../navigation/url'
 import render from '../../testing/render'
 import sendTrackingSignal from '../../utils/sendTrackingSignal'
-import SearchModal from '../SearchModal'
+import SearchModal, { SearchModalProps } from '../SearchModal'
 
 jest.mock('../../utils/sendTrackingSignal')
 jest.mock('../../components/FeedbackContainer')
@@ -30,15 +30,15 @@ describe('SearchModal', () => {
   const categoriesMapModel = new CategoriesMapModelBuilder('augsburg', 'de', 2, 2).build()
   const languageCode = 'de'
   const cityCode = 'augsburg'
-  const props = {
+  const props: SearchModalProps = {
     categories: categoriesMapModel,
     navigateTo: dummy,
     languageCode,
     cityCode,
     closeModal: dummy,
-    navigateToLink: dummy,
     t,
     theme: buildConfig().lightTheme,
+    initialSearchText: '',
   }
 
   it('should send tracking signal when closing search site', async () => {
@@ -93,7 +93,7 @@ describe('SearchModal', () => {
 
   it('should open with an initial search text if one is supplied', () => {
     const initialSearchText = 'zeugnis'
-    const { getByTestId } = render(<SearchModal initialSearchText={initialSearchText} {...props} />)
+    const { getByTestId } = render(<SearchModal {...props} initialSearchText={initialSearchText} />)
     expect(getByTestId('searchInput').props.value).toBe(initialSearchText)
   })
 })
