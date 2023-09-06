@@ -11,7 +11,7 @@ const StyledButton = styled.button<{ $active: boolean | null }>`
     0 1px 4px 1px rgba(0, 0, 0, 0.15);
   border-radius: 18px;
   width: ${toggleButtonWidth}px;
-  height: 80px;
+  height: 100px;
   background-color: ${props => (props.$active ? props.theme.colors.themeColor : props.theme.colors.backgroundColor)};
   color: ${props => props.theme.colors.textSecondaryColor};
   padding: 8px;

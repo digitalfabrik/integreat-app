@@ -42,6 +42,7 @@ const TitleHint = styled.span`
 const Detail = styled.div<{ extended: boolean; to?: string }>`
   padding: 5px 10px;
   display: flex;
+  align-items: center;
   ${props => (props.to ? 'cursor: pointer;' : '')}
 `
 
@@ -53,6 +54,7 @@ const DetailText = styled.span<{ hasText: boolean }>`
 
 const RightTextContainer = styled.span`
   margin-left: 8px;
+  align-self: flex-start;
 `
 
 const Label = styled.span`
@@ -113,11 +115,7 @@ const ShelterInformationSection = ({
         {information.map(({ text, icon, rightText, link, tooltip }) => {
           const content = (
             <>
-              {!!icon && (
-                <span aria-label={tooltip}>
-                  <Icon src={icon} />
-                </span>
-              )}
+              {!!icon && <Icon src={icon} aria-label={tooltip} />}
               <DetailText hasText={!!rightText}>{text}</DetailText>
               {!!rightText && <RightTextContainer>{rightText}</RightTextContainer>}
             </>
