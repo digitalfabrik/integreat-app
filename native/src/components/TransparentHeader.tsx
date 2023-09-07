@@ -69,8 +69,7 @@ const TransparentHeader = ({ navigation, route }: TransparentHeaderProps): React
   }, [showSnackbar, shareUrl, t])
 
   const overflowItems = shareUrl
-    ? // @ts-expect-error accessibilityLabel missing in props
-      [<HiddenItem key='share' title={t('share')} onPress={onShare} accessibilityLabel={t('share')} />]
+    ? [<HiddenItem key='share' title={t('share')} onPress={onShare} accessibilityLabel={t('share')} />]
     : []
 
   if (!navigation.canGoBack()) {

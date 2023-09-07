@@ -83,7 +83,7 @@ const Pois = ({ pois: allPois, language, cityModel, route, navigation }: PoisPro
   const pois = useMemo(
     () =>
       allPois
-        .filter(poi => !poiCategoryFilter || poi.category === poiCategoryFilter)
+        .filter(poi => !poiCategoryFilter || poi.category.isEqual(poiCategoryFilter))
         .filter(poi => !poiCurrentlyOpenFilter || poi.isCurrentlyOpen),
     [allPois, poiCategoryFilter, poiCurrentlyOpenFilter],
   )
