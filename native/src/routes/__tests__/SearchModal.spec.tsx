@@ -40,6 +40,7 @@ describe('SearchModal', () => {
     closeModal: dummy,
     t,
     theme,
+    initialSearchText: '',
   }
 
   const renderWithTheme = () =>
@@ -96,5 +97,11 @@ describe('SearchModal', () => {
     fireEvent.changeText(getByPlaceholderText('searchPlaceholder'), 'invalid query')
 
     expect(getByText('search:nothingFound')).toBeTruthy()
+  })
+
+  it('should open with an initial search text if one is supplied', () => {
+    const initialSearchText = 'zeugnis'
+    const { getByTestId } = render(<SearchModal {...props} initialSearchText={initialSearchText} />)
+    expect(getByTestId('searchInput').props.value).toBe(initialSearchText)
   })
 })
