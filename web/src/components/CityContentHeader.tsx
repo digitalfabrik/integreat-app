@@ -56,7 +56,15 @@ const CityContentHeader = ({
 
   const { t } = useTranslation('layout')
 
-  const SearchButton = <HeaderActionItemLink key='search' href={searchPath} text={t('search')} iconSrc={SearchIcon} />
+  const SearchButton = (
+    <HeaderActionItemLink
+      key='search'
+      href={searchPath}
+      text={t('search')}
+      iconSrc={SearchIcon}
+      iconDirectionDependent
+    />
+  )
 
   const actionItems = viewportSmall
     ? [SearchButton]
