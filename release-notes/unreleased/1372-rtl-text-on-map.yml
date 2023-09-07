@@ -1,0 +1,6 @@
+issue_key: 1372
+show_in_stores: true
+platforms:
+  - web
+en: Names of locations in arabic can now be displayed on the map.
+de: Namen von Orten in arabischer Sprache können nun auf der Karte angezeigt werden.

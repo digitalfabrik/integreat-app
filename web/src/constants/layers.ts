@@ -50,7 +50,7 @@ export const markerLayer = (currentFeature: MapFeature | null): LayerProps => ({
       ['literal', [0, 0]],
     ],
     'text-field': ['case', ['==', ['length', ['get', 'pois']], 1], ['get', 'title', ['at', 0, ['get', 'pois']]], ''],
-    'text-font': ['Roboto Regular'],
+    'text-font': ['Noto Sans Regular'],
     'text-offset': [0, textOffsetY],
     'text-anchor': 'top',
     'text-size': fontSizeSmall,
@@ -70,7 +70,7 @@ export const clusterCountLayer: LayerProps = {
   filter: ['has', 'point_count'],
   layout: {
     'text-field': ['get', 'sum'],
-    'text-font': ['Roboto Regular'],
+    'text-font': ['Noto Sans Regular'],
     'text-size': ['step', ['get', 'point_count'], fontSizeSmall, groupCount, fontSizeLarge],
     'text-allow-overlap': true,
   },
