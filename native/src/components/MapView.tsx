@@ -2,7 +2,6 @@ import MapLibreGL, { CameraSettings, MapLibreGLEvent } from '@maplibre/maplibre-
 import type { BBox, Feature } from 'geojson'
 import React, { ReactElement, useCallback, useLayoutEffect, useRef } from 'react'
 import { useWindowDimensions } from 'react-native'
-import { FAB } from 'react-native-elements'
 import { useTheme } from 'styled-components'
 import styled from 'styled-components/native'
 
@@ -16,22 +15,29 @@ import {
   animationDuration,
 } from 'api-client'
 
+import { GPSFixed, GPSNotFixed, GPSOff } from '../assets'
 import { clusterCountLayer, clusterLayer, markerLayer } from '../constants/layers'
 import { midSnapPointPercentage } from '../routes/Pois'
 import MapAttribution from './MapsAttribution'
+import Icon from './base/Icon'
+import IconButton from './base/IconButton'
 
 const MapContainer = styled.View`
   flex: 1;
   flex-direction: row;
   justify-content: center;
 `
+
 const StyledMap = styled(MapLibreGL.MapView)`
   width: 100%;
 `
 
-const StyledFAB = styled(FAB)<{ position: number | string }>`
-  align-items: flex-end;
+const StyledIcon = styled(IconButton)<{ position: number | string }>`
+  position: absolute;
+  right: 0;
   bottom: ${props => props.position}${props => (typeof props.position === 'number' ? 'px' : '')};
+  background-color: ${props => props.theme.colors.themeColor};
+  margin: 16px;
 `
 
 const OverlayContainer = styled.View`
@@ -48,7 +54,7 @@ type MapViewProps = {
   selectedFeature: MapFeature | null
   onRequestLocationPermission: () => Promise<void>
   locationPermissionGranted: boolean
-  fabPosition: string | number
+  iconPosition: string | number
   selectFeature: (feature: MapFeature | null) => void
   setSheetSnapPointIndex: (index: number) => void
   followUserLocation: boolean
@@ -64,7 +70,7 @@ const MapView = ({
   boundingBox,
   featureCollection,
   selectedFeature,
-  fabPosition,
+  iconPosition,
   onRequestLocationPermission,
   locationPermissionGranted,
   selectFeature,
@@ -117,8 +123,8 @@ const MapView = ({
     }
   }, [deviceHeight, followUserLocation, selectedFeature])
 
-  const locationPermissionGrantedIcon = followUserLocation ? 'my-location' : 'location-searching'
-  const locationPermissionIcon = locationPermissionGranted ? locationPermissionGrantedIcon : 'location-disabled'
+  const locationPermissionGrantedIcon = followUserLocation ? GPSFixed : GPSNotFixed
+  const locationPermissionIcon = locationPermissionGranted ? locationPermissionGrantedIcon : GPSOff
 
   const onPress = async (pressedLocation: Feature) => {
     if (!mapRef.current || !pressedLocation.properties) {
@@ -160,13 +166,11 @@ const MapView = ({
       </StyledMap>
       <OverlayContainer>{Overlay}</OverlayContainer>
       <MapAttribution />
-      <StyledFAB
-        placement='right'
+      <StyledIcon
+        icon={<Icon Icon={locationPermissionIcon} />}
         onPress={onRequestLocation}
-        buttonStyle={{ borderRadius: 50 }}
-        icon={{ name: locationPermissionIcon }}
-        color={theme.colors.themeColor}
-        position={fabPosition}
+        position={iconPosition}
+        size={50}
       />
     </MapContainer>
   )

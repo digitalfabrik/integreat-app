@@ -1,7 +1,6 @@
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Text, View, AccessibilityRole } from 'react-native'
-import { Badge } from 'react-native-elements'
 import styled from 'styled-components/native'
 
 import SettingsSwitch from './SettingsSwitch'
@@ -13,23 +12,34 @@ const PadView = styled.View`
   align-items: center;
   background-color: ${props => props.theme.colors.backgroundColor};
 `
+
+const ContentContainer = styled.View`
+  flex: 1;
+  justify-content: center;
+  align-items: flex-start;
+`
+
+const Title = styled.Text<{ bigTitle: boolean }>`
+  color: ${props => props.theme.colors.textColor};
+  ${props => (props.bigTitle ? 'font-size: 18px;' : '')}
+`
+
+const Description = styled.Text`
+  color: ${props => props.theme.colors.textSecondaryColor};
+`
+
 const RightContentContainer = styled.View`
   flex: 0.4;
   justify-content: center;
   align-items: flex-end;
   padding: 0 5px;
 `
-const ContentContainer = styled.View`
-  flex: 1;
-  justify-content: center;
-  align-items: flex-start;
-`
-const Title = styled.Text<{ bigTitle: boolean }>`
-  color: ${props => props.theme.colors.textColor};
-  ${props => (props.bigTitle ? 'font-size: 18px;' : '')}
-`
-const Description = styled.Text`
-  color: ${props => props.theme.colors.textSecondaryColor};
+
+const Badge = styled.View<{ enabled: boolean }>`
+  width: 8px;
+  height: 8px;
+  border-radius: 4px;
+  background-color: ${props => (props.enabled ? 'limegreen' : 'red')};
 `
 
 type SettingItemProps = {
@@ -67,7 +77,7 @@ const SettingItem = (props: SettingItemProps): ReactElement => {
                 flexDirection: 'row',
                 alignItems: 'center',
               }}>
-              <Badge status={value ? 'success' : 'error'} />
+              <Badge enabled={value} />
               <Text> {value ? t('enabled') : t('disabled')}</Text>
             </View>
           )}

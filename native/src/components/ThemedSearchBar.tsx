@@ -1,50 +1,56 @@
 import React, { ReactElement } from 'react'
 import { TFunction } from 'react-i18next'
-import { SearchBar } from 'react-native-elements'
+import { TextInput, View } from 'react-native'
+import styled from 'styled-components'
 
-import { ThemeType } from 'build-configs'
-
+import { CloseIcon, SearchIcon } from '../assets'
 import testID from '../testing/testID'
+import Icon from './base/Icon'
+import IconButton from './base/IconButton'
+
+const StyledBackground = styled(View)`
+  background-color: ${props => props.theme.colors.backgroundColor};
+  flex: 1;
+  height: 48px;
+  margin: 4px;
+  flex-direction: row;
+  align-items: center;
+  padding: 8px;
+  gap: 8px;
+`
+
+const StyledIcon = styled(Icon)`
+  color: ${props => props.theme.colors.textSecondaryColor};
+  height: 20px;
+`
+
+const StyledInput = styled(TextInput)`
+  padding: 4px;
+  flex: 1;
+  color: ${props => props.theme.colors.textColor};
+  font-size: 18;
+`
 
 type ThemedSearchBarProps = {
-  theme: ThemeType
   onChangeText: (text: string) => void
   value: string
   autofocus: boolean
   t: TFunction<'search'>
 }
 
-const ThemedSearchBar = ({
-  theme: { colors },
-  onChangeText,
-  value,
-  autofocus,
-  t,
-}: ThemedSearchBarProps): ReactElement => (
-  <SearchBar
-    {...testID('Content-Search-Input')}
-    accessibilityRole='search'
-    allowFontScaling={false}
-    style={{ color: colors.textColor }}
-    containerStyle={{
-      flexGrow: 1,
-      backgroundColor: colors.backgroundAccentColor,
-      borderTopColor: colors.backgroundAccentColor,
-      borderBottomColor: colors.backgroundAccentColor,
-      padding: 4,
-    }}
-    inputContainerStyle={{
-      backgroundColor: colors.backgroundColor,
-    }}
-    inputStyle={{
-      backgroundColor: colors.backgroundColor,
-    }}
-    // @ts-expect-error on change text is currently not typed correctly
-    onChangeText={onChangeText}
-    value={value}
-    autoFocus={autofocus}
-    placeholder={t('searchPlaceholder')}
-  />
+const ThemedSearchBar = ({ onChangeText, value, autofocus, t }: ThemedSearchBarProps): ReactElement => (
+  <StyledBackground>
+    <StyledIcon Icon={SearchIcon} />
+    <StyledInput
+      {...testID('Content-Search-Input')}
+      accessibilityRole='search'
+      onChangeText={onChangeText}
+      value={value}
+      autoFocus={autofocus}
+      placeholder={t('searchPlaceholder')}
+    />
+    {!!value && <IconButton icon={<StyledIcon Icon={CloseIcon} />} onPress={() => onChangeText('')} />}
+  </StyledBackground>
 )
 
 export default ThemedSearchBar
