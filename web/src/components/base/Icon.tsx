@@ -22,6 +22,7 @@ type IconProps = {
 
 const Icon = ({ src, directionDependent = false, reverse = false, className }: IconProps): ReactElement => {
   const { i18n } = useTranslation()
+
   return (
     <StyledIcon
       src={src}
