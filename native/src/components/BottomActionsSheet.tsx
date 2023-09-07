@@ -51,6 +51,7 @@ const BottomActionsSheet = React.forwardRef(
         index={initialIndex}
         isFullscreen={snapPointIndex === 2}
         snapPoints={snapPoints}
+        enableContentPanningGesture={snapPointIndex !== 2}
         animateOnMount
         handleComponent={renderHandle}
         onChange={onChange}>
