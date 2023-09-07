@@ -111,6 +111,17 @@ describe('InternalPathnameParser', () => {
       slug,
     })
   })
+  it('should match multipoi route', () => {
+    const pathname = `/${cityCode}/${languageCode}/${POIS_ROUTE}`
+    const query = '?multipoi=1'
+    const parser = new InternalPathnameParser(pathname, languageCode, null, query)
+    expect(parser.route()).toEqual({
+      route: POIS_ROUTE,
+      languageCode,
+      cityCode,
+      multipoi: '1',
+    })
+  })
   it('should match disclaimer route', () => {
     const pathname = `/${cityCode}/${languageCode}/${DISCLAIMER_ROUTE}`
     const parser = new InternalPathnameParser(pathname, languageCode, null)
@@ -356,6 +367,17 @@ describe('InternalPathnameParser', () => {
         route: SEARCH_ROUTE,
         languageCode,
         cityCode: fixedCity,
+      })
+    })
+    it('should match search query', () => {
+      const pathname = `/${fixedCity}/${languageCode}/${SEARCH_ROUTE}`
+      const query = '?query=zeugnis'
+      const parser = new InternalPathnameParser(pathname, languageCode, fixedCity, query)
+      expect(parser.route()).toEqual({
+        route: SEARCH_ROUTE,
+        languageCode,
+        cityCode: fixedCity,
+        searchText: 'zeugnis',
       })
     })
     it('should match news route', () => {

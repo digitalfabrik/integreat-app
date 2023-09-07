@@ -98,7 +98,7 @@ describe('Header', () => {
     expect(getByLabelText(t('search'))).toHaveStyle({ opacity: 1 })
     fireEvent.press(getByLabelText(t('search')))
     await waitFor(() => expect(navigation.navigate).toHaveBeenCalledTimes(1))
-    expect(navigation.navigate).toHaveBeenCalledWith(SEARCH_ROUTE)
+    expect(navigation.navigate).toHaveBeenCalledWith(SEARCH_ROUTE, { searchText: null })
     expect(getByLabelText(t('changeLanguage'))).toHaveStyle({ opacity: 1 })
     fireEvent.press(getByLabelText(t('changeLanguage')))
     await waitFor(() => expect(navigateToLanguageChange).toHaveBeenCalledTimes(1))
