@@ -133,7 +133,12 @@ const ShelterInformation = ({ shelter, cityCode, extended = false }: ShelterInfo
               ]}
             />
             {!!comments && (
-              <ShelterInformationSection title={t('comments')} information={[{ text: comments }]} extended={extended} />
+              <ShelterInformationSection
+                singleColumn
+                title={t('comments')}
+                information={[{ text: comments }]}
+                extended={extended}
+              />
             )}
             {email || phone ? (
               <ShelterInformationSection

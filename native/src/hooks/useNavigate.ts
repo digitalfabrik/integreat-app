@@ -120,11 +120,11 @@ const navigate = <T extends RoutesType>(
       if (!buildConfig().featureFlags.pois) {
         break
       }
-      navigation.push(POIS_ROUTE, { slug: routeInformation.slug })
+      navigation.push(POIS_ROUTE, { slug: routeInformation.slug, multipoi: routeInformation.multipoi })
       return
 
     case SEARCH_ROUTE:
-      navigation.push(SEARCH_ROUTE)
+      navigation.push(SEARCH_ROUTE, { searchText: routeInformation.searchText })
       return
 
     // Not implemented in native apps, should be opened in InAppBrowser
