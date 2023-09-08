@@ -1,6 +1,7 @@
 import MapLibreGL, { CameraSettings, MapLibreGLEvent } from '@maplibre/maplibre-react-native'
 import type { BBox, Feature } from 'geojson'
 import React, { ReactElement, useCallback, useLayoutEffect, useRef } from 'react'
+import { useTranslation } from 'react-i18next'
 import { useWindowDimensions } from 'react-native'
 import { useTheme } from 'styled-components'
 import styled from 'styled-components/native'
@@ -83,6 +84,7 @@ const MapView = ({
   const cameraRef = useRef<MapLibreGL.Camera | null>(null)
   const mapRef = useRef<MapLibreGL.MapView | null>(null)
   const theme = useTheme()
+  const { t } = useTranslation('pois')
 
   const bounds = {
     ne: [boundingBox[2], boundingBox[3]],
@@ -171,6 +173,7 @@ const MapView = ({
         onPress={onRequestLocation}
         position={iconPosition}
         size={50}
+        accessibilityLabel={t('showOwnLocation')}
       />
     </MapContainer>
   )

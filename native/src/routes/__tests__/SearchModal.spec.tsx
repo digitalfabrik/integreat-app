@@ -43,14 +43,14 @@ describe('SearchModal', () => {
     initialSearchText: '',
   }
 
-  const renderWithTheme = () =>
+  const renderWithTheme = (props: SearchModalProps) =>
     render(
       <ThemeProvider theme={theme}>
         <SearchModal {...props} />
       </ThemeProvider>,
     )
   it('should send tracking signal when closing search site', async () => {
-    const { getByPlaceholderText, getAllByRole } = renderWithTheme()
+    const { getByPlaceholderText, getAllByRole } = renderWithTheme(props)
     const goBackButton = getAllByRole('button')[0]!
     const searchBar = getByPlaceholderText('searchPlaceholder')
     fireEvent.changeText(searchBar, 'Category')
@@ -67,7 +67,7 @@ describe('SearchModal', () => {
   })
 
   it('should send tracking signal when opening a search result', async () => {
-    const { getByText, getByPlaceholderText, getAllByRole } = renderWithTheme()
+    const { getByText, getByPlaceholderText, getAllByRole } = renderWithTheme(props)
     const goBackButton = getAllByRole('button')[0]!
     const searchBar = getByPlaceholderText('searchPlaceholder')
     fireEvent.changeText(searchBar, 'Category')
@@ -92,7 +92,7 @@ describe('SearchModal', () => {
   })
 
   it('should show nothing found if there are no search results', () => {
-    const { getByText, getByPlaceholderText } = renderWithTheme()
+    const { getByText, getByPlaceholderText } = renderWithTheme(props)
 
     fireEvent.changeText(getByPlaceholderText('searchPlaceholder'), 'invalid query')
 
@@ -101,7 +101,7 @@ describe('SearchModal', () => {
 
   it('should open with an initial search text if one is supplied', () => {
     const initialSearchText = 'zeugnis'
-    const { getByTestId } = render(<SearchModal {...props} initialSearchText={initialSearchText} />)
-    expect(getByTestId('searchInput').props.value).toBe(initialSearchText)
+    const { getByPlaceholderText } = renderWithTheme({ ...props, initialSearchText })
+    expect(getByPlaceholderText('searchPlaceholder').props.value).toBe(initialSearchText)
   })
 })

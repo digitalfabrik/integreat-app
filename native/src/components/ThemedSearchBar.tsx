@@ -49,7 +49,13 @@ const ThemedSearchBar = ({ onChangeText, value, autofocus, t }: ThemedSearchBarP
       autoFocus={autofocus}
       placeholder={t('searchPlaceholder')}
     />
-    {!!value && <IconButton icon={<StyledIcon Icon={CloseIcon} />} onPress={() => onChangeText('')} />}
+    {!!value && (
+      <IconButton
+        icon={<StyledIcon Icon={CloseIcon} />}
+        onPress={() => onChangeText('')}
+        accessibilityLabel={t('delete')}
+      />
+    )}
   </StyledBackground>
 )
 

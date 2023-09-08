@@ -14,7 +14,7 @@ const StyledPressable = styled(Pressable)<{ size: number }>`
 `
 
 type IconButtonProps = {
-  accessibilityLabel?: string
+  accessibilityLabel: string
   icon: ReactElement
   onPress: () => Promise<void> | void
   size?: number

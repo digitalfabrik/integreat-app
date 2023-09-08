@@ -5696,7 +5696,8 @@
       "poiCategories": "Kategorien",
       "showPois": "Orte anzeigen",
       "alphabetLetters": "A-Z",
-      "clearFilter": "Filter {{filter}} löschen"
+      "clearFilter": "Filter {{filter}} löschen",
+      "showOwnLocation": "Eigenen Standort zeigen"
     },
     "am": {
       "pageTitle": "ካርታ",
@@ -6825,7 +6826,8 @@
     "de": {
       "nothingFound": "Es wurden leider keine passenden Ergebnisse gefunden.",
       "searchPlaceholder": "Suche",
-      "pageTitle": "Suche"
+      "pageTitle": "Suche",
+      "delete": "Eingabe löschen"
     },
     "am": {
       "nothingFound": "ይቅርታ፣ ምንም የማዛመድ ውጤቶች አልተገኙም።",
