@@ -19,7 +19,7 @@ const HeaderIcon = ({ name, ...props }: IconPropType): ReactElement => {
   if (!['language', 'search'].includes(name)) {
     throw new Error('Invalid icon name!')
   }
-  return <Icon Icon={name === 'search' ? SearchIcon : LanguageIcon} {...props} directionDependent />
+  return <Icon Icon={name === 'search' ? SearchIcon : LanguageIcon} {...props} />
 }
 
 const CustomHeaderButton = (props: HeaderButtonProps) => (

@@ -56,7 +56,6 @@ export const DropDownContainer = styled.div<{ active: boolean; height?: number }
 type HeaderActionItemDropDownProps = {
   children: (closeDropDown: () => void) => ReactNode
   iconSrc: string
-  iconDirectionDependent?: boolean
   text: string
 }
 
@@ -65,12 +64,7 @@ type HeaderActionItemDropDownProps = {
  * Header. Once the user clicks outside, the node is hidden again. Additionally, the inner node gets a
  * closeDropDownCallback through its props to close the dropDown and hide itself.
  */
-const HeaderActionItemDropDown = ({
-  iconSrc,
-  text,
-  children,
-  iconDirectionDependent = false,
-}: HeaderActionItemDropDownProps): ReactElement => {
+const HeaderActionItemDropDown = ({ iconSrc, text, children }: HeaderActionItemDropDownProps): ReactElement => {
   const [dropDownActive, setDropDownActive] = useState(false)
 
   const toggleDropDown = (): void => {
@@ -88,7 +82,7 @@ const HeaderActionItemDropDown = ({
     <div ref={wrapperRef}>
       <Tooltip text={text} flow='down' mediumViewportFlow='left'>
         <Button type='button' aria-label={text} onClick={toggleDropDown}>
-          <StyledIcon src={iconSrc} directionDependent={iconDirectionDependent} />
+          <StyledIcon src={iconSrc} />
         </Button>
       </Tooltip>
       <DropDownContainer
