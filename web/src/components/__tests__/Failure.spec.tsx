@@ -11,9 +11,9 @@ describe('Failure', () => {
     const errorMessage = 'error message'
     const { getByText } = renderWithRouterAndTheme(<Failure errorMessage={errorMessage} goToPath='/' />)
 
-    const link = getByText('goTo.start')
+    const link = getByText('error:goTo.start')
     expect(link.closest('a')).toHaveAttribute('href', '/')
-    expect(getByText(errorMessage)).toBeTruthy()
+    expect(getByText(`error:${errorMessage}`)).toBeTruthy()
   })
 
   it('should render a failure with goToPath and goToMessage and match snapshot', () => {
@@ -24,8 +24,8 @@ describe('Failure', () => {
     }
     const { getByText } = renderWithRouterAndTheme(<Failure {...error} />)
 
-    const link = getByText(error.goToMessage)
+    const link = getByText(`error:${error.goToMessage}`)
     expect(link.closest('a')).toHaveAttribute('href', error.goToPath)
-    expect(getByText(error.errorMessage)).toBeTruthy()
+    expect(getByText(`error:${error.errorMessage}`)).toBeTruthy()
   })
 })

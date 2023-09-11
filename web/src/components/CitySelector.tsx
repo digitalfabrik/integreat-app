@@ -64,7 +64,7 @@ const CitySelector = ({ cities, language }: CitySelectorProps): ReactElement => 
         placeholderText={t('searchCity')}
         spaceSearch={false}
         onStickyTopChanged={setStickyTop}>
-        {resultCities.length === 0 ? <Failure errorMessage='search:nothingFound' /> : entries}
+        {resultCities.length === 0 ? <Failure errorMessage='search:nothingFound' translationArea='landing' /> : entries}
       </ScrollingSearchBox>
     </Container>
   )
