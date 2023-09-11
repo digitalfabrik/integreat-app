@@ -30,14 +30,12 @@ jest.mock(
       </View>
     ),
 )
-jest.mock('react-i18next', () => ({
-  useTranslation: () => ({
-    t: (key: string) => `t_${key}`,
-  }),
-}))
+jest.mock('react-i18next')
 jest.mock('@react-navigation/elements', () => ({
+  ...jest.requireActual('@react-navigation/elements'),
   HeaderBackButton: ({ onPress }: { onPress: () => void }) => <Text onPress={onPress}>HeaderBackButton</Text>,
 }))
+jest.mock('styled-components')
 jest.mock('../../navigation/navigateToLanguageChange')
 jest.mock('@react-native-community/netinfo')
 jest.mock('react-native/Libraries/EventEmitter/NativeEventEmitter')
@@ -47,7 +45,7 @@ describe('Header', () => {
     jest.clearAllMocks()
   })
 
-  const t = (key: string) => `t_${key}`
+  const t = (key: string) => key
   const cityModels = new CityModelBuilder(1).build()
   const cityModel = cityModels[0]!
   const languageModels = new LanguageModelBuilder(3).build()
@@ -100,7 +98,7 @@ describe('Header', () => {
     expect(getByLabelText(t('search'))).toHaveStyle({ opacity: 1 })
     fireEvent.press(getByLabelText(t('search')))
     await waitFor(() => expect(navigation.navigate).toHaveBeenCalledTimes(1))
-    expect(navigation.navigate).toHaveBeenCalledWith(SEARCH_ROUTE)
+    expect(navigation.navigate).toHaveBeenCalledWith(SEARCH_ROUTE, { searchText: null })
     expect(getByLabelText(t('changeLanguage'))).toHaveStyle({ opacity: 1 })
     fireEvent.press(getByLabelText(t('changeLanguage')))
     await waitFor(() => expect(navigateToLanguageChange).toHaveBeenCalledTimes(1))

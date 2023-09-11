@@ -277,7 +277,7 @@ jobs:
             - image: cimg/android:2023.02.1-node
         environment:
             FASTLANE_SKIP_UPDATE_CHECK: true
-            TOTAL_CPUS: 3
+            TOTAL_CPUS: 4
         parameters:
             build_config_name:
                 default: integreat
@@ -288,7 +288,7 @@ jobs:
                     - integreat-test-cms
                     - aschaffenburg
                 type: enum
-        resource_class: medium+
+        resource_class: large
         shell: /bin/bash -eo pipefail
         steps:
             - skip_job:
@@ -366,7 +366,7 @@ jobs:
                     - integreat-test-cms
                     - aschaffenburg
                 type: enum
-        resource_class: macos.x86.medium.gen2
+        resource_class: macos.m1.medium.gen1
         shell: /bin/bash --login -o pipefail
         steps:
             - skip_job:
@@ -469,7 +469,7 @@ jobs:
         parameters:
             prepare_delivery:
                 default: false
-                description: Whether to prepare for a delivery. If true, the version bump is committed and a JIRA release is created.
+                description: Whether to prepare for a delivery. If true, the version bump is committed.
                 type: boolean
         resource_class: small
         steps:
@@ -490,10 +490,6 @@ jobs:
                     - run:
                         command: yarn git-version bump-to ${NEW_VERSION_NAME} ${NEW_VERSION_CODE} --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME} --branch ${CIRCLE_BRANCH}
                         name: Bump git version
-                        working_directory: tools
-                    - run:
-                        command: yarn jira-release create ${NEW_VERSION_NAME} --private-key ${JIRA_PRIVATE_KEY} --access-token ${JIRA_OAUTH_TOKEN} --consumer-key ${JIRA_CONSUMER_KEY} --project-name ${CIRCLE_PROJECT_REPONAME}
-                        name: Create jira release
                         working_directory: tools
             - persist_environment_variables
             - notify
@@ -720,7 +716,7 @@ jobs:
             - notify
     e2e_ios:
         docker:
-            - image: cimg/android:2022.09.2-node
+            - image: cimg/android:2023.02.1-node
         environment:
             FASTLANE_SKIP_UPDATE_CHECK: true
         resource_class: small
@@ -1160,7 +1156,6 @@ workflows:
                 context:
                     - mattermost
                     - deliverino
-                    - jira
                 prepare_delivery: true
             - check:
                 context:
@@ -1483,7 +1478,6 @@ workflows:
                 context:
                     - mattermost
                     - deliverino
-                    - jira
                 prepare_delivery: true
             - check:
                 context:
@@ -1691,7 +1685,6 @@ workflows:
                 context:
                     - mattermost
                     - deliverino
-                    - jira
                 prepare_delivery: true
             - check:
                 context:
@@ -1943,7 +1936,6 @@ workflows:
                 context:
                     - mattermost
                     - deliverino
-                    - jira
                 prepare_delivery: true
             - check:
                 context:
@@ -2020,7 +2012,6 @@ workflows:
                 context:
                     - mattermost
                     - deliverino
-                    - jira
                 prepare_delivery: true
             - check:
                 context:

@@ -13,7 +13,6 @@ Android and iOS React Native App for [Integreat](https://integreat-app.de)
 - [Persistence](docs/persistence.md)
 - [I18n](docs/i18n.md)
 - [Error Reporting](docs/error-reporting.md)
-- [React Native Upgrades](docs/react-native-upgrades.md)
 - [General Repository Documentation](../README.md)
 
 ## Project Setup

@@ -5,7 +5,7 @@ import React, { ReactElement, useCallback, useState } from 'react'
 import { LogBox } from 'react-native'
 import { SafeAreaProvider } from 'react-native-safe-area-context'
 import { enableScreens } from 'react-native-screens'
-import { OverflowMenuProvider } from 'react-navigation-header-buttons'
+import { HeaderButtonsProvider } from 'react-navigation-header-buttons'
 import { ThemeProvider } from 'styled-components'
 
 import { CLOSE_PAGE_SIGNAL_NAME, REDIRECT_ROUTE, setUserAgent } from 'api-client'
@@ -90,9 +90,9 @@ const App = (): ReactElement => {
                     <StatusBar />
                     <IOSSafeAreaView>
                       <NavigationContainer onStateChange={onStateChange} linking={linking}>
-                        <OverflowMenuProvider>
+                        <HeaderButtonsProvider stackType='native'>
                           <Navigator />
-                        </OverflowMenuProvider>
+                        </HeaderButtonsProvider>
                       </NavigationContainer>
                     </IOSSafeAreaView>
                   </>

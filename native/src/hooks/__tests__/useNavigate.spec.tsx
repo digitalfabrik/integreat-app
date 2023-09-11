@@ -254,7 +254,7 @@ describe('useNavigate', () => {
       route: SEARCH_ROUTE,
       ...params,
     })
-    expect(navigation.push).toHaveBeenCalledWith(SEARCH_ROUTE)
+    expect(navigation.push).toHaveBeenCalledWith(SEARCH_ROUTE, { searchText: undefined })
     expect(navigation.push).toHaveBeenCalledTimes(1)
   })
 })

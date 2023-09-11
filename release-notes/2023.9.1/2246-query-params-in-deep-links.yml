@@ -1,0 +1,7 @@
+issue_key: #2246
+show_in_stores: true
+platforms:
+  - ios
+  - android
+en: Opening this app by tapping on a link in a different app has been improved
+de: Das Öffnen dieser App, indem man auf einen Link in einer anderen App tippt, wurde verbessert
