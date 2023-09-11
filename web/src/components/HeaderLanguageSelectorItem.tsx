@@ -1,5 +1,5 @@
-import { TFunction } from 'i18next'
 import React, { ReactElement } from 'react'
+import { useTranslation } from 'react-i18next'
 
 import { LanguageIcon } from '../assets'
 import SelectorItemModel from '../models/SelectorItemModel'
@@ -11,7 +11,6 @@ import Selector from './Selector'
 type HeaderLanguageSelectorItemProps = {
   selectorItems: Array<SelectorItemModel>
   activeItemCode: string
-  t: TFunction
   inKebabMenu?: boolean
   closeSidebar?: () => void
 }
@@ -19,10 +18,10 @@ type HeaderLanguageSelectorItemProps = {
 const HeaderLanguageSelectorItem = ({
   selectorItems,
   activeItemCode,
-  t,
   inKebabMenu = false,
   closeSidebar,
 }: HeaderLanguageSelectorItemProps): ReactElement => {
+  const { t } = useTranslation('layout')
   const noLanguagesHint = t('noLanguages')
 
   const renderItem = (closeDropDown: () => void): ReactElement => (

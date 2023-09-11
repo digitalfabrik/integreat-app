@@ -1,4 +1,3 @@
-import { TFunction } from 'i18next'
 import React from 'react'
 
 import { renderWithRouterAndTheme } from '../../testing/render'
@@ -8,13 +7,9 @@ jest.mock('react-i18next')
 jest.mock('react-inlinesvg')
 
 describe('Failure', () => {
-  const mockTranslate = ((key: string) => key) as TFunction
-
   it('should render a simple failure and match snapshot', () => {
     const errorMessage = 'error message'
-    const { getByText } = renderWithRouterAndTheme(
-      <Failure errorMessage={errorMessage} goToPath='/' t={mockTranslate} />,
-    )
+    const { getByText } = renderWithRouterAndTheme(<Failure errorMessage={errorMessage} goToPath='/' />)
 
     const link = getByText('goTo.start')
     expect(link.closest('a')).toHaveAttribute('href', '/')
@@ -27,7 +22,7 @@ describe('Failure', () => {
       goToPath: '/goTo.offers',
       goToMessage: 'goTo.offers',
     }
-    const { getByText } = renderWithRouterAndTheme(<Failure {...error} t={mockTranslate} />)
+    const { getByText } = renderWithRouterAndTheme(<Failure {...error} />)
 
     const link = getByText(error.goToMessage)
     expect(link.closest('a')).toHaveAttribute('href', error.goToPath)
