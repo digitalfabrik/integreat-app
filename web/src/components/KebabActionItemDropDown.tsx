@@ -23,7 +23,6 @@ const Container = styled.div`
 type KebabActionItemDropDownProps = {
   children: (closeDropDown: () => void) => ReactNode
   iconSrc: string
-  iconDirectionDepended?: boolean
   text: string
   closeSidebar: () => void
 }
@@ -35,7 +34,6 @@ type KebabActionItemDropDownProps = {
  */
 const KebabActionItemDropDown = ({
   iconSrc,
-  iconDirectionDepended = false,
   text,
   children,
   closeSidebar,
@@ -62,7 +60,7 @@ const KebabActionItemDropDown = ({
   return (
     <Container ref={wrapperRef}>
       <Button type='button' aria-label={text} onClick={toggleDropDown}>
-        <KebabActionItemLink text={text} iconSrc={iconSrc} iconDirectionDepended={iconDirectionDepended} />
+        <KebabActionItemLink text={text} iconSrc={iconSrc} />
       </Button>
       <DropDownContainer
         data-testid='headerActionItemDropDown'

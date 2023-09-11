@@ -14,23 +14,17 @@ type HeaderActionItemLinkProps = {
   href?: string
   text: string
   iconSrc: string
-  iconDirectionDependent?: boolean
 }
 
-const HeaderActionItemLink = ({
-  href,
-  text,
-  iconSrc,
-  iconDirectionDependent = false,
-}: HeaderActionItemLinkProps): ReactElement => (
+const HeaderActionItemLink = ({ href, text, iconSrc }: HeaderActionItemLinkProps): ReactElement => (
   <Tooltip text={text} flow='down' smallViewportFlow='left'>
     {href ? (
       <Link to={href} aria-label={text}>
-        <StyledIcon src={iconSrc} directionDependent={iconDirectionDependent} />
+        <StyledIcon src={iconSrc} />
       </Link>
     ) : (
       <span aria-label={text}>
-        <StyledIcon src={iconSrc} directionDependent={iconDirectionDependent} />
+        <StyledIcon src={iconSrc} />
       </span>
     )}
   </Tooltip>

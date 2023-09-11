@@ -27,15 +27,9 @@ type KebabActionItemLinkProps = {
   href?: string
   text: string
   iconSrc: string
-  iconDirectionDepended?: boolean
 }
 
-const KebabActionItemLink = ({
-  href,
-  text,
-  iconSrc,
-  iconDirectionDepended = false,
-}: KebabActionItemLinkProps): ReactElement => {
+const KebabActionItemLink = ({ href, text, iconSrc }: KebabActionItemLinkProps): ReactElement => {
   if (href) {
     return (
       <StyledLink to={href} aria-label={text} dir='auto' data-testid='kebab-action-item'>
@@ -46,7 +40,7 @@ const KebabActionItemLink = ({
   }
   return (
     <StyledSpan aria-label={text} dir='auto' style={{ flex: 1 }} data-testid='kebab-action-item'>
-      <StyledIcon src={iconSrc} directionDependent={iconDirectionDepended} />
+      <StyledIcon src={iconSrc} />
       <span>{text}</span>
     </StyledSpan>
   )

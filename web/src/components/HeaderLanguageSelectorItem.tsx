@@ -38,18 +38,14 @@ const HeaderLanguageSelectorItem = ({
   const renderActionItem = () => {
     if (inKebabMenu && closeSidebar) {
       return (
-        <KebabActionItemDropDown
-          iconSrc={LanguageIcon}
-          iconDirectionDepended
-          text={t('changeLanguage')}
-          closeSidebar={closeSidebar}>
+        <KebabActionItemDropDown iconSrc={LanguageIcon} text={t('changeLanguage')} closeSidebar={closeSidebar}>
           {renderItem}
         </KebabActionItemDropDown>
       )
     }
 
     return (
-      <HeaderActionItemDropDown iconSrc={LanguageIcon} iconDirectionDependent text={t('changeLanguage')}>
+      <HeaderActionItemDropDown iconSrc={LanguageIcon} text={t('changeLanguage')}>
         {renderItem}
       </HeaderActionItemDropDown>
     )
