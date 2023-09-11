@@ -9,11 +9,11 @@ import ClockIcon from '../../../assets/icons/clock.svg'
 import CloseIcon from '../../../assets/icons/close.svg'
 import EditLocationIcon from '../../../assets/icons/edit-location.svg'
 import ExternalLinkIcon from '../../../assets/icons/external-link.svg'
-import GPSFixed from '../../../assets/icons/gps-fixed.svg'
-import GPSNotFixed from '../../../assets/icons/gps-not-fixed.svg'
-import GPSOff from '../../../assets/icons/gps-off.svg'
 import HappySmileyIcon from '../../../assets/icons/happy-smiley.svg'
 import LanguageIcon from '../../../assets/icons/language.svg'
+import LocationFixedIcon from '../../../assets/icons/location-fixed.svg'
+import LocationNotFixedIcon from '../../../assets/icons/location-not-fixed.svg'
+import LocationOffIcon from '../../../assets/icons/location-off.svg'
 import MailIcon from '../../../assets/icons/mail.svg'
 import MenuIcon from '../../../assets/icons/menu.svg'
 import NewsIcon from '../../../assets/icons/news.svg'
@@ -43,9 +43,9 @@ export {
   EventThumbnailPlaceholder2,
   EventThumbnailPlaceholder3,
   ExternalLinkIcon,
-  GPSFixed,
-  GPSNotFixed,
-  GPSOff,
+  LocationFixedIcon,
+  LocationNotFixedIcon,
+  LocationOffIcon,
   HappySmileyIcon,
   LanguageIcon,
   MailIcon,

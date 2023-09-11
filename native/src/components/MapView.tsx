@@ -16,7 +16,7 @@ import {
   animationDuration,
 } from 'api-client'
 
-import { GPSFixed, GPSNotFixed, GPSOff } from '../assets'
+import { LocationFixedIcon, LocationNotFixedIcon, LocationOffIcon } from '../assets'
 import { clusterCountLayer, clusterLayer, markerLayer } from '../constants/layers'
 import { midSnapPointPercentage } from '../routes/Pois'
 import MapAttribution from './MapsAttribution'
@@ -39,6 +39,9 @@ const StyledIcon = styled(IconButton)<{ position: number | string }>`
   bottom: ${props => props.position}${props => (typeof props.position === 'number' ? 'px' : '')};
   background-color: ${props => props.theme.colors.themeColor};
   margin: 16px;
+  width: 50px;
+  height: 50px;
+  border-radius: 25px;
 `
 
 const OverlayContainer = styled.View`
@@ -125,8 +128,8 @@ const MapView = ({
     }
   }, [deviceHeight, followUserLocation, selectedFeature])
 
-  const locationPermissionGrantedIcon = followUserLocation ? GPSFixed : GPSNotFixed
-  const locationPermissionIcon = locationPermissionGranted ? locationPermissionGrantedIcon : GPSOff
+  const locationPermissionGrantedIcon = followUserLocation ? LocationFixedIcon : LocationNotFixedIcon
+  const locationPermissionIcon = locationPermissionGranted ? locationPermissionGrantedIcon : LocationOffIcon
 
   const onPress = async (pressedLocation: Feature) => {
     if (!mapRef.current || !pressedLocation.properties) {
@@ -172,7 +175,6 @@ const MapView = ({
         icon={<Icon Icon={locationPermissionIcon} />}
         onPress={onRequestLocation}
         position={iconPosition}
-        size={50}
         accessibilityLabel={t('showOwnLocation')}
       />
     </MapContainer>

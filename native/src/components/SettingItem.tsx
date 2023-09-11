@@ -28,7 +28,7 @@ const Description = styled.Text`
   color: ${props => props.theme.colors.textSecondaryColor};
 `
 
-const RightContentContainer = styled.View`
+const FlexEndContainer = styled.View`
   flex: 0.4;
   justify-content: center;
   align-items: flex-end;
@@ -69,7 +69,7 @@ const SettingItem = (props: SettingItemProps): ReactElement => {
             </View>
           )}
         </ContentContainer>
-        <RightContentContainer>
+        <FlexEndContainer>
           {hasSwitch && <SettingsSwitch value={value} onPress={onPress} />}
           {hasBadge && (
             <View
@@ -81,7 +81,7 @@ const SettingItem = (props: SettingItemProps): ReactElement => {
               <Text> {value ? t('enabled') : t('disabled')}</Text>
             </View>
           )}
-        </RightContentContainer>
+        </FlexEndContainer>
       </PadView>
     </Pressable>
   )
