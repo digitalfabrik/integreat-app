@@ -9,9 +9,14 @@ import {
   OverflowMenu,
   VisibleButtonProps,
 } from 'react-navigation-header-buttons'
+import styled from 'styled-components/native'
 
 import { LanguageIcon, MenuIcon, SearchIcon } from '../assets'
 import Icon from './base/Icon'
+
+const StyledOverflowMenu = styled(OverflowMenu)`
+  margin-right: 10px;
+`
 
 type IconPropType = VisibleButtonProps['IconComponent'] extends ComponentType<infer T> | undefined ? T : never
 
@@ -44,12 +49,12 @@ const CustomHeaderButtons = (props: {
     <HeaderButtons HeaderButtonComponent={CustomHeaderButton}>
       {items}
 
-      <OverflowMenu
+      <StyledOverflowMenu
         onPress={onOverflowMenuPress(cancelLabel)}
         accessibilityLabel={t('moreOptions')}
         OverflowIcon={<Icon Icon={MenuIcon} />}>
         {overflowItems}
-      </OverflowMenu>
+      </StyledOverflowMenu>
     </HeaderButtons>
   )
 }
