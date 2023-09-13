@@ -219,7 +219,7 @@ const Header = ({
     }
 
     const previousRouteTitle = (previousParams as { title?: string } | undefined)?.title
-    return previousRouteTitle ?? t(previousRoute.name)
+    return previousRouteTitle ?? ''
   }
 
   return (
