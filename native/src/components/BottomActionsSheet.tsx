@@ -4,6 +4,7 @@ import BottomSheet, {
   BottomSheetScrollViewMethods,
 } from '@gorhom/bottom-sheet'
 import React, { memo, ReactElement, ReactNode, useCallback } from 'react'
+import { Platform } from 'react-native'
 import styled from 'styled-components/native'
 
 import BottomSheetHandler from './BottomSheetHandler'
@@ -51,6 +52,8 @@ const BottomActionsSheet = React.forwardRef(
         index={initialIndex}
         isFullscreen={snapPointIndex === 2}
         snapPoints={snapPoints}
+        // ios has scrolling issues if content panning gesture is not enabled
+        enableContentPanningGesture={snapPointIndex !== 2 || Platform.OS === 'ios'}
         animateOnMount
         handleComponent={renderHandle}
         onChange={onChange}>
