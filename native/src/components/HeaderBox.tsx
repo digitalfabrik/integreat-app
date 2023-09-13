@@ -19,6 +19,7 @@ const HeaderText = styled.Text<{ fontSize: number }>`
   font-size: ${props => Math.min(props.fontSize, dimensions.headerTextSize)}px;
   color: ${props => props.theme.colors.textColor};
   font-family: ${props => props.theme.fonts.native.decorativeFontBold};
+  margin-right: 15px;
 `
 
 const StyledIcon = styled(Icon)`
