@@ -1,6 +1,6 @@
 export default {
   rootDir: 'src/',
-  verbose: true,
+  displayName: 'translations',
   automock: false,
   setupFiles: ['<rootDir>/../jest.setup.ts'],
   moduleDirectories: ['node_modules'],
@@ -14,14 +14,4 @@ export default {
       },
     ],
   },
-  coverageDirectory: '<rootDir>/../reports/coverage',
-  reporters: [
-    'default',
-    [
-      'jest-junit',
-      {
-        outputDirectory: '<rootDir>/../reports/unit-test',
-      },
-    ],
-  ],
 }

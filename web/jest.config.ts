@@ -1,18 +1,19 @@
-import { InitialOptionsTsJest } from 'ts-jest'
+import { JestConfigWithTsJest } from 'ts-jest'
 
 import { webIntegreatTestCmsBuildConfig } from 'build-configs/integreat-test-cms'
 
 const transformNodeModules = ['api-client', 'build-configs', 'translations']
-const config: InitialOptionsTsJest = {
-  rootDir: 'src',
-  verbose: true,
+const config: JestConfigWithTsJest = {
+  rootDir: '.',
+  roots: ['src'],
+  displayName: 'web',
   automock: false,
-  setupFilesAfterEnv: ['<rootDir>/../jest.setup.ts'],
+  setupFilesAfterEnv: ['<rootDir>/jest.setup.ts'],
   transformIgnorePatterns: [`node_modules/(?!${transformNodeModules.join('|')})`],
   moduleNameMapper: {
     '\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$':
-      '<rootDir>/__mocks__/fileMock.ts',
-    '\\.(css|less)$': '<rootDir>/__mocks__/styleMock.ts',
+      '<rootDir>/src/__mocks__/fileMock.ts',
+    '\\.(css|less)$': '<rootDir>/src/__mocks__/styleMock.ts',
   },
   moduleFileExtensions: ['js', 'jsx', 'ts', 'tsx', 'json'],
   moduleDirectories: ['node_modules'],
@@ -26,16 +27,6 @@ const config: InitialOptionsTsJest = {
       },
     ],
   },
-  coverageDirectory: '<rootDir>/../reports/coverage',
-  reporters: [
-    'default',
-    [
-      'jest-junit',
-      {
-        outputDirectory: '<rootDir>/../reports/unit-test',
-      },
-    ],
-  ],
   testEnvironment: 'jsdom',
   globals: {
     __BUILD_CONFIG_NAME__: 'integreat-test-cms',

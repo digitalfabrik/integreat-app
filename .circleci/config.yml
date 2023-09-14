@@ -202,33 +202,16 @@ commands:
                     - 8-yarn-{{ arch }}-
                 name: Restore Yarn Package Cache
             - run:
-                command: yarn --frozen-lockfile --cache-folder ~/.cache/yarn
+                command: yarn --immutable --immutable-cache
                 name: Yarn
             - save_cache:
                 key: 8-yarn-{{ arch }}-{{ checksum "yarn.lock" }}-{{ checksum "package.json" }}-{{ checksum "native/package.json" }}-{{ checksum "web/package.json" }}
                 name: Save Yarn Package Cache
                 paths:
-                    - ~/.cache/yarn
+                    - .yarn/cache
                     - node_modules
                     - native/node_modules
                     - web/node_modules
-    restore_yarn_tools_cache:
-        description: Restores and saves the node_modules directories of the tools package.
-        steps:
-            - restore_cache:
-                keys:
-                    - 2-yarn-{{ arch }}-{{ checksum "tools/yarn.lock" }}-{{ checksum "tools/package.json" }}
-                name: Restore Yarn Tools Package Cache
-            - run:
-                command: yarn --frozen-lockfile --cache-folder ~/.cache/yarn-tools
-                name: Yarn tools
-                working_directory: tools
-            - save_cache:
-                key: 2-yarn-{{ arch }}-{{ checksum "tools/yarn.lock" }}-{{ checksum "tools/package.json" }}
-                name: Save Yarn Tools Package Cache
-                paths:
-                    - ~/.cache/yarn-tools
-                    - tools/node_modules
     skip_job:
         description: Skips the current build if neccassary
         parameters:
@@ -260,17 +243,14 @@ commands:
                 name: Skip the current build if neccassary
     unit_test:
         description: Runs the test task and stores coverage and junit data
-        parameters:
-            directory:
-                type: string
         steps:
             - run:
-                command: yarn workspace << parameters.directory >> run test:ci --maxWorkers ${TOTAL_CPUS}
+                command: yarn :test:ci --maxWorkers ${TOTAL_CPUS}
                 name: Unit Tests with Coverage
             - store_test_results:
-                path: << parameters.directory >>/reports/unit-test
+                path: reports/unit-test
             - store_artifacts:
-                path: << parameters.directory >>/reports/coverage
+                path: reports/coverage
 jobs:
     build_android:
         docker:
@@ -475,13 +455,13 @@ jobs:
         steps:
             - skip_job
             - checkout
-            - restore_yarn_tools_cache
+            - restore_yarn_cache
             - run:
-                command: echo "export NEW_VERSION_NAME=$(yarn --silent next-version calc | jq .versionName)" >> ${BASH_ENV}
+                command: echo "export NEW_VERSION_NAME=$(yarn next-version calc | jq .versionName)" >> ${BASH_ENV}
                 name: Calculate next version name
                 working_directory: tools
             - run:
-                command: echo "export NEW_VERSION_CODE=$(yarn --silent next-version calc | jq .versionCode)" >> ${BASH_ENV}
+                command: echo "export NEW_VERSION_CODE=$(yarn next-version calc | jq .versionCode)" >> ${BASH_ENV}
                 name: Calculate next version code
                 working_directory: tools
             - when:
@@ -510,22 +490,15 @@ jobs:
                 command: yarn prettier:check
                 name: Prettier
             - run:
-                command: yarn lint
+                command: yarn :lint:ci
                 name: Lint
             - run:
                 command: yarn workspace web stylelint
                 name: Stylelint
             - run:
-                command: yarn workspaces run ts:check
+                command: yarn ts:check
                 name: TS check
-            - unit_test:
-                directory: api-client
-            - unit_test:
-                directory: native
-            - unit_test:
-                directory: translations
-            - unit_test:
-                directory: web
+            - unit_test
             - notify
     deliver_android:
         docker:
@@ -551,7 +524,6 @@ jobs:
             - checkout
             - prepare_workspace
             - restore_environment_variables
-            - restore_yarn_tools_cache
             - restore_yarn_cache
             - restore_ruby_cache:
                 directory: native
@@ -590,7 +562,6 @@ jobs:
             - checkout
             - prepare_workspace
             - restore_environment_variables
-            - restore_yarn_tools_cache
             - restore_yarn_cache
             - restore_ruby_cache:
                 directory: native
@@ -761,7 +732,7 @@ jobs:
             - checkout
             - prepare_workspace
             - restore_environment_variables
-            - restore_yarn_tools_cache
+            - restore_yarn_cache
             - run:
                 command: yarn move-release-notes move-to ${NEW_VERSION_NAME} --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME} --branch ${CIRCLE_BRANCH}
                 name: Move release notes
@@ -780,7 +751,7 @@ jobs:
             - checkout
             - prepare_workspace
             - restore_environment_variables
-            - restore_yarn_tools_cache
+            - restore_yarn_cache
             - run:
                 command: echo "export ANDROID_ARTIFACT_URLS='$(echo $(cat $(ls | grep apk-url)))'" >> ${BASH_ENV}
                 name: Prepare artifact urls
@@ -808,7 +779,7 @@ jobs:
             - checkout
             - prepare_workspace
             - restore_environment_variables
-            - restore_yarn_tools_cache
+            - restore_yarn_cache
             - run:
                 command: echo "export IOS_ARTIFACT_URLS='$(echo $(cat $(ls | grep ipa-url)))'" >> ${BASH_ENV}
                 name: Prepare artifact urls
@@ -836,7 +807,7 @@ jobs:
             - checkout
             - prepare_workspace
             - restore_environment_variables
-            - restore_yarn_tools_cache
+            - restore_yarn_cache
             - run:
                 command: yarn github-release create web ${NEW_VERSION_NAME} ${NEW_VERSION_CODE} --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME} --release-notes "$(yarn --silent manage-metadata parse-release-notes --web --language en)"
                 name: Create github release
@@ -903,7 +874,6 @@ jobs:
             - skip_job:
                 build_config_name: << parameters.build_config_name >>
             - checkout
-            - restore_yarn_tools_cache
             - restore_yarn_cache
             - restore_ruby_cache:
                 directory: native

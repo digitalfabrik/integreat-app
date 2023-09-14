@@ -4,21 +4,8 @@
   "description": "Api client for the integreat cms",
   "main": "src/index.ts",
   "private": true,
-  "scripts": {
-    "test": "jest --config jest.config.ts",
-    "test:changed": "yarn run test -o",
-    "test:coverage": "yarn run test --coverage",
-    "test:ci": "yarn run test:coverage --ci",
-    "test:watch": "yarn run test --watchAll",
-    "lint": "yarn run eslint .",
-    "lint:changed": "eslint . -c ../.eslintrc_changed.js",
-    "lint:fix": "yarn run eslint --fix",
-    "lint:ci": "yarn run eslint --quiet --format junit -o reports/lint/junit-lint.xml",
-    "ts:check": "tsc --build"
-  },
   "peerDependencies": {
-    "@types/react": "^18.0.26",
-    "react": "18.2.0"
+    "react": "18.2"
   },
   "dependencies": {
     "@turf/distance": "^6.5.0",
@@ -37,11 +24,12 @@
     "@types/luxon": "^3.3.1",
     "@types/md5": "^2.3.2",
     "@types/normalize-path": "^3.0.0",
+    "@types/react": "^18.2.21",
     "@types/seedrandom": "^3.0.5",
     "@types/uuid": "^9.0.2",
     "jest-fetch-mock": "^3.0.3",
-    "jest-junit": "^16.0.0",
     "md5": "^2.3.0",
+    "react": "^18.2.0",
     "seedrandom": "^3.0.5"
   }
 }

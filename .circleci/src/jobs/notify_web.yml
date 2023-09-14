@@ -11,7 +11,7 @@ steps:
   - checkout
   - prepare_workspace
   - restore_environment_variables
-  - restore_yarn_tools_cache
+  - restore_yarn_cache
   - run:
       name: Create github release
       command: yarn github-release create web ${NEW_VERSION_NAME} ${NEW_VERSION_CODE} --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME} --release-notes "$(yarn --silent manage-metadata parse-release-notes --web --language en)"

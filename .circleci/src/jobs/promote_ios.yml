@@ -13,7 +13,6 @@ steps:
   - skip_job:
       build_config_name: << parameters.build_config_name >>
   - checkout
-  - restore_yarn_tools_cache
   - restore_yarn_cache # Needed for babel-node run in read_build_config.rb. May be refactored and optimized later.
   - restore_ruby_cache:
       directory: native

@@ -3,8 +3,10 @@
     "esModuleInterop": true,
     "noFallthroughCasesInSwitch": true,
     "noImplicitAny": true,
+    "skipLibCheck": true,
     "noUncheckedIndexedAccess": true,
     "resolveJsonModule": true,
-    "strict": true
+    "strict": true,
+    "noEmit": true
   }
 }
