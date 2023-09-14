@@ -28,7 +28,7 @@ const StyledInput = styled(TextInput)`
   padding: 4px;
   flex: 1;
   color: ${props => props.theme.colors.textColor};
-  font-size: 18;
+  font-size: 18px;
 `
 
 type ThemedSearchBarProps = {
