@@ -125,7 +125,6 @@
     "jest-transform-stub": "^2.0.0",
     "jetifier": "^2.0.0",
     "metro-react-native-babel-preset": "^0.77.0",
-    "node-fetch": "^3.3.2",
     "npm-license-crawler": "^0.2.1",
     "patch-package": "8.0.0",
     "postinstall-postinstall": "2.1.0",

@@ -1,0 +1,6 @@
+issue_key: 2293
+show_in_stores: true
+platforms:
+  - android
+en: Improve scrolling in location sheet.
+de: Besseres Scrollverhalten für Orte.
