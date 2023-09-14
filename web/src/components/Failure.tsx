@@ -23,16 +23,10 @@ type FailureProps = {
   errorMessage: string
   goToPath?: string
   goToMessage?: string
-  translationArea?: string
 }
 
-const Failure = ({
-  errorMessage,
-  goToPath,
-  goToMessage = 'goTo.start',
-  translationArea = 'error',
-}: FailureProps): ReactElement => {
-  const { t } = useTranslation(translationArea)
+const Failure = ({ errorMessage, goToPath, goToMessage = 'goTo.start' }: FailureProps): ReactElement => {
+  const { t } = useTranslation('error')
   return (
     <Centered>
       <div>

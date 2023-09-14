@@ -107,7 +107,7 @@ const SearchPage = ({ city, cityCode, languageCode, pathname }: CityRouteProps):
           />
         ))}
       </List>
-      {searchResults.length === 0 && <Failure errorMessage='nothingFound' translationArea='search' />}
+      {searchResults.length === 0 && <Failure errorMessage='search:nothingFound' />}
       <FeedbackSearch
         cityCode={cityCode}
         languageCode={languageCode}
