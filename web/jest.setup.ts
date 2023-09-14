@@ -8,6 +8,8 @@ import 'raf/polyfill'
 global.fetch = require('jest-fetch-mock')
 // Setup config mock
 
+console.error = () => undefined
+
 const walkDir = (dir: string, callback: (dir: string) => void) => {
   fs.readdirSync(dir).forEach(f => {
     const filePath = path.join(dir, f)
