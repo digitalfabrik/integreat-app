@@ -14,8 +14,8 @@ import styled from 'styled-components/native'
 import { LanguageIcon, MenuIcon, SearchIcon } from '../assets'
 import Icon from './base/Icon'
 
-const StyledOverflowMenu = styled(OverflowMenu)`
-  margin-right: 10px;
+const StyledHeaderContainer = styled.View`
+  margin: 0 10px 0 10px;
 `
 
 type IconPropType = VisibleButtonProps['IconComponent'] extends ComponentType<infer T> | undefined ? T : never
@@ -46,16 +46,17 @@ const CustomHeaderButtons = (props: {
   const { cancelLabel, items, overflowItems } = props
   const { t } = useTranslation('common')
   return (
-    <HeaderButtons HeaderButtonComponent={CustomHeaderButton}>
-      {items}
-
-      <StyledOverflowMenu
-        onPress={onOverflowMenuPress(cancelLabel)}
-        accessibilityLabel={t('moreOptions')}
-        OverflowIcon={<Icon Icon={MenuIcon} />}>
-        {overflowItems}
-      </StyledOverflowMenu>
-    </HeaderButtons>
+    <StyledHeaderContainer>
+      <HeaderButtons HeaderButtonComponent={CustomHeaderButton}>
+        {items}
+        <OverflowMenu
+          onPress={onOverflowMenuPress(cancelLabel)}
+          accessibilityLabel={t('moreOptions')}
+          OverflowIcon={<Icon Icon={MenuIcon} />}>
+          {overflowItems}
+        </OverflowMenu>
+      </HeaderButtons>
+    </StyledHeaderContainer>
   )
 }
 
