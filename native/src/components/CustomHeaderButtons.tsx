@@ -15,7 +15,7 @@ import { LanguageIcon, MenuIcon, SearchIcon } from '../assets'
 import Icon from './base/Icon'
 
 const StyledHeaderContainer = styled.View`
-  margin: 0 10px 0 10px;
+  margin: 0 10px;
 `
 
 type IconPropType = VisibleButtonProps['IconComponent'] extends ComponentType<infer T> | undefined ? T : never
