@@ -12,6 +12,15 @@ jest.mock('translations/src/loadTranslations')
 
 describe('I18nProvider', () => {
   const mockDetect = mocked(BrowserLanguageDetector.detect)
+  const previousConsoleLog = console.log
+
+  beforeEach(() => {
+    console.log = () => undefined
+  })
+
+  afterEach(() => {
+    console.log = previousConsoleLog
+  })
 
   it.each`
     detectedLanguage | contentLanguage | expectedLanguage | expectedTranslation
