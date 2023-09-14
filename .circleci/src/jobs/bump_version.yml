@@ -8,8 +8,8 @@ docker:
   - image: cimg/node:18.14.1
 resource_class: small
 steps:
-  - skip_job
   - checkout
+  - skip_job
   - restore_yarn_tools_cache
   - run:
       name: Calculate next version name
