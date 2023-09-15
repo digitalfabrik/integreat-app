@@ -36,7 +36,6 @@ const LanguageSelector = (props: LanguageSelectorProps): ReactElement => {
       <HeaderLanguageSelectorItem
         selectorItems={selectorItems}
         activeItemCode={activeItemCode}
-        t={t}
         inKebabMenu={inKebabMenu}
         closeSidebar={closeSidebar}
       />
