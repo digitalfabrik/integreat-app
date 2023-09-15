@@ -1,3 +1,4 @@
+import { TFunction } from 'i18next'
 import { mocked } from 'jest-mock'
 import { openSettings } from 'react-native-permissions'
 
@@ -49,7 +50,7 @@ describe('createSettingsSections', () => {
     changeAction = newChangeAction
   }
 
-  const t = (key: string) => key
+  const t = ((key: string) => key) as TFunction
 
   const languageCode = 'de'
   const cityCode = 'augsburg'
