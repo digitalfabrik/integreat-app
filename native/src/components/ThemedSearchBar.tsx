@@ -1,5 +1,5 @@
+import { TFunction } from 'i18next'
 import React, { ReactElement } from 'react'
-import { TFunction } from 'react-i18next'
 import { SearchBar } from 'react-native-elements'
 
 import { ThemeType } from 'build-configs'

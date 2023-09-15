@@ -83,7 +83,7 @@ const FailureSwitcher = ({ error }: FailureSwitcherProps): ReactElement => {
   return (
     <>
       <Helmet pageTitle={error instanceof NotFoundError ? t('notFound.pageTitle') : t('pageTitle')} />
-      <Failure {...getFailureProps(error)} t={t} />
+      <Failure {...getFailureProps(error)} />
     </>
   )
 }

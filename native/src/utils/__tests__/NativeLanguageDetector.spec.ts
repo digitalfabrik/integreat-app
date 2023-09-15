@@ -70,7 +70,7 @@ describe('NativeLanguageDetector', () => {
   it('should not respond to language changes', () => {
     mocked(getLocales).mockImplementation(() => [enLocale])
     expect(NativeLanguageDetector.detect()).toBe('en')
-    NativeLanguageDetector.cacheUserLanguage('de')
+    NativeLanguageDetector.cacheUserLanguage!('de')
     expect(NativeLanguageDetector.detect()).toBe('en')
   })
 })
