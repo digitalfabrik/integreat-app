@@ -11,6 +11,9 @@ import EditLocationIcon from '../../../assets/icons/edit-location.svg'
 import ExternalLinkIcon from '../../../assets/icons/external-link.svg'
 import HappySmileyIcon from '../../../assets/icons/happy-smiley.svg'
 import LanguageIcon from '../../../assets/icons/language.svg'
+import LocationFixedIcon from '../../../assets/icons/location-fixed.svg'
+import LocationNotFixedIcon from '../../../assets/icons/location-not-fixed.svg'
+import LocationOffIcon from '../../../assets/icons/location-off.svg'
 import MailIcon from '../../../assets/icons/mail.svg'
 import MenuIcon from '../../../assets/icons/menu.svg'
 import NewsIcon from '../../../assets/icons/news.svg'
@@ -40,6 +43,9 @@ export {
   EventThumbnailPlaceholder2,
   EventThumbnailPlaceholder3,
   ExternalLinkIcon,
+  LocationFixedIcon,
+  LocationNotFixedIcon,
+  LocationOffIcon,
   HappySmileyIcon,
   LanguageIcon,
   MailIcon,
