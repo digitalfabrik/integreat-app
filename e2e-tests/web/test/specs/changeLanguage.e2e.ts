@@ -15,6 +15,7 @@ describe('change language', () => {
     await languageIcon.click()
 
     const languageSelector = await $("*[data-testid='headerActionItemDropDown']")
+    await $('=English')
     expect(await languageSelector.isDisplayed()).toBeTruthy()
   })
 
