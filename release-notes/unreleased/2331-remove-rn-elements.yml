@@ -1,0 +1,7 @@
+issue_key: 2231
+show_in_stores: true
+platforms:
+  - ios
+  - android
+en: Removed unneeded packages
+de: Unnötige Pakete entfernt
