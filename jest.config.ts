@@ -1,6 +1,7 @@
 import type { Config } from '@jest/types'
 
 const config: Partial<Config.GlobalConfig> = {
+  rootDir: '.',
   verbose: true,
   projects: ['web', 'native', 'api-client', 'translations'],
   reporters: [
@@ -8,11 +9,11 @@ const config: Partial<Config.GlobalConfig> = {
     [
       'jest-junit',
       {
-        outputDirectory: 'reports/unit-test',
+        outputDirectory: '<rootDir>/reports/unit-test',
       },
     ],
   ],
-  coverageDirectory: 'reports/coverage',
+  coverageDirectory: '<rootDir>/reports/coverage',
 }
 
 export default config

@@ -1,6 +1,6 @@
 import React, { ReactElement, useContext } from 'react'
 import { useTranslation } from 'react-i18next'
-import { ThemeContext } from 'styled-components'
+import { ThemeContext } from 'styled-components/native'
 
 import { SearchRouteType } from 'api-client'
 

@@ -8,12 +8,13 @@
     "test:native:browserstack": "yarn wdio run ./native/wdio-browserstack.conf.ts",
     "test:native": "yarn wdio run native/wdio.conf.ts",
     "test:native:ios": "yarn wdio run native/wdio-ios.conf.ts",
-    "prepare:native:android": "yarn workspace native android:integreat-e2e",
-    "prepare:native:start": "yarn workspace native start:integreat-e2e",
+    "prepare:native:android": "yarn :native android:integreat-e2e",
+    "prepare:native:start": "yarn :native start:integreat-e2e",
     "prepare:web:start": "yarn workspace web start:integreat-e2e"
   },
   "devDependencies": {
     "@types/jasmine": "4.3.1",
+    "@types/node": "^20.7.0",
     "@wdio/appium-service": "^8.3.2",
     "@wdio/browserstack-service": "^8.3.2",
     "@wdio/cli": "^8.3.2",

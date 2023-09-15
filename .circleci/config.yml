@@ -202,8 +202,12 @@ commands:
                     - 8-yarn-{{ arch }}-
                 name: Restore Yarn Package Cache
             - run:
-                command: yarn --immutable --immutable-cache
+                command: yarn install --immutable --immutable-cache --check-cache
                 name: Yarn
+            - run:
+                command: yarn install --immutable
+                name: Yarn native
+                working_directory: native
             - save_cache:
                 key: 8-yarn-{{ arch }}-{{ checksum "yarn.lock" }}-{{ checksum "package.json" }}-{{ checksum "native/package.json" }}-{{ checksum "web/package.json" }}
                 name: Save Yarn Package Cache
@@ -484,8 +488,8 @@ jobs:
         steps:
             - skip_job
             - checkout
-            - check_config
             - restore_yarn_cache
+            - check_config
             - run:
                 command: yarn prettier:check
                 name: Prettier
@@ -496,10 +500,13 @@ jobs:
                 command: yarn workspace web stylelint
                 name: Stylelint
             - run:
-                command: yarn ts:check
+                command: yarn workspaces foreach run tsc --build
                 name: TS check
+            - run:
+                command: yarn tsc --build
+                name: TS check native
+                working_directory: native
             - unit_test
-            - notify
     deliver_android:
         docker:
             - image: cimg/android:2023.02.1-node

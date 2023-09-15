@@ -109,8 +109,8 @@ dist
 .vscode-test
 
 # yarn
-.pnp.*
 .yarn/*
+!.yarn/cache
 !.yarn/patches
 !.yarn/plugins
 !.yarn/releases
@@ -131,3 +131,6 @@ runConfigurations.xml
 
 # JUnit output
 reports/
+
+# swc cache
+.swc/

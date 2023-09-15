@@ -108,7 +108,7 @@ const Pois = ({ pois: allPois, language, cityModel, route, navigation }: PoisPro
     () =>
       multipoi
         ? features.find(feature => feature.id === multipoi)
-        : features.find(feature => feature.properties.pois.some(poi => poi.slug === slug)),
+        : features.find(feature => feature.properties.pois.some((poi: GeoJsonPoi) => poi.slug === slug)),
     [features, multipoi, slug],
   )
   const currentPoi = useMemo(() => (slug ? pois.find(poi => slug === poi.slug) : undefined), [pois, slug])

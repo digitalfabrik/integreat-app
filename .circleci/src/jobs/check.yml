@@ -9,8 +9,8 @@ shell: /bin/bash -eo pipefail
 steps:
   - skip_job
   - checkout
-  - check_config
   - restore_yarn_cache
+  - check_config
   - run:
       name: Prettier
       command: yarn prettier:check
@@ -22,6 +22,9 @@ steps:
       command: yarn workspace web stylelint
   - run:
       name: TS check
-      command: yarn ts:check
+      command: yarn workspaces foreach run tsc --build
+  - run:
+      name: TS check native
+      command: yarn tsc --build
+      working_directory: native
   - unit_test
-  - notify

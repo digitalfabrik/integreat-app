@@ -8,6 +8,7 @@
     "xyz.local-history",
     "christian-kohler.npm-intellisense",
     "christian-kohler.path-intellisense",
-    "Orta.vscode-jest"
+    "Orta.vscode-jest",
+    "arcanis.vscode-zipfs"
   ]
 }

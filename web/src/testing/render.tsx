@@ -1,4 +1,3 @@
-import type { Router } from '@remix-run/router'
 import { render, RenderResult } from '@testing-library/react'
 import React, { ReactElement } from 'react'
 import { createMemoryRouter, MemoryRouter, RouterProvider } from 'react-router-dom'
@@ -26,7 +25,7 @@ export const renderWithTheme = (ui: ReactElement): RenderResult =>
 export const renderWithRouter = (ui: ReactElement): RenderResult => render(ui, { wrapper: MemoryRouter })
 
 type ExtendedRenderResult = RenderResult & {
-  router: Router
+  router: ReturnType<typeof createMemoryRouter>
 }
 
 export const renderRoute = (ui: ReactElement, options: RenderRouteOptions): ExtendedRenderResult => {

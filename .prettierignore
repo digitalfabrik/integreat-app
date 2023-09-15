@@ -26,5 +26,8 @@ web/www/rasa-widget
 version.json
 # Ignore yarn files
 **/.yarn/**
+!native/.yarn/plugins/root-commands.js
 
 reports/**
+
+.pnp.*

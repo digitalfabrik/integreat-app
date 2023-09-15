@@ -2,34 +2,41 @@
   "name": "api-client",
   "version": "0.0.1",
   "description": "Api client for the integreat cms",
+  "homepage": "https://github.com/digitalfabrik/integreat-app/tree/main/api-client",
   "main": "src/index.ts",
   "private": true,
   "peerDependencies": {
-    "react": "18.2"
+    "@types/luxon": "3",
+    "luxon": ">=3.4",
+    "react": "^18.2"
   },
   "dependencies": {
     "@turf/distance": "^6.5.0",
     "entities": "^4.5.0",
     "htmlparser2": "^9.0.0",
     "lodash": "^4.17.21",
-    "luxon": "^3.4.2",
     "normalize-path": "^3.0.0",
     "normalize-strings": "^1.1.1",
     "rrule": "2.7.2",
+    "seedrandom": "^3.0.5",
     "uuid": "^9.0.0"
   },
   "devDependencies": {
+    "@swc/jest": "^0.2.29",
     "@types/geojson": "^7946.0.10",
+    "@types/jest": "^29.5.5",
     "@types/lodash": "^4.14.197",
     "@types/luxon": "^3.3.1",
     "@types/md5": "^2.3.2",
+    "@types/node": "^18",
     "@types/normalize-path": "^3.0.0",
     "@types/react": "^18.2.21",
     "@types/seedrandom": "^3.0.5",
     "@types/uuid": "^9.0.2",
     "jest-fetch-mock": "^3.0.3",
+    "jest-mock": "^29.7.0",
+    "luxon": "^3.4.2",
     "md5": "^2.3.0",
-    "react": "^18.2.0",
-    "seedrandom": "^3.0.5"
+    "react": "^18.2.0"
   }
 }

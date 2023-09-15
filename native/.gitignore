@@ -280,3 +280,12 @@ reports/
 
 # Temporary files created by Metro to check the health of the file watcher
 .metro-health-check*
+
+# yarn non-zero-installs
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/sdks
+!.yarn/versions

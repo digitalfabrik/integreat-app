@@ -8,7 +8,8 @@
     "github-release": "yarn run -T ts-node github-release.ts",
     "move-release-notes": "yarn run -T ts-node move-release-notes.ts",
     "next-version": "yarn run -T ts-node next-version.ts",
-    "trigger-pipeline": "yarn run -T ts-node trigger-pipeline.ts"
+    "trigger-pipeline": "yarn run -T ts-node trigger-pipeline.ts",
+    "license-checker": "cd $PROJECT_CWD && yarn run -T ts-node tools/license-checker.js"
   },
   "devDependencies": {
     "@octokit/auth-app": "^6.0.0",

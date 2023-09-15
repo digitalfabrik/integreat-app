@@ -4,32 +4,40 @@
     "allowJs": true,
     "allowSyntheticDefaultImports": true,
     "baseUrl": ".",
+    "composite": true,
     "isolatedModules": true,
     "jsx": "react",
     "module": "es2020",
     "outDir": "dist",
     "paths": {
-      "api-client/*": ["../api-client/*"],
-      "build-configs/*": ["../build-configs/*"],
-      "translations/*": ["../translations/*"],
       "normalize-strings": ["../api-client/src/@types/normalize-strings"],
       "@dr.pogodin/react-native-static-server": ["src/@types/react-native-static-server"],
       "@react-native-async-storage/async-storage/jest/async-storage-mock": ["src/@types/untyped"]
     },
     "skipLibCheck": true,
-    "typeRoots": ["./src/@types", "./node_modules/@types", "../node_modules/@types"],
-    "types": ["jest", "node", "react-native", "styled-components-react-native"]
+    "typeRoots": ["src/@types", "./node_modules/@types"],
+    "types": ["jest", "node", "react-native", "styled-components-react-native", "styled-components"]
   },
-  "include": ["src/**/*", "./jest.setup.ts", "index.ts", "jest.config.ts", "metro.config.ci.js", "metro.config.js"],
+  "include": [
+    "src/**/*",
+    "jest.setup.ts",
+    "index.ts",
+    "jest.config.ts",
+    "metro.config.ci.js",
+    "metro.config.js",
+    ".yarn/plugins/root-command.js",
+    "run.js",
+    "src/assets/licenses.json"
+  ],
   "references": [
     {
-      "path": "../translations"
+      "path": "../translations/tsconfig.json"
     },
     {
-      "path": "../build-configs"
+      "path": "../build-configs/tsconfig.json"
     },
     {
-      "path": "../api-client"
+      "path": "../api-client/tsconfig.json"
     }
   ]
 }

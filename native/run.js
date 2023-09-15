@@ -1,0 +1,38 @@
+#!/usr/bin/env ts-node
+/* eslint-disable import/no-extraneous-dependencies */
+/* eslint-disable @typescript-eslint/no-var-requires */
+
+const { execSync } = require('child_process')
+const { program } = require('commander')
+
+program
+  .command('packager <build_config_name>')
+  .description('start metro packager')
+  .action(buildConfigName => {
+    const buildConfig = execSync(`yarn build-configs manage to-bash ${buildConfigName} common`)
+      .toString()
+      .replaceAll('\n', ' ')
+    execSync(`yarn cross-env ${buildConfig} yarn react-native start --reset-cache`, { stdio: 'inherit' })
+  })
+
+program
+  .command('android <build_config_name>')
+  .description('create android build')
+  .option('--production', 'whether a production (release) build should be made')
+  .action((buildConfigName, options) => {
+    const { production } = options
+    const productionFlag = production ? '--variant=release' : ''
+
+    const jsonBuildConfig = execSync(`yarn build-configs manage to-json ${buildConfigName} android`)
+    const applicationId = JSON.parse(jsonBuildConfig).applicationId
+
+    const buildConfig = execSync(`yarn build-configs manage to-bash ${buildConfigName} android`)
+      .toString()
+      .replaceAll('\n', ' ')
+    execSync(
+      `yarn cross-env ${buildConfig} yarn react-native run-android --no-packager --appId ${applicationId} ${productionFlag}`,
+      { stdio: 'inherit' },
+    )
+  })
+
+program.parse(process.argv)

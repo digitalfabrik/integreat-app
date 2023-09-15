@@ -1,9 +1,10 @@
 {
   "extends": "../tsconfig.json",
   "compilerOptions": {
+    "composite": true,
     "skipLibCheck": true,
     "outDir": "dist",
-    "types": ["node", "@wdio/globals/types", "@wdio/jasmine-framework"],
+    "types": ["node", "@wdio/globals/types", "jasmine"],
     "sourceMap": false
   },
   "include": ["web", "native", "shared"]

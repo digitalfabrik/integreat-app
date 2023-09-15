@@ -13,13 +13,13 @@ type LicenseItemProps = {
   name: string
   version: string | undefined
   license: string
-  licenseUrl: string
+  licenseUrl: string | undefined
 }
 
 const LicenseItem = ({ license, name, licenseUrl, version }: LicenseItemProps): ReactElement => {
   const { t } = useTranslation('licenses')
   return (
-    <ListItem path={licenseUrl} title={name}>
+    <ListItem path={licenseUrl ?? ''} title={name}>
       <LicenseContainer>
         <div>
           {t('version')} {version}

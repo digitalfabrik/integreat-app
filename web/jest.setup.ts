@@ -34,7 +34,10 @@ walkDir(mocksPath, name => {
   })
 })
 
-Object.defineProperty(window, 'scrollTo', { value: () => undefined, writable: true })
+Object.defineProperty(window, 'scrollTo', {
+  value: () => undefined,
+  writable: true,
+})
 // Needed For BottomActionSheet
 Object.defineProperty(window, 'matchMedia', {
   writable: true,

@@ -1,8 +1,7 @@
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 import { ActivityIndicator, ScrollView, Text, TextInput } from 'react-native'
-import { useTheme } from 'styled-components'
-import styled from 'styled-components/native'
+import styled, { useTheme } from 'styled-components/native'
 
 import { NoteIcon } from '../assets'
 import useNavigate from '../hooks/useNavigate'

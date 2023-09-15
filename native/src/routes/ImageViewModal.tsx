@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { ReactElement, useContext, useState } from 'react'
 import { View } from 'react-native'
-import { ThemeContext } from 'styled-components'
+import { ThemeContext } from 'styled-components/native'
 
 import { ErrorCode, ImageViewModalRouteType } from 'api-client'
 

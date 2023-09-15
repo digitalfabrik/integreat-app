@@ -18,6 +18,7 @@ export type MapResponseType<P, T> = ImportedMapResponseType<P, T>
 export type FeedbackParamsType = ImportedFeedbackParamsType & ImportedFeedbackAdditionalParamsType
 export type FeedbackCategoryType = ImportedFeedbackCategoryType
 export type ReturnType<T> = ImportedReturnType<T>
+
 export { default as InternalPathnameParser } from './routes/InternalPathnameParser'
 export * from './routes'
 export * from './routes/RouteInformationTypes'

@@ -1,5 +1,5 @@
 import React, { ReactElement, useMemo } from 'react'
-import { Image, View, StyleProp, ImageStyle, ImageResizeMode, Platform } from 'react-native'
+import { Image, StyleProp, View, ImageStyle, ImageResizeMode, Platform } from 'react-native'
 import styled from 'styled-components/native'
 
 const StyledImage = styled.Image<{ aspectRatio?: number }>`

@@ -65,9 +65,13 @@ const Licenses = (): ReactElement => {
 
   const { t } = useTranslation('settings')
   const renderItem = ({ item }: { item: License }) => {
-    const { licenses, name, licenseUrl, version } = item
-    const openLink = () => openExternalUrl(licenseUrl, showSnackbar)
-    return <LicenseItem key={name} name={name} version={version ?? ''} license={licenses} onPress={openLink} />
+    const { license, name, licenseUrl, version } = item
+    const openLink = licenseUrl
+      ? () => openExternalUrl(licenseUrl, showSnackbar)
+      : () => {
+          /* do nothing */
+        }
+    return <LicenseItem key={name} name={name} version={version ?? ''} license={license} onPress={openLink} />
   }
 
   return (

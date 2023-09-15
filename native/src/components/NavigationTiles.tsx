@@ -1,8 +1,7 @@
 import React, { ReactElement, useRef, useState } from 'react'
 import { Dimensions, NativeScrollEvent, NativeSyntheticEvent, ScrollView } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
-import { useTheme } from 'styled-components'
-import styled from 'styled-components/native'
+import styled, { useTheme } from 'styled-components/native'
 
 import { ArrowBackIcon } from '../assets'
 import TileModel from '../models/TileModel'

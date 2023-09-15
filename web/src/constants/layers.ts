@@ -1,4 +1,4 @@
-import { Expression } from 'mapbox-gl'
+import { ExpressionSpecification } from 'maplibre-gl'
 import { LayerProps } from 'react-map-gl/maplibre'
 
 import {
@@ -59,7 +59,7 @@ export const markerLayer = (currentFeature: MapFeature | null): LayerProps => ({
   paint: {},
 })
 
-export const clusterProperties: { [key: string]: Expression } = {
+export const clusterProperties: { [key: string]: ExpressionSpecification } = {
   sum: ['+', ['length', ['get', 'pois']]],
 }
 

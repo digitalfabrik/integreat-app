@@ -3,15 +3,19 @@
   "version": "0.0.1",
   "main": "index.ts",
   "description": "Build configs for the integreat project",
+  "homepage": "https://github.com/digitalfabrik/integreat-app/tree/main/build-configs",
   "private": true,
-  "dependencies": {
-    "translations": "workspace:*"
+  "peerDependencies": {
+    "translations": "*"
   },
   "devDependencies": {
     "@types/flat": "^5.0.2",
+    "@types/jest": "^29.5.5",
+    "@types/node": "^20.7.0",
     "commander": "^11.0.0",
     "decamelize": "^5.0.1",
-    "flat": "^5.0.2"
+    "flat": "^5.0.2",
+    "translations": "workspace:*"
   },
   "scripts": {
     "manage": "yarn run -T ts-node tools/manage.ts"

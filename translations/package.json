@@ -2,6 +2,7 @@
   "name": "translations",
   "version": "0.0.1",
   "description": "Translations for the integreat frontend projects",
+  "homepage": "https://github.com/digitalfabrik/integreat-app/tree/main/translations",
   "main": "src/index.ts",
   "private": true,
   "scripts": {
@@ -14,12 +15,16 @@
     "import:ods:override-aschaffenburg": "./tools/ods-to-csv aschaffenburg-ods aschaffenburg-csv && yarn manage convert aschaffenburg-csv override-translations/aschaffenburg.json json && rm -rf aschaffenburg-csv"
   },
   "devDependencies": {
+    "@swc/jest": "^0.2.29",
     "@types/flat": "^5.0.2",
+    "@types/jest": "^29.5.5",
     "@types/lodash": "^4.14.197",
+    "@types/node": "^20.7.0",
     "commander": "^11.0.0",
     "csv-parse": "^5.5.0",
     "csv-stringify": "^6.4.2",
     "flat": "^5.0.2",
-    "lodash": "^4.17.21"
+    "lodash": "^4.17.21",
+    "typescript": "^5.2.2"
   }
 }

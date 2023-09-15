@@ -1,3 +1,4 @@
+import LicensePlugin from '@boundstate/webpack-license-plugin'
 import ReactRefreshPlugin from '@pmmmwh/react-refresh-webpack-plugin'
 import AssetsPlugin from 'assets-webpack-plugin'
 import { CleanWebpackPlugin } from 'clean-webpack-plugin'
@@ -5,6 +6,7 @@ import CopyPlugin from 'copy-webpack-plugin'
 import { readFileSync } from 'fs'
 import HtmlWebpackPlugin from 'html-webpack-plugin'
 import { join, resolve } from 'path'
+import PnpWebpackPlugin from 'pnp-webpack-plugin'
 import ReactRefreshTypeScript from 'react-refresh-typescript'
 import { Configuration, DefinePlugin, LoaderOptionsPlugin, optimize, WebpackPluginInstance } from 'webpack'
 import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer'
@@ -135,10 +137,8 @@ const createConfig = (
     console.log('Configured for running in dev server')
   }
 
-  const configAssets = resolve(__dirname, `../node_modules/build-configs/${buildConfigName}/assets`)
+  const configAssets = resolve(__dirname, `../../build-configs/${buildConfigName}/assets`)
 
-  const nodeModules = resolve(__dirname, '../node_modules')
-  const apiClientNodeModules = resolve(__dirname, '../../api-client/node_modules')
   const wwwDirectory = resolve(__dirname, '../www')
   const distDirectory = resolve(__dirname, `../dist/${buildConfigName}`)
   const srcDirectory = resolve(__dirname, '../src')
@@ -161,10 +161,13 @@ const createConfig = (
     mode: devServer ? 'development' : 'production',
     resolve: {
       extensions: ['.tsx', '.ts', '.js'],
-      modules: [apiClientNodeModules, nodeModules],
+      plugins: [PnpWebpackPlugin],
       alias: {
         'mapbox-gl': 'maplibre-gl',
       },
+    },
+    resolveLoader: {
+      plugins: [PnpWebpackPlugin.moduleLoader(module)],
     },
     // The base directory for resolving the entry option
     context: srcDirectory,
@@ -264,6 +267,11 @@ const createConfig = (
       new LoaderOptionsPlugin({
         debug: devServer,
         minimize: !devServer,
+      }),
+      new LicensePlugin({
+        outputFilename: 'licenses.json',
+        excludedPackageTest: packageName =>
+          ['api-client', 'build-configs', 'translations', 'web'].includes(packageName),
       }),
       ...plugins,
     ],

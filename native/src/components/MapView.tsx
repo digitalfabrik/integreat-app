@@ -3,8 +3,7 @@ import type { BBox, Feature } from 'geojson'
 import React, { ReactElement, useCallback, useLayoutEffect, useRef } from 'react'
 import { useWindowDimensions } from 'react-native'
 import { FAB } from 'react-native-elements'
-import { useTheme } from 'styled-components'
-import styled from 'styled-components/native'
+import styled, { useTheme } from 'styled-components/native'
 
 import {
   clusterRadius,

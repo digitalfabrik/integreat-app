@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "composite": true,
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "lib": ["ES5", "ES6"],
@@ -11,5 +12,6 @@
     "strict": true,
     "target": "ESNext",
     "useDefineForClassFields": false
-  }
+  },
+  "include": ["jest.config.ts"]
 }
