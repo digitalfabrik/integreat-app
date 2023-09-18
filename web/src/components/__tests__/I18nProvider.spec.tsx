@@ -9,7 +9,6 @@ import I18nProvider from '../I18nProvider'
 
 jest.mock('../../utils/BrowserLanguageDetector')
 jest.mock('translations/src/loadTranslations')
-jest.mock('')
 
 describe('I18nProvider', () => {
   const mockDetect = mocked(BrowserLanguageDetector.detect)
