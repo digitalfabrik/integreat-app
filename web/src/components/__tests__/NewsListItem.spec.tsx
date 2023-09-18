@@ -1,3 +1,4 @@
+import { TFunction } from 'i18next'
 import { DateTime } from 'luxon'
 import React from 'react'
 
@@ -18,7 +19,7 @@ jest.mock('../LastUpdateInfo', () =>
 
 describe('NewsListItem', () => {
   const link = '/testumgebung/en/news/local'
-  const t = (key: string) => key
+  const t = ((key: string) => key) as TFunction
 
   const lastUpdate = DateTime.fromISO('2020-03-20T17:50:00.000Z')
   const title = 'Tick bite - What to do?'
