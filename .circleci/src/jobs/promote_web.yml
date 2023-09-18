@@ -3,6 +3,7 @@ docker:
 resource_class: small
 shell: /bin/bash -eo pipefail
 steps:
+  - checkout
   - skip_job
   - add_ssh_keys:
       fingerprints:
