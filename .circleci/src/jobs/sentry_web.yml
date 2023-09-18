@@ -4,8 +4,8 @@ docker:
 resource_class: small
 shell: /bin/bash -eo pipefail
 steps:
-  - skip_job
   - checkout
+  - skip_job
   - prepare_workspace
   - restore_environment_variables
   - run:
