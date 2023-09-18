@@ -1,6 +1,6 @@
 import { HeaderBackButton } from '@react-navigation/elements'
+import { TFunction } from 'i18next'
 import React, { ReactElement } from 'react'
-import { TFunction } from 'react-i18next'
 import styled from 'styled-components/native'
 
 import { ThemeType } from 'build-configs'
@@ -32,7 +32,7 @@ const SearchHeader = ({ theme, query, closeSearchBar, onSearchChanged, t }: Sear
     <BoxShadow theme={theme}>
       <Horizontal theme={theme}>
         <HeaderBackButton onPress={onClose} labelVisible={false} tintColor={theme.colors.textColor} />
-        <ThemedSearchBar theme={theme} onChangeText={onSearchChanged} value={query} autofocus t={t} />
+        <ThemedSearchBar onChangeText={onSearchChanged} value={query} autofocus t={t} />
       </Horizontal>
     </BoxShadow>
   )

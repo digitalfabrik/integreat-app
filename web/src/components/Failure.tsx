@@ -1,5 +1,5 @@
 import React, { ReactElement } from 'react'
-import { TFunction } from 'react-i18next'
+import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 
@@ -23,17 +23,19 @@ type FailureProps = {
   errorMessage: string
   goToPath?: string
   goToMessage?: string
-  t: TFunction<'error'>
 }
 
-const Failure = ({ errorMessage, goToPath, goToMessage = 'goTo.start', t }: FailureProps): ReactElement => (
-  <Centered>
-    <div>
-      <StyledIcon src={SadSmileyIcon} />
-    </div>
-    <div role='alert'>{t(errorMessage)}</div>
-    {!!goToPath && <Link to={goToPath}>{goToMessage ? t(goToMessage) : goToPath}</Link>}
-  </Centered>
-)
+const Failure = ({ errorMessage, goToPath, goToMessage = 'goTo.start' }: FailureProps): ReactElement => {
+  const { t } = useTranslation('error')
+  return (
+    <Centered>
+      <div>
+        <StyledIcon src={SadSmileyIcon} />
+      </div>
+      <div role='alert'>{t(errorMessage)}</div>
+      {!!goToPath && <Link to={goToPath}>{goToMessage ? t(goToMessage) : goToPath}</Link>}
+    </Centered>
+  )
+}
 
 export default Failure

@@ -72,7 +72,7 @@ const ShelterInformation = ({ shelter, cityCode, extended = false }: ShelterInfo
   const { t } = useTranslation('shelter')
 
   const notSpecified = t('notSpecified')
-  const bedsText = beds === 1 ? t('bed') : t('beds', { beds })
+  const bedsText = t('bed', { count: beds })
   const titleText = t('shelterTitle', { beds: bedsText, location: city })
   const titleHint = `(#${id})`
   const startDateText =
