@@ -1,6 +1,6 @@
+import { TFunction } from 'i18next'
 import { DateTime } from 'luxon'
 import React, { ReactElement } from 'react'
-import { TFunction } from 'react-i18next'
 import styled from 'styled-components'
 
 import { getExcerpt, LOCAL_NEWS_TYPE, NewsType } from 'api-client'

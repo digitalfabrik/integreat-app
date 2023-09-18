@@ -251,7 +251,7 @@ const Pois = ({ pois: allPois, language, cityModel, route, navigation }: PoisPro
         selectedFeature={currentFeatureOnMap ?? null}
         locationPermissionGranted={!!coordinates}
         onRequestLocationPermission={requestAndDetermineLocation}
-        fabPosition={
+        iconPosition={
           sheetSnapPointIndex < BOTTOM_SHEET_SNAP_POINTS.length - 1
             ? // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
               BOTTOM_SHEET_SNAP_POINTS[sheetSnapPointIndex]!

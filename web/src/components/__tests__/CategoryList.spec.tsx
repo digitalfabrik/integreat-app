@@ -6,6 +6,8 @@ import { CategoryModel } from 'api-client'
 import { renderWithRouterAndTheme } from '../../testing/render'
 import CategoryList from '../CategoryList'
 
+jest.mock('react-i18next')
+
 const modelWithTitle = new CategoryModel({
   root: false,
   path: '/augsburg/de/erste-schritte/asylantrag',
