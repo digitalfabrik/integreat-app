@@ -86,6 +86,10 @@ const MapView = forwardRef(
 
     const { viewportSmall, height } = useWindowDimensions()
 
+    useEffect(() => {
+      mapLibreGl.setRTLTextPlugin(mapConfig.rtlPluginUrl)
+    }, [])
+
     useImperativeHandle(
       ref,
       () => ({
