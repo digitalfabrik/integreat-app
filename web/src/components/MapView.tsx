@@ -89,7 +89,7 @@ const MapView = forwardRef(
 
     useEffect(() => {
       if (maplibregl.getRTLTextPluginStatus() === 'unavailable') {
-        maplibregl.setRTLTextPlugin(mapConfig.rtlPluginUrl, err => reportError(err))
+        maplibregl.setRTLTextPlugin(mapConfig.rtlPluginUrl, err => err && reportError(err), true)
       }
     }, [])
 
