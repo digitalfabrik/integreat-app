@@ -5,8 +5,12 @@ unless:
 jobs:
   - bump_version:
       prepare_delivery: false
+      context:
+        - mattermost
 
-  - check
+  - check:
+      context:
+        - mattermost
 
   - build_web:
       name: build_ig_test_cms_web
@@ -14,8 +18,12 @@ jobs:
       requires:
         - bump_version
         - check
+      context:
+        - mattermost
 
   - e2e_web:
       requires:
         - bump_version
         - check
+      context:
+        - mattermost

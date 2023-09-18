@@ -1,5 +1,5 @@
+import { TFunction } from 'i18next'
 import React, { memo } from 'react'
-import { TFunction } from 'react-i18next'
 import styled from 'styled-components/native'
 
 import { GeoJsonPoi } from 'api-client'
