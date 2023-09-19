@@ -74,7 +74,6 @@ const Pois = ({ pois: allPois, language, cityModel, route, navigation }: PoisPro
   const { coordinates, requestAndDetermineLocation } = useUserLocation(true)
   const { slug, multipoi } = route.params
   const [sheetSnapPointIndex, setSheetSnapPointIndex] = useState<number>(1)
-  const [followUserLocation, setFollowUserLocation] = useState<boolean>(false)
   const [listScrollPosition, setListScrollPosition] = useState<number>(0)
   const { t } = useTranslation('pois')
   const scrollRef = useRef<BottomSheetScrollViewMethods>(null)
@@ -143,7 +142,7 @@ const Pois = ({ pois: allPois, language, cityModel, route, navigation }: PoisPro
       deselectAll()
       return
     }
-    setFollowUserLocation(false)
+
     if (isMultipoi(feature)) {
       navigation.setParams({ multipoi: feature.id as string })
       scrollTo(0)
@@ -158,7 +157,6 @@ const Pois = ({ pois: allPois, language, cityModel, route, navigation }: PoisPro
     if (!newGeoJsonPoi) {
       return
     }
-    setFollowUserLocation(false)
     navigation.setParams({ slug: newGeoJsonPoi.slug })
     scrollTo(0)
   }
@@ -249,7 +247,8 @@ const Pois = ({ pois: allPois, language, cityModel, route, navigation }: PoisPro
         setSheetSnapPointIndex={setSheetSnapPointIndex}
         featureCollection={embedInCollection(features)}
         selectedFeature={currentFeatureOnMap ?? null}
-        bottomSheetHeight={getBottomSheetSnapPoints(deviceHeight)[sheetSnapPointIndex]}
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+        bottomSheetHeight={getBottomSheetSnapPoints(deviceHeight)[sheetSnapPointIndex]!}
         locationPermissionGranted={!!coordinates}
         onRequestLocationPermission={requestAndDetermineLocation}
         iconPosition={
@@ -258,8 +257,6 @@ const Pois = ({ pois: allPois, language, cityModel, route, navigation }: PoisPro
               getBottomSheetSnapPoints(deviceHeight)[sheetSnapPointIndex]!
             : 0
         }
-        followUserLocation={followUserLocation}
-        setFollowUserLocation={setFollowUserLocation}
         Overlay={FiltersOverlayButtons}
       />
       <BottomActionsSheet

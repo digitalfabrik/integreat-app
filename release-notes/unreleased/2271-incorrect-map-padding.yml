@@ -1,0 +1,7 @@
+issue_key: 2271
+show_in_stores: false
+platforms:
+  - android
+  - ios
+en: The user location icon is now centered.
+de: Das Icon für den Benutzerstandort ist jetzt zentriert.
