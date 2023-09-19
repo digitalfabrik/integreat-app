@@ -771,6 +771,7 @@ jobs:
                 name: Create release notes
             - notify:
                 channel: releases
+                only_for_branch: ${CIRCLE_BRANCH}
                 success_message: <<^ parameters.production_delivery >>[Beta] <</ parameters.production_delivery >>Integreat, Malte and Aschaffenburg ${NEW_VERSION_NAME} have been released successfully on Android!\n${RELEASE_NOTES}\n${ANDROID_ARTIFACT_URLS}
     notify_ios:
         docker:
@@ -799,6 +800,7 @@ jobs:
                 name: Create release notes
             - notify:
                 channel: releases
+                only_for_branch: ${CIRCLE_BRANCH}
                 success_message: <<^ parameters.production_delivery >>[Beta] <</ parameters.production_delivery >>Integreat, Malte and Aschaffenburg ${NEW_VERSION_NAME} have been released successfully on iOS!\n${RELEASE_NOTES}\n${IOS_ARTIFACT_URLS}
     notify_web:
         docker:
@@ -832,6 +834,7 @@ jobs:
                 steps:
                     - notify:
                         channel: releases
+                        only_for_branch: ${CIRCLE_BRANCH}
                         success_message: |-
                             [Beta] WebApp version ${NEW_VERSION_NAME} was delivered successfully to beta.integreat.app, beta.malteapp.de, beta.aschaffenburg.app and beta.netzwerkobdachwohnen.de!
                             ${RELEASE_NOTES}
