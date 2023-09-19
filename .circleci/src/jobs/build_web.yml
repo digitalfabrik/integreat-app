@@ -10,9 +10,9 @@ environment:
   TOTAL_CPUS: 2 # For resource_class medium
 shell: /bin/bash -eo pipefail
 steps:
+  - checkout
   - skip_job:
       build_config_name: << parameters.build_config_name >>
-  - checkout
   - restore_yarn_cache
   - prepare_workspace
   - restore_environment_variables

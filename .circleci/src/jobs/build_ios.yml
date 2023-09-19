@@ -12,12 +12,12 @@ environment:
   TOTAL_CPUS: 4 # For mac with resource_class macos.m1.medium.gen1, used in metro.config.ci.js.
 shell: /bin/bash --login -o pipefail
 steps:
+  - checkout
   - skip_job:
       build_config_name: << parameters.build_config_name >>
   - add_ssh_keys: # Needed for credentials repo
       fingerprints:
         - 24:1d:3b:b7:b3:49:69:d7:54:c3:93:a5:a2:d1:71:db
-  - checkout
   - prepare_workspace
   - restore_environment_variables
   - restore_yarn_cache

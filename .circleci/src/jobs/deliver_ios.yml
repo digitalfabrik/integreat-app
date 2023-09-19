@@ -13,9 +13,9 @@ environment:
   FASTLANE_SKIP_UPDATE_CHECK: true
 shell: /bin/bash --login -o pipefail
 steps:
+  - checkout
   - skip_job:
       build_config_name: << parameters.build_config_name >>
-  - checkout
   - prepare_workspace
   - restore_environment_variables
   - restore_yarn_tools_cache
