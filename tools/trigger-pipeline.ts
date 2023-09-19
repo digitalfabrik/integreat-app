@@ -20,15 +20,17 @@ program
   .command('trigger <workflow-type>')
   .description(`trigger a workflow in the ci on the main branch`)
   .requiredOption('--api-token <api-token>', 'circleci api token')
-  .action(async (workflowType: string, options: { apiToken: string }) => {
-    const { apiToken } = options
+  .option('--branch <branch>', 'the branch the workflow will be triggered on', MAIN_BRANCH)
+  .action(async (workflowType: string, options: { apiToken: string; branch: string }) => {
+    const { apiToken, branch } = options
+
     try {
       if (!WORKFLOW_TYPES.includes(workflowType)) {
         throw new Error(`Only the following workflow types are supported: ${WORKFLOW_TYPES}`)
       }
 
       const postData = {
-        branch: MAIN_BRANCH,
+        branch,
         parameters: {
           api_triggered: true,
           workflow_type: workflowType,

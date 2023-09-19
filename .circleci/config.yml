@@ -70,44 +70,7 @@ commands:
                 name: Mattermost - Prepare success message
                 when: on_success
             - run:
-                command: |
-                    #!/bin/bash
-
-                    Send_notification() {
-                        if [ "<< parameters.only_for_branch >>" != "${CIRCLE_BRANCH}" ]; then
-                            echo "Not on << parameters.only_for_branch >> branch. Skipping."
-                            exit 0
-                        fi
-
-                        if [ -z "${MM_MESSAGE}" ]; then
-                            echo "No message set. Skipping."
-                            exit 0
-                        fi
-
-                        if [ -z "${MM_WEBHOOK}" ]; then
-                            echo "NO MATTERMOST WEBHOOK SET"
-                            echo "Please add the environment variable \"MM_WEBHOOK\" in the settings for this project."
-                            exit 1
-                        fi
-
-                        STATUS=$(curl -o /dev/null -s -w "%{http_code}\n" -X POST -H 'Content-type: application/json' \
-                            --data \
-                            "{
-                              \"channel\": \"<< parameters.channel >>\",
-                              \"username\": \"circleci\",
-                              \"text\": \"${MM_MESSAGE}\"
-                            }" "${MM_WEBHOOK}")
-
-                        if [ "$STATUS" -ne "200" ]; then
-                            echo "Notification not sent due to an error. Status: $STATUS. Please check the webhook URL"
-                            exit 1
-                        fi
-
-                        echo "Notification sent!"
-                        exit 0
-                      }
-
-                      Send_notification
+                command: tools/notify-mattermost << parameters.only_for_branch >> << parameters.channel >>
                 name: Mattermost Status Alert
                 when: always
     persist_environment_variables:
@@ -251,13 +214,15 @@ commands:
                       build_config_name=$1
                       variable_name=SKIP_JOB_${CIRCLE_JOB%-*} # Remove everything after "-". e.g. "check-1" -> check
                       if [[ -n ${!variable_name} && ($build_config_name =~ ${!variable_name} || "all" =~  ${!variable_name}) ]]; then
-                        echo "This job is skipped because the variable $variable_name is set"
+                        message="Job is skipped because the variable $variable_name is set"
+                        echo $message
                         circleci step halt
+                        source tools/notify-mattermost main integreat-app-notifications "$message"
                       fi
                     }
 
                     skip_job << parameters.build_config_name >>
-                name: Skip the current build if neccassary
+                name: Skip the current build if necessary
     unit_test:
         description: Runs the test task and stores coverage and junit data
         parameters:
@@ -291,12 +256,12 @@ jobs:
         resource_class: large
         shell: /bin/bash -eo pipefail
         steps:
+            - checkout
             - skip_job:
                 build_config_name: << parameters.build_config_name >>
             - add_ssh_keys:
                 fingerprints:
                     - 24:1d:3b:b7:b3:49:69:d7:54:c3:93:a5:a2:d1:71:db
-            - checkout
             - prepare_workspace
             - restore_environment_variables
             - restore_yarn_cache
@@ -369,12 +334,12 @@ jobs:
         resource_class: macos.m1.medium.gen1
         shell: /bin/bash --login -o pipefail
         steps:
+            - checkout
             - skip_job:
                 build_config_name: << parameters.build_config_name >>
             - add_ssh_keys:
                 fingerprints:
                     - 24:1d:3b:b7:b3:49:69:d7:54:c3:93:a5:a2:d1:71:db
-            - checkout
             - prepare_workspace
             - restore_environment_variables
             - restore_yarn_cache
@@ -437,9 +402,9 @@ jobs:
         resource_class: medium
         shell: /bin/bash -eo pipefail
         steps:
+            - checkout
             - skip_job:
                 build_config_name: << parameters.build_config_name >>
-            - checkout
             - restore_yarn_cache
             - prepare_workspace
             - restore_environment_variables
@@ -473,8 +438,8 @@ jobs:
                 type: boolean
         resource_class: small
         steps:
-            - skip_job
             - checkout
+            - skip_job
             - restore_yarn_tools_cache
             - run:
                 command: echo "export NEW_VERSION_NAME=$(yarn --silent next-version calc | jq .versionName)" >> ${BASH_ENV}
@@ -491,6 +456,18 @@ jobs:
                         command: yarn git-version bump-to ${NEW_VERSION_NAME} ${NEW_VERSION_CODE} --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME} --branch ${CIRCLE_BRANCH}
                         name: Bump git version
                         working_directory: tools
+            - when:
+                condition:
+                    and:
+                        - << parameters.prepare_delivery >>
+                        - not:
+                            equal:
+                                - main
+                                - << pipeline.git.branch >>
+                steps:
+                    - notify:
+                        only_for_branch: ${CIRCLE_BRANCH}
+                        success_message: Delivery was made on non-main branch. Make sure to merge this branch before next delivery
             - persist_environment_variables
             - notify
     check:
@@ -502,8 +479,8 @@ jobs:
         resource_class: small
         shell: /bin/bash -eo pipefail
         steps:
-            - skip_job
             - checkout
+            - skip_job
             - check_config
             - restore_yarn_cache
             - run:
@@ -546,9 +523,9 @@ jobs:
         resource_class: small
         shell: /bin/bash -eo pipefail
         steps:
+            - checkout
             - skip_job:
                 build_config_name: << parameters.build_config_name >>
-            - checkout
             - prepare_workspace
             - restore_environment_variables
             - restore_yarn_tools_cache
@@ -585,9 +562,9 @@ jobs:
                 type: boolean
         shell: /bin/bash --login -o pipefail
         steps:
+            - checkout
             - skip_job:
                 build_config_name: << parameters.build_config_name >>
-            - checkout
             - prepare_workspace
             - restore_environment_variables
             - restore_yarn_tools_cache
@@ -630,11 +607,11 @@ jobs:
         resource_class: small
         shell: /bin/bash -eo pipefail
         steps:
+            - checkout
             - skip_job
             - add_ssh_keys:
                 fingerprints:
                     - 68:a3:fe:e7:94:f7:a4:13:35:5c:63:30:2f:07:7d:02
-            - checkout
             - prepare_workspace
             - restore_environment_variables
             - run:
@@ -703,8 +680,8 @@ jobs:
         resource_class: small
         shell: /bin/bash -eo pipefail
         steps:
-            - skip_job
             - checkout
+            - skip_job
             - prepare_workspace
             - restore_yarn_cache
             - restore_ruby_cache:
@@ -722,8 +699,8 @@ jobs:
         resource_class: small
         shell: /bin/bash -eo pipefail
         steps:
-            - skip_job
             - checkout
+            - skip_job
             - prepare_workspace
             - restore_yarn_cache
             - restore_ruby_cache:
@@ -740,8 +717,8 @@ jobs:
         resource_class: medium
         shell: /bin/bash -eo pipefail
         steps:
-            - skip_job
             - checkout
+            - skip_job
             - prepare_workspace
             - restore_yarn_cache
             - run:
@@ -757,8 +734,8 @@ jobs:
             - image: cimg/node:18.14.1
         resource_class: small
         steps:
-            - skip_job
             - checkout
+            - skip_job
             - prepare_workspace
             - restore_environment_variables
             - restore_yarn_tools_cache
@@ -776,8 +753,8 @@ jobs:
                 type: boolean
         resource_class: small
         steps:
-            - skip_job
             - checkout
+            - skip_job
             - prepare_workspace
             - restore_environment_variables
             - restore_yarn_tools_cache
@@ -804,8 +781,8 @@ jobs:
                 type: boolean
         resource_class: small
         steps:
-            - skip_job
             - checkout
+            - skip_job
             - prepare_workspace
             - restore_environment_variables
             - restore_yarn_tools_cache
@@ -832,8 +809,8 @@ jobs:
                 type: boolean
         resource_class: small
         steps:
-            - skip_job
             - checkout
+            - skip_job
             - prepare_workspace
             - restore_environment_variables
             - restore_yarn_tools_cache
@@ -874,9 +851,9 @@ jobs:
         resource_class: small
         shell: /bin/bash -eo pipefail
         steps:
+            - checkout
             - skip_job:
                 build_config_name: << parameters.build_config_name >>
-            - checkout
             - restore_yarn_cache
             - restore_ruby_cache:
                 directory: native
@@ -900,9 +877,9 @@ jobs:
                 type: enum
         shell: /bin/bash --login -o pipefail
         steps:
+            - checkout
             - skip_job:
                 build_config_name: << parameters.build_config_name >>
-            - checkout
             - restore_yarn_tools_cache
             - restore_yarn_cache
             - restore_ruby_cache:
@@ -918,6 +895,7 @@ jobs:
         resource_class: small
         shell: /bin/bash -eo pipefail
         steps:
+            - checkout
             - skip_job
             - add_ssh_keys:
                 fingerprints:
@@ -941,8 +919,8 @@ jobs:
         resource_class: small
         shell: /bin/bash -eo pipefail
         steps:
-            - skip_job
             - checkout
+            - skip_job
             - prepare_workspace
             - restore_environment_variables
             - run:
@@ -961,8 +939,8 @@ jobs:
         resource_class: small
         shell: /bin/bash -eo pipefail
         steps:
-            - skip_job
             - checkout
+            - skip_job
             - prepare_workspace
             - restore_environment_variables
             - run:
@@ -981,8 +959,8 @@ jobs:
         resource_class: small
         shell: /bin/bash -eo pipefail
         steps:
-            - skip_job
             - checkout
+            - skip_job
             - prepare_workspace
             - restore_environment_variables
             - run:
@@ -1010,8 +988,8 @@ jobs:
         resource_class: small
         shell: /bin/bash -eo pipefail
         steps:
-            - skip_job
             - checkout
+            - skip_job
             - prepare_workspace
             - restore_environment_variables
             - restore_ruby_cache:
@@ -1048,15 +1026,23 @@ workflows:
     commit:
         jobs:
             - bump_version:
+                context:
+                    - mattermost
                 prepare_delivery: false
-            - check
+            - check:
+                context:
+                    - mattermost
             - build_web:
                 build_config_name: integreat-test-cms
+                context:
+                    - mattermost
                 name: build_ig_test_cms_web
                 requires:
                     - bump_version
                     - check
             - e2e_web:
+                context:
+                    - mattermost
                 requires:
                     - bump_version
                     - check
@@ -1427,24 +1413,32 @@ workflows:
     e2e_tests:
         jobs:
             - bump_version:
+                context:
+                    - mattermost
                 prepare_delivery: false
             - build_web:
                 build_config_name: integreat-test-cms
+                context:
+                    - mattermost
                 name: build_ig_test_cms_web
                 requires:
                     - bump_version
-            - e2e_web
+            - e2e_web:
+                context:
+                    - mattermost
             - build_android:
                 build_config_name: integreat-e2e
                 context:
                     - credentials-repo
                     - credentials-integreat
+                    - mattermost
                 name: build_e2e_android
                 requires:
                     - bump_version
             - e2e_android:
                 context:
                     - browserstack
+                    - mattermost
                 requires:
                     - build_e2e_android
             - build_ios:
@@ -1452,12 +1446,14 @@ workflows:
                 context:
                     - tuerantuer-apple
                     - fastlane-match
+                    - mattermost
                 name: build_e2e_ios
                 requires:
                     - bump_version
             - e2e_ios:
                 context:
                     - browserstack
+                    - mattermost
                 requires:
                     - build_e2e_ios
         when:
