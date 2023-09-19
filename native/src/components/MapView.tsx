@@ -2,7 +2,6 @@ import MapLibreGL, { CameraSettings, MapLibreGLEvent } from '@maplibre/maplibre-
 import type { BBox, Feature } from 'geojson'
 import React, { ReactElement, useCallback, useLayoutEffect, useRef } from 'react'
 import { useTranslation } from 'react-i18next'
-import { useWindowDimensions } from 'react-native'
 import { useTheme } from 'styled-components'
 import styled from 'styled-components/native'
 
@@ -18,7 +17,6 @@ import {
 
 import { LocationFixedIcon, LocationNotFixedIcon, LocationOffIcon } from '../assets'
 import { clusterCountLayer, clusterLayer, markerLayer } from '../constants/layers'
-import { midSnapPointPercentage } from '../routes/Pois'
 import MapAttribution from './MapsAttribution'
 import Icon from './base/Icon'
 import IconButton from './base/IconButton'
@@ -64,6 +62,7 @@ type MapViewProps = {
   followUserLocation: boolean
   setFollowUserLocation: (value: boolean) => void
   Overlay?: ReactElement
+  bottomSheetHeight: number
 }
 
 const featureLayerId = 'point'
@@ -82,8 +81,8 @@ const MapView = ({
   followUserLocation,
   setFollowUserLocation,
   Overlay,
+  bottomSheetHeight,
 }: MapViewProps): ReactElement => {
-  const deviceHeight = useWindowDimensions().height
   const cameraRef = useRef<MapLibreGL.Camera | null>(null)
   const mapRef = useRef<MapLibreGL.MapView | null>(null)
   const theme = useTheme()
@@ -99,6 +98,7 @@ const MapView = ({
   const defaultSettings: CameraSettings = {
     zoomLevel: coordinates ? normalDetailZoom : defaultViewportConfig.zoom,
     centerCoordinate: coordinates,
+    padding: { paddingBottom: bottomSheetHeight },
     bounds: coordinates ? undefined : bounds,
   }
 
@@ -123,10 +123,10 @@ const MapView = ({
         centerCoordinate: selectedFeature.geometry.coordinates,
         zoomLevel: normalDetailZoom,
         animationDuration,
-        padding: { paddingBottom: deviceHeight * midSnapPointPercentage },
+        padding: { paddingBottom: bottomSheetHeight },
       })
     }
-  }, [deviceHeight, followUserLocation, selectedFeature])
+  }, [bottomSheetHeight, followUserLocation, selectedFeature])
 
   const locationPermissionGrantedIcon = followUserLocation ? LocationFixedIcon : LocationNotFixedIcon
   const locationPermissionIcon = locationPermissionGranted ? locationPermissionGrantedIcon : LocationOffIcon

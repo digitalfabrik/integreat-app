@@ -1,7 +1,7 @@
 import { BottomSheetScrollViewMethods } from '@gorhom/bottom-sheet'
 import React, { ReactElement, useCallback, useMemo, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { ScrollView } from 'react-native'
+import { ScrollView, useWindowDimensions } from 'react-native'
 import { SvgUri } from 'react-native-svg'
 import styled from 'styled-components/native'
 
@@ -50,12 +50,11 @@ const StyledIcon = styled(Icon)`
   height: 16px;
 `
 
-export const midSnapPointPercentage = 0.35
-const percentage = 100
-const BOTTOM_SHEET_SNAP_POINTS = [
+const midSnapPointPercentage = 0.35
+export const getBottomSheetSnapPoints = (deviceHeight: number): number[] => [
   dimensions.bottomSheetHandler.height,
-  `${midSnapPointPercentage * percentage}%`,
-  '100%',
+  midSnapPointPercentage * deviceHeight,
+  deviceHeight,
 ]
 
 type PoisProps = {
@@ -79,6 +78,7 @@ const Pois = ({ pois: allPois, language, cityModel, route, navigation }: PoisPro
   const [listScrollPosition, setListScrollPosition] = useState<number>(0)
   const { t } = useTranslation('pois')
   const scrollRef = useRef<BottomSheetScrollViewMethods>(null)
+  const deviceHeight = useWindowDimensions().height
 
   const pois = useMemo(
     () =>
@@ -249,12 +249,13 @@ const Pois = ({ pois: allPois, language, cityModel, route, navigation }: PoisPro
         setSheetSnapPointIndex={setSheetSnapPointIndex}
         featureCollection={embedInCollection(features)}
         selectedFeature={currentFeatureOnMap ?? null}
+        bottomSheetHeight={getBottomSheetSnapPoints(deviceHeight)[sheetSnapPointIndex]}
         locationPermissionGranted={!!coordinates}
         onRequestLocationPermission={requestAndDetermineLocation}
         iconPosition={
-          sheetSnapPointIndex < BOTTOM_SHEET_SNAP_POINTS.length - 1
+          sheetSnapPointIndex < getBottomSheetSnapPoints(deviceHeight).length - 1
             ? // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-              BOTTOM_SHEET_SNAP_POINTS[sheetSnapPointIndex]!
+              getBottomSheetSnapPoints(deviceHeight)[sheetSnapPointIndex]!
             : 0
         }
         followUserLocation={followUserLocation}
@@ -267,7 +268,7 @@ const Pois = ({ pois: allPois, language, cityModel, route, navigation }: PoisPro
         title={!currentPoi && !multipoi ? t('listTitle') : undefined}
         onChange={setSheetSnapPointIndex}
         initialIndex={sheetSnapPointIndex}
-        snapPoints={BOTTOM_SHEET_SNAP_POINTS}
+        snapPoints={getBottomSheetSnapPoints(deviceHeight)}
         snapPointIndex={sheetSnapPointIndex}>
         {singlePoiContent ?? failurePoiContent ?? listPoiContent}
       </BottomActionsSheet>
