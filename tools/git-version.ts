@@ -1,5 +1,4 @@
 import { Octokit } from '@octokit/rest'
-import { exec, execSync } from 'child_process'
 import { program } from 'commander'
 
 import { VERSION_FILE, PLATFORMS, tagId, MAIN_BRANCH } from './constants'
