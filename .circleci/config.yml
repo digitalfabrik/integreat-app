@@ -467,7 +467,7 @@ jobs:
                 steps:
                     - notify:
                         only_for_branch: ${CIRCLE_BRANCH}
-                        success_message: Delivery was made on non-main branch. Make sure to merge this branch before next delivery
+                        success_message: Delivery was made on branch << pipeline.git.branch >>. Make sure to merge this branch before next delivery.
             - persist_environment_variables
             - notify
     check:
