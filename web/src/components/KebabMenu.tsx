@@ -100,7 +100,10 @@ const KebabMenu = ({ items, direction, show, setShow, Footer }: KebabMenuProps):
       <Portal
         className='kebab-menu'
         show={show}
-        style={window.scrollY > 0 ? { top: `${window.scrollY}px` } : undefined}>
+        style={{
+          visibility: show ? 'visible' : 'hidden',
+          top: window.scrollY > 0 ? `${window.scrollY}px` : undefined,
+        }}>
         {/* disabled because this is an overlay for backdrop close */}
         {/* eslint-disable-next-line styled-components-a11y/no-static-element-interactions,styled-components-a11y/click-events-have-key-events */}
         <Overlay onClick={onClick} show={show} />
