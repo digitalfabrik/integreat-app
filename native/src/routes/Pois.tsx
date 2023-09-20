@@ -71,6 +71,7 @@ const Pois = ({ pois: allPois, language, cityModel, route, navigation }: PoisPro
   const [poiCategoryFilter, setPoiCategoryFilter] = useState<PoiCategoryModel | null>(null)
   const [poiCurrentlyOpenFilter, setPoiCurrentlyOpenFilter] = useState(false)
   const [showFilterSelection, setShowFilterSelection] = useState(false)
+  const [followUserLocation, setFollowUserLocation] = useState<boolean>(false)
   const { coordinates, requestAndDetermineLocation } = useUserLocation(true)
   const { slug, multipoi } = route.params
   const [sheetSnapPointIndex, setSheetSnapPointIndex] = useState<number>(1)
@@ -142,6 +143,7 @@ const Pois = ({ pois: allPois, language, cityModel, route, navigation }: PoisPro
       deselectAll()
       return
     }
+    setFollowUserLocation(false)
 
     if (isMultipoi(feature)) {
       navigation.setParams({ multipoi: feature.id as string })
@@ -157,6 +159,7 @@ const Pois = ({ pois: allPois, language, cityModel, route, navigation }: PoisPro
     if (!newGeoJsonPoi) {
       return
     }
+    setFollowUserLocation(false)
     navigation.setParams({ slug: newGeoJsonPoi.slug })
     scrollTo(0)
   }
@@ -257,6 +260,8 @@ const Pois = ({ pois: allPois, language, cityModel, route, navigation }: PoisPro
               getBottomSheetSnapPoints(deviceHeight)[sheetSnapPointIndex]!
             : 0
         }
+        followUserLocation={followUserLocation}
+        setFollowUserLocation={setFollowUserLocation}
         Overlay={FiltersOverlayButtons}
       />
       <BottomActionsSheet
