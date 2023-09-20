@@ -51,7 +51,7 @@ const StyledIcon = styled(Icon)`
 `
 
 const midSnapPointPercentage = 0.35
-export const getBottomSheetSnapPoints = (deviceHeight: number): number[] => [
+export const getBottomSheetSnapPoints = (deviceHeight: number): [number, number, number] => [
   dimensions.bottomSheetHandler.height,
   midSnapPointPercentage * deviceHeight,
   deviceHeight,
