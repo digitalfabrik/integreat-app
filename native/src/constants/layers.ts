@@ -49,7 +49,7 @@ export const markerLayer = (selectedFeature: MapFeature | null, featureLayerId: 
       ['literal', [0, 0]],
     ],
     textField: ['case', ['==', ['length', ['get', 'pois']], 1], ['get', 'title', ['at', 0, ['get', 'pois']]], ''],
-    textFont: ['Roboto Regular'],
+    textFont: ['Noto Sans Regular'],
     textOffset: [0, textOffsetY],
     textAnchor: 'top',
     textSize: fontSizeSmall,
@@ -62,7 +62,7 @@ export const clusterCountLayer: SymbolLayerProps = {
   filter: ['has', 'point_count'],
   style: {
     textField: '{point_count_abbreviated}',
-    textFont: ['Roboto Regular'],
+    textFont: ['Noto Sans Regular'],
     textSize: ['step', ['get', 'point_count'], fontSizeSmall, groupCount, fontSizeLarge],
     textAllowOverlap: true,
   },

@@ -40,6 +40,7 @@ module.exports = {
     '**/react-native.config.js',
     '**/www/iframe.js',
     '**/www/rasa-widget/chatbot.js',
+    '**/www/plugins/mapbox-gl-rtl-text-0.2.3.min.js',
     '**/integreat-e2e/assets/**', //symlink
     '**/integreat-test-cms/assets/**', //symlink
   ],
