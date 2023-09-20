@@ -2,6 +2,7 @@ import { Feature, FeatureCollection, Point } from 'geojson'
 
 type MapConfigProps = {
   styleJSON: string
+  rtlPluginUrl: string
 }
 
 export type MapViewViewport = {
@@ -80,6 +81,7 @@ export const isMultipoi = (poiFeature: MapFeature): boolean => poiFeature.proper
 
 export const mapConfig: MapConfigProps = {
   styleJSON: 'https://maps.tuerantuer.org/styles/integreat/style.json',
+  rtlPluginUrl: '/plugins/mapbox-gl-rtl-text-0.2.3.min.js',
 }
 
 export const defaultViewportConfig: MapViewViewport = {
