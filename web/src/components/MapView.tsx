@@ -1,4 +1,4 @@
-import * as mapLibreGl from 'maplibre-gl'
+import maplibregl from 'maplibre-gl'
 import 'maplibre-gl/dist/maplibre-gl.css'
 import React, {
   ForwardedRef,
@@ -27,6 +27,7 @@ import { clusterCountLayer, clusterLayer, clusterProperties, markerLayer } from 
 import useWindowDimensions from '../hooks/useWindowDimensions'
 import '../styles/MapView.css'
 import { midSnapPercentage } from '../utils/getSnapPoints'
+import { reportError } from '../utils/sentry'
 import MapAttribution from './MapAttribution'
 
 const MapContainer = styled.div`
@@ -62,7 +63,7 @@ type MapViewProps = {
 type MapCursorType = 'grab' | 'auto' | 'pointer'
 
 export type MapViewRef = {
-  setGeocontrol: (control: mapLibreGl.IControl) => void
+  setGeocontrol: (control: maplibregl.IControl) => void
 }
 
 const MapView = forwardRef(
@@ -81,15 +82,21 @@ const MapView = forwardRef(
     ref: ForwardedRef<MapViewRef>,
   ): ReactElement => {
     const [cursor, setCursor] = useState<MapCursorType>('auto')
-    const [mapRef, setMapRef] = useState<mapLibreGl.Map | null>(null)
+    const [mapRef, setMapRef] = useState<maplibregl.Map | null>(null)
     const theme = useTheme()
 
     const { viewportSmall, height } = useWindowDimensions()
 
+    useEffect(() => {
+      if (maplibregl.getRTLTextPluginStatus() === 'unavailable') {
+        maplibregl.setRTLTextPlugin(mapConfig.rtlPluginUrl, err => err && reportError(err), true)
+      }
+    }, [])
+
     useImperativeHandle(
       ref,
       () => ({
-        setGeocontrol: (control: mapLibreGl.IControl) => mapRef?.addControl(control),
+        setGeocontrol: (control: maplibregl.IControl) => mapRef?.addControl(control),
       }),
       [mapRef],
     )
@@ -99,7 +106,7 @@ const MapView = forwardRef(
       // This is needed because on initial render the ref is null such that flyTo is not possible.
       // https://reactjs.org/docs/hooks-faq.html#how-can-i-measure-a-dom-node
       if (node) {
-        setMapRef(node.getMap() as unknown as mapLibreGl.Map)
+        setMapRef(node.getMap() as unknown as maplibregl.Map)
       }
     }, [])
 
@@ -145,7 +152,7 @@ const MapView = forwardRef(
     useEffect(() => {
       const coordinates = currentFeature?.geometry.coordinates ?? []
       if (mapRef && coordinates[0] && coordinates[1]) {
-        const coords: mapLibreGl.LngLatLike = [coordinates[0], coordinates[1]]
+        const coords: maplibregl.LngLatLike = [coordinates[0], coordinates[1]]
         mapRef.flyTo({
           center: coords,
           zoom: closerDetailZoom,
@@ -157,7 +164,7 @@ const MapView = forwardRef(
     return (
       <MapContainer>
         <Map
-          mapLib={mapLibreGl}
+          mapLib={maplibregl}
           ref={updateMapRef}
           reuseMaps
           cursor={cursor}
