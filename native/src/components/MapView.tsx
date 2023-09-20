@@ -60,8 +60,6 @@ type MapViewProps = {
   iconPosition: string | number
   selectFeature: (feature: MapFeature | null) => void
   setSheetSnapPointIndex: (index: number) => void
-  followUserLocation: boolean
-  setFollowUserLocation: (value: boolean) => void
   bottomSheetHeight: number
   Overlay?: ReactElement
 }
@@ -79,8 +77,6 @@ const MapView = ({
   locationPermissionGranted,
   selectFeature,
   setSheetSnapPointIndex,
-  followUserLocation,
-  setFollowUserLocation,
   Overlay,
   bottomSheetHeight,
 }: MapViewProps): ReactElement => {
@@ -89,6 +85,7 @@ const MapView = ({
   const theme = useTheme()
   const { t } = useTranslation('pois')
   const [userLocation, setUserLocation] = useState<MapLibreGL.Location | undefined>(undefined)
+  const [followUserLocation, setFollowUserLocation] = useState<boolean>(false)
 
   const bounds = {
     ne: [boundingBox[2], boundingBox[3]],
@@ -128,8 +125,9 @@ const MapView = ({
   useLayoutEffect(() => {
     if (selectedFeature) {
       moveTo(selectedFeature.geometry.coordinates, bottomSheetHeight)
+      setFollowUserLocation(false)
     }
-  }, [bottomSheetHeight, moveTo, selectedFeature])
+  }, [bottomSheetHeight, moveTo, selectedFeature, setFollowUserLocation])
 
   const locationPermissionGrantedIcon = followUserLocation ? LocationFixedIcon : LocationNotFixedIcon
   const locationPermissionIcon = locationPermissionGranted ? locationPermissionGrantedIcon : LocationOffIcon
