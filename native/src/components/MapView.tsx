@@ -163,7 +163,7 @@ const MapView = ({
         onResponderMove={deactivateFollowUserLocation}
         attributionEnabled={false}
         logoEnabled={false}>
-        <MapLibreGL.UserLocation visible={locationPermissionGranted} onUpdate={location => setUserLocation(location)} />
+        <MapLibreGL.UserLocation visible={locationPermissionGranted} onUpdate={setUserLocation} />
         <MapLibreGL.ShapeSource id='location-pois' shape={featureCollection} cluster clusterRadius={clusterRadius}>
           <MapLibreGL.SymbolLayer {...clusterCountLayer} />
           <MapLibreGL.CircleLayer {...clusterLayer(theme)} />
