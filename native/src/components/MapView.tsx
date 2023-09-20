@@ -118,7 +118,7 @@ const MapView = ({
 
   const onRequestLocation = useCallback(async () => {
     await onRequestLocationPermission()
-    if (userLocation?.coords && cameraRef.current) {
+    if (userLocation?.coords) {
       const { longitude, latitude } = userLocation.coords
       moveTo([longitude, latitude], bottomSheetHeight)
       setFollowUserLocation(true)
