@@ -71,7 +71,6 @@ const Pois = ({ pois: allPois, language, cityModel, route, navigation }: PoisPro
   const [poiCategoryFilter, setPoiCategoryFilter] = useState<PoiCategoryModel | null>(null)
   const [poiCurrentlyOpenFilter, setPoiCurrentlyOpenFilter] = useState(false)
   const [showFilterSelection, setShowFilterSelection] = useState(false)
-  const [followUserLocation, setFollowUserLocation] = useState<boolean>(false)
   const { coordinates, requestAndDetermineLocation } = useUserLocation(true)
   const { slug, multipoi } = route.params
   const [sheetSnapPointIndex, setSheetSnapPointIndex] = useState<number>(1)
@@ -143,7 +142,6 @@ const Pois = ({ pois: allPois, language, cityModel, route, navigation }: PoisPro
       deselectAll()
       return
     }
-    setFollowUserLocation(false)
 
     if (isMultipoi(feature)) {
       navigation.setParams({ multipoi: feature.id as string })
@@ -159,7 +157,6 @@ const Pois = ({ pois: allPois, language, cityModel, route, navigation }: PoisPro
     if (!newGeoJsonPoi) {
       return
     }
-    setFollowUserLocation(false)
     navigation.setParams({ slug: newGeoJsonPoi.slug })
     scrollTo(0)
   }
@@ -233,6 +230,9 @@ const Pois = ({ pois: allPois, language, cityModel, route, navigation }: PoisPro
     </>
   )
 
+  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+  const currentBottomSheetHeight = getBottomSheetSnapPoints(deviceHeight)[sheetSnapPointIndex]!
+
   return (
     <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
       <PoiFiltersModal
@@ -250,18 +250,12 @@ const Pois = ({ pois: allPois, language, cityModel, route, navigation }: PoisPro
         setSheetSnapPointIndex={setSheetSnapPointIndex}
         featureCollection={embedInCollection(features)}
         selectedFeature={currentFeatureOnMap ?? null}
-        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-        bottomSheetHeight={getBottomSheetSnapPoints(deviceHeight)[sheetSnapPointIndex]!}
+        bottomSheetHeight={currentBottomSheetHeight}
         locationPermissionGranted={!!coordinates}
         onRequestLocationPermission={requestAndDetermineLocation}
         iconPosition={
-          sheetSnapPointIndex < getBottomSheetSnapPoints(deviceHeight).length - 1
-            ? // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-              getBottomSheetSnapPoints(deviceHeight)[sheetSnapPointIndex]!
-            : 0
+          sheetSnapPointIndex < getBottomSheetSnapPoints(deviceHeight).length - 1 ? currentBottomSheetHeight : 0
         }
-        followUserLocation={followUserLocation}
-        setFollowUserLocation={setFollowUserLocation}
         Overlay={FiltersOverlayButtons}
       />
       <BottomActionsSheet
