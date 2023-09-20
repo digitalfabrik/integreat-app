@@ -150,11 +150,7 @@ const MapView = ({
     setSheetSnapPointIndex(1)
   }
 
-  const deactivateFollowUserLocation = () => {
-    if (followUserLocation) {
-      setFollowUserLocation(false)
-    }
-  }
+  const deactivateFollowUserLocation = () => setFollowUserLocation(false)
 
   return (
     <MapContainer>
