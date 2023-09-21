@@ -95,11 +95,9 @@ const MapView = ({
   // if there is a current feature use the coordinates; if not use bounding box
   const coordinates = selectedFeature?.geometry.coordinates
   const defaultSettings: CameraSettings = {
-    animationDuration: 0,
     zoomLevel: coordinates ? normalDetailZoom : defaultViewportConfig.zoom,
     centerCoordinate: coordinates,
     bounds: coordinates ? undefined : bounds,
-    padding: { paddingBottom: bottomSheetHeight },
   }
 
   const moveTo = useCallback((location: Position, bottomSheetHeight: number) => {
