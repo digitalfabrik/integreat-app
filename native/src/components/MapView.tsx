@@ -127,7 +127,7 @@ const MapView = ({
       moveTo(selectedFeature.geometry.coordinates, bottomSheetHeight)
       setFollowUserLocation(false)
     }
-  }, [bottomSheetHeight, moveTo, selectedFeature, setFollowUserLocation])
+  }, [bottomSheetHeight, moveTo, selectedFeature])
 
   const locationPermissionGrantedIcon = followUserLocation ? LocationFixedIcon : LocationNotFixedIcon
   const locationPermissionIcon = locationPermissionGranted ? locationPermissionGrantedIcon : LocationOffIcon
