@@ -49,10 +49,6 @@ const commitAndTag = async (
   versionCodeString: string,
   { deliverinoPrivateKey, owner, repo, branch }: Options,
 ) => {
-  if (branch !== MAIN_BRANCH) {
-    throw new Error(`Version bumps are only allowed on the ${MAIN_BRANCH} branch!`)
-  }
-
   const appOctokit = await authenticate({ deliverinoPrivateKey, owner, repo })
   const versionFileContent = await appOctokit.repos.getContent({ owner, repo, path: VERSION_FILE, ref: branch })
 
