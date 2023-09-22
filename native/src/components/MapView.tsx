@@ -1,8 +1,8 @@
-import MapLibreGL, { CameraSettings, MapLibreGLEvent } from '@maplibre/maplibre-react-native'
+import MapLibreGL, { CameraSettings } from '@maplibre/maplibre-react-native'
 import type { BBox, Feature } from 'geojson'
-import React, { ReactElement, useCallback, useLayoutEffect, useRef } from 'react'
+import { Position } from 'geojson'
+import React, { ReactElement, useCallback, useLayoutEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { useWindowDimensions } from 'react-native'
 import { useTheme } from 'styled-components'
 import styled from 'styled-components/native'
 
@@ -18,7 +18,6 @@ import {
 
 import { LocationFixedIcon, LocationNotFixedIcon, LocationOffIcon } from '../assets'
 import { clusterCountLayer, clusterLayer, markerLayer } from '../constants/layers'
-import { midSnapPointPercentage } from '../routes/Pois'
 import MapAttribution from './MapsAttribution'
 import Icon from './base/Icon'
 import IconButton from './base/IconButton'
@@ -61,8 +60,7 @@ type MapViewProps = {
   iconPosition: string | number
   selectFeature: (feature: MapFeature | null) => void
   setSheetSnapPointIndex: (index: number) => void
-  followUserLocation: boolean
-  setFollowUserLocation: (value: boolean) => void
+  bottomSheetHeight: number
   Overlay?: ReactElement
 }
 
@@ -79,15 +77,15 @@ const MapView = ({
   locationPermissionGranted,
   selectFeature,
   setSheetSnapPointIndex,
-  followUserLocation,
-  setFollowUserLocation,
   Overlay,
+  bottomSheetHeight,
 }: MapViewProps): ReactElement => {
-  const deviceHeight = useWindowDimensions().height
   const cameraRef = useRef<MapLibreGL.Camera | null>(null)
   const mapRef = useRef<MapLibreGL.MapView | null>(null)
   const theme = useTheme()
   const { t } = useTranslation('pois')
+  const [userLocation, setUserLocation] = useState<MapLibreGL.Location | undefined>(undefined)
+  const [followUserLocation, setFollowUserLocation] = useState<boolean>(false)
 
   const bounds = {
     ne: [boundingBox[2], boundingBox[3]],
@@ -102,36 +100,38 @@ const MapView = ({
     bounds: coordinates ? undefined : bounds,
   }
 
-  const onRequestLocation = useCallback(async () => {
-    await onRequestLocationPermission()
-    setFollowUserLocation(true)
-  }, [onRequestLocationPermission, setFollowUserLocation])
-
-  const onUserTrackingModeChange = (
-    event: MapLibreGLEvent<'usertrackingmodechange', { followUserLocation: boolean }>,
-  ) => {
-    if (!event.nativeEvent.payload.followUserLocation) {
-      setFollowUserLocation(event.nativeEvent.payload.followUserLocation)
-    }
-  }
-
-  // Wait for followUserLocation change before moving the camera to avoid position lock
-  // https://github.com/rnmapbox/maps/issues/1079
-  useLayoutEffect(() => {
-    if (!followUserLocation && selectedFeature && cameraRef.current) {
+  const moveTo = useCallback((location: Position, bottomSheetHeight: number) => {
+    if (cameraRef.current) {
       cameraRef.current.setCamera({
-        centerCoordinate: selectedFeature.geometry.coordinates,
+        centerCoordinate: location,
         zoomLevel: normalDetailZoom,
         animationDuration,
-        padding: { paddingBottom: deviceHeight * midSnapPointPercentage },
+        padding: { paddingBottom: bottomSheetHeight },
       })
     }
-  }, [deviceHeight, followUserLocation, selectedFeature])
+  }, [])
+
+  const onRequestLocation = useCallback(async () => {
+    await onRequestLocationPermission()
+    if (userLocation?.coords) {
+      const { longitude, latitude } = userLocation.coords
+      moveTo([longitude, latitude], bottomSheetHeight)
+      setFollowUserLocation(true)
+    }
+  }, [bottomSheetHeight, moveTo, onRequestLocationPermission, userLocation])
+
+  useLayoutEffect(() => {
+    if (selectedFeature) {
+      moveTo(selectedFeature.geometry.coordinates, bottomSheetHeight)
+      setFollowUserLocation(false)
+    }
+  }, [bottomSheetHeight, moveTo, selectedFeature])
 
   const locationPermissionGrantedIcon = followUserLocation ? LocationFixedIcon : LocationNotFixedIcon
   const locationPermissionIcon = locationPermissionGranted ? locationPermissionGrantedIcon : LocationOffIcon
 
   const onPress = async (pressedLocation: Feature) => {
+    setFollowUserLocation(false)
     if (!mapRef.current || !pressedLocation.properties) {
       return
     }
@@ -146,6 +146,8 @@ const MapView = ({
     setSheetSnapPointIndex(1)
   }
 
+  const deactivateFollowUserLocation = () => setFollowUserLocation(false)
+
   return (
     <MapContainer>
       <StyledMap
@@ -153,21 +155,17 @@ const MapView = ({
         zoomEnabled
         onPress={onPress}
         ref={mapRef}
+        onStartShouldSetResponder={() => true}
+        onResponderMove={deactivateFollowUserLocation}
         attributionEnabled={false}
         logoEnabled={false}>
-        <MapLibreGL.UserLocation visible={locationPermissionGranted} />
+        <MapLibreGL.UserLocation visible={locationPermissionGranted} onUpdate={setUserLocation} />
         <MapLibreGL.ShapeSource id='location-pois' shape={featureCollection} cluster clusterRadius={clusterRadius}>
           <MapLibreGL.SymbolLayer {...clusterCountLayer} />
           <MapLibreGL.CircleLayer {...clusterLayer(theme)} />
           <MapLibreGL.SymbolLayer {...markerLayer(selectedFeature, featureLayerId)} />
         </MapLibreGL.ShapeSource>
-        <MapLibreGL.Camera
-          defaultSettings={defaultSettings}
-          followUserMode='normal'
-          followUserLocation={followUserLocation && locationPermissionGranted}
-          onUserTrackingModeChange={onUserTrackingModeChange}
-          ref={cameraRef}
-        />
+        <MapLibreGL.Camera defaultSettings={defaultSettings} followUserMode='normal' ref={cameraRef} />
       </StyledMap>
       <OverlayContainer>{Overlay}</OverlayContainer>
       <MapAttribution />
