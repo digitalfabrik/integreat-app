@@ -80,44 +80,58 @@ type FeedbackProps = {
   onFeedbackChanged: (isPositiveFeedback: boolean | null) => void
   onSubmit: () => void
   sendingStatus: SendingState
+  searchTerm?: string
+  setSearchTerm: (newTerm: string) => void
 }
 
-const Feedback = (props: FeedbackProps): ReactElement => {
-  const {
-    isPositiveFeedback,
-    isSearchFeedback,
-    comment,
-    contactMail,
-    sendingStatus,
-    onSubmit,
-    onCommentChanged,
-    onContactMailChanged,
-    onFeedbackChanged,
-  } = props
+const Feedback = ({
+  isPositiveFeedback,
+  isSearchFeedback,
+  comment,
+  contactMail,
+  sendingStatus,
+  onSubmit,
+  onCommentChanged,
+  onContactMailChanged,
+  onFeedbackChanged,
+  searchTerm,
+  setSearchTerm,
+}: FeedbackProps): ReactElement => {
   const { t } = useTranslation('feedback')
 
   const description = isSearchFeedback ? 'wantedInformation' : 'commentHeadline'
-  const sendFeedbackDisabled = isPositiveFeedback === null && comment.trim().length === 0
+  const sendFeedbackDisabled = isPositiveFeedback === null && comment.trim().length === 0 && !isSearchFeedback
 
   return (
     <Container>
-      <TextContainer>
-        <div>{t('description')}</div>
-      </TextContainer>
-      <ButtonContainer>
-        <ToggleButton
-          onClick={() => onFeedbackChanged(isPositiveFeedback ? null : true)}
-          active={isPositiveFeedback === true}
-          icon={HappySmileyIcon}
-          text={t('useful')}
-        />
-        <ToggleButton
-          onClick={() => onFeedbackChanged(isPositiveFeedback === false ? null : false)}
-          active={isPositiveFeedback === false}
-          icon={SadSmileyIcon}
-          text={t('notUseful')}
-        />
-      </ButtonContainer>
+      {isSearchFeedback ? (
+        <>
+          <TextContainer>
+            <Description htmlFor='searchTerm'>{t('searchTermDescription')}</Description>
+          </TextContainer>
+          <TextInput id='searchTerm' value={searchTerm} onChange={event => setSearchTerm(event.target.value)} />
+        </>
+      ) : (
+        <>
+          <TextContainer>
+            <div>{t('description')}</div>
+          </TextContainer>
+          <ButtonContainer>
+            <ToggleButton
+              onClick={() => onFeedbackChanged(isPositiveFeedback ? null : true)}
+              active={isPositiveFeedback === true}
+              icon={HappySmileyIcon}
+              text={t('useful')}
+            />
+            <ToggleButton
+              onClick={() => onFeedbackChanged(isPositiveFeedback === false ? null : false)}
+              active={isPositiveFeedback === false}
+              icon={SadSmileyIcon}
+              text={t('notUseful')}
+            />
+          </ButtonContainer>
+        </>
+      )}
       <TextContainer>
         <Description htmlFor='comment'>{t(description)}</Description>
         <div>({t('optionalInfo')})</div>

@@ -2471,7 +2471,8 @@
       "positiveRating": "Diese Seite ist hilfreich",
       "contactMailAddress": "E-Mail für Rückfragen",
       "optionalInfo": "optional",
-      "note": "Bitte wähle eine Reaktion oder schreibe einen Kommentar, um das Feedback abschicken zu können."
+      "note": "Bitte wähle eine Reaktion oder schreibe einen Kommentar, um das Feedback abschicken zu können.",
+      "searchTermDescription": "Für den folgenden Begriff konnte kein Ergebnis gefunden werden:"
     },
     "am": {
       "disclaimer": "የግንኙነት መረጃና ዕትም",

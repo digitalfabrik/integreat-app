@@ -148,10 +148,6 @@ describe('FeedbackContainer', () => {
     const { getByRole, findByText, queryByRole } = renderWithTheme(
       <FeedbackContainer {...buildDefaultProps(CATEGORIES_ROUTE, true)} />,
     )
-    const buttonRating = getByRole('button', {
-      name: 'feedback:useful',
-    })
-    fireEvent.click(buttonRating)
     const button = getByRole('button', {
       name: 'feedback:send',
     })
@@ -166,10 +162,6 @@ describe('FeedbackContainer', () => {
       throw new Error()
     })
     const { getByRole, findByText } = renderWithTheme(<FeedbackContainer {...buildDefaultProps(SEARCH_ROUTE, true)} />)
-    const buttonRating = getByRole('button', {
-      name: 'feedback:useful',
-    })
-    fireEvent.click(buttonRating)
     const button = getByRole('button', {
       name: 'feedback:send',
     })
