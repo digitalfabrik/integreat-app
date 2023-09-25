@@ -94,9 +94,8 @@ const Main = styled.main<{ fullWidth: boolean }>`
 `
 
 const Aside = styled.aside<{ languageSelectorHeight: number }>`
-  top: ${props => props.languageSelectorHeight + dimensions.headerHeightLarge + 35}px;
-  /* top: ${props => props.languageSelectorHeight + dimensions.headerHeightLarge + 50}px; */
-  /* margin-top: ${props => props.languageSelectorHeight - dimensions.navigationMenuHeight}px; */
+  top: ${props => props.languageSelectorHeight + dimensions.headerHeightLarge + dimensions.additionalWidth}px;
+  margin-top: ${props => props.languageSelectorHeight - dimensions.navigationMenuHeight}px;
   display: inline-block;
   position: sticky;
   width: ${dimensions.toolbarWidth}px;
