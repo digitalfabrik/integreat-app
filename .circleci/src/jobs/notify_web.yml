@@ -31,3 +31,4 @@ steps:
         - notify:
             success_message: "[Beta] WebApp version ${NEW_VERSION_NAME} was delivered successfully to beta.integreat.app, beta.malteapp.de, beta.aschaffenburg.app and beta.netzwerkobdachwohnen.de!\n${RELEASE_NOTES}"
             channel: releases
+            only_for_branch: ${CIRCLE_BRANCH}
