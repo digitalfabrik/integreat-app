@@ -7,8 +7,8 @@ docker:
   - image: cimg/node:18.14.1
 resource_class: small
 steps:
-  - skip_job
   - checkout
+  - skip_job
   - prepare_workspace
   - restore_environment_variables
   - restore_yarn_cache
@@ -26,3 +26,4 @@ steps:
   - notify:
       success_message: <<^ parameters.production_delivery >>[Beta] <</ parameters.production_delivery >>Integreat, Malte and Aschaffenburg ${NEW_VERSION_NAME} have been released successfully on iOS!\n${RELEASE_NOTES}\n${IOS_ARTIFACT_URLS}
       channel: releases
+      only_for_branch: ${CIRCLE_BRANCH}

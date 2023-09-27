@@ -7,8 +7,8 @@ docker:
   - image: cimg/node:18.14.1
 resource_class: small
 steps:
-  - skip_job
   - checkout
+  - skip_job
   - prepare_workspace
   - restore_environment_variables
   - restore_yarn_cache
@@ -31,3 +31,4 @@ steps:
         - notify:
             success_message: "[Beta] WebApp version ${NEW_VERSION_NAME} was delivered successfully to beta.integreat.app, beta.malteapp.de, beta.aschaffenburg.app and beta.netzwerkobdachwohnen.de!\n${RELEASE_NOTES}"
             channel: releases
+            only_for_branch: ${CIRCLE_BRANCH}

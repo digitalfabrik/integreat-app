@@ -1,0 +1,5 @@
+issue_key: 2381
+show_in_stores: false
+platforms:
+  - web
+en: Tabbing through the page doesn't open the kebab menu anymore

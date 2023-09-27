@@ -44,20 +44,21 @@ The tests itself are then created in the test folder and have to end on `*.e2e.t
 ### Local Testing
 
 Selenium standalone requires Java 8.0+.
-To run the web E2E-tests you first have to start the web app, and then execute the e2e tests:
+To run the web E2E-tests you first have to start the web app, and then execute the e2e tests
+by running these two commands:
 
 ```
 yarn workspace e2e prepare:web:start
 yarn workspace e2e test:web
 ```
 
-> **Note**: Running tests local on mac you have to enable safari web-driver support.
+> **Note**: Running tests local on Mac you have to enable Safari web-driver support.
 > Run the following command in your terminal:
 > `/usr/bin/safaridriver --enable`
 
-This will launch an automated chrome session where you can follow the test execution. If your don't have chrome
-installed you can append `--firefox` or any other browser of your choice to the command. Chromium does not seem to work
-currently. Safari also does not work on the current version (14.1).
+This will launch an automated Chrome session where you can follow the test execution. If you don't have Chrome
+installed, you can append `--firefox` or any other browser of your choice to the command. Chromium does not seem to work
+currently.
 
 To run a single spec file you can run
 

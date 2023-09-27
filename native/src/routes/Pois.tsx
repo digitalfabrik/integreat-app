@@ -1,7 +1,7 @@
 import { BottomSheetScrollViewMethods } from '@gorhom/bottom-sheet'
 import React, { ReactElement, useCallback, useMemo, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { ScrollView } from 'react-native'
+import { ScrollView, useWindowDimensions } from 'react-native'
 import { SvgUri } from 'react-native-svg'
 import styled from 'styled-components/native'
 
@@ -50,12 +50,11 @@ const StyledIcon = styled(Icon)`
   height: 16px;
 `
 
-export const midSnapPointPercentage = 0.35
-const percentage = 100
-const BOTTOM_SHEET_SNAP_POINTS = [
+const midSnapPointPercentage = 0.35
+export const getBottomSheetSnapPoints = (deviceHeight: number): [number, number, number] => [
   dimensions.bottomSheetHandler.height,
-  `${midSnapPointPercentage * percentage}%`,
-  '100%',
+  midSnapPointPercentage * deviceHeight,
+  deviceHeight,
 ]
 
 type PoisProps = {
@@ -75,10 +74,10 @@ const Pois = ({ pois: allPois, language, cityModel, route, navigation }: PoisPro
   const { coordinates, requestAndDetermineLocation } = useUserLocation(true)
   const { slug, multipoi } = route.params
   const [sheetSnapPointIndex, setSheetSnapPointIndex] = useState<number>(1)
-  const [followUserLocation, setFollowUserLocation] = useState<boolean>(false)
   const [listScrollPosition, setListScrollPosition] = useState<number>(0)
   const { t } = useTranslation('pois')
   const scrollRef = useRef<BottomSheetScrollViewMethods>(null)
+  const deviceHeight = useWindowDimensions().height
 
   const pois = useMemo(
     () =>
@@ -143,7 +142,7 @@ const Pois = ({ pois: allPois, language, cityModel, route, navigation }: PoisPro
       deselectAll()
       return
     }
-    setFollowUserLocation(false)
+
     if (isMultipoi(feature)) {
       navigation.setParams({ multipoi: feature.id as string })
       scrollTo(0)
@@ -158,7 +157,6 @@ const Pois = ({ pois: allPois, language, cityModel, route, navigation }: PoisPro
     if (!newGeoJsonPoi) {
       return
     }
-    setFollowUserLocation(false)
     navigation.setParams({ slug: newGeoJsonPoi.slug })
     scrollTo(0)
   }
@@ -232,6 +230,9 @@ const Pois = ({ pois: allPois, language, cityModel, route, navigation }: PoisPro
     </>
   )
 
+  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+  const currentBottomSheetHeight = getBottomSheetSnapPoints(deviceHeight)[sheetSnapPointIndex]!
+
   return (
     <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
       <PoiFiltersModal
@@ -249,16 +250,12 @@ const Pois = ({ pois: allPois, language, cityModel, route, navigation }: PoisPro
         setSheetSnapPointIndex={setSheetSnapPointIndex}
         featureCollection={embedInCollection(features)}
         selectedFeature={currentFeatureOnMap ?? null}
+        bottomSheetHeight={currentBottomSheetHeight}
         locationPermissionGranted={!!coordinates}
         onRequestLocationPermission={requestAndDetermineLocation}
-        fabPosition={
-          sheetSnapPointIndex < BOTTOM_SHEET_SNAP_POINTS.length - 1
-            ? // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-              BOTTOM_SHEET_SNAP_POINTS[sheetSnapPointIndex]!
-            : 0
+        iconPosition={
+          sheetSnapPointIndex < getBottomSheetSnapPoints(deviceHeight).length - 1 ? currentBottomSheetHeight : 0
         }
-        followUserLocation={followUserLocation}
-        setFollowUserLocation={setFollowUserLocation}
         Overlay={FiltersOverlayButtons}
       />
       <BottomActionsSheet
@@ -267,7 +264,7 @@ const Pois = ({ pois: allPois, language, cityModel, route, navigation }: PoisPro
         title={!currentPoi && !multipoi ? t('listTitle') : undefined}
         onChange={setSheetSnapPointIndex}
         initialIndex={sheetSnapPointIndex}
-        snapPoints={BOTTOM_SHEET_SNAP_POINTS}
+        snapPoints={getBottomSheetSnapPoints(deviceHeight)}
         snapPointIndex={sheetSnapPointIndex}>
         {singlePoiContent ?? failurePoiContent ?? listPoiContent}
       </BottomActionsSheet>

@@ -1,6 +1,5 @@
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Button } from 'react-native-elements'
 import styled from 'styled-components/native'
 
 import { CityModel, getNearbyCities } from 'api-client'
@@ -9,6 +8,7 @@ import { RefreshIcon } from '../assets'
 import useUserLocation from '../hooks/useUserLocation'
 import CityEntry from './CityEntry'
 import Icon from './base/Icon'
+import IconButton from './base/IconButton'
 
 const NearbyMessageContainer = styled.View`
   padding: 7px;
@@ -46,13 +46,10 @@ const NearbyCities = ({ cities, navigateToDashboard, filterText }: NearbyCitiesP
         <NearbyMessage>{t(message)}</NearbyMessage>
         <RetryButtonContainer>
           {status !== 'loading' && (
-            <Button
+            <IconButton
               icon={<StyledIcon Icon={RefreshIcon} />}
-              title=''
-              type='clear'
               onPress={requestAndDetermineLocation}
               accessibilityLabel={t('refresh')}
-              accessibilityRole='button'
             />
           )}
         </RetryButtonContainer>

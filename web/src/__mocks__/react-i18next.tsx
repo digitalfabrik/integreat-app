@@ -10,7 +10,7 @@ const useTranslation = (
 } => {
   const i18n = i18next.createInstance()
 
-  return { t: (key: string) => `${namespace}:${key}`, i18n, ready: true }
+  return { t: ((key: string) => `${namespace}:${key}`) as TFunction, i18n, ready: true }
 }
 
 const I18nextProvider = ({ children }: { children: ReactNode }): ReactNode => children
