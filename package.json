@@ -16,7 +16,7 @@
   "scripts": {
     ":lint": "cd $INIT_CWD && eslint .",
     ":lint:changed": "cd $PROJECT_CWD && eslint . -c $PROJECT_CWD/.eslintrc_changed.js",
-    ":lint:ci": "cd $PROJECT_CWD && eslint . --format junit -o $PROJECT_CW/reports/lint/junit-lint.xml",
+    ":lint:ci": "cd $PROJECT_CWD && eslint . --format junit -o $PROJECT_CWD/reports/lint/junit-lint.xml",
     ":test": "cd $INIT_CWD && yarn run -T jest",
     ":test:changed": "cd $INIT_CWD && yarn run -T jest",
     ":test:ci": "cd $PROJECT_CWD && yarn run -T jest --coverage --ci",
