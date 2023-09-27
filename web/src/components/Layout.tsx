@@ -94,13 +94,13 @@ const Main = styled.main<{ fullWidth: boolean }>`
 `
 
 const Aside = styled.aside<{ languageSelectorHeight: number }>`
-  top: ${props => props.languageSelectorHeight + dimensions.headerHeightLarge + dimensions.additionalWidth}px;
+  top: ${props => props.languageSelectorHeight + dimensions.headerHeightLarge + dimensions.additionalSpacing}px;
   margin-top: ${props => props.languageSelectorHeight - dimensions.navigationMenuHeight}px;
   display: inline-block;
   position: sticky;
   width: ${dimensions.toolbarWidth}px;
   vertical-align: top;
-  transition: top 0.2s ease-in-out;
+  transition: top 0s ease-in-out;
   z-index: 10;
 
   &:empty {
