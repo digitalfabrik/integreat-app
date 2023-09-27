@@ -21,7 +21,7 @@
     "check:build": "yarn es-check es2020 ./dist/**/*.js --verbose",
     "stylelint": "stylelint --config stylelint.config.js \"src/**/*.{ts,tsx}\"",
     "stylelint:css": "stylelint --config stylelint.config_css.js \"src/**/*.css\"",
-    "postinstall": "yarn licenses list --json --production --out-file assets/licenses.json"
+    "postinstall": "yarn licenses list --json --production --out-file src/assets/licenses.json"
   },
   "dependencies": {
     "@integreat-app/react-sticky-headroom": "^1.2.3",
@@ -57,7 +57,6 @@
     "whatwg-fetch": "3.6.18"
   },
   "devDependencies": {
-    "@boundstate/webpack-license-plugin": "^4.3.0",
     "@pmmmwh/react-refresh-webpack-plugin": "^0.5.11",
     "@testing-library/jest-dom": "6.1.2",
     "@testing-library/react": "^14.0.0",

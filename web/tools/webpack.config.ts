@@ -1,4 +1,3 @@
-import LicensePlugin from '@boundstate/webpack-license-plugin'
 import ReactRefreshPlugin from '@pmmmwh/react-refresh-webpack-plugin'
 import AssetsPlugin from 'assets-webpack-plugin'
 import { CleanWebpackPlugin } from 'clean-webpack-plugin'
@@ -267,11 +266,6 @@ const createConfig = (
       new LoaderOptionsPlugin({
         debug: devServer,
         minimize: !devServer,
-      }),
-      new LicensePlugin({
-        outputFilename: 'licenses.json',
-        excludedPackageTest: packageName =>
-          ['api-client', 'build-configs', 'translations', 'web'].includes(packageName),
       }),
       ...plugins,
     ],
