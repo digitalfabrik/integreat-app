@@ -165,7 +165,7 @@ commands:
                     - 8-yarn-{{ arch }}-
                 name: Restore Yarn Package Cache
             - run:
-                command: yarn install --immutable --immutable-cache --check-cache
+                command: yarn install --immutable --immutable-cache
                 name: Yarn
             - run:
                 command: yarn install --immutable

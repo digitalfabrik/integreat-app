@@ -7,7 +7,7 @@ steps:
         - 8-yarn-{{ arch }}-
   - run:
       name: Yarn
-      command: yarn install --immutable --immutable-cache --check-cache
+      command: yarn install --immutable --immutable-cache
   - run:
       name: Yarn native
       working_directory: native
