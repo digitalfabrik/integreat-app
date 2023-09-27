@@ -176,9 +176,7 @@ commands:
                 name: Save Yarn Package Cache
                 paths:
                     - .yarn/cache
-                    - node_modules
                     - native/node_modules
-                    - web/node_modules
     skip_job:
         description: Skips the current build if neccassary
         parameters:
