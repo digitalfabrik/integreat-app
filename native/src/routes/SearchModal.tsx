@@ -1,5 +1,5 @@
+import { TFunction } from 'i18next'
 import React, { ReactElement, useMemo, useState } from 'react'
-import { TFunction } from 'react-i18next'
 import { KeyboardAvoidingView, Platform } from 'react-native'
 import styled from 'styled-components/native'
 

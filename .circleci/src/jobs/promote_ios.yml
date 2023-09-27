@@ -10,10 +10,10 @@ environment:
   FASTLANE_SKIP_UPDATE_CHECK: true
 shell: /bin/bash --login -o pipefail
 steps:
+  - checkout
   - skip_job:
       build_config_name: << parameters.build_config_name >>
-  - checkout
-  - restore_yarn_cache # Needed for babel-node run in read_build_config.rb. May be refactored and optimized later.
+  - restore_yarn_cache
   - restore_ruby_cache:
       directory: native
   - run:

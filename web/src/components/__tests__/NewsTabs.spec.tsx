@@ -1,3 +1,4 @@
+import { TFunction } from 'i18next'
 import React from 'react'
 
 import { LOCAL_NEWS_TYPE } from 'api-client'
@@ -8,7 +9,7 @@ import NewsTabs from '../NewsTabs'
 
 describe('NewsTabs', () => {
   const language = 'en'
-  const t = (key: string) => key
+  const t = ((key: string) => key) as TFunction
 
   it('should render two tabs if both local news and tunews are enabled', () => {
     const { getByLabelText } = renderWithRouterAndTheme(

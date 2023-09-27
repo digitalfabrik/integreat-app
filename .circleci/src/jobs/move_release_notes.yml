@@ -3,8 +3,8 @@ docker:
   - image: cimg/node:18.14.1
 resource_class: small
 steps:
-  - skip_job
   - checkout
+  - skip_job
   - prepare_workspace
   - restore_environment_variables
   - restore_yarn_cache

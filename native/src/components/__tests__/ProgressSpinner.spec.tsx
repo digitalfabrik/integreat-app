@@ -3,7 +3,7 @@ import React from 'react'
 
 import ProgressSpinner from '../ProgressSpinner'
 
-jest.mock('styled-components')
+jest.mock('styled-components/native')
 jest.mock('react-i18next')
 
 describe('ProgressSpinner', () => {

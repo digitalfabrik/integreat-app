@@ -5696,7 +5696,8 @@
       "poiCategories": "Kategorien",
       "showPois": "Orte anzeigen",
       "alphabetLetters": "A-Z",
-      "clearFilter": "Filter {{filter}} löschen"
+      "clearFilter": "Filter {{filter}} löschen",
+      "showOwnLocation": "Eigenen Standort zeigen"
     },
     "am": {
       "pageTitle": "ካርታ",
@@ -6825,7 +6826,8 @@
     "de": {
       "nothingFound": "Es wurden leider keine passenden Ergebnisse gefunden.",
       "searchPlaceholder": "Suche",
-      "pageTitle": "Suche"
+      "pageTitle": "Suche",
+      "delete": "Eingabe löschen"
     },
     "am": {
       "nothingFound": "ይቅርታ፣ ምንም የማዛመድ ውጤቶች አልተገኙም።",
@@ -7585,8 +7587,8 @@
       "hostInformation": "Angaben zum Anbietenden",
       "contactInformation": "Kontaktdaten",
       "shelterButton": "Anschauen",
-      "bed": "1 Bett",
-      "beds": "{{beds}} Betten",
+      "bed_one": "{{count}} Bett",
+      "bed_other": "{{count}} Betten",
       "ges_unterkunft": "Gesamte Unterkunft",
       "gemein_zimmer": "Gemeinsames Zimmer",
       "privatzimmer": "Privatzimmer",

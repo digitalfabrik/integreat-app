@@ -7,8 +7,8 @@ environment:
   TZ: 'Europe/Berlin' # Should be removed in IGAPP-39
 shell: /bin/bash -eo pipefail
 steps:
-  - skip_job
   - checkout
+  - skip_job
   - restore_yarn_cache
   - check_config
   - run:

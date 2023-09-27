@@ -1,3 +1,4 @@
+import { TFunction } from 'i18next'
 import { DateTime } from 'luxon'
 import React from 'react'
 
@@ -11,7 +12,7 @@ jest.mock('react-i18next')
 
 describe('LocalNewsList', () => {
   const link = '/testumgebung/en/news/local'
-  const t = (key: string) => key
+  const t = ((key: string) => key) as TFunction
   const city = 'testcity'
 
   const renderItem = ({ id, title, content, timestamp }: LocalNewsModel) => (
