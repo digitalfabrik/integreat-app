@@ -46,6 +46,8 @@ module.exports = {
   ],
   rules: {
     // Overly strict rules (for now)
+    indent: 'off',
+    '@typescript-eslint-indent': 'off',
     'class-methods-use-this': 'off',
     'no-shadow': 'off',
     'no-underscore-dangle': 'off',
@@ -57,6 +59,10 @@ module.exports = {
     'lines-between-class-members': 'off',
     'import/extensions': 'off',
     'import/prefer-default-export': 'off',
+    'import/named': 'off',
+    'import/namespace': 'off',
+    'import/default': 'off',
+    'import/no-named-as-default-member': 'off',
     'react/require-default-props': 'off',
     'react/sort-comp': 'off',
     'jest/expect-expect': 'off',

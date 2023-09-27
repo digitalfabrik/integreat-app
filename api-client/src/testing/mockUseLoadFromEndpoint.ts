@@ -1,5 +1,6 @@
 import { useLoadFromEndpoint } from '..'
 
+// eslint-disable-next-line import/order
 import { mocked } from 'jest-mock'
 
 const mockData = (data: unknown): typeof useLoadFromEndpoint =>
