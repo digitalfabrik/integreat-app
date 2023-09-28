@@ -15606,6 +15606,7 @@ __metadata:
     style-loader: ^3.3.3
     styled-components: ^5.3.11
     stylelint: ^15.10.3
+    stylelint-config-recommended: ^13.0.0
     stylelint-config-standard: ^34.0.0
     translations: "workspace:*"
     ts-jest: ^29.1.1

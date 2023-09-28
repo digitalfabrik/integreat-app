@@ -20,7 +20,7 @@ steps:
       command: yarn :lint:ci
   - run:
       name: Stylelint
-      command: yarn workspace web stylelint
+      command: yarn workspace web stylelint && yarn workspace web stylelint:css
   - run:
       name: TS check
       command: yarn workspaces foreach run tsc --build

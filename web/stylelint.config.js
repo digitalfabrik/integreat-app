@@ -1,8 +1,6 @@
-/* eslint-disable no-magic-numbers */
-
 module.exports = {
-  extends: ['stylelint-config-recommended'],
-  customSyntax: 'postcss-jsx',
+  extends: require.resolve('stylelint-config-recommended'),
+  customSyntax: require.resolve('postcss-jsx'),
   rules: {
     'function-no-unknown': null,
     'at-rule-no-unknown': null,
