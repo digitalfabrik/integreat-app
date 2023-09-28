@@ -10,7 +10,7 @@ import Icon from './base/Icon'
 import TextButton from './base/TextButton'
 import ToggleButton from './base/ToggleButton'
 
-export const Container = styled.div`
+export const Container = styled.div<{ widerDisplay?: boolean }>`
   display: flex;
   flex: 1;
   max-height: 80vh;
@@ -23,8 +23,9 @@ export const Container = styled.div`
   font-size: ${props => props.theme.fonts.contentFontSize};
   overflow: auto;
   align-self: center;
+  gap: ${props => (props.widerDisplay ? '5px' : 0)};
   @media ${dimensions.mediumLargeViewport} {
-    width: 400px;
+    width: ${props => (props.widerDisplay ? 'auto' : '400px')};
   }
 `
 
@@ -103,7 +104,7 @@ const Feedback = ({
   const sendFeedbackDisabled = isPositiveFeedback === null && comment.trim().length === 0 && !isSearchFeedback
 
   return (
-    <Container>
+    <Container widerDisplay={isSearchFeedback}>
       {isSearchFeedback ? (
         <>
           <TextContainer>
@@ -155,10 +156,12 @@ const Feedback = ({
         <ErrorSendingStatus role='alert'>{t('failedSendingFeedback')}</ErrorSendingStatus>
       )}
 
-      <NoteContainer showContainer={sendFeedbackDisabled}>
-        <Icon src={NoteIcon} />
-        <NoteText>{t('note')}</NoteText>
-      </NoteContainer>
+      {!isSearchFeedback && (
+        <NoteContainer showContainer={sendFeedbackDisabled}>
+          <Icon src={NoteIcon} />
+          <NoteText>{t('note')}</NoteText>
+        </NoteContainer>
+      )}
 
       <TextButton disabled={sendFeedbackDisabled} onClick={onSubmit} text={t('send')} />
     </Container>
