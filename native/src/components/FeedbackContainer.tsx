@@ -111,7 +111,7 @@ const FeedbackContainer = ({
       city: cityCode,
       language,
       comment: commentWithMail,
-      query: searchTerm ?? query,
+      query: searchTerm?.trim().length === 0 ? query : searchTerm,
       slug,
     }
   }
