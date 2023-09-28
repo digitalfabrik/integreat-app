@@ -161,21 +161,22 @@ commands:
         steps:
             - restore_cache:
                 keys:
-                    - 8-yarn-{{ arch }}-{{ checksum "yarn.lock" }}-{{ checksum "package.json" }}-{{ checksum "native/package.json" }}-{{ checksum "web/package.json" }}
+                    - 8-yarn-{{ arch }}-{{ checksum "yarn.lock" }}-{{ checksum "native/yarn.lock"}}-{{ checksum "package.json" }}-{{ checksum "native/package.json" }}-{{ checksum "web/package.json" }}
                     - 8-yarn-{{ arch }}-
                 name: Restore Yarn Package Cache
             - run:
-                command: yarn install --immutable
+                command: yarn install --immutable --immutable-cache
                 name: Yarn
             - run:
                 command: yarn install --immutable
                 name: Yarn native
                 working_directory: native
             - save_cache:
-                key: 8-yarn-{{ arch }}-{{ checksum "yarn.lock" }}-{{ checksum "package.json" }}-{{ checksum "native/package.json" }}-{{ checksum "web/package.json" }}
+                key: 8-yarn-{{ arch }}-{{ checksum "yarn.lock" }}-{{ checksum "native/yarn.lock"}}-{{ checksum "package.json" }}-{{ checksum "native/package.json" }}-{{ checksum "web/package.json" }}
                 name: Save Yarn Package Cache
                 paths:
-                    - .yarn/cache
+                    - native/.yarn/cache
+                    - native/.yarn/install-state.gz
                     - native/node_modules
     skip_job:
         description: Skips the current build if neccassary
@@ -456,6 +457,7 @@ jobs:
         docker:
             - image: cimg/node:18.14.1
         environment:
+            NODE_OPTIONS: --max-old-space-size=1536
             TOTAL_CPUS: 1
             TZ: Europe/Berlin
         resource_class: small

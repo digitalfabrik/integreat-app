@@ -3,18 +3,19 @@ steps:
   - restore_cache:
       name: Restore Yarn Package Cache
       keys:
-        - 8-yarn-{{ arch }}-{{ checksum "yarn.lock" }}-{{ checksum "package.json" }}-{{ checksum "native/package.json" }}-{{ checksum "web/package.json" }}
+        - 8-yarn-{{ arch }}-{{ checksum "yarn.lock" }}-{{ checksum "native/yarn.lock"}}-{{ checksum "package.json" }}-{{ checksum "native/package.json" }}-{{ checksum "web/package.json" }}
         - 8-yarn-{{ arch }}-
   - run:
       name: Yarn
-      command: yarn install --immutable
+      command: yarn install --immutable --immutable-cache
   - run:
       name: Yarn native
       working_directory: native
       command: yarn install --immutable
   - save_cache:
       name: Save Yarn Package Cache
-      key: 8-yarn-{{ arch }}-{{ checksum "yarn.lock" }}-{{ checksum "package.json" }}-{{ checksum "native/package.json" }}-{{ checksum "web/package.json" }}
+      key: 8-yarn-{{ arch }}-{{ checksum "yarn.lock" }}-{{ checksum "native/yarn.lock"}}-{{ checksum "package.json" }}-{{ checksum "native/package.json" }}-{{ checksum "web/package.json" }}
       paths:
-        - .yarn/cache
+        - native/.yarn/cache
+        - native/.yarn/install-state.gz
         - native/node_modules
