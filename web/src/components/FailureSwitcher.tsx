@@ -5,13 +5,15 @@ import {
   cityContentPath,
   EVENTS_ROUTE,
   fromError,
+  LOCAL_NEWS_TYPE,
+  TU_NEWS_TYPE,
   NEWS_ROUTE,
   NotFoundError,
   OFFERS_ROUTE,
   pathnameFromRouteInformation,
   POIS_ROUTE,
+  LANDING_ROUTE,
 } from 'api-client'
-import { LANDING_ROUTE, LOCAL_NEWS_TYPE, TU_NEWS_TYPE } from 'api-client/src/routes'
 
 import { reportError } from '../utils/sentry'
 import Failure from './Failure'

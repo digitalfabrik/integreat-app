@@ -7,5 +7,5 @@
     "types": ["jest"],
     "skipLibCheck": true
   },
-  "include": ["src/**/*", "jest.config.ts", "jest.setup.ts"]
+  "include": ["src/**/*", "jest.config.ts", "jest.setup.ts", "src/index.ts"]
 }
