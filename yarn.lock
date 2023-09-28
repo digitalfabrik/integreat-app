@@ -3711,7 +3711,6 @@ __metadata:
     "@types/lodash": ^4.14.197
     "@types/luxon": ^3.3.1
     "@types/md5": ^2.3.2
-    "@types/node": ^18
     "@types/normalize-path": ^3.0.0
     "@types/react": ^18.2.21
     "@types/seedrandom": ^3.0.5
@@ -6627,15 +6626,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-plugin-diff@npm:^2.0.1":
-  version: 2.0.1
-  resolution: "eslint-plugin-diff@npm:2.0.1"
-  peerDependencies:
-    eslint: ">=6.7.0"
-  checksum: 254934a02132456dcb46b233112cbd1b8af8f44ac1f8e6bd0160a6459fd0633387318b8208f4778d7a6ff34e1da92e5664c6c1d963e6f54eec2120e40c06743a
-  languageName: node
-  linkType: hard
-
 "eslint-plugin-es@npm:^3.0.0":
   version: 3.0.1
   resolution: "eslint-plugin-es@npm:3.0.1"
@@ -8802,7 +8792,6 @@ __metadata:
     eslint: 8.48.0
     eslint-config-airbnb: ^19.0.4
     eslint-config-prettier: ^9.0.0
-    eslint-plugin-diff: ^2.0.1
     eslint-plugin-import: ^2.28.1
     eslint-plugin-jest: ^27.2.3
     eslint-plugin-jsx-a11y: ^6.7.1
@@ -14825,7 +14814,7 @@ __metadata:
     "@types/flat": ^5.0.2
     "@types/jest": ^29.5.5
     "@types/lodash": ^4.14.197
-    "@types/node": ^20.7.0
+    "@types/node": ^18
     commander: ^11.0.0
     csv-parse: ^5.5.0
     csv-stringify: ^6.4.2

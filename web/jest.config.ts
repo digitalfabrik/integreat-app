@@ -16,7 +16,6 @@ const config: JestConfigWithTsJest = {
     '\\.(css|less)$': '<rootDir>/src/__mocks__/styleMock.ts',
   },
   moduleFileExtensions: ['js', 'jsx', 'ts', 'tsx', 'json'],
-  moduleDirectories: ['node_modules'],
   maxWorkers: '50%',
   workerIdleMemoryLimit: process.env.CI ? '500MB' : undefined,
   transform: {

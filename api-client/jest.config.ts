@@ -3,7 +3,6 @@ export default {
   displayName: 'api-client',
   automock: false,
   setupFiles: ['<rootDir>/../jest.setup.ts'],
-  moduleDirectories: ['node_modules'],
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json'],
   testEnvironment: 'node',
   transform: {

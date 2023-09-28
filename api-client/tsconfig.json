@@ -4,7 +4,7 @@
     "composite": true,
     "lib": ["ES5", "ES6", "dom"],
     "outDir": "dist",
-    "types": ["node", "jest"],
+    "types": ["jest"],
     "skipLibCheck": true
   },
   "include": ["src/**/*", "jest.config.ts", "jest.setup.ts"]

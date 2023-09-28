@@ -69,8 +69,8 @@
       result = func.apply(context, args)
       // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
       if (!timeout) {
-        // eslint-disable-next-line no-multi-assign
-        context = args = null
+        context = null
+        args = null
       }
     }
 
@@ -83,6 +83,7 @@
 
       var remaining = throttledTimer - (now - previous)
 
+      // eslint-disable-next-line @typescript-eslint/no-this-alias
       context = this
       // eslint-disable-next-line prefer-rest-params
       args = arguments
@@ -97,7 +98,6 @@
         result = func.apply(context, args)
 
         if (!timeout) {
-          // eslint-disable-next-line no-multi-assign
           args = null
           context = null
         }
@@ -228,6 +228,8 @@
   // watch whether the document is fully loaded
   function setupBodyMutationObserver() {
     var elements = []
+    // in older browsers MutationObserver might be undefined
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
     var MutationObserver = window.MutationObserver || window.WebKitMutationObserver
 
     function addImageLoadListners(mutation) {
@@ -316,7 +318,8 @@
 
   function setupMutationObserver() {
     var forceIntervalTimer = interval < 0
-
+    // in older browsers MutationObserver might be undefined
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
     if (window.MutationObserver || window.WebKitMutationObserver) {
       if (forceIntervalTimer) {
         initInterval()

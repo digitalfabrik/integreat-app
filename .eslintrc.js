@@ -28,21 +28,18 @@ module.exports = {
     'jest/globals': true,
   },
   ignorePatterns: [
-    '**/reports/',
-    '**/node_modules/',
-    '**/ios/',
-    '**/stylelint.config.js',
-    '**/stylelint.config_css.js',
-    '**/dist/',
-    '**/lib-dist/',
-    '.eslintrc.js',
-    '**/babel.config.js',
-    '**/react-native.config.js',
-    '**/www/iframe.js',
-    '**/www/rasa-widget/chatbot.js',
-    '**/www/plugins/mapbox-gl-rtl-text-0.2.3.min.js',
-    '**/integreat-e2e/assets/**', //symlink
-    '**/integreat-test-cms/assets/**', //symlink
+    '.yarn/cache',
+    '.yarn/unplugged',
+    'reports',
+    'dist',
+    'vendor',
+    '/native/node_modules',
+    '/native/android',
+    '/native/ios',
+    '/web/www/rasa-widget/chatbot.js',
+    '/web/www/plugins/mapbox-gl-rtl-text-0.2.3.min.js',
+    '/build-configs/integreat-e2e/assets', // symlink
+    '/build-configs/integreat-test-cms/assets', // symlink
   ],
   rules: {
     // Overly strict rules (for now)
@@ -138,7 +135,16 @@ module.exports = {
     ],
   },
   parserOptions: {
-    project: ['./tsconfig.json', './*/tsconfig.json'],
+    project: [
+      './tsconfig.json',
+      'api-client/tsconfig.json',
+      'e2e-tests/tsconfig.json',
+      'native/tsconfig.json',
+      'web/tsconfig.json',
+      'build-configs/tsconfig.json',
+      'tools/tsconfig.json',
+      'translations/tsconfig.json',
+    ],
   },
   overrides: [
     {

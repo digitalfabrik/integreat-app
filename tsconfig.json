@@ -13,5 +13,5 @@
     "target": "ESNext",
     "useDefineForClassFields": false
   },
-  "include": ["jest.config.ts"]
+  "include": ["jest.config.ts", ".prettierrc.js", ".eslintrc.js", ".eslintrc_changed.js"]
 }

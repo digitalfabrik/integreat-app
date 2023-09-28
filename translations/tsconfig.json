@@ -5,7 +5,7 @@
     "outDir": "dist",
     "types": [
       "jest",
-      "node" // for require() in src/__tests__/loadTranslations.spec.ts
+      "node" // for scripts in tools
     ]
   },
   "include": [

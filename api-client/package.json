@@ -28,7 +28,6 @@
     "@types/lodash": "^4.14.197",
     "@types/luxon": "^3.3.1",
     "@types/md5": "^2.3.2",
-    "@types/node": "^18",
     "@types/normalize-path": "^3.0.0",
     "@types/react": "^18.2.21",
     "@types/seedrandom": "^3.0.5",
