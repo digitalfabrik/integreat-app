@@ -1,9 +1,13 @@
-fastlane_version "2.214.0"
+fastlane_version "2.216.0"
 
 require_relative "read_build_config"
 
 require "yaml"
 require "base64"
+
+# Google API fails randomly, try to retry
+# https://github.com/fastlane/fastlane/issues/21507#issuecomment-1723116829
+ENV['SUPPLY_UPLOAD_MAX_RETRIES']='5'
 
 # The following parameters have to be passed:
 # path: The path of the artifact (apk or ipa) to upload (relative to home dir)

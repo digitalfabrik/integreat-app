@@ -59,9 +59,9 @@ const Breadcrumbs = ({ direction, ancestorBreadcrumbs, currentBreadcrumb }: Brea
   // Min text length after which the last breadcrumb item should shrink
   const MIN_SHRINK_CHARS = 20
 
-  /* We are doing here funky stuff with directions. See here for more information about the idea:
+  /* We do some funky stuff with directions here. See this link for more information about the idea:
    https://css-tricks.com/position-vertical-scrollbars-on-opposite-side-with-css/
-   Basically we are inverting the direction on the wrapper and then making sure that the direction of the content
+   Basically, we are inverting the direction on the wrapper and then making sure that the direction of the content
    has the opposite direction of the wrapper. */
   return (
     <Wrapper direction={direction}>
@@ -70,7 +70,7 @@ const Breadcrumbs = ({ direction, ancestorBreadcrumbs, currentBreadcrumb }: Brea
         {ancestorBreadcrumbs.map((breadcrumb, index) =>
           ancestorBreadcrumbs.length > 1 && index === 0 ? (
             <StyledLink to={breadcrumb.pathname} key={breadcrumb.pathname}>
-              <StyledIcon src={HouseIcon} />
+              <StyledIcon src={HouseIcon} title={breadcrumb.title} />
             </StyledLink>
           ) : (
             <Breadcrumb key={breadcrumb.title} shrink={breadcrumb.title.length >= MIN_SHRINK_CHARS}>
