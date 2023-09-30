@@ -32,14 +32,14 @@ type KebabActionItemLinkProps = {
 const KebabActionItemLink = ({ href, text, iconSrc }: KebabActionItemLinkProps): ReactElement => {
   if (href) {
     return (
-      <StyledLink to={href} aria-label={text} dir='auto' data-testid='kebab-action-item'>
+      <StyledLink to={href} aria-label={text} dir='auto'>
         <StyledIcon src={iconSrc} />
         <span>{text}</span>
       </StyledLink>
     )
   }
   return (
-    <StyledSpan aria-label={text} dir='auto' style={{ flex: 1 }} data-testid='kebab-action-item'>
+    <StyledSpan aria-label={text} dir='auto' style={{ flex: 1 }}>
       <StyledIcon src={iconSrc} />
       <span>{text}</span>
     </StyledSpan>
