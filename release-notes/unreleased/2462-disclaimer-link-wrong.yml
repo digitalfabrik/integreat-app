@@ -1,0 +1,5 @@
+issue_key: 2419
+show_in_stores: false
+platforms:
+  - web
+en: Fixed the link to the disclaimer.

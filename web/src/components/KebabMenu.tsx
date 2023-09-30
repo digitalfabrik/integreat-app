@@ -94,7 +94,7 @@ const KebabMenu = ({ items, direction, show, setShow, Footer }: KebabMenuProps):
 
   return (
     <ToggleContainer>
-      <ToggleButton onClick={onClick} data-testid='kebab-menu-button' aria-label={t('sideBarOpenAriaLabel')}>
+      <ToggleButton onClick={onClick} aria-label={t('sideBarOpenAriaLabel')}>
         <StyledIcon src={MenuIcon} />
       </ToggleButton>
       <Portal
