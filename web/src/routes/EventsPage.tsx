@@ -145,7 +145,7 @@ const EventsPage = ({ city, pathname, languageCode, cityCode }: CityRouteProps):
           onInternalLinkClick={navigate}
           BeforeContent={
             <>
-              <PageDetail identifier={t('date')} information={date.toFormattedString(languageCode)} />
+              <PageDetail identifier={t('date_one')} information={date.toFormattedString(languageCode)} />
               {location && <PageDetail identifier={t('address')} information={location.fullAddress} />}
             </>
           }

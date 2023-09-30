@@ -63,7 +63,7 @@ const Events = ({ cityModel, language, navigateTo, events, slug, refresh }: Even
             BeforeContent={
               <>
                 <PageDetail
-                  identifier={t('date')}
+                  identifier={t('date_one')}
                   information={event.date.toFormattedString(language)}
                   language={language}
                 />
