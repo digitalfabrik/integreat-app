@@ -5,7 +5,7 @@ import { useLoadAsync } from 'api-client'
 import buildConfig from '../constants/buildConfig'
 import appSettings from '../utils/AppSettings'
 import dataContainer from '../utils/DefaultDataContainer'
-import * as PushNotificationsManager from '../utils/PushNotificationsManager'
+import { subscribeNews, unsubscribeNews } from '../utils/PushNotificationsManager'
 import { reportError } from '../utils/sentry'
 
 type AppContextType = {
@@ -47,34 +47,18 @@ const AppContextProvider = ({ children }: AppContextProviderProps): ReactElement
     }
   }, [cityCode])
 
-  const subscribe = useCallback((cityCode: string, languageCode: string) => {
-    PushNotificationsManager.requestPushNotificationPermission()
-      .then(permissionGranted =>
-        permissionGranted
-          ? PushNotificationsManager.subscribeNews(cityCode, languageCode)
-          : appSettings.setSettings({ allowPushNotifications: false }),
-      )
-      .catch(reportError)
-  }, [])
-
-  const unsubscribe = useCallback(
-    (cityCode: string, languageCode: string) =>
-      PushNotificationsManager.unsubscribeNews(cityCode, languageCode).catch(reportError),
-    [],
-  )
-
   const changeCityCode = useCallback(
     (newCityCode: string | null): void => {
       setCityCode(newCityCode)
       appSettings.setSelectedCity(newCityCode).catch(reportError)
       if (languageCode && cityCode) {
-        unsubscribe(cityCode, languageCode)
+        unsubscribeNews(cityCode, languageCode).catch(reportError)
       }
       if (languageCode && newCityCode) {
-        subscribe(newCityCode, languageCode)
+        subscribeNews(newCityCode, languageCode).catch(reportError)
       }
     },
-    [cityCode, languageCode, subscribe, unsubscribe],
+    [cityCode, languageCode],
   )
 
   const changeLanguageCode = useCallback(
@@ -82,13 +66,13 @@ const AppContextProvider = ({ children }: AppContextProviderProps): ReactElement
       setLanguageCode(newLanguageCode)
       appSettings.setContentLanguage(newLanguageCode).catch(reportError)
       if (cityCode && languageCode) {
-        unsubscribe(cityCode, languageCode)
+        unsubscribeNews(cityCode, languageCode).catch(reportError)
       }
       if (cityCode) {
-        subscribe(cityCode, newLanguageCode)
+        subscribeNews(cityCode, newLanguageCode).catch(reportError)
       }
     },
-    [cityCode, languageCode, subscribe, unsubscribe],
+    [cityCode, languageCode],
   )
 
   const appContext = useMemo(
