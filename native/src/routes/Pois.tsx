@@ -63,11 +63,12 @@ type PoisProps = {
   language: string
   route: RouteProps<PoisRouteType>
   navigation: NavigationProps<PoisRouteType>
+  enteredViaMaps: boolean
 }
 
 const RESTORE_TIMEOUT = 100
 
-const Pois = ({ pois: allPois, language, cityModel, route, navigation }: PoisProps): ReactElement => {
+const Pois = ({ pois: allPois, language, cityModel, route, navigation, enteredViaMaps }: PoisProps): ReactElement => {
   const [poiCategoryFilter, setPoiCategoryFilter] = useState<PoiCategoryModel | null>(null)
   const [poiCurrentlyOpenFilter, setPoiCurrentlyOpenFilter] = useState(false)
   const [showFilterSelection, setShowFilterSelection] = useState(false)
@@ -135,7 +136,7 @@ const Pois = ({ pois: allPois, language, cityModel, route, navigation }: PoisPro
       deselectAll()
     }
   }
-  useOnBackNavigation(slug || multipoi ? deselectFeature : undefined)
+  useOnBackNavigation((slug || multipoi) && enteredViaMaps ? deselectFeature : undefined)
 
   const selectFeatureOnMap = (feature: MapFeature | null) => {
     if (!feature) {
