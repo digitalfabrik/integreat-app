@@ -18,13 +18,7 @@ type CleanLinkProps = {
   newTab?: boolean
 }
 
-const CleanLink: React.FC<CleanLinkProps> = ({
-  to,
-  children,
-  ariaLabel,
-  className,
-  newTab,
-}: CleanLinkProps): ReactElement => {
+const CleanLink = ({ to, children, ariaLabel, className, newTab }: CleanLinkProps): ReactElement => {
   const newTabProps = newTab && { target: '_blank', rel: 'noopener noreferrer' }
   if (isExternalUrl(to)) {
     return (

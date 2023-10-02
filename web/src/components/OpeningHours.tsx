@@ -6,6 +6,7 @@ import styled from 'styled-components'
 import { OpeningHoursModel, weekdays } from 'api-client'
 import { UiDirectionType } from 'translations/src'
 
+import { helpers } from '../constants/theme'
 import Collapsible from './Collapsible'
 import OpeningEntry from './OpeningEntry'
 
@@ -16,24 +17,18 @@ const OpeningLabel = styled.span<{ isOpened: boolean; direction: string }>`
   ${props => (props.direction === 'rtl' ? `padding-left: 12px;` : `padding-right: 12px;`)}
 `
 
-const Content = styled.div`
-  font-size: clamp(
-    ${props => props.theme.fonts.adaptiveFontSizeSmall.min},
-    ${props => props.theme.fonts.adaptiveFontSizeSmall.value},
-    ${props => props.theme.fonts.adaptiveFontSizeSmall.max}
-  );
+const Content = styled.div<{ direction: UiDirectionType }>`
+  ${props => (props.direction === 'rtl' ? `padding-left: 26px;` : `padding-right: 26px;`)}
+  ${helpers.adaptiveFontSize};
 `
 
 const TitleContainer = styled.div`
   display: flex;
   flex: 1;
   font-weight: 700;
-  font-size: clamp(
-    ${props => props.theme.fonts.adaptiveFontSizeSmall.min},
-    ${props => props.theme.fonts.adaptiveFontSizeSmall.value},
-    ${props => props.theme.fonts.adaptiveFontSizeSmall.max}
-  );
+  ${helpers.adaptiveFontSize};
   justify-content: space-between;
+  padding-bottom: 8px;
 `
 
 type OpeningHoursProps = {
@@ -59,12 +54,12 @@ const OpeningHours = ({
   const { t } = useTranslation('pois')
 
   const openingHoursTitle = (
-    <>
+    <TitleContainer>
       <span>{t('openingHours')}</span>
       <OpeningLabel isOpened={isCurrentlyOpen} direction={direction}>
         {t(getOpeningLabel(isTemporarilyClosed, isCurrentlyOpen))}
       </OpeningLabel>
-    </>
+    </TitleContainer>
   )
   if (isTemporarilyClosed) {
     return <TitleContainer>{openingHoursTitle}</TitleContainer>
@@ -75,8 +70,8 @@ const OpeningHours = ({
   }
 
   return (
-    <Collapsible title={openingHoursTitle} direction={direction}>
-      <Content>
+    <Collapsible title={openingHoursTitle}>
+      <Content direction={direction}>
         {openingHours.map((entry, index) => (
           <OpeningEntry
             key={`${weekdays[index]}-OpeningEntry`}
