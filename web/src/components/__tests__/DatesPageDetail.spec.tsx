@@ -1,0 +1,89 @@
+import { fireEvent } from '@testing-library/react'
+import { DateTime } from 'luxon'
+import React from 'react'
+import { rrulestr } from 'rrule'
+
+import { DateModel } from 'api-client'
+
+import { renderWithTheme } from '../../testing/render'
+import DatesPageDetail from '../DatesPageDetail'
+
+jest.mock('react-i18next')
+
+jest.useFakeTimers({ now: new Date('2023-10-02T15:23:57.443+02:00') })
+describe('DatesPageDetail', () => {
+  const renderDatesPageDetail = (date: DateModel) => renderWithTheme(<DatesPageDetail date={date} languageCode='de' />)
+  const date = (rrule?: string) =>
+    new DateModel({
+      startDate: DateTime.fromISO('2023-10-09T07:00:00.000+02:00'),
+      endDate: DateTime.fromISO('2023-10-10T09:00:00.000+02:00'),
+      allDay: false,
+      recurrenceRule: rrule ? rrulestr(rrule) : null,
+    })
+
+  it('should render next date if no recurrences', () => {
+    const { getByText, queryByText, queryByRole } = renderDatesPageDetail(date())
+
+    expect(getByText('events:date_one', { exact: false })).toBeTruthy()
+    expect(getByText('9. Oktober 2023 07:00 - 10. Oktober 2023 09:00')).toBeTruthy()
+    expect(queryByText('...')).toBeFalsy()
+    expect(queryByRole('button')).toBeFalsy()
+  })
+
+  it('should render only next dates if up to MAX_DATE_RECURRENCES_COLLAPSED recurrences', () => {
+    const { getByText, queryByText, queryByRole } = renderDatesPageDetail(
+      date('DTSTART:20230414T050000\nRRULE:FREQ=WEEKLY;BYDAY=MO;UNTIL=20231029T050000'),
+    )
+
+    expect(getByText('events:date_other', { exact: false })).toBeTruthy()
+    expect(getByText('9. Oktober 2023 07:00 - 10. Oktober 2023 09:00')).toBeTruthy()
+    expect(getByText('16. Oktober 2023 07:00 - 17. Oktober 2023 09:00')).toBeTruthy()
+    expect(getByText('23. Oktober 2023 07:00 - 24. Oktober 2023 09:00')).toBeTruthy()
+    expect(queryByText('...')).toBeFalsy()
+    expect(queryByRole('button')).toBeFalsy()
+  })
+
+  it('should render next dates and show collapsible if up to MAX_DATE_RECURRENCES events and expand on click', () => {
+    const { getByText, queryByText, getByRole } = renderDatesPageDetail(
+      date('DTSTART:20230414T050000\nRRULE:FREQ=WEEKLY;BYDAY=MO;UNTIL=20231213T050000'),
+    )
+
+    expect(getByText('events:date_other', { exact: false })).toBeTruthy()
+    expect(getByText('9. Oktober 2023 07:00 - 10. Oktober 2023 09:00')).toBeTruthy()
+    expect(getByText('16. Oktober 2023 07:00 - 17. Oktober 2023 09:00')).toBeTruthy()
+    expect(getByText('23. Oktober 2023 07:00 - 24. Oktober 2023 09:00')).toBeTruthy()
+    expect(queryByText('30. Oktober 2023 06:00 - 01. November 2023 08:00')).toBeFalsy()
+    expect(queryByText('11. Dezember 2023 06:00 - 12. Dezember 2023 08:00')).toBeFalsy()
+
+    expect(getByRole('button')).toBeTruthy()
+    fireEvent.click(getByRole('button'))
+
+    expect(getByText('30. Oktober 2023 06:00 - 31. Oktober 2023 08:00')).toBeTruthy()
+    expect(getByText('11. Dezember 2023 06:00 - 12. Dezember 2023 08:00')).toBeTruthy()
+    expect(queryByText('...')).toBeFalsy()
+    expect(queryByText('18. Dezember 2023 06:00 - 19. Dezember 2023 08:00')).toBeFalsy()
+  })
+
+  it('should render next dates and show collapsible if more than MAX_DATE_RECURRENCES events and expand on click', () => {
+    const { getByText, queryByText, getByRole } = renderDatesPageDetail(
+      date('DTSTART:20230414T050000\nRRULE:FREQ=WEEKLY;BYDAY=MO;UNTIL=20241213T050000'),
+    )
+
+    expect(getByText('events:nextDate_other', { exact: false })).toBeTruthy()
+    expect(getByText('9. Oktober 2023 07:00 - 10. Oktober 2023 09:00')).toBeTruthy()
+    expect(getByText('16. Oktober 2023 07:00 - 17. Oktober 2023 09:00')).toBeTruthy()
+    expect(getByText('23. Oktober 2023 07:00 - 24. Oktober 2023 09:00')).toBeTruthy()
+    expect(queryByText('30. Oktober 2023 06:00 - 01. November 2023 08:00')).toBeFalsy()
+    expect(queryByText('11. Dezember 2023 06:00 - 12. Dezember 2023 08:00')).toBeFalsy()
+    expect(queryByText('...')).toBeFalsy()
+
+    expect(getByRole('button')).toBeTruthy()
+    fireEvent.click(getByRole('button'))
+
+    expect(getByText('30. Oktober 2023 06:00 - 31. Oktober 2023 08:00')).toBeTruthy()
+    expect(getByText('11. Dezember 2023 06:00 - 12. Dezember 2023 08:00')).toBeTruthy()
+    expect(getByText('...')).toBeTruthy()
+
+    expect(queryByText('18. Dezember 2023 06:00 - 19. Dezember 2023 08:00')).toBeFalsy()
+  })
+})

@@ -1,14 +1,31 @@
 import { DateTime } from 'luxon'
+import { RRule as RRuleType } from 'rrule'
 
 class DateModel {
   _startDate: DateTime
   _endDate: DateTime
   _allDay: boolean
+  _recurrenceRule: RRuleType | null
 
-  constructor({ startDate, endDate, allDay }: { startDate: DateTime; endDate: DateTime; allDay: boolean }) {
+  constructor({
+    startDate,
+    endDate,
+    allDay,
+    recurrenceRule,
+  }: {
+    startDate: DateTime
+    endDate: DateTime
+    allDay: boolean
+    recurrenceRule: RRuleType | null
+  }) {
+    const firstRecurrence = recurrenceRule?.after(DateTime.now().toJSDate())
+    const duration = endDate.diff(startDate)
     this._allDay = allDay
-    this._startDate = startDate
-    this._endDate = endDate
+    // If there is a recurrence rule, the start and end dates are not updated in the CMS and are therefore most of the time outdated
+    // Therefore calculate the (next) correct start and end date based on the recurrence rule if available
+    this._startDate = firstRecurrence ? DateTime.fromJSDate(firstRecurrence) : startDate
+    this._endDate = firstRecurrence ? DateTime.fromJSDate(firstRecurrence).plus(duration) : endDate
+    this._recurrenceRule = recurrenceRule
   }
 
   get startDate(): DateTime {
@@ -23,8 +40,48 @@ class DateModel {
     return this._allDay
   }
 
-  toFormattedString(locale: string): string {
-    const format = this.allDay ? 'DDD' : 'DDD t'
+  get recurrenceRule(): RRuleType | null {
+    return this._recurrenceRule
+  }
+
+  get isToday(): boolean {
+    const now = DateTime.now()
+    return (
+      this.startDate.hasSame(now, 'day') ||
+      this.endDate.hasSame(now, 'day') ||
+      (this.startDate <= now && this.endDate >= now)
+    )
+  }
+
+  recurrences(count: number): DateModel[] {
+    if (!this.recurrenceRule) {
+      return [this]
+    }
+
+    const now = DateTime.now()
+    const maxDate = now.plus({ years: 5 }).toJSDate()
+    const duration = this._endDate.diff(this._startDate)
+
+    return this.recurrenceRule
+      .between(now.toJSDate(), maxDate, true, (_, index) => index < count)
+      .map(it => DateTime.fromJSDate(it))
+      .map(
+        it =>
+          new DateModel({
+            allDay: this._allDay,
+            startDate: it,
+            endDate: it.plus(duration),
+            recurrenceRule: null,
+          }),
+      )
+  }
+
+  hasMoreRecurrencesThan(count: number): boolean {
+    return this.recurrences(count + 1).length === count + 1
+  }
+
+  toFormattedString(locale: string, dayFormat = 'DDD'): string {
+    const format = this.allDay ? `${dayFormat}` : `${dayFormat} t`
     const localizedStartDate = this.startDate.setLocale(locale).toFormat(format)
     const localizedEndDate = this.endDate.setLocale(locale)
 
