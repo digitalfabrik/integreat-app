@@ -13,6 +13,7 @@ import {
   EventThumbnailPlaceholder3,
 } from '../assets'
 import { EXCERPT_MAX_CHARS } from '../constants'
+import useWindowDimensions from '../hooks/useWindowDimensions'
 import ListItem from './ListItem'
 import Tooltip from './Tooltip'
 import Icon from './base/Icon'
@@ -54,6 +55,7 @@ const getDateIcon = (date: DateModel): { icon: string; tooltip: string } | null 
 
 const EventListItem = ({ event, languageCode }: EventListItemProps): ReactElement => {
   const dateIcon = getDateIcon(event.date)
+  const { viewportSmall } = useWindowDimensions()
   const { t } = useTranslation('events')
 
   const DateIcon = dateIcon && (
@@ -69,7 +71,7 @@ const EventListItem = ({ event, languageCode }: EventListItemProps): ReactElemen
       path={event.path}
       Icon={DateIcon}>
       <Content>
-        <Content dir='auto'>{event.date.toFormattedString(languageCode)}</Content>
+        <Content dir='auto'>{event.date.toFormattedString(languageCode, viewportSmall ? 'D' : 'DDD')}</Content>
         {event.location && <Content dir='auto'>{event.location.fullAddress}</Content>}
       </Content>
       <Content dir='auto'>{getExcerpt(event.excerpt, { maxChars: EXCERPT_MAX_CHARS })}</Content>

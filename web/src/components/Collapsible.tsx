@@ -1,4 +1,5 @@
 import React, { ReactElement, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
 
 import { ArrowBackIcon } from '../assets'
@@ -20,8 +21,14 @@ const Title = styled.div`
   ${helpers.adaptiveFontSize}
 `
 
-const CollapseIcon = styled(Icon)<{ collapsed: boolean }>`
-  transform: rotate(-90deg) ${props => (!props.collapsed ? 'scale(-1)' : '')};
+const ExpandIcon = styled(Icon)`
+  transform: rotate(-90deg);
+  width: 16px;
+  height: 16px;
+`
+
+const CollapseIcon = styled(Icon)`
+  transform: rotate(-90deg) scale(-1);
   width: 16px;
   height: 16px;
 `
@@ -35,6 +42,7 @@ type CollapsibleProps = {
 
 const Collapsible = ({ children, title, Description, initialCollapsed = false }: CollapsibleProps): ReactElement => {
   const [collapsed, setCollapsed] = useState<boolean>(initialCollapsed)
+  const { t } = useTranslation('common')
 
   return (
     <div>
@@ -44,7 +52,12 @@ const Collapsible = ({ children, title, Description, initialCollapsed = false }:
         tabIndex={0}
         onKeyUp={() => setCollapsed(!collapsed)}>
         {typeof title === 'string' ? <Title>{title}</Title> : title}
-        <CollapseIcon src={ArrowBackIcon} collapsed={collapsed} directionDependent />
+        {/* Do not simplify this, we need to render two different icons to force the title to update! */}
+        {collapsed ? (
+          <ExpandIcon src={ArrowBackIcon} title={t('showMore')} directionDependent />
+        ) : (
+          <CollapseIcon src={ArrowBackIcon} title={t('showLess')} directionDependent />
+        )}
       </CollapsibleHeader>
       {Description}
       {!collapsed && children}

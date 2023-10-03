@@ -391,7 +391,9 @@
       "chooseALanguage": "Wähle eine Sprache.",
       "lastUpdate": "Letzte Aktualisierung:",
       "loading": "Lade ...",
-      "close": "Schließen"
+      "close": "Schließen",
+      "showMore": "Mehr anzeigen",
+      "showLess": "Weniger anzeigen"
     },
     "am": {
       "copied": "ተቀድቷል",
@@ -454,7 +456,9 @@
       "chooseALanguage": "Choose a language.",
       "lastUpdate": "Last update:",
       "loading": "Loading ...",
-      "close": "Close"
+      "close": "Close",
+      "showMore": "Show more",
+      "showLess": "Show less"
     },
     "es": {
       "copied": "Copiado",
