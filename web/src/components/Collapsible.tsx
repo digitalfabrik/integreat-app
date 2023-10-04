@@ -5,6 +5,12 @@ import { ArrowBackIcon } from '../assets'
 import { helpers } from '../constants/theme'
 import Icon from './base/Icon'
 
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+`
+
 const CollapsibleHeader = styled.div`
   display: flex;
   justify-content: space-between;
@@ -16,7 +22,6 @@ const Title = styled.div`
   flex: 1;
   font-weight: 700;
   justify-content: space-between;
-  padding-bottom: 8px;
   ${helpers.adaptiveFontSize}
 `
 
@@ -31,13 +36,20 @@ type CollapsibleProps = {
   title: string | ReactElement
   Description?: ReactElement
   initialCollapsed?: boolean
+  className?: string
 }
 
-const Collapsible = ({ children, title, Description, initialCollapsed = false }: CollapsibleProps): ReactElement => {
+const Collapsible = ({
+  children,
+  title,
+  Description,
+  initialCollapsed = false,
+  className,
+}: CollapsibleProps): ReactElement => {
   const [collapsed, setCollapsed] = useState<boolean>(initialCollapsed)
 
   return (
-    <div>
+    <Container className={className}>
       <CollapsibleHeader
         role='button'
         onClick={() => setCollapsed(!collapsed)}
@@ -48,7 +60,7 @@ const Collapsible = ({ children, title, Description, initialCollapsed = false }:
       </CollapsibleHeader>
       {Description}
       {!collapsed && children}
-    </div>
+    </Container>
   )
 }
 

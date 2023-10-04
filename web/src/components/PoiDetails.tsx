@@ -171,7 +171,7 @@ const PoiDetails = ({ feature, poi, direction, toolbar }: PoiDetailsProps): Reac
         <>
           <Spacer borderColor={theme.colors.borderColor} />
           <Collapsible title={t('contactInformation')}>
-            <>
+            <div>
               {!!website && (
                 <ContactItem iconSrc={WebsiteIcon} iconAlt={t('website')} link={website} content={website} />
               )}
@@ -186,7 +186,7 @@ const PoiDetails = ({ feature, poi, direction, toolbar }: PoiDetailsProps): Reac
               {!!email && (
                 <ContactItem iconSrc={MailIcon} iconAlt={t('eMail')} link={`mailto:${email}`} content={email} />
               )}
-            </>
+            </div>
           </Collapsible>
         </>
       )}
