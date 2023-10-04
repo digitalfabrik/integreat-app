@@ -1,8 +1,10 @@
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import messaging, { FirebaseMessagingTypes } from '@react-native-firebase/messaging'
 import { mocked } from 'jest-mock'
+import { requestNotifications } from 'react-native-permissions'
 
 import buildConfig from '../../constants/buildConfig'
+import appSettings from '../AppSettings'
 import * as PushNotificationsManager from '../PushNotificationsManager'
 
 jest.mock('@react-native-firebase/messaging', () => jest.fn(() => ({})))
@@ -72,30 +74,20 @@ describe('PushNotificationsManager', () => {
       expect(mockRequestPermission).not.toHaveBeenCalled()
     })
 
-    it('should request permissions and return false if not granted', async () => {
+    it('should request permissions and return false and disable push notifications in settings if not granted', async () => {
       mockBuildConfig(true, false)
-      const mockRequestPermission = jest.fn(async () => 0)
-      mockedFirebaseMessaging.mockImplementation(() => {
-        const previous = previousFirebaseMessaging
-        previous.requestPermission = mockRequestPermission
-        return previous
-      })
+      mocked(requestNotifications).mockImplementationOnce(async () => ({ status: 'blocked', settings: {} }))
 
       expect(await PushNotificationsManager.requestPushNotificationPermission()).toBeFalsy()
-      expect(mockRequestPermission).toHaveBeenCalledTimes(1)
+      expect((await appSettings.loadSettings()).allowPushNotifications).toBe(false)
     })
 
     it('should request permissions and return true if granted', async () => {
       mockBuildConfig(true, false)
-      const mockRequestPermission = jest.fn(async () => 1)
-      mockedFirebaseMessaging.mockImplementation(() => {
-        const previous = previousFirebaseMessaging
-        previous.requestPermission = mockRequestPermission
-        return previous
-      })
+      mocked(requestNotifications).mockImplementationOnce(async () => ({ status: 'granted', settings: {} }))
 
       expect(await PushNotificationsManager.requestPushNotificationPermission()).toBeTruthy()
-      expect(mockRequestPermission).toHaveBeenCalledTimes(1)
+      expect((await appSettings.loadSettings()).allowPushNotifications).toBe(true)
     })
   })
 

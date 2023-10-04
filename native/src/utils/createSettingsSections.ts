@@ -10,8 +10,12 @@ import NativeConstants from '../constants/NativeConstants'
 import { NavigationProps } from '../constants/NavigationTypes'
 import buildConfig from '../constants/buildConfig'
 import { SettingsType } from './AppSettings'
-import * as NotificationsManager from './PushNotificationsManager'
-import { pushNotificationsEnabled } from './PushNotificationsManager'
+import {
+  pushNotificationsEnabled,
+  requestPushNotificationPermission,
+  subscribeNews,
+  unsubscribeNews,
+} from './PushNotificationsManager'
 import openExternalUrl from './openExternalUrl'
 import { initSentry } from './sentry'
 
@@ -74,15 +78,15 @@ const createSettingsSections = ({
                   }),
                   async (newSettings): Promise<boolean> => {
                     if (!cityCode) {
-                      // No city selected so nothing to do here
+                      // No city selected so nothing to do here (should not ever happen since settings are only available from city content routes)
                       return true
                     }
 
                     if (newSettings.allowPushNotifications) {
-                      const status = await NotificationsManager.requestPushNotificationPermission()
+                      const status = await requestPushNotificationPermission()
 
                       if (status) {
-                        await NotificationsManager.subscribeNews(cityCode, languageCode, true)
+                        await subscribeNews(cityCode, languageCode, true)
                       } else {
                         // If the user has rejected the permission once, it can only be changed in the system settings
                         openSettings()
@@ -90,7 +94,7 @@ const createSettingsSections = ({
                         return false
                       }
                     } else {
-                      await NotificationsManager.unsubscribeNews(cityCode, languageCode)
+                      await unsubscribeNews(cityCode, languageCode)
                     }
                     return true
                   },

@@ -15,7 +15,6 @@ jest.mock('../../utils/LocationPermissionManager', () => ({
   checkLocationPermission: jest.fn(),
   requestLocationPermission: jest.fn(),
 }))
-jest.mock('react-native-permissions', () => require('react-native-permissions/mock'))
 jest.mock('@react-native-community/geolocation')
 jest.mock('react-i18next')
 

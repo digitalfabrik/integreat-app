@@ -19,6 +19,7 @@ type HeaderProps = {
   kebabItems: Array<ReactNode>
   logoHref: string
   cityName?: string
+  cityCode?: string
   direction: UiDirectionType
   isSidebarOpen?: boolean
   setIsSidebarOpen?: (show: boolean) => void
@@ -113,6 +114,7 @@ export const Header = ({
   logoHref,
   navigationItems = [],
   cityName,
+  cityCode,
   direction,
   isSidebarOpen = false,
   setIsSidebarOpen,
@@ -135,13 +137,13 @@ export const Header = ({
           {(!viewportSmall || !!cityName) && <HeaderTitle>{cityName}</HeaderTitle>}
           <ActionBar>
             {actionItems}
-            {viewportSmall && setIsSidebarOpen && !!cityName && (
+            {viewportSmall && setIsSidebarOpen && !!cityCode && (
               <KebabMenu
                 setShow={setIsSidebarOpen}
                 show={isSidebarOpen}
                 items={kebabItems}
                 direction={direction}
-                Footer={<CityContentFooter city={cityName} language={language} mode='sidebar' />}
+                Footer={<CityContentFooter city={cityCode} language={language} mode='sidebar' />}
               />
             )}
           </ActionBar>
