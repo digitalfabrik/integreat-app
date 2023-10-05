@@ -1,8 +1,8 @@
 import { Octokit } from '@octokit/rest'
 import { program } from 'commander'
 
-import { VERSION_FILE, PLATFORMS, tagId, MAIN_BRANCH } from './constants'
-import authenticate from './github-authentication'
+import { VERSION_FILE, PLATFORMS, tagId } from './constants.js'
+import authenticate from './github-authentication.js'
 
 type TagOptions = {
   versionName: string
