@@ -37,7 +37,6 @@ const FullWidthLink = styled(StyledCleanLink)`
 
 const TitleRow = styled.div`
   display: flex;
-  flex-direction: row;
   justify-content: space-between;
   gap: 8px;
 `

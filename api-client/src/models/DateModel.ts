@@ -1,6 +1,8 @@
 import { DateTime } from 'luxon'
 import { RRule as RRuleType } from 'rrule'
 
+const MAX_RECURRENCE_YEARS = 5
+
 class DateModel {
   _startDate: DateTime
   _endDate: DateTime
@@ -59,7 +61,7 @@ class DateModel {
     }
 
     const now = DateTime.now()
-    const maxDate = now.plus({ years: 5 }).toJSDate()
+    const maxDate = now.plus({ years: MAX_RECURRENCE_YEARS }).toJSDate()
     const duration = this._endDate.diff(this._startDate)
 
     return this.recurrenceRule
@@ -80,8 +82,9 @@ class DateModel {
     return this.recurrences(count + 1).length === count + 1
   }
 
-  toFormattedString(locale: string, dayFormat = 'DDD'): string {
-    const format = this.allDay ? `${dayFormat}` : `${dayFormat} t`
+  toFormattedString(locale: string, short = false): string {
+    const dayFormat = short ? 'D' : 'DDD'
+    const format = this.allDay ? dayFormat : `${dayFormat} t`
     const localizedStartDate = this.startDate.setLocale(locale).toFormat(format)
     const localizedEndDate = this.endDate.setLocale(locale)
 
