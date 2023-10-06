@@ -58,7 +58,9 @@ const EventsPage = ({ city, pathname, languageCode, cityCode }: CityRouteProps):
     return null
   }
 
-  const event = eventId ? events?.find(it => it.path === pathname) : null
+  // Support legacy slugs of old recurring events with one event per recurrence
+  const pathnameWithoutDate = pathname.split('$')[0]
+  const event = eventId ? events?.find(it => it.path === pathnameWithoutDate) : null
   const languageChangePaths = city.languages.map(({ code, name }) => {
     const isCurrentLanguage = code === languageCode
     const path = event
