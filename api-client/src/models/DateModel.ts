@@ -8,6 +8,7 @@ class DateModel {
   _endDate: DateTime
   _allDay: boolean
   _recurrenceRule: RRuleType | null
+  _offset: number
 
   constructor({
     startDate,
@@ -20,14 +21,15 @@ class DateModel {
     allDay: boolean
     recurrenceRule: RRuleType | null
   }) {
-    const firstRecurrence = recurrenceRule?.after(DateTime.now().toJSDate())
-    const duration = endDate.diff(startDate)
+    this._recurrenceRule = recurrenceRule
+    this._offset = startDate.offset
     this._allDay = allDay
+    const duration = endDate.diff(startDate)
     // If there is a recurrence rule, the start and end dates are not updated in the CMS and are therefore most of the time outdated
     // Therefore calculate the (next) correct start and end date based on the recurrence rule if available
-    this._startDate = firstRecurrence ? DateTime.fromJSDate(firstRecurrence) : startDate
-    this._endDate = firstRecurrence ? DateTime.fromJSDate(firstRecurrence).plus(duration) : endDate
-    this._recurrenceRule = recurrenceRule
+    const first = recurrenceRule?.after(DateTime.now().toJSDate())
+    this._startDate = first ? this.rruleToDateTime(first) : startDate
+    this._endDate = this._startDate.plus(duration)
   }
 
   get startDate(): DateTime {
@@ -66,7 +68,7 @@ class DateModel {
 
     return this.recurrenceRule
       .between(now.toJSDate(), maxDate, true, (_, index) => index < count)
-      .map(it => DateTime.fromJSDate(it))
+      .map(it => this.rruleToDateTime(it))
       .map(
         it =>
           new DateModel({
@@ -97,6 +99,14 @@ class DateModel {
     }
 
     return `${localizedStartDate} - ${localizedEndDate.toFormat(format)}`
+  }
+
+  private rruleToDateTime(date: Date): DateTime {
+    const dateTime = DateTime.fromJSDate(date)
+    // rrule is not correctly handling timezones and always returning local time in the shape of UTC
+    // Therefore we have to manually apply timezone offset, e.g. for daylight savings time
+    // https://github.com/jkbrzt/rrule#important-use-utc-dates
+    return dateTime.plus({ minutes: this._offset - dateTime.offset })
   }
 
   isEqual(other: DateModel): boolean {

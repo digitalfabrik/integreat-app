@@ -135,8 +135,8 @@ describe('DateModel', () => {
   describe('recurrences', () => {
     it('should update start and end date according to recurrence rule and ignore delivered dates', () => {
       const date = new DateModel({
-        startDate: DateTime.fromISO('2017-11-27T19:30:00+02:00'),
-        endDate: DateTime.fromISO('2017-11-28T21:30:00+02:00'),
+        startDate: DateTime.fromISO('2017-09-27T19:30:00+02:00'),
+        endDate: DateTime.fromISO('2017-09-28T21:30:00+02:00'),
         allDay: false,
         recurrenceRule: rrulestr('DTSTART:20230414T050000\nRRULE:FREQ=WEEKLY;BYDAY=MO'),
       })
@@ -158,13 +158,13 @@ describe('DateModel', () => {
 
     it('should return exactly count recurrences', () => {
       const date = new DateModel({
-        startDate: DateTime.fromISO('2017-11-27T19:30:00+02:00'),
-        endDate: DateTime.fromISO('2017-11-28T21:30:00+02:00'),
+        startDate: DateTime.fromISO('2017-09-27T19:30:00+02:00'),
+        endDate: DateTime.fromISO('2017-09-28T21:30:00+02:00'),
         allDay: false,
         recurrenceRule: rrulestr('DTSTART:20230414T050000\nRRULE:FREQ=WEEKLY;BYDAY=MO'),
       })
 
-      expect(date.recurrences(3)).toEqual([
+      expect(date.recurrences(4)).toEqual([
         new DateModel({
           allDay: false,
           recurrenceRule: null,
@@ -183,13 +183,19 @@ describe('DateModel', () => {
           startDate: DateTime.fromISO('2023-10-23T07:00:00.000+02:00'),
           endDate: DateTime.fromISO('2023-10-24T09:00:00.000+02:00'),
         }),
+        new DateModel({
+          allDay: false,
+          recurrenceRule: null,
+          startDate: DateTime.fromISO('2023-10-30T07:00:00.000+01:00'),
+          endDate: DateTime.fromISO('2023-10-31T09:00:00.000+01:00'),
+        }),
       ])
     })
 
     it('should return less recurrences if rrule ends', () => {
       const date = new DateModel({
-        startDate: DateTime.fromISO('2017-11-27T19:30:00+02:00'),
-        endDate: DateTime.fromISO('2017-11-28T21:30:00+02:00'),
+        startDate: DateTime.fromISO('2017-09-27T19:30:00+02:00'),
+        endDate: DateTime.fromISO('2017-09-28T21:30:00+02:00'),
         allDay: false,
         recurrenceRule: rrulestr('DTSTART:20230414T050000\nRRULE:FREQ=WEEKLY;BYDAY=MO;UNTIL=20231015T050000'),
       })

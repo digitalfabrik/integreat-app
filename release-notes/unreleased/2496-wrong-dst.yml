@@ -1,0 +1,8 @@
+issue_key: 2438
+show_in_stores: true
+platforms:
+  - android
+  - ios
+  - web
+en: Fixed wrong dates caused by daylight savings time.
+de: Falsch angezeigte Daten durch Zeitverschiebung behoben.
