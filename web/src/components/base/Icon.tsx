@@ -18,8 +18,6 @@ type IconProps = {
   directionDependent?: boolean
   reverse?: boolean
   className?: string
-  // WARNING: Updates to the title are not rendered, the original title keeps being displayed!
-  // https://github.com/gilbarbara/react-inlinesvg/issues/218
   title?: string
 }
 

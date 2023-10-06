@@ -4,6 +4,7 @@ import styled from 'styled-components'
 
 import { DateModel, MAX_DATE_RECURRENCES, MAX_DATE_RECURRENCES_COLLAPSED } from 'api-client'
 
+import useWindowDimensions from '../hooks/useWindowDimensions'
 import Collapsible from './Collapsible'
 import PageDetail from './PageDetail'
 
@@ -17,8 +18,9 @@ type DatesPageDetailProps = {
 }
 
 const DatesPageDetail = ({ date, languageCode }: DatesPageDetailProps): ReactElement | null => {
-  const dates = date.recurrences(MAX_DATE_RECURRENCES).map(it => it.toFormattedString(languageCode))
-  const nextDate = dates[0] ?? date.toFormattedString(languageCode)
+  const { viewportSmall } = useWindowDimensions()
+  const dates = date.recurrences(MAX_DATE_RECURRENCES).map(it => it.toFormattedString(languageCode, viewportSmall))
+  const nextDate = dates[0] ?? date.toFormattedString(languageCode, viewportSmall)
   const hasMoreDates = date.hasMoreRecurrencesThan(MAX_DATE_RECURRENCES)
   const { t } = useTranslation('events')
 
@@ -28,19 +30,19 @@ const DatesPageDetail = ({ date, languageCode }: DatesPageDetailProps): ReactEle
 
   const Title = <Identifier>{t(hasMoreDates ? 'nextDate_other' : 'date_other')}: </Identifier>
   const Dates = dates.map(it => <div key={it}>{it}</div>)
-  const StickyDates = <>{Dates.slice(0, MAX_DATE_RECURRENCES_COLLAPSED)}</>
+  const AlwaysShownDates = <>{Dates.slice(0, MAX_DATE_RECURRENCES_COLLAPSED)}</>
 
   if (dates.length <= MAX_DATE_RECURRENCES_COLLAPSED) {
     return (
       <div>
         {Title}
-        {StickyDates}
+        {AlwaysShownDates}
       </div>
     )
   }
 
   return (
-    <Collapsible title={Title} Description={StickyDates} initialCollapsed>
+    <Collapsible title={Title} Description={AlwaysShownDates} initialCollapsed>
       <>
         {Dates.slice(MAX_DATE_RECURRENCES_COLLAPSED)}
         {hasMoreDates && '...'}

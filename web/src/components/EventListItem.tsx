@@ -71,7 +71,7 @@ const EventListItem = ({ event, languageCode }: EventListItemProps): ReactElemen
       path={event.path}
       Icon={DateIcon}>
       <Content>
-        <Content dir='auto'>{event.date.toFormattedString(languageCode, viewportSmall ? 'D' : 'DDD')}</Content>
+        <Content dir='auto'>{event.date.toFormattedString(languageCode, viewportSmall)}</Content>
         {event.location && <Content dir='auto'>{event.location.fullAddress}</Content>}
       </Content>
       <Content dir='auto'>{getExcerpt(event.excerpt, { maxChars: EXCERPT_MAX_CHARS })}</Content>
