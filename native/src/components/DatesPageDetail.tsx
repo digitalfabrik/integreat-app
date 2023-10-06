@@ -19,8 +19,8 @@ type DatesPageDetailProps = {
 }
 
 const DatesPageDetail = ({ date, languageCode }: DatesPageDetailProps): ReactElement | null => {
-  const dates = date.recurrences(MAX_DATE_RECURRENCES).map(it => it.toFormattedString(languageCode))
-  const nextDate = dates[0] ?? date.toFormattedString(languageCode)
+  const dates = date.recurrences(MAX_DATE_RECURRENCES).map(it => it.toFormattedString(languageCode, true))
+  const nextDate = dates[0] ?? date.toFormattedString(languageCode, true)
   const hasMoreDates = date.hasMoreRecurrencesThan(MAX_DATE_RECURRENCES)
   const { t } = useTranslation('events')
 
@@ -30,19 +30,19 @@ const DatesPageDetail = ({ date, languageCode }: DatesPageDetailProps): ReactEle
 
   const Title = <Identifier>{t(hasMoreDates ? 'nextDate_other' : 'date_other')}: </Identifier>
   const Dates = dates.map(it => <Text key={it}>{it}</Text>)
-  const StickyDates = <>{Dates.slice(0, MAX_DATE_RECURRENCES_COLLAPSED)}</>
+  const AlwaysShownDates = <>{Dates.slice(0, MAX_DATE_RECURRENCES_COLLAPSED)}</>
 
   if (dates.length <= MAX_DATE_RECURRENCES_COLLAPSED) {
     return (
       <View>
         {Title}
-        {StickyDates}
+        {AlwaysShownDates}
       </View>
     )
   }
 
   return (
-    <Collapsible headerContent={Title} Description={StickyDates} language={languageCode} initialCollapsed>
+    <Collapsible headerContent={Title} Description={AlwaysShownDates} language={languageCode} initialCollapsed>
       <>
         {Dates.slice(MAX_DATE_RECURRENCES_COLLAPSED)}
         {hasMoreDates && <Text>...</Text>}

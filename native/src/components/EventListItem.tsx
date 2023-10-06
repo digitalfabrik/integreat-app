@@ -63,7 +63,7 @@ const EventListItem = ({ language, event, navigateToEvent }: EventListItemProps)
       language={language}
       navigateTo={navigateToEvent}
       Icon={DateIcon}>
-      <Description>{event.date.toFormattedString(language, 'D')}</Description>
+      <Description>{event.date.toFormattedString(language, true)}</Description>
       <Description numberOfLines={EXCERPT_MAX_LINES}>{content}</Description>
     </ListItem>
   )

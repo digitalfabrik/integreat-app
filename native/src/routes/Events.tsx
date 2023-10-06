@@ -21,6 +21,10 @@ const Separator = styled.View`
   border-top-color: ${props => props.theme.colors.themeColor};
 `
 
+const PageDetailsContainer = styled.View`
+  gap: 8px;
+`
+
 export type EventsProps = {
   slug?: string
   events: Array<EventModel>
@@ -60,12 +64,12 @@ const Events = ({ cityModel, language, navigateTo, events, slug, refresh }: Even
             language={language}
             path={event.path}
             BeforeContent={
-              <>
+              <PageDetailsContainer>
                 <DatesPageDetail date={event.date} languageCode={language} />
                 {event.location && (
                   <PageDetail identifier={t('address')} information={event.location.fullAddress} language={language} />
                 )}
-              </>
+              </PageDetailsContainer>
             }
             Footer={<ExportEventButton event={event} />}
           />
