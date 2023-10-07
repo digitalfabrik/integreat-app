@@ -43,10 +43,10 @@ const GoBackContainer = styled.div<{ hidden: boolean }>`
 `
 
 const BackNavigation = styled.div<{ direction: string }>`
-  background-color: ${props => props.theme.colors.textDisabledColor};
+  background-color: ${props => props.theme.colors.textSecondaryColor};
   height: 28px;
   width: 28px;
-  border: 1px solid #818181;
+  border: 1px solid #d0d0d0;
   border-radius: 50px;
   box-shadow: 1px 1px 2px 0 rgba(0, 0, 0, 0.2);
   cursor: pointer;
