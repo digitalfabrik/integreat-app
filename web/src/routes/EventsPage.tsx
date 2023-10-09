@@ -37,6 +37,8 @@ const StyledButton = styled(TextButton)<{ fullWidth: boolean }>`
 `
 
 const Spacing = styled.div`
+  display: flex;
+  flex-direction: column;
   padding-top: 12px;
   gap: 8px;
 `
