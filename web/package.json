@@ -98,7 +98,7 @@
     "jest-environment-jsdom": "29.6.4",
     "jest-fetch-mock": "^3.0.3",
     "jest-junit": "^16.0.0",
-    "postcss": "^8.4.28",
+    "postcss": "^8.4.31",
     "postcss-jsx": "^0.36.4",
     "postcss-syntax": "^0.36.2",
     "raf": "^3.4.1",
