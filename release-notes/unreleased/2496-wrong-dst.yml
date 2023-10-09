@@ -5,4 +5,4 @@ platforms:
   - ios
   - web
 en: Fixed wrong dates caused by daylight savings time.
-de: Falsch angezeigte Daten durch Zeitverschiebung behoben.
+de: Falsch angezeigte Daten durch Zeitumstellung behoben.
