@@ -172,8 +172,7 @@ module.exports = {
     },
     {
       files: ['tools/**'],
-      extends: ['plugin:require-extensions/recommended'],
-      plugins: ['require-extensions', 'unicorn'],
+      plugins: ['unicorn'],
       rules: {
         'no-console': 'off',
         'import/no-extraneous-dependencies': 'off',
