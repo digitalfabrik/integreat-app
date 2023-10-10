@@ -14,7 +14,6 @@ const isAvailable = (): boolean => {
 
   try {
     const localStorage = window.localStorage
-    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
     hasLocalStorageSupport = localStorage !== null
     const testKey = 'i18next.translate.boo'
     localStorage.setItem(testKey, 'foo')

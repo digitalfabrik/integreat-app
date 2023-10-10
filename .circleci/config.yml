@@ -487,10 +487,10 @@ jobs:
                 command: yarn prettier:check
                 name: Prettier
             - run:
-                command: yarn lint
+                command: yarn lint:ci
                 name: Lint
             - run:
-                command: yarn workspace web stylelint
+                command: yarn workspace web stylelint && yarn workspace web stylelint:css
                 name: Stylelint
             - run:
                 command: yarn workspaces run ts:check

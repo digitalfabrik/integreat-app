@@ -16,10 +16,10 @@ steps:
       command: yarn prettier:check
   - run:
       name: Lint
-      command: yarn lint
+      command: yarn lint:ci
   - run:
       name: Stylelint
-      command: yarn workspace web stylelint
+      command: yarn workspace web stylelint && yarn workspace web stylelint:css
   - run:
       name: TS check
       command: yarn workspaces run ts:check

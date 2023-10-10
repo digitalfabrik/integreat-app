@@ -1,5 +1,5 @@
-import { Capabilities } from '@wdio/types/build/Capabilities'
-import { Testrunner } from '@wdio/types/build/Options'
+import { type Capabilities } from '@wdio/types/build/Capabilities'
+import { type Testrunner } from '@wdio/types/build/Options'
 
 import { config as defaultConfig } from './wdio.conf'
 

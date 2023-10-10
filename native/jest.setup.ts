@@ -17,7 +17,6 @@ jest.mock('react-native-permissions', () => require('react-native-permissions/mo
 require('react-native-gesture-handler/jestSetup')
 
 jest.mock('react-native-reanimated', () => {
-  // eslint-disable-next-line @typescript-eslint/no-var-requires
   const Reanimated = require('react-native-reanimated/mock')
 
   Reanimated.default.call = () => undefined
@@ -58,7 +57,6 @@ jest.doMock('path', () => path.posix)
 
 // See https://github.com/callstack/react-native-testing-library/issues/329#issuecomment-737307473
 jest.mock('react-native/Libraries/Components/Switch/Switch', () => {
-  // eslint-disable-next-line @typescript-eslint/no-var-requires
   const mockComponent = require('react-native/jest/mockComponent')
 
   return mockComponent('react-native/Libraries/Components/Switch/Switch')

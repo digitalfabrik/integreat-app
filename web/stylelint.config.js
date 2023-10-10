@@ -1,5 +1,3 @@
-/* eslint-disable no-magic-numbers */
-
 module.exports = {
   extends: ['stylelint-config-recommended'],
   customSyntax: 'postcss-jsx',
