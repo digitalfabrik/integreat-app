@@ -1,11 +1,5 @@
 /* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable @typescript-eslint/no-var-requires */
-/**
- * Metro configuration for React Native
- * https://github.com/facebook/react-native
- *
- * @format
- */
 const { getDefaultConfig, mergeConfig } = require('@react-native/metro-config')
 const path = require('path')
 
@@ -29,7 +23,7 @@ const config = {
       ),
     },
     nodeModulesPaths: [path.resolve(__dirname, './node_modules')],
-    
+
     // Make sure we use the local copy of react and react-native to avoid multiple copies in the bundle
     // https://github.com/facebook/react/issues/13991#issuecomment-830308729
     resolveRequest: (context, moduleName, platform) => {
@@ -43,8 +37,7 @@ const config = {
   watchFolders: [path.resolve(__dirname, '../')],
   transformer: {
     babelTransformerPath: require.resolve('react-native-svg-transformer'),
-  }
+  },
 }
-  
 
 module.exports = mergeConfig(defaultConfig, config)
