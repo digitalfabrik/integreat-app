@@ -93,6 +93,7 @@
     "react-native-url-polyfill": "^2.0.0",
     "react-native-webview": "^13.4.0",
     "react-navigation-header-buttons": "^11.0.0",
+    "rrule": "2.7.2",
     "styled-components": "^5.3.11",
     "translations": "0.0.1",
     "url-parse": "^1.5.10"

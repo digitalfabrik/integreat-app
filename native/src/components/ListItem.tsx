@@ -8,30 +8,39 @@ import Text from './base/Text'
 
 const ListItemView = styled.View<{ language: string }>`
   flex-direction: ${props => contentDirection(props.language)};
-  padding: 15px 5px 0;
+  padding: 8px 0;
+  gap: 8px;
 `
+
 const StyledPressable = styled(Pressable)`
-  flex-direction: column;
-  padding-bottom: 10px;
   border-bottom-width: 2px;
   border-bottom-color: ${props => props.theme.colors.themeColor};
 `
+
 const Thumbnail = styled(SimpleImage)`
   width: 75px;
   height: 75px;
   flex-shrink: 0;
 `
+
 const Description = styled.View`
   height: 100%;
-  flex-direction: column;
   flex: 1;
   font-family: ${props => props.theme.fonts.native.decorativeFontRegular};
-  padding: 0 10px;
 `
+
+const TitleRow = styled.View`
+  flex-direction: row;
+  gap: 8px;
+  justify-content: space-between;
+`
+
 const Title = styled(Text)`
+  flex: 1;
   font-weight: 700;
   font-family: ${props => props.theme.fonts.native.decorativeFontBold};
   color: ${props => props.theme.colors.textColor};
+  flex-wrap: wrap;
 `
 
 type ListItemProps = {
@@ -39,15 +48,19 @@ type ListItemProps = {
   title: string
   language: string
   children?: ReactNode
+  Icon?: ReactNode
   navigateTo: () => void
 }
 
-const ListItem = ({ language, title, thumbnail, children, navigateTo }: ListItemProps): ReactElement => (
+const ListItem = ({ language, title, thumbnail, children, Icon, navigateTo }: ListItemProps): ReactElement => (
   <StyledPressable onPress={navigateTo}>
     <ListItemView language={language}>
       {!!thumbnail && <Thumbnail source={thumbnail} />}
       <Description>
-        <Title>{title}</Title>
+        <TitleRow>
+          <Title>{title}</Title>
+          {Icon}
+        </TitleRow>
         {children}
       </Description>
     </ListItemView>

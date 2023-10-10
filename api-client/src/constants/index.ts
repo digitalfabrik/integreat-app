@@ -1,0 +1,2 @@
+export const MAX_DATE_RECURRENCES = 10
+export const MAX_DATE_RECURRENCES_COLLAPSED = 3
