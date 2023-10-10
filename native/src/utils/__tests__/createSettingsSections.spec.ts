@@ -24,7 +24,6 @@ jest.mock('../../utils/PushNotificationsManager', () => ({
   subscribeNews: jest.fn(),
   unsubscribeNews: jest.fn(),
 }))
-jest.mock('react-native-permissions', () => require('react-native-permissions/mock'))
 jest.mock('@react-native-community/geolocation')
 
 const mockRequestPushNotificationPermission = mocked(requestPushNotificationPermission)

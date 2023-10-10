@@ -391,7 +391,9 @@
       "chooseALanguage": "Wähle eine Sprache.",
       "lastUpdate": "Letzte Aktualisierung:",
       "loading": "Lade ...",
-      "close": "Schließen"
+      "close": "Schließen",
+      "showMore": "Mehr anzeigen",
+      "showLess": "Weniger anzeigen"
     },
     "am": {
       "copied": "ተቀድቷል",
@@ -454,7 +456,9 @@
       "chooseALanguage": "Choose a language.",
       "lastUpdate": "Last update:",
       "loading": "Loading ...",
-      "close": "Close"
+      "close": "Close",
+      "showMore": "Show more",
+      "showLess": "Show less"
     },
     "es": {
       "copied": "Copiado",
@@ -2198,7 +2202,10 @@
   "events": {
     "de": {
       "address": "Adresse",
-      "date": "Datum",
+      "date_one": "Datum",
+      "date_other": "Termine",
+      "nextDate_one": "Nächster Termin",
+      "nextDate_other": "Nächste Termine",
       "events": "Veranstaltungen",
       "exportAsICal": "Als iCal exportieren",
       "addToCalendar": "Zum Kalender hinzufügen",
@@ -2208,53 +2215,59 @@
       "added": "Hinzugefügt",
       "goToCalendar": "Zum Kalender",
       "back": "Zurück",
-      "settings": "Einstellungen"
+      "settings": "Einstellungen",
+      "recurring": "wiederholend",
+      "today": "heute",
+      "todayRecurring": "heute, wiederholend"
     },
     "am": {
       "address": "ኣድራሻ",
-      "date": "ቀን",
+      "date_one": "ቀን",
       "events": "ዝግጅቶች",
       "currentlyNoEvents": "በአሁኑ ሰዐት ምንም ዝግጅቶች የሉም።",
       "pageTitle": "ዝግጅቶች"
     },
     "ar": {
       "address": "العنوان",
-      "date": "التاريخ",
+      "date_one": "التاريخ",
       "events": "الفعاليات",
       "currentlyNoEvents": "ليست هناك فعاليات متوفرة حاليًا.",
       "pageTitle": "الفعاليات"
     },
     "bg": {
       "address": "Адрес",
-      "date": "Дата",
+      "date_one": "Дата",
       "events": "Събития",
       "currentlyNoEvents": "В момента няма събития.",
       "pageTitle": "Събития"
     },
     "ckb": {
       "address": "ناونیشان",
-      "date": "ڕێکەوت",
+      "date_one": "ڕێکەوت",
       "events": "ڕووداوەکان",
       "currentlyNoEvents": "لەئێستادا هیچ ڕووداوێکی تیدا نییە.",
       "pageTitle": "ڕووداوەکان"
     },
     "cs": {
       "address": "Adresa",
-      "date": "Datum",
+      "date_one": "Datum",
       "events": "Akce",
       "currentlyNoEvents": "V současné době nejsou k dispozici žádné akce.",
       "pageTitle": "Akce"
     },
     "el": {
       "address": "Διεύθυνση",
-      "date": "Ημερομηνία",
+      "date_one": "Ημερομηνία",
       "events": "Εκδηλώσεις",
       "currentlyNoEvents": "Προς το παρόν δεν υπάρχουν εκδηλώσεις.",
       "pageTitle": "Εκδηλώσεις"
     },
     "en": {
       "address": "Address",
-      "date": "Date",
+      "date_one": "Date",
+      "date_other": "Dates",
+      "nextDate_one": "Next date",
+      "nextDate_other": "Next dates",
       "events": "Events",
       "exportAsICal": "Export as iCal",
       "addToCalendar": "Add to calendar",
@@ -2264,186 +2277,189 @@
       "added": "Added",
       "goToCalendar": "Go to calendar",
       "back": "Back",
-      "settings": "Settings"
+      "settings": "Settings",
+      "recurring": "recurring",
+      "today": "today",
+      "todayRecurring": "today, recurring"
     },
     "es": {
       "address": "Dirección",
-      "date": "Fecha",
+      "date_one": "Fecha",
       "events": "Actividades",
       "currentlyNoEvents": "Actualmente no hay actividades.",
       "pageTitle": "Actividades"
     },
     "fi": {
       "address": "Osoite",
-      "date": "Pvm",
+      "date_one": "Pvm",
       "events": "Tapahtumat",
       "currentlyNoEvents": "Tapahtumia ei ole tällä hetkellä.",
       "pageTitle": "Tapahtumat"
     },
     "fr": {
       "address": "Adresse",
-      "date": "Date",
+      "date_one": "Date",
       "events": "Événements",
       "currentlyNoEvents": "Il n'y a actuellement aucun événement.",
       "pageTitle": "Événements"
     },
     "hr": {
       "address": "Adresa",
-      "date": "Datum",
+      "date_one": "Datum",
       "events": "Događanja",
       "currentlyNoEvents": "Trenutačno nema događanja.",
       "pageTitle": "Događanja"
     },
     "hu": {
       "address": "Cím",
-      "date": "Dátum",
+      "date_one": "Dátum",
       "events": "Események",
       "currentlyNoEvents": "Jelenleg nincsenek események.",
       "pageTitle": "Események"
     },
     "it": {
       "address": "Indirizzo",
-      "date": "Data",
+      "date_one": "Data",
       "events": "Eventi",
       "currentlyNoEvents": "Al momento non ci sono eventi.",
       "pageTitle": "Eventi"
     },
     "ka": {
       "address": "მისამართი",
-      "date": "თარიღი",
+      "date_one": "თარიღი",
       "events": "ღონისძიებები",
       "currentlyNoEvents": "ამჟამად არ არის ღონისძიბები.",
       "pageTitle": "ღონისძიებები"
     },
     "kmr": {
       "address": "Navnîşan",
-      "date": "Roj",
+      "date_one": "Roj",
       "events": "Rûdan",
       "currentlyNoEvents": "Di dema nika da tu rûdanek tuneye.",
       "pageTitle": "Rûdan"
     },
     "mk": {
       "address": "Адреса",
-      "date": "Датум",
+      "date_one": "Датум",
       "events": "Настани",
       "currentlyNoEvents": "Моментално нема настани.",
       "pageTitle": "Настани"
     },
     "nl": {
       "address": "Adres",
-      "date": "Datum",
+      "date_one": "Datum",
       "events": "Evenementen",
       "currentlyNoEvents": "Er zijn momenteel geen evenementen beschikbaar.",
       "pageTitle": "Evenementen"
     },
     "pes": {
       "address": "نشانی",
-      "date": "تاریخ",
+      "date_one": "تاریخ",
       "events": "رویدادها",
       "currentlyNoEvents": "در حال حاضر هیچ رویدادی وجود ندارد.",
       "pageTitle": "رویدادها"
     },
     "pl": {
       "address": "Adres",
-      "date": "Data",
+      "date_one": "Data",
       "events": "Wydarzenia",
       "currentlyNoEvents": "Obecnie nie ma żadnych wydarzeń.",
       "pageTitle": "Wydarzenia"
     },
     "prs": {
       "address": "آدرس",
-      "date": "تاریخ",
+      "date_one": "تاریخ",
       "events": "رویدادها",
       "currentlyNoEvents": "در حال حاضر هیچ رویدادی وجود ندارد‎.",
       "pageTitle": "رویدادها"
     },
     "ps": {
       "address": "پتہ",
-      "date": "نېټه",
+      "date_one": "نېټه",
       "events": "غونډې",
       "currentlyNoEvents": "دا مهال کومې غونډې نشته.",
       "pageTitle": "غونډې"
     },
     "pt": {
       "address": "Dirección",
-      "date": "Fecha",
+      "date_one": "Fecha",
       "events": "Eventos",
       "currentlyNoEvents": "Actualmente no hay ningún evento.",
       "pageTitle": "Eventos"
     },
     "ro": {
       "address": "Adresa",
-      "date": "Data",
+      "date_one": "Data",
       "events": "Evenimente",
       "currentlyNoEvents": "Actualmente nu există nici un fel de eveniment.",
       "pageTitle": "Evenimente"
     },
     "ru": {
       "address": "Адрес",
-      "date": "Дата",
+      "date_one": "Дата",
       "events": "Мероприятия",
       "currentlyNoEvents": "Актуальные мероприятия отсутствуют.",
       "pageTitle": "Мероприятия"
     },
     "so": {
       "address": "ciwaanka",
-      "date": "taariikhda",
+      "date_one": "taariikhda",
       "events": "Dhacdooyinka",
       "currentlyNoEvents": "Waqti xaadirkan dhacdooyin ma jiraan.",
       "pageTitle": "Dhacdooyinka"
     },
     "sq": {
       "address": "Adresa",
-      "date": "Data",
+      "date_one": "Data",
       "events": "Evenimentet",
       "currentlyNoEvents": "Aktualisht nuk ka asnjë eveniment.",
       "pageTitle": "Evenimentet"
     },
     "sr-Cyrl": {
       "address": "Адреса",
-      "date": "Датум",
+      "date_one": "Датум",
       "events": "Догађаји",
       "currentlyNoEvents": "Тренутно нема догађаја.",
       "pageTitle": "Догађаји"
     },
     "sr-Latn": {
       "address": "Adresa",
-      "date": "Datum",
+      "date_one": "Datum",
       "events": "Događaji",
       "currentlyNoEvents": "Trenutno nema događaja.",
       "pageTitle": "Događaji"
     },
     "ti": {
       "address": "ኣድራሻ",
-      "date": "ዕለት",
+      "date_one": "ዕለት",
       "events": "ኣጋጣሚታት",
       "currentlyNoEvents": "ኣብዚ እዋን’ዚ ኣጋጣሚታት የለዉን።",
       "pageTitle": "ኣጋጣሚታት"
     },
     "tr": {
       "address": "Adres",
-      "date": "Tarih",
+      "date_one": "Tarih",
       "events": "Etkinlikler",
       "currentlyNoEvents": "Güncel bir etkinlik yok.",
       "pageTitle": "Etkinlikler"
     },
     "uk": {
       "address": "Адреса",
-      "date": "Дата",
+      "date_one": "Дата",
       "events": "Події",
       "currentlyNoEvents": "Нині немає жодних подій.",
       "pageTitle": "Події"
     },
     "ur": {
       "address": "پتہ",
-      "date": "تاریخ",
+      "date_one": "تاریخ",
       "events": "ایونٹس",
       "currentlyNoEvents": "فی الحال کوئی ایونٹس نہیں ہیں۔",
       "pageTitle": "ایونٹس"
     },
     "zh-CN": {
       "address": "地址",
-      "date": "日期",
+      "date_one": "日期",
       "events": "活动",
       "currentlyNoEvents": "目前没有活动。",
       "pageTitle": "活动"

@@ -1,6 +1,7 @@
 import { FirebaseMessagingTypes } from '@react-native-firebase/messaging'
 import { useEffect } from 'react'
-import { Linking } from 'react-native'
+import { Linking, Platform } from 'react-native'
+import { checkNotifications, requestNotifications, RESULTS } from 'react-native-permissions'
 
 import { LOCAL_NEWS_TYPE, NEWS_ROUTE, NonNullableRouteInformationType } from 'api-client'
 
@@ -22,6 +23,7 @@ type Message = FirebaseMessagingTypes.RemoteMessage & {
 
 const WAITING_TIME_FOR_CMS = 1000
 const PUSH_NOTIFICATION_SHOW_DURATION = 10000
+const ANDROID_PERMISSION_REQUEST_NEEDED_API_LEVEL = 33
 
 const importFirebaseMessaging = async (): Promise<() => FirebaseMessagingTypes.Module> =>
   import('@react-native-firebase/messaging').then(firebase => firebase.default)
@@ -35,11 +37,15 @@ export const requestPushNotificationPermission = async (): Promise<boolean> => {
     return false
   }
 
-  const messaging = await importFirebaseMessaging()
-  const authStatus = await messaging().requestPermission()
-  log(`Authorization status: ${authStatus}`)
-  // Firebase returns either 1 or 2 for granted or 0 for rejected permissions
-  return authStatus !== 0
+  const permissionStatus = (await requestNotifications(['alert'])).status
+  log(`Notification permission status: ${permissionStatus}`)
+
+  if (permissionStatus !== RESULTS.GRANTED) {
+    log(`Permission denied, disabling push notifications in settings.`)
+    await appSettings.setSettings({ allowPushNotifications: false })
+  }
+
+  return permissionStatus === RESULTS.GRANTED
 }
 
 const newsTopic = (city: string, language: string): string => `${city}-${language}-news`
@@ -154,4 +160,23 @@ export const backgroundAppStatePushNotificationListener = (listener: (url: strin
   }
 
   return undefined
+}
+
+// Since Android 13 an explicit permission request is needed, otherwise push notifications are not received.
+// Therefore request the permissions once if not yet granted and subscribe to the current channel if successful.
+// See https://github.com/digitalfabrik/integreat-app/issues/2438
+export const androidPushNotificationPermissionFix = async (
+  cityCode: string | null,
+  languageCode: string,
+): Promise<void> => {
+  const { allowPushNotifications } = await appSettings.loadSettings()
+  const pushNotificationPermissionGranted = (await checkNotifications()).status === RESULTS.GRANTED
+  const androidPermissionRequestRequired =
+    Platform.OS === 'android' && Platform.constants.Version >= ANDROID_PERMISSION_REQUEST_NEEDED_API_LEVEL
+  if (androidPermissionRequestRequired && !pushNotificationPermissionGranted && allowPushNotifications) {
+    const success = await requestPushNotificationPermission()
+    if (success && cityCode) {
+      await subscribeNews(cityCode, languageCode)
+    }
+  }
 }

@@ -171,6 +171,7 @@ const CityContentHeader = ({
       actionItems={actionItems}
       kebabItems={kebabItems}
       cityName={cityModel.name}
+      cityCode={cityModel.code}
       navigationItems={getNavigationItems()}
       isSidebarOpen={isSidebarOpen}
       setIsSidebarOpen={setIsSidebarOpen}

@@ -38,10 +38,10 @@ type JsonFeaturedImageInstanceType = {
 type JsonFeaturedImageType = {
   description: string
   mimetype: string
-  thumbnail: Array<JsonFeaturedImageInstanceType>
-  medium: Array<JsonFeaturedImageInstanceType>
-  large: Array<JsonFeaturedImageInstanceType>
-  full: Array<JsonFeaturedImageInstanceType>
+  thumbnail: [JsonFeaturedImageInstanceType]
+  medium: [JsonFeaturedImageInstanceType]
+  large: [JsonFeaturedImageInstanceType]
+  full: [JsonFeaturedImageInstanceType]
 }
 type JsonEventInfoType = {
   id: number
