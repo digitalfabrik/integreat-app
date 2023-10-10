@@ -21,6 +21,7 @@ export const RichLayout = styled.div`
     &:focus-visible {
       outline: 2px solid ${props => props.theme.colors.textSecondaryColor};
     }
+
     cursor: pointer;
   }
 
@@ -50,6 +51,7 @@ const Body = styled.div<{ fullWidth: boolean; disableScrollingSafari: boolean }>
   flex-grow: 1;
   background-color: ${props => props.theme.colors.backgroundColor};
   word-wrap: break-word;
+
   /* Fix jumping iOS Safari Toolbar by prevent scrolling on body */
   ${props =>
     props.disableScrollingSafari &&
@@ -60,6 +62,7 @@ const Body = styled.div<{ fullWidth: boolean; disableScrollingSafari: boolean }>
         overflow: hidden;
       }
     `};
+
   /* https://aykevl.nl/2014/09/fix-jumping-scrollbar */
   ${props =>
     !props.fullWidth &&

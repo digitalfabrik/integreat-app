@@ -52,6 +52,7 @@ const pseudosMixin = (flow: FlowType, color: string) => css`
       left: calc(99% + 5px);
     `}
   }
+
   ::before,
   ::after {
     ${(flow === 'left' || flow === 'right') &&
@@ -144,12 +145,14 @@ const TooltipContainer = styled.div<{
   @media ${dimensions.minMaxWidth} {
     ${props => pseudosMixin(props.flow, props.theme.colors.textSecondaryColor)}
   }
+
   /* below 768px */
-  @media screen and ${dimensions.smallViewport} {
+  @media screen and (${dimensions.smallViewport}) {
     ${props => pseudosMixin(props.smallViewportFlow, props.theme.colors.textSecondaryColor)}
   }
+
   /* inbetween */
-  @media screen and ${dimensions.mediumViewport} {
+  @media screen and (${dimensions.mediumViewport}) {
     ${props => pseudosMixin(props.mediumViewportFlow, props.theme.colors.textSecondaryColor)}
   }
 

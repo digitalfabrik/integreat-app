@@ -61,6 +61,7 @@ const StyledIcon = styled(Icon)`
 
 const GeocontrolContainer = styled.div<{ height: number; direction: string }>`
   --max-icon-height: calc(${props => getSnapPoints(props.height)[1]}px + ${geolocatorTopOffset}px);
+
   position: absolute;
   ${props =>
     props.direction === 'ltr'

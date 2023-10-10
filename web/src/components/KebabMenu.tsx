@@ -33,6 +33,7 @@ const List = styled.div<{ direction: UiDirectionType; show: boolean }>`
   height: 100vh;
   background-color: ${props => props.theme.colors.backgroundColor};
   box-shadow: -3px 3px 3px 0 rgba(0, 0, 0, 0.13);
+
   /* to stop flickering of text in safari */
   -webkit-font-smoothing: antialiased;
   transform-origin: 0 0;

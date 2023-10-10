@@ -25,6 +25,7 @@ const StyledTab = styled(Link)<{ $active: boolean }>`
   font-size: ${props => props.theme.fonts.subTitleFontSize};
   font-weight: 700;
   text-decoration: none;
+
   &:not(:last-child) {
     margin-right: 30px;
   }

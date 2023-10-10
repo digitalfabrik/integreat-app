@@ -22,7 +22,7 @@ const FooterContainer = styled.footer<{ overlay: boolean }>`
     margin: ${props => (props.overlay ? 0 : '5px')};
   }
 
-  & > *:after {
+  & > *::after {
     padding-right: 10px;
     content: '';
   }

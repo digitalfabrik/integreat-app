@@ -62,6 +62,7 @@ const Row = styled.div`
     overflow-x: auto;
     padding: 8px 0;
     box-shadow: 0 2px 5px -3px rgba(0, 0, 0, 0.2);
+
     :first-child {
       box-shadow: 0 2px 5px -3px rgba(0, 0, 0, 0.12);
       padding: 0 4px;
