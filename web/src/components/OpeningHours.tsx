@@ -26,9 +26,8 @@ const TitleContainer = styled.div`
   display: flex;
   flex: 1;
   font-weight: 700;
-  ${helpers.adaptiveFontSize};
   justify-content: space-between;
-  padding-bottom: 8px;
+  ${helpers.adaptiveFontSize};
 `
 
 type OpeningHoursProps = {
