@@ -1,4 +1,5 @@
 import React, { ReactElement, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
 
 import { ArrowBackIcon } from '../assets'
@@ -47,6 +48,7 @@ const Collapsible = ({
   className,
 }: CollapsibleProps): ReactElement => {
   const [collapsed, setCollapsed] = useState<boolean>(initialCollapsed)
+  const { t } = useTranslation('common')
 
   return (
     <Container className={className}>
@@ -56,7 +58,12 @@ const Collapsible = ({
         tabIndex={0}
         onKeyUp={() => setCollapsed(!collapsed)}>
         {typeof title === 'string' ? <Title>{title}</Title> : title}
-        <CollapseIcon src={ArrowBackIcon} collapsed={collapsed} directionDependent />
+        <CollapseIcon
+          src={ArrowBackIcon}
+          collapsed={collapsed}
+          title={t(collapsed ? 'showMore' : 'showLess')}
+          directionDependent
+        />
       </CollapsibleHeader>
       {Description}
       {!collapsed && children}

@@ -7,7 +7,7 @@ import styled from 'styled-components/native'
 import { OpeningHoursModel, weekdays } from 'api-client'
 
 import { contentDirection } from '../constants/contentDirection'
-import CollapsibleItem from './CollapsibleItem'
+import Collapsible from './Collapsible'
 import HorizontalLine from './HorizontalLine'
 import OpeningEntry from './OpeningEntry'
 
@@ -77,7 +77,7 @@ const OpeningHours = ({
 
   return (
     <>
-      <CollapsibleItem headerContent={openingHoursTitle} language={language} initExpanded>
+      <Collapsible headerContent={openingHoursTitle} language={language}>
         <Content>
           {openingHours.map((entry, index) => (
             <OpeningEntry
@@ -92,7 +92,7 @@ const OpeningHours = ({
             />
           ))}
         </Content>
-      </CollapsibleItem>
+      </Collapsible>
       <HorizontalLine />
     </>
   )

@@ -15,6 +15,7 @@ describe('EventModel', () => {
       startDate: DateTime.fromISO('2020-03-20T10:50:00+02:00'),
       endDate: DateTime.fromISO('2020-03-20T17:50:00+02:00'),
       allDay: false,
+      recurrenceRule: null,
     }),
     location: new LocationModel({
       id: 1,
