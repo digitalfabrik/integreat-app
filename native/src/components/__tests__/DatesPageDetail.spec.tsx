@@ -25,7 +25,7 @@ describe('DatesPageDetail', () => {
     const { getByText, queryByText, queryByRole } = renderDatesPageDetail(date())
 
     expect(getByText('date_one', { exact: false })).toBeTruthy()
-    expect(getByText('9. Oktober 2023 07:00 - 10. Oktober 2023 09:00', { exact: false })).toBeTruthy()
+    expect(getByText('9.10.2023 07:00 - 10.10.2023 09:00', { exact: false })).toBeTruthy()
     expect(queryByText('...')).toBeFalsy()
     expect(queryByRole('button')).toBeFalsy()
   })
@@ -36,9 +36,9 @@ describe('DatesPageDetail', () => {
     )
 
     expect(getByText('date_other', { exact: false })).toBeTruthy()
-    expect(getByText('9. Oktober 2023 07:00 - 10. Oktober 2023 09:00')).toBeTruthy()
-    expect(getByText('16. Oktober 2023 07:00 - 17. Oktober 2023 09:00')).toBeTruthy()
-    expect(getByText('23. Oktober 2023 07:00 - 24. Oktober 2023 09:00')).toBeTruthy()
+    expect(getByText('9.10.2023 07:00 - 10.10.2023 09:00')).toBeTruthy()
+    expect(getByText('16.10.2023 07:00 - 17.10.2023 09:00')).toBeTruthy()
+    expect(getByText('23.10.2023 07:00 - 24.10.2023 09:00')).toBeTruthy()
     expect(queryByText('...')).toBeFalsy()
     expect(queryByRole('button')).toBeFalsy()
   })
@@ -49,19 +49,19 @@ describe('DatesPageDetail', () => {
     )
 
     expect(getByText('date_other', { exact: false })).toBeTruthy()
-    expect(getByText('9. Oktober 2023 07:00 - 10. Oktober 2023 09:00')).toBeTruthy()
-    expect(getByText('16. Oktober 2023 07:00 - 17. Oktober 2023 09:00')).toBeTruthy()
-    expect(getByText('23. Oktober 2023 07:00 - 24. Oktober 2023 09:00')).toBeTruthy()
-    expect(queryByText('30. Oktober 2023 06:00 - 01. November 2023 08:00')).toBeFalsy()
-    expect(queryByText('11. Dezember 2023 06:00 - 12. Dezember 2023 08:00')).toBeFalsy()
+    expect(getByText('9.10.2023 07:00 - 10.10.2023 09:00')).toBeTruthy()
+    expect(getByText('16.10.2023 07:00 - 17.10.2023 09:00')).toBeTruthy()
+    expect(getByText('23.10.2023 07:00 - 24.10.2023 09:00')).toBeTruthy()
+    expect(queryByText('30.10.2023 07:00 - 01. November 2023 09:00')).toBeFalsy()
+    expect(queryByText('11.12.2023 07:00 - 12.12.2023 09:00')).toBeFalsy()
 
     expect(getByLabelText('showMore')).toBeTruthy()
     fireEvent.press(getByLabelText('showMore'))
 
-    expect(getByText('30. Oktober 2023 06:00 - 31. Oktober 2023 08:00')).toBeTruthy()
-    expect(getByText('11. Dezember 2023 06:00 - 12. Dezember 2023 08:00')).toBeTruthy()
+    expect(getByText('30.10.2023 07:00 - 31.10.2023 09:00')).toBeTruthy()
+    expect(getByText('11.12.2023 07:00 - 12.12.2023 09:00')).toBeTruthy()
     expect(queryByText('...')).toBeFalsy()
-    expect(queryByText('18. Dezember 2023 06:00 - 19. Dezember 2023 08:00')).toBeFalsy()
+    expect(queryByText('18.12.2023 07:00 - 19.12.2023 09:00')).toBeFalsy()
   })
 
   it('should render next dates and show collapsible if more than MAX_DATE_RECURRENCES events and expand on press', () => {
@@ -70,20 +70,20 @@ describe('DatesPageDetail', () => {
     )
 
     expect(getByText('nextDate_other', { exact: false })).toBeTruthy()
-    expect(getByText('9. Oktober 2023 07:00 - 10. Oktober 2023 09:00')).toBeTruthy()
-    expect(getByText('16. Oktober 2023 07:00 - 17. Oktober 2023 09:00')).toBeTruthy()
-    expect(getByText('23. Oktober 2023 07:00 - 24. Oktober 2023 09:00')).toBeTruthy()
-    expect(queryByText('30. Oktober 2023 06:00 - 01. November 2023 08:00')).toBeFalsy()
-    expect(queryByText('11. Dezember 2023 06:00 - 12. Dezember 2023 08:00')).toBeFalsy()
+    expect(getByText('9.10.2023 07:00 - 10.10.2023 09:00')).toBeTruthy()
+    expect(getByText('16.10.2023 07:00 - 17.10.2023 09:00')).toBeTruthy()
+    expect(getByText('23.10.2023 07:00 - 24.10.2023 09:00')).toBeTruthy()
+    expect(queryByText('30.10.2023 07:00 - 01. November 2023 09:00')).toBeFalsy()
+    expect(queryByText('11.12.2023 07:00 - 12.12.2023 09:00')).toBeFalsy()
     expect(queryByText('...')).toBeFalsy()
 
     expect(getByLabelText('showMore')).toBeTruthy()
     fireEvent.press(getByLabelText('showMore'))
 
-    expect(getByText('30. Oktober 2023 06:00 - 31. Oktober 2023 08:00')).toBeTruthy()
-    expect(getByText('11. Dezember 2023 06:00 - 12. Dezember 2023 08:00')).toBeTruthy()
+    expect(getByText('30.10.2023 07:00 - 31.10.2023 09:00')).toBeTruthy()
+    expect(getByText('11.12.2023 07:00 - 12.12.2023 09:00')).toBeTruthy()
     expect(getByText('...')).toBeTruthy()
 
-    expect(queryByText('18. Dezember 2023 06:00 - 19. Dezember 2023 08:00')).toBeFalsy()
+    expect(queryByText('18.12.2023 07:00 - 19.12.2023 09:00')).toBeFalsy()
   })
 })
