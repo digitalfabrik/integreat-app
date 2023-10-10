@@ -1,10 +1,16 @@
 {
   "compilerOptions": {
     "esModuleInterop": true,
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
     "noFallthroughCasesInSwitch": true,
     "noImplicitAny": true,
     "noUncheckedIndexedAccess": true,
     "resolveJsonModule": true,
+    "skipLibCheck": true,
     "strict": true
+  },
+  "ts-node": {
+    "esm": true
   }
 }
