@@ -6,7 +6,7 @@ import { GeoJsonPoi, PoiModel } from 'api-client'
 
 import { MailIcon, PhoneIcon, PoiThumbnailPlaceholderLarge, WebsiteIcon } from '../assets'
 import AddressInfo from './AddressInfo'
-import CollapsibleItem from './CollapsibleItem'
+import Collapsible from './Collapsible'
 import HorizontalLine from './HorizontalLine'
 import OpeningHours from './OpeningHours'
 import Page from './Page'
@@ -57,7 +57,7 @@ const PoiDetails = ({ poi, poiFeature, language }: PoiDetailsProps): ReactElemen
     poi
 
   const contactInformationCollapsibleItem = (
-    <CollapsibleItem initExpanded headerContent={t('contactInformation')} language={language}>
+    <Collapsible headerContent={t('contactInformation')} language={language}>
       {!!website && (
         <PoiDetailRow externalUrl={website} accessibilityLabel={t('website')} text={website} Icon={WebsiteIcon} />
       )}
@@ -72,7 +72,7 @@ const PoiDetails = ({ poi, poiFeature, language }: PoiDetailsProps): ReactElemen
       {!!email && (
         <PoiDetailRow externalUrl={`mailto:${email}`} accessibilityLabel={t('eMail')} text={email} Icon={MailIcon} />
       )}
-    </CollapsibleItem>
+    </Collapsible>
   )
 
   return (
@@ -98,9 +98,9 @@ const PoiDetails = ({ poi, poiFeature, language }: PoiDetailsProps): ReactElemen
       />
       {content.length > 0 && (
         <>
-          <CollapsibleItem initExpanded headerContent={t('description')} language={language}>
+          <Collapsible headerContent={t('description')} language={language}>
             <Page content={content} language={language} path={poi.path} padding={false} />
-          </CollapsibleItem>
+          </Collapsible>
           <HorizontalLine />
         </>
       )}
