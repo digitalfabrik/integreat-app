@@ -2,8 +2,7 @@ import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
 
-import { DateModel, EventModel, getExcerpt } from 'api-client'
-import { EventIcon } from 'api-client/src/models/DateModel'
+import { DateModel, DateIcon, EventModel, getExcerpt } from 'api-client'
 
 import {
   CalendarRecurringIcon,
@@ -39,7 +38,7 @@ const getEventPlaceholder = (path: string): string => {
 }
 
 const getDateIcon = (date: DateModel): { icon: string; tooltip: string } | null => {
-  const webIcons: { [key in EventIcon]: string } = {
+  const icons: { [key in DateIcon]: string } = {
     CalendarTodayRecurringIcon,
     CalendarRecurringIcon,
     CalendarTodayIcon,
@@ -47,7 +46,7 @@ const getDateIcon = (date: DateModel): { icon: string; tooltip: string } | null 
   const iconToUse = date.getDateIcon()
   return iconToUse
     ? {
-        icon: webIcons[iconToUse.icon],
+        icon: icons[iconToUse.icon],
         tooltip: iconToUse.label,
       }
     : null

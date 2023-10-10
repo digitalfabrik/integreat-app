@@ -3,7 +3,8 @@ import { RRule as RRuleType } from 'rrule'
 
 const MAX_RECURRENCE_YEARS = 5
 
-export type EventIcon = 'CalendarTodayRecurringIcon' | 'CalendarRecurringIcon' | 'CalendarTodayIcon'
+export type DateIcon = 'CalendarTodayRecurringIcon' | 'CalendarRecurringIcon' | 'CalendarTodayIcon'
+
 class DateModel {
   _startDate: DateTime
   _endDate: DateTime
@@ -102,7 +103,7 @@ class DateModel {
     return `${localizedStartDate} - ${localizedEndDate.toFormat(format)}`
   }
 
-  getDateIcon(): { icon: EventIcon; label: string } | null {
+  getDateIcon(): { icon: DateIcon; label: string } | null {
     const isRecurring = this.hasMoreRecurrencesThan(1)
     const isToday = this.isToday
 
