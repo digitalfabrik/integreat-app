@@ -3,6 +3,7 @@ import { BBox } from 'geojson'
 import { map, mapValues } from 'lodash'
 import { DateTime } from 'luxon'
 import BlobUtil from 'react-native-blob-util'
+import { rrulestr } from 'rrule'
 
 import {
   CategoriesMapModel,
@@ -29,7 +30,7 @@ import {
 import { deleteIfExists } from './helpers'
 import { log, reportError } from './sentry'
 
-export const CONTENT_VERSION = 'v3'
+export const CONTENT_VERSION = 'v4'
 export const RESOURCE_CACHE_VERSION = 'v1'
 
 // Our pdf view can only load from DocumentDir. Therefore we need to use that
@@ -94,6 +95,7 @@ type ContentEventJsonType = {
     start_date: string
     end_date: string
     all_day: boolean
+    recurrence_rule: string | null
   }
   location: LocationJsonType<number | null> | null
   featured_image: FeaturedImageJsonType | null | undefined
@@ -572,6 +574,7 @@ class DatabaseConnector {
           start_date: event.date.startDate.toISO(),
           end_date: event.date.endDate.toISO(),
           all_day: event.date.allDay,
+          recurrence_rule: event.date.recurrenceRule?.toString() ?? null,
         },
         location: event.location
           ? {
@@ -626,6 +629,7 @@ class DatabaseConnector {
             startDate: DateTime.fromISO(jsonDate.start_date),
             endDate: DateTime.fromISO(jsonDate.end_date),
             allDay: jsonDate.all_day,
+            recurrenceRule: jsonDate.recurrence_rule ? rrulestr(jsonDate.recurrence_rule) : null,
           }),
           location: jsonObject.location?.id
             ? new LocationModel({

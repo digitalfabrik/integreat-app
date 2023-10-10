@@ -1,17 +1,11 @@
-import { Collapse, CollapseHeader, CollapseBody } from 'accordion-collapse-react-native'
+import { Collapse, CollapseBody, CollapseHeader } from 'accordion-collapse-react-native'
 import React, { ReactElement, ReactNode, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import styled from 'styled-components/native'
 
 import { ArrowBackIcon } from '../assets'
 import { contentDirection } from '../constants/contentDirection'
 import Icon from './base/Icon'
-
-type CollapsibleItemProps = {
-  initExpanded: boolean
-  headerContent: string | ReactElement
-  children: ReactNode
-  language: string
-}
 
 const PageContainer = styled.View`
   align-self: center;
@@ -40,27 +34,40 @@ const StyledIcon = styled(Icon)<{ collapsed: boolean }>`
   height: 16px;
 `
 
-const renderHeaderContent = (headerContent: string | ReactElement): ReactElement => {
-  if (typeof headerContent === 'string') {
-    return <CollapseHeaderText>{headerContent}</CollapseHeaderText>
-  }
-  return headerContent
+type CollapsibleProps = {
+  headerContent: string | ReactElement
+  children: ReactNode
+  Description?: ReactElement
+  language: string
+  initialCollapsed?: boolean
 }
 
-const CollapsibleItem = ({ initExpanded, children, headerContent, language }: CollapsibleItemProps): ReactElement => {
-  const [isExpanded, setIsExpanded] = useState<boolean>(initExpanded)
+const Collapsible = ({
+  children,
+  headerContent,
+  Description,
+  language,
+  initialCollapsed = false,
+}: CollapsibleProps): ReactElement => {
+  const [collapsed, setCollapsed] = useState<boolean>(initialCollapsed)
+  const { t } = useTranslation()
 
   return (
     <PageContainer>
       <Collapse
-        isExpanded={isExpanded}
-        onToggle={() => setIsExpanded(!isExpanded)}
+        isExpanded={!collapsed}
+        onToggle={() => setCollapsed(!collapsed)}
         touchableOpacityProps={{ activeOpacity: 1 }}>
-        <CollapseHeader style={{ flexDirection: 'row' }}>
+        <CollapseHeader style={{ flexDirection: 'column' }}>
           <CollapseHeaderWrapper language={language}>
-            {renderHeaderContent(headerContent)}
-            <StyledIcon Icon={ArrowBackIcon} collapsed={!isExpanded} />
+            {typeof headerContent === 'string' ? (
+              <CollapseHeaderText>{headerContent}</CollapseHeaderText>
+            ) : (
+              headerContent
+            )}
+            <StyledIcon Icon={ArrowBackIcon} collapsed={collapsed} label={t(collapsed ? 'showMore' : 'showLess')} />
           </CollapseHeaderWrapper>
+          {Description}
         </CollapseHeader>
         <CollapseBody>{children}</CollapseBody>
       </Collapse>
@@ -68,4 +75,4 @@ const CollapsibleItem = ({ initExpanded, children, headerContent, language }: Co
   )
 }
 
-export default CollapsibleItem
+export default Collapsible
