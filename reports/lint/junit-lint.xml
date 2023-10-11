@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<testsuites>
-<testsuite package="org.eslint" time="0" tests="2" errors="2" name="/Users/digitalfabrik/projects/integreat-app/api-client/src/models/PoiModel.ts">
-<testcase time="0" name="org.eslint.no-magic-numbers" classname="/Users/digitalfabrik/projects/integreat-app/api-client/src/models/PoiModel"><failure message="No magic number: 1."><![CDATA[line 104, col 76, Error - No magic number: 1. (no-magic-numbers)]]></failure></testcase>
-<testcase time="0" name="org.eslint.no-magic-numbers" classname="/Users/digitalfabrik/projects/integreat-app/api-client/src/models/PoiModel"><failure message="No magic number: 1."><![CDATA[line 135, col 53, Error - No magic number: 1. (no-magic-numbers)]]></failure></testcase>
-</testsuite>
-</testsuites>
