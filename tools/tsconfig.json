@@ -2,6 +2,8 @@
   "compilerOptions": {
     "composite": true,
     "esModuleInterop": true,
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
     "noFallthroughCasesInSwitch": true,
     "noImplicitAny": true,
     "skipLibCheck": true,
@@ -10,5 +12,8 @@
     "strict": true,
     "outDir": "dist"
   },
-  "include": ["*"]
+  "include": ["*"],
+  "ts-node": {
+    "esm": true
+  }
 }

@@ -1,8 +1,11 @@
 import { program } from 'commander'
-import fs from 'fs'
-import path from 'path'
+import fs from 'node:fs'
+import path from 'node:path'
+import { fileURLToPath } from 'node:url'
 
-import { VERSION_FILE } from './constants'
+import { VERSION_FILE } from './constants.js'
+
+const __dirname = fileURLToPath(new URL('.', import.meta.url))
 
 const calculateNewVersion = () => {
   const versionFile = fs.readFileSync(path.resolve(__dirname, '..', VERSION_FILE), 'utf-8')

@@ -2,6 +2,7 @@
   "version": "0.0.1",
   "name": "tools",
   "private": true,
+  "type": "module",
   "scripts": {
     "manage-metadata": "yarn run -T ts-node manage-metadata.ts",
     "git-version": "yarn run -T ts-node git-version.ts",
@@ -15,9 +16,10 @@
     "@octokit/auth-app": "^6.0.0",
     "@octokit/rest": "^20.0.1",
     "@types/js-yaml": "^4.0.5",
-    "@types/node-fetch": "^2.6.4",
+    "@types/node": "^18.0.3",
+    "@types/node-fetch": "^2.6.6",
     "commander": "^11.0.0",
     "js-yaml": "^4.1.0",
-    "node-fetch": "^2.7.0"
+    "node-fetch": "^3.3.2"
   }
 }
