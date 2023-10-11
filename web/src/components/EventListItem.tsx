@@ -2,7 +2,7 @@ import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
 
-import { DateModel, EventModel, getExcerpt } from 'api-client'
+import { DateModel, DateIcon, EventModel, getExcerpt } from 'api-client'
 
 import {
   CalendarRecurringIcon,
@@ -38,19 +38,18 @@ const getEventPlaceholder = (path: string): string => {
 }
 
 const getDateIcon = (date: DateModel): { icon: string; tooltip: string } | null => {
-  const isRecurring = date.hasMoreRecurrencesThan(1)
-  const isToday = date.isToday
-
-  if (isRecurring && isToday) {
-    return { icon: CalendarTodayRecurringIcon, tooltip: 'todayRecurring' }
+  const icons: { [key in DateIcon]: string } = {
+    CalendarTodayRecurringIcon,
+    CalendarRecurringIcon,
+    CalendarTodayIcon,
   }
-  if (isRecurring) {
-    return { icon: CalendarRecurringIcon, tooltip: 'recurring' }
-  }
-  if (isToday) {
-    return { icon: CalendarTodayIcon, tooltip: 'today' }
-  }
-  return null
+  const iconToUse = date.getDateIcon()
+  return iconToUse
+    ? {
+        icon: icons[iconToUse.icon],
+        tooltip: iconToUse.label,
+      }
+    : null
 }
 
 const EventListItem = ({ event, languageCode }: EventListItemProps): ReactElement => {

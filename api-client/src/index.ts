@@ -101,7 +101,7 @@ export { prepareFeatureLocations, prepareFeatureLocation } from './utils/geoJson
 export { default as CategoriesMapModel } from './models/CategoriesMapModel'
 export { default as CategoryModel } from './models/CategoryModel'
 export { default as CityModel } from './models/CityModel'
-export { default as DateModel } from './models/DateModel'
+export { default as DateModel, type DateIcon } from './models/DateModel'
 export { default as EventModel } from './models/EventModel'
 export { default as LocalNewsModel } from './models/LocalNewsModel'
 export { default as TunewsModel } from './models/TunewsModel'
