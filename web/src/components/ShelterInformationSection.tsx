@@ -66,8 +66,8 @@ const Label = styled.span`
   color: ${props => props.theme.colors.backgroundColor};
   font-size: 14px;
   box-shadow:
-    0 1px 3px rgba(0, 0, 0, 0.1),
-    0 1px 2px rgba(0, 0, 0, 0.15);
+    0 1px 3px rgb(0 0 0 / 10%),
+    0 1px 2px rgb(0 0 0 / 15%);
 `
 
 const StyledTooltip = styled(Tooltip)`

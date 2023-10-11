@@ -14,11 +14,13 @@ const DetailsHeader = styled.div<{ viewportSmall: boolean }>`
   ${props =>
     props.viewportSmall &&
     css`
-      animation: fadeIn 3s;
-      @keyframes fadeIn {
+      animation: fade-in 3s;
+
+      @keyframes fade-in {
         0% {
           opacity: 0;
         }
+
         100% {
           opacity: 1;
         }
