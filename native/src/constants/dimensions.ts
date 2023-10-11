@@ -1,3 +1,4 @@
+/* eslint-disable no-magic-numbers */
 export type DimensionsType = {
   headerHeight: number
   modalHeaderHeight: number

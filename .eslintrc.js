@@ -31,7 +31,7 @@ module.exports = {
     'reports/',
     'node_modules/',
     'ios/',
-    'android',
+    'android/',
     'dist/',
     '/.eslintrc.js',
     '/web/www/',
@@ -71,6 +71,7 @@ module.exports = {
       {
         ignore: [-1, 0, 1, 2],
         ignoreArrayIndexes: true,
+        detectObjects: true,
       },
     ],
     'prefer-destructuring': ['error', { array: false }],
@@ -153,6 +154,12 @@ module.exports = {
       },
     },
     {
+      files: ['e2e-tests/**/*.conf.ts'],
+      rules: {
+        'no-magic-numbers': 'off',
+      },
+    },
+    {
       files: ['native/**'],
       rules: {
         // This rule does not make sense in react native as we don't have normal anchor tags
@@ -160,7 +167,7 @@ module.exports = {
       },
     },
     {
-      files: ['**/tools/**', 'translations/**', 'e2e-tests/**'],
+      files: ['**/tools/**', 'translations/**', 'e2e-tests/**', 'metro.config.js'],
       rules: {
         'no-console': 'off',
         'import/no-extraneous-dependencies': 'off',

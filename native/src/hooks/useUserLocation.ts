@@ -54,7 +54,9 @@ const useUserLocation = (useSettingsListener = false): LocationInformationType =
       },
       {
         enableHighAccuracy: true,
+        // eslint-disable-next-line no-magic-numbers
         timeout: 50000,
+        // eslint-disable-next-line no-magic-numbers
         maximumAge: 3600000,
       },
     )

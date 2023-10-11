@@ -1,3 +1,4 @@
+/* eslint-disable no-magic-numbers */
 // CSS clamp()
 type AdaptiveFont = {
   min: string

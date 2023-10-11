@@ -1,3 +1,5 @@
+/* eslint-disable no-magic-numbers */
+
 export type DimensionsType = {
   maxWidthViewportSmall: number
   smallViewport: string

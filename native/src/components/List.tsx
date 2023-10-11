@@ -42,6 +42,7 @@ const List = <T,>({
     showsVerticalScrollIndicator={false}
     contentContainerStyle={{
       flexGrow: 1,
+      // eslint-disable-next-line no-magic-numbers
       paddingHorizontal: 10,
     }}
     onEndReachedThreshold={1}

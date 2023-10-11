@@ -186,6 +186,7 @@ const createConfig = (
     devServer: {
       static: { directory: distDirectory },
       compress: true,
+      // eslint-disable-next-line no-magic-numbers
       port: 9000,
       host: '0.0.0.0', // This enables devices in the same network to connect to the dev server
       hot: true,
@@ -301,6 +302,7 @@ const createConfig = (
             {
               loader: 'url-loader',
               options: {
+                // eslint-disable-next-line no-magic-numbers
                 limit: 10000,
               },
             },
@@ -317,6 +319,7 @@ const createConfig = (
                 },
                 optipng: false,
                 pngquant: {
+                  // eslint-disable-next-line no-magic-numbers
                   floyd: 0.5,
                   speed: 2,
                 },

@@ -34,6 +34,10 @@ const DescriptionContainer = styled(Pressable)`
   padding: 15px 0 5px;
 `
 
+const PaddedContainer = styled.View`
+  padding: 40px;
+`
+
 export type JpalTrackingProps = {
   navigation: NavigationProps<JpalTrackingRouteType>
 }
@@ -107,10 +111,7 @@ const JpalTracking = ({ navigation }: JpalTrackingProps): ReactElement => {
 
   return (
     <Layout>
-      <View
-        style={{
-          padding: 40,
-        }}>
+      <PaddedContainer>
         <Caption title={t('tracking')} />
         <Text>{t('trackingDescription', { appName: buildConfig().appName })}</Text>
 
@@ -120,7 +121,7 @@ const JpalTracking = ({ navigation }: JpalTrackingProps): ReactElement => {
         </DescriptionContainer>
 
         <Link url={moreInformationUrl} text={t('trackingMoreInformation')} />
-      </View>
+      </PaddedContainer>
     </Layout>
   )
 }

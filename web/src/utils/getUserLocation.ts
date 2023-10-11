@@ -34,6 +34,7 @@ const getUserLocation = async (): Promise<UserLocationType> =>
       (error: GeolocationPositionError) => {
         resolve(locationStateOnError(error))
       },
+      // eslint-disable-next-line no-magic-numbers
       { timeout: 50000 },
     )
   })
