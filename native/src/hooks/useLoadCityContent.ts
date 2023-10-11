@@ -6,10 +6,12 @@ import {
   CityModel,
   createCategoriesEndpoint,
   createEventsEndpoint,
+  createLocalNewsEndpoint,
   createPOIsEndpoint,
   ErrorCode,
   EventModel,
   LanguageModel,
+  LocalNewsModel,
   PoiModel,
   ReturnType,
 } from 'api-client'
@@ -34,6 +36,7 @@ export type CityContentData = {
   language: LanguageModel
   categories: CategoriesMapModel
   events: EventModel[]
+  localNews: LocalNewsModel[]
   pois: PoiModel[]
 }
 
@@ -69,6 +72,13 @@ const useLoadCityContent = ({ cityCode, languageCode }: Params): CityContentRetu
     createEndpoint: createPOIsEndpoint,
     getFromDataContainer: dataContainer.getPois,
     setToDataContainer: dataContainer.setPois,
+  })
+  const localNewsReturn = useLoadWithCache({
+    ...params,
+    isAvailable: dataContainer.localNewsAvailable,
+    createEndpoint: createLocalNewsEndpoint,
+    getFromDataContainer: dataContainer.getLocalNews,
+    setToDataContainer: dataContainer.setLocalNews,
   })
 
   useEffect(() => {
@@ -106,20 +116,39 @@ const useLoadCityContent = ({ cityCode, languageCode }: Params): CityContentRetu
     if (city && !language) {
       return ErrorCode.LanguageUnavailable
     }
-    return citiesReturn.error ?? categoriesReturn.error ?? eventsReturn.error ?? poisReturn.error ?? null
+    return (
+      citiesReturn.error ??
+      categoriesReturn.error ??
+      eventsReturn.error ??
+      poisReturn.error ??
+      localNewsReturn.error ??
+      null
+    )
   }
 
-  const loading = citiesReturn.loading || categoriesReturn.loading || eventsReturn.loading || poisReturn.loading
+  const loading =
+    citiesReturn.loading ||
+    categoriesReturn.loading ||
+    eventsReturn.loading ||
+    poisReturn.loading ||
+    localNewsReturn.loading
 
   const refresh = () => {
     citiesReturn.refresh()
     categoriesReturn.refresh()
     eventsReturn.refresh()
     poisReturn.refresh()
+    localNewsReturn.refresh()
   }
 
   const data =
-    city && language && citiesReturn.data && categoriesReturn.data && eventsReturn.data && poisReturn.data
+    city &&
+    language &&
+    citiesReturn.data &&
+    categoriesReturn.data &&
+    eventsReturn.data &&
+    poisReturn.data &&
+    localNewsReturn.data
       ? {
           city,
           language,
@@ -128,6 +157,7 @@ const useLoadCityContent = ({ cityCode, languageCode }: Params): CityContentRetu
           categories: categoriesReturn.data,
           events: eventsReturn.data,
           pois: poisReturn.data,
+          localNews: localNewsReturn.data,
         }
       : null
 

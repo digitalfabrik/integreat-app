@@ -2,7 +2,7 @@ import { difference, flatMap, isEmpty, map, omitBy } from 'lodash'
 import { DateTime } from 'luxon'
 import BlobUtil from 'react-native-blob-util'
 
-import { CategoriesMapModel, CityModel, EventModel, PoiModel } from 'api-client'
+import { CategoriesMapModel, CityModel, EventModel, LocalNewsModel, PoiModel } from 'api-client'
 
 import Cache from '../models/Cache'
 import DatabaseContext from '../models/DatabaseContext'
@@ -20,6 +20,7 @@ type CacheType = {
   cities: Cache<Array<CityModel>>
   events: Cache<Array<EventModel>>
   categories: Cache<CategoriesMapModel>
+  localNews: Cache<Array<LocalNewsModel>>
   resourceCache: Cache<CityResourceCacheStateType>
   lastUpdate: Cache<DateTime | null>
 }
@@ -54,6 +55,12 @@ class DefaultDataContainer implements DataContainer {
         (connector: DatabaseConnector, context: DatabaseContext) => connector.loadCategories(context),
         (value: CategoriesMapModel, connector: DatabaseConnector, context: DatabaseContext) =>
           connector.storeCategories(value, context),
+      ),
+      localNews: new Cache<LocalNewsModel[]>(
+        this._databaseConnector,
+        (connector: DatabaseConnector, context: DatabaseContext) => connector.loadLocalNews(context),
+        (value: LocalNewsModel[], connector: DatabaseConnector, context: DatabaseContext) =>
+          connector.storeLocalNews(value, context),
       ),
       resourceCache: new Cache<CityResourceCacheStateType>(
         this._databaseConnector,
@@ -110,6 +117,12 @@ class DefaultDataContainer implements DataContainer {
     return cache.get(context)
   }
 
+  getLocalNews = (city: string, language: string): Promise<LocalNewsModel[]> => {
+    const context = new DatabaseContext(city, language)
+    const cache: Cache<LocalNewsModel[]> = this.caches.localNews
+    return cache.get(context)
+  }
+
   getResourceCache = async (city: string, language: string): Promise<LanguageResourceCacheStateType> => {
     const context = new DatabaseContext(city)
     const cache: Cache<CityResourceCacheStateType> = this.caches.resourceCache
@@ -134,6 +147,12 @@ class DefaultDataContainer implements DataContainer {
     const context = new DatabaseContext(city, language)
     const cache: Cache<Array<PoiModel>> = this.caches.pois
     await cache.cache(pois, context)
+  }
+
+  setLocalNews = async (city: string, language: string, localNews: LocalNewsModel[]): Promise<void> => {
+    const context = new DatabaseContext(city, language)
+    const cache: Cache<LocalNewsModel[]> = this.caches.localNews
+    await cache.cache(localNews, context)
   }
 
   setCities = async (cities: Array<CityModel>): Promise<void> => {
@@ -225,6 +244,11 @@ class DefaultDataContainer implements DataContainer {
   eventsAvailable = async (city: string, language: string): Promise<boolean> => {
     const context = new DatabaseContext(city, language)
     return this.isCached('events', context) || this._databaseConnector.isEventsPersisted(context)
+  }
+
+  localNewsAvailable = async (city: string, language: string): Promise<boolean> => {
+    const context = new DatabaseContext(city, language)
+    return this.isCached('localNews', context) || this._databaseConnector.isLocalNewsPersisted(context)
   }
 
   storeLastUsage = async (city: string): Promise<void> => {

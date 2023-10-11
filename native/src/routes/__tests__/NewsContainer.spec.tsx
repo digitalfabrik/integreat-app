@@ -68,6 +68,7 @@ describe('NewsContainer', () => {
     events: [],
     pois: [],
     extra: [],
+    localNews: [],
   }
 
   const returnValue = {

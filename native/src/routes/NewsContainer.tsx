@@ -47,6 +47,7 @@ const NewsContainer = ({ route, navigation }: NewsContainerProps): ReactElement 
               navigateToNews={navigateToNews}
               newsId={newsId}
               data={data}
+              refresh={response.refresh}
             />
           )}
           {newsType === TU_NEWS_TYPE &&

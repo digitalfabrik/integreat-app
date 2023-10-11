@@ -86,6 +86,7 @@ describe('TuNews', () => {
     categories: new CategoriesMapModelBuilder(city.code, language.code).build(),
     events: [],
     pois: [],
+    localNews: [],
   }
 
   const renderNews = () =>
