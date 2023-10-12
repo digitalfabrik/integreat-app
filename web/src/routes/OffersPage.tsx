@@ -6,7 +6,6 @@ import {
   OfferModel,
   OFFERS_ROUTE,
   pathnameFromRouteInformation,
-  SHELTER_ROUTE,
   SPRUNGBRETT_OFFER,
   SPRUNGBRETT_OFFER_ROUTE,
   useLoadFromEndpoint,
@@ -38,8 +37,6 @@ const OffersPage = ({ city, cityCode, languageCode }: CityRouteProps): ReactElem
         if (offer.alias === SPRUNGBRETT_OFFER) {
           // the url stored in the sprungbrett offer is the url of the endpoint
           path = pathnameFromRouteInformation({ route: SPRUNGBRETT_OFFER_ROUTE, cityCode, languageCode })
-        } else if (offer.alias === SHELTER_ROUTE) {
-          path = pathnameFromRouteInformation({ route: SHELTER_ROUTE, cityCode, languageCode })
         }
 
         return new TileModel({
