@@ -3,7 +3,7 @@ import { Capabilities } from '@wdio/types'
 import { getGitBranch, getGitHeadReference } from '../shared/git'
 
 const browserstackCaps = (
-  config: Capabilities.AppiumW3CCapabilities | Capabilities.AppiumXCUITestCapabilities,
+  config: Capabilities.AppiumCapabilities | Capabilities.AppiumXCUITestCapabilities,
   platformName: 'ios' | 'android',
 ): Capabilities.Capabilities => {
   // is set by circleci https://github.com/circleci/circleci-docs/blob/master/jekyll/_cci1/environment-variables.md

@@ -10,6 +10,7 @@
     "module": "es2020",
     "outDir": "dist",
     "paths": {
+      "react-native": ["./node_modules/@types/react-native"],
       "normalize-strings": ["../api-client/src/@types/normalize-strings"],
       "@dr.pogodin/react-native-static-server": ["src/@types/react-native-static-server"],
       "@react-native-async-storage/async-storage/jest/async-storage-mock": ["src/@types/untyped"]

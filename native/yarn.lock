@@ -3947,13 +3947,13 @@ __metadata:
     lodash: ^4.17.21
     normalize-path: ^3.0.0
     normalize-strings: ^1.1.1
-    rrule: 2.7.2
     seedrandom: ^3.0.5
     uuid: ^9.0.0
   peerDependencies:
     "@types/luxon": 3
     luxon: ">=3.4"
     react: ^18.2
+    rrule: 2
   languageName: node
   linkType: soft
 

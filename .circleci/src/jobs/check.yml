@@ -23,7 +23,7 @@ steps:
       command: yarn workspace web stylelint
   - run:
       name: TS check
-      command: yarn workspaces foreach run tsc --build
+      command: yarn ts:check
   - run:
       name: TS check native
       command: yarn tsc --build

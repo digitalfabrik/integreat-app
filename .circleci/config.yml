@@ -477,7 +477,7 @@ jobs:
                 command: yarn workspace web stylelint
                 name: Stylelint
             - run:
-                command: yarn workspaces foreach run tsc --build
+                command: yarn ts:check
                 name: TS check
             - run:
                 command: yarn tsc --build

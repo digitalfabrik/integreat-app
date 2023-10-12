@@ -5015,6 +5015,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/md5", "npm:2.3.3"],\
             ["@types/normalize-path", "npm:3.0.0"],\
             ["@types/react", "npm:18.2.23"],\
+            ["@types/rrule", null],\
             ["@types/seedrandom", "npm:3.0.6"],\
             ["@types/uuid", "npm:9.0.4"],\
             ["entities", "npm:4.5.0"],\
@@ -5034,8 +5035,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packagePeers": [\
             "@types/luxon",\
             "@types/react",\
+            "@types/rrule",\
             "luxon",\
-            "react"\
+            "react",\
+            "rrule"\
           ],\
           "linkType": "SOFT"\
         }],\
@@ -19545,6 +19548,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["react-refresh-typescript", "virtual:42b1ed7d3a3ef35c42ac579b760bc4a57b4d9efe82aa857be421d347a9d5eb77b93f1eefdf7c38f1138ec18d742a002770af95542f0d242dcc89856cb39b7f23#npm:2.0.9"],\
             ["react-router-dom", "virtual:42b1ed7d3a3ef35c42ac579b760bc4a57b4d9efe82aa857be421d347a9d5eb77b93f1eefdf7c38f1138ec18d742a002770af95542f0d242dcc89856cb39b7f23#npm:6.16.0"],\
             ["react-spring-bottom-sheet", "virtual:42b1ed7d3a3ef35c42ac579b760bc4a57b4d9efe82aa857be421d347a9d5eb77b93f1eefdf7c38f1138ec18d742a002770af95542f0d242dcc89856cb39b7f23#npm:3.4.1"],\
+            ["rrule", "npm:2.7.2"],\
             ["schema-dts", "virtual:42b1ed7d3a3ef35c42ac579b760bc4a57b4d9efe82aa857be421d347a9d5eb77b93f1eefdf7c38f1138ec18d742a002770af95542f0d242dcc89856cb39b7f23#npm:1.1.2"],\
             ["style-loader", "virtual:42b1ed7d3a3ef35c42ac579b760bc4a57b4d9efe82aa857be421d347a9d5eb77b93f1eefdf7c38f1138ec18d742a002770af95542f0d242dcc89856cb39b7f23#npm:3.3.3"],\
             ["styled-components", "virtual:42b1ed7d3a3ef35c42ac579b760bc4a57b4d9efe82aa857be421d347a9d5eb77b93f1eefdf7c38f1138ec18d742a002770af95542f0d242dcc89856cb39b7f23#npm:5.3.11"],\

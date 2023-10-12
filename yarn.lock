@@ -3732,13 +3732,14 @@ __metadata:
     normalize-path: ^3.0.0
     normalize-strings: ^1.1.1
     react: ^18.2.0
-    rrule: 2.7.2
+    rrule: ^2.7.2
     seedrandom: ^3.0.5
     uuid: ^9.0.0
   peerDependencies:
     "@types/luxon": 3
     luxon: ">=3.4"
     react: ^18.2
+    rrule: 2
   languageName: unknown
   linkType: soft
 
@@ -13528,7 +13529,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"rrule@npm:2.7.2":
+"rrule@npm:^2.7.2":
   version: 2.7.2
   resolution: "rrule@npm:2.7.2"
   dependencies:
@@ -15812,6 +15813,7 @@ __metadata:
     react-refresh-typescript: ^2.0.9
     react-router-dom: ^6.15.0
     react-spring-bottom-sheet: ^3.4.1
+    rrule: ^2.7.2
     schema-dts: ^1.1.2
     style-loader: ^3.3.3
     styled-components: ^5.3.11
