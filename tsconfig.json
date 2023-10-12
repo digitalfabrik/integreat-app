@@ -2,7 +2,7 @@
   "compilerOptions": {
     "composite": true,
     "esModuleInterop": true,
-    "forceConsistentCasingInFileNames": true,
+    "forceConsistentCasingInFileNames": false,
     "lib": ["ES5", "ES6"],
     "moduleResolution": "Node",
     "noFallthroughCasesInSwitch": true,
