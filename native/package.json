@@ -34,7 +34,8 @@
     "build-configs": "cd $PROJECT_CWD/.. && yarn workspace build-configs",
     "test:e2e": "cd $PROJECT_CWD/.. yarn workspace e2e test:native:browserstack",
     "ts:check": "tsc --build",
-    "postinstall": "yarn licenses list --json --production --out-file ./src/assets/licenses.json"
+    "generate-licenses": "yarn licenses list --json --production --out-file ./src/assets/licenses.json",
+    "postinstall": "yarn generate-licenses"
   },
   "packageManager": "yarn@3.2.0",
   "resolutions": {

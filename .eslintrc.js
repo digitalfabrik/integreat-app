@@ -135,16 +135,7 @@ module.exports = {
     ],
   },
   parserOptions: {
-    project: [
-      './tsconfig.json',
-      'api-client/tsconfig.json',
-      'e2e-tests/tsconfig.json',
-      'native/tsconfig.json',
-      'web/tsconfig.json',
-      'build-configs/tsconfig.json',
-      'tools/tsconfig.json',
-      'translations/tsconfig.json',
-    ],
+    project: true,
   },
   overrides: [
     {
