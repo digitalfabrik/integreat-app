@@ -15,7 +15,7 @@
   },
   "scripts": {
     ":lint": "cd $INIT_CWD && eslint --cache --cache-location $PROJECT_CWD/.eslintcache .",
-    ":lint:ci": "eslint .",
+    ":lint:ci": "yarn node --max-old-space-size=1535 $(yarn bin eslint) .",
     ":test": "cd $INIT_CWD && yarn run -T jest",
     ":test:changed": "cd $INIT_CWD && yarn run -T jest -o",
     ":test:ci": "cd $PROJECT_CWD && yarn jest --coverage --ci --config jest.config.ts",
