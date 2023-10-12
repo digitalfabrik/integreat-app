@@ -457,7 +457,6 @@ jobs:
         docker:
             - image: cimg/node:18.14.1
         environment:
-            NODE_OPTIONS: --max-old-space-size=1536
             TOTAL_CPUS: 1
             TZ: Europe/Berlin
         resource_class: small
