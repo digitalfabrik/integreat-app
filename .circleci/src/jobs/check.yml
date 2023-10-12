@@ -22,10 +22,10 @@ steps:
       name: Stylelint
       command: yarn workspace web stylelint
   - run:
+      name: Generate licenses native
+      working_directory: native
+      command: yarn generate-licenses
+  - run:
       name: TS check
       command: yarn ts:check
-  - run:
-      name: TS check native
-      command: yarn tsc --build
-      working_directory: native
   - unit_test

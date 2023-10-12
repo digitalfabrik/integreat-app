@@ -161,8 +161,8 @@ commands:
         steps:
             - restore_cache:
                 keys:
-                    - 9-yarn-{{ arch }}-{{ checksum "yarn.lock" }}-{{ checksum "native/yarn.lock"}}-{{ checksum "package.json" }}-{{ checksum "native/package.json" }}-{{ checksum "web/package.json" }}
-                    - 9-yarn-{{ arch }}-
+                    - 8-yarn-{{ arch }}-{{ checksum "yarn.lock" }}-{{ checksum "native/yarn.lock"}}-{{ checksum "package.json" }}-{{ checksum "native/package.json" }}-{{ checksum "web/package.json" }}
+                    - 8-yarn-{{ arch }}-
                 name: Restore Yarn Package Cache
             - run:
                 command: yarn install --immutable --immutable-cache
@@ -172,7 +172,7 @@ commands:
                 name: Yarn native
                 working_directory: native
             - save_cache:
-                key: 9-yarn-{{ arch }}-{{ checksum "yarn.lock" }}-{{ checksum "native/yarn.lock"}}-{{ checksum "package.json" }}-{{ checksum "native/package.json" }}-{{ checksum "web/package.json" }}
+                key: 8-yarn-{{ arch }}-{{ checksum "yarn.lock" }}-{{ checksum "native/yarn.lock"}}-{{ checksum "package.json" }}-{{ checksum "native/package.json" }}-{{ checksum "web/package.json" }}
                 name: Save Yarn Package Cache
                 paths:
                     - native/.yarn/cache
@@ -477,12 +477,12 @@ jobs:
                 command: yarn workspace web stylelint
                 name: Stylelint
             - run:
+                command: yarn generate-licenses
+                name: Generate licenses native
+                working_directory: native
+            - run:
                 command: yarn ts:check
                 name: TS check
-            - run:
-                command: yarn tsc --build
-                name: TS check native
-                working_directory: native
             - unit_test
     deliver_android:
         docker:
