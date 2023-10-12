@@ -9,6 +9,7 @@ import { contentDirection } from '../constants/contentDirection'
 import { PageResourceCacheStateType } from '../utils/DataContainer'
 import { getCachedThumbnail } from './Categories'
 import { CategoryThumbnail } from './CategoryListItem'
+import List from './List'
 import Pressable from './base/Pressable'
 
 const FlexStyledLink = styled(Pressable)`
@@ -85,7 +86,8 @@ const SearchListItem = ({
       }}
     />
   )
-  return (
+
+  const SearchList = (
     <FlexStyledLink onPress={() => onItemPress(category)}>
       <DirectionContainer language={language}>
         <SearchEntryContainer>
@@ -100,6 +102,8 @@ const SearchListItem = ({
       </DirectionContainer>
     </FlexStyledLink>
   )
+
+  return <List items={category} Header={SearchList} role='list' renderItem={({ item: category }) => category} />
 }
 
 export default memo(SearchListItem)

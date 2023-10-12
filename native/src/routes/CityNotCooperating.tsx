@@ -3,13 +3,15 @@ import React, { ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import styled from 'styled-components/native'
 
+import List from '../components/List'
 import Icon from '../components/base/Icon'
 import TextButton from '../components/base/TextButton'
 import buildConfig, { buildConfigAssets } from '../constants/buildConfig'
 
-const Container = styled.ScrollView`
+const Container = styled.View`
   display: flex;
-  padding: 30px;
+  flex: 1;
+  padding: 30px 30px 0 30px;
 `
 
 const Heading = styled.Text`
@@ -30,6 +32,7 @@ const ListHeading = styled(Heading)`
 `
 
 const ListItem = styled.View`
+  top: -130px;
   flex-direction: row;
   margin: 10px 0;
   align-items: center;
@@ -53,29 +56,50 @@ const StepExplanation = styled.Text`
 `
 
 const StyledButton = styled(TextButton)`
+  top: -130px;
   z-index: 1;
   margin: 15px auto 0;
   width: 70%;
 `
 
 const TemplateText = styled.Text`
-  top: -20px;
+  top: -150px;
   border: 1px solid ${props => props.theme.colors.themeColor};
   padding: 50px 30px 30px;
   margin-bottom: 40px;
 `
 
 const StyledIcon = styled(Icon)`
+  margin: 10px 0;
   align-self: center;
   width: 50%;
-  height: 20%;
+  height: 30%;
 `
+
+type Step = {
+  number: string
+  id: string
+  explanation: string
+}
 
 const CityNotCooperating = (): ReactElement | null => {
   const { t } = useTranslation('cityNotCooperating')
   const [isCopied, setIsCopied] = useState<boolean>(false)
   const template = buildConfig().featureFlags.cityNotCooperatingTemplate
   const CityNotCooperatingIcon = buildConfigAssets().CityNotCooperatingIcon
+
+  const steps: Step[] = [
+    {
+      id: '1',
+      number: '1',
+      explanation: 'findOutMail',
+    },
+    {
+      id: '2',
+      number: '2',
+      explanation: 'sendText',
+    },
+  ]
 
   if (!template) {
     return null
@@ -86,24 +110,43 @@ const CityNotCooperating = (): ReactElement | null => {
     setIsCopied(true)
   }
 
-  return (
-    <Container>
-      <Heading>{t('callToAction')}</Heading>
+  const renderStepsList = ({ item }: { item: Step }) => (
+    <ListItem>
+      <StepNumber>{item.number}</StepNumber>
+      <StepExplanation>{t(item.explanation)}</StepExplanation>
+    </ListItem>
+  )
 
+  const CooperationHeader = (
+    <>
+      <Heading>{t('callToAction')}</Heading>
       <Description>{t('explanation')}</Description>
       {CityNotCooperatingIcon && <StyledIcon Icon={CityNotCooperatingIcon} />}
       <ListHeading>{t('whatToDo')}</ListHeading>
-      <ListItem>
-        <StepNumber>1</StepNumber>
-        <StepExplanation>{t('findOutMail')}</StepExplanation>
-      </ListItem>
-      <ListItem>
-        <StepNumber>2</StepNumber>
-        <StepExplanation>{t('sendText')}</StepExplanation>
-      </ListItem>
+    </>
+  )
 
-      <StyledButton onPress={copyToClipboard} text={isCopied ? t('common:copied') : t('copyText')} />
+  const CooperationFooter = (
+    <>
+      <StyledButton
+        onPress={copyToClipboard}
+        text={isCopied ? t('common:copied') : t('copyText')}
+        accessibilityRole='button'
+        accessibilityLabel={isCopied ? t('Text has been copied') : t('Copy Text')}
+      />
       <TemplateText>{template}</TemplateText>
+    </>
+  )
+
+  return (
+    <Container>
+      <List
+        items={steps}
+        renderItem={renderStepsList}
+        Header={CooperationHeader}
+        Footer={CooperationFooter}
+        keyExtractor={item => item.id}
+      />
     </Container>
   )
 }
