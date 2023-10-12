@@ -13,7 +13,6 @@ import {
   OFFERS_ROUTE,
   POIS_ROUTE,
   SEARCH_ROUTE,
-  SHELTER_ROUTE,
   SPRUNGBRETT_OFFER_ROUTE,
   TU_NEWS_TYPE,
 } from 'api-client'
@@ -34,7 +33,6 @@ export const RoutePatterns = {
   // City content routes, relative to /:cityCode/:languageCode
   [EVENTS_ROUTE]: EVENTS_ROUTE,
   [SPRUNGBRETT_OFFER_ROUTE]: `${OFFERS_ROUTE}/${SPRUNGBRETT_OFFER_ROUTE}`,
-  [SHELTER_ROUTE]: `${OFFERS_ROUTE}/${SHELTER_ROUTE}`,
   [OFFERS_ROUTE]: OFFERS_ROUTE,
   [POIS_ROUTE]: POIS_ROUTE,
   [LOCAL_NEWS_ROUTE]: `${NEWS_ROUTE}/${LOCAL_NEWS_ROUTE}`,
