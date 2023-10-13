@@ -1,7 +1,7 @@
 import { NavigationAction } from '@react-navigation/native'
 import React, { ReactElement, useCallback, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Alert, Text, View } from 'react-native'
+import { Alert, Text } from 'react-native'
 import styled from 'styled-components/native'
 
 import { JpalTrackingRouteType } from 'api-client'

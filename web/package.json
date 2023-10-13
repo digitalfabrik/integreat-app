@@ -24,7 +24,7 @@
     "test:coverage": "yarn run test --coverage",
     "test:ci": "yarn run test:coverage --ci",
     "test:watch": "yarn run test --watchAll",
-    "lint": " yarn stylelint && yarn stylelint:css && yarn eslint --cache --cache-location ../.eslintcache .",
+    "lint": " yarn stylelint && yarn eslint --cache --cache-location ../.eslintcache .",
     "stylelint": "stylelint --config stylelint.config.js \"src/**/*.{ts,tsx,css}\"",
     "ts:check": "tsc --build",
     "prettier:check": "yarn prettier --ignore-path  ../.prettierignore --check .",
