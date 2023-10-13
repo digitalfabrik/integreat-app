@@ -1,16 +1,16 @@
-import { Routes } from '../../../shared/constants'
-import { CategoriesPage } from './categories.page'
+import { Routes } from '../../../shared/constants.js'
+import { CategoriesPage } from './categories.page.js'
 
 class DashboardPage extends CategoriesPage {
-  get languageIcon() {
+  get languageIcon(): ChainablePromiseElement {
     return $("//header//button[@aria-label='Change language']")
   }
 
-  get searchIcon() {
+  get searchIcon(): ChainablePromiseElement {
     return $("//header//a[@aria-label='Search']")
   }
 
-  get locationIcon() {
+  get locationIcon(): ChainablePromiseElement {
     return $("//header//a[@aria-label='Change location']")
   }
 

@@ -1,8 +1,8 @@
 import { URL } from 'url'
 
-import { contentSearch, Routes } from '../../../shared/constants'
-import DashboardPage from '../pageobjects/dashboard.page'
-import SearchPage from '../pageobjects/search.page'
+import { contentSearch, Routes } from '../../../shared/constants.js'
+import DashboardPage from '../pageobjects/dashboard.page.js'
+import SearchPage from '../pageobjects/search.page.js'
 
 describe('navigateToSearchResult', () => {
   it('should open and search content', async () => {

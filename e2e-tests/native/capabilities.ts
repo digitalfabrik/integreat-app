@@ -1,11 +1,11 @@
 import { Capabilities } from '@wdio/types'
 
-import { getGitBranch, getGitHeadReference } from '../shared/git'
+import { getGitBranch, getGitHeadReference } from '../shared/git.js'
 
 const browserstackCaps = (
   config: Capabilities.AppiumCapabilities | Capabilities.AppiumXCUITestCapabilities,
   platformName: 'ios' | 'android',
-): Capabilities.Capabilities => {
+): WebdriverIO.Capabilities => {
   // is set by circleci https://github.com/circleci/circleci-docs/blob/master/jekyll/_cci1/environment-variables.md
   const isCi = !!process.env.CI
   const prefix = isCi ? 'IG CI' : 'IG DEV'
@@ -43,4 +43,4 @@ export default {
     },
     'ios',
   ),
-} as Record<string, Capabilities.Capabilities>
+} as Record<string, WebdriverIO.Capabilities>

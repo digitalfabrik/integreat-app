@@ -2,9 +2,14 @@
   "extends": "../tsconfig.json",
   "compilerOptions": {
     "composite": true,
+    "baseUrl": ".",
     "skipLibCheck": true,
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "isolatedModules": true,
     "outDir": "dist",
-    "types": ["node", "@wdio/globals/types", "jasmine"],
+    "types": ["node", "expect-webdriverio", "@wdio/jasmine-framework", "@wdio/globals/types"],
+    "typeRoots": ["./node_modules", "./node_modules/@types"],
     "sourceMap": false
   },
   "include": ["web", "native", "shared"]

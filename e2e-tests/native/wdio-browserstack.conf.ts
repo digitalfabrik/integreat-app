@@ -1,6 +1,6 @@
-import capabilities from './capabilities'
+import capabilities from './capabilities.js'
 
-const getCapability = () => {
+const getCapability = (): WebdriverIO.Capabilities => {
   const capabilityName = process.env.E2E_CONFIG
   if (!capabilityName) {
     throw new Error(`E2E_CONFIG name is not set! It should be one of ${Object.keys(capabilities)}`)

@@ -1,8 +1,8 @@
 import { URL } from 'url'
 
-import { defaultCity, filter, Routes } from '../../../shared/constants'
-import DashboardPage from '../pageobjects/dashboard.page'
-import LandingPage from '../pageobjects/landing.page'
+import { defaultCity, filter, Routes } from '../../../shared/constants.js'
+import DashboardPage from '../pageobjects/dashboard.page.js'
+import LandingPage from '../pageobjects/landing.page.js'
 
 describe('navigate to other location', () => {
   it('filter and navigate to location', async () => {

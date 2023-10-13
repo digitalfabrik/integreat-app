@@ -1,9 +1,7 @@
-import { Capabilities } from '@wdio/types/build/Capabilities'
+import { browsers, ciCapabilities } from './capabilities.js'
+import waitForLocalhost from './waitForLocalhost.js'
 
-import { browsers, ciCapabilities } from './capabilities'
-import waitForLocalhost from './waitForLocalhost'
-
-const getCapabilities = (): Array<Capabilities> => {
+const getCapabilities = (): Array<WebdriverIO.Capabilities> => {
   if (process.env.CI) {
     return [ciCapabilities]
   }
@@ -26,7 +24,6 @@ export const config: WebdriverIO.Config = {
   waitforTimeout: 2_000,
   connectionRetryTimeout: 120_000,
   connectionRetryCount: 3,
-  services: process.env.CI ? [] : ['selenium-standalone'],
   framework: 'jasmine',
   reporters: ['spec'],
 

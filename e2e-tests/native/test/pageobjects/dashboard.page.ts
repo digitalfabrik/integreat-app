@@ -1,19 +1,19 @@
-import { Page } from './page'
+import { Page } from './page.js'
 
 class DashboardPage extends Page {
   constructor() {
     super('Dashboard-Page')
   }
 
-  get searchIcon() {
+  get searchIcon(): ChainablePromiseElement {
     return $('~Search')
   }
 
-  get headerOverflowButton() {
+  get headerOverflowButton(): ChainablePromiseElement {
     return $('~More options')
   }
 
-  get languageIcon() {
+  get languageIcon(): ChainablePromiseElement {
     return $('~Change language')
   }
 }

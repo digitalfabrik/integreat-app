@@ -1,0 +1,19 @@
+description: Restores and saves the node_modules directories of the monorepo.
+steps:
+  - restore_cache:
+      name: Restore Yarn Package Cache
+      working_directory: e2e-tests
+      keys:
+        - 1-yarn-{{ arch }}-{{ checksum "yarn.lock" }}-{{ checksum "package.json" }}
+        - 1-yarn-{{ arch }}-
+  - run:
+      name: Yarn E2E
+      working_directory: e2e-tests
+      command: yarn install --immutable
+  - save_cache:
+      name: Save Yarn Package Cache
+      key: 1-yarn-{{ arch }}-{{ checksum "e2e-tests/yarn.lock" }}-{{ checksum "e2e-tests/package.json" }}
+      paths:
+        - e2e-tests/.yarn/cache
+        - e2e-tests/.yarn/install-state.gz
+        - e2e-tests/node_modules

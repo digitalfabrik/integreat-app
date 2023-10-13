@@ -4,7 +4,7 @@ type SelectorReturn = ReturnType<typeof $>
 
 class Gestures {
   static async checkIfDisplayedWithSwipeUp(selector: SelectorReturn, maxScrolls: number): Promise<WebdriverIO.Element> {
-    if (driver.isAndroid) {
+    if (browser.isAndroid) {
       return this.swipeIntoViewAndroid(selector, maxScrolls)
     }
     return this.swipeIntoViewIOS(selector, maxScrolls)

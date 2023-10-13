@@ -1,13 +1,12 @@
-import { Capabilities } from '@wdio/types/build/Capabilities'
-import { Testrunner } from '@wdio/types/build/Options'
+import { Capabilities } from '@wdio/types'
 
-const androidCapabilities: Capabilities = {
+const androidCapabilities: Capabilities.AppiumCapabilities & { platformName: 'android' } = {
   platformName: 'android',
   'appium:app': '../native/android/app/build/outputs/apk/debug/app-debug.apk',
   'appium:automationName': 'UiAutomator2',
 }
 
-export const config: Testrunner = {
+export const config: WebdriverIO.Config = {
   runner: 'local',
   specs: ['./test/specs/**/*.ts'],
   exclude: [],

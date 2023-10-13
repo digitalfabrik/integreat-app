@@ -1,8 +1,8 @@
-import { Routes } from '../../../shared/constants'
-import Page from './page'
+import { Routes } from '../../../shared/constants.js'
+import Page from './page.js'
 
 class SearchPage extends Page {
-  get search() {
+  get search(): ChainablePromiseElement {
     return $('//input')
   }
 
