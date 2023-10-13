@@ -711,7 +711,6 @@ jobs:
     e2e_web:
         docker:
             - image: cimg/node:18.14.1-browsers
-            - image: selenium/standalone-chrome
         resource_class: medium
         shell: /bin/bash -eo pipefail
         steps:
@@ -720,6 +719,8 @@ jobs:
             - prepare_workspace
             - restore_yarn_cache
             - restore_yarn_e2e_cache
+            - browser-tools/install-chrome
+            - browser-tools/install-chromedriver
             - run:
                 background: true
                 command: yarn workspace web start:integreat-e2e
@@ -1005,6 +1006,8 @@ jobs:
                 name: '[FL] Browserstack Upload Live'
                 working_directory: native
             - notify
+orbs:
+    browser-tools: circleci/browser-tools@1.4.6
 parameters:
     api_triggered:
         default: false

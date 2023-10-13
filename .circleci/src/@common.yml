@@ -20,3 +20,5 @@ parameters:
         none,
       ]
     default: none
+orbs:
+  browser-tools: circleci/browser-tools@1.4.6
