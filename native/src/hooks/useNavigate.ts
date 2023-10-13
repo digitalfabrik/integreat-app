@@ -15,7 +15,6 @@ import {
   POIS_ROUTE,
   RouteInformationType,
   SEARCH_ROUTE,
-  SHELTER_ROUTE,
   SPRUNGBRETT_OFFER_ROUTE,
 } from 'api-client'
 
@@ -39,15 +38,13 @@ const navigate = <T extends RoutesType>(
     return
   }
   const url = urlFromRouteInformation(routeInformation)
-  if (routeInformation.route !== SHELTER_ROUTE) {
-    sendTrackingSignal({
-      signal: {
-        name: OPEN_PAGE_SIGNAL_NAME,
-        pageType: routeInformation.route,
-        url,
-      },
-    })
-  }
+  sendTrackingSignal({
+    signal: {
+      name: OPEN_PAGE_SIGNAL_NAME,
+      pageType: routeInformation.route,
+      url,
+    },
+  })
 
   if (routeInformation.route === LICENSES_ROUTE) {
     navigation.push(LICENSES_ROUTE)
@@ -125,11 +122,6 @@ const navigate = <T extends RoutesType>(
 
     case SEARCH_ROUTE:
       navigation.push(SEARCH_ROUTE, { searchText: routeInformation.searchText })
-      return
-
-    // Not implemented in native apps, should be opened in InAppBrowser
-    case SHELTER_ROUTE:
-      openExternalUrl(url, showSnackbar)
   }
 }
 
