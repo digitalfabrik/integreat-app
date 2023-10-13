@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next'
 import { SvgProps } from 'react-native-svg'
 import styled from 'styled-components/native'
 
-import { DateModel, EventModel, parseHTML } from 'api-client'
+import { DateModel, DateIcon, EventModel, parseHTML } from 'api-client'
 
 import {
   CalendarRecurringIcon,
@@ -25,19 +25,18 @@ const Description = styled.Text`
 const placeholderThumbnails = [EventThumbnailPlaceholder1, EventThumbnailPlaceholder2, EventThumbnailPlaceholder3]
 
 const getDateIcon = (date: DateModel): { icon: JSXElementConstructor<SvgProps>; label: string } | null => {
-  const isRecurring = date.hasMoreRecurrencesThan(1)
-  const isToday = date.isToday
-
-  if (isRecurring && isToday) {
-    return { icon: CalendarTodayRecurringIcon, label: 'todayRecurring' }
+  const icons: { [key in DateIcon]: JSXElementConstructor<SvgProps> } = {
+    CalendarTodayRecurringIcon,
+    CalendarRecurringIcon,
+    CalendarTodayIcon,
   }
-  if (isRecurring) {
-    return { icon: CalendarRecurringIcon, label: 'recurring' }
-  }
-  if (isToday) {
-    return { icon: CalendarTodayIcon, label: 'today' }
-  }
-  return null
+  const iconToUse = date.getDateIcon()
+  return iconToUse
+    ? {
+        icon: icons[iconToUse.icon],
+        label: iconToUse.label,
+      }
+    : null
 }
 
 type EventListItemProps = {

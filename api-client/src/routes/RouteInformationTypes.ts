@@ -11,7 +11,6 @@ import {
   OffersRouteType,
   PoisRouteType,
   SearchRouteType,
-  ShelterRouteType,
   SprungbrettOfferRouteType,
   TuNewsType,
 } from '.'
@@ -57,11 +56,6 @@ export type SimpleCityContentFeatureType = ParamsType & {
   route: DisclaimerRouteType | OffersRouteType | SprungbrettOfferRouteType
 }
 
-export type IdCityContentFeatureType = ParamsType & {
-  route: ShelterRouteType
-  id?: string
-}
-
 export type EventsRouteInformationType = ParamsType & {
   // Routes with customizable ids, e.g. '/augsburg/de/events/1234/'
   route: EventsRouteType
@@ -90,7 +84,6 @@ export type NonNullableRouteInformationType =
   | SimpleCityContentFeatureType
   | EventsRouteInformationType
   | PoisRouteInformationType
-  | IdCityContentFeatureType
   | LicensesInformationType
   | SearchRouteInformationType
 

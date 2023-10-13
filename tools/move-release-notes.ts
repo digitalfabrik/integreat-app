@@ -1,7 +1,7 @@
 import { program } from 'commander'
 
-import { GITKEEP_FILE, UNRELEASED_DIR, RELEASE_NOTES_DIR } from './constants'
-import authenticate from './github-authentication'
+import { GITKEEP_FILE, UNRELEASED_DIR, RELEASE_NOTES_DIR } from './constants.js'
+import authenticate from './github-authentication.js'
 
 type Opts = {
   deliverinoPrivateKey: string

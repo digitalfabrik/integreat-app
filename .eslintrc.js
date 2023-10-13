@@ -173,6 +173,15 @@ module.exports = {
         'import/no-extraneous-dependencies': 'off',
       },
     },
+    {
+      files: ['tools/**'],
+      plugins: ['unicorn'],
+      rules: {
+        // esm specific rules
+        'import/no-commonjs': 'error',
+        'unicorn/prefer-node-protocol': 'error',
+      },
+    },
   ],
   reportUnusedDisableDirectives: true,
   settings: {

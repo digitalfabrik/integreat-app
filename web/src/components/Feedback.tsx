@@ -23,6 +23,7 @@ export const Container = styled.div`
   font-size: ${props => props.theme.fonts.contentFontSize};
   overflow: auto;
   align-self: center;
+
   @media ${dimensions.mediumLargeViewport} {
     width: 400px;
   }

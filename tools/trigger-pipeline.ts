@@ -1,7 +1,7 @@
 import { program } from 'commander'
 import fetch from 'node-fetch'
 
-import { MAIN_BRANCH } from './constants'
+import { MAIN_BRANCH } from './constants.js'
 
 const CIRCLECI_URL = 'https://circleci.com/api/v2/project/github/digitalfabrik/integreat-app/pipeline'
 const WORKFLOW_TYPES = [
