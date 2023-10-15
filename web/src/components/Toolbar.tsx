@@ -21,7 +21,7 @@ const ToolbarContainer = styled.div<{ direction: 'row' | 'column'; hasPadding: b
   }
 
   & p {
-    margin: 0.5rem 0 0 0;
+    margin: 0.5rem 0 0;
   }
 
   @media ${dimensions.smallViewport} {

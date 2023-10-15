@@ -13,8 +13,8 @@ const StyledButton = styled.button<{ disabled: boolean; fullWidth?: boolean }>`
   cursor: ${props => (props.disabled ? 'default' : 'pointer')};
   pointer-events: ${props => (props.disabled ? 'none' : 'default')};
   box-shadow:
-    0 1px 3px rgba(0, 0, 0, 0.1),
-    0 1px 2px rgba(0, 0, 0, 0.15);
+    0 1px 3px rgb(0 0 0 / 10%),
+    0 1px 2px rgb(0 0 0 / 15%);
 `
 
 type TextButtonProps = {
