@@ -7,7 +7,7 @@ import { CategoryModel, getExcerpt, normalizeString } from 'api-client'
 import { SEARCH_PREVIEW_MAX_CHARS } from '../constants'
 import { contentDirection } from '../constants/contentDirection'
 import { PageResourceCacheStateType } from '../utils/DataContainer'
-import { getCachedThumbnail } from './Categories'
+import categories, { getCachedThumbnail } from './Categories'
 import { CategoryThumbnail } from './CategoryListItem'
 import List from './List'
 import Pressable from './base/Pressable'
@@ -103,7 +103,7 @@ const SearchListItem = ({
     </FlexStyledLink>
   )
 
-  return <List items={category} Header={SearchList} role='list' renderItem={({ item: category }) => category} />
+  return <List items={category} renderItem={({ item: category }) => category} Header={SearchList} />
 }
 
 export default memo(SearchListItem)

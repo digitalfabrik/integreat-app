@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next'
 import styled from 'styled-components/native'
 
 import List from '../components/List'
+import NothingFound from '../components/NothingFound'
 import Icon from '../components/base/Icon'
 import TextButton from '../components/base/TextButton'
 import buildConfig, { buildConfigAssets } from '../constants/buildConfig'
@@ -110,7 +111,7 @@ const CityNotCooperating = (): ReactElement | null => {
     setIsCopied(true)
   }
 
-  const renderStepsList = ({ item }: { item: Step }) => (
+  const renderStepsList = ({ item }: { item: Step; index: number }) => (
     <ListItem>
       <StepNumber>{item.number}</StepNumber>
       <StepExplanation>{t(item.explanation)}</StepExplanation>
@@ -128,12 +129,7 @@ const CityNotCooperating = (): ReactElement | null => {
 
   const CooperationFooter = (
     <>
-      <StyledButton
-        onPress={copyToClipboard}
-        text={isCopied ? t('common:copied') : t('copyText')}
-        accessibilityRole='button'
-        accessibilityLabel={isCopied ? t('Text has been copied') : t('Copy Text')}
-      />
+      <StyledButton onPress={copyToClipboard} text={isCopied ? t('common:copied') : t('copyText')} />
       <TemplateText>{template}</TemplateText>
     </>
   )
@@ -141,11 +137,11 @@ const CityNotCooperating = (): ReactElement | null => {
   return (
     <Container>
       <List
-        items={steps}
+        items={steps!}
         renderItem={renderStepsList}
         Header={CooperationHeader}
         Footer={CooperationFooter}
-        keyExtractor={item => item.id}
+        noItemsMessage={<NothingFound />}
       />
     </Container>
   )
