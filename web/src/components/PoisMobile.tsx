@@ -48,7 +48,7 @@ const BackNavigation = styled.div<{ direction: string }>`
   width: 28px;
   border: 1px solid ${props => props.theme.colors.textDisabledColor};
   border-radius: 50px;
-  box-shadow: 1px 1px 2px 0 rgba(0, 0, 0, 0.2);
+  box-shadow: 1px 1px 2px 0 rgb(0 0 0 / 20%);
   cursor: pointer;
   justify-content: center;
   align-items: center;
@@ -61,6 +61,7 @@ const StyledIcon = styled(Icon)`
 
 const GeocontrolContainer = styled.div<{ height: number; direction: string }>`
   --max-icon-height: calc(${props => getSnapPoints(props.height)[1]}px + ${geolocatorTopOffset}px);
+
   position: absolute;
   ${props =>
     props.direction === 'ltr'
