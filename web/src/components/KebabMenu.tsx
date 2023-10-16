@@ -32,7 +32,8 @@ const List = styled.div<{ direction: UiDirectionType; show: boolean }>`
   width: 80vw;
   height: 100vh;
   background-color: ${props => props.theme.colors.backgroundColor};
-  box-shadow: -3px 3px 3px 0 rgba(0, 0, 0, 0.13);
+  box-shadow: -3px 3px 3px 0 rgb(0 0 0 / 13%);
+
   /* to stop flickering of text in safari */
   -webkit-font-smoothing: antialiased;
   transform-origin: 0 0;
@@ -51,7 +52,7 @@ const Overlay = styled.div<{ show: boolean }>`
   height: 100vh;
   top: 0;
   left: 0;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgb(0 0 0 / 50%);
   z-index: 30;
   display: ${props => (props.show ? `block` : `none`)};
 `
@@ -60,7 +61,7 @@ const Heading = styled.div<{ direction: string }>`
   display: flex;
   justify-content: ${props => (props.direction === 'rtl' ? `flex-start` : `flex-end`)};
   background-color: ${props => props.theme.colors.backgroundAccentColor};
-  box-shadow: -3px 3px 3px 0 rgba(0, 0, 0, 0.13);
+  box-shadow: -3px 3px 3px 0 rgb(0 0 0 / 13%);
   height: ${dimensions.headerHeightSmall}px;
   padding: 0 8px;
 `
@@ -94,7 +95,7 @@ const KebabMenu = ({ items, direction, show, setShow, Footer }: KebabMenuProps):
 
   return (
     <ToggleContainer>
-      <ToggleButton onClick={onClick} data-testid='kebab-menu-button' aria-label={t('sideBarOpenAriaLabel')}>
+      <ToggleButton onClick={onClick} aria-label={t('sideBarOpenAriaLabel')}>
         <StyledIcon src={MenuIcon} />
       </ToggleButton>
       <Portal

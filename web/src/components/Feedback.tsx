@@ -24,6 +24,7 @@ export const Container = styled.div<{ widerDisplay?: boolean }>`
   overflow: auto;
   align-self: center;
   gap: ${props => (props.widerDisplay ? '5px' : 0)};
+
   @media ${dimensions.mediumLargeViewport} {
     width: ${props => (props.widerDisplay ? 'auto' : '400px')};
   }

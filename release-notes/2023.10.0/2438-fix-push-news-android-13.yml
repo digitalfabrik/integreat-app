@@ -1,0 +1,6 @@
+issue_key: 2438
+show_in_stores: true
+platforms:
+  - android
+en: Support receiving push notifications on Android 13.
+de: Das Empfangen von Push Nachrichten auf Android 13 wird nun unterstützt.

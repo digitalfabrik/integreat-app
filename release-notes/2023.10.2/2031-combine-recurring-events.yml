@@ -1,0 +1,8 @@
+issue_key: 2031
+show_in_stores: true
+platforms:
+  - android
+  - ios
+  - web
+en: Recurring events will now be displayed together.
+de: Wiederkehrende Veranstaltungen werden nun zusammen angezeigt.

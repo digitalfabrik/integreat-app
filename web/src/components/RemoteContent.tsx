@@ -4,22 +4,17 @@ import styled from 'styled-components'
 
 import { ExternalLinkIcon } from '../assets'
 import buildConfig from '../constants/buildConfig'
+import { helpers } from '../constants/theme'
 
 const SandBox = styled.div<{ centered: boolean; smallText: boolean }>`
   font-family: ${props => props.theme.fonts.web.contentFont};
-  font-size: ${props =>
-    props.smallText
-      ? `clamp(
-          ${props.theme.fonts.adaptiveFontSizeSmall.min},
-          ${props.theme.fonts.adaptiveFontSizeSmall.value},
-          ${props.theme.fonts.adaptiveFontSizeSmall.max}
-  );`
-      : props.theme.fonts.contentFontSize};
+  font-size: ${props => (props.smallText ? helpers.adaptiveFontSize : props.theme.fonts.contentFontSize)};
   line-height: ${props => props.theme.fonts.contentLineHeight};
   display: flow-root; /* clearfix for the img floats */
 
   ${props => (props.centered ? 'text-align: center;' : '')}
   ${props => (props.centered ? 'list-style-position: inside;' : '')}
+  
   img {
     max-width: 100%;
     max-height: 100%;
@@ -44,7 +39,7 @@ const SandBox = styled.div<{ centered: boolean; smallText: boolean }>`
     text-align: center;
     margin: 15px auto;
 
-    @media only screen and (max-width: 640px) {
+    @media only screen and (width <= 640px) {
       width: 100% !important;
     }
   }
@@ -102,22 +97,8 @@ const SandBox = styled.div<{ centered: boolean; smallText: boolean }>`
     content: '';
     display: inline-block;
     background-image: url('${ExternalLinkIcon}');
-    width: ${props =>
-      props.smallText
-        ? `clamp(
-          ${props.theme.fonts.adaptiveFontSizeSmall.min},
-          ${props.theme.fonts.adaptiveFontSizeSmall.value},
-          ${props.theme.fonts.adaptiveFontSizeSmall.max}
-  );`
-        : props.theme.fonts.contentFontSize};
-    height: ${props =>
-      props.smallText
-        ? `clamp(
-          ${props.theme.fonts.adaptiveFontSizeSmall.min},
-          ${props.theme.fonts.adaptiveFontSizeSmall.value},
-          ${props.theme.fonts.adaptiveFontSizeSmall.max}
-  );`
-        : props.theme.fonts.contentFontSize};
+    width: ${props => (props.smallText ? helpers.adaptiveFontSize : props.theme.fonts.contentFontSize)};
+    height: ${props => (props.smallText ? helpers.adaptiveFontSize : props.theme.fonts.contentFontSize)};
     background-size: contain;
     vertical-align: middle;
     margin-left: 4px;

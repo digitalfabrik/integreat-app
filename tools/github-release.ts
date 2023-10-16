@@ -1,7 +1,7 @@
 import { program } from 'commander'
 
-import { tagId } from './constants'
-import authenticate from './github-authentication'
+import { tagId } from './constants.js'
+import authenticate from './github-authentication.js'
 
 type Options = {
   deliverinoPrivateKey: string

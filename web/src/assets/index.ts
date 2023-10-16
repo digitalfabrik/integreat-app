@@ -7,6 +7,9 @@ import ArrowBackIcon from '../../../assets/icons/arrow-back.svg'
 import ArrowBackspaceIcon from '../../../assets/icons/arrow-backspace.svg'
 import BathroomIcon from '../../../assets/icons/bathroom.svg'
 import BedIcon from '../../../assets/icons/bed.svg'
+import CalendarRecurringIcon from '../../../assets/icons/calendar-recurring.svg'
+import CalendarTodayRecurringIcon from '../../../assets/icons/calendar-today-recurring.svg'
+import CalendarTodayIcon from '../../../assets/icons/calendar-today.svg'
 import CalendarIcon from '../../../assets/icons/calendar.svg'
 import CategoriesIcon from '../../../assets/icons/categories.svg'
 import ClockIcon from '../../../assets/icons/clock.svg'
@@ -52,6 +55,9 @@ export {
   BathroomIcon,
   BedIcon,
   CalendarIcon,
+  CalendarRecurringIcon,
+  CalendarTodayIcon,
+  CalendarTodayRecurringIcon,
   CategoriesIcon,
   ClockIcon,
   CloseIcon,

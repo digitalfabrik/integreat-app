@@ -19,6 +19,7 @@ type HeaderProps = {
   kebabItems: Array<ReactNode>
   logoHref: string
   cityName?: string
+  cityCode?: string
   direction: UiDirectionType
   isSidebarOpen?: boolean
   setIsSidebarOpen?: (show: boolean) => void
@@ -33,7 +34,7 @@ const HeaderContainer = styled.header`
   user-select: none;
   flex-direction: column;
   overflow: visible;
-  box-shadow: 0 2px 5px -3px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 2px 5px -3px rgb(0 0 0 / 20%);
 
   @media ${dimensions.minMaxWidth} {
     padding-right: calc((200% - 100vw - ${dimensions.maxWidth}px) / 2);
@@ -60,9 +61,10 @@ const Row = styled.div`
     min-height: ${dimensions.headerHeightSmall}px;
     overflow-x: auto;
     padding: 8px 0;
-    box-shadow: 0 2px 5px -3px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 2px 5px -3px rgb(0 0 0 / 20%);
+
     :first-child {
-      box-shadow: 0 2px 5px -3px rgba(0, 0, 0, 0.12);
+      box-shadow: 0 2px 5px -3px rgb(0 0 0 / 12%);
       padding: 0 4px;
     }
   }
@@ -113,6 +115,7 @@ export const Header = ({
   logoHref,
   navigationItems = [],
   cityName,
+  cityCode,
   direction,
   isSidebarOpen = false,
   setIsSidebarOpen,
@@ -135,13 +138,13 @@ export const Header = ({
           {(!viewportSmall || !!cityName) && <HeaderTitle>{cityName}</HeaderTitle>}
           <ActionBar>
             {actionItems}
-            {viewportSmall && setIsSidebarOpen && !!cityName && (
+            {viewportSmall && setIsSidebarOpen && !!cityCode && (
               <KebabMenu
                 setShow={setIsSidebarOpen}
                 show={isSidebarOpen}
                 items={kebabItems}
                 direction={direction}
-                Footer={<CityContentFooter city={cityName} language={language} mode='sidebar' />}
+                Footer={<CityContentFooter city={cityCode} language={language} mode='sidebar' />}
               />
             )}
           </ActionBar>

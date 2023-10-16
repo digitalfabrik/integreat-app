@@ -122,6 +122,7 @@ jest.mock('../utils/PushNotificationsManager', () => ({
   pushNotificationsSupported: jest.fn(() => true),
   quitAppStatePushNotificationListener: jest.fn(),
   useForegroundPushNotificationListener: jest.fn(),
+  androidPushNotificationPermissionFix: jest.fn(async () => undefined),
 }))
 jest.mock('../utils/FetcherModule')
 

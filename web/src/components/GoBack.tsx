@@ -2,6 +2,7 @@ import React, { memo, ReactElement } from 'react'
 import styled, { css, useTheme } from 'styled-components'
 
 import { ArrowBackspaceIcon } from '../assets'
+import { helpers } from '../constants/theme'
 import Spacer from './Spacer'
 import Icon from './base/Icon'
 
@@ -13,11 +14,13 @@ const DetailsHeader = styled.div<{ viewportSmall: boolean }>`
   ${props =>
     props.viewportSmall &&
     css`
-      animation: fadeIn 3s;
-      @keyframes fadeIn {
+      animation: fade-in 3s;
+
+      @keyframes fade-in {
         0% {
           opacity: 0;
         }
+
         100% {
           opacity: 1;
         }
@@ -29,11 +32,7 @@ const DetailsHeaderTitle = styled.span`
   align-self: center;
   white-space: pre;
   padding-left: 8px;
-  font-size: clamp(
-    ${props => props.theme.fonts.adaptiveFontSizeSmall.min},
-    ${props => props.theme.fonts.adaptiveFontSizeSmall.value},
-    ${props => props.theme.fonts.adaptiveFontSizeSmall.max}
-  );
+  ${helpers.adaptiveFontSize};
   font-family: ${props => props.theme.fonts.web.contentFont};
 `
 

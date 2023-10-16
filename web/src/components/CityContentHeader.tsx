@@ -12,7 +12,6 @@ import {
   pathnameFromRouteInformation,
   POIS_ROUTE,
   SEARCH_ROUTE,
-  SHELTER_ROUTE,
   SPRUNGBRETT_OFFER_ROUTE,
 } from 'api-client'
 import { config } from 'translations'
@@ -154,7 +153,7 @@ const CityContentHeader = ({
         <HeaderNavigationItem
           key='offers'
           href={offersPath}
-          active={route === OFFERS_ROUTE || route === SPRUNGBRETT_OFFER_ROUTE || route === SHELTER_ROUTE}
+          active={route === OFFERS_ROUTE || route === SPRUNGBRETT_OFFER_ROUTE}
           text={t('offers')}
           icon={OffersIcon}
         />,
@@ -171,6 +170,7 @@ const CityContentHeader = ({
       actionItems={actionItems}
       kebabItems={kebabItems}
       cityName={cityModel.name}
+      cityCode={cityModel.code}
       navigationItems={getNavigationItems()}
       isSidebarOpen={isSidebarOpen}
       setIsSidebarOpen={setIsSidebarOpen}

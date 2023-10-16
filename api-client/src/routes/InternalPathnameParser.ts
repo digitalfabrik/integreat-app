@@ -11,7 +11,6 @@ import {
   OFFERS_ROUTE,
   POIS_ROUTE,
   SEARCH_ROUTE,
-  SHELTER_ROUTE,
   SPRUNGBRETT_OFFER_ROUTE,
   TU_NEWS_TYPE,
   TuNewsType,
@@ -188,13 +187,6 @@ class InternalPathnameParser {
         return {
           route: SPRUNGBRETT_OFFER_ROUTE,
           ...params,
-        }
-      }
-      if (route === SHELTER_ROUTE) {
-        return {
-          route: SHELTER_ROUTE,
-          ...params,
-          id: this._parts[ENTITY_ID_INDEX + 1],
         }
       }
     }
