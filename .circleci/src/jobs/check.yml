@@ -17,6 +17,8 @@ steps:
   - run:
       name: Lint
       command: yarn lint:ci
+  - store_test_results:
+      path: reports/lint
   - run:
       name: Stylelint
       command: yarn workspace web stylelint && yarn workspace web stylelint:css
