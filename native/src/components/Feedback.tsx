@@ -121,7 +121,7 @@ const Feedback = ({
               <HeadlineContainer>
                 <Description>{t('searchTermDescription')}</Description>
               </HeadlineContainer>
-              <Input value={searchTerm} onChangeText={setSearchTerm} />
+              <Input value={searchTerm} onChangeText={setSearchTerm} testID='searchTerm' />
             </>
           ) : (
             <>

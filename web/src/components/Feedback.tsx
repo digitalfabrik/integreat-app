@@ -10,7 +10,7 @@ import Icon from './base/Icon'
 import TextButton from './base/TextButton'
 import ToggleButton from './base/ToggleButton'
 
-export const Container = styled.div<{ widerDisplay?: boolean }>`
+export const Container = styled.div<{ fullWidth?: boolean }>`
   display: flex;
   flex: 1;
   max-height: 80vh;
@@ -23,10 +23,10 @@ export const Container = styled.div<{ widerDisplay?: boolean }>`
   font-size: ${props => props.theme.fonts.contentFontSize};
   overflow: auto;
   align-self: center;
-  gap: ${props => (props.widerDisplay ? '5px' : 0)};
+  gap: ${props => (props.fullWidth ? '5px' : 0)};
 
   @media ${dimensions.mediumLargeViewport} {
-    width: ${props => (props.widerDisplay ? 'auto' : '400px')};
+    width: ${props => (props.fullWidth ? 'auto' : '400px')};
   }
 `
 
@@ -105,7 +105,7 @@ const Feedback = ({
   const sendFeedbackDisabled = isPositiveFeedback === null && comment.trim().length === 0 && !isSearchFeedback
 
   return (
-    <Container widerDisplay={isSearchFeedback}>
+    <Container fullWidth={isSearchFeedback}>
       {isSearchFeedback ? (
         <>
           <TextContainer>

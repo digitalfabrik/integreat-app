@@ -2,7 +2,13 @@ import { NavigationContainer } from '@react-navigation/native'
 import { fireEvent } from '@testing-library/react-native'
 import React from 'react'
 
-import { FeedbackType, CATEGORIES_ROUTE, CONTENT_FEEDBACK_CATEGORY, SEND_FEEDBACK_SIGNAL_NAME } from 'api-client'
+import {
+  FeedbackType,
+  CATEGORIES_ROUTE,
+  CONTENT_FEEDBACK_CATEGORY,
+  SEND_FEEDBACK_SIGNAL_NAME,
+  SEARCH_ROUTE,
+} from 'api-client'
 
 import render from '../../testing/render'
 import sendTrackingSignal from '../../utils/sendTrackingSignal'
@@ -109,5 +115,66 @@ describe('FeedbackContainer', () => {
     expect(await findByText('send')).not.toBeDisabled()
     fireEvent.press(positiveRatingButton)
     expect(await findByText('send')).toBeDisabled()
+  })
+
+  it('should send search feedback on submit', async () => {
+    const query = 'Zeugnis'
+    const { findByText, getByText } = render(
+      <NavigationContainer>
+        <FeedbackContainer
+          routeType={SEARCH_ROUTE}
+          isSearchFeedback
+          language={language}
+          cityCode={city}
+          query={query}
+        />
+      </NavigationContainer>,
+    )
+    const button = getByText('send')
+    fireEvent.press(button)
+    expect(await findByText('thanksMessage')).toBeDefined()
+    expect(mockRequest).toHaveBeenCalledTimes(1)
+    expect(mockRequest).toHaveBeenCalledWith({
+      feedbackType: FeedbackType.search,
+      feedbackCategory: CONTENT_FEEDBACK_CATEGORY,
+      isPositiveRating: null,
+      city,
+      language,
+      comment: '    Kontaktadresse: Keine Angabe',
+      query,
+      slug: undefined,
+    })
+  })
+
+  it('should send original search term for search feedback if edited', async () => {
+    const query = 'Zeugnis'
+    const fullSearchTerm = 'Zeugnisübergabe'
+    const { findByText, getByTestId, getByText } = render(
+      <NavigationContainer>
+        <FeedbackContainer
+          routeType={SEARCH_ROUTE}
+          isSearchFeedback
+          language={language}
+          cityCode={city}
+          query={query}
+        />
+      </NavigationContainer>,
+    )
+    const input = getByTestId('searchTerm')
+    fireEvent.changeText(input, fullSearchTerm)
+    const button = getByText('send')
+    fireEvent.press(button)
+    expect(await findByText('thanksMessage')).toBeDefined()
+    expect(mockRequest).toHaveBeenCalledTimes(1)
+    expect(mockRequest).toHaveBeenCalledWith({
+      feedbackType: FeedbackType.search,
+      feedbackCategory: CONTENT_FEEDBACK_CATEGORY,
+      isPositiveRating: null,
+      city,
+      language,
+      comment: '    Kontaktadresse: Keine Angabe',
+      query: `${fullSearchTerm} (actual query: ${query})`,
+      slug: undefined,
+    })
   })
 })

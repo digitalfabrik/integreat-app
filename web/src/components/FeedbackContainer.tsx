@@ -102,7 +102,7 @@ export const FeedbackContainer = ({
       city: cityCode,
       language,
       comment: commentWithMail,
-      query: searchTerm?.trim().length === 0 ? query : searchTerm,
+      query: query === searchTerm ? query : `${searchTerm} (actual query: ${query})`,
       slug,
     }
   }
