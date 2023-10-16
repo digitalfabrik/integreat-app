@@ -492,7 +492,7 @@ jobs:
             - store_test_results:
                 path: reports/lint
             - run:
-                command: yarn workspace web stylelint && yarn workspace web stylelint:css
+                command: yarn workspace web stylelint
                 name: Stylelint
             - run:
                 command: yarn workspaces run ts:check
