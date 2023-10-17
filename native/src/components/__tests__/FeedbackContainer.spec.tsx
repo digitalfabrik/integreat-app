@@ -149,7 +149,7 @@ describe('FeedbackContainer', () => {
   it('should send original search term for search feedback if edited', async () => {
     const query = 'Zeugnis'
     const fullSearchTerm = 'Zeugnisübergabe'
-    const { findByText, getByTestId, getByText } = render(
+    const { findByText, getByDisplayValue, getByText } = render(
       <NavigationContainer>
         <FeedbackContainer
           routeType={SEARCH_ROUTE}
@@ -160,7 +160,7 @@ describe('FeedbackContainer', () => {
         />
       </NavigationContainer>,
     )
-    const input = getByTestId('searchTerm')
+    const input = getByDisplayValue(query)
     fireEvent.changeText(input, fullSearchTerm)
     const button = getByText('send')
     fireEvent.press(button)
