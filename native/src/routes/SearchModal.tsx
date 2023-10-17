@@ -105,22 +105,28 @@ const SearchModal = ({
       onItemPress={onItemPress}
     />
   )
-  const Feedback = (
-    <FeedbackContainer
-      routeType={SEARCH_ROUTE}
-      isSearchFeedback
-      language={languageCode}
-      cityCode={cityCode}
-      query={query}
-      hasDivider={!searchResults}
-    />
-  )
 
   return (
     <Wrapper {...testID('Search-Page')}>
       <SearchHeader theme={theme} query={query} closeSearchBar={onClose} onSearchChanged={setQuery} t={t} />
       <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : undefined} style={{ flex: 1 }}>
-        <List items={searchResults} renderItem={renderItem} Footer={Feedback} noItemsMessage={<NothingFound />} />
+        <List
+          items={searchResults}
+          renderItem={renderItem}
+          noItemsMessage={
+            <>
+              <NothingFound />
+              <FeedbackContainer
+                routeType={SEARCH_ROUTE}
+                isSearchFeedback
+                language={languageCode}
+                cityCode={cityCode}
+                query={query}
+                hasDivider={!searchResults}
+              />
+            </>
+          }
+        />
       </KeyboardAvoidingView>
     </Wrapper>
   )
