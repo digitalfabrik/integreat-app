@@ -14,6 +14,7 @@ const config: Partial<Config.GlobalConfig> = {
     ],
   ],
   coverageDirectory: '<rootDir>/reports/coverage',
+  collectCoverageFrom: ['**/src/**/*.{ts,tsx}'],
 }
 
 export default config
