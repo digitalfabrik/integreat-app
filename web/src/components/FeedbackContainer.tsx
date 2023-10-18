@@ -1,4 +1,4 @@
-import React, { ReactElement, useState } from 'react'
+import React, { ReactElement, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
 
@@ -44,13 +44,27 @@ export enum SendingState {
   SENDING,
 }
 
-export const FeedbackContainer = (props: FeedbackContainerProps): ReactElement => {
+export const FeedbackContainer = ({
+  query,
+  language,
+  isSearchFeedback,
+  routeType,
+  cityCode,
+  slug,
+  closeModal,
+  onSubmit,
+}: FeedbackContainerProps): ReactElement => {
   const [isPositiveFeedback, setIsPositiveFeedback] = useState<boolean | null>(null)
   const [comment, setComment] = useState<string>('')
   const [contactMail, setContactMail] = useState<string>('')
   const [sendingStatus, setSendingStatus] = useState<SendingState>(SendingState.IDLE)
-  const { query, language, isSearchFeedback, routeType, cityCode, slug, closeModal, onSubmit } = props
+  const [searchTerm, setSearchTerm] = useState<string | undefined>(query)
+
   const { t } = useTranslation('feedback')
+
+  useEffect(() => {
+    setSearchTerm(query)
+  }, [query])
 
   const getFeedbackType = (): FeedbackType => {
     switch (routeType) {
@@ -88,7 +102,7 @@ export const FeedbackContainer = (props: FeedbackContainerProps): ReactElement =
       city: cityCode,
       language,
       comment: commentWithMail,
-      query,
+      query: query === searchTerm ? query : `${searchTerm} (actual query: ${query})`,
       slug,
     }
   }
@@ -124,6 +138,8 @@ export const FeedbackContainer = (props: FeedbackContainerProps): ReactElement =
         comment={comment}
         onFeedbackChanged={setIsPositiveFeedback}
         contactMail={contactMail}
+        searchTerm={searchTerm}
+        setSearchTerm={setSearchTerm}
       />
     )
   }

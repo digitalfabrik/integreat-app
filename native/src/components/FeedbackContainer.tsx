@@ -1,4 +1,4 @@
-import React, { ReactElement, useState } from 'react'
+import React, { ReactElement, useEffect, useState } from 'react'
 
 import {
   CATEGORIES_ROUTE,
@@ -54,12 +54,24 @@ export type FeedbackContainerProps = {
   hasDivider?: boolean
 }
 
-const FeedbackContainer = (props: FeedbackContainerProps): ReactElement => {
+const FeedbackContainer = ({
+  query,
+  language,
+  isSearchFeedback,
+  routeType,
+  cityCode,
+  slug,
+  hasDivider,
+}: FeedbackContainerProps): ReactElement => {
   const [comment, setComment] = useState<string>('')
   const [contactMail, setContactMail] = useState<string>('')
   const [isPositiveFeedback, setIsPositiveFeedback] = useState<boolean | null>(null)
   const [sendingStatus, setSendingStatus] = useState<SendingStatusType>('idle')
-  const { query, language, isSearchFeedback, routeType, cityCode, slug, hasDivider } = props
+  const [searchTerm, setSearchTerm] = useState<string | undefined>(query)
+
+  useEffect(() => {
+    setSearchTerm(query)
+  }, [query])
 
   const getFeedbackType = (): FeedbackType => {
     switch (routeType) {
@@ -99,7 +111,7 @@ const FeedbackContainer = (props: FeedbackContainerProps): ReactElement => {
       city: cityCode,
       language,
       comment: commentWithMail,
-      query,
+      query: query === searchTerm ? query : `${searchTerm} (actual query: ${query})`,
       slug,
     }
   }
@@ -149,6 +161,8 @@ const FeedbackContainer = (props: FeedbackContainerProps): ReactElement => {
         isPositiveFeedback={isPositiveFeedback}
         setIsPositiveFeedback={setIsPositiveFeedback}
         onSubmit={handleSubmit}
+        searchTerm={searchTerm}
+        setSearchTerm={setSearchTerm}
       />
     </>
   )
