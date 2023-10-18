@@ -1,4 +1,4 @@
-import capabilities from './capabilities'
+import capabilities from './capabilities.js'
 
 const getCapability = () => {
   const capabilityName = process.env.E2E_CONFIG

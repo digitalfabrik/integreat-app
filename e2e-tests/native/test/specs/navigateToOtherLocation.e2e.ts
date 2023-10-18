@@ -1,8 +1,8 @@
-import { augsburgCity, defaultCity, filter } from '../../../shared/constants'
-import Keyboard from '../helpers/Keyboard'
-import { Selector } from '../helpers/Selector'
-import DashboardPage from '../pageobjects/dashboard.page'
-import LandingPage from '../pageobjects/landing.page'
+import { augsburgCity, defaultCity, filter } from '../../../shared/constants.js'
+import Keyboard from '../helpers/Keyboard.js'
+import { Selector } from '../helpers/Selector.js'
+import DashboardPage from '../pageobjects/dashboard.page.js'
+import LandingPage from '../pageobjects/landing.page.js'
 
 describe('navigate to other location', () => {
   it('should open a city on location selection', async () => {

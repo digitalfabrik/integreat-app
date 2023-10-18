@@ -2,6 +2,8 @@
   "extends": "../tsconfig.json",
   "compilerOptions": {
     "skipLibCheck": true,
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
     "noEmit": true,
     "types": ["node", "@wdio/globals/types", "@wdio/jasmine-framework"],
     "sourceMap": false
