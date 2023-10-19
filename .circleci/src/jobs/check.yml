@@ -11,6 +11,7 @@ steps:
   - skip_job
   - check_config
   - restore_yarn_cache
+  - restore_yarn_tools_cache
   - run:
       name: Prettier
       command: yarn prettier:check

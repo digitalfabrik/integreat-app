@@ -483,6 +483,7 @@ jobs:
             - skip_job
             - check_config
             - restore_yarn_cache
+            - restore_yarn_tools_cache
             - run:
                 command: yarn prettier:check
                 name: Prettier
