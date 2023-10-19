@@ -1,5 +1,5 @@
-import { Routes } from '../../../shared/constants'
-import { CategoriesPage } from './categories.page'
+import { Routes } from '../../../shared/constants.js'
+import { CategoriesPage } from './categories.page.js'
 
 class DashboardPage extends CategoriesPage {
   get languageIcon() {

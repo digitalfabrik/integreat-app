@@ -174,7 +174,7 @@ module.exports = {
       },
     },
     {
-      files: ['tools/**'],
+      files: ['tools/**', 'e2e-tests/**'],
       plugins: ['unicorn'],
       rules: {
         // esm specific rules

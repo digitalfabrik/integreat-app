@@ -2,6 +2,7 @@
   "version": "0.0.1",
   "name": "e2e",
   "private": true,
+  "type": "module",
   "scripts": {
     "test:web": "yarn wdio run web/wdio.conf.ts",
     "test:web:browserstack": "yarn wdio run ./web/browserstack/wdio-browserstack.conf.ts",

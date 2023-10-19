@@ -1,9 +1,8 @@
-import { type Capabilities } from '@wdio/types/build/Capabilities'
-import { type Testrunner } from '@wdio/types/build/Options'
+import { Capabilities } from '@wdio/types'
 
-import { config as defaultConfig } from './wdio.conf'
+import { config as defaultConfig } from './wdio.conf.js'
 
-const iosCapabilities: Capabilities = {
+const iosCapabilities: Capabilities.DesiredCapabilities = {
   platformName: 'iOS',
   // http://appium.io/docs/en/writing-running-appium/caps/
   'appium:deviceName': 'iPhone 13 Pro Max',
@@ -20,7 +19,7 @@ const iosCapabilities: Capabilities = {
   'appium:newCommandTimeout': 240,
 }
 
-export const config: Testrunner = {
+export const config: WebdriverIO.Config = {
   ...defaultConfig,
   capabilities: [iosCapabilities],
 }

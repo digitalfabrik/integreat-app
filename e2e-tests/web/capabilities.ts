@@ -1,8 +1,8 @@
-import { BrowserStackCapabilities, Capabilities } from '@wdio/types/build/Capabilities'
+import { Capabilities } from '@wdio/types'
 
-import { getGitBranch, getGitHeadReference } from '../shared/git'
+import { getGitBranch, getGitHeadReference } from '../shared/git.js'
 
-const browserstackCaps = (config: BrowserStackCapabilities): Capabilities => {
+const browserstackCaps = (config: Capabilities.BrowserStackCapabilities): Capabilities.DesiredCapabilities => {
   const prefix = process.env.CI ? 'IG CI' : 'IG DEV'
   return {
     'bstack:options': {
@@ -38,7 +38,7 @@ export const browserstackCapabilities = {
     browserName: 'Safari',
     browserVersion: '14.0',
   }),
-} as Record<(typeof browsers)[number], Capabilities>
+} as Record<(typeof browsers)[number], Capabilities.DesiredCapabilities>
 
 export const ciCapabilities = {
   browserName: 'chrome',

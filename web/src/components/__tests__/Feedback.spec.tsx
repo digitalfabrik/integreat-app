@@ -20,6 +20,7 @@ describe('Feedback', () => {
   const onContactMailChangedDummy = jest.fn()
   const onSubmit = jest.fn()
   const closeFeedbackModal = jest.fn()
+  const setSearchTerm = jest.fn()
 
   const buildProps = (
     isPositiveFeedback: boolean | null,
@@ -39,6 +40,7 @@ describe('Feedback', () => {
     onSubmit,
     t,
     closeFeedbackModal,
+    setSearchTerm,
   })
 
   it('button should be disabled for no rating and no input', () => {
