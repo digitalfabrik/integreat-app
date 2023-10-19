@@ -1,4 +1,4 @@
-import React, { ReactElement, useCallback, useState } from 'react'
+import React, { ReactElement, useCallback } from 'react'
 
 import { POIS_ROUTE, PoisRouteType } from 'api-client'
 
@@ -20,8 +20,6 @@ type PoisContainerProps = {
 const PoisContainer = ({ navigation, route }: PoisContainerProps): ReactElement => {
   const { slug, multipoi } = route.params
   const { cityCode, languageCode } = useCityAppContext()
-
-  const [enteredViaMaps] = useState(slug === undefined)
 
   const { data, ...response } = useLoadCityContent({ cityCode, languageCode })
 
@@ -53,14 +51,7 @@ const PoisContainer = ({ navigation, route }: PoisContainerProps): ReactElement 
   return (
     <LoadingErrorHandler {...response}>
       {data && (
-        <Pois
-          pois={data.pois}
-          cityModel={data.city}
-          language={languageCode}
-          route={route}
-          navigation={navigation}
-          enteredViaMaps={enteredViaMaps}
-        />
+        <Pois pois={data.pois} cityModel={data.city} language={languageCode} route={route} navigation={navigation} />
       )}
     </LoadingErrorHandler>
   )

@@ -63,12 +63,11 @@ type PoisProps = {
   language: string
   route: RouteProps<PoisRouteType>
   navigation: NavigationProps<PoisRouteType>
-  enteredViaMaps: boolean
 }
 
 const RESTORE_TIMEOUT = 100
 
-const Pois = ({ pois: allPois, language, cityModel, route, navigation, enteredViaMaps }: PoisProps): ReactElement => {
+const Pois = ({ pois: allPois, language, cityModel, route, navigation }: PoisProps): ReactElement => {
   const [poiCategoryFilter, setPoiCategoryFilter] = useState<PoiCategoryModel | null>(null)
   const [poiCurrentlyOpenFilter, setPoiCurrentlyOpenFilter] = useState(false)
   const [showFilterSelection, setShowFilterSelection] = useState(false)
@@ -76,6 +75,7 @@ const Pois = ({ pois: allPois, language, cityModel, route, navigation, enteredVi
   const { slug, multipoi } = route.params
   const [sheetSnapPointIndex, setSheetSnapPointIndex] = useState<number>(1)
   const [listScrollPosition, setListScrollPosition] = useState<number>(0)
+  const [enteredViaMaps, setEnteredViaMaps] = useState(slug === undefined)
   const { t } = useTranslation('pois')
   const scrollRef = useRef<BottomSheetScrollViewMethods>(null)
   const deviceHeight = useWindowDimensions().height
@@ -144,6 +144,7 @@ const Pois = ({ pois: allPois, language, cityModel, route, navigation, enteredVi
       return
     }
 
+    setEnteredViaMaps(true)
     if (isMultipoi(feature)) {
       navigation.setParams({ multipoi: feature.id as string })
       scrollTo(0)
@@ -158,6 +159,8 @@ const Pois = ({ pois: allPois, language, cityModel, route, navigation, enteredVi
     if (!newGeoJsonPoi) {
       return
     }
+
+    setEnteredViaMaps(true)
     navigation.setParams({ slug: newGeoJsonPoi.slug })
     scrollTo(0)
   }
