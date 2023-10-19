@@ -20,9 +20,11 @@ const SHORT_COMMIT_SHA_LENGTH = 8
 
 // A first performance budget, which should be improved in the future: Maximum bundle size in Bytes; 2^20 = 1 MiB
 // eslint-disable-next-line no-magic-numbers
-const MAX_BUNDLE_SIZE = 1.64 * 2 ** 20
+const MiB = 2 ** 20
 // eslint-disable-next-line no-magic-numbers
-const MAX_ASSET_SIZE = 2.1 * 2 ** 20
+const MAX_BUNDLE_SIZE = 1.64 * MiB
+// eslint-disable-next-line no-magic-numbers
+const MAX_ASSET_SIZE = 2.1 * MiB
 
 const readJson = (path: string) => JSON.parse(readFileSync(path, 'utf8'))
 
@@ -193,7 +195,6 @@ const createConfig = (
     devServer: {
       static: { directory: distDirectory },
       compress: true,
-      // eslint-disable-next-line no-magic-numbers
       port: 9000,
       host: '0.0.0.0', // This enables devices in the same network to connect to the dev server
       hot: true,
@@ -309,7 +310,6 @@ const createConfig = (
             {
               loader: 'url-loader',
               options: {
-                // eslint-disable-next-line no-magic-numbers
                 limit: 10000,
               },
             },
@@ -326,7 +326,6 @@ const createConfig = (
                 },
                 optipng: false,
                 pngquant: {
-                  // eslint-disable-next-line no-magic-numbers
                   floyd: 0.5,
                   speed: 2,
                 },

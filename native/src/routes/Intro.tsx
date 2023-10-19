@@ -147,9 +147,8 @@ const Intro = ({ route, navigation }: IntroProps): ReactElement => {
         horizontal
         pagingEnabled
         viewabilityConfig={{
-          // eslint-disable-next-line no-magic-numbers
           itemVisiblePercentThreshold: 51,
-          // eslint-disable-next-line no-magic-numbers
+
           minimumViewTime: 0.1,
         }}
         onViewableItemsChanged={onViewableItemsChanged}

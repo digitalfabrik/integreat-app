@@ -19,7 +19,7 @@ const browserstackCaps = (
       debug: true,
       realMobile: isCi,
       appiumVersion: '2.0.0',
-      // eslint-disable-next-line no-magic-numbers
+
       idleTimeout: 10000,
     },
     ...config,
@@ -40,7 +40,7 @@ export default {
     {
       'appium:platformVersion': '16',
       'appium:deviceName': 'iPhone 14',
-      // eslint-disable-next-line no-magic-numbers
+
       'appium:waitForIdleTimeout': 10000,
     },
     'ios',

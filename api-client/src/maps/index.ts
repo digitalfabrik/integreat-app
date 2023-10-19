@@ -1,4 +1,3 @@
-/* eslint-disable no-magic-numbers */
 import { Feature, FeatureCollection, Point } from 'geojson'
 
 type MapConfigProps = {

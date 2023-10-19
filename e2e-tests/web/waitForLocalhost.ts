@@ -6,7 +6,6 @@ const STATUS_CODE_OK = 200
 
 const waitForLocalhost = (timeout: number): Promise<void> =>
   new Promise((resolve, reject) => {
-    // eslint-disable-next-line no-magic-numbers
     const request = http.request({ method: 'head', port: 9000, family: 4, timeout }, response => {
       if (response.statusCode === STATUS_CODE_OK) {
         resolve()

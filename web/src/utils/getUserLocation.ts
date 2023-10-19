@@ -1,5 +1,7 @@
 import { UnavailableLocationState, UserLocationType } from 'api-client'
 
+const currentPositionTimeout = 50_000
+
 const locationStateOnError = (error: GeolocationPositionError): UnavailableLocationState => {
   const { code } = error
   switch (code) {
@@ -34,8 +36,7 @@ const getUserLocation = async (): Promise<UserLocationType> =>
       (error: GeolocationPositionError) => {
         resolve(locationStateOnError(error))
       },
-      // eslint-disable-next-line no-magic-numbers
-      { timeout: 50000 },
+      { timeout: currentPositionTimeout },
     )
   })
 

@@ -71,7 +71,6 @@ module.exports = {
       {
         ignore: [-1, 0, 1, 2],
         ignoreArrayIndexes: true,
-        detectObjects: true,
       },
     ],
     'prefer-destructuring': ['error', { array: false }],
