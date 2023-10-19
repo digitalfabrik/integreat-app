@@ -16,6 +16,7 @@ import { CityRouteProps } from '../CityContentSwitcher'
 import Caption from '../components/Caption'
 import CityContentLayout, { CityContentLayoutProps } from '../components/CityContentLayout'
 import CityContentToolbar from '../components/CityContentToolbar'
+import DatesPageDetail from '../components/DatesPageDetail'
 import EventListItem from '../components/EventListItem'
 import FailureSwitcher from '../components/FailureSwitcher'
 import Helmet from '../components/Helmet'
@@ -35,6 +36,13 @@ const StyledButton = styled(TextButton)<{ fullWidth: boolean }>`
   ${props => props.fullWidth && 'width: 100%;'}
 `
 
+const Spacing = styled.div`
+  display: flex;
+  flex-direction: column;
+  padding-top: 12px;
+  gap: 8px;
+`
+
 const EventsPage = ({ city, pathname, languageCode, cityCode }: CityRouteProps): ReactElement | null => {
   const previousPathname = usePreviousProp({ prop: pathname })
   const { eventId } = useParams()
@@ -52,11 +60,9 @@ const EventsPage = ({ city, pathname, languageCode, cityCode }: CityRouteProps):
     return null
   }
 
-  // TODO #2031: Remove workaround of looking up path until '$'
-  const event = eventId
-    ? events?.find(it => it.path === pathname) ??
-      events?.find(it => it.path.substring(0, it.path.indexOf('$')) === pathname)
-    : null
+  // Support legacy slugs of old recurring events with one event per recurrence
+  const pathnameWithoutDate = pathname.split('$')[0]
+  const event = eventId ? events?.find(it => it.path === pathnameWithoutDate) : null
   const languageChangePaths = city.languages.map(({ code, name }) => {
     const isCurrentLanguage = code === languageCode
     const path = event
@@ -144,10 +150,10 @@ const EventsPage = ({ city, pathname, languageCode, cityCode }: CityRouteProps):
           title={title}
           onInternalLinkClick={navigate}
           BeforeContent={
-            <>
-              <PageDetail identifier={t('date')} information={date.toFormattedString(languageCode)} />
+            <Spacing>
+              <DatesPageDetail date={date} languageCode={languageCode} />
               {location && <PageDetail identifier={t('address')} information={location.fullAddress} />}
-            </>
+            </Spacing>
           }
           Footer={PageFooter}
         />

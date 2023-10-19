@@ -93,6 +93,7 @@ class EventModelBuilder {
               startDate,
               endDate,
               allDay: false,
+              recurrenceRule: null,
             }),
             location: new LocationModel({
               id: 1,

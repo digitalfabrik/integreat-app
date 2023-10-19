@@ -1,6 +1,6 @@
 import { Capabilities } from '@wdio/types'
 
-import { getGitBranch, getGitHeadReference } from '../shared/git'
+import { getGitBranch, getGitHeadReference } from '../shared/git.js'
 
 const browserstackCaps = (
   config: Capabilities.AppiumW3CCapabilities | Capabilities.AppiumXCUITestCapabilities,

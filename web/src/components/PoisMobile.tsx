@@ -43,12 +43,12 @@ const GoBackContainer = styled.div<{ hidden: boolean }>`
 `
 
 const BackNavigation = styled.div<{ direction: string }>`
-  background-color: ${props => props.theme.colors.textDisabledColor};
+  background-color: ${props => props.theme.colors.textSecondaryColor};
   height: 28px;
   width: 28px;
-  border: 1px solid #818181;
+  border: 1px solid ${props => props.theme.colors.textDisabledColor};
   border-radius: 50px;
-  box-shadow: 1px 1px 2px 0 rgba(0, 0, 0, 0.2);
+  box-shadow: 1px 1px 2px 0 rgb(0 0 0 / 20%);
   cursor: pointer;
   justify-content: center;
   align-items: center;
@@ -61,6 +61,7 @@ const StyledIcon = styled(Icon)`
 
 const GeocontrolContainer = styled.div<{ height: number; direction: string }>`
   --max-icon-height: calc(${props => getSnapPoints(props.height)[1]}px + ${geolocatorTopOffset}px);
+
   position: absolute;
   ${props =>
     props.direction === 'ltr'

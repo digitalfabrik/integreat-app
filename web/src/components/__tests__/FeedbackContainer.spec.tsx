@@ -146,12 +146,8 @@ describe('FeedbackContainer', () => {
 
   it('should display thanks message for search', async () => {
     const { getByRole, findByText, queryByRole } = renderWithTheme(
-      <FeedbackContainer {...buildDefaultProps(CATEGORIES_ROUTE, true)} />,
+      <FeedbackContainer {...buildDefaultProps(CATEGORIES_ROUTE, true)} query='test' />,
     )
-    const buttonRating = getByRole('button', {
-      name: 'feedback:useful',
-    })
-    fireEvent.click(buttonRating)
     const button = getByRole('button', {
       name: 'feedback:send',
     })
@@ -161,20 +157,65 @@ describe('FeedbackContainer', () => {
     expect(queryByRole('button', { name: 'feedback:close' })).toBeNull()
   })
 
-  it('should display error', async () => {
+  it('should display error for search', async () => {
     mockRequest.mockImplementationOnce(() => {
       throw new Error()
     })
-    const { getByRole, findByText } = renderWithTheme(<FeedbackContainer {...buildDefaultProps(SEARCH_ROUTE, true)} />)
-    const buttonRating = getByRole('button', {
-      name: 'feedback:useful',
-    })
-    fireEvent.click(buttonRating)
+    const { getByRole, findByText } = renderWithTheme(
+      <FeedbackContainer {...buildDefaultProps(SEARCH_ROUTE, true)} query='test' />,
+    )
     const button = getByRole('button', {
       name: 'feedback:send',
     })
     fireEvent.click(button)
 
     expect(await findByText('feedback:failedSendingFeedback')).toBeTruthy()
+  })
+
+  it('should send query for search', async () => {
+    const query = 'zeugnis'
+    const { getByRole } = renderWithTheme(
+      <FeedbackContainer {...buildDefaultProps(SEARCH_ROUTE, true)} query={query} />,
+    )
+    const button = getByRole('button', {
+      name: 'feedback:send',
+    })
+    fireEvent.click(button)
+    expect(mockRequest).toHaveBeenCalledTimes(1)
+    expect(mockRequest).toHaveBeenCalledWith({
+      feedbackType: SEARCH_ROUTE,
+      city: 'augsburg',
+      language: 'de',
+      comment: '    Kontaktadresse: Keine Angabe',
+      feedbackCategory: 'Inhalte',
+      isPositiveRating: null,
+      query,
+      slug: undefined,
+    })
+  })
+
+  it('should send original search term if updated', () => {
+    const query = 'Zeugnis'
+    const fullSearchTerm = 'Zeugnisübergabe'
+    const { getByDisplayValue, getByRole } = renderWithTheme(
+      <FeedbackContainer {...buildDefaultProps(SEARCH_ROUTE, true)} query={query} />,
+    )
+    const input = getByDisplayValue(query)
+    fireEvent.change(input, { target: { value: fullSearchTerm } })
+    const button = getByRole('button', {
+      name: 'feedback:send',
+    })
+    fireEvent.click(button)
+    expect(mockRequest).toHaveBeenCalledTimes(1)
+    expect(mockRequest).toHaveBeenCalledWith({
+      feedbackType: SEARCH_ROUTE,
+      city: 'augsburg',
+      language: 'de',
+      comment: '    Kontaktadresse: Keine Angabe',
+      feedbackCategory: 'Inhalte',
+      isPositiveRating: null,
+      query: `${fullSearchTerm} (actual query: ${query})`,
+      slug: undefined,
+    })
   })
 })

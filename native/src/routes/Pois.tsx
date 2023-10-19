@@ -20,7 +20,6 @@ import {
   PoiCategoryModel,
 } from 'api-client'
 
-// TODO fix color secondary
 import { ClockIcon, EditLocationIcon } from '../assets'
 import BottomActionsSheet from '../components/BottomActionsSheet'
 import Failure from '../components/Failure'

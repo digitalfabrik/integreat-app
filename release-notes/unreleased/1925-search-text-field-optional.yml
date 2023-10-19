@@ -1,0 +1,8 @@
+issue_key: 1925
+show_in_stores: true
+platforms:
+  - web
+  - android
+  - ios
+en: The comment field of the feedback form for an unsuccesful search is now optional.
+de: Das Kommentarfeld im Feedback-Formular bei einer erfolglosen Suche ist jetzt optional.

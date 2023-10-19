@@ -55,14 +55,14 @@ const TooltipContainer = styled.div<{
       animation: tooltips 300ms ease-out forwards;
     `};
 
-  &:before,
-  &:after {
+  &::before,
+  &::after {
     position: absolute;
     content: '';
     display: block;
   }
 
-  &:before {
+  &::before {
     z-index: 2000;
     border-bottom: 10px solid ${props => props.theme.colors.backgroundColor};
     border-left: 10px solid transparent;
@@ -103,7 +103,7 @@ const TooltipContainer = styled.div<{
       `};
   }
 
-  &:after {
+  &::after {
     z-index: 1000;
     border-bottom: 11px solid ${props => props.theme.colors.textDecorationColor};
     border-left: 11px solid transparent;

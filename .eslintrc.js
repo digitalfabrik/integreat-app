@@ -170,6 +170,14 @@ module.exports = {
         'import/no-extraneous-dependencies': 'off',
       },
     },
+    {
+      files: ['tools/**', 'e2e-tests/**'],
+      plugins: ['unicorn'],
+      rules: {
+        'import/no-commonjs': 'error',
+        'unicorn/prefer-node-protocol': 'error',
+      },
+    },
   ],
   settings: {
     react: {

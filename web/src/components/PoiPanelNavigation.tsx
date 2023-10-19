@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
 
 import { ArrowBackIcon } from '../assets'
+import { helpers } from '../constants/theme'
 import Icon from './base/Icon'
 
 const NavigationContainer = styled.div`
@@ -18,11 +19,7 @@ const NavItem = styled.div`
 
 const Label = styled.span`
   align-self: center;
-  font-size: clamp(
-    ${props => props.theme.fonts.adaptiveFontSizeSmall.min},
-    ${props => props.theme.fonts.adaptiveFontSizeSmall.value},
-    ${props => props.theme.fonts.adaptiveFontSizeSmall.max}
-  );
+  ${helpers.adaptiveFontSize};
 `
 
 const StyledIcon = styled(Icon)`

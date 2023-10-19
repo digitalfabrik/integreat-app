@@ -60,7 +60,7 @@ const StepExplanation = styled(Text)`
 const StyledButton = styled(TextButton)`
   align-self: center;
   z-index: 10;
-  margin: 40px 0 0 0;
+  margin: 40px 0 0;
   font-weight: normal;
   box-shadow: none;
 `
