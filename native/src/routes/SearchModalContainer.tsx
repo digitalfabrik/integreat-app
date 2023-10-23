@@ -1,6 +1,5 @@
-import React, { ReactElement, useContext } from 'react'
+import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
-import { ThemeContext } from 'styled-components'
 
 import { SearchRouteType } from 'api-client'
 
@@ -20,7 +19,6 @@ const SearchModalContainer = ({ navigation, route }: SearchModalContainerProps):
   const { cityCode, languageCode } = useCityAppContext()
   const initialSearchText = route.params.searchText ?? ''
   const { data, ...response } = useLoadCityContent({ cityCode, languageCode })
-  const theme = useContext(ThemeContext)
   const { t } = useTranslation('search')
   const { navigateTo } = useNavigate()
 
@@ -33,7 +31,6 @@ const SearchModalContainer = ({ navigation, route }: SearchModalContainerProps):
           closeModal={navigation.goBack}
           categories={data.categories}
           languageCode={languageCode}
-          theme={theme}
           t={t}
           initialSearchText={initialSearchText}
         />

@@ -3,9 +3,10 @@ import { Capabilities } from '@wdio/types'
 import { getGitBranch, getGitHeadReference } from '../shared/git.js'
 
 const browserstackCaps = (
-  config: Capabilities.AppiumW3CCapabilities | Capabilities.AppiumXCUITestCapabilities,
+  config: Capabilities.AppiumCapabilities &
+    (Capabilities.AppiumAndroidCapabilities | Capabilities.AppiumXCUITestCapabilities),
   platformName: 'ios' | 'android',
-): Capabilities.Capabilities => {
+): WebdriverIO.Capabilities => {
   // is set by circleci https://github.com/circleci/circleci-docs/blob/master/jekyll/_cci1/environment-variables.md
   const isCi = !!process.env.CI
   const prefix = isCi ? 'IG CI' : 'IG DEV'
@@ -19,7 +20,6 @@ const browserstackCaps = (
       debug: true,
       realMobile: isCi,
       appiumVersion: '2.0.0',
-
       idleTimeout: 10000,
     },
     ...config,
@@ -45,4 +45,4 @@ export default {
     },
     'ios',
   ),
-} as Record<string, Capabilities.Capabilities>
+} as Record<string, Capabilities.BrowserStackCapabilities>

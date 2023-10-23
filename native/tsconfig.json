@@ -15,8 +15,7 @@
       "@react-native-async-storage/async-storage/jest/async-storage-mock": ["src/@types/untyped"]
     },
     "skipLibCheck": true,
-    "typeRoots": ["./src/@types", "./node_modules/@types", "../node_modules/@types"],
-    "types": ["jest", "node", "react-native", "styled-components-react-native"]
+    "types": ["jest", "node", "react-native"],
   },
   "include": [
     "src/**/*",

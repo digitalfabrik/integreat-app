@@ -1,7 +1,6 @@
 import React, { ReactElement, useRef, useState } from 'react'
 import { Dimensions, NativeScrollEvent, NativeSyntheticEvent, ScrollView } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
-import { useTheme } from 'styled-components'
 import styled from 'styled-components/native'
 
 import { ArrowBackIcon } from '../assets'
@@ -46,7 +45,6 @@ const NavigationTiles = ({ tiles }: NavigationTilesProps): ReactElement => {
     : scrollViewWidth / smallScreenItemsCount
   const allTilesWidth = tiles.length * navigationItemWidth
   const isScrollable = allTilesWidth > layoutWidth
-  const theme = useTheme()
 
   const scrollViewRef = useRef<ScrollView>(null)
   const [percentageScrolled, setPercentageScrolled] = useState<number>(0)
@@ -88,7 +86,7 @@ const NavigationTiles = ({ tiles }: NavigationTilesProps): ReactElement => {
         onScroll={handleScroll}
         scrollEventThrottle={16}>
         {tiles.map(tile => (
-          <NavigationTile key={tile.path} tile={tile} theme={theme} width={navigationItemWidth} />
+          <NavigationTile key={tile.path} tile={tile} width={navigationItemWidth} />
         ))}
       </ScrollView>
       {isScrollable && (

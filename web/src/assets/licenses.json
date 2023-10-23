@@ -1,0 +1,363 @@
+{
+  "@integreat-app/react-sticky-headroom@npm:1.2.3": {
+    "package": {
+      "locator": "@integreat-app/react-sticky-headroom@virtual:42b1ed7d3a3ef35c42ac579b760bc4a57b4d9efe82aa857be421d347a9d5eb77b93f1eefdf7c38f1138ec18d742a002770af95542f0d242dcc89856cb39b7f23#npm:1.2.3",
+      "descriptor": "@integreat-app/react-sticky-headroom@virtual:42b1ed7d3a3ef35c42ac579b760bc4a57b4d9efe82aa857be421d347a9d5eb77b93f1eefdf7c38f1138ec18d742a002770af95542f0d242dcc89856cb39b7f23#npm:^1.2.3"
+    },
+    "url": "https://github.com/integreat/react-sticky-headroom.git",
+    "vendorName": "Michael Markl",
+    "license": "MIT"
+  },
+  "@math.gl/web-mercator@npm:3.6.3": {
+    "package": {
+      "locator": "@math.gl/web-mercator@npm:3.6.3",
+      "descriptor": "@math.gl/web-mercator@npm:^3.6.3"
+    },
+    "url": "https://github.com/uber-web/math.gl.git",
+    "vendorName": "Uber Technologies, Inc.",
+    "license": "MIT"
+  },
+  "@sentry/react@npm:7.72.0": {
+    "package": {
+      "locator": "@sentry/react@virtual:42b1ed7d3a3ef35c42ac579b760bc4a57b4d9efe82aa857be421d347a9d5eb77b93f1eefdf7c38f1138ec18d742a002770af95542f0d242dcc89856cb39b7f23#npm:7.72.0",
+      "descriptor": "@sentry/react@virtual:42b1ed7d3a3ef35c42ac579b760bc4a57b4d9efe82aa857be421d347a9d5eb77b93f1eefdf7c38f1138ec18d742a002770af95542f0d242dcc89856cb39b7f23#npm:^7.65.0"
+    },
+    "url": "https://github.com/getsentry/sentry-javascript.git",
+    "vendorName": "Sentry",
+    "vendorUrl": "https://github.com/getsentry/sentry-javascript/tree/master/packages/react",
+    "license": "MIT"
+  },
+  "@sentry/types@npm:7.72.0": {
+    "package": {
+      "locator": "@sentry/types@npm:7.72.0",
+      "descriptor": "@sentry/types@npm:^7.65.0"
+    },
+    "url": "https://github.com/getsentry/sentry-javascript.git",
+    "vendorName": "Sentry",
+    "vendorUrl": "https://github.com/getsentry/sentry-javascript/tree/master/packages/types",
+    "license": "MIT"
+  },
+  "@turf/distance@npm:6.5.0": {
+    "package": {
+      "locator": "@turf/distance@npm:6.5.0",
+      "descriptor": "@turf/distance@npm:^6.5.0"
+    },
+    "url": "https://github.com/Turfjs/turf.git",
+    "vendorName": "Turf Authors",
+    "vendorUrl": "https://github.com/Turfjs/turf",
+    "license": "MIT"
+  },
+  "api-client@workspace:api-client": {
+    "package": {
+      "locator": "api-client@virtual:42b1ed7d3a3ef35c42ac579b760bc4a57b4d9efe82aa857be421d347a9d5eb77b93f1eefdf7c38f1138ec18d742a002770af95542f0d242dcc89856cb39b7f23#workspace:api-client",
+      "descriptor": "api-client@virtual:42b1ed7d3a3ef35c42ac579b760bc4a57b4d9efe82aa857be421d347a9d5eb77b93f1eefdf7c38f1138ec18d742a002770af95542f0d242dcc89856cb39b7f23#workspace:*"
+    },
+    "url": "https://github.com/digitalfabrik/integreat-app/tree/main/api-client",
+    "vendorUrl": "https://github.com/digitalfabrik/integreat-app/tree/main/api-client",
+    "license": "UNKNOWN"
+  },
+  "build-configs@workspace:build-configs": {
+    "package": {
+      "locator": "build-configs@virtual:42b1ed7d3a3ef35c42ac579b760bc4a57b4d9efe82aa857be421d347a9d5eb77b93f1eefdf7c38f1138ec18d742a002770af95542f0d242dcc89856cb39b7f23#workspace:build-configs",
+      "descriptor": "build-configs@virtual:42b1ed7d3a3ef35c42ac579b760bc4a57b4d9efe82aa857be421d347a9d5eb77b93f1eefdf7c38f1138ec18d742a002770af95542f0d242dcc89856cb39b7f23#workspace:*"
+    },
+    "url": "https://github.com/digitalfabrik/integreat-app/tree/main/build-configs",
+    "vendorUrl": "https://github.com/digitalfabrik/integreat-app/tree/main/build-configs",
+    "license": "UNKNOWN"
+  },
+  "dompurify@npm:3.0.5": {
+    "package": {
+      "locator": "dompurify@npm:3.0.5",
+      "descriptor": "dompurify@npm:^3.0.5"
+    },
+    "url": "https://github.com/cure53/DOMPurify.git",
+    "vendorName": "Dr.-Ing. Mario Heiderich, Cure53",
+    "vendorUrl": "https://github.com/cure53/DOMPurify",
+    "license": "(MPL-2.0 OR Apache-2.0)"
+  },
+  "entities@npm:4.5.0": {
+    "package": {
+      "locator": "entities@npm:4.5.0",
+      "descriptor": "entities@npm:^4.5.0"
+    },
+    "url": "https://github.com/fb55/entities.git",
+    "vendorName": "Felix Boehm",
+    "license": "BSD-2-Clause"
+  },
+  "focus-trap-react@npm:10.2.2": {
+    "package": {
+      "locator": "focus-trap-react@virtual:42b1ed7d3a3ef35c42ac579b760bc4a57b4d9efe82aa857be421d347a9d5eb77b93f1eefdf7c38f1138ec18d742a002770af95542f0d242dcc89856cb39b7f23#npm:10.2.2",
+      "descriptor": "focus-trap-react@virtual:42b1ed7d3a3ef35c42ac579b760bc4a57b4d9efe82aa857be421d347a9d5eb77b93f1eefdf7c38f1138ec18d742a002770af95542f0d242dcc89856cb39b7f23#npm:^10.2.1"
+    },
+    "url": "https://github.com/focus-trap/focus-trap-react.git",
+    "vendorName": "David Clark",
+    "vendorUrl": "https://github.com/focus-trap/focus-trap-react#readme",
+    "license": "MIT"
+  },
+  "htmlparser2@npm:9.0.0": {
+    "package": {
+      "locator": "htmlparser2@npm:9.0.0",
+      "descriptor": "htmlparser2@npm:^9.0.0"
+    },
+    "url": "https://github.com/fb55/htmlparser2.git",
+    "vendorName": "Felix Boehm",
+    "license": "MIT"
+  },
+  "i18next@npm:23.5.1": {
+    "package": {
+      "locator": "i18next@npm:23.5.1",
+      "descriptor": "i18next@npm:^23.4.6"
+    },
+    "url": "https://github.com/i18next/i18next.git",
+    "vendorName": "Jan Mühlemann",
+    "vendorUrl": "https://www.i18next.com",
+    "license": "MIT"
+  },
+  "lodash@npm:4.17.21": {
+    "package": {
+      "locator": "lodash@npm:4.17.21",
+      "descriptor": "lodash@npm:^4.17.21"
+    },
+    "url": "https://github.com/lodash/lodash.git",
+    "vendorName": "John-David Dalton",
+    "vendorUrl": "https://lodash.com/",
+    "license": "MIT"
+  },
+  "luxon@npm:3.4.3": {
+    "package": {
+      "locator": "luxon@npm:3.4.3",
+      "descriptor": "luxon@npm:^3.4.2"
+    },
+    "url": "https://github.com/moment/luxon.git",
+    "vendorName": "Isaac Cambron",
+    "license": "MIT"
+  },
+  "empty-npm-package@npm:1.0.0": {
+    "package": {
+      "locator": "empty-npm-package@npm:1.0.0",
+      "descriptor": "mapbox-gl@npm:empty-npm-package@1.0.0"
+    },
+    "license": "ISC"
+  },
+  "maplibre-gl@npm:3.3.1": {
+    "package": {
+      "locator": "maplibre-gl@npm:3.3.1",
+      "descriptor": "maplibre-gl@npm:^3.3.0"
+    },
+    "url": "https://github.com/maplibre/maplibre-gl-js.git",
+    "license": "BSD-3-Clause"
+  },
+  "normalize-path@npm:3.0.0": {
+    "package": {
+      "locator": "normalize-path@npm:3.0.0",
+      "descriptor": "normalize-path@npm:^3.0.0"
+    },
+    "url": "https://github.com/jonschlinkert/normalize-path.git",
+    "vendorName": "Jon Schlinkert",
+    "vendorUrl": "https://github.com/jonschlinkert/normalize-path",
+    "license": "MIT"
+  },
+  "normalize-strings@npm:1.1.1": {
+    "package": {
+      "locator": "normalize-strings@npm:1.1.1",
+      "descriptor": "normalize-strings@npm:^1.1.1"
+    },
+    "url": "https://github.com/tehsis/normalize.git",
+    "vendorName": "Pablo Terradillos",
+    "license": "MIT"
+  },
+  "normalize.css@npm:8.0.1": {
+    "package": {
+      "locator": "normalize.css@npm:8.0.1",
+      "descriptor": "normalize.css@npm:^8.0.1"
+    },
+    "url": "https://github.com/necolas/normalize.css.git",
+    "vendorUrl": "https://necolas.github.io/normalize.css",
+    "license": "MIT"
+  },
+  "prop-types@npm:15.8.1": {
+    "package": {
+      "locator": "prop-types@npm:15.8.1",
+      "descriptor": "prop-types@npm:^15.8.1"
+    },
+    "url": "https://github.com/facebook/prop-types.git",
+    "vendorUrl": "https://facebook.github.io/react/",
+    "license": "MIT"
+  },
+  "react@npm:18.2.0": {
+    "package": {
+      "locator": "react@npm:18.2.0",
+      "descriptor": "react@npm:18.2.0"
+    },
+    "url": "https://github.com/facebook/react.git",
+    "vendorUrl": "https://reactjs.org/",
+    "license": "MIT"
+  },
+  "react-dom@npm:18.2.0": {
+    "package": {
+      "locator": "react-dom@virtual:42b1ed7d3a3ef35c42ac579b760bc4a57b4d9efe82aa857be421d347a9d5eb77b93f1eefdf7c38f1138ec18d742a002770af95542f0d242dcc89856cb39b7f23#npm:18.2.0",
+      "descriptor": "react-dom@virtual:42b1ed7d3a3ef35c42ac579b760bc4a57b4d9efe82aa857be421d347a9d5eb77b93f1eefdf7c38f1138ec18d742a002770af95542f0d242dcc89856cb39b7f23#npm:18.2.0"
+    },
+    "url": "https://github.com/facebook/react.git",
+    "vendorUrl": "https://reactjs.org/",
+    "license": "MIT"
+  },
+  "react-helmet@npm:6.1.0": {
+    "package": {
+      "locator": "react-helmet@virtual:42b1ed7d3a3ef35c42ac579b760bc4a57b4d9efe82aa857be421d347a9d5eb77b93f1eefdf7c38f1138ec18d742a002770af95542f0d242dcc89856cb39b7f23#npm:6.1.0",
+      "descriptor": "react-helmet@virtual:42b1ed7d3a3ef35c42ac579b760bc4a57b4d9efe82aa857be421d347a9d5eb77b93f1eefdf7c38f1138ec18d742a002770af95542f0d242dcc89856cb39b7f23#npm:^6.1.0"
+    },
+    "url": "https://github.com/nfl/react-helmet.git",
+    "vendorName": "NFL",
+    "license": "MIT"
+  },
+  "react-highlight-words@npm:0.20.0": {
+    "package": {
+      "locator": "react-highlight-words@virtual:42b1ed7d3a3ef35c42ac579b760bc4a57b4d9efe82aa857be421d347a9d5eb77b93f1eefdf7c38f1138ec18d742a002770af95542f0d242dcc89856cb39b7f23#npm:0.20.0",
+      "descriptor": "react-highlight-words@virtual:42b1ed7d3a3ef35c42ac579b760bc4a57b4d9efe82aa857be421d347a9d5eb77b93f1eefdf7c38f1138ec18d742a002770af95542f0d242dcc89856cb39b7f23#npm:^0.20.0"
+    },
+    "url": "https://github.com/bvaughn/react-highlight-words.git",
+    "vendorName": "Brian Vaughn",
+    "vendorUrl": "https://github.com/bvaughn/react-highlight-words#readme",
+    "license": "MIT"
+  },
+  "react-i18next@npm:13.2.2": {
+    "package": {
+      "locator": "react-i18next@virtual:42b1ed7d3a3ef35c42ac579b760bc4a57b4d9efe82aa857be421d347a9d5eb77b93f1eefdf7c38f1138ec18d742a002770af95542f0d242dcc89856cb39b7f23#npm:13.2.2",
+      "descriptor": "react-i18next@virtual:42b1ed7d3a3ef35c42ac579b760bc4a57b4d9efe82aa857be421d347a9d5eb77b93f1eefdf7c38f1138ec18d742a002770af95542f0d242dcc89856cb39b7f23#npm:^13.2.2"
+    },
+    "url": "https://github.com/i18next/react-i18next.git",
+    "vendorName": "Jan Mühlemann",
+    "vendorUrl": "https://github.com/i18next/react-i18next",
+    "license": "MIT"
+  },
+  "react-infinite-scroller@npm:1.2.6": {
+    "package": {
+      "locator": "react-infinite-scroller@virtual:42b1ed7d3a3ef35c42ac579b760bc4a57b4d9efe82aa857be421d347a9d5eb77b93f1eefdf7c38f1138ec18d742a002770af95542f0d242dcc89856cb39b7f23#npm:1.2.6",
+      "descriptor": "react-infinite-scroller@virtual:42b1ed7d3a3ef35c42ac579b760bc4a57b4d9efe82aa857be421d347a9d5eb77b93f1eefdf7c38f1138ec18d742a002770af95542f0d242dcc89856cb39b7f23#npm:^1.2.6"
+    },
+    "url": "https://github.com/danbovey/react-infinite-scroller.git",
+    "vendorName": "Dan Bovey",
+    "license": "MIT"
+  },
+  "react-inlinesvg@npm:4.0.5": {
+    "package": {
+      "locator": "react-inlinesvg@virtual:42b1ed7d3a3ef35c42ac579b760bc4a57b4d9efe82aa857be421d347a9d5eb77b93f1eefdf7c38f1138ec18d742a002770af95542f0d242dcc89856cb39b7f23#npm:4.0.5",
+      "descriptor": "react-inlinesvg@virtual:42b1ed7d3a3ef35c42ac579b760bc4a57b4d9efe82aa857be421d347a9d5eb77b93f1eefdf7c38f1138ec18d742a002770af95542f0d242dcc89856cb39b7f23#npm:^4.0.5"
+    },
+    "url": "https://github.com/gilbarbara/react-inlinesvg.git",
+    "vendorName": "Gil Barbara",
+    "vendorUrl": "https://github.com/gilbarbara/react-inlinesvg#readme",
+    "license": "MIT"
+  },
+  "react-is@npm:18.2.0": {
+    "package": {
+      "locator": "react-is@npm:18.2.0",
+      "descriptor": "react-is@npm:18.2.0"
+    },
+    "url": "https://github.com/facebook/react.git",
+    "vendorUrl": "https://reactjs.org/",
+    "license": "MIT"
+  },
+  "react-map-gl@npm:7.1.6": {
+    "package": {
+      "locator": "react-map-gl@virtual:42b1ed7d3a3ef35c42ac579b760bc4a57b4d9efe82aa857be421d347a9d5eb77b93f1eefdf7c38f1138ec18d742a002770af95542f0d242dcc89856cb39b7f23#npm:7.1.6",
+      "descriptor": "react-map-gl@virtual:42b1ed7d3a3ef35c42ac579b760bc4a57b4d9efe82aa857be421d347a9d5eb77b93f1eefdf7c38f1138ec18d742a002770af95542f0d242dcc89856cb39b7f23#npm:^7.1.5"
+    },
+    "url": "https://github.com/visgl/react-map-gl.git",
+    "license": "MIT"
+  },
+  "react-router-dom@npm:6.16.0": {
+    "package": {
+      "locator": "react-router-dom@virtual:42b1ed7d3a3ef35c42ac579b760bc4a57b4d9efe82aa857be421d347a9d5eb77b93f1eefdf7c38f1138ec18d742a002770af95542f0d242dcc89856cb39b7f23#npm:6.16.0",
+      "descriptor": "react-router-dom@virtual:42b1ed7d3a3ef35c42ac579b760bc4a57b4d9efe82aa857be421d347a9d5eb77b93f1eefdf7c38f1138ec18d742a002770af95542f0d242dcc89856cb39b7f23#npm:^6.15.0"
+    },
+    "url": "https://github.com/remix-run/react-router.git",
+    "vendorName": "Remix Software",
+    "license": "MIT"
+  },
+  "react-spring-bottom-sheet@npm:3.4.1": {
+    "package": {
+      "locator": "react-spring-bottom-sheet@virtual:42b1ed7d3a3ef35c42ac579b760bc4a57b4d9efe82aa857be421d347a9d5eb77b93f1eefdf7c38f1138ec18d742a002770af95542f0d242dcc89856cb39b7f23#npm:3.4.1",
+      "descriptor": "react-spring-bottom-sheet@virtual:42b1ed7d3a3ef35c42ac579b760bc4a57b4d9efe82aa857be421d347a9d5eb77b93f1eefdf7c38f1138ec18d742a002770af95542f0d242dcc89856cb39b7f23#npm:^3.4.1"
+    },
+    "url": "https://github.com/stipsan/react-spring-bottom-sheet.git",
+    "vendorName": "Cody Olsen",
+    "vendorUrl": "https://react-spring-bottom-sheet.cocody.dev",
+    "license": "MIT"
+  },
+  "rrule@npm:2.7.2": {
+    "package": {
+      "locator": "rrule@npm:2.7.2",
+      "descriptor": "rrule@npm:^2.7.2"
+    },
+    "url": "https://github.com/jakubroztocil/rrule.git",
+    "vendorName": "Jakub Roztocil, Lars Schöning, and David Golightly",
+    "vendorUrl": "http://jakubroztocil.github.io/rrule/",
+    "license": "BSD-3-Clause"
+  },
+  "schema-dts@npm:1.1.2": {
+    "package": {
+      "locator": "schema-dts@virtual:42b1ed7d3a3ef35c42ac579b760bc4a57b4d9efe82aa857be421d347a9d5eb77b93f1eefdf7c38f1138ec18d742a002770af95542f0d242dcc89856cb39b7f23#npm:1.1.2",
+      "descriptor": "schema-dts@virtual:42b1ed7d3a3ef35c42ac579b760bc4a57b4d9efe82aa857be421d347a9d5eb77b93f1eefdf7c38f1138ec18d742a002770af95542f0d242dcc89856cb39b7f23#npm:^1.1.2"
+    },
+    "url": "https://github.com/google/schema-dts.git",
+    "vendorName": "Eyas Sharaiha",
+    "vendorUrl": "https://opensource.google/projects/schema-dts",
+    "license": "Apache-2.0"
+  },
+  "seedrandom@npm:3.0.5": {
+    "package": {
+      "locator": "seedrandom@npm:3.0.5",
+      "descriptor": "seedrandom@npm:^3.0.5"
+    },
+    "url": "https://github.com/davidbau/seedrandom.git",
+    "vendorName": "David Bau",
+    "vendorUrl": "http://davidbau.com/archives/2010/01/30/random_seeds_coded_hints_and_quintillions.html",
+    "license": "MIT"
+  },
+  "styled-components@npm:5.3.11": {
+    "package": {
+      "locator": "styled-components@virtual:42b1ed7d3a3ef35c42ac579b760bc4a57b4d9efe82aa857be421d347a9d5eb77b93f1eefdf7c38f1138ec18d742a002770af95542f0d242dcc89856cb39b7f23#npm:5.3.11",
+      "descriptor": "styled-components@virtual:42b1ed7d3a3ef35c42ac579b760bc4a57b4d9efe82aa857be421d347a9d5eb77b93f1eefdf7c38f1138ec18d742a002770af95542f0d242dcc89856cb39b7f23#npm:^5.3.11"
+    },
+    "url": "https://github.com/styled-components/styled-components.git",
+    "vendorName": "Glen Maddern",
+    "vendorUrl": "https://styled-components.com",
+    "license": "MIT"
+  },
+  "translations@workspace:translations": {
+    "package": {
+      "locator": "translations@workspace:translations",
+      "descriptor": "translations@workspace:*"
+    },
+    "url": "https://github.com/digitalfabrik/integreat-app/tree/main/translations",
+    "vendorUrl": "https://github.com/digitalfabrik/integreat-app/tree/main/translations",
+    "license": "UNKNOWN"
+  },
+  "url-polyfill@npm:1.1.12": {
+    "package": {
+      "locator": "url-polyfill@npm:1.1.12",
+      "descriptor": "url-polyfill@npm:^1.1.12"
+    },
+    "url": "https://github.com/lifaon74/url-polyfill.git",
+    "vendorName": "valentin",
+    "license": "MIT"
+  },
+  "uuid@npm:9.0.1": {
+    "package": {
+      "locator": "uuid@npm:9.0.1",
+      "descriptor": "uuid@npm:^9.0.0"
+    },
+    "url": "https://github.com/uuidjs/uuid.git",
+    "license": "MIT"
+  },
+  "whatwg-fetch@npm:3.6.18": {
+    "package": {
+      "locator": "whatwg-fetch@npm:3.6.18",
+      "descriptor": "whatwg-fetch@npm:3.6.18"
+    },
+    "url": "https://github.com/github/fetch.git",
+    "license": "MIT"
+  }
+}

@@ -17,6 +17,8 @@
     "jest.config.ts",
     "jest.setup.ts",
     "src/**/*",
-    "tools/**/*"
+    "tools/**/*",
+    "jest.setup.ts",
+    "jest.config.ts"
   ]
 }

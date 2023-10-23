@@ -14,7 +14,6 @@ import {
   CategorySearchResult,
   CategoryModel,
 } from 'api-client'
-import { ThemeType } from 'build-configs'
 
 import FeedbackContainer from '../components/FeedbackContainer'
 import List from '../components/List'
@@ -38,7 +37,6 @@ const Wrapper = styled.View`
 export type SearchModalProps = {
   categories: CategoriesMapModel
   navigateTo: (routeInformation: RouteInformationType) => void
-  theme: ThemeType
   languageCode: string
   cityCode: string
   closeModal: (query: string) => void
@@ -49,7 +47,6 @@ export type SearchModalProps = {
 const SearchModal = ({
   categories,
   navigateTo,
-  theme,
   languageCode,
   cityCode,
   closeModal,
@@ -108,7 +105,7 @@ const SearchModal = ({
 
   return (
     <Wrapper {...testID('Search-Page')}>
-      <SearchHeader theme={theme} query={query} closeSearchBar={onClose} onSearchChanged={setQuery} t={t} />
+      <SearchHeader query={query} closeSearchBar={onClose} onSearchChanged={setQuery} t={t} />
       <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : undefined} style={{ flex: 1 }}>
         <List
           items={searchResults}

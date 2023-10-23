@@ -40,7 +40,6 @@ describe('SearchModal', () => {
     cityCode,
     closeModal: dummy,
     t,
-    theme,
     initialSearchText: '',
   }
 

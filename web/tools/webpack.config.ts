@@ -139,10 +139,10 @@ const createConfig = (
     console.log('Configured for running in dev server')
   }
 
-  const configAssets = resolve(__dirname, `../node_modules/build-configs/${buildConfigName}/assets`)
+  const configAssets = resolve(__dirname, `../../build-configs/${buildConfigName}/assets`)
 
   const nodeModules = resolve(__dirname, '../node_modules')
-  const rootNodeModules = resolve(__dirname, '../../node_modules')
+  const apiClientNodeModules = resolve(__dirname, '../../api-client/node_modules')
   const wwwDirectory = resolve(__dirname, '../www')
   const distDirectory = resolve(__dirname, `../dist/${buildConfigName}`)
   const srcDirectory = resolve(__dirname, '../src')
@@ -164,8 +164,8 @@ const createConfig = (
   const config: Configuration = {
     mode: devServer ? 'development' : 'production',
     resolve: {
-      extensions: ['.tsx', '.ts', '.js'],
-      modules: [nodeModules, rootNodeModules],
+      extensions: ['.tsx', '.ts', '.js', '.json'],
+      modules: [apiClientNodeModules, nodeModules],
       alias: {
         'mapbox-gl': 'maplibre-gl',
       },

@@ -1,4 +1,6 @@
 #!/usr/bin/env node
+/* eslint-disable import/no-extraneous-dependencies */
+/* eslint-disable @typescript-eslint/no-var-requires */
 
 const { execSync } = require('child_process')
 const { program } = require('commander')
@@ -7,7 +9,7 @@ program
   .command('packager <build_config_name>')
   .description('start metro packager')
   .action(buildConfigName => {
-    const buildConfig = execSync(`yarn workspace --silent build-configs --silent manage to-bash ${buildConfigName} common`)
+    const buildConfig = execSync(`yarn workspace build-configs run --silent manage to-bash ${buildConfigName} common`)
       .toString()
       .replaceAll('\n', ' ')
     execSync(`yarn cross-env ${buildConfig} yarn react-native start --reset-cache`, { stdio: 'inherit' })
@@ -21,13 +23,18 @@ program
     const { production } = options
     const productionFlag = production ? '--variant=release' : ''
 
-    const jsonBuildConfig = execSync(`yarn workspace --silent build-configs --silent manage to-json ${buildConfigName} android`)
+    const jsonBuildConfig = execSync(
+      `yarn workspace build-configs run --silent manage to-json ${buildConfigName} android`,
+    )
     const applicationId = JSON.parse(jsonBuildConfig).applicationId
 
-    const buildConfig = execSync(`yarn workspace --silent build-configs --silent manage to-bash ${buildConfigName} android`)
+    const buildConfig = execSync(`yarn workspace build-configs run --silent manage to-bash ${buildConfigName} android`)
       .toString()
       .replaceAll('\n', ' ')
-    execSync(`yarn cross-env ${buildConfig} yarn react-native run-android --no-packager --appId ${applicationId} ${productionFlag}`, { stdio: 'inherit' })
+    execSync(
+      `yarn cross-env ${buildConfig} yarn react-native run-android --no-packager --appId ${applicationId} ${productionFlag}`,
+      { stdio: 'inherit' },
+    )
   })
 
 program.parse(process.argv)

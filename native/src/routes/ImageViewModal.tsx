@@ -1,7 +1,7 @@
 import * as React from 'react'
-import { ReactElement, useContext, useState } from 'react'
+import { ReactElement, useState } from 'react'
 import { View } from 'react-native'
-import { ThemeContext } from 'styled-components'
+import { useTheme } from 'styled-components/native'
 
 import { ErrorCode, ImageViewModalRouteType } from 'api-client'
 
@@ -15,7 +15,7 @@ type ImageViewModalProps = {
 
 const ImageViewModal = ({ route }: ImageViewModalProps): ReactElement => {
   const [isError, setError] = useState(false)
-  const theme = useContext(ThemeContext)
+  const theme = useTheme()
 
   const {
     colors: { backgroundAccentColor },

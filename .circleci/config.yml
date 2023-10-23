@@ -165,33 +165,14 @@ commands:
                     - 8-yarn-{{ arch }}-
                 name: Restore Yarn Package Cache
             - run:
-                command: yarn --frozen-lockfile --cache-folder ~/.cache/yarn
+                command: yarn --immutable
                 name: Yarn
             - save_cache:
                 key: 8-yarn-{{ arch }}-{{ checksum "yarn.lock" }}-{{ checksum "package.json" }}-{{ checksum "native/package.json" }}-{{ checksum "web/package.json" }}
                 name: Save Yarn Package Cache
                 paths:
-                    - ~/.cache/yarn
+                    - .yarn/cache
                     - node_modules
-                    - native/node_modules
-                    - web/node_modules
-    restore_yarn_tools_cache:
-        description: Restores and saves the node_modules directories of the tools package.
-        steps:
-            - restore_cache:
-                keys:
-                    - 2-yarn-{{ arch }}-{{ checksum "tools/yarn.lock" }}-{{ checksum "tools/package.json" }}
-                name: Restore Yarn Tools Package Cache
-            - run:
-                command: yarn --frozen-lockfile --cache-folder ~/.cache/yarn-tools
-                name: Yarn tools
-                working_directory: tools
-            - save_cache:
-                key: 2-yarn-{{ arch }}-{{ checksum "tools/yarn.lock" }}-{{ checksum "tools/package.json" }}
-                name: Save Yarn Tools Package Cache
-                paths:
-                    - ~/.cache/yarn-tools
-                    - tools/node_modules
     skip_job:
         description: Skips the current build if neccassary
         parameters:
@@ -437,13 +418,13 @@ jobs:
         steps:
             - checkout
             - skip_job
-            - restore_yarn_tools_cache
+            - restore_yarn_cache
             - run:
-                command: echo "export NEW_VERSION_NAME=$(yarn --silent next-version calc | jq .versionName)" >> ${BASH_ENV}
+                command: echo "export NEW_VERSION_NAME=$(yarn run --silent next-version calc | jq .versionName)" >> ${BASH_ENV}
                 name: Calculate next version name
                 working_directory: tools
             - run:
-                command: echo "export NEW_VERSION_CODE=$(yarn --silent next-version calc | jq .versionCode)" >> ${BASH_ENV}
+                command: echo "export NEW_VERSION_CODE=$(yarn run --silent next-version calc | jq .versionCode)" >> ${BASH_ENV}
                 name: Calculate next version code
                 working_directory: tools
             - when:
@@ -521,7 +502,6 @@ jobs:
                 build_config_name: << parameters.build_config_name >>
             - prepare_workspace
             - restore_environment_variables
-            - restore_yarn_tools_cache
             - restore_yarn_cache
             - restore_ruby_cache:
                 directory: native
@@ -560,7 +540,6 @@ jobs:
                 build_config_name: << parameters.build_config_name >>
             - prepare_workspace
             - restore_environment_variables
-            - restore_yarn_tools_cache
             - restore_yarn_cache
             - restore_ruby_cache:
                 directory: native
@@ -731,7 +710,7 @@ jobs:
             - skip_job
             - prepare_workspace
             - restore_environment_variables
-            - restore_yarn_tools_cache
+            - restore_yarn_cache
             - run:
                 command: yarn move-release-notes move-to ${NEW_VERSION_NAME} --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME} --branch ${CIRCLE_BRANCH}
                 name: Move release notes
@@ -750,17 +729,17 @@ jobs:
             - skip_job
             - prepare_workspace
             - restore_environment_variables
-            - restore_yarn_tools_cache
+            - restore_yarn_cache
             - run:
                 command: echo "export ANDROID_ARTIFACT_URLS='$(echo $(cat $(ls | grep apk-url)))'" >> ${BASH_ENV}
                 name: Prepare artifact urls
                 working_directory: ~/attached_workspace
             - run:
-                command: yarn github-release create android ${NEW_VERSION_NAME} ${NEW_VERSION_CODE} --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME} --release-notes "$(yarn --silent manage-metadata parse-release-notes --android --language en)"<<^ parameters.production_delivery >> --beta-release<</ parameters.production_delivery >> --download-links "${ANDROID_ARTIFACT_URLS}"
+                command: yarn github-release create android ${NEW_VERSION_NAME} ${NEW_VERSION_CODE} --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME} --release-notes "$(yarn run --silent manage-metadata parse-release-notes --android --language en)"<<^ parameters.production_delivery >> --beta-release<</ parameters.production_delivery >> --download-links "${ANDROID_ARTIFACT_URLS}"
                 name: Create github release
                 working_directory: tools
             - run:
-                command: echo "export RELEASE_NOTES=$(yarn --silent --cwd tools manage-metadata parse-release-notes --android --language en)" >> ${BASH_ENV}
+                command: echo "export RELEASE_NOTES=$(yarn run --silent --cwd tools manage-metadata parse-release-notes --android --language en)" >> ${BASH_ENV}
                 name: Create release notes
             - notify:
                 channel: releases
@@ -779,17 +758,17 @@ jobs:
             - skip_job
             - prepare_workspace
             - restore_environment_variables
-            - restore_yarn_tools_cache
+            - restore_yarn_cache
             - run:
                 command: echo "export IOS_ARTIFACT_URLS='$(echo $(cat $(ls | grep ipa-url)))'" >> ${BASH_ENV}
                 name: Prepare artifact urls
                 working_directory: ~/attached_workspace
             - run:
-                command: yarn github-release create ios ${NEW_VERSION_NAME} ${NEW_VERSION_CODE} --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME} --release-notes "$(yarn --silent manage-metadata parse-release-notes --ios --language en)"<<^ parameters.production_delivery >> --beta-release<</ parameters.production_delivery >> --download-links "${IOS_ARTIFACT_URLS}"
+                command: yarn github-release create ios ${NEW_VERSION_NAME} ${NEW_VERSION_CODE} --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME} --release-notes "$(yarn run --silent manage-metadata parse-release-notes --ios --language en)"<<^ parameters.production_delivery >> --beta-release<</ parameters.production_delivery >> --download-links "${IOS_ARTIFACT_URLS}"
                 name: Create github release
                 working_directory: tools
             - run:
-                command: echo "export RELEASE_NOTES=$(yarn --silent --cwd tools manage-metadata parse-release-notes --ios --language en)" >> ${BASH_ENV}
+                command: echo "export RELEASE_NOTES=$(yarn run --silent --cwd tools manage-metadata parse-release-notes --ios --language en)" >> ${BASH_ENV}
                 name: Create release notes
             - notify:
                 channel: releases
@@ -808,13 +787,13 @@ jobs:
             - skip_job
             - prepare_workspace
             - restore_environment_variables
-            - restore_yarn_tools_cache
+            - restore_yarn_cache
             - run:
-                command: yarn github-release create web ${NEW_VERSION_NAME} ${NEW_VERSION_CODE} --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME} --release-notes "$(yarn --silent manage-metadata parse-release-notes --web --language en)"
+                command: yarn github-release create web ${NEW_VERSION_NAME} ${NEW_VERSION_CODE} --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME} --release-notes "$(yarn run --silent manage-metadata parse-release-notes --web --language en)"
                 name: Create github release
                 working_directory: tools
             - run:
-                command: echo "export RELEASE_NOTES=$(yarn --silent --cwd tools manage-metadata parse-release-notes --web --language en)" >> ${BASH_ENV}
+                command: echo "export RELEASE_NOTES=$(yarn run --silent --cwd tools manage-metadata parse-release-notes --web --language en)" >> ${BASH_ENV}
                 name: Create release notes
             - when:
                 condition: << parameters.production_delivery >>
@@ -876,7 +855,6 @@ jobs:
             - checkout
             - skip_job:
                 build_config_name: << parameters.build_config_name >>
-            - restore_yarn_tools_cache
             - restore_yarn_cache
             - restore_ruby_cache:
                 directory: native

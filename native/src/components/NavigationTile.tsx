@@ -3,8 +3,6 @@ import { ReactNode } from 'react'
 import { View } from 'react-native'
 import styled from 'styled-components/native'
 
-import { ThemeType } from 'build-configs'
-
 import TileModel from '../models/TileModel'
 import Icon from './base/Icon'
 import Pressable from './base/Pressable'
@@ -63,7 +61,6 @@ const StyledIcon = styled(Icon)`
 
 type NavigationTileProps = {
   tile: TileModel
-  theme: ThemeType
   width: number
 }
 
@@ -71,32 +68,31 @@ class NavigationTile extends React.Component<NavigationTileProps> {
   getNewsDot(): ReactNode {
     const {
       tile: { notifications },
-      theme,
     } = this.props
 
     if (notifications && notifications > 0) {
-      return <NewsDot theme={theme}>{notifications}</NewsDot>
+      return <NewsDot>{notifications}</NewsDot>
     }
     return null
   }
 
   getTileContent(): ReactNode {
-    const { tile, theme } = this.props
+    const { tile } = this.props
     return (
       <>
-        <Circle theme={theme}>
+        <Circle>
           {typeof tile.thumbnail === 'string' ? <tile.thumbnail /> : <StyledIcon Icon={tile.thumbnail} />}
           {this.getNewsDot()}
         </Circle>
-        <TileTitle theme={theme}>{tile.title}</TileTitle>
+        <TileTitle>{tile.title}</TileTitle>
       </>
     )
   }
 
   render(): ReactNode {
-    const { tile, theme, width } = this.props
+    const { tile, width } = this.props
     return (
-      <StyledPressable theme={theme} onPress={tile.onTilePress} width={width}>
+      <StyledPressable onPress={tile.onTilePress} width={width}>
         {this.getTileContent()}
       </StyledPressable>
     )

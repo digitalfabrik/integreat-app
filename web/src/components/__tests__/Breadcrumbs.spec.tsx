@@ -31,6 +31,8 @@ const breadcrumb2: BreadcrumbModel = {
   _node: <a href='/lkmuenchen/de/ankommen-und-leben-in-deutschland/mobilitaet'>Mobilität</a>,
 }
 
+jest.mock('react-i18next')
+
 const render = (ancestors: BreadcrumbModel[], current: BreadcrumbModel) =>
   renderWithRouterAndTheme(<Breadcrumbs ancestorBreadcrumbs={ancestors} currentBreadcrumb={current} direction='ltr' />)
 

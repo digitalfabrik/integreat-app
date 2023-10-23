@@ -1,5 +1,5 @@
 module.exports = {
-  extends: ['stylelint-config-recommended', 'stylelint-config-standard'],
+  extends: [require.resolve('stylelint-config-recommended'), require.resolve('stylelint-config-standard')],
   overrides: [
     {
       files: ['**/*.{ts,tsx}'],

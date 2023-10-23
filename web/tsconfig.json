@@ -14,11 +14,12 @@
     "paths": {
       "normalize-strings": ["../api-client/src/@types/normalize-strings"]
     },
+    "resolveJsonModule": true,
     "skipLibCheck": true,
     "target": "ES2019",
     "types": ["jest", "node", "react"]
   },
-  "include": ["src/**/*", "tools/*", "assets/licenses.json", "jest.setup.ts", "jest.config.ts", "stylelint.config.js"],
+  "include": ["src/**/*", "tools/*", "assets/licenses.json", "jest.setup.ts", "jest.config.ts", "stylelint.config.cjs"],
   "references": [
     {
       "path": "../translations"
