@@ -40,7 +40,8 @@ const walkDir = (dir: string, callback: (filePath: string) => void): void => {
 
 // The following code automatically unmocks the modules in `mocksPath`. This is required because jest mocks all these
 // modules automatically as soon as they are found
-const mocksPath = 'src/__mocks__/'
+const rootPath = `${__dirname}/src`
+const mocksPath = `${rootPath}/__mocks__/`
 const mockPathEndings = ['.ts', '.tsx'] // This only unmocks .ts and .tsx files not .json for example
 walkDir(mocksPath, name => {
   mockPathEndings.forEach(ending => {
@@ -50,9 +51,9 @@ walkDir(mocksPath, name => {
   })
 })
 jest.doMock('react-native/Libraries/ReactNative/I18nManager', () => I18nManager)
-jest.doMock('constants/NativeConstants')
+jest.doMock(`${rootPath}/constants/NativeConstants`)
 jest.doMock('build-config-name')
-jest.doMock('constants/buildConfig')
+jest.doMock(`${rootPath}/constants/buildConfig`)
 jest.doMock('react-native-blob-util')
 jest.doMock('path', () => path.posix)
 

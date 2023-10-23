@@ -1,5 +1,5 @@
-import { browsers, browserstackCapabilities } from './capabilities'
-import { config as defaultConfig } from './wdio.conf'
+import { browsers, browserstackCapabilities } from './capabilities.js'
+import { config as defaultConfig } from './wdio.conf.js'
 
 const capabilities = browsers
   .filter(browser => process.argv.includes(`--${browser}`))
