@@ -1,7 +1,7 @@
-import { Routes } from '../../../shared/constants'
-import categoriesPage from '../pageobjects/categories.page'
-import dashboardPage from '../pageobjects/dashboard.page'
-import { getPathname } from '../utils/helpers'
+import { Routes } from '../../../shared/constants.js'
+import categoriesPage from '../pageobjects/categories.page.js'
+import dashboardPage from '../pageobjects/dashboard.page.js'
+import { getPathname } from '../utils/helpers.js'
 
 describe('Categories', () => {
   const category = 'Welcome'

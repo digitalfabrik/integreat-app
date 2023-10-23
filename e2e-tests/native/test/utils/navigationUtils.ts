@@ -1,7 +1,7 @@
-import { defaultCity, filter } from '../../../shared/constants'
-import Keyboard from '../helpers/Keyboard'
-import DashboardPage from '../pageobjects/dashboard.page'
-import LandingPage from '../pageobjects/landing.page'
+import { defaultCity, filter } from '../../../shared/constants.js'
+import Keyboard from '../helpers/Keyboard.js'
+import DashboardPage from '../pageobjects/dashboard.page.js'
+import LandingPage from '../pageobjects/landing.page.js'
 
 const MAX_SCROLLS = 5
 
