@@ -137,7 +137,7 @@ const CityNotCooperating = (): ReactElement | null => {
   return (
     <Container>
       <List
-        items={steps!}
+        items={steps}
         renderItem={renderStepsList}
         Header={CooperationHeader}
         Footer={CooperationFooter}
