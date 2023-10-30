@@ -40,7 +40,10 @@ export type CityContentData = {
   pois: PoiModel[]
 }
 
-export type CityContentReturn = Omit<ReturnType<CityContentData>, 'error'> & { error: ErrorCode | Error | null }
+export type CityContentReturn = Omit<ReturnType<CityContentData>, 'error'> & {
+  error: ErrorCode | Error | null
+  refreshLocalNews: () => void
+}
 
 /**
  * Hook to load all the offline available city content at once and handle errors, loading and refreshing at the same time.
@@ -161,6 +164,6 @@ const useLoadCityContent = ({ cityCode, languageCode }: Params): CityContentRetu
         }
       : null
 
-  return { error: getError(), loading, refresh, data }
+  return { error: getError(), loading, refresh, data, refreshLocalNews: localNewsReturn.refresh }
 }
 export default useLoadCityContent
