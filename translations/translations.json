@@ -2487,7 +2487,8 @@
       "positiveRating": "Diese Seite ist hilfreich",
       "contactMailAddress": "E-Mail für Rückfragen",
       "optionalInfo": "optional",
-      "note": "Bitte wähle eine Reaktion oder schreibe einen Kommentar, um das Feedback abschicken zu können."
+      "note": "Bitte wähle eine Reaktion oder schreibe einen Kommentar, um das Feedback abschicken zu können.",
+      "searchTermDescription": "Für den folgenden Begriff konnte kein Ergebnis gefunden werden:"
     },
     "am": {
       "disclaimer": "የግንኙነት መረጃና ዕትም",
@@ -5494,173 +5495,139 @@
   "offers": {
     "de": {
       "offers": "Angebote",
-      "pageTitle": "Angebote",
-      "wohnraum": "Wohnraum"
+      "pageTitle": "Angebote"
     },
     "am": {
       "offers": "ግብዣዎች/ መጥሪያዎች",
-      "pageTitle": "ግብዣዎች/ መጥሪያዎች",
-      "wohnraum": "መኖሪያ ቤት"
+      "pageTitle": "ግብዣዎች/ መጥሪያዎች"
     },
     "ar": {
       "offers": "العروض",
-      "pageTitle": "العروض",
-      "wohnraum": "غرفة المعيشة"
+      "pageTitle": "العروض"
     },
     "bg": {
       "offers": "Оферти",
-      "pageTitle": "Оферти",
-      "wohnraum": "Жилище"
+      "pageTitle": "Оферти"
     },
     "ckb": {
       "offers": "پێشنیارەکان",
-      "pageTitle": "پێشنیارەکان",
-      "wohnraum": "جەوی ژیان"
+      "pageTitle": "پێشنیارەکان"
     },
     "cs": {
       "offers": "Nabídky",
-      "pageTitle": "Nabídky",
-      "wohnraum": "Obytný prostor"
+      "pageTitle": "Nabídky"
     },
     "el": {
       "offers": "Προσφορές",
-      "pageTitle": "Προσφορές",
-      "wohnraum": "Κατοικία"
+      "pageTitle": "Προσφορές"
     },
     "en": {
       "offers": "Offers",
-      "pageTitle": "Offers",
-      "wohnraum": "Housing"
+      "pageTitle": "Offers"
     },
     "es": {
       "offers": "Ofertas",
-      "pageTitle": "Ofertas",
-      "wohnraum": "Vivienda"
+      "pageTitle": "Ofertas"
     },
     "fi": {
       "offers": "Tarjoukset",
-      "pageTitle": "Tarjoukset",
-      "wohnraum": "Asuinalue"
+      "pageTitle": "Tarjoukset"
     },
     "fr": {
       "offers": "Offres",
-      "pageTitle": "Offres",
-      "wohnraum": "Espace vital"
+      "pageTitle": "Offres"
     },
     "hr": {
       "offers": "Ponude",
-      "pageTitle": "Ponude",
-      "wohnraum": "Stambeni prostor"
+      "pageTitle": "Ponude"
     },
     "hu": {
       "offers": "Ajánlatok",
-      "pageTitle": "Ajánlatok",
-      "wohnraum": "Lakóterület"
+      "pageTitle": "Ajánlatok"
     },
     "it": {
       "offers": "Offerte",
-      "pageTitle": "Offerte",
-      "wohnraum": "Vano"
+      "pageTitle": "Offerte"
     },
     "ka": {
       "offers": "შეთავაზებები",
-      "pageTitle": "შეთავაზებები",
-      "wohnraum": "საცხოვრებელი ოთახი"
+      "pageTitle": "შეთავაზებები"
     },
     "kmr": {
       "offers": "Xizmet",
-      "pageTitle": "Xizmet",
-      "wohnraum": "Atmosfera jiyanê"
+      "pageTitle": "Xizmet"
     },
     "mk": {
       "offers": "Понуди",
-      "pageTitle": "Понуди",
-      "wohnraum": "Станбен простор"
+      "pageTitle": "Понуди"
     },
     "nl": {
       "offers": "Aanbod",
-      "pageTitle": "Aanbod",
-      "wohnraum": "Huisvesting"
+      "pageTitle": "Aanbod"
     },
     "pes": {
       "offers": "خدمات",
-      "pageTitle": "پیشنهادات",
-      "wohnraum": "مسکن"
+      "pageTitle": "پیشنهادات"
     },
     "pl": {
       "offers": "Oferty",
-      "pageTitle": "Oferty",
-      "wohnraum": "Zakwaterowania"
+      "pageTitle": "Oferty"
     },
     "prs": {
       "offers": "پیشنهادات",
-      "pageTitle": "پیشنهادات",
-      "wohnraum": "مسکن"
+      "pageTitle": "پیشنهادات"
     },
     "ps": {
       "offers": "وړاندیزونه",
-      "pageTitle": "وړاندیزونه",
-      "wohnraum": "د اوسیدلو کوټہ"
+      "pageTitle": "وړاندیزونه"
     },
     "pt": {
       "offers": "Ofertas",
-      "pageTitle": "Ofertas",
-      "wohnraum": "Habitaciones"
+      "pageTitle": "Ofertas"
     },
     "ro": {
       "offers": "Oferte",
-      "pageTitle": "Oferte",
-      "wohnraum": "Spațiu de locuit"
+      "pageTitle": "Oferte"
     },
     "ru": {
       "offers": "Предложения",
-      "pageTitle": "Предложения",
-      "wohnraum": "Жильё"
+      "pageTitle": "Предложения"
     },
     "so": {
       "offers": "Heshiisyo",
-      "pageTitle": "Heshiisyo",
-      "wohnraum": "Qolka fadhiga"
+      "pageTitle": "Heshiisyo"
     },
     "sq": {
       "offers": "Ofertat",
-      "pageTitle": "Ofertat",
-      "wohnraum": "Vendbanimi"
+      "pageTitle": "Ofertat"
     },
     "sr-Cyrl": {
       "offers": "Понуде",
-      "pageTitle": "Понуде",
-      "wohnraum": "Стамбени простор"
+      "pageTitle": "Понуде"
     },
     "sr-Latn": {
       "offers": "Ponude",
-      "pageTitle": "Ponude",
-      "wohnraum": "Stambeni prostor"
+      "pageTitle": "Ponude"
     },
     "ti": {
       "offers": "ውዕላት",
-      "pageTitle": "ውዕላት",
-      "wohnraum": "መንበሪ ገዛ"
+      "pageTitle": "ውዕላት"
     },
     "tr": {
       "offers": "Teklifler",
-      "pageTitle": "Teklifler",
-      "wohnraum": "Oturma odası"
+      "pageTitle": "Teklifler"
     },
     "uk": {
       "offers": "Пропозиції",
-      "pageTitle": "Пропозиції",
-      "wohnraum": "Житло"
+      "pageTitle": "Пропозиції"
     },
     "ur": {
       "offers": "پیش کشیں",
-      "pageTitle": "پیش کشیں",
-      "wohnraum": "رابطہ کی تفصیلات"
+      "pageTitle": "پیش کشیں"
     },
     "zh-CN": {
       "offers": "提供项目",
-      "pageTitle": "提供项目",
-      "wohnraum": "居住空间"
+      "pageTitle": "提供项目"
     }
   },
   "pois": {
@@ -7592,707 +7559,6 @@
       "enabled": "已激活",
       "disabled": "已停用",
       "decline": "拒绝"
-    }
-  },
-  "shelter": {
-    "de": {
-      "title": "Wohnraum",
-      "shelterTitle": "{{beds}} in {{location}}",
-      "shelterInformation": "Angebotener Wohnraum",
-      "householdInformation": "Angaben zum gesamten Haushalt",
-      "hostInformation": "Angaben zum Anbietenden",
-      "contactInformation": "Kontaktdaten",
-      "shelterButton": "Anschauen",
-      "bed_one": "{{count}} Bett",
-      "bed_other": "{{count}} Betten",
-      "ges_unterkunft": "Gesamte Unterkunft",
-      "gemein_zimmer": "Gemeinsames Zimmer",
-      "privatzimmer": "Privatzimmer",
-      "7t": "bis 7 Tage",
-      "14t": "bis 14 Tage",
-      "1m": "bis 1 Monat",
-      "3m": "bis 3 Monate",
-      "6m": "bis 6 Monate",
-      "12m": "bis 12 Monate",
-      "12m_plus": "länger als 12 Monate",
-      "starting": "ab",
-      "now": "ab sofort",
-      "free": "kostenfrei",
-      "withCosts": "kostenpflichtig (Preis auf Anfrage)",
-      "tenancyPossible": "Übergang in Mietverhältnis möglich",
-      "accessible": "barrierefrei",
-      "bathroom": "eigenes Bad",
-      "lgbtiq": "LGBTIQ+ freundlich",
-      "haustier": "Haustiere erlaubt",
-      "haustier-katze": "Katzen erlaubt",
-      "haustier-hund": "Hunde erlaubt",
-      "smoking": "Rauchen erlaubt",
-      "rooms": "Anzahl der Zimmer:",
-      "occupants": "Anzahl der Bewohner:",
-      "notSpecified": "Keine Angabe",
-      "name": "Name:",
-      "zipcode": "Postleitzahl:",
-      "city": "Ort:",
-      "hostType": "Hausstand:",
-      "languages": "Sprachkenntnisse:",
-      "deutsch": "Deutsch",
-      "englisch": "Englisch",
-      "ukrainisch": "Ukrainisch",
-      "russisch": "Russisch",
-      "polnisch": "Polnisch",
-      "kroatisch": "Kroatisch",
-      "allein_maennlich": "alleinstehend männlich",
-      "allein_weiblich": "alleinstehend weiblich",
-      "familie_kinder": "Familie mit Kind(ern)",
-      "paar": "Paar ohne Kinder",
-      "wg": "Wohngemeinschaft",
-      "comments": "Ergänzende Anmerkungen",
-      "noSheltersAvailable": "Keine Unterkünfte verfügbar",
-      "shelterType": "Art des Wohnraums",
-      "startDate": "frühestens verfügbar",
-      "availableBeds": "verfügbare Betten",
-      "duration": "mögliche Aufenthaltsdauer",
-      "contactRequest": {
-        "title": "Kontaktanfrage",
-        "description": "Falls du Interesse am angebotenen Wohnraum hast, können wir Deine Kontaktinformationen an den Anbietenden weiterleiten.",
-        "email": "E-Mail-Adresse",
-        "phone": "Telefonnummer",
-        "success": "Deine Kontaktinformationen wurden erfolgreich weitergeleitet.",
-        "error": "Etwas ist leider fehlgeschlagen.",
-        "invalid_accommodation": "Dieses Angebot ist nicht mehr verfügbar.",
-        "invalid_contact_data": "Deine Kontaktinformation waren leider inkorrekt oder wurden bereits zur Kontaktanfrage verwendet.",
-        "send": "Abschicken"
-      },
-      "facetBeds": "min. Anzahl Betten",
-      "facetCity": "Ort/PLZ",
-      "facetPets": "Haustiere erlaubt"
-    },
-    "am": {
-      "title": "መኖሪያ ክፍል"
-    },
-    "ar": {
-      "title": "غرفة المعيشة"
-    },
-    "bg": {
-      "title": "Жилище"
-    },
-    "ckb": {
-      "title": "جەوی ژیان"
-    },
-    "cs": {
-      "title": "Obytný prostor",
-      "shelterTitle": "{{beds}} v lokalitě {{location}}",
-      "shelterInformation": "Nabízený obytný prostor",
-      "householdInformation": "Údaje o celé domácnosti",
-      "hostInformation": "Údaje o nabízejícím",
-      "contactInformation": "Kontaktní údaje",
-      "shelterButton": "Zobrazit",
-      "bed": "1 postel",
-      "beds": "{{beds}} postele",
-      "ges_unterkunft": "Celé ubytování",
-      "gemein_zimmer": "Společný pokoj",
-      "privatzimmer": "Soukromý pokoj",
-      "7t": "až 7 dní",
-      "14t": "až 14 dní",
-      "1m": "až 1 měsíc",
-      "3m": "až 3 měsíce",
-      "6m": "až 6 měsíců",
-      "12m": "až 12 měsíců",
-      "12m_plus": "déle než 12 měsíců",
-      "starting": "od",
-      "now": "okamžitě",
-      "free": "zdarma",
-      "withCosts": "s náklady (cena na vyžádání)",
-      "tenancyPossible": "možnost přechodu do nájmu",
-      "accessible": "bezbariérovost",
-      "bathroom": "vlastní koupelna",
-      "lgbtiq": "LGBTIO+ friendly",
-      "haustier": "Domácí zvířata povolena",
-      "haustier-katze": "kočky povoleny",
-      "haustier-hund": "Psi povoleni",
-      "smoking": "Kouření je povoleno",
-      "rooms": "Počet pokojů:",
-      "occupants": "Počet osob:",
-      "notSpecified": "Není specifikováno",
-      "name": "Jméno:",
-      "zipcode": "Poštovní směrovací číslo:",
-      "city": "Město:",
-      "hostType": "Domácnost:",
-      "languages": "Jazykové znalosti:",
-      "deutsch": "Němčina",
-      "englisch": "Angličtina",
-      "ukrainisch": "Ukrajinština",
-      "russisch": "Rušzina",
-      "polnisch": "Polština",
-      "kroatisch": "Chorvatština",
-      "allein_maennlich": "svobodný muž",
-      "allein_weiblich": "svobodná žena",
-      "familie_kinder": "rodina s dítětem (dětmi)",
-      "paar": "pár bez dětí",
-      "wg": "sdílené bydlení",
-      "comments": "další poznámky",
-      "noSheltersAvailable": "není k dispozici žádné ubytování",
-      "shelterType": "typ ubytování",
-      "startDate": "k dispozici nejdříve",
-      "availableBeds": "dostupná lůžka",
-      "duration": "možná délka pobytu",
-      "contactRequest": {
-        "title": "Kontakt",
-        "email": "E-mail",
-        "phone": "Telefonní číslo",
-        "error": "Něco se bohužel pokazilo.",
-        "invalid_accommodation": "Tato nabídka již není k dispozici.",
-        "send": "Odeslat"
-      },
-      "facetBeds": "min. počet lůžek",
-      "facetCity": "Místo/PSČ",
-      "facetPets": "Domácí zvířata povolena"
-    },
-    "el": {
-      "title": "Κατοικία"
-    },
-    "en": {
-      "title": "Housing",
-      "shelterTitle": "{{beds}} in {{location}}",
-      "shelterInformation": "Offered housing",
-      "householdInformation": "Information on the entire household",
-      "hostInformation": "Details of the provider",
-      "contactInformation": "Contact details",
-      "shelterButton": "View",
-      "bed": "1 bed",
-      "beds": "{{beds}} beds",
-      "ges_unterkunft": "Entire accommodation",
-      "gemein_zimmer": "Shared room",
-      "privatzimmer": "Private room",
-      "7t": "up to 7 days",
-      "14t": "up to 14 days",
-      "1m": "up to 1 months",
-      "3m": "up to 3 months",
-      "6m": "up to 6 months",
-      "12m": "up to 12 months",
-      "12m_plus": "longer than 12 months",
-      "starting": "from",
-      "now": "immediately",
-      "free": "free of charge",
-      "withCosts": "Subject to a fee (price on request)",
-      "tenancyPossible": "Transition to tenancy possible",
-      "accessible": "accessible",
-      "bathroom": "own bathroom",
-      "lgbtiq": "LGBTIQ+ friendly",
-      "haustier": "Pets allowed",
-      "haustier-katze": "Cats allowed",
-      "haustier-hund": "Dogs allowed",
-      "smoking": "Smoking allowed",
-      "rooms": "Number of rooms:",
-      "occupants": "Number of occupants:",
-      "notSpecified": "Not specified",
-      "name": "Name:",
-      "zipcode": "Zip code:",
-      "city": "Location:",
-      "hostType": "Household:",
-      "languages": "Language skills:",
-      "deutsch": "German",
-      "englisch": "English",
-      "ukrainisch": "Ukrainian",
-      "russisch": "Russian",
-      "polnisch": "Polish",
-      "kroatisch": "Croatian",
-      "allein_maennlich": "single male",
-      "allein_weiblich": "single female",
-      "familie_kinder": "Family with child(ren)",
-      "paar": "Family without children",
-      "wg": "Flat-sharing community",
-      "comments": "Complementary comments",
-      "noSheltersAvailable": "No accommodations available",
-      "shelterType": "Type of living",
-      "startDate": "Earliest available",
-      "availableBeds": "Available beds",
-      "duration": "Possible length of stay",
-      "contactRequest": {
-        "title": "Contact request",
-        "email": "E-mail address",
-        "phone": "Telephone number",
-        "error": "Something failed, unfortunately.",
-        "invalid_accommodation": "This offer is no longer available.",
-        "send": "Send"
-      },
-      "facetBeds": "Number of beds",
-      "facetCity": "place/zip",
-      "facetPets": "Pets allowed"
-    },
-    "es": {
-      "title": "Vivienda"
-    },
-    "fi": {
-      "title": "Asuinalue"
-    },
-    "fr": {
-      "title": "Espace vital"
-    },
-    "hr": {
-      "title": "Stambeni prostor"
-    },
-    "hu": {
-      "title": "Lakóterület"
-    },
-    "it": {
-      "title": "Vano"
-    },
-    "ka": {
-      "title": "საცხოვრებელი ოთახი",
-      "shelterTitle": "{{beds}} {{location}}-ში",
-      "shelterInformation": "შეთავაზებული საცხოვრებელი ოთახი",
-      "householdInformation": "საყოფაცხოვრებო მონაცემები",
-      "hostInformation": "მონაცემები შემთავაზებლის შესახებ",
-      "contactInformation": "საკონტაქტო მონაცემები",
-      "shelterButton": "ნახვა",
-      "bed": "1 ლოგინი",
-      "beds": "{{beds}} ლოგინი",
-      "ges_unterkunft": "მთლიანი საცხოვრისი",
-      "gemein_zimmer": "საერთო ოთახი",
-      "privatzimmer": "პირადი ოთახი",
-      "7t": "7 დღემდე",
-      "14t": "14 დღემდე",
-      "1m": "1 თვემდე",
-      "3m": "3 თვემდე",
-      "6m": "6 თვემდე",
-      "12m": "12 თვემდე",
-      "12m_plus": "12 თვეზე მეტი",
-      "starting": "შემდეგიდან",
-      "now": "ახლავე",
-      "free": "უფასო",
-      "withCosts": "ფასიანი (ფასი მოთხოვნით)",
-      "tenancyPossible": "ქირის ხელშეკრულებაზე გადასვლის შესაძლებლობა",
-      "accessible": "ბარიერების გარეშე",
-      "bathroom": "საკუთარი სააბაზანო",
-      "lgbtiq": "LGBTIQ+ მეგობრული",
-      "haustier": "დაშვებულია შინაური ცხოველები",
-      "haustier-katze": "კატები დაშვებულია",
-      "haustier-hund": "ძაღლები დაშვებულია",
-      "smoking": "მოწევა დაშვებულია",
-      "rooms": "ოთახების რაოდენობა:",
-      "occupants": "მაცხოვრებლების რაოდენობა:",
-      "notSpecified": "არ არის მითითებული",
-      "name": "სახელი:",
-      "zipcode": "საფოსტო ინდექსი:",
-      "city": "ადგილი:",
-      "hostType": "სახლის მდგომარეობა:",
-      "languages": "ენა:",
-      "deutsch": "გერმანული",
-      "englisch": "ინგლისური",
-      "ukrainisch": "უკრაინული",
-      "russisch": "რუსული",
-      "polnisch": "პოლონური",
-      "kroatisch": "ხორვატული",
-      "allein_maennlich": "დამოუკიდებელი მამაკაცი",
-      "allein_weiblich": "დამოუკიდებელი ქალი",
-      "familie_kinder": "ოჯახი ბავშვ(ებ)ით",
-      "paar": "წყვილი ბავშვების გარეშე",
-      "wg": "საერთო საცხოვრებელი",
-      "comments": "დასკვნითი შენიშვნები",
-      "noSheltersAvailable": "საცხოვრისი არ არის ხელმისაწვდომი",
-      "shelterType": "საცხოვრებელი ოთახის ტიპი",
-      "startDate": "ყველაზე ადრე ხელმისაწვდომი",
-      "availableBeds": "ხელმისაწვდომი ლოგინები",
-      "duration": "დარჩენის შესაძლო ხანგრძლივობა",
-      "contactRequest": {
-        "title": "კონტაქტის მოთხოვნა",
-        "email": "ელფოსტის მისამართი",
-        "phone": "ტელეფონის ნომერი",
-        "error": "სამწუხაროდ რაღაც დახარვეზდა.",
-        "invalid_accommodation": "ეს შეთავაზება აღარ არის ხელმისაწვდომი.",
-        "send": "გაგზავნა"
-      },
-      "facetBeds": "ლოგინების მინ.რაოდენობა",
-      "facetCity": "ადგილი/საფოსტო კოდი",
-      "facetPets": "შინაური ცხოველები დაშვებულია"
-    },
-    "kmr": {
-      "title": "Atmosfera jiyanê"
-    },
-    "mk": {
-      "title": "Станбен простор"
-    },
-    "nl": {
-      "title": "Huisvesting",
-      "shelterTitle": "{{beds}} op {{location}}",
-      "shelterInformation": "Aangeboden huisvesting",
-      "householdInformation": "Informatie over het gehele huishouden",
-      "hostInformation": "Details van de host",
-      "contactInformation": "Contactgegevens",
-      "shelterButton": "bekijken",
-      "bed": "1 bed",
-      "beds": "{{beds}} bedden",
-      "ges_unterkunft": "De gehele accommodatie",
-      "gemein_zimmer": "Gedeelde kamer",
-      "privatzimmer": "Privékamer",
-      "7t": "Tot 7 dagen",
-      "14t": "Tot 14 dagen",
-      "1m": "Tot 1 maand",
-      "3m": "Tot 3 maanden",
-      "6m": "Tot 6 maanden",
-      "12m": "Tot 12 maanden",
-      "12m_plus": "Langer dan 12 maanden",
-      "starting": "Vanaf",
-      "now": "Meteen",
-      "free": "Gratis",
-      "withCosts": "Er zijn kosten aan verbonden (prijs op aanvraag)",
-      "tenancyPossible": "Overgang naar huur mogelijk",
-      "accessible": "Toegankelijk",
-      "bathroom": "Eigen badkamer",
-      "lgbtiq": "LGBTIQ+-vriendelijk",
-      "haustier": "Huisdieren toegestaan",
-      "haustier-katze": "Katten toegestaan",
-      "haustier-hund": "Honden toegestaan",
-      "smoking": "Roken toegestaan",
-      "rooms": "Aantal kamers:",
-      "occupants": "Aantal bewoners:",
-      "notSpecified": "Niet gespecificeerd",
-      "name": "Naam:",
-      "zipcode": "Postcode:",
-      "city": "Locatie:",
-      "hostType": "Huishouden:",
-      "languages": "Taalvaardigheden",
-      "deutsch": "Duits",
-      "englisch": "Engels",
-      "ukrainisch": "Oekraïens",
-      "russisch": "Russisch",
-      "polnisch": "Pools",
-      "kroatisch": "Kroatisch",
-      "allein_maennlich": "Alleenstaande man",
-      "allein_weiblich": "Alleenstaande vrouw",
-      "familie_kinder": "Familie met kind(eren)",
-      "paar": "Familie zonder kinderen",
-      "wg": "Een gemeenschap die appartementen deelt",
-      "comments": "Aanvullend commentaar",
-      "noSheltersAvailable": "Geen accomodaties",
-      "shelterType": "Soort opvang",
-      "startDate": "Eerst beschikbaar (or: eerst beschikbare opvang)",
-      "availableBeds": "Beschikbare bedden",
-      "duration": "Mogelijke verblijfsduur",
-      "contactRequest": {
-        "title": "Contact aanvraag",
-        "email": "E-mailadres",
-        "phone": "Telefoonnummer",
-        "error": "Helaas, er is iets misgegaan.",
-        "invalid_accommodation": "Dit aanbod is niet langer beschikbaar.",
-        "send": "Stuur"
-      },
-      "facetBeds": "Aantal bedden",
-      "facetCity": "Plaats/postcode",
-      "facetPets": "Huisdieren toegestaan"
-    },
-    "pes": {
-      "title": "مسکن"
-    },
-    "pl": {
-      "title": "Zakwaterowania",
-      "shelterTitle": "{{beds}} w {{location}}",
-      "shelterInformation": "Oferowane zakwaterowanie",
-      "householdInformation": "Informacje dotyczące całego domostwa",
-      "hostInformation": "Informacje o składającym ofertę",
-      "contactInformation": "Dane kontaktowe",
-      "shelterButton": "Zobacz",
-      "bed": "1 łóżko",
-      "beds": "{{beds}} Łóżka",
-      "ges_unterkunft": "Całe zakwaterowanie",
-      "gemein_zimmer": "Pokój wspólny",
-      "privatzimmer": "Pokój prywatny",
-      "7t": "do 7 dni",
-      "14t": "do 14 dni",
-      "1m": "do 1 miesiąca",
-      "3m": "do 3 miesięcy",
-      "6m": "do 6 miesięcy",
-      "12m": "do 12 miesięcy",
-      "12m_plus": "dłużej niż 12 miesięcy",
-      "starting": "od",
-      "now": "od zaraz",
-      "free": "nieodpłatnie",
-      "withCosts": "za opłatą (cena na życzenie)",
-      "tenancyPossible": "Możliwość zamiany na najem",
-      "accessible": "bez barier",
-      "bathroom": "osobna łazienka",
-      "lgbtiq": "przyjazny dla osób LGBTIQ+",
-      "haustier": "Zwierzęta domowe dozwolone",
-      "haustier-katze": "Koty dozwolone",
-      "haustier-hund": "Psy dozwolone",
-      "smoking": "Palenie dozwolone",
-      "rooms": "Liczba pokoi:",
-      "occupants": "Liczba mieszkańców:",
-      "notSpecified": "Brak danych",
-      "name": "Nazwisko:",
-      "zipcode": "Kod pocztowy:",
-      "city": "Miejscowość:",
-      "hostType": "Gospodarze domu:",
-      "languages": "Znajomość języków obcych:",
-      "deutsch": "Niemiecki",
-      "englisch": "Angielski",
-      "ukrainisch": "Ukraiński",
-      "russisch": "Rosyjski",
-      "polnisch": "Polski",
-      "kroatisch": "Chorwacki",
-      "allein_maennlich": "samotny mężczyzna",
-      "allein_weiblich": "samotna kobieta",
-      "familie_kinder": "Rodzina z dzieckiem (dziećmi)",
-      "paar": "Para bez dzieci",
-      "wg": "Mieszkanie wspólne",
-      "comments": "Uwagi uzupełniające",
-      "noSheltersAvailable": "Brak miejsc do zakwaterowania",
-      "shelterType": "Rodzaj zakwaterowania",
-      "startDate": "najwcześniej dostępne",
-      "availableBeds": "wolne łóżka",
-      "duration": "możliwa długość pobytu",
-      "contactRequest": {
-        "title": "Kontakt",
-        "email": "Adres e-mail",
-        "phone": "Numer telefonu",
-        "error": "Przepraszamy, coś poszło nie tak.",
-        "invalid_accommodation": "Ta oferta nie jest już dostępna.",
-        "send": "Wyślij"
-      },
-      "facetBeds": "min. liczba łóżek",
-      "facetCity": "miejsce/zamek błyskawiczny",
-      "facetPets": "Zwierzęta domowe dozwolone"
-    },
-    "prs": {
-      "title": "مسکن"
-    },
-    "ps": {
-      "title": "د اوسیدلو کوټہ"
-    },
-    "pt": {
-      "title": "Habitaciones",
-      "shelterTitle": "{{beds}} en {{location}}",
-      "shelterInformation": "Habitación ofrecida",
-      "householdInformation": "Datos de toda la casa",
-      "hostInformation": "Datos del ofertante",
-      "contactInformation": "Datos de contacto",
-      "shelterButton": "Ver",
-      "bed": "1 cama",
-      "beds": "{{beds}} camas",
-      "ges_unterkunft": "Alojamiento completo",
-      "gemein_zimmer": "Habitación compartida",
-      "privatzimmer": "Habitación privada",
-      "7t": "Hasta 7 días",
-      "14t": "Hasta 14 días",
-      "1m": "Hasta 1 mes",
-      "3m": "Hasta 3 meses",
-      "6m": "Hasta 6 meses",
-      "12m": "Hasta 12 meses",
-      "12m_plus": "Más de 12 meses",
-      "starting": "Desde",
-      "now": "Desde ahora",
-      "free": "Gratis",
-      "withCosts": "De pago (hay que preguntar el precio)",
-      "tenancyPossible": "Es posible cambiar a contrato de alquiler",
-      "accessible": "Accesos adaptados",
-      "bathroom": "Baño propio",
-      "lgbtiq": "Pro LGBTIQ+",
-      "haustier": "Se permiten mascotas",
-      "haustier-katze": "Se permiten gatos",
-      "haustier-hund": "Se permiten perros",
-      "smoking": "Se permite fumar",
-      "rooms": "Número de habitaciones:",
-      "occupants": "Número de personas:",
-      "notSpecified": "Sin datos",
-      "name": "Nombre:",
-      "zipcode": "Código postal:",
-      "city": "Lugar:",
-      "hostType": "Casa:",
-      "languages": "Idiomas:",
-      "deutsch": "Alemán",
-      "englisch": "Inglés",
-      "ukrainisch": "Ucraniano",
-      "russisch": "Ruso",
-      "polnisch": "Polaco",
-      "kroatisch": "Croata",
-      "allein_maennlich": "Hombre soltero",
-      "allein_weiblich": "Mujer soltera",
-      "familie_kinder": "Familia con hijo(s)",
-      "paar": "Pareja sin hijos",
-      "wg": "Residencia compartida",
-      "comments": "Otros comentarios",
-      "noSheltersAvailable": "No hay disponible ningún alojamiento",
-      "shelterType": "Tipo de habitación",
-      "startDate": "Disponible lo antes posible",
-      "availableBeds": "Camas disponibles",
-      "duration": "Posible duración de la estancia",
-      "contactRequest": {
-        "title": "Solicitud de contacto",
-        "email": "Correo electrónico",
-        "phone": "Número de teléfono",
-        "error": "Lamentablemente, algo ha fallado.",
-        "invalid_accommodation": "Esta oferta ya no está disponible.",
-        "send": "Enviar"
-      },
-      "facetBeds": "Cantidad de camas mín.",
-      "facetCity": "Lugar/Código postal",
-      "facetPets": "Se permiten mascotas"
-    },
-    "ro": {
-      "title": "Spațiu de locuit"
-    },
-    "ru": {
-      "title": "Жильё",
-      "shelterTitle": "{{beds}} в {{location}}",
-      "shelterInformation": "Доступное жильё",
-      "householdInformation": "информация обо всей семье",
-      "hostInformation": "Информация о провайдере",
-      "contactInformation": "Контактная информация",
-      "shelterButton": "Посмотреть",
-      "bed": "1 кровать",
-      "beds": "{{beds}} Кровати",
-      "ges_unterkunft": "Квартира",
-      "gemein_zimmer": "Общая комната",
-      "privatzimmer": "Отдельная комната",
-      "7t": "до 7 дней",
-      "14t": "до 14 дней",
-      "1m": "до 1 месяца",
-      "3m": "до 3 месяцев",
-      "6m": "до 6 месяцев",
-      "12m": "до 12 месяцев",
-      "12m_plus": "более 12 месяцев",
-      "starting": "Начиная с",
-      "now": "Незамедлительно",
-      "free": "бесплатно",
-      "withCosts": "При условии внесения платы (цена по запросу)",
-      "tenancyPossible": "Переход к аренде жилья возможен",
-      "accessible": "Доступное для людей с ограниченными возможностями",
-      "bathroom": "eigenes Bad",
-      "lgbtiq": "ЛГБТИК+ френдли",
-      "haustier": "Домашние животные разрешены",
-      "haustier-katze": "Кошки разрешены",
-      "haustier-hund": "Собаки разрешены",
-      "smoking": "Курение разрешено",
-      "rooms": "Количество номеров:",
-      "occupants": "Количество жителей:",
-      "notSpecified": "Не указано",
-      "name": "Имя:",
-      "zipcode": "Почтовый индекс:",
-      "city": "Город:",
-      "hostType": "Хозяйство:",
-      "languages": "Знание языков:",
-      "deutsch": "немецкий",
-      "englisch": "английский язык",
-      "ukrainisch": "украинский",
-      "russisch": "русский",
-      "polnisch": "польский",
-      "kroatisch": "хорватский",
-      "allein_maennlich": "холостой мужчина",
-      "allein_weiblich": "одинокая женщина",
-      "familie_kinder": "Семья с детьми",
-      "paar": "Семья без детей",
-      "wg": "Общая квартира с друзьями",
-      "comments": "Дополнительные примечания",
-      "noSheltersAvailable": "Жилье не предоставляется",
-      "shelterType": "Тип жилья",
-      "startDate": "доступное как можно скорее",
-      "availableBeds": "свободные кровати",
-      "duration": "возможный срок пребывания",
-      "contactRequest": {
-        "title": "Контактная информация",
-        "email": "адрес электронной почты",
-        "phone": "Телефонный номер",
-        "error": "Извините, что-то пошло не так.",
-        "invalid_accommodation": "Это предложение больше не доступно.",
-        "send": "Отправить"
-      },
-      "facetBeds": "минимальное количество кроватей",
-      "facetCity": "ме́сто/почто́вый и́ндекс",
-      "facetPets": "Домашние животные разрешены"
-    },
-    "so": {
-      "title": "Qolka fadhiga"
-    },
-    "sq": {
-      "title": "Vendbanimi"
-    },
-    "sr-Cyrl": {
-      "title": "Стамбени простор"
-    },
-    "sr-Latn": {
-      "title": "Stambeni prostor"
-    },
-    "ti": {
-      "title": "መንበሪ ክፍሊ"
-    },
-    "tr": {
-      "title": "Oturma odası"
-    },
-    "uk": {
-      "title": "Житло",
-      "shelterTitle": "{{beds}} y {{location}}",
-      "shelterInformation": "Пропонували житло",
-      "householdInformation": "Інформація про все домогосподарство",
-      "hostInformation": "Деталі про господаря",
-      "contactInformation": "Контактна інформація",
-      "shelterButton": "Перегляд",
-      "bed": "1 Ліжко",
-      "beds": "{{beds}}Ліжка",
-      "ges_unterkunft": "Ціле помешкання",
-      "gemein_zimmer": "Спільна кімната",
-      "privatzimmer": "Власна кімната",
-      "7t": "до 7 днів",
-      "14t": "до 14 днів",
-      "1m": "до 1 місяця",
-      "3m": "до 3 місяців",
-      "6m": "до 6 місяців",
-      "12m": "до 12 місяців",
-      "12m_plus": "довше ніж 12 місяців",
-      "starting": "з",
-      "now": "негайно",
-      "free": "безкоштовно",
-      "withCosts": "оренда платна (вартість за запитом)",
-      "tenancyPossible": "Можливий перехід на орендні відносини",
-      "accessible": "доступно",
-      "bathroom": "власна ванна кімната",
-      "lgbtiq": "LGBTIQ+",
-      "haustier": "можна з тваринами",
-      "haustier-katze": "можна з котиками",
-      "haustier-hund": "можна з собаками",
-      "smoking": "Палити дозволено",
-      "rooms": "Кількість кімнат:",
-      "occupants": "Кільксть людей:",
-      "notSpecified": "Не вказано",
-      "name": "Ім'я:",
-      "zipcode": "Почтовий індекс:",
-      "city": "Місто:",
-      "hostType": "Господарь:",
-      "languages": "Знання мови:",
-      "deutsch": "Німецька",
-      "englisch": "Англійська",
-      "ukrainisch": "Українська",
-      "russisch": "Російська",
-      "polnisch": "Польська",
-      "kroatisch": "хорватська",
-      "allein_maennlich": "Чоловік",
-      "allein_weiblich": "Жінка",
-      "familie_kinder": "Сім'я з дітьми",
-      "paar": "Сім'я без дітей",
-      "wg": "Комунальна квартира",
-      "comments": "Коментарі",
-      "noSheltersAvailable": "Немає доступного житла",
-      "shelterType": "вид квартири",
-      "startDate": "Доступне з",
-      "availableBeds": "наявні ліжка",
-      "duration": "можлива тривалість перебування",
-      "contactRequest": {
-        "title": "Форма для запиту",
-        "email": "Електронна адреса",
-        "phone": "Номер телефону",
-        "error": "Помилка,щось пішло не так.",
-        "invalid_accommodation": "Ця пропозиція більше не дійсна.",
-        "send": "Відправлено"
-      },
-      "facetBeds": "кількість ліжок",
-      "facetCity": "Розташування/Поштовий індекс",
-      "facetPets": "Допускаються домашні тварини"
-    },
-    "ur": {
-      "title": "رہنے  کا کمرہ"
-    },
-    "zh-CN": {
-      "title": "居住空间"
     }
   },
   "socialMedia": {

@@ -17,6 +17,7 @@ describe('Feedback', () => {
   const onFeedbackContactMailChanged = jest.fn()
   const onSubmit = jest.fn()
   const setIsPositiveFeedback = jest.fn()
+  const setSearchTerm = jest.fn()
 
   const buildProps = (isPositiveFeedback: boolean | null, isSearchFeedback: boolean, comment: string) => ({
     comment,
@@ -28,6 +29,7 @@ describe('Feedback', () => {
     onFeedbackContactMailChanged,
     onSubmit,
     setIsPositiveFeedback,
+    setSearchTerm,
   })
 
   it('button should be disabled and note should be shown without feedback and no comment', async () => {
@@ -37,20 +39,22 @@ describe('Feedback', () => {
       </NavigationContainer>,
     )
     expect(getByText('send')).toBeDisabled()
-    expect(queryByText('informationNotFound')).toBeFalsy()
+    expect(queryByText('searchTermDescription')).toBeFalsy()
     expect(getByText('headline')).toBeTruthy()
     expect(getByText('note')).toBeTruthy()
   })
-  it('button should be disabled and note should be shown for search feedback and no input', async () => {
+
+  it('button should be enabled for search feedback and no input', async () => {
     const { getByText } = render(
       <NavigationContainer>
         <Feedback {...buildProps(null, true, '')} />
       </NavigationContainer>,
     )
-    expect(getByText('send')).toBeDisabled()
-    expect(getByText('informationNotFound')).toBeTruthy()
+    expect(getByText('send')).not.toBeDisabled()
+    expect(getByText('searchTermDescription')).toBeTruthy()
     expect(getByText('note')).toBeTruthy()
   })
+
   it('button should be enabled for positive feedback and no input', async () => {
     const { getByText, queryByText } = render(
       <NavigationContainer>
@@ -58,9 +62,10 @@ describe('Feedback', () => {
       </NavigationContainer>,
     )
     expect(getByText('send')).not.toBeDisabled()
-    expect(queryByText('informationNotFound')).toBeFalsy()
+    expect(queryByText('searchTermDescription')).toBeFalsy()
     expect(getByText('note')).toBeTruthy()
   })
+
   it('button should be enabled for no feedback but comment', async () => {
     const { getByText } = render(
       <NavigationContainer>
@@ -77,8 +82,9 @@ describe('Feedback', () => {
         <Feedback {...buildProps(false, true, 'comment')} />
       </NavigationContainer>,
     )
-    expect(getByText('informationNotFound')).toBeDefined()
+    expect(getByText('searchTermDescription')).toBeDefined()
   })
+
   it('onSubmit should be called with query on button press for search feedback', async () => {
     const { getByText } = render(
       <NavigationContainer>
@@ -89,6 +95,7 @@ describe('Feedback', () => {
     fireEvent.press(button)
     expect(onSubmit).toHaveBeenCalled()
   })
+
   it('should call callback on comment changed', async () => {
     const { getByDisplayValue, queryByDisplayValue } = render(
       <NavigationContainer>
@@ -102,6 +109,7 @@ describe('Feedback', () => {
     expect(onCommentChanged).toHaveBeenCalledTimes(1)
     expect(onCommentChanged).toHaveBeenCalledWith('my new comment')
   })
+
   it('should call callback on contact mail changed', async () => {
     const { getByDisplayValue, queryByDisplayValue } = render(
       <NavigationContainer>

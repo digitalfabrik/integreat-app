@@ -25,6 +25,7 @@ import { cmsApiBaseUrl } from '../constants/urls'
 
 const List = styled.ul`
   list-style-type: none;
+
   & a {
     ${helpers.removeLinkHighlighting}
   }

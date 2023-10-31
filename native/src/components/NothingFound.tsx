@@ -14,7 +14,7 @@ const Description = styled.Text`
   font-family: ${props => props.theme.fonts.native.decorativeFontRegular};
   font-size: 16px;
   text-align: center;
-  padding: 10px 30px 30px;
+  padding: 10px 30px;
 `
 
 const StyledIcon = styled(Icon)`

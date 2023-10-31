@@ -12,6 +12,7 @@ const SidebarFooterContainer = styled.div`
   width: 100%;
   margin-top: -10px; /* to counteract the padding-top of the normal footer */
   padding: 0 27px;
+
   > * {
     color: ${props => props.theme.colors.textColor};
     padding: 16px 0;
@@ -19,6 +20,7 @@ const SidebarFooterContainer = styled.div`
     align-items: center;
     justify-content: center;
     border-bottom: 1px solid ${props => props.theme.colors.footerLineColor};
+
     &:last-child {
       border-bottom: none;
     }

@@ -1,12 +1,15 @@
-/* eslint-disable no-magic-numbers */
-
 module.exports = {
-  extends: ['stylelint-config-recommended'],
-  customSyntax: 'postcss-jsx',
-  rules: {
-    'function-no-unknown': null,
-    'at-rule-no-unknown': null,
-    'no-extra-semicolons': null,
-    'media-query-no-invalid': null,
-  },
+  extends: ['stylelint-config-recommended', 'stylelint-config-standard'],
+  overrides: [
+    {
+      files: ['**/*.{ts,tsx}'],
+      customSyntax: 'postcss-styled-syntax',
+      rules: {
+        'function-no-unknown': null,
+        'at-rule-no-unknown': null,
+        'no-extra-semicolons': null,
+        'media-query-no-invalid': null,
+      },
+    },
+  ],
 }

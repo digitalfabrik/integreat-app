@@ -103,13 +103,20 @@ const generateManifest = (content: Buffer, buildConfig: WebBuildConfigType) => {
 
 const createConfig = (
   // eslint-disable-next-line camelcase
-  env: { config_name?: string; dev_server?: boolean; version_name?: string; commit_sha?: string } = {},
+  env: {
+    config_name?: string
+    dev_server?: boolean
+    bundle_analyzer?: boolean
+    version_name?: string
+    commit_sha?: string
+  } = {},
 ): Configuration => {
   const {
     config_name: buildConfigName,
     commit_sha: passedCommitSha,
     version_name: passedVersionName,
     dev_server: devServer,
+    bundle_analyzer: bundleAnalyer,
   } = env
 
   if (!buildConfigName) {
@@ -207,7 +214,7 @@ const createConfig = (
     // The list of plugins for Webpack compiler
     plugins: [
       new BundleAnalyzerPlugin({
-        analyzerMode: devServer ? 'disabled' : 'static',
+        analyzerMode: !bundleAnalyer ? 'disabled' : 'static',
         generateStatsFile: !devServer,
         openAnalyzer: false,
         reportFilename: join(bundleReportDirectory, 'report.html'),

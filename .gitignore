@@ -126,3 +126,5 @@ runConfigurations.xml
 
 # Mac OS X
 .DS_Store
+
+reports/

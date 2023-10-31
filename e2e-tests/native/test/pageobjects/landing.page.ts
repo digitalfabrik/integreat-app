@@ -1,6 +1,6 @@
-import Gestures from '../helpers/Gestures'
-import { Selector } from '../helpers/Selector'
-import { Page } from './page'
+import Gestures from '../helpers/Gestures.js'
+import { Selector } from '../helpers/Selector.js'
+import { Page } from './page.js'
 
 const MAX_SCROLLS = 4
 
