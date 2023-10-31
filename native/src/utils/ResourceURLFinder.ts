@@ -6,6 +6,8 @@ import Url from 'url-parse'
 import { getExtension } from './helpers'
 import { FetchMapType } from './loadResourceCache'
 
+const RESOURCE_EXTENSIONS = ['png', 'jpg', 'jpeg', 'pdf', 'svg']
+
 type InputEntryType = {
   path: string
   content: string
@@ -33,7 +35,7 @@ export default class ResourceURLFinder {
       try {
         const extension = getExtension(value)
 
-        if (['png', 'jpg', 'jpeg', 'pdf'].includes(extension) && this._allowedHostNames.includes(new Url(value).host)) {
+        if (RESOURCE_EXTENSIONS.includes(extension) && this._allowedHostNames.includes(new Url(value).host)) {
           this._foundUrls.add(value)
         }
       } catch (ignored) {

@@ -11,6 +11,8 @@ type TileProps = {
 }
 const ThumbnailContainer = styled(SimpleImage)`
   height: 150px;
+  width: 150px;
+  align-self: center;
 `
 const TileTitle = styled.Text`
   margin: 5px;
@@ -18,21 +20,19 @@ const TileTitle = styled.Text`
   text-align: center;
   font-family: ${props => props.theme.fonts.native.decorativeFontRegular};
 `
-const TileContainer = styled.View`
+const TileContainer = styled(Pressable)`
   margin-bottom: 20px;
   width: 50%;
 `
 
 const Tile = ({ onTilePress, tile }: TileProps): ReactElement => (
-  <TileContainer>
-    <Pressable onPress={() => onTilePress(tile)}>
-      {!tile.thumbnail || typeof tile.thumbnail === 'string' ? (
-        <ThumbnailContainer source={tile.thumbnail} />
-      ) : (
-        <tile.thumbnail height={150} />
-      )}
-      <TileTitle android_hyphenationFrequency='full'>{tile.title}</TileTitle>
-    </Pressable>
+  <TileContainer onPress={() => onTilePress(tile)}>
+    {!tile.thumbnail || typeof tile.thumbnail === 'string' ? (
+      <ThumbnailContainer source={tile.thumbnail} />
+    ) : (
+      <tile.thumbnail height={150} />
+    )}
+    <TileTitle android_hyphenationFrequency='full'>{tile.title}</TileTitle>
   </TileContainer>
 )
 

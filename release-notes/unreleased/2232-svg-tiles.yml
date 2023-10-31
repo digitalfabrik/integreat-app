@@ -1,0 +1,6 @@
+issue_key: 2232
+show_in_stores: false
+platforms:
+  - android
+  - ios
+en: SVGs as tile icons are now displayed correctly.
