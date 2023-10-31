@@ -66,6 +66,7 @@ describe('OffersContainer', () => {
     events: [],
     pois: [],
     extra: [],
+    localNews: [],
   }
 
   const returnValue: UseLoadExtraCityContentReturn<OfferModel[]> = {

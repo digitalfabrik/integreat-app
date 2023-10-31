@@ -68,10 +68,12 @@ describe('NewsContainer', () => {
     events: [],
     pois: [],
     extra: [],
+    localNews: [],
   }
 
   const returnValue = {
     refresh: jest.fn(),
+    refreshLocalNews: jest.fn(),
     loading: false,
     error: null,
     data,
