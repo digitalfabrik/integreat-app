@@ -15,6 +15,7 @@ type ListProps<T> = {
   renderItem: (props: { item: T; index: number }) => ReactElement
   Header?: ReactElement
   Footer?: ReactElement
+  scrollEnabled?: boolean
   refresh?: () => void
   onEndReached?: () => void
 }
@@ -27,6 +28,7 @@ const List = <T,>({
   Footer,
   refresh,
   onEndReached,
+  scrollEnabled,
 }: ListProps<T>): ReactElement => (
   <FlatList
     data={items}
@@ -45,6 +47,7 @@ const List = <T,>({
       paddingHorizontal: 10,
     }}
     onEndReachedThreshold={1}
+    scrollEnabled={scrollEnabled}
   />
 )
 

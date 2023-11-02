@@ -14,6 +14,7 @@ jest.mock('react-native-webview', () => ({
 describe('SearchListItem', () => {
   const cityModel = new CityModelBuilder(1).build()[0]!
   const language = new LanguageModelBuilder(1).build()[0]!
+  const accessibilityLabel = 'This is an example category label'
   const { categories: categoriesMapModel, resourceCache } = new CategoriesMapModelBuilder(
     cityModel.code,
     language.code,
@@ -46,6 +47,7 @@ describe('SearchListItem', () => {
         onItemPress={onItemPress}
         language={language.code}
         query={query}
+        accessibilityLabel={accessibilityLabel}
       />,
     )
 
@@ -64,6 +66,7 @@ describe('SearchListItem', () => {
         onItemPress={onItemPress}
         language={language.code}
         query={category.title}
+        accessibilityLabel={accessibilityLabel}
       />,
     )
 
@@ -84,6 +87,7 @@ describe('SearchListItem', () => {
         onItemPress={onItemPress}
         language={language.code}
         query={query}
+        accessibilityLabel={accessibilityLabel}
       />,
     )
 
@@ -104,6 +108,7 @@ describe('SearchListItem', () => {
         onItemPress={onItemPress}
         language={language.code}
         query={query}
+        accessibilityLabel={accessibilityLabel}
       />,
     )
 

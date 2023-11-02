@@ -46,6 +46,7 @@ type SearchListItemProps = {
   contentWithoutHtml: string
   resourceCache: PageResourceCacheStateType
   onItemPress: (category: CategoryModel) => void
+  accessibilityLabel: string
   language: string
   query: string
 }
@@ -55,6 +56,7 @@ const SearchListItem = ({
   category,
   resourceCache,
   contentWithoutHtml,
+  accessibilityLabel,
   onItemPress,
   query,
 }: SearchListItemProps): ReactElement => {
@@ -86,7 +88,7 @@ const SearchListItem = ({
     />
   )
   return (
-    <FlexStyledLink onPress={() => onItemPress(category)}>
+    <FlexStyledLink onPress={() => onItemPress(category)} accessibilityLabel={accessibilityLabel}>
       <DirectionContainer language={language}>
         <SearchEntryContainer>
           <TitleDirectionContainer language={language}>

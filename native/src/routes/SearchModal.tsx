@@ -102,6 +102,7 @@ const SearchModal = ({
       contentWithoutHtml={item.contentWithoutHtml}
       language={languageCode}
       query={query}
+      accessibilityLabel={t(`Category ${item.category.title}`)}
       onItemPress={onItemPress}
     />
   )
