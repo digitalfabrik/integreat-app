@@ -1,8 +1,8 @@
-import { DateTime } from 'luxon'
 import React, { ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Linking, Platform } from 'react-native'
 import RNCalendarEvents, { Calendar } from 'react-native-calendar-events'
+import { check, checkMultiple, PERMISSIONS, request, requestMultiple } from 'react-native-permissions'
 import styled from 'styled-components/native'
 
 import { EventModel } from 'api-client'
@@ -27,45 +27,50 @@ const ExportEventButton = ({ event }: ExportEventButtonType): ReactElement => {
   const [showCalendarChoiceModal, setShowCalendarChoiceModal] = useState<boolean>(false)
   const [calendars, setCalendars] = useState<Calendar[]>()
 
-  const openCalendarApp = (event: EventModel, id: string): void => {
-    if (Platform.OS === 'ios') {
-      // can't open a specific event but at a specific time
-      const appleRefDate = DateTime.fromISO('2001-01-01').toSeconds()
-      const secondsSinceRefDate = event.date.startDate.toSeconds() - appleRefDate
-      Linking.openURL(`calshow:${secondsSinceRefDate}`)
-    } else if (Platform.OS === 'android') {
-      Linking.openURL(`content://com.android.calendar/events/${id}`)
-    }
-  }
-
   const exportEventToCalendar = async (calendarId: string | undefined): Promise<void> => {
     try {
+      let startDate = event.date.startDate.toUTC().toString()
+      let endDate = event.date.endDate.toUTC().toString()
+      const allDay = event.date.allDay
+      if (Platform.OS === 'android' && allDay) {
+        // If allDay is set to true, Android demands that the time has a midnight boundary.
+        // The endDate we receive from the CMS for allDay events is always at 23:59:00.
+        startDate = event.date.startDate.toFormat("yyyy-LL-dd'T'00:00:00.000'Z'")
+        endDate = event.date.endDate.plus({ minutes: 1 }).toFormat("yyyy-LL-dd'T'00:00:00.000'Z'")
+      }
+
       const id = await RNCalendarEvents.saveEvent(event.title, {
-        startDate: event.date.startDate.toISO(),
-        endDate: event.date.endDate.toISO(),
-        allDay: event.date.allDay,
-        location: event.location?.fullAddress,
-        description: event.excerpt,
+        startDate,
+        endDate,
+        allDay,
         calendarId,
+        location: event.location?.fullAddress,
+        description: event.excerpt, // Android
+        notes: event.excerpt, // iOS
       })
-      setEventExported(true)
-      showSnackbar({
-        text: t('added'),
-        positiveAction: {
-          label: t('goToCalendar'),
-          onPress: () => openCalendarApp(event, id),
-        },
-      })
+      if (id) {
+        setEventExported(true)
+        showSnackbar({
+          text: t('added'),
+        })
+      } else {
+        showSnackbar({ text: 'generalError' })
+      }
     } catch {
       showSnackbar({ text: 'generalError' })
     }
   }
 
   const checkCalendarsAndExportEvent = async (): Promise<void> => {
-    const checkedPermission = await RNCalendarEvents.checkPermissions()
-    const permission =
-      checkedPermission === 'undetermined' ? await RNCalendarEvents.requestPermissions() : checkedPermission
-    if (permission === 'denied' || permission === 'restricted') {
+    const iosPermission = PERMISSIONS.IOS.CALENDARS
+    const androidPermissions = [PERMISSIONS.ANDROID.READ_CALENDAR, PERMISSIONS.ANDROID.WRITE_CALENDAR]
+    const checkedPermission =
+      Platform.OS === 'ios' ? await check(iosPermission) : await checkMultiple(androidPermissions)
+    const requestPermission = () =>
+      Platform.OS === 'ios' ? request(iosPermission) : requestMultiple(androidPermissions)
+
+    const permission = checkedPermission === 'unavailable' ? await requestPermission() : checkedPermission
+    if (permission === 'denied' || permission === 'limited') {
       showSnackbar({
         text: 'noCalendarPermission',
         positiveAction: {
@@ -79,7 +84,11 @@ const ExportEventButton = ({ event }: ExportEventButtonType): ReactElement => {
     if (editableCalendars.length === 0) {
       showSnackbar({ text: 'noCalendarFound' })
     } else if (editableCalendars.length === 1) {
-      exportEventToCalendar(editableCalendars[0]?.id)
+      try {
+        await exportEventToCalendar(editableCalendars[0]?.id)
+      } catch {
+        showSnackbar({ text: 'generalError' })
+      }
     } else {
       setCalendars(editableCalendars)
       setShowCalendarChoiceModal(true)
@@ -88,7 +97,11 @@ const ExportEventButton = ({ event }: ExportEventButtonType): ReactElement => {
 
   const chooseCalendar = async (id: string): Promise<void> => {
     setShowCalendarChoiceModal(false)
-    await exportEventToCalendar(id).catch(() => showSnackbar({ text: 'generalError' }))
+    try {
+      await exportEventToCalendar(id)
+    } catch {
+      showSnackbar({ text: 'generalError' })
+    }
   }
 
   return (
