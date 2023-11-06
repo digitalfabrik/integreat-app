@@ -1,6 +1,7 @@
 {
   "extends": "../tsconfig.json",
   "compilerOptions": {
+    "composite": true,
     "allowJs": true,
     "allowSyntheticDefaultImports": true,
     "baseUrl": ".",
@@ -9,9 +10,6 @@
     "module": "es2020",
     "outDir": "dist",
     "paths": {
-      "api-client/*": ["../api-client/*"],
-      "build-configs/*": ["../build-configs/*"],
-      "translations/*": ["../translations/*"],
       "normalize-strings": ["../api-client/src/@types/normalize-strings"],
       "@dr.pogodin/react-native-static-server": ["src/@types/react-native-static-server"],
       "@react-native-async-storage/async-storage/jest/async-storage-mock": ["src/@types/untyped"]
@@ -22,7 +20,8 @@
   },
   "include": [
     "src/**/*",
-    "./jest.setup.ts",
+    "jest.setup.ts",
+    "src/assets/licenses.json",
     "index.ts",
     "jest.config.ts",
     "babel.config.js",

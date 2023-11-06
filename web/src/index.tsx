@@ -22,7 +22,7 @@ if (buildConfig().splashScreen) {
 }
 
 // Currently we do not have service workers. Unregister all previous ones:
-if (navigator.serviceWorker) {
+if ('serviceWorker' in navigator) {
   navigator.serviceWorker.getRegistrations().then(registrations => {
     registrations.forEach(registration => {
       registration.unregister()

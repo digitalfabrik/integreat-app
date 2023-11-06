@@ -5,7 +5,7 @@
     "outDir": "dist",
     "types": [
       "jest",
-      "node" // for require() in src/__tests__/loadTranslations.spec.ts
+      "node" // for scripts in tools in src/__tests__/loadTranslations.spec.ts
     ]
   },
   "include": [
@@ -14,6 +14,8 @@
     "translations.json",
     "override-translations/aschaffenburg.json",
     "override-translations/malte.json",
+    "jest.config.ts",
+    "jest.setup.ts",
     "src/**/*",
     "tools/**/*"
   ]
