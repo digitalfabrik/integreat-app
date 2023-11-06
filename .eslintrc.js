@@ -132,7 +132,7 @@ module.exports = {
     ],
   },
   parserOptions: {
-    project: './tsconfig.json',
+    project: true,
   },
   overrides: [
     {
