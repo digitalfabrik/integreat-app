@@ -225,17 +225,14 @@ commands:
                 name: Skip the current build if necessary
     unit_test:
         description: Runs the test task and stores coverage and junit data
-        parameters:
-            directory:
-                type: string
         steps:
             - run:
-                command: yarn workspace << parameters.directory >> run test:ci --maxWorkers ${TOTAL_CPUS}
+                command: yarn test:ci --maxWorkers ${TOTAL_CPUS}
                 name: Unit Tests with Coverage
             - store_test_results:
-                path: << parameters.directory >>/reports/unit-test
+                path: reports/unit-test
             - store_artifacts:
-                path: << parameters.directory >>/reports/coverage
+                path: reports/coverage
 jobs:
     build_android:
         docker:
@@ -496,14 +493,7 @@ jobs:
             - run:
                 command: yarn ts:check
                 name: TS check
-            - unit_test:
-                directory: api-client
-            - unit_test:
-                directory: native
-            - unit_test:
-                directory: translations
-            - unit_test:
-                directory: web
+            - unit_test
             - notify
     deliver_android:
         docker:

@@ -11,6 +11,7 @@
     "resolveJsonModule": true,
     "strict": true,
     "target": "ESNext",
+    "skipLibCheck": true,
     "useDefineForClassFields": false
   },
   "include": ["jest.config.ts", ".prettierrc.js", ".eslintrc.js", ".eslintrc_changed.js"],

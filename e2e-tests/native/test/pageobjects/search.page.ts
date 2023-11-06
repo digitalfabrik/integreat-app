@@ -1,11 +1,11 @@
-import { Page } from './page'
+import { Page } from './page.js'
 
 class SearchPage extends Page {
   constructor() {
     super('Search-Page')
   }
 
-  get search() {
+  get search(): ReturnType<typeof $> {
     return $('~Content-Search-Input')
   }
 }

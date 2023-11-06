@@ -24,12 +24,5 @@ steps:
   - run:
       name: TS check
       command: yarn ts:check
-  - unit_test:
-      directory: api-client
-  - unit_test:
-      directory: native
-  - unit_test:
-      directory: translations
-  - unit_test:
-      directory: web
+  - unit_test
   - notify

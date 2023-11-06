@@ -164,18 +164,16 @@ module.exports = {
       },
     },
     {
-      files: ['**/tools/**', '!tools/**', '**/translations/**', '**/e2e-tests/**'],
+      files: ['**/tools/**', '**/translations/**', '**/e2e-tests/**'],
       rules: {
         'no-console': 'off',
         'import/no-extraneous-dependencies': 'off',
       },
     },
     {
-      files: ['tools/**'],
+      files: ['tools/**', 'e2e-tests/**'],
       plugins: ['unicorn'],
       rules: {
-        'no-console': 'off',
-        'import/no-extraneous-dependencies': 'off',
         'import/no-commonjs': 'error',
         'unicorn/prefer-node-protocol': 'error',
       },

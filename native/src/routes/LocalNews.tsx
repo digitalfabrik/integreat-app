@@ -6,9 +6,7 @@ import News from '../components/News'
 import { NavigationProps, RouteProps } from '../constants/NavigationTypes'
 import useHeader from '../hooks/useHeader'
 import { CityContentData } from '../hooks/useLoadCityContent'
-import useLoadLocalNews from '../hooks/useLoadLocalNews'
 import urlFromRouteInformation from '../navigation/url'
-import LoadingErrorHandler from './LoadingErrorHandler'
 
 type LocalNewsProps = {
   route: RouteProps<NewsRouteType>
@@ -16,12 +14,12 @@ type LocalNewsProps = {
   newsId: string | null
   data: CityContentData
   navigateToNews: (newsId: string) => void
+  refresh: () => void
 }
 
-const LocalNews = ({ route, navigation, data, newsId, navigateToNews }: LocalNewsProps): ReactElement => {
+const LocalNews = ({ route, navigation, data, newsId, navigateToNews, refresh }: LocalNewsProps): ReactElement => {
   const cityCode = data.city.code
   const languageCode = data.language.code
-  const { data: localNews, ...response } = useLoadLocalNews({ cityCode, languageCode })
 
   const availableLanguages = newsId ? [languageCode] : data.languages.map(it => it.code)
   const shareUrl = urlFromRouteInformation({
@@ -34,18 +32,14 @@ const LocalNews = ({ route, navigation, data, newsId, navigateToNews }: LocalNew
   useHeader({ navigation, route, availableLanguages, data, shareUrl })
 
   return (
-    <LoadingErrorHandler {...response}>
-      {localNews && (
-        <News
-          newsId={newsId}
-          languageCode={languageCode}
-          selectedNewsType={LOCAL_NEWS_TYPE}
-          navigateToNews={navigateToNews}
-          news={localNews}
-          refresh={response.refresh}
-        />
-      )}
-    </LoadingErrorHandler>
+    <News
+      newsId={newsId}
+      languageCode={languageCode}
+      selectedNewsType={LOCAL_NEWS_TYPE}
+      navigateToNews={navigateToNews}
+      news={data.localNews}
+      refresh={refresh}
+    />
   )
 }
 
