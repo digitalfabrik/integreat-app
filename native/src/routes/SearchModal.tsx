@@ -102,7 +102,7 @@ const SearchModal = ({
       contentWithoutHtml={item.contentWithoutHtml}
       language={languageCode}
       query={query}
-      accessibilityLabel={t(`Category ${item.category.title}`)}
+      accessibilityHint={t(`It navigates to the description of the item`)}
       onItemPress={onItemPress}
     />
   )
@@ -114,6 +114,7 @@ const SearchModal = ({
         <List
           items={searchResults}
           renderItem={renderItem}
+          accessibilityRole='text'
           noItemsMessage={
             <>
               <NothingFound />

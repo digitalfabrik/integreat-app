@@ -12,13 +12,13 @@ import buildConfig, { buildConfigAssets } from '../constants/buildConfig'
 const Container = styled.View`
   display: flex;
   flex: 1;
-  padding: 30px 30px 0 30px;
+  margin: 30px 30px 0 30px;
 `
 
 const Heading = styled.Text`
   font-family: ${props => props.theme.fonts.native.decorativeFontBold};
   font-size: 18px;
-  padding: 20px 20px 40px;
+  margin: 20px 20px 30px;
   text-align: center;
 `
 
@@ -30,10 +30,10 @@ const ListHeading = styled(Heading)`
   align-self: flex-start;
   font-size: 15px;
   padding: 10px 0;
+  margin-bottom: -200px;
 `
 
 const ListItem = styled.View`
-  top: -130px;
   flex-direction: row;
   margin: 10px 0;
   align-items: center;
@@ -56,18 +56,22 @@ const StepExplanation = styled.Text`
   padding-bottom: 4px;
 `
 
+const FooterContainer = styled.View`
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 330px;
+`
+
 const StyledButton = styled(TextButton)`
-  top: -130px;
   z-index: 1;
   margin: 15px auto 0;
   width: 70%;
 `
 
 const TemplateText = styled.Text`
-  top: -150px;
   border: 1px solid ${props => props.theme.colors.themeColor};
   padding: 50px 30px 30px;
-  margin-bottom: 40px;
+  margin-top: -20px;
 `
 
 const StyledIcon = styled(Icon)`
@@ -128,16 +132,21 @@ const CityNotCooperating = (): ReactElement | null => {
   )
 
   const CooperationFooter = (
-    <>
-      <StyledButton onPress={copyToClipboard} text={isCopied ? t('common:copied') : t('copyText')} />
+    <FooterContainer>
+      <StyledButton
+        onPress={copyToClipboard}
+        text={isCopied ? t('common:copied') : t('copyText')}
+        accessibilityRole='button'
+      />
       <TemplateText>{template}</TemplateText>
-    </>
+    </FooterContainer>
   )
 
   return (
     <Container>
       <List
         items={steps}
+        accessibilityRole='list'
         renderItem={renderStepsList}
         Header={CooperationHeader}
         Footer={CooperationFooter}

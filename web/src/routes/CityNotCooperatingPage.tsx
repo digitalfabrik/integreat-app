@@ -13,7 +13,7 @@ const Container = styled.div`
   flex-direction: column;
 `
 
-const Heading = styled.p`
+const Heading = styled.h1`
   font-weight: 600;
   text-align: center;
   font-size: 1.4rem;
@@ -34,14 +34,26 @@ const Icon = styled.img`
   align-self: center;
 `
 
-const ListHeading = styled(Heading)`
+const ListHeading = styled.h2`
   padding: 0;
+  font-weight: 600;
+  text-align: center;
   font-size: ${props => props.theme.fonts.decorativeFontSize};
+  font-family: ${props => props.theme.fonts.web.decorativeFont};
+  white-space: pre-line;
 `
 
-const ListItem = styled.div`
+const ListItem = styled.ul`
   display: flex;
-  align-items: center;
+  flex-direction: column;
+  align-items: flex-start;
+  margin: -3px 0 0 -37px;
+  list-style: none;
+`
+
+const StepList = styled.li`
+  display: flex;
+  justify-content: row;
 `
 
 const StepNumber = styled.div`
@@ -54,7 +66,8 @@ const StepNumber = styled.div`
 `
 
 const StepExplanation = styled(Text)`
-  padding: 0 10px;
+  padding: 0 5px 10px 10px;
+  line-height: 10px;
 `
 
 const StyledButton = styled(TextButton)`
@@ -106,12 +119,14 @@ const CityNotCooperatingPage = ({ languageCode }: CityNotCooperatingPageProps): 
         <Icon alt='' src={cityNotCooperatingIcon} />
         <ListHeading>{t('whatToDo')}</ListHeading>
         <ListItem>
-          <StepNumber>1</StepNumber>
-          <StepExplanation>{t('findOutMail')}</StepExplanation>
-        </ListItem>
-        <ListItem>
-          <StepNumber>2</StepNumber>
-          <StepExplanation>{t('sendText')}</StepExplanation>
+          <StepList>
+            <StepNumber>1</StepNumber>
+            <StepExplanation>{t('findOutMail')}</StepExplanation>
+          </StepList>
+          <StepList>
+            <StepNumber>2</StepNumber>
+            <StepExplanation>{t('sendText')}</StepExplanation>
+          </StepList>
         </ListItem>
         <StyledButton onClick={copyToClipboard} text={isCopied ? t('common:copied') : t('copyText')} />
         <TemplateText>{template}</TemplateText>

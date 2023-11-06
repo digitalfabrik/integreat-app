@@ -1,5 +1,5 @@
 import React, { ReactElement } from 'react'
-import { FlatList, RefreshControl } from 'react-native'
+import { FlatList, RefreshControl, AccessibilityRole } from 'react-native'
 import styled from 'styled-components/native'
 
 const NoItemsMessage = styled.Text`
@@ -11,11 +11,12 @@ const NoItemsMessage = styled.Text`
 
 type ListProps<T> = {
   items: Array<T>
-  noItemsMessage: ReactElement | string
+  noItemsMessage?: ReactElement | string
   renderItem: (props: { item: T; index: number }) => ReactElement
   Header?: ReactElement
   Footer?: ReactElement
   scrollEnabled?: boolean
+  accessibilityRole?: AccessibilityRole | undefined
   refresh?: () => void
   onEndReached?: () => void
 }
@@ -27,6 +28,7 @@ const List = <T,>({
   Header,
   Footer,
   refresh,
+  accessibilityRole,
   onEndReached,
   scrollEnabled,
 }: ListProps<T>): ReactElement => (
@@ -48,6 +50,7 @@ const List = <T,>({
     }}
     onEndReachedThreshold={1}
     scrollEnabled={scrollEnabled}
+    accessibilityRole={accessibilityRole}
   />
 )
 

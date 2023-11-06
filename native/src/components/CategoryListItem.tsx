@@ -8,7 +8,6 @@ import dimensions from '../constants/dimensions'
 import { LanguageResourceCacheStateType } from '../utils/DataContainer'
 import { getCachedThumbnail } from './Categories'
 import List from './List'
-import NothingFound from './NothingFound'
 import SimpleImage from './SimpleImage'
 import SubCategoryListItem from './SubCategoryListItem'
 import Pressable from './base/Pressable'
@@ -96,7 +95,6 @@ const CategoryListItem = ({
         />
       )}
       scrollEnabled={false}
-      noItemsMessage={<NothingFound />}
     />
   </>
 )
