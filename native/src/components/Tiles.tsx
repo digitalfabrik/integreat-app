@@ -12,11 +12,8 @@ type TilesProps = {
   onTilePress: (tile: TileModel) => void
   language: string
 }
-type TilesRowProps = {
-  language: string
-  children: React.ReactNode
-}
-const TilesRow = styled.View<TilesRowProps>`
+
+const TilesRow = styled.View<{ language: string }>`
   display: flex;
   flex-direction: ${props => contentDirection(props.language)};
   flex-wrap: wrap;
@@ -24,9 +21,6 @@ const TilesRow = styled.View<TilesRowProps>`
   justify-content: flex-start;
   padding: 10px 0;
 `
-/**
- * Displays a table of Tiles
- */
 
 const Tiles = ({ title, language, tiles, onTilePress }: TilesProps): ReactElement => (
   <>

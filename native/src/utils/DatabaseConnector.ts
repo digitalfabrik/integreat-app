@@ -12,6 +12,7 @@ import {
   EventModel,
   FeaturedImageModel,
   LanguageModel,
+  LocalNewsModel,
   LocationModel,
   OpeningHoursModel,
   PoiModel,
@@ -135,6 +136,12 @@ type ContentPoiJsonType = {
   category: { id: number; name: string; color: string; icon: string; iconName: string } | null
   openingHours: { allDay: boolean; closed: boolean; timeSlots: { start: string; end: string }[] }[] | null
   temporarilyClosed: boolean
+}
+type ContentLocalNewsJsonType = {
+  id: number
+  timestamp: string
+  title: string
+  content: string
 }
 type CityCodeType = string
 type LanguageCodeType = string
@@ -509,6 +516,34 @@ class DatabaseConnector {
     return this.readFile(path, mapPoisJson)
   }
 
+  async storeLocalNews(localNews: LocalNewsModel[], context: DatabaseContext): Promise<void> {
+    const jsonModels = localNews.map(
+      (it: LocalNewsModel): ContentLocalNewsJsonType => ({
+        id: it.id,
+        timestamp: it.timestamp.toISO(),
+        title: it.title,
+        content: it.content,
+      }),
+    )
+    await this.writeFile(this.getContentPath('localNews', context), JSON.stringify(jsonModels))
+  }
+
+  async loadLocalNews(context: DatabaseContext): Promise<LocalNewsModel[]> {
+    const path = this.getContentPath('localNews', context)
+    const mapLocalNewsJson = (json: ContentLocalNewsJsonType[]) =>
+      json.map(
+        jsonObject =>
+          new LocalNewsModel({
+            id: jsonObject.id,
+            timestamp: DateTime.fromISO(jsonObject.timestamp),
+            title: jsonObject.title,
+            content: jsonObject.content,
+          }),
+      )
+
+    return this.readFile(path, mapLocalNewsJson)
+  }
+
   async storeCities(cities: Array<CityModel>): Promise<void> {
     const jsonModels = cities.map(
       (city: CityModel): ContentCityJsonType => ({
@@ -739,6 +774,10 @@ class DatabaseConnector {
 
   isEventsPersisted(context: DatabaseContext): Promise<boolean> {
     return this._isPersisted(this.getContentPath('events', context))
+  }
+
+  isLocalNewsPersisted(context: DatabaseContext): Promise<boolean> {
+    return this._isPersisted(this.getContentPath('localNews', context))
   }
 
   _isPersisted(path: string): Promise<boolean> {
