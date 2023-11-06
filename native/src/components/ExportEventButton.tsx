@@ -8,6 +8,7 @@ import styled from 'styled-components/native'
 import { EventModel } from 'api-client'
 
 import useSnackbar from '../hooks/useSnackbar'
+import { reportError } from '../utils/sentry'
 import CalendarChoice from './CalendarChoiceModal'
 import TextButton from './base/TextButton'
 
@@ -56,8 +57,9 @@ const ExportEventButton = ({ event }: ExportEventButtonType): ReactElement => {
       } else {
         showSnackbar({ text: 'generalError' })
       }
-    } catch {
+    } catch (e) {
       showSnackbar({ text: 'generalError' })
+      reportError(e)
     }
   }
 
@@ -86,8 +88,9 @@ const ExportEventButton = ({ event }: ExportEventButtonType): ReactElement => {
     } else if (editableCalendars.length === 1) {
       try {
         await exportEventToCalendar(editableCalendars[0]?.id)
-      } catch {
+      } catch (e) {
         showSnackbar({ text: 'generalError' })
+        reportError(e)
       }
     } else {
       setCalendars(editableCalendars)
@@ -99,8 +102,9 @@ const ExportEventButton = ({ event }: ExportEventButtonType): ReactElement => {
     setShowCalendarChoiceModal(false)
     try {
       await exportEventToCalendar(id)
-    } catch {
+    } catch (e) {
       showSnackbar({ text: 'generalError' })
+      reportError(e)
     }
   }
 
