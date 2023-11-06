@@ -12,17 +12,21 @@
     "outDir": "dist",
     "sourceMap": true,
     "paths": {
-      "api-client/*": ["../api-client/*"],
-      "build-configs/*": ["../build-configs/*"],
-      "translations/*": ["../translations/*"],
       "normalize-strings": ["../api-client/src/@types/normalize-strings"]
     },
     "skipLibCheck": true,
     "target": "ES2019",
-    "typeRoots": ["./src/@types", "./node_modules/@types", "../node_modules/@types"],
     "types": ["jest", "node", "react"]
   },
-  "include": ["src/**/*", "tools/*", "./jest.setup.ts", "jest.config.ts"],
+  "include": [
+    "src/**/*",
+    "tools/*",
+    "jest.setup.ts",
+    "jest.config.ts",
+    "stylelint.config.js",
+    "www/iframe.js",
+    "assets/licenses.json"
+  ],
   "references": [
     {
       "path": "../translations"

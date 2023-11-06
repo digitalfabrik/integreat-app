@@ -5,7 +5,7 @@ class SearchPage extends Page {
     super('Search-Page')
   }
 
-  get search() {
+  get search(): ReturnType<typeof $> {
     return $('~Content-Search-Input')
   }
 }
