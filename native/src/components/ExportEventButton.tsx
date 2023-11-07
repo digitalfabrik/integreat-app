@@ -2,7 +2,7 @@ import React, { ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Linking, Platform } from 'react-native'
 import RNCalendarEvents, { Calendar } from 'react-native-calendar-events'
-import { check, checkMultiple, PERMISSIONS, request, requestMultiple } from 'react-native-permissions'
+import { PERMISSIONS, PermissionStatus, request, requestMultiple } from 'react-native-permissions'
 import styled from 'styled-components/native'
 
 import { EventModel } from 'api-client'
@@ -29,18 +29,18 @@ const ExportEventButton = ({ event }: ExportEventButtonType): ReactElement => {
   const [calendars, setCalendars] = useState<Calendar[]>()
 
   const exportEventToCalendar = async (calendarId: string | undefined): Promise<void> => {
-    try {
-      let startDate = event.date.startDate.toUTC().toString()
-      let endDate = event.date.endDate.toUTC().toString()
-      const allDay = event.date.allDay
-      if (Platform.OS === 'android' && allDay) {
-        // If allDay is set to true, Android demands that the time has a midnight boundary.
-        // The endDate we receive from the CMS for allDay events is always at 23:59:00.
-        startDate = event.date.startDate.toFormat("yyyy-LL-dd'T'00:00:00.000'Z'")
-        endDate = event.date.endDate.plus({ minutes: 1 }).toFormat("yyyy-LL-dd'T'00:00:00.000'Z'")
-      }
+    let startDate = event.date.startDate.toUTC().toString()
+    let endDate = event.date.endDate.toUTC().toString()
+    const allDay = event.date.allDay
+    if (Platform.OS === 'android' && allDay) {
+      // If allDay is set to true, Android demands that the time has a midnight boundary.
+      // The endDate we receive from the CMS for allDay events is always at 23:59:00.
+      startDate = event.date.startDate.toFormat("yyyy-LL-dd'T'00:00:00.000'Z'")
+      endDate = event.date.endDate.plus({ minutes: 1 }).toFormat("yyyy-LL-dd'T'00:00:00.000'Z'")
+    }
 
-      const id = await RNCalendarEvents.saveEvent(event.title, {
+    try {
+      await RNCalendarEvents.saveEvent(event.title, {
         startDate,
         endDate,
         allDay,
@@ -49,30 +49,36 @@ const ExportEventButton = ({ event }: ExportEventButtonType): ReactElement => {
         description: event.excerpt, // Android
         notes: event.excerpt, // iOS
       })
-      if (id) {
-        setEventExported(true)
-        showSnackbar({
-          text: t('added'),
-        })
-      } else {
-        showSnackbar({ text: 'generalError' })
-      }
+      setEventExported(true)
+      showSnackbar({
+        text: t('added'),
+      })
     } catch (e) {
       showSnackbar({ text: 'generalError' })
       reportError(e)
     }
   }
 
+  const checkPermissionState = (
+    permissions:
+      | PermissionStatus
+      | Record<'android.permission.READ_CALENDAR' | 'android.permission.WRITE_CALENDAR', PermissionStatus>,
+    state: PermissionStatus,
+  ): boolean => {
+    if (typeof permissions === 'string') {
+      return permissions === state
+    }
+    return (
+      permissions['android.permission.READ_CALENDAR'] === state &&
+      permissions['android.permission.WRITE_CALENDAR'] === state
+    )
+  }
+
   const checkCalendarsAndExportEvent = async (): Promise<void> => {
     const iosPermission = PERMISSIONS.IOS.CALENDARS
     const androidPermissions = [PERMISSIONS.ANDROID.READ_CALENDAR, PERMISSIONS.ANDROID.WRITE_CALENDAR]
-    const checkedPermission =
-      Platform.OS === 'ios' ? await check(iosPermission) : await checkMultiple(androidPermissions)
-    const requestPermission = () =>
-      Platform.OS === 'ios' ? request(iosPermission) : requestMultiple(androidPermissions)
-
-    const permission = checkedPermission === 'unavailable' ? await requestPermission() : checkedPermission
-    if (permission === 'denied' || permission === 'limited') {
+    const permission = Platform.OS === 'ios' ? await request(iosPermission) : await requestMultiple(androidPermissions)
+    if (checkPermissionState(permission, 'limited') || checkPermissionState(permission, 'blocked')) {
       showSnackbar({
         text: 'noCalendarPermission',
         positiveAction: {
@@ -85,9 +91,9 @@ const ExportEventButton = ({ event }: ExportEventButtonType): ReactElement => {
     const editableCalendars = (await RNCalendarEvents.findCalendars()).filter(cal => cal.allowsModifications)
     if (editableCalendars.length === 0) {
       showSnackbar({ text: 'noCalendarFound' })
-    } else if (editableCalendars.length === 1) {
+    } else if (editableCalendars.length === 1 && 0 in editableCalendars) {
       try {
-        await exportEventToCalendar(editableCalendars[0]?.id)
+        await exportEventToCalendar(editableCalendars[0].id)
       } catch (e) {
         showSnackbar({ text: 'generalError' })
         reportError(e)
