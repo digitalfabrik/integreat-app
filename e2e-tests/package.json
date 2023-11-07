@@ -12,7 +12,7 @@
     "prepare:native:android": "yarn workspace native android:integreat-e2e",
     "prepare:native:start": "yarn workspace native start:integreat-e2e",
     "prepare:web:start": "yarn workspace web start:integreat-e2e",
-    "lint": "yarn eslint ./",
+    "lint": "eslint --cache --cache-location ../.eslintcache .",
     "ts:check": "tsc --build"
   },
   "devDependencies": {

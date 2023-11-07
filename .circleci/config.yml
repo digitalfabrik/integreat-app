@@ -485,8 +485,10 @@ jobs:
                 command: yarn prettier:check
                 name: Prettier
             - run:
-                command: yarn lint
+                command: yarn lint:ci
                 name: Lint
+            - store_test_results:
+                path: reports/lint
             - run:
                 command: yarn workspace web stylelint
                 name: Stylelint
