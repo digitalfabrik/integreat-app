@@ -65,6 +65,7 @@ class EventModel extends ExtendedPageModel {
     body.push(
       `DESCRIPTION:${getExcerpt(excerpt, {
         query: undefined,
+
         maxChars: 150,
         replaceLineBreaks: false,
       })}\\n\\n${url}`,

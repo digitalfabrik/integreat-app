@@ -148,6 +148,7 @@ const Intro = ({ route, navigation }: IntroProps): ReactElement => {
         pagingEnabled
         viewabilityConfig={{
           itemVisiblePercentThreshold: 51,
+
           minimumViewTime: 0.1,
         }}
         onViewableItemsChanged={onViewableItemsChanged}
