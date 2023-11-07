@@ -74,7 +74,7 @@ const Pois = ({ pois: allPois, language, cityModel, route, navigation }: PoisPro
   const { slug, multipoi } = route.params
   const [sheetSnapPointIndex, setSheetSnapPointIndex] = useState<number>(1)
   const [listScrollPosition, setListScrollPosition] = useState<number>(0)
-  const [enteredViaMaps, setEnteredViaMaps] = useState(slug === undefined)
+  const [deselectOnBackNavigation, setDeselectOnBackNavigation] = useState(slug === undefined)
   const { t } = useTranslation('pois')
   const scrollRef = useRef<BottomSheetScrollViewMethods>(null)
   const deviceHeight = useWindowDimensions().height
@@ -135,7 +135,7 @@ const Pois = ({ pois: allPois, language, cityModel, route, navigation }: PoisPro
       deselectAll()
     }
   }
-  useOnBackNavigation((slug || multipoi) && enteredViaMaps ? deselectFeature : undefined)
+  useOnBackNavigation((slug || multipoi) && deselectOnBackNavigation ? deselectFeature : undefined)
 
   const selectFeatureOnMap = (feature: MapFeature | null) => {
     if (!feature) {
@@ -143,7 +143,7 @@ const Pois = ({ pois: allPois, language, cityModel, route, navigation }: PoisPro
       return
     }
 
-    setEnteredViaMaps(true)
+    setDeselectOnBackNavigation(true)
     if (isMultipoi(feature)) {
       navigation.setParams({ multipoi: feature.id as string })
       scrollTo(0)
@@ -159,7 +159,7 @@ const Pois = ({ pois: allPois, language, cityModel, route, navigation }: PoisPro
       return
     }
 
-    setEnteredViaMaps(true)
+    setDeselectOnBackNavigation(true)
     navigation.setParams({ slug: newGeoJsonPoi.slug })
     scrollTo(0)
   }
