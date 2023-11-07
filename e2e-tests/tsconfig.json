@@ -1,12 +1,13 @@
 {
   "extends": "../tsconfig.json",
   "compilerOptions": {
+    "composite": true,
     "skipLibCheck": true,
     "module": "NodeNext",
     "moduleResolution": "NodeNext",
-    "noEmit": true,
     "types": ["node", "@wdio/globals/types", "@wdio/jasmine-framework"],
-    "sourceMap": false
+    "sourceMap": false,
+    "outDir": "dist"
   },
   "include": ["web", "native", "shared"]
 }

@@ -5,15 +5,15 @@ import Page from './page.js'
  * sub page containing specific selectors and methods for a specific page
  */
 class LandingPage extends Page {
-  get cities() {
+  get cities(): ReturnType<typeof $$> {
     return $$('//main//a')
   }
 
-  get search() {
+  get search(): ReturnType<typeof $> {
     return $('//main//input')
   }
 
-  city(name: string) {
+  city(name: string): ReturnType<typeof $> {
     return $(`=${name}`)
   }
 

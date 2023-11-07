@@ -15,7 +15,6 @@ import {
   NewsRouteType,
 } from 'api-client'
 
-import useLoadLocalNews from '../../hooks/useLoadLocalNews'
 import useNavigate from '../../hooks/useNavigate'
 import createNavigationScreenPropMock from '../../testing/createNavigationPropMock'
 import render from '../../testing/render'
@@ -28,7 +27,6 @@ jest.mock('../../components/Page', () => ({ content, title }: { title: string; c
     <Text>{content}</Text>
   </>
 ))
-jest.mock('../../hooks/useLoadLocalNews')
 jest.mock('@react-native-community/netinfo')
 jest.mock('react-native/Libraries/EventEmitter/NativeEventEmitter')
 jest.mock('../../hooks/useNavigate')
@@ -61,6 +59,7 @@ const data = {
   categories: new CategoriesMapModelBuilder(city.code, language.code).build(),
   events: [],
   pois: [],
+  localNews: news,
 }
 
 describe('LocalNews', () => {
@@ -69,7 +68,6 @@ describe('LocalNews', () => {
   })
 
   const selectNews = jest.fn()
-  const refresh = jest.fn()
 
   const navigation = createNavigationScreenPropMock<NewsRouteType>()
   mocked(useNavigate).mockImplementation(() => ({ navigateTo: jest.fn(), navigation }))
@@ -85,14 +83,18 @@ describe('LocalNews', () => {
   const renderNews = ({ newsId = null }: { newsId?: string | null }) =>
     render(
       <NavigationContainer>
-        <LocalNews data={data} newsId={newsId} route={route} navigation={navigation} navigateToNews={selectNews} />
+        <LocalNews
+          data={data}
+          newsId={newsId}
+          route={route}
+          navigation={navigation}
+          navigateToNews={selectNews}
+          refresh={jest.fn()}
+        />
       </NavigationContainer>,
     )
-  const response = { data: news, error: null, loading: false, refresh }
 
   it('should show news list', () => {
-    mocked(useLoadLocalNews).mockImplementation(() => response)
-
     const { getByText } = renderNews({})
     expect(getByText(news[0].title)).toBeTruthy()
     expect(getByText(news[1].title)).toBeTruthy()
@@ -102,8 +104,6 @@ describe('LocalNews', () => {
   })
 
   it('should show news detail', () => {
-    mocked(useLoadLocalNews).mockImplementation(() => response)
-
     const { queryByText } = renderNews({ newsId: news[0].id.toString() })
     expect(queryByText(news[0].title)).toBeTruthy()
     expect(queryByText(news[0].content)).toBeTruthy()

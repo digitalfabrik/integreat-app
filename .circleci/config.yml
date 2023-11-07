@@ -480,6 +480,7 @@ jobs:
             - skip_job
             - check_config
             - restore_yarn_cache
+            - restore_yarn_tools_cache
             - run:
                 command: yarn prettier:check
                 name: Prettier
@@ -490,7 +491,7 @@ jobs:
                 command: yarn workspace web stylelint
                 name: Stylelint
             - run:
-                command: yarn workspaces run ts:check
+                command: yarn ts:check
                 name: TS check
             - unit_test
             - notify

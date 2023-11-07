@@ -5,15 +5,15 @@ class DashboardPage extends Page {
     super('Dashboard-Page')
   }
 
-  get searchIcon() {
+  get searchIcon(): ReturnType<typeof $> {
     return $('~Search')
   }
 
-  get headerOverflowButton() {
+  get headerOverflowButton(): ReturnType<typeof $> {
     return $('~More options')
   }
 
-  get languageIcon() {
+  get languageIcon(): ReturnType<typeof $> {
     return $('~Change language')
   }
 }

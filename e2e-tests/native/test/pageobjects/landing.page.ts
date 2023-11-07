@@ -9,11 +9,11 @@ class LandingPage extends Page {
     super('Landing-Page')
   }
 
-  get cities() {
+  get cities(): ReturnType<typeof $$> {
     return $$('~City-Entry')
   }
 
-  get search() {
+  get search(): ReturnType<typeof $> {
     return $('~Search-Input')
   }
 
