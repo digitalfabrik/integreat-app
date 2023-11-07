@@ -53,7 +53,8 @@ export const Description = styled.div`
   flex-grow: 1;
   padding: 0 22px;
   align-self: center;
-  word-wrap: break-word;
+  overflow-wrap: break-word;
+  hyphens: auto;
 `
 
 const Title = styled.span`
