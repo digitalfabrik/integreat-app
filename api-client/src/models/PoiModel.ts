@@ -118,7 +118,6 @@ class PoiModel extends ExtendedPageModel {
     return (
       this._category ??
       new PoiCategoryModel({
-        // eslint-disable-next-line no-magic-numbers
         id: 12,
         name: 'Others',
         color: '#2E98FB',

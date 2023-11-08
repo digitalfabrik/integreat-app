@@ -54,7 +54,9 @@ const useUserLocation = (useSettingsListener = false): LocationInformationType =
       },
       {
         enableHighAccuracy: true,
+
         timeout: 50000,
+
         maximumAge: 3600000,
       },
     )
