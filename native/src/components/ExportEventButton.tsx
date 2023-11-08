@@ -2,7 +2,7 @@ import React, { ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Linking, Platform } from 'react-native'
 import RNCalendarEvents, { Calendar } from 'react-native-calendar-events'
-import { PERMISSIONS, PermissionStatus, request, requestMultiple } from 'react-native-permissions'
+import { PERMISSIONS, requestMultiple } from 'react-native-permissions'
 import styled from 'styled-components/native'
 
 import { EventModel } from 'api-client'
@@ -59,23 +59,13 @@ const ExportEventButton = ({ event }: ExportEventButtonType): ReactElement => {
     }
   }
 
-  const checkPermissionState = (
-    permissions:
-      | PermissionStatus
-      | Record<'android.permission.READ_CALENDAR' | 'android.permission.WRITE_CALENDAR', PermissionStatus>,
-    state: PermissionStatus,
-  ): boolean => {
-    if (typeof permissions === 'string') {
-      return permissions === state
-    }
-    return Object.values(permissions).every(permission => permission === state)
-  }
-
   const checkCalendarsAndExportEvent = async (): Promise<void> => {
-    const iosPermission = PERMISSIONS.IOS.CALENDARS
+    const iosPermission = [PERMISSIONS.IOS.CALENDARS]
     const androidPermissions = [PERMISSIONS.ANDROID.READ_CALENDAR, PERMISSIONS.ANDROID.WRITE_CALENDAR]
-    const permission = Platform.OS === 'ios' ? await request(iosPermission) : await requestMultiple(androidPermissions)
-    if (checkPermissionState(permission, 'limited') || checkPermissionState(permission, 'blocked')) {
+    const permission = await requestMultiple(Platform.OS === 'ios' ? iosPermission : androidPermissions)
+    const permissionDenied = Object.values(permission).some(permission => ['limited', 'blocked'].includes(permission))
+
+    if (permissionDenied) {
       showSnackbar({
         text: 'noCalendarPermission',
         positiveAction: {
