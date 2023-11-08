@@ -13,9 +13,15 @@ const openExternalUrl = async (rawUrl: string, showSnackbar: (snackbar: Snackbar
   const encodedUrl = encodeURI(rawUrl)
   const { protocol } = new URL(encodedUrl)
 
+  const noInAppBrowserAvailableAndIntegreatLink =
+    !(await InAppBrowser.isAvailable()) && encodedUrl.includes(buildConfig().hostName)
+  const canBeOpenedWithInAppBrowser = (await InAppBrowser.isAvailable()) && ['https:', 'http:'].includes(protocol)
+  const canBeOpenedWithOtherApp = await Linking.canOpenURL(encodedUrl)
+
   try {
-    // Custom tabs are not available in all browsers and support only http and https
-    if ((await InAppBrowser.isAvailable()) && ['https:', 'http:'].includes(protocol)) {
+    if (noInAppBrowserAvailableAndIntegreatLink) {
+      showSnackbar({ text: 'noSuitableAppInstalled' })
+    } else if (canBeOpenedWithInAppBrowser) {
       sendTrackingSignal({
         signal: {
           name: OPEN_EXTERNAL_LINK_SIGNAL_NAME,
@@ -26,20 +32,16 @@ const openExternalUrl = async (rawUrl: string, showSnackbar: (snackbar: Snackbar
       await InAppBrowser.open(encodedUrl, {
         toolbarColor: buildConfig().lightTheme.colors.themeColor,
       })
+    } else if (canBeOpenedWithOtherApp) {
+      sendTrackingSignal({
+        signal: {
+          name: OPEN_OS_LINK_SIGNAL_NAME,
+          url: encodedUrl,
+        },
+      })
+      await Linking.openURL(encodedUrl)
     } else {
-      const canOpen = await Linking.canOpenURL(encodedUrl)
-
-      if (canOpen) {
-        sendTrackingSignal({
-          signal: {
-            name: OPEN_OS_LINK_SIGNAL_NAME,
-            url: encodedUrl,
-          },
-        })
-        await Linking.openURL(encodedUrl)
-      } else {
-        showSnackbar({ text: 'noSuitableAppInstalled' })
-      }
+      showSnackbar({ text: 'noSuitableAppInstalled' })
     }
   } catch (error) {
     reportError(error)
