@@ -74,7 +74,7 @@ const Pois = ({ pois: allPois, language, cityModel, route, navigation }: PoisPro
   const { slug, multipoi } = route.params
   const [sheetSnapPointIndex, setSheetSnapPointIndex] = useState<number>(1)
   const [listScrollPosition, setListScrollPosition] = useState<number>(0)
-  const [deselectOnBackNavigation, setDeselectOnBackNavigation] = useState(slug === undefined)
+  const [deselectOnBackNavigation, setDeselectOnBackNavigation] = useState(slug === undefined && multipoi === undefined)
   const { t } = useTranslation('pois')
   const scrollRef = useRef<BottomSheetScrollViewMethods>(null)
   const deviceHeight = useWindowDimensions().height

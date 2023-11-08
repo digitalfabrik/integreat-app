@@ -213,8 +213,8 @@ const Header = ({
     if (
       // Poi details are not opened in a new route
       route.name === POIS_ROUTE &&
-      // unless coming from a deep link, and then the previous route has no slug
-      !!(previousParams as { slug?: string }).slug
+      // If coming from a deep link, we want to show the previous route though
+      previousRoute.name === POIS_ROUTE
     ) {
       const poisRouteParams = route.params as RoutesParamsType[PoisRouteType]
       if (poisRouteParams.slug || poisRouteParams.multipoi) {
