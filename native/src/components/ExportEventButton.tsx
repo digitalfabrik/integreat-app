@@ -68,10 +68,7 @@ const ExportEventButton = ({ event }: ExportEventButtonType): ReactElement => {
     if (typeof permissions === 'string') {
       return permissions === state
     }
-    return (
-      permissions['android.permission.READ_CALENDAR'] === state &&
-      permissions['android.permission.WRITE_CALENDAR'] === state
-    )
+    return Object.values(permissions).every(permission => permission === state)
   }
 
   const checkCalendarsAndExportEvent = async (): Promise<void> => {
