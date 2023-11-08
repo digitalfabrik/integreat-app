@@ -20,9 +20,11 @@ const SHORT_COMMIT_SHA_LENGTH = 8
 
 // A first performance budget, which should be improved in the future: Maximum bundle size in Bytes; 2^20 = 1 MiB
 // eslint-disable-next-line no-magic-numbers
-const MAX_BUNDLE_SIZE = 1.64 * 2 ** 20
+const MiB = 2 ** 20
 // eslint-disable-next-line no-magic-numbers
-const MAX_ASSET_SIZE = 2.1 * 2 ** 20
+const MAX_BUNDLE_SIZE = 1.64 * MiB
+// eslint-disable-next-line no-magic-numbers
+const MAX_ASSET_SIZE = 2.1 * MiB
 
 const readJson = (path: string) => JSON.parse(readFileSync(path, 'utf8'))
 
@@ -102,7 +104,6 @@ const generateManifest = (content: Buffer, buildConfig: WebBuildConfigType) => {
 }
 
 const createConfig = (
-  // eslint-disable-next-line camelcase
   env: {
     config_name?: string
     dev_server?: boolean
@@ -131,14 +132,10 @@ const createConfig = (
   // If version_name is not supplied read it from version file
   const versionName = passedVersionName || readVersionName()
   const shortCommitSha = passedCommitSha?.substring(0, SHORT_COMMIT_SHA_LENGTH) || 'Commit SHA unknown'
-  // eslint-disable-next-line no-console
   console.log('Used config: ', buildConfigName)
-  // eslint-disable-next-line no-console
   console.log('Version name: ', versionName)
-  // eslint-disable-next-line no-console
   console.log('Commit SHA: ', shortCommitSha)
   if (devServer) {
-    // eslint-disable-next-line no-console
     console.log('Configured for running in dev server')
   }
 

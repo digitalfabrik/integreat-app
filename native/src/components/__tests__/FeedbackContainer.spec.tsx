@@ -14,7 +14,9 @@ import render from '../../testing/render'
 import sendTrackingSignal from '../../utils/sendTrackingSignal'
 import FeedbackContainer from '../FeedbackContainer'
 
-const mockRequest = jest.fn(() => Promise.resolve())
+const mockRequest = jest.fn(() => {
+  /* ignore */
+})
 jest.mock('styled-components')
 jest.mock('react-i18next')
 jest.mock('../../utils/sendTrackingSignal')
@@ -41,7 +43,7 @@ describe('FeedbackContainer', () => {
     )
     const positiveRatingButton = getByText('useful')
     fireEvent.press(positiveRatingButton)
-    expect(await findByText('send')).not.toBeDisabled()
+    expect(getByText('send')).not.toBeDisabled()
     const submitButton = getByText('send')
     fireEvent.press(submitButton)
     expect(await findByText('thanksMessage')).toBeDefined()
@@ -72,7 +74,6 @@ describe('FeedbackContainer', () => {
     const contactMail = 'test@example.com'
     const { getByText, findByText, getAllByDisplayValue } = render(
       <NavigationContainer>
-        {' '}
         <FeedbackContainer routeType={CATEGORIES_ROUTE} isSearchFeedback={false} language={language} cityCode={city} />
       </NavigationContainer>,
     )

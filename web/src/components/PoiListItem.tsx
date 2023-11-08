@@ -53,8 +53,7 @@ export const Description = styled.div`
   flex-grow: 1;
   padding: 0 22px;
   align-self: center;
-  overflow-wrap: break-word;
-  word-break: break-word; /* needed for Mozilla support*/
+  word-break: break-word;
   hyphens: auto;
 `
 

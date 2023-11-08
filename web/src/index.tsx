@@ -22,8 +22,7 @@ if (buildConfig().splashScreen) {
 }
 
 // Currently we do not have service workers. Unregister all previous ones:
-// eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-if (navigator.serviceWorker) {
+if ('serviceWorker' in navigator) {
   navigator.serviceWorker.getRegistrations().then(registrations => {
     registrations.forEach(registration => {
       registration.unregister()

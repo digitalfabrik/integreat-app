@@ -3,7 +3,7 @@
     "composite": true,
     "allowJs": true,
     "esModuleInterop": true,
-    "forceConsistentCasingInFileNames": true,
+    "forceConsistentCasingInFileNames": false, // leads to oom when linting
     "lib": ["ES5", "ES6"],
     "moduleResolution": "Node",
     "noFallthroughCasesInSwitch": true,

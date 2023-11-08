@@ -34,7 +34,7 @@ export const testTranslations: TranslationsType = {
     },
   },
 }
-// eslint-disable-next-line no-unused-vars
+
 export const testOverrideTranslations: TranslationsType = {
   dashboard: {
     de: {
