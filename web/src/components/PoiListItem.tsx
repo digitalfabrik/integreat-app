@@ -54,6 +54,7 @@ export const Description = styled.div`
   padding: 0 22px;
   align-self: center;
   overflow-wrap: break-word;
+  word-break: break-word; /* needed for Mozilla support*/
   hyphens: auto;
 `
 
