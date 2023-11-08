@@ -1,0 +1,7 @@
+issue_key: 2541
+show_in_stores: true
+platforms:
+  - android
+  - web
+en: Adding events to the calendar works again
+de: Man kann Events wieder zum eigenen Kalender hinzufügen
