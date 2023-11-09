@@ -12,14 +12,15 @@ import { reportError } from './sentry'
 const openExternalUrl = async (rawUrl: string, showSnackbar: (snackbar: SnackbarType) => void): Promise<void> => {
   const encodedUrl = encodeURI(rawUrl)
   const { protocol } = new URL(encodedUrl)
+  const HIJACK = new RegExp(buildConfig().internalLinksHijackPattern)
 
-  const noInAppBrowserAvailableAndIntegreatLink =
-    !(await InAppBrowser.isAvailable()) && encodedUrl.includes(buildConfig().hostName)
+  const noInAppBrowserAvailableAndIntegreatLink = !(await InAppBrowser.isAvailable()) && HIJACK.test(encodedUrl)
   const canBeOpenedWithInAppBrowser = (await InAppBrowser.isAvailable()) && ['https:', 'http:'].includes(protocol)
   const canBeOpenedWithOtherApp = await Linking.canOpenURL(encodedUrl)
 
   try {
     if (noInAppBrowserAvailableAndIntegreatLink) {
+      // Removing this check leads to an endless loop, see #2440
       showSnackbar({ text: 'noSuitableAppInstalled' })
     } else if (canBeOpenedWithInAppBrowser) {
       sendTrackingSignal({
