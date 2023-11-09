@@ -21,15 +21,13 @@
   "include": [
     "src/**/*",
     "jest.setup.ts",
+    "src/assets/licenses.json",
     "index.ts",
     "jest.config.ts",
     "babel.config.js",
-    "metro.config.ci.js",
-    "metro.config.js",
-    ".yarn/plugins/root-command.js",
     "react-native.config.js",
-    "run.js",
-    "src/assets/licenses.json"
+    "metro.config.ci.js",
+    "metro.config.js"
   ],
   "references": [
     {

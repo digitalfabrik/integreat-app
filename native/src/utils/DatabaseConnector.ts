@@ -1,4 +1,3 @@
-/* eslint-disable camelcase */
 import { BBox } from 'geojson'
 import { map, mapValues } from 'lodash'
 import { DateTime } from 'luxon'

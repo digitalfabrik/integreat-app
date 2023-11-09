@@ -317,7 +317,7 @@ jobs:
             FL_OUTPUT_DIR: output
             TOTAL_CPUS: 4
         macos:
-            xcode: 14.2.0
+            xcode: 15.0.1
         parameters:
             build_config_name:
                 default: integreat
@@ -485,8 +485,10 @@ jobs:
                 command: yarn prettier:check
                 name: Prettier
             - run:
-                command: yarn lint
+                command: yarn lint:ci
                 name: Lint
+            - store_test_results:
+                path: reports/lint
             - run:
                 command: yarn workspace web stylelint
                 name: Stylelint
@@ -539,7 +541,7 @@ jobs:
         environment:
             FASTLANE_SKIP_UPDATE_CHECK: true
         macos:
-            xcode: 14.2.0
+            xcode: 15.0.1
         parameters:
             build_config_name:
                 default: integreat
@@ -860,7 +862,7 @@ jobs:
         environment:
             FASTLANE_SKIP_UPDATE_CHECK: true
         macos:
-            xcode: 14.2.0
+            xcode: 15.0.1
         parameters:
             build_config_name:
                 default: integreat
