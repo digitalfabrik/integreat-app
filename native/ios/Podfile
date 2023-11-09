@@ -1,5 +1,6 @@
 require_relative '../node_modules/react-native/scripts/react_native_pods'
 require_relative '../node_modules/@react-native-community/cli-platform-ios/native_modules'
+require_relative '../node_modules/react-native-permissions/scripts/setup'
 
 platform :ios, min_ios_version_supported
 prepare_react_native_project!
@@ -24,6 +25,12 @@ target 'Integreat' do
 
   # Flags change depending on the env values.
   flags = get_default_flags()
+
+  setup_permissions([
+    'Calendars',
+    'LocationWhenInUse',
+    'Notifications',
+  ])
 
   use_react_native!(
     :path => config[:reactNativePath],
@@ -56,8 +63,4 @@ target 'Integreat' do
     # Required for Mapbox
     $RNMBGL.post_install(installer)
   end
-
-  permissions_path = '../node_modules/react-native-permissions/ios'
-  pod 'Permission-LocationWhenInUse', :path => "#{permissions_path}/LocationWhenInUse"
-  pod 'Permission-Notifications', :path => "#{permissions_path}/Notifications"
 end

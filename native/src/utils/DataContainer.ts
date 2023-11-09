@@ -1,6 +1,6 @@
 import { DateTime } from 'luxon'
 
-import { CategoriesMapModel, CityModel, EventModel, PoiModel } from 'api-client'
+import { CategoriesMapModel, CityModel, EventModel, LocalNewsModel, PoiModel } from 'api-client'
 
 export type PageResourceCacheEntryStateType = {
   filePath: string
@@ -57,6 +57,17 @@ export type DataContainer = {
   setEvents: (city: string, language: string, events: Array<EventModel>) => Promise<void>
 
   /**
+   * Returns an Array of local news.
+   * @throws Will throw an error if the array is null.
+   */
+  getLocalNews: (city: string, language: string) => Promise<Array<LocalNewsModel>>
+
+  /**
+   * Sets the local news and persists them.
+   */
+  setLocalNews: (city: string, language: string, events: Array<LocalNewsModel>) => Promise<void>
+
+  /**
    * Returns the ResourceCache.
    * @throws Will throw an error if the ResourceCache is null.
    */
@@ -91,6 +102,11 @@ export type DataContainer = {
    * Returns whether the pois have been loaded or not.
    */
   poisAvailable(city: string, language: string): Promise<boolean>
+
+  /**
+   * Returns whether the local news have been loaded or not.
+   */
+  localNewsAvailable(city: string, language: string): Promise<boolean>
 
   /**
    * Returns whether the cities have been loaded or not.

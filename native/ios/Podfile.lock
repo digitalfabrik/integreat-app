@@ -142,10 +142,6 @@ PODS:
   - nanopb/decode (2.30908.0)
   - nanopb/encode (2.30908.0)
   - OpenSSL-Universal (1.1.1100)
-  - Permission-LocationWhenInUse (3.8.4):
-    - RNPermissions
-  - Permission-Notifications (3.8.4):
-    - RNPermissions
   - PromisesObjC (2.3.1)
   - RCT-Folly (2021.07.22.00):
     - boost
@@ -518,7 +514,7 @@ PODS:
     - React-Core
   - RNLocalize (3.0.2):
     - React-Core
-  - RNPermissions (3.8.4):
+  - RNPermissions (4.0.0-beta.1):
     - React-Core
   - RNReanimated (3.4.2):
     - DoubleConversion
@@ -596,8 +592,6 @@ DEPENDENCIES:
   - libevent (~> 2.1.12)
   - "maplibre-react-native (from `../node_modules/@maplibre/maplibre-react-native`)"
   - OpenSSL-Universal (= 1.1.1100)
-  - Permission-LocationWhenInUse (from `../node_modules/react-native-permissions/ios/LocationWhenInUse`)
-  - Permission-Notifications (from `../node_modules/react-native-permissions/ios/Notifications`)
   - RCT-Folly (from `../node_modules/react-native/third-party-podspecs/RCT-Folly.podspec`)
   - RCTRequired (from `../node_modules/react-native/Libraries/RCTRequired`)
   - RCTSystemSetting (from `../node_modules/react-native-system-setting`)
@@ -695,10 +689,6 @@ EXTERNAL SOURCES:
     :podspec: "../node_modules/react-native/sdks/hermes-engine/hermes-engine.podspec"
   maplibre-react-native:
     :path: "../node_modules/@maplibre/maplibre-react-native"
-  Permission-LocationWhenInUse:
-    :path: "../node_modules/react-native-permissions/ios/LocationWhenInUse"
-  Permission-Notifications:
-    :path: "../node_modules/react-native-permissions/ios/Notifications"
   RCT-Folly:
     :podspec: "../node_modules/react-native/third-party-podspecs/RCT-Folly.podspec"
   RCTRequired:
@@ -828,8 +818,6 @@ SPEC CHECKSUMS:
   maplibre-react-native: f08cc1b867c4b3080b34955f8e2ce938361df4c2
   nanopb: a0ba3315591a9ae0a16a309ee504766e90db0c96
   OpenSSL-Universal: ebc357f1e6bc71fa463ccb2fe676756aff50e88c
-  Permission-LocationWhenInUse: 24d97eeb25d8ff9f2232e070f792eeb1360ccaf0
-  Permission-Notifications: e06c4b115105e9aed6ed8d03c9894c23c1051731
   PromisesObjC: c50d2056b5253dadbd6c2bea79b0674bd5a52fa4
   RCT-Folly: 424b8c9a7a0b9ab2886ffe9c3b041ef628fd4fb1
   RCTRequired: 4db5e3e18b906377a502da5b358ff159ba4783ed
@@ -874,7 +862,7 @@ SPEC CHECKSUMS:
   RNGestureHandler: c0d04458598fcb26052494ae23dda8f8f5162b13
   RNInAppBrowser: e36d6935517101ccba0e875bac8ad7b0cb655364
   RNLocalize: dbea38dcb344bf80ff18a1757b1becf11f70cae4
-  RNPermissions: f1b49dd05fa9b83993cd05a9ee115247944d8f1a
+  RNPermissions: 9c76579839681bde6f2acc479239dbca21c71dcc
   RNReanimated: 49cdb63e767bb7e743ff4c12f7d85722c0d008f2
   RNScreens: b21dc57dfa2b710c30ec600786a3fc223b1b92e7
   RNSentry: 0a1daa8ee81e2776f977ae8c66e67c8d85587828
@@ -885,6 +873,6 @@ SPEC CHECKSUMS:
   Yoga: 39310a10944fc864a7550700de349183450f8aaa
   YogaKit: f782866e155069a2cca2517aafea43200b01fd5a
 
-PODFILE CHECKSUM: c273128d3223ff1b4b77fc982f00e5cdfdc945e2
+PODFILE CHECKSUM: 868219d0c2641b5c41192a48ec4fe30be4ac26bb
 
 COCOAPODS: 1.11.2
