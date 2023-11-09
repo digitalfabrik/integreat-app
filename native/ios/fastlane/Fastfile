@@ -65,6 +65,13 @@ lane :build do |options|
   match(type: "development", app_identifier: build_config['bundleIdentifier'], readonly: true)
   match(type: "appstore", app_identifier: build_config['bundleIdentifier'], readonly: true)
 
+  if [ "$XCODE_VERSION_MAJOR" = "1500" ]; then
+    echo "Remove signature files (Xcode 15 workaround)"
+
+    rm "$BUILD_DIR/Release-iphoneos/Mapbox.xcframework-ios.signature"
+  fi
+
+
   increment_build_number(
       build_number: version_code
   )
