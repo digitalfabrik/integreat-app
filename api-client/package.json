@@ -8,10 +8,7 @@
     "test": "jest",
     "test:changed": "yarn run test -o",
     "test:watch": "yarn run test --watchAll",
-    "lint": "yarn run eslint .",
-    "lint:changed": "eslint . -c ../.eslintrc_changed.js",
-    "lint:fix": "yarn run eslint --fix",
-    "lint:ci": "yarn run eslint --quiet --format junit -o reports/lint/junit-lint.xml",
+    "lint": "eslint --cache --cache-location ../.eslintcache .",
     "ts:check": "tsc --build"
   },
   "peerDependencies": {

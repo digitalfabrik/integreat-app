@@ -1,7 +1,7 @@
 import { NavigationAction } from '@react-navigation/native'
 import React, { ReactElement, useCallback, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Alert, Text, View } from 'react-native'
+import { Alert, Text } from 'react-native'
 import styled from 'styled-components/native'
 
 import { JpalTrackingRouteType } from 'api-client'
@@ -32,6 +32,10 @@ const DescriptionContainer = styled(Pressable)`
   flex-direction: row;
   justify-content: space-between;
   padding: 15px 0 5px;
+`
+
+const PaddedContainer = styled.View`
+  padding: 40px;
 `
 
 export type JpalTrackingProps = {
@@ -107,10 +111,7 @@ const JpalTracking = ({ navigation }: JpalTrackingProps): ReactElement => {
 
   return (
     <Layout>
-      <View
-        style={{
-          padding: 40,
-        }}>
+      <PaddedContainer>
         <Caption title={t('tracking')} />
         <Text>{t('trackingDescription', { appName: buildConfig().appName })}</Text>
 
@@ -120,7 +121,7 @@ const JpalTracking = ({ navigation }: JpalTrackingProps): ReactElement => {
         </DescriptionContainer>
 
         <Link url={moreInformationUrl} text={t('trackingMoreInformation')} />
-      </View>
+      </PaddedContainer>
     </Layout>
   )
 }
