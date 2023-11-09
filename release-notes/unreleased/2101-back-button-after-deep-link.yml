@@ -1,0 +1,7 @@
+issue_key: 2101
+show_in_stores: true
+platforms:
+  - ios
+  - android
+en: Going back after tapping on a link to a location now sends you back to the page with the deep link
+de: Nach einem Tipp auf einen Link zu einem Ort auf der Karte schickt der Zurückbutton nun wieder zu der Seite mit dem Link
