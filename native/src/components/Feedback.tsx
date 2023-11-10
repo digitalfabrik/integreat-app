@@ -1,4 +1,3 @@
-import name from 'build-config-name'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 import { ActivityIndicator, ScrollView, Text, TextInput } from 'react-native'
@@ -6,6 +5,7 @@ import { useTheme } from 'styled-components'
 import styled from 'styled-components/native'
 
 import { NoteIcon } from '../assets'
+import { appNameUsed } from '../constants/buildConfig'
 import useNavigate from '../hooks/useNavigate'
 import Caption from './Caption'
 import FeedbackButtons from './FeedbackButtons'
@@ -138,7 +138,7 @@ const Feedback = ({
             <Text>({t('optionalInfo')})</Text>
           </HeadlineContainer>
           <DescriptionContainer>
-            <Text>{t('commentDescription', { name })}</Text>
+            <Text>{t('commentDescription', { appNameUsed })}</Text>
           </DescriptionContainer>
           <CommentInput onChangeText={onCommentChanged} value={comment} multiline numberOfLines={3} />
           <HeadlineContainer>
