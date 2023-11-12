@@ -25,9 +25,6 @@ import malteIntroOffersIcon from 'build-configs/malte/assets/intro-slides/Offers
 import malteIntroSearchIcon from 'build-configs/malte/assets/intro-slides/Search.svg'
 import malteLocationMarker from 'build-configs/malte/assets/location-marker.svg'
 
-// get the appName dynamically
-export const appNameUsed = name
-
 type AssetsType = {
   AppIcon: React.JSXElementConstructor<SvgProps>
   LoadingImage: React.JSXElementConstructor<SvgProps>
