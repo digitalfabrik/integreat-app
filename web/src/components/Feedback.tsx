@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
 
 import { SadSmileyIcon, NoteIcon, HappySmileyIcon } from '../assets'
+import buildConfig from '../constants/buildConfig'
 import dimensions from '../constants/dimensions'
 import { SendingState } from './FeedbackContainer'
 import TextInput from './TextInput'
@@ -139,7 +140,7 @@ const Feedback = ({
         <div>({t('optionalInfo')})</div>
       </TextContainer>
       <TextContainer>
-        <div>{t('commentDescription')}</div>
+        <div>{t('commentDescription', { appName: buildConfig().appName })}</div>
       </TextContainer>
       <CommentField id='comment' rows={7} value={comment} onChange={event => onCommentChanged(event.target.value)} />
       <TextContainer>
