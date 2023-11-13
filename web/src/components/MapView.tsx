@@ -110,6 +110,21 @@ const MapView = forwardRef(
       }
     }, [])
 
+    const zoomOnClusterPress = useCallback(
+      (event: MapLayerMouseEvent) => {
+        if (mapRef) {
+          const clusterFeatures = mapRef.queryRenderedFeatures(event.point)
+          if (0 in clusterFeatures && clusterFeatures[0].properties.cluster) {
+            mapRef.flyTo({
+              center: event.lngLat,
+              zoom: mapRef.getZoom() + 2,
+            })
+          }
+        }
+      },
+      [mapRef],
+    )
+
     const onSelectFeature = useCallback(
       (event: MapLayerMouseEvent) => {
         // Stop propagation to children to prevent onClick select event as it is already handled
@@ -129,8 +144,10 @@ const MapView = forwardRef(
         } else {
           selectFeature(null, false)
         }
+
+        zoomOnClusterPress(event)
       },
-      [selectFeature],
+      [selectFeature, zoomOnClusterPress],
     )
 
     useEffect(

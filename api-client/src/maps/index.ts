@@ -117,6 +117,10 @@ export const openStreeMapCopyright: OpenStreetMapCopyrightType = {
   label: 'contributors',
 }
 
+// Shared layer ids
+export const featureLayerId = 'point'
+export const clusterLayerId = 'clusteredPoints'
+
 // Shared layer properties
 export const textOffsetY = 1.5
 export const groupCount = 50
