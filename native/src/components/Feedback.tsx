@@ -5,6 +5,7 @@ import { useTheme } from 'styled-components'
 import styled from 'styled-components/native'
 
 import { NoteIcon } from '../assets'
+import buildConfig from '../constants/buildConfig'
 import useNavigate from '../hooks/useNavigate'
 import Caption from './Caption'
 import FeedbackButtons from './FeedbackButtons'
@@ -137,7 +138,7 @@ const Feedback = ({
             <Text>({t('optionalInfo')})</Text>
           </HeadlineContainer>
           <DescriptionContainer>
-            <Text>{t('commentDescription')}</Text>
+            <Text>{t('commentDescription', { appName: buildConfig().appName })}</Text>
           </DescriptionContainer>
           <CommentInput onChangeText={onCommentChanged} value={comment} multiline numberOfLines={3} />
           <HeadlineContainer>

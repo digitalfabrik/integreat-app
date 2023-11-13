@@ -2474,7 +2474,7 @@
       "headline": "Wie findest du diese Seite?",
       "description": "Wähle eine Reaktion aus und/oder schreibe einen Kommentar.",
       "commentHeadline": "Kommentar",
-      "commentDescription": "Teile uns dein Feedback mit! Wir schätzen sowohl positives als auch negatives Feedback, da es uns hilft, Integreat zu verbessern.",
+      "commentDescription": "Teile uns dein Feedback mit! Wir schätzen sowohl positives als auch negatives Feedback, da es uns hilft, {{appName}} zu verbessern.",
       "isThisSiteUseful": "Ist diese Seite hilfreich?",
       "useful": "Hilfreich",
       "notUseful": "Nicht hilfreich",
