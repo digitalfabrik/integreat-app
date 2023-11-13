@@ -22,7 +22,7 @@ type ModalProps = {
   modalVisible: boolean
   closeModal: () => void
   headerTitle: string
-  title: string
+  title?: string
   children: ReactNode
 }
 
@@ -37,7 +37,7 @@ const Modal = ({ modalVisible, closeModal, headerTitle, title, children }: Modal
         <HeaderBox goBack={closeModal} text={headerTitle} />
       </Header>
       <Content contentContainerStyle={{ flex: 1 }}>
-        <Caption title={title} />
+        {!!title && <Caption title={title} />}
         {children}
       </Content>
     </Container>

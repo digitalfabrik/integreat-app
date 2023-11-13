@@ -1,8 +1,14 @@
 import React, { ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Linking, Platform } from 'react-native'
-import RNCalendarEvents, { Calendar } from 'react-native-calendar-events'
+import RNCalendarEvents, {
+  Calendar,
+  CalendarEventWritable,
+  RecurrenceFrequency,
+  RecurrenceRule,
+} from 'react-native-calendar-events'
 import { PERMISSIONS, requestMultiple } from 'react-native-permissions'
+import { Frequency } from 'rrule'
 import styled from 'styled-components/native'
 
 import { EventModel } from 'api-client'
@@ -28,7 +34,7 @@ const ExportEventButton = ({ event }: ExportEventButtonType): ReactElement => {
   const [showCalendarChoiceModal, setShowCalendarChoiceModal] = useState<boolean>(false)
   const [calendars, setCalendars] = useState<Calendar[]>()
 
-  const exportEventToCalendar = async (calendarId: string | undefined): Promise<void> => {
+  const exportEventToCalendar = async (calendarId: string | undefined, exportAll: boolean): Promise<void> => {
     let startDate = event.date.startDate.toUTC().toString()
     let endDate = event.date.endDate.toUTC().toString()
     const allDay = event.date.allDay
@@ -39,16 +45,39 @@ const ExportEventButton = ({ event }: ExportEventButtonType): ReactElement => {
       endDate = event.date.endDate.plus({ minutes: 1 }).toFormat("yyyy-LL-dd'T'00:00:00.000'Z'")
     }
 
+    let eventOptions: CalendarEventWritable = {
+      startDate,
+      endDate,
+      allDay,
+      calendarId,
+      location: event.location?.fullAddress,
+      description: event.excerpt, // Android
+      notes: event.excerpt, // iOS
+    }
+
+    if (exportAll && event.date.recurrenceRule) {
+      // @ts-expect-error The end date and occurrence are not actually necessary
+      const recurrenceOptions: RecurrenceRule = {
+        frequency: Frequency[event.date.recurrenceRule.options.freq].toLowerCase() as RecurrenceFrequency,
+        interval: event.date.recurrenceRule.options.interval,
+      }
+      const lastDate = event.date.recurrenceRule.options.until?.toUTCString()
+      if (lastDate) {
+        recurrenceOptions.endDate = lastDate
+      }
+      const occurrence = event.date.recurrenceRule.options.count
+      if (occurrence) {
+        recurrenceOptions.occurrence = occurrence
+      }
+
+      eventOptions = {
+        ...eventOptions,
+        recurrenceRule: recurrenceOptions,
+      }
+    }
+
     try {
-      await RNCalendarEvents.saveEvent(event.title, {
-        startDate,
-        endDate,
-        allDay,
-        calendarId,
-        location: event.location?.fullAddress,
-        description: event.excerpt, // Android
-        notes: event.excerpt, // iOS
-      })
+      await RNCalendarEvents.saveEvent(event.title, eventOptions)
       setEventExported(true)
       showSnackbar({
         text: t('added'),
@@ -78,9 +107,9 @@ const ExportEventButton = ({ event }: ExportEventButtonType): ReactElement => {
     const editableCalendars = (await RNCalendarEvents.findCalendars()).filter(cal => cal.allowsModifications)
     if (editableCalendars.length === 0) {
       showSnackbar({ text: 'noCalendarFound' })
-    } else if (editableCalendars.length === 1 && 0 in editableCalendars) {
+    } else if (editableCalendars.length === 1 && 0 in editableCalendars && !event.date.recurrenceRule) {
       try {
-        await exportEventToCalendar(editableCalendars[0].id)
+        await exportEventToCalendar(editableCalendars[0].id, false)
       } catch (e) {
         showSnackbar({ text: 'generalError' })
         reportError(e)
@@ -91,10 +120,10 @@ const ExportEventButton = ({ event }: ExportEventButtonType): ReactElement => {
     }
   }
 
-  const chooseCalendar = async (id: string): Promise<void> => {
+  const chooseCalendar = async (id: string, exportAll: boolean): Promise<void> => {
     setShowCalendarChoiceModal(false)
     try {
-      await exportEventToCalendar(id)
+      await exportEventToCalendar(id, exportAll)
     } catch (e) {
       showSnackbar({ text: 'generalError' })
       reportError(e)
@@ -110,6 +139,7 @@ const ExportEventButton = ({ event }: ExportEventButtonType): ReactElement => {
           chooseCalendar={chooseCalendar}
           calendars={calendars}
           eventTitle={event.title}
+          recurring={!!event.date.recurrenceRule}
         />
       )}
       <StyledButton text={t('addToCalendar')} onPress={checkCalendarsAndExportEvent} disabled={eventExported} />
