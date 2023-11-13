@@ -210,8 +210,9 @@ const Header = ({
 
     const previousParams = previousRoute.params
 
-    // Poi details are not opened in a new route
-    if (route.name === POIS_ROUTE) {
+    const currentRouteIsPoi = route.name === POIS_ROUTE
+    const notFromDeepLink = previousRoute.name === POIS_ROUTE
+    if (currentRouteIsPoi && notFromDeepLink) {
       const poisRouteParams = route.params as RoutesParamsType[PoisRouteType]
       if (poisRouteParams.slug || poisRouteParams.multipoi) {
         return t('locations')
