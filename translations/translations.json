@@ -126,6 +126,12 @@
       "organizationContent": "ددې پاڼې منځپانګه له {{organization}} څخه ده.",
       "organizationMoreInformation": "تاسو کولی شئ چې د <1>{{organization}}</1> په اړه نور معلومات په <3>{{domain}}</3> کې پيدا کړئ."
     },
+    "pt": {
+      "createPdf": "Criar um PDF",
+      "metaDescription": "A {{appName}} é o seu guia digital da Alemanha. Consulte informações, eventos e conselhos a nível local. Sempre atualizada e disponível no seu idioma.",
+      "organizationContent": "categories.organizationContent",
+      "organizationMoreInformation": "categories.organizationMoreInformation"
+    },
     "ro": {
       "createPdf": "Creați PDF",
       "metaDescription": "{{appName}} este ghidul tău digital pentru Germania. Găsiți informații, evenimente și sfaturi locale. Întotdeauna actualizate și în limba dumneavoastră.",
@@ -361,6 +367,14 @@
       "findOutMail": "تاسو دی خپلی علاقی ای میل ایدریس معلوم کړئ۔",
       "sendText": "دا متن کاپی کړئ ، د خپلو تفصیلاتو سره د [ ] محتوا ډکه کړئ او  او یی لیږئ۔",
       "copyText": "متن کاپی کړئ"
+    },
+    "pt": {
+      "callToAction": "Proponha a sua região ao Integreat!",
+      "explanation": "Gostaste do conceito sem fins lucrativos da aplicação Integreat e pensas que a tua cidade, concelho ou município também poderia beneficiar da solução digital? Nesse caso, podes atuar facilmente aqui.",
+      "whatToDo": "Eis o que podes fazer:",
+      "findOutMail": "Descobrir o endereço de e-mail da tua região",
+      "sendText": "Copiar este texto, preencher o conteúdo [ ] com os teus dados e enviá-lo",
+      "copyText": "Copiar texto"
     },
     "ro": {
       "callToAction": "Propuneți Integreat pentru regiunea dumneavoastră!",
@@ -641,6 +655,14 @@
       "loading": "بارولے کیږی ۔۔۔",
       "close": "پای ته رسول"
     },
+    "pt": {
+      "copied": "Copiado",
+      "moreOptions": "Mais opções",
+      "languageNotAvailable": "Lamentamos, mas o teu idioma não está disponível.",
+      "chooseALanguage": "Escolhe um idioma.",
+      "lastUpdate": "Última atualização:",
+      "loading": "A carregar ..."
+    },
     "ro": {
       "copied": "Copiat",
       "moreOptions": "Mai multe opțiuni",
@@ -889,6 +911,13 @@
       "news": "خبرونه",
       "pois": "کارت"
     },
+    "pt": {
+      "localInformation": "Informações locais",
+      "offers": "Ofertas",
+      "events": "Eventos",
+      "news": "Notícias",
+      "pois": "Mapa"
+    },
     "ro": {
       "localInformation": "Informații locale",
       "offers": "Oferte",
@@ -1030,6 +1059,9 @@
     },
     "ps": {
       "pageTitle": "چاپ او اړیکه"
+    },
+    "pt": {
+      "pageTitle": "Pé de imprensa e contactos"
     },
     "ro": {
       "pageTitle": "Caseta tehnică și contact"
@@ -1821,6 +1853,40 @@
       "languageSwitchFailedMessage": "انتخاب شوې ژبه آفلاین موجوده نده. د انټرنیټ فعال پیوستون اړین دی.",
       "noCalendarPermission": "جنتري ته د لاسرسي اجازه نشته.",
       "noCalendarFound": "هيڅ مناسبه جنتري پيدا نشوه."
+    },
+    "pt": {
+      "notFound": {
+        "language": "Lamentamos, mas este idioma não está disponível.",
+        "city": "Lamentamos, mas esta região não foi encontrada.",
+        "category": "Lamentamos, mas esta página não foi encontrada.",
+        "event": "Lamentamos, mas este evento não foi encontrado.",
+        "offer": "Lamentamos, mas esta oferta não foi encontrada.",
+        "poi": "Lamentamos, mas este local não foi encontrado.",
+        "news": "Lamentamos, mas esta notícia não foi encontrada.",
+        "pageTitle": "Página não encontrada"
+      },
+      "pageNotFound": "Lamentamos, mas esta página não foi encontrada.",
+      "noSuitableAppInstalled": "Não está instalada nenhuma aplicação compatível.",
+      "networkConnectionFailed": "A ligação ao servidor falhou.",
+      "networkRequestFailed": "Não foi possível processar o pedido.",
+      "responseMappingFailed": "Não foi possível processar a resposta do servidor.",
+      "unknownError": "Ocorreu um erro desconhecido.",
+      "tryAgain": "Tente novamente",
+      "loadingFailed": "Lamentamos, mas não foi possível carregar a página.",
+      "chooseALanguage": "Escolhe um idioma:",
+      "goTo": {
+        "start": "Ir para a página inicial",
+        "categories": "Ir para as categorias",
+        "events": "Ir para os eventos",
+        "offers": "Ir para as ofertas",
+        "pois": "Ir para o mapa",
+        "news": "Ir para as notícias"
+      },
+      "pageTitle": "Erro",
+      "generalError": "Ocorreu um erro",
+      "notSupportedByDevice": "Esta funcionalidade não é suportada por este dispositivo.",
+      "languageSwitchFailedTitle": "Lamentamos, mas a mudança de idioma falhou.",
+      "languageSwitchFailedMessage": "O idioma selecionado não está disponível offline. É necessária uma ligação ativa à internet."
     },
     "ro": {
       "notFound": {
@@ -2640,6 +2706,13 @@
       "today": "نن ورځ",
       "todayRecurring": "نن ورځ، تکراري"
     },
+    "pt": {
+      "address": "Endereço",
+      "date_one": "Data",
+      "events": "Eventos",
+      "currentlyNoEvents": "Não existe atualmente nenhum evento.",
+      "pageTitle": "Eventos"
+    },
     "ro": {
       "address": "Adresa",
       "date_one": "Data",
@@ -3345,6 +3418,22 @@
       "optionalInfo": "اختیاري",
       "note": "د نظر د استولو لپاره، د مهربانۍ له مخې يو عکس العمل غوره يا يو نظر وليکئ."
     },
+    "pt": {
+      "disclaimer": "Contactos e pé de imprensa",
+      "send": "Enviar",
+      "failedSendingFeedback": "Ocorreu um erro ao enviar o comentário.",
+      "feedback": "Feedback",
+      "isThisSiteUseful": "Esta página é útil?",
+      "useful": "É útil",
+      "notUseful": "Não é útil",
+      "informationNotFound": "Não encontrou o que precisava?",
+      "wantedInformation": "Que informações estão em falta?",
+      "feedbackSent": "Comentário enviado",
+      "negativeRating": "Esta página não é útil",
+      "positiveRating": "Esta página é útil",
+      "contactMailAddress": "Endereço de correio eletrónico para pedidos de informação",
+      "optionalInfo": "opcional"
+    },
     "ro": {
       "disclaimer": "Contact și caseta tehnică",
       "send": "Trimiteți",
@@ -3873,6 +3962,19 @@
       "skip": "اووښتل یعنی ورتیریدل",
       "next": "مخته"
     },
+    "pt": {
+      "appDescription": "A {{appName}} é o seu guia digital da Alemanha",
+      "search": "Procura",
+      "searchDescription": "Encontrar rapidamente a informação certa por palavras-chave",
+      "languageChange": "Mudar de idioma",
+      "languageChangeDescription": "Mudar facilmente de idioma em páginas individuais",
+      "events": "Eventos",
+      "eventsDescription": "Eventos e acontecimentos atuais nas imediações",
+      "offers": "Ofertas",
+      "offersDescription": "Procura de emprego, procura de estágio e muito mais nas imediações",
+      "skip": "Saltar",
+      "next": "Seguinte"
+    },
     "ro": {
       "appDescription": "{{appName}} constituie ghidul dvs. digital pentru Germania",
       "search": "Căutare",
@@ -4374,6 +4476,22 @@
       "metaDescription": "{{appName}} د جرمني لپاره ستاسو ډيجټلي لارښود دی. ځايي معلومات، مراسم او سپارښتنې په هغې کې ومومئ. تل تازه او ستاسو په ژبه.",
       "cityNotFound": "آیا ستاسو سیمہ او نہ موندلے شوہ؟",
       "clickHere": "دلتہ کلک کړئ"
+    },
+    "pt": {
+      "searchCity": "Procura",
+      "noCitiesFound": "Não existem resultados",
+      "nearbyCities": "Nas proximidades",
+      "noNearbyCities": "Não foram encontradas regiões próximas.",
+      "alert": "Aviso",
+      "locationError": "Para ver as regiões próximas, é necessário ativar os serviços de localização.",
+      "noPermission": "É necessário acesso à localização",
+      "loading": "A determinar a localização...",
+      "notAvailable": "A determinação da localização está desativada",
+      "timeout": "A determinação da localização falhou",
+      "refresh": "Atualizar a lista de regiões próximas",
+      "metaDescription": "A {{appName}} é o seu guia digital da Alemanha. Consulte informações, eventos e conselhos a nível local. Sempre atualizada e disponível no seu idioma.",
+      "cityNotFound": "Não encontraste a tua região?",
+      "clickHere": "Clica aqui"
     },
     "ro": {
       "searchCity": "Căutare",
@@ -5089,6 +5207,27 @@
       "sideBarOpenAriaLabel": "د سايډبار پرانيستل",
       "sideBarCloseAriaLabel": "د سايډبار بندول"
     },
+    "pt": {
+      "imprintAndContact": "Pé de imprensa e contactos",
+      "privacy": "Proteção de dados",
+      "offers": "Ofertas",
+      "localInformation": "Informações locais",
+      "events": "Eventos",
+      "noEvents": "Não existem eventos",
+      "news": "Notícias",
+      "noLanguages": "Não disponível noutros idiomas",
+      "noTranslation": "Nenhuma tradução disponível",
+      "search": "Procurar",
+      "locations": "Mapa",
+      "changeLocation": "Alterar a localização",
+      "changeLanguage": "Mudar de idioma",
+      "settings": "Definições",
+      "share": "Partilhar",
+      "cancel": "Cancelar",
+      "shareMessage": "Encontrado agora: {{message}}",
+      "shareFailDefaultMessage": "Lamentamos, mas a partilha do conteúdo falhou.",
+      "disclaimer": "Pé de imprensa"
+    },
     "ro": {
       "imprintAndContact": "Caseta tehnică și contact",
       "privacy": "Confidențialitate",
@@ -5471,6 +5610,11 @@
       "license": "جواز:",
       "noLicensesMessage": "د جواز معلومات شتون نلري"
     },
+    "pt": {
+      "version": "Versão:",
+      "license": "Licença:",
+      "noLicensesMessage": "Nenhuma informação disponível sobre a licença"
+    },
     "ro": {
       "version": "Versiuni:",
       "license": "Licență:",
@@ -5590,6 +5734,9 @@
     },
     "ps": {
       "pageTitle": "چاپ کؤونکی او ا ړیکہ - {{appName}}"
+    },
+    "pt": {
+      "pageTitle": "Pé de imprensa e contactos — {{appName}}"
     },
     "ro": {
       "pageTitle": "Caseta tehnică și contact - {{appName}}"
@@ -5730,6 +5877,11 @@
       "NSPhotoLibraryAddUsageDescription": "د انځورونو خوندي کولو لپاره {{appName}} انځورتون ته لاسرسي ته اړتیا لري.",
       "NSLocationWhenInUseUsageDescription": "د نږدې ځایونو پیدا کولو لپاره {{appName}} موقعیت ته لاسرسي ته اړتیا لري.",
       "NSLocationAlwaysAndWhenInUseUsageDescription": "د نږدې ځایونو پیدا کولو لپاره {{appName}} موقعیت ته لاسرسي ته اړتیا لري."
+    },
+    "pt": {
+      "NSPhotoLibraryAddUsageDescription": "Para guardar imagens, a {{appName}} necessita de acesso à galeria.",
+      "NSLocationWhenInUseUsageDescription": "Para encontrar locais próximos, a {{appName}} necessita de acesso à localização.",
+      "NSLocationAlwaysAndWhenInUseUsageDescription": "Para encontrar locais próximos, a {{appName}} necessita de acesso à localização."
     },
     "ro": {
       "NSPhotoLibraryAddUsageDescription": "Pentru a stoca imagini, {{appName}} are nevoie de acces la galerie.",
@@ -5998,6 +6150,16 @@
       "readMore": "مخته لوستل",
       "currentlyNoNews": "دا مهال کوم خبرونه نشته."
     },
+    "pt": {
+      "news": "Notícias",
+      "localNews": {
+        "localNews": "Notícias locais",
+        "pageTitle": "Notícias locais"
+      },
+      "local": "A nível local",
+      "readMore": "Continuar a ler",
+      "currentlyNoNews": "Não existe atualmente nenhuma notícia."
+    },
     "ro": {
       "news": "Știri",
       "localNews": {
@@ -6214,6 +6376,11 @@
       "offers": "وړاندیزونه",
       "pageTitle": "وړاندیزونه",
       "wohnraum": "د اوسیدلو کوټہ"
+    },
+    "pt": {
+      "offers": "Ofertas",
+      "pageTitle": "Ofertas",
+      "wohnraum": "Habitação"
     },
     "ro": {
       "offers": "Oferte",
@@ -7343,6 +7510,50 @@
       "clearFilter": "د {{filter}} فلتر حذفول",
       "showOwnLocation": "د خپل موقعيت ښودل"
     },
+    "pt": {
+      "pageTitle": "Mapa",
+      "poi": "Local",
+      "pois": "Locais",
+      "map": "Mapa",
+      "showOnMap": "Mostrar no mapa",
+      "noPois": "Não foi encontrado nenhum local.",
+      "unitKilometre": "km",
+      "unitMetre": "m",
+      "distanceKilometre": "a {{distance}} km de distância",
+      "distanceKilometreAlternative": "{{distance}} km",
+      "distanceMetre": "a {{distance}} m de distância",
+      "distanceMetreAlternative": "{{distance}} m",
+      "contactInformation": "Dados de contacto",
+      "address": "Endereço",
+      "phone": "Número de telefone",
+      "eMail": "Endereço de correio eletrónico",
+      "website": "Sítio Web",
+      "openingHours": "Horário de funcionamento",
+      "description": "Descrição",
+      "addressCopied": "Endereço copiado para a área de transferência",
+      "phoneCopied": "Número de telefone copiado para a área de transferência",
+      "eMailCopied": "Endereço de correio eletrónico copiado para a área de transferência",
+      "websiteCopied": "Sítio Web copiado para a área de transferência",
+      "listTitle": "Nas tuas imediações",
+      "detailsHeader": "voltar à vista geral",
+      "detailsAddress": "Como chegar",
+      "detailsMapLink": "Abrir no Google Maps",
+      "detailsInformation": "Informações",
+      "detailsNextPoi": "seguinte",
+      "detailsPreviousPoi": "anterior",
+      "openExternalMaps": "Abrir na aplicação dos mapas",
+      "allDay": "todo o dia",
+      "opened": "aberto",
+      "closed": "fechado",
+      "temporarilyClosed": "Fechado temporariamente",
+      "montag": "Segunda-feira",
+      "dienstag": "Terça-feira",
+      "mittwoch": "Quarta-feira",
+      "donnerstag": "Quinta-feira",
+      "freitag": "Sexta-feira",
+      "samstag": "Sábado",
+      "sonntag": "Domingo"
+    },
     "ro": {
       "pageTitle": "Harta",
       "poi": "Localitate",
@@ -8032,6 +8243,11 @@
       "pageTitle": "لټون",
       "delete": "د داخل شوو معلوماتو حذفول"
     },
+    "pt": {
+      "nothingFound": "Lamentamos, mas não foi encontrado nenhum resultado correspondente.",
+      "searchPlaceholder": "Procura",
+      "pageTitle": "Procura"
+    },
     "ro": {
       "nothingFound": "Din păcate, nu au fost găsite nici un fel de rezultate utile.",
       "searchPlaceholder": "Căutare",
@@ -8519,6 +8735,26 @@
       "disabled": "غیرفعال شوی",
       "decline": "رد کول"
     },
+    "pt": {
+      "sentryTitle": "Estabilidade da aplicação",
+      "sentryDescription": "Melhorar a aplicação {{appName}} através do envio automático de relatórios de erro",
+      "pushNewsTitle": "Notificações push",
+      "pushNewsDescription": "Receber notificações push das últimas notícias locais",
+      "about": "Acerca da {{appName}}",
+      "privacyPolicy": "Política de privacidade",
+      "version": "Versão: {{versão}}",
+      "openSourceLicenses": "Licenças de código aberto",
+      "tracking": "Avaliação do J-PAL",
+      "allowTracking": "Permitir o rastreio",
+      "trackingShortDescription": "Participe no estudo de avaliação do J-PAL para melhorar a {{appName}}.",
+      "trackingMoreInformation": "Mais informações sobre o estudo de avaliação do J-Pal e os objetivos da investigação",
+      "trackingDescription": "A {{appName}} solicita autorização para monitorizar o seu uso da aplicação. Os seus dados serão anonimizados e utilizados apenas para fins de investigação e para melhorar a aplicação. Os dados de rastreio não serão partilhados nem tratados para fins publicitários ou comerciais.",
+      "trackingLeaveTitle": "Permitir o rastreio?",
+      "trackingLeaveDescription": "Não autorizou o rastreio. O rastreio ajuda-nos a melhorar a aplicação {{appName}} e a fornecer melhores informações aos imigrantes. Tem a certeza de que pretende sair do ecrã sem permitir o rastreio?",
+      "enabled": "ativado",
+      "disabled": "desativado",
+      "decline": "Recusar"
+    },
     "ro": {
       "sentryTitle": "Stabilitate app",
       "sentryDescription": "Îmbunătățiți {{appName}}-App prin trimiterea automată a rapoartelor de blocare",
@@ -8997,6 +9233,9 @@
     },
     "ps": {
       "noOffersAvailable": "کوم وړاندیز موجود ندی"
+    },
+    "pt": {
+      "noOffersAvailable": "Nenhuma oferta disponível"
     },
     "ro": {
       "noOffersAvailable": "Nicio ofertă disponibilă"
