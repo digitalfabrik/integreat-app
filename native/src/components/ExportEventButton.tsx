@@ -56,7 +56,7 @@ const ExportEventButton = ({ event }: ExportEventButtonType): ReactElement => {
     }
 
     if (exportAll && event.date.recurrenceRule) {
-      // @ts-expect-error The end date and occurrence are not actually necessary
+      // @ts-expect-error Users don't need to set a last date or a number of occurrences in the CMS
       const recurrenceOptions: RecurrenceRule = {
         frequency: Frequency[event.date.recurrenceRule.options.freq].toLowerCase() as RecurrenceFrequency,
         interval: event.date.recurrenceRule.options.interval,
