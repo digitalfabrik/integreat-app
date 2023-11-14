@@ -1,6 +1,7 @@
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 import { ActivityIndicator, ScrollView, Text, TextInput } from 'react-native'
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { useTheme } from 'styled-components'
 import styled from 'styled-components/native'
 
@@ -116,7 +117,7 @@ const Feedback = ({
   const renderBox = (): React.ReactNode => {
     if (['idle', 'failed'].includes(sendingStatus)) {
       return (
-        <>
+        <KeyboardAwareScrollView>
           {isSearchFeedback ? (
             <>
               <HeadlineContainer>
@@ -133,6 +134,7 @@ const Feedback = ({
               <FeedbackButtons isPositiveFeedback={isPositiveFeedback} setIsPositiveFeedback={setIsPositiveFeedback} />
             </>
           )}
+
           <HeadlineContainer>
             <Description>{t('commentHeadline')}</Description>
             <Text>({t('optionalInfo')})</Text>
@@ -140,19 +142,31 @@ const Feedback = ({
           <DescriptionContainer>
             <Text>{t('commentDescription', { appName: buildConfig().appName })}</Text>
           </DescriptionContainer>
-          <CommentInput onChangeText={onCommentChanged} value={comment} multiline numberOfLines={3} />
+          <CommentInput
+            onChangeText={onCommentChanged}
+            value={comment}
+            multiline
+            numberOfLines={3}
+            blurOnSubmit
+            returnKeyType='done'
+          />
           <HeadlineContainer>
             <Description>{t('contactMailAddress')}</Description>
             <Text>({t('optionalInfo')})</Text>
           </HeadlineContainer>
-          <Input keyboardType='email-address' onChangeText={onFeedbackContactMailChanged} value={contactMail} />
+          <Input
+            keyboardType='email-address'
+            onChangeText={onFeedbackContactMailChanged}
+            value={contactMail}
+            returnKeyType='done'
+          />
           {sendingStatus === 'failed' && <Description>{t('failedSendingFeedback')}</Description>}
           <NoteBox visible={submitDisabled}>
             <StyledIcon Icon={NoteIcon} />
             <NoteText>{t('note')}</NoteText>
           </NoteBox>
           <StyledButton disabled={submitDisabled} onPress={onSubmit} text={t('send')} />
-        </>
+        </KeyboardAwareScrollView>
       )
     }
     if (sendingStatus === 'sending') {
