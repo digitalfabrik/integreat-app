@@ -6,6 +6,7 @@ import { GeoJsonPoi } from 'api-client'
 
 import { PoiThumbnailPlaceholder } from '../assets'
 import dimensions from '../constants/dimensions'
+import { helpers } from '../constants/theme'
 
 const ListItemContainer = styled.ul`
   font-family: ${props => props.theme.fonts.web.contentFont};
@@ -35,19 +36,11 @@ const Thumbnail = styled.img`
 `
 
 const Distance = styled.div`
-  font-size: clamp(
-    ${props => props.theme.fonts.adaptiveFontSizeSmall.min},
-    ${props => props.theme.fonts.adaptiveFontSizeSmall.value},
-    ${props => props.theme.fonts.adaptiveFontSizeSmall.max}
-  );
+  ${helpers.adaptiveFontSize};
 `
 
 const Category = styled.div`
-  font-size: clamp(
-    ${props => props.theme.fonts.adaptiveFontSizeSmall.min},
-    ${props => props.theme.fonts.adaptiveFontSizeSmall.value},
-    ${props => props.theme.fonts.adaptiveFontSizeSmall.max}
-  );
+  ${helpers.adaptiveFontSize};
   color: ${props => props.theme.colors.textSecondaryColor};
 `
 
@@ -60,15 +53,12 @@ export const Description = styled.div`
   flex-grow: 1;
   padding: 0 22px;
   align-self: center;
-  word-wrap: break-word;
+  word-break: break-word;
+  hyphens: auto;
 `
 
 const Title = styled.span`
-  font-size: clamp(
-    ${props => props.theme.fonts.adaptiveFontSizeSmall.min},
-    ${props => props.theme.fonts.adaptiveFontSizeSmall.value},
-    ${props => props.theme.fonts.adaptiveFontSizeSmall.max}
-  );
+  ${helpers.adaptiveFontSize};
   font-weight: 700;
 `
 

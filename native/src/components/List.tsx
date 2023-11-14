@@ -42,6 +42,7 @@ const List = <T,>({
     showsVerticalScrollIndicator={false}
     contentContainerStyle={{
       flexGrow: 1,
+
       paddingHorizontal: 10,
     }}
     onEndReachedThreshold={1}

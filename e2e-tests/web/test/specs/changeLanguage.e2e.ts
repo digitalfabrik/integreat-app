@@ -1,4 +1,4 @@
-import dashboardPage from '../pageobjects/dashboard.page'
+import dashboardPage from '../pageobjects/dashboard.page.js'
 
 describe('change language', () => {
   beforeEach(async () => {

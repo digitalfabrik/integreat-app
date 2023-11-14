@@ -1,6 +1,6 @@
-import { Selector } from '../helpers/Selector'
-import dashboardPage from '../pageobjects/dashboard.page'
-import { navigateToDashboard } from '../utils/navigationUtils'
+import { Selector } from '../helpers/Selector.js'
+import dashboardPage from '../pageobjects/dashboard.page.js'
+import { navigateToDashboard } from '../utils/navigationUtils.js'
 
 describe('change language', () => {
   it('should display language icon', async () => {

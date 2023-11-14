@@ -5,15 +5,10 @@
   "main": "src/index.ts",
   "private": true,
   "scripts": {
-    "test": "jest --config jest.config.ts",
+    "test": "jest",
     "test:changed": "yarn run test -o",
-    "test:coverage": "yarn run test --coverage",
-    "test:ci": "yarn run test:coverage --ci",
     "test:watch": "yarn run test --watchAll",
-    "lint": "yarn run eslint .",
-    "lint:changed": "eslint . -c ../.eslintrc_changed.js",
-    "lint:fix": "yarn run eslint --fix",
-    "lint:ci": "yarn run eslint --quiet --format junit -o reports/lint/junit-lint.xml",
+    "lint": "eslint --cache --cache-location ../.eslintcache .",
     "ts:check": "tsc --build"
   },
   "peerDependencies": {
@@ -40,7 +35,6 @@
     "@types/seedrandom": "^3.0.5",
     "@types/uuid": "^9.0.2",
     "jest-fetch-mock": "^3.0.3",
-    "jest-junit": "^16.0.0",
     "md5": "^2.3.0",
     "seedrandom": "^3.0.5"
   }

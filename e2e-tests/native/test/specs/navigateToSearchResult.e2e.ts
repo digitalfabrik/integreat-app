@@ -1,8 +1,8 @@
-import { contentSearch } from '../../../shared/constants'
-import { Selector } from '../helpers/Selector'
-import DashboardPage from '../pageobjects/dashboard.page'
-import SearchPage from '../pageobjects/search.page'
-import { navigateToDashboard } from '../utils/navigationUtils'
+import { contentSearch } from '../../../shared/constants.js'
+import { Selector } from '../helpers/Selector.js'
+import DashboardPage from '../pageobjects/dashboard.page.js'
+import SearchPage from '../pageobjects/search.page.js'
+import { navigateToDashboard } from '../utils/navigationUtils.js'
 
 describe('navigate to search result', () => {
   it('should open and search content', async () => {

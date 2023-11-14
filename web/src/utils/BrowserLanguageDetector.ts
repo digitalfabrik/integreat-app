@@ -17,7 +17,6 @@ const languageDetector: LanguageDetectorModule = {
 
     // Adapted from:
     // https://github.com/i18next/i18next-browser-languageDetector/blob/a84df47faf3603ece04bc224e8e0f6f0ca1df923/src/browserLookups/navigator.js
-    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
     if (typeof navigator !== 'undefined') {
       // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
       if (navigator.languages) {

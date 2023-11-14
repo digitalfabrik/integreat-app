@@ -10,9 +10,9 @@ const Attribution = styled.div`
   display: flex;
   direction: ltr;
   padding: 0 4px;
-  background-color: rgba(255, 255, 255, 0.5);
-  box-shadow: 0 2px 3px 3px rgba(0, 0, 0, 0.1);
-  color: rgba(0, 0, 0, 0.75);
+  background-color: rgb(255 255 255 / 50%);
+  box-shadow: 0 2px 3px 3px rgb(0 0 0 / 10%);
+  color: rgb(0 0 0 / 75%);
 `
 const AttributionContainer = styled.div<{ expanded: boolean; direction: UiDirectionType }>`
   display: flex;
@@ -33,7 +33,7 @@ const OpenStreetMapsLink = styled(CleanLink)`
 
 const Label = styled.span`
   padding: 0 4px;
-  color: rgba(0, 0, 0, 0.75);
+  color: rgb(0 0 0 / 75%);
 `
 
 type MapAttributionProps = {

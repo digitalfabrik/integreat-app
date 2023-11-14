@@ -117,6 +117,7 @@ const RemoteContent = (props: RemoteContentProps): ReactElement | null => {
       setSupportMultipleWindows={false}
       style={{
         height: webViewHeight,
+
         opacity: 0.99, // fixes crashing in Android https://github.com/react-native-webview/react-native-webview/issues/811
       }}
     />

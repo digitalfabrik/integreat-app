@@ -82,6 +82,15 @@ describe('openExternalUrl', () => {
     expect(Linking.openURL).toHaveBeenLastCalledWith(url)
   })
 
+  it('should show snackbar for https://integreat.app urls if inapp browser is not available', async () => {
+    const url = 'https://integreat.app'
+    mocked(InAppBrowser.isAvailable).mockImplementation(async () => false)
+    await openExternalUrl(url, showSnackbar)
+    expect(InAppBrowser.open).not.toHaveBeenCalled()
+    expect(Linking.openURL).not.toHaveBeenCalled()
+    expect(showSnackbar).toHaveBeenCalled()
+  })
+
   it('should open non http urls with react native linking if possible', async () => {
     const url = 'mailto:som.enice@ma.il'
     await openExternalUrl(url, showSnackbar)

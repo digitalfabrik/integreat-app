@@ -1,0 +1,5 @@
+issue_key: 2491
+show_in_stores: false
+platforms:
+  - web
+en: Make paddings and icons in poi details consistent.

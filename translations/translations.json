@@ -391,7 +391,9 @@
       "chooseALanguage": "Wähle eine Sprache.",
       "lastUpdate": "Letzte Aktualisierung:",
       "loading": "Lade ...",
-      "close": "Schließen"
+      "close": "Schließen",
+      "showMore": "Mehr anzeigen",
+      "showLess": "Weniger anzeigen"
     },
     "am": {
       "copied": "ተቀድቷል",
@@ -454,7 +456,9 @@
       "chooseALanguage": "Choose a language.",
       "lastUpdate": "Last update:",
       "loading": "Loading ...",
-      "close": "Close"
+      "close": "Close",
+      "showMore": "Show more",
+      "showLess": "Show less"
     },
     "es": {
       "copied": "Copiado",
@@ -2470,7 +2474,7 @@
       "headline": "Wie findest du diese Seite?",
       "description": "Wähle eine Reaktion aus und/oder schreibe einen Kommentar.",
       "commentHeadline": "Kommentar",
-      "commentDescription": "Teile uns dein Feedback mit! Wir schätzen sowohl positives als auch negatives Feedback, da es uns hilft, Integreat zu verbessern.",
+      "commentDescription": "Teile uns dein Feedback mit! Wir schätzen sowohl positives als auch negatives Feedback, da es uns hilft, {{appName}} zu verbessern.",
       "isThisSiteUseful": "Ist diese Seite hilfreich?",
       "useful": "Hilfreich",
       "notUseful": "Nicht hilfreich",
@@ -2483,7 +2487,8 @@
       "positiveRating": "Diese Seite ist hilfreich",
       "contactMailAddress": "E-Mail für Rückfragen",
       "optionalInfo": "optional",
-      "note": "Bitte wähle eine Reaktion oder schreibe einen Kommentar, um das Feedback abschicken zu können."
+      "note": "Bitte wähle eine Reaktion oder schreibe einen Kommentar, um das Feedback abschicken zu können.",
+      "searchTermDescription": "Für den folgenden Begriff konnte kein Ergebnis gefunden werden:"
     },
     "am": {
       "disclaimer": "የግንኙነት መረጃና ዕትም",
@@ -5490,173 +5495,139 @@
   "offers": {
     "de": {
       "offers": "Angebote",
-      "pageTitle": "Angebote",
-      "wohnraum": "Wohnraum"
+      "pageTitle": "Angebote"
     },
     "am": {
       "offers": "ግብዣዎች/ መጥሪያዎች",
-      "pageTitle": "ግብዣዎች/ መጥሪያዎች",
-      "wohnraum": "መኖሪያ ቤት"
+      "pageTitle": "ግብዣዎች/ መጥሪያዎች"
     },
     "ar": {
       "offers": "العروض",
-      "pageTitle": "العروض",
-      "wohnraum": "غرفة المعيشة"
+      "pageTitle": "العروض"
     },
     "bg": {
       "offers": "Оферти",
-      "pageTitle": "Оферти",
-      "wohnraum": "Жилище"
+      "pageTitle": "Оферти"
     },
     "ckb": {
       "offers": "پێشنیارەکان",
-      "pageTitle": "پێشنیارەکان",
-      "wohnraum": "جەوی ژیان"
+      "pageTitle": "پێشنیارەکان"
     },
     "cs": {
       "offers": "Nabídky",
-      "pageTitle": "Nabídky",
-      "wohnraum": "Obytný prostor"
+      "pageTitle": "Nabídky"
     },
     "el": {
       "offers": "Προσφορές",
-      "pageTitle": "Προσφορές",
-      "wohnraum": "Κατοικία"
+      "pageTitle": "Προσφορές"
     },
     "en": {
       "offers": "Offers",
-      "pageTitle": "Offers",
-      "wohnraum": "Housing"
+      "pageTitle": "Offers"
     },
     "es": {
       "offers": "Ofertas",
-      "pageTitle": "Ofertas",
-      "wohnraum": "Vivienda"
+      "pageTitle": "Ofertas"
     },
     "fi": {
       "offers": "Tarjoukset",
-      "pageTitle": "Tarjoukset",
-      "wohnraum": "Asuinalue"
+      "pageTitle": "Tarjoukset"
     },
     "fr": {
       "offers": "Offres",
-      "pageTitle": "Offres",
-      "wohnraum": "Espace vital"
+      "pageTitle": "Offres"
     },
     "hr": {
       "offers": "Ponude",
-      "pageTitle": "Ponude",
-      "wohnraum": "Stambeni prostor"
+      "pageTitle": "Ponude"
     },
     "hu": {
       "offers": "Ajánlatok",
-      "pageTitle": "Ajánlatok",
-      "wohnraum": "Lakóterület"
+      "pageTitle": "Ajánlatok"
     },
     "it": {
       "offers": "Offerte",
-      "pageTitle": "Offerte",
-      "wohnraum": "Vano"
+      "pageTitle": "Offerte"
     },
     "ka": {
       "offers": "შეთავაზებები",
-      "pageTitle": "შეთავაზებები",
-      "wohnraum": "საცხოვრებელი ოთახი"
+      "pageTitle": "შეთავაზებები"
     },
     "kmr": {
       "offers": "Xizmet",
-      "pageTitle": "Xizmet",
-      "wohnraum": "Atmosfera jiyanê"
+      "pageTitle": "Xizmet"
     },
     "mk": {
       "offers": "Понуди",
-      "pageTitle": "Понуди",
-      "wohnraum": "Станбен простор"
+      "pageTitle": "Понуди"
     },
     "nl": {
       "offers": "Aanbod",
-      "pageTitle": "Aanbod",
-      "wohnraum": "Huisvesting"
+      "pageTitle": "Aanbod"
     },
     "pes": {
       "offers": "خدمات",
-      "pageTitle": "پیشنهادات",
-      "wohnraum": "مسکن"
+      "pageTitle": "پیشنهادات"
     },
     "pl": {
       "offers": "Oferty",
-      "pageTitle": "Oferty",
-      "wohnraum": "Zakwaterowania"
+      "pageTitle": "Oferty"
     },
     "prs": {
       "offers": "پیشنهادات",
-      "pageTitle": "پیشنهادات",
-      "wohnraum": "مسکن"
+      "pageTitle": "پیشنهادات"
     },
     "ps": {
       "offers": "وړاندیزونه",
-      "pageTitle": "وړاندیزونه",
-      "wohnraum": "د اوسیدلو کوټہ"
+      "pageTitle": "وړاندیزونه"
     },
     "pt": {
       "offers": "Ofertas",
-      "pageTitle": "Ofertas",
-      "wohnraum": "Habitaciones"
+      "pageTitle": "Ofertas"
     },
     "ro": {
       "offers": "Oferte",
-      "pageTitle": "Oferte",
-      "wohnraum": "Spațiu de locuit"
+      "pageTitle": "Oferte"
     },
     "ru": {
       "offers": "Предложения",
-      "pageTitle": "Предложения",
-      "wohnraum": "Жильё"
+      "pageTitle": "Предложения"
     },
     "so": {
       "offers": "Heshiisyo",
-      "pageTitle": "Heshiisyo",
-      "wohnraum": "Qolka fadhiga"
+      "pageTitle": "Heshiisyo"
     },
     "sq": {
       "offers": "Ofertat",
-      "pageTitle": "Ofertat",
-      "wohnraum": "Vendbanimi"
+      "pageTitle": "Ofertat"
     },
     "sr-Cyrl": {
       "offers": "Понуде",
-      "pageTitle": "Понуде",
-      "wohnraum": "Стамбени простор"
+      "pageTitle": "Понуде"
     },
     "sr-Latn": {
       "offers": "Ponude",
-      "pageTitle": "Ponude",
-      "wohnraum": "Stambeni prostor"
+      "pageTitle": "Ponude"
     },
     "ti": {
       "offers": "ውዕላት",
-      "pageTitle": "ውዕላት",
-      "wohnraum": "መንበሪ ገዛ"
+      "pageTitle": "ውዕላት"
     },
     "tr": {
       "offers": "Teklifler",
-      "pageTitle": "Teklifler",
-      "wohnraum": "Oturma odası"
+      "pageTitle": "Teklifler"
     },
     "uk": {
       "offers": "Пропозиції",
-      "pageTitle": "Пропозиції",
-      "wohnraum": "Житло"
+      "pageTitle": "Пропозиції"
     },
     "ur": {
       "offers": "پیش کشیں",
-      "pageTitle": "پیش کشیں",
-      "wohnraum": "رابطہ کی تفصیلات"
+      "pageTitle": "پیش کشیں"
     },
     "zh-CN": {
       "offers": "提供项目",
-      "pageTitle": "提供项目",
-      "wohnraum": "居住空间"
+      "pageTitle": "提供项目"
     }
   },
   "pois": {

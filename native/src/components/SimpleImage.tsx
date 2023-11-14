@@ -1,5 +1,6 @@
 import React, { ReactElement, useMemo } from 'react'
 import { Image, View, StyleProp, ImageStyle, ImageResizeMode, Platform } from 'react-native'
+import { SvgCssUri } from 'react-native-svg'
 import styled from 'styled-components/native'
 
 const StyledImage = styled.Image<{ aspectRatio?: number }>`
@@ -32,7 +33,7 @@ const SimpleImage = ({
 }: SimpleImageProps): ReactElement => {
   const aspectRatio = useMemo(() => {
     let value: undefined | number
-    if (typeof source === 'string') {
+    if (typeof source === 'string' && !source.endsWith('.svg')) {
       Image.getSize(getLocalPlatformFilepath(source), (width, height) => {
         value = width / height
       })
@@ -46,6 +47,10 @@ const SimpleImage = ({
 
   if (typeof source === 'number') {
     return <Image source={source} resizeMode={resizeMode} style={style} />
+  }
+
+  if (source.endsWith('.svg')) {
+    return <SvgCssUri uri={getLocalPlatformFilepath(source)} style={style} />
   }
 
   return (

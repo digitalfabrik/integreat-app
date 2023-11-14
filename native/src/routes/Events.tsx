@@ -6,6 +6,7 @@ import styled from 'styled-components/native'
 import { CityModel, EventModel, EVENTS_ROUTE, fromError, NotFoundError, RouteInformationType } from 'api-client'
 
 import Caption from '../components/Caption'
+import DatesPageDetail from '../components/DatesPageDetail'
 import EventListItem from '../components/EventListItem'
 import ExportEventButton from '../components/ExportEventButton'
 import Failure from '../components/Failure'
@@ -18,6 +19,10 @@ import PageDetail from '../components/PageDetail'
 const Separator = styled.View`
   border-top-width: 2px;
   border-top-color: ${props => props.theme.colors.themeColor};
+`
+
+const PageDetailsContainer = styled.View`
+  gap: 8px;
 `
 
 export type EventsProps = {
@@ -47,9 +52,7 @@ const Events = ({ cityModel, language, navigateTo, events, slug, refresh }: Even
   }
 
   if (slug) {
-    // TODO #2031: Remove workaround of looking up path until '$'
-    const event =
-      events.find(it => it.slug === slug) ?? events.find(it => it.slug.substring(0, it.slug.indexOf('$')) === slug)
+    const event = events.find(it => it.slug === slug)
 
     if (event) {
       return (
@@ -61,16 +64,12 @@ const Events = ({ cityModel, language, navigateTo, events, slug, refresh }: Even
             language={language}
             path={event.path}
             BeforeContent={
-              <>
-                <PageDetail
-                  identifier={t('date_one')}
-                  information={event.date.toFormattedString(language)}
-                  language={language}
-                />
+              <PageDetailsContainer>
+                <DatesPageDetail date={event.date} languageCode={language} />
                 {event.location && (
                   <PageDetail identifier={t('address')} information={event.location.fullAddress} language={language} />
                 )}
-              </>
+              </PageDetailsContainer>
             }
             Footer={<ExportEventButton event={event} />}
           />

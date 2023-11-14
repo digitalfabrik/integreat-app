@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
 
 import { SadSmileyIcon, NoteIcon, HappySmileyIcon } from '../assets'
+import buildConfig from '../constants/buildConfig'
 import dimensions from '../constants/dimensions'
 import { SendingState } from './FeedbackContainer'
 import TextInput from './TextInput'
@@ -10,7 +11,7 @@ import Icon from './base/Icon'
 import TextButton from './base/TextButton'
 import ToggleButton from './base/ToggleButton'
 
-export const Container = styled.div`
+export const Container = styled.div<{ fullWidth?: boolean }>`
   display: flex;
   flex: 1;
   max-height: 80vh;
@@ -23,8 +24,10 @@ export const Container = styled.div`
   font-size: ${props => props.theme.fonts.contentFontSize};
   overflow: auto;
   align-self: center;
+  gap: ${props => (props.fullWidth ? '5px' : 0)};
+
   @media ${dimensions.mediumLargeViewport} {
-    width: 400px;
+    width: ${props => (props.fullWidth ? 'auto' : '400px')};
   }
 `
 
@@ -80,50 +83,64 @@ type FeedbackProps = {
   onFeedbackChanged: (isPositiveFeedback: boolean | null) => void
   onSubmit: () => void
   sendingStatus: SendingState
+  searchTerm?: string
+  setSearchTerm: (newTerm: string) => void
 }
 
-const Feedback = (props: FeedbackProps): ReactElement => {
-  const {
-    isPositiveFeedback,
-    isSearchFeedback,
-    comment,
-    contactMail,
-    sendingStatus,
-    onSubmit,
-    onCommentChanged,
-    onContactMailChanged,
-    onFeedbackChanged,
-  } = props
+const Feedback = ({
+  isPositiveFeedback,
+  isSearchFeedback,
+  comment,
+  contactMail,
+  sendingStatus,
+  onSubmit,
+  onCommentChanged,
+  onContactMailChanged,
+  onFeedbackChanged,
+  searchTerm,
+  setSearchTerm,
+}: FeedbackProps): ReactElement => {
   const { t } = useTranslation('feedback')
 
   const description = isSearchFeedback ? 'wantedInformation' : 'commentHeadline'
-  const sendFeedbackDisabled = isPositiveFeedback === null && comment.trim().length === 0
+  const sendFeedbackDisabled = isPositiveFeedback === null && comment.trim().length === 0 && !isSearchFeedback
 
   return (
-    <Container>
-      <TextContainer>
-        <div>{t('description')}</div>
-      </TextContainer>
-      <ButtonContainer>
-        <ToggleButton
-          onClick={() => onFeedbackChanged(isPositiveFeedback ? null : true)}
-          active={isPositiveFeedback === true}
-          icon={HappySmileyIcon}
-          text={t('useful')}
-        />
-        <ToggleButton
-          onClick={() => onFeedbackChanged(isPositiveFeedback === false ? null : false)}
-          active={isPositiveFeedback === false}
-          icon={SadSmileyIcon}
-          text={t('notUseful')}
-        />
-      </ButtonContainer>
+    <Container fullWidth={isSearchFeedback}>
+      {isSearchFeedback ? (
+        <>
+          <TextContainer>
+            <Description htmlFor='searchTerm'>{t('searchTermDescription')}</Description>
+          </TextContainer>
+          <TextInput id='searchTerm' value={searchTerm} onChange={event => setSearchTerm(event.target.value)} />
+        </>
+      ) : (
+        <>
+          <TextContainer>
+            <div>{t('description')}</div>
+          </TextContainer>
+          <ButtonContainer>
+            <ToggleButton
+              onClick={() => onFeedbackChanged(isPositiveFeedback ? null : true)}
+              active={isPositiveFeedback === true}
+              icon={HappySmileyIcon}
+              text={t('useful')}
+            />
+            <ToggleButton
+              onClick={() => onFeedbackChanged(isPositiveFeedback === false ? null : false)}
+              active={isPositiveFeedback === false}
+              icon={SadSmileyIcon}
+              text={t('notUseful')}
+            />
+          </ButtonContainer>
+        </>
+      )}
       <TextContainer>
         <Description htmlFor='comment'>{t(description)}</Description>
         <div>({t('optionalInfo')})</div>
       </TextContainer>
       <TextContainer>
-        <div>{t('commentDescription')}</div>
+        <div>{t('commentDescription', { appName: buildConfig().appName })}</div>
       </TextContainer>
       <CommentField id='comment' rows={7} value={comment} onChange={event => onCommentChanged(event.target.value)} />
       <TextContainer>
@@ -141,10 +158,12 @@ const Feedback = (props: FeedbackProps): ReactElement => {
         <ErrorSendingStatus role='alert'>{t('failedSendingFeedback')}</ErrorSendingStatus>
       )}
 
-      <NoteContainer showContainer={sendFeedbackDisabled}>
-        <Icon src={NoteIcon} />
-        <NoteText>{t('note')}</NoteText>
-      </NoteContainer>
+      {!isSearchFeedback && (
+        <NoteContainer showContainer={sendFeedbackDisabled}>
+          <Icon src={NoteIcon} />
+          <NoteText>{t('note')}</NoteText>
+        </NoteContainer>
+      )}
 
       <TextButton disabled={sendFeedbackDisabled} onClick={onSubmit} text={t('send')} />
     </Container>

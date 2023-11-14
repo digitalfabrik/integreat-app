@@ -5,6 +5,7 @@ import { useTheme } from 'styled-components'
 import styled from 'styled-components/native'
 
 import { NoteIcon } from '../assets'
+import buildConfig from '../constants/buildConfig'
 import useNavigate from '../hooks/useNavigate'
 import Caption from './Caption'
 import FeedbackButtons from './FeedbackButtons'
@@ -19,13 +20,16 @@ const Input = styled(TextInput)`
   text-align-vertical: top;
   color: ${props => props.theme.colors.textColor};
 `
+
 const CommentInput = styled(Input)`
   height: 100px;
 `
+
 const Wrapper = styled.View`
   padding: 20px;
   background-color: ${props => props.theme.colors.backgroundColor};
 `
+
 const HeadlineContainer = styled.View`
   display: flex;
   flex-direction: row;
@@ -39,14 +43,17 @@ const DescriptionContainer = styled.View`
   justify-content: space-between;
   margin: 12px 0;
 `
+
 const ThemedText = styled.Text`
   display: flex;
   text-align: center;
   color: ${props => props.theme.colors.textColor};
   font-family: ${props => props.theme.fonts.native.decorativeFontRegular};
 `
+
 const Description = styled(ThemedText)`
   font-weight: bold;
+  text-align: left;
 `
 
 const NoteBox = styled.View<{ visible: boolean }>`
@@ -83,6 +90,8 @@ export type FeedbackProps = {
   isPositiveFeedback: boolean | null
   setIsPositiveFeedback: (isPositive: boolean | null) => void
   onSubmit: () => void
+  searchTerm?: string
+  setSearchTerm: (newTerm: string) => void
 }
 
 const Feedback = ({
@@ -95,28 +104,41 @@ const Feedback = ({
   onFeedbackContactMailChanged,
   onCommentChanged,
   onSubmit,
+  searchTerm,
+  setSearchTerm,
 }: FeedbackProps): ReactElement => {
   const { t } = useTranslation('feedback')
   const theme = useTheme()
   const navigation = useNavigate().navigation
 
-  const submitDisabled = isPositiveFeedback === null && comment.trim().length === 0
+  const submitDisabled = isPositiveFeedback === null && comment.trim().length === 0 && !isSearchFeedback
 
   const renderBox = (): React.ReactNode => {
     if (['idle', 'failed'].includes(sendingStatus)) {
       return (
         <>
-          <Caption title={t(isSearchFeedback ? 'informationNotFound' : 'headline')} />
-          <DescriptionContainer>
-            <Text>{t('description')}</Text>
-          </DescriptionContainer>
-          <FeedbackButtons isPositiveFeedback={isPositiveFeedback} setIsPositiveFeedback={setIsPositiveFeedback} />
+          {isSearchFeedback ? (
+            <>
+              <HeadlineContainer>
+                <Description>{t('searchTermDescription')}</Description>
+              </HeadlineContainer>
+              <Input value={searchTerm} onChangeText={setSearchTerm} />
+            </>
+          ) : (
+            <>
+              <Caption title={t('headline')} />
+              <DescriptionContainer>
+                <Text>{t('description')}</Text>
+              </DescriptionContainer>
+              <FeedbackButtons isPositiveFeedback={isPositiveFeedback} setIsPositiveFeedback={setIsPositiveFeedback} />
+            </>
+          )}
           <HeadlineContainer>
             <Description>{t('commentHeadline')}</Description>
             <Text>({t('optionalInfo')})</Text>
           </HeadlineContainer>
           <DescriptionContainer>
-            <Text>{t('commentDescription')}</Text>
+            <Text>{t('commentDescription', { appName: buildConfig().appName })}</Text>
           </DescriptionContainer>
           <CommentInput onChangeText={onCommentChanged} value={comment} multiline numberOfLines={3} />
           <HeadlineContainer>

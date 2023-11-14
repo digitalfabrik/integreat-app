@@ -15,6 +15,7 @@ import {
   WebsiteIcon,
 } from '../assets'
 import dimensions from '../constants/dimensions'
+import { helpers } from '../constants/theme'
 import useWindowDimensions from '../hooks/useWindowDimensions'
 import CleanLink from './CleanLink'
 import Collapsible from './Collapsible'
@@ -29,12 +30,14 @@ const DetailsContainer = styled.div`
 `
 
 const StyledIcon = styled(Icon)`
-  width: 20px;
-  height: 20px;
   flex-shrink: 0;
-  padding: 0 8px;
   object-fit: contain;
   align-self: center;
+`
+
+const StyledExternalLinkIcon = styled(StyledIcon)`
+  width: 16px;
+  height: 16px;
 `
 
 const Thumbnail = styled.img`
@@ -52,40 +55,25 @@ const Thumbnail = styled.img`
 `
 
 const Distance = styled.div`
-  font-size: clamp(
-    ${props => props.theme.fonts.adaptiveFontSizeSmall.min},
-    ${props => props.theme.fonts.adaptiveFontSizeSmall.value},
-    ${props => props.theme.fonts.adaptiveFontSizeSmall.max}
-  );
+  ${helpers.adaptiveFontSize};
 `
 
 const Category = styled.div`
-  font-size: clamp(
-    ${props => props.theme.fonts.adaptiveFontSizeSmall.min},
-    ${props => props.theme.fonts.adaptiveFontSizeSmall.value},
-    ${props => props.theme.fonts.adaptiveFontSizeSmall.max}
-  );
+  ${helpers.adaptiveFontSize};
   color: ${props => props.theme.colors.textSecondaryColor};
   margin-top: 8px;
 `
 
 const AddressContentWrapper = styled.div`
   display: flex;
-  font-size: clamp(
-    ${props => props.theme.fonts.adaptiveFontSizeSmall.min},
-    ${props => props.theme.fonts.adaptiveFontSizeSmall.value},
-    ${props => props.theme.fonts.adaptiveFontSizeSmall.max}
-  );
+  ${helpers.adaptiveFontSize};
+  gap: 8px;
 `
 
 const AddressContent = styled.div`
   display: flex;
   flex-direction: column;
-  font-size: clamp(
-    ${props => props.theme.fonts.adaptiveFontSizeSmall.min},
-    ${props => props.theme.fonts.adaptiveFontSizeSmall.value},
-    ${props => props.theme.fonts.adaptiveFontSizeSmall.max}
-  );
+  ${helpers.adaptiveFontSize};
 
   @media ${dimensions.smallViewport} {
     align-self: center;
@@ -100,26 +88,18 @@ const Heading = styled.div`
 const Subheading = styled.div`
   margin: 12px 0;
   font-weight: 700;
-  font-size: clamp(
-    ${props => props.theme.fonts.adaptiveFontSizeSmall.min},
-    ${props => props.theme.fonts.adaptiveFontSizeSmall.value},
-    ${props => props.theme.fonts.adaptiveFontSizeSmall.max}
-  );
+  ${helpers.adaptiveFontSize};
 `
 
-const LinkContainer = styled.div`
+const Link = styled(CleanLink)`
   display: flex;
-  margin: 16px 0;
+  margin-top: 16px;
+  gap: 8px;
 `
 
 const LinkLabel = styled.span`
   color: #0b57d0;
-  padding-right: 8px;
-  font-size: clamp(
-    ${props => props.theme.fonts.adaptiveFontSizeSmall.min},
-    ${props => props.theme.fonts.adaptiveFontSizeSmall.value},
-    ${props => props.theme.fonts.adaptiveFontSizeSmall.max}
-  );
+  ${helpers.adaptiveFontSize};
   align-self: flex-end;
 `
 
@@ -182,18 +162,16 @@ const PoiDetails = ({ feature, poi, direction, toolbar }: PoiDetailsProps): Reac
             </span>
           </AddressContent>
         </AddressContentWrapper>
-        <LinkContainer>
-          <CleanLink to={externalMapsLink} newTab>
-            {!viewportSmall && <LinkLabel>{t('detailsMapLink')}</LinkLabel>}
-            <StyledIcon src={ExternalLinkIcon} directionDependent />
-          </CleanLink>
-        </LinkContainer>
+        <Link to={externalMapsLink} newTab>
+          {!viewportSmall && <LinkLabel>{t('detailsMapLink')}</LinkLabel>}
+          <StyledExternalLinkIcon src={ExternalLinkIcon} directionDependent />
+        </Link>
       </DetailSection>
       {(!!website || !!phoneNumber || !!email) && (
         <>
           <Spacer borderColor={theme.colors.borderColor} />
-          <Collapsible title={t('contactInformation')} direction={direction}>
-            <>
+          <Collapsible title={t('contactInformation')}>
+            <div>
               {!!website && (
                 <ContactItem iconSrc={WebsiteIcon} iconAlt={t('website')} link={website} content={website} />
               )}
@@ -208,7 +186,7 @@ const PoiDetails = ({ feature, poi, direction, toolbar }: PoiDetailsProps): Reac
               {!!email && (
                 <ContactItem iconSrc={MailIcon} iconAlt={t('eMail')} link={`mailto:${email}`} content={email} />
               )}
-            </>
+            </div>
           </Collapsible>
         </>
       )}
@@ -226,7 +204,7 @@ const PoiDetails = ({ feature, poi, direction, toolbar }: PoiDetailsProps): Reac
       {content.length > 0 && (
         <>
           <Spacer borderColor={theme.colors.borderColor} />
-          <Collapsible title={t('detailsInformation')} direction={direction}>
+          <Collapsible title={t('detailsInformation')}>
             <RemoteContent html={content} onInternalLinkClick={navigate} smallText />
           </Collapsible>
         </>
