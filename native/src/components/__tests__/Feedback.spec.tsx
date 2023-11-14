@@ -7,6 +7,9 @@ import Feedback from '../Feedback'
 
 jest.mock('styled-components')
 jest.mock('react-i18next')
+jest.mock('react-native-keyboard-aware-scroll-view', () => ({
+  KeyboardAwareScrollView: ({ children }: { children: React.ReactNode }) => children,
+}))
 
 describe('Feedback', () => {
   beforeEach(() => {
