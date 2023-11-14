@@ -42,6 +42,12 @@
       "organizationContent": "Τα περιεχόμενα αυτής της σελίδας προέρχονται από την {{organization}}.",
       "organizationMoreInformation": "Μπορείτε να βρείτε περισσότερες πληροφορίες σχετικά με την <1>{{organization}}</1> στη διεύθυνση <3>{{domain}}</3>."
     },
+    "en": {
+      "createPdf": "Create a PDF",
+      "metaDescription": "{{appName}} is your digital guide to life in Germany. Discover local information, events and advice. Always up to date and available in your own language.",
+      "organizationContent": "The contents of this page are from {{organization}}.",
+      "organizationMoreInformation": "You can find more information about <1>{{organization}}</1> on <3>{{domain}}</3>."
+    },
     "es": {
       "createPdf": "Crear PDF",
       "metaDescription": "{{appName}} es tu guía digital de Alemania. Encuentra información local, eventos y consejos. Siempre al día y en tu idioma.",
@@ -255,6 +261,14 @@
       "findOutMail": "Μάθετε τη διεύθυνση e-mail στην περιοχή σας",
       "sendText": "Αντιγράψτε αυτό το κείμενο, συμπληρώστε το περιεχόμενο [ ] με τα στοιχεία σας και στείλτε το",
       "copyText": "Αντιγραφή κειμένου"
+    },
+    "en": {
+      "callToAction": "Suggest your region to Integreat!",
+      "explanation": "This charitable concept of the Integreat-App has convinced you and you think that also your town,\nyour district or your community could benefit from this digital solution? In this case you can simply become active here now.",
+      "whatToDo": "This is what you can do:",
+      "findOutMail": "Get the e-mail address of your region",
+      "sendText": "Copy this text, complete the [ ]-contents with your details and send off",
+      "copyText": "Copy text"
     },
     "es": {
       "callToAction": "¡Proponga Integreat en su región!",
@@ -528,6 +542,15 @@
       "lastUpdate": "Τελευταία ενημέρωση:",
       "loading": "Φόρτωση ...",
       "close": "Κλείσιμο"
+    },
+    "en": {
+      "copied": "Copied",
+      "moreOptions": "More options",
+      "languageNotAvailable": "Sorry, but your language is not available here.",
+      "chooseALanguage": "Choose a language.",
+      "lastUpdate": "Last update:",
+      "loading": "Loading ...",
+      "close": "Close"
     },
     "es": {
       "copied": "Copiado",
@@ -813,6 +836,13 @@
       "news": "Ειδήσεις",
       "pois": "Χάρτης"
     },
+    "en": {
+      "localInformation": "Local information",
+      "offers": "Offers",
+      "events": "Events",
+      "news": "News",
+      "pois": "Map"
+    },
     "es": {
       "localInformation": "Información local",
       "offers": "Ofertas",
@@ -1017,6 +1047,9 @@
     },
     "el": {
       "pageTitle": "Στοιχεία έκδοσης και επικοινωνία"
+    },
+    "en": {
+      "pageTitle": "Imprint and contacts"
     },
     "es": {
       "pageTitle": "Aviso legal y contacto"
@@ -1349,6 +1382,42 @@
       "languageSwitchFailedMessage": "Η επιλεγμένη γλώσσα δεν είναι διαθέσιμη εκτός σύνδεσης. Απαιτείται ενεργή σύνδεση στο Διαδίκτυο.",
       "noCalendarPermission": "Δεν επιτρέπεται η πρόσβαση στο ημερολόγιο.",
       "noCalendarFound": "Δεν βρέθηκε κατάλληλο ημερολόγιο."
+    },
+    "en": {
+      "notFound": {
+        "language": "Sorry, but this language is not available here.",
+        "city": "Sorry this region was not found.",
+        "category": "Sorry, but the requested page could not be found.",
+        "event": "Sorry, but this event could not be found.",
+        "offer": "Sorry, but this offer could not be found.",
+        "poi": "Sorry, this place was not found.",
+        "news": "Sorry, but this message could not be found.",
+        "pageTitle": "Page not found"
+      },
+      "pageNotFound": "Sorry, but the requested page could not be found.",
+      "noSuitableAppInstalled": "No suitable app installed.",
+      "networkConnectionFailed": "The connection to the server failed.",
+      "networkRequestFailed": "The request could not be processed.",
+      "responseMappingFailed": "An error occurred while processing the server's response.",
+      "unknownError": "An unknown error occurred.",
+      "tryAgain": "Try again",
+      "loadingFailed": "Sorry, but the requested page could not be loaded.",
+      "chooseALanguage": "Choose a language:",
+      "goTo": {
+        "start": "Go to the homepage",
+        "categories": "Go to categories",
+        "events": "Go to events",
+        "offers": "Go to offers",
+        "pois": "Go to map",
+        "news": "Go to news"
+      },
+      "pageTitle": "Error",
+      "generalError": "An error occurred",
+      "notSupportedByDevice": "This function is not supported on this device.",
+      "languageSwitchFailedTitle": "Unfortunately, changing the language failed.",
+      "languageSwitchFailedMessage": "The selected language is not available if you are offline. An active internet connection is required.",
+      "noCalendarPermission": "Access to the calendar is not permitted.",
+      "noCalendarFound": "No suitable calendar was found."
     },
     "es": {
       "notFound": {
@@ -2426,6 +2495,26 @@
       "today": "σήμερα",
       "todayRecurring": "σήμερα, επαναλαμβάνεται"
     },
+    "en": {
+      "address": "Address",
+      "date_one": "Date",
+      "date_other": "Dates",
+      "nextDate_one": "Next date",
+      "nextDate_other": "Next dates",
+      "events": "Events",
+      "exportAsICal": "Export as iCal",
+      "addToCalendar": "Add to calendar",
+      "currentlyNoEvents": "No events are currently available.",
+      "pageTitle": "Events",
+      "chooseCalendar": "Choose a calendar",
+      "added": "Added",
+      "goToCalendar": "Go to calendar",
+      "back": "Back",
+      "settings": "Settings",
+      "recurring": "recurring",
+      "today": "today",
+      "todayRecurring": "today, recurring"
+    },
     "es": {
       "address": "Dirección",
       "date_one": "Fecha",
@@ -3096,6 +3185,29 @@
       "optionalInfo": "προαιρετικό",
       "note": "Παρακαλούμε επιλέξτε μια αντίδραση ή γράψτε ένα σχόλιο για να μπορέσετε να στείλετε το σχόλιο."
     },
+    "en": {
+      "disclaimer": "Contacts and imprint",
+      "send": "Send",
+      "failedSendingFeedback": "An error occurred while sending the feedback.",
+      "feedback": "Feedback",
+      "headline": "What do you think of this page?",
+      "description": "Select a reaction and/or write a comment.",
+      "commentHeadline": "Comment",
+      "commentDescription": "Share your feedback with us! We welcome both positive and negative feedback, as it helps us to improve Integreat.",
+      "isThisSiteUseful": "Is this site useful?",
+      "useful": "Useful",
+      "notUseful": "Not useful",
+      "informationNotFound": "Not found what you were looking for?",
+      "wantedInformation": "What information is missing?",
+      "feedbackSent": "Feedback sent",
+      "thanksHeadline": "Thank you very much for your feedback.",
+      "thanksMessage": "Your feedback has been sent successfully.",
+      "negativeRating": "This site is not useful",
+      "positiveRating": "This site is useful",
+      "contactMailAddress": "E-Mail for further questions",
+      "optionalInfo": "optional",
+      "note": "Please select a reaction or write a comment in order to send feedback."
+    },
     "es": {
       "disclaimer": "Contacto y aviso legal",
       "send": "Enviar",
@@ -3429,6 +3541,7 @@
       "informationNotFound": "Não encontrou o que precisava?",
       "wantedInformation": "Que informações estão em falta?",
       "feedbackSent": "Comentário enviado",
+      "thanksMessage": "Agradecemos o seu comentário. Com ele, está a ajudar-nos a melhorar os nossos conteúdos e a aplicação {{appName}}. Gostaríamos de receber mais comentários.",
       "negativeRating": "Esta página não é útil",
       "positiveRating": "Esta página é útil",
       "contactMailAddress": "Endereço de correio eletrónico para pedidos de informação",
@@ -3779,6 +3892,19 @@
       "offersDescription": "Αναζήτηση εργασίας, αναζήτηση πρακτικής και πολλά άλλα στην περιοχή",
       "skip": "Παραλείπω",
       "next": "Συνέχεια"
+    },
+    "en": {
+      "appDescription": "{{appName}} is your digital guide to life in Germany",
+      "search": "Search",
+      "searchDescription": "Find the right information based on keywords",
+      "languageChange": "Changing the language",
+      "languageChangeDescription": "Changing the language on individual pages is simple",
+      "events": "Events",
+      "eventsDescription": "Current events and dates in the surrounding area",
+      "offers": "Offers",
+      "offersDescription": "Job search, internship search and more in the area",
+      "skip": "Skip",
+      "next": "Continue"
     },
     "es": {
       "appDescription": "{{appName}} es su guía digital para Alemania",
@@ -4239,6 +4365,23 @@
       "cityNotFound": "Δεν μπορείτε να βρείτε την περιοχή σας;",
       "clickHere": "Κάντε κλικ εδώ"
     },
+    "en": {
+      "searchCity": "Search",
+      "noCitiesFound": "No results",
+      "nearbyCities": "In the vicinity",
+      "noNearbyCities": "No region found in the vicinity.",
+      "alert": "Note",
+      "locationError": "To display regions in the vicinity, tracking services must be activated.",
+      "noPermission": "Location access required",
+      "loading": "Determining location...",
+      "notAvailable": "Location determination is deactivated",
+      "timeout": "Location determination failed",
+      "refresh": "Update list of regions close-by",
+      "pageTitle": "Local Information for You",
+      "metaDescription": "{{appName}} is your digital guide to life in Germany. Discover local information, events and advice. Always up to date and available in your own language.",
+      "cityNotFound": "Your region not found?",
+      "clickHere": "Click here"
+    },
     "es": {
       "searchCity": "Búsqueda",
       "noCitiesFound": "Ningún resultado",
@@ -4489,6 +4632,7 @@
       "notAvailable": "A determinação da localização está desativada",
       "timeout": "A determinação da localização falhou",
       "refresh": "Atualizar a lista de regiões próximas",
+      "pageTitle": "Regiões",
       "metaDescription": "A {{appName}} é o seu guia digital da Alemanha. Consulte informações, eventos e conselhos a nível local. Sempre atualizada e disponível no seu idioma.",
       "cityNotFound": "Não encontraste a tua região?",
       "clickHere": "Clica aqui"
@@ -4856,6 +5000,31 @@
       "disclaimer": "Στοιχεία έκδοσης",
       "sideBarOpenAriaLabel": "Ανοίξτε την πλευρική μπάρα",
       "sideBarCloseAriaLabel": "Κλείστε την πλευρική μπάρα"
+    },
+    "en": {
+      "imprintAndContact": "Imprint and contacts",
+      "privacy": "Data protection",
+      "offers": "Offers",
+      "localInformation": "Local information",
+      "events": "Events",
+      "noEvents": "No events",
+      "news": "News",
+      "noLanguages": "Not available in other languages",
+      "noTranslation": "No translation available",
+      "search": "Search",
+      "locations": "Map",
+      "changeLocation": "Change location",
+      "changeLanguage": "Change language",
+      "settings": "Settings",
+      "copyUrl": "Copy link",
+      "feedback": "Feedback",
+      "share": "Share",
+      "cancel": "Cancel",
+      "shareMessage": "Just found: {{message}}",
+      "shareFailDefaultMessage": "Unfortunately an error occurred when sharing the content.",
+      "disclaimer": "Imprint",
+      "sideBarOpenAriaLabel": "Open sidebar",
+      "sideBarCloseAriaLabel": "Close sidebar"
     },
     "es": {
       "imprintAndContact": "Aviso legal y contacto",
@@ -5540,6 +5709,11 @@
       "license": "Άδεια:",
       "noLicensesMessage": "Δεν υπάρχουν διαθέσιμες πληροφορίες άδειας"
     },
+    "en": {
+      "version": "Version:",
+      "license": "License:",
+      "noLicensesMessage": "No license information available"
+    },
     "es": {
       "version": "Versión:",
       "license": "Licencia:",
@@ -5693,6 +5867,9 @@
     "el": {
       "pageTitle": "Στοιχεία έκδοσης και επικοινωνία"
     },
+    "en": {
+      "pageTitle": "Imprint and contacts - {{appName}}"
+    },
     "es": {
       "pageTitle": "Aviso legal y contacto - {{appName}}"
     },
@@ -5807,6 +5984,11 @@
       "NSPhotoLibraryAddUsageDescription": "Για την αποθήκευση εικόνων, είναι απαραίτητη η πρόσβαση του {{appName}} στη συλλογή.",
       "NSLocationWhenInUseUsageDescription": "Για την εύρεση κοντινών τοποθεσιών, είναι απαραίτητη η πρόσβαση του {{appName}} στην τοποθεσία.",
       "NSLocationAlwaysAndWhenInUseUsageDescription": "Για την εύρεση κοντινών τοποθεσιών, είναι απαραίτητη η πρόσβαση του {{appName}} στην τοποθεσία."
+    },
+    "en": {
+      "NSPhotoLibraryAddUsageDescription": "{{appName}} wants to save photos to your library.",
+      "NSLocationWhenInUseUsageDescription": "{{appName}} wants to use your location to find nearby cities.",
+      "NSLocationAlwaysAndWhenInUseUsageDescription": "{{appName}} wants to use your location to find nearby cities."
     },
     "es": {
       "NSPhotoLibraryAddUsageDescription": "Para guardar imágenes, {{appName}} necesita un acceso a la galería.",
@@ -6009,6 +6191,16 @@
       "local": "Τοπικά",
       "readMore": "Διαβάστε παρακάτω",
       "currentlyNoNews": "Προς το παρόν δεν υπάρχουν ειδήσεις."
+    },
+    "en": {
+      "news": "News",
+      "localNews": {
+        "localNews": "Local news",
+        "pageTitle": "Local news"
+      },
+      "local": "Local",
+      "readMore": "Continue",
+      "currentlyNoNews": "There is no news at the moment."
     },
     "es": {
       "news": "Noticias",
@@ -6306,6 +6498,11 @@
       "offers": "Προσφορές",
       "pageTitle": "Προσφορές",
       "wohnraum": "Κατοικία"
+    },
+    "en": {
+      "offers": "Offers",
+      "pageTitle": "Offers",
+      "wohnraum": "Housing"
     },
     "es": {
       "offers": "Ofertas",
@@ -6795,6 +6992,57 @@
       "alphabetLetters": "Α-Ω",
       "clearFilter": "Διαγραφή φίλτρου {{filter}}",
       "showOwnLocation": "Εμφάνιση της τοποθεσίας σας"
+    },
+    "en": {
+      "pageTitle": "Map",
+      "poi": "Place",
+      "pois": "Places",
+      "map": "Map",
+      "showOnMap": "Show on map",
+      "noPois": "No places found.",
+      "unitKilometre": "km",
+      "unitMetre": "m",
+      "distanceKilometre": "{{distance}} km away",
+      "distanceKilometreAlternative": "{{distance}} km",
+      "distanceMetre": "{{distance}} m away ",
+      "distanceMetreAlternative": "{{distance}} m",
+      "contactInformation": "Contact details",
+      "address": "Address",
+      "phone": "Telephone number",
+      "eMail": "E-mail address",
+      "website": "Website",
+      "openingHours": "Opening hours",
+      "description": "Description",
+      "addressCopied": "Address copied to clipboard",
+      "phoneCopied": "Telephone number copied to clipboard",
+      "eMailCopied": "E-mail address copied to clipboard",
+      "websiteCopied": "Website copied to clipboard",
+      "listTitle": "Near you",
+      "detailsHeader": "Back",
+      "detailsAddress": "Directions",
+      "detailsMapLink": "Open in Google Maps",
+      "detailsInformation": "Info",
+      "detailsNextPoi": "Next",
+      "detailsPreviousPoi": "Previous",
+      "openExternalMaps": "Open in maps app",
+      "allDay": "all day",
+      "opened": "open",
+      "closed": "closed",
+      "temporarilyClosed": "temporarily closed",
+      "montag": "Monday",
+      "dienstag": "Tuesday",
+      "mittwoch": "Wednesday",
+      "donnerstag": "Thursday",
+      "freitag": "Friday",
+      "samstag": "Saturday",
+      "sonntag": "Sunday",
+      "adjustFilters": "Filter locations",
+      "onlyCurrentlyOpen": "only show currently open locations",
+      "poiCategories": "Categories",
+      "showPois": "Show locations",
+      "alphabetLetters": "A-Z",
+      "clearFilter": "Delete filter {{filter}}",
+      "showOwnLocation": "Show your own location"
     },
     "es": {
       "pageTitle": "Mapa",
@@ -8159,6 +8407,12 @@
       "pageTitle": "Αναζήτηση",
       "delete": "Διαγραφή καταχώρισης"
     },
+    "en": {
+      "nothingFound": "Sorry, we could not find any matching results.",
+      "searchPlaceholder": "Search",
+      "pageTitle": "Search",
+      "delete": "Delete input"
+    },
     "es": {
       "nothingFound": "No se ha encontrado ningún resultado.",
       "searchPlaceholder": "Búsqueda",
@@ -8454,6 +8708,26 @@
       "enabled": "ενεργοποιήθηκε",
       "disabled": "απενεργοποιήθηκε",
       "decline": "Απόρριψη"
+    },
+    "en": {
+      "sentryTitle": "App stability",
+      "sentryDescription": "Improve the {{appName}} app by automatically sending crash reports",
+      "pushNewsTitle": "Push notifications",
+      "pushNewsDescription": "Receive push notifications for the latest local news",
+      "about": "About {{appName}}",
+      "privacyPolicy": "Data protection policy",
+      "version": "Version: {{version}}",
+      "openSourceLicenses": "Open source licences",
+      "tracking": "J-PAL evaluation",
+      "allowTracking": "Allow tracking",
+      "trackingShortDescription": "Take part in the J-PAL evaluation study to improve {{appName}}.",
+      "trackingMoreInformation": "More information on the J-Pal evaluation and the research purposes",
+      "trackingDescription": "{{appName}} is requesting permission to track your usage within the app. Your data are anonymised and will only be used for research purposes and to improve the app. The tracking data will not be shared or processed for advertising or other commercial purposes.",
+      "trackingLeaveTitle": "Allow tracking?",
+      "trackingLeaveDescription": "You have disabled tracking. Tracking helps us to improve the {{appName}} app and provide better information for immigrants. Are you sure you want to leave the screen without enabling tracking?",
+      "enabled": "activated",
+      "disabled": "deactivated",
+      "decline": "Refuse"
     },
     "es": {
       "sentryTitle": "Estabilidad de la app",
@@ -9019,6 +9293,12 @@
       "whatsappTooltip": "κοινοποίηση στο WhatsApp",
       "closeTooltip": "Έξοδος"
     },
+    "en": {
+      "facebookTooltip": "share on Facebook",
+      "mailTooltip": "recommend via email",
+      "whatsappTooltip": "share in WhatsApp",
+      "closeTooltip": "Close"
+    },
     "es": {
       "facebookTooltip": "compartir en Facebook",
       "mailTooltip": "recomendar por correo electrónico",
@@ -9191,6 +9471,9 @@
     },
     "el": {
       "noOffersAvailable": "Δεν υπάρχουν διαθέσιμες προσφορές"
+    },
+    "en": {
+      "noOffersAvailable": "No offers available"
     },
     "es": {
       "noOffersAvailable": "No hay ofertas disponibles"
