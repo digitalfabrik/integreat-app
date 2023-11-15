@@ -46,6 +46,7 @@ const TextContainer = styled.div`
 
 export const Description = styled.label`
   font-weight: 700;
+  margin-bottom: -12px;
 `
 
 export const ErrorSendingStatus = styled.div`
