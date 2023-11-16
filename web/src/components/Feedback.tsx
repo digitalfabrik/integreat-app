@@ -43,6 +43,9 @@ const TextContainer = styled.div`
   align-items: center;
   padding: 10px 0 5px;
 `
+const CommentDescription = styled.div`
+  margin-top: -10px;
+`
 
 export const Description = styled.label`
   font-weight: 700;
@@ -140,7 +143,7 @@ const Feedback = ({
         <div>({t('optionalInfo')})</div>
       </TextContainer>
       <TextContainer>
-        <div>{t('commentDescription', { appName: buildConfig().appName })}</div>
+        <CommentDescription>{t('commentDescription', { appName: buildConfig().appName })}</CommentDescription>
       </TextContainer>
       <CommentField id='comment' rows={7} value={comment} onChange={event => onCommentChanged(event.target.value)} />
       <TextContainer>
