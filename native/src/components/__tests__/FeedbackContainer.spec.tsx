@@ -26,9 +26,6 @@ jest.mock('api-client', () => ({
     request: mockRequest,
   }),
 }))
-jest.mock('react-native-keyboard-aware-scroll-view', () => ({
-  KeyboardAwareScrollView: ({ children }: { children: React.ReactNode }) => children,
-}))
 
 describe('FeedbackContainer', () => {
   beforeEach(() => {
