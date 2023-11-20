@@ -20,6 +20,7 @@ import {
   MapFeatureCollection,
   clusterRadius,
   closerDetailZoom,
+  clusterClickZoomFactor,
 } from 'api-client'
 import { config } from 'translations'
 
@@ -117,7 +118,7 @@ const MapView = forwardRef(
           if (0 in clusterFeatures && clusterFeatures[0].properties.cluster) {
             mapRef.flyTo({
               center: event.lngLat,
-              zoom: mapRef.getZoom() + 2,
+              zoom: mapRef.getZoom() + clusterClickZoomFactor,
             })
           }
         }

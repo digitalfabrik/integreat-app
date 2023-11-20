@@ -16,6 +16,7 @@ import {
   animationDuration,
   clusterLayerId,
   featureLayerId,
+  clusterClickZoomFactor,
 } from 'api-client'
 
 import { LocationFixedIcon, LocationNotFixedIcon, LocationOffIcon } from '../assets'
@@ -141,7 +142,7 @@ const MapView = ({
     )
     if (clusterCollection && 0 in clusterCollection.features) {
       const feature = clusterCollection.features[0] as MapFeature
-      moveTo(feature.geometry.coordinates, bottomSheetHeight, (await mapRef.current.getZoom()) + 2)
+      moveTo(feature.geometry.coordinates, bottomSheetHeight, (await mapRef.current.getZoom()) + clusterClickZoomFactor)
     }
   }
   const onPress = async (pressedLocation: Feature) => {
