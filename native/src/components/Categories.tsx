@@ -9,7 +9,7 @@ import { URL_PREFIX } from '../constants/webview'
 import TileModel from '../models/TileModel'
 import testID from '../testing/testID'
 import { LanguageResourceCacheStateType, PageResourceCacheStateType } from '../utils/DataContainer'
-import CategoryListItem from './CategoryListItem'
+import CategoryList from './CategoryList'
 import OrganizationContentInfo from './OrganizationContentInfo'
 import Page from './Page'
 import Tiles from './Tiles'
@@ -81,7 +81,7 @@ const Categories = ({
       path={category.path}
       AfterContent={category.organization && <OrganizationContentInfo organization={category.organization} />}
       Footer={children.map(it => (
-        <CategoryListItem
+        <CategoryList
           key={it.path}
           category={it}
           subCategories={categories.getChildren(it)}

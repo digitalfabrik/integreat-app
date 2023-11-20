@@ -14,7 +14,7 @@ jest.mock('react-native-webview', () => ({
 describe('SearchListItem', () => {
   const cityModel = new CityModelBuilder(1).build()[0]!
   const language = new LanguageModelBuilder(1).build()[0]!
-  const accessibilityHint = 'Navigates to the chosen item'
+  const accessibilityHint = 'Navigates to the chosen page'
   const { categories: categoriesMapModel, resourceCache } = new CategoriesMapModelBuilder(
     cityModel.code,
     language.code,

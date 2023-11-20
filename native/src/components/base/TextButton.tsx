@@ -1,5 +1,5 @@
 import React, { ReactElement } from 'react'
-import { StyleProp, ViewStyle, AccessibilityRole } from 'react-native'
+import { StyleProp, ViewStyle } from 'react-native'
 import styled from 'styled-components/native'
 
 import Pressable from './Pressable'
@@ -25,31 +25,17 @@ type TextButtonProps = {
   text: string
   onPress: () => Promise<void> | void
   disabled?: boolean
-  accessible?: boolean
-  focusable?: boolean
-  accessibilityRole?: AccessibilityRole | undefined
   type?: 'primary' | 'clear'
   style?: StyleProp<ViewStyle>
 }
 
-const TextButton = ({
-  text,
-  onPress,
-  disabled = false,
-  type = 'primary',
-  style,
-  accessible,
-  accessibilityRole,
-  focusable,
-}: TextButtonProps): ReactElement => (
+const TextButton = ({ text, onPress, disabled = false, type = 'primary', style }: TextButtonProps): ReactElement => (
   <StyledPressable
     onPress={onPress}
     primary={type === 'primary'}
     disabled={disabled}
     style={style}
-    accessible={accessible}
-    accessibilityRole={accessibilityRole}
-    focusable={focusable}>
+    accessibilityRole='button'>
     <StyledText>{text}</StyledText>
   </StyledPressable>
 )

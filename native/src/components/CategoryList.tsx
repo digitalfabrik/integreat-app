@@ -60,7 +60,7 @@ type CategoryListItemProps = {
   language: string
 }
 
-const CategoryListItem = ({
+const CategoryList = ({
   language,
   category,
   subCategories,
@@ -99,4 +99,4 @@ const CategoryListItem = ({
   </>
 )
 
-export default memo(CategoryListItem)
+export default memo(CategoryList)

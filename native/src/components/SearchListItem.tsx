@@ -8,7 +8,7 @@ import { SEARCH_PREVIEW_MAX_CHARS } from '../constants'
 import { contentDirection } from '../constants/contentDirection'
 import { PageResourceCacheStateType } from '../utils/DataContainer'
 import { getCachedThumbnail } from './Categories'
-import { CategoryThumbnail } from './CategoryListItem'
+import { CategoryThumbnail } from './CategoryList'
 import Pressable from './base/Pressable'
 
 const FlexStyledLink = styled(Pressable)`

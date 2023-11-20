@@ -8368,6 +8368,8 @@
     "de": {
       "nothingFound": "Es wurden leider keine passenden Ergebnisse gefunden.",
       "searchPlaceholder": "Suche",
+      "itemHint": "Es navigiert zur Beschreibung der Seite",
+      "searchResults": "Suchergebnisse",
       "pageTitle": "Suche",
       "delete": "Eingabe löschen"
     },

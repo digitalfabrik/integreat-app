@@ -101,8 +101,8 @@ const SearchModal = ({
       resourceCache={resourceCache[item.category.path] ?? {}}
       contentWithoutHtml={item.contentWithoutHtml}
       language={languageCode}
+      accessibilityHint={t('itemHint')}
       query={query}
-      accessibilityHint={t(`It navigates to the description of the item`)}
       onItemPress={onItemPress}
     />
   )
@@ -114,7 +114,7 @@ const SearchModal = ({
         <List
           items={searchResults}
           renderItem={renderItem}
-          accessibilityRole='text'
+          accessibilityLabel={`${searchCategories(categories, query).length} ${t('searchResults')}`}
           noItemsMessage={
             <>
               <NothingFound />

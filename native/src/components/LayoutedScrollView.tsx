@@ -7,20 +7,19 @@ import Layout from './Layout'
 type LayoutedScrollViewProps = {
   children?: React.ReactNode
   refreshControl?: React.ReactElement<RefreshControlProps>
-  nestedScrollEnabled?: boolean
 }
 
 const LayoutedScrollView = (props: LayoutedScrollViewProps): ReactElement => {
-  const { children, refreshControl, nestedScrollEnabled = true } = props
+  const { children, refreshControl } = props
   return (
     <Layout>
       <ScrollView
         keyboardShouldPersistTaps='always'
+        nestedScrollEnabled
         refreshControl={refreshControl}
         contentContainerStyle={{
           flexGrow: 1,
-        }}
-        nestedScrollEnabled={nestedScrollEnabled}>
+        }}>
         {children}
       </ScrollView>
     </Layout>

@@ -6,7 +6,7 @@ import { CategoryModel } from 'api-client'
 import { contentDirection } from '../constants/contentDirection'
 import { PageResourceCacheStateType } from '../utils/DataContainer'
 import { getCachedThumbnail } from './Categories'
-import { CategoryThumbnail } from './CategoryListItem'
+import { CategoryThumbnail } from './CategoryList'
 import Pressable from './base/Pressable'
 
 const SubCategoryTitleContainer = styled.View<{ language: string }>`
