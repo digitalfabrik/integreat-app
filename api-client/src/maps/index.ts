@@ -75,7 +75,11 @@ export type UnavailableLocationState = {
 export type LocationStateType = SuccessfulLocationState | LoadingLocationState | UnavailableLocationState
 
 // aliases for Features and FeatureCollections using custom GeoJsonProperties and Point
-export type MapFeature = Feature<Point, GeoJsonPoiProperties>
+export type MapFeature = Feature<Point, GeoJsonPoiProperties> & {
+  layer: {
+    id: string
+  }
+}
 export type MapFeatureCollection = FeatureCollection<Point, GeoJsonPoiProperties>
 export const isMultipoi = (poiFeature: MapFeature): boolean => poiFeature.properties.pois.length > 1
 

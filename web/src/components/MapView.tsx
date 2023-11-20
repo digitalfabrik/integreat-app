@@ -21,6 +21,7 @@ import {
   clusterRadius,
   closerDetailZoom,
   clusterClickZoomFactor,
+  featureLayerId,
 } from 'api-client'
 import { config } from 'translations'
 
@@ -131,7 +132,7 @@ const MapView = forwardRef(
         // Stop propagation to children to prevent onClick select event as it is already handled
         event.originalEvent.stopPropagation()
         const feature = event.features && (event.features[0] as unknown as MapFeature)
-        if (feature) {
+        if (feature && feature.layer.id === featureLayerId) {
           selectFeature(
             {
               ...feature,
@@ -188,7 +189,7 @@ const MapView = forwardRef(
           cursor={cursor}
           initialViewState={viewport ?? undefined}
           // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-          interactiveLayerIds={[markerLayer(currentFeature).id!]}
+          interactiveLayerIds={[markerLayer(currentFeature).id!, clusterLayer(theme).id!]}
           style={{
             height: '100%',
             width: '100%',
