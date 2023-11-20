@@ -262,6 +262,7 @@
 				FCE17F1E70FA43899589ED22 /* [CP] Copy Pods Resources */,
 				31AF7631F7FB8B3BE99E14B2 /* [CP-User] [RNFB] Core Configuration */,
 				A2E593BDBAA2516521D00062 /* [CP] Embed Pods Frameworks */,
+				2E4AEEB92AFD3D4800365635 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -375,6 +376,23 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "../node_modules/react-native/scripts/react-native-xcode.sh index.ts\n";
+		};
+		2E4AEEB92AFD3D4800365635 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 8;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+			shellPath = /bin/sh;
+			shellScript = "# Workaround for Mapbox ios certificates issue - https://stackoverflow.com/questions/77397157\n  if [ \"$XCODE_VERSION_MAJOR\" = \"1500\" ]; then\n    echo \"Remove signature files (Xcode 15 workaround)\"\n\n    rm \"$BUILD_DIR/Release-iphoneos/Mapbox.xcframework-ios.signature\"\n  fi\n";
 		};
 		31AF7631F7FB8B3BE99E14B2 /* [CP-User] [RNFB] Core Configuration */ = {
 			isa = PBXShellScriptBuildPhase;

@@ -1,0 +1,7 @@
+issue_key: 2541
+show_in_stores: false
+platforms:
+  - android
+  - ios
+en: Close button added to keyboard on textfield
+de: Schließen Button wurde zur Tastatur des Textfeldes hinzugefügt
