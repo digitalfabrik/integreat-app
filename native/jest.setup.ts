@@ -2,6 +2,7 @@ import mockAsyncStorage from '@react-native-async-storage/async-storage/jest/asy
 import '@testing-library/jest-native/extend-expect'
 import fs from 'fs'
 import path from 'path'
+import { ReactNode } from 'react'
 
 import { I18nManager } from './src/testing/I18nManagerMock'
 
@@ -65,3 +66,7 @@ jest.mock('react-native/Libraries/Components/Switch/Switch', () => {
 
 // @ts-expect-error https://github.com/software-mansion/react-native-reanimated/issues/1380#issuecomment-865143328
 global.__reanimatedWorkletInit = jest.fn()
+
+jest.mock('react-native-keyboard-aware-scroll-view', () => ({
+  KeyboardAwareScrollView: ({ children }: { children: ReactNode }) => children,
+}))
