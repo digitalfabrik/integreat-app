@@ -75,7 +75,11 @@ export type UnavailableLocationState = {
 export type LocationStateType = SuccessfulLocationState | LoadingLocationState | UnavailableLocationState
 
 // aliases for Features and FeatureCollections using custom GeoJsonProperties and Point
-export type MapFeature = Feature<Point, GeoJsonPoiProperties>
+export type MapFeature = Feature<Point, GeoJsonPoiProperties> & {
+  layer: {
+    id: string
+  }
+}
 export type MapFeatureCollection = FeatureCollection<Point, GeoJsonPoiProperties>
 export const isMultipoi = (poiFeature: MapFeature): boolean => poiFeature.properties.pois.length > 1
 
@@ -96,6 +100,7 @@ export const defaultMercatorViewportConfig: MapViewMercatorViewport = {
   ...defaultViewportConfig,
 }
 
+export const clusterClickZoomFactor = 2
 export const normalDetailZoom = 15
 export const closerDetailZoom = 18
 export const maxMapZoom = 21
@@ -116,6 +121,10 @@ export const openStreeMapCopyright: OpenStreetMapCopyrightType = {
   linkText: 'OpenStreetMap',
   label: 'contributors',
 }
+
+// Shared layer ids
+export const featureLayerId = 'point'
+export const clusterLayerId = 'clusteredPoints'
 
 // Shared layer properties
 export const textOffsetY = 1.5

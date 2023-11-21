@@ -1,0 +1,8 @@
+issue_key: 2504
+show_in_stores: true
+platforms:
+  - ios
+  - android
+  - web
+en: Click on a map cluster zooms in
+de: Ein Klick auf einen Kartencluster zoomt hinein
