@@ -17,7 +17,6 @@ const Container = styled.View`
   flex: 1;
   flex-direction: column;
   align-items: flex-start;
-  padding: 0 16px;
 `
 
 const SubTitle = styled(Text)`
