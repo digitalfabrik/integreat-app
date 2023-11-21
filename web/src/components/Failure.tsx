@@ -13,7 +13,7 @@ const Centered = styled.div`
     text-align: center;
   }
 `
-const ErrorMsg = styled.div`
+const ErrorMessage = styled.div`
   margin-top: 20px;
 `
 
@@ -35,7 +35,7 @@ const Failure = ({ errorMessage, goToPath, goToMessage = 'goTo.start' }: Failure
       <div>
         <StyledIcon src={SadSmileyIcon} />
       </div>
-      <ErrorMsg role='alert'>{t(errorMessage)} </ErrorMsg>
+      <ErrorMessage role='alert'>{t(errorMessage)} </ErrorMessage>
       {!!goToPath && <Link to={goToPath}>{goToMessage ? t(goToMessage) : goToPath}</Link>}
     </Centered>
   )
