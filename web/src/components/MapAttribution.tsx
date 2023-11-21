@@ -50,7 +50,7 @@ const MapAttribution = ({ initialExpanded, direction }: MapAttributionProps): Re
       expanded={expanded}
       tabIndex={0}
       onClick={() => setExpanded(!expanded)}
-      ariaLabel={linkText + label}>
+      ariaLabel={`${linkText} ${label}`}>
       <Attribution>
         <Label>{icon}</Label>
         {expanded && (
