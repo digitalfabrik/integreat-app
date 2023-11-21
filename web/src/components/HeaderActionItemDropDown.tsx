@@ -4,13 +4,8 @@ import styled from 'styled-components'
 import dimensions from '../constants/dimensions'
 import useOnClickOutside from '../hooks/useOnClickOutside'
 import Tooltip from './Tooltip'
+import Button from './base/Button'
 import Icon from './base/Icon'
-
-const Button = styled.button`
-  background-color: transparent;
-  border: none;
-  padding: 0;
-`
 
 const StyledIcon = styled(Icon)`
   width: 28px;
@@ -81,7 +76,7 @@ const HeaderActionItemDropDown = ({ iconSrc, text, children }: HeaderActionItemD
   return (
     <div ref={wrapperRef}>
       <Tooltip text={text} flow='down' mediumViewportFlow='left'>
-        <Button type='button' aria-label={text} onClick={toggleDropDown}>
+        <Button aria-label={text} onClick={toggleDropDown}>
           <StyledIcon src={iconSrc} />
         </Button>
       </Tooltip>

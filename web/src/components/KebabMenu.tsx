@@ -9,6 +9,7 @@ import dimensions from '../constants/dimensions'
 import useLockedBody from '../hooks/useLockedBody'
 import '../styles/KebabMenu.css'
 import Portal from './Portal'
+import Button from './base/Button'
 import Icon from './base/Icon'
 
 type KebabMenuProps = {
@@ -70,12 +71,6 @@ const Content = styled.div`
   padding: 0 32px;
 `
 
-const ToggleButton = styled.button`
-  background-color: transparent;
-  border: none;
-  padding: 0;
-`
-
 const StyledIcon = styled(Icon)`
   width: 28px;
   height: 28px;
@@ -95,9 +90,9 @@ const KebabMenu = ({ items, direction, show, setShow, Footer }: KebabMenuProps):
 
   return (
     <ToggleContainer>
-      <ToggleButton onClick={onClick} aria-label={t('sideBarOpenAriaLabel')}>
+      <Button onClick={onClick} aria-label={t('sideBarOpenAriaLabel')}>
         <StyledIcon src={MenuIcon} />
-      </ToggleButton>
+      </Button>
       <Portal
         className='kebab-menu'
         show={show}
@@ -110,9 +105,9 @@ const KebabMenu = ({ items, direction, show, setShow, Footer }: KebabMenuProps):
         <Overlay onClick={onClick} show={show} />
         <List direction={direction} show={show}>
           <Heading direction={direction}>
-            <ToggleButton onClick={onClick} aria-label={t('sideBarCloseAriaLabel')}>
+            <Button onClick={onClick} aria-label={t('sideBarCloseAriaLabel')}>
               <Icon src={CloseIcon} />
-            </ToggleButton>
+            </Button>
           </Heading>
           <Content>{items}</Content>
           {Footer}

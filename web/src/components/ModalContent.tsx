@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next'
 import styled, { css } from 'styled-components'
 
 import { ArrowBackIcon, CloseIcon } from '../assets'
+import Button from './base/Button'
 import Icon from './base/Icon'
 
 const Container = styled.div`
@@ -29,11 +30,8 @@ const Header = styled.div<{ small: boolean }>`
     `}
 `
 
-const CloseButton = styled.button`
+const CloseButton = styled(Button)`
   background-color: ${props => props.theme.colors.backgroundColor};
-  border: none;
-  padding: 0;
-  cursor: pointer;
 `
 
 const StyledIcon = styled(Icon)`

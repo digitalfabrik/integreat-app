@@ -6,14 +6,11 @@ import useOnClickOutside from '../hooks/useOnClickOutside'
 import useWindowDimensions from '../hooks/useWindowDimensions'
 import { DropDownContainer } from './HeaderActionItemDropDown'
 import KebabActionItemLink from './KebabActionItemLink'
+import Button from './base/Button'
 
-const Button = styled.button`
+const StyledButton = styled(Button)`
   display: flex;
-  border: none;
-  cursor: pointer;
-  background-color: transparent;
   flex: 1;
-  padding: 0;
 `
 
 const Container = styled.div`
@@ -59,9 +56,9 @@ const KebabActionItemDropDown = ({
 
   return (
     <Container ref={wrapperRef}>
-      <Button type='button' aria-label={text} onClick={toggleDropDown}>
+      <StyledButton aria-label={text} onClick={toggleDropDown}>
         <KebabActionItemLink text={text} iconSrc={iconSrc} />
-      </Button>
+      </StyledButton>
       <DropDownContainer
         data-testid='headerActionItemDropDown'
         active={dropDownActive}

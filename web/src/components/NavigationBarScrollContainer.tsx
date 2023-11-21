@@ -7,6 +7,7 @@ import { ArrowBackIcon } from '../assets'
 import dimensions from '../constants/dimensions'
 import useCallbackRef from '../hooks/useCallbackRef'
 import useWindowDimensions from '../hooks/useWindowDimensions'
+import Button from './base/Button'
 import Icon from './base/Icon'
 
 type NavigationBarScrollContainerProps = {
@@ -25,12 +26,6 @@ const Arrow = styled(Icon)<{ visible: boolean }>`
   padding: 0 8px;
   align-self: center;
   opacity: ${props => (props.visible ? 1 : 0)};
-`
-
-const Button = styled.button`
-  background-color: transparent;
-  border: none;
-  padding: 0;
 `
 
 const ScrollContainer = styled.div<{ showArrowContainer: boolean }>`

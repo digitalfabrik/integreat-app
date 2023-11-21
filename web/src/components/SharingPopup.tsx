@@ -8,6 +8,7 @@ import { CloseIcon, FacebookIcon, MailIcon, ShareIcon, WhatsappIcon } from '../a
 import Portal from './Portal'
 import ToolbarItem from './ToolbarItem'
 import Tooltip from './Tooltip'
+import Button from './base/Button'
 import Icon from './base/Icon'
 
 type SharingPopupProps = {
@@ -151,12 +152,9 @@ const TooltipContainer = styled.div<{
   }
 `
 
-const CloseButton = styled.button`
+const CloseButton = styled(Button)`
   background-color: ${props => props.theme.colors.backgroundColor};
-  border: none;
-  padding: 0;
   display: flex;
-  cursor: pointer;
 `
 
 const Link = styled.a`
@@ -176,7 +174,7 @@ const StyledIcon = styled(Icon)`
   color: ${props => props.theme.colors.textSecondaryColor};
 `
 
-const BackdropContainer = styled.div`
+const BackdropContainer = styled(Button)`
   background: transparent;
   width: 100%;
   height: 100%;
@@ -198,14 +196,7 @@ const SharingPopup = ({ shareUrl, title, flow, direction, portalNeeded }: Sharin
   const encodedShareUrl = encodeURIComponent(shareUrl)
   const shareMessage = t('layout:shareMessage', { message: encodedTitle })
 
-  const Backdrop = (
-    <BackdropContainer
-      onClick={() => setShareOptionsVisible(false)}
-      role='button'
-      tabIndex={0}
-      onKeyPress={() => setShareOptionsVisible(false)}
-    />
-  )
+  const Backdrop = <BackdropContainer onClick={() => setShareOptionsVisible(false)} tabIndex={0} />
 
   return (
     <SharingPopupContainer>
