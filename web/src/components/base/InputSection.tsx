@@ -2,9 +2,9 @@ import React, { HTMLInputTypeAttribute, ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
 
-import TextInput from './TextInput'
+import TextInput from '../TextInput'
 
-const MULTI_LINE_NUMBER = 7
+const DEFAULT_MULTI_LINE_NUMBER = 7
 
 const Container = styled.div`
   display: flex;
@@ -35,6 +35,7 @@ type InputSectionProps = {
   onChange: (input: string) => void
   type?: HTMLInputTypeAttribute
   multiline?: boolean
+  numberOfLines?: number
   showOptional?: boolean
 }
 
@@ -46,6 +47,7 @@ const InputSection = ({
   onChange,
   type,
   multiline = false,
+  numberOfLines = DEFAULT_MULTI_LINE_NUMBER,
   showOptional = false,
 }: InputSectionProps): ReactElement => {
   const { t } = useTranslation('common')
@@ -57,12 +59,7 @@ const InputSection = ({
       </TitleContainer>
       {description ? <div>{description}</div> : null}
       {multiline ? (
-        <StyledTextArea
-          id={id}
-          onChange={event => onChange(event.target.value)}
-          value={value}
-          rows={MULTI_LINE_NUMBER}
-        />
+        <StyledTextArea id={id} onChange={event => onChange(event.target.value)} value={value} rows={numberOfLines} />
       ) : (
         <TextInput id={id} type={type} onChange={event => onChange(event.target.value)} value={value} />
       )}

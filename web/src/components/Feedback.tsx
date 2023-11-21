@@ -6,8 +6,8 @@ import buildConfig from '../constants/buildConfig'
 import dimensions from '../constants/dimensions'
 import FeedbackButtons from './FeedbackButtons'
 import { SendingStatusType } from './FeedbackContainer'
-import InputSection from './InputSection'
 import Note from './Note'
+import InputSection from './base/InputSection'
 import TextButton from './base/TextButton'
 
 export const Container = styled.div<{ fullWidth?: boolean }>`
