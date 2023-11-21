@@ -9,7 +9,7 @@ const NoteBox = styled.View<{ visible: boolean }>`
   margin-top: 12px;
   padding: 12px;
   flex-direction: row;
-  visibility: ${props => !props.visible && 'hidden'};
+  opacity: ${props => (props.visible ? '1' : '0')};
 `
 
 const NoteText = styled.Text`
@@ -30,7 +30,7 @@ type NoteProps = {
 }
 
 const Note = ({ text, visible }: NoteProps): ReactElement => (
-  <NoteBox visible={visible}>
+  <NoteBox visible={visible} aria-hidden={!visible}>
     <StyledIcon Icon={NoteIcon} />
     <NoteText>{text}</NoteText>
   </NoteBox>

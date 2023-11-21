@@ -3,9 +3,10 @@ import { useTranslation } from 'react-i18next'
 import { KeyboardTypeOptions } from 'react-native'
 import styled from 'styled-components/native'
 
-import Text from './base/Text'
+import Text from './Text'
 
-const MULTI_LINE_NUMBER = 3
+const DEFAULT_MULTI_LINE_NUMBER = 3
+const LINE_HEIGHT = 24
 
 const Container = styled.View`
   gap: 4px;
@@ -29,12 +30,13 @@ const Title = styled(ThemedText)`
   text-align: left;
 `
 
-const Input = styled.TextInput`
+const Input = styled.TextInput<{ numberOfLines: number }>`
   border-width: 1px;
   border-color: ${props => props.theme.colors.themeColor};
   text-align-vertical: top;
   color: ${props => props.theme.colors.textColor};
   padding: 8px;
+  ${props => props.numberOfLines !== 1 && `height: ${props.numberOfLines * LINE_HEIGHT}px`};
 `
 
 type InputSectionProps = {
@@ -44,6 +46,7 @@ type InputSectionProps = {
   onChange: (input: string) => void
   keyboardType?: KeyboardTypeOptions
   multiline?: boolean
+  numberOfLines?: number
   showOptional?: boolean
 }
 
@@ -54,6 +57,7 @@ const InputSection = ({
   onChange,
   keyboardType = 'default',
   multiline = false,
+  numberOfLines = DEFAULT_MULTI_LINE_NUMBER,
   showOptional = false,
 }: InputSectionProps): ReactElement => {
   const { t } = useTranslation('common')
@@ -68,7 +72,7 @@ const InputSection = ({
         onChangeText={onChange}
         value={value}
         multiline={multiline}
-        numberOfLines={multiline ? MULTI_LINE_NUMBER : undefined}
+        numberOfLines={multiline ? numberOfLines : 1}
         keyboardType={keyboardType}
         returnKeyType='done'
         blurOnSubmit

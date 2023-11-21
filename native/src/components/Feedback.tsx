@@ -9,8 +9,8 @@ import useNavigate from '../hooks/useNavigate'
 import Caption from './Caption'
 import FeedbackButtons from './FeedbackButtons'
 import { SendingStatusType } from './FeedbackContainer'
-import InputSection from './InputSection'
 import Note from './Note'
+import InputSection from './base/InputSection'
 import TextButton from './base/TextButton'
 
 const Wrapper = styled.View`
