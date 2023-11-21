@@ -24,7 +24,7 @@ export const Container = styled.div<{ fullWidth?: boolean }>`
   font-size: ${props => props.theme.fonts.contentFontSize};
   overflow: auto;
   align-self: center;
-  gap: ${props => (props.fullWidth ? '5px' : 0)};
+  gap: ${props => (props.fullWidth ? '7px' : 0)};
 
   @media ${dimensions.mediumLargeViewport} {
     width: ${props => (props.fullWidth ? 'auto' : '400px')};
@@ -32,7 +32,6 @@ export const Container = styled.div<{ fullWidth?: boolean }>`
 `
 
 const CommentField = styled.textarea`
-  margin-top: 8px;
   resize: none;
   min-height: 60px;
 `
@@ -41,14 +40,15 @@ const TextContainer = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 10px 0 5px;
 `
-const CommentDescription = styled.div`
-  margin-top: -10px;
+
+const DescriptionOption = styled.div`
+  margin-top: 12px;
 `
 
 export const Description = styled.label`
   font-weight: 700;
+  margin-top: 12px;
 `
 
 export const ErrorSendingStatus = styled.div`
@@ -140,15 +140,15 @@ const Feedback = ({
       )}
       <TextContainer>
         <Description htmlFor='comment'>{t(description)}</Description>
-        <div>({t('optionalInfo')})</div>
+        <DescriptionOption>({t('optionalInfo')})</DescriptionOption>
       </TextContainer>
       <TextContainer>
-        <CommentDescription>{t('commentDescription', { appName: buildConfig().appName })}</CommentDescription>
+        <div>{t('commentDescription', { appName: buildConfig().appName })}</div>
       </TextContainer>
       <CommentField id='comment' rows={7} value={comment} onChange={event => onCommentChanged(event.target.value)} />
       <TextContainer>
         <Description htmlFor='email'>{t('contactMailAddress')}</Description>
-        <div>({t('optionalInfo')})</div>
+        <DescriptionOption>({t('optionalInfo')})</DescriptionOption>
       </TextContainer>
       <TextInput
         id='email'
