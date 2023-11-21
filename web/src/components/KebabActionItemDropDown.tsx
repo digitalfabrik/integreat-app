@@ -56,7 +56,7 @@ const KebabActionItemDropDown = ({
 
   return (
     <Container ref={wrapperRef}>
-      <StyledButton aria-label={text} onClick={toggleDropDown}>
+      <StyledButton ariaLabel={text} onClick={toggleDropDown}>
         <KebabActionItemLink text={text} iconSrc={iconSrc} />
       </StyledButton>
       <DropDownContainer

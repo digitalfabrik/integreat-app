@@ -181,7 +181,11 @@ const PoisMobile = ({
         Overlay={
           <>
             {currentFeatureOnMap && (
-              <BackNavigation onClick={() => handleSelectFeatureOnMap(null)} tabIndex={0} direction={direction}>
+              <BackNavigation
+                onClick={() => handleSelectFeatureOnMap(null)}
+                tabIndex={0}
+                direction={direction}
+                ariaLabel={t('detailsHeader')}>
                 <StyledIcon src={ArrowBackspaceIcon} directionDependent />
               </BackNavigation>
             )}

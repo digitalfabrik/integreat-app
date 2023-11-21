@@ -76,7 +76,7 @@ const HeaderActionItemDropDown = ({ iconSrc, text, children }: HeaderActionItemD
   return (
     <div ref={wrapperRef}>
       <Tooltip text={text} flow='down' mediumViewportFlow='left'>
-        <Button aria-label={text} onClick={toggleDropDown}>
+        <Button ariaLabel={text} onClick={toggleDropDown}>
           <StyledIcon src={iconSrc} />
         </Button>
       </Tooltip>

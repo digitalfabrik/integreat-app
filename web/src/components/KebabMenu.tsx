@@ -90,7 +90,7 @@ const KebabMenu = ({ items, direction, show, setShow, Footer }: KebabMenuProps):
 
   return (
     <ToggleContainer>
-      <Button onClick={onClick} aria-label={t('sideBarOpenAriaLabel')}>
+      <Button onClick={onClick} ariaLabel={t('sideBarOpenAriaLabel')}>
         <StyledIcon src={MenuIcon} />
       </Button>
       <Portal
@@ -105,7 +105,7 @@ const KebabMenu = ({ items, direction, show, setShow, Footer }: KebabMenuProps):
         <Overlay onClick={onClick} show={show} />
         <List direction={direction} show={show}>
           <Heading direction={direction}>
-            <Button onClick={onClick} aria-label={t('sideBarCloseAriaLabel')}>
+            <Button onClick={onClick} ariaLabel={t('sideBarCloseAriaLabel')}>
               <Icon src={CloseIcon} />
             </Button>
           </Heading>

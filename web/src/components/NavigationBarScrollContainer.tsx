@@ -95,11 +95,11 @@ const NavigationBarScrollContainer = ({
 
   return (
     <Container>
-      <Button disabled={!showArrowLeft} onClick={scrollToStart}>
+      <Button disabled={!showArrowLeft} onClick={scrollToStart} ariaLabel='' aria-hidden>
         <Arrow src={ArrowBackIcon} visible={showArrowLeft} />
       </Button>
       {Content}
-      <Button disabled={!showArrowRight} onClick={scrollToEnd}>
+      <Button disabled={!showArrowRight} onClick={scrollToEnd} ariaLabel='' aria-hidden>
         <Arrow src={ArrowBackIcon} visible={showArrowRight} reverse />
       </Button>
     </Container>

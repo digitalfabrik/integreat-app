@@ -55,7 +55,7 @@ const ModalContent = ({ title, closeModal, children, small }: ModalProps): React
     <Container>
       <Header small={small}>
         <span>{title}</span>
-        <CloseButton aria-label={t('close')} onClick={closeModal}>
+        <CloseButton ariaLabel={t('close')} onClick={closeModal}>
           <StyledIcon src={small ? ArrowBackIcon : CloseIcon} directionDependent />
         </CloseButton>
       </Header>

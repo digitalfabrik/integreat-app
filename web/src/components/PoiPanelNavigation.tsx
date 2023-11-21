@@ -39,11 +39,11 @@ const PoiPanelNavigation = ({ switchPoi }: PoiPanelNavigationProps): ReactElemen
   const { t } = useTranslation('pois')
   return (
     <NavigationContainer>
-      <StyledButton onClick={() => switchPoi(-1)} tabIndex={0} aria-label={t('previousPoi')}>
+      <StyledButton onClick={() => switchPoi(-1)} tabIndex={0} ariaLabel={t('previousPoi')}>
         <StyledIcon src={ArrowBackIcon} directionDependent />
         <Label>{t('detailsPreviousPoi')}</Label>
       </StyledButton>
-      <StyledButton onClick={() => switchPoi(1)} tabIndex={0} aria-label={t('nextPoi')}>
+      <StyledButton onClick={() => switchPoi(1)} tabIndex={0} ariaLabel={t('nextPoi')}>
         <Label>{t('detailsNextPoi')}</Label>
         <StyledIcon src={ArrowBackIcon} directionDependent reverse />
       </StyledButton>

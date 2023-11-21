@@ -196,7 +196,9 @@ const SharingPopup = ({ shareUrl, title, flow, direction, portalNeeded }: Sharin
   const encodedShareUrl = encodeURIComponent(shareUrl)
   const shareMessage = t('layout:shareMessage', { message: encodedTitle })
 
-  const Backdrop = <BackdropContainer onClick={() => setShareOptionsVisible(false)} tabIndex={0} />
+  const Backdrop = (
+    <BackdropContainer onClick={() => setShareOptionsVisible(false)} ariaLabel={t('closeTooltip')} tabIndex={0} />
+  )
 
   return (
     <SharingPopupContainer>
@@ -236,7 +238,7 @@ const SharingPopup = ({ shareUrl, title, flow, direction, portalNeeded }: Sharin
               </Link>
             </Tooltip>
             <Tooltip text={t('closeTooltip')} flow='up'>
-              <CloseButton onClick={() => setShareOptionsVisible(false)} aria-label={t('mailTooltip')}>
+              <CloseButton onClick={() => setShareOptionsVisible(false)} ariaLabel={t('closeTooltip')}>
                 <StyledIcon src={CloseIcon} />
               </CloseButton>
             </Tooltip>
