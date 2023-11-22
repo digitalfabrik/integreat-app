@@ -9,9 +9,8 @@ shell: /bin/bash -eo pipefail
 steps:
   - checkout
   - skip_job
-  - check_config
   - restore_yarn_cache
-  - restore_yarn_tools_cache
+  - check_config
   - run:
       name: Prettier
       command: yarn prettier:check
