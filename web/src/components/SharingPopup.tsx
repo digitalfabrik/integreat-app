@@ -197,7 +197,9 @@ const SharingPopup = ({ shareUrl, title, flow, direction, portalNeeded }: Sharin
   const shareMessage = t('layout:shareMessage', { message: encodedTitle })
 
   const Backdrop = (
-    <BackdropContainer onClick={() => setShareOptionsVisible(false)} ariaLabel={t('closeTooltip')} tabIndex={0} />
+    <BackdropContainer onClick={() => setShareOptionsVisible(false)} ariaLabel={t('closeTooltip')} tabIndex={0}>
+      <div />
+    </BackdropContainer>
   )
 
   return (

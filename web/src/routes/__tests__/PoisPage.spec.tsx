@@ -83,11 +83,11 @@ describe('PoisPage', () => {
 
   it('should calculate correct language change paths', () => {
     mockUseLoadFromEndpointWithData(pois)
-    const { getByTestId, getByLabelText } = renderPois()
+    const { getAllByText, getByLabelText } = renderPois()
     fireEvent.click(getByLabelText(poi0.location.name))
-    expect(getByTestId('en')).toHaveAttribute('href', poi0.availableLanguages.get('en'))
-    expect(getByTestId('de')).toHaveAttribute('href', poi0.availableLanguages.get('de'))
+    expect(getAllByText('English')[0]).toHaveAttribute('href', poi0.availableLanguages.get('en'))
+    expect(getAllByText('Deutsch')[0]).toHaveAttribute('href', poi0.availableLanguages.get('de'))
     // Pathname is not correctly updated, therefore the pathname does not include the slug
-    expect(getByTestId('ar')).toHaveAttribute('href', '/augsburg/ar/locations')
+    expect(getAllByText('اَللُّغَةُ اَلْعَرَبِيَّة')[0]).toHaveAttribute('href', '/augsburg/ar/locations')
   })
 })

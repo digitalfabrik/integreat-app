@@ -55,6 +55,7 @@ const Collapsible = ({
       <CollapsibleHeader
         ariaLabel={t(collapsed ? 'showMore' : 'showLess')}
         onClick={() => setCollapsed(!collapsed)}
+        aria-expanded={!collapsed}
         tabIndex={0}>
         {typeof title === 'string' ? <Title>{title}</Title> : title}
         <CollapseIcon

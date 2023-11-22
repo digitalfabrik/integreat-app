@@ -67,7 +67,9 @@ const Modal = ({ title, closeModal, children, direction, wrapInPortal = false }:
   const Modal = (
     <FocusTrap focusTrapOptions={{ clickOutsideDeactivates: true }}>
       <ModalContainer role='dialog' aria-hidden={false} aria-modal>
-        <Overlay onClick={closeModal} tabIndex={0} ariaLabel={t('close')} />
+        <Overlay onClick={closeModal} tabIndex={0} ariaLabel={t('close')}>
+          <div />
+        </Overlay>
         <ModalContentContainer>
           <ModalContent title={title} closeModal={closeModal} small={viewportSmall}>
             {children}

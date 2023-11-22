@@ -12,7 +12,7 @@ const StyledButton = styled.button<{ disabled: boolean }>`
 
 type ButtonProps = {
   onClick: () => void
-  children?: ReactNode
+  children: ReactNode
   ariaLabel: string
   disabled?: boolean
   tabIndex?: number
