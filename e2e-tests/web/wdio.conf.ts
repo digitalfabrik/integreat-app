@@ -26,7 +26,7 @@ export const config: WebdriverIO.Config = {
   waitforTimeout: 2_000,
   connectionRetryTimeout: 120_000,
   connectionRetryCount: 3,
-  services: process.env.CI ? [] : ['selenium-standalone'],
+  services: [],
   framework: 'jasmine',
   reporters: ['spec'],
 
