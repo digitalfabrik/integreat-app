@@ -56,9 +56,10 @@ const FlexEnd = styled.View`
 `
 
 const TileRow = styled(Row)`
-  justify-content: space-between;
+  justify-content: center;
   align-content: space-between;
   flex-wrap: wrap;
+  gap: 16px;
 `
 
 const StyledToggleButton = styled(ToggleButton)`
