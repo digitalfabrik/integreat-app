@@ -15,6 +15,7 @@ const APPLICATION_ID = 'app.aschaffenburg'
 const BUNDLE_IDENTIFIER = 'app.aschaffenburg'
 
 const commonAschaffenburgBuildConfig: CommonBuildConfigType = {
+  allowedIframeSources: ['vimeo'],
   appName: 'hallo aschaffenburg',
   appIcon: 'app_icon_aschaffenburg',
   lightTheme,

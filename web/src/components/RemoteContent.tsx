@@ -14,7 +14,6 @@ const SandBox = styled.div<{ centered: boolean; smallText: boolean }>`
 
   ${props => (props.centered ? 'text-align: center;' : '')}
   ${props => (props.centered ? 'list-style-position: inside;' : '')}
-  
   img {
     max-width: 100%;
     max-height: 100%;
@@ -103,6 +102,11 @@ const SandBox = styled.div<{ centered: boolean; smallText: boolean }>`
     vertical-align: middle;
     margin-left: 4px;
   }
+
+  iframe {
+    border: none;
+    width: 100%;
+  }
 `
 
 type RemoteContentProps = {
@@ -145,10 +149,25 @@ const RemoteContent = ({
         node.addEventListener('click', handleClick)
       }
     })
+
+    // iframe handling - remove not allowed iframe src from DOM and add tracking parameter
+    const iframes = sandBoxRef.current.getElementsByTagName('iframe')
+    Array.from(iframes).forEach((node: HTMLIFrameElement) => {
+      if (buildConfig().allowedIframeSources.some(el => node.src.indexOf(el) > 0) && sandBoxRef.current) {
+        var url = new URL(node.src)
+        url.searchParams.append('dnt', '1')
+        node.setAttribute('src', url.href)
+      } else if (sandBoxRef.current) {
+        sandBoxRef.current.removeChild(node)
+      }
+    })
   }, [html, handleClick, sandBoxRef])
 
   const dangerouslySetInnerHTML = {
-    __html: Dompurify.sanitize(html),
+    __html: Dompurify.sanitize(html, {
+      ALLOWED_TAGS: ['iframe'],
+      ADD_ATTR: ['allowfullscreen'],
+    }),
   }
 
   return (

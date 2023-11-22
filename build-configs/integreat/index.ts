@@ -14,6 +14,7 @@ const APPLICATION_ID = 'tuerantuer.app.integreat'
 const BUNDLE_IDENTIFIER = 'de.integreat-app'
 
 const commonIntegreatBuildConfig: CommonBuildConfigType = {
+  allowedIframeSources: ['vimeo'],
   appName: 'Integreat',
   appIcon: 'app_icon_integreat',
   lightTheme,

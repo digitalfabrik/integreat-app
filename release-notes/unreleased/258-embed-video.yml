@@ -1,0 +1,8 @@
+issue_key: 258
+show_in_stores: true
+platforms:
+  - ios
+  - android
+  - web
+en: Embedding of vimeo videos is now supported
+de: Einbinden von Vimeo videos wird jetzt unterstützt

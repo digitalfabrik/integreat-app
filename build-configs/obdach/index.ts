@@ -4,6 +4,7 @@ import mainImprint from './mainImprint'
 import { lightTheme } from './theme'
 
 const commonObdachBuildConfig: CommonBuildConfigType = {
+  allowedIframeSources: ['vimeo'],
   appName: 'Netzwerk Obdach & Wohnen',
   appIcon: 'app_icon_obdach',
   lightTheme,

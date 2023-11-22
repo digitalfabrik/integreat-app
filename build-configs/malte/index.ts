@@ -15,6 +15,7 @@ const APPLICATION_ID = 'de.malteapp'
 const BUNDLE_IDENTIFIER = 'de.malteapp'
 
 const commonMalteBuildConfig: CommonBuildConfigType = {
+  allowedIframeSources: ['vimeo'],
   appName: 'Malte',
   appIcon: 'app_icon_malte',
   lightTheme,

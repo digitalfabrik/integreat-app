@@ -6,6 +6,7 @@ import { useTheme } from 'styled-components/native'
 
 import { ErrorCode } from 'api-client'
 
+import buildConfig from '../constants/buildConfig'
 import { userAgent } from '../constants/endpoint'
 import { HEIGHT_MESSAGE_TYPE, WARNING_MESSAGE_TYPE } from '../constants/webview'
 import renderHtml from '../utils/renderHtml'
@@ -76,13 +77,19 @@ const RemoteContent = (props: RemoteContentProps): ReactElement | null => {
 
   const onShouldStartLoadWithRequest = useCallback(
     (event: WebViewNavigation): boolean => {
+      // load allowed iframe sources on request
+      if (buildConfig().allowedIframeSources.some(el => event.url.indexOf(el) > 0)) {
+        return true
+      }
       if (event.url === new URL(resourceCacheUrl).href) {
         // Needed on iOS for the initial load
         return true
       }
       // If it takes too long returning false the webview loads the pressed url anyway on android.
       // Therefore only set it to state and execute onLinkPress in useEffect.
-      setPressedUrl(event.url)
+      if (event.navigationType === 'click') {
+        setPressedUrl(event.url)
+      }
       return false
     },
     [resourceCacheUrl],
@@ -106,6 +113,7 @@ const RemoteContent = (props: RemoteContentProps): ReactElement | null => {
       dataDetectorTypes='none'
       userAgent={userAgent}
       domStorageEnabled={false}
+      allowsFullscreenVideo
       showsVerticalScrollIndicator={false}
       showsHorizontalScrollIndicator={false}
       scrollEnabled={false} // To disable scrolling in iOS
