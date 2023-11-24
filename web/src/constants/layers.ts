@@ -10,11 +10,13 @@ import {
   mapMarker,
   MapFeature,
   textOffsetY,
+  clusterLayerId,
+  featureLayerId,
 } from 'api-client'
 import { ThemeType } from 'build-configs/ThemeType'
 
 export const clusterLayer = (theme: ThemeType): LayerProps => ({
-  id: 'clusters',
+  id: clusterLayerId,
   type: 'circle',
   source: 'point',
   filter: ['has', 'point_count'],
@@ -24,7 +26,7 @@ export const clusterLayer = (theme: ThemeType): LayerProps => ({
   },
 })
 export const markerLayer = (currentFeature: MapFeature | null): LayerProps => ({
-  id: 'point',
+  id: featureLayerId,
   type: 'symbol',
   source: 'point',
   layout: {
