@@ -69,7 +69,9 @@ const RemoteContent = (props: RemoteContentProps): ReactElement | null => {
     if (message.type === WARNING_MESSAGE_TYPE) {
       log(message.message, 'warning')
     } else {
-      const error = new Error(message.message ?? 'Unknown message received from webview')
+      const error = new Error(
+        message.message ? JSON.stringify(message.message) : 'Unknown message received from webview',
+      )
       reportError(error)
       setError(error.message)
     }
@@ -106,7 +108,7 @@ const RemoteContent = (props: RemoteContentProps): ReactElement | null => {
     <WebView
       source={{
         baseUrl: resourceCacheUrl,
-        html: renderHtml(content, cacheDictionary, theme, language),
+        html: renderHtml(content, cacheDictionary, buildConfig().allowedIframeSources, theme, language),
       }}
       originWhitelist={['*']} // Needed by iOS to load the initial html
       javaScriptEnabled
