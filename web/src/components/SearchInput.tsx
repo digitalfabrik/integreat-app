@@ -41,6 +41,8 @@ const Wrapper = styled.div`
 const StyledIcon = styled(Icon)`
   width: 20px;
   height: 20px;
+  position: relative;
+  top: 4px;
 `
 
 type SearchInputProps = {
