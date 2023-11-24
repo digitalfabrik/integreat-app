@@ -1,6 +1,6 @@
 import distance from '@turf/distance'
 
-import { LocationType, PoiModel } from '../index'
+import { featureLayerId, LocationType, PoiModel } from '../index'
 import { GeoJsonPoi, MapFeature, MapFeatureCollection } from '../maps'
 
 export const embedInCollection = (features: MapFeature[]): MapFeatureCollection => ({
@@ -24,6 +24,7 @@ export const prepareFeatureLocation = (
     coordinates,
   },
   properties: { pois: pois.map(poi => poi.getFeature(userLocation)) },
+  layer: { id: featureLayerId },
 })
 
 export const prepareFeatureLocations = (pois: PoiModel[], userLocation?: LocationType): MapFeature[] => {

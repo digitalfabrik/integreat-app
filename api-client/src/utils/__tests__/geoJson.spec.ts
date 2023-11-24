@@ -1,4 +1,4 @@
-import { MapFeature, MapFeatureCollection, LocationType } from '../../maps'
+import { MapFeature, MapFeatureCollection, LocationType, featureLayerId } from '../../maps'
 import PoiModel from '../../models/PoiModel'
 import { PoiModelBuilder } from '../../testing'
 import { embedInCollection, prepareFeatureLocation, prepareFeatureLocations, sortMapFeatures } from '../geoJson'
@@ -24,6 +24,9 @@ describe('geoJson', () => {
     },
     properties: {
       pois: pois.map(poi => poi.getFeature()),
+    },
+    layer: {
+      id: featureLayerId,
     },
   })
 

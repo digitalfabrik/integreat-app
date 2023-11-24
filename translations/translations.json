@@ -135,8 +135,8 @@
     "pt": {
       "createPdf": "Criar um PDF",
       "metaDescription": "A {{appName}} é o seu guia digital da Alemanha. Consulte informações, eventos e conselhos a nível local. Sempre atualizada e disponível no seu idioma.",
-      "organizationContent": "categories.organizationContent",
-      "organizationMoreInformation": "categories.organizationMoreInformation"
+      "organizationContent": "O conteúdo desta página é da {{organization}}.",
+      "organizationMoreInformation": "Pode encontrar mais informações sobre <1>{{organization}}</1> em <3>{{domain}}</3>."
     },
     "ro": {
       "createPdf": "Creați PDF",
@@ -684,7 +684,8 @@
       "languageNotAvailable": "Lamentamos, mas o teu idioma não está disponível.",
       "chooseALanguage": "Escolhe um idioma.",
       "lastUpdate": "Última atualização:",
-      "loading": "A carregar ..."
+      "loading": "A carregar ...",
+      "close": "Fechar"
     },
     "ro": {
       "copied": "Copiat",
@@ -1955,7 +1956,9 @@
       "generalError": "Ocorreu um erro",
       "notSupportedByDevice": "Esta funcionalidade não é suportada por este dispositivo.",
       "languageSwitchFailedTitle": "Lamentamos, mas a mudança de idioma falhou.",
-      "languageSwitchFailedMessage": "O idioma selecionado não está disponível offline. É necessária uma ligação ativa à internet."
+      "languageSwitchFailedMessage": "O idioma selecionado não está disponível offline. É necessária uma ligação ativa à internet.",
+      "noCalendarPermission": "O acesso ao calendário não é permitido.",
+      "noCalendarFound": "Não foi encontrado nenhum calendário adequado."
     },
     "ro": {
       "notFound": {
@@ -2798,9 +2801,22 @@
     "pt": {
       "address": "Endereço",
       "date_one": "Data",
+      "date_other": "Datas",
+      "nextDate_one": "Próxima data",
+      "nextDate_other": "Próximas datas",
       "events": "Eventos",
+      "exportAsICal": "Exportar como iCal",
+      "addToCalendar": "Adicionar ao calendário",
       "currentlyNoEvents": "Não existe atualmente nenhum evento.",
-      "pageTitle": "Eventos"
+      "pageTitle": "Eventos",
+      "chooseCalendar": "Selecione um calendário",
+      "added": "Adicionado",
+      "goToCalendar": "Para o calendário",
+      "back": "Voltar",
+      "settings": "Definições",
+      "recurring": "repetitivo",
+      "today": "hoje",
+      "todayRecurring": "hoje, repetitivo"
     },
     "ro": {
       "address": "Adresa",
@@ -3535,17 +3551,23 @@
       "send": "Enviar",
       "failedSendingFeedback": "Ocorreu um erro ao enviar o comentário.",
       "feedback": "Feedback",
+      "headline": "O que é que acha desta página?",
+      "description": "Seleccione uma reação e/ou escreva um comentário.",
+      "commentHeadline": "Comentário",
+      "commentDescription": "Partilhe a sua opinião connosco! Valorizamos tanto os comentários positivos como os negativos, pois ajudam-nos a melhorar a Integreat.",
       "isThisSiteUseful": "Esta página é útil?",
       "useful": "É útil",
       "notUseful": "Não é útil",
       "informationNotFound": "Não encontrou o que precisava?",
       "wantedInformation": "Que informações estão em falta?",
       "feedbackSent": "Comentário enviado",
+      "thanksHeadline": "Muito obrigado pelo seu feedback.",
       "thanksMessage": "Agradecemos o seu comentário. Com ele, está a ajudar-nos a melhorar os nossos conteúdos e a aplicação {{appName}}. Gostaríamos de receber mais comentários.",
       "negativeRating": "Esta página não é útil",
       "positiveRating": "Esta página é útil",
       "contactMailAddress": "Endereço de correio eletrónico para pedidos de informação",
-      "optionalInfo": "opcional"
+      "optionalInfo": "opcional",
+      "note": "Seleccione uma reação ou escreva um comentário para poder enviar o feedback."
     },
     "ro": {
       "disclaimer": "Contact și caseta tehnică",
@@ -5391,11 +5413,15 @@
       "changeLocation": "Alterar a localização",
       "changeLanguage": "Mudar de idioma",
       "settings": "Definições",
+      "copyUrl": "Copiar ligação",
+      "feedback": "Feedback",
       "share": "Partilhar",
       "cancel": "Cancelar",
       "shareMessage": "Encontrado agora: {{message}}",
       "shareFailDefaultMessage": "Lamentamos, mas a partilha do conteúdo falhou.",
-      "disclaimer": "Pé de imprensa"
+      "disclaimer": "Pé de imprensa",
+      "sideBarOpenAriaLabel": "Abrir a barra lateral",
+      "sideBarCloseAriaLabel": "Fechar a barra lateral"
     },
     "ro": {
       "imprintAndContact": "Caseta tehnică și contact",
@@ -7800,7 +7826,14 @@
       "donnerstag": "Quinta-feira",
       "freitag": "Sexta-feira",
       "samstag": "Sábado",
-      "sonntag": "Domingo"
+      "sonntag": "Domingo",
+      "adjustFilters": "Filtrar locais",
+      "onlyCurrentlyOpen": "mostrar apenas os locais atualmente abertos",
+      "poiCategories": "Categorias",
+      "showPois": "Exibir locais",
+      "alphabetLetters": "A-Z",
+      "clearFilter": "Eliminar o filtro {{filter}}",
+      "showOwnLocation": "Mostrar a sua própria localização"
     },
     "ro": {
       "pageTitle": "Harta",
@@ -8502,7 +8535,8 @@
     "pt": {
       "nothingFound": "Lamentamos, mas não foi encontrado nenhum resultado correspondente.",
       "searchPlaceholder": "Procura",
-      "pageTitle": "Procura"
+      "pageTitle": "Procura",
+      "delete": "Eliminar introdução"
     },
     "ro": {
       "nothingFound": "Din păcate, nu au fost găsite nici un fel de rezultate utile.",
@@ -9018,7 +9052,7 @@
       "pushNewsDescription": "Receber notificações push das últimas notícias locais",
       "about": "Acerca da {{appName}}",
       "privacyPolicy": "Política de privacidade",
-      "version": "Versão: {{versão}}",
+      "version": "Versão: {{version}}",
       "openSourceLicenses": "Licenças de código aberto",
       "tracking": "Avaliação do J-PAL",
       "allowTracking": "Permitir o rastreio",
@@ -9384,6 +9418,12 @@
       "mailTooltip": "نورو ته يې د بريښناليک له لارې سپارښتنه کول",
       "whatsappTooltip": "په واټسپ کې يې شريکول",
       "closeTooltip": "بندول"
+    },
+    "pt": {
+      "facebookTooltip": "partilhar no Facebook",
+      "mailTooltip": "recomendar por correio eletrónico",
+      "whatsappTooltip": "partilhar no WhatsApp",
+      "closeTooltip": "Fechar"
     },
     "ro": {
       "facebookTooltip": "partajați pe Facebook",
