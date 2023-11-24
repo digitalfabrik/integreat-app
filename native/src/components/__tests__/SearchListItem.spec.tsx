@@ -1,3 +1,4 @@
+import { TFunction } from 'i18next'
 import React from 'react'
 import { ReactTestInstance } from 'react-test-renderer'
 
@@ -14,7 +15,6 @@ jest.mock('react-native-webview', () => ({
 describe('SearchListItem', () => {
   const cityModel = new CityModelBuilder(1).build()[0]!
   const language = new LanguageModelBuilder(1).build()[0]!
-  const accessibilityHint = 'Navigates to the chosen page'
   const { categories: categoriesMapModel, resourceCache } = new CategoriesMapModelBuilder(
     cityModel.code,
     language.code,
@@ -22,6 +22,7 @@ describe('SearchListItem', () => {
   const categories = categoriesMapModel.toArray()
   const category = categories[1]!
   const contentWithoutHtml = parseHTML(category.content)
+  const t = ((key: string) => key) as TFunction
 
   const onItemPress = jest.fn()
 
@@ -47,7 +48,7 @@ describe('SearchListItem', () => {
         onItemPress={onItemPress}
         language={language.code}
         query={query}
-        accessibilityHint={accessibilityHint}
+        t={t}
       />,
     )
 
@@ -66,7 +67,7 @@ describe('SearchListItem', () => {
         onItemPress={onItemPress}
         language={language.code}
         query={category.title}
-        accessibilityHint={accessibilityHint}
+        t={t}
       />,
     )
 
@@ -87,7 +88,7 @@ describe('SearchListItem', () => {
         onItemPress={onItemPress}
         language={language.code}
         query={query}
-        accessibilityHint={accessibilityHint}
+        t={t}
       />,
     )
 
@@ -108,7 +109,7 @@ describe('SearchListItem', () => {
         onItemPress={onItemPress}
         language={language.code}
         query={query}
-        accessibilityHint={accessibilityHint}
+        t={t}
       />,
     )
 

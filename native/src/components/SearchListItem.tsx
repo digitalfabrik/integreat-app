@@ -1,3 +1,4 @@
+import { TFunction } from 'i18next'
 import React, { memo, ReactElement } from 'react'
 import Highlighter from 'react-native-highlight-words'
 import styled, { useTheme } from 'styled-components/native'
@@ -46,9 +47,9 @@ type SearchListItemProps = {
   contentWithoutHtml: string
   resourceCache: PageResourceCacheStateType
   onItemPress: (category: CategoryModel) => void
-  accessibilityHint: string
   language: string
   query: string
+  t: TFunction<'search'>
 }
 
 const SearchListItem = ({
@@ -56,9 +57,9 @@ const SearchListItem = ({
   category,
   resourceCache,
   contentWithoutHtml,
-  accessibilityHint,
   onItemPress,
   query,
+  t,
 }: SearchListItemProps): ReactElement => {
   const theme = useTheme()
   const { title, thumbnail } = category
@@ -88,7 +89,7 @@ const SearchListItem = ({
     />
   )
   return (
-    <FlexStyledLink onPress={() => onItemPress(category)} accessibilityHint={accessibilityHint}>
+    <FlexStyledLink onPress={() => onItemPress(category)} accessibilityHint={t('itemHint')}>
       <DirectionContainer language={language}>
         <SearchEntryContainer>
           <TitleDirectionContainer language={language}>

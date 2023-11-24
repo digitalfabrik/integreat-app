@@ -101,9 +101,9 @@ const SearchModal = ({
       resourceCache={resourceCache[item.category.path] ?? {}}
       contentWithoutHtml={item.contentWithoutHtml}
       language={languageCode}
-      accessibilityHint={t('itemHint')}
       query={query}
       onItemPress={onItemPress}
+      t={t}
     />
   )
 
