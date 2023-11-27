@@ -116,20 +116,16 @@ const Feedback = ({
     <Container fullWidth={isSearchFeedback}>
       {isSearchFeedback ? (
         <>
-          <TextContainer>
-            <LabelContainer>
-              <Labels htmlFor='searchTerm'>{t('searchTermDescription')}</Labels>
-            </LabelContainer>
-          </TextContainer>
+          <LabelContainer>
+            <Labels htmlFor='searchTerm'>{t('searchTermDescription')}</Labels>
+          </LabelContainer>
           <TextInput id='searchTerm' value={searchTerm} onChange={event => setSearchTerm(event.target.value)} />
         </>
       ) : (
         <>
-          <TextContainer>
-            <LabelContainer>
-              <Labels>{t('description')}</Labels>
-            </LabelContainer>
-          </TextContainer>
+          <LabelContainer>
+            <Labels>{t('description')}</Labels>
+          </LabelContainer>
           <ButtonContainer>
             <ToggleButton
               onClick={() => onFeedbackChanged(isPositiveFeedback ? null : true)}
@@ -146,22 +142,18 @@ const Feedback = ({
           </ButtonContainer>
         </>
       )}
-      <TextContainer>
-        <LabelContainer>
-          <Labels htmlFor='comment'>{t(description)}</Labels>
-          <LabelsOption>({t('optionalInfo')})</LabelsOption>
-        </LabelContainer>
-      </TextContainer>
+      <LabelContainer>
+        <Labels htmlFor='comment'>{t(description)}</Labels>
+        <LabelsOption>({t('optionalInfo')})</LabelsOption>
+      </LabelContainer>
       <TextContainer>
         <div>{t('commentDescription', { appName: buildConfig().appName })}</div>
       </TextContainer>
       <CommentField id='comment' rows={7} value={comment} onChange={event => onCommentChanged(event.target.value)} />
-      <TextContainer>
-        <LabelContainer>
-          <Labels htmlFor='email'>{t('contactMailAddress')}</Labels>
-          <LabelsOption>({t('optionalInfo')})</LabelsOption>
-        </LabelContainer>
-      </TextContainer>
+      <LabelContainer>
+        <Labels htmlFor='email'>{t('contactMailAddress')}</Labels>
+        <LabelsOption>({t('optionalInfo')})</LabelsOption>
+      </LabelContainer>
       <TextInput
         id='email'
         type='email'
