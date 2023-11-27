@@ -24,7 +24,7 @@ export const Container = styled.div<{ fullWidth?: boolean }>`
   font-size: ${props => props.theme.fonts.contentFontSize};
   overflow: auto;
   align-self: center;
-  gap: ${props => (props.fullWidth ? '7px' : 0)};
+  gap: 7px;
 
   @media ${dimensions.mediumLargeViewport} {
     width: ${props => (props.fullWidth ? 'auto' : '400px')};
@@ -42,13 +42,17 @@ const TextContainer = styled.div`
   align-items: center;
 `
 
-const DescriptionOption = styled.div`
+const LabelContainer = styled(TextContainer)`
   margin-top: 12px;
+  width: 100%;
 `
 
-export const Description = styled.label`
+const LabelsOption = styled.div`
+  right: auto;
+`
+
+export const Labels = styled.label`
   font-weight: 700;
-  margin-top: 12px;
 `
 
 export const ErrorSendingStatus = styled.div`
@@ -113,14 +117,18 @@ const Feedback = ({
       {isSearchFeedback ? (
         <>
           <TextContainer>
-            <Description htmlFor='searchTerm'>{t('searchTermDescription')}</Description>
+            <LabelContainer>
+              <Labels htmlFor='searchTerm'>{t('searchTermDescription')}</Labels>
+            </LabelContainer>
           </TextContainer>
           <TextInput id='searchTerm' value={searchTerm} onChange={event => setSearchTerm(event.target.value)} />
         </>
       ) : (
         <>
           <TextContainer>
-            <div>{t('description')}</div>
+            <LabelContainer>
+              <Labels>{t('description')}</Labels>
+            </LabelContainer>
           </TextContainer>
           <ButtonContainer>
             <ToggleButton
@@ -139,16 +147,20 @@ const Feedback = ({
         </>
       )}
       <TextContainer>
-        <Description htmlFor='comment'>{t(description)}</Description>
-        <DescriptionOption>({t('optionalInfo')})</DescriptionOption>
+        <LabelContainer>
+          <Labels htmlFor='comment'>{t(description)}</Labels>
+          <LabelsOption>({t('optionalInfo')})</LabelsOption>
+        </LabelContainer>
       </TextContainer>
       <TextContainer>
         <div>{t('commentDescription', { appName: buildConfig().appName })}</div>
       </TextContainer>
       <CommentField id='comment' rows={7} value={comment} onChange={event => onCommentChanged(event.target.value)} />
       <TextContainer>
-        <Description htmlFor='email'>{t('contactMailAddress')}</Description>
-        <DescriptionOption>({t('optionalInfo')})</DescriptionOption>
+        <LabelContainer>
+          <Labels htmlFor='email'>{t('contactMailAddress')}</Labels>
+          <LabelsOption>({t('optionalInfo')})</LabelsOption>
+        </LabelContainer>
       </TextContainer>
       <TextInput
         id='email'
