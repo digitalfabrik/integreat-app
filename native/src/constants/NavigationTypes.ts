@@ -44,9 +44,8 @@ import {
   CityNotCooperatingRouteType,
   LICENSES_ROUTE,
   LicensesRouteType,
+  FeedbackRouteType,
 } from 'api-client'
-
-import { FeedbackInformationType } from '../components/FeedbackContainer'
 
 export type RoutesType =
   | RedirectRouteType
@@ -122,7 +121,12 @@ export type RoutesParamsType = {
     url: string
     shareUrl: string
   }
-  [FEEDBACK_MODAL_ROUTE]: FeedbackInformationType
+  [FEEDBACK_MODAL_ROUTE]: {
+    routeType: FeedbackRouteType
+    language: string
+    cityCode: string
+    slug?: string
+  }
 }
 export type RouteProps<T extends RoutesType> = RouteProp<RoutesParamsType, T>
 export type NavigationProps<T extends RoutesType> = StackNavigationProp<RoutesParamsType, T>
