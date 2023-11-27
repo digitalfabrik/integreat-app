@@ -44,14 +44,9 @@ const TextContainer = styled.div`
 
 const LabelContainer = styled(TextContainer)`
   margin-top: 12px;
-  width: 100%;
 `
 
-const LabelsOption = styled.div`
-  right: auto;
-`
-
-export const Labels = styled.label`
+export const Label = styled.label`
   font-weight: 700;
 `
 
@@ -117,14 +112,14 @@ const Feedback = ({
       {isSearchFeedback ? (
         <>
           <LabelContainer>
-            <Labels htmlFor='searchTerm'>{t('searchTermDescription')}</Labels>
+            <Label htmlFor='searchTerm'>{t('searchTermDescription')}</Label>
           </LabelContainer>
           <TextInput id='searchTerm' value={searchTerm} onChange={event => setSearchTerm(event.target.value)} />
         </>
       ) : (
         <>
           <LabelContainer>
-            <Labels>{t('description')}</Labels>
+            <Label>{t('description')}</Label>
           </LabelContainer>
           <ButtonContainer>
             <ToggleButton
@@ -143,16 +138,16 @@ const Feedback = ({
         </>
       )}
       <LabelContainer>
-        <Labels htmlFor='comment'>{t(description)}</Labels>
-        <LabelsOption>({t('optionalInfo')})</LabelsOption>
+        <Label htmlFor='comment'>{t(description)}</Label>
+        <span>({t('optionalInfo')})</span>
       </LabelContainer>
       <TextContainer>
         <div>{t('commentDescription', { appName: buildConfig().appName })}</div>
       </TextContainer>
       <CommentField id='comment' rows={7} value={comment} onChange={event => onCommentChanged(event.target.value)} />
       <LabelContainer>
-        <Labels htmlFor='email'>{t('contactMailAddress')}</Labels>
-        <LabelsOption>({t('optionalInfo')})</LabelsOption>
+        <Label htmlFor='email'>{t('contactMailAddress')}</Label>
+        <span>({t('optionalInfo')})</span>
       </LabelContainer>
       <TextInput
         id='email'
