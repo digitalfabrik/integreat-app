@@ -224,6 +224,7 @@ const renderHtml = (
         height: ${theme.fonts.contentFontSize};
         background-size: contain;
         background-repeat: no-repeat;
+        vertical-align: -2px;
         margin: 0 4px;
       }
     </style>
