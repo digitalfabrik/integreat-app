@@ -20,6 +20,8 @@ import {
   MapFeatureCollection,
   clusterRadius,
   closerDetailZoom,
+  clusterClickZoomFactor,
+  featureLayerId,
 } from 'api-client'
 import { config } from 'translations'
 
@@ -110,12 +112,27 @@ const MapView = forwardRef(
       }
     }, [])
 
+    const zoomOnClusterPress = useCallback(
+      (event: MapLayerMouseEvent) => {
+        if (mapRef) {
+          const clusterFeatures = mapRef.queryRenderedFeatures(event.point)
+          if (0 in clusterFeatures && clusterFeatures[0].properties.cluster) {
+            mapRef.flyTo({
+              center: event.lngLat,
+              zoom: mapRef.getZoom() + clusterClickZoomFactor,
+            })
+          }
+        }
+      },
+      [mapRef],
+    )
+
     const onSelectFeature = useCallback(
       (event: MapLayerMouseEvent) => {
         // Stop propagation to children to prevent onClick select event as it is already handled
         event.originalEvent.stopPropagation()
         const feature = event.features && (event.features[0] as unknown as MapFeature)
-        if (feature) {
+        if (feature && feature.layer.id === featureLayerId) {
           selectFeature(
             {
               ...feature,
@@ -129,8 +146,10 @@ const MapView = forwardRef(
         } else {
           selectFeature(null, false)
         }
+
+        zoomOnClusterPress(event)
       },
-      [selectFeature],
+      [selectFeature, zoomOnClusterPress],
     )
 
     useEffect(
@@ -170,7 +189,7 @@ const MapView = forwardRef(
           cursor={cursor}
           initialViewState={viewport ?? undefined}
           // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-          interactiveLayerIds={[markerLayer(currentFeature).id!]}
+          interactiveLayerIds={[markerLayer(currentFeature).id!, clusterLayer(theme).id!]}
           style={{
             height: '100%',
             width: '100%',
