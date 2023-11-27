@@ -662,7 +662,7 @@
       "lastUpdate": "Laatste update:",
       "loading": "Aan het laden…",
       "close": "sluit af",
-      "optional": "Optioneel / optionele informatie"
+      "optional": "optioneel"
     },
     "pes": {
       "copied": "کپی شد",
@@ -712,7 +712,7 @@
       "lastUpdate": "Última atualização:",
       "loading": "A carregar ...",
       "close": "Fechar",
-      "optional": "Opcional"
+      "optional": "opcional"
     },
     "ro": {
       "copied": "Copiat",
@@ -762,7 +762,7 @@
       "lastUpdate": "Последње ажурирање:",
       "loading": "Учитава се ...",
       "close": "Затвори",
-      "optional": "Опција"
+      "optional": "опција"
     },
     "sr-Latn": {
       "copied": "kopirano",
@@ -772,7 +772,7 @@
       "lastUpdate": "Poslednje ažuriranje:",
       "loading": "Učitava se ...",
       "close": "Zatvorite",
-      "optional": "Opcija"
+      "optional": "opcija"
     },
     "ti": {
       "copied": "ተቐዲሑ",
