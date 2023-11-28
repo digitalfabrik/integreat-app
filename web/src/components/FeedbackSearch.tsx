@@ -2,7 +2,7 @@ import React, { ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
 
-import { FeedbackType } from 'api-client'
+import { SEARCH_ROUTE } from 'api-client'
 
 import FeedbackContainer from './FeedbackContainer'
 import TextButton from './base/TextButton'
@@ -31,13 +31,7 @@ const FeedbackSearch = ({ cityCode, languageCode, query, resultsFound }: Feedbac
   if (!resultsFound || query === boxOpenedForQuery) {
     return (
       <Container>
-        <FeedbackContainer
-          cityCode={cityCode}
-          language={languageCode}
-          routeType={FeedbackType.search}
-          isSearchFeedback
-          query={query}
-        />
+        <FeedbackContainer cityCode={cityCode} language={languageCode} routeType={SEARCH_ROUTE} query={query} />
       </Container>
     )
   }

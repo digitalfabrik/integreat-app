@@ -17,6 +17,7 @@ import {
 import { ThemeType } from 'build-configs'
 
 import FeedbackContainer from '../components/FeedbackContainer'
+import HorizontalLine from '../components/HorizontalLine'
 import List from '../components/List'
 import NothingFound from '../components/NothingFound'
 import SearchHeader from '../components/SearchHeader'
@@ -116,14 +117,8 @@ const SearchModal = ({
           noItemsMessage={
             <>
               <NothingFound />
-              <FeedbackContainer
-                routeType={SEARCH_ROUTE}
-                isSearchFeedback
-                language={languageCode}
-                cityCode={cityCode}
-                query={query}
-                hasDivider={!searchResults}
-              />
+              <HorizontalLine />
+              <FeedbackContainer routeType={SEARCH_ROUTE} language={languageCode} cityCode={cityCode} query={query} />
             </>
           }
         />

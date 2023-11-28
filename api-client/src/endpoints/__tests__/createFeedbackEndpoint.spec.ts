@@ -1,42 +1,51 @@
-import createFeedbackEndponit, {
-  CONTENT_FEEDBACK_CATEGORY,
-  FeedbackType,
-  TECHNICAL_FEEDBACK_CATEGORY,
-} from '../createFeedbackEndpoint'
+import {
+  CATEGORIES_ROUTE,
+  DISCLAIMER_ROUTE,
+  EVENTS_ROUTE,
+  OFFERS_ROUTE,
+  POIS_ROUTE,
+  SEARCH_ROUTE,
+  TU_NEWS_TYPE,
+} from '../../routes'
+import createFeedbackEndpoint, { FeedbackType } from '../createFeedbackEndpoint'
+import { SPRUNGBRETT_OFFER } from '../createSprungbrettJobsEndpoint'
 
 describe('feedback', () => {
   const baseUrl = 'https://integreat-api-url.de'
-  const feedback = createFeedbackEndponit(baseUrl)
+  const feedback = createFeedbackEndpoint(baseUrl)
+
   it('should map params to url', () => {
     expect(
       feedback.mapParamsToUrl({
         city: 'augsburg',
         language: 'de',
-        comment: null,
-        feedbackType: FeedbackType.categories,
-        feedbackCategory: TECHNICAL_FEEDBACK_CATEGORY,
+        comment: '',
+        contactMail: '',
+        routeType: CATEGORIES_ROUTE,
         isPositiveRating: true,
       }),
     ).toBe('https://integreat-api-url.de/augsburg/de/wp-json/extensions/v3/feedback/categories/')
   })
-  it('should create the correct feedbackendpoint', () => {
+
+  it('should create the correct feedback endpoint', () => {
     expect(
       feedback.mapParamsToUrl({
         city: 'augsburg',
         language: 'de',
-        comment: null,
-        feedbackType: FeedbackType.page,
-        feedbackCategory: CONTENT_FEEDBACK_CATEGORY,
+        comment: '',
+        contactMail: '',
+        routeType: CATEGORIES_ROUTE,
         isPositiveRating: true,
         slug: `willkommen`,
       }),
     ).toBe('https://integreat-api-url.de/augsburg/de/wp-json/extensions/v3/feedback/page/')
   })
+
   it('should map the params to the body', () => {
     const formData = new FormData()
     formData.append('rating', 'up')
-    formData.append('comment', 'comment')
-    formData.append('query', 'query')
+    formData.append('comment', 'comment    Kontaktadresse: Keine Angabe')
+    formData.append('query', 'query full (actual query: query)')
     formData.append('category', 'Inhalte')
     expect(feedback.mapParamsToBody).not.toBeNull()
     expect(feedback.mapParamsToBody).toBeDefined()
@@ -50,11 +59,43 @@ describe('feedback', () => {
         city: 'augsburg',
         language: 'de',
         isPositiveRating: true,
-        feedbackType: FeedbackType.categories,
-        feedbackCategory: CONTENT_FEEDBACK_CATEGORY,
+        routeType: CATEGORIES_ROUTE,
         comment: 'comment',
+        contactMail: '',
         query: 'query',
+        searchTerm: 'query full',
       }),
     ).toEqual(formData)
   })
+
+  it.each`
+    route               | props                          | feedbackType
+    ${CATEGORIES_ROUTE} | ${{}}                          | ${FeedbackType.categories}
+    ${CATEGORIES_ROUTE} | ${{ slug: 'willkommen' }}      | ${FeedbackType.page}
+    ${EVENTS_ROUTE}     | ${{}}                          | ${FeedbackType.events}
+    ${EVENTS_ROUTE}     | ${{ slug: '1234' }}            | ${FeedbackType.event}
+    ${OFFERS_ROUTE}     | ${{ slug: SPRUNGBRETT_OFFER }} | ${FeedbackType.offer}
+    ${OFFERS_ROUTE}     | ${{}}                          | ${FeedbackType.offers}
+    ${DISCLAIMER_ROUTE} | ${{}}                          | ${FeedbackType.imprint}
+    ${POIS_ROUTE}       | ${{ slug: '1234' }}            | ${FeedbackType.poi}
+    ${POIS_ROUTE}       | ${{}}                          | ${FeedbackType.map}
+    ${SEARCH_ROUTE}     | ${{ query: 'query ' }}         | ${FeedbackType.search}
+    ${TU_NEWS_TYPE}     | ${{}}                          | ${FeedbackType.categories}
+  `(
+    'should successfully request feedback for $feedbackType if rating was set',
+    async ({ route, props, feedbackType }) => {
+      const url = feedback.mapParamsToUrl({
+        city: 'augsburg',
+        language: 'de',
+        isPositiveRating: true,
+        routeType: route,
+        comment: 'comment',
+        contactMail: '',
+        query: 'query',
+        searchTerm: 'query full',
+        ...props,
+      })
+      expect(url).toBe(`https://integreat-api-url.de/augsburg/de/wp-json/extensions/v3/feedback/${feedbackType}/`)
+    },
+  )
 })

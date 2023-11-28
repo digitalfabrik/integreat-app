@@ -487,7 +487,10 @@
       "chooseALanguage": "Wähle eine Sprache.",
       "lastUpdate": "Letzte Aktualisierung:",
       "loading": "Lade ...",
-      "close": "Schließen"
+      "close": "Schließen",
+      "showMore": "Mehr anzeigen",
+      "showLess": "Weniger anzeigen",
+      "optional": "optional"
     },
     "am": {
       "copied": "ተቀድቷል",
@@ -496,7 +499,8 @@
       "chooseALanguage": "ቋንቋ ይምረጡ።",
       "lastUpdate": "መጨረሻ የተሻሻለበት ጊዜ:",
       "loading": "እየጫነ ነው ...",
-      "close": "ይዝጉ"
+      "close": "ይዝጉ",
+      "optional": "አማራጭ /ሊተው የሚችል/"
     },
     "ar": {
       "copied": "تم النسخ",
@@ -505,7 +509,8 @@
       "chooseALanguage": "اختر لغة.",
       "lastUpdate": "التحديث الأخير:",
       "loading": "حمّل...",
-      "close": "إغلاق"
+      "close": "إغلاق",
+      "optional": "اختياري"
     },
     "bg": {
       "copied": "Копиран",
@@ -514,7 +519,8 @@
       "chooseALanguage": "Изберете език.",
       "lastUpdate": "Последна актуализация:",
       "loading": "Зареждане...",
-      "close": "Затваряне"
+      "close": "Затваряне",
+      "optional": "опционално"
     },
     "ckb": {
       "copied": "کۆپی کرا",
@@ -523,7 +529,8 @@
       "chooseALanguage": "زمانێک هەڵبژێرە.",
       "lastUpdate": "دوایین بەڕۆژکردنەوە:",
       "loading": "خەریکی بارکردنە...",
-      "close": "داخستن"
+      "close": "داخستن",
+      "optional": "دڵخواز"
     },
     "cs": {
       "copied": "Kopírovat",
@@ -532,7 +539,8 @@
       "chooseALanguage": "Vyberte si jazyk.",
       "lastUpdate": "Poslední aktualizace:",
       "loading": "Načítání ...",
-      "close": "Zavřít"
+      "close": "Zavřít",
+      "optional": "volitelné"
     },
     "el": {
       "copied": "Αντιγράφηκε",
@@ -541,7 +549,8 @@
       "chooseALanguage": "Επιλέξτε μια γλώσσα.",
       "lastUpdate": "Τελευταία ενημέρωση:",
       "loading": "Φόρτωση ...",
-      "close": "Κλείσιμο"
+      "close": "Κλείσιμο",
+      "optional": "προαιρετικό"
     },
     "en": {
       "copied": "Copied",
@@ -550,7 +559,10 @@
       "chooseALanguage": "Choose a language.",
       "lastUpdate": "Last update:",
       "loading": "Loading ...",
-      "close": "Close"
+      "close": "Close",
+      "showMore": "Show more",
+      "showLess": "Show less",
+      "optional": "optional"
     },
     "es": {
       "copied": "Copiado",
@@ -559,7 +571,8 @@
       "chooseALanguage": "Selecciona un idioma.",
       "lastUpdate": "Última actualización:",
       "loading": "Cargando...",
-      "close": "Cerrar"
+      "close": "Cerrar",
+      "optional": "opcional"
     },
     "fi": {
       "copied": "Kopioitu",
@@ -568,7 +581,8 @@
       "chooseALanguage": "Valitse kieli.",
       "lastUpdate": "Viimeisin päivitys:",
       "loading": "Lataa...",
-      "close": "Sulje"
+      "close": "Sulje",
+      "optional": "valinnainen"
     },
     "fr": {
       "copied": "Copié",
@@ -577,7 +591,8 @@
       "chooseALanguage": "Choisis une langue.",
       "lastUpdate": "Dernière actualisation :",
       "loading": "Chargement ...",
-      "close": "Fermer"
+      "close": "Fermer",
+      "optional": "facultatif"
     },
     "hr": {
       "copied": "kopirano",
@@ -586,7 +601,8 @@
       "chooseALanguage": "Odaberi jezik.",
       "lastUpdate": "Zadnje ažuriranje:",
       "loading": "Učitava se...",
-      "close": "Zatvori"
+      "close": "Zatvori",
+      "optional": "opcijski"
     },
     "hu": {
       "copied": "Bemásolva",
@@ -595,7 +611,8 @@
       "chooseALanguage": "Válassz ki egy nyelvet.",
       "lastUpdate": "Utolsó aktualizálás:",
       "loading": "Betöltés...",
-      "close": "Bezárás"
+      "close": "Bezárás",
+      "optional": "opcionális"
     },
     "it": {
       "copied": "Copiato",
@@ -604,7 +621,8 @@
       "chooseALanguage": "Scegli una lingua.",
       "lastUpdate": "Ultimo aggiornamento:",
       "loading": "Caricamento...",
-      "close": "Chiudi"
+      "close": "Chiudi",
+      "optional": "opzionale"
     },
     "ka": {
       "copied": "დაკოპირებულია",
@@ -613,7 +631,8 @@
       "chooseALanguage": "აირჩიე ენა.",
       "lastUpdate": "ბოლო აქტუალიზირება:",
       "loading": "ატვირთე…",
-      "close": "დახურვა"
+      "close": "დახურვა",
+      "optional": "ნებაყოფლობით"
     },
     "kmr": {
       "copied": "Kopî bû",
@@ -622,7 +641,8 @@
       "chooseALanguage": "Zimanekî bibijêre.",
       "lastUpdate": "Birojkirina herî dawî:",
       "loading": "Di halê birojkirinê da...",
-      "close": "Girêdan"
+      "close": "Girêdan",
+      "optional": "Dilxwazî"
     },
     "mk": {
       "copied": "Копирано",
@@ -631,7 +651,8 @@
       "chooseALanguage": "Избери јазик.",
       "lastUpdate": "Последно ажурирање:",
       "loading": "Вчитај...",
-      "close": "Затвори"
+      "close": "Затвори",
+      "optional": "опционално"
     },
     "nl": {
       "copied": "Gekopieerd",
@@ -640,7 +661,8 @@
       "chooseALanguage": "Kies een taal",
       "lastUpdate": "Laatste update:",
       "loading": "Aan het laden…",
-      "close": "sluit af"
+      "close": "sluit af",
+      "optional": "optioneel"
     },
     "pes": {
       "copied": "کپی شد",
@@ -649,7 +671,8 @@
       "chooseALanguage": "یک زبان را انتخاب کنید.",
       "lastUpdate": "آخرین تغییرات:",
       "loading": "در حال بارگیری ...",
-      "close": "بستن"
+      "close": "بستن",
+      "optional": "اختیاری"
     },
     "pl": {
       "copied": "Skopiowano",
@@ -658,7 +681,8 @@
       "chooseALanguage": "Wybierz język.",
       "lastUpdate": "Ostatnia aktualizacja",
       "loading": "Załaduj...",
-      "close": "Zamknij"
+      "close": "Zamknij",
+      "optional": "opcja"
     },
     "prs": {
       "copied": "کپی شد",
@@ -667,7 +691,8 @@
       "chooseALanguage": "یک لسان انتخاب کنید.",
       "lastUpdate": "آخرین به‎​روز رسانی:",
       "loading": "در حال دانلود ...",
-      "close": "بستن"
+      "close": "بستن",
+      "optional": "اختیاری"
     },
     "ps": {
       "copied": "کاپی شولو",
@@ -676,7 +701,8 @@
       "chooseALanguage": "یوه ژبه انتخاب کړه.",
       "lastUpdate": "آخري تغیر شوے:",
       "loading": "بارولے کیږی ۔۔۔",
-      "close": "پای ته رسول"
+      "close": "پای ته رسول",
+      "optional": "اختیاري"
     },
     "pt": {
       "copied": "Copiado",
@@ -685,7 +711,8 @@
       "chooseALanguage": "Escolhe um idioma.",
       "lastUpdate": "Última atualização:",
       "loading": "A carregar ...",
-      "close": "Fechar"
+      "close": "Fechar",
+      "optional": "opcional"
     },
     "ro": {
       "copied": "Copiat",
@@ -694,7 +721,8 @@
       "chooseALanguage": "Alege o limbă.",
       "lastUpdate": "Ultima actualizare:",
       "loading": "Se încarcă ...",
-      "close": "Închideți"
+      "close": "Închideți",
+      "optional": "opțional"
     },
     "ru": {
       "copied": "Скопировано",
@@ -703,7 +731,8 @@
       "chooseALanguage": "Выбор языка.",
       "lastUpdate": "Последнее обновление:",
       "loading": "Загрузка...",
-      "close": "Закрыть"
+      "close": "Закрыть",
+      "optional": "опционально"
     },
     "so": {
       "copied": "la koobiyeeyay",
@@ -712,7 +741,8 @@
       "chooseALanguage": "Dooro luuqad.",
       "lastUpdate": "Cusbooneysiinta ugu dambeyso:",
       "loading": "Xareysmeyso ...",
-      "close": "Xidh"
+      "close": "Xidh",
+      "optional": "ikhtiyaari"
     },
     "sq": {
       "copied": "e kopjuar",
@@ -721,7 +751,8 @@
       "chooseALanguage": "Zgjidh një gjuhë.",
       "lastUpdate": "Përditësimi i fundit:",
       "loading": "Ngarko ...",
-      "close": "Mbyll"
+      "close": "Mbyll",
+      "optional": "opsionale"
     },
     "sr-Cyrl": {
       "copied": "копирано",
@@ -730,7 +761,8 @@
       "chooseALanguage": "Изабери језик.",
       "lastUpdate": "Последње ажурирање:",
       "loading": "Учитава се ...",
-      "close": "Затвори"
+      "close": "Затвори",
+      "optional": "опција"
     },
     "sr-Latn": {
       "copied": "kopirano",
@@ -739,7 +771,8 @@
       "chooseALanguage": "Izaberi jezik.",
       "lastUpdate": "Poslednje ažuriranje:",
       "loading": "Učitava se ...",
-      "close": "Zatvorite"
+      "close": "Zatvorite",
+      "optional": "opcija"
     },
     "ti": {
       "copied": "ተቐዲሑ",
@@ -748,7 +781,8 @@
       "chooseALanguage": "ቋንቋ ምረጽ።",
       "lastUpdate": "መወዳእታ ዝተሓደሰ",
       "loading": "ይጽዓን ኣሎ ...",
-      "close": "ዕጾ"
+      "close": "ዕጾ",
+      "optional": "ከም ምርጫኹም"
     },
     "tr": {
       "copied": "kopyalandı",
@@ -757,7 +791,8 @@
       "chooseALanguage": "Bir dil seçin.",
       "lastUpdate": "Son güncelleme:",
       "loading": "Yükleniyor ...",
-      "close": "Kapat"
+      "close": "Kapat",
+      "optional": "isteğe bağlı"
     },
     "uk": {
       "copied": "Копіювати",
@@ -766,7 +801,8 @@
       "chooseALanguage": "Виберіть мову.",
       "lastUpdate": "Останнє оновлення:",
       "loading": "Завантаження ...",
-      "close": "Закрити"
+      "close": "Закрити",
+      "optional": "додатково"
     },
     "ur": {
       "copied": "کاپی کیا گیا",
@@ -775,7 +811,8 @@
       "chooseALanguage": "زبان منتخب کریں۔",
       "lastUpdate": "آخری ترمیم:",
       "loading": "لوڈ ہو رہا ہے ‎…",
-      "close": "بند کریں"
+      "close": "بند کریں",
+      "optional": "اختیاری"
     },
     "zh-CN": {
       "copied": "已复制",
@@ -784,7 +821,8 @@
       "chooseALanguage": "请选择一种语言。",
       "lastUpdate": "上次更新：",
       "loading": "加载中。。。",
-      "close": "关闭"
+      "close": "关闭",
+      "optional": "可选"
     }
   },
   "dashboard": {
@@ -3059,8 +3097,8 @@
       "thanksMessage": "Dein Feedback wurde erfolgreich abgesendet.",
       "negativeRating": "Diese Seite ist nicht hilfreich",
       "positiveRating": "Diese Seite ist hilfreich",
+      "searchTermDescription": "Für den folgenden Begriff konnte kein Ergebnis gefunden werden:",
       "contactMailAddress": "E-Mail für Rückfragen",
-      "optionalInfo": "optional",
       "note": "Bitte wähle eine Reaktion oder schreibe einen Kommentar, um das Feedback abschicken zu können."
     },
     "am": {
@@ -3106,7 +3144,6 @@
       "negativeRating": "هذه الصفحة ليست مفيدة",
       "positiveRating": "هذه الصفحة مفيدة",
       "contactMailAddress": "البريد الإلكتروني للاستفسارات",
-      "optionalInfo": "اختياري",
       "note": "الرجاء اختيار رد فعل أو كتابة تعليق، كي يمكنك إرسال الرأي."
     },
     "bg": {
@@ -3129,7 +3166,6 @@
       "negativeRating": "Тази страница не е полезна",
       "positiveRating": "Тази страница е полезна",
       "contactMailAddress": "Имейл за запитвания",
-      "optionalInfo": "опционално",
       "note": "Моля, избери реакция или напиши коментар, за да можеш да изпратиш обратна връзка."
     },
     "ckb": {
@@ -3152,7 +3188,6 @@
       "negativeRating": "ئەم لاپەڕەیە بەکەڵک نییە",
       "positiveRating": "ئەم لاپەڕەیە بەکەڵکە",
       "contactMailAddress": "ئیمەیل بۆ پرسیارەکان",
-      "optionalInfo": "دڵخواز",
       "note": "تکایە کارانەوەیەک هەڵبژێرە یان بۆ ناردنی کاردانەوە کۆمێنت دابنێ."
     },
     "cs": {
@@ -3175,7 +3210,6 @@
       "negativeRating": "Tato stránka není užitečná",
       "positiveRating": "Tato stránka je užitečná",
       "contactMailAddress": "E-mail pro dotazy",
-      "optionalInfo": "volitelné",
       "note": "Vyberte reakci nebo napište komentář, abyste mohli odeslat zpětnou vazbu."
     },
     "el": {
@@ -3198,7 +3232,6 @@
       "negativeRating": "Αυτή η σελίδα δεν είναι χρήσιμη",
       "positiveRating": "Αυτή η σελίδα είναι χρήσιμη",
       "contactMailAddress": "E-mail για ερωτήσεις",
-      "optionalInfo": "προαιρετικό",
       "note": "Παρακαλούμε επιλέξτε μια αντίδραση ή γράψτε ένα σχόλιο για να μπορέσετε να στείλετε το σχόλιο."
     },
     "en": {
@@ -3220,8 +3253,8 @@
       "thanksMessage": "Your feedback has been sent successfully.",
       "negativeRating": "This site is not useful",
       "positiveRating": "This site is useful",
+      "searchTermDescription": "No result could be found for the following term:",
       "contactMailAddress": "E-Mail for further questions",
-      "optionalInfo": "optional",
       "note": "Please select a reaction or write a comment in order to send feedback."
     },
     "es": {
@@ -3244,7 +3277,6 @@
       "negativeRating": "Esta página no sirve de ayuda",
       "positiveRating": "Esta página sirve de ayuda",
       "contactMailAddress": "Correo electrónico para consultas",
-      "optionalInfo": "opcional",
       "note": "Selecciona una reacción o escribe un comentario para poder enviar la opinión."
     },
     "fi": {
@@ -3267,7 +3299,6 @@
       "negativeRating": "Tästä sivusta ei ole apua",
       "positiveRating": "Tämä sivu on hyödyllinen",
       "contactMailAddress": "Sähköpostiosoite tiedusteluita varten",
-      "optionalInfo": "valinnainen",
       "note": "Valitse reaktio tai kirjoita kommentti, jotta voit lähettää palautteen."
     },
     "fr": {
@@ -3290,7 +3321,6 @@
       "negativeRating": "Cette page n'est pas utile",
       "positiveRating": "Cette page est utile",
       "contactMailAddress": "E-mail en cas de question",
-      "optionalInfo": "facultatif",
       "note": "Choisis une réaction ou écris un commentaire pour pouvoir envoyer le commentaire."
     },
     "hr": {
@@ -3313,7 +3343,6 @@
       "negativeRating": "Ova stranica nije korisna",
       "positiveRating": "Ova stranica je korisna",
       "contactMailAddress": "E-pošta za povratna pitanja",
-      "optionalInfo": "opcijski",
       "note": "Izaberi reakciju ili napiši komentar za slanje povratnih informacija."
     },
     "hu": {
@@ -3336,7 +3365,6 @@
       "negativeRating": "Ez az oldal nem hasznos",
       "positiveRating": "Ez az oldal hasznos",
       "contactMailAddress": "E-mail visszajelzések számára",
-      "optionalInfo": "opcionális",
       "note": "Válasszon ki egy reakciót vagy írjon egy megjegyzést, hogy elküldhesse a visszajelzést."
     },
     "it": {
@@ -3359,7 +3387,6 @@
       "negativeRating": "Questa pagina non è utile",
       "positiveRating": "Questa pagina è utile",
       "contactMailAddress": "E-mail per chiarimenti",
-      "optionalInfo": "opzionale",
       "note": "Seleziona una reazione o scrivi un commento per poter inviare il feedback."
     },
     "ka": {
@@ -3382,7 +3409,6 @@
       "negativeRating": "ეს გვერდი გამოუსადეგარია",
       "positiveRating": "ეს გვერდი ეხმარება",
       "contactMailAddress": "ელექტრონული ფოსტა შეკითხვებისათვის",
-      "optionalInfo": "ნებაყოფლობით",
       "note": "გთხოვ აირჩიე რეაქცია ან დაწერე კომენტარი, რათა შენი უკუკავშირის გაგზავნა შეძლო."
     },
     "kmr": {
@@ -3405,7 +3431,6 @@
       "negativeRating": "Ev rûpel sûdmend nîne",
       "positiveRating": "Ev rûpel sûdmend e",
       "contactMailAddress": "Email jibo pirsan",
-      "optionalInfo": "Dilxwazî",
       "note": "Ji kerema xwe fîdbekekê bibijêre an ji bo şandina fîdbekê nêrînekê binivîse."
     },
     "mk": {
@@ -3428,7 +3453,6 @@
       "negativeRating": "Оваа страница не ми помогна",
       "positiveRating": "Оваа страница ми помогна",
       "contactMailAddress": "Е-адреса за прашања",
-      "optionalInfo": "опционално",
       "note": "Изберете реакција или напишете коментар за да испратите мислење."
     },
     "nl": {
@@ -3451,7 +3475,6 @@
       "negativeRating": "Deze website is niet nuttig.",
       "positiveRating": "Deze website is nuttig.",
       "contactMailAddress": "Stuur een email voor overige vragen.",
-      "optionalInfo": "Optioneel / optionele informatie",
       "note": "Selecteer een reactie of schrijf een opmerking om de feedback te kunnen versturen."
     },
     "pes": {
@@ -3474,7 +3497,6 @@
       "negativeRating": "این صفحه مفید نیست",
       "positiveRating": "این صفحه مفید است",
       "contactMailAddress": "ایمیل برای سئوالات",
-      "optionalInfo": "اختیاری",
       "note": "لطفاً یک واکنش را انتخاب کنید یا برای ارسال بازخورد نظری بنویسید."
     },
     "pl": {
@@ -3497,7 +3519,6 @@
       "negativeRating": "Ta strona nie jest pomocna",
       "positiveRating": "Ta strona jest pomocna",
       "contactMailAddress": "E-mail do zapytań",
-      "optionalInfo": "opcja",
       "note": "Wybierz reakcję lub napisz komentarz, aby móc wysłać opinię."
     },
     "prs": {
@@ -3520,7 +3541,6 @@
       "negativeRating": "این صفحه موثر نیست",
       "positiveRating": "این صفحه موثر است",
       "contactMailAddress": "ایمیل برای سوالات",
-      "optionalInfo": "اختیاری",
       "note": "لطفاً برای ارسال نظر، یک واکنش را انتخاب کرده یا یک نظر بنویسید."
     },
     "ps": {
@@ -3543,7 +3563,6 @@
       "negativeRating": "دا پاڼه ګټوره نده",
       "positiveRating": "دا پاڼه ګټوره ده",
       "contactMailAddress": "د پوښتنو لپاره بریښنالیک",
-      "optionalInfo": "اختیاري",
       "note": "د نظر د استولو لپاره، د مهربانۍ له مخې يو عکس العمل غوره يا يو نظر وليکئ."
     },
     "pt": {
@@ -3566,7 +3585,6 @@
       "negativeRating": "Esta página não é útil",
       "positiveRating": "Esta página é útil",
       "contactMailAddress": "Endereço de correio eletrónico para pedidos de informação",
-      "optionalInfo": "opcional",
       "note": "Seleccione uma reação ou escreva um comentário para poder enviar o feedback."
     },
     "ro": {
@@ -3589,7 +3607,6 @@
       "negativeRating": "Această pagină nu este utilă",
       "positiveRating": "Această pagină este utilă",
       "contactMailAddress": "E-mail pentru întrebări ulterioare",
-      "optionalInfo": "opțional",
       "note": "Vă rugăm să selectați o reacție sau să scrieți un comentariu pentru a putea trimite feedback-ul."
     },
     "ru": {
@@ -3612,7 +3629,6 @@
       "negativeRating": "Эта страница не содержит полезной информации",
       "positiveRating": "Эта страница содержит полезную информацию",
       "contactMailAddress": "Эл. почта для встречных вопросов",
-      "optionalInfo": "опционально",
       "note": "Чтобы отправить отзыв, пожалуйста, выбери реакцию или напиши комментарий."
     },
     "so": {
@@ -3635,7 +3651,6 @@
       "negativeRating": "Boggan waxtar ma leh",
       "positiveRating": "Boggan waa mid waxtar badan",
       "contactMailAddress": "I-meelka weydiimaha",
-      "optionalInfo": "ikhtiyaari",
       "note": "Fadlan door falcelin ama faallo qor si aad u gudbiso jawaab celinta."
     },
     "sq": {
@@ -3658,7 +3673,6 @@
       "negativeRating": "Kjo faqe nuk është e dobishme",
       "positiveRating": "Kjo faqe është e dobishme",
       "contactMailAddress": "E-mail për pyetje",
-      "optionalInfo": "opsionale",
       "note": "Zgjidh një reagim ose shkruaj një koment që të mund të dërgosh përshtypjet."
     },
     "sr-Cyrl": {
@@ -3681,7 +3695,6 @@
       "negativeRating": "Ова страница није корисна",
       "positiveRating": "Ова страница је корисна",
       "contactMailAddress": "Е-пошта за питања",
-      "optionalInfo": "Опција",
       "note": "Изабери реакцију или напиши коментар за слање повратних информација."
     },
     "sr-Latn": {
@@ -3704,7 +3717,6 @@
       "negativeRating": "Ova stranica nije od pomoći",
       "positiveRating": "Ova stranica je od pomoći",
       "contactMailAddress": "E-pošta za pitanja",
-      "optionalInfo": "Opcija",
       "note": "Izaberi reakciju ili napiši komentar za slanje povratnih informacija."
     },
     "ti": {
@@ -3727,7 +3739,6 @@
       "negativeRating": "እዚ ገጽ’ዚ ሓጋዚ ኣይኮነን",
       "positiveRating": "እዚ ገጽ’ዚ ሓጋዚ እዩ",
       "contactMailAddress": "ኢመይል ንሕቶታት",
-      "optionalInfo": "ከም ምርጫኹም",
       "note": "ርእይቶኹም ንምቕራብ ግብረ መልሲ ምረጹ ወይ ርእይቶ ጽሓፉ።"
     },
     "tr": {
@@ -3750,7 +3761,6 @@
       "negativeRating": "Bu sayfa yardımcı olmadı",
       "positiveRating": "Bu sayfa yardımcı oldu",
       "contactMailAddress": "Sorularınız için e-posta",
-      "optionalInfo": "isteğe bağlı",
       "note": "Geri bildirimi gönderebilmek için lütfen bir tepki seç veya bir yorum yaz."
     },
     "uk": {
@@ -3773,7 +3783,6 @@
       "negativeRating": "Ця сторінка не є корисною",
       "positiveRating": "Ця сторінка корисна",
       "contactMailAddress": "Електронна пошта для запитів",
-      "optionalInfo": "додатково",
       "note": "Виберіть реакцію або напишіть коментар, щоб мати можливість надіслати відгук."
     },
     "ur": {
@@ -3796,7 +3805,6 @@
       "negativeRating": "یہ صفحہ مددگار نہیں ہے",
       "positiveRating": "یہ صفحہ مددگار ہے",
       "contactMailAddress": "سوالات کے لئے ای میل",
-      "optionalInfo": "اختیاری",
       "note": "رائے بھیجنے کے لیے براہ کرم کوئی ردعمل منتخب کریں یا تبصرہ لکھیں۔"
     },
     "zh-CN": {
@@ -3819,7 +3827,6 @@
       "negativeRating": "这个网站没有帮助",
       "positiveRating": "这个网站很有帮助",
       "contactMailAddress": "反问的电子邮件",
-      "optionalInfo": "可选",
       "note": "请选择一个回应或给出评论，以提交您的反馈意见。"
     }
   },
