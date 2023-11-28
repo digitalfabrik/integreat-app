@@ -3,8 +3,10 @@ import { ThemeType } from 'build-configs'
 import { ParsedCacheDictionaryType } from '../components/Page'
 import { ERROR_MESSAGE_TYPE, getFontFaceSource, HEIGHT_MESSAGE_TYPE, WARNING_MESSAGE_TYPE } from '../constants/webview'
 
+// To use parameters or external constants in renderJS, you need to use string interpolation, e.g.
+// const cacheDictionary = ${JSON.stringify(cacheDictionary)}
 // language=JavaScript
-const renderJS = (cacheDictionary: Record<string, string>) => `
+const renderJS = (cacheDictionary: ParsedCacheDictionaryType, allowedIframeSources: string[]) => `
     function reportError (message, type) {
 
       if (!window.ReactNativeWebView) {
@@ -14,17 +16,15 @@ const renderJS = (cacheDictionary: Record<string, string>) => `
       window.ReactNativeWebView.postMessage(JSON.stringify({ type, message: message }))
     }
 
-    // Catching occurring errors
-    (function() {
+    (function catchErrors() {
       window.onerror = function(msg, url, lineNo, columnNo, error) {
-        // from https://developer.mozilla.org/en-US/docs/Web/API/GlobalEventHandlers/onerror
-        var string = msg.toLowerCase()
-        var substring = "script error"
+        const string = msg.toLowerCase()
+        const substring = "script error"
         if (string.indexOf(substring) > -1) {
           reportError('Script Error: See Browser Console for Detail: ' + msg + JSON.stringify(error),
             '${ERROR_MESSAGE_TYPE}')
         } else {
-          var message = [
+          const message = [
             'Message: ' + msg,
             'URL: ' + url,
             'Line: ' + lineNo,
@@ -37,19 +37,15 @@ const renderJS = (cacheDictionary: Record<string, string>) => `
       };
     })();
 
-    (function() {
-      var hrefs = document.querySelectorAll('[href]')
-      var srcs = document.querySelectorAll('[src]')
-      // TODO 2588- properly pass value 
-      var cacheDictionary = ${JSON.stringify(cacheDictionary)}
+    (function replaceResourcesWithCached() {
+      const hrefs = document.querySelectorAll('[href]')
+      const srcs = document.querySelectorAll('[src]')
+      const cacheDictionary = ${JSON.stringify(cacheDictionary)}
 
-      console.debug('Resources to inject:')
-      console.debug(cacheDictionary)
-
-      for (var i = 0; i < hrefs.length; i++) {
-        var item = hrefs[i]
+      for (let i = 0; i < hrefs.length; i++) {
+        const item = hrefs[i]
         try {
-          var newResource = cacheDictionary[decodeURI(item.href)]
+          const newResource = cacheDictionary[decodeURI(item.href)]
           if (newResource) {
             item.href = newResource
           }
@@ -59,10 +55,10 @@ const renderJS = (cacheDictionary: Record<string, string>) => `
         }
       }
 
-      for (var i = 0; i < srcs.length; i++) {
-        var item = srcs[i]
+      for (let i = 0; i < srcs.length; i++) {
+        const item = srcs[i]
         try {
-          var newResource = cacheDictionary[decodeURI(item.src)]
+          const newResource = cacheDictionary[decodeURI(item.src)]
           if (newResource) {
             item.src = newResource
           }
@@ -73,8 +69,8 @@ const renderJS = (cacheDictionary: Record<string, string>) => `
       }
     })();
 
-    (function() {
-      var container = document.getElementById('measure-container')
+    (function addWebviewHeightListeners() {
+      const container = document.getElementById('measure-container')
 
       function adjustHeight () {
         container.setAttribute('style', 'padding: 1px 0;'); // Used for measuring collapsed vertical margins
@@ -83,25 +79,25 @@ const renderJS = (cacheDictionary: Record<string, string>) => `
           return window.setTimeout(adjustHeight, 100);
         }
 
-        var height = container.getBoundingClientRect().height - 2
+        const height = container.getBoundingClientRect().height - 2
         window.ReactNativeWebView.postMessage(JSON.stringify({ type: '${HEIGHT_MESSAGE_TYPE}', height: height }));
         container.setAttribute('style', '');
       }
 
       window.addEventListener('load', adjustHeight);
       window.addEventListener('resize', adjustHeight);
-      var details = document.querySelectorAll("details")
+      const details = document.querySelectorAll("details")
       details.forEach(detail => detail.addEventListener("toggle", adjustHeight))
     })();
 
-    // iframe handling - remove not allowed iframe src from DOM and add tracking parameter
-    (function() {
-      var iframes = document.querySelectorAll('iframe')
+    (function handleIframes() {
+      const iframes = document.querySelectorAll('iframe')
+      const allowedIframeSources = ${JSON.stringify(allowedIframeSources)}
+      
       iframes.forEach((el) => {
-        // TODO 2588- replace by allowedIframeSources from buildConfig instead of hardcoding
-        var allowedIframeSources = ['vimeo']
         if (allowedIframeSources.some(url => el.src.indexOf(url) > 0)) {
-          var url = new URL(el.src)
+          const url = new URL(el.src)
+          // Add do not track parameter
           url.searchParams.append('dnt', '1')
           el.setAttribute('src', url.href)
       } else {
@@ -110,10 +106,14 @@ const renderJS = (cacheDictionary: Record<string, string>) => `
       })
     })();
   `
+
+// To use parameters or external constants in renderHTML, you need to use string interpolation, e.g.
+// <html lang='${language}'>
 // language=HTML
 const renderHtml = (
   html: string,
   cacheDictionary: ParsedCacheDictionaryType,
+  allowedIframeSources: string[],
   theme: ThemeType,
   language: string,
 ): string => `
@@ -255,7 +255,7 @@ const renderHtml = (
     </head>
     <body dir='auto'>
     <div id='measure-container'>${html}</div>
-    <script>${renderJS(cacheDictionary)}</script>
+    <script>${renderJS(cacheDictionary, allowedIframeSources)}</script>
     </body>
     </html>
   `
