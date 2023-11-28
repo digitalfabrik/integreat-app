@@ -63,7 +63,11 @@ const TileRow = styled(Row)`
 `
 
 const StyledToggleButton = styled(ToggleButton)`
-  margin-bottom: 24px;
+  margin-bottom: 8px;
+`
+
+const StyledTextButton = styled(TextButton)`
+  margin-top: 16px;
 `
 
 type PoiFiltersModalProps = {
@@ -121,7 +125,7 @@ const PoiFiltersModal = ({
           </TileRow>
         </Section>
         <Section>
-          <TextButton onPress={closeModal} text={t('showPois')} />
+          <StyledTextButton onPress={closeModal} text={t('showPois')} />
         </Section>
       </Container>
     </Modal>
