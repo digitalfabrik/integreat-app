@@ -63,9 +63,9 @@ const Modal = ({ title, closeModal, children, direction, wrapInPortal = false }:
 
     return () => layoutElement?.setAttribute('aria-hidden', 'false')
   }, [])
-
+  // display check option is needed for portals - https://github.com/focus-trap/tabbable/blob/master/CHANGELOG.md#600
   const Modal = (
-    <FocusTrap focusTrapOptions={{ clickOutsideDeactivates: true }}>
+    <FocusTrap focusTrapOptions={{ clickOutsideDeactivates: true, tabbableOptions: { displayCheck: 'legacy-full' } }}>
       <ModalContainer role='dialog' aria-hidden={false} aria-modal>
         <Overlay onClick={closeModal} tabIndex={0} ariaLabel={t('close')}>
           <div />

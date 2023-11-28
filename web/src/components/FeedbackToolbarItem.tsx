@@ -1,6 +1,7 @@
 import React, { ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
+import { FeedbackRouteType } from 'api-client'
 import { config } from 'translations/src'
 
 import { FeedbackIcon } from '../assets'
@@ -33,10 +34,9 @@ const FeedbackToolbarItem = ({ route, slug, isInBottomActionSheet }: FeedbackToo
           direction={direction}
           wrapInPortal={isInBottomActionSheet}>
           <FeedbackContainer
-            isSearchFeedback={false}
             closeModal={() => setIsFeedbackOpen(false)}
             onSubmit={() => setIsSubmitted(true)}
-            routeType={route}
+            routeType={route as FeedbackRouteType}
             cityCode={cityCode}
             language={languageCode}
             slug={slug}
