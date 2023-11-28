@@ -8,7 +8,7 @@ import RNCalendarEvents, {
   RecurrenceRule,
 } from 'react-native-calendar-events'
 import { PERMISSIONS, requestMultiple } from 'react-native-permissions'
-import { Frequency } from 'rrule'
+import { Frequency, RRule } from 'rrule'
 import styled from 'styled-components/native'
 
 import { EventModel } from 'api-client'
@@ -24,6 +24,30 @@ const StyledButton = styled(TextButton)`
 
 type ExportEventButtonType = {
   event: EventModel
+}
+
+type Recurrence = Omit<RecurrenceRule, 'endDate' | 'occurrence'> & {
+  endDate?: string
+  occurrence?: number
+}
+
+const formatRecurrenceRule = (recurrence: RRule | null): RecurrenceRule | undefined => {
+  if (!recurrence) {
+    return undefined
+  }
+  const formattedRecurrence: Recurrence = {
+    frequency: Frequency[recurrence.options.freq].toLowerCase() as RecurrenceFrequency,
+    interval: recurrence.options.interval,
+  }
+  const lastDate = recurrence.options.until?.toISOString()
+  if (lastDate) {
+    formattedRecurrence.endDate = lastDate
+  }
+  const occurrence = recurrence.options.count
+  if (occurrence) {
+    formattedRecurrence.occurrence = occurrence
+  }
+  return formattedRecurrence as RecurrenceRule
 }
 
 const ExportEventButton = ({ event }: ExportEventButtonType): ReactElement => {
@@ -45,7 +69,7 @@ const ExportEventButton = ({ event }: ExportEventButtonType): ReactElement => {
       endDate = event.date.endDate.plus({ minutes: 1 }).toFormat("yyyy-LL-dd'T'00:00:00.000'Z'")
     }
 
-    let eventOptions: CalendarEventWritable = {
+    const eventOptions: CalendarEventWritable = {
       startDate,
       endDate,
       allDay,
@@ -53,27 +77,7 @@ const ExportEventButton = ({ event }: ExportEventButtonType): ReactElement => {
       location: event.location?.fullAddress,
       description: event.excerpt, // Android
       notes: event.excerpt, // iOS
-    }
-
-    if (exportAll && event.date.recurrenceRule) {
-      // @ts-expect-error Users don't need to set a last date or a number of occurrences in the CMS
-      const recurrenceOptions: RecurrenceRule = {
-        frequency: Frequency[event.date.recurrenceRule.options.freq].toLowerCase() as RecurrenceFrequency,
-        interval: event.date.recurrenceRule.options.interval,
-      }
-      const lastDate = event.date.recurrenceRule.options.until?.toISOString()
-      if (lastDate) {
-        recurrenceOptions.endDate = lastDate
-      }
-      const occurrence = event.date.recurrenceRule.options.count
-      if (occurrence) {
-        recurrenceOptions.occurrence = occurrence
-      }
-
-      eventOptions = {
-        ...eventOptions,
-        recurrenceRule: recurrenceOptions,
-      }
+      recurrenceRule: exportAll ? formatRecurrenceRule(event.date.recurrenceRule) : undefined,
     }
 
     try {

@@ -44,7 +44,7 @@ const SubmitButton = styled(Pressable)`
   shadow-color: #000;
   shadow-offset: 0px 1px;
   shadow-opacity: 0.2;
-  shadow-radius: 1.41px;
+  shadow-radius: 1px;
 `
 
 const SubmitButtonText = styled.Text`
@@ -69,7 +69,7 @@ const CalendarChoiceModal = ({
   recurring,
 }: CalendarChoiceProps): ReactElement => {
   const { t } = useTranslation('events')
-  const [selectedCalendar, selectCalendar] = useState(calendars[0]?.id ?? '')
+  const [selectedCalendarId, setSelectedCalendarId] = useState<string>(calendars[0]?.id ?? '')
   const [exportAllEvents, setExportAllEvents] = useState<boolean>(false)
   return (
     <Modal modalVisible={modalVisible} closeModal={closeModal} headerTitle={eventTitle}>
@@ -78,8 +78,8 @@ const CalendarChoiceModal = ({
         {calendars.map((cal, i) => (
           <Fragment key={cal.id}>
             <RadioButton
-              selected={selectedCalendar === cal.id}
-              select={() => selectCalendar(cal.id)}
+              selected={selectedCalendarId === cal.id}
+              select={() => setSelectedCalendarId(cal.id)}
               text={
                 <View>
                   <ButtonTitle>{cal.title}</ButtonTitle>
@@ -105,7 +105,7 @@ const CalendarChoiceModal = ({
             />
           </>
         )}
-        <SubmitButton onPress={() => chooseCalendar(selectedCalendar, exportAllEvents)}>
+        <SubmitButton onPress={() => chooseCalendar(selectedCalendarId, exportAllEvents)}>
           <SubmitButtonText>{t('addToCalendar')}</SubmitButtonText>
         </SubmitButton>
       </ScrollView>
