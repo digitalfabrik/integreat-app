@@ -80,7 +80,7 @@ const RemoteContent = (props: RemoteContentProps): ReactElement | null => {
   const onShouldStartLoadWithRequest = useCallback(
     (event: WebViewNavigation): boolean => {
       // load allowed iframe sources on request
-      if (buildConfig().allowedIframeSources.some(el => event.url.indexOf(el) > 0)) {
+      if (buildConfig().allowedIframeSources.some(source => event.url.indexOf(source) > 0)) {
         return true
       }
       if (event.url === new URL(resourceCacheUrl).href) {
