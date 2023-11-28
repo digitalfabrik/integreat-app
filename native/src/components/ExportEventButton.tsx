@@ -61,7 +61,7 @@ const ExportEventButton = ({ event }: ExportEventButtonType): ReactElement => {
         frequency: Frequency[event.date.recurrenceRule.options.freq].toLowerCase() as RecurrenceFrequency,
         interval: event.date.recurrenceRule.options.interval,
       }
-      const lastDate = event.date.recurrenceRule.options.until?.toUTCString()
+      const lastDate = event.date.recurrenceRule.options.until?.toISOString()
       if (lastDate) {
         recurrenceOptions.endDate = lastDate
       }
