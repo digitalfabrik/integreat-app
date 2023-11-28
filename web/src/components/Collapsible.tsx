@@ -4,6 +4,7 @@ import styled from 'styled-components'
 
 import { ArrowBackIcon } from '../assets'
 import { helpers } from '../constants/theme'
+import Button from './base/Button'
 import Icon from './base/Icon'
 
 const Container = styled.div`
@@ -12,10 +13,9 @@ const Container = styled.div`
   gap: 8px;
 `
 
-const CollapsibleHeader = styled.div`
+const CollapsibleHeader = styled(Button)`
   display: flex;
   justify-content: space-between;
-  cursor: pointer;
 `
 
 const Title = styled.div`
@@ -53,10 +53,10 @@ const Collapsible = ({
   return (
     <Container className={className}>
       <CollapsibleHeader
-        role='button'
+        ariaLabel={t(collapsed ? 'showMore' : 'showLess')}
         onClick={() => setCollapsed(!collapsed)}
-        tabIndex={0}
-        onKeyUp={() => setCollapsed(!collapsed)}>
+        aria-expanded={!collapsed}
+        tabIndex={0}>
         {typeof title === 'string' ? <Title>{title}</Title> : title}
         <CollapseIcon
           src={ArrowBackIcon}
