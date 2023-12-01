@@ -8,6 +8,7 @@ import {
   CategoriesRouteType,
   CHANGE_LANGUAGE_MODAL_ROUTE,
   CITY_NOT_COOPERATING_ROUTE,
+  CONSENT_ROUTE,
   DISCLAIMER_ROUTE,
   EVENTS_ROUTE,
   EXTERNAL_OFFER_ROUTE,
@@ -31,6 +32,7 @@ import {
   useLoadAsync,
 } from 'api-client'
 
+import Consent from './components/Consent'
 import Header from './components/Header'
 import RedirectContainer from './components/RedirectContainer'
 import TransparentHeader from './components/TransparentHeader'
@@ -221,6 +223,7 @@ const Navigator = (): ReactElement | null => {
         <Stack.Screen name={SETTINGS_ROUTE} component={Settings} />
         <Stack.Screen name={LICENSES_ROUTE} component={Licenses} />
         <Stack.Screen name={EXTERNAL_OFFER_ROUTE} component={ExternalOfferContainer} />
+        <Stack.Screen name={CONSENT_ROUTE} component={Consent} />
       </Stack.Group>
     </Stack.Navigator>
   )

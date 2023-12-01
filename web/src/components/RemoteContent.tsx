@@ -155,7 +155,7 @@ const RemoteContent = ({
     // Remove disallowed iframes from DOM and add do not track parameter for vimeo
     const iframes = currentSandBoxRef.getElementsByTagName('iframe')
     Array.from(iframes).forEach((iframe: HTMLIFrameElement) => {
-      if (buildConfig().allowedIframeSources.some(source => iframe.src.indexOf(source) > 0)) {
+      if (buildConfig().whiteListedIframeSources.some(source => iframe.src.indexOf(source) > 0)) {
         addDoNotTrackParameter(iframe)
       } else {
         iframe.remove()

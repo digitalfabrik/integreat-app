@@ -15,7 +15,6 @@ const APPLICATION_ID = 'de.malteapp'
 const BUNDLE_IDENTIFIER = 'de.malteapp'
 
 const commonMalteBuildConfig: CommonBuildConfigType = {
-  allowedIframeSources: ['vimeo'],
   appName: 'Malte',
   appIcon: 'app_icon_malte',
   lightTheme,
@@ -23,6 +22,7 @@ const commonMalteBuildConfig: CommonBuildConfigType = {
   cmsUrl: 'https://cms.malteapp.de',
   switchCmsUrl: 'https://malte-test.tuerantuer.org',
   allowedHostNames: ['cms.malteapp.de', 'malte-test.tuerantuer.org'],
+  whiteListedIframeSources: ['vimeo'],
   translationsOverride: malteOverrideTranslations,
   internalLinksHijackPattern:
     'https?:\\/\\/((cms\\.)?malteapp\\.de|malte-test\\.tuerantuer\\.org)(?!\\/(media|[^/]*\\/(wp-content|wp-admin|wp-json))\\/.*).*',

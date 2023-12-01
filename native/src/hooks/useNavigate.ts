@@ -4,6 +4,7 @@ import { useCallback, useContext } from 'react'
 import {
   CATEGORIES_ROUTE,
   CITY_NOT_COOPERATING_ROUTE,
+  CONSENT_ROUTE,
   DISCLAIMER_ROUTE,
   EVENTS_ROUTE,
   JPAL_TRACKING_ROUTE,
@@ -15,6 +16,7 @@ import {
   POIS_ROUTE,
   RouteInformationType,
   SEARCH_ROUTE,
+  SETTINGS_ROUTE,
   SPRUNGBRETT_OFFER_ROUTE,
 } from 'api-client'
 
@@ -48,6 +50,11 @@ const navigate = <T extends RoutesType>(
 
   if (routeInformation.route === LICENSES_ROUTE) {
     navigation.push(LICENSES_ROUTE)
+    return
+  }
+
+  if (routeInformation.route === CONSENT_ROUTE) {
+    navigation.push(CONSENT_ROUTE)
     return
   }
 

@@ -14,7 +14,6 @@ const APPLICATION_ID = 'tuerantuer.app.integreat'
 const BUNDLE_IDENTIFIER = 'de.integreat-app'
 
 const commonIntegreatBuildConfig: CommonBuildConfigType = {
-  allowedIframeSources: ['vimeo'],
   appName: 'Integreat',
   appIcon: 'app_icon_integreat',
   lightTheme,
@@ -23,6 +22,7 @@ const commonIntegreatBuildConfig: CommonBuildConfigType = {
   switchCmsUrl: 'https://cms-test.integreat-app.de',
   hostName: 'integreat.app',
   allowedHostNames: ['cms.integreat-app.de', 'cms-test.integreat-app.de', 'admin.integreat-app.de'],
+  whiteListedIframeSources: ['vimeo'],
   internalLinksHijackPattern:
     'https?:\\/\\/(cms(-test)?\\.integreat-app\\.de|web\\.integreat-app\\.de|integreat\\.app)(?!\\/(media|[^/]*\\/(wp-content|wp-admin|wp-json))\\/.*).*',
   featureFlags: {

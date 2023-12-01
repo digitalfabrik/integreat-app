@@ -4,7 +4,6 @@ import mainImprint from './mainImprint'
 import { lightTheme } from './theme'
 
 const commonObdachBuildConfig: CommonBuildConfigType = {
-  allowedIframeSources: ['vimeo'],
   appName: 'Netzwerk Obdach & Wohnen',
   appIcon: 'app_icon_obdach',
   lightTheme,
@@ -12,6 +11,7 @@ const commonObdachBuildConfig: CommonBuildConfigType = {
   cmsUrl: 'https://cms.netzwerkobdachwohnen.de',
   hostName: 'netzwerkobdachwohnen.de',
   allowedHostNames: ['cms.netzwerkobdachwohnen.de', 'admin.netzwerkobdachwohnen.de'],
+  whiteListedIframeSources: ['vimeo'],
   internalLinksHijackPattern:
     'https?:\\/\\/((cms\\.)?netzwerkobdachwohnen\\.de)(?!\\/(media|[^/]*\\/(wp-content|wp-admin|wp-json))\\/.*).*',
   featureFlags: {

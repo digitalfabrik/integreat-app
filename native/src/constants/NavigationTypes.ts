@@ -44,6 +44,8 @@ import {
   CityNotCooperatingRouteType,
   LICENSES_ROUTE,
   LicensesRouteType,
+  CONSENT_ROUTE,
+  ConsentRouteType,
 } from 'api-client'
 
 import { FeedbackInformationType } from '../components/FeedbackContainer'
@@ -69,6 +71,7 @@ export type RoutesType =
   | ImageViewModalRouteType
   | FeedbackModalRouteType
   | LicensesRouteType
+  | ConsentRouteType
 
 type RouteTitle = {
   title?: string
@@ -86,6 +89,7 @@ export type RoutesParamsType = {
   [CATEGORIES_ROUTE]: RouteTitle & {
     path?: string
   }
+
   [POIS_ROUTE]: RouteTitle & {
     slug?: string
     multipoi?: string | null
@@ -99,6 +103,7 @@ export type RoutesParamsType = {
   }
   [DISCLAIMER_ROUTE]: undefined
   [OFFERS_ROUTE]: undefined
+  [CONSENT_ROUTE]: undefined
   [JPAL_TRACKING_ROUTE]: undefined
   [EXTERNAL_OFFER_ROUTE]: {
     url: string

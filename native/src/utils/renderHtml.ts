@@ -1,13 +1,29 @@
+import { TFunction } from 'i18next'
+
 import { ThemeType } from 'build-configs'
 
 import { ParsedCacheDictionaryType } from '../components/Page'
-import { ERROR_MESSAGE_TYPE, getFontFaceSource, HEIGHT_MESSAGE_TYPE, WARNING_MESSAGE_TYPE } from '../constants/webview'
+import {
+  ERROR_MESSAGE_TYPE,
+  getFontFaceSource,
+  HEIGHT_MESSAGE_TYPE,
+  IFRAME_MESSAGE_TYPE,
+  SETTINGS_MESSAGE_TYPE,
+  WARNING_MESSAGE_TYPE,
+} from '../constants/webview'
+import { ExternalSourcePermission } from './AppSettings'
 
 // To use parameters or external constants in renderJS, you need to use string interpolation, e.g.
 // const cacheDictionary = ${JSON.stringify(cacheDictionary)}
 // language=JavaScript
-const renderJS = (cacheDictionary: ParsedCacheDictionaryType, allowedIframeSources: string[]) => `
+const renderJS = (
+  cacheDictionary: ParsedCacheDictionaryType,
+  whiteListedIframeSources: string[],
+  allowedExternalSourcePermissions: ExternalSourcePermission[],
+  t: TFunction,
+) => `
   function reportError (message, type) {
+
     if (!window.ReactNativeWebView) {
       return window.setTimeout(function() { reportError(message, type) }, 100)
     }
@@ -15,11 +31,10 @@ const renderJS = (cacheDictionary: ParsedCacheDictionaryType, allowedIframeSourc
     window.ReactNativeWebView.postMessage(JSON.stringify({ type, message: message }))
   }
 
-  // Catching occurring errors
-  (function  catchErrors() {
+  (function catchErrors () {
     window.onerror = function(msg, url, lineNo, columnNo, error) {
       const string = msg.toLowerCase()
-      const substring = "script error"
+      const substring = 'script error'
       if (string.indexOf(substring) > -1) {
         reportError('Script Error: See Browser Console for Detail: ' + msg + JSON.stringify(error),
           '${ERROR_MESSAGE_TYPE}')
@@ -34,10 +49,10 @@ const renderJS = (cacheDictionary: ParsedCacheDictionaryType, allowedIframeSourc
         reportError(message, '${ERROR_MESSAGE_TYPE}')
       }
       return false
-    };
+    }
   })();
 
-  (function replaceResourcesWithCached() {
+  (function replaceResourcesWithCached () {
     const hrefs = document.querySelectorAll('[href]')
     const srcs = document.querySelectorAll('[src]')
     const cacheDictionary = ${JSON.stringify(cacheDictionary)}
@@ -69,39 +84,114 @@ const renderJS = (cacheDictionary: ParsedCacheDictionaryType, allowedIframeSourc
     }
   })();
 
-  (function addWebviewHeightListeners() {
+  (function addWebviewHeightListeners () {
     const container = document.getElementById('measure-container')
 
     function adjustHeight () {
-      container.setAttribute('style', 'padding: 1px 0;'); // Used for measuring collapsed vertical margins
+      container.setAttribute('style', 'padding: 1px 0;') // Used for measuring collapsed vertical margins
 
       if (!window.ReactNativeWebView) {
-        return window.setTimeout(adjustHeight, 100);
+        return window.setTimeout(adjustHeight, 100)
       }
 
       const height = container.getBoundingClientRect().height - 2
-      window.ReactNativeWebView.postMessage(JSON.stringify({ type: '${HEIGHT_MESSAGE_TYPE}', height: height }));
-      container.setAttribute('style', '');
+      window.ReactNativeWebView.postMessage(JSON.stringify({ type: '${HEIGHT_MESSAGE_TYPE}', height: height }))
+      container.setAttribute('style', '')
     }
 
-    window.addEventListener('load', adjustHeight);
-    window.addEventListener('resize', adjustHeight);
-    const details = document.querySelectorAll("details")
-    details.forEach(detail => detail.addEventListener("toggle", adjustHeight))
+    window.addEventListener('load', adjustHeight)
+    window.addEventListener('resize', adjustHeight)
+    const details = document.querySelectorAll('details')
+    details.forEach(detail => detail.addEventListener('toggle', adjustHeight))
   })();
 
-  (function handleIframes() {
-    const iframes = document.querySelectorAll('iframe')
-    const allowedIframeSources = ${JSON.stringify(allowedIframeSources)}
+  (function handleIframes () {
+    function capitalizeFirstLetter (words) {
+      return words.map(word => word.charAt(0).toUpperCase() + word.slice(1))
+    }
+    
+    function removeIframe (element) {
+      element.parentNode.removeChild(element)
+    }
+    
+    function showBlockMessage(text, element) {
+      const textNode = document.createTextNode(text);
+      element.parentNode.classList.add("blocked-content")
+      element.parentNode.appendChild(textNode)
+      
+    }
+    
+    function showOptIn(text, element, source) {
+      function onClickHandler() {
+        window.ReactNativeWebView.postMessage(JSON.stringify({ type: '${IFRAME_MESSAGE_TYPE}', allowedSource: {type: source, allowed: true} }))
+      }
+      const checkbox = document.createElement('input');
+      checkbox.type = "checkbox";
+      checkbox.name = "opt-in-checkbox";
+      checkbox.id = "opt-in-checkbox";
+      checkbox.onclick = onClickHandler;
+      const label = document.createElement('label')
+      label.htmlFor = "opt-in-checkbox";
+      label.appendChild(document.createTextNode(text));
+      element.parentNode.classList.add("blocked-content")
+      element.parentNode.appendChild(label);
+      element.parentNode.appendChild(checkbox);
+    }
 
-    iframes.forEach((el) => {
-      if (allowedIframeSources.some(url => el.src.indexOf(url) > 0)) {
-        const url = new URL(el.src)
+    function showBlockMessageWithSettings(text, element) {
+      function onClickHandler() {
+        window.ReactNativeWebView.postMessage(JSON.stringify({ type: '${SETTINGS_MESSAGE_TYPE}', openSettings: true }))
+      }
+      showBlockMessage(text, element)
+      const buttonLabel = ${JSON.stringify(t('layout:settings'))}
+      const button = document.createElement('button');
+      button.name = "name";
+      button.innerHTML = buttonLabel;
+      button.id = "opt-in-settings-button";
+      button.onclick = onClickHandler;
+      element.parentNode.appendChild(button);
+    }
+    
+    function handleAllowedIframeResources (element, allowedExternalSourcePermissions, whiteListedIframeSources) {
+      const source = capitalizeFirstLetter([whiteListedIframeSources.find(src => element.src.indexOf(src) > 0)]).toString()
+      const translation = ${JSON.stringify(t('remoteContent:knownResourceOptIn'))}
+      const message = translation + source
+   
+     if (allowedExternalSourcePermissions.length > 0 && allowedExternalSourcePermissions.some(allowSource => allowSource.type === source && allowSource.allowed)) {
+        const url = new URL(element.src)
         // Add do not track parameter
         url.searchParams.append('dnt', '1')
-        el.setAttribute('src', url.href)
+        element.setAttribute('src', url.href)
+      }
+      else if (allowedExternalSourcePermissions.length > 0 && allowedExternalSourcePermissions.some(allowSource => allowSource.type === source && !allowSource.allowed)) {
+       const translation = ${JSON.stringify(t('remoteContent:knownResourceBlocked'))}
+       const source = capitalizeFirstLetter([whiteListedIframeSources.find(src => element.src.indexOf(src)>0)])
+       const message= source + " "+ translation
+       showBlockMessageWithSettings(message, element)
+       removeIframe(element)
+     }
+     // initial state
+      else{
+       showOptIn(message, element, source)
+       removeIframe(element)
+
+      }
+    }
+    
+    const iframes = document.querySelectorAll('iframe')
+    const whiteListedIframeSources = ${JSON.stringify(whiteListedIframeSources)}
+    const allowedExternalSourcePermissions = ${JSON.stringify(allowedExternalSourcePermissions)}
+   
+    iframes.forEach((el) => {
+      if (whiteListedIframeSources.some(url => el.src.indexOf(url) > 0)) {
+        
+        handleAllowedIframeResources(el, allowedExternalSourcePermissions, whiteListedIframeSources )
+
       } else {
-        el.parentNode.removeChild(el)
+        const translation = ${JSON.stringify(t('remoteContent:unknownResourceBlocked'))}
+        const message = translation +"\\n"+el.src
+        showBlockMessage(message, el);
+        removeIframe(el)
       }
     })
   })();
@@ -113,9 +203,11 @@ const renderJS = (cacheDictionary: ParsedCacheDictionaryType, allowedIframeSourc
 const renderHtml = (
   html: string,
   cacheDictionary: ParsedCacheDictionaryType,
-  allowedIframeSources: string[],
+  whiteListedIframeSources: string[],
   theme: ThemeType,
   language: string,
+  allowedExternalSourcePermissions: ExternalSourcePermission[],
+  t: TFunction,
 ): string => `
   <!-- The lang attribute makes TalkBack use the appropriate language. -->
   <html lang='${language}'>
@@ -244,18 +336,52 @@ const renderHtml = (
         display: inline-block;
         width: ${theme.fonts.contentFontSize};
         height: ${theme.fonts.contentFontSize};
-        margin-left : 4px;
+        margin-left: 4px;
       }
 
       iframe {
         border: none;
-        width: 100%;
+        width: calc(100vw);
+        height: calc(60vw);
+      }
+
+      .blocked-content {
+        background-color: ${theme.colors.themeColor};
+        padding: 16px;
+        display: flex;
+        border-radius: 4px;
+        overflow-wrap: anywhere;
+      }
+
+      #opt-in-settings-button {
+        border: none;
+        background-color: transparent;
+        font-size: ${theme.fonts.contentFontSize};
+        margin-left: 8px;
+        padding: 0;
+        overflow-wrap: normal;
+        color: ${theme.colors.tunewsThemeColor};
+      }
+
+      #opt-in-checkbox {
+        display: flex;
+        margin-left: 12px;
+        align-self: center;
+        /* Webview in android doesn't set correct height for checkboxes */
+        heigth: 40px;
+        width: 40px;
+        
+      @media not screen and (-webkit-min-device-pixel-ratio: 1) {
+        height:  16px;
+        width: 16px;
+      }
+
       }
     </style>
   </head>
   <body dir='auto'>
   <div id='measure-container'>${html}</div>
-  <script>${renderJS(cacheDictionary, allowedIframeSources)}</script>
+  <script>${renderJS(cacheDictionary, whiteListedIframeSources, allowedExternalSourcePermissions, t)}</script>
   </body>
   </html>
 `

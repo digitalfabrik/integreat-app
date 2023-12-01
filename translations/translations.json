@@ -8397,6 +8397,19 @@
       "showOwnLocation": "显示自己的位置"
     }
   },
+  "remoteContent": {
+    "de": {
+      "knownResourceOptIn": "Ich bin damit einverstanden, dass mir Inhalte dieser externen Quelle angezeigt werden: ",
+      "knownResourceBlocked": "wurde geblockt. Unter Einstellungen können sie diese Ressource wieder zulassen.",
+      "unknownResourceBlocked": "Ein externer Inhalt wurde geblockt:"
+    }
+  },
+  "consent": {
+    "de": {
+      "headline": "Externe Inhalte",
+      "consentDescription": "Inhalte von {{source}} zulassen"
+    }
+  },
   "search": {
     "de": {
       "nothingFound": "Es wurden leider keine passenden Ergebnisse gefunden.",
@@ -8622,7 +8635,9 @@
       "trackingLeaveDescription": "Du hast das Tracking nicht erlaubt. Das Tracking hilft uns, die {{appName}}-App zu verbessern und bessere Informationen für Einwanderer bereitzustellen. Bist du sicher, dass du den Bildschirm verlassen möchten, ohne das Tracking zu erlauben?",
       "enabled": "aktiviert",
       "disabled": "deaktiviert",
-      "decline": "Ablehnen"
+      "decline": "Ablehnen",
+      "externalResourcesTitle": "Externe Ressourcen",
+      "externalResourcesDescription": "Legen sie fest welche externen Ressourcen zugelassen werden"
     },
     "am": {
       "sentryTitle": "የመተግበሪያ መረጋጋት",
