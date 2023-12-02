@@ -150,7 +150,7 @@ const RemoteContent = ({
       }
     })
 
-    // iframe handling - remove not allowed iframe src from DOM and add tracking parameter
+    // Remove disallowed iframes from DOM and add do not track parameter
     const iframes = sandBoxRef.current.getElementsByTagName('iframe')
     Array.from(iframes).forEach((node: HTMLIFrameElement) => {
       if (buildConfig().allowedIframeSources.some(el => node.src.indexOf(el) > 0) && sandBoxRef.current) {
