@@ -158,14 +158,14 @@ const RemoteContent = ({
       if (buildConfig().allowedIframeSources.some(source => iframe.src.indexOf(source) > 0)) {
         addDoNotTrackParameter(iframe)
       } else {
-        currentSandBoxRef.removeChild(iframe)
+        iframe.remove()
       }
     })
   }, [html, handleClick, sandBoxRef])
 
   const dangerouslySetInnerHTML = {
     __html: Dompurify.sanitize(html, {
-      ALLOWED_TAGS: ['iframe'],
+      ADD_TAGS: ['iframe'],
       ADD_ATTR: ['allowfullscreen'],
     }),
   }
