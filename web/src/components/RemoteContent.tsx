@@ -15,6 +15,7 @@ const SandBox = styled.div<{ centered: boolean; smallText: boolean }>`
 
   ${props => (props.centered ? 'text-align: center;' : '')}
   ${props => (props.centered ? 'list-style-position: inside;' : '')}
+  
   img {
     max-width: 100%;
     max-height: 100%;
@@ -158,14 +159,14 @@ const RemoteContent = ({
       if (buildConfig().allowedIframeSources.some(source => iframe.src.indexOf(source) > 0)) {
         addDoNotTrackParameter(iframe)
       } else {
-        currentSandBoxRef.removeChild(iframe)
+        iframe.remove()
       }
     })
   }, [html, handleClick, sandBoxRef])
 
   const dangerouslySetInnerHTML = {
     __html: Dompurify.sanitize(html, {
-      ALLOWED_TAGS: ['iframe'],
+      ADD_TAGS: ['iframe'],
       ADD_ATTR: ['allowfullscreen'],
     }),
   }
