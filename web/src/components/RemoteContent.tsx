@@ -153,7 +153,7 @@ const RemoteContent = ({
     // Remove disallowed iframes from DOM and add do not track parameter
     const iframes = sandBoxRef.current.getElementsByTagName('iframe')
     Array.from(iframes).forEach((node: HTMLIFrameElement) => {
-      if (buildConfig().allowedIframeSources.some(el => node.src.indexOf(el) > 0) && sandBoxRef.current) {
+      if (buildConfig().allowedIframeSources.some(source => node.src.indexOf(source) > 0)) {
         const url = new URL(node.src)
         url.searchParams.append('dnt', '1')
         node.setAttribute('src', url.href)
