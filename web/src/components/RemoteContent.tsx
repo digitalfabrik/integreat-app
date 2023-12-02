@@ -5,6 +5,7 @@ import styled from 'styled-components'
 import { ExternalLinkIcon } from '../assets'
 import buildConfig from '../constants/buildConfig'
 import { helpers } from '../constants/theme'
+import { addDoNotTrackParameter } from '../utils/doNotTrack'
 
 const SandBox = styled.div<{ centered: boolean; smallText: boolean }>`
   font-family: ${props => props.theme.fonts.web.contentFont};
@@ -143,22 +144,21 @@ const RemoteContent = ({
     if (!sandBoxRef.current) {
       return
     }
-    const collection = sandBoxRef.current.getElementsByTagName('a')
+    const currentSandBoxRef = sandBoxRef.current
+    const collection = currentSandBoxRef.getElementsByTagName('a')
     Array.from(collection).forEach(node => {
       if (HIJACK.test(node.href)) {
         node.addEventListener('click', handleClick)
       }
     })
 
-    // Remove disallowed iframes from DOM and add do not track parameter
-    const iframes = sandBoxRef.current.getElementsByTagName('iframe')
-    Array.from(iframes).forEach((node: HTMLIFrameElement) => {
-      if (buildConfig().allowedIframeSources.some(source => node.src.indexOf(source) > 0)) {
-        const url = new URL(node.src)
-        url.searchParams.append('dnt', '1')
-        node.setAttribute('src', url.href)
-      } else if (sandBoxRef.current) {
-        sandBoxRef.current.removeChild(node)
+    // Remove disallowed iframes from DOM and add do not track parameter for vimeo
+    const iframes = currentSandBoxRef.getElementsByTagName('iframe')
+    Array.from(iframes).forEach((iframe: HTMLIFrameElement) => {
+      if (buildConfig().allowedIframeSources.some(source => iframe.src.indexOf(source) > 0)) {
+        addDoNotTrackParameter(iframe)
+      } else {
+        currentSandBoxRef.removeChild(iframe)
       }
     })
   }, [html, handleClick, sandBoxRef])
