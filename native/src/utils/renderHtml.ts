@@ -19,7 +19,7 @@ import { ExternalSourcePermission } from './AppSettings'
 const renderJS = (
   cacheDictionary: ParsedCacheDictionaryType,
   whiteListedIframeSources: string[],
-  allowedExternalSourcePermissions: ExternalSourcePermission[],
+  externalSourcePermissions: ExternalSourcePermission[],
   t: TFunction,
 ) => `
   function reportError (message, type) {
@@ -106,22 +106,17 @@ const renderJS = (
   })();
 
   (function handleIframes () {
-    function capitalizeFirstLetter (words) {
-      return words.map(word => word.charAt(0).toUpperCase() + word.slice(1))
-    }
-    
-    function removeIframe (element) {
-      element.parentNode.removeChild(element)
+    function capitalizeFirstLetter (word) {
+      return word.charAt(0).toUpperCase() + word.slice(1)
     }
     
     function showBlockMessage(text, element) {
       const textNode = document.createTextNode(text);
       element.parentNode.classList.add("blocked-content")
       element.parentNode.appendChild(textNode)
-      
     }
     
-    function showOptIn(text, element, source) {
+    function showOptIn(text, iframe, source) {
       function onClickHandler() {
         window.ReactNativeWebView.postMessage(JSON.stringify({ type: '${IFRAME_MESSAGE_TYPE}', allowedSource: {type: source, allowed: true} }))
       }
@@ -133,65 +128,61 @@ const renderJS = (
       const label = document.createElement('label')
       label.htmlFor = "opt-in-checkbox";
       label.appendChild(document.createTextNode(text));
-      element.parentNode.classList.add("blocked-content")
-      element.parentNode.appendChild(label);
-      element.parentNode.appendChild(checkbox);
+      iframe.parentNode.classList.add("blocked-content")
+      iframe.parentNode.appendChild(label);
+      iframe.parentNode.appendChild(checkbox);
     }
 
-    function showBlockMessageWithSettings(text, element) {
+    function showBlockMessageWithSettings(text, iframe) {
       function onClickHandler() {
         window.ReactNativeWebView.postMessage(JSON.stringify({ type: '${SETTINGS_MESSAGE_TYPE}', openSettings: true }))
       }
-      showBlockMessage(text, element)
+      showBlockMessage(text, iframe)
       const buttonLabel = ${JSON.stringify(t('layout:settings'))}
       const button = document.createElement('button');
-      button.name = "name";
+      button.name = "opt-in-settings-button";
       button.innerHTML = buttonLabel;
       button.id = "opt-in-settings-button";
       button.onclick = onClickHandler;
-      element.parentNode.appendChild(button);
+      iframe.parentNode.appendChild(button);
     }
-    
-    function handleAllowedIframeResources (element, allowedExternalSourcePermissions, whiteListedIframeSources) {
-      const source = capitalizeFirstLetter([whiteListedIframeSources.find(src => element.src.indexOf(src) > 0)]).toString()
-      const translation = ${JSON.stringify(t('remoteContent:knownResourceOptIn'))}
-      const message = translation + source
-   
-     if (allowedExternalSourcePermissions.length > 0 && allowedExternalSourcePermissions.some(allowSource => allowSource.type === source && allowSource.allowed)) {
-        const url = new URL(element.src)
-        // Add do not track parameter
-        url.searchParams.append('dnt', '1')
-        element.setAttribute('src', url.href)
-      }
-      else if (allowedExternalSourcePermissions.length > 0 && allowedExternalSourcePermissions.some(allowSource => allowSource.type === source && !allowSource.allowed)) {
-       const translation = ${JSON.stringify(t('remoteContent:knownResourceBlocked'))}
-       const source = capitalizeFirstLetter([whiteListedIframeSources.find(src => element.src.indexOf(src)>0)])
-       const message= source + " "+ translation
-       showBlockMessageWithSettings(message, element)
-       removeIframe(element)
-     }
-     // initial state
-      else{
-       showOptIn(message, element, source)
-       removeIframe(element)
 
+    function handleWhiteListedIframeSources (iframe, allowedExternalSourcePermissions, iframeSource) {
+        // Add do not track parameter (only working for vimeo)
+     if (externalSourcePermissions.some(source => source.type === iframeSource && source.allowed)) {
+        const url = new URL(iframe.src)
+        url.searchParams.append('dnt', '1')
+        iframe.setAttribute('src', url.href)
+      }
+      else if (externalSourcePermissions.some(source => source.type === iframeSource && !source.allowed)) {
+       const translation = ${JSON.stringify(t('remoteContent:knownResourceBlocked'))}
+       const message= iframeSource + " "+ translation
+       showBlockMessageWithSettings(message, iframe)
+       iframe.remove()
+     }
+     // No permissions set for listed sources
+      else {
+       const translation = ${JSON.stringify(t('remoteContent:knownResourceOptIn'))}
+       const message = translation + iframeSource
+       showOptIn(message, iframe, iframeSource)
+       iframe.remove()
       }
     }
     
     const iframes = document.querySelectorAll('iframe')
     const whiteListedIframeSources = ${JSON.stringify(whiteListedIframeSources)}
-    const allowedExternalSourcePermissions = ${JSON.stringify(allowedExternalSourcePermissions)}
+    const externalSourcePermissions = ${JSON.stringify(externalSourcePermissions)}
    
-    iframes.forEach((el) => {
-      if (whiteListedIframeSources.some(url => el.src.indexOf(url) > 0)) {
-        
-        handleAllowedIframeResources(el, allowedExternalSourcePermissions, whiteListedIframeSources )
+    iframes.forEach((iframe) => {
+      const whiteListedIframeSource = whiteListedIframeSources.find(src => iframe.src.indexOf(src) > 0)
+      if (whiteListedIframeSource) {
+        handleWhiteListedIframeSources(iframe, externalSourcePermissions, capitalizeFirstLetter(whiteListedIframeSource) )
 
       } else {
         const translation = ${JSON.stringify(t('remoteContent:unknownResourceBlocked'))}
-        const message = translation +"\\n"+el.src
-        showBlockMessage(message, el);
-        removeIframe(el)
+        const message = translation +"\\n"+iframe.src
+        showBlockMessage(message, iframe);
+        iframe.remove()
       }
     })
   })();
@@ -206,7 +197,7 @@ const renderHtml = (
   whiteListedIframeSources: string[],
   theme: ThemeType,
   language: string,
-  allowedExternalSourcePermissions: ExternalSourcePermission[],
+  externalSourcePermissions: ExternalSourcePermission[],
   t: TFunction,
 ): string => `
   <!-- The lang attribute makes TalkBack use the appropriate language. -->
@@ -351,6 +342,7 @@ const renderHtml = (
         display: flex;
         border-radius: 4px;
         overflow-wrap: anywhere;
+        box-shadow: 0 2px 5px -3px rgb(0 0 0 /20%);
       }
 
       #opt-in-settings-button {
@@ -361,13 +353,14 @@ const renderHtml = (
         padding: 0;
         overflow-wrap: normal;
         color: ${theme.colors.tunewsThemeColor};
+        
       }
 
       #opt-in-checkbox {
         display: flex;
         margin-left: 12px;
         align-self: center;
-        /* Webview in android doesn't set correct height for checkboxes */
+        /* Webview in android doesn't set correct size for checkboxes */
         heigth: 40px;
         width: 40px;
         
@@ -381,7 +374,7 @@ const renderHtml = (
   </head>
   <body dir='auto'>
   <div id='measure-container'>${html}</div>
-  <script>${renderJS(cacheDictionary, whiteListedIframeSources, allowedExternalSourcePermissions, t)}</script>
+  <script>${renderJS(cacheDictionary, whiteListedIframeSources, externalSourcePermissions, t)}</script>
   </body>
   </html>
 `

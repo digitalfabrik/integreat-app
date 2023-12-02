@@ -8400,14 +8400,23 @@
   "remoteContent": {
     "de": {
       "knownResourceOptIn": "Ich bin damit einverstanden, dass mir Inhalte dieser externen Quelle angezeigt werden: ",
-      "knownResourceBlocked": "wurde geblockt. Unter Einstellungen können sie diese Ressource wieder zulassen.",
-      "unknownResourceBlocked": "Ein externer Inhalt wurde geblockt:"
+      "knownResourceBlocked": "wurde geblockt. Unter Einstellungen können sie Inhalte dieser Quelle zulassen.",
+      "unknownResourceBlocked": "Ein Inhalt von einer externen Quelle wurde geblockt:"
+    },
+    "en": {
+      "knownResourceOptIn": "I agree that content from this external source may be displayed to me: ",
+      "knownResourceBlocked": "has been blocked. You can allow content from this source in settings.",
+      "unknownResourceBlocked": "Content from an external source has been blocked:"
     }
   },
   "consent": {
     "de": {
-      "headline": "Externe Inhalte",
+      "headline": "Externe Quellen",
       "consentDescription": "Inhalte von {{source}} zulassen"
+    },
+    "en": {
+      "headline": "External Sources",
+      "consentDescription": "Allow content from {{source}}"
     }
   },
   "search": {
@@ -8636,8 +8645,8 @@
       "enabled": "aktiviert",
       "disabled": "deaktiviert",
       "decline": "Ablehnen",
-      "externalResourcesTitle": "Externe Ressourcen",
-      "externalResourcesDescription": "Legen sie fest welche externen Ressourcen zugelassen werden"
+      "externalResourcesTitle": "Externe Quellen",
+      "externalResourcesDescription": "Legen sie fest welche externen Quellen zugelassen werden"
     },
     "am": {
       "sentryTitle": "የመተግበሪያ መረጋጋት",
@@ -8776,7 +8785,9 @@
       "trackingLeaveDescription": "You have disabled tracking. Tracking helps us to improve the {{appName}} app and provide better information for immigrants. Are you sure you want to leave the screen without enabling tracking?",
       "enabled": "activated",
       "disabled": "deactivated",
-      "decline": "Refuse"
+      "decline": "Refuse",
+      "externalResourcesTitle": "External Sources",
+      "externalResourcesDescription": "Specify which external sources are permitted"
     },
     "es": {
       "sentryTitle": "Estabilidad de la app",

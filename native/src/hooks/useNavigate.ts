@@ -16,7 +16,6 @@ import {
   POIS_ROUTE,
   RouteInformationType,
   SEARCH_ROUTE,
-  SETTINGS_ROUTE,
   SPRUNGBRETT_OFFER_ROUTE,
 } from 'api-client'
 

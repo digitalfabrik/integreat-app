@@ -18,6 +18,7 @@ import {
 } from '../constants/webview'
 import useNavigate from '../hooks/useNavigate'
 import appSettings, { ExternalSourcePermission } from '../utils/AppSettings'
+import { updateExternalSources } from '../utils/helpers'
 import renderHtml from '../utils/renderHtml'
 import { log, reportError } from '../utils/sentry'
 import Failure from './Failure'
@@ -47,9 +48,7 @@ const RemoteContent = (props: RemoteContentProps): ReactElement | null => {
   const { onLoad, content, cacheDictionary, resourceCacheUrl, language, onLinkPress } = props
   const [error, setError] = useState<string | null>(null)
   const [pressedUrl, setPressedUrl] = useState<string | null>(null)
-  const [allowedExternalSourcePermissions, setAllowedExternalSourcePermissions] = useState<ExternalSourcePermission[]>(
-    [],
-  )
+  const [externalSourcePermissions, setExternalSourcePermissions] = useState<ExternalSourcePermission[]>([])
   const [reloadSettings, setReloadSettings] = useState<boolean>(false)
   const { navigateTo } = useNavigate()
   // https://github.com/react-native-webview/react-native-webview/issues/1069#issuecomment-651699461
@@ -75,14 +74,14 @@ const RemoteContent = (props: RemoteContentProps): ReactElement | null => {
 
   useFocusEffect(
     useCallback(() => {
-      appSettings.loadExternalSourcePermissions().then(setAllowedExternalSourcePermissions).catch(reportError)
+      appSettings.loadExternalSourcePermissions().then(setExternalSourcePermissions).catch(reportError)
     }, []),
   )
 
-  // Webview content does not reload on AllowedExternalSourcePermissions change
+  // Webview content does not reload on opt-in click
   useEffect(() => {
     if (reloadSettings) {
-      appSettings.loadExternalSourcePermissions().then(setAllowedExternalSourcePermissions).catch(reportError)
+      appSettings.loadExternalSourcePermissions().then(setExternalSourcePermissions).catch(reportError)
       setReloadSettings(false)
     }
   }, [reloadSettings])
@@ -102,15 +101,7 @@ const RemoteContent = (props: RemoteContentProps): ReactElement | null => {
       }
 
       if (message.type === IFRAME_MESSAGE_TYPE && typeof message.allowedSource === 'object') {
-        const { type, allowed } = message.allowedSource
-        const updatedSources = allowedExternalSourcePermissions
-        const arrayIndex = updatedSources.findIndex(source => source.type === type)
-        if (arrayIndex > -1) {
-          updatedSources.splice(arrayIndex, 1, { type, allowed })
-        } else {
-          updatedSources.push({ type, allowed })
-        }
-
+        const updatedSources = updateExternalSources(externalSourcePermissions, message.allowedSource)
         appSettings.setExternalSourcePermissions(updatedSources).catch(reportError)
         setReloadSettings(true)
         return
@@ -126,7 +117,7 @@ const RemoteContent = (props: RemoteContentProps): ReactElement | null => {
         setError(error.message)
       }
     },
-    [allowedExternalSourcePermissions, navigateTo],
+    [externalSourcePermissions, navigateTo],
   )
 
   const onShouldStartLoadWithRequest = useCallback(
@@ -167,7 +158,7 @@ const RemoteContent = (props: RemoteContentProps): ReactElement | null => {
           buildConfig().whiteListedIframeSources,
           theme,
           language,
-          allowedExternalSourcePermissions,
+          externalSourcePermissions,
           t,
         ),
       }}

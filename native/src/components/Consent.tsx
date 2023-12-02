@@ -8,6 +8,7 @@ import { capitalizeFirstLetter } from 'api-client'
 
 import buildConfig from '../constants/buildConfig'
 import appSettings, { ExternalSourcePermission } from '../utils/AppSettings'
+import { updateExternalSources } from '../utils/helpers'
 import { reportError } from '../utils/sentry'
 import Caption from './Caption'
 import ConsentSection from './ConsentSection'
@@ -19,28 +20,22 @@ export const ItemSeparator = styled.View`
 `
 
 const Consent = (): ReactElement | null => {
-  const [externalSources, setExternalSources] = useState<ExternalSourcePermission[]>([])
+  const [externalSourcePermissions, setExternalSourcePermissions] = useState<ExternalSourcePermission[]>([])
   const { t } = useTranslation('consent')
 
   useFocusEffect(
     useCallback(() => {
-      appSettings.loadExternalSourcePermissions().then(setExternalSources).catch(reportError)
+      appSettings.loadExternalSourcePermissions().then(setExternalSourcePermissions).catch(reportError)
     }, []),
   )
 
   const onPress = (type: string, allowed: boolean) => {
-    const updatedSources = externalSources
-    const arrayIndex = externalSources.findIndex(source => source.type === type)
-    if (arrayIndex > -1) {
-      updatedSources.splice(arrayIndex, 1, { type, allowed })
-    } else {
-      updatedSources.push({ type, allowed })
-    }
-    setExternalSources(updatedSources)
+    const updatedSources = updateExternalSources(externalSourcePermissions, { type, allowed })
+    setExternalSourcePermissions(updatedSources)
     appSettings.setExternalSourcePermissions(updatedSources).catch(reportError)
   }
   const getInitialValue = (src: string): boolean =>
-    externalSources.find(source => source.type === src)?.allowed ?? false
+    externalSourcePermissions.find(source => source.type === src)?.allowed ?? false
 
   return (
     <Layout>
