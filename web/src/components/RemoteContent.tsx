@@ -154,7 +154,7 @@ const RemoteContent = ({
     const iframes = sandBoxRef.current.getElementsByTagName('iframe')
     Array.from(iframes).forEach((node: HTMLIFrameElement) => {
       if (buildConfig().allowedIframeSources.some(el => node.src.indexOf(el) > 0) && sandBoxRef.current) {
-        var url = new URL(node.src)
+        const url = new URL(node.src)
         url.searchParams.append('dnt', '1')
         node.setAttribute('src', url.href)
       } else if (sandBoxRef.current) {
