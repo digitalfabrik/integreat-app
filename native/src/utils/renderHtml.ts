@@ -110,13 +110,34 @@ const renderJS = (
       return word.charAt(0).toUpperCase() + word.slice(1)
     }
     
-    function showBlockMessage(text, element) {
+    function showMessage(text, element, className) {
       const textNode = document.createTextNode(text);
-      element.parentNode.classList.add("blocked-content")
-      element.parentNode.appendChild(textNode)
+      if(className){
+         element.classList.add(className)
+      }
+      element.appendChild(textNode)
     }
     
-    function showOptIn(text, iframe, source) {
+    function showSettingsButton(element) {
+      function onClickHandler() {
+        window.ReactNativeWebView.postMessage(JSON.stringify({ type: '${SETTINGS_MESSAGE_TYPE}', openSettings: true }))
+      }
+      const buttonLabel = ${JSON.stringify(t('layout:settings'))}
+      const button = document.createElement('button');
+      button.name = "opt-in-settings-button";
+      button.innerHTML = buttonLabel;
+      button.id = "opt-in-settings-button";
+      button.onclick = onClickHandler;
+      element.appendChild(button);
+    }
+    
+    function showMessageWithSettings(text, iframeContainer) {
+      showMessage(text, iframeContainer, "iframe-info-text")
+      showSettingsButton(iframeContainer)
+      
+    }
+    
+    function showOptIn(text, iframeContainer, source) {
       function onClickHandler() {
         window.ReactNativeWebView.postMessage(JSON.stringify({ type: '${IFRAME_MESSAGE_TYPE}', allowedSource: {type: source, allowed: true} }))
       }
@@ -128,43 +149,37 @@ const renderJS = (
       const label = document.createElement('label')
       label.htmlFor = "opt-in-checkbox";
       label.appendChild(document.createTextNode(text));
-      iframe.parentNode.classList.add("blocked-content")
-      iframe.parentNode.appendChild(label);
-      iframe.parentNode.appendChild(checkbox);
+      iframeContainer.appendChild(label);
+      iframeContainer.appendChild(checkbox);
     }
 
-    function showBlockMessageWithSettings(text, iframe) {
-      function onClickHandler() {
-        window.ReactNativeWebView.postMessage(JSON.stringify({ type: '${SETTINGS_MESSAGE_TYPE}', openSettings: true }))
-      }
-      showBlockMessage(text, iframe)
-      const buttonLabel = ${JSON.stringify(t('layout:settings'))}
-      const button = document.createElement('button');
-      button.name = "opt-in-settings-button";
-      button.innerHTML = buttonLabel;
-      button.id = "opt-in-settings-button";
-      button.onclick = onClickHandler;
-      iframe.parentNode.appendChild(button);
+    function showBlockMessageWithSettings(text, iframeContainer) {
+      showMessage(text, iframeContainer)
+      showSettingsButton(iframeContainer)
     }
 
-    function handleWhiteListedIframeSources (iframe, allowedExternalSourcePermissions, iframeSource) {
+    function handleWhiteListedIframeSources (iframe, allowedExternalSourcePermissions, iframeSource, iframeContainer) {
         // Add do not track parameter (only working for vimeo)
      if (externalSourcePermissions.some(source => source.type === iframeSource && source.allowed)) {
         const url = new URL(iframe.src)
         url.searchParams.append('dnt', '1')
         iframe.setAttribute('src', url.href)
+       const message = ${JSON.stringify(
+         t('remoteContent:knownResourceContentMessageOne'),
+       )} + iframeSource +". " + ${JSON.stringify(t('remoteContent:knownResourceContentMessageTwo'))}
+       showMessageWithSettings(message, iframeContainer)
       }
       else if (externalSourcePermissions.some(source => source.type === iframeSource && !source.allowed)) {
        const translation = ${JSON.stringify(t('remoteContent:knownResourceBlocked'))}
        const message= iframeSource + " "+ translation
-       showBlockMessageWithSettings(message, iframe)
+       showBlockMessageWithSettings(message, iframeContainer)
        iframe.remove()
      }
      // No permissions set for listed sources
       else {
        const translation = ${JSON.stringify(t('remoteContent:knownResourceOptIn'))}
        const message = translation + iframeSource
-       showOptIn(message, iframe, iframeSource)
+       showOptIn(message, iframeContainer, iframeSource)
        iframe.remove()
       }
     }
@@ -174,14 +189,17 @@ const renderJS = (
     const externalSourcePermissions = ${JSON.stringify(externalSourcePermissions)}
    
     iframes.forEach((iframe) => {
+      const iframeContainer = document.createElement('div')
+      iframeContainer.classList.add('iframe-container')
+      iframe.parentNode.appendChild(iframeContainer)
       const whiteListedIframeSource = whiteListedIframeSources.find(src => iframe.src.indexOf(src) > 0)
       if (whiteListedIframeSource) {
-        handleWhiteListedIframeSources(iframe, externalSourcePermissions, capitalizeFirstLetter(whiteListedIframeSource) )
+        handleWhiteListedIframeSources(iframe, externalSourcePermissions, capitalizeFirstLetter(whiteListedIframeSource), iframeContainer )
 
       } else {
         const translation = ${JSON.stringify(t('remoteContent:unknownResourceBlocked'))}
         const message = translation +"\\n"+iframe.src
-        showBlockMessage(message, iframe);
+        showMessage(message, iframeContainer);
         iframe.remove()
       }
     })
@@ -334,26 +352,35 @@ const renderHtml = (
         border: none;
         width: calc(100vw);
         height: calc(60vw);
+        background-color: ${theme.colors.backgroundAccentColor};
       }
-
-      .blocked-content {
+      
+      .iframe-container{
+        padding: 12px;
         background-color: ${theme.colors.themeColor};
-        padding: 16px;
         display: flex;
-        border-radius: 4px;
+        border-bottom-radius: 4px;
         overflow-wrap: anywhere;
-        box-shadow: 0 2px 5px -3px rgb(0 0 0 /20%);
+        font-size: ${theme.fonts.hintFontSize};
+      }
+      
+      .iframe-info-text {
+        font-size: ${theme.fonts.decorativeFontSizeSmall};
+        background-color: ${theme.colors.backgroundAccentColor};
+      }
+      
+      .iframe-info-text > #opt-in-settings-button {
+        font-size: ${theme.fonts.decorativeFontSizeSmall};
       }
 
       #opt-in-settings-button {
         border: none;
         background-color: transparent;
-        font-size: ${theme.fonts.contentFontSize};
         margin-left: 8px;
         padding: 0;
         overflow-wrap: normal;
         color: ${theme.colors.tunewsThemeColor};
-        
+        font-size: ${theme.fonts.hintFontSize};
       }
 
       #opt-in-checkbox {
