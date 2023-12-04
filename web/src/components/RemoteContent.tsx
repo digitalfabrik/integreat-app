@@ -88,20 +88,14 @@ const SandBox = styled.div<{ centered: boolean; smallText: boolean }>`
     overflow-x: auto;
   }
 
-  .link-external {
-    display: inline-flex;
-    align-items: center;
-  }
-
   .link-external::after {
     content: '';
     display: inline-block;
     background-image: url('${ExternalLinkIcon}');
-    width: ${props => (props.smallText ? helpers.adaptiveFontSize : props.theme.fonts.contentFontSize)};
-    height: ${props => (props.smallText ? helpers.adaptiveFontSize : props.theme.fonts.contentFontSize)};
     background-size: contain;
+    background-repeat: no-repeat;
     vertical-align: middle;
-    margin-left: 4px;
+    margin: 0 4px;
   }
 `
 
