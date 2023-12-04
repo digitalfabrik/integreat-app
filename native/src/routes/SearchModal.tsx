@@ -104,7 +104,6 @@ const SearchModal = ({
       language={languageCode}
       query={query}
       onItemPress={onItemPress}
-      t={t}
     />
   )
 
@@ -115,7 +114,7 @@ const SearchModal = ({
         <List
           items={searchResults}
           renderItem={renderItem}
-          accessibilityLabel={`${searchCategories(categories, query).length} ${t('searchResults')}`}
+          accessibilityLabel={`${t('searchResult', { count: searchResults.length })}`}
           noItemsMessage={
             <>
               <NothingFound />

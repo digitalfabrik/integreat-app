@@ -3,14 +3,14 @@ import React from 'react'
 import { CategoriesMapModelBuilder, CityModelBuilder, LanguageModelBuilder } from 'api-client'
 
 import render from '../../testing/render'
-import CategoryList from '../CategoryList'
+import SubCategoryList from '../SubCategoryList'
 
 jest.mock('styled-components')
 jest.mock('react-native-webview', () => ({
   default: () => jest.fn(),
 }))
 
-describe('CategoryList', () => {
+describe('SubCategoryList', () => {
   const cityModel = new CityModelBuilder(1).build()[0]!
   const language = new LanguageModelBuilder(1).build()[0]!
   const { categories: categoriesMapModel, resourceCache } = new CategoriesMapModelBuilder(
@@ -29,7 +29,7 @@ describe('CategoryList', () => {
 
   it('should render category and subcategories', () => {
     const { getByText } = render(
-      <CategoryList
+      <SubCategoryList
         category={category}
         subCategories={subCategories}
         onItemPress={onItemPress}

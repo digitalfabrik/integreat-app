@@ -21,7 +21,7 @@ const DirectionContainer = styled.View<{ language: string }>`
   flex-direction: ${props => contentDirection(props.language)};
 `
 
-const CategoryEntryContainer = styled.View`
+const SubCategoryEntryContainer = styled.View`
   flex: 1;
   flex-direction: column;
   align-self: center;
@@ -35,13 +35,13 @@ const TitleDirectionContainer = styled.View<{ language: string }>`
   flex-direction: ${props => contentDirection(props.language)};
 `
 
-const CategoryTitle = styled.Text<{ language: string }>`
+const SubCategoryTitle = styled.Text<{ language: string }>`
   flex-direction: ${props => contentDirection(props.language)};
   font-family: ${props => props.theme.fonts.native.decorativeFontBold};
   color: ${props => props.theme.colors.textColor};
 `
 
-export const CategoryThumbnail = styled(SimpleImage)<{ language: string }>`
+export const SubCategoryThumbnail = styled(SimpleImage)<{ language: string }>`
   align-self: center;
   flex-shrink: 0;
   width: ${dimensions.categoryListItem.iconSize}px;
@@ -52,7 +52,7 @@ export const CategoryThumbnail = styled(SimpleImage)<{ language: string }>`
     isContentDirectionReversalRequired(props.language) ? dimensions.categoryListItem.margin : 0}px;
 `
 
-type CategoryListItemProps = {
+type SubCategoryListProps = {
   category: CategoryModel
   subCategories: CategoryModel[]
   resourceCache: LanguageResourceCacheStateType
@@ -60,27 +60,27 @@ type CategoryListItemProps = {
   language: string
 }
 
-const CategoryList = ({
+const SubCategoryList = ({
   language,
   category,
   subCategories,
   resourceCache,
   onItemPress,
-}: CategoryListItemProps): ReactElement => (
+}: SubCategoryListProps): ReactElement => (
   <>
     <FlexStyledLink onPress={() => onItemPress({ path: category.path })}>
       <DirectionContainer language={language}>
-        <CategoryEntryContainer>
+        <SubCategoryEntryContainer>
           <TitleDirectionContainer language={language}>
             {!!category.thumbnail && (
-              <CategoryThumbnail
+              <SubCategoryThumbnail
                 language={language}
                 source={getCachedThumbnail(category, resourceCache[category.path] ?? {})}
               />
             )}
-            <CategoryTitle language={language}>{category.title}</CategoryTitle>
+            <SubCategoryTitle language={language}>{category.title}</SubCategoryTitle>
           </TitleDirectionContainer>
-        </CategoryEntryContainer>
+        </SubCategoryEntryContainer>
       </DirectionContainer>
     </FlexStyledLink>
     <List
@@ -99,4 +99,4 @@ const CategoryList = ({
   </>
 )
 
-export default memo(CategoryList)
+export default memo(SubCategoryList)

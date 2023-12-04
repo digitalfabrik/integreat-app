@@ -1,4 +1,3 @@
-import { TFunction } from 'i18next'
 import React from 'react'
 import { ReactTestInstance } from 'react-test-renderer'
 
@@ -22,7 +21,6 @@ describe('SearchListItem', () => {
   const categories = categoriesMapModel.toArray()
   const category = categories[1]!
   const contentWithoutHtml = parseHTML(category.content)
-  const t = ((key: string) => key) as TFunction
 
   const onItemPress = jest.fn()
 
@@ -48,7 +46,6 @@ describe('SearchListItem', () => {
         onItemPress={onItemPress}
         language={language.code}
         query={query}
-        t={t}
       />,
     )
 
@@ -67,7 +64,6 @@ describe('SearchListItem', () => {
         onItemPress={onItemPress}
         language={language.code}
         query={category.title}
-        t={t}
       />,
     )
 
@@ -88,7 +84,6 @@ describe('SearchListItem', () => {
         onItemPress={onItemPress}
         language={language.code}
         query={query}
-        t={t}
       />,
     )
 
@@ -109,7 +104,6 @@ describe('SearchListItem', () => {
         onItemPress={onItemPress}
         language={language.code}
         query={query}
-        t={t}
       />,
     )
 

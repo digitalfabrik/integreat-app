@@ -1,5 +1,5 @@
-import { TFunction } from 'i18next'
 import React, { memo, ReactElement } from 'react'
+import { useTranslation } from 'react-i18next'
 import Highlighter from 'react-native-highlight-words'
 import styled, { useTheme } from 'styled-components/native'
 
@@ -9,7 +9,7 @@ import { SEARCH_PREVIEW_MAX_CHARS } from '../constants'
 import { contentDirection } from '../constants/contentDirection'
 import { PageResourceCacheStateType } from '../utils/DataContainer'
 import { getCachedThumbnail } from './Categories'
-import { CategoryThumbnail } from './CategoryList'
+import { SubCategoryThumbnail } from './SubCategoryList'
 import Pressable from './base/Pressable'
 
 const FlexStyledLink = styled(Pressable)`
@@ -49,7 +49,6 @@ type SearchListItemProps = {
   onItemPress: (category: CategoryModel) => void
   language: string
   query: string
-  t: TFunction<'search'>
 }
 
 const SearchListItem = ({
@@ -59,8 +58,8 @@ const SearchListItem = ({
   contentWithoutHtml,
   onItemPress,
   query,
-  t,
 }: SearchListItemProps): ReactElement => {
+  const { t } = useTranslation('search')
   const theme = useTheme()
   const { title, thumbnail } = category
   const excerpt = getExcerpt(contentWithoutHtml, { query, maxChars: SEARCH_PREVIEW_MAX_CHARS })
@@ -94,7 +93,7 @@ const SearchListItem = ({
         <SearchEntryContainer>
           <TitleDirectionContainer language={language}>
             {!!thumbnail && (
-              <CategoryThumbnail language={language} source={getCachedThumbnail(category, resourceCache)} />
+              <SubCategoryThumbnail language={language} source={getCachedThumbnail(category, resourceCache)} />
             )}
             {Title}
           </TitleDirectionContainer>

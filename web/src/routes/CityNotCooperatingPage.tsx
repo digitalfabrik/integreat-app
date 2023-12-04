@@ -119,4 +119,5 @@ const CityNotCooperatingPage = ({ languageCode }: CityNotCooperatingPageProps): 
     </Layout>
   )
 }
+
 export default CityNotCooperatingPage
