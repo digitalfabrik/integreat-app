@@ -15,7 +15,6 @@ const APPLICATION_ID = 'app.aschaffenburg'
 const BUNDLE_IDENTIFIER = 'app.aschaffenburg'
 
 const commonAschaffenburgBuildConfig: CommonBuildConfigType = {
-  allowedIframeSources: ['vimeo'],
   appName: 'hallo aschaffenburg',
   appIcon: 'app_icon_aschaffenburg',
   lightTheme,
@@ -23,6 +22,7 @@ const commonAschaffenburgBuildConfig: CommonBuildConfigType = {
   cmsUrl: 'https://cms.integreat-app.de',
   hostName: 'halloaschaffenburg.de',
   allowedHostNames: ['cms.integreat-app.de', 'admin.integreat-app.de'],
+  whiteListedIframeSources: ['vimeo'],
   translationsOverride: aschaffenburgOverrideTranslations,
   internalLinksHijackPattern:
     'https?:\\/\\/(cms(-test)?\\.integreat-app\\.de|web\\.integreat-app\\.de|integreat\\.app|aschaffenburg\\.app)(?!\\/(media|[^/]*\\/(wp-content|wp-admin|wp-json))\\/.*).*',
