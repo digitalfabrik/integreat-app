@@ -94,7 +94,7 @@ const renderJS = (cacheDictionary: ParsedCacheDictionaryType, allowedIframeSourc
     const iframes = document.querySelectorAll('iframe')
     const allowedIframeSources = ${JSON.stringify(allowedIframeSources)}
 
-    iframes.forEach((el) => {
+    iframes.forEach((iframe) => {
       if (allowedIframeSources.some(url => el.src.indexOf(url) > 0)) {
         const url = new URL(el.src)
         // Add do not track parameter
