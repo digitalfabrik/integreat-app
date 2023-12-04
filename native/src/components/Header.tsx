@@ -20,6 +20,7 @@ import {
   DISCLAIMER_ROUTE,
   SEARCH_ROUTE,
   SETTINGS_ROUTE,
+  FeedbackRouteType,
 } from 'api-client'
 
 import { NavigationProps, RouteProps, RoutesParamsType, RoutesType } from '../constants/NavigationTypes'
@@ -32,7 +33,6 @@ import navigateToLanguageChange from '../navigation/navigateToLanguageChange'
 import sendTrackingSignal from '../utils/sendTrackingSignal'
 import { reportError } from '../utils/sentry'
 import CustomHeaderButtons from './CustomHeaderButtons'
-import { RouteType } from './FeedbackContainer'
 import HeaderBox from './HeaderBox'
 import HighlightBox from './HighlightBox'
 
@@ -169,7 +169,7 @@ const Header = ({
   const navigateToFeedback = () => {
     if (cityCode) {
       createNavigateToFeedbackModal(navigation)({
-        routeType: route.name as RouteType,
+        routeType: route.name as FeedbackRouteType,
         language: languageCode,
         cityCode,
         slug: getSlugForRoute(),

@@ -12,8 +12,9 @@ import useWindowDimensions from '../hooks/useWindowDimensions'
 import { LAYOUT_ELEMENT_ID, RichLayout } from './Layout'
 import ModalContent from './ModalContent'
 import Portal from './Portal'
+import Button from './base/Button'
 
-const Overlay = styled.div`
+const Overlay = styled(Button)`
   position: absolute;
   inset: 0;
   background-color: ${props => props.theme.colors.textSecondaryColor};
@@ -62,11 +63,13 @@ const Modal = ({ title, closeModal, children, direction, wrapInPortal = false }:
 
     return () => layoutElement?.setAttribute('aria-hidden', 'false')
   }, [])
-
+  // display check option is needed for portals - https://github.com/focus-trap/tabbable/blob/master/CHANGELOG.md#600
   const Modal = (
-    <FocusTrap focusTrapOptions={{ clickOutsideDeactivates: true }}>
+    <FocusTrap focusTrapOptions={{ clickOutsideDeactivates: true, tabbableOptions: { displayCheck: 'legacy-full' } }}>
       <ModalContainer role='dialog' aria-hidden={false} aria-modal>
-        <Overlay onClick={closeModal} role='button' tabIndex={0} onKeyPress={closeModal} aria-label={t('close')} />
+        <Overlay onClick={closeModal} tabIndex={0} ariaLabel={t('close')}>
+          <div />
+        </Overlay>
         <ModalContentContainer>
           <ModalContent title={title} closeModal={closeModal} small={viewportSmall}>
             {children}

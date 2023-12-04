@@ -2,13 +2,7 @@ import { NavigationContainer } from '@react-navigation/native'
 import { fireEvent } from '@testing-library/react-native'
 import React from 'react'
 
-import {
-  FeedbackType,
-  CATEGORIES_ROUTE,
-  CONTENT_FEEDBACK_CATEGORY,
-  SEND_FEEDBACK_SIGNAL_NAME,
-  SEARCH_ROUTE,
-} from 'api-client'
+import { CATEGORIES_ROUTE, SEND_FEEDBACK_SIGNAL_NAME, SEARCH_ROUTE } from 'api-client'
 
 import render from '../../testing/render'
 import sendTrackingSignal from '../../utils/sendTrackingSignal'
@@ -38,7 +32,7 @@ describe('FeedbackContainer', () => {
   it('should send feedback request with rating and no other inputs on submit', async () => {
     const { getByText, findByText } = render(
       <NavigationContainer>
-        <FeedbackContainer routeType={CATEGORIES_ROUTE} isSearchFeedback={false} language={language} cityCode={city} />
+        <FeedbackContainer routeType={CATEGORIES_ROUTE} language={language} cityCode={city} />
       </NavigationContainer>,
     )
     const positiveRatingButton = getByText('useful')
@@ -49,12 +43,14 @@ describe('FeedbackContainer', () => {
     expect(await findByText('thanksMessage')).toBeDefined()
     expect(mockRequest).toHaveBeenCalledTimes(1)
     expect(mockRequest).toHaveBeenCalledWith({
-      feedbackType: FeedbackType.categories,
-      feedbackCategory: CONTENT_FEEDBACK_CATEGORY,
+      routeType: CATEGORIES_ROUTE,
       isPositiveRating: true,
       city,
       language,
-      comment: expect.stringContaining('Kontaktadresse: Keine Angabe'),
+      comment: '',
+      contactMail: '',
+      query: undefined,
+      searchTerm: undefined,
     })
     expect(sendTrackingSignal).toHaveBeenCalledTimes(1)
     expect(sendTrackingSignal).toHaveBeenCalledWith({
@@ -74,7 +70,7 @@ describe('FeedbackContainer', () => {
     const contactMail = 'test@example.com'
     const { getByText, findByText, getAllByDisplayValue } = render(
       <NavigationContainer>
-        <FeedbackContainer routeType={CATEGORIES_ROUTE} isSearchFeedback={false} language={language} cityCode={city} />
+        <FeedbackContainer routeType={CATEGORIES_ROUTE} language={language} cityCode={city} />
       </NavigationContainer>,
     )
     const [commentField, emailField] = getAllByDisplayValue('')
@@ -85,12 +81,14 @@ describe('FeedbackContainer', () => {
     expect(await findByText('thanksMessage')).toBeDefined()
     expect(mockRequest).toHaveBeenCalledTimes(1)
     expect(mockRequest).toHaveBeenCalledWith({
-      feedbackType: FeedbackType.categories,
-      feedbackCategory: CONTENT_FEEDBACK_CATEGORY,
+      routeType: CATEGORIES_ROUTE,
       isPositiveRating: null,
       city,
       language,
-      comment: `${comment}    Kontaktadresse: ${contactMail}`,
+      comment,
+      contactMail,
+      query: undefined,
+      searchTerm: undefined,
     })
     expect(sendTrackingSignal).toHaveBeenCalledTimes(1)
     expect(sendTrackingSignal).toHaveBeenCalledWith({
@@ -108,7 +106,7 @@ describe('FeedbackContainer', () => {
   it('should disable send feedback button if rating button is clicked twice', async () => {
     const { getByText, findByText } = render(
       <NavigationContainer>
-        <FeedbackContainer routeType={CATEGORIES_ROUTE} isSearchFeedback={false} language={language} cityCode={city} />
+        <FeedbackContainer routeType={CATEGORIES_ROUTE} language={language} cityCode={city} />
       </NavigationContainer>,
     )
     const positiveRatingButton = getByText('useful')
@@ -122,13 +120,7 @@ describe('FeedbackContainer', () => {
     const query = 'Zeugnis'
     const { findByText, getByText } = render(
       <NavigationContainer>
-        <FeedbackContainer
-          routeType={SEARCH_ROUTE}
-          isSearchFeedback
-          language={language}
-          cityCode={city}
-          query={query}
-        />
+        <FeedbackContainer routeType={SEARCH_ROUTE} language={language} cityCode={city} query={query} />
       </NavigationContainer>,
     )
     const button = getByText('send')
@@ -136,13 +128,14 @@ describe('FeedbackContainer', () => {
     expect(await findByText('thanksMessage')).toBeDefined()
     expect(mockRequest).toHaveBeenCalledTimes(1)
     expect(mockRequest).toHaveBeenCalledWith({
-      feedbackType: FeedbackType.search,
-      feedbackCategory: CONTENT_FEEDBACK_CATEGORY,
+      routeType: SEARCH_ROUTE,
       isPositiveRating: null,
       city,
       language,
-      comment: '    Kontaktadresse: Keine Angabe',
+      comment: '',
+      contactMail: '',
       query,
+      searchTerm: query,
       slug: undefined,
     })
   })
@@ -152,13 +145,7 @@ describe('FeedbackContainer', () => {
     const fullSearchTerm = 'Zeugnisübergabe'
     const { findByText, getByDisplayValue, getByText } = render(
       <NavigationContainer>
-        <FeedbackContainer
-          routeType={SEARCH_ROUTE}
-          isSearchFeedback
-          language={language}
-          cityCode={city}
-          query={query}
-        />
+        <FeedbackContainer routeType={SEARCH_ROUTE} language={language} cityCode={city} query={query} />
       </NavigationContainer>,
     )
     const input = getByDisplayValue(query)
@@ -168,13 +155,14 @@ describe('FeedbackContainer', () => {
     expect(await findByText('thanksMessage')).toBeDefined()
     expect(mockRequest).toHaveBeenCalledTimes(1)
     expect(mockRequest).toHaveBeenCalledWith({
-      feedbackType: FeedbackType.search,
-      feedbackCategory: CONTENT_FEEDBACK_CATEGORY,
+      routeType: SEARCH_ROUTE,
       isPositiveRating: null,
       city,
       language,
-      comment: '    Kontaktadresse: Keine Angabe',
-      query: `${fullSearchTerm} (actual query: ${query})`,
+      comment: '',
+      contactMail: '',
+      query,
+      searchTerm: fullSearchTerm,
       slug: undefined,
     })
   })

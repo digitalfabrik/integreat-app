@@ -3,9 +3,10 @@ import styled from 'styled-components'
 
 import StyledSmallViewTip from './StyledSmallViewTip'
 import StyledToolbarItem from './StyledToolbarItem'
+import Button from './base/Button'
 import Icon from './base/Icon'
 
-const StyledToolbarButtonItem = StyledToolbarItem.withComponent('button')
+const StyledToolbarButtonItem = StyledToolbarItem.withComponent(Button)
 
 const StyledIcon = styled(Icon)`
   color: ${props => props.theme.colors.textSecondaryColor};
@@ -27,7 +28,7 @@ const ToolbarItem = ({ href, text, icon, onClick }: ToolbarItemProps): ReactElem
       </StyledToolbarItem>
     )}
     {!!onClick && (
-      <StyledToolbarButtonItem onClick={() => onClick()} aria-label={text}>
+      <StyledToolbarButtonItem onClick={onClick} ariaLabel={text}>
         <StyledIcon src={icon} />
         <StyledSmallViewTip>{text}</StyledSmallViewTip>
       </StyledToolbarButtonItem>
