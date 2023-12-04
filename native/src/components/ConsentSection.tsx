@@ -17,6 +17,7 @@ const TextContainer = styled(View)`
 const Description = styled(Text)`
   color: ${props => props.theme.colors.textSecondaryColor};
 `
+
 type ConsentSectionProps = {
   title: string
   description: string

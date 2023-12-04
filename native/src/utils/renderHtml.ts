@@ -31,7 +31,7 @@ const renderJS = (
     window.ReactNativeWebView.postMessage(JSON.stringify({ type, message: message }))
   }
 
-  (function catchErrors () {
+  (function catchErrors() {
     window.onerror = function(msg, url, lineNo, columnNo, error) {
       const string = msg.toLowerCase()
       const substring = 'script error'
@@ -52,7 +52,7 @@ const renderJS = (
     }
   })();
 
-  (function replaceResourcesWithCached () {
+  (function replaceResourcesWithCached() {
     const hrefs = document.querySelectorAll('[href]')
     const srcs = document.querySelectorAll('[src]')
     const cacheDictionary = ${JSON.stringify(cacheDictionary)}
@@ -84,7 +84,7 @@ const renderJS = (
     }
   })();
 
-  (function addWebviewHeightListeners () {
+  (function addWebviewHeightListeners() {
     const container = document.getElementById('measure-container')
 
     function adjustHeight () {
@@ -105,52 +105,54 @@ const renderJS = (
     details.forEach(detail => detail.addEventListener('toggle', adjustHeight))
   })();
 
-  (function handleIframes () {
-    function capitalizeFirstLetter (word) {
+  (function handleIframes() {
+    function capitalizeFirstLetter(word) {
       return word.charAt(0).toUpperCase() + word.slice(1)
     }
-    
+
     function showMessage(text, element, className) {
-      const textNode = document.createTextNode(text);
-      if(className){
-         element.classList.add(className)
+      const textNode = document.createTextNode(text)
+      if (className) {
+        element.classList.add(className)
       }
       element.appendChild(textNode)
     }
-    
+
     function showSettingsButton(element) {
-      function onClickHandler() {
+      function onClickHandler () {
         window.ReactNativeWebView.postMessage(JSON.stringify({ type: '${SETTINGS_MESSAGE_TYPE}', openSettings: true }))
       }
+
       const buttonLabel = ${JSON.stringify(t('layout:settings'))}
-      const button = document.createElement('button');
-      button.name = "opt-in-settings-button";
-      button.innerHTML = buttonLabel;
-      button.id = "opt-in-settings-button";
-      button.onclick = onClickHandler;
-      element.appendChild(button);
+      const button = document.createElement('button')
+      button.name = 'opt-in-settings-button'
+      button.innerHTML = buttonLabel
+      button.id = 'opt-in-settings-button'
+      button.onclick = onClickHandler
+      element.appendChild(button)
     }
-    
+
     function showMessageWithSettings(text, iframeContainer) {
-      showMessage(text, iframeContainer, "iframe-info-text")
+      showMessage(text, iframeContainer, 'iframe-info-text')
       showSettingsButton(iframeContainer)
-      
+
     }
-    
+
     function showOptIn(text, iframeContainer, source) {
-      function onClickHandler() {
-        window.ReactNativeWebView.postMessage(JSON.stringify({ type: '${IFRAME_MESSAGE_TYPE}', allowedSource: {type: source, allowed: true} }))
+      function onClickHandler () {
+        window.ReactNativeWebView.postMessage(JSON.stringify({ type: '${IFRAME_MESSAGE_TYPE}', allowedSource: { type: source, allowed: true } }))
       }
-      const checkbox = document.createElement('input');
-      checkbox.type = "checkbox";
-      checkbox.name = "opt-in-checkbox";
-      checkbox.id = "opt-in-checkbox";
-      checkbox.onclick = onClickHandler;
+
+      const checkbox = document.createElement('input')
+      checkbox.type = 'checkbox'
+      checkbox.name = 'opt-in-checkbox'
+      checkbox.id = 'opt-in-checkbox'
+      checkbox.onclick = onClickHandler
       const label = document.createElement('label')
-      label.htmlFor = "opt-in-checkbox";
-      label.appendChild(document.createTextNode(text));
-      iframeContainer.appendChild(label);
-      iframeContainer.appendChild(checkbox);
+      label.htmlFor = 'opt-in-checkbox'
+      label.appendChild(document.createTextNode(text))
+      iframeContainer.appendChild(label)
+      iframeContainer.appendChild(checkbox)
     }
 
     function showBlockMessageWithSettings(text, iframeContainer) {
@@ -158,52 +160,55 @@ const renderJS = (
       showSettingsButton(iframeContainer)
     }
 
-    function handleWhiteListedIframeSources (iframe, allowedExternalSourcePermissions, iframeSource, iframeContainer) {
+    function handleWhiteListedIframeSources(iframe, allowedExternalSourcePermissions, iframeSource, iframeContainer) {
+      if (externalSourcePermissions.some(source => source.type === iframeSource && source.allowed)) {
         // Add do not track parameter (only working for vimeo)
-     if (externalSourcePermissions.some(source => source.type === iframeSource && source.allowed)) {
-        const url = new URL(iframe.src)
-        url.searchParams.append('dnt', '1')
-        iframe.setAttribute('src', url.href)
-       const message = ${JSON.stringify(
-         t('remoteContent:knownResourceContentMessageOne'),
-       )} + iframeSource +". " + ${JSON.stringify(t('remoteContent:knownResourceContentMessageTwo'))}
-       showMessageWithSettings(message, iframeContainer)
+        if (iframeSource === 'Vimeo') {
+          const url = new URL(iframe.src)
+          url.searchParams.append('dnt', '1')
+          iframe.setAttribute('src', url.href)
+        }
+        const message = ${JSON.stringify(
+          t('remoteContent:knownResourceContentMessageOne'),
+        )} + iframeSource + '. ' + ${JSON.stringify(t('remoteContent:knownResourceContentMessageTwo'))}
+          showMessageWithSettings(message, iframeContainer)
+      } else if (externalSourcePermissions.some(source => source.type === iframeSource && !source.allowed)) {
+          const translation = ${JSON.stringify(t('remoteContent:knownResourceBlocked'))}
+          const message = iframeSource + ' ' + translation
+          showBlockMessageWithSettings(message, iframeContainer)
+          iframe.remove()
       }
-      else if (externalSourcePermissions.some(source => source.type === iframeSource && !source.allowed)) {
-       const translation = ${JSON.stringify(t('remoteContent:knownResourceBlocked'))}
-       const message= iframeSource + " "+ translation
-       showBlockMessageWithSettings(message, iframeContainer)
-       iframe.remove()
-     }
-     // No permissions set for listed sources
+      // No permissions set for listed sources
       else {
-       const translation = ${JSON.stringify(t('remoteContent:knownResourceOptIn'))}
-       const message = translation + iframeSource
-       showOptIn(message, iframeContainer, iframeSource)
-       iframe.remove()
+        const translation = ${JSON.stringify(t('remoteContent:knownResourceOptIn'))}
+        const message = translation + iframeSource
+        showOptIn(message, iframeContainer, iframeSource)
+        iframe.remove()
       }
     }
-    
+
     const iframes = document.querySelectorAll('iframe')
     const whiteListedIframeSources = ${JSON.stringify(whiteListedIframeSources)}
     const externalSourcePermissions = ${JSON.stringify(externalSourcePermissions)}
-   
+
     iframes.forEach((iframe) => {
       const iframeContainer = document.createElement('div')
       iframeContainer.classList.add('iframe-container')
       iframe.parentNode.appendChild(iframeContainer)
       const whiteListedIframeSource = whiteListedIframeSources.find(src => iframe.src.indexOf(src) > 0)
       if (whiteListedIframeSource) {
-        handleWhiteListedIframeSources(iframe, externalSourcePermissions, capitalizeFirstLetter(whiteListedIframeSource), iframeContainer )
-
+        handleWhiteListedIframeSources(iframe,
+          externalSourcePermissions,
+          capitalizeFirstLetter(whiteListedIframeSource),
+          iframeContainer)
       } else {
         const translation = ${JSON.stringify(t('remoteContent:unknownResourceBlocked'))}
-        const message = translation +"\\n"+iframe.src
-        showMessage(message, iframeContainer);
+        const message = translation + '\\n' + iframe.src
+        showMessage(message, iframeContainer)
         iframe.remove()
       }
     })
-  })();
+  })()
 `
 
 // To use parameters or external constants in renderHTML, you need to use string interpolation, e.g.
@@ -354,8 +359,8 @@ const renderHtml = (
         height: calc(60vw);
         background-color: ${theme.colors.backgroundAccentColor};
       }
-      
-      .iframe-container{
+
+      .iframe-container {
         padding: 12px;
         background-color: ${theme.colors.themeColor};
         display: flex;
@@ -363,12 +368,12 @@ const renderHtml = (
         overflow-wrap: anywhere;
         font-size: ${theme.fonts.hintFontSize};
       }
-      
+
       .iframe-info-text {
         font-size: ${theme.fonts.decorativeFontSizeSmall};
         background-color: ${theme.colors.backgroundAccentColor};
       }
-      
+
       .iframe-info-text > #opt-in-settings-button {
         font-size: ${theme.fonts.decorativeFontSizeSmall};
       }
@@ -390,9 +395,9 @@ const renderHtml = (
         /* Webview in android doesn't set correct size for checkboxes */
         heigth: 40px;
         width: 40px;
-        
+
       @media not screen and (-webkit-min-device-pixel-ratio: 1) {
-        height:  16px;
+        height: 16px;
         width: 16px;
       }
 
