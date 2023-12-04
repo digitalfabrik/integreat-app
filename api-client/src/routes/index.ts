@@ -69,6 +69,9 @@ export const IMAGE_VIEW_MODAL_ROUTE: ImageViewModalRouteType = 'image'
 export type FeedbackModalRouteType = 'feedback'
 export const FEEDBACK_MODAL_ROUTE: FeedbackModalRouteType = 'feedback'
 
+export type ConsentRouteType = 'consent'
+export const CONSENT_ROUTE: ConsentRouteType = 'consent'
+
 // Web routes
 export type MainDisclaimerRouteType = 'main-disclaimer'
 export const MAIN_DISCLAIMER_ROUTE: MainDisclaimerRouteType = 'main-disclaimer'

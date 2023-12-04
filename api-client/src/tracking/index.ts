@@ -2,6 +2,7 @@ import {
   CategoriesRouteType,
   ChangeLanguageModalRouteType,
   CityNotCooperatingRouteType,
+  ConsentRouteType,
   DisclaimerRouteType,
   EventsRouteType,
   FeedbackModalRouteType,
@@ -38,6 +39,7 @@ export type OpenPageSignalType = {
     | JpalTrackingRouteType
     | ChangeLanguageModalRouteType
     | LicensesRouteType
+    | ConsentRouteType
   url: string
 }
 type ClosePageSignalNameType = 'close_page'

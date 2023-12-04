@@ -4,7 +4,10 @@ import { fromPairs, mapValues, toPairs } from 'lodash'
 import { SignalType } from 'api-client'
 
 export const ASYNC_STORAGE_VERSION = '1'
-
+export type ExternalSourcePermission = {
+  type: string
+  allowed: boolean
+}
 export type SettingsType = {
   storageVersion: string | null
   contentLanguage: string | null
@@ -16,6 +19,7 @@ export type SettingsType = {
   jpalTrackingEnabled: boolean | null
   jpalTrackingCode: string | null
   jpalSignals: Array<SignalType>
+  externalSourcePermissions: ExternalSourcePermission[]
 }
 export const defaultSettings: SettingsType = {
   storageVersion: null,
@@ -28,6 +32,7 @@ export const defaultSettings: SettingsType = {
   jpalTrackingEnabled: null,
   jpalTrackingCode: null,
   jpalSignals: [],
+  externalSourcePermissions: [],
 }
 
 class AppSettings {
@@ -72,6 +77,17 @@ class AppSettings {
   loadVersion = async (): Promise<string | null> => {
     const settings = await this.loadSettings()
     return settings.storageVersion
+  }
+
+  setExternalSourcePermissions = async (permissions: ExternalSourcePermission[]): Promise<void> => {
+    await this.setSettings({
+      externalSourcePermissions: permissions,
+    })
+  }
+
+  loadExternalSourcePermissions = async (): Promise<ExternalSourcePermission[]> => {
+    const settings = await this.loadSettings()
+    return settings.externalSourcePermissions
   }
 
   setContentLanguage = async (language: string): Promise<void> => {

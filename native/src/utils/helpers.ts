@@ -3,7 +3,7 @@ import BlobUtil from 'react-native-blob-util'
 import Url from 'url-parse'
 
 import buildConfig from '../constants/buildConfig'
-import appSettings from './AppSettings'
+import appSettings, { ExternalSourcePermission } from './AppSettings'
 import { log } from './sentry'
 
 // Android throws an error if attempting to delete non existing directories/files
@@ -83,3 +83,18 @@ export const getExtension = (urlString: string): string => {
 
 export const getErrorMessage = (error: unknown): string =>
   error instanceof Error ? error.message : 'No error message available'
+
+export const updateSourcePermissions = (
+  permissions: ExternalSourcePermission[],
+  newPermission: ExternalSourcePermission,
+): ExternalSourcePermission[] => {
+  const updatedPermissions = permissions
+  const { allowed, type } = newPermission
+  const arrayIndex = updatedPermissions.findIndex(permission => permission.type === type)
+  if (arrayIndex > -1) {
+    updatedPermissions.splice(arrayIndex, 1, { type, allowed })
+  } else {
+    updatedPermissions.push({ type, allowed })
+  }
+  return updatedPermissions
+}
