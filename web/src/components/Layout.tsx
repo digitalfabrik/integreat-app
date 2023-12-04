@@ -25,12 +25,6 @@ export const RichLayout = styled.div`
     cursor: pointer;
   }
 
-  div[role='button'] {
-    &:focus-visible {
-      outline: 2px solid ${props => props.theme.colors.textSecondaryColor};
-    }
-  }
-
   input {
     &:focus-visible {
       outline: 2px solid ${props => props.theme.colors.textSecondaryColor};
