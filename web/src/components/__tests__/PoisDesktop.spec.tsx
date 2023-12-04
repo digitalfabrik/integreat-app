@@ -75,8 +75,8 @@ describe('PoisDesktop', () => {
     expect(queryByText('pois:detailsHeader')).toBeTruthy()
     expect(queryByText('pois:listTitle')).toBeNull()
     expect(queryByLabelText('Toolbar')).toBeNull()
-    expect(queryByLabelText('previous location')).toBeTruthy()
-    expect(queryByLabelText('next location')).toBeTruthy()
+    expect(queryByLabelText('pois:previousPoi')).toBeTruthy()
+    expect(queryByLabelText('pois:nextPoi')).toBeTruthy()
   })
 
   it('should render filtered poiList & toolbar components for multipoi feature', () => {

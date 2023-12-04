@@ -4,12 +4,12 @@ import styled, { css, useTheme } from 'styled-components'
 import { ArrowBackspaceIcon } from '../assets'
 import { helpers } from '../constants/theme'
 import Spacer from './Spacer'
+import Button from './base/Button'
 import Icon from './base/Icon'
 
-const DetailsHeader = styled.div<{ viewportSmall: boolean }>`
+const StyledButton = styled(Button)<{ viewportSmall: boolean }>`
   display: flex;
   padding-top: 12px;
-  cursor: pointer;
 
   ${props =>
     props.viewportSmall &&
@@ -51,10 +51,10 @@ const GoBack = ({ goBack, viewportSmall = false, text }: GoBackProps): ReactElem
   const theme = useTheme()
   return (
     <>
-      <DetailsHeader viewportSmall={viewportSmall} onClick={goBack} role='button' tabIndex={0} onKeyPress={goBack}>
+      <StyledButton onClick={goBack} ariaLabel={text} tabIndex={0} viewportSmall={viewportSmall}>
         <StyledIcon src={ArrowBackspaceIcon} directionDependent />
         <DetailsHeaderTitle>{text}</DetailsHeaderTitle>
-      </DetailsHeader>
+      </StyledButton>
       <Spacer borderColor={theme.colors.borderColor} />
     </>
   )

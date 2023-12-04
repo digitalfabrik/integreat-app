@@ -6,8 +6,9 @@ import dimensions from '../constants/dimensions'
 import { helpers } from '../constants/theme'
 import SelectorItemModel from '../models/SelectorItemModel'
 import Tooltip from './Tooltip'
+import Button from './base/Button'
 
-const Element = styled.span<{ $selected: boolean; $enabled: boolean }>`
+const Element = styled(Button)<{ $selected: boolean; $enabled: boolean }>`
   ${helpers.removeLinkHighlighting};
   height: ${dimensions.headerHeightLarge}px;
   min-width: 90px;
@@ -92,13 +93,11 @@ const Selector = ({
       if (item.href) {
         return (
           <Element
-            data-testid={item.code}
             key={item.code}
             role='option'
             as={Link}
             to={item.href}
             onClick={closeDropDown}
-            onKeyPress={closeDropDown}
             aria-selected={item.code === activeItemCode}
             tabIndex={0}
             $enabled
