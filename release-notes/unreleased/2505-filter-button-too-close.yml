@@ -1,0 +1,7 @@
+issue_key: 2505
+show_in_stores: false
+platforms:
+  - ios
+  - android
+en: Remove unneeded padding for filter buttons
+de: Unnötiger Abstand von Poi-Filter-Buttons entfernt
