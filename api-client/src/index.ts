@@ -2,17 +2,16 @@ import { MapParamsToBodyType as ImportedMapParamsToBodyType } from './MapParamsT
 import { MapParamsToUrlType as ImportedMapParamsToUrlType } from './MapParamsToUrlType'
 import { MapResponseType as ImportedMapResponseType } from './MapResponseType'
 import {
-  FeedbackCategoryType as ImportedFeedbackCategoryType,
+  FeedbackRouteType as ImportedFeedbackRouteType,
   ParamsType as ImportedFeedbackParamsType,
-  AdditionalParamsType as ImportedFeedbackAdditionalParamsType,
 } from './endpoints/createFeedbackEndpoint'
 import { Return as ImportedReturnType } from './endpoints/hooks/useLoadAsync'
 
 export type MapParamsToBodyType<P> = ImportedMapParamsToBodyType<P>
 export type MapParamsToUrlType<P> = ImportedMapParamsToUrlType<P>
 export type MapResponseType<P, T> = ImportedMapResponseType<P, T>
-export type FeedbackParamsType = ImportedFeedbackParamsType & ImportedFeedbackAdditionalParamsType
-export type FeedbackCategoryType = ImportedFeedbackCategoryType
+export type FeedbackParamsType = ImportedFeedbackParamsType
+export type FeedbackRouteType = ImportedFeedbackRouteType
 export type ReturnType<T> = ImportedReturnType<T>
 export { default as InternalPathnameParser } from './routes/InternalPathnameParser'
 export * from './routes'
@@ -68,11 +67,7 @@ export { default as loadSprungbrettJobs } from './endpoints/loadSprungbrettJobs'
 export * from './replaceLinks'
 export { POSITIVE_RATING } from './endpoints/createFeedbackEndpoint'
 export { NEGATIVE_RATING } from './endpoints/createFeedbackEndpoint'
-export { FeedbackType } from './endpoints/createFeedbackEndpoint'
 export { CONTENT_FEEDBACK_CATEGORY } from './endpoints/createFeedbackEndpoint'
-export { TECHNICAL_FEEDBACK_CATEGORY } from './endpoints/createFeedbackEndpoint'
-export { INTEGREAT_INSTANCE } from './endpoints/createFeedbackEndpoint'
-export { DEFAULT_FEEDBACK_LANGUAGE } from './endpoints/createFeedbackEndpoint'
 export {
   default as createTunewsLanguagesEndpoint,
   TUNEWS_LANGUAGES_ENDPOINT_NAME,

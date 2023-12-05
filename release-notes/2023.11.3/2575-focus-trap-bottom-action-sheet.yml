@@ -1,0 +1,5 @@
+issue_key: 2575
+show_in_stores: false
+platforms:
+  - web
+en: Fix feedback can not be opened from the bottom action sheet

@@ -14,6 +14,7 @@ import BottomActionSheet, { ScrollableBottomSheetRef } from './BottomActionSheet
 import GoBack from './GoBack'
 import MapView, { MapViewRef } from './MapView'
 import PoiSharedChildren from './PoiSharedChildren'
+import Button from './base/Button'
 import Icon from './base/Icon'
 
 const geolocatorTopOffset = 10
@@ -32,14 +33,13 @@ const GoBackContainer = styled.div<{ hidden: boolean }>`
   padding: 0 30px;
 `
 
-const BackNavigation = styled.div<{ direction: string }>`
+const BackNavigation = styled(Button)<{ direction: string }>`
   background-color: ${props => props.theme.colors.textSecondaryColor};
   height: 28px;
   width: 28px;
   border: 1px solid ${props => props.theme.colors.textDisabledColor};
   border-radius: 50px;
   box-shadow: 1px 1px 2px 0 rgb(0 0 0 / 20%);
-  cursor: pointer;
   justify-content: center;
   align-items: center;
   display: flex;
@@ -157,10 +157,9 @@ const PoisMobile = ({
             {canGoBack && (
               <BackNavigation
                 onClick={() => handleSelectFeatureOnMap(null)}
-                role='button'
                 tabIndex={0}
-                onKeyPress={() => handleSelectFeatureOnMap(null)}
-                direction={direction}>
+                direction={direction}
+                ariaLabel={t('detailsHeader')}>
                 <StyledIcon src={ArrowBackspaceIcon} directionDependent />
               </BackNavigation>
             )}

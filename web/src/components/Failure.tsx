@@ -12,6 +12,9 @@ const Container = styled.div`
   gap: 24px;
   text-align: center;
 `
+const ErrorMessage = styled.div`
+  margin-top: 20px;
+`
 
 const StyledIcon = styled(Icon)`
   align-self: center;
@@ -30,7 +33,7 @@ const Failure = ({ errorMessage, goToPath, goToMessage = 'goTo.start' }: Failure
   return (
     <Container>
       <StyledIcon src={SadSmileyIcon} />
-      <div role='alert'>{t(errorMessage)}</div>
+      <ErrorMessage role='alert'>{t(errorMessage)} </ErrorMessage>
       {!!goToPath && <Link to={goToPath}>{goToMessage ? t(goToMessage) : goToPath}</Link>}
     </Container>
   )
