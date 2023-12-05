@@ -9,9 +9,10 @@ import { URL_PREFIX } from '../constants/webview'
 import TileModel from '../models/TileModel'
 import testID from '../testing/testID'
 import { LanguageResourceCacheStateType, PageResourceCacheStateType } from '../utils/DataContainer'
+import SubCategoryList from './CategoryListItem'
+import List from './List'
 import OrganizationContentInfo from './OrganizationContentInfo'
 import Page from './Page'
-import SubCategoryList from './SubCategoryList'
 import Tiles from './Tiles'
 
 export type CategoriesProps = {
@@ -80,16 +81,23 @@ const Categories = ({
       language={language}
       path={category.path}
       AfterContent={category.organization && <OrganizationContentInfo organization={category.organization} />}
-      Footer={children.map(it => (
-        <SubCategoryList
-          key={it.path}
-          category={it}
-          subCategories={categories.getChildren(it)}
-          resourceCache={resourceCache}
-          language={language}
-          onItemPress={navigateToCategory}
+      Footer={
+        <List
+          items={children}
+          renderItem={({ item: it }) => (
+            <SubCategoryList
+              key={it.path}
+              category={it}
+              subCategories={categories.getChildren(it)}
+              resourceCache={resourceCache}
+              language={language}
+              onItemPress={navigateToCategory}
+            />
+          )}
+          // Fixes VirtualizedLists nesting error
+          scrollEnabled={false}
         />
-      ))}
+      }
     />
   )
 }

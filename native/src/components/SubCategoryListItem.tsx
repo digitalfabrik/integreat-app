@@ -6,7 +6,7 @@ import { CategoryModel } from 'api-client'
 import { contentDirection } from '../constants/contentDirection'
 import { PageResourceCacheStateType } from '../utils/DataContainer'
 import { getCachedThumbnail } from './Categories'
-import { SubCategoryThumbnail } from './SubCategoryList'
+import { CategoryThumbnail } from './CategoryListItem'
 import Pressable from './base/Pressable'
 
 const SubCategoryTitleContainer = styled.View<{ language: string }>`
@@ -45,7 +45,7 @@ const SubCategoryListItem = ({
   <FlexStyledLink onPress={() => onItemPress(subCategory)} language={language}>
     <SubCategoryTitleContainer language={language}>
       {!!subCategory.thumbnail && (
-        <SubCategoryThumbnail language={language} source={getCachedThumbnail(subCategory, resourceCache)} />
+        <CategoryThumbnail language={language} source={getCachedThumbnail(subCategory, resourceCache)} />
       )}
       <SubCategoryTitle>{subCategory.title}</SubCategoryTitle>
     </SubCategoryTitleContainer>

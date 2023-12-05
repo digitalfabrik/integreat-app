@@ -9,7 +9,7 @@ import { SEARCH_PREVIEW_MAX_CHARS } from '../constants'
 import { contentDirection } from '../constants/contentDirection'
 import { PageResourceCacheStateType } from '../utils/DataContainer'
 import { getCachedThumbnail } from './Categories'
-import { SubCategoryThumbnail } from './SubCategoryList'
+import { CategoryThumbnail } from './CategoryListItem'
 import Pressable from './base/Pressable'
 
 const FlexStyledLink = styled(Pressable)`
@@ -93,7 +93,7 @@ const SearchListItem = ({
         <SearchEntryContainer>
           <TitleDirectionContainer language={language}>
             {!!thumbnail && (
-              <SubCategoryThumbnail language={language} source={getCachedThumbnail(category, resourceCache)} />
+              <CategoryThumbnail language={language} source={getCachedThumbnail(category, resourceCache)} />
             )}
             {Title}
           </TitleDirectionContainer>
