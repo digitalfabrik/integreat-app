@@ -70,7 +70,7 @@ yarn workspace e2e test:web --spec regexp
 
 ### Local Testing
 
-Check in the documents [here](../native/docs/e2e-testing.md).
+Check the documents [here](../native/docs/e2e-testing.md).
 
 #### Selectors
 
