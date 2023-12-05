@@ -19,6 +19,7 @@ export type CityContentLayoutProps = {
   fullWidth?: boolean
   disableScrollingSafari?: boolean
   showFooter?: boolean
+  embedded?: boolean
 }
 
 const CityContentLayout = (props: CityContentLayoutProps): ReactElement => {
@@ -35,11 +36,15 @@ const CityContentLayout = (props: CityContentLayoutProps): ReactElement => {
     disableScrollingSafari = false,
     showFooter = true,
     city,
+    embedded
   } = props
 
   // to avoid jumping issues for desktop, isLoading is only checked on mobile viewport
   const isLoadingMobile = isLoading && viewportSmall
 
+  if (embedded) {
+    return <>{children}</>
+  }
   return (
     <Layout
       disableScrollingSafari={disableScrollingSafari}

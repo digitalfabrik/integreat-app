@@ -62,7 +62,8 @@ class CategoryModel extends ExtendedPageModel {
       this.parentPath === other.parentPath &&
       this.order === other.order &&
       this.isRoot === other.isRoot &&
-      (this.organization === null ? other.organization === null : this.organization.isEqual(other.organization))
+      (this.organization === null ? other.organization === null : this.organization.isEqual(other.organization)) &&
+      this._embeddedOffers === other.embeddedOffers
     )
   }
 }

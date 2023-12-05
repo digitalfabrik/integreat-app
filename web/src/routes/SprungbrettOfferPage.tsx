@@ -63,6 +63,7 @@ const SprungbrettOfferPage = ({
     languageChangePaths,
     route: SPRUNGBRETT_OFFER_ROUTE,
     languageCode,
+    embedded,
     Toolbar: (
       <CityContentToolbar
         languageCode={languageCode}
@@ -91,7 +92,7 @@ const SprungbrettOfferPage = ({
 
   if (!data) {
     return (
-      <Wrapper>
+      <Wrapper>        
         <FailureSwitcher error={error ?? new Error('Data missing')} />
       </Wrapper>
     )

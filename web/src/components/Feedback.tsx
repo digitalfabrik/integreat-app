@@ -94,6 +94,7 @@ const Feedback = ({
         description={t('commentDescription', { appName: buildConfig().appName })}
         value={comment}
         onChange={onCommentChanged}
+        optional
         showOptional
         multiline
       />
@@ -103,6 +104,7 @@ const Feedback = ({
         title={t('contactMailAddress')}
         value={contactMail}
         onChange={onContactMailChanged}
+        optional
         showOptional
       />
 
