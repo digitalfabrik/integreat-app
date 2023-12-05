@@ -11,9 +11,7 @@ const Container = styled.div`
   flex-direction: column;
   gap: 24px;
   text-align: center;
-`
-const ErrorMessage = styled.div`
-  margin-top: 20px;
+  padding: 16px 0;
 `
 
 const StyledIcon = styled(Icon)`
@@ -26,14 +24,15 @@ type FailureProps = {
   errorMessage: string
   goToPath?: string
   goToMessage?: string
+  className?: string
 }
 
-const Failure = ({ errorMessage, goToPath, goToMessage = 'goTo.start' }: FailureProps): ReactElement => {
+const Failure = ({ errorMessage, goToPath, goToMessage = 'goTo.start', className }: FailureProps): ReactElement => {
   const { t } = useTranslation('error')
   return (
-    <Container>
+    <Container className={className}>
       <StyledIcon src={SadSmileyIcon} />
-      <ErrorMessage role='alert'>{t(errorMessage)} </ErrorMessage>
+      <div role='alert'>{t(errorMessage)} </div>
       {!!goToPath && <Link to={goToPath}>{goToMessage ? t(goToMessage) : goToPath}</Link>}
     </Container>
   )

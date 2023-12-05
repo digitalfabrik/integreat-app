@@ -1,5 +1,6 @@
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
+import styled from 'styled-components'
 
 import { GeoJsonPoi, LocationType, PoiModel, sortMapFeatures } from 'api-client'
 import { UiDirectionType } from 'translations'
@@ -8,6 +9,10 @@ import Failure from './Failure'
 import List from './List'
 import PoiDetails from './PoiDetails'
 import PoiListItem from './PoiListItem'
+
+const StyledFailure = styled(Failure)`
+  padding: 0;
+`
 
 type PoiSharedChildrenProps = {
   poiListFeatures: GeoJsonPoi[]
@@ -42,7 +47,7 @@ const PoiSharedChildren = ({
   }
 
   if (slug) {
-    return <Failure errorMessage='notFound.poi' goToMessage='pois:detailsHeader' goToPath='.' />
+    return <StyledFailure errorMessage='notFound.poi' goToMessage='pois:detailsHeader' goToPath='.' />
   }
 
   const renderPoiListItem = (poi: GeoJsonPoi) => <PoiListItem key={poi.path} poi={poi} selectPoi={selectPoi} />
