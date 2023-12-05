@@ -1,17 +1,22 @@
 import React, { Fragment, ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { ScrollView, View } from 'react-native'
+import { FlatList, View } from 'react-native'
 import { Calendar } from 'react-native-calendar-events'
 import styled from 'styled-components/native'
 
 import Modal from './Modal'
-import Pressable from './base/Pressable'
 import RadioButton from './base/RadioButton'
+import TextButton from './base/TextButton'
 
 const Heading = styled.Text`
   font-family: ${props => props.theme.fonts.native.decorativeFontBold};
   font-size: 16px;
   margin: 16px 0;
+`
+
+// styled-components doesn't have the right types for FlatList
+const StyledList = styled(FlatList as typeof FlatList<Calendar>)`
+  flex-grow: 0;
 `
 
 const ButtonTitle = styled.Text`
@@ -33,27 +38,9 @@ const StyledText = styled.Text`
   font-family: ${props => props.theme.fonts.native.decorativeFontRegular};
 `
 
-const SubmitButton = styled(Pressable)`
-  height: 40px;
-  background-color: ${props => props.theme.colors.themeColor};
-  border-radius: 8px;
-  align-items: center;
-  justify-content: center;
-  margin: 16px;
-  elevation: 2;
-  shadow-color: #000;
-  shadow-offset: 0px 1px;
-  shadow-opacity: 0.2;
-  shadow-radius: 1px;
-`
-
-const SubmitButtonText = styled.Text`
-  font-family: ${props => props.theme.fonts.native.decorativeFontBold};
-`
-
 type CalendarChoiceProps = {
   calendars: Calendar[]
-  chooseCalendar: (id: string, recurring: boolean) => Promise<void>
+  chooseCalendar: (id: string | undefined, recurring: boolean) => Promise<void>
   modalVisible: boolean
   closeModal: () => void
   eventTitle: string
@@ -69,46 +56,39 @@ const CalendarChoiceModal = ({
   recurring,
 }: CalendarChoiceProps): ReactElement => {
   const { t } = useTranslation('events')
-  const [selectedCalendarId, setSelectedCalendarId] = useState<string>(calendars[0]?.id ?? '')
+  const [selectedCalendarId, setSelectedCalendarId] = useState<string | undefined>(calendars[0]?.id ?? undefined)
   const [exportAllEvents, setExportAllEvents] = useState<boolean>(false)
+  const calendarCount = calendars.length
+
   return (
-    <Modal modalVisible={modalVisible} closeModal={closeModal} headerTitle={eventTitle}>
-      <ScrollView>
-        <Heading>{t('chooseCalendar')}:</Heading>
-        {calendars.map((cal, i) => (
-          <Fragment key={cal.id}>
-            <RadioButton
-              selected={selectedCalendarId === cal.id}
-              select={() => setSelectedCalendarId(cal.id)}
-              text={
-                <View>
-                  <ButtonTitle>{cal.title}</ButtonTitle>
-                  <ButtonDescription>{cal.source}</ButtonDescription>
-                </View>
-              }
-            />
-            {i < calendars.length - 1 && <Divider />}
-          </Fragment>
-        ))}
-        {recurring && (
+    <Modal modalVisible={modalVisible} closeModal={closeModal} headerTitle={eventTitle} containsList>
+      <Heading>{t('chooseCalendar')}</Heading>
+      <StyledList
+        data={calendars}
+        renderItem={({ item, index }) => (
           <>
-            <Heading>{t('addToCalendar')}:</Heading>
-            <RadioButton
-              selected={!exportAllEvents}
-              select={() => setExportAllEvents(false)}
-              text={<StyledText>{t('onlyThisEvent')}</StyledText>}
-            />
-            <RadioButton
-              selected={exportAllEvents}
-              select={() => setExportAllEvents(true)}
-              text={<StyledText>{t('thisAndAllFutureEvents')}</StyledText>}
-            />
+            <RadioButton selected={selectedCalendarId === item.id} select={() => setSelectedCalendarId(item.id)}>
+              <View>
+                <ButtonTitle>{item.title}</ButtonTitle>
+                <ButtonDescription>{item.source}</ButtonDescription>
+              </View>
+            </RadioButton>
+            {index < calendarCount - 1 && <Divider />}
           </>
         )}
-        <SubmitButton onPress={() => chooseCalendar(selectedCalendarId, exportAllEvents)}>
-          <SubmitButtonText>{t('addToCalendar')}</SubmitButtonText>
-        </SubmitButton>
-      </ScrollView>
+      />
+      {recurring && (
+        <>
+          <Heading>{t('addToCalendar')}</Heading>
+          <RadioButton selected={!exportAllEvents} select={() => setExportAllEvents(false)}>
+            <StyledText>{t('onlyThisEvent')}</StyledText>
+          </RadioButton>
+          <RadioButton selected={exportAllEvents} select={() => setExportAllEvents(true)}>
+            <StyledText>{t('thisAndAllFutureEvents')}</StyledText>
+          </RadioButton>
+        </>
+      )}
+      <TextButton onPress={() => chooseCalendar(selectedCalendarId, exportAllEvents)} text={t('addToCalendar')} />
     </Modal>
   )
 }

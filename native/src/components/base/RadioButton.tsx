@@ -25,15 +25,15 @@ const Marker = styled.View`
 `
 
 type RadioButtonProps = {
-  text: ReactNode
+  children: ReactNode
   selected: boolean
   select: () => void
 }
 
-const RadioButton = ({ text, selected, select }: RadioButtonProps): ReactElement => (
+const RadioButton = ({ children, selected, select }: RadioButtonProps): ReactElement => (
   <Container onPress={select}>
     <Ring selected={selected}>{selected && <Marker />}</Ring>
-    {text}
+    {children}
   </Container>
 )
 

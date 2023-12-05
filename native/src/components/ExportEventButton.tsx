@@ -1,14 +1,10 @@
+import { DateTime } from 'luxon'
 import React, { ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Linking, Platform } from 'react-native'
-import RNCalendarEvents, {
-  Calendar,
-  CalendarEventWritable,
-  RecurrenceFrequency,
-  RecurrenceRule,
-} from 'react-native-calendar-events'
+import RNCalendarEvents, { Calendar, CalendarEventWritable, RecurrenceFrequency } from 'react-native-calendar-events'
 import { PERMISSIONS, requestMultiple } from 'react-native-permissions'
-import { Frequency, RRule } from 'rrule'
+import { Frequency } from 'rrule'
 import styled from 'styled-components/native'
 
 import { EventModel } from 'api-client'
@@ -26,29 +22,8 @@ type ExportEventButtonType = {
   event: EventModel
 }
 
-type Recurrence = Omit<RecurrenceRule, 'endDate' | 'occurrence'> & {
-  endDate?: string
-  occurrence?: number
-}
-
-const formatRecurrenceRule = (recurrence: RRule | null): RecurrenceRule | undefined => {
-  if (!recurrence) {
-    return undefined
-  }
-  const formattedRecurrence: Recurrence = {
-    frequency: Frequency[recurrence.options.freq].toLowerCase() as RecurrenceFrequency,
-    interval: recurrence.options.interval,
-  }
-  const lastDate = recurrence.options.until?.toISOString()
-  if (lastDate) {
-    formattedRecurrence.endDate = lastDate
-  }
-  const occurrence = recurrence.options.count
-  if (occurrence) {
-    formattedRecurrence.occurrence = occurrence
-  }
-  return formattedRecurrence as RecurrenceRule
-}
+export const formatFrequency = (frequency: Frequency): RecurrenceFrequency =>
+  Frequency[frequency].toLowerCase() as RecurrenceFrequency
 
 const ExportEventButton = ({ event }: ExportEventButtonType): ReactElement => {
   const { t } = useTranslation('events')
@@ -58,7 +33,7 @@ const ExportEventButton = ({ event }: ExportEventButtonType): ReactElement => {
   const [showCalendarChoiceModal, setShowCalendarChoiceModal] = useState<boolean>(false)
   const [calendars, setCalendars] = useState<Calendar[]>()
 
-  const exportEventToCalendar = async (calendarId: string | undefined, exportAll: boolean): Promise<void> => {
+  const exportEventToCalendar = async (calendarId: string, exportAll: boolean): Promise<void> => {
     let startDate = event.date.startDate.toUTC().toString()
     let endDate = event.date.endDate.toUTC().toString()
     const allDay = event.date.allDay
@@ -77,7 +52,17 @@ const ExportEventButton = ({ event }: ExportEventButtonType): ReactElement => {
       location: event.location?.fullAddress,
       description: event.excerpt, // Android
       notes: event.excerpt, // iOS
-      recurrenceRule: exportAll ? formatRecurrenceRule(event.date.recurrenceRule) : undefined,
+      recurrenceRule:
+        exportAll && event.date.recurrenceRule
+          ? {
+              endDate:
+                event.date.recurrenceRule.options.until?.toISOString() ??
+                DateTime.now().plus({ years: 3 }).toUTC().toString(),
+              frequency: formatFrequency(event.date.recurrenceRule.options.freq),
+              interval: event.date.recurrenceRule.options.interval,
+              occurrence: event.date.recurrenceRule.options.count ?? 0,
+            }
+          : undefined,
     }
 
     try {
@@ -124,8 +109,12 @@ const ExportEventButton = ({ event }: ExportEventButtonType): ReactElement => {
     }
   }
 
-  const chooseCalendar = async (id: string, exportAll: boolean): Promise<void> => {
+  const chooseCalendar = async (id: string | undefined, exportAll: boolean): Promise<void> => {
     setShowCalendarChoiceModal(false)
+    if (!id) {
+      showSnackbar({ text: 'generalError' })
+      return
+    }
     try {
       await exportEventToCalendar(id, exportAll)
     } catch (e) {
