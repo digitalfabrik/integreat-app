@@ -9,7 +9,7 @@ import { URL_PREFIX } from '../constants/webview'
 import TileModel from '../models/TileModel'
 import testID from '../testing/testID'
 import { LanguageResourceCacheStateType, PageResourceCacheStateType } from '../utils/DataContainer'
-import SubCategoryList from './CategoryListItem'
+import CategoryListItem from './CategoryListItem'
 import List from './List'
 import OrganizationContentInfo from './OrganizationContentInfo'
 import Page from './Page'
@@ -85,7 +85,7 @@ const Categories = ({
         <List
           items={children}
           renderItem={({ item: it }) => (
-            <SubCategoryList
+            <CategoryListItem
               key={it.path}
               category={it}
               subCategories={categories.getChildren(it)}

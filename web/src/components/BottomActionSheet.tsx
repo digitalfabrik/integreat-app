@@ -8,6 +8,7 @@ import { UiDirectionType } from 'translations'
 
 import '../styles/BottomActionSheet.css'
 import { getSnapPoints } from '../utils/getSnapPoints'
+import { RichLayout } from './Layout'
 import Spacer from './Spacer'
 
 const Title = styled.h1`
@@ -25,6 +26,10 @@ const StyledSpacer = styled(Spacer)`
 
 const StyledBottomSheet = styled(BottomSheet)<{ direction: string }>`
   direction: ${props => props.direction};
+`
+
+const StyledLayout = styled(RichLayout)`
+  min-height: unset;
 `
 
 type BottomActionSheetProps = {
@@ -82,9 +87,11 @@ const BottomActionSheet = React.forwardRef(
         // snapPoints have been supplied in the previous line
         // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
         defaultSnap={({ snapPoints }) => snapPoints[1]!}>
-        {children}
-        <StyledSpacer borderColor={theme.colors.borderColor} />
-        <ToolbarContainer>{toolbar}</ToolbarContainer>
+        <StyledLayout>
+          {children}
+          <StyledSpacer borderColor={theme.colors.borderColor} />
+          <ToolbarContainer>{toolbar}</ToolbarContainer>
+        </StyledLayout>
       </StyledBottomSheet>
     )
   },
