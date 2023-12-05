@@ -162,7 +162,7 @@ const renderJS = (
     function handleAllowedIframeSources(iframe, allowedExternalSourcePermissions, iframeSource, iframeContainer) {
       if (externalSourcePermissions.some(source => source.type === iframeSource && source.allowed)) {
         // Add do not track parameter (only working for vimeo)
-        if (iframeSource === 'Vimeo') {
+        if (iframeSource.toLowerCase() === 'vimeo') {
           const url = new URL(iframe.src)
           url.searchParams.append('dnt', '1')
           iframe.setAttribute('src', url.href)

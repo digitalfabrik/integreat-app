@@ -8426,12 +8426,14 @@
   },
   "consent": {
     "de": {
-      "headline": "Externe Quellen",
-      "consentDescription": "Inhalte von {{source}} zulassen"
+      "title": "Externe Quellen",
+      "consentDescription": "Inhalte von {{source}} zulassen",
+      "noSources": "Keine externen Quellen verfügbar."
     },
     "en": {
-      "headline": "External Sources",
-      "consentDescription": "Allow content from {{source}}"
+      "title": "External Sources",
+      "consentDescription": "Allow content from {{source}}",
+      "noSources": "No external sources available."
     }
   },
   "search": {
@@ -8661,7 +8663,7 @@
       "disabled": "deaktiviert",
       "decline": "Ablehnen",
       "externalResourcesTitle": "Externe Quellen",
-      "externalResourcesDescription": "Legen sie fest welche externen Quellen zugelassen werden"
+      "externalResourcesDescription": "Lege fest, welche externen Quellen zugelassen werden."
     },
     "am": {
       "sentryTitle": "የመተግበሪያ መረጋጋት",
@@ -8802,7 +8804,7 @@
       "disabled": "deactivated",
       "decline": "Refuse",
       "externalResourcesTitle": "External Sources",
-      "externalResourcesDescription": "Specify which external sources are permitted"
+      "externalResourcesDescription": "Specify which external sources are permitted."
     },
     "es": {
       "sentryTitle": "Estabilidad de la app",

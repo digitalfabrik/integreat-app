@@ -49,7 +49,6 @@ const RemoteContent = (props: RemoteContentProps): ReactElement | null => {
   const [error, setError] = useState<string | null>(null)
   const [pressedUrl, setPressedUrl] = useState<string | null>(null)
   const [externalSourcePermissions, setExternalSourcePermissions] = useState<ExternalSourcePermission[]>([])
-  const [reloadSettings, setReloadSettings] = useState<boolean>(false)
   const { navigateTo } = useNavigate()
   // https://github.com/react-native-webview/react-native-webview/issues/1069#issuecomment-651699461
   const defaultWebviewHeight = 1
@@ -78,14 +77,6 @@ const RemoteContent = (props: RemoteContentProps): ReactElement | null => {
     }, []),
   )
 
-  // Webview content does not reload on opt-in click
-  useEffect(() => {
-    if (reloadSettings) {
-      appSettings.loadExternalSourcePermissions().then(setExternalSourcePermissions).catch(reportError)
-      setReloadSettings(false)
-    }
-  }, [reloadSettings])
-
   // messages are triggered in renderHtml.ts
   const onMessage = useCallback(
     (event: WebViewMessageEvent) => {
@@ -103,7 +94,7 @@ const RemoteContent = (props: RemoteContentProps): ReactElement | null => {
       if (message.type === IFRAME_MESSAGE_TYPE && typeof message.allowedSource === 'object') {
         const updatedSources = updateSourcePermissions(externalSourcePermissions, message.allowedSource)
         appSettings.setExternalSourcePermissions(updatedSources).catch(reportError)
-        setReloadSettings(true)
+        appSettings.loadExternalSourcePermissions().then(setExternalSourcePermissions).catch(reportError)
         return
       }
 

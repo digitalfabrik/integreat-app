@@ -1,7 +1,7 @@
 import { useFocusEffect } from '@react-navigation/native'
 import React, { ReactElement, useCallback, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { View, StyleSheet } from 'react-native'
+import { View } from 'react-native'
 import styled from 'styled-components/native'
 
 import { capitalizeFirstLetter } from 'api-client'
@@ -13,14 +13,17 @@ import { reportError } from '../utils/sentry'
 import Caption from './Caption'
 import ConsentSection from './ConsentSection'
 import Layout from './Layout'
+import ItemSeparator from './base/ItemSeparator'
 
-export const ItemSeparator = styled.View`
-  background-color: ${props => props.theme.colors.textDecorationColor};
-  height: ${StyleSheet.hairlineWidth}px;
+const NoItemsMessage = styled.Text`
+  color: ${props => props.theme.colors.textColor};
+  font-family: ${props => props.theme.fonts.native.contentFontRegular};
+  align-self: center;
+  margin-top: 20px;
 `
 
 const Consent = (): ReactElement | null => {
-  const [externalSourcePermissions, setExternalSourcePermissions] = useState<ExternalSourcePermission[]>([])
+  const [externalSourcePermissions, setExternalSourcePermissions] = useState<ExternalSourcePermission[] | null>(null)
   const { t } = useTranslation('consent')
 
   useFocusEffect(
@@ -28,30 +31,38 @@ const Consent = (): ReactElement | null => {
       appSettings.loadExternalSourcePermissions().then(setExternalSourcePermissions).catch(reportError)
     }, []),
   )
-
   const onPress = (type: string, allowed: boolean) => {
+    if (!externalSourcePermissions) {
+      return
+    }
     const updatedSources = updateSourcePermissions(externalSourcePermissions, { type, allowed })
     setExternalSourcePermissions(updatedSources)
     appSettings.setExternalSourcePermissions(updatedSources).catch(reportError)
   }
-  const getInitialValue = (src: string): boolean =>
-    externalSourcePermissions.find(source => source.type === src)?.allowed ?? false
+
+  if (!externalSourcePermissions) {
+    return null
+  }
 
   return (
     <Layout>
-      <Caption title={t('headline')} />
+      <Caption title={t('title')} />
       <ItemSeparator />
-      <View>
-        {capitalizeFirstLetter(buildConfig().allowedIframeSources).map(src => (
-          <ConsentSection
-            key={src}
-            title={src}
-            description={t('consentDescription', { source: src })}
-            initialSwitchValue={getInitialValue(src)}
-            onPress={onPress}
-          />
-        ))}
-      </View>
+      {buildConfig().allowedIframeSources.length > 0 ? (
+        <View>
+          {capitalizeFirstLetter(buildConfig().allowedIframeSources).map(src => (
+            <ConsentSection
+              key={src}
+              title={src}
+              description={t('consentDescription', { source: src })}
+              initialSwitchValue={externalSourcePermissions.some(source => source.type === src && source.allowed)}
+              onPress={onPress}
+            />
+          ))}
+        </View>
+      ) : (
+        <NoItemsMessage>{t('noSources')}</NoItemsMessage>
+      )}
     </Layout>
   )
 }
