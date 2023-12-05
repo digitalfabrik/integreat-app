@@ -19,6 +19,8 @@ const Overlay = styled(Button)`
   inset: 0;
   background-color: ${props => props.theme.colors.textSecondaryColor};
   opacity: 0.9;
+  width: 100%;
+  height: 100%;
 `
 
 const ModalContainer = styled.div`
