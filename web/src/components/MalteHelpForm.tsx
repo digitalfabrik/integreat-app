@@ -21,7 +21,7 @@ const StyledIcon = styled(Icon)`
 `
 
 const Divider = styled.hr`
-  margin: 12px 0px;
+  margin: 12px 0;
   background-color: ${props => props.theme.colors.textSecondaryColor};
   height: 1px;
   border: none;
@@ -37,9 +37,11 @@ const SubmitButton = styled(Button)`
   box-shadow:
     0 2px 4px rgb(0 0 0 / 15%),
     0 2px 4px rgb(0 0 0 / 15%);
+
   :hover {
     background-color: ${props => props.theme.colors.textSecondaryColor}D9;
   }
+
   :active {
     box-shadow: none;
   }
