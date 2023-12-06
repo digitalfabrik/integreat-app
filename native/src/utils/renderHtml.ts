@@ -160,7 +160,7 @@ const renderJS = (
     }
 
     function handleAllowedIframeSources(iframe, allowedExternalSourcePermissions, iframeSource, iframeContainer) {
-      if (externalSourcePermissions.some(source => source.type === iframeSource && source.allowed)) {
+      if (allowedExternalSourcePermissions.some(source => source.type === iframeSource && source.allowed)) {
         // Add do not track parameter (only working for vimeo)
         if (iframeSource.toLowerCase() === 'vimeo') {
           const url = new URL(iframe.src)
@@ -171,7 +171,7 @@ const renderJS = (
           t('remoteContent:knownResourceContentMessageOne'),
         )} + iframeSource + '. ' + ${JSON.stringify(t('remoteContent:knownResourceContentMessageTwo'))}
           showMessageWithSettings(message, iframeContainer)
-      } else if (externalSourcePermissions.some(source => source.type === iframeSource && !source.allowed)) {
+      } else if (allowedExternalSourcePermissions.some(source => source.type === iframeSource && !source.allowed)) {
           const translation = ${JSON.stringify(t('remoteContent:knownResourceBlocked'))}
           const message = iframeSource + ' ' + translation
           showBlockMessageWithSettings(message, iframeContainer)
