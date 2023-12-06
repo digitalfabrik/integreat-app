@@ -61,7 +61,7 @@ const CalendarChoiceModal = ({
   const calendarCount = calendars.length
 
   return (
-    <Modal modalVisible={modalVisible} closeModal={closeModal} headerTitle={eventTitle} containsList>
+    <Modal modalVisible={modalVisible} closeModal={closeModal} headerTitle={eventTitle} scrollView={false}>
       <Heading>{t('chooseCalendar')}</Heading>
       <StyledList
         data={calendars}

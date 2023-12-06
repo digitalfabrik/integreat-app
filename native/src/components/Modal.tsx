@@ -14,12 +14,11 @@ const Header = styled.View`
   height: ${dimensions.headerHeight}px;
 `
 
-const Content = styled.ScrollView`
+const ScrollContent = styled.ScrollView`
   padding: 0 20px;
 `
 
-// Lists implement their own scrolling and shouldn't be nested in a ScrollView
-const ContentForList = styled.View`
+const Content = styled.View`
   padding: 0 20px;
   flex: 1;
 `
@@ -30,7 +29,7 @@ type ModalProps = {
   headerTitle: string
   title?: string
   children: ReactNode
-  containsList?: boolean
+  scrollView?: boolean
 }
 
 const Modal = ({
@@ -39,7 +38,7 @@ const Modal = ({
   headerTitle,
   title,
   children,
-  containsList = false,
+  scrollView = true,
 }: ModalProps): ReactElement => (
   <RNModal
     visible={modalVisible}
@@ -50,13 +49,13 @@ const Modal = ({
       <Header>
         <HeaderBox goBack={closeModal} text={headerTitle} />
       </Header>
-      {containsList ? (
-        <ContentForList>
+      {scrollView ? (
+        <ScrollContent contentContainerStyle={{ flex: 1 }}>
           {!!title && <Caption title={title} />}
           {children}
-        </ContentForList>
+        </ScrollContent>
       ) : (
-        <Content contentContainerStyle={{ flex: 1 }}>
+        <Content>
           {!!title && <Caption title={title} />}
           {children}
         </Content>

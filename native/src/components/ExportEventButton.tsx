@@ -29,13 +29,12 @@ const ExportEventButton = ({ event }: ExportEventButtonType): ReactElement => {
   const { t } = useTranslation('events')
   const showSnackbar = useSnackbar()
 
-  const [eventExported, setEventExported] = useState<boolean>(false)
   const [showCalendarChoiceModal, setShowCalendarChoiceModal] = useState<boolean>(false)
   const [calendars, setCalendars] = useState<Calendar[]>()
 
   const exportEventToCalendar = async (calendarId: string, exportAll: boolean): Promise<void> => {
-    let startDate = event.date.startDate.toUTC().toString()
-    let endDate = event.date.endDate.toUTC().toString()
+    let startDate = event.date.startDate.toJSDate().toISOString()
+    let endDate = event.date.endDate.toJSDate().toISOString()
     const allDay = event.date.allDay
     if (Platform.OS === 'android' && allDay) {
       // If allDay is set to true, Android demands that the time has a midnight boundary.
@@ -57,17 +56,17 @@ const ExportEventButton = ({ event }: ExportEventButtonType): ReactElement => {
           ? {
               endDate:
                 event.date.recurrenceRule.options.until?.toISOString() ??
-                DateTime.now().plus({ years: 3 }).toUTC().toString(),
+                DateTime.now().plus({ years: 3 }).toJSDate().toISOString(),
               frequency: formatFrequency(event.date.recurrenceRule.options.freq),
               interval: event.date.recurrenceRule.options.interval,
-              occurrence: event.date.recurrenceRule.options.count ?? 0,
+              // This gets overridden by `endDate and can't be set in the CMS anyway
+              occurrence: 0,
             }
           : undefined,
     }
 
     try {
       await RNCalendarEvents.saveEvent(event.title, eventOptions)
-      setEventExported(true)
       showSnackbar({
         text: t('added'),
       })
@@ -135,7 +134,7 @@ const ExportEventButton = ({ event }: ExportEventButtonType): ReactElement => {
           recurring={!!event.date.recurrenceRule}
         />
       )}
-      <StyledButton text={t('addToCalendar')} onPress={checkCalendarsAndExportEvent} disabled={eventExported} />
+      <StyledButton text={t('addToCalendar')} onPress={checkCalendarsAndExportEvent} />
     </>
   )
 }
