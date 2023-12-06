@@ -21,7 +21,7 @@ class DashboardPage extends CategoriesPage {
   async selectLanguage(lang: string) {
     const languageIcon = await this.languageIcon
     await languageIcon.click()
-    const language = await $(`*[data-testid='${lang}']`)
+    const language = await $(`=${lang}`)
     await language.click()
   }
 

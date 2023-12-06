@@ -1,79 +1,26 @@
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
-import { ActivityIndicator, ScrollView, Text, TextInput } from 'react-native'
-import { useTheme } from 'styled-components'
+import { ActivityIndicator, Text } from 'react-native'
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import styled from 'styled-components/native'
 
-import { NoteIcon } from '../assets'
 import buildConfig from '../constants/buildConfig'
 import useNavigate from '../hooks/useNavigate'
 import Caption from './Caption'
 import FeedbackButtons from './FeedbackButtons'
 import { SendingStatusType } from './FeedbackContainer'
-import Icon from './base/Icon'
+import Note from './Note'
+import InputSection from './base/InputSection'
 import TextButton from './base/TextButton'
-
-const Input = styled(TextInput)`
-  padding: 15px;
-  border-width: 1px;
-  border-color: ${props => props.theme.colors.themeColor};
-  text-align-vertical: top;
-  color: ${props => props.theme.colors.textColor};
-`
-
-const CommentInput = styled(Input)`
-  height: 100px;
-`
 
 const Wrapper = styled.View`
   padding: 20px;
-  background-color: ${props => props.theme.colors.backgroundColor};
+  gap: 8px;
 `
 
-const HeadlineContainer = styled.View`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  padding: 15px 0 5px;
-`
-
-const DescriptionContainer = styled.View`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  margin: 12px 0;
-`
-
-const ThemedText = styled.Text`
-  display: flex;
-  text-align: center;
-  color: ${props => props.theme.colors.textColor};
-  font-family: ${props => props.theme.fonts.native.decorativeFontRegular};
-`
-
-const Description = styled(ThemedText)`
+const Description = styled(Text)`
   font-weight: bold;
   text-align: left;
-`
-
-const NoteBox = styled.View<{ visible: boolean }>`
-  background-color: ${props => props.theme.colors.themeColor};
-  margin-top: 12px;
-  padding: 12px;
-  opacity: ${props => (props.visible ? 1 : 0)};
-  flex-direction: row;
-`
-
-const NoteText = styled.Text`
-  font-family: ${props => props.theme.fonts.native.decorativeFontRegular};
-  font-size: 12px;
-  flex: 1;
-  flex-wrap: wrap;
-`
-
-const StyledIcon = styled(Icon)`
-  align-self: center;
-  margin-right: 12px;
 `
 
 const StyledButton = styled(TextButton)`
@@ -86,7 +33,6 @@ export type FeedbackProps = {
   sendingStatus: SendingStatusType
   onCommentChanged: (comment: string) => void
   onFeedbackContactMailChanged: (contactMail: string) => void
-  isSearchFeedback: boolean
   isPositiveFeedback: boolean | null
   setIsPositiveFeedback: (isPositive: boolean | null) => void
   onSubmit: () => void
@@ -95,7 +41,6 @@ export type FeedbackProps = {
 }
 
 const Feedback = ({
-  isSearchFeedback,
   isPositiveFeedback,
   comment,
   contactMail,
@@ -108,74 +53,56 @@ const Feedback = ({
   setSearchTerm,
 }: FeedbackProps): ReactElement => {
   const { t } = useTranslation('feedback')
-  const theme = useTheme()
   const navigation = useNavigate().navigation
 
+  const isSearchFeedback = searchTerm !== undefined
   const submitDisabled = isPositiveFeedback === null && comment.trim().length === 0 && !isSearchFeedback
 
-  const renderBox = (): React.ReactNode => {
-    if (['idle', 'failed'].includes(sendingStatus)) {
-      return (
-        <>
-          {isSearchFeedback ? (
-            <>
-              <HeadlineContainer>
-                <Description>{t('searchTermDescription')}</Description>
-              </HeadlineContainer>
-              <Input value={searchTerm} onChangeText={setSearchTerm} />
-            </>
-          ) : (
-            <>
-              <Caption title={t('headline')} />
-              <DescriptionContainer>
-                <Text>{t('description')}</Text>
-              </DescriptionContainer>
-              <FeedbackButtons isPositiveFeedback={isPositiveFeedback} setIsPositiveFeedback={setIsPositiveFeedback} />
-            </>
-          )}
-          <HeadlineContainer>
-            <Description>{t('commentHeadline')}</Description>
-            <Text>({t('optionalInfo')})</Text>
-          </HeadlineContainer>
-          <DescriptionContainer>
-            <Text>{t('commentDescription', { appName: buildConfig().appName })}</Text>
-          </DescriptionContainer>
-          <CommentInput onChangeText={onCommentChanged} value={comment} multiline numberOfLines={3} />
-          <HeadlineContainer>
-            <Description>{t('contactMailAddress')}</Description>
-            <Text>({t('optionalInfo')})</Text>
-          </HeadlineContainer>
-          <Input keyboardType='email-address' onChangeText={onFeedbackContactMailChanged} value={contactMail} />
-          {sendingStatus === 'failed' && <Description>{t('failedSendingFeedback')}</Description>}
-          <NoteBox visible={submitDisabled}>
-            <StyledIcon Icon={NoteIcon} />
-            <NoteText>{t('note')}</NoteText>
-          </NoteBox>
-          <StyledButton disabled={submitDisabled} onPress={onSubmit} text={t('send')} />
-        </>
-      )
-    }
-    if (sendingStatus === 'sending') {
-      return <ActivityIndicator size='large' color='#0000ff' />
-    }
-    // sendingStatus === 'successful'
+  if (sendingStatus === 'sending') {
+    return <ActivityIndicator size='large' color='#0000ff' />
+  }
+
+  if (sendingStatus === 'successful') {
     return (
-      <>
+      <Wrapper>
         <Caption title={t('thanksHeadline')} />
-        <ThemedText>{t('thanksMessage')}</ThemedText>
+        <Text>{t('thanksMessage')}</Text>
         <StyledButton onPress={navigation.goBack} text={t('common:close')} />
-      </>
+      </Wrapper>
     )
   }
 
   return (
-    <ScrollView
-      keyboardShouldPersistTaps='handled'
-      style={{
-        backgroundColor: theme.colors.backgroundColor,
-      }}>
-      <Wrapper>{renderBox()}</Wrapper>
-    </ScrollView>
+    <KeyboardAwareScrollView>
+      <Wrapper>
+        {isSearchFeedback ? (
+          <InputSection title={t('searchTermDescription')} value={searchTerm} onChange={setSearchTerm} />
+        ) : (
+          <>
+            <Caption title={t('headline')} />
+            <FeedbackButtons isPositiveFeedback={isPositiveFeedback} setIsPositiveFeedback={setIsPositiveFeedback} />
+          </>
+        )}
+        <InputSection
+          title={t('commentHeadline')}
+          description={t('commentDescription', { appName: buildConfig().appName })}
+          value={comment}
+          onChange={onCommentChanged}
+          multiline
+          showOptional
+        />
+        <InputSection
+          title={t('contactMailAddress')}
+          value={contactMail}
+          onChange={onFeedbackContactMailChanged}
+          keyboardType='email-address'
+          showOptional
+        />
+        {sendingStatus === 'failed' && <Description>{t('failedSendingFeedback')}</Description>}
+        {!isSearchFeedback && <Note text={t('note')} visible={submitDisabled} />}
+        <StyledButton disabled={submitDisabled} onPress={onSubmit} text={t('send')} />
+      </Wrapper>
+    </KeyboardAwareScrollView>
   )
 }
 

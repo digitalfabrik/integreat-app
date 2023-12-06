@@ -1,13 +1,19 @@
-import { OPEN_PAGE_SIGNAL_NAME } from 'api-client'
+import { FeedbackRouteType, OPEN_PAGE_SIGNAL_NAME } from 'api-client'
 import { FEEDBACK_MODAL_ROUTE } from 'api-client/src/routes'
 
-import { FeedbackInformationType } from '../components/FeedbackContainer'
 import { NavigationProps, RoutesType } from '../constants/NavigationTypes'
 import sendTrackingSignal from '../utils/sendTrackingSignal'
 
+type CreateNavigateToFeedbackModelProps = {
+  routeType: FeedbackRouteType
+  language: string
+  cityCode: string
+  slug?: string
+}
+
 const createNavigateToFeedbackModal =
   <T extends RoutesType>(navigation: NavigationProps<T>) =>
-  (feedbackInformation: FeedbackInformationType): void => {
+  (feedbackInformation: CreateNavigateToFeedbackModelProps): void => {
     sendTrackingSignal({
       signal: {
         name: OPEN_PAGE_SIGNAL_NAME,
