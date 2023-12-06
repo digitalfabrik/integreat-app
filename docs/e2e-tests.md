@@ -70,19 +70,7 @@ yarn workspace e2e test:web --spec regexp
 
 ### Local Testing
 
-For you first have to build and install the app with the E2E build configuration and start the packager:
-
-```
-yarn workspace e2e prepare:native:android
-yarn workspace e2e prepare:native:start
-```
-
-It is recommended to start the app once manually to avoid timeouts during local testing. After you have the app
-installed and running you can execute the native E2E-tests with
-
-```
-yarn workspace e2e test:native
-```
+Check the documents [here](../native/docs/e2e-testing.md).
 
 #### Selectors
 
@@ -92,7 +80,7 @@ Therefore, you should use the accessibility identifier for this.
 Add the accessibility-id to a React component using `testID('Example-Component')`. You can query this component
 with `$('~Example-Component')` in your test.
 
-For more complex queries you should add/use a custom [Selector](../e2e-tests/native/test/Selector.ts)
+For more complex queries you should add/use a custom [Selector](../e2e-tests/native/test/helpers/Selector.ts)
 using [predicate strings](https://github.com/facebookarchive/WebDriverAgent/wiki/Predicate-Queries-Construction-Rules)
 for iOS and [UiSelectors](https://developer.android.com/reference/androidx/test/uiautomator/UiSelector) for Android.
 
