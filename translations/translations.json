@@ -8412,6 +8412,13 @@
     "de": {
       "nothingFound": "Es wurden leider keine passenden Ergebnisse gefunden.",
       "searchPlaceholder": "Suche",
+      "itemHint": "Suchergebnis öffnen",
+      "searchResultsCount_zero": "0 Suchergebnisse",
+      "searchResultsCount_one": "1 Suchergebnis",
+      "searchResultsCount_two": "2 Suchergebnisse",
+      "searchResultsCount_few": "{{count}} Suchergebnisse",
+      "searchResultsCount_many": "{{count}} Suchergebnisse",
+      "searchResultsCount_other": "{{count}} Suchergebnisse",
       "pageTitle": "Suche",
       "delete": "Eingabe löschen"
     },
@@ -8454,6 +8461,13 @@
     "en": {
       "nothingFound": "Sorry, we could not find any matching results.",
       "searchPlaceholder": "Search",
+      "itemHint": "View search result",
+      "searchResultsCount_zero": "0 search results",
+      "searchResultsCount_one": "1 search result",
+      "searchResultsCount_two": "2 search results",
+      "searchResultsCount_few": "{{count}} search results",
+      "searchResultsCount_many": "{{count}} search results",
+      "searchResultsCount_other": "{{count}} search results",
       "pageTitle": "Search",
       "delete": "Delete input"
     },
