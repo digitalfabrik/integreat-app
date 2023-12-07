@@ -22,22 +22,25 @@ const renderJS = (
   externalSourcePermissions: ExternalSourcePermission,
   t: TFunction,
 ) => `
-  function reportError (message, type) {
-
+  function reportError(message, type) {
     if (!window.ReactNativeWebView) {
-      return window.setTimeout(function() { reportError(message, type) }, 100)
+      return window.setTimeout(function () {
+        reportError(message, type)
+      }, 100)
     }
 
     window.ReactNativeWebView.postMessage(JSON.stringify({ type, message: message }))
   }
 
   (function catchErrors() {
-    window.onerror = function(msg, url, lineNo, columnNo, error) {
+    window.onerror = function (msg, url, lineNo, columnNo, error) {
       const string = msg.toLowerCase()
       const substring = 'script error'
       if (string.indexOf(substring) > -1) {
-        reportError('Script Error: See Browser Console for Detail: ' + msg + JSON.stringify(error),
-          '${ERROR_MESSAGE_TYPE}')
+        reportError(
+          'Script Error: See Browser Console for Detail: ' + msg + JSON.stringify(error),
+          '${ERROR_MESSAGE_TYPE}',
+        )
       } else {
         const message = [
           'Message: ' + msg,
@@ -65,8 +68,10 @@ const renderJS = (
           item.href = newResource
         }
       } catch (e) {
-        reportError(e.message + 'occurred while decoding and looking for ' + item.href + ' in the dictionary',
-          '${WARNING_MESSAGE_TYPE}')
+        reportError(
+          e.message + 'occurred while decoding and looking for ' + item.href + ' in the dictionary',
+          '${WARNING_MESSAGE_TYPE}',
+        )
       }
     }
 
@@ -78,8 +83,10 @@ const renderJS = (
           item.src = newResource
         }
       } catch (e) {
-        reportError(e.message + 'occurred while decoding and looking for ' + item.src + ' in the dictionary',
-          '${WARNING_MESSAGE_TYPE}')
+        reportError(
+          e.message + 'occurred while decoding and looking for ' + item.src + ' in the dictionary',
+          '${WARNING_MESSAGE_TYPE}',
+        )
       }
     }
   })();
@@ -87,7 +94,7 @@ const renderJS = (
   (function addWebviewHeightListeners() {
     const container = document.getElementById('measure-container')
 
-    function adjustHeight () {
+    function adjustHeight() {
       container.setAttribute('style', 'padding: 1px 0;') // Used for measuring collapsed vertical margins
 
       if (!window.ReactNativeWebView) {
@@ -106,14 +113,13 @@ const renderJS = (
   })();
 
   (function handleIframes() {
-    
     function showMessage(text, element, className, iframeSource) {
       const textNode = document.createTextNode(text)
       if (className) {
         element.classList.add(className)
       }
 
-      if(iframeSource){
+      if (iframeSource) {
         element.appendChild(document.createTextNode(iframeSource))
         element.appendChild(document.createElement('br'))
       }
@@ -121,8 +127,8 @@ const renderJS = (
     }
 
     function showSettingsButton(element) {
-      function onClickHandler () {
-        window.ReactNativeWebView.postMessage(JSON.stringify({ type: '${SETTINGS_MESSAGE_TYPE}'}))
+      function onClickHandler() {
+        window.ReactNativeWebView.postMessage(JSON.stringify({ type: '${SETTINGS_MESSAGE_TYPE}' }))
       }
 
       const buttonLabel = '${t('layout:settings')}'
@@ -140,24 +146,26 @@ const renderJS = (
     }
 
     function showOptIn(text, iframeContainer, source) {
-      function onClickHandler () {
-        window.ReactNativeWebView.postMessage(JSON.stringify({ type: '${IFRAME_MESSAGE_TYPE}', allowedSource: { type: source, allowed: true } }))
+      function onClickHandler() {
+        window.ReactNativeWebView.postMessage(
+          JSON.stringify({ type: '${IFRAME_MESSAGE_TYPE}', allowedSource: { type: source, allowed: true } }),
+        )
       }
 
       const checkbox = document.createElement('input')
       checkbox.type = 'checkbox'
       checkbox.name = 'opt-in-checkbox'
-      checkbox.id = 'opt-in-checkbox'
+      checkbox.id = checkbox.name
       checkbox.onclick = onClickHandler
       const label = document.createElement('label')
-      label.htmlFor = 'opt-in-checkbox'
+      label.htmlFor = checkbox.name
       label.appendChild(document.createTextNode(text))
       iframeContainer.appendChild(label)
       iframeContainer.appendChild(checkbox)
     }
 
     function showBlockMessageWithSettings(iframeSource, text, iframeContainer) {
-      showMessage(text, iframeContainer, null,iframeSource)
+      showMessage(text, iframeContainer, null, iframeSource)
       showSettingsButton(iframeContainer)
     }
 
@@ -170,20 +178,19 @@ const renderJS = (
         const message = translation + iframeSource
         showOptIn(message, iframeContainer, iframeSource)
         iframe.remove()
-      }
-      else if (externalSourcePermissions[iframeSource]) {
+      } else if (externalSourcePermissions[iframeSource]) {
         // Add do not track parameter (only working for vimeo)
-        if (iframeSource.toLowerCase() === 'vimeo') {
+        if (iframeSource === 'vimeo.com') {
           const url = new URL(iframe.src)
           url.searchParams.append('dnt', '1')
           iframe.setAttribute('src', url.href)
         }
         const message = '${t('remoteContent:knownResourceContentMessage')}'
-          showMessageWithSettings(message, iframeContainer, iframeSource)
-      } else  {
-          const translation = '${t('remoteContent:knownResourceBlocked')}'
-          showBlockMessageWithSettings(iframeSource, translation, iframeContainer)
-          iframe.remove()
+        showMessageWithSettings(message, iframeContainer, iframeSource)
+      } else {
+        const translation = '${t('remoteContent:knownResourceBlocked')}'
+        showBlockMessageWithSettings(iframeSource, translation, iframeContainer)
+        iframe.remove()
       }
     }
 
@@ -191,12 +198,10 @@ const renderJS = (
     const supportedIframeSources = ${JSON.stringify(supportedIframeSources)}
     const externalSourcePermissions = ${JSON.stringify(externalSourcePermissions)}
 
-    iframes.forEach((iframe) => {
+    iframes.forEach(iframe => {
       const supportedIframeSource = supportedIframeSources.find(src => iframe.src.includes(src))
       if (supportedIframeSource) {
-        handleSupportedIframeSources(iframe,
-          externalSourcePermissions,
-          supportedIframeSource)
+        handleSupportedIframeSources(iframe, externalSourcePermissions, supportedIframeSource)
       } else {
         iframe.remove()
       }
