@@ -18,7 +18,6 @@ import {
 } from '../constants/webview'
 import useNavigate from '../hooks/useNavigate'
 import appSettings, { ExternalSourcePermission } from '../utils/AppSettings'
-import { updateSourcePermissions } from '../utils/helpers'
 import renderHtml from '../utils/renderHtml'
 import { log, reportError } from '../utils/sentry'
 import Failure from './Failure'
@@ -48,7 +47,7 @@ const RemoteContent = (props: RemoteContentProps): ReactElement | null => {
   const { onLoad, content, cacheDictionary, resourceCacheUrl, language, onLinkPress } = props
   const [error, setError] = useState<string | null>(null)
   const [pressedUrl, setPressedUrl] = useState<string | null>(null)
-  const [externalSourcePermissions, setExternalSourcePermissions] = useState<ExternalSourcePermission[]>([])
+  const [externalSourcePermissions, setExternalSourcePermissions] = useState<ExternalSourcePermission>({})
   const { navigateTo } = useNavigate()
   // https://github.com/react-native-webview/react-native-webview/issues/1069#issuecomment-651699461
   const defaultWebviewHeight = 1
@@ -76,7 +75,6 @@ const RemoteContent = (props: RemoteContentProps): ReactElement | null => {
       appSettings.loadExternalSourcePermissions().then(setExternalSourcePermissions).catch(reportError)
     }, []),
   )
-
   // messages are triggered in renderHtml.ts
   const onMessage = useCallback(
     (event: WebViewMessageEvent) => {
@@ -86,13 +84,15 @@ const RemoteContent = (props: RemoteContentProps): ReactElement | null => {
         return
       }
 
-      if (message.type === SETTINGS_MESSAGE_TYPE && typeof message.openSettings === 'boolean') {
+      if (message.type === SETTINGS_MESSAGE_TYPE) {
         navigateTo({ route: CONSENT_ROUTE })
         return
       }
 
       if (message.type === IFRAME_MESSAGE_TYPE && typeof message.allowedSource === 'object') {
-        const updatedSources = updateSourcePermissions(externalSourcePermissions, message.allowedSource)
+        const { type, allowed } = message.allowedSource
+        const updatedSources: Record<string, boolean> = externalSourcePermissions
+        updatedSources[type] = allowed
         appSettings.setExternalSourcePermissions(updatedSources).catch(reportError)
         appSettings.loadExternalSourcePermissions().then(setExternalSourcePermissions).catch(reportError)
         return
@@ -113,7 +113,7 @@ const RemoteContent = (props: RemoteContentProps): ReactElement | null => {
 
   const onShouldStartLoadWithRequest = useCallback(
     (event: WebViewNavigation): boolean => {
-      if (buildConfig().allowedIframeSources.some(source => event.url.indexOf(source) > 0)) {
+      if (buildConfig().supportedIframeSources.some(source => event.url.indexOf(source) > 0)) {
         return true
       }
       if (event.url === new URL(resourceCacheUrl).href) {
@@ -146,7 +146,7 @@ const RemoteContent = (props: RemoteContentProps): ReactElement | null => {
         html: renderHtml(
           content,
           cacheDictionary,
-          buildConfig().allowedIframeSources,
+          buildConfig().supportedIframeSources,
           theme,
           language,
           externalSourcePermissions,

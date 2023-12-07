@@ -22,12 +22,12 @@ const Description = styled(Text)`
 type ConsentSectionProps = {
   title: string
   description: string
-  initialSwitchValue: boolean
+  allowed: boolean
   onPress: (type: string, value: boolean) => void
 }
 
-const ConsentSection = ({ title, description, initialSwitchValue, onPress }: ConsentSectionProps): ReactElement => {
-  const [allow, setAllow] = useState<boolean>(initialSwitchValue)
+const ConsentSection = ({ title, description, allowed, onPress }: ConsentSectionProps): ReactElement => {
+  const [allow, setAllow] = useState<boolean>(allowed)
 
   return (
     <>

@@ -8411,17 +8411,13 @@
   "remoteContent": {
     "de": {
       "knownResourceOptIn": "Ich bin damit einverstanden, dass mir Inhalte dieser externen Quelle angezeigt werden: ",
-      "knownResourceContentMessageOne": "Dieses Element enthält Daten von ",
-      "knownResourceContentMessageTwo": "Du kannst die Einbettung solcher Inhalte hier blockieren: ",
-      "knownResourceBlocked": "wurde geblockt. Unter Einstellungen können sie Inhalte dieser Quelle zulassen.",
-      "unknownResourceBlocked": "Ein Inhalt von einer externen Quelle wurde geblockt:"
+      "knownResourceContentMessage": "Dieses Element enthält Daten von dieser externen Quelle. Du kannst die Einbettung solcher Inhalte in den Einstellungen blockieren",
+      "knownResourceBlocked": "Externer Inhalt von dieser Quelle wurde geblockt. Unter Einstellungen kannst du diese Quelle zulassen."
     },
     "en": {
       "knownResourceOptIn": "I agree that content from this external source may be displayed to me: ",
-      "knownResourceContentMessageOne": "This element contains data from ",
-      "knownResourceContentMessageTwo": "You can block the embedding of such content here: ",
-      "knownResourceBlocked": "has been blocked. You can allow content from this source in settings.",
-      "unknownResourceBlocked": "Content from an external source has been blocked:"
+      "knownResourceContentMessage": "This element contains data from that external source. You can block the embedding of such content in settings.",
+      "knownResourceBlocked": "External content from this source has been blocked. You can allow this source in settings."
     }
   },
   "consent": {

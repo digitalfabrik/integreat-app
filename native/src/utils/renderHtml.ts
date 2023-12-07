@@ -18,8 +18,8 @@ import { ExternalSourcePermission } from './AppSettings'
 // language=JavaScript
 const renderJS = (
   cacheDictionary: ParsedCacheDictionaryType,
-  allowedIframeSources: string[],
-  externalSourcePermissions: ExternalSourcePermission[],
+  supportedIframeSources: string[],
+  externalSourcePermissions: ExternalSourcePermission,
   t: TFunction,
 ) => `
   function reportError (message, type) {
@@ -106,34 +106,37 @@ const renderJS = (
   })();
 
   (function handleIframes() {
-    function capitalizeFirstLetter(word) {
-      return word.charAt(0).toUpperCase() + word.slice(1)
-    }
-
-    function showMessage(text, element, className) {
+    
+    
+    function showMessage(text, element, className, iframeSource) {
       const textNode = document.createTextNode(text)
       if (className) {
         element.classList.add(className)
+      }
+
+      if(iframeSource){
+        element.appendChild(document.createTextNode(iframeSource))
+        element.appendChild(document.createElement('br'))
       }
       element.appendChild(textNode)
     }
 
     function showSettingsButton(element) {
       function onClickHandler () {
-        window.ReactNativeWebView.postMessage(JSON.stringify({ type: '${SETTINGS_MESSAGE_TYPE}', openSettings: true }))
+        window.ReactNativeWebView.postMessage(JSON.stringify({ type: '${SETTINGS_MESSAGE_TYPE}'}))
       }
 
       const buttonLabel = ${JSON.stringify(t('layout:settings'))}
       const button = document.createElement('button')
       button.name = 'opt-in-settings-button'
       button.innerHTML = buttonLabel
-      button.id = 'opt-in-settings-button'
+      button.id = button.name
       button.onclick = onClickHandler
       element.appendChild(button)
     }
 
-    function showMessageWithSettings(text, iframeContainer) {
-      showMessage(text, iframeContainer, 'iframe-info-text')
+    function showMessageWithSettings(text, iframeContainer, iframeSource) {
+      showMessage(text, iframeContainer, 'iframe-info-text', iframeSource)
       showSettingsButton(iframeContainer)
     }
 
@@ -154,56 +157,48 @@ const renderJS = (
       iframeContainer.appendChild(checkbox)
     }
 
-    function showBlockMessageWithSettings(text, iframeContainer) {
-      showMessage(text, iframeContainer)
+    function showBlockMessageWithSettings(iframeSource, text, iframeContainer) {
+      showMessage(text, iframeContainer, null,iframeSource)
       showSettingsButton(iframeContainer)
     }
 
-    function handleAllowedIframeSources(iframe, allowedExternalSourcePermissions, iframeSource, iframeContainer) {
-      if (allowedExternalSourcePermissions.some(source => source.type === iframeSource && source.allowed)) {
+    function handleSupportedIframeSources(iframe, externalSourcePermissions, iframeSource) {
+      const iframeContainer = document.createElement('div')
+      iframeContainer.classList.add('iframe-container')
+      iframe.parentNode.appendChild(iframeContainer)
+      if (externalSourcePermissions[iframeSource] === undefined) {
+        const translation = ${JSON.stringify(t('remoteContent:knownResourceOptIn'))}
+        const message = translation + iframeSource
+        showOptIn(message, iframeContainer, iframeSource)
+        iframe.remove()
+      }
+      else if (externalSourcePermissions[iframeSource]) {
         // Add do not track parameter (only working for vimeo)
         if (iframeSource.toLowerCase() === 'vimeo') {
           const url = new URL(iframe.src)
           url.searchParams.append('dnt', '1')
           iframe.setAttribute('src', url.href)
         }
-        const message = ${JSON.stringify(
-          t('remoteContent:knownResourceContentMessageOne'),
-        )} + iframeSource + '. ' + ${JSON.stringify(t('remoteContent:knownResourceContentMessageTwo'))}
-          showMessageWithSettings(message, iframeContainer)
-      } else if (allowedExternalSourcePermissions.some(source => source.type === iframeSource && !source.allowed)) {
+        const message = ${JSON.stringify(t('remoteContent:knownResourceContentMessage'))}
+          showMessageWithSettings(message, iframeContainer, iframeSource)
+      } else  {
           const translation = ${JSON.stringify(t('remoteContent:knownResourceBlocked'))}
-          const message = iframeSource + ' ' + translation
-          showBlockMessageWithSettings(message, iframeContainer)
+          showBlockMessageWithSettings(iframeSource, translation, iframeContainer)
           iframe.remove()
-      }
-      // No permissions set for listed sources
-      else {
-        const translation = ${JSON.stringify(t('remoteContent:knownResourceOptIn'))}
-        const message = translation + iframeSource
-        showOptIn(message, iframeContainer, iframeSource)
-        iframe.remove()
       }
     }
 
     const iframes = document.querySelectorAll('iframe')
-    const allowedIframeSources = ${JSON.stringify(allowedIframeSources)}
+    const supportedIframeSources = ${JSON.stringify(supportedIframeSources)}
     const externalSourcePermissions = ${JSON.stringify(externalSourcePermissions)}
 
     iframes.forEach((iframe) => {
-      const iframeContainer = document.createElement('div')
-      iframeContainer.classList.add('iframe-container')
-      iframe.parentNode.appendChild(iframeContainer)
-      const allowedIframeSource = allowedIframeSources.find(src => iframe.src.includes(src))
-      if (allowedIframeSource) {
-        handleAllowedIframeSources(iframe,
+      const supportedIframeSource = supportedIframeSources.find(src => iframe.src.includes(src))
+      if (supportedIframeSource) {
+        handleSupportedIframeSources(iframe,
           externalSourcePermissions,
-          capitalizeFirstLetter(allowedIframeSource),
-          iframeContainer)
+          supportedIframeSource)
       } else {
-        const translation = ${JSON.stringify(t('remoteContent:unknownResourceBlocked'))}
-        const message = translation + '\\n' + iframe.src
-        showMessage(message, iframeContainer)
         iframe.remove()
       }
     })
@@ -216,10 +211,10 @@ const renderJS = (
 const renderHtml = (
   html: string,
   cacheDictionary: ParsedCacheDictionaryType,
-  allowedIframeSources: string[],
+  supportedIframeSources: string[],
   theme: ThemeType,
   language: string,
-  externalSourcePermissions: ExternalSourcePermission[],
+  externalSourcePermissions: ExternalSourcePermission,
   t: TFunction,
 ): string => `
   <!-- The lang attribute makes TalkBack use the appropriate language. -->
@@ -374,6 +369,12 @@ const renderHtml = (
       .iframe-info-text > #opt-in-settings-button {
         font-size: ${theme.fonts.decorativeFontSizeSmall};
       }
+      
+      .iframe-source{
+        white-space: nowrap;
+        display: block;
+        width: 100%;
+      }
 
       #opt-in-settings-button {
         border: none;
@@ -403,7 +404,7 @@ const renderHtml = (
   </head>
   <body dir='auto'>
   <div id='measure-container'>${html}</div>
-  <script>${renderJS(cacheDictionary, allowedIframeSources, externalSourcePermissions, t)}</script>
+  <script>${renderJS(cacheDictionary, supportedIframeSources, externalSourcePermissions, t)}</script>
   </body>
   </html>
 `
