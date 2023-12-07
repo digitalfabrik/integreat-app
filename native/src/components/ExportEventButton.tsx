@@ -33,8 +33,9 @@ const ExportEventButton = ({ event }: ExportEventButtonType): ReactElement => {
   const [calendars, setCalendars] = useState<Calendar[]>()
 
   const exportEventToCalendar = async (calendarId: string, exportAll: boolean): Promise<void> => {
-    let startDate = event.date.startDate.toJSDate().toISOString()
-    let endDate = event.date.endDate.toJSDate().toISOString()
+    // Luxon ISO dates have the time zone offset but Android calendar needs them in UTC
+    let startDate = event.date.startDate.toUTC().toISO()
+    let endDate = event.date.endDate.toUTC().toISO()
     const allDay = event.date.allDay
     if (Platform.OS === 'android' && allDay) {
       // If allDay is set to true, Android demands that the time has a midnight boundary.
@@ -56,7 +57,7 @@ const ExportEventButton = ({ event }: ExportEventButtonType): ReactElement => {
           ? {
               endDate:
                 event.date.recurrenceRule.options.until?.toISOString() ??
-                DateTime.now().plus({ years: 3 }).toJSDate().toISOString(),
+                DateTime.now().plus({ years: 3 }).toUTC().toISO(),
               frequency: formatFrequency(event.date.recurrenceRule.options.freq),
               interval: event.date.recurrenceRule.options.interval,
               // This gets overridden by `endDate and can't be set in the CMS anyway
