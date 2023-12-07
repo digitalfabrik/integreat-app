@@ -281,10 +281,6 @@ const renderHtml = (
         line-height: ${theme.fonts.contentLineHeight};
         font-size-adjust: ${theme.fonts.fontSizeAdjust};
         background-color: ${theme.colors.backgroundColor};
-        /*\${props => props.centered && css\`
-        text-align: center;
-        list-style-position: inside;
-        \`} */
       }
 
       body {
@@ -373,8 +369,8 @@ const renderHtml = (
       .iframe-info-text > #opt-in-settings-button {
         font-size: ${theme.fonts.decorativeFontSizeSmall};
       }
-      
-      .iframe-source{
+
+      .iframe-source {
         white-space: nowrap;
         display: block;
         width: 100%;
@@ -395,14 +391,13 @@ const renderHtml = (
         margin-left: 12px;
         align-self: center;
         /* Webview in android doesn't set correct size for checkboxes */
-        heigth: 40px;
+        height: 40px;
         width: 40px;
 
-      @media not screen and (-webkit-min-device-pixel-ratio: 1) {
-        height: 16px;
-        width: 16px;
-      }
-
+        @media not screen and (-webkit-min-device-pixel-ratio: 1) {
+          height: 16px;
+          width: 16px;
+        }
       }
     </style>
   </head>
