@@ -33,17 +33,15 @@ const Consent = (): ReactElement | null => {
     appSettings.setExternalSourcePermissions(updatedSources).catch(reportError)
   }
 
-  const renderConsentItem = ({ item }: { item: string }): ReactElement => {
-    return (
-      <ConsentSection
-        key={item}
-        title={item}
-        description={t('consentDescription', { source: item })}
-        allowed={externalSourcePermissions[item] ?? false}
-        onPress={onPress}
-      />
-    )
-  }
+  const renderConsentItem = ({ item }: { item: string }): ReactElement => (
+    <ConsentSection
+      key={item}
+      title={item}
+      description={t('consentDescription', { source: item })}
+      allowed={externalSourcePermissions[item] ?? false}
+      onPress={onPress}
+    />
+  )
 
   return (
     <Layout>

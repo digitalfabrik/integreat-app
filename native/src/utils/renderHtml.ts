@@ -107,7 +107,6 @@ const renderJS = (
 
   (function handleIframes() {
     
-    
     function showMessage(text, element, className, iframeSource) {
       const textNode = document.createTextNode(text)
       if (className) {
@@ -126,7 +125,7 @@ const renderJS = (
         window.ReactNativeWebView.postMessage(JSON.stringify({ type: '${SETTINGS_MESSAGE_TYPE}'}))
       }
 
-      const buttonLabel = ${JSON.stringify(t('layout:settings'))}
+      const buttonLabel = '${t('layout:settings')}'
       const button = document.createElement('button')
       button.name = 'opt-in-settings-button'
       button.innerHTML = buttonLabel
@@ -167,7 +166,7 @@ const renderJS = (
       iframeContainer.classList.add('iframe-container')
       iframe.parentNode.appendChild(iframeContainer)
       if (externalSourcePermissions[iframeSource] === undefined) {
-        const translation = ${JSON.stringify(t('remoteContent:knownResourceOptIn'))}
+        const translation = '${t('remoteContent:knownResourceOptIn')}'
         const message = translation + iframeSource
         showOptIn(message, iframeContainer, iframeSource)
         iframe.remove()
@@ -179,10 +178,10 @@ const renderJS = (
           url.searchParams.append('dnt', '1')
           iframe.setAttribute('src', url.href)
         }
-        const message = ${JSON.stringify(t('remoteContent:knownResourceContentMessage'))}
+        const message = '${t('remoteContent:knownResourceContentMessage')}'
           showMessageWithSettings(message, iframeContainer, iframeSource)
       } else  {
-          const translation = ${JSON.stringify(t('remoteContent:knownResourceBlocked'))}
+          const translation = '${t('remoteContent:knownResourceBlocked')}'
           showBlockMessageWithSettings(iframeSource, translation, iframeContainer)
           iframe.remove()
       }

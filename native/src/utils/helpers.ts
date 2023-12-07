@@ -3,7 +3,7 @@ import BlobUtil from 'react-native-blob-util'
 import Url from 'url-parse'
 
 import buildConfig from '../constants/buildConfig'
-import appSettings, { ExternalSourcePermission } from './AppSettings'
+import appSettings from './AppSettings'
 import { log } from './sentry'
 
 // Android throws an error if attempting to delete non existing directories/files
