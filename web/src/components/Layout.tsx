@@ -4,7 +4,7 @@ import styled, { css } from 'styled-components'
 import dimensions from '../constants/dimensions'
 import useWindowDimensions from '../hooks/useWindowDimensions'
 
-const additionalToolbarTopSpacing = 32;
+const additionalToolbarTopSpacing = 32
 
 export const RichLayout = styled.div`
   position: relative;
