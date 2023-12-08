@@ -1,16 +1,16 @@
-import { Routes } from '../../../shared/constants'
-import { CategoriesPage } from './categories.page'
+import { Routes } from '../../../shared/constants.js'
+import { CategoriesPage } from './categories.page.js'
 
 class DashboardPage extends CategoriesPage {
-  get languageIcon() {
+  get languageIcon(): ReturnType<typeof $> {
     return $("//header//button[@aria-label='Change language']")
   }
 
-  get searchIcon() {
+  get searchIcon(): ReturnType<typeof $> {
     return $("//header//a[@aria-label='Search']")
   }
 
-  get locationIcon() {
+  get locationIcon(): ReturnType<typeof $> {
     return $("//header//a[@aria-label='Change location']")
   }
 
@@ -21,7 +21,7 @@ class DashboardPage extends CategoriesPage {
   async selectLanguage(lang: string) {
     const languageIcon = await this.languageIcon
     await languageIcon.click()
-    const language = await $(`*[data-testid='${lang}']`)
+    const language = await $(`=${lang}`)
     await language.click()
   }
 

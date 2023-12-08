@@ -2,15 +2,15 @@ import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
 
-import { SadSmileyIcon, NoteIcon, HappySmileyIcon } from '../assets'
+import buildConfig from '../constants/buildConfig'
 import dimensions from '../constants/dimensions'
-import { SendingState } from './FeedbackContainer'
-import TextInput from './TextInput'
-import Icon from './base/Icon'
+import FeedbackButtons from './FeedbackButtons'
+import { SendingStatusType } from './FeedbackContainer'
+import Note from './Note'
+import InputSection from './base/InputSection'
 import TextButton from './base/TextButton'
-import ToggleButton from './base/ToggleButton'
 
-export const Container = styled.div`
+export const Container = styled.div<{ fullWidth?: boolean }>`
   display: flex;
   flex: 1;
   max-height: 80vh;
@@ -23,130 +23,92 @@ export const Container = styled.div`
   font-size: ${props => props.theme.fonts.contentFontSize};
   overflow: auto;
   align-self: center;
+  gap: 16px;
+
   @media ${dimensions.mediumLargeViewport} {
-    width: 400px;
+    width: ${props => (props.fullWidth ? 'auto' : '400px')};
   }
 `
 
-const CommentField = styled.textarea`
-  margin-top: 8px;
-  resize: none;
-  min-height: 60px;
+const ErrorSendingStatus = styled.div`
+  font-weight: bold;
 `
 
-const TextContainer = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px 0 5px;
-`
-
-export const Description = styled.label`
-  font-weight: 700;
-`
-
-export const ErrorSendingStatus = styled.div`
-  padding: 10px 0 5px;
-  font-weight: 700;
-`
-
-const ButtonContainer = styled.div`
-  display: flex;
-  justify-content: center;
-  padding: 16px;
-  gap: 16px;
-`
-
-const NoteContainer = styled.div<{ showContainer: boolean }>`
-  display: flex;
-  margin-top: 12px;
-  background-color: ${props => props.theme.colors.themeColor};
-  padding: 12px;
-  opacity: ${props => (props.showContainer ? 1 : 0)};
-`
-
-const NoteText = styled.span`
-  margin-left: 12px;
-  font-size: ${props => props.theme.fonts.decorativeFontSizeSmall};
+const StyledTextButton = styled(TextButton)`
+  margin: 0;
 `
 
 type FeedbackProps = {
   isPositiveFeedback: boolean | null
-  isSearchFeedback: boolean
   comment: string
   contactMail: string
   onCommentChanged: (comment: string) => void
   onContactMailChanged: (contactMail: string) => void
   onFeedbackChanged: (isPositiveFeedback: boolean | null) => void
   onSubmit: () => void
-  sendingStatus: SendingState
+  sendingStatus: SendingStatusType
+  searchTerm?: string
+  setSearchTerm: (newTerm: string) => void
+  closeFeedback?: () => void
 }
 
-const Feedback = (props: FeedbackProps): ReactElement => {
-  const {
-    isPositiveFeedback,
-    isSearchFeedback,
-    comment,
-    contactMail,
-    sendingStatus,
-    onSubmit,
-    onCommentChanged,
-    onContactMailChanged,
-    onFeedbackChanged,
-  } = props
+const Feedback = ({
+  isPositiveFeedback,
+  comment,
+  contactMail,
+  sendingStatus,
+  onSubmit,
+  onCommentChanged,
+  onContactMailChanged,
+  onFeedbackChanged,
+  searchTerm,
+  setSearchTerm,
+  closeFeedback,
+}: FeedbackProps): ReactElement => {
   const { t } = useTranslation('feedback')
 
-  const description = isSearchFeedback ? 'wantedInformation' : 'commentHeadline'
-  const sendFeedbackDisabled = isPositiveFeedback === null && comment.trim().length === 0
+  const isSearchFeedback = searchTerm !== undefined
+  const commentTitle = isSearchFeedback ? 'wantedInformation' : 'commentHeadline'
+  const sendFeedbackDisabled = isPositiveFeedback === null && comment.trim().length === 0 && !isSearchFeedback
+
+  if (sendingStatus === 'successful') {
+    return (
+      <Container>
+        <div>{t('thanksMessage')}</div>
+        {!!closeFeedback && !isSearchFeedback && <TextButton onClick={closeFeedback} text={t('common:close')} />}
+      </Container>
+    )
+  }
 
   return (
-    <Container>
-      <TextContainer>
-        <div>{t('description')}</div>
-      </TextContainer>
-      <ButtonContainer>
-        <ToggleButton
-          onClick={() => onFeedbackChanged(isPositiveFeedback ? null : true)}
-          active={isPositiveFeedback === true}
-          icon={HappySmileyIcon}
-          text={t('useful')}
-        />
-        <ToggleButton
-          onClick={() => onFeedbackChanged(isPositiveFeedback === false ? null : false)}
-          active={isPositiveFeedback === false}
-          icon={SadSmileyIcon}
-          text={t('notUseful')}
-        />
-      </ButtonContainer>
-      <TextContainer>
-        <Description htmlFor='comment'>{t(description)}</Description>
-        <div>({t('optionalInfo')})</div>
-      </TextContainer>
-      <TextContainer>
-        <div>{t('commentDescription')}</div>
-      </TextContainer>
-      <CommentField id='comment' rows={7} value={comment} onChange={event => onCommentChanged(event.target.value)} />
-      <TextContainer>
-        <Description htmlFor='email'>{t('contactMailAddress')}</Description>
-        <div>({t('optionalInfo')})</div>
-      </TextContainer>
-      <TextInput
-        id='email'
-        type='email'
-        onChange={event => onContactMailChanged(event.target.value)}
-        value={contactMail}
-      />
-
-      {sendingStatus === SendingState.ERROR && (
-        <ErrorSendingStatus role='alert'>{t('failedSendingFeedback')}</ErrorSendingStatus>
+    <Container fullWidth={isSearchFeedback}>
+      {isSearchFeedback ? (
+        <InputSection id='searchTerm' title={t('searchTermDescription')} value={searchTerm} onChange={setSearchTerm} />
+      ) : (
+        <FeedbackButtons isPositive={isPositiveFeedback} onRatingChange={onFeedbackChanged} />
       )}
 
-      <NoteContainer showContainer={sendFeedbackDisabled}>
-        <Icon src={NoteIcon} />
-        <NoteText>{t('note')}</NoteText>
-      </NoteContainer>
+      <InputSection
+        id='comment'
+        title={t(commentTitle)}
+        description={t('commentDescription', { appName: buildConfig().appName })}
+        value={comment}
+        onChange={onCommentChanged}
+        showOptional
+        multiline
+      />
 
-      <TextButton disabled={sendFeedbackDisabled} onClick={onSubmit} text={t('send')} />
+      <InputSection
+        id='email'
+        title={t('contactMailAddress')}
+        value={contactMail}
+        onChange={onContactMailChanged}
+        showOptional
+      />
+
+      {!isSearchFeedback && <Note text={t('note')} visible={sendFeedbackDisabled} />}
+      {sendingStatus === 'failed' && <ErrorSendingStatus role='alert'>{t('failedSendingFeedback')}</ErrorSendingStatus>}
+      <StyledTextButton disabled={sendFeedbackDisabled} onClick={onSubmit} text={t('send')} />
     </Container>
   )
 }

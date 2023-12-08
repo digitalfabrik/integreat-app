@@ -1,8 +1,8 @@
-/* eslint-disable camelcase */
 import { BBox } from 'geojson'
 import { map, mapValues } from 'lodash'
 import { DateTime } from 'luxon'
 import BlobUtil from 'react-native-blob-util'
+import { rrulestr } from 'rrule'
 
 import {
   CategoriesMapModel,
@@ -12,6 +12,7 @@ import {
   EventModel,
   FeaturedImageModel,
   LanguageModel,
+  LocalNewsModel,
   LocationModel,
   OpeningHoursModel,
   PoiModel,
@@ -29,7 +30,7 @@ import {
 import { deleteIfExists } from './helpers'
 import { log, reportError } from './sentry'
 
-export const CONTENT_VERSION = 'v3'
+export const CONTENT_VERSION = 'v4'
 export const RESOURCE_CACHE_VERSION = 'v1'
 
 // Our pdf view can only load from DocumentDir. Therefore we need to use that
@@ -94,6 +95,7 @@ type ContentEventJsonType = {
     start_date: string
     end_date: string
     all_day: boolean
+    recurrence_rule: string | null
   }
   location: LocationJsonType<number | null> | null
   featured_image: FeaturedImageJsonType | null | undefined
@@ -134,6 +136,12 @@ type ContentPoiJsonType = {
   category: { id: number; name: string; color: string; icon: string; iconName: string } | null
   openingHours: { allDay: boolean; closed: boolean; timeSlots: { start: string; end: string }[] }[] | null
   temporarilyClosed: boolean
+}
+type ContentLocalNewsJsonType = {
+  id: number
+  timestamp: string
+  title: string
+  content: string
 }
 type CityCodeType = string
 type LanguageCodeType = string
@@ -508,6 +516,34 @@ class DatabaseConnector {
     return this.readFile(path, mapPoisJson)
   }
 
+  async storeLocalNews(localNews: LocalNewsModel[], context: DatabaseContext): Promise<void> {
+    const jsonModels = localNews.map(
+      (it: LocalNewsModel): ContentLocalNewsJsonType => ({
+        id: it.id,
+        timestamp: it.timestamp.toISO(),
+        title: it.title,
+        content: it.content,
+      }),
+    )
+    await this.writeFile(this.getContentPath('localNews', context), JSON.stringify(jsonModels))
+  }
+
+  async loadLocalNews(context: DatabaseContext): Promise<LocalNewsModel[]> {
+    const path = this.getContentPath('localNews', context)
+    const mapLocalNewsJson = (json: ContentLocalNewsJsonType[]) =>
+      json.map(
+        jsonObject =>
+          new LocalNewsModel({
+            id: jsonObject.id,
+            timestamp: DateTime.fromISO(jsonObject.timestamp),
+            title: jsonObject.title,
+            content: jsonObject.content,
+          }),
+      )
+
+    return this.readFile(path, mapLocalNewsJson)
+  }
+
   async storeCities(cities: Array<CityModel>): Promise<void> {
     const jsonModels = cities.map(
       (city: CityModel): ContentCityJsonType => ({
@@ -572,6 +608,7 @@ class DatabaseConnector {
           start_date: event.date.startDate.toISO(),
           end_date: event.date.endDate.toISO(),
           all_day: event.date.allDay,
+          recurrence_rule: event.date.recurrenceRule?.toString() ?? null,
         },
         location: event.location
           ? {
@@ -626,6 +663,7 @@ class DatabaseConnector {
             startDate: DateTime.fromISO(jsonDate.start_date),
             endDate: DateTime.fromISO(jsonDate.end_date),
             allDay: jsonDate.all_day,
+            recurrenceRule: jsonDate.recurrence_rule ? rrulestr(jsonDate.recurrence_rule) : null,
           }),
           location: jsonObject.location?.id
             ? new LocationModel({
@@ -736,6 +774,10 @@ class DatabaseConnector {
 
   isEventsPersisted(context: DatabaseContext): Promise<boolean> {
     return this._isPersisted(this.getContentPath('events', context))
+  }
+
+  isLocalNewsPersisted(context: DatabaseContext): Promise<boolean> {
+    return this._isPersisted(this.getContentPath('localNews', context))
   }
 
   _isPersisted(path: string): Promise<boolean> {

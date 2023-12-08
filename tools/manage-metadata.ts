@@ -1,8 +1,7 @@
-/* eslint-disable camelcase */
 import { program } from 'commander'
-import fs from 'fs'
 import yaml from 'js-yaml'
-import path from 'path'
+import fs from 'node:fs'
+import path from 'node:path'
 
 import {
   GITKEEP_FILE,
@@ -11,7 +10,7 @@ import {
   PLATFORM_WEB,
   RELEASE_NOTES_DIR,
   UNRELEASED_DIR,
-} from './constants'
+} from './constants.js'
 
 const loadStoreTranslations = (appName: string) =>
   JSON.parse(fs.readFileSync(`../translations/store-translations/${appName}.json`, 'utf-8'))

@@ -60,6 +60,8 @@
 	</dict>
 	<key>NSCalendarsUsageDescription</key>
 	<string>Integreat wants to access the calendar to add an event.</string>
+	<key>NSCalendarsFullAccessUsageDescription</key>
+	<string>Integreat wants to access the calendar to add an event.</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>NotoSansArabic-Regular.ttf</string>

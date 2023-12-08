@@ -9,6 +9,7 @@ import dimensions from '../constants/dimensions'
 import useLockedBody from '../hooks/useLockedBody'
 import '../styles/KebabMenu.css'
 import Portal from './Portal'
+import Button from './base/Button'
 import Icon from './base/Icon'
 
 type KebabMenuProps = {
@@ -32,7 +33,8 @@ const List = styled.div<{ direction: UiDirectionType; show: boolean }>`
   width: 80vw;
   height: 100vh;
   background-color: ${props => props.theme.colors.backgroundColor};
-  box-shadow: -3px 3px 3px 0 rgba(0, 0, 0, 0.13);
+  box-shadow: -3px 3px 3px 0 rgb(0 0 0 / 13%);
+
   /* to stop flickering of text in safari */
   -webkit-font-smoothing: antialiased;
   transform-origin: 0 0;
@@ -51,7 +53,7 @@ const Overlay = styled.div<{ show: boolean }>`
   height: 100vh;
   top: 0;
   left: 0;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgb(0 0 0 / 50%);
   z-index: 30;
   display: ${props => (props.show ? `block` : `none`)};
 `
@@ -60,19 +62,13 @@ const Heading = styled.div<{ direction: string }>`
   display: flex;
   justify-content: ${props => (props.direction === 'rtl' ? `flex-start` : `flex-end`)};
   background-color: ${props => props.theme.colors.backgroundAccentColor};
-  box-shadow: -3px 3px 3px 0 rgba(0, 0, 0, 0.13);
+  box-shadow: -3px 3px 3px 0 rgb(0 0 0 / 13%);
   height: ${dimensions.headerHeightSmall}px;
   padding: 0 8px;
 `
 
 const Content = styled.div`
   padding: 0 32px;
-`
-
-const ToggleButton = styled.button`
-  background-color: transparent;
-  border: none;
-  padding: 0;
 `
 
 const StyledIcon = styled(Icon)`
@@ -94,9 +90,9 @@ const KebabMenu = ({ items, direction, show, setShow, Footer }: KebabMenuProps):
 
   return (
     <ToggleContainer>
-      <ToggleButton onClick={onClick} aria-label={t('sideBarOpenAriaLabel')}>
+      <Button onClick={onClick} ariaLabel={t('sideBarOpenAriaLabel')} aria-expanded={show}>
         <StyledIcon src={MenuIcon} />
-      </ToggleButton>
+      </Button>
       <Portal
         className='kebab-menu'
         show={show}
@@ -109,9 +105,9 @@ const KebabMenu = ({ items, direction, show, setShow, Footer }: KebabMenuProps):
         <Overlay onClick={onClick} show={show} />
         <List direction={direction} show={show}>
           <Heading direction={direction}>
-            <ToggleButton onClick={onClick} aria-label={t('sideBarCloseAriaLabel')}>
+            <Button onClick={onClick} ariaLabel={t('sideBarCloseAriaLabel')}>
               <Icon src={CloseIcon} />
-            </ToggleButton>
+            </Button>
           </Heading>
           <Content>{items}</Content>
           {Footer}

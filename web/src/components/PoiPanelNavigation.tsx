@@ -3,6 +3,8 @@ import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
 
 import { ArrowBackIcon } from '../assets'
+import { helpers } from '../constants/theme'
+import Button from './base/Button'
 import Icon from './base/Icon'
 
 const NavigationContainer = styled.div`
@@ -11,18 +13,13 @@ const NavigationContainer = styled.div`
   justify-content: space-between;
 `
 
-const NavItem = styled.div`
+const StyledButton = styled(Button)`
   display: flex;
-  cursor: pointer;
 `
 
 const Label = styled.span`
   align-self: center;
-  font-size: clamp(
-    ${props => props.theme.fonts.adaptiveFontSizeSmall.min},
-    ${props => props.theme.fonts.adaptiveFontSizeSmall.value},
-    ${props => props.theme.fonts.adaptiveFontSizeSmall.max}
-  );
+  ${helpers.adaptiveFontSize};
 `
 
 const StyledIcon = styled(Icon)`
@@ -42,24 +39,14 @@ const PoiPanelNavigation = ({ switchPoi }: PoiPanelNavigationProps): ReactElemen
   const { t } = useTranslation('pois')
   return (
     <NavigationContainer>
-      <NavItem
-        onClick={() => switchPoi(-1)}
-        role='button'
-        tabIndex={0}
-        onKeyPress={() => switchPoi(-1)}
-        aria-label='previous location'>
+      <StyledButton onClick={() => switchPoi(-1)} tabIndex={0} ariaLabel={t('previousPoi')}>
         <StyledIcon src={ArrowBackIcon} directionDependent />
         <Label>{t('detailsPreviousPoi')}</Label>
-      </NavItem>
-      <NavItem
-        onClick={() => switchPoi(1)}
-        role='button'
-        tabIndex={0}
-        onKeyPress={() => switchPoi(1)}
-        aria-label='next location'>
+      </StyledButton>
+      <StyledButton onClick={() => switchPoi(1)} tabIndex={0} ariaLabel={t('nextPoi')}>
         <Label>{t('detailsNextPoi')}</Label>
         <StyledIcon src={ArrowBackIcon} directionDependent reverse />
-      </NavItem>
+      </StyledButton>
     </NavigationContainer>
   )
 }

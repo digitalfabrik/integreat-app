@@ -28,21 +28,15 @@ module.exports = {
     'jest/globals': true,
   },
   ignorePatterns: [
-    '**/reports/',
-    '**/node_modules/',
-    '**/ios/',
-    '**/stylelint.config.js',
-    '**/stylelint.config_css.js',
-    '**/dist/',
-    '**/lib-dist/',
-    '.eslintrc.js',
-    '**/babel.config.js',
-    '**/react-native.config.js',
-    '**/www/iframe.js',
-    '**/www/rasa-widget/chatbot.js',
-    '**/www/plugins/mapbox-gl-rtl-text-0.2.3.min.js',
-    '**/integreat-e2e/assets/**', //symlink
-    '**/integreat-test-cms/assets/**', //symlink
+    'reports/',
+    'node_modules/',
+    'ios/',
+    'android/',
+    'dist/',
+    '/.eslintrc.js',
+    '/web/www/',
+    '/build-configs/integreat-e2e/assets/', //symlink
+    '/build-configs/integreat-test-cms/assets/', //symlink
   ],
   rules: {
     // Overly strict rules (for now)
@@ -56,7 +50,9 @@ module.exports = {
     // Unwanted
     'lines-between-class-members': 'off',
     'import/extensions': 'off',
+    'import/named': 'off',
     'import/prefer-default-export': 'off',
+    'import/no-named-as-default-member': 'off',
     'react/require-default-props': 'off',
     'react/sort-comp': 'off',
     'jest/expect-expect': 'off',
@@ -132,7 +128,7 @@ module.exports = {
     ],
   },
   parserOptions: {
-    project: './tsconfig.json',
+    project: true,
   },
   overrides: [
     {
@@ -157,20 +153,36 @@ module.exports = {
       },
     },
     {
-      files: ['**/native/**'],
+      files: ['e2e-tests/**/*.conf.ts'],
+      rules: {
+        'no-magic-numbers': 'off',
+      },
+    },
+    {
+      files: ['native/**'],
       rules: {
         // This rule does not make sense in react native as we don't have normal anchor tags
         'jsx-a11y/anchor-is-valid': 'off',
       },
     },
     {
-      files: ['**/tools/**', '**/translations/**', '**/e2e-tests/**'],
+      files: ['**/tools/**', 'translations/**', 'e2e-tests/**', 'metro.config.js'],
       rules: {
         'no-console': 'off',
         'import/no-extraneous-dependencies': 'off',
       },
     },
+    {
+      files: ['tools/**', 'e2e-tests/**'],
+      plugins: ['unicorn'],
+      rules: {
+        // esm specific rules
+        'import/no-commonjs': 'error',
+        'unicorn/prefer-node-protocol': 'error',
+      },
+    },
   ],
+  reportUnusedDisableDirectives: true,
   settings: {
     react: {
       version: 'detect',

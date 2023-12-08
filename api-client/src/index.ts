@@ -2,21 +2,16 @@ import { MapParamsToBodyType as ImportedMapParamsToBodyType } from './MapParamsT
 import { MapParamsToUrlType as ImportedMapParamsToUrlType } from './MapParamsToUrlType'
 import { MapResponseType as ImportedMapResponseType } from './MapResponseType'
 import {
-  FeedbackCategoryType as ImportedFeedbackCategoryType,
+  FeedbackRouteType as ImportedFeedbackRouteType,
   ParamsType as ImportedFeedbackParamsType,
-  AdditionalParamsType as ImportedFeedbackAdditionalParamsType,
 } from './endpoints/createFeedbackEndpoint'
-import { Status as ImportedShelterContactStatus } from './endpoints/createShelterContactEndpoint'
-import { FilterProps as ImportedShelterFilterProps } from './endpoints/createShelterEndpoint'
 import { Return as ImportedReturnType } from './endpoints/hooks/useLoadAsync'
 
-export type ShelterContactStatus = ImportedShelterContactStatus
-export type ShelterFilterProps = ImportedShelterFilterProps
 export type MapParamsToBodyType<P> = ImportedMapParamsToBodyType<P>
 export type MapParamsToUrlType<P> = ImportedMapParamsToUrlType<P>
 export type MapResponseType<P, T> = ImportedMapResponseType<P, T>
-export type FeedbackParamsType = ImportedFeedbackParamsType & ImportedFeedbackAdditionalParamsType
-export type FeedbackCategoryType = ImportedFeedbackCategoryType
+export type FeedbackParamsType = ImportedFeedbackParamsType
+export type FeedbackRouteType = ImportedFeedbackRouteType
 export type ReturnType<T> = ImportedReturnType<T>
 export { default as InternalPathnameParser } from './routes/InternalPathnameParser'
 export * from './routes'
@@ -51,11 +46,6 @@ export {
   default as createCategoryParentsEndpoint,
   CATEGORY_PARENTS_ENDPOINT_NAME,
 } from './endpoints/createCategoryParentsEndpoint'
-export { default as createShelterEndpoint, SHELTER_ENDPOINT_NAME } from './endpoints/createShelterEndpoint'
-export {
-  default as createShelterContactEndpoint,
-  SHELTER_CONTACT_ENDPOINT_NAME,
-} from './endpoints/createShelterContactEndpoint'
 export { default as createCitiesEndpoint, CITIES_ENDPOINT_NAME } from './endpoints/createCitiesEndpoint'
 export { default as createCityEndpoint, CITY_ENDPOINT_NAME } from './endpoints/createCityEndpoint'
 export { default as createDisclaimerEndpoint, DISCLAIMER_ENDPOINT_NAME } from './endpoints/createDisclaimerEndpoint'
@@ -77,11 +67,7 @@ export { default as loadSprungbrettJobs } from './endpoints/loadSprungbrettJobs'
 export * from './replaceLinks'
 export { POSITIVE_RATING } from './endpoints/createFeedbackEndpoint'
 export { NEGATIVE_RATING } from './endpoints/createFeedbackEndpoint'
-export { FeedbackType } from './endpoints/createFeedbackEndpoint'
 export { CONTENT_FEEDBACK_CATEGORY } from './endpoints/createFeedbackEndpoint'
-export { TECHNICAL_FEEDBACK_CATEGORY } from './endpoints/createFeedbackEndpoint'
-export { INTEGREAT_INSTANCE } from './endpoints/createFeedbackEndpoint'
-export { DEFAULT_FEEDBACK_LANGUAGE } from './endpoints/createFeedbackEndpoint'
 export {
   default as createTunewsLanguagesEndpoint,
   TUNEWS_LANGUAGES_ENDPOINT_NAME,
@@ -101,7 +87,7 @@ export { prepareFeatureLocations, prepareFeatureLocation } from './utils/geoJson
 export { default as CategoriesMapModel } from './models/CategoriesMapModel'
 export { default as CategoryModel } from './models/CategoryModel'
 export { default as CityModel } from './models/CityModel'
-export { default as DateModel } from './models/DateModel'
+export { default as DateModel, type DateIcon } from './models/DateModel'
 export { default as EventModel } from './models/EventModel'
 export { default as LocalNewsModel } from './models/LocalNewsModel'
 export { default as TunewsModel } from './models/TunewsModel'
@@ -114,7 +100,6 @@ export { default as ExtendedPageModel } from './models/ExtendedPageModel'
 export { default as PoiModel } from './models/PoiModel'
 export { default as PoiCategoryModel } from './models/PoiCategoryModel'
 export { default as SprungbrettJobModel } from './models/SprungbrettJobModel'
-export { default as ShelterModel } from './models/ShelterModel'
 export { default as OpeningHoursModel } from './models/OpeningHoursModel'
 export { default as OrganizationModel } from './models/OrganizationModel'
 export { default as normalizePath } from './normalizePath'
@@ -123,3 +108,4 @@ export { setUserAgent, setJpalTrackingCode } from './request'
 export { default as searchCategories } from './utils/searchCategories'
 export { default as getExcerpt } from './utils/getExcerpt'
 export { type CategorySearchResult } from './utils/searchCategories'
+export { MAX_DATE_RECURRENCES, MAX_DATE_RECURRENCES_COLLAPSED } from './constants'

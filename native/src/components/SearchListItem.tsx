@@ -1,4 +1,5 @@
 import React, { memo, ReactElement } from 'react'
+import { useTranslation } from 'react-i18next'
 import Highlighter from 'react-native-highlight-words'
 import styled, { useTheme } from 'styled-components/native'
 
@@ -58,6 +59,7 @@ const SearchListItem = ({
   onItemPress,
   query,
 }: SearchListItemProps): ReactElement => {
+  const { t } = useTranslation('search')
   const theme = useTheme()
   const { title, thumbnail } = category
   const excerpt = getExcerpt(contentWithoutHtml, { query, maxChars: SEARCH_PREVIEW_MAX_CHARS })
@@ -86,7 +88,7 @@ const SearchListItem = ({
     />
   )
   return (
-    <FlexStyledLink onPress={() => onItemPress(category)}>
+    <FlexStyledLink onPress={() => onItemPress(category)} accessibilityHint={t('itemHint')}>
       <DirectionContainer language={language}>
         <SearchEntryContainer>
           <TitleDirectionContainer language={language}>

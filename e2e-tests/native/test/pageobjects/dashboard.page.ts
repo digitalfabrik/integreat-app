@@ -1,19 +1,19 @@
-import { Page } from './page'
+import { Page } from './page.js'
 
 class DashboardPage extends Page {
   constructor() {
     super('Dashboard-Page')
   }
 
-  get searchIcon() {
+  get searchIcon(): ReturnType<typeof $> {
     return $('~Search')
   }
 
-  get headerOverflowButton() {
+  get headerOverflowButton(): ReturnType<typeof $> {
     return $('~More options')
   }
 
-  get languageIcon() {
+  get languageIcon(): ReturnType<typeof $> {
     return $('~Change language')
   }
 }

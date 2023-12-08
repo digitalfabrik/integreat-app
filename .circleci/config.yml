@@ -225,17 +225,14 @@ commands:
                 name: Skip the current build if necessary
     unit_test:
         description: Runs the test task and stores coverage and junit data
-        parameters:
-            directory:
-                type: string
         steps:
             - run:
-                command: yarn workspace << parameters.directory >> run test:ci --maxWorkers ${TOTAL_CPUS}
+                command: yarn test:ci --maxWorkers ${TOTAL_CPUS}
                 name: Unit Tests with Coverage
             - store_test_results:
-                path: << parameters.directory >>/reports/unit-test
+                path: reports/unit-test
             - store_artifacts:
-                path: << parameters.directory >>/reports/coverage
+                path: reports/coverage
 jobs:
     build_android:
         docker:
@@ -320,7 +317,7 @@ jobs:
             FL_OUTPUT_DIR: output
             TOTAL_CPUS: 4
         macos:
-            xcode: 14.2.0
+            xcode: 15.0.1
         parameters:
             build_config_name:
                 default: integreat
@@ -483,26 +480,22 @@ jobs:
             - skip_job
             - check_config
             - restore_yarn_cache
+            - restore_yarn_tools_cache
             - run:
                 command: yarn prettier:check
                 name: Prettier
             - run:
-                command: yarn lint
+                command: yarn lint:ci
                 name: Lint
+            - store_test_results:
+                path: reports/lint
             - run:
                 command: yarn workspace web stylelint
                 name: Stylelint
             - run:
-                command: yarn workspaces run ts:check
+                command: yarn ts:check
                 name: TS check
-            - unit_test:
-                directory: api-client
-            - unit_test:
-                directory: native
-            - unit_test:
-                directory: translations
-            - unit_test:
-                directory: web
+            - unit_test
             - notify
     deliver_android:
         docker:
@@ -548,7 +541,7 @@ jobs:
         environment:
             FASTLANE_SKIP_UPDATE_CHECK: true
         macos:
-            xcode: 14.2.0
+            xcode: 15.0.1
         parameters:
             build_config_name:
                 default: integreat
@@ -869,7 +862,7 @@ jobs:
         environment:
             FASTLANE_SKIP_UPDATE_CHECK: true
         macos:
-            xcode: 14.2.0
+            xcode: 15.0.1
         parameters:
             build_config_name:
                 default: integreat

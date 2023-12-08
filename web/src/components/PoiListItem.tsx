@@ -6,6 +6,8 @@ import { GeoJsonPoi } from 'api-client'
 
 import { PoiThumbnailPlaceholder } from '../assets'
 import dimensions from '../constants/dimensions'
+import { helpers } from '../constants/theme'
+import Button from './base/Button'
 
 const ListItemContainer = styled.ul`
   font-family: ${props => props.theme.fonts.web.contentFont};
@@ -35,19 +37,11 @@ const Thumbnail = styled.img`
 `
 
 const Distance = styled.div`
-  font-size: clamp(
-    ${props => props.theme.fonts.adaptiveFontSizeSmall.min},
-    ${props => props.theme.fonts.adaptiveFontSizeSmall.value},
-    ${props => props.theme.fonts.adaptiveFontSizeSmall.max}
-  );
+  ${helpers.adaptiveFontSize};
 `
 
 const Category = styled.div`
-  font-size: clamp(
-    ${props => props.theme.fonts.adaptiveFontSizeSmall.min},
-    ${props => props.theme.fonts.adaptiveFontSizeSmall.value},
-    ${props => props.theme.fonts.adaptiveFontSizeSmall.max}
-  );
+  ${helpers.adaptiveFontSize};
   color: ${props => props.theme.colors.textSecondaryColor};
 `
 
@@ -60,19 +54,16 @@ export const Description = styled.div`
   flex-grow: 1;
   padding: 0 22px;
   align-self: center;
-  word-wrap: break-word;
+  word-break: break-word;
+  hyphens: auto;
 `
 
 const Title = styled.span`
-  font-size: clamp(
-    ${props => props.theme.fonts.adaptiveFontSizeSmall.min},
-    ${props => props.theme.fonts.adaptiveFontSizeSmall.value},
-    ${props => props.theme.fonts.adaptiveFontSizeSmall.max}
-  );
+  ${helpers.adaptiveFontSize};
   font-weight: 700;
 `
 
-const LinkContainer = styled.div`
+const LinkContainer = styled(Button)`
   display: flex;
   flex: 1;
 `
@@ -92,7 +83,7 @@ const PoiListItem = ({ poi, selectPoi }: PoiListItemProps): ReactElement => {
 
   return (
     <ListItemContainer id={slug}>
-      <LinkContainer onClick={onClickItem} role='button' tabIndex={0} onKeyPress={onClickItem} aria-label={title}>
+      <LinkContainer onClick={onClickItem} tabIndex={0} ariaLabel={title}>
         <Thumbnail alt='' src={thumbnail || PoiThumbnailPlaceholder} />
         <Description>
           <Title>{title}</Title>

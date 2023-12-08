@@ -15,6 +15,7 @@ describe('EventModel', () => {
       startDate: DateTime.fromISO('2020-03-20T10:50:00+02:00'),
       endDate: DateTime.fromISO('2020-03-20T17:50:00+02:00'),
       allDay: false,
+      recurrenceRule: null,
     }),
     location: new LocationModel({
       id: 1,
@@ -57,7 +58,7 @@ describe('EventModel', () => {
   it('should have dates formatted correctly in iCal', () => {
     const timezone = event.date.startDate.zone
     const eventFields = iCalEvent.split('\n')
-    expect(eventFields[7]).toBe(`DTSTART;TZID=${timezone}:2020032009:50095000`)
-    expect(eventFields[8]).toBe(`DTEND;TZID=${timezone}:2020032016:50165000`)
+    expect(eventFields[7]).toBe(`DTSTART;TZID=${timezone}:20200320T095000`)
+    expect(eventFields[8]).toBe(`DTEND;TZID=${timezone}:20200320T165000`)
   })
 })

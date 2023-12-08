@@ -43,7 +43,7 @@ const StyledLink = styled(Link)<{ $active: boolean }>`
   }
 
   &:hover > div:first-child {
-    box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.3);
+    box-shadow: 0 0 0 0 rgb(0 0 0 / 30%);
     border-color: ${props => props.theme.colors.themeColor};
   }
 
@@ -53,7 +53,7 @@ const StyledLink = styled(Link)<{ $active: boolean }>`
       color: ${props => props.theme.colors.textColor};
 
       & > div:first-child {
-        box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.3);
+        box-shadow: 0 0 0 0 rgb(0 0 0 / 30%);
         border-color: ${props.theme.colors.themeColor};
       }
     `}
@@ -77,7 +77,7 @@ const Circle = styled.div`
     border-radius: 100%;
     height: ${ICON_SIZE_LARGE}px;
     width: ${ICON_SIZE_LARGE}px;
-    box-shadow: 0 2px 5px -3px rgba(0, 0, 0, 0.7);
+    box-shadow: 0 2px 5px -3px rgb(0 0 0 / 70%);
     transition:
       box-shadow 0.2s,
       border 0.2s;

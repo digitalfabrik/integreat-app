@@ -8,6 +8,7 @@
       "node" // for scripts in tools/
     ]
   },
+  "include": ["**/*"],
   "references": [
     {
       "path": "../translations"

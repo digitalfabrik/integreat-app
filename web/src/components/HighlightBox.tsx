@@ -5,8 +5,8 @@ const HighlightBox = styled.div`
   border-radius: 4px;
   padding: 20px;
   box-shadow:
-    0 1px 3px rgba(0, 0, 0, 0.1),
-    0 1px 2px rgba(0, 0, 0, 0.15);
+    0 1px 3px rgb(0 0 0 / 10%),
+    0 1px 2px rgb(0 0 0 / 15%);
 `
 
 export default HighlightBox

@@ -10,18 +10,15 @@ jest.mock('react-i18next')
 describe('Collapsible', () => {
   const content = 'Some Content'
   const title = 'TestTitle'
+
   it('shows content by default', () => {
-    const { getByText } = renderWithTheme(
-      <Collapsible direction='ltr' title={title}>
-        {content}
-      </Collapsible>,
-    )
+    const { getByText } = renderWithTheme(<Collapsible title={title}>{content}</Collapsible>)
     expect(getByText(content)).toBeTruthy()
   })
 
-  it('shows no content if initialCollapse is set to false', () => {
+  it('shows no content if initialCollapse is set to true', () => {
     const { queryByText } = renderWithTheme(
-      <Collapsible direction='ltr' initialCollapsed={false} title={title}>
+      <Collapsible initialCollapsed title={title}>
         {content}
       </Collapsible>,
     )
@@ -29,19 +26,15 @@ describe('Collapsible', () => {
   })
 
   it('hides content by clicking on the header', () => {
-    const { getByText, queryByText } = renderWithTheme(
-      <Collapsible direction='ltr' title={title}>
-        {content}
-      </Collapsible>,
-    )
+    const { getByText, queryByText } = renderWithTheme(<Collapsible title={title}>{content}</Collapsible>)
     expect(getByText(content)).toBeTruthy()
     fireEvent.click(getByText(title))
     expect(queryByText(content)).toBeNull()
   })
 
-  it('shows content by clicking on the header if initialCollapse is set to false', () => {
+  it('shows content by clicking on the header if initialCollapse is set to true', () => {
     const { getByText, queryByText } = renderWithTheme(
-      <Collapsible direction='ltr' initialCollapsed={false} title={title}>
+      <Collapsible initialCollapsed title={title}>
         {content}
       </Collapsible>,
     )

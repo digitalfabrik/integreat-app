@@ -17,54 +17,59 @@ describe('Feedback', () => {
   const onFeedbackContactMailChanged = jest.fn()
   const onSubmit = jest.fn()
   const setIsPositiveFeedback = jest.fn()
+  const setSearchTerm = jest.fn()
 
-  const buildProps = (isPositiveFeedback: boolean | null, isSearchFeedback: boolean, comment: string) => ({
+  const buildProps = (isPositiveFeedback: boolean | null, comment: string, searchTerm?: string) => ({
     comment,
     isPositiveFeedback,
-    isSearchFeedback,
+    searchTerm,
     contactMail: 'test@example.com',
     sendingStatus: 'idle' as const,
     onCommentChanged,
     onFeedbackContactMailChanged,
     onSubmit,
     setIsPositiveFeedback,
+    setSearchTerm,
   })
 
   it('button should be disabled and note should be shown without feedback and no comment', async () => {
     const { getByText, queryByText } = render(
       <NavigationContainer>
-        <Feedback {...buildProps(null, false, '')} />
+        <Feedback {...buildProps(null, '')} />
       </NavigationContainer>,
     )
     expect(getByText('send')).toBeDisabled()
-    expect(queryByText('informationNotFound')).toBeFalsy()
+    expect(queryByText('searchTermDescription')).toBeFalsy()
     expect(getByText('headline')).toBeTruthy()
     expect(getByText('note')).toBeTruthy()
   })
-  it('button should be disabled and note should be shown for search feedback and no input', async () => {
-    const { getByText } = render(
-      <NavigationContainer>
-        <Feedback {...buildProps(null, true, '')} />
-      </NavigationContainer>,
-    )
-    expect(getByText('send')).toBeDisabled()
-    expect(getByText('informationNotFound')).toBeTruthy()
-    expect(getByText('note')).toBeTruthy()
-  })
-  it('button should be enabled for positive feedback and no input', async () => {
+
+  it('button should be enabled for search feedback and no input', async () => {
     const { getByText, queryByText } = render(
       <NavigationContainer>
-        <Feedback {...buildProps(true, false, '')} />
+        <Feedback {...buildProps(null, '', 'query')} />
       </NavigationContainer>,
     )
     expect(getByText('send')).not.toBeDisabled()
-    expect(queryByText('informationNotFound')).toBeFalsy()
+    expect(getByText('searchTermDescription')).toBeTruthy()
+    expect(queryByText('note')).toBeFalsy()
+  })
+
+  it('button should be enabled for positive feedback and no input', async () => {
+    const { getByText, queryByText } = render(
+      <NavigationContainer>
+        <Feedback {...buildProps(true, '')} />
+      </NavigationContainer>,
+    )
+    expect(getByText('send')).not.toBeDisabled()
+    expect(queryByText('searchTermDescription')).toBeFalsy()
     expect(getByText('note')).toBeTruthy()
   })
+
   it('button should be enabled for no feedback but comment', async () => {
     const { getByText } = render(
       <NavigationContainer>
-        <Feedback {...buildProps(null, false, 'comment')} />
+        <Feedback {...buildProps(null, 'comment')} />
       </NavigationContainer>,
     )
     expect(getByText('send')).not.toBeDisabled()
@@ -74,25 +79,27 @@ describe('Feedback', () => {
   it('correct text should be displayed for search feedback and input', async () => {
     const { getByText } = render(
       <NavigationContainer>
-        <Feedback {...buildProps(false, true, 'comment')} />
+        <Feedback {...buildProps(false, 'comment', 'query')} />
       </NavigationContainer>,
     )
-    expect(getByText('informationNotFound')).toBeDefined()
+    expect(getByText('searchTermDescription')).toBeDefined()
   })
+
   it('onSubmit should be called with query on button press for search feedback', async () => {
     const { getByText } = render(
       <NavigationContainer>
-        <Feedback {...buildProps(false, true, 'My test comment')} />
+        <Feedback {...buildProps(false, 'My test comment', 'query')} />
       </NavigationContainer>,
     )
     const button = getByText('send')
     fireEvent.press(button)
     expect(onSubmit).toHaveBeenCalled()
   })
+
   it('should call callback on comment changed', async () => {
     const { getByDisplayValue, queryByDisplayValue } = render(
       <NavigationContainer>
-        <Feedback {...buildProps(false, false, 'my old comment')} />
+        <Feedback {...buildProps(false, 'my old comment')} />
       </NavigationContainer>,
     )
     expect(getByDisplayValue('my old comment')).toBeTruthy()
@@ -102,10 +109,11 @@ describe('Feedback', () => {
     expect(onCommentChanged).toHaveBeenCalledTimes(1)
     expect(onCommentChanged).toHaveBeenCalledWith('my new comment')
   })
+
   it('should call callback on contact mail changed', async () => {
     const { getByDisplayValue, queryByDisplayValue } = render(
       <NavigationContainer>
-        <Feedback {...buildProps(false, false, 'my comment')} />
+        <Feedback {...buildProps(false, 'my comment')} />
       </NavigationContainer>,
     )
     expect(getByDisplayValue('test@example.com')).toBeTruthy()

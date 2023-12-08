@@ -5,22 +5,22 @@ import { openStreeMapCopyright } from 'api-client'
 import { UiDirectionType } from 'translations'
 
 import CleanLink from './CleanLink'
+import Button from './base/Button'
 
 const Attribution = styled.div`
   display: flex;
   direction: ltr;
   padding: 0 4px;
-  background-color: rgba(255, 255, 255, 0.5);
-  box-shadow: 0 2px 3px 3px rgba(0, 0, 0, 0.1);
-  color: rgba(0, 0, 0, 0.75);
+  background-color: rgb(255 255 255 / 50%);
+  box-shadow: 0 2px 3px 3px rgb(0 0 0 / 10%);
+  color: rgb(0 0 0 / 75%);
 `
-const AttributionContainer = styled.div<{ expanded: boolean; direction: UiDirectionType }>`
+const StyledButton = styled(Button)<{ expanded: boolean; direction: UiDirectionType }>`
   display: flex;
   position: absolute;
   top: 0;
   ${props => (props.direction === 'ltr' ? 'right: 0' : 'left: 0')};
   justify-content: flex-end;
-  cursor: pointer;
   font-size: ${props =>
     props.expanded ? props.theme.fonts.decorativeFontSizeSmall : props.theme.fonts.contentFontSize};
   font-weight: ${props => (props.expanded ? 'normal' : 'bold')};
@@ -33,7 +33,7 @@ const OpenStreetMapsLink = styled(CleanLink)`
 
 const Label = styled.span`
   padding: 0 4px;
-  color: rgba(0, 0, 0, 0.75);
+  color: rgb(0 0 0 / 75%);
 `
 
 type MapAttributionProps = {
@@ -45,13 +45,12 @@ const MapAttribution = ({ initialExpanded, direction }: MapAttributionProps): Re
   const { icon, linkText, url, label } = openStreeMapCopyright
   const [expanded, setExpanded] = useState<boolean>(initialExpanded)
   return (
-    <AttributionContainer
+    <StyledButton
       direction={direction}
       expanded={expanded}
-      role='button'
       tabIndex={0}
-      onKeyPress={() => setExpanded(!expanded)}
-      onClick={() => setExpanded(!expanded)}>
+      onClick={() => setExpanded(!expanded)}
+      ariaLabel={`${linkText} ${label}`}>
       <Attribution>
         <Label>{icon}</Label>
         {expanded && (
@@ -63,7 +62,7 @@ const MapAttribution = ({ initialExpanded, direction }: MapAttributionProps): Re
           </>
         )}
       </Attribution>
-    </AttributionContainer>
+    </StyledButton>
   )
 }
 

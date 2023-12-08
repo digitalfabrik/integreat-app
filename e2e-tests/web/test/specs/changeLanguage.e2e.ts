@@ -1,4 +1,4 @@
-import dashboardPage from '../pageobjects/dashboard.page'
+import dashboardPage from '../pageobjects/dashboard.page.js'
 
 describe('change language', () => {
   beforeEach(async () => {
@@ -24,7 +24,7 @@ describe('change language', () => {
     const englishContent = await $(`*=Welcome`)
     expect(await englishContent.isDisplayed()).toBeTruthy()
 
-    await dashboardPage.selectLanguage('de')
+    await dashboardPage.selectLanguage('Deutsch')
 
     expect(await dashboardPage.hasHeadline('Lokale Informationen')).toBeTruthy()
     const germanContent = await $(`*=Willkommen`)

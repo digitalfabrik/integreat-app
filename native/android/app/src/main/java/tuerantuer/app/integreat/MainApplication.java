@@ -1,6 +1,7 @@
 package tuerantuer.app.integreat;
 
-import androidx.multidex.MultiDexApplication;
+import android.app.Application;
+
 import com.facebook.react.PackageList;
 import com.facebook.react.ReactApplication;
 import com.facebook.react.ReactNativeHost;
@@ -12,7 +13,7 @@ import com.facebook.react.bridge.JSIModulePackage;
 
 import java.util.List;
 
-public class MainApplication extends MultiDexApplication implements ReactApplication {
+public class MainApplication extends Application implements ReactApplication {
 
     private final ReactNativeHost mReactNativeHost = new DefaultReactNativeHost(this) {
         @Override

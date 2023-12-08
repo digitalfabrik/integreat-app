@@ -17,7 +17,6 @@ const Container = styled.View`
   flex: 1;
   flex-direction: column;
   align-items: flex-start;
-  padding: 0 16px;
 `
 
 const SubTitle = styled(Text)`
@@ -57,13 +56,18 @@ const FlexEnd = styled.View`
 `
 
 const TileRow = styled(Row)`
-  justify-content: space-between;
+  justify-content: center;
   align-content: space-between;
   flex-wrap: wrap;
+  gap: 16px;
 `
 
 const StyledToggleButton = styled(ToggleButton)`
-  margin-bottom: 24px;
+  margin-bottom: 8px;
+`
+
+const StyledTextButton = styled(TextButton)`
+  margin-top: 16px;
 `
 
 type PoiFiltersModalProps = {
@@ -121,7 +125,7 @@ const PoiFiltersModal = ({
           </TileRow>
         </Section>
         <Section>
-          <TextButton onPress={closeModal} text={t('showPois')} />
+          <StyledTextButton onPress={closeModal} text={t('showPois')} />
         </Section>
       </Container>
     </Modal>

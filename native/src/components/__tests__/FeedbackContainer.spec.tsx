@@ -2,13 +2,15 @@ import { NavigationContainer } from '@react-navigation/native'
 import { fireEvent } from '@testing-library/react-native'
 import React from 'react'
 
-import { FeedbackType, CATEGORIES_ROUTE, CONTENT_FEEDBACK_CATEGORY, SEND_FEEDBACK_SIGNAL_NAME } from 'api-client'
+import { CATEGORIES_ROUTE, SEND_FEEDBACK_SIGNAL_NAME, SEARCH_ROUTE } from 'api-client'
 
 import render from '../../testing/render'
 import sendTrackingSignal from '../../utils/sendTrackingSignal'
 import FeedbackContainer from '../FeedbackContainer'
 
-const mockRequest = jest.fn(() => Promise.resolve())
+const mockRequest = jest.fn(() => {
+  /* ignore */
+})
 jest.mock('styled-components')
 jest.mock('react-i18next')
 jest.mock('../../utils/sendTrackingSignal')
@@ -30,23 +32,25 @@ describe('FeedbackContainer', () => {
   it('should send feedback request with rating and no other inputs on submit', async () => {
     const { getByText, findByText } = render(
       <NavigationContainer>
-        <FeedbackContainer routeType={CATEGORIES_ROUTE} isSearchFeedback={false} language={language} cityCode={city} />
+        <FeedbackContainer routeType={CATEGORIES_ROUTE} language={language} cityCode={city} />
       </NavigationContainer>,
     )
     const positiveRatingButton = getByText('useful')
     fireEvent.press(positiveRatingButton)
-    expect(await findByText('send')).not.toBeDisabled()
+    expect(getByText('send')).not.toBeDisabled()
     const submitButton = getByText('send')
     fireEvent.press(submitButton)
     expect(await findByText('thanksMessage')).toBeDefined()
     expect(mockRequest).toHaveBeenCalledTimes(1)
     expect(mockRequest).toHaveBeenCalledWith({
-      feedbackType: FeedbackType.categories,
-      feedbackCategory: CONTENT_FEEDBACK_CATEGORY,
+      routeType: CATEGORIES_ROUTE,
       isPositiveRating: true,
       city,
       language,
-      comment: expect.stringContaining('Kontaktadresse: Keine Angabe'),
+      comment: '',
+      contactMail: '',
+      query: undefined,
+      searchTerm: undefined,
     })
     expect(sendTrackingSignal).toHaveBeenCalledTimes(1)
     expect(sendTrackingSignal).toHaveBeenCalledWith({
@@ -66,8 +70,7 @@ describe('FeedbackContainer', () => {
     const contactMail = 'test@example.com'
     const { getByText, findByText, getAllByDisplayValue } = render(
       <NavigationContainer>
-        {' '}
-        <FeedbackContainer routeType={CATEGORIES_ROUTE} isSearchFeedback={false} language={language} cityCode={city} />
+        <FeedbackContainer routeType={CATEGORIES_ROUTE} language={language} cityCode={city} />
       </NavigationContainer>,
     )
     const [commentField, emailField] = getAllByDisplayValue('')
@@ -78,12 +81,14 @@ describe('FeedbackContainer', () => {
     expect(await findByText('thanksMessage')).toBeDefined()
     expect(mockRequest).toHaveBeenCalledTimes(1)
     expect(mockRequest).toHaveBeenCalledWith({
-      feedbackType: FeedbackType.categories,
-      feedbackCategory: CONTENT_FEEDBACK_CATEGORY,
+      routeType: CATEGORIES_ROUTE,
       isPositiveRating: null,
       city,
       language,
-      comment: `${comment}    Kontaktadresse: ${contactMail}`,
+      comment,
+      contactMail,
+      query: undefined,
+      searchTerm: undefined,
     })
     expect(sendTrackingSignal).toHaveBeenCalledTimes(1)
     expect(sendTrackingSignal).toHaveBeenCalledWith({
@@ -101,7 +106,7 @@ describe('FeedbackContainer', () => {
   it('should disable send feedback button if rating button is clicked twice', async () => {
     const { getByText, findByText } = render(
       <NavigationContainer>
-        <FeedbackContainer routeType={CATEGORIES_ROUTE} isSearchFeedback={false} language={language} cityCode={city} />
+        <FeedbackContainer routeType={CATEGORIES_ROUTE} language={language} cityCode={city} />
       </NavigationContainer>,
     )
     const positiveRatingButton = getByText('useful')
@@ -109,5 +114,56 @@ describe('FeedbackContainer', () => {
     expect(await findByText('send')).not.toBeDisabled()
     fireEvent.press(positiveRatingButton)
     expect(await findByText('send')).toBeDisabled()
+  })
+
+  it('should send search feedback on submit', async () => {
+    const query = 'Zeugnis'
+    const { findByText, getByText } = render(
+      <NavigationContainer>
+        <FeedbackContainer routeType={SEARCH_ROUTE} language={language} cityCode={city} query={query} />
+      </NavigationContainer>,
+    )
+    const button = getByText('send')
+    fireEvent.press(button)
+    expect(await findByText('thanksMessage')).toBeDefined()
+    expect(mockRequest).toHaveBeenCalledTimes(1)
+    expect(mockRequest).toHaveBeenCalledWith({
+      routeType: SEARCH_ROUTE,
+      isPositiveRating: null,
+      city,
+      language,
+      comment: '',
+      contactMail: '',
+      query,
+      searchTerm: query,
+      slug: undefined,
+    })
+  })
+
+  it('should send original search term for search feedback if edited', async () => {
+    const query = 'Zeugnis'
+    const fullSearchTerm = 'Zeugnisübergabe'
+    const { findByText, getByDisplayValue, getByText } = render(
+      <NavigationContainer>
+        <FeedbackContainer routeType={SEARCH_ROUTE} language={language} cityCode={city} query={query} />
+      </NavigationContainer>,
+    )
+    const input = getByDisplayValue(query)
+    fireEvent.changeText(input, fullSearchTerm)
+    const button = getByText('send')
+    fireEvent.press(button)
+    expect(await findByText('thanksMessage')).toBeDefined()
+    expect(mockRequest).toHaveBeenCalledTimes(1)
+    expect(mockRequest).toHaveBeenCalledWith({
+      routeType: SEARCH_ROUTE,
+      isPositiveRating: null,
+      city,
+      language,
+      comment: '',
+      contactMail: '',
+      query,
+      searchTerm: fullSearchTerm,
+      slug: undefined,
+    })
   })
 })

@@ -1,9 +1,9 @@
-import { Capabilities } from '@wdio/types/build/Capabilities'
+import { Capabilities } from '@wdio/types'
 
-import { browsers, ciCapabilities } from './capabilities'
-import waitForLocalhost from './waitForLocalhost'
+import { browsers, ciCapabilities } from './capabilities.js'
+import waitForLocalhost from './waitForLocalhost.js'
 
-const getCapabilities = (): Array<Capabilities> => {
+const getCapabilities = (): Array<Capabilities.DesiredCapabilities> => {
   if (process.env.CI) {
     return [ciCapabilities]
   }

@@ -1,4 +1,3 @@
-/* eslint-disable camelcase */
 export type JsonAvailableLanguagesType = Record<
   string,
   {
@@ -38,10 +37,10 @@ type JsonFeaturedImageInstanceType = {
 type JsonFeaturedImageType = {
   description: string
   mimetype: string
-  thumbnail: Array<JsonFeaturedImageInstanceType>
-  medium: Array<JsonFeaturedImageInstanceType>
-  large: Array<JsonFeaturedImageInstanceType>
-  full: Array<JsonFeaturedImageInstanceType>
+  thumbnail: [JsonFeaturedImageInstanceType]
+  medium: [JsonFeaturedImageInstanceType]
+  large: [JsonFeaturedImageInstanceType]
+  full: [JsonFeaturedImageInstanceType]
 }
 type JsonEventInfoType = {
   id: number
@@ -130,39 +129,6 @@ export type JsonOfferType = {
   post: JsonOfferPostType | null | undefined
 }
 
-export type ShelterLanguage = 'deutsch' | 'englisch' | 'ukrainisch' | 'russisch' | 'polnisch' | 'kroatisch'
-export type ShelterAccommodationType = 'ges_unterkunft' | 'privatzimmer' | 'gemein_zimmer'
-export type ShelterInfo =
-  | 'barrierefrei'
-  | 'lgbtiq'
-  | 'bad'
-  | 'haustier-katze'
-  | 'haustier-hund'
-  | 'haustier'
-  | 'rauchen'
-export type ShelterPeriod = '7t' | '14t' | '1m' | '3m' | '6m' | '12m' | '12m_plus'
-export type ShelterHostType = 'allein_maennlich' | 'allein_weiblich' | 'familie_kinder' | 'paar' | 'wg' | null
-export type ShelterCostsType = 'uebergang-miete' | 'kostenpflichtig' | 'kostenfrei'
-export type JsonShelterType = {
-  id: number
-  name: string
-  city: string
-  street: string | null
-  zipcode: string
-  languages: ShelterLanguage[]
-  beds: string
-  accommodation_type: ShelterAccommodationType
-  info: ShelterInfo[]
-  email: string | null
-  phone: string | null
-  rooms: string | null
-  occupants: string | null
-  start_date: string
-  period: ShelterPeriod
-  host_type: ShelterHostType
-  costs: ShelterCostsType
-  comments: string | null
-}
 export type JsonSprungbrettJobType = {
   title: string
   zip: string

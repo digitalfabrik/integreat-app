@@ -17,6 +17,7 @@ import {
 import { ThemeType } from 'build-configs'
 
 import FeedbackContainer from '../components/FeedbackContainer'
+import HorizontalLine from '../components/HorizontalLine'
 import List from '../components/List'
 import NothingFound from '../components/NothingFound'
 import SearchHeader from '../components/SearchHeader'
@@ -105,22 +106,23 @@ const SearchModal = ({
       onItemPress={onItemPress}
     />
   )
-  const Feedback = (
-    <FeedbackContainer
-      routeType={SEARCH_ROUTE}
-      isSearchFeedback
-      language={languageCode}
-      cityCode={cityCode}
-      query={query}
-      hasDivider={!searchResults}
-    />
-  )
 
   return (
     <Wrapper {...testID('Search-Page')}>
       <SearchHeader theme={theme} query={query} closeSearchBar={onClose} onSearchChanged={setQuery} t={t} />
       <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : undefined} style={{ flex: 1 }}>
-        <List items={searchResults} renderItem={renderItem} Footer={Feedback} noItemsMessage={<NothingFound />} />
+        <List
+          items={searchResults}
+          renderItem={renderItem}
+          accessibilityLabel={t('searchResultsCount', { count: searchResults.length })}
+          noItemsMessage={
+            <>
+              <NothingFound />
+              <HorizontalLine />
+              <FeedbackContainer routeType={SEARCH_ROUTE} language={languageCode} cityCode={cityCode} query={query} />
+            </>
+          }
+        />
       </KeyboardAvoidingView>
     </Wrapper>
   )

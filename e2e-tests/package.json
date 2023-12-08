@@ -2,6 +2,7 @@
   "version": "0.0.1",
   "name": "e2e",
   "private": true,
+  "type": "module",
   "scripts": {
     "test:web": "yarn wdio run web/wdio.conf.ts",
     "test:web:browserstack": "yarn wdio run ./web/browserstack/wdio-browserstack.conf.ts",
@@ -11,7 +12,7 @@
     "prepare:native:android": "yarn workspace native android:integreat-e2e",
     "prepare:native:start": "yarn workspace native start:integreat-e2e",
     "prepare:web:start": "yarn workspace web start:integreat-e2e",
-    "lint": "yarn eslint ./",
+    "lint": "eslint --cache --cache-location ../.eslintcache .",
     "ts:check": "tsc --build"
   },
   "devDependencies": {
@@ -21,10 +22,11 @@
     "@wdio/cli": "^8.3.2",
     "@wdio/globals": "8.2.3",
     "@wdio/jasmine-framework": "^8.3.2",
-    "@wdio/spec-reporter": "^8.3.0",
     "@wdio/local-runner": "^8.3.2",
     "@wdio/selenium-standalone-service": "^8.3.2",
+    "@wdio/spec-reporter": "^8.3.0",
     "@wdio/types": "^8.3.0",
+    "appium": "^2.2.1",
     "webdriverio": "^8.3.2"
   },
   "workspaces": {

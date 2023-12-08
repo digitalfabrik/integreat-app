@@ -9,12 +9,19 @@ const DEFAULT_ICON_SIZE = 24
 
 type IconProps = {
   Icon: React.JSXElementConstructor<SvgProps>
+  label?: string
   directionDependent?: boolean
   reverse?: boolean
   style?: Record<string, number>[]
 }
 
-const Icon = ({ Icon: IconProp, directionDependent = false, reverse = false, style }: IconProps): ReactElement => {
+const Icon = ({
+  Icon: IconProp,
+  label,
+  directionDependent = false,
+  reverse = false,
+  style,
+}: IconProps): ReactElement => {
   const theme = useTheme()
 
   return (
@@ -32,6 +39,7 @@ const Icon = ({ Icon: IconProp, directionDependent = false, reverse = false, sty
       width={style?.[0]?.width ?? DEFAULT_ICON_SIZE}
       height={style?.[0]?.height ?? DEFAULT_ICON_SIZE}
       color={(style?.[0]?.color as ColorValue | undefined) ?? theme.colors.textColor}
+      accessibilityLabel={label}
     />
   )
 }
