@@ -127,11 +127,7 @@ const PoiFiltersModal = ({
           </TileRow>
         </Section>
         <Section>
-          {poisLength !== 0 ? (
-            <StyledTextButton onPress={closeModal} text={` ${poisLength} ${t('showPois')} `} />
-          ) : (
-            <StyledTextButton onPress={closeModal} text={t('noPois')} disabled />
-          )}
+          <StyledTextButton onPress={closeModal} text={`${poisLength} ${t('showPois')}`} />
         </Section>
       </Container>
     </Modal>

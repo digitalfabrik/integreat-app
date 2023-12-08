@@ -14,6 +14,8 @@ describe('PoiFiltersModal', () => {
   beforeEach(jest.clearAllMocks)
 
   const pois = new PoiModelBuilder(2).build()
+  // const poisLength = pois.length
+
   const closeModal = jest.fn()
   const setSelectedPoiCategory = jest.fn()
   const setCurrentlyOpenFilter = jest.fn()
@@ -21,9 +23,11 @@ describe('PoiFiltersModal', () => {
   const renderPoiFiltersModal = ({
     category = null,
     currentlyOpen = false,
+    poisLength = 0,
   }: {
     category?: PoiCategoryModel | null
     currentlyOpen?: boolean
+    poisLength?: number
   }) =>
     render(
       <PoiFiltersModal
@@ -34,6 +38,7 @@ describe('PoiFiltersModal', () => {
         setSelectedPoiCategory={setSelectedPoiCategory}
         currentlyOpenFilter={currentlyOpen}
         setCurrentlyOpenFilter={setCurrentlyOpenFilter}
+        poisLength={poisLength}
       />,
     )
 
@@ -61,9 +66,9 @@ describe('PoiFiltersModal', () => {
   })
 
   it('should close modal on button press', () => {
-    const { getByText } = renderPoiFiltersModal({})
+    const { getByText } = renderPoiFiltersModal({ poisLength: 0 })
 
-    fireEvent.press(getByText('showPois'))
+    fireEvent.press(getByText('0 showPois'))
     expect(closeModal).toHaveBeenCalledTimes(1)
   })
 })
