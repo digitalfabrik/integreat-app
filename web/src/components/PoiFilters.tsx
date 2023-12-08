@@ -58,6 +58,7 @@ const TileRow = styled.div<{ itemCount: number }>`
 const StyledButton = styled(TextButton)`
   width: 100%;
   margin: 0;
+  /* margin: 0; background-color: ${props => props.theme.colors.textDisabledColor}; */
 `
 
 const StyledIcon = styled(Icon)`
@@ -73,6 +74,7 @@ type PoiFiltersProps = {
   currentlyOpenFilter: boolean
   setCurrentlyOpenFilter: (currentlyOpen: boolean) => void
   panelWidth: number
+  poisLength: number
 }
 
 const PoiFilters = ({
@@ -83,6 +85,7 @@ const PoiFilters = ({
   currentlyOpenFilter,
   setCurrentlyOpenFilter,
   panelWidth,
+  poisLength,
 }: PoiFiltersProps): ReactElement => {
   const poiCategories = pois
     .map(it => it.category)
@@ -121,7 +124,11 @@ const PoiFilters = ({
             ))}
           </TileRow>
         </Section>
-        <StyledButton onClick={closeModal} text={t('showPois')} />
+        {poisLength !== 0 ? (
+          <StyledButton onClick={closeModal} text={`${poisLength} ${t('showPois')} `} />
+        ) : (
+          <StyledButton onClick={closeModal} text={t('noPois')} disabled />
+        )}
       </Container>
     </ModalContent>
   )
