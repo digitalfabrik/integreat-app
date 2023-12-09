@@ -1,10 +1,15 @@
 import Dompurify from 'dompurify'
-import React, { ReactElement, useCallback, useEffect } from 'react'
+import React, { ReactElement, useCallback, useEffect, useState, useMemo } from 'react'
+import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
 
 import { ExternalLinkIcon } from '../assets'
 import buildConfig from '../constants/buildConfig'
+import dimensions from '../constants/dimensions'
 import { helpers } from '../constants/theme'
+import useCookie from '../hooks/useCookie'
+import useWindowDimensions from '../hooks/useWindowDimensions'
+import { handleAllowedIframeSources, hideIframe, preserveIFrameSourcesFromContent } from '../utils/iframes'
 
 const SandBox = styled.div<{ centered: boolean; smallText: boolean }>`
   font-family: ${props => props.theme.fonts.web.contentFont};
@@ -14,7 +19,6 @@ const SandBox = styled.div<{ centered: boolean; smallText: boolean }>`
 
   ${props => (props.centered ? 'text-align: center;' : '')}
   ${props => (props.centered ? 'list-style-position: inside;' : '')}
-  
   img {
     max-width: 100%;
     max-height: 100%;
@@ -97,6 +101,54 @@ const SandBox = styled.div<{ centered: boolean; smallText: boolean }>`
     vertical-align: middle;
     margin: 0 4px;
   }
+
+  iframe {
+    border: none;
+    border-bottom: 1px solid ${props => props.theme.colors.borderColor};
+
+    @media ${dimensions.smallViewport} {
+      max-width: 100%;
+    }
+  }
+
+  .iframe-container {
+    display: flex;
+    padding: 4px;
+    flex-direction: column;
+    border: 1px solid ${props => props.theme.colors.borderColor};
+    border-radius: 4px;
+    box-shadow:
+      0 1px 3px rgb(0 0 0 / 10%),
+      0 1px 2px rgb(0 0 0 / 15%);
+  }
+
+  .iframe-info-text {
+    display: flex;
+    padding: 12px;
+    justify-content: space-between;
+    font-size: ${props => props.theme.fonts.decorativeFontSizeSmall};
+  }
+
+  .iframe-info-text > input {
+    margin-left: 12px;
+    cursor: pointer;
+  }
+
+  .iframe-info-text > label {
+    cursor: pointer;
+  }
+
+  .iframe-source {
+    display: contents;
+    font-weight: bold;
+  }
+
+  #opt-in-settings-link {
+    margin-left: 12px;
+    padding: 0;
+    cursor: pointer;
+    align-self: center;
+  }
 `
 
 type RemoteContentProps = {
@@ -107,6 +159,12 @@ type RemoteContentProps = {
 }
 
 const HIJACK = new RegExp(buildConfig().internalLinksHijackPattern)
+const DOMPURIFY_TAG_IFRAME = 'iframe'
+const DOMPURIFY_ATTRIBUTE_FULLSCREEN = 'allowfullscreen'
+
+export type ExternalSourcePermission = Record<string, boolean>
+export type IframeSources = Record<number, string>
+export const IFRAME_BLANK_SOURCE = 'about:blank'
 
 const RemoteContent = ({
   html,
@@ -115,6 +173,14 @@ const RemoteContent = ({
   smallText = false,
 }: RemoteContentProps): ReactElement => {
   const sandBoxRef = React.createRef<HTMLDivElement>()
+  const { value: sources, updateCookie } = useCookie('externalSources')
+  const externalSourcePermissions: ExternalSourcePermission = useMemo(
+    () => (sources ? JSON.parse(sources) : {}),
+    [sources],
+  )
+  const [contentIframeSources, setContentIframeSources] = useState<IframeSources>({})
+  const { viewportSmall } = useWindowDimensions()
+  const { t } = useTranslation()
 
   const handleClick = useCallback(
     (event: MouseEvent): void => {
@@ -129,20 +195,58 @@ const RemoteContent = ({
     [onInternalLinkClick],
   )
 
+  const onUpdateCookie = useCallback(
+    (source: string): void => {
+      externalSourcePermissions[source] = true
+      updateCookie(JSON.stringify(externalSourcePermissions), '/', window.location.hostname)
+    },
+    [externalSourcePermissions, updateCookie],
+  )
+
   useEffect(() => {
     if (!sandBoxRef.current) {
       return
     }
-    const collection = sandBoxRef.current.getElementsByTagName('a')
+    const currentSandBoxRef = sandBoxRef.current
+    const collection = currentSandBoxRef.getElementsByTagName('a')
     Array.from(collection).forEach(node => {
       if (HIJACK.test(node.href)) {
         node.addEventListener('click', handleClick)
       }
     })
-  }, [html, handleClick, sandBoxRef])
+
+    const iframes = currentSandBoxRef.getElementsByTagName('iframe')
+    Array.from(iframes).forEach((iframe: HTMLIFrameElement, index: number) => {
+      if (iframe.src !== IFRAME_BLANK_SOURCE) {
+        preserveIFrameSourcesFromContent(index, iframe.src, setContentIframeSources, contentIframeSources)
+      }
+
+      const storedIframeSource = contentIframeSources[index]
+      const supportedSource = storedIframeSource
+        ? buildConfig().supportedIframeSources.find(src => storedIframeSource.includes(src))
+        : undefined
+
+      hideIframe(iframe)
+      if (supportedSource && storedIframeSource) {
+        handleAllowedIframeSources(
+          iframe,
+          externalSourcePermissions,
+          storedIframeSource,
+          t,
+          onUpdateCookie,
+          index,
+          supportedSource,
+          viewportSmall,
+        )
+      }
+    })
+  }, [t, html, handleClick, sandBoxRef, externalSourcePermissions, contentIframeSources, onUpdateCookie, viewportSmall])
 
   const dangerouslySetInnerHTML = {
-    __html: Dompurify.sanitize(html),
+    __html: Dompurify.sanitize(html, {
+      ADD_TAGS: [DOMPURIFY_TAG_IFRAME],
+      ADD_ATTR: [DOMPURIFY_ATTRIBUTE_FULLSCREEN],
+    }),
   }
 
   return (

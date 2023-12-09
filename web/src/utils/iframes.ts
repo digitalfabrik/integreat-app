@@ -1,0 +1,175 @@
+import { TFunction } from 'i18next'
+
+import { CONSENT_ROUTE } from 'api-client'
+
+import { ExternalSourcePermission, IFRAME_BLANK_SOURCE, IframeSources } from '../components/RemoteContent'
+
+export const addDoNotTrackParameter = (iframe: HTMLIFrameElement): void => {
+  if (iframe.src.includes('vimeo')) {
+    const url = new URL(iframe.src)
+    url.searchParams.append('dnt', '1')
+    iframe.setAttribute('src', url.href)
+  }
+}
+
+export const preserveIFrameSourcesFromContent = (
+  index: number,
+  source: string,
+  setExistingIframes: (sources: IframeSources) => void,
+  contentIframeSources: IframeSources,
+): void => {
+  const updatedContentSources: IframeSources = contentIframeSources
+  updatedContentSources[index] = source
+  setExistingIframes(updatedContentSources)
+}
+
+export const hideIframe = (iframe: HTMLIFrameElement): void => {
+  iframe.setAttribute('src', IFRAME_BLANK_SOURCE)
+  iframe.setAttribute('style', 'display:none')
+}
+
+export const showIframe = (iframe: HTMLIFrameElement, source: string): void => {
+  iframe.setAttribute('src', source)
+  iframe.setAttribute('style', 'display:block')
+}
+
+const getContainer = (element: HTMLElement, className: string, id: string): HTMLDivElement | null => {
+  if (document.getElementById(id)) {
+    return null
+  }
+  const container = document.createElement('div')
+  container.id = id
+  container.classList.add(className)
+  element.appendChild(container)
+  return container
+}
+
+const getIframeContainer = (id: string, viewportSmall: boolean, iframe: HTMLIFrameElement): HTMLDivElement => {
+  const existingContainer = document.getElementById(id)
+  if (existingContainer) {
+    return existingContainer as HTMLDivElement
+  }
+  const iframeContainer = document.createElement('div')
+  iframeContainer.classList.add('iframe-container')
+  iframeContainer.id = id
+  iframe.parentNode?.appendChild(iframeContainer)
+  iframeContainer.appendChild(iframe)
+  if (!viewportSmall) {
+    iframeContainer.setAttribute('style', `width:${iframe.width}px!important`)
+  }
+  return iframeContainer
+}
+
+const removeOptInt = (elementId: string) => {
+  const element = document.getElementById(elementId)
+  if (element) {
+    element.remove()
+  }
+}
+
+const showSource = (element: HTMLElement, source: string): void => {
+  const span = document.createElement('span')
+  span.classList.add('iframe-source')
+  element.appendChild(span)
+  span.appendChild(document.createTextNode(source))
+  element.appendChild(document.createElement('br'))
+}
+
+export const showMessage = (text: string, element: HTMLDivElement, iframeSource?: string): void => {
+  const textNode = document.createTextNode(text)
+  if (iframeSource) {
+    showSource(element, iframeSource)
+  }
+  element.appendChild(textNode)
+}
+
+const showOptIn = (
+  text: string,
+  iframeContainer: HTMLDivElement,
+  source: string,
+  updateCookie: (source: string) => void,
+  index: number,
+): void => {
+  const onClickHandler = () => {
+    updateCookie(source)
+  }
+
+  const className = `iframe-info-text`
+  const elementId = `${className}${source}${index}`
+  const container = getContainer(iframeContainer, className, elementId)
+  if (!container) {
+    return
+  }
+
+  const id = `opt-in-checkbox-${source}${index}`
+  const checkbox = document.createElement('input')
+  checkbox.type = 'checkbox'
+  checkbox.name = 'opt-in-checkbox'
+  checkbox.id = id
+  checkbox.onclick = onClickHandler
+  const label = document.createElement('label')
+  showSource(label, source)
+  label.htmlFor = id
+  label.appendChild(document.createTextNode(text))
+  container.appendChild(label)
+  container.appendChild(checkbox)
+}
+const showSettingsButton = (element: HTMLDivElement, t: TFunction): void => {
+  const link = document.createElement('a')
+  link.innerHTML = t('layout:settings')
+  link.id = 'opt-in-settings-link'
+  link.href = `/${CONSENT_ROUTE}`
+  element.appendChild(link)
+}
+
+const showMessageWithSettings = (
+  text: string,
+  iframeContainer: HTMLDivElement,
+  t: TFunction,
+  source: string,
+  iframeIndex: number,
+  removeOptIn: boolean,
+) => {
+  if (removeOptIn) {
+    removeOptInt(`iframe-info-text${source}${iframeIndex}`)
+  }
+  const className = `iframe-info-text`
+  const elementId = `${className}${source}${iframeIndex}`
+  const container = getContainer(iframeContainer, className, elementId)
+  if (!container) {
+    return
+  }
+  iframeContainer.appendChild(container)
+  showMessage(text, container, source)
+  showSettingsButton(container, t)
+}
+export const handleAllowedIframeSources = (
+  iframe: HTMLIFrameElement,
+  externalSourcePermissions: ExternalSourcePermission,
+  storedIframeSource: string,
+  t: TFunction,
+  onUpdateCookie: (source: string) => void,
+  iframeIndex: number,
+  supportedSource: string,
+  viewportSmall: boolean,
+): void => {
+  const permission = supportedSource ? externalSourcePermissions[supportedSource] : undefined
+  const iframeId = `iframe-container${supportedSource}${iframeIndex}`
+  const iframeContainer = getIframeContainer(iframeId, viewportSmall, iframe)
+
+  if (permission === undefined) {
+    const message = `${t('remoteContent:knownResourceOptIn')}`
+    showOptIn(message, iframeContainer, supportedSource, onUpdateCookie, iframeIndex)
+  } else if (permission && storedIframeSource) {
+    showIframe(iframe, storedIframeSource)
+    // Add do not track parameter (only working for vimeo)
+    if (supportedSource === 'vimeo.com') {
+      addDoNotTrackParameter(iframe)
+    }
+    const message = `${t('remoteContent:knownResourceContentMessage')}`
+    showMessageWithSettings(message, iframeContainer, t, supportedSource, iframeIndex, true)
+  } else {
+    const message = t('remoteContent:knownResourceBlocked')
+    showMessageWithSettings(message, iframeContainer, t, supportedSource, iframeIndex, false)
+  }
+}

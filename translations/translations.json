@@ -8410,24 +8410,26 @@
   },
   "remoteContent": {
     "de": {
-      "knownResourceOptIn": "Ich bin damit einverstanden, dass mir Inhalte dieser externen Quelle angezeigt werden: ",
-      "knownResourceContentMessage": "Dieses Element enthält Daten von dieser externen Quelle. Du kannst die Einbettung solcher Inhalte in den Einstellungen blockieren",
+      "knownResourceOptIn": "Ich bin damit einverstanden, dass mir Inhalte dieser externen Quelle angezeigt werden.",
+      "knownResourceContentMessage": "Dieses Element enthält Daten von einer externen Quelle. Du kannst die Einbettung solcher Inhalte in den Einstellungen blockieren.",
       "knownResourceBlocked": "Externer Inhalt von dieser Quelle wurde geblockt. Unter Einstellungen kannst du diese Quelle zulassen."
     },
     "en": {
-      "knownResourceOptIn": "I agree that content from this external source may be displayed to me: ",
-      "knownResourceContentMessage": "This element contains data from that external source. You can block the embedding of such content in settings.",
+      "knownResourceOptIn": "I agree that content from this external source may be displayed to me.",
+      "knownResourceContentMessage": "This element contains data from an external source. You can block the embedding of such content in settings.",
       "knownResourceBlocked": "External content from this source has been blocked. You can allow this source in settings."
     }
   },
   "consent": {
     "de": {
       "title": "Externe Quellen",
+      "description": "Die Anzeige von eingebetteten Inhalten von Drittanbietern kannst du permanent zustimmen. Die Auswahl wird daraufhin dauerhaft in deinem Internetbrowser gespeichert. Die Einwilligung kann hier jederzeit widerrufen werden.",
       "consentDescription": "Inhalte von {{source}} zulassen",
       "noSources": "Keine externen Quellen verfügbar."
     },
     "en": {
       "title": "External Sources",
+      "description": "You can permanently agree to the display of embedded content from third-party providers. The selection will then be permanently saved in your internet browser. You can revoke your consent here at any time.",
       "consentDescription": "Allow content from {{source}}",
       "noSources": "No external sources available."
     }
