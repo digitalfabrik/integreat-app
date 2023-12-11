@@ -27,7 +27,6 @@ type ConsentSectionProps = {
 }
 
 const ConsentSection = ({ title, description, allowed, onPress }: ConsentSectionProps): ReactElement => {
-  const [allow, setAllow] = useState<boolean>(allowed)
 
   return (
     <>
