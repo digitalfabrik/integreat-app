@@ -1,17 +1,17 @@
 import { TFunction } from 'i18next'
 
+import { ExternalSourcePermissions } from 'api-client'
 import { ThemeType } from 'build-configs'
 
 import { ParsedCacheDictionaryType } from '../components/Page'
 import {
+  ALLOW_EXTERNAL_SOURCE_MESSAGE_TYPE,
   ERROR_MESSAGE_TYPE,
   getFontFaceSource,
   HEIGHT_MESSAGE_TYPE,
-  IFRAME_MESSAGE_TYPE,
-  SETTINGS_MESSAGE_TYPE,
+  OPEN_SETTINGS_MESSAGE_TYPE,
   WARNING_MESSAGE_TYPE,
 } from '../constants/webview'
-import { ExternalSourcePermission } from './AppSettings'
 
 // To use parameters or external constants in renderJS, you need to use string interpolation, e.g.
 // const cacheDictionary = ${JSON.stringify(cacheDictionary)}
@@ -19,7 +19,7 @@ import { ExternalSourcePermission } from './AppSettings'
 const renderJS = (
   cacheDictionary: ParsedCacheDictionaryType,
   supportedIframeSources: string[],
-  externalSourcePermissions: ExternalSourcePermission,
+  externalSourcePermissions: ExternalSourcePermissions,
   t: TFunction,
 ) => `
   function reportError(message, type) {
@@ -113,17 +113,29 @@ const renderJS = (
   })();
 
   (function handleIframes() {
-    function showMessage(text, element, className, iframeSource) {
-      const textNode = document.createTextNode(text)
-      if (className) {
-        element.classList.add(className)
-      }
 
+    function getContainer (element, className)  {
+      const container = document.createElement('div')
+      container.id = className
+      container.classList.add(className)
+      element.appendChild(container)
+      return container
+    }
+    
+    function showMessage(text, element, iframeSource) {
+      const textNode = document.createTextNode(text)
       if (iframeSource) {
-        element.appendChild(document.createTextNode(iframeSource))
-        element.appendChild(document.createElement('br'))
+        showSource(element, iframeSource)
       }
       element.appendChild(textNode)
+    }
+
+    function showSource(element, source) {
+      const span = document.createElement('span')
+      span.classList.add('iframe-source')
+      element.appendChild(span)
+      span.appendChild(document.createTextNode(source))
+      element.appendChild(document.createElement('br'))
     }
 
     function showSettingsButton(element) {
@@ -141,8 +153,9 @@ const renderJS = (
     }
 
     function showMessageWithSettings(text, iframeContainer, iframeSource) {
-      showMessage(text, iframeContainer, 'iframe-info-text', iframeSource)
-      showSettingsButton(iframeContainer)
+      const container = getContainer(iframeContainer, 'iframe-info-text')
+      showMessage(text, container, iframeSource)
+      showSettingsButton(container)
     }
 
     function showOptIn(text, iframeContainer, source) {
@@ -151,6 +164,7 @@ const renderJS = (
           JSON.stringify({ type: '${ALLOW_EXTERNAL_SOURCE_MESSAGE_TYPE}', source }),
         )
       }
+      const container = getContainer(iframeContainer, 'iframe-info-text')
 
       const checkbox = document.createElement('input')
       checkbox.type = 'checkbox'
@@ -160,19 +174,15 @@ const renderJS = (
       const label = document.createElement('label')
       label.htmlFor = checkbox.name
       label.appendChild(document.createTextNode(text))
-      iframeContainer.appendChild(label)
-      iframeContainer.appendChild(checkbox)
+      container.appendChild(label)
+      container.appendChild(checkbox)
     }
-
-    function showBlockMessageWithSettings(iframeSource, text, iframeContainer) {
-      showMessage(text, iframeContainer, null, iframeSource)
-      showSettingsButton(iframeContainer)
-    }
-
+    
     function handleSupportedIframeSources(iframe, externalSourcePermissions, iframeSource) {
       const iframeContainer = document.createElement('div')
       iframeContainer.classList.add('iframe-container')
       iframe.parentNode.appendChild(iframeContainer)
+      iframeContainer.appendChild(iframe)
       if (externalSourcePermissions[iframeSource] === undefined) {
         const translation = '${t('remoteContent:knownResourceOptIn')}'
         const message = translation + iframeSource
@@ -188,8 +198,8 @@ const renderJS = (
         const message = '${t('remoteContent:knownResourceContentMessage')}'
         showMessageWithSettings(message, iframeContainer, iframeSource)
       } else {
-        const translation = '${t('remoteContent:knownResourceBlocked')}'
-        showBlockMessageWithSettings(iframeSource, translation, iframeContainer)
+        const message = '${t('remoteContent:knownResourceBlocked')}'
+        showMessageWithSettings(message, iframeContainer, iframeSource)
         iframe.remove()
       }
     }
@@ -218,7 +228,7 @@ const renderHtml = (
   supportedIframeSources: string[],
   theme: ThemeType,
   language: string,
-  externalSourcePermissions: ExternalSourcePermission,
+  externalSourcePermissions: ExternalSourcePermissions,
   t: TFunction,
 ): string => `
   <!-- The lang attribute makes TalkBack use the appropriate language. -->
@@ -347,33 +357,32 @@ const renderHtml = (
 
       iframe {
         border: none;
-        width: calc(100vw);
-        height: calc(60vw);
-        background-color: ${theme.colors.backgroundAccentColor};
+        border-bottom: 1px solid ${theme.colors.borderColor};
+        max-height: 58vw;
+        max-width: 100%;
       }
 
       .iframe-container {
-        padding: 12px;
-        background-color: ${theme.colors.themeColor};
         display: flex;
-        border-bottom-radius: 4px;
-        overflow-wrap: anywhere;
-        font-size: ${theme.fonts.hintFontSize};
+        flex-direction: column;
+        border: 1px solid ${theme.colors.borderColor};
+        border-radius: 4px;
+        box-shadow:
+          0 1px 3px rgb(0 0 0 / 10%),
+          0 1px 2px rgb(0 0 0 / 15%);
       }
 
       .iframe-info-text {
+        display: flex;
+        flex-direction: row;
         font-size: ${theme.fonts.decorativeFontSizeSmall};
-        background-color: ${theme.colors.backgroundAccentColor};
-      }
-
-      .iframe-info-text > #opt-in-settings-button {
-        font-size: ${theme.fonts.decorativeFontSizeSmall};
+        padding: 12px;
+        justify-content: space-between;
       }
 
       .iframe-source {
-        white-space: nowrap;
-        display: block;
-        width: 100%;
+        display: contents;
+        font-weight: bold;
       }
 
       #opt-in-settings-button {
@@ -383,22 +392,14 @@ const renderHtml = (
         padding: 0;
         overflow-wrap: normal;
         color: ${theme.colors.tunewsThemeColor};
-        font-size: ${theme.fonts.hintFontSize};
       }
 
       #opt-in-checkbox {
         display: flex;
         margin-left: 12px;
         align-self: center;
-        /* Webview in android doesn't set correct size for checkboxes */
-        height: 40px;
-        width: 40px;
-
-        @media not screen and (-webkit-min-device-pixel-ratio: 1) {
-          height: 16px;
-          width: 16px;
-        }
       }
+      
     </style>
   </head>
   <body dir='auto'>

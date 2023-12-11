@@ -27,7 +27,7 @@ type ConsentSectionProps = {
 }
 
 const ConsentSection = ({ title, description, allowed, onPress }: ConsentSectionProps): ReactElement => {
-
+  const [allow, setAllow] = useState<boolean>(allowed)
   return (
     <>
       <Container>
@@ -37,8 +37,8 @@ const ConsentSection = ({ title, description, allowed, onPress }: ConsentSection
         </TextContainer>
         <SettingsSwitch
           onPress={val => {
-            setAllow(val)
             onPress(title, val)
+            setAllow(val)
           }}
           value={allow}
         />
