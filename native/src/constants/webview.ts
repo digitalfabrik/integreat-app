@@ -4,8 +4,8 @@ import { WebViewSource } from 'react-native-webview/lib/WebViewTypes'
 export const ERROR_MESSAGE_TYPE = 'error'
 export const WARNING_MESSAGE_TYPE = 'warning'
 export const HEIGHT_MESSAGE_TYPE = 'height'
-export const IFRAME_MESSAGE_TYPE = 'iframe'
-export const SETTINGS_MESSAGE_TYPE = 'settings'
+export const ALLOW_EXTERNAL_SOURCE_MESSAGE_TYPE = 'iframe'
+export const OPEN_SETTINGS_MESSAGE_TYPE = 'settings'
 
 export const URL_PREFIX = 'file://'
 export const getFontFaceSource = (fontName: string): string | undefined =>

@@ -1,10 +1,9 @@
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { fromPairs, mapValues, toPairs } from 'lodash'
 
-import { SignalType } from 'api-client'
+import { SignalType, ExternalSourcePermissions } from 'api-client'
 
 export const ASYNC_STORAGE_VERSION = '1'
-export type ExternalSourcePermission = Record<string, boolean>
 export type SettingsType = {
   storageVersion: string | null
   contentLanguage: string | null
@@ -16,7 +15,7 @@ export type SettingsType = {
   jpalTrackingEnabled: boolean | null
   jpalTrackingCode: string | null
   jpalSignals: Array<SignalType>
-  externalSourcePermissions: ExternalSourcePermission
+  externalSourcePermissions: ExternalSourcePermissions
 }
 export const defaultSettings: SettingsType = {
   storageVersion: null,
@@ -76,13 +75,13 @@ class AppSettings {
     return settings.storageVersion
   }
 
-  setExternalSourcePermissions = async (permissions: ExternalSourcePermission): Promise<void> => {
+  setExternalSourcePermissions = async (permissions: ExternalSourcePermissions): Promise<void> => {
     await this.setSettings({
       externalSourcePermissions: permissions,
     })
   }
 
-  loadExternalSourcePermissions = async (): Promise<ExternalSourcePermission> => {
+  loadExternalSourcePermissions = async (): Promise<ExternalSourcePermissions> => {
     const settings = await this.loadSettings()
     return settings.externalSourcePermissions
   }

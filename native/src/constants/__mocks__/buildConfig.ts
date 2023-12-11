@@ -20,7 +20,7 @@ const buildConfig = jest.fn<CommonBuildConfigType, []>(
     switchCmsUrl: 'https://cms-test.integreat-app.de',
     hostName: 'integreat.app',
     allowedHostNames: ['cms.integreat-app.de', 'cms-test.integreat-app.de', 'admin.integreat-app.de'],
-    supportedIframeSources: ['vimeo'],
+    supportedIframeSources: ['vimeo.com'],
     internalLinksHijackPattern:
       'https?:\\/\\/(cms(-test)?\\.integreat-app\\.de|web\\.integreat-app\\.de|integreat\\.app)(?!\\/[^/]*\\/(wp-content|wp-admin|wp-json)\\/.*).*',
     featureFlags: {
