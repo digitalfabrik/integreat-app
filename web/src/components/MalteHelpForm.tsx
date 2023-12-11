@@ -1,9 +1,11 @@
 import React, { ReactElement, SyntheticEvent, useCallback, useState } from 'react'
 import { useTranslation } from 'react-i18next'
+import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 
 import { SecurityIcon, SupportIcon } from '../assets'
 import Icon from '../components/base/Icon'
+import { Container } from './Feedback'
 import Button from './base/Button'
 import InputSection from './base/InputSection'
 import RadioElement, { RadioGroup } from './base/RadioElement'
@@ -52,8 +54,15 @@ const Form = styled.form`
   flex-direction: column;
 `
 
+const SubmitErrorHeading = styled.h5`
+  margin: 0;
+  font-size: ${props => props.theme.fonts.subTitleFontSize};
+`
+
 const ErrorSendingStatus = styled.div`
-  font-weight: bold;
+  background-color: ${props => props.theme.colors.invalidInput}35;
+  padding: 20px 10px;
+  margin: 10px 0;
 `
 
 type ContactChannel = 'email' | 'telephone' | 'person'
@@ -62,10 +71,10 @@ type SendingStatusType = 'idle' | 'sending' | 'failed' | 'successful'
 
 type MalteHelpFormProps = {
   submit: () => Promise<void>
-  backToDashboard: () => void
+  dashboardRoute: string
 }
 
-const MalteHelpForm = ({ submit, backToDashboard }: MalteHelpFormProps): ReactElement => {
+const MalteHelpForm = ({ submit, dashboardRoute }: MalteHelpFormProps): ReactElement => {
   const { t } = useTranslation('zammad')
   const [sendingStatus, setSendingStatus] = useState<SendingStatusType>('idle')
   const [submitted, setSubmitted] = useState(false)
@@ -87,6 +96,7 @@ const MalteHelpForm = ({ submit, backToDashboard }: MalteHelpFormProps): ReactEl
           (a, b) => a.getBoundingClientRect().top - b.getBoundingClientRect().top,
         )
         invalidInputs[0]?.scrollIntoView({ block: 'center', behavior: 'smooth' })
+        setSendingStatus('idle')
       } else {
         setSendingStatus('sending')
         const request = async () => {
@@ -96,6 +106,7 @@ const MalteHelpForm = ({ submit, backToDashboard }: MalteHelpFormProps): ReactEl
 
         request().catch(err => {
           reportError(err)
+          event.preventDefault()
           setSendingStatus('failed')
         })
       }
@@ -105,22 +116,15 @@ const MalteHelpForm = ({ submit, backToDashboard }: MalteHelpFormProps): ReactEl
 
   if (sendingStatus === 'successful') {
     return (
-      <>
+      <Container>
         <div>{t('submitSuccessful')}</div>
-        <Button onClick={backToDashboard} ariaLabel={t('error:goTo.categories')}>
-          {t('error:goTo.categories')}
-        </Button>
-      </>
+        <Link to={dashboardRoute}>{t('error:goTo.categories')}</Link>
+      </Container>
     )
   }
 
   return (
     <>
-      {sendingStatus === 'failed' && (
-        <ErrorSendingStatus role='alert'>
-          <h1>{t('failedSendingFeedback')}</h1>
-        </ErrorSendingStatus>
-      )}
       <Note>
         <StyledIcon src={SupportIcon} />
         {t('zammad:supportNote')}
@@ -217,7 +221,17 @@ const MalteHelpForm = ({ submit, backToDashboard }: MalteHelpFormProps): ReactEl
           submitted={submitted}
         />
         <p>{t('responseDisclaimer')}</p>
-        <SubmitButton onClick={() => setSubmitted(true)} ariaLabel={t('submit')} type='submit'>
+        {sendingStatus === 'failed' && (
+          <ErrorSendingStatus role='alert'>
+            <SubmitErrorHeading>{t('submitFailed')}</SubmitErrorHeading>
+            {t('submitFailedReasoning')}
+          </ErrorSendingStatus>
+        )}
+        <SubmitButton
+          disabled={sendingStatus === 'sending'}
+          onClick={() => setSubmitted(true)}
+          ariaLabel={t('submit')}
+          type='submit'>
           {t('submit')}
         </SubmitButton>
       </Form>

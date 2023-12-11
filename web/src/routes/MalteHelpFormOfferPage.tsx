@@ -1,6 +1,5 @@
 import React, { ReactElement, useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
-import { useNavigate } from 'react-router-dom'
 
 import {
   pathnameFromRouteInformation,
@@ -24,7 +23,6 @@ import { cmsApiBaseUrl } from '../constants/urls'
 
 const MalteHelpFormOfferPage = ({ city, cityCode, languageCode, embedded }: CityRouteProps): ReactElement | null => {
   const { t } = useTranslation('dashboard')
-  const navigate = useNavigate()
   const load = useCallback(
     () => submitHelpForm({ cityCode, languageCode, baseUrl: cmsApiBaseUrl }),
     [cityCode, languageCode],
@@ -81,10 +79,7 @@ const MalteHelpFormOfferPage = ({ city, cityCode, languageCode, embedded }: City
     <CityContentLayout isLoading={false} {...locationLayoutParams}>
       {!embedded && <Helmet pageTitle={pageTitle} languageChangePaths={languageChangePaths} cityModel={city} />}
       {!embedded && <Caption title={offer.title} />}
-      <MalteHelpForm
-        backToDashboard={() => navigate(cityContentPath({ cityCode, languageCode, route: CATEGORIES_ROUTE }))}
-        submit={submit}
-      />
+      <MalteHelpForm dashboardRoute={cityContentPath({ cityCode, languageCode })} submit={submit} />
     </CityContentLayout>
   )
 }
