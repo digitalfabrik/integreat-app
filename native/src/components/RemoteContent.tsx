@@ -1,7 +1,7 @@
 import { useFocusEffect } from '@react-navigation/native'
 import React, { ReactElement, useCallback, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Text, Platform } from 'react-native'
+import { Text, Platform, useWindowDimensions } from 'react-native'
 import WebView, { WebViewMessageEvent } from 'react-native-webview'
 import { WebViewNavigation } from 'react-native-webview/lib/WebViewTypes'
 import { useTheme } from 'styled-components/native'
@@ -9,6 +9,7 @@ import { useTheme } from 'styled-components/native'
 import { CONSENT_ROUTE, ErrorCode, ExternalSourcePermissions } from 'api-client'
 
 import buildConfig from '../constants/buildConfig'
+import dimensions from '../constants/dimensions'
 import { userAgent } from '../constants/endpoint'
 import {
   ALLOW_EXTERNAL_SOURCE_MESSAGE_TYPE,
@@ -54,6 +55,7 @@ const RemoteContent = (props: RemoteContentProps): ReactElement | null => {
   const [webViewHeight, setWebViewHeight] = useState<number>(defaultWebviewHeight)
   const theme = useTheme()
   const { t } = useTranslation()
+  const { width: deviceWidth } = useWindowDimensions()
 
   useEffect(() => {
     // If it takes too long returning false in onShouldStartLoadWithRequest the webview loads the pressed url anyway on android.
@@ -75,6 +77,7 @@ const RemoteContent = (props: RemoteContentProps): ReactElement | null => {
       appSettings.loadExternalSourcePermissions().then(setExternalSourcePermissions).catch(reportError)
     }, []),
   )
+
   // messages are triggered in renderHtml.ts
   const onMessage = useCallback(
     (event: WebViewMessageEvent) => {
@@ -150,6 +153,8 @@ const RemoteContent = (props: RemoteContentProps): ReactElement | null => {
           language,
           externalSourcePermissions,
           t,
+          deviceWidth,
+          dimensions.pageContainerPaddingHorizontal,
         ),
       }}
       originWhitelist={['*']} // Needed by iOS to load the initial html

@@ -1,19 +1,18 @@
-import { useFocusEffect } from '@react-navigation/native'
-import React, { ReactElement, useCallback, useState } from 'react'
+import React, { ReactElement, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import styled from 'styled-components/native'
 
 import { ExternalSourcePermissions } from 'api-client'
 
+import Caption from '../components/Caption'
+import ConsentSection from '../components/ConsentSection'
+import Layout from '../components/Layout'
+import List from '../components/List'
+import ItemSeparator from '../components/base/ItemSeparator'
+import Text from '../components/base/Text'
 import buildConfig from '../constants/buildConfig'
 import appSettings from '../utils/AppSettings'
 import { reportError } from '../utils/sentry'
-import Caption from './Caption'
-import ConsentSection from './ConsentSection'
-import Layout from './Layout'
-import List from './List'
-import ItemSeparator from './base/ItemSeparator'
-import Text from './base/Text'
 
 const Description = styled(Text)`
   margin-bottom: 24px;
@@ -22,20 +21,16 @@ const Consent = (): ReactElement | null => {
   const [externalSourcePermissions, setExternalSourcePermissions] = useState<ExternalSourcePermissions | null>(null)
   const { t } = useTranslation('consent')
 
-  useFocusEffect(
-    useCallback(() => {
-      appSettings.loadExternalSourcePermissions().then(setExternalSourcePermissions).catch(reportError)
-    }, []),
-  )
+  useEffect(() => {
+    appSettings.loadExternalSourcePermissions().then(setExternalSourcePermissions).catch(reportError)
+  }, [])
 
-  // permissions not initialized
   if (!externalSourcePermissions) {
     return null
   }
 
-  const onPress = (type: string, allowed: boolean) => {
-    const updatedSources: Record<string, boolean> = externalSourcePermissions
-    updatedSources[type] = allowed
+  const onPress = (source: string) => {
+    const updatedSources = { ...externalSourcePermissions, [source]: !externalSourcePermissions[source] }
     setExternalSourcePermissions(updatedSources)
     appSettings.setExternalSourcePermissions(updatedSources).catch(reportError)
   }
@@ -46,7 +41,7 @@ const Consent = (): ReactElement | null => {
       title={item}
       description={t('consentDescription', { source: item })}
       allowed={externalSourcePermissions[item] ?? false}
-      onPress={onPress}
+      onPress={() => onPress(item)}
     />
   )
 
