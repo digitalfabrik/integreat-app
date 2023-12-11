@@ -8423,11 +8423,13 @@
   "consent": {
     "de": {
       "title": "Externe Quellen",
+      "descriptionNative": "Die Anzeige von eingebetteten Inhalten von Drittanbietern kannst du permanent zustimmen. Die Auswahl wird daraufhin dauerhaft auf deinem lokalen Gerät gespeichert. Die Einwilligung kann hier jederzeit widerrufen werden.",
       "consentDescription": "Inhalte von {{source}} zulassen",
       "noSources": "Keine externen Quellen verfügbar."
     },
     "en": {
       "title": "External Sources",
+      "descriptionNative": "You can permanently agree to the display of embedded content from third-party providers. The selection will then be permanently saved to your local device. You can revoke your consent here at any time.",
       "consentDescription": "Allow content from {{source}}",
       "noSources": "No external sources available."
     }

@@ -1,18 +1,25 @@
 import { useFocusEffect } from '@react-navigation/native'
 import React, { ReactElement, useCallback, useState } from 'react'
 import { useTranslation } from 'react-i18next'
+import styled from 'styled-components/native'
+
+import { ExternalSourcePermissions } from 'api-client'
 
 import buildConfig from '../constants/buildConfig'
-import appSettings, { ExternalSourcePermission } from '../utils/AppSettings'
+import appSettings from '../utils/AppSettings'
 import { reportError } from '../utils/sentry'
 import Caption from './Caption'
 import ConsentSection from './ConsentSection'
 import Layout from './Layout'
 import List from './List'
 import ItemSeparator from './base/ItemSeparator'
+import Text from './base/Text'
 
+const Description = styled(Text)`
+  margin-bottom: 24px;
+`
 const Consent = (): ReactElement | null => {
-  const [externalSourcePermissions, setExternalSourcePermissions] = useState<ExternalSourcePermission | null>(null)
+  const [externalSourcePermissions, setExternalSourcePermissions] = useState<ExternalSourcePermissions | null>(null)
   const { t } = useTranslation('consent')
 
   useFocusEffect(
@@ -21,7 +28,7 @@ const Consent = (): ReactElement | null => {
     }, []),
   )
 
-  // not permissions initialized
+  // permissions not initialized
   if (!externalSourcePermissions) {
     return null
   }
@@ -51,6 +58,7 @@ const Consent = (): ReactElement | null => {
         Header={
           <>
             <Caption title={t('title')} />
+            <Description>{t('descriptionNative')}</Description>
             <ItemSeparator />
           </>
         }
