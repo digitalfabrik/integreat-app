@@ -148,7 +148,7 @@ const renderJS = (
     function showOptIn(text, iframeContainer, source) {
       function onClickHandler() {
         window.ReactNativeWebView.postMessage(
-          JSON.stringify({ type: '${IFRAME_MESSAGE_TYPE}', allowedSource: { type: source, allowed: true } }),
+          JSON.stringify({ type: '${ALLOW_EXTERNAL_SOURCE_MESSAGE_TYPE}', source }),
         )
       }
 
