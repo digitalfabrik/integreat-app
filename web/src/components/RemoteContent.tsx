@@ -3,13 +3,20 @@ import React, { ReactElement, useCallback, useEffect, useState, useMemo } from '
 import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
 
+import { ExternalSourcePermissions } from 'api-client'
+
 import { ExternalLinkIcon } from '../assets'
 import buildConfig from '../constants/buildConfig'
 import dimensions from '../constants/dimensions'
 import { helpers } from '../constants/theme'
 import useCookie from '../hooks/useCookie'
 import useWindowDimensions from '../hooks/useWindowDimensions'
-import { handleAllowedIframeSources, hideIframe, preserveIFrameSourcesFromContent } from '../utils/iframes'
+import {
+  EXTERNAL_SOURCES_COOKIE_NAME,
+  handleAllowedIframeSources,
+  hideIframe,
+  preserveIFrameSourcesFromContent,
+} from '../utils/iframes'
 
 const SandBox = styled.div<{ centered: boolean; smallText: boolean }>`
   font-family: ${props => props.theme.fonts.web.contentFont};
@@ -162,7 +169,6 @@ const HIJACK = new RegExp(buildConfig().internalLinksHijackPattern)
 const DOMPURIFY_TAG_IFRAME = 'iframe'
 const DOMPURIFY_ATTRIBUTE_FULLSCREEN = 'allowfullscreen'
 
-export type ExternalSourcePermission = Record<string, boolean>
 export type IframeSources = Record<number, string>
 export const IFRAME_BLANK_SOURCE = 'about:blank'
 
@@ -173,13 +179,13 @@ const RemoteContent = ({
   smallText = false,
 }: RemoteContentProps): ReactElement => {
   const sandBoxRef = React.createRef<HTMLDivElement>()
-  const { value: sources, updateCookie } = useCookie('externalSources')
-  const externalSourcePermissions: ExternalSourcePermission = useMemo(
+  const { value: sources, updateCookie } = useCookie(EXTERNAL_SOURCES_COOKIE_NAME)
+  const externalSourcePermissions: ExternalSourcePermissions = useMemo(
     () => (sources ? JSON.parse(sources) : {}),
     [sources],
   )
   const [contentIframeSources, setContentIframeSources] = useState<IframeSources>({})
-  const { viewportSmall } = useWindowDimensions()
+  const { viewportSmall, width: deviceWidth } = useWindowDimensions()
   const { t } = useTranslation()
 
   const handleClick = useCallback(
@@ -237,10 +243,21 @@ const RemoteContent = ({
           index,
           supportedSource,
           viewportSmall,
+          deviceWidth,
         )
       }
     })
-  }, [t, html, handleClick, sandBoxRef, externalSourcePermissions, contentIframeSources, onUpdateCookie, viewportSmall])
+  }, [
+    t,
+    html,
+    handleClick,
+    sandBoxRef,
+    externalSourcePermissions,
+    contentIframeSources,
+    onUpdateCookie,
+    viewportSmall,
+    deviceWidth,
+  ])
 
   const dangerouslySetInnerHTML = {
     __html: Dompurify.sanitize(html, {

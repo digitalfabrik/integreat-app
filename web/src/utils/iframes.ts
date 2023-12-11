@@ -1,9 +1,11 @@
 import { TFunction } from 'i18next'
 
-import { CONSENT_ROUTE } from 'api-client'
+import { CONSENT_ROUTE, ExternalSourcePermissions } from 'api-client'
 
-import { ExternalSourcePermission, IFRAME_BLANK_SOURCE, IframeSources } from '../components/RemoteContent'
+import { IFRAME_BLANK_SOURCE, IframeSources } from '../components/RemoteContent'
+import dimensions from '../constants/dimensions'
 
+export const EXTERNAL_SOURCES_COOKIE_NAME = 'Opt-In-External-Sources'
 export const addDoNotTrackParameter = (iframe: HTMLIFrameElement): void => {
   if (iframe.src.includes('vimeo')) {
     const url = new URL(iframe.src)
@@ -28,7 +30,7 @@ export const hideIframe = (iframe: HTMLIFrameElement): void => {
   iframe.setAttribute('style', 'display:none')
 }
 
-export const showIframe = (iframe: HTMLIFrameElement, source: string): void => {
+export const restoreIframe = (iframe: HTMLIFrameElement, source: string): void => {
   iframe.setAttribute('src', source)
   iframe.setAttribute('style', 'display:block')
 }
@@ -44,7 +46,12 @@ const getContainer = (element: HTMLElement, className: string, id: string): HTML
   return container
 }
 
-const getIframeContainer = (id: string, viewportSmall: boolean, iframe: HTMLIFrameElement): HTMLDivElement => {
+const getIframeContainer = (
+  id: string,
+  viewportSmall: boolean,
+  iframe: HTMLIFrameElement,
+  deviceWidth: number,
+): HTMLDivElement => {
   const existingContainer = document.getElementById(id)
   if (existingContainer) {
     return existingContainer as HTMLDivElement
@@ -54,13 +61,19 @@ const getIframeContainer = (id: string, viewportSmall: boolean, iframe: HTMLIFra
   iframeContainer.id = id
   iframe.parentNode?.appendChild(iframeContainer)
   iframeContainer.appendChild(iframe)
-  if (!viewportSmall) {
+  if (viewportSmall) {
+    // Scale the height depending on device width minus padding
+    const scaledHeight =
+      (deviceWidth / Number(iframe.width)) * Number(iframe.height) - dimensions.mainContainerHorizontalPadding
+    iframe.setAttribute('height', `${scaledHeight}`)
+  } else {
+    // Set the container width according to the iframe width
     iframeContainer.setAttribute('style', `width:${iframe.width}px!important`)
   }
   return iframeContainer
 }
 
-const removeOptInt = (elementId: string) => {
+const removeOptInContainer = (elementId: string) => {
   const element = document.getElementById(elementId)
   if (element) {
     element.remove()
@@ -131,7 +144,7 @@ const showMessageWithSettings = (
   removeOptIn: boolean,
 ) => {
   if (removeOptIn) {
-    removeOptInt(`iframe-info-text${source}${iframeIndex}`)
+    removeOptInContainer(`iframe-info-text${source}${iframeIndex}`)
   }
   const className = `iframe-info-text`
   const elementId = `${className}${source}${iframeIndex}`
@@ -145,23 +158,24 @@ const showMessageWithSettings = (
 }
 export const handleAllowedIframeSources = (
   iframe: HTMLIFrameElement,
-  externalSourcePermissions: ExternalSourcePermission,
+  externalSourcePermissions: ExternalSourcePermissions,
   storedIframeSource: string,
   t: TFunction,
   onUpdateCookie: (source: string) => void,
   iframeIndex: number,
   supportedSource: string,
   viewportSmall: boolean,
+  deviceWidth: number,
 ): void => {
   const permission = supportedSource ? externalSourcePermissions[supportedSource] : undefined
   const iframeId = `iframe-container${supportedSource}${iframeIndex}`
-  const iframeContainer = getIframeContainer(iframeId, viewportSmall, iframe)
+  const iframeContainer = getIframeContainer(iframeId, viewportSmall, iframe, deviceWidth)
 
   if (permission === undefined) {
     const message = `${t('remoteContent:knownResourceOptIn')}`
     showOptIn(message, iframeContainer, supportedSource, onUpdateCookie, iframeIndex)
   } else if (permission && storedIframeSource) {
-    showIframe(iframe, storedIframeSource)
+    restoreIframe(iframe, storedIframeSource)
     // Add do not track parameter (only working for vimeo)
     if (supportedSource === 'vimeo.com') {
       addDoNotTrackParameter(iframe)

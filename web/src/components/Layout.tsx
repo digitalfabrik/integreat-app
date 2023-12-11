@@ -74,7 +74,7 @@ const Main = styled.main<{ fullWidth: boolean }>`
   max-width: calc(100% - ${dimensions.toolbarWidth}px);
   box-sizing: border-box;
   margin: 0 auto;
-  padding: ${props => (props.fullWidth ? '0' : '0 10px 30px')};
+  padding: ${props => (props.fullWidth ? '0' : `0 ${dimensions.mainContainerHorizontalPadding}px 30px`)};
   text-align: start;
   word-wrap: break-word;
 

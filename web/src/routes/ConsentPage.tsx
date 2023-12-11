@@ -2,15 +2,17 @@ import React, { ReactElement, useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
 
+import { ExternalSourcePermissions } from 'api-client'
+
 import Caption from '../components/Caption'
 import ConsentSection from '../components/ConsentSection'
 import GeneralFooter from '../components/GeneralFooter'
 import GeneralHeader from '../components/GeneralHeader'
 import Layout from '../components/Layout'
 import List from '../components/List'
-import { ExternalSourcePermission } from '../components/RemoteContent'
 import buildConfig from '../constants/buildConfig'
 import useCookie from '../hooks/useCookie'
+import { EXTERNAL_SOURCES_COOKIE_NAME } from '../utils/iframes'
 
 const Description = styled.div`
   margin-bottom: 24px;
@@ -19,8 +21,8 @@ const Description = styled.div`
 type ConsentPageProps = { languageCode: string }
 const ConsentPage = ({ languageCode }: ConsentPageProps): ReactElement => {
   const { t } = useTranslation('consent')
-  const { value: sources, updateCookie } = useCookie('externalSources')
-  const externalSourcePermissions: ExternalSourcePermission = useMemo(
+  const { value: sources, updateCookie } = useCookie(EXTERNAL_SOURCES_COOKIE_NAME)
+  const externalSourcePermissions: ExternalSourcePermissions = useMemo(
     () => (sources ? JSON.parse(sources) : {}),
     [sources],
   )
