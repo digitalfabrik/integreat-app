@@ -52,15 +52,22 @@ const Form = styled.form`
   flex-direction: column;
 `
 
+const ErrorSendingStatus = styled.div`
+  font-weight: bold;
+`
+
 type ContactChannel = 'email' | 'telephone' | 'person'
 type ContactType = 'male' | 'female' | 'any'
+type SendingStatusType = 'idle' | 'sending' | 'failed' | 'successful'
 
 type MalteHelpFormProps = {
-  onSubmit: () => Promise<void>
+  submit: () => Promise<void>
+  backToDashboard: () => void
 }
 
-const MalteHelpForm = ({ onSubmit }: MalteHelpFormProps): ReactElement => {
+const MalteHelpForm = ({ submit, backToDashboard }: MalteHelpFormProps): ReactElement => {
   const { t } = useTranslation('zammad')
+  const [sendingStatus, setSendingStatus] = useState<SendingStatusType>('idle')
   const [submitted, setSubmitted] = useState(false)
   const [contactChannel, setContactChannel] = useState<ContactChannel>('email')
   const [email, setEmail] = useState('')
@@ -81,14 +88,39 @@ const MalteHelpForm = ({ onSubmit }: MalteHelpFormProps): ReactElement => {
         )
         invalidInputs[0]?.scrollIntoView({ block: 'center', behavior: 'smooth' })
       } else {
-        onSubmit()
+        setSendingStatus('sending')
+        const request = async () => {
+          await submit()
+          setSendingStatus('successful')
+        }
+
+        request().catch(err => {
+          reportError(err)
+          setSendingStatus('failed')
+        })
       }
     },
-    [onSubmit],
+    [submit],
   )
+
+  if (sendingStatus === 'successful') {
+    return (
+      <>
+        <div>{t('submitSuccessful')}</div>
+        <Button onClick={backToDashboard} ariaLabel={t('error:goTo.categories')}>
+          {t('error:goTo.categories')}
+        </Button>
+      </>
+    )
+  }
 
   return (
     <>
+      {sendingStatus === 'failed' && (
+        <ErrorSendingStatus role='alert'>
+          <h1>{t('failedSendingFeedback')}</h1>
+        </ErrorSendingStatus>
+      )}
       <Note>
         <StyledIcon src={SupportIcon} />
         {t('zammad:supportNote')}

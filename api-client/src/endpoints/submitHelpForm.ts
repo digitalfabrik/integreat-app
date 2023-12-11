@@ -42,14 +42,8 @@ const submitHelpForm = async ({ cityCode, languageCode, baseUrl }: SubmitHelpFor
     )
   }
 
-  const submit = () => {
-    const randomBoundary = 0.5
-    if (Math.random() > randomBoundary) {
-      // eslint-disable-next-line no-console
-      return Promise.resolve(console.log('submit'))
-    }
-    return Promise.reject(new Error('error'))
-  }
+  // eslint-disable-next-line no-console
+  const submit = () => Promise.resolve(console.log('submit'))
 
   return { helpButtonOffer, submit }
 }

@@ -51,6 +51,7 @@ export type CityRouteProps = {
   pathname: string
   cityCode: string
   languageCode: string
+  embedded?: boolean
 }
 
 const CityContentSwitcher = ({ languageCode }: CityContentSwitcherProps): ReactElement => {

@@ -23,13 +23,13 @@ export const Title = styled.label`
 const GeneralInputStyles = css<{ submitted: boolean }>`
   padding: 0.75rem;
   background-clip: padding-box;
-  border: 1px solid ${props => props.theme.colors.textDisabledColor};
+  border: 1px solid ${props => props.theme.colors.textSecondaryColor};
   ${props =>
     props.submitted &&
     css`
       :invalid {
         :focus {
-          outline-color: ${props => props.theme.colors.invalidInput};
+          outline-color: ${props => props.theme.colors.invalidInput}33;
         }
 
         border-width: 2px;

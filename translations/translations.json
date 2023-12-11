@@ -9649,7 +9649,10 @@
       "causeOfContact": "Kurze Beschreibung des Anliegens:",
       "maxCharacters": "maximal {{numberOfCharacters}} Zeichen",
       "responseDisclaimer": "Es kann einige Werktage dauern, bis Sie eine Rückmeldung erhalten. Wir bemühen uns, ihr Anliegen schnellstmöglich zu bearbeiten.",
-      "submit": "Formular absenden"
+      "submit": "Formular absenden",
+      "submitSuccessful": "Formular wurde erfolgreich versandt",
+      "submitFailed": "Formular konnte nicht versandt werden",
+      "submitFailedReasoning": "Bitte gewährleisten Sie eine stabile Internetverbindung und versuchen Sie es erneut."
     }
   }
 }

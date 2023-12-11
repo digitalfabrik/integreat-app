@@ -1,5 +1,6 @@
 import React, { ReactElement, useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
+import { useNavigate } from 'react-router-dom'
 
 import {
   pathnameFromRouteInformation,
@@ -7,6 +8,8 @@ import {
   useLoadAsync,
   submitHelpForm,
   MALTE_HELP_FORM_OFFER_ROUTE,
+  cityContentPath,
+  CATEGORIES_ROUTE,
 } from 'api-client'
 
 import { CityRouteProps } from '../CityContentSwitcher'
@@ -19,12 +22,9 @@ import LoadingSpinner from '../components/LoadingSpinner'
 import MalteHelpForm from '../components/MalteHelpForm'
 import { cmsApiBaseUrl } from '../constants/urls'
 
-type MalteHelpFormOfferPageProps = {
-  embedded?: boolean
-} & CityRouteProps
-
-const MalteHelpFormOfferPage = ({ city, cityCode, languageCode, embedded }: MalteHelpFormOfferPageProps): ReactElement | null => {
+const MalteHelpFormOfferPage = ({ city, cityCode, languageCode, embedded }: CityRouteProps): ReactElement | null => {
   const { t } = useTranslation('dashboard')
+  const navigate = useNavigate()
   const load = useCallback(
     () => submitHelpForm({ cityCode, languageCode, baseUrl: cmsApiBaseUrl }),
     [cityCode, languageCode],
@@ -44,11 +44,11 @@ const MalteHelpFormOfferPage = ({ city, cityCode, languageCode, embedded }: Malt
   const pageTitle = `${data?.helpButtonOffer.title ?? t('offers')} - ${city.name}`
   const feedbackTarget = data?.helpButtonOffer ? getSlugFromPath(data.helpButtonOffer.path) : undefined
   const locationLayoutParams: Omit<CityContentLayoutProps, 'isLoading'> = {
+    embedded,
     city,
     languageChangePaths,
     route: MALTE_HELP_FORM_OFFER_ROUTE,
     languageCode,
-    embedded,
     Toolbar: (
       <CityContentToolbar
         languageCode={languageCode}
@@ -81,7 +81,10 @@ const MalteHelpFormOfferPage = ({ city, cityCode, languageCode, embedded }: Malt
     <CityContentLayout isLoading={false} {...locationLayoutParams}>
       {!embedded && <Helmet pageTitle={pageTitle} languageChangePaths={languageChangePaths} cityModel={city} />}
       {!embedded && <Caption title={offer.title} />}
-      <MalteHelpForm onSubmit={submit} />
+      <MalteHelpForm
+        backToDashboard={() => navigate(cityContentPath({ cityCode, languageCode, route: CATEGORIES_ROUTE }))}
+        submit={submit}
+      />
     </CityContentLayout>
   )
 }
