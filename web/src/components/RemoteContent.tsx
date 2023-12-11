@@ -26,6 +26,7 @@ const SandBox = styled.div<{ centered: boolean; smallText: boolean }>`
 
   ${props => (props.centered ? 'text-align: center;' : '')}
   ${props => (props.centered ? 'list-style-position: inside;' : '')}
+  
   img {
     max-width: 100%;
     max-height: 100%;
