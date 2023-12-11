@@ -1,4 +1,4 @@
-import React, { ReactElement, useState } from 'react'
+import React, { ReactElement } from 'react'
 import { View } from 'react-native'
 import styled from 'styled-components/native'
 
@@ -23,29 +23,20 @@ type ConsentSectionProps = {
   title: string
   description: string
   allowed: boolean
-  onPress: (type: string, value: boolean) => void
+  onPress: (value: boolean) => void
 }
 
-const ConsentSection = ({ title, description, allowed, onPress }: ConsentSectionProps): ReactElement => {
-  const [allow, setAllow] = useState<boolean>(allowed)
-  return (
-    <>
-      <Container>
-        <TextContainer>
-          <Text>{title}</Text>
-          <Description>{description}</Description>
-        </TextContainer>
-        <SettingsSwitch
-          onPress={val => {
-            onPress(title, val)
-            setAllow(val)
-          }}
-          value={allow}
-        />
-      </Container>
-      <ItemSeparator />
-    </>
-  )
-}
+const ConsentSection = ({ title, description, allowed, onPress }: ConsentSectionProps): ReactElement => (
+  <>
+    <Container>
+      <TextContainer>
+        <Text>{title}</Text>
+        <Description>{description}</Description>
+      </TextContainer>
+      <SettingsSwitch onPress={onPress} value={allowed} />
+    </Container>
+    <ItemSeparator />
+  </>
+)
 
 export default ConsentSection

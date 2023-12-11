@@ -1,5 +1,4 @@
-import { useFocusEffect } from '@react-navigation/native'
-import React, { ReactElement, useCallback, useState } from 'react'
+import React, { ReactElement, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import styled from 'styled-components/native'
 
@@ -22,20 +21,16 @@ const Consent = (): ReactElement | null => {
   const [externalSourcePermissions, setExternalSourcePermissions] = useState<ExternalSourcePermissions | null>(null)
   const { t } = useTranslation('consent')
 
-  useFocusEffect(
-    useCallback(() => {
-      appSettings.loadExternalSourcePermissions().then(setExternalSourcePermissions).catch(reportError)
-    }, []),
-  )
+  useEffect(() => {
+    appSettings.loadExternalSourcePermissions().then(setExternalSourcePermissions).catch(reportError)
+  }, [])
 
-  // permissions not initialized
   if (!externalSourcePermissions) {
     return null
   }
 
-  const onPress = (type: string, allowed: boolean) => {
-    const updatedSources: Record<string, boolean> = externalSourcePermissions
-    updatedSources[type] = allowed
+  const onPress = (source: string) => {
+    const updatedSources = { ...externalSourcePermissions, [source]: !externalSourcePermissions[source] }
     setExternalSourcePermissions(updatedSources)
     appSettings.setExternalSourcePermissions(updatedSources).catch(reportError)
   }
@@ -46,7 +41,7 @@ const Consent = (): ReactElement | null => {
       title={item}
       description={t('consentDescription', { source: item })}
       allowed={externalSourcePermissions[item] ?? false}
-      onPress={onPress}
+      onPress={() => onPress(item)}
     />
   )
 
