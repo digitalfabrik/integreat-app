@@ -8412,7 +8412,7 @@
     "de": {
       "knownResourceOptIn": "Ich bin damit einverstanden, dass mir Inhalte dieser externen Quelle angezeigt werden: ",
       "knownResourceContentMessage": "Dieses Element enthält Daten von dieser externen Quelle. Du kannst die Einbettung solcher Inhalte in den Einstellungen blockieren",
-      "knownResourceBlocked": "Externer Inhalt von dieser Quelle wurde geblockt. Unter Einstellungen kannst du diese Quelle zulassen."
+      "knownResourceBlocked": "Externer Inhalt von dieser Quelle wurde blockiert. In den Einstellungen kannst du diese Quelle zulassen."
     },
     "en": {
       "knownResourceOptIn": "I agree that content from this external source may be displayed to me: ",
