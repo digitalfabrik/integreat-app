@@ -32,7 +32,6 @@ import {
   useLoadAsync,
 } from 'api-client'
 
-import Consent from './components/Consent'
 import Header from './components/Header'
 import RedirectContainer from './components/RedirectContainer'
 import TransparentHeader from './components/TransparentHeader'
@@ -44,6 +43,7 @@ import useSnackbar from './hooks/useSnackbar'
 import CategoriesContainer from './routes/CategoriesContainer'
 import ChangeLanguageModal from './routes/ChangeLanguageModal'
 import CityNotCooperating from './routes/CityNotCooperating'
+import Consent from './routes/Consent'
 import DisclaimerContainer from './routes/DisclaimerContainer'
 import EventsContainer from './routes/EventsContainer'
 import ExternalOfferContainer from './routes/ExternalOfferContainer'

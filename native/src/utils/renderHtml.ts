@@ -21,6 +21,8 @@ const renderJS = (
   supportedIframeSources: string[],
   externalSourcePermissions: ExternalSourcePermissions,
   t: TFunction,
+  deviceWidth: number,
+  pageContainerPadding: number,
 ) => `
   function reportError(message, type) {
     if (!window.ReactNativeWebView) {
@@ -179,11 +181,17 @@ const renderJS = (
       container.appendChild(checkbox)
     }
     
-    function handleSupportedIframeSources(iframe, externalSourcePermissions, iframeSource) {
+    function handleSupportedIframeSources(iframe, iframeSource) {
+      const externalSourcePermissions = ${JSON.stringify(externalSourcePermissions)}
       const iframeContainer = document.createElement('div')
       iframeContainer.classList.add('iframe-container')
       iframe.parentNode.appendChild(iframeContainer)
       iframeContainer.appendChild(iframe)
+      // Scale the iframe height depending on device width and outside margin
+      const deviceWidth = '${deviceWidth}'
+      const pageContainerPadding = '${pageContainerPadding}'
+      const scaledHeight = (deviceWidth / Number(iframe.width)) * Number(iframe.height) - pageContainerPadding
+      iframe.setAttribute('height', scaledHeight)
       if (externalSourcePermissions[iframeSource] === undefined) {
         const message = '${t('remoteContent:knownResourceOptIn')}'
         showOptIn(message, iframeContainer, iframeSource)
@@ -206,12 +214,11 @@ const renderJS = (
 
     const iframes = document.querySelectorAll('iframe')
     const supportedIframeSources = ${JSON.stringify(supportedIframeSources)}
-    const externalSourcePermissions = ${JSON.stringify(externalSourcePermissions)}
 
     iframes.forEach(iframe => {
       const supportedIframeSource = supportedIframeSources.find(src => iframe.src.includes(src))
       if (supportedIframeSource) {
-        handleSupportedIframeSources(iframe, externalSourcePermissions, supportedIframeSource)
+        handleSupportedIframeSources(iframe, supportedIframeSource)
       } else {
         iframe.remove()
       }
@@ -230,6 +237,8 @@ const renderHtml = (
   language: string,
   externalSourcePermissions: ExternalSourcePermissions,
   t: TFunction,
+  deviceWidth: number,
+  pageContainerPadding: number,
 ): string => `
   <!-- The lang attribute makes TalkBack use the appropriate language. -->
   <html lang='${language}'>
@@ -358,12 +367,12 @@ const renderHtml = (
       iframe {
         border: none;
         border-bottom: 1px solid ${theme.colors.borderColor};
-        max-height: 58vw;
         max-width: 100%;
       }
 
       .iframe-container {
         display: flex;
+        padding: 4px;
         flex-direction: column;
         border: 1px solid ${theme.colors.borderColor};
         border-radius: 4px;
@@ -388,7 +397,7 @@ const renderHtml = (
       #opt-in-settings-button {
         border: none;
         background-color: transparent;
-        margin-left: 8px;
+        margin-left: 12px;
         padding: 0;
         overflow-wrap: normal;
         color: ${theme.colors.tunewsThemeColor};
@@ -404,7 +413,14 @@ const renderHtml = (
   </head>
   <body dir='auto'>
   <div id='measure-container'>${html}</div>
-  <script>${renderJS(cacheDictionary, supportedIframeSources, externalSourcePermissions, t)}</script>
+  <script>${renderJS(
+    cacheDictionary,
+    supportedIframeSources,
+    externalSourcePermissions,
+    t,
+    deviceWidth,
+    pageContainerPadding,
+  )}</script>
   </body>
   </html>
 `

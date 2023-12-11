@@ -4,15 +4,15 @@ import styled from 'styled-components/native'
 
 import { ExternalSourcePermissions } from 'api-client'
 
+import Caption from '../components/Caption'
+import ConsentSection from '../components/ConsentSection'
+import Layout from '../components/Layout'
+import List from '../components/List'
+import ItemSeparator from '../components/base/ItemSeparator'
+import Text from '../components/base/Text'
 import buildConfig from '../constants/buildConfig'
 import appSettings from '../utils/AppSettings'
 import { reportError } from '../utils/sentry'
-import Caption from './Caption'
-import ConsentSection from './ConsentSection'
-import Layout from './Layout'
-import List from './List'
-import ItemSeparator from './base/ItemSeparator'
-import Text from './base/Text'
 
 const Description = styled(Text)`
   margin-bottom: 24px;
