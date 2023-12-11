@@ -128,7 +128,7 @@ const renderJS = (
 
     function showSettingsButton(element) {
       function onClickHandler() {
-        window.ReactNativeWebView.postMessage(JSON.stringify({ type: '${SETTINGS_MESSAGE_TYPE}' }))
+        window.ReactNativeWebView.postMessage(JSON.stringify({ type: '${OPEN_SETTINGS_MESSAGE_TYPE}' }))
       }
 
       const buttonLabel = '${t('layout:settings')}'
