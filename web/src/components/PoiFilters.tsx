@@ -58,7 +58,6 @@ const TileRow = styled.div<{ itemCount: number }>`
 const StyledButton = styled(TextButton)`
   width: 100%;
   margin: 0;
-  /* margin: 0; background-color: ${props => props.theme.colors.textDisabledColor}; */
 `
 
 const StyledIcon = styled(Icon)`
