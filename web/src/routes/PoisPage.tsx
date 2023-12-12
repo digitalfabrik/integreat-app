@@ -76,7 +76,7 @@ const PoisPage = ({ cityCode, languageCode, city, pathname }: CityRouteProps): R
         .filter(poi => !poiCurrentlyOpenFilter || poi.isCurrentlyOpen),
     [data, poiCategoryFilter, poiCurrentlyOpenFilter],
   )
-  const poisLength = pois?.length ?? 0
+  const poisCount = pois?.length ?? 0
 
   const currentPoi = data?.find(poi => slug === poi.slug) ?? null
   const features = useMemo(() => prepareFeatureLocations(pois ?? [], userLocation), [pois, userLocation])
@@ -180,7 +180,7 @@ const PoisPage = ({ cityCode, languageCode, city, pathname }: CityRouteProps): R
       currentlyOpenFilter={poiCurrentlyOpenFilter}
       setCurrentlyOpenFilter={updatePoiCurrentlyOpenFilter}
       panelWidth={viewportSmall ? width : dimensions.poiDesktopPanelWidth}
-      poisLength={poisLength}
+      poisCount={poisCount}
     />
   )
   if (showFilterSelection && viewportSmall) {

@@ -74,7 +74,7 @@ type PoiFiltersProps = {
   currentlyOpenFilter: boolean
   setCurrentlyOpenFilter: (currentlyOpen: boolean) => void
   panelWidth: number
-  poisLength: number
+  poisCount: number
 }
 
 const PoiFilters = ({
@@ -85,7 +85,7 @@ const PoiFilters = ({
   currentlyOpenFilter,
   setCurrentlyOpenFilter,
   panelWidth,
-  poisLength,
+  poisCount,
 }: PoiFiltersProps): ReactElement => {
   const poiCategories = pois
     .map(it => it.category)
@@ -124,8 +124,8 @@ const PoiFilters = ({
             ))}
           </TileRow>
         </Section>
-        {poisLength !== 0 ? (
-          <StyledButton onClick={closeModal} text={`${poisLength} ${t('showPois')} `} />
+        {poisCount !== 0 ? (
+          <StyledButton onClick={closeModal} text={t('showPois', { numberOfPois: poisCount })} />
         ) : (
           <StyledButton onClick={closeModal} text={t('noPois')} disabled />
         )}
