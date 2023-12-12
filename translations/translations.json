@@ -9631,22 +9631,22 @@
       "noOffersAvailable": "目前没有提供项目"
     }
   },
-  "zammad": {
+  "malteHelpForm": {
     "de": {
       "supportNote": "Wir möchten, dass Sie sich sicher und unterstützt fühlen, wenn Sie Probleme oder Fragen haben. Durch das folgende Kontaktformular haben Sie die Möglichkeit, mit Ansprechpartner:innen in Kontakt zu treten. Sie können die Art Ihres Anliegens angeben und aus verschiedenen Kontaktoptionen wählen.",
       "securityNote": "Ihre Sicherheit hat für uns oberste Priorität. Ihre Daten werden mit Vertraulichkeit behandelt, damit Ihre Privatsphäre jederzeit gewahrt bleibt.",
       "name": "Name, Vorname",
       "roomNumber": "Zimmernummer",
-      "howToBeContacted": "So möchte ich Kontaktiert werden:",
+      "howToBeContacted": "So möchte ich kontaktiert werden:",
       "eMail": "E-Mail",
       "telephone": "Telefon",
       "telephoneNumber": "Tel.-Nr.",
-      "inPerson": "in Person",
+      "personally": "in Person",
       "contactPerson": "Kontaktperson:",
       "contactPersonAnyGender": "Das Geschlecht des Ansprechpartners/der Ansprechpartnerin spielt keine Rolle",
       "contactPersonGenderFemale": "Ich möchte von einer weiblichen Person kontaktiert werden",
       "contactPersonGenderMale": "Ich möchte von einer männlichen Person kontaktiert werden",
-      "causeOfContact": "Kurze Beschreibung des Anliegens:",
+      "contactReason": "Kurze Beschreibung des Anliegens:",
       "maxCharacters": "maximal {{numberOfCharacters}} Zeichen",
       "responseDisclaimer": "Es kann einige Werktage dauern, bis Sie eine Rückmeldung erhalten. Wir bemühen uns, ihr Anliegen schnellstmöglich zu bearbeiten.",
       "submit": "Formular absenden",

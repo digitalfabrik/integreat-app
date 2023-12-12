@@ -7,8 +7,6 @@ import {
   useLoadAsync,
   submitHelpForm,
   MALTE_HELP_FORM_OFFER_ROUTE,
-  cityContentPath,
-  CATEGORIES_ROUTE,
 } from 'api-client'
 
 import { CityRouteProps } from '../CityContentSwitcher'
@@ -79,7 +77,7 @@ const MalteHelpFormOfferPage = ({ city, cityCode, languageCode, embedded }: City
     <CityContentLayout isLoading={false} {...locationLayoutParams}>
       {!embedded && <Helmet pageTitle={pageTitle} languageChangePaths={languageChangePaths} cityModel={city} />}
       {!embedded && <Caption title={offer.title} />}
-      <MalteHelpForm dashboardRoute={cityContentPath({ cityCode, languageCode })} submit={submit} />
+      <MalteHelpForm submit={submit} cityCode={cityCode} languageCode={languageCode} />
     </CityContentLayout>
   )
 }

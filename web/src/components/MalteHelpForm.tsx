@@ -3,10 +3,14 @@ import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 
+import { cityContentPath } from 'api-client'
+import { config } from 'translations'
+
 import { SecurityIcon, SupportIcon } from '../assets'
 import Icon from '../components/base/Icon'
 import { Container } from './Feedback'
 import Button from './base/Button'
+import Input from './base/Input'
 import InputSection from './base/InputSection'
 import RadioElement, { RadioGroup } from './base/RadioElement'
 
@@ -15,10 +19,10 @@ const Note = styled.div`
   padding-bottom: 10px;
 `
 
-const StyledIcon = styled(Icon)`
+const StyledIcon = styled(Icon)<{ direction: 'ltr' | 'rtl' }>`
   width: 25px;
   height: 25px;
-  padding-right: 20px;
+  ${props => (props.direction === 'ltr' ? 'padding-right: 20px' : 'padding-left: 20px')};
   flex-shrink: 0;
 `
 
@@ -41,7 +45,7 @@ const SubmitButton = styled(Button)`
     0 2px 4px rgb(0 0 0 / 15%);
 
   :hover {
-    background-color: ${props => props.theme.colors.textSecondaryColor}D9;
+    opacity: 80%;
   }
 
   :active {
@@ -66,16 +70,17 @@ const ErrorSendingStatus = styled.div`
 `
 
 type ContactChannel = 'email' | 'telephone' | 'person'
-type ContactType = 'male' | 'female' | 'any'
+type ContactGender = 'male' | 'female' | 'any'
 type SendingStatusType = 'idle' | 'sending' | 'failed' | 'successful'
 
 type MalteHelpFormProps = {
   submit: () => Promise<void>
-  dashboardRoute: string
+  cityCode: string
+  languageCode: string
 }
 
-const MalteHelpForm = ({ submit, dashboardRoute }: MalteHelpFormProps): ReactElement => {
-  const { t } = useTranslation('zammad')
+const MalteHelpForm = ({ submit, languageCode, cityCode }: MalteHelpFormProps): ReactElement => {
+  const { t } = useTranslation('malteHelpForm')
   const [sendingStatus, setSendingStatus] = useState<SendingStatusType>('idle')
   const [submitted, setSubmitted] = useState(false)
   const [contactChannel, setContactChannel] = useState<ContactChannel>('email')
@@ -83,8 +88,9 @@ const MalteHelpForm = ({ submit, dashboardRoute }: MalteHelpFormProps): ReactEle
   const [telephone, setTelephone] = useState('')
   const [name, setName] = useState('')
   const [roomNumber, setRoomNumber] = useState('')
-  const [contactType, setContactType] = useState<ContactType>('any')
+  const [contactType, setContactType] = useState<ContactGender>('any')
   const [comment, setComment] = useState('')
+  const dashboardRoute = cityContentPath({ languageCode, cityCode })
 
   const submitHandler = useCallback(
     (event: SyntheticEvent<HTMLFormElement>) => {
@@ -126,24 +132,32 @@ const MalteHelpForm = ({ submit, dashboardRoute }: MalteHelpFormProps): ReactEle
   return (
     <>
       <Note>
-        <StyledIcon src={SupportIcon} />
-        {t('zammad:supportNote')}
+        <StyledIcon src={SupportIcon} direction={config.getScriptDirection(languageCode)} />
+        {t('supportNote')}
       </Note>
       <Note>
-        <StyledIcon src={SecurityIcon} />
-        {t('zammad:securityNote')}
+        <StyledIcon src={SecurityIcon} direction={config.getScriptDirection(languageCode)} />
+        {t('securityNote')}
       </Note>
       <Form onSubmit={submitHandler}>
-        <InputSection id='name' title={t('name')} value={name} onChange={setName} compact submitted={submitted} />
-        <InputSection
-          id='roomNumber'
-          title={t('roomNumber')}
-          value={roomNumber}
-          onChange={setRoomNumber}
-          optional
-          showOptional
+        <Input
+          id='name'
+          hint={t('name')}
+          hintIsLabel
+          required
+          value={name}
+          direction={config.getScriptDirection(languageCode)}
+          onChange={setName}
           submitted={submitted}
-          compact
+        />
+        <Input
+          id='roomNumber'
+          hint={`${t('roomNumber')} ${t('common:optional')}`}
+          hintIsLabel
+          value={roomNumber}
+          direction={config.getScriptDirection(languageCode)}
+          onChange={setRoomNumber}
+          submitted={submitted}
         />
         <RadioGroup caption={t('howToBeContacted')}>
           <RadioElement
@@ -152,12 +166,14 @@ const MalteHelpForm = ({ submit, dashboardRoute }: MalteHelpFormProps): ReactEle
             checked={contactChannel === 'email'}
             id='email'
             onChange={setContactChannel}>
-            <InputSection
+            <Input
               id='email'
-              title={t('eMail')}
+              hint={t('eMail')}
+              hintIsLabel
+              required
               value={email}
+              direction={config.getScriptDirection(languageCode)}
               onChange={setEmail}
-              compact
               submitted={submitted}
             />
           </RadioElement>
@@ -167,12 +183,14 @@ const MalteHelpForm = ({ submit, dashboardRoute }: MalteHelpFormProps): ReactEle
             checked={contactChannel === 'telephone'}
             id='telephone'
             onChange={setContactChannel}>
-            <InputSection
+            <Input
               id='telephone'
-              title={t('telephoneNumber')}
+              hint={t('telephoneNumber')}
+              hintIsLabel
               value={telephone}
               onChange={setTelephone}
-              compact
+              direction={config.getScriptDirection(languageCode)}
+              required
               submitted={submitted}
             />
           </RadioElement>
@@ -209,17 +227,18 @@ const MalteHelpForm = ({ submit, dashboardRoute }: MalteHelpFormProps): ReactEle
           />
         </RadioGroup>
         <Divider />
-        <InputSection
-          id='comment'
-          title={t('causeOfContact')}
-          subtitle={t('maxCharacters', { numberOfCharacters: 200 })}
-          multiline
-          value={comment}
-          onChange={setComment}
-          optional
-          maxLength={200}
-          submitted={submitted}
-        />
+        <InputSection id='comment' title={t('contactReason')}>
+          <Input
+            id='comment'
+            hint={t('maxCharacters', { numberOfCharacters: 200 })}
+            multiline
+            value={comment}
+            direction={config.getScriptDirection(languageCode)}
+            onChange={setComment}
+            maxLength={200}
+            submitted={submitted}
+          />
+        </InputSection>
         <p>{t('responseDisclaimer')}</p>
         {sendingStatus === 'failed' && (
           <ErrorSendingStatus role='alert'>

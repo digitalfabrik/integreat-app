@@ -11,7 +11,7 @@ const StyledButton = styled.button<{ disabled: boolean }>`
 `
 
 type ButtonProps = {
-  onClick?: () => void
+  onClick: () => void
   children: ReactNode
   ariaLabel: string
   type?: 'submit' | 'button'
