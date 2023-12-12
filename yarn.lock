@@ -14703,10 +14703,10 @@ react-native-pdf@^6.7.1:
     crypto-js "^3.2.0"
     deprecated-react-native-prop-types "^2.3.0"
 
-react-native-permissions@^4.0.0-beta.1:
-  version "4.0.0-beta.1"
-  resolved "https://registry.yarnpkg.com/react-native-permissions/-/react-native-permissions-4.0.0-beta.1.tgz#ff72e16a66d5f60394cf0d61b7d0d7acca0ca3c3"
-  integrity sha512-O2t1qXEcZDTfCLnu1Un8fsbX48VePOsJmsqmQqSg1qwxIMs6B9bzTo2M0eObMvCLTkLOT5qqhMtJ1kgYYNLB0g==
+react-native-permissions@^4.0.0:
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/react-native-permissions/-/react-native-permissions-4.0.0.tgz#64eb341993b0d317fb753104bc72f911d253d613"
+  integrity sha512-VWdETvRVf5WWLOKxle88UtB+LNQR99LvWOkg8C/azNTYLhuAqeSI+SYll+og/A0TIepeTsxnBrtX/YNB3hNQ0w==
 
 react-native-reanimated@^3.4.2:
   version "3.4.2"
