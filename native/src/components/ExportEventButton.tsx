@@ -62,6 +62,8 @@ const ExportEventButton = ({ event }: ExportEventButtonType): ReactElement => {
               interval: event.date.recurrenceRule.options.interval,
               // This gets overridden by `endDate and can't be set in the CMS anyway
               occurrence: 0,
+              // @ts-expect-error https://github.com/wmcmahan/react-native-calendar-events/issues/159
+              duration: null,
             }
           : undefined,
     }
