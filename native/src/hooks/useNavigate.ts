@@ -118,9 +118,6 @@ const navigate = <T extends RoutesType>(
       navigation.push(SPRUNGBRETT_OFFER_ROUTE)
       return
 
-    case MALTE_HELP_FORM_OFFER_ROUTE:
-      return
-
     case POIS_ROUTE:
       if (!buildConfig().featureFlags.pois) {
         break

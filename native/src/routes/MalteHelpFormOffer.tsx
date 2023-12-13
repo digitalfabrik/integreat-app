@@ -15,6 +15,7 @@ import TextButton from '../components/base/TextButton'
 import FormInput from '../components/form/FormInput'
 import FormRadioButtons from '../components/form/FormRadioButtons'
 import { NavigationProps } from '../constants/NavigationTypes'
+import useSnackbar from '../hooks/useSnackbar'
 
 const Container = styled(LayoutedScrollView)`
   padding: 0 16px 16px;
@@ -48,30 +49,35 @@ type FormInput = {
   comment: string
 }
 
+const defaultValues: FormInput = {
+  name: '',
+  roomNumber: '',
+  email: '',
+  telephone: '',
+  contactChannel: 'email',
+  contactGender: 'any',
+  comment: '',
+}
+
 type MalteHelpFormOfferProps = {
   navigation: NavigationProps<MalteHelpFormOfferRouteType>
 }
 
 const MalteHelpFormOffer = ({ navigation }: MalteHelpFormOfferProps): ReactElement => {
-  const { control, handleSubmit, formState } = useForm<FormInput>({
-    defaultValues: {
-      name: '',
-      roomNumber: '',
-      email: '',
-      telephone: '',
-      contactChannel: 'email',
-      contactGender: 'any',
-      comment: '',
-    },
-  })
-  const { t } = useTranslation('zammad')
-  const onSubmit = () => {
-    handleSubmit(_data => {
+  const { control, handleSubmit, formState } = useForm<FormInput>({ defaultValues })
+  const { t } = useTranslation('malteHelpForm')
+  const showSnackbar = useSnackbar()
+
+  const onSubmit = handleSubmit(_data => {
+    try {
       // TODO submit form
       // handleSubmit()
       navigation.goBack()
-    })
-  }
+      showSnackbar({ text: t('submitSuccessful') })
+    } catch (e) {
+      showSnackbar({ text: t('error:unknownError') })
+    }
+  })
 
   return (
     <Container>
@@ -116,6 +122,7 @@ const MalteHelpFormOffer = ({ navigation }: MalteHelpFormOfferProps): ReactEleme
       <StyledHorizontalLine />
 
       <InputTitle>{t('contactReason')}</InputTitle>
+      {/* TODO Extract to shared constant */}
       <FormInput name='comment' control={control} rules={{ maxLength: 200 }} multiline />
 
       <Text>{t('responseDisclaimer')}</Text>

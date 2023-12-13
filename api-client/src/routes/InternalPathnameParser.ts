@@ -7,6 +7,7 @@ import {
   LANDING_ROUTE,
   LOCAL_NEWS_TYPE,
   LocalNewsType,
+  MALTE_HELP_FORM_OFFER_ROUTE,
   NEWS_ROUTE,
   OFFERS_ROUTE,
   POIS_ROUTE,
@@ -186,6 +187,12 @@ class InternalPathnameParser {
       if (route === SPRUNGBRETT_OFFER_ROUTE) {
         return {
           route: SPRUNGBRETT_OFFER_ROUTE,
+          ...params,
+        }
+      }
+      if (route === MALTE_HELP_FORM_OFFER_ROUTE) {
+        return {
+          route: MALTE_HELP_FORM_OFFER_ROUTE,
           ...params,
         }
       }
