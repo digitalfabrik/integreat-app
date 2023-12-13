@@ -37,7 +37,7 @@ const Input = styled.TextInput<{ numberOfLines: number; invalid: boolean }>`
   color: ${props => props.theme.colors.textColor};
   padding: 8px;
   ${props =>
-    props.numberOfLines !== 1 &&
+    props.numberOfLines > 1 &&
     css`
       height: ${props.numberOfLines * LINE_HEIGHT}px;
       text-align-vertical: top;
@@ -46,6 +46,7 @@ const Input = styled.TextInput<{ numberOfLines: number; invalid: boolean }>`
 
 type InputSectionProps = {
   title?: string
+  hint?: string
   description?: string
   value: string
   onChange: (input: string) => void
@@ -68,13 +69,15 @@ const InputSection = ({
   numberOfLines = DEFAULT_MULTI_LINE_NUMBER,
   showOptional = false,
   invalid = false,
+  hint,
 }: InputSectionProps): ReactElement => {
   const { t } = useTranslation('common')
   return (
     <Container>
-      {title || showOptional ? (
+      {title || showOptional || hint ? (
         <TitleContainer>
           {title ? <Title>{title}</Title> : null}
+          {hint ? <Text>{hint}</Text> : null}
           {showOptional && <Text>({t('optional')})</Text>}
         </TitleContainer>
       ) : null}

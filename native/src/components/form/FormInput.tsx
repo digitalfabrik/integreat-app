@@ -8,6 +8,7 @@ type FormInputProps<T extends FieldValues> = {
   control: Control<T, unknown>
   rules?: RegisterOptions<T, Path<T>>
   title?: string
+  hint?: string
   showOptional?: boolean
   multiline?: boolean
 }
@@ -17,6 +18,7 @@ const FormInput = <T extends FieldValues>({
   control,
   rules,
   title,
+  hint,
   showOptional = false,
   multiline = false,
 }: FormInputProps<T>): ReactElement => (
@@ -27,6 +29,7 @@ const FormInput = <T extends FieldValues>({
     render={({ field: { onChange, onBlur, value }, fieldState: { invalid } }) => (
       <InputSection
         title={title}
+        hint={hint}
         value={value}
         onChange={onChange}
         onBlur={onBlur}

@@ -1,6 +1,7 @@
 import React, { ReactElement } from 'react'
 import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
+import { View } from 'react-native'
 import styled from 'styled-components/native'
 
 import { MalteHelpFormOfferRouteType } from 'api-client'
@@ -44,7 +45,7 @@ type FormInput = {
   roomNumber: string
   email: string
   telephone: string
-  contactChannel: 'email' | 'telephone' | 'person'
+  contactChannel: 'email' | 'telephone' | 'personally'
   contactGender: 'female' | 'male' | 'any'
   comment: string
 }
@@ -95,35 +96,45 @@ const MalteHelpFormOffer = ({ navigation }: MalteHelpFormOfferProps): ReactEleme
       <FormInput name='name' title={t('name')} control={control} rules={{ required: true }} />
       <FormInput name='roomNumber' title={t('roomNumber')} control={control} showOptional />
 
-      <InputTitle>{t('howToBeContacted')}</InputTitle>
-      <FormRadioButtons
-        name='contactChannel'
-        control={control}
-        values={[
-          { key: 'email', label: t('eMail'), inputName: 'email' },
-          { key: 'telephone', label: t('telephone'), inputName: 'telephone' },
-          { key: 'personal', label: t('personal') },
-        ]}
-      />
+      <View>
+        <InputTitle>{t('howToBeContacted')}</InputTitle>
+        <FormRadioButtons
+          name='contactChannel'
+          control={control}
+          values={[
+            { key: 'email', label: t('eMail'), inputName: 'email' },
+            { key: 'telephone', label: t('telephone'), inputName: 'telephone' },
+            { key: 'personally', label: t('personally') },
+          ]}
+        />
+      </View>
 
       <StyledHorizontalLine />
 
-      <InputTitle>{t('contactPerson')}</InputTitle>
-      <FormRadioButtons
-        name='contactGender'
-        control={control}
-        values={[
-          { key: 'any', label: t('any') },
-          { key: 'female', label: t('female') },
-          { key: 'male', label: t('male') },
-        ]}
-      />
+      <View>
+        <InputTitle>{t('contactPerson')}</InputTitle>
+        <FormRadioButtons
+          name='contactGender'
+          control={control}
+          values={[
+            { key: 'any', label: t('any') },
+            { key: 'female', label: t('female') },
+            { key: 'male', label: t('male') },
+          ]}
+        />
+      </View>
 
       <StyledHorizontalLine />
 
-      <InputTitle>{t('contactReason')}</InputTitle>
       {/* TODO Extract to shared constant */}
-      <FormInput name='comment' control={control} rules={{ maxLength: 200 }} multiline />
+      <FormInput
+        name='comment'
+        title={t('contactReason')}
+        hint={`(${t('maxCharacters', { numberOfCharacters: 200 })})`}
+        control={control}
+        rules={{ maxLength: 200 }}
+        multiline
+      />
 
       <Text>{t('responseDisclaimer')}</Text>
       <TextButton text={t('submit')} onPress={onSubmit} disabled={!formState.isValid} />
