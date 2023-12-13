@@ -1,9 +1,12 @@
 import React, { ReactElement, ReactNode } from 'react'
 import styled from 'styled-components/native'
 
-const Container = styled.Pressable`
+import Pressable from './Pressable'
+
+const Container = styled(Pressable)`
   flex-direction: row;
   align-items: center;
+  gap: 16px;
 `
 
 const Ring = styled.View<{ selected: boolean }>`
@@ -14,7 +17,7 @@ const Ring = styled.View<{ selected: boolean }>`
   border-color: ${props => (props.selected ? props.theme.colors.textColor : props.theme.colors.textSecondaryColor)};
   align-items: center;
   justify-content: center;
-  margin: 16px;
+  margin: 16px 0;
 `
 
 const Marker = styled.View`

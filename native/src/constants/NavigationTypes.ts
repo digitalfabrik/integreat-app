@@ -47,6 +47,8 @@ import {
   FeedbackRouteType,
   CONSENT_ROUTE,
   ConsentRouteType,
+  MalteHelpFormOfferRouteType,
+  MALTE_HELP_FORM_OFFER_ROUTE,
 } from 'api-client'
 
 export type RoutesType =
@@ -63,6 +65,7 @@ export type RoutesType =
   | OffersRouteType
   | ExternalOfferRouteType
   | SprungbrettOfferRouteType
+  | MalteHelpFormOfferRouteType
   | SettingsRouteType
   | SearchRouteType
   | ChangeLanguageModalRouteType
@@ -108,6 +111,7 @@ export type RoutesParamsType = {
     postData: Map<string, string> | null | undefined
   }
   [SPRUNGBRETT_OFFER_ROUTE]: undefined
+  [MALTE_HELP_FORM_OFFER_ROUTE]: undefined
   [SETTINGS_ROUTE]: undefined
   [SEARCH_ROUTE]: {
     searchText?: string | null

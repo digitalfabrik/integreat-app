@@ -49,7 +49,7 @@ export const pathnameFromRouteInformation = (routeInformation: NonNullableRouteI
   }
   if (routeInformation.route === SPRUNGBRETT_OFFER_ROUTE || routeInformation.route === MALTE_HELP_FORM_OFFER_ROUTE) {
     const { cityCode, languageCode, route } = routeInformation
-    // https://integreat.app/augsburg/de/offers/sprungbrett
+    // https://integreat.app/augsburg/de/offers/sprungbrett, https://malteapp.de/testumgebung/de/offers/hilfebutton
     return constructPathname([cityCode, languageCode, OFFERS_ROUTE, route])
   }
   if (routeInformation.route === CATEGORIES_ROUTE) {

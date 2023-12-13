@@ -1,4 +1,5 @@
-import React, { ReactElement } from 'react'
+import React, { ReactElement, ReactNode } from 'react'
+import { StyleProp, ViewStyle } from 'react-native'
 import styled from 'styled-components/native'
 
 const Wrapper = styled.View`
@@ -7,9 +8,10 @@ const Wrapper = styled.View`
 `
 
 type LayoutProps = {
-  children?: React.ReactNode
+  children?: ReactNode
+  style?: StyleProp<ViewStyle>
 }
 
-const Layout = ({ children }: LayoutProps): ReactElement => <Wrapper>{children}</Wrapper>
+const Layout = ({ children, style }: LayoutProps): ReactElement => <Wrapper style={style}>{children}</Wrapper>
 
 export default Layout

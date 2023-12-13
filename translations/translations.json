@@ -9629,6 +9629,7 @@
   },
   "malteHelpForm": {
     "de": {
+      "title": "Kontaktformular",
       "supportNote": "Wir möchten, dass du dich sicher und unterstützt fühlst, wenn du Probleme oder Fragen hast. Durch das folgende Kontaktformular hast du die Möglichkeit, mit Ansprechpartner:innen in Kontakt zu treten. Du kannst die Art deines Anliegens angeben und aus verschiedenen Kontaktoptionen wählen.",
       "securityNote": "Deine Sicherheit hat für uns oberste Priorität. Deine Daten werden mit Vertraulichkeit behandelt, damit deine Privatsphäre jederzeit gewahrt bleibt.",
       "name": "Name, Vorname",
