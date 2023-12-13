@@ -11,7 +11,7 @@ type LoadSprungbrettJobsParams = {
   baseUrl: string | (() => Promise<string>)
 }
 
-type LoadSprungbrettJobReturn = Promise<{
+export type LoadSprungbrettJobReturn = Promise<{
   offers: OfferModel[]
   sprungbrettOffer: OfferModel
   sprungbrettJobs: SprungbrettJobModel[]

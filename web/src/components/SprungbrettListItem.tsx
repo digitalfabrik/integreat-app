@@ -4,6 +4,7 @@ import styled from 'styled-components'
 
 import { SprungbrettJobModel } from 'api-client'
 
+import { SprungbrettIcon } from '../assets'
 import ListItem from './ListItem'
 
 const Content = styled.div`
@@ -15,7 +16,7 @@ type SprungbrettListItemProps = {
 }
 
 const SprungbrettListItem = ({ job }: SprungbrettListItemProps): ReactElement => (
-  <ListItem title={job.title} path={job.url}>
+  <ListItem title={job.title} path={job.url} thumbnail={SprungbrettIcon} thumbnailSize={25}>
     <Content dir='auto'>{job.location}</Content>
   </ListItem>
 )

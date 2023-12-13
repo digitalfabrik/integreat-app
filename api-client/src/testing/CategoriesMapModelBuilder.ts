@@ -88,6 +88,7 @@ class CategoriesMapModelBuilder {
           logo: 'https://example.com/my-icon',
           url: 'https://example.com',
         }),
+        embeddedOffers: [],
       })
       this._resourceCache[path] = {
         [resourceUrl1]: this.createResource(resourceUrl1, id, lastUpdate),
@@ -128,6 +129,7 @@ class CategoriesMapModelBuilder {
         parentPath: '',
         lastUpdate: DateTime.fromISO('2017-11-18T19:30:00.000Z'),
         organization: null,
+        embeddedOffers: [],
       }),
       0,
     )

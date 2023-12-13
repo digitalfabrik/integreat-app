@@ -4,8 +4,10 @@ import { useNavigate } from 'react-router-dom'
 
 import { CategoriesMapModel, CategoryModel } from 'api-client'
 
+import { CityRouteProps } from '../CityContentSwitcher'
 import TileModel from '../models/TileModel'
 import CategoryList from './CategoryList'
+import EmbeddedOffer from './EmbeddedOffer'
 import OrganizationContentInfo from './OrganizationContentInfo'
 import Page from './Page'
 import Tiles from './Tiles'
@@ -24,7 +26,7 @@ type CategoriesContentProps = {
   categories: CategoriesMapModel
   categoryModel: CategoryModel
   t: TFunction
-}
+} & CityRouteProps
 
 /**
  * Returns the content to be displayed, based on the current category, which is
@@ -32,7 +34,7 @@ type CategoriesContentProps = {
  * b) table with categories
  * c) list with categories
  */
-const CategoriesContent = ({ categories, categoryModel, t }: CategoriesContentProps): ReactElement => {
+const CategoriesContent = ({ categories, categoryModel, t, ...props }: CategoriesContentProps): ReactElement => {
   const children = categories.getChildren(categoryModel)
   const navigate = useNavigate()
 
@@ -47,6 +49,7 @@ const CategoriesContent = ({ categories, categoryModel, t }: CategoriesContentPr
         AfterContent={
           categoryModel.organization && <OrganizationContentInfo organization={categoryModel.organization} />
         }
+        Footer={categoryModel.embeddedOffers[0] && <EmbeddedOffer offer={categoryModel.embeddedOffers[0]} {...props} />}
       />
     )
   }

@@ -168,3 +168,5 @@ export type TimeSlot = {
   end: string
   start: string
 }
+
+export type EmbeddedOffer = 'sprungbrett' | 'help'

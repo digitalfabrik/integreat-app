@@ -1,4 +1,4 @@
-import React, { ReactElement, useCallback } from 'react'
+import React, { ReactElement, useCallback, useMemo } from 'react'
 import { useWindowDimensions } from 'react-native'
 
 import { CATEGORIES_ROUTE, CategoriesRouteType, cityContentPath, ErrorCode } from 'api-client'
@@ -7,6 +7,7 @@ import Categories from '../components/Categories'
 import DashboardNavigationTiles from '../components/DashboardNavigationTiles'
 import { NavigationProps, RouteProps } from '../constants/NavigationTypes'
 import useCityAppContext from '../hooks/useCityAppContext'
+import useEmbeddedOffer from '../hooks/useEmbeddedOffer'
 import useHeader from '../hooks/useHeader'
 import useLoadCityContent from '../hooks/useLoadCityContent'
 import useNavigate from '../hooks/useNavigate'
@@ -26,13 +27,13 @@ const CategoriesContainer = ({ navigation, route }: CategoriesContainerProps): R
   const { cityCode, languageCode } = useCityAppContext()
   const deviceWidth = useWindowDimensions().width
   const resourceCache = useResourceCache({ cityCode, languageCode })
+  const path = route.params.path ?? cityContentPath({ cityCode, languageCode })
   const { navigateTo } = useNavigate()
 
   const { data, ...response } = useLoadCityContent({ cityCode, languageCode })
 
   const homeRouteTitle = cityDisplayName(data?.city, deviceWidth)
-  const path = route.params.path ?? cityContentPath({ cityCode, languageCode })
-  const category = data?.categories.findCategoryByPath(path)
+  const category = useMemo(() => data?.categories.findCategoryByPath(path), [data?.categories, path])
   const availableLanguages =
     category && !category.isRoot() ? Array.from(category.availableLanguages.keys()) : data?.languages.map(it => it.code)
 
@@ -56,11 +57,20 @@ const CategoriesContainer = ({ navigation, route }: CategoriesContainerProps): R
   )
   const previousLanguageCode = usePreviousProp({ prop: languageCode, onPropChange: onLanguageChange })
 
+  const { extra, ...combinedResponse } = useEmbeddedOffer({
+    category,
+    cityCode,
+    languageCode,
+    cityContentResponse: response,
+  })
+
   const error =
-    data?.categories && !category && previousLanguageCode === languageCode ? ErrorCode.PageNotFound : response.error
+    data?.categories && !category && previousLanguageCode === languageCode
+      ? ErrorCode.PageNotFound
+      : combinedResponse.error
 
   return (
-    <LoadingErrorHandler {...response} error={error} scrollView>
+    <LoadingErrorHandler refresh={combinedResponse.refresh} loading={combinedResponse.loading} error={error} scrollView>
       {data && category && (
         <>
           {category.isRoot() && (
@@ -72,6 +82,7 @@ const CategoriesContainer = ({ navigation, route }: CategoriesContainerProps): R
             cityModel={data.city}
             categories={data.categories}
             category={category}
+            extra={extra}
             resourceCache={resourceCache}
           />
         </>

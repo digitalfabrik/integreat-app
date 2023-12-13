@@ -90,6 +90,7 @@ describe('SearchPage', () => {
         thumbnail: 'https://cms.integreat-ap…03/Beratung-150x150.png',
         lastUpdate: DateTime.fromISO('2017-11-18T19:30:00.000Z'),
         organization: null,
+        embeddedOffers: [],
       })
     const categoryModels = [
       // should be 1st because 'abc' is in the title and it is lexicographically smaller than category 2

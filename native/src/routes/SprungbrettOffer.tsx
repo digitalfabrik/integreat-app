@@ -18,8 +18,8 @@ const Separator = styled.View`
 type SprungbrettOfferProps = {
   jobs: Array<SprungbrettJobModel>
   language: string
-  title: string
-  refresh: () => void
+  title?: string
+  refresh?: () => void
 }
 
 const SprungbrettOffer = ({ jobs, title, language, refresh }: SprungbrettOfferProps): ReactElement => {
@@ -37,12 +37,13 @@ const SprungbrettOffer = ({ jobs, title, language, refresh }: SprungbrettOfferPr
       renderItem={renderListItem}
       Header={
         <>
-          <Caption title={title} />
+          {!!title && <Caption title={title} />}
           <Separator />
         </>
       }
       refresh={refresh}
       noItemsMessage={t('noOffersAvailable')}
+      scrollEnabled={false}
     />
   )
 }
