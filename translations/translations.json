@@ -2407,14 +2407,16 @@
       "addToCalendar": "Zum Kalender hinzufügen",
       "currentlyNoEvents": "Es gibt aktuell keine Veranstaltungen.",
       "pageTitle": "Veranstaltungen",
-      "chooseCalendar": "Wähle einen Kalender aus",
+      "chooseCalendar": "Kalender-Auswahl",
       "added": "Hinzugefügt",
       "goToCalendar": "Zum Kalender",
       "back": "Zurück",
       "settings": "Einstellungen",
       "recurring": "wiederholend",
       "today": "heute",
-      "todayRecurring": "heute, wiederholend"
+      "todayRecurring": "heute, wiederholend",
+      "onlyThisEvent": "Nur diese Veranstaltung",
+      "thisAndAllFutureEvents": "Diese und alle zukünftigen Veranstaltungen"
     },
     "am": {
       "address": "ኣድራሻ",
@@ -2547,14 +2549,16 @@
       "addToCalendar": "Add to calendar",
       "currentlyNoEvents": "No events are currently available.",
       "pageTitle": "Events",
-      "chooseCalendar": "Choose a calendar",
+      "chooseCalendar": "Calendar choice",
       "added": "Added",
       "goToCalendar": "Go to calendar",
       "back": "Back",
       "settings": "Settings",
       "recurring": "recurring",
       "today": "today",
-      "todayRecurring": "today, recurring"
+      "todayRecurring": "today, recurring",
+      "onlyThisEvent": "Only this event",
+      "thisAndAllFutureEvents": "This and all future events"
     },
     "es": {
       "address": "Dirección",
