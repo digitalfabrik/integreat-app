@@ -128,7 +128,10 @@ const PoiFiltersModal = ({
         </Section>
         <Section>
           {poisCount !== 0 ? (
-            <StyledTextButton onPress={closeModal} text={t('showPois', { numberOfPois: poisCount })} />
+            <StyledTextButton
+              onPress={closeModal}
+              text={t('showPois', { numberOfPois: poisCount, count: poisCount })}
+            />
           ) : (
             <StyledTextButton onPress={closeModal} text={t('noPois')} disabled />
           )}
