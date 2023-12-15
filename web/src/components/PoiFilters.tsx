@@ -123,11 +123,7 @@ const PoiFilters = ({
             ))}
           </TileRow>
         </Section>
-        {poisCount !== 0 ? (
-          <StyledButton onClick={closeModal} text={t('showPois', { count: poisCount })} />
-        ) : (
-          <StyledButton onClick={closeModal} text={t('noPois')} disabled />
-        )}
+        <StyledButton onClick={closeModal} text={t('showPois', { count: poisCount })} />
       </Container>
     </ModalContent>
   )
