@@ -91,6 +91,7 @@ const PoiFiltersModal = ({
   setCurrentlyOpenFilter,
   poisCount,
 }: PoiFiltersModalProps): ReactElement => {
+  const isPoisButtonDisabled = poisCount === 0
   const poiCategories = pois
     .map(it => it.category)
     .filter((it, index, array) => array.findIndex(value => value.id === it.id) === index)
@@ -127,7 +128,11 @@ const PoiFiltersModal = ({
           </TileRow>
         </Section>
         <Section>
-          <StyledTextButton onPress={closeModal} text={t('showPois', { count: poisCount })} />
+          <StyledTextButton
+            onPress={closeModal}
+            text={t('showPois', { count: poisCount })}
+            disabled={isPoisButtonDisabled}
+          />
         </Section>
       </Container>
     </Modal>

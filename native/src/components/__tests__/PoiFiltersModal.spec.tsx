@@ -65,9 +65,9 @@ describe('PoiFiltersModal', () => {
   })
 
   it('should close modal on button press', () => {
-    const { getByText } = renderPoiFiltersModal({})
+    const { getByText } = renderPoiFiltersModal({ poisCount: 0 })
 
-    fireEvent.press(getByText('showPois'))
+    fireEvent.press(getByText('0 showPois'))
     expect(closeModal).toHaveBeenCalledTimes(1)
   })
 })

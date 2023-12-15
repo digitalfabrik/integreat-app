@@ -7077,7 +7077,7 @@
       "onlyCurrentlyOpen": "only show currently open locations",
       "poiCategories": "Categories",
       "showPois_zero": "Show 0 places",
-      "showPois_one" : "Show 1 place",
+      "showPois_one": "Show 1 place",
       "showPois_two": "Show {{count}} places",
       "showPois_few": "Show {{count}} places",
       "showPois_many": "Show {{count}} places",
