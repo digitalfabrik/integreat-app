@@ -86,7 +86,6 @@ const PoiFilters = ({
   panelWidth,
   poisCount,
 }: PoiFiltersProps): ReactElement => {
-  const isPoisButtonDisabled = poisCount === 0
   const poiCategories = pois
     .map(it => it.category)
     .filter((it, index, array) => array.findIndex(value => value.id === it.id) === index)
@@ -124,7 +123,7 @@ const PoiFilters = ({
             ))}
           </TileRow>
         </Section>
-        <StyledButton onClick={closeModal} text={t('showPois', { count: poisCount })} disabled={isPoisButtonDisabled} />
+        <StyledButton onClick={closeModal} text={t('showPois', { count: poisCount })} disabled={poisCount === 0} />
       </Container>
     </ModalContent>
   )
