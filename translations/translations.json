@@ -7034,7 +7034,6 @@
       "map": "Map",
       "showOnMap": "Show on map",
       "noPois": "No places found.",
-      "noPois_one": "No place found.",
       "unitKilometre": "km",
       "unitMetre": "m",
       "distanceKilometre": "{{distance}} km away",
