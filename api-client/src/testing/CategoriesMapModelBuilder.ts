@@ -4,7 +4,13 @@ import seedrandom from 'seedrandom'
 
 import CategoriesMapModel from '../models/CategoriesMapModel'
 import CategoryModel from '../models/CategoryModel'
+import OfferModel from '../models/OfferModel'
 import OrganizationModel from '../models/OrganizationModel'
+
+const lehrstellenRadarPostData = new Map()
+lehrstellenRadarPostData.set('partner', '0006')
+lehrstellenRadarPostData.set('radius', '50')
+lehrstellenRadarPostData.set('plz', '86150')
 
 type PageResourceCacheEntryStateType = {
   readonly filePath: string
@@ -88,7 +94,24 @@ class CategoriesMapModelBuilder {
           logo: 'https://example.com/my-icon',
           url: 'https://example.com',
         }),
-        embeddedOffers: [],
+        embeddedOffers:
+          id === 1
+            ? [
+                new OfferModel({
+                  alias: 'sprungbrett',
+                  thumbnail: 'some_other_thumbnail',
+                  title: 'Sprungbrett',
+                  path: 'https://web.integreat-app.de/proxy/sprungbrett/app-search-internships?location=augsburg',
+                }),
+                new OfferModel({
+                  alias: 'lehrstellen-radar',
+                  thumbnail: 'some_other_thumbnail',
+                  title: 'Lehrstellenradar',
+                  path: 'https://www.lehrstellen-radar.de/5100,0,lsrlist.html',
+                  postData: lehrstellenRadarPostData,
+                }),
+              ]
+            : [],
       })
       this._resourceCache[path] = {
         [resourceUrl1]: this.createResource(resourceUrl1, id, lastUpdate),
