@@ -21,6 +21,7 @@ type ConsentSectionProps = {
   allowed: boolean
   onPress: (type: string, value: boolean) => void
 }
+
 const ConsentSection = ({ title, description, allowed, onPress }: ConsentSectionProps): ReactElement => (
   <>
     <Container>
