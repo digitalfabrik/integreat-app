@@ -1,0 +1,5 @@
+issue_key: 2618
+show_in_stores: false
+platforms:
+  - web
+en: Fix missing external link icon.
