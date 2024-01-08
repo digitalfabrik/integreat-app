@@ -36,6 +36,8 @@ const Wrapper = styled.div`
   box-sizing: border-box;
   padding: 10px 10%;
   background-color: ${props => props.theme.colors.backgroundColor};
+  display: flex;
+  align-items: center;
 `
 
 const StyledIcon = styled(Icon)`

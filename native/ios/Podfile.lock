@@ -514,7 +514,7 @@ PODS:
     - React-Core
   - RNLocalize (3.0.2):
     - React-Core
-  - RNPermissions (4.0.0-beta.1):
+  - RNPermissions (4.0.0):
     - React-Core
   - RNReanimated (3.4.2):
     - DoubleConversion
@@ -862,7 +862,7 @@ SPEC CHECKSUMS:
   RNGestureHandler: c0d04458598fcb26052494ae23dda8f8f5162b13
   RNInAppBrowser: e36d6935517101ccba0e875bac8ad7b0cb655364
   RNLocalize: dbea38dcb344bf80ff18a1757b1becf11f70cae4
-  RNPermissions: 9c76579839681bde6f2acc479239dbca21c71dcc
+  RNPermissions: 29f0d639f5559b7414912728020f8f1191ba337a
   RNReanimated: 49cdb63e767bb7e743ff4c12f7d85722c0d008f2
   RNScreens: b21dc57dfa2b710c30ec600786a3fc223b1b92e7
   RNSentry: 0a1daa8ee81e2776f977ae8c66e67c8d85587828
