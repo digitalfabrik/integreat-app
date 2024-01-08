@@ -45,6 +45,8 @@ import {
   LICENSES_ROUTE,
   LicensesRouteType,
   FeedbackRouteType,
+  CONSENT_ROUTE,
+  ConsentRouteType,
 } from 'api-client'
 
 export type RoutesType =
@@ -68,6 +70,7 @@ export type RoutesType =
   | ImageViewModalRouteType
   | FeedbackModalRouteType
   | LicensesRouteType
+  | ConsentRouteType
 
 type RouteTitle = {
   title?: string
@@ -98,6 +101,7 @@ export type RoutesParamsType = {
   }
   [DISCLAIMER_ROUTE]: undefined
   [OFFERS_ROUTE]: undefined
+  [CONSENT_ROUTE]: undefined
   [JPAL_TRACKING_ROUTE]: undefined
   [EXTERNAL_OFFER_ROUTE]: {
     url: string

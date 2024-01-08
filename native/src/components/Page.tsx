@@ -3,6 +3,7 @@ import { DateTime } from 'luxon'
 import React, { ReactElement, ReactNode, useCallback, useContext, useMemo, useState } from 'react'
 import styled from 'styled-components/native'
 
+import dimensions from '../constants/dimensions'
 import useCityAppContext from '../hooks/useCityAppContext'
 import useNavigateToLink from '../hooks/useNavigateToLink'
 import useResourceCache from '../hooks/useResourceCache'
@@ -14,7 +15,7 @@ import { StaticServerContext } from './StaticServerProvider'
 import TimeStamp from './TimeStamp'
 
 const Container = styled.View<{ $padding: boolean }>`
-  ${props => props.$padding && 'padding: 0 16px 8px;'}
+  ${props => props.$padding && `padding: 0 ${dimensions.pageContainerPaddingHorizontal}px 8px;`}
 `
 export type ParsedCacheDictionaryType = Record<string, string>
 
