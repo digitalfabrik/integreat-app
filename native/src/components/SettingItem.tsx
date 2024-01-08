@@ -3,8 +3,8 @@ import { useTranslation } from 'react-i18next'
 import { Text, View, AccessibilityRole } from 'react-native'
 import styled from 'styled-components/native'
 
-import SettingsSwitch from './SettingsSwitch'
 import Pressable from './base/Pressable'
+import SettingsSwitch from './base/SettingsSwitch'
 
 const PadView = styled.View`
   padding: 16px;
