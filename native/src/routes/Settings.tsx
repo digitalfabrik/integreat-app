@@ -1,7 +1,7 @@
 import { useFocusEffect } from '@react-navigation/native'
 import React, { ReactElement, useCallback, useContext, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { SectionList, SectionListData, StyleSheet } from 'react-native'
+import { SectionList, SectionListData } from 'react-native'
 import styled from 'styled-components/native'
 
 import { SettingsRouteType } from 'api-client'
@@ -9,6 +9,7 @@ import { SettingsRouteType } from 'api-client'
 import Caption from '../components/Caption'
 import Layout from '../components/Layout'
 import SettingItem from '../components/SettingItem'
+import ItemSeparator from '../components/base/ItemSeparator'
 import { NavigationProps } from '../constants/NavigationTypes'
 import { AppContext } from '../contexts/AppContextProvider'
 import useSnackbar from '../hooks/useSnackbar'
@@ -24,10 +25,6 @@ type SectionType = SectionListData<SettingsSectionType> & {
   title?: string | null
 }
 
-const ItemSeparator = styled.View`
-  background-color: ${props => props.theme.colors.textDecorationColor};
-  height: ${StyleSheet.hairlineWidth}px;
-`
 const SectionHeader = styled.Text`
   padding: 20px;
   color: ${props => props.theme.colors.textColor};
