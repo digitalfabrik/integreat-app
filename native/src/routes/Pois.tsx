@@ -85,6 +85,9 @@ const Pois = ({ pois: allPois, language, cityModel, route, navigation }: PoisPro
         .filter(poi => !poiCurrentlyOpenFilter || poi.isCurrentlyOpen),
     [allPois, poiCategoryFilter, poiCurrentlyOpenFilter],
   )
+
+  const poisCount = pois.length
+
   const poi = pois.find(it => it.slug === slug)
   const features = useMemo(() => prepareFeatureLocations(pois, coordinates), [pois, coordinates])
 
@@ -230,6 +233,7 @@ const Pois = ({ pois: allPois, language, cityModel, route, navigation }: PoisPro
         setSelectedPoiCategory={updatePoiCategoryFilter}
         currentlyOpenFilter={poiCurrentlyOpenFilter}
         setCurrentlyOpenFilter={updatePoiCurrentlyOpenFilter}
+        poisCount={poisCount}
       />
       <MapView
         selectFeature={selectFeatureOnMap}
