@@ -85,7 +85,6 @@ const Categories = ({
       AfterContent={category.organization && <OrganizationContentInfo organization={category.organization} />}
       Footer={
         <>
-          {/** eslint-disable-next-line @typescript-eslint/no-non-null-assertion */}
           {extra && category.embeddedOffers.length > 0 && <EmbeddedOffer extra={extra} languageCode={language} />}
           <List
             items={children}
