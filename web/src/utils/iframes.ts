@@ -127,6 +127,7 @@ const showOptIn = (
   container.appendChild(label)
   container.appendChild(checkbox)
 }
+
 const showSettingsButton = (element: HTMLDivElement, t: TFunction): void => {
   const link = document.createElement('a')
   link.innerHTML = t('layout:settings')
