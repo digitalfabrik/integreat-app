@@ -1,5 +1,5 @@
 import Dompurify from 'dompurify'
-import React, { ReactElement, useCallback, useEffect, useState, useMemo } from 'react'
+import React, { ReactElement, useCallback, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
 
@@ -180,11 +180,9 @@ const RemoteContent = ({
   smallText = false,
 }: RemoteContentProps): ReactElement => {
   const sandBoxRef = React.createRef<HTMLDivElement>()
-  const { value: sources, updateCookie } = useCookie(EXTERNAL_SOURCES_COOKIE_NAME)
-  const externalSourcePermissions: ExternalSourcePermissions = useMemo(
-    () => (sources ? JSON.parse(sources) : {}),
-    [sources],
-  )
+  const { value: externalSourcePermissions, updateCookie } =
+    useCookie<ExternalSourcePermissions>(EXTERNAL_SOURCES_COOKIE_NAME)
+
   const [contentIframeSources, setContentIframeSources] = useState<IframeSources>({})
   const { viewportSmall, width: deviceWidth } = useWindowDimensions()
   const { t } = useTranslation()
@@ -205,7 +203,7 @@ const RemoteContent = ({
   const onUpdateCookie = useCallback(
     (source: string): void => {
       externalSourcePermissions[source] = true
-      updateCookie(JSON.stringify(externalSourcePermissions), '/', window.location.hostname)
+      updateCookie(externalSourcePermissions)
     },
     [externalSourcePermissions, updateCookie],
   )

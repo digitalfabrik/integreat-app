@@ -1,4 +1,4 @@
-import React, { ReactElement, useMemo } from 'react'
+import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
 
@@ -21,24 +21,20 @@ const Description = styled.div`
 type ConsentPageProps = { languageCode: string }
 const ConsentPage = ({ languageCode }: ConsentPageProps): ReactElement => {
   const { t } = useTranslation('consent')
-  const { value: sources, updateCookie } = useCookie(EXTERNAL_SOURCES_COOKIE_NAME)
-  const externalSourcePermissions: ExternalSourcePermissions = useMemo(
-    () => (sources ? JSON.parse(sources) : {}),
-    [sources],
-  )
+  const { value: externalSourcePermissions, updateCookie } =
+    useCookie<ExternalSourcePermissions>(EXTERNAL_SOURCES_COOKIE_NAME)
 
-  const onPress = (type: string, allowed: boolean) => {
-    externalSourcePermissions[type] = allowed
-    updateCookie(JSON.stringify(externalSourcePermissions), '/', window.location.hostname)
+  const updateSourcePermission = (source: string, permissionGiven: boolean) => {
+    externalSourcePermissions[source] = permissionGiven
+    updateCookie(externalSourcePermissions)
   }
 
   const renderConsentItem = (item: string): ReactElement => (
     <ConsentSection
       key={item}
-      title={item}
       description={t('consentDescription', { source: item })}
       allowed={externalSourcePermissions[item] ?? false}
-      onPress={onPress}
+      onPress={permissionGiven => updateSourcePermission(item, permissionGiven)}
     />
   )
 

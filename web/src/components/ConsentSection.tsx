@@ -16,20 +16,19 @@ const Divider = styled.hr`
 `
 
 type ConsentSectionProps = {
-  title: string
   description: string
   allowed: boolean
-  onPress: (type: string, value: boolean) => void
+  onPress: (permissionGiven: boolean) => void
 }
 
-const ConsentSection = ({ title, description, allowed, onPress }: ConsentSectionProps): ReactElement => (
+const ConsentSection = ({ description, allowed, onPress }: ConsentSectionProps): ReactElement => (
   <>
     <Container>
       <Checkbox
         id={description}
         checked={allowed}
         setChecked={val => {
-          onPress(title, val)
+          onPress(val)
         }}
         label={description}
       />
