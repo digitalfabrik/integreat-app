@@ -1,29 +1,50 @@
+import { TFunction } from 'i18next'
+
+import { ExternalSourcePermissions } from 'api-client'
 import { ThemeType } from 'build-configs'
 
 import { ParsedCacheDictionaryType } from '../components/Page'
-import { ERROR_MESSAGE_TYPE, getFontFaceSource, HEIGHT_MESSAGE_TYPE, WARNING_MESSAGE_TYPE } from '../constants/webview'
+import {
+  ALLOW_EXTERNAL_SOURCE_MESSAGE_TYPE,
+  ERROR_MESSAGE_TYPE,
+  getFontFaceSource,
+  HEIGHT_MESSAGE_TYPE,
+  OPEN_SETTINGS_MESSAGE_TYPE,
+  WARNING_MESSAGE_TYPE,
+} from '../constants/webview'
 
+// To use parameters or external constants in renderJS, you need to use string interpolation, e.g.
+// const cacheDictionary = ${JSON.stringify(cacheDictionary)}
 // language=JavaScript
-const renderJS = (cacheDictionary: Record<string, string>) => `
-  function reportError (message, type) {
+const renderJS = (
+  cacheDictionary: ParsedCacheDictionaryType,
+  supportedIframeSources: string[],
+  externalSourcePermissions: ExternalSourcePermissions,
+  t: TFunction,
+  deviceWidth: number,
+  pageContainerPadding: number,
+) => `
+  function reportError(message, type) {
     if (!window.ReactNativeWebView) {
-      return window.setTimeout(function() { reportError(message, type) }, 100)
+      return window.setTimeout(function () {
+        reportError(message, type)
+      }, 100)
     }
 
     window.ReactNativeWebView.postMessage(JSON.stringify({ type, message: message }))
   }
 
-  // Catching occurring errors
-  (function() {
-    window.onerror = function(msg, url, lineNo, columnNo, error) {
-      // from https://developer.mozilla.org/en-US/docs/Web/API/GlobalEventHandlers/onerror
-      var string = msg.toLowerCase()
-      var substring = "script error"
+  (function catchErrors() {
+    window.onerror = function (msg, url, lineNo, columnNo, error) {
+      const string = msg.toLowerCase()
+      const substring = 'script error'
       if (string.indexOf(substring) > -1) {
-        reportError('Script Error: See Browser Console for Detail: ' + msg + JSON.stringify(error),
-          '${ERROR_MESSAGE_TYPE}')
+        reportError(
+          'Script Error: See Browser Console for Detail: ' + msg + JSON.stringify(error),
+          '${ERROR_MESSAGE_TYPE}',
+        )
       } else {
-        var message = [
+        const message = [
           'Message: ' + msg,
           'URL: ' + url,
           'Line: ' + lineNo,
@@ -33,72 +54,191 @@ const renderJS = (cacheDictionary: Record<string, string>) => `
         reportError(message, '${ERROR_MESSAGE_TYPE}')
       }
       return false
-    };
+    }
   })();
 
-  (function() {
-    var hrefs = document.querySelectorAll('[href]')
-    var srcs = document.querySelectorAll('[src]')
-    var cacheDictionary = ${JSON.stringify(cacheDictionary)}
+  (function replaceResourcesWithCached() {
+    const hrefs = document.querySelectorAll('[href]')
+    const srcs = document.querySelectorAll('[src]')
+    const cacheDictionary = ${JSON.stringify(cacheDictionary)}
 
-    console.debug('Resources to inject:')
-    console.debug(cacheDictionary)
-
-    for (var i = 0; i < hrefs.length; i++) {
-      var item = hrefs[i]
+    for (let i = 0; i < hrefs.length; i++) {
+      const item = hrefs[i]
       try {
-        var newResource = cacheDictionary[decodeURI(item.href)]
+        const newResource = cacheDictionary[decodeURI(item.href)]
         if (newResource) {
           item.href = newResource
         }
       } catch (e) {
-        reportError(e.message + 'occurred while decoding and looking for ' + item.href + ' in the dictionary',
-          '${WARNING_MESSAGE_TYPE}')
+        reportError(
+          e.message + 'occurred while decoding and looking for ' + item.href + ' in the dictionary',
+          '${WARNING_MESSAGE_TYPE}',
+        )
       }
     }
 
-    for (var i = 0; i < srcs.length; i++) {
-      var item = srcs[i]
+    for (let i = 0; i < srcs.length; i++) {
+      const item = srcs[i]
       try {
-        var newResource = cacheDictionary[decodeURI(item.src)]
+        const newResource = cacheDictionary[decodeURI(item.src)]
         if (newResource) {
           item.src = newResource
         }
       } catch (e) {
-        reportError(e.message + 'occurred while decoding and looking for ' + item.src + ' in the dictionary',
-          '${WARNING_MESSAGE_TYPE}')
+        reportError(
+          e.message + 'occurred while decoding and looking for ' + item.src + ' in the dictionary',
+          '${WARNING_MESSAGE_TYPE}',
+        )
       }
     }
   })();
 
-  (function() {
-    var container = document.getElementById('measure-container')
+  (function addWebviewHeightListeners() {
+    const container = document.getElementById('measure-container')
 
-    function adjustHeight () {
-      container.setAttribute('style', 'padding: 1px 0;'); // Used for measuring collapsed vertical margins
+    function adjustHeight() {
+      container.setAttribute('style', 'padding: 1px 0;') // Used for measuring collapsed vertical margins
 
       if (!window.ReactNativeWebView) {
-        return window.setTimeout(adjustHeight, 100);
+        return window.setTimeout(adjustHeight, 100)
       }
 
-      var height = container.getBoundingClientRect().height - 2
-      window.ReactNativeWebView.postMessage(JSON.stringify({ type: '${HEIGHT_MESSAGE_TYPE}', height: height }));
-      container.setAttribute('style', '');
+      const height = container.getBoundingClientRect().height - 2
+      window.ReactNativeWebView.postMessage(JSON.stringify({ type: '${HEIGHT_MESSAGE_TYPE}', height: height }))
+      container.setAttribute('style', '')
     }
 
-    window.addEventListener('load', adjustHeight);
-    window.addEventListener('resize', adjustHeight);
-    var details = document.querySelectorAll("details")
-    details.forEach(detail => detail.addEventListener("toggle", adjustHeight))
+    window.addEventListener('load', adjustHeight)
+    window.addEventListener('resize', adjustHeight)
+    const details = document.querySelectorAll('details')
+    details.forEach(detail => detail.addEventListener('toggle', adjustHeight))
   })();
+
+  (function handleIframes() {
+
+    function getContainer (element, className)  {
+      const container = document.createElement('div')
+      container.id = className
+      container.classList.add(className)
+      element.appendChild(container)
+      return container
+    }
+    
+    function showMessage(text, element, iframeSource) {
+      const textNode = document.createTextNode(text)
+      if (iframeSource) {
+        showSource(element, iframeSource)
+      }
+      element.appendChild(textNode)
+    }
+
+    function showSource(element, source) {
+      const span = document.createElement('span')
+      span.classList.add('iframe-source')
+      element.appendChild(span)
+      span.appendChild(document.createTextNode(source))
+      element.appendChild(document.createElement('br'))
+    }
+
+    function showSettingsButton(element) {
+      function onClickHandler() {
+        window.ReactNativeWebView.postMessage(JSON.stringify({ type: '${OPEN_SETTINGS_MESSAGE_TYPE}' }))
+      }
+
+      const buttonLabel = '${t('layout:settings')}'
+      const button = document.createElement('button')
+      button.name = 'opt-in-settings-button'
+      button.innerHTML = buttonLabel
+      button.id = button.name
+      button.onclick = onClickHandler
+      element.appendChild(button)
+    }
+
+    function showMessageWithSettings(text, iframeContainer, iframeSource) {
+      const container = getContainer(iframeContainer, 'iframe-info-text')
+      showMessage(text, container, iframeSource)
+      showSettingsButton(container)
+    }
+
+    function showOptIn(text, iframeContainer, source) {
+      function onClickHandler() {
+        window.ReactNativeWebView.postMessage(
+          JSON.stringify({ type: '${ALLOW_EXTERNAL_SOURCE_MESSAGE_TYPE}', source }),
+        )
+      }
+      
+      const container = getContainer(iframeContainer, 'iframe-info-text')
+      const checkbox = document.createElement('input')
+      checkbox.type = 'checkbox'
+      checkbox.name = 'opt-in-checkbox'
+      checkbox.id = checkbox.name
+      checkbox.onclick = onClickHandler
+      const label = document.createElement('label')
+      label.htmlFor = checkbox.name
+      showSource(label, source)
+      label.appendChild(document.createTextNode(text))
+      container.appendChild(label)
+      container.appendChild(checkbox)
+    }
+    
+    function handleSupportedIframeSources(iframe, iframeSource) {
+      const externalSourcePermissions = ${JSON.stringify(externalSourcePermissions)}
+      const iframeContainer = document.createElement('div')
+      iframeContainer.classList.add('iframe-container')
+      iframe.parentNode.appendChild(iframeContainer)
+      iframeContainer.appendChild(iframe)
+      // Scale the iframe height depending on device width and outside margin
+      const deviceWidth = '${deviceWidth}'
+      const pageContainerPadding = '${pageContainerPadding}'
+      const scaledHeight = (deviceWidth / Number(iframe.width)) * Number(iframe.height) - pageContainerPadding
+      iframe.setAttribute('height', scaledHeight)
+      if (externalSourcePermissions[iframeSource] === undefined) {
+        const message = '${t('remoteContent:knownResourceOptIn')}'
+        showOptIn(message, iframeContainer, iframeSource)
+        iframe.remove()
+      } else if (externalSourcePermissions[iframeSource]) {
+        // Add do not track parameter (only working for vimeo)
+        if (iframeSource === 'vimeo.com') {
+          const url = new URL(iframe.src)
+          url.searchParams.append('dnt', '1')
+          iframe.setAttribute('src', url.href)
+        }
+        const message = '${t('remoteContent:knownResourceContentMessage')}'
+        showMessageWithSettings(message, iframeContainer, iframeSource)
+      } else {
+        const message = '${t('remoteContent:knownResourceBlocked')}'
+        showMessageWithSettings(message, iframeContainer, iframeSource)
+        iframe.remove()
+      }
+    }
+
+    const iframes = document.querySelectorAll('iframe')
+    const supportedIframeSources = ${JSON.stringify(supportedIframeSources)}
+
+    iframes.forEach(iframe => {
+      const supportedIframeSource = supportedIframeSources.find(src => iframe.src.includes(src))
+      if (supportedIframeSource) {
+        handleSupportedIframeSources(iframe, supportedIframeSource)
+      } else {
+        iframe.remove()
+      }
+    })
+  })()
 `
 
+// To use parameters or external constants in renderHTML, you need to use string interpolation, e.g.
+// <html lang='${language}'>
 // language=HTML
 const renderHtml = (
   html: string,
   cacheDictionary: ParsedCacheDictionaryType,
+  supportedIframeSources: string[],
   theme: ThemeType,
   language: string,
+  externalSourcePermissions: ExternalSourcePermissions,
+  t: TFunction,
+  deviceWidth: number,
+  pageContainerPadding: number,
 ): string => `
   <!-- The lang attribute makes TalkBack use the appropriate language. -->
   <html lang='${language}'>
@@ -160,10 +300,6 @@ const renderHtml = (
         line-height: ${theme.fonts.contentLineHeight};
         font-size-adjust: ${theme.fonts.fontSizeAdjust};
         background-color: ${theme.colors.backgroundColor};
-        /*\${props => props.centered && css\`
-        text-align: center;
-        list-style-position: inside;
-        \`} */
       }
 
       body {
@@ -227,11 +363,64 @@ const renderHtml = (
         vertical-align: -2px;
         margin: 0 4px;
       }
+
+      iframe {
+        border: none;
+        border-bottom: 1px solid ${theme.colors.borderColor};
+        max-width: 100%;
+      }
+
+      .iframe-container {
+        display: flex;
+        padding: 4px;
+        flex-direction: column;
+        border: 1px solid ${theme.colors.borderColor};
+        border-radius: 4px;
+        box-shadow:
+          0 1px 3px rgb(0 0 0 / 10%),
+          0 1px 2px rgb(0 0 0 / 15%);
+      }
+
+      .iframe-info-text {
+        display: flex;
+        flex-direction: row;
+        font-size: ${theme.fonts.decorativeFontSizeSmall};
+        padding: 12px;
+        justify-content: space-between;
+      }
+
+      .iframe-source {
+        display: contents;
+        font-weight: bold;
+      }
+
+      #opt-in-settings-button {
+        border: none;
+        background-color: transparent;
+        margin-left: 12px;
+        padding: 0;
+        overflow-wrap: normal;
+        color: ${theme.colors.tunewsThemeColor};
+      }
+
+      #opt-in-checkbox {
+        display: flex;
+        margin-left: 12px;
+        align-self: center;
+      }
+      
     </style>
   </head>
   <body dir='auto'>
   <div id='measure-container'>${html}</div>
-  <script>${renderJS(cacheDictionary)}</script>
+  <script>${renderJS(
+    cacheDictionary,
+    supportedIframeSources,
+    externalSourcePermissions,
+    t,
+    deviceWidth,
+    pageContainerPadding,
+  )}</script>
   </body>
   </html>
 `

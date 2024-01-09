@@ -2268,10 +2268,10 @@
   resolved "https://registry.yarnpkg.com/@humanwhocodes/object-schema/-/object-schema-1.2.1.tgz#b520529ec21d8e5945a1851dfd1c32e94e39ff45"
   integrity sha512-ZnQMnLV4e7hDlUvw8H+U8ASL02SS2Gn6+9Ac3wGGLIe7+je2AeAOxPY+izIPJDfFDb7eDjev0Us8MO1iFRN8hA==
 
-"@integreat-app/react-sticky-headroom@^1.2.3":
-  version "1.2.3"
-  resolved "https://registry.yarnpkg.com/@integreat-app/react-sticky-headroom/-/react-sticky-headroom-1.2.3.tgz#c63f2fe55dade7072d598b6cab0b678b9e7a0b42"
-  integrity sha512-ACvlYJmfsqlfQrrTBJt+8HNkDZkb42ae0x+fLSnKXjAvknnIHgrSZGS81AP8273kYDJOSyBmiUPxnC0fR2VJxg==
+"@integreat-app/react-sticky-headroom@^2.2.0":
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/@integreat-app/react-sticky-headroom/-/react-sticky-headroom-2.2.0.tgz#2b16b06f632f785c2a882983143dd3274c89c67a"
+  integrity sha512-PqeQ8dm51f3rSZIT+XpnAHl7t2kI3bp/X3gnb6OGW6bQy8loFa5uUcSgiTZ8yRN/XoQv5mtUBStz3DaHfS9vmQ==
 
 "@isaacs/cliui@^8.0.2":
   version "8.0.2"

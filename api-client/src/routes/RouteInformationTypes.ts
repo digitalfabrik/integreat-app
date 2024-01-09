@@ -1,6 +1,7 @@
 import {
   CategoriesRouteType,
   CityNotCooperatingRouteType,
+  ConsentRouteType,
   DisclaimerRouteType,
   EventsRouteType,
   JpalTrackingRouteType,
@@ -27,6 +28,10 @@ export type LandingRouteInformationType = {
 
 export type LicensesInformationType = {
   route: LicensesRouteType
+}
+
+export type ConsentInformationType = {
+  route: ConsentRouteType
 }
 
 export type CityNotCooperatingInformationType = {
@@ -86,5 +91,6 @@ export type NonNullableRouteInformationType =
   | PoisRouteInformationType
   | LicensesInformationType
   | SearchRouteInformationType
+  | ConsentInformationType
 
 export type RouteInformationType = NonNullableRouteInformationType | null

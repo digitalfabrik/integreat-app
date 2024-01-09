@@ -12,7 +12,7 @@ import appSettings from '../../utils/AppSettings'
 import JpalTracking from '../JpalTracking'
 
 jest.mock('react-i18next')
-jest.mock('../../components/SettingsSwitch', () => {
+jest.mock('../../components/base/SettingsSwitch', () => {
   const { Text } = require('react-native')
   return () => <Text>SettingsSwitch</Text>
 })

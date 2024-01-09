@@ -22,6 +22,7 @@ const commonMalteBuildConfig: CommonBuildConfigType = {
   cmsUrl: 'https://cms.malteapp.de',
   switchCmsUrl: 'https://malte-test.tuerantuer.org',
   allowedHostNames: ['cms.malteapp.de', 'malte-test.tuerantuer.org'],
+  supportedIframeSources: ['vimeo.com'],
   translationsOverride: malteOverrideTranslations,
   internalLinksHijackPattern:
     'https?:\\/\\/((cms\\.)?malteapp\\.de|malte-test\\.tuerantuer\\.org)(?!\\/(media|[^/]*\\/(wp-content|wp-admin|wp-json))\\/.*).*',

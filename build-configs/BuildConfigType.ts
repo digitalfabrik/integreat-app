@@ -52,6 +52,7 @@ export type CommonBuildConfigType = {
   // Hostnames from which resources are automatically downloaded for offline usage.
   allowedHostNames: Array<string>
   // Regex defining which urls to intercept as they are internal ones.
+  supportedIframeSources: string[]
   internalLinksHijackPattern: string
   featureFlags: FeatureFlagsType
   lightTheme: ThemeType
