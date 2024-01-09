@@ -1,19 +1,32 @@
 import React, { ReactElement } from 'react'
 
-import { LoadSprungbrettJobReturn } from 'api-client'
+import { ErrorCode, fromError } from 'api-client'
 
+import { EmbeddedOffersReturn } from '../hooks/useEmbeddedOffers'
 import SprungbrettOffer from '../routes/SprungbrettOffer'
-
-export type EmbeddedOfferReturns = Awaited<LoadSprungbrettJobReturn>
+import Failure from './Failure'
+import LoadingSpinner from './LoadingSpinner'
 
 type EmbeddedOfferProps = {
-  extra?: EmbeddedOfferReturns
+  embeddedOffers: EmbeddedOffersReturn
   languageCode: string
 }
 
-const EmbeddedOffer = ({ extra, languageCode }: EmbeddedOfferProps): ReactElement | null => {
-  if (extra && extra.sprungbrettJobs) {
-    return <SprungbrettOffer jobs={extra.sprungbrettJobs} language={languageCode} />
+const EmbeddedOffer = ({ embeddedOffers, languageCode }: EmbeddedOfferProps): ReactElement | null => {
+  if (embeddedOffers.loading) {
+    return <LoadingSpinner />
+  }
+
+  if (embeddedOffers.error) {
+    return <Failure code={fromError(embeddedOffers.error)} buttonAction={embeddedOffers.refresh} />
+  }
+
+  if (!embeddedOffers.embeddedOffers) {
+    return <Failure code={ErrorCode.PageNotFound} buttonAction={embeddedOffers.refresh} />
+  }
+  const { sprungbrett } = embeddedOffers.embeddedOffers
+  if (sprungbrett) {
+    return <SprungbrettOffer jobs={sprungbrett.sprungbrettJobs} language={languageCode} />
   }
   return null
 }

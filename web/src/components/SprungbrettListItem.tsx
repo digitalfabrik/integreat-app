@@ -16,7 +16,7 @@ type SprungbrettListItemProps = {
 }
 
 const SprungbrettListItem = ({ job }: SprungbrettListItemProps): ReactElement => (
-  <ListItem title={job.title} path={job.url} thumbnail={SprungbrettIcon} thumbnailSize={25}>
+  <ListItem title={job.title} path={job.url} thumbnail={SprungbrettIcon} thumbnailSize={24}>
     <Content dir='auto'>{job.location}</Content>
   </ListItem>
 )

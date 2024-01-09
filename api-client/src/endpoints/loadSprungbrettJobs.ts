@@ -22,6 +22,7 @@ const loadSprungbrettJobs = async ({
   languageCode,
   baseUrl,
 }: LoadSprungbrettJobsParams): LoadSprungbrettJobReturn => {
+  cityCode = 'augsburg'
   const apiUrl = typeof baseUrl === 'string' ? baseUrl : await baseUrl()
   const sprungbrettOfferAlias = SPRUNGBRETT_OFFER_ROUTE
   const offersPayload = await createOffersEndpoint(apiUrl).request({

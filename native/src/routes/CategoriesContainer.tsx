@@ -7,7 +7,7 @@ import Categories from '../components/Categories'
 import DashboardNavigationTiles from '../components/DashboardNavigationTiles'
 import { NavigationProps, RouteProps } from '../constants/NavigationTypes'
 import useCityAppContext from '../hooks/useCityAppContext'
-import useEmbeddedOffer from '../hooks/useEmbeddedOffer'
+import useEmbeddedOffers from '../hooks/useEmbeddedOffers'
 import useHeader from '../hooks/useHeader'
 import useLoadCityContent from '../hooks/useLoadCityContent'
 import useNavigate from '../hooks/useNavigate'
@@ -27,12 +27,12 @@ const CategoriesContainer = ({ navigation, route }: CategoriesContainerProps): R
   const { cityCode, languageCode } = useCityAppContext()
   const deviceWidth = useWindowDimensions().width
   const resourceCache = useResourceCache({ cityCode, languageCode })
-  const path = route.params.path ?? cityContentPath({ cityCode, languageCode })
   const { navigateTo } = useNavigate()
 
   const { data, ...response } = useLoadCityContent({ cityCode, languageCode })
 
   const homeRouteTitle = cityDisplayName(data?.city, deviceWidth)
+  const path = route.params.path ?? cityContentPath({ cityCode, languageCode })
   const category = useMemo(() => data?.categories.findCategoryByPath(path), [data?.categories, path])
   const availableLanguages =
     category && !category.isRoot() ? Array.from(category.availableLanguages.keys()) : data?.languages.map(it => it.code)
@@ -57,20 +57,22 @@ const CategoriesContainer = ({ navigation, route }: CategoriesContainerProps): R
   )
   const previousLanguageCode = usePreviousProp({ prop: languageCode, onPropChange: onLanguageChange })
 
-  const { extra, ...combinedResponse } = useEmbeddedOffer({
+  const embeddedOffers = useEmbeddedOffers({
     category,
     cityCode,
     languageCode,
-    cityContentResponse: response,
   })
 
   const error =
-    data?.categories && !category && previousLanguageCode === languageCode
-      ? ErrorCode.PageNotFound
-      : combinedResponse.error
+    data?.categories && !category && previousLanguageCode === languageCode ? ErrorCode.PageNotFound : response.error
+
+  const refresh = useCallback(() => {
+    response.refresh()
+    embeddedOffers.refresh()
+  }, [response, embeddedOffers])
 
   return (
-    <LoadingErrorHandler refresh={combinedResponse.refresh} loading={combinedResponse.loading} error={error} scrollView>
+    <LoadingErrorHandler refresh={refresh} loading={response.loading} error={error} scrollView>
       {data && category && (
         <>
           {category.isRoot() && (
@@ -82,7 +84,7 @@ const CategoriesContainer = ({ navigation, route }: CategoriesContainerProps): R
             cityModel={data.city}
             categories={data.categories}
             category={category}
-            extra={extra}
+            embeddedOffers={embeddedOffers}
             resourceCache={resourceCache}
           />
         </>

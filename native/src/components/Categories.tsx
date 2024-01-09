@@ -6,11 +6,12 @@ import { CATEGORIES_ROUTE } from 'api-client/src/routes'
 import { RouteInformationType } from 'api-client/src/routes/RouteInformationTypes'
 
 import { URL_PREFIX } from '../constants/webview'
+import { EmbeddedOffersReturn } from '../hooks/useEmbeddedOffers'
 import TileModel from '../models/TileModel'
 import testID from '../testing/testID'
 import { LanguageResourceCacheStateType, PageResourceCacheStateType } from '../utils/DataContainer'
 import CategoryListItem from './CategoryListItem'
-import EmbeddedOffer, { EmbeddedOfferReturns } from './EmbeddedOffer'
+import EmbeddedOffer from './EmbeddedOffer'
 import List from './List'
 import OrganizationContentInfo from './OrganizationContentInfo'
 import Page from './Page'
@@ -21,7 +22,7 @@ export type CategoriesProps = {
   language: string
   categories: CategoriesMapModel
   category: CategoryModel
-  extra: EmbeddedOfferReturns | null
+  embeddedOffers: EmbeddedOffersReturn
   navigateTo: (routeInformation: RouteInformationType) => void
   resourceCache: LanguageResourceCacheStateType
 }
@@ -46,7 +47,7 @@ const Categories = ({
   navigateTo,
   categories,
   category,
-  extra,
+  embeddedOffers,
   resourceCache,
 }: CategoriesProps): ReactElement => {
   const children = categories.getChildren(category)
@@ -85,7 +86,7 @@ const Categories = ({
       AfterContent={category.organization && <OrganizationContentInfo organization={category.organization} />}
       Footer={
         <>
-          {extra && category.embeddedOffers.length > 0 && <EmbeddedOffer extra={extra} languageCode={language} />}
+          <EmbeddedOffer embeddedOffers={embeddedOffers} languageCode={language} />
           <List
             items={children}
             renderItem={({ item: it }) => (

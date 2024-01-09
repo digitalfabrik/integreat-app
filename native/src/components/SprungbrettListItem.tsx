@@ -18,7 +18,7 @@ class SprungbrettListItem extends PureComponent<SprungbrettListItemProps> {
     const { language, job, openJobInBrowser } = this.props
     return (
       <ListItem
-        thumbnail={<SprunbrettIcon width={25} height={25} />}
+        thumbnail={<SprunbrettIcon width={24} height={24} />}
         title={job.title}
         navigateTo={openJobInBrowser}
         language={language}>
