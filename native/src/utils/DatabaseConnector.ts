@@ -19,6 +19,7 @@ import {
   PoiCategoryModel,
   OrganizationModel,
   OfferModel,
+  createPostMap,
 } from 'api-client'
 
 import DatabaseContext from '../models/DatabaseContext'
@@ -432,7 +433,7 @@ class DatabaseConnector {
                   alias: jsonOffer.alias,
                   thumbnail: jsonOffer.thumbnail,
                   path: jsonOffer.path,
-                  postData: jsonOffer.post ? new Map(Object.entries(jsonOffer.post)) : undefined,
+                  postData: jsonOffer.post ? createPostMap(jsonOffer.post) : undefined,
                 }),
             ),
           })
