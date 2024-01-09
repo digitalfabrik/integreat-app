@@ -73,13 +73,13 @@ const SprungbrettOfferPage = ({
     ),
   }
 
-  const Wrapper = !embedded
-    ? ({ children }: PropsWithChildren) => (
+  const Wrapper = embedded
+    ? Fragment
+    : ({ children }: PropsWithChildren) => (
         <CityContentLayout isLoading={loading} {...locationLayoutParams}>
           {children}
         </CityContentLayout>
       )
-    : Fragment
 
   if (loading) {
     return (

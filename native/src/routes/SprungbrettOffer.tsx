@@ -18,11 +18,12 @@ const Separator = styled.View`
 type SprungbrettOfferProps = {
   jobs: Array<SprungbrettJobModel>
   language: string
+  embedded?: boolean
   title?: string
   refresh?: () => void
 }
 
-const SprungbrettOffer = ({ jobs, title, language, refresh }: SprungbrettOfferProps): ReactElement => {
+const SprungbrettOffer = ({ jobs, title, language, refresh, embedded }: SprungbrettOfferProps): ReactElement => {
   const { t } = useTranslation('sprungbrett')
   const showSnackbar = useSnackbar()
 
@@ -43,7 +44,7 @@ const SprungbrettOffer = ({ jobs, title, language, refresh }: SprungbrettOfferPr
       }
       refresh={refresh}
       noItemsMessage={t('noOffersAvailable')}
-      scrollEnabled={false}
+      scrollEnabled={!embedded}
     />
   )
 }

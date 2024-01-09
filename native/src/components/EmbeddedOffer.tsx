@@ -26,7 +26,7 @@ const EmbeddedOffer = ({ embeddedOffers, languageCode }: EmbeddedOfferProps): Re
   }
   const { sprungbrett } = embeddedOffers.embeddedOffers
   if (sprungbrett) {
-    return <SprungbrettOffer jobs={sprungbrett.sprungbrettJobs} language={languageCode} />
+    return <SprungbrettOffer jobs={sprungbrett.sprungbrettJobs} language={languageCode} embedded />
   }
   return null
 }

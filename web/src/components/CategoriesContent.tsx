@@ -34,7 +34,15 @@ type CategoriesContentProps = {
  * b) table with categories
  * c) list with categories
  */
-const CategoriesContent = ({ categories, categoryModel, t, ...props }: CategoriesContentProps): ReactElement => {
+const CategoriesContent = ({
+  categories,
+  categoryModel,
+  t,
+  city,
+  pathname,
+  cityCode,
+  languageCode,
+}: CategoriesContentProps): ReactElement => {
   const children = categories.getChildren(categoryModel)
   const navigate = useNavigate()
 
@@ -49,7 +57,17 @@ const CategoriesContent = ({ categories, categoryModel, t, ...props }: Categorie
         AfterContent={
           categoryModel.organization && <OrganizationContentInfo organization={categoryModel.organization} />
         }
-        Footer={categoryModel.embeddedOffers[0] && <EmbeddedOffer offer={categoryModel.embeddedOffers[0]} {...props} />}
+        Footer={
+          categoryModel.embeddedOffers[0] && (
+            <EmbeddedOffer
+              offer={categoryModel.embeddedOffers[0]}
+              city={city}
+              pathname={pathname}
+              cityCode={cityCode}
+              languageCode={languageCode}
+            />
+          )
+        }
       />
     )
   }
