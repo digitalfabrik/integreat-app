@@ -10,6 +10,7 @@ import TileModel from '../models/TileModel'
 import testID from '../testing/testID'
 import { LanguageResourceCacheStateType, PageResourceCacheStateType } from '../utils/DataContainer'
 import CategoryListItem from './CategoryListItem'
+import List from './List'
 import OrganizationContentInfo from './OrganizationContentInfo'
 import Page from './Page'
 import Tiles from './Tiles'
@@ -80,16 +81,23 @@ const Categories = ({
       language={language}
       path={category.path}
       AfterContent={category.organization && <OrganizationContentInfo organization={category.organization} />}
-      Footer={children.map(it => (
-        <CategoryListItem
-          key={it.path}
-          category={it}
-          subCategories={categories.getChildren(it)}
-          resourceCache={resourceCache}
-          language={language}
-          onItemPress={navigateToCategory}
+      Footer={
+        <List
+          items={children}
+          renderItem={({ item: it }) => (
+            <CategoryListItem
+              key={it.path}
+              category={it}
+              subCategories={categories.getChildren(it)}
+              resourceCache={resourceCache}
+              language={language}
+              onItemPress={navigateToCategory}
+            />
+          )}
+          // Fixes VirtualizedLists nesting error
+          scrollEnabled={false}
         />
-      ))}
+      }
     />
   )
 }

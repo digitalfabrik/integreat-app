@@ -14,19 +14,32 @@ const Header = styled.View`
   height: ${dimensions.headerHeight}px;
 `
 
-const Content = styled.ScrollView`
+const ScrollContent = styled.ScrollView`
   padding: 0 20px;
+`
+
+const Content = styled.View`
+  padding: 0 20px;
+  flex: 1;
 `
 
 type ModalProps = {
   modalVisible: boolean
   closeModal: () => void
   headerTitle: string
-  title: string
+  title?: string
   children: ReactNode
+  scrollView?: boolean
 }
 
-const Modal = ({ modalVisible, closeModal, headerTitle, title, children }: ModalProps): ReactElement => (
+const Modal = ({
+  modalVisible,
+  closeModal,
+  headerTitle,
+  title,
+  children,
+  scrollView = true,
+}: ModalProps): ReactElement => (
   <RNModal
     visible={modalVisible}
     onRequestClose={closeModal}
@@ -36,10 +49,17 @@ const Modal = ({ modalVisible, closeModal, headerTitle, title, children }: Modal
       <Header>
         <HeaderBox goBack={closeModal} text={headerTitle} />
       </Header>
-      <Content contentContainerStyle={{ flex: 1 }}>
-        <Caption title={title} />
-        {children}
-      </Content>
+      {scrollView ? (
+        <ScrollContent contentContainerStyle={{ flex: 1 }}>
+          {!!title && <Caption title={title} />}
+          {children}
+        </ScrollContent>
+      ) : (
+        <Content>
+          {!!title && <Caption title={title} />}
+          {children}
+        </Content>
+      )}
     </Container>
   </RNModal>
 )

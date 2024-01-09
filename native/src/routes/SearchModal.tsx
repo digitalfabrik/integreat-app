@@ -114,6 +114,7 @@ const SearchModal = ({
         <List
           items={searchResults}
           renderItem={renderItem}
+          accessibilityLabel={t('searchResultsCount', { count: searchResults.length })}
           noItemsMessage={
             <>
               <NothingFound />

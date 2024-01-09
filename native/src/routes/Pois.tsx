@@ -1,5 +1,5 @@
 import { BottomSheetScrollViewMethods } from '@gorhom/bottom-sheet'
-import React, { ReactElement, useCallback, useMemo, useRef, useState } from 'react'
+import React, { ReactElement, useMemo, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { ScrollView, useWindowDimensions } from 'react-native'
 import { SvgUri } from 'react-native-svg'
@@ -8,16 +8,15 @@ import styled from 'styled-components/native'
 import {
   CityModel,
   embedInCollection,
+  ErrorCode,
+  GeoJsonPoi,
+  isMultipoi,
+  MapFeature,
+  PoiCategoryModel,
   PoiModel,
   PoisRouteType,
   prepareFeatureLocations,
-  GeoJsonPoi,
-  MapFeature,
-  isMultipoi,
   sortMapFeatures,
-  NotFoundError,
-  fromError,
-  PoiCategoryModel,
 } from 'api-client'
 
 import { ClockIcon, EditLocationIcon } from '../assets'
@@ -86,6 +85,9 @@ const Pois = ({ pois: allPois, language, cityModel, route, navigation }: PoisPro
         .filter(poi => !poiCurrentlyOpenFilter || poi.isCurrentlyOpen),
     [allPois, poiCategoryFilter, poiCurrentlyOpenFilter],
   )
+
+  const poisCount = pois.length
+
   const poi = pois.find(it => it.slug === slug)
   const features = useMemo(() => prepareFeatureLocations(pois, coordinates), [pois, coordinates])
 
@@ -110,7 +112,6 @@ const Pois = ({ pois: allPois, language, cityModel, route, navigation }: PoisPro
         : features.find(feature => feature.properties.pois.some(poi => poi.slug === slug)),
     [features, multipoi, slug],
   )
-  const currentPoi = useMemo(() => (slug ? pois.find(poi => slug === poi.slug) : undefined), [pois, slug])
 
   const scrollTo = (position: number) => {
     setTimeout(() => {
@@ -129,7 +130,7 @@ const Pois = ({ pois: allPois, language, cityModel, route, navigation }: PoisPro
   }
 
   const deselectFeature = () => {
-    if (multipoi && currentPoi) {
+    if (multipoi && poi) {
       navigation.setParams({ slug: undefined })
     } else {
       deselectAll()
@@ -168,29 +169,15 @@ const Pois = ({ pois: allPois, language, cityModel, route, navigation }: PoisPro
     <PoiListItem key={poi.path} poi={poi} language={language} navigateToPoi={() => selectGeoJsonPoiInList(poi)} t={t} />
   )
 
-  const setScrollPosition = useCallback(
-    (position: number) => {
-      if (!currentPoi) {
-        setListScrollPosition(position)
-      }
-    },
-    [currentPoi],
-  )
+  const setScrollPosition = (position: number) => {
+    if (!poi) {
+      setListScrollPosition(position)
+    }
+  }
 
-  const singlePoiContent = currentPoi && (
-    <PoiDetails language={language} poi={currentPoi} poiFeature={currentPoi.getFeature(coordinates)} />
-  )
-  const failurePoiContent = !currentPoi && slug && (
-    <Failure
-      code={fromError(
-        new NotFoundError({
-          type: 'poi',
-          id: '',
-          city: cityModel.code,
-          language,
-        }),
-      )}
-    />
+  const singlePoiContent = poi && <PoiDetails language={language} poi={poi} poiFeature={poi.getFeature(coordinates)} />
+  const failurePoiContent = !poi && slug && (
+    <Failure code={ErrorCode.PageNotFound} buttonAction={deselectAll} buttonLabel={t('detailsHeader')} />
   )
 
   const list = currentFeatureOnMap
@@ -246,6 +233,7 @@ const Pois = ({ pois: allPois, language, cityModel, route, navigation }: PoisPro
         setSelectedPoiCategory={updatePoiCategoryFilter}
         currentlyOpenFilter={poiCurrentlyOpenFilter}
         setCurrentlyOpenFilter={updatePoiCurrentlyOpenFilter}
+        poisCount={poisCount}
       />
       <MapView
         selectFeature={selectFeatureOnMap}
@@ -264,7 +252,7 @@ const Pois = ({ pois: allPois, language, cityModel, route, navigation }: PoisPro
       <BottomActionsSheet
         ref={scrollRef}
         setScrollPosition={setScrollPosition}
-        title={!currentPoi && !multipoi ? t('listTitle') : undefined}
+        title={!slug && !multipoi ? t('listTitle') : undefined}
         onChange={setSheetSnapPointIndex}
         initialIndex={sheetSnapPointIndex}
         snapPoints={getBottomSheetSnapPoints(deviceHeight)}

@@ -11,10 +11,12 @@ const NoItemsMessage = styled.Text`
 
 type ListProps<T> = {
   items: Array<T>
-  noItemsMessage: ReactElement | string
+  noItemsMessage?: ReactElement | string
   renderItem: (props: { item: T; index: number }) => ReactElement
   Header?: ReactElement
   Footer?: ReactElement
+  scrollEnabled?: boolean
+  accessibilityLabel?: string
   refresh?: () => void
   onEndReached?: () => void
 }
@@ -26,7 +28,9 @@ const List = <T,>({
   Header,
   Footer,
   refresh,
+  accessibilityLabel,
   onEndReached,
+  scrollEnabled,
 }: ListProps<T>): ReactElement => (
   <FlatList
     data={items}
@@ -46,6 +50,9 @@ const List = <T,>({
       paddingHorizontal: 10,
     }}
     onEndReachedThreshold={1}
+    scrollEnabled={scrollEnabled}
+    accessibilityRole='list'
+    accessibilityLabel={accessibilityLabel}
   />
 )
 

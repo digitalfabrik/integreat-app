@@ -2407,14 +2407,16 @@
       "addToCalendar": "Zum Kalender hinzufügen",
       "currentlyNoEvents": "Es gibt aktuell keine Veranstaltungen.",
       "pageTitle": "Veranstaltungen",
-      "chooseCalendar": "Wähle einen Kalender aus",
+      "chooseCalendar": "Kalender-Auswahl",
       "added": "Hinzugefügt",
       "goToCalendar": "Zum Kalender",
       "back": "Zurück",
       "settings": "Einstellungen",
       "recurring": "wiederholend",
       "today": "heute",
-      "todayRecurring": "heute, wiederholend"
+      "todayRecurring": "heute, wiederholend",
+      "onlyThisEvent": "Nur diese Veranstaltung",
+      "thisAndAllFutureEvents": "Diese und alle zukünftigen Veranstaltungen"
     },
     "am": {
       "address": "ኣድራሻ",
@@ -2547,14 +2549,16 @@
       "addToCalendar": "Add to calendar",
       "currentlyNoEvents": "No events are currently available.",
       "pageTitle": "Events",
-      "chooseCalendar": "Choose a calendar",
+      "chooseCalendar": "Calendar choice",
       "added": "Added",
       "goToCalendar": "Go to calendar",
       "back": "Back",
       "settings": "Settings",
       "recurring": "recurring",
       "today": "today",
-      "todayRecurring": "today, recurring"
+      "todayRecurring": "today, recurring",
+      "onlyThisEvent": "Only this event",
+      "thisAndAllFutureEvents": "This and all future events"
     },
     "es": {
       "address": "Dirección",
@@ -5120,8 +5124,8 @@
       "changeLocation": "Modifier le lieu",
       "changeLanguage": "Modifier la langue",
       "settings": "Paramètres",
-      "copyUrl": "Link kopieren",
-      "feedback": "Feedback",
+      "copyUrl": "Copier le lien",
+      "feedback": "Avis",
       "share": "Partager",
       "cancel": "Annuler",
       "shareMessage": "Tout juste trouvé : {{message}}",
@@ -6717,7 +6721,12 @@
       "adjustFilters": "Orte filtern",
       "onlyCurrentlyOpen": "nur aktuell geöffnete Orte anzeigen",
       "poiCategories": "Kategorien",
-      "showPois": "Orte anzeigen",
+      "showPois_zero": "0 Orte gefunden",
+      "showPois_one": "1 Ort anzeigen",
+      "showPois_two": "{{count}} Orte anzeigen",
+      "showPois_few": "{{count}} Orte anzeigen",
+      "showPois_many": "{{count}} Orte anzeigen",
+      "showPois_other": "{{count}} Orte anzeigen",
       "alphabetLetters": "A-Z",
       "clearFilter": "Filter {{filter}} löschen",
       "showOwnLocation": "Eigenen Standort zeigen"
@@ -6768,7 +6777,6 @@
       "adjustFilters": "አካባቢዎችን ያጥሩ",
       "onlyCurrentlyOpen": "በአሁኑ ሰአት ክፍት የሆኑ ቦታዎችን ብቻ ያሳዩ",
       "poiCategories": "ምድቦች",
-      "showPois": "ቦታዎችን ያሳዩ",
       "alphabetLetters": "ከኤ እስከ ዜድ",
       "clearFilter": "{{filter}} ማጣሪያን አጥፋ",
       "showOwnLocation": "የራስዎን ቦታ ያሳዩ"
@@ -6819,7 +6827,6 @@
       "adjustFilters": "فرز المواقع",
       "onlyCurrentlyOpen": "إظهار المواقع المفتوحة حاليًا فقط",
       "poiCategories": "الفئات",
-      "showPois": "إظهار المواقع",
       "alphabetLetters": "من الألف إلى الياء",
       "clearFilter": "حذف الفلتر {{filter}}",
       "showOwnLocation": "إظهار موقعك الخاص"
@@ -6870,7 +6877,6 @@
       "adjustFilters": "Филтриране на местоположения",
       "onlyCurrentlyOpen": "показване само на отворените в момента места",
       "poiCategories": "Категории",
-      "showPois": "Показване на местоположения",
       "alphabetLetters": "А-Я",
       "clearFilter": "Изтриване на филтър {{filter}}",
       "showOwnLocation": "Показване на собственото местоположение"
@@ -6921,7 +6927,6 @@
       "adjustFilters": "فیلتەرکردنی شوێنەکان",
       "onlyCurrentlyOpen": "تەنیا شوێنە کراوەکان پیشان بدە کە لە ئێستادا کراوەن",
       "poiCategories": "پۆلێنەکان",
-      "showPois": "بینینی شوێنەکان",
       "alphabetLetters": "A-Z",
       "clearFilter": "سڕینەوەی فیلتەر {{filter}}",
       "showOwnLocation": "پیشاندانی شوێنی خۆت"
@@ -6972,7 +6977,6 @@
       "adjustFilters": "Filtrování míst",
       "onlyCurrentlyOpen": "zobrazit pouze aktuálně otevřená místa",
       "poiCategories": "Kategorie",
-      "showPois": "Zobrazit místa",
       "alphabetLetters": "A-Z",
       "clearFilter": "Smazat filtr {{filtr}}",
       "showOwnLocation": "Zobrazit vlastní polohu"
@@ -7023,7 +7027,6 @@
       "adjustFilters": "Φιλτράρισμα τοποθεσιών",
       "onlyCurrentlyOpen": "εμφάνιση μόνο των ανοιχτών τοποθεσιών",
       "poiCategories": "Κατηγορίες",
-      "showPois": "Εμφάνιση τοποθεσιών",
       "alphabetLetters": "Α-Ω",
       "clearFilter": "Διαγραφή φίλτρου {{filter}}",
       "showOwnLocation": "Εμφάνιση της τοποθεσίας σας"
@@ -7076,7 +7079,12 @@
       "adjustFilters": "Filter locations",
       "onlyCurrentlyOpen": "only show currently open locations",
       "poiCategories": "Categories",
-      "showPois": "Show locations",
+      "showPois_zero": "Show 0 places",
+      "showPois_one": "Show 1 place",
+      "showPois_two": "Show {{count}} places",
+      "showPois_few": "Show {{count}} places",
+      "showPois_many": "Show {{count}} places",
+      "showPois_other": "Show {{count}} places",
       "alphabetLetters": "A-Z",
       "clearFilter": "Delete filter {{filter}}",
       "showOwnLocation": "Show your own location"
@@ -7127,7 +7135,6 @@
       "adjustFilters": "Filtrar lugares",
       "onlyCurrentlyOpen": "Mostrar solo los lugares abiertos actualmente",
       "poiCategories": "Categorías",
-      "showPois": "Mostrar ubicaciones",
       "alphabetLetters": "A-Z",
       "clearFilter": "Eliminar filtro {{filter}}",
       "showOwnLocation": "Mostrar tu propia ubicación"
@@ -7178,7 +7185,6 @@
       "adjustFilters": "Suodata sijainnit",
       "onlyCurrentlyOpen": "näytä vain tällä hetkellä avoinna olevat sijainnit",
       "poiCategories": "Kategoriat",
-      "showPois": "Näytä sijainnit",
       "alphabetLetters": "A–Z",
       "clearFilter": "Poista suodatin {{filter}}",
       "showOwnLocation": "Näytä oma sijainti"
@@ -7229,7 +7235,6 @@
       "adjustFilters": "Filtrer les lieux",
       "onlyCurrentlyOpen": "N’afficher que les lieux actuellement ouverts",
       "poiCategories": "Catégories",
-      "showPois": "Afficher les lieux",
       "alphabetLetters": "A-Z",
       "clearFilter": "Supprimer le filtre {{filter}}",
       "showOwnLocation": "Montrer son propre emplacement"
@@ -7280,7 +7285,6 @@
       "adjustFilters": "Filtriraj mjesta",
       "onlyCurrentlyOpen": "prikaži samo trenutno otvorena mjesta",
       "poiCategories": "Kategorije",
-      "showPois": "Prikaži mjesta",
       "alphabetLetters": "A-Z",
       "clearFilter": "Izbriši filtere {{filter}}",
       "showOwnLocation": "Prikaži vlastitu lokaciju"
@@ -7331,7 +7335,6 @@
       "adjustFilters": "szűrés hely szerint",
       "onlyCurrentlyOpen": "csak a jelenleg nyitott helyek megjelenítése",
       "poiCategories": "kategóriák",
-      "showPois": "helyek megjelenítése",
       "alphabetLetters": "A-Z",
       "clearFilter": "{{filter}} szűrő törlése",
       "showOwnLocation": "Saját helyszín megjelenítése"
@@ -7382,7 +7385,6 @@
       "adjustFilters": "Filtra le località",
       "onlyCurrentlyOpen": "mostra solo le località attualmente aperte",
       "poiCategories": "Categorie",
-      "showPois": "Mostra le località",
       "alphabetLetters": "A-Z",
       "clearFilter": "Elimina il filtro {{filter}}",
       "showOwnLocation": "Mostra la tua posizione"
@@ -7433,7 +7435,6 @@
       "adjustFilters": "ადგილების ფილტრი",
       "onlyCurrentlyOpen": "მხოლოდ ამჟამად ღია ადგილების ჩვენება",
       "poiCategories": "კატეგორიები",
-      "showPois": "ადგილების ჩვენება",
       "alphabetLetters": "A-Z",
       "clearFilter": "ფილტრის {{filter}} წაშლა",
       "showOwnLocation": "საკუთარი ადგილმდებარეობის ჩვენება"
@@ -7484,7 +7485,6 @@
       "adjustFilters": "Cihan parzûn anku fîlter bike",
       "onlyCurrentlyOpen": "Tenê cihên vekirî di dema niha da nîşan dide",
       "poiCategories": "Destebendî",
-      "showPois": "Dîtina cihan",
       "alphabetLetters": "A-Z",
       "clearFilter": "Jêbirina Fîlterê {{filter}}",
       "showOwnLocation": "Cihê xwe nîşan bide"
@@ -7535,7 +7535,6 @@
       "adjustFilters": "Филтрирајте ги местата",
       "onlyCurrentlyOpen": "прикажи ги само тековно отворените места",
       "poiCategories": "Категории",
-      "showPois": "Прикажи места",
       "alphabetLetters": "А-Ш",
       "clearFilter": "Избриши го филтерот {{filter}}",
       "showOwnLocation": "Прикажете ја вашата локација"
@@ -7586,7 +7585,6 @@
       "adjustFilters": "Filter naar plaatsen",
       "onlyCurrentlyOpen": "alleen locaties die momenteel open zijn tonen",
       "poiCategories": "Categorieën",
-      "showPois": "Locaties tonen",
       "alphabetLetters": "A-Z",
       "clearFilter": "Filter {{filter}} verwijderen",
       "showOwnLocation": "Eigen locatie tonen"
@@ -7637,7 +7635,6 @@
       "adjustFilters": "فیلتر کردن موقعیت‌های مکانی",
       "onlyCurrentlyOpen": "فقط موقعیت‌های مکانی که اکنون باز هستند نمایش داده شود",
       "poiCategories": "دسته‌بندی",
-      "showPois": "نمایش موقعیت‌های مکانی",
       "alphabetLetters": "الف-ی",
       "clearFilter": "حذف فیلتر {{filter}}",
       "showOwnLocation": "نمایش موقعیت مکانی خودتان"
@@ -7688,7 +7685,6 @@
       "adjustFilters": "Filtruj miejsca",
       "onlyCurrentlyOpen": "pokaż tylko aktualnie otwarte miejsca",
       "poiCategories": "Kategorie",
-      "showPois": "Pokaż miejsca",
       "alphabetLetters": "A-Z",
       "clearFilter": "Usuń filtr {{filter}}",
       "showOwnLocation": "Pokaż moją lokalizację"
@@ -7739,7 +7735,6 @@
       "adjustFilters": "فلتر کردن موقعیت ها",
       "onlyCurrentlyOpen": "فقط موقعیت هایی که اکنون باز هستند نمایش داده شود",
       "poiCategories": "دسته بندی",
-      "showPois": "نمایش موقعیت های",
       "alphabetLetters": "الف-ی (A-Z)",
       "clearFilter": "حذف فلتر {{filter}}",
       "showOwnLocation": "نمایش موقعیت خودتان"
@@ -7790,7 +7785,6 @@
       "adjustFilters": "د موقعيتونو فلتر کول",
       "onlyCurrentlyOpen": "يوازې هغه موقعيتونه وښاياست چې اوس پرانيستي دي",
       "poiCategories": "کټګورۍ",
-      "showPois": "د موقعيتونو ښودل",
       "alphabetLetters": "الف-ی (A-Z)",
       "clearFilter": "د {{filter}} فلتر حذفول",
       "showOwnLocation": "د خپل موقعيت ښودل"
@@ -7841,7 +7835,6 @@
       "adjustFilters": "Filtrar locais",
       "onlyCurrentlyOpen": "mostrar apenas os locais atualmente abertos",
       "poiCategories": "Categorias",
-      "showPois": "Exibir locais",
       "alphabetLetters": "A-Z",
       "clearFilter": "Eliminar o filtro {{filter}}",
       "showOwnLocation": "Mostrar a sua própria localização"
@@ -7892,7 +7885,6 @@
       "adjustFilters": "Locații de filtrare",
       "onlyCurrentlyOpen": "afișați numai locațiile deschise în prezent",
       "poiCategories": "Categorii",
-      "showPois": "Arată locațiile",
       "alphabetLetters": "A-Z",
       "clearFilter": "Ștergeți filtrul {{filter}}",
       "showOwnLocation": "Afișați propria locație"
@@ -7943,7 +7935,6 @@
       "adjustFilters": "Фильтровать по населенным пунктам",
       "onlyCurrentlyOpen": "показывать только текущие открытые населенные пункты",
       "poiCategories": "Категории",
-      "showPois": "Показать населенные пункты",
       "alphabetLetters": "А-Я",
       "clearFilter": "Удалить фильтр {{filter}}",
       "showOwnLocation": "Показать собственное местоположение"
@@ -7994,7 +7985,6 @@
       "adjustFilters": "Meelaha shaandhaynta",
       "onlyCurrentlyOpen": "Tus kaliya meelaha hadda furan",
       "poiCategories": "Qaybaha",
-      "showPois": "Muuji meelaha",
       "alphabetLetters": "Bilow ilaa dhamaad",
       "clearFilter": "Nadiifi shaandhada {{filter}}",
       "showOwnLocation": "Tus goobtayda"
@@ -8045,7 +8035,6 @@
       "adjustFilters": "Filtro vendet",
       "onlyCurrentlyOpen": "shfaq vetëm vendet e hapura aktualisht",
       "poiCategories": "Kategoritë",
-      "showPois": "Shfaq vendet",
       "alphabetLetters": "A-Z",
       "clearFilter": "Fshije filtrin {{filter}}",
       "showOwnLocation": "Trego vendndodhjen"
@@ -8096,7 +8085,6 @@
       "adjustFilters": "Филтрирај места",
       "onlyCurrentlyOpen": "прикажи само тренутно отворена места",
       "poiCategories": "Категорије",
-      "showPois": "Прикажи места",
       "alphabetLetters": "A-Z",
       "clearFilter": "Избриши филтере {{filter}}",
       "showOwnLocation": "Прикажи сопствену локацију"
@@ -8147,7 +8135,6 @@
       "adjustFilters": "Filtriraj mesta",
       "onlyCurrentlyOpen": "prikaži samo trenutno otvorena mesta",
       "poiCategories": "Kategorije",
-      "showPois": "Prikaži mesta",
       "alphabetLetters": "A-Z",
       "clearFilter": "Izbriši filtere {{filter}}",
       "showOwnLocation": "Prikaži sopstvenu lokaciju"
@@ -8198,7 +8185,6 @@
       "adjustFilters": "ቦታታት ምፍታሕ",
       "onlyCurrentlyOpen": "ኣብዚ እዋን እዚ ክፉታት ቦታታት ጥራይ ኣርእዩ",
       "poiCategories": "ምድባት",
-      "showPois": "ቦታታት ኣርእዩ",
       "alphabetLetters": "ሀ_ ፈ",
       "clearFilter": "{{filter}} ፍልተር ኣጽርዮ",
       "showOwnLocation": "ኣቀማምጣይ ኣርእይ"
@@ -8249,7 +8235,6 @@
       "adjustFilters": "Konumları filtrele",
       "onlyCurrentlyOpen": "yalnızca güncel olarak açık olan yerleri göster",
       "poiCategories": "Kategoriler",
-      "showPois": "Konumları göster",
       "alphabetLetters": "A-Z",
       "clearFilter": "{{filter}} filtresini sil",
       "showOwnLocation": "Kendi konumunu göster"
@@ -8300,7 +8285,6 @@
       "adjustFilters": "Фільтрувати локації",
       "onlyCurrentlyOpen": "показувати тільки відкриті на даний момент локації",
       "poiCategories": "Категорії",
-      "showPois": "Показати локації",
       "alphabetLetters": "A-Z",
       "clearFilter": "Видалити фільтр {{filter}}",
       "showOwnLocation": "Показати власне місцезнаходження"
@@ -8351,7 +8335,6 @@
       "adjustFilters": "مقامات کو فلٹر کریں",
       "onlyCurrentlyOpen": "صرف موجودہ کھلے مقامات دکھائیں",
       "poiCategories": "زمرے",
-      "showPois": "مقامات دکھائیں",
       "alphabetLetters": "A-Z",
       "clearFilter": "فلٹر حذف کریں  {{filter}}",
       "showOwnLocation": "اپنا مقام دکھائیں"
@@ -8402,16 +8385,48 @@
       "adjustFilters": "筛选地点",
       "onlyCurrentlyOpen": "仅显示当前开放的地点",
       "poiCategories": "类别",
-      "showPois": "显示地点",
       "alphabetLetters": "A-Z",
       "clearFilter": "删除筛选器 {{filter}}",
       "showOwnLocation": "显示自己的位置"
+    }
+  },
+  "remoteContent": {
+    "de": {
+      "knownResourceOptIn": "Ich bin damit einverstanden, dass mir Inhalte dieser externen Quelle angezeigt werden: ",
+      "knownResourceContentMessage": "Dieses Element enthält Daten von dieser externen Quelle. Du kannst die Einbettung solcher Inhalte in den Einstellungen blockieren",
+      "knownResourceBlocked": "Externer Inhalt von dieser Quelle wurde blockiert. In den Einstellungen kannst du diese Quelle zulassen."
+    },
+    "en": {
+      "knownResourceOptIn": "I agree that content from this external source may be displayed to me: ",
+      "knownResourceContentMessage": "This element contains data from this external source. You can block the embedding of such content in the settings.",
+      "knownResourceBlocked": "External content from this source has been blocked. You can allow this source in the settings."
+    }
+  },
+  "consent": {
+    "de": {
+      "title": "Externe Quellen",
+      "descriptionNative": "Die Anzeige von eingebetteten Inhalten von Drittanbietern kannst du permanent zustimmen. Die Auswahl wird daraufhin dauerhaft auf deinem lokalen Gerät gespeichert. Die Einwilligung kann hier jederzeit widerrufen werden.",
+      "consentDescription": "Inhalte von {{source}} zulassen",
+      "noSources": "Keine externen Quellen verfügbar."
+    },
+    "en": {
+      "title": "External Sources",
+      "descriptionNative": "You can permanently agree to the display of embedded content from third-party providers. The selection will then be permanently saved to your local device. You can revoke your consent here at any time.",
+      "consentDescription": "Allow content from {{source}}",
+      "noSources": "No external sources available."
     }
   },
   "search": {
     "de": {
       "nothingFound": "Es wurden leider keine passenden Ergebnisse gefunden.",
       "searchPlaceholder": "Suche",
+      "itemHint": "Suchergebnis öffnen",
+      "searchResultsCount_zero": "0 Suchergebnisse",
+      "searchResultsCount_one": "1 Suchergebnis",
+      "searchResultsCount_two": "2 Suchergebnisse",
+      "searchResultsCount_few": "{{count}} Suchergebnisse",
+      "searchResultsCount_many": "{{count}} Suchergebnisse",
+      "searchResultsCount_other": "{{count}} Suchergebnisse",
       "pageTitle": "Suche",
       "delete": "Eingabe löschen"
     },
@@ -8454,6 +8469,13 @@
     "en": {
       "nothingFound": "Sorry, we could not find any matching results.",
       "searchPlaceholder": "Search",
+      "itemHint": "View search result",
+      "searchResultsCount_zero": "0 search results",
+      "searchResultsCount_one": "1 search result",
+      "searchResultsCount_two": "2 search results",
+      "searchResultsCount_few": "{{count}} search results",
+      "searchResultsCount_many": "{{count}} search results",
+      "searchResultsCount_other": "{{count}} search results",
       "pageTitle": "Search",
       "delete": "Delete input"
     },
@@ -8633,7 +8655,9 @@
       "trackingLeaveDescription": "Du hast das Tracking nicht erlaubt. Das Tracking hilft uns, die {{appName}}-App zu verbessern und bessere Informationen für Einwanderer bereitzustellen. Bist du sicher, dass du den Bildschirm verlassen möchten, ohne das Tracking zu erlauben?",
       "enabled": "aktiviert",
       "disabled": "deaktiviert",
-      "decline": "Ablehnen"
+      "decline": "Ablehnen",
+      "externalResourcesTitle": "Externe Quellen",
+      "externalResourcesDescription": "Lege fest, welche externen Quellen zugelassen werden."
     },
     "am": {
       "sentryTitle": "የመተግበሪያ መረጋጋት",
@@ -8772,7 +8796,9 @@
       "trackingLeaveDescription": "You have disabled tracking. Tracking helps us to improve the {{appName}} app and provide better information for immigrants. Are you sure you want to leave the screen without enabling tracking?",
       "enabled": "activated",
       "disabled": "deactivated",
-      "decline": "Refuse"
+      "decline": "Refuse",
+      "externalResourcesTitle": "External Sources",
+      "externalResourcesDescription": "Specify which external sources are permitted."
     },
     "es": {
       "sentryTitle": "Estabilidad de la app",
