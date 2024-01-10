@@ -6025,7 +6025,9 @@
     "en": {
       "NSPhotoLibraryAddUsageDescription": "{{appName}} wants to save photos to your library.",
       "NSLocationWhenInUseUsageDescription": "{{appName}} wants to use your location to find nearby cities.",
-      "NSLocationAlwaysAndWhenInUseUsageDescription": "{{appName}} wants to use your location to find nearby cities."
+      "NSLocationAlwaysAndWhenInUseUsageDescription": "{{appName}} wants to use your location to find nearby cities.",
+      "NSCalendarsUsageDescription": "{{appName}} wants to access the calendar to add an event.",
+      "NSCalendarsFullAccessUsageDescription": "{{appName}} wants to access the calendar to add an event."
     },
     "es": {
       "NSPhotoLibraryAddUsageDescription": "Para guardar imágenes, {{appName}} necesita un acceso a la galería.",
