@@ -3,16 +3,16 @@ import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 
-import { cityContentPath } from 'api-client'
+import { cityContentPath, MAX_COMMENT_LENGTH } from 'api-client'
 import { config } from 'translations'
 
 import { SecurityIcon, SupportIcon } from '../assets'
 import Icon from '../components/base/Icon'
 import { Container } from './Feedback'
-import Button from './base/Button'
 import Input from './base/Input'
 import InputSection from './base/InputSection'
 import RadioElement, { RadioGroup } from './base/RadioElement'
+import TextButton from './base/TextButton'
 
 const Note = styled.div`
   display: flex;
@@ -20,8 +20,8 @@ const Note = styled.div`
 `
 
 const StyledIcon = styled(Icon)<{ direction: 'ltr' | 'rtl' }>`
-  width: 25px;
-  height: 25px;
+  width: 24px;
+  height: 24px;
   ${props => (props.direction === 'ltr' ? 'padding-right: 20px' : 'padding-left: 20px')};
   flex-shrink: 0;
 `
@@ -31,26 +31,6 @@ const Divider = styled.hr`
   background-color: ${props => props.theme.colors.textSecondaryColor};
   height: 1px;
   border: none;
-`
-
-const SubmitButton = styled(Button)`
-  background-color: ${props => props.theme.colors.textSecondaryColor};
-  color: ${props => props.theme.colors.backgroundColor};
-  border-radius: 100px;
-  width: fit-content;
-  align-self: center;
-  padding: 15px;
-  box-shadow:
-    0 2px 4px rgb(0 0 0 / 15%),
-    0 2px 4px rgb(0 0 0 / 15%);
-
-  :hover {
-    opacity: 80%;
-  }
-
-  :active {
-    box-shadow: none;
-  }
 `
 
 const Form = styled.form`
@@ -196,7 +176,7 @@ const MalteHelpForm = ({ submit, languageCode, cityCode }: MalteHelpFormProps): 
           </RadioElement>
           <RadioElement
             groupId='contactChannel'
-            label={t('inPerson')}
+            label={t('personally')}
             checked={contactChannel === 'person'}
             id='person'
             onChange={setContactChannel}
@@ -230,7 +210,7 @@ const MalteHelpForm = ({ submit, languageCode, cityCode }: MalteHelpFormProps): 
         <InputSection id='comment' title={t('contactReason')}>
           <Input
             id='comment'
-            hint={t('maxCharacters', { numberOfCharacters: 200 })}
+            hint={t('maxCharacters', { numberOfCharacters: MAX_COMMENT_LENGTH })}
             multiline
             value={comment}
             direction={config.getScriptDirection(languageCode)}
@@ -246,13 +226,7 @@ const MalteHelpForm = ({ submit, languageCode, cityCode }: MalteHelpFormProps): 
             {t('submitFailedReasoning')}
           </ErrorSendingStatus>
         )}
-        <SubmitButton
-          disabled={sendingStatus === 'sending'}
-          onClick={() => setSubmitted(true)}
-          ariaLabel={t('submit')}
-          type='submit'>
-          {t('submit')}
-        </SubmitButton>
+        <TextButton disabled={sendingStatus === 'sending'} onClick={() => setSubmitted(true)} text={t('submit')} />
       </Form>
     </>
   )

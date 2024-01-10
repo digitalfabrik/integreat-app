@@ -3,6 +3,8 @@ import OfferModel from '../models/OfferModel'
 import { MALTE_HELP_FORM_OFFER_ROUTE, SPRUNGBRETT_OFFER_ROUTE } from '../routes'
 import createOffersEndpoint from './createOffersEndpoint'
 
+export const MAX_COMMENT_LENGTH = 200
+
 type SubmitHelpFormParams = {
   cityCode: string
   languageCode: string

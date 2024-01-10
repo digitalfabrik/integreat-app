@@ -15,7 +15,6 @@ export type CityContentLayoutProps = {
   languageChangePaths: Array<{ code: string; path: string | null; name: string }> | null
   isLoading: boolean
   city: CityModel
-  embedded?: boolean
   languageCode: string
   fullWidth?: boolean
   disableScrollingSafari?: boolean
@@ -36,13 +35,7 @@ const CityContentLayout = (props: CityContentLayoutProps): ReactElement => {
     disableScrollingSafari = false,
     showFooter = true,
     city,
-    embedded,
   } = props
-
-  if (embedded) {
-    return <>{children}</>
-  }
-
   // to avoid jumping issues for desktop, isLoading is only checked on mobile viewport
   const isLoadingMobile = isLoading && viewportSmall
 
