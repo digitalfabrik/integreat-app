@@ -3,7 +3,7 @@ import { Text } from 'react-native'
 
 import { SprungbrettJobModel } from 'api-client'
 
-import { SprunbrettIcon } from '../assets'
+import { SprungbrettIcon } from '../assets'
 import ListItem from './ListItem'
 
 type SprungbrettListItemProps = {
@@ -18,7 +18,7 @@ class SprungbrettListItem extends PureComponent<SprungbrettListItemProps> {
     const { language, job, openJobInBrowser } = this.props
     return (
       <ListItem
-        thumbnail={<SprunbrettIcon width={24} height={24} />}
+        thumbnail={<SprungbrettIcon width={24} height={24} />}
         title={job.title}
         navigateTo={openJobInBrowser}
         language={language}>
