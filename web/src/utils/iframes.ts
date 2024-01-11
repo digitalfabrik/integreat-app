@@ -173,7 +173,7 @@ export const handleAllowedIframeSources = (
   const iframeContainer = getIframeContainer(iframeId, viewportSmall, iframe, deviceWidth)
 
   if (permission === undefined) {
-    const message = `${t('consent:knownResourceOptIn')}`
+    const message = t('consent:knownResourceOptIn')
     showOptIn(message, iframeContainer, supportedSource, onUpdateCookie, iframeIndex)
   } else if (permission && storedIframeSource) {
     restoreIframe(iframe, storedIframeSource)
