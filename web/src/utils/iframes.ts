@@ -181,7 +181,7 @@ export const handleAllowedIframeSources = (
     if (supportedSource === 'vimeo.com') {
       addDoNotTrackParameter(iframe)
     }
-    const message = `${t('consent:knownResourceContentMessage')}`
+    const message = t('consent:knownResourceContentMessage')
     showMessageWithSettings(message, iframeContainer, t, supportedSource, iframeIndex, true)
   } else {
     const message = t('consent:knownResourceBlocked')
