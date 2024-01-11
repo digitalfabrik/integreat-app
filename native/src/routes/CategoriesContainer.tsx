@@ -7,9 +7,9 @@ import Categories from '../components/Categories'
 import DashboardNavigationTiles from '../components/DashboardNavigationTiles'
 import { NavigationProps, RouteProps } from '../constants/NavigationTypes'
 import useCityAppContext from '../hooks/useCityAppContext'
-import useEmbeddedOffers from '../hooks/useEmbeddedOffers'
 import useHeader from '../hooks/useHeader'
 import useLoadCityContent from '../hooks/useLoadCityContent'
+import useLoadEmbeddedOffers from '../hooks/useLoadEmbeddedOffers'
 import useNavigate from '../hooks/useNavigate'
 import usePreviousProp from '../hooks/usePreviousProp'
 import useResourceCache from '../hooks/useResourceCache'
@@ -57,8 +57,8 @@ const CategoriesContainer = ({ navigation, route }: CategoriesContainerProps): R
   )
   const previousLanguageCode = usePreviousProp({ prop: languageCode, onPropChange: onLanguageChange })
 
-  const embeddedOffers = useEmbeddedOffers({
-    category,
+  const embeddedOffers = useLoadEmbeddedOffers({
+    embeddedOffers: category?.embeddedOffers ?? [],
     cityCode,
     languageCode,
   })

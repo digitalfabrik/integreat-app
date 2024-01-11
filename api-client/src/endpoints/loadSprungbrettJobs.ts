@@ -11,17 +11,17 @@ type LoadSprungbrettJobsParams = {
   baseUrl: string | (() => Promise<string>)
 }
 
-export type LoadSprungbrettJobReturn = Promise<{
+export type LoadSprungbrettJobReturn = {
   offers: OfferModel[]
   sprungbrettOffer: OfferModel
   sprungbrettJobs: SprungbrettJobModel[]
-}>
+}
 
 const loadSprungbrettJobs = async ({
   cityCode,
   languageCode,
   baseUrl,
-}: LoadSprungbrettJobsParams): LoadSprungbrettJobReturn => {
+}: LoadSprungbrettJobsParams): Promise<LoadSprungbrettJobReturn> => {
   const apiUrl = typeof baseUrl === 'string' ? baseUrl : await baseUrl()
   const sprungbrettOfferAlias = SPRUNGBRETT_OFFER_ROUTE
   const offersPayload = await createOffersEndpoint(apiUrl).request({

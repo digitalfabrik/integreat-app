@@ -6,7 +6,7 @@ import { CATEGORIES_ROUTE } from 'api-client/src/routes'
 import { RouteInformationType } from 'api-client/src/routes/RouteInformationTypes'
 
 import { URL_PREFIX } from '../constants/webview'
-import { EmbeddedOffersReturn } from '../hooks/useEmbeddedOffers'
+import { EmbeddedOffersReturn } from '../hooks/useLoadEmbeddedOffers'
 import TileModel from '../models/TileModel'
 import testID from '../testing/testID'
 import { LanguageResourceCacheStateType, PageResourceCacheStateType } from '../utils/DataContainer'
