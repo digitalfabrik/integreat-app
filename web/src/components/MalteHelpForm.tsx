@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 
-import { cityContentPath, MAX_COMMENT_LENGTH } from 'api-client'
+import { cityContentPath, MAX_COMMENT_LENGTH, OfferModel, submitHelpForm } from 'api-client'
 import { config } from 'translations'
 
 import { SecurityIcon, SupportIcon } from '../assets'
@@ -54,12 +54,12 @@ type ContactGender = 'male' | 'female' | 'any'
 type SendingStatusType = 'idle' | 'sending' | 'failed' | 'successful'
 
 type MalteHelpFormProps = {
-  submit: () => Promise<void>
   cityCode: string
   languageCode: string
+  helpButtonOffer: OfferModel
 }
 
-const MalteHelpForm = ({ submit, languageCode, cityCode }: MalteHelpFormProps): ReactElement => {
+const MalteHelpForm = ({ languageCode, cityCode, helpButtonOffer }: MalteHelpFormProps): ReactElement => {
   const { t } = useTranslation('malteHelpForm')
   const [sendingStatus, setSendingStatus] = useState<SendingStatusType>('idle')
   const [submitted, setSubmitted] = useState(false)
@@ -70,23 +70,25 @@ const MalteHelpForm = ({ submit, languageCode, cityCode }: MalteHelpFormProps): 
   const [roomNumber, setRoomNumber] = useState('')
   const [contactType, setContactType] = useState<ContactGender>('any')
   const [comment, setComment] = useState('')
+  const missingData =
+    !name.length ||
+    (!email.length && contactChannel === 'email') ||
+    (!telephone.length && contactChannel === 'telephone')
   const dashboardRoute = cityContentPath({ languageCode, cityCode })
 
   const submitHandler = useCallback(
     (event: SyntheticEvent<HTMLFormElement>) => {
       const form = event.currentTarget
-      if (!form.reportValidity()) {
-        event.preventDefault()
+      if (!form.checkValidity()) {
+        // event.preventDefault()
         event.stopPropagation()
-        const invalidInputs = Array.from(form.querySelectorAll(':invalid')).sort(
-          (a, b) => a.getBoundingClientRect().top - b.getBoundingClientRect().top,
-        )
-        invalidInputs[0]?.scrollIntoView({ block: 'center', behavior: 'smooth' })
+        const invalidInput = form.querySelector(':invalid:not(fieldset)')
+        invalidInput?.scrollIntoView({ behavior: 'smooth' })
         setSendingStatus('idle')
       } else {
         setSendingStatus('sending')
         const request = async () => {
-          await submit()
+          await submitHelpForm({ cityCode, languageCode, helpButtonOffer })
           setSendingStatus('successful')
         }
 
@@ -97,7 +99,7 @@ const MalteHelpForm = ({ submit, languageCode, cityCode }: MalteHelpFormProps): 
         })
       }
     },
-    [submit],
+    [cityCode, helpButtonOffer, languageCode],
   )
 
   if (sendingStatus === 'successful') {
@@ -132,7 +134,7 @@ const MalteHelpForm = ({ submit, languageCode, cityCode }: MalteHelpFormProps): 
         />
         <Input
           id='roomNumber'
-          hint={`${t('roomNumber')} ${t('common:optional')}`}
+          hint={`${t('roomNumber')} (${t('common:optional')})`}
           hintIsLabel
           value={roomNumber}
           direction={config.getScriptDirection(languageCode)}
@@ -226,7 +228,12 @@ const MalteHelpForm = ({ submit, languageCode, cityCode }: MalteHelpFormProps): 
             {t('submitFailedReasoning')}
           </ErrorSendingStatus>
         )}
-        <TextButton disabled={sendingStatus === 'sending'} onClick={() => setSubmitted(true)} text={t('submit')} />
+        <TextButton
+          type='submit'
+          disabled={sendingStatus === 'sending' || missingData}
+          onClick={() => setSubmitted(true)}
+          text={t('submit')}
+        />
       </Form>
     </>
   )

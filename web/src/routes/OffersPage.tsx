@@ -41,6 +41,12 @@ const OffersPage = ({ city, cityCode, languageCode }: CityRouteProps): ReactElem
         }
         if (offer.alias === MALTE_HELP_FORM_OFFER_ROUTE) {
           path = pathnameFromRouteInformation({ route: MALTE_HELP_FORM_OFFER_ROUTE, cityCode, languageCode })
+          // ignore zammad url (postData) for the tile model
+          return new TileModel({
+            title: t(offer.title),
+            path,
+            thumbnail: offer.thumbnail,
+          })
         }
 
         return new TileModel({

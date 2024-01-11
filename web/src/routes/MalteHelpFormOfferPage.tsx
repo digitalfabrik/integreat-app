@@ -1,11 +1,9 @@
-import React, { Fragment, PropsWithChildren, ReactElement, useCallback } from 'react'
+import React, { Fragment, PropsWithChildren, ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import {
   pathnameFromRouteInformation,
   getSlugFromPath,
-  useLoadAsync,
-  submitHelpForm,
   MALTE_HELP_FORM_OFFER_ROUTE,
   useLoadFromEndpoint,
   createOffersEndpoint,
@@ -105,7 +103,7 @@ const MalteHelpFormOfferPage = ({
     <Wrapper>
       {!embedded && <Helmet pageTitle={pageTitle} languageChangePaths={languageChangePaths} cityModel={city} />}
       {!embedded && <Caption title={helpButtonOffer.title} />}
-      <MalteHelpForm submit={submitHelpForm} cityCode={cityCode} languageCode={languageCode} />
+      <MalteHelpForm cityCode={cityCode} languageCode={languageCode} helpButtonOffer={helpButtonOffer} />
     </Wrapper>
   )
 }
