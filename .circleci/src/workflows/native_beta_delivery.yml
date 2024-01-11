@@ -10,6 +10,7 @@ jobs:
       prepare_delivery: true
   - check:
       context:
+        - codeclimate-integreat-app
         - mattermost
 
   - build_android:
