@@ -27,9 +27,7 @@ const ConsentSection = ({ description, allowed, onPress }: ConsentSectionProps):
       <Checkbox
         id={description}
         checked={allowed}
-        setChecked={val => {
-          onPress(val)
-        }}
+        setChecked={onPress}
         label={description}
       />
     </Container>
