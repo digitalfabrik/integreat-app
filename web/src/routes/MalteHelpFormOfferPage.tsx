@@ -1,4 +1,4 @@
-import React, { ReactElement, useCallback } from 'react'
+import React, { Fragment, PropsWithChildren, ReactElement, useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import {
@@ -7,6 +7,9 @@ import {
   useLoadAsync,
   submitHelpForm,
   MALTE_HELP_FORM_OFFER_ROUTE,
+  useLoadFromEndpoint,
+  createOffersEndpoint,
+  NotFoundError,
 } from 'api-client'
 
 import { CityRouteProps } from '../CityContentSwitcher'
@@ -19,13 +22,23 @@ import LoadingSpinner from '../components/LoadingSpinner'
 import MalteHelpForm from '../components/MalteHelpForm'
 import { cmsApiBaseUrl } from '../constants/urls'
 
-const MalteHelpFormOfferPage = ({ city, cityCode, languageCode, embedded }: CityRouteProps): ReactElement | null => {
+type MalteHelpFormOfferPageProps = {
+  embedded?: boolean
+} & CityRouteProps
+
+const MalteHelpFormOfferPage = ({
+  city,
+  cityCode,
+  languageCode,
+  embedded,
+}: MalteHelpFormOfferPageProps): ReactElement | null => {
   const { t } = useTranslation('dashboard')
-  const load = useCallback(
-    () => submitHelpForm({ cityCode, languageCode, baseUrl: cmsApiBaseUrl }),
-    [cityCode, languageCode],
-  )
-  const { data, error, loading } = useLoadAsync(load)
+
+  const { data, error, loading } = useLoadFromEndpoint(createOffersEndpoint, cmsApiBaseUrl, {
+    city: cityCode,
+    language: languageCode,
+  })
+  const helpButtonOffer = data?.find(it => it.alias === MALTE_HELP_FORM_OFFER_ROUTE)
 
   if (!city) {
     return null
@@ -37,10 +50,9 @@ const MalteHelpFormOfferPage = ({ city, cityCode, languageCode, embedded }: City
     code,
   }))
 
-  const pageTitle = `${data?.helpButtonOffer.title ?? t('offers')} - ${city.name}`
-  const feedbackTarget = data?.helpButtonOffer ? getSlugFromPath(data.helpButtonOffer.path) : undefined
+  const pageTitle = `${helpButtonOffer?.title ?? t('offers')} - ${city.name}`
+  const feedbackTarget = helpButtonOffer ? getSlugFromPath(helpButtonOffer.path) : undefined
   const locationLayoutParams: Omit<CityContentLayoutProps, 'isLoading'> = {
-    embedded,
     city,
     languageChangePaths,
     route: MALTE_HELP_FORM_OFFER_ROUTE,
@@ -55,30 +67,46 @@ const MalteHelpFormOfferPage = ({ city, cityCode, languageCode, embedded }: City
     ),
   }
 
+  const Wrapper = embedded
+    ? Fragment
+    : ({ children }: PropsWithChildren) => (
+        <CityContentLayout isLoading={loading} {...locationLayoutParams}>
+          {children}
+        </CityContentLayout>
+      )
+
   if (loading) {
     return (
-      <CityContentLayout isLoading {...locationLayoutParams}>
+      <Wrapper>
         <LoadingSpinner />
-      </CityContentLayout>
+      </Wrapper>
     )
   }
 
-  if (!data) {
+  if (!helpButtonOffer || error) {
     return (
-      <CityContentLayout isLoading={false} {...locationLayoutParams}>
-        <FailureSwitcher error={error ?? new Error('Data missing')} />
-      </CityContentLayout>
+      <Wrapper>
+        <FailureSwitcher
+          error={
+            error ??
+            new NotFoundError({
+              type: 'offer',
+              id: MALTE_HELP_FORM_OFFER_ROUTE,
+              city: cityCode,
+              language: languageCode,
+            })
+          }
+        />
+      </Wrapper>
     )
   }
-
-  const { helpButtonOffer: offer, submit } = data
 
   return (
-    <CityContentLayout isLoading={false} {...locationLayoutParams}>
+    <Wrapper>
       {!embedded && <Helmet pageTitle={pageTitle} languageChangePaths={languageChangePaths} cityModel={city} />}
-      {!embedded && <Caption title={offer.title} />}
-      <MalteHelpForm submit={submit} cityCode={cityCode} languageCode={languageCode} />
-    </CityContentLayout>
+      {!embedded && <Caption title={helpButtonOffer.title} />}
+      <MalteHelpForm submit={submitHelpForm} cityCode={cityCode} languageCode={languageCode} />
+    </Wrapper>
   )
 }
 
