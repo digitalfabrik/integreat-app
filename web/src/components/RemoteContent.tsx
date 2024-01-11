@@ -9,10 +9,10 @@ import { ExternalLinkIcon } from '../assets'
 import buildConfig from '../constants/buildConfig'
 import dimensions from '../constants/dimensions'
 import { helpers } from '../constants/theme'
-import useCookie from '../hooks/useCookie'
+import useLocalStorage from '../hooks/useLocalStorage'
 import useWindowDimensions from '../hooks/useWindowDimensions'
 import {
-  EXTERNAL_SOURCES_COOKIE_NAME,
+  LOCAL_STORAGE_ITEM_EXTERNAL_SOURCES,
   handleAllowedIframeSources,
   hideIframe,
   preserveIFrameSourcesFromContent,
@@ -26,7 +26,6 @@ const SandBox = styled.div<{ centered: boolean; smallText: boolean }>`
 
   ${props => (props.centered ? 'text-align: center;' : '')}
   ${props => (props.centered ? 'list-style-position: inside;' : '')}
-  
   img {
     max-width: 100%;
     max-height: 100%;
@@ -180,8 +179,9 @@ const RemoteContent = ({
   smallText = false,
 }: RemoteContentProps): ReactElement => {
   const sandBoxRef = React.createRef<HTMLDivElement>()
-  const { value: externalSourcePermissions, updateCookie } =
-    useCookie<ExternalSourcePermissions>(EXTERNAL_SOURCES_COOKIE_NAME)
+  const { value: externalSourcePermissions, updateLocalStorageItem } = useLocalStorage<ExternalSourcePermissions>(
+    LOCAL_STORAGE_ITEM_EXTERNAL_SOURCES,
+  )
 
   const [contentIframeSources, setContentIframeSources] = useState<IframeSources>({})
   const { viewportSmall, width: deviceWidth } = useWindowDimensions()
@@ -200,12 +200,9 @@ const RemoteContent = ({
     [onInternalLinkClick],
   )
 
-  const onUpdateCookie = useCallback(
-    (source: string): void => {
-      externalSourcePermissions[source] = true
-      updateCookie(externalSourcePermissions)
-    },
-    [externalSourcePermissions, updateCookie],
+  const onUpdateLocalStorage = useCallback(
+    (source: string): void => updateLocalStorageItem({ ...externalSourcePermissions, [source]: true }),
+    [externalSourcePermissions, updateLocalStorageItem],
   )
 
   useEffect(() => {
@@ -238,7 +235,7 @@ const RemoteContent = ({
           externalSourcePermissions,
           storedIframeSource,
           t,
-          onUpdateCookie,
+          onUpdateLocalStorage,
           index,
           supportedSource,
           viewportSmall,
@@ -253,7 +250,7 @@ const RemoteContent = ({
     sandBoxRef,
     externalSourcePermissions,
     contentIframeSources,
-    onUpdateCookie,
+    onUpdateLocalStorage,
     viewportSmall,
     deviceWidth,
   ])

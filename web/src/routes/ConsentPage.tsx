@@ -11,8 +11,8 @@ import GeneralHeader from '../components/GeneralHeader'
 import Layout from '../components/Layout'
 import List from '../components/List'
 import buildConfig from '../constants/buildConfig'
-import useCookie from '../hooks/useCookie'
-import { EXTERNAL_SOURCES_COOKIE_NAME } from '../utils/iframes'
+import useLocalStorage from '../hooks/useLocalStorage'
+import { LOCAL_STORAGE_ITEM_EXTERNAL_SOURCES } from '../utils/iframes'
 
 const Description = styled.div`
   margin-bottom: 24px;
@@ -21,13 +21,15 @@ const Description = styled.div`
 type ConsentPageProps = { languageCode: string }
 const ConsentPage = ({ languageCode }: ConsentPageProps): ReactElement => {
   const { t } = useTranslation('consent')
-  const { value: externalSourcePermissions, updateCookie } =
-    useCookie<ExternalSourcePermissions>(EXTERNAL_SOURCES_COOKIE_NAME)
+  const { value: externalSourcePermissions, updateLocalStorageItem } = useLocalStorage<ExternalSourcePermissions>(
+    LOCAL_STORAGE_ITEM_EXTERNAL_SOURCES,
+  )
 
-  const updateSourcePermission = (source: string, permissionGiven: boolean) => {
-    externalSourcePermissions[source] = permissionGiven
-    updateCookie(externalSourcePermissions)
-  }
+  const updateSourcePermission = (source: string, permissionGiven: boolean) =>
+    updateLocalStorageItem({
+      ...externalSourcePermissions,
+      [source]: permissionGiven,
+    })
 
   const renderConsentItem = (item: string): ReactElement => (
     <ConsentSection

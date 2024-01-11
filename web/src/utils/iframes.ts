@@ -5,7 +5,7 @@ import { CONSENT_ROUTE, ExternalSourcePermissions } from 'api-client'
 import { IFRAME_BLANK_SOURCE, IframeSources } from '../components/RemoteContent'
 import dimensions from '../constants/dimensions'
 
-export const EXTERNAL_SOURCES_COOKIE_NAME = 'Opt-In-External-Sources'
+export const LOCAL_STORAGE_ITEM_EXTERNAL_SOURCES = 'Opt-In-External-Sources'
 export const addDoNotTrackParameter = (iframe: HTMLIFrameElement): void => {
   if (iframe.src.includes('vimeo')) {
     const url = new URL(iframe.src)
@@ -88,11 +88,9 @@ const showSource = (element: HTMLElement, source: string): void => {
   element.appendChild(document.createElement('br'))
 }
 
-export const showMessage = (text: string, element: HTMLDivElement, iframeSource?: string): void => {
+export const showMessage = (text: string, element: HTMLDivElement, iframeSource: string): void => {
   const textNode = document.createTextNode(text)
-  if (iframeSource) {
-    showSource(element, iframeSource)
-  }
+  showSource(element, iframeSource)
   element.appendChild(textNode)
 }
 
@@ -100,11 +98,11 @@ const showOptIn = (
   text: string,
   iframeContainer: HTMLDivElement,
   source: string,
-  updateCookie: (source: string) => void,
+  updateLocalStorage: (source: string) => void,
   index: number,
 ): void => {
   const onClickHandler = () => {
-    updateCookie(source)
+    updateLocalStorage(source)
   }
 
   const className = `iframe-info-text`
@@ -128,7 +126,7 @@ const showOptIn = (
   container.appendChild(checkbox)
 }
 
-const showSettingsButton = (element: HTMLDivElement, t: TFunction): void => {
+const showSettingsLink = (element: HTMLDivElement, t: TFunction): void => {
   const link = document.createElement('a')
   link.innerHTML = t('layout:settings')
   link.id = 'opt-in-settings-link'
@@ -155,27 +153,27 @@ const showMessageWithSettings = (
   }
   iframeContainer.appendChild(container)
   showMessage(text, container, source)
-  showSettingsButton(container, t)
+  showSettingsLink(container, t)
 }
 export const handleAllowedIframeSources = (
   iframe: HTMLIFrameElement,
   externalSourcePermissions: ExternalSourcePermissions,
   storedIframeSource: string,
   t: TFunction,
-  onUpdateCookie: (source: string) => void,
+  onUpdateLocalStorage: (source: string) => void,
   iframeIndex: number,
   supportedSource: string,
   viewportSmall: boolean,
   deviceWidth: number,
 ): void => {
   const permission = supportedSource ? externalSourcePermissions[supportedSource] : undefined
-  const iframeId = `iframe-container${supportedSource}${iframeIndex}`
-  const iframeContainer = getIframeContainer(iframeId, viewportSmall, iframe, deviceWidth)
+  const iframeContainerId = `iframe-container${supportedSource}${iframeIndex}`
+  const iframeContainer = getIframeContainer(iframeContainerId, viewportSmall, iframe, deviceWidth)
 
   if (permission === undefined) {
     const message = t('consent:knownResourceOptIn')
-    showOptIn(message, iframeContainer, supportedSource, onUpdateCookie, iframeIndex)
-  } else if (permission && storedIframeSource) {
+    showOptIn(message, iframeContainer, supportedSource, onUpdateLocalStorage, iframeIndex)
+  } else if (permission) {
     restoreIframe(iframe, storedIframeSource)
     // Add do not track parameter (only working for vimeo)
     if (supportedSource === 'vimeo.com') {
