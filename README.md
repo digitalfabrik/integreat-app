@@ -3,6 +3,8 @@
 [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/facebook/react/blob/master/LICENSE)
 [![versioning](https://img.shields.io/badge/calver-YYYY.MM.PATCH-22bfda.svg)](version.json)
 [![CircleCI Status](https://circleci.com/gh/digitalfabrik/integreat-app.svg?style=shield)](https://circleci.com/gh/digitalfabrik/integreat-app)
+[![Maintainability](https://api.codeclimate.com/v1/badges/5be95233a83e181d8a42/maintainability)](https://codeclimate.com/github/digitalfabrik/integreat-app/maintainability)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/5be95233a83e181d8a42/test_coverage)](https://codeclimate.com/github/digitalfabrik/integreat-app/test_coverage)
 
 # integreat-app
 
