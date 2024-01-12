@@ -1,12 +1,12 @@
 import { useCallback } from 'react'
 
 import {
+  CategoryModel,
   LoadSprungbrettJobReturn,
-  OfferModel,
+  ReturnType,
   SPRUNGBRETT_OFFER,
   loadSprungbrettJobs,
   useLoadAsync,
-  ReturnType,
 } from 'api-client'
 
 import { determineApiUrl } from '../utils/helpers'
@@ -15,35 +15,33 @@ type EmbeddedOffers = {
   sprungbrett?: LoadSprungbrettJobReturn
 }
 
-type EmbeddedOffersParams = {
-  embeddedOffers: OfferModel[]
+export type EmbeddedOffersParams = {
+  category?: CategoryModel | null
   cityCode: string
   languageCode: string
 }
 
 export type EmbeddedOffersReturn = ReturnType<EmbeddedOffers>
 
-const useLoadEmbeddedOffers = ({
-  embeddedOffers,
+export const useLoadEmbeddedOffers = ({
+  category,
   cityCode,
   languageCode,
 }: EmbeddedOffersParams): EmbeddedOffersReturn => {
   const load = useCallback(async () => {
-    if (embeddedOffers.length) {
-      const embeddedOfferReturn = await Promise.all(
-        embeddedOffers.map(async offer => {
-          if (offer.alias === SPRUNGBRETT_OFFER) {
-            return {
-              sprungbrett: await loadSprungbrettJobs({ cityCode, languageCode, baseUrl: determineApiUrl }),
-            }
-          }
-          return {}
-        }),
-      )
-      return embeddedOfferReturn.reduce((it, acc) => ({ ...acc, ...it }), {})
+    if (!category?.embeddedOffers.length) {
+      return {}
     }
-    return {}
-  }, [cityCode, embeddedOffers, languageCode])
+    return category.embeddedOffers.reduce(async (accumulator, offer) => {
+      if (offer.alias === SPRUNGBRETT_OFFER) {
+        return {
+          ...accumulator,
+          sprungbrett: await loadSprungbrettJobs({ cityCode, languageCode, baseUrl: await determineApiUrl() }),
+        }
+      }
+      return { ...accumulator }
+    }, Promise.resolve({}))
+  }, [cityCode, category, languageCode])
 
   return useLoadAsync(load)
 }

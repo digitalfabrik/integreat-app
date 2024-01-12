@@ -85,8 +85,7 @@ const Categories = ({
       path={category.path}
       AfterContent={category.organization && <OrganizationContentInfo organization={category.organization} />}
       Footer={
-        <>
-          <EmbeddedOffer embeddedOffers={embeddedOffers} languageCode={language} />
+        children.length ? (
           <List
             items={children}
             renderItem={({ item: it }) => (
@@ -101,7 +100,9 @@ const Categories = ({
             )}
             scrollEnabled={false}
           />
-        </>
+        ) : (
+          <EmbeddedOffer embeddedOffers={embeddedOffers} languageCode={language} />
+        )
       }
     />
   )

@@ -58,7 +58,7 @@ const CategoriesContainer = ({ navigation, route }: CategoriesContainerProps): R
   const previousLanguageCode = usePreviousProp({ prop: languageCode, onPropChange: onLanguageChange })
 
   const embeddedOffers = useLoadEmbeddedOffers({
-    embeddedOffers: category?.embeddedOffers ?? [],
+    category,
     cityCode,
     languageCode,
   })

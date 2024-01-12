@@ -2,7 +2,7 @@ import React, { ReactElement } from 'react'
 
 import { ErrorCode, fromError } from 'api-client'
 
-import { EmbeddedOffersReturn } from '../hooks/useEmbeddedOffers'
+import { EmbeddedOffersReturn } from '../hooks/useLoadEmbeddedOffers'
 import SprungbrettOffer from '../routes/SprungbrettOffer'
 import Failure from './Failure'
 import LoadingSpinner from './LoadingSpinner'
@@ -21,10 +21,10 @@ const EmbeddedOffer = ({ embeddedOffers, languageCode }: EmbeddedOfferProps): Re
     return <Failure code={fromError(embeddedOffers.error)} buttonAction={embeddedOffers.refresh} />
   }
 
-  if (!embeddedOffers.embeddedOffers) {
+  if (!embeddedOffers.data) {
     return <Failure code={ErrorCode.PageNotFound} buttonAction={embeddedOffers.refresh} />
   }
-  const { sprungbrett } = embeddedOffers.embeddedOffers
+  const { sprungbrett } = embeddedOffers.data
   if (sprungbrett) {
     return <SprungbrettOffer jobs={sprungbrett.sprungbrettJobs} language={languageCode} embedded />
   }
