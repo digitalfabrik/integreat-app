@@ -16,18 +16,11 @@ import MapView, { MapViewRef } from './MapView'
 import PoiSharedChildren from './PoiSharedChildren'
 import Button from './base/Button'
 import Icon from './base/Icon'
-import { Title } from './base/InputSection'
 
 const geolocatorTopOffset = 10
 
 const ListContainer = styled.div`
   padding: 0 30px;
-`
-
-const ListTitle = styled.h1`
-  font-size: 1.25rem;
-  font-family: ${props => props.theme.fonts.web.contentFont};
-  text-align: center;
 `
 
 const GoBackContainer = styled.div<{ hidden: boolean }>`
@@ -175,7 +168,7 @@ const PoisMobile = ({
         }
       />
       <BottomActionSheet
-        title={!canGoBack ? '' : undefined}
+        title={!canGoBack ? t('listTitle') : undefined}
         toolbar={toolbar}
         ref={sheetRef}
         setBottomActionSheetHeight={setBottomActionSheetHeight}
@@ -187,7 +180,6 @@ const PoisMobile = ({
           </GoBackContainer>
         )}
         <ListContainer>
-          {!canGoBack ? <ListTitle>{t('listTitle')}</ListTitle> : null}
           <PoiSharedChildren
             poiListFeatures={poiListFeatures}
             currentPoi={currentPoi}
