@@ -5,6 +5,7 @@ import { SprungbrettJobModel } from 'api-client'
 
 import { SprungbrettIcon } from '../assets'
 import ListItem from './ListItem'
+import Icon from './base/Icon'
 
 type SprungbrettListItemProps = {
   job: SprungbrettJobModel
@@ -18,7 +19,7 @@ class SprungbrettListItem extends PureComponent<SprungbrettListItemProps> {
     const { language, job, openJobInBrowser } = this.props
     return (
       <ListItem
-        thumbnail={<SprungbrettIcon width={24} height={24} />}
+        thumbnail={<Icon Icon={SprungbrettIcon} />}
         title={job.title}
         navigateTo={openJobInBrowser}
         language={language}>

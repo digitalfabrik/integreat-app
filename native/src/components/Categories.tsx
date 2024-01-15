@@ -6,7 +6,7 @@ import { CATEGORIES_ROUTE } from 'api-client/src/routes'
 import { RouteInformationType } from 'api-client/src/routes/RouteInformationTypes'
 
 import { URL_PREFIX } from '../constants/webview'
-import { EmbeddedOffersReturn } from '../hooks/useEmbeddedOffers'
+import { EmbeddedOffersReturn } from '../hooks/useLoadEmbeddedOffers'
 import TileModel from '../models/TileModel'
 import testID from '../testing/testID'
 import { LanguageResourceCacheStateType, PageResourceCacheStateType } from '../utils/DataContainer'
@@ -85,8 +85,7 @@ const Categories = ({
       path={category.path}
       AfterContent={category.organization && <OrganizationContentInfo organization={category.organization} />}
       Footer={
-        <>
-          <EmbeddedOffer embeddedOffers={embeddedOffers} languageCode={language} />
+        children.length ? (
           <List
             items={children}
             renderItem={({ item: it }) => (
@@ -101,7 +100,9 @@ const Categories = ({
             )}
             scrollEnabled={false}
           />
-        </>
+        ) : (
+          <EmbeddedOffer embeddedOffers={embeddedOffers} languageCode={language} />
+        )
       }
     />
   )
