@@ -20,7 +20,7 @@ const Offers = ({ offers, navigateToOffer, languageCode }: OffersProps): ReactEl
 
   const tiles = offers.map(offer => {
     let path = offer.path
-    if (offer.alias in [SPRUNGBRETT_OFFER_ROUTE, MALTE_HELP_FORM_OFFER_ROUTE]) {
+    if (internalOffers.includes(offer.alias)) {
       path = offer.alias
     }
     return new TileModel({

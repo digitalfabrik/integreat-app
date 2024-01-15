@@ -11,18 +11,16 @@ import Icon from '../components/base/Icon'
 import { Container } from './Feedback'
 import Input from './base/Input'
 import InputSection from './base/InputSection'
-import RadioElement, { RadioGroup } from './base/RadioElement'
+import RadioGroup from './base/RadioGroup'
 import TextButton from './base/TextButton'
 
 const Note = styled.div`
   display: flex;
   padding-bottom: 10px;
+  gap: 20px;
 `
 
-const StyledIcon = styled(Icon)<{ direction: 'ltr' | 'rtl' }>`
-  width: 24px;
-  height: 24px;
-  ${props => (props.direction === 'ltr' ? 'padding-right: 20px' : 'padding-left: 20px')};
+const StyledIcon = styled(Icon)`
   flex-shrink: 0;
 `
 
@@ -49,7 +47,7 @@ const ErrorSendingStatus = styled.div`
   margin: 10px 0;
 `
 
-type ContactChannel = 'email' | 'telephone' | 'person'
+type ContactChannel = 'eMail' | 'telephone' | 'person'
 type ContactGender = 'male' | 'female' | 'any'
 type SendingStatusType = 'idle' | 'sending' | 'failed' | 'successful'
 
@@ -63,7 +61,7 @@ const MalteHelpForm = ({ languageCode, cityCode, helpButtonOffer }: MalteHelpFor
   const { t } = useTranslation('malteHelpForm')
   const [sendingStatus, setSendingStatus] = useState<SendingStatusType>('idle')
   const [submitted, setSubmitted] = useState(false)
-  const [contactChannel, setContactChannel] = useState<ContactChannel>('email')
+  const [contactChannel, setContactChannel] = useState<ContactChannel>('eMail')
   const [email, setEmail] = useState('')
   const [telephone, setTelephone] = useState('')
   const [name, setName] = useState('')
@@ -72,7 +70,7 @@ const MalteHelpForm = ({ languageCode, cityCode, helpButtonOffer }: MalteHelpFor
   const [comment, setComment] = useState('')
   const missingData =
     !name.length ||
-    (!email.length && contactChannel === 'email') ||
+    (!email.length && contactChannel === 'eMail') ||
     (!telephone.length && contactChannel === 'telephone')
   const dashboardRoute = cityContentPath({ languageCode, cityCode })
 
@@ -80,23 +78,19 @@ const MalteHelpForm = ({ languageCode, cityCode, helpButtonOffer }: MalteHelpFor
     (event: SyntheticEvent<HTMLFormElement>) => {
       const form = event.currentTarget
       if (!form.checkValidity()) {
-        // event.preventDefault()
         event.stopPropagation()
         const invalidInput = form.querySelector(':invalid:not(fieldset)')
         invalidInput?.scrollIntoView({ behavior: 'smooth' })
         setSendingStatus('idle')
       } else {
         setSendingStatus('sending')
-        const request = async () => {
-          await submitHelpForm({ cityCode, languageCode, helpButtonOffer })
-          setSendingStatus('successful')
-        }
-
-        request().catch(err => {
-          reportError(err)
-          event.preventDefault()
-          setSendingStatus('failed')
-        })
+        submitHelpForm({ cityCode, languageCode, helpButtonOffer })
+          .then(() => setSendingStatus('successful'))
+          .catch(error => {
+            reportError(error)
+            event.preventDefault()
+            setSendingStatus('failed')
+          })
       }
     },
     [cityCode, helpButtonOffer, languageCode],
@@ -114,11 +108,11 @@ const MalteHelpForm = ({ languageCode, cityCode, helpButtonOffer }: MalteHelpFor
   return (
     <>
       <Note>
-        <StyledIcon src={SupportIcon} direction={config.getScriptDirection(languageCode)} />
+        <StyledIcon src={SupportIcon} />
         {t('supportNote')}
       </Note>
       <Note>
-        <StyledIcon src={SecurityIcon} direction={config.getScriptDirection(languageCode)} />
+        <StyledIcon src={SecurityIcon} />
         {t('securityNote')}
       </Note>
       <Form onSubmit={submitHandler}>
@@ -141,73 +135,50 @@ const MalteHelpForm = ({ languageCode, cityCode, helpButtonOffer }: MalteHelpFor
           onChange={setRoomNumber}
           submitted={submitted}
         />
-        <RadioGroup caption={t('howToBeContacted')}>
-          <RadioElement
-            groupId='contactChannel'
-            label={t('eMail')}
-            checked={contactChannel === 'email'}
-            id='email'
-            onChange={setContactChannel}>
-            <Input
-              id='email'
-              hint={t('eMail')}
-              hintIsLabel
-              required
-              value={email}
-              direction={config.getScriptDirection(languageCode)}
-              onChange={setEmail}
-              submitted={submitted}
-            />
-          </RadioElement>
-          <RadioElement
-            groupId='contactChannel'
-            label={t('telephone')}
-            checked={contactChannel === 'telephone'}
-            id='telephone'
-            onChange={setContactChannel}>
-            <Input
-              id='telephone'
-              hint={t('telephoneNumber')}
-              hintIsLabel
-              value={telephone}
-              onChange={setTelephone}
-              direction={config.getScriptDirection(languageCode)}
-              required
-              submitted={submitted}
-            />
-          </RadioElement>
-          <RadioElement
-            groupId='contactChannel'
-            label={t('personally')}
-            checked={contactChannel === 'person'}
-            id='person'
-            onChange={setContactChannel}
-          />
-        </RadioGroup>
+        <RadioGroup
+          caption={t('howToBeContacted')}
+          groupId='contactChannel'
+          submitted={submitted}
+          direction={config.getScriptDirection(languageCode)}
+          selectedValue={contactChannel}
+          onChange={setContactChannel}
+          values={[
+            {
+              key: 'eMail',
+              label: t('eMail'),
+              inputProps: {
+                value: email,
+                onChange: setEmail,
+              },
+            },
+            {
+              key: 'telephone',
+              label: t('telephone'),
+              inputProps: {
+                value: telephone,
+                onChange: setTelephone,
+              },
+            },
+            {
+              key: 'person',
+              label: t('personally'),
+            },
+          ]}
+        />
         <Divider />
-        <RadioGroup caption={t('contactPerson')}>
-          <RadioElement
-            groupId='contactPerson'
-            label={t('contactPersonAnyGender')}
-            checked={contactType === 'any'}
-            id='any'
-            onChange={setContactType}
-          />
-          <RadioElement
-            groupId='contactPerson'
-            label={t('contactPersonGenderFemale')}
-            checked={contactType === 'female'}
-            id='female'
-            onChange={setContactType}
-          />
-          <RadioElement
-            groupId='contactPerson'
-            label={t('contactPersonGenderMale')}
-            checked={contactType === 'male'}
-            id='male'
-            onChange={setContactType}
-          />
-        </RadioGroup>
+        <RadioGroup
+          direction={config.getScriptDirection(languageCode)}
+          submitted={submitted}
+          caption={t('contactPerson')}
+          groupId='contactPerson'
+          selectedValue={contactType}
+          onChange={setContactType}
+          values={[
+            { key: 'any', label: t('contactPersonAnyGender') },
+            { key: 'female', label: t('contactPersonGenderFemale') },
+            { key: 'male', label: t('contactPersonGenderMale') },
+          ]}
+        />
         <Divider />
         <InputSection id='comment' title={t('contactReason')}>
           <Input

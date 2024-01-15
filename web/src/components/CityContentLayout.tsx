@@ -36,6 +36,7 @@ const CityContentLayout = (props: CityContentLayoutProps): ReactElement => {
     showFooter = true,
     city,
   } = props
+
   // to avoid jumping issues for desktop, isLoading is only checked on mobile viewport
   const isLoadingMobile = isLoading && viewportSmall
 

@@ -3,8 +3,8 @@ import React, { ReactElement } from 'react'
 import { MALTE_HELP_FORM_OFFER_ROUTE, OfferModel, SPRUNGBRETT_OFFER } from 'api-client'
 
 import { CityRouteProps } from '../CityContentSwitcher'
-import SprungbrettOfferPage from '../routes/SprungbrettOfferPage'
 import MalteHelpFormOfferPage from '../routes/MalteHelpFormOfferPage'
+import SprungbrettOfferPage from '../routes/SprungbrettOfferPage'
 
 type EmbeddedOfferProps = {
   offer: OfferModel

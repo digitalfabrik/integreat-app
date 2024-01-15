@@ -63,7 +63,7 @@ class CategoryModel extends ExtendedPageModel {
       this.order === other.order &&
       this.isRoot === other.isRoot &&
       (this.organization === null ? other.organization === null : this.organization.isEqual(other.organization)) &&
-      this._embeddedOffers === other.embeddedOffers
+      this.embeddedOffers === other.embeddedOffers
     )
   }
 }
