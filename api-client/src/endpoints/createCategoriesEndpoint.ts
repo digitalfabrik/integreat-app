@@ -32,6 +32,7 @@ export default (baseUrl: string): Endpoint<ParamsType, CategoriesMapModel> =>
           availableLanguages: new Map(),
           lastUpdate: DateTime.fromMillis(0),
           organization: null,
+          embeddedOffers: [],
         }),
       )
       return new CategoriesMapModel(categories)

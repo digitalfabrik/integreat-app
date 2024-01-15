@@ -1,7 +1,9 @@
 import { DateTime } from 'luxon'
 
+import { createPostMap } from '../endpoints/createOffersEndpoint'
 import mapAvailableLanguages from '../mapAvailableLanguages'
 import CategoryModel from '../models/CategoryModel'
+import OfferModel from '../models/OfferModel'
 import OrganizationModel from '../models/OrganizationModel'
 import { JsonCategoryType } from '../types'
 
@@ -23,6 +25,16 @@ const mapCategoryJson = (json: JsonCategoryType, basePath: string): CategoryMode
           logo: json.organization.logo,
         })
       : null,
+    embeddedOffers: json.embedded_offers.map(
+      offer =>
+        new OfferModel({
+          alias: offer.alias,
+          title: offer.name,
+          path: offer.url,
+          thumbnail: offer.thumbnail,
+          postData: offer.post ? createPostMap(offer.post) : undefined,
+        }),
+    ),
   })
 
 export default mapCategoryJson
