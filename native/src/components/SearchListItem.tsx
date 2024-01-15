@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next'
 import Highlighter from 'react-native-highlight-words'
 import styled, { useTheme } from 'styled-components/native'
 
-import { CategoryModel, getExcerpt, normalizeString } from 'api-client'
+import { getExcerpt, normalizeString } from 'api-client'
 
 import { SEARCH_PREVIEW_MAX_CHARS } from '../constants'
 import { contentDirection } from '../constants/contentDirection'
@@ -43,26 +43,33 @@ const HighlighterCategoryTitle = styled(Highlighter)<{ language: string }>`
 `
 
 type SearchListItemProps = {
-  category: CategoryModel
-  contentWithoutHtml: string
-  resourceCache: PageResourceCacheStateType
-  onItemPress: (category: CategoryModel) => void
+  title: string
+  contentWithoutHtml?: string
+  resourceCache?: PageResourceCacheStateType
+  followLink: (link: string) => void
   language: string
   query: string
+  url?: string
+  path?: string
+  thumbnail?: string
 }
 
 const SearchListItem = ({
   language,
-  category,
+  title,
   resourceCache,
   contentWithoutHtml,
-  onItemPress,
+  followLink,
   query,
+  path,
+  url,
+  thumbnail,
 }: SearchListItemProps): ReactElement => {
   const { t } = useTranslation('search')
   const theme = useTheme()
-  const { title, thumbnail } = category
-  const excerpt = getExcerpt(contentWithoutHtml, { query, maxChars: SEARCH_PREVIEW_MAX_CHARS })
+  const excerpt = contentWithoutHtml
+    ? getExcerpt(contentWithoutHtml, { query, maxChars: SEARCH_PREVIEW_MAX_CHARS })
+    : ''
 
   const Content =
     query && excerpt.length > 0 ? (
@@ -87,13 +94,14 @@ const SearchListItem = ({
       }}
     />
   )
+
   return (
-    <FlexStyledLink onPress={() => onItemPress(category)} accessibilityHint={t('itemHint')}>
+    <FlexStyledLink onPress={() => followLink(path ?? url ?? '')} accessibilityHint={t('itemHint')}>
       <DirectionContainer language={language}>
         <SearchEntryContainer>
           <TitleDirectionContainer language={language}>
-            {!!thumbnail && (
-              <CategoryThumbnail language={language} source={getCachedThumbnail(category, resourceCache)} />
+            {!!thumbnail && resourceCache && (
+              <CategoryThumbnail language={language} source={getCachedThumbnail(thumbnail, resourceCache)} />
             )}
             {Title}
           </TitleDirectionContainer>

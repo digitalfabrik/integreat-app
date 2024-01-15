@@ -1,30 +1,35 @@
 import { TFunction } from 'i18next'
+import MiniSearch from 'minisearch'
 import React, { ReactElement, useMemo, useState } from 'react'
 import { KeyboardAvoidingView, Platform } from 'react-native'
 import styled from 'styled-components/native'
 
 import {
+  CATEGORIES_ROUTE,
   CategoriesRouteInformationType,
-  CategoriesMapModel,
+  EVENTS_ROUTE,
+  EventsRouteInformationType,
+  getSlugFromPath,
+  parseHTML,
+  RouteInformationType,
   SEARCH_FINISHED_SIGNAL_NAME,
   SEARCH_ROUTE,
-  CATEGORIES_ROUTE,
-  RouteInformationType,
-  searchCategories,
-  CategorySearchResult,
-  CategoryModel,
+  SearchResult,
 } from 'api-client'
 import { ThemeType } from 'build-configs'
 
 import FeedbackContainer from '../components/FeedbackContainer'
 import HorizontalLine from '../components/HorizontalLine'
 import List from '../components/List'
+import LoadingSpinner from '../components/LoadingSpinner'
 import NothingFound from '../components/NothingFound'
 import SearchHeader from '../components/SearchHeader'
 import SearchListItem from '../components/SearchListItem'
 import useResourceCache from '../hooks/useResourceCache'
+import useSnackbar from '../hooks/useSnackbar'
 import { urlFromRouteInformation } from '../navigation/url'
 import testID from '../testing/testID'
+import openExternalUrl from '../utils/openExternalUrl'
 import sendTrackingSignal from '../utils/sendTrackingSignal'
 
 const Wrapper = styled.View`
@@ -37,7 +42,7 @@ const Wrapper = styled.View`
 `
 
 export type SearchModalProps = {
-  categories: CategoriesMapModel
+  allPossibleResults: Array<SearchResult>
   navigateTo: (routeInformation: RouteInformationType) => void
   theme: ThemeType
   languageCode: string
@@ -45,10 +50,11 @@ export type SearchModalProps = {
   closeModal: (query: string) => void
   t: TFunction<'search'>
   initialSearchText: string
+  loading: boolean
 }
 
 const SearchModal = ({
-  categories,
+  allPossibleResults,
   navigateTo,
   theme,
   languageCode,
@@ -56,32 +62,71 @@ const SearchModal = ({
   closeModal,
   t,
   initialSearchText = '',
+  loading,
 }: SearchModalProps): ReactElement => {
   const [query, setQuery] = useState<string>(initialSearchText)
   const resourceCache = useResourceCache({ cityCode, languageCode })
 
-  const searchResults = useMemo(() => searchCategories(categories, query), [categories, query])
-
-  const onItemPress = (category: CategoryModel): void => {
-    const routeInformation: CategoriesRouteInformationType = {
-      route: CATEGORIES_ROUTE,
-      cityContentPath: category.path,
-      cityCode,
-      languageCode,
-    }
-    sendTrackingSignal({
-      signal: {
-        name: SEARCH_FINISHED_SIGNAL_NAME,
-        query,
-        url: urlFromRouteInformation(routeInformation),
+  const minisearch = useMemo(() => {
+    const search = new MiniSearch({
+      fields: ['title', 'content'],
+      storeFields: ['title', 'content', 'path', 'location', 'url', 'thumbnail'],
+      searchOptions: {
+        boost: { title: 2 },
+        fuzzy: true,
+        prefix: true,
       },
     })
-    navigateTo({
-      route: CATEGORIES_ROUTE,
-      cityCode,
-      languageCode,
-      cityContentPath: category.path,
-    })
+    search.addAll(allPossibleResults)
+    return search
+  }, [allPossibleResults])
+
+  // Minisearch doesn't add the returned storeFields (e.g. title or path) to its typing
+  const searchResults = minisearch.search(query) as unknown as SearchResult[]
+
+  const showSnackbar = useSnackbar()
+
+  const followLink = (link: string, isExternalUrl: boolean): void => {
+    if (isExternalUrl) {
+      sendTrackingSignal({
+        signal: {
+          name: SEARCH_FINISHED_SIGNAL_NAME,
+          query,
+          url: link,
+        },
+      })
+      openExternalUrl(link, showSnackbar)
+    } else {
+      const isEvent = link.split('/')[3] === EVENTS_ROUTE
+      const routeInformation: CategoriesRouteInformationType | EventsRouteInformationType = {
+        route: isEvent ? EVENTS_ROUTE : CATEGORIES_ROUTE,
+        cityContentPath: link,
+        cityCode,
+        languageCode,
+      }
+      sendTrackingSignal({
+        signal: {
+          name: SEARCH_FINISHED_SIGNAL_NAME,
+          query,
+          url: urlFromRouteInformation(routeInformation),
+        },
+      })
+      if (isEvent) {
+        navigateTo({
+          route: EVENTS_ROUTE,
+          cityCode,
+          languageCode,
+          slug: getSlugFromPath(link),
+        })
+      } else {
+        navigateTo({
+          route: CATEGORIES_ROUTE,
+          cityCode,
+          languageCode,
+          cityContentPath: link,
+        })
+      }
+    }
   }
 
   const onClose = (): void => {
@@ -95,15 +140,27 @@ const SearchModal = ({
     closeModal(query)
   }
 
-  const renderItem = ({ item }: { item: CategorySearchResult }) => (
+  if (loading) {
+    return (
+      <Wrapper {...testID('Search-Page')}>
+        <SearchHeader theme={theme} query={query} closeSearchBar={onClose} onSearchChanged={setQuery} t={t} />
+        <LoadingSpinner />
+      </Wrapper>
+    )
+  }
+
+  const renderItem = ({ item }: { item: SearchResult }) => (
     <SearchListItem
-      key={item.category.path}
-      category={item.category}
-      resourceCache={resourceCache[item.category.path] ?? {}}
-      contentWithoutHtml={item.contentWithoutHtml}
+      key={item.id}
+      title={item.title}
+      resourceCache={item.path ? resourceCache[item.path] : {}}
+      contentWithoutHtml={item.location ?? parseHTML(item.content ?? '')}
       language={languageCode}
       query={query}
-      onItemPress={onItemPress}
+      followLink={link => followLink(link, !!item.url)}
+      thumbnail={item.thumbnail}
+      path={item.path}
+      url={item.url}
     />
   )
 
@@ -112,7 +169,7 @@ const SearchModal = ({
       <SearchHeader theme={theme} query={query} closeSearchBar={onClose} onSearchChanged={setQuery} t={t} />
       <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : undefined} style={{ flex: 1 }}>
         <List
-          items={searchResults}
+          items={query.length > 0 ? searchResults : allPossibleResults}
           renderItem={renderItem}
           accessibilityLabel={t('searchResultsCount', { count: searchResults.length })}
           noItemsMessage={

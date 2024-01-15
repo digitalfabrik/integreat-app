@@ -45,7 +45,7 @@ const SubCategoryListItem = ({
   <FlexStyledLink onPress={() => onItemPress(subCategory)} language={language}>
     <SubCategoryTitleContainer language={language}>
       {!!subCategory.thumbnail && (
-        <CategoryThumbnail language={language} source={getCachedThumbnail(subCategory, resourceCache)} />
+        <CategoryThumbnail language={language} source={getCachedThumbnail(subCategory.thumbnail, resourceCache)} />
       )}
       <SubCategoryTitle>{subCategory.title}</SubCategoryTitle>
     </SubCategoryTitleContainer>

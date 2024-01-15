@@ -1,16 +1,16 @@
 import { fireEvent, waitFor } from '@testing-library/react'
-import { DateTime } from 'luxon'
+import { mocked } from 'jest-mock'
 import React from 'react'
 
 import {
-  CategoriesMapModel,
   CategoriesMapModelBuilder,
-  CategoryModel,
   CityModelBuilder,
+  EventModelBuilder,
   pathnameFromRouteInformation,
   SEARCH_ROUTE,
+  SearchResult,
+  useAllPossibleSearchResults,
 } from 'api-client'
-import { mockUseLoadFromEndpointWithData } from 'api-client/src/testing/mockUseLoadFromEndpoint'
 
 import { renderRoute } from '../../testing/render'
 import SearchPage from '../SearchPage'
@@ -21,17 +21,53 @@ jest.mock('react-i18next')
 jest.mock('api-client', () => ({
   ...jest.requireActual('api-client'),
   useLoadFromEndpoint: jest.fn(),
+  useAllPossibleSearchResults: jest.fn(),
 }))
 
 describe('SearchPage', () => {
   const cities = new CityModelBuilder(2).build()
   const cityModel = cities[0]!
+  const cityCode = 'augsburg'
   const languageCode = 'en'
 
-  const categoriesMap = new CategoriesMapModelBuilder('augsburg', 'en').build()
+  const categoriesMap = new CategoriesMapModelBuilder(cityCode, languageCode).build()
   const categoryModels = categoriesMap.toArray()
   const category0 = categoryModels[0]!
   const category1 = categoryModels[1]!
+  const categories = categoryModels
+    .filter(category => !category.isRoot())
+    .map(category => ({
+      title: category.title,
+      content: category.content,
+      path: category.path,
+      id: category.path,
+      thumbnail: category.thumbnail,
+    }))
+
+  const eventModels = new EventModelBuilder('testseed', 5, cityCode, languageCode).build()
+  const events = eventModels.map(event => ({
+    title: event.title,
+    content: event.content,
+    path: event.path,
+    id: event.path,
+  }))
+
+  const offers = [
+    {
+      title: 'WebDeveloper',
+      location: 'Augsburg',
+      url: 'http://awesome-jobs.domain',
+      id: 0,
+    },
+  ]
+
+  const allPossibleResults: SearchResult[] = [...categories, ...events, ...offers]
+
+  const hookReturn = {
+    data: allPossibleResults,
+    loading: false,
+    error: null,
+  }
 
   const pathname = pathnameFromRouteInformation({
     route: SEARCH_ROUTE,
@@ -50,7 +86,7 @@ describe('SearchPage', () => {
   }
 
   it('should filter correctly', () => {
-    mockUseLoadFromEndpointWithData(categoriesMap)
+    mocked(useAllPossibleSearchResults).mockImplementation(() => hookReturn)
 
     const { getByText, queryByText, getByPlaceholderText } = renderSearch()
 
@@ -78,51 +114,26 @@ describe('SearchPage', () => {
   })
 
   it('should sort correctly', () => {
-    const buildCategoryModel = (title: string, content: string) =>
-      new CategoryModel({
-        root: false,
-        path: `/${title}`,
-        title: `${title}-category`,
-        content,
-        parentPath: '/',
-        order: 1,
-        availableLanguages: new Map(),
-        thumbnail: 'https://cms.integreat-ap…03/Beratung-150x150.png',
-        lastUpdate: DateTime.fromISO('2017-11-18T19:30:00.000Z'),
-        organization: null,
-        embeddedOffers: [],
-      })
-    const categoryModels = [
-      // should be 1st because 'abc' is in the title and it is lexicographically smaller than category 2
-      buildCategoryModel('abc', ''),
-      // should be 2nd because 'abc' is in the title but it is lexicographically bigger than category 1
-      buildCategoryModel('defabc', ''),
-      // should be 3rd because 'abc' is only in the content and the title is lexicographically smaller than category 4
-      buildCategoryModel('def', 'abc'),
-      // should be 4th because 'abc' is only in the content and the title is lexicographically bigger than category 3
-      buildCategoryModel('ghi', 'abc'),
-    ]
-    const categoriesMap = new CategoriesMapModel(categoryModels)
-    mockUseLoadFromEndpointWithData(categoriesMap)
+    mocked(useAllPossibleSearchResults).mockImplementation(() => hookReturn)
 
     const { getByPlaceholderText, getAllByLabelText } = renderSearch()
 
     fireEvent.change(getByPlaceholderText('search:searchPlaceholder'), {
       target: {
-        value: 'abc',
+        value: 'sample',
       },
     })
 
-    const searchResults = getAllByLabelText('category', { exact: false })
+    const searchResults = getAllByLabelText('first Event', { exact: false })
 
-    expect(searchResults[0]!.attributes.getNamedItem('aria-label')?.value).toBe(categoryModels[0]!.title)
-    expect(searchResults[1]!.attributes.getNamedItem('aria-label')?.value).toBe(categoryModels[1]!.title)
-    expect(searchResults[2]!.attributes.getNamedItem('aria-label')?.value).toBe(categoryModels[2]!.title)
-    expect(searchResults[3]!.attributes.getNamedItem('aria-label')?.value).toBe(categoryModels[3]!.title)
+    expect(searchResults[0]!.attributes.getNamedItem('aria-label')?.value).toBe(eventModels[0]!.title)
+    expect(searchResults[1]!.attributes.getNamedItem('aria-label')?.value).toBe(eventModels[1]!.title)
+    expect(searchResults[2]!.attributes.getNamedItem('aria-label')?.value).toBe(eventModels[2]!.title)
+    expect(searchResults[3]!.attributes.getNamedItem('aria-label')?.value).toBe(eventModels[3]!.title)
   })
 
   it('should display nothing found for search', async () => {
-    mockUseLoadFromEndpointWithData(categoriesMap)
+    mocked(useAllPossibleSearchResults).mockImplementation(() => hookReturn)
 
     const { getByRole, getByPlaceholderText } = renderSearch()
 
@@ -136,7 +147,7 @@ describe('SearchPage', () => {
   })
 
   describe('url query', () => {
-    mockUseLoadFromEndpointWithData(categoriesMap)
+    mocked(useAllPossibleSearchResults).mockImplementation(() => hookReturn)
     it('should set state from url', () => {
       const query = '?query=SearchForThis'
 

@@ -80,6 +80,10 @@ export {
 export { SPRUNGBRETT_OFFER } from './endpoints/createSprungbrettJobsEndpoint'
 export { default as useLoadFromEndpoint, loadFromEndpoint } from './endpoints/hooks/useLoadFromEndpoint'
 export { default as useLoadAsync, loadAsync } from './endpoints/hooks/useLoadAsync'
+export {
+  default as useAllPossibleSearchResults,
+  type SearchResult,
+} from './endpoints/hooks/useAllPossibleSearchResults'
 export { default as parseHTML } from './utils/parseHTML'
 export { embedInCollection, sortMapFeatures } from './utils/geoJson'
 export { prepareFeatureLocations, prepareFeatureLocation } from './utils/geoJson'
@@ -105,8 +109,6 @@ export { default as OrganizationModel } from './models/OrganizationModel'
 export { default as normalizePath } from './normalizePath'
 export { ErrorCode, fromError } from './ErrorCodes'
 export { setUserAgent, setJpalTrackingCode } from './request'
-export { default as searchCategories } from './utils/searchCategories'
 export { default as getExcerpt } from './utils/getExcerpt'
-export { type CategorySearchResult } from './utils/searchCategories'
 export { MAX_DATE_RECURRENCES, MAX_DATE_RECURRENCES_COLLAPSED } from './constants'
 export type ExternalSourcePermissions = Record<string, boolean>

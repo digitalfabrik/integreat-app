@@ -75,7 +75,7 @@ const CategoryListItem = ({
             {!!category.thumbnail && (
               <CategoryThumbnail
                 language={language}
-                source={getCachedThumbnail(category, resourceCache[category.path] ?? {})}
+                source={getCachedThumbnail(category.thumbnail, resourceCache[category.path] ?? {})}
               />
             )}
             <CategoryTitle language={language}>{category.title}</CategoryTitle>

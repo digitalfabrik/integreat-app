@@ -3,7 +3,13 @@ import { TFunction } from 'i18next'
 import React from 'react'
 import { ThemeProvider } from 'styled-components'
 
-import { CATEGORIES_ROUTE, CategoriesRouteInformationType, SEARCH_FINISHED_SIGNAL_NAME } from 'api-client'
+import {
+  CATEGORIES_ROUTE,
+  CategoriesRouteInformationType,
+  EventModelBuilder,
+  SEARCH_FINISHED_SIGNAL_NAME,
+  SearchResult,
+} from 'api-client'
 import CategoriesMapModelBuilder from 'api-client/src/testing/CategoriesMapModelBuilder'
 
 import buildConfig from '../../constants/buildConfig'
@@ -29,12 +35,43 @@ describe('SearchModal', () => {
 
   const t = ((key: string) => key) as TFunction
 
-  const categoriesMapModel = new CategoriesMapModelBuilder('augsburg', 'de', 2, 2).build()
   const languageCode = 'de'
   const cityCode = 'augsburg'
   const theme = buildConfig().lightTheme
+
+  const categoriesMapModel = new CategoriesMapModelBuilder(cityCode, languageCode, 2, 2).build()
+  const categories = categoriesMapModel
+    .toArray()
+    .filter(category => !category.isRoot())
+    .map(category => ({
+      title: category.title,
+      content: category.content,
+      path: category.path,
+      id: category.path,
+      thumbnail: category.thumbnail,
+    }))
+
+  const eventModels = new EventModelBuilder('testseed', 5, cityCode, languageCode).build()
+  const events = eventModels.map(event => ({
+    title: event.title,
+    content: event.content,
+    path: event.path,
+    id: event.path,
+  }))
+
+  const offers = [
+    {
+      title: 'WebDeveloper',
+      location: 'Augsburg',
+      url: 'http://awesome-jobs.domain',
+      id: 0,
+    },
+  ]
+
+  const allPossibleResults: SearchResult[] = [...categories, ...events, ...offers]
+
   const props: SearchModalProps = {
-    categories: categoriesMapModel,
+    allPossibleResults,
     navigateTo: dummy,
     languageCode,
     cityCode,
@@ -42,6 +79,7 @@ describe('SearchModal', () => {
     t,
     theme,
     initialSearchText: '',
+    loading: false,
   }
 
   const renderWithTheme = (props: SearchModalProps) =>
