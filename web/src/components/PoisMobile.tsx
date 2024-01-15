@@ -23,6 +23,12 @@ const ListContainer = styled.div`
   padding: 0 30px;
 `
 
+const ListTitle = styled.h1`
+  font-size: 1.25rem;
+  font-family: ${props => props.theme.fonts.web.contentFont};
+  text-align: center;
+`
+
 const GoBackContainer = styled.div<{ hidden: boolean }>`
   display: flex;
   flex-direction: column;
@@ -168,7 +174,7 @@ const PoisMobile = ({
         }
       />
       <BottomActionSheet
-        title={!canGoBack ? t('listTitle') : undefined}
+        title={!canGoBack ? '' : undefined}
         toolbar={toolbar}
         ref={sheetRef}
         setBottomActionSheetHeight={setBottomActionSheetHeight}
@@ -180,6 +186,7 @@ const PoisMobile = ({
           </GoBackContainer>
         )}
         <ListContainer>
+          {!canGoBack ? <ListTitle>{t('listTitle')}</ListTitle> : undefined}
           <PoiSharedChildren
             poiListFeatures={poiListFeatures}
             currentPoi={currentPoi}
