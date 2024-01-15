@@ -23,10 +23,9 @@ const ListContainer = styled.div`
   padding: 0 30px;
 `
 
-const ListTitle = styled.h1`
-  font-size: 1.25rem;
-  font-family: ${props => props.theme.fonts.web.contentFont};
-  text-align: center;
+const ListTitle = styled.div`
+  margin: 12px 0px;
+  font-weight: 700;
 `
 
 const GoBackContainer = styled.div<{ hidden: boolean }>`
