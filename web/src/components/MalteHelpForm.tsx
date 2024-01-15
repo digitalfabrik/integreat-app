@@ -84,16 +84,19 @@ const MalteHelpForm = ({ languageCode, cityCode, helpButtonOffer }: MalteHelpFor
         setSendingStatus('idle')
       } else {
         setSendingStatus('sending')
-        submitHelpForm({ cityCode, languageCode, helpButtonOffer })
-          .then(() => setSendingStatus('successful'))
-          .catch(error => {
-            reportError(error)
-            event.preventDefault()
-            setSendingStatus('failed')
-          })
+        const request = async () => {
+          await submitHelpForm({ cityCode, languageCode, helpButtonOffer, name, email })
+          setSendingStatus('successful')
+        }
+
+        request().catch(err => {
+          reportError(err)
+          event.preventDefault()
+          setSendingStatus('failed')
+        })
       }
     },
-    [cityCode, helpButtonOffer, languageCode],
+    [cityCode, email, helpButtonOffer, languageCode, name],
   )
 
   if (sendingStatus === 'successful') {
