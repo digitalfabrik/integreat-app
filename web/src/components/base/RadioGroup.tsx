@@ -1,5 +1,5 @@
 import React, { ReactElement } from 'react'
-import styled, { css } from 'styled-components'
+import styled from 'styled-components'
 
 import { UiDirectionType } from 'translations'
 
@@ -18,24 +18,17 @@ const RadioGroupCaption = styled.legend`
   padding-bottom: 10px;
 `
 
-const Radio = styled.input<{ direction: UiDirectionType }>`
+const Radio = styled.input`
   width: 1.3em;
   height: 1.3em;
   align-self: center;
   accent-color: ${props => props.theme.colors.textSecondaryColor};
-  ${props =>
-    props.direction === 'ltr'
-      ? css`
-          margin-right: 20px;
-        `
-      : css`
-          margin-left: 20px;
-        `};
   flex-shrink: 0;
 `
 
 const RadioLabel = styled.label`
   display: flex;
+  gap: 20px;
 `
 
 const RadioElementContainer = styled.div`
@@ -75,7 +68,6 @@ export const RadioGroup = <T extends string>({
         <RadioLabel htmlFor={key}>
           <Radio
             id={key}
-            direction={direction}
             name={groupId}
             type='radio'
             value={key}
