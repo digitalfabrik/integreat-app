@@ -15,7 +15,6 @@ import MapView, { MapViewRef } from './MapView'
 import PoiSharedChildren from './PoiSharedChildren'
 import Button from './base/Button'
 import Icon from './base/Icon'
-import { Title } from './base/InputSection'
 
 const geolocatorTopOffset = 10
 
