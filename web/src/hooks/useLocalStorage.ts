@@ -18,7 +18,7 @@ const useLocalStorage = <T>(name: string): UseLocalStorageReturnType<T> => {
 
   const removeLocalStorageItem = useCallback(() => {
     localStorage.removeItem(name)
-    setValue('')
+    setValue(null)
   }, [name])
 
   return { value: value ? JSON.parse(value) : {}, updateLocalStorageItem, removeLocalStorageItem }
