@@ -72,7 +72,6 @@ export type RoutesType =
   | FeedbackModalRouteType
   | LicensesRouteType
   | ConsentRouteType
-  | MalteHelpFormOfferRouteType
 
 type RouteTitle = {
   title?: string
