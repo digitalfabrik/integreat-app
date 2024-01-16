@@ -1,6 +1,7 @@
 import {
   CATEGORIES_ROUTE,
   CITY_NOT_COOPERATING_ROUTE,
+  CONSENT_ROUTE,
   DISCLAIMER_ROUTE,
   EVENTS_ROUTE,
   JPAL_TRACKING_ROUTE,
@@ -29,6 +30,7 @@ export const RoutePatterns = {
   [JPAL_TRACKING_ROUTE]: `/${JPAL_TRACKING_ROUTE}`,
   [NOT_FOUND_ROUTE]: `/${NOT_FOUND_ROUTE}`,
   [LICENSES_ROUTE]: `/${LICENSES_ROUTE}`,
+  [CONSENT_ROUTE]: `/${CONSENT_ROUTE}`,
 
   // City content routes, relative to /:cityCode/:languageCode
   [EVENTS_ROUTE]: EVENTS_ROUTE,
