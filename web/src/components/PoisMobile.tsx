@@ -24,7 +24,7 @@ const ListContainer = styled.div`
 `
 
 const ListTitle = styled.div`
-  margin: 12px 0px;
+  margin: 12px 0;
   font-weight: 700;
 `
 
