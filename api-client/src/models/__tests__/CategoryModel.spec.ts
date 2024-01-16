@@ -14,6 +14,7 @@ describe('CategoryModel', () => {
     thumbnail: 'https://cms.integreat-ap…/03/Hotline-150x150.png',
     lastUpdate: DateTime.fromISO('2016-01-07 10:36:24'),
     organization: null,
+    embeddedOffers: [],
   })
   const category = new CategoryModel({
     root: false,
@@ -26,6 +27,7 @@ describe('CategoryModel', () => {
     thumbnail: 'https://cms.integreat-ap…/03/Hotline-150x150.png',
     lastUpdate: DateTime.fromISO('2016-01-07 10:36:24'),
     organization: null,
+    embeddedOffers: [],
   })
 
   it('should be conscious about being a root', () => {
@@ -45,6 +47,7 @@ describe('CategoryModel', () => {
       thumbnail: 'https://cms.integreat-ap…/03/Hotline-150x150.png',
       lastUpdate: DateTime.fromISO('2016-01-07 10:36:24'),
       organization: null,
+      embeddedOffers: [],
     })
     expect(normalizedCategory.path).toBe('/augsburg/fa/erste-schritte/نقشه-شهر')
     expect(normalizedCategory.parentPath).toBe('/augsburg/fa/erste-schritte')

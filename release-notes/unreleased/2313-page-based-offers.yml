@@ -1,0 +1,8 @@
+issue_key: 2313
+show_in_stores: true
+platforms:
+  - web
+  - ios
+  - android
+en: Allow pages to contain offers.
+de: Zeige Angebote in Seiten an.

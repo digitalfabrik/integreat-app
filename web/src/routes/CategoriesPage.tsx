@@ -100,6 +100,7 @@ const CategoriesPage = ({ city, pathname, cityCode, languageCode }: CityRoutePro
         availableLanguages: new Map(),
         lastUpdate: DateTime.fromMillis(0),
         organization: null,
+        embeddedOffers: [],
       }),
     )
   }
@@ -180,7 +181,15 @@ const CategoriesPage = ({ city, pathname, cityCode, languageCode }: CityRoutePro
         currentBreadcrumb={getBreadcrumb(category, city.name)}
         direction={uiDirection}
       />
-      <CategoriesContent categories={new CategoriesMapModel(categories)} categoryModel={category} t={t} />
+      <CategoriesContent
+        city={city}
+        cityCode={cityCode}
+        pathname={pathname}
+        languageCode={languageCode}
+        categories={new CategoriesMapModel(categories)}
+        categoryModel={category}
+        t={t}
+      />
     </CityContentLayout>
   )
 }

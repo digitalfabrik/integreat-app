@@ -5,11 +5,7 @@ import { JsonOfferPostType, JsonOfferType } from '../types'
 
 export const OFFERS_ENDPOINT_NAME = 'offers'
 
-const createPostMap = (jsonPost: JsonOfferPostType): Map<string, string> => {
-  const map = new Map()
-  Object.keys(jsonPost).forEach(key => map.set(key, jsonPost[key]))
-  return map
-}
+export const createPostMap = (jsonPost: JsonOfferPostType): Map<string, string> => new Map(Object.entries(jsonPost))
 
 type ParamsType = {
   city: string
