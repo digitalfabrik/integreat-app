@@ -28,8 +28,8 @@ const Title = styled.div`
 
 const CollapseIcon = styled(Icon)<{ collapsed: boolean }>`
   transform: rotate(-90deg) ${props => (!props.collapsed ? 'scale(-1)' : '')};
-  width: 16px;
-  height: 16px;
+  inline-size: 16px;
+  block-size: 16px;
 `
 
 type CollapsibleProps = {

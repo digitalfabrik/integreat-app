@@ -22,7 +22,7 @@ const Content = styled.div`
   overflow-wrap: anywhere;
 `
 const StyledTooltip = styled(Tooltip)`
-  height: 24px;
+  block-size: 24px;
 `
 
 type EventListItemProps = {

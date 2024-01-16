@@ -26,9 +26,9 @@ const ToggleContainer = styled.div`
 const List = styled.div<{ show: boolean }>`
   font-family: ${props => props.theme.fonts.web.decorativeFont};
   position: absolute;
-  top: 0;
-  width: 80vw;
-  height: 100vh;
+  inset-block-start: 0;
+  inline-size: 80vw;
+  block-size: 100vh;
   background-color: ${props => props.theme.colors.backgroundColor};
   box-shadow: -3px 3px 3px 0 rgb(0 0 0 / 13%);
 
@@ -47,10 +47,10 @@ const List = styled.div<{ show: boolean }>`
 
 const Overlay = styled.div<{ show: boolean }>`
   position: absolute;
-  width: 100%;
-  height: 100vh;
-  top: 0;
-  left: 0;
+  inline-size: 100%;
+  block-size: 100vh;
+  inset-block-start: 0;
+  inset-inline-start: 0;
   background-color: rgb(0 0 0 / 50%);
   z-index: 30;
   display: ${props => (props.show ? `block` : `none`)};
@@ -61,7 +61,7 @@ const Heading = styled.div`
   justify-content: ${props => (props.theme.contentDirection === 'rtl' ? `flex-start` : `flex-end`)};
   background-color: ${props => props.theme.colors.backgroundAccentColor};
   box-shadow: -3px 3px 3px 0 rgb(0 0 0 / 13%);
-  height: ${dimensions.headerHeightSmall}px;
+  block-size: ${dimensions.headerHeightSmall}px;
   padding: 0 8px;
 `
 
@@ -70,8 +70,8 @@ const Content = styled.div`
 `
 
 const StyledIcon = styled(Icon)`
-  width: 28px;
-  height: 28px;
+  inline-size: 28px;
+  block-size: 28px;
 `
 
 const KebabMenu = ({ items, show, setShow, Footer }: KebabMenuProps): ReactElement | null => {
@@ -96,7 +96,7 @@ const KebabMenu = ({ items, show, setShow, Footer }: KebabMenuProps): ReactEleme
         show={show}
         style={{
           visibility: show ? 'visible' : 'hidden',
-          top: window.scrollY > 0 ? `${window.scrollY}px` : undefined,
+          insetBlockStart: window.scrollY > 0 ? `${window.scrollY}px` : undefined,
         }}>
         {/* disabled because this is an overlay for backdrop close */}
         {/* eslint-disable-next-line styled-components-a11y/no-static-element-interactions,styled-components-a11y/click-events-have-key-events */}

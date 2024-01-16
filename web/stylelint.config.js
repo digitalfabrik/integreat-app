@@ -1,5 +1,10 @@
 module.exports = {
   extends: ['stylelint-config-recommended', 'stylelint-config-standard'],
+  plugins: ['stylelint-use-logical'],
+  rules: {
+    // Enforce better ltr / rtl handling
+    'csstools/use-logical': true,
+  },
   overrides: [
     {
       files: ['**/*.{ts,tsx}'],

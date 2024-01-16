@@ -27,16 +27,16 @@ const SandBox = styled.div<{ centered: boolean; smallText: boolean }>`
   ${props => (props.centered ? 'text-align: center;' : '')}
   ${props => (props.centered ? 'list-style-position: inside;' : '')}
   img {
-    max-width: 100%;
-    max-height: 100%;
+    max-inline-size: 100%;
+    max-block-size: 100%;
     object-fit: contain;
 
     &.alignright {
-      float: right;
+      float: inline-end;
     }
 
     &.alignleft {
-      float: left;
+      float: inline-start;
     }
 
     &.aligncenter {
@@ -51,7 +51,7 @@ const SandBox = styled.div<{ centered: boolean; smallText: boolean }>`
     margin: 15px auto;
 
     @media only screen and (width <= 640px) {
-      width: 100% !important;
+      inline-size: 100% !important;
     }
   }
 
@@ -63,15 +63,15 @@ const SandBox = styled.div<{ centered: boolean; smallText: boolean }>`
 
   table {
     display: block;
-    width: 100% !important;
-    height: auto !important; /* need important because of bad-formatted remote-content */
+    inline-size: 100% !important;
+    block-size: auto !important; /* need important because of badly formatted remote content */
     overflow: auto;
   }
 
   tbody,
   thead {
     display: table; /* little bit hacky, but works in all browsers, even IE11 :O */
-    width: 100%;
+    inline-size: 100%;
     box-sizing: border-box;
     border-collapse: collapse;
   }
@@ -103,8 +103,8 @@ const SandBox = styled.div<{ centered: boolean; smallText: boolean }>`
     content: '';
     display: inline-block;
     background-image: url('${ExternalLinkIcon}');
-    width: ${props => (props.smallText ? helpers.adaptiveFontSize : props.theme.fonts.contentFontSize)};
-    height: ${props => (props.smallText ? helpers.adaptiveFontSize : props.theme.fonts.contentFontSize)};
+    inline-size: ${props => (props.smallText ? helpers.adaptiveFontSize : props.theme.fonts.contentFontSize)};
+    block-size: ${props => (props.smallText ? helpers.adaptiveFontSize : props.theme.fonts.contentFontSize)};
     background-size: contain;
     background-repeat: no-repeat;
     vertical-align: middle;
@@ -113,10 +113,10 @@ const SandBox = styled.div<{ centered: boolean; smallText: boolean }>`
 
   iframe {
     border: none;
-    border-bottom: 1px solid ${props => props.theme.colors.borderColor};
+    border-block-end: 1px solid ${props => props.theme.colors.borderColor};
 
     @media ${dimensions.smallViewport} {
-      max-width: 100%;
+      max-inline-size: 100%;
     }
   }
 
@@ -139,7 +139,7 @@ const SandBox = styled.div<{ centered: boolean; smallText: boolean }>`
   }
 
   .iframe-info-text > input {
-    margin-left: 12px;
+    margin-inline-start: 12px;
     cursor: pointer;
   }
 
@@ -153,7 +153,7 @@ const SandBox = styled.div<{ centered: boolean; smallText: boolean }>`
   }
 
   #opt-in-settings-link {
-    margin-left: 12px;
+    margin-inline-start: 12px;
     padding: 0;
     cursor: pointer;
     align-self: center;

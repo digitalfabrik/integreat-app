@@ -32,8 +32,8 @@ import { reportError } from '../utils/sentry'
 import MapAttribution from './MapAttribution'
 
 const MapContainer = styled.div`
-  height: 100%;
-  width: 100%;
+  block-size: 100%;
+  inline-size: 100%;
   display: flex;
   justify-content: center;
   position: relative;
@@ -45,7 +45,7 @@ const OverlayContainer = styled.div`
   flex: 1;
   z-index: 1;
   position: absolute;
-  top: 0;
+  inset-block-start: 0;
   gap: 8px;
 `
 
@@ -188,8 +188,8 @@ const MapView = forwardRef(
           // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
           interactiveLayerIds={[markerLayer(currentFeature).id!, clusterLayer(theme).id!]}
           style={{
-            height: '100%',
-            width: '100%',
+            blockSize: '100%',
+            inlineSize: '100%',
           }}
           onDragStart={() => setCursor('grab')}
           onDragEnd={() => setCursor('auto')}

@@ -38,7 +38,7 @@ import getUserLocation from '../utils/getUserLocation'
 
 const PoisPageWrapper = styled.div<{ panelHeights: number }>`
   display: flex;
-  ${({ panelHeights }) => `height: calc(100vh - ${panelHeights}px);`};
+  ${({ panelHeights }) => `block-size: calc(100vh - ${panelHeights}px);`};
 `
 
 const moveViewToBBox = (bBox: BBox, defaultVp: MapViewMercatorViewport): MapViewMercatorViewport => {

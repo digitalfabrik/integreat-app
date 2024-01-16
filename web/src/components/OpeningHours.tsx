@@ -11,13 +11,12 @@ import OpeningEntry from './OpeningEntry'
 
 const OpeningLabel = styled.span<{ isOpened: boolean }>`
   color: ${props => (props.isOpened ? props.theme.colors.positiveHighlight : props.theme.colors.negativeHighlight)};
-  padding-right: 12px;
+  padding-inline-end: 12px;
   flex: 0;
-  ${props => (props.theme.contentDirection === 'rtl' ? `padding-left: 12px;` : `padding-right: 12px;`)}
 `
 
 const Content = styled.div`
-  ${props => (props.theme.contentDirection === 'rtl' ? `padding-left: 26px;` : `padding-right: 26px;`)}
+  padding-inline-end: 26px;
   ${helpers.adaptiveFontSize};
 `
 

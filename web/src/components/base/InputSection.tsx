@@ -24,7 +24,7 @@ export const Title = styled.label`
 
 const StyledTextArea = styled.textarea`
   resize: none;
-  min-height: 60px;
+  min-block-size: 60px;
 `
 
 type InputSectionProps = {

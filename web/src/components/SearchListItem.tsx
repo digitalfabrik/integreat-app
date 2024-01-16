@@ -8,12 +8,12 @@ import { CategoryModel, getExcerpt, normalizeString } from 'api-client'
 import { EXCERPT_MAX_CHARS } from '../constants'
 
 const Row = styled.li`
-  width: 100%;
+  inline-size: 100%;
 `
 
 const CategoryThumbnail = styled.img`
-  width: 30px;
-  height: 30px;
+  inline-size: 30px;
+  block-size: 30px;
   padding: 0 5px;
   flex-shrink: 0;
   object-fit: contain;
@@ -31,8 +31,8 @@ const CategoryItemContainer = styled.div`
   padding: 15px 5px;
   color: inherit;
   text-decoration: inherit;
-  height: 100%;
-  min-width: 1px; /* needed to enable line breaks for too long words, exact value doesn't matter */
+  block-size: 100%;
+  min-inline-size: 1px; /* needed to enable line breaks for too long words, exact value doesn't matter */
   flex-grow: 1;
   word-wrap: break-word;
 `
@@ -44,8 +44,8 @@ const StyledHighlighter = styled(Highlighter)`
 const StyledLink = styled(Link)`
   display: inline-flex;
   margin: 0 auto;
-  width: inherit;
-  border-bottom: 1px solid ${props => props.theme.colors.themeColor};
+  inline-size: inherit;
+  border-block-end: 1px solid ${props => props.theme.colors.themeColor};
 
   &:hover {
     color: inherit;

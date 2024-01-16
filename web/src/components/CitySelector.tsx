@@ -12,18 +12,18 @@ import Heading from './Heading'
 import ScrollingSearchBox from './ScrollingSearchBox'
 
 const Container = styled.div`
-  padding-top: 22px;
+  padding-block-start: 22px;
 `
 
 const CityListParent = styled.div<{ stickyTop: number }>`
   position: sticky;
-  top: ${props => props.stickyTop}px;
-  height: 30px;
-  margin-top: 10px;
+  inset-block-start: ${props => props.stickyTop}px;
+  block-size: 30px;
+  margin-block-start: 10px;
   line-height: 30px;
   transition: top 0.2s ease-out;
   background-color: ${props => props.theme.colors.backgroundColor};
-  border-bottom: 1px solid ${props => props.theme.colors.themeColor};
+  border-block-end: 1px solid ${props => props.theme.colors.themeColor};
 `
 
 type CitySelectorProps = {

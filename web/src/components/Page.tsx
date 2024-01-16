@@ -10,10 +10,10 @@ export const THUMBNAIL_WIDTH = 300
 
 const Thumbnail = styled.img`
   display: flex;
-  width: ${THUMBNAIL_WIDTH}px;
-  height: ${THUMBNAIL_WIDTH}px;
+  inline-size: ${THUMBNAIL_WIDTH}px;
+  block-size: ${THUMBNAIL_WIDTH}px;
   margin: 10px auto;
-  padding-bottom: 10px;
+  padding-block-end: 10px;
   object-fit: contain;
 `
 

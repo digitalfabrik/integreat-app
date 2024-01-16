@@ -35,8 +35,8 @@ const CloseButton = styled(Button)`
 `
 
 const StyledIcon = styled(Icon)`
-  width: 24px;
-  height: 24px;
+  inline-size: 24px;
+  block-size: 24px;
   align-self: center;
   display: flex;
 `

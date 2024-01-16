@@ -35,13 +35,13 @@ const StyledIcon = styled(Icon)`
 `
 
 const StyledExternalLinkIcon = styled(StyledIcon)`
-  width: 16px;
-  height: 16px;
+  inline-size: 16px;
+  block-size: 16px;
 `
 
 const Thumbnail = styled.img`
-  height: clamp(120px, 14vh, 160px);
-  width: 100%;
+  block-size: clamp(120px, 14vh, 160px);
+  inline-size: 100%;
   flex-shrink: 0;
   border: 1px solid transparent;
   object-fit: cover;
@@ -49,7 +49,7 @@ const Thumbnail = styled.img`
 
   @media screen and (${dimensions.smallViewport}) {
     order: 1;
-    margin-top: 12px;
+    margin-block-start: 12px;
   }
 `
 
@@ -60,7 +60,7 @@ const Distance = styled.div`
 const Category = styled.div`
   ${helpers.adaptiveFontSize};
   color: ${props => props.theme.colors.textSecondaryColor};
-  margin-top: 8px;
+  margin-block-start: 8px;
 `
 
 const AddressContentWrapper = styled.div`
@@ -92,7 +92,7 @@ const Subheading = styled.div`
 
 const Link = styled(CleanLink)`
   display: flex;
-  margin-top: 16px;
+  margin-block-start: 16px;
   gap: 8px;
 `
 

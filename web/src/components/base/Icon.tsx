@@ -8,8 +8,8 @@ const StyledIcon = styled(SVG)<{ $directionDependent: boolean; $reverse: boolean
       ? 'scaleX(-1)'
       : ''};
   color: ${props => props.theme.colors.textColor};
-  width: 24px;
-  height: 24px;
+  inline-size: 24px;
+  block-size: 24px;
 `
 
 type IconProps = {

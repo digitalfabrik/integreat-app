@@ -17,8 +17,8 @@ const Overlay = styled(Button)`
   inset: 0;
   background-color: ${props => props.theme.colors.textSecondaryColor};
   opacity: 0.9;
-  width: 100%;
-  height: 100%;
+  inline-size: 100%;
+  block-size: 100%;
 `
 
 const ModalContainer = styled.div`
@@ -37,9 +37,9 @@ const ModalContentContainer = styled.div`
   background-color: ${props => props.theme.colors.backgroundColor};
 
   @media ${dimensions.smallViewport} {
-    height: 100%;
+    block-size: 100%;
     align-items: center;
-    width: 100%;
+    inline-size: 100%;
   }
 `
 

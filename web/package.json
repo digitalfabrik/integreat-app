@@ -97,6 +97,7 @@
     "style-loader": "^3.3.3",
     "stylelint": "^15.10.3",
     "stylelint-config-standard": "^34.0.0",
+    "stylelint-use-logical": "^2.1.0",
     "ts-loader": "^9.4.4",
     "tsconfig-paths": "^4.2.0",
     "url-loader": "^4.1.1",

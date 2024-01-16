@@ -9,7 +9,7 @@ import Icon from './base/Icon'
 
 const StyledButton = styled(Button)<{ viewportSmall: boolean }>`
   display: flex;
-  padding-top: 12px;
+  padding-block-start: 12px;
 
   ${props =>
     props.viewportSmall &&
@@ -31,14 +31,14 @@ const StyledButton = styled(Button)<{ viewportSmall: boolean }>`
 const DetailsHeaderTitle = styled.span`
   align-self: center;
   white-space: pre;
-  padding-left: 8px;
+  padding-inline-start: 8px;
   ${helpers.adaptiveFontSize};
   font-family: ${props => props.theme.fonts.web.contentFont};
 `
 
 const StyledIcon = styled(Icon)`
-  height: 24px;
-  width: 24px;
+  block-size: 24px;
+  inline-size: 24px;
 `
 
 type GoBackProps = {

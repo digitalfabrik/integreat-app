@@ -22,12 +22,12 @@ const StyledLink = styled(Link)<{ $active: boolean }>`
   flex-direction: column;
   display: flex;
   transition: color 0.2s;
-  height: 100%;
+  block-size: 100%;
 
   @media ${dimensions.smallViewport} {
     font-size: ${props => props.theme.fonts.decorativeFontSizeSmall};
     font-weight: 400;
-    min-width: 50px;
+    min-inline-size: 50px;
   }
 
   & > div > svg {
@@ -75,8 +75,8 @@ const Circle = styled.div`
     background-color: ${props => props.theme.colors.backgroundColor};
     box-sizing: border-box;
     border-radius: 100%;
-    height: ${ICON_SIZE_LARGE}px;
-    width: ${ICON_SIZE_LARGE}px;
+    block-size: ${ICON_SIZE_LARGE}px;
+    inline-size: ${ICON_SIZE_LARGE}px;
     box-shadow: 0 2px 5px -3px rgb(0 0 0 / 70%);
     transition:
       box-shadow 0.2s,
@@ -85,14 +85,14 @@ const Circle = styled.div`
   }
 
   @media ${dimensions.smallViewport} {
-    height: ${ICON_SIZE_SMALL}px;
-    width: ${ICON_SIZE_SMALL}px;
+    block-size: ${ICON_SIZE_SMALL}px;
+    inline-size: ${ICON_SIZE_SMALL}px;
   }
 `
 
 const StyledIcon = styled(Icon)`
-  width: 28px;
-  height: 28px;
+  inline-size: 28px;
+  block-size: 28px;
   color: yellow;
 `
 

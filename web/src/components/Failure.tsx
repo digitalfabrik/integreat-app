@@ -16,8 +16,8 @@ const Container = styled.div`
 
 const StyledIcon = styled(Icon)`
   align-self: center;
-  width: 64px;
-  height: 64px;
+  inline-size: 64px;
+  block-size: 64px;
 `
 
 type FailureProps = {

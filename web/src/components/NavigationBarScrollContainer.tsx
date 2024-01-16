@@ -18,8 +18,8 @@ const Container = styled.div`
 `
 
 const Arrow = styled(Icon)<{ visible: boolean }>`
-  width: 16px;
-  height: 16px;
+  inline-size: 16px;
+  block-size: 16px;
   padding: 0 8px;
   align-self: center;
   opacity: ${props => (props.visible ? 1 : 0)};
@@ -28,16 +28,16 @@ const Arrow = styled(Icon)<{ visible: boolean }>`
 const ScrollContainer = styled.div<{ showArrowContainer: boolean }>`
   display: flex;
   flex: 1;
-  max-width: 100%;
+  max-inline-size: 100%;
   align-items: stretch;
-  min-height: ${dimensions.headerHeightLarge}px;
+  min-block-size: ${dimensions.headerHeightLarge}px;
   flex-direction: row;
 
   @media ${dimensions.smallViewport} {
     background-color: ${props => props.theme.colors.backgroundAccentColor};
     justify-content: space-between;
     flex-wrap: wrap;
-    min-height: ${dimensions.headerHeightSmall}px;
+    min-block-size: ${dimensions.headerHeightSmall}px;
     overflow-x: auto;
     padding: ${props => (props.showArrowContainer ? '8px 0' : '8px')};
   }

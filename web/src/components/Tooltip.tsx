@@ -106,9 +106,9 @@ const TooltipContainer = styled.div<{
 
     /* Content props */
     text-align: center;
-    min-width: 50px;
-    max-width: ${MAX_WIDTH}px;
-    max-height: ${MAX_HEIGHT}px;
+    min-inline-size: 50px;
+    max-inline-size: ${MAX_WIDTH}px;
+    max-block-size: ${MAX_HEIGHT}px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;

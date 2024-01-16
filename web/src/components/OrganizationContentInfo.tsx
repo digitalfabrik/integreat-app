@@ -8,14 +8,14 @@ import useWindowDimensions from '../hooks/useWindowDimensions'
 import HighlightBox from './HighlightBox'
 
 const StyledImage = styled.img<{ viewportSmall: boolean }>`
-  width: 100%;
+  inline-size: 100%;
   transition: transform 0.2s;
   object-fit: contain;
-  ${props => props.viewportSmall && 'margin-bottom: 8px;'}
+  ${props => props.viewportSmall && 'margin-block-end: 8px;'}
 `
 
 const ThumbnailSizer = styled.div`
-  width: 150px;
+  inline-size: 150px;
 `
 
 const Box = styled(HighlightBox)<{ viewportSmall: boolean }>`
@@ -34,7 +34,7 @@ const Column = styled.div`
 `
 
 const OrganizationContent = styled.div`
-  padding-bottom: 8px;
+  padding-block-end: 8px;
   font-weight: 600;
 `
 

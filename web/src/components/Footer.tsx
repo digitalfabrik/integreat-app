@@ -13,7 +13,7 @@ const FooterContainer = styled.footer<{ overlay: boolean }>`
   flex-wrap: wrap;
   justify-content: center;
   padding: ${props => (props.overlay ? '0 10px' : '15px 5px')};
-  margin-top: auto;
+  margin-block-start: auto;
   background-color: ${props => (props.overlay ? `rgba(255, 255, 255, 0.5)` : props.theme.colors.backgroundAccentColor)};
   box-shadow: 0 2px 3px 3px rgb(0 0 0 / 10%);
 
@@ -23,7 +23,7 @@ const FooterContainer = styled.footer<{ overlay: boolean }>`
   }
 
   & > *::after {
-    padding-right: 10px;
+    padding-inline-end: 10px;
     content: '';
   }
 

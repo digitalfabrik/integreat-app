@@ -5,7 +5,7 @@ import buildConfig from '../constants/buildConfig'
 
 const Logo = styled.img`
   display: block;
-  height: 70px;
+  block-size: 70px;
   margin: 0 auto;
 `
 

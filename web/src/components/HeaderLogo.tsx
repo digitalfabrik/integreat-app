@@ -13,7 +13,7 @@ type HeaderLogoProps = {
 
 const LogoContainer = styled.div`
   box-sizing: border-box;
-  height: ${dimensions.headerHeightLarge}px;
+  block-size: ${dimensions.headerHeightLarge}px;
   padding: 0 10px;
   display: flex;
   justify-content: start;
@@ -22,23 +22,23 @@ const LogoContainer = styled.div`
   order: 1;
 
   & a {
-    width: 100%;
-    height: 60%;
+    inline-size: 100%;
+    block-size: 60%;
   }
 
   & img {
-    height: 100%;
-    max-width: 100%;
+    block-size: 100%;
+    max-inline-size: 100%;
     object-fit: contain;
     object-position: left;
   }
 
   @media ${dimensions.smallViewport} {
-    height: ${dimensions.headerHeightSmall}px;
-    max-width: ${dimensions.headerHeightSmall}px;
+    block-size: ${dimensions.headerHeightSmall}px;
+    max-inline-size: ${dimensions.headerHeightSmall}px;
     flex: 1 1 0%; /* The % unit is necessary for IE11 */
     & a {
-      max-height: 75%;
+      max-block-size: 75%;
     }
   }
 `

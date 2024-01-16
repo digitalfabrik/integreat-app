@@ -7,7 +7,7 @@ import Icon from './Icon'
 
 const StyledButton = styled(Button)`
   display: flex;
-  height: 30px;
+  block-size: 30px;
   padding: 4px 8px;
   align-items: center;
   margin: 0 2px;
@@ -21,8 +21,8 @@ const StyledButton = styled(Button)`
 
 const StyledIcon = styled(Icon)`
   color: ${props => props.theme.colors.textSecondaryColor};
-  height: 16px;
-  width: 16px;
+  block-size: 16px;
+  inline-size: 16px;
 `
 
 type ChipButtonProps = {

@@ -4,13 +4,13 @@ import styled from 'styled-components'
 import { StyledCleanLink } from './CleanLink'
 
 const ListItemContainer = styled.article`
-  border-bottom: 2px solid ${props => props.theme.colors.themeColor};
+  border-block-end: 2px solid ${props => props.theme.colors.themeColor};
   display: flex;
 `
 
 const Thumbnail = styled.img<{ thumbnailSize?: number }>`
-  width: ${props => props.thumbnailSize ?? '100'}px;
-  height: ${props => props.thumbnailSize ?? '100'}px;
+  inline-size: ${props => props.thumbnailSize ?? '100'}px;
+  block-size: ${props => props.thumbnailSize ?? '100'}px;
   flex-shrink: 0;
   padding: 15px 5px;
   object-fit: contain;
@@ -19,8 +19,8 @@ const Thumbnail = styled.img<{ thumbnailSize?: number }>`
 
 export const Description = styled.div`
   display: flex;
-  height: 100%;
-  min-width: 1px; /* needed to enable line breaks for too long words, exact value doesn't matter */
+  block-size: 100%;
+  min-inline-size: 1px; /* needed to enable line breaks for too long words, exact value doesn't matter */
   flex-direction: column;
   flex-grow: 1;
   padding: 8px;

@@ -22,24 +22,27 @@ const StyledContainer = styled.div`
   flex-direction: column;
   justify-content: space-between;
 `
+
 const StyledBanner = styled.div`
   position: relative;
   display: flex;
-  height: 60px;
+  block-size: 60px;
   overflow: hidden;
   align-items: center;
   margin: 25px 0;
   background-color: ${props => props.theme.colors.tunewsThemeColorLight};
   border-radius: 11px;
 `
+
 const StyledIcon = styled(Icon)`
-  width: 100%;
-  height: 100%;
+  inline-size: 100%;
+  block-size: 100%;
 `
+
 const StyledTitle = styled.div`
   display: flex;
-  width: 185px;
-  height: 100%;
+  inline-size: 185px;
+  block-size: 100%;
   align-items: center;
   justify-content: center;
   background-color: ${props => props.theme.colors.tunewsThemeColor};

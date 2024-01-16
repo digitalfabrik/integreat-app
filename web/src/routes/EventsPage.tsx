@@ -33,13 +33,13 @@ import useWindowDimensions from '../hooks/useWindowDimensions'
 import featuredImageToSrcSet from '../utils/featuredImageToSrcSet'
 
 const StyledButton = styled(TextButton)<{ fullWidth: boolean }>`
-  ${props => props.fullWidth && 'width: 100%;'}
+  ${props => props.fullWidth && 'inline-size: 100%;'}
 `
 
 const Spacing = styled.div`
   display: flex;
   flex-direction: column;
-  padding-top: 12px;
+  padding-block-start: 12px;
   gap: 8px;
 `
 

@@ -5,15 +5,15 @@ import { helpers } from '../constants/theme'
 import CleanLink from './CleanLink'
 
 const Marker = styled.img`
-  width: 20px;
-  height: 20px;
+  inline-size: 20px;
+  block-size: 20px;
   flex-shrink: 0;
   object-fit: contain;
 `
 
 const Link = styled(CleanLink)`
   align-items: center;
-  padding-top: 4px;
+  padding-block-start: 4px;
   gap: 8px;
   ${helpers.adaptiveFontSize};
 `

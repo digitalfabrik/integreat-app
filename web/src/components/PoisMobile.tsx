@@ -25,7 +25,7 @@ const ListContainer = styled.div`
 const GoBackContainer = styled.div<{ hidden: boolean }>`
   display: flex;
   flex-direction: column;
-  max-height: ${props => (props.hidden ? '0' : '10vh')};
+  max-block-size: ${props => (props.hidden ? '0' : '10vh')};
   opacity: ${props => (props.hidden ? '0' : '1')};
   overflow: hidden;
   transition: all 1s;
@@ -34,8 +34,8 @@ const GoBackContainer = styled.div<{ hidden: boolean }>`
 
 const BackNavigation = styled(Button)`
   background-color: ${props => props.theme.colors.textSecondaryColor};
-  height: 28px;
-  width: 28px;
+  block-size: 28px;
+  inline-size: 28px;
   border: 1px solid ${props => props.theme.colors.textDisabledColor};
   border-radius: 50px;
   box-shadow: 1px 1px 2px 0 rgb(0 0 0 / 20%);
@@ -60,7 +60,7 @@ const GeocontrolContainer = styled.div<{ height: number }>`
       : css`
           left: 10px;
         `};
-  bottom: min(calc(var(--rsbs-overlay-h, 0) + ${geolocatorTopOffset}px), var(--max-icon-height));
+  inset-block-end: min(calc(var(--rsbs-overlay-h, 0) + ${geolocatorTopOffset}px), var(--max-icon-height));
 `
 
 type PoisMobileProps = {

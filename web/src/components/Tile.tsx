@@ -13,25 +13,24 @@ type TileProps = {
 const Thumbnail = styled.div`
   position: relative;
   display: block;
-  width: 100%;
+  inline-size: 100%;
   margin: 0 auto;
-  padding-top: 100%;
+  padding-block-start: 100%;
 
   & img {
     position: absolute;
-    top: 0;
-    right: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+    inset-block-start: 0;
+    inset-inline: 0;
+    inline-size: 100%;
+    block-size: 100%;
     transition: transform 0.2s;
     object-fit: contain;
   }
 `
 
 const ThumbnailSizer = styled.div`
-  width: 150px;
-  max-width: 33.3vw;
+  inline-size: 150px;
+  max-inline-size: 33.3vw;
   margin: 0 auto;
 `
 
@@ -42,12 +41,12 @@ const TileTitle = styled.div`
 `
 
 const TileContainer = styled.div`
-  margin-bottom: 20px;
+  margin-block-end: 20px;
 
   & > a,
   & button {
     display: block;
-    max-width: 160px;
+    max-inline-size: 160px;
     margin: 0 auto;
     padding: 0;
     background-color: ${props => props.theme.colors.backgroundColor};

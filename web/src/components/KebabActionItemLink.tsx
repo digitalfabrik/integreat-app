@@ -8,7 +8,7 @@ const StyledLink = styled(Link)`
   display: flex;
   text-decoration: none;
   padding: 24px 0;
-  border-bottom: 1px solid ${props => props.theme.colors.themeColor};
+  border-block-end: 1px solid ${props => props.theme.colors.themeColor};
 
   & > span {
     padding: 0 28px;
@@ -19,8 +19,8 @@ const StyledLink = styled(Link)`
 const StyledSpan = StyledLink.withComponent('span')
 
 const StyledIcon = styled(Icon)`
-  width: 24px;
-  height: 24px;
+  inline-size: 24px;
+  block-size: 24px;
 `
 
 type KebabActionItemLinkProps = {

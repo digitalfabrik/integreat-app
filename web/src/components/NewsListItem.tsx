@@ -21,7 +21,7 @@ const ReadMore = styled.div<{ $type: NewsType }>`
 `
 
 const Title = styled.h3`
-  margin-bottom: 0;
+  margin-block-end: 0;
   font-family: ${props => props.theme.fonts.web.decorativeFont};
   font-size: ${props => props.theme.fonts.subTitleFontSize};
   font-weight: 700;
@@ -33,13 +33,13 @@ const Body = styled.p`
 `
 
 const StyledNewsListItem = styled.article`
-  padding-bottom: 2px;
-  border-bottom: 1px solid ${({ theme }) => theme.colors.textSecondaryColor};
+  padding-block-end: 2px;
+  border-block-end: 1px solid ${({ theme }) => theme.colors.textSecondaryColor};
 `
 
 const StyledContainer = styled.div`
   display: flex;
-  width: 100%;
+  inline-size: 100%;
   justify-content: space-between;
 `
 

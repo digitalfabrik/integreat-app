@@ -23,8 +23,8 @@ const Label = styled.span`
 `
 
 const StyledIcon = styled(Icon)`
-  width: 16px;
-  height: 16px;
+  inline-size: 16px;
+  block-size: 16px;
   flex-shrink: 0;
   padding: 0 8px;
   object-fit: contain;
