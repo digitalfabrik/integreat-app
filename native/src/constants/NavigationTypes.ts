@@ -47,6 +47,7 @@ import {
   FeedbackRouteType,
   CONSENT_ROUTE,
   ConsentRouteType,
+  MalteHelpFormOfferRouteType,
 } from 'api-client'
 
 export type RoutesType =
@@ -71,6 +72,7 @@ export type RoutesType =
   | FeedbackModalRouteType
   | LicensesRouteType
   | ConsentRouteType
+  | MalteHelpFormOfferRouteType
 
 type RouteTitle = {
   title?: string
