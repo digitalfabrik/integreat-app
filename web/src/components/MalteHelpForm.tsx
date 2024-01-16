@@ -1,9 +1,16 @@
-import React, { ReactElement, SyntheticEvent, useCallback, useState } from 'react'
+import React, { ReactElement, SyntheticEvent, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 
-import { cityContentPath, MAX_COMMENT_LENGTH, OfferModel, submitHelpForm } from 'api-client'
+import {
+  cityContentPath,
+  ContactChannel,
+  ContactGender,
+  MAX_COMMENT_LENGTH,
+  OfferModel,
+  submitHelpForm,
+} from 'api-client'
 import { config } from 'translations'
 
 import { SecurityIcon, SupportIcon } from '../assets'
@@ -47,10 +54,7 @@ const ErrorSendingStatus = styled.div`
   margin: 10px 0;
 `
 
-type ContactChannel = 'eMail' | 'telephone' | 'person'
-type ContactGender = 'male' | 'female' | 'any'
 type SendingStatusType = 'idle' | 'sending' | 'failed' | 'successful'
-
 type MalteHelpFormProps = {
   cityCode: string
   languageCode: string
@@ -66,7 +70,7 @@ const MalteHelpForm = ({ languageCode, cityCode, helpButtonOffer }: MalteHelpFor
   const [telephone, setTelephone] = useState('')
   const [name, setName] = useState('')
   const [roomNumber, setRoomNumber] = useState('')
-  const [contactType, setContactType] = useState<ContactGender>('any')
+  const [contactGender, setContactGender] = useState<ContactGender>('any')
   const [comment, setComment] = useState('')
   const missingData =
     !name.length ||
@@ -74,30 +78,42 @@ const MalteHelpForm = ({ languageCode, cityCode, helpButtonOffer }: MalteHelpFor
     (!telephone.length && contactChannel === 'telephone')
   const dashboardRoute = cityContentPath({ languageCode, cityCode })
 
-  const submitHandler = useCallback(
-    (event: SyntheticEvent<HTMLFormElement>) => {
-      const form = event.currentTarget
-      if (!form.checkValidity()) {
-        event.stopPropagation()
-        const invalidInput = form.querySelector(':invalid:not(fieldset)')
-        invalidInput?.scrollIntoView({ behavior: 'smooth' })
-        setSendingStatus('idle')
-      } else {
-        setSendingStatus('sending')
-        const request = async () => {
-          await submitHelpForm({ cityCode, languageCode, helpButtonOffer, name, email })
-          setSendingStatus('successful')
-        }
-
-        request().catch(err => {
-          reportError(err)
-          event.preventDefault()
-          setSendingStatus('failed')
+  const submitHandler = async (event: SyntheticEvent<HTMLFormElement>) => {
+    const form = event.currentTarget
+    if (!form.checkValidity()) {
+      // event.preventDefault()
+      event.stopPropagation()
+      const invalidInput = form.querySelector(':invalid:not(fieldset)')
+      invalidInput?.scrollIntoView({ behavior: 'smooth' })
+      setSendingStatus('idle')
+    } else {
+      setSendingStatus('sending')
+      const request = async () => {
+        await submitHelpForm({
+          cityCode,
+          languageCode,
+          helpButtonOffer,
+          name,
+          email,
+          telephone,
+          roomNumber,
+          contactChannel,
+          contactGender,
+          comment,
+          translate: t,
         })
+        setSendingStatus('successful')
       }
-    },
-    [cityCode, email, helpButtonOffer, languageCode, name],
-  )
+
+      try {
+        await request()
+      } catch (error) {
+        reportError(error)
+        event.preventDefault()
+        setSendingStatus('failed')
+      }
+    }
+  }
 
   if (sendingStatus === 'successful') {
     return (
