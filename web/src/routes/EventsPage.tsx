@@ -87,7 +87,6 @@ const EventsPage = ({ city, pathname, languageCode, cityCode }: CityRouteProps):
         feedbackTarget={event?.slug}
         route={EVENTS_ROUTE}
         hideDivider={!event}
-        languageCode={languageCode}
         pageTitle={pageTitle}
       />
     ),

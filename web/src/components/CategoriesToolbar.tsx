@@ -26,7 +26,6 @@ const CategoriesToolbar = (props: CategoriesToolbarProps): ReactElement => {
 
   return (
     <CityContentToolbar
-      languageCode={languageCode}
       route={CATEGORIES_ROUTE}
       feedbackTarget={category && !category.isRoot() ? category.slug : undefined}
       pageTitle={pageTitle}>

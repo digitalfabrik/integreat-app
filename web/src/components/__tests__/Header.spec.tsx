@@ -26,7 +26,6 @@ describe('Header', () => {
         kebabItems={[]}
         navigationItems={[]}
         cityName={cityName}
-        direction='ltr'
         language='de'
       />,
     )
@@ -44,7 +43,6 @@ describe('Header', () => {
         kebabItems={[
           <KebabActionItemLink key='location' href='/kebab_route' text='Change Location' iconSrc='icon.jpg' />,
         ]}
-        direction='ltr'
         cityName={cityName}
         cityCode='test'
         isSidebarOpen
@@ -69,7 +67,6 @@ describe('Header', () => {
         kebabItems={[
           <KebabActionItemLink key='location' href='/kebab_route' text='Change Locaction' iconSrc='icon.jpg' />,
         ]}
-        direction='ltr'
         language='de'
       />,
     )

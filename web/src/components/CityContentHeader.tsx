@@ -14,7 +14,6 @@ import {
   SEARCH_ROUTE,
   SPRUNGBRETT_OFFER_ROUTE,
 } from 'api-client'
-import { config } from 'translations'
 
 import { CalendarIcon, CategoriesIcon, LocationIcon, NewsIcon, OffersIcon, POIsIcon, SearchIcon } from '../assets'
 import buildConfig from '../constants/buildConfig'
@@ -165,7 +164,6 @@ const CityContentHeader = ({
 
   return (
     <Header
-      direction={config.getScriptDirection(languageCode)}
       logoHref={categoriesPath}
       actionItems={actionItems}
       kebabItems={kebabItems}
