@@ -11,6 +11,7 @@ jobs:
 
   - check:
       context:
+        - codeclimate-integreat-app
         - mattermost
 
   - e2e_web:

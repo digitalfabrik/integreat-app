@@ -7,6 +7,7 @@ import { contentDirection, isContentDirectionReversalRequired } from '../constan
 import dimensions from '../constants/dimensions'
 import { LanguageResourceCacheStateType } from '../utils/DataContainer'
 import { getCachedThumbnail } from './Categories'
+import List from './List'
 import SimpleImage from './SimpleImage'
 import SubCategoryListItem from './SubCategoryListItem'
 import Pressable from './base/Pressable'
@@ -82,15 +83,19 @@ const CategoryListItem = ({
         </CategoryEntryContainer>
       </DirectionContainer>
     </FlexStyledLink>
-    {subCategories.map(subCategory => (
-      <SubCategoryListItem
-        key={subCategory.path}
-        subCategory={subCategory}
-        resourceCache={resourceCache[subCategory.path] ?? {}}
-        onItemPress={onItemPress}
-        language={language}
-      />
-    ))}
+    <List
+      items={subCategories}
+      renderItem={({ item: subCategory }) => (
+        <SubCategoryListItem
+          key={subCategory.path}
+          subCategory={subCategory}
+          resourceCache={resourceCache[subCategory.path] ?? {}}
+          onItemPress={onItemPress}
+          language={language}
+        />
+      )}
+      scrollEnabled={false}
+    />
   </>
 )
 

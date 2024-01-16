@@ -6,10 +6,13 @@ import { CATEGORIES_ROUTE } from 'api-client/src/routes'
 import { RouteInformationType } from 'api-client/src/routes/RouteInformationTypes'
 
 import { URL_PREFIX } from '../constants/webview'
+import { EmbeddedOffersReturn } from '../hooks/useLoadEmbeddedOffers'
 import TileModel from '../models/TileModel'
 import testID from '../testing/testID'
 import { LanguageResourceCacheStateType, PageResourceCacheStateType } from '../utils/DataContainer'
 import CategoryListItem from './CategoryListItem'
+import EmbeddedOffer from './EmbeddedOffer'
+import List from './List'
 import OrganizationContentInfo from './OrganizationContentInfo'
 import Page from './Page'
 import Tiles from './Tiles'
@@ -19,6 +22,7 @@ export type CategoriesProps = {
   language: string
   categories: CategoriesMapModel
   category: CategoryModel
+  embeddedOffers: EmbeddedOffersReturn
   navigateTo: (routeInformation: RouteInformationType) => void
   resourceCache: LanguageResourceCacheStateType
 }
@@ -43,6 +47,7 @@ const Categories = ({
   navigateTo,
   categories,
   category,
+  embeddedOffers,
   resourceCache,
 }: CategoriesProps): ReactElement => {
   const children = categories.getChildren(category)
@@ -71,7 +76,6 @@ const Categories = ({
       </View>
     )
   }
-
   return (
     <Page
       title={category.title}
@@ -80,16 +84,26 @@ const Categories = ({
       language={language}
       path={category.path}
       AfterContent={category.organization && <OrganizationContentInfo organization={category.organization} />}
-      Footer={children.map(it => (
-        <CategoryListItem
-          key={it.path}
-          category={it}
-          subCategories={categories.getChildren(it)}
-          resourceCache={resourceCache}
-          language={language}
-          onItemPress={navigateToCategory}
-        />
-      ))}
+      Footer={
+        children.length ? (
+          <List
+            items={children}
+            renderItem={({ item: it }) => (
+              <CategoryListItem
+                key={it.path}
+                category={it}
+                subCategories={categories.getChildren(it)}
+                resourceCache={resourceCache}
+                language={language}
+                onItemPress={navigateToCategory}
+              />
+            )}
+            scrollEnabled={false}
+          />
+        ) : (
+          <EmbeddedOffer embeddedOffers={embeddedOffers} languageCode={language} />
+        )
+      }
     />
   )
 }

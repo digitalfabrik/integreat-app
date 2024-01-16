@@ -78,6 +78,7 @@ type PoiFiltersModalProps = {
   setSelectedPoiCategory: (poiCategory: PoiCategoryModel | null) => void
   currentlyOpenFilter: boolean
   setCurrentlyOpenFilter: (currentlyOpen: boolean) => void
+  poisCount: number
 }
 
 const PoiFiltersModal = ({
@@ -88,6 +89,7 @@ const PoiFiltersModal = ({
   setSelectedPoiCategory,
   currentlyOpenFilter,
   setCurrentlyOpenFilter,
+  poisCount,
 }: PoiFiltersModalProps): ReactElement => {
   const poiCategories = pois
     .map(it => it.category)
@@ -125,7 +127,11 @@ const PoiFiltersModal = ({
           </TileRow>
         </Section>
         <Section>
-          <StyledTextButton onPress={closeModal} text={t('showPois')} />
+          <StyledTextButton
+            onPress={closeModal}
+            text={t('showPois', { count: poisCount })}
+            disabled={poisCount === 0}
+          />
         </Section>
       </Container>
     </Modal>

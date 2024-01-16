@@ -70,6 +70,7 @@ export type JsonCategoryType = {
     logo: string
     website: string
   } | null
+  embedded_offers: JsonOfferType[]
 }
 export type JsonDisclaimerType = JsonCategoryType
 export type JsonPoiType = {
