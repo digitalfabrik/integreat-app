@@ -9626,5 +9626,29 @@
     "zh-CN": {
       "noOffersAvailable": "目前没有提供项目"
     }
+  },
+  "malteHelpForm": {
+    "de": {
+      "supportNote": "Wir möchten, dass du dich sicher und unterstützt fühlst, wenn du Probleme oder Fragen hast. Durch das folgende Kontaktformular hast du die Möglichkeit, mit Ansprechpartner:innen in Kontakt zu treten. Du kannst die Art deines Anliegens angeben und aus verschiedenen Kontaktoptionen wählen.",
+      "securityNote": "Deine Sicherheit hat für uns oberste Priorität. Deine Daten werden mit Vertraulichkeit behandelt, damit deine Privatsphäre jederzeit gewahrt bleibt.",
+      "name": "Name, Vorname",
+      "roomNumber": "Zimmernummer",
+      "howToBeContacted": "So möchte ich kontaktiert werden:",
+      "eMail": "E-Mail",
+      "telephone": "Telefon",
+      "telephoneNumber": "Tel.-Nr.",
+      "personally": "Persönlich",
+      "contactPerson": "Kontaktperson:",
+      "contactPersonAnyGender": "Das Geschlecht des Ansprechpartners/der Ansprechpartnerin spielt keine Rolle",
+      "contactPersonGenderFemale": "Ich möchte von einer weiblichen Person kontaktiert werden",
+      "contactPersonGenderMale": "Ich möchte von einer männlichen Person kontaktiert werden",
+      "contactReason": "Dein Anliegen:",
+      "maxCharacters": "maximal {{numberOfCharacters}} Zeichen",
+      "responseDisclaimer": "Es kann einige Werktage dauern, bis Sie eine Rückmeldung erhalten. Wir bemühen uns, dein Anliegen schnellstmöglich zu bearbeiten.",
+      "submit": "Formular absenden",
+      "submitSuccessful": "Formular wurde erfolgreich versandt",
+      "submitFailed": "Formular konnte nicht versandt werden",
+      "submitFailedReasoning": "Bitte gewährleiste eine stabile Internetverbindung und versuche es erneut."
+    }
   }
 }

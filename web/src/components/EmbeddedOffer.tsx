@@ -1,8 +1,9 @@
 import React, { ReactElement } from 'react'
 
-import { OfferModel, SPRUNGBRETT_OFFER } from 'api-client'
+import { MALTE_HELP_FORM_OFFER_ROUTE, OfferModel, SPRUNGBRETT_OFFER } from 'api-client'
 
 import { CityRouteProps } from '../CityContentSwitcher'
+import MalteHelpFormOfferPage from '../routes/MalteHelpFormOfferPage'
 import SprungbrettOfferPage from '../routes/SprungbrettOfferPage'
 
 type EmbeddedOfferProps = {
@@ -12,6 +13,9 @@ type EmbeddedOfferProps = {
 const EmbeddedOffer = ({ offer, ...props }: EmbeddedOfferProps): ReactElement | null => {
   if (offer.alias === SPRUNGBRETT_OFFER) {
     return <SprungbrettOfferPage {...props} embedded />
+  }
+  if (offer.alias === MALTE_HELP_FORM_OFFER_ROUTE) {
+    return <MalteHelpFormOfferPage {...props} embedded />
   }
   return null
 }
