@@ -8,15 +8,15 @@ import Button from './base/Button'
 import Icon from './base/Icon'
 
 const StyledIcon = styled(Icon)`
-  inline-size: 28px;
-  block-size: 28px;
+  width: 28px;
+  height: 28px;
 `
 
 export const DropDownContainer = styled.div<{ active: boolean; height?: number }>`
   position: absolute;
-  inset-block-start: ${dimensions.headerHeightLarge}px;
+  top: ${dimensions.headerHeightLarge}px;
   inset-inline-end: 0;
-  inline-size: 100%;
+  width: 100%;
   box-sizing: border-box;
   opacity: ${props => (props.active ? '1' : '0')};
   z-index: 1; /* this is only necessary for IE11 to have the DropDown above NavigationItems */
@@ -32,8 +32,8 @@ export const DropDownContainer = styled.div<{ active: boolean; height?: number }
   visibility: ${props => (props.active ? 'visible' : 'hidden')};
 
   @media ${dimensions.smallViewport} {
-    inset-block-start: ${dimensions.headerHeightSmall}px;
-    block-size: ${props =>
+    top: ${dimensions.headerHeightSmall}px;
+    height: ${props =>
       props.height
         ? `${props.height}px;`
         : `100%;`}; /* within the KebabActionItemDropdown the headerHeight has to be considered */

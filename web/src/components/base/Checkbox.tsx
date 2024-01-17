@@ -9,8 +9,8 @@ const Container = styled.div`
 const StyledCheckbox = styled.input`
   cursor: pointer;
   accent-color: ${props => props.theme.colors.themeColor};
-  inline-size: 16px;
-  block-size: 16px;
+  width: 16px;
+  height: 16px;
   align-self: center;
 `
 

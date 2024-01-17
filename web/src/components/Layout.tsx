@@ -9,7 +9,7 @@ const additionalToolbarTopSpacing = 32
 export const RichLayout = styled.div`
   position: relative;
   display: flex;
-  min-block-size: 100vh;
+  min-height: 100vh;
   flex-direction: column;
   justify-content: space-between;
   color: ${props => props.theme.colors.textColor};
@@ -41,7 +41,7 @@ export const RichLayout = styled.div`
 `
 
 const Body = styled.div<{ fullWidth: boolean; disableScrollingSafari: boolean }>`
-  inline-size: 100%;
+  width: 100%;
   box-sizing: border-box;
   margin: 0 auto;
   flex-grow: 1;
@@ -72,8 +72,8 @@ const Body = styled.div<{ fullWidth: boolean; disableScrollingSafari: boolean }>
 
 const Main = styled.main<{ fullWidth: boolean }>`
   display: inline-block;
-  inline-size: ${props => (props.fullWidth ? '100%' : dimensions.maxWidth - 2 * dimensions.toolbarWidth)}px;
-  max-inline-size: calc(100% - ${dimensions.toolbarWidth}px);
+  width: ${props => (props.fullWidth ? '100%' : dimensions.maxWidth - 2 * dimensions.toolbarWidth)}px;
+  max-width: calc(100% - ${dimensions.toolbarWidth}px);
   box-sizing: border-box;
   margin: 0 auto;
   padding: ${props => (props.fullWidth ? '0' : `0 ${dimensions.mainContainerHorizontalPadding}px 30px`)};
@@ -86,19 +86,18 @@ const Main = styled.main<{ fullWidth: boolean }>`
 
   @media screen and ${dimensions.smallViewport} {
     position: static;
-    inline-size: 100%;
-    max-inline-size: initial;
-    margin-block-start: 0;
+    width: 100%;
+    max-width: initial;
+    margin-top: 0;
   }
 `
 
 const Aside = styled.aside<{ languageSelectorHeight: number }>`
-  inset-block-start: ${props =>
-    props.languageSelectorHeight + dimensions.headerHeightLarge + additionalToolbarTopSpacing}px;
-  margin-block-start: ${props => props.languageSelectorHeight - dimensions.navigationMenuHeight}px;
+  top: ${props => props.languageSelectorHeight + dimensions.headerHeightLarge + additionalToolbarTopSpacing}px;
+  margin-top: ${props => props.languageSelectorHeight - dimensions.navigationMenuHeight}px;
   display: inline-block;
   position: sticky;
-  inline-size: ${dimensions.toolbarWidth}px;
+  width: ${dimensions.toolbarWidth}px;
   vertical-align: top;
   z-index: 10;
 
@@ -108,7 +107,7 @@ const Aside = styled.aside<{ languageSelectorHeight: number }>`
 
   &:empty + * {
     display: block;
-    max-inline-size: 100%;
+    max-width: 100%;
   }
 `
 

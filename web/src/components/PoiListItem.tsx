@@ -13,23 +13,23 @@ const ListItemContainer = styled.ul`
   font-family: ${props => props.theme.fonts.web.contentFont};
   display: flex;
   padding: clamp(10px, 1vh, 20px) 0;
-  border-block-end: 1px solid ${props => props.theme.colors.borderColor};
+  border-bottom: 1px solid ${props => props.theme.colors.borderColor};
   cursor: pointer;
 
   @media screen and ${dimensions.smallViewport} {
     &:last-child {
-      border-block-end: none;
+      border-bottom: none;
     }
   }
 
   &:first-child {
-    padding-block-start: 0;
+    padding-top: 0;
   }
 `
 
 const Thumbnail = styled.img`
-  inline-size: clamp(70px, 10vh, 100px);
-  block-size: clamp(70px, 10vh, 100px);
+  width: clamp(70px, 10vh, 100px);
+  height: clamp(70px, 10vh, 100px);
   flex-shrink: 0;
   border: 1px solid transparent;
   object-fit: fill;
@@ -48,8 +48,8 @@ const Category = styled.div`
 export const Description = styled.div`
   display: flex;
   justify-content: center;
-  block-size: 100%;
-  min-inline-size: 1px; /* needed to enable line breaks for too long words, exact value doesn't matter */
+  height: 100%;
+  min-width: 1px; /* needed to enable line breaks for too long words, exact value doesn't matter */
   flex-direction: column;
   flex-grow: 1;
   padding: 0 22px;

@@ -15,7 +15,7 @@ import useLocalStorage from '../hooks/useLocalStorage'
 import { LOCAL_STORAGE_ITEM_EXTERNAL_SOURCES } from '../utils/iframes'
 
 const Description = styled.div`
-  margin-block-end: 24px;
+  margin-bottom: 24px;
 `
 
 type ConsentPageProps = { languageCode: string }

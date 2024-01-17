@@ -2,11 +2,11 @@ import React, { ReactNode } from 'react'
 import styled from 'styled-components'
 
 const StyledList = styled.div<{ borderless: boolean }>`
-  border-block-start: 2px solid ${props => (props.borderless ? 'transparent' : props.theme.colors.themeColor)};
+  border-top: 2px solid ${props => (props.borderless ? 'transparent' : props.theme.colors.themeColor)};
 `
 
 const NoItemsMessage = styled.div`
-  padding-block-start: 25px;
+  padding-top: 25px;
   text-align: center;
 `
 

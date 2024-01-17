@@ -26,7 +26,7 @@ const StyledContainer = styled.div`
 const StyledBanner = styled.div`
   position: relative;
   display: flex;
-  block-size: 60px;
+  height: 60px;
   overflow: hidden;
   align-items: center;
   margin: 25px 0;
@@ -35,14 +35,14 @@ const StyledBanner = styled.div`
 `
 
 const StyledIcon = styled(Icon)`
-  inline-size: 100%;
-  block-size: 100%;
+  width: 100%;
+  height: 100%;
 `
 
 const StyledTitle = styled.div`
   display: flex;
-  inline-size: 185px;
-  block-size: 100%;
+  width: 185px;
+  height: 100%;
   align-items: center;
   justify-content: center;
   background-color: ${props => props.theme.colors.tunewsThemeColor};

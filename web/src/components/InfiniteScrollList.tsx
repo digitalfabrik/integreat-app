@@ -7,14 +7,14 @@ import { loadAsync } from 'api-client'
 import FailureSwitcher from './FailureSwitcher'
 
 const NoItemsMessage = styled.div`
-  padding-block-start: 25px;
+  padding-top: 25px;
   text-align: center;
 `
 
 const StyledList = styled.div`
   position: relative;
-  margin-block-end: 40px;
-  padding-block-start: 1px;
+  margin-bottom: 40px;
+  padding-top: 1px;
 `
 
 type InfiniteScrollListProps<T> = {

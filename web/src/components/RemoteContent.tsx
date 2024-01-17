@@ -27,8 +27,8 @@ const SandBox = styled.div<{ centered: boolean; smallText: boolean }>`
   ${props => (props.centered ? 'text-align: center;' : '')}
   ${props => (props.centered ? 'list-style-position: inside;' : '')}
   img {
-    max-inline-size: 100%;
-    max-block-size: 100%;
+    max-width: 100%;
+    max-height: 100%;
     object-fit: contain;
 
     &.alignright {
@@ -51,7 +51,7 @@ const SandBox = styled.div<{ centered: boolean; smallText: boolean }>`
     margin: 15px auto;
 
     @media only screen and (width <= 640px) {
-      inline-size: 100% !important;
+      width: 100% !important;
     }
   }
 
@@ -63,15 +63,15 @@ const SandBox = styled.div<{ centered: boolean; smallText: boolean }>`
 
   table {
     display: block;
-    inline-size: 100% !important;
-    block-size: auto !important; /* need important because of badly formatted remote content */
+    width: 100% !important;
+    height: auto !important; /* need important because of badly formatted remote content */
     overflow: auto;
   }
 
   tbody,
   thead {
     display: table; /* little bit hacky, but works in all browsers, even IE11 :O */
-    inline-size: 100%;
+    width: 100%;
     box-sizing: border-box;
     border-collapse: collapse;
   }
@@ -103,8 +103,8 @@ const SandBox = styled.div<{ centered: boolean; smallText: boolean }>`
     content: '';
     display: inline-block;
     background-image: url('${ExternalLinkIcon}');
-    inline-size: ${props => (props.smallText ? helpers.adaptiveFontSize : props.theme.fonts.contentFontSize)};
-    block-size: ${props => (props.smallText ? helpers.adaptiveFontSize : props.theme.fonts.contentFontSize)};
+    width: ${props => (props.smallText ? helpers.adaptiveFontSize : props.theme.fonts.contentFontSize)};
+    height: ${props => (props.smallText ? helpers.adaptiveFontSize : props.theme.fonts.contentFontSize)};
     background-size: contain;
     background-repeat: no-repeat;
     vertical-align: middle;
@@ -113,10 +113,10 @@ const SandBox = styled.div<{ centered: boolean; smallText: boolean }>`
 
   iframe {
     border: none;
-    border-block-end: 1px solid ${props => props.theme.colors.borderColor};
+    border-bottom: 1px solid ${props => props.theme.colors.borderColor};
 
     @media ${dimensions.smallViewport} {
-      max-inline-size: 100%;
+      max-width: 100%;
     }
   }
 

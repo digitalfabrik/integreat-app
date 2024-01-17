@@ -15,7 +15,7 @@ const Title = styled.h1`
 `
 
 const ToolbarContainer = styled.div`
-  margin-block-start: 16px;
+  margin-top: 16px;
 `
 
 const StyledSpacer = styled(Spacer)`
@@ -27,7 +27,7 @@ const StyledBottomSheet = styled(BottomSheet)`
 `
 
 const StyledLayout = styled(RichLayout)`
-  min-block-size: unset;
+  min-height: unset;
 `
 
 type BottomActionSheetProps = {

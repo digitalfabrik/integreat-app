@@ -15,7 +15,7 @@ const HeaderTitleDiv = styled.div<{ long: boolean }>`
   display: flex;
   align-items: center;
   font-size: ${props => (props.long ? '1.3rem' : '1.8rem')};
-  max-block-size: ${dimensions.headerHeightLarge};
+  max-height: ${dimensions.headerHeightLarge};
   font-weight: 800;
   flex: 1;
   order: 2;
@@ -29,7 +29,7 @@ const HeaderTitleDiv = styled.div<{ long: boolean }>`
   @media ${dimensions.smallViewport} {
     font-family: ${props => props.theme.fonts.web.decorativeFont};
     font-size: ${props => props.theme.fonts.decorativeFontSize};
-    block-size: ${HEADER_TITLE_HEIGHT}px;
+    height: ${HEADER_TITLE_HEIGHT}px;
     justify-content: start;
     padding: 0 10px;
     text-align: start;

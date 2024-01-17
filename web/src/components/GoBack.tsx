@@ -9,7 +9,7 @@ import Icon from './base/Icon'
 
 const StyledButton = styled(Button)<{ viewportSmall: boolean }>`
   display: flex;
-  padding-block-start: 12px;
+  padding-top: 12px;
 
   ${props =>
     props.viewportSmall &&
@@ -37,8 +37,8 @@ const DetailsHeaderTitle = styled.span`
 `
 
 const StyledIcon = styled(Icon)`
-  block-size: 24px;
-  inline-size: 24px;
+  height: 24px;
+  width: 24px;
 `
 
 type GoBackProps = {

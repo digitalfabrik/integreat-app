@@ -32,8 +32,8 @@ import { reportError } from '../utils/sentry'
 import MapAttribution from './MapAttribution'
 
 const MapContainer = styled.div`
-  block-size: 100%;
-  inline-size: 100%;
+  height: 100%;
+  width: 100%;
   display: flex;
   justify-content: center;
   position: relative;
@@ -45,7 +45,7 @@ const OverlayContainer = styled.div`
   flex: 1;
   z-index: 1;
   position: absolute;
-  inset-block-start: 0;
+  top: 0;
   gap: 8px;
 `
 

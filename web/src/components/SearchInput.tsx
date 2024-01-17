@@ -11,8 +11,8 @@ const Spacer = styled.div<{ space: boolean }>`
 `
 
 const TextInput = styled.input.attrs({ type: 'text' })`
-  inline-size: calc(100% - ${searchLogoWidth} - 5px);
-  block-size: 25px;
+  width: calc(100% - ${searchLogoWidth} - 5px);
+  height: 25px;
   box-sizing: border-box;
   margin-inline-start: 5px;
   color: ${props => props.theme.colors.textColor};
@@ -32,7 +32,7 @@ const TextInput = styled.input.attrs({ type: 'text' })`
 
 const Wrapper = styled.div`
   position: relative;
-  inline-size: 100%;
+  width: 100%;
   box-sizing: border-box;
   padding: 10px 10%;
   background-color: ${props => props.theme.colors.backgroundColor};
@@ -41,8 +41,8 @@ const Wrapper = styled.div`
 `
 
 const StyledIcon = styled(Icon)`
-  inline-size: 20px;
-  block-size: 20px;
+  width: 20px;
+  height: 20px;
 `
 
 type SearchInputProps = {

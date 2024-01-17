@@ -31,7 +31,7 @@ const SubTitle = styled.div`
 const Section = styled.div`
   display: flex;
   flex-direction: column;
-  inline-size: 100%;
+  width: 100%;
   gap: 24px;
 `
 
@@ -56,13 +56,13 @@ const TileRow = styled.div<{ itemCount: number }>`
 `
 
 const StyledButton = styled(TextButton)`
-  inline-size: 100%;
+  width: 100%;
   margin: 0;
 `
 
 const StyledIcon = styled(Icon)`
-  inline-size: 24px;
-  block-size: 24px;
+  width: 24px;
+  height: 24px;
 `
 
 type PoiFiltersProps = {

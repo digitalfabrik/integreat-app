@@ -22,17 +22,16 @@ import PoiPanelNavigation from './PoiPanelNavigation'
 import PoiSharedChildren from './PoiSharedChildren'
 
 const PanelContainer = styled.article`
-  block-size: 100%;
+  height: 100%;
   display: flex;
   flex-direction: column;
-  inline-size: ${dimensions.poiDesktopPanelWidth}px;
-  min-inline-size: ${dimensions.poiDesktopPanelWidth}px;
+  width: ${dimensions.poiDesktopPanelWidth}px;
 `
 
 const ListViewWrapper = styled.div<{ panelHeights: number; bottomBarHeight: number }>`
   padding: 16px;
   overflow: auto;
-  ${({ panelHeights, bottomBarHeight }) => `block-size: calc(100vh - ${panelHeights}px - ${bottomBarHeight}px);`};
+  ${({ panelHeights, bottomBarHeight }) => `height: calc(100vh - ${panelHeights}px - ${bottomBarHeight}px);`};
 `
 
 const ToolbarContainer = styled.div`
@@ -43,20 +42,20 @@ const ToolbarContainer = styled.div`
 `
 
 const ListHeader = styled.div`
-  padding-block-start: clamp(16px, 1.4vh, 32px);
-  padding-block-end: clamp(10px, 1vh, 20px);
+  padding-top: clamp(16px, 1.4vh, 32px);
+  padding-bottom: clamp(10px, 1vh, 20px);
   text-align: center;
   font-size: ${props => props.theme.fonts.subTitleFontSize};
   font-family: ${props => props.theme.fonts.web.decorativeFont};
   line-height: ${props => props.theme.fonts.decorativeLineHeight};
   font-weight: 600;
-  border-block-end: 1px solid ${props => props.theme.colors.borderColor};
-  margin-block-end: clamp(10px, 1vh, 20px);
+  border-bottom: 1px solid ${props => props.theme.colors.borderColor};
+  margin-bottom: clamp(10px, 1vh, 20px);
 `
 
 const FooterContainer = styled.div`
   position: absolute;
-  inset-block-end: 0;
+  bottom: 0;
 `
 
 type PoisDesktopProps = {

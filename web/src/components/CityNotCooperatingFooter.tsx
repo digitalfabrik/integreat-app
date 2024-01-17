@@ -14,12 +14,12 @@ const FooterContainer = styled.div`
   flex-direction: column;
   align-items: center;
   padding: 20px;
-  border-block-end: 2px solid ${props => props.theme.colors.footerLineColor};
+  border-bottom: 2px solid ${props => props.theme.colors.footerLineColor};
 `
 
 const StyledIcon = styled(Icon)`
-  inline-size: calc(30px + 8vw);
-  block-size: calc(30px + 8vw);
+  width: calc(30px + 8vw);
+  height: calc(30px + 8vw);
   flex-shrink: 0;
 `
 

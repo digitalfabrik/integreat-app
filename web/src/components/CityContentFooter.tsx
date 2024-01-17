@@ -9,8 +9,8 @@ import CleanLink from './CleanLink'
 import Footer from './Footer'
 
 const SidebarFooterContainer = styled.div`
-  inline-size: 100%;
-  margin-block-start: -10px; /* to counteract the padding-block-start of the normal footer */
+  width: 100%;
+  margin-top: -10px; /* to counteract the padding-top of the normal footer */
   padding: 0 27px;
 
   > * {
@@ -19,10 +19,10 @@ const SidebarFooterContainer = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
-    border-block-end: 1px solid ${props => props.theme.colors.footerLineColor};
+    border-bottom: 1px solid ${props => props.theme.colors.footerLineColor};
 
     &:last-child {
-      border-block-end: none;
+      border-bottom: none;
     }
   }
 `

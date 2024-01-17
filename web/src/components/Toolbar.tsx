@@ -25,7 +25,7 @@ const ToolbarContainer = styled.div<{ direction: 'row' | 'column'; hasPadding: b
   }
 
   @media ${dimensions.smallViewport} {
-    inline-size: 100%;
+    width: 100%;
     flex-flow: row wrap;
     justify-content: center;
   }
@@ -34,7 +34,7 @@ const ToolbarContainer = styled.div<{ direction: 'row' | 'column'; hasPadding: b
 const Divider = styled.hr`
   margin: 12px 24px;
   background-color: ${props => props.theme.colors.borderColor};
-  block-size: 1px;
+  height: 1px;
   border: none;
 `
 

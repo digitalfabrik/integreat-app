@@ -26,9 +26,9 @@ const ToggleContainer = styled.div`
 const List = styled.div<{ show: boolean }>`
   font-family: ${props => props.theme.fonts.web.decorativeFont};
   position: absolute;
-  inset-block-start: 0;
-  inline-size: 80vw;
-  block-size: 100vh;
+  top: 0;
+  width: 80vw;
+  height: 100vh;
   background-color: ${props => props.theme.colors.backgroundColor};
   box-shadow: -3px 3px 3px 0 rgb(0 0 0 / 13%);
 
@@ -47,9 +47,9 @@ const List = styled.div<{ show: boolean }>`
 
 const Overlay = styled.div<{ show: boolean }>`
   position: absolute;
-  inline-size: 100%;
-  block-size: 100vh;
-  inset-block-start: 0;
+  width: 100%;
+  height: 100vh;
+  top: 0;
   inset-inline-start: 0;
   background-color: rgb(0 0 0 / 50%);
   z-index: 30;
@@ -61,7 +61,7 @@ const Heading = styled.div`
   justify-content: ${props => (props.theme.contentDirection === 'rtl' ? `flex-start` : `flex-end`)};
   background-color: ${props => props.theme.colors.backgroundAccentColor};
   box-shadow: -3px 3px 3px 0 rgb(0 0 0 / 13%);
-  block-size: ${dimensions.headerHeightSmall}px;
+  height: ${dimensions.headerHeightSmall}px;
   padding: 0 8px;
 `
 
@@ -70,8 +70,8 @@ const Content = styled.div`
 `
 
 const StyledIcon = styled(Icon)`
-  inline-size: 28px;
-  block-size: 28px;
+  width: 28px;
+  height: 28px;
 `
 
 const KebabMenu = ({ items, show, setShow, Footer }: KebabMenuProps): ReactElement | null => {

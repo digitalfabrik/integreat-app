@@ -5,7 +5,7 @@ import styled from 'styled-components'
 import { CategoryModel } from 'api-client'
 
 const Row = styled.li`
-  inline-size: 100%;
+  width: 100%;
 `
 
 const SubCategoriesContainer = styled.ul`
@@ -14,12 +14,12 @@ const SubCategoriesContainer = styled.ul`
 
 const SubCategory = styled.li`
   text-align: start;
-  inline-size: 100%;
+  width: 100%;
 `
 
 const CategoryThumbnail = styled.img`
-  inline-size: 30px;
-  block-size: 30px;
+  width: 30px;
+  height: 30px;
   padding: 0 5px;
   flex-shrink: 0;
   object-fit: contain;
@@ -32,8 +32,8 @@ const CategoryItemCaption = styled.span`
   font-size: ${props => props.theme.fonts.contentFontSize};
   font-weight: bold;
   text-decoration: inherit;
-  block-size: 100%;
-  min-inline-size: 1px; /* needed to enable line breaks for too long words, exact value doesn't matter */
+  height: 100%;
+  min-width: 1px; /* needed to enable line breaks for too long words, exact value doesn't matter */
   flex-grow: 1;
   word-wrap: break-word;
 `
@@ -47,8 +47,8 @@ const StyledLink = styled(Link)`
   display: inline-flex;
   align-items: center;
   margin: 0 auto;
-  inline-size: inherit;
-  border-block-end: 1px solid ${props => props.theme.colors.themeColor};
+  width: inherit;
+  border-bottom: 1px solid ${props => props.theme.colors.themeColor};
 
   &:hover {
     color: inherit;

@@ -6,8 +6,8 @@ import Tooltip from './Tooltip'
 import Icon from './base/Icon'
 
 const StyledIcon = styled(Icon)`
-  inline-size: 28px;
-  block-size: 28px;
+  width: 28px;
+  height: 28px;
 `
 
 type HeaderActionItemLinkProps = {

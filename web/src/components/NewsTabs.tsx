@@ -9,7 +9,7 @@ import NewsTab from './NewsTab'
 
 const StyledTabs = styled.div`
   display: flex;
-  padding-block-end: 40px;
+  padding-bottom: 40px;
   justify-content: center;
 `
 

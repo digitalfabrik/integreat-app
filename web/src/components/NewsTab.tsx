@@ -10,8 +10,8 @@ import { tunewsLabel } from '../constants/news'
 
 const StyledTab = styled(Link)<{ $active: boolean }>`
   display: flex;
-  inline-size: 160px;
-  block-size: 50px;
+  width: 160px;
+  height: 50px;
   box-sizing: border-box;
   flex-shrink: 0;
   align-items: center;

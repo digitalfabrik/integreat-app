@@ -17,7 +17,7 @@ const Wrapper = styled.nav`
   text-align: start;
   white-space: nowrap;
   overflow: hidden;
-  inline-size: 100%;
+  width: 100%;
   direction: ${props => opposite(props.theme.contentDirection)};
 `
 
@@ -39,8 +39,8 @@ const OrderedList = styled.ol`
 `
 
 const StyledIcon = styled(Icon)`
-  inline-size: 24px;
-  block-size: 24px;
+  width: 24px;
+  height: 24px;
 `
 
 const StyledLink = styled(Link)`

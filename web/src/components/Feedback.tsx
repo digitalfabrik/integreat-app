@@ -13,7 +13,7 @@ import TextButton from './base/TextButton'
 export const Container = styled.div<{ fullWidth?: boolean }>`
   display: flex;
   flex: 1;
-  max-block-size: 80vh;
+  max-height: 80vh;
   box-sizing: border-box;
   flex-direction: column;
   justify-content: space-between;
@@ -26,7 +26,7 @@ export const Container = styled.div<{ fullWidth?: boolean }>`
   gap: 16px;
 
   @media ${dimensions.mediumLargeViewport} {
-    inline-size: ${props => (props.fullWidth ? 'auto' : '400px')};
+    width: ${props => (props.fullWidth ? 'auto' : '400px')};
   }
 `
 

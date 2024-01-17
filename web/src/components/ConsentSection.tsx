@@ -10,7 +10,7 @@ const Container = styled.div`
 
 const Divider = styled.hr`
   background-color: ${props => props.theme.colors.borderColor};
-  block-size: 1px;
+  height: 1px;
   border: none;
   margin: 0;
 `

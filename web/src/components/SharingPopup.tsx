@@ -23,7 +23,7 @@ const TooltipContainer = styled.div<{
   background-color: ${props => props.theme.colors.backgroundColor};
   padding: 8px;
   border: 2px solid ${props => props.theme.colors.textDecorationColor};
-  inline-size: max-content;
+  width: max-content;
   position: absolute;
   display: flex;
   z-index: 2000;
@@ -61,7 +61,7 @@ const TooltipContainer = styled.div<{
 
   &::before {
     z-index: 2000;
-    border-block-end: 10px solid ${props => props.theme.colors.backgroundColor};
+    border-bottom: 10px solid ${props => props.theme.colors.backgroundColor};
     border-inline-start: 10px solid transparent;
     border-inline-end: 10px solid transparent;
 
@@ -70,12 +70,12 @@ const TooltipContainer = styled.div<{
       (props.theme.contentDirection === 'ltr'
         ? css`
             left: 20px;
-            inset-block-end: -8px;
+            bottom: -8px;
             transform: rotate(-180deg);
           `
         : css`
             right: 11px;
-            inset-block-end: -8px;
+            bottom: -8px;
             transform: translateX(-55%) rotate(180deg);
           `)};
 
@@ -85,12 +85,12 @@ const TooltipContainer = styled.div<{
         ? css`
             left: -14px;
             transform: rotate(-90deg);
-            inset-block-start: 45%;
+            top: 45%;
           `
         : css`
             right: -14px;
             transform: rotate(90deg);
-            inset-block-start: 45%;
+            top: 45%;
           `)};
 
     ${props =>
@@ -102,7 +102,7 @@ const TooltipContainer = styled.div<{
 
   &::after {
     z-index: 1000;
-    border-block-end: 11px solid ${props => props.theme.colors.textDecorationColor};
+    border-bottom: 11px solid ${props => props.theme.colors.textDecorationColor};
     border-inline-start: 11px solid transparent;
     border-inline-end: 11px solid transparent;
 
@@ -111,12 +111,12 @@ const TooltipContainer = styled.div<{
       (props.theme.contentDirection === 'ltr'
         ? css`
             left: 20px;
-            inset-block-end: -11px;
+            bottom: -11px;
             transform: rotate(-180deg);
           `
         : css`
             right: 11px;
-            inset-block-end: -11px;
+            bottom: -11px;
             transform: translateX(-45%) rotate(180deg);
           `)};
 
@@ -126,12 +126,12 @@ const TooltipContainer = styled.div<{
         ? css`
             left: -17px;
             transform: rotate(-90deg) scaleX(-1);
-            inset-block-start: 45%;
+            top: 45%;
           `
         : css`
             right: -17px;
             transform: rotate(90deg) scaleX(-1);
-            inset-block-start: 45%;
+            top: 45%;
           `)};
 
     ${props =>
@@ -161,8 +161,8 @@ const Link = styled.a`
 `
 
 const StyledIcon = styled(Icon)`
-  inline-size: 32px;
-  block-size: 32px;
+  width: 32px;
+  height: 32px;
   flex-shrink: 0;
   padding: 8px;
   object-fit: contain;
@@ -172,10 +172,10 @@ const StyledIcon = styled(Icon)`
 
 const BackdropContainer = styled(Button)`
   background: transparent;
-  inline-size: 100%;
-  block-size: 100%;
-  inset-block-start: 0;
-  left: 0;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  inset-inline-start: 0;
   position: fixed;
   z-index: 1;
 `

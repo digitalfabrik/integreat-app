@@ -18,7 +18,7 @@ const Attribution = styled.div`
 const StyledButton = styled(Button)<{ expanded: boolean }>`
   display: flex;
   position: absolute;
-  inset-block-start: 0;
+  top: 0;
   inset-inline-end: 0;
   justify-content: flex-end;
   font-size: ${props =>

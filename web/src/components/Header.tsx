@@ -25,7 +25,7 @@ type HeaderProps = {
 
 const HeaderContainer = styled.header`
   display: flex;
-  inline-size: 100%;
+  width: 100%;
   box-sizing: border-box;
   background-color: ${props => props.theme.colors.backgroundAccentColor};
   user-select: none;
@@ -42,9 +42,9 @@ const HeaderContainer = styled.header`
 const Row = styled.div`
   display: flex;
   flex: 1;
-  max-inline-size: 100%;
+  max-width: 100%;
   align-items: stretch;
-  min-block-size: ${dimensions.headerHeightLarge}px;
+  min-height: ${dimensions.headerHeightLarge}px;
   flex-direction: row;
 
   :first-child {
@@ -55,7 +55,7 @@ const Row = styled.div`
     background-color: ${props => props.theme.colors.backgroundAccentColor};
     justify-content: space-between;
     flex-wrap: wrap;
-    min-block-size: ${dimensions.headerHeightSmall}px;
+    min-height: ${dimensions.headerHeightSmall}px;
     overflow-x: auto;
     padding: 8px 0;
     box-shadow: 0 2px 5px -3px rgb(0 0 0 / 20%);
@@ -69,8 +69,8 @@ const Row = styled.div`
 
 const HeaderSeparator = styled.div`
   align-self: center;
-  block-size: ${dimensions.headerHeightLarge / 2}px;
-  inline-size: 2px;
+  height: ${dimensions.headerHeightLarge / 2}px;
+  width: 2px;
   margin: 0 5px;
   background-color: ${props => props.theme.colors.textDecorationColor};
   order: 2;

@@ -3,7 +3,7 @@ module.exports = {
   plugins: ['stylelint-use-logical'],
   rules: {
     // Enforce better ltr / rtl handling
-    'csstools/use-logical': true,
+    'csstools/use-logical': [true, { except: [/bottom$/, /top$/, /width$/, /height$/] }],
   },
   overrides: [
     {

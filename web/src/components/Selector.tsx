@@ -10,8 +10,8 @@ import Button from './base/Button'
 
 const Element = styled(Button)<{ $selected: boolean; $enabled: boolean }>`
   ${helpers.removeLinkHighlighting};
-  block-size: ${dimensions.headerHeightLarge}px;
-  min-inline-size: 90px;
+  height: ${dimensions.headerHeightLarge}px;
+  min-width: 90px;
   flex: 1 1 auto;
   padding: 0 5px;
   font-size: 1.2em;
@@ -25,8 +25,8 @@ const Element = styled(Button)<{ $selected: boolean; $enabled: boolean }>`
   user-select: none;
 
   @media ${dimensions.smallViewport} {
-    block-size: ${dimensions.headerHeightSmall}px;
-    inline-size: 100%;
+    height: ${dimensions.headerHeightSmall}px;
+    width: 100%;
     flex: 1 1 auto;
     font-size: 1em;
     line-height: ${dimensions.headerHeightSmall}px;
@@ -45,14 +45,14 @@ const Element = styled(Button)<{ $selected: boolean; $enabled: boolean }>`
 
 const BoldSpacer = styled.div`
   font-weight: 700;
-  block-size: 0;
+  height: 0;
   overflow: hidden;
   visibility: hidden;
 `
 
 const Wrapper = styled.div<{ vertical: boolean }>`
   display: flex;
-  inline-size: 100%;
+  width: 100%;
   flex-flow: row wrap;
   justify-content: center;
   color: ${props => props.theme.colors.textColor};

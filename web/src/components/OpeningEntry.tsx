@@ -20,7 +20,7 @@ const Timeslot = styled.div`
 
 const TimeSlotEntry = styled.span`
   &:not(:first-child) {
-    margin-block-start: 8px;
+    margin-top: 8px;
   }
 `
 

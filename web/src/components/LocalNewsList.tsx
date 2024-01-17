@@ -4,13 +4,13 @@ import styled from 'styled-components'
 import { LocalNewsModel } from 'api-client'
 
 const NoItemsMessage = styled.div`
-  padding-block-start: 25px;
+  padding-top: 25px;
   text-align: center;
 `
 
 const StyledList = styled.div`
   position: relative;
-  padding-block-start: 1px;
+  padding-top: 1px;
 `
 const Wrapper = styled.div`
   background-color: ${({ theme }) => theme.colors.backgroundColor};

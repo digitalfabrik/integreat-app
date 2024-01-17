@@ -28,8 +28,8 @@ const Text = styled.p`
 `
 
 const Icon = styled.img`
-  inline-size: calc(40px + 10vw);
-  block-size: calc(40px + 10vw);
+  width: calc(40px + 10vw);
+  height: calc(40px + 10vw);
   flex-shrink: 0;
   align-self: center;
 `
@@ -47,8 +47,8 @@ const ListItem = styled.div`
 const StepNumber = styled.div`
   border-radius: 50%;
   line-height: 2rem;
-  min-inline-size: 2rem;
-  block-size: 2rem;
+  min-width: 2rem;
+  height: 2rem;
   text-align: center;
   background-color: ${props => props.theme.colors.themeColor};
 `
@@ -68,7 +68,7 @@ const StyledButton = styled(TextButton)`
 const TemplateText = styled(Text)`
   position: relative;
   direction: ltr;
-  inset-block-start: -30px;
+  top: -30px;
   border: 1px solid ${props => props.theme.colors.themeColor};
   padding: 50px 30px 30px;
   white-space: pre-line;

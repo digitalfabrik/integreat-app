@@ -21,8 +21,9 @@ import Icon from './base/Icon'
 const Content = styled.div`
   overflow-wrap: anywhere;
 `
+
 const StyledTooltip = styled(Tooltip)`
-  block-size: 24px;
+  height: 24px;
 `
 
 type EventListItemProps = {
