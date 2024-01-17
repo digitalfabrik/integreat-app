@@ -63,7 +63,9 @@ class CategoryModel extends ExtendedPageModel {
       this.order === other.order &&
       this.isRoot === other.isRoot &&
       (this.organization === null ? other.organization === null : this.organization.isEqual(other.organization)) &&
-      this.embeddedOffers === other.embeddedOffers
+      this.embeddedOffers.length === other.embeddedOffers.length &&
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+      this.embeddedOffers.every((offer, index) => offer.isEqual(other.embeddedOffers[index]!))
     )
   }
 }
