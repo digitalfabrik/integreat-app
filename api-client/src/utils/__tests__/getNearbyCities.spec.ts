@@ -14,7 +14,6 @@ describe('getNearbyCities', () => {
       live: true,
       languages: new LanguageModelBuilder(2).build(),
       eventsEnabled: true,
-      offersEnabled: true,
       poisEnabled: true,
       localNewsEnabled: false,
       tunewsEnabled: false,

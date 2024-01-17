@@ -10,7 +10,6 @@ import {
   LANDING_ROUTE,
   LOCAL_NEWS_TYPE,
   NEWS_ROUTE,
-  OFFERS_ROUTE,
   OPEN_DEEP_LINK_SIGNAL_NAME,
 } from 'api-client'
 import { FeatureFlagsType } from 'build-configs/BuildConfigType'
@@ -296,27 +295,6 @@ describe('useNavigateToDeepLink', () => {
       })
 
       expect(changeCityCode).not.toHaveBeenCalled()
-      expectTrackingSignal(url)
-    })
-
-    it('should open dashboard and navigate to offers route if intro slides already shown', async () => {
-      const url = `https://integreat.app/${cityCode}/${languageCode}/offers`
-      mockBuildConfig({ introSlides: false, fixedCity: null })
-      await appSettings.setIntroShown()
-      renderMockComponent(url)
-
-      await waitFor(() => expect(navigation.reset).toHaveBeenCalledTimes(1))
-      expect(navigation.reset).toHaveBeenCalledWith({ index: 0, routes: [{ name: CATEGORIES_ROUTE, params: {} }] })
-      expect(navigateTo).toHaveBeenCalledTimes(1)
-      expect(navigateTo).toHaveBeenCalledWith({
-        cityCode,
-        languageCode,
-        route: OFFERS_ROUTE,
-      })
-
-      expect(changeCityCode).toHaveBeenCalledTimes(1)
-      expect(changeCityCode).toHaveBeenCalledWith(cityCode)
-
       expectTrackingSignal(url)
     })
 

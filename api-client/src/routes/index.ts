@@ -20,15 +20,6 @@ export const NEWS_ROUTE: NewsRouteType = 'news'
 export type DisclaimerRouteType = 'disclaimer'
 export const DISCLAIMER_ROUTE: DisclaimerRouteType = 'disclaimer'
 
-export type OffersRouteType = 'offers'
-export const OFFERS_ROUTE: OffersRouteType = 'offers'
-
-export type SprungbrettOfferRouteType = 'sprungbrett'
-export const SPRUNGBRETT_OFFER_ROUTE: SprungbrettOfferRouteType = 'sprungbrett'
-
-export type MalteHelpFormOfferRouteType = 'help'
-export const MALTE_HELP_FORM_OFFER_ROUTE: MalteHelpFormOfferRouteType = 'help'
-
 export type SearchRouteType = 'search'
 export const SEARCH_ROUTE: SearchRouteType = 'search'
 
@@ -56,9 +47,6 @@ export const INTRO_ROUTE: IntroRouteType = 'intro'
 
 export type SettingsRouteType = 'settings'
 export const SETTINGS_ROUTE: SettingsRouteType = 'settings'
-
-export type ExternalOfferRouteType = 'externalOffer'
-export const EXTERNAL_OFFER_ROUTE: ExternalOfferRouteType = 'externalOffer'
 
 export type ChangeLanguageModalRouteType = 'changeLanguage'
 export const CHANGE_LANGUAGE_MODAL_ROUTE: ChangeLanguageModalRouteType = 'changeLanguage'

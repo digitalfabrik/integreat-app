@@ -12,12 +12,10 @@ import {
   LICENSES_ROUTE,
   MALTE_HELP_FORM_OFFER_ROUTE,
   NEWS_ROUTE,
-  OFFERS_ROUTE,
   OPEN_PAGE_SIGNAL_NAME,
   POIS_ROUTE,
   RouteInformationType,
   SEARCH_ROUTE,
-  SPRUNGBRETT_OFFER_ROUTE,
 } from 'api-client'
 
 import { SnackbarType } from '../components/SnackbarContainer'
@@ -108,17 +106,6 @@ const navigate = <T extends RoutesType>(
         newsType: routeInformation.newsType,
         newsId: routeInformation.newsId ?? null,
       })
-      return
-
-    case OFFERS_ROUTE:
-      navigation.push(OFFERS_ROUTE)
-      return
-
-    case SPRUNGBRETT_OFFER_ROUTE:
-      navigation.push(SPRUNGBRETT_OFFER_ROUTE)
-      return
-
-    case MALTE_HELP_FORM_OFFER_ROUTE:
       return
 
     case POIS_ROUTE:

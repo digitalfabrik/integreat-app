@@ -7,14 +7,10 @@ import {
   DisclaimerRouteType,
   EVENTS_ROUTE,
   EventsRouteType,
-  OFFERS_ROUTE,
-  OffersRouteType,
   POIS_ROUTE,
   PoisRouteType,
   SEARCH_ROUTE,
   SearchRouteType,
-  SPRUNGBRETT_OFFER_ROUTE,
-  SprungbrettOfferRouteType,
 } from '../routes'
 
 export const FEEDBACK_ENDPOINT_NAME = 'categoriesFeedback'
@@ -24,8 +20,6 @@ export const NEGATIVE_RATING = 'down'
 export enum FeedbackType {
   page = 'page',
   categories = 'categories',
-  offer = 'offer',
-  offers = 'offers',
   search = 'search',
   event = 'event',
   events = 'events',
@@ -40,10 +34,8 @@ export type FeedbackRouteType =
   | CategoriesRouteType
   | EventsRouteType
   | PoisRouteType
-  | OffersRouteType
   | DisclaimerRouteType
   | SearchRouteType
-  | SprungbrettOfferRouteType
 
 export type ParamsType = {
   routeType: FeedbackRouteType
@@ -62,9 +54,6 @@ const getFeedbackType = (routeType: FeedbackRouteType, slug?: string): FeedbackT
     case EVENTS_ROUTE:
       return slug ? FeedbackType.event : FeedbackType.events
 
-    case OFFERS_ROUTE:
-      return slug ? FeedbackType.offer : FeedbackType.offers
-
     case DISCLAIMER_ROUTE:
       return FeedbackType.imprint
 
@@ -76,9 +65,6 @@ const getFeedbackType = (routeType: FeedbackRouteType, slug?: string): FeedbackT
 
     case SEARCH_ROUTE:
       return FeedbackType.search
-
-    case SPRUNGBRETT_OFFER_ROUTE:
-      return FeedbackType.offer
 
     default:
       return FeedbackType.categories

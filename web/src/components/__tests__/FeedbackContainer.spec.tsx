@@ -1,18 +1,8 @@
 import { fireEvent } from '@testing-library/react'
 import React, { ComponentProps } from 'react'
 
-import {
-  CATEGORIES_ROUTE,
-  DISCLAIMER_ROUTE,
-  EVENTS_ROUTE,
-  FeedbackRouteType,
-  OFFERS_ROUTE,
-  POIS_ROUTE,
-  SEARCH_ROUTE,
-  SPRUNGBRETT_OFFER,
-} from 'api-client'
+import { CATEGORIES_ROUTE, FeedbackRouteType, SEARCH_ROUTE } from 'api-client'
 
-import { TU_NEWS_ROUTE } from '../../routes'
 import { renderWithTheme } from '../../testing/render'
 import FeedbackContainer from '../FeedbackContainer'
 

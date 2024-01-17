@@ -1,7 +1,7 @@
 import { DateTime } from 'luxon'
 
-import { createPostMap } from '../endpoints/createOffersEndpoint'
 import mapAvailableLanguages from '../mapAvailableLanguages'
+import createPostMap from '../mapping/createPostMap'
 import CategoryModel from '../models/CategoryModel'
 import OfferModel from '../models/OfferModel'
 import OrganizationModel from '../models/OrganizationModel'

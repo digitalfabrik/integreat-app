@@ -828,238 +828,204 @@
   "dashboard": {
     "de": {
       "localInformation": "Lokale Informationen",
-      "offers": "Angebote",
       "events": "Veranstaltungen",
       "news": "Nachrichten",
       "pois": "Karte"
     },
     "am": {
       "localInformation": "አካባቢያዊ መረጃ",
-      "offers": "ግብዣዎች/ መጥሪያዎች",
       "events": "ዝግጅቶች",
       "news": "ዜናዎች",
       "pois": "ካርታ"
     },
     "ar": {
       "localInformation": "معلومات محلية",
-      "offers": "العروض",
       "events": "الفعاليات",
       "news": "الأخبار",
       "pois": "الخريطة"
     },
     "bg": {
       "localInformation": "Местна информация",
-      "offers": "Оферти",
       "events": "Събития",
       "news": "Новини",
       "pois": "Карта"
     },
     "ckb": {
       "localInformation": "زانیارییە خۆجییەکان",
-      "offers": "پێشنیارەکان",
       "events": "ڕووداوەکان",
       "news": "هەواڵ",
       "pois": "نەخشە"
     },
     "cs": {
       "localInformation": "Místní informace",
-      "offers": "Nabídky",
       "events": "Akce",
       "news": "Zprávy",
       "pois": "Mapa"
     },
     "el": {
       "localInformation": "Τοπικές πληροφορίες",
-      "offers": "Προσφορές",
       "events": "Εκδηλώσεις",
       "news": "Ειδήσεις",
       "pois": "Χάρτης"
     },
     "en": {
       "localInformation": "Local information",
-      "offers": "Offers",
       "events": "Events",
       "news": "News",
       "pois": "Map"
     },
     "es": {
       "localInformation": "Información local",
-      "offers": "Ofertas",
       "events": "Actividades",
       "news": "Noticias",
       "pois": "Mapa"
     },
     "fi": {
       "localInformation": "Paikalliset tiedot",
-      "offers": "Tarjoukset",
       "events": "Tapahtumat",
       "news": "Viestit",
       "pois": "Kartta"
     },
     "fr": {
       "localInformation": "Informations locales",
-      "offers": "Offres",
       "events": "Événements",
       "news": "Nouvelles",
       "pois": "Carte"
     },
     "hr": {
       "localInformation": "Lokalne informacije",
-      "offers": "Ponude",
       "events": "Događanja",
       "news": "Vijesti",
       "pois": "Karta"
     },
     "hu": {
       "localInformation": "Helyi információk",
-      "offers": "Ajánlatok",
       "events": "Események",
       "news": "Hírek",
       "pois": "Térkép"
     },
     "it": {
       "localInformation": "Informazioni locali",
-      "offers": "Offerte",
       "events": "Eventi",
       "news": "Messaggi",
       "pois": "Mappa"
     },
     "ka": {
       "localInformation": "ადგილობრივი ინფორმაციები",
-      "offers": "შეთავაზებები",
       "events": "ღონისძიებები",
       "news": "ინფორმაციები",
       "pois": "რუქა"
     },
     "kmr": {
       "localInformation": "Zanyariyên xwecihî",
-      "offers": "Xizmet",
       "events": "Rûdan",
       "news": "Nûçe",
       "pois": "Nexşe"
     },
     "mk": {
       "localInformation": "Локални информации",
-      "offers": "Понуди",
       "events": "Настани",
       "news": "Вести",
       "pois": "Мапа"
     },
     "nl": {
       "localInformation": "Lokale informatie",
-      "offers": "Aanbod",
       "events": "Evenementen",
       "news": "Nieuws",
       "pois": "Kaart"
     },
     "pes": {
       "localInformation": "اطلاعات محلی",
-      "offers": "خدمات",
       "events": "رویدادها",
       "news": "اخبار",
       "pois": "نقشه"
     },
     "pl": {
       "localInformation": "Informacje lokalne",
-      "offers": "Oferty",
       "events": "Wydarzenia",
       "news": "Wiadomości",
       "pois": "Mapa"
     },
     "prs": {
       "localInformation": "اطلاعات تماس",
-      "offers": "در نزدیکی تو",
       "events": "بازگشت به خلاصه",
       "news": "مسیریابی",
       "pois": "باز کردن در Google Maps"
     },
     "ps": {
       "localInformation": "سیمه ییز معلومات",
-      "offers": "وړاندیزونه",
       "events": "غونډې",
       "news": "خبرونه",
       "pois": "کارت"
     },
     "pt": {
       "localInformation": "Informações locais",
-      "offers": "Ofertas",
       "events": "Eventos",
       "news": "Notícias",
       "pois": "Mapa"
     },
     "ro": {
       "localInformation": "Informații locale",
-      "offers": "Oferte",
       "events": "Evenimente",
       "news": "Știri",
       "pois": "Hartă"
     },
     "ru": {
       "localInformation": "Местная информация",
-      "offers": "Предложения",
       "events": "Мероприятия",
       "news": "Новости",
       "pois": "Карта"
     },
     "so": {
       "localInformation": "Macluumaadka deegaanka",
-      "offers": "Heshiisyo",
       "events": "Dhacdooyinka",
       "news": "war",
       "pois": "khariidad"
     },
     "sq": {
       "localInformation": "Informata lokale",
-      "offers": "Ofertat",
       "events": "Evenimentet",
       "news": "Lajme",
       "pois": "Harta"
     },
     "sr-Cyrl": {
       "localInformation": "Локалне информације",
-      "offers": "Понуде",
       "events": "Догађаји",
       "news": "Вести",
       "pois": "Карта"
     },
     "sr-Latn": {
       "localInformation": "Lokalne informacije",
-      "offers": "Ponude",
       "events": "Događaji",
       "news": "Vesti",
       "pois": "Karta"
     },
     "ti": {
       "localInformation": "ከባብያዊ ሓበሬታ",
-      "offers": "ውዕላት",
       "events": "ኣጋጣሚታት",
       "news": "ዜና",
       "pois": "ካርታ"
     },
     "tr": {
       "localInformation": "Yerel bilgiler",
-      "offers": "Teklifler",
       "events": "Etkinlikler",
       "news": "Mesajlar",
       "pois": "Harita"
     },
     "uk": {
       "localInformation": "Місцева інформація",
-      "offers": "Пропозиції",
       "events": "Події",
       "news": "Новини",
       "pois": "Мапа"
     },
     "ur": {
       "localInformation": "مقامی معلومات",
-      "offers": "پیش کشیں",
       "events": "واقعات",
       "news": "خبریں",
       "pois": "نقشہ"
     },
     "zh-CN": {
       "localInformation": "本地信息",
-      "offers": "提供项目",
       "events": "活动",
       "news": "新闻",
       "pois": "地图"
@@ -1176,7 +1142,6 @@
         "city": "Diese Region wurde leider nicht gefunden.",
         "category": "Diese Seite wurde leider nicht gefunden.",
         "event": "Dieses Event wurde leider nicht gefunden.",
-        "offer": "Dieses Angebot wurde leider nicht gefunden.",
         "poi": "Dieser Ort wurde leider nicht gefunden.",
         "news": "Diese Nachricht wurde leider nicht gefunden.",
         "pageTitle": "Seite nicht gefunden"
@@ -1194,7 +1159,6 @@
         "start": "Zur Startseite",
         "categories": "Zu den Kategorien",
         "events": "Zu den Veranstaltungen",
-        "offers": "Zu den Angeboten",
         "pois": "Zur Karte",
         "news": "Zu den Nachrichten"
       },
@@ -1212,7 +1176,6 @@
         "city": "ይህ ወረዳ ሊገኝ ኣልቻለም።",
         "category": "ይቅርታ፣ ይህ ገጽ አልተገኘም።",
         "event": "ይቅርታ፣ ይህ ጽግጅት አልተገኘም።",
-        "offer": "ይቅርታ፣ ይህ ግብዣ/መጥሪያ አልተገኘም።",
         "poi": "ይህ ቦታ ሊገኝ ኣልቻለም።",
         "news": "ይቅርታ፣ ይህ ዜና አልተገኘም።",
         "pageTitle": "ገጹ አልተገኘም"
@@ -1230,7 +1193,6 @@
         "start": "ወደ ሆም ገጽ",
         "categories": "ወደ ምድቦች",
         "events": "ወደ ዝግጅቶች",
-        "offers": "ወደ ግብዣዎች/መጥሪያዎች",
         "pois": "ወደ ካርታ",
         "news": "ወደ ዜናዎች"
       },
@@ -1248,7 +1210,6 @@
         "city": "للأسف لم يتم العثور على هذه المنطقة.",
         "category": "للأسف، تعذر العثور على هذه الصفحة.",
         "event": "للأسف، تعذر العثور على هذا الحدث.",
-        "offer": "للأسف، تعذر العثور على هذا العرض.",
         "poi": "للأسف لم يتم العثور على هذا المكان.",
         "news": "للأسف، لم يتم العثور على هذا الخبر.",
         "pageTitle": "تعذر العثور على الصفحة"
@@ -1266,7 +1227,6 @@
         "start": "إلى الصفحة الرئيسية",
         "categories": "إلى الفئات",
         "events": "إلى الفعاليات",
-        "offers": "إلى العروض",
         "pois": "إلى الخريطة",
         "news": "إلى الأخبار"
       },
@@ -1284,7 +1244,6 @@
         "city": "За съжаление този регион не беше намерен.",
         "category": "За съжаление тази страница не беше намерена.",
         "event": "За съжаление това събитие не беше намерено.",
-        "offer": "За съжаление тази оферта не беше намерена.",
         "poi": "За съжаление това населено място не беше намерено.",
         "news": "За съжаление това съобщение не бе намерено.",
         "pageTitle": "Страницата не е намерена"
@@ -1302,7 +1261,6 @@
         "start": "Към началната страница",
         "categories": "Към категориите",
         "events": "Към събитията",
-        "offers": "Към офертите",
         "pois": "Към картата",
         "news": "Към новините"
       },
@@ -1320,7 +1278,6 @@
         "city": "بەداخەوە، ئەم ناوچەیە نەدۆزرایەوە.",
         "category": "بەداخەوە ئەم لاپەڕەیە نەدۆزرایەوە.",
         "event": "بەداخەوە ئەم ڕووداوە نەدۆزرایەوە.",
-        "offer": "بەداخەوە ئەم پێشنیارە نەدۆزرایەوە.",
         "poi": "بەداخەوە ئەم شوێنە نەدۆزرایەوە.",
         "news": "بەداخەوە ئەم هەواڵە نەدۆزرایەوە.",
         "pageTitle": "لاپەڕە نەدۆزرایەوە"
@@ -1338,7 +1295,6 @@
         "start": "بۆ لاپەڕەی سەرەکی",
         "categories": "بۆ کۆمەڵەکان",
         "events": "بۆ ڕووداوەکان",
-        "offers": "بۆ پێشنیارەکان",
         "pois": "بۆ نەخشە",
         "news": "بۆ هەواڵ"
       },
@@ -1356,7 +1312,6 @@
         "city": "Je nám líto, tato oblast nebyla nalezena.",
         "category": "Je nám líto, tato stránka nebyla nalezena.",
         "event": "Je nám líto, tato akce nebyla nalezena.",
-        "offer": "Je nám líto, tato nabídka nebyla nalezena.",
         "poi": "Je nám líto, toto místo nebylo nalezeno.",
         "news": "Je nám líto, tato zpráva nebyla nalezena.",
         "pageTitle": "Stránka nebyla nalezena"
@@ -1374,7 +1329,6 @@
         "start": "Na domovskou stránku",
         "categories": "Ke kategoriím",
         "events": "K akcím",
-        "offers": "K nabídkám",
         "pois": "Na mapu",
         "news": "Ke zprávám"
       },
@@ -1392,7 +1346,6 @@
         "city": "Δυστυχώς δεν βρέθηκε αυτή η περιοχή.",
         "category": "Δυστυχώς, αυτή η σελίδα δεν βρέθηκε.",
         "event": "Δυστυχώς, αυτή η εκδήλωση δεν βρέθηκε.",
-        "offer": "Δυστυχώς, αυτή η προσφορά δεν βρέθηκε.",
         "poi": "Δυστυχώς δεν βρέθηκε αυτή η τοποθεσία.",
         "news": "Δυστυχώς, αυτό το μήνυμα δεν βρέθηκε.",
         "pageTitle": "Η σελίδα δεν βρέθηκε"
@@ -1410,7 +1363,6 @@
         "start": "Προς αρχική σελίδα",
         "categories": "Προς κατηγορίες",
         "events": "Προς εκδηλώσεις",
-        "offers": "Προς προσφορές",
         "pois": "Μετάβαση στο χάρτη",
         "news": "Προς ειδήσεις"
       },
@@ -1428,7 +1380,6 @@
         "city": "Sorry this region was not found.",
         "category": "Sorry, but the requested page could not be found.",
         "event": "Sorry, but this event could not be found.",
-        "offer": "Sorry, but this offer could not be found.",
         "poi": "Sorry, this place was not found.",
         "news": "Sorry, but this message could not be found.",
         "pageTitle": "Page not found"
@@ -1446,7 +1397,6 @@
         "start": "Go to the homepage",
         "categories": "Go to categories",
         "events": "Go to events",
-        "offers": "Go to offers",
         "pois": "Go to map",
         "news": "Go to news"
       },
@@ -1464,7 +1414,6 @@
         "city": "No se ha encontrado esta región.",
         "category": "No se ha encontrado esta página.",
         "event": "No se ha encontrado este evento.",
-        "offer": "No se ha encontrado esta oferta.",
         "poi": "No se ha encontrado esta localidad.",
         "news": "No se ha encontrado este mensaje.",
         "pageTitle": "No se ha encontrado la página"
@@ -1482,7 +1431,6 @@
         "start": "Ir a la página de inicio",
         "categories": "Ir a las categorías",
         "events": "Ir a las actividades",
-        "offers": "Ir a las ofertas",
         "pois": "Ir al mapa",
         "news": "Ir a los mensajes"
       },
@@ -1500,7 +1448,6 @@
         "city": "Aluetta ei löydetty.",
         "category": "Sivua ei löydetty.",
         "event": "Tapahtumaa ei löydetty.",
-        "offer": "Tarjousta ei löydetty.",
         "poi": "Paikkaa ei löydetty.",
         "news": "Viestiä ei löydetty.",
         "pageTitle": "Sivua ei löytynyt"
@@ -1518,7 +1465,6 @@
         "start": "Siirry kotisivulle",
         "categories": "Siirry kategorioihin",
         "events": "Siirry tapahtumiin",
-        "offers": "Siirry tarjouksiin",
         "pois": "Siirry karttaan",
         "news": "Siirry uutisiin"
       },
@@ -1536,7 +1482,6 @@
         "city": "Cette région n’a malheureusement pas été trouvée.",
         "category": "Malheureusement, cette page est introuvable.",
         "event": "Malheureusement, cet événement est introuvable.",
-        "offer": "Malheureusement, cette offre est introuvable.",
         "poi": "Cette localité n’a malheureusement pas été trouvée.",
         "news": "Malheureusement, ce message est introuvable.",
         "pageTitle": "Page introuvable"
@@ -1554,7 +1499,6 @@
         "start": "Vers la page de démarrage",
         "categories": "Vers les catégories",
         "events": "Vers les événements",
-        "offers": "Vers les offres",
         "pois": "Aller à la carte",
         "news": "Accéder aux messages"
       },
@@ -1572,7 +1516,6 @@
         "city": "Ta regija nažalost nije pronađena.",
         "category": "Ova stranica nažalost nije pronađena.",
         "event": "Ovo događanje nažalost nije pronađeno.",
-        "offer": "Ova ponuda nažalost nije pronađena.",
         "poi": "To mjesto nažalost nije pronađeno.",
         "news": "Ova vijest nažalost nije pronađena.",
         "pageTitle": "Stranica nije pronađena"
@@ -1590,7 +1533,6 @@
         "start": "Na početnu stranicu",
         "categories": "Na kategorije",
         "events": "Na događanja",
-        "offers": "Na ponude",
         "pois": "Idi na kartu",
         "news": "Na vijesti"
       },
@@ -1608,7 +1550,6 @@
         "city": "Ez a régió nem található.",
         "category": "Ez az oldal sajnos nem található.",
         "event": "Ez az esemény sajnos nem található.",
-        "offer": "Ez az ajánlat sajnos nem található.",
         "poi": "Ez a hely nem található.",
         "news": "Ez az üzenet sajnos nem található.",
         "pageTitle": "Az oldal nem található"
@@ -1626,7 +1567,6 @@
         "start": "A Kezdőoldalra",
         "categories": "A Kategóriákhoz",
         "events": "Az Eseményekhez",
-        "offers": "Az Ajánlatokhoz",
         "pois": "A térképhez",
         "news": "A hírekhez"
       },
@@ -1644,7 +1584,6 @@
         "city": "Purtroppo questa regione non è stata trovata.",
         "category": "Purtroppo questa pagina non è stata trovata.",
         "event": "Purtroppo questo evento non è stato trovato.",
-        "offer": "Purtroppo questa offerta non è stata trovata.",
         "poi": "Purtroppo questa località non è stata trovata.",
         "news": "Purtroppo questo messaggio non è stato trovato.",
         "pageTitle": "Pagina non trovata"
@@ -1662,7 +1601,6 @@
         "start": "Vai alla home page",
         "categories": "Vai su Categorie",
         "events": "Vai su Eventi",
-        "offers": "Vai su Offerte",
         "pois": "Vai alla mappa",
         "news": "Vai su Messaggi"
       },
@@ -1680,7 +1618,6 @@
         "city": "ეს რეგიონი სამწუხაროდ ვერ მოიძებნა.",
         "category": "სამწუხაროდ ეს გვერდი ვერ მოიძებნა.",
         "event": "სამწუხაროდ ეს ღონისძიება ვერ მოიძებნა.",
-        "offer": "სამწუხაროდ ეს შეთავაზება ვერ მოიძებნა.",
         "poi": "ეს ადგილი სამწუხაროდ ვერ მოიძებნა.",
         "news": "სამწუხაროდ ეს ინფორმაცია ვერ მოიძებნა.",
         "pageTitle": "გვერდი არ იძებნება"
@@ -1698,7 +1635,6 @@
         "start": "სასტარტო გვერდისაკენ",
         "categories": "კატეგორიებისაკენ",
         "events": "ღონისძიებებისაკენ",
-        "offers": "შეთავაზებებისაკენ",
         "pois": "რუქაზე გადასვლა",
         "news": "ინფორმაციებისაკენ"
       },
@@ -1716,7 +1652,6 @@
         "city": "Mixabin, ev navçe peyda nebû.",
         "category": "Mixabin ev rûpel peyde nebû.",
         "event": "Mixabin ev rûdan peyde nebû.",
-        "offer": "Mixabin ev xizmet peyde nebû.",
         "poi": "Mixabin, ev der peyda nebû.",
         "news": "Mixabin ev peyam nehat peydakirin.",
         "pageTitle": "Rûpel nehat dîtin"
@@ -1734,7 +1669,6 @@
         "start": "Ber bi Rûpela Sereke va",
         "categories": "Ber bi destebendiyan va",
         "events": "Ber bi rûdanan va",
-        "offers": "Ber bi xizmetan va",
         "pois": "Bo nexşeyê",
         "news": "Bo nûçeyan"
       },
@@ -1752,7 +1686,6 @@
         "city": "За жал, овој регион не беше пронајден.",
         "category": "За жал оваа страница не е пронајдена.",
         "event": "За жал овој настан не е пронајден.",
-        "offer": "За жал оваа понуда не е пронајдена.",
         "poi": "За жал, ова место не беше пронајдено.",
         "news": "За жал оваа вест не е пронајдена.",
         "pageTitle": "Страницата не е пронајдена"
@@ -1770,7 +1703,6 @@
         "start": "Кон почетната страна",
         "categories": "Кон категориите",
         "events": "Кон настаните",
-        "offers": "Кон понудите",
         "pois": "Кон мапата",
         "news": "Кон вестите"
       },
@@ -1788,7 +1720,6 @@
         "city": "Sorry, deze regio is niet gevonden.",
         "category": "Sorry, de gevraagde pagina kan niet worden gevonden.",
         "event": "Sorry, dit evenement kan niet worden gevonden.",
-        "offer": "Sorry, dit aanbod kan niet worden gevonden.",
         "poi": "Sorry, deze locatie is niet gevonden.",
         "news": "Sorry, dit bericht kan niet worden gevonden.",
         "pageTitle": "Pagina niet gevonden."
@@ -1806,7 +1737,6 @@
         "start": "Ga naar de beginpagina",
         "categories": "Ga naar categorieën",
         "events": "Ga naar evenementen",
-        "offers": "Ga naar aanbod",
         "pois": "Ga naar de kaart",
         "news": "Ga naar nieuws"
       },
@@ -1824,7 +1754,6 @@
         "city": "متاسفانه این منطقه پیدا نشد.",
         "category": "متاسفانه این صفحه یافت نشد.",
         "event": "متأسفانه این رویداد یافت نشد.",
-        "offer": "متأسفانه این خدمات یافت نشد.",
         "poi": "متاسفانه این محل پیدا نشد.",
         "news": "متاسفانه این خبر یافت نشد.",
         "pageTitle": "صفحه یافت نشد"
@@ -1842,7 +1771,6 @@
         "start": "به سوی صفحه اصلی",
         "categories": "به سوی دسته بندی ها",
         "events": "به سوی رویدادها",
-        "offers": "به سوی خدمات",
         "pois": "به نقشه",
         "news": "به اخبار"
       },
@@ -1860,7 +1788,6 @@
         "city": "Niestety ten region nie został znaleziony.",
         "category": "Niestety nie znaleziono tej strony.",
         "event": "Niestety nie znaleziono tego wydarzenia.",
-        "offer": "Niestety nie znaleziono tej oferty.",
         "poi": "Niestety ta miejscowość nie została znaleziona.",
         "news": "Niestety nie znaleziono tej wiadomości.",
         "pageTitle": "Nie znaleziono strony"
@@ -1878,7 +1805,6 @@
         "start": "Do strony startowej",
         "categories": "Do kategorii",
         "events": "Do wydarzeń",
-        "offers": "Do ofert",
         "pois": "Przejdź do mapy",
         "news": "Do wiadomości"
       },
@@ -1896,7 +1822,6 @@
         "city": "متاسفانه این منطقه پیدا نشد.",
         "category": "متاسفانه این صفحه پیدا نشد.",
         "event": "متاسفانه این رویداد پیدا نشد‎.",
-        "offer": "متاسفانه این پیشنهاد پیدا نشد‎.",
         "poi": "متاسفانه این محل پیدا نشد.",
         "news": "متاسفانه این خبر پیدا نشد‎.",
         "pageTitle": "صفحه پیدا نشد"
@@ -1914,7 +1839,6 @@
         "start": "به صفحه اصلی",
         "categories": "به دسته ها",
         "events": "به رویدادها",
-        "offers": "به پیشنهادات",
         "pois": "به نقشه",
         "news": "به اخبار"
       },
@@ -1932,7 +1856,6 @@
         "city": "له بده مرغه، دا سیمه ونه موندل شوه.",
         "category": "دا پاڼه له بده مرغه پیدا نشوه.",
         "event": "دا غونډه له بده مرغه پیدا نشوه.",
-        "offer": "دا وړاندیز له بده مرغه پیدا نشو.",
         "poi": "دا ځای له بده مرغه پیدا نه شو.",
         "news": ".بخښنه غواړم، دا پیغام ونه موندل شو.",
         "pageTitle": "پاڼه پیدا نشوه"
@@ -1950,7 +1873,6 @@
         "start": "مخپاڼې ته تلل",
         "categories": "کټګوریو یعنی انواعو  ته تلل",
         "events": "غونډو ته تلل",
-        "offers": "وړاندیزونو ته تلل",
         "pois": "نقشی تہ تلل",
         "news": "خبرونو ته"
       },
@@ -1968,7 +1890,6 @@
         "city": "Lamentamos, mas esta região não foi encontrada.",
         "category": "Lamentamos, mas esta página não foi encontrada.",
         "event": "Lamentamos, mas este evento não foi encontrado.",
-        "offer": "Lamentamos, mas esta oferta não foi encontrada.",
         "poi": "Lamentamos, mas este local não foi encontrado.",
         "news": "Lamentamos, mas esta notícia não foi encontrada.",
         "pageTitle": "Página não encontrada"
@@ -1986,7 +1907,6 @@
         "start": "Ir para a página inicial",
         "categories": "Ir para as categorias",
         "events": "Ir para os eventos",
-        "offers": "Ir para as ofertas",
         "pois": "Ir para o mapa",
         "news": "Ir para as notícias"
       },
@@ -2004,7 +1924,6 @@
         "city": "Ne pare rău, această regiune nu a fost găsită.",
         "category": "Această pagină nu a fost găsită, din păcate.",
         "event": "Acest eveniment nu a fost găsit, din păcate.",
-        "offer": "Această ofertă nu a fost găsită, din păcate.",
         "poi": "Ne pare rău, această localitate nu a fost găsită.",
         "news": "Această știre nu a fost găsită, din păcate.",
         "pageTitle": "Pagină nu a fost găsită"
@@ -2022,7 +1941,6 @@
         "start": "Spre pagina de start",
         "categories": "Spre categorii",
         "events": "Spre evenimente",
-        "offers": "Spre oferte",
         "pois": "Spre hartă",
         "news": "Spre știri"
       },
@@ -2040,7 +1958,6 @@
         "city": "К сожалению, этот регион не найден.",
         "category": "К сожалению, эта страница не найдена.",
         "event": "К сожалению, это событие не найдено.",
-        "offer": "К сожалению, это предложение не найдено.",
         "poi": "К сожалению, этот населенный пункт не найден.",
         "news": "К сожалению, это сообщение не найдено.",
         "pageTitle": "Страница не найдена"
@@ -2058,7 +1975,6 @@
         "start": "К начальной странице",
         "categories": "К категориям",
         "events": "К мероприятиям",
-        "offers": "К предложениям",
         "pois": "К карте",
         "news": "К сообщениям"
       },
@@ -2076,7 +1992,6 @@
         "city": "Nasiib darro, gobolkan lama helin.",
         "category": "Nasiib darro, boggan lama helin.",
         "event": "Nasiib darro, dhacdadan lama helin.",
-        "offer": "Nasiib darro, dalabkan lama helin.",
         "poi": "Nasiib darro, goobtan lama helin.",
         "news": "Nasiib daro, fariintaan lama helin.",
         "pageTitle": "Bogga lama helin"
@@ -2094,7 +2009,6 @@
         "start": "Aad bogga koowaad",
         "categories": "Aad Qaybaha",
         "events": "Aad dhacdooyinka",
-        "offers": "Ku saabsan dalabyada",
         "pois": "Aad khariidadda",
         "news": "Ee aqbaaraha"
       },
@@ -2112,7 +2026,6 @@
         "city": "Fatkeqësisht, ky rajon nuk u gjet.",
         "category": "Kjo faqe për fat të keq nuk u gjet.",
         "event": "Ky eveniment për fat të keq nuk u gjet.",
-        "offer": "Kjo ofertë për fat të keq nuk u gjet.",
         "poi": "Fatkeqësisht, ky vend nuk u gjet.",
         "news": "Ky lajm për fat të keq nuk u gjet.",
         "pageTitle": "Faqja nuk u gjet"
@@ -2130,7 +2043,6 @@
         "start": "Në faqen kryesore",
         "categories": "Tek kategoritë",
         "events": "Tek evenimentet",
-        "offers": "Tek ofertat",
         "pois": "Tek harta",
         "news": "Tek lajmet"
       },
@@ -2148,7 +2060,6 @@
         "city": "Нажалост, овај регион није пронађен.",
         "category": "Нажалост, ова страница није пронађена.",
         "event": "Нажалост, овај догађај није пронађен.",
-        "offer": "Нажалост, ова понуда није пронађена.",
         "poi": "Нажалост, ова локација није пронађена.",
         "news": "Нажалост, ова порука није пронађена.",
         "pageTitle": "Страна није пронађена"
@@ -2166,7 +2077,6 @@
         "start": "Ка почетној страници",
         "categories": "Ка категоријама",
         "events": "Ка догађајима",
-        "offers": "Ка понудама",
         "pois": "Ка картама",
         "news": "Ка вестима"
       },
@@ -2184,7 +2094,6 @@
         "city": "Nažalost, ovaj region nije pronađen.",
         "category": "Nažalost, ova stranica nije pronađena.",
         "event": "Nažalost, ovaj događaj nije pronađen.",
-        "offer": "Nažalost, ova ponuda nije pronađena.",
         "poi": "Nažalost, ova lokacija nije pronađena.",
         "news": "Nažalost, ova poruka nije pronađena.",
         "pageTitle": "Strana nije pronađena"
@@ -2202,7 +2111,6 @@
         "start": "Ka početnoj stranici",
         "categories": "Ka kategorijama",
         "events": "Ka događajima",
-        "offers": "Ka ponudama",
         "pois": "Ka kartama",
         "news": "Ka vestima"
       },
@@ -2220,7 +2128,6 @@
         "city": "እዚ ከባቢ ክርከብ ኣይተኸኣለን።",
         "category": "ሕማቕ ኣጋጣሚ ኮይኑ፡ እዚ ገጽ’ዚ ኣይተረኽበን።",
         "event": "ሕማቕ ኣጋጣሚ ኮይኑ፡ እዚ ኣጋጣሚ እዚ ኣይተረኽበን።",
-        "offer": "ሕማቕ ኣጋጣሚ ኮይኑ፡ እዚ ኣቕርቦት’ዚ ኣይተረኽበን።",
         "poi": "እዚ ቦታ ክርከብ ኣይተኸኣለን።",
         "news": "ሕማቕ ኣጋጣሚ ኾይኑ፡ እዚ መልእኽቲ እዚ ኣይተረኽበን።",
         "pageTitle": "ገጽ ኣይተረኽበን"
@@ -2238,7 +2145,6 @@
         "start": "ናብ ቀዳማይ ገጽ",
         "categories": "ናብቶም ምድባት",
         "events": "ናብቶም ኣጋጣሚታት",
-        "offers": "ብዛዕባ እቶም ኣቕርቦታት",
         "pois": "ናብ ካርታ",
         "news": "ነቲ ዜና"
       },
@@ -2256,7 +2162,6 @@
         "city": "Maalesef, bu bölge bulunamadı.",
         "category": "Bu sayfa maalesef bulunamadı.",
         "event": "Bu etkinlik maalesef bulunamadı.",
-        "offer": "Bu teklif maalesef bulunamadı.",
         "poi": "Maalesef, bu yer bulunamadı.",
         "news": "Bu mesaj ne yazık ki bulunamadı.",
         "pageTitle": "Sayfa bulunamadı"
@@ -2274,7 +2179,6 @@
         "start": "Ana sayfaya git",
         "categories": "Kategorilere git",
         "events": "Etkinliklere git",
-        "offers": "Tekliflere git",
         "pois": "Haritaya git",
         "news": "Mesajlara git"
       },
@@ -2292,7 +2196,6 @@
         "city": "Вибачте, цей регіон не знайдено.",
         "category": "Вибачте, ця сторінка не знайдено.",
         "event": "Вибачте, це не знайдено.",
-        "offer": "Вибачте, ця пропозиція не знайдена.",
         "poi": "Вибачте, це місце не знайдено.",
         "news": "На жаль, ця новина не знайдена.",
         "pageTitle": "Сторінка не знайдена"
@@ -2310,7 +2213,6 @@
         "start": "На головну сторінку",
         "categories": "До категорій",
         "events": "До подій",
-        "offers": "До пропозицій",
         "pois": "До карти",
         "news": "До новин"
       },
@@ -2328,7 +2230,6 @@
         "city": "معذرت، یہ علاقہ یہاں دستیاب نہیں۔",
         "category": "معذرت، یہ صفحہ نہیں ملا۔",
         "event": "معذرت، یہ ایونٹ نہیں ملا۔",
-        "offer": "معذرت، یہ پیش کش نہیں ملی۔",
         "poi": "معذرت، یہ جگہ  یہاں نہیں ملی۔",
         "news": "معذرت، یہ خبر نہیں ملی۔",
         "pageTitle": "صفحہ نہیں ملا"
@@ -2346,7 +2247,6 @@
         "start": "صفحہ اول پر",
         "categories": "زمروں پر",
         "events": "ایونٹس پر",
-        "offers": "پیش کشوں کے متعلق",
         "pois": "نقشے سے متعلق",
         "news": "خبروں پر"
       },
@@ -2364,7 +2264,6 @@
         "city": "很遗憾，未找到此地区。",
         "category": "很抱歉，找不到此页面。",
         "event": "很抱歉，找不到此活动。",
-        "offer": "很抱歉，找不到此提供项目。",
         "poi": "很遗憾，未找到此地点。",
         "news": "很抱歉，找不到此新闻。",
         "pageTitle": "未找到网页"
@@ -2382,7 +2281,6 @@
         "start": "前往主页",
         "categories": "前往类别",
         "events": "前往活动",
-        "offers": "前往提供项目",
         "pois": "前往地图",
         "news": "前往新闻"
       },
@@ -3843,8 +3741,6 @@
       "languageChangeDescription": "Einfaches Umstellen der Sprache einzelner Seiten",
       "events": "Veranstaltungen",
       "eventsDescription": "Aktuelle Veranstaltungen und Termine in der Umgebung",
-      "offers": "Angebote",
-      "offersDescription": "Jobsuche, Praktikasuche und mehr in der Umgebung",
       "skip": "Überspringen",
       "next": "Weiter"
     },
@@ -3856,8 +3752,6 @@
       "languageChangeDescription": "የእያንዳንዱን ገጾች ቋንቋ በቀላሉ ይቀይሩ",
       "events": "ዝግጅቶች",
       "eventsDescription": "በአካባቢው ያሉ ወቅታዊ ዝግጅቶችና ቀናት",
-      "offers": "ግብዣዎች/ መጥሪያዎች",
-      "offersDescription": "በአካባቢው ያለ የስራ ፍለጋ፣ የልምምድ ስራ ፍለጋ እና የሌሎችም ፍለጋ",
       "skip": "ይለፉ",
       "next": "ቀጣይ"
     },
@@ -3869,8 +3763,6 @@
       "languageChangeDescription": "تغيير سهل للغة كل صفحة على حدة",
       "events": "الفعاليات",
       "eventsDescription": "فعاليات ومواعيد حالية في المنطقة المحيطة",
-      "offers": "العروض",
-      "offersDescription": "البحث عن عمل، البحث عن تدريب والكثير من الأمور الأخرى في المنطقة المحيطة",
       "skip": "تخطي",
       "next": "استمرار"
     },
@@ -3882,8 +3774,6 @@
       "languageChangeDescription": "Променяйте лесно езика на отделните страници",
       "events": "Събития",
       "eventsDescription": "Текущи събития и дати в района",
-      "offers": "Оферти",
-      "offersDescription": "Търсене на работа, търсене на стаж и други в района",
       "skip": "Пропусни",
       "next": "Напред"
     },
@@ -3895,8 +3785,6 @@
       "languageChangeDescription": "بائاسانی زمانی هەرکام لە لاپەڕەکان بگۆڕە",
       "events": "ڕووداوەکان",
       "eventsDescription": "ڕووداوەکان و چاوپێکەوتنەکانی ئێستای تۆ لە دەورووپشتت",
-      "offers": "پێشنیارەکان",
-      "offersDescription": "گەڕان لەکار، گەڕان لە خولی فێرکاری کاری و بڕگەکانی دیکە لە دەوروپشتت",
       "skip": "بازدان",
       "next": "بەردەوامی"
     },
@@ -3908,8 +3796,6 @@
       "languageChangeDescription": "Snadná změna jazyka jednotlivých stránek",
       "events": "Akce",
       "eventsDescription": "Aktuální akce a termíny v okolí",
-      "offers": "Nabídky",
-      "offersDescription": "Hledání práce, stáží a dalšího v okolí",
       "skip": "Přeskočit",
       "next": "Další"
     },
@@ -3921,8 +3807,6 @@
       "languageChangeDescription": "Αλλάξτε εύκολα τη γλώσσα μεμονωμένων σελίδων",
       "events": "Εκδηλώσεις",
       "eventsDescription": "Τρέχουσες εκδηλώσεις και ημερομηνίες στην περιοχή",
-      "offers": "Προσφορές",
-      "offersDescription": "Αναζήτηση εργασίας, αναζήτηση πρακτικής και πολλά άλλα στην περιοχή",
       "skip": "Παραλείπω",
       "next": "Συνέχεια"
     },
@@ -3934,8 +3818,6 @@
       "languageChangeDescription": "Changing the language on individual pages is simple",
       "events": "Events",
       "eventsDescription": "Current events and dates in the surrounding area",
-      "offers": "Offers",
-      "offersDescription": "Job search, internship search and more in the area",
       "skip": "Skip",
       "next": "Continue"
     },
@@ -3947,8 +3829,6 @@
       "languageChangeDescription": "Cambie fácilmente el idioma de las páginas individuales",
       "events": "Actividades",
       "eventsDescription": "Eventos actuales y fechas en los alrededores",
-      "offers": "Ofertas",
-      "offersDescription": "Búsqueda de trabajo, búsqueda de prácticas y más en la zona",
       "skip": "Saltar",
       "next": "Seguir"
     },
@@ -3960,8 +3840,6 @@
       "languageChangeDescription": "Helppo yksittäisten sivujen kielenvaihto",
       "events": "Tapahtumat",
       "eventsDescription": "Ympäristön ajankohtaiset tapahtumat ja aikataulut",
-      "offers": "Tarjoukset",
-      "offersDescription": "Ympäristön työnhaku, harjoittelupaikkahaku ja paljon muuta",
       "skip": "Ohita",
       "next": "Eteenpäin"
     },
@@ -3973,8 +3851,6 @@
       "languageChangeDescription": "Réglage facile de la langue des différentes pages",
       "events": "Événements",
       "eventsDescription": "Actualités et rendez-vous dans les environs",
-      "offers": "Offres",
-      "offersDescription": "Recherche d'emploi, recherche de stage et plus encore dans la région",
       "skip": "Passer",
       "next": "Suite"
     },
@@ -3986,8 +3862,6 @@
       "languageChangeDescription": "Jednostavna promjena jezika pojedinih stranica",
       "events": "Događanja",
       "eventsDescription": "Aktualna događanja i termini u okolici",
-      "offers": "Ponude",
-      "offersDescription": "Traženje posla, traženje pripravništva i još puno toga u okolici",
       "skip": "Preskoči",
       "next": "Dalje"
     },
@@ -3999,8 +3873,6 @@
       "languageChangeDescription": "Egyes oldalak nyelvének egyszerű átállítása",
       "events": "Események",
       "eventsDescription": "Aktuális események és időpontok a környéken",
-      "offers": "Ajánlatok",
-      "offersDescription": "Állásajánlatok, gyakornoki helyek és egyéb a környéken",
       "skip": "Átugrás",
       "next": "Tovább"
     },
@@ -4012,8 +3884,6 @@
       "languageChangeDescription": "Cambia facilmente la lingua delle singole pagine",
       "events": "Eventi",
       "eventsDescription": "Eventi e appuntamenti nei dintorni",
-      "offers": "Offerte",
-      "offersDescription": "Offerte di lavoro, tirocini e altro nei dintorni",
       "skip": "Salta",
       "next": "Avanti"
     },
@@ -4025,8 +3895,6 @@
       "languageChangeDescription": "ცალკეული გვერდების ენების მარტივი გადაყვანა",
       "events": "ღონისძიებები",
       "eventsDescription": "ახლოს არსებული მიმდინარე ღონისძიებები და ტერმინები",
-      "offers": "შეთავაზებები",
-      "offersDescription": "ახლო მდებარე დასაქმების-, პრაქტიკისა და სხვა მრავალის ძიება",
       "skip": "გამოტოვება",
       "next": "გაგრძელება"
     },
@@ -4038,8 +3906,6 @@
       "languageChangeDescription": "Guhertina rihet a Ziman di kit bi kitê rûpelan da",
       "events": "Rûdan",
       "eventsDescription": "Rûdanên niha û demên hevdîtinê li hawîrdor",
-      "offers": "Xizmet",
-      "offersDescription": "Lêgerîna li Şolê, Lêgerîna li Kursa Şola Ceribandinî û zêdetir li hawîrdorê",
       "skip": "Nepejirandin",
       "next": "Berdewam"
     },
@@ -4051,8 +3917,6 @@
       "languageChangeDescription": "Едноставна промена на јазикот на поединечна страница",
       "events": "Настани",
       "eventsDescription": "Актуелни настани и термини во околината",
-      "offers": "Понуди",
-      "offersDescription": "Пребарување работни места, пракса и друго во околината",
       "skip": "Прескокни",
       "next": "Понатаму"
     },
@@ -4064,8 +3928,6 @@
       "languageChangeDescription": "Het wijzigen van de taal op individuele pagina's is makkelijk.",
       "events": "Evenementen",
       "eventsDescription": "Huidige evenementen en data in de omgeving",
-      "offers": "Aanbod",
-      "offersDescription": "Een baan zoeken, een stage zoeken en meer in de omgeving",
       "skip": "Sla over",
       "next": "Ga door"
     },
@@ -4077,8 +3939,6 @@
       "languageChangeDescription": "تغییر راحت زبان در تک تک صفحات",
       "events": "رویدادها",
       "eventsDescription": "رویدادهای فعلی و وقت های ملاقات در محیط اطراف",
-      "offers": "خدمات",
-      "offersDescription": "جستجوی کار، جستجوی کارورزی و بیشتر در محیط اطراف",
       "skip": "رد شدن",
       "next": "ادامه"
     },
@@ -4090,8 +3950,6 @@
       "languageChangeDescription": "Łatwa zmiana języka na pojedynczych stronach",
       "events": "Wydarzenia",
       "eventsDescription": "Aktualne wydarzenia i terminy w okolicy",
-      "offers": "Oferty",
-      "offersDescription": "Oferty pracy, staże itd. w okolicy",
       "skip": "Pomiń",
       "next": "Dalej"
     },
@@ -4103,8 +3961,6 @@
       "languageChangeDescription": "به راحتی لسان هر یک از صفحات را تغییر دهید",
       "events": "رویدادها",
       "eventsDescription": "رویدادها و ملاقات های فعلی در مناطق اطراف",
-      "offers": "پیشنهادات",
-      "offersDescription": "جستجوی کار، جستجوی کارورزی و موارد دیگر در مناطق اطراف",
       "skip": "پرش",
       "next": "ادامه"
     },
@@ -4116,8 +3972,6 @@
       "languageChangeDescription": "د انفرادي پاڼو ژبې ته په اسانۍ تغیر ورکول",
       "events": "غونډې",
       "eventsDescription": "دا مهال په دې شاوخوا کې غونډې او ملاقاتونه",
-      "offers": "وړاندیزونه",
-      "offersDescription": "دې شاوخوا کې د کار لټون، د انټرن شپ لټون او نور",
       "skip": "اووښتل یعنی ورتیریدل",
       "next": "مخته"
     },
@@ -4129,8 +3983,6 @@
       "languageChangeDescription": "Mudar facilmente de idioma em páginas individuais",
       "events": "Eventos",
       "eventsDescription": "Eventos e acontecimentos atuais nas imediações",
-      "offers": "Ofertas",
-      "offersDescription": "Procura de emprego, procura de estágio e muito mais nas imediações",
       "skip": "Saltar",
       "next": "Seguinte"
     },
@@ -4142,8 +3994,6 @@
       "languageChangeDescription": "Schimbare simplă a limbii paginilor individuale",
       "events": "Evenimente",
       "eventsDescription": "Evenimente curente și date de desfășurare în împrejurimi",
-      "offers": "Oferte",
-      "offersDescription": "Căutare loc de muncă, căutare loc de practică și multe altele în împrejurimi",
       "skip": "Treceți peste",
       "next": "Mai departe"
     },
@@ -4155,8 +4005,6 @@
       "languageChangeDescription": "Простая смена языка отдельных страниц",
       "events": "Мероприятия",
       "eventsDescription": "Актуальные мероприятия и события рядом с вами",
-      "offers": "Предложения",
-      "offersDescription": "Поиск работы, поиск стажировки и многое другое рядом с вами",
       "skip": "Пропустить",
       "next": "Далее"
     },
@@ -4168,8 +4016,6 @@
       "languageChangeDescription": "Si fudud u beddel luqadda bog kasta",
       "events": "Dhacdooyinka",
       "eventsDescription": "Dhacdooyinka hadda ah iyo taariikhaha ee ka jira deegaanka",
-      "offers": "Heshiisyo",
-      "offersDescription": "Raadin shaqo, raadin shaqo-barasho iyo inbadan oo ka jira deegaanka",
       "skip": "Ka bood",
       "next": "Dheeraad ah"
     },
@@ -4181,8 +4027,6 @@
       "languageChangeDescription": "Ndryshoni lehtë gjuhën e faqeve individuale",
       "events": "Evenimentet",
       "eventsDescription": "Evenimentet aktuale dhe datat në zonë",
-      "offers": "Ofertat",
-      "offersDescription": "Kërkimi i punës, kërkimi i punëve praktikë dhe më shumë në zonë",
       "skip": "Kapërce",
       "next": "Vazhdo"
     },
@@ -4194,8 +4038,6 @@
       "languageChangeDescription": "Једноставна промена језика на појединим странама",
       "events": "Догађаји",
       "eventsDescription": "Тренутни догађаји и термини у окружењу",
-      "offers": "Понуде",
-      "offersDescription": "Тражење посла, тражење праксе и још много тога у окружењу",
       "skip": "Прескочи",
       "next": "Даље"
     },
@@ -4207,8 +4049,6 @@
       "languageChangeDescription": "Jednostavna promena jezika na pojedinim stranama",
       "events": "Događaji",
       "eventsDescription": "Trenutni događaji i termini u okruženju",
-      "offers": "Ponude",
-      "offersDescription": "Traženje posla, traženje prakse i još mnogo toga u okruženju",
       "skip": "Preskoči",
       "next": "Dalje"
     },
@@ -4220,8 +4060,6 @@
       "languageChangeDescription": "ናይ ውልቀ-ገጻት ቋንቋ ብቐሊሉ ቀይር",
       "events": "ኣጋጣሚታት",
       "eventsDescription": "ህሉው ኣጋጣሚታትን ዕለታትን ኣብቲ ከባቢ",
-      "offers": "ውዕላት",
-      "offersDescription": "ፍተሻ ስራሕ፡ ናይ ተልምዴንነት ስራሕን ካልእ ተወሳኽን ኣብቲ ከባቢ",
       "skip": "ስገር",
       "next": "ተወሳኺ"
     },
@@ -4233,8 +4071,6 @@
       "languageChangeDescription": "Her bir sayfanın dilini kolayca değiştirin",
       "events": "Etkinlikler",
       "eventsDescription": "Çevredeki güncel etkinlikler ve tarihler",
-      "offers": "Teklifler",
-      "offersDescription": "Çevrenizde iş arama, staj arama ve daha fazlası",
       "skip": "Atla",
       "next": "Devam"
     },
@@ -4246,8 +4082,6 @@
       "languageChangeDescription": "Легко змінити мову окремих сторінок",
       "events": "Події",
       "eventsDescription": "Поточні події та дати в регіоні",
-      "offers": "Пропозиції",
-      "offersDescription": "Пошук роботи, стажування та багато іншого в регіоні",
       "skip": "Пропустити",
       "next": "Наступний"
     },
@@ -4259,8 +4093,6 @@
       "languageChangeDescription": "انفرادی صفحات کی زبان آسانی سے تبدیل کریں",
       "events": "ایونٹس",
       "eventsDescription": "علاقے میں حالیہ ایونٹس اور تاریخیں",
-      "offers": "پیش کشیں",
-      "offersDescription": "علاقے میں نوکری کی تلاش، انٹرن شپ کی تلاش اور مزید",
       "skip": "رہنے دیں",
       "next": "آگے"
     },
@@ -4272,8 +4104,6 @@
       "languageChangeDescription": "轻松更改个别页面的语言",
       "events": "活动",
       "eventsDescription": "该地区当前的活动及其日期",
-      "offers": "提供项目",
-      "offersDescription": "该地区的求职、实习等方面的信息",
       "skip": "跳过",
       "next": "继续"
     }
@@ -4862,7 +4692,6 @@
     "de": {
       "imprintAndContact": "Impressum und Kontakt",
       "privacy": "Datenschutz",
-      "offers": "Angebote",
       "localInformation": "Lokale Informationen",
       "events": "Veranstaltungen",
       "noEvents": "Keine Veranstaltungen",
@@ -4887,7 +4716,6 @@
     "am": {
       "imprintAndContact": "ዕትም እና የግንኙነት መረጃ",
       "privacy": "የግላዊነት ፖሊሲ",
-      "offers": "ግብዣዎች/ መጥሪያዎች",
       "localInformation": "አካባቢያዊ መረጃ",
       "events": "ዝግጅቶች",
       "noEvents": "ምንም ዝግጅቶች የሉም",
@@ -4912,7 +4740,6 @@
     "ar": {
       "imprintAndContact": "هيئة التحرير وجهة الاتصال",
       "privacy": "حماية البيانات",
-      "offers": "العروض",
       "localInformation": "معلومات محلية",
       "events": "الفعاليات",
       "noEvents": "لا توجد فعاليات",
@@ -4937,7 +4764,6 @@
     "bg": {
       "imprintAndContact": "Импресум и контакт",
       "privacy": "Защита на личните данни",
-      "offers": "Оферти",
       "localInformation": "Местна информация",
       "events": "Събития",
       "noEvents": "Няма събития",
@@ -4962,7 +4788,6 @@
     "ckb": {
       "imprintAndContact": "زانیارییەکانی ناوەندی بڵاوکەرەوە و زانیارییەکانی پەیوەندی",
       "privacy": "پاراستنی دێیتاکان",
-      "offers": "پێشنیارەکان",
       "localInformation": "زانیارییە خۆجییەکان",
       "events": "ڕووداوەکان",
       "noEvents": "هیچ ڕووداوێکی تێدا نییە",
@@ -4987,7 +4812,6 @@
     "cs": {
       "imprintAndContact": "Impresum a kontakt",
       "privacy": "Ochrana údajů",
-      "offers": "Nabídky",
       "localInformation": "Lokální informace",
       "events": "Akce",
       "noEvents": "Žádné akce",
@@ -5012,7 +4836,6 @@
     "el": {
       "imprintAndContact": "Στοιχεία έκδοσης και επικοινωνία",
       "privacy": "Προστασία δεδομένων ",
-      "offers": "Προσφορές",
       "localInformation": "Τοπικές πληροφορίες",
       "events": "Εκδηλώσεις",
       "noEvents": "Δεν υπάρχουν εκδηλώσεις",
@@ -5037,7 +4860,6 @@
     "en": {
       "imprintAndContact": "Imprint and contacts",
       "privacy": "Data protection",
-      "offers": "Offers",
       "localInformation": "Local information",
       "events": "Events",
       "noEvents": "No events",
@@ -5062,7 +4884,6 @@
     "es": {
       "imprintAndContact": "Aviso legal y contacto",
       "privacy": "Privacidad",
-      "offers": "Ofertas",
       "localInformation": "Información local",
       "events": "Actividades",
       "noEvents": "No hay actividades",
@@ -5087,7 +4908,6 @@
     "fi": {
       "imprintAndContact": "Julkaisu- ja yhteystiedot",
       "privacy": "Tietosuoja",
-      "offers": "Tarjoukset",
       "localInformation": "Paikalliset tiedot",
       "events": "Tapahtumat",
       "noEvents": "Ei tapahtumia",
@@ -5112,7 +4932,6 @@
     "fr": {
       "imprintAndContact": "Mentions légales et contact",
       "privacy": "Protection des données",
-      "offers": "Offres",
       "localInformation": "Informations locales",
       "events": "Événements",
       "noEvents": "Aucun événement",
@@ -5137,7 +4956,6 @@
     "hr": {
       "imprintAndContact": "Impresum i kontakt",
       "privacy": "Zaštita podataka",
-      "offers": "Ponude",
       "localInformation": "Lokalne informacije",
       "events": "Događanja",
       "noEvents": "Nema događanja",
@@ -5162,7 +4980,6 @@
     "hu": {
       "imprintAndContact": "Impresszum és elérhetőség",
       "privacy": "Adatvédelem",
-      "offers": "Ajánlatok",
       "localInformation": "Helyi információk",
       "events": "Események",
       "noEvents": "Nincs esemény",
@@ -5187,7 +5004,6 @@
     "it": {
       "imprintAndContact": "Impressum e contatti",
       "privacy": "Protezione dei dati",
-      "offers": "Offerte",
       "localInformation": "Informazioni locali",
       "events": "Eventi",
       "noEvents": "Nessun evento",
@@ -5212,7 +5028,6 @@
     "ka": {
       "imprintAndContact": "მისამართი და საკონტაქტო ინფორმაცია",
       "privacy": "მონაცემთა დაცვა",
-      "offers": "შეთავაზებები",
       "localInformation": "ადგილობრივი ინფორმაციები",
       "events": "ღონისძიებები",
       "noEvents": "არანაირი ღონისძიებები",
@@ -5237,7 +5052,6 @@
     "kmr": {
       "imprintAndContact": "Lêzanînên Weşîner û Têkillî",
       "privacy": "Parastina daneyan",
-      "offers": "Xizmet",
       "localInformation": "Zanyariyên xwecihî",
       "events": "Rûdan",
       "noEvents": "Tu rûdanek tuneye",
@@ -5262,7 +5076,6 @@
     "mk": {
       "imprintAndContact": "Импресум и контакт",
       "privacy": "Заштита на лични податоци",
-      "offers": "Понуди",
       "localInformation": "Локални информации",
       "events": "Настани",
       "noEvents": "Нема настани",
@@ -5287,7 +5100,6 @@
     "nl": {
       "imprintAndContact": "Impressum en contactgegevens",
       "privacy": "Gegevensbescherming",
-      "offers": "Aanbod",
       "localInformation": "Lokale informatie",
       "events": "Evenementen",
       "noEvents": "Geen evenementen",
@@ -5312,7 +5124,6 @@
     "pes": {
       "imprintAndContact": "اطلاعات ناشر و تماس",
       "privacy": "حفاظت از داده ها",
-      "offers": "خدمات",
       "localInformation": "اطلاعات محلی",
       "events": "رویدادها",
       "noEvents": "رویدادی وجود ندارد",
@@ -5337,7 +5148,6 @@
     "pl": {
       "imprintAndContact": "Nota prawna i kontakt",
       "privacy": "Ochrona danych",
-      "offers": "Oferty",
       "localInformation": "Informacje lokalne",
       "events": "Wydarzenia",
       "noEvents": "Brak wydarzeń",
@@ -5362,7 +5172,6 @@
     "prs": {
       "imprintAndContact": "معلومات ناشر و تماس",
       "privacy": "حفاظت از داده ها",
-      "offers": "پیشنهادات",
       "localInformation": "معلومات محلی",
       "events": "رویدادها",
       "noEvents": "هیچ رویدادی وجود ندارد",
@@ -5387,7 +5196,6 @@
     "ps": {
       "imprintAndContact": "چاپ او اړیکه",
       "privacy": "د ډاټا حفاظت",
-      "offers": "وړاندیزونه",
       "localInformation": "سیمه ییز معلومات",
       "events": "غونډې",
       "noEvents": "غونډې نشته",
@@ -5412,7 +5220,6 @@
     "pt": {
       "imprintAndContact": "Pé de imprensa e contactos",
       "privacy": "Proteção de dados",
-      "offers": "Ofertas",
       "localInformation": "Informações locais",
       "events": "Eventos",
       "noEvents": "Não existem eventos",
@@ -5437,7 +5244,6 @@
     "ro": {
       "imprintAndContact": "Caseta tehnică și contact",
       "privacy": "Confidențialitate",
-      "offers": "Oferte",
       "localInformation": "Informații locale",
       "events": "Evenimente",
       "noEvents": "Nici un fel de evenimente",
@@ -5462,7 +5268,6 @@
     "ru": {
       "imprintAndContact": "Выходные данные и контактная информация",
       "privacy": "Защита данных",
-      "offers": "Предложения",
       "localInformation": "Местная информация",
       "events": "Мероприятия",
       "noEvents": "Мероприятия отсутствуют",
@@ -5487,7 +5292,6 @@
     "so": {
       "imprintAndContact": "Faahfaahinta qoraaga iyo macaluumaadkiisa xiriirka",
       "privacy": "Asturnaanta",
-      "offers": "Heshiisyo",
       "localInformation": "Macluumaadka deegaanka",
       "events": "Dhacdooyinka",
       "noEvents": "Ma jiraan dhacdooyin",
@@ -5512,7 +5316,6 @@
     "sq": {
       "imprintAndContact": "Botuesi dhe kontakti",
       "privacy": "Mbrojtja e të dhënave",
-      "offers": "Ofertat",
       "localInformation": "Informata lokale",
       "events": "Evenimentet",
       "noEvents": "Nuk ka evenimente",
@@ -5537,7 +5340,6 @@
     "sr-Cyrl": {
       "imprintAndContact": "Импресум и контакт",
       "privacy": "Заштита података",
-      "offers": "Понуде",
       "localInformation": "Локалне информације",
       "events": "Догађаји",
       "noEvents": "Нема догађаја",
@@ -5562,7 +5364,6 @@
     "sr-Latn": {
       "imprintAndContact": "Impresum i kontakt",
       "privacy": "Zaštita podataka",
-      "offers": "Ponude",
       "localInformation": "Lokalne informacije",
       "events": "Događaji",
       "noEvents": "Nema događaja",
@@ -5587,7 +5388,6 @@
     "ti": {
       "imprintAndContact": "ናይ ደራሲ ዝርዝራት ሓበሬታን ናይ ርክብን",
       "privacy": "ምስጢርነት",
-      "offers": "ውዕላት",
       "localInformation": "ከባብያዊ ሓበሬታ",
       "events": "ኣጋጣሚታት",
       "noEvents": "ኣጋጣሚታት የለዉን",
@@ -5612,7 +5412,6 @@
     "tr": {
       "imprintAndContact": "Künye ve iletişim",
       "privacy": "Kişisel verilerin korunması",
-      "offers": "Teklifler",
       "localInformation": "Yerel bilgiler",
       "events": "Etkinlikler",
       "noEvents": "Etkinlik yok",
@@ -5637,7 +5436,6 @@
     "uk": {
       "imprintAndContact": "Імпресум та контакт",
       "privacy": "Захист даних",
-      "offers": "Пропозиції",
       "localInformation": "Місцева інформація",
       "events": "Події",
       "noEvents": "Немає подій",
@@ -5662,7 +5460,6 @@
     "ur": {
       "imprintAndContact": "چھاپ اور رابطہ",
       "privacy": "ڈیٹا کا تحفظ",
-      "offers": "پیش کشیں",
       "localInformation": "مقامی معلومات",
       "events": "ایونٹس",
       "noEvents": "کوئی ایونٹس نہیں ہیں",
@@ -5687,7 +5484,6 @@
     "zh-CN": {
       "imprintAndContact": "版本说明和联系方式",
       "privacy": "数据保护",
-      "offers": "提供项目",
       "localInformation": "本地信息",
       "events": "活动",
       "noEvents": "没有活动",
@@ -6498,178 +6294,6 @@
       "local": "本地",
       "readMore": "继续阅读",
       "currentlyNoNews": "目前没有新闻。"
-    }
-  },
-  "offers": {
-    "de": {
-      "offers": "Angebote",
-      "pageTitle": "Angebote",
-      "wohnraum": "Wohnraum"
-    },
-    "am": {
-      "offers": "ግብዣዎች/ መጥሪያዎች",
-      "pageTitle": "ግብዣዎች/ መጥሪያዎች",
-      "wohnraum": "መኖሪያ ቤት"
-    },
-    "ar": {
-      "offers": "العروض",
-      "pageTitle": "العروض",
-      "wohnraum": "غرفة المعيشة"
-    },
-    "bg": {
-      "offers": "Оферти",
-      "pageTitle": "Оферти",
-      "wohnraum": "Жилище"
-    },
-    "ckb": {
-      "offers": "پێشنیارەکان",
-      "pageTitle": "پێشنیارەکان",
-      "wohnraum": "جەوی ژیان"
-    },
-    "cs": {
-      "offers": "Nabídky",
-      "pageTitle": "Nabídky",
-      "wohnraum": "Obytný prostor"
-    },
-    "el": {
-      "offers": "Προσφορές",
-      "pageTitle": "Προσφορές",
-      "wohnraum": "Κατοικία"
-    },
-    "en": {
-      "offers": "Offers",
-      "pageTitle": "Offers",
-      "wohnraum": "Housing"
-    },
-    "es": {
-      "offers": "Ofertas",
-      "pageTitle": "Ofertas",
-      "wohnraum": "Vivienda"
-    },
-    "fi": {
-      "offers": "Tarjoukset",
-      "pageTitle": "Tarjoukset",
-      "wohnraum": "Asuinalue"
-    },
-    "fr": {
-      "offers": "Offres",
-      "pageTitle": "Offres",
-      "wohnraum": "Espace vital"
-    },
-    "hr": {
-      "offers": "Ponude",
-      "pageTitle": "Ponude",
-      "wohnraum": "Stambeni prostor"
-    },
-    "hu": {
-      "offers": "Ajánlatok",
-      "pageTitle": "Ajánlatok",
-      "wohnraum": "Lakóterület"
-    },
-    "it": {
-      "offers": "Offerte",
-      "pageTitle": "Offerte",
-      "wohnraum": "Vano"
-    },
-    "ka": {
-      "offers": "შეთავაზებები",
-      "pageTitle": "შეთავაზებები",
-      "wohnraum": "საცხოვრებელი ოთახი"
-    },
-    "kmr": {
-      "offers": "Xizmet",
-      "pageTitle": "Xizmet",
-      "wohnraum": "Atmosfera jiyanê"
-    },
-    "mk": {
-      "offers": "Понуди",
-      "pageTitle": "Понуди",
-      "wohnraum": "Станбен простор"
-    },
-    "nl": {
-      "offers": "Aanbod",
-      "pageTitle": "Aanbod",
-      "wohnraum": "Huisvesting"
-    },
-    "pes": {
-      "offers": "خدمات",
-      "pageTitle": "پیشنهادات",
-      "wohnraum": "مسکن"
-    },
-    "pl": {
-      "offers": "Oferty",
-      "pageTitle": "Oferty",
-      "wohnraum": "Zakwaterowania"
-    },
-    "prs": {
-      "offers": "پیشنهادات",
-      "pageTitle": "پیشنهادات",
-      "wohnraum": "مسکن"
-    },
-    "ps": {
-      "offers": "وړاندیزونه",
-      "pageTitle": "وړاندیزونه",
-      "wohnraum": "د اوسیدلو کوټہ"
-    },
-    "pt": {
-      "offers": "Ofertas",
-      "pageTitle": "Ofertas",
-      "wohnraum": "Habitação"
-    },
-    "ro": {
-      "offers": "Oferte",
-      "pageTitle": "Oferte",
-      "wohnraum": "Spațiu de locuit"
-    },
-    "ru": {
-      "offers": "Предложения",
-      "pageTitle": "Предложения",
-      "wohnraum": "Жильё"
-    },
-    "so": {
-      "offers": "Heshiisyo",
-      "pageTitle": "Heshiisyo",
-      "wohnraum": "Qolka fadhiga"
-    },
-    "sq": {
-      "offers": "Ofertat",
-      "pageTitle": "Ofertat",
-      "wohnraum": "Vendbanimi"
-    },
-    "sr-Cyrl": {
-      "offers": "Понуде",
-      "pageTitle": "Понуде",
-      "wohnraum": "Стамбени простор"
-    },
-    "sr-Latn": {
-      "offers": "Ponude",
-      "pageTitle": "Ponude",
-      "wohnraum": "Stambeni prostor"
-    },
-    "ti": {
-      "offers": "ውዕላት",
-      "pageTitle": "ውዕላት",
-      "wohnraum": "መንበሪ ገዛ"
-    },
-    "tr": {
-      "offers": "Teklifler",
-      "pageTitle": "Teklifler",
-      "wohnraum": "Oturma odası"
-    },
-    "uk": {
-      "offers": "Пропозиції",
-      "pageTitle": "Пропозиції",
-      "wohnraum": "Житло"
-    },
-    "ur": {
-      "offers": "پیش کشیں",
-      "pageTitle": "پیش کشیں",
-      "wohnraum": "رابطہ کی تفصیلات"
-    },
-    "zh-CN": {
-      "offers": "提供项目",
-      "pageTitle": "提供项目",
-      "wohnraum": "居住空间"
     }
   },
   "pois": {

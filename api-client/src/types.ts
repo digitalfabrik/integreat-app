@@ -152,7 +152,6 @@ export type JsonCityType = {
   live: boolean
   languages: JsonLanguageType[]
   events: boolean
-  extras: boolean
   pois: boolean
   tunews: boolean
   push_notifications: boolean

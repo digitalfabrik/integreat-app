@@ -11,11 +11,9 @@ import {
   LicensesRouteType,
   MalteHelpFormOfferRouteType,
   NewsRouteType,
-  OffersRouteType,
   PoisRouteType,
   SearchRouteType,
   SettingsRouteType,
-  SprungbrettOfferRouteType,
 } from '../routes'
 
 export const JPAL_TRACKING_CODE_QUERY_PARAM = 'jpal_tracking_code'
@@ -28,8 +26,6 @@ export type OpenPageSignalType = {
     | CategoriesRouteType
     | EventsRouteType
     | NewsRouteType
-    | OffersRouteType
-    | SprungbrettOfferRouteType
     | DisclaimerRouteType
     | PoisRouteType
     | SearchRouteType

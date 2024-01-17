@@ -7,12 +7,9 @@ import {
   JPAL_TRACKING_ROUTE,
   LANDING_ROUTE,
   LICENSES_ROUTE,
-  MALTE_HELP_FORM_OFFER_ROUTE,
   NEWS_ROUTE,
-  OFFERS_ROUTE,
   POIS_ROUTE,
   SEARCH_ROUTE,
-  SPRUNGBRETT_OFFER_ROUTE,
 } from '.'
 import { NonNullableRouteInformationType } from '..'
 
@@ -47,11 +44,6 @@ export const pathnameFromRouteInformation = (routeInformation: NonNullableRouteI
     // https://integreat.app/jpal
     return constructPathname([CITY_NOT_COOPERATING_ROUTE, routeInformation.languageCode])
   }
-  if (routeInformation.route === SPRUNGBRETT_OFFER_ROUTE || routeInformation.route === MALTE_HELP_FORM_OFFER_ROUTE) {
-    const { cityCode, languageCode, route } = routeInformation
-    // https://integreat.app/augsburg/de/offers/sprungbrett
-    return constructPathname([cityCode, languageCode, OFFERS_ROUTE, route])
-  }
   if (routeInformation.route === CATEGORIES_ROUTE) {
     // https://integreat.app/augsburg/de/, https://integreat.app/augsburg/de/willkommen/erste-schritte
     return constructPathname([routeInformation.cityContentPath])
@@ -63,11 +55,10 @@ export const pathnameFromRouteInformation = (routeInformation: NonNullableRouteI
   }
   if (
     routeInformation.route === DISCLAIMER_ROUTE ||
-    routeInformation.route === OFFERS_ROUTE ||
     routeInformation.route === SEARCH_ROUTE ||
     routeInformation.route === NEWS_ROUTE
   ) {
-    // https://integreat.app/augsburg/de/offers, https://integreat.app/augsburg/de/search, ...
+    // https://integreat.app/augsburg/de/search, https://integerat.app/augsburg/de/news/local
     const { cityCode, languageCode } = routeInformation
     const newsType = routeInformation.route === NEWS_ROUTE ? routeInformation.newsType : null
     const newsId = routeInformation.route === NEWS_ROUTE ? routeInformation.newsId : null

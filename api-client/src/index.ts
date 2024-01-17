@@ -60,10 +60,9 @@ export {
   default as createTunewsElementEndpoint,
   TUNEWS_ELEMENT_ENDPOINT_NAME,
 } from './endpoints/createTunewsElementEndpoint'
-export { default as createOffersEndpoint, OFFERS_ENDPOINT_NAME, createPostMap } from './endpoints/createOffersEndpoint'
+export { default as createPostMap } from './mapping/createPostMap'
 export { default as createFeedbackEndpoint, FEEDBACK_ENDPOINT_NAME } from './endpoints/createFeedbackEndpoint'
 export { default as createTrackingEndpoint, TRACKING_ENDPOINT_NAME } from './endpoints/createTrackingEndpoint'
-export { default as loadSprungbrettJobs, type LoadSprungbrettJobReturn } from './endpoints/loadSprungbrettJobs'
 export { default as submitHelpForm, MAX_COMMENT_LENGTH } from './endpoints/submitHelpForm'
 export * from './replaceLinks'
 export { POSITIVE_RATING } from './endpoints/createFeedbackEndpoint'
@@ -78,7 +77,6 @@ export {
   default as createSprungbrettJobsEndpoint,
   SPRUNGBRETT_JOBS_ENDPOINT_NAME,
 } from './endpoints/createSprungbrettJobsEndpoint'
-export { SPRUNGBRETT_OFFER } from './endpoints/createSprungbrettJobsEndpoint'
 export { default as useLoadFromEndpoint, loadFromEndpoint } from './endpoints/hooks/useLoadFromEndpoint'
 export { default as useLoadAsync, loadAsync } from './endpoints/hooks/useLoadAsync'
 export { default as parseHTML } from './utils/parseHTML'
@@ -109,5 +107,10 @@ export { setUserAgent, setJpalTrackingCode } from './request'
 export { default as searchCategories } from './utils/searchCategories'
 export { default as getExcerpt } from './utils/getExcerpt'
 export { type CategorySearchResult } from './utils/searchCategories'
-export { MAX_DATE_RECURRENCES, MAX_DATE_RECURRENCES_COLLAPSED } from './constants'
+export {
+  MAX_DATE_RECURRENCES,
+  MAX_DATE_RECURRENCES_COLLAPSED,
+  MALTE_HELP_FORM_ALIAS,
+  SPRUNGBRETT_ALIAS,
+} from './constants'
 export type ExternalSourcePermissions = Record<string, boolean>

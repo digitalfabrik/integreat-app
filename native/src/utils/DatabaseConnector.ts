@@ -121,7 +121,6 @@ type ContentCityJsonType = {
   code: string
   languages: ContentLanguageJsonType[]
   prefix: string | null | undefined
-  extras_enabled: boolean
   events_enabled: boolean
   pois_enabled: boolean
   sorting_name: string
@@ -580,7 +579,6 @@ class DatabaseConnector {
         code: city.code,
         languages: city.languages.map(it => ({ code: it.code, name: it.name })),
         prefix: city.prefix,
-        extras_enabled: city.offersEnabled,
         events_enabled: city.eventsEnabled,
         pois_enabled: city.poisEnabled,
         pushNotificationsEnabled: city.localNewsEnabled,
@@ -608,7 +606,6 @@ class DatabaseConnector {
             eventsEnabled: jsonObject.events_enabled,
             localNewsEnabled: jsonObject.pushNotificationsEnabled,
             tunewsEnabled: jsonObject.tunewsEnabled,
-            offersEnabled: jsonObject.extras_enabled,
             poisEnabled: jsonObject.pois_enabled,
             sortingName: jsonObject.sorting_name,
             prefix: jsonObject.prefix,

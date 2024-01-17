@@ -78,21 +78,6 @@ jest.mock('../routes/FeedbackModalContainer', () => {
 
   return () => <Text>Feedback</Text>
 })
-jest.mock('../routes/OffersContainer', () => {
-  const { Text } = require('react-native')
-
-  return () => <Text>Offers</Text>
-})
-jest.mock('../routes/SprungbrettOfferContainer', () => {
-  const { Text } = require('react-native')
-
-  return () => <Text>SprungbrettOffer</Text>
-})
-jest.mock('../routes/ExternalOfferContainer', () => {
-  const { Text } = require('react-native')
-
-  return () => <Text>ExternalOffer</Text>
-})
 jest.mock('../routes/SearchModalContainer', () => {
   const { Text } = require('react-native')
 

@@ -8,15 +8,13 @@ import {
   EVENTS_ROUTE,
   LANDING_ROUTE,
   NEWS_ROUTE,
-  OFFERS_ROUTE,
   pathnameFromRouteInformation,
   POIS_ROUTE,
   SEARCH_ROUTE,
-  SPRUNGBRETT_OFFER_ROUTE,
 } from 'api-client'
 import { config } from 'translations'
 
-import { CalendarIcon, CategoriesIcon, LocationIcon, NewsIcon, OffersIcon, POIsIcon, SearchIcon } from '../assets'
+import { CalendarIcon, CategoriesIcon, LocationIcon, NewsIcon, POIsIcon, SearchIcon } from '../assets'
 import buildConfig from '../constants/buildConfig'
 import useWindowDimensions from '../hooks/useWindowDimensions'
 import { LOCAL_NEWS_ROUTE, RouteType, TU_NEWS_DETAIL_ROUTE, TU_NEWS_ROUTE } from '../routes'
@@ -40,14 +38,13 @@ const CityContentHeader = ({
   route,
 }: CityContentHeaderProps): ReactElement => {
   const { viewportSmall } = useWindowDimensions()
-  const { eventsEnabled, poisEnabled, offersEnabled, tunewsEnabled, localNewsEnabled } = cityModel
+  const { eventsEnabled, poisEnabled, tunewsEnabled, localNewsEnabled } = cityModel
   const [isSidebarOpen, setIsSidebarOpen] = useState(false)
 
   const params = { cityCode: cityModel.code, languageCode }
   const newsType = localNewsEnabled ? LOCAL_NEWS_ROUTE : TU_NEWS_ROUTE
   const categoriesPath = cityContentPath(params)
   const eventsPath = pathnameFromRouteInformation({ route: EVENTS_ROUTE, ...params })
-  const offersPath = pathnameFromRouteInformation({ route: OFFERS_ROUTE, ...params })
   const poisPath = pathnameFromRouteInformation({ route: POIS_ROUTE, ...params })
   const newsPath = pathnameFromRouteInformation({ route: NEWS_ROUTE, newsType, ...params })
   const searchPath = pathnameFromRouteInformation({ route: SEARCH_ROUTE, ...params })
@@ -95,9 +92,8 @@ const CityContentHeader = ({
     const isNewsVisible = buildConfig().featureFlags.newsStream && (localNewsEnabled || tunewsEnabled)
     const isEventsVisible = eventsEnabled
     const isPoisVisible = buildConfig().featureFlags.pois && poisEnabled
-    const isOffersVisible = offersEnabled
 
-    const showNavBar = isNewsVisible || isEventsVisible || isPoisVisible || isOffersVisible
+    const showNavBar = isNewsVisible || isEventsVisible || isPoisVisible
     if (!showNavBar) {
       return []
     }
@@ -144,18 +140,6 @@ const CityContentHeader = ({
           active={route === POIS_ROUTE}
           text={t('locations')}
           icon={POIsIcon}
-        />,
-      )
-    }
-
-    if (isOffersVisible) {
-      items.push(
-        <HeaderNavigationItem
-          key='offers'
-          href={offersPath}
-          active={route === OFFERS_ROUTE || route === SPRUNGBRETT_OFFER_ROUTE}
-          text={t('offers')}
-          icon={OffersIcon}
         />,
       )
     }

@@ -22,7 +22,6 @@ import MenuIcon from '../../../assets/icons/menu.svg'
 import NewsIcon from '../../../assets/icons/news.svg'
 import NoInternetIcon from '../../../assets/icons/no-internet.svg'
 import NoteIcon from '../../../assets/icons/note.svg'
-import OffersIcon from '../../../assets/icons/offers.svg'
 import PhoneIcon from '../../../assets/icons/phone.svg'
 import POIsIcon from '../../../assets/icons/pois.svg'
 import RefreshIcon from '../../../assets/icons/refresh.svg'
@@ -60,7 +59,6 @@ export {
   NewsIcon,
   NoInternetIcon,
   NoteIcon,
-  OffersIcon,
   PhoneIcon,
   POIsIcon,
   PoiThumbnailPlaceholder,

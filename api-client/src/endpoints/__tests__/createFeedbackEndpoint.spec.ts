@@ -1,14 +1,5 @@
-import {
-  CATEGORIES_ROUTE,
-  DISCLAIMER_ROUTE,
-  EVENTS_ROUTE,
-  OFFERS_ROUTE,
-  POIS_ROUTE,
-  SEARCH_ROUTE,
-  TU_NEWS_TYPE,
-} from '../../routes'
+import { CATEGORIES_ROUTE, DISCLAIMER_ROUTE, EVENTS_ROUTE, POIS_ROUTE, SEARCH_ROUTE, TU_NEWS_TYPE } from '../../routes'
 import createFeedbackEndpoint, { FeedbackType } from '../createFeedbackEndpoint'
-import { SPRUNGBRETT_OFFER } from '../createSprungbrettJobsEndpoint'
 
 describe('feedback', () => {
   const baseUrl = 'https://integreat-api-url.de'
@@ -69,18 +60,16 @@ describe('feedback', () => {
   })
 
   it.each`
-    route               | props                          | feedbackType
-    ${CATEGORIES_ROUTE} | ${{}}                          | ${FeedbackType.categories}
-    ${CATEGORIES_ROUTE} | ${{ slug: 'willkommen' }}      | ${FeedbackType.page}
-    ${EVENTS_ROUTE}     | ${{}}                          | ${FeedbackType.events}
-    ${EVENTS_ROUTE}     | ${{ slug: '1234' }}            | ${FeedbackType.event}
-    ${OFFERS_ROUTE}     | ${{ slug: SPRUNGBRETT_OFFER }} | ${FeedbackType.offer}
-    ${OFFERS_ROUTE}     | ${{}}                          | ${FeedbackType.offers}
-    ${DISCLAIMER_ROUTE} | ${{}}                          | ${FeedbackType.imprint}
-    ${POIS_ROUTE}       | ${{ slug: '1234' }}            | ${FeedbackType.poi}
-    ${POIS_ROUTE}       | ${{}}                          | ${FeedbackType.map}
-    ${SEARCH_ROUTE}     | ${{ query: 'query ' }}         | ${FeedbackType.search}
-    ${TU_NEWS_TYPE}     | ${{}}                          | ${FeedbackType.categories}
+    route               | props                     | feedbackType
+    ${CATEGORIES_ROUTE} | ${{}}                     | ${FeedbackType.categories}
+    ${CATEGORIES_ROUTE} | ${{ slug: 'willkommen' }} | ${FeedbackType.page}
+    ${EVENTS_ROUTE}     | ${{}}                     | ${FeedbackType.events}
+    ${EVENTS_ROUTE}     | ${{ slug: '1234' }}       | ${FeedbackType.event}
+    ${DISCLAIMER_ROUTE} | ${{}}                     | ${FeedbackType.imprint}
+    ${POIS_ROUTE}       | ${{ slug: '1234' }}       | ${FeedbackType.poi}
+    ${POIS_ROUTE}       | ${{}}                     | ${FeedbackType.map}
+    ${SEARCH_ROUTE}     | ${{ query: 'query ' }}    | ${FeedbackType.search}
+    ${TU_NEWS_TYPE}     | ${{}}                     | ${FeedbackType.categories}
   `(
     'should successfully request feedback for $feedbackType if rating was set',
     async ({ route, props, feedbackType }) => {

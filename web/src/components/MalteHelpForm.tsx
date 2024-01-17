@@ -54,10 +54,10 @@ type SendingStatusType = 'idle' | 'sending' | 'failed' | 'successful'
 type MalteHelpFormProps = {
   cityCode: string
   languageCode: string
-  helpButtonOffer: OfferModel
+  malteHelpFormOffer: OfferModel
 }
 
-const MalteHelpForm = ({ languageCode, cityCode, helpButtonOffer }: MalteHelpFormProps): ReactElement => {
+const MalteHelpForm = ({ languageCode, cityCode, malteHelpFormOffer }: MalteHelpFormProps): ReactElement => {
   const { t } = useTranslation('malteHelpForm')
   const [sendingStatus, setSendingStatus] = useState<SendingStatusType>('idle')
   const [submitted, setSubmitted] = useState(false)
@@ -84,7 +84,7 @@ const MalteHelpForm = ({ languageCode, cityCode, helpButtonOffer }: MalteHelpFor
         setSendingStatus('idle')
       } else {
         setSendingStatus('sending')
-        submitHelpForm({ cityCode, languageCode, helpButtonOffer })
+        submitHelpForm({ cityCode, languageCode, malteHelpFormOffer })
           .then(() => setSendingStatus('successful'))
           .catch(error => {
             reportError(error)
@@ -93,7 +93,7 @@ const MalteHelpForm = ({ languageCode, cityCode, helpButtonOffer }: MalteHelpFor
           })
       }
     },
-    [cityCode, helpButtonOffer, languageCode],
+    [cityCode, malteHelpFormOffer, languageCode],
   )
 
   if (sendingStatus === 'successful') {

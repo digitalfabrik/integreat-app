@@ -7,7 +7,6 @@ import {
   fromError,
   NEWS_ROUTE,
   NotFoundError,
-  OFFERS_ROUTE,
   pathnameFromRouteInformation,
   POIS_ROUTE,
 } from 'api-client'
@@ -54,12 +53,6 @@ const FailureSwitcher = ({ error }: FailureSwitcherProps): ReactElement => {
             goToPath: pathnameFromRouteInformation({ route: NEWS_ROUTE, newsType: error.type, ...params }),
             goToMessage: 'goTo.news',
             errorMessage: 'notFound.news',
-          }
-        case 'offer':
-          return {
-            goToPath: pathnameFromRouteInformation({ route: OFFERS_ROUTE, ...params }),
-            goToMessage: 'goTo.offers',
-            errorMessage: 'notFound.offer',
           }
         case 'poi':
           return {

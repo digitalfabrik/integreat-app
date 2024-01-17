@@ -6,7 +6,6 @@ import {
   ChangeLanguageModalRouteType,
   DisclaimerRouteType,
   EventsRouteType,
-  ExternalOfferRouteType,
   FeedbackModalRouteType,
   ImageViewModalRouteType,
   IntroRouteType,
@@ -14,13 +13,11 @@ import {
   LandingRouteType,
   NewsRouteType,
   NewsType,
-  OffersRouteType,
   PdfViewModalRouteType,
   PoisRouteType,
   RedirectRouteType,
   SearchRouteType,
   SettingsRouteType,
-  SprungbrettOfferRouteType,
   LanguageModel,
   POIS_ROUTE,
   CATEGORIES_ROUTE,
@@ -30,10 +27,7 @@ import {
   EVENTS_ROUTE,
   NEWS_ROUTE,
   DISCLAIMER_ROUTE,
-  OFFERS_ROUTE,
   JPAL_TRACKING_ROUTE,
-  EXTERNAL_OFFER_ROUTE,
-  SPRUNGBRETT_OFFER_ROUTE,
   SETTINGS_ROUTE,
   SEARCH_ROUTE,
   CHANGE_LANGUAGE_MODAL_ROUTE,
@@ -60,9 +54,6 @@ export type RoutesType =
   | EventsRouteType
   | NewsRouteType
   | DisclaimerRouteType
-  | OffersRouteType
-  | ExternalOfferRouteType
-  | SprungbrettOfferRouteType
   | SettingsRouteType
   | SearchRouteType
   | ChangeLanguageModalRouteType
@@ -100,14 +91,8 @@ export type RoutesParamsType = {
     newsType: NewsType
   }
   [DISCLAIMER_ROUTE]: undefined
-  [OFFERS_ROUTE]: undefined
   [CONSENT_ROUTE]: undefined
   [JPAL_TRACKING_ROUTE]: undefined
-  [EXTERNAL_OFFER_ROUTE]: {
-    url: string
-    postData: Map<string, string> | null | undefined
-  }
-  [SPRUNGBRETT_OFFER_ROUTE]: undefined
   [SETTINGS_ROUTE]: undefined
   [SEARCH_ROUTE]: {
     searchText?: string | null

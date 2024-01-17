@@ -19,8 +19,8 @@ describe('Failure', () => {
   it('should render a failure with goToPath and goToMessage and match snapshot', () => {
     const error = {
       errorMessage: 'error message',
-      goToPath: '/goTo.offers',
-      goToMessage: 'goTo.offers',
+      goToPath: '/goTo.events',
+      goToMessage: 'goTo.events',
     }
     const { getByText } = renderWithRouterAndTheme(<Failure {...error} />)
 

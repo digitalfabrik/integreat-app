@@ -7,13 +7,12 @@ import {
   EVENTS_ROUTE,
   LOCAL_NEWS_TYPE,
   NEWS_ROUTE,
-  OFFERS_ROUTE,
   POIS_ROUTE,
   RouteInformationType,
   TU_NEWS_TYPE,
 } from 'api-client'
 
-import { CalendarIcon, NewsIcon, OffersIcon, POIsIcon } from '../assets'
+import { CalendarIcon, NewsIcon, POIsIcon } from '../assets'
 import buildConfig from '../constants/buildConfig'
 import TileModel from '../models/TileModel'
 import NavigationTiles from './NavigationTiles'
@@ -46,7 +45,6 @@ const DashboardNavigationTiles = ({
         title: t('news'),
         path: 'news',
         thumbnail: NewsIcon,
-        isExternalUrl: false,
         onTilePress: () =>
           navigateTo({
             route: NEWS_ROUTE,
@@ -54,7 +52,6 @@ const DashboardNavigationTiles = ({
             languageCode,
             newsType: localNewsEnabled ? LOCAL_NEWS_TYPE : TU_NEWS_TYPE,
           }),
-        notifications: 0,
       }),
     )
   }
@@ -65,32 +62,12 @@ const DashboardNavigationTiles = ({
         title: t('events'),
         path: 'events',
         thumbnail: CalendarIcon,
-        isExternalUrl: false,
         onTilePress: () =>
           navigateTo({
             route: EVENTS_ROUTE,
             cityCode,
             languageCode,
           }),
-        notifications: 0,
-      }),
-    )
-  }
-
-  if (cityModel.offersEnabled) {
-    tiles.push(
-      new TileModel({
-        title: t('offers'),
-        path: 'offers',
-        thumbnail: OffersIcon,
-        isExternalUrl: false,
-        onTilePress: () =>
-          navigateTo({
-            route: OFFERS_ROUTE,
-            cityCode,
-            languageCode,
-          }),
-        notifications: 0,
       }),
     )
   }
@@ -101,14 +78,12 @@ const DashboardNavigationTiles = ({
         title: t('pois'),
         path: 'pois',
         thumbnail: POIsIcon,
-        isExternalUrl: false,
         onTilePress: () =>
           navigateTo({
             route: POIS_ROUTE,
             cityCode,
             languageCode,
           }),
-        notifications: 0,
       }),
     )
   }

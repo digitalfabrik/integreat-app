@@ -1,21 +1,22 @@
 import React, { ReactElement } from 'react'
 
-import { MALTE_HELP_FORM_OFFER_ROUTE, OfferModel, SPRUNGBRETT_OFFER } from 'api-client'
+import { MALTE_HELP_FORM_ALIAS, OfferModel, SPRUNGBRETT_ALIAS } from 'api-client'
 
-import { CityRouteProps } from '../CityContentSwitcher'
-import MalteHelpFormOfferPage from '../routes/MalteHelpFormOfferPage'
-import SprungbrettOfferPage from '../routes/SprungbrettOfferPage'
+import MalteHelpForm from './MalteHelpForm'
+import SprungbrettOffer from './SprungbrettOffer'
 
 type EmbeddedOfferProps = {
   offer: OfferModel
-} & CityRouteProps
+  cityCode: string
+  languageCode: string
+}
 
-const EmbeddedOffer = ({ offer, ...props }: EmbeddedOfferProps): ReactElement | null => {
-  if (offer.alias === SPRUNGBRETT_OFFER) {
-    return <SprungbrettOfferPage {...props} embedded />
+const EmbeddedOffer = ({ offer, cityCode, languageCode }: EmbeddedOfferProps): ReactElement | null => {
+  if (offer.alias === SPRUNGBRETT_ALIAS) {
+    return <SprungbrettOffer sprungbrettOffer={offer} cityCode={cityCode} languageCode={languageCode} />
   }
-  if (offer.alias === MALTE_HELP_FORM_OFFER_ROUTE) {
-    return <MalteHelpFormOfferPage {...props} embedded />
+  if (offer.alias === MALTE_HELP_FORM_ALIAS) {
+    return <MalteHelpForm malteHelpFormOffer={offer} cityCode={cityCode} languageCode={languageCode} />
   }
   return null
 }

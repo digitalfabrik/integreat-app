@@ -59,13 +59,7 @@ const CategoriesContent = ({
         }
         Footer={
           categoryModel.embeddedOffers[0] && (
-            <EmbeddedOffer
-              offer={categoryModel.embeddedOffers[0]}
-              city={city}
-              pathname={pathname}
-              cityCode={cityCode}
-              languageCode={languageCode}
-            />
+            <EmbeddedOffer offer={categoryModel.embeddedOffers[0]} cityCode={cityCode} languageCode={languageCode} />
           )
         }
       />
