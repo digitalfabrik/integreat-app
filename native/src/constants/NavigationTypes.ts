@@ -47,7 +47,6 @@ import {
   FeedbackRouteType,
   CONSENT_ROUTE,
   ConsentRouteType,
-  MalteHelpFormOfferRouteType,
 } from 'api-client'
 
 export type RoutesType =
