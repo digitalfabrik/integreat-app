@@ -7,12 +7,14 @@ import {
   SPRUNGBRETT_OFFER,
   loadSprungbrettJobs,
   useLoadAsync,
+  MALTE_HELP_FORM_OFFER_ROUTE,
 } from 'api-client'
 
 import { determineApiUrl } from '../utils/helpers'
 
 type EmbeddedOffers = {
   sprungbrett?: LoadSprungbrettJobReturn
+  help?: true
 }
 
 export type EmbeddedOffersParams = {
@@ -36,7 +38,13 @@ export const useLoadEmbeddedOffers = ({
       if (offer.alias === SPRUNGBRETT_OFFER) {
         return {
           ...accumulator,
-          sprungbrett: await loadSprungbrettJobs({ cityCode, languageCode, baseUrl: await determineApiUrl() }),
+          [SPRUNGBRETT_OFFER]: await loadSprungbrettJobs({ cityCode, languageCode, baseUrl: await determineApiUrl() }),
+        }
+      }
+      if (offer.alias === MALTE_HELP_FORM_OFFER_ROUTE) {
+        return {
+          ...accumulator,
+          [MALTE_HELP_FORM_OFFER_ROUTE]: true,
         }
       }
       return { ...accumulator }

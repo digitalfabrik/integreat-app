@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 
-import { cityContentPath, MAX_COMMENT_LENGTH, OfferModel, submitHelpForm } from 'api-client'
+import { cityContentPath, OfferModel, submitHelpForm, MALTE_HELP_FORM_MAX_COMMENT_LENGTH } from 'api-client'
 import { config } from 'translations'
 
 import { SecurityIcon, SupportIcon } from '../assets'
@@ -22,13 +22,6 @@ const Note = styled.div`
 
 const StyledIcon = styled(Icon)`
   flex-shrink: 0;
-`
-
-const Divider = styled.hr`
-  margin: 12px 0;
-  background-color: ${props => props.theme.colors.textSecondaryColor};
-  height: 1px;
-  border: none;
 `
 
 const Form = styled.form`
@@ -165,7 +158,6 @@ const MalteHelpForm = ({ languageCode, cityCode, helpButtonOffer }: MalteHelpFor
             },
           ]}
         />
-        <Divider />
         <RadioGroup
           direction={config.getScriptDirection(languageCode)}
           submitted={submitted}
@@ -179,16 +171,15 @@ const MalteHelpForm = ({ languageCode, cityCode, helpButtonOffer }: MalteHelpFor
             { key: 'male', label: t('contactPersonGenderMale') },
           ]}
         />
-        <Divider />
         <InputSection id='comment' title={t('contactReason')}>
           <Input
             id='comment'
-            hint={t('maxCharacters', { numberOfCharacters: MAX_COMMENT_LENGTH })}
+            hint={t('maxCharacters', { numberOfCharacters: MALTE_HELP_FORM_MAX_COMMENT_LENGTH })}
             multiline
             value={comment}
             direction={config.getScriptDirection(languageCode)}
             onChange={setComment}
-            maxLength={200}
+            maxLength={MALTE_HELP_FORM_MAX_COMMENT_LENGTH}
             submitted={submitted}
           />
         </InputSection>

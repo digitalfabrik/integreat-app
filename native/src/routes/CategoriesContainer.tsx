@@ -57,22 +57,11 @@ const CategoriesContainer = ({ navigation, route }: CategoriesContainerProps): R
   )
   const previousLanguageCode = usePreviousProp({ prop: languageCode, onPropChange: onLanguageChange })
 
-  const embeddedOffers = useLoadEmbeddedOffers({
-    category,
-    cityCode,
-    languageCode,
-  })
-
   const error =
     data?.categories && !category && previousLanguageCode === languageCode ? ErrorCode.PageNotFound : response.error
 
-  const refresh = useCallback(() => {
-    response.refresh()
-    embeddedOffers.refresh()
-  }, [response, embeddedOffers])
-
   return (
-    <LoadingErrorHandler refresh={refresh} loading={response.loading} error={error} scrollView>
+    <LoadingErrorHandler refresh={response.refresh} loading={response.loading} error={error} scrollView>
       {data && category && (
         <>
           {category.isRoot() && (
@@ -84,8 +73,8 @@ const CategoriesContainer = ({ navigation, route }: CategoriesContainerProps): R
             cityModel={data.city}
             categories={data.categories}
             category={category}
-            embeddedOffers={embeddedOffers}
             resourceCache={resourceCache}
+            goBack={navigation.goBack}
           />
         </>
       )}

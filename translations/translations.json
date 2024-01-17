@@ -9645,7 +9645,7 @@
       "contactPersonGenderMale": "Ich möchte von einer männlichen Person kontaktiert werden",
       "contactReason": "Dein Anliegen:",
       "maxCharacters": "maximal {{numberOfCharacters}} Zeichen",
-      "responseDisclaimer": "Es kann einige Werktage dauern, bis Sie eine Rückmeldung erhalten. Wir bemühen uns, dein Anliegen schnellstmöglich zu bearbeiten.",
+      "responseDisclaimer": "Es kann einige Werktage dauern, bis du eine Rückmeldung erhälst. Wir bemühen uns, dein Anliegen schnellstmöglich zu bearbeiten.",
       "submit": "Formular absenden",
       "submitSuccessful": "Formular erfolgreich versandt",
       "submitFailed": "Formular konnte nicht versandt werden",

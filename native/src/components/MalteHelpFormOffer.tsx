@@ -4,19 +4,17 @@ import { useTranslation } from 'react-i18next'
 import { View } from 'react-native'
 import styled from 'styled-components/native'
 
-import { MalteHelpFormOfferRouteType } from 'api-client'
+import { MALTE_HELP_FORM_MAX_COMMENT_LENGTH, OfferModel, submitHelpForm } from 'api-client'
 
 import { SecurityIcon, SupportIcon } from '../assets'
-import Caption from '../components/Caption'
-import HorizontalLine from '../components/HorizontalLine'
-import LayoutedScrollView from '../components/LayoutedScrollView'
-import Icon from '../components/base/Icon'
-import Text from '../components/base/Text'
-import TextButton from '../components/base/TextButton'
-import FormInput from '../components/form/FormInput'
-import FormRadioButtons from '../components/form/FormRadioButtons'
-import { NavigationProps } from '../constants/NavigationTypes'
 import useSnackbar from '../hooks/useSnackbar'
+import Caption from './Caption'
+import LayoutedScrollView from './LayoutedScrollView'
+import Icon from './base/Icon'
+import Text from './base/Text'
+import TextButton from './base/TextButton'
+import FormInput from './form/FormInput'
+import FormRadioButtons from './form/FormRadioButtons'
 
 const Container = styled(LayoutedScrollView)`
   padding: 0 16px 16px;
@@ -34,10 +32,6 @@ const InformationText = styled.Text`
 
 const InputTitle = styled.Text`
   font-weight: bold;
-`
-
-const StyledHorizontalLine = styled(HorizontalLine)`
-  margin: 8px 0;
 `
 
 type FormInput = {
@@ -61,19 +55,26 @@ const defaultValues: FormInput = {
 }
 
 type MalteHelpFormOfferProps = {
-  navigation: NavigationProps<MalteHelpFormOfferRouteType>
+  malteHelpFormOffer: OfferModel
+  onSubmit: () => void
+  cityCode: string
+  languageCode: string
 }
 
-const MalteHelpFormOffer = ({ navigation }: MalteHelpFormOfferProps): ReactElement => {
+const MalteHelpFormOffer = ({
+  cityCode,
+  languageCode,
+  malteHelpFormOffer,
+  onSubmit,
+}: MalteHelpFormOfferProps): ReactElement => {
   const { control, handleSubmit, formState } = useForm<FormInput>({ defaultValues })
   const { t } = useTranslation('malteHelpForm')
   const showSnackbar = useSnackbar()
 
-  const onSubmit = handleSubmit(_data => {
+  const submit = handleSubmit(async _data => {
     try {
-      // TODO submit form
-      // handleSubmit()
-      navigation.goBack()
+      await submitHelpForm({ cityCode, languageCode, helpButtonOffer: malteHelpFormOffer })
+      onSubmit()
       showSnackbar({ text: t('submitSuccessful') })
     } catch (e) {
       showSnackbar({ text: t('error:unknownError') })
@@ -109,8 +110,6 @@ const MalteHelpFormOffer = ({ navigation }: MalteHelpFormOfferProps): ReactEleme
         />
       </View>
 
-      <StyledHorizontalLine />
-
       <View>
         <InputTitle>{t('contactPerson')}</InputTitle>
         <FormRadioButtons
@@ -124,20 +123,17 @@ const MalteHelpFormOffer = ({ navigation }: MalteHelpFormOfferProps): ReactEleme
         />
       </View>
 
-      <StyledHorizontalLine />
-
-      {/* TODO Extract to shared constant */}
       <FormInput
         name='comment'
         title={t('contactReason')}
-        hint={`(${t('maxCharacters', { numberOfCharacters: 200 })})`}
+        hint={`(${t('maxCharacters', { numberOfCharacters: MALTE_HELP_FORM_MAX_COMMENT_LENGTH })})`}
         control={control}
-        rules={{ maxLength: 200 }}
+        rules={{ maxLength: MALTE_HELP_FORM_MAX_COMMENT_LENGTH }}
         multiline
       />
 
       <Text>{t('responseDisclaimer')}</Text>
-      <TextButton text={t('submit')} onPress={onSubmit} disabled={!formState.isValid} />
+      <TextButton text={t('submit')} onPress={submit} disabled={!formState.isValid} />
     </Container>
   )
 }

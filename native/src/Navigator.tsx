@@ -20,7 +20,6 @@ import {
   LANDING_ROUTE,
   LandingRouteType,
   LICENSES_ROUTE,
-  MALTE_HELP_FORM_OFFER_ROUTE,
   NEWS_ROUTE,
   OFFERS_ROUTE,
   PDF_VIEW_MODAL_ROUTE,
@@ -55,7 +54,6 @@ import JpalTracking from './routes/JpalTracking'
 import Landing from './routes/Landing'
 import Licenses from './routes/Licenses'
 import LoadingErrorHandler from './routes/LoadingErrorHandler'
-import MalteHelpFormOfferContainer from './routes/MalteHelpFormOfferContainer'
 import NewsContainer from './routes/NewsContainer'
 import OffersContainer from './routes/OffersContainer'
 import PDFViewModal from './routes/PDFViewModal'
@@ -208,7 +206,6 @@ const Navigator = (): ReactElement | null => {
         <Stack.Screen name={NEWS_ROUTE} component={NewsContainer} />
         <Stack.Screen name={DISCLAIMER_ROUTE} component={DisclaimerContainer} />
         <Stack.Screen name={FEEDBACK_MODAL_ROUTE} component={FeedbackModalContainer} />
-        <Stack.Screen name={MALTE_HELP_FORM_OFFER_ROUTE} component={MalteHelpFormOfferContainer} />
       </Stack.Group>
 
       <Stack.Group screenOptions={{ header: transparentHeader }}>

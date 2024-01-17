@@ -25,12 +25,12 @@ const FormRadioButtons = <T extends FieldValues>({ name, control, values }: Form
     render={({ field: { onChange, value } }) => (
       <View>
         {values.map(({ key, label, inputName }) => (
-          <>
-            <RadioButton key={key} selected={value === key} select={() => onChange(key)}>
+          <View key={key}>
+            <RadioButton selected={value === key} select={() => onChange(key)}>
               <Text>{label}</Text>
             </RadioButton>
             {inputName !== undefined && value === key && <FormInput name={inputName} control={control} />}
-          </>
+          </View>
         ))}
       </View>
     )}
