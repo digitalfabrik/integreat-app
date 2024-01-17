@@ -3,7 +3,6 @@ import { useTranslation } from 'react-i18next'
 
 import {
   createOffersEndpoint,
-  MALTE_HELP_FORM_OFFER_ROUTE,
   OfferModel,
   OFFERS_ROUTE,
   pathnameFromRouteInformation,
@@ -38,15 +37,6 @@ const OffersPage = ({ city, cityCode, languageCode }: CityRouteProps): ReactElem
         if (offer.alias === SPRUNGBRETT_OFFER) {
           // the url stored in the sprungbrett offer is the url of the endpoint
           path = pathnameFromRouteInformation({ route: SPRUNGBRETT_OFFER_ROUTE, cityCode, languageCode })
-        }
-        if (offer.alias === MALTE_HELP_FORM_OFFER_ROUTE) {
-          path = pathnameFromRouteInformation({ route: MALTE_HELP_FORM_OFFER_ROUTE, cityCode, languageCode })
-          // ignore zammad url (postData) for the tile model
-          return new TileModel({
-            title: t(offer.title),
-            path,
-            thumbnail: offer.thumbnail,
-          })
         }
 
         return new TileModel({
