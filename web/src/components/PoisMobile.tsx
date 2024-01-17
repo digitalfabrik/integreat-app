@@ -184,7 +184,7 @@ const PoisMobile = ({
           </GoBackContainer>
         )}
         <ListContainer>
-          {!canGoBack ? <ListTitle>{t('listTitle')}</ListTitle> : undefined}
+          {!canGoBack && <ListTitle>{t('listTitle')}</ListTitle>}
           <PoiSharedChildren
             poiListFeatures={poiListFeatures}
             currentPoi={currentPoi}
