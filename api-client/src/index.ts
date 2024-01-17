@@ -66,8 +66,8 @@ export { default as createTrackingEndpoint, TRACKING_ENDPOINT_NAME } from './end
 export { default as loadSprungbrettJobs, type LoadSprungbrettJobReturn } from './endpoints/loadSprungbrettJobs'
 export {
   default as submitHelpForm,
-  ContactGender,
-  ContactChannel,
+  type ContactGender,
+  type ContactChannel,
   MAX_COMMENT_LENGTH,
 } from './endpoints/submitHelpForm'
 export * from './replaceLinks'

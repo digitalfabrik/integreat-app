@@ -1,10 +1,11 @@
 import OfferModel from '../models/OfferModel'
 
 export const MAX_COMMENT_LENGTH = 200
-export type ContactChannel = 'email' | 'telephone' | 'personally'
+export type ContactChannel = 'eMail' | 'telephone' | 'personally'
 export type ContactGender = 'male' | 'female' | 'any'
 
 type BuildHelpFormBodyParams = {
+  languageCode: string
   name: string
   roomNumber?: string
   contactChannel: ContactChannel
@@ -15,6 +16,7 @@ type BuildHelpFormBodyParams = {
 }
 
 const buildHelpFormBody = ({
+  languageCode,
   name,
   roomNumber,
   contactChannel,
@@ -22,16 +24,30 @@ const buildHelpFormBody = ({
   contactGender,
   comment,
   translate,
-}: BuildHelpFormBodyParams): string => `
-  Name: ${name}
-  Zimmernummer: ${roomNumber ?? '-'}
-  So möchte ich kontaktiert werden: ${translate(contactChannel)} ${
+}: BuildHelpFormBodyParams): string => {
+  const anyGenderText = contactGender === 'any' ? translate('contactPersonAnyGender') : undefined
+  const maleGenderText = contactGender === 'male' ? translate('contactPersonGenderMale') : undefined
+  const femaleGenderText = contactGender === 'female' ? translate('contactPersonGenderFemale') : undefined
+  return `
+Sprache: ${languageCode}
+
+Name: ${name}
+Zimmernummer: ${roomNumber ?? '-'}
+So möchte ich kontaktiert werden: ${translate(contactChannel)} ${
     additionalContactInformation ? `(${additionalContactInformation})` : ''
   }
-  Das Geschlecht der Kontaktperson sollte ${translate(contactGender)} sein.
+${anyGenderText ?? maleGenderText ?? femaleGenderText}
 
-  ${comment}
-  `
+Beschreibung des Anliegens:
+${comment}
+`
+}
+
+const generateEmail = () => {
+  const RANDOM_NUMBER_LENGTH = 8
+  const array = new Uint8Array(RANDOM_NUMBER_LENGTH)
+  return `support+zammad-ticket-${crypto.getRandomValues(array).join('')}@integreat-app.de`
+}
 
 type SubmitHelpFormParams = {
   name: string
@@ -54,6 +70,8 @@ type ZammadConfig = {
 }
 
 const submitHelpForm = async ({
+  languageCode,
+  cityCode,
   helpButtonOffer,
   name,
   email,
@@ -62,6 +80,7 @@ const submitHelpForm = async ({
   contactChannel,
   contactGender,
   comment,
+  translate,
 }: SubmitHelpFormParams): Promise<void> => {
   const zammadUrl = helpButtonOffer.postData?.get('zammad-url')
 
@@ -88,7 +107,7 @@ const submitHelpForm = async ({
     if (!config.enabled) {
       return null
     }
-    const contactChannelEmailAdditionalInfo = contactChannel === 'email' ? email : undefined
+    const contactChannelEmailAdditionalInfo = contactChannel === 'eMail' ? email : undefined
     const contactChannelTelephoneAdditionalInfo = contactChannel === 'telephone' ? telephone : undefined
 
     const response = await fetch(config.endpoint, {
@@ -98,17 +117,18 @@ const submitHelpForm = async ({
       },
       body: JSON.stringify({
         name,
-        email,
+        email: !email?.length ? generateEmail() : email,
         body: buildHelpFormBody({
+          languageCode,
           name,
           roomNumber,
           contactChannel,
           contactGender,
           comment,
           additionalContactInformation: contactChannelEmailAdditionalInfo ?? contactChannelTelephoneAdditionalInfo,
-          translate: text => text,
+          translate,
         }),
-        title: 'Hilfebutton',
+        title: `Hilfebutton - ${cityCode}`,
         fingerprint,
         token: config.token,
       }),

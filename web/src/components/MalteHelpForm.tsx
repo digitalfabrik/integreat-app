@@ -54,7 +54,7 @@ type MalteHelpFormProps = {
 }
 
 const MalteHelpForm = ({ languageCode, cityCode, helpButtonOffer }: MalteHelpFormProps): ReactElement => {
-  const { t } = useTranslation('malteHelpForm')
+  const { t, i18n } = useTranslation('malteHelpForm')
   const [sendingStatus, setSendingStatus] = useState<SendingStatusType>('idle')
   const [submitted, setSubmitted] = useState(false)
   const [contactChannel, setContactChannel] = useState<ContactChannel>('eMail')
@@ -69,18 +69,19 @@ const MalteHelpForm = ({ languageCode, cityCode, helpButtonOffer }: MalteHelpFor
     (!email.length && contactChannel === 'eMail') ||
     (!telephone.length && contactChannel === 'telephone')
   const dashboardRoute = cityContentPath({ languageCode, cityCode })
+  const germanT = i18n.getFixedT('de', 'malteHelpForm')
 
   const submitHandler = async (event: SyntheticEvent<HTMLFormElement>) => {
     const form = event.currentTarget
     if (!form.checkValidity()) {
-      // event.preventDefault()
       event.stopPropagation()
       const invalidInput = form.querySelector(':invalid:not(fieldset)')
       invalidInput?.scrollIntoView({ behavior: 'smooth' })
       setSendingStatus('idle')
     } else {
+      event.preventDefault()
       setSendingStatus('sending')
-      const request = async () => {
+      try {
         await submitHelpForm({
           cityCode,
           languageCode,
@@ -92,13 +93,9 @@ const MalteHelpForm = ({ languageCode, cityCode, helpButtonOffer }: MalteHelpFor
           contactChannel,
           contactGender,
           comment,
-          translate: t,
+          translate: (text: string) => germanT(text),
         })
         setSendingStatus('successful')
-      }
-
-      try {
-        await request()
       } catch (error) {
         reportError(error)
         event.preventDefault()
