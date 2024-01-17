@@ -173,7 +173,6 @@ const PoisMobile = ({
         }
       />
       <BottomActionSheet
-        title={!canGoBack ? '' : undefined}
         toolbar={toolbar}
         ref={sheetRef}
         setBottomActionSheetHeight={setBottomActionSheetHeight}
