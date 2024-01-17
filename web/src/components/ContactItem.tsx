@@ -15,6 +15,7 @@ const Link = styled(CleanLink)`
   align-items: center;
   padding-top: 4px;
   gap: 8px;
+  overflow-wrap: anywhere;
   ${helpers.adaptiveFontSize};
 `
 
