@@ -96,7 +96,7 @@ const KebabMenu = ({ items, show, setShow, Footer }: KebabMenuProps): ReactEleme
         show={show}
         style={{
           visibility: show ? 'visible' : 'hidden',
-          insetBlockStart: window.scrollY > 0 ? `${window.scrollY}px` : undefined,
+          top: window.scrollY > 0 ? `${window.scrollY}px` : undefined,
         }}>
         {/* disabled because this is an overlay for backdrop close */}
         {/* eslint-disable-next-line styled-components-a11y/no-static-element-interactions,styled-components-a11y/click-events-have-key-events */}

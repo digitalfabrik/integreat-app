@@ -188,8 +188,8 @@ const MapView = forwardRef(
           // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
           interactiveLayerIds={[markerLayer(currentFeature).id!, clusterLayer(theme).id!]}
           style={{
-            blockSize: '100%',
-            inlineSize: '100%',
+            height: '100%',
+            width: '100%',
           }}
           onDragStart={() => setCursor('grab')}
           onDragEnd={() => setCursor('auto')}
