@@ -1,12 +1,14 @@
 import {
   CategoriesRouteType,
   CityNotCooperatingRouteType,
+  ConsentRouteType,
   DisclaimerRouteType,
   EventsRouteType,
   JpalTrackingRouteType,
   LandingRouteType,
   LicensesRouteType,
   LocalNewsType,
+  MalteHelpFormOfferRouteType,
   NewsRouteType,
   OffersRouteType,
   PoisRouteType,
@@ -27,6 +29,10 @@ export type LandingRouteInformationType = {
 
 export type LicensesInformationType = {
   route: LicensesRouteType
+}
+
+export type ConsentInformationType = {
+  route: ConsentRouteType
 }
 
 export type CityNotCooperatingInformationType = {
@@ -53,7 +59,7 @@ export type NewsRouteInformationType = ParamsType & {
 
 export type SimpleCityContentFeatureType = ParamsType & {
   // Routes without customizable ids, e.g. '/augsburg/de/disclaimer/'
-  route: DisclaimerRouteType | OffersRouteType | SprungbrettOfferRouteType
+  route: DisclaimerRouteType | OffersRouteType | SprungbrettOfferRouteType | MalteHelpFormOfferRouteType
 }
 
 export type EventsRouteInformationType = ParamsType & {
@@ -86,5 +92,6 @@ export type NonNullableRouteInformationType =
   | PoisRouteInformationType
   | LicensesInformationType
   | SearchRouteInformationType
+  | ConsentInformationType
 
 export type RouteInformationType = NonNullableRouteInformationType | null

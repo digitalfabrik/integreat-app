@@ -5,6 +5,7 @@ import {
   CATEGORIES_ROUTE,
   CITY_NOT_COOPERATING_ROUTE,
   cityContentPath,
+  CONSENT_ROUTE,
   InternalPathnameParser,
   INTRO_ROUTE,
   JPAL_TRACKING_ROUTE,
@@ -79,7 +80,8 @@ const navigateToDeepLink = async <T extends RoutesType>({
     routeInformation.route !== LANDING_ROUTE &&
     routeInformation.route !== JPAL_TRACKING_ROUTE &&
     routeInformation.route !== CITY_NOT_COOPERATING_ROUTE &&
-    routeInformation.route !== LICENSES_ROUTE
+    routeInformation.route !== LICENSES_ROUTE &&
+    routeInformation.route !== CONSENT_ROUTE
       ? routeInformation.cityCode
       : null
 

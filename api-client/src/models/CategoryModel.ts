@@ -2,6 +2,7 @@ import { DateTime } from 'luxon'
 
 import normalizePath from '../normalizePath'
 import ExtendedPageModel from './ExtendedPageModel'
+import OfferModel from './OfferModel'
 import OrganizationModel from './OrganizationModel'
 import PageModel from './PageModel'
 
@@ -10,6 +11,7 @@ class CategoryModel extends ExtendedPageModel {
   _parentPath: string
   _order: number
   _organization: OrganizationModel | null
+  _embeddedOffers: OfferModel[]
 
   constructor(params: {
     root: boolean
@@ -22,13 +24,19 @@ class CategoryModel extends ExtendedPageModel {
     availableLanguages: Map<string, string>
     lastUpdate: DateTime
     organization: OrganizationModel | null
+    embeddedOffers: OfferModel[]
   }) {
-    const { order, parentPath, root, organization, ...other } = params
+    const { order, parentPath, root, organization, embeddedOffers, ...other } = params
     super(other)
     this._root = root
     this._parentPath = normalizePath(parentPath)
     this._order = order
     this._organization = organization
+    this._embeddedOffers = embeddedOffers
+  }
+
+  get embeddedOffers(): OfferModel[] {
+    return this._embeddedOffers
   }
 
   get parentPath(): string {
@@ -54,7 +62,10 @@ class CategoryModel extends ExtendedPageModel {
       this.parentPath === other.parentPath &&
       this.order === other.order &&
       this.isRoot === other.isRoot &&
-      (this.organization === null ? other.organization === null : this.organization.isEqual(other.organization))
+      (this.organization === null ? other.organization === null : this.organization.isEqual(other.organization)) &&
+      this.embeddedOffers.length === other.embeddedOffers.length &&
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+      this.embeddedOffers.every((offer, index) => offer.isEqual(other.embeddedOffers[index]!))
     )
   }
 }

@@ -2,12 +2,14 @@ import {
   CategoriesRouteType,
   ChangeLanguageModalRouteType,
   CityNotCooperatingRouteType,
+  ConsentRouteType,
   DisclaimerRouteType,
   EventsRouteType,
   FeedbackModalRouteType,
   JpalTrackingRouteType,
   LandingRouteType,
   LicensesRouteType,
+  MalteHelpFormOfferRouteType,
   NewsRouteType,
   OffersRouteType,
   PoisRouteType,
@@ -38,6 +40,8 @@ export type OpenPageSignalType = {
     | JpalTrackingRouteType
     | ChangeLanguageModalRouteType
     | LicensesRouteType
+    | ConsentRouteType
+    | MalteHelpFormOfferRouteType
   url: string
 }
 type ClosePageSignalNameType = 'close_page'

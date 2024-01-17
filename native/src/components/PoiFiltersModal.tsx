@@ -7,8 +7,8 @@ import { PoiCategoryModel, PoiModel } from 'api-client'
 
 import { ClockIcon } from '../assets'
 import Modal from './Modal'
-import SettingsSwitch from './SettingsSwitch'
 import Icon from './base/Icon'
+import SettingsSwitch from './base/SettingsSwitch'
 import Text from './base/Text'
 import TextButton from './base/TextButton'
 import ToggleButton from './base/ToggleButton'
@@ -78,6 +78,7 @@ type PoiFiltersModalProps = {
   setSelectedPoiCategory: (poiCategory: PoiCategoryModel | null) => void
   currentlyOpenFilter: boolean
   setCurrentlyOpenFilter: (currentlyOpen: boolean) => void
+  poisCount: number
 }
 
 const PoiFiltersModal = ({
@@ -88,6 +89,7 @@ const PoiFiltersModal = ({
   setSelectedPoiCategory,
   currentlyOpenFilter,
   setCurrentlyOpenFilter,
+  poisCount,
 }: PoiFiltersModalProps): ReactElement => {
   const poiCategories = pois
     .map(it => it.category)
@@ -125,7 +127,11 @@ const PoiFiltersModal = ({
           </TileRow>
         </Section>
         <Section>
-          <StyledTextButton onPress={closeModal} text={t('showPois')} />
+          <StyledTextButton
+            onPress={closeModal}
+            text={t('showPois', { count: poisCount })}
+            disabled={poisCount === 0}
+          />
         </Section>
       </Container>
     </Modal>

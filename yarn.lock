@@ -2268,10 +2268,10 @@
   resolved "https://registry.yarnpkg.com/@humanwhocodes/object-schema/-/object-schema-1.2.1.tgz#b520529ec21d8e5945a1851dfd1c32e94e39ff45"
   integrity sha512-ZnQMnLV4e7hDlUvw8H+U8ASL02SS2Gn6+9Ac3wGGLIe7+je2AeAOxPY+izIPJDfFDb7eDjev0Us8MO1iFRN8hA==
 
-"@integreat-app/react-sticky-headroom@^1.2.3":
-  version "1.2.3"
-  resolved "https://registry.yarnpkg.com/@integreat-app/react-sticky-headroom/-/react-sticky-headroom-1.2.3.tgz#c63f2fe55dade7072d598b6cab0b678b9e7a0b42"
-  integrity sha512-ACvlYJmfsqlfQrrTBJt+8HNkDZkb42ae0x+fLSnKXjAvknnIHgrSZGS81AP8273kYDJOSyBmiUPxnC0fR2VJxg==
+"@integreat-app/react-sticky-headroom@^2.2.0":
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/@integreat-app/react-sticky-headroom/-/react-sticky-headroom-2.2.0.tgz#2b16b06f632f785c2a882983143dd3274c89c67a"
+  integrity sha512-PqeQ8dm51f3rSZIT+XpnAHl7t2kI3bp/X3gnb6OGW6bQy8loFa5uUcSgiTZ8yRN/XoQv5mtUBStz3DaHfS9vmQ==
 
 "@isaacs/cliui@^8.0.2":
   version "8.0.2"
@@ -9067,15 +9067,10 @@ focus-trap@^7.5.2:
   dependencies:
     tabbable "^6.2.0"
 
-follow-redirects@^1.0.0:
-  version "1.15.2"
-  resolved "https://registry.yarnpkg.com/follow-redirects/-/follow-redirects-1.15.2.tgz#b460864144ba63f2681096f274c4e57026da2c13"
-  integrity sha512-VQLG33o04KaQ8uYi2tVNbdrWp1QWxNNea+nmIB4EVM28v0hmP17z7aG1+wAkNzVq4KeXTq3221ye5qTJP91JwA==
-
-follow-redirects@^1.15.0:
-  version "1.15.3"
-  resolved "https://registry.yarnpkg.com/follow-redirects/-/follow-redirects-1.15.3.tgz#fe2f3ef2690afce7e82ed0b44db08165b207123a"
-  integrity sha512-1VzOtuEM8pC9SFU1E+8KfTjZyMztRsgEfwQl44z8A25uy13jSzTj6dyK2Df52iV0vgHCfBwLhDWevLn95w5v6Q==
+follow-redirects@^1.0.0, follow-redirects@^1.15.0:
+  version "1.15.4"
+  resolved "https://registry.yarnpkg.com/follow-redirects/-/follow-redirects-1.15.4.tgz#cdc7d308bf6493126b17ea2191ea0ccf3e535adf"
+  integrity sha512-Cr4D/5wlrb0z9dgERpUL3LrmPKVDsETIJhaCMeDfuFYcqa5bldGV6wBsAN6X/vxlXQtFBMrXdXxdL8CbDTGniw==
 
 for-each@^0.3.3:
   version "0.3.3"
@@ -14703,10 +14698,10 @@ react-native-pdf@^6.7.1:
     crypto-js "^3.2.0"
     deprecated-react-native-prop-types "^2.3.0"
 
-react-native-permissions@^4.0.0-beta.1:
-  version "4.0.0-beta.1"
-  resolved "https://registry.yarnpkg.com/react-native-permissions/-/react-native-permissions-4.0.0-beta.1.tgz#ff72e16a66d5f60394cf0d61b7d0d7acca0ca3c3"
-  integrity sha512-O2t1qXEcZDTfCLnu1Un8fsbX48VePOsJmsqmQqSg1qwxIMs6B9bzTo2M0eObMvCLTkLOT5qqhMtJ1kgYYNLB0g==
+react-native-permissions@^4.0.0:
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/react-native-permissions/-/react-native-permissions-4.0.0.tgz#64eb341993b0d317fb753104bc72f911d253d613"
+  integrity sha512-VWdETvRVf5WWLOKxle88UtB+LNQR99LvWOkg8C/azNTYLhuAqeSI+SYll+og/A0TIepeTsxnBrtX/YNB3hNQ0w==
 
 react-native-reanimated@^3.4.2:
   version "3.4.2"

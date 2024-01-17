@@ -1,10 +1,8 @@
-import React, { HTMLInputTypeAttribute, ReactElement } from 'react'
+import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
 
-import TextInput from '../TextInput'
-
-const DEFAULT_MULTI_LINE_NUMBER = 7
+import InputComponent from './Input'
 
 const Container = styled.div`
   display: flex;
@@ -22,34 +20,15 @@ export const Title = styled.label`
   font-weight: bold;
 `
 
-const StyledTextArea = styled.textarea`
-  resize: none;
-  min-height: 60px;
-`
-
 type InputSectionProps = {
   id: string
   title: string
   description?: string
-  value: string
-  onChange: (input: string) => void
-  type?: HTMLInputTypeAttribute
-  multiline?: boolean
-  numberOfLines?: number
   showOptional?: boolean
+  children: React.ReactComponentElement<typeof InputComponent>
 }
 
-const InputSection = ({
-  id,
-  title,
-  description,
-  value,
-  onChange,
-  type,
-  multiline = false,
-  numberOfLines = DEFAULT_MULTI_LINE_NUMBER,
-  showOptional = false,
-}: InputSectionProps): ReactElement => {
+const InputSection = ({ id, showOptional, title, description, children }: InputSectionProps): ReactElement => {
   const { t } = useTranslation('common')
   return (
     <Container>
@@ -58,11 +37,7 @@ const InputSection = ({
         {showOptional && <div>({t('optional')})</div>}
       </TitleContainer>
       {description ? <div>{description}</div> : null}
-      {multiline ? (
-        <StyledTextArea id={id} onChange={event => onChange(event.target.value)} value={value} rows={numberOfLines} />
-      ) : (
-        <TextInput id={id} type={type} onChange={event => onChange(event.target.value)} value={value} />
-      )}
+      {children}
     </Container>
   )
 }

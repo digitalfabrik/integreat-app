@@ -19,6 +19,7 @@ const modelWithTitle = new CategoryModel({
   lastUpdate: DateTime.fromISO('2016-01-07 10:36:24'),
   thumbnail: 'title-thumbnail',
   organization: null,
+  embeddedOffers: [],
 })
 const categoryModels: [CategoryModel, CategoryModel, CategoryModel, CategoryModel] = [
   new CategoryModel({
@@ -32,6 +33,7 @@ const categoryModels: [CategoryModel, CategoryModel, CategoryModel, CategoryMode
     order: 0,
     thumbnail: 'thumb-nail',
     organization: null,
+    embeddedOffers: [],
   }),
   new CategoryModel({
     root: false,
@@ -44,6 +46,7 @@ const categoryModels: [CategoryModel, CategoryModel, CategoryModel, CategoryMode
     lastUpdate: DateTime.fromISO('2016-01-07 10:36:24'),
     thumbnail: 'thumb-nail',
     organization: null,
+    embeddedOffers: [],
   }),
   new CategoryModel({
     root: false,
@@ -56,6 +59,7 @@ const categoryModels: [CategoryModel, CategoryModel, CategoryModel, CategoryMode
     lastUpdate: DateTime.fromISO('2016-01-07 10:36:24'),
     thumbnail: 'thumb-nail',
     organization: null,
+    embeddedOffers: [],
   }),
   new CategoryModel({
     root: false,
@@ -68,6 +72,7 @@ const categoryModels: [CategoryModel, CategoryModel, CategoryModel, CategoryMode
     lastUpdate: DateTime.fromISO('2016-01-07 10:36:24'),
     thumbnail: 'thumb-nail',
     organization: null,
+    embeddedOffers: [],
   }),
 ]
 

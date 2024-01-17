@@ -1,6 +1,7 @@
 import { DateTime } from 'luxon'
 
 import CategoryModel from '../../models/CategoryModel'
+import OfferModel from '../../models/OfferModel'
 import OrganizationModel from '../../models/OrganizationModel'
 import mapCategoryJson from '../mapCategoryJson'
 
@@ -29,6 +30,7 @@ describe('categories', () => {
     thumbnail: 'https://cms.integreat-ap…/03/Hotline-150x150.png',
     last_updated: '2017-01-01T05:10:05+02:00',
     organization: null,
+    embedded_offers: [],
   }
   const categoryJson2 = {
     id: 404,
@@ -61,7 +63,59 @@ describe('categories', () => {
       logo: 'https://example.com/my-icon',
       website: 'https://example.com',
     },
+    embedded_offers: [
+      {
+        alias: 'serlo-abc',
+        thumbnail: 'some_thumbnail',
+        name: 'Serlo ABC',
+        url: 'https://abc-app.serlo.org/',
+        post: undefined,
+      },
+      {
+        alias: 'sprungbrett',
+        thumbnail: 'some_other_thumbnail',
+        name: 'Sprungbrett',
+        url: 'https://web.integreat-app.de/proxy/sprungbrett/app-search-internships?location=augsburg',
+        post: undefined,
+      },
+      {
+        alias: 'lehrstellen-radar',
+        thumbnail: 'some_other_thumbnail',
+        name: 'Lehrstellenradar',
+        url: 'https://www.lehrstellen-radar.de/5100,0,lsrlist.html',
+        post: {
+          partner: '0006',
+          radius: '50',
+          plz: '86150',
+        },
+      },
+    ],
   }
+  const lehrstellenRadarPostData = new Map()
+  lehrstellenRadarPostData.set('partner', '0006')
+  lehrstellenRadarPostData.set('radius', '50')
+  lehrstellenRadarPostData.set('plz', '86150')
+  const offerModels = [
+    new OfferModel({
+      alias: 'serlo-abc',
+      thumbnail: 'some_thumbnail',
+      title: 'Serlo ABC',
+      path: 'https://abc-app.serlo.org/',
+    }),
+    new OfferModel({
+      alias: 'sprungbrett',
+      thumbnail: 'some_other_thumbnail',
+      title: 'Sprungbrett',
+      path: 'https://web.integreat-app.de/proxy/sprungbrett/app-search-internships?location=augsburg',
+    }),
+    new OfferModel({
+      alias: 'lehrstellen-radar',
+      thumbnail: 'some_other_thumbnail',
+      title: 'Lehrstellenradar',
+      path: 'https://www.lehrstellen-radar.de/5100,0,lsrlist.html',
+      postData: lehrstellenRadarPostData,
+    }),
+  ]
   const categoryModel1 = new CategoryModel({
     root: false,
     path: '/augsburg/de/anlaufstellen',
@@ -73,6 +127,7 @@ describe('categories', () => {
     thumbnail: 'https://cms.integreat-ap…/03/Hotline-150x150.png',
     lastUpdate: DateTime.fromISO('2017-01-01T05:10:05+02:00'),
     organization: null,
+    embeddedOffers: [],
   })
   const categoryModel2 = new CategoryModel({
     root: false,
@@ -89,6 +144,7 @@ describe('categories', () => {
       logo: 'https://example.com/my-icon',
       url: 'https://example.com',
     }),
+    embeddedOffers: offerModels,
   })
 
   it('should map json correctly', () => {

@@ -4,11 +4,13 @@ import { useCallback, useContext } from 'react'
 import {
   CATEGORIES_ROUTE,
   CITY_NOT_COOPERATING_ROUTE,
+  CONSENT_ROUTE,
   DISCLAIMER_ROUTE,
   EVENTS_ROUTE,
   JPAL_TRACKING_ROUTE,
   LANDING_ROUTE,
   LICENSES_ROUTE,
+  MALTE_HELP_FORM_OFFER_ROUTE,
   NEWS_ROUTE,
   OFFERS_ROUTE,
   OPEN_PAGE_SIGNAL_NAME,
@@ -50,7 +52,10 @@ const navigate = <T extends RoutesType>(
     navigation.push(LICENSES_ROUTE)
     return
   }
-
+  if (routeInformation.route === CONSENT_ROUTE) {
+    navigation.push(CONSENT_ROUTE)
+    return
+  }
   if (routeInformation.route === LANDING_ROUTE) {
     navigation.push(LANDING_ROUTE)
     return
@@ -111,6 +116,9 @@ const navigate = <T extends RoutesType>(
 
     case SPRUNGBRETT_OFFER_ROUTE:
       navigation.push(SPRUNGBRETT_OFFER_ROUTE)
+      return
+
+    case MALTE_HELP_FORM_OFFER_ROUTE:
       return
 
     case POIS_ROUTE:

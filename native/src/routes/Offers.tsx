@@ -2,7 +2,7 @@ import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 import { View } from 'react-native'
 
-import { OfferModel, SPRUNGBRETT_OFFER_ROUTE } from 'api-client'
+import { MALTE_HELP_FORM_OFFER_ROUTE, OfferModel, SPRUNGBRETT_OFFER_ROUTE } from 'api-client'
 
 import Tiles from '../components/Tiles'
 import TileModel from '../models/TileModel'
@@ -13,19 +13,21 @@ type OffersProps = {
   languageCode: string
 }
 
+const internalOffers = [SPRUNGBRETT_OFFER_ROUTE, MALTE_HELP_FORM_OFFER_ROUTE] as string[]
+
 const Offers = ({ offers, navigateToOffer, languageCode }: OffersProps): ReactElement => {
   const { t } = useTranslation('offers')
 
   const tiles = offers.map(offer => {
     let path = offer.path
-    if (offer.alias === SPRUNGBRETT_OFFER_ROUTE) {
+    if (internalOffers.includes(offer.alias)) {
       path = offer.alias
     }
     return new TileModel({
       title: t(offer.title),
       path,
       thumbnail: offer.thumbnail,
-      isExternalUrl: offer.alias !== SPRUNGBRETT_OFFER_ROUTE,
+      isExternalUrl: !internalOffers.includes(offer.alias),
       postData: offer.postData,
     })
   })

@@ -1,4 +1,4 @@
-import React, { ReactElement, useCallback } from 'react'
+import React, { ReactElement, useCallback, useMemo } from 'react'
 import { useWindowDimensions } from 'react-native'
 
 import { CATEGORIES_ROUTE, CategoriesRouteType, cityContentPath, ErrorCode } from 'api-client'
@@ -9,6 +9,7 @@ import { NavigationProps, RouteProps } from '../constants/NavigationTypes'
 import useCityAppContext from '../hooks/useCityAppContext'
 import useHeader from '../hooks/useHeader'
 import useLoadCityContent from '../hooks/useLoadCityContent'
+import useLoadEmbeddedOffers from '../hooks/useLoadEmbeddedOffers'
 import useNavigate from '../hooks/useNavigate'
 import usePreviousProp from '../hooks/usePreviousProp'
 import useResourceCache from '../hooks/useResourceCache'
@@ -32,7 +33,7 @@ const CategoriesContainer = ({ navigation, route }: CategoriesContainerProps): R
 
   const homeRouteTitle = cityDisplayName(data?.city, deviceWidth)
   const path = route.params.path ?? cityContentPath({ cityCode, languageCode })
-  const category = data?.categories.findCategoryByPath(path)
+  const category = useMemo(() => data?.categories.findCategoryByPath(path), [data?.categories, path])
   const availableLanguages =
     category && !category.isRoot() ? Array.from(category.availableLanguages.keys()) : data?.languages.map(it => it.code)
 
@@ -56,11 +57,22 @@ const CategoriesContainer = ({ navigation, route }: CategoriesContainerProps): R
   )
   const previousLanguageCode = usePreviousProp({ prop: languageCode, onPropChange: onLanguageChange })
 
+  const embeddedOffers = useLoadEmbeddedOffers({
+    category,
+    cityCode,
+    languageCode,
+  })
+
   const error =
     data?.categories && !category && previousLanguageCode === languageCode ? ErrorCode.PageNotFound : response.error
 
+  const refresh = useCallback(() => {
+    response.refresh()
+    embeddedOffers.refresh()
+  }, [response, embeddedOffers])
+
   return (
-    <LoadingErrorHandler {...response} error={error} scrollView>
+    <LoadingErrorHandler refresh={refresh} loading={response.loading} error={error} scrollView>
       {data && category && (
         <>
           {category.isRoot() && (
@@ -72,6 +84,7 @@ const CategoriesContainer = ({ navigation, route }: CategoriesContainerProps): R
             cityModel={data.city}
             categories={data.categories}
             category={category}
+            embeddedOffers={embeddedOffers}
             resourceCache={resourceCache}
           />
         </>

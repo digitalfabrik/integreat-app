@@ -26,6 +26,9 @@ export const OFFERS_ROUTE: OffersRouteType = 'offers'
 export type SprungbrettOfferRouteType = 'sprungbrett'
 export const SPRUNGBRETT_OFFER_ROUTE: SprungbrettOfferRouteType = 'sprungbrett'
 
+export type MalteHelpFormOfferRouteType = 'help'
+export const MALTE_HELP_FORM_OFFER_ROUTE: MalteHelpFormOfferRouteType = 'help'
+
 export type SearchRouteType = 'search'
 export const SEARCH_ROUTE: SearchRouteType = 'search'
 
@@ -68,6 +71,9 @@ export const IMAGE_VIEW_MODAL_ROUTE: ImageViewModalRouteType = 'image'
 
 export type FeedbackModalRouteType = 'feedback'
 export const FEEDBACK_MODAL_ROUTE: FeedbackModalRouteType = 'feedback'
+
+export type ConsentRouteType = 'consent'
+export const CONSENT_ROUTE: ConsentRouteType = 'consent'
 
 // Web routes
 export type MainDisclaimerRouteType = 'main-disclaimer'
