@@ -19,7 +19,7 @@ const TitleContainer = styled.View`
   justify-content: space-between;
 `
 
-const ThemedText = styled.Text`
+const ThemedText = styled(Text)`
   display: flex;
   text-align: center;
   color: ${props => props.theme.colors.textColor};
@@ -33,7 +33,7 @@ const Title = styled(ThemedText)`
 
 const Input = styled.TextInput<{ numberOfLines: number; invalid: boolean }>`
   border-width: 1px;
-  border-color: ${props => (props.invalid ? props.theme.colors.invalidInput : props.theme.colors.themeColor)};
+  border-color: ${props => (props.invalid ? props.theme.colors.invalidInput : props.theme.colors.textDecorationColor)};
   color: ${props => props.theme.colors.textColor};
   padding: 8px;
   ${props =>
@@ -54,6 +54,7 @@ type InputSectionProps = {
   keyboardType?: KeyboardTypeOptions
   multiline?: boolean
   numberOfLines?: number
+  maxLength?: number
   showOptional?: boolean
   invalid?: boolean
 }
@@ -66,6 +67,7 @@ const InputSection = ({
   onBlur,
   keyboardType = 'default',
   multiline = false,
+  maxLength,
   numberOfLines = DEFAULT_MULTI_LINE_NUMBER,
   showOptional = false,
   invalid = false,
@@ -87,6 +89,7 @@ const InputSection = ({
         onBlur={onBlur}
         value={value}
         multiline={multiline}
+        maxLength={maxLength}
         numberOfLines={multiline ? numberOfLines : 1}
         keyboardType={keyboardType}
         invalid={invalid}

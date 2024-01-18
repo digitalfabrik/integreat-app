@@ -8,7 +8,6 @@ import { MALTE_HELP_FORM_MAX_COMMENT_LENGTH, OfferModel, submitHelpForm } from '
 
 import { SecurityIcon, SupportIcon } from '../assets'
 import useSnackbar from '../hooks/useSnackbar'
-import Caption from './Caption'
 import LayoutedScrollView from './LayoutedScrollView'
 import Icon from './base/Icon'
 import Text from './base/Text'
@@ -17,7 +16,7 @@ import FormInput from './form/FormInput'
 import FormRadioButtons from './form/FormRadioButtons'
 
 const Container = styled(LayoutedScrollView)`
-  padding: 0 16px 16px;
+  padding: 16px;
   gap: 16px;
 `
 
@@ -26,11 +25,13 @@ const InformationRow = styled.View`
   gap: 8px;
 `
 
-const InformationText = styled.Text`
+const InformationText = styled(Text)`
+  font-family: ${props => props.theme.fonts.native.contentFontRegular};
+  font-size: 14px;
   flex: 1;
 `
 
-const InputTitle = styled.Text`
+const InputTitle = styled(Text)`
   font-weight: bold;
 `
 
@@ -67,7 +68,11 @@ const MalteHelpFormOffer = ({
   malteHelpFormOffer,
   onSubmit,
 }: MalteHelpFormOfferProps): ReactElement => {
-  const { control, handleSubmit, formState } = useForm<FormInput>({ defaultValues })
+  const { control, handleSubmit, formState } = useForm<FormInput>({
+    mode: 'onBlur',
+    progressive: true,
+    defaultValues,
+  })
   const { t } = useTranslation('malteHelpForm')
   const showSnackbar = useSnackbar()
 
@@ -83,8 +88,6 @@ const MalteHelpFormOffer = ({
 
   return (
     <Container>
-      <Caption title={t('title')} />
-
       <InformationRow>
         <Icon Icon={SupportIcon} />
         <InformationText>{t('supportNote')}</InformationText>
@@ -116,9 +119,9 @@ const MalteHelpFormOffer = ({
           name='contactGender'
           control={control}
           values={[
-            { key: 'any', label: t('any') },
-            { key: 'female', label: t('female') },
-            { key: 'male', label: t('male') },
+            { key: 'any', label: t('contactPersonAnyGender') },
+            { key: 'female', label: t('contactPersonGenderFemale') },
+            { key: 'male', label: t('contactPersonGenderMale') },
           ]}
         />
       </View>
@@ -129,10 +132,11 @@ const MalteHelpFormOffer = ({
         hint={`(${t('maxCharacters', { numberOfCharacters: MALTE_HELP_FORM_MAX_COMMENT_LENGTH })})`}
         control={control}
         rules={{ maxLength: MALTE_HELP_FORM_MAX_COMMENT_LENGTH }}
+        maxLength={MALTE_HELP_FORM_MAX_COMMENT_LENGTH}
         multiline
       />
 
-      <Text>{t('responseDisclaimer')}</Text>
+      <InformationText>{t('responseDisclaimer')}</InformationText>
       <TextButton text={t('submit')} onPress={submit} disabled={!formState.isValid} />
     </Container>
   )

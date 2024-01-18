@@ -9,6 +9,7 @@ type FormInputProps<T extends FieldValues> = {
   rules?: RegisterOptions<T, Path<T>>
   title?: string
   hint?: string
+  maxLength?: number
   showOptional?: boolean
   multiline?: boolean
 }
@@ -19,6 +20,7 @@ const FormInput = <T extends FieldValues>({
   rules,
   title,
   hint,
+  maxLength,
   showOptional = false,
   multiline = false,
 }: FormInputProps<T>): ReactElement => (
@@ -34,6 +36,7 @@ const FormInput = <T extends FieldValues>({
         onChange={onChange}
         onBlur={onBlur}
         invalid={invalid}
+        maxLength={maxLength}
         multiline={multiline}
         showOptional={showOptional}
       />

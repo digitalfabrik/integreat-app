@@ -29,7 +29,9 @@ const FormRadioButtons = <T extends FieldValues>({ name, control, values }: Form
             <RadioButton selected={value === key} select={() => onChange(key)}>
               <Text>{label}</Text>
             </RadioButton>
-            {inputName !== undefined && value === key && <FormInput name={inputName} control={control} />}
+            {inputName !== undefined && value === key && (
+              <FormInput rules={{ required: true }} name={inputName} control={control} />
+            )}
           </View>
         ))}
       </View>

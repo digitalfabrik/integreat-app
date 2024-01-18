@@ -1,6 +1,6 @@
 import OfferModel from '../models/OfferModel'
 
-export const MALTE_HELP_FORM_MAX_COMMENT_LENGTH = 200
+export const MALTE_HELP_FORM_MAX_COMMENT_LENGTH = 400
 
 type SubmitHelpFormParams = {
   cityCode: string
