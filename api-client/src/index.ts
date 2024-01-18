@@ -65,11 +65,11 @@ export { default as createFeedbackEndpoint, FEEDBACK_ENDPOINT_NAME } from './end
 export { default as createTrackingEndpoint, TRACKING_ENDPOINT_NAME } from './endpoints/createTrackingEndpoint'
 export { default as loadSprungbrettJobs, type LoadSprungbrettJobReturn } from './endpoints/loadSprungbrettJobs'
 export {
-  default as submitHelpForm,
+  default as submitMalteHelpForm,
   type ContactGender,
   type ContactChannel,
   MAX_COMMENT_LENGTH,
-} from './endpoints/submitHelpForm'
+} from './endpoints/submitMalteHelpForm'
 export * from './replaceLinks'
 export { POSITIVE_RATING } from './endpoints/createFeedbackEndpoint'
 export { NEGATIVE_RATING } from './endpoints/createFeedbackEndpoint'
