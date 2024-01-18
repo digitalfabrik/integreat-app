@@ -26,6 +26,7 @@ const PanelContainer = styled.article`
   display: flex;
   flex-direction: column;
   width: ${dimensions.poiDesktopPanelWidth}px;
+
   /* additional min-width is needed because the article would shrink to a smaller width if the content can be smaller */
   min-width: ${dimensions.poiDesktopPanelWidth}px;
 `
