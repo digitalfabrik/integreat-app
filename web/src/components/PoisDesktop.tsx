@@ -26,6 +26,8 @@ const PanelContainer = styled.article`
   display: flex;
   flex-direction: column;
   width: ${dimensions.poiDesktopPanelWidth}px;
+  /* additional min-width is needed because the article would shrink to a smaller width if the content can be smaller */
+  min-width: ${dimensions.poiDesktopPanelWidth}px;
 `
 
 const ListViewWrapper = styled.div<{ panelHeights: number; bottomBarHeight: number }>`
@@ -43,14 +45,14 @@ const ToolbarContainer = styled.div`
 
 const ListHeader = styled.div`
   padding-top: clamp(16px, 1.4vh, 32px);
-  padding-bottom: clamp(10px, 1vh, 20px);
+  padding-block-end: clamp(10px, 1vh, 20px);
   text-align: center;
   font-size: ${props => props.theme.fonts.subTitleFontSize};
   font-family: ${props => props.theme.fonts.web.decorativeFont};
   line-height: ${props => props.theme.fonts.decorativeLineHeight};
   font-weight: 600;
-  border-bottom: 1px solid ${props => props.theme.colors.borderColor};
-  margin-bottom: clamp(10px, 1vh, 20px);
+  border-block-end: 1px solid ${props => props.theme.colors.borderColor};
+  margin-block-end: clamp(10px, 1vh, 20px);
 `
 
 const FooterContainer = styled.div`
