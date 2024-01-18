@@ -9,7 +9,7 @@ import {
   ContactGender,
   MAX_COMMENT_LENGTH,
   OfferModel,
-  submitHelpForm,
+  submitMalteHelpForm,
 } from 'api-client'
 import { config } from 'translations'
 
@@ -62,7 +62,7 @@ type MalteHelpFormProps = {
 }
 
 const MalteHelpForm = ({ languageCode, cityCode, helpButtonOffer }: MalteHelpFormProps): ReactElement => {
-  const { t, i18n } = useTranslation('malteHelpForm')
+  const { t } = useTranslation('malteHelpForm')
   const [sendingStatus, setSendingStatus] = useState<SendingStatusType>('idle')
   const [submitted, setSubmitted] = useState(false)
   const [contactChannel, setContactChannel] = useState<ContactChannel>('eMail')
@@ -77,7 +77,6 @@ const MalteHelpForm = ({ languageCode, cityCode, helpButtonOffer }: MalteHelpFor
     (!email.length && contactChannel === 'eMail') ||
     (!telephone.length && contactChannel === 'telephone')
   const dashboardRoute = cityContentPath({ languageCode, cityCode })
-  const germanT = i18n.getFixedT('de', 'malteHelpForm')
 
   const submitHandler = async (event: SyntheticEvent<HTMLFormElement>) => {
     const form = event.currentTarget
@@ -90,7 +89,7 @@ const MalteHelpForm = ({ languageCode, cityCode, helpButtonOffer }: MalteHelpFor
       event.preventDefault()
       setSendingStatus('sending')
       try {
-        await submitHelpForm({
+        await submitMalteHelpForm({
           cityCode,
           languageCode,
           helpButtonOffer,
@@ -101,12 +100,10 @@ const MalteHelpForm = ({ languageCode, cityCode, helpButtonOffer }: MalteHelpFor
           contactChannel,
           contactGender,
           comment,
-          translate: (text: string) => germanT(text),
         })
         setSendingStatus('successful')
       } catch (error) {
         reportError(error)
-        event.preventDefault()
         setSendingStatus('failed')
       }
     }
@@ -176,7 +173,7 @@ const MalteHelpForm = ({ languageCode, cityCode, helpButtonOffer }: MalteHelpFor
               },
             },
             {
-              key: 'person',
+              key: 'personally',
               label: t('personally'),
             },
           ]}
@@ -187,8 +184,8 @@ const MalteHelpForm = ({ languageCode, cityCode, helpButtonOffer }: MalteHelpFor
           submitted={submitted}
           caption={t('contactPerson')}
           groupId='contactPerson'
-          selectedValue={contactType}
-          onChange={setContactType}
+          selectedValue={contactGender}
+          onChange={setContactGender}
           values={[
             { key: 'any', label: t('contactPersonAnyGender') },
             { key: 'female', label: t('contactPersonGenderFemale') },
