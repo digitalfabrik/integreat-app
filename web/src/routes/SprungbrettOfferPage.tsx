@@ -64,12 +64,7 @@ const SprungbrettOfferPage = ({
     route: SPRUNGBRETT_OFFER_ROUTE,
     languageCode,
     Toolbar: (
-      <CityContentToolbar
-        languageCode={languageCode}
-        feedbackTarget={feedbackTarget}
-        route={SPRUNGBRETT_OFFER_ROUTE}
-        pageTitle={pageTitle}
-      />
+      <CityContentToolbar feedbackTarget={feedbackTarget} route={SPRUNGBRETT_OFFER_ROUTE} pageTitle={pageTitle} />
     ),
   }
 

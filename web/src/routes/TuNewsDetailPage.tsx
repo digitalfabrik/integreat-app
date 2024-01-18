@@ -74,14 +74,7 @@ const TuNewsDetailPage = ({ city, pathname, cityCode, languageCode }: CityRouteP
     languageChangePaths,
     route: TU_NEWS_DETAIL_ROUTE,
     languageCode,
-    Toolbar: (
-      <CityContentToolbar
-        hasFeedbackOption={false}
-        route={TU_NEWS_DETAIL_ROUTE}
-        languageCode={languageCode}
-        pageTitle={pageTitle}
-      />
-    ),
+    Toolbar: <CityContentToolbar hasFeedbackOption={false} route={TU_NEWS_DETAIL_ROUTE} pageTitle={pageTitle} />,
   }
 
   if (loading) {

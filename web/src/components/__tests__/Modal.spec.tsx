@@ -18,7 +18,7 @@ describe('Modal', () => {
   const renderModal = (wrapInPortal?: boolean) =>
     renderWithRouterAndTheme(
       <Layout>
-        <Modal title={title} closeModal={closeModal} direction='ltr' wrapInPortal={wrapInPortal}>
+        <Modal title={title} closeModal={closeModal} wrapInPortal={wrapInPortal}>
           {content}
         </Modal>
       </Layout>,
