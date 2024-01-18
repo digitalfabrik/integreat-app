@@ -50,7 +50,6 @@ type PoiDetailsProps = {
 
 const PoiDetails = ({ poi, poiFeature, language }: PoiDetailsProps): ReactElement => {
   const { t } = useTranslation('pois')
-  // TODO IGAPP-920: this has to be removed when we get proper images from CMS
   const thumbnail = poiFeature.thumbnail?.replace('-150x150', '') ?? PoiThumbnailPlaceholderLarge
   const distance = poiFeature.distance
   const { title, content, email, website, phoneNumber, openingHours, temporarilyClosed, isCurrentlyOpen, category } =

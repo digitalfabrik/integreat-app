@@ -21,10 +21,11 @@ type TextButtonProps = {
   onClick: () => void
   disabled?: boolean
   className?: string
+  type?: 'submit' | 'button'
 }
 
-const TextButton = ({ text, onClick, className, ...props }: TextButtonProps): ReactElement => (
-  <StyledButton onClick={onClick} disabled={!!props.disabled} ariaLabel='' className={className}>
+const TextButton = ({ text, onClick, className, type, ...props }: TextButtonProps): ReactElement => (
+  <StyledButton onClick={onClick} disabled={!!props.disabled} ariaLabel='' className={className} type={type}>
     {text}
   </StyledButton>
 )
