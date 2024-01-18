@@ -108,7 +108,6 @@ export const useForegroundPushNotificationListener = ({
         if (mounted) {
           // The CMS needs some time until the push notification is available in the API response
           setTimeout(() => {
-            // TODO #2140: Uncomment and improve snackbar
             log(JSON.stringify(message))
             // showSnackbar({
             //   text: message.notification.title,

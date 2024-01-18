@@ -8,6 +8,7 @@ import {
   LandingRouteType,
   LicensesRouteType,
   LocalNewsType,
+  MalteHelpFormOfferRouteType,
   NewsRouteType,
   OffersRouteType,
   PoisRouteType,
@@ -58,7 +59,7 @@ export type NewsRouteInformationType = ParamsType & {
 
 export type SimpleCityContentFeatureType = ParamsType & {
   // Routes without customizable ids, e.g. '/augsburg/de/disclaimer/'
-  route: DisclaimerRouteType | OffersRouteType | SprungbrettOfferRouteType
+  route: DisclaimerRouteType | OffersRouteType | SprungbrettOfferRouteType | MalteHelpFormOfferRouteType
 }
 
 export type EventsRouteInformationType = ParamsType & {

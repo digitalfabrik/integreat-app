@@ -25,10 +25,12 @@ const TilesRow = styled(HighlightBox)`
   shadow-offset: 1px;
 `
 
-const StyledPressable = styled(Pressable)<{ disabled: boolean }>`
-  // TODO #2330: Set color to grey
-  ${props => props.disabled && 'opacity: 0.3;'}
+const StyledPressable = styled(Pressable)`
   padding: 0 4px;
+`
+
+const StyledIcon = styled(Icon)<{ disabled: boolean }>`
+  color: ${props => (props.disabled ? props.theme.colors.textDecorationColor : props.theme.colors.textColor)};
 `
 
 type NavigationTilesProps = {
@@ -65,8 +67,8 @@ const NavigationTiles = ({ tiles }: NavigationTilesProps): ReactElement => {
   return (
     <TilesRow>
       {isScrollable && (
-        <StyledPressable onPress={scrollToStart} disabled={scrolledToStart}>
-          <Icon Icon={ArrowBackIcon} directionDependent />
+        <StyledPressable onPress={scrollToStart}>
+          <StyledIcon Icon={ArrowBackIcon} disabled={scrolledToStart} directionDependent />
         </StyledPressable>
       )}
       <ScrollView
@@ -92,8 +94,8 @@ const NavigationTiles = ({ tiles }: NavigationTilesProps): ReactElement => {
         ))}
       </ScrollView>
       {isScrollable && (
-        <StyledPressable onPress={scrollToEnd} disabled={scrolledToEnd}>
-          <Icon Icon={ArrowBackIcon} directionDependent reverse />
+        <StyledPressable onPress={scrollToEnd}>
+          <StyledIcon Icon={ArrowBackIcon} disabled={scrolledToEnd} directionDependent reverse />
         </StyledPressable>
       )}
     </TilesRow>
