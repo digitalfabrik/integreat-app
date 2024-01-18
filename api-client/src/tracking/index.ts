@@ -9,6 +9,7 @@ import {
   JpalTrackingRouteType,
   LandingRouteType,
   LicensesRouteType,
+  MalteHelpFormOfferRouteType,
   NewsRouteType,
   OffersRouteType,
   PoisRouteType,
@@ -40,6 +41,7 @@ export type OpenPageSignalType = {
     | ChangeLanguageModalRouteType
     | LicensesRouteType
     | ConsentRouteType
+    | MalteHelpFormOfferRouteType
   url: string
 }
 type ClosePageSignalNameType = 'close_page'

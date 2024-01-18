@@ -10,6 +10,7 @@ import {
   JPAL_TRACKING_ROUTE,
   LANDING_ROUTE,
   LICENSES_ROUTE,
+  MALTE_HELP_FORM_OFFER_ROUTE,
   NEWS_ROUTE,
   OFFERS_ROUTE,
   OPEN_PAGE_SIGNAL_NAME,
@@ -115,6 +116,9 @@ const navigate = <T extends RoutesType>(
 
     case SPRUNGBRETT_OFFER_ROUTE:
       navigation.push(SPRUNGBRETT_OFFER_ROUTE)
+      return
+
+    case MALTE_HELP_FORM_OFFER_ROUTE:
       return
 
     case POIS_ROUTE:

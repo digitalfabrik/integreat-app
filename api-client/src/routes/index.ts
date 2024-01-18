@@ -26,6 +26,9 @@ export const OFFERS_ROUTE: OffersRouteType = 'offers'
 export type SprungbrettOfferRouteType = 'sprungbrett'
 export const SPRUNGBRETT_OFFER_ROUTE: SprungbrettOfferRouteType = 'sprungbrett'
 
+export type MalteHelpFormOfferRouteType = 'help'
+export const MALTE_HELP_FORM_OFFER_ROUTE: MalteHelpFormOfferRouteType = 'help'
+
 export type SearchRouteType = 'search'
 export const SEARCH_ROUTE: SearchRouteType = 'search'
 

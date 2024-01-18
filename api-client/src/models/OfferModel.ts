@@ -38,4 +38,17 @@ export default class OfferModel {
   get postData(): Map<string, string> | undefined {
     return this._postData
   }
+
+  isEqual(other: OfferModel): boolean {
+    const postDataEqual =
+      this.postData?.size === other.postData?.size &&
+      Array.from(this.postData?.keys() ?? []).every(key => this.postData?.get(key) === other.postData?.get(key))
+    return (
+      postDataEqual &&
+      this.alias === other.alias &&
+      this.thumbnail === other.thumbnail &&
+      this.title === other.title &&
+      this.path === other.path
+    )
+  }
 }
