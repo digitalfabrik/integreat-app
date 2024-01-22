@@ -9648,7 +9648,8 @@
       "submit": "Formular absenden",
       "submitSuccessful": "Formular wurde erfolgreich versandt",
       "submitFailed": "Formular konnte nicht versandt werden",
-      "submitFailedReasoning": "Bitte gewährleiste eine stabile Internetverbindung und versuche es erneut."
+      "submitFailedReasoning": "Bitte gewährleiste eine stabile Internetverbindung und versuche es erneut.",
+      "invalidEmailAddress": "Die angegebene E-Mail Addresse ist ungültig."
     }
   }
 }
