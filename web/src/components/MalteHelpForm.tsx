@@ -46,7 +46,7 @@ const ErrorSendingStatus = styled.div`
   margin: 10px 0;
 `
 
-type SendingStatusType = 'idle' | 'sending' | 'failed' | 'successful'
+type SendingStatusType = 'idle' | 'sending' | 'invalidEmail' | 'failed' | 'successful'
 type MalteHelpFormProps = {
   cityCode: string
   languageCode: string
@@ -85,7 +85,7 @@ const MalteHelpForm = ({ languageCode, cityCode, helpButtonOffer }: MalteHelpFor
       event.preventDefault()
       setSendingStatus('sending')
       try {
-        await submitMalteHelpForm({
+        const response = await submitMalteHelpForm({
           cityCode,
           languageCode,
           helpButtonOffer,
@@ -97,6 +97,14 @@ const MalteHelpForm = ({ languageCode, cityCode, helpButtonOffer }: MalteHelpFor
           contactGender,
           comment,
         })
+        if (response.errors?.email) {
+          setSendingStatus('invalidEmail')
+          const emailInput = form.querySelector<HTMLInputElement>('#eMail-input')
+          emailInput?.setCustomValidity(t('invalidEmailAddress'))
+          emailInput?.reportValidity()
+          scrollToFirstError(form)
+          return
+        }
         setSendingStatus('successful')
       } catch (error) {
         reportError(error)
@@ -187,10 +195,10 @@ const MalteHelpForm = ({ languageCode, cityCode, helpButtonOffer }: MalteHelpFor
           />
         </InputSection>
         <p>{t('responseDisclaimer')}</p>
-        {sendingStatus === 'failed' && (
+        {(sendingStatus === 'failed' || sendingStatus === 'invalidEmail') && (
           <ErrorSendingStatus role='alert'>
             <SubmitErrorHeading>{t('submitFailed')}</SubmitErrorHeading>
-            {t('submitFailedReasoning')}
+            {sendingStatus !== 'invalidEmail' && t('submitFailedReasoning')}
           </ErrorSendingStatus>
         )}
         <TextButton

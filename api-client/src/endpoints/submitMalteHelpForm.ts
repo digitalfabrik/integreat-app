@@ -83,6 +83,12 @@ type ZammadConfig = {
   token?: string
 }
 
+type ZammadErrorResponse = {
+  errors?: {
+    email?: 'invalid'
+  }
+}
+
 const getZammadConfig = async (zammadUrl: string, fingerprint: string): Promise<ZammadConfig> => {
   const response = await fetch(`${zammadUrl}/api/v1/form_config`, {
     method: 'POST',
@@ -110,19 +116,19 @@ const submitMalteHelpForm = async ({
   contactChannel,
   contactGender,
   comment,
-}: SubmitHelpFormParams): Promise<void> => {
+}: SubmitHelpFormParams): Promise<ZammadErrorResponse> => {
   const zammadUrl = helpButtonOffer.postData?.get('zammad-url')
   const config = zammadUrl ? await getZammadConfig(zammadUrl, fingerprint) : undefined
 
   if (!config?.enabled) {
-    return
+    return {}
   }
 
   const contactChannelEmailAdditionalInfo = contactChannel === 'eMail' ? email : undefined
   const contactChannelTelephoneAdditionalInfo = contactChannel === 'telephone' ? telephone : undefined
   const additionalContactInformation = contactChannelEmailAdditionalInfo ?? contactChannelTelephoneAdditionalInfo
 
-  await fetch(config.endpoint, {
+  const response = await fetch(config.endpoint, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -144,6 +150,7 @@ const submitMalteHelpForm = async ({
       token: config.token,
     }),
   })
+  return response.json()
 }
 
 export default submitMalteHelpForm
