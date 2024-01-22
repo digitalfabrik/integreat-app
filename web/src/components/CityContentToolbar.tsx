@@ -1,8 +1,6 @@
 import React, { memo, ReactNode, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { config } from 'translations'
-
 import { CopyIcon, DoneIcon } from '../assets'
 import useWindowDimensions from '../hooks/useWindowDimensions'
 import { RouteType } from '../routes'
@@ -20,7 +18,6 @@ type CityContentToolbarProps = {
   hideDivider?: boolean
   pageTitle: string
   route: RouteType
-  languageCode: string
   isInBottomActionSheet?: boolean
 }
 
@@ -36,7 +33,6 @@ const CityContentToolbar = (props: CityContentToolbarProps) => {
     hideDivider,
     route,
     pageTitle,
-    languageCode,
     isInBottomActionSheet = false,
   } = props
   const [linkCopied, setLinkCopied] = useState<boolean>(false)
@@ -55,7 +51,6 @@ const CityContentToolbar = (props: CityContentToolbarProps) => {
       <SharingPopup
         shareUrl={window.location.href}
         flow={iconDirection === 'row' ? 'vertical' : 'horizontal'}
-        direction={config.getScriptDirection(languageCode)}
         title={pageTitle}
         portalNeeded={isInBottomActionSheet}
       />

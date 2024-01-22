@@ -34,7 +34,6 @@ describe('PoisDesktop', () => {
   const renderPoisDesktop = (slug?: string) =>
     renderWithRouterAndTheme(
       <PoisDesktop
-        direction='ltr'
         panelHeights={0}
         toolbar={<div>Toolbar</div>}
         pois={pois}

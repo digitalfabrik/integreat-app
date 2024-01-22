@@ -2,8 +2,6 @@ import Headroom from '@integreat-app/react-sticky-headroom'
 import React, { ReactElement, ReactNode } from 'react'
 import styled from 'styled-components'
 
-import { UiDirectionType } from 'translations'
-
 import dimensions from '../constants/dimensions'
 import useWindowDimensions from '../hooks/useWindowDimensions'
 import CityContentFooter from './CityContentFooter'
@@ -20,7 +18,6 @@ type HeaderProps = {
   logoHref: string
   cityName?: string
   cityCode?: string
-  direction: UiDirectionType
   isSidebarOpen?: boolean
   setIsSidebarOpen?: (show: boolean) => void
   language: string
@@ -116,7 +113,6 @@ export const Header = ({
   navigationItems = [],
   cityName,
   cityCode,
-  direction,
   isSidebarOpen = false,
   setIsSidebarOpen,
   language,
@@ -143,16 +139,13 @@ export const Header = ({
                 setShow={setIsSidebarOpen}
                 show={isSidebarOpen}
                 items={kebabItems}
-                direction={direction}
                 Footer={<CityContentFooter city={cityCode} language={language} mode='sidebar' />}
               />
             )}
           </ActionBar>
         </Row>
         {hasNavigationBar && (
-          <NavigationBarScrollContainer
-            direction={direction}
-            activeIndex={navigationItems.findIndex(el => el.props.active)}>
+          <NavigationBarScrollContainer activeIndex={navigationItems.findIndex(el => el.props.active)}>
             <NavigationBar id='navigation-bar'>{navigationItems}</NavigationBar>
           </NavigationBarScrollContainer>
         )}

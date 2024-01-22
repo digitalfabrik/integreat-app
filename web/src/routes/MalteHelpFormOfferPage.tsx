@@ -49,12 +49,7 @@ const MalteHelpFormOfferPage = ({
     route: MALTE_HELP_FORM_OFFER_ROUTE,
     languageCode,
     Toolbar: (
-      <CityContentToolbar
-        languageCode={languageCode}
-        feedbackTarget={feedbackTarget}
-        route={MALTE_HELP_FORM_OFFER_ROUTE}
-        pageTitle={pageTitle}
-      />
+      <CityContentToolbar feedbackTarget={feedbackTarget} route={MALTE_HELP_FORM_OFFER_ROUTE} pageTitle={pageTitle} />
     ),
   }
 

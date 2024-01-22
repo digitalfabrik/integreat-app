@@ -12,17 +12,17 @@ import Icon from './base/Icon'
 
 const opposite = (direction: UiDirectionType) => (direction === 'ltr' ? 'rtl' : 'ltr')
 
-const Wrapper = styled.nav<{ direction: UiDirectionType }>`
+const Wrapper = styled.nav`
   margin: 10px 0;
   text-align: start;
   white-space: nowrap;
   overflow: hidden;
   width: 100%;
-  direction: ${props => opposite(props.direction)};
+  direction: ${props => opposite(props.theme.contentDirection)};
 `
 
-const OrderedList = styled.ol<{ direction: UiDirectionType }>`
-  direction: ${props => props.direction};
+const OrderedList = styled.ol`
+  direction: ${props => props.theme.contentDirection};
   display: flex;
   white-space: nowrap;
   overflow: hidden;
@@ -50,10 +50,9 @@ const StyledLink = styled(Link)`
 type BreadcrumbsProps = {
   ancestorBreadcrumbs: Array<BreadcrumbModel>
   currentBreadcrumb: BreadcrumbModel
-  direction: UiDirectionType
 }
 
-const Breadcrumbs = ({ direction, ancestorBreadcrumbs, currentBreadcrumb }: BreadcrumbsProps): ReactElement => {
+const Breadcrumbs = ({ ancestorBreadcrumbs, currentBreadcrumb }: BreadcrumbsProps): ReactElement => {
   // The current page should not be listed in the UI, but should be within the JsonLd.
   const jsonLdBreadcrumbs = [...ancestorBreadcrumbs, currentBreadcrumb]
   // Min text length after which the last breadcrumb item should shrink
@@ -64,9 +63,9 @@ const Breadcrumbs = ({ direction, ancestorBreadcrumbs, currentBreadcrumb }: Brea
    Basically, we are inverting the direction on the wrapper and then making sure that the direction of the content
    has the opposite direction of the wrapper. */
   return (
-    <Wrapper direction={direction}>
+    <Wrapper>
       <JsonLdBreadcrumbs breadcrumbs={jsonLdBreadcrumbs} />
-      <OrderedList direction={direction}>
+      <OrderedList>
         {ancestorBreadcrumbs.map((breadcrumb, index) =>
           ancestorBreadcrumbs.length > 1 && index === 0 ? (
             <StyledLink to={breadcrumb.pathname} key={breadcrumb.pathname}>

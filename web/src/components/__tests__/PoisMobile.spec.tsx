@@ -25,12 +25,10 @@ describe('PoisMobile', () => {
   const renderPoisDesktop = (slug?: string) =>
     renderWithRouterAndTheme(
       <PoisMobile
-        direction='ltr'
         toolbar={<div>Toolbar</div>}
         pois={pois}
         userLocation={userLocation}
         features={features}
-        languageCode='de'
         slug={slug}
         mapViewport={{} as MapViewViewport}
         setMapViewport={jest.fn()}

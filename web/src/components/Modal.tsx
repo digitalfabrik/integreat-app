@@ -1,9 +1,7 @@
 import FocusTrap from 'focus-trap-react'
 import React, { ReactElement, ReactNode, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
-import styled from 'styled-components'
-
-import { UiDirectionType } from 'translations'
+import styled, { useTheme } from 'styled-components'
 
 import dimensions from '../constants/dimensions'
 import useLockedBody from '../hooks/useLockedBody'
@@ -49,11 +47,10 @@ type ModalProps = {
   title: string
   children: ReactNode
   closeModal: () => void
-  direction: UiDirectionType
   wrapInPortal?: boolean
 }
 
-const Modal = ({ title, closeModal, children, direction, wrapInPortal = false }: ModalProps): ReactElement => {
+const Modal = ({ title, closeModal, children, wrapInPortal = false }: ModalProps): ReactElement => {
   const { viewportSmall } = useWindowDimensions()
   const { t } = useTranslation('common')
   useScrollToTop()
@@ -65,6 +62,9 @@ const Modal = ({ title, closeModal, children, direction, wrapInPortal = false }:
 
     return () => layoutElement?.setAttribute('aria-hidden', 'false')
   }, [])
+
+  const { contentDirection } = useTheme()
+
   // display check option is needed for portals - https://github.com/focus-trap/tabbable/blob/master/CHANGELOG.md#600
   const Modal = (
     <FocusTrap focusTrapOptions={{ clickOutsideDeactivates: true, tabbableOptions: { displayCheck: 'legacy-full' } }}>
@@ -85,7 +85,7 @@ const Modal = ({ title, closeModal, children, direction, wrapInPortal = false }:
     return (
       <Portal className='modal' show>
         <RichLayout>
-          <div dir={direction}>{Modal}</div>
+          <div dir={contentDirection}>{Modal}</div>
         </RichLayout>
       </Portal>
     )
