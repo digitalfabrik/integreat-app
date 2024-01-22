@@ -7,7 +7,6 @@ import {
   JPAL_TRACKING_ROUTE,
   LANDING_ROUTE,
   LICENSES_ROUTE,
-  MALTE_HELP_FORM_OFFER_ROUTE,
   NEWS_ROUTE,
   OFFERS_ROUTE,
   POIS_ROUTE,
@@ -47,7 +46,7 @@ export const pathnameFromRouteInformation = (routeInformation: NonNullableRouteI
     // https://integreat.app/jpal
     return constructPathname([CITY_NOT_COOPERATING_ROUTE, routeInformation.languageCode])
   }
-  if (routeInformation.route === SPRUNGBRETT_OFFER_ROUTE || routeInformation.route === MALTE_HELP_FORM_OFFER_ROUTE) {
+  if (routeInformation.route === SPRUNGBRETT_OFFER_ROUTE) {
     const { cityCode, languageCode, route } = routeInformation
     // https://integreat.app/augsburg/de/offers/sprungbrett
     return constructPathname([cityCode, languageCode, OFFERS_ROUTE, route])
