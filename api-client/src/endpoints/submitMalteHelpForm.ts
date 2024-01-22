@@ -14,26 +14,24 @@ type BuildHelpFormBodyParams = {
   comment: string
 }
 
-// eslint-disable-next-line consistent-return
 const contactGenderText = (contactGender: ContactGender): string => {
   switch (contactGender) {
     case 'male':
       return 'Ich möchte von einer männlichen Person kontaktiert werden.'
     case 'female':
       return 'Ich möchte von einer weiblichen Person kontaktiert werden.'
-    case 'any':
+    default:
       return 'Das Geschlecht des Ansprechpartners/der Ansprechpartnerin spielt keine Rolle.'
   }
 }
 
-// eslint-disable-next-line consistent-return
 const contactChannelText = (contactChannel: ContactChannel): string => {
   switch (contactChannel) {
     case 'eMail':
       return 'E-Mail'
     case 'telephone':
       return 'Telefon'
-    case 'personally':
+    default:
       return 'Persönlich'
   }
 }
@@ -98,6 +96,9 @@ const getZammadConfig = async (zammadUrl: string, fingerprint: string): Promise<
   return response.json()
 }
 
+// more context https://github.com/zammad/zammad/issues/1456
+const fingerprint = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASw'
+
 const submitMalteHelpForm = async ({
   languageCode,
   cityCode,
@@ -111,20 +112,15 @@ const submitMalteHelpForm = async ({
   comment,
 }: SubmitHelpFormParams): Promise<void> => {
   const zammadUrl = helpButtonOffer.postData?.get('zammad-url')
+  const config = zammadUrl ? await getZammadConfig(zammadUrl, fingerprint) : undefined
 
-  if (!zammadUrl) {
-    return
-  }
-
-  // more context https://github.com/zammad/zammad/issues/1456
-  const fingerprint = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASw'
-  const config = await getZammadConfig(zammadUrl, fingerprint)
-  if (!config.enabled) {
+  if (!config?.enabled) {
     return
   }
 
   const contactChannelEmailAdditionalInfo = contactChannel === 'eMail' ? email : undefined
   const contactChannelTelephoneAdditionalInfo = contactChannel === 'telephone' ? telephone : undefined
+  const additionalContactInformation = contactChannelEmailAdditionalInfo ?? contactChannelTelephoneAdditionalInfo
 
   await fetch(config.endpoint, {
     method: 'POST',
@@ -141,7 +137,7 @@ const submitMalteHelpForm = async ({
         contactChannel,
         contactGender,
         comment,
-        additionalContactInformation: contactChannelEmailAdditionalInfo ?? contactChannelTelephoneAdditionalInfo,
+        additionalContactInformation,
       }),
       title: `Hilfebutton - ${cityCode}`,
       fingerprint,

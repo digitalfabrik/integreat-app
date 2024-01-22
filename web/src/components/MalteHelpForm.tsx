@@ -53,6 +53,11 @@ type MalteHelpFormProps = {
   helpButtonOffer: OfferModel
 }
 
+const scrollToFirstError = (form: HTMLFormElement) => {
+  const invalidInput = form.querySelector(':invalid:not(fieldset)')
+  invalidInput?.scrollIntoView({ behavior: 'smooth' })
+}
+
 const MalteHelpForm = ({ languageCode, cityCode, helpButtonOffer }: MalteHelpFormProps): ReactElement => {
   const { t } = useTranslation('malteHelpForm')
   const [sendingStatus, setSendingStatus] = useState<SendingStatusType>('idle')
@@ -74,8 +79,7 @@ const MalteHelpForm = ({ languageCode, cityCode, helpButtonOffer }: MalteHelpFor
     const form = event.currentTarget
     if (!form.checkValidity()) {
       event.stopPropagation()
-      const invalidInput = form.querySelector(':invalid:not(fieldset)')
-      invalidInput?.scrollIntoView({ behavior: 'smooth' })
+      scrollToFirstError(form)
       setSendingStatus('idle')
     } else {
       event.preventDefault()
