@@ -19,7 +19,6 @@ import {
   useLoadFromEndpoint,
   createPOIsEndpoint,
 } from 'api-client'
-import { config } from 'translations'
 
 import { CityRouteProps } from '../CityContentSwitcher'
 import { ClockIcon, EditLocationIcon } from '../assets'
@@ -67,7 +66,6 @@ const PoisPage = ({ cityCode, languageCode, city, pathname }: CityRouteProps): R
   // keep the old mapViewport when changing the viewport
   const [mapViewport, setMapViewport] = useState<MapViewViewport>()
   const { viewportSmall, width } = useWindowDimensions()
-  const direction = config.getScriptDirection(languageCode)
 
   const pois = useMemo(
     () =>
@@ -131,7 +129,6 @@ const PoisPage = ({ cityCode, languageCode, city, pathname }: CityRouteProps): R
       route={POIS_ROUTE}
       iconDirection='row'
       hideDivider
-      languageCode={languageCode}
       pageTitle={pageTitle}
       isInBottomActionSheet={viewportSmall}
     />
@@ -218,7 +215,6 @@ const PoisPage = ({ cityCode, languageCode, city, pathname }: CityRouteProps): R
     toolbar,
     features,
     pois,
-    direction,
     userLocation,
     languageCode,
     slug,

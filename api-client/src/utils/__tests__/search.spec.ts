@@ -67,7 +67,6 @@ describe('search', () => {
         city({ sortingName: 'Augsburg', live: false }),
         city({ sortingName: 'Augsburg', prefix: 'Stadt', live: true }),
         city({ sortingName: 'Dillingen', live: false }),
-        city({ sortingName: '', live: true }),
       ]
       expect(filterSortCities(cities, '')).toEqual([cities[0], cities[2]])
     })
@@ -78,7 +77,6 @@ describe('search', () => {
         city({ sortingName: 'Augsburg', live: false }),
         city({ sortingName: 'Augsburg', prefix: 'Stadt', live: true }),
         city({ sortingName: 'Dillingen', live: false }),
-        city({ sortingName: '', live: true }),
       ]
       expect(filterSortCities(cities, 'a', true)).toEqual([cities[0], cities[1], cities[2], cities[3]])
     })
@@ -89,7 +87,6 @@ describe('search', () => {
         city({ sortingName: 'Augsburg', live: false }),
         city({ sortingName: 'Augsburg', prefix: 'Stadt', live: true }),
         city({ sortingName: 'Dillingen', live: false }),
-        city({ sortingName: '', live: true }),
       ]
       expect(filterSortCities(cities, 'wirschaffendas', true)).toEqual([cities[1], cities[3]])
     })

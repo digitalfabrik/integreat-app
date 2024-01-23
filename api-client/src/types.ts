@@ -90,7 +90,7 @@ export type JsonPoiType = {
   phone_number: string | null
   temporarily_closed: boolean
   opening_hours: JsonOpeningHoursType[] | null
-  category: JsonPoiCategoryType | null
+  category: JsonPoiCategoryType
 }
 export type JsonEventType = {
   id: number

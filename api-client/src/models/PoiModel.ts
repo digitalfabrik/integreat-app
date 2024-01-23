@@ -17,7 +17,7 @@ class PoiModel extends ExtendedPageModel {
   _email: string | null
   _openingHours: OpeningHoursModel[] | null
   _temporarilyClosed: boolean
-  _category: PoiCategoryModel | null
+  _category: PoiCategoryModel
 
   constructor(params: {
     path: string
@@ -34,7 +34,7 @@ class PoiModel extends ExtendedPageModel {
     phoneNumber: string | null
     temporarilyClosed: boolean
     openingHours: OpeningHoursModel[] | null
-    category: PoiCategoryModel | null
+    category: PoiCategoryModel
   }) {
     const {
       category,
@@ -114,17 +114,7 @@ class PoiModel extends ExtendedPageModel {
   }
 
   get category(): PoiCategoryModel {
-    // TODO Remove fallback once https://github.com/digitalfabrik/integreat-cms/issues/2340 is done
-    return (
-      this._category ??
-      new PoiCategoryModel({
-        id: 12,
-        name: 'Others',
-        color: '#2E98FB',
-        iconName: 'other',
-        icon: 'https://integreat-test.tuerantuer.org/static/svg/poi-category-icons/other.svg',
-      })
-    )
+    return this._category
   }
 
   get isCurrentlyOpen(): boolean {

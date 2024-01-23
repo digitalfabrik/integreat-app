@@ -4,7 +4,6 @@ import { useTranslation } from 'react-i18next'
 import styled, { css } from 'styled-components'
 
 import { embedInCollection, GeoJsonPoi, LocationType, MapViewViewport, MapFeature, PoiModel } from 'api-client'
-import { UiDirectionType } from 'translations'
 
 import { ArrowBackspaceIcon } from '../assets'
 import useMapFeatures from '../hooks/useMapFeatures'
@@ -38,7 +37,7 @@ const GoBackContainer = styled.div<{ hidden: boolean }>`
   padding: 0 30px;
 `
 
-const BackNavigation = styled(Button)<{ direction: string }>`
+const BackNavigation = styled(Button)`
   background-color: ${props => props.theme.colors.textSecondaryColor};
   height: 28px;
   width: 28px;
@@ -54,12 +53,12 @@ const StyledIcon = styled(Icon)`
   color: ${props => props.theme.colors.backgroundColor};
 `
 
-const GeocontrolContainer = styled.div<{ height: number; direction: string }>`
+const GeocontrolContainer = styled.div<{ height: number }>`
   --max-icon-height: calc(${props => getSnapPoints(props.height)[1]}px + ${geolocatorTopOffset}px);
 
   position: absolute;
   ${props =>
-    props.direction === 'ltr'
+    props.theme.contentDirection === 'ltr'
       ? css`
           right: 10px;
         `
@@ -73,9 +72,7 @@ type PoisMobileProps = {
   toolbar: ReactElement
   features: MapFeature[]
   pois: PoiModel[]
-  direction: UiDirectionType
   userLocation: LocationType | undefined
-  languageCode: string
   slug: string | undefined
   mapViewport?: MapViewViewport
   setMapViewport: (mapViewport: MapViewViewport) => void
@@ -84,11 +81,9 @@ type PoisMobileProps = {
 
 const PoisMobile = ({
   toolbar,
-  languageCode,
   pois,
   features,
   userLocation,
-  direction,
   slug,
   mapViewport,
   setMapViewport,
@@ -156,14 +151,12 @@ const PoisMobile = ({
         changeSnapPoint={changeSnapPoint}
         featureCollection={embedInCollection(features)}
         currentFeature={currentFeatureOnMap}
-        languageCode={languageCode}
         Overlay={
           <>
             {canGoBack && (
               <BackNavigation
                 onClick={() => handleSelectFeatureOnMap(null)}
                 tabIndex={0}
-                direction={direction}
                 ariaLabel={t('detailsHeader')}>
                 <StyledIcon src={ArrowBackspaceIcon} directionDependent />
               </BackNavigation>
@@ -176,8 +169,7 @@ const PoisMobile = ({
         toolbar={toolbar}
         ref={sheetRef}
         setBottomActionSheetHeight={setBottomActionSheetHeight}
-        direction={direction}
-        sibling={<GeocontrolContainer id='geolocate' direction={direction} ref={geocontrolPosition} height={height} />}>
+        sibling={<GeocontrolContainer id='geolocate' ref={geocontrolPosition} height={height} />}>
         {canGoBack && (
           <GoBackContainer hidden={!isBottomActionSheetFullScreen}>
             <GoBack goBack={() => selectGeoJsonPoiInList(null)} viewportSmall text={t('detailsHeader')} />
@@ -190,7 +182,6 @@ const PoisMobile = ({
             currentPoi={currentPoi}
             selectPoi={handleSelectFeatureInList}
             userLocation={userLocation}
-            direction={direction}
             slug={slug}
           />
         </ListContainer>

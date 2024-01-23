@@ -32,7 +32,7 @@ const breadcrumb2: BreadcrumbModel = {
 }
 
 const render = (ancestors: BreadcrumbModel[], current: BreadcrumbModel) =>
-  renderWithRouterAndTheme(<Breadcrumbs ancestorBreadcrumbs={ancestors} currentBreadcrumb={current} direction='ltr' />)
+  renderWithRouterAndTheme(<Breadcrumbs ancestorBreadcrumbs={ancestors} currentBreadcrumb={current} />)
 
 describe('Breadcrumbs', () => {
   it('should display correctly on the first level', () => {

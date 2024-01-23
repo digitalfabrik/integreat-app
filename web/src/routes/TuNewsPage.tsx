@@ -94,13 +94,7 @@ const TuNewsPage = ({ cityCode, languageCode, city }: CityRouteProps): ReactElem
     route: TU_NEWS_ROUTE,
     languageCode,
     Toolbar: !viewportSmall && (
-      <CityContentToolbar
-        route={TU_NEWS_ROUTE}
-        hasFeedbackOption={false}
-        hideDivider
-        languageCode={languageCode}
-        pageTitle={pageTitle}
-      />
+      <CityContentToolbar route={TU_NEWS_ROUTE} hasFeedbackOption={false} hideDivider pageTitle={pageTitle} />
     ),
   }
 

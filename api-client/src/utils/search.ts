@@ -9,11 +9,6 @@ const cityFilter =
   (cityModel: CityModel): boolean => {
     const normalizedFilter = normalizeString(filterText)
 
-    // TODO Remove filter once django has replaced wordpress and there is no city with empty path anymore
-    if (cityModel.code === '') {
-      return false
-    }
-
     if (normalizedFilter === 'wirschaffendas') {
       return !cityModel.live
     }
