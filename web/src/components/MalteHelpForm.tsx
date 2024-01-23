@@ -12,7 +12,6 @@ import {
   submitMalteHelpForm,
   MALTE_HELP_FORM_MAX_COMMENT_LENGTH,
 } from 'shared/api'
-import { config } from 'translations'
 
 import { SecurityIcon, SupportIcon } from '../assets'
 import Icon from '../components/base/Icon'

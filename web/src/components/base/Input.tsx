@@ -85,7 +85,7 @@ const Input = ({
   }
   return (
     <InputContainer>
-      <CompactTitle direction={direction} as={hintIsLabel ? 'label' : 'span'} htmlFor={hintIsLabel ? id : undefined}>
+      <CompactTitle as={hintIsLabel ? 'label' : 'span'} htmlFor={hintIsLabel ? id : undefined}>
         {hint}
       </CompactTitle>
       {multiline ? (
