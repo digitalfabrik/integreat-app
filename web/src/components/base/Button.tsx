@@ -14,18 +14,27 @@ type ButtonProps = {
   onClick: () => void
   children: ReactNode
   ariaLabel: string
+  type?: 'submit' | 'button'
   disabled?: boolean
   tabIndex?: number
   className?: string
 }
 
-const Button = ({ onClick, children, ariaLabel, tabIndex, className, disabled = false }: ButtonProps): ReactElement => (
+const Button = ({
+  onClick,
+  children,
+  ariaLabel,
+  tabIndex,
+  className,
+  type = 'button',
+  disabled = false,
+}: ButtonProps): ReactElement => (
   <StyledButton
-    type='button'
     onClick={onClick}
     disabled={disabled}
     aria-label={ariaLabel}
     tabIndex={tabIndex}
+    type={type}
     className={className}>
     {children}
   </StyledButton>

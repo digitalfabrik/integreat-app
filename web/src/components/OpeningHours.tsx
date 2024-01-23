@@ -4,21 +4,20 @@ import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
 
 import { OpeningHoursModel, weekdays } from 'api-client'
-import { UiDirectionType } from 'translations/src'
 
 import { helpers } from '../constants/theme'
 import Collapsible from './Collapsible'
 import OpeningEntry from './OpeningEntry'
 
-const OpeningLabel = styled.span<{ isOpened: boolean; direction: string }>`
+const OpeningLabel = styled.span<{ isOpened: boolean }>`
   color: ${props => (props.isOpened ? props.theme.colors.positiveHighlight : props.theme.colors.negativeHighlight)};
   padding-right: 12px;
   flex: 0;
-  ${props => (props.direction === 'rtl' ? `padding-left: 12px;` : `padding-right: 12px;`)}
+  ${props => (props.theme.contentDirection === 'rtl' ? `padding-left: 12px;` : `padding-right: 12px;`)}
 `
 
-const Content = styled.div<{ direction: UiDirectionType }>`
-  ${props => (props.direction === 'rtl' ? `padding-left: 26px;` : `padding-right: 26px;`)}
+const Content = styled.div`
+  ${props => (props.theme.contentDirection === 'rtl' ? `padding-left: 26px;` : `padding-right: 26px;`)}
   ${helpers.adaptiveFontSize};
 `
 
@@ -32,7 +31,6 @@ const TitleContainer = styled.div`
 
 type OpeningHoursProps = {
   isCurrentlyOpen: boolean
-  direction: UiDirectionType
   openingHours: OpeningHoursModel[] | null
   isTemporarilyClosed: boolean
 }
@@ -46,7 +44,6 @@ const getOpeningLabel = (isTemporarilyClosed: boolean, isCurrentlyOpened: boolea
 
 const OpeningHours = ({
   isCurrentlyOpen,
-  direction,
   openingHours,
   isTemporarilyClosed,
 }: OpeningHoursProps): ReactElement | null => {
@@ -55,9 +52,7 @@ const OpeningHours = ({
   const openingHoursTitle = (
     <TitleContainer>
       <span>{t('openingHours')}</span>
-      <OpeningLabel isOpened={isCurrentlyOpen} direction={direction}>
-        {t(getOpeningLabel(isTemporarilyClosed, isCurrentlyOpen))}
-      </OpeningLabel>
+      <OpeningLabel isOpened={isCurrentlyOpen}>{t(getOpeningLabel(isTemporarilyClosed, isCurrentlyOpen))}</OpeningLabel>
     </TitleContainer>
   )
   if (isTemporarilyClosed) {
@@ -70,7 +65,7 @@ const OpeningHours = ({
 
   return (
     <Collapsible title={openingHoursTitle}>
-      <Content direction={direction}>
+      <Content>
         {openingHours.map((entry, index) => (
           <OpeningEntry
             key={`${weekdays[index]}-OpeningEntry`}

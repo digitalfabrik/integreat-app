@@ -1,6 +1,8 @@
 import { fireEvent } from '@testing-library/react'
 import React from 'react'
 
+import { UiDirectionType } from 'translations'
+
 import { renderWithTheme } from '../../testing/render'
 import Feedback from '../Feedback'
 import { SendingStatusType } from '../FeedbackContainer'
@@ -41,6 +43,7 @@ describe('Feedback', () => {
     t,
     closeFeedbackModal,
     setSearchTerm,
+    direction: 'ltr' as UiDirectionType,
   })
 
   it('button should be disabled for no rating and no input', () => {

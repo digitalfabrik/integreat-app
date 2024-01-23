@@ -23,7 +23,6 @@ import {
   clusterClickZoomFactor,
   featureLayerId,
 } from 'api-client'
-import { config } from 'translations'
 
 import { clusterCountLayer, clusterLayer, clusterProperties, markerLayer } from '../constants/layers'
 import useWindowDimensions from '../hooks/useWindowDimensions'
@@ -55,7 +54,6 @@ type MapViewProps = {
   currentFeature: MapFeature | null
   selectFeature: (feature: MapFeature | null, restoreScrollPosition: boolean) => void
   changeSnapPoint?: (snapPoint: number) => void
-  languageCode: string
   children?: ReactNode
   viewport?: MapViewViewport
   setViewport: (mapViewport: MapViewViewport) => void
@@ -77,7 +75,6 @@ const MapView = forwardRef(
       currentFeature,
       viewport,
       setViewport,
-      languageCode,
       children,
       Overlay,
     }: MapViewProps,
@@ -216,7 +213,7 @@ const MapView = forwardRef(
             <Layer {...clusterCountLayer} />
             <Layer {...markerLayer(currentFeature)} />
           </Source>
-          <MapAttribution initialExpanded={!viewportSmall} direction={config.getScriptDirection(languageCode)} />
+          <MapAttribution initialExpanded={!viewportSmall} />
         </Map>
       </MapContainer>
     )

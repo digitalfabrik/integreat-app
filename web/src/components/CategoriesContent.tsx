@@ -7,7 +7,7 @@ import { CategoriesMapModel, CategoryModel } from 'api-client'
 import { CityRouteProps } from '../CityContentSwitcher'
 import TileModel from '../models/TileModel'
 import CategoryList from './CategoryList'
-import EmbeddedOffer from './EmbeddedOffer'
+import EmbeddedOffers from './EmbeddedOffers'
 import OrganizationContentInfo from './OrganizationContentInfo'
 import Page from './Page'
 import Tiles from './Tiles'
@@ -58,15 +58,13 @@ const CategoriesContent = ({
           categoryModel.organization && <OrganizationContentInfo organization={categoryModel.organization} />
         }
         Footer={
-          categoryModel.embeddedOffers[0] && (
-            <EmbeddedOffer
-              offer={categoryModel.embeddedOffers[0]}
-              city={city}
-              pathname={pathname}
-              cityCode={cityCode}
-              languageCode={languageCode}
-            />
-          )
+          <EmbeddedOffers
+            embeddedOffers={categoryModel.embeddedOffers}
+            city={city}
+            pathname={pathname}
+            cityCode={cityCode}
+            languageCode={languageCode}
+          />
         }
       />
     )

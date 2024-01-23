@@ -64,6 +64,7 @@ export { default as createOffersEndpoint, OFFERS_ENDPOINT_NAME, createPostMap } 
 export { default as createFeedbackEndpoint, FEEDBACK_ENDPOINT_NAME } from './endpoints/createFeedbackEndpoint'
 export { default as createTrackingEndpoint, TRACKING_ENDPOINT_NAME } from './endpoints/createTrackingEndpoint'
 export { default as loadSprungbrettJobs, type LoadSprungbrettJobReturn } from './endpoints/loadSprungbrettJobs'
+export { default as submitHelpForm, MALTE_HELP_FORM_MAX_COMMENT_LENGTH } from './endpoints/submitHelpForm'
 export * from './replaceLinks'
 export { POSITIVE_RATING } from './endpoints/createFeedbackEndpoint'
 export { NEGATIVE_RATING } from './endpoints/createFeedbackEndpoint'
@@ -108,5 +109,10 @@ export { setUserAgent, setJpalTrackingCode } from './request'
 export { default as searchCategories } from './utils/searchCategories'
 export { default as getExcerpt } from './utils/getExcerpt'
 export { type CategorySearchResult } from './utils/searchCategories'
-export { MAX_DATE_RECURRENCES, MAX_DATE_RECURRENCES_COLLAPSED } from './constants'
+export {
+  MAX_DATE_RECURRENCES,
+  MAX_DATE_RECURRENCES_COLLAPSED,
+  SPRUNGBRETT_OFFER_ALIAS,
+  MALTE_HELP_FORM_OFFER_ALIAS,
+} from './constants'
 export type ExternalSourcePermissions = Record<string, boolean>

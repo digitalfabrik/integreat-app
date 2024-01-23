@@ -193,7 +193,7 @@ const renderJS = (
       const scaledHeight = (deviceWidth / Number(iframe.width)) * Number(iframe.height) - pageContainerPadding
       iframe.setAttribute('height', scaledHeight)
       if (externalSourcePermissions[iframeSource] === undefined) {
-        const message = '${t('remoteContent:knownResourceOptIn')}'
+        const message = '${t('consent:knownResourceOptIn')}'
         showOptIn(message, iframeContainer, iframeSource)
         iframe.remove()
       } else if (externalSourcePermissions[iframeSource]) {
@@ -203,10 +203,10 @@ const renderJS = (
           url.searchParams.append('dnt', '1')
           iframe.setAttribute('src', url.href)
         }
-        const message = '${t('remoteContent:knownResourceContentMessage')}'
+        const message = '${t('consent:knownResourceContentMessage')}'
         showMessageWithSettings(message, iframeContainer, iframeSource)
       } else {
-        const message = '${t('remoteContent:knownResourceBlocked')}'
+        const message = '${t('consent:knownResourceBlocked')}'
         showMessageWithSettings(message, iframeContainer, iframeSource)
         iframe.remove()
       }

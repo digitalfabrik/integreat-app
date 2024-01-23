@@ -4,7 +4,6 @@ import { useNavigate } from 'react-router-dom'
 import styled, { useTheme } from 'styled-components'
 
 import { GeoJsonPoi, getExternalMapsLink, PoiModel } from 'api-client'
-import { UiDirectionType } from 'translations'
 
 import {
   MailIcon,
@@ -125,11 +124,10 @@ const ToolbarWrapper = styled.div`
 type PoiDetailsProps = {
   feature: GeoJsonPoi
   poi: PoiModel
-  direction: UiDirectionType
   toolbar?: ReactElement
 }
 
-const PoiDetails = ({ feature, poi, direction, toolbar }: PoiDetailsProps): ReactElement => {
+const PoiDetails = ({ feature, poi, toolbar }: PoiDetailsProps): ReactElement => {
   const navigate = useNavigate()
   const { viewportSmall } = useWindowDimensions()
   const theme = useTheme()
@@ -195,7 +193,6 @@ const PoiDetails = ({ feature, poi, direction, toolbar }: PoiDetailsProps): Reac
           <Spacer borderColor={theme.colors.borderColor} />
         )}
         <OpeningHours
-          direction={direction}
           openingHours={openingHours}
           isCurrentlyOpen={isCurrentlyOpen}
           isTemporarilyClosed={temporarilyClosed}

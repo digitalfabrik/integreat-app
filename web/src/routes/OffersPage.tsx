@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next'
 
 import {
   createOffersEndpoint,
+  MALTE_HELP_FORM_OFFER_ROUTE,
   OfferModel,
   OFFERS_ROUTE,
   pathnameFromRouteInformation,
@@ -31,21 +32,23 @@ const OffersPage = ({ city, cityCode, languageCode }: CityRouteProps): ReactElem
 
   const toTileModels = useCallback(
     (offers: Array<OfferModel>): Array<TileModel> =>
-      offers.map(offer => {
-        let path = offer.path
+      offers
+        .filter(offer => offer.alias !== MALTE_HELP_FORM_OFFER_ROUTE)
+        .map(offer => {
+          let path = offer.path
 
-        if (offer.alias === SPRUNGBRETT_OFFER) {
-          // the url stored in the sprungbrett offer is the url of the endpoint
-          path = pathnameFromRouteInformation({ route: SPRUNGBRETT_OFFER_ROUTE, cityCode, languageCode })
-        }
+          if (offer.alias === SPRUNGBRETT_OFFER) {
+            // the url stored in the sprungbrett offer is the url of the endpoint
+            path = pathnameFromRouteInformation({ route: SPRUNGBRETT_OFFER_ROUTE, cityCode, languageCode })
+          }
 
-        return new TileModel({
-          title: t(offer.title),
-          path,
-          thumbnail: offer.thumbnail,
-          postData: offer.postData,
-        })
-      }),
+          return new TileModel({
+            title: t(offer.title),
+            path,
+            thumbnail: offer.thumbnail,
+            postData: offer.postData,
+          })
+        }),
     [cityCode, languageCode, t],
   )
 
@@ -67,7 +70,7 @@ const OffersPage = ({ city, cityCode, languageCode }: CityRouteProps): ReactElem
     languageChangePaths,
     route: OFFERS_ROUTE,
     languageCode,
-    Toolbar: <CityContentToolbar route={OFFERS_ROUTE} languageCode={languageCode} pageTitle={pageTitle} />,
+    Toolbar: <CityContentToolbar route={OFFERS_ROUTE} pageTitle={pageTitle} />,
   }
 
   if (loading) {
