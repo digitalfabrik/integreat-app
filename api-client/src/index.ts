@@ -68,6 +68,7 @@ export {
   default as submitMalteHelpForm,
   type ContactGender,
   type ContactChannel,
+  InvalidEmailError,
   MALTE_HELP_FORM_MAX_COMMENT_LENGTH,
 } from './endpoints/submitMalteHelpForm'
 export * from './replaceLinks'

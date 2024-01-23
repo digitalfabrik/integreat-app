@@ -1,7 +1,7 @@
 import OfferModel from '../models/OfferModel'
 
 export const MALTE_HELP_FORM_MAX_COMMENT_LENGTH = 200
-export type ContactChannel = 'eMail' | 'telephone' | 'personally'
+export type ContactChannel = 'email' | 'telephone' | 'personally'
 export type ContactGender = 'male' | 'female' | 'any'
 
 type BuildHelpFormBodyParams = {
@@ -27,7 +27,7 @@ const contactGenderText = (contactGender: ContactGender): string => {
 
 const contactChannelText = (contactChannel: ContactChannel): string => {
   switch (contactChannel) {
-    case 'eMail':
+    case 'email':
       return 'E-Mail'
     case 'telephone':
       return 'Telefon'
@@ -102,6 +102,8 @@ const getZammadConfig = async (zammadUrl: string, fingerprint: string): Promise<
   return response.json()
 }
 
+export class InvalidEmailError extends Error {}
+
 // more context https://github.com/zammad/zammad/issues/1456
 const fingerprint = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASw'
 
@@ -116,15 +118,15 @@ const submitMalteHelpForm = async ({
   contactChannel,
   contactGender,
   comment,
-}: SubmitHelpFormParams): Promise<ZammadErrorResponse> => {
+}: SubmitHelpFormParams): Promise<void> => {
   const zammadUrl = helpButtonOffer.postData?.get('zammad-url')
   const config = zammadUrl ? await getZammadConfig(zammadUrl, fingerprint) : undefined
 
   if (!config?.enabled) {
-    return {}
+    return
   }
 
-  const contactChannelEmailAdditionalInfo = contactChannel === 'eMail' ? email : undefined
+  const contactChannelEmailAdditionalInfo = contactChannel === 'email' ? email : undefined
   const contactChannelTelephoneAdditionalInfo = contactChannel === 'telephone' ? telephone : undefined
   const additionalContactInformation = contactChannelEmailAdditionalInfo ?? contactChannelTelephoneAdditionalInfo
 
@@ -150,7 +152,13 @@ const submitMalteHelpForm = async ({
       token: config.token,
     }),
   })
-  return response.json()
+  const zammadResponse = (await response.json()) as ZammadErrorResponse
+  if (zammadResponse.errors) {
+    if (zammadResponse.errors.email) {
+      throw new InvalidEmailError()
+    }
+    throw Error()
+  }
 }
 
 export default submitMalteHelpForm
