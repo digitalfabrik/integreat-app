@@ -4,7 +4,14 @@ import { useTranslation } from 'react-i18next'
 import { View } from 'react-native'
 import styled from 'styled-components/native'
 
-import { MALTE_HELP_FORM_MAX_COMMENT_LENGTH, OfferModel, submitHelpForm } from 'api-client'
+import {
+  ContactChannel,
+  ContactGender,
+  InvalidEmailError,
+  MALTE_HELP_FORM_MAX_COMMENT_LENGTH,
+  OfferModel,
+  submitMalteHelpForm,
+} from 'api-client'
 
 import { SecurityIcon, SupportIcon } from '../assets'
 import useSnackbar from '../hooks/useSnackbar'
@@ -68,7 +75,7 @@ const MalteHelpFormOffer = ({
   malteHelpFormOffer,
   onSubmit,
 }: MalteHelpFormOfferProps): ReactElement => {
-  const { control, handleSubmit, formState } = useForm<FormInput>({
+  const { control, handleSubmit, formState, setError } = useForm<FormInput>({
     mode: 'onBlur',
     progressive: true,
     defaultValues,
@@ -82,7 +89,10 @@ const MalteHelpFormOffer = ({
       onSubmit()
       showSnackbar({ text: t('submitSuccessful') })
     } catch (e) {
-      showSnackbar({ text: t('error:unknownError') })
+      if (e instanceof InvalidEmailError) {
+        setError('email', { type: 'custom', message: t('invalidEmailAddress') })
+      }
+      showSnackbar({ text: e instanceof InvalidEmailError ? t('invalidEmailAddress') : t('error:unknownError') })
     }
   })
 

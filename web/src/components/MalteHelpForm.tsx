@@ -7,6 +7,7 @@ import {
   cityContentPath,
   ContactChannel,
   ContactGender,
+  InvalidEmailError,
   MALTE_HELP_FORM_MAX_COMMENT_LENGTH,
   OfferModel,
   submitMalteHelpForm,
@@ -62,7 +63,7 @@ const MalteHelpForm = ({ languageCode, cityCode, helpButtonOffer }: MalteHelpFor
   const { t } = useTranslation('malteHelpForm')
   const [sendingStatus, setSendingStatus] = useState<SendingStatusType>('idle')
   const [submitted, setSubmitted] = useState(false)
-  const [contactChannel, setContactChannel] = useState<ContactChannel>('eMail')
+  const [contactChannel, setContactChannel] = useState<ContactChannel>('email')
   const [email, setEmail] = useState('')
   const [telephone, setTelephone] = useState('')
   const [name, setName] = useState('')
@@ -71,7 +72,7 @@ const MalteHelpForm = ({ languageCode, cityCode, helpButtonOffer }: MalteHelpFor
   const [comment, setComment] = useState('')
   const missingData =
     !name.length ||
-    (!email.length && contactChannel === 'eMail') ||
+    (!email.length && contactChannel === 'email') ||
     (!telephone.length && contactChannel === 'telephone')
   const dashboardRoute = cityContentPath({ languageCode, cityCode })
 
@@ -85,7 +86,7 @@ const MalteHelpForm = ({ languageCode, cityCode, helpButtonOffer }: MalteHelpFor
       event.preventDefault()
       setSendingStatus('sending')
       try {
-        const response = await submitMalteHelpForm({
+        await submitMalteHelpForm({
           cityCode,
           languageCode,
           helpButtonOffer,
@@ -97,18 +98,18 @@ const MalteHelpForm = ({ languageCode, cityCode, helpButtonOffer }: MalteHelpFor
           contactGender,
           comment,
         })
-        if (response.errors?.email) {
+        setSendingStatus('successful')
+      } catch (error) {
+        if (error instanceof InvalidEmailError) {
           setSendingStatus('invalidEmail')
-          const emailInput = form.querySelector<HTMLInputElement>('#eMail-input')
+          const emailInput = form.querySelector<HTMLInputElement>('#email-input')
           emailInput?.setCustomValidity(t('invalidEmailAddress'))
           emailInput?.reportValidity()
           scrollToFirstError(form)
-          return
+        } else {
+          reportError(error)
+          setSendingStatus('failed')
         }
-        setSendingStatus('successful')
-      } catch (error) {
-        reportError(error)
-        setSendingStatus('failed')
       }
     }
   }
@@ -150,7 +151,7 @@ const MalteHelpForm = ({ languageCode, cityCode, helpButtonOffer }: MalteHelpFor
           onChange={setContactChannel}
           values={[
             {
-              key: 'eMail',
+              key: 'email',
               label: t('eMail'),
               inputProps: {
                 value: email,
