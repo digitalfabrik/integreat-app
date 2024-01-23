@@ -5,11 +5,7 @@ import { KeyboardAvoidingView, Platform } from 'react-native'
 import styled from 'styled-components/native'
 
 import {
-  CATEGORIES_ROUTE,
-  CategoriesRouteInformationType,
-  EVENTS_ROUTE,
-  EventsRouteInformationType,
-  getSlugFromPath,
+  InternalPathnameParser,
   parseHTML,
   RouteInformationType,
   SEARCH_FINISHED_SIGNAL_NAME,
@@ -31,6 +27,7 @@ import { urlFromRouteInformation } from '../navigation/url'
 import testID from '../testing/testID'
 import openExternalUrl from '../utils/openExternalUrl'
 import sendTrackingSignal from '../utils/sendTrackingSignal'
+import { reportError } from '../utils/sentry'
 
 const Wrapper = styled.View`
   position: absolute;
@@ -97,12 +94,11 @@ const SearchModal = ({
       })
       openExternalUrl(link, showSnackbar)
     } else {
-      const isEvent = link.split('/')[3] === EVENTS_ROUTE
-      const routeInformation: CategoriesRouteInformationType | EventsRouteInformationType = {
-        route: isEvent ? EVENTS_ROUTE : CATEGORIES_ROUTE,
-        cityContentPath: link,
-        cityCode,
-        languageCode,
+      const routeInformation = new InternalPathnameParser(link, languageCode, cityCode).route()
+      if (!routeInformation) {
+        reportError('no routeInformation found')
+        showSnackbar({ text: 'unknownError' })
+        return
       }
       sendTrackingSignal({
         signal: {
@@ -111,21 +107,7 @@ const SearchModal = ({
           url: urlFromRouteInformation(routeInformation),
         },
       })
-      if (isEvent) {
-        navigateTo({
-          route: EVENTS_ROUTE,
-          cityCode,
-          languageCode,
-          slug: getSlugFromPath(link),
-        })
-      } else {
-        navigateTo({
-          route: CATEGORIES_ROUTE,
-          cityCode,
-          languageCode,
-          cityContentPath: link,
-        })
-      }
+      navigateTo(routeInformation)
     }
   }
 

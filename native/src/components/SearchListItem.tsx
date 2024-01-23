@@ -40,6 +40,7 @@ const HighlighterCategoryTitle = styled(Highlighter)<{ language: string }>`
   flex-direction: ${props => contentDirection(props.language)};
   font-family: ${props => props.theme.fonts.native.decorativeFontRegular};
   color: ${props => props.theme.colors.textColor};
+  font-weight: bold;
 `
 
 type SearchListItemProps = {
