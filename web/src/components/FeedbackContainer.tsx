@@ -1,7 +1,6 @@
 import React, { ReactElement, useEffect, useState } from 'react'
 
 import { createFeedbackEndpoint, FeedbackRouteType } from 'api-client'
-import { config } from 'translations'
 
 import { cmsApiBaseUrl } from '../constants/urls'
 import { reportError } from '../utils/sentry'
@@ -81,7 +80,6 @@ export const FeedbackContainer = ({
       searchTerm={searchTerm}
       setSearchTerm={setSearchTerm}
       closeFeedback={closeModal}
-      direction={config.getScriptDirection(language)}
     />
   )
 }

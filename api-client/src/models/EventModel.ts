@@ -51,7 +51,7 @@ class EventModel extends ExtendedPageModel {
     return this._featuredImage
   }
 
-  toICal(baseUrl: string, appName: string): string {
+  toICal(baseUrl: string, appName: string, recurring: boolean): string {
     const { title, location, path, date, excerpt, lastUpdate } = this
     const url = `${baseUrl}${path}`
     const uid = v5(`${url}/${formatDateICal(lastUpdate)}`, v5.URL)
@@ -72,6 +72,17 @@ class EventModel extends ExtendedPageModel {
     )
     if (location) {
       body.push(`LOCATION:${location.fullAddress}`)
+    }
+
+    if (recurring && date.recurrenceRule) {
+      // rrule.toString adds in the original start date as well which we don't need here
+      const recurrence = date.recurrenceRule
+        .toString()
+        .split('\n')
+        .filter(line => line.startsWith('RRULE:'))[0]
+      if (recurrence) {
+        body.push(recurrence)
+      }
     }
 
     return [

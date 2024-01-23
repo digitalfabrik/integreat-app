@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react'
+import React, { ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useNavigate, useParams } from 'react-router-dom'
 import styled from 'styled-components'
@@ -25,15 +25,33 @@ import List from '../components/List'
 import LoadingSpinner from '../components/LoadingSpinner'
 import Page, { THUMBNAIL_WIDTH } from '../components/Page'
 import PageDetail from '../components/PageDetail'
+import RadioGroup from '../components/base/RadioGroup'
 import TextButton from '../components/base/TextButton'
 import buildConfig from '../constants/buildConfig'
+import dimensions from '../constants/dimensions'
 import { cmsApiBaseUrl } from '../constants/urls'
 import usePreviousProp from '../hooks/usePreviousProp'
 import useWindowDimensions from '../hooks/useWindowDimensions'
 import featuredImageToSrcSet from '../utils/featuredImageToSrcSet'
 
+const ButtonContainer = styled.div`
+  display: flex;
+  gap: 16px;
+
+  @media ${dimensions.smallViewport} {
+    flex-direction: column;
+  }
+`
+
+const CancelButton = styled(TextButton)<{ fullWidth: boolean }>`
+  ${props => props.fullWidth && 'width: 100%;'}
+  background-color: ${props => props.theme.colors.textDecorationColor};
+  margin: 0;
+`
+
 const StyledButton = styled(TextButton)<{ fullWidth: boolean }>`
   ${props => props.fullWidth && 'width: 100%;'}
+  margin: 0;
 `
 
 const Spacing = styled.div`
@@ -49,6 +67,8 @@ const EventsPage = ({ city, pathname, languageCode, cityCode }: CityRouteProps):
   const { t } = useTranslation('events')
   const { viewportSmall } = useWindowDimensions()
   const navigate = useNavigate()
+  const [isExporting, setIsExporting] = useState<boolean>(false)
+  const [exportOnce, setExportOnce] = useState<boolean>(true)
 
   const {
     data: events,
@@ -117,8 +137,8 @@ const EventsPage = ({ city, pathname, languageCode, cityCode }: CityRouteProps):
     )
   }
 
-  const downloadEventAsIcsFile = (event: EventModel) => {
-    const blob = new Blob([event.toICal(window.location.origin, buildConfig().appName)], {
+  const downloadEventAsIcsFile = (event: EventModel, recurring: boolean) => {
+    const blob = new Blob([event.toICal(window.location.origin, buildConfig().appName, recurring)], {
       type: 'text/calendar;charset=utf-8',
     })
     const anchorElement = document.createElement('a')
@@ -132,10 +152,39 @@ const EventsPage = ({ city, pathname, languageCode, cityCode }: CityRouteProps):
   if (event) {
     const { featuredImage, thumbnail, lastUpdate, content, title, location, date } = event
     const defaultThumbnail = featuredImage ? featuredImage.medium.url : thumbnail
+    const isRecurring = !!event.date.recurrenceRule
 
-    const PageFooter = (
-      <StyledButton onClick={() => downloadEventAsIcsFile(event)} text={t('exportAsICal')} fullWidth={viewportSmall} />
-    )
+    const PageFooter =
+      isExporting && isRecurring ? (
+        <>
+          <RadioGroup
+            caption={t('addToCalendar')}
+            groupId='recurring'
+            selectedValue={exportOnce ? 'one' : 'many'}
+            onChange={value => {
+              setExportOnce(value === 'one')
+            }}
+            values={[
+              { key: 'one', label: t('onlyThisEvent') },
+              { key: 'many', label: t('thisAndAllFutureEvents') },
+            ]}
+          />
+          <ButtonContainer>
+            <CancelButton onClick={() => setIsExporting(false)} text={t('layout:cancel')} fullWidth={viewportSmall} />
+            <StyledButton
+              onClick={() => downloadEventAsIcsFile(event, !exportOnce)}
+              text={t('exportAsICal')}
+              fullWidth={viewportSmall}
+            />
+          </ButtonContainer>
+        </>
+      ) : (
+        <StyledButton
+          onClick={() => (isRecurring ? setIsExporting(true) : downloadEventAsIcsFile(event, false))}
+          text={t('exportAsICal')}
+          fullWidth={viewportSmall}
+        />
+      )
 
     return (
       <CityContentLayout isLoading={false} {...locationLayoutParams}>

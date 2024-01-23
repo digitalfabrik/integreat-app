@@ -2,8 +2,6 @@ import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
 
-import { UiDirectionType } from 'translations'
-
 import buildConfig from '../constants/buildConfig'
 import dimensions from '../constants/dimensions'
 import FeedbackButtons from './FeedbackButtons'
@@ -51,7 +49,6 @@ type FeedbackProps = {
   onSubmit: () => void
   sendingStatus: SendingStatusType
   searchTerm?: string
-  direction: UiDirectionType
   setSearchTerm: (newTerm: string) => void
   closeFeedback?: () => void
 }
@@ -67,7 +64,6 @@ const Feedback = ({
   onFeedbackChanged,
   searchTerm,
   setSearchTerm,
-  direction,
   closeFeedback,
 }: FeedbackProps): ReactElement => {
   const { t } = useTranslation('feedback')
@@ -89,7 +85,7 @@ const Feedback = ({
     <Container fullWidth={isSearchFeedback}>
       {isSearchFeedback ? (
         <InputSection id='searchTerm' title={t('searchTermDescription')}>
-          <Input id='searchTerm' value={searchTerm} onChange={setSearchTerm} direction={direction} />
+          <Input id='searchTerm' value={searchTerm} onChange={setSearchTerm} />
         </InputSection>
       ) : (
         <FeedbackButtons isPositive={isPositiveFeedback} onRatingChange={onFeedbackChanged} />
@@ -100,11 +96,11 @@ const Feedback = ({
         title={t(commentTitle)}
         description={t('commentDescription', { appName: buildConfig().appName })}
         showOptional>
-        <Input id='comment' value={comment} onChange={onCommentChanged} multiline direction={direction} />
+        <Input id='comment' value={comment} onChange={onCommentChanged} multiline />
       </InputSection>
 
       <InputSection id='email' title={t('contactMailAddress')} showOptional>
-        <Input id='email' value={contactMail} onChange={onContactMailChanged} direction={direction} />
+        <Input id='email' value={contactMail} onChange={onContactMailChanged} />
       </InputSection>
 
       {!isSearchFeedback && <Note text={t('note')} visible={sendFeedbackDisabled} />}

@@ -1,8 +1,6 @@
 import React, { ReactElement } from 'react'
 import styled from 'styled-components'
 
-import { UiDirectionType } from 'translations'
-
 import Input, { InputProps } from './Input'
 
 const RadioGroupContainer = styled.fieldset`
@@ -39,7 +37,6 @@ const RadioElementContainer = styled.div`
 type RadioGroupProps<T extends string> = {
   caption: string
   groupId: string
-  direction: UiDirectionType
   selectedValue: T
   submitted?: boolean
   onChange: (value: T) => void
@@ -49,7 +46,7 @@ type RadioGroupProps<T extends string> = {
 type RadioButtonValue<T extends string> = {
   key: T
   label: string
-  inputProps?: Omit<InputProps, 'direction' | 'id'>
+  inputProps?: Omit<InputProps, 'id'>
 }
 
 export const RadioGroup = <T extends string>({
@@ -58,7 +55,6 @@ export const RadioGroup = <T extends string>({
   selectedValue,
   values,
   submitted,
-  direction,
   onChange,
 }: RadioGroupProps<T>): ReactElement => (
   <RadioGroupContainer role='radiogroup'>
@@ -82,7 +78,6 @@ export const RadioGroup = <T extends string>({
             hint={inputProps.hint ?? label}
             hintIsLabel={inputProps.hintIsLabel ?? true}
             required={inputProps.required ?? true}
-            direction={direction}
             value={inputProps.value}
             onChange={inputProps.onChange}
             submitted={submitted}

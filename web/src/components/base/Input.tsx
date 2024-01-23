@@ -1,8 +1,6 @@
 import React, { ReactElement } from 'react'
 import styled, { css } from 'styled-components'
 
-import { UiDirectionType } from 'translations'
-
 const DEFAULT_MULTI_LINE_NUMBER = 7
 
 const GeneralInputStyles = css<{ submitted: boolean }>`
@@ -37,11 +35,11 @@ const TextInput = styled.input`
   resize: none;
 `
 
-const CompactTitle = styled.label<{ direction: 'ltr' | 'rtl' }>`
+const CompactTitle = styled.label`
   position: relative;
   padding: 0 4px;
   top: 0.5rem;
-  ${props => (props.direction === 'rtl' ? 'right: 10px' : 'left: 10px')};
+  inset-inline-start: 10px;
   font-size: ${props => props.theme.fonts.decorativeFontSizeSmall};
   background-color: ${props => props.theme.colors.backgroundColor};
   width: fit-content;
@@ -57,7 +55,6 @@ export type InputProps = {
   value: string
   submitted?: boolean
   onChange: (input: string) => void
-  direction: UiDirectionType
   multiline?: boolean
   numberOfLines?: number
   maxLength?: number
@@ -75,12 +72,11 @@ const Input = ({
   multiline,
   maxLength,
   required,
-  direction,
   hint,
   hintIsLabel = false,
 }: InputProps): ReactElement => (
   <InputContainer>
-    <CompactTitle direction={direction} as={hintIsLabel ? 'label' : 'span'} htmlFor={hintIsLabel ? id : undefined}>
+    <CompactTitle as={hintIsLabel ? 'label' : 'span'} htmlFor={hintIsLabel ? id : undefined}>
       {hint}
     </CompactTitle>
     {multiline ? (
