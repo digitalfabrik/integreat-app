@@ -41,7 +41,7 @@ Both projects are whitelabelled with different [build configs](build-configs/REA
 There are also separate sub-projects used by both projects:
 
 - **[translations](translations/README.md)**: Translated texts and utilities to manage them
-- **[shared](shared/README.md)**: Contains common shared utilities, for example, related to implementation of the endpoints (v3) of the integreat cms
+- **[shared](shared/README.md)**: Contains common shared utilities, for example related to implementation of the endpoints (v3) of the integreat cms
 - **[build-configs](build-configs/README.md)**: Configuration files to build different versions of the apps
 
 ## Getting Started
