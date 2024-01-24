@@ -83,27 +83,29 @@ const MalteHelpFormOffer = ({
   const { t } = useTranslation('malteHelpForm')
   const showSnackbar = useSnackbar()
 
-  const submit = handleSubmit(async _data => {
+  const submit = handleSubmit(async (data: FormInput) => {
     try {
       await submitMalteHelpForm({
         cityCode,
         languageCode,
         helpButtonOffer: malteHelpFormOffer,
-        name: _data.name,
-        roomNumber: _data.roomNumber,
-        email: _data.email,
-        telephone: _data.telephone,
-        contactChannel: _data.contactChannel,
-        contactGender: _data.contactGender,
-        comment: _data.comment,
+        name: data.name,
+        roomNumber: data.roomNumber,
+        email: data.email,
+        telephone: data.telephone,
+        contactChannel: data.contactChannel,
+        contactGender: data.contactGender,
+        comment: data.comment,
       })
       onSubmit()
       showSnackbar({ text: t('submitSuccessful') })
     } catch (e) {
       if (e instanceof InvalidEmailError) {
         setError('email', { type: 'custom', message: t('invalidEmailAddress') })
+        showSnackbar({ text: t('invalidEmailAddress') })
+      } else {
+        showSnackbar({ text: t('error:unknownError') })
       }
-      showSnackbar({ text: e instanceof InvalidEmailError ? t('invalidEmailAddress') : t('error:unknownError') })
     }
   })
 
