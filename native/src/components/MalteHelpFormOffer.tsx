@@ -4,7 +4,14 @@ import { useTranslation } from 'react-i18next'
 import { View } from 'react-native'
 import styled from 'styled-components/native'
 
-import { MALTE_HELP_FORM_MAX_COMMENT_LENGTH, OfferModel, submitHelpForm } from 'api-client'
+import {
+  ContactChannel,
+  ContactGender,
+  InvalidEmailError,
+  MALTE_HELP_FORM_MAX_COMMENT_LENGTH,
+  OfferModel,
+  submitMalteHelpForm,
+} from 'api-client'
 
 import { SecurityIcon, SupportIcon } from '../assets'
 import useSnackbar from '../hooks/useSnackbar'
@@ -40,8 +47,8 @@ type FormInput = {
   roomNumber: string
   email: string
   telephone: string
-  contactChannel: 'email' | 'telephone' | 'personally'
-  contactGender: 'female' | 'male' | 'any'
+  contactChannel: ContactChannel
+  contactGender: ContactGender
   comment: string
 }
 
@@ -68,7 +75,7 @@ const MalteHelpFormOffer = ({
   malteHelpFormOffer,
   onSubmit,
 }: MalteHelpFormOfferProps): ReactElement => {
-  const { control, handleSubmit, formState } = useForm<FormInput>({
+  const { control, handleSubmit, formState, setError } = useForm<FormInput>({
     mode: 'onBlur',
     progressive: true,
     defaultValues,
@@ -76,13 +83,29 @@ const MalteHelpFormOffer = ({
   const { t } = useTranslation('malteHelpForm')
   const showSnackbar = useSnackbar()
 
-  const submit = handleSubmit(async _data => {
+  const submit = handleSubmit(async (data: FormInput) => {
     try {
-      await submitHelpForm({ cityCode, languageCode, helpButtonOffer: malteHelpFormOffer })
+      await submitMalteHelpForm({
+        cityCode,
+        languageCode,
+        helpButtonOffer: malteHelpFormOffer,
+        name: data.name,
+        roomNumber: data.roomNumber,
+        email: data.email,
+        telephone: data.telephone,
+        contactChannel: data.contactChannel,
+        contactGender: data.contactGender,
+        comment: data.comment,
+      })
       onSubmit()
       showSnackbar({ text: t('submitSuccessful') })
     } catch (e) {
-      showSnackbar({ text: t('error:unknownError') })
+      if (e instanceof InvalidEmailError) {
+        setError('email', { type: 'custom', message: t('invalidEmailAddress') })
+        showSnackbar({ text: t('invalidEmailAddress') })
+      } else {
+        showSnackbar({ text: t('error:unknownError') })
+      }
     }
   })
 

@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react'
+import React, { ChangeEvent, ReactElement } from 'react'
 import styled, { css } from 'styled-components'
 
 import { UiDirectionType } from 'translations'
@@ -78,33 +78,43 @@ const Input = ({
   direction,
   hint,
   hintIsLabel = false,
-}: InputProps): ReactElement => (
-  <InputContainer>
-    <CompactTitle direction={direction} as={hintIsLabel ? 'label' : 'span'} htmlFor={hintIsLabel ? id : undefined}>
-      {hint}
-    </CompactTitle>
-    {multiline ? (
-      <StyledTextArea
-        id={id}
-        onChange={event => onChange(event.target.value)}
-        value={value}
-        rows={numberOfLines}
-        maxLength={maxLength}
-        required={required}
-        submitted={submitted}
-      />
-    ) : (
-      <TextInput
-        id={id}
-        type='text'
-        onChange={event => onChange(event.target.value)}
-        required={required}
-        value={value}
-        maxLength={maxLength}
-        submitted={submitted}
-      />
-    )}
-  </InputContainer>
-)
+}: InputProps): ReactElement => {
+  const onInputChange = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const element = event.target
+    if (element.validity.customError) {
+      element.setCustomValidity('')
+      element.checkValidity() // unset error
+    }
+    onChange(element.value)
+  }
+  return (
+    <InputContainer>
+      <CompactTitle direction={direction} as={hintIsLabel ? 'label' : 'span'} htmlFor={hintIsLabel ? id : undefined}>
+        {hint}
+      </CompactTitle>
+      {multiline ? (
+        <StyledTextArea
+          id={id}
+          onChange={onInputChange}
+          value={value}
+          rows={numberOfLines}
+          maxLength={maxLength}
+          required={required}
+          submitted={submitted}
+        />
+      ) : (
+        <TextInput
+          id={id}
+          type='text'
+          onChange={onInputChange}
+          required={required}
+          value={value}
+          maxLength={maxLength}
+          submitted={submitted}
+        />
+      )}
+    </InputContainer>
+  )
+}
 
 export default Input

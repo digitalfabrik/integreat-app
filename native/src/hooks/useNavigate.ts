@@ -68,7 +68,6 @@ const navigate = <T extends RoutesType>(
     if (buildConfig().featureFlags.jpalTracking) {
       navigation.push(JPAL_TRACKING_ROUTE)
     }
-
     return
   }
 
