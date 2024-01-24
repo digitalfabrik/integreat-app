@@ -1,41 +1,71 @@
-import { render, screen } from '@testing-library/react'
+import { render } from '@testing-library/react'
 import { DateTime } from 'luxon'
 import React from 'react'
 
 import { CategoryModel } from 'api-client'
 
+//import { PdfIcon } from '../assets'
 import { cmsApiBaseUrl } from '../../constants/urls'
+import { renderWithTheme } from '../../testing/render'
 import CategoriesToolbar from '../CategoriesToolbar'
 
 jest.mock('react-inlinesvg')
 jest.mock('react-i18next')
+jest.mock('api-client', () => ({
+  ...jest.requireActual('api-client'),
+  useLoadFromEndpoint: jest.fn(),
+}))
 
-const CategoryParams = new CategoryModel({
+const rootCategory = new CategoryModel({
   root: true,
-  path: '/augsburg/de/willkommen',
-  parentPath: '/augsburg/de',
-  title: 'willkommen',
-  order: 1,
+  path: '/augsburg/de',
+  title: 'augsburg',
+  parentPath: '',
+  content: '',
+  thumbnail: '',
+  order: -1,
   availableLanguages: new Map(),
-  content: 'exampleContent0',
-  lastUpdate: DateTime.fromISO('2016-01-07 10:36:24'),
-  thumbnail: 'thumb-nail',
+  lastUpdate: DateTime.fromMillis(0),
   organization: null,
 })
 
-const cityCode = 'FR'
-const languageCode = 'fr'
+const childCategory = new CategoryModel({
+  root: false,
+  path: '/augsburg/de/anlaufstellen',
+  title: 'Anlaufstellen zu sonstigen Themen',
+  content: '<div>Some category test content :)</div>',
+  parentPath: '/augsburg/de',
+  order: 75,
+  availableLanguages: new Map([['en', '/augsburg/en/anlaufstellen']]),
+  thumbnail: 'https://cms.integreat-ap…/03/Hotline-150x150.png',
+  lastUpdate: DateTime.fromISO('2017-01-01T05:10:05+02:00'),
+  organization: null,
+})
 
 describe('CategoriesToolbar', () => {
-  it('Correct PDF URL for root category', () => {
-    const pdfUrl = `${cmsApiBaseUrl}/${cityCode}/${languageCode}/wp-json/ig-mpdf/v1/pdf`
-    expect(pdfUrl).toBe(pdfUrl)
+  it('should use the correct PDF URL for a root category', () => {
+    const cityCode = 'augsburg'
+    const languageCode = 'de'
+    const { getByText } = renderWithTheme(
+      <CategoriesToolbar category={rootCategory} cityCode={cityCode} languageCode={languageCode} pageTitle='Test' />,
+    )
+    const pdfUrlLink = getByText('categories:createPdf').closest('a')
+
+    expect(pdfUrlLink?.href).toEqual(`${cmsApiBaseUrl}/${cityCode}/${languageCode}/wp-json/ig-mpdf/v1/pdf`)
   })
 
-  it('Correct PDF URL for non-root category', () => {
-    const pdfUrl = `${cmsApiBaseUrl}/${cityCode}/${languageCode}/wp-json/ig-mpdf/v1/pdf?url=${encodeURIComponent(
-      CategoryParams.path,
-    )}`
-    expect(pdfUrl).toBe(pdfUrl)
+  it('should use the correct PDF URL for a non-root category', () => {
+    const cityCode = 'augsburg'
+    const languageCode = 'de'
+    const { getByText } = renderWithTheme(
+      <CategoriesToolbar category={childCategory} cityCode={cityCode} languageCode={languageCode} pageTitle='Test' />,
+    )
+    const pdfUrlLink = getByText('categories:createPdf').closest('a')
+
+    expect(pdfUrlLink?.href).toEqual(
+      `${cmsApiBaseUrl}/${cityCode}/${languageCode}/wp-json/ig-mpdf/v1/pdf?url=${encodeURIComponent(
+        childCategory.path,
+      )}`,
+    )
   })
 })
