@@ -1,11 +1,11 @@
 import { DateTime } from 'luxon'
 
 import { createPostMap } from '../endpoints/createOffersEndpoint'
-import mapAvailableLanguages from '../mapAvailableLanguages'
 import CategoryModel from '../models/CategoryModel'
 import OfferModel from '../models/OfferModel'
 import OrganizationModel from '../models/OrganizationModel'
 import { JsonCategoryType } from '../types'
+import mapAvailableLanguages from './mapAvailableLanguages'
 
 const mapCategoryJson = (json: JsonCategoryType, basePath: string): CategoryModel =>
   new CategoryModel({
