@@ -3,7 +3,7 @@ import { Trans, useTranslation } from 'react-i18next'
 import { View } from 'react-native'
 import styled from 'styled-components/native'
 
-import { OrganizationModel } from 'api-client'
+import { OrganizationModel } from 'shared/api'
 
 import HighlightBox from './HighlightBox'
 import Link from './Link'

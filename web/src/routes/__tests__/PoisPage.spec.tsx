@@ -2,11 +2,12 @@ import { fireEvent } from '@testing-library/react'
 import React from 'react'
 import { Route, Routes } from 'react-router-dom'
 
-import { cityContentPath, CityModelBuilder, PoiModelBuilder, POIS_ROUTE } from 'api-client'
+import { cityContentPath, POIS_ROUTE } from 'shared'
+import { CityModelBuilder, PoiModelBuilder } from 'shared/api'
 import {
   mockUseLoadFromEndpointWithData,
   mockUseLoadFromEndpointWithError,
-} from 'api-client/src/testing/mockUseLoadFromEndpoint'
+} from 'shared/api/endpoints/testing/mockUseLoadFromEndpoint'
 
 import { renderWithRouterAndTheme } from '../../testing/render'
 import PoisPage from '../PoisPage'
@@ -15,8 +16,8 @@ import { RoutePatterns } from '../index'
 jest.mock('react-inlinesvg')
 jest.mock('react-i18next')
 jest.mock('../../utils/getUserLocation', () => async () => ({ status: 'ready', coordinates: [10.8, 48.3] }))
-jest.mock('api-client', () => ({
-  ...jest.requireActual('api-client'),
+jest.mock('shared/api', () => ({
+  ...jest.requireActual('shared/api'),
   useLoadFromEndpoint: jest.fn(),
 }))
 
@@ -83,11 +84,11 @@ describe('PoisPage', () => {
 
   it('should calculate correct language change paths', () => {
     mockUseLoadFromEndpointWithData(pois)
-    const { getByTestId, getByLabelText } = renderPois()
+    const { getAllByText, getByLabelText } = renderPois()
     fireEvent.click(getByLabelText(poi0.location.name))
-    expect(getByTestId('en')).toHaveAttribute('href', poi0.availableLanguages.get('en'))
-    expect(getByTestId('de')).toHaveAttribute('href', poi0.availableLanguages.get('de'))
+    expect(getAllByText('English')[0]).toHaveAttribute('href', poi0.availableLanguages.get('en'))
+    expect(getAllByText('Deutsch')[0]).toHaveAttribute('href', poi0.availableLanguages.get('de'))
     // Pathname is not correctly updated, therefore the pathname does not include the slug
-    expect(getByTestId('ar')).toHaveAttribute('href', '/augsburg/ar/locations')
+    expect(getAllByText('اَللُّغَةُ اَلْعَرَبِيَّة')[0]).toHaveAttribute('href', '/augsburg/ar/locations')
   })
 })

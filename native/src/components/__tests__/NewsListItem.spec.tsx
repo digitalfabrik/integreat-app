@@ -2,7 +2,7 @@ import { fireEvent, RenderAPI } from '@testing-library/react-native'
 import { DateTime } from 'luxon'
 import React from 'react'
 
-import { LocalNewsModel, TunewsModel } from 'api-client'
+import { LocalNewsModel, TunewsModel } from 'shared/api'
 
 import render from '../../testing/render'
 import NewsListItem from '../NewsListItem'

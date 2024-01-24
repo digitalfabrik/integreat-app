@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next'
 import { FlatList, View } from 'react-native'
 import styled from 'styled-components/native'
 
-import { License, parseLicenses } from 'api-client'
+import { License, parseLicenses } from 'shared'
 
 import Caption from '../components/Caption'
 import Layout from '../components/Layout'

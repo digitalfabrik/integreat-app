@@ -3,7 +3,7 @@ import { DateTime } from 'luxon'
 import React from 'react'
 import { rrulestr } from 'rrule'
 
-import { DateModel } from 'api-client'
+import { DateModel } from 'shared/api'
 
 import render from '../../testing/render'
 import DatesPageDetail from '../DatesPageDetail'

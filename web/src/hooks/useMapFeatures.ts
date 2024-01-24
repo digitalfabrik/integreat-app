@@ -1,7 +1,8 @@
 import { useCallback, useEffect, useMemo } from 'react'
 import { useNavigate, useSearchParams } from 'react-router-dom'
 
-import { GeoJsonPoi, isMultipoi, MapFeature, PoiModel } from 'api-client'
+import { GeoJsonPoi, isMultipoi, MapFeature } from 'shared'
+import { PoiModel } from 'shared/api'
 
 const multipoiKey = 'multipoi'
 

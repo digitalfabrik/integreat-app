@@ -2,12 +2,8 @@ import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router-dom'
 
-import {
-  createDisclaimerEndpoint,
-  DISCLAIMER_ROUTE,
-  pathnameFromRouteInformation,
-  useLoadFromEndpoint,
-} from 'api-client'
+import { DISCLAIMER_ROUTE, pathnameFromRouteInformation } from 'shared'
+import { createDisclaimerEndpoint, useLoadFromEndpoint } from 'shared/api'
 
 import { CityRouteProps } from '../CityContentSwitcher'
 import CityContentLayout, { CityContentLayoutProps } from '../components/CityContentLayout'
@@ -37,12 +33,7 @@ const DisclaimerPage = ({ cityCode, languageCode, city }: CityRouteProps): React
 
   const pageTitle = `${t('pageTitle')} - ${city.name}`
   const Toolbar = (
-    <CityContentToolbar
-      feedbackTarget={disclaimer?.slug}
-      route={DISCLAIMER_ROUTE}
-      languageCode={languageCode}
-      pageTitle={pageTitle}
-    />
+    <CityContentToolbar feedbackTarget={disclaimer?.slug} route={DISCLAIMER_ROUTE} pageTitle={pageTitle} />
   )
 
   const languageChangePaths = city.languages.map(({ code, name }) => {

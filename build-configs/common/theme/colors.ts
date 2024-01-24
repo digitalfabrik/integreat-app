@@ -13,6 +13,7 @@ export type ColorsType = {
   borderColor: string
   positiveHighlight: string
   negativeHighlight: string
+  invalidInput: string
 }
 export const commonLightColors = {
   backgroundAccentColor: '#fafafa',
@@ -27,4 +28,5 @@ export const commonLightColors = {
   borderColor: '#F1F1F1',
   positiveHighlight: '#188038',
   negativeHighlight: '#8b0000',
+  invalidInput: '#B3261E',
 }

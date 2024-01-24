@@ -30,7 +30,12 @@ type TextButtonProps = {
 }
 
 const TextButton = ({ text, onPress, disabled = false, type = 'primary', style }: TextButtonProps): ReactElement => (
-  <StyledPressable onPress={onPress} primary={type === 'primary'} disabled={disabled} style={style}>
+  <StyledPressable
+    onPress={onPress}
+    primary={type === 'primary'}
+    disabled={disabled}
+    style={style}
+    accessibilityRole='button'>
     <StyledText>{text}</StyledText>
   </StyledPressable>
 )

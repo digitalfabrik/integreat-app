@@ -4,10 +4,9 @@ import 'react-spring-bottom-sheet/dist/style.css'
 import { SpringEvent } from 'react-spring-bottom-sheet/dist/types'
 import styled, { useTheme } from 'styled-components'
 
-import { UiDirectionType } from 'translations'
-
 import '../styles/BottomActionSheet.css'
 import { getSnapPoints } from '../utils/getSnapPoints'
+import { RichLayout } from './Layout'
 import Spacer from './Spacer'
 
 const Title = styled.h1`
@@ -23,8 +22,12 @@ const StyledSpacer = styled(Spacer)`
   margin: 12px 30px;
 `
 
-const StyledBottomSheet = styled(BottomSheet)<{ direction: string }>`
-  direction: ${props => props.direction};
+const StyledBottomSheet = styled(BottomSheet)`
+  direction: ${props => props.theme.contentDirection};
+`
+
+const StyledLayout = styled(RichLayout)`
+  min-height: unset;
 `
 
 type BottomActionSheetProps = {
@@ -32,7 +35,6 @@ type BottomActionSheetProps = {
   children: ReactNode
   toolbar: ReactNode
   sibling: ReactNode
-  direction: UiDirectionType
   setBottomActionSheetHeight: (height: number) => void
 }
 
@@ -43,7 +45,7 @@ export type ScrollableBottomSheetRef = {
 
 const BottomActionSheet = React.forwardRef(
   (
-    { title, children, toolbar, sibling, direction, setBottomActionSheetHeight }: BottomActionSheetProps,
+    { title, children, toolbar, sibling, setBottomActionSheetHeight }: BottomActionSheetProps,
     ref: React.Ref<ScrollableBottomSheetRef>,
   ): ReactElement => {
     const theme = useTheme()
@@ -66,7 +68,6 @@ const BottomActionSheet = React.forwardRef(
 
     return (
       <StyledBottomSheet
-        direction={direction}
         ref={bottomSheetRef}
         open
         sibling={sibling}
@@ -82,9 +83,11 @@ const BottomActionSheet = React.forwardRef(
         // snapPoints have been supplied in the previous line
         // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
         defaultSnap={({ snapPoints }) => snapPoints[1]!}>
-        {children}
-        <StyledSpacer borderColor={theme.colors.borderColor} />
-        <ToolbarContainer>{toolbar}</ToolbarContainer>
+        <StyledLayout>
+          {children}
+          <StyledSpacer borderColor={theme.colors.borderColor} />
+          <ToolbarContainer>{toolbar}</ToolbarContainer>
+        </StyledLayout>
       </StyledBottomSheet>
     )
   },

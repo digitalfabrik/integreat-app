@@ -1,25 +1,17 @@
-import { fireEvent, waitFor } from '@testing-library/react'
+import { fireEvent } from '@testing-library/react'
 import React, { ComponentProps } from 'react'
 
-import {
-  CATEGORIES_ROUTE,
-  DISCLAIMER_ROUTE,
-  EVENTS_ROUTE,
-  FeedbackType,
-  OFFERS_ROUTE,
-  POIS_ROUTE,
-  SEARCH_ROUTE,
-  SPRUNGBRETT_OFFER,
-} from 'api-client'
+import { CATEGORIES_ROUTE, DISCLAIMER_ROUTE, EVENTS_ROUTE, OFFERS_ROUTE, POIS_ROUTE, SEARCH_ROUTE } from 'shared'
+import { FeedbackRouteType, SPRUNGBRETT_OFFER } from 'shared/api'
 
-import { RouteType, TU_NEWS_ROUTE } from '../../routes'
+import { TU_NEWS_ROUTE } from '../../routes'
 import { renderWithTheme } from '../../testing/render'
 import FeedbackContainer from '../FeedbackContainer'
 
 const mockRequest = jest.fn()
 jest.mock('react-i18next')
-jest.mock('api-client', () => ({
-  ...jest.requireActual('api-client'),
+jest.mock('shared/api', () => ({
+  ...jest.requireActual('shared/api'),
   createFeedbackEndpoint: () => ({
     request: mockRequest,
   }),
@@ -35,102 +27,18 @@ describe('FeedbackContainer', () => {
   const closeModal = jest.fn()
 
   const buildDefaultProps = (
-    routeType: RouteType,
-    isSearchFeedback: boolean,
+    routeType: FeedbackRouteType,
+    query?: string,
   ): ComponentProps<typeof FeedbackContainer> => ({
     routeType,
     cityCode,
     language,
     closeModal,
-    isSearchFeedback,
+    query,
   })
 
-  it.each`
-    route               | inputProps                     | feedbackType
-    ${CATEGORIES_ROUTE} | ${{}}                          | ${FeedbackType.categories}
-    ${CATEGORIES_ROUTE} | ${{ slug: 'willkommen' }}      | ${FeedbackType.page}
-    ${EVENTS_ROUTE}     | ${{}}                          | ${FeedbackType.events}
-    ${EVENTS_ROUTE}     | ${{ slug: '1234' }}            | ${FeedbackType.event}
-    ${OFFERS_ROUTE}     | ${{ slug: SPRUNGBRETT_OFFER }} | ${FeedbackType.offer}
-    ${OFFERS_ROUTE}     | ${{}}                          | ${FeedbackType.offers}
-    ${DISCLAIMER_ROUTE} | ${{}}                          | ${FeedbackType.imprint}
-    ${POIS_ROUTE}       | ${{ slug: '1234' }}            | ${FeedbackType.poi}
-    ${POIS_ROUTE}       | ${{}}                          | ${FeedbackType.map}
-    ${SEARCH_ROUTE}     | ${{ query: 'query ' }}         | ${FeedbackType.search}
-    ${TU_NEWS_ROUTE}    | ${{}}                          | ${FeedbackType.categories}
-  `(
-    'should successfully request feedback for $feedbackType if rating was set',
-    async ({ route, inputProps, feedbackType }) => {
-      const { getByRole } = renderWithTheme(<FeedbackContainer {...buildDefaultProps(route, false)} {...inputProps} />)
-      const buttonRating = getByRole('button', {
-        name: 'feedback:useful',
-      })
-      fireEvent.click(buttonRating)
-      const button = getByRole('button', {
-        name: 'feedback:send',
-      })
-      fireEvent.click(button)
-      // Needed as submitFeedback is asynchronous
-      await waitFor(() => expect(button).toBeEnabled())
-      expect(mockRequest).toHaveBeenCalledTimes(1)
-      expect(mockRequest).toHaveBeenCalledWith({
-        feedbackType,
-        city: 'augsburg',
-        language: 'de',
-        comment: '    Kontaktadresse: Keine Angabe',
-        feedbackCategory: 'Inhalte',
-        isPositiveRating: true,
-        query: inputProps.query,
-        slug: inputProps.slug,
-      })
-    },
-  )
-
-  it.each`
-    route               | inputProps                     | feedbackType
-    ${CATEGORIES_ROUTE} | ${{}}                          | ${FeedbackType.categories}
-    ${CATEGORIES_ROUTE} | ${{ slug: 'willkommen' }}      | ${FeedbackType.page}
-    ${EVENTS_ROUTE}     | ${{}}                          | ${FeedbackType.events}
-    ${EVENTS_ROUTE}     | ${{ slug: '1234' }}            | ${FeedbackType.event}
-    ${OFFERS_ROUTE}     | ${{ slug: SPRUNGBRETT_OFFER }} | ${FeedbackType.offer}
-    ${OFFERS_ROUTE}     | ${{}}                          | ${FeedbackType.offers}
-    ${DISCLAIMER_ROUTE} | ${{}}                          | ${FeedbackType.imprint}
-    ${POIS_ROUTE}       | ${{ slug: '1234' }}            | ${FeedbackType.poi}
-    ${POIS_ROUTE}       | ${{}}                          | ${FeedbackType.map}
-    ${SEARCH_ROUTE}     | ${{ query: 'query ' }}         | ${FeedbackType.search}
-    ${TU_NEWS_ROUTE}    | ${{}}                          | ${FeedbackType.categories}
-  `(
-    'should successfully request feedback for $feedbackType if rating was set',
-    async ({ route, inputProps, feedbackType }) => {
-      const { getByRole } = renderWithTheme(<FeedbackContainer {...buildDefaultProps(route, false)} {...inputProps} />)
-      const buttonRating = getByRole('button', {
-        name: 'feedback:useful',
-      })
-      fireEvent.click(buttonRating)
-      const button = getByRole('button', {
-        name: 'feedback:send',
-      })
-      fireEvent.click(button)
-      // Needed as submitFeedback is asynchronous
-      await waitFor(() => expect(button).toBeEnabled())
-      expect(mockRequest).toHaveBeenCalledTimes(1)
-      expect(mockRequest).toHaveBeenCalledWith({
-        feedbackType,
-        city: 'augsburg',
-        language: 'de',
-        comment: '    Kontaktadresse: Keine Angabe',
-        feedbackCategory: 'Inhalte',
-        isPositiveRating: true,
-        query: inputProps.query,
-        slug: inputProps.slug,
-      })
-    },
-  )
-
   it('should display thanks message for modal', async () => {
-    const { getByRole, findByText } = renderWithTheme(
-      <FeedbackContainer {...buildDefaultProps(CATEGORIES_ROUTE, false)} />,
-    )
+    const { getByRole, findByText } = renderWithTheme(<FeedbackContainer {...buildDefaultProps(CATEGORIES_ROUTE)} />)
     const buttonRating = getByRole('button', {
       name: 'feedback:useful',
     })
@@ -146,7 +54,7 @@ describe('FeedbackContainer', () => {
 
   it('should display thanks message for search', async () => {
     const { getByRole, findByText, queryByRole } = renderWithTheme(
-      <FeedbackContainer {...buildDefaultProps(CATEGORIES_ROUTE, true)} query='test' />,
+      <FeedbackContainer {...buildDefaultProps(CATEGORIES_ROUTE, 'test')} />,
     )
     const button = getByRole('button', {
       name: 'feedback:send',
@@ -162,7 +70,7 @@ describe('FeedbackContainer', () => {
       throw new Error()
     })
     const { getByRole, findByText } = renderWithTheme(
-      <FeedbackContainer {...buildDefaultProps(SEARCH_ROUTE, true)} query='test' />,
+      <FeedbackContainer {...buildDefaultProps(SEARCH_ROUTE, 'test')} />,
     )
     const button = getByRole('button', {
       name: 'feedback:send',
@@ -174,22 +82,21 @@ describe('FeedbackContainer', () => {
 
   it('should send query for search', async () => {
     const query = 'zeugnis'
-    const { getByRole } = renderWithTheme(
-      <FeedbackContainer {...buildDefaultProps(SEARCH_ROUTE, true)} query={query} />,
-    )
+    const { getByRole } = renderWithTheme(<FeedbackContainer {...buildDefaultProps(SEARCH_ROUTE, query)} />)
     const button = getByRole('button', {
       name: 'feedback:send',
     })
     fireEvent.click(button)
     expect(mockRequest).toHaveBeenCalledTimes(1)
     expect(mockRequest).toHaveBeenCalledWith({
-      feedbackType: SEARCH_ROUTE,
+      routeType: SEARCH_ROUTE,
       city: 'augsburg',
       language: 'de',
-      comment: '    Kontaktadresse: Keine Angabe',
-      feedbackCategory: 'Inhalte',
+      comment: '',
+      contactMail: '',
       isPositiveRating: null,
       query,
+      searchTerm: 'zeugnis',
       slug: undefined,
     })
   })
@@ -198,7 +105,7 @@ describe('FeedbackContainer', () => {
     const query = 'Zeugnis'
     const fullSearchTerm = 'Zeugnisübergabe'
     const { getByDisplayValue, getByRole } = renderWithTheme(
-      <FeedbackContainer {...buildDefaultProps(SEARCH_ROUTE, true)} query={query} />,
+      <FeedbackContainer {...buildDefaultProps(SEARCH_ROUTE, query)} />,
     )
     const input = getByDisplayValue(query)
     fireEvent.change(input, { target: { value: fullSearchTerm } })
@@ -208,13 +115,14 @@ describe('FeedbackContainer', () => {
     fireEvent.click(button)
     expect(mockRequest).toHaveBeenCalledTimes(1)
     expect(mockRequest).toHaveBeenCalledWith({
-      feedbackType: SEARCH_ROUTE,
+      routeType: SEARCH_ROUTE,
       city: 'augsburg',
       language: 'de',
-      comment: '    Kontaktadresse: Keine Angabe',
-      feedbackCategory: 'Inhalte',
+      comment: '',
+      contactMail: '',
       isPositiveRating: null,
-      query: `${fullSearchTerm} (actual query: ${query})`,
+      query,
+      searchTerm: fullSearchTerm,
       slug: undefined,
     })
   })

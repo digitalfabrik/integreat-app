@@ -1,7 +1,7 @@
 import React, { ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { config } from 'translations/src'
+import { FeedbackRouteType } from 'shared/api'
 
 import { FeedbackIcon } from '../assets'
 import useCityContentParams from '../hooks/useCityContentParams'
@@ -22,21 +22,15 @@ const FeedbackToolbarItem = ({ route, slug, isInBottomActionSheet }: FeedbackToo
   const [isSubmitted, setIsSubmitted] = useState(false)
   const { t } = useTranslation('feedback')
   const title = isSubmitted ? t('thanksHeadline') : t('headline')
-  const direction = config.getScriptDirection(languageCode)
 
   return (
     <>
       {isFeedbackOpen && (
-        <Modal
-          title={title}
-          closeModal={() => setIsFeedbackOpen(false)}
-          direction={direction}
-          wrapInPortal={isInBottomActionSheet}>
+        <Modal title={title} closeModal={() => setIsFeedbackOpen(false)} wrapInPortal={isInBottomActionSheet}>
           <FeedbackContainer
-            isSearchFeedback={false}
             closeModal={() => setIsFeedbackOpen(false)}
             onSubmit={() => setIsSubmitted(true)}
-            routeType={route}
+            routeType={route as FeedbackRouteType}
             cityCode={cityCode}
             language={languageCode}
             slug={slug}

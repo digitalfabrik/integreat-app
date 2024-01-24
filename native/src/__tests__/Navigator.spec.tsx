@@ -3,7 +3,7 @@ import { NavigationContainer } from '@react-navigation/native'
 import { mocked } from 'jest-mock'
 import React from 'react'
 
-import { CityModelBuilder, ReturnType, useLoadAsync } from 'api-client'
+import { CityModelBuilder, ReturnType, useLoadAsync } from 'shared/api'
 
 import Navigator from '../Navigator'
 import { AppContext } from '../contexts/AppContextProvider'
@@ -17,8 +17,8 @@ jest.mock('styled-components')
 jest.mock('../utils/DefaultDataContainer', () => ({ deleteCity: jest.fn(async () => undefined) }))
 jest.mock('@react-native-community/netinfo')
 jest.mock('../hooks/useLoadCities', () => jest.fn(() => ({ data: cities, error: null })))
-jest.mock('api-client', () => ({
-  ...jest.requireActual('api-client'),
+jest.mock('shared/api', () => ({
+  ...jest.requireActual('shared/api'),
   useLoadAsync: jest.fn(() => ({ data: null, error: null })),
 }))
 jest.mock('../utils/sentry')

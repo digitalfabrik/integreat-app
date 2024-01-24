@@ -11,15 +11,11 @@ import {
   MapViewMercatorViewport,
   MapViewViewport,
   normalizePath,
-  NotFoundError,
   pathnameFromRouteInformation,
   POIS_ROUTE,
-  PoiCategoryModel,
   prepareFeatureLocations,
-  useLoadFromEndpoint,
-  createPOIsEndpoint,
-} from 'api-client'
-import { config } from 'translations'
+} from 'shared'
+import { NotFoundError, PoiCategoryModel, useLoadFromEndpoint, createPOIsEndpoint } from 'shared/api'
 
 import { CityRouteProps } from '../CityContentSwitcher'
 import { ClockIcon, EditLocationIcon } from '../assets'
@@ -67,7 +63,6 @@ const PoisPage = ({ cityCode, languageCode, city, pathname }: CityRouteProps): R
   // keep the old mapViewport when changing the viewport
   const [mapViewport, setMapViewport] = useState<MapViewViewport>()
   const { viewportSmall, width } = useWindowDimensions()
-  const direction = config.getScriptDirection(languageCode)
 
   const pois = useMemo(
     () =>
@@ -76,6 +71,8 @@ const PoisPage = ({ cityCode, languageCode, city, pathname }: CityRouteProps): R
         .filter(poi => !poiCurrentlyOpenFilter || poi.isCurrentlyOpen),
     [data, poiCategoryFilter, poiCurrentlyOpenFilter],
   )
+  const poisCount = pois?.length ?? 0
+
   const currentPoi = data?.find(poi => slug === poi.slug) ?? null
   const features = useMemo(() => prepareFeatureLocations(pois ?? [], userLocation), [pois, userLocation])
 
@@ -129,7 +126,6 @@ const PoisPage = ({ cityCode, languageCode, city, pathname }: CityRouteProps): R
       route={POIS_ROUTE}
       iconDirection='row'
       hideDivider
-      languageCode={languageCode}
       pageTitle={pageTitle}
       isInBottomActionSheet={viewportSmall}
     />
@@ -178,6 +174,7 @@ const PoisPage = ({ cityCode, languageCode, city, pathname }: CityRouteProps): R
       currentlyOpenFilter={poiCurrentlyOpenFilter}
       setCurrentlyOpenFilter={updatePoiCurrentlyOpenFilter}
       panelWidth={viewportSmall ? width : dimensions.poiDesktopPanelWidth}
+      poisCount={poisCount}
     />
   )
   if (showFilterSelection && viewportSmall) {
@@ -215,7 +212,6 @@ const PoisPage = ({ cityCode, languageCode, city, pathname }: CityRouteProps): R
     toolbar,
     features,
     pois,
-    direction,
     userLocation,
     languageCode,
     slug,

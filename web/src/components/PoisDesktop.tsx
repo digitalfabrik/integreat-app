@@ -1,29 +1,18 @@
 import React, { ReactElement, useCallback, useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { GeolocateControl, NavigationControl } from 'react-map-gl'
-import styled from 'styled-components'
+import styled, { useTheme } from 'styled-components'
 
-import {
-  CityModel,
-  embedInCollection,
-  GeoJsonPoi,
-  LocationType,
-  MapViewViewport,
-  MapFeature,
-  PoiModel,
-  sortMapFeatures,
-} from 'api-client'
-import { UiDirectionType } from 'translations'
+import { embedInCollection, GeoJsonPoi, LocationType, MapViewViewport, MapFeature } from 'shared'
+import { CityModel, PoiModel } from 'shared/api'
 
 import dimensions from '../constants/dimensions'
 import useMapFeatures from '../hooks/useMapFeatures'
 import CityContentFooter from './CityContentFooter'
 import GoBack from './GoBack'
-import List from './List'
 import MapView from './MapView'
-import PoiDetails from './PoiDetails'
-import PoiListItem from './PoiListItem'
 import PoiPanelNavigation from './PoiPanelNavigation'
+import PoiSharedChildren from './PoiSharedChildren'
 
 const PanelContainer = styled.article`
   height: 100%;
@@ -66,7 +55,6 @@ const FooterContainer = styled.div`
 type PoisDesktopProps = {
   panelHeights: number
   toolbar: ReactElement
-  direction: UiDirectionType
   cityModel: CityModel
   pois: PoiModel[]
   userLocation: LocationType | undefined
@@ -92,7 +80,6 @@ const nextPoiIndex = (step: 1 | -1, arrayLength: number, currentIndex: number): 
 const PoisDesktop = ({
   panelHeights,
   toolbar,
-  direction,
   pois,
   userLocation,
   features,
@@ -109,6 +96,8 @@ const PoisDesktop = ({
   const listRef = useRef<HTMLDivElement>(null)
   const { selectGeoJsonPoiInList, selectFeatureOnMap, currentFeatureOnMap, currentPoi, poiListFeatures } =
     useMapFeatures(features, pois, slug)
+  const canGoBack = !!currentFeatureOnMap || !!slug
+  const { contentDirection } = useTheme()
 
   const selectGeoJsonPoi = useCallback(
     (geoJsonPoi: GeoJsonPoi | null) => {
@@ -119,15 +108,7 @@ const PoisDesktop = ({
     },
     [currentPoi, selectGeoJsonPoiInList],
   )
-  const renderPoiListItem = (poi: GeoJsonPoi) => <PoiListItem key={poi.path} poi={poi} selectPoi={selectGeoJsonPoi} />
-  const poiList = (
-    <List
-      noItemsMessage={t('noPois')}
-      items={sortMapFeatures(poiListFeatures)}
-      renderItem={renderPoiListItem}
-      borderless
-    />
-  )
+
   const switchPoi = (step: 1 | -1) => {
     if (!currentPoi) {
       return
@@ -139,11 +120,7 @@ const PoisDesktop = ({
   }
 
   useEffect(() => {
-    if (!currentFeatureOnMap && listRef.current) {
-      listRef.current.scrollTo({ top: scrollOffset })
-    } else if (listRef.current) {
-      listRef.current.scrollTo({ top: 0 })
-    }
+    listRef.current?.scrollTo({ top: currentFeatureOnMap ? 0 : scrollOffset })
   }, [currentFeatureOnMap, currentPoi, scrollOffset])
 
   const PanelContent = (
@@ -152,22 +129,20 @@ const PoisDesktop = ({
         ref={listRef}
         panelHeights={panelHeights}
         bottomBarHeight={currentPoi ? dimensions.poiDetailNavigation : dimensions.toolbarHeight}>
-        {currentFeatureOnMap ? (
+        {canGoBack ? (
           <GoBack goBack={() => selectGeoJsonPoiInList(null)} text={t('detailsHeader')} />
         ) : (
           <ListHeader>{t('listTitle')}</ListHeader>
         )}
 
-        {currentPoi ? (
-          <PoiDetails
-            poi={currentPoi}
-            feature={currentPoi.getFeature(userLocation)}
-            direction={direction}
-            toolbar={toolbar}
-          />
-        ) : (
-          <>{poiList}</>
-        )}
+        <PoiSharedChildren
+          poiListFeatures={poiListFeatures}
+          currentPoi={currentPoi}
+          selectPoi={selectGeoJsonPoi}
+          userLocation={userLocation}
+          toolbar={toolbar}
+          slug={slug}
+        />
       </ListViewWrapper>
       {currentPoi && features.length > 0 ? (
         <PoiPanelNavigation switchPoi={switchPoi} />
@@ -186,13 +161,12 @@ const PoisDesktop = ({
         selectFeature={selectFeatureOnMap}
         featureCollection={embedInCollection(features)}
         currentFeature={currentFeatureOnMap}
-        languageCode={languageCode}
         Overlay={MapOverlay}>
-        <NavigationControl showCompass={false} position={direction === 'rtl' ? 'bottom-left' : 'bottom-right'} />
+        <NavigationControl showCompass={false} position={contentDirection === 'rtl' ? 'bottom-left' : 'bottom-right'} />
         <GeolocateControl
           positionOptions={{ enableHighAccuracy: true }}
           trackUserLocation
-          position={direction === 'rtl' ? 'bottom-left' : 'bottom-right'}
+          position={contentDirection === 'rtl' ? 'bottom-left' : 'bottom-right'}
         />
         <FooterContainer>
           <CityContentFooter city={cityModel.code} language={languageCode} mode='overlay' />

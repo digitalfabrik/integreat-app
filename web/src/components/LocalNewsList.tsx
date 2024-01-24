@@ -1,7 +1,7 @@
 import React, { ReactElement, ReactNode } from 'react'
 import styled from 'styled-components'
 
-import { LocalNewsModel } from 'api-client'
+import { LocalNewsModel } from 'shared/api'
 
 const NoItemsMessage = styled.div`
   padding-top: 25px;

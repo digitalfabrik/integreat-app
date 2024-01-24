@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 
-import { CITY_NOT_COOPERATING_ROUTE, pathnameFromRouteInformation } from 'api-client/src'
+import { CITY_NOT_COOPERATING_ROUTE, pathnameFromRouteInformation } from 'shared'
 
 import buildConfig from '../constants/buildConfig'
 import Icon from './base/Icon'

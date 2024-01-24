@@ -8,6 +8,7 @@ import {
   CategoriesRouteType,
   CHANGE_LANGUAGE_MODAL_ROUTE,
   CITY_NOT_COOPERATING_ROUTE,
+  CONSENT_ROUTE,
   DISCLAIMER_ROUTE,
   EVENTS_ROUTE,
   EXTERNAL_OFFER_ROUTE,
@@ -28,8 +29,8 @@ import {
   SEARCH_ROUTE,
   SETTINGS_ROUTE,
   SPRUNGBRETT_OFFER_ROUTE,
-  useLoadAsync,
-} from 'api-client'
+} from 'shared'
+import { useLoadAsync } from 'shared/api'
 
 import Header from './components/Header'
 import RedirectContainer from './components/RedirectContainer'
@@ -42,6 +43,7 @@ import useSnackbar from './hooks/useSnackbar'
 import CategoriesContainer from './routes/CategoriesContainer'
 import ChangeLanguageModal from './routes/ChangeLanguageModal'
 import CityNotCooperating from './routes/CityNotCooperating'
+import Consent from './routes/Consent'
 import DisclaimerContainer from './routes/DisclaimerContainer'
 import EventsContainer from './routes/EventsContainer'
 import ExternalOfferContainer from './routes/ExternalOfferContainer'
@@ -221,6 +223,7 @@ const Navigator = (): ReactElement | null => {
         <Stack.Screen name={SETTINGS_ROUTE} component={Settings} />
         <Stack.Screen name={LICENSES_ROUTE} component={Licenses} />
         <Stack.Screen name={EXTERNAL_OFFER_ROUTE} component={ExternalOfferContainer} />
+        <Stack.Screen name={CONSENT_ROUTE} component={Consent} />
       </Stack.Group>
     </Stack.Navigator>
   )

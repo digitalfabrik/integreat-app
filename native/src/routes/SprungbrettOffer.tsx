@@ -2,7 +2,7 @@ import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 import styled from 'styled-components/native'
 
-import { SprungbrettJobModel } from 'api-client'
+import { SprungbrettJobModel } from 'shared/api'
 
 import Caption from '../components/Caption'
 import List from '../components/List'
@@ -18,11 +18,12 @@ const Separator = styled.View`
 type SprungbrettOfferProps = {
   jobs: Array<SprungbrettJobModel>
   language: string
-  title: string
-  refresh: () => void
+  embedded?: boolean
+  title?: string
+  refresh?: () => void
 }
 
-const SprungbrettOffer = ({ jobs, title, language, refresh }: SprungbrettOfferProps): ReactElement => {
+const SprungbrettOffer = ({ jobs, title, language, refresh, embedded }: SprungbrettOfferProps): ReactElement => {
   const { t } = useTranslation('sprungbrett')
   const showSnackbar = useSnackbar()
 
@@ -37,12 +38,13 @@ const SprungbrettOffer = ({ jobs, title, language, refresh }: SprungbrettOfferPr
       renderItem={renderListItem}
       Header={
         <>
-          <Caption title={title} />
+          {!!title && <Caption title={title} />}
           <Separator />
         </>
       }
       refresh={refresh}
       noItemsMessage={t('noOffersAvailable')}
+      scrollEnabled={!embedded}
     />
   )
 }

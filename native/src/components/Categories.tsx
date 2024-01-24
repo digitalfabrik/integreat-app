@@ -1,15 +1,16 @@
 import React, { ReactElement } from 'react'
 import { View } from 'react-native'
 
-import { CategoriesMapModel, CategoryModel, CityModel } from 'api-client'
-import { CATEGORIES_ROUTE } from 'api-client/src/routes'
-import { RouteInformationType } from 'api-client/src/routes/RouteInformationTypes'
+import { CATEGORIES_ROUTE, RouteInformationType } from 'shared'
+import { CategoriesMapModel, CategoryModel, CityModel } from 'shared/api'
 
 import { URL_PREFIX } from '../constants/webview'
 import TileModel from '../models/TileModel'
 import testID from '../testing/testID'
 import { LanguageResourceCacheStateType, PageResourceCacheStateType } from '../utils/DataContainer'
 import CategoryListItem from './CategoryListItem'
+import EmbeddedOffers from './EmbeddedOffers'
+import List from './List'
 import OrganizationContentInfo from './OrganizationContentInfo'
 import Page from './Page'
 import Tiles from './Tiles'
@@ -21,6 +22,7 @@ export type CategoriesProps = {
   category: CategoryModel
   navigateTo: (routeInformation: RouteInformationType) => void
   resourceCache: LanguageResourceCacheStateType
+  goBack: () => void
 }
 
 export const getCachedThumbnail = (category: CategoryModel, resourceCache: PageResourceCacheStateType): string => {
@@ -44,6 +46,7 @@ const Categories = ({
   categories,
   category,
   resourceCache,
+  goBack,
 }: CategoriesProps): ReactElement => {
   const children = categories.getChildren(category)
 
@@ -71,7 +74,6 @@ const Categories = ({
       </View>
     )
   }
-
   return (
     <Page
       title={category.title}
@@ -80,16 +82,31 @@ const Categories = ({
       language={language}
       path={category.path}
       AfterContent={category.organization && <OrganizationContentInfo organization={category.organization} />}
-      Footer={children.map(it => (
-        <CategoryListItem
-          key={it.path}
-          category={it}
-          subCategories={categories.getChildren(it)}
-          resourceCache={resourceCache}
-          language={language}
-          onItemPress={navigateToCategory}
-        />
-      ))}
+      Footer={
+        children.length ? (
+          <List
+            items={children}
+            renderItem={({ item: it }) => (
+              <CategoryListItem
+                key={it.path}
+                category={it}
+                subCategories={categories.getChildren(it)}
+                resourceCache={resourceCache}
+                language={language}
+                onItemPress={navigateToCategory}
+              />
+            )}
+            scrollEnabled={false}
+          />
+        ) : (
+          <EmbeddedOffers
+            embeddedOffers={category.embeddedOffers}
+            cityCode={cityModel.code}
+            languageCode={language}
+            goBack={goBack}
+          />
+        )
+      }
     />
   )
 }

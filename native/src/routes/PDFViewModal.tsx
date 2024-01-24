@@ -3,7 +3,8 @@ import { View } from 'react-native'
 import Pdf from 'react-native-pdf'
 import { useTheme } from 'styled-components'
 
-import { ErrorCode, PdfViewModalRouteType } from 'api-client'
+import { PdfViewModalRouteType } from 'shared'
+import { ErrorCode } from 'shared/api'
 
 import Failure from '../components/Failure'
 import LoadingSpinner from '../components/LoadingSpinner'

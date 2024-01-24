@@ -1,7 +1,7 @@
 import { fireEvent } from '@testing-library/react-native'
 import React from 'react'
 
-import { PoiCategoryModel, PoiModelBuilder } from 'api-client'
+import { PoiCategoryModel, PoiModelBuilder } from 'shared/api'
 
 import render from '../../testing/render'
 import PoiFiltersModal from '../PoiFiltersModal'
@@ -14,6 +14,7 @@ describe('PoiFiltersModal', () => {
   beforeEach(jest.clearAllMocks)
 
   const pois = new PoiModelBuilder(2).build()
+
   const closeModal = jest.fn()
   const setSelectedPoiCategory = jest.fn()
   const setCurrentlyOpenFilter = jest.fn()
@@ -21,9 +22,11 @@ describe('PoiFiltersModal', () => {
   const renderPoiFiltersModal = ({
     category = null,
     currentlyOpen = false,
+    poisCount = 0,
   }: {
     category?: PoiCategoryModel | null
     currentlyOpen?: boolean
+    poisCount?: number
   }) =>
     render(
       <PoiFiltersModal
@@ -34,6 +37,7 @@ describe('PoiFiltersModal', () => {
         setSelectedPoiCategory={setSelectedPoiCategory}
         currentlyOpenFilter={currentlyOpen}
         setCurrentlyOpenFilter={setCurrentlyOpenFilter}
+        poisCount={poisCount}
       />,
     )
 
@@ -61,9 +65,16 @@ describe('PoiFiltersModal', () => {
   })
 
   it('should close modal on button press', () => {
-    const { getByText } = renderPoiFiltersModal({})
+    const { getByText } = renderPoiFiltersModal({ poisCount: 1 })
 
     fireEvent.press(getByText('showPois'))
     expect(closeModal).toHaveBeenCalledTimes(1)
+  })
+
+  it('should not close modal on button press', () => {
+    const { getByText } = renderPoiFiltersModal({ poisCount: 0 })
+
+    fireEvent.press(getByText('showPois'))
+    expect(closeModal).not.toHaveBeenCalledTimes(1)
   })
 })

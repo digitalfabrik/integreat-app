@@ -5,15 +5,8 @@ import { DateTime } from 'luxon'
 import React from 'react'
 import { Text } from 'react-native'
 
-import {
-  CategoriesMapModelBuilder,
-  CityModelBuilder,
-  LanguageModelBuilder,
-  NEWS_ROUTE,
-  NewsRouteType,
-  TU_NEWS_TYPE,
-  TunewsModel,
-} from 'api-client'
+import { NEWS_ROUTE, NewsRouteType, TU_NEWS_TYPE } from 'shared'
+import { CategoriesMapModelBuilder, CityModelBuilder, LanguageModelBuilder, TunewsModel } from 'shared/api'
 
 import useLoadTuNews from '../../hooks/useLoadTuNews'
 import useNavigate from '../../hooks/useNavigate'
@@ -24,8 +17,8 @@ import TuNews from '../TuNews'
 jest.mock('react-i18next')
 jest.mock('../../components/Page', () => ({ content }: { content: string }) => <Text>{content}</Text>)
 jest.mock('../../hooks/useLoadTuNews')
-jest.mock('api-client', () => ({
-  ...jest.requireActual('api-client'),
+jest.mock('shared', () => ({
+  ...jest.requireActual('shared'),
   useLoadFromEndpoint: jest.fn(),
 }))
 jest.mock('../../components/LanguageNotAvailablePage', () => () => <Text>languageNotAvailable</Text>)

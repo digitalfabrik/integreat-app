@@ -3,16 +3,8 @@ import React, { ReactElement, useCallback, useEffect, useRef, useState } from 'r
 import { useTranslation } from 'react-i18next'
 import styled, { css } from 'styled-components'
 
-import {
-  embedInCollection,
-  GeoJsonPoi,
-  LocationType,
-  MapViewViewport,
-  MapFeature,
-  PoiModel,
-  sortMapFeatures,
-} from 'api-client'
-import { UiDirectionType } from 'translations'
+import { embedInCollection, GeoJsonPoi, LocationType, MapViewViewport, MapFeature } from 'shared'
+import { PoiModel } from 'shared/api'
 
 import { ArrowBackspaceIcon } from '../assets'
 import useMapFeatures from '../hooks/useMapFeatures'
@@ -20,16 +12,20 @@ import useWindowDimensions from '../hooks/useWindowDimensions'
 import { getSnapPoints } from '../utils/getSnapPoints'
 import BottomActionSheet, { ScrollableBottomSheetRef } from './BottomActionSheet'
 import GoBack from './GoBack'
-import List from './List'
 import MapView, { MapViewRef } from './MapView'
-import PoiDetails from './PoiDetails'
-import PoiListItem from './PoiListItem'
+import PoiSharedChildren from './PoiSharedChildren'
+import Button from './base/Button'
 import Icon from './base/Icon'
 
 const geolocatorTopOffset = 10
 
 const ListContainer = styled.div`
   padding: 0 30px;
+`
+
+const ListTitle = styled.div`
+  margin: 12px 0;
+  font-weight: 700;
 `
 
 const GoBackContainer = styled.div<{ hidden: boolean }>`
@@ -42,14 +38,13 @@ const GoBackContainer = styled.div<{ hidden: boolean }>`
   padding: 0 30px;
 `
 
-const BackNavigation = styled.div<{ direction: string }>`
+const BackNavigation = styled(Button)`
   background-color: ${props => props.theme.colors.textSecondaryColor};
   height: 28px;
   width: 28px;
   border: 1px solid ${props => props.theme.colors.textDisabledColor};
   border-radius: 50px;
   box-shadow: 1px 1px 2px 0 rgb(0 0 0 / 20%);
-  cursor: pointer;
   justify-content: center;
   align-items: center;
   display: flex;
@@ -59,12 +54,12 @@ const StyledIcon = styled(Icon)`
   color: ${props => props.theme.colors.backgroundColor};
 `
 
-const GeocontrolContainer = styled.div<{ height: number; direction: string }>`
+const GeocontrolContainer = styled.div<{ height: number }>`
   --max-icon-height: calc(${props => getSnapPoints(props.height)[1]}px + ${geolocatorTopOffset}px);
 
   position: absolute;
   ${props =>
-    props.direction === 'ltr'
+    props.theme.contentDirection === 'ltr'
       ? css`
           right: 10px;
         `
@@ -78,9 +73,7 @@ type PoisMobileProps = {
   toolbar: ReactElement
   features: MapFeature[]
   pois: PoiModel[]
-  direction: UiDirectionType
   userLocation: LocationType | undefined
-  languageCode: string
   slug: string | undefined
   mapViewport?: MapViewViewport
   setMapViewport: (mapViewport: MapViewViewport) => void
@@ -89,11 +82,9 @@ type PoisMobileProps = {
 
 const PoisMobile = ({
   toolbar,
-  languageCode,
   pois,
   features,
   userLocation,
-  direction,
   slug,
   mapViewport,
   setMapViewport,
@@ -108,6 +99,7 @@ const PoisMobile = ({
   const { selectGeoJsonPoiInList, selectFeatureOnMap, currentFeatureOnMap, currentPoi, poiListFeatures } =
     useMapFeatures(features, pois, slug)
   const { height } = useWindowDimensions()
+  const canGoBack = !!currentFeatureOnMap || !!slug
 
   const isBottomActionSheetFullScreen = bottomActionSheetHeight >= height
   const changeSnapPoint = (snapPoint: number) => {
@@ -121,10 +113,6 @@ const PoisMobile = ({
     }
     selectGeoJsonPoiInList(poiFeature)
   }
-
-  const renderPoiListItem = (poi: GeoJsonPoi) => (
-    <PoiListItem key={poi.path} poi={poi} selectPoi={handleSelectFeatureInList} />
-  )
 
   const handleSelectFeatureOnMap = useCallback(
     (feature: MapFeature | null) => {
@@ -140,21 +128,8 @@ const PoisMobile = ({
   )
 
   useEffect(() => {
-    if (!currentFeatureOnMap) {
-      sheetRef.current?.scrollElement?.scrollTo({ top: scrollOffset })
-    } else {
-      sheetRef.current?.scrollElement?.scrollTo({ top: 0 })
-    }
+    sheetRef.current?.scrollElement?.scrollTo({ top: currentFeatureOnMap ? 0 : scrollOffset })
   }, [currentFeatureOnMap, scrollOffset])
-
-  const poiList = (
-    <List
-      noItemsMessage={t('noPois')}
-      items={sortMapFeatures(poiListFeatures)}
-      renderItem={renderPoiListItem}
-      borderless
-    />
-  )
 
   useEffect(() => {
     if (mapViewRef && geocontrolPosition.current) {
@@ -177,16 +152,13 @@ const PoisMobile = ({
         changeSnapPoint={changeSnapPoint}
         featureCollection={embedInCollection(features)}
         currentFeature={currentFeatureOnMap}
-        languageCode={languageCode}
         Overlay={
           <>
-            {currentFeatureOnMap && (
+            {canGoBack && (
               <BackNavigation
                 onClick={() => handleSelectFeatureOnMap(null)}
-                role='button'
                 tabIndex={0}
-                onKeyPress={() => handleSelectFeatureOnMap(null)}
-                direction={direction}>
+                ariaLabel={t('detailsHeader')}>
                 <StyledIcon src={ArrowBackspaceIcon} directionDependent />
               </BackNavigation>
             )}
@@ -195,23 +167,24 @@ const PoisMobile = ({
         }
       />
       <BottomActionSheet
-        title={!currentFeatureOnMap ? t('listTitle') : undefined}
         toolbar={toolbar}
         ref={sheetRef}
         setBottomActionSheetHeight={setBottomActionSheetHeight}
-        direction={direction}
-        sibling={<GeocontrolContainer id='geolocate' direction={direction} ref={geocontrolPosition} height={height} />}>
-        {currentFeatureOnMap && (
+        sibling={<GeocontrolContainer id='geolocate' ref={geocontrolPosition} height={height} />}>
+        {canGoBack && (
           <GoBackContainer hidden={!isBottomActionSheetFullScreen}>
             <GoBack goBack={() => selectGeoJsonPoiInList(null)} viewportSmall text={t('detailsHeader')} />
           </GoBackContainer>
         )}
         <ListContainer>
-          {currentPoi ? (
-            <PoiDetails poi={currentPoi} feature={currentPoi.getFeature(userLocation)} direction={direction} />
-          ) : (
-            poiList
-          )}
+          {!canGoBack && <ListTitle>{t('listTitle')}</ListTitle>}
+          <PoiSharedChildren
+            poiListFeatures={poiListFeatures}
+            currentPoi={currentPoi}
+            selectPoi={handleSelectFeatureInList}
+            userLocation={userLocation}
+            slug={slug}
+          />
         </ListContainer>
       </BottomActionSheet>
     </>

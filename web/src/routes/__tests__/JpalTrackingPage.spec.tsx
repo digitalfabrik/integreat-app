@@ -2,7 +2,7 @@ import { mocked } from 'jest-mock'
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
 
-import { setJpalTrackingCode } from 'api-client/src'
+import { setJpalTrackingCode } from 'shared/api'
 
 import { renderRoute } from '../../testing/render'
 import safeLocalStorage, { JPAL_TRACKING_CODE_KEY } from '../../utils/safeLocalStorage'
@@ -19,7 +19,7 @@ jest.mock('../../utils/safeLocalStorage', () => ({
   JPAL_TRACKING_CODE_KEY: 'jpalTrackingCode',
 }))
 
-jest.mock('api-client', () => ({
+jest.mock('shared/api', () => ({
   setJpalTrackingCode: jest.fn(),
 }))
 

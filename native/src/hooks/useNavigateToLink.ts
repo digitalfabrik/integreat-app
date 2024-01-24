@@ -7,7 +7,7 @@ import {
   OPEN_MEDIA_SIGNAL_NAME,
   PDF_VIEW_MODAL_ROUTE,
   RouteInformationType,
-} from 'api-client'
+} from 'shared'
 
 import { SnackbarType } from '../components/SnackbarContainer'
 import { NavigationProps, RoutesType } from '../constants/NavigationTypes'

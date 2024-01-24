@@ -4,6 +4,8 @@ import styled, { css } from 'styled-components'
 import dimensions from '../constants/dimensions'
 import useWindowDimensions from '../hooks/useWindowDimensions'
 
+const additionalToolbarTopSpacing = 32
+
 export const RichLayout = styled.div`
   position: relative;
   display: flex;
@@ -23,12 +25,6 @@ export const RichLayout = styled.div`
     }
 
     cursor: pointer;
-  }
-
-  div[role='button'] {
-    &:focus-visible {
-      outline: 2px solid ${props => props.theme.colors.textSecondaryColor};
-    }
   }
 
   input {
@@ -80,7 +76,7 @@ const Main = styled.main<{ fullWidth: boolean }>`
   max-width: calc(100% - ${dimensions.toolbarWidth}px);
   box-sizing: border-box;
   margin: 0 auto;
-  padding: ${props => (props.fullWidth ? '0' : '0 10px 30px')};
+  padding: ${props => (props.fullWidth ? '0' : `0 ${dimensions.mainContainerHorizontalPadding}px 30px`)};
   text-align: start;
   word-wrap: break-word;
 
@@ -97,13 +93,12 @@ const Main = styled.main<{ fullWidth: boolean }>`
 `
 
 const Aside = styled.aside<{ languageSelectorHeight: number }>`
-  top: ${props => props.languageSelectorHeight + dimensions.headerHeightLarge}px;
+  top: ${props => props.languageSelectorHeight + dimensions.headerHeightLarge + additionalToolbarTopSpacing}px;
   margin-top: ${props => props.languageSelectorHeight - dimensions.navigationMenuHeight}px;
   display: inline-block;
   position: sticky;
   width: ${dimensions.toolbarWidth}px;
   vertical-align: top;
-  transition: top 0.2s ease-in-out;
   z-index: 10;
 
   &:empty {

@@ -1,15 +1,9 @@
-import React, { ReactElement, useCallback } from 'react'
+import React, { Fragment, PropsWithChildren, ReactElement, useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
 
-import {
-  SPRUNGBRETT_OFFER_ROUTE,
-  SprungbrettJobModel,
-  pathnameFromRouteInformation,
-  getSlugFromPath,
-  useLoadAsync,
-  loadSprungbrettJobs,
-} from 'api-client'
+import { SPRUNGBRETT_OFFER_ROUTE, pathnameFromRouteInformation, getSlugFromPath } from 'shared'
+import { SprungbrettJobModel, useLoadAsync, loadSprungbrettJobs } from 'shared/api'
 
 import { CityRouteProps } from '../CityContentSwitcher'
 import Caption from '../components/Caption'
@@ -28,7 +22,16 @@ const Image = styled.img`
   margin: 0 auto;
 `
 
-const SprungbrettOfferPage = ({ city, cityCode, languageCode }: CityRouteProps): ReactElement | null => {
+type SprungbrettOfferPageProps = {
+  embedded?: boolean
+} & CityRouteProps
+
+const SprungbrettOfferPage = ({
+  city,
+  cityCode,
+  languageCode,
+  embedded,
+}: SprungbrettOfferPageProps): ReactElement | null => {
   const { t } = useTranslation('sprungbrett')
 
   const load = useCallback(
@@ -55,28 +58,31 @@ const SprungbrettOfferPage = ({ city, cityCode, languageCode }: CityRouteProps):
     route: SPRUNGBRETT_OFFER_ROUTE,
     languageCode,
     Toolbar: (
-      <CityContentToolbar
-        languageCode={languageCode}
-        feedbackTarget={feedbackTarget}
-        route={SPRUNGBRETT_OFFER_ROUTE}
-        pageTitle={pageTitle}
-      />
+      <CityContentToolbar feedbackTarget={feedbackTarget} route={SPRUNGBRETT_OFFER_ROUTE} pageTitle={pageTitle} />
     ),
   }
 
+  const Wrapper = embedded
+    ? Fragment
+    : ({ children }: PropsWithChildren) => (
+        <CityContentLayout isLoading={loading} {...locationLayoutParams}>
+          {children}
+        </CityContentLayout>
+      )
+
   if (loading) {
     return (
-      <CityContentLayout isLoading {...locationLayoutParams}>
+      <Wrapper>
         <LoadingSpinner />
-      </CityContentLayout>
+      </Wrapper>
     )
   }
 
   if (!data) {
     return (
-      <CityContentLayout isLoading={false} {...locationLayoutParams}>
+      <Wrapper>
         <FailureSwitcher error={error ?? new Error('Data missing')} />
-      </CityContentLayout>
+      </Wrapper>
     )
   }
 
@@ -87,14 +93,16 @@ const SprungbrettOfferPage = ({ city, cityCode, languageCode }: CityRouteProps):
   const { sprungbrettOffer: offer, sprungbrettJobs } = data
 
   return (
-    <CityContentLayout isLoading={false} {...locationLayoutParams}>
-      <Helmet pageTitle={pageTitle} languageChangePaths={languageChangePaths} cityModel={city} />
-      <Caption title={offer.title} />
+    <Wrapper>
+      {!embedded && <Helmet pageTitle={pageTitle} languageChangePaths={languageChangePaths} cityModel={city} />}
+      {!embedded && <Caption title={offer.title} />}
       <List noItemsMessage={t('noOffersAvailable')} renderItem={renderSprungbrettListItem} items={sprungbrettJobs} />
-      <CleanLink to='https://www.sprungbrett-intowork.de'>
-        <Image src={offer.thumbnail} alt='' />
-      </CleanLink>
-    </CityContentLayout>
+      {!embedded && (
+        <CleanLink to='https://www.sprungbrett-intowork.de'>
+          <Image src={offer.thumbnail} alt='' />
+        </CleanLink>
+      )}
+    </Wrapper>
   )
 }
 

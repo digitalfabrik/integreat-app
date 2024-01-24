@@ -2,7 +2,7 @@ import { difference, flatMap, isEmpty, map, omitBy } from 'lodash'
 import { DateTime } from 'luxon'
 import BlobUtil from 'react-native-blob-util'
 
-import { CategoriesMapModel, CityModel, EventModel, LocalNewsModel, PoiModel } from 'api-client'
+import { CategoriesMapModel, CityModel, EventModel, LocalNewsModel, PoiModel } from 'shared/api'
 
 import Cache from '../models/Cache'
 import DatabaseContext from '../models/DatabaseContext'

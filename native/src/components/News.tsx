@@ -3,7 +3,8 @@ import { useTranslation } from 'react-i18next'
 import { ScrollView } from 'react-native'
 import styled from 'styled-components/native'
 
-import { ErrorCode, LocalNewsModel, NewsRouteType, NewsType, replaceLinks, TU_NEWS_TYPE, TunewsModel } from 'api-client'
+import { NewsRouteType, NewsType, TU_NEWS_TYPE } from 'shared'
+import { LocalNewsModel, TunewsModel, ErrorCode, replaceLinks } from 'shared/api'
 
 import { NavigationProps } from '../constants/NavigationTypes'
 import { contentAlignment } from '../constants/contentDirection'

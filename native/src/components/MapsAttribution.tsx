@@ -1,7 +1,7 @@
 import React, { ReactElement, useState } from 'react'
 import styled from 'styled-components/native'
 
-import { openStreeMapCopyright } from 'api-client'
+import { openStreeMapCopyright } from 'shared'
 
 import Link from './Link'
 import Pressable from './base/Pressable'

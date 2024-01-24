@@ -2,7 +2,8 @@ import { RenderResult } from '@testing-library/react'
 import { mocked } from 'jest-mock'
 import React, { ReactNode } from 'react'
 
-import { CATEGORIES_ROUTE, CityModelBuilder } from 'api-client'
+import { CATEGORIES_ROUTE } from 'shared'
+import { CityModelBuilder } from 'shared/api'
 
 import useWindowDimensions from '../../hooks/useWindowDimensions'
 import { renderWithTheme } from '../../testing/render'

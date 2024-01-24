@@ -2,9 +2,10 @@ import React, { ReactElement } from 'react'
 import styled from 'styled-components'
 
 import { CloseIcon } from '../../assets'
+import Button from './Button'
 import Icon from './Icon'
 
-const StyledButton = styled.button`
+const StyledButton = styled(Button)`
   display: flex;
   height: 30px;
   padding: 4px 8px;
@@ -16,8 +17,6 @@ const StyledButton = styled.button`
   color: ${props => props.theme.colors.textSecondaryColor};
   font-family: ${props => props.theme.fonts.web.contentFont};
   font-size: 0.875rem;
-  border: none;
-  cursor: pointer;
 `
 
 const StyledIcon = styled(Icon)`
@@ -36,7 +35,7 @@ type ChipButtonProps = {
 }
 
 const ChipButton = ({ text, onClick, ariaLabel, className, ...props }: ChipButtonProps): ReactElement => (
-  <StyledButton type='button' aria-label={ariaLabel ?? text} onClick={onClick} className={className}>
+  <StyledButton ariaLabel={ariaLabel ?? text} onClick={onClick} className={className}>
     <StyledIcon src={props.icon} />
     <div>{text}</div>
     {props.closeButton && <StyledIcon src={CloseIcon} />}

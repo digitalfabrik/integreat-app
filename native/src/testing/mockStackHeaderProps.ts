@@ -1,7 +1,7 @@
 import { StackHeaderProps } from '@react-navigation/stack'
 import { merge } from 'lodash'
 
-import { CATEGORIES_ROUTE } from 'api-client'
+import { CATEGORIES_ROUTE } from 'shared'
 
 import { NavigationProps, RouteProps, RoutesType } from '../constants/NavigationTypes'
 import createNavigationMock from './createNavigationPropMock'

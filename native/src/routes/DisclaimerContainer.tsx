@@ -1,6 +1,7 @@
 import React, { ReactElement } from 'react'
 
-import { createDisclaimerEndpoint, DISCLAIMER_ROUTE, DisclaimerRouteType } from 'api-client'
+import { DISCLAIMER_ROUTE, DisclaimerRouteType } from 'shared'
+import { createDisclaimerEndpoint } from 'shared/api'
 
 import { NavigationProps, RouteProps } from '../constants/NavigationTypes'
 import useCityAppContext from '../hooks/useCityAppContext'

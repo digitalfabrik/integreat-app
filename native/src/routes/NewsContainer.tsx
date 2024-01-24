@@ -1,6 +1,7 @@
 import React, { ReactElement, useCallback, useEffect } from 'react'
 
-import { ErrorCode, LOCAL_NEWS_TYPE, NEWS_ROUTE, NewsRouteType, NewsType, TU_NEWS_TYPE } from 'api-client'
+import { LOCAL_NEWS_TYPE, NEWS_ROUTE, NewsRouteType, NewsType, TU_NEWS_TYPE } from 'shared'
+import { ErrorCode } from 'shared/api'
 
 import NewsHeader from '../components/NewsHeader'
 import { NavigationProps, RouteProps } from '../constants/NavigationTypes'

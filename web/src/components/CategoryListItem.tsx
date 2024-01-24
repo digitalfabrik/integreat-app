@@ -2,7 +2,7 @@ import React, { ReactElement } from 'react'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 
-import { CategoryModel } from 'api-client'
+import { CategoryModel } from 'shared/api'
 
 const Row = styled.li`
   width: 100%;

@@ -4,7 +4,7 @@ import { fireEvent, waitFor } from '@testing-library/react-native'
 import { mocked } from 'jest-mock'
 import React from 'react'
 
-import { JpalTrackingRouteType } from 'api-client'
+import { JpalTrackingRouteType } from 'shared'
 
 import createNavigationMock from '../../testing/createNavigationPropMock'
 import render from '../../testing/render'
@@ -12,7 +12,7 @@ import appSettings from '../../utils/AppSettings'
 import JpalTracking from '../JpalTracking'
 
 jest.mock('react-i18next')
-jest.mock('../../components/SettingsSwitch', () => {
+jest.mock('../../components/base/SettingsSwitch', () => {
   const { Text } = require('react-native')
   return () => <Text>SettingsSwitch</Text>
 })

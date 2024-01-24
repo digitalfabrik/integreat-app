@@ -2,7 +2,7 @@ import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 import styled from 'styled-components/native'
 
-import { ErrorCode } from 'api-client'
+import { ErrorCode } from 'shared/api'
 
 import { NoInternetIcon, SadSmileyIcon, WarningIcon } from '../assets'
 import Icon from './base/Icon'

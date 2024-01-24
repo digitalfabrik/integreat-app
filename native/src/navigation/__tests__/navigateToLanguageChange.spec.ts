@@ -1,5 +1,5 @@
-import { CHANGE_LANGUAGE_MODAL_ROUTE, OPEN_PAGE_SIGNAL_NAME } from 'api-client'
-import LanguageModelBuilder from 'api-client/src/testing/LanguageModelBuilder'
+import { CHANGE_LANGUAGE_MODAL_ROUTE, OPEN_PAGE_SIGNAL_NAME } from 'shared'
+import LanguageModelBuilder from 'shared/api/endpoints/testing/LanguageModelBuilder'
 
 import createNavigationScreenPropMock from '../../testing/createNavigationPropMock'
 import sendTrackingSignal from '../../utils/sendTrackingSignal'

@@ -1,17 +1,15 @@
 import React, { ReactElement, ReactNode, RefObject, useCallback, useState } from 'react'
-import styled from 'styled-components'
-
-import { UiDirectionType } from 'translations/src'
+import styled, { useTheme } from 'styled-components'
 
 import { ArrowBackIcon } from '../assets'
 import dimensions from '../constants/dimensions'
 import useCallbackRef from '../hooks/useCallbackRef'
 import useWindowDimensions from '../hooks/useWindowDimensions'
+import Button from './base/Button'
 import Icon from './base/Icon'
 
 type NavigationBarScrollContainerProps = {
   children: ReactNode
-  direction: UiDirectionType
   activeIndex: number
 }
 
@@ -25,12 +23,6 @@ const Arrow = styled(Icon)<{ visible: boolean }>`
   padding: 0 8px;
   align-self: center;
   opacity: ${props => (props.visible ? 1 : 0)};
-`
-
-const Button = styled.button`
-  background-color: transparent;
-  border: none;
-  padding: 0;
 `
 
 const ScrollContainer = styled.div<{ showArrowContainer: boolean }>`
@@ -60,11 +52,7 @@ const getActiveItemScrollPosition = (activeIndex: number): number => {
   return navigationItem.offsetLeft - navigationBar.offsetLeft
 }
 
-const NavigationBarScrollContainer = ({
-  children,
-  direction,
-  activeIndex,
-}: NavigationBarScrollContainerProps): ReactElement => {
+const NavigationBarScrollContainer = ({ children, activeIndex }: NavigationBarScrollContainerProps): ReactElement => {
   const { width } = useWindowDimensions()
   const [scrollPosition, setScrollPosition] = useState<number>(0)
   const scrollToActiveItem = useCallback(
@@ -80,8 +68,11 @@ const NavigationBarScrollContainer = ({
   const showArrowLeft = scrollContainer ? scrollPosition > 0 : false
   const showArrowRight = scrollContainer ? scrollPosition < scrollableWidth : false
 
+  const { contentDirection } = useTheme()
   const scrollToEnd = () =>
-    scrollContainer?.scroll({ left: direction === 'rtl' ? -scrollContainer.scrollWidth : scrollContainer.scrollWidth })
+    scrollContainer?.scroll({
+      left: contentDirection === 'rtl' ? -scrollContainer.scrollWidth : scrollContainer.scrollWidth,
+    })
 
   const scrollToStart = () => scrollContainer?.scroll({ left: 0 })
 
@@ -100,11 +91,11 @@ const NavigationBarScrollContainer = ({
 
   return (
     <Container>
-      <Button disabled={!showArrowLeft} onClick={scrollToStart}>
+      <Button disabled={!showArrowLeft} onClick={scrollToStart} ariaLabel='' aria-hidden>
         <Arrow src={ArrowBackIcon} visible={showArrowLeft} />
       </Button>
       {Content}
-      <Button disabled={!showArrowRight} onClick={scrollToEnd}>
+      <Button disabled={!showArrowRight} onClick={scrollToEnd} ariaLabel='' aria-hidden>
         <Arrow src={ArrowBackIcon} visible={showArrowRight} reverse />
       </Button>
     </Container>

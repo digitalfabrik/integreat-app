@@ -2,11 +2,12 @@ import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
 
-import { GeoJsonPoi } from 'api-client'
+import { GeoJsonPoi } from 'shared'
 
 import { PoiThumbnailPlaceholder } from '../assets'
 import dimensions from '../constants/dimensions'
 import { helpers } from '../constants/theme'
+import Button from './base/Button'
 
 const ListItemContainer = styled.ul`
   font-family: ${props => props.theme.fonts.web.contentFont};
@@ -62,7 +63,7 @@ const Title = styled.span`
   font-weight: 700;
 `
 
-const LinkContainer = styled.div`
+const LinkContainer = styled(Button)`
   display: flex;
   flex: 1;
 `
@@ -82,7 +83,7 @@ const PoiListItem = ({ poi, selectPoi }: PoiListItemProps): ReactElement => {
 
   return (
     <ListItemContainer id={slug}>
-      <LinkContainer onClick={onClickItem} role='button' tabIndex={0} onKeyPress={onClickItem} aria-label={title}>
+      <LinkContainer onClick={onClickItem} tabIndex={0} ariaLabel={title}>
         <Thumbnail alt='' src={thumbnail || PoiThumbnailPlaceholder} />
         <Description>
           <Title>{title}</Title>

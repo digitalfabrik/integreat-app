@@ -1,7 +1,8 @@
 import { fireEvent } from '@testing-library/react-native'
 import React from 'react'
 
-import { CHANGE_LANGUAGE_MODAL_ROUTE, ChangeLanguageModalRouteType, LanguageModelBuilder } from 'api-client'
+import { CHANGE_LANGUAGE_MODAL_ROUTE, ChangeLanguageModalRouteType } from 'shared'
+import { LanguageModelBuilder } from 'shared/api'
 
 import { AppContext } from '../../contexts/AppContextProvider'
 import createNavigationScreenPropMock from '../../testing/createNavigationPropMock'

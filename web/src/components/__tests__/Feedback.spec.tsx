@@ -1,9 +1,11 @@
 import { fireEvent } from '@testing-library/react'
 import React from 'react'
 
+import { UiDirectionType } from 'translations'
+
 import { renderWithTheme } from '../../testing/render'
 import Feedback from '../Feedback'
-import { SendingState } from '../FeedbackContainer'
+import { SendingStatusType } from '../FeedbackContainer'
 
 jest.mock('react-inlinesvg')
 jest.mock('react-i18next')
@@ -25,15 +27,15 @@ describe('Feedback', () => {
   const buildProps = (
     isPositiveFeedback: boolean | null,
     comment: string,
-    isSearchFeedback = false,
-    sendingStatus = SendingState.IDLE,
+    searchTerm?: string,
+    sendingStatus: SendingStatusType = 'idle',
     onContactMailChanged = onContactMailChangedDummy,
   ) => ({
     comment,
     isPositiveFeedback,
-    isSearchFeedback,
     contactMail: 'test@example.com',
     sendingStatus,
+    searchTerm,
     onCommentChanged,
     onFeedbackChanged,
     onContactMailChanged,
@@ -41,6 +43,7 @@ describe('Feedback', () => {
     t,
     closeFeedbackModal,
     setSearchTerm,
+    direction: 'ltr' as UiDirectionType,
   })
 
   it('button should be disabled for no rating and no input', () => {
@@ -69,12 +72,12 @@ describe('Feedback', () => {
   })
 
   it('should display correct description for search', () => {
-    const { getByText } = renderWithTheme(<Feedback {...buildProps(false, 'comment', true)} />)
+    const { getByText } = renderWithTheme(<Feedback {...buildProps(false, 'comment', 'query')} />)
     expect(getByText('feedback:wantedInformation')).toBeTruthy()
   })
 
   it('should display error', () => {
-    const { getByText } = renderWithTheme(<Feedback {...buildProps(false, 'comment', false, SendingState.ERROR)} />)
+    const { getByText } = renderWithTheme(<Feedback {...buildProps(false, 'comment', undefined, 'failed')} />)
     expect(getByText('feedback:failedSendingFeedback')).toBeTruthy()
   })
 
@@ -88,7 +91,7 @@ describe('Feedback', () => {
   it('should call callback on contact mail changed', () => {
     const onContactMailChanged = jest.fn()
     const { getByDisplayValue, queryByDisplayValue } = renderWithTheme(
-      <Feedback {...buildProps(false, 'my comment', false, SendingState.IDLE, onContactMailChanged)} />,
+      <Feedback {...buildProps(false, 'my comment', undefined, 'idle', onContactMailChanged)} />,
     )
     expect(getByDisplayValue('test@example.com')).toBeTruthy()
     expect(queryByDisplayValue('new@example.com')).toBeFalsy()

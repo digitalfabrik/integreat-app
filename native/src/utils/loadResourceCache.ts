@@ -1,7 +1,7 @@
 import NetInfo from '@react-native-community/netinfo'
 import { flatten, mapValues, pickBy, reduce, values } from 'lodash'
 
-import { CategoriesMapModel, EventModel, ExtendedPageModel, PoiModel } from 'api-client/src'
+import { CategoriesMapModel, EventModel, ExtendedPageModel, PoiModel } from 'shared/api'
 
 import buildConfig from '../constants/buildConfig'
 import { PageResourceCacheEntryStateType } from './DataContainer'

@@ -4,14 +4,15 @@ import { useTranslation } from 'react-i18next'
 import {
   cityContentPath,
   EVENTS_ROUTE,
-  fromError,
   NEWS_ROUTE,
-  NotFoundError,
   OFFERS_ROUTE,
   pathnameFromRouteInformation,
   POIS_ROUTE,
-} from 'api-client'
-import { LANDING_ROUTE, LOCAL_NEWS_TYPE, TU_NEWS_TYPE } from 'api-client/src/routes'
+  LANDING_ROUTE,
+  LOCAL_NEWS_TYPE,
+  TU_NEWS_TYPE,
+} from 'shared'
+import { fromError, NotFoundError } from 'shared/api'
 
 import { reportError } from '../utils/sentry'
 import Failure from './Failure'

@@ -3,16 +3,8 @@ import { DateTime } from 'luxon'
 import React from 'react'
 import { Text } from 'react-native'
 
-import {
-  CityModel,
-  LanguageModelBuilder,
-  LocalNewsModel,
-  LocalNewsType,
-  replaceLinks,
-  TU_NEWS_TYPE,
-  TunewsModel,
-  TuNewsType,
-} from 'api-client'
+import { LocalNewsType, TU_NEWS_TYPE, TuNewsType } from 'shared'
+import { replaceLinks, LanguageModelBuilder, CityModel, LocalNewsModel, TunewsModel } from 'shared/api'
 
 import useNavigate from '../../hooks/useNavigate'
 import createNavigationPropMock from '../../testing/createNavigationPropMock'

@@ -1,7 +1,7 @@
 import React, { ReactElement } from 'react'
 import styled from 'styled-components'
 
-import { CategoryModel } from 'api-client'
+import { CategoryModel } from 'shared/api'
 
 import { helpers } from '../constants/theme'
 import Caption from './Caption'

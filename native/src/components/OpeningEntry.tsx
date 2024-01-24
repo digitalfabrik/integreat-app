@@ -2,7 +2,7 @@ import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 import styled from 'styled-components/native'
 
-import { TimeSlot } from 'api-client/src/types'
+import { TimeSlot } from 'shared/api/types'
 
 import { contentDirection } from '../constants/contentDirection'
 

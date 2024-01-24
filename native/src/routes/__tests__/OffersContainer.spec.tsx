@@ -2,15 +2,8 @@ import { waitFor } from '@testing-library/react-native'
 import { mocked } from 'jest-mock'
 import React from 'react'
 
-import {
-  CategoriesMapModelBuilder,
-  ErrorCode,
-  LanguageModelBuilder,
-  OfferModel,
-  OFFERS_ROUTE,
-  OffersRouteType,
-} from 'api-client'
-import CityModelBuilder from 'api-client/src/testing/CityModelBuilder'
+import { OFFERS_ROUTE, OffersRouteType } from 'shared'
+import { CategoriesMapModelBuilder, LanguageModelBuilder, CityModelBuilder, ErrorCode, OfferModel } from 'shared/api'
 
 import { AppContext } from '../../contexts/AppContextProvider'
 import useLoadExtraCityContent, { UseLoadExtraCityContentReturn } from '../../hooks/useLoadExtraCityContent'

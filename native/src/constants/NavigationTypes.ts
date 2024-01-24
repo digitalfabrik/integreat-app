@@ -21,7 +21,6 @@ import {
   SearchRouteType,
   SettingsRouteType,
   SprungbrettOfferRouteType,
-  LanguageModel,
   POIS_ROUTE,
   CATEGORIES_ROUTE,
   LANDING_ROUTE,
@@ -44,9 +43,12 @@ import {
   CityNotCooperatingRouteType,
   LICENSES_ROUTE,
   LicensesRouteType,
-} from 'api-client'
-
-import { FeedbackInformationType } from '../components/FeedbackContainer'
+  CONSENT_ROUTE,
+  ConsentRouteType,
+  MalteHelpFormOfferRouteType,
+  MALTE_HELP_FORM_OFFER_ROUTE,
+} from 'shared'
+import { LanguageModel, FeedbackRouteType } from 'shared/api'
 
 export type RoutesType =
   | RedirectRouteType
@@ -62,6 +64,7 @@ export type RoutesType =
   | OffersRouteType
   | ExternalOfferRouteType
   | SprungbrettOfferRouteType
+  | MalteHelpFormOfferRouteType
   | SettingsRouteType
   | SearchRouteType
   | ChangeLanguageModalRouteType
@@ -69,6 +72,7 @@ export type RoutesType =
   | ImageViewModalRouteType
   | FeedbackModalRouteType
   | LicensesRouteType
+  | ConsentRouteType
 
 type RouteTitle = {
   title?: string
@@ -99,12 +103,14 @@ export type RoutesParamsType = {
   }
   [DISCLAIMER_ROUTE]: undefined
   [OFFERS_ROUTE]: undefined
+  [CONSENT_ROUTE]: undefined
   [JPAL_TRACKING_ROUTE]: undefined
   [EXTERNAL_OFFER_ROUTE]: {
     url: string
     postData: Map<string, string> | null | undefined
   }
   [SPRUNGBRETT_OFFER_ROUTE]: undefined
+  [MALTE_HELP_FORM_OFFER_ROUTE]: undefined
   [SETTINGS_ROUTE]: undefined
   [SEARCH_ROUTE]: {
     searchText?: string | null
@@ -122,7 +128,12 @@ export type RoutesParamsType = {
     url: string
     shareUrl: string
   }
-  [FEEDBACK_MODAL_ROUTE]: FeedbackInformationType
+  [FEEDBACK_MODAL_ROUTE]: {
+    routeType: FeedbackRouteType
+    language: string
+    cityCode: string
+    slug?: string
+  }
 }
 export type RouteProps<T extends RoutesType> = RouteProp<RoutesParamsType, T>
 export type NavigationProps<T extends RoutesType> = StackNavigationProp<RoutesParamsType, T>

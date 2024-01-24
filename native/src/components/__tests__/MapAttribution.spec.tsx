@@ -1,7 +1,7 @@
 import { fireEvent } from '@testing-library/react-native'
 import React from 'react'
 
-import { openStreeMapCopyright } from 'api-client/src'
+import { openStreeMapCopyright } from 'shared'
 
 import renderWithTheme from '../../testing/render'
 import openExternalUrl from '../../utils/openExternalUrl'

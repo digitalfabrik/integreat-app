@@ -1,4 +1,4 @@
-import { FeaturedImageModel } from 'api-client'
+import { FeaturedImageModel } from 'shared/api'
 
 const ten = 10
 const roundToOneDecimal = (number: number) => Math.round(number * ten) / ten

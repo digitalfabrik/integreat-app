@@ -2,26 +2,23 @@ import React, { ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import styled, { css } from 'styled-components'
 
-import { UiDirectionType } from 'translations'
-
 import { CloseIcon, FacebookIcon, MailIcon, ShareIcon, WhatsappIcon } from '../assets'
 import Portal from './Portal'
 import ToolbarItem from './ToolbarItem'
 import Tooltip from './Tooltip'
+import Button from './base/Button'
 import Icon from './base/Icon'
 
 type SharingPopupProps = {
   shareUrl: string
   title: string
   flow: 'vertical' | 'horizontal'
-  direction: UiDirectionType
   portalNeeded: boolean
 }
 
 const TooltipContainer = styled.div<{
   flow: 'vertical' | 'horizontal'
   active: boolean
-  direction: UiDirectionType
 }>`
   background-color: ${props => props.theme.colors.backgroundColor};
   padding: 8px;
@@ -41,7 +38,7 @@ const TooltipContainer = styled.div<{
 
   ${props =>
     props.flow === 'horizontal' &&
-    (props.direction === 'ltr'
+    (props.theme.contentDirection === 'ltr'
       ? css`
           transform: translate(30%, -8px);
         `
@@ -70,7 +67,7 @@ const TooltipContainer = styled.div<{
 
     ${props =>
       props.flow === 'vertical' &&
-      (props.direction === 'ltr'
+      (props.theme.contentDirection === 'ltr'
         ? css`
             left: 20px;
             bottom: -8px;
@@ -84,7 +81,7 @@ const TooltipContainer = styled.div<{
 
     ${props =>
       props.flow === 'horizontal' &&
-      (props.direction === 'ltr'
+      (props.theme.contentDirection === 'ltr'
         ? css`
             left: -14px;
             transform: rotate(-90deg);
@@ -111,7 +108,7 @@ const TooltipContainer = styled.div<{
 
     ${props =>
       props.flow === 'vertical' &&
-      (props.direction === 'ltr'
+      (props.theme.contentDirection === 'ltr'
         ? css`
             left: 20px;
             bottom: -11px;
@@ -125,7 +122,7 @@ const TooltipContainer = styled.div<{
 
     ${props =>
       props.flow === 'horizontal' &&
-      (props.direction === 'ltr'
+      (props.theme.contentDirection === 'ltr'
         ? css`
             left: -17px;
             transform: rotate(-90deg) scaleX(-1);
@@ -151,12 +148,9 @@ const TooltipContainer = styled.div<{
   }
 `
 
-const CloseButton = styled.button`
+const CloseButton = styled(Button)`
   background-color: ${props => props.theme.colors.backgroundColor};
-  border: none;
-  padding: 0;
   display: flex;
-  cursor: pointer;
 `
 
 const Link = styled.a`
@@ -176,7 +170,7 @@ const StyledIcon = styled(Icon)`
   color: ${props => props.theme.colors.textSecondaryColor};
 `
 
-const BackdropContainer = styled.div`
+const BackdropContainer = styled(Button)`
   background: transparent;
   width: 100%;
   height: 100%;
@@ -190,7 +184,7 @@ const SharingPopupContainer = styled.div`
   position: relative;
 `
 
-const SharingPopup = ({ shareUrl, title, flow, direction, portalNeeded }: SharingPopupProps): ReactElement => {
+const SharingPopup = ({ shareUrl, title, flow, portalNeeded }: SharingPopupProps): ReactElement => {
   const { t } = useTranslation('socialMedia')
   const [shareOptionsVisible, setShareOptionsVisible] = useState<boolean>(false)
 
@@ -199,12 +193,9 @@ const SharingPopup = ({ shareUrl, title, flow, direction, portalNeeded }: Sharin
   const shareMessage = t('layout:shareMessage', { message: encodedTitle })
 
   const Backdrop = (
-    <BackdropContainer
-      onClick={() => setShareOptionsVisible(false)}
-      role='button'
-      tabIndex={0}
-      onKeyPress={() => setShareOptionsVisible(false)}
-    />
+    <BackdropContainer onClick={() => setShareOptionsVisible(false)} ariaLabel={t('closeTooltip')} tabIndex={0}>
+      <div />
+    </BackdropContainer>
   )
 
   return (
@@ -217,10 +208,7 @@ const SharingPopup = ({ shareUrl, title, flow, direction, portalNeeded }: Sharin
             </Portal>
           )}
           {Backdrop}
-          <TooltipContainer
-            flow={portalNeeded ? 'horizontal' : flow}
-            active={shareOptionsVisible}
-            direction={direction}>
+          <TooltipContainer flow={portalNeeded ? 'horizontal' : flow} active={shareOptionsVisible}>
             <Tooltip text={t('whatsappTooltip')} flow='up'>
               <Link
                 href={`https://api.whatsapp.com/send?text=${shareMessage}%0a${encodedShareUrl}`}
@@ -245,7 +233,7 @@ const SharingPopup = ({ shareUrl, title, flow, direction, portalNeeded }: Sharin
               </Link>
             </Tooltip>
             <Tooltip text={t('closeTooltip')} flow='up'>
-              <CloseButton onClick={() => setShareOptionsVisible(false)} aria-label={t('mailTooltip')}>
+              <CloseButton onClick={() => setShareOptionsVisible(false)} ariaLabel={t('closeTooltip')}>
                 <StyledIcon src={CloseIcon} />
               </CloseButton>
             </Tooltip>

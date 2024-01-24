@@ -1,7 +1,7 @@
 import { TFunction } from 'i18next'
 import React from 'react'
 
-import { LOCAL_NEWS_TYPE } from 'api-client'
+import { LOCAL_NEWS_TYPE } from 'shared'
 
 import { tunewsLabel } from '../../constants/news'
 import { renderWithRouterAndTheme } from '../../testing/render'

@@ -4,11 +4,13 @@ import { useCallback, useContext } from 'react'
 import {
   CATEGORIES_ROUTE,
   CITY_NOT_COOPERATING_ROUTE,
+  CONSENT_ROUTE,
   DISCLAIMER_ROUTE,
   EVENTS_ROUTE,
   JPAL_TRACKING_ROUTE,
   LANDING_ROUTE,
   LICENSES_ROUTE,
+  MALTE_HELP_FORM_OFFER_ROUTE,
   NEWS_ROUTE,
   OFFERS_ROUTE,
   OPEN_PAGE_SIGNAL_NAME,
@@ -16,7 +18,7 @@ import {
   RouteInformationType,
   SEARCH_ROUTE,
   SPRUNGBRETT_OFFER_ROUTE,
-} from 'api-client'
+} from 'shared'
 
 import { SnackbarType } from '../components/SnackbarContainer'
 import { NavigationProps, RoutesType } from '../constants/NavigationTypes'
@@ -50,7 +52,10 @@ const navigate = <T extends RoutesType>(
     navigation.push(LICENSES_ROUTE)
     return
   }
-
+  if (routeInformation.route === CONSENT_ROUTE) {
+    navigation.push(CONSENT_ROUTE)
+    return
+  }
   if (routeInformation.route === LANDING_ROUTE) {
     navigation.push(LANDING_ROUTE)
     return
@@ -63,7 +68,6 @@ const navigate = <T extends RoutesType>(
     if (buildConfig().featureFlags.jpalTracking) {
       navigation.push(JPAL_TRACKING_ROUTE)
     }
-
     return
   }
 

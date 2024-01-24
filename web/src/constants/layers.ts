@@ -1,6 +1,7 @@
 import { Expression } from 'mapbox-gl'
 import { LayerProps } from 'react-map-gl/maplibre'
 
+import { ThemeType } from 'build-configs/ThemeType'
 import {
   circleRadiusLarge,
   circleRadiusSmall,
@@ -10,11 +11,12 @@ import {
   mapMarker,
   MapFeature,
   textOffsetY,
-} from 'api-client'
-import { ThemeType } from 'build-configs/ThemeType'
+  clusterLayerId,
+  featureLayerId,
+} from 'shared'
 
 export const clusterLayer = (theme: ThemeType): LayerProps => ({
-  id: 'clusters',
+  id: clusterLayerId,
   type: 'circle',
   source: 'point',
   filter: ['has', 'point_count'],
@@ -24,7 +26,7 @@ export const clusterLayer = (theme: ThemeType): LayerProps => ({
   },
 })
 export const markerLayer = (currentFeature: MapFeature | null): LayerProps => ({
-  id: 'point',
+  id: featureLayerId,
   type: 'symbol',
   source: 'point',
   layout: {

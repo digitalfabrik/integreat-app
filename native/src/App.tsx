@@ -8,7 +8,8 @@ import { enableScreens } from 'react-native-screens'
 import { HeaderButtonsProvider } from 'react-navigation-header-buttons'
 import { ThemeProvider } from 'styled-components'
 
-import { CLOSE_PAGE_SIGNAL_NAME, REDIRECT_ROUTE, setUserAgent } from 'api-client'
+import { CLOSE_PAGE_SIGNAL_NAME, REDIRECT_ROUTE } from 'shared'
+import { setUserAgent } from 'shared/api'
 import { config } from 'translations'
 
 import Navigator from './Navigator'

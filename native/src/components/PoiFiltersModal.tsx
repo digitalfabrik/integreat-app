@@ -3,12 +3,12 @@ import { useTranslation } from 'react-i18next'
 import { SvgUri } from 'react-native-svg'
 import styled from 'styled-components/native'
 
-import { PoiCategoryModel, PoiModel } from 'api-client'
+import { PoiCategoryModel, PoiModel } from 'shared/api'
 
 import { ClockIcon } from '../assets'
 import Modal from './Modal'
-import SettingsSwitch from './SettingsSwitch'
 import Icon from './base/Icon'
+import SettingsSwitch from './base/SettingsSwitch'
 import Text from './base/Text'
 import TextButton from './base/TextButton'
 import ToggleButton from './base/ToggleButton'
@@ -17,7 +17,6 @@ const Container = styled.View`
   flex: 1;
   flex-direction: column;
   align-items: flex-start;
-  padding: 0 16px;
 `
 
 const SubTitle = styled(Text)`
@@ -57,13 +56,18 @@ const FlexEnd = styled.View`
 `
 
 const TileRow = styled(Row)`
-  justify-content: space-between;
+  justify-content: center;
   align-content: space-between;
   flex-wrap: wrap;
+  gap: 16px;
 `
 
 const StyledToggleButton = styled(ToggleButton)`
-  margin-bottom: 24px;
+  margin-bottom: 8px;
+`
+
+const StyledTextButton = styled(TextButton)`
+  margin-top: 16px;
 `
 
 type PoiFiltersModalProps = {
@@ -74,6 +78,7 @@ type PoiFiltersModalProps = {
   setSelectedPoiCategory: (poiCategory: PoiCategoryModel | null) => void
   currentlyOpenFilter: boolean
   setCurrentlyOpenFilter: (currentlyOpen: boolean) => void
+  poisCount: number
 }
 
 const PoiFiltersModal = ({
@@ -84,6 +89,7 @@ const PoiFiltersModal = ({
   setSelectedPoiCategory,
   currentlyOpenFilter,
   setCurrentlyOpenFilter,
+  poisCount,
 }: PoiFiltersModalProps): ReactElement => {
   const poiCategories = pois
     .map(it => it.category)
@@ -121,7 +127,11 @@ const PoiFiltersModal = ({
           </TileRow>
         </Section>
         <Section>
-          <TextButton onPress={closeModal} text={t('showPois')} />
+          <StyledTextButton
+            onPress={closeModal}
+            text={t('showPois', { count: poisCount })}
+            disabled={poisCount === 0}
+          />
         </Section>
       </Container>
     </Modal>

@@ -3,6 +3,8 @@
 [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/facebook/react/blob/master/LICENSE)
 [![versioning](https://img.shields.io/badge/calver-YYYY.MM.PATCH-22bfda.svg)](version.json)
 [![CircleCI Status](https://circleci.com/gh/digitalfabrik/integreat-app.svg?style=shield)](https://circleci.com/gh/digitalfabrik/integreat-app)
+[![Maintainability](https://api.codeclimate.com/v1/badges/5be95233a83e181d8a42/maintainability)](https://codeclimate.com/github/digitalfabrik/integreat-app/maintainability)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/5be95233a83e181d8a42/test_coverage)](https://codeclimate.com/github/digitalfabrik/integreat-app/test_coverage)
 
 # integreat-app
 
@@ -39,7 +41,7 @@ Both projects are whitelabelled with different [build configs](build-configs/REA
 There are also separate sub-projects used by both projects:
 
 - **[translations](translations/README.md)**: Translated texts and utilities to manage them
-- **[api-client](api-client/README.md)**: Implementation of the endpoints (v3) of the integreat cms
+- **[shared](shared/README.md)**: Contains common shared utilities, for example, related to implementation of the endpoints (v3) of the integreat cms
 - **[build-configs](build-configs/README.md)**: Configuration files to build different versions of the apps
 
 ## Getting Started

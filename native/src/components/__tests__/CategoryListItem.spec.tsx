@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { CategoriesMapModelBuilder, CityModelBuilder, LanguageModelBuilder } from 'api-client'
+import { CategoriesMapModelBuilder, CityModelBuilder, LanguageModelBuilder } from 'shared/api'
 
 import render from '../../testing/render'
 import CategoryListItem from '../CategoryListItem'

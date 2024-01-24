@@ -3,14 +3,8 @@ import { useTranslation } from 'react-i18next'
 import { useNavigate, useParams } from 'react-router-dom'
 import styled from 'styled-components'
 
-import {
-  createEventsEndpoint,
-  EventModel,
-  EVENTS_ROUTE,
-  NotFoundError,
-  pathnameFromRouteInformation,
-  useLoadFromEndpoint,
-} from 'api-client'
+import { EVENTS_ROUTE, pathnameFromRouteInformation } from 'shared'
+import { createEventsEndpoint, EventModel, NotFoundError, useLoadFromEndpoint } from 'shared/api'
 
 import { CityRouteProps } from '../CityContentSwitcher'
 import Caption from '../components/Caption'
@@ -87,7 +81,6 @@ const EventsPage = ({ city, pathname, languageCode, cityCode }: CityRouteProps):
         feedbackTarget={event?.slug}
         route={EVENTS_ROUTE}
         hideDivider={!event}
-        languageCode={languageCode}
         pageTitle={pageTitle}
       />
     ),

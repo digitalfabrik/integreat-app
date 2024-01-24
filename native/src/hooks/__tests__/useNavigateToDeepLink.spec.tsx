@@ -2,6 +2,7 @@ import { waitFor } from '@testing-library/react-native'
 import { mocked } from 'jest-mock'
 import React, { useEffect } from 'react'
 
+import { FeatureFlagsType } from 'build-configs/BuildConfigType'
 import {
   CATEGORIES_ROUTE,
   EVENTS_ROUTE,
@@ -12,8 +13,7 @@ import {
   NEWS_ROUTE,
   OFFERS_ROUTE,
   OPEN_DEEP_LINK_SIGNAL_NAME,
-} from 'api-client'
-import { FeatureFlagsType } from 'build-configs/BuildConfigType'
+} from 'shared'
 
 import buildConfig from '../../constants/buildConfig'
 import { AppContext } from '../../contexts/AppContextProvider'
