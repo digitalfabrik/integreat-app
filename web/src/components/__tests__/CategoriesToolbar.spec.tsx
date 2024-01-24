@@ -1,10 +1,8 @@
-import { render } from '@testing-library/react'
 import { DateTime } from 'luxon'
 import React from 'react'
 
 import { CategoryModel } from 'api-client'
 
-//import { PdfIcon } from '../assets'
 import { cmsApiBaseUrl } from '../../constants/urls'
 import { renderWithTheme } from '../../testing/render'
 import CategoriesToolbar from '../CategoriesToolbar'
@@ -51,7 +49,7 @@ describe('CategoriesToolbar', () => {
     )
     const pdfUrlLink = getByText('categories:createPdf').closest('a')
 
-    expect(pdfUrlLink?.href).toEqual(`${cmsApiBaseUrl}/${cityCode}/${languageCode}/wp-json/ig-mpdf/v1/pdf`)
+    expect(pdfUrlLink?.href).toBe(`${cmsApiBaseUrl}/${cityCode}/${languageCode}/wp-json/ig-mpdf/v1/pdf`)
   })
 
   it('should use the correct PDF URL for a non-root category', () => {
@@ -62,7 +60,7 @@ describe('CategoriesToolbar', () => {
     )
     const pdfUrlLink = getByText('categories:createPdf').closest('a')
 
-    expect(pdfUrlLink?.href).toEqual(
+    expect(pdfUrlLink?.href).toBe(
       `${cmsApiBaseUrl}/${cityCode}/${languageCode}/wp-json/ig-mpdf/v1/pdf?url=${encodeURIComponent(
         childCategory.path,
       )}`,
