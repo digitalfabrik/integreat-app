@@ -18,10 +18,10 @@ properties you can set.
 ### iOS
 
 1. Create an emulator with the settings from `wdio-ios.conf.ts`; if necessary, install the driver
-   
-   1.1. If the driver isn't available anymore, update the settings in the config 
-file to a more recent one, ideally the
-        ones from `e2e-tests/native/capabilities.ts`.
+
+   1.1. If the driver isn't available anymore, update the settings in the config file to a more recent one, ideally the
+   ones from `e2e-tests/native/capabilities.ts`.
+
 2. Start the app: `yarn prepare:native:start`
 3. Find your build file folder: Product > Copy Build Folder Path
 4. Add the BUILD_DIR to your environment. In zshell you do this via `BUILD_DIR=your/copied/build/folder/path; export BUILD_DIR` but your command line might differ.

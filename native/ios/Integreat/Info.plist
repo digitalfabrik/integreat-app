@@ -63,9 +63,9 @@
 	<key>NSCalendarsFullAccessUsageDescription</key>
 	<string>Integreat wants to access the calendar to add an event.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-    	<string>Integreat wants to use your location to find nearby cities.</string>
-    	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-    	<string>Integreat wants to use your location to find nearby cities.</string>
+    <string>Integreat wants to use your location to find nearby cities.</string>
+    <key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+    <string>Integreat wants to use your location to find nearby cities.</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>NotoSansArabic-Regular.ttf</string>
