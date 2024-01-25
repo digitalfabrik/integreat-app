@@ -2,7 +2,7 @@ import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
 
-import { GeoJsonPoi, LocationType, sortMapFeatures } from 'shared'
+import { LocationType, sortPois } from 'shared'
 import { PoiModel } from 'shared/api'
 
 import Failure from './Failure'
@@ -15,17 +15,17 @@ const StyledFailure = styled(Failure)`
 `
 
 type PoiSharedChildrenProps = {
-  poiListFeatures: GeoJsonPoi[]
-  currentPoi: PoiModel | null
-  slug?: string
-  selectPoi: (geoJsonPoi: GeoJsonPoi | null) => void
-  userLocation: LocationType | undefined
+  pois: PoiModel[]
+  poi: PoiModel | undefined
+  slug: string | undefined
+  selectPoi: (poi: PoiModel) => void
+  userLocation: LocationType | null
   toolbar?: ReactElement
 }
 
 const PoiSharedChildren = ({
-  poiListFeatures,
-  currentPoi,
+  pois,
+  poi,
   slug,
   selectPoi,
   userLocation,
@@ -33,22 +33,24 @@ const PoiSharedChildren = ({
 }: PoiSharedChildrenProps): ReactElement => {
   const { t } = useTranslation('pois')
 
-  if (currentPoi) {
-    return <PoiDetails poi={currentPoi} feature={currentPoi.getFeature(userLocation)} toolbar={toolbar} />
+  if (poi) {
+    return <PoiDetails poi={poi} distance={userLocation && poi.distance(userLocation)} toolbar={toolbar} />
   }
 
   if (slug) {
     return <StyledFailure errorMessage='notFound.poi' goToMessage='pois:detailsHeader' goToPath='.' />
   }
 
-  const renderPoiListItem = (poi: GeoJsonPoi) => <PoiListItem key={poi.path} poi={poi} selectPoi={selectPoi} />
-  return (
-    <List
-      noItemsMessage={t('noPois')}
-      items={sortMapFeatures(poiListFeatures)}
-      renderItem={renderPoiListItem}
-      borderless
+  const renderPoiListItem = (poi: PoiModel) => (
+    <PoiListItem
+      key={poi.path}
+      poi={poi}
+      selectPoi={() => selectPoi(poi)}
+      distance={userLocation && poi.distance(userLocation)}
     />
+  )
+  return (
+    <List noItemsMessage={t('noPois')} items={sortPois(pois, userLocation)} renderItem={renderPoiListItem} borderless />
   )
 }
 

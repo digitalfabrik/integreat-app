@@ -1,21 +1,23 @@
 import WebMercatorViewport from '@math.gl/web-mercator'
 import { BBox } from 'geojson'
-import React, { ReactElement, useEffect, useMemo, useState } from 'react'
+import React, { ReactElement, useCallback, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { useNavigate, useParams } from 'react-router-dom'
+import { useNavigate, useParams, useSearchParams } from 'react-router-dom'
 import styled from 'styled-components'
 
 import {
   defaultMercatorViewportConfig,
-  LocationType,
+  isMultipoi,
+  MapFeature,
   MapViewMercatorViewport,
   MapViewViewport,
+  MULTIPOI_QUERY_KEY,
   normalizePath,
   pathnameFromRouteInformation,
   POIS_ROUTE,
-  prepareFeatureLocations,
+  preparePois,
 } from 'shared'
-import { NotFoundError, PoiCategoryModel, useLoadFromEndpoint, createPOIsEndpoint } from 'shared/api'
+import { PoiCategoryModel, useLoadFromEndpoint, createPOIsEndpoint, useLoadAsync, PoiModel } from 'shared/api'
 
 import { CityRouteProps } from '../CityContentSwitcher'
 import { ClockIcon, EditLocationIcon } from '../assets'
@@ -52,49 +54,31 @@ const PoisPage = ({ cityCode, languageCode, city, pathname }: CityRouteProps): R
   const [showFilterSelection, setShowFilterSelection] = useState(false)
   const navigate = useNavigate()
   const { t } = useTranslation('pois')
-  const { slug: unsafeSlug } = useParams()
-  const slug = unsafeSlug ? normalizePath(unsafeSlug) : undefined
-  const [userLocation, setUserLocation] = useState<LocationType | undefined>(undefined)
-  const {
-    data,
-    loading,
-    error: poisError,
-  } = useLoadFromEndpoint(createPOIsEndpoint, cmsApiBaseUrl, { city: cityCode, language: languageCode })
+  const params = useParams()
+  const [searchParams] = useSearchParams()
+  const slug = params.slug ? normalizePath(params.slug) : undefined
   // keep the old mapViewport when changing the viewport
   const [mapViewport, setMapViewport] = useState<MapViewViewport>()
   const { viewportSmall, width } = useWindowDimensions()
+  const multipoi = searchParams.get(MULTIPOI_QUERY_KEY)
 
-  const pois = useMemo(
-    () =>
-      data
-        ?.filter(poi => !poiCategoryFilter || poi.category.isEqual(poiCategoryFilter))
-        .filter(poi => !poiCurrentlyOpenFilter || poi.isCurrentlyOpen),
-    [data, poiCategoryFilter, poiCurrentlyOpenFilter],
+  const { data, loading, error } = useLoadFromEndpoint(createPOIsEndpoint, cmsApiBaseUrl, {
+    city: cityCode,
+    language: languageCode,
+  })
+
+  const preparedData = preparePois({
+    pois: data ?? [],
+    params: { slug, multipoi, poiCategoryId: poiCategoryFilter?.id, currentlyOpen: poiCurrentlyOpenFilter },
+  })
+  const { pois, poi } = preparedData
+
+  const { data: userLocation } = useLoadAsync(
+    useCallback(async () => {
+      const userLocation = await getUserLocation()
+      return userLocation.status === 'ready' ? userLocation.coordinates : null
+    }, []),
   )
-  const poisCount = pois?.length ?? 0
-
-  const currentPoi = data?.find(poi => slug === poi.slug) ?? null
-  const features = useMemo(() => prepareFeatureLocations(pois ?? [], userLocation), [pois, userLocation])
-
-  const updatePoiCategoryFilter = (poiCategoryFilter: PoiCategoryModel | null) => {
-    if (currentPoi && poiCategoryFilter && currentPoi.category !== poiCategoryFilter) {
-      navigate('.')
-    }
-    setPoiCategoryFilter(poiCategoryFilter)
-  }
-
-  const updatePoiCurrentlyOpenFilter = (poiCurrentlyOpenFilter: boolean) => {
-    if (currentPoi && poiCurrentlyOpenFilter && !currentPoi.isCurrentlyOpen) {
-      navigate('.')
-    }
-    setPoiCurrentlyOpenFilter(poiCurrentlyOpenFilter)
-  }
-
-  useEffect(() => {
-    getUserLocation().then(userLocation =>
-      userLocation.status === 'ready' ? setUserLocation(userLocation.coordinates) : null,
-    )
-  }, [])
 
   useEffect(
     () =>
@@ -106,10 +90,49 @@ const PoisPage = ({ cityCode, languageCode, city, pathname }: CityRouteProps): R
     return null
   }
 
+  const deselectAll = () => navigate('.')
+
+  const updatePoiCategoryFilter = (poiCategoryFilter: PoiCategoryModel | null) => {
+    if (poi && poiCategoryFilter && !poi.category.isEqual(poiCategoryFilter)) {
+      deselectAll()
+    }
+    setPoiCategoryFilter(poiCategoryFilter)
+  }
+
+  const updatePoiCurrentlyOpenFilter = (poiCurrentlyOpenFilter: boolean) => {
+    if (poi && poiCurrentlyOpenFilter && !poi.isCurrentlyOpen) {
+      deselectAll()
+    }
+    setPoiCurrentlyOpenFilter(poiCurrentlyOpenFilter)
+  }
+
+  const selectMapFeature = (mapFeature: MapFeature | null) => {
+    if (!mapFeature) {
+      deselectAll()
+    } else if (isMultipoi(mapFeature)) {
+      navigate(`.?${MULTIPOI_QUERY_KEY}=${mapFeature.id}`)
+    } else {
+      const slug = mapFeature.properties.pois[0]?.slug
+      navigate(slug ?? '.')
+    }
+  }
+
+  const selectPoi = (poi: PoiModel) => {
+    navigate(`${poi.slug}?${searchParams}`)
+  }
+
+  const deselect = () => {
+    if (preparedData.mapFeature && slug) {
+      navigate(`.?${searchParams}`)
+    } else {
+      deselectAll()
+    }
+  }
+
   const languageChangePaths = city.languages.map(({ code, name }) => {
     const isCurrentLanguage = code === languageCode
-    const path = currentPoi
-      ? currentPoi.availableLanguages.get(code) || null
+    const path = poi
+      ? poi.availableLanguages.get(code) || null
       : pathnameFromRouteInformation({ route: POIS_ROUTE, cityCode, languageCode: code })
     return {
       path: isCurrentLanguage ? pathname : path,
@@ -122,7 +145,7 @@ const PoisPage = ({ cityCode, languageCode, city, pathname }: CityRouteProps): R
 
   const toolbar = (
     <CityContentToolbar
-      feedbackTarget={currentPoi?.slug}
+      feedbackTarget={poi?.slug}
       route={POIS_ROUTE}
       iconDirection='row'
       hideDivider
@@ -148,16 +171,7 @@ const PoisPage = ({ cityCode, languageCode, city, pathname }: CityRouteProps): R
     )
   }
 
-  if (!pois) {
-    const error =
-      poisError ||
-      new NotFoundError({
-        type: 'poi',
-        id: pathname,
-        city: cityCode,
-        language: languageCode,
-      })
-
+  if (error) {
     return (
       <CityContentLayout isLoading={false} {...locationLayoutParams}>
         <FailureSwitcher error={error} />
@@ -174,7 +188,7 @@ const PoisPage = ({ cityCode, languageCode, city, pathname }: CityRouteProps): R
       currentlyOpenFilter={poiCurrentlyOpenFilter}
       setCurrentlyOpenFilter={updatePoiCurrentlyOpenFilter}
       panelWidth={viewportSmall ? width : dimensions.poiDesktopPanelWidth}
-      poisCount={poisCount}
+      poisCount={pois.length}
     />
   )
   if (showFilterSelection && viewportSmall) {
@@ -210,8 +224,10 @@ const PoisPage = ({ cityCode, languageCode, city, pathname }: CityRouteProps): R
 
   const sharedPoiProps = {
     toolbar,
-    features,
-    pois,
+    data: preparedData,
+    selectMapFeature,
+    selectPoi,
+    deselect,
     userLocation,
     languageCode,
     slug,
@@ -224,7 +240,7 @@ const PoisPage = ({ cityCode, languageCode, city, pathname }: CityRouteProps): R
     <CityContentLayout isLoading={false} {...locationLayoutParams} fullWidth>
       <Helmet
         pageTitle={pageTitle}
-        metaDescription={currentPoi?.metaDescription}
+        metaDescription={poi?.metaDescription}
         languageChangePaths={languageChangePaths}
         cityModel={city}
       />
