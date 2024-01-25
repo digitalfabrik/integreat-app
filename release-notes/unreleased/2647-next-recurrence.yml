@@ -1,0 +1,8 @@
+issue_key: 2467
+show_in_stores: true
+platforms:
+  - web
+  - ios
+  - android
+en: Fixed displaying of next date of an event if its near.
+de: Anzeige von baldigen Terminen behoben.
