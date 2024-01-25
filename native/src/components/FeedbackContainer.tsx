@@ -1,7 +1,8 @@
 import React, { ReactElement, useEffect, useState } from 'react'
 import styled from 'styled-components/native'
 
-import { createFeedbackEndpoint, FeedbackRouteType, SEND_FEEDBACK_SIGNAL_NAME } from 'api-client'
+import { SEND_FEEDBACK_SIGNAL_NAME } from 'shared'
+import { createFeedbackEndpoint, FeedbackRouteType } from 'shared/api'
 
 import { determineApiUrl } from '../utils/helpers'
 import sendTrackingSignal from '../utils/sendTrackingSignal'

@@ -3,7 +3,7 @@ import { useEffect } from 'react'
 import { Linking, Platform } from 'react-native'
 import { checkNotifications, requestNotifications, RESULTS } from 'react-native-permissions'
 
-import { LOCAL_NEWS_TYPE, NEWS_ROUTE, NonNullableRouteInformationType } from 'api-client'
+import { LOCAL_NEWS_TYPE, NEWS_ROUTE, NonNullableRouteInformationType } from 'shared'
 
 import { SnackbarType } from '../components/SnackbarContainer'
 import { RoutesType } from '../constants/NavigationTypes'

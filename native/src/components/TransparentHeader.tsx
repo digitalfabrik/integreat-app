@@ -4,7 +4,7 @@ import { Share } from 'react-native'
 import { HiddenItem } from 'react-navigation-header-buttons'
 import styled from 'styled-components/native'
 
-import { SHARE_SIGNAL_NAME } from 'api-client'
+import { SHARE_SIGNAL_NAME } from 'shared'
 
 import { NavigationProps, RouteProps, RoutesType } from '../constants/NavigationTypes'
 import buildConfig from '../constants/buildConfig'

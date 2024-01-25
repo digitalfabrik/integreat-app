@@ -1,6 +1,6 @@
 import React, { ReactElement, useCallback } from 'react'
 
-import { POIS_ROUTE, PoisRouteType } from 'api-client'
+import { POIS_ROUTE, PoisRouteType } from 'shared'
 
 import { NavigationProps, RouteProps } from '../constants/NavigationTypes'
 import useCityAppContext from '../hooks/useCityAppContext'

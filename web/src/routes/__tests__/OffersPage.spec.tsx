@@ -1,21 +1,15 @@
 import { mocked } from 'jest-mock'
 import React from 'react'
 
-import {
-  CityModelBuilder,
-  OfferModel,
-  OFFERS_ROUTE,
-  pathnameFromRouteInformation,
-  ReturnType,
-  useLoadFromEndpoint,
-} from 'api-client'
+import { OFFERS_ROUTE, pathnameFromRouteInformation } from 'shared'
+import { CityModelBuilder, OfferModel, ReturnType, useLoadFromEndpoint } from 'shared/api'
 
 import { renderRoute } from '../../testing/render'
 import OffersPage from '../OffersPage'
 import { RoutePatterns } from '../index'
 
-jest.mock('api-client', () => ({
-  ...jest.requireActual('api-client'),
+jest.mock('shared/api', () => ({
+  ...jest.requireActual('shared/api'),
   useLoadFromEndpoint: jest.fn(),
 }))
 jest.mock('react-inlinesvg')

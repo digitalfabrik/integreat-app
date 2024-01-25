@@ -3,7 +3,8 @@ import { fireEvent, waitFor } from '@testing-library/react-native'
 import { mocked } from 'jest-mock'
 import React from 'react'
 
-import { PoiModelBuilder, prepareFeatureLocation } from 'api-client'
+import { prepareFeatureLocation } from 'shared'
+import { PoiModelBuilder } from 'shared/api'
 
 import useSnackbar from '../../hooks/useSnackbar'
 import renderWithTheme from '../../testing/render'

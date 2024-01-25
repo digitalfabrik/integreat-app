@@ -6,18 +6,15 @@ import { SvgUri } from 'react-native-svg'
 import styled from 'styled-components/native'
 
 import {
-  CityModel,
   embedInCollection,
-  ErrorCode,
-  GeoJsonPoi,
-  isMultipoi,
-  MapFeature,
-  PoiCategoryModel,
-  PoiModel,
   PoisRouteType,
   prepareFeatureLocations,
   sortMapFeatures,
-} from 'api-client'
+  GeoJsonPoi,
+  MapFeature,
+  isMultipoi,
+} from 'shared'
+import { PoiCategoryModel, CityModel, PoiModel, ErrorCode } from 'shared/api'
 
 import { ClockIcon, EditLocationIcon } from '../assets'
 import BottomActionsSheet from '../components/BottomActionsSheet'

@@ -3,8 +3,8 @@ import { fireEvent, RenderAPI } from '@testing-library/react-native'
 import { mocked } from 'jest-mock'
 import React from 'react'
 
-import { CITY_NOT_COOPERATING_ROUTE, LandingRouteType } from 'api-client'
-import CityModelBuilder from 'api-client/src/testing/CityModelBuilder'
+import { CITY_NOT_COOPERATING_ROUTE, LandingRouteType } from 'shared'
+import CityModelBuilder from 'shared/api/endpoints/testing/CityModelBuilder'
 
 import buildConfig from '../../constants/buildConfig'
 import useLoadCities from '../../hooks/useLoadCities'

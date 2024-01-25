@@ -3,15 +3,15 @@ import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 
+import { cityContentPath } from 'shared'
 import {
-  cityContentPath,
+  OfferModel,
+  InvalidEmailError,
   ContactChannel,
   ContactGender,
-  InvalidEmailError,
-  MALTE_HELP_FORM_MAX_COMMENT_LENGTH,
-  OfferModel,
   submitMalteHelpForm,
-} from 'api-client'
+  MALTE_HELP_FORM_MAX_COMMENT_LENGTH,
+} from 'shared/api'
 import { config } from 'translations'
 
 import { SecurityIcon, SupportIcon } from '../assets'

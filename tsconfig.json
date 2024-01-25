@@ -18,7 +18,7 @@
   },
   "include": ["jest.config.ts", ".prettierrc.js", ".eslintrc.js", ".eslintrc_changed.js"],
   "references": [
-    { "path": "api-client" },
+    { "path": "shared" },
     { "path": "build-configs" },
     { "path": "e2e-tests" },
     { "path": "native" },

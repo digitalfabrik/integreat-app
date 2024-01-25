@@ -1,15 +1,8 @@
 import { Matcher, SelectorMatcherOptions } from '@testing-library/react'
 import React from 'react'
 
-import {
-  CATEGORIES_ROUTE,
-  CityModel,
-  EVENTS_ROUTE,
-  LanguageModelBuilder,
-  OFFERS_ROUTE,
-  POIS_ROUTE,
-  SPRUNGBRETT_OFFER_ROUTE,
-} from 'api-client'
+import { CATEGORIES_ROUTE, EVENTS_ROUTE, OFFERS_ROUTE, POIS_ROUTE, SPRUNGBRETT_OFFER_ROUTE } from 'shared'
+import { CityModel, LanguageModelBuilder } from 'shared/api'
 
 import { LOCAL_NEWS_ROUTE, TU_NEWS_DETAIL_ROUTE, TU_NEWS_ROUTE } from '../../routes'
 import { renderWithRouterAndTheme } from '../../testing/render'

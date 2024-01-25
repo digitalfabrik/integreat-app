@@ -20,7 +20,7 @@ import {
   OrganizationModel,
   OfferModel,
   createPostMap,
-} from 'api-client'
+} from 'shared/api'
 
 import DatabaseContext from '../models/DatabaseContext'
 import {

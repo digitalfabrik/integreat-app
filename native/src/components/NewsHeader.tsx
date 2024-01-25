@@ -2,7 +2,8 @@ import React, { memo, ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 import styled from 'styled-components/native'
 
-import { CityModel, LOCAL_NEWS_TYPE, NewsType, TU_NEWS_TYPE } from 'api-client'
+import { LOCAL_NEWS_TYPE, NewsType, TU_NEWS_TYPE } from 'shared'
+import { CityModel } from 'shared/api'
 
 import { TuNewsActiveIcon, TuNewsInactiveIcon } from '../assets'
 import Caption from './Caption'

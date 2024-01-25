@@ -1,6 +1,6 @@
 import { DateTime } from 'luxon'
 
-import { CategoriesMapModel, CityModel, EventModel, LocalNewsModel, PoiModel } from 'api-client'
+import { CategoriesMapModel, CityModel, EventModel, LocalNewsModel, PoiModel } from 'shared/api'
 
 export type PageResourceCacheEntryStateType = {
   filePath: string

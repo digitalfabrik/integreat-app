@@ -2,7 +2,7 @@ import { TFunction } from 'i18next'
 import React from 'react'
 import { ThemeProvider } from 'styled-components'
 
-import { LOCAL_NEWS_TYPE, TU_NEWS_TYPE } from 'api-client'
+import { LOCAL_NEWS_TYPE, TU_NEWS_TYPE } from 'shared'
 import { UiDirectionType } from 'translations'
 
 import buildConfig from '../../constants/buildConfig'

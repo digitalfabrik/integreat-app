@@ -12,7 +12,7 @@ import {
   MAIN_DISCLAIMER_ROUTE,
   NOT_FOUND_ROUTE,
   pathnameFromRouteInformation,
-} from 'api-client'
+} from 'shared'
 
 import CityContentSwitcher from './CityContentSwitcher'
 import LoadingSpinner from './components/LoadingSpinner'

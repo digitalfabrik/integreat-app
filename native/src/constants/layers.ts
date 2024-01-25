@@ -1,5 +1,6 @@
 import { CircleLayerProps, SymbolLayerProps } from '@maplibre/maplibre-react-native'
 
+import { ThemeType } from 'build-configs/ThemeType'
 import {
   circleRadiusLarge,
   circleRadiusSmall,
@@ -11,8 +12,7 @@ import {
   featureLayerId,
   textOffsetY,
   clusterLayerId,
-} from 'api-client'
-import { ThemeType } from 'build-configs/ThemeType'
+} from 'shared'
 
 export const clusterLayer = (theme: ThemeType): CircleLayerProps => ({
   id: clusterLayerId,

@@ -3,16 +3,8 @@ import { mocked } from 'jest-mock'
 import React from 'react'
 import { Pressable, Text, View } from 'react-native'
 
-import {
-  CategoriesMapModelBuilder,
-  CityModelBuilder,
-  LanguageModelBuilder,
-  LocalNewsType,
-  NEWS_ROUTE,
-  NewsRouteType,
-  TU_NEWS_TYPE,
-  TuNewsType,
-} from 'api-client'
+import { LocalNewsType, NEWS_ROUTE, NewsRouteType, TU_NEWS_TYPE, TuNewsType } from 'shared'
+import { CategoriesMapModelBuilder, CityModelBuilder, LanguageModelBuilder } from 'shared/api'
 
 import { AppContext } from '../../contexts/AppContextProvider'
 import useLoadCityContent from '../../hooks/useLoadCityContent'

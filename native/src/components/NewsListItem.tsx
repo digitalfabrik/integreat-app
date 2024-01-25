@@ -2,7 +2,7 @@ import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 import styled from 'styled-components/native'
 
-import { LocalNewsModel, TunewsModel } from 'api-client'
+import { LocalNewsModel, TunewsModel } from 'shared/api'
 
 import { ArrowBackIcon } from '../assets'
 import { EXCERPT_MAX_LINES } from '../constants'

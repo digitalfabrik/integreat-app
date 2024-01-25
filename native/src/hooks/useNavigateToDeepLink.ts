@@ -13,7 +13,7 @@ import {
   LICENSES_ROUTE,
   OPEN_DEEP_LINK_SIGNAL_NAME,
   RouteInformationType,
-} from 'api-client'
+} from 'shared'
 
 import { SnackbarType } from '../components/SnackbarContainer'
 import { NavigationProps, RoutesType } from '../constants/NavigationTypes'

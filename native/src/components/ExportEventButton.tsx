@@ -7,7 +7,7 @@ import { PERMISSIONS, requestMultiple } from 'react-native-permissions'
 import { Frequency } from 'rrule'
 import styled from 'styled-components/native'
 
-import { EventModel } from 'api-client'
+import { EventModel } from 'shared/api'
 
 import useSnackbar from '../hooks/useSnackbar'
 import { reportError } from '../utils/sentry'

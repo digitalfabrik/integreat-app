@@ -10,7 +10,7 @@
     "module": "es2020",
     "outDir": "dist",
     "paths": {
-      "normalize-strings": ["../api-client/src/@types/normalize-strings"],
+      "normalize-strings": ["../shared/@types/normalize-strings"],
       "@dr.pogodin/react-native-static-server": ["src/@types/react-native-static-server"],
       "@react-native-async-storage/async-storage/jest/async-storage-mock": ["src/@types/untyped"]
     },
@@ -37,7 +37,7 @@
       "path": "../build-configs"
     },
     {
-      "path": "../api-client"
+      "path": "../shared"
     }
   ]
 }

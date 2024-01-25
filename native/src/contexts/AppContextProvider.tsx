@@ -1,6 +1,6 @@
 import React, { createContext, ReactElement, useCallback, useEffect, useMemo, useState } from 'react'
 
-import { useLoadAsync } from 'api-client'
+import { useLoadAsync } from 'shared/api'
 
 import buildConfig from '../constants/buildConfig'
 import appSettings from '../utils/AppSettings'

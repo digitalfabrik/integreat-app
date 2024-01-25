@@ -1,6 +1,6 @@
 import React, { ReactElement, useCallback } from 'react'
 
-import { EVENTS_ROUTE, EventsRouteType } from 'api-client'
+import { EVENTS_ROUTE, EventsRouteType } from 'shared'
 
 import { NavigationProps, RouteProps } from '../constants/NavigationTypes'
 import useCityAppContext from '../hooks/useCityAppContext'

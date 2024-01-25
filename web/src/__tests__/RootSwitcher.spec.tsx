@@ -2,18 +2,19 @@ import { waitFor } from '@testing-library/react'
 import React from 'react'
 import { useLocation } from 'react-router-dom'
 
-import { CityModelBuilder, normalizePath } from 'api-client'
+import { normalizePath } from 'shared'
+import { CityModelBuilder } from 'shared/api'
 import {
   mockUseLoadFromEndpointOnceWithData,
   mockUseLoadFromEndpointWithData,
-} from 'api-client/src/testing/mockUseLoadFromEndpoint'
+} from 'shared/api/endpoints/testing/mockUseLoadFromEndpoint'
 
 import RootSwitcher from '../RootSwitcher'
 import buildConfig from '../constants/buildConfig'
 import { renderWithRouterAndTheme } from '../testing/render'
 
-jest.mock('api-client', () => ({
-  ...jest.requireActual('api-client'),
+jest.mock('shared/api', () => ({
+  ...jest.requireActual('shared/api'),
   useLoadFromEndpoint: jest.fn(),
 }))
 jest.mock('../CityContentSwitcher')

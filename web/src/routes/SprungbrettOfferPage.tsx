@@ -2,14 +2,8 @@ import React, { Fragment, PropsWithChildren, ReactElement, useCallback } from 'r
 import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
 
-import {
-  SPRUNGBRETT_OFFER_ROUTE,
-  SprungbrettJobModel,
-  pathnameFromRouteInformation,
-  getSlugFromPath,
-  useLoadAsync,
-  loadSprungbrettJobs,
-} from 'api-client'
+import { SPRUNGBRETT_OFFER_ROUTE, pathnameFromRouteInformation, getSlugFromPath } from 'shared'
+import { SprungbrettJobModel, useLoadAsync, loadSprungbrettJobs } from 'shared/api'
 
 import { CityRouteProps } from '../CityContentSwitcher'
 import Caption from '../components/Caption'

@@ -2,7 +2,7 @@ import React, { ReactElement } from 'react'
 import { Helmet } from 'react-helmet'
 import { Event, WithContext } from 'schema-dts'
 
-import { EventModel } from 'api-client'
+import { EventModel } from 'shared/api'
 
 export const createJsonLd = (event: EventModel): WithContext<Event> | null => {
   if (!event.location) {

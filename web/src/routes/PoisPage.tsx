@@ -11,14 +11,11 @@ import {
   MapViewMercatorViewport,
   MapViewViewport,
   normalizePath,
-  NotFoundError,
   pathnameFromRouteInformation,
   POIS_ROUTE,
-  PoiCategoryModel,
   prepareFeatureLocations,
-  useLoadFromEndpoint,
-  createPOIsEndpoint,
-} from 'api-client'
+} from 'shared'
+import { NotFoundError, PoiCategoryModel, useLoadFromEndpoint, createPOIsEndpoint } from 'shared/api'
 
 import { CityRouteProps } from '../CityContentSwitcher'
 import { ClockIcon, EditLocationIcon } from '../assets'

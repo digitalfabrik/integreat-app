@@ -1,7 +1,7 @@
 import { fireEvent } from '@testing-library/react-native'
 import React from 'react'
 
-import { LanguageModelBuilder } from 'api-client'
+import { LanguageModelBuilder } from 'shared/api'
 
 import { AppContext } from '../../contexts/AppContextProvider'
 import render from '../../testing/render'

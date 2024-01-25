@@ -2,7 +2,8 @@ import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
 
-import { GeoJsonPoi, LocationType, PoiModel, sortMapFeatures } from 'api-client'
+import { GeoJsonPoi, LocationType, sortMapFeatures } from 'shared'
+import { PoiModel } from 'shared/api'
 
 import Failure from './Failure'
 import List from './List'

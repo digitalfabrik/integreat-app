@@ -2,7 +2,7 @@ import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
 
-import { GeoJsonPoi } from 'api-client'
+import { GeoJsonPoi } from 'shared'
 
 import { PoiThumbnailPlaceholder } from '../assets'
 import dimensions from '../constants/dimensions'

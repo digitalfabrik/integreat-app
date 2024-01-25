@@ -2,15 +2,12 @@ import React, { ReactElement, useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import {
-  createOffersEndpoint,
   MALTE_HELP_FORM_OFFER_ROUTE,
-  OfferModel,
   OFFERS_ROUTE,
   pathnameFromRouteInformation,
-  SPRUNGBRETT_OFFER,
   SPRUNGBRETT_OFFER_ROUTE,
-  useLoadFromEndpoint,
-} from 'api-client'
+} from 'shared'
+import { createOffersEndpoint, OfferModel, SPRUNGBRETT_OFFER, useLoadFromEndpoint } from 'shared/api'
 
 import { CityRouteProps } from '../CityContentSwitcher'
 import CityContentLayout, { CityContentLayoutProps } from '../components/CityContentLayout'

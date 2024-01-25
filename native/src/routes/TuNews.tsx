@@ -1,6 +1,7 @@
 import React, { ReactElement } from 'react'
 
-import { ErrorCode, NEWS_ROUTE, NewsRouteType, TU_NEWS_TYPE } from 'api-client'
+import { NEWS_ROUTE, NewsRouteType, TU_NEWS_TYPE } from 'shared'
+import { ErrorCode } from 'shared/api'
 
 import News from '../components/News'
 import { NavigationProps, RouteProps } from '../constants/NavigationTypes'

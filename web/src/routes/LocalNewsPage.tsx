@@ -2,16 +2,8 @@ import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useNavigate, useParams } from 'react-router-dom'
 
-import {
-  createLocalNewsEndpoint,
-  LOCAL_NEWS_TYPE,
-  LocalNewsModel,
-  NEWS_ROUTE,
-  NotFoundError,
-  pathnameFromRouteInformation,
-  replaceLinks,
-  useLoadFromEndpoint,
-} from 'api-client'
+import { LOCAL_NEWS_TYPE, NEWS_ROUTE, pathnameFromRouteInformation } from 'shared'
+import { createLocalNewsEndpoint, LocalNewsModel, NotFoundError, replaceLinks, useLoadFromEndpoint } from 'shared/api'
 
 import { CityRouteProps } from '../CityContentSwitcher'
 import CityContentLayout, { CityContentLayoutProps } from '../components/CityContentLayout'

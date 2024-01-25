@@ -2,7 +2,7 @@ import { mocked } from 'jest-mock'
 import React from 'react'
 import waitForExpect from 'wait-for-expect'
 
-import { REDIRECT_ROUTE } from 'api-client'
+import { REDIRECT_ROUTE } from 'shared'
 
 import useNavigateToDeepLink from '../../hooks/useNavigateToDeepLink'
 import createNavigationScreenPropMock from '../../testing/createNavigationPropMock'

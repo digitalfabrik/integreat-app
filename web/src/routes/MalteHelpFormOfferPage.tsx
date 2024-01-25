@@ -1,13 +1,8 @@
 import React, { Fragment, PropsWithChildren, ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import {
-  getSlugFromPath,
-  MALTE_HELP_FORM_OFFER_ROUTE,
-  useLoadFromEndpoint,
-  createOffersEndpoint,
-  NotFoundError,
-} from 'api-client'
+import { getSlugFromPath, MALTE_HELP_FORM_OFFER_ROUTE } from 'shared'
+import { NotFoundError, useLoadFromEndpoint, createOffersEndpoint } from 'shared/api'
 
 import { CityRouteProps } from '../CityContentSwitcher'
 import Caption from '../components/Caption'

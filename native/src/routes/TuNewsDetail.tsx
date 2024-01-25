@@ -1,7 +1,7 @@
 import React, { ReactElement } from 'react'
 import styled from 'styled-components/native'
 
-import { NEWS_ROUTE, NewsRouteType, TU_NEWS_TYPE } from 'api-client'
+import { NEWS_ROUTE, NewsRouteType, TU_NEWS_TYPE } from 'shared'
 
 import { TuNewsActiveIcon } from '../assets'
 import Page from '../components/Page'

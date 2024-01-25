@@ -1,6 +1,7 @@
 import { DateTime } from 'luxon'
 
-import { createTrackingEndpoint, ErrorCode, fromError, SpecificSignalType, SignalType } from 'api-client'
+import { SpecificSignalType, SignalType } from 'shared'
+import { createTrackingEndpoint, ErrorCode, fromError } from 'shared/api'
 
 import buildConfig from '../constants/buildConfig'
 import appSettings from './AppSettings'

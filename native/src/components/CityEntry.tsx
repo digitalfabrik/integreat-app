@@ -3,7 +3,8 @@ import { Text } from 'react-native'
 import Highlighter from 'react-native-highlight-words'
 import styled from 'styled-components/native'
 
-import { CityModel, normalizeString } from 'api-client'
+import { normalizeString } from 'shared'
+import { CityModel } from 'shared/api'
 
 import testID from '../testing/testID'
 import Pressable from './base/Pressable'

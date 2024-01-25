@@ -1,5 +1,5 @@
-import { LanguageModel, OPEN_PAGE_SIGNAL_NAME } from 'api-client'
-import { CHANGE_LANGUAGE_MODAL_ROUTE } from 'api-client/src/routes'
+import { CHANGE_LANGUAGE_MODAL_ROUTE, OPEN_PAGE_SIGNAL_NAME } from 'shared'
+import { LanguageModel } from 'shared/api'
 
 import { NavigationProps, RoutesType } from '../constants/NavigationTypes'
 import sendTrackingSignal from '../utils/sendTrackingSignal'

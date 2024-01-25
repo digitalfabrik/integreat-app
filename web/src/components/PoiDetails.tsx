@@ -3,7 +3,8 @@ import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router-dom'
 import styled, { useTheme } from 'styled-components'
 
-import { GeoJsonPoi, getExternalMapsLink, PoiModel } from 'api-client'
+import { getExternalMapsLink, GeoJsonPoi } from 'shared'
+import { PoiModel } from 'shared/api'
 
 import {
   MailIcon,

@@ -4,7 +4,8 @@ import { useTranslation } from 'react-i18next'
 import { Platform } from 'react-native'
 import styled from 'styled-components/native'
 
-import { getExternalMapsLink, LocationModel } from 'api-client'
+import { getExternalMapsLink } from 'shared'
+import { LocationModel } from 'shared/api'
 
 import { ExternalLinkIcon } from '../assets'
 import { contentDirection } from '../constants/contentDirection'

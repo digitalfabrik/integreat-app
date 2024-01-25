@@ -2,7 +2,7 @@ import { TFunction } from 'i18next'
 import React, { memo } from 'react'
 import styled from 'styled-components/native'
 
-import { GeoJsonPoi } from 'api-client'
+import { GeoJsonPoi } from 'shared'
 
 import { PoiThumbnailPlaceholder } from '../assets'
 import { contentDirection } from '../constants/contentDirection'

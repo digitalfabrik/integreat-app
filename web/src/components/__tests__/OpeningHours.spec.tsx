@@ -1,7 +1,7 @@
 import React from 'react'
 
-import { OpeningHoursModel } from 'api-client/src'
-import OpenHoursModel from 'api-client/src/models/OpeningHoursModel'
+import { OpeningHoursModel } from 'shared/api'
+import OpenHoursModel from 'shared/api/models/OpeningHoursModel'
 
 import { renderWithTheme } from '../../testing/render'
 import OpeningHours from '../OpeningHours'

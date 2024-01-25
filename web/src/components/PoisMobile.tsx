@@ -3,7 +3,8 @@ import React, { ReactElement, useCallback, useEffect, useRef, useState } from 'r
 import { useTranslation } from 'react-i18next'
 import styled, { css } from 'styled-components'
 
-import { embedInCollection, GeoJsonPoi, LocationType, MapViewViewport, MapFeature, PoiModel } from 'api-client'
+import { embedInCollection, GeoJsonPoi, LocationType, MapViewViewport, MapFeature } from 'shared'
+import { PoiModel } from 'shared/api'
 
 import { ArrowBackspaceIcon } from '../assets'
 import useMapFeatures from '../hooks/useMapFeatures'

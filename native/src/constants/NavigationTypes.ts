@@ -21,7 +21,6 @@ import {
   SearchRouteType,
   SettingsRouteType,
   SprungbrettOfferRouteType,
-  LanguageModel,
   POIS_ROUTE,
   CATEGORIES_ROUTE,
   LANDING_ROUTE,
@@ -44,12 +43,12 @@ import {
   CityNotCooperatingRouteType,
   LICENSES_ROUTE,
   LicensesRouteType,
-  FeedbackRouteType,
   CONSENT_ROUTE,
   ConsentRouteType,
   MalteHelpFormOfferRouteType,
   MALTE_HELP_FORM_OFFER_ROUTE,
-} from 'api-client'
+} from 'shared'
+import { LanguageModel, FeedbackRouteType } from 'shared/api'
 
 export type RoutesType =
   | RedirectRouteType

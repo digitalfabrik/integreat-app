@@ -1,4 +1,4 @@
-import { CATEGORIES_ROUTE } from 'api-client'
+import { CATEGORIES_ROUTE } from 'shared'
 
 import { NavigationProps, RoutesType } from '../constants/NavigationTypes'
 

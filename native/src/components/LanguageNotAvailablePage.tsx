@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next'
 import { RefreshControl, Text } from 'react-native'
 import styled from 'styled-components/native'
 
-import { fromError, LanguageModel } from 'api-client'
+import { fromError, LanguageModel } from 'shared/api'
 
 import useCityAppContext from '../hooks/useCityAppContext'
 import useLoadCities from '../hooks/useLoadCities'

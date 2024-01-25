@@ -1,7 +1,7 @@
 import React, { ReactElement, ReactNode, useRef } from 'react'
 import styled from 'styled-components'
 
-import { request } from 'api-client/src/request'
+import { request } from 'shared/api'
 
 import TileModel from '../models/TileModel'
 import CleanLink from './CleanLink'

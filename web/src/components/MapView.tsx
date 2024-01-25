@@ -22,7 +22,7 @@ import {
   closerDetailZoom,
   clusterClickZoomFactor,
   featureLayerId,
-} from 'api-client'
+} from 'shared'
 
 import { clusterCountLayer, clusterLayer, clusterProperties, markerLayer } from '../constants/layers'
 import useWindowDimensions from '../hooks/useWindowDimensions'

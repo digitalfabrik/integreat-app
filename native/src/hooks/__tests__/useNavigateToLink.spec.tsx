@@ -7,7 +7,7 @@ import {
   OPEN_INTERNAL_LINK_SIGNAL_NAME,
   OPEN_MEDIA_SIGNAL_NAME,
   PDF_VIEW_MODAL_ROUTE,
-} from 'api-client'
+} from 'shared'
 
 import { AppContext } from '../../contexts/AppContextProvider'
 import createNavigationPropMock from '../../testing/createNavigationPropMock'

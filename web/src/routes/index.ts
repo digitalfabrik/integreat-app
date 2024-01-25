@@ -17,7 +17,7 @@ import {
   SEARCH_ROUTE,
   SPRUNGBRETT_OFFER_ROUTE,
   TU_NEWS_TYPE,
-} from 'api-client'
+} from 'shared'
 
 export const LOCAL_NEWS_ROUTE = LOCAL_NEWS_TYPE
 export const TU_NEWS_ROUTE = TU_NEWS_TYPE

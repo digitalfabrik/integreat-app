@@ -2,7 +2,7 @@ import React, { ReactElement, ReactNode, useCallback, useEffect, useState } from
 import InfiniteScroll from 'react-infinite-scroller'
 import styled from 'styled-components'
 
-import { loadAsync } from 'api-client'
+import { loadAsync } from 'shared/api'
 
 import FailureSwitcher from './FailureSwitcher'
 
