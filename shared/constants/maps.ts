@@ -18,20 +18,11 @@ export type MapViewMercatorViewport = MapViewViewport & {
   width: number
 }
 
-/**
- * Override existing GeoJsonProperties from types/geojson to be more precise
- */
-
 export type GeoJsonPoi = {
   id: number
-  title: string
-  path: string
   slug: string
+  title: string
   symbol: string
-  category?: string
-  address?: string
-  distance?: string
-  thumbnail?: string
 }
 
 export type GeoJsonPoiProperties = {

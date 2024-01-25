@@ -1,8 +1,8 @@
-import { TFunction } from 'i18next'
 import React, { memo } from 'react'
+import { useTranslation } from 'react-i18next'
 import styled from 'styled-components/native'
 
-import { GeoJsonPoi } from 'shared'
+import { PoiModel } from 'shared/api'
 
 import { PoiThumbnailPlaceholder } from '../assets'
 import { contentDirection } from '../constants/contentDirection'
@@ -28,6 +28,7 @@ const Thumbnail = styled(SimpleImage)`
 
 const StyledPressable = styled(Pressable)<{ language: string }>`
   flex: 1;
+  height: 100%;
   border-bottom-width: 1px;
   border-bottom-color: ${props => props.theme.colors.textDisabledColor};
   flex-direction: ${props => contentDirection(props.language)};
@@ -35,8 +36,6 @@ const StyledPressable = styled(Pressable)<{ language: string }>`
 `
 
 const Description = styled.View`
-  flex: 1;
-  height: 100%;
   flex-direction: column;
   font-family: ${props => props.theme.fonts.native.decorativeFontRegular};
   padding: 0 32px;
@@ -49,21 +48,21 @@ const Title = styled.Text`
 `
 
 type PoiListItemProps = {
-  poi: GeoJsonPoi
+  poi: PoiModel
   language: string
   navigateToPoi: () => void
-  t: TFunction
+  distance: number | null
 }
 
-const PoiListItem = ({ poi, language, navigateToPoi, t }: PoiListItemProps) => {
-  const thumbnail = poi.thumbnail ?? PoiThumbnailPlaceholder
+const PoiListItem = ({ poi, language, navigateToPoi, distance }: PoiListItemProps) => {
+  const { t } = useTranslation('pois')
   return (
     <StyledPressable onPress={navigateToPoi} language={language}>
-      <Thumbnail source={thumbnail} resizeMode='cover' />
+      <Thumbnail source={poi.thumbnail || PoiThumbnailPlaceholder} resizeMode='cover' />
       <Description>
         <Title>{poi.title}</Title>
-        {!!poi.distance && <Distance>{t('distanceKilometre', { distance: poi.distance })}</Distance>}
-        {!!poi.category && <Category>{poi.category}</Category>}
+        {distance !== null && <Distance>{t('distanceKilometre', { distance: distance.toFixed(1) })}</Distance>}
+        <Category>{poi.category.name}</Category>
       </Description>
     </StyledPressable>
   )
