@@ -1,4 +1,4 @@
-import { DateTime } from 'luxon'
+import { DateTime, Duration } from 'luxon'
 import { RRule as RRuleType } from 'rrule'
 
 const MAX_RECURRENCE_YEARS = 5
@@ -11,6 +11,7 @@ class DateModel {
   _allDay: boolean
   _recurrenceRule: RRuleType | null
   _offset: number
+  _duration: Duration
 
   constructor({
     startDate,
@@ -26,12 +27,12 @@ class DateModel {
     this._recurrenceRule = recurrenceRule
     this._offset = startDate.offset
     this._allDay = allDay
-    const duration = endDate.diff(startDate)
+    this._duration = endDate.diff(startDate)
     // If there is a recurrence rule, the start and end dates are not updated in the CMS and are therefore most of the time outdated
     // Therefore calculate the (next) correct start and end date based on the recurrence rule if available
-    const first = recurrenceRule?.after(DateTime.now().toJSDate())
+    const first = recurrenceRule?.after(this.currentDateToRrule())
     this._startDate = first ? this.rruleToDateTime(first) : startDate
-    this._endDate = this._startDate.plus(duration)
+    this._endDate = this._startDate.plus(this._duration)
   }
 
   get startDate(): DateTime {
@@ -69,7 +70,7 @@ class DateModel {
     const duration = this._endDate.diff(this._startDate)
 
     return this.recurrenceRule
-      .between(now.toJSDate(), maxDate, true, (_, index) => index < count)
+      .between(this.currentDateToRrule(), maxDate, true, (_, index) => index < count)
       .map(it => this.rruleToDateTime(it))
       .map(
         it =>
@@ -125,6 +126,17 @@ class DateModel {
     // Therefore we have to manually apply timezone offset, e.g. for daylight savings time
     // https://github.com/jkbrzt/rrule#important-use-utc-dates
     return dateTime.plus({ minutes: this._offset - dateTime.offset })
+  }
+
+  private currentDateToRrule(): Date {
+    // rrule is not correctly handling timezones and is expecting dates in "local time", i.e. in the timezone of dstart
+    // Therefore we have to manually apply timezone offset, e.g. for daylight savings time
+    // https://github.com/jkbrzt/rrule#important-use-utc-dates
+    // Also include dates happening at the moment by subtracting the duration
+    return DateTime.now()
+      .minus(this._duration)
+      .minus({ minutes: this._offset - DateTime.now().offset })
+      .toJSDate()
   }
 
   isEqual(other: DateModel): boolean {
