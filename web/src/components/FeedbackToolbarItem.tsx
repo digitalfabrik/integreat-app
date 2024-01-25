@@ -1,7 +1,7 @@
 import React, { ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { FeedbackRouteType } from 'api-client'
+import { FeedbackRouteType } from 'shared/api'
 
 import { FeedbackIcon } from '../assets'
 import useCityContentParams from '../hooks/useCityContentParams'

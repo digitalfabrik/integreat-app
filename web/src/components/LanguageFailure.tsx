@@ -2,7 +2,7 @@ import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
 
-import { CityModel } from 'api-client'
+import { CityModel } from 'shared/api'
 
 import Caption from './Caption'
 import LanguageSelector from './LanguageSelector'

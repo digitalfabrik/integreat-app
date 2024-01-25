@@ -1,12 +1,8 @@
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import {
-  createSprungbrettJobsEndpoint,
-  OfferModel,
-  SprungbrettJobModel,
-  useLoadFromEndpoint,
-} from '../../../api-client/src'
+import { createSprungbrettJobsEndpoint, OfferModel, SprungbrettJobModel, useLoadFromEndpoint } from 'shared/api'
+
 import useSnackbar from '../hooks/useSnackbar'
 import LoadingErrorHandler from '../routes/LoadingErrorHandler'
 import openExternalUrl from '../utils/openExternalUrl'

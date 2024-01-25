@@ -2,7 +2,7 @@ import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
 
-import { PoiCategoryModel, PoiModel } from 'api-client'
+import { PoiCategoryModel, PoiModel } from 'shared/api'
 
 import { ClockIcon } from '../assets'
 import ModalContent from './ModalContent'

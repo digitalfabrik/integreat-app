@@ -3,7 +3,7 @@ import React, { ReactElement, useCallback, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
 
-import { ExternalSourcePermissions } from 'api-client'
+import { ExternalSourcePermissions } from 'shared'
 
 import { ExternalLinkIcon } from '../assets'
 import buildConfig from '../constants/buildConfig'

@@ -1,6 +1,6 @@
 import React, { ReactElement, useEffect } from 'react'
 
-import { RedirectRouteType } from 'api-client'
+import { RedirectRouteType } from 'shared'
 
 import { NavigationProps, RouteProps, RoutesType } from '../constants/NavigationTypes'
 import useNavigateToDeepLink from '../hooks/useNavigateToDeepLink'

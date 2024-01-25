@@ -2,7 +2,7 @@ import { TFunction } from 'i18next'
 import React, { ReactElement } from 'react'
 import { useNavigate } from 'react-router-dom'
 
-import { CategoriesMapModel, CategoryModel } from 'api-client'
+import { CategoriesMapModel, CategoryModel } from 'shared/api'
 
 import { CityRouteProps } from '../CityContentSwitcher'
 import TileModel from '../models/TileModel'

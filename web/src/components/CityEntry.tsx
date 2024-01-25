@@ -3,7 +3,8 @@ import Highlighter from 'react-highlight-words'
 import { Link } from 'react-router-dom'
 import styled, { DefaultTheme, withTheme } from 'styled-components'
 
-import { cityContentPath, CityModel, normalizeString } from 'api-client'
+import { cityContentPath, normalizeString } from 'shared'
+import { CityModel } from 'shared/api'
 
 const MAX_NUMBER_OF_ALIASES = 3
 

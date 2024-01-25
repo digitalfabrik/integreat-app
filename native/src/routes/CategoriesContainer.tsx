@@ -1,7 +1,8 @@
 import React, { ReactElement, useCallback, useMemo } from 'react'
 import { useWindowDimensions } from 'react-native'
 
-import { CATEGORIES_ROUTE, CategoriesRouteType, cityContentPath, ErrorCode } from 'api-client'
+import { CATEGORIES_ROUTE, CategoriesRouteType, cityContentPath } from 'shared'
+import { ErrorCode } from 'shared/api'
 
 import Categories from '../components/Categories'
 import DashboardNavigationTiles from '../components/DashboardNavigationTiles'

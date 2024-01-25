@@ -1,7 +1,7 @@
 import React, { memo, ReactElement } from 'react'
 import styled from 'styled-components/native'
 
-import { CategoryModel } from 'api-client'
+import { CategoryModel } from 'shared/api'
 
 import { contentDirection, isContentDirectionReversalRequired } from '../constants/contentDirection'
 import dimensions from '../constants/dimensions'

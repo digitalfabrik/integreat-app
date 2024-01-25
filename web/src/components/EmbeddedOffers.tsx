@@ -1,6 +1,7 @@
 import React, { ReactElement } from 'react'
 
-import { MALTE_HELP_FORM_OFFER_ROUTE, OfferModel, SPRUNGBRETT_OFFER_ALIAS } from 'api-client'
+import { MALTE_HELP_FORM_OFFER_ROUTE, SPRUNGBRETT_OFFER_ALIAS } from 'shared'
+import { OfferModel } from 'shared/api'
 
 import { CityRouteProps } from '../CityContentSwitcher'
 import MalteHelpFormOfferPage from '../routes/MalteHelpFormOfferPage'

@@ -1,6 +1,6 @@
 import Url from 'url-parse'
 
-import { NonNullableRouteInformationType, pathnameFromRouteInformation, queryFromRouteInformation } from 'api-client'
+import { NonNullableRouteInformationType, pathnameFromRouteInformation, queryFromRouteInformation } from 'shared'
 
 import buildConfig from '../constants/buildConfig'
 

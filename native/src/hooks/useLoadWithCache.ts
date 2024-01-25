@@ -1,7 +1,7 @@
 import { DateTime } from 'luxon'
 import { useCallback } from 'react'
 
-import { Endpoint, fromError, ReturnType, useLoadAsync } from 'api-client'
+import { Endpoint, fromError, ReturnType, useLoadAsync } from 'shared/api'
 
 import { SnackbarType } from '../components/SnackbarContainer'
 import dataContainer from '../utils/DefaultDataContainer'

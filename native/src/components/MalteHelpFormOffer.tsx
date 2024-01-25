@@ -8,10 +8,10 @@ import {
   ContactChannel,
   ContactGender,
   InvalidEmailError,
-  MALTE_HELP_FORM_MAX_COMMENT_LENGTH,
   OfferModel,
   submitMalteHelpForm,
-} from 'api-client'
+  MALTE_HELP_FORM_MAX_COMMENT_LENGTH,
+} from 'shared/api'
 
 import { SecurityIcon, SupportIcon } from '../assets'
 import useSnackbar from '../hooks/useSnackbar'

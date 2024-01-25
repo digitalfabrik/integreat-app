@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 
-import { setJpalTrackingCode } from 'api-client'
+import { setJpalTrackingCode } from 'shared/api'
 
 import safeLocalStorage, { JPAL_TRACKING_CODE_KEY } from '../utils/safeLocalStorage'
 

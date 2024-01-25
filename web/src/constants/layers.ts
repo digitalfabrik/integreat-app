@@ -1,6 +1,7 @@
 import { Expression } from 'mapbox-gl'
 import { LayerProps } from 'react-map-gl/maplibre'
 
+import { ThemeType } from 'build-configs/ThemeType'
 import {
   circleRadiusLarge,
   circleRadiusSmall,
@@ -12,8 +13,7 @@ import {
   textOffsetY,
   clusterLayerId,
   featureLayerId,
-} from 'api-client'
-import { ThemeType } from 'build-configs/ThemeType'
+} from 'shared'
 
 export const clusterLayer = (theme: ThemeType): LayerProps => ({
   id: clusterLayerId,

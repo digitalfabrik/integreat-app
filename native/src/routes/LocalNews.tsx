@@ -1,6 +1,6 @@
 import React, { ReactElement } from 'react'
 
-import { LOCAL_NEWS_TYPE, NEWS_ROUTE, NewsRouteType } from 'api-client'
+import { LOCAL_NEWS_TYPE, NEWS_ROUTE, NewsRouteType } from 'shared'
 
 import News from '../components/News'
 import { NavigationProps, RouteProps } from '../constants/NavigationTypes'

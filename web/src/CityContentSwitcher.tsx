@@ -4,19 +4,16 @@ import { Route, Routes, useLocation, useParams } from 'react-router-dom'
 import {
   CATEGORIES_ROUTE,
   cityContentPath,
-  CityModel,
-  createCityEndpoint,
   DISCLAIMER_ROUTE,
   EVENTS_ROUTE,
   MALTE_HELP_FORM_OFFER_ROUTE,
   normalizePath,
-  NotFoundError,
   OFFERS_ROUTE,
   POIS_ROUTE,
   SEARCH_ROUTE,
   SPRUNGBRETT_OFFER_ROUTE,
-  useLoadFromEndpoint,
-} from 'api-client'
+} from 'shared'
+import { CityModel, NotFoundError, useLoadFromEndpoint, createCityEndpoint } from 'shared/api'
 
 import CityContentLayout from './components/CityContentLayout'
 import FailureSwitcher from './components/FailureSwitcher'

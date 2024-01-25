@@ -3,7 +3,8 @@ import { useTranslation } from 'react-i18next'
 import { SvgProps } from 'react-native-svg'
 import styled from 'styled-components/native'
 
-import { DateModel, DateIcon, EventModel, parseHTML } from 'api-client'
+import { parseHTML } from 'shared'
+import { DateModel, DateIcon, EventModel } from 'shared/api'
 
 import {
   CalendarRecurringIcon,

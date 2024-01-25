@@ -2,7 +2,7 @@ import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
 
-import { TimeSlot } from 'api-client/src/types'
+import { TimeSlot } from 'shared/api/types'
 
 const fontBold = 600
 const fontStandard = 400

@@ -18,7 +18,7 @@ import {
   RouteInformationType,
   SEARCH_ROUTE,
   SPRUNGBRETT_OFFER_ROUTE,
-} from 'api-client'
+} from 'shared'
 
 import { SnackbarType } from '../components/SnackbarContainer'
 import { NavigationProps, RoutesType } from '../constants/NavigationTypes'

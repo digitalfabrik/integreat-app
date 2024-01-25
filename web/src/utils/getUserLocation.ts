@@ -1,4 +1,4 @@
-import { UnavailableLocationState, UserLocationType } from 'api-client'
+import { UnavailableLocationState, UserLocationType } from 'shared'
 
 const currentPositionTimeout = 50_000
 

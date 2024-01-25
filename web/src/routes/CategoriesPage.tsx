@@ -3,18 +3,17 @@ import React, { ReactElement, useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Link, Navigate, useParams } from 'react-router-dom'
 
+import { CATEGORIES_ROUTE, cityContentPath } from 'shared'
 import {
-  CATEGORIES_ROUTE,
   CategoriesMapModel,
   CategoryModel,
-  cityContentPath,
   createCategoryChildrenEndpoint,
   createCategoryParentsEndpoint,
   NotFoundError,
   ResponseError,
   useLoadAsync,
   useLoadFromEndpoint,
-} from 'api-client'
+} from 'shared/api'
 
 import { CityRouteProps } from '../CityContentSwitcher'
 import Breadcrumbs from '../components/Breadcrumbs'

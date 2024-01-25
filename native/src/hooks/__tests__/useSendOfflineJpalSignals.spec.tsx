@@ -3,7 +3,7 @@ import { render, waitFor } from '@testing-library/react-native'
 import { mocked } from 'jest-mock'
 import React from 'react'
 
-import { CATEGORIES_ROUTE, OPEN_PAGE_SIGNAL_NAME } from 'api-client'
+import { CATEGORIES_ROUTE, OPEN_PAGE_SIGNAL_NAME } from 'shared'
 
 import appSettings from '../../utils/AppSettings'
 import { sendRequest } from '../../utils/sendTrackingSignal'

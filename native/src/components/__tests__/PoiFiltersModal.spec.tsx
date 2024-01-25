@@ -1,7 +1,7 @@
 import { fireEvent } from '@testing-library/react-native'
 import React from 'react'
 
-import { PoiCategoryModel, PoiModelBuilder } from 'api-client'
+import { PoiCategoryModel, PoiModelBuilder } from 'shared/api'
 
 import render from '../../testing/render'
 import PoiFiltersModal from '../PoiFiltersModal'

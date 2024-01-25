@@ -1,7 +1,7 @@
 import { fireEvent, Matcher } from '@testing-library/react'
 import React from 'react'
 
-import { CityModelBuilder } from 'api-client'
+import { CityModelBuilder } from 'shared/api'
 
 import buildConfig from '../../constants/buildConfig'
 import { renderWithRouterAndTheme } from '../../testing/render'

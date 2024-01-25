@@ -11,7 +11,6 @@ import {
   EventsRouteType,
   getSlugFromPath,
   LANDING_ROUTE,
-  LanguageModel,
   NEWS_ROUTE,
   POIS_ROUTE,
   PoisRouteType,
@@ -20,8 +19,8 @@ import {
   DISCLAIMER_ROUTE,
   SEARCH_ROUTE,
   SETTINGS_ROUTE,
-  FeedbackRouteType,
-} from 'api-client'
+} from 'shared'
+import { LanguageModel, FeedbackRouteType } from 'shared/api'
 
 import { NavigationProps, RouteProps, RoutesParamsType, RoutesType } from '../constants/NavigationTypes'
 import buildConfig from '../constants/buildConfig'

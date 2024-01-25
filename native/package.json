@@ -58,7 +58,7 @@
     "@sentry/react-native": "^5.9.1",
     "@sentry/types": "^7.65.0",
     "accordion-collapse-react-native": "^1.1.1",
-    "api-client": "0.0.1",
+    "shared": "0.0.1",
     "build-configs": "0.0.1",
     "htmlparser2": "^9.0.0",
     "i18next": "^23.4.6",

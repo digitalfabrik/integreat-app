@@ -1,6 +1,6 @@
 import { TFunction } from 'i18next'
 
-import { CONSENT_ROUTE, ExternalSourcePermissions } from 'api-client'
+import { CONSENT_ROUTE, ExternalSourcePermissions } from 'shared'
 
 import { IFRAME_BLANK_SOURCE, IframeSources } from '../components/RemoteContent'
 import dimensions from '../constants/dimensions'

@@ -1,6 +1,6 @@
 import React, { ReactElement } from 'react'
 
-import { ExternalOfferRouteType } from 'api-client'
+import { ExternalOfferRouteType } from 'shared'
 
 import { NavigationProps, RouteProps } from '../constants/NavigationTypes'
 import ExternalOffer from './ExternalOffer'

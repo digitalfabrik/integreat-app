@@ -3,7 +3,8 @@ import { useTranslation } from 'react-i18next'
 import { View } from 'react-native'
 import styled from 'styled-components'
 
-import { DateModel, MAX_DATE_RECURRENCES, MAX_DATE_RECURRENCES_COLLAPSED } from 'api-client'
+import { MAX_DATE_RECURRENCES, MAX_DATE_RECURRENCES_COLLAPSED } from 'shared'
+import { DateModel } from 'shared/api'
 
 import Collapsible from './Collapsible'
 import PageDetail from './PageDetail'

@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next'
 import { BrowserRouter as Router } from 'react-router-dom'
 import { ThemeProvider } from 'styled-components'
 
-import { setJpalTrackingCode } from 'api-client'
+import { setJpalTrackingCode } from 'shared/api'
 import { UiDirectionType, config } from 'translations'
 
 import RootSwitcher from './RootSwitcher'

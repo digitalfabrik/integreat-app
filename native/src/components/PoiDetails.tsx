@@ -2,7 +2,8 @@ import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 import styled from 'styled-components/native'
 
-import { GeoJsonPoi, PoiModel } from 'api-client'
+import { GeoJsonPoi } from 'shared'
+import { PoiModel } from 'shared/api'
 
 import { MailIcon, PhoneIcon, PoiThumbnailPlaceholderLarge, WebsiteIcon } from '../assets'
 import AddressInfo from './AddressInfo'

@@ -2,7 +2,7 @@ import * as React from 'react'
 import { memo, ReactElement } from 'react'
 import styled from 'styled-components'
 
-import { SprungbrettJobModel } from 'api-client'
+import { SprungbrettJobModel } from 'shared/api'
 
 import { SprungbrettIcon } from '../assets'
 import ListItem from './ListItem'

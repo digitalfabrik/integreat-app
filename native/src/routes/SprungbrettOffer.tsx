@@ -2,7 +2,7 @@ import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 import styled from 'styled-components/native'
 
-import { SprungbrettJobModel } from 'api-client'
+import { SprungbrettJobModel } from 'shared/api'
 
 import Caption from '../components/Caption'
 import List from '../components/List'

@@ -2,7 +2,7 @@ import { mocked } from 'jest-mock'
 import { Linking } from 'react-native'
 import InAppBrowser from 'react-native-inappbrowser-reborn'
 
-import { OPEN_EXTERNAL_LINK_SIGNAL_NAME, OPEN_OS_LINK_SIGNAL_NAME } from 'api-client'
+import { OPEN_EXTERNAL_LINK_SIGNAL_NAME, OPEN_OS_LINK_SIGNAL_NAME } from 'shared'
 
 import openExternalUrl from '../openExternalUrl'
 import sendTrackingSignal from '../sendTrackingSignal'

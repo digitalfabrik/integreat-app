@@ -7,7 +7,7 @@ import {
   loadAsync,
   ReturnType,
   TunewsModel,
-} from 'api-client'
+} from 'shared/api'
 
 import { tunewsApiUrl } from '../constants/endpoint'
 

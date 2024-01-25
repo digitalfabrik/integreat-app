@@ -3,7 +3,7 @@ import { DateTime } from 'luxon'
 import React, { ReactElement } from 'react'
 import styled from 'styled-components'
 
-import { getExcerpt, LOCAL_NEWS_TYPE, NewsType } from 'api-client'
+import { getExcerpt, LOCAL_NEWS_TYPE, NewsType } from 'shared'
 
 import { EXCERPT_MAX_CHARS } from '../constants'
 import CleanLink from './CleanLink'

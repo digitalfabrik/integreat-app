@@ -2,7 +2,7 @@ import { JestConfigWithTsJest } from 'ts-jest'
 
 import { webIntegreatTestCmsBuildConfig } from 'build-configs/integreat-test-cms'
 
-const transformNodeModules = ['api-client', 'build-configs', 'translations']
+const transformNodeModules = ['shared', 'build-configs', 'translations']
 const config: JestConfigWithTsJest = {
   rootDir: '.',
   roots: ['src'],

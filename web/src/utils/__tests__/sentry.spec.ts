@@ -1,7 +1,7 @@
 import * as Sentry from '@sentry/react'
 import { waitFor } from '@testing-library/react'
 
-import { FetchError, NotFoundError } from 'api-client'
+import { FetchError, NotFoundError } from 'shared/api'
 
 import buildConfig from '../../constants/buildConfig'
 import { initSentry, log, reportError } from '../sentry'

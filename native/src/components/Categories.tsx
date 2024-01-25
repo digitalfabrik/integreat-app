@@ -1,9 +1,8 @@
 import React, { ReactElement } from 'react'
 import { View } from 'react-native'
 
-import { CategoriesMapModel, CategoryModel, CityModel } from 'api-client'
-import { CATEGORIES_ROUTE } from 'api-client/src/routes'
-import { RouteInformationType } from 'api-client/src/routes/RouteInformationTypes'
+import { CATEGORIES_ROUTE, RouteInformationType } from 'shared'
+import { CategoriesMapModel, CategoryModel, CityModel } from 'shared/api'
 
 import { URL_PREFIX } from '../constants/webview'
 import TileModel from '../models/TileModel'

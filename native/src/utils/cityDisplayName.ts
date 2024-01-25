@@ -1,4 +1,4 @@
-import { CityModel } from 'api-client/src'
+import { CityModel } from 'shared/api'
 
 import dimensions from '../constants/dimensions'
 

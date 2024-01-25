@@ -4,7 +4,6 @@ import { useTranslation } from 'react-i18next'
 import {
   CATEGORIES_ROUTE,
   cityContentPath,
-  CityModel,
   EVENTS_ROUTE,
   LANDING_ROUTE,
   NEWS_ROUTE,
@@ -13,7 +12,8 @@ import {
   POIS_ROUTE,
   SEARCH_ROUTE,
   SPRUNGBRETT_OFFER_ROUTE,
-} from 'api-client'
+} from 'shared'
+import { CityModel } from 'shared/api'
 
 import { CalendarIcon, CategoriesIcon, LocationIcon, NewsIcon, OffersIcon, POIsIcon, SearchIcon } from '../assets'
 import buildConfig from '../constants/buildConfig'

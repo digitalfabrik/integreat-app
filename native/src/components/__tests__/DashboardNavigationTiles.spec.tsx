@@ -2,7 +2,7 @@ import { mocked } from 'jest-mock'
 import React from 'react'
 import TestRenderer from 'react-test-renderer'
 
-import { CityModel, LanguageModelBuilder } from 'api-client'
+import { CityModel, LanguageModelBuilder } from 'shared/api'
 
 import buildConfig from '../../constants/buildConfig'
 import TileModel from '../../models/TileModel'
