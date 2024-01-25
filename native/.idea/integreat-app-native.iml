@@ -18,6 +18,7 @@
       <excludeFolder url="file://$MODULE_DIR$/../web-ts" />
       <excludeFolder url="file://$MODULE_DIR$/../build-configs/dist" />
       <excludeFolder url="file://$MODULE_DIR$/../translations/dist" />
+      <excludeFolder url="file://$MODULE_DIR$/../e2e-tests/dist" />
       <excludeFolder url="file://$MODULE_DIR$/../shared/dist" />
       <excludeFolder url="file://$MODULE_DIR$/../.yarn" />
     </content>

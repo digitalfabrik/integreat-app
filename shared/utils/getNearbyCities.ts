@@ -1,8 +1,7 @@
-import { LocationType } from '..'
-
 import distance from '@turf/distance'
 
 import CityModel from '../api/models/CityModel'
+import { LocationType } from '../constants/maps'
 
 const NUMBER_OF_CLOSEST_CITIES = 3
 const MAXIMAL_DISTANCE = 90

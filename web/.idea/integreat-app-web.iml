@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module type="WEB_MODULE" version="4">
-  <component name="NewModuleRootManager">
+  <component name="NewModuleRootManager" inherit-compiler-output="true">
+    <exclude-output />
     <content url="file://$MODULE_DIR$/..">
       <excludeFolder url="file://$MODULE_DIR$/../api-client/node_modules" />
       <excludeFolder url="file://$MODULE_DIR$/../api-client/reports" />
@@ -9,7 +10,6 @@
       <excludeFolder url="file://$MODULE_DIR$/../dist" />
       <excludeFolder url="file://$MODULE_DIR$/../native" />
       <excludeFolder url="file://$MODULE_DIR$/../build-configs/dist" />
-      <excludeFolder url="file://$MODULE_DIR$/../api-client/dist" />
       <excludeFolder url="file://$MODULE_DIR$/../translations/dist" />
       <excludeFolder url="file://$MODULE_DIR$/../.idea/shelf" />
       <excludeFolder url="file://$MODULE_DIR$/../build-configs/aschaffenburg/assets/.png-cache" />
@@ -22,6 +22,8 @@
       <excludeFolder url="file://$MODULE_DIR$/node_modules" />
       <excludeFolder url="file://$MODULE_DIR$/reports" />
       <excludeFolder url="file://$MODULE_DIR$/dist" />
+      <excludeFolder url="file://$MODULE_DIR$/../e2e-tests/dist" />
+      <excludeFolder url="file://$MODULE_DIR$/../shared/dist" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
