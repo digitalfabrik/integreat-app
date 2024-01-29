@@ -38,8 +38,11 @@ import PhoneIcon from '../../../assets/icons/phone.svg'
 import POIsIcon from '../../../assets/icons/pois.svg'
 import SadSmileyIcon from '../../../assets/icons/sad-smiley.svg'
 import SearchIcon from '../../../assets/icons/search.svg'
+import SecurityIcon from '../../../assets/icons/security.svg'
 import ShareIcon from '../../../assets/icons/share.svg'
 import SmokingIcon from '../../../assets/icons/smoking.svg'
+import SprungbrettIcon from '../../../assets/icons/sprungbrett.svg'
+import SupportIcon from '../../../assets/icons/support.svg'
 import TimerIcon from '../../../assets/icons/timer.svg'
 import TuNewsActiveIcon from '../../../assets/icons/tu-news-active.svg'
 import TuNewsInactiveIcon from '../../../assets/icons/tu-news-inactive.svg'
@@ -90,8 +93,11 @@ export {
   PoiThumbnailPlaceholderLarge,
   SadSmileyIcon,
   SearchIcon,
+  SecurityIcon,
   ShareIcon,
   SmokingIcon,
+  SprungbrettIcon,
+  SupportIcon,
   TimerIcon,
   TuNewsActiveIcon,
   TuNewsInactiveIcon,

@@ -3,13 +3,8 @@ import { useTranslation } from 'react-i18next'
 import { useLocation, useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
 
-import {
-  createCategoriesEndpoint,
-  pathnameFromRouteInformation,
-  searchCategories,
-  SEARCH_ROUTE,
-  useLoadFromEndpoint,
-} from 'api-client'
+import { pathnameFromRouteInformation, searchCategories, SEARCH_ROUTE } from 'shared'
+import { createCategoriesEndpoint, useLoadFromEndpoint } from 'shared/api'
 
 import { CityRouteProps } from '../CityContentSwitcher'
 import CityContentLayout, { CityContentLayoutProps } from '../components/CityContentLayout'

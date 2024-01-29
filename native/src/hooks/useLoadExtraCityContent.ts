@@ -1,6 +1,6 @@
 import { useCallback } from 'react'
 
-import { Endpoint, ErrorCode, loadFromEndpoint, ReturnType, useLoadAsync } from 'api-client'
+import { loadFromEndpoint, ReturnType, useLoadAsync, Endpoint, ErrorCode } from 'shared/api'
 
 import { determineApiUrl } from '../utils/helpers'
 import useLoadCityContent, { CityContentData } from './useLoadCityContent'

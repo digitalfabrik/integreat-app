@@ -3,18 +3,17 @@ import React, { ReactElement, useMemo, useState } from 'react'
 import { KeyboardAvoidingView, Platform } from 'react-native'
 import styled from 'styled-components/native'
 
+import { ThemeType } from 'build-configs'
 import {
   CategoriesRouteInformationType,
-  CategoriesMapModel,
   SEARCH_FINISHED_SIGNAL_NAME,
   SEARCH_ROUTE,
   CATEGORIES_ROUTE,
   RouteInformationType,
   searchCategories,
   CategorySearchResult,
-  CategoryModel,
-} from 'api-client'
-import { ThemeType } from 'build-configs'
+} from 'shared'
+import { CategoriesMapModel, CategoryModel } from 'shared/api'
 
 import FeedbackContainer from '../components/FeedbackContainer'
 import HorizontalLine from '../components/HorizontalLine'

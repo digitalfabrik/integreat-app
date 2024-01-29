@@ -1,23 +1,15 @@
 import { mocked } from 'jest-mock'
 import React from 'react'
 
-import {
-  CityModelBuilder,
-  LanguageModel,
-  LanguageModelBuilder,
-  NEWS_ROUTE,
-  pathnameFromRouteInformation,
-  ReturnType,
-  TU_NEWS_TYPE,
-  useLoadFromEndpoint,
-} from 'api-client'
+import { NEWS_ROUTE, pathnameFromRouteInformation, TU_NEWS_TYPE } from 'shared'
+import { CityModelBuilder, LanguageModelBuilder, LanguageModel, ReturnType, useLoadFromEndpoint } from 'shared/api'
 
 import { renderRoute } from '../../testing/render'
 import TuNewsPage from '../TuNewsPage'
 import { RoutePatterns, TU_NEWS_ROUTE } from '../index'
 
-jest.mock('api-client', () => ({
-  ...jest.requireActual('api-client'),
+jest.mock('shared/api', () => ({
+  ...jest.requireActual('shared/api'),
   loadFromEndpoint: jest.fn(),
   useLoadFromEndpoint: jest.fn(),
 }))

@@ -3,7 +3,7 @@ import { TFunction } from 'i18next'
 import { AccessibilityRole, SectionListData } from 'react-native'
 import { openSettings } from 'react-native-permissions'
 
-import { CONSENT_ROUTE, JPAL_TRACKING_ROUTE, LICENSES_ROUTE, SettingsRouteType } from 'api-client'
+import { CONSENT_ROUTE, JPAL_TRACKING_ROUTE, LICENSES_ROUTE, SettingsRouteType } from 'shared'
 
 import { SnackbarType } from '../components/SnackbarContainer'
 import NativeConstants from '../constants/NativeConstants'

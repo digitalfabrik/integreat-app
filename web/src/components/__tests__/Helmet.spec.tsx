@@ -1,7 +1,7 @@
 import { render, waitFor } from '@testing-library/react'
 import React from 'react'
 
-import { CityModel, CityModelBuilder } from 'api-client'
+import { CityModel, CityModelBuilder } from 'shared/api'
 
 import buildConfig from '../../constants/buildConfig'
 import Helmet from '../Helmet'

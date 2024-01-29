@@ -2,10 +2,12 @@ import { TFunction } from 'i18next'
 import React, { ReactElement } from 'react'
 import { useNavigate } from 'react-router-dom'
 
-import { CategoriesMapModel, CategoryModel } from 'api-client'
+import { CategoriesMapModel, CategoryModel } from 'shared/api'
 
+import { CityRouteProps } from '../CityContentSwitcher'
 import TileModel from '../models/TileModel'
 import CategoryList from './CategoryList'
+import EmbeddedOffers from './EmbeddedOffers'
 import OrganizationContentInfo from './OrganizationContentInfo'
 import Page from './Page'
 import Tiles from './Tiles'
@@ -24,7 +26,7 @@ type CategoriesContentProps = {
   categories: CategoriesMapModel
   categoryModel: CategoryModel
   t: TFunction
-}
+} & CityRouteProps
 
 /**
  * Returns the content to be displayed, based on the current category, which is
@@ -32,7 +34,15 @@ type CategoriesContentProps = {
  * b) table with categories
  * c) list with categories
  */
-const CategoriesContent = ({ categories, categoryModel, t }: CategoriesContentProps): ReactElement => {
+const CategoriesContent = ({
+  categories,
+  categoryModel,
+  t,
+  city,
+  pathname,
+  cityCode,
+  languageCode,
+}: CategoriesContentProps): ReactElement => {
   const children = categories.getChildren(categoryModel)
   const navigate = useNavigate()
 
@@ -46,6 +56,15 @@ const CategoriesContent = ({ categories, categoryModel, t }: CategoriesContentPr
         onInternalLinkClick={navigate}
         AfterContent={
           categoryModel.organization && <OrganizationContentInfo organization={categoryModel.organization} />
+        }
+        Footer={
+          <EmbeddedOffers
+            embeddedOffers={categoryModel.embeddedOffers}
+            city={city}
+            pathname={pathname}
+            cityCode={cityCode}
+            languageCode={languageCode}
+          />
         }
       />
     )

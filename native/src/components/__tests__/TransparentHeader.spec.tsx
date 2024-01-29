@@ -3,7 +3,7 @@ import { mocked } from 'jest-mock'
 import React, { ReactElement } from 'react'
 import { Share, Text, View } from 'react-native'
 
-import { PDF_VIEW_MODAL_ROUTE, SHARE_SIGNAL_NAME } from 'api-client'
+import { PDF_VIEW_MODAL_ROUTE, SHARE_SIGNAL_NAME } from 'shared'
 
 import useSnackbar from '../../hooks/useSnackbar'
 import createNavigationMock from '../../testing/createNavigationPropMock'

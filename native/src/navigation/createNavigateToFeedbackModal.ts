@@ -1,5 +1,5 @@
-import { FeedbackRouteType, OPEN_PAGE_SIGNAL_NAME } from 'api-client'
-import { FEEDBACK_MODAL_ROUTE } from 'api-client/src/routes'
+import { OPEN_PAGE_SIGNAL_NAME, FEEDBACK_MODAL_ROUTE } from 'shared'
+import { FeedbackRouteType } from 'shared/api'
 
 import { NavigationProps, RoutesType } from '../constants/NavigationTypes'
 import sendTrackingSignal from '../utils/sendTrackingSignal'

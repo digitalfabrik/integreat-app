@@ -3,14 +3,8 @@ import { mocked } from 'jest-mock'
 import React from 'react'
 import { useSearchParams } from 'react-router-dom'
 
-import {
-  CityModelBuilder,
-  GeoJsonPoi,
-  LocationType,
-  MapViewViewport,
-  PoiModelBuilder,
-  prepareFeatureLocations,
-} from 'api-client'
+import { prepareFeatureLocations, GeoJsonPoi, LocationType, MapViewViewport } from 'shared'
+import { CityModelBuilder, PoiModelBuilder } from 'shared/api'
 
 import { renderWithRouterAndTheme } from '../../testing/render'
 import PoisDesktop from '../PoisDesktop'
@@ -34,7 +28,6 @@ describe('PoisDesktop', () => {
   const renderPoisDesktop = (slug?: string) =>
     renderWithRouterAndTheme(
       <PoisDesktop
-        direction='ltr'
         panelHeights={0}
         toolbar={<div>Toolbar</div>}
         pois={pois}

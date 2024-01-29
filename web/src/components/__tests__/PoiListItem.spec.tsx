@@ -1,7 +1,8 @@
 import { fireEvent } from '@testing-library/react'
 import React from 'react'
 
-import { PoiModelBuilder, prepareFeatureLocation } from 'api-client'
+import { prepareFeatureLocation } from 'shared'
+import { PoiModelBuilder } from 'shared/api'
 
 import { renderWithTheme } from '../../testing/render'
 import PoiListItem from '../PoiListItem'

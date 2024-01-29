@@ -1,6 +1,6 @@
 import React, { ReactElement, ReactNode } from 'react'
 
-import { CityModel } from 'api-client'
+import { CityModel } from 'shared/api'
 
 import useWindowDimensions from '../hooks/useWindowDimensions'
 import { RouteType } from '../routes'

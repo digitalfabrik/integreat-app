@@ -17,7 +17,7 @@ import {
   clusterLayerId,
   featureLayerId,
   clusterClickZoomFactor,
-} from 'api-client'
+} from 'shared'
 
 import { LocationFixedIcon, LocationNotFixedIcon, LocationOffIcon } from '../assets'
 import { clusterCountLayer, clusterLayer, markerLayer } from '../constants/layers'

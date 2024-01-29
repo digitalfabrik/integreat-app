@@ -1,7 +1,7 @@
 import { fireEvent } from '@testing-library/react-native'
 import React from 'react'
 
-import { CityModelBuilder } from 'api-client'
+import { CityModelBuilder } from 'shared/api'
 
 import render from '../../testing/render'
 import CitySelector from '../CitySelector'

@@ -1,6 +1,6 @@
 import React, { ReactElement } from 'react'
 
-import { PageModel } from 'api-client'
+import { PageModel } from 'shared/api'
 
 import Page from '../components/Page'
 

@@ -28,6 +28,9 @@ import POIsIcon from '../../../assets/icons/pois.svg'
 import RefreshIcon from '../../../assets/icons/refresh.svg'
 import SadSmileyIcon from '../../../assets/icons/sad-smiley.svg'
 import SearchIcon from '../../../assets/icons/search.svg'
+import SecurityIcon from '../../../assets/icons/security.svg'
+import SprungbrettIcon from '../../../assets/icons/sprungbrett.svg'
+import SupportIcon from '../../../assets/icons/support.svg'
 import TuNewsActiveIcon from '../../../assets/icons/tu-news-active.svg'
 import TuNewsInactiveIcon from '../../../assets/icons/tu-news-inactive.svg'
 import WarningIcon from '../../../assets/icons/warning.svg'
@@ -67,6 +70,9 @@ export {
   RefreshIcon,
   SadSmileyIcon,
   SearchIcon,
+  SecurityIcon,
+  SprungbrettIcon,
+  SupportIcon,
   TuNewsActiveIcon,
   TuNewsInactiveIcon,
   WarningIcon,

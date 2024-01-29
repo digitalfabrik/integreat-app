@@ -1,7 +1,8 @@
-import React, { ReactElement, useCallback } from 'react'
+import React, { ReactElement, useCallback, useMemo } from 'react'
 import { useWindowDimensions } from 'react-native'
 
-import { CATEGORIES_ROUTE, CategoriesRouteType, cityContentPath, ErrorCode } from 'api-client'
+import { CATEGORIES_ROUTE, CategoriesRouteType, cityContentPath } from 'shared'
+import { ErrorCode } from 'shared/api'
 
 import Categories from '../components/Categories'
 import DashboardNavigationTiles from '../components/DashboardNavigationTiles'
@@ -32,7 +33,7 @@ const CategoriesContainer = ({ navigation, route }: CategoriesContainerProps): R
 
   const homeRouteTitle = cityDisplayName(data?.city, deviceWidth)
   const path = route.params.path ?? cityContentPath({ cityCode, languageCode })
-  const category = data?.categories.findCategoryByPath(path)
+  const category = useMemo(() => data?.categories.findCategoryByPath(path), [data?.categories, path])
   const availableLanguages =
     category && !category.isRoot() ? Array.from(category.availableLanguages.keys()) : data?.languages.map(it => it.code)
 
@@ -60,7 +61,7 @@ const CategoriesContainer = ({ navigation, route }: CategoriesContainerProps): R
     data?.categories && !category && previousLanguageCode === languageCode ? ErrorCode.PageNotFound : response.error
 
   return (
-    <LoadingErrorHandler {...response} error={error} scrollView>
+    <LoadingErrorHandler refresh={response.refresh} loading={response.loading} error={error} scrollView>
       {data && category && (
         <>
           {category.isRoot() && (
@@ -73,6 +74,7 @@ const CategoriesContainer = ({ navigation, route }: CategoriesContainerProps): R
             categories={data.categories}
             category={category}
             resourceCache={resourceCache}
+            goBack={navigation.goBack}
           />
         </>
       )}

@@ -1,18 +1,10 @@
 import React, { ReactElement, useCallback, useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { GeolocateControl, NavigationControl } from 'react-map-gl'
-import styled from 'styled-components'
+import styled, { useTheme } from 'styled-components'
 
-import {
-  CityModel,
-  embedInCollection,
-  GeoJsonPoi,
-  LocationType,
-  MapViewViewport,
-  MapFeature,
-  PoiModel,
-} from 'api-client'
-import { UiDirectionType } from 'translations'
+import { embedInCollection, GeoJsonPoi, LocationType, MapViewViewport, MapFeature } from 'shared'
+import { CityModel, PoiModel } from 'shared/api'
 
 import dimensions from '../constants/dimensions'
 import useMapFeatures from '../hooks/useMapFeatures'
@@ -63,7 +55,6 @@ const FooterContainer = styled.div`
 type PoisDesktopProps = {
   panelHeights: number
   toolbar: ReactElement
-  direction: UiDirectionType
   cityModel: CityModel
   pois: PoiModel[]
   userLocation: LocationType | undefined
@@ -89,7 +80,6 @@ const nextPoiIndex = (step: 1 | -1, arrayLength: number, currentIndex: number): 
 const PoisDesktop = ({
   panelHeights,
   toolbar,
-  direction,
   pois,
   userLocation,
   features,
@@ -107,6 +97,7 @@ const PoisDesktop = ({
   const { selectGeoJsonPoiInList, selectFeatureOnMap, currentFeatureOnMap, currentPoi, poiListFeatures } =
     useMapFeatures(features, pois, slug)
   const canGoBack = !!currentFeatureOnMap || !!slug
+  const { contentDirection } = useTheme()
 
   const selectGeoJsonPoi = useCallback(
     (geoJsonPoi: GeoJsonPoi | null) => {
@@ -149,7 +140,6 @@ const PoisDesktop = ({
           currentPoi={currentPoi}
           selectPoi={selectGeoJsonPoi}
           userLocation={userLocation}
-          direction={direction}
           toolbar={toolbar}
           slug={slug}
         />
@@ -171,13 +161,12 @@ const PoisDesktop = ({
         selectFeature={selectFeatureOnMap}
         featureCollection={embedInCollection(features)}
         currentFeature={currentFeatureOnMap}
-        languageCode={languageCode}
         Overlay={MapOverlay}>
-        <NavigationControl showCompass={false} position={direction === 'rtl' ? 'bottom-left' : 'bottom-right'} />
+        <NavigationControl showCompass={false} position={contentDirection === 'rtl' ? 'bottom-left' : 'bottom-right'} />
         <GeolocateControl
           positionOptions={{ enableHighAccuracy: true }}
           trackUserLocation
-          position={direction === 'rtl' ? 'bottom-left' : 'bottom-right'}
+          position={contentDirection === 'rtl' ? 'bottom-left' : 'bottom-right'}
         />
         <FooterContainer>
           <CityContentFooter city={cityModel.code} language={languageCode} mode='overlay' />

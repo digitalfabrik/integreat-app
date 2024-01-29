@@ -1,4 +1,5 @@
 import React, { ReactElement, ReactNode } from 'react'
+import { SvgProps } from 'react-native-svg'
 import styled from 'styled-components/native'
 
 import { contentDirection } from '../constants/contentDirection'
@@ -8,8 +9,9 @@ import Text from './base/Text'
 
 const ListItemView = styled.View<{ language: string }>`
   flex-direction: ${props => contentDirection(props.language)};
-  padding: 8px 0;
+  padding: 12px 0;
   gap: 8px;
+  align-items: center;
 `
 
 const StyledPressable = styled(Pressable)`
@@ -44,7 +46,7 @@ const Title = styled(Text)`
 `
 
 type ListItemProps = {
-  thumbnail: ImageSourceType
+  thumbnail: ImageSourceType | ReactElement<SvgProps>
   title: string
   language: string
   children?: ReactNode
@@ -55,7 +57,7 @@ type ListItemProps = {
 const ListItem = ({ language, title, thumbnail, children, Icon, navigateTo }: ListItemProps): ReactElement => (
   <StyledPressable onPress={navigateTo}>
     <ListItemView language={language}>
-      {!!thumbnail && <Thumbnail source={thumbnail} />}
+      {!!thumbnail && (React.isValidElement<SvgProps>(thumbnail) ? thumbnail : <Thumbnail source={thumbnail} />)}
       <Description>
         <TitleRow>
           <Title>{title}</Title>

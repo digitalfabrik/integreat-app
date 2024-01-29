@@ -2,8 +2,8 @@ import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
 
-import { GeoJsonPoi, LocationType, PoiModel, sortMapFeatures } from 'api-client'
-import { UiDirectionType } from 'translations'
+import { GeoJsonPoi, LocationType, sortMapFeatures } from 'shared'
+import { PoiModel } from 'shared/api'
 
 import Failure from './Failure'
 import List from './List'
@@ -20,7 +20,6 @@ type PoiSharedChildrenProps = {
   slug?: string
   selectPoi: (geoJsonPoi: GeoJsonPoi | null) => void
   userLocation: LocationType | undefined
-  direction: UiDirectionType
   toolbar?: ReactElement
 }
 
@@ -30,20 +29,12 @@ const PoiSharedChildren = ({
   slug,
   selectPoi,
   userLocation,
-  direction,
   toolbar,
 }: PoiSharedChildrenProps): ReactElement => {
   const { t } = useTranslation('pois')
 
   if (currentPoi) {
-    return (
-      <PoiDetails
-        poi={currentPoi}
-        feature={currentPoi.getFeature(userLocation)}
-        direction={direction}
-        toolbar={toolbar}
-      />
-    )
+    return <PoiDetails poi={currentPoi} feature={currentPoi.getFeature(userLocation)} toolbar={toolbar} />
   }
 
   if (slug) {

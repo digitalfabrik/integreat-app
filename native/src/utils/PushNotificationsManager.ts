@@ -3,7 +3,7 @@ import { useEffect } from 'react'
 import { Linking, Platform } from 'react-native'
 import { checkNotifications, requestNotifications, RESULTS } from 'react-native-permissions'
 
-import { LOCAL_NEWS_TYPE, NEWS_ROUTE, NonNullableRouteInformationType } from 'api-client'
+import { LOCAL_NEWS_TYPE, NEWS_ROUTE, NonNullableRouteInformationType } from 'shared'
 
 import { SnackbarType } from '../components/SnackbarContainer'
 import { RoutesType } from '../constants/NavigationTypes'
@@ -108,7 +108,6 @@ export const useForegroundPushNotificationListener = ({
         if (mounted) {
           // The CMS needs some time until the push notification is available in the API response
           setTimeout(() => {
-            // TODO #2140: Uncomment and improve snackbar
             log(JSON.stringify(message))
             // showSnackbar({
             //   text: message.notification.title,

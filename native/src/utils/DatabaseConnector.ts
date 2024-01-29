@@ -18,7 +18,9 @@ import {
   PoiModel,
   PoiCategoryModel,
   OrganizationModel,
-} from 'api-client'
+  OfferModel,
+  createPostMap,
+} from 'shared/api'
 
 import DatabaseContext from '../models/DatabaseContext'
 import {
@@ -30,7 +32,7 @@ import {
 import { deleteIfExists } from './helpers'
 import { log, reportError } from './sentry'
 
-export const CONTENT_VERSION = 'v4'
+export const CONTENT_VERSION = 'v5'
 export const RESOURCE_CACHE_VERSION = 'v1'
 
 // Our pdf view can only load from DocumentDir. Therefore we need to use that
@@ -60,6 +62,15 @@ type ContentCategoryJsonType = {
     logo: string
     url: string
   } | null
+  embedded_offers: OfferJsonType[]
+}
+
+type OfferJsonType = {
+  alias: string
+  title: string
+  path: string
+  thumbnail: string
+  post: Record<string, string> | null
 }
 type LocationJsonType<T> = {
   id: number
@@ -133,7 +144,7 @@ type ContentPoiJsonType = {
   excerpt: string
   location: LocationJsonType<number>
   lastUpdate: string
-  category: { id: number; name: string; color: string; icon: string; iconName: string } | null
+  category: { id: number; name: string; color: string; icon: string; iconName: string }
   openingHours: { allDay: boolean; closed: boolean; timeSlots: { start: string; end: string }[] }[] | null
   temporarilyClosed: boolean
 }
@@ -380,6 +391,13 @@ class DatabaseConnector {
               url: category.organization.url,
             }
           : null,
+        embedded_offers: category.embeddedOffers.map(offer => ({
+          title: offer.title,
+          alias: offer.alias,
+          thumbnail: offer.thumbnail,
+          path: offer.path,
+          post: offer.postData ? Object.fromEntries(offer.postData) : null,
+        })),
       }),
     )
     await this.writeFile(this.getContentPath('categories', context), JSON.stringify(jsonModels))
@@ -408,6 +426,16 @@ class DatabaseConnector {
                   url: jsonObject.organization.url,
                 })
               : null,
+            embeddedOffers: jsonObject.embedded_offers.map(
+              jsonOffer =>
+                new OfferModel({
+                  title: jsonOffer.title,
+                  alias: jsonOffer.alias,
+                  thumbnail: jsonOffer.thumbnail,
+                  path: jsonOffer.path,
+                  postData: jsonOffer.post ? createPostMap(jsonOffer.post) : undefined,
+                }),
+            ),
           })
         }),
       )
@@ -488,15 +516,13 @@ class DatabaseConnector {
             town: jsonLocation.town,
           }),
           lastUpdate: DateTime.fromISO(jsonObject.lastUpdate),
-          category: jsonObject.category
-            ? new PoiCategoryModel({
-                id: jsonObject.category.id,
-                name: jsonObject.category.name,
-                color: jsonObject.category.color,
-                icon: jsonObject.category.icon,
-                iconName: jsonObject.category.iconName,
-              })
-            : null,
+          category: new PoiCategoryModel({
+            id: jsonObject.category.id,
+            name: jsonObject.category.name,
+            color: jsonObject.category.color,
+            icon: jsonObject.category.icon,
+            iconName: jsonObject.category.iconName,
+          }),
           openingHours:
             jsonObject.openingHours?.map(
               hours =>

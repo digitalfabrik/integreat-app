@@ -5,13 +5,14 @@ import { Navigate, Route, Routes, useMatch } from 'react-router-dom'
 import {
   CITY_NOT_COOPERATING_ROUTE,
   cityContentPath,
+  CONSENT_ROUTE,
   JPAL_TRACKING_ROUTE,
   LANDING_ROUTE,
   LICENSES_ROUTE,
   MAIN_DISCLAIMER_ROUTE,
   NOT_FOUND_ROUTE,
   pathnameFromRouteInformation,
-} from 'api-client'
+} from 'shared'
 
 import CityContentSwitcher from './CityContentSwitcher'
 import LoadingSpinner from './components/LoadingSpinner'
@@ -19,6 +20,7 @@ import buildConfig from './constants/buildConfig'
 import useScrollToTop from './hooks/useScrollToTop'
 import { cityContentPattern, RoutePatterns } from './routes'
 import CityNotCooperatingPage from './routes/CityNotCooperatingPage'
+import ConsentPage from './routes/ConsentPage'
 import JpalTrackingPage from './routes/JpalTrackingPage'
 import lazyWithRetry from './utils/retryImport'
 
@@ -55,6 +57,7 @@ const RootSwitcher = ({ setContentLanguage }: RootSwitcherProps): ReactElement =
         <Route path={RoutePatterns[LANDING_ROUTE]} element={<LandingPage languageCode={language} />} />
         <Route path={RoutePatterns[MAIN_DISCLAIMER_ROUTE]} element={<MainDisclaimerPage languageCode={language} />} />
         <Route path={RoutePatterns[NOT_FOUND_ROUTE]} element={<NotFoundPage />} />
+        <Route path={RoutePatterns[CONSENT_ROUTE]} element={<ConsentPage languageCode={language} />} />
         <Route path={RoutePatterns[LICENSES_ROUTE]} element={<LicensesPage languageCode={language} />} />
         <Route path={cityContentPattern} element={<CityContentSwitcher languageCode={language} />} />
 

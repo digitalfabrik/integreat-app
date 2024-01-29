@@ -4,7 +4,8 @@ import { useTranslation } from 'react-i18next'
 import { View } from 'react-native'
 import styled from 'styled-components/native'
 
-import { CityModel, filterSortCities } from 'api-client'
+import { filterSortCities } from 'shared'
+import { CityModel } from 'shared/api'
 
 import buildConfig from '../constants/buildConfig'
 import CityEntry from './CityEntry'

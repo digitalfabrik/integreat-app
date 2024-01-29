@@ -2,7 +2,8 @@ import { TFunction } from 'i18next'
 import React from 'react'
 import { ThemeProvider } from 'styled-components'
 
-import { LOCAL_NEWS_TYPE, TU_NEWS_TYPE } from 'api-client'
+import { LOCAL_NEWS_TYPE, TU_NEWS_TYPE } from 'shared'
+import { UiDirectionType } from 'translations'
 
 import buildConfig from '../../constants/buildConfig'
 import { renderWithRouter } from '../../testing/render'
@@ -15,10 +16,11 @@ describe('NewsTab', () => {
   const active = true
   const destination = '/testcity/en/news/local'
   const t = ((key: string) => key) as TFunction
+  const theme = { ...buildConfig().lightTheme, contentDirection: 'ltr' as UiDirectionType }
 
   it('should render the local news tab', () => {
     const { getByText, queryByLabelText } = renderWithRouter(
-      <ThemeProvider theme={buildConfig().lightTheme}>
+      <ThemeProvider theme={theme}>
         <NewsTab type={LOCAL_NEWS_TYPE} active={active} destination={destination} t={t} />
       </ThemeProvider>,
     )
@@ -28,7 +30,7 @@ describe('NewsTab', () => {
 
   it('should render the tünews news tab', () => {
     const { queryByText, getByLabelText } = renderWithRouter(
-      <ThemeProvider theme={buildConfig().lightTheme}>
+      <ThemeProvider theme={theme}>
         <NewsTab type={TU_NEWS_TYPE} active={active} destination={destination} t={t} />
       </ThemeProvider>,
     )

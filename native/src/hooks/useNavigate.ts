@@ -10,6 +10,7 @@ import {
   JPAL_TRACKING_ROUTE,
   LANDING_ROUTE,
   LICENSES_ROUTE,
+  MALTE_HELP_FORM_OFFER_ROUTE,
   NEWS_ROUTE,
   OFFERS_ROUTE,
   OPEN_PAGE_SIGNAL_NAME,
@@ -17,7 +18,7 @@ import {
   RouteInformationType,
   SEARCH_ROUTE,
   SPRUNGBRETT_OFFER_ROUTE,
-} from 'api-client'
+} from 'shared'
 
 import { SnackbarType } from '../components/SnackbarContainer'
 import { NavigationProps, RoutesType } from '../constants/NavigationTypes'
@@ -67,7 +68,6 @@ const navigate = <T extends RoutesType>(
     if (buildConfig().featureFlags.jpalTracking) {
       navigation.push(JPAL_TRACKING_ROUTE)
     }
-
     return
   }
 

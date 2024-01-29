@@ -3,7 +3,8 @@ import { ReactElement, useContext, useState } from 'react'
 import { View } from 'react-native'
 import { ThemeContext } from 'styled-components'
 
-import { ErrorCode, ImageViewModalRouteType } from 'api-client'
+import { ImageViewModalRouteType } from 'shared'
+import { ErrorCode } from 'shared/api'
 
 import Failure from '../components/Failure'
 import PinchPanImage from '../components/PinchPanImage'

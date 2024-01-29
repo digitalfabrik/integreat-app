@@ -4,6 +4,8 @@ import React, { ReactElement } from 'react'
 import { createMemoryRouter, MemoryRouter, RouterProvider } from 'react-router-dom'
 import { ThemeProvider } from 'styled-components'
 
+import { UiDirectionType } from 'translations'
+
 import buildConfig from '../constants/buildConfig'
 
 type RenderRouteOptions = {
@@ -11,9 +13,11 @@ type RenderRouteOptions = {
   routePattern: string
 }
 
+const theme = { ...buildConfig().lightTheme, contentDirection: 'ltr' as UiDirectionType }
+
 const AllTheProviders = ({ children, options }: { children: ReactElement; options?: { pathname: string } }) => (
   <MemoryRouter initialEntries={options ? [options.pathname] : ['/']}>
-    <ThemeProvider theme={buildConfig().lightTheme}>{children}</ThemeProvider>
+    <ThemeProvider theme={theme}>{children}</ThemeProvider>
   </MemoryRouter>
 )
 
@@ -21,7 +25,7 @@ export const renderWithRouterAndTheme = (ui: ReactElement, options?: { pathname:
   render(ui, { wrapper: (props: { children: ReactElement }) => <AllTheProviders {...props} options={options} /> })
 
 export const renderWithTheme = (ui: ReactElement): RenderResult =>
-  render(<ThemeProvider theme={buildConfig().lightTheme}>{ui}</ThemeProvider>)
+  render(<ThemeProvider theme={theme}>{ui}</ThemeProvider>)
 
 export const renderWithRouter = (ui: ReactElement): RenderResult => render(ui, { wrapper: MemoryRouter })
 

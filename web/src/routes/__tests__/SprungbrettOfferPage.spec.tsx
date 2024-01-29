@@ -2,21 +2,15 @@ import { RenderResult } from '@testing-library/react'
 import { mocked } from 'jest-mock'
 import React from 'react'
 
-import {
-  CityModelBuilder,
-  OffersModelBuilder,
-  pathnameFromRouteInformation,
-  SPRUNGBRETT_OFFER_ROUTE,
-  SprungbrettJobModel,
-  useLoadAsync,
-} from 'api-client'
+import { pathnameFromRouteInformation, SPRUNGBRETT_OFFER_ROUTE } from 'shared'
+import { CityModelBuilder, OffersModelBuilder, SprungbrettJobModel, useLoadAsync } from 'shared/api'
 
 import { renderRoute } from '../../testing/render'
 import SprungbrettOfferPage from '../SprungbrettOfferPage'
 import { RoutePatterns } from '../index'
 
-jest.mock('api-client', () => ({
-  ...jest.requireActual('api-client'),
+jest.mock('shared/api', () => ({
+  ...jest.requireActual('shared/api'),
   useLoadAsync: jest.fn(),
 }))
 jest.mock('react-inlinesvg')

@@ -2,7 +2,7 @@ import { NavigationContainer } from '@react-navigation/native'
 import { fireEvent } from '@testing-library/react-native'
 import React from 'react'
 
-import { CATEGORIES_ROUTE, SEND_FEEDBACK_SIGNAL_NAME, SEARCH_ROUTE } from 'api-client'
+import { CATEGORIES_ROUTE, SEND_FEEDBACK_SIGNAL_NAME, SEARCH_ROUTE } from 'shared'
 
 import render from '../../testing/render'
 import sendTrackingSignal from '../../utils/sendTrackingSignal'
@@ -14,8 +14,8 @@ const mockRequest = jest.fn(() => {
 jest.mock('styled-components')
 jest.mock('react-i18next')
 jest.mock('../../utils/sendTrackingSignal')
-jest.mock('api-client', () => ({
-  ...jest.requireActual('api-client'),
+jest.mock('shared/api', () => ({
+  ...jest.requireActual('shared/api'),
   createFeedbackEndpoint: (_unusedBaseUrl: string) => ({
     request: mockRequest,
   }),

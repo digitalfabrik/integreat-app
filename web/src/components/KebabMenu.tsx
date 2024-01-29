@@ -2,8 +2,6 @@ import React, { ReactElement, ReactNode } from 'react'
 import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
 
-import { UiDirectionType } from 'translations'
-
 import { CloseIcon, MenuIcon } from '../assets'
 import dimensions from '../constants/dimensions'
 import useLockedBody from '../hooks/useLockedBody'
@@ -14,7 +12,6 @@ import Icon from './base/Icon'
 
 type KebabMenuProps = {
   items: Array<ReactNode>
-  direction: UiDirectionType
   show: boolean
   setShow: (show: boolean) => void
   Footer: ReactNode
@@ -26,7 +23,7 @@ const ToggleContainer = styled.div`
   z-index: 50;
 `
 
-const List = styled.div<{ direction: UiDirectionType; show: boolean }>`
+const List = styled.div<{ show: boolean }>`
   font-family: ${props => props.theme.fonts.web.decorativeFont};
   position: absolute;
   top: 0;
@@ -40,8 +37,9 @@ const List = styled.div<{ direction: UiDirectionType; show: boolean }>`
   transform-origin: 0 0;
   transition: transform 0.5s cubic-bezier(0.77, 0.2, 0.05, 1);
   z-index: 40;
-  ${props => (props.direction === 'rtl' ? `left: 0;` : `right:0;`)}
-  ${props => (props.direction === 'rtl' ? `transform: translate(-100%, 0);` : `transform: translate(100%, 0);`)}
+  ${props => (props.theme.contentDirection === 'rtl' ? `left: 0;` : `right:0;`)}
+  ${props =>
+    props.theme.contentDirection === 'rtl' ? `transform: translate(-100%, 0);` : `transform: translate(100%, 0);`}
   ${props => props.show && `opacity: 1;transform: none;`}
   display: flex;
   flex-direction: column;
@@ -58,9 +56,9 @@ const Overlay = styled.div<{ show: boolean }>`
   display: ${props => (props.show ? `block` : `none`)};
 `
 
-const Heading = styled.div<{ direction: string }>`
+const Heading = styled.div`
   display: flex;
-  justify-content: ${props => (props.direction === 'rtl' ? `flex-start` : `flex-end`)};
+  justify-content: ${props => (props.theme.contentDirection === 'rtl' ? `flex-start` : `flex-end`)};
   background-color: ${props => props.theme.colors.backgroundAccentColor};
   box-shadow: -3px 3px 3px 0 rgb(0 0 0 / 13%);
   height: ${dimensions.headerHeightSmall}px;
@@ -76,7 +74,7 @@ const StyledIcon = styled(Icon)`
   height: 28px;
 `
 
-const KebabMenu = ({ items, direction, show, setShow, Footer }: KebabMenuProps): ReactElement | null => {
+const KebabMenu = ({ items, show, setShow, Footer }: KebabMenuProps): ReactElement | null => {
   useLockedBody(show)
   const { t } = useTranslation('layout')
 
@@ -103,8 +101,8 @@ const KebabMenu = ({ items, direction, show, setShow, Footer }: KebabMenuProps):
         {/* disabled because this is an overlay for backdrop close */}
         {/* eslint-disable-next-line styled-components-a11y/no-static-element-interactions,styled-components-a11y/click-events-have-key-events */}
         <Overlay onClick={onClick} show={show} />
-        <List direction={direction} show={show}>
-          <Heading direction={direction}>
+        <List show={show}>
+          <Heading>
             <Button onClick={onClick} ariaLabel={t('sideBarCloseAriaLabel')}>
               <Icon src={CloseIcon} />
             </Button>

@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 
-import { CategoriesRouteType, EventsRouteType, NewsRouteType, PoisRouteType } from 'api-client'
+import { CategoriesRouteType, EventsRouteType, NewsRouteType, PoisRouteType } from 'shared'
 
 import { NavigationProps } from '../constants/NavigationTypes'
 

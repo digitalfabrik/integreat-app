@@ -2,7 +2,7 @@
 import * as Sentry from '@sentry/react-native'
 import { SeverityLevel } from '@sentry/types'
 
-import { FetchError, NotFoundError } from 'api-client'
+import { FetchError, NotFoundError } from 'shared/api'
 
 import buildConfig from '../constants/buildConfig'
 

@@ -1,6 +1,6 @@
 import { useCallback } from 'react'
 
-import { useLoadAsync } from 'api-client'
+import { useLoadAsync } from 'shared/api'
 
 import { LanguageResourceCacheStateType } from '../utils/DataContainer'
 import dataContainer from '../utils/DefaultDataContainer'

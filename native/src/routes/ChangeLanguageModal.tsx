@@ -1,7 +1,7 @@
 import React, { ReactElement, useContext } from 'react'
 import styled from 'styled-components/native'
 
-import { ChangeLanguageModalRouteType } from 'api-client'
+import { ChangeLanguageModalRouteType } from 'shared'
 
 import Selector from '../components/Selector'
 import { NavigationProps, RouteProps } from '../constants/NavigationTypes'

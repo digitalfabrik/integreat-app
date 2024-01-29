@@ -1,7 +1,7 @@
 import { DateTime } from 'luxon'
 import React from 'react'
 
-import { CategoryModel } from 'api-client'
+import { CategoryModel } from 'shared/api'
 
 import { renderWithRouterAndTheme } from '../../testing/render'
 import SearchListItem from '../SearchListItem'
@@ -22,6 +22,7 @@ const categoryParams = {
   thumbnail: 'https://cms.integreat-ap…03/Beratung-150x150.png',
   lastUpdate: DateTime.fromISO('2017-11-18T19:30:00.000Z'),
   organization: null,
+  embeddedOffers: [],
 }
 
 const category = new CategoryModel(categoryParams)

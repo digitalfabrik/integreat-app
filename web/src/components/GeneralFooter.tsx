@@ -1,7 +1,7 @@
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { LICENSES_ROUTE, MAIN_DISCLAIMER_ROUTE } from 'api-client'
+import { LICENSES_ROUTE, MAIN_DISCLAIMER_ROUTE } from 'shared'
 
 import buildConfig from '../constants/buildConfig'
 import { RoutePatterns } from '../routes'

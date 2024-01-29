@@ -3,19 +3,17 @@ import React, { ReactElement, useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Link, Navigate, useParams } from 'react-router-dom'
 
+import { CATEGORIES_ROUTE, cityContentPath } from 'shared'
 import {
-  CATEGORIES_ROUTE,
   CategoriesMapModel,
   CategoryModel,
-  cityContentPath,
   createCategoryChildrenEndpoint,
   createCategoryParentsEndpoint,
   NotFoundError,
   ResponseError,
   useLoadAsync,
   useLoadFromEndpoint,
-} from 'api-client'
-import { config } from 'translations'
+} from 'shared/api'
 
 import { CityRouteProps } from '../CityContentSwitcher'
 import Breadcrumbs from '../components/Breadcrumbs'
@@ -49,7 +47,6 @@ const CategoriesPage = ({ city, pathname, cityCode, languageCode }: CityRoutePro
   const previousPathname = usePreviousProp({ prop: pathname })
   const categoryId = useParams()['*']
   const { t } = useTranslation('layout')
-  const uiDirection = config.getScriptDirection(languageCode)
 
   const {
     data: categories,
@@ -100,6 +97,7 @@ const CategoriesPage = ({ city, pathname, cityCode, languageCode }: CityRoutePro
         availableLanguages: new Map(),
         lastUpdate: DateTime.fromMillis(0),
         organization: null,
+        embeddedOffers: [],
       }),
     )
   }
@@ -175,12 +173,16 @@ const CategoriesPage = ({ city, pathname, cityCode, languageCode }: CityRoutePro
         languageChangePaths={languageChangePaths}
         cityModel={city}
       />
-      <Breadcrumbs
-        ancestorBreadcrumbs={ancestorBreadcrumbs}
-        currentBreadcrumb={getBreadcrumb(category, city.name)}
-        direction={uiDirection}
+      <Breadcrumbs ancestorBreadcrumbs={ancestorBreadcrumbs} currentBreadcrumb={getBreadcrumb(category, city.name)} />
+      <CategoriesContent
+        city={city}
+        cityCode={cityCode}
+        pathname={pathname}
+        languageCode={languageCode}
+        categories={new CategoriesMapModel(categories)}
+        categoryModel={category}
+        t={t}
       />
-      <CategoriesContent categories={new CategoriesMapModel(categories)} categoryModel={category} t={t} />
     </CityContentLayout>
   )
 }

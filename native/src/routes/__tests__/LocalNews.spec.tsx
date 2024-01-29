@@ -5,15 +5,8 @@ import { DateTime } from 'luxon'
 import React from 'react'
 import { Text } from 'react-native'
 
-import {
-  CategoriesMapModelBuilder,
-  CityModelBuilder,
-  LanguageModelBuilder,
-  LOCAL_NEWS_TYPE,
-  LocalNewsModel,
-  NEWS_ROUTE,
-  NewsRouteType,
-} from 'api-client'
+import { LOCAL_NEWS_TYPE, NEWS_ROUTE, NewsRouteType } from 'shared'
+import { LanguageModelBuilder, CategoriesMapModelBuilder, CityModelBuilder, LocalNewsModel } from 'shared/api'
 
 import useNavigate from '../../hooks/useNavigate'
 import createNavigationScreenPropMock from '../../testing/createNavigationPropMock'
