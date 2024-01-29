@@ -1,7 +1,6 @@
+import { CategoryModel } from 'api-client'
 import { DateTime } from 'luxon'
 import React from 'react'
-
-import { CategoryModel } from 'api-client'
 
 import { cmsApiBaseUrl } from '../../constants/urls'
 import { renderWithTheme } from '../../testing/render'
