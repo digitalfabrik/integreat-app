@@ -4,5 +4,5 @@ platforms:
   - web
   - ios
   - android
-en: Fixed displaying of next date of an event if its near.
+en: Fixed displaying of next date of an event if it's soon.
 de: Anzeige von baldigen Terminen behoben.
