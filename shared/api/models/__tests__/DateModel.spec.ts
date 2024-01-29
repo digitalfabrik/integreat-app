@@ -3,7 +3,7 @@ import { rrulestr } from 'rrule'
 
 import DateModel from '../DateModel'
 
-jest.useFakeTimers({ now: new Date('2023-10-02T15:23:57.443+02:00') })
+jest.useFakeTimers({ now: new Date('2023-10-09T15:23:57.443+02:00') })
 describe('DateModel', () => {
   const locales = ['de', 'en', 'fr', 'ar', 'fa', 'ru']
 
@@ -100,8 +100,8 @@ describe('DateModel', () => {
 
     it('should return true if event starts on the current day', () => {
       const date = new DateModel({
-        startDate: DateTime.fromISO('2023-10-02T20:00:00.000+02:00'),
-        endDate: DateTime.fromISO('2023-10-04T07:00:00.000+02:00'),
+        startDate: DateTime.fromISO('2023-10-09T20:00:00.000+02:00'),
+        endDate: DateTime.fromISO('2023-10-11T07:00:00.000+02:00'),
         allDay: false,
         recurrenceRule: null,
       })
@@ -111,8 +111,8 @@ describe('DateModel', () => {
 
     it('should return true if event ends on the current day', () => {
       const date = new DateModel({
-        startDate: DateTime.fromISO('2023-10-01T07:00:00.000+02:00'),
-        endDate: DateTime.fromISO('2023-10-02T18:00:00.000+02:00'),
+        startDate: DateTime.fromISO('2023-10-08T07:00:00.000+02:00'),
+        endDate: DateTime.fromISO('2023-10-09T18:00:00.000+02:00'),
         allDay: false,
         recurrenceRule: null,
       })
@@ -122,8 +122,8 @@ describe('DateModel', () => {
 
     it('should return true if event started before and ends after the current day', () => {
       const date = new DateModel({
-        startDate: DateTime.fromISO('2023-10-01T07:00:00.000+02:00'),
-        endDate: DateTime.fromISO('2023-10-04T07:00:00.000+02:00'),
+        startDate: DateTime.fromISO('2023-10-08T07:00:00.000+02:00'),
+        endDate: DateTime.fromISO('2023-10-11T07:00:00.000+02:00'),
         allDay: false,
         recurrenceRule: null,
       })
