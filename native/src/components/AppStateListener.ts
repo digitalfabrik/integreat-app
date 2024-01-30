@@ -1,7 +1,7 @@
 import { ReactElement, useEffect } from 'react'
 import { AppState } from 'react-native'
 
-import { RESUME_SIGNAL_NAME, SUSPEND_SIGNAL_NAME } from 'api-client'
+import { RESUME_SIGNAL_NAME, SUSPEND_SIGNAL_NAME } from 'shared'
 
 import sendTrackingSignal from '../utils/sendTrackingSignal'
 

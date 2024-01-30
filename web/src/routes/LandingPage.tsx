@@ -1,7 +1,7 @@
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { createCitiesEndpoint, useLoadFromEndpoint } from 'api-client'
+import { createCitiesEndpoint, useLoadFromEndpoint } from 'shared/api'
 
 import CityNotCooperatingFooter from '../components/CityNotCooperatingFooter'
 import CitySelector from '../components/CitySelector'

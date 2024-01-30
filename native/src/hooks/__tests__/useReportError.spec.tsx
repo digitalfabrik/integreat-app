@@ -1,7 +1,7 @@
 import { render } from '@testing-library/react-native'
 import React from 'react'
 
-import { MappingError } from 'api-client'
+import { MappingError } from 'shared/api'
 
 import { reportError } from '../../utils/sentry'
 import useReportError from '../useReportError'

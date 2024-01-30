@@ -1,7 +1,7 @@
 import { TFunction } from 'i18next'
 
-import { ExternalSourcePermissions } from 'api-client'
 import { ThemeType } from 'build-configs'
+import { ExternalSourcePermissions } from 'shared'
 
 import { ParsedCacheDictionaryType } from '../components/Page'
 import {

@@ -2,7 +2,7 @@ import { TFunction } from 'i18next'
 import { DateTime } from 'luxon'
 import React from 'react'
 
-import { getExcerpt, LOCAL_NEWS_TYPE } from 'api-client'
+import { getExcerpt, LOCAL_NEWS_TYPE } from 'shared'
 
 import { EXCERPT_MAX_CHARS } from '../../constants'
 import { renderWithRouterAndTheme } from '../../testing/render'

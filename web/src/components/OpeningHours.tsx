@@ -3,7 +3,8 @@ import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
 
-import { OpeningHoursModel, weekdays } from 'api-client'
+import { weekdays } from 'shared'
+import { OpeningHoursModel } from 'shared/api'
 
 import { helpers } from '../constants/theme'
 import Collapsible from './Collapsible'

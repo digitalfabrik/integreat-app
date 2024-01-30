@@ -3,15 +3,8 @@ import { useTranslation } from 'react-i18next'
 import { GeolocateControl, NavigationControl } from 'react-map-gl'
 import styled, { useTheme } from 'styled-components'
 
-import {
-  CityModel,
-  embedInCollection,
-  GeoJsonPoi,
-  LocationType,
-  MapViewViewport,
-  MapFeature,
-  PoiModel,
-} from 'api-client'
+import { embedInCollection, GeoJsonPoi, LocationType, MapViewViewport, MapFeature } from 'shared'
+import { CityModel, PoiModel } from 'shared/api'
 
 import dimensions from '../constants/dimensions'
 import useMapFeatures from '../hooks/useMapFeatures'

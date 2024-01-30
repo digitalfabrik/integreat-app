@@ -1,6 +1,6 @@
 import { useCallback } from 'react'
 
-import { CityModel, createCitiesEndpoint, fromError, ReturnType, useLoadAsync } from 'api-client'
+import { CityModel, createCitiesEndpoint, ReturnType, useLoadAsync, fromError } from 'shared/api'
 
 import { SnackbarType } from '../components/SnackbarContainer'
 import dataContainer from '../utils/DefaultDataContainer'

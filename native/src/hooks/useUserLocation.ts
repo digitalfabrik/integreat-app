@@ -3,7 +3,7 @@ import { useCallback, useEffect, useState } from 'react'
 import { openSettings, RESULTS } from 'react-native-permissions'
 import SystemSetting from 'react-native-system-setting'
 
-import { LocationStateType, UnavailableLocationState } from 'api-client'
+import { LocationStateType, UnavailableLocationState } from 'shared'
 
 import { checkLocationPermission, requestLocationPermission } from '../utils/LocationPermissionManager'
 

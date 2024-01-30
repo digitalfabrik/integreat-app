@@ -3,7 +3,8 @@ import { useTranslation } from 'react-i18next'
 import Highlighter from 'react-native-highlight-words'
 import styled, { useTheme } from 'styled-components/native'
 
-import { CategoryModel, getExcerpt, normalizeString } from 'api-client'
+import { getExcerpt, normalizeString } from 'shared'
+import { CategoryModel } from 'shared/api'
 
 import { SEARCH_PREVIEW_MAX_CHARS } from '../constants'
 import { contentDirection } from '../constants/contentDirection'

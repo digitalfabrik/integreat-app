@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next'
 import { SectionList, SectionListData } from 'react-native'
 import styled from 'styled-components/native'
 
-import { SettingsRouteType } from 'api-client'
+import { SettingsRouteType } from 'shared'
 
 import Caption from '../components/Caption'
 import Layout from '../components/Layout'

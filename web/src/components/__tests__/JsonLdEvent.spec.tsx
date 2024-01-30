@@ -1,6 +1,6 @@
 import { DateTime } from 'luxon'
 
-import { DateModel, EventModel, FeaturedImageModel, LocationModel } from 'api-client'
+import { DateModel, EventModel, FeaturedImageModel, LocationModel } from 'shared/api'
 
 import { createJsonLd } from '../JsonLdEvent'
 

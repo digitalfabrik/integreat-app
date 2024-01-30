@@ -2,12 +2,8 @@ import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router-dom'
 
-import {
-  createDisclaimerEndpoint,
-  DISCLAIMER_ROUTE,
-  pathnameFromRouteInformation,
-  useLoadFromEndpoint,
-} from 'api-client'
+import { DISCLAIMER_ROUTE, pathnameFromRouteInformation } from 'shared'
+import { createDisclaimerEndpoint, useLoadFromEndpoint } from 'shared/api'
 
 import { CityRouteProps } from '../CityContentSwitcher'
 import CityContentLayout, { CityContentLayoutProps } from '../components/CityContentLayout'

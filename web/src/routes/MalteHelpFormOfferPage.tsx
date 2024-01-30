@@ -1,14 +1,8 @@
 import React, { Fragment, PropsWithChildren, ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import {
-  pathnameFromRouteInformation,
-  getSlugFromPath,
-  MALTE_HELP_FORM_OFFER_ROUTE,
-  useLoadFromEndpoint,
-  createOffersEndpoint,
-  NotFoundError,
-} from 'api-client'
+import { getSlugFromPath, MALTE_HELP_FORM_OFFER_ROUTE } from 'shared'
+import { NotFoundError, useLoadFromEndpoint, createOffersEndpoint } from 'shared/api'
 
 import { CityRouteProps } from '../CityContentSwitcher'
 import Caption from '../components/Caption'
@@ -42,17 +36,11 @@ const MalteHelpFormOfferPage = ({
     return null
   }
 
-  const languageChangePaths = city.languages.map(({ code, name }) => ({
-    path: pathnameFromRouteInformation({ route: MALTE_HELP_FORM_OFFER_ROUTE, cityCode, languageCode: code }),
-    name,
-    code,
-  }))
-
   const pageTitle = `${helpButtonOffer?.title ?? t('offers')} - ${city.name}`
   const feedbackTarget = helpButtonOffer ? getSlugFromPath(helpButtonOffer.path) : undefined
   const locationLayoutParams: Omit<CityContentLayoutProps, 'isLoading'> = {
     city,
-    languageChangePaths,
+    languageChangePaths: [],
     route: MALTE_HELP_FORM_OFFER_ROUTE,
     languageCode,
     Toolbar: (
@@ -96,7 +84,7 @@ const MalteHelpFormOfferPage = ({
 
   return (
     <Wrapper>
-      {!embedded && <Helmet pageTitle={pageTitle} languageChangePaths={languageChangePaths} cityModel={city} />}
+      {!embedded && <Helmet pageTitle={pageTitle} languageChangePaths={[]} cityModel={city} />}
       {!embedded && <Caption title={helpButtonOffer.title} />}
       <MalteHelpForm cityCode={cityCode} languageCode={languageCode} helpButtonOffer={helpButtonOffer} />
     </Wrapper>

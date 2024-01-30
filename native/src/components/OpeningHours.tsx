@@ -4,7 +4,8 @@ import { useTranslation } from 'react-i18next'
 import { Text } from 'react-native'
 import styled from 'styled-components/native'
 
-import { OpeningHoursModel, weekdays } from 'api-client'
+import { weekdays } from 'shared'
+import { OpeningHoursModel } from 'shared/api'
 
 import { contentDirection } from '../constants/contentDirection'
 import Collapsible from './Collapsible'

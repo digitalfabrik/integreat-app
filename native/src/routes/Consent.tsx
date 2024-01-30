@@ -2,7 +2,7 @@ import React, { ReactElement, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import styled from 'styled-components/native'
 
-import { ExternalSourcePermissions } from 'api-client'
+import { ExternalSourcePermissions } from 'shared'
 
 import Caption from '../components/Caption'
 import ConsentSection from '../components/ConsentSection'

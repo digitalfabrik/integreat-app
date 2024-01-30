@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next'
 import { SvgUri } from 'react-native-svg'
 import styled from 'styled-components/native'
 
-import { PoiCategoryModel, PoiModel } from 'api-client'
+import { PoiCategoryModel, PoiModel } from 'shared/api'
 
 import { ClockIcon } from '../assets'
 import Modal from './Modal'

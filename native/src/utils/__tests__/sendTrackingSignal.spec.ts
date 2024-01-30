@@ -1,7 +1,8 @@
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { mocked } from 'jest-mock'
 
-import { createTrackingEndpoint, CATEGORIES_ROUTE, FetchError, OPEN_PAGE_SIGNAL_NAME } from 'api-client'
+import { CATEGORIES_ROUTE, OPEN_PAGE_SIGNAL_NAME } from 'shared'
+import { createTrackingEndpoint, FetchError } from 'shared/api'
 
 import buildConfig from '../../constants/buildConfig'
 import appSettings from '../AppSettings'
@@ -9,8 +10,8 @@ import sendTrackingSignal, { sendRequest, setSystemLanguage } from '../sendTrack
 import { reportError } from '../sentry'
 
 jest.mock('../sentry')
-jest.mock('api-client', () => ({
-  ...jest.requireActual('api-client'),
+jest.mock('shared/api', () => ({
+  ...jest.requireActual('shared/api'),
   createTrackingEndpoint: jest.fn(() => ({
     request: jest.fn(),
   })),

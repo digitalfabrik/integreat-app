@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next'
 import { Alert, Text } from 'react-native'
 import styled from 'styled-components/native'
 
-import { JpalTrackingRouteType } from 'api-client'
+import { JpalTrackingRouteType } from 'shared'
 
 import Caption from '../components/Caption'
 import Layout from '../components/Layout'

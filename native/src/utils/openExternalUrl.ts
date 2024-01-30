@@ -2,7 +2,7 @@ import { Linking } from 'react-native'
 import InAppBrowser from 'react-native-inappbrowser-reborn'
 import URL from 'url-parse'
 
-import { OPEN_EXTERNAL_LINK_SIGNAL_NAME, OPEN_OS_LINK_SIGNAL_NAME } from 'api-client'
+import { OPEN_EXTERNAL_LINK_SIGNAL_NAME, OPEN_OS_LINK_SIGNAL_NAME } from 'shared'
 
 import { SnackbarType } from '../components/SnackbarContainer'
 import buildConfig from '../constants/buildConfig'

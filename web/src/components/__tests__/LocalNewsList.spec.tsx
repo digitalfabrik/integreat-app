@@ -2,7 +2,8 @@ import { TFunction } from 'i18next'
 import { DateTime } from 'luxon'
 import React from 'react'
 
-import { LOCAL_NEWS_TYPE, LocalNewsModel } from 'api-client'
+import { LOCAL_NEWS_TYPE } from 'shared'
+import { LocalNewsModel } from 'shared/api'
 
 import { renderWithRouterAndTheme } from '../../testing/render'
 import LocalNewsList from '../LocalNewsList'

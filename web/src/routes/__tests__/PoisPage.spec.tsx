@@ -2,11 +2,12 @@ import { fireEvent } from '@testing-library/react'
 import React from 'react'
 import { Route, Routes } from 'react-router-dom'
 
-import { cityContentPath, CityModelBuilder, PoiModelBuilder, POIS_ROUTE } from 'api-client'
+import { cityContentPath, POIS_ROUTE } from 'shared'
+import { CityModelBuilder, PoiModelBuilder } from 'shared/api'
 import {
   mockUseLoadFromEndpointWithData,
   mockUseLoadFromEndpointWithError,
-} from 'api-client/src/testing/mockUseLoadFromEndpoint'
+} from 'shared/api/endpoints/testing/mockUseLoadFromEndpoint'
 
 import { renderWithRouterAndTheme } from '../../testing/render'
 import PoisPage from '../PoisPage'
@@ -15,8 +16,8 @@ import { RoutePatterns } from '../index'
 jest.mock('react-inlinesvg')
 jest.mock('react-i18next')
 jest.mock('../../utils/getUserLocation', () => async () => ({ status: 'ready', coordinates: [10.8, 48.3] }))
-jest.mock('api-client', () => ({
-  ...jest.requireActual('api-client'),
+jest.mock('shared/api', () => ({
+  ...jest.requireActual('shared/api'),
   useLoadFromEndpoint: jest.fn(),
 }))
 

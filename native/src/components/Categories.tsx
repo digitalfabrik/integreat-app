@@ -1,17 +1,15 @@
 import React, { ReactElement } from 'react'
 import { View } from 'react-native'
 
-import { CategoriesMapModel, CategoryModel, CityModel } from 'api-client'
-import { CATEGORIES_ROUTE } from 'api-client/src/routes'
-import { RouteInformationType } from 'api-client/src/routes/RouteInformationTypes'
+import { CATEGORIES_ROUTE, RouteInformationType } from 'shared'
+import { CategoriesMapModel, CategoryModel, CityModel } from 'shared/api'
 
 import { URL_PREFIX } from '../constants/webview'
-import { EmbeddedOffersReturn } from '../hooks/useLoadEmbeddedOffers'
 import TileModel from '../models/TileModel'
 import testID from '../testing/testID'
 import { LanguageResourceCacheStateType, PageResourceCacheStateType } from '../utils/DataContainer'
 import CategoryListItem from './CategoryListItem'
-import EmbeddedOffer from './EmbeddedOffer'
+import EmbeddedOffers from './EmbeddedOffers'
 import List from './List'
 import OrganizationContentInfo from './OrganizationContentInfo'
 import Page from './Page'
@@ -22,9 +20,9 @@ export type CategoriesProps = {
   language: string
   categories: CategoriesMapModel
   category: CategoryModel
-  embeddedOffers: EmbeddedOffersReturn
   navigateTo: (routeInformation: RouteInformationType) => void
   resourceCache: LanguageResourceCacheStateType
+  goBack: () => void
 }
 
 export const getCachedThumbnail = (category: CategoryModel, resourceCache: PageResourceCacheStateType): string => {
@@ -47,8 +45,8 @@ const Categories = ({
   navigateTo,
   categories,
   category,
-  embeddedOffers,
   resourceCache,
+  goBack,
 }: CategoriesProps): ReactElement => {
   const children = categories.getChildren(category)
 
@@ -101,7 +99,12 @@ const Categories = ({
             scrollEnabled={false}
           />
         ) : (
-          <EmbeddedOffer embeddedOffers={embeddedOffers} languageCode={language} />
+          <EmbeddedOffers
+            embeddedOffers={category.embeddedOffers}
+            cityCode={cityModel.code}
+            languageCode={language}
+            goBack={goBack}
+          />
         )
       }
     />

@@ -1,7 +1,7 @@
 import React, { ReactElement, useState } from 'react'
 import styled from 'styled-components'
 
-import { openStreeMapCopyright } from 'api-client'
+import { openStreeMapCopyright } from 'shared'
 
 import CleanLink from './CleanLink'
 import Button from './base/Button'

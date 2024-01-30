@@ -1,7 +1,7 @@
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { fromPairs, mapValues, toPairs } from 'lodash'
 
-import { SignalType, ExternalSourcePermissions } from 'api-client'
+import { SignalType, ExternalSourcePermissions } from 'shared'
 
 export const ASYNC_STORAGE_VERSION = '1'
 export type SettingsType = {

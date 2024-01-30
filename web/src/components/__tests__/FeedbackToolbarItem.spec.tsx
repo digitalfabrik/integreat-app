@@ -1,14 +1,14 @@
 import { fireEvent } from '@testing-library/react'
 import React, { ReactElement } from 'react'
 
-import { CATEGORIES_ROUTE } from 'api-client'
+import { CATEGORIES_ROUTE } from 'shared'
 
 import { renderWithRouterAndTheme } from '../../testing/render'
 import FeedbackToolbarItem from '../FeedbackToolbarItem'
 
 jest.mock('react-i18next')
-jest.mock('api-client', () => ({
-  ...jest.requireActual('api-client'),
+jest.mock('shared/api', () => ({
+  ...jest.requireActual('shared/api'),
   createFeedbackEndpoint: () => ({
     request: () => undefined,
   }),

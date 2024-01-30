@@ -2,7 +2,7 @@ import { TFunction } from 'i18next'
 import { mocked } from 'jest-mock'
 import { openSettings } from 'react-native-permissions'
 
-import { SettingsRouteType } from 'api-client'
+import { SettingsRouteType } from 'shared'
 
 import createNavigationScreenPropMock from '../../testing/createNavigationPropMock'
 import { defaultSettings, SettingsType } from '../AppSettings'

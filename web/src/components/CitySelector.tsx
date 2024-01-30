@@ -3,7 +3,8 @@ import React, { ReactElement, ReactNode, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
 
-import { CityModel, filterSortCities } from 'api-client'
+import { filterSortCities } from 'shared'
+import { CityModel } from 'shared/api'
 
 import buildConfig from '../constants/buildConfig'
 import CityEntry from './CityEntry'

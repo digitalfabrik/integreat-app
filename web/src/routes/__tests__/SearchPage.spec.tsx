@@ -2,15 +2,9 @@ import { fireEvent, waitFor } from '@testing-library/react'
 import { DateTime } from 'luxon'
 import React from 'react'
 
-import {
-  CategoriesMapModel,
-  CategoriesMapModelBuilder,
-  CategoryModel,
-  CityModelBuilder,
-  pathnameFromRouteInformation,
-  SEARCH_ROUTE,
-} from 'api-client'
-import { mockUseLoadFromEndpointWithData } from 'api-client/src/testing/mockUseLoadFromEndpoint'
+import { pathnameFromRouteInformation, SEARCH_ROUTE } from 'shared'
+import { CategoriesMapModelBuilder, CityModelBuilder, CategoriesMapModel, CategoryModel } from 'shared/api'
+import { mockUseLoadFromEndpointWithData } from 'shared/api/endpoints/testing/mockUseLoadFromEndpoint'
 
 import { renderRoute } from '../../testing/render'
 import SearchPage from '../SearchPage'
@@ -18,8 +12,8 @@ import { RoutePatterns } from '../index'
 
 jest.mock('react-inlinesvg')
 jest.mock('react-i18next')
-jest.mock('api-client', () => ({
-  ...jest.requireActual('api-client'),
+jest.mock('shared/api', () => ({
+  ...jest.requireActual('shared/api'),
   useLoadFromEndpoint: jest.fn(),
 }))
 

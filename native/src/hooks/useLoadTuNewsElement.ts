@@ -1,6 +1,6 @@
 import { useCallback } from 'react'
 
-import { createTunewsElementEndpoint, ReturnType, TunewsModel, useLoadAsync } from 'api-client'
+import { createTunewsElementEndpoint, ReturnType, TunewsModel, useLoadAsync } from 'shared/api'
 
 import { tunewsApiUrl } from '../constants/endpoint'
 

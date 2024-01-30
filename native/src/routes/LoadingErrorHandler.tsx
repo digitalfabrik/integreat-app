@@ -1,7 +1,8 @@
 import React, { ReactElement, ReactNode, useContext, useEffect, useState } from 'react'
 import { RefreshControl } from 'react-native'
 
-import { ErrorCode, fromError, LANDING_ROUTE, LanguageModel } from 'api-client'
+import { LANDING_ROUTE } from 'shared'
+import { ErrorCode, fromError, LanguageModel } from 'shared/api'
 
 import Failure from '../components/Failure'
 import LanguageNotAvailablePage from '../components/LanguageNotAvailablePage'

@@ -3,14 +3,14 @@ import { DateTime } from 'luxon'
 import React from 'react'
 import { rrulestr } from 'rrule'
 
-import { DateModel } from 'api-client'
+import { DateModel } from 'shared/api'
 
 import { renderWithTheme } from '../../testing/render'
 import DatesPageDetail from '../DatesPageDetail'
 
 jest.mock('react-i18next')
 
-jest.useFakeTimers({ now: new Date('2023-10-02T15:23:57.443+02:00') })
+jest.useFakeTimers({ now: new Date('2023-10-09T15:23:57.443+02:00') })
 describe('DatesPageDetail', () => {
   const renderDatesPageDetail = (date: DateModel) => renderWithTheme(<DatesPageDetail date={date} languageCode='de' />)
   const date = (rrule?: string) =>

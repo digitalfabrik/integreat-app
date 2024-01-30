@@ -1,7 +1,7 @@
 import { DateTime } from 'luxon'
 import React from 'react'
 
-import { CategoryModel } from 'api-client'
+import { CategoryModel } from 'shared/api'
 
 import { renderWithRouterAndTheme } from '../../testing/render'
 import CategoryList from '../CategoryList'

@@ -1,7 +1,8 @@
 import React, { ReactElement, useCallback, useMemo } from 'react'
 import { useWindowDimensions } from 'react-native'
 
-import { CATEGORIES_ROUTE, CategoriesRouteType, cityContentPath, ErrorCode } from 'api-client'
+import { CATEGORIES_ROUTE, CategoriesRouteType, cityContentPath } from 'shared'
+import { ErrorCode } from 'shared/api'
 
 import Categories from '../components/Categories'
 import DashboardNavigationTiles from '../components/DashboardNavigationTiles'
@@ -9,7 +10,6 @@ import { NavigationProps, RouteProps } from '../constants/NavigationTypes'
 import useCityAppContext from '../hooks/useCityAppContext'
 import useHeader from '../hooks/useHeader'
 import useLoadCityContent from '../hooks/useLoadCityContent'
-import useLoadEmbeddedOffers from '../hooks/useLoadEmbeddedOffers'
 import useNavigate from '../hooks/useNavigate'
 import usePreviousProp from '../hooks/usePreviousProp'
 import useResourceCache from '../hooks/useResourceCache'
@@ -57,22 +57,11 @@ const CategoriesContainer = ({ navigation, route }: CategoriesContainerProps): R
   )
   const previousLanguageCode = usePreviousProp({ prop: languageCode, onPropChange: onLanguageChange })
 
-  const embeddedOffers = useLoadEmbeddedOffers({
-    category,
-    cityCode,
-    languageCode,
-  })
-
   const error =
     data?.categories && !category && previousLanguageCode === languageCode ? ErrorCode.PageNotFound : response.error
 
-  const refresh = useCallback(() => {
-    response.refresh()
-    embeddedOffers.refresh()
-  }, [response, embeddedOffers])
-
   return (
-    <LoadingErrorHandler refresh={refresh} loading={response.loading} error={error} scrollView>
+    <LoadingErrorHandler refresh={response.refresh} loading={response.loading} error={error} scrollView>
       {data && category && (
         <>
           {category.isRoot() && (
@@ -84,8 +73,8 @@ const CategoriesContainer = ({ navigation, route }: CategoriesContainerProps): R
             cityModel={data.city}
             categories={data.categories}
             category={category}
-            embeddedOffers={embeddedOffers}
             resourceCache={resourceCache}
+            goBack={navigation.goBack}
           />
         </>
       )}

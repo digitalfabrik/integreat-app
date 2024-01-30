@@ -2,15 +2,12 @@ import React, { ReactElement, useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import {
-  createOffersEndpoint,
   MALTE_HELP_FORM_OFFER_ROUTE,
-  OfferModel,
   OFFERS_ROUTE,
   pathnameFromRouteInformation,
-  SPRUNGBRETT_OFFER,
   SPRUNGBRETT_OFFER_ROUTE,
-  useLoadFromEndpoint,
-} from 'api-client'
+} from 'shared'
+import { createOffersEndpoint, OfferModel, SPRUNGBRETT_OFFER, useLoadFromEndpoint } from 'shared/api'
 
 import { CityRouteProps } from '../CityContentSwitcher'
 import CityContentLayout, { CityContentLayoutProps } from '../components/CityContentLayout'
@@ -32,30 +29,23 @@ const OffersPage = ({ city, cityCode, languageCode }: CityRouteProps): ReactElem
 
   const toTileModels = useCallback(
     (offers: Array<OfferModel>): Array<TileModel> =>
-      offers.map(offer => {
-        let path = offer.path
+      offers
+        .filter(offer => offer.alias !== MALTE_HELP_FORM_OFFER_ROUTE)
+        .map(offer => {
+          let path = offer.path
 
-        if (offer.alias === SPRUNGBRETT_OFFER) {
-          // the url stored in the sprungbrett offer is the url of the endpoint
-          path = pathnameFromRouteInformation({ route: SPRUNGBRETT_OFFER_ROUTE, cityCode, languageCode })
-        }
-        if (offer.alias === MALTE_HELP_FORM_OFFER_ROUTE) {
-          path = pathnameFromRouteInformation({ route: MALTE_HELP_FORM_OFFER_ROUTE, cityCode, languageCode })
-          // ignore zammad url (postData) for the tile model
+          if (offer.alias === SPRUNGBRETT_OFFER) {
+            // the url stored in the sprungbrett offer is the url of the endpoint
+            path = pathnameFromRouteInformation({ route: SPRUNGBRETT_OFFER_ROUTE, cityCode, languageCode })
+          }
+
           return new TileModel({
             title: t(offer.title),
             path,
             thumbnail: offer.thumbnail,
+            postData: offer.postData,
           })
-        }
-
-        return new TileModel({
-          title: t(offer.title),
-          path,
-          thumbnail: offer.thumbnail,
-          postData: offer.postData,
-        })
-      }),
+        }),
     [cityCode, languageCode, t],
   )
 

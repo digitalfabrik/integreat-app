@@ -18,7 +18,7 @@ import {
   RouteInformationType,
   SEARCH_ROUTE,
   SPRUNGBRETT_OFFER_ROUTE,
-} from 'api-client'
+} from 'shared'
 
 import { SnackbarType } from '../components/SnackbarContainer'
 import { NavigationProps, RoutesType } from '../constants/NavigationTypes'
@@ -68,7 +68,6 @@ const navigate = <T extends RoutesType>(
     if (buildConfig().featureFlags.jpalTracking) {
       navigation.push(JPAL_TRACKING_ROUTE)
     }
-
     return
   }
 
@@ -116,9 +115,6 @@ const navigate = <T extends RoutesType>(
 
     case SPRUNGBRETT_OFFER_ROUTE:
       navigation.push(SPRUNGBRETT_OFFER_ROUTE)
-      return
-
-    case MALTE_HELP_FORM_OFFER_ROUTE:
       return
 
     case POIS_ROUTE:
