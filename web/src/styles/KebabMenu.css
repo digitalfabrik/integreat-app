@@ -1,6 +1,6 @@
 .kebab-menu {
   position: absolute;
-  right: 0;
+  inset-inline-end: 0;
   top: 0;
   width: 100%;
   height: 100%;

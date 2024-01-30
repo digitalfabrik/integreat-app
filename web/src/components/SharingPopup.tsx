@@ -62,8 +62,8 @@ const TooltipContainer = styled.div<{
   &::before {
     z-index: 2000;
     border-bottom: 10px solid ${props => props.theme.colors.backgroundColor};
-    border-left: 10px solid transparent;
-    border-right: 10px solid transparent;
+    border-inline-start: 10px solid transparent;
+    border-inline-end: 10px solid transparent;
 
     ${props =>
       props.flow === 'vertical' &&
@@ -103,8 +103,8 @@ const TooltipContainer = styled.div<{
   &::after {
     z-index: 1000;
     border-bottom: 11px solid ${props => props.theme.colors.textDecorationColor};
-    border-left: 11px solid transparent;
-    border-right: 11px solid transparent;
+    border-inline-start: 11px solid transparent;
+    border-inline-end: 11px solid transparent;
 
     ${props =>
       props.flow === 'vertical' &&
@@ -175,7 +175,7 @@ const BackdropContainer = styled(Button)`
   width: 100%;
   height: 100%;
   top: 0;
-  left: 0;
+  inset-inline-start: 0;
   position: fixed;
   z-index: 1;
 `

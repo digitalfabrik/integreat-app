@@ -34,8 +34,8 @@ const HeaderContainer = styled.header`
   box-shadow: 0 2px 5px -3px rgb(0 0 0 / 20%);
 
   @media ${dimensions.minMaxWidth} {
-    padding-right: calc((200% - 100vw - ${dimensions.maxWidth}px) / 2);
-    padding-left: calc((100vw - ${dimensions.maxWidth}px) / 2);
+    padding-inline-end: calc((200% - 100vw - ${dimensions.maxWidth}px) / 2);
+    padding-inline-start: calc((100vw - ${dimensions.maxWidth}px) / 2);
   }
 `
 

@@ -50,7 +50,7 @@ const Overlay = styled.div<{ show: boolean }>`
   width: 100%;
   height: 100vh;
   top: 0;
-  left: 0;
+  inset-inline-start: 0;
   background-color: rgb(0 0 0 / 50%);
   z-index: 30;
   display: ${props => (props.show ? `block` : `none`)};

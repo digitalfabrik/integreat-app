@@ -1,7 +1,7 @@
 import { GeolocateControl } from 'maplibre-gl'
 import React, { ReactElement, useCallback, useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import styled, { css } from 'styled-components'
+import styled from 'styled-components'
 
 import { embedInCollection, GeoJsonPoi, LocationType, MapViewViewport, MapFeature } from 'shared'
 import { PoiModel } from 'shared/api'
@@ -58,14 +58,7 @@ const GeocontrolContainer = styled.div<{ height: number }>`
   --max-icon-height: calc(${props => getSnapPoints(props.height)[1]}px + ${geolocatorTopOffset}px);
 
   position: absolute;
-  ${props =>
-    props.theme.contentDirection === 'ltr'
-      ? css`
-          right: 10px;
-        `
-      : css`
-          left: 10px;
-        `};
+  inset-inline-end: 10px;
   bottom: min(calc(var(--rsbs-overlay-h, 0) + ${geolocatorTopOffset}px), var(--max-icon-height));
 `
 

@@ -4,8 +4,8 @@ const StyledSmallViewTip = styled.p`
   display: block;
   font-size: 12px;
   font-weight: 400;
-  margin-block-end: 0;
-  margin-block-start: 8px;
+  margin-bottom: 0;
+  margin-top: 8px;
   white-space: normal;
   word-break: break-word;
 `

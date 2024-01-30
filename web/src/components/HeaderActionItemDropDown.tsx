@@ -15,7 +15,7 @@ const StyledIcon = styled(Icon)`
 export const DropDownContainer = styled.div<{ active: boolean; height?: number }>`
   position: absolute;
   top: ${dimensions.headerHeightLarge}px;
-  right: 0;
+  inset-inline-end: 0;
   width: 100%;
   box-sizing: border-box;
   opacity: ${props => (props.active ? '1' : '0')};
@@ -43,8 +43,8 @@ export const DropDownContainer = styled.div<{ active: boolean; height?: number }
   }
 
   @media ${dimensions.minMaxWidth} {
-    padding-right: calc((200% - 100vw - ${dimensions.maxWidth}px) / 2);
-    padding-left: calc((100vw - ${dimensions.maxWidth}px) / 2);
+    padding-inline-end: calc((200% - 100vw - ${dimensions.maxWidth}px) / 2);
+    padding-inline-start: calc((100vw - ${dimensions.maxWidth}px) / 2);
   }
 `
 
