@@ -68,7 +68,7 @@ const EventsPage = ({ city, pathname, languageCode, cityCode }: CityRouteProps):
   const { viewportSmall } = useWindowDimensions()
   const navigate = useNavigate()
   const [isExporting, setIsExporting] = useState<boolean>(false)
-  const [exportOnce, setExportOnce] = useState<boolean>(true)
+  const [exportRecurring, setExportRecurring] = useState<boolean>(false)
 
   const {
     data: events,
@@ -152,7 +152,7 @@ const EventsPage = ({ city, pathname, languageCode, cityCode }: CityRouteProps):
   if (event) {
     const { featuredImage, thumbnail, lastUpdate, content, title, location, date } = event
     const defaultThumbnail = featuredImage ? featuredImage.medium.url : thumbnail
-    const isRecurring = !!event.date.recurrenceRule
+    const isRecurring = event.date.recurrenceRule && event.date.recurrenceRule.count() > 1
 
     const PageFooter =
       isExporting && isRecurring ? (
@@ -160,19 +160,23 @@ const EventsPage = ({ city, pathname, languageCode, cityCode }: CityRouteProps):
           <RadioGroup
             caption={t('addToCalendar')}
             groupId='recurring'
-            selectedValue={exportOnce ? 'one' : 'many'}
+            selectedValue={exportRecurring ? 'recurring' : 'one'}
             onChange={value => {
-              setExportOnce(value === 'one')
+              setExportRecurring(value === 'recurring')
             }}
             values={[
               { key: 'one', label: t('onlyThisEvent') },
-              { key: 'many', label: t('thisAndAllFutureEvents') },
+              { key: 'recurring', label: t('thisAndAllFutureEvents') },
             ]}
           />
           <ButtonContainer>
             <CancelButton onClick={() => setIsExporting(false)} text={t('layout:cancel')} fullWidth={viewportSmall} />
             <StyledButton
-              onClick={() => downloadEventAsIcsFile(event, !exportOnce)}
+              onClick={() => {
+                downloadEventAsIcsFile(event, exportRecurring)
+                setExportRecurring(false)
+                setIsExporting(false)
+              }}
               text={t('exportAsICal')}
               fullWidth={viewportSmall}
             />

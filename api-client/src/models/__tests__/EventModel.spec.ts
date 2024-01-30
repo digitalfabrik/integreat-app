@@ -57,7 +57,7 @@ describe('EventModel', () => {
   })
 
   it('should have dates formatted correctly in iCal', () => {
-    const timezone = event.date.startDate.zone
+    const timezone = event.date.startDate.zone.name
     const eventFields = iCalEvent.split('\n')
     expect(eventFields[7]).toBe(`DTSTART;TZID=${timezone}:20200320T095000`)
     expect(eventFields[8]).toBe(`DTEND;TZID=${timezone}:20200320T165000`)

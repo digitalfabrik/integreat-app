@@ -1,5 +1,6 @@
 import { decodeHTML } from 'entities'
 import { DateTime } from 'luxon'
+import { RRule } from 'rrule'
 import { v5 } from 'uuid'
 
 import { getExcerpt } from '../index'
@@ -55,7 +56,7 @@ class EventModel extends ExtendedPageModel {
     const { title, location, path, date, excerpt, lastUpdate } = this
     const url = `${baseUrl}${path}`
     const uid = v5(`${url}/${formatDateICal(lastUpdate)}`, v5.URL)
-    const timezone = date.startDate.zone
+    const timezone = date.startDate.zone.name
     const body: string[] = []
     body.push(`DTSTAMP:${formatDateICal(DateTime.now())}`)
     body.push(`UID:${uid}`)
@@ -75,11 +76,8 @@ class EventModel extends ExtendedPageModel {
     }
 
     if (recurring && date.recurrenceRule) {
-      // rrule.toString adds in the original start date as well which we don't need here
-      const recurrence = date.recurrenceRule
-        .toString()
-        .split('\n')
-        .filter(line => line.startsWith('RRULE:'))[0]
+      const { freq, interval, until, byweekday } = date.recurrenceRule.options
+      const recurrence = RRule.optionsToString({ freq, interval, until, byweekday })
       if (recurrence) {
         body.push(recurrence)
       }
