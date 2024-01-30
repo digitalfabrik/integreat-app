@@ -1,4 +1,5 @@
 import { DateTime } from 'luxon'
+import { rrulestr } from 'rrule'
 
 import { EventModelBuilder } from '../../endpoints/testing'
 import DateModel from '../DateModel'
@@ -15,7 +16,7 @@ describe('EventModel', () => {
       startDate: DateTime.fromISO('2020-03-20T10:50:00+02:00'),
       endDate: DateTime.fromISO('2020-03-20T17:50:00+02:00'),
       allDay: false,
-      recurrenceRule: null,
+      recurrenceRule: rrulestr('FREQ=WEEKLY;INTERVAL=3;UNTIL=20200703T235959Z;BYDAY=FR'),
     }),
     location: new LocationModel({
       id: 1,
@@ -34,7 +35,7 @@ describe('EventModel', () => {
   })
   const baseUrl = 'https://example.com'
   const appName = 'Integreat-App'
-  const iCalEvent = event.toICal(baseUrl, appName)
+  const iCalEvent = event.toICal(baseUrl, appName, false)
 
   it('should have correct iCal basic format', () => {
     expect(iCalEvent.startsWith(`BEGIN:VCALENDAR\nVERSION:2.0\nPRODID:${appName}\nBEGIN:VEVENT`)).toBeTruthy()
@@ -49,16 +50,22 @@ describe('EventModel', () => {
 
   it('should have different UIDs in iCal', () => {
     const event2 = new EventModelBuilder('seed2', 1, 'augsburg', 'de').build()[0]!
-    const iCalEvent2 = event2.toICal(baseUrl, appName)
+    const iCalEvent2 = event2.toICal(baseUrl, appName, false)
     const eventUID = iCalEvent.split('\n')[5]
     const event2UID = iCalEvent2.split('\n')[5]
     expect(eventUID).not.toBe(event2UID)
   })
 
   it('should have dates formatted correctly in iCal', () => {
-    const timezone = event.date.startDate.zone
+    const timezone = event.date.startDate.zone.name
     const eventFields = iCalEvent.split('\n')
     expect(eventFields[7]).toBe(`DTSTART;TZID=${timezone}:20200320T095000`)
     expect(eventFields[8]).toBe(`DTEND;TZID=${timezone}:20200320T165000`)
+  })
+
+  it('should have a recurrence rule in iCal', () => {
+    const recurringEvent = event.toICal(baseUrl, appName, true)
+    const recurrenceField = recurringEvent.split('\n')[11]
+    expect(recurrenceField).toBe('RRULE:FREQ=WEEKLY;INTERVAL=3;UNTIL=20200703T235959Z;BYDAY=FR')
   })
 })

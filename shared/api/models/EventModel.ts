@@ -1,5 +1,6 @@
 import { decodeHTML } from 'entities'
 import { DateTime } from 'luxon'
+import { RRule } from 'rrule'
 import { v5 } from 'uuid'
 
 import { getExcerpt } from '../..'
@@ -51,11 +52,11 @@ class EventModel extends ExtendedPageModel {
     return this._featuredImage
   }
 
-  toICal(baseUrl: string, appName: string): string {
+  toICal(baseUrl: string, appName: string, recurring: boolean): string {
     const { title, location, path, date, excerpt, lastUpdate } = this
     const url = `${baseUrl}${path}`
     const uid = v5(`${url}/${formatDateICal(lastUpdate)}`, v5.URL)
-    const timezone = date.startDate.zone
+    const timezone = date.startDate.zone.name
     const body: string[] = []
     body.push(`DTSTAMP:${formatDateICal(DateTime.now())}`)
     body.push(`UID:${uid}`)
@@ -72,6 +73,13 @@ class EventModel extends ExtendedPageModel {
     )
     if (location) {
       body.push(`LOCATION:${location.fullAddress}`)
+    }
+    if (recurring && date.recurrenceRule) {
+      const { freq, interval, until, byweekday } = date.recurrenceRule.options
+      const recurrence = RRule.optionsToString({ freq, interval, until, byweekday })
+      if (recurrence) {
+        body.push(recurrence)
+      }
     }
 
     return [
