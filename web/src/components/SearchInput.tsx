@@ -14,7 +14,7 @@ const TextInput = styled.input.attrs({ type: 'text' })`
   width: calc(100% - ${searchLogoWidth} - 5px);
   height: 25px;
   box-sizing: border-box;
-  margin-left: 5px;
+  margin-inline-start: 5px;
   color: ${props => props.theme.colors.textColor};
   background: transparent;
   border-width: 0 0 1px;

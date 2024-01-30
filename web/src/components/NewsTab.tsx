@@ -27,7 +27,7 @@ const StyledTab = styled(Link)<{ $active: boolean }>`
   text-decoration: none;
 
   &:not(:last-child) {
-    margin-right: 30px;
+    margin-inline-end: 30px;
   }
 `
 

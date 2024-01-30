@@ -23,6 +23,7 @@ const StyledContainer = styled.div`
   flex-direction: column;
   justify-content: space-between;
 `
+
 const StyledBanner = styled.div`
   position: relative;
   display: flex;
@@ -33,10 +34,12 @@ const StyledBanner = styled.div`
   background-color: ${props => props.theme.colors.tunewsThemeColorLight};
   border-radius: 11px;
 `
+
 const StyledIcon = styled(Icon)`
   width: 100%;
   height: 100%;
 `
+
 const StyledTitle = styled.div`
   display: flex;
   width: 185px;

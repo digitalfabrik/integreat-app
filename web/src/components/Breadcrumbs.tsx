@@ -33,7 +33,7 @@ const OrderedList = styled.ol`
   /* avoid changing height when switching between pages (show one line even if there are no breadcrumbs) */
 
   &:empty::after {
-    padding-left: 1px;
+    padding-inline-start: 1px;
     content: '';
   }
 `
@@ -44,7 +44,7 @@ const StyledIcon = styled(Icon)`
 `
 
 const StyledLink = styled(Link)`
-  margin-right: 4px;
+  margin-inline-end: 4px;
 `
 
 type BreadcrumbsProps = {

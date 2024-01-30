@@ -20,8 +20,7 @@ const Thumbnail = styled.div`
   & img {
     position: absolute;
     top: 0;
-    right: 0;
-    left: 0;
+    inset-inline: 0;
     width: 100%;
     height: 100%;
     transition: transform 0.2s;

@@ -22,6 +22,7 @@ import Icon from './base/Icon'
 const Content = styled.div`
   overflow-wrap: anywhere;
 `
+
 const StyledTooltip = styled(Tooltip)`
   height: 24px;
 `
