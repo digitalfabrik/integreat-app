@@ -1,6 +1,7 @@
-import { CategoryModel } from 'api-client'
 import { DateTime } from 'luxon'
 import React from 'react'
+
+import { CategoryModel } from 'shared/api'
 
 import { cmsApiBaseUrl } from '../../constants/urls'
 import { renderWithTheme } from '../../testing/render'
@@ -8,8 +9,8 @@ import CategoriesToolbar from '../CategoriesToolbar'
 
 jest.mock('react-inlinesvg')
 jest.mock('react-i18next')
-jest.mock('api-client', () => ({
-  ...jest.requireActual('api-client'),
+jest.mock('shared/api', () => ({
+  ...jest.requireActual('shared/api'),
   useLoadFromEndpoint: jest.fn(),
 }))
 
@@ -24,6 +25,7 @@ const rootCategory = new CategoryModel({
   availableLanguages: new Map(),
   lastUpdate: DateTime.fromMillis(0),
   organization: null,
+  embeddedOffers: [],
 })
 
 const childCategory = new CategoryModel({
@@ -37,6 +39,7 @@ const childCategory = new CategoryModel({
   thumbnail: 'https://cms.integreat-ap…/03/Hotline-150x150.png',
   lastUpdate: DateTime.fromISO('2017-01-01T05:10:05+02:00'),
   organization: null,
+  embeddedOffers: [],
 })
 
 describe('CategoriesToolbar', () => {
