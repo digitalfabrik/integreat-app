@@ -1,4 +1,4 @@
-import React, { ReactElement, useState } from 'react'
+import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useNavigate, useParams } from 'react-router-dom'
 import styled from 'styled-components'
@@ -12,6 +12,7 @@ import CityContentLayout, { CityContentLayoutProps } from '../components/CityCon
 import CityContentToolbar from '../components/CityContentToolbar'
 import DatesPageDetail from '../components/DatesPageDetail'
 import EventListItem from '../components/EventListItem'
+import ExportEventButton from '../components/ExportEventButton'
 import FailureSwitcher from '../components/FailureSwitcher'
 import Helmet from '../components/Helmet'
 import JsonLdEvent from '../components/JsonLdEvent'
@@ -19,34 +20,9 @@ import List from '../components/List'
 import LoadingSpinner from '../components/LoadingSpinner'
 import Page, { THUMBNAIL_WIDTH } from '../components/Page'
 import PageDetail from '../components/PageDetail'
-import RadioGroup from '../components/base/RadioGroup'
-import TextButton from '../components/base/TextButton'
-import buildConfig from '../constants/buildConfig'
-import dimensions from '../constants/dimensions'
 import { cmsApiBaseUrl } from '../constants/urls'
 import usePreviousProp from '../hooks/usePreviousProp'
-import useWindowDimensions from '../hooks/useWindowDimensions'
 import featuredImageToSrcSet from '../utils/featuredImageToSrcSet'
-
-const ButtonContainer = styled.div`
-  display: flex;
-  gap: 16px;
-
-  @media ${dimensions.smallViewport} {
-    flex-direction: column;
-  }
-`
-
-const CancelButton = styled(TextButton)<{ fullWidth: boolean }>`
-  ${props => props.fullWidth && 'width: 100%;'}
-  background-color: ${props => props.theme.colors.textDecorationColor};
-  margin: 0;
-`
-
-const StyledButton = styled(TextButton)<{ fullWidth: boolean }>`
-  ${props => props.fullWidth && 'width: 100%;'}
-  margin: 0;
-`
 
 const Spacing = styled.div`
   display: flex;
@@ -59,10 +35,7 @@ const EventsPage = ({ city, pathname, languageCode, cityCode }: CityRouteProps):
   const previousPathname = usePreviousProp({ prop: pathname })
   const { eventId } = useParams()
   const { t } = useTranslation('events')
-  const { viewportSmall } = useWindowDimensions()
   const navigate = useNavigate()
-  const [isExporting, setIsExporting] = useState<boolean>(false)
-  const [exportRecurring, setExportRecurring] = useState<boolean>(false)
 
   const {
     data: events,
@@ -131,58 +104,9 @@ const EventsPage = ({ city, pathname, languageCode, cityCode }: CityRouteProps):
     )
   }
 
-  const downloadEventAsIcsFile = (event: EventModel, recurring: boolean) => {
-    const blob = new Blob([event.toICal(window.location.origin, buildConfig().appName, recurring)], {
-      type: 'text/calendar;charset=utf-8',
-    })
-    const anchorElement = document.createElement('a')
-    anchorElement.href = window.URL.createObjectURL(blob)
-    anchorElement.setAttribute('download', `${event.title}.ics`)
-    document.body.appendChild(anchorElement)
-    anchorElement.click()
-    document.body.removeChild(anchorElement)
-  }
-
   if (event) {
     const { featuredImage, thumbnail, lastUpdate, content, title, location, date } = event
     const defaultThumbnail = featuredImage ? featuredImage.medium.url : thumbnail
-    const isRecurring = event.date.recurrenceRule && event.date.recurrenceRule.count() > 1
-
-    const PageFooter =
-      isExporting && isRecurring ? (
-        <>
-          <RadioGroup
-            caption={t('addToCalendar')}
-            groupId='recurring'
-            selectedValue={exportRecurring ? 'recurring' : 'one'}
-            onChange={value => {
-              setExportRecurring(value === 'recurring')
-            }}
-            values={[
-              { key: 'one', label: t('onlyThisEvent') },
-              { key: 'recurring', label: t('thisAndAllFutureEvents') },
-            ]}
-          />
-          <ButtonContainer>
-            <CancelButton onClick={() => setIsExporting(false)} text={t('layout:cancel')} fullWidth={viewportSmall} />
-            <StyledButton
-              onClick={() => {
-                downloadEventAsIcsFile(event, exportRecurring)
-                setExportRecurring(false)
-                setIsExporting(false)
-              }}
-              text={t('exportAsICal')}
-              fullWidth={viewportSmall}
-            />
-          </ButtonContainer>
-        </>
-      ) : (
-        <StyledButton
-          onClick={() => (isRecurring ? setIsExporting(true) : downloadEventAsIcsFile(event, false))}
-          text={t('exportAsICal')}
-          fullWidth={viewportSmall}
-        />
-      )
 
     return (
       <CityContentLayout isLoading={false} {...locationLayoutParams}>
@@ -201,7 +125,7 @@ const EventsPage = ({ city, pathname, languageCode, cityCode }: CityRouteProps):
               {location && <PageDetail identifier={t('address')} information={location.fullAddress} />}
             </Spacing>
           }
-          Footer={PageFooter}
+          Footer={<ExportEventButton event={event} />}
         />
       </CityContentLayout>
     )
