@@ -27,8 +27,6 @@ const Thumbnail = styled(SimpleImage)`
 `
 
 const StyledPressable = styled(Pressable)<{ language: string }>`
-  flex: 1;
-  height: 100%;
   border-bottom-width: 1px;
   border-bottom-color: ${props => props.theme.colors.textDisabledColor};
   flex-direction: ${props => contentDirection(props.language)};
@@ -36,11 +34,13 @@ const StyledPressable = styled(Pressable)<{ language: string }>`
 `
 
 const Description = styled.View`
+  flex: 1;
   flex-direction: column;
   font-family: ${props => props.theme.fonts.native.decorativeFontRegular};
   padding: 0 32px;
   justify-content: center;
 `
+
 const Title = styled.Text`
   font-weight: 700;
   font-family: ${props => props.theme.fonts.native.decorativeFontBold};
