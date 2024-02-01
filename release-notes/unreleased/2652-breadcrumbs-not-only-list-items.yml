@@ -1,0 +1,5 @@
+issue_key: 2652
+show_in_stores: false
+platforms:
+  - web
+en: Fixed breadcrumbs to only contain list items
