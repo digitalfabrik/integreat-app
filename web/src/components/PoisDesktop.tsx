@@ -1,13 +1,12 @@
-import React, { ReactElement, useCallback, useEffect, useRef, useState } from 'react'
+import React, { ReactElement, useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { GeolocateControl, NavigationControl } from 'react-map-gl'
 import styled, { useTheme } from 'styled-components'
 
-import { embedInCollection, GeoJsonPoi, LocationType, MapViewViewport, MapFeature } from 'shared'
+import { LocationType, MapViewViewport, MapFeature, PreparePoisReturn } from 'shared'
 import { CityModel, PoiModel } from 'shared/api'
 
 import dimensions from '../constants/dimensions'
-import useMapFeatures from '../hooks/useMapFeatures'
 import CityContentFooter from './CityContentFooter'
 import GoBack from './GoBack'
 import MapView from './MapView'
@@ -56,9 +55,11 @@ type PoisDesktopProps = {
   panelHeights: number
   toolbar: ReactElement
   cityModel: CityModel
-  pois: PoiModel[]
-  userLocation: LocationType | undefined
-  features: MapFeature[]
+  data: PreparePoisReturn
+  selectMapFeature: (mapFeature: MapFeature | null) => void
+  selectPoi: (poi: PoiModel) => void
+  deselect: () => void
+  userLocation: LocationType | null
   languageCode: string
   slug: string | undefined
   mapViewport?: MapViewViewport
@@ -80,9 +81,11 @@ const nextPoiIndex = (step: 1 | -1, arrayLength: number, currentIndex: number): 
 const PoisDesktop = ({
   panelHeights,
   toolbar,
-  pois,
+  data,
   userLocation,
-  features,
+  selectMapFeature,
+  selectPoi,
+  deselect,
   cityModel,
   languageCode,
   slug,
@@ -94,57 +97,52 @@ const PoisDesktop = ({
   const { t } = useTranslation('pois')
   const [scrollOffset, setScrollOffset] = useState<number>(0)
   const listRef = useRef<HTMLDivElement>(null)
-  const { selectGeoJsonPoiInList, selectFeatureOnMap, currentFeatureOnMap, currentPoi, poiListFeatures } =
-    useMapFeatures(features, pois, slug)
-  const canGoBack = !!currentFeatureOnMap || !!slug
+  const { pois, poi, mapFeatures, mapFeature } = data
+  const canDeselect = mapFeature || !!slug
   const { contentDirection } = useTheme()
 
-  const selectGeoJsonPoi = useCallback(
-    (geoJsonPoi: GeoJsonPoi | null) => {
-      if (listRef.current && !currentPoi) {
-        setScrollOffset(listRef.current.scrollTop)
-      }
-      selectGeoJsonPoiInList(geoJsonPoi)
-    },
-    [currentPoi, selectGeoJsonPoiInList],
-  )
+  const handleSelectPoi = (poi: PoiModel) => {
+    if (listRef.current) {
+      setScrollOffset(listRef.current.scrollTop)
+    }
+    selectPoi(poi)
+  }
 
   const switchPoi = (step: 1 | -1) => {
-    if (!currentPoi) {
-      return
+    const currentPoiIndex = pois.findIndex(it => it.slug === poi?.slug)
+    const updatedIndex = nextPoiIndex(step, pois.length, currentPoiIndex)
+    const newPoi = pois[updatedIndex]
+    if (newPoi) {
+      selectPoi(newPoi)
     }
-    const currentPoiIndex = poiListFeatures.findIndex(poi => poi.slug === currentPoi.slug)
-    const updatedIndex = nextPoiIndex(step, poiListFeatures.length, currentPoiIndex)
-    const poiFeature = poiListFeatures[updatedIndex]
-    selectGeoJsonPoiInList(poiFeature ?? null)
   }
 
   useEffect(() => {
-    listRef.current?.scrollTo({ top: currentFeatureOnMap ? 0 : scrollOffset })
-  }, [currentFeatureOnMap, currentPoi, scrollOffset])
+    listRef.current?.scrollTo({ top: mapFeature ? 0 : scrollOffset })
+  }, [mapFeature, scrollOffset])
 
   const PanelContent = (
     <>
       <ListViewWrapper
         ref={listRef}
         panelHeights={panelHeights}
-        bottomBarHeight={currentPoi ? dimensions.poiDetailNavigation : dimensions.toolbarHeight}>
-        {canGoBack ? (
-          <GoBack goBack={() => selectGeoJsonPoiInList(null)} text={t('detailsHeader')} />
+        bottomBarHeight={poi ? dimensions.poiDetailNavigation : dimensions.toolbarHeight}>
+        {canDeselect ? (
+          <GoBack goBack={deselect} text={t('detailsHeader')} />
         ) : (
           <ListHeader>{t('listTitle')}</ListHeader>
         )}
 
         <PoiSharedChildren
-          poiListFeatures={poiListFeatures}
-          currentPoi={currentPoi}
-          selectPoi={selectGeoJsonPoi}
+          pois={pois}
+          poi={poi}
+          selectPoi={handleSelectPoi}
           userLocation={userLocation}
           toolbar={toolbar}
           slug={slug}
         />
       </ListViewWrapper>
-      {currentPoi && features.length > 0 ? (
+      {poi && pois.length > 0 ? (
         <PoiPanelNavigation switchPoi={switchPoi} />
       ) : (
         <ToolbarContainer>{toolbar}</ToolbarContainer>
@@ -158,9 +156,9 @@ const PoisDesktop = ({
       <MapView
         viewport={mapViewport}
         setViewport={setMapViewport}
-        selectFeature={selectFeatureOnMap}
-        featureCollection={embedInCollection(features)}
-        currentFeature={currentFeatureOnMap}
+        selectFeature={selectMapFeature}
+        features={mapFeatures}
+        currentFeature={mapFeature ?? null}
         Overlay={MapOverlay}>
         <NavigationControl showCompass={false} position={contentDirection === 'rtl' ? 'bottom-left' : 'bottom-right'} />
         <GeolocateControl
