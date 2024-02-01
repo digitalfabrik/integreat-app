@@ -32,11 +32,11 @@ const SandBox = styled.div<{ centered: boolean; smallText: boolean }>`
     object-fit: contain;
 
     &.alignright {
-      float: right;
+      float: inline-end;
     }
 
     &.alignleft {
-      float: left;
+      float: inline-start;
     }
 
     &.aligncenter {
@@ -64,7 +64,7 @@ const SandBox = styled.div<{ centered: boolean; smallText: boolean }>`
   table {
     display: block;
     width: 100% !important;
-    height: auto !important; /* need important because of bad-formatted remote-content */
+    height: auto !important; /* need important because of badly formatted remote content */
     overflow: auto;
   }
 
@@ -139,7 +139,7 @@ const SandBox = styled.div<{ centered: boolean; smallText: boolean }>`
   }
 
   .iframe-info-text > input {
-    margin-left: 12px;
+    margin-inline-start: 12px;
     cursor: pointer;
   }
 
@@ -153,7 +153,7 @@ const SandBox = styled.div<{ centered: boolean; smallText: boolean }>`
   }
 
   #opt-in-settings-link {
-    margin-left: 12px;
+    margin-inline-start: 12px;
     padding: 0;
     cursor: pointer;
     align-self: center;

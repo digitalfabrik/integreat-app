@@ -19,7 +19,7 @@ const StyledButton = styled(Button)<{ expanded: boolean }>`
   display: flex;
   position: absolute;
   top: 0;
-  ${props => (props.theme.contentDirection === 'ltr' ? 'right: 0' : 'left: 0')};
+  inset-inline-end: 0;
   justify-content: flex-end;
   font-size: ${props =>
     props.expanded ? props.theme.fonts.decorativeFontSizeSmall : props.theme.fonts.contentFontSize};

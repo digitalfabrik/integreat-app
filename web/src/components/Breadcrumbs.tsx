@@ -33,7 +33,7 @@ const OrderedList = styled.ol`
   /* avoid changing height when switching between pages (show one line even if there are no breadcrumbs) */
 
   &:empty::after {
-    padding-left: 1px;
+    padding-inline-start: 1px;
     content: '';
   }
 `
@@ -44,7 +44,7 @@ const StyledIcon = styled(Icon)`
 `
 
 const StyledLink = styled(Link)`
-  margin-right: 4px;
+  margin-inline-end: 4px;
 `
 
 type BreadcrumbsProps = {
@@ -68,9 +68,11 @@ const Breadcrumbs = ({ ancestorBreadcrumbs, currentBreadcrumb }: BreadcrumbsProp
       <OrderedList>
         {ancestorBreadcrumbs.map((breadcrumb, index) =>
           ancestorBreadcrumbs.length > 1 && index === 0 ? (
-            <StyledLink to={breadcrumb.pathname} key={breadcrumb.pathname}>
-              <StyledIcon src={HouseIcon} title={breadcrumb.title} />
-            </StyledLink>
+            <li key={breadcrumb.pathname}>
+              <StyledLink to={breadcrumb.pathname}>
+                <StyledIcon src={HouseIcon} title={breadcrumb.title} />
+              </StyledLink>
+            </li>
           ) : (
             <Breadcrumb key={breadcrumb.title} shrink={breadcrumb.title.length >= MIN_SHRINK_CHARS}>
               {breadcrumb.node}
