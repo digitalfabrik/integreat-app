@@ -19,6 +19,7 @@ jest.mock('../../utils/getUserLocation', () => async () => ({ status: 'ready', c
 jest.mock('shared/api', () => ({
   ...jest.requireActual('shared/api'),
   useLoadFromEndpoint: jest.fn(),
+  useLoadAsync: () => jest.fn(() => ({ status: 'ready', coordinates: [10.8, 48.3] })),
 }))
 
 describe('PoisPage', () => {

@@ -46,7 +46,7 @@ const PoiSharedChildren = ({
       key={poi.path}
       poi={poi}
       selectPoi={() => selectPoi(poi)}
-      distance={userLocation && poi.distance(userLocation)}
+      distance={userLocation ? poi.distance(userLocation) : null}
     />
   )
   return (
