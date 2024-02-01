@@ -1,10 +1,9 @@
-import { RenderResult } from '@testing-library/react'
 import { mocked } from 'jest-mock'
 import React from 'react'
 import { useSearchParams } from 'react-router-dom'
 
-import { prepareFeatureLocations, GeoJsonPoi, LocationType, MapViewViewport } from 'shared'
-import { CityModelBuilder, PoiModelBuilder } from 'shared/api'
+import { LocationType, MapFeature, MapViewViewport, prepareMapFeature, prepareMapFeatures } from 'shared'
+import { CityModelBuilder, PoiModel, PoiModelBuilder } from 'shared/api'
 
 import { renderWithRouterAndTheme } from '../../testing/render'
 import PoisDesktop from '../PoisDesktop'
@@ -22,46 +21,36 @@ describe('PoisDesktop', () => {
   const cityModel = new CityModelBuilder(1).build()[0]!
   const pois = new PoiModelBuilder(3).build()
   const userLocation: LocationType = [10.994217, 48.415402]
-  const features = prepareFeatureLocations(pois, userLocation)
-  const geoJsonPois = features.flatMap(feature => feature.properties.pois)
+  const mapFeatures = prepareMapFeatures(pois)
+  const selectMapFeature = jest.fn()
+  const selectPoi = jest.fn()
+  const deselect = jest.fn()
 
-  const renderPoisDesktop = (slug?: string) =>
+  const renderPoisDesktop = (poi?: PoiModel, mapFeature?: MapFeature) =>
     renderWithRouterAndTheme(
       <PoisDesktop
         panelHeights={0}
         toolbar={<div>Toolbar</div>}
-        pois={pois}
+        data={{ pois, mapFeatures, poi, mapFeature }}
+        selectMapFeature={selectMapFeature}
+        selectPoi={selectPoi}
+        deselect={deselect}
         userLocation={userLocation}
-        features={features}
         cityModel={cityModel}
         languageCode='de'
-        slug={slug}
+        slug={poi?.slug}
         mapViewport={{} as MapViewViewport}
         setMapViewport={jest.fn()}
         MapOverlay={<div />}
       />,
     )
 
-  const expectPoiList = (queryByText: RenderResult['queryByText'], features: GeoJsonPoi[]) => {
-    geoJsonPois.forEach(poiFeature => {
-      if (features.includes(poiFeature)) {
-        expect(queryByText(poiFeature.title)).toBeTruthy()
-      } else {
-        expect(queryByText(poiFeature.title)).toBeNull()
-      }
-    })
-    expect(queryByText('Toolbar')).toBeTruthy()
-  }
-
   it('should list detail information about the current feature and the poi if feature and poi provided', async () => {
     const singlePoi = pois[1]!
-    const singleGeoJsonPoi = geoJsonPois.find(poiFeature => poiFeature.title === singlePoi.location.name)!
-    mocked(useSearchParams).mockReturnValue([new URLSearchParams([]), jest.fn()])
+    const { queryByText, queryByLabelText } = renderPoisDesktop(singlePoi)
 
-    const { queryByText, queryByLabelText } = renderPoisDesktop(singlePoi.slug)
-
-    expect(queryByText(singleGeoJsonPoi.title)).toBeTruthy()
-    expect(queryByText(singleGeoJsonPoi.category!)).toBeTruthy()
+    expect(queryByText(singlePoi.title)).toBeTruthy()
+    expect(queryByText(singlePoi.category.name)).toBeTruthy()
     expect(queryByText('pois:distanceKilometre')).toBeTruthy()
     expect(queryByText(singlePoi.location.address!)).toBeTruthy()
     expect(queryByText(singlePoi.content)).toBeTruthy()
@@ -72,24 +61,25 @@ describe('PoisDesktop', () => {
     expect(queryByLabelText('pois:nextPoi')).toBeTruthy()
   })
 
-  it('should render filtered poiList & toolbar components for multipoi feature', () => {
-    const multipoiFeature = features.find(feature => feature.properties.pois.length > 1)!
-    mocked(useSearchParams).mockReturnValue([
-      new URLSearchParams([['multipoi', multipoiFeature.id as string]]),
-      jest.fn(),
-    ])
-    const { queryByText } = renderPoisDesktop()
+  it('should show back button and hide list title for selected mapFeature', () => {
+    const { queryByText } = renderPoisDesktop(undefined, prepareMapFeature(pois, 0, [0, 0]))
 
     expect(queryByText('pois:detailsHeader')).toBeTruthy()
     expect(queryByText('pois:listTitle')).toBeFalsy()
-    expectPoiList(queryByText, multipoiFeature.properties.pois)
+
+    pois.forEach(poi => {
+      expect(queryByText(poi.title)).toBeTruthy()
+    })
   })
 
   it('should render poiList & toolbar components if no poi is provided', () => {
     mocked(useSearchParams).mockReturnValue([new URLSearchParams([]), jest.fn()])
     const { queryByText } = renderPoisDesktop()
 
+    expect(queryByText('pois:detailsHeader')).toBeFalsy()
     expect(queryByText('pois:listTitle')).toBeTruthy()
-    expectPoiList(queryByText, geoJsonPois)
+    pois.forEach(poi => {
+      expect(queryByText(poi.title)).toBeTruthy()
+    })
   })
 })

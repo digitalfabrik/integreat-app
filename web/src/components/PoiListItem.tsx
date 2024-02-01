@@ -2,7 +2,7 @@ import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
 
-import { GeoJsonPoi } from 'shared'
+import { PoiModel } from 'shared/api'
 
 import { PoiThumbnailPlaceholder } from '../assets'
 import dimensions from '../constants/dimensions'
@@ -69,26 +69,23 @@ const LinkContainer = styled(Button)`
 `
 
 type PoiListItemProps = {
-  poi: GeoJsonPoi
-  selectPoi: (feature: GeoJsonPoi | null, restoreScrollPosition: boolean) => void
+  poi: PoiModel
+  selectPoi: () => void
+  distance: number | null
 }
 
-const PoiListItem = ({ poi, selectPoi }: PoiListItemProps): ReactElement => {
+const PoiListItem = ({ poi, distance, selectPoi }: PoiListItemProps): ReactElement => {
   const { t } = useTranslation('pois')
-  const { thumbnail, title, distance, category, slug } = poi
-
-  const onClickItem = () => {
-    selectPoi(poi, true)
-  }
+  const { thumbnail, title, category, slug } = poi
 
   return (
     <ListItemContainer id={slug}>
-      <LinkContainer onClick={onClickItem} tabIndex={0} ariaLabel={title}>
+      <LinkContainer onClick={selectPoi} tabIndex={0} ariaLabel={title}>
         <Thumbnail alt='' src={thumbnail || PoiThumbnailPlaceholder} />
         <Description>
           <Title>{title}</Title>
-          {!!distance && <Distance>{t('distanceKilometre', { distance })}</Distance>}
-          {!!category && <Category>{category}</Category>}
+          {distance !== null && <Distance>{t('distanceKilometre', { distance: distance.toFixed(1) })}</Distance>}
+          <Category>{category.name}</Category>
         </Description>
       </LinkContainer>
     </ListItemContainer>
