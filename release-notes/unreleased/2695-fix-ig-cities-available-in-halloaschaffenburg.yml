@@ -1,0 +1,7 @@
+issue_key: 2695
+show_in_stores: false
+platforms:
+  - web
+en: <your note> # english version of the note
+# de is required for notes with show_in_stores set to true
+de: <your german note> # german version of the note
