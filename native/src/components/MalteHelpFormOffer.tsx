@@ -63,15 +63,17 @@ const defaultValues: FormInput = {
 }
 
 type MalteHelpFormOfferProps = {
+  categoryPageTitle: string
+  url: string
   malteHelpFormOffer: OfferModel
   onSubmit: () => void
   cityCode: string
-  languageCode: string
 }
 
 const MalteHelpFormOffer = ({
+  categoryPageTitle,
+  url,
   cityCode,
-  languageCode,
   malteHelpFormOffer,
   onSubmit,
 }: MalteHelpFormOfferProps): ReactElement => {
@@ -86,8 +88,9 @@ const MalteHelpFormOffer = ({
   const submit = handleSubmit(async (data: FormInput) => {
     try {
       await submitMalteHelpForm({
+        url,
+        pageTitle: categoryPageTitle,
         cityCode,
-        languageCode,
         helpButtonOffer: malteHelpFormOffer,
         name: data.name,
         roomNumber: data.roomNumber,
@@ -160,7 +163,7 @@ const MalteHelpFormOffer = ({
       />
 
       <InformationText>{t('responseDisclaimer')}</InformationText>
-      <TextButton text={t('submit')} onPress={submit} disabled={!formState.isValid} />
+      <TextButton text={t('submit')} onPress={submit} disabled={!formState.isValid || formState.isSubmitting} />
     </Container>
   )
 }

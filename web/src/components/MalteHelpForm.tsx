@@ -50,6 +50,7 @@ const ErrorSendingStatus = styled.div`
 
 type SendingStatusType = 'idle' | 'sending' | 'invalidEmail' | 'failed' | 'successful'
 type MalteHelpFormProps = {
+  pageTitle: string
   cityCode: string
   languageCode: string
   helpButtonOffer: OfferModel
@@ -60,7 +61,7 @@ const scrollToFirstError = (form: HTMLFormElement) => {
   invalidInput?.scrollIntoView({ behavior: 'smooth' })
 }
 
-const MalteHelpForm = ({ languageCode, cityCode, helpButtonOffer }: MalteHelpFormProps): ReactElement => {
+const MalteHelpForm = ({ pageTitle, languageCode, cityCode, helpButtonOffer }: MalteHelpFormProps): ReactElement => {
   const { t } = useTranslation('malteHelpForm')
   const [sendingStatus, setSendingStatus] = useState<SendingStatusType>('idle')
   const [submitted, setSubmitted] = useState(false)
@@ -88,8 +89,9 @@ const MalteHelpForm = ({ languageCode, cityCode, helpButtonOffer }: MalteHelpFor
       setSendingStatus('sending')
       try {
         await submitMalteHelpForm({
+          url: window.location.href,
+          pageTitle,
           cityCode,
-          languageCode,
           helpButtonOffer,
           name,
           email,

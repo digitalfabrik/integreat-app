@@ -58,7 +58,6 @@
     "@sentry/react-native": "^5.9.1",
     "@sentry/types": "^7.65.0",
     "accordion-collapse-react-native": "^1.1.1",
-    "shared": "0.0.1",
     "build-configs": "0.0.1",
     "htmlparser2": "^9.0.0",
     "i18next": "^23.4.6",
@@ -74,6 +73,7 @@
     "react-native-blob-util": "^0.19.1",
     "react-native-calendar-events": "^2.2.0",
     "react-native-gesture-handler": "^2.12.1",
+    "react-native-get-random-values": "^1.10.0",
     "react-native-highlight-words": "^1.0.1",
     "react-native-inappbrowser-reborn": "^3.7.0",
     "react-native-keyboard-aware-scroll-view": "^0.9.5",
@@ -89,6 +89,7 @@
     "react-native-webview": "^13.4.0",
     "react-navigation-header-buttons": "^11.0.0",
     "rrule": "2.7.2",
+    "shared": "0.0.1",
     "styled-components": "^5.3.11",
     "translations": "0.0.1",
     "url-parse": "^1.5.10"

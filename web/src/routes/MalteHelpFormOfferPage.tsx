@@ -15,10 +15,12 @@ import MalteHelpForm from '../components/MalteHelpForm'
 import { cmsApiBaseUrl } from '../constants/urls'
 
 type MalteHelpFormOfferPageProps = {
+  categoryPageTitle?: string
   embedded?: boolean
 } & CityRouteProps
 
 const MalteHelpFormOfferPage = ({
+  categoryPageTitle,
   city,
   cityCode,
   languageCode,
@@ -36,7 +38,7 @@ const MalteHelpFormOfferPage = ({
     return null
   }
 
-  const pageTitle = `${helpButtonOffer?.title ?? t('offers')} - ${city.name}`
+  const pageTitle = categoryPageTitle ?? `${helpButtonOffer?.title ?? t('offers')} - ${city.name}`
   const feedbackTarget = helpButtonOffer ? getSlugFromPath(helpButtonOffer.path) : undefined
   const locationLayoutParams: Omit<CityContentLayoutProps, 'isLoading'> = {
     city,
@@ -86,7 +88,12 @@ const MalteHelpFormOfferPage = ({
     <Wrapper>
       {!embedded && <Helmet pageTitle={pageTitle} languageChangePaths={[]} cityModel={city} />}
       {!embedded && <Caption title={helpButtonOffer.title} />}
-      <MalteHelpForm cityCode={cityCode} languageCode={languageCode} helpButtonOffer={helpButtonOffer} />
+      <MalteHelpForm
+        pageTitle={pageTitle}
+        cityCode={cityCode}
+        languageCode={languageCode}
+        helpButtonOffer={helpButtonOffer}
+      />
     </Wrapper>
   )
 }

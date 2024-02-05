@@ -1,37 +1,41 @@
 import React, { ReactElement } from 'react'
 
 import { MALTE_HELP_FORM_OFFER_ROUTE, SPRUNGBRETT_OFFER_ALIAS } from 'shared'
-import { OfferModel } from 'shared/api'
+import { CategoryModel } from 'shared/api'
 
+import urlFromRouteInformation from '../navigation/url'
 import MalteHelpFormOffer from './MalteHelpFormOffer'
 import SprungbrettOffer from './SprungbrettOffer'
 
 type EmbeddedOfferProps = {
-  embeddedOffers: OfferModel[]
+  category: CategoryModel
   cityCode: string
   languageCode: string
   goBack: () => void
 }
 
-const EmbeddedOffers = ({
-  embeddedOffers,
-  cityCode,
-  languageCode,
-  goBack,
-}: EmbeddedOfferProps): ReactElement | null => {
-  const offer = embeddedOffers[0]
+const EmbeddedOffers = ({ category, cityCode, languageCode, goBack }: EmbeddedOfferProps): ReactElement | null => {
+  const offer = category.embeddedOffers[0]
   switch (offer?.alias) {
     case SPRUNGBRETT_OFFER_ALIAS:
       return <SprungbrettOffer sprungbrettOffer={offer} languageCode={languageCode} />
-    case MALTE_HELP_FORM_OFFER_ROUTE:
+    case MALTE_HELP_FORM_OFFER_ROUTE: {
+      const url = urlFromRouteInformation({
+        route: 'categories',
+        languageCode,
+        cityCode,
+        cityContentPath: category.path,
+      })
       return (
         <MalteHelpFormOffer
+          categoryPageTitle={category.title}
+          url={url}
           malteHelpFormOffer={offer}
           cityCode={cityCode}
-          languageCode={languageCode}
           onSubmit={goBack}
         />
       )
+    }
     default:
       return null
   }
