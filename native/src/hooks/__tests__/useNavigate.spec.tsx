@@ -15,7 +15,7 @@ import {
   POIS_ROUTE,
   RouteInformationType,
   SEARCH_ROUTE,
-} from 'api-client'
+} from 'shared'
 
 import buildConfig from '../../constants/buildConfig'
 import { AppContext } from '../../contexts/AppContextProvider'

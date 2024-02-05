@@ -1,8 +1,7 @@
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { LANDING_ROUTE, pathnameFromRouteInformation } from 'api-client'
-import { config } from 'translations'
+import { LANDING_ROUTE, pathnameFromRouteInformation } from 'shared'
 
 import { LocationIcon } from '../assets'
 import buildConfig from '../constants/buildConfig'
@@ -26,7 +25,6 @@ const GeneralHeader = ({ languageCode }: GeneralHeaderProps): ReactElement => {
       actionItems={actionItems}
       navigationItems={[]}
       kebabItems={[]}
-      direction={config.getScriptDirection(languageCode)}
       language={languageCode}
     />
   )

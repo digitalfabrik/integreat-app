@@ -4,17 +4,17 @@ import { useEffect } from 'react'
 import {
   CategoriesMapModel,
   CityModel,
+  ErrorCode,
   createCategoriesEndpoint,
   createEventsEndpoint,
   createLocalNewsEndpoint,
   createPOIsEndpoint,
-  ErrorCode,
   EventModel,
   LanguageModel,
   LocalNewsModel,
   PoiModel,
   ReturnType,
-} from 'api-client'
+} from 'shared/api'
 
 import dataContainer from '../utils/DefaultDataContainer'
 import loadResourceCache from '../utils/loadResourceCache'

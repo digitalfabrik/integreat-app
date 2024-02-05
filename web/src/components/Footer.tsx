@@ -23,7 +23,7 @@ const FooterContainer = styled.footer<{ overlay: boolean }>`
   }
 
   & > *::after {
-    padding-right: 10px;
+    padding-inline-end: 10px;
     content: '';
   }
 

@@ -3,7 +3,6 @@ import { useTranslation } from 'react-i18next'
 import styled from 'styled-components/native'
 
 import {
-  CityModel,
   EVENTS_ROUTE,
   LOCAL_NEWS_TYPE,
   NEWS_ROUTE,
@@ -11,7 +10,8 @@ import {
   POIS_ROUTE,
   RouteInformationType,
   TU_NEWS_TYPE,
-} from 'api-client'
+} from 'shared'
+import { CityModel } from 'shared/api'
 
 import { CalendarIcon, NewsIcon, OffersIcon, POIsIcon } from '../assets'
 import buildConfig from '../constants/buildConfig'

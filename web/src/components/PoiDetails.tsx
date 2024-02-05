@@ -3,8 +3,8 @@ import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router-dom'
 import styled, { useTheme } from 'styled-components'
 
-import { GeoJsonPoi, getExternalMapsLink, PoiModel } from 'api-client'
-import { UiDirectionType } from 'translations'
+import { getExternalMapsLink } from 'shared'
+import { PoiModel } from 'shared/api'
 
 import {
   MailIcon,
@@ -123,31 +123,30 @@ const ToolbarWrapper = styled.div`
 `
 
 type PoiDetailsProps = {
-  feature: GeoJsonPoi
   poi: PoiModel
-  direction: UiDirectionType
+  distance: number | null
   toolbar?: ReactElement
 }
 
-const PoiDetails = ({ feature, poi, direction, toolbar }: PoiDetailsProps): ReactElement => {
+const PoiDetails = ({ poi, distance, toolbar }: PoiDetailsProps): ReactElement => {
   const navigate = useNavigate()
   const { viewportSmall } = useWindowDimensions()
   const theme = useTheme()
   const { t } = useTranslation('pois')
-  const { title, thumbnail, distance } = feature
   const { content, location, website, phoneNumber, email, isCurrentlyOpen, openingHours, temporarilyClosed, category } =
     poi
-  // MapEvent parses null to 'null'
-  const thumb = thumbnail === 'null' ? null : thumbnail?.replace('-150x150', '')
+
+  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+  const thumbnail = poi.thumbnail?.replace('-150x150', '') ?? PoiThumbnailPlaceholderLarge
   const isAndroid = /Android/i.test(navigator.userAgent)
   const externalMapsLink = getExternalMapsLink(location, isAndroid ? 'android' : 'web')
 
   return (
     <DetailsContainer>
       <HeadingSection>
-        <Thumbnail alt='' src={thumb ?? PoiThumbnailPlaceholderLarge} />
-        <Heading>{title}</Heading>
-        {!!distance && <Distance>{t('distanceKilometre', { distance })}</Distance>}
+        <Thumbnail alt='' src={thumbnail} />
+        <Heading>{poi.title}</Heading>
+        {!!distance && <Distance>{t('distanceKilometre', { distance: distance.toFixed(1) })}</Distance>}
         <Category>{category.name}</Category>
       </HeadingSection>
       <Spacer borderColor={theme.colors.borderColor} />
@@ -195,7 +194,6 @@ const PoiDetails = ({ feature, poi, direction, toolbar }: PoiDetailsProps): Reac
           <Spacer borderColor={theme.colors.borderColor} />
         )}
         <OpeningHours
-          direction={direction}
           openingHours={openingHours}
           isCurrentlyOpen={isCurrentlyOpen}
           isTemporarilyClosed={temporarilyClosed}

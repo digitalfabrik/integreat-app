@@ -1,7 +1,7 @@
 import React, { PureComponent, ReactElement } from 'react'
 import { Text } from 'react-native'
 
-import { SprungbrettJobModel } from 'api-client'
+import { SprungbrettJobModel } from 'shared/api'
 
 import { SprungbrettIcon } from '../assets'
 import ListItem from './ListItem'

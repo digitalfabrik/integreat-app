@@ -1,7 +1,7 @@
 import * as Sentry from '@sentry/react-native'
 import { mocked } from 'jest-mock'
 
-import { FetchError, NotFoundError } from 'api-client'
+import { FetchError, NotFoundError } from 'shared/api'
 
 import buildConfig from '../../constants/buildConfig'
 import { initSentry, log, reportError } from '../sentry'

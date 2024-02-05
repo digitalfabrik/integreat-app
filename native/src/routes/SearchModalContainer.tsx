@@ -2,7 +2,8 @@ import React, { ReactElement, useCallback, useContext, useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 import { ThemeContext } from 'styled-components'
 
-import { SearchRouteType, loadSprungbrettJobs } from 'api-client'
+import { SearchRouteType } from 'shared'
+import { loadSprungbrettJobs } from 'shared/api'
 
 import { NavigationProps, RouteProps } from '../constants/NavigationTypes'
 import useCityAppContext from '../hooks/useCityAppContext'

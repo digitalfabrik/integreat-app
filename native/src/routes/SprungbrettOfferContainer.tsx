@@ -1,6 +1,7 @@
 import React, { ReactElement, useCallback } from 'react'
 
-import { ErrorCode, loadSprungbrettJobs, SPRUNGBRETT_OFFER_ROUTE, SprungbrettOfferRouteType } from 'api-client'
+import { SPRUNGBRETT_OFFER_ROUTE, SprungbrettOfferRouteType } from 'shared'
+import { loadSprungbrettJobs, ErrorCode } from 'shared/api'
 
 import { NavigationProps, RouteProps } from '../constants/NavigationTypes'
 import useCityAppContext from '../hooks/useCityAppContext'

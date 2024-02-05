@@ -47,6 +47,7 @@ const Body = styled.div<{ fullWidth: boolean; disableScrollingSafari: boolean }>
   flex-grow: 1;
   background-color: ${props => props.theme.colors.backgroundColor};
   word-wrap: break-word;
+  min-height: 100%;
 
   /* Fix jumping iOS Safari Toolbar by prevent scrolling on body */
 
@@ -64,8 +65,8 @@ const Body = styled.div<{ fullWidth: boolean; disableScrollingSafari: boolean }>
     !props.fullWidth &&
     css`
       @media screen and ${dimensions.minMaxWidth} {
-        padding-right: calc((200% - 100vw - ${dimensions.maxWidth}px) / 2);
-        padding-left: calc((100vw - ${dimensions.maxWidth}px) / 2);
+        padding-inline-end: calc((200% - 100vw - ${dimensions.maxWidth}px) / 2);
+        padding-inline-start: calc((100vw - ${dimensions.maxWidth}px) / 2);
       }
     `};
 `
@@ -76,7 +77,7 @@ const Main = styled.main<{ fullWidth: boolean }>`
   max-width: calc(100% - ${dimensions.toolbarWidth}px);
   box-sizing: border-box;
   margin: 0 auto;
-  padding: ${props => (props.fullWidth ? '0' : '0 10px 30px')};
+  padding: ${props => (props.fullWidth ? '0' : `0 ${dimensions.mainContainerHorizontalPadding}px 30px`)};
   text-align: start;
   word-wrap: break-word;
 

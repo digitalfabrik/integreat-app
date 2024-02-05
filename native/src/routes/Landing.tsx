@@ -2,7 +2,8 @@ import React, { ReactElement, useCallback, useContext, useEffect } from 'react'
 import { View } from 'react-native'
 import styled from 'styled-components/native'
 
-import { CATEGORIES_ROUTE, CITY_NOT_COOPERATING_ROUTE, CityModel, LandingRouteType } from 'api-client'
+import { CATEGORIES_ROUTE, CITY_NOT_COOPERATING_ROUTE, LandingRouteType } from 'shared'
+import { CityModel } from 'shared/api'
 
 import CityNotCooperatingFooter from '../components/CityNotCooperatingFooter'
 import CitySelector from '../components/CitySelector'

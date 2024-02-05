@@ -2,7 +2,8 @@ import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
 
-import { DateModel, DateIcon, EventModel, getExcerpt } from 'api-client'
+import { getExcerpt } from 'shared'
+import { DateModel, DateIcon, EventModel } from 'shared/api'
 
 import {
   CalendarRecurringIcon,
@@ -21,6 +22,7 @@ import Icon from './base/Icon'
 const Content = styled.div`
   overflow-wrap: anywhere;
 `
+
 const StyledTooltip = styled(Tooltip)`
   height: 24px;
 `

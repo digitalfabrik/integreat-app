@@ -1,6 +1,6 @@
 import React, { ReactElement, useEffect, useState } from 'react'
 
-import { createFeedbackEndpoint, FeedbackRouteType } from 'api-client'
+import { createFeedbackEndpoint, FeedbackRouteType } from 'shared/api'
 
 import { cmsApiBaseUrl } from '../constants/urls'
 import { reportError } from '../utils/sentry'

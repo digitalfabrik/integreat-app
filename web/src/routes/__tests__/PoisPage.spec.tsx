@@ -2,11 +2,12 @@ import { fireEvent } from '@testing-library/react'
 import React from 'react'
 import { Route, Routes } from 'react-router-dom'
 
-import { cityContentPath, CityModelBuilder, PoiModelBuilder, POIS_ROUTE } from 'api-client'
+import { cityContentPath, POIS_ROUTE } from 'shared'
+import { CityModelBuilder, PoiModelBuilder } from 'shared/api'
 import {
   mockUseLoadFromEndpointWithData,
   mockUseLoadFromEndpointWithError,
-} from 'api-client/src/testing/mockUseLoadFromEndpoint'
+} from 'shared/api/endpoints/testing/mockUseLoadFromEndpoint'
 
 import { renderWithRouterAndTheme } from '../../testing/render'
 import PoisPage from '../PoisPage'
@@ -15,9 +16,10 @@ import { RoutePatterns } from '../index'
 jest.mock('react-inlinesvg')
 jest.mock('react-i18next')
 jest.mock('../../utils/getUserLocation', () => async () => ({ status: 'ready', coordinates: [10.8, 48.3] }))
-jest.mock('api-client', () => ({
-  ...jest.requireActual('api-client'),
+jest.mock('shared/api', () => ({
+  ...jest.requireActual('shared/api'),
   useLoadFromEndpoint: jest.fn(),
+  useLoadAsync: () => jest.fn(() => ({ status: 'ready', coordinates: [10.8, 48.3] })),
 }))
 
 describe('PoisPage', () => {
@@ -48,8 +50,8 @@ describe('PoisPage', () => {
   it('should render a list with all pois', () => {
     mockUseLoadFromEndpointWithData(pois)
     const { getByText } = renderPois()
-    expect(getByText(poi0.location.name)).toBeTruthy()
-    expect(getByText(poi1.location.name)).toBeTruthy()
+    expect(getByText(poi0.title)).toBeTruthy()
+    expect(getByText(poi1.title)).toBeTruthy()
   })
 
   it('should render an error', () => {
@@ -61,22 +63,8 @@ describe('PoisPage', () => {
   it('should render poi details page when list item was clicked', () => {
     mockUseLoadFromEndpointWithData(pois)
     const { getByText, getByLabelText } = renderPois()
-    fireEvent.click(getByLabelText(poi0.location.name))
-    expect(getByText(poi0.location.name)).toBeTruthy()
-    expect(getByText(poi0.location.address!)).toBeTruthy()
-    expect(getByText(poi0.content)).toBeTruthy()
-  })
-
-  it('should switch between pois using the PanelNavigation on poi details page', () => {
-    mockUseLoadFromEndpointWithData(pois)
-    const { getByText, getByLabelText } = renderPois()
-    fireEvent.click(getByLabelText(poi0.location.name))
-    fireEvent.click(getByText('pois:detailsNextPoi'))
-    expect(getByText(poi1.location.name)).toBeTruthy()
-    expect(getByText(poi1.location.address!)).toBeTruthy()
-    expect(getByText(poi1.content)).toBeTruthy()
-    fireEvent.click(getByText('pois:detailsPreviousPoi'))
-    expect(getByText(poi0.location.name)).toBeTruthy()
+    fireEvent.click(getByLabelText(poi0.title))
+    expect(getByText(poi0.title)).toBeTruthy()
     expect(getByText(poi0.location.address!)).toBeTruthy()
     expect(getByText(poi0.content)).toBeTruthy()
   })
@@ -84,7 +72,7 @@ describe('PoisPage', () => {
   it('should calculate correct language change paths', () => {
     mockUseLoadFromEndpointWithData(pois)
     const { getAllByText, getByLabelText } = renderPois()
-    fireEvent.click(getByLabelText(poi0.location.name))
+    fireEvent.click(getByLabelText(poi0.title))
     expect(getAllByText('English')[0]).toHaveAttribute('href', poi0.availableLanguages.get('en'))
     expect(getAllByText('Deutsch')[0]).toHaveAttribute('href', poi0.availableLanguages.get('de'))
     // Pathname is not correctly updated, therefore the pathname does not include the slug

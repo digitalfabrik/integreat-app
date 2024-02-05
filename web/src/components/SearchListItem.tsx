@@ -3,7 +3,7 @@ import Highlighter from 'react-highlight-words'
 import { Link } from 'react-router-dom'
 import styled, { useTheme } from 'styled-components'
 
-import { getExcerpt, normalizeString } from 'api-client'
+import { getExcerpt, normalizeString } from 'shared'
 
 import { EXCERPT_MAX_CHARS } from '../constants'
 

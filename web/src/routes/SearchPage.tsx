@@ -4,7 +4,8 @@ import { useTranslation } from 'react-i18next'
 import { useLocation, useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
 
-import { parseHTML, pathnameFromRouteInformation, SEARCH_ROUTE, useAllPossibleSearchResults } from 'api-client'
+import { parseHTML, pathnameFromRouteInformation, SEARCH_ROUTE } from 'shared'
+import { useAllPossibleSearchResults } from 'shared/api'
 
 import { CityRouteProps } from '../CityContentSwitcher'
 import CityContentLayout, { CityContentLayoutProps } from '../components/CityContentLayout'

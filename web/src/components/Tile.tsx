@@ -1,7 +1,7 @@
 import React, { ReactElement, ReactNode, useRef } from 'react'
 import styled from 'styled-components'
 
-import { request } from 'api-client/src/request'
+import { request } from 'shared/api'
 
 import TileModel from '../models/TileModel'
 import CleanLink from './CleanLink'
@@ -20,8 +20,7 @@ const Thumbnail = styled.div`
   & img {
     position: absolute;
     top: 0;
-    right: 0;
-    left: 0;
+    inset-inline: 0;
     width: 100%;
     height: 100%;
     transition: transform 0.2s;

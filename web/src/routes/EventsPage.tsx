@@ -3,14 +3,8 @@ import { useTranslation } from 'react-i18next'
 import { useNavigate, useParams } from 'react-router-dom'
 import styled from 'styled-components'
 
-import {
-  createEventsEndpoint,
-  EventModel,
-  EVENTS_ROUTE,
-  NotFoundError,
-  pathnameFromRouteInformation,
-  useLoadFromEndpoint,
-} from 'api-client'
+import { EVENTS_ROUTE, pathnameFromRouteInformation } from 'shared'
+import { createEventsEndpoint, EventModel, NotFoundError, useLoadFromEndpoint } from 'shared/api'
 
 import { CityRouteProps } from '../CityContentSwitcher'
 import Caption from '../components/Caption'
@@ -18,6 +12,7 @@ import CityContentLayout, { CityContentLayoutProps } from '../components/CityCon
 import CityContentToolbar from '../components/CityContentToolbar'
 import DatesPageDetail from '../components/DatesPageDetail'
 import EventListItem from '../components/EventListItem'
+import ExportEventButton from '../components/ExportEventButton'
 import FailureSwitcher from '../components/FailureSwitcher'
 import Helmet from '../components/Helmet'
 import JsonLdEvent from '../components/JsonLdEvent'
@@ -25,16 +20,9 @@ import List from '../components/List'
 import LoadingSpinner from '../components/LoadingSpinner'
 import Page, { THUMBNAIL_WIDTH } from '../components/Page'
 import PageDetail from '../components/PageDetail'
-import TextButton from '../components/base/TextButton'
-import buildConfig from '../constants/buildConfig'
 import { cmsApiBaseUrl } from '../constants/urls'
 import usePreviousProp from '../hooks/usePreviousProp'
-import useWindowDimensions from '../hooks/useWindowDimensions'
 import featuredImageToSrcSet from '../utils/featuredImageToSrcSet'
-
-const StyledButton = styled(TextButton)<{ fullWidth: boolean }>`
-  ${props => props.fullWidth && 'width: 100%;'}
-`
 
 const Spacing = styled.div`
   display: flex;
@@ -47,7 +35,6 @@ const EventsPage = ({ city, pathname, languageCode, cityCode }: CityRouteProps):
   const previousPathname = usePreviousProp({ prop: pathname })
   const { eventId } = useParams()
   const { t } = useTranslation('events')
-  const { viewportSmall } = useWindowDimensions()
   const navigate = useNavigate()
 
   const {
@@ -87,7 +74,6 @@ const EventsPage = ({ city, pathname, languageCode, cityCode }: CityRouteProps):
         feedbackTarget={event?.slug}
         route={EVENTS_ROUTE}
         hideDivider={!event}
-        languageCode={languageCode}
         pageTitle={pageTitle}
       />
     ),
@@ -118,25 +104,9 @@ const EventsPage = ({ city, pathname, languageCode, cityCode }: CityRouteProps):
     )
   }
 
-  const downloadEventAsIcsFile = (event: EventModel) => {
-    const blob = new Blob([event.toICal(window.location.origin, buildConfig().appName)], {
-      type: 'text/calendar;charset=utf-8',
-    })
-    const anchorElement = document.createElement('a')
-    anchorElement.href = window.URL.createObjectURL(blob)
-    anchorElement.setAttribute('download', `${event.title}.ics`)
-    document.body.appendChild(anchorElement)
-    anchorElement.click()
-    document.body.removeChild(anchorElement)
-  }
-
   if (event) {
     const { featuredImage, thumbnail, lastUpdate, content, title, location, date } = event
     const defaultThumbnail = featuredImage ? featuredImage.medium.url : thumbnail
-
-    const PageFooter = (
-      <StyledButton onClick={() => downloadEventAsIcsFile(event)} text={t('exportAsICal')} fullWidth={viewportSmall} />
-    )
 
     return (
       <CityContentLayout isLoading={false} {...locationLayoutParams}>
@@ -155,7 +125,7 @@ const EventsPage = ({ city, pathname, languageCode, cityCode }: CityRouteProps):
               {location && <PageDetail identifier={t('address')} information={location.fullAddress} />}
             </Spacing>
           }
-          Footer={PageFooter}
+          Footer={<ExportEventButton event={event} />}
         />
       </CityContentLayout>
     )

@@ -21,7 +21,6 @@ import {
   SearchRouteType,
   SettingsRouteType,
   SprungbrettOfferRouteType,
-  LanguageModel,
   POIS_ROUTE,
   CATEGORIES_ROUTE,
   LANDING_ROUTE,
@@ -44,10 +43,12 @@ import {
   CityNotCooperatingRouteType,
   LICENSES_ROUTE,
   LicensesRouteType,
-  FeedbackRouteType,
   CONSENT_ROUTE,
   ConsentRouteType,
-} from 'api-client'
+  MalteHelpFormOfferRouteType,
+  MALTE_HELP_FORM_OFFER_ROUTE,
+} from 'shared'
+import { LanguageModel, FeedbackRouteType } from 'shared/api'
 
 export type RoutesType =
   | RedirectRouteType
@@ -63,6 +64,7 @@ export type RoutesType =
   | OffersRouteType
   | ExternalOfferRouteType
   | SprungbrettOfferRouteType
+  | MalteHelpFormOfferRouteType
   | SettingsRouteType
   | SearchRouteType
   | ChangeLanguageModalRouteType
@@ -108,6 +110,7 @@ export type RoutesParamsType = {
     postData: Map<string, string> | null | undefined
   }
   [SPRUNGBRETT_OFFER_ROUTE]: undefined
+  [MALTE_HELP_FORM_OFFER_ROUTE]: undefined
   [SETTINGS_ROUTE]: undefined
   [SEARCH_ROUTE]: {
     searchText?: string | null

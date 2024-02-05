@@ -7,7 +7,7 @@
       "native",
       "web",
       "e2e-tests",
-      "api-client",
+      "shared",
       "translations",
       "build-configs"
     ],
@@ -15,14 +15,14 @@
       "native/**",
       "web/**",
       "e2e-tests/**",
-      "api-client/**",
+      "shared/**",
       "translations/**",
       "build-configs/**"
     ]
   },
   "scripts": {
     "prepare": "husky install",
-    "lint": "eslint --cache --cache-location .eslintcache .",
+    "lint": "eslint --cache --cache-location .eslintcache . && yarn workspace web stylelint",
     "lint:ci": "yarn node --max-old-space-size=1535 $(yarn bin eslint) --format junit -o reports/lint/junit-lint.xml .",
     "test": "jest",
     "test:changed": "jest -o",

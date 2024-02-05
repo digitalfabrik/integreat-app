@@ -3,7 +3,7 @@ import type { Config } from '@jest/types'
 const config: Partial<Config.GlobalConfig> = {
   rootDir: '.',
   verbose: true,
-  projects: ['web', 'native', 'api-client', 'translations'],
+  projects: ['web', 'native', 'shared', 'translations'],
   reporters: [
     ['default', {}],
     [

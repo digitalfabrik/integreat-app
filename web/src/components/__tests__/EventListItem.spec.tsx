@@ -2,7 +2,8 @@ import { DateTime } from 'luxon'
 import React from 'react'
 import { rrulestr } from 'rrule'
 
-import { DateModel, EventModelBuilder, getExcerpt } from 'api-client'
+import { getExcerpt } from 'shared'
+import { EventModelBuilder, DateModel } from 'shared/api'
 
 import { EventThumbnailPlaceholder1, EventThumbnailPlaceholder2, EventThumbnailPlaceholder3 } from '../../assets'
 import { EXCERPT_MAX_CHARS } from '../../constants'

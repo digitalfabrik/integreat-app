@@ -2,7 +2,7 @@
 import type Sentry from '@sentry/react'
 import { SeverityLevel } from '@sentry/types'
 
-import { FetchError, NotFoundError } from 'api-client'
+import { FetchError, NotFoundError } from 'shared/api'
 
 import buildConfig from '../constants/buildConfig'
 

@@ -4,6 +4,8 @@ import React from 'react'
 import { renderWithTheme } from '../../testing/render'
 import RemoteContent from '../RemoteContent'
 
+jest.mock('react-i18next')
+
 describe('RemoteContent', () => {
   it('should render the html content', () => {
     const content = 'Test html'
@@ -43,6 +45,44 @@ describe('RemoteContent', () => {
     fireEvent.click(getByRole('link'))
 
     expect(onInternalLinkClick).toHaveBeenCalledTimes(0)
+  })
+
+  it('should block an iframe with unsupported source', () => {
+    const src = `https://unknownvideo.com`
+    const iframeTitle = 'unknown'
+    const html = `<iframe title=${iframeTitle} src=${src} />`
+    const onInternalLinkClick = jest.fn()
+
+    const { getByTitle } = renderWithTheme(<RemoteContent html={html} onInternalLinkClick={onInternalLinkClick} />)
+
+    expect(getByTitle(iframeTitle)).toHaveAttribute('src', 'about:blank')
+  })
+
+  it('should show opt-in checkbox for supported iframe source', () => {
+    const src = `https://vimeo.com`
+    const iframeTitle = 'vimeo'
+    const html = `<iframe title=${iframeTitle} src=${src} />`
+    const onInternalLinkClick = jest.fn()
+
+    const { getAllByRole } = renderWithTheme(<RemoteContent html={html} onInternalLinkClick={onInternalLinkClick} />)
+
+    expect(getAllByRole('checkbox')).toHaveLength(1)
+  })
+
+  it('should show iframe with correct source if opt-in checkbox was clicked', () => {
+    const src = `https://vimeo.com`
+    const doNotTrackParameter = `/?dnt=1`
+    const iframeTitle = 'vimeo'
+    const html = `<iframe title=${iframeTitle} src=${src} />`
+    const onInternalLinkClick = jest.fn()
+
+    const { getByRole, getAllByRole, getByTitle } = renderWithTheme(
+      <RemoteContent html={html} onInternalLinkClick={onInternalLinkClick} />,
+    )
+
+    expect(getAllByRole('checkbox')).toHaveLength(1)
+    fireEvent.click(getByRole('checkbox'))
+    expect(getByTitle(iframeTitle)).toHaveAttribute('src', `${src}${doNotTrackParameter}`)
   })
 
   it('should sanitize the html', () => {

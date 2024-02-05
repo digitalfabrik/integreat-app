@@ -3,7 +3,8 @@ import { useTranslation } from 'react-i18next'
 import { useNavigate, useParams } from 'react-router-dom'
 import styled from 'styled-components'
 
-import { createTunewsElementEndpoint, NotFoundError, TU_NEWS_TYPE, useLoadFromEndpoint } from 'api-client'
+import { TU_NEWS_TYPE } from 'shared'
+import { createTunewsElementEndpoint, NotFoundError, useLoadFromEndpoint } from 'shared/api'
 
 import { CityRouteProps } from '../CityContentSwitcher'
 import { TuNewsActiveIcon } from '../assets'
@@ -22,6 +23,7 @@ const StyledContainer = styled.div`
   flex-direction: column;
   justify-content: space-between;
 `
+
 const StyledBanner = styled.div`
   position: relative;
   display: flex;
@@ -32,10 +34,12 @@ const StyledBanner = styled.div`
   background-color: ${props => props.theme.colors.tunewsThemeColorLight};
   border-radius: 11px;
 `
+
 const StyledIcon = styled(Icon)`
   width: 100%;
   height: 100%;
 `
+
 const StyledTitle = styled.div`
   display: flex;
   width: 185px;
@@ -74,14 +78,7 @@ const TuNewsDetailPage = ({ city, pathname, cityCode, languageCode }: CityRouteP
     languageChangePaths,
     route: TU_NEWS_DETAIL_ROUTE,
     languageCode,
-    Toolbar: (
-      <CityContentToolbar
-        hasFeedbackOption={false}
-        route={TU_NEWS_DETAIL_ROUTE}
-        languageCode={languageCode}
-        pageTitle={pageTitle}
-      />
-    ),
+    Toolbar: <CityContentToolbar hasFeedbackOption={false} route={TU_NEWS_DETAIL_ROUTE} pageTitle={pageTitle} />,
   }
 
   if (loading) {

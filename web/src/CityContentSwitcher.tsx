@@ -4,18 +4,16 @@ import { Route, Routes, useLocation, useParams } from 'react-router-dom'
 import {
   CATEGORIES_ROUTE,
   cityContentPath,
-  CityModel,
-  createCityEndpoint,
   DISCLAIMER_ROUTE,
   EVENTS_ROUTE,
+  MALTE_HELP_FORM_OFFER_ROUTE,
   normalizePath,
-  NotFoundError,
   OFFERS_ROUTE,
   POIS_ROUTE,
   SEARCH_ROUTE,
   SPRUNGBRETT_OFFER_ROUTE,
-  useLoadFromEndpoint,
-} from 'api-client'
+} from 'shared'
+import { CityModel, NotFoundError, useLoadFromEndpoint, createCityEndpoint } from 'shared/api'
 
 import CityContentLayout from './components/CityContentLayout'
 import FailureSwitcher from './components/FailureSwitcher'
@@ -27,6 +25,7 @@ import LoadingSpinner from './components/LoadingSpinner'
 import buildConfig from './constants/buildConfig'
 import { cmsApiBaseUrl } from './constants/urls'
 import { LOCAL_NEWS_ROUTE, RoutePatterns, RouteType, TU_NEWS_DETAIL_ROUTE, TU_NEWS_ROUTE } from './routes'
+import MalteHelpFormOfferPage from './routes/MalteHelpFormOfferPage'
 import lazyWithRetry from './utils/retryImport'
 
 const TuNewsDetailPage = lazyWithRetry(() => import('./routes/TuNewsDetailPage'))
@@ -138,6 +137,7 @@ const CityContentSwitcher = ({ languageCode }: CityContentSwitcherProps): ReactE
       {eventsEnabled && render(EVENTS_ROUTE, EventsPage, ':eventId')}
 
       {offersEnabled && render(SPRUNGBRETT_OFFER_ROUTE, SprungbrettOfferPage)}
+      {offersEnabled && render(MALTE_HELP_FORM_OFFER_ROUTE, MalteHelpFormOfferPage)}
       {offersEnabled && render(OFFERS_ROUTE, OffersPage)}
       {poisEnabled && render(POIS_ROUTE, PoisPage, ':slug')}
       {localNewsEnabled && render(LOCAL_NEWS_ROUTE, LocalNewsPage, ':newsId')}

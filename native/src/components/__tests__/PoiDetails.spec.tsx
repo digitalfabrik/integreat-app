@@ -3,7 +3,7 @@ import { fireEvent, waitFor } from '@testing-library/react-native'
 import { mocked } from 'jest-mock'
 import React from 'react'
 
-import { PoiModelBuilder, prepareFeatureLocation } from 'api-client'
+import { PoiModelBuilder } from 'shared/api'
 
 import useSnackbar from '../../hooks/useSnackbar'
 import renderWithTheme from '../../testing/render'
@@ -35,19 +35,16 @@ describe('PoiDetails', () => {
   mocked(useSnackbar).mockImplementation(() => showSnackbar)
 
   const pois = new PoiModelBuilder(2).build()
-  const userLocation: [number, number] = [29.97984, 31.13385]
   const language = 'de'
+  const distance = 3.1
 
   it('should render poi information', () => {
     const poi = pois[0]!
-    const feature = prepareFeatureLocation([poi], 0, poi.location.coordinates, userLocation)!
-    const poiFeature = feature.properties.pois[0]!
-
-    const { getByText } = renderWithTheme(<PoiDetails poi={poi} poiFeature={poiFeature} language={language} />)
+    const { getByText } = renderWithTheme(<PoiDetails poi={poi} language={language} distance={distance} />)
 
     expect(getByText(poi.title)).toBeTruthy()
     expect(getByText(poi.category!.name!)).toBeTruthy()
-    expect(getByText('distanceKilometre', { exact: false })).toBeTruthy()
+    expect(getByText(`distanceKilometre: ${distance}`)).toBeTruthy()
     expect(getByText(poi.location.address)).toBeTruthy()
     expect(getByText(`${poi.location.postcode} ${poi.location.town}`)).toBeTruthy()
     expect(getByText('description')).toBeTruthy()
@@ -59,27 +56,18 @@ describe('PoiDetails', () => {
     expect(getByText(poi.email!)).toBeTruthy()
   })
 
-  it('should not render distance if there is no user location', () => {
+  it('should not render distance if there is none', () => {
     const poi = pois[0]!
-    const feature = prepareFeatureLocation([poi], 0, poi.location.coordinates)!
-    const poiFeature = feature.properties.pois[0]!
-
-    const { queryByText } = renderWithTheme(<PoiDetails poi={poi} poiFeature={poiFeature} language={language} />)
+    const { queryByText } = renderWithTheme(<PoiDetails poi={poi} language={language} distance={null} />)
 
     expect(queryByText('distanceKilometre', { exact: false })).toBeFalsy()
   })
 
   it('should not render contact information if there is none', () => {
     const poiWithoutContactInformation = pois[1]!
-    const feature = prepareFeatureLocation(
-      [poiWithoutContactInformation],
-      0,
-      poiWithoutContactInformation.location.coordinates,
-    )!
-    const poiFeature = feature.properties.pois[0]!
 
     const { queryByText } = renderWithTheme(
-      <PoiDetails poi={poiWithoutContactInformation} poiFeature={poiFeature} language={language} />,
+      <PoiDetails poi={poiWithoutContactInformation} language={language} distance={distance} />,
     )
 
     expect(queryByText('contactInformation')).toBeFalsy()
@@ -87,10 +75,7 @@ describe('PoiDetails', () => {
 
   it('should open external maps app on icon click', async () => {
     const poi = pois[0]!
-    const feature = prepareFeatureLocation([poi], 0, poi.location.coordinates, userLocation)!
-    const poiFeature = feature.properties.pois[0]!
-
-    const { getByLabelText } = renderWithTheme(<PoiDetails poi={poi} poiFeature={poiFeature} language={language} />)
+    const { getByLabelText } = renderWithTheme(<PoiDetails poi={poi} language={language} distance={distance} />)
 
     fireEvent.press(getByLabelText('openExternalMaps'))
     const externalMapsUrl = 'maps:30,30?q=Test Title, Test Address 1, 12345 Test Town'
@@ -99,10 +84,7 @@ describe('PoiDetails', () => {
 
   it('should copy address to clipboard', () => {
     const poi = pois[0]!
-    const feature = prepareFeatureLocation([poi], 0, poi.location.coordinates, userLocation)!
-    const poiFeature = feature.properties.pois[0]!
-
-    const { getByText } = renderWithTheme(<PoiDetails poi={poi} poiFeature={poiFeature} language={language} />)
+    const { getByText } = renderWithTheme(<PoiDetails poi={poi} language={language} distance={distance} />)
 
     fireEvent.press(getByText(poi.location.address))
     expect(Clipboard.setString).toHaveBeenCalledWith('Test Address 1, 12345 Test Town')

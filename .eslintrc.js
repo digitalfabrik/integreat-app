@@ -126,6 +126,12 @@ module.exports = {
         allowChildren: false,
       },
     ],
+    'styled-components-a11y/no-noninteractive-element-to-interactive-role': [
+      'error',
+      {
+        fieldset: ['radiogroup'],
+      },
+    ],
   },
   parserOptions: {
     project: true,

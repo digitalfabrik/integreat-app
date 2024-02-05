@@ -1,7 +1,7 @@
 import { fireEvent, RenderAPI } from '@testing-library/react-native'
 import React from 'react'
 
-import { ErrorCode } from 'api-client'
+import { ErrorCode } from 'shared/api'
 
 import render from '../../testing/render'
 import Failure from '../Failure'

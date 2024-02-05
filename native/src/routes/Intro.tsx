@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next'
 import { FlatList, useWindowDimensions, ViewToken } from 'react-native'
 import styled, { css } from 'styled-components/native'
 
-import { IntroRouteType, LANDING_ROUTE } from 'api-client'
+import { IntroRouteType, LANDING_ROUTE } from 'shared'
 
 import SlideContent, { SlideContentType } from '../components/SlideContent'
 import SlideFooter from '../components/SlideFooter'

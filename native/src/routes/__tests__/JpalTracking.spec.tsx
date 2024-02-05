@@ -4,7 +4,7 @@ import { fireEvent, waitFor } from '@testing-library/react-native'
 import { mocked } from 'jest-mock'
 import React from 'react'
 
-import { JpalTrackingRouteType } from 'api-client'
+import { JpalTrackingRouteType } from 'shared'
 
 import createNavigationMock from '../../testing/createNavigationPropMock'
 import render from '../../testing/render'

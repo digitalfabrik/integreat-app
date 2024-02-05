@@ -4,7 +4,7 @@ import { mocked } from 'jest-mock'
 import React from 'react'
 import { openSettings, RESULTS } from 'react-native-permissions'
 
-import CityModelBuilder from 'api-client/src/testing/CityModelBuilder'
+import { CityModelBuilder } from 'shared/api'
 
 import render from '../../testing/render'
 import { checkLocationPermission, requestLocationPermission } from '../../utils/LocationPermissionManager'

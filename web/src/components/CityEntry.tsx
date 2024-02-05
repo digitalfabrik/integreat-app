@@ -1,10 +1,10 @@
 import React from 'react'
 import Highlighter from 'react-highlight-words'
 import { Link } from 'react-router-dom'
-import styled, { withTheme } from 'styled-components'
+import styled, { DefaultTheme, withTheme } from 'styled-components'
 
-import { cityContentPath, CityModel, normalizeString } from 'api-client'
-import type { ThemeType } from 'build-configs'
+import { cityContentPath, normalizeString } from 'shared'
+import { CityModel } from 'shared/api'
 
 const MAX_NUMBER_OF_ALIASES = 3
 
@@ -31,7 +31,7 @@ type CityEntryProps = {
   language: string
   city: CityModel
   filterText: string
-  theme: ThemeType
+  theme: DefaultTheme
 }
 
 class CityEntry extends React.PureComponent<CityEntryProps> {

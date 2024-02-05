@@ -7,6 +7,7 @@ import dimensions from '../constants/dimensions'
 import FeedbackButtons from './FeedbackButtons'
 import { SendingStatusType } from './FeedbackContainer'
 import Note from './Note'
+import Input from './base/Input'
 import InputSection from './base/InputSection'
 import TextButton from './base/TextButton'
 
@@ -83,7 +84,9 @@ const Feedback = ({
   return (
     <Container fullWidth={isSearchFeedback}>
       {isSearchFeedback ? (
-        <InputSection id='searchTerm' title={t('searchTermDescription')} value={searchTerm} onChange={setSearchTerm} />
+        <InputSection id='searchTerm' title={t('searchTermDescription')}>
+          <Input id='searchTerm' value={searchTerm} onChange={setSearchTerm} />
+        </InputSection>
       ) : (
         <FeedbackButtons isPositive={isPositiveFeedback} onRatingChange={onFeedbackChanged} />
       )}
@@ -92,19 +95,13 @@ const Feedback = ({
         id='comment'
         title={t(commentTitle)}
         description={t('commentDescription', { appName: buildConfig().appName })}
-        value={comment}
-        onChange={onCommentChanged}
-        showOptional
-        multiline
-      />
+        showOptional>
+        <Input id='comment' value={comment} onChange={onCommentChanged} multiline />
+      </InputSection>
 
-      <InputSection
-        id='email'
-        title={t('contactMailAddress')}
-        value={contactMail}
-        onChange={onContactMailChanged}
-        showOptional
-      />
+      <InputSection id='email' title={t('contactMailAddress')} showOptional>
+        <Input id='email' value={contactMail} onChange={onContactMailChanged} />
+      </InputSection>
 
       {!isSearchFeedback && <Note text={t('note')} visible={sendFeedbackDisabled} />}
       {sendingStatus === 'failed' && <ErrorSendingStatus role='alert'>{t('failedSendingFeedback')}</ErrorSendingStatus>}

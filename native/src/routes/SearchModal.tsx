@@ -4,15 +4,15 @@ import React, { ReactElement, useMemo, useState } from 'react'
 import { KeyboardAvoidingView, Platform } from 'react-native'
 import styled from 'styled-components/native'
 
+import { ThemeType } from 'build-configs'
 import {
   InternalPathnameParser,
   parseHTML,
   RouteInformationType,
   SEARCH_FINISHED_SIGNAL_NAME,
   SEARCH_ROUTE,
-  SearchResult,
-} from 'api-client'
-import { ThemeType } from 'build-configs'
+} from 'shared'
+import { SearchResult } from 'shared/api'
 
 import FeedbackContainer from '../components/FeedbackContainer'
 import HorizontalLine from '../components/HorizontalLine'

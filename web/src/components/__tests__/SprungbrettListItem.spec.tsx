@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { SprungbrettJobModel } from 'api-client'
+import { SprungbrettJobModel } from 'shared/api'
 
 import { renderWithRouterAndTheme } from '../../testing/render'
 import SprungbrettListItem from '../SprungbrettListItem'

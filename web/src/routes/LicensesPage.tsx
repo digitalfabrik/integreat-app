@@ -1,7 +1,7 @@
 import React, { ReactElement, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { License, parseLicenses } from 'api-client'
+import { License, parseLicenses } from 'shared'
 
 import Caption from '../components/Caption'
 import GeneralFooter from '../components/GeneralFooter'

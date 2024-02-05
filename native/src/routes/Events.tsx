@@ -3,7 +3,8 @@ import { useTranslation } from 'react-i18next'
 import { RefreshControl } from 'react-native'
 import styled from 'styled-components/native'
 
-import { CityModel, EventModel, EVENTS_ROUTE, fromError, NotFoundError, RouteInformationType } from 'api-client'
+import { EVENTS_ROUTE, RouteInformationType } from 'shared'
+import { fromError, NotFoundError, CityModel, EventModel } from 'shared/api'
 
 import Caption from '../components/Caption'
 import DatesPageDetail from '../components/DatesPageDetail'

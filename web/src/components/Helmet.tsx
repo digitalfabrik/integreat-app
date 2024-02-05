@@ -1,7 +1,7 @@
 import React, { ReactElement } from 'react'
 import { Helmet as ReactHelmet } from 'react-helmet'
 
-import { CityModel } from 'api-client'
+import { CityModel } from 'shared/api'
 
 import buildConfig from '../constants/buildConfig'
 

@@ -6,7 +6,8 @@ import WebView, { WebViewMessageEvent } from 'react-native-webview'
 import { WebViewNavigation } from 'react-native-webview/lib/WebViewTypes'
 import { useTheme } from 'styled-components/native'
 
-import { CONSENT_ROUTE, ErrorCode, ExternalSourcePermissions } from 'api-client'
+import { CONSENT_ROUTE, ExternalSourcePermissions } from 'shared'
+import { ErrorCode } from 'shared/api'
 
 import buildConfig from '../constants/buildConfig'
 import dimensions from '../constants/dimensions'

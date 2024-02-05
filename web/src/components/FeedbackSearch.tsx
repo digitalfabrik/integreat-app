@@ -2,7 +2,7 @@ import React, { ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
 
-import { SEARCH_ROUTE } from 'api-client'
+import { SEARCH_ROUTE } from 'shared'
 
 import FeedbackContainer from './FeedbackContainer'
 import TextButton from './base/TextButton'

@@ -1,4 +1,4 @@
-import { FeaturedImageModel } from 'api-client'
+import { FeaturedImageModel } from 'shared/api'
 
 import featuredImageToSrcSet from '../featuredImageToSrcSet'
 

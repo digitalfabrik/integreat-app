@@ -1,7 +1,8 @@
 import React from 'react'
 import { ReactTestInstance } from 'react-test-renderer'
 
-import { CategoriesMapModelBuilder, CityModelBuilder, LanguageModelBuilder, parseHTML } from 'api-client'
+import { parseHTML } from 'shared'
+import { CategoriesMapModelBuilder, CityModelBuilder, LanguageModelBuilder } from 'shared/api'
 
 import render from '../../testing/render'
 import SearchListItem from '../SearchListItem'

@@ -2,7 +2,7 @@ import { DateTime } from 'luxon'
 import React from 'react'
 import { rrulestr } from 'rrule'
 
-import { DateModel, EventModelBuilder } from 'api-client'
+import { EventModelBuilder, DateModel } from 'shared/api'
 
 import render from '../../testing/render'
 import EventListItem from '../EventListItem'

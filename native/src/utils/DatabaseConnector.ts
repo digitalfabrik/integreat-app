@@ -20,7 +20,7 @@ import {
   OrganizationModel,
   OfferModel,
   createPostMap,
-} from 'api-client'
+} from 'shared/api'
 
 import DatabaseContext from '../models/DatabaseContext'
 import {
@@ -144,7 +144,7 @@ type ContentPoiJsonType = {
   excerpt: string
   location: LocationJsonType<number>
   lastUpdate: string
-  category: { id: number; name: string; color: string; icon: string; iconName: string } | null
+  category: { id: number; name: string; color: string; icon: string; iconName: string }
   openingHours: { allDay: boolean; closed: boolean; timeSlots: { start: string; end: string }[] }[] | null
   temporarilyClosed: boolean
 }
@@ -516,15 +516,13 @@ class DatabaseConnector {
             town: jsonLocation.town,
           }),
           lastUpdate: DateTime.fromISO(jsonObject.lastUpdate),
-          category: jsonObject.category
-            ? new PoiCategoryModel({
-                id: jsonObject.category.id,
-                name: jsonObject.category.name,
-                color: jsonObject.category.color,
-                icon: jsonObject.category.icon,
-                iconName: jsonObject.category.iconName,
-              })
-            : null,
+          category: new PoiCategoryModel({
+            id: jsonObject.category.id,
+            name: jsonObject.category.name,
+            color: jsonObject.category.color,
+            icon: jsonObject.category.icon,
+            iconName: jsonObject.category.iconName,
+          }),
           openingHours:
             jsonObject.openingHours?.map(
               hours =>

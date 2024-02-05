@@ -29,8 +29,8 @@ import {
   SEARCH_ROUTE,
   SETTINGS_ROUTE,
   SPRUNGBRETT_OFFER_ROUTE,
-  useLoadAsync,
-} from 'api-client'
+} from 'shared'
+import { useLoadAsync } from 'shared/api'
 
 import Header from './components/Header'
 import RedirectContainer from './components/RedirectContainer'

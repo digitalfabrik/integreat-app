@@ -1,15 +1,16 @@
 import { DateTime } from 'luxon'
 import React from 'react'
 
-import { CityModelBuilder, DISCLAIMER_ROUTE, PageModel, pathnameFromRouteInformation } from 'api-client'
-import { mockUseLoadFromEndpointOnceWithData } from 'api-client/src/testing/mockUseLoadFromEndpoint'
+import { DISCLAIMER_ROUTE, pathnameFromRouteInformation } from 'shared'
+import { CityModelBuilder, PageModel } from 'shared/api'
+import { mockUseLoadFromEndpointOnceWithData } from 'shared/api/endpoints/testing/mockUseLoadFromEndpoint'
 
 import { renderRoute } from '../../testing/render'
 import DisclaimerPage from '../DisclaimerPage'
 import { RoutePatterns } from '../index'
 
-jest.mock('api-client', () => ({
-  ...jest.requireActual('api-client'),
+jest.mock('shared/api', () => ({
+  ...jest.requireActual('shared/api'),
   useLoadFromEndpoint: jest.fn(),
 }))
 jest.mock('react-inlinesvg')

@@ -1,29 +1,36 @@
 import MapLibreGL, { CameraSettings } from '@maplibre/maplibre-react-native'
-import type { BBox, Feature, Geometry, GeoJsonProperties } from 'geojson'
+import type { BBox, Feature, GeoJsonProperties, Geometry } from 'geojson'
 import { Position } from 'geojson'
-import React, { ReactElement, useCallback, useLayoutEffect, useRef, useState } from 'react'
+import React, { ReactElement, useCallback, useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useTheme } from 'styled-components'
 import styled from 'styled-components/native'
 
 import {
+  animationDuration,
+  clusterClickZoomFactor,
+  clusterLayerId,
   clusterRadius,
   defaultViewportConfig,
-  normalDetailZoom,
+  calculateDistance,
+  embedInCollection,
+  featureLayerId,
+  LocationType,
   mapConfig,
   MapFeature,
-  MapFeatureCollection,
-  animationDuration,
-  clusterLayerId,
-  featureLayerId,
-  clusterClickZoomFactor,
-} from 'api-client'
+  MIN_DISTANCE_THRESHOLD,
+  normalDetailZoom,
+} from 'shared'
 
 import { LocationFixedIcon, LocationNotFixedIcon, LocationOffIcon } from '../assets'
 import { clusterCountLayer, clusterLayer, markerLayer } from '../constants/layers'
+import useUserLocation from '../hooks/useUserLocation'
 import MapAttribution from './MapsAttribution'
 import Icon from './base/Icon'
 import IconButton from './base/IconButton'
+
+// Has to be set even if we use map libre
+MapLibreGL.setAccessToken(null)
 
 const MapContainer = styled.View`
   flex: 1;
@@ -56,10 +63,10 @@ const OverlayContainer = styled.View`
 
 type MapViewProps = {
   boundingBox: BBox
-  featureCollection: MapFeatureCollection
+  features: MapFeature[]
   selectedFeature: MapFeature | null
-  onRequestLocationPermission: () => Promise<void>
-  locationPermissionGranted: boolean
+  userLocation: LocationType | null
+  setUserLocation: (userLocation: LocationType | null) => void
   iconPosition: string | number
   selectFeature: (feature: MapFeature | null) => void
   setSheetSnapPointIndex: (index: number) => void
@@ -67,33 +74,30 @@ type MapViewProps = {
   Overlay?: ReactElement
 }
 
-// Has to be set even if we use map libre
-MapLibreGL.setAccessToken(null)
 const MapView = ({
   boundingBox,
-  featureCollection,
+  features,
   selectedFeature,
   iconPosition,
-  onRequestLocationPermission,
-  locationPermissionGranted,
+  userLocation,
+  setUserLocation,
   selectFeature,
   setSheetSnapPointIndex,
   Overlay,
   bottomSheetHeight,
 }: MapViewProps): ReactElement => {
-  const cameraRef = useRef<MapLibreGL.Camera | null>(null)
-  const mapRef = useRef<MapLibreGL.MapView | null>(null)
-  const theme = useTheme()
-  const { t } = useTranslation('pois')
-  const [userLocation, setUserLocation] = useState<MapLibreGL.Location | undefined>(undefined)
+  const cameraRef = useRef<MapLibreGL.Camera>(null)
+  const mapRef = useRef<MapLibreGL.MapView>(null)
   const [followUserLocation, setFollowUserLocation] = useState<boolean>(false)
+  const { requestAndDetermineLocation } = useUserLocation()
+  const { t } = useTranslation('pois')
+  const theme = useTheme()
 
   const bounds = {
     ne: [boundingBox[2], boundingBox[3]],
     sw: [boundingBox[0], boundingBox[1]],
   }
 
-  // if there is a current feature use the coordinates; if not use bounding box
   const coordinates = selectedFeature?.geometry.coordinates
   const defaultSettings: CameraSettings = {
     zoomLevel: coordinates ? normalDetailZoom : defaultViewportConfig.zoom,
@@ -101,69 +105,72 @@ const MapView = ({
     bounds: coordinates ? undefined : bounds,
   }
 
-  const moveTo = useCallback((location: Position, bottomSheetHeight: number, zoomLevel = normalDetailZoom) => {
-    if (cameraRef.current) {
-      cameraRef.current.setCamera({
+  const moveTo = useCallback(
+    (location: Position, zoomLevel = normalDetailZoom) =>
+      cameraRef.current?.setCamera({
         centerCoordinate: location,
         zoomLevel,
         animationDuration,
         padding: { paddingBottom: bottomSheetHeight },
-      })
-    }
-  }, [])
+      }),
+    [bottomSheetHeight],
+  )
 
   const onRequestLocation = useCallback(async () => {
-    await onRequestLocationPermission()
-    if (userLocation?.coords) {
-      const { longitude, latitude } = userLocation.coords
-      moveTo([longitude, latitude], bottomSheetHeight)
+    await requestAndDetermineLocation()
+    if (userLocation) {
+      moveTo(userLocation)
       setFollowUserLocation(true)
     }
-  }, [bottomSheetHeight, moveTo, onRequestLocationPermission, userLocation])
+  }, [moveTo, requestAndDetermineLocation, userLocation])
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     if (selectedFeature) {
-      moveTo(selectedFeature.geometry.coordinates, bottomSheetHeight)
+      moveTo(selectedFeature.geometry.coordinates)
       setFollowUserLocation(false)
     }
-  }, [bottomSheetHeight, moveTo, selectedFeature])
+  }, [moveTo, selectedFeature])
 
-  const locationPermissionGrantedIcon = followUserLocation ? LocationFixedIcon : LocationNotFixedIcon
-  const locationPermissionIcon = locationPermissionGranted ? locationPermissionGrantedIcon : LocationOffIcon
-
-  const zoomOnClusterPress = async (pressedLocation: Feature<Geometry, GeoJsonProperties>) => {
-    if (!mapRef.current || !pressedLocation.properties) {
-      return
-    }
-    const clusterCollection = await mapRef.current.queryRenderedFeaturesAtPoint(
-      [pressedLocation.properties.screenPointX, pressedLocation.properties.screenPointY],
-      undefined,
-      [clusterLayerId],
-    )
-    if (clusterCollection && 0 in clusterCollection.features) {
+  const zoomOnClusterPress = async (pressedCoordinates: [number, number]) => {
+    const clusterCollection = await mapRef.current?.queryRenderedFeaturesAtPoint(pressedCoordinates, undefined, [
+      clusterLayerId,
+    ])
+    if (clusterCollection && 0 in clusterCollection.features && mapRef.current) {
       const feature = clusterCollection.features[0] as MapFeature
-      moveTo(feature.geometry.coordinates, bottomSheetHeight, (await mapRef.current.getZoom()) + clusterClickZoomFactor)
+      moveTo(feature.geometry.coordinates, (await mapRef.current.getZoom()) + clusterClickZoomFactor)
     }
   }
-  const onPress = async (pressedLocation: Feature) => {
+
+  const onPress = async (pressedLocation: Feature<Geometry, GeoJsonProperties>) => {
     setFollowUserLocation(false)
     if (!mapRef.current || !pressedLocation.properties) {
       return
     }
-    const featureCollection = await mapRef.current.queryRenderedFeaturesAtPoint(
-      [pressedLocation.properties.screenPointX, pressedLocation.properties.screenPointY],
-      undefined,
-      [featureLayerId],
-    )
+    const pressedCoordinates: [number, number] = [
+      pressedLocation.properties.screenPointX,
+      pressedLocation.properties.screenPointY,
+    ]
+    const featureCollection = await mapRef.current.queryRenderedFeaturesAtPoint(pressedCoordinates, undefined, [
+      featureLayerId,
+    ])
 
     const feature = featureCollection?.features.find((it): it is MapFeature => it.geometry.type === 'Point')
     selectFeature(feature ?? null)
     setSheetSnapPointIndex(1)
 
-    zoomOnClusterPress(pressedLocation)
+    zoomOnClusterPress(pressedCoordinates)
   }
 
-  const deactivateFollowUserLocation = () => setFollowUserLocation(false)
+  const updateUserLocation = (location: MapLibreGL.Location) => {
+    const newUserLocation: [number, number] = [location.coords.longitude, location.coords.latitude]
+    // Avoid frequent rerenders if distance only changes minimally
+    if (!userLocation || calculateDistance(userLocation, newUserLocation) > MIN_DISTANCE_THRESHOLD) {
+      setUserLocation(newUserLocation)
+    }
+  }
+
+  const locationPermissionGrantedIcon = followUserLocation ? LocationFixedIcon : LocationNotFixedIcon
+  const locationPermissionIcon = userLocation ? locationPermissionGrantedIcon : LocationOffIcon
 
   return (
     <MapContainer>
@@ -173,11 +180,15 @@ const MapView = ({
         onPress={onPress}
         ref={mapRef}
         onStartShouldSetResponder={() => true}
-        onResponderMove={deactivateFollowUserLocation}
+        onResponderMove={() => setFollowUserLocation(false)}
         attributionEnabled={false}
         logoEnabled={false}>
-        <MapLibreGL.UserLocation visible={locationPermissionGranted} onUpdate={setUserLocation} />
-        <MapLibreGL.ShapeSource id='location-pois' shape={featureCollection} cluster clusterRadius={clusterRadius}>
+        <MapLibreGL.UserLocation visible={!!userLocation} onUpdate={updateUserLocation} />
+        <MapLibreGL.ShapeSource
+          id='location-pois'
+          shape={embedInCollection(features)}
+          cluster
+          clusterRadius={clusterRadius}>
           <MapLibreGL.SymbolLayer {...clusterCountLayer} />
           <MapLibreGL.CircleLayer {...clusterLayer(theme)} />
           <MapLibreGL.SymbolLayer {...markerLayer(selectedFeature)} />

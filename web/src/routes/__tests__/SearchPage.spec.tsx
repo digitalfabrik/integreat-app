@@ -2,15 +2,14 @@ import { fireEvent, waitFor } from '@testing-library/react'
 import { mocked } from 'jest-mock'
 import React from 'react'
 
+import { pathnameFromRouteInformation, SEARCH_ROUTE } from 'shared'
 import {
   CategoriesMapModelBuilder,
   CityModelBuilder,
   EventModelBuilder,
-  pathnameFromRouteInformation,
-  SEARCH_ROUTE,
   SearchResult,
   useAllPossibleSearchResults,
-} from 'api-client'
+} from 'shared/api'
 
 import { renderRoute } from '../../testing/render'
 import SearchPage from '../SearchPage'
@@ -18,8 +17,8 @@ import { RoutePatterns } from '../index'
 
 jest.mock('react-inlinesvg')
 jest.mock('react-i18next')
-jest.mock('api-client', () => ({
-  ...jest.requireActual('api-client'),
+jest.mock('shared/api', () => ({
+  ...jest.requireActual('shared/api'),
   useLoadFromEndpoint: jest.fn(),
   useAllPossibleSearchResults: jest.fn(),
 }))

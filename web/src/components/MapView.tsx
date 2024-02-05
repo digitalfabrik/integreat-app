@@ -17,13 +17,12 @@ import {
   mapConfig,
   MapViewViewport,
   MapFeature,
-  MapFeatureCollection,
   clusterRadius,
   closerDetailZoom,
   clusterClickZoomFactor,
   featureLayerId,
-} from 'api-client'
-import { config } from 'translations'
+  embedInCollection,
+} from 'shared'
 
 import { clusterCountLayer, clusterLayer, clusterProperties, markerLayer } from '../constants/layers'
 import useWindowDimensions from '../hooks/useWindowDimensions'
@@ -51,11 +50,10 @@ const OverlayContainer = styled.div`
 `
 
 type MapViewProps = {
-  featureCollection: MapFeatureCollection
+  features: MapFeature[]
   currentFeature: MapFeature | null
   selectFeature: (feature: MapFeature | null, restoreScrollPosition: boolean) => void
   changeSnapPoint?: (snapPoint: number) => void
-  languageCode: string
   children?: ReactNode
   viewport?: MapViewViewport
   setViewport: (mapViewport: MapViewViewport) => void
@@ -71,13 +69,12 @@ export type MapViewRef = {
 const MapView = forwardRef(
   (
     {
-      featureCollection,
+      features,
       selectFeature,
       changeSnapPoint,
       currentFeature,
       viewport,
       setViewport,
-      languageCode,
       children,
       Overlay,
     }: MapViewProps,
@@ -208,7 +205,7 @@ const MapView = forwardRef(
           <Source
             id='location-pois'
             type='geojson'
-            data={featureCollection}
+            data={embedInCollection(features)}
             cluster
             clusterRadius={clusterRadius}
             clusterProperties={clusterProperties}>
@@ -216,7 +213,7 @@ const MapView = forwardRef(
             <Layer {...clusterCountLayer} />
             <Layer {...markerLayer(currentFeature)} />
           </Source>
-          <MapAttribution initialExpanded={!viewportSmall} direction={config.getScriptDirection(languageCode)} />
+          <MapAttribution initialExpanded={!viewportSmall} />
         </Map>
       </MapContainer>
     )

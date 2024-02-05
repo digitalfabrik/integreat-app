@@ -1,13 +1,7 @@
 import React, { ReactElement } from 'react'
 
-import {
-  createOffersEndpoint,
-  ErrorCode,
-  EXTERNAL_OFFER_ROUTE,
-  OFFERS_ROUTE,
-  OffersRouteType,
-  SPRUNGBRETT_OFFER_ROUTE,
-} from 'api-client'
+import { EXTERNAL_OFFER_ROUTE, OFFERS_ROUTE, OffersRouteType, SPRUNGBRETT_OFFER_ROUTE } from 'shared'
+import { createOffersEndpoint, ErrorCode } from 'shared/api'
 
 import { NavigationProps, RouteProps } from '../constants/NavigationTypes'
 import useCityAppContext from '../hooks/useCityAppContext'

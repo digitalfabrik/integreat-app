@@ -2,7 +2,8 @@ import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 import styled from 'styled-components/native'
 
-import { CityModel, getNearbyCities } from 'api-client'
+import { getNearbyCities } from 'shared'
+import { CityModel } from 'shared/api'
 
 import { RefreshIcon } from '../assets'
 import useUserLocation from '../hooks/useUserLocation'
