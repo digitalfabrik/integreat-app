@@ -17,11 +17,11 @@ import {
   mapConfig,
   MapViewViewport,
   MapFeature,
-  MapFeatureCollection,
   clusterRadius,
   closerDetailZoom,
   clusterClickZoomFactor,
   featureLayerId,
+  embedInCollection,
 } from 'shared'
 
 import { clusterCountLayer, clusterLayer, clusterProperties, markerLayer } from '../constants/layers'
@@ -50,7 +50,7 @@ const OverlayContainer = styled.div`
 `
 
 type MapViewProps = {
-  featureCollection: MapFeatureCollection
+  features: MapFeature[]
   currentFeature: MapFeature | null
   selectFeature: (feature: MapFeature | null, restoreScrollPosition: boolean) => void
   changeSnapPoint?: (snapPoint: number) => void
@@ -69,7 +69,7 @@ export type MapViewRef = {
 const MapView = forwardRef(
   (
     {
-      featureCollection,
+      features,
       selectFeature,
       changeSnapPoint,
       currentFeature,
@@ -205,7 +205,7 @@ const MapView = forwardRef(
           <Source
             id='location-pois'
             type='geojson'
-            data={featureCollection}
+            data={embedInCollection(features)}
             cluster
             clusterRadius={clusterRadius}
             clusterProperties={clusterProperties}>
