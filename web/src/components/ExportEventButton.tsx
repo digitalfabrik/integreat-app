@@ -40,7 +40,7 @@ const ExportEventButton = ({ event }: ExportEventButtonProps): ReactElement => {
   const { t } = useTranslation('events')
   const { viewportSmall } = useWindowDimensions()
 
-  const isRecurring = event.date.recurrenceRule && event.date.recurrenceRule.count() > 1
+  const isRecurring = event.date.hasMoreRecurrencesThan(1)
 
   const downloadEventAsIcsFile = (event: EventModel, recurring: boolean) => {
     const blob = new Blob([event.toICal(window.location.origin, buildConfig().appName, recurring)], {
