@@ -36,7 +36,7 @@ const Page = ({
   thumbnailSrcSet,
   content,
   lastUpdate,
-  showLastUpdateText = true,
+  showLastUpdateText = content && content.length > 0 ? true : false,
   onInternalLinkClick,
   BeforeContent,
   AfterContent,
