@@ -36,7 +36,7 @@ const Page = ({
   thumbnailSrcSet,
   content,
   lastUpdate,
-  showLastUpdateText = content && content.length > 0 ? true : false,
+  showLastUpdateText = false,
   onInternalLinkClick,
   BeforeContent,
   AfterContent,
@@ -48,7 +48,9 @@ const Page = ({
     {BeforeContent}
     <RemoteContent html={content} onInternalLinkClick={onInternalLinkClick} />
     {AfterContent}
-    {lastUpdate && <LastUpdateInfo lastUpdate={lastUpdate} withText={showLastUpdateText} />}
+    {lastUpdate && (
+      <LastUpdateInfo lastUpdate={lastUpdate} withText={content && content.length > 0 ? true : showLastUpdateText} />
+    )}
     {Footer}
   </>
 )
