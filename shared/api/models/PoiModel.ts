@@ -89,20 +89,17 @@ class PoiModel extends ExtendedPageModel {
     return `${iconName}_${color}`
   }
 
-  getFeature(userLocation?: LocationType): GeoJsonPoi {
-    const { name, id, address, coordinates } = this.location
-
+  getFeature(): GeoJsonPoi {
     return {
-      title: name,
-      category: this.category.name,
-      id,
+      id: this.location.id,
+      title: this.title,
       symbol: this.getMarkerSymbol(),
-      thumbnail: this.thumbnail,
-      path: this.path,
       slug: this.slug,
-      address,
-      distance: userLocation ? distance(userLocation, coordinates).toFixed(1) : undefined,
     }
+  }
+
+  distance(location: LocationType): number {
+    return distance(location, this.location.coordinates)
   }
 
   get openingHours(): OpeningHoursModel[] | null {

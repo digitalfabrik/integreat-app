@@ -44,11 +44,6 @@ const List = <T,>({
     }
     onEndReached={onEndReached}
     showsVerticalScrollIndicator={false}
-    contentContainerStyle={{
-      flexGrow: 1,
-
-      paddingHorizontal: 10,
-    }}
     onEndReachedThreshold={1}
     scrollEnabled={scrollEnabled}
     accessibilityRole='list'

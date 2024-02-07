@@ -1,0 +1,5 @@
+issue_key: 2610
+show_in_stores: false
+platforms:
+  - web
+en: Enable export of recurring events

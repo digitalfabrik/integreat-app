@@ -12,7 +12,6 @@ import {
   submitMalteHelpForm,
   MALTE_HELP_FORM_MAX_COMMENT_LENGTH,
 } from 'shared/api'
-import { config } from 'translations'
 
 import { SecurityIcon, SupportIcon } from '../assets'
 import Icon from '../components/base/Icon'
@@ -137,22 +136,12 @@ const MalteHelpForm = ({ pageTitle, languageCode, cityCode, helpButtonOffer }: M
         {t('securityNote')}
       </Note>
       <Form onSubmit={submitHandler}>
-        <Input
-          id='name'
-          hint={t('name')}
-          hintIsLabel
-          required
-          value={name}
-          direction={config.getScriptDirection(languageCode)}
-          onChange={setName}
-          submitted={submitted}
-        />
+        <Input id='name' hint={t('name')} hintIsLabel required value={name} onChange={setName} submitted={submitted} />
         <Input
           id='roomNumber'
           hint={`${t('roomNumber')} (${t('common:optional')})`}
           hintIsLabel
           value={roomNumber}
-          direction={config.getScriptDirection(languageCode)}
           onChange={setRoomNumber}
           submitted={submitted}
         />
@@ -160,7 +149,6 @@ const MalteHelpForm = ({ pageTitle, languageCode, cityCode, helpButtonOffer }: M
           caption={t('howToBeContacted')}
           groupId='contactChannel'
           submitted={submitted}
-          direction={config.getScriptDirection(languageCode)}
           selectedValue={contactChannel}
           onChange={setContactChannel}
           values={[
@@ -187,7 +175,6 @@ const MalteHelpForm = ({ pageTitle, languageCode, cityCode, helpButtonOffer }: M
           ]}
         />
         <RadioGroup
-          direction={config.getScriptDirection(languageCode)}
           submitted={submitted}
           caption={t('contactPerson')}
           groupId='contactPerson'
@@ -205,7 +192,6 @@ const MalteHelpForm = ({ pageTitle, languageCode, cityCode, helpButtonOffer }: M
             hint={t('maxCharacters', { numberOfCharacters: MALTE_HELP_FORM_MAX_COMMENT_LENGTH })}
             multiline
             value={comment}
-            direction={config.getScriptDirection(languageCode)}
             onChange={setComment}
             maxLength={MALTE_HELP_FORM_MAX_COMMENT_LENGTH}
             submitted={submitted}

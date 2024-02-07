@@ -6,12 +6,8 @@ describe('PoiModel', () => {
   const expectedGeoJsonPoi = {
     id: 0,
     title: 'Test Title',
-    category: 'Gastronomie',
     symbol: 'gastronomy_#1DC6C6',
-    thumbnail: 'test',
-    path: '/augsburg/de/locations/test',
     slug: 'test',
-    address: 'Test Address 1',
   }
 
   const expectedOpeningHoursJson = [
@@ -24,10 +20,6 @@ describe('PoiModel', () => {
 
   it('should return geo location', () => {
     expect(poi[0]!.getFeature()).toEqual(expectedGeoJsonPoi)
-  })
-
-  it('should return geo location with distance', () => {
-    expect(poi[0]!.getFeature(poi[0]!.location.coordinates)).toEqual({ ...expectedGeoJsonPoi, distance: '0.0' })
   })
 
   it('should return openingHours', () => {
