@@ -91,7 +91,7 @@ const CityContentSwitcher = ({ languageCode }: CityContentSwitcherProps): ReactE
     languageCode,
   }
 
-  // If the city is not available yet, nothing is rendered in the routes. Therefore we can render the route until we know whether the feature is enabled.
+  // If the city is not available yet, nothing is rendered in the routes. Therefore, we can render the route until we know whether the feature is enabled.
   const eventsEnabled = !city || city.eventsEnabled
   const offersEnabled = !city || city.offersEnabled
   const localNewsEnabled = buildConfig().featureFlags.newsStream && (!city || city.localNewsEnabled)
