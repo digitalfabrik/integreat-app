@@ -26,7 +26,7 @@ export const LastUpdateInfo = ({
   const { i18n, t } = useTranslation('common')
   return (
     <TimeStamp className={className}>
-      {withText && t('lastUpdate')} {withText && lastUpdate.setLocale(i18n.language).toFormat(format)}
+      {withText && t('lastUpdate')} {lastUpdate.setLocale(i18n.language).toFormat(format)}
     </TimeStamp>
   )
 }
