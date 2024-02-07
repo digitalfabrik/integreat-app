@@ -1,0 +1,7 @@
+issue_key: 2650
+show_in_stores: false
+platforms:
+  - android
+  - ios
+  - web
+en: Add category title to Zammad ticket and fix submitting zammad form on native.

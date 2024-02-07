@@ -5,7 +5,7 @@ export type ContactChannel = 'email' | 'telephone' | 'personally'
 export type ContactGender = 'male' | 'female' | 'any'
 
 type BuildHelpFormBodyParams = {
-  languageCode: string
+  url: string
   name: string
   roomNumber?: string
   contactChannel: ContactChannel
@@ -37,7 +37,7 @@ const contactChannelText = (contactChannel: ContactChannel): string => {
 }
 
 const buildHelpFormBody = ({
-  languageCode,
+  url,
   name,
   roomNumber,
   contactChannel,
@@ -45,7 +45,7 @@ const buildHelpFormBody = ({
   contactGender,
   comment,
 }: BuildHelpFormBodyParams): string => `
-Sprache: ${languageCode}
+Gesendet von ${url}
 
 Name: ${name}
 Zimmernummer: ${roomNumber ?? '-'}
@@ -65,17 +65,12 @@ const generateEmail = () => {
 }
 
 type SubmitHelpFormParams = {
-  name: string
-  roomNumber?: string
+  pageTitle: string
   email?: string
   telephone?: string
-  contactChannel: ContactChannel
-  contactGender: ContactGender
-  comment: string
   cityCode: string
-  languageCode: string
   helpButtonOffer: OfferModel
-}
+} & Omit<BuildHelpFormBodyParams, 'additionalContactInformation'>
 
 type ZammadConfig = {
   enabled: boolean
@@ -108,7 +103,8 @@ export class InvalidEmailError extends Error {}
 const fingerprint = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASw'
 
 const submitMalteHelpForm = async ({
-  languageCode,
+  pageTitle,
+  url,
   cityCode,
   helpButtonOffer,
   name,
@@ -139,7 +135,7 @@ const submitMalteHelpForm = async ({
       name,
       email: !email?.length ? generateEmail() : email,
       body: buildHelpFormBody({
-        languageCode,
+        url,
         name,
         roomNumber,
         contactChannel,
@@ -147,7 +143,7 @@ const submitMalteHelpForm = async ({
         comment,
         additionalContactInformation,
       }),
-      title: `Hilfebutton - ${cityCode}`,
+      title: `${pageTitle} - ${cityCode}`,
       fingerprint,
       token: config.token,
     }),
