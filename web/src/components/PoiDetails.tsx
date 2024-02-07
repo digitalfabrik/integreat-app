@@ -136,7 +136,6 @@ const PoiDetails = ({ poi, distance, toolbar }: PoiDetailsProps): ReactElement =
   const { content, location, website, phoneNumber, email, isCurrentlyOpen, openingHours, temporarilyClosed, category } =
     poi
 
-  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
   const thumbnail = poi.thumbnail?.replace('-150x150', '') ?? PoiThumbnailPlaceholderLarge
   const isAndroid = /Android/i.test(navigator.userAgent)
   const externalMapsLink = getExternalMapsLink(location, isAndroid ? 'android' : 'web')

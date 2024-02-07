@@ -49,7 +49,6 @@ type PoiDetailsProps = {
 
 const PoiDetails = ({ poi, language, distance }: PoiDetailsProps): ReactElement => {
   const { t } = useTranslation('pois')
-  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
   const thumbnail = poi.thumbnail?.replace('-150x150', '') ?? PoiThumbnailPlaceholderLarge
   const { title, content, email, website, phoneNumber, openingHours, temporarilyClosed, isCurrentlyOpen, category } =
     poi
