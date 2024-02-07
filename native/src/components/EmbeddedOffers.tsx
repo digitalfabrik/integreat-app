@@ -1,6 +1,6 @@
 import React, { ReactElement } from 'react'
 
-import { MALTE_HELP_FORM_OFFER_ROUTE, SPRUNGBRETT_OFFER_ALIAS } from 'shared'
+import { CATEGORIES_ROUTE, MALTE_HELP_FORM_OFFER_ROUTE, SPRUNGBRETT_OFFER_ALIAS } from 'shared'
 import { CategoryModel } from 'shared/api'
 
 import urlFromRouteInformation from '../navigation/url'
@@ -21,7 +21,7 @@ const EmbeddedOffers = ({ category, cityCode, languageCode, goBack }: EmbeddedOf
       return <SprungbrettOffer sprungbrettOffer={offer} languageCode={languageCode} />
     case MALTE_HELP_FORM_OFFER_ROUTE: {
       const url = urlFromRouteInformation({
-        route: 'categories',
+        route: CATEGORIES_ROUTE,
         languageCode,
         cityCode,
         cityContentPath: category.path,
