@@ -47,6 +47,7 @@ const Body = styled.div<{ fullWidth: boolean; disableScrollingSafari: boolean }>
   flex-grow: 1;
   background-color: ${props => props.theme.colors.backgroundColor};
   word-wrap: break-word;
+  min-height: 100%;
 
   /* Fix jumping iOS Safari Toolbar by prevent scrolling on body */
 

@@ -1,5 +1,6 @@
 import { DateTime } from 'luxon'
 import md5 from 'md5'
+import { rrulestr } from 'rrule'
 import seedrandom from 'seedrandom'
 
 import DateModel from '../../models/DateModel'
@@ -20,12 +21,14 @@ class EventModelBuilder {
   _seed: string
   _city: string
   _language: string
+  _recurring: boolean
 
-  constructor(seed: string, eventCount: number, city: string, language: string) {
+  constructor(seed: string, eventCount: number, city: string, language: string, recurring?: boolean) {
     this._seed = seed
     this._eventCount = eventCount
     this._city = city
     this._language = language
+    this._recurring = recurring ?? false
   }
 
   _predictableNumber(index: number, max: number = MAX_PREDICTABLE_VALUE): number {
@@ -78,6 +81,7 @@ class EventModelBuilder {
         const resourceUrl1 = `https://cms.integreat-app.de/title_${index}-300x300.png`
         const resourceUrl2 = `https://cms.integreat-app.de/event_${index}-300x300.png`
         const thumbnail = `https://cms.integreat-app.de/thumbnails/event_${index}.png`
+        const recurrence = this._recurring ? rrulestr('FREQ=WEEKLY;INTERVAL=3') : null
         return {
           path,
           event: new EventModel({
@@ -93,7 +97,7 @@ class EventModelBuilder {
               startDate,
               endDate,
               allDay: false,
-              recurrenceRule: null,
+              recurrenceRule: recurrence,
             }),
             location: new LocationModel({
               id: 1,

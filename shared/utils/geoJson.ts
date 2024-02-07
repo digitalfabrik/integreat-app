@@ -1,7 +1,9 @@
 import distance from '@turf/distance'
 
 import PoiModel from '../api/models/PoiModel'
-import { featureLayerId, GeoJsonPoi, LocationType, MapFeature, MapFeatureCollection } from '../constants/maps'
+import { featureLayerId, MapFeature, MapFeatureCollection } from '../constants/maps'
+
+export const MIN_DISTANCE_THRESHOLD = 0.1
 
 export const embedInCollection = (features: MapFeature[]): MapFeatureCollection => ({
   type: 'FeatureCollection',
@@ -11,55 +13,41 @@ export const embedInCollection = (features: MapFeature[]): MapFeatureCollection 
 // 5 meters
 const maxDistanceForOverlap = 0.005
 
-export const prepareFeatureLocation = (
-  pois: PoiModel[],
-  id: number,
-  coordinates: [number, number],
-  userLocation?: LocationType,
-): MapFeature => ({
+export const prepareMapFeature = (pois: PoiModel[], id: number, coordinates: [number, number]): MapFeature => ({
   type: 'Feature',
   id: id.toString(),
   geometry: {
     type: 'Point',
     coordinates,
   },
-  properties: { pois: pois.map(poi => poi.getFeature(userLocation)) },
+  properties: { pois: pois.map(poi => poi.getFeature()) },
   layer: { id: featureLayerId },
 })
 
-export const prepareFeatureLocations = (pois: PoiModel[], userLocation?: LocationType): MapFeature[] => {
-  const clusterCoordinates: [number, number][] = []
-  const poiClusters = pois.reduce(
+export const prepareMapFeatures = (pois: PoiModel[]): MapFeature[] => {
+  const multipoiCoordinates: [number, number][] = []
+  const multipois = pois.reduce(
     (prev, poi) => {
-      const clusterIndex = clusterCoordinates.findIndex(
+      const multipoiIndex = multipoiCoordinates.findIndex(
         coordinate => distance(coordinate, poi.location.coordinates) < maxDistanceForOverlap,
       )
-      if (clusterIndex !== -1) {
-        prev[clusterIndex]?.push(poi)
+      if (multipoiIndex !== -1) {
+        prev[multipoiIndex]?.push(poi)
         return prev
       }
-      const newClusterIndex = clusterCoordinates.push(poi.location.coordinates)
-      return { ...prev, [newClusterIndex - 1]: [poi] }
+      const newMultipoiIndex = multipoiCoordinates.push(poi.location.coordinates)
+      return { ...prev, [newMultipoiIndex - 1]: [poi] }
     },
-    {} as { [clusterIndex: number]: PoiModel[] },
+    {} as { [multipoiIndex: number]: PoiModel[] },
   )
-  const poiFeatures = Object.values(poiClusters).map((poiCluster, clusterCoordinateIndex) =>
-    prepareFeatureLocation(
-      poiCluster,
-      clusterCoordinateIndex,
-      // the index was literaly just evalueated in the line before
+
+  return Object.values(multipois).map((multipoi, multipoiCoordinateIndex) =>
+    prepareMapFeature(
+      multipoi,
+      multipoiCoordinateIndex,
+      // the index was literally just evaluated in the line before
       // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-      clusterCoordinates[clusterCoordinateIndex]!,
-      userLocation,
+      multipoiCoordinates[multipoiCoordinateIndex]!,
     ),
   )
-
-  return poiFeatures
 }
-
-export const sortMapFeatures = (geoJsonPois: GeoJsonPoi[]): GeoJsonPoi[] =>
-  geoJsonPois[0]?.distance // if one feature has distance all features have distance
-    ? geoJsonPois.sort(
-        (geoJsonPoi1, geoJsonPoi2) => parseFloat(geoJsonPoi1.distance ?? '0') - parseFloat(geoJsonPoi2.distance ?? '0'),
-      )
-    : geoJsonPois.sort((geoJsonPoi1, geoJsonPoi2) => geoJsonPoi1.title.localeCompare(geoJsonPoi2.title))

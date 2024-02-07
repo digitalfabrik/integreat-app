@@ -18,6 +18,7 @@ import {
 
 import normalizePath from '../utils/normalizePath'
 import { RouteInformationType } from './RouteInformationTypes'
+import { MULTIPOI_QUERY_KEY } from './query'
 
 const ENTITY_ID_INDEX = 3
 
@@ -144,7 +145,7 @@ class InternalPathnameParser {
 
     // Single pois are identified via their slug, e.g. 'my-poi-1234'
     const slug = this._length > ENTITY_ID_INDEX ? this._parts[ENTITY_ID_INDEX] : undefined
-    return { ...params, route: POIS_ROUTE, slug, multipoi: this.query()?.get('multipoi') }
+    return { ...params, route: POIS_ROUTE, slug, multipoi: this.query()?.get(MULTIPOI_QUERY_KEY) }
   }
 
   news = (): RouteInformationType => {

@@ -2,7 +2,6 @@ import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 import styled from 'styled-components/native'
 
-import { GeoJsonPoi } from 'shared'
 import { PoiModel } from 'shared/api'
 
 import { MailIcon, PhoneIcon, PoiThumbnailPlaceholderLarge, WebsiteIcon } from '../assets'
@@ -24,11 +23,10 @@ const Thumbnail = styled(SimpleImage)`
 
 const PoiDetailsContainer = styled.View`
   flex: 1;
-  padding: 0 18px;
 `
 
-const StyledText = styled.Text`
-  font-size: 15px;
+const Title = styled.Text`
+  font-size: 16px;
   font-weight: bold;
 `
 
@@ -45,14 +43,13 @@ const StyledCategory = styled.Text`
 
 type PoiDetailsProps = {
   poi: PoiModel
-  poiFeature: GeoJsonPoi
   language: string
+  distance: number | null
 }
 
-const PoiDetails = ({ poi, poiFeature, language }: PoiDetailsProps): ReactElement => {
+const PoiDetails = ({ poi, language, distance }: PoiDetailsProps): ReactElement => {
   const { t } = useTranslation('pois')
-  const thumbnail = poiFeature.thumbnail?.replace('-150x150', '') ?? PoiThumbnailPlaceholderLarge
-  const distance = poiFeature.distance
+  const thumbnail = poi.thumbnail?.replace('-150x150', '') ?? PoiThumbnailPlaceholderLarge
   const { title, content, email, website, phoneNumber, openingHours, temporarilyClosed, isCurrentlyOpen, category } =
     poi
 
@@ -77,8 +74,10 @@ const PoiDetails = ({ poi, poiFeature, language }: PoiDetailsProps): ReactElemen
 
   return (
     <PoiDetailsContainer>
-      <StyledText>{title}</StyledText>
-      {!!distance && <StyledDistance>{t('distanceKilometre', { distance })}</StyledDistance>}
+      <Title>{title}</Title>
+      {distance !== null && (
+        <StyledDistance>{t('distanceKilometre', { distance: distance.toFixed(1) })}</StyledDistance>
+      )}
       <StyledCategory>{category.name}</StyledCategory>
       <Thumbnail source={thumbnail} resizeMode='cover' />
       <HorizontalLine />

@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router-dom'
 import styled, { useTheme } from 'styled-components'
 
-import { getExternalMapsLink, GeoJsonPoi } from 'shared'
+import { getExternalMapsLink } from 'shared'
 import { PoiModel } from 'shared/api'
 
 import {
@@ -123,30 +123,29 @@ const ToolbarWrapper = styled.div`
 `
 
 type PoiDetailsProps = {
-  feature: GeoJsonPoi
   poi: PoiModel
+  distance: number | null
   toolbar?: ReactElement
 }
 
-const PoiDetails = ({ feature, poi, toolbar }: PoiDetailsProps): ReactElement => {
+const PoiDetails = ({ poi, distance, toolbar }: PoiDetailsProps): ReactElement => {
   const navigate = useNavigate()
   const { viewportSmall } = useWindowDimensions()
   const theme = useTheme()
   const { t } = useTranslation('pois')
-  const { title, thumbnail, distance } = feature
   const { content, location, website, phoneNumber, email, isCurrentlyOpen, openingHours, temporarilyClosed, category } =
     poi
-  // MapEvent parses null to 'null'
-  const thumb = thumbnail === 'null' ? null : thumbnail?.replace('-150x150', '')
+
+  const thumbnail = poi.thumbnail?.replace('-150x150', '') ?? PoiThumbnailPlaceholderLarge
   const isAndroid = /Android/i.test(navigator.userAgent)
   const externalMapsLink = getExternalMapsLink(location, isAndroid ? 'android' : 'web')
 
   return (
     <DetailsContainer>
       <HeadingSection>
-        <Thumbnail alt='' src={thumb ?? PoiThumbnailPlaceholderLarge} />
-        <Heading>{title}</Heading>
-        {!!distance && <Distance>{t('distanceKilometre', { distance })}</Distance>}
+        <Thumbnail alt='' src={thumbnail} />
+        <Heading>{poi.title}</Heading>
+        {!!distance && <Distance>{t('distanceKilometre', { distance: distance.toFixed(1) })}</Distance>}
         <Category>{category.name}</Category>
       </HeadingSection>
       <Spacer borderColor={theme.colors.borderColor} />

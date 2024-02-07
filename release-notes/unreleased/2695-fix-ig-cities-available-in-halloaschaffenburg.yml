@@ -1,0 +1,5 @@
+issue_key: 2695
+show_in_stores: false
+platforms:
+  - web
+en: Avoid loading all cities when fixed city is set
