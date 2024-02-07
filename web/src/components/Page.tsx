@@ -48,7 +48,9 @@ const Page = ({
     {BeforeContent}
     <RemoteContent html={content} onInternalLinkClick={onInternalLinkClick} />
     {AfterContent}
-    {lastUpdate && <LastUpdateInfo lastUpdate={lastUpdate} withText={showLastUpdateText} />}
+    {lastUpdate && !!content && content.length > 0 && (
+      <LastUpdateInfo lastUpdate={lastUpdate} withText={showLastUpdateText} />
+    )}
     {Footer}
   </>
 )

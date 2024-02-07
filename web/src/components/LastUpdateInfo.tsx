@@ -4,7 +4,6 @@ import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
 
 const TimeStamp = styled.p`
-  padding-top: 15px;
   color: ${props => props.theme.colors.textSecondaryColor};
   font-family: ${props => props.theme.fonts.web.contentFont};
   font-size: ${props => props.theme.fonts.contentFontSize};
