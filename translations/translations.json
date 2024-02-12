@@ -3125,7 +3125,6 @@
       "negativeRating": "ይህ ገጽ ጠቃሚ አይደለም",
       "positiveRating": "ይህ ገጽ ጠቃሚ ነው",
       "contactMailAddress": "ለጥያቄዎች ኢሜይል",
-      "optionalInfo": "አማራጭ /ሊተው የሚችል/",
       "note": "ግብረመልስ ለመላክ፣ እባክዎ ምላሽ ይምረጡ ወይም አስተያየት ይጻፉ።"
     },
     "ar": {
@@ -5990,7 +5989,9 @@
     "de": {
       "NSPhotoLibraryAddUsageDescription": "Um Bilder zu speichern, benötigt {{appName}} Zugriff auf die Galerie.",
       "NSLocationWhenInUseUsageDescription": "Um nahegelegene Orte zu finden, benötigt {{appName}} Zugriff auf den Standort.",
-      "NSLocationAlwaysAndWhenInUseUsageDescription": "Um nahegelegene Orte zu finden, benötigt {{appName}} Zugriff auf den Standort."
+      "NSLocationAlwaysAndWhenInUseUsageDescription": "Um nahegelegene Orte zu finden, benötigt {{appName}} Zugriff auf den Standort.",
+      "NSCalendarsUsageDescription": "{{appName}} möchte auf den Kalender zugreifen, um eine Veranstaltung hinzuzufügen.",
+      "NSCalendarsFullAccessUsageDescription": "{{appName}} möchte auf den Kalender zugreifen, um eine Veranstaltung hinzuzufügen."
     },
     "am": {
       "NSPhotoLibraryAddUsageDescription": "ምስሎችን ሴቭ ለማድረግ የ{{appName}} የምስል ማስቀመጫን ያግኙ።",
@@ -9631,7 +9632,7 @@
   },
   "malteHelpForm": {
     "de": {
-      "supportNote": "Wir möchten, dass Sie sich sicher und unterstützt fühlen, wenn Sie Probleme oder Fragen haben. Durch das folgende Kontaktformular haben Sie die Möglichkeit, mit Ansprechpartner:innen in Kontakt zu treten. Sie können die Art deines Anliegens angeben und aus verschiedenen Kontaktoptionen wählen.",
+      "supportNote": "Wir möchten, dass Sie sich sicher und unterstützt fühlen, wenn Sie Probleme oder Fragen haben. Durch das folgende Kontaktformular haben Sie die Möglichkeit, mit Ansprechpartner:innen in Kontakt zu treten. Sie können die Art Ihres Anliegens angeben und aus verschiedenen Kontaktoptionen wählen.",
       "securityNote": "Ihre Sicherheit hat für uns oberste Priorität. Ihre Daten werden mit Vertraulichkeit behandelt, damit Ihre Privatsphäre jederzeit gewahrt bleibt.",
       "name": "Name, Vorname",
       "roomNumber": "Zimmernummer",
@@ -9644,7 +9645,7 @@
       "contactPersonAnyGender": "Das Geschlecht des Ansprechpartners/der Ansprechpartnerin spielt keine Rolle",
       "contactPersonGenderFemale": "Ich möchte von einer weiblichen Person kontaktiert werden",
       "contactPersonGenderMale": "Ich möchte von einer männlichen Person kontaktiert werden",
-      "contactReason": "Dein Anliegen:",
+      "contactReason": "Ihr Anliegen:",
       "maxCharacters": "maximal {{numberOfCharacters}} Zeichen",
       "responseDisclaimer": "Es kann einige Werktage dauern, bis Sie eine Rückmeldung erhalten. Wir bemühen uns, Ihr Anliegen schnellstmöglich zu bearbeiten.",
       "submit": "Formular absenden",
