@@ -9631,8 +9631,8 @@
   },
   "malteHelpForm": {
     "de": {
-      "supportNote": "Wir möchten, dass du dich sicher und unterstützt fühlst, wenn du Probleme oder Fragen hast. Durch das folgende Kontaktformular hast du die Möglichkeit, mit Ansprechpartner:innen in Kontakt zu treten. Du kannst die Art deines Anliegens angeben und aus verschiedenen Kontaktoptionen wählen.",
-      "securityNote": "Deine Sicherheit hat für uns oberste Priorität. Deine Daten werden mit Vertraulichkeit behandelt, damit deine Privatsphäre jederzeit gewahrt bleibt.",
+      "supportNote": "Wir möchten, dass Sie sich sicher und unterstützt fühlen, wenn Sie Probleme oder Fragen haben. Durch das folgende Kontaktformular haben Sie die Möglichkeit, mit Ansprechpartner:innen in Kontakt zu treten. Sie können die Art deines Anliegens angeben und aus verschiedenen Kontaktoptionen wählen.",
+      "securityNote": "Ihre Sicherheit hat für uns oberste Priorität. Ihre Daten werden mit Vertraulichkeit behandelt, damit Ihre Privatsphäre jederzeit gewahrt bleibt.",
       "name": "Name, Vorname",
       "roomNumber": "Zimmernummer",
       "howToBeContacted": "So möchte ich kontaktiert werden:",
@@ -9646,12 +9646,12 @@
       "contactPersonGenderMale": "Ich möchte von einer männlichen Person kontaktiert werden",
       "contactReason": "Dein Anliegen:",
       "maxCharacters": "maximal {{numberOfCharacters}} Zeichen",
-      "responseDisclaimer": "Es kann einige Werktage dauern, bis du eine Rückmeldung erhältst. Wir bemühen uns, dein Anliegen schnellstmöglich zu bearbeiten.",
+      "responseDisclaimer": "Es kann einige Werktage dauern, bis Sie eine Rückmeldung erhalten. Wir bemühen uns, Ihr Anliegen schnellstmöglich zu bearbeiten.",
       "submit": "Formular absenden",
       "submitSuccessful": "Formular erfolgreich versandt",
       "submitFailed": "Formular konnte nicht versandt werden",
-      "submitFailedReasoning": "Bitte gewährleiste eine stabile Internetverbindung und versuche es erneut.",
-      "invalidEmailAddress": "Die angegebene E-Mail Addresse ist ungültig."
+      "submitFailedReasoning": "Bitte gewährleisten Sie eine stabile Internetverbindung und versuchen Sie es erneut.",
+      "invalidEmailAddress": "Die angegebene E-Mail Adresse ist ungültig."
     }
   }
 }
