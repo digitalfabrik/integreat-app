@@ -12,22 +12,18 @@ const Container = styled.View<{ withMargin: boolean }>`
   ${props => props.withMargin && 'margin-top: 32px;'}
 `
 
-type EmbeddedOfferProps = {
+type EmbeddedOffersProps = {
   category: CategoryModel
   cityCode: string
   languageCode: string
   goBack: () => void
 }
 
-const EmbeddedOffers = ({ category, cityCode, languageCode, goBack }: EmbeddedOfferProps): ReactElement | null => {
+const EmbeddedOffer = ({ category, cityCode, languageCode, goBack }: EmbeddedOffersProps): ReactElement | null => {
   const offer = category.embeddedOffers[0]
   switch (offer?.alias) {
     case SPRUNGBRETT_OFFER_ALIAS:
-      return (
-        <Container withMargin={!!category.content}>
-          <SprungbrettOffer sprungbrettOffer={offer} languageCode={languageCode} />
-        </Container>
-      )
+      return <SprungbrettOffer sprungbrettOffer={offer} languageCode={languageCode} />
     case MALTE_HELP_FORM_OFFER_ROUTE: {
       const url = urlFromRouteInformation({
         route: CATEGORIES_ROUTE,
@@ -36,20 +32,27 @@ const EmbeddedOffers = ({ category, cityCode, languageCode, goBack }: EmbeddedOf
         cityContentPath: category.path,
       })
       return (
-        <Container withMargin={!!category.content}>
-          <MalteHelpFormOffer
-            categoryPageTitle={category.title}
-            url={url}
-            malteHelpFormOffer={offer}
-            cityCode={cityCode}
-            onSubmit={goBack}
-          />
-        </Container>
+        <MalteHelpFormOffer
+          categoryPageTitle={category.title}
+          url={url}
+          malteHelpFormOffer={offer}
+          cityCode={cityCode}
+          onSubmit={goBack}
+        />
       )
     }
     default:
       return null
   }
+}
+
+const EmbeddedOffers = (embeddedOfferProps: EmbeddedOffersProps): ReactElement | null => {
+  const { category } = embeddedOfferProps
+  return (
+    <Container withMargin={!!category.content}>
+      <EmbeddedOffer {...embeddedOfferProps} />
+    </Container>
+  )
 }
 
 export default EmbeddedOffers
