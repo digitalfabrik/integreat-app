@@ -1,12 +1,6 @@
-import { useCallback, useMemo } from 'react'
+import { useMemo } from 'react'
 
-import {
-  createCategoriesEndpoint,
-  createEventsEndpoint,
-  loadSprungbrettJobs,
-  useLoadAsync,
-  useLoadFromEndpoint,
-} from '../..'
+import { createCategoriesEndpoint, createEventsEndpoint, useLoadFromEndpoint } from '../..'
 
 type useSearchParams = {
   city: string
@@ -18,20 +12,9 @@ export type SearchResult = {
   title: string
   id: string | number
   thumbnail?: string
-} & (
-  | {
-      content: string
-      path: string
-      location?: string
-      url?: string
-    }
-  | {
-      location: string
-      url: string
-      content?: string
-      path?: string
-    }
-)
+  content: string
+  path: string
+}
 
 const useAllPossibleSearchResults = ({
   city,
@@ -56,12 +39,6 @@ const useAllPossibleSearchResults = ({
     error: eventsError,
   } = useLoadFromEndpoint(createEventsEndpoint, cmsApiBaseUrl, params)
 
-  const loadOffers = useCallback(
-    () => loadSprungbrettJobs({ cityCode: city, languageCode: language, baseUrl: cmsApiBaseUrl }),
-    [city, language, cmsApiBaseUrl],
-  )
-  const { data: offers, loading: offersLoading, error: offersError } = useLoadAsync(loadOffers)
-
   const allPossibleResults = useMemo(
     () => [
       ...(categories
@@ -80,20 +57,14 @@ const useAllPossibleSearchResults = ({
         path: event.path,
         id: event.path,
       })) ?? []),
-      ...(offers?.sprungbrettJobs.map(offer => ({
-        title: offer.title,
-        location: offer.location,
-        url: offer.url,
-        id: offer.url,
-      })) ?? []),
     ],
-    [categories, events, offers],
+    [categories, events],
   )
 
   return {
     data: allPossibleResults,
-    loading: categoriesLoading || eventsLoading || offersLoading,
-    error: categoriesError || eventsError || offersError,
+    loading: categoriesLoading || eventsLoading,
+    error: categoriesError || eventsError,
   }
 }
 

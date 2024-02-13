@@ -51,16 +51,7 @@ describe('SearchPage', () => {
     id: event.path,
   }))
 
-  const offers = [
-    {
-      title: 'WebDeveloper',
-      location: 'Augsburg',
-      url: 'http://awesome-jobs.domain',
-      id: 0,
-    },
-  ]
-
-  const allPossibleResults: SearchResult[] = [...categories, ...events, ...offers]
+  const allPossibleResults: SearchResult[] = [...categories, ...events]
 
   const hookReturn = {
     data: allPossibleResults,

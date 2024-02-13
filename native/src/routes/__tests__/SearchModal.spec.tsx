@@ -1,9 +1,15 @@
+import { NavigationContainer } from '@react-navigation/native'
 import { fireEvent, waitFor } from '@testing-library/react-native'
 import { TFunction } from 'i18next'
 import React from 'react'
 import { ThemeProvider } from 'styled-components'
 
-import { CATEGORIES_ROUTE, CategoriesRouteInformationType, SEARCH_FINISHED_SIGNAL_NAME } from 'shared'
+import {
+  CATEGORIES_ROUTE,
+  CategoriesRouteInformationType,
+  OPEN_PAGE_SIGNAL_NAME,
+  SEARCH_FINISHED_SIGNAL_NAME,
+} from 'shared'
 import { CategoriesMapModelBuilder, EventModelBuilder, SearchResult } from 'shared/api'
 
 import buildConfig from '../../constants/buildConfig'
@@ -19,6 +25,9 @@ jest.mock('../../hooks/useResourceCache', () => () => ({}))
 jest.mock('react-i18next')
 jest.mock('react-native-webview', () => ({
   default: () => jest.fn(),
+}))
+jest.mock('react-native-inappbrowser-reborn', () => ({
+  isAvailable: () => false,
 }))
 
 describe('SearchModal', () => {
@@ -53,20 +62,10 @@ describe('SearchModal', () => {
     id: event.path,
   }))
 
-  const offers = [
-    {
-      title: 'WebDeveloper',
-      location: 'Augsburg',
-      url: 'http://awesome-jobs.domain',
-      id: 0,
-    },
-  ]
-
-  const allPossibleResults: SearchResult[] = [...categories, ...events, ...offers]
+  const allPossibleResults: SearchResult[] = [...categories, ...events]
 
   const props: SearchModalProps = {
     allPossibleResults,
-    navigateTo: dummy,
     languageCode,
     cityCode,
     closeModal: dummy,
@@ -78,10 +77,13 @@ describe('SearchModal', () => {
 
   const renderWithTheme = (props: SearchModalProps) =>
     render(
-      <ThemeProvider theme={theme}>
-        <SearchModal {...props} />
-      </ThemeProvider>,
+      <NavigationContainer>
+        <ThemeProvider theme={theme}>
+          <SearchModal {...props} />
+        </ThemeProvider>
+      </NavigationContainer>,
     )
+
   it('should send tracking signal when closing search site', async () => {
     const { getByPlaceholderText, getAllByRole } = renderWithTheme(props)
     const goBackButton = getAllByRole('button')[0]!
@@ -107,7 +109,7 @@ describe('SearchModal', () => {
     const categoryListItem = getByText('with id 1', { exact: false })
     fireEvent.press(categoryListItem)
     await waitFor(() => expect(goBackButton).not.toBeDisabled())
-    expect(sendTrackingSignal).toHaveBeenCalledTimes(1)
+    expect(sendTrackingSignal).toHaveBeenCalledTimes(2)
     const routeInformation: CategoriesRouteInformationType = {
       route: CATEGORIES_ROUTE,
       cityContentPath: categoriesMapModel.toArray()[2]!.path,
@@ -119,6 +121,13 @@ describe('SearchModal', () => {
       signal: {
         name: SEARCH_FINISHED_SIGNAL_NAME,
         query: 'Category',
+        url: expectedUrl,
+      },
+    })
+    expect(sendTrackingSignal).toHaveBeenCalledWith({
+      signal: {
+        name: OPEN_PAGE_SIGNAL_NAME,
+        pageType: 'categories',
         url: expectedUrl,
       },
     })

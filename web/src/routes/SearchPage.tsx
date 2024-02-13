@@ -119,19 +119,16 @@ const SearchPage = ({ city, cityCode, languageCode, pathname }: CityRouteProps):
         spaceSearch
       />
       <List>
-        {(query.length !== 0 ? results : allPossibleResults).map(
-          ({ title, id, content, location, path, url, thumbnail }) => (
-            <SearchListItem
-              title={title}
-              contentWithoutHtml={location || parseHTML(content)}
-              key={id}
-              query={query}
-              path={path}
-              url={url}
-              thumbnail={thumbnail}
-            />
-          ),
-        )}
+        {(query.length !== 0 ? results : allPossibleResults).map(({ title, id, content, path, thumbnail }) => (
+          <SearchListItem
+            title={title}
+            contentWithoutHtml={parseHTML(content)}
+            key={id}
+            query={query}
+            path={path}
+            thumbnail={thumbnail}
+          />
+        ))}
       </List>
       {results.length === 0 && <Failure errorMessage='search:nothingFound' />}
       <FeedbackSearch

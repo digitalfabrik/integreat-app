@@ -5,13 +5,7 @@ import { KeyboardAvoidingView, Platform } from 'react-native'
 import styled from 'styled-components/native'
 
 import { ThemeType } from 'build-configs'
-import {
-  InternalPathnameParser,
-  parseHTML,
-  RouteInformationType,
-  SEARCH_FINISHED_SIGNAL_NAME,
-  SEARCH_ROUTE,
-} from 'shared'
+import { parseHTML, SEARCH_FINISHED_SIGNAL_NAME, SEARCH_ROUTE } from 'shared'
 import { SearchResult } from 'shared/api'
 
 import FeedbackContainer from '../components/FeedbackContainer'
@@ -22,12 +16,8 @@ import NothingFound from '../components/NothingFound'
 import SearchHeader from '../components/SearchHeader'
 import SearchListItem from '../components/SearchListItem'
 import useResourceCache from '../hooks/useResourceCache'
-import useSnackbar from '../hooks/useSnackbar'
-import { urlFromRouteInformation } from '../navigation/url'
 import testID from '../testing/testID'
-import openExternalUrl from '../utils/openExternalUrl'
 import sendTrackingSignal from '../utils/sendTrackingSignal'
-import { reportError } from '../utils/sentry'
 
 const Wrapper = styled.View`
   position: absolute;
@@ -40,7 +30,6 @@ const Wrapper = styled.View`
 
 export type SearchModalProps = {
   allPossibleResults: Array<SearchResult>
-  navigateTo: (routeInformation: RouteInformationType) => void
   theme: ThemeType
   languageCode: string
   cityCode: string
@@ -52,7 +41,6 @@ export type SearchModalProps = {
 
 const SearchModal = ({
   allPossibleResults,
-  navigateTo,
   theme,
   languageCode,
   cityCode,
@@ -81,36 +69,6 @@ const SearchModal = ({
   // Minisearch doesn't add the returned storeFields (e.g. title or path) to its typing
   const searchResults = minisearch.search(query) as unknown as SearchResult[]
 
-  const showSnackbar = useSnackbar()
-
-  const followLink = (link: string, isExternalUrl: boolean): void => {
-    if (isExternalUrl) {
-      sendTrackingSignal({
-        signal: {
-          name: SEARCH_FINISHED_SIGNAL_NAME,
-          query,
-          url: link,
-        },
-      })
-      openExternalUrl(link, showSnackbar)
-    } else {
-      const routeInformation = new InternalPathnameParser(link, languageCode, cityCode).route()
-      if (!routeInformation) {
-        reportError('no routeInformation found')
-        showSnackbar({ text: 'unknownError' })
-        return
-      }
-      sendTrackingSignal({
-        signal: {
-          name: SEARCH_FINISHED_SIGNAL_NAME,
-          query,
-          url: urlFromRouteInformation(routeInformation),
-        },
-      })
-      navigateTo(routeInformation)
-    }
-  }
-
   const onClose = (): void => {
     sendTrackingSignal({
       signal: {
@@ -136,13 +94,12 @@ const SearchModal = ({
       key={item.id}
       title={item.title}
       resourceCache={item.path ? resourceCache[item.path] : {}}
-      contentWithoutHtml={item.location ?? parseHTML(item.content ?? '')}
+      contentWithoutHtml={parseHTML(item.content)}
       language={languageCode}
+      city={cityCode}
       query={query}
-      followLink={link => followLink(link, !!item.url)}
       thumbnail={item.thumbnail}
       path={item.path}
-      url={item.url}
     />
   )
 
