@@ -42,7 +42,6 @@
     "luxon": "^3.4.2",
     "mapbox-gl": "npm:empty-npm-package@1.0.0",
     "maplibre-gl": "^3.3.0",
-    "minisearch": "^6.3.0",
     "normalize.css": "^8.0.1",
     "npm-license-crawler": "^0.2.1",
     "react": "18.2.0",

@@ -1,11 +1,10 @@
 import { TFunction } from 'i18next'
-import MiniSearch from 'minisearch'
-import React, { ReactElement, useMemo, useState } from 'react'
+import React, { ReactElement, useState } from 'react'
 import { KeyboardAvoidingView, Platform } from 'react-native'
 import styled from 'styled-components/native'
 
 import { ThemeType } from 'build-configs'
-import { parseHTML, SEARCH_FINISHED_SIGNAL_NAME, SEARCH_ROUTE } from 'shared'
+import { parseHTML, SEARCH_FINISHED_SIGNAL_NAME, SEARCH_ROUTE, SearchResult, useMiniSearch } from 'shared'
 
 import FeedbackContainer from '../components/FeedbackContainer'
 import HorizontalLine from '../components/HorizontalLine'
@@ -26,14 +25,6 @@ const Wrapper = styled.View`
   right: 0;
   background-color: ${props => props.theme.colors.backgroundColor};
 `
-
-export type SearchResult = {
-  title: string
-  id: string | number
-  thumbnail?: string
-  content: string
-  path: string
-}
 
 export type SearchModalProps = {
   allPossibleResults: Array<SearchResult>
@@ -59,19 +50,7 @@ const SearchModal = ({
   const [query, setQuery] = useState<string>(initialSearchText)
   const resourceCache = useResourceCache({ cityCode, languageCode })
 
-  const minisearch = useMemo(() => {
-    const search = new MiniSearch({
-      fields: ['title', 'content'],
-      storeFields: ['title', 'content', 'path', 'location', 'url', 'thumbnail'],
-      searchOptions: {
-        boost: { title: 2 },
-        fuzzy: true,
-        prefix: true,
-      },
-    })
-    search.addAll(allPossibleResults)
-    return search
-  }, [allPossibleResults])
+  const minisearch = useMiniSearch(allPossibleResults)
 
   // Minisearch doesn't add the returned storeFields (e.g. title or path) to its typing
   const searchResults = minisearch.search(query) as unknown as SearchResult[]

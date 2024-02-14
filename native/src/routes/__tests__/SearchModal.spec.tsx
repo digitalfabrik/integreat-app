@@ -9,6 +9,7 @@ import {
   CategoriesRouteInformationType,
   OPEN_PAGE_SIGNAL_NAME,
   SEARCH_FINISHED_SIGNAL_NAME,
+  SearchResult,
 } from 'shared'
 import { CategoriesMapModelBuilder, EventModelBuilder, PoiModelBuilder } from 'shared/api'
 
@@ -16,7 +17,7 @@ import buildConfig from '../../constants/buildConfig'
 import { urlFromRouteInformation } from '../../navigation/url'
 import render from '../../testing/render'
 import sendTrackingSignal from '../../utils/sendTrackingSignal'
-import SearchModal, { SearchModalProps, SearchResult } from '../SearchModal'
+import SearchModal, { SearchModalProps } from '../SearchModal'
 
 jest.mock('../../utils/sendTrackingSignal')
 jest.mock('../../components/FeedbackContainer')
@@ -28,6 +29,13 @@ jest.mock('react-native-webview', () => ({
 }))
 jest.mock('react-native-inappbrowser-reborn', () => ({
   isAvailable: () => false,
+}))
+
+jest.mock('shared', () => ({
+  ...jest.requireActual('shared'),
+  useMiniSearch: (results: SearchResult[]) => ({
+    search: (query: string) => (query === 'no results, please' ? [] : results),
+  }),
 }))
 
 describe('SearchModal', () => {
@@ -145,7 +153,7 @@ describe('SearchModal', () => {
   it('should show nothing found if there are no search results', () => {
     const { getByText, getByPlaceholderText } = renderWithTheme(props)
 
-    fireEvent.changeText(getByPlaceholderText('searchPlaceholder'), 'invalid query')
+    fireEvent.changeText(getByPlaceholderText('searchPlaceholder'), 'no results, please')
 
     expect(getByText('search:nothingFound')).toBeTruthy()
   })

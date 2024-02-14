@@ -59,27 +59,11 @@ type SearchListItemProps = {
   title: string
   contentWithoutHtml: string
   query: string
-} & (
-  | {
-      path: string
-      thumbnail?: string
-      url?: never
-    }
-  | {
-      url: string
-      path?: never
-      thumbnail?: never
-    }
-)
+  path: string
+  thumbnail?: string
+}
 
-const SearchListItem = ({
-  title,
-  contentWithoutHtml,
-  query,
-  path,
-  url,
-  thumbnail,
-}: SearchListItemProps): ReactElement => {
+const SearchListItem = ({ title, contentWithoutHtml, query, path, thumbnail }: SearchListItemProps): ReactElement => {
   const theme = useTheme()
 
   const excerpt = getExcerpt(contentWithoutHtml, { query, maxChars: EXCERPT_MAX_CHARS })
@@ -109,7 +93,7 @@ const SearchListItem = ({
 
   return (
     <Row>
-      <StyledLink to={path ?? url}>
+      <StyledLink to={path}>
         <CategoryItemContainer dir='auto'>
           <CategoryTitleContainer>
             {!!thumbnail && <CategoryThumbnail alt='' src={thumbnail} />}

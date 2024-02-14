@@ -2,10 +2,10 @@ import { fireEvent, waitFor } from '@testing-library/react'
 import { mocked } from 'jest-mock'
 import React from 'react'
 
-import { pathnameFromRouteInformation, SEARCH_ROUTE } from 'shared'
+import { pathnameFromRouteInformation, SEARCH_ROUTE, SearchResult } from 'shared'
 import { CategoriesMapModelBuilder, CityModelBuilder, EventModelBuilder, PoiModelBuilder } from 'shared/api'
 
-import useAllPossibleSearchResults, { SearchResult } from '../../hooks/useAllPossibleSearchResults'
+import useAllPossibleSearchResults from '../../hooks/useAllPossibleSearchResults'
 import { renderRoute } from '../../testing/render'
 import SearchPage from '../SearchPage'
 import { RoutePatterns } from '../index'
@@ -13,6 +13,12 @@ import { RoutePatterns } from '../index'
 jest.mock('react-inlinesvg')
 jest.mock('react-i18next')
 jest.mock('../../hooks/useAllPossibleSearchResults')
+jest.mock('shared', () => ({
+  ...jest.requireActual('shared'),
+  useMiniSearch: (results: SearchResult[]) => ({
+    search: (query: string) => (query === 'no results, please' ? [] : results),
+  }),
+}))
 
 describe('SearchPage', () => {
   const cities = new CityModelBuilder(2).build()
@@ -22,7 +28,6 @@ describe('SearchPage', () => {
 
   const categoriesMap = new CategoriesMapModelBuilder(cityCode, languageCode).build()
   const categoryModels = categoriesMap.toArray()
-  const category0 = categoryModels[0]!
   const category1 = categoryModels[1]!
   const categories = categoryModels
     .filter(category => !category.isRoot())
@@ -34,13 +39,14 @@ describe('SearchPage', () => {
       thumbnail: category.thumbnail,
     }))
 
-  const eventModels = new EventModelBuilder('testseed', 5, cityCode, languageCode).build()
+  const eventModels = new EventModelBuilder('testseed', 1, cityCode, languageCode).build()
   const events = eventModels.map(event => ({
     title: event.title,
     content: event.content,
     path: event.path,
     id: event.path,
   }))
+  const event0 = events[0]!
 
   const poiModels = new PoiModelBuilder(3).build()
   const pois = poiModels.map(poi => ({
@@ -50,6 +56,7 @@ describe('SearchPage', () => {
     id: poi.path,
     thumbnail: poi.thumbnail,
   }))
+  const poi0 = pois[0]!
 
   const allPossibleResults: SearchResult[] = [...categories, ...events, ...pois]
 
@@ -77,55 +84,30 @@ describe('SearchPage', () => {
     return renderRoute(searchPage, { routePattern, pathname: pathnameWithQuery })
   }
 
-  it('should filter correctly', () => {
-    const { getByText, queryByText, getByPlaceholderText } = renderSearch()
+  it('should display results', () => {
+    const { getByPlaceholderText, getByText } = renderSearch()
 
-    // the root category should not be returned
-    expect(queryByText(category0.title)).toBeFalsy()
     expect(getByText(category1.title)).toBeTruthy()
+    expect(getByText(event0.title)).toBeTruthy()
+    expect(getByText(poi0.title)).toBeTruthy()
 
     fireEvent.change(getByPlaceholderText('search:searchPlaceholder'), {
       target: {
-        value: 'Does not exist!',
+        value: 'all results, please',
       },
     })
 
-    expect(queryByText(category0.title)).toBeFalsy()
-    expect(queryByText(category1.title)).toBeFalsy()
-
-    fireEvent.change(getByPlaceholderText('search:searchPlaceholder'), {
-      target: {
-        value: category1.title,
-      },
-    })
-
-    expect(queryByText(category0.title)).toBeFalsy()
     expect(getByText(category1.title)).toBeTruthy()
+    expect(getByText(event0.title)).toBeTruthy()
+    expect(getByText(poi0.title)).toBeTruthy()
   })
 
-  it('should sort correctly', () => {
-    const { getByPlaceholderText, getAllByLabelText } = renderSearch()
-
-    fireEvent.change(getByPlaceholderText('search:searchPlaceholder'), {
-      target: {
-        value: 'sample',
-      },
-    })
-
-    const searchResults = getAllByLabelText('first Event', { exact: false })
-
-    expect(searchResults[0]!.attributes.getNamedItem('aria-label')?.value).toBe(eventModels[0]!.title)
-    expect(searchResults[1]!.attributes.getNamedItem('aria-label')?.value).toBe(eventModels[1]!.title)
-    expect(searchResults[2]!.attributes.getNamedItem('aria-label')?.value).toBe(eventModels[2]!.title)
-    expect(searchResults[3]!.attributes.getNamedItem('aria-label')?.value).toBe(eventModels[3]!.title)
-  })
-
-  it('should display nothing found for search', async () => {
+  it('should display nothing found for search', () => {
     const { getByRole, getByPlaceholderText } = renderSearch()
 
     fireEvent.change(getByPlaceholderText('search:searchPlaceholder'), {
       target: {
-        value: 'abc',
+        value: 'no results, please',
       },
     })
 

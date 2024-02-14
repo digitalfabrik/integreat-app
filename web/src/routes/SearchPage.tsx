@@ -1,10 +1,9 @@
-import MiniSearch from 'minisearch'
-import React, { ReactElement, useMemo, useState } from 'react'
+import React, { ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useLocation, useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
 
-import { parseHTML, pathnameFromRouteInformation, SEARCH_ROUTE } from 'shared'
+import { parseHTML, pathnameFromRouteInformation, SEARCH_ROUTE, useMiniSearch } from 'shared'
 
 import { CityRouteProps } from '../CityContentSwitcher'
 import CityContentLayout, { CityContentLayoutProps } from '../components/CityContentLayout'
@@ -44,19 +43,7 @@ const SearchPage = ({ city, cityCode, languageCode, pathname }: CityRouteProps):
     cmsApiBaseUrl,
   })
 
-  const minisearch = useMemo(() => {
-    const search = new MiniSearch({
-      fields: ['title', 'content'],
-      storeFields: ['title', 'content', 'path', 'location', 'url', 'thumbnail'],
-      searchOptions: {
-        boost: { title: 2 },
-        fuzzy: true,
-        prefix: true,
-      },
-    })
-    search.addAll(allPossibleResults)
-    return search
-  }, [allPossibleResults])
+  const minisearch = useMiniSearch(allPossibleResults)
 
   const results = minisearch.search(query)
 

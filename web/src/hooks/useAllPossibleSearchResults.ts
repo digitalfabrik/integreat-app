@@ -1,19 +1,12 @@
 import { useMemo } from 'react'
 
+import { SearchResult } from 'shared'
 import { createCategoriesEndpoint, createEventsEndpoint, createPOIsEndpoint, useLoadFromEndpoint } from 'shared/api'
 
 type useSearchParams = {
   city: string
   language: string
   cmsApiBaseUrl: string
-}
-
-export type SearchResult = {
-  title: string
-  id: string | number
-  thumbnail?: string
-  content: string
-  path: string
 }
 
 const useAllPossibleSearchResults = ({
