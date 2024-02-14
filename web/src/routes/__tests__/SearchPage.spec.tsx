@@ -3,25 +3,16 @@ import { mocked } from 'jest-mock'
 import React from 'react'
 
 import { pathnameFromRouteInformation, SEARCH_ROUTE } from 'shared'
-import {
-  CategoriesMapModelBuilder,
-  CityModelBuilder,
-  EventModelBuilder,
-  SearchResult,
-  useAllPossibleSearchResults,
-} from 'shared/api'
+import { CategoriesMapModelBuilder, CityModelBuilder, EventModelBuilder, PoiModelBuilder } from 'shared/api'
 
+import useAllPossibleSearchResults, { SearchResult } from '../../hooks/useAllPossibleSearchResults'
 import { renderRoute } from '../../testing/render'
 import SearchPage from '../SearchPage'
 import { RoutePatterns } from '../index'
 
 jest.mock('react-inlinesvg')
 jest.mock('react-i18next')
-jest.mock('shared/api', () => ({
-  ...jest.requireActual('shared/api'),
-  useLoadFromEndpoint: jest.fn(),
-  useAllPossibleSearchResults: jest.fn(),
-}))
+jest.mock('../../hooks/useAllPossibleSearchResults')
 
 describe('SearchPage', () => {
   const cities = new CityModelBuilder(2).build()
@@ -51,13 +42,24 @@ describe('SearchPage', () => {
     id: event.path,
   }))
 
-  const allPossibleResults: SearchResult[] = [...categories, ...events]
+  const poiModels = new PoiModelBuilder(3).build()
+  const pois = poiModels.map(poi => ({
+    title: poi.title,
+    content: poi.content,
+    path: poi.path,
+    id: poi.path,
+    thumbnail: poi.thumbnail,
+  }))
+
+  const allPossibleResults: SearchResult[] = [...categories, ...events, ...pois]
 
   const hookReturn = {
     data: allPossibleResults,
     loading: false,
     error: null,
   }
+
+  mocked(useAllPossibleSearchResults).mockImplementation(() => hookReturn)
 
   const pathname = pathnameFromRouteInformation({
     route: SEARCH_ROUTE,
@@ -76,8 +78,6 @@ describe('SearchPage', () => {
   }
 
   it('should filter correctly', () => {
-    mocked(useAllPossibleSearchResults).mockImplementation(() => hookReturn)
-
     const { getByText, queryByText, getByPlaceholderText } = renderSearch()
 
     // the root category should not be returned
@@ -104,8 +104,6 @@ describe('SearchPage', () => {
   })
 
   it('should sort correctly', () => {
-    mocked(useAllPossibleSearchResults).mockImplementation(() => hookReturn)
-
     const { getByPlaceholderText, getAllByLabelText } = renderSearch()
 
     fireEvent.change(getByPlaceholderText('search:searchPlaceholder'), {
@@ -123,8 +121,6 @@ describe('SearchPage', () => {
   })
 
   it('should display nothing found for search', async () => {
-    mocked(useAllPossibleSearchResults).mockImplementation(() => hookReturn)
-
     const { getByRole, getByPlaceholderText } = renderSearch()
 
     fireEvent.change(getByPlaceholderText('search:searchPlaceholder'), {
@@ -137,7 +133,6 @@ describe('SearchPage', () => {
   })
 
   describe('url query', () => {
-    mocked(useAllPossibleSearchResults).mockImplementation(() => hookReturn)
     it('should set state from url', () => {
       const query = '?query=SearchForThis'
 

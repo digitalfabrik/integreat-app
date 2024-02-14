@@ -6,7 +6,6 @@ import styled from 'styled-components/native'
 
 import { ThemeType } from 'build-configs'
 import { parseHTML, SEARCH_FINISHED_SIGNAL_NAME, SEARCH_ROUTE } from 'shared'
-import { SearchResult } from 'shared/api'
 
 import FeedbackContainer from '../components/FeedbackContainer'
 import HorizontalLine from '../components/HorizontalLine'
@@ -27,6 +26,14 @@ const Wrapper = styled.View`
   right: 0;
   background-color: ${props => props.theme.colors.backgroundColor};
 `
+
+export type SearchResult = {
+  title: string
+  id: string | number
+  thumbnail?: string
+  content: string
+  path: string
+}
 
 export type SearchModalProps = {
   allPossibleResults: Array<SearchResult>

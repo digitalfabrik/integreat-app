@@ -79,10 +79,6 @@ export {
 export { SPRUNGBRETT_OFFER } from './endpoints/createSprungbrettJobsEndpoint'
 export { default as useLoadFromEndpoint, loadFromEndpoint } from './endpoints/hooks/useLoadFromEndpoint'
 export { default as useLoadAsync, loadAsync } from './endpoints/hooks/useLoadAsync'
-export {
-  default as useAllPossibleSearchResults,
-  type SearchResult,
-} from './endpoints/hooks/useAllPossibleSearchResults'
 export { default as CategoriesMapModel } from './models/CategoriesMapModel'
 export { default as CategoryModel } from './models/CategoryModel'
 export { default as CityModel } from './models/CityModel'

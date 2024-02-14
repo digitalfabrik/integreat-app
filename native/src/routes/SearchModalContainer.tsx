@@ -39,9 +39,17 @@ const SearchModalContainer = ({ navigation, route }: SearchModalContainerProps):
         content: event.content,
         path: event.path,
         id: event.path,
+        thumbnail: event.thumbnail,
+      })) ?? []),
+      ...(data?.pois.map(poi => ({
+        title: poi.title,
+        content: poi.content,
+        path: poi.path,
+        id: poi.path,
+        thumbnail: poi.thumbnail,
       })) ?? []),
     ],
-    [data?.categories, data?.events],
+    [data?.categories, data?.events, data?.pois],
   )
 
   return (

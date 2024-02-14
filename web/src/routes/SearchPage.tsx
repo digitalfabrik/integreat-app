@@ -5,7 +5,6 @@ import { useLocation, useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
 
 import { parseHTML, pathnameFromRouteInformation, SEARCH_ROUTE } from 'shared'
-import { useAllPossibleSearchResults } from 'shared/api'
 
 import { CityRouteProps } from '../CityContentSwitcher'
 import CityContentLayout, { CityContentLayoutProps } from '../components/CityContentLayout'
@@ -18,6 +17,7 @@ import SearchInput from '../components/SearchInput'
 import SearchListItem from '../components/SearchListItem'
 import { helpers } from '../constants/theme'
 import { cmsApiBaseUrl } from '../constants/urls'
+import useAllPossibleSearchResults from '../hooks/useAllPossibleSearchResults'
 import { reportError } from '../utils/sentry'
 
 const List = styled.ul`

@@ -10,13 +10,13 @@ import {
   OPEN_PAGE_SIGNAL_NAME,
   SEARCH_FINISHED_SIGNAL_NAME,
 } from 'shared'
-import { CategoriesMapModelBuilder, EventModelBuilder, SearchResult } from 'shared/api'
+import { CategoriesMapModelBuilder, EventModelBuilder, PoiModelBuilder } from 'shared/api'
 
 import buildConfig from '../../constants/buildConfig'
 import { urlFromRouteInformation } from '../../navigation/url'
 import render from '../../testing/render'
 import sendTrackingSignal from '../../utils/sendTrackingSignal'
-import SearchModal, { SearchModalProps } from '../SearchModal'
+import SearchModal, { SearchModalProps, SearchResult } from '../SearchModal'
 
 jest.mock('../../utils/sendTrackingSignal')
 jest.mock('../../components/FeedbackContainer')
@@ -62,7 +62,16 @@ describe('SearchModal', () => {
     id: event.path,
   }))
 
-  const allPossibleResults: SearchResult[] = [...categories, ...events]
+  const poiModels = new PoiModelBuilder(3).build()
+  const pois = poiModels.map(poi => ({
+    title: poi.title,
+    content: poi.content,
+    path: poi.path,
+    id: poi.path,
+    thumbnail: poi.thumbnail,
+  }))
+
+  const allPossibleResults: SearchResult[] = [...categories, ...events, ...pois]
 
   const props: SearchModalProps = {
     allPossibleResults,

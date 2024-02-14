@@ -1,6 +1,6 @@
 import { useMemo } from 'react'
 
-import { createCategoriesEndpoint, createEventsEndpoint, useLoadFromEndpoint } from '../..'
+import { createCategoriesEndpoint, createEventsEndpoint, createPOIsEndpoint, useLoadFromEndpoint } from 'shared/api'
 
 type useSearchParams = {
   city: string
@@ -39,6 +39,12 @@ const useAllPossibleSearchResults = ({
     error: eventsError,
   } = useLoadFromEndpoint(createEventsEndpoint, cmsApiBaseUrl, params)
 
+  const {
+    data: locations,
+    loading: locationsLoading,
+    error: locationsError,
+  } = useLoadFromEndpoint(createPOIsEndpoint, cmsApiBaseUrl, params)
+
   const allPossibleResults = useMemo(
     () => [
       ...(categories
@@ -56,15 +62,23 @@ const useAllPossibleSearchResults = ({
         content: event.content,
         path: event.path,
         id: event.path,
+        thumbnail: event.thumbnail,
+      })) ?? []),
+      ...(locations?.map(location => ({
+        title: location.title,
+        content: location.content,
+        path: location.path,
+        id: location.slug,
+        thumbnail: location.thumbnail,
       })) ?? []),
     ],
-    [categories, events],
+    [categories, events, locations],
   )
 
   return {
     data: allPossibleResults,
-    loading: categoriesLoading || eventsLoading,
-    error: categoriesError || eventsError,
+    loading: categoriesLoading || eventsLoading || locationsLoading,
+    error: categoriesError || eventsError || locationsError,
   }
 }
 
