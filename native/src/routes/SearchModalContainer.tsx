@@ -2,7 +2,7 @@ import React, { ReactElement, useContext, useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 import { ThemeContext } from 'styled-components'
 
-import { SearchRouteType } from 'shared'
+import { SearchRouteType, formatSearchResults } from 'shared'
 
 import { NavigationProps, RouteProps } from '../constants/NavigationTypes'
 import useCityAppContext from '../hooks/useCityAppContext'
@@ -23,32 +23,7 @@ const SearchModalContainer = ({ navigation, route }: SearchModalContainerProps):
   const { t } = useTranslation('search')
 
   const allPossibleResults = useMemo(
-    () => [
-      ...(data?.categories
-        .toArray()
-        .filter(category => !category.isRoot())
-        .map(category => ({
-          title: category.title,
-          content: category.content,
-          path: category.path,
-          id: category.path,
-          thumbnail: category.thumbnail,
-        })) ?? []),
-      ...(data?.events.map(event => ({
-        title: event.title,
-        content: event.content,
-        path: event.path,
-        id: event.path,
-        thumbnail: event.thumbnail,
-      })) ?? []),
-      ...(data?.pois.map(poi => ({
-        title: poi.title,
-        content: poi.content,
-        path: poi.path,
-        id: poi.path,
-        thumbnail: poi.thumbnail,
-      })) ?? []),
-    ],
+    () => formatSearchResults(data?.categories, data?.events, data?.pois),
     [data?.categories, data?.events, data?.pois],
   )
 
@@ -63,7 +38,6 @@ const SearchModalContainer = ({ navigation, route }: SearchModalContainerProps):
           theme={theme}
           t={t}
           initialSearchText={initialSearchText}
-          loading={loading}
         />
       )}
     </LoadingErrorHandler>

@@ -9,7 +9,6 @@ import { parseHTML, SEARCH_FINISHED_SIGNAL_NAME, SEARCH_ROUTE, SearchResult, use
 import FeedbackContainer from '../components/FeedbackContainer'
 import HorizontalLine from '../components/HorizontalLine'
 import List from '../components/List'
-import LoadingSpinner from '../components/LoadingSpinner'
 import NothingFound from '../components/NothingFound'
 import SearchHeader from '../components/SearchHeader'
 import SearchListItem from '../components/SearchListItem'
@@ -34,7 +33,6 @@ export type SearchModalProps = {
   closeModal: (query: string) => void
   t: TFunction<'search'>
   initialSearchText: string
-  loading: boolean
 }
 
 const SearchModal = ({
@@ -45,7 +43,6 @@ const SearchModal = ({
   closeModal,
   t,
   initialSearchText = '',
-  loading,
 }: SearchModalProps): ReactElement => {
   const [query, setQuery] = useState<string>(initialSearchText)
   const resourceCache = useResourceCache({ cityCode, languageCode })
@@ -66,20 +63,11 @@ const SearchModal = ({
     closeModal(query)
   }
 
-  if (loading) {
-    return (
-      <Wrapper {...testID('Search-Page')}>
-        <SearchHeader theme={theme} query={query} closeSearchBar={onClose} onSearchChanged={setQuery} t={t} />
-        <LoadingSpinner />
-      </Wrapper>
-    )
-  }
-
   const renderItem = ({ item }: { item: SearchResult }) => (
     <SearchListItem
       key={item.id}
       title={item.title}
-      resourceCache={item.path ? resourceCache[item.path] : {}}
+      resourceCache={resourceCache[item.path] ?? {}}
       contentWithoutHtml={parseHTML(item.content)}
       language={languageCode}
       city={cityCode}

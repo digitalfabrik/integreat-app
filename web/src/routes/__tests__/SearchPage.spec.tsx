@@ -2,7 +2,7 @@ import { fireEvent, waitFor } from '@testing-library/react'
 import { mocked } from 'jest-mock'
 import React from 'react'
 
-import { pathnameFromRouteInformation, SEARCH_ROUTE, SearchResult } from 'shared'
+import { formatSearchResults, pathnameFromRouteInformation, SEARCH_ROUTE, SearchResult } from 'shared'
 import { CategoriesMapModelBuilder, CityModelBuilder, EventModelBuilder, PoiModelBuilder } from 'shared/api'
 
 import useAllPossibleSearchResults from '../../hooks/useAllPossibleSearchResults'
@@ -29,36 +29,14 @@ describe('SearchPage', () => {
   const categoriesMap = new CategoriesMapModelBuilder(cityCode, languageCode).build()
   const categoryModels = categoriesMap.toArray()
   const category1 = categoryModels[1]!
-  const categories = categoryModels
-    .filter(category => !category.isRoot())
-    .map(category => ({
-      title: category.title,
-      content: category.content,
-      path: category.path,
-      id: category.path,
-      thumbnail: category.thumbnail,
-    }))
 
   const eventModels = new EventModelBuilder('testseed', 1, cityCode, languageCode).build()
-  const events = eventModels.map(event => ({
-    title: event.title,
-    content: event.content,
-    path: event.path,
-    id: event.path,
-  }))
-  const event0 = events[0]!
+  const event0 = eventModels[0]!
 
   const poiModels = new PoiModelBuilder(3).build()
-  const pois = poiModels.map(poi => ({
-    title: poi.title,
-    content: poi.content,
-    path: poi.path,
-    id: poi.path,
-    thumbnail: poi.thumbnail,
-  }))
-  const poi0 = pois[0]!
+  const poi0 = poiModels[0]!
 
-  const allPossibleResults: SearchResult[] = [...categories, ...events, ...pois]
+  const allPossibleResults = formatSearchResults(categoriesMap, eventModels, poiModels)
 
   const hookReturn = {
     data: allPossibleResults,

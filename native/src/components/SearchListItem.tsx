@@ -50,8 +50,8 @@ const HighlighterCategoryTitle = styled(Highlighter)<{ language: string }>`
 
 type SearchListItemProps = {
   title: string
-  contentWithoutHtml?: string
-  resourceCache?: PageResourceCacheStateType
+  contentWithoutHtml: string
+  resourceCache: PageResourceCacheStateType
   language: string
   city: string
   query: string
@@ -123,7 +123,7 @@ const SearchListItem = ({
       <DirectionContainer language={language}>
         <SearchEntryContainer>
           <TitleDirectionContainer language={language}>
-            {!!thumbnail && resourceCache && (
+            {!!thumbnail && (
               <CategoryThumbnail language={language} source={getCachedThumbnail(thumbnail, resourceCache)} />
             )}
             {Title}

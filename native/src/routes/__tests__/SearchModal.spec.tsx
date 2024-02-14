@@ -10,6 +10,7 @@ import {
   OPEN_PAGE_SIGNAL_NAME,
   SEARCH_FINISHED_SIGNAL_NAME,
   SearchResult,
+  formatSearchResults,
 } from 'shared'
 import { CategoriesMapModelBuilder, EventModelBuilder, PoiModelBuilder } from 'shared/api'
 
@@ -51,35 +52,10 @@ describe('SearchModal', () => {
   const theme = buildConfig().lightTheme
 
   const categoriesMapModel = new CategoriesMapModelBuilder(cityCode, languageCode, 2, 2).build()
-  const categories = categoriesMapModel
-    .toArray()
-    .filter(category => !category.isRoot())
-    .map(category => ({
-      title: category.title,
-      content: category.content,
-      path: category.path,
-      id: category.path,
-      thumbnail: category.thumbnail,
-    }))
-
   const eventModels = new EventModelBuilder('testseed', 5, cityCode, languageCode).build()
-  const events = eventModels.map(event => ({
-    title: event.title,
-    content: event.content,
-    path: event.path,
-    id: event.path,
-  }))
-
   const poiModels = new PoiModelBuilder(3).build()
-  const pois = poiModels.map(poi => ({
-    title: poi.title,
-    content: poi.content,
-    path: poi.path,
-    id: poi.path,
-    thumbnail: poi.thumbnail,
-  }))
 
-  const allPossibleResults: SearchResult[] = [...categories, ...events, ...pois]
+  const allPossibleResults = formatSearchResults(categoriesMapModel, eventModels, poiModels)
 
   const props: SearchModalProps = {
     allPossibleResults,
@@ -89,7 +65,6 @@ describe('SearchModal', () => {
     t,
     theme,
     initialSearchText: '',
-    loading: false,
   }
 
   const renderWithTheme = (props: SearchModalProps) =>

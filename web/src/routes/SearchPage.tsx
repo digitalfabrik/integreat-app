@@ -17,7 +17,6 @@ import SearchListItem from '../components/SearchListItem'
 import { helpers } from '../constants/theme'
 import { cmsApiBaseUrl } from '../constants/urls'
 import useAllPossibleSearchResults from '../hooks/useAllPossibleSearchResults'
-import { reportError } from '../utils/sentry'
 
 const List = styled.ul`
   list-style-type: none;
@@ -88,7 +87,6 @@ const SearchPage = ({ city, cityCode, languageCode, pathname }: CityRouteProps):
   }
 
   if (error) {
-    reportError(error)
     return (
       <CityContentLayout isLoading={false} {...locationLayoutParams}>
         <FailureSwitcher error={error} />
