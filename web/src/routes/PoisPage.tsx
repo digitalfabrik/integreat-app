@@ -73,7 +73,7 @@ const PoisPage = ({ cityCode, languageCode, city, pathname }: CityRouteProps): R
     )
   }
 
-  const pageTitle = `${t('pageTitle')} - ${city.name}`
+  const pageTitle = `${poi?.title ?? t('pageTitle')} - ${city.name}`
 
   return (
     <CityContentLayout isLoading={false} {...locationLayoutParams} fullWidth>
