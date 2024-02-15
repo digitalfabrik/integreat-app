@@ -24,7 +24,9 @@ describe('navigateToSearchResult', () => {
 
     await expect(results[0]).toExist()
     await expect(results[1]).toExist()
-    expect(await results[1]!.getAttribute('href')).toBe(`/${Routes.dashboard}/language/language-courses`)
+    expect(await results[1]!.getAttribute('href')).toBe(
+      `/${Routes.dashboard}/language/language-courses/online-language-courses`,
+    )
 
     await results[0]!.click()
     const resultUrl = await browser.getUrl()
