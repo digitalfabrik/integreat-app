@@ -68,10 +68,12 @@ export type EventsRouteInformationType = ParamsType & {
 }
 
 export type PoisRouteInformationType = ParamsType & {
-  // Route with customizable ids and query, e.g. '/augsburg/de/pois/1234?multipoi=2'
+  // Route with customizable ids and search params, e.g. '/augsburg/de/pois/1234?multipoi=2'
   route: PoisRouteType
   slug?: string
-  multipoi?: string | null
+  multipoi?: number
+  poiCategoryId?: number
+  zoom?: number
 }
 
 export type SearchRouteInformationType = ParamsType & {

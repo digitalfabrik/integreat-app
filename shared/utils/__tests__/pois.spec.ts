@@ -66,7 +66,7 @@ describe('preparePois', () => {
   it('should handle multipois correctly', () => {
     const data1 = preparePois({
       pois,
-      params: { slug: undefined, multipoi: '0', poiCategoryId: undefined, currentlyOpen: undefined },
+      params: { slug: undefined, multipoi: 0, poiCategoryId: undefined, currentlyOpen: undefined },
     })
     expect(data1.pois).toEqual([poi1, poi3])
     expect(data1.mapFeatures).toEqual(prepareMapFeatures([poi1, poi2, poi3]))
@@ -75,7 +75,7 @@ describe('preparePois', () => {
 
     const data2 = preparePois({
       pois,
-      params: { slug: undefined, multipoi: '0', poiCategoryId: undefined, currentlyOpen: true },
+      params: { slug: undefined, multipoi: 0, poiCategoryId: undefined, currentlyOpen: true },
     })
     expect(data2.pois).toEqual([poi1])
     expect(data2.mapFeatures).toEqual(prepareMapFeatures([poi1, poi2]))
@@ -84,7 +84,7 @@ describe('preparePois', () => {
 
     const data3 = preparePois({
       pois,
-      params: { slug: undefined, multipoi: '2', poiCategoryId: undefined, currentlyOpen: undefined },
+      params: { slug: undefined, multipoi: 2, poiCategoryId: undefined, currentlyOpen: undefined },
     })
     expect(data3.pois).toEqual([poi1, poi2, poi3])
     expect(data3.mapFeatures).toEqual(prepareMapFeatures([poi1, poi2, poi3]))
@@ -104,7 +104,7 @@ describe('preparePois', () => {
 
     const data2 = preparePois({
       pois,
-      params: { slug: 'another_test_path', multipoi: '0', poiCategoryId: undefined, currentlyOpen: undefined },
+      params: { slug: 'another_test_path', multipoi: 0, poiCategoryId: undefined, currentlyOpen: undefined },
     })
     expect(data2.pois).toEqual([poi1, poi3])
     expect(data2.mapFeatures).toEqual(prepareMapFeatures([poi1, poi2, poi3]))
@@ -113,11 +113,27 @@ describe('preparePois', () => {
 
     const data3 = preparePois({
       pois,
-      params: { slug: 'test', multipoi: '0', poiCategoryId: undefined, currentlyOpen: true },
+      params: { slug: 'test', multipoi: 0, poiCategoryId: undefined, currentlyOpen: true },
     })
     expect(data3.pois).toEqual([poi1])
     expect(data3.mapFeatures).toEqual(prepareMapFeatures([poi1, poi2]))
     expect(data3.mapFeature).toEqual(prepareMapFeatures([poi1])[0])
     expect(data3.poi).toEqual(poi1)
+  })
+
+  it('should prepare poi categories', () => {
+    const { poiCategories: poiCategories1, poiCategory: poiCategory1 } = preparePois({
+      pois,
+      params: { slug: 'test', multipoi: 0, poiCategoryId: undefined, currentlyOpen: true },
+    })
+    expect(poiCategories1).toEqual([poi1.category, poi2.category])
+    expect(poiCategory1).toBeUndefined()
+
+    const { poiCategories: poiCategories2, poiCategory: poiCategory2 } = preparePois({
+      pois: [...pois, ...pois],
+      params: { slug: 'test', multipoi: 0, poiCategoryId: 10, currentlyOpen: true },
+    })
+    expect(poiCategories2).toEqual([poi1.category, poi2.category])
+    expect(poiCategory2).toEqual(poi1.category)
   })
 })

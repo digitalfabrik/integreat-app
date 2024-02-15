@@ -15,7 +15,7 @@ const maxDistanceForOverlap = 0.005
 
 export const prepareMapFeature = (pois: PoiModel[], id: number, coordinates: [number, number]): MapFeature => ({
   type: 'Feature',
-  id: id.toString(),
+  id,
   geometry: {
     type: 'Point',
     coordinates,

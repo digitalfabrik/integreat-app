@@ -18,7 +18,7 @@ import {
 
 import normalizePath from '../utils/normalizePath'
 import { RouteInformationType } from './RouteInformationTypes'
-import { MULTIPOI_QUERY_KEY } from './query'
+import { getSearchParams } from './query'
 
 const ENTITY_ID_INDEX = 3
 
@@ -28,15 +28,15 @@ class InternalPathnameParser {
   _length: number
   _fallbackLanguageCode: string
   _fixedCity: string | null
-  _query?: string | null
+  _searchParams: URLSearchParams
 
-  constructor(pathname: string, languageCode: string, fixedCity: string | null, query?: string | null) {
+  constructor(pathname: string, languageCode: string, fixedCity: string | null, query?: string) {
     this._pathname = normalizePath(pathname)
     this._fixedCity = fixedCity
     this._parts = this.pathnameParts(this._pathname)
     this._length = this._parts.length
     this._fallbackLanguageCode = languageCode
-    this._query = query
+    this._searchParams = new URLSearchParams(query)
   }
 
   pathnameParts = (pathname: string): string[] => pathname.split('/').filter(Boolean)
@@ -58,8 +58,6 @@ class InternalPathnameParser {
 
     return null
   }
-
-  query = (): URLSearchParams | undefined => (this._query ? new URLSearchParams(this._query) : undefined)
 
   landing = (): RouteInformationType => {
     // There is no landing route if there is a fixed city
@@ -145,7 +143,9 @@ class InternalPathnameParser {
 
     // Single pois are identified via their slug, e.g. 'my-poi-1234'
     const slug = this._length > ENTITY_ID_INDEX ? this._parts[ENTITY_ID_INDEX] : undefined
-    return { ...params, route: POIS_ROUTE, slug, multipoi: this.query()?.get(MULTIPOI_QUERY_KEY) }
+    const { multipoi, poiCategoryId, zoom } = getSearchParams(this._searchParams)
+
+    return { ...params, route: POIS_ROUTE, slug, multipoi, poiCategoryId, zoom }
   }
 
   news = (): RouteInformationType => {
@@ -217,7 +217,7 @@ class InternalPathnameParser {
 
     return {
       route: SEARCH_ROUTE,
-      searchText: this.query()?.get('query'),
+      searchText: getSearchParams(this._searchParams).searchText,
       ...params,
     }
   }
