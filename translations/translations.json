@@ -3125,7 +3125,6 @@
       "negativeRating": "ይህ ገጽ ጠቃሚ አይደለም",
       "positiveRating": "ይህ ገጽ ጠቃሚ ነው",
       "contactMailAddress": "ለጥያቄዎች ኢሜይል",
-      "optionalInfo": "አማራጭ /ሊተው የሚችል/",
       "note": "ግብረመልስ ለመላክ፣ እባክዎ ምላሽ ይምረጡ ወይም አስተያየት ይጻፉ።"
     },
     "ar": {
@@ -5990,7 +5989,9 @@
     "de": {
       "NSPhotoLibraryAddUsageDescription": "Um Bilder zu speichern, benötigt {{appName}} Zugriff auf die Galerie.",
       "NSLocationWhenInUseUsageDescription": "Um nahegelegene Orte zu finden, benötigt {{appName}} Zugriff auf den Standort.",
-      "NSLocationAlwaysAndWhenInUseUsageDescription": "Um nahegelegene Orte zu finden, benötigt {{appName}} Zugriff auf den Standort."
+      "NSLocationAlwaysAndWhenInUseUsageDescription": "Um nahegelegene Orte zu finden, benötigt {{appName}} Zugriff auf den Standort.",
+      "NSCalendarsUsageDescription": "{{appName}} möchte auf den Kalender zugreifen, um eine Veranstaltung hinzuzufügen.",
+      "NSCalendarsFullAccessUsageDescription": "{{appName}} möchte auf den Kalender zugreifen, um eine Veranstaltung hinzuzufügen."
     },
     "am": {
       "NSPhotoLibraryAddUsageDescription": "ምስሎችን ሴቭ ለማድረግ የ{{appName}} የምስል ማስቀመጫን ያግኙ።",
@@ -6025,7 +6026,9 @@
     "en": {
       "NSPhotoLibraryAddUsageDescription": "{{appName}} wants to save photos to your library.",
       "NSLocationWhenInUseUsageDescription": "{{appName}} wants to use your location to find nearby cities.",
-      "NSLocationAlwaysAndWhenInUseUsageDescription": "{{appName}} wants to use your location to find nearby cities."
+      "NSLocationAlwaysAndWhenInUseUsageDescription": "{{appName}} wants to use your location to find nearby cities.",
+      "NSCalendarsUsageDescription": "{{appName}} wants to access the calendar to add an event.",
+      "NSCalendarsFullAccessUsageDescription": "{{appName}} wants to access the calendar to add an event."
     },
     "es": {
       "NSPhotoLibraryAddUsageDescription": "Para guardar imágenes, {{appName}} necesita un acceso a la galería.",
@@ -9629,8 +9632,8 @@
   },
   "malteHelpForm": {
     "de": {
-      "supportNote": "Wir möchten, dass du dich sicher und unterstützt fühlst, wenn du Probleme oder Fragen hast. Durch das folgende Kontaktformular hast du die Möglichkeit, mit Ansprechpartner:innen in Kontakt zu treten. Du kannst die Art deines Anliegens angeben und aus verschiedenen Kontaktoptionen wählen.",
-      "securityNote": "Deine Sicherheit hat für uns oberste Priorität. Deine Daten werden mit Vertraulichkeit behandelt, damit deine Privatsphäre jederzeit gewahrt bleibt.",
+      "supportNote": "Wir möchten, dass Sie sich sicher und unterstützt fühlen, wenn Sie Probleme oder Fragen haben. Durch das folgende Kontaktformular haben Sie die Möglichkeit, mit Ansprechpartner:innen in Kontakt zu treten. Sie können die Art Ihres Anliegens angeben und aus verschiedenen Kontaktoptionen wählen.",
+      "securityNote": "Ihre Sicherheit hat für uns oberste Priorität. Ihre Daten werden mit Vertraulichkeit behandelt, damit Ihre Privatsphäre jederzeit gewahrt bleibt.",
       "name": "Name, Vorname",
       "roomNumber": "Zimmernummer",
       "howToBeContacted": "So möchte ich kontaktiert werden:",
@@ -9642,14 +9645,14 @@
       "contactPersonAnyGender": "Das Geschlecht des Ansprechpartners/der Ansprechpartnerin spielt keine Rolle",
       "contactPersonGenderFemale": "Ich möchte von einer weiblichen Person kontaktiert werden",
       "contactPersonGenderMale": "Ich möchte von einer männlichen Person kontaktiert werden",
-      "contactReason": "Dein Anliegen:",
+      "contactReason": "Ihr Anliegen:",
       "maxCharacters": "maximal {{numberOfCharacters}} Zeichen",
-      "responseDisclaimer": "Es kann einige Werktage dauern, bis du eine Rückmeldung erhältst. Wir bemühen uns, dein Anliegen schnellstmöglich zu bearbeiten.",
+      "responseDisclaimer": "Es kann einige Werktage dauern, bis Sie eine Rückmeldung erhalten. Wir bemühen uns, Ihr Anliegen schnellstmöglich zu bearbeiten.",
       "submit": "Formular absenden",
       "submitSuccessful": "Formular erfolgreich versandt",
       "submitFailed": "Formular konnte nicht versandt werden",
-      "submitFailedReasoning": "Bitte gewährleiste eine stabile Internetverbindung und versuche es erneut.",
-      "invalidEmailAddress": "Die angegebene E-Mail Addresse ist ungültig."
+      "submitFailedReasoning": "Bitte gewährleisten Sie eine stabile Internetverbindung und versuchen Sie es erneut.",
+      "invalidEmailAddress": "Die angegebene E-Mail Adresse ist ungültig."
     }
   }
 }
