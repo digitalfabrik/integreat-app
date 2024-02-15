@@ -12,29 +12,29 @@ const Container = styled.div<{ withMargin: boolean }>`
   ${props => props.withMargin && 'margin-top: 48px;'}
 `
 
-type EmbeddedOfferProps = {
+type EmbeddedOffersProps = {
   category: CategoryModel
 } & CityRouteProps
 
-const EmbeddedOffers = ({ category, ...props }: EmbeddedOfferProps): ReactElement | null => {
+const EmbeddedOffer = ({ category, ...props }: EmbeddedOffersProps): ReactElement | null => {
   const offer = category.embeddedOffers[0]
-  const withMargin = !!category.content && category.content.length > 0
   switch (offer?.alias) {
     case SPRUNGBRETT_OFFER_ALIAS:
-      return (
-        <Container withMargin={withMargin}>
-          <SprungbrettOfferPage {...props} embedded />
-        </Container>
-      )
+      return <SprungbrettOfferPage {...props} embedded />
     case MALTE_HELP_FORM_OFFER_ROUTE:
-      return (
-        <Container withMargin={withMargin}>
-          <MalteHelpFormOfferPage {...props} categoryPageTitle={category.title} embedded />
-        </Container>
-      )
+      return <MalteHelpFormOfferPage {...props} categoryPageTitle={category.title} embedded />
     default:
       return null
   }
+}
+
+const EmbeddedOffers = (embeddedOfferProps: EmbeddedOffersProps): ReactElement | null => {
+  const { category } = embeddedOfferProps
+  return (
+    <Container withMargin={!!category.content}>
+      <EmbeddedOffer {...embeddedOfferProps} />
+    </Container>
+  )
 }
 
 export default EmbeddedOffers
