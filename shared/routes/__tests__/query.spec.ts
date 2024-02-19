@@ -1,64 +1,70 @@
 import { POIS_ROUTE, SEARCH_ROUTE } from '../index'
-import { getSearchParams, queryFromRouteInformation, SEARCH_QUERY_KEY, toSearchParams } from '../query'
+import { parseQueryParams, queryStringFromRouteInformation, SEARCH_QUERY_KEY, toQueryParams } from '../query'
 
-describe('queryFromRouteInformation', () => {
-  it('should create pois query', () => {
+describe('queryStringFromRouteInformation', () => {
+  it('should create pois query string', () => {
     const routeInformation = {
       route: POIS_ROUTE,
       languageCode: 'de',
       cityCode: 'augsburg',
     }
 
-    expect(queryFromRouteInformation(routeInformation)).toBeUndefined()
-    expect(queryFromRouteInformation({ ...routeInformation, slug: 'test-slug' })).toBeUndefined()
-    expect(queryFromRouteInformation({ ...routeInformation, multipoi: 1 })).toBe('?multipoi=1')
-    expect(queryFromRouteInformation({ ...routeInformation, slug: 'test-slug', multipoi: 1, zoom: 10 })).toBe(
+    expect(queryStringFromRouteInformation(routeInformation)).toBeUndefined()
+    expect(queryStringFromRouteInformation({ ...routeInformation, slug: 'test-slug' })).toBeUndefined()
+    expect(queryStringFromRouteInformation({ ...routeInformation, multipoi: 1 })).toBe('?multipoi=1')
+    expect(queryStringFromRouteInformation({ ...routeInformation, slug: 'test-slug', multipoi: 1, zoom: 10 })).toBe(
       '?multipoi=1&zoom=10',
     )
     expect(
-      queryFromRouteInformation({ ...routeInformation, slug: 'test-slug', multipoi: 1, zoom: 10, poiCategoryId: 7 }),
+      queryStringFromRouteInformation({
+        ...routeInformation,
+        slug: 'test-slug',
+        multipoi: 1,
+        zoom: 10,
+        poiCategoryId: 7,
+      }),
     ).toBe('?multipoi=1&category=7&zoom=10')
   })
 
-  it('should create search query', () => {
+  it('should create query string', () => {
     const routeInformation = {
       route: SEARCH_ROUTE,
       languageCode: 'de',
       cityCode: 'augsburg',
     }
 
-    expect(queryFromRouteInformation({ ...routeInformation })).toBeUndefined()
-    expect(queryFromRouteInformation({ ...routeInformation, searchText: 'test query' })).toBe('?query=test+query')
+    expect(queryStringFromRouteInformation({ ...routeInformation })).toBeUndefined()
+    expect(queryStringFromRouteInformation({ ...routeInformation, searchText: 'test query' })).toBe('?query=test+query')
   })
 })
 
-describe('getSearchParams', () => {
-  it('should get poi search params', () => {
-    expect(getSearchParams(new URLSearchParams(''))).toEqual({})
-    expect(getSearchParams(new URLSearchParams('?multipoi=3'))).toEqual({ multipoi: 3 })
-    expect(getSearchParams(new URLSearchParams('?multipoi=1&category=7&zoom=10'))).toEqual({
+describe('parse query params', () => {
+  it('should get poi query params', () => {
+    expect(parseQueryParams(new URLSearchParams(''))).toEqual({})
+    expect(parseQueryParams(new URLSearchParams('?multipoi=3'))).toEqual({ multipoi: 3 })
+    expect(parseQueryParams(new URLSearchParams('?multipoi=1&category=7&zoom=10'))).toEqual({
       multipoi: 1,
       zoom: 10,
       poiCategoryId: 7,
     })
   })
 
-  it('should get search search params', () => {
-    expect(getSearchParams(new URLSearchParams(''))).toEqual({})
-    expect(getSearchParams(new URLSearchParams('?query=my custom query'))).toEqual({ searchText: 'my custom query' })
+  it('should get search query params', () => {
+    expect(parseQueryParams(new URLSearchParams(''))).toEqual({})
+    expect(parseQueryParams(new URLSearchParams('?query=my custom query'))).toEqual({ searchText: 'my custom query' })
   })
 })
 
-describe('toSearchParams', () => {
-  it('should get poi search params', () => {
-    expect(toSearchParams({})).toEqual(new URLSearchParams(''))
+describe('toQueryParams', () => {
+  it('should get poi query params', () => {
+    expect(toQueryParams({})).toEqual(new URLSearchParams(''))
     expect(
-      toSearchParams({
+      toQueryParams({
         multipoi: 1,
       }),
     ).toEqual(new URLSearchParams('?multipoi=1'))
     expect(
-      toSearchParams({
+      toQueryParams({
         multipoi: 1,
         zoom: 10,
         poiCategoryId: 7,
@@ -66,14 +72,14 @@ describe('toSearchParams', () => {
     ).toEqual(new URLSearchParams('?multipoi=1&category=7&zoom=10'))
   })
 
-  it('should get search search params', () => {
+  it('should get search query params', () => {
     expect(
-      toSearchParams({
+      toQueryParams({
         searchText: 'my custom query',
       }),
     ).toEqual(new URLSearchParams('?query=my custom query'))
     expect(
-      toSearchParams({
+      toQueryParams({
         searchText: '',
       }),
     ).toEqual(new URLSearchParams(''))

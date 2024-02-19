@@ -3,7 +3,7 @@ import { useNavigate, useParams, useSearchParams } from 'react-router-dom'
 import styled from 'styled-components'
 
 import {
-  getSearchParams,
+  parseQueryParams,
   isMultipoi,
   LocationType,
   MapFeature,
@@ -12,7 +12,7 @@ import {
   POIS_ROUTE,
   preparePois,
   safeParseInt,
-  toSearchParams,
+  toQueryParams,
 } from 'shared'
 import { PoiCategoryModel, PoiModel, CityModel } from 'shared/api'
 
@@ -41,8 +41,8 @@ type PoiProps = {
 const Pois = ({ pois: allPois, userLocation, city, languageCode, pageTitle }: PoiProps): ReactElement | null => {
   const [currentlyOpenFilter, setCurrentlyOpenFilter] = useState(false)
   const [showFilterSelection, setShowFilterSelection] = useState(false)
-  const [searchParams, setSearchParams] = useSearchParams()
-  const { multipoi, poiCategoryId, zoom } = getSearchParams(searchParams)
+  const [queryParams, setQueryParams] = useSearchParams()
+  const { multipoi, poiCategoryId, zoom } = parseQueryParams(queryParams)
   const [mapViewport, setMapViewport] = useState<MapViewViewport>(moveViewportToCity(city, zoom))
   const params = useParams()
   const navigate = useNavigate()
@@ -56,13 +56,13 @@ const Pois = ({ pois: allPois, userLocation, city, languageCode, pageTitle }: Po
   })
   const { pois, poi, poiCategories, poiCategory } = preparedData
 
-  const deselectAll = () => navigate(`.?${toSearchParams({ poiCategoryId })}`)
+  const deselectAll = () => navigate(`.?${toQueryParams({ poiCategoryId })}`)
 
   const updatePoiCategoryFilter = (poiCategoryFilter: PoiCategoryModel | null) => {
     if (poiCategoryFilter) {
-      navigate(`.?${toSearchParams({ poiCategoryId: poiCategoryFilter.id })}`)
+      navigate(`.?${toQueryParams({ poiCategoryId: poiCategoryFilter.id })}`)
     } else {
-      setSearchParams(toSearchParams({ ...searchParams, poiCategoryId: undefined }))
+      setQueryParams(toQueryParams({ ...queryParams, poiCategoryId: undefined }))
     }
   }
 
@@ -79,19 +79,19 @@ const Pois = ({ pois: allPois, userLocation, city, languageCode, pageTitle }: Po
 
     const slug = mapFeature?.properties.pois[0]?.slug
     if (mapFeature && isMultipoi(mapFeature)) {
-      navigate(`.?${toSearchParams({ poiCategoryId, multipoi: safeParseInt(mapFeature.id) })}`)
+      navigate(`.?${toQueryParams({ poiCategoryId, multipoi: safeParseInt(mapFeature.id) })}`)
     } else if (slug) {
-      navigate(`${slug}?${toSearchParams({ poiCategoryId })}`)
+      navigate(`${slug}?${toQueryParams({ poiCategoryId })}`)
     }
   }
 
   const selectPoi = (poi: PoiModel) => {
-    navigate(`${poi.slug}?${searchParams}`)
+    navigate(`${poi.slug}?${queryParams}`)
   }
 
   const deselect = () => {
     if (preparedData.mapFeature && slug) {
-      navigate(`.?${searchParams}`)
+      navigate(`.?${queryParams}`)
     } else {
       deselectAll()
     }

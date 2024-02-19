@@ -18,7 +18,7 @@ import {
 
 import normalizePath from '../utils/normalizePath'
 import { RouteInformationType } from './RouteInformationTypes'
-import { getSearchParams } from './query'
+import { parseQueryParams } from './query'
 
 const ENTITY_ID_INDEX = 3
 
@@ -28,7 +28,7 @@ class InternalPathnameParser {
   _length: number
   _fallbackLanguageCode: string
   _fixedCity: string | null
-  _searchParams: URLSearchParams
+  _queryParams: URLSearchParams
 
   constructor(pathname: string, languageCode: string, fixedCity: string | null, query?: string) {
     this._pathname = normalizePath(pathname)
@@ -36,7 +36,7 @@ class InternalPathnameParser {
     this._parts = this.pathnameParts(this._pathname)
     this._length = this._parts.length
     this._fallbackLanguageCode = languageCode
-    this._searchParams = new URLSearchParams(query)
+    this._queryParams = new URLSearchParams(query)
   }
 
   pathnameParts = (pathname: string): string[] => pathname.split('/').filter(Boolean)
@@ -143,7 +143,7 @@ class InternalPathnameParser {
 
     // Single pois are identified via their slug, e.g. 'my-poi-1234'
     const slug = this._length > ENTITY_ID_INDEX ? this._parts[ENTITY_ID_INDEX] : undefined
-    const { multipoi, poiCategoryId, zoom } = getSearchParams(this._searchParams)
+    const { multipoi, poiCategoryId, zoom } = parseQueryParams(this._queryParams)
 
     return { ...params, route: POIS_ROUTE, slug, multipoi, poiCategoryId, zoom }
   }
@@ -217,7 +217,7 @@ class InternalPathnameParser {
 
     return {
       route: SEARCH_ROUTE,
-      searchText: getSearchParams(this._searchParams).searchText,
+      searchText: parseQueryParams(this._queryParams).searchText,
       ...params,
     }
   }

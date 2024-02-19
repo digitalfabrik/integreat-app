@@ -1,7 +1,7 @@
 import { fireEvent } from '@testing-library/react'
 import React from 'react'
 
-import { pathnameFromRouteInformation, POIS_ROUTE, queryFromRouteInformation } from 'shared'
+import { pathnameFromRouteInformation, POIS_ROUTE, queryStringFromRouteInformation } from 'shared'
 import { CityModelBuilder, PoiModelBuilder } from 'shared/api'
 
 import { RoutePatterns } from '../../routes'
@@ -37,7 +37,7 @@ describe('Pois', () => {
       poiCategoryId,
     }
     const pathname = pathnameFromRouteInformation(routeInformation)
-    const query = queryFromRouteInformation(routeInformation)
+    const query = queryStringFromRouteInformation(routeInformation)
     return renderRoute(
       <Pois pois={pois} userLocation={null} city={city} languageCode='de' pageTitle='My page title' />,
       {
