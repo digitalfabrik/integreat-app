@@ -11,6 +11,7 @@ import useNavigate from '../hooks/useNavigate'
 import useSnackbar from '../hooks/useSnackbar'
 import TileModel from '../models/TileModel'
 import urlFromRouteInformation from '../navigation/url'
+import cityDisplayName from '../utils/cityDisplayName'
 import openExternalUrl from '../utils/openExternalUrl'
 import LoadingErrorHandler from './LoadingErrorHandler'
 import Offers from './Offers'
@@ -33,7 +34,8 @@ const OffersContainer = ({ navigation, route }: OffersContainerProps): ReactElem
 
   const availableLanguages = data?.languages.map(it => it.code)
   const shareUrl = urlFromRouteInformation({ route: OFFERS_ROUTE, languageCode, cityCode })
-  useHeader({ navigation, route, availableLanguages, data, shareUrl })
+  const cityName = cityDisplayName(data?.city)
+  useHeader({ navigation, route, availableLanguages, data, shareUrl, cityName })
 
   const navigateToOffer = (tile: TileModel) => {
     const { title, path, isExternalUrl, postData } = tile

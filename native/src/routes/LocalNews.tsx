@@ -7,6 +7,7 @@ import { NavigationProps, RouteProps } from '../constants/NavigationTypes'
 import useHeader from '../hooks/useHeader'
 import { CityContentData } from '../hooks/useLoadCityContent'
 import urlFromRouteInformation from '../navigation/url'
+import cityDisplayName from '../utils/cityDisplayName'
 
 type LocalNewsProps = {
   route: RouteProps<NewsRouteType>
@@ -29,7 +30,8 @@ const LocalNews = ({ route, navigation, data, newsId, navigateToNews, refresh }:
     newsType: LOCAL_NEWS_TYPE,
     newsId: newsId ?? undefined,
   })
-  useHeader({ navigation, route, availableLanguages, data, shareUrl })
+  const cityName = cityDisplayName(data.city)
+  useHeader({ navigation, route, availableLanguages, data, shareUrl, cityName })
 
   return (
     <News

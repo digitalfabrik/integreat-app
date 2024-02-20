@@ -9,6 +9,7 @@ import useHeader from '../hooks/useHeader'
 import { CityContentData } from '../hooks/useLoadCityContent'
 import useLoadTuNews from '../hooks/useLoadTuNews'
 import urlFromRouteInformation from '../navigation/url'
+import cityDisplayName from '../utils/cityDisplayName'
 import LoadingErrorHandler from './LoadingErrorHandler'
 
 type TuNewsProps = {
@@ -31,7 +32,8 @@ const TuNews = ({ route, navigation, data, navigateToNews }: TuNewsProps): React
 
   const availableLanguageCodes = availableLanguages?.map(it => it.code)
   const shareUrl = urlFromRouteInformation({ route: NEWS_ROUTE, cityCode, languageCode, newsType: TU_NEWS_TYPE })
-  useHeader({ navigation, route, availableLanguages: availableLanguageCodes, data, shareUrl })
+  const cityName = cityDisplayName(data.city)
+  useHeader({ navigation, route, availableLanguages: availableLanguageCodes, data, shareUrl, cityName })
 
   const error =
     availableLanguageCodes && !availableLanguageCodes.find(it => it === languageCode)
