@@ -10,7 +10,6 @@ import {
   OPEN_PAGE_SIGNAL_NAME,
   SEARCH_FINISHED_SIGNAL_NAME,
   SearchResult,
-  formatSearchResults,
 } from 'shared'
 import { CategoriesMapModelBuilder, EventModelBuilder, PoiModelBuilder } from 'shared/api'
 
@@ -55,7 +54,11 @@ describe('SearchModal', () => {
   const eventModels = new EventModelBuilder('testseed', 5, cityCode, languageCode).build()
   const poiModels = new PoiModelBuilder(3).build()
 
-  const allPossibleResults = formatSearchResults(categoriesMapModel, eventModels, poiModels)
+  const allPossibleResults = [
+    ...categoriesMapModel.toArray().filter(category => !category.isRoot()),
+    ...eventModels,
+    ...poiModels,
+  ]
 
   const props: SearchModalProps = {
     allPossibleResults,

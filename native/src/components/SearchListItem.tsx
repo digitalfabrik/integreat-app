@@ -1,18 +1,18 @@
 import React, { memo, ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
+import { View } from 'react-native'
 import Highlighter from 'react-native-highlight-words'
 import styled, { useTheme } from 'styled-components/native'
 
 import { getExcerpt, InternalPathnameParser, normalizeString, SEARCH_FINISHED_SIGNAL_NAME } from 'shared'
 
 import { SEARCH_PREVIEW_MAX_CHARS } from '../constants'
+import buildConfig from '../constants/buildConfig'
 import { contentDirection } from '../constants/contentDirection'
 import useNavigate from '../hooks/useNavigate'
-import useSnackbar from '../hooks/useSnackbar'
 import urlFromRouteInformation from '../navigation/url'
 import { PageResourceCacheStateType } from '../utils/DataContainer'
 import sendTrackingSignal from '../utils/sendTrackingSignal'
-import { reportError } from '../utils/sentry'
 import { getCachedThumbnail } from './Categories'
 import { CategoryThumbnail } from './CategoryListItem'
 import Pressable from './base/Pressable'
@@ -53,7 +53,6 @@ type SearchListItemProps = {
   contentWithoutHtml: string
   resourceCache: PageResourceCacheStateType
   language: string
-  city: string
   query: string
   path: string
   thumbnail?: string
@@ -62,7 +61,6 @@ type SearchListItemProps = {
 const SearchListItem = ({
   language,
   title,
-  city,
   resourceCache,
   contentWithoutHtml,
   query,
@@ -71,11 +69,24 @@ const SearchListItem = ({
 }: SearchListItemProps): ReactElement => {
   const { t } = useTranslation('search')
   const theme = useTheme()
-  const showSnackbar = useSnackbar()
   const { navigateTo } = useNavigate()
-  const excerpt = contentWithoutHtml
-    ? getExcerpt(contentWithoutHtml, { query, maxChars: SEARCH_PREVIEW_MAX_CHARS })
-    : ''
+  const excerpt = getExcerpt(contentWithoutHtml, { query, maxChars: SEARCH_PREVIEW_MAX_CHARS })
+
+  const routeInformation = new InternalPathnameParser(path, language, buildConfig().featureFlags.fixedCity).route()
+  if (!routeInformation) {
+    return <View />
+  }
+
+  const followPath = (): void => {
+    sendTrackingSignal({
+      signal: {
+        name: SEARCH_FINISHED_SIGNAL_NAME,
+        query,
+        url: urlFromRouteInformation(routeInformation),
+      },
+    })
+    navigateTo(routeInformation)
+  }
 
   const Content =
     query && excerpt.length > 0 ? (
@@ -101,25 +112,8 @@ const SearchListItem = ({
     />
   )
 
-  const followLink = (link: string): void => {
-    const routeInformation = new InternalPathnameParser(link, language, city).route()
-    if (!routeInformation) {
-      reportError('no routeInformation found')
-      showSnackbar({ text: 'unknownError' })
-      return
-    }
-    sendTrackingSignal({
-      signal: {
-        name: SEARCH_FINISHED_SIGNAL_NAME,
-        query,
-        url: urlFromRouteInformation(routeInformation),
-      },
-    })
-    navigateTo(routeInformation)
-  }
-
   return (
-    <FlexStyledLink onPress={() => followLink(path)} accessibilityHint={t('itemHint')}>
+    <FlexStyledLink onPress={followPath} accessibilityHint={t('itemHint')}>
       <DirectionContainer language={language}>
         <SearchEntryContainer>
           <TitleDirectionContainer language={language}>

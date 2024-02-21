@@ -1,6 +1,6 @@
 import { useMemo } from 'react'
 
-import { SearchResult, formatSearchResults } from 'shared'
+import { SearchResult } from 'shared'
 import { createCategoriesEndpoint, createEventsEndpoint, createPOIsEndpoint, useLoadFromEndpoint } from 'shared/api'
 
 type useSearchParams = {
@@ -33,20 +33,20 @@ const useAllPossibleSearchResults = ({
   } = useLoadFromEndpoint(createEventsEndpoint, cmsApiBaseUrl, params)
 
   const {
-    data: locations,
-    loading: locationsLoading,
-    error: locationsError,
+    data: pois,
+    loading: poisLoading,
+    error: poisError,
   } = useLoadFromEndpoint(createPOIsEndpoint, cmsApiBaseUrl, params)
 
   const allPossibleResults = useMemo(
-    () => formatSearchResults(categories, events, locations),
-    [categories, events, locations],
+    () => [...(categories?.toArray().filter(category => !category.isRoot()) || []), ...(events || []), ...(pois || [])],
+    [categories, events, pois],
   )
 
   return {
     data: allPossibleResults,
-    loading: categoriesLoading || eventsLoading || locationsLoading,
-    error: categoriesError || eventsError || locationsError,
+    loading: categoriesLoading || eventsLoading || poisLoading,
+    error: categoriesError || eventsError || poisError,
   }
 }
 

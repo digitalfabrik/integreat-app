@@ -2,7 +2,7 @@ import { fireEvent, waitFor } from '@testing-library/react'
 import { mocked } from 'jest-mock'
 import React from 'react'
 
-import { formatSearchResults, pathnameFromRouteInformation, SEARCH_ROUTE, SearchResult } from 'shared'
+import { pathnameFromRouteInformation, SEARCH_ROUTE, SearchResult } from 'shared'
 import { CategoriesMapModelBuilder, CityModelBuilder, EventModelBuilder, PoiModelBuilder } from 'shared/api'
 
 import useAllPossibleSearchResults from '../../hooks/useAllPossibleSearchResults'
@@ -36,7 +36,7 @@ describe('SearchPage', () => {
   const poiModels = new PoiModelBuilder(3).build()
   const poi0 = poiModels[0]!
 
-  const allPossibleResults = formatSearchResults(categoriesMap, eventModels, poiModels)
+  const allPossibleResults = [...categoryModels.filter(category => !category.isRoot()), ...eventModels, ...poiModels]
 
   const hookReturn = {
     data: allPossibleResults,

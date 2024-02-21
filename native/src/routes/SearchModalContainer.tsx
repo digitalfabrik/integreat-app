@@ -2,7 +2,7 @@ import React, { ReactElement, useContext, useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 import { ThemeContext } from 'styled-components'
 
-import { SearchRouteType, formatSearchResults } from 'shared'
+import { SearchRouteType } from 'shared'
 
 import { NavigationProps, RouteProps } from '../constants/NavigationTypes'
 import useCityAppContext from '../hooks/useCityAppContext'
@@ -18,17 +18,21 @@ export type SearchModalContainerProps = {
 const SearchModalContainer = ({ navigation, route }: SearchModalContainerProps): ReactElement | null => {
   const { cityCode, languageCode } = useCityAppContext()
   const initialSearchText = route.params.searchText ?? ''
-  const { data, loading, ...response } = useLoadCityContent({ cityCode, languageCode })
+  const { data, ...response } = useLoadCityContent({ cityCode, languageCode })
   const theme = useContext(ThemeContext)
   const { t } = useTranslation('search')
 
   const allPossibleResults = useMemo(
-    () => formatSearchResults(data?.categories, data?.events, data?.pois),
+    () => [
+      ...(data?.categories.toArray().filter(category => !category.isRoot()) || []),
+      ...(data?.events || []),
+      ...(data?.pois || []),
+    ],
     [data?.categories, data?.events, data?.pois],
   )
 
   return (
-    <LoadingErrorHandler {...response} loading={loading}>
+    <LoadingErrorHandler {...response}>
       {data && (
         <SearchModal
           cityCode={cityCode}

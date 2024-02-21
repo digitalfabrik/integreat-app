@@ -44,7 +44,7 @@ const SearchPage = ({ city, cityCode, languageCode, pathname }: CityRouteProps):
 
   const minisearch = useMiniSearch(allPossibleResults)
 
-  const results = minisearch.search(query)
+  const results = query.length === 0 ? allPossibleResults : minisearch.search(query)
 
   if (!city) {
     return null
@@ -71,16 +71,20 @@ const SearchPage = ({ city, cityCode, languageCode, pathname }: CityRouteProps):
 
   const pageTitle = `${t('pageTitle')} - ${city.name}`
 
+  const SearchBar = (
+    <SearchInput
+      filterText={filterText}
+      placeholderText={t('searchPlaceholder')}
+      onFilterTextChange={handleFilterTextChanged}
+      spaceSearch
+    />
+  )
+
   if (loading) {
     return (
       <CityContentLayout isLoading {...locationLayoutParams}>
         <Helmet pageTitle={pageTitle} languageChangePaths={languageChangePaths} cityModel={city} />
-        <SearchInput
-          filterText={filterText}
-          placeholderText={t('searchPlaceholder')}
-          onFilterTextChange={handleFilterTextChanged}
-          spaceSearch
-        />
+        {SearchBar}
         <LoadingSpinner />
       </CityContentLayout>
     )
@@ -97,18 +101,13 @@ const SearchPage = ({ city, cityCode, languageCode, pathname }: CityRouteProps):
   return (
     <CityContentLayout isLoading={false} {...locationLayoutParams}>
       <Helmet pageTitle={pageTitle} languageChangePaths={languageChangePaths} cityModel={city} />
-      <SearchInput
-        filterText={filterText}
-        placeholderText={t('searchPlaceholder')}
-        onFilterTextChange={handleFilterTextChanged}
-        spaceSearch
-      />
+      {SearchBar}
       <List>
-        {(query.length !== 0 ? results : allPossibleResults).map(({ title, id, content, path, thumbnail }) => (
+        {results.map(({ title, content, path, thumbnail }) => (
           <SearchListItem
             title={title}
             contentWithoutHtml={parseHTML(content)}
-            key={id}
+            key={path}
             query={query}
             path={path}
             thumbnail={thumbnail}

@@ -65,12 +65,11 @@ const SearchModal = ({
 
   const renderItem = ({ item }: { item: SearchResult }) => (
     <SearchListItem
-      key={item.id}
+      key={item.path}
       title={item.title}
       resourceCache={resourceCache[item.path] ?? {}}
       contentWithoutHtml={parseHTML(item.content)}
       language={languageCode}
-      city={cityCode}
       query={query}
       thumbnail={item.thumbnail}
       path={item.path}
