@@ -227,7 +227,7 @@ const SharingPopup = ({ shareUrl, title, flow, portalNeeded }: SharingPopupProps
             </Tooltip>
             <Tooltip text={t('mailTooltip')} flow='up'>
               <Link
-                href={`mailto:?subject=${encodedTitle}&body=${shareMessage}${encodedShareUrl}`}
+                href={`mailto:?subject=${encodedTitle}&body=${shareMessage} ${encodedShareUrl}`}
                 aria-label={t('mailTooltip')}>
                 <StyledIcon src={MailIcon} />
               </Link>
