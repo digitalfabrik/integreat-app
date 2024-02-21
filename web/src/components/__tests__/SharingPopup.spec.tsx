@@ -36,7 +36,7 @@ describe('SharingPopup', () => {
   })
 
   it('should render correct share link for mail', () => {
-    const mailShareLink = `mailto:?subject=Aktuelle%20Themen%20und%20Informationen&body=${shareMessage}https%3A%2F%2Fintegreat.app%2Faugsburg%2Fde%2Faktuelle-themen-und-informationen`
+    const mailShareLink = `mailto:?subject=Aktuelle%20Themen%20und%20Informationen&body=${shareMessage} https%3A%2F%2Fintegreat.app%2Faugsburg%2Fde%2Faktuelle-themen-und-informationen`
     const { getAllByLabelText, getByText } = renderWithTheme(SharingPopupComponent)
     fireEvent.click(getByText('socialMedia:layout:share'))
     expect(getAllByLabelText('socialMedia:mailTooltip')[0]).toBeTruthy()
