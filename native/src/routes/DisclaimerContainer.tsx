@@ -28,7 +28,7 @@ const DisclaimerContainer = ({ navigation, route }: DisclaimerContainerProps): R
   const cityName = cityDisplayName(data?.city)
   const availableLanguages = data?.languages.map(it => it.code)
   const shareUrl = urlFromRouteInformation({ route: DISCLAIMER_ROUTE, languageCode, cityCode })
-  useHeader({ navigation, route, availableLanguages, data, shareUrl, cityName })
+  useHeader({ navigation, route, availableLanguages, data, shareUrl })
 
   return (
     <LoadingErrorHandler {...response} scrollView>

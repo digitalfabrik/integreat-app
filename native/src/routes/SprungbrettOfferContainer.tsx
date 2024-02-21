@@ -30,7 +30,7 @@ const SprungbrettOfferContainer = ({ route, navigation }: SprungbrettOfferContai
   const availableLanguages = data?.languages.map(it => it.code)
   const shareUrl = urlFromRouteInformation({ route: SPRUNGBRETT_OFFER_ROUTE, languageCode, cityCode })
   const cityName = cityDisplayName(data?.city)
-  useHeader({ navigation, route, availableLanguages, data, shareUrl, cityName })
+  useHeader({ navigation, route, availableLanguages, data, shareUrl })
 
   return (
     <LoadingErrorHandler {...response} error={error}>

@@ -36,7 +36,7 @@ const PoisContainer = ({ navigation, route }: PoisContainerProps): ReactElement 
     multipoi,
   })
   const cityName = cityDisplayName(data?.city)
-  useHeader({ navigation, route, availableLanguages, data, shareUrl, cityName })
+  useHeader({ navigation, route, availableLanguages, data, shareUrl })
   useSetRouteTitle({ navigation, title: currentPoi?.title })
 
   const onLanguageChange = useCallback(

@@ -34,8 +34,7 @@ const OffersContainer = ({ navigation, route }: OffersContainerProps): ReactElem
 
   const availableLanguages = data?.languages.map(it => it.code)
   const shareUrl = urlFromRouteInformation({ route: OFFERS_ROUTE, languageCode, cityCode })
-  const cityName = cityDisplayName(data?.city)
-  useHeader({ navigation, route, availableLanguages, data, shareUrl, cityName })
+  useHeader({ navigation, route, availableLanguages, data, shareUrl })
 
   const navigateToOffer = (tile: TileModel) => {
     const { title, path, isExternalUrl, postData } = tile

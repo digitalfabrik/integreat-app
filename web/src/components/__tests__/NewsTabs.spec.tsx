@@ -2,8 +2,8 @@ import { TFunction } from 'i18next'
 import React from 'react'
 
 import { LOCAL_NEWS_TYPE } from 'shared'
+import { tunewsLabel } from 'shared/constants/news'
 
-import { tunewsLabel } from '../../constants/news'
 import { renderWithRouterAndTheme } from '../../testing/render'
 import NewsTabs from '../NewsTabs'
 

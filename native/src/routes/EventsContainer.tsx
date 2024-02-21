@@ -38,7 +38,7 @@ const EventsContainer = ({ navigation, route }: EventsContainerProps): ReactElem
     slug,
   })
   const cityName = cityDisplayName(data?.city)
-  useHeader({ navigation, route, availableLanguages, data, shareUrl, cityName })
+  useHeader({ navigation, route, availableLanguages, data, shareUrl })
   useSetRouteTitle({ navigation, title: currentEvent?.title })
 
   const onLanguageChange = useCallback(

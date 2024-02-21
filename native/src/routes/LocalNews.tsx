@@ -31,7 +31,7 @@ const LocalNews = ({ route, navigation, data, newsId, navigateToNews, refresh }:
     newsId: newsId ?? undefined,
   })
   const cityName = cityDisplayName(data.city)
-  useHeader({ navigation, route, availableLanguages, data, shareUrl, cityName })
+  useHeader({ navigation, route, availableLanguages, data, shareUrl })
 
   return (
     <News

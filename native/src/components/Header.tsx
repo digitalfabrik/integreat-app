@@ -21,6 +21,8 @@ import {
   SETTINGS_ROUTE,
   TuNewsType,
   LocalNewsType,
+  tunewsLabel,
+  TU_NEWS_TYPE,
 } from 'shared'
 import { LanguageModel, FeedbackRouteType } from 'shared/api'
 
@@ -66,7 +68,7 @@ type HeaderProps = {
   languages?: LanguageModel[]
   availableLanguages?: string[]
   shareUrl?: string
-  cityName?: string
+  cityName: string
 }
 
 const Header = ({
@@ -90,22 +92,20 @@ const Header = ({
     const pageTitle = (route.params as { title?: string } | undefined)?.title
     if (!previousRoute) {
       // Home/Dashboard: Show city name
-      return cityName ?? ''
+      return cityName
     }
 
-    if (route.name === POIS_ROUTE && previousRoute.name === POIS_ROUTE) {
-      const poisRouteParams = route.params as RoutesParamsType[PoisRouteType]
-      if (poisRouteParams.slug || poisRouteParams.multipoi) {
-        return t('locations')
-      }
+    const poisRouteParams = route.params as RoutesParamsType[PoisRouteType]
+    if (route.name === POIS_ROUTE && poisRouteParams.multipoi) {
+      return t('pois:multiPois')
     }
 
     if (route.name === NEWS_ROUTE) {
       const newsType = (route.params as { newsType: TuNewsType | LocalNewsType }).newsType
-      if (newsType === 'tu-news') {
-        return 'Tü News'
+      if (newsType === TU_NEWS_TYPE) {
+        return tunewsLabel
       }
-      return t('localInformation')
+      return t('localNews')
     }
 
     return pageTitle ?? t(route.name)
@@ -116,15 +116,10 @@ const Header = ({
       // The share option should only be shown if there is a shareUrl
       return
     }
-    const getCityPostfix = (): string => {
-      if (!cityName || cityName === getShareTitle()) {
-        return ''
-      }
-      return ` - ${cityName}`
-    }
+    const cityPostfix = !cityName || cityName === getShareTitle() ? '' : ` - ${cityName}`
 
     const message = t('shareMessage', {
-      message: `${getShareTitle()}${getCityPostfix()} ${shareUrl}`,
+      message: `${getShareTitle()}${cityPostfix} ${shareUrl}`,
       interpolation: {
         escapeValue: false,
       },
