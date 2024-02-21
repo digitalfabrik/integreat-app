@@ -8,7 +8,6 @@ import useCityAppContext from '../hooks/useCityAppContext'
 import useHeader from '../hooks/useHeader'
 import useLoadExtraCityContent from '../hooks/useLoadExtraCityContent'
 import urlFromRouteInformation from '../navigation/url'
-import cityDisplayName from '../utils/cityDisplayName'
 import Disclaimer from './Disclaimer'
 import LoadingErrorHandler from './LoadingErrorHandler'
 
@@ -25,7 +24,6 @@ const DisclaimerContainer = ({ navigation, route }: DisclaimerContainerProps): R
     languageCode,
   })
 
-  const cityName = cityDisplayName(data?.city)
   const availableLanguages = data?.languages.map(it => it.code)
   const shareUrl = urlFromRouteInformation({ route: DISCLAIMER_ROUTE, languageCode, cityCode })
   useHeader({ navigation, route, availableLanguages, data, shareUrl })

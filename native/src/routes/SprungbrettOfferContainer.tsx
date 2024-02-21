@@ -8,7 +8,6 @@ import useCityAppContext from '../hooks/useCityAppContext'
 import useHeader from '../hooks/useHeader'
 import useLoadExtraCityContent from '../hooks/useLoadExtraCityContent'
 import urlFromRouteInformation from '../navigation/url'
-import cityDisplayName from '../utils/cityDisplayName'
 import { determineApiUrl } from '../utils/helpers'
 import LoadingErrorHandler from './LoadingErrorHandler'
 import SprungbrettOffer from './SprungbrettOffer'
@@ -29,7 +28,6 @@ const SprungbrettOfferContainer = ({ route, navigation }: SprungbrettOfferContai
 
   const availableLanguages = data?.languages.map(it => it.code)
   const shareUrl = urlFromRouteInformation({ route: SPRUNGBRETT_OFFER_ROUTE, languageCode, cityCode })
-  const cityName = cityDisplayName(data?.city)
   useHeader({ navigation, route, availableLanguages, data, shareUrl })
 
   return (

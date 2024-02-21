@@ -9,7 +9,6 @@ import useLoadCityContent from '../hooks/useLoadCityContent'
 import usePreviousProp from '../hooks/usePreviousProp'
 import useSetRouteTitle from '../hooks/useSetRouteTitle'
 import urlFromRouteInformation from '../navigation/url'
-import cityDisplayName from '../utils/cityDisplayName'
 import LoadingErrorHandler from './LoadingErrorHandler'
 import Pois from './Pois'
 
@@ -35,7 +34,6 @@ const PoisContainer = ({ navigation, route }: PoisContainerProps): ReactElement 
     slug,
     multipoi,
   })
-  const cityName = cityDisplayName(data?.city)
   useHeader({ navigation, route, availableLanguages, data, shareUrl })
   useSetRouteTitle({ navigation, title: currentPoi?.title })
 

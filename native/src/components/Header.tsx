@@ -90,11 +90,6 @@ const Header = ({
 
   const getShareTitle = (): string => {
     const pageTitle = (route.params as { title?: string } | undefined)?.title
-    if (!previousRoute) {
-      // Home/Dashboard: Show city name
-      return cityName
-    }
-
     const poisRouteParams = route.params as RoutesParamsType[PoisRouteType]
     if (route.name === POIS_ROUTE && poisRouteParams.multipoi) {
       return t('pois:multiPois')

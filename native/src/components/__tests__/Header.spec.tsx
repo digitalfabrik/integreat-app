@@ -3,14 +3,29 @@ import { mocked } from 'jest-mock'
 import React, { ReactElement } from 'react'
 import { Share, Text, View } from 'react-native'
 
-import { CATEGORIES_ROUTE, SEARCH_ROUTE, SHARE_SIGNAL_NAME } from 'shared'
+import {
+  CATEGORIES_ROUTE,
+  CategoriesRouteType,
+  DISCLAIMER_ROUTE,
+  DisclaimerRouteType,
+  NEWS_ROUTE,
+  NewsRouteType,
+  POIS_ROUTE,
+  PoisRouteType,
+  SEARCH_ROUTE,
+  SHARE_SIGNAL_NAME,
+  TU_NEWS_TYPE,
+  tunewsLabel,
+} from 'shared'
 import { LanguageModelBuilder, CityModelBuilder, LanguageModel } from 'shared/api'
 
+import { RouteProps } from '../../constants/NavigationTypes'
 import { AppContext } from '../../contexts/AppContextProvider'
 import useSnackbar from '../../hooks/useSnackbar'
 import navigateToLanguageChange from '../../navigation/navigateToLanguageChange'
 import createNavigationMock from '../../testing/createNavigationPropMock'
 import render from '../../testing/render'
+import cityDisplayName from '../../utils/cityDisplayName'
 import sendTrackingSignal from '../../utils/sendTrackingSignal'
 import Header from '../Header'
 
@@ -30,7 +45,11 @@ jest.mock(
       </View>
     ),
 )
-jest.mock('react-i18next')
+jest.mock('react-i18next', () => ({
+  useTranslation: () => ({
+    t: (key: string, params: { message: string } | undefined) => (params ? `${key}: ${params.message}` : key),
+  }),
+}))
 jest.mock('@react-navigation/elements', () => ({
   ...jest.requireActual('@react-navigation/elements'),
   HeaderBackButton: ({ onPress }: { onPress: () => void }) => <Text onPress={onPress}>HeaderBackButton</Text>,
@@ -51,10 +70,12 @@ describe('Header', () => {
   const languageModels = new LanguageModelBuilder(3).build()
   const languageModel = languageModels[0]!
   const defaultAvailableLanguages = ['de', 'en']
+  const defaultPageTitle = 'Test Category'
   const defaultShareUrl = 'https://example.com/share'
-  const route = {
+  const defaultRoute = {
     key: 'key-0',
     name: CATEGORIES_ROUTE,
+    params: { title: 'Test Category' },
   }
   const navigation = createNavigationMock()
 
@@ -70,11 +91,13 @@ describe('Header', () => {
     availableLanguages = defaultAvailableLanguages,
     languages = languageModels,
     shareUrl = defaultShareUrl,
+    route = defaultRoute,
   }: {
     showItems?: boolean
     languages?: LanguageModel[]
     availableLanguages?: string[]
     shareUrl?: string
+    route?: RouteProps<CategoriesRouteType | PoisRouteType | DisclaimerRouteType | NewsRouteType>
   }) =>
     render(
       <AppContext.Provider value={context}>
@@ -85,6 +108,7 @@ describe('Header', () => {
           languages={languages}
           shareUrl={shareUrl}
           showItems={showItems}
+          cityName={cityDisplayName(cityModel)}
         />
       </AppContext.Provider>,
     )
@@ -158,11 +182,82 @@ describe('Header', () => {
 
     fireEvent.press(getByText(`hidden: ${t('share')}`))
 
-    expect(share).toHaveBeenCalledWith({ message: t('shareMessage'), title: 'Integreat' })
+    expect(share).toHaveBeenCalledWith({
+      message: `${t('shareMessage')}: ${defaultPageTitle} - ${cityDisplayName(cityModel)} ${defaultShareUrl}`,
+      title: 'Integreat',
+    })
     expect(sendTrackingSignal).toHaveBeenCalledWith({
       signal: { name: SHARE_SIGNAL_NAME, url: 'https://example.com/share' },
     })
 
     expect(showSnackbar).toHaveBeenCalledWith({ text: 'generalError' })
+  })
+  it('should create proper share message for categories route', () => {
+    const share = jest.fn()
+    const spy = jest.spyOn(Share, 'share')
+    spy.mockImplementation(share)
+    const { getByText } = renderHeader({
+      route: { key: 'key-0', name: CATEGORIES_ROUTE, params: { title: defaultPageTitle } },
+    })
+    fireEvent.press(getByText(`hidden: ${t('share')}`))
+
+    expect(share).toHaveBeenCalledWith({
+      message: `${t('shareMessage')}: ${defaultPageTitle} - ${cityDisplayName(cityModel)} ${defaultShareUrl}`,
+      title: 'Integreat',
+    })
+    expect(sendTrackingSignal).toHaveBeenCalledWith({
+      signal: { name: SHARE_SIGNAL_NAME, url: 'https://example.com/share' },
+    })
+  })
+  it('should create proper share message for tü news route', () => {
+    const share = jest.fn()
+    const spy = jest.spyOn(Share, 'share')
+    spy.mockImplementation(share)
+    const { getByText } = renderHeader({
+      route: { key: 'key-0', name: NEWS_ROUTE, params: { newsType: TU_NEWS_TYPE, newsId: null } },
+    })
+    fireEvent.press(getByText(`hidden: ${t('share')}`))
+
+    expect(share).toHaveBeenCalledWith({
+      message: `${t('shareMessage')}: ${tunewsLabel} - ${cityDisplayName(cityModel)} ${defaultShareUrl}`,
+      title: 'Integreat',
+    })
+    expect(sendTrackingSignal).toHaveBeenCalledWith({
+      signal: { name: SHARE_SIGNAL_NAME, url: 'https://example.com/share' },
+    })
+  })
+  it('should create proper share message for disclaimer route', () => {
+    const share = jest.fn()
+    const spy = jest.spyOn(Share, 'share')
+    spy.mockImplementation(share)
+    const { getByText } = renderHeader({
+      route: { key: 'key-0', name: DISCLAIMER_ROUTE },
+    })
+    fireEvent.press(getByText(`hidden: ${t('share')}`))
+
+    expect(share).toHaveBeenCalledWith({
+      message: `${t('shareMessage')}: ${t('disclaimer')} - ${cityDisplayName(cityModel)} ${defaultShareUrl}`,
+      title: 'Integreat',
+    })
+    expect(sendTrackingSignal).toHaveBeenCalledWith({
+      signal: { name: SHARE_SIGNAL_NAME, url: 'https://example.com/share' },
+    })
+  })
+  it('should create proper share message for pois route with multipoi', () => {
+    const share = jest.fn()
+    const spy = jest.spyOn(Share, 'share')
+    spy.mockImplementation(share)
+    const { getByText } = renderHeader({
+      route: { key: 'key-0', name: POIS_ROUTE, params: { multipoi: '1' } },
+    })
+    fireEvent.press(getByText(`hidden: ${t('share')}`))
+
+    expect(share).toHaveBeenCalledWith({
+      message: `${t('shareMessage')}: ${t('pois:multiPois')} - ${cityDisplayName(cityModel)} ${defaultShareUrl}`,
+      title: 'Integreat',
+    })
+    expect(sendTrackingSignal).toHaveBeenCalledWith({
+      signal: { name: SHARE_SIGNAL_NAME, url: 'https://example.com/share' },
+    })
   })
 })
