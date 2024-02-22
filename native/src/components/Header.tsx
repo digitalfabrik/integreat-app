@@ -68,7 +68,7 @@ type HeaderProps = {
   languages?: LanguageModel[]
   availableLanguages?: string[]
   shareUrl?: string
-  cityName: string
+  cityName?: string
 }
 
 const Header = ({
