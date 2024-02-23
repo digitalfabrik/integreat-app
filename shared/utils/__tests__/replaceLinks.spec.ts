@@ -31,4 +31,15 @@ describe('replaceLinks', () => {
     expect(replace).toHaveBeenCalledTimes(1)
     expect(replace).toHaveReturnedWith('https://integreat.app/asdf')
   })
+
+  it('should match non-ASCII chars in pathname, query and hash', () => {
+    replaceLinks(
+      'some content https://integreat.app/asdf/de/инфор.мация-помощь-украине/разрешение-на-временное-го-года?asdf=nö#hüh',
+      replace,
+    )
+    expect(replace).toHaveBeenCalledTimes(1)
+    expect(replace).toHaveReturnedWith(
+      'https://integreat.app/asdf/de/инфор.мация-помощь-украине/разрешение-на-временное-го-года?asdf=nö#hüh',
+    )
+  })
 })
