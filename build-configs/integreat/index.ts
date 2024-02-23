@@ -91,7 +91,7 @@ export const webIntegreatBuildConfig: WebBuildConfigType = {
   mainImprint,
   manifestUrl: '/manifest.json',
   icons: {
-    appLogo: '/app-logo.png',
+    appLogo: '/app-logo.svg',
     appLogoMobile: '/app-icon-round.svg',
     locationMarker: '/location-marker.svg',
     cityNotCooperating: '/city-not-cooperating.svg',
@@ -104,8 +104,8 @@ export const webIntegreatBuildConfig: WebBuildConfigType = {
     imageUrl: '/app-icon-cornered.jpg',
   },
   campaign: {
-    campaignAppLogo: '/campaign-app-logo.png',
-    campaignAppLogoMobile: '/campaign-app-logo-mobile.png',
+    campaignAppLogo: '/campaign-app-logo.svg',
+    campaignAppLogoMobile: '/campaign-app-logo-mobile.svg',
     startDate: '2023-03-06T00:00:00.000Z',
     endDate: '2023-03-13T00:00:00.000Z',
   },

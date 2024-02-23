@@ -1,4 +1,4 @@
-![Integreat](build-configs/integreat/assets/app-logo.png)
+![Integreat](build-configs/integreat/assets/app-logo.svg)
 
 [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/facebook/react/blob/master/LICENSE)
 [![versioning](https://img.shields.io/badge/calver-YYYY.MM.PATCH-22bfda.svg)](version.json)
