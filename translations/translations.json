@@ -6732,8 +6732,7 @@
       "showPois_other": "{{count}} Orte anzeigen",
       "alphabetLetters": "A-Z",
       "clearFilter": "Filter {{filter}} löschen",
-      "showOwnLocation": "Eigenen Standort zeigen",
-      "multiPois": "Mehrere Orte"
+      "showOwnLocation": "Eigenen Standort zeigen"
     },
     "am": {
       "pageTitle": "ካርታ",
@@ -7091,8 +7090,7 @@
       "showPois_other": "Show {{count}} places",
       "alphabetLetters": "A-Z",
       "clearFilter": "Delete filter {{filter}}",
-      "showOwnLocation": "Show your own location",
-      "multiPois": "Mehrere Orte"
+      "showOwnLocation": "Show your own location"
     },
     "es": {
       "pageTitle": "Mapa",

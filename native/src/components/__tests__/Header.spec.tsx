@@ -8,14 +8,11 @@ import {
   CategoriesRouteType,
   DISCLAIMER_ROUTE,
   DisclaimerRouteType,
-  NEWS_ROUTE,
   NewsRouteType,
   POIS_ROUTE,
   PoisRouteType,
   SEARCH_ROUTE,
   SHARE_SIGNAL_NAME,
-  TU_NEWS_TYPE,
-  tunewsLabel,
 } from 'shared'
 import { LanguageModelBuilder, CityModelBuilder, LanguageModel } from 'shared/api'
 
@@ -192,7 +189,7 @@ describe('Header', () => {
 
     expect(showSnackbar).toHaveBeenCalledWith({ text: 'generalError' })
   })
-  it('should create proper share message for categories route', () => {
+  it('should create proper share message including page title', () => {
     const share = jest.fn()
     const spy = jest.spyOn(Share, 'share')
     spy.mockImplementation(share)
@@ -209,24 +206,7 @@ describe('Header', () => {
       signal: { name: SHARE_SIGNAL_NAME, url: 'https://example.com/share' },
     })
   })
-  it('should create proper share message for tü news route', () => {
-    const share = jest.fn()
-    const spy = jest.spyOn(Share, 'share')
-    spy.mockImplementation(share)
-    const { getByText } = renderHeader({
-      route: { key: 'key-0', name: NEWS_ROUTE, params: { newsType: TU_NEWS_TYPE, newsId: null } },
-    })
-    fireEvent.press(getByText(`hidden: ${t('share')}`))
-
-    expect(share).toHaveBeenCalledWith({
-      message: `${t('shareMessage')}: ${tunewsLabel} - ${cityDisplayName(cityModel)} ${defaultShareUrl}`,
-      title: 'Integreat',
-    })
-    expect(sendTrackingSignal).toHaveBeenCalledWith({
-      signal: { name: SHARE_SIGNAL_NAME, url: 'https://example.com/share' },
-    })
-  })
-  it('should create proper share message for disclaimer route', () => {
+  it('should use the route name in the share message if no page title is set', () => {
     const share = jest.fn()
     const spy = jest.spyOn(Share, 'share')
     spy.mockImplementation(share)
@@ -243,17 +223,17 @@ describe('Header', () => {
       signal: { name: SHARE_SIGNAL_NAME, url: 'https://example.com/share' },
     })
   })
-  it('should create proper share message for pois route with multipoi', () => {
+  it('should remove the page title in the share message if it equals the city name', () => {
     const share = jest.fn()
     const spy = jest.spyOn(Share, 'share')
     spy.mockImplementation(share)
     const { getByText } = renderHeader({
-      route: { key: 'key-0', name: POIS_ROUTE, params: { multipoi: '1' } },
+      route: { key: 'key-0', name: POIS_ROUTE, params: { title: 'Stadt Augsburg' } },
     })
     fireEvent.press(getByText(`hidden: ${t('share')}`))
 
     expect(share).toHaveBeenCalledWith({
-      message: `${t('shareMessage')}: ${t('pois:multiPois')} - ${cityDisplayName(cityModel)} ${defaultShareUrl}`,
+      message: `${t('shareMessage')}: ${cityDisplayName(cityModel)} ${defaultShareUrl}`,
       title: 'Integreat',
     })
     expect(sendTrackingSignal).toHaveBeenCalledWith({

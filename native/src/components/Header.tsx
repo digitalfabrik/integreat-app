@@ -19,10 +19,6 @@ import {
   DISCLAIMER_ROUTE,
   SEARCH_ROUTE,
   SETTINGS_ROUTE,
-  TuNewsType,
-  LocalNewsType,
-  tunewsLabel,
-  TU_NEWS_TYPE,
 } from 'shared'
 import { LanguageModel, FeedbackRouteType } from 'shared/api'
 
@@ -88,33 +84,16 @@ const Header = ({
   const [previousRoute] = useState(navigation.getState().routes[navigation.getState().routes.length - 2])
   const [canGoBack] = useState(navigation.canGoBack())
 
-  const getShareTitle = (): string => {
-    const pageTitle = (route.params as { title?: string } | undefined)?.title
-    const poisRouteParams = route.params as RoutesParamsType[PoisRouteType]
-    if (route.name === POIS_ROUTE && poisRouteParams.multipoi) {
-      return t('pois:multiPois')
-    }
-
-    if (route.name === NEWS_ROUTE) {
-      const newsType = (route.params as { newsType: TuNewsType | LocalNewsType }).newsType
-      if (newsType === TU_NEWS_TYPE) {
-        return tunewsLabel
-      }
-      return t('localNews')
-    }
-
-    return pageTitle ?? t(route.name)
-  }
-
   const onShare = async () => {
     if (!shareUrl) {
       // The share option should only be shown if there is a shareUrl
       return
     }
-    const cityPostfix = !cityName || cityName === getShareTitle() ? '' : ` - ${cityName}`
+    const pageTitle = (route.params as { title: string } | undefined)?.title ?? t(route.name)
+    const cityPostfix = !cityName || cityName === pageTitle ? '' : ` - ${cityName}`
 
     const message = t('shareMessage', {
-      message: `${getShareTitle()}${cityPostfix} ${shareUrl}`,
+      message: `${pageTitle}${cityPostfix} ${shareUrl}`,
       interpolation: {
         escapeValue: false,
       },
