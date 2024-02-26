@@ -1,0 +1,6 @@
+issue_key: 2678
+show_in_stores: true
+platforms:
+  - ios
+en: Fixed problems with push notifications
+de: Probleme mit Push Nachrichten behoben

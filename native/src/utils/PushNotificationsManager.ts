@@ -1,6 +1,6 @@
 import { FirebaseMessagingTypes } from '@react-native-firebase/messaging'
 import { useEffect } from 'react'
-import { Linking, Platform } from 'react-native'
+import { Linking } from 'react-native'
 import { checkNotifications, requestNotifications, RESULTS } from 'react-native-permissions'
 
 import { LOCAL_NEWS_TYPE, NEWS_ROUTE, NonNullableRouteInformationType } from 'shared'
@@ -161,18 +161,13 @@ export const backgroundAppStatePushNotificationListener = (listener: (url: strin
   return undefined
 }
 
-// Since Android 13 an explicit permission request is needed, otherwise push notifications are not received.
+// Since Android 13 and iOS 17 an explicit permission request is needed, otherwise push notifications are not received.
 // Therefore request the permissions once if not yet granted and subscribe to the current channel if successful.
-// See https://github.com/digitalfabrik/integreat-app/issues/2438
-export const androidPushNotificationPermissionFix = async (
-  cityCode: string | null,
-  languageCode: string,
-): Promise<void> => {
+// See https://github.com/digitalfabrik/integreat-app/issues/2438 and https://github.com/digitalfabrik/integreat-app/issues/2655
+export const initialPushNotificationRequest = async (cityCode: string | null, languageCode: string): Promise<void> => {
   const { allowPushNotifications } = await appSettings.loadSettings()
   const pushNotificationPermissionGranted = (await checkNotifications()).status === RESULTS.GRANTED
-  const androidPermissionRequestRequired =
-    Platform.OS === 'android' && Platform.constants.Version >= ANDROID_PERMISSION_REQUEST_NEEDED_API_LEVEL
-  if (androidPermissionRequestRequired && !pushNotificationPermissionGranted && allowPushNotifications) {
+  if (!pushNotificationPermissionGranted && allowPushNotifications) {
     const success = await requestPushNotificationPermission()
     if (success && cityCode) {
       await subscribeNews(cityCode, languageCode)

@@ -64,7 +64,7 @@ import SprungbrettOfferContainer from './routes/SprungbrettOfferContainer'
 import appSettings, { ASYNC_STORAGE_VERSION } from './utils/AppSettings'
 import dataContainer from './utils/DefaultDataContainer'
 import {
-  androidPushNotificationPermissionFix,
+  initialPushNotificationRequest,
   quitAppStatePushNotificationListener,
   useForegroundPushNotificationListener,
 } from './utils/PushNotificationsManager'
@@ -104,7 +104,7 @@ const Navigator = (): ReactElement | null => {
   const { data: cities, error: citiesError, refresh: refreshCities } = useLoadCities()
 
   useEffect(() => {
-    androidPushNotificationPermissionFix(cityCode, languageCode).catch(reportError)
+    initialPushNotificationRequest(cityCode, languageCode).catch(reportError)
   }, [cityCode, languageCode])
 
   useForegroundPushNotificationListener({ showSnackbar, navigate: navigation.navigate })
