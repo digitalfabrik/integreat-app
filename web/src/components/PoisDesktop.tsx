@@ -14,6 +14,7 @@ import PoiPanelNavigation from './PoiPanelNavigation'
 import PoiSharedChildren from './PoiSharedChildren'
 
 const PanelContainer = styled.article`
+  overflow: auto;
   height: 100%;
   display: flex;
   flex-direction: column;
