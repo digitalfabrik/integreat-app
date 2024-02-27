@@ -2,7 +2,7 @@ import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
 
-import { PoiCategoryModel, PoiModel } from 'shared/api'
+import { PoiCategoryModel } from 'shared/api'
 
 import { ClockIcon } from '../assets'
 import ModalContent from './ModalContent'
@@ -67,8 +67,8 @@ const StyledIcon = styled(Icon)`
 
 type PoiFiltersProps = {
   closeModal: () => void
-  pois: PoiModel[]
-  selectedPoiCategory: PoiCategoryModel | null
+  poiCategories: PoiCategoryModel[]
+  selectedPoiCategory: PoiCategoryModel | undefined
   setSelectedPoiCategory: (poiCategory: PoiCategoryModel | null) => void
   currentlyOpenFilter: boolean
   setCurrentlyOpenFilter: (currentlyOpen: boolean) => void
@@ -78,7 +78,7 @@ type PoiFiltersProps = {
 
 const PoiFilters = ({
   closeModal,
-  pois,
+  poiCategories,
   selectedPoiCategory,
   setSelectedPoiCategory,
   currentlyOpenFilter,
@@ -86,9 +86,6 @@ const PoiFilters = ({
   panelWidth,
   poisCount,
 }: PoiFiltersProps): ReactElement => {
-  const poiCategories = pois
-    .map(it => it.category)
-    .filter((it, index, array) => array.findIndex(value => value.id === it.id) === index)
   const { t } = useTranslation('pois')
 
   return (

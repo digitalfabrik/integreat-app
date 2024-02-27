@@ -14,6 +14,7 @@ import {
 } from '..'
 
 import InternalPathnameParser from '../InternalPathnameParser'
+import { MULTIPOI_QUERY_KEY, POI_CATEGORY_QUERY_KEY, SEARCH_QUERY_KEY, ZOOM_QUERY_KEY } from '../query'
 
 const cityCode = 'bochum'
 const languageCode = 'de'
@@ -113,13 +114,14 @@ describe('InternalPathnameParser', () => {
   })
   it('should match multipoi route', () => {
     const pathname = `/${cityCode}/${languageCode}/${POIS_ROUTE}`
-    const query = '?multipoi=1'
+    const query = `?${MULTIPOI_QUERY_KEY}=1&${POI_CATEGORY_QUERY_KEY}=8`
     const parser = new InternalPathnameParser(pathname, languageCode, null, query)
     expect(parser.route()).toEqual({
       route: POIS_ROUTE,
       languageCode,
       cityCode,
-      multipoi: '1',
+      multipoi: 1,
+      poiCategoryId: 8,
     })
   })
   it('should match disclaimer route', () => {
@@ -328,6 +330,21 @@ describe('InternalPathnameParser', () => {
         slug,
       })
     })
+    it('should match single pois route with query params', () => {
+      const slug = 'tuer-an-tuer'
+      const pathname = `/${fixedCity}/${languageCode}/${POIS_ROUTE}/${slug}`
+      const query = `?${MULTIPOI_QUERY_KEY}=2&${ZOOM_QUERY_KEY}=10&${POI_CATEGORY_QUERY_KEY}=8`
+      const parser = new InternalPathnameParser(pathname, languageCode, fixedCity, query)
+      expect(parser.route()).toEqual({
+        route: POIS_ROUTE,
+        languageCode,
+        cityCode: fixedCity,
+        slug,
+        multipoi: 2,
+        zoom: 10,
+        poiCategoryId: 8,
+      })
+    })
     it('should match disclaimer route', () => {
       const pathname = `/${fixedCity}/${languageCode}/${DISCLAIMER_ROUTE}`
       const parser = new InternalPathnameParser(pathname, languageCode, fixedCity)
@@ -371,7 +388,7 @@ describe('InternalPathnameParser', () => {
     })
     it('should match search query', () => {
       const pathname = `/${fixedCity}/${languageCode}/${SEARCH_ROUTE}`
-      const query = '?query=zeugnis'
+      const query = `?${SEARCH_QUERY_KEY}=zeugnis`
       const parser = new InternalPathnameParser(pathname, languageCode, fixedCity, query)
       expect(parser.route()).toEqual({
         route: SEARCH_ROUTE,

@@ -1,0 +1,8 @@
+issue_key: 2571
+show_in_stores: true
+platforms:
+  - web
+  - ios
+  - android
+en: Location filter selection can now be shared.
+de: Die Filterauswahl für Orte kann nun geteilt werden.

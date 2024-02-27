@@ -20,6 +20,7 @@ jest.mock('react-router-dom', () => ({
 describe('PoisDesktop', () => {
   const cityModel = new CityModelBuilder(1).build()[0]!
   const pois = new PoiModelBuilder(3).build()
+  const poiCategories = pois.map(it => it.category)
   const userLocation: LocationType = [10.994217, 48.415402]
   const mapFeatures = prepareMapFeatures(pois)
   const selectMapFeature = jest.fn()
@@ -31,7 +32,7 @@ describe('PoisDesktop', () => {
       <PoisDesktop
         panelHeights={0}
         toolbar={<div>Toolbar</div>}
-        data={{ pois, mapFeatures, poi, mapFeature }}
+        data={{ pois, mapFeatures, poi, mapFeature, poiCategories }}
         selectMapFeature={selectMapFeature}
         selectPoi={selectPoi}
         deselect={deselect}
