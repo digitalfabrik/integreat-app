@@ -26,7 +26,7 @@
     "prettier:check": "yarn prettier --ignore-path  ../.prettierignore --check .",
     "prettier:write": "yarn prettier --ignore-path  ../.prettierignore --write .",
     "circleci:update-config": "yarn --cwd .. circleci:update-config",
-    "postinstall": "npm-license-crawler -onlyDirectDependencies -json ./assets/licenses.json"
+    "postinstall": "npm-license-crawler -onlyDirectDependencies -json ./src/assets/licenses.json"
   },
   "dependencies": {
     "@integreat-app/react-sticky-headroom": "^2.2.0",
