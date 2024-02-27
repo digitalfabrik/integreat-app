@@ -1,7 +1,7 @@
 import React, { ReactElement } from 'react'
 import styled from 'styled-components/native'
 
-import EastereggImage from './EastereggImage'
+import LandingIcon from './LandingIcon'
 
 type HeadingProps = {
   clearResourcesAndCache: () => void
@@ -14,7 +14,7 @@ const Wrapper = styled.View`
 
 const Heading = ({ clearResourcesAndCache }: HeadingProps): ReactElement => (
   <Wrapper>
-    <EastereggImage clearResourcesAndCache={clearResourcesAndCache} />
+    <LandingIcon clearResourcesAndCache={clearResourcesAndCache} />
   </Wrapper>
 )
 

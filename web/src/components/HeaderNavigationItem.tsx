@@ -93,7 +93,6 @@ const Circle = styled.div`
 const StyledIcon = styled(Icon)`
   width: 28px;
   height: 28px;
-  color: yellow;
 `
 
 export type HeaderNavigationItemProps = {

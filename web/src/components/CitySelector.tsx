@@ -9,7 +9,7 @@ import { CityModel } from 'shared/api'
 import buildConfig from '../constants/buildConfig'
 import CityEntry from './CityEntry'
 import Failure from './Failure'
-import Heading from './Heading'
+import LandingIcon from './LandingIcon'
 import ScrollingSearchBox from './ScrollingSearchBox'
 
 const Container = styled.div`
@@ -58,7 +58,7 @@ const CitySelector = ({ cities, language }: CitySelectorProps): ReactElement => 
 
   return (
     <Container>
-      <Heading />
+      <LandingIcon />
       <ScrollingSearchBox
         filterText={filterText}
         onFilterTextChange={setFilterText}

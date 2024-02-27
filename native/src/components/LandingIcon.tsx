@@ -1,10 +1,12 @@
 import { DateTime } from 'luxon'
-import React, { ReactElement, ReactNode, useEffect, useState } from 'react'
+import React, { ReactElement, useEffect, useState } from 'react'
 import styled from 'styled-components/native'
 
-import buildConfig, { buildConfigAssets } from '../constants/buildConfig'
+import { LocationMarkerIcon } from '../assets'
+import buildConfig from '../constants/buildConfig'
 import appSettings from '../utils/AppSettings'
 import { log, reportError } from '../utils/sentry'
+import Icon from './base/Icon'
 import Pressable from './base/Pressable'
 import TextButton from './base/TextButton'
 
@@ -15,6 +17,7 @@ const ApiUrlText = styled.Text`
   padding-top: 10px;
   color: red;
 `
+
 const StyledButton = styled(TextButton)`
   margin-top: 16px;
 `
@@ -23,11 +26,17 @@ const StyledPressable = styled(Pressable)`
   opacity: 1;
 `
 
-type EastereggImageProps = {
+const StyledIcon = styled(Icon)`
+  color: ${props => props.theme.colors.themeColor};
+  height: 64px;
+  width: 96px;
+`
+
+type LandingIconProps = {
   clearResourcesAndCache: () => void
 }
 
-const EastereggImage = ({ clearResourcesAndCache }: EastereggImageProps): ReactElement => {
+const LandingIcon = ({ clearResourcesAndCache }: LandingIconProps): ReactElement => {
   const [clickCount, setClickCount] = useState(0)
   const [apiUrlOverride, setApiUrlOverride] = useState<string | null>(null)
   const [clickStart, setClickStart] = useState<null | DateTime>(null)
@@ -66,28 +75,19 @@ const EastereggImage = ({ clearResourcesAndCache }: EastereggImageProps): ReactE
     }
   }
 
-  const renderApiUrlText = (): ReactNode => {
-    if (apiUrlOverride && apiUrlOverride !== buildConfig().cmsUrl) {
-      return (
+  return (
+    <>
+      <StyledPressable onPress={onImagePress}>
+        <StyledIcon Icon={LocationMarkerIcon} />
+      </StyledPressable>
+      {apiUrlOverride && apiUrlOverride !== buildConfig().cmsUrl ? (
         <>
           <ApiUrlText>{`Currently using API: ${apiUrlOverride.toString()}`}</ApiUrlText>
           <StyledButton onPress={() => setApiUrl(cmsUrl)} text='Switch back to default API' />
         </>
-      )
-    }
-    return null
-  }
-
-  const { LocationMarker } = buildConfigAssets()
-
-  return (
-    <>
-      <StyledPressable onPress={onImagePress}>
-        {LocationMarker && <LocationMarker height={70} width={100} />}
-      </StyledPressable>
-      {renderApiUrlText()}
+      ) : null}
     </>
   )
 }
 
-export default EastereggImage
+export default LandingIcon

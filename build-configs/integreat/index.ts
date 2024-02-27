@@ -93,7 +93,6 @@ export const webIntegreatBuildConfig: WebBuildConfigType = {
   icons: {
     appLogo: '/app-logo.svg',
     appLogoMobile: '/app-icon-round.svg',
-    locationMarker: '/location-marker.svg',
     cityNotCooperating: '/city-not-cooperating.svg',
     appleTouchIcon: '/apple-touch-icon.png',
     socialMediaPreview: '/social-media-preview.png',
@@ -101,7 +100,7 @@ export const webIntegreatBuildConfig: WebBuildConfigType = {
   },
   splashScreen: {
     backgroundColor: lightTheme.colors.themeColor,
-    imageUrl: '/app-icon-cornered.jpg',
+    imageUrl: '/app-icon-cornered.svg',
   },
   campaign: {
     campaignAppLogo: '/campaign-app-logo.svg',
