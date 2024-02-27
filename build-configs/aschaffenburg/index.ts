@@ -22,6 +22,7 @@ const commonAschaffenburgBuildConfig: CommonBuildConfigType = {
   cmsUrl: 'https://cms.integreat-app.de',
   hostName: 'halloaschaffenburg.de',
   allowedHostNames: ['cms.integreat-app.de', 'admin.integreat-app.de'],
+  allowedLookalikes: [],
   supportedIframeSources: ['vimeo.com'],
   translationsOverride: aschaffenburgOverrideTranslations,
   internalLinksHijackPattern:
