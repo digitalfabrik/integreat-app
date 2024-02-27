@@ -52,7 +52,6 @@ const CityContentToolbar = (props: CityContentToolbarProps) => {
         shareUrl={window.location.href}
         flow={iconDirection === 'row' ? 'vertical' : 'horizontal'}
         title={pageTitle}
-        route={route}
         portalNeeded={isInBottomActionSheet}
       />
       <Tooltip text={t('common:copied')} flow='up' active={linkCopied} trigger='click'>
