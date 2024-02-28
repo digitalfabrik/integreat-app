@@ -6,7 +6,7 @@ import { readFileSync } from 'fs'
 import HtmlWebpackPlugin from 'html-webpack-plugin'
 import { join, resolve } from 'path'
 import ReactRefreshTypeScript from 'react-refresh-typescript'
-import { Configuration, DefinePlugin, LoaderOptionsPlugin, optimize, WebpackPluginInstance } from 'webpack'
+import { Configuration, DefinePlugin, optimize, WebpackPluginInstance } from 'webpack'
 import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer'
 import 'webpack-dev-server'
 
@@ -146,7 +146,6 @@ const createConfig = (
   const configAssets = resolve(__dirname, `../node_modules/build-configs/${buildConfigName}/assets`)
 
   const nodeModules = resolve(__dirname, '../node_modules')
-  const rootNodeModules = resolve(__dirname, '../../node_modules')
   const wwwDirectory = resolve(__dirname, '../www')
   const distDirectory = resolve(__dirname, `../dist/${buildConfigName}`)
   const srcDirectory = resolve(__dirname, '../src')
@@ -169,7 +168,7 @@ const createConfig = (
     mode: devServer ? 'development' : 'production',
     resolve: {
       extensions: ['.tsx', '.ts', '.js'],
-      modules: [nodeModules, rootNodeModules],
+      modules: [nodeModules],
       alias: {
         'mapbox-gl': 'maplibre-gl',
       },
@@ -194,6 +193,42 @@ const createConfig = (
     optimization: {
       usedExports: true,
       runtimeChunk: 'single',
+      splitChunks: {
+        chunks: 'async',
+        minSize: 13000,
+        minChunks: 1,
+        maxAsyncRequests: 30,
+        maxInitialRequests: 30,
+        enforceSizeThreshold: 30000,
+        cacheGroups: {
+          common: {
+            test: /[\\/]node_modules[\\/]/,
+            priority: -5,
+            reuseExistingChunk: true,
+            chunks: 'initial',
+            name: 'common_app',
+            minSize: 0,
+          },
+          default: {
+            minChunks: 2,
+            priority: -20,
+            reuseExistingChunk: true,
+          },
+          defaultVendors: false,
+          react: {
+            test: /[\\/]node_modules[\\/](react|react-dom|react-router|react-router-dom|@remix-run)[\\/]/,
+            name: 'react',
+            chunks: 'all',
+            priority: 10,
+          },
+          dompurify: {
+            test: /[\\/]node_modules[\\/](dompurify)[\\/]/,
+            name: 'dompurify',
+            chunks: 'all',
+            priority: 10,
+          },
+        },
+      },
     },
     devtool: 'source-map',
     devServer: {
@@ -268,10 +303,6 @@ const createConfig = (
         path: distDirectory,
         filename: 'assets.json',
         prettyPrint: true,
-      }),
-      new LoaderOptionsPlugin({
-        debug: devServer,
-        minimize: !devServer,
       }),
       ...plugins,
     ],
@@ -351,7 +382,7 @@ const createConfig = (
   // Optimize the bundle in production mode
   // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
   if (!devServer && optimize) {
-    config.plugins?.push(new optimize.AggressiveMergingPlugin())
+    config.plugins?.push(new optimize.AggressiveMergingPlugin(), new optimize.AggressiveSplittingPlugin({}))
   }
 
   return config
