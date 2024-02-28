@@ -1,17 +1,23 @@
-// https://stackoverflow.com/a/3809435
-// [^\u0020-\u007F] matches non-ASCII characters (e.g. umlaute, cyrillic, arabic)
+// Match \w and ' characters
+// https://stackoverflow.com/a/6041965
+// language=RegExp
+const unicode = 'a-zA-Z0-9\\u00A0-\\uD7FF\\uF900-\\uFDCF\\uFDF0-\\uFFEF'
+
 // https://stackoverflow.com/a/150078
 const protocol = /([A-Za-z]{3,9}:(?:\/\/)?)/
 const hostname = /(?:[-;:&=+$,\w]+@)?([A-Za-z0-9-]+(?:\.[A-Za-z0-9-]+)*)/
-const path = /(?:\/(?:([+~%/.\w-]|[^\u0020-\u007F])*([+~%/\w-]|[^\u0020-\u007F]+))?)?/
-const query = /(?:\?(([-+=&;%@.\w]|[^\u0020-\u007F])*([-+=&;%@\w]|[^\u0020-\u007F])+)?)?/
-const hash = /(?:#(([.!/\\\w]|[^\u0020-\u007F])*([!/\\\w]|[^\u0020-\u007F])+)?)?/
+// language=RegExp
+const path = `(?:\\/(?:[+~%/.${unicode}-]*[+~%/${unicode}-]+)?)?`
+// language=RegExp
+const query = `(?:\\?([-+=&;%@.${unicode}]*[-+=&;%@${unicode}]+)?)?`
+// language=RegExp
+const hash = `(?:#([.!/\\\\${unicode}]*[!/\\\\${unicode}]+)?)?`
 const mail = /[.\-;:&=+$,\w]+@([A-Za-z0-9-]+(?:\.[A-Za-z0-9-]+)*)/
-const regex = new RegExp(
-  `(${protocol.source}${hostname.source}${path.source}${query.source}${hash.source}|${mail.source})`,
-  'g',
-)
+
+const regex = new RegExp(`(${protocol.source}${hostname.source}${path}${query}${hash}|${mail.source})`, 'g')
+
 type ReplaceType = (match: string) => string
-export const linkify = (link: string): string => `<a href="${link}">${link}</a>`
+export const linkify = (link: string): string => `<a href='${link}'>${link}</a>`
 export const replaceLinks = (content: string, replace: ReplaceType = linkify): string => content.replace(regex, replace)
+
 export default replaceLinks

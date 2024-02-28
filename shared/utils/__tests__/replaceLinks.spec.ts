@@ -23,7 +23,7 @@ describe('replaceLinks', () => {
   })
   it('should linkify links correctly', () => {
     expect(replaceLinks('some content https://asdf.gh with the correct mailto:links@qwer.tz')).toBe(
-      'some content <a href="https://asdf.gh">https://asdf.gh</a> with the correct <a href="mailto:links@qwer.tz">mailto:links@qwer.tz</a>',
+      "some content <a href='https://asdf.gh'>https://asdf.gh</a> with the correct <a href='mailto:links@qwer.tz'>mailto:links@qwer.tz</a>",
     )
   })
   it('should not match trailing "."', () => {
@@ -41,5 +41,16 @@ describe('replaceLinks', () => {
     expect(replace).toHaveReturnedWith(
       'https://integreat.app/asdf/de/инфор.мация-помощь-украине/разрешение-на-временное-го-года?asdf=nö#hüh',
     )
+  })
+
+  it('should match links separately', () => {
+    replaceLinks(
+      'https://stackoverflow.com/a/150078 https://stackoverflow.com/a/150079\nhttps://stackoverflow.com/a/160078',
+      replace,
+    )
+    expect(replace).toHaveBeenCalledTimes(3)
+    expect(replace).toHaveReturnedWith('https://stackoverflow.com/a/150078')
+    expect(replace).toHaveReturnedWith('https://stackoverflow.com/a/150079')
+    expect(replace).toHaveReturnedWith('https://stackoverflow.com/a/160078')
   })
 })
