@@ -1,19 +1,22 @@
-import React, { ReactNode } from 'react'
+import React, { ReactElement, ReactNode } from 'react'
 
 import { AppContext, AppContextType } from '../contexts/AppContextProvider'
-import { defaultSettings } from '../utils/AppSettings'
+import { defaultSettings, SettingsType } from '../utils/AppSettings'
 
 const TestingAppContext = ({
   children,
-  settings = defaultSettings,
+  settings = {},
   cityCode = 'augsburg',
   languageCode = 'de',
   changeCityCode = jest.fn(),
   changeLanguageCode = jest.fn(),
   updateSettings = jest.fn(),
-}: Partial<AppContextType> & { children: ReactNode }) => {
+}: {
+  settings?: Partial<SettingsType>
+  children: ReactNode
+} & Omit<Partial<AppContextType>, 'settings'>): ReactElement => {
   const context = {
-    settings,
+    settings: { ...defaultSettings, ...settings },
     cityCode,
     languageCode,
     updateSettings,

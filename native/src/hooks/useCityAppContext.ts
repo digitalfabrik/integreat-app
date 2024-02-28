@@ -1,25 +1,19 @@
 import { useContext } from 'react'
 
-import { AppContext, AppContextType, UpdateSettingsType } from '../contexts/AppContextProvider'
-import { SettingsType } from '../utils/AppSettings'
+import { AppContext, AppContextType } from '../contexts/AppContextProvider'
 
-type UseCityAppContextReturn = {
-  settings: SettingsType
+type UseCityAppContextReturn = AppContextType & {
   cityCode: string
-  languageCode: string
-  updateSettings: (settings: UpdateSettingsType) => void
-  changeCityCode: (cityCode: string | null) => void
-  changeLanguageCode: (languageCode: string) => void
 }
 
 export const useAppContext = (): AppContextType => useContext(AppContext)
 
 const useCityAppContext = (): UseCityAppContextReturn => {
-  const { settings, cityCode, languageCode, updateSettings, changeCityCode, changeLanguageCode } = useAppContext()
+  const { cityCode, ...context } = useAppContext()
   if (!cityCode) {
     throw new Error('City code not set!')
   }
-  return { settings, cityCode, languageCode, updateSettings, changeCityCode, changeLanguageCode }
+  return { cityCode, ...context }
 }
 
 export default useCityAppContext

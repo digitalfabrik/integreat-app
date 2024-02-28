@@ -47,9 +47,7 @@ const Settings = ({ navigation }: SettingsProps): ReactElement => {
     try {
       const successful = changeAction ? await changeAction(newSettings) : true
 
-      if (successful) {
-        await appSettings.setSettings(newSettings)
-      } else {
+      if (!successful) {
         updateSettings(oldSettings)
       }
     } catch (e) {

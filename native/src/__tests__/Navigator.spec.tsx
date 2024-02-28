@@ -1,14 +1,12 @@
-import AsyncStorage from '@react-native-async-storage/async-storage'
 import { NavigationContainer } from '@react-navigation/native'
 import { mocked } from 'jest-mock'
 import React from 'react'
 
-import { CityModelBuilder, ReturnType, useLoadAsync } from 'shared/api'
+import { CityModelBuilder } from 'shared/api'
 
 import Navigator from '../Navigator'
 import TestingAppContext from '../testing/TestingAppContext'
 import render from '../testing/render'
-import { defaultSettings, SettingsType } from '../utils/AppSettings'
 import dataContainer from '../utils/DefaultDataContainer'
 import { quitAppStatePushNotificationListener } from '../utils/PushNotificationsManager'
 
@@ -127,9 +125,15 @@ jest.mock('../utils/PushNotificationsManager', () => ({
 jest.mock('../utils/FetcherModule')
 
 const changeCityCode = jest.fn()
-const renderNavigator = (cityCode: string | null = null) =>
+const renderNavigator = ({
+  cityCode = null,
+  introShown = null,
+}: {
+  cityCode?: string | null
+  introShown?: boolean | null
+}) =>
   render(
-    <TestingAppContext changeCityCode={changeCityCode} cityCode={cityCode}>
+    <TestingAppContext changeCityCode={changeCityCode} cityCode={cityCode} settings={{ introShown }}>
       <NavigationContainer>
         <Navigator />
       </NavigationContainer>
@@ -138,27 +142,16 @@ const renderNavigator = (cityCode: string | null = null) =>
 
 describe('Navigator', () => {
   beforeEach(() => {
-    AsyncStorage.clear()
     jest.clearAllMocks()
   })
 
-  const mockSettings = (settings: Partial<SettingsType>) =>
-    mocked<(_: never) => ReturnType<SettingsType>>(useLoadAsync).mockImplementation(() => ({
-      data: { ...defaultSettings, ...settings },
-      error: null,
-      loading: false,
-      refresh: jest.fn(),
-    }))
-
   it('should display categories if a city is selected and the intro was shown', async () => {
-    mockSettings({ introShown: true })
-    const { findByText } = renderNavigator('augsburg')
+    const { findByText } = renderNavigator({ cityCode: 'augsburg', introShown: true })
     await findByText('Categories')
   })
 
   it('should display landing if the selected city is not available anymore', async () => {
-    mockSettings({ introShown: true })
-    const { findByText } = renderNavigator('disabledCity')
+    const { findByText } = renderNavigator({ cityCode: 'disabledCity', introShown: true })
     await findByText('Landing')
     expect(changeCityCode).toHaveBeenCalledTimes(1)
     expect(changeCityCode).toHaveBeenCalledWith(null)
@@ -167,23 +160,20 @@ describe('Navigator', () => {
   })
 
   it('should display Landing if no city is selected in settings and intro was shown', async () => {
-    mockSettings({ introShown: true })
-    const { findByText } = renderNavigator()
+    const { findByText } = renderNavigator({ introShown: true })
     await findByText('Landing')
   })
 
   it('should display Intro if intro was not shown yet', async () => {
-    mockSettings({ introShown: false })
-    const { findByText } = renderNavigator()
+    const { findByText } = renderNavigator({ introShown: false })
     await findByText('Intro')
   })
 
   it('should listen for push notification press in quit state', async () => {
-    mockSettings({ introShown: true })
     mocked(quitAppStatePushNotificationListener).mockImplementation(async navigate =>
       navigate('https://integreat.app/augsbug/de/news/local/1234'),
     )
-    const { findByText } = renderNavigator()
+    const { findByText } = renderNavigator({ introShown: true })
 
     await findByText('Redirect')
     expect(quitAppStatePushNotificationListener).toHaveBeenCalledTimes(1)

@@ -1,11 +1,9 @@
-import AsyncStorage from '@react-native-async-storage/async-storage'
 import { render, waitFor } from '@testing-library/react-native'
 import { mocked } from 'jest-mock'
 import React from 'react'
 import { Translation } from 'react-i18next'
 import { Text } from 'react-native'
 
-import appSettings from '../../utils/AppSettings'
 import NativeLanguageDetector from '../../utils/NativeLanguageDetector'
 import { setSystemLanguage } from '../../utils/sendTrackingSignal'
 import I18nProvider from '../I18nProvider'
@@ -18,7 +16,6 @@ const mockDetect = mocked(NativeLanguageDetector.detect)
 
 describe('I18nProvider', () => {
   beforeEach(async () => {
-    await AsyncStorage.clear()
     jest.clearAllMocks()
   })
 
@@ -29,8 +26,8 @@ describe('I18nProvider', () => {
         <Text>Hello</Text>
       </I18nProvider>,
     )
+    await waitFor(async () => expect(setSystemLanguage).toHaveBeenCalledWith('kmr'))
     expect(setSystemLanguage).toHaveBeenCalledTimes(1)
-    expect(setSystemLanguage).toHaveBeenCalledWith('kmr')
   })
 
   it('should show error if loading fails', async () => {

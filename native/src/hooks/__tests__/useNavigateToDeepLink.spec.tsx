@@ -19,7 +19,6 @@ import buildConfig from '../../constants/buildConfig'
 import TestingAppContext from '../../testing/TestingAppContext'
 import createNavigationPropMock from '../../testing/createNavigationPropMock'
 import render from '../../testing/render'
-import appSettings from '../../utils/AppSettings'
 import sendTrackingSignal from '../../utils/sendTrackingSignal'
 import useNavigate from '../useNavigate'
 import useNavigateToDeepLink from '../useNavigateToDeepLink'
@@ -38,6 +37,7 @@ describe('useNavigateToDeepLink', () => {
   mocked(useNavigate).mockImplementation(() => ({ navigateTo, navigation }))
 
   const changeCityCode = jest.fn()
+  const updateSettings = jest.fn()
   const selectedLanguageCode = 'de'
 
   const mockBuildConfig = (featureFlags: Partial<FeatureFlagsType>) => {
@@ -58,9 +58,28 @@ describe('useNavigateToDeepLink', () => {
     return null
   }
 
-  const renderMockComponent = (url: string, cityCode: string | null = null, languageCode = selectedLanguageCode) =>
+  const renderMockComponent = ({
+    url,
+    cityCode = null,
+    languageCode = selectedLanguageCode,
+    introShown = false,
+    jpalTrackingCode = '',
+    jpalTrackingEnabled = false,
+  }: {
+    url: string
+    cityCode?: string | null
+    languageCode?: string
+    introShown?: boolean
+    jpalTrackingCode?: string
+    jpalTrackingEnabled?: boolean
+  }) =>
     render(
-      <TestingAppContext cityCode={cityCode} languageCode={languageCode} changeCityCode={changeCityCode}>
+      <TestingAppContext
+        cityCode={cityCode}
+        languageCode={languageCode}
+        changeCityCode={changeCityCode}
+        updateSettings={updateSettings}
+        settings={{ introShown, jpalTrackingCode, jpalTrackingEnabled }}>
         <MockComponent url={url} />
       </TestingAppContext>,
     )
@@ -77,7 +96,6 @@ describe('useNavigateToDeepLink', () => {
 
   beforeEach(async () => {
     jest.clearAllMocks()
-    await appSettings.clearAppSettings()
   })
 
   describe('landing deep links', () => {
@@ -85,7 +103,7 @@ describe('useNavigateToDeepLink', () => {
 
     it('should navigate to the intro slides if not shown yet and enabled in the build config', async () => {
       mockBuildConfig({ introSlides: true, fixedCity: null })
-      renderMockComponent(url)
+      renderMockComponent({ url })
 
       await waitFor(() => expect(navigation.replace).toHaveBeenCalledTimes(1))
       expect(navigation.replace).toHaveBeenCalledWith(INTRO_ROUTE, {
@@ -99,8 +117,7 @@ describe('useNavigateToDeepLink', () => {
 
     it('should navigate to landing if no city is selected and intro slides already shown', async () => {
       mockBuildConfig({ introSlides: false, fixedCity: null })
-      await appSettings.setIntroShown()
-      renderMockComponent(url)
+      renderMockComponent({ url, introShown: true })
 
       await waitFor(() => expect(navigation.reset).toHaveBeenCalledTimes(1))
       expect(navigation.reset).toHaveBeenCalledWith({ index: 0, routes: [{ name: LANDING_ROUTE }] })
@@ -112,7 +129,7 @@ describe('useNavigateToDeepLink', () => {
 
     it('should navigate to landing if no city is selected and intro slides disabled', async () => {
       mockBuildConfig({ introSlides: false, fixedCity: null })
-      renderMockComponent(url)
+      renderMockComponent({ url })
 
       await waitFor(() => expect(navigation.reset).toHaveBeenCalledTimes(1))
       expect(navigation.reset).toHaveBeenCalledWith({ index: 0, routes: [{ name: LANDING_ROUTE }] })
@@ -125,8 +142,7 @@ describe('useNavigateToDeepLink', () => {
     it('should navigate to dashboard if there is a fixed city and intro slides already shown', async () => {
       const fixedCity = 'aschaffenburg'
       mockBuildConfig({ introSlides: false, fixedCity })
-      await appSettings.setIntroShown()
-      renderMockComponent(url)
+      renderMockComponent({ url, introShown: true })
 
       await waitFor(() => expect(navigation.reset).toHaveBeenCalledTimes(1))
       expect(navigation.reset).toHaveBeenCalledWith({ index: 0, routes: [{ name: CATEGORIES_ROUTE, params: {} }] })
@@ -141,7 +157,7 @@ describe('useNavigateToDeepLink', () => {
     it('should navigate to dashboard if there is already a selected city', async () => {
       const selectedCity = 'nuernberg'
       mockBuildConfig({ introSlides: false, fixedCity: null })
-      renderMockComponent(url, selectedCity)
+      renderMockComponent({ url, cityCode: selectedCity })
 
       await waitFor(() => expect(navigation.reset).toHaveBeenCalledTimes(1))
       expect(navigation.reset).toHaveBeenCalledWith({ index: 0, routes: [{ name: CATEGORIES_ROUTE, params: {} }] })
@@ -158,7 +174,7 @@ describe('useNavigateToDeepLink', () => {
 
     it('should navigate to the intro slides if not shown yet and enabled in the build config', async () => {
       mockBuildConfig({ introSlides: true, fixedCity: null })
-      renderMockComponent(url)
+      renderMockComponent({ url })
 
       await waitFor(() => expect(navigation.replace).toHaveBeenCalledTimes(1))
       expect(navigation.replace).toHaveBeenCalledWith(INTRO_ROUTE, {
@@ -172,8 +188,7 @@ describe('useNavigateToDeepLink', () => {
 
     it('should navigate to dashboard if intro slides already shown and no city is selected', async () => {
       mockBuildConfig({ introSlides: false, fixedCity: null })
-      await appSettings.setIntroShown()
-      renderMockComponent(url)
+      renderMockComponent({ url, introShown: true })
 
       await waitFor(() => expect(navigation.reset).toHaveBeenCalledTimes(1))
       expect(navigation.reset).toHaveBeenCalledWith({ index: 0, routes: [{ name: CATEGORIES_ROUTE, params: {} }] })
@@ -188,8 +203,7 @@ describe('useNavigateToDeepLink', () => {
     it('should navigate to dashboard and use current language if intro slides already shown and no city is selected', async () => {
       const url = `https://integreat.app/${cityCode}`
       mockBuildConfig({ introSlides: false, fixedCity: null })
-      await appSettings.setIntroShown()
-      renderMockComponent(url)
+      renderMockComponent({ url, introShown: true })
 
       await waitFor(() => expect(navigation.reset).toHaveBeenCalledTimes(1))
       expect(navigation.reset).toHaveBeenCalledWith({ index: 0, routes: [{ name: CATEGORIES_ROUTE, params: {} }] })
@@ -204,8 +218,7 @@ describe('useNavigateToDeepLink', () => {
     it('should open selected city dashboard and call navigateTo if city code in link differs', async () => {
       const selectedCity = 'testumgebung'
       mockBuildConfig({ introSlides: false, fixedCity: null })
-      await appSettings.setIntroShown()
-      renderMockComponent(url, selectedCity)
+      renderMockComponent({ url, cityCode: selectedCity, introShown: true })
 
       await waitFor(() => expect(navigation.reset).toHaveBeenCalledTimes(1))
       expect(navigation.reset).toHaveBeenCalledWith({ index: 0, routes: [{ name: CATEGORIES_ROUTE, params: {} }] })
@@ -226,8 +239,7 @@ describe('useNavigateToDeepLink', () => {
       const languageCode = 'ar'
       const url = `https://integreat.app/${selectedCity}/${languageCode}`
       mockBuildConfig({ introSlides: false, fixedCity: null })
-      await appSettings.setIntroShown()
-      renderMockComponent(url, selectedCity)
+      renderMockComponent({ url, cityCode: selectedCity, introShown: true })
 
       await waitFor(() => expect(navigation.reset).toHaveBeenCalledTimes(1))
       expect(navigation.reset).toHaveBeenCalledWith({ index: 0, routes: [{ name: CATEGORIES_ROUTE, params: {} }] })
@@ -247,7 +259,7 @@ describe('useNavigateToDeepLink', () => {
     it('should not navigate to link if fixed city differs from link city', async () => {
       const fixedCity = 'aschaffenburg'
       mockBuildConfig({ introSlides: false, fixedCity })
-      renderMockComponent(url)
+      renderMockComponent({ url })
 
       await waitFor(() => expect(showSnackbar).toHaveBeenCalledTimes(1))
       expect(showSnackbar).toHaveBeenCalledWith({ text: 'notFound.category' })
@@ -266,7 +278,7 @@ describe('useNavigateToDeepLink', () => {
     it('should navigate to the intro slides if not shown yet and enabled in the build config', async () => {
       const url = `https://integreat.app/${cityCode}/${languageCode}/events/some-event`
       mockBuildConfig({ introSlides: true, fixedCity: null })
-      renderMockComponent(url)
+      renderMockComponent({ url })
 
       await waitFor(() => expect(navigation.replace).toHaveBeenCalledTimes(1))
       expect(navigation.replace).toHaveBeenCalledWith(INTRO_ROUTE, {
@@ -281,8 +293,7 @@ describe('useNavigateToDeepLink', () => {
     it('should open dashboard and navigate to events route if intro slides already shown', async () => {
       const url = `https://integreat.app/${cityCode}/${languageCode}/events/some-event`
       mockBuildConfig({ introSlides: false, fixedCity: null })
-      await appSettings.setIntroShown()
-      renderMockComponent(url, cityCode)
+      renderMockComponent({ url, cityCode, introShown: true })
 
       await waitFor(() => expect(navigation.reset).toHaveBeenCalledTimes(1))
       expect(navigation.reset).toHaveBeenCalledWith({ index: 0, routes: [{ name: CATEGORIES_ROUTE, params: {} }] })
@@ -301,8 +312,7 @@ describe('useNavigateToDeepLink', () => {
     it('should open dashboard and navigate to offers route if intro slides already shown', async () => {
       const url = `https://integreat.app/${cityCode}/${languageCode}/offers`
       mockBuildConfig({ introSlides: false, fixedCity: null })
-      await appSettings.setIntroShown()
-      renderMockComponent(url)
+      renderMockComponent({ url, introShown: true })
 
       await waitFor(() => expect(navigation.reset).toHaveBeenCalledTimes(1))
       expect(navigation.reset).toHaveBeenCalledWith({ index: 0, routes: [{ name: CATEGORIES_ROUTE, params: {} }] })
@@ -323,8 +333,7 @@ describe('useNavigateToDeepLink', () => {
       const selectedCity = 'testumgebung'
       const url = `https://integreat.app/${cityCode}/en/news`
       mockBuildConfig({ introSlides: false, fixedCity: null })
-      await appSettings.setIntroShown()
-      renderMockComponent(url, selectedCity)
+      renderMockComponent({ url, cityCode: selectedCity, introShown: true })
 
       await waitFor(() => expect(navigation.reset).toHaveBeenCalledTimes(1))
       expect(navigation.reset).toHaveBeenCalledWith({ index: 0, routes: [{ name: CATEGORIES_ROUTE, params: {} }] })
@@ -345,8 +354,7 @@ describe('useNavigateToDeepLink', () => {
   describe('jpal tracking links', () => {
     it('should open landing and navigate to tracking links if there is no seleceted city', async () => {
       const url = `https://integreat.app/jpal/abcdef123456`
-      await appSettings.setIntroShown()
-      renderMockComponent(url)
+      renderMockComponent({ url, introShown: true })
 
       await waitFor(() => expect(navigation.reset).toHaveBeenCalledTimes(1))
       expect(navigation.reset).toHaveBeenCalledWith({ index: 0, routes: [{ name: LANDING_ROUTE }] })
@@ -363,8 +371,7 @@ describe('useNavigateToDeepLink', () => {
     it('should open dashboard and navigate to tracking links if there is a selected city', async () => {
       const selectedCity = 'testumgebung'
       const url = `https://integreat.app/jpal`
-      await appSettings.setIntroShown()
-      renderMockComponent(url, selectedCity)
+      renderMockComponent({ url, cityCode: selectedCity, introShown: true })
 
       await waitFor(() => expect(navigation.reset).toHaveBeenCalledTimes(1))
       expect(navigation.reset).toHaveBeenCalledWith({ index: 0, routes: [{ name: CATEGORIES_ROUTE, params: {} }] })
@@ -381,30 +388,24 @@ describe('useNavigateToDeepLink', () => {
     it('should persist tracking code', async () => {
       mockBuildConfig({ jpalTracking: true })
       const url = `https://integreat.app/jpal/abcdef123456`
-      await appSettings.setIntroShown()
-      await appSettings.setJpalTrackingCode('outdated-tracking-code')
-      renderMockComponent(url)
+      renderMockComponent({ url, introShown: true, jpalTrackingCode: 'outdated-tracking-code' })
 
-      await waitFor(async () => {
-        const { jpalTrackingEnabled, jpalTrackingCode } = await appSettings.loadSettings()
-        expect(jpalTrackingEnabled).toBeNull()
-        expect(jpalTrackingCode).toBe('abcdef123456')
-      })
+      expect(updateSettings).toHaveBeenCalledTimes(1)
+      expect(updateSettings).toHaveBeenCalledWith({ jpalTrackingCode: 'abcdef123456' })
     })
 
     it('should disable japl tracking if there is no tracking code', async () => {
       mockBuildConfig({ jpalTracking: true })
       const url = `https://integreat.app/jpal`
-      await appSettings.setIntroShown()
-      await appSettings.setJpalTrackingEnabled(true)
-      await appSettings.setJpalTrackingCode('outdated-tracking-code')
-      renderMockComponent(url)
-
-      await waitFor(async () => {
-        const { jpalTrackingEnabled, jpalTrackingCode } = await appSettings.loadSettings()
-        expect(jpalTrackingEnabled).toBe(false)
-        expect(jpalTrackingCode).toBe('outdated-tracking-code')
+      renderMockComponent({
+        url,
+        introShown: true,
+        jpalTrackingEnabled: true,
+        jpalTrackingCode: 'outdated-tracking-code',
       })
+
+      expect(updateSettings).toHaveBeenCalledTimes(1)
+      expect(updateSettings).toHaveBeenCalledWith({ jpalTrackingEnabled: false })
     })
   })
 })
