@@ -29,10 +29,11 @@ describe('OffersPage', () => {
     title: 'Sprungbrett',
     thumbnail: 'xy',
   })
-  const lehrstellenRadarPostData = new Map()
-  lehrstellenRadarPostData.set('partner', '0006')
-  lehrstellenRadarPostData.set('radius', '50')
-  lehrstellenRadarPostData.set('plz', '86150')
+  const lehrstellenRadarPostData = {
+    partner: '0006',
+    radius: '50',
+    plz: '86150',
+  }
   const offers = [
     sprungbrettOffer,
     new OfferModel({

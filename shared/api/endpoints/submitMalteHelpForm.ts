@@ -115,7 +115,7 @@ const submitMalteHelpForm = async ({
   contactGender,
   comment,
 }: SubmitHelpFormParams): Promise<void> => {
-  const zammadUrl = helpButtonOffer.postData?.get('zammad-url')
+  const zammadUrl = helpButtonOffer.postData?.['zammad-url']
   const config = zammadUrl ? await getZammadConfig(zammadUrl, fingerprint) : undefined
 
   if (!config?.enabled) {

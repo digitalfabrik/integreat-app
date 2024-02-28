@@ -31,10 +31,11 @@ describe('endpoint', () => {
       },
     },
   ]
-  const lehrstellenRadarPostData = new Map()
-  lehrstellenRadarPostData.set('partner', '0006')
-  lehrstellenRadarPostData.set('radius', '50')
-  lehrstellenRadarPostData.set('plz', '86150')
+  const lehrstellenRadarPostData = {
+    partner: '0006',
+    radius: '50',
+    plz: '86150',
+  }
   const offerModels = [
     new OfferModel({
       alias: 'serlo-abc',

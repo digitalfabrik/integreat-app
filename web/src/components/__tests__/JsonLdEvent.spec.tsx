@@ -30,7 +30,7 @@ describe('JsonLdEvent', () => {
       date: dateModel,
       location: locationModel,
       excerpt: 'This is a sample event. Have fun sampling.',
-      availableLanguages: new Map([]),
+      availableLanguages: {},
       lastUpdate: DateTime.fromISO('2017-11-18T09:30:00.000Z'),
       featuredImage: new FeaturedImageModel({
         description: 'whoohoo',

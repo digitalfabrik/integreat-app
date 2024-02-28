@@ -21,7 +21,7 @@ class CategoryModel extends ExtendedPageModel {
     thumbnail: string | null
     parentPath: string
     order: number
-    availableLanguages: Map<string, string>
+    availableLanguages: Record<string, string>
     lastUpdate: DateTime
     organization: OrganizationModel | null
     embeddedOffers: OfferModel[]

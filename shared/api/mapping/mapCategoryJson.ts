@@ -1,6 +1,5 @@
 import { DateTime } from 'luxon'
 
-import { createPostMap } from '../endpoints/createOffersEndpoint'
 import CategoryModel from '../models/CategoryModel'
 import OfferModel from '../models/OfferModel'
 import OrganizationModel from '../models/OrganizationModel'
@@ -32,7 +31,7 @@ const mapCategoryJson = (json: JsonCategoryType, basePath: string): CategoryMode
           title: offer.name,
           path: offer.url,
           thumbnail: offer.thumbnail,
-          postData: offer.post ? createPostMap(offer.post) : undefined,
+          postData: offer.post ?? undefined,
         }),
     ),
   })

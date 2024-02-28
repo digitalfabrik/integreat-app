@@ -13,11 +13,11 @@ const categoryParams = {
   content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut',
   parentPath: '/augsburg/de',
   order: 11,
-  availableLanguages: new Map([
-    ['en', '4861'],
-    ['ar', '4867'],
-    ['fa', '4868'],
-  ]),
+  availableLanguages: {
+    en: '/augsburg/en',
+    ar: '/augsburg/ar',
+    fa: '/augsburg/fa',
+  },
   thumbnail: '',
   lastUpdate: DateTime.fromISO('2017-11-18T19:30:00.000Z'),
   organization: null,

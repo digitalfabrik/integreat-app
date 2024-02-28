@@ -38,9 +38,13 @@ const PoisPage = ({ cityCode, languageCode, city, pathname }: CityRouteProps): R
 
   const languageChangePaths = city.languages.map(({ code, name }) => {
     const isCurrentLanguage = code === languageCode
-    const path = poi
-      ? poi.availableLanguages.get(code) || null
-      : pathnameFromRouteInformation({ route: POIS_ROUTE, cityCode, languageCode: code })
+    const path =
+      poi?.availableLanguages[code] ??
+      pathnameFromRouteInformation({
+        route: POIS_ROUTE,
+        cityCode,
+        languageCode: code,
+      })
     return {
       path: isCurrentLanguage ? pathname : path,
       name,

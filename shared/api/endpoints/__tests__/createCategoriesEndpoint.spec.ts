@@ -29,7 +29,7 @@ describe('createCategoriesEndpoint', () => {
     content: '',
     thumbnail: '',
     order: -1,
-    availableLanguages: new Map(),
+    availableLanguages: {},
     lastUpdate: DateTime.fromMillis(0),
     organization: null,
     embeddedOffers: [],

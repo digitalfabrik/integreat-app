@@ -69,14 +69,14 @@ describe('categories', () => {
         thumbnail: 'some_thumbnail',
         name: 'Serlo ABC',
         url: 'https://abc-app.serlo.org/',
-        post: undefined,
+        post: null,
       },
       {
         alias: 'sprungbrett',
         thumbnail: 'some_other_thumbnail',
         name: 'Sprungbrett',
         url: 'https://web.integreat-app.de/proxy/sprungbrett/app-search-internships?location=augsburg',
-        post: undefined,
+        post: null,
       },
       {
         alias: 'lehrstellen-radar',
@@ -91,10 +91,11 @@ describe('categories', () => {
       },
     ],
   }
-  const lehrstellenRadarPostData = new Map()
-  lehrstellenRadarPostData.set('partner', '0006')
-  lehrstellenRadarPostData.set('radius', '50')
-  lehrstellenRadarPostData.set('plz', '86150')
+  const lehrstellenRadarPostData = {
+    partner: '0006',
+    radius: '50',
+    plz: '86150',
+  }
   const offerModels = [
     new OfferModel({
       alias: 'serlo-abc',
@@ -123,7 +124,7 @@ describe('categories', () => {
     content: '<div>Some category test content :)</div>',
     parentPath: '/augsburg/de',
     order: 75,
-    availableLanguages: new Map([['en', '/augsburg/en/anlaufstellen']]),
+    availableLanguages: { en: '/augsburg/en/anlaufstellen' },
     thumbnail: 'https://cms.integreat-ap…/03/Hotline-150x150.png',
     lastUpdate: DateTime.fromISO('2017-01-01T05:10:05+02:00'),
     organization: null,
@@ -134,7 +135,7 @@ describe('categories', () => {
     path: '/augsburg/fa/erste-schritte/نقشه-شهر',
     title: 'نقشه شهر',
     content: '',
-    availableLanguages: new Map([['ar', '/augsburg/ar/erste-schritte/خريطة-المدينة']]),
+    availableLanguages: { ar: '/augsburg/ar/erste-schritte/خريطة-المدينة' },
     parentPath: '/augsburg/fa/erste-schritte/خوش-آمدید-به-آگزبورگ',
     order: 3,
     thumbnail: 'https://example.com/thumbnail',

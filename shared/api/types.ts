@@ -127,7 +127,7 @@ export type JsonOfferType = {
   name: string
   url: string
   thumbnail: string
-  post: JsonOfferPostType | null | undefined
+  post: JsonOfferPostType | null
 }
 
 export type JsonSprungbrettJobType = {

@@ -94,7 +94,7 @@ const CategoriesPage = ({ city, pathname, cityCode, languageCode }: CityRoutePro
         content: '',
         thumbnail: '',
         order: -1,
-        availableLanguages: new Map(),
+        availableLanguages: {},
         lastUpdate: DateTime.fromMillis(0),
         organization: null,
         embeddedOffers: [],
@@ -107,7 +107,7 @@ const CategoriesPage = ({ city, pathname, cityCode, languageCode }: CityRoutePro
     const isCurrentLanguage = code === languageCode
     const path = category?.isRoot()
       ? cityContentPath({ cityCode, languageCode: code })
-      : category?.availableLanguages.get(code) || null
+      : category?.availableLanguages[code] || null
 
     return {
       path: isCurrentLanguage ? pathname : path,

@@ -53,7 +53,7 @@ describe('pois', () => {
       excerpt: 'Am Sonntag...',
       metaDescription: 'Meta',
       content: '<p>Am Sonntag...</p>',
-      availableLanguages: new Map(),
+      availableLanguages: {},
       thumbnail: '',
       website: null,
       phoneNumber: null,

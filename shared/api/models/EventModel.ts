@@ -23,7 +23,7 @@ class EventModel extends ExtendedPageModel {
     date: DateModel
     location: LocationModel<number | null> | null
     excerpt: string
-    availableLanguages: Map<string, string>
+    availableLanguages: Record<string, string>
     lastUpdate: DateTime
     featuredImage: FeaturedImageModel | null
   }) {

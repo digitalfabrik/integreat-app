@@ -1,12 +1,12 @@
 import { DateTime } from 'luxon'
 
 import { getSlugFromPath } from '../../utils'
-import isMapEqual from '../../utils/isMapEqual'
+import isEqual from '../../utils/isEqual'
 import PageModel from './PageModel'
 
 class ExtendedPageModel extends PageModel {
   _thumbnail: string | null
-  _availableLanguages: Map<string, string>
+  _availableLanguages: Record<string, string>
 
   constructor(params: {
     path: string
@@ -14,7 +14,7 @@ class ExtendedPageModel extends PageModel {
     content: string
     thumbnail: string | null
     lastUpdate: DateTime
-    availableLanguages: Map<string, string>
+    availableLanguages: Record<string, string>
   }) {
     const { thumbnail, availableLanguages, ...other } = params
     super(other)
@@ -26,12 +26,12 @@ class ExtendedPageModel extends PageModel {
     return this._thumbnail
   }
 
-  get availableLanguages(): Map<string, string> {
+  get availableLanguages(): Record<string, string> {
     return this._availableLanguages
   }
 
-  get availableLanguageSlugs(): { [languageCode: string]: string } {
-    return Array.from(this._availableLanguages.entries()).reduce(
+  get availableLanguageSlugs(): Record<string, string> {
+    return Object.entries(this.availableLanguages).reduce(
       (acc, [code, path]) => ({ ...acc, [code]: getSlugFromPath(path) }),
       {},
     )
@@ -42,7 +42,7 @@ class ExtendedPageModel extends PageModel {
       other instanceof ExtendedPageModel &&
       super.isEqual(other) &&
       this.thumbnail === other.thumbnail &&
-      isMapEqual(this.availableLanguages, other.availableLanguages)
+      isEqual(this.availableLanguages, other.availableLanguages)
     )
   }
 }

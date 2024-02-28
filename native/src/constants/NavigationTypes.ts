@@ -109,7 +109,7 @@ export type RoutesParamsType = {
   [JPAL_TRACKING_ROUTE]: undefined
   [EXTERNAL_OFFER_ROUTE]: {
     url: string
-    postData: Map<string, string> | null | undefined
+    postData: Record<string, string> | undefined
   }
   [SPRUNGBRETT_OFFER_ROUTE]: undefined
   [MALTE_HELP_FORM_OFFER_ROUTE]: undefined

@@ -7,10 +7,11 @@ import CategoryModel from '../../models/CategoryModel'
 import OfferModel from '../../models/OfferModel'
 import OrganizationModel from '../../models/OrganizationModel'
 
-const lehrstellenRadarPostData = new Map()
-lehrstellenRadarPostData.set('partner', '0006')
-lehrstellenRadarPostData.set('radius', '50')
-lehrstellenRadarPostData.set('plz', '86150')
+const lehrstellenRadarPostData = {
+  partner: '0006',
+  radius: '50',
+  plz: '86150',
+}
 
 type PageResourceCacheEntryStateType = {
   readonly filePath: string
@@ -85,7 +86,7 @@ class CategoriesMapModelBuilder {
                     <p>This is a sample page</p>
                     <img src="${resourceUrl2}" alt=""/>`,
         order: i,
-        availableLanguages: new Map(),
+        availableLanguages: {},
         thumbnail,
         parentPath: category.path,
         lastUpdate,
@@ -147,7 +148,7 @@ class CategoriesMapModelBuilder {
         title: `${this._city}`,
         content: '',
         order: -1,
-        availableLanguages: new Map(),
+        availableLanguages: {},
         thumbnail: '',
         parentPath: '',
         lastUpdate: DateTime.fromISO('2017-11-18T19:30:00.000Z'),
