@@ -32,7 +32,18 @@ describe('replaceLinks', () => {
     expect(replace).toHaveReturnedWith('https://integreat.app/asdf')
   })
 
-  it('should match non-ASCII chars in pathname, query and hash', () => {
+  it('should match arabic non-ASCII chars in pathname, query and hash', () => {
+    replaceLinks(
+      'https://webnext.integreat.app/testumgebung/ar/الحياة-اليومية/الإنترنت-وخدمة-الواي-فاي-المجانية?asdf=لحياة-اليومية#hüh',
+      replace,
+    )
+    expect(replace).toHaveBeenCalledTimes(1)
+    expect(replace).toHaveReturnedWith(
+      'https://webnext.integreat.app/testumgebung/ar/الحياة-اليومية/الإنترنت-وخدمة-الواي-فاي-المجانية?asdf=لحياة-اليومية#hüh',
+    )
+  })
+
+  it('should match cyrillic non-ASCII chars in pathname, query and hash', () => {
     replaceLinks(
       'some content https://integreat.app/asdf/de/инфор.мация-помощь-украине/разрешение-на-временное-го-года?asdf=nö#hüh',
       replace,
@@ -40,6 +51,17 @@ describe('replaceLinks', () => {
     expect(replace).toHaveBeenCalledTimes(1)
     expect(replace).toHaveReturnedWith(
       'https://integreat.app/asdf/de/инфор.мация-помощь-украине/разрешение-на-временное-го-года?asdf=nö#hüh',
+    )
+  })
+
+  it('should match greek non-ASCII chars in pathname, query and hash', () => {
+    replaceLinks(
+      'https://webnext.integreat.app/augsburg/el/ζώντας/αναζήτηση-κατοικίας/αναζήτηση-μέσω-εφημερίδας',
+      replace,
+    )
+    expect(replace).toHaveBeenCalledTimes(1)
+    expect(replace).toHaveReturnedWith(
+      'https://webnext.integreat.app/augsburg/el/ζώντας/αναζήτηση-κατοικίας/αναζήτηση-μέσω-εφημερίδας',
     )
   })
 
