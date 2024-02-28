@@ -17,6 +17,10 @@ import List from '../components/List'
 import Page from '../components/Page'
 import PageDetail from '../components/PageDetail'
 
+const ListContainer = styled(Layout)`
+  padding: 0 8px;
+`
+
 const Separator = styled.View`
   border-top-width: 2px;
   border-top-color: ${props => props.theme.colors.themeColor};
@@ -99,7 +103,7 @@ const Events = ({ cityModel, language, navigateTo, events, slug, refresh }: Even
   }
 
   return (
-    <Layout>
+    <ListContainer>
       <List
         items={events}
         renderItem={renderEventListItem}
@@ -112,7 +116,7 @@ const Events = ({ cityModel, language, navigateTo, events, slug, refresh }: Even
         refresh={refresh}
         noItemsMessage={t('currentlyNoEvents')}
       />
-    </Layout>
+    </ListContainer>
   )
 }
 

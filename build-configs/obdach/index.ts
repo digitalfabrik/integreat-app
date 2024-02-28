@@ -11,6 +11,7 @@ const commonObdachBuildConfig: CommonBuildConfigType = {
   cmsUrl: 'https://cms.netzwerkobdachwohnen.de',
   hostName: 'netzwerkobdachwohnen.de',
   allowedHostNames: ['cms.netzwerkobdachwohnen.de', 'admin.netzwerkobdachwohnen.de'],
+  allowedLookalikes: [],
   supportedIframeSources: ['vimeo.com'],
   internalLinksHijackPattern:
     'https?:\\/\\/((cms\\.)?netzwerkobdachwohnen\\.de)(?!\\/(media|[^/]*\\/(wp-content|wp-admin|wp-json))\\/.*).*',

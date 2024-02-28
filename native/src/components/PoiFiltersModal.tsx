@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next'
 import { SvgUri } from 'react-native-svg'
 import styled from 'styled-components/native'
 
-import { PoiCategoryModel, PoiModel } from 'shared/api'
+import { PoiCategoryModel } from 'shared/api'
 
 import { ClockIcon } from '../assets'
 import Modal from './Modal'
@@ -73,8 +73,8 @@ const StyledTextButton = styled(TextButton)`
 type PoiFiltersModalProps = {
   modalVisible: boolean
   closeModal: () => void
-  pois: PoiModel[]
-  selectedPoiCategory: PoiCategoryModel | null
+  poiCategories: PoiCategoryModel[]
+  selectedPoiCategory: PoiCategoryModel | undefined
   setSelectedPoiCategory: (poiCategory: PoiCategoryModel | null) => void
   currentlyOpenFilter: boolean
   setCurrentlyOpenFilter: (currentlyOpen: boolean) => void
@@ -84,16 +84,13 @@ type PoiFiltersModalProps = {
 const PoiFiltersModal = ({
   modalVisible,
   closeModal,
-  pois,
+  poiCategories,
   selectedPoiCategory,
   setSelectedPoiCategory,
   currentlyOpenFilter,
   setCurrentlyOpenFilter,
   poisCount,
 }: PoiFiltersModalProps): ReactElement => {
-  const poiCategories = pois
-    .map(it => it.category)
-    .filter((it, index, array) => array.findIndex(value => value.id === it.id) === index)
   const { t } = useTranslation('pois')
 
   return (

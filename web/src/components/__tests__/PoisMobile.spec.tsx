@@ -12,6 +12,7 @@ jest.mock('../MapView', () => () => <div>MapView</div>)
 
 describe('PoisMobile', () => {
   const pois = new PoiModelBuilder(3).build()
+  const poiCategories = pois.map(it => it.category)
   const userLocation = [10.994217, 48.415402] as LocationType
   const mapFeatures = prepareMapFeatures(pois)
   const selectMapFeature = jest.fn()
@@ -22,7 +23,7 @@ describe('PoisMobile', () => {
     renderWithRouterAndTheme(
       <PoisMobile
         toolbar={<div>Toolbar</div>}
-        data={{ pois, mapFeatures, poi }}
+        data={{ pois, mapFeatures, poi, poiCategories }}
         userLocation={userLocation}
         slug={poi?.slug}
         mapViewport={{} as MapViewViewport}
