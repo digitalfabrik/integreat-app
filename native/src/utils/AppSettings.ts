@@ -64,17 +64,6 @@ class AppSettings {
     await this.asyncStorage.multiSet(settingsArray)
   }
 
-  setVersion = async (version: string): Promise<void> => {
-    await this.setSettings({
-      storageVersion: version,
-    })
-  }
-
-  loadVersion = async (): Promise<string | null> => {
-    const settings = await this.loadSettings()
-    return settings.storageVersion
-  }
-
   setExternalSourcePermissions = async (permissions: ExternalSourcePermissions): Promise<void> => {
     await this.setSettings({
       externalSourcePermissions: permissions,
@@ -95,18 +84,6 @@ class AppSettings {
   loadContentLanguage = async (): Promise<string | null> => {
     const settings = await this.loadSettings()
     return settings.contentLanguage
-  }
-
-  setSelectedCity = async (city: string | null): Promise<void> => {
-    await this.setSettings({
-      selectedCity: city,
-    })
-  }
-
-  clearSelectedCity = async (): Promise<void> => {
-    await this.setSettings({
-      selectedCity: null,
-    })
   }
 
   setJpalTrackingCode = async (jpalTrackingCode: string | null): Promise<void> => {
@@ -137,20 +114,10 @@ class AppSettings {
     return jpalSignals
   }
 
-  loadSelectedCity = async (): Promise<string | null | undefined> => {
-    const settings = await this.loadSettings()
-    return settings.selectedCity
-  }
-
   setIntroShown = async (): Promise<void> => {
     await this.setSettings({
       introShown: true,
     })
-  }
-
-  loadIntroShown = async (): Promise<boolean | null> => {
-    const settings = await this.loadSettings()
-    return settings.introShown
   }
 
   setApiUrlOverride = async (apiUrlOverride: string): Promise<void> => {

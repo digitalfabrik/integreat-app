@@ -1,23 +1,29 @@
 import React, { createContext, ReactElement, useCallback, useEffect, useMemo, useState } from 'react'
-
-import { useLoadAsync } from 'shared/api'
+import { useTranslation } from 'react-i18next'
 
 import buildConfig from '../constants/buildConfig'
-import appSettings from '../utils/AppSettings'
+import appSettings, { defaultSettings, SettingsType } from '../utils/AppSettings'
 import dataContainer from '../utils/DefaultDataContainer'
 import { subscribeNews, unsubscribeNews } from '../utils/PushNotificationsManager'
 import { reportError } from '../utils/sentry'
 
-type AppContextType = {
+export type UpdateSettingsType = Partial<Omit<Omit<SettingsType, 'selectedCity'>, 'contentLanguage'>>
+
+export type AppContextType = {
+  settings: SettingsType
   cityCode: string | null
-  changeCityCode: (cityCode: string | null) => void
   languageCode: string
+  updateSettings: (settings: UpdateSettingsType) => void
+  changeCityCode: (cityCode: string | null) => void
   changeLanguageCode: (languageCode: string) => void
 }
+
 export const AppContext = createContext<AppContextType>({
+  settings: defaultSettings,
   cityCode: null,
-  changeCityCode: () => undefined,
   languageCode: '',
+  updateSettings: () => undefined,
+  changeCityCode: () => undefined,
   changeLanguageCode: () => undefined,
 })
 
@@ -26,31 +32,41 @@ type AppContextProviderProps = {
 }
 
 const AppContextProvider = ({ children }: AppContextProviderProps): ReactElement | null => {
-  const [cityCode, setCityCode] = useState<string | null>(null)
-  const [languageCode, setLanguageCode] = useState<string | null>(null)
+  const [settings, setSettings] = useState<SettingsType | null>(null)
+  const cityCode = settings?.selectedCity
+  const languageCode = settings?.contentLanguage
+  const { i18n } = useTranslation()
+  const uiLanguage = i18n.languages[0]
 
-  const loadSettings = useCallback(async () => {
-    const settings = await appSettings.loadSettings()
-    const { selectedCity, contentLanguage } = settings
-    if (!contentLanguage) {
-      throw new Error('Language not initialized by I18nProvider!')
-    }
-    setCityCode(buildConfig().featureFlags.fixedCity ?? selectedCity)
-    setLanguageCode(contentLanguage)
+  const loadSettings = useCallback(() => {
+    appSettings.loadSettings().then(setSettings).catch(reportError)
   }, [])
 
-  useLoadAsync(loadSettings)
+  const updateSettings = useCallback((settings: Partial<SettingsType>) => {
+    setSettings(oldSettings => (oldSettings ? { ...oldSettings, ...settings } : null))
+    appSettings.setSettings(settings).catch(reportError)
+  }, [])
+
+  useEffect(loadSettings, [loadSettings])
 
   useEffect(() => {
+    const { fixedCity } = buildConfig().featureFlags
     if (cityCode) {
       dataContainer.storeLastUsage(cityCode).catch(reportError)
+    } else if (fixedCity) {
+      updateSettings({ selectedCity: fixedCity })
     }
-  }, [cityCode])
+  }, [updateSettings, cityCode])
+
+  useEffect(() => {
+    if (!languageCode) {
+      updateSettings({ contentLanguage: uiLanguage })
+    }
+  }, [updateSettings, languageCode, uiLanguage])
 
   const changeCityCode = useCallback(
     (newCityCode: string | null): void => {
-      setCityCode(newCityCode)
-      appSettings.setSelectedCity(newCityCode).catch(reportError)
+      updateSettings({ selectedCity: newCityCode })
       if (languageCode && cityCode) {
         unsubscribeNews(cityCode, languageCode).catch(reportError)
       }
@@ -58,13 +74,12 @@ const AppContextProvider = ({ children }: AppContextProviderProps): ReactElement
         subscribeNews(newCityCode, languageCode).catch(reportError)
       }
     },
-    [cityCode, languageCode],
+    [updateSettings, cityCode, languageCode],
   )
 
   const changeLanguageCode = useCallback(
     (newLanguageCode: string): void => {
-      setLanguageCode(newLanguageCode)
-      appSettings.setContentLanguage(newLanguageCode).catch(reportError)
+      updateSettings({ contentLanguage: newLanguageCode })
       if (cityCode && languageCode) {
         unsubscribeNews(cityCode, languageCode).catch(reportError)
       }
@@ -72,15 +87,15 @@ const AppContextProvider = ({ children }: AppContextProviderProps): ReactElement
         subscribeNews(cityCode, newLanguageCode).catch(reportError)
       }
     },
-    [cityCode, languageCode],
+    [updateSettings, cityCode, languageCode],
   )
 
   const appContext = useMemo(
-    () => ({ cityCode, changeCityCode, languageCode, changeLanguageCode }),
-    [cityCode, changeCityCode, languageCode, changeLanguageCode],
+    () => ({ settings, cityCode, languageCode, updateSettings, changeCityCode, changeLanguageCode }),
+    [settings, cityCode, languageCode, updateSettings, changeCityCode, changeLanguageCode],
   )
 
-  return appContext.languageCode !== null ? (
+  return appContext.settings && appContext.languageCode !== null ? (
     // @ts-expect-error typescript complains about null value even though we check for null
     <AppContext.Provider value={appContext}>{children}</AppContext.Provider>
   ) : null

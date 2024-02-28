@@ -5,8 +5,8 @@ import React from 'react'
 import { OFFERS_ROUTE, OffersRouteType } from 'shared'
 import { CategoriesMapModelBuilder, LanguageModelBuilder, CityModelBuilder, ErrorCode, OfferModel } from 'shared/api'
 
-import { AppContext } from '../../contexts/AppContextProvider'
 import useLoadExtraCityContent, { UseLoadExtraCityContentReturn } from '../../hooks/useLoadExtraCityContent'
+import TestingAppContext from '../../testing/TestingAppContext'
 import createNavigationScreenPropMock from '../../testing/createNavigationPropMock'
 import render from '../../testing/render'
 import OffersContainer from '../OffersContainer'
@@ -37,8 +37,6 @@ jest.mock('react-native/Libraries/Components/RefreshControl/RefreshControl', () 
 
 describe('OffersContainer', () => {
   const navigation = createNavigationScreenPropMock<OffersRouteType>()
-  const changeCityCode = jest.fn()
-  const changeLanguageCode = jest.fn()
   const route = {
     key: 'route-id-0',
     name: OFFERS_ROUTE,
@@ -68,13 +66,12 @@ describe('OffersContainer', () => {
     error: null,
     data,
   }
-  const context = { changeCityCode, changeLanguageCode, cityCode: city.code, languageCode: language.code }
 
   const renderOffersContainer = () =>
     render(
-      <AppContext.Provider value={context}>
+      <TestingAppContext>
         <OffersContainer route={route} navigation={navigation} />
-      </AppContext.Provider>,
+      </TestingAppContext>,
     )
 
   beforeEach(() => {

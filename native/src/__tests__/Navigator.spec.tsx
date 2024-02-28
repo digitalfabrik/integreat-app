@@ -6,7 +6,7 @@ import React from 'react'
 import { CityModelBuilder, ReturnType, useLoadAsync } from 'shared/api'
 
 import Navigator from '../Navigator'
-import { AppContext } from '../contexts/AppContextProvider'
+import TestingAppContext from '../testing/TestingAppContext'
 import render from '../testing/render'
 import { defaultSettings, SettingsType } from '../utils/AppSettings'
 import dataContainer from '../utils/DefaultDataContainer'
@@ -129,11 +129,11 @@ jest.mock('../utils/FetcherModule')
 const changeCityCode = jest.fn()
 const renderNavigator = (cityCode: string | null = null) =>
   render(
-    <AppContext.Provider value={{ changeCityCode, changeLanguageCode: jest.fn(), cityCode, languageCode: 'de' }}>
+    <TestingAppContext changeCityCode={changeCityCode} cityCode={cityCode}>
       <NavigationContainer>
         <Navigator />
       </NavigationContainer>
-    </AppContext.Provider>,
+    </TestingAppContext>,
   )
 
 describe('Navigator', () => {

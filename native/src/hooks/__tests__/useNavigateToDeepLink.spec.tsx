@@ -16,7 +16,7 @@ import {
 } from 'shared'
 
 import buildConfig from '../../constants/buildConfig'
-import { AppContext } from '../../contexts/AppContextProvider'
+import TestingAppContext from '../../testing/TestingAppContext'
 import createNavigationPropMock from '../../testing/createNavigationPropMock'
 import render from '../../testing/render'
 import appSettings from '../../utils/AppSettings'
@@ -38,7 +38,6 @@ describe('useNavigateToDeepLink', () => {
   mocked(useNavigate).mockImplementation(() => ({ navigateTo, navigation }))
 
   const changeCityCode = jest.fn()
-  const changeLanguageCode = jest.fn()
   const selectedLanguageCode = 'de'
 
   const mockBuildConfig = (featureFlags: Partial<FeatureFlagsType>) => {
@@ -61,9 +60,9 @@ describe('useNavigateToDeepLink', () => {
 
   const renderMockComponent = (url: string, cityCode: string | null = null, languageCode = selectedLanguageCode) =>
     render(
-      <AppContext.Provider value={{ changeCityCode, changeLanguageCode, cityCode, languageCode }}>
+      <TestingAppContext cityCode={cityCode} languageCode={languageCode} changeCityCode={changeCityCode}>
         <MockComponent url={url} />
-      </AppContext.Provider>,
+      </TestingAppContext>,
     )
 
   const expectTrackingSignal = (url: string) => {

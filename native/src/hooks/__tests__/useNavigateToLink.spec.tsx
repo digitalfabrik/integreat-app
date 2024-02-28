@@ -9,7 +9,7 @@ import {
   PDF_VIEW_MODAL_ROUTE,
 } from 'shared'
 
-import { AppContext } from '../../contexts/AppContextProvider'
+import TestingAppContext from '../../testing/TestingAppContext'
 import createNavigationPropMock from '../../testing/createNavigationPropMock'
 import render from '../../testing/render'
 import openExternalUrl from '../../utils/openExternalUrl'
@@ -29,10 +29,6 @@ describe('useNavigateToLink', () => {
   const navigation = createNavigationPropMock()
   mocked(useSnackbar).mockImplementation(() => showSnackbar)
   mocked(useNavigate).mockImplementation(() => ({ navigateTo, navigation }))
-
-  const changeCityCode = jest.fn()
-  const changeLanguageCode = jest.fn()
-  const cityCode = 'augsburg'
   const languageCode = 'de'
 
   const MockComponent = ({ url, shareUrl }: { url: string; shareUrl: string }) => {
@@ -43,13 +39,12 @@ describe('useNavigateToLink', () => {
 
     return null
   }
-  const context = { changeCityCode, changeLanguageCode, cityCode, languageCode }
 
   const renderMockComponent = (url: string, shareUrl: string) =>
     render(
-      <AppContext.Provider value={context}>
+      <TestingAppContext>
         <MockComponent url={url} shareUrl={shareUrl} />
-      </AppContext.Provider>,
+      </TestingAppContext>,
     )
   const shareUrl = 'https://example.com/my/share/url'
 

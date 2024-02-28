@@ -1,4 +1,4 @@
-import { useCallback, useContext } from 'react'
+import { useCallback } from 'react'
 import Url from 'url-parse'
 
 import {
@@ -18,10 +18,9 @@ import {
 import { SnackbarType } from '../components/SnackbarContainer'
 import { NavigationProps, RoutesType } from '../constants/NavigationTypes'
 import buildConfig from '../constants/buildConfig'
-import { AppContext } from '../contexts/AppContextProvider'
-import appSettings from '../utils/AppSettings'
+import { AppContextType } from '../contexts/AppContextProvider'
 import sendTrackingSignal from '../utils/sendTrackingSignal'
-import { reportError } from '../utils/sentry'
+import { useAppContext } from './useCityAppContext'
 import useNavigate from './useNavigate'
 import useSnackbar from './useSnackbar'
 
@@ -29,22 +28,19 @@ type NavigateToDeepLinkParams<T extends RoutesType> = {
   url: string
   navigation: NavigationProps<T>
   navigateTo: (route: RouteInformationType) => void
-  cityCode: string | null
-  languageCode: string
-  changeCityCode: (cityCode: string) => void
   showSnackbar: (snackbar: SnackbarType) => void
+  appContext: AppContextType
 }
 
-const navigateToDeepLink = async <T extends RoutesType>({
+const navigateToDeepLink = <T extends RoutesType>({
   url,
   navigation,
   navigateTo,
-  cityCode,
-  languageCode,
-  changeCityCode,
   showSnackbar,
-}: NavigateToDeepLinkParams<T>): Promise<void> => {
-  const { introShown } = await appSettings.loadSettings()
+  appContext,
+}: NavigateToDeepLinkParams<T>): void => {
+  const { settings, cityCode, languageCode, changeCityCode, updateSettings } = appContext
+  const { introShown } = settings
   const { introSlides, fixedCity } = buildConfig().featureFlags
 
   sendTrackingSignal({
@@ -70,9 +66,9 @@ const navigateToDeepLink = async <T extends RoutesType>({
 
   if (routeInformation.route === JPAL_TRACKING_ROUTE && buildConfig().featureFlags.jpalTracking) {
     if (routeInformation.trackingCode === null) {
-      await appSettings.setJpalTrackingEnabled(false)
+      updateSettings({ jpalTrackingEnabled: false })
     } else {
-      await appSettings.setJpalTrackingCode(routeInformation.trackingCode)
+      updateSettings({ jpalTrackingCode: routeInformation.trackingCode })
     }
   }
 
@@ -112,12 +108,11 @@ const navigateToDeepLink = async <T extends RoutesType>({
 
 const useNavigateToDeepLink = (): ((url: string) => void) => {
   const showSnackbar = useSnackbar()
-  const appContext = useContext(AppContext)
+  const appContext = useAppContext()
   const { navigation, navigateTo } = useNavigate()
 
   return useCallback(
-    async (url: string) =>
-      navigateToDeepLink({ url, navigation, navigateTo, ...appContext, showSnackbar }).catch(reportError),
+    (url: string) => navigateToDeepLink({ url, navigation, navigateTo, appContext, showSnackbar }),
     [appContext, navigation, navigateTo, showSnackbar],
   )
 }

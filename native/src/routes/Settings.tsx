@@ -1,5 +1,4 @@
-import { useFocusEffect } from '@react-navigation/native'
-import React, { ReactElement, useCallback, useContext, useState } from 'react'
+import React, { ReactElement, useContext } from 'react'
 import { useTranslation } from 'react-i18next'
 import { SectionList, SectionListData } from 'react-native'
 import styled from 'styled-components/native'
@@ -12,6 +11,7 @@ import SettingItem from '../components/SettingItem'
 import ItemSeparator from '../components/base/ItemSeparator'
 import { NavigationProps } from '../constants/NavigationTypes'
 import { AppContext } from '../contexts/AppContextProvider'
+import { useAppContext } from '../hooks/useCityAppContext'
 import useSnackbar from '../hooks/useSnackbar'
 import appSettings, { SettingsType } from '../utils/AppSettings'
 import createSettingsSections, { SettingsSectionType } from '../utils/createSettingsSections'
@@ -31,34 +31,18 @@ const SectionHeader = styled.Text`
 `
 
 const Settings = ({ navigation }: SettingsProps): ReactElement => {
-  const [settings, setSettings] = useState<SettingsType | null>(null)
+  const { settings, updateSettings } = useAppContext()
   const { cityCode, languageCode } = useContext(AppContext)
   const showSnackbar = useSnackbar()
   const { t } = useTranslation('settings')
-
-  useFocusEffect(
-    useCallback(() => {
-      appSettings
-        .loadSettings()
-        .then(settings => setSettings(settings))
-        .catch(e => {
-          log('Failed to load settings.', 'error')
-          reportError(e)
-        })
-    }, []),
-  )
 
   const setSetting = async (
     changeSetting: (settings: SettingsType) => Partial<SettingsType>,
     changeAction?: (settings: SettingsType) => Promise<boolean>,
   ) => {
-    if (!settings) {
-      return
-    }
-
     const oldSettings = settings
     const newSettings = { ...oldSettings, ...changeSetting(settings) }
-    setSettings(newSettings)
+    updateSettings(newSettings)
 
     try {
       const successful = changeAction ? await changeAction(newSettings) : true
@@ -66,18 +50,18 @@ const Settings = ({ navigation }: SettingsProps): ReactElement => {
       if (successful) {
         await appSettings.setSettings(newSettings)
       } else {
-        setSettings(oldSettings)
+        updateSettings(oldSettings)
       }
     } catch (e) {
       log('Failed to persist settings.', 'error')
       reportError(e)
-      setSettings(oldSettings)
+      updateSettings(oldSettings)
     }
   }
 
   const renderItem = ({ item }: { item: SettingsSectionType }) => {
     const { getSettingValue, ...otherProps } = item
-    const value = !!(settings && getSettingValue && getSettingValue(settings))
+    const value = !!(getSettingValue && getSettingValue(settings))
     return <SettingItem value={value} key={otherProps.title} {...otherProps} />
   }
 
@@ -87,10 +71,6 @@ const Settings = ({ navigation }: SettingsProps): ReactElement => {
     }
 
     return <SectionHeader>{title}</SectionHeader>
-  }
-
-  if (!settings) {
-    return <Layout />
   }
 
   const sections = createSettingsSections({
