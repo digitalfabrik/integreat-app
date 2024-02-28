@@ -59,10 +59,10 @@ const AppContextProvider = ({ children }: AppContextProviderProps): ReactElement
   }, [updateSettings, cityCode])
 
   useEffect(() => {
-    if (!languageCode) {
+    if (settings && !languageCode && uiLanguage) {
       updateSettings({ contentLanguage: uiLanguage })
     }
-  }, [updateSettings, languageCode, uiLanguage])
+  }, [settings, updateSettings, languageCode, uiLanguage])
 
   const changeCityCode = useCallback(
     (newCityCode: string | null): void => {
