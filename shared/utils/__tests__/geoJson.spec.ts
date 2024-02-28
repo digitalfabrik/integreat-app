@@ -12,7 +12,7 @@ describe('geoJson', () => {
 
   const geoJsonMarkerFeature = (id: number, ...pois: PoiModel[]): MapFeature => ({
     type: 'Feature',
-    id: id.toString(),
+    id,
     geometry: {
       type: 'Point',
       coordinates: pois[0]!.location.coordinates,
@@ -38,11 +38,11 @@ describe('geoJson', () => {
     })
   })
 
-  it('should prepare feature locations', () => {
+  it('should prepare map features', () => {
     expect(prepareMapFeature([poi1, poi3], 0, [30, 30])).toEqual(geoJsonMarkerFeature(0, poi1, poi3))
   })
 
-  describe('prepareFeatureLocations', () => {
+  describe('prepareMapFeatures', () => {
     it('should group close poiFeatures into single features', () => {
       expect(prepareMapFeatures([poi1, poi2, poi3])).toEqual([
         geoJsonMarkerFeature(0, poi1, poi3),

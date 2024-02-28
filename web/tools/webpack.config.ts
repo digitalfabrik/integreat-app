@@ -49,6 +49,10 @@ const generateAssetLinks = (buildConfig: WebBuildConfigType) => {
           sha256_cert_fingerprints: [buildConfig.apps.android.sha256CertFingerprint],
         },
       },
+      ...buildConfig.allowedLookalikes.map(lookalikeSite => ({
+        relation: ['lookalikes/allowlist'],
+        target: { namespace: 'web', site: lookalikeSite },
+      })),
     ],
     null,
     2,
