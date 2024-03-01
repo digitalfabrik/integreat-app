@@ -91,9 +91,8 @@ export const webIntegreatBuildConfig: WebBuildConfigType = {
   mainImprint,
   manifestUrl: '/manifest.json',
   icons: {
-    appLogo: '/app-logo.png',
+    appLogo: '/app-logo.svg',
     appLogoMobile: '/app-icon-round.svg',
-    locationMarker: '/location-marker.svg',
     cityNotCooperating: '/city-not-cooperating.svg',
     appleTouchIcon: '/apple-touch-icon.png',
     socialMediaPreview: '/social-media-preview.png',
@@ -101,11 +100,11 @@ export const webIntegreatBuildConfig: WebBuildConfigType = {
   },
   splashScreen: {
     backgroundColor: lightTheme.colors.themeColor,
-    imageUrl: '/app-icon-cornered.jpg',
+    imageUrl: '/app-icon-cornered.svg',
   },
   campaign: {
-    campaignAppLogo: '/campaign-app-logo.png',
-    campaignAppLogoMobile: '/campaign-app-logo-mobile.png',
+    campaignAppLogo: '/campaign-app-logo.svg',
+    campaignAppLogoMobile: '/campaign-app-logo-mobile.svg',
     startDate: '2023-03-06T00:00:00.000Z',
     endDate: '2023-03-13T00:00:00.000Z',
   },
