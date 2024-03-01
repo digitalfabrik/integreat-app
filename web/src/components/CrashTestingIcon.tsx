@@ -12,7 +12,7 @@ const StyledIcon = styled(Icon)`
   margin: 0 auto;
 `
 
-const LandingIcon = (): ReactElement => {
+const CrashTestingIcon = (): ReactElement => {
   const [counter, setCounter] = useState(0)
 
   const increment = () => {
@@ -33,4 +33,4 @@ const LandingIcon = (): ReactElement => {
   )
 }
 
-export default LandingIcon
+export default CrashTestingIcon

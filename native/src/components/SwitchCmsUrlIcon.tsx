@@ -13,6 +13,12 @@ import TextButton from './base/TextButton'
 const API_URL_OVERRIDE_MIN_CLICKS = 10
 const CLICK_TIMEOUT = 8
 
+const Container = styled.View`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`
+
 const ApiUrlText = styled.Text`
   padding-top: 10px;
   color: red;
@@ -36,7 +42,7 @@ type LandingIconProps = {
   clearResourcesAndCache: () => void
 }
 
-const LandingIcon = ({ clearResourcesAndCache }: LandingIconProps): ReactElement => {
+const SwitchCmsUrlIcon = ({ clearResourcesAndCache }: LandingIconProps): ReactElement => {
   const [clickCount, setClickCount] = useState(0)
   const [apiUrlOverride, setApiUrlOverride] = useState<string | null>(null)
   const [clickStart, setClickStart] = useState<null | DateTime>(null)
@@ -76,7 +82,7 @@ const LandingIcon = ({ clearResourcesAndCache }: LandingIconProps): ReactElement
   }
 
   return (
-    <>
+    <Container>
       <StyledPressable onPress={onImagePress}>
         <StyledIcon Icon={LocationMarkerIcon} />
       </StyledPressable>
@@ -86,8 +92,8 @@ const LandingIcon = ({ clearResourcesAndCache }: LandingIconProps): ReactElement
           <StyledButton onPress={() => setApiUrl(cmsUrl)} text='Switch back to default API' />
         </>
       ) : null}
-    </>
+    </Container>
   )
 }
 
-export default LandingIcon
+export default SwitchCmsUrlIcon
