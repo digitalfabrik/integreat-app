@@ -7,7 +7,7 @@ import { CityModel } from 'shared/api'
 
 import CityNotCooperatingFooter from '../components/CityNotCooperatingFooter'
 import CitySelector from '../components/CitySelector'
-import Heading from '../components/Heading'
+import SwitchCmsUrlIcon from '../components/SwitchCmsUrlIcon'
 import { NavigationProps } from '../constants/NavigationTypes'
 import { AppContext } from '../contexts/AppContextProvider'
 import useLoadCities from '../hooks/useLoadCities'
@@ -52,7 +52,7 @@ const Landing = ({ navigation }: LandingProps): ReactElement => {
       {cities && (
         <>
           <Wrapper {...testID('Landing-Page')}>
-            <Heading clearResourcesAndCache={clearResourcesAndCache} />
+            <SwitchCmsUrlIcon clearResourcesAndCache={clearResourcesAndCache} />
             <CitySelector cities={cities} navigateToDashboard={navigateToDashboard} />
           </Wrapper>
           <CityNotCooperatingFooter

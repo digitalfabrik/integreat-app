@@ -18,7 +18,14 @@
     "target": "ES2019",
     "types": ["jest", "node", "react"]
   },
-  "include": ["src/**/*", "tools/*", "assets/licenses.json", "jest.setup.ts", "jest.config.ts", "stylelint.config.js"],
+  "include": [
+    "src/**/*",
+    "tools/*",
+    "src/assets/licenses.json",
+    "jest.setup.ts",
+    "jest.config.ts",
+    "stylelint.config.js"
+  ],
   "references": [
     {
       "path": "../translations"

@@ -26,6 +26,7 @@ import HouseIcon from '../../../assets/icons/house.svg'
 import KeyIcon from '../../../assets/icons/key.svg'
 import LanguageIcon from '../../../assets/icons/language.svg'
 import LgbtqiIcon from '../../../assets/icons/lgbtqi.svg'
+import LocationMarkerIcon from '../../../assets/icons/location-marker.svg'
 import LocationIcon from '../../../assets/icons/location.svg'
 import MailIcon from '../../../assets/icons/mail.svg'
 import MenuIcon from '../../../assets/icons/menu.svg'
@@ -80,6 +81,7 @@ export {
   LanguageIcon,
   LgbtqiIcon,
   LocationIcon,
+  LocationMarkerIcon,
   MailIcon,
   MenuIcon,
   NewsIcon,
