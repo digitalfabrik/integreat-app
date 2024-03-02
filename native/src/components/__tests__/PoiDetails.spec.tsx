@@ -16,10 +16,7 @@ jest.mock('@react-native-clipboard/clipboard', () => ({
 }))
 jest.mock('../../hooks/useSnackbar')
 jest.mock('styled-components')
-jest.mock('../Page', () => {
-  const { Text } = require('react-native')
-  return ({ content }: { content: string }) => <Text>{content}</Text>
-})
+jest.mock('../Page')
 jest.mock('react-i18next', () => ({
   useTranslation: () => ({
     t: (key: string, params: { distance: string } | undefined) => (params ? `${key}: ${params.distance}` : key),

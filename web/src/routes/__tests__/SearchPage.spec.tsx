@@ -57,10 +57,8 @@ describe('SearchPage', () => {
     <SearchPage city={cityModel} pathname={pathname} cityCode={cityModel.code} languageCode={languageCode} />
   )
 
-  const renderSearch = ({ query }: { query?: string } = {}) => {
-    const pathnameWithQuery = query ? `${pathname}${query}` : pathname
-    return renderRoute(searchPage, { routePattern, pathname: pathnameWithQuery })
-  }
+  const renderSearch = ({ query }: { query?: string } = {}) =>
+    renderRoute(searchPage, { routePattern, pathname, searchParams: query })
 
   it('should display results', () => {
     const { getByPlaceholderText, getByText } = renderSearch()

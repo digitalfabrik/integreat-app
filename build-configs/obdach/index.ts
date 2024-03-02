@@ -11,6 +11,7 @@ const commonObdachBuildConfig: CommonBuildConfigType = {
   cmsUrl: 'https://cms.netzwerkobdachwohnen.de',
   hostName: 'netzwerkobdachwohnen.de',
   allowedHostNames: ['cms.netzwerkobdachwohnen.de', 'admin.netzwerkobdachwohnen.de'],
+  allowedLookalikes: [],
   supportedIframeSources: ['vimeo.com'],
   internalLinksHijackPattern:
     'https?:\\/\\/((cms\\.)?netzwerkobdachwohnen\\.de)(?!\\/(media|[^/]*\\/(wp-content|wp-admin|wp-json))\\/.*).*',
@@ -43,7 +44,6 @@ export const webObdachBuildConfig: WebBuildConfigType = {
   icons: {
     appLogo: '/app-logo.png',
     appLogoMobile: '/app-icon-round.svg',
-    locationMarker: '/location-marker.svg',
     appleTouchIcon: '/apple-touch-icon.png',
     socialMediaPreview: '/social-media-preview.png',
     favicons: '/favicons/',

@@ -57,7 +57,7 @@ const getModulesByLanguage = (keyModuleArray: KeyModuleType[], language: string)
   keyModuleArray.map(([moduleKey, module]) => [moduleKey, module[language] || EMPTY_MODULE])
 
 /**
- * Create a a translation skeleton which has all keys set to an empty string
+ * Create a translation skeleton which has all keys set to an empty string
  *
  * @param language The language which serves as the skeleton
  * @param moduleArray The array of modules (containing all languages) with its keys

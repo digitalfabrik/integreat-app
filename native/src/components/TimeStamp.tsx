@@ -9,15 +9,11 @@ const TimeStampText = styled.Text`
   color: ${props => props.theme.colors.textSecondaryColor};
   font-family: ${props => props.theme.fonts.native.contentFontRegular};
 `
-type DirectionContainerProps = {
-  language: string
-  children: React.ReactNode
-}
-
-const DirectionContainer = styled.View<DirectionContainerProps>`
+const DirectionContainer = styled.View<{ language: string }>`
   display: flex;
   flex-direction: ${props => contentDirection(props.language)};
 `
+
 type TimeStampProps = {
   lastUpdate: DateTime
   showText?: boolean

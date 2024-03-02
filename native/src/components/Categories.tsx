@@ -99,12 +99,7 @@ const Categories = ({
             scrollEnabled={false}
           />
         ) : (
-          <EmbeddedOffers
-            embeddedOffers={category.embeddedOffers}
-            cityCode={cityModel.code}
-            languageCode={language}
-            goBack={goBack}
-          />
+          <EmbeddedOffers category={category} cityCode={cityModel.code} languageCode={language} goBack={goBack} />
         )
       }
     />

@@ -22,6 +22,7 @@ const commonIntegreatBuildConfig: CommonBuildConfigType = {
   switchCmsUrl: 'https://cms-test.integreat-app.de',
   hostName: 'integreat.app',
   allowedHostNames: ['cms.integreat-app.de', 'cms-test.integreat-app.de', 'admin.integreat-app.de'],
+  allowedLookalikes: ['https://integreat.app', 'https://integreat-app.de'],
   supportedIframeSources: ['vimeo.com'],
   internalLinksHijackPattern:
     'https?:\\/\\/(cms(-test)?\\.integreat-app\\.de|web\\.integreat-app\\.de|integreat\\.app)(?!\\/(media|[^/]*\\/(wp-content|wp-admin|wp-json))\\/.*).*',
@@ -90,9 +91,8 @@ export const webIntegreatBuildConfig: WebBuildConfigType = {
   mainImprint,
   manifestUrl: '/manifest.json',
   icons: {
-    appLogo: '/app-logo.png',
+    appLogo: '/app-logo.svg',
     appLogoMobile: '/app-icon-round.svg',
-    locationMarker: '/location-marker.svg',
     cityNotCooperating: '/city-not-cooperating.svg',
     appleTouchIcon: '/apple-touch-icon.png',
     socialMediaPreview: '/social-media-preview.png',
@@ -100,11 +100,11 @@ export const webIntegreatBuildConfig: WebBuildConfigType = {
   },
   splashScreen: {
     backgroundColor: lightTheme.colors.themeColor,
-    imageUrl: '/app-icon-cornered.jpg',
+    imageUrl: '/app-icon-cornered.svg',
   },
   campaign: {
-    campaignAppLogo: '/campaign-app-logo.png',
-    campaignAppLogoMobile: '/campaign-app-logo-mobile.png',
+    campaignAppLogo: '/campaign-app-logo.svg',
+    campaignAppLogoMobile: '/campaign-app-logo-mobile.svg',
     startDate: '2023-03-06T00:00:00.000Z',
     endDate: '2023-03-13T00:00:00.000Z',
   },

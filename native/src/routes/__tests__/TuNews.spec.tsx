@@ -15,7 +15,7 @@ import render from '../../testing/render'
 import TuNews from '../TuNews'
 
 jest.mock('react-i18next')
-jest.mock('../../components/Page', () => ({ content }: { content: string }) => <Text>{content}</Text>)
+jest.mock('../../components/Page')
 jest.mock('../../hooks/useLoadTuNews')
 jest.mock('shared', () => ({
   ...jest.requireActual('shared'),

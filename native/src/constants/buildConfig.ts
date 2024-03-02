@@ -16,19 +16,16 @@ import integreatIntroEventsIcon from 'build-configs/integreat/assets/intro-slide
 import integreatIntroLanguageIcon from 'build-configs/integreat/assets/intro-slides/Language.svg'
 import integreatIntroOffersIcon from 'build-configs/integreat/assets/intro-slides/Offers.svg'
 import integreatIntroSearchIcon from 'build-configs/integreat/assets/intro-slides/Search.svg'
-import integreatLocationMarker from 'build-configs/integreat/assets/location-marker.svg'
 import malteLoadingImage from 'build-configs/malte/assets/app-icon-circle.svg'
 import malteAppIcon from 'build-configs/malte/assets/app-icon-round.svg'
 import malteIntroEventsIcon from 'build-configs/malte/assets/intro-slides/Events.svg'
 import malteIntroLanguageIcon from 'build-configs/malte/assets/intro-slides/Language.svg'
 import malteIntroOffersIcon from 'build-configs/malte/assets/intro-slides/Offers.svg'
 import malteIntroSearchIcon from 'build-configs/malte/assets/intro-slides/Search.svg'
-import malteLocationMarker from 'build-configs/malte/assets/location-marker.svg'
 
 type AssetsType = {
   AppIcon: React.JSXElementConstructor<SvgProps>
   LoadingImage: React.JSXElementConstructor<SvgProps>
-  LocationMarker?: React.JSXElementConstructor<SvgProps>
   CityNotCooperatingIcon?: React.JSXElementConstructor<SvgProps>
   intro?: {
     Events: React.JSXElementConstructor<SvgProps>
@@ -47,7 +44,6 @@ export const buildConfigAssets = (): AssetsType => {
     return {
       AppIcon: integreatAppIcon,
       LoadingImage: integreatLoadingImage,
-      LocationMarker: integreatLocationMarker,
       CityNotCooperatingIcon: integreatCityNotCooperatingIcon,
       intro: {
         Events: integreatIntroEventsIcon,
@@ -61,7 +57,6 @@ export const buildConfigAssets = (): AssetsType => {
     return {
       AppIcon: malteAppIcon,
       LoadingImage: malteLoadingImage,
-      LocationMarker: malteLocationMarker,
       intro: {
         Events: malteIntroEventsIcon,
         Language: malteIntroLanguageIcon,

@@ -121,7 +121,12 @@ const navigate = <T extends RoutesType>(
       if (!buildConfig().featureFlags.pois) {
         break
       }
-      navigation.push(POIS_ROUTE, { slug: routeInformation.slug, multipoi: routeInformation.multipoi })
+      navigation.push(POIS_ROUTE, {
+        slug: routeInformation.slug,
+        multipoi: routeInformation.multipoi,
+        zoom: routeInformation.zoom,
+        poiCategoryId: routeInformation.poiCategoryId,
+      })
       return
 
     case SEARCH_ROUTE:

@@ -3,7 +3,7 @@ native/ios/**/*
 native/vendor/**/*
 
 native/src/assets/licenses.json
-web/assets/licenses.json
+web/src/assets/licenses.json
 
 web/www/icons
 web/www/fonts

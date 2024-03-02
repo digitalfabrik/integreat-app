@@ -15,6 +15,7 @@ import {
 } from 'shared'
 
 import CityContentSwitcher from './CityContentSwitcher'
+import FixedCityContentSwitcher from './FixedCityContentSwitcher'
 import LoadingSpinner from './components/LoadingSpinner'
 import buildConfig from './constants/buildConfig'
 import useScrollToTop from './hooks/useScrollToTop'
@@ -50,7 +51,6 @@ const RootSwitcher = ({ setContentLanguage }: RootSwitcherProps): ReactElement =
 
   const landingPath = pathnameFromRouteInformation({ route: LANDING_ROUTE, languageCode: language })
   const fixedCityPath = fixedCity ? cityContentPath({ cityCode: fixedCity, languageCode: language }) : null
-
   return (
     <Suspense fallback={<LoadingSpinner />}>
       <Routes>
@@ -59,7 +59,16 @@ const RootSwitcher = ({ setContentLanguage }: RootSwitcherProps): ReactElement =
         <Route path={RoutePatterns[NOT_FOUND_ROUTE]} element={<NotFoundPage />} />
         <Route path={RoutePatterns[CONSENT_ROUTE]} element={<ConsentPage languageCode={language} />} />
         <Route path={RoutePatterns[LICENSES_ROUTE]} element={<LicensesPage languageCode={language} />} />
-        <Route path={cityContentPattern} element={<CityContentSwitcher languageCode={language} />} />
+        <Route
+          path={cityContentPattern}
+          element={
+            fixedCity ? (
+              <FixedCityContentSwitcher languageCode={language} fixedCity={fixedCity} />
+            ) : (
+              <CityContentSwitcher languageCode={language} />
+            )
+          }
+        />
 
         {cityNotCooperating && (
           <Route
