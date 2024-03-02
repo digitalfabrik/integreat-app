@@ -1,10 +1,9 @@
-import { TFunction } from 'i18next'
-import React, { ReactElement, useState } from 'react'
+import React, { ReactElement, useContext, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import { KeyboardAvoidingView, Platform } from 'react-native'
-import styled from 'styled-components/native'
+import styled, { ThemeContext } from 'styled-components/native'
 
-import { ThemeType } from 'build-configs'
-import { parseHTML, SEARCH_FINISHED_SIGNAL_NAME, SEARCH_ROUTE, SearchResult, useMiniSearch } from 'shared'
+import { parseHTML, SEARCH_FINISHED_SIGNAL_NAME, SEARCH_ROUTE, SearchResult, useSearch } from 'shared'
 
 import FeedbackContainer from '../components/FeedbackContainer'
 import HorizontalLine from '../components/HorizontalLine'
@@ -27,30 +26,25 @@ const Wrapper = styled.View`
 
 export type SearchModalProps = {
   allPossibleResults: Array<SearchResult>
-  theme: ThemeType
   languageCode: string
   cityCode: string
   closeModal: (query: string) => void
-  t: TFunction<'search'>
   initialSearchText: string
 }
 
 const SearchModal = ({
   allPossibleResults,
-  theme,
   languageCode,
   cityCode,
   closeModal,
-  t,
-  initialSearchText = '',
+  initialSearchText,
 }: SearchModalProps): ReactElement => {
   const [query, setQuery] = useState<string>(initialSearchText)
   const resourceCache = useResourceCache({ cityCode, languageCode })
+  const theme = useContext(ThemeContext)
+  const { t } = useTranslation('search')
 
-  const minisearch = useMiniSearch(allPossibleResults)
-
-  // Minisearch doesn't add the returned storeFields (e.g. title or path) to its typing
-  const searchResults = minisearch.search(query) as unknown as SearchResult[]
+  const searchResults = useSearch(allPossibleResults, query)
 
   const onClose = (): void => {
     sendTrackingSignal({
@@ -81,9 +75,10 @@ const SearchModal = ({
       <SearchHeader theme={theme} query={query} closeSearchBar={onClose} onSearchChanged={setQuery} t={t} />
       <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : undefined} style={{ flex: 1 }}>
         <List
-          items={query.length > 0 ? searchResults : allPossibleResults}
+          items={searchResults}
           renderItem={renderItem}
           accessibilityLabel={t('searchResultsCount', { count: searchResults.length })}
+          style={{ flex: 1 }}
           noItemsMessage={
             <>
               <NothingFound />

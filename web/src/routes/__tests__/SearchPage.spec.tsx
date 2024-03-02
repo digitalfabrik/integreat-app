@@ -15,9 +15,7 @@ jest.mock('react-i18next')
 jest.mock('../../hooks/useAllPossibleSearchResults')
 jest.mock('shared', () => ({
   ...jest.requireActual('shared'),
-  useMiniSearch: (results: SearchResult[]) => ({
-    search: (query: string) => (query === 'no results, please' ? [] : results),
-  }),
+  useSearch: (results: SearchResult[], query: string) => (query === 'no results, please' ? [] : results),
 }))
 
 describe('SearchPage', () => {

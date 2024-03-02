@@ -8,8 +8,8 @@ export type SearchResult = {
   path: string
 }
 
-const useMiniSearch = (allPossibleResults: SearchResult[]): MiniSearch<SearchResult> =>
-  useMemo(() => {
+const useSearch = (allPossibleResults: SearchResult[], query: string): SearchResult[] => {
+  const minisearch = useMemo(() => {
     const search = new MiniSearch({
       idField: 'path',
       fields: ['title', 'content'],
@@ -20,8 +20,12 @@ const useMiniSearch = (allPossibleResults: SearchResult[]): MiniSearch<SearchRes
         prefix: true,
       },
     })
-    search.addAll(allPossibleResults)
+    search.addAllAsync(allPossibleResults)
     return search
   }, [allPossibleResults])
 
-export default useMiniSearch
+  // @ts-expect-error minisearch doesn't add the returned storeFields (e.g. title or path) to its typing
+  return query.length === 0 ? allPossibleResults : minisearch.search(query)
+}
+
+export default useSearch

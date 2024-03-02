@@ -77,7 +77,7 @@ const SearchListItem = ({
     return <View />
   }
 
-  const followPath = (): void => {
+  const navigateToSearchResult = (): void => {
     sendTrackingSignal({
       signal: {
         name: SEARCH_FINISHED_SIGNAL_NAME,
@@ -113,7 +113,7 @@ const SearchListItem = ({
   )
 
   return (
-    <FlexStyledLink onPress={followPath} accessibilityHint={t('itemHint')}>
+    <FlexStyledLink onPress={navigateToSearchResult} accessibilityHint={t('itemHint')}>
       <DirectionContainer language={language}>
         <SearchEntryContainer>
           <TitleDirectionContainer language={language}>

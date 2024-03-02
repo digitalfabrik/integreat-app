@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next'
 import { useLocation, useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
 
-import { parseHTML, pathnameFromRouteInformation, SEARCH_ROUTE, useMiniSearch } from 'shared'
+import { parseHTML, pathnameFromRouteInformation, SEARCH_ROUTE, useSearch } from 'shared'
 
 import { CityRouteProps } from '../CityContentSwitcher'
 import CityContentLayout, { CityContentLayoutProps } from '../components/CityContentLayout'
@@ -42,9 +42,7 @@ const SearchPage = ({ city, cityCode, languageCode, pathname }: CityRouteProps):
     cmsApiBaseUrl,
   })
 
-  const minisearch = useMiniSearch(allPossibleResults)
-
-  const results = query.length === 0 ? allPossibleResults : minisearch.search(query)
+  const results = useSearch(allPossibleResults, query)
 
   if (!city) {
     return null

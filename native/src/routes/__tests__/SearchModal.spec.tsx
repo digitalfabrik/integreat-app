@@ -1,6 +1,5 @@
 import { NavigationContainer } from '@react-navigation/native'
 import { fireEvent, waitFor } from '@testing-library/react-native'
-import { TFunction } from 'i18next'
 import React from 'react'
 import { ThemeProvider } from 'styled-components'
 
@@ -33,9 +32,7 @@ jest.mock('react-native-inappbrowser-reborn', () => ({
 
 jest.mock('shared', () => ({
   ...jest.requireActual('shared'),
-  useMiniSearch: (results: SearchResult[]) => ({
-    search: (query: string) => (query === 'no results, please' ? [] : results),
-  }),
+  useSearch: (results: SearchResult[], query: string) => (query === 'no results, please' ? [] : results),
 }))
 
 describe('SearchModal', () => {
@@ -43,8 +40,6 @@ describe('SearchModal', () => {
     jest.clearAllMocks()
   })
   const dummy = jest.fn()
-
-  const t = ((key: string) => key) as TFunction
 
   const languageCode = 'de'
   const cityCode = 'augsburg'
@@ -65,8 +60,6 @@ describe('SearchModal', () => {
     languageCode,
     cityCode,
     closeModal: dummy,
-    t,
-    theme,
     initialSearchText: '',
   }
 

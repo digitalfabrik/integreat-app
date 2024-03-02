@@ -1,6 +1,4 @@
-import React, { ReactElement, useContext, useMemo } from 'react'
-import { useTranslation } from 'react-i18next'
-import { ThemeContext } from 'styled-components'
+import React, { ReactElement, useMemo } from 'react'
 
 import { SearchRouteType } from 'shared'
 
@@ -19,8 +17,6 @@ const SearchModalContainer = ({ navigation, route }: SearchModalContainerProps):
   const { cityCode, languageCode } = useCityAppContext()
   const initialSearchText = route.params.searchText ?? ''
   const { data, ...response } = useLoadCityContent({ cityCode, languageCode })
-  const theme = useContext(ThemeContext)
-  const { t } = useTranslation('search')
 
   const allPossibleResults = useMemo(
     () => [
@@ -39,8 +35,6 @@ const SearchModalContainer = ({ navigation, route }: SearchModalContainerProps):
           closeModal={navigation.goBack}
           allPossibleResults={allPossibleResults}
           languageCode={languageCode}
-          theme={theme}
-          t={t}
           initialSearchText={initialSearchText}
         />
       )}

@@ -1,7 +1,7 @@
 import { PreparePoisReturn as ImportedPreparePoisReturn } from './utils/pois'
 
 export type PreparePoisReturn = ImportedPreparePoisReturn
-export { default as useMiniSearch, type SearchResult } from './hooks/useMiniSearch'
+export { default as useSearch, type SearchResult } from './hooks/useSearch'
 export { default as InternalPathnameParser } from './routes/InternalPathnameParser'
 export * from './routes'
 export * from './routes/RouteInformationTypes'
