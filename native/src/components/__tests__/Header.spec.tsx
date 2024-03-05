@@ -225,6 +225,7 @@ describe('Header', () => {
       signal: { name: SHARE_SIGNAL_NAME, url: 'https://example.com/share' },
     })
   })
+
   it('should remove the page title in the share message if it equals the city name', () => {
     const share = jest.fn()
     const spy = jest.spyOn(Share, 'share')
