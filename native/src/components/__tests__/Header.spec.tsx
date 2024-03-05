@@ -207,6 +207,7 @@ describe('Header', () => {
       signal: { name: SHARE_SIGNAL_NAME, url: 'https://example.com/share' },
     })
   })
+
   it('should use the route name in the share message if no page title is set', () => {
     const share = jest.fn()
     const spy = jest.spyOn(Share, 'share')
