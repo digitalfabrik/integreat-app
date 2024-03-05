@@ -48,7 +48,7 @@ const getPageTitle = (
   if (selectedNewsType === TU_NEWS_TYPE) {
     return tunewsLabel
   }
-  return t('news:localNews:pageTitle')
+  return t('localNews.pageTitle')
 }
 
 const News = ({
