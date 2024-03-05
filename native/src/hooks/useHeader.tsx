@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 
 import Header from '../components/Header'
 import { NavigationProps, RouteProps, RoutesType } from '../constants/NavigationTypes'
-import cityDisplayName from '../utils/cityDisplayName'
+import cityShareName from '../utils/cityShareName'
 import { CityContentData } from './useLoadCityContent'
 
 type UseHeaderProps<T extends RoutesType> = {
@@ -30,7 +30,7 @@ const useHeader = <T extends RoutesType>({
           showItems={!!data}
           availableLanguages={availableLanguages}
           shareUrl={shareUrl}
-          cityName={cityDisplayName(data?.city)}
+          cityName={cityShareName(data?.city)}
         />
       ),
     })

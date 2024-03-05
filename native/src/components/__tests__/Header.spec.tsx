@@ -22,7 +22,7 @@ import useSnackbar from '../../hooks/useSnackbar'
 import navigateToLanguageChange from '../../navigation/navigateToLanguageChange'
 import createNavigationMock from '../../testing/createNavigationPropMock'
 import render from '../../testing/render'
-import cityDisplayName from '../../utils/cityDisplayName'
+import cityShareName from '../../utils/cityShareName'
 import sendTrackingSignal from '../../utils/sendTrackingSignal'
 import Header from '../Header'
 
@@ -105,7 +105,7 @@ describe('Header', () => {
           languages={languages}
           shareUrl={shareUrl}
           showItems={showItems}
-          cityName={cityDisplayName(cityModel)}
+          cityName={cityShareName(cityModel)}
         />
       </AppContext.Provider>,
     )
@@ -180,7 +180,7 @@ describe('Header', () => {
     fireEvent.press(getByText(`hidden: ${t('share')}`))
 
     expect(share).toHaveBeenCalledWith({
-      message: `${t('shareMessage')}: ${defaultPageTitle} - ${cityDisplayName(cityModel)} ${defaultShareUrl}`,
+      message: `${t('shareMessage')}: ${defaultPageTitle} - ${cityShareName(cityModel)} ${defaultShareUrl}`,
       title: 'Integreat',
     })
     expect(sendTrackingSignal).toHaveBeenCalledWith({
@@ -200,7 +200,7 @@ describe('Header', () => {
     fireEvent.press(getByText(`hidden: ${t('share')}`))
 
     expect(share).toHaveBeenCalledWith({
-      message: `${t('shareMessage')}: ${defaultPageTitle} - ${cityDisplayName(cityModel)} ${defaultShareUrl}`,
+      message: `${t('shareMessage')}: ${defaultPageTitle} - ${cityShareName(cityModel)} ${defaultShareUrl}`,
       title: 'Integreat',
     })
     expect(sendTrackingSignal).toHaveBeenCalledWith({
@@ -218,7 +218,7 @@ describe('Header', () => {
     fireEvent.press(getByText(`hidden: ${t('share')}`))
 
     expect(share).toHaveBeenCalledWith({
-      message: `${t('shareMessage')}: ${t('disclaimer')} - ${cityDisplayName(cityModel)} ${defaultShareUrl}`,
+      message: `${t('shareMessage')}: ${t('disclaimer')} - ${cityShareName(cityModel)} ${defaultShareUrl}`,
       title: 'Integreat',
     })
     expect(sendTrackingSignal).toHaveBeenCalledWith({
@@ -236,7 +236,7 @@ describe('Header', () => {
     fireEvent.press(getByText(`hidden: ${t('share')}`))
 
     expect(share).toHaveBeenCalledWith({
-      message: `${t('shareMessage')}: ${cityDisplayName(cityModel)} ${defaultShareUrl}`,
+      message: `${t('shareMessage')}: ${cityShareName(cityModel)} ${defaultShareUrl}`,
       title: 'Integreat',
     })
     expect(sendTrackingSignal).toHaveBeenCalledWith({
