@@ -189,6 +189,7 @@ describe('Header', () => {
 
     expect(showSnackbar).toHaveBeenCalledWith({ text: 'generalError' })
   })
+
   it('should create proper share message including page title', () => {
     const share = jest.fn()
     const spy = jest.spyOn(Share, 'share')
