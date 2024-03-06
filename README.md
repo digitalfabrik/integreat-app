@@ -30,6 +30,7 @@ If you want to know more about Integreat or if you want to join us, contact [Lea
 [Steffen](mailto:steffen.kleinle@tuerantuer.org) or [our info mail](mailto:info@integreat-app.de) and visit our [website](https://integreat-app.de).
 
 We use this emoji code for reviewing:
+
 - :+1: or `:+1:` This is great! It always feels good when somebody likes your work. Show them!
 - :question: or `:question:` I have a question / can you clarify?
 - :x: or `:x:` This has to change. It’s possibly an error or strongly violates existing conventions.
