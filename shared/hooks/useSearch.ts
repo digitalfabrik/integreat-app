@@ -20,9 +20,13 @@ const useSearch = (allPossibleResults: SearchResult[], query: string, mode?: 'as
         prefix: true,
       },
     })
-    mode === 'async' ? search.addAllAsync(allPossibleResults) : search.addAll(allPossibleResults)
+    if (mode === 'async') {
+      search.addAllAsync(allPossibleResults)
+    } else {
+      search.addAll(allPossibleResults)
+    }
     return search
-  }, [allPossibleResults])
+  }, [allPossibleResults, mode])
 
   // @ts-expect-error minisearch doesn't add the returned storeFields (e.g. title or path) to its typing
   return query.length === 0 ? allPossibleResults : minisearch.search(query)
