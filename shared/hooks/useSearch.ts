@@ -8,7 +8,7 @@ export type SearchResult = {
   path: string
 }
 
-const useSearch = (allPossibleResults: SearchResult[], query: string): SearchResult[] => {
+const useSearch = (allPossibleResults: SearchResult[], query: string, mode?: 'async'): SearchResult[] => {
   const minisearch = useMemo(() => {
     const search = new MiniSearch({
       idField: 'path',
@@ -20,7 +20,7 @@ const useSearch = (allPossibleResults: SearchResult[], query: string): SearchRes
         prefix: true,
       },
     })
-    search.addAllAsync(allPossibleResults)
+    mode === 'async' ? search.addAllAsync(allPossibleResults) : search.addAll(allPossibleResults)
     return search
   }, [allPossibleResults])
 
