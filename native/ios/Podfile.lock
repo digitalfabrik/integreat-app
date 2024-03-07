@@ -400,6 +400,8 @@ PODS:
     - React-Core
   - react-native-geolocation (3.0.6):
     - React-Core
+  - react-native-get-random-values (1.10.0):
+    - React-Core
   - react-native-netinfo (9.4.1):
     - React-Core
   - react-native-pdf (6.7.1):
@@ -611,6 +613,7 @@ DEPENDENCIES:
   - React-logger (from `../node_modules/react-native/ReactCommon/logger`)
   - react-native-blob-util (from `../node_modules/react-native-blob-util`)
   - "react-native-geolocation (from `../node_modules/@react-native-community/geolocation`)"
+  - react-native-get-random-values (from `../node_modules/react-native-get-random-values`)
   - "react-native-netinfo (from `../node_modules/@react-native-community/netinfo`)"
   - react-native-pdf (from `../node_modules/react-native-pdf`)
   - react-native-safe-area-context (from `../node_modules/react-native-safe-area-context`)
@@ -723,6 +726,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-blob-util"
   react-native-geolocation:
     :path: "../node_modules/@react-native-community/geolocation"
+  react-native-get-random-values:
+    :path: "../node_modules/react-native-get-random-values"
   react-native-netinfo:
     :path: "../node_modules/@react-native-community/netinfo"
   react-native-pdf:
@@ -836,6 +841,7 @@ SPEC CHECKSUMS:
   React-logger: 35538accacf2583693fbc3ee8b53e69a1776fcee
   react-native-blob-util: af2dc91365bfde33f61389cbd0c692af9a4a97cb
   react-native-geolocation: 0f7fe8a4c2de477e278b0365cce27d089a8c5903
+  react-native-get-random-values: 384787fd76976f5aec9465aff6fa9e9129af1e74
   react-native-netinfo: fefd4e98d75cbdd6e85fc530f7111a8afdf2b0c5
   react-native-pdf: 7c0e91ada997bac8bac3bb5bea5b6b81f5a3caae
   react-native-safe-area-context: 9697629f7b2cda43cf52169bb7e0767d330648c2

@@ -1,32 +1,17 @@
-import { DateTime } from 'luxon'
 import React from 'react'
-
-import { CategoryModel } from 'shared/api'
 
 import { renderWithRouterAndTheme } from '../../testing/render'
 import SearchListItem from '../SearchListItem'
 
 const categoryParams = {
-  root: false,
   path: '/augsburg/de/lorem-ipsum',
   title: 'Duis aute',
-  content:
+  contentWithoutHtml:
     'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
-  parentPath: '/augsburg/de',
-  order: 11,
-  availableLanguages: new Map([
-    ['en', '4861'],
-    ['ar', '4867'],
-    ['fa', '4868'],
-  ]),
   thumbnail: 'https://cms.integreat-ap…03/Beratung-150x150.png',
-  lastUpdate: DateTime.fromISO('2017-11-18T19:30:00.000Z'),
-  organization: null,
-  embeddedOffers: [],
 }
 
-const category = new CategoryModel(categoryParams)
-const categoryWithDifferentName = new CategoryModel({ ...categoryParams, title: 'Willkommen' })
+const differenCategoryName = 'Willkommen'
 
 describe('SearchListItem', () => {
   const highlightStyle = {
@@ -44,7 +29,7 @@ describe('SearchListItem', () => {
     const excerpt = `${excerptBeforeQuery} ${query} ${excerptAfterQuery}`
 
     const { queryAllByText, getByText, getByLabelText } = renderWithRouterAndTheme(
-      <SearchListItem category={category} query={query} contentWithoutHtml={category.content} />,
+      <SearchListItem query={query} {...categoryParams} />,
     )
 
     expect(getByLabelText(excerpt)).toBeTruthy()
@@ -60,11 +45,7 @@ describe('SearchListItem', () => {
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ...'
 
     const { getByText, getByLabelText } = renderWithRouterAndTheme(
-      <SearchListItem
-        category={categoryWithDifferentName}
-        query={query}
-        contentWithoutHtml={categoryWithDifferentName.content}
-      />,
+      <SearchListItem {...categoryParams} title={differenCategoryName} query={query} />,
     )
 
     expect(getByText(query)).toHaveProperty('style', expect.objectContaining(highlightStyle))
@@ -78,9 +59,7 @@ describe('SearchListItem', () => {
     const excerptAfterQuery = 'ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in ...'
     const excerpt = `${excerptBeforeQuery} ${query} ${excerptAfterQuery}`
 
-    const { getByText, getByLabelText } = renderWithRouterAndTheme(
-      <SearchListItem category={category} query={query} contentWithoutHtml={category.content} />,
-    )
+    const { getByText, getByLabelText } = renderWithRouterAndTheme(<SearchListItem query={query} {...categoryParams} />)
 
     expect(getByLabelText(excerpt)).toBeTruthy()
     expect(getByText(excerptBeforeQuery)).not.toHaveProperty('style', expect.objectContaining(highlightStyle))
@@ -93,11 +72,9 @@ describe('SearchListItem', () => {
     const excerpt =
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ...'
 
-    const { getByText } = renderWithRouterAndTheme(
-      <SearchListItem category={category} query={query} contentWithoutHtml={category.content} />,
-    )
+    const { getByText } = renderWithRouterAndTheme(<SearchListItem query={query} {...categoryParams} />)
 
-    expect(getByText(category.title)).not.toHaveProperty('style', expect.objectContaining(highlightStyle))
+    expect(getByText(categoryParams.title)).not.toHaveProperty('style', expect.objectContaining(highlightStyle))
     expect(getByText(excerpt)).not.toHaveProperty('style', expect.objectContaining(highlightStyle))
   })
 })

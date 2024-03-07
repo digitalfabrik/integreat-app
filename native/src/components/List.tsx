@@ -1,5 +1,5 @@
 import React, { ReactElement } from 'react'
-import { FlatList, RefreshControl } from 'react-native'
+import { FlatList, RefreshControl, ViewStyle } from 'react-native'
 import styled from 'styled-components/native'
 
 const NoItemsMessage = styled.Text`
@@ -19,6 +19,7 @@ type ListProps<T> = {
   accessibilityLabel?: string
   refresh?: () => void
   onEndReached?: () => void
+  style?: ViewStyle
 }
 
 const List = <T,>({
@@ -31,6 +32,7 @@ const List = <T,>({
   accessibilityLabel,
   onEndReached,
   scrollEnabled,
+  style,
 }: ListProps<T>): ReactElement => (
   <FlatList
     data={items}
@@ -48,6 +50,7 @@ const List = <T,>({
     scrollEnabled={scrollEnabled}
     accessibilityRole='list'
     accessibilityLabel={accessibilityLabel}
+    style={style}
   />
 )
 

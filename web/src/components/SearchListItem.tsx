@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom'
 import styled, { useTheme } from 'styled-components'
 
 import { getExcerpt, normalizeString } from 'shared'
-import { CategoryModel } from 'shared/api'
 
 import { EXCERPT_MAX_CHARS } from '../constants'
 
@@ -57,12 +56,14 @@ const StyledLink = styled(Link)`
 `
 
 type SearchListItemProps = {
-  category: CategoryModel
+  title: string
   contentWithoutHtml: string
   query: string
+  path: string
+  thumbnail?: string
 }
 
-const SearchListItem = ({ category, contentWithoutHtml, query }: SearchListItemProps): ReactElement => {
+const SearchListItem = ({ title, contentWithoutHtml, query, path, thumbnail }: SearchListItemProps): ReactElement => {
   const theme = useTheme()
 
   const excerpt = getExcerpt(contentWithoutHtml, { query, maxChars: EXCERPT_MAX_CHARS })
@@ -71,11 +72,11 @@ const SearchListItem = ({ category, contentWithoutHtml, query }: SearchListItemP
     <Highlighter
       dir='auto'
       searchWords={query ? [query] : []}
-      aria-label={category.title}
+      aria-label={title}
       autoEscape
       sanitize={normalizeString}
       highlightStyle={{ backgroundColor: theme.colors.backgroundColor, fontWeight: 'bold' }}
-      textToHighlight={category.title}
+      textToHighlight={title}
     />
   )
 
@@ -92,10 +93,10 @@ const SearchListItem = ({ category, contentWithoutHtml, query }: SearchListItemP
 
   return (
     <Row>
-      <StyledLink to={category.path}>
+      <StyledLink to={path}>
         <CategoryItemContainer dir='auto'>
           <CategoryTitleContainer>
-            {!!category.thumbnail && <CategoryThumbnail alt='' src={category.thumbnail} />}
+            {!!thumbnail && <CategoryThumbnail alt='' src={thumbnail} />}
             {Title}
           </CategoryTitleContainer>
           <div style={{ margin: '0 5px', fontSize: '12px' }} dir='auto'>

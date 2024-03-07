@@ -1,10 +1,16 @@
+import { NavigationContainer } from '@react-navigation/native'
 import { fireEvent, waitFor } from '@testing-library/react-native'
-import { TFunction } from 'i18next'
 import React from 'react'
 import { ThemeProvider } from 'styled-components'
 
-import { CATEGORIES_ROUTE, CategoriesRouteInformationType, SEARCH_FINISHED_SIGNAL_NAME } from 'shared'
-import CategoriesMapModelBuilder from 'shared/api/endpoints/testing/CategoriesMapModelBuilder'
+import {
+  CATEGORIES_ROUTE,
+  CategoriesRouteInformationType,
+  OPEN_PAGE_SIGNAL_NAME,
+  SEARCH_FINISHED_SIGNAL_NAME,
+  SearchResult,
+} from 'shared'
+import { CategoriesMapModelBuilder, EventModelBuilder, PoiModelBuilder } from 'shared/api'
 
 import buildConfig from '../../constants/buildConfig'
 import { urlFromRouteInformation } from '../../navigation/url'
@@ -20,6 +26,14 @@ jest.mock('react-i18next')
 jest.mock('react-native-webview', () => ({
   default: () => jest.fn(),
 }))
+jest.mock('react-native-inappbrowser-reborn', () => ({
+  isAvailable: () => false,
+}))
+
+jest.mock('shared', () => ({
+  ...jest.requireActual('shared'),
+  useSearch: (results: SearchResult[], query: string) => (query === 'no results, please' ? [] : results),
+}))
 
 describe('SearchModal', () => {
   beforeEach(() => {
@@ -27,29 +41,37 @@ describe('SearchModal', () => {
   })
   const dummy = jest.fn()
 
-  const t = ((key: string) => key) as TFunction
-
-  const categoriesMapModel = new CategoriesMapModelBuilder('augsburg', 'de', 2, 2).build()
   const languageCode = 'de'
   const cityCode = 'augsburg'
   const theme = buildConfig().lightTheme
+
+  const categoriesMapModel = new CategoriesMapModelBuilder(cityCode, languageCode, 2, 2).build()
+  const eventModels = new EventModelBuilder('testseed', 5, cityCode, languageCode).build()
+  const poiModels = new PoiModelBuilder(3).build()
+
+  const allPossibleResults = [
+    ...categoriesMapModel.toArray().filter(category => !category.isRoot()),
+    ...eventModels,
+    ...poiModels,
+  ]
+
   const props: SearchModalProps = {
-    categories: categoriesMapModel,
-    navigateTo: dummy,
+    allPossibleResults,
     languageCode,
     cityCode,
     closeModal: dummy,
-    t,
-    theme,
     initialSearchText: '',
   }
 
   const renderWithTheme = (props: SearchModalProps) =>
     render(
-      <ThemeProvider theme={theme}>
-        <SearchModal {...props} />
-      </ThemeProvider>,
+      <NavigationContainer>
+        <ThemeProvider theme={theme}>
+          <SearchModal {...props} />
+        </ThemeProvider>
+      </NavigationContainer>,
     )
+
   it('should send tracking signal when closing search site', async () => {
     const { getByPlaceholderText, getAllByRole } = renderWithTheme(props)
     const goBackButton = getAllByRole('button')[0]!
@@ -75,7 +97,7 @@ describe('SearchModal', () => {
     const categoryListItem = getByText('with id 1', { exact: false })
     fireEvent.press(categoryListItem)
     await waitFor(() => expect(goBackButton).not.toBeDisabled())
-    expect(sendTrackingSignal).toHaveBeenCalledTimes(1)
+    expect(sendTrackingSignal).toHaveBeenCalledTimes(2)
     const routeInformation: CategoriesRouteInformationType = {
       route: CATEGORIES_ROUTE,
       cityContentPath: categoriesMapModel.toArray()[2]!.path,
@@ -90,12 +112,19 @@ describe('SearchModal', () => {
         url: expectedUrl,
       },
     })
+    expect(sendTrackingSignal).toHaveBeenCalledWith({
+      signal: {
+        name: OPEN_PAGE_SIGNAL_NAME,
+        pageType: 'categories',
+        url: expectedUrl,
+      },
+    })
   })
 
   it('should show nothing found if there are no search results', () => {
     const { getByText, getByPlaceholderText } = renderWithTheme(props)
 
-    fireEvent.changeText(getByPlaceholderText('searchPlaceholder'), 'invalid query')
+    fireEvent.changeText(getByPlaceholderText('searchPlaceholder'), 'no results, please')
 
     expect(getByText('search:nothingFound')).toBeTruthy()
   })

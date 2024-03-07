@@ -1,14 +1,18 @@
 import React, { memo, ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
+import { View } from 'react-native'
 import Highlighter from 'react-native-highlight-words'
 import styled, { useTheme } from 'styled-components/native'
 
-import { getExcerpt, normalizeString } from 'shared'
-import { CategoryModel } from 'shared/api'
+import { getExcerpt, InternalPathnameParser, normalizeString, SEARCH_FINISHED_SIGNAL_NAME } from 'shared'
 
 import { SEARCH_PREVIEW_MAX_CHARS } from '../constants'
+import buildConfig from '../constants/buildConfig'
 import { contentDirection } from '../constants/contentDirection'
+import useNavigate from '../hooks/useNavigate'
+import urlFromRouteInformation from '../navigation/url'
 import { PageResourceCacheStateType } from '../utils/DataContainer'
+import sendTrackingSignal from '../utils/sendTrackingSignal'
 import { getCachedThumbnail } from './Categories'
 import { CategoryThumbnail } from './CategoryListItem'
 import Pressable from './base/Pressable'
@@ -41,29 +45,48 @@ const HighlighterCategoryTitle = styled(Highlighter)<{ language: string }>`
   flex-direction: ${props => contentDirection(props.language)};
   font-family: ${props => props.theme.fonts.native.decorativeFontRegular};
   color: ${props => props.theme.colors.textColor};
+  font-weight: bold;
 `
 
 type SearchListItemProps = {
-  category: CategoryModel
+  title: string
   contentWithoutHtml: string
   resourceCache: PageResourceCacheStateType
-  onItemPress: (category: CategoryModel) => void
   language: string
   query: string
+  path: string
+  thumbnail?: string
 }
 
 const SearchListItem = ({
   language,
-  category,
+  title,
   resourceCache,
   contentWithoutHtml,
-  onItemPress,
   query,
+  path,
+  thumbnail,
 }: SearchListItemProps): ReactElement => {
   const { t } = useTranslation('search')
   const theme = useTheme()
-  const { title, thumbnail } = category
+  const { navigateTo } = useNavigate()
   const excerpt = getExcerpt(contentWithoutHtml, { query, maxChars: SEARCH_PREVIEW_MAX_CHARS })
+
+  const routeInformation = new InternalPathnameParser(path, language, buildConfig().featureFlags.fixedCity).route()
+  if (!routeInformation) {
+    return <View />
+  }
+
+  const navigateToSearchResult = (): void => {
+    sendTrackingSignal({
+      signal: {
+        name: SEARCH_FINISHED_SIGNAL_NAME,
+        query,
+        url: urlFromRouteInformation(routeInformation),
+      },
+    })
+    navigateTo(routeInformation)
+  }
 
   const Content =
     query && excerpt.length > 0 ? (
@@ -88,13 +111,14 @@ const SearchListItem = ({
       }}
     />
   )
+
   return (
-    <FlexStyledLink onPress={() => onItemPress(category)} accessibilityHint={t('itemHint')}>
+    <FlexStyledLink onPress={navigateToSearchResult} accessibilityHint={t('itemHint')}>
       <DirectionContainer language={language}>
         <SearchEntryContainer>
           <TitleDirectionContainer language={language}>
             {!!thumbnail && (
-              <CategoryThumbnail language={language} source={getCachedThumbnail(category, resourceCache)} />
+              <CategoryThumbnail language={language} source={getCachedThumbnail(thumbnail, resourceCache)} />
             )}
             {Title}
           </TitleDirectionContainer>
