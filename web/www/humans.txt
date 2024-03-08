@@ -2,14 +2,9 @@
 # The humans responsible & technology colophon
 
 /* TEAM */
-
-    Software Developer: Maximilian Ammann
-
     Software Developer: Steffen Kleinle
 
     Software Developer: Stefanie Metzger
-
-    Software Developer: Sarah Sporck
 
 /* SITE */
 

@@ -1,19 +1,9 @@
-import { TFunction } from 'i18next'
-import React, { ReactElement, useMemo, useState } from 'react'
+import React, { ReactElement, useContext, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import { KeyboardAvoidingView, Platform } from 'react-native'
-import styled from 'styled-components/native'
+import styled, { ThemeContext } from 'styled-components/native'
 
-import { ThemeType } from 'build-configs'
-import {
-  CategoriesRouteInformationType,
-  SEARCH_FINISHED_SIGNAL_NAME,
-  SEARCH_ROUTE,
-  CATEGORIES_ROUTE,
-  RouteInformationType,
-  searchCategories,
-  CategorySearchResult,
-} from 'shared'
-import { CategoriesMapModel, CategoryModel } from 'shared/api'
+import { parseHTML, SEARCH_FINISHED_SIGNAL_NAME, SEARCH_ROUTE, SearchResult, useSearch } from 'shared'
 
 import FeedbackContainer from '../components/FeedbackContainer'
 import HorizontalLine from '../components/HorizontalLine'
@@ -22,7 +12,6 @@ import NothingFound from '../components/NothingFound'
 import SearchHeader from '../components/SearchHeader'
 import SearchListItem from '../components/SearchListItem'
 import useResourceCache from '../hooks/useResourceCache'
-import { urlFromRouteInformation } from '../navigation/url'
 import testID from '../testing/testID'
 import sendTrackingSignal from '../utils/sendTrackingSignal'
 
@@ -36,52 +25,26 @@ const Wrapper = styled.View`
 `
 
 export type SearchModalProps = {
-  categories: CategoriesMapModel
-  navigateTo: (routeInformation: RouteInformationType) => void
-  theme: ThemeType
+  allPossibleResults: Array<SearchResult>
   languageCode: string
   cityCode: string
   closeModal: (query: string) => void
-  t: TFunction<'search'>
   initialSearchText: string
 }
 
 const SearchModal = ({
-  categories,
-  navigateTo,
-  theme,
+  allPossibleResults,
   languageCode,
   cityCode,
   closeModal,
-  t,
-  initialSearchText = '',
+  initialSearchText,
 }: SearchModalProps): ReactElement => {
   const [query, setQuery] = useState<string>(initialSearchText)
   const resourceCache = useResourceCache({ cityCode, languageCode })
+  const theme = useContext(ThemeContext)
+  const { t } = useTranslation('search')
 
-  const searchResults = useMemo(() => searchCategories(categories, query), [categories, query])
-
-  const onItemPress = (category: CategoryModel): void => {
-    const routeInformation: CategoriesRouteInformationType = {
-      route: CATEGORIES_ROUTE,
-      cityContentPath: category.path,
-      cityCode,
-      languageCode,
-    }
-    sendTrackingSignal({
-      signal: {
-        name: SEARCH_FINISHED_SIGNAL_NAME,
-        query,
-        url: urlFromRouteInformation(routeInformation),
-      },
-    })
-    navigateTo({
-      route: CATEGORIES_ROUTE,
-      cityCode,
-      languageCode,
-      cityContentPath: category.path,
-    })
-  }
+  const searchResults = useSearch(allPossibleResults, query, 'async')
 
   const onClose = (): void => {
     sendTrackingSignal({
@@ -94,15 +57,16 @@ const SearchModal = ({
     closeModal(query)
   }
 
-  const renderItem = ({ item }: { item: CategorySearchResult }) => (
+  const renderItem = ({ item }: { item: SearchResult }) => (
     <SearchListItem
-      key={item.category.path}
-      category={item.category}
-      resourceCache={resourceCache[item.category.path] ?? {}}
-      contentWithoutHtml={item.contentWithoutHtml}
+      key={item.path}
+      title={item.title}
+      resourceCache={resourceCache[item.path] ?? {}}
+      contentWithoutHtml={parseHTML(item.content)}
       language={languageCode}
       query={query}
-      onItemPress={onItemPress}
+      thumbnail={item.thumbnail}
+      path={item.path}
     />
   )
 
@@ -114,6 +78,7 @@ const SearchModal = ({
           items={searchResults}
           renderItem={renderItem}
           accessibilityLabel={t('searchResultsCount', { count: searchResults.length })}
+          style={{ flex: 1 }}
           noItemsMessage={
             <>
               <NothingFound />

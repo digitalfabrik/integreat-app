@@ -3,7 +3,6 @@ import { fireEvent } from '@testing-library/react-native'
 import { mocked } from 'jest-mock'
 import { DateTime } from 'luxon'
 import React from 'react'
-import { Text } from 'react-native'
 
 import { LOCAL_NEWS_TYPE, NEWS_ROUTE, NewsRouteType } from 'shared'
 import { LanguageModelBuilder, CategoriesMapModelBuilder, CityModelBuilder, LocalNewsModel } from 'shared/api'
@@ -14,12 +13,7 @@ import render from '../../testing/render'
 import LocalNews from '../LocalNews'
 
 jest.mock('react-i18next')
-jest.mock('../../components/Page', () => ({ content, title }: { title: string; content: string }) => (
-  <>
-    <Text>{title}</Text>
-    <Text>{content}</Text>
-  </>
-))
+jest.mock('../../components/Page')
 jest.mock('@react-native-community/netinfo')
 jest.mock('react-native/Libraries/EventEmitter/NativeEventEmitter')
 jest.mock('../../hooks/useNavigate')

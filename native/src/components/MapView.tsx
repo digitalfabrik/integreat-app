@@ -71,6 +71,7 @@ type MapViewProps = {
   selectFeature: (feature: MapFeature | null) => void
   setSheetSnapPointIndex: (index: number) => void
   bottomSheetHeight: number
+  zoom: number | undefined
   Overlay?: ReactElement
 }
 
@@ -85,6 +86,7 @@ const MapView = ({
   setSheetSnapPointIndex,
   Overlay,
   bottomSheetHeight,
+  zoom,
 }: MapViewProps): ReactElement => {
   const cameraRef = useRef<MapLibreGL.Camera>(null)
   const mapRef = useRef<MapLibreGL.MapView>(null)
@@ -100,7 +102,7 @@ const MapView = ({
 
   const coordinates = selectedFeature?.geometry.coordinates
   const defaultSettings: CameraSettings = {
-    zoomLevel: coordinates ? normalDetailZoom : defaultViewportConfig.zoom,
+    zoomLevel: zoom ?? coordinates ? normalDetailZoom : defaultViewportConfig.zoom,
     centerCoordinate: coordinates,
     bounds: coordinates ? undefined : bounds,
   }

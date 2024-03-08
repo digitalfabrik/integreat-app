@@ -17,7 +17,7 @@ const LicensesPage = ({ languageCode }: LicensesPageProps): ReactElement => {
   const [licenses, setLicenses] = useState<License[] | null>(null)
 
   useEffect(() => {
-    import('../../assets/licenses.json')
+    import('../assets/licenses.json')
       .then(licenseFile => setLicenses(parseLicenses(licenseFile.default)))
       .catch(error => reportError(`error while importing licenses ${error}`))
   }, [])

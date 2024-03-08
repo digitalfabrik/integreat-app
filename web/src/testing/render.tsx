@@ -11,6 +11,8 @@ import buildConfig from '../constants/buildConfig'
 type RenderRouteOptions = {
   pathname: string
   routePattern: string
+  searchParams?: string
+  childPattern?: string
 }
 
 const theme = { ...buildConfig().lightTheme, contentDirection: 'ltr' as UiDirectionType }
@@ -38,9 +40,19 @@ export const renderRoute = (ui: ReactElement, options: RenderRouteOptions): Exte
     {
       path: options.routePattern,
       element: ui,
+      children: options.childPattern
+        ? [
+            {
+              path: ':slug',
+              element: null,
+            },
+          ]
+        : [],
     },
   ]
-  const router = createMemoryRouter(routes, { initialEntries: options.pathname ? [options.pathname] : ['/'] })
+  const router = createMemoryRouter(routes, {
+    initialEntries: [{ pathname: options.pathname, search: options.searchParams }],
+  })
   return {
     ...renderWithTheme(<RouterProvider router={router} />),
     router,
