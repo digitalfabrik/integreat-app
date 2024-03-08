@@ -4,9 +4,9 @@ import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 
 import { NewsType, TU_NEWS_TYPE } from 'shared'
+import { tunewsLabel } from 'shared/constants/news'
 
 import { TuNewsActiveIcon, TuNewsInactiveIcon } from '../assets'
-import { tunewsLabel } from '../constants/news'
 
 const StyledTab = styled(Link)<{ $active: boolean }>`
   display: flex;

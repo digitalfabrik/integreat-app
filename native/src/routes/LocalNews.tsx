@@ -20,7 +20,6 @@ type LocalNewsProps = {
 const LocalNews = ({ route, navigation, data, newsId, navigateToNews, refresh }: LocalNewsProps): ReactElement => {
   const cityCode = data.city.code
   const languageCode = data.language.code
-
   const availableLanguages = newsId ? [languageCode] : data.languages.map(it => it.code)
   const shareUrl = urlFromRouteInformation({
     route: NEWS_ROUTE,

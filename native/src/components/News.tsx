@@ -1,9 +1,10 @@
+import { TFunction } from 'i18next'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 import { ScrollView } from 'react-native'
 import styled from 'styled-components/native'
 
-import { NewsRouteType, NewsType, TU_NEWS_TYPE } from 'shared'
+import { NewsRouteType, NewsType, TU_NEWS_TYPE, tunewsLabel } from 'shared'
 import { LocalNewsModel, TunewsModel, ErrorCode, replaceLinks } from 'shared/api'
 
 import { NavigationProps } from '../constants/NavigationTypes'
@@ -36,6 +37,20 @@ export type NewsProps = {
   refresh: () => void
 }
 
+const getPageTitle = (
+  selectedNewsType: NewsType,
+  selectedNewsItem: LocalNewsModel | TunewsModel | null | undefined,
+  t: TFunction,
+): string => {
+  if (selectedNewsItem?.title) {
+    return selectedNewsItem.title
+  }
+  if (selectedNewsType === TU_NEWS_TYPE) {
+    return tunewsLabel
+  }
+  return t('localNews.pageTitle')
+}
+
 const News = ({
   news,
   loadMore,
@@ -50,7 +65,7 @@ const News = ({
   const { t } = useTranslation('news')
 
   const navigation = useNavigate().navigation as NavigationProps<NewsRouteType>
-  useSetRouteTitle({ navigation, title: selectedNewsItem?.title })
+  useSetRouteTitle({ navigation, title: getPageTitle(selectedNewsType, selectedNewsItem, t) })
 
   const rendersNewsListItem = ({ item, index }: { item: LocalNewsModel | TunewsModel; index: number }) => {
     const navigateToNewsDetail = () => navigateToNews(item.id.toString())

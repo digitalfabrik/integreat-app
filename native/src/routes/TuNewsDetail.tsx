@@ -10,6 +10,7 @@ import { NavigationProps, RouteProps } from '../constants/NavigationTypes'
 import useHeader from '../hooks/useHeader'
 import { CityContentData } from '../hooks/useLoadCityContent'
 import useLoadTuNewsElement from '../hooks/useLoadTuNewsElement'
+import useSetRouteTitle from '../hooks/useSetRouteTitle'
 import urlFromRouteInformation from '../navigation/url'
 import LoadingErrorHandler from './LoadingErrorHandler'
 
@@ -34,6 +35,7 @@ const TuNewsDetail = ({ route, navigation, data, newsId }: TuNewsProps): ReactEl
   const cityCode = data.city.code
   const languageCode = data.language.code
   const { data: tuNews, ...response } = useLoadTuNewsElement({ newsId })
+  useSetRouteTitle({ navigation, title: tuNews?.title })
 
   const shareUrl = urlFromRouteInformation({
     route: NEWS_ROUTE,

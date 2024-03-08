@@ -64,6 +64,7 @@ type HeaderProps = {
   languages?: LanguageModel[]
   availableLanguages?: string[]
   shareUrl?: string
+  cityName?: string
 }
 
 const Header = ({
@@ -74,6 +75,7 @@ const Header = ({
   showItems = false,
   showOverflowItems = true,
   languages,
+  cityName,
 }: HeaderProps): ReactElement | null => {
   const { languageCode, cityCode } = useContext(AppContext)
   const { t } = useTranslation('layout')
@@ -87,9 +89,11 @@ const Header = ({
       // The share option should only be shown if there is a shareUrl
       return
     }
+    const pageTitle = (route.params as { title: string } | undefined)?.title ?? t(route.name)
+    const cityPostfix = !cityName || cityName === pageTitle ? '' : ` - ${cityName}`
 
     const message = t('shareMessage', {
-      message: shareUrl,
+      message: `${pageTitle}${cityPostfix} ${shareUrl}`,
       interpolation: {
         escapeValue: false,
       },
