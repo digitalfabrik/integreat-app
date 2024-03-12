@@ -13,18 +13,18 @@ jest.mock('react-native-svg')
 describe('PoiFiltersModal', () => {
   beforeEach(jest.clearAllMocks)
 
-  const pois = new PoiModelBuilder(2).build()
+  const poiCategories = new PoiModelBuilder(2).build().map(it => it.category)
 
   const closeModal = jest.fn()
   const setSelectedPoiCategory = jest.fn()
   const setCurrentlyOpenFilter = jest.fn()
 
   const renderPoiFiltersModal = ({
-    category = null,
+    category = undefined,
     currentlyOpen = false,
     poisCount = 0,
   }: {
-    category?: PoiCategoryModel | null
+    category?: PoiCategoryModel | undefined
     currentlyOpen?: boolean
     poisCount?: number
   }) =>
@@ -32,7 +32,7 @@ describe('PoiFiltersModal', () => {
       <PoiFiltersModal
         modalVisible
         closeModal={closeModal}
-        pois={pois}
+        poiCategories={poiCategories}
         selectedPoiCategory={category}
         setSelectedPoiCategory={setSelectedPoiCategory}
         currentlyOpenFilter={currentlyOpen}
@@ -51,15 +51,15 @@ describe('PoiFiltersModal', () => {
   it('should set poi category on press', () => {
     const { getByText } = renderPoiFiltersModal({})
 
-    fireEvent.press(getByText(pois[0]!.category.name))
+    fireEvent.press(getByText(poiCategories[0]!.name))
     expect(setSelectedPoiCategory).toHaveBeenCalledTimes(1)
-    expect(setSelectedPoiCategory).toHaveBeenCalledWith(pois[0]!.category)
+    expect(setSelectedPoiCategory).toHaveBeenCalledWith(poiCategories[0]!)
   })
 
   it('should deselect poi category on selected poi category press', () => {
-    const { getByText } = renderPoiFiltersModal({ category: pois[0]!.category })
+    const { getByText } = renderPoiFiltersModal({ category: poiCategories[0]! })
 
-    fireEvent.press(getByText(pois[0]!.category.name))
+    fireEvent.press(getByText(poiCategories[0]!.name))
     expect(setSelectedPoiCategory).toHaveBeenCalledTimes(1)
     expect(setSelectedPoiCategory).toHaveBeenCalledWith(null)
   })

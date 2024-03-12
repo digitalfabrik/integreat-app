@@ -22,6 +22,7 @@ const commonAschaffenburgBuildConfig: CommonBuildConfigType = {
   cmsUrl: 'https://cms.integreat-app.de',
   hostName: 'halloaschaffenburg.de',
   allowedHostNames: ['cms.integreat-app.de', 'admin.integreat-app.de'],
+  allowedLookalikes: [],
   supportedIframeSources: ['vimeo.com'],
   translationsOverride: aschaffenburgOverrideTranslations,
   internalLinksHijackPattern:
@@ -92,7 +93,7 @@ export const webAschaffenburgBuildConfig: WebBuildConfigType = {
   appDescription: 'Ihr digitaler Begleiter für die Stadt Aschaffenburg',
   mainImprint,
   icons: {
-    appLogo: '/app-logo.png',
+    appLogo: '/app-logo.svg',
     appLogoMobile: '/app-icon-round.svg',
     appleTouchIcon: '/apple-touch-icon.png',
     socialMediaPreview: '/social-media-preview.png',

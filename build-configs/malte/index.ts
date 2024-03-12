@@ -22,6 +22,7 @@ const commonMalteBuildConfig: CommonBuildConfigType = {
   cmsUrl: 'https://cms.malteapp.de',
   switchCmsUrl: 'https://malte-test.tuerantuer.org',
   allowedHostNames: ['cms.malteapp.de', 'malte-test.tuerantuer.org'],
+  allowedLookalikes: [],
   supportedIframeSources: ['vimeo.com'],
   translationsOverride: malteOverrideTranslations,
   internalLinksHijackPattern:
@@ -92,9 +93,8 @@ const webMalteBuildConfig: WebBuildConfigType = {
   appDescription: 'Guide of the Malteser Werke for Refugees. Digital. Multilingual. Free.',
   mainImprint,
   icons: {
-    appLogo: '/app-logo.png',
+    appLogo: '/app-logo.svg',
     appLogoMobile: '/app-icon-round.svg',
-    locationMarker: '/location-marker.svg',
     appleTouchIcon: '/apple-touch-icon.png',
     socialMediaPreview: '/social-media-preview.png',
     favicons: '/favicons/',

@@ -5,7 +5,7 @@ import { ScrollView, useWindowDimensions } from 'react-native'
 import { SvgUri } from 'react-native-svg'
 import styled from 'styled-components/native'
 
-import { PoisRouteType, isMultipoi, LocationType, sortPois, MapFeature, preparePois } from 'shared'
+import { PoisRouteType, isMultipoi, LocationType, sortPois, MapFeature, preparePois, safeParseInt } from 'shared'
 import { PoiCategoryModel, CityModel, PoiModel, ErrorCode } from 'shared/api'
 
 import { ClockIcon, EditLocationIcon } from '../assets'
@@ -56,8 +56,7 @@ type PoisProps = {
 const RESTORE_TIMEOUT = 100
 
 const Pois = ({ pois: allPois, language, cityModel, route, navigation }: PoisProps): ReactElement => {
-  const { slug, multipoi } = route.params
-  const [poiCategoryFilter, setPoiCategoryFilter] = useState<PoiCategoryModel | null>(null)
+  const { slug, multipoi, poiCategoryId, zoom } = route.params
   const [poiCurrentlyOpenFilter, setPoiCurrentlyOpenFilter] = useState(false)
   const [showFilterSelection, setShowFilterSelection] = useState(false)
   const [userLocation, setUserLocation] = useState<LocationType | null>(null)
@@ -69,24 +68,10 @@ const Pois = ({ pois: allPois, language, cityModel, route, navigation }: PoisPro
   const snapPoints = getBottomSheetSnapPoints(deviceHeight)
   const { t } = useTranslation('pois')
 
-  const { pois, poi, mapFeatures, mapFeature } = preparePois({
+  const { pois, poi, mapFeatures, mapFeature, poiCategories, poiCategory } = preparePois({
     pois: allPois,
-    params: { slug, multipoi, poiCategoryId: poiCategoryFilter?.id, currentlyOpen: poiCurrentlyOpenFilter },
+    params: { slug, multipoi, poiCategoryId, currentlyOpen: poiCurrentlyOpenFilter },
   })
-
-  const updatePoiCategoryFilter = (poiCategoryFilter: PoiCategoryModel | null) => {
-    if (poi && poiCategoryFilter && !poi.category.isEqual(poiCategoryFilter)) {
-      navigation.setParams({ slug: undefined })
-    }
-    setPoiCategoryFilter(poiCategoryFilter)
-  }
-
-  const updatePoiCurrentlyOpenFilter = (poiCurrentlyOpenFilter: boolean) => {
-    if (poi && poiCurrentlyOpenFilter && !poi.isCurrentlyOpen) {
-      navigation.setParams({ slug: undefined })
-    }
-    setPoiCurrentlyOpenFilter(poiCurrentlyOpenFilter)
-  }
 
   const scrollTo = (position: number) => {
     setTimeout(() => {
@@ -111,21 +96,34 @@ const Pois = ({ pois: allPois, language, cityModel, route, navigation }: PoisPro
       deselectAll()
     }
   }
-  useOnBackNavigation((slug || multipoi) && deselectOnBackNavigation ? deselect : undefined)
+  useOnBackNavigation((slug || multipoi !== undefined) && deselectOnBackNavigation ? deselect : undefined)
 
-  const selectMapFeature = (feature: MapFeature | null) => {
-    if (!feature) {
+  const updatePoiCategoryFilter = (poiCategoryFilter: PoiCategoryModel | null) => {
+    if (poiCategoryFilter) {
       deselectAll()
-      return
     }
+    navigation.setParams({ poiCategoryId: poiCategoryFilter?.id })
+  }
 
-    setDeselectOnBackNavigation(true)
-    if (isMultipoi(feature)) {
-      navigation.setParams({ multipoi: feature.id as string, slug: undefined })
-    } else {
-      navigation.setParams({ slug: feature.properties.pois[0]?.slug, multipoi: undefined })
+  const updatePoiCurrentlyOpenFilter = (poiCurrentlyOpenFilter: boolean) => {
+    if (poiCurrentlyOpenFilter) {
+      deselectAll()
     }
-    scrollTo(0)
+    setPoiCurrentlyOpenFilter(poiCurrentlyOpenFilter)
+  }
+
+  const selectMapFeature = (mapFeature: MapFeature | null) => {
+    setDeselectOnBackNavigation(true)
+    deselectAll()
+
+    const slug = mapFeature?.properties.pois[0]?.slug
+    if (mapFeature && isMultipoi(mapFeature)) {
+      navigation.setParams({ multipoi: safeParseInt(mapFeature.id), slug: undefined })
+      scrollTo(0)
+    } else if (slug) {
+      navigation.setParams({ slug, multipoi: undefined })
+      scrollTo(0)
+    }
   }
 
   const selectPoi = (poi: PoiModel) => {
@@ -134,11 +132,7 @@ const Pois = ({ pois: allPois, language, cityModel, route, navigation }: PoisPro
     scrollTo(0)
   }
 
-  const setScrollPosition = (position: number) => {
-    if (!poi) {
-      setListScrollPosition(position)
-    }
-  }
+  const setScrollPosition = (position: number) => setListScrollPosition(previous => (poi ? previous : position))
 
   const PoiDetail = poi ? (
     <PoiDetails language={language} poi={poi} distance={userLocation && poi.distance(userLocation)} />
@@ -171,11 +165,11 @@ const Pois = ({ pois: allPois, language, cityModel, route, navigation }: PoisPro
           closeButton
         />
       )}
-      {!!poiCategoryFilter && (
+      {!!poiCategory && (
         <ChipButton
-          text={poiCategoryFilter.name}
-          Icon={<SvgUri uri={poiCategoryFilter.icon} height={16} width={16} />}
-          onPress={() => setPoiCategoryFilter(null)}
+          text={poiCategory.name}
+          Icon={<SvgUri uri={poiCategory.icon} height={16} width={16} />}
+          onPress={() => navigation.setParams({ poiCategoryId: undefined })}
           closeButton
         />
       )}
@@ -190,8 +184,8 @@ const Pois = ({ pois: allPois, language, cityModel, route, navigation }: PoisPro
       <PoiFiltersModal
         modalVisible={showFilterSelection}
         closeModal={() => setShowFilterSelection(false)}
-        pois={allPois}
-        selectedPoiCategory={poiCategoryFilter}
+        poiCategories={poiCategories}
+        selectedPoiCategory={poiCategory}
         setSelectedPoiCategory={updatePoiCategoryFilter}
         currentlyOpenFilter={poiCurrentlyOpenFilter}
         setCurrentlyOpenFilter={updatePoiCurrentlyOpenFilter}
@@ -207,6 +201,7 @@ const Pois = ({ pois: allPois, language, cityModel, route, navigation }: PoisPro
         setUserLocation={setUserLocation}
         userLocation={userLocation}
         iconPosition={sheetSnapPointIndex < snapPoints.length - 1 ? currentBottomSheetHeight : 0}
+        zoom={zoom}
         Overlay={FiltersOverlayButtons}
       />
       <BottomActionsSheet

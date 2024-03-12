@@ -1,10 +1,9 @@
-import React, { ReactElement, useMemo, useState } from 'react'
+import React, { ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useLocation, useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
 
-import { pathnameFromRouteInformation, searchCategories, SEARCH_ROUTE } from 'shared'
-import { createCategoriesEndpoint, useLoadFromEndpoint } from 'shared/api'
+import { parseHTML, pathnameFromRouteInformation, SEARCH_ROUTE, useSearch } from 'shared'
 
 import { CityRouteProps } from '../CityContentSwitcher'
 import CityContentLayout, { CityContentLayoutProps } from '../components/CityContentLayout'
@@ -17,6 +16,7 @@ import SearchInput from '../components/SearchInput'
 import SearchListItem from '../components/SearchListItem'
 import { helpers } from '../constants/theme'
 import { cmsApiBaseUrl } from '../constants/urls'
+import useAllPossibleSearchResults from '../hooks/useAllPossibleSearchResults'
 
 const List = styled.ul`
   list-style-type: none;
@@ -33,14 +33,16 @@ const SearchPage = ({ city, cityCode, languageCode, pathname }: CityRouteProps):
   const navigate = useNavigate()
 
   const {
-    data: categories,
+    data: allPossibleResults,
     loading,
-    error: categoriesError,
-  } = useLoadFromEndpoint(createCategoriesEndpoint, cmsApiBaseUrl, {
+    error,
+  } = useAllPossibleSearchResults({
     city: cityCode,
     language: languageCode,
+    cmsApiBaseUrl,
   })
-  const searchResults = useMemo(() => (categories ? searchCategories(categories, query) : null), [categories, query])
+
+  const results = useSearch(allPossibleResults, query)
 
   if (!city) {
     return null
@@ -59,23 +61,6 @@ const SearchPage = ({ city, cityCode, languageCode, pathname }: CityRouteProps):
     languageCode,
   }
 
-  if (loading) {
-    return (
-      <CityContentLayout isLoading {...locationLayoutParams}>
-        <LoadingSpinner />
-      </CityContentLayout>
-    )
-  }
-
-  if (!searchResults) {
-    const error = categoriesError || new Error('Categories should not be null!')
-    return (
-      <CityContentLayout isLoading={false} {...locationLayoutParams}>
-        <FailureSwitcher error={error} />
-      </CityContentLayout>
-    )
-  }
-
   const handleFilterTextChanged = (filterText: string): void => {
     setFilterText(filterText)
     const appendToUrl = filterText.length !== 0 ? `?query=${filterText}` : ''
@@ -84,30 +69,54 @@ const SearchPage = ({ city, cityCode, languageCode, pathname }: CityRouteProps):
 
   const pageTitle = `${t('pageTitle')} - ${city.name}`
 
+  const SearchBar = (
+    <SearchInput
+      filterText={filterText}
+      placeholderText={t('searchPlaceholder')}
+      onFilterTextChange={handleFilterTextChanged}
+      spaceSearch
+    />
+  )
+
+  if (loading) {
+    return (
+      <CityContentLayout isLoading {...locationLayoutParams}>
+        <Helmet pageTitle={pageTitle} languageChangePaths={languageChangePaths} cityModel={city} />
+        {SearchBar}
+        <LoadingSpinner />
+      </CityContentLayout>
+    )
+  }
+
+  if (error) {
+    return (
+      <CityContentLayout isLoading={false} {...locationLayoutParams}>
+        <FailureSwitcher error={error} />
+      </CityContentLayout>
+    )
+  }
+
   return (
     <CityContentLayout isLoading={false} {...locationLayoutParams}>
       <Helmet pageTitle={pageTitle} languageChangePaths={languageChangePaths} cityModel={city} />
-      <SearchInput
-        filterText={filterText}
-        placeholderText={t('searchPlaceholder')}
-        onFilterTextChange={handleFilterTextChanged}
-        spaceSearch
-      />
+      {SearchBar}
       <List>
-        {searchResults.map(({ category, contentWithoutHtml }) => (
+        {results.map(({ title, content, path, thumbnail }) => (
           <SearchListItem
-            key={category.path}
+            title={title}
+            contentWithoutHtml={parseHTML(content)}
+            key={path}
             query={query}
-            category={category}
-            contentWithoutHtml={contentWithoutHtml}
+            path={path}
+            thumbnail={thumbnail}
           />
         ))}
       </List>
-      {searchResults.length === 0 && <Failure errorMessage='search:nothingFound' />}
+      {results.length === 0 && <Failure errorMessage='search:nothingFound' />}
       <FeedbackSearch
         cityCode={cityCode}
         languageCode={languageCode}
-        resultsFound={searchResults.length !== 0}
+        resultsFound={results.length !== 0}
         query={filterText}
       />
     </CityContentLayout>

@@ -54,7 +54,7 @@ const RootSwitcher = ({ setContentLanguage }: RootSwitcherProps): ReactElement =
   return (
     <Suspense fallback={<LoadingSpinner />}>
       <Routes>
-        <Route path={RoutePatterns[LANDING_ROUTE]} element={<LandingPage languageCode={language} />} />
+        {!fixedCity && <Route path={RoutePatterns[LANDING_ROUTE]} element={<LandingPage languageCode={language} />} />}
         <Route path={RoutePatterns[MAIN_DISCLAIMER_ROUTE]} element={<MainDisclaimerPage languageCode={language} />} />
         <Route path={RoutePatterns[NOT_FOUND_ROUTE]} element={<NotFoundPage />} />
         <Route path={RoutePatterns[CONSENT_ROUTE]} element={<ConsentPage languageCode={language} />} />
@@ -84,11 +84,11 @@ const RootSwitcher = ({ setContentLanguage }: RootSwitcherProps): ReactElement =
 
         {/* Redirects */}
         <Route path='/' element={<Navigate to={fixedCityPath ?? landingPath} replace />} />
-        <Route path={LANDING_ROUTE} element={<Navigate to={fixedCityPath ?? landingPath} replace />} />
-        <Route path='/:cityCode' element={<Navigate to={fixedCityPath ?? language} replace />} />
         {!!fixedCityPath && (
           <Route path={RoutePatterns[LANDING_ROUTE]} element={<Navigate to={fixedCityPath} replace />} />
         )}
+        {/* also handles redirects from /landing to /landing/de */}
+        <Route path='/:cityCode' element={<Navigate to={fixedCityPath ?? language} replace />} />
       </Routes>
     </Suspense>
   )

@@ -1,0 +1,8 @@
+issue_key: 1127
+show_in_stores: true
+platforms:
+  - web
+  - android
+  - ios
+en: The search results now include events and offers
+de: Die Suchergebnisse beinhalten jetzt auch Veranstaltungen und Angebote

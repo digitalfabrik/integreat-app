@@ -1,0 +1,5 @@
+issue_key: 2676
+show_in_stores: true
+platforms:
+  - web
+en: Fix layout for many poi filters

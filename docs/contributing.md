@@ -13,7 +13,6 @@ contact [Leandra](mailto:leandra.hahn@tuerantuer.org),
 our [website](https://integreat-app.de).
 
 Other team members you can contact are
-[Sarah](mailto:sarah.sporck@tuerantuer.org),
 [Steffi](mailto:stefanie.metzger@tuerantuer.org) and
 [Andy](mailto:andreas.fischer@tuerantuer.org).
 

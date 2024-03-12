@@ -25,14 +25,14 @@ export type CategoriesProps = {
   goBack: () => void
 }
 
-export const getCachedThumbnail = (category: CategoryModel, resourceCache: PageResourceCacheStateType): string => {
-  const resource = resourceCache[category.thumbnail]
+export const getCachedThumbnail = (thumbnail: string, resourceCache: PageResourceCacheStateType): string => {
+  const resource = resourceCache[thumbnail]
 
   if (resource) {
     return URL_PREFIX + resource.filePath
   }
 
-  return category.thumbnail
+  return thumbnail
 }
 
 /**
@@ -64,7 +64,7 @@ const Categories = ({
         new TileModel({
           title: category.title,
           path: category.path,
-          thumbnail: getCachedThumbnail(category, resourceCache[category.path] ?? {}),
+          thumbnail: getCachedThumbnail(category.thumbnail, resourceCache[category.path] ?? {}),
           isExternalUrl: false,
         }),
     )

@@ -92,7 +92,9 @@ export type RoutesParamsType = {
   }
   [POIS_ROUTE]: RouteTitle & {
     slug?: string
-    multipoi?: string | null
+    multipoi?: number
+    poiCategoryId?: number
+    zoom?: number
   }
   [EVENTS_ROUTE]: RouteTitle & {
     slug?: string

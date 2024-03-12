@@ -1,5 +1,6 @@
 import distance from '@turf/distance'
 
+import PoiCategoryModel from '../api/models/PoiCategoryModel'
 import PoiModel from '../api/models/PoiModel'
 import { LocationType, MapFeature } from '../constants/maps'
 import { prepareMapFeatures } from './geoJson'
@@ -13,7 +14,7 @@ export const sortPois = (pois: PoiModel[], userLocation: LocationType | null): P
 
 type PoiFiltersParams = {
   slug: string | undefined
-  multipoi: string | null | undefined
+  multipoi: number | undefined
   poiCategoryId: number | undefined
   currentlyOpen?: boolean | undefined
 }
@@ -28,6 +29,8 @@ export type PreparePoisReturn = {
   poi?: PoiModel
   mapFeatures: MapFeature[]
   mapFeature?: MapFeature
+  poiCategories: PoiCategoryModel[]
+  poiCategory?: PoiCategoryModel
 }
 
 export const preparePois = ({ pois: allPois, params }: PreparePoisProps): PreparePoisReturn => {
@@ -40,14 +43,19 @@ export const preparePois = ({ pois: allPois, params }: PreparePoisProps): Prepar
 
   const mapFeatures = prepareMapFeatures(filteredPois)
   const mapFeature = mapFeatures.find(feature =>
-    multipoi ? feature.id === multipoi : feature.properties.pois.some(poi => poi.slug === slug),
+    multipoi !== undefined ? feature.id === multipoi : feature.properties.pois.some(poi => poi.slug === slug),
   )
 
   const pois =
-    multipoi && mapFeature
+    multipoi !== undefined && mapFeature
       ? // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
         mapFeature.properties.pois.map(it => filteredPois.find(poi => poi.slug === it.slug)!)
       : filteredPois
 
-  return { pois, poi, mapFeature, mapFeatures }
+  const poiCategories = allPois
+    .map(it => it.category)
+    .filter((it, index, array) => array.findIndex(value => value.id === it.id) === index)
+  const poiCategory = poiCategories.find(it => it.id === poiCategoryId)
+
+  return { pois, poi, mapFeature, mapFeatures, poiCategories, poiCategory }
 }

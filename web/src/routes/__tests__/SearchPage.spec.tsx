@@ -1,31 +1,48 @@
 import { fireEvent, waitFor } from '@testing-library/react'
-import { DateTime } from 'luxon'
+import { mocked } from 'jest-mock'
 import React from 'react'
 
-import { pathnameFromRouteInformation, SEARCH_ROUTE } from 'shared'
-import { CategoriesMapModelBuilder, CityModelBuilder, CategoriesMapModel, CategoryModel } from 'shared/api'
-import { mockUseLoadFromEndpointWithData } from 'shared/api/endpoints/testing/mockUseLoadFromEndpoint'
+import { pathnameFromRouteInformation, SEARCH_ROUTE, SearchResult } from 'shared'
+import { CategoriesMapModelBuilder, CityModelBuilder, EventModelBuilder, PoiModelBuilder } from 'shared/api'
 
+import useAllPossibleSearchResults from '../../hooks/useAllPossibleSearchResults'
 import { renderRoute } from '../../testing/render'
 import SearchPage from '../SearchPage'
 import { RoutePatterns } from '../index'
 
 jest.mock('react-inlinesvg')
 jest.mock('react-i18next')
-jest.mock('shared/api', () => ({
-  ...jest.requireActual('shared/api'),
-  useLoadFromEndpoint: jest.fn(),
+jest.mock('../../hooks/useAllPossibleSearchResults')
+jest.mock('shared', () => ({
+  ...jest.requireActual('shared'),
+  useSearch: (results: SearchResult[], query: string) => (query === 'no results, please' ? [] : results),
 }))
 
 describe('SearchPage', () => {
   const cities = new CityModelBuilder(2).build()
   const cityModel = cities[0]!
+  const cityCode = 'augsburg'
   const languageCode = 'en'
 
-  const categoriesMap = new CategoriesMapModelBuilder('augsburg', 'en').build()
+  const categoriesMap = new CategoriesMapModelBuilder(cityCode, languageCode).build()
   const categoryModels = categoriesMap.toArray()
-  const category0 = categoryModels[0]!
   const category1 = categoryModels[1]!
+
+  const eventModels = new EventModelBuilder('testseed', 1, cityCode, languageCode).build()
+  const event0 = eventModels[0]!
+
+  const poiModels = new PoiModelBuilder(3).build()
+  const poi0 = poiModels[0]!
+
+  const allPossibleResults = [...categoryModels.filter(category => !category.isRoot()), ...eventModels, ...poiModels]
+
+  const hookReturn = {
+    data: allPossibleResults,
+    loading: false,
+    error: null,
+  }
+
+  mocked(useAllPossibleSearchResults).mockImplementation(() => hookReturn)
 
   const pathname = pathnameFromRouteInformation({
     route: SEARCH_ROUTE,
@@ -38,91 +55,33 @@ describe('SearchPage', () => {
     <SearchPage city={cityModel} pathname={pathname} cityCode={cityModel.code} languageCode={languageCode} />
   )
 
-  const renderSearch = ({ query }: { query?: string } = {}) => {
-    const pathnameWithQuery = query ? `${pathname}${query}` : pathname
-    return renderRoute(searchPage, { routePattern, pathname: pathnameWithQuery })
-  }
+  const renderSearch = ({ query }: { query?: string } = {}) =>
+    renderRoute(searchPage, { routePattern, pathname, searchParams: query })
 
-  it('should filter correctly', () => {
-    mockUseLoadFromEndpointWithData(categoriesMap)
+  it('should display results', () => {
+    const { getByPlaceholderText, getByText } = renderSearch()
 
-    const { getByText, queryByText, getByPlaceholderText } = renderSearch()
-
-    // the root category should not be returned
-    expect(queryByText(category0.title)).toBeFalsy()
     expect(getByText(category1.title)).toBeTruthy()
+    expect(getByText(event0.title)).toBeTruthy()
+    expect(getByText(poi0.title)).toBeTruthy()
 
     fireEvent.change(getByPlaceholderText('search:searchPlaceholder'), {
       target: {
-        value: 'Does not exist!',
+        value: 'all results, please',
       },
     })
 
-    expect(queryByText(category0.title)).toBeFalsy()
-    expect(queryByText(category1.title)).toBeFalsy()
-
-    fireEvent.change(getByPlaceholderText('search:searchPlaceholder'), {
-      target: {
-        value: category1.title,
-      },
-    })
-
-    expect(queryByText(category0.title)).toBeFalsy()
     expect(getByText(category1.title)).toBeTruthy()
+    expect(getByText(event0.title)).toBeTruthy()
+    expect(getByText(poi0.title)).toBeTruthy()
   })
 
-  it('should sort correctly', () => {
-    const buildCategoryModel = (title: string, content: string) =>
-      new CategoryModel({
-        root: false,
-        path: `/${title}`,
-        title: `${title}-category`,
-        content,
-        parentPath: '/',
-        order: 1,
-        availableLanguages: new Map(),
-        thumbnail: 'https://cms.integreat-ap…03/Beratung-150x150.png',
-        lastUpdate: DateTime.fromISO('2017-11-18T19:30:00.000Z'),
-        organization: null,
-        embeddedOffers: [],
-      })
-    const categoryModels = [
-      // should be 1st because 'abc' is in the title and it is lexicographically smaller than category 2
-      buildCategoryModel('abc', ''),
-      // should be 2nd because 'abc' is in the title but it is lexicographically bigger than category 1
-      buildCategoryModel('defabc', ''),
-      // should be 3rd because 'abc' is only in the content and the title is lexicographically smaller than category 4
-      buildCategoryModel('def', 'abc'),
-      // should be 4th because 'abc' is only in the content and the title is lexicographically bigger than category 3
-      buildCategoryModel('ghi', 'abc'),
-    ]
-    const categoriesMap = new CategoriesMapModel(categoryModels)
-    mockUseLoadFromEndpointWithData(categoriesMap)
-
-    const { getByPlaceholderText, getAllByLabelText } = renderSearch()
-
-    fireEvent.change(getByPlaceholderText('search:searchPlaceholder'), {
-      target: {
-        value: 'abc',
-      },
-    })
-
-    const searchResults = getAllByLabelText('category', { exact: false })
-
-    expect(searchResults[0]!.attributes.getNamedItem('aria-label')?.value).toBe(categoryModels[0]!.title)
-    expect(searchResults[1]!.attributes.getNamedItem('aria-label')?.value).toBe(categoryModels[1]!.title)
-    expect(searchResults[2]!.attributes.getNamedItem('aria-label')?.value).toBe(categoryModels[2]!.title)
-    expect(searchResults[3]!.attributes.getNamedItem('aria-label')?.value).toBe(categoryModels[3]!.title)
-  })
-
-  it('should display nothing found for search', async () => {
-    mockUseLoadFromEndpointWithData(categoriesMap)
-
+  it('should display nothing found for search', () => {
     const { getByRole, getByPlaceholderText } = renderSearch()
 
     fireEvent.change(getByPlaceholderText('search:searchPlaceholder'), {
       target: {
-        value: 'abc',
+        value: 'no results, please',
       },
     })
 
@@ -130,7 +89,6 @@ describe('SearchPage', () => {
   })
 
   describe('url query', () => {
-    mockUseLoadFromEndpointWithData(categoriesMap)
     it('should set state from url', () => {
       const query = '?query=SearchForThis'
 
