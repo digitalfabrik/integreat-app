@@ -8,43 +8,35 @@ type Options = {
   owner: string
   repo: string
   releaseNotes: string
-  downloadLinks: string
-  betaRelease: boolean
-  dryRun: boolean
+  prerelease: string
 }
 
 const githubRelease = async (
   platform: string,
   newVersionName: string,
   newVersionCode: string,
-  { deliverinoPrivateKey, owner, repo, releaseNotes, downloadLinks, betaRelease, dryRun }: Options,
-) => {
+  { deliverinoPrivateKey, owner, repo, releaseNotes, prerelease }: Options,
+): Promise<void> => {
   const versionCode = parseInt(newVersionCode, 10)
   if (Number.isNaN(versionCode)) {
     throw new Error(`Failed to parse version code string: ${newVersionCode}`)
   }
 
-  const releaseName = `[${platform}${betaRelease ? ' beta release' : ''}] ${newVersionName} - ${versionCode}`
-  console.warn('Creating release with name ', releaseName)
-
-  const betaMessage = betaRelease ? 'This release is only delivered to beta and not yet visible for users.\n\n' : ''
-
-  const body = `${betaMessage}${JSON.parse(releaseNotes)}${downloadLinks ? `\nArtifacts:\n${downloadLinks}` : ''}`
-  console.warn('and body ', body)
-
-  if (dryRun) {
-    return
-  }
-
+  const releaseName = `[${platform}] ${newVersionName} - ${versionCode}`
+  const body = releaseNotes
   const appOctokit = await authenticate({ deliverinoPrivateKey, owner, repo })
 
-  await appOctokit.repos.createRelease({
+  const release = await appOctokit.repos.createRelease({
     owner,
     repo,
     tag_name: tagId({ versionName: newVersionName, platform }),
+    prerelease: prerelease === 'true',
+    make_latest: platform === 'android' ? 'true' : 'false',
     name: releaseName,
     body,
   })
+
+  console.log(release.data.id)
 }
 
 program
@@ -57,9 +49,7 @@ program
   .requiredOption('--owner <owner>', 'owner of the current repository, usually "digitalfabrik"')
   .requiredOption('--repo <repo>', 'the current repository, should be integreat-app')
   .requiredOption('--release-notes <release-notes>', 'the release notes (for the selected platform) as JSON string')
-  .option('--download-links <download-links>', 'the download links of the artifacts (for the selected platform)')
-  .option('--beta-release', 'whether the release is a beta release which is not delivered to production')
-  .option('--dry-run', 'dry run without actually creating a release on github')
+  .requiredOption('--prerelease <prerelease>', 'weather this is a prerelease (beta) or not')
   .action(async (platform: string, newVersionName: string, newVersionCode: string, options: Options) => {
     try {
       await githubRelease(platform, newVersionName, newVersionCode, options)

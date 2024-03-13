@@ -542,14 +542,6 @@ jobs:
             - run:
                 command: yarn --cwd tools manage-metadata prepare-metadata << parameters.build_config_name >> playstore
                 name: Prepare Play Store metadata
-            - run:
-                command: bundle exec fastlane browserstack_upload_live path:attached_workspace/<< parameters.build_config_name >>.apk
-                name: '[FL] Browserstack Upload Live'
-                working_directory: native
-            - run:
-                command: bundle exec fastlane android playstore_upload build_config_name:<< parameters.build_config_name >> apk_path:attached_workspace/<< parameters.build_config_name >>.apk production_delivery:"<< parameters.production_delivery >>" version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE}
-                name: '[FL] Play Store Upload'
-                working_directory: native
             - notify
     deliver_ios:
         environment:
@@ -585,20 +577,6 @@ jobs:
                 command: bundle exec fastlane browserstack_upload_live path:attached_workspace/<< parameters.build_config_name >>.ipa
                 name: '[FL] Browserstack Upload Live'
                 working_directory: native
-            - when:
-                condition: << parameters.production_delivery >>
-                steps:
-                    - run:
-                        command: bundle exec fastlane ios appstoreconnect_upload ipa_path:attached_workspace/<< parameters.build_config_name >>.ipa version_name:${NEW_VERSION_NAME} build_config_name:<< parameters.build_config_name >>
-                        name: '[FL] App Store Connect Upload'
-                        working_directory: native
-            - unless:
-                condition: << parameters.production_delivery >>
-                steps:
-                    - run:
-                        command: bundle exec fastlane ios testflight_upload build_config_name:<< parameters.build_config_name >> ipa_path:attached_workspace/<< parameters.build_config_name >>.ipa
-                        name: '[FL] TestFlight Upload'
-                        working_directory: native
             - notify
     deliver_web:
         docker:
@@ -624,60 +602,6 @@ jobs:
             - run:
                 command: sudo apt update && sudo apt install rsync
                 name: Install rsync
-            - when:
-                condition:
-                    equal:
-                        - production
-                        - << parameters.delivery >>
-                steps:
-                    - run:
-                        command: rsync -e "ssh -o StrictHostKeyChecking=no" -arv --delete $HOME/attached_workspace/dist/integreat/ web@web.integreat-app.de:/var/www/integreat.app
-                        name: Integreat production delivery
-                    - run:
-                        command: rsync -e "ssh -o StrictHostKeyChecking=no" -arv --delete $HOME/attached_workspace/dist/malte/ web@web.integreat-app.de:/var/www/malteapp.de
-                        name: Malte production delivery
-                    - run:
-                        command: rsync -e "ssh -o StrictHostKeyChecking=no" -arv --delete $HOME/attached_workspace/dist/aschaffenburg/ web@web.integreat-app.de:/var/www/aschaffenburg.app
-                        name: Aschaffenburg production delivery
-                    - run:
-                        command: rsync -e "ssh -o StrictHostKeyChecking=no" -arv --delete $HOME/attached_workspace/dist/obdach/ web@web.integreat-app.de:/var/www/netzwerkobdachwohnen.de
-                        name: Obdach production delivery
-            - when:
-                condition:
-                    equal:
-                        - beta
-                        - << parameters.delivery >>
-                steps:
-                    - run:
-                        command: rsync -e "ssh -o StrictHostKeyChecking=no" -arv --delete $HOME/attached_workspace/dist/integreat/ web@web.integreat-app.de:/var/www/beta.integreat.app
-                        name: Integreat beta delivery
-                    - run:
-                        command: rsync -e "ssh -o StrictHostKeyChecking=no" -arv --delete $HOME/attached_workspace/dist/malte/ web@web.integreat-app.de:/var/www/beta.malteapp.de
-                        name: Malte beta delivery
-                    - run:
-                        command: rsync -e "ssh -o StrictHostKeyChecking=no" -arv --delete $HOME/attached_workspace/dist/aschaffenburg/ web@web.integreat-app.de:/var/www/beta.aschaffenburg.app
-                        name: Aschaffenburg beta delivery
-                    - run:
-                        command: rsync -e "ssh -o StrictHostKeyChecking=no" -arv --delete $HOME/attached_workspace/dist/obdach/ web@web.integreat-app.de:/var/www/beta.netzwerkobdachwohnen.de
-                        name: Obdach beta delivery
-            - when:
-                condition:
-                    equal:
-                        - webnext
-                        - << parameters.delivery >>
-                steps:
-                    - run:
-                        command: rsync -e "ssh -o StrictHostKeyChecking=no" -arv --delete $HOME/attached_workspace/dist/integreat-test-cms/ web@web.integreat-app.de:/var/www/webnext.integreat.app
-                        name: Integreat webnext delivery
-                    - run:
-                        command: rsync -e "ssh -o StrictHostKeyChecking=no" -arv --delete $HOME/attached_workspace/dist/malte-test-cms/ web@web.integreat-app.de:/var/www/webnext.malteapp.de
-                        name: Malte webnext delivery
-                    - run:
-                        command: rsync -e "ssh -o StrictHostKeyChecking=no" -arv --delete $HOME/attached_workspace/dist/aschaffenburg/ web@web.integreat-app.de:/var/www/webnext.aschaffenburg.app
-                        name: Aschaffenburg webnext delivery
-                    - run:
-                        command: rsync -e "ssh -o StrictHostKeyChecking=no" -arv --delete $HOME/attached_workspace/dist/obdach/ web@web.integreat-app.de:/var/www/webnext.netzwerkobdachwohnen.de
-                        name: Obdach webnext delivery
             - notify
     e2e_android:
         docker:
@@ -770,8 +694,12 @@ jobs:
                 name: Prepare artifact urls
                 working_directory: ~/attached_workspace
             - run:
-                command: yarn github-release create android ${NEW_VERSION_NAME} ${NEW_VERSION_CODE} --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME} --release-notes "$(yarn --silent manage-metadata parse-release-notes --android --language en)"<<^ parameters.production_delivery >> --beta-release<</ parameters.production_delivery >> --download-links "${ANDROID_ARTIFACT_URLS}"
+                command: ANDROID_RELEASE_ID=$(yarn --silent github-release create android ${NEW_VERSION_NAME} ${NEW_VERSION_CODE} --prerelease !<< parameters.production_delivery >> --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME} --release-notes "$(yarn --silent manage-metadata parse-release-notes --android --language en)")
                 name: Create github release
+                working_directory: tools
+            - run:
+                command: yarn github-release-asset upload android --releaseId ${ANDROID_RELEASE_ID} --files "$(ls ~/attached_workspace/*.apk)" --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME}
+                name: Upload asset to github release
                 working_directory: tools
             - run:
                 command: echo "export RELEASE_NOTES=$(yarn --silent --cwd tools manage-metadata parse-release-notes --android --language en)" >> ${BASH_ENV}
@@ -799,8 +727,12 @@ jobs:
                 name: Prepare artifact urls
                 working_directory: ~/attached_workspace
             - run:
-                command: yarn github-release create ios ${NEW_VERSION_NAME} ${NEW_VERSION_CODE} --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME} --release-notes "$(yarn --silent manage-metadata parse-release-notes --ios --language en)"<<^ parameters.production_delivery >> --beta-release<</ parameters.production_delivery >> --download-links "${IOS_ARTIFACT_URLS}"
+                command: IOS_RELEASE_ID=$(yarn --silent github-release create ios ${NEW_VERSION_NAME} ${NEW_VERSION_CODE} --prerelease !<< parameters.production_delivery >> --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME} --release-notes "$(yarn --silent manage-metadata parse-release-notes --ios --language en)")
                 name: Create github release
+                working_directory: tools
+            - run:
+                command: yarn github-release-asset upload ios --releaseId ${IOS_RELEASE_ID} --files "$(ls ~/attached_workspace/*.ipa)" --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME}
+                name: Upload asset to github release
                 working_directory: tools
             - run:
                 command: echo "export RELEASE_NOTES=$(yarn --silent --cwd tools manage-metadata parse-release-notes --ios --language en)" >> ${BASH_ENV}
@@ -824,7 +756,7 @@ jobs:
             - restore_environment_variables
             - restore_yarn_tools_cache
             - run:
-                command: yarn github-release create web ${NEW_VERSION_NAME} ${NEW_VERSION_CODE} --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME} --release-notes "$(yarn --silent manage-metadata parse-release-notes --web --language en)"
+                command: yarn github-release create web ${NEW_VERSION_NAME} ${NEW_VERSION_CODE} --prerelease !<< parameters.production_delivery>> --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME} --release-notes "$(yarn --silent manage-metadata parse-release-notes --web --language en)"
                 name: Create github release
                 working_directory: tools
             - run:
@@ -871,6 +803,10 @@ jobs:
                 command: bundle exec fastlane android playstore_promote build_config_name:<< parameters.build_config_name >>
                 name: '[FL] Play Store Promotion'
                 working_directory: native
+            - run:
+                command: yarn github-promote-release promote --platform android --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME}
+                name: Remove prerelease flag from github release
+                working_directory: tools
             - notify
     promote_ios:
         environment:
@@ -898,6 +834,10 @@ jobs:
                 command: bundle exec fastlane ios appstoreconnect_promote build_config_name:<< parameters.build_config_name >>
                 name: '[FL] App Store Connect Promotion'
                 working_directory: native
+            - run:
+                command: yarn github-promote-release promote --platform ios --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME}
+                name: Remove prerelease flag from github release
+                working_directory: tools
             - notify
     promote_web:
         docker:
@@ -922,6 +862,10 @@ jobs:
             - run:
                 command: ssh -o StrictHostKeyChecking=no web@web.integreat-app.de "rsync -arv --delete /var/www/beta.netzwerkobdachwohnen.de/ /var/www/netzwerkobdachwohnen.de"
                 name: Obdach production promotion
+            - run:
+                command: yarn github-promote-release promote --platform web --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME}
+                name: Remove prerelease flag from github release
+                working_directory: tools
             - notify
     sentry_android:
         docker:
