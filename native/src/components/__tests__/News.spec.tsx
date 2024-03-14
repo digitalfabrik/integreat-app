@@ -2,8 +2,8 @@ import { fireEvent } from '@testing-library/react-native'
 import { DateTime } from 'luxon'
 import React from 'react'
 
-import { LocalNewsType, TU_NEWS_TYPE, TuNewsType } from 'shared'
-import { replaceLinks, LanguageModelBuilder, CityModel, LocalNewsModel, TunewsModel } from 'shared/api'
+import { LocalNewsType, TU_NEWS_TYPE, TuNewsType, replaceLinks } from 'shared'
+import { LanguageModelBuilder, CityModel, LocalNewsModel, TunewsModel } from 'shared/api'
 
 import useNavigate from '../../hooks/useNavigate'
 import createNavigationPropMock from '../../testing/createNavigationPropMock'
