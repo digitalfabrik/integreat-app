@@ -1,0 +1,6 @@
+issue_key: 2646
+show_in_stores: true
+platforms:
+  - ios
+en: The help form is not partially hidden by the keyboard anymore.
+de: Das Hilfeformular wird nicht mehr teilweise von der Tastatur verdeckt.
