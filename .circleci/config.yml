@@ -746,21 +746,6 @@ jobs:
             - run:
                 command: echo "export RELEASE_NOTES=$(yarn --silent --cwd tools manage-metadata parse-release-notes --web --language en)" >> ${BASH_ENV}
                 name: Create release notes
-            - when:
-                condition: << parameters.production_delivery >>
-                steps:
-                    - notify:
-                        channel: releases
-                        success_message: WebApp version ${NEW_VERSION_NAME} was delivered successfully to integreat.app, malteapp.de, aschaffenburg.app and netzwerkobdachwohnen.de!\n${RELEASE_NOTES}
-            - unless:
-                condition: << parameters.production_delivery >>
-                steps:
-                    - notify:
-                        channel: releases
-                        only_for_branch: ${CIRCLE_BRANCH}
-                        success_message: |-
-                            [Beta] WebApp version ${NEW_VERSION_NAME} was delivered successfully to beta.integreat.app, beta.malteapp.de, beta.aschaffenburg.app and beta.netzwerkobdachwohnen.de!
-                            ${RELEASE_NOTES}
     promote_android:
         docker:
             - image: cimg/android:2023.02.1-node
@@ -1726,15 +1711,6 @@ workflows:
                     - mattermost
                     - deliverino
                 prepare_delivery: true
-            - check:
-                context:
-                    - codeclimate-integreat-app
-                    - mattermost
-            - e2e_web:
-                context:
-                    - mattermost
-                requires:
-                    - bump_version
             - build_web:
                 build_config_name: integreat
                 context:
@@ -1749,40 +1725,13 @@ workflows:
                 name: build_malte_web
                 requires:
                     - bump_version
-            - build_web:
-                build_config_name: aschaffenburg
-                context:
-                    - mattermost
-                name: build_aschaffenburg_web
-                requires:
-                    - bump_version
-            - build_web:
-                build_config_name: obdach
-                context:
-                    - mattermost
-                name: build_obdach_web
-                requires:
-                    - bump_version
             - deliver_web:
                 context:
                     - mattermost
                 delivery: beta
                 requires:
-                    - check
-                    - e2e_web
                     - build_integreat_web
                     - build_malte_web
-                    - build_aschaffenburg_web
-                    - build_obdach_web
-            - sentry_web:
-                context:
-                    - mattermost
-                    - sentry
-                requires:
-                    - build_integreat_web
-                    - build_malte_web
-                    - build_aschaffenburg_web
-                    - build_obdach_web
             - notify_web:
                 context:
                     - mattermost
