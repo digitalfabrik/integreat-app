@@ -22,8 +22,8 @@ const Question = styled.Text`
 `
 
 const StyledButton = styled(TextButton)`
-  width: 40%;
   margin: 30px 0 40px 0;
+  padding: 8px 16px;
 `
 
 const StyledIcon = styled(Icon)`
@@ -50,7 +50,7 @@ const CityNotCooperatingFooter = ({
     <FooterContainer>
       <StyledIcon Icon={CityNotCooperatingIcon} />
       <Question>{t('cityNotFound')}</Question>
-      <StyledButton text={t('clickHere')} onPress={navigateToCityNotCooperating} />
+      <StyledButton text={t('clickHere', { appName: buildConfig().appName })} onPress={navigateToCityNotCooperating} />
     </FooterContainer>
   )
 }

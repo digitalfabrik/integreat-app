@@ -29,6 +29,7 @@ const Button = styled(Link)`
   color: ${props => props.theme.colors.textColor};
   padding: 5px 20px;
   margin: 15px;
+  text-align: center;
 `
 
 const Question = styled.p`
@@ -53,7 +54,7 @@ const CityNotCooperatingFooter = ({ languageCode }: CityNotCooperatingFooterProp
       <StyledIcon src={CityNotCooperatingIcon} />
       <Question>{t('cityNotFound')}</Question>
       <Button to={pathnameFromRouteInformation({ route: CITY_NOT_COOPERATING_ROUTE, ...{ languageCode } })}>
-        {t('clickHere')}
+        {t('clickHere', { appName: buildConfig().appName })}
       </Button>
     </FooterContainer>
   )
