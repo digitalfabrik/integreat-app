@@ -19,16 +19,16 @@ steps:
   - run:
       name: Create release notes
       command: echo "export RELEASE_NOTES=$(yarn --silent --cwd tools manage-metadata parse-release-notes --web --language en)" >> ${BASH_ENV}
-#  - when:
-#      condition: << parameters.production_delivery >>
-#      steps:
-#        - notify:
-#            success_message: WebApp version ${NEW_VERSION_NAME} was delivered successfully to integreat.app, malteapp.de, aschaffenburg.app and netzwerkobdachwohnen.de!\n${RELEASE_NOTES}
-#            channel: releases
-#  - unless:
-#      condition: << parameters.production_delivery >>
-#      steps:
-#        - notify:
-#            success_message: "[Beta] WebApp version ${NEW_VERSION_NAME} was delivered successfully to beta.integreat.app, beta.malteapp.de, beta.aschaffenburg.app and beta.netzwerkobdachwohnen.de!\n${RELEASE_NOTES}"
-#            channel: releases
-#            only_for_branch: ${CIRCLE_BRANCH}
+  - when:
+      condition: << parameters.production_delivery >>
+      steps:
+        - notify:
+            success_message: WebApp version ${NEW_VERSION_NAME} was delivered successfully to integreat.app, malteapp.de, aschaffenburg.app and netzwerkobdachwohnen.de!\n${RELEASE_NOTES}
+            channel: releases
+  - unless:
+      condition: << parameters.production_delivery >>
+      steps:
+        - notify:
+            success_message: "[Beta] WebApp version ${NEW_VERSION_NAME} was delivered successfully to beta.integreat.app, beta.malteapp.de, beta.aschaffenburg.app and beta.netzwerkobdachwohnen.de!\n${RELEASE_NOTES}"
+            channel: releases
+            only_for_branch: ${CIRCLE_BRANCH}
