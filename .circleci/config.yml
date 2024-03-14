@@ -467,18 +467,6 @@ jobs:
                         command: yarn git-version bump-to ${NEW_VERSION_NAME} ${NEW_VERSION_CODE} --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME} --branch ${CIRCLE_BRANCH}
                         name: Bump git version
                         working_directory: tools
-            - when:
-                condition:
-                    and:
-                        - << parameters.prepare_delivery >>
-                        - not:
-                            equal:
-                                - main
-                                - << pipeline.git.branch >>
-                steps:
-                    - notify:
-                        only_for_branch: ${CIRCLE_BRANCH}
-                        success_message: Delivery was made on branch << pipeline.git.branch >>. Make sure to merge this branch before next delivery.
             - persist_environment_variables
             - notify
     check:

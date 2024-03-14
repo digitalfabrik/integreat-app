@@ -1,12 +1,7 @@
-import { Octokit } from '@octokit/rest'
-import { GetResponseTypeFromEndpointMethod } from '@octokit/types'
 import { program } from 'commander'
 import fs from 'node:fs'
 
 import authenticate from './github-authentication.js'
-
-const octokit = new Octokit()
-type Releases = GetResponseTypeFromEndpointMethod<typeof octokit.repos.listReleases>
 
 type Options = {
   deliverinoPrivateKey: string
