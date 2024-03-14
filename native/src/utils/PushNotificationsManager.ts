@@ -1,3 +1,4 @@
+import notifee, { EventType } from '@notifee/react-native'
 import { FirebaseMessagingTypes } from '@react-native-firebase/messaging'
 import { useEffect } from 'react'
 import { Linking } from 'react-native'
@@ -106,18 +107,30 @@ export const useForegroundPushNotificationListener = ({
       messaging().onMessage(async _message => {
         const message = _message as Message
         if (mounted) {
-          // The CMS needs some time until the push notification is available in the API response
-          setTimeout(() => {
-            log(JSON.stringify(message))
-            // showSnackbar({
-            //   text: message.notification.title,
-            //   positiveAction: {
-            //     onPress: () => navigate(NEWS_ROUTE, routeInformationFromMessage(message)),
-            //     label: 'Show',
-            //   },
-            //   showDuration: PUSH_NOTIFICATION_SHOW_DURATION,
-            // })
-          }, WAITING_TIME_FOR_CMS)
+          // required for Android
+          const channelId = await notifee.createChannel({
+            id: 'default',
+            name: 'Default Channel',
+          })
+
+          await notifee.displayNotification({
+            title: message.notification.title,
+            body: message.notification.body,
+            android: {
+              smallIcon: 'ic_notification',
+              color: buildConfig().lightTheme.colors.themeColor,
+              channelId,
+            },
+          })
+          notifee.onForegroundEvent(({ type }) => {
+            if (type === EventType.PRESS) {
+              log(JSON.stringify(message))
+              // The CMS needs some time until the push notification is available in the API response
+              setTimeout(() => {
+                navigate(NEWS_ROUTE, routeInformationFromMessage(message))
+              }, WAITING_TIME_FOR_CMS)
+            }
+          })
         }
       }),
     )
