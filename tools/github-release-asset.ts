@@ -16,12 +16,13 @@ const uploadAsset = async ({ deliverinoPrivateKey, owner, repo, releaseId, files
 
   files.split('\n').forEach(async file => {
     console.log(`Uploading ${file}`)
+    const filename = file.substring(file.lastIndexOf('/') + 1)
     const fileData = fs.readFileSync(file)
     await appOctokit.rest.repos.uploadReleaseAsset({
       owner,
       repo,
       release_id: releaseId,
-      name: file.split('/')[1] ?? 'unknown',
+      name: filename,
       data: fileData as unknown as string,
     })
   })
