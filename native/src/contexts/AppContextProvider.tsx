@@ -7,6 +7,7 @@ import dataContainer from '../utils/DefaultDataContainer'
 import { subscribeNews, unsubscribeNews } from '../utils/PushNotificationsManager'
 import { reportError } from '../utils/sentry'
 
+// To change the city or language code, the respective functions should be used
 export type UpdateSettingsType = Partial<Omit<Omit<SettingsType, 'selectedCity'>, 'contentLanguage'>>
 
 export type AppContextType = {
@@ -49,21 +50,6 @@ const AppContextProvider = ({ children }: AppContextProviderProps): ReactElement
 
   useEffect(loadSettings, [loadSettings])
 
-  useEffect(() => {
-    const { fixedCity } = buildConfig().featureFlags
-    if (cityCode) {
-      dataContainer.storeLastUsage(cityCode).catch(reportError)
-    } else if (fixedCity) {
-      updateSettings({ selectedCity: fixedCity })
-    }
-  }, [updateSettings, cityCode])
-
-  useEffect(() => {
-    if (settings && !languageCode && uiLanguage) {
-      updateSettings({ contentLanguage: uiLanguage })
-    }
-  }, [settings, updateSettings, languageCode, uiLanguage])
-
   const changeCityCode = useCallback(
     (newCityCode: string | null): void => {
       updateSettings({ selectedCity: newCityCode })
@@ -89,6 +75,25 @@ const AppContextProvider = ({ children }: AppContextProviderProps): ReactElement
     },
     [updateSettings, cityCode, languageCode],
   )
+
+  useEffect(() => {
+    if (cityCode) {
+      dataContainer.storeLastUsage(cityCode).catch(reportError)
+    }
+  }, [cityCode])
+
+  useEffect(() => {
+    const { fixedCity } = buildConfig().featureFlags
+    if (settings && cityCode !== fixedCity && fixedCity) {
+      changeCityCode(fixedCity)
+    }
+  }, [settings, cityCode, changeCityCode])
+
+  useEffect(() => {
+    if (settings && !languageCode && uiLanguage) {
+      changeLanguageCode(uiLanguage)
+    }
+  }, [settings, changeLanguageCode, languageCode, uiLanguage])
 
   const appContext = useMemo(
     () => ({ settings, cityCode, languageCode, updateSettings, changeCityCode, changeLanguageCode }),
