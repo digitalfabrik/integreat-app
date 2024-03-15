@@ -39,7 +39,7 @@ const AppContextProvider = ({ children }: AppContextProviderProps): ReactElement
   const { i18n } = useTranslation()
   const uiLanguage = i18n.languages[0]
 
-  const loadSettings = useCallback(() => {
+  useEffect(() => {
     appSettings.loadSettings().then(setSettings).catch(reportError)
   }, [])
 
@@ -47,8 +47,6 @@ const AppContextProvider = ({ children }: AppContextProviderProps): ReactElement
     setSettings(oldSettings => (oldSettings ? { ...oldSettings, ...settings } : null))
     appSettings.setSettings(settings).catch(reportError)
   }, [])
-
-  useEffect(loadSettings, [loadSettings])
 
   const changeCityCode = useCallback(
     (newCityCode: string | null): void => {
