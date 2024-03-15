@@ -19,7 +19,6 @@ import {
 } from '../constants/webview'
 import { useAppContext } from '../hooks/useCityAppContext'
 import useNavigate from '../hooks/useNavigate'
-import appSettings from '../utils/AppSettings'
 import renderHtml from '../utils/renderHtml'
 import { log, reportError } from '../utils/sentry'
 import Failure from './Failure'
@@ -90,8 +89,8 @@ const RemoteContent = (props: RemoteContentProps): ReactElement | null => {
       }
 
       if (message.type === ALLOW_EXTERNAL_SOURCE_MESSAGE_TYPE && typeof message.source === 'string') {
-        const updatedSources: Record<string, boolean> = externalSourcePermissions
-        updatedSources[message.source] = true
+        const source = message.source
+        const updatedSources = { ...externalSourcePermissions, [source]: true }
         updateSettings({ externalSourcePermissions: updatedSources })
         return
       }
@@ -106,7 +105,7 @@ const RemoteContent = (props: RemoteContentProps): ReactElement | null => {
         setError(error.message)
       }
     },
-    [externalSourcePermissions, navigateTo],
+    [externalSourcePermissions, navigateTo, updateSettings],
   )
 
   const onShouldStartLoadWithRequest = useCallback(

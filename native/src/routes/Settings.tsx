@@ -13,7 +13,7 @@ import { NavigationProps } from '../constants/NavigationTypes'
 import { AppContext } from '../contexts/AppContextProvider'
 import { useAppContext } from '../hooks/useCityAppContext'
 import useSnackbar from '../hooks/useSnackbar'
-import appSettings, { SettingsType } from '../utils/AppSettings'
+import { SettingsType } from '../utils/AppSettings'
 import createSettingsSections, { SettingsSectionType } from '../utils/createSettingsSections'
 import { log, reportError } from '../utils/sentry'
 
