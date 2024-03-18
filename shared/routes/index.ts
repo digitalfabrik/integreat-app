@@ -81,3 +81,24 @@ export const MAIN_DISCLAIMER_ROUTE: MainDisclaimerRouteType = 'main-disclaimer'
 
 export type NotFoundRouteType = 'not-found'
 export const NOT_FOUND_ROUTE: NotFoundRouteType = 'not-found'
+
+// Adding new routes should be mentioned to the CMS team if the route has to be reserved
+export const RESERVED_TOP_LEVEL_SLUGS = [
+  LANDING_ROUTE,
+  MAIN_DISCLAIMER_ROUTE,
+  NOT_FOUND_ROUTE,
+  CONSENT_ROUTE,
+  LICENSES_ROUTE,
+  CITY_NOT_COOPERATING_ROUTE,
+  JPAL_TRACKING_ROUTE,
+]
+
+// Adding new routes should be mentioned to the CMS team if the route has to be reserved
+export const RESERVED_CITY_CONTENT_SLUGS = [
+  SEARCH_ROUTE,
+  DISCLAIMER_ROUTE,
+  EVENTS_ROUTE,
+  NEWS_ROUTE,
+  POIS_ROUTE,
+  OFFERS_ROUTE,
+]
