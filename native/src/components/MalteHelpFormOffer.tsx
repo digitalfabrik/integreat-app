@@ -114,8 +114,7 @@ const MalteHelpFormOffer = ({
 
   return (
     <Container>
-      {/* @ts-expect-error Android avoids the keyboard automatically */}
-      <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : ''}>
+      <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
         <InformationRow>
           <Icon Icon={SupportIcon} />
           <InformationText>{t('supportNote')}</InformationText>
