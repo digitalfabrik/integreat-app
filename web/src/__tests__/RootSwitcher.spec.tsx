@@ -56,46 +56,55 @@ describe('RootSwitcher', () => {
     await waitFor(() => expect(getByText('/landing/de')).toBeTruthy())
   })
 
-  it.each`
-    from              | to
-    ${'/'}            | ${'/landing/de'}
-    ${'/landing'}     | ${'/landing/de'}
-    ${'/augsburg'}    | ${'/augsburg/de'}
-    ${'/augsburg/de'} | ${'/augsburg/de'}
-  `('should redirect from $from to $to', ({ from, to }) => {
-    mockUseLoadFromEndpointWithData(cities)
-
-    const { getByText } = renderRootSwitcher(from)
-
-    expect(getByText(to)).toBeTruthy()
-  })
-
-  describe('fixedCity', () => {
-    const previousConfig = buildConfig()
-    let config = previousConfig
-
-    beforeAll(() => {
-      config.featureFlags.fixedCity = 'augsburg'
-    })
-
-    afterAll(() => {
-      config = previousConfig
-    })
-
+  describe('redirects', () => {
     it.each`
-      from              | to
-      ${'/'}            | ${'/augsburg/de'}
-      ${'/landing'}     | ${'/augsburg/de'}
-      ${'/augsburg'}    | ${'/augsburg/de'}
-      ${'/augsburg/de'} | ${'/augsburg/de'}
-      ${'/oldtown'}     | ${'/augsburg/de'}
-      ${'/oldtown/de'}  | ${'/oldtown/de'}
-    `('should redirect from $from to $to for fixedCity', async ({ from, to }) => {
+      from                          | to
+      ${'/'}                        | ${'/landing/de'}
+      ${'/landing'}                 | ${'/landing/de'}
+      ${'/augsburg'}                | ${'/augsburg/de'}
+      ${'/augsburg/de'}             | ${'/augsburg/de'}
+      ${'/augsburg/events'}         | ${'/augsburg/de/events'}
+      ${'/augsburg/events/event-1'} | ${'/augsburg/de/events/event-1'}
+      ${'/augsburg/news'}           | ${'/augsburg/de/news'}
+      ${'/augsburg/news/local'}     | ${'/augsburg/de/news/local'}
+      ${'/augsburg/news/tu-news'}   | ${'/augsburg/de/news/tu-news'}
+    `('should redirect from $from to $to', ({ from, to }) => {
       mockUseLoadFromEndpointWithData(cities)
 
       const { getByText } = renderRootSwitcher(from)
 
-      await waitFor(() => expect(getByText(to)).toBeTruthy())
+      expect(getByText(to)).toBeTruthy()
+    })
+
+    describe('fixedCity', () => {
+      const previousConfig = buildConfig()
+      let config = previousConfig
+
+      beforeAll(() => {
+        config.featureFlags.fixedCity = 'augsburg'
+      })
+
+      afterAll(() => {
+        config = previousConfig
+      })
+
+      it.each`
+        from                     | to
+        ${'/'}                   | ${'/augsburg/de'}
+        ${'/landing'}            | ${'/augsburg/de'}
+        ${'/augsburg'}           | ${'/augsburg/de'}
+        ${'/augsburg/de'}        | ${'/augsburg/de'}
+        ${'/oldtown'}            | ${'/augsburg/de'}
+        ${'/oldtown/de'}         | ${'/oldtown/de'}
+        ${'/oldtown/news'}       | ${'/oldtown/de/news'}
+        ${'/oldtown/news/local'} | ${'/oldtown/de/news/local'}
+      `('should redirect from $from to $to for fixedCity', async ({ from, to }) => {
+        mockUseLoadFromEndpointWithData(cities)
+
+        const { getByText } = renderRootSwitcher(from)
+
+        await waitFor(() => expect(getByText(to)).toBeTruthy())
+      })
     })
   })
 })

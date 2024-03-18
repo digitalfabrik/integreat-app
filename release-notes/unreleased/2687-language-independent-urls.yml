@@ -1,0 +1,7 @@
+issue_key: 2687
+show_in_stores: false
+platforms:
+  - android
+  - ios
+  - web
+en: Language independent urls are now supported.
