@@ -34,12 +34,6 @@ const TimeSlotEntry = styled.span`
   gap: 10px;
 `
 
-// const Tip = (
-//   <StyledTooltip text='only by appoitment' flow='right'>
-//     <Icon src={NoteIcon} />
-//   </StyledTooltip>
-// )
-
 type OpeningEntryProps = {
   allDay: boolean
   closed: boolean
