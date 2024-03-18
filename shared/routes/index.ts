@@ -82,7 +82,8 @@ export const MAIN_DISCLAIMER_ROUTE: MainDisclaimerRouteType = 'main-disclaimer'
 export type NotFoundRouteType = 'not-found'
 export const NOT_FOUND_ROUTE: NotFoundRouteType = 'not-found'
 
-// Adding new routes should be mentioned to the CMS team if the route has to be reserved
+// Changes done to the reserved routes have to be done in the CMS as well:
+// https://github.com/digitalfabrik/integreat-cms/blob/main/integreat_cms/core/settings.py#L69-L87
 export const RESERVED_TOP_LEVEL_SLUGS = [
   LANDING_ROUTE,
   MAIN_DISCLAIMER_ROUTE,
@@ -93,7 +94,8 @@ export const RESERVED_TOP_LEVEL_SLUGS = [
   JPAL_TRACKING_ROUTE,
 ]
 
-// Adding new routes should be mentioned to the CMS team if the route has to be reserved
+// Changes done to the reserved routes have to be done in the CMS as well:
+// https://github.com/digitalfabrik/integreat-cms/blob/main/integreat_cms/core/settings.py#L69-L87
 export const RESERVED_CITY_CONTENT_SLUGS = [
   SEARCH_ROUTE,
   DISCLAIMER_ROUTE,

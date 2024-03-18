@@ -6,8 +6,6 @@ import {
   JPAL_TRACKING_ROUTE,
   LANDING_ROUTE,
   LOCAL_NEWS_TYPE,
-  LocalNewsType,
-  MALTE_HELP_FORM_OFFER_ROUTE,
   NEWS_ROUTE,
   OFFERS_ROUTE,
   POIS_ROUTE,
@@ -15,7 +13,6 @@ import {
   SEARCH_ROUTE,
   SPRUNGBRETT_OFFER_ROUTE,
   TU_NEWS_TYPE,
-  TuNewsType,
 } from '.'
 
 import normalizePath from '../utils/normalizePath'
@@ -172,7 +169,7 @@ class InternalPathnameParser {
       return null
     }
 
-    const newsType: LocalNewsType | TuNewsType = type === TU_NEWS_TYPE ? TU_NEWS_TYPE : LOCAL_NEWS_TYPE
+    const newsType = type === TU_NEWS_TYPE ? TU_NEWS_TYPE : LOCAL_NEWS_TYPE
     const newsId = this._length > ENTITY_ID_INDEX + 1 ? this._parts[ENTITY_ID_INDEX + 1] : undefined
     return {
       route: NEWS_ROUTE,
