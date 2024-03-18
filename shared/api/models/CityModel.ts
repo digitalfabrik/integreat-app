@@ -15,7 +15,7 @@ class CityModel {
   _localNewsEnabled: boolean
   _tunewsEnabled: boolean
   _sortingName: string
-  _prefix: string | null | undefined
+  _prefix: string | null
   _latitude: number
   _longitude: number
 
@@ -30,7 +30,7 @@ class CityModel {
     localNewsEnabled: boolean
     tunewsEnabled: boolean
     sortingName: string
-    prefix: string | null | undefined
+    prefix: string | null
     latitude: number
     longitude: number
     aliases: Record<string, CoordinateType> | null
@@ -103,7 +103,7 @@ class CityModel {
     return this._sortingName.charAt(0)
   }
 
-  get prefix(): string | null | undefined {
+  get prefix(): string | null {
     return this._prefix
   }
 

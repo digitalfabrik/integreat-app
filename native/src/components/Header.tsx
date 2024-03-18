@@ -180,14 +180,13 @@ const Header = ({
     }
   }
 
-  const visible = showItems && !!goToLanguageChange
   const items = [
-    renderItem(HeaderButtonTitle.Search, 'search', visible, () =>
+    renderItem(HeaderButtonTitle.Search, 'search', showItems, () =>
       navigation.navigate(SEARCH_ROUTE, {
         searchText: null,
       }),
     ),
-    renderItem(HeaderButtonTitle.Language, 'language', visible, goToLanguageChange),
+    renderItem(HeaderButtonTitle.Language, 'language', showItems, goToLanguageChange),
   ]
 
   const overflowItems = showOverflowItems
@@ -217,7 +216,7 @@ const Header = ({
     const notFromDeepLink = previousRoute.name === POIS_ROUTE
     if (currentRouteIsPoi && notFromDeepLink) {
       const poisRouteParams = route.params as RoutesParamsType[PoisRouteType]
-      if (poisRouteParams.slug || poisRouteParams.multipoi) {
+      if (poisRouteParams.slug || poisRouteParams.multipoi !== undefined) {
         return t('locations')
       }
     }

@@ -105,6 +105,13 @@ module.exports = {
     ],
     '@typescript-eslint/no-use-before-define': 'error',
     '@typescript-eslint/prefer-ts-expect-error': 'error',
+    '@typescript-eslint/strict-boolean-expressions': [
+      'error',
+      {
+        allowNullableBoolean: true,
+        allowNullableString: true,
+      },
+    ],
     '@typescript-eslint/switch-exhaustiveness-check': 'error',
     '@typescript-eslint/no-non-null-assertion': 'error',
 

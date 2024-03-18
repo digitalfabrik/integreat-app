@@ -166,7 +166,7 @@ const Navigator = (): ReactElement | null => {
   }, [cities, changeCityCode, cityCode, showSnackbar, settings, initialRoute, updateInitialRoute])
 
   if (!initialRoute && citiesError) {
-    return <LoadingErrorHandler error={citiesError} loading={!initialRoute} refresh={refreshCities} />
+    return <LoadingErrorHandler error={citiesError} loading={false} refresh={refreshCities} />
   }
   if (!initialRoute) {
     return null

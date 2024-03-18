@@ -1,13 +1,11 @@
-/**
- * Function return if path is internal or external by checking if an URL can be created that requires an absolute path
- * @param link provides absolute or relative path
- */
 export const isExternalUrl = (link: string): boolean => {
+  // If it is possible to create a URL from the link, it is an absolute and therefore an external url
+  // If it throws an error, it is relative and therefore an internal link
+  // Might be refactored to URL.canParse() at a later point, got only implemented in 2023 in most browsers
   try {
-    // Check whether link is a valid URL
-    return !!new URL(link)
+    const _ = new URL(link)
+    return true
   } catch (e) {
-    // Link is not a valid URL and therefore just a pathname -> internal link
     return false
   }
 }

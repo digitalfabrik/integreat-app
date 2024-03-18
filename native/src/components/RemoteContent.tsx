@@ -99,7 +99,7 @@ const RemoteContent = (props: RemoteContentProps): ReactElement | null => {
         log(message.message, 'warning')
       } else {
         const error = new Error(
-          message.message ? JSON.stringify(message.message) : 'Unknown message received from webview',
+          message.message !== undefined ? JSON.stringify(message.message) : 'Unknown message received from webview',
         )
         reportError(error)
         setError(error.message)

@@ -20,7 +20,7 @@ export type MapParamsToUrlType<P> = ImportedMapParamsToUrlType<P>
 export type MapResponseType<P, T> = ImportedMapResponseType<P, T>
 export type FeedbackParamsType = ImportedFeedbackParamsType
 export type FeedbackRouteType = ImportedFeedbackRouteType
-export type ReturnType<T> = ImportedReturnType<T>
+export type ReturnType<T extends object> = ImportedReturnType<T>
 export { default as FetchError } from './errors/FetchError'
 export { default as ResponseError } from './errors/ResponseError'
 export { default as MappingError } from './errors/MappingError'

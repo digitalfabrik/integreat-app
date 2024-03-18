@@ -7,7 +7,7 @@ import { SnackbarType } from '../components/SnackbarContainer'
 import dataContainer from '../utils/DefaultDataContainer'
 import { determineApiUrl } from '../utils/helpers'
 
-type Load<T> = {
+type Load<T extends object> = {
   cityCode: string
   languageCode: string
   createEndpoint: (baseUrl: string) => Endpoint<{ city: string; language: string }, T>
@@ -23,7 +23,7 @@ type Load<T> = {
  * Updates the cache after loading from the endpoint.
  * Shows a snackbar instead of returning an error if the data is available in the cache.
  */
-const loadWithCache = async <T>({
+const loadWithCache = async <T extends object>({
   cityCode,
   languageCode,
   isAvailable,
@@ -49,7 +49,7 @@ const loadWithCache = async <T>({
       city: cityCode,
       language: languageCode,
     })
-    if (payload.data) {
+    if (payload.data !== null) {
       await setToDataContainer(cityCode, languageCode, payload.data)
     }
     return payload.data ?? cachedData
@@ -64,9 +64,9 @@ const loadWithCache = async <T>({
   return cachedData
 }
 
-const useLoadWithCache = <T>(params: Load<T>): ReturnType<T> =>
+const useLoadWithCache = <T extends object>(params: Load<T>): ReturnType<T> =>
   // Normally using params as dependency triggers infinite re-renders
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  useLoadAsync(useCallback(forceUpdate => loadWithCache({ ...params, forceUpdate }), [JSON.stringify(params)]))
+  useLoadAsync<T>(useCallback(forceUpdate => loadWithCache<T>({ ...params, forceUpdate }), [JSON.stringify(params)]))
 
 export default useLoadWithCache

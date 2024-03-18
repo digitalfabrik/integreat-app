@@ -1,4 +1,4 @@
-import React, { ReactElement, ReactNode, useContext, useEffect, useState } from 'react'
+import React, { ReactElement, useContext, useEffect, useState } from 'react'
 import { RefreshControl } from 'react-native'
 
 import { LANDING_ROUTE } from 'shared'
@@ -16,7 +16,7 @@ import useNavigate from '../hooks/useNavigate'
 const LOADING_TIMEOUT = 800
 
 type LoadingErrorHandlerProps = {
-  children?: ReactNode
+  children?: ReactElement | null
   error: Error | ErrorCode | null
   loading: boolean
   refresh: () => void
@@ -62,7 +62,7 @@ const LoadingErrorHandler = ({
     return <LanguageNotAvailablePage availableLanguages={availableLanguages} />
   }
 
-  if (error) {
+  if (error !== null) {
     const navigateToLanding = () => navigateTo({ route: LANDING_ROUTE, languageCode })
     const buttonAction = error === ErrorCode.CityUnavailable ? navigateToLanding : refresh
     const buttonLabel = error === ErrorCode.CityUnavailable ? 'goTo.start' : undefined

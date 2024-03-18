@@ -12,7 +12,7 @@ import { getJpalTrackingCode, request as fetch } from './request'
  * An Endpoint holds all the relevant information to fetch data from it
  */
 
-class Endpoint<P, T> {
+class Endpoint<P, T extends object> {
   _stateName: string
   mapParamsToUrl: MapParamsToUrlType<P>
   mapParamsToBody: MapParamsToBodyType<P> | null | undefined

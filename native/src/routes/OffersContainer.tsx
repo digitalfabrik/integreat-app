@@ -52,9 +52,9 @@ const OffersContainer = ({ navigation, route }: OffersContainerProps): ReactElem
 
   return (
     <LoadingErrorHandler {...response} error={error} scrollView>
-      {data?.city.offersEnabled && (
+      {data?.city.offersEnabled ? (
         <Offers offers={data.extra} navigateToOffer={navigateToOffer} languageCode={languageCode} />
-      )}
+      ) : null}
     </LoadingErrorHandler>
   )
 }

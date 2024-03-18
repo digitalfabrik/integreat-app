@@ -101,8 +101,9 @@ const MapView = ({
   }
 
   const coordinates = selectedFeature?.geometry.coordinates
+  const defaultZoom = coordinates ? normalDetailZoom : defaultViewportConfig.zoom
   const defaultSettings: CameraSettings = {
-    zoomLevel: zoom ?? coordinates ? normalDetailZoom : defaultViewportConfig.zoom,
+    zoomLevel: zoom !== undefined ? zoom : defaultZoom,
     centerCoordinate: coordinates,
     bounds: coordinates ? undefined : bounds,
   }
