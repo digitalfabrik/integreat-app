@@ -36,6 +36,7 @@ const githubRelease = async (
     body,
   })
 
+  // This command returns the release id of the created release, which is later needed to make updates for this release.
   console.log(release.data.id)
 }
 

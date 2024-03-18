@@ -11,7 +11,7 @@ type Options = {
   files: string
 }
 
-const uploadAsset = async ({ deliverinoPrivateKey, owner, repo, releaseId, files }: Options) => {
+const uploadAssets = async ({ deliverinoPrivateKey, owner, repo, releaseId, files }: Options) => {
   const appOctokit = await authenticate({ deliverinoPrivateKey, owner, repo })
 
   files.split('\n').forEach(async file => {
@@ -41,7 +41,7 @@ program
   .requiredOption('--files <files>', 'The name of the files to upload.')
   .action(async (options: Options) => {
     try {
-      await uploadAsset(options)
+      await uploadAssets(options)
     } catch (e) {
       console.error(e)
       process.exit(1)
