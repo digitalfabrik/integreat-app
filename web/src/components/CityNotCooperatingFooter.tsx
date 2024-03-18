@@ -54,7 +54,7 @@ const CityNotCooperatingFooter = ({ languageCode }: CityNotCooperatingFooterProp
       <StyledIcon src={CityNotCooperatingIcon} />
       <Question>{t('cityNotFound')}</Question>
       <Button to={pathnameFromRouteInformation({ route: CITY_NOT_COOPERATING_ROUTE, ...{ languageCode } })}>
-        {t('clickHere', { appName: buildConfig().appName })}
+        {t('suggestToRegion', { appName: buildConfig().appName })}
       </Button>
     </FooterContainer>
   )

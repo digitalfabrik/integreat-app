@@ -50,7 +50,10 @@ const CityNotCooperatingFooter = ({
     <FooterContainer>
       <StyledIcon Icon={CityNotCooperatingIcon} />
       <Question>{t('cityNotFound')}</Question>
-      <StyledButton text={t('clickHere', { appName: buildConfig().appName })} onPress={navigateToCityNotCooperating} />
+      <StyledButton
+        text={t('suggestToRegion', { appName: buildConfig().appName })}
+        onPress={navigateToCityNotCooperating}
+      />
     </FooterContainer>
   )
 }
