@@ -1,3 +1,5 @@
+import isMapEqual from '../../utils/isMapEqual'
+
 export default class OfferModel {
   _alias: string
   _title: string
@@ -41,8 +43,7 @@ export default class OfferModel {
 
   isEqual(other: OfferModel): boolean {
     const postDataEqual =
-      this.postData?.size === other.postData?.size &&
-      Array.from(this.postData?.keys() ?? []).every(key => this.postData?.get(key) === other.postData?.get(key))
+      (this.postData && other.postData && isMapEqual(this.postData, other.postData)) || !this.postData
     return (
       postDataEqual &&
       this.alias === other.alias &&

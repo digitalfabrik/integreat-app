@@ -1,4 +1,3 @@
-import { groupBy, transform } from 'lodash'
 import React, { ReactElement, ReactNode, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
@@ -39,21 +38,24 @@ const CitySelector = ({ cities, language }: CitySelectorProps): ReactElement => 
 
   const resultCities = filterSortCities(cities, filterText, buildConfig().featureFlags.developerFriendly)
 
-  const groups = groupBy(resultCities, city => city.sortCategory)
+  const groups = resultCities.reduce(
+    (groupedCities, currentCity) => ({
+      ...groupedCities,
+      [currentCity.sortCategory]: [...(groupedCities[currentCity.sortCategory] ?? []), currentCity],
+    }),
+    {} as { [key: string]: CityModel[] },
+  )
 
-  const entries = transform(
-    groups,
-    (result: Array<ReactNode>, cities, key) => {
-      result.push(
-        <div key={key}>
-          <CityListParent stickyTop={stickyTop}>{key}</CityListParent>
-          {cities.map(city => (
-            <CityEntry key={city.code} city={city} language={language} filterText={filterText} />
-          ))}
-        </div>,
-      )
-    },
-    [],
+  const entries = Object.entries(groups).map(
+    ([key, cities]) => (
+      <div key={key}>
+        <CityListParent stickyTop={stickyTop}>{key}</CityListParent>
+        {cities.map(city => (
+          <CityEntry key={city.code} city={city} language={language} filterText={filterText} />
+        ))}
+      </div>
+    ),
+    [] as ReactNode[],
   )
 
   return (

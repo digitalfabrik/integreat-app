@@ -1,7 +1,7 @@
-import { isEqual } from 'lodash'
 import { DateTime } from 'luxon'
 
 import { getSlugFromPath } from '../../utils'
+import isMapEqual from '../../utils/isMapEqual'
 import PageModel from './PageModel'
 
 class ExtendedPageModel extends PageModel {
@@ -42,7 +42,7 @@ class ExtendedPageModel extends PageModel {
       other instanceof ExtendedPageModel &&
       super.isEqual(other) &&
       this.thumbnail === other.thumbnail &&
-      isEqual(this.availableLanguages, other.availableLanguages)
+      isMapEqual(this.availableLanguages, other.availableLanguages)
     )
   }
 }

@@ -1,6 +1,6 @@
-import { escapeRegExp } from 'lodash'
-
 import NotFoundError from '../NotFoundError'
+
+const escapeRegExp = (regexString: string): string => regexString.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') // $& means the whole matched string
 
 describe('NotFoundError', () => {
   it('should have correct message', () => {

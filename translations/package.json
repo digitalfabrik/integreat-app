@@ -3,6 +3,7 @@
   "version": "0.0.1",
   "description": "Translations for the integreat frontend projects",
   "main": "src/index.ts",
+  "sideEffects": false,
   "private": true,
   "scripts": {
     "manage": "ts-node tools/manage.ts",
@@ -19,10 +20,10 @@
   "dependencies": {},
   "devDependencies": {
     "@types/flat": "^5.0.2",
-    "@types/lodash": "^4.14.197",
     "commander": "^11.0.0",
     "csv-parse": "^5.5.0",
     "csv-stringify": "^6.4.2",
+    "deepmerge-ts": "^5.1.0",
     "flat": "^5.0.2",
     "lodash": "^4.17.21"
   }
