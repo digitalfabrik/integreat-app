@@ -1,5 +1,5 @@
 import MiniSearch from 'minisearch'
-import { useMemo } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 
 export type SearchResult = {
   title: string
@@ -8,8 +8,10 @@ export type SearchResult = {
   path: string
 }
 
-const useSearch = (allPossibleResults: SearchResult[], query: string, mode?: 'async'): SearchResult[] => {
-  const minisearch = useMemo(() => {
+const useSearch = (allPossibleResults: SearchResult[], query: string, asyncMode = false): SearchResult[] => {
+  const [isIndexing, setIsIndexing] = useState<boolean>(asyncMode)
+  const [searchResult, setSearchResult] = useState<SearchResult[]>([])
+  const miniSearch = useMemo(() => {
     const search = new MiniSearch({
       idField: 'path',
       fields: ['title', 'content'],
@@ -20,16 +22,20 @@ const useSearch = (allPossibleResults: SearchResult[], query: string, mode?: 'as
         prefix: true,
       },
     })
-    if (mode === 'async') {
-      search.addAllAsync(allPossibleResults)
+    if (asyncMode) {
+      search.addAllAsync(allPossibleResults).then(() => setIsIndexing(false))
     } else {
       search.addAll(allPossibleResults)
     }
     return search
-  }, [allPossibleResults, mode])
+  }, [allPossibleResults, asyncMode])
 
-  // @ts-expect-error minisearch doesn't add the returned storeFields (e.g. title or path) to its typing
-  return query.length === 0 ? allPossibleResults : minisearch.search(query)
+  useEffect(() => {
+    // @ts-expect-error minisearch doesn't add the returned storeFields (e.g. title or path) to its typing
+    setSearchResult(query.length === 0 ? allPossibleResults : miniSearch.search(query))
+  }, [allPossibleResults, isIndexing, miniSearch, query])
+
+  return searchResult
 }
 
 export default useSearch

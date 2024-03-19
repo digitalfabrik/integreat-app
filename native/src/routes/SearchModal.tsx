@@ -44,7 +44,7 @@ const SearchModal = ({
   const theme = useContext(ThemeContext)
   const { t } = useTranslation('search')
 
-  const searchResults = useSearch(allPossibleResults, query, 'async')
+  const searchResults = useSearch(allPossibleResults, query, true)
 
   const onClose = (): void => {
     sendTrackingSignal({
