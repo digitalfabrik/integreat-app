@@ -1,11 +1,16 @@
 import MiniSearch from 'minisearch'
 import { useCallback } from 'react'
 
-import { CategoryModel, EventModel, PoiModel, useLoadAsync } from '../api'
+import useLoadAsync from '../api/endpoints/hooks/useLoadAsync'
 
-export type SearchResult = EventModel | PoiModel | CategoryModel
+export type SearchResult = {
+  title: string
+  thumbnail?: string
+  content: string
+  path: string
+}
 
-const useSearch = (allPossibleResults: SearchResult[], query: string): SearchResult[] => {
+const useSearch = (allPossibleResults: SearchResult[], query: string): SearchResult[] | null => {
   const initializeMiniSearch = useCallback(async () => {
     const search = new MiniSearch({
       idField: 'path',
@@ -20,10 +25,15 @@ const useSearch = (allPossibleResults: SearchResult[], query: string): SearchRes
     await search.addAllAsync(allPossibleResults)
     return search
   }, [allPossibleResults])
+
   const { data: minisearch } = useLoadAsync(initializeMiniSearch)
-  return query.length === 0 || !minisearch
-    ? allPossibleResults
-    : (minisearch.search(query) as unknown as SearchResult[])
+
+  if (!minisearch || minisearch.documentCount !== allPossibleResults.length) {
+    return null
+  }
+
+  // @ts-expect-error minisearch doesn't add the returned storeFields (e.g. title or path) to its typing
+  return query.length === 0 ? allPossibleResults : minisearch.search(query)
 }
 
 export default useSearch

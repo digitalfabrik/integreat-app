@@ -1,42 +1,35 @@
 import { useMemo } from 'react'
 
-import { SearchResult } from 'shared'
-import { createCategoriesEndpoint, createEventsEndpoint, createPOIsEndpoint, useLoadFromEndpoint } from 'shared/api'
+import {
+  createCategoriesEndpoint,
+  createEventsEndpoint,
+  createPOIsEndpoint,
+  ExtendedPageModel,
+  useLoadFromEndpoint,
+} from 'shared/api'
 
-type useSearchParams = {
+type UseAllPossibleSearchResultsProps = {
   city: string
   language: string
   cmsApiBaseUrl: string
+}
+
+type UseAllPossibleSearchResultsReturn = {
+  data: ExtendedPageModel[]
+  error: Error | null
+  loading: boolean
 }
 
 const useAllPossibleSearchResults = ({
   city,
   language,
   cmsApiBaseUrl,
-}: useSearchParams): {
-  data: SearchResult[]
-  loading: boolean
-  error: Error | null
-} => {
+}: UseAllPossibleSearchResultsProps): UseAllPossibleSearchResultsReturn => {
   const params = { city, language }
 
-  const {
-    data: categories,
-    loading: categoriesLoading,
-    error: categoriesError,
-  } = useLoadFromEndpoint(createCategoriesEndpoint, cmsApiBaseUrl, params)
-
-  const {
-    data: events,
-    loading: eventsLoading,
-    error: eventsError,
-  } = useLoadFromEndpoint(createEventsEndpoint, cmsApiBaseUrl, params)
-
-  const {
-    data: pois,
-    loading: poisLoading,
-    error: poisError,
-  } = useLoadFromEndpoint(createPOIsEndpoint, cmsApiBaseUrl, params)
+  const { data: categories, ...categoriesReturn } = useLoadFromEndpoint(createCategoriesEndpoint, cmsApiBaseUrl, params)
+  const { data: events, ...eventsReturn } = useLoadFromEndpoint(createEventsEndpoint, cmsApiBaseUrl, params)
+  const { data: pois, ...poisReturn } = useLoadFromEndpoint(createPOIsEndpoint, cmsApiBaseUrl, params)
 
   const allPossibleResults = useMemo(
     () =>
@@ -48,8 +41,8 @@ const useAllPossibleSearchResults = ({
 
   return {
     data: allPossibleResults,
-    loading: categoriesLoading || eventsLoading || poisLoading,
-    error: categoriesError || eventsError || poisError,
+    loading: categoriesReturn.loading || eventsReturn.loading || poisReturn.loading,
+    error: categoriesReturn.error || eventsReturn.error || poisReturn.error,
   }
 }
 
