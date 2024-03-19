@@ -2,13 +2,9 @@ import MiniSearch from 'minisearch'
 import { useCallback } from 'react'
 
 import useLoadAsync from '../api/endpoints/hooks/useLoadAsync'
+import ExtendedPageModel from '../api/models/ExtendedPageModel'
 
-export type SearchResult = {
-  title: string
-  thumbnail?: string
-  content: string
-  path: string
-}
+export type SearchResult = ExtendedPageModel
 
 const useSearch = (allPossibleResults: SearchResult[], query: string): SearchResult[] | null => {
   const initializeMiniSearch = useCallback(async () => {
