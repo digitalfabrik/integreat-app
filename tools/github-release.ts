@@ -22,26 +22,22 @@ const githubRelease = async (
     throw new Error(`Failed to parse version code string: ${newVersionCode}`)
   }
 
-  console.log('production_delivery: ', productionDelivery)
-  console.log('productionDelivery === true: ', productionDelivery === 'true')
-  console.log('productionDelivery === false: ', productionDelivery === 'false')
-
   const releaseName = `[${platform}] ${newVersionName} - ${versionCode}`
   const body = JSON.parse(releaseNotes)
   const appOctokit = await authenticate({ deliverinoPrivateKey, owner, repo })
 
-  // const release = await appOctokit.repos.createRelease({
-  //   owner,
-  //   repo,
-  //   tag_name: tagId({ versionName: newVersionName, platform }),
-  //   prerelease: prerelease === 'true',
-  //   make_latest: platform === 'android' ? 'true' : 'false',
-  //   name: releaseName,
-  //   body,
-  // })
+  const release = await appOctokit.repos.createRelease({
+    owner,
+    repo,
+    tag_name: tagId({ versionName: newVersionName, platform }),
+    prerelease: productionDelivery === 'false',
+    make_latest: platform === 'android' ? 'true' : 'false',
+    name: releaseName,
+    body,
+  })
 
   // This command returns the release id of the created release, which is later needed to make updates for this release.
-  //console.log(release.data.id)
+  console.log(release.data.id)
 }
 
 program

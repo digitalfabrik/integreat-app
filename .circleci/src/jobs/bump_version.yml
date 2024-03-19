@@ -19,22 +19,22 @@ steps:
       name: Calculate next version code
       command: echo "export NEW_VERSION_CODE=$(yarn --silent next-version calc | jq .versionCode)" >> ${BASH_ENV}
       working_directory: tools
-#  - when:
-#      condition: << parameters.prepare_delivery >>
-#      steps:
-#        - run:
-#            name: Bump git version
-#            command: yarn git-version bump-to ${NEW_VERSION_NAME} ${NEW_VERSION_CODE} --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME} --branch ${CIRCLE_BRANCH}
-#            working_directory: tools
-#  - when:
-#      condition:
-#        and:
-#          - << parameters.prepare_delivery >>
-#          - not:
-#              equal: [main, << pipeline.git.branch >>]
-#      steps:
-#        - notify:
-#            success_message: Delivery was made on branch << pipeline.git.branch >>. Make sure to merge this branch before next delivery.
-#            only_for_branch: ${CIRCLE_BRANCH}
+  - when:
+      condition: << parameters.prepare_delivery >>
+      steps:
+        - run:
+            name: Bump git version
+            command: yarn git-version bump-to ${NEW_VERSION_NAME} ${NEW_VERSION_CODE} --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME} --branch ${CIRCLE_BRANCH}
+            working_directory: tools
+  - when:
+      condition:
+        and:
+          - << parameters.prepare_delivery >>
+          - not:
+              equal: [main, << pipeline.git.branch >>]
+      steps:
+        - notify:
+            success_message: Delivery was made on branch << pipeline.git.branch >>. Make sure to merge this branch before next delivery.
+            only_for_branch: ${CIRCLE_BRANCH}
   - persist_environment_variables
-#  - notify
+  - notify
