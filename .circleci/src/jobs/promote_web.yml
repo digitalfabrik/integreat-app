@@ -20,4 +20,8 @@ steps:
   - run:
       name: Obdach production promotion
       command: ssh -o StrictHostKeyChecking=no web@web.integreat-app.de "rsync -arv --delete /var/www/beta.netzwerkobdachwohnen.de/ /var/www/netzwerkobdachwohnen.de"
+  - run:
+      name: Remove prerelease flag from github release
+      command: yarn github-promote-release promote --platform web --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME}
+      working_directory: tools
   - notify
