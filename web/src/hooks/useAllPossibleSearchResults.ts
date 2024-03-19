@@ -39,8 +39,11 @@ const useAllPossibleSearchResults = ({
   } = useLoadFromEndpoint(createPOIsEndpoint, cmsApiBaseUrl, params)
 
   const allPossibleResults = useMemo(
-    () => [...(categories?.toArray().filter(category => !category.isRoot()) || []), ...(events || []), ...(pois || [])],
-    [categories, events, pois],
+    () =>
+      !(poisLoading && eventsLoading && categoriesLoading)
+        ? [...(categories?.toArray().filter(category => !category.isRoot()) || []), ...(events || []), ...(pois || [])]
+        : [],
+    [categories, categoriesLoading, events, eventsLoading, pois, poisLoading],
   )
 
   return {
