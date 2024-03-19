@@ -8,7 +8,7 @@ import { subscribeNews, unsubscribeNews } from '../utils/PushNotificationsManage
 import { reportError } from '../utils/sentry'
 
 // To change the city or language code, the respective functions should be used
-export type UpdateSettingsType = Partial<Omit<Omit<SettingsType, 'selectedCity'>, 'contentLanguage'>>
+export type UpdateSettingsType = Partial<Omit<SettingsType, 'selectedCity' | 'contentLanguage'>>
 
 export type AppContextType = {
   settings: SettingsType
