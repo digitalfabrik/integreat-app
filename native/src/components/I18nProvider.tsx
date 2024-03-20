@@ -1,12 +1,11 @@
 import i18next from 'i18next'
-import React, { ReactElement, ReactNode, useCallback, useEffect, useState } from 'react'
+import React, { ReactElement, ReactNode, useEffect, useState } from 'react'
 import { I18nextProvider } from 'react-i18next'
 import { Text } from 'react-native'
 
 import { config, loadTranslations } from 'translations'
 
 import buildConfig from '../constants/buildConfig'
-import appSettings from '../utils/AppSettings'
 import NativeLanguageDetector from '../utils/NativeLanguageDetector'
 import { setSystemLanguage } from '../utils/sendTrackingSignal'
 import { reportError } from '../utils/sentry'
@@ -18,14 +17,6 @@ type I18nProviderProps = {
 const I18nProvider = ({ children }: I18nProviderProps): ReactElement | null => {
   const [errorMessage, setErrorMessage] = useState<string | null | undefined>(null)
   const [i18nextInstance, setI18nextInstance] = useState<typeof i18next | null>(null)
-
-  const setContentLanguage = useCallback(async (uiLanguage: string) => {
-    const contentLanguage = await appSettings.loadContentLanguage()
-
-    if (!contentLanguage) {
-      await appSettings.setContentLanguage(uiLanguage)
-    }
-  }, [])
 
   useEffect(() => {
     const initI18Next = async () => {
@@ -49,7 +40,6 @@ const I18nProvider = ({ children }: I18nProviderProps): ReactElement | null => {
       // If no language is found, we use the fallback language
       // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       const matchedLanguage = i18nextInstance.languages[0]!
-      await setContentLanguage(matchedLanguage).catch(reportError)
       setSystemLanguage(matchedLanguage)
       setI18nextInstance(i18nextInstance)
     }
@@ -58,7 +48,7 @@ const I18nProvider = ({ children }: I18nProviderProps): ReactElement | null => {
       setErrorMessage(e.message)
       reportError(e)
     })
-  }, [setContentLanguage])
+  }, [])
 
   if (errorMessage) {
     return <Text>{errorMessage}</Text>

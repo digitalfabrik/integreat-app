@@ -17,7 +17,7 @@ export const deleteIfExists = async (path: string): Promise<void> => {
 }
 
 export const determineApiUrl = async (): Promise<string> => {
-  const apiUrlOverride = await appSettings.loadApiUrlOverride()
+  const { apiUrlOverride } = await appSettings.loadSettings()
   return apiUrlOverride || buildConfig().cmsUrl
 }
 

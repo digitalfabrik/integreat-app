@@ -1,8 +1,6 @@
-import React, { ReactElement, useEffect, useState } from 'react'
+import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 import styled from 'styled-components/native'
-
-import { ExternalSourcePermissions } from 'shared'
 
 import Caption from '../components/Caption'
 import ConsentSection from '../components/ConsentSection'
@@ -11,28 +9,19 @@ import List from '../components/List'
 import ItemSeparator from '../components/base/ItemSeparator'
 import Text from '../components/base/Text'
 import buildConfig from '../constants/buildConfig'
-import appSettings from '../utils/AppSettings'
-import { reportError } from '../utils/sentry'
+import { useAppContext } from '../hooks/useCityAppContext'
 
 const Description = styled(Text)`
   margin-bottom: 24px;
 `
 const Consent = (): ReactElement | null => {
-  const [externalSourcePermissions, setExternalSourcePermissions] = useState<ExternalSourcePermissions | null>(null)
+  const { settings, updateSettings } = useAppContext()
   const { t } = useTranslation('consent')
-
-  useEffect(() => {
-    appSettings.loadExternalSourcePermissions().then(setExternalSourcePermissions).catch(reportError)
-  }, [])
-
-  if (!externalSourcePermissions) {
-    return null
-  }
+  const { externalSourcePermissions } = settings
 
   const onPress = (source: string) => {
     const updatedSources = { ...externalSourcePermissions, [source]: !externalSourcePermissions[source] }
-    setExternalSourcePermissions(updatedSources)
-    appSettings.setExternalSourcePermissions(updatedSources).catch(reportError)
+    updateSettings({ externalSourcePermissions: updatedSources })
   }
 
   const renderConsentItem = ({ item }: { item: string }): ReactElement => (
