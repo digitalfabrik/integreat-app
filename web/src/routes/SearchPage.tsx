@@ -78,7 +78,7 @@ const SearchPage = ({ city, cityCode, languageCode, pathname }: CityRouteProps):
     />
   )
 
-  if (loading) {
+  if (loading || !results) {
     return (
       <CityContentLayout isLoading {...locationLayoutParams}>
         <Helmet pageTitle={pageTitle} languageChangePaths={languageChangePaths} cityModel={city} />
