@@ -1,15 +1,13 @@
 import MiniSearch from 'minisearch'
-import { useMemo } from 'react'
+import { useCallback } from 'react'
 
-export type SearchResult = {
-  title: string
-  thumbnail: string | null
-  content: string
-  path: string
-}
+import useLoadAsync from '../api/endpoints/hooks/useLoadAsync'
+import ExtendedPageModel from '../api/models/ExtendedPageModel'
 
-const useSearch = (allPossibleResults: SearchResult[], query: string, mode?: 'async'): SearchResult[] => {
-  const minisearch = useMemo(() => {
+export type SearchResult = ExtendedPageModel
+
+const useSearch = (allPossibleResults: SearchResult[], query: string): SearchResult[] | null => {
+  const initializeMiniSearch = useCallback(async () => {
     const search = new MiniSearch({
       idField: 'path',
       fields: ['title', 'content'],
@@ -20,13 +18,15 @@ const useSearch = (allPossibleResults: SearchResult[], query: string, mode?: 'as
         prefix: true,
       },
     })
-    if (mode === 'async') {
-      search.addAllAsync(allPossibleResults)
-    } else {
-      search.addAll(allPossibleResults)
-    }
+    await search.addAllAsync(allPossibleResults)
     return search
-  }, [allPossibleResults, mode])
+  }, [allPossibleResults])
+
+  const { data: minisearch } = useLoadAsync(initializeMiniSearch)
+
+  if (!minisearch || minisearch.documentCount !== allPossibleResults.length) {
+    return null
+  }
 
   // @ts-expect-error minisearch doesn't add the returned storeFields (e.g. title or path) to its typing
   return query.length === 0 ? allPossibleResults : minisearch.search(query)

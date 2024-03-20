@@ -64,109 +64,12 @@ class AppSettings {
     await this.asyncStorage.multiSet(settingsArray)
   }
 
-  setVersion = async (version: string): Promise<void> => {
-    await this.setSettings({
-      storageVersion: version,
-    })
-  }
-
-  loadVersion = async (): Promise<string | null> => {
-    const settings = await this.loadSettings()
-    return settings.storageVersion
-  }
-
-  setExternalSourcePermissions = async (permissions: ExternalSourcePermissions): Promise<void> => {
-    await this.setSettings({
-      externalSourcePermissions: permissions,
-    })
-  }
-
-  loadExternalSourcePermissions = async (): Promise<ExternalSourcePermissions> => {
-    const settings = await this.loadSettings()
-    return settings.externalSourcePermissions
-  }
-
-  setContentLanguage = async (language: string): Promise<void> => {
-    await this.setSettings({
-      contentLanguage: language,
-    })
-  }
-
-  loadContentLanguage = async (): Promise<string | null> => {
-    const settings = await this.loadSettings()
-    return settings.contentLanguage
-  }
-
-  setSelectedCity = async (city: string | null): Promise<void> => {
-    await this.setSettings({
-      selectedCity: city,
-    })
-  }
-
-  clearSelectedCity = async (): Promise<void> => {
-    await this.setSettings({
-      selectedCity: null,
-    })
-  }
-
-  setJpalTrackingCode = async (jpalTrackingCode: string | null): Promise<void> => {
-    await this.setSettings({
-      jpalTrackingCode,
-    })
-  }
-
-  setJpalTrackingEnabled = async (jpalTrackingEnabled: boolean): Promise<void> => {
-    await this.setSettings({
-      jpalTrackingEnabled,
-    })
-  }
-
   pushJpalSignal = async (signal: SignalType): Promise<void> => {
     const { jpalSignals } = await this.loadSettings()
     jpalSignals.push(signal)
     await this.setSettings({
       jpalSignals,
     })
-  }
-
-  clearJpalSignals = async (): Promise<Array<SignalType>> => {
-    const { jpalSignals } = await this.loadSettings()
-    await this.setSettings({
-      jpalSignals: [],
-    })
-    return jpalSignals
-  }
-
-  loadSelectedCity = async (): Promise<string | null | undefined> => {
-    const settings = await this.loadSettings()
-    return settings.selectedCity
-  }
-
-  setIntroShown = async (): Promise<void> => {
-    await this.setSettings({
-      introShown: true,
-    })
-  }
-
-  loadIntroShown = async (): Promise<boolean | null> => {
-    const settings = await this.loadSettings()
-    return settings.introShown
-  }
-
-  setApiUrlOverride = async (apiUrlOverride: string): Promise<void> => {
-    await this.setSettings({
-      apiUrlOverride,
-    })
-  }
-
-  loadApiUrlOverride = async (): Promise<string | null> => {
-    const settings = await this.loadSettings()
-    return settings.apiUrlOverride
-  }
-
-  clearAppSettings = async (): Promise<void> => {
-    const settingsKeys = Object.keys(defaultSettings)
-    await this.asyncStorage.multiRemove(settingsKeys)
   }
 }
 
