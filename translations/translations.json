@@ -4810,9 +4810,7 @@
       "timeout": "ቦታ መወሰን አልተሳካም",
       "refresh": "በቅርብ የሚገኙት ኣከባቢዎች መዝገብ ማሻሻል",
       "pageTitle": "ለእርስዎ አካባቢያዊ መረጃ",
-      "metaDescription": "{{appName}} በጀርመን ላለው ህይወት የእርስዎ ዲጂታል መመሪያ ነው። አካባቢያዊ መረጃን፣ ክንዉኖችን እና ምክርን ያግኙ። በእርስዎ ቋንቋ ሁልጊዜ የቅርብ ጊዜ የሆነ እና የሚገኝ ነው።",
-      "cityNotFound": "",
-      "suggestToRegion": ""
+      "metaDescription": "{{appName}} በጀርመን ላለው ህይወት የእርስዎ ዲጂታል መመሪያ ነው። አካባቢያዊ መረጃን፣ ክንዉኖችን እና ምክርን ያግኙ። በእርስዎ ቋንቋ ሁልጊዜ የቅርብ ጊዜ የሆነ እና የሚገኝ ነው።"
     },
     "ar": {
       "searchCity": "بحث",
@@ -4827,9 +4825,7 @@
       "timeout": "فشل في تحديد الموقع",
       "refresh": "تحديث قائمة المناطق القريبة",
       "pageTitle": "معلومات محلية من أجلك",
-      "metaDescription": "{{appName}} هو دليلك الرقمي لألمانيا. اكتشف المعلومات المحلية والمناسبات وخدمة الاستشارات. تحديث مستمر وبلغتك.",
-      "cityNotFound": "",
-      "suggestToRegion": ""
+      "metaDescription": "{{appName}} هو دليلك الرقمي لألمانيا. اكتشف المعلومات المحلية والمناسبات وخدمة الاستشارات. تحديث مستمر وبلغتك."
     },
     "bg": {
       "searchCity": "Търсене",
@@ -4844,9 +4840,7 @@
       "timeout": "Неуспешно определяне на местоположението",
       "refresh": "Актуализиране на списъка с близки региони",
       "pageTitle": "Местна информация за теб",
-      "metaDescription": "{{appName}} е твоят цифров пътеводител за Германия. Намери местна информация, събития и съвети. Винаги актуални и на твоя език.",
-      "cityNotFound": "",
-      "suggestToRegion": ""
+      "metaDescription": "{{appName}} е твоят цифров пътеводител за Германия. Намери местна информация, събития и съвети. Винаги актуални и на твоя език."
     },
     "ckb": {
       "searchCity": "گەڕان",
@@ -4861,9 +4855,7 @@
       "timeout": "دیاریکردنی شوێن سەرکەوتوو نەبوو",
       "refresh": "لیستی ناوچە نزیکەکان بەڕۆژ بکەوە",
       "pageTitle": "زانیاری خۆجێی بۆ تۆ",
-      "metaDescription": " {{appName}} ڕێنمای دیجیتاڵی تۆ بە زمانی ئەڵمانی. تۆ دەتوانی زانیاری و ڕووداو و ئامۆژگارییە خۆجێیەکان لێرەدا بدۆزێوە. هەردەم نوێ و بە زمانی تۆ.",
-      "cityNotFound": "",
-      "suggestToRegion": ""
+      "metaDescription": " {{appName}} ڕێنمای دیجیتاڵی تۆ بە زمانی ئەڵمانی. تۆ دەتوانی زانیاری و ڕووداو و ئامۆژگارییە خۆجێیەکان لێرەدا بدۆزێوە. هەردەم نوێ و بە زمانی تۆ."
     },
     "cs": {
       "searchCity": "Vyhledávání",
@@ -4878,9 +4870,7 @@
       "timeout": "Lokalizace se nezdařila",
       "refresh": "Aktualizace seznamu okolních regionů",
       "pageTitle": "Místní informace pro vás",
-      "metaDescription": "{{appName}} je váš digitální průvodce po Německu. Nacházejte místní informace, události a tipy. Vždy aktuální a ve vašem jazyce.",
-      "cityNotFound": "",
-      "suggestToRegion": ""
+      "metaDescription": "{{appName}} je váš digitální průvodce po Německu. Nacházejte místní informace, události a tipy. Vždy aktuální a ve vašem jazyce."
     },
     "el": {
       "searchCity": "Αναζήτηση",
@@ -4895,9 +4885,7 @@
       "timeout": "Ο προσδιορισμός της τοποθεσίας απέτυχε",
       "refresh": "Ενημέρωση της λίστας κοντινών περιοχών",
       "pageTitle": "Τοπικές πληροφορίες για εσάς",
-      "metaDescription": "Η εφαρμογή {{appName}} είναι ο ψηφιακός σας οδηγός για τη Γερμανία. Βρείτε τοπικές πληροφορίες, εκδηλώσεις και συμβουλές. Πάντα ενημερωμένες και στη γλώσσα σας.",
-      "cityNotFound": "",
-      "suggestToRegion": ""
+      "metaDescription": "Η εφαρμογή {{appName}} είναι ο ψηφιακός σας οδηγός για τη Γερμανία. Βρείτε τοπικές πληροφορίες, εκδηλώσεις και συμβουλές. Πάντα ενημερωμένες και στη γλώσσα σας."
     },
     "en": {
       "searchCity": "Search",
@@ -4929,9 +4917,7 @@
       "timeout": "La localización falló",
       "refresh": "Actualizar la lista de las regiones cercanas",
       "pageTitle": "Información local para ti",
-      "metaDescription": "{{appName}} es tu guía digital de Alemania. Encuentra información local, eventos y consejos. Siempre al día y en tu idioma.",
-      "cityNotFound": "",
-      "suggestToRegion": ""
+      "metaDescription": "{{appName}} es tu guía digital de Alemania. Encuentra información local, eventos y consejos. Siempre al día y en tu idioma."
     },
     "fi": {
       "searchCity": "Haku",
@@ -4946,9 +4932,7 @@
       "timeout": "Sijainninmääritys epäonnistui",
       "refresh": "Päivitä läheisten alueiden luettelo",
       "pageTitle": "Paikallisia tietoja sinulle",
-      "metaDescription": "{{appName}} on digitaalinen Saksa-oppaasi. Löydä paikallisia tietoja, tapahtumia ja neuvoja. Aina ajan tasalla ja omalla äidinkielelläsi.",
-      "cityNotFound": "",
-      "suggestToRegion": ""
+      "metaDescription": "{{appName}} on digitaalinen Saksa-oppaasi. Löydä paikallisia tietoja, tapahtumia ja neuvoja. Aina ajan tasalla ja omalla äidinkielelläsi."
     },
     "fr": {
       "searchCity": "Recherche",
@@ -4963,9 +4947,7 @@
       "timeout": "Échec de la localisation",
       "refresh": "Mettre à jour la liste des régions proches",
       "pageTitle": "Informations locales pour toi",
-      "metaDescription": "{{appName}} est ton guide numérique pour l’Allemagne. Trouve des conseils, des informations locales, des événements près de chez toi. Toujours à jour et dans ta langue.",
-      "cityNotFound": "",
-      "suggestToRegion": ""
+      "metaDescription": "{{appName}} est ton guide numérique pour l’Allemagne. Trouve des conseils, des informations locales, des événements près de chez toi. Toujours à jour et dans ta langue."
     },
     "hr": {
       "searchCity": "Pretraživanje",
@@ -4980,9 +4962,7 @@
       "timeout": "Neuspješno određivanje lokacije",
       "refresh": "Ažuriraj popis obližnjih regija",
       "pageTitle": "Lokalne informacije za tebe",
-      "metaDescription": "{{appName}} je tvoj digitalni vodič za Njemačku. Nađi lokalne informacije, manifestacije i savjetovališta. Uvijek aktualno i na tvom jeziku.",
-      "cityNotFound": "",
-      "suggestToRegion": ""
+      "metaDescription": "{{appName}} je tvoj digitalni vodič za Njemačku. Nađi lokalne informacije, manifestacije i savjetovališta. Uvijek aktualno i na tvom jeziku."
     },
     "hu": {
       "searchCity": "Keresés",
@@ -4997,9 +4977,7 @@
       "timeout": "Helymeghatározás sikertelen",
       "refresh": "A környékbeli régiók listájának aktualizálása",
       "pageTitle": "Lokale Informationen für Dich",
-      "metaDescription": "{{appName}} a digitális útikalauza Németországba. Itt talál helyi információkat, eseményeket és tippeket. Mindig naprakész és magyarul beszél.",
-      "cityNotFound": "",
-      "suggestToRegion": ""
+      "metaDescription": "{{appName}} a digitális útikalauza Németországba. Itt talál helyi információkat, eseményeket és tippeket. Mindig naprakész és magyarul beszél."
     },
     "it": {
       "searchCity": "Ricerca",
@@ -5014,9 +4992,7 @@
       "timeout": "Geolocalizzazione non riuscita",
       "refresh": "Aggiorna l'elenco delle regioni vicine",
       "pageTitle": "Informazioni locali per te",
-      "metaDescription": "{{appName}} è la tua guida digitale in Germania. Trova informazioni, eventi e consigli locali. Sempre aggiornata e nella tua lingua.",
-      "cityNotFound": "",
-      "suggestToRegion": ""
+      "metaDescription": "{{appName}} è la tua guida digitale in Germania. Trova informazioni, eventi e consigli locali. Sempre aggiornata e nella tua lingua."
     },
     "ka": {
       "searchCity": "ძებნა",
@@ -5031,9 +5007,7 @@
       "timeout": "ვერ განისაზღვრა მდებარეობის ადგილი",
       "refresh": "ახლოსმდებარე რეგიონების სიის განახლება",
       "pageTitle": "ადგილობრივი ინფორმაციები შენთვის",
-      "metaDescription": "{{appName}} შენი ციფრული გზამკვლევია გერმანიისთვის. მოიძიე ადგილობრივი ინფორმაციები, ღონისძიებები და კონსულტაციები. ყოველთვის აქტუალური და შენს ენაზე.",
-      "cityNotFound": "",
-      "suggestToRegion": ""
+      "metaDescription": "{{appName}} შენი ციფრული გზამკვლევია გერმანიისთვის. მოიძიე ადგილობრივი ინფორმაციები, ღონისძიებები და კონსულტაციები. ყოველთვის აქტუალური და შენს ენაზე."
     },
     "kmr": {
       "searchCity": "Lêgerîn",
@@ -5048,9 +5022,7 @@
       "timeout": "Diyarkirinê mekanê serketî nebû",
       "refresh": "Lîsteya navçeyên nêzîk biroj bike",
       "pageTitle": "Zanyariyên xwecihî ji bo te.",
-      "metaDescription": "{{appName}} Rêbernameya te ya dîjîtal ji bo Almanyayê ye. Zanyarî, rûdan û pêşniyazên xwecihî bibîne, Hertim birojkirî û bi zimanê te yê sereke.",
-      "cityNotFound": "",
-      "suggestToRegion": ""
+      "metaDescription": "{{appName}} Rêbernameya te ya dîjîtal ji bo Almanyayê ye. Zanyarî, rûdan û pêşniyazên xwecihî bibîne, Hertim birojkirî û bi zimanê te yê sereke."
     },
     "mk": {
       "searchCity": "Барај",
@@ -5065,9 +5037,7 @@
       "timeout": "Не може да се активира опцијата за одредување на локацијата",
       "refresh": "Ажурирај го списокот со региони во близина",
       "pageTitle": "Локални информации за вас",
-      "metaDescription": "{{appName}} е вашиот дигитален водич за Германија. Најдете локални информации, настани и совети. Секогаш актуелни и на вашиот јазик.",
-      "cityNotFound": "",
-      "suggestToRegion": ""
+      "metaDescription": "{{appName}} е вашиот дигитален водич за Германија. Најдете локални информации, настани и совети. Секогаш актуелни и на вашиот јазик."
     },
     "nl": {
       "searchCity": "Zoek",
@@ -5082,9 +5052,7 @@
       "timeout": "Automatische plaatsbepaling is mislukt.",
       "refresh": "Update de lijst met de dichtstbijzijnde regio's",
       "pageTitle": "Lokale informatie voor jou",
-      "metaDescription": "{{appName}} is jouw digitale gids voor Duitsland. Vind lokale informatie, evenementen en advies. Altijd up-to-date en in jouw taal.",
-      "cityNotFound": "",
-      "suggestToRegion": ""
+      "metaDescription": "{{appName}} is jouw digitale gids voor Duitsland. Vind lokale informatie, evenementen en advies. Altijd up-to-date en in jouw taal."
     },
     "pes": {
       "searchCity": "جستجو",
@@ -5099,9 +5067,7 @@
       "timeout": "تعیین موقعیت مکانی انجام نشد",
       "refresh": "فهرست مناطق نزدیک را فعال کنید",
       "pageTitle": "اطلاعات محلی برای شما",
-      "metaDescription": "{{appName}} راهنمای دیجیتال شما برای کشور آلمان است. شما می‌توانید اطلاعات محلی، رویدادها و خدمات مشاوره را در آن بیابید. همواره به روز و به زبان خودتان.",
-      "cityNotFound": "",
-      "suggestToRegion": ""
+      "metaDescription": "{{appName}} راهنمای دیجیتال شما برای کشور آلمان است. شما می‌توانید اطلاعات محلی، رویدادها و خدمات مشاوره را در آن بیابید. همواره به روز و به زبان خودتان."
     },
     "pl": {
       "searchCity": "Wyszukaj",
@@ -5116,9 +5082,7 @@
       "timeout": "Ustalenie placówki nie powiodło się",
       "refresh": "Aktualizuje listę regionów w pobliżu",
       "pageTitle": "Lokale Informationen für Dich",
-      "metaDescription": "{{appName}} to Twój cyfrowy przewodnik po Niemczech. Znajdź lokalne informacje, wydarzenia i porady. Zawsze aktualne i w Twoim języku.",
-      "cityNotFound": "",
-      "suggestToRegion": ""
+      "metaDescription": "{{appName}} to Twój cyfrowy przewodnik po Niemczech. Znajdź lokalne informacje, wydarzenia i porady. Zawsze aktualne i w Twoim języku."
     },
     "prs": {
       "searchCity": "جستجو",
@@ -5133,9 +5097,7 @@
       "timeout": "تعیین مکان ناموفق بود",
       "refresh": "فهرست مناطق نزدیک را به روز کنید",
       "pageTitle": "معلومات محلی برای شما",
-      "metaDescription": "{{appName}} رهنمای دیجیتال شما برای کشور آلمان است. شما می توانید معلومات محلی، رویدادها و خدمات مشوره دهی را در آن بیابید. همیشه تازه و به زبان خودتان.",
-      "cityNotFound": "",
-      "suggestToRegion": ""
+      "metaDescription": "{{appName}} رهنمای دیجیتال شما برای کشور آلمان است. شما می توانید معلومات محلی، رویدادها و خدمات مشوره دهی را در آن بیابید. همیشه تازه و به زبان خودتان."
     },
     "ps": {
       "searchCity": "لټون",
@@ -5150,9 +5112,7 @@
       "timeout": "د موقعیت تعینول ناکام شو",
       "refresh": "دہ شا و خوا علاقہ لیست اپډیټ کہ",
       "pageTitle": "ستاسو لپاره ځايي معلومات",
-      "metaDescription": "{{appName}} د جرمني لپاره ستاسو ډيجټلي لارښود دی. ځايي معلومات، مراسم او سپارښتنې په هغې کې ومومئ. تل تازه او ستاسو په ژبه.",
-      "cityNotFound": "",
-      "suggestToRegion": ""
+      "metaDescription": "{{appName}} د جرمني لپاره ستاسو ډيجټلي لارښود دی. ځايي معلومات، مراسم او سپارښتنې په هغې کې ومومئ. تل تازه او ستاسو په ژبه."
     },
     "pt": {
       "searchCity": "Procura",
@@ -5167,9 +5127,7 @@
       "timeout": "A determinação da localização falhou",
       "refresh": "Atualizar a lista de regiões próximas",
       "pageTitle": "Regiões",
-      "metaDescription": "A {{appName}} é o seu guia digital da Alemanha. Consulte informações, eventos e conselhos a nível local. Sempre atualizada e disponível no seu idioma.",
-      "cityNotFound": "",
-      "suggestToRegion": ""
+      "metaDescription": "A {{appName}} é o seu guia digital da Alemanha. Consulte informações, eventos e conselhos a nível local. Sempre atualizada e disponível no seu idioma."
     },
     "ro": {
       "searchCity": "Căutare",
@@ -5184,9 +5142,7 @@
       "timeout": "Identificare locație eșuată",
       "refresh": "Actualizați lista de regiuni din apropiere",
       "pageTitle": "Informații locale pentru dumneavoastră",
-      "metaDescription": "{{appName}} este ghidul tău digital pentru Germania. Găsiți informații, evenimente și sfaturi locale. Întotdeauna actualizate și în limba dumneavoastră.",
-      "cityNotFound": "",
-      "suggestToRegion": ""
+      "metaDescription": "{{appName}} este ghidul tău digital pentru Germania. Găsiți informații, evenimente și sfaturi locale. Întotdeauna actualizate și în limba dumneavoastră."
     },
     "ru": {
       "searchCity": "Поиск",
@@ -5201,9 +5157,7 @@
       "timeout": "Не удалось определить местоположение",
       "refresh": "Обновить список близлежащих регионов",
       "pageTitle": "Местная информация для тебя",
-      "metaDescription": "{{appName}} – это твой цифровой путеводитель по Германии. Узнавай местные новости, находи информацию о мероприятиях и консультациях. Всегда актуально и на твоем языке.",
-      "cityNotFound": "",
-      "suggestToRegion": ""
+      "metaDescription": "{{appName}} – это твой цифровой путеводитель по Германии. Узнавай местные новости, находи информацию о мероприятиях и консультациях. Всегда актуально и на твоем языке."
     },
     "so": {
       "searchCity": "Raadi",
@@ -5218,9 +5172,7 @@
       "timeout": "Helitaanka goobta waa lagu guuldareystay",
       "refresh": "Cusbooneysii liiska gobollada iigu dhow",
       "pageTitle": "Macluumaadkan gudaha ee laguugu talogalay adiga",
-      "metaDescription": "{{appName}} waa hage-haaga dhijitaalka ah ee Jarmalka. ka raadi macluumaadka gudaha, dhacdooyinka, iyo tallooyinka. Had iyo jeer la soco ka cusaybka iyo luqadaada.",
-      "cityNotFound": "",
-      "suggestToRegion": ""
+      "metaDescription": "{{appName}} waa hage-haaga dhijitaalka ah ee Jarmalka. ka raadi macluumaadka gudaha, dhacdooyinka, iyo tallooyinka. Had iyo jeer la soco ka cusaybka iyo luqadaada."
     },
     "sq": {
       "searchCity": "Kërko",
@@ -5235,9 +5187,7 @@
       "timeout": "Përcaktimi i vendndodhjes dështoi",
       "refresh": "Përditëso listën e rajoneve të afërta",
       "pageTitle": "Informacione vendase për ty",
-      "metaDescription": "{{appName}} është udhëzuesi yt digjital për Gjermaninë. Gjej informacione, evenimente dhe këshillime vendase. Gjithmonë aktuale dhe në gjuhën tënde.",
-      "cityNotFound": "",
-      "suggestToRegion": ""
+      "metaDescription": "{{appName}} është udhëzuesi yt digjital për Gjermaninë. Gjej informacione, evenimente dhe këshillime vendase. Gjithmonë aktuale dhe në gjuhën tënde."
     },
     "sr-Cyrl": {
       "searchCity": "Претраживање",
@@ -5252,9 +5202,7 @@
       "timeout": "Неуспешно одређивање локације",
       "refresh": "Ажурирајте листу оближњих региона",
       "pageTitle": "Локалне информације за тебе",
-      "metaDescription": "{{appName}} је твој дигитални водич за Немачку. Нађи локалне информације, манифестације и саветовалишта. Увек актуелно и на твом језику.",
-      "cityNotFound": "",
-      "suggestToRegion": ""
+      "metaDescription": "{{appName}} је твој дигитални водич за Немачку. Нађи локалне информације, манифестације и саветовалишта. Увек актуелно и на твом језику."
     },
     "sr-Latn": {
       "searchCity": "Pretraživanje",
@@ -5269,9 +5217,7 @@
       "timeout": "Neuspešno određivanje lokacije",
       "refresh": "Ažurirajte listu obližnjih regiona",
       "pageTitle": "Lokalne informacije za tebe",
-      "metaDescription": "{{appName}} je tvoj digitalni vodič za Nemačku. Nađi lokalne informacije, manifestacije i savetovališta. Uvek aktuelno i na tvom jeziku.",
-      "cityNotFound": "",
-      "suggestToRegion": ""
+      "metaDescription": "{{appName}} je tvoj digitalni vodič za Nemačku. Nađi lokalne informacije, manifestacije i savetovališta. Uvek aktuelno i na tvom jeziku."
     },
     "ti": {
       "searchCity": "ምድላይ",
@@ -5286,9 +5232,7 @@
       "timeout": "ምርካብ ቦታ ዕዉት ኣይነበረን",
       "refresh": "ናይተን ኣብ ቀረባ ዝርከባ ከባቢታት መዝገብ ምሕዳስ",
       "pageTitle": "ንዓኻ ዝኸውን ናይ ከባቢ ሓበሬታ",
-      "metaDescription": "{{appName}} ንጀርመን ዝኸውን ዲጂታላዊ መምርሒኹም እዩ። ኣብቲ ከባቢ ዝርከብ ሓበሬታ፡ ፍጻመታትን ምኽርን ድለ። ኩሉ ግዜ እዋናዊን ብቋንቋኻን።",
-      "cityNotFound": "",
-      "suggestToRegion": ""
+      "metaDescription": "{{appName}} ንጀርመን ዝኸውን ዲጂታላዊ መምርሒኹም እዩ። ኣብቲ ከባቢ ዝርከብ ሓበሬታ፡ ፍጻመታትን ምኽርን ድለ። ኩሉ ግዜ እዋናዊን ብቋንቋኻን።"
     },
     "tr": {
       "searchCity": "Arama",
@@ -5303,9 +5247,7 @@
       "timeout": "Konum belirleme başarısız",
       "refresh": "Yakın bölgelerin listesini güncelleyin",
       "pageTitle": "Senin için yerel bilgiler",
-      "metaDescription": "{{appName}} Almanya için senin dijital rehberin. Yerel bilgiler, etkinlikler ve öneriler bul. Her zaman güncel ve senin dilinde.",
-      "cityNotFound": "",
-      "suggestToRegion": ""
+      "metaDescription": "{{appName}} Almanya için senin dijital rehberin. Yerel bilgiler, etkinlikler ve öneriler bul. Her zaman güncel ve senin dilinde."
     },
     "uk": {
       "searchCity": "Пошук",
@@ -5320,9 +5262,7 @@
       "timeout": "Розташування не вдалося встановити",
       "refresh": "Оновлення списку сусідніх регіонів",
       "pageTitle": "Місцева інформація для вас",
-      "metaDescription": "{{appName}} — ваш цифровий путівник Німеччиною. Знаходьте місцеву інформацію, події та консультації. Завжди актуальні відомості вашою мовою.",
-      "cityNotFound": "",
-      "suggestToRegion": ""
+      "metaDescription": "{{appName}} — ваш цифровий путівник Німеччиною. Знаходьте місцеву інформацію, події та консультації. Завжди актуальні відомості вашою мовою."
     },
     "ur": {
       "searchCity": "تلاش کریں",
@@ -5337,9 +5277,7 @@
       "timeout": "مقام کا تعین ناکام رہا",
       "refresh": "قریبی علاقوں کی لسٹ کو اپڈیٹ کریں۔",
       "pageTitle": "آپ کے لیے مقامی معلومات",
-      "metaDescription": "{{appName}} جرمنی میں زندگی کے لیے آپ کا ڈیجیٹل گائیڈ ہے۔ مقامی معلومات، واقعات اور مشورے دریافت کریں۔ ہمیشہ تازہ ترین اور آپ کی اپنی زبان میں دستیاب۔",
-      "cityNotFound": "",
-      "suggestToRegion": ""
+      "metaDescription": "{{appName}} جرمنی میں زندگی کے لیے آپ کا ڈیجیٹل گائیڈ ہے۔ مقامی معلومات، واقعات اور مشورے دریافت کریں۔ ہمیشہ تازہ ترین اور آپ کی اپنی زبان میں دستیاب۔"
     },
     "zh-CN": {
       "searchCity": "搜索",
@@ -5354,9 +5292,7 @@
       "timeout": "定位失败",
       "refresh": "更新附近地区列表",
       "pageTitle": "为您提供本地信息",
-      "metaDescription": "{{appName}} 是您的德国数字指南。查找当地信息、活动和信息咨询。始终以您的语言提供最新资讯。",
-      "cityNotFound": "",
-      "suggestToRegion": ""
+      "metaDescription": "{{appName}} 是您的德国数字指南。查找当地信息、活动和信息咨询。始终以您的语言提供最新资讯。"
     }
   },
   "layout": {
