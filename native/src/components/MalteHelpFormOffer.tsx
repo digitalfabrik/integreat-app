@@ -1,7 +1,8 @@
 import React, { ReactElement } from 'react'
 import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
-import { KeyboardAvoidingView, Platform, View } from 'react-native'
+import { View } from 'react-native'
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import styled from 'styled-components/native'
 
 import {
@@ -113,8 +114,8 @@ const MalteHelpFormOffer = ({
   })
 
   return (
-    <Container>
-      <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
+    <KeyboardAwareScrollView>
+      <Container>
         <InformationRow>
           <Icon Icon={SupportIcon} />
           <InformationText>{t('supportNote')}</InformationText>
@@ -165,8 +166,8 @@ const MalteHelpFormOffer = ({
 
         <InformationText>{t('responseDisclaimer')}</InformationText>
         <TextButton text={t('submit')} onPress={submit} disabled={!formState.isValid || formState.isSubmitting} />
-      </KeyboardAvoidingView>
-    </Container>
+      </Container>
+    </KeyboardAwareScrollView>
   )
 }
 
