@@ -14,19 +14,19 @@ class EventModel extends ExtendedPageModel {
   _date: DateModel
   _location: LocationModel<number | null> | null
   _excerpt: string
-  _featuredImage: FeaturedImageModel | null | undefined
+  _featuredImage: FeaturedImageModel | null
 
   constructor(params: {
     path: string
     title: string
     content: string
-    thumbnail: string
+    thumbnail: string | null
     date: DateModel
     location: LocationModel<number | null> | null
     excerpt: string
     availableLanguages: Map<string, string>
     lastUpdate: DateTime
-    featuredImage: FeaturedImageModel | null | undefined
+    featuredImage: FeaturedImageModel | null
   }) {
     const { date, location, excerpt, featuredImage, ...other } = params
     super(other)
@@ -48,7 +48,7 @@ class EventModel extends ExtendedPageModel {
     return this._excerpt
   }
 
-  get featuredImage(): FeaturedImageModel | null | undefined {
+  get featuredImage(): FeaturedImageModel | null {
     return this._featuredImage
   }
 

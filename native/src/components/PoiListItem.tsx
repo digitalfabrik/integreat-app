@@ -58,7 +58,7 @@ const PoiListItem = ({ poi, language, navigateToPoi, distance }: PoiListItemProp
   const { t } = useTranslation('pois')
   return (
     <StyledPressable onPress={navigateToPoi} language={language}>
-      <Thumbnail source={poi.thumbnail || PoiThumbnailPlaceholder} resizeMode='cover' />
+      <Thumbnail source={poi.thumbnail ?? PoiThumbnailPlaceholder} resizeMode='cover' />
       <Description>
         <Title>{poi.title}</Title>
         {distance !== null && <Distance>{t('distanceKilometre', { distance: distance.toFixed(1) })}</Distance>}

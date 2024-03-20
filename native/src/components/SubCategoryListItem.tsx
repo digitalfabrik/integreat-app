@@ -5,7 +5,6 @@ import { CategoryModel } from 'shared/api'
 
 import { contentDirection } from '../constants/contentDirection'
 import { PageResourceCacheStateType } from '../utils/DataContainer'
-import { getCachedThumbnail } from './Categories'
 import { CategoryThumbnail } from './CategoryListItem'
 import Pressable from './base/Pressable'
 
@@ -44,9 +43,7 @@ const SubCategoryListItem = ({
 }: SubCategoryListItemProps): ReactElement => (
   <FlexStyledLink onPress={() => onItemPress(subCategory)} language={language}>
     <SubCategoryTitleContainer language={language}>
-      {!!subCategory.thumbnail && (
-        <CategoryThumbnail language={language} source={getCachedThumbnail(subCategory.thumbnail, resourceCache)} />
-      )}
+      <CategoryThumbnail language={language} source={subCategory.thumbnail} resourceCache={resourceCache} />
       <SubCategoryTitle>{subCategory.title}</SubCategoryTitle>
     </SubCategoryTitleContainer>
   </FlexStyledLink>

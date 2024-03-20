@@ -58,7 +58,7 @@ export type JsonCategoryType = {
   excerpt: string
   content: string
   available_languages: JsonAvailableLanguagesType
-  thumbnail: string
+  thumbnail: string | null
   parent: {
     id: number
     url: string | null
@@ -83,7 +83,7 @@ export type JsonPoiType = {
   meta_description: string | null
   content: string
   available_languages: JsonAvailableLanguagesType
-  thumbnail: string
+  thumbnail: string | null
   location: JsonLocationType<number>
   website: string | null
   email: string | null
@@ -101,7 +101,7 @@ export type JsonEventType = {
   excerpt: string
   content: string
   available_languages: JsonAvailableLanguagesType
-  thumbnail: string
+  thumbnail: string | null
   event: JsonEventInfoType
   location: JsonLocationType<number | null>
   featured_image: JsonFeaturedImageType | null | undefined

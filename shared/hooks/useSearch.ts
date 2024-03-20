@@ -3,7 +3,7 @@ import { useMemo } from 'react'
 
 export type SearchResult = {
   title: string
-  thumbnail?: string
+  thumbnail: string | null
   content: string
   path: string
 }

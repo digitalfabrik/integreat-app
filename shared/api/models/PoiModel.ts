@@ -23,7 +23,7 @@ class PoiModel extends ExtendedPageModel {
     path: string
     title: string
     content: string
-    thumbnail: string
+    thumbnail: string | null
     availableLanguages: Map<string, string>
     metaDescription: string | null
     excerpt: string

@@ -18,7 +18,7 @@ class CategoryModel extends ExtendedPageModel {
     path: string
     title: string
     content: string
-    thumbnail: string
+    thumbnail: string | null
     parentPath: string
     order: number
     availableLanguages: Map<string, string>

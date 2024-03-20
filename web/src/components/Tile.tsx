@@ -61,21 +61,20 @@ const TileContainer = styled.div`
   }
 `
 
-/**
- * Displays a single Tile
- */
 const Tile = (props: TileProps): ReactElement => {
   const imageRef = useRef<HTMLImageElement>(null)
   const { tile } = props
 
   const fetchImageWithCaching = (): void => {
-    request(tile.thumbnail, {})
-      .then(res => res.blob())
-      .then(blob => {
-        if (imageRef.current) {
-          imageRef.current.src = URL.createObjectURL(blob)
-        }
-      })
+    if (tile.thumbnail) {
+      request(tile.thumbnail, {})
+        .then(res => res.blob())
+        .then(blob => {
+          if (imageRef.current) {
+            imageRef.current.src = URL.createObjectURL(blob)
+          }
+        })
+    }
   }
 
   const getTileContent = (): ReactNode => {
