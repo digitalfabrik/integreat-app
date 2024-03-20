@@ -1,28 +1,50 @@
-import React, { ReactElement, useMemo } from 'react'
-import { Image, View, StyleProp, ImageStyle, ImageResizeMode, Platform } from 'react-native'
-import { SvgCssUri } from 'react-native-svg'
+import React, { JSXElementConstructor, ReactElement, useMemo } from 'react'
+import { Image, View, StyleProp, ImageStyle, ImageResizeMode } from 'react-native'
+import { SvgCssUri, SvgProps } from 'react-native-svg'
 import styled from 'styled-components/native'
+
+import { PageResourceCacheStateType } from '../utils/DataContainer'
+import getCachedThumbnail from '../utils/getCachedThumbnail'
+import Icon from './base/Icon'
 
 const StyledImage = styled.Image<{ aspectRatio?: number }>`
   ${props => props.aspectRatio && `aspect-ratio: ${props.aspectRatio};`}
 `
 
-export type ImageSourceType = string | number | null
+type AspectRatioImageProps = {
+  source: string
+  resizeMode: ImageResizeMode
+  specifyAspectRatio: boolean
+  style?: StyleProp<ImageStyle>
+}
+
+const AspectRatioImage = ({ source, style, resizeMode, specifyAspectRatio }: AspectRatioImageProps) => {
+  const aspectRatio = useMemo(() => {
+    let value: undefined | number
+    Image.getSize(source, (width, height) => {
+      value = width / height
+    })
+    return value
+  }, [source])
+
+  return (
+    <StyledImage
+      aspectRatio={specifyAspectRatio ? aspectRatio : undefined}
+      source={{ uri: source }}
+      resizeMode={resizeMode}
+      style={style}
+    />
+  )
+}
+
+export type ImageSourceType = JSXElementConstructor<SvgProps> | string | number | null
 type SimpleImageProps = {
   source: ImageSourceType
   style?: StyleProp<ImageStyle>
   resizeMode?: ImageResizeMode
   // In order to be able to align an image, its width or aspect ratio has to be set
   specifyAspectRatio?: boolean
-}
-
-// For ios you should not use the absolute path, since it can change with a future build version, therefore we use home directory
-// https://github.com/facebook/react-native/commit/23909cd6f62056de0cd0f7c06e3997dd967c139a
-const getLocalPlatformFilepath = (uri: string): string => {
-  if (Platform.OS === 'ios' && uri.includes('file://')) {
-    return `~${uri.substring(uri.indexOf('/Documents'))}`
-  }
-  return uri
+  resourceCache?: PageResourceCacheStateType
 }
 
 const SimpleImage = ({
@@ -30,17 +52,8 @@ const SimpleImage = ({
   style,
   resizeMode = 'contain',
   specifyAspectRatio = false,
+  resourceCache,
 }: SimpleImageProps): ReactElement => {
-  const aspectRatio = useMemo(() => {
-    let value: undefined | number
-    if (typeof source === 'string' && !source.endsWith('.svg')) {
-      Image.getSize(getLocalPlatformFilepath(source), (width, height) => {
-        value = width / height
-      })
-    }
-    return value
-  }, [source])
-
   if (source === null) {
     return <View style={style} />
   }
@@ -49,16 +62,24 @@ const SimpleImage = ({
     return <Image source={source} resizeMode={resizeMode} style={style} />
   }
 
-  if (source.endsWith('.svg')) {
-    return <SvgCssUri uri={getLocalPlatformFilepath(source)} style={style} />
+  const isSvgIcon = typeof source === 'function'
+  if (isSvgIcon) {
+    // @ts-expect-error style types are not compatible
+    return <Icon Icon={source} style={style} />
+  }
+
+  const cachedSource = getCachedThumbnail(source, resourceCache)
+
+  if (cachedSource.endsWith('.svg')) {
+    return <SvgCssUri uri={cachedSource} style={style} />
   }
 
   return (
-    <StyledImage
-      aspectRatio={specifyAspectRatio ? aspectRatio : undefined}
-      source={{ uri: getLocalPlatformFilepath(source) }}
+    <AspectRatioImage
+      source={cachedSource}
       resizeMode={resizeMode}
       style={style}
+      specifyAspectRatio={specifyAspectRatio}
     />
   )
 }
