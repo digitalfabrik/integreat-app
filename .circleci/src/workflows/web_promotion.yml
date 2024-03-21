@@ -6,3 +6,4 @@ jobs:
   - promote_web:
       context:
         - mattermost
+        - deliverino
