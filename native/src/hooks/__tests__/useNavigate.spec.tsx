@@ -18,7 +18,7 @@ import {
 } from 'shared'
 
 import buildConfig from '../../constants/buildConfig'
-import { AppContext } from '../../contexts/AppContextProvider'
+import TestingAppContext from '../../testing/TestingAppContext'
 import createNavigationPropMock from '../../testing/createNavigationPropMock'
 import render from '../../testing/render'
 import openExternalUrl from '../../utils/openExternalUrl'
@@ -36,8 +36,6 @@ describe('useNavigate', () => {
   const navigation = createNavigationPropMock()
   mocked(useNavigation).mockImplementation(() => navigation as never)
 
-  const changeCityCode = jest.fn()
-  const changeLanguageCode = jest.fn()
   const cityCode = 'ansbach'
   const languageCode = 'ro'
   const params = { cityCode, languageCode }
@@ -51,7 +49,6 @@ describe('useNavigate', () => {
       featureFlags: { ...previous.featureFlags, ...featureFlags },
     }))
   }
-  const context = { changeCityCode, changeLanguageCode, cityCode, languageCode }
 
   const MockComponent = ({ routeInformation }: { routeInformation: RouteInformationType }) => {
     const { navigateTo } = useNavigate()
@@ -64,9 +61,9 @@ describe('useNavigate', () => {
 
   const renderMockComponent = (routeInformation: RouteInformationType) =>
     render(
-      <AppContext.Provider value={context}>
+      <TestingAppContext cityCode={cityCode} languageCode={languageCode}>
         <MockComponent routeInformation={routeInformation} />
-      </AppContext.Provider>,
+      </TestingAppContext>,
     )
 
   beforeEach(() => {

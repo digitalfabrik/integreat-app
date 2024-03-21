@@ -1,5 +1,5 @@
 import { NavigationAction } from '@react-navigation/native'
-import React, { ReactElement, useCallback, useEffect, useState } from 'react'
+import React, { ReactElement, useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Alert, Text } from 'react-native'
 import styled from 'styled-components/native'
@@ -9,14 +9,12 @@ import { JpalTrackingRouteType } from 'shared'
 import Caption from '../components/Caption'
 import Layout from '../components/Layout'
 import Link from '../components/Link'
-import LoadingSpinner from '../components/LoadingSpinner'
 import Pressable from '../components/base/Pressable'
 import SettingsSwitch from '../components/base/SettingsSwitch'
 import { NavigationProps } from '../constants/NavigationTypes'
 import buildConfig from '../constants/buildConfig'
+import { useAppContext } from '../hooks/useCityAppContext'
 import useOnBackNavigation from '../hooks/useOnBackNavigation'
-import appSettings from '../utils/AppSettings'
-import { log, reportError } from '../utils/sentry'
 
 const moreInformationUrl = 'https://integrationevaluation.wordpress.com'
 
@@ -43,37 +41,11 @@ export type JpalTrackingProps = {
 }
 
 const JpalTracking = ({ navigation }: JpalTrackingProps): ReactElement => {
-  const [trackingEnabled, setTrackingEnabled] = useState<boolean | null>(null)
-  const [settingsLoaded, setSettingsLoaded] = useState<boolean>(false)
+  const { settings, updateSettings } = useAppContext()
+  const trackingEnabled = settings.jpalTrackingEnabled
   const { t } = useTranslation('settings')
 
-  const updateTrackingEnabled = useCallback((trackingEnabled: boolean) => {
-    setTrackingEnabled(trackingEnabled)
-    appSettings.setJpalTrackingEnabled(trackingEnabled).catch(e => {
-      setTrackingEnabled(false)
-      log('Something went wrong while persisting jpal tracking enabled')
-      reportError(e)
-    })
-  }, [])
-
-  const toggleTrackingEnabled = () => {
-    updateTrackingEnabled(!trackingEnabled)
-  }
-
-  useEffect(() => {
-    // Load previously set tracking enabled
-    appSettings
-      .loadSettings()
-      .then(settings => {
-        setSettingsLoaded(true)
-        setTrackingEnabled(settings.jpalTrackingEnabled)
-        log(`Using jpal tracking code ${settings.jpalTrackingCode}`)
-      })
-      .catch(e => {
-        log('Something went wrong while loading settings')
-        reportError(e)
-      })
-  }, [])
+  const toggleTrackingEnabled = () => updateSettings({ jpalTrackingEnabled: !trackingEnabled })
 
   const onBackNavigation = useCallback(
     (action: NavigationAction) => {
@@ -83,31 +55,23 @@ const JpalTracking = ({ navigation }: JpalTrackingProps): ReactElement => {
             text: t('decline'),
             style: 'destructive',
             onPress: () => {
-              updateTrackingEnabled(false)
+              updateSettings({ jpalTrackingEnabled: false })
               navigation.dispatch(action)
             },
           },
           {
             text: t('allowTracking'),
             style: 'default',
-            onPress: () => updateTrackingEnabled(true),
+            onPress: () => updateSettings({ jpalTrackingEnabled: true }),
           },
         ])
       } else {
         navigation.dispatch(action)
       }
     },
-    [navigation, trackingEnabled, updateTrackingEnabled, t],
+    [navigation, trackingEnabled, updateSettings, t],
   )
   useOnBackNavigation(onBackNavigation)
-
-  if (!settingsLoaded) {
-    return (
-      <Layout>
-        <LoadingSpinner />
-      </Layout>
-    )
-  }
 
   return (
     <Layout>

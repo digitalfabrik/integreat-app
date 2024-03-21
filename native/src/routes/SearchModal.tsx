@@ -38,13 +38,17 @@ const SearchModal = ({
   cityCode,
   closeModal,
   initialSearchText,
-}: SearchModalProps): ReactElement => {
+}: SearchModalProps): ReactElement | null => {
   const [query, setQuery] = useState<string>(initialSearchText)
   const resourceCache = useResourceCache({ cityCode, languageCode })
   const theme = useContext(ThemeContext)
   const { t } = useTranslation('search')
 
-  const searchResults = useSearch(allPossibleResults, query, 'async')
+  const searchResults = useSearch(allPossibleResults, query)
+
+  if (!searchResults) {
+    return null
+  }
 
   const onClose = (): void => {
     sendTrackingSignal({

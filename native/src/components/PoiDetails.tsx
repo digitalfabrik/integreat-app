@@ -49,7 +49,7 @@ type PoiDetailsProps = {
 
 const PoiDetails = ({ poi, language, distance }: PoiDetailsProps): ReactElement => {
   const { t } = useTranslation('pois')
-  const thumbnail = poi.thumbnail?.replace('-150x150', '') ?? PoiThumbnailPlaceholderLarge
+  const thumbnail = poi.thumbnail ?? PoiThumbnailPlaceholderLarge
   const { title, content, email, website, phoneNumber, openingHours, temporarilyClosed, isCurrentlyOpen, category } =
     poi
 

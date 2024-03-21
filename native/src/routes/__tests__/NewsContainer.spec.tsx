@@ -6,9 +6,9 @@ import { Pressable, Text, View } from 'react-native'
 import { LocalNewsType, NEWS_ROUTE, NewsRouteType, TU_NEWS_TYPE, TuNewsType } from 'shared'
 import { CategoriesMapModelBuilder, CityModelBuilder, LanguageModelBuilder } from 'shared/api'
 
-import { AppContext } from '../../contexts/AppContextProvider'
 import useLoadCityContent from '../../hooks/useLoadCityContent'
 import useNavigate from '../../hooks/useNavigate'
+import TestingAppContext from '../../testing/TestingAppContext'
 import createNavigationPropMock from '../../testing/createNavigationPropMock'
 import render from '../../testing/render'
 import NewsContainer from '../NewsContainer'
@@ -48,8 +48,6 @@ describe('NewsContainer', () => {
   const city = cities[0]!
   const languages = new LanguageModelBuilder(3).build()
   const language = languages[0]!
-  const changeCityCode = jest.fn()
-  const changeLanguageCode = jest.fn()
 
   const data = {
     cities,
@@ -70,7 +68,6 @@ describe('NewsContainer', () => {
     error: null,
     data,
   }
-  const context = { changeCityCode, changeLanguageCode, cityCode: city.code, languageCode: language.code }
 
   const renderNews = ({
     newsType = TU_NEWS_TYPE,
@@ -89,9 +86,9 @@ describe('NewsContainer', () => {
     }
 
     return render(
-      <AppContext.Provider value={context}>
+      <TestingAppContext>
         <NewsContainer route={route} navigation={navigation} />
-      </AppContext.Provider>,
+      </TestingAppContext>,
     )
   }
 
