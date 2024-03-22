@@ -18,7 +18,7 @@ class FetchError extends Error {
     // captureStackTrace is not always defined on mobile
     // https://sentry.tuerantuer.org/organizations/digitalfabrik/issues/263/
     // https://sentry.tuerantuer.org/organizations/digitalfabrik/issues/265/
-    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition,@typescript-eslint/strict-boolean-expressions
     if (Error.captureStackTrace) {
       Error.captureStackTrace(this, FetchError)
     }

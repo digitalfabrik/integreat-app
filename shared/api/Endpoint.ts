@@ -62,15 +62,16 @@ class Endpoint<P, T extends object> {
     const body = this.mapParamsToBody ? this.mapParamsToBody(params) : null
     const headers = typeof body === 'string' ? { headers: { 'Content-Type': 'application/json' } } : {}
 
-    const requestOptions = body
-      ? {
-          method: 'POST',
-          body,
-          ...headers,
-        }
-      : {
-          method: 'GET',
-        }
+    const requestOptions =
+      body === null
+        ? {
+            method: 'GET',
+          }
+        : {
+            method: 'POST',
+            body,
+            ...headers,
+          }
 
     const response = await fetch(url, requestOptions).catch((e: Error) => {
       throw new FetchError({
