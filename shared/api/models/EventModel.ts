@@ -3,7 +3,6 @@ import { DateTime } from 'luxon'
 import { RRule } from 'rrule'
 import { v5 } from 'uuid'
 
-import { getExcerpt } from '../..'
 import { formatDateICal } from '../../utils'
 import DateModel from './DateModel'
 import ExtendedPageModel from './ExtendedPageModel'
@@ -32,7 +31,8 @@ class EventModel extends ExtendedPageModel {
     super(other)
     this._date = date
     this._location = location
-    this._excerpt = decodeHTML(excerpt)
+    // Remove carriage returns that break e.g. ical
+    this._excerpt = decodeHTML(excerpt).replace(/\r/g, '').trim()
     this._featuredImage = featuredImage
   }
 
@@ -57,23 +57,20 @@ class EventModel extends ExtendedPageModel {
     const url = `${baseUrl}${path}`
     const uid = v5(`${url}/${formatDateICal(lastUpdate)}`, v5.URL)
     const timezone = date.startDate.zone.name
+
     const body: string[] = []
     body.push(`DTSTAMP:${formatDateICal(DateTime.now())}`)
     body.push(`UID:${uid}`)
     body.push(`SUMMARY:${title}`)
     body.push(`DTSTART;TZID=${timezone}:${formatDateICal(date.startDate)}`)
     body.push(`DTEND;TZID=${timezone}:${formatDateICal(date.endDate)}`)
-    body.push(
-      `DESCRIPTION:${getExcerpt(excerpt, {
-        query: undefined,
+    // For iCal newlines have to be escaped as each line is treated as separate property, see #2690
+    body.push(`DESCRIPTION:${excerpt}\n\n${url}`.replace(/\n/g, '\\n'))
 
-        maxChars: 150,
-        replaceLineBreaks: false,
-      })}\\n\\n${url}`,
-    )
     if (location) {
       body.push(`LOCATION:${location.fullAddress}`)
     }
+
     if (recurring && date.recurrenceRule) {
       const { freq, interval, until, byweekday } = date.recurrenceRule.options
       const recurrence = RRule.optionsToString({ freq, interval, until, byweekday })
