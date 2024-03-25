@@ -2,11 +2,10 @@ import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 import { View } from 'react-native'
 
-import { SPRUNGBRETT_OFFER_ROUTE, MALTE_HELP_FORM_OFFER_ROUTE } from 'shared'
+import { SPRUNGBRETT_OFFER_ROUTE, MALTE_HELP_FORM_OFFER_ROUTE, TileModel } from 'shared'
 import { OfferModel } from 'shared/api'
 
 import Tiles from '../components/Tiles'
-import TileModel from '../models/TileModel'
 
 type OffersProps = {
   offers: Array<OfferModel>

@@ -1,14 +1,10 @@
 import React, { ReactElement, ReactNode, useRef } from 'react'
 import styled from 'styled-components'
 
+import { TileModel } from 'shared'
 import { request } from 'shared/api'
 
-import TileModel from '../models/TileModel'
 import CleanLink from './CleanLink'
-
-type TileProps = {
-  tile: TileModel
-}
 
 const Thumbnail = styled.div`
   position: relative;
@@ -61,9 +57,12 @@ const TileContainer = styled.div`
   }
 `
 
-const Tile = (props: TileProps): ReactElement => {
+type TileProps = {
+  tile: TileModel
+}
+
+const Tile = ({ tile }: TileProps): ReactElement => {
   const imageRef = useRef<HTMLImageElement>(null)
-  const { tile } = props
 
   const fetchImageWithCaching = (): void => {
     if (tile.thumbnail) {
@@ -92,7 +91,6 @@ const Tile = (props: TileProps): ReactElement => {
   }
 
   const getTile = (): ReactNode => {
-    const { tile } = props
     if (!tile.postData) {
       return <CleanLink to={tile.path}>{getTileContent()}</CleanLink>
     }

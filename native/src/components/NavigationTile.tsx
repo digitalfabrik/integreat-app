@@ -1,8 +1,10 @@
-import React, { ReactElement } from 'react'
+import React, { JSXElementConstructor, ReactElement } from 'react'
 import { View } from 'react-native'
+import { SvgProps } from 'react-native-svg'
 import styled from 'styled-components/native'
 
-import TileModel from '../models/TileModel'
+import { TileModel } from 'shared'
+
 import SimpleImage from './SimpleImage'
 import Pressable from './base/Pressable'
 
@@ -43,7 +45,7 @@ const StyledIcon = styled(SimpleImage)`
 `
 
 type NavigationTileProps = {
-  tile: TileModel
+  tile: TileModel<JSXElementConstructor<SvgProps>>
   width: number
 }
 

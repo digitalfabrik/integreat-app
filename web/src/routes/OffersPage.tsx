@@ -6,6 +6,7 @@ import {
   OFFERS_ROUTE,
   pathnameFromRouteInformation,
   SPRUNGBRETT_OFFER_ROUTE,
+  TileModel,
 } from 'shared'
 import { createOffersEndpoint, OfferModel, SPRUNGBRETT_OFFER, useLoadFromEndpoint } from 'shared/api'
 
@@ -17,7 +18,6 @@ import Helmet from '../components/Helmet'
 import LoadingSpinner from '../components/LoadingSpinner'
 import Tiles from '../components/Tiles'
 import { cmsApiBaseUrl } from '../constants/urls'
-import TileModel from '../models/TileModel'
 
 const OffersPage = ({ city, cityCode, languageCode }: CityRouteProps): ReactElement | null => {
   const { t } = useTranslation('offers')
@@ -44,6 +44,7 @@ const OffersPage = ({ city, cityCode, languageCode }: CityRouteProps): ReactElem
             path,
             thumbnail: offer.thumbnail,
             postData: offer.postData,
+            isExternalUrl: true,
           })
         }),
     [cityCode, languageCode, t],
