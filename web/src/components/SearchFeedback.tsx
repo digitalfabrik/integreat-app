@@ -1,4 +1,4 @@
-import React, { ReactElement, useState } from 'react'
+import React, { ReactElement, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
 
@@ -13,33 +13,38 @@ const Container = styled.div`
   align-items: center;
 `
 
-type FeedbackSearchProps = {
+type SearchFeedbackProps = {
   cityCode: string
   languageCode: string
   query: string
-  resultsFound: boolean
+  noResults: boolean
 }
 
-const FeedbackSearch = ({ cityCode, languageCode, query, resultsFound }: FeedbackSearchProps): ReactElement => {
-  const [boxOpenedForQuery, setBoxOpenedForQuery] = useState<string | null>(null)
+const SearchFeedback = ({ cityCode, languageCode, query, noResults }: SearchFeedbackProps): ReactElement => {
+  const [showFeedback, setShowFeedback] = useState<boolean>(false)
   const { t } = useTranslation('feedback')
 
-  const handleFeedbackLinkClicked = (): void => {
-    setBoxOpenedForQuery(query)
-  }
+  useEffect(() => setShowFeedback(false), [query])
 
-  if (!resultsFound || query === boxOpenedForQuery) {
+  if (noResults || showFeedback) {
     return (
       <Container>
-        <FeedbackContainer cityCode={cityCode} language={languageCode} routeType={SEARCH_ROUTE} query={query} />
+        <FeedbackContainer
+          cityCode={cityCode}
+          language={languageCode}
+          routeType={SEARCH_ROUTE}
+          query={query}
+          noResults={noResults}
+        />
       </Container>
     )
   }
+
   return (
     <Container>
-      <TextButton onClick={handleFeedbackLinkClicked} text={t('informationNotFound')} />
+      <TextButton onClick={() => setShowFeedback(true)} text={t('informationNotFound')} />
     </Container>
   )
 }
 
-export default FeedbackSearch
+export default SearchFeedback
