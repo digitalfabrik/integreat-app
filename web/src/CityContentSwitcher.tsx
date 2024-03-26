@@ -1,5 +1,5 @@
 import React, { FunctionComponent, ReactElement, Suspense } from 'react'
-import { Route, Routes, useLocation, useParams } from 'react-router-dom'
+import { Navigate, Route, Routes, useLocation, useParams } from 'react-router-dom'
 
 import {
   CATEGORIES_ROUTE,
@@ -7,6 +7,7 @@ import {
   DISCLAIMER_ROUTE,
   EVENTS_ROUTE,
   MALTE_HELP_FORM_OFFER_ROUTE,
+  NEWS_ROUTE,
   normalizePath,
   OFFERS_ROUTE,
   POIS_ROUTE,
@@ -144,6 +145,13 @@ const CityContentSwitcher = ({ languageCode }: CityContentSwitcherProps): ReactE
 
       {tuNewsEnabled && render(TU_NEWS_ROUTE, TuNewsPage)}
       {tuNewsEnabled && render(TU_NEWS_DETAIL_ROUTE, TuNewsDetailPage)}
+
+      {(localNewsEnabled || tuNewsEnabled) && (
+        <Route
+          path={NEWS_ROUTE}
+          element={<Navigate to={localNewsEnabled ? LOCAL_NEWS_ROUTE : TU_NEWS_ROUTE} replace />}
+        />
+      )}
     </Routes>
   )
 }

@@ -10,8 +10,10 @@ import {
   LANDING_ROUTE,
   LICENSES_ROUTE,
   MAIN_DISCLAIMER_ROUTE,
+  NEWS_ROUTE,
   NOT_FOUND_ROUTE,
   pathnameFromRouteInformation,
+  RESERVED_CITY_CONTENT_SLUGS,
 } from 'shared'
 
 import CityContentSwitcher from './CityContentSwitcher'
@@ -37,11 +39,11 @@ const LicensesPage = lazyWithRetry(() => import('./routes/LicensesPage'))
 const RootSwitcher = ({ setContentLanguage }: RootSwitcherProps): ReactElement => {
   const { i18n } = useTranslation()
   const { fixedCity, cityNotCooperating, jpalTracking } = buildConfig().featureFlags
-  const languageCode = useMatch('/:slug/:languageCode/*')?.params.languageCode
+  const { routeParam0, routeParam1, '*': splat } = useMatch('/:routeParam0/:routeParam1/*')?.params ?? {}
   useScrollToTop()
 
   const detectedLanguageCode = i18n.language
-  const language = languageCode ?? detectedLanguageCode
+  const language = routeParam1 ?? detectedLanguageCode
 
   useEffect(() => {
     if (language !== detectedLanguageCode) {
@@ -89,6 +91,15 @@ const RootSwitcher = ({ setContentLanguage }: RootSwitcherProps): ReactElement =
         )}
         {/* also handles redirects from /landing to /landing/de */}
         <Route path='/:cityCode' element={<Navigate to={fixedCityPath ?? language} replace />} />
+
+        {/* Language independent urls */}
+        {RESERVED_CITY_CONTENT_SLUGS.map(slug => (
+          <Route
+            key={slug}
+            path={`/:cityCode/${slug}/*`}
+            element={<Navigate to={`/${routeParam0}/${detectedLanguageCode}/${slug}/${splat ?? ''}`} replace />}
+          />
+        ))}
       </Routes>
     </Suspense>
   )
