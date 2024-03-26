@@ -1,0 +1,140 @@
+{
+    "@integreat-app/react-sticky-headroom@2.2.0": {
+        "licenses": "MIT",
+        "repository": "https://github.com/integreat/react-sticky-headroom",
+        "licenseUrl": "https://github.com/integreat/react-sticky-headroom/raw/master/LICENSE.txt",
+        "parents": "web"
+    },
+    "@math.gl/web-mercator@3.6.3": {
+        "licenses": "MIT",
+        "repository": "https://github.com/uber-web/math.gl",
+        "licenseUrl": "https://github.com/uber-web/math.gl/raw/master/LICENSE",
+        "parents": "web"
+    },
+    "@sentry/react@7.65.0": {
+        "licenses": "MIT",
+        "repository": "https://github.com/getsentry/sentry-javascript",
+        "licenseUrl": "https://github.com/getsentry/sentry-javascript/raw/master/LICENSE",
+        "parents": "web"
+    },
+    "@sentry/types@7.65.0": {
+        "licenses": "MIT",
+        "repository": "https://github.com/getsentry/sentry-javascript",
+        "licenseUrl": "https://github.com/getsentry/sentry-javascript/raw/master/LICENSE",
+        "parents": "web"
+    },
+    "dompurify@3.0.5": {
+        "licenses": "(MPL-2.0 OR Apache-2.0)",
+        "repository": "https://github.com/cure53/DOMPurify",
+        "licenseUrl": "https://github.com/cure53/DOMPurify/raw/master/LICENSE",
+        "parents": "web"
+    },
+    "focus-trap-react@10.2.1": {
+        "licenses": "MIT",
+        "repository": "https://github.com/focus-trap/focus-trap-react",
+        "licenseUrl": "https://github.com/focus-trap/focus-trap-react/raw/master/LICENSE",
+        "parents": "web"
+    },
+    "i18next@23.4.6": {
+        "licenses": "MIT",
+        "repository": "https://github.com/i18next/i18next",
+        "licenseUrl": "https://github.com/i18next/i18next/raw/master/LICENSE",
+        "parents": "web"
+    },
+    "maplibre-gl@3.3.0": {
+        "licenses": "BSD-3-Clause",
+        "repository": "https://github.com/maplibre/maplibre-gl-js",
+        "licenseUrl": "https://github.com/maplibre/maplibre-gl-js/raw/master/LICENSE.txt",
+        "parents": "web"
+    },
+    "normalize.css@8.0.1": {
+        "licenses": "MIT",
+        "repository": "https://github.com/necolas/normalize.css",
+        "licenseUrl": "https://github.com/necolas/normalize.css/raw/master/LICENSE.md",
+        "parents": "web"
+    },
+    "npm-license-crawler@0.2.1": {
+        "licenses": "BSD-3-Clause",
+        "repository": "http://github.com/mwittig/npm-license-crawler",
+        "licenseUrl": "http://github.com/mwittig/npm-license-crawler/raw/master/LICENSE",
+        "parents": "web"
+    },
+    "react-dom@18.2.0": {
+        "licenses": "MIT",
+        "repository": "https://github.com/facebook/react",
+        "licenseUrl": "https://github.com/facebook/react/raw/master/LICENSE",
+        "parents": "web"
+    },
+    "react-helmet@6.1.0": {
+        "licenses": "MIT",
+        "repository": "https://github.com/nfl/react-helmet",
+        "licenseUrl": "https://github.com/nfl/react-helmet/raw/master/LICENSE",
+        "parents": "web"
+    },
+    "react-highlight-words@0.20.0": {
+        "licenses": "MIT",
+        "repository": "https://github.com/bvaughn/react-highlight-words",
+        "licenseUrl": "https://github.com/bvaughn/react-highlight-words/raw/master/LICENSE",
+        "parents": "web"
+    },
+    "react-i18next@13.2.2": {
+        "licenses": "MIT",
+        "repository": "https://github.com/i18next/react-i18next",
+        "licenseUrl": "https://github.com/i18next/react-i18next/raw/master/LICENSE",
+        "parents": "web"
+    },
+    "react-infinite-scroller@1.2.6": {
+        "licenses": "MIT",
+        "repository": "https://github.com/danbovey/react-infinite-scroller",
+        "licenseUrl": "https://github.com/danbovey/react-infinite-scroller/raw/master/LICENSE",
+        "parents": "web"
+    },
+    "react-inlinesvg@4.0.5": {
+        "licenses": "MIT",
+        "repository": "https://github.com/gilbarbara/react-inlinesvg",
+        "licenseUrl": "https://github.com/gilbarbara/react-inlinesvg/raw/master/LICENSE",
+        "parents": "web"
+    },
+    "react-map-gl@7.1.5": {
+        "licenses": "MIT",
+        "repository": "https://github.com/visgl/react-map-gl",
+        "licenseUrl": "https://github.com/visgl/react-map-gl/raw/master/LICENSE",
+        "parents": "web"
+    },
+    "react-router-dom@6.15.0": {
+        "licenses": "MIT",
+        "repository": "https://github.com/remix-run/react-router",
+        "licenseUrl": "https://github.com/remix-run/react-router/raw/master/LICENSE.md",
+        "parents": "web"
+    },
+    "react-spring-bottom-sheet@3.4.1": {
+        "licenses": "MIT",
+        "repository": "https://github.com/stipsan/react-spring-bottom-sheet",
+        "licenseUrl": "https://github.com/stipsan/react-spring-bottom-sheet/raw/master/LICENSE",
+        "parents": "web"
+    },
+    "schema-dts@1.1.2": {
+        "licenses": "Apache-2.0",
+        "repository": "https://github.com/google/schema-dts",
+        "licenseUrl": "https://github.com/google/schema-dts/raw/master/LICENSE",
+        "parents": "web"
+    },
+    "styled-components@5.3.11": {
+        "licenses": "MIT",
+        "repository": "https://github.com/styled-components/styled-components",
+        "licenseUrl": "https://github.com/styled-components/styled-components",
+        "parents": "web"
+    },
+    "url-polyfill@1.1.12": {
+        "licenses": "MIT",
+        "repository": "https://github.com/lifaon74/url-polyfill",
+        "licenseUrl": "https://github.com/lifaon74/url-polyfill/raw/master/LICENSE",
+        "parents": "web"
+    },
+    "whatwg-fetch@3.6.18": {
+        "licenses": "MIT",
+        "repository": "https://github.com/github/fetch",
+        "licenseUrl": "https://github.com/github/fetch/raw/master/LICENSE",
+        "parents": "web"
+    }
+}

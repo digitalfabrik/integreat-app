@@ -59,6 +59,7 @@ const EventListItem = ({ event, languageCode }: EventListItemProps): ReactElemen
   const { viewportSmall } = useWindowDimensions()
   const { t } = useTranslation('events')
 
+  console.log('date icon', dateIcon)
   const DateIcon = dateIcon && (
     <StyledTooltip text={t(dateIcon.tooltip)} flow='up'>
       <Icon src={dateIcon.icon} />
