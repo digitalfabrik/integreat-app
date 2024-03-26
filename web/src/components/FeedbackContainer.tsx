@@ -10,8 +10,9 @@ type FeedbackContainerProps = {
   cityCode: string
   language: string
   routeType: FeedbackRouteType
-  closeModal?: () => void
+  onClose?: () => void
   query?: string
+  noResults?: boolean
   slug?: string
   onSubmit?: () => void
 }
@@ -20,11 +21,12 @@ export type SendingStatusType = 'idle' | 'sending' | 'failed' | 'successful'
 
 export const FeedbackContainer = ({
   query,
+  noResults,
   language,
   routeType,
   cityCode,
   slug,
-  closeModal,
+  onClose,
   onSubmit,
 }: FeedbackContainerProps): ReactElement => {
   const [isPositiveRating, setIsPositiveRating] = useState<boolean | null>(null)
@@ -79,7 +81,8 @@ export const FeedbackContainer = ({
       contactMail={contactMail}
       searchTerm={searchTerm}
       setSearchTerm={setSearchTerm}
-      closeFeedback={closeModal}
+      closeFeedback={onClose}
+      noResults={noResults}
     />
   )
 }

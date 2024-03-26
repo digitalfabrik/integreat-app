@@ -7,11 +7,10 @@ import { parseHTML, pathnameFromRouteInformation, SEARCH_ROUTE, useSearch } from
 
 import { CityRouteProps } from '../CityContentSwitcher'
 import CityContentLayout, { CityContentLayoutProps } from '../components/CityContentLayout'
-import Failure from '../components/Failure'
 import FailureSwitcher from '../components/FailureSwitcher'
-import FeedbackSearch from '../components/FeedbackSearch'
 import Helmet from '../components/Helmet'
 import LoadingSpinner from '../components/LoadingSpinner'
+import SearchFeedback from '../components/SearchFeedback'
 import SearchInput from '../components/SearchInput'
 import SearchListItem from '../components/SearchListItem'
 import { helpers } from '../constants/theme'
@@ -112,11 +111,10 @@ const SearchPage = ({ city, cityCode, languageCode, pathname }: CityRouteProps):
           />
         ))}
       </List>
-      {results.length === 0 && <Failure errorMessage='search:nothingFound' />}
-      <FeedbackSearch
+      <SearchFeedback
         cityCode={cityCode}
         languageCode={languageCode}
-        resultsFound={results.length !== 0}
+        noResults={results.length === 0}
         query={filterText}
       />
     </CityContentLayout>

@@ -6,9 +6,7 @@ import styled, { ThemeContext } from 'styled-components/native'
 import { parseHTML, SEARCH_FINISHED_SIGNAL_NAME, SEARCH_ROUTE, SearchResult, useSearch } from 'shared'
 
 import FeedbackContainer from '../components/FeedbackContainer'
-import HorizontalLine from '../components/HorizontalLine'
 import List from '../components/List'
-import NothingFound from '../components/NothingFound'
 import SearchHeader from '../components/SearchHeader'
 import SearchListItem from '../components/SearchListItem'
 import useResourceCache from '../hooks/useResourceCache'
@@ -84,11 +82,7 @@ const SearchModal = ({
           accessibilityLabel={t('searchResultsCount', { count: searchResults.length })}
           style={{ flex: 1 }}
           noItemsMessage={
-            <>
-              <NothingFound />
-              <HorizontalLine />
-              <FeedbackContainer routeType={SEARCH_ROUTE} language={languageCode} cityCode={cityCode} query={query} />
-            </>
+            <FeedbackContainer routeType={SEARCH_ROUTE} language={languageCode} cityCode={cityCode} query={query} />
           }
         />
       </KeyboardAvoidingView>
