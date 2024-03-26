@@ -114,7 +114,7 @@ const MalteHelpFormOffer = ({
   })
 
   return (
-    <KeyboardAwareScrollView>
+    <KeyboardAwareScrollView extraHeight={200}>
       <Container>
         <InformationRow>
           <Icon Icon={SupportIcon} />
