@@ -101,7 +101,7 @@ const PoisDesktop = ({
   const [scrollOffset, setScrollOffset] = useState<number>(0)
   const listRef = useRef<HTMLDivElement>(null)
   const { pois, poi, mapFeatures, mapFeature } = data
-  const canDeselect = mapFeature !== undefined || !!slug
+  const canDeselect = !!mapFeature || !!slug
   const { contentDirection } = useTheme()
 
   const handleSelectPoi = (poi: PoiModel) => {

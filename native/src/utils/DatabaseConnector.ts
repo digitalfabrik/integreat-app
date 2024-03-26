@@ -691,19 +691,18 @@ class DatabaseConnector {
             allDay: jsonDate.all_day,
             recurrenceRule: jsonDate.recurrence_rule ? rrulestr(jsonDate.recurrence_rule) : null,
           }),
-          location:
-            jsonObject.location?.id !== undefined
-              ? new LocationModel({
-                  id: jsonObject.location.id,
-                  name: jsonObject.location.name,
-                  country: jsonObject.location.country,
-                  address: jsonObject.location.address,
-                  latitude: jsonObject.location.latitude,
-                  longitude: jsonObject.location.longitude,
-                  postcode: jsonObject.location.postcode,
-                  town: jsonObject.location.town,
-                })
-              : null,
+          location: jsonObject.location
+            ? new LocationModel({
+                id: jsonObject.location.id,
+                name: jsonObject.location.name,
+                country: jsonObject.location.country,
+                address: jsonObject.location.address,
+                latitude: jsonObject.location.latitude,
+                longitude: jsonObject.location.longitude,
+                postcode: jsonObject.location.postcode,
+                town: jsonObject.location.town,
+              })
+            : null,
         })
       })
 
