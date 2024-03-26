@@ -64,7 +64,7 @@ describe('Landing', () => {
     mockBuildConfig(true)
     const { getByText } = renderLanding()
     expect(getByText('cityNotFound')).toBeTruthy()
-    expect(getByText('clickHere')).toBeTruthy()
+    expect(getByText('suggestToRegion')).toBeTruthy()
   })
 
   it('should not show footer if disabled', () => {
@@ -76,7 +76,7 @@ describe('Landing', () => {
   it('should navigate to cityNotCooperating page on button click', () => {
     mockBuildConfig(true)
     const { getByText } = renderLanding()
-    const button = getByText('clickHere')
+    const button = getByText('suggestToRegion')
     fireEvent.press(button)
     expect(navigation.navigate).toHaveBeenCalledWith(CITY_NOT_COOPERATING_ROUTE)
   })
