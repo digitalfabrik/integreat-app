@@ -1,0 +1,7 @@
+issue_key: 2140
+show_in_stores: true
+platforms:
+  - android
+  - ios
+en: Push notifications can appear in the foreground now
+de: Benachrichtigungen können jetzt im Vordergrund angezeigt werden

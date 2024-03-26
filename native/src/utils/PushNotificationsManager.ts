@@ -1,4 +1,4 @@
-import notifee, { EventType } from '@notifee/react-native'
+import notifee, { EventType, AndroidImportance } from '@notifee/react-native'
 import { FirebaseMessagingTypes } from '@react-native-firebase/messaging'
 import { useEffect } from 'react'
 import { Linking } from 'react-native'
@@ -109,8 +109,9 @@ export const useForegroundPushNotificationListener = ({
         if (mounted) {
           // required for Android
           const channelId = await notifee.createChannel({
-            id: 'default',
-            name: 'Default Channel',
+            id: 'integreat',
+            name: 'Integreat Channel',
+            importance: AndroidImportance.HIGH,
           })
 
           await notifee.displayNotification({
@@ -120,6 +121,7 @@ export const useForegroundPushNotificationListener = ({
               smallIcon: 'ic_notification',
               color: buildConfig().lightTheme.colors.themeColor,
               channelId,
+              importance: AndroidImportance.HIGH,
             },
           })
           notifee.onForegroundEvent(({ type }) => {

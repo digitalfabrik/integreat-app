@@ -1,6 +1,5 @@
-import notifee from '@notifee/react-native'
 import React, { ReactElement, useCallback, useMemo } from 'react'
-import { Button, useWindowDimensions } from 'react-native'
+import { useWindowDimensions } from 'react-native'
 
 import { CATEGORIES_ROUTE, CategoriesRouteType, cityContentPath } from 'shared'
 import { ErrorCode } from 'shared/api'
@@ -8,7 +7,6 @@ import { ErrorCode } from 'shared/api'
 import Categories from '../components/Categories'
 import DashboardNavigationTiles from '../components/DashboardNavigationTiles'
 import { NavigationProps, RouteProps } from '../constants/NavigationTypes'
-import buildConfig from '../constants/buildConfig'
 import useCityAppContext from '../hooks/useCityAppContext'
 import useHeader from '../hooks/useHeader'
 import useLoadCityContent from '../hooks/useLoadCityContent'
@@ -62,29 +60,10 @@ const CategoriesContainer = ({ navigation, route }: CategoriesContainerProps): R
   const error =
     data?.categories && !category && previousLanguageCode === languageCode ? ErrorCode.PageNotFound : response.error
 
-  const displayNotification = async () => {
-    // Create a channel (required for Android)
-    const channelId = await notifee.createChannel({
-      id: 'default',
-      name: 'Default Channel',
-    })
-
-    await notifee.displayNotification({
-      title: 'Hello, World',
-      body: 'This is a notification',
-      android: {
-        smallIcon: 'ic_notification',
-        color: buildConfig().lightTheme.colors.themeColor,
-        channelId,
-      },
-    })
-  }
-
   return (
     <LoadingErrorHandler refresh={response.refresh} loading={response.loading} error={error} scrollView>
       {data && category && (
         <>
-          <Button title='Click me' onPress={displayNotification} />
           {category.isRoot() && (
             <DashboardNavigationTiles cityModel={data.city} languageCode={languageCode} navigateTo={navigateTo} />
           )}
