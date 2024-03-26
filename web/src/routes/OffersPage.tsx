@@ -2,6 +2,7 @@ import React, { ReactElement, useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import {
+  APPOINTMENT_BOOKING_OFFER_ALIAS,
   MALTE_HELP_FORM_OFFER_ROUTE,
   OFFERS_ROUTE,
   pathnameFromRouteInformation,
@@ -30,7 +31,7 @@ const OffersPage = ({ city, cityCode, languageCode }: CityRouteProps): ReactElem
   const toTileModels = useCallback(
     (offers: Array<OfferModel>): Array<TileModel> =>
       offers
-        .filter(offer => offer.alias !== MALTE_HELP_FORM_OFFER_ROUTE)
+        .filter(offer => offer.alias !== MALTE_HELP_FORM_OFFER_ROUTE && offer.alias !== APPOINTMENT_BOOKING_OFFER_ALIAS)
         .map(offer => {
           let path = offer.path
 
