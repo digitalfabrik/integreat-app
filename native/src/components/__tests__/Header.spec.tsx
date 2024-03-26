@@ -17,9 +17,9 @@ import {
 import { LanguageModelBuilder, CityModelBuilder, LanguageModel } from 'shared/api'
 
 import { RouteProps } from '../../constants/NavigationTypes'
-import { AppContext } from '../../contexts/AppContextProvider'
 import useSnackbar from '../../hooks/useSnackbar'
 import navigateToLanguageChange from '../../navigation/navigateToLanguageChange'
+import TestingAppContext from '../../testing/TestingAppContext'
 import createNavigationMock from '../../testing/createNavigationPropMock'
 import render from '../../testing/render'
 import cityShareName from '../../utils/cityShareName'
@@ -76,13 +76,6 @@ describe('Header', () => {
   }
   const navigation = createNavigationMock()
 
-  const context = {
-    changeCityCode: jest.fn(),
-    changeLanguageCode: jest.fn(),
-    cityCode: cityModel.code,
-    languageCode: languageModel.code,
-  }
-
   const renderHeader = ({
     showItems = true,
     availableLanguages = defaultAvailableLanguages,
@@ -97,7 +90,7 @@ describe('Header', () => {
     route?: RouteProps<CategoriesRouteType | PoisRouteType | DisclaimerRouteType | NewsRouteType>
   }) =>
     render(
-      <AppContext.Provider value={context}>
+      <TestingAppContext cityCode={cityModel.code} languageCode={languageModel.code}>
         <Header
           navigation={navigation}
           route={route}
@@ -107,7 +100,7 @@ describe('Header', () => {
           showItems={showItems}
           cityName={cityShareName(cityModel)}
         />
-      </AppContext.Provider>,
+      </TestingAppContext>,
     )
 
   it('search and language change buttons should be enabled and visible if showItems and all props available', async () => {

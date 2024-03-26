@@ -13,7 +13,6 @@ import useNavigate from '../hooks/useNavigate'
 import urlFromRouteInformation from '../navigation/url'
 import { PageResourceCacheStateType } from '../utils/DataContainer'
 import sendTrackingSignal from '../utils/sendTrackingSignal'
-import { getCachedThumbnail } from './Categories'
 import { CategoryThumbnail } from './CategoryListItem'
 import Pressable from './base/Pressable'
 
@@ -22,6 +21,7 @@ const FlexStyledLink = styled(Pressable)`
   flex-direction: column;
   margin: 0 20px;
 `
+
 const DirectionContainer = styled.View<{ language: string }>`
   display: flex;
   flex-direction: ${props => contentDirection(props.language)};
@@ -55,7 +55,7 @@ type SearchListItemProps = {
   language: string
   query: string
   path: string
-  thumbnail?: string
+  thumbnail: string | null
 }
 
 const SearchListItem = ({
@@ -117,9 +117,7 @@ const SearchListItem = ({
       <DirectionContainer language={language}>
         <SearchEntryContainer>
           <TitleDirectionContainer language={language}>
-            {!!thumbnail && (
-              <CategoryThumbnail language={language} source={getCachedThumbnail(thumbnail, resourceCache)} />
-            )}
+            <CategoryThumbnail language={language} source={thumbnail} resourceCache={resourceCache} />
             {Title}
           </TitleDirectionContainer>
           {Content}

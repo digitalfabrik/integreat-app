@@ -6,9 +6,7 @@ import styled, { ThemeContext } from 'styled-components/native'
 import { parseHTML, SEARCH_FINISHED_SIGNAL_NAME, SEARCH_ROUTE, SearchResult, useSearch } from 'shared'
 
 import FeedbackContainer from '../components/FeedbackContainer'
-import HorizontalLine from '../components/HorizontalLine'
 import List from '../components/List'
-import NothingFound from '../components/NothingFound'
 import SearchHeader from '../components/SearchHeader'
 import SearchListItem from '../components/SearchListItem'
 import useResourceCache from '../hooks/useResourceCache'
@@ -38,13 +36,17 @@ const SearchModal = ({
   cityCode,
   closeModal,
   initialSearchText,
-}: SearchModalProps): ReactElement => {
+}: SearchModalProps): ReactElement | null => {
   const [query, setQuery] = useState<string>(initialSearchText)
   const resourceCache = useResourceCache({ cityCode, languageCode })
   const theme = useContext(ThemeContext)
   const { t } = useTranslation('search')
 
-  const searchResults = useSearch(allPossibleResults, query, 'async')
+  const searchResults = useSearch(allPossibleResults, query)
+
+  if (!searchResults) {
+    return null
+  }
 
   const onClose = (): void => {
     sendTrackingSignal({
@@ -80,11 +82,7 @@ const SearchModal = ({
           accessibilityLabel={t('searchResultsCount', { count: searchResults.length })}
           style={{ flex: 1 }}
           noItemsMessage={
-            <>
-              <NothingFound />
-              <HorizontalLine />
-              <FeedbackContainer routeType={SEARCH_ROUTE} language={languageCode} cityCode={cityCode} query={query} />
-            </>
+            <FeedbackContainer routeType={SEARCH_ROUTE} language={languageCode} cityCode={cityCode} query={query} />
           }
         />
       </KeyboardAvoidingView>

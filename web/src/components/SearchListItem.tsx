@@ -60,7 +60,7 @@ type SearchListItemProps = {
   contentWithoutHtml: string
   query: string
   path: string
-  thumbnail?: string
+  thumbnail: string | null
 }
 
 const SearchListItem = ({ title, contentWithoutHtml, query, path, thumbnail }: SearchListItemProps): ReactElement => {

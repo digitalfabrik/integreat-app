@@ -52,7 +52,7 @@ type ContentCategoryJsonType = {
   title: string
   content: string
   last_update: string
-  thumbnail: string
+  thumbnail: string | null
   available_languages: Record<string, string>
   parent_path: string
   children: Array<string>
@@ -99,7 +99,7 @@ type ContentEventJsonType = {
   title: string
   content: string
   last_update: string
-  thumbnail: string
+  thumbnail: string | null
   available_languages: Record<string, string>
   excerpt: string
   date: {
@@ -136,7 +136,7 @@ type ContentPoiJsonType = {
   path: string
   title: string
   content: string
-  thumbnail: string
+  thumbnail: string | null
   website: string | null
   phoneNumber: string | null
   email: string | null

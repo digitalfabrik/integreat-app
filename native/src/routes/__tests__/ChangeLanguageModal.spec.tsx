@@ -4,7 +4,7 @@ import React from 'react'
 import { CHANGE_LANGUAGE_MODAL_ROUTE, ChangeLanguageModalRouteType } from 'shared'
 import { LanguageModelBuilder } from 'shared/api'
 
-import { AppContext } from '../../contexts/AppContextProvider'
+import TestingAppContext from '../../testing/TestingAppContext'
 import createNavigationScreenPropMock from '../../testing/createNavigationPropMock'
 import render from '../../testing/render'
 import ChangeLanguageModal from '../ChangeLanguageModal'
@@ -26,9 +26,7 @@ describe('ChangeLanguageModal', () => {
   const availableLanguage = languages[2]!
   const availableLanguages = [selectedLanguage.code, availableLanguage.code]
 
-  const changeCityCode = jest.fn()
   const changeLanguageCode = jest.fn()
-  const cityCode = 'ansbach'
   const languageCode = selectedLanguage.code
 
   const route = {
@@ -40,13 +38,12 @@ describe('ChangeLanguageModal', () => {
     name: CHANGE_LANGUAGE_MODAL_ROUTE,
   }
   const navigation = createNavigationScreenPropMock<ChangeLanguageModalRouteType>()
-  const context = { changeCityCode, changeLanguageCode, cityCode, languageCode }
 
   const renderChangeLanguageModel = () =>
     render(
-      <AppContext.Provider value={context}>
+      <TestingAppContext languageCode={languageCode} changeLanguageCode={changeLanguageCode}>
         <ChangeLanguageModal route={route} navigation={navigation} />
-      </AppContext.Provider>,
+      </TestingAppContext>,
     )
 
   it('should change language if language is available and not selected', () => {
