@@ -6,7 +6,6 @@ import { CategoryModel } from 'shared/api'
 import { contentDirection, isContentDirectionReversalRequired } from '../constants/contentDirection'
 import dimensions from '../constants/dimensions'
 import { LanguageResourceCacheStateType } from '../utils/DataContainer'
-import { getCachedThumbnail } from './Categories'
 import List from './List'
 import SimpleImage from './SimpleImage'
 import SubCategoryListItem from './SubCategoryListItem'
@@ -72,12 +71,11 @@ const CategoryListItem = ({
       <DirectionContainer language={language}>
         <CategoryEntryContainer>
           <TitleDirectionContainer language={language}>
-            {!!category.thumbnail && (
-              <CategoryThumbnail
-                language={language}
-                source={getCachedThumbnail(category.thumbnail, resourceCache[category.path] ?? {})}
-              />
-            )}
+            <CategoryThumbnail
+              language={language}
+              source={category.thumbnail}
+              resourceCache={resourceCache[category.path]}
+            />
             <CategoryTitle language={language}>{category.title}</CategoryTitle>
           </TitleDirectionContainer>
         </CategoryEntryContainer>

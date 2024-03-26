@@ -19,7 +19,6 @@ const Thumbnail = styled.img`
 
 type PageProps = {
   title: string
-  defaultThumbnailSrc?: string // necessary for IE11 support
   thumbnailSrcSet?: string
   content: string
   lastUpdate?: DateTime
@@ -32,7 +31,6 @@ type PageProps = {
 
 const Page = ({
   title,
-  defaultThumbnailSrc,
   thumbnailSrcSet,
   content,
   lastUpdate,
@@ -43,7 +41,7 @@ const Page = ({
   Footer,
 }: PageProps): ReactElement => (
   <>
-    {!!defaultThumbnailSrc && <Thumbnail alt='' src={defaultThumbnailSrc} srcSet={thumbnailSrcSet} />}
+    {!!thumbnailSrcSet && <Thumbnail alt='' srcSet={thumbnailSrcSet} />}
     <Caption title={title} />
     {BeforeContent}
     <RemoteContent html={content} onInternalLinkClick={onInternalLinkClick} />

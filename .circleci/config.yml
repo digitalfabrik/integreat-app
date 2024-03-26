@@ -770,7 +770,7 @@ jobs:
                 name: Prepare artifact urls
                 working_directory: ~/attached_workspace
             - run:
-                command: echo "export ANDROID_RELEASE_ID='$(yarn --silent github-release create android ${NEW_VERSION_NAME} ${NEW_VERSION_CODE} --prerelease !<< parameters.production_delivery >> --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME} --release-notes "$(yarn --silent manage-metadata parse-release-notes --android --language en)")'" >> ${BASH_ENV}
+                command: echo "export ANDROID_RELEASE_ID='$(yarn --silent github-release create android ${NEW_VERSION_NAME} ${NEW_VERSION_CODE} --production-delivery << parameters.production_delivery >> --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME} --release-notes "$(yarn --silent manage-metadata parse-release-notes --android --language en)")'" >> ${BASH_ENV}
                 name: Create github release
                 working_directory: tools
             - run:
@@ -803,7 +803,7 @@ jobs:
                 name: Prepare artifact urls
                 working_directory: ~/attached_workspace
             - run:
-                command: IOS_RELEASE_ID=$(yarn --silent github-release create ios ${NEW_VERSION_NAME} ${NEW_VERSION_CODE} --prerelease !<< parameters.production_delivery >> --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME} --release-notes "$(yarn --silent manage-metadata parse-release-notes --ios --language en)")
+                command: echo "export IOS_RELEASE_ID='$(yarn --silent github-release create ios ${NEW_VERSION_NAME} ${NEW_VERSION_CODE} --production-delivery << parameters.production_delivery >> --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME} --release-notes "$(yarn --silent manage-metadata parse-release-notes --ios --language en)")'" >> ${BASH_ENV}
                 name: Create github release
                 working_directory: tools
             - run:
@@ -832,7 +832,7 @@ jobs:
             - restore_environment_variables
             - restore_yarn_tools_cache
             - run:
-                command: yarn github-release create web ${NEW_VERSION_NAME} ${NEW_VERSION_CODE} --prerelease !<< parameters.production_delivery>> --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME} --release-notes "$(yarn --silent manage-metadata parse-release-notes --web --language en)"
+                command: yarn github-release create web ${NEW_VERSION_NAME} ${NEW_VERSION_CODE} --production-delivery << parameters.production_delivery >> --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME} --release-notes "$(yarn --silent manage-metadata parse-release-notes --web --language en)"
                 name: Create github release
                 working_directory: tools
             - run:
@@ -873,6 +873,7 @@ jobs:
             - skip_job:
                 build_config_name: << parameters.build_config_name >>
             - restore_yarn_cache
+            - restore_yarn_tools_cache
             - restore_ruby_cache:
                 directory: native
             - run:
@@ -923,6 +924,7 @@ jobs:
         steps:
             - checkout
             - skip_job
+            - restore_yarn_tools_cache
             - add_ssh_keys:
                 fingerprints:
                     - 68:a3:fe:e7:94:f7:a4:13:35:5c:63:30:2f:07:7d:02
@@ -1922,36 +1924,42 @@ workflows:
                 context:
                     - mattermost
                     - tuerantuer-google-play
+                    - deliverino
                 name: promote_integreat_android
             - promote_android:
                 build_config_name: malte
                 context:
                     - mattermost
                     - tuerantuer-google-play
+                    - deliverino
                 name: promote_malte_android
             - promote_android:
                 build_config_name: aschaffenburg
                 context:
                     - mattermost
                     - tuerantuer-google-play
+                    - deliverino
                 name: promote_aschaffenburg_android
             - promote_ios:
                 build_config_name: integreat
                 context:
                     - mattermost
                     - tuerantuer-apple
+                    - deliverino
                 name: promote_integreat_ios
             - promote_ios:
                 build_config_name: malte
                 context:
                     - mattermost
                     - tuerantuer-apple
+                    - deliverino
                 name: promote_malte_ios
             - promote_ios:
                 build_config_name: aschaffenburg
                 context:
                     - mattermost
                     - tuerantuer-apple
+                    - deliverino
                 name: promote_aschaffenburg_ios
         when:
             and:
@@ -2119,6 +2127,7 @@ workflows:
             - promote_web:
                 context:
                     - mattermost
+                    - deliverino
         when:
             and:
                 - << pipeline.parameters.api_triggered >>

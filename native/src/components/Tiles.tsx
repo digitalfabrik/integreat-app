@@ -3,15 +3,9 @@ import styled from 'styled-components/native'
 
 import { contentDirection } from '../constants/contentDirection'
 import TileModel from '../models/TileModel'
+import { PageResourceCacheStateType } from '../utils/DataContainer'
 import Caption from './Caption'
 import Tile from './Tile'
-
-type TilesProps = {
-  title?: string
-  tiles: TileModel[]
-  onTilePress: (tile: TileModel) => void
-  language: string
-}
 
 const TilesRow = styled.View<{ language: string }>`
   display: flex;
@@ -22,12 +16,20 @@ const TilesRow = styled.View<{ language: string }>`
   padding: 10px 0;
 `
 
-const Tiles = ({ title, language, tiles, onTilePress }: TilesProps): ReactElement => (
+type TilesProps = {
+  title?: string
+  tiles: TileModel[]
+  onTilePress: (tile: TileModel) => void
+  language: string
+  resourceCache: PageResourceCacheStateType | undefined
+}
+
+const Tiles = ({ title, language, tiles, onTilePress, resourceCache }: TilesProps): ReactElement => (
   <>
     {!!title && <Caption title={title} />}
     <TilesRow language={language}>
       {tiles.map(tile => (
-        <Tile key={tile.path} tile={tile} onTilePress={onTilePress} />
+        <Tile key={tile.path} tile={tile} onTilePress={onTilePress} resourceCache={resourceCache} />
       ))}
     </TilesRow>
   </>

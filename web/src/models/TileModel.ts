@@ -1,17 +1,17 @@
 export default class TileModel {
   _title: string
   _path: string
-  _thumbnail: string
+  _thumbnail: string | null
   _postData?: Map<string, string>
 
-  constructor(params: { title: string; path: string; thumbnail: string; postData?: Map<string, string> }) {
+  constructor(params: { title: string; path: string; thumbnail: string | null; postData?: Map<string, string> }) {
     this._title = params.title
     this._path = params.path
     this._thumbnail = params.thumbnail
     this._postData = params.postData
   }
 
-  get thumbnail(): string {
+  get thumbnail(): string | null {
     return this._thumbnail
   }
 

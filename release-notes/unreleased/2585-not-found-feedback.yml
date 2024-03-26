@@ -1,0 +1,7 @@
+issue_key: 2585
+show_in_stores: false
+platforms:
+  - android
+  - ios
+  - web
+en: Stop showing not found message if feedback sent.

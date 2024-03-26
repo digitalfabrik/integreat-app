@@ -1,4 +1,4 @@
-import React, { ReactElement, useCallback, useRef, useState } from 'react'
+import React, { ReactElement, useCallback, useContext, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { FlatList, useWindowDimensions, ViewToken } from 'react-native'
 import styled, { css } from 'styled-components/native'
@@ -10,8 +10,8 @@ import SlideFooter from '../components/SlideFooter'
 import Icon from '../components/base/Icon'
 import { NavigationProps, RouteProps } from '../constants/NavigationTypes'
 import buildConfig, { buildConfigAssets } from '../constants/buildConfig'
+import { AppContext } from '../contexts/AppContextProvider'
 import useNavigateToDeepLink from '../hooks/useNavigateToDeepLink'
-import appSettings from '../utils/AppSettings'
 import { reportError } from '../utils/sentry'
 
 const Container = styled.View<{ width: number }>`
@@ -25,6 +25,7 @@ const ImageStyle = css`
   align-self: center;
   flex: 1;
 `
+
 const icons = buildConfigAssets().intro
 const styledIcons = icons
   ? {
@@ -42,6 +43,7 @@ const styledIcons = icons
       `,
     }
   : null
+
 const AppIcon = styled(buildConfigAssets().AppIcon)`
   ${ImageStyle};
 `
@@ -62,6 +64,7 @@ type IntroProps = {
 }
 
 const Intro = ({ route, navigation }: IntroProps): ReactElement => {
+  const { updateSettings } = useContext(AppContext)
   const [currentSlide, setCurrentSlide] = useState(0)
   const { width } = useWindowDimensions()
   const { t } = useTranslation<['intro', 'settings']>(['intro', 'settings'])
@@ -110,7 +113,7 @@ const Intro = ({ route, navigation }: IntroProps): ReactElement => {
 
   const onDone = useCallback(async () => {
     try {
-      await appSettings.setIntroShown()
+      updateSettings({ introShown: true })
 
       if (deepLink) {
         navigateToDeepLink(deepLink)
@@ -120,7 +123,7 @@ const Intro = ({ route, navigation }: IntroProps): ReactElement => {
     } catch (e) {
       reportError(e)
     }
-  }, [navigateToDeepLink, navigation, deepLink])
+  }, [navigateToDeepLink, navigation, deepLink, updateSettings])
 
   const goToSlide = useCallback((index: number) => {
     flatListRef.current?.scrollToIndex({

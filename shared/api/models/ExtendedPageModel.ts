@@ -5,14 +5,14 @@ import { getSlugFromPath } from '../../utils'
 import PageModel from './PageModel'
 
 class ExtendedPageModel extends PageModel {
-  _thumbnail: string
+  _thumbnail: string | null
   _availableLanguages: Map<string, string>
 
   constructor(params: {
     path: string
     title: string
     content: string
-    thumbnail: string
+    thumbnail: string | null
     lastUpdate: DateTime
     availableLanguages: Map<string, string>
   }) {
@@ -22,7 +22,7 @@ class ExtendedPageModel extends PageModel {
     this._availableLanguages = availableLanguages
   }
 
-  get thumbnail(): string {
+  get thumbnail(): string | null {
     return this._thumbnail
   }
 
