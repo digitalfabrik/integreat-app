@@ -37,7 +37,13 @@ const Offers = ({ offers, navigateToOffer, languageCode }: OffersProps): ReactEl
 
   return (
     <View>
-      <Tiles title={t('offers')} tiles={tiles} onTilePress={navigateToOffer} language={languageCode} />
+      <Tiles
+        title={t('offers')}
+        tiles={tiles}
+        onTilePress={navigateToOffer}
+        language={languageCode}
+        resourceCache={undefined}
+      />
     </View>
   )
 }

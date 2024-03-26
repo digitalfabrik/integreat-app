@@ -33,7 +33,7 @@ describe('FeedbackContainer', () => {
     routeType,
     cityCode,
     language,
-    closeModal,
+    onClose: closeModal,
     query,
   })
 
