@@ -28,7 +28,7 @@ const FeedbackToolbarItem = ({ route, slug, isInBottomActionSheet }: FeedbackToo
       {isFeedbackOpen && (
         <Modal title={title} closeModal={() => setIsFeedbackOpen(false)} wrapInPortal={isInBottomActionSheet}>
           <FeedbackContainer
-            closeModal={() => setIsFeedbackOpen(false)}
+            onClose={() => setIsFeedbackOpen(false)}
             onSubmit={() => setIsSubmitted(true)}
             routeType={route as FeedbackRouteType}
             cityCode={cityCode}

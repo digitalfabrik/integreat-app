@@ -12,17 +12,14 @@ import { reportError } from './sentry'
 const openExternalUrl = async (rawUrl: string, showSnackbar: (snackbar: SnackbarType) => void): Promise<void> => {
   const encodedUrl = encodeURI(rawUrl)
   const { protocol } = new URL(encodedUrl)
-  const HIJACK = new RegExp(buildConfig().internalLinksHijackPattern)
+  const internalLinkRegexp = new RegExp(buildConfig().internalLinksHijackPattern)
 
-  const noInAppBrowserAvailableAndIntegreatLink = !(await InAppBrowser.isAvailable()) && HIJACK.test(encodedUrl)
   const canBeOpenedWithInAppBrowser = (await InAppBrowser.isAvailable()) && ['https:', 'http:'].includes(protocol)
   const canBeOpenedWithOtherApp = await Linking.canOpenURL(encodedUrl)
+  const isInternalLink = internalLinkRegexp.test(encodedUrl)
 
   try {
-    if (noInAppBrowserAvailableAndIntegreatLink) {
-      // Removing this check leads to an endless loop, see #2440
-      showSnackbar({ text: 'noSuitableAppInstalled' })
-    } else if (canBeOpenedWithInAppBrowser) {
+    if (canBeOpenedWithInAppBrowser) {
       sendTrackingSignal({
         signal: {
           name: OPEN_EXTERNAL_LINK_SIGNAL_NAME,
@@ -30,9 +27,15 @@ const openExternalUrl = async (rawUrl: string, showSnackbar: (snackbar: Snackbar
         },
       })
       InAppBrowser.close()
-      await InAppBrowser.open(encodedUrl, {
+      // Opening internal links in the InAppBrowser leads to an endless loop as it opens integreat again
+      // Workaround by using http:// instead, see #2724
+      const url = isInternalLink ? encodedUrl.replace('https://', 'http://') : encodedUrl
+      await InAppBrowser.open(url, {
         toolbarColor: buildConfig().lightTheme.colors.themeColor,
       })
+    } else if (isInternalLink) {
+      // Opening internal links via Linking opens it in integreat again leading to an endless loop, see #2440
+      showSnackbar({ text: 'noSuitableAppInstalled' })
     } else if (canBeOpenedWithOtherApp) {
       sendTrackingSignal({
         signal: {
