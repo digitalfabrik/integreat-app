@@ -26,6 +26,6 @@ describe('CityNotCooperatingFooter', () => {
   it('should render text and button', () => {
     const { getByText } = renderWithRouterAndTheme(<CityNotCooperatingFooter languageCode='de' />)
     expect(getByText('landing:cityNotFound')).toBeDefined()
-    expect(getByText('landing:clickHere')).toBeDefined()
+    expect(getByText('landing:suggestToRegion')).toBeDefined()
   })
 })

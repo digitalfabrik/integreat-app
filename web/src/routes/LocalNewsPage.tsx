@@ -33,7 +33,7 @@ const LocalNewsPage = ({ city, pathname, languageCode, cityCode }: CityRouteProp
     return null
   }
 
-  const newsModel = newsId && localNews?.find((it: LocalNewsModel) => it.id.toString() === newsId)
+  const newsModel = newsId ? localNews?.find((it: LocalNewsModel) => it.id.toString() === newsId) : undefined
 
   const renderLocalNewsListItem = (localNewsItem: LocalNewsModel) => {
     const { id, title, content, timestamp } = localNewsItem

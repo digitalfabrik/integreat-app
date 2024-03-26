@@ -93,7 +93,7 @@ const PoisMobile = ({
   const [mapViewRef, setMapViewRef] = useState<MapViewRef | null>(null)
   const { pois, poi, mapFeatures, mapFeature } = data
   const { height } = useWindowDimensions()
-  const canDeselect = mapFeature || !!slug
+  const canDeselect = !!mapFeature || !!slug
   const { t } = useTranslation('pois')
 
   const isBottomActionSheetFullScreen = bottomActionSheetHeight >= height

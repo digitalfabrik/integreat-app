@@ -52,7 +52,7 @@ type ContentCategoryJsonType = {
   title: string
   content: string
   last_update: string
-  thumbnail: string
+  thumbnail: string | null
   available_languages: Record<string, string>
   parent_path: string
   children: Array<string>
@@ -99,7 +99,7 @@ type ContentEventJsonType = {
   title: string
   content: string
   last_update: string
-  thumbnail: string
+  thumbnail: string | null
   available_languages: Record<string, string>
   excerpt: string
   date: {
@@ -120,7 +120,7 @@ type ContentCityJsonType = {
   live: boolean
   code: string
   languages: ContentLanguageJsonType[]
-  prefix: string | null | undefined
+  prefix: string | null
   extras_enabled: boolean
   events_enabled: boolean
   pois_enabled: boolean
@@ -136,7 +136,7 @@ type ContentPoiJsonType = {
   path: string
   title: string
   content: string
-  thumbnail: string
+  thumbnail: string | null
   website: string | null
   phoneNumber: string | null
   email: string | null
@@ -691,7 +691,7 @@ class DatabaseConnector {
             allDay: jsonDate.all_day,
             recurrenceRule: jsonDate.recurrence_rule ? rrulestr(jsonDate.recurrence_rule) : null,
           }),
-          location: jsonObject.location?.id
+          location: jsonObject.location
             ? new LocationModel({
                 id: jsonObject.location.id,
                 name: jsonObject.location.name,

@@ -18,9 +18,9 @@ export const mockUseLoadFromEndpointOnceWithData = <T>(data: T): void => {
   mocked(useLoadFromEndpoint).mockImplementationOnce(mockData(data))
 }
 
-export const mockUseLoadFromEndpointLoading = ({ data, error }: { data?: unknown; error?: string } = {}): void => {
+export const mockUseLoadFromEndpointLoading = <T>({ data, error }: { data?: T; error?: string } = {}): void => {
   const useLoadFromEndpointMock = (() => ({
-    data: data || null,
+    data: data ?? null,
     loading: true,
     error: error ? new Error(error) : null,
     refresh: () => null,

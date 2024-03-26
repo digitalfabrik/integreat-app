@@ -28,7 +28,6 @@ jobs:
         - browserstack
       requires:
         - build_e2e_android
-
   - build_android:
       name: build_integreat_android
       build_config_name: integreat

@@ -36,6 +36,5 @@ steps:
         - notify:
             success_message: Delivery was made on branch << pipeline.git.branch >>. Make sure to merge this branch before next delivery.
             only_for_branch: ${CIRCLE_BRANCH}
-
   - persist_environment_variables
   - notify

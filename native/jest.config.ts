@@ -19,9 +19,6 @@ export default {
   displayName: 'native',
   preset: 'react-native',
   automock: false,
-
-  /* Always explicitly mock modules. Also automocking seems to be broken right now:
-        https://github.com/facebook/jest/issues/6127 */
   moduleNameMapper: {
     '.+\\.(css|styl|less|sass|scss|png|jpg|ttf|woff|woff2)$': 'jest-transform-stub',
     '\\.svg': '<rootDir>/src/__mocks__/svgrMock.ts',
