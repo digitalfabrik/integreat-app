@@ -157,7 +157,7 @@ export type JsonCityType = {
   tunews: boolean
   push_notifications: boolean
   name_without_prefix: string
-  prefix: string | null | undefined
+  prefix: string | null
   latitude: number
   longitude: number
   aliases: Record<string, { longitude: number; latitude: number }> | null

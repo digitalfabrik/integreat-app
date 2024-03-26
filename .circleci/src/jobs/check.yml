@@ -16,6 +16,9 @@ steps:
       name: Prettier
       command: yarn prettier:check
   - run:
+      name: TS check
+      command: yarn ts:check
+  - run:
       name: Lint
       command: yarn lint:ci
   - store_test_results:
@@ -23,8 +26,5 @@ steps:
   - run:
       name: Stylelint
       command: yarn workspace web stylelint
-  - run:
-      name: TS check
-      command: yarn ts:check
   - unit_test
   - notify

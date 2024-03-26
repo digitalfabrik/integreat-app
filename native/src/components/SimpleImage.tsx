@@ -8,7 +8,7 @@ import getCachedThumbnail from '../utils/getCachedThumbnail'
 import Icon from './base/Icon'
 
 const StyledImage = styled.Image<{ aspectRatio?: number }>`
-  ${props => props.aspectRatio && `aspect-ratio: ${props.aspectRatio};`}
+  ${props => props.aspectRatio !== undefined && `aspect-ratio: ${props.aspectRatio};`}
 `
 
 type AspectRatioImageProps = {

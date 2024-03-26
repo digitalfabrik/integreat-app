@@ -98,9 +98,8 @@ const RemoteContent = (props: RemoteContentProps): ReactElement | null => {
       if (message.type === WARNING_MESSAGE_TYPE) {
         log(message.message, 'warning')
       } else {
-        const error = new Error(
-          message.message ? JSON.stringify(message.message) : 'Unknown message received from webview',
-        )
+        const messageText: string | undefined = message.message
+        const error = new Error(messageText ? JSON.stringify(messageText) : 'Unknown message received from webview')
         reportError(error)
         setError(error.message)
       }
@@ -169,7 +168,6 @@ const RemoteContent = (props: RemoteContentProps): ReactElement | null => {
       setSupportMultipleWindows={false}
       style={{
         height: webViewHeight,
-
         opacity: 0.99, // fixes crashing in Android https://github.com/react-native-webview/react-native-webview/issues/811
       }}
     />

@@ -165,11 +165,8 @@ const Navigator = (): ReactElement | null => {
     }
   }, [cities, changeCityCode, cityCode, showSnackbar, settings, initialRoute, updateInitialRoute])
 
-  if (!initialRoute && citiesError) {
-    return <LoadingErrorHandler error={citiesError} loading={!initialRoute} refresh={refreshCities} />
-  }
   if (!initialRoute) {
-    return null
+    return citiesError ? <LoadingErrorHandler error={citiesError} loading={false} refresh={refreshCities} /> : null
   }
 
   // Keeps our previous transition we used in v4 of react-navigation on android. Fixes weird showing of splash screen on every navigate.

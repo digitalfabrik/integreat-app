@@ -348,9 +348,7 @@ const createConfig = (
     },
   }
 
-  // Optimize the bundle in production mode
-  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-  if (!devServer && optimize) {
+  if (!devServer) {
     config.plugins?.push(new optimize.AggressiveMergingPlugin())
   }
 

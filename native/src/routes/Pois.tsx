@@ -90,7 +90,7 @@ const Pois = ({ pois: allPois, language, cityModel, route, navigation }: PoisPro
   }
 
   const deselect = () => {
-    if (multipoi && slug) {
+    if (multipoi !== undefined && slug) {
       navigation.setParams({ slug: undefined })
     } else {
       deselectAll()

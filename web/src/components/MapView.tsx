@@ -2,26 +2,26 @@ import maplibregl from 'maplibre-gl'
 import 'maplibre-gl/dist/maplibre-gl.css'
 import React, {
   ForwardedRef,
+  forwardRef,
   ReactElement,
   ReactNode,
-  forwardRef,
   useCallback,
   useEffect,
   useImperativeHandle,
   useState,
 } from 'react'
-import Map, { Layer, MapRef, Source, MapLayerMouseEvent } from 'react-map-gl/maplibre'
+import Map, { Layer, MapLayerMouseEvent, MapRef, Source } from 'react-map-gl/maplibre'
 import styled, { useTheme } from 'styled-components'
 
 import {
-  mapConfig,
-  MapViewViewport,
-  MapFeature,
-  clusterRadius,
   closerDetailZoom,
   clusterClickZoomFactor,
-  featureLayerId,
+  clusterRadius,
   embedInCollection,
+  featureLayerId,
+  mapConfig,
+  MapFeature,
+  MapViewViewport,
 } from 'shared'
 
 import { clusterCountLayer, clusterLayer, clusterProperties, markerLayer } from '../constants/layers'
@@ -112,8 +112,8 @@ const MapView = forwardRef(
     const zoomOnClusterPress = useCallback(
       (event: MapLayerMouseEvent) => {
         if (mapRef) {
-          const clusterFeatures = mapRef.queryRenderedFeatures(event.point)
-          if (0 in clusterFeatures && clusterFeatures[0].properties.cluster) {
+          const feature = mapRef.queryRenderedFeatures(event.point)[0]
+          if (feature?.properties.cluster !== undefined) {
             mapRef.flyTo({
               center: event.lngLat,
               zoom: mapRef.getZoom() + clusterClickZoomFactor,
@@ -166,11 +166,10 @@ const MapView = forwardRef(
     )
 
     useEffect(() => {
-      const coordinates = currentFeature?.geometry.coordinates ?? []
-      if (mapRef && coordinates[0] && coordinates[1]) {
-        const coords: maplibregl.LngLatLike = [coordinates[0], coordinates[1]]
+      const [longitude, latitude] = currentFeature?.geometry.coordinates ?? []
+      if (mapRef && longitude !== undefined && latitude !== undefined) {
         mapRef.flyTo({
-          center: coords,
+          center: [longitude, latitude],
           zoom: closerDetailZoom,
           padding: { bottom: viewportSmall ? height * midSnapPercentage : 0, top: 0, left: 0, right: 0 },
         })

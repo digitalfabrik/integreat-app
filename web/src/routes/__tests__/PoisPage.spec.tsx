@@ -15,11 +15,10 @@ import { RoutePatterns } from '../index'
 
 jest.mock('react-inlinesvg')
 jest.mock('react-i18next')
-jest.mock('../../utils/getUserLocation', () => async () => ({ status: 'ready', coordinates: [10.8, 48.3] }))
 jest.mock('shared/api', () => ({
   ...jest.requireActual('shared/api'),
   useLoadFromEndpoint: jest.fn(),
-  useLoadAsync: () => jest.fn(() => ({ status: 'ready', coordinates: [10.8, 48.3] })),
+  useLoadAsync: jest.fn(() => ({ data: [10.8, 48.3] })),
 }))
 
 describe('PoisPage', () => {
