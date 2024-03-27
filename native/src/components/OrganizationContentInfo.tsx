@@ -26,8 +26,7 @@ const OrganizationContent = styled.Text`
 `
 
 const StyledText = styled.Text`
-  flex-direction: row;
-  flex-wrap: wrap;
+  flex-flow: row wrap;
 `
 
 const StyledLink = styled(Link)`

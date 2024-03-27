@@ -25,6 +25,9 @@ steps:
       path: reports/lint
   - run:
       name: Stylelint
+      command: yarn workspace native stylelint
+  - run:
+      name: Stylelint
       command: yarn workspace web stylelint
   - unit_test
   - notify

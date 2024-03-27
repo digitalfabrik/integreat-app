@@ -22,7 +22,7 @@ const Question = styled.Text`
 `
 
 const StyledButton = styled(TextButton)`
-  margin: 30px 0 40px 0;
+  margin: 30px 0 40px;
   padding: 8px 16px;
 `
 

@@ -16,7 +16,7 @@
     "useDefineForClassFields": false,
     "outDir": "dist"
   },
-  "include": ["jest.config.ts", ".prettierrc.js", ".eslintrc.js", ".eslintrc_changed.js"],
+  "include": ["jest.config.ts", ".prettierrc", ".eslintrc.js"],
   "references": [
     { "path": "shared" },
     { "path": "build-configs" },

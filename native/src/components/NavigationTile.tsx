@@ -21,7 +21,7 @@ const Circle = styled(View)`
   justify-content: center;
   elevation: 2;
   shadow-color: #000;
-  shadow-offset: 0px 1px;
+  shadow-offset: 0 1px;
   shadow-opacity: 0.2;
   shadow-radius: 1.41px;
 `

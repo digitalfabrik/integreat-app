@@ -27,7 +27,8 @@
     "babel.config.js",
     "react-native.config.js",
     "metro.config.ci.js",
-    "metro.config.js"
+    "metro.config.js",
+    "stylelint.config.js"
   ],
   "references": [
     {

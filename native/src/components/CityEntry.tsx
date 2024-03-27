@@ -15,8 +15,7 @@ const CityListItem = styled(Pressable)`
   flex: 1;
   padding: 7px;
   width: 100%;
-  flex-wrap: wrap;
-  flex-direction: column;
+  flex-flow: column wrap;
   align-items: flex-start;
 `
 const Label = styled(Highlighter)`
@@ -35,8 +34,7 @@ const Separator = styled(Text)`
 `
 const AliasesWrapper = styled.View`
   flex: 1;
-  flex-wrap: wrap;
-  flex-direction: row;
+  flex-flow: row wrap;
   align-items: flex-start;
   margin: 0 5px;
 `

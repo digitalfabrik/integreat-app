@@ -10,8 +10,7 @@ import Tile from './Tile'
 
 const TilesRow = styled.View<{ language: string }>`
   display: flex;
-  flex-direction: ${props => contentDirection(props.language)};
-  flex-wrap: wrap;
+  flex-flow: ${props => contentDirection(props.language)} wrap;
   align-items: flex-start;
   justify-content: flex-start;
   padding: 10px 0;

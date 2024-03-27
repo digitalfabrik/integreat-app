@@ -65,8 +65,7 @@ const Body = styled.div<{ fullWidth: boolean; disableScrollingSafari: boolean }>
     !props.fullWidth &&
     css`
       @media screen and ${dimensions.minMaxWidth} {
-        padding-inline-end: calc((200% - 100vw - ${dimensions.maxWidth}px) / 2);
-        padding-inline-start: calc((100vw - ${dimensions.maxWidth}px) / 2);
+        padding-inline: calc((100vw - ${dimensions.maxWidth}px) / 2) calc((200% - 100vw - ${dimensions.maxWidth}px) / 2);
       }
     `};
 `
