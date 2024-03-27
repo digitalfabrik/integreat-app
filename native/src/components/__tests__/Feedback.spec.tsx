@@ -63,17 +63,17 @@ describe('Feedback', () => {
     )
     expect(getByText('send')).not.toBeDisabled()
     expect(queryByText('searchTermDescription')).toBeFalsy()
-    expect(getByText('note')).toBeTruthy()
+    expect(queryByText('note')).toBeFalsy()
   })
 
   it('button should be enabled for no feedback but comment', async () => {
-    const { getByText } = render(
+    const { getByText, queryByText } = render(
       <NavigationContainer>
         <Feedback {...buildProps(null, 'comment')} />
       </NavigationContainer>,
     )
     expect(getByText('send')).not.toBeDisabled()
-    expect(getByText('note')).toBeTruthy()
+    expect(queryByText('note')).toBeFalsy()
   })
 
   it('correct text should be displayed for search feedback and input', async () => {

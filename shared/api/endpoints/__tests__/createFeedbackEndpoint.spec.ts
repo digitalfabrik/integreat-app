@@ -45,7 +45,7 @@ describe('feedback', () => {
     const formData = new FormData()
     formData.append('rating', 'up')
     formData.append('comment', 'comment    Kontaktadresse: Keine Angabe')
-    formData.append('query', 'query full (actual query: query)')
+    formData.append('query', 'query full')
     formData.append('category', 'Inhalte')
     expect(feedback.mapParamsToBody).not.toBeNull()
     expect(feedback.mapParamsToBody).toBeDefined()

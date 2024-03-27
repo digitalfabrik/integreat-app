@@ -100,7 +100,7 @@ export default (baseUrl: string): Endpoint<ParamsType, Record<string, never>> =>
         formData.append('rating', isPositiveRating ? POSITIVE_RATING : NEGATIVE_RATING)
       }
 
-      const queryWithSearchTerm = query === searchTerm ? query : `${searchTerm} (actual query: ${query})`
+      const queryWithSearchTerm = searchTerm || query
       if (queryWithSearchTerm) {
         formData.append('query', queryWithSearchTerm)
       }

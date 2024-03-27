@@ -4,13 +4,12 @@ import styled from 'styled-components'
 import { NoteIcon } from '../assets'
 import Icon from './base/Icon'
 
-const NoteContainer = styled.div<{ visible: boolean }>`
+const NoteContainer = styled.div`
   display: flex;
   background-color: ${props => props.theme.colors.themeColor};
   padding: 12px;
   gap: 12px;
   align-items: center;
-  visibility: ${props => !props.visible && 'hidden'};
 `
 
 const NoteText = styled.span`
@@ -19,11 +18,10 @@ const NoteText = styled.span`
 
 type NoteProps = {
   text: string
-  visible: boolean
 }
 
-const Note = ({ text, visible }: NoteProps): ReactElement => (
-  <NoteContainer visible={visible}>
+const Note = ({ text }: NoteProps): ReactElement => (
+  <NoteContainer>
     <Icon src={NoteIcon} />
     <NoteText>{text}</NoteText>
   </NoteContainer>
