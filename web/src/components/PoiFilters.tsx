@@ -49,8 +49,7 @@ const SortingHint = styled.div`
 
 const TileRow = styled.div<{ itemCount: number }>`
   display: grid;
-  column-gap: ${tileColumnGap}px;
-  row-gap: 24px;
+  gap: 24px ${tileColumnGap}px;
   justify-content: center;
   grid-template-columns: repeat(${props => props.itemCount}, ${toggleButtonWidth}px);
 `
