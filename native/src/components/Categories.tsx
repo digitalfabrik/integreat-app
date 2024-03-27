@@ -1,10 +1,9 @@
 import React, { ReactElement } from 'react'
 import { View } from 'react-native'
 
-import { CATEGORIES_ROUTE, RouteInformationType } from 'shared'
+import { CATEGORIES_ROUTE, getCategoryTiles, RouteInformationType } from 'shared'
 import { CategoriesMapModel, CategoryModel, CityModel } from 'shared/api'
 
-import TileModel from '../models/TileModel'
 import testID from '../testing/testID'
 import { LanguageResourceCacheStateType } from '../utils/DataContainer'
 import CategoryListItem from './CategoryListItem'
@@ -34,29 +33,21 @@ const Categories = ({
   goBack,
 }: CategoriesProps): ReactElement => {
   const children = categories.getChildren(category)
+  const cityCode = cityModel.code
 
   const navigateToCategory = ({ path }: { path: string }) =>
     navigateTo({
       route: CATEGORIES_ROUTE,
-      cityCode: cityModel.code,
+      cityCode,
       languageCode: language,
       cityContentPath: path,
     })
 
   if (category.isRoot()) {
-    const tiles = children.map(
-      category =>
-        new TileModel({
-          title: category.title,
-          path: category.path,
-          thumbnail: category.thumbnail,
-          isExternalUrl: false,
-        }),
-    )
     return (
       <View {...testID('Dashboard-Page')}>
         <Tiles
-          tiles={tiles}
+          tiles={getCategoryTiles({ categories: children, cityCode })}
           language={language}
           onTilePress={navigateToCategory}
           resourceCache={resourceCache[category.path]}

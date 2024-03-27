@@ -1,8 +1,9 @@
 import React, { ReactElement } from 'react'
 import styled from 'styled-components/native'
 
+import { TileModel } from 'shared'
+
 import { contentDirection } from '../constants/contentDirection'
-import TileModel from '../models/TileModel'
 import { PageResourceCacheStateType } from '../utils/DataContainer'
 import Caption from './Caption'
 import Tile from './Tile'

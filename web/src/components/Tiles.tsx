@@ -1,15 +1,11 @@
 import React, { ReactElement } from 'react'
 import styled from 'styled-components'
 
+import { TileModel } from 'shared'
+
 import dimensions from '../constants/dimensions'
-import TileModel from '../models/TileModel'
 import Caption from './Caption'
 import Tile from './Tile'
-
-type TilesProps = {
-  title: string | null
-  tiles: Array<TileModel>
-}
 
 const TilesRow = styled.div`
   display: grid;
@@ -25,9 +21,11 @@ const TilesRow = styled.div`
   }
 `
 
-/**
- * Displays a table of Tiles
- */
+type TilesProps = {
+  title: string | null
+  tiles: Array<TileModel>
+}
+
 const Tiles = ({ title, tiles }: TilesProps): ReactElement => (
   <div>
     {!!title && <Caption title={title} />}

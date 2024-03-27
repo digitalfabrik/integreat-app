@@ -1,8 +1,12 @@
 import React, { ReactElement } from 'react'
 import styled from 'styled-components/native'
 
-import TileModel from '../models/TileModel'
+import { TileModel } from 'shared'
+
+import useSnackbar from '../hooks/useSnackbar'
 import { PageResourceCacheStateType } from '../utils/DataContainer'
+import openExternalUrl from '../utils/openExternalUrl'
+import { reportError } from '../utils/sentry'
 import SimpleImage from './SimpleImage'
 import Pressable from './base/Pressable'
 
@@ -30,11 +34,17 @@ type TileProps = {
   resourceCache: PageResourceCacheStateType | undefined
 }
 
-const Tile = ({ onTilePress, tile, resourceCache }: TileProps): ReactElement => (
-  <TileContainer onPress={() => onTilePress(tile)}>
-    <Thumbnail source={tile.thumbnail} resourceCache={resourceCache} />
-    <TileTitle android_hyphenationFrequency='full'>{tile.title}</TileTitle>
-  </TileContainer>
-)
+const Tile = ({ onTilePress, tile, resourceCache }: TileProps): ReactElement => {
+  const showSnackbar = useSnackbar()
+  const openTile = () =>
+    tile.isExternalUrl ? openExternalUrl(tile.path, showSnackbar).catch(reportError) : onTilePress(tile)
+
+  return (
+    <TileContainer onPress={openTile}>
+      <Thumbnail source={tile.thumbnail} resourceCache={resourceCache} />
+      <TileTitle android_hyphenationFrequency='full'>{tile.title}</TileTitle>
+    </TileContainer>
+  )
+}
 
 export default Tile
