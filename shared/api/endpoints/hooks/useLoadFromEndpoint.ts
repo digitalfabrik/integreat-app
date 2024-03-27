@@ -3,7 +3,7 @@ import { useCallback } from 'react'
 import Endpoint from '../../Endpoint'
 import useLoadAsync, { Return } from './useLoadAsync'
 
-export const loadFromEndpoint = async <T, P>(
+export const loadFromEndpoint = async <T extends object, P>(
   createEndpoint: (baseUrl: string) => Endpoint<P, T>,
   baseUrl: string | (() => Promise<string>),
   params: P,
@@ -18,7 +18,7 @@ export const loadFromEndpoint = async <T, P>(
   return data
 }
 
-const useLoadFromEndpoint = <T, P>(
+const useLoadFromEndpoint = <T extends object, P>(
   createEndpoint: (baseUrl: string) => Endpoint<P, T>,
   baseUrl: string | (() => Promise<string>),
   params: P,

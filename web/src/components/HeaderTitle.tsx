@@ -1,17 +1,12 @@
-import * as React from 'react'
-import { ReactNode } from 'react'
+import React, { ReactElement } from 'react'
 import styled from 'styled-components'
 
 import dimensions from '../constants/dimensions'
 
-type HeaderTitleProps = {
-  children?: string
-}
-
 const LONG_TITLE_LENGTH = 25
 export const HEADER_TITLE_HEIGHT = 50
 
-const HeaderTitleDiv = styled.div<{ long: boolean }>`
+const HeaderTitleContainer = styled.div<{ long: boolean }>`
   display: flex;
   align-items: center;
   font-size: ${props => (props.long ? '1.3rem' : '1.8rem')};
@@ -38,14 +33,12 @@ const HeaderTitleDiv = styled.div<{ long: boolean }>`
   }
 `
 
-/**
- * The title of a Header. Is only designed for the Header component.
- */
-class HeaderTitle extends React.PureComponent<HeaderTitleProps> {
-  render(): ReactNode {
-    const { children } = this.props
-    return <HeaderTitleDiv long={(children?.length || 0) >= LONG_TITLE_LENGTH}>{children}</HeaderTitleDiv>
-  }
+type HeaderTitleProps = {
+  title: string
 }
+
+const HeaderTitle = ({ title }: HeaderTitleProps): ReactElement => (
+  <HeaderTitleContainer long={title.length >= LONG_TITLE_LENGTH}>{title}</HeaderTitleContainer>
+)
 
 export default HeaderTitle

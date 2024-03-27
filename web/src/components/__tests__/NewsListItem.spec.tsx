@@ -9,7 +9,7 @@ import { renderWithRouterAndTheme } from '../../testing/render'
 import NewsListItem from '../NewsListItem'
 
 jest.mock('../LastUpdateInfo', () =>
-  jest.fn(({ lastUpdate, withText }) => (
+  jest.fn(({ lastUpdate, withText }: { lastUpdate: DateTime; withText: boolean }) => (
     <div>
       {withText ? 'lastUpdate ' : ''}
       {lastUpdate.toISO()}

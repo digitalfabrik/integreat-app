@@ -145,7 +145,7 @@ const PoiDetails = ({ poi, distance, toolbar }: PoiDetailsProps): ReactElement =
       <HeadingSection>
         <Thumbnail alt='' src={thumbnail} />
         <Heading>{poi.title}</Heading>
-        {!!distance && <Distance>{t('distanceKilometre', { distance: distance.toFixed(1) })}</Distance>}
+        {distance !== null && <Distance>{t('distanceKilometre', { distance: distance.toFixed(1) })}</Distance>}
         <Category>{category.name}</Category>
       </HeadingSection>
       <Spacer borderColor={theme.colors.borderColor} />

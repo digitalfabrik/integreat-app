@@ -13,9 +13,9 @@ const wait = (interval: number) =>
 
 /**
  * This function retries the loading a module if it fails
- * @param componentImport: passed function that return a promise f.e. lazy import
- * @param retriesLeft: attempts to retry the module loading
- * @param interval: delay between retry attempts
+ * @param componentImport passed function that return a promise f.e. lazy import
+ * @param retriesLeft attempts to retry the module loading
+ * @param interval delay between retry attempts
  */
 const retry = async <T>(
   componentImport: () => Promise<{ default: ComponentType<T> }>,
@@ -32,7 +32,7 @@ const retry = async <T>(
     await wait(interval)
     if (retriesLeft === 0) {
       const json = safeLocalStorage.getItem(PAGE_FORCE_REFRESHED_KEY)
-      const pageForceRefreshed = json ? JSON.parse(json) : false
+      const pageForceRefreshed: boolean = json ? JSON.parse(json) : false
 
       if (!pageForceRefreshed) {
         // Try force refreshing the page once

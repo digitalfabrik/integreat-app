@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from 'react'
 
 export const loadAsync = async <T>(
-  request: () => Promise<T>,
+  request: () => Promise<T | null>,
   setData: (data: T | null) => void,
   setError: (error: Error | null) => void,
   setLoading: (loading: boolean) => void,
@@ -20,14 +20,14 @@ export const loadAsync = async <T>(
   }
 }
 
-export type Return<T> = {
+export type Return<T extends object> = {
   data: T | null
   error: Error | null
   loading: boolean
   refresh: () => void
 }
 
-export const useLoadAsync = <T>(request: (refresh: boolean) => Promise<T>): Return<T> => {
+export const useLoadAsync = <T extends object>(request: (refresh: boolean) => Promise<T | null>): Return<T> => {
   const [data, setData] = useState<T | null>(null)
   const [error, setError] = useState<Error | null>(null)
   const [loading, setLoading] = useState<boolean>(true)

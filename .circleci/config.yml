@@ -499,6 +499,9 @@ jobs:
                 command: yarn prettier:check
                 name: Prettier
             - run:
+                command: yarn ts:check
+                name: TS check
+            - run:
                 command: yarn lint:ci
                 name: Lint
             - store_test_results:
@@ -506,9 +509,6 @@ jobs:
             - run:
                 command: yarn workspace web stylelint
                 name: Stylelint
-            - run:
-                command: yarn ts:check
-                name: TS check
             - unit_test
             - notify
     deliver_android:

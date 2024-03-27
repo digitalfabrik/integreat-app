@@ -7,7 +7,7 @@ import { MapResponseType } from './MapResponseType'
  * Helper class to build a {@link Endpoint}
  */
 
-class EndpointBuilder<P, T> {
+class EndpointBuilder<P, T extends object> {
   name: string
   paramsToBodyMapper: MapParamsToBodyType<P> | null | undefined
   paramsToUrlMapper: MapParamsToUrlType<P> | null | undefined

@@ -131,7 +131,7 @@ export const Header = ({
         <Row>
           <HeaderLogo link={logoHref} />
           {!viewportSmall && !!cityName && <HeaderSeparator />}
-          {(!viewportSmall || !!cityName) && <HeaderTitle>{cityName}</HeaderTitle>}
+          {!!cityName && <HeaderTitle title={cityName} />}
           <ActionBar>
             {actionItems}
             {viewportSmall && setIsSidebarOpen && !!cityCode && (
