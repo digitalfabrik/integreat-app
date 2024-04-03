@@ -156,7 +156,7 @@ describe('DateModel', () => {
       expect(date.recurrences(4)).toEqual([
         new DateModel({
           allDay: false,
-          recurrenceRule: null,
+          recurrenceRule,
           startDate: DateTime.fromISO('2023-10-09T07:00:00.000+02:00'),
           endDate: DateTime.fromISO('2023-10-10T09:00:00.000+02:00'),
         }),
@@ -193,7 +193,7 @@ describe('DateModel', () => {
       expect(date.recurrences(3)).toEqual([
         new DateModel({
           allDay: false,
-          recurrenceRule: null,
+          recurrenceRule,
           startDate: DateTime.fromISO('2023-10-09T07:00:00.000+02:00'),
           endDate: DateTime.fromISO('2023-10-10T09:00:00.000+02:00'),
         }),
@@ -212,19 +212,19 @@ describe('DateModel', () => {
       expect(date.recurrences(3)).toEqual([
         new DateModel({
           allDay: false,
-          recurrenceRule: null,
+          recurrenceRule,
           startDate: DateTime.fromISO('2024-03-25T14:00:00.000+01:00'),
           endDate: DateTime.fromISO('2024-03-25T16:00:00.000+01:00'),
         }),
         new DateModel({
           allDay: false,
-          recurrenceRule: null,
+          recurrenceRule,
           startDate: DateTime.fromISO('2024-04-01T14:00:00.000+02:00'),
           endDate: DateTime.fromISO('2024-04-01T16:00:00.000+02:00'),
         }),
         new DateModel({
           allDay: false,
-          recurrenceRule: null,
+          recurrenceRule,
           startDate: DateTime.fromISO('2024-04-08T14:00:00.000+02:00'),
           endDate: DateTime.fromISO('2024-04-08T16:00:00.000+02:00'),
         }),
