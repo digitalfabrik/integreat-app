@@ -133,18 +133,6 @@ describe('DateModel', () => {
   })
 
   describe('recurrences', () => {
-    it('should update start and end date according to recurrence rule and ignore delivered dates', () => {
-      const date = new DateModel({
-        startDate: DateTime.fromISO('2017-09-27T19:30:00+02:00'),
-        endDate: DateTime.fromISO('2017-09-28T21:30:00+02:00'),
-        allDay: false,
-        recurrenceRule: rrulestr('DTSTART:20230414T050000\nRRULE:FREQ=WEEKLY;BYDAY=MO'),
-      })
-
-      expect(date.startDate).toEqual(DateTime.fromISO('2023-10-09T07:00:00.000+02:00'))
-      expect(date.endDate).toEqual(DateTime.fromISO('2023-10-10T09:00:00.000+02:00'))
-    })
-
     it('should return itself if there is no rrule set', () => {
       const date = new DateModel({
         startDate: DateTime.fromISO('2017-11-27T19:30:00+02:00'),
@@ -157,11 +145,12 @@ describe('DateModel', () => {
     })
 
     it('should return exactly count recurrences', () => {
+      const recurrenceRule = rrulestr('DTSTART:20230414T050000\nRRULE:FREQ=WEEKLY;BYDAY=MO')
       const date = new DateModel({
         startDate: DateTime.fromISO('2017-09-27T19:30:00+02:00'),
         endDate: DateTime.fromISO('2017-09-28T21:30:00+02:00'),
         allDay: false,
-        recurrenceRule: rrulestr('DTSTART:20230414T050000\nRRULE:FREQ=WEEKLY;BYDAY=MO'),
+        recurrenceRule,
       })
 
       expect(date.recurrences(4)).toEqual([
@@ -173,19 +162,19 @@ describe('DateModel', () => {
         }),
         new DateModel({
           allDay: false,
-          recurrenceRule: null,
+          recurrenceRule,
           startDate: DateTime.fromISO('2023-10-16T07:00:00.000+02:00'),
           endDate: DateTime.fromISO('2023-10-17T09:00:00.000+02:00'),
         }),
         new DateModel({
           allDay: false,
-          recurrenceRule: null,
+          recurrenceRule,
           startDate: DateTime.fromISO('2023-10-23T07:00:00.000+02:00'),
           endDate: DateTime.fromISO('2023-10-24T09:00:00.000+02:00'),
         }),
         new DateModel({
           allDay: false,
-          recurrenceRule: null,
+          recurrenceRule,
           startDate: DateTime.fromISO('2023-10-30T07:00:00.000+01:00'),
           endDate: DateTime.fromISO('2023-10-31T09:00:00.000+01:00'),
         }),
@@ -193,11 +182,12 @@ describe('DateModel', () => {
     })
 
     it('should return less recurrences if rrule ends', () => {
+      const recurrenceRule = rrulestr('DTSTART:20230414T050000\nRRULE:FREQ=WEEKLY;BYDAY=MO;UNTIL=20231015T050000')
       const date = new DateModel({
         startDate: DateTime.fromISO('2017-09-27T19:30:00+02:00'),
         endDate: DateTime.fromISO('2017-09-28T21:30:00+02:00'),
         allDay: false,
-        recurrenceRule: rrulestr('DTSTART:20230414T050000\nRRULE:FREQ=WEEKLY;BYDAY=MO;UNTIL=20231015T050000'),
+        recurrenceRule,
       })
 
       expect(date.recurrences(3)).toEqual([
@@ -206,6 +196,37 @@ describe('DateModel', () => {
           recurrenceRule: null,
           startDate: DateTime.fromISO('2023-10-09T07:00:00.000+02:00'),
           endDate: DateTime.fromISO('2023-10-10T09:00:00.000+02:00'),
+        }),
+      ])
+    })
+
+    it('should correctly offset start and end times also over DST changes', () => {
+      const recurrenceRule = rrulestr('DTSTART:20240323T130000\nRRULE:FREQ=WEEKLY;BYDAY=MO;UNTIL=20250109T140000')
+      const date = new DateModel({
+        startDate: DateTime.fromISO('2024-01-09T14:00:00.000+01:00'),
+        endDate: DateTime.fromISO('2024-01-09T16:00:00.000+01:00'),
+        allDay: false,
+        recurrenceRule,
+      })
+
+      expect(date.recurrences(3)).toEqual([
+        new DateModel({
+          allDay: false,
+          recurrenceRule: null,
+          startDate: DateTime.fromISO('2024-03-25T14:00:00.000+01:00'),
+          endDate: DateTime.fromISO('2024-03-25T16:00:00.000+01:00'),
+        }),
+        new DateModel({
+          allDay: false,
+          recurrenceRule: null,
+          startDate: DateTime.fromISO('2024-04-01T14:00:00.000+02:00'),
+          endDate: DateTime.fromISO('2024-04-01T16:00:00.000+02:00'),
+        }),
+        new DateModel({
+          allDay: false,
+          recurrenceRule: null,
+          startDate: DateTime.fromISO('2024-04-08T14:00:00.000+02:00'),
+          endDate: DateTime.fromISO('2024-04-08T16:00:00.000+02:00'),
         }),
       ])
     })
