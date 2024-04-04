@@ -3,6 +3,7 @@ import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 import { View } from 'react-native'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
+import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import styled from 'styled-components/native'
 
 import {
@@ -15,6 +16,7 @@ import {
 } from 'shared/api'
 
 import { SecurityIcon, SupportIcon } from '../assets'
+import useKeyboardHeight from '../hooks/useKeyboardHeight'
 import useSnackbar from '../hooks/useSnackbar'
 import LayoutedScrollView from './LayoutedScrollView'
 import Icon from './base/Icon'
@@ -113,8 +115,10 @@ const MalteHelpFormOffer = ({
     }
   })
 
+  const keyboardHeight = useKeyboardHeight()
+
   return (
-    <KeyboardAwareScrollView extraScrollHeight={dimensions.headerHeight + useSafeAreaInsets().top}>
+    <KeyboardAwareScrollView extraHeight={keyboardHeight - useSafeAreaInsets().bottom}>
       <Container>
         <InformationRow>
           <Icon Icon={SupportIcon} />
