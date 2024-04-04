@@ -114,7 +114,7 @@ const MalteHelpFormOffer = ({
   })
 
   return (
-    <KeyboardAwareScrollView extraHeight={200}>
+    <KeyboardAwareScrollView extraScrollHeight={dimensions.headerHeight + useSafeAreaInsets().top}>
       <Container>
         <InformationRow>
           <Icon Icon={SupportIcon} />
