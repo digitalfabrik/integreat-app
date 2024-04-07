@@ -35,7 +35,6 @@
     "@types/normalize-path": "^3.0.0",
     "@types/seedrandom": "^3.0.5",
     "@types/uuid": "^9.0.2",
-    "jest-fetch-mock": "^3.0.3",
     "md5": "^2.3.0",
     "seedrandom": "^3.0.5"
   }

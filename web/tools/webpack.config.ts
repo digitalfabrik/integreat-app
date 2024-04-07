@@ -161,10 +161,6 @@ const createConfig = (
     plugins.push(new ReactRefreshPlugin())
   }
 
-  // Add new polyfills here instead of importing them in the JavaScript code.
-  // This way it is ensured that polyfills are loaded before any other code which might require them.
-  const polyfills = ['whatwg-fetch', 'url-polyfill']
-
   const config: Configuration = {
     mode: devServer ? 'development' : 'production',
     resolve: {
@@ -179,7 +175,6 @@ const createConfig = (
     // The entry point for the bundle
     entry: [
       '!!style-loader!css-loader!normalize.css/normalize.css',
-      ...polyfills,
       /* The main entry point of your JavaScript application */
       './index.tsx',
     ],
