@@ -4,12 +4,11 @@ import styled from 'styled-components/native'
 import { NoteIcon } from '../assets'
 import Icon from './base/Icon'
 
-const NoteBox = styled.View<{ visible: boolean }>`
+const NoteBox = styled.View`
   background-color: ${props => props.theme.colors.themeColor};
   margin-top: 12px;
   padding: 12px;
   flex-direction: row;
-  opacity: ${props => (props.visible ? '1' : '0')};
 `
 
 const NoteText = styled.Text`
@@ -26,11 +25,10 @@ const StyledIcon = styled(Icon)`
 
 type NoteProps = {
   text: string
-  visible: boolean
 }
 
-const Note = ({ text, visible }: NoteProps): ReactElement => (
-  <NoteBox visible={visible} aria-hidden={!visible}>
+const Note = ({ text }: NoteProps): ReactElement => (
+  <NoteBox>
     <StyledIcon Icon={NoteIcon} />
     <NoteText>{text}</NoteText>
   </NoteBox>
