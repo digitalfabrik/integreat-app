@@ -14,6 +14,7 @@ const buildConfig = jest.fn<CommonBuildConfigType, []>(
   (): CommonBuildConfigType => ({
     appName: 'Integreat',
     appIcon: 'app_icon_integreat',
+    notificationIcon: 'notification_icon_integreat',
     lightTheme,
     assets: INTEGREAT_ASSETS,
     cmsUrl: 'https://cms.integreat-app.de',

@@ -44,6 +44,7 @@ export type FeatureFlagsType = FixedCityType & {
 export type CommonBuildConfigType = {
   appName: string
   appIcon: string
+  notificationIcon?: string
   cmsUrl: string
   // Secondary api url to use, selectable by clicking ten times on the location marker (works only on native).
   switchCmsUrl?: string

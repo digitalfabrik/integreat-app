@@ -107,10 +107,9 @@ export const useForegroundPushNotificationListener = ({
       messaging().onMessage(async _message => {
         const message = _message as Message
         if (mounted) {
-          // required for Android
-          const channelId = await notifee.createChannel({
-            id: 'integreat',
-            name: 'Integreat Channel',
+          const androidChannelId = await notifee.createChannel({
+            id: buildConfig().appName,
+            name: buildConfig().appName,
             importance: AndroidImportance.HIGH,
           })
 
@@ -118,15 +117,14 @@ export const useForegroundPushNotificationListener = ({
             title: message.notification.title,
             body: message.notification.body,
             android: {
-              smallIcon: 'ic_notification',
+              smallIcon: buildConfig().notificationIcon,
               color: buildConfig().lightTheme.colors.themeColor,
-              channelId,
+              channelId: androidChannelId,
               importance: AndroidImportance.HIGH,
             },
           })
           notifee.onForegroundEvent(({ type }) => {
             if (type === EventType.PRESS) {
-              log(JSON.stringify(message))
               // The CMS needs some time until the push notification is available in the API response
               setTimeout(() => {
                 navigate(NEWS_ROUTE, routeInformationFromMessage(message))
