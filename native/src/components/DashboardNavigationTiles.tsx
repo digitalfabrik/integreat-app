@@ -9,13 +9,13 @@ import {
   OFFERS_ROUTE,
   POIS_ROUTE,
   RouteInformationType,
+  TileModel,
   TU_NEWS_TYPE,
 } from 'shared'
 import { CityModel } from 'shared/api'
 
 import { CalendarIcon, NewsIcon, OffersIcon, POIsIcon } from '../assets'
 import buildConfig from '../constants/buildConfig'
-import TileModel from '../models/TileModel'
 import NavigationTiles from './NavigationTiles'
 
 const Spacing = styled.View`
@@ -54,7 +54,6 @@ const DashboardNavigationTiles = ({
             languageCode,
             newsType: localNewsEnabled ? LOCAL_NEWS_TYPE : TU_NEWS_TYPE,
           }),
-        notifications: 0,
       }),
     )
   }
@@ -72,7 +71,6 @@ const DashboardNavigationTiles = ({
             cityCode,
             languageCode,
           }),
-        notifications: 0,
       }),
     )
   }
@@ -90,7 +88,6 @@ const DashboardNavigationTiles = ({
             cityCode,
             languageCode,
           }),
-        notifications: 0,
       }),
     )
   }
@@ -108,7 +105,6 @@ const DashboardNavigationTiles = ({
             cityCode,
             languageCode,
           }),
-        notifications: 0,
       }),
     )
   }

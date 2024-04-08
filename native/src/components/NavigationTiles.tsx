@@ -1,10 +1,12 @@
-import React, { ReactElement, useRef, useState } from 'react'
+import React, { JSXElementConstructor, ReactElement, useRef, useState } from 'react'
 import { Dimensions, NativeScrollEvent, NativeSyntheticEvent, ScrollView } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
+import { SvgProps } from 'react-native-svg'
 import styled from 'styled-components/native'
 
+import { TileModel } from 'shared'
+
 import { ArrowBackIcon } from '../assets'
-import TileModel from '../models/TileModel'
 import HighlightBox from './HighlightBox'
 import NavigationTile from './NavigationTile'
 import Icon from './base/Icon'
@@ -33,7 +35,7 @@ const StyledIcon = styled(Icon)<{ disabled: boolean }>`
 `
 
 type NavigationTilesProps = {
-  tiles: TileModel[]
+  tiles: TileModel<JSXElementConstructor<SvgProps>>[]
 }
 
 const NavigationTiles = ({ tiles }: NavigationTilesProps): ReactElement => {
