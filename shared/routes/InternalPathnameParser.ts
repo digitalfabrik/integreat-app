@@ -6,14 +6,13 @@ import {
   JPAL_TRACKING_ROUTE,
   LANDING_ROUTE,
   LOCAL_NEWS_TYPE,
-  LocalNewsType,
   NEWS_ROUTE,
   OFFERS_ROUTE,
   POIS_ROUTE,
+  RESERVED_CITY_CONTENT_SLUGS,
   SEARCH_ROUTE,
   SPRUNGBRETT_OFFER_ROUTE,
   TU_NEWS_TYPE,
-  TuNewsType,
 } from '.'
 
 import normalizePath from '../utils/normalizePath'
@@ -23,7 +22,6 @@ import { parseQueryParams } from './query'
 const ENTITY_ID_INDEX = 3
 
 class InternalPathnameParser {
-  _pathname: string
   _parts: Array<string>
   _length: number
   _fallbackLanguageCode: string
@@ -31,15 +29,24 @@ class InternalPathnameParser {
   _queryParams: URLSearchParams
 
   constructor(pathname: string, languageCode: string, fixedCity: string | null, query?: string) {
-    this._pathname = normalizePath(pathname)
     this._fixedCity = fixedCity
-    this._parts = this.pathnameParts(this._pathname)
-    this._length = this._parts.length
     this._fallbackLanguageCode = languageCode
+    this._parts = this.pathnameParts(normalizePath(pathname))
+    this._length = this._parts.length
     this._queryParams = new URLSearchParams(query)
   }
 
-  pathnameParts = (pathname: string): string[] => pathname.split('/').filter(Boolean)
+  pathnameParts = (pathname: string): string[] => {
+    const parts = pathname.split('/').filter(Boolean)
+    const [first, second, ...rest] = parts
+
+    const isLanguageIndependentUrl = !!first && !!second && (RESERVED_CITY_CONTENT_SLUGS as string[]).includes(second)
+    if (isLanguageIndependentUrl) {
+      return [first, this._fallbackLanguageCode, second, ...rest]
+    }
+
+    return parts
+  }
 
   isFixedCity = (): boolean => !!this._fixedCity && this._length >= 1 && this._parts[0] === this._fixedCity
 
@@ -162,7 +169,7 @@ class InternalPathnameParser {
       return null
     }
 
-    const newsType: LocalNewsType | TuNewsType = type === TU_NEWS_TYPE ? TU_NEWS_TYPE : LOCAL_NEWS_TYPE
+    const newsType = type === TU_NEWS_TYPE ? TU_NEWS_TYPE : LOCAL_NEWS_TYPE
     const newsId = this._length > ENTITY_ID_INDEX + 1 ? this._parts[ENTITY_ID_INDEX + 1] : undefined
     return {
       route: NEWS_ROUTE,
@@ -177,18 +184,10 @@ class InternalPathnameParser {
     const params = this.cityContentParams(OFFERS_ROUTE)
     const route = this._length > ENTITY_ID_INDEX ? this._parts[ENTITY_ID_INDEX] : OFFERS_ROUTE
 
-    if (params) {
-      if (route === OFFERS_ROUTE) {
-        return {
-          route: OFFERS_ROUTE,
-          ...params,
-        }
-      }
-      if (route === SPRUNGBRETT_OFFER_ROUTE) {
-        return {
-          route: SPRUNGBRETT_OFFER_ROUTE,
-          ...params,
-        }
+    if (params && (route === OFFERS_ROUTE || route === SPRUNGBRETT_OFFER_ROUTE)) {
+      return {
+        route,
+        ...params,
       }
     }
 
@@ -237,7 +236,7 @@ class InternalPathnameParser {
         route: CATEGORIES_ROUTE,
         cityCode: this._parts[0]!,
         languageCode: this._parts[1]!,
-        cityContentPath: this._pathname,
+        cityContentPath: `/${this._parts.join('/')}`,
       }
     }
 
