@@ -18,7 +18,7 @@ const AttributionContainer = styled(Pressable)<{ expanded: boolean }>`
   top: 0;
   right: 0;
   justify-content: flex-end;
-  color: rgb(0 0 0 / 75%);
+  color: rgba(0, 0, 0, 0.75);
   font-family: ${props => props.theme.fonts.native.contentFontRegular};
   ${props => props.expanded && `background-color: rgba(255, 255, 255, 0.75);`}
 `
@@ -36,7 +36,7 @@ const Label = styled.Text`
 
 const Copyright = styled.Text<{ expanded: boolean }>`
   padding-right: 4px;
-  color: rgb(0 0 0 / 75%);
+  color: rgba(0, 0, 0, 0.75);
   font-size: ${props => (props.expanded ? '14px' : '20px')};
   align-self: center;
 `

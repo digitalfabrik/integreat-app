@@ -8,5 +8,10 @@ module.exports = {
 
     // inset shorthand doesn't work on react-native
     'declaration-block-no-redundant-longhand-properties': [true, { ignoreShorthands: ['inset'] }],
+
+    'alpha-value-notation': 'number',
+
+    // not working on native
+    'color-function-notation': null,
   },
 }
