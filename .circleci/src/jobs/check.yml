@@ -16,15 +16,18 @@ steps:
       name: Prettier
       command: yarn prettier:check
   - run:
+      name: TS check
+      command: yarn ts:check
+  - run:
       name: Lint
       command: yarn lint:ci
   - store_test_results:
       path: reports/lint
   - run:
       name: Stylelint
-      command: yarn workspace web stylelint
+      command: yarn workspace native stylelint
   - run:
-      name: TS check
-      command: yarn ts:check
+      name: Stylelint
+      command: yarn workspace web stylelint
   - unit_test
   - notify

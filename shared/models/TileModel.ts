@@ -1,22 +1,18 @@
-import { SvgProps } from 'react-native-svg'
-
-export default class TileModel {
+export default class TileModel<T = string | null> {
   _title: string
   _path: string
-  _thumbnail: React.JSXElementConstructor<SVGElement> | string
+  _thumbnail: T
   _isExternalUrl: boolean
   _postData?: Map<string, string>
   _onTilePress?: () => void
-  _notifications?: number
 
   constructor(params: {
     title: string
     path: string
-    thumbnail: React.JSXElementConstructor<SvgProps> | string
+    thumbnail: T
     isExternalUrl: boolean
     postData?: Map<string, string>
     onTilePress?: () => void
-    notifications?: number
   }) {
     this._title = params.title
     this._path = params.path
@@ -24,10 +20,9 @@ export default class TileModel {
     this._isExternalUrl = params.isExternalUrl
     this._postData = params.postData
     this._onTilePress = params.onTilePress
-    this._notifications = params.notifications
   }
 
-  get thumbnail(): React.JSXElementConstructor<SvgProps> | string {
+  get thumbnail(): T {
     return this._thumbnail
   }
 
@@ -43,15 +38,11 @@ export default class TileModel {
     return this._isExternalUrl
   }
 
-  get postData(): Map<string, string> | null | undefined {
+  get postData(): Map<string, string> | undefined {
     return this._postData
   }
 
   get onTilePress(): (() => void) | undefined {
     return this._onTilePress
-  }
-
-  get notifications(): number | null | undefined {
-    return this._notifications
   }
 }

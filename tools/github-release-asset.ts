@@ -14,18 +14,21 @@ type Options = {
 const uploadAssets = async ({ deliverinoPrivateKey, owner, repo, releaseId, files }: Options) => {
   const appOctokit = await authenticate({ deliverinoPrivateKey, owner, repo })
 
-  files.split('\n').forEach(async file => {
-    console.log(`Uploading ${file}`)
-    const filename = file.substring(file.lastIndexOf('/') + 1)
-    const fileData = fs.readFileSync(file)
-    await appOctokit.rest.repos.uploadReleaseAsset({
-      owner,
-      repo,
-      release_id: releaseId,
-      name: filename,
-      data: fileData as unknown as string,
+  files
+    .split('\n')
+    .filter(file => !file.includes('e2e'))
+    .forEach(async file => {
+      console.log(`Uploading ${file}`)
+      const filename = file.substring(file.lastIndexOf('/') + 1)
+      const fileData = fs.readFileSync(file)
+      await appOctokit.rest.repos.uploadReleaseAsset({
+        owner,
+        repo,
+        release_id: releaseId,
+        name: filename,
+        data: fileData as unknown as string,
+      })
     })
-  })
 }
 
 program

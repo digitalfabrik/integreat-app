@@ -3,7 +3,7 @@ import React from 'react'
 
 import { LanguageModelBuilder } from 'shared/api'
 
-import { AppContext } from '../../contexts/AppContextProvider'
+import TestingAppContext from '../../testing/TestingAppContext'
 import render from '../../testing/render'
 import LanguageNotAvailablePage from '../LanguageNotAvailablePage'
 
@@ -21,17 +21,13 @@ describe('LanguageNotAvailablePage', () => {
   })
 
   const languages = new LanguageModelBuilder(3).build()
-  const changeCityCode = jest.fn()
   const changeLanguageCode = jest.fn()
-  const cityCode = 'ansbach'
-  const languageCode = 'de'
-  const context = { changeCityCode, changeLanguageCode, cityCode, languageCode }
 
   const renderLanguageNotAvailablePage = () =>
     render(
-      <AppContext.Provider value={context}>
+      <TestingAppContext changeLanguageCode={changeLanguageCode}>
         <LanguageNotAvailablePage availableLanguages={languages} />
-      </AppContext.Provider>,
+      </TestingAppContext>,
     )
 
   it('should render', () => {

@@ -1,11 +1,11 @@
 import { DateTime } from 'luxon'
-import React, { ReactElement, useEffect, useState } from 'react'
+import React, { ReactElement, useState } from 'react'
 import styled from 'styled-components/native'
 
 import { LocationMarkerIcon } from '../assets'
 import buildConfig from '../constants/buildConfig'
-import appSettings from '../utils/AppSettings'
-import { log, reportError } from '../utils/sentry'
+import { useAppContext } from '../hooks/useCityAppContext'
+import { log } from '../utils/sentry'
 import Icon from './base/Icon'
 import Pressable from './base/Pressable'
 import TextButton from './base/TextButton'
@@ -44,17 +44,13 @@ type LandingIconProps = {
 
 const SwitchCmsUrlIcon = ({ clearResourcesAndCache }: LandingIconProps): ReactElement => {
   const [clickCount, setClickCount] = useState(0)
-  const [apiUrlOverride, setApiUrlOverride] = useState<string | null>(null)
   const [clickStart, setClickStart] = useState<null | DateTime>(null)
+  const { settings, updateSettings } = useAppContext()
   const { cmsUrl, switchCmsUrl } = buildConfig()
-
-  useEffect(() => {
-    appSettings.loadApiUrlOverride().then(setApiUrlOverride).catch(reportError)
-  }, [])
+  const { apiUrlOverride } = settings
 
   const setApiUrl = (newApiUrl: string) => {
-    appSettings.setApiUrlOverride(newApiUrl).catch(reportError)
-    setApiUrlOverride(newApiUrl)
+    updateSettings({ apiUrlOverride: newApiUrl })
     setClickCount(0)
     setClickStart(null)
     clearResourcesAndCache()
@@ -69,7 +65,6 @@ const SwitchCmsUrlIcon = ({ clearResourcesAndCache }: LandingIconProps): ReactEl
     const clickedInTimeInterval = clickStart && clickStart > DateTime.now().minus({ seconds: CLICK_TIMEOUT })
 
     if (prevClickCount + 1 >= API_URL_OVERRIDE_MIN_CLICKS && clickedInTimeInterval) {
-      const apiUrlOverride = await appSettings.loadApiUrlOverride()
       const newApiUrl = !apiUrlOverride || apiUrlOverride === cmsUrl ? switchCmsUrl : cmsUrl
       setApiUrl(newApiUrl)
       log(`Switching to new API-Url: ${newApiUrl}`)

@@ -3,9 +3,9 @@ import { render, waitFor } from '@testing-library/react-native'
 import { mocked } from 'jest-mock'
 import React from 'react'
 
-import { CATEGORIES_ROUTE, OPEN_PAGE_SIGNAL_NAME } from 'shared'
+import { CATEGORIES_ROUTE, OPEN_PAGE_SIGNAL_NAME, SignalType } from 'shared'
 
-import appSettings from '../../utils/AppSettings'
+import TestingAppContext from '../../testing/TestingAppContext'
 import { sendRequest } from '../../utils/sendTrackingSignal'
 import useSendOfflineJpalSignals from '../useSendOfflineJpalSignals'
 
@@ -20,10 +20,18 @@ describe('useSendOfflineJpalSignals', () => {
     jest.clearAllMocks()
   })
 
+  const updateSettings = jest.fn()
+
   const MockComponent = () => {
     useSendOfflineJpalSignals()
     return null
   }
+
+  const Wrapper = ({ jpalSignals }: { jpalSignals: SignalType[] }) => (
+    <TestingAppContext settings={{ jpalSignals }} updateSettings={updateSettings}>
+      <MockComponent />
+    </TestingAppContext>
+  )
 
   const signal1 = {
     name: OPEN_PAGE_SIGNAL_NAME,
@@ -57,35 +65,31 @@ describe('useSendOfflineJpalSignals', () => {
   }
 
   it('should resend signals if internet is reachable again', async () => {
-    await appSettings.pushJpalSignal(signal1)
-    await appSettings.pushJpalSignal(signal2)
-
     mockUseNetInfo(false)
 
-    const { rerender } = render(<MockComponent />)
+    const { rerender } = render(<Wrapper jpalSignals={[signal1, signal2]} />)
     expect(sendRequest).not.toHaveBeenCalled()
 
     mockUseNetInfo(true)
 
-    rerender(<MockComponent />)
+    rerender(<Wrapper jpalSignals={[signal1, signal2]} />)
     await waitFor(() => expect(sendRequest).toHaveBeenCalledTimes(2))
     expect(sendRequest).toHaveBeenCalledWith(signal1)
     expect(sendRequest).toHaveBeenCalledWith(signal2)
-    expect(await appSettings.clearJpalSignals()).toEqual([])
+    expect(updateSettings).toHaveBeenCalledTimes(1)
+    expect(updateSettings).toHaveBeenCalledWith({ jpalSignals: [] })
   })
 
   it('should not try to send anything if internet reachability does not change', async () => {
-    await appSettings.pushJpalSignal(signal1)
-    await appSettings.pushJpalSignal(signal2)
+    mockUseNetInfo(false)
 
-    mockUseNetInfo(true)
-
-    const { rerender } = render(<MockComponent />)
+    const { rerender } = render(<Wrapper jpalSignals={[signal1, signal2]} />)
     expect(sendRequest).not.toHaveBeenCalled()
 
-    mockUseNetInfo(true)
+    mockUseNetInfo(false)
 
-    rerender(<MockComponent />)
+    rerender(<Wrapper jpalSignals={[signal1, signal2]} />)
     expect(sendRequest).not.toHaveBeenCalled()
+    expect(updateSettings).not.toHaveBeenCalled()
   })
 })

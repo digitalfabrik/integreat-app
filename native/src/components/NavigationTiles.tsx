@@ -1,11 +1,12 @@
-import React, { ReactElement, useRef, useState } from 'react'
+import React, { JSXElementConstructor, ReactElement, useRef, useState } from 'react'
 import { Dimensions, NativeScrollEvent, NativeSyntheticEvent, ScrollView } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
-import { useTheme } from 'styled-components'
+import { SvgProps } from 'react-native-svg'
 import styled from 'styled-components/native'
 
+import { TileModel } from 'shared'
+
 import { ArrowBackIcon } from '../assets'
-import TileModel from '../models/TileModel'
 import HighlightBox from './HighlightBox'
 import NavigationTile from './NavigationTile'
 import Icon from './base/Icon'
@@ -34,7 +35,7 @@ const StyledIcon = styled(Icon)<{ disabled: boolean }>`
 `
 
 type NavigationTilesProps = {
-  tiles: Array<TileModel>
+  tiles: TileModel<JSXElementConstructor<SvgProps>>[]
 }
 
 const NavigationTiles = ({ tiles }: NavigationTilesProps): ReactElement => {
@@ -48,7 +49,6 @@ const NavigationTiles = ({ tiles }: NavigationTilesProps): ReactElement => {
     : scrollViewWidth / smallScreenItemsCount
   const allTilesWidth = tiles.length * navigationItemWidth
   const isScrollable = allTilesWidth > layoutWidth
-  const theme = useTheme()
 
   const scrollViewRef = useRef<ScrollView>(null)
   const [percentageScrolled, setPercentageScrolled] = useState<number>(0)
@@ -90,7 +90,7 @@ const NavigationTiles = ({ tiles }: NavigationTilesProps): ReactElement => {
         onScroll={handleScroll}
         scrollEventThrottle={16}>
         {tiles.map(tile => (
-          <NavigationTile key={tile.path} tile={tile} theme={theme} width={navigationItemWidth} />
+          <NavigationTile key={tile.path} tile={tile} width={navigationItemWidth} />
         ))}
       </ScrollView>
       {isScrollable && (

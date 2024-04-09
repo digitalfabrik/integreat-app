@@ -1,15 +1,15 @@
-class Payload<T> {
+class Payload<T extends object> {
   _isFetching: boolean
-  _data: T | null | undefined
-  _error: Error | null | undefined
-  _requestUrl: string | null | undefined
+  _data: T | null
+  _error: Error | null
+  _requestUrl: string | null
   _fetchDate: number
 
   constructor(
     isFetching: boolean,
-    requestUrl: string | null | undefined = null,
-    data: T | null | undefined = null,
-    error: Error | null | undefined = null,
+    requestUrl: string | null = null,
+    data: T | null = null,
+    error: Error | null = null,
     fetchDate: number = Date.now(),
   ) {
     this._isFetching = isFetching
@@ -18,7 +18,7 @@ class Payload<T> {
     this._requestUrl = requestUrl
     this._data = data
 
-    if (error && data) {
+    if (error && data !== null) {
       throw new Error('data and error can not be set at the same time')
     }
   }
@@ -31,15 +31,15 @@ class Payload<T> {
     return this._isFetching
   }
 
-  get data(): T | null | undefined {
+  get data(): T | null {
     return this._data
   }
 
-  get error(): Error | null | undefined {
+  get error(): Error | null {
     return this._error
   }
 
-  get requestUrl(): string | null | undefined {
+  get requestUrl(): string | null {
     return this._requestUrl
   }
 }

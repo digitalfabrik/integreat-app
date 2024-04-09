@@ -20,7 +20,7 @@ const ItemWrapper = styled.View<{ selected: boolean }>`
 const Element = styled.Text<{ enabled: boolean }>`
   font-size: 20px;
   ${props => (props.enabled ? 'font-weight: 700' : '')};
-  color: ${props => (props.enabled ? props.theme.colors.textColor : props.theme.colors.textSecondaryColor)}};
+  color: ${props => (props.enabled ? props.theme.colors.textColor : props.theme.colors.textSecondaryColor)};
 `
 
 type SelectorItemProps = {

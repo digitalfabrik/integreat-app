@@ -34,7 +34,7 @@ const getReleaseId = async ({ deliverinoPrivateKey, owner, repo, platform }: Opt
 
 const removePreRelease = async ({ deliverinoPrivateKey, owner, repo, platform }: Options) => {
   const releaseId = await getReleaseId({ deliverinoPrivateKey, owner, repo, platform })
-  if (releaseId) {
+  if (releaseId !== null) {
     const appOctokit = await authenticate({ deliverinoPrivateKey, owner, repo })
     const result = await appOctokit.rest.repos.updateRelease({
       owner,

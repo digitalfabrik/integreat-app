@@ -85,8 +85,8 @@ const getFeedbackType = (routeType: FeedbackRouteType, slug?: string): FeedbackT
   }
 }
 
-export default (baseUrl: string): Endpoint<ParamsType, void> =>
-  new EndpointBuilder<ParamsType, void>(FEEDBACK_ENDPOINT_NAME)
+export default (baseUrl: string): Endpoint<ParamsType, Record<string, never>> =>
+  new EndpointBuilder<ParamsType, Record<string, never>>(FEEDBACK_ENDPOINT_NAME)
     .withParamsToUrlMapper(params => {
       const { city, language, routeType, slug } = params
 
@@ -100,7 +100,7 @@ export default (baseUrl: string): Endpoint<ParamsType, void> =>
         formData.append('rating', isPositiveRating ? POSITIVE_RATING : NEGATIVE_RATING)
       }
 
-      const queryWithSearchTerm = query === searchTerm ? query : `${searchTerm} (actual query: ${query})`
+      const queryWithSearchTerm = searchTerm || query
       if (queryWithSearchTerm) {
         formData.append('query', queryWithSearchTerm)
       }
@@ -116,5 +116,5 @@ export default (baseUrl: string): Endpoint<ParamsType, void> =>
 
       return formData
     })
-    .withMapper(() => undefined)
+    .withMapper(() => ({}))
     .build()

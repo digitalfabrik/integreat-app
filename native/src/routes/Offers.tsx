@@ -2,11 +2,15 @@ import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 import { View } from 'react-native'
 
-import { SPRUNGBRETT_OFFER_ROUTE, MALTE_HELP_FORM_OFFER_ROUTE } from 'shared'
+import {
+  SPRUNGBRETT_OFFER_ROUTE,
+  MALTE_HELP_FORM_OFFER_ROUTE,
+  TileModel,
+  APPOINTMENT_BOOKING_OFFER_ALIAS,
+} from 'shared'
 import { OfferModel } from 'shared/api'
 
 import Tiles from '../components/Tiles'
-import TileModel from '../models/TileModel'
 
 type OffersProps = {
   offers: Array<OfferModel>
@@ -20,7 +24,7 @@ const Offers = ({ offers, navigateToOffer, languageCode }: OffersProps): ReactEl
   const { t } = useTranslation('offers')
 
   const tiles = offers
-    .filter(offer => offer.alias !== MALTE_HELP_FORM_OFFER_ROUTE)
+    .filter(offer => offer.alias !== MALTE_HELP_FORM_OFFER_ROUTE && offer.alias !== APPOINTMENT_BOOKING_OFFER_ALIAS)
     .map(offer => {
       let path = offer.path
       if (internalOffers.includes(offer.alias)) {
@@ -37,7 +41,13 @@ const Offers = ({ offers, navigateToOffer, languageCode }: OffersProps): ReactEl
 
   return (
     <View>
-      <Tiles title={t('offers')} tiles={tiles} onTilePress={navigateToOffer} language={languageCode} />
+      <Tiles
+        title={t('offers')}
+        tiles={tiles}
+        onTilePress={navigateToOffer}
+        language={languageCode}
+        resourceCache={undefined}
+      />
     </View>
   )
 }

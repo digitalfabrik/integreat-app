@@ -4,6 +4,7 @@ import styled from 'styled-components'
 
 import buildConfig from '../constants/buildConfig'
 import dimensions from '../constants/dimensions'
+import Failure from './Failure'
 import FeedbackButtons from './FeedbackButtons'
 import { SendingStatusType } from './FeedbackContainer'
 import Note from './Note'
@@ -48,9 +49,10 @@ type FeedbackProps = {
   onFeedbackChanged: (isPositiveFeedback: boolean | null) => void
   onSubmit: () => void
   sendingStatus: SendingStatusType
-  searchTerm?: string
+  noResults: boolean | undefined
+  searchTerm: string | undefined
   setSearchTerm: (newTerm: string) => void
-  closeFeedback?: () => void
+  closeFeedback: (() => void) | undefined
 }
 
 const Feedback = ({
@@ -62,6 +64,7 @@ const Feedback = ({
   onCommentChanged,
   onContactMailChanged,
   onFeedbackChanged,
+  noResults,
   searchTerm,
   setSearchTerm,
   closeFeedback,
@@ -84,9 +87,12 @@ const Feedback = ({
   return (
     <Container fullWidth={isSearchFeedback}>
       {isSearchFeedback ? (
-        <InputSection id='searchTerm' title={t('searchTermDescription')}>
-          <Input id='searchTerm' value={searchTerm} onChange={setSearchTerm} />
-        </InputSection>
+        <>
+          {noResults && <Failure errorMessage='search:nothingFound' />}
+          <InputSection id='searchTerm' title={t('searchTermDescription')}>
+            <Input id='searchTerm' value={searchTerm} onChange={setSearchTerm} />
+          </InputSection>
+        </>
       ) : (
         <FeedbackButtons isPositive={isPositiveFeedback} onRatingChange={onFeedbackChanged} />
       )}
@@ -103,7 +109,7 @@ const Feedback = ({
         <Input id='email' value={contactMail} onChange={onContactMailChanged} />
       </InputSection>
 
-      {!isSearchFeedback && <Note text={t('note')} visible={sendFeedbackDisabled} />}
+      {!isSearchFeedback && sendFeedbackDisabled && <Note text={t('note')} />}
       {sendingStatus === 'failed' && <ErrorSendingStatus role='alert'>{t('failedSendingFeedback')}</ErrorSendingStatus>}
       <StyledTextButton disabled={sendFeedbackDisabled} onClick={onSubmit} text={t('send')} />
     </Container>

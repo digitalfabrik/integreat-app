@@ -1,6 +1,6 @@
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
-import { ActivityIndicator, Text } from 'react-native'
+import { Text } from 'react-native'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import styled from 'styled-components/native'
 
@@ -9,7 +9,10 @@ import useNavigate from '../hooks/useNavigate'
 import Caption from './Caption'
 import FeedbackButtons from './FeedbackButtons'
 import { SendingStatusType } from './FeedbackContainer'
+import HorizontalLine from './HorizontalLine'
+import LoadingSpinner from './LoadingSpinner'
 import Note from './Note'
+import NothingFound from './NothingFound'
 import InputSection from './base/InputSection'
 import TextButton from './base/TextButton'
 
@@ -59,7 +62,7 @@ const Feedback = ({
   const submitDisabled = isPositiveFeedback === null && comment.trim().length === 0 && !isSearchFeedback
 
   if (sendingStatus === 'sending') {
-    return <ActivityIndicator size='large' color='#0000ff' />
+    return <LoadingSpinner />
   }
 
   if (sendingStatus === 'successful') {
@@ -76,7 +79,11 @@ const Feedback = ({
     <KeyboardAwareScrollView>
       <Wrapper>
         {isSearchFeedback ? (
-          <InputSection title={t('searchTermDescription')} value={searchTerm} onChange={setSearchTerm} />
+          <>
+            <NothingFound />
+            <HorizontalLine />
+            <InputSection title={t('searchTermDescription')} value={searchTerm} onChange={setSearchTerm} />
+          </>
         ) : (
           <>
             <Caption title={t('headline')} />
@@ -99,7 +106,7 @@ const Feedback = ({
           showOptional
         />
         {sendingStatus === 'failed' && <Description>{t('failedSendingFeedback')}</Description>}
-        {!isSearchFeedback && <Note text={t('note')} visible={submitDisabled} />}
+        {!isSearchFeedback && submitDisabled && <Note text={t('note')} />}
         <StyledButton disabled={submitDisabled} onPress={onSubmit} text={t('send')} />
       </Wrapper>
     </KeyboardAwareScrollView>

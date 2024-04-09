@@ -69,10 +69,7 @@ const I18nProvider = ({ children, contentLanguage }: I18nProviderProps): ReactEl
 
   // Apply side effects
   useEffect(() => {
-    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-    if (document.documentElement) {
-      document.documentElement.lang = language
-    }
+    document.documentElement.lang = language
   }, [language])
 
   if (errorMessage) {

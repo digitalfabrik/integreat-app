@@ -34,8 +34,7 @@ const HeaderContainer = styled.header`
   box-shadow: 0 2px 5px -3px rgb(0 0 0 / 20%);
 
   @media ${dimensions.minMaxWidth} {
-    padding-inline-end: calc((200% - 100vw - ${dimensions.maxWidth}px) / 2);
-    padding-inline-start: calc((100vw - ${dimensions.maxWidth}px) / 2);
+    padding-inline: calc((100vw - ${dimensions.maxWidth}px) / 2) calc((200% - 100vw - ${dimensions.maxWidth}px) / 2);
   }
 `
 
@@ -131,7 +130,7 @@ export const Header = ({
         <Row>
           <HeaderLogo link={logoHref} />
           {!viewportSmall && !!cityName && <HeaderSeparator />}
-          {(!viewportSmall || !!cityName) && <HeaderTitle>{cityName}</HeaderTitle>}
+          {!!cityName && <HeaderTitle title={cityName} />}
           <ActionBar>
             {actionItems}
             {viewportSmall && setIsSidebarOpen && !!cityCode && (

@@ -16,7 +16,7 @@ class FetcherModule {
     FetcherModule.currentlyFetching = true
 
     try {
-      const result = await NativeFetcherModule.fetchAsync(targetFilePaths)
+      const result: FetchResultType | null | undefined = await NativeFetcherModule.fetchAsync(targetFilePaths)
 
       if (!result) {
         // While testing the app I noticed that the FetchResultType of this function was empty. I am absolutely not sure

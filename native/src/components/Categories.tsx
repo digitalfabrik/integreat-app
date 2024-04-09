@@ -1,13 +1,11 @@
 import React, { ReactElement } from 'react'
 import { View } from 'react-native'
 
-import { CATEGORIES_ROUTE, RouteInformationType } from 'shared'
+import { CATEGORIES_ROUTE, getCategoryTiles, RouteInformationType } from 'shared'
 import { CategoriesMapModel, CategoryModel, CityModel } from 'shared/api'
 
-import { URL_PREFIX } from '../constants/webview'
-import TileModel from '../models/TileModel'
 import testID from '../testing/testID'
-import { LanguageResourceCacheStateType, PageResourceCacheStateType } from '../utils/DataContainer'
+import { LanguageResourceCacheStateType } from '../utils/DataContainer'
 import CategoryListItem from './CategoryListItem'
 import EmbeddedOffers from './EmbeddedOffers'
 import List from './List'
@@ -25,20 +23,6 @@ export type CategoriesProps = {
   goBack: () => void
 }
 
-export const getCachedThumbnail = (thumbnail: string, resourceCache: PageResourceCacheStateType): string => {
-  const resource = resourceCache[thumbnail]
-
-  if (resource) {
-    return URL_PREFIX + resource.filePath
-  }
-
-  return thumbnail
-}
-
-/**
- * Displays a CategoryTable, CategoryList or a single category as page matching the route /<cityCode>/<language>*
- */
-
 const Categories = ({
   cityModel,
   language,
@@ -49,28 +33,25 @@ const Categories = ({
   goBack,
 }: CategoriesProps): ReactElement => {
   const children = categories.getChildren(category)
+  const cityCode = cityModel.code
 
   const navigateToCategory = ({ path }: { path: string }) =>
     navigateTo({
       route: CATEGORIES_ROUTE,
-      cityCode: cityModel.code,
+      cityCode,
       languageCode: language,
       cityContentPath: path,
     })
 
   if (category.isRoot()) {
-    const tiles = children.map(
-      category =>
-        new TileModel({
-          title: category.title,
-          path: category.path,
-          thumbnail: getCachedThumbnail(category.thumbnail, resourceCache[category.path] ?? {}),
-          isExternalUrl: false,
-        }),
-    )
     return (
       <View {...testID('Dashboard-Page')}>
-        <Tiles tiles={tiles} language={language} onTilePress={navigateToCategory} />
+        <Tiles
+          tiles={getCategoryTiles({ categories: children, cityCode })}
+          language={language}
+          onTilePress={navigateToCategory}
+          resourceCache={resourceCache[category.path]}
+        />
       </View>
     )
   }

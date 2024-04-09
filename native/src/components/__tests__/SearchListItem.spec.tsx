@@ -34,19 +34,18 @@ describe('SearchListItem', () => {
       ? expect(instance.props.style?.fontWeight).toBe('bold')
       : expect(instance.props.style?.fontWeight).toBeUndefined()
 
-  const props = {
-    contentWithoutHtml,
-    resourceCache: resourceCache[category.path]!,
-    language: language.code,
-    title: category.title,
-    city: cityModel.code,
-    path: category.path,
-  }
-
   const renderWithNavigator = (query: string) =>
     render(
       <NavigationContainer>
-        <SearchListItem {...props} query={query} />
+        <SearchListItem
+          contentWithoutHtml={contentWithoutHtml}
+          query={query}
+          language={language.code}
+          title={category.title}
+          path={category.path}
+          thumbnail={category.thumbnail}
+          resourceCache={resourceCache[category.path]!}
+        />
       </NavigationContainer>,
     )
 

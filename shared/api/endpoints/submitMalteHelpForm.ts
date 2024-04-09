@@ -133,7 +133,7 @@ const submitMalteHelpForm = async ({
     },
     body: JSON.stringify({
       name,
-      email: !email?.length ? generateEmail() : email,
+      email: !email || email.length === 0 ? generateEmail() : email,
       body: buildHelpFormBody({
         url,
         name,
