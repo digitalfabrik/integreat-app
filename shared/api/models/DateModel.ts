@@ -28,17 +28,18 @@ class DateModel {
     this._offset = startDate.offset
     this._allDay = allDay
     this._duration = endDate.diff(startDate)
-    // If there is a recurrence rule, the start and end dates are not updated in the CMS and are therefore most of the time outdated
-    // Therefore calculate the (next) correct start and end date based on the recurrence rule if available
-    const first = recurrenceRule?.after(this.currentDateToRrule())
-    this._startDate = first ? this.rruleToDateTime(first) : startDate
-    this._endDate = this._startDate.plus(this._duration)
+    this._startDate = startDate
+    this._endDate = endDate
   }
 
+  // This should only be called on recurrences as start dates are not updated in the CMS
+  // E.g. date.recurrences(1)[0]?.startDate
   get startDate(): DateTime {
     return this._startDate
   }
 
+  // This should only be called on recurrences as end dates are not updated in the CMS
+  // E.g. date.recurrences(1)[0]?.endDate
   get endDate(): DateTime {
     return this._endDate
   }
@@ -78,7 +79,7 @@ class DateModel {
             allDay: this._allDay,
             startDate: it,
             endDate: it.plus(duration),
-            recurrenceRule: null,
+            recurrenceRule: this.recurrenceRule,
           }),
       )
   }

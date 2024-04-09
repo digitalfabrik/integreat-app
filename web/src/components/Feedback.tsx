@@ -109,7 +109,7 @@ const Feedback = ({
         <Input id='email' value={contactMail} onChange={onContactMailChanged} />
       </InputSection>
 
-      {!isSearchFeedback && <Note text={t('note')} visible={sendFeedbackDisabled} />}
+      {!isSearchFeedback && sendFeedbackDisabled && <Note text={t('note')} />}
       {sendingStatus === 'failed' && <ErrorSendingStatus role='alert'>{t('failedSendingFeedback')}</ErrorSendingStatus>}
       <StyledTextButton disabled={sendFeedbackDisabled} onClick={onSubmit} text={t('send')} />
     </Container>
