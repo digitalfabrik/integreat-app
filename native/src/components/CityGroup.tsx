@@ -11,8 +11,7 @@ const GroupText = styled.Text`
 const BorderWrapper = styled.View`
   border-bottom-width: 1px;
   border-bottom-color: ${props => props.theme.colors.themeColor};
-  flex-wrap: wrap;
-  flex-direction: column;
+  flex-flow: column wrap;
   align-items: flex-start;
 `
 

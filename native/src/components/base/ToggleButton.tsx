@@ -14,7 +14,7 @@ const StyledPressable = styled(Pressable)<{ active: boolean }>`
   border-radius: 18px;
   elevation: 5;
   shadow-color: ${props => props.theme.colors.textColor};
-  shadow-offset: 0px 1px;
+  shadow-offset: 0 1px;
   shadow-opacity: 0.2;
   shadow-radius: 1px;
   justify-content: space-around;

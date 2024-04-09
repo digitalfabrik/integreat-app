@@ -507,6 +507,9 @@ jobs:
             - store_test_results:
                 path: reports/lint
             - run:
+                command: yarn workspace native stylelint
+                name: Stylelint
+            - run:
                 command: yarn workspace web stylelint
                 name: Stylelint
             - unit_test
