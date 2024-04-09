@@ -2,6 +2,8 @@ import React, { ReactElement } from 'react'
 import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 import { View } from 'react-native'
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
+import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import styled from 'styled-components/native'
 
 import {
@@ -14,6 +16,7 @@ import {
 } from 'shared/api'
 
 import { SecurityIcon, SupportIcon } from '../assets'
+import useKeyboardHeight from '../hooks/useKeyboardHeight'
 import useSnackbar from '../hooks/useSnackbar'
 import LayoutedScrollView from './LayoutedScrollView'
 import Icon from './base/Icon'
@@ -112,59 +115,63 @@ const MalteHelpFormOffer = ({
     }
   })
 
+  const keyboardHeight = useKeyboardHeight()
+
   return (
-    <Container>
-      <InformationRow>
-        <Icon Icon={SupportIcon} />
-        <InformationText>{t('supportNote')}</InformationText>
-      </InformationRow>
-      <InformationRow>
-        <Icon Icon={SecurityIcon} />
-        <InformationText>{t('securityNote')}</InformationText>
-      </InformationRow>
+    <KeyboardAwareScrollView extraHeight={keyboardHeight - useSafeAreaInsets().bottom}>
+      <Container>
+        <InformationRow>
+          <Icon Icon={SupportIcon} />
+          <InformationText>{t('supportNote')}</InformationText>
+        </InformationRow>
+        <InformationRow>
+          <Icon Icon={SecurityIcon} />
+          <InformationText>{t('securityNote')}</InformationText>
+        </InformationRow>
 
-      <FormInput name='name' title={t('name')} control={control} rules={{ required: true }} />
-      <FormInput name='roomNumber' title={t('roomNumber')} control={control} showOptional />
+        <FormInput name='name' title={t('name')} control={control} rules={{ required: true }} />
+        <FormInput name='roomNumber' title={t('roomNumber')} control={control} showOptional />
 
-      <View>
-        <InputTitle>{t('howToBeContacted')}</InputTitle>
-        <FormRadioButtons
-          name='contactChannel'
+        <View>
+          <InputTitle>{t('howToBeContacted')}</InputTitle>
+          <FormRadioButtons
+            name='contactChannel'
+            control={control}
+            values={[
+              { key: 'email', label: t('eMail'), inputName: 'email' },
+              { key: 'telephone', label: t('telephone'), inputName: 'telephone' },
+              { key: 'personally', label: t('personally') },
+            ]}
+          />
+        </View>
+
+        <View>
+          <InputTitle>{t('contactPerson')}</InputTitle>
+          <FormRadioButtons
+            name='contactGender'
+            control={control}
+            values={[
+              { key: 'any', label: t('contactPersonAnyGender') },
+              { key: 'female', label: t('contactPersonGenderFemale') },
+              { key: 'male', label: t('contactPersonGenderMale') },
+            ]}
+          />
+        </View>
+
+        <FormInput
+          name='comment'
+          title={t('contactReason')}
+          hint={`(${t('maxCharacters', { numberOfCharacters: MALTE_HELP_FORM_MAX_COMMENT_LENGTH })})`}
           control={control}
-          values={[
-            { key: 'email', label: t('eMail'), inputName: 'email' },
-            { key: 'telephone', label: t('telephone'), inputName: 'telephone' },
-            { key: 'personally', label: t('personally') },
-          ]}
+          rules={{ maxLength: MALTE_HELP_FORM_MAX_COMMENT_LENGTH }}
+          maxLength={MALTE_HELP_FORM_MAX_COMMENT_LENGTH}
+          multiline
         />
-      </View>
 
-      <View>
-        <InputTitle>{t('contactPerson')}</InputTitle>
-        <FormRadioButtons
-          name='contactGender'
-          control={control}
-          values={[
-            { key: 'any', label: t('contactPersonAnyGender') },
-            { key: 'female', label: t('contactPersonGenderFemale') },
-            { key: 'male', label: t('contactPersonGenderMale') },
-          ]}
-        />
-      </View>
-
-      <FormInput
-        name='comment'
-        title={t('contactReason')}
-        hint={`(${t('maxCharacters', { numberOfCharacters: MALTE_HELP_FORM_MAX_COMMENT_LENGTH })})`}
-        control={control}
-        rules={{ maxLength: MALTE_HELP_FORM_MAX_COMMENT_LENGTH }}
-        maxLength={MALTE_HELP_FORM_MAX_COMMENT_LENGTH}
-        multiline
-      />
-
-      <InformationText>{t('responseDisclaimer')}</InformationText>
-      <TextButton text={t('submit')} onPress={submit} disabled={!formState.isValid || formState.isSubmitting} />
-    </Container>
+        <InformationText>{t('responseDisclaimer')}</InformationText>
+        <TextButton text={t('submit')} onPress={submit} disabled={!formState.isValid || formState.isSubmitting} />
+      </Container>
+    </KeyboardAwareScrollView>
   )
 }
 
