@@ -12,8 +12,10 @@ describe('Endpoint', () => {
   const params = { var1: 'var1', var2: 'var2' }
   const url = defaultMapParamsToUrl(params)
 
-  const defaultJsonMapper = (json: string, params: { var1: string; var2: string }) =>
-    `${json.substring(5)}${params.var1}${params.var2}`
+  const defaultJsonMapper = (json: string, params: { var1: string; var2: string }) => ({
+    json,
+    ...params,
+  })
 
   const body: FormData = {
     append: jest.fn(),
@@ -86,7 +88,7 @@ describe('Endpoint', () => {
   })
 
   it('should return response override', async () => {
-    const responseOverride = 'my custom response'
+    const responseOverride = { json: 'test' }
     const endpoint = new Endpoint('endpoint', defaultMapParamsToUrl, null, defaultJsonMapper, responseOverride)
     const response = await endpoint.request(params)
     expect(response.data).toEqual(responseOverride)

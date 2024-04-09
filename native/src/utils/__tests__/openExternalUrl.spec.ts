@@ -30,7 +30,7 @@ describe('openExternalUrl', () => {
 
   const showSnackbar = jest.fn()
 
-  it('should open http urls in inapp browser', async () => {
+  it('should open https urls in inapp browser', async () => {
     const url = 'https://som.niceli.nk/mor/etext'
     await openExternalUrl(url, showSnackbar)
     expect(InAppBrowser.close).toHaveBeenCalled()
@@ -73,7 +73,7 @@ describe('openExternalUrl', () => {
     })
   })
 
-  it('should open http urls with linking if inapp browser is not available', async () => {
+  it('should open https urls with linking if inapp browser is not available', async () => {
     const url = 'https://som.niceli.nk/mor/etext'
     mocked(InAppBrowser.isAvailable).mockImplementation(async () => false)
     await openExternalUrl(url, showSnackbar)
@@ -82,7 +82,17 @@ describe('openExternalUrl', () => {
     expect(Linking.openURL).toHaveBeenLastCalledWith(url)
   })
 
-  it('should show snackbar for https://integreat.app urls if inapp browser is not available', async () => {
+  it('should open internal links with http protocol in inapp browser', async () => {
+    const url = 'https://integreat.app/testumgebung/ar'
+    mocked(InAppBrowser.isAvailable).mockImplementation(async () => true)
+    await openExternalUrl(url, showSnackbar)
+    expect(InAppBrowser.open).toHaveBeenCalledTimes(1)
+    expect(InAppBrowser.open).toHaveBeenCalledWith('http://integreat.app/testumgebung/ar', expect.anything())
+    expect(Linking.openURL).not.toHaveBeenCalled()
+    expect(showSnackbar).not.toHaveBeenCalled()
+  })
+
+  it('should show snackbar for internal urls if inapp browser is not available', async () => {
     const url = 'https://integreat.app'
     mocked(InAppBrowser.isAvailable).mockImplementation(async () => false)
     await openExternalUrl(url, showSnackbar)

@@ -10,7 +10,7 @@ type Params = {
   languageCode: string
 }
 
-type Load<T> =
+type Load<T extends object> =
   | {
       createEndpoint: (baseUrl: string) => Endpoint<{ city: string; language: string }, T>
       load?: null
@@ -20,7 +20,7 @@ type Load<T> =
       createEndpoint?: null
     }
 
-type UseLoadExtraCityContentParams<T> = Params & Load<T>
+type UseLoadExtraCityContentParams<T extends object> = Params & Load<T>
 
 type UseLoadExtraCityContentData<T> = CityContentData & { extra: T }
 export type UseLoadExtraCityContentReturn<T> = Omit<ReturnType<UseLoadExtraCityContentData<T>>, 'error'> & {
@@ -31,7 +31,7 @@ export type UseLoadExtraCityContentReturn<T> = Omit<ReturnType<UseLoadExtraCityC
  * Hook to load city content and some other data at the same time.
  * Either a function creating an endpoint or a regular async function to load the data has to be passed.
  */
-const useLoadExtraCityContent = <T>({
+const useLoadExtraCityContent = <T extends object>({
   cityCode,
   languageCode,
   createEndpoint,
@@ -54,9 +54,9 @@ const useLoadExtraCityContent = <T>({
 
   return {
     loading: cityContentReturn.loading || extraReturn.loading,
-    error: cityContentReturn.error || extraReturn.error,
+    error: cityContentReturn.error ?? extraReturn.error,
     refresh,
-    data: cityContentReturn.data && extraReturn.data && { ...cityContentReturn.data, extra: extraReturn.data },
+    data: cityContentReturn.data && extraReturn.data ? { ...cityContentReturn.data, extra: extraReturn.data } : null,
   }
 }
 

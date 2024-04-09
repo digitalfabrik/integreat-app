@@ -1,4 +1,3 @@
-import { useFocusEffect } from '@react-navigation/native'
 import React, { ReactElement, useCallback, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Text, Platform, useWindowDimensions } from 'react-native'
@@ -6,7 +5,7 @@ import WebView, { WebViewMessageEvent } from 'react-native-webview'
 import { WebViewNavigation } from 'react-native-webview/lib/WebViewTypes'
 import { useTheme } from 'styled-components/native'
 
-import { CONSENT_ROUTE, ExternalSourcePermissions } from 'shared'
+import { CONSENT_ROUTE } from 'shared'
 import { ErrorCode } from 'shared/api'
 
 import buildConfig from '../constants/buildConfig'
@@ -18,8 +17,8 @@ import {
   OPEN_SETTINGS_MESSAGE_TYPE,
   WARNING_MESSAGE_TYPE,
 } from '../constants/webview'
+import { useAppContext } from '../hooks/useCityAppContext'
 import useNavigate from '../hooks/useNavigate'
-import appSettings from '../utils/AppSettings'
 import renderHtml from '../utils/renderHtml'
 import { log, reportError } from '../utils/sentry'
 import Failure from './Failure'
@@ -49,8 +48,10 @@ const RemoteContent = (props: RemoteContentProps): ReactElement | null => {
   const { onLoad, content, cacheDictionary, resourceCacheUrl, language, onLinkPress } = props
   const [error, setError] = useState<string | null>(null)
   const [pressedUrl, setPressedUrl] = useState<string | null>(null)
-  const [externalSourcePermissions, setExternalSourcePermissions] = useState<ExternalSourcePermissions>({})
+  const { settings, updateSettings } = useAppContext()
   const { navigateTo } = useNavigate()
+  const { externalSourcePermissions } = settings
+
   // https://github.com/react-native-webview/react-native-webview/issues/1069#issuecomment-651699461
   const defaultWebviewHeight = 1
   const [webViewHeight, setWebViewHeight] = useState<number>(defaultWebviewHeight)
@@ -73,12 +74,6 @@ const RemoteContent = (props: RemoteContentProps): ReactElement | null => {
     }
   }, [onLoad, webViewHeight, content])
 
-  useFocusEffect(
-    useCallback(() => {
-      appSettings.loadExternalSourcePermissions().then(setExternalSourcePermissions).catch(reportError)
-    }, []),
-  )
-
   // messages are triggered in renderHtml.ts
   const onMessage = useCallback(
     (event: WebViewMessageEvent) => {
@@ -94,24 +89,22 @@ const RemoteContent = (props: RemoteContentProps): ReactElement | null => {
       }
 
       if (message.type === ALLOW_EXTERNAL_SOURCE_MESSAGE_TYPE && typeof message.source === 'string') {
-        const updatedSources: Record<string, boolean> = externalSourcePermissions
-        updatedSources[message.source] = true
-        appSettings.setExternalSourcePermissions(updatedSources).catch(reportError)
-        appSettings.loadExternalSourcePermissions().then(setExternalSourcePermissions).catch(reportError)
+        const source = message.source
+        const updatedSources = { ...externalSourcePermissions, [source]: true }
+        updateSettings({ externalSourcePermissions: updatedSources })
         return
       }
 
       if (message.type === WARNING_MESSAGE_TYPE) {
         log(message.message, 'warning')
       } else {
-        const error = new Error(
-          message.message ? JSON.stringify(message.message) : 'Unknown message received from webview',
-        )
+        const messageText: string | undefined = message.message
+        const error = new Error(messageText ? JSON.stringify(messageText) : 'Unknown message received from webview')
         reportError(error)
         setError(error.message)
       }
     },
-    [externalSourcePermissions, navigateTo],
+    [externalSourcePermissions, navigateTo, updateSettings],
   )
 
   const onShouldStartLoadWithRequest = useCallback(
@@ -175,7 +168,6 @@ const RemoteContent = (props: RemoteContentProps): ReactElement | null => {
       setSupportMultipleWindows={false}
       style={{
         height: webViewHeight,
-
         opacity: 0.99, // fixes crashing in Android https://github.com/react-native-webview/react-native-webview/issues/811
       }}
     />

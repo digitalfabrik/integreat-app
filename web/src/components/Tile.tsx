@@ -1,14 +1,10 @@
 import React, { ReactElement, ReactNode, useRef } from 'react'
 import styled from 'styled-components'
 
+import { TileModel } from 'shared'
 import { request } from 'shared/api'
 
-import TileModel from '../models/TileModel'
 import CleanLink from './CleanLink'
-
-type TileProps = {
-  tile: TileModel
-}
 
 const Thumbnail = styled.div`
   position: relative;
@@ -61,21 +57,23 @@ const TileContainer = styled.div`
   }
 `
 
-/**
- * Displays a single Tile
- */
-const Tile = (props: TileProps): ReactElement => {
+type TileProps = {
+  tile: TileModel
+}
+
+const Tile = ({ tile }: TileProps): ReactElement => {
   const imageRef = useRef<HTMLImageElement>(null)
-  const { tile } = props
 
   const fetchImageWithCaching = (): void => {
-    request(tile.thumbnail, {})
-      .then(res => res.blob())
-      .then(blob => {
-        if (imageRef.current) {
-          imageRef.current.src = URL.createObjectURL(blob)
-        }
-      })
+    if (tile.thumbnail) {
+      request(tile.thumbnail, {})
+        .then(res => res.blob())
+        .then(blob => {
+          if (imageRef.current) {
+            imageRef.current.src = URL.createObjectURL(blob)
+          }
+        })
+    }
   }
 
   const getTileContent = (): ReactNode => {
@@ -93,7 +91,6 @@ const Tile = (props: TileProps): ReactElement => {
   }
 
   const getTile = (): ReactNode => {
-    const { tile } = props
     if (!tile.postData) {
       return <CleanLink to={tile.path}>{getTileContent()}</CleanLink>
     }

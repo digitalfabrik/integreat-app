@@ -31,10 +31,8 @@ const Landing = ({ navigation }: LandingProps): ReactElement => {
   const { data: cities, refresh, ...response } = useLoadCities()
   const { changeCityCode } = useContext(AppContext)
 
-  useEffect(() => {
-    // The cities are otherwise only updated by pull to refresh
-    refresh()
-  }, [refresh])
+  // The cities are otherwise only updated by pull to refresh
+  useEffect(refresh, [refresh])
 
   const navigateToDashboard = (city: CityModel) => {
     changeCityCode(city.code)

@@ -1,6 +1,6 @@
 import React, { ReactElement } from 'react'
 
-import { EXTERNAL_OFFER_ROUTE, OFFERS_ROUTE, OffersRouteType, SPRUNGBRETT_OFFER_ROUTE } from 'shared'
+import { EXTERNAL_OFFER_ROUTE, OFFERS_ROUTE, OffersRouteType, SPRUNGBRETT_OFFER_ROUTE, TileModel } from 'shared'
 import { createOffersEndpoint, ErrorCode } from 'shared/api'
 
 import { NavigationProps, RouteProps } from '../constants/NavigationTypes'
@@ -9,7 +9,6 @@ import useHeader from '../hooks/useHeader'
 import useLoadExtraCityContent from '../hooks/useLoadExtraCityContent'
 import useNavigate from '../hooks/useNavigate'
 import useSnackbar from '../hooks/useSnackbar'
-import TileModel from '../models/TileModel'
 import urlFromRouteInformation from '../navigation/url'
 import openExternalUrl from '../utils/openExternalUrl'
 import LoadingErrorHandler from './LoadingErrorHandler'
@@ -52,9 +51,9 @@ const OffersContainer = ({ navigation, route }: OffersContainerProps): ReactElem
 
   return (
     <LoadingErrorHandler {...response} error={error} scrollView>
-      {data?.city.offersEnabled && (
+      {data?.city.offersEnabled ? (
         <Offers offers={data.extra} navigateToOffer={navigateToOffer} languageCode={languageCode} />
-      )}
+      ) : null}
     </LoadingErrorHandler>
   )
 }

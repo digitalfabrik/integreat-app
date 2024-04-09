@@ -2,7 +2,7 @@ import React, { ReactNode, ReactElement } from 'react'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 
-import { isExternalUrl } from '../utils/UrlCheck'
+import isExternalUrl from '../utils/isExternalUrl'
 
 export const StyledCleanLink = styled(Link)`
   color: inherit;

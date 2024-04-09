@@ -4,7 +4,7 @@ import { render, RenderAPI } from '@testing-library/react-native'
 import React, { ReactElement } from 'react'
 
 import { NavigationProps, RouteProps, RoutesParamsType, RoutesType } from '../constants/NavigationTypes'
-import { AppContext } from '../contexts/AppContextProvider'
+import TestingAppContext from './TestingAppContext'
 import wrapWithTheme from './wrapWithTheme'
 
 type ReactNavigationProps<T extends RoutesType> = {
@@ -27,14 +27,13 @@ export const renderWithNavigator = <T extends RoutesType, P>(
   )
 
   return renderWithTheme(
-    <AppContext.Provider
-      value={{ changeCityCode: jest.fn(), changeLanguageCode: jest.fn(), cityCode: 'augsburg', languageCode: 'de' }}>
+    <TestingAppContext>
       <NavigationContainer>
         <Navigator initialRouteName={routeName}>
           <Screen name={routeName} component={Render} initialParams={initialParams ?? undefined} />
         </Navigator>
       </NavigationContainer>
-    </AppContext.Provider>,
+    </TestingAppContext>,
   )
 }
 

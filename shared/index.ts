@@ -22,10 +22,6 @@ export { default as parseHTML } from './utils/parseHTML'
 export { embedInCollection } from './utils/geoJson'
 export { prepareMapFeatures, prepareMapFeature, MIN_DISTANCE_THRESHOLD } from './utils/geoJson'
 export { default as getExcerpt } from './utils/getExcerpt'
-export {
-  MAX_DATE_RECURRENCES,
-  MAX_DATE_RECURRENCES_COLLAPSED,
-  SPRUNGBRETT_OFFER_ALIAS,
-  MALTE_HELP_FORM_OFFER_ALIAS,
-} from './constants'
+export * from './constants'
+export { default as TileModel } from './models/TileModel'
 export type ExternalSourcePermissions = Record<string, boolean>

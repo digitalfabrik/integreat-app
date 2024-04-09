@@ -11,7 +11,7 @@ const RESOURCE_EXTENSIONS = ['png', 'jpg', 'jpeg', 'pdf', 'svg']
 type InputEntryType = {
   path: string
   content: string
-  thumbnail: string
+  thumbnail: string | null
 }
 /**
  * A ResourceURLFinder allows to find resource urls in html source code.
@@ -73,7 +73,7 @@ export default class ResourceURLFinder {
     return this._foundUrls
   }
 
-  buildFetchMap(inputs: Array<InputEntryType>, buildFilePath: (url: string, urlHash: string) => string): FetchMapType {
+  buildFetchMap(inputs: InputEntryType[], buildFilePath: (url: string, urlHash: string) => string): FetchMapType {
     return reduce<InputEntryType, FetchMapType>(
       inputs,
       (fetchMap, input: InputEntryType) => {

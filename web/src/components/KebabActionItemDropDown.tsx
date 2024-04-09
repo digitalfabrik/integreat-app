@@ -4,7 +4,7 @@ import styled from 'styled-components'
 import dimensions from '../constants/dimensions'
 import useOnClickOutside from '../hooks/useOnClickOutside'
 import useWindowDimensions from '../hooks/useWindowDimensions'
-import { DropDownContainer } from './HeaderActionItemDropDown'
+import DropDownContainer from './DropDownContainer'
 import KebabActionItemLink from './KebabActionItemLink'
 import Button from './base/Button'
 

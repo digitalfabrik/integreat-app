@@ -1,6 +1,6 @@
 import { useNavigation } from '@react-navigation/native'
 import { createStackNavigator, StackHeaderProps, TransitionPresets } from '@react-navigation/stack'
-import React, { ReactElement, useCallback, useContext, useEffect, useState } from 'react'
+import React, { ReactElement, useCallback, useEffect, useState } from 'react'
 import { Platform } from 'react-native'
 
 import {
@@ -30,14 +30,13 @@ import {
   SETTINGS_ROUTE,
   SPRUNGBRETT_OFFER_ROUTE,
 } from 'shared'
-import { useLoadAsync } from 'shared/api'
 
 import Header from './components/Header'
 import RedirectContainer from './components/RedirectContainer'
 import TransparentHeader from './components/TransparentHeader'
 import { NavigationProps, RouteProps, RoutesParamsType, RoutesType } from './constants/NavigationTypes'
 import buildConfig from './constants/buildConfig'
-import { AppContext } from './contexts/AppContextProvider'
+import { useAppContext } from './hooks/useCityAppContext'
 import useLoadCities from './hooks/useLoadCities'
 import useSnackbar from './hooks/useSnackbar'
 import CategoriesContainer from './routes/CategoriesContainer'
@@ -61,7 +60,7 @@ import PoisContainer from './routes/PoisContainer'
 import SearchModalContainer from './routes/SearchModalContainer'
 import Settings from './routes/Settings'
 import SprungbrettOfferContainer from './routes/SprungbrettOfferContainer'
-import appSettings, { ASYNC_STORAGE_VERSION } from './utils/AppSettings'
+import { ASYNC_STORAGE_VERSION } from './utils/AppSettings'
 import dataContainer from './utils/DefaultDataContainer'
 import {
   initialPushNotificationRequest,
@@ -95,9 +94,8 @@ const Stack = createStackNavigator<RoutesParamsType>()
 
 const Navigator = (): ReactElement | null => {
   const showSnackbar = useSnackbar()
-  const { cityCode, changeCityCode, languageCode } = useContext(AppContext)
+  const { settings, cityCode, changeCityCode, languageCode, updateSettings } = useAppContext()
   const navigation = useNavigation<NavigationProps<RoutesType>>()
-  const { data: settings, error: settingsError, refresh: refreshSettings } = useLoadAsync(appSettings.loadSettings)
   const [initialRoute, setInitialRoute] = useState<InitialRouteType>(null)
 
   // Preload cities
@@ -128,9 +126,6 @@ const Navigator = (): ReactElement | null => {
   )
 
   useEffect(() => {
-    if (!settings) {
-      return
-    }
     const { errorTracking, storageVersion, introShown } = settings
     const usingHermes = typeof HermesInternal === 'object' && HermesInternal !== null
 
@@ -143,16 +138,16 @@ const Navigator = (): ReactElement | null => {
     }
 
     if (!storageVersion) {
-      appSettings.setVersion(ASYNC_STORAGE_VERSION).catch(reportError)
+      updateSettings({ storageVersion: ASYNC_STORAGE_VERSION })
     }
 
     if (!buildConfig().featureFlags.introSlides && !introShown) {
-      appSettings.setIntroShown().catch(reportError)
+      updateSettings({ introShown: true })
     }
-  }, [settings])
+  }, [updateSettings, settings])
 
   useEffect(() => {
-    if (!settings || initialRoute) {
+    if (initialRoute) {
       return
     }
     if (buildConfig().featureFlags.introSlides && !settings.introShown) {
@@ -170,15 +165,8 @@ const Navigator = (): ReactElement | null => {
     }
   }, [cities, changeCityCode, cityCode, showSnackbar, settings, initialRoute, updateInitialRoute])
 
-  if (!initialRoute && (citiesError || settingsError)) {
-    const refresh = () => {
-      refreshSettings()
-      refreshCities()
-    }
-    return <LoadingErrorHandler error={citiesError || settingsError} loading={!initialRoute} refresh={refresh} />
-  }
   if (!initialRoute) {
-    return null
+    return citiesError ? <LoadingErrorHandler error={citiesError} loading={false} refresh={refreshCities} /> : null
   }
 
   // Keeps our previous transition we used in v4 of react-navigation on android. Fixes weird showing of splash screen on every navigate.

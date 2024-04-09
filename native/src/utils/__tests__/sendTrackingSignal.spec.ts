@@ -134,8 +134,8 @@ describe('sendTrackingSignal', () => {
       })
       mockRequest.mockRejectedValueOnce(error)
       await sendRequest(signal)
-      const offlineSignals = await appSettings.clearJpalSignals()
-      expect(offlineSignals).toEqual([{ ...signal, offline: true }])
+      const { jpalSignals } = await appSettings.loadSettings()
+      expect(jpalSignals).toEqual([{ ...signal, offline: true }])
     })
 
     it('should report error to sentry if an error occurs', async () => {
@@ -152,8 +152,8 @@ describe('sendTrackingSignal', () => {
       const error = new Error('Something bad happened and tracking does not work anymore!')
       mockRequest.mockRejectedValueOnce(error)
       await sendRequest(signal)
-      const offlineSignals = await appSettings.clearJpalSignals()
-      expect(offlineSignals).toEqual([])
+      const { jpalSignals } = await appSettings.loadSettings()
+      expect(jpalSignals).toEqual([])
       expect(reportError).toHaveBeenCalledTimes(1)
       expect(reportError).toHaveBeenCalledWith(error)
     })

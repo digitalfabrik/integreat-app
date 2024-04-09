@@ -12,7 +12,7 @@ import { getJpalTrackingCode, request as fetch } from './request'
  * An Endpoint holds all the relevant information to fetch data from it
  */
 
-class Endpoint<P, T> {
+class Endpoint<P, T extends object> {
   _stateName: string
   mapParamsToUrl: MapParamsToUrlType<P>
   mapParamsToBody: MapParamsToBodyType<P> | null | undefined
@@ -62,15 +62,16 @@ class Endpoint<P, T> {
     const body = this.mapParamsToBody ? this.mapParamsToBody(params) : null
     const headers = typeof body === 'string' ? { headers: { 'Content-Type': 'application/json' } } : {}
 
-    const requestOptions = body
-      ? {
-          method: 'POST',
-          body,
-          ...headers,
-        }
-      : {
-          method: 'GET',
-        }
+    const requestOptions =
+      body === null
+        ? {
+            method: 'GET',
+          }
+        : {
+            method: 'POST',
+            body,
+            ...headers,
+          }
 
     const response = await fetch(url, requestOptions).catch((e: Error) => {
       throw new FetchError({

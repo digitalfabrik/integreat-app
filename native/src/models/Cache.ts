@@ -24,7 +24,7 @@ export default class Cache<T> {
 
     const { value } = this
 
-    if (!value) {
+    if (value === null) {
       const newValue: T = await this.load(this.databaseConnector, context)
       this.value = newValue
       this.context = context
@@ -47,7 +47,7 @@ export default class Cache<T> {
       return false
     }
 
-    return !!this.value
+    return this.value !== null
   }
 
   async cache(value: T, context: DatabaseContext): Promise<void> {

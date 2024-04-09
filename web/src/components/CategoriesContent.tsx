@@ -1,43 +1,25 @@
-import { TFunction } from 'i18next'
 import React, { ReactElement } from 'react'
+import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router-dom'
 
+import { getCategoryTiles } from 'shared'
 import { CategoriesMapModel, CategoryModel } from 'shared/api'
 
 import { CityRouteProps } from '../CityContentSwitcher'
-import TileModel from '../models/TileModel'
 import CategoryList from './CategoryList'
 import EmbeddedOffers from './EmbeddedOffers'
 import OrganizationContentInfo from './OrganizationContentInfo'
 import Page from './Page'
 import Tiles from './Tiles'
 
-const getTileModels = (categories: Array<CategoryModel>): Array<TileModel> =>
-  categories.map(
-    category =>
-      new TileModel({
-        title: category.title,
-        path: category.path,
-        thumbnail: category.thumbnail,
-      }),
-  )
-
 type CategoriesContentProps = {
   categories: CategoriesMapModel
   categoryModel: CategoryModel
-  t: TFunction
 } & CityRouteProps
 
-/**
- * Returns the content to be displayed, based on the current category, which is
- * a) page with information
- * b) table with categories
- * c) list with categories
- */
 const CategoriesContent = ({
   categories,
   categoryModel,
-  t,
   city,
   pathname,
   cityCode,
@@ -45,9 +27,9 @@ const CategoriesContent = ({
 }: CategoriesContentProps): ReactElement => {
   const children = categories.getChildren(categoryModel)
   const navigate = useNavigate()
+  const { t } = useTranslation('layout')
 
   if (categories.isLeaf(categoryModel)) {
-    // last level, our category is a simple page
     return (
       <Page
         title={categoryModel.title}
@@ -69,11 +51,11 @@ const CategoriesContent = ({
       />
     )
   }
+
   if (categoryModel.isRoot()) {
-    // first level, we want to display a table with all first order categories
-    return <Tiles tiles={getTileModels(children)} title={t('localInformation')} />
+    return <Tiles tiles={getCategoryTiles({ categories: children, cityCode })} title={t('localInformation')} />
   }
-  // some level between, we want to display a list
+
   return (
     <CategoryList
       items={children.map(it => ({ category: it, subCategories: categories.getChildren(it) }))}

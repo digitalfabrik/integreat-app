@@ -26,9 +26,7 @@ const AttributionContainer = styled(Pressable)<{ expanded: boolean }>`
 const OpenStreetMapsLink = styled(Link)`
   padding: 4px 0;
   color: ${props => props.theme.colors.tunewsThemeColor};
-  text-decoration-line: underline;
-  text-decoration-style: solid;
-  text-decoration-color: ${props => props.theme.colors.tunewsThemeColor};
+  text-decoration: underline solid ${props => props.theme.colors.tunewsThemeColor};
   align-self: center;
 `
 
