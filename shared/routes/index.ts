@@ -83,7 +83,7 @@ export type NotFoundRouteType = 'not-found'
 export const NOT_FOUND_ROUTE: NotFoundRouteType = 'not-found'
 
 // Changes done to the reserved routes have to be done in the CMS as well:
-// https://github.com/digitalfabrik/integreat-cms/blob/main/integreat_cms/core/settings.py#L69-L87
+// https://github.com/digitalfabrik/integreat-cms/blob/main/integreat_cms/core/settings.py#L69-78
 export const RESERVED_TOP_LEVEL_SLUGS = [
   LANDING_ROUTE,
   MAIN_DISCLAIMER_ROUTE,
@@ -95,7 +95,7 @@ export const RESERVED_TOP_LEVEL_SLUGS = [
 ]
 
 // Changes done to the reserved routes have to be done in the CMS as well:
-// https://github.com/digitalfabrik/integreat-cms/blob/main/integreat_cms/core/settings.py#L69-L87
+// https://github.com/digitalfabrik/integreat-cms/blob/main/integreat_cms/core/settings.py#L80-L88
 export const RESERVED_CITY_CONTENT_SLUGS = [
   SEARCH_ROUTE,
   DISCLAIMER_ROUTE,
