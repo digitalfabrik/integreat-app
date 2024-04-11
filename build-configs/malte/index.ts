@@ -17,6 +17,7 @@ const BUNDLE_IDENTIFIER = 'de.malteapp'
 const commonMalteBuildConfig: CommonBuildConfigType = {
   appName: 'Malte',
   appIcon: 'app_icon_malte',
+  notificationIcon: 'notification_icon_malte',
   lightTheme,
   assets: MALTE_ASSETS,
   cmsUrl: 'https://cms.malteapp.de',

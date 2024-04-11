@@ -16,6 +16,7 @@ const BUNDLE_IDENTIFIER = 'de.integreat-app'
 const commonIntegreatBuildConfig: CommonBuildConfigType = {
   appName: 'Integreat',
   appIcon: 'app_icon_integreat',
+  notificationIcon: 'notification_icon_integreat',
   lightTheme,
   assets: INTEGREAT_ASSETS,
   cmsUrl: 'https://cms.integreat-app.de',

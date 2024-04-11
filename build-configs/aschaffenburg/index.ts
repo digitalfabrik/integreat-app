@@ -17,6 +17,7 @@ const BUNDLE_IDENTIFIER = 'app.aschaffenburg'
 const commonAschaffenburgBuildConfig: CommonBuildConfigType = {
   appName: 'hallo aschaffenburg',
   appIcon: 'app_icon_aschaffenburg',
+  notificationIcon: 'notification_icon_aschaffenburg',
   lightTheme,
   assets: ASCHAFFENBURG_ASSETS,
   cmsUrl: 'https://cms.integreat-app.de',
