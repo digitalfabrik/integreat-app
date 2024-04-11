@@ -42,7 +42,7 @@ export const webObdachBuildConfig: WebBuildConfigType = {
   mainImprint,
   manifestUrl: '/manifest.json',
   icons: {
-    appLogo: '/app-logo.png',
+    appLogo: '/app-logo.svg',
     appLogoMobile: '/app-icon-round.svg',
     appleTouchIcon: '/apple-touch-icon.png',
     socialMediaPreview: '/social-media-preview.png',
