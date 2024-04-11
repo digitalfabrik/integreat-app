@@ -22,7 +22,7 @@
   },
   "scripts": {
     "prepare": "husky install",
-    "lint": "eslint --cache --cache-location .eslintcache . && yarn workspace web stylelint",
+    "lint": "eslint --cache --cache-location .eslintcache . && yarn workspace web stylelint && yarn workspace native stylelint",
     "lint:ci": "yarn node --max-old-space-size=1535 $(yarn bin eslint) --format junit -o reports/lint/junit-lint.xml .",
     "test": "jest",
     "test:changed": "jest -o",
@@ -63,7 +63,14 @@
     "husky": "^8.0.3",
     "jest": "^29.6.4",
     "jest-junit": "^16.0.0",
+    "postcss": "^8.4.38",
+    "postcss-styled-syntax": "^0.6.4",
     "prettier": "^3.0.2",
+    "stylelint": "^16.3.1",
+    "stylelint-config-react-native-styled-components": "^0.7.0",
+    "stylelint-config-standard": "^36.0.0",
+    "stylelint-react-native": "^2.7.0",
+    "stylelint-use-logical": "^2.1.2",
     "ts-jest": "^29.1.1",
     "ts-node": "^10.9.1",
     "typescript": "5.2.2"

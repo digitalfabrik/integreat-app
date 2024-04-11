@@ -2,10 +2,10 @@ import { mocked } from 'jest-mock'
 import React from 'react'
 import TestRenderer from 'react-test-renderer'
 
+import { TileModel } from 'shared'
 import { CityModel, LanguageModelBuilder } from 'shared/api'
 
 import buildConfig from '../../constants/buildConfig'
-import TileModel from '../../models/TileModel'
 import DashboardNavigationTiles from '../DashboardNavigationTiles'
 import NavigationTiles from '../NavigationTiles'
 

@@ -1,0 +1,7 @@
+issue_key: 2747
+show_in_stores: true
+platforms:
+  - android
+  - ios
+en: Fixed wrong event times.
+de: Falsche Versanstaltungsuhrzeiten behoben.

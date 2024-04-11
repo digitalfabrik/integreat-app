@@ -24,13 +24,11 @@ const DropDownContainer = styled.div<{ active: boolean; height?: number }>`
   @media ${dimensions.smallViewport} {
     top: ${dimensions.headerHeightSmall}px;
     height: ${props => (props.height === undefined ? '100%;' : `${props.height}px;`)};
-    overflow-x: hidden;
-    overflow-y: auto;
+    overflow: hidden auto;
   }
 
   @media ${dimensions.minMaxWidth} {
-    padding-inline-end: calc((200% - 100vw - ${dimensions.maxWidth}px) / 2);
-    padding-inline-start: calc((100vw - ${dimensions.maxWidth}px) / 2);
+    padding-inline: calc((100vw - ${dimensions.maxWidth}px) / 2) calc((200% - 100vw - ${dimensions.maxWidth}px) / 2);
   }
 `
 

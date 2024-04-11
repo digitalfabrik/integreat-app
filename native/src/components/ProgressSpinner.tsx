@@ -23,7 +23,7 @@ const Text = styled.Text`
 
 const LoadingImage = styled(buildConfigAssets().LoadingImage)`
   shadow-color: #000;
-  shadow-offset: 0px 2px;
+  shadow-offset: 0 2px;
   shadow-opacity: 0.25;
   shadow-radius: 3.84px;
   elevation: 5;

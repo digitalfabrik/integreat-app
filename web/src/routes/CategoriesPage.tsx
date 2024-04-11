@@ -181,7 +181,6 @@ const CategoriesPage = ({ city, pathname, cityCode, languageCode }: CityRoutePro
         languageCode={languageCode}
         categories={new CategoriesMapModel(categories)}
         categoryModel={category}
-        t={t}
       />
     </CityContentLayout>
   )

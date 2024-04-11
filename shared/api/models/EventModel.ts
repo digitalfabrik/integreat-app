@@ -37,7 +37,7 @@ class EventModel extends ExtendedPageModel {
   }
 
   get date(): DateModel {
-    return this._date
+    return this._date.recurrences(1)[0] ?? this._date
   }
 
   get location(): LocationModel<number | null> | null {

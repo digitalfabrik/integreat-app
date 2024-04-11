@@ -1,8 +1,10 @@
-import React, { ReactElement } from 'react'
+import React, { JSXElementConstructor, ReactElement } from 'react'
 import { View } from 'react-native'
+import { SvgProps } from 'react-native-svg'
 import styled from 'styled-components/native'
 
-import TileModel from '../models/TileModel'
+import { TileModel } from 'shared'
+
 import SimpleImage from './SimpleImage'
 import Pressable from './base/Pressable'
 
@@ -19,7 +21,7 @@ const Circle = styled(View)`
   justify-content: center;
   elevation: 2;
   shadow-color: #000;
-  shadow-offset: 0px 1px;
+  shadow-offset: 0 1px;
   shadow-opacity: 0.2;
   shadow-radius: 1.41px;
 `
@@ -43,7 +45,7 @@ const StyledIcon = styled(SimpleImage)`
 `
 
 type NavigationTileProps = {
-  tile: TileModel
+  tile: TileModel<JSXElementConstructor<SvgProps>>
   width: number
 }
 
