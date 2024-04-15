@@ -66,6 +66,41 @@
 	<string>Integreat wants to use your location to find nearby cities.</string>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
 	<string>Integreat wants to use your location to find nearby cities.</string>
+    <key>NSPrivacyAccessedAPITypes</key>
+        <array>
+            <dict>
+                <key>NSPrivacyAccessedAPIType</key>
+                <string>NSPrivacyAccessedAPICategoryDiskSpace</string>
+                <key>NSPrivacyAccessedAPITypeReasons</key>
+                <array>
+                <string>E174.1</string>
+                </array>
+            </dict>
+            <dict>
+                <key>NSPrivacyAccessedAPIType</key>
+                <string>NSPrivacyAccessedAPICategoryFileTimestamp</string>
+                <key>NSPrivacyAccessedAPITypeReasons</key>
+                <array>
+                <string>3B52.1</string>
+                </array>
+            </dict>
+            <dict>
+                <key>NSPrivacyAccessedAPIType</key>
+                <string>NSPrivacyAccessedAPICategorySystemBootTime</string>
+                <key>NSPrivacyAccessedAPITypeReasons</key>
+                <array>
+                <string>35F9.1</string>
+                </array>
+            </dict>
+            <dict>
+                <key>NSPrivacyAccessedAPIType</key>
+                <string>NSPrivacyAccessedAPICategoryUserDefaults</string>
+                <key>NSPrivacyAccessedAPITypeReasons</key>
+                <array>
+                <string>CA92.1</string>
+                </array>
+            </dict>
+        </array>
 	<key>UIAppFonts</key>
 	<array>
 		<string>NotoSansArabic-Regular.ttf</string>
