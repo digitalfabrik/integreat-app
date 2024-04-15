@@ -13,6 +13,7 @@ import { renderWithRouterAndTheme } from '../../testing/render'
 import PoisPage from '../PoisPage'
 import { RoutePatterns } from '../index'
 
+jest.mock('maplibre-gl')
 jest.mock('react-inlinesvg')
 jest.mock('react-i18next')
 jest.mock('shared/api', () => ({
