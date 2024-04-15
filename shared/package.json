@@ -18,14 +18,14 @@
   "dependencies": {
     "@turf/distance": "^6.5.0",
     "entities": "^4.5.0",
-    "htmlparser2": "^9.0.0",
+    "htmlparser2": "^9.1.0",
     "lodash": "^4.17.21",
-    "luxon": "^3.4.2",
+    "luxon": "^3.4.4",
     "minisearch": "^6.3.0",
     "normalize-path": "^3.0.0",
     "normalize-strings": "^1.1.1",
-    "rrule": "2.7.2",
-    "uuid": "^9.0.0"
+    "rrule": "2.8.1",
+    "uuid": "^9.0.1"
   },
   "devDependencies": {
     "@types/geojson": "^7946.0.10",

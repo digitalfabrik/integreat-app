@@ -31,8 +31,8 @@ describe('SearchListItem', () => {
 
   const assertHighlighting = (instance: ReactTestInstance, highlighted: boolean) =>
     highlighted
-      ? expect(instance.props.style?.fontWeight).toBe('bold')
-      : expect(instance.props.style?.fontWeight).toBeUndefined()
+      ? expect(instance).toHaveStyle({ fontWeight: 'bold' })
+      : expect(instance).not.toHaveStyle({ fontWeight: 'bold' })
 
   const renderWithNavigator = (query: string) =>
     render(

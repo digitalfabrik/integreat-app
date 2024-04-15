@@ -5,7 +5,7 @@ import OpeningEntry from '../OpeningEntry'
 
 jest.mock('react-i18next')
 
-describe('OpeningEntrySpec', () => {
+describe('OpeningEntry', () => {
   const timeSlots = [
     { end: '18:00', start: '13:00' },
     { end: '12:00', start: '08:00' },
@@ -39,13 +39,13 @@ describe('OpeningEntrySpec', () => {
   })
 
   it('should highlight the timeslot of the current weekday bold', () => {
-    const expectedStyle = [{ fontFamily: 'NotoSans-Bold' }]
+    const expectedStyle = { fontFamily: 'NotoSans-Bold' }
     const { getByText } = renderOpeningEntries(false, false, true)
     const timeSlotLabel = getByText(currentWeekday)
     const timeSlot = getByText(`${timeSlots[0]!.start}-${timeSlots[0]!.end}`)
     expect(timeSlotLabel).toBeTruthy()
     expect(timeSlot).toBeTruthy()
-    expect(timeSlotLabel.props.style).toEqual(expectedStyle)
-    expect(timeSlot.props.style).toEqual(expectedStyle)
+    expect(timeSlotLabel).toHaveStyle(expectedStyle)
+    expect(timeSlot).toHaveStyle(expectedStyle)
   })
 })

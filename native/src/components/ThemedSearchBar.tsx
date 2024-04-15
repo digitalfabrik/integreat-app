@@ -1,5 +1,5 @@
-import { TFunction } from 'i18next'
 import React, { ReactElement } from 'react'
+import { useTranslation } from 'react-i18next'
 import { TextInput, View } from 'react-native'
 import styled from 'styled-components'
 
@@ -35,28 +35,30 @@ type ThemedSearchBarProps = {
   onChangeText: (text: string) => void
   value: string
   autofocus: boolean
-  t: TFunction<'search'>
 }
 
-const ThemedSearchBar = ({ onChangeText, value, autofocus, t }: ThemedSearchBarProps): ReactElement => (
-  <StyledBackground>
-    <StyledIcon Icon={SearchIcon} />
-    <StyledInput
-      {...testID('Content-Search-Input')}
-      accessibilityRole='search'
-      onChangeText={onChangeText}
-      value={value}
-      autoFocus={autofocus}
-      placeholder={t('searchPlaceholder')}
-    />
-    {!!value && (
-      <IconButton
-        icon={<StyledIcon Icon={CloseIcon} />}
-        onPress={() => onChangeText('')}
-        accessibilityLabel={t('delete')}
+const ThemedSearchBar = ({ onChangeText, value, autofocus }: ThemedSearchBarProps): ReactElement => {
+  const { t } = useTranslation('search')
+  return (
+    <StyledBackground>
+      <StyledIcon Icon={SearchIcon} />
+      <StyledInput
+        {...testID('Content-Search-Input')}
+        accessibilityRole='search'
+        onChangeText={onChangeText}
+        value={value}
+        autoFocus={autofocus}
+        placeholder={t('searchPlaceholder')}
       />
-    )}
-  </StyledBackground>
-)
+      {!!value && (
+        <IconButton
+          icon={<StyledIcon Icon={CloseIcon} />}
+          onPress={() => onChangeText('')}
+          accessibilityLabel={t('delete')}
+        />
+      )}
+    </StyledBackground>
+  )
+}
 
 export default ThemedSearchBar
