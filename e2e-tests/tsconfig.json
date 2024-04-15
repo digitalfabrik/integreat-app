@@ -5,7 +5,7 @@
     "skipLibCheck": true,
     "module": "NodeNext",
     "moduleResolution": "NodeNext",
-    "types": ["node", "@wdio/globals/types", "@wdio/jasmine-framework"],
+    "types": ["node", "@wdio/globals/types", "@wdio/jasmine-framework", "@types/jest"],
     "sourceMap": false,
     "outDir": "dist"
   },
