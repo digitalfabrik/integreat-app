@@ -1,5 +1,3 @@
-const WAIT_FOR_SWIPE_FINISHED = 2000
-
 type SelectorReturn = ReturnType<typeof $>
 
 class Gestures {
@@ -18,7 +16,6 @@ class Gestures {
     const scrollForward = `android=new UiScrollable(new UiSelector().scrollable(true)).scrollForward()`
     if (!(await selector.isDisplayed()) && amount <= maxScrolls) {
       await $(scrollForward)
-      await driver.pause(WAIT_FOR_SWIPE_FINISHED)
       await this.swipeIntoViewAndroid(selector, maxScrolls, amount + 1)
     } else if (amount > maxScrolls) {
       // If the element is still not visible after the max amount of scroll let it fail
@@ -36,7 +33,6 @@ class Gestures {
     // then scroll and execute the method again
     if (!(await selector.isDisplayed()) && amount <= maxScrolls) {
       await driver.execute('mobile:swipe', { direction: 'up' })
-      await driver.pause(WAIT_FOR_SWIPE_FINISHED)
       await this.swipeIntoViewIOS(selector, maxScrolls, amount + 1)
     } else if (amount > maxScrolls) {
       // If the element is still not visible after the max amount of scroll let it fail

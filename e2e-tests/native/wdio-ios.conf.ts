@@ -10,6 +10,7 @@ const iosCapabilities: Capabilities.DesiredCapabilities = {
   'appium:orientation': 'PORTRAIT',
   'appium:automationName': 'XCUITest',
   'appium:language': 'EN',
+  'appium:fullReset': true,
   /* how to get BUILD_DIR:
   XCode: Product -> "Copy Build Folder Path"
   Example BUILD_DIR= '/Users/afischer/Library/Developer/Xcode/DerivedData/Integreat-enomkojtzvcuyvfzikuktexfnnki/Build',
