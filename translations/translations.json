@@ -5319,7 +5319,8 @@
       "shareFailDefaultMessage": "Das Teilen des Inhalts ist leider fehlgeschlagen.",
       "disclaimer": "Impressum",
       "sideBarOpenAriaLabel": "Seitenleiste öffnen",
-      "sideBarCloseAriaLabel": "Seitenleiste schließen"
+      "sideBarCloseAriaLabel": "Seitenleiste schließen",
+      "accessibility": "Barrierefreiheit"
     },
     "am": {
       "imprintAndContact": "ዕትም እና የግንኙነት መረጃ",
@@ -5494,7 +5495,8 @@
       "shareFailDefaultMessage": "Unfortunately an error occurred when sharing the content.",
       "disclaimer": "Imprint",
       "sideBarOpenAriaLabel": "Open sidebar",
-      "sideBarCloseAriaLabel": "Close sidebar"
+      "sideBarCloseAriaLabel": "Close sidebar",
+      "accessibility": "Accessibility"
     },
     "es": {
       "imprintAndContact": "Aviso legal y contacto",

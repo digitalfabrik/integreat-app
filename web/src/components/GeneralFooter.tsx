@@ -13,11 +13,12 @@ type GeneralFooterProps = {
 }
 
 const GeneralFooter = ({ language }: GeneralFooterProps): ReactElement => {
-  const { aboutUrls, privacyUrls } = buildConfig()
+  const { aboutUrls, privacyUrls, accessibilityUrls } = buildConfig()
   const { t } = useTranslation('layout')
 
   const aboutUrl = aboutUrls[language] || aboutUrls.default
   const privacyUrl = privacyUrls[language] || privacyUrls.default
+  const accessibilityUrl: string | undefined = accessibilityUrls?.[language] ?? accessibilityUrls?.default
 
   return (
     <Footer>
@@ -25,6 +26,7 @@ const GeneralFooter = ({ language }: GeneralFooterProps): ReactElement => {
       <CleanLink to={aboutUrl}>{t('settings:about', { appName: buildConfig().appName })}</CleanLink>
       <CleanLink to={privacyUrl}>{t('privacy')}</CleanLink>
       <CleanLink to={RoutePatterns[LICENSES_ROUTE]}>{t('settings:openSourceLicenses')}</CleanLink>
+      {!!accessibilityUrl && <CleanLink to={accessibilityUrl}>{t('accessibility')}</CleanLink>}
     </Footer>
   )
 }

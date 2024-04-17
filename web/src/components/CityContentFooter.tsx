@@ -34,10 +34,11 @@ type CityContentFooterProps = {
 }
 
 const CityContentFooter = ({ city, language, mode = 'normal' }: CityContentFooterProps): ReactElement => {
-  const { aboutUrls, privacyUrls } = buildConfig()
+  const { aboutUrls, privacyUrls, accessibilityUrls } = buildConfig()
   const { t } = useTranslation(['layout', 'settings'])
   const aboutUrl = aboutUrls[language] || aboutUrls.default
   const privacyUrl = privacyUrls[language] || privacyUrls.default
+  const accessibilityUrl: string | undefined = accessibilityUrls?.[language] ?? accessibilityUrls?.default
   const disclaimerPath = pathnameFromRouteInformation({
     route: DISCLAIMER_ROUTE,
     cityCode: city,
@@ -53,6 +54,7 @@ const CityContentFooter = ({ city, language, mode = 'normal' }: CityContentFoote
       <CleanLink to={aboutUrl}>{t('settings:about', { appName: buildConfig().appName })}</CleanLink>
       <CleanLink to={privacyUrl}>{t('privacy')}</CleanLink>
       <CleanLink to={licensesPath}>{t('settings:openSourceLicenses')}</CleanLink>
+      {!!accessibilityUrl && <CleanLink to={accessibilityUrl}>{t('accessibility')}</CleanLink>}
     </>
   )
 
