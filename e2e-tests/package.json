@@ -26,7 +26,7 @@
     "@wdio/selenium-standalone-service": "^8.15.0",
     "@wdio/spec-reporter": "^8.32.4",
     "@wdio/types": "^8.32.4",
-    "appium": "^2.5.1",
+    "appium": "^2.5.3",
     "webdriverio": "^8.35.1"
   },
   "workspaces": {
