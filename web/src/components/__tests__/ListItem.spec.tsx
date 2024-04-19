@@ -16,6 +16,6 @@ describe('ListItemSpec', () => {
 
   it('should render thumbnail in the ListItem', () => {
     const { getByRole } = renderWithRouterAndTheme(<ListItem title='first Event' thumbnail='thumbnail' path={path} />)
-    expect(getByRole('img')).toBeInTheDocument()
+    expect(getByRole('presentation')).toBeInTheDocument()
   })
 })
