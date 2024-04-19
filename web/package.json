@@ -55,7 +55,7 @@
     "react-spring-bottom-sheet": "^3.4.1",
     "schema-dts": "^1.1.2",
     "shared": "0.0.1",
-    "styled-components": "^5.3.11",
+    "styled-components": "^6.1.8",
     "translations": "0.0.1",
     "url-polyfill": "^1.1.12",
     "whatwg-fetch": "3.6.20"
