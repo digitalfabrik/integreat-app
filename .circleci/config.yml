@@ -499,7 +499,7 @@ jobs:
                 command: yarn prettier:check
                 name: Prettier
             - run:
-                command: yarn ts:check
+                command: node --max-old-space-size=1536 ./node_modules/.bin/tsc --build
                 name: TS check
             - run:
                 command: yarn lint:ci
