@@ -1,29 +1,23 @@
 package tuerantuer.app.integreat
 
-import android.content.SharedPreferences
-import android.content.pm.PackageInfo
-import android.content.pm.PackageManager
 import android.content.res.Configuration
 import android.os.Bundle
-import android.preference.PreferenceManager
-import android.util.Log
 import com.facebook.react.ReactActivity
 import com.facebook.react.ReactActivityDelegate
 import com.facebook.react.defaults.DefaultNewArchitectureEntryPoint.fabricEnabled
 import com.facebook.react.defaults.DefaultReactActivityDelegate
 
-import java.io.File
 import java.util.Locale
 
 class MainActivity : ReactActivity() {
 
-  private Locale currentLocale
+  private lateinit var currentLocale: Locale
 
   override fun onCreate(savedInstanceState: Bundle?) {
     // https://github.com/software-mansion/react-native-screens#android
     // https://reactnavigation.org/docs/getting-started/#installing-dependencies-into-a-bare-react-native-project
     super.onCreate(null)
-    currentLocale = getResources().getConfiguration().locale
+    currentLocale = getResources().configuration.locale
   }
 
   /**
@@ -40,13 +34,13 @@ class MainActivity : ReactActivity() {
   override fun createReactActivityDelegate(): ReactActivityDelegate =
       DefaultReactActivityDelegate(this, mainComponentName, fabricEnabled)
 
-  override fun onConfigurationChanged(Configuration newConfig) {
+  override fun onConfigurationChanged(newConfig: Configuration) {
     super.onConfigurationChanged(newConfig)
 
-    Locale locale = newConfig.locale
-    if (!currentLocale.getISO3Language().equals(locale.getISO3Language())) {
+    val locale = newConfig.locale
+    if (!currentLocale.isO3Language.equals(locale.isO3Language)) {
       currentLocale = locale
-      getReactInstanceManager().recreateReactContextInBackground()
+      reactInstanceManager.recreateReactContextInBackground()
     }
   }
 }

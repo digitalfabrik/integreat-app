@@ -1,8 +1,5 @@
-import org.apache.tools.ant.taskdefs.condition.Os
-
 buildscript {
     ext {
-        kotlinVersion = "1.8.0"
         buildToolsVersion = "34.0.0"
         minSdkVersion = 21
         compileSdkVersion = 34
@@ -13,7 +10,6 @@ buildscript {
     repositories {
         google()
         mavenCentral()
-        jcenter()
     }
     dependencies {
         classpath("com.android.tools.build:gradle")
@@ -22,34 +18,3 @@ buildscript {
 }
 
 apply plugin: "com.facebook.react.rootproject"
-
-allprojects {
-    repositories {
-        jcenter()
-    }
-}
-
-task downloadDependencies() {
-    description 'Download all dependencies to the Gradle cache'
-    doLast {
-        configurations.findAll().each { config ->
-            if (config.name.contains("minReactNative") && config.canBeResolved) {
-                print config.name
-                print '\n'
-                config.files
-            }
-        }
-    }
-}
-
-subprojects {
-    afterEvaluate {
-        if (getPlugins().hasPlugin('android') ||
-                getPlugins().hasPlugin('android-library')) {
-
-            configure(android.lintOptions) {
-                abortOnError false
-            }
-        }
-    }
-}

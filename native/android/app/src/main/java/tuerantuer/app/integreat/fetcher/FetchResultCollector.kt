@@ -1,108 +1,102 @@
-package tuerantuer.app.integreat.fetcher;
+package tuerantuer.app.integreat.fetcher
 
-import android.util.Log;
+import android.util.Log
+import com.facebook.react.bridge.Arguments
+import com.facebook.react.bridge.Promise
+import com.facebook.react.bridge.ReactContext
+import com.facebook.react.modules.core.DeviceEventManagerModule
+import tuerantuer.app.integreat.BuildConfig
+import java.io.File
+import java.text.DateFormat
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
+import java.util.TimeZone
 
-import com.facebook.react.bridge.Arguments;
-import com.facebook.react.bridge.Promise;
-import com.facebook.react.bridge.ReactContext;
-import com.facebook.react.bridge.WritableMap;
-import com.facebook.react.modules.core.DeviceEventManagerModule;
-import tuerantuer.app.integreat.BuildConfig;
+class FetchResultCollector(
+    private val reactContext: ReactContext,
+    private val expectedFetchCount: Int,
+    private val promise: Promise
+) : FetchedCallback {
+    private val fetchResults: MutableMap<String, FetchResult> = HashMap()
+    private val iso8601Format: DateFormat
 
-import java.io.File;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.*;
-
-import javax.annotation.Nullable;
-
-public class FetchResultCollector implements FetchedCallback {
-    private final Map<String, FetchResult> fetchResults = new HashMap<>();
-    private final Promise promise;
-    private final int expectedFetchCount;
-    private final ReactContext reactContext;
-    private final DateFormat iso8601Format;
-
-    public FetchResultCollector(ReactContext reactContext, int expectedFetchCount, Promise promise) {
-        this.promise = promise;
-        this.expectedFetchCount = expectedFetchCount;
-        this.reactContext = reactContext;
-
-        TimeZone timezone = TimeZone.getTimeZone("UTC");
-        iso8601Format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm'Z'", Locale.ENGLISH);
-        iso8601Format.setTimeZone(timezone);
+    init {
+        val timezone = TimeZone.getTimeZone("UTC")
+        iso8601Format = SimpleDateFormat("yyyy-MM-dd'T'HH:mm'Z'", Locale.ENGLISH)
+        iso8601Format.setTimeZone(timezone)
     }
 
-    @Override
-    public synchronized void failed(String url, File targetFile, String message) {
-        fetchResults.put(targetFile.getAbsolutePath(), new FetchResult(url, new Date(), false, message));
-
+    @Synchronized
+    override fun failed(url: String?, targetFile: File?, message: String?) {
+        fetchResults[targetFile!!.absolutePath] = FetchResult(
+            url!!, Date(), false, message!!
+        )
         if (BuildConfig.DEBUG) {
-            Log.e("FetcherModule", "[" + currentFetchCount() + "/" + expectedFetchCount + "] Failed to fetch " + url + ": " + message);
+            Log.e(
+                "FetcherModule",
+                "[" + currentFetchCount() + "/" + expectedFetchCount + "] Failed to fetch " + url + ": " + message
+            )
         }
-        sendProgress();
-        tryToResolve();
+        sendProgress()
+        tryToResolve()
     }
 
-    @Override
-    public void alreadyExists(String url, File targetFile) {
-        success(url, targetFile, true);
+    override fun alreadyExists(url: String?, targetFile: File?) {
+        success(url, targetFile, true)
     }
 
-    @Override
-    public void fetched(String url, File targetFile) {
-        success(url, targetFile, false);
+    override fun fetched(url: String?, targetFile: File?) {
+        success(url, targetFile, false)
     }
 
-    private synchronized void success(String url, File targetFile, boolean alreadyExisted) {
-        fetchResults.put(targetFile.getAbsolutePath(), new FetchResult(url, new Date(), alreadyExisted, null));
+    @Synchronized
+    private fun success(url: String?, targetFile: File?, alreadyExisted: Boolean) {
+        fetchResults[targetFile!!.absolutePath] = FetchResult(
+            url!!, Date(), alreadyExisted, null
+        )
         if (BuildConfig.DEBUG) {
-            Log.d("FetcherModule", "[" + currentFetchCount() + "/" + expectedFetchCount + "] Fetched " + url);
+            Log.d(
+                "FetcherModule",
+                "[" + currentFetchCount() + "/" + expectedFetchCount + "] Fetched " + url
+            )
         }
-        sendProgress();
-        tryToResolve();
+        sendProgress()
+        tryToResolve()
     }
 
-    private int currentFetchCount() {
-        return fetchResults.size();
+    private fun currentFetchCount(): Int {
+        return fetchResults.size
     }
 
-    private void tryToResolve() {
+    private fun tryToResolve() {
         if (currentFetchCount() != expectedFetchCount) {
-            return;
+            return
         }
-
-        WritableMap resolveValue = Arguments.createMap();
-        for (Map.Entry<String, FetchResult> entry : this.fetchResults.entrySet()) {
-            WritableMap fetchResult = Arguments.createMap();
-            String filePath = entry.getKey();
-            FetchResult result = entry.getValue();
-
-            fetchResult.putString("url", result.getUrl());
-
+        val resolveValue = Arguments.createMap()
+        for ((filePath, result) in fetchResults) {
+            val fetchResult = Arguments.createMap()
+            fetchResult.putString("url", result.url)
             if (result.alreadyExisted()) {
                 // If the file already existed then lastUpdate should be "undefined"
-                fetchResult.putString("lastUpdate", iso8601Format.format(result.getLastUpdate()));
+                fetchResult.putString("lastUpdate", iso8601Format.format(result.lastUpdate))
             }
-
             if (result.getErrorMessage() != null) {
-                fetchResult.putString("errorMessage", result.getErrorMessage());
+                fetchResult.putString("errorMessage", result.getErrorMessage())
             }
-
-            resolveValue.putMap(filePath, fetchResult);
+            resolveValue.putMap(filePath, fetchResult)
         }
-
-        Log.d("FetcherModule", "Resolving promise");
-        promise.resolve(resolveValue);
+        Log.d("FetcherModule", "Resolving promise")
+        promise.resolve(resolveValue)
     }
 
-    private void sendProgress() {
-        sendEvent("progress", (double) (fetchResults.size()) / expectedFetchCount);
+    private fun sendProgress() {
+        sendEvent("progress", fetchResults.size.toDouble() / expectedFetchCount)
     }
 
-    private void sendEvent(String eventName, @Nullable Object params) {
+    private fun sendEvent(eventName: String, params: Any?) {
         reactContext
-                .getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class)
-                .emit(eventName, params);
+            .getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter::class.java)
+            .emit(eventName, params)
     }
 }

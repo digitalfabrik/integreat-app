@@ -1,37 +1,26 @@
-package tuerantuer.app.integreat.constants;
+package tuerantuer.app.integreat.constants
 
-import android.content.pm.PackageManager;
+import android.content.pm.PackageManager
+import com.facebook.react.bridge.ReactApplicationContext
+import com.facebook.react.bridge.ReactContextBaseJavaModule
 
-import com.facebook.react.bridge.ReactApplicationContext;
-import com.facebook.react.bridge.ReactContextBaseJavaModule;
-
-import java.util.HashMap;
-import java.util.Map;
-
-public class NativeConstantsModule extends ReactContextBaseJavaModule {
-
-    private final ReactApplicationContext reactContext;
-
-    public NativeConstantsModule(ReactApplicationContext reactContext) {
-        super(reactContext);
-        this.reactContext = reactContext;
+class NativeConstantsModule(private val reactContext: ReactApplicationContext) :
+    ReactContextBaseJavaModule(
+        reactContext
+    ) {
+    override fun getName(): String {
+        return "RNNativeConstants"
     }
 
-    @Override
-    public String getName() {
-        return "RNNativeConstants";
-    }
-
-    @Override
-    public Map<String, Object> getConstants() {
-        final Map<String, Object> constants = new HashMap<>();
-        final PackageManager packageManager = this.reactContext.getPackageManager();
-        final String packageName = this.reactContext.getPackageName();
+    override fun getConstants(): Map<String, Any> {
+        val constants: MutableMap<String, Any> = HashMap()
+        val packageManager = reactContext.packageManager
+        val packageName = reactContext.packageName
         try {
-            constants.put("appVersion", packageManager.getPackageInfo(packageName, 0).versionName);
-        } catch (PackageManager.NameNotFoundException e) {
-            e.printStackTrace();
+            constants["appVersion"] = packageManager.getPackageInfo(packageName, 0)?.versionName ?: "v1.0.0"
+        } catch (e: PackageManager.NameNotFoundException) {
+            e.printStackTrace()
         }
-        return constants;
+        return constants
     }
 }

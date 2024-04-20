@@ -1,11 +1,9 @@
-package tuerantuer.app.integreat.fetcher;
+package tuerantuer.app.integreat.fetcher
 
-import java.io.File;
+import java.io.File
 
-interface FetchedCallback {
-    void failed(String url, File targetFile, String message);
-
-    void fetched(String url, File targetFile);
-
-    void alreadyExists(String url, File targetFile);
+internal interface FetchedCallback {
+    fun failed(url: String?, targetFile: File?, message: String?)
+    fun fetched(url: String?, targetFile: File?)
+    fun alreadyExists(url: String?, targetFile: File?)
 }
