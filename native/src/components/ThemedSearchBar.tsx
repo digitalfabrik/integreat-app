@@ -1,7 +1,7 @@
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 import { TextInput, View } from 'react-native'
-import styled from 'styled-components'
+import styled from 'styled-components/native'
 
 import { CloseIcon, SearchIcon } from '../assets'
 import testID from '../testing/testID'

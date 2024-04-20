@@ -1,6 +1,6 @@
 import React, { ReactElement, useState } from 'react'
 import { View } from 'react-native'
-import { useTheme } from 'styled-components'
+import { useTheme } from 'styled-components/native'
 
 import { ImageViewModalRouteType } from 'shared'
 import { ErrorCode } from 'shared/api'
