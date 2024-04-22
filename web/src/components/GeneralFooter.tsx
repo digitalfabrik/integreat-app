@@ -18,7 +18,7 @@ const GeneralFooter = ({ language }: GeneralFooterProps): ReactElement => {
 
   const aboutUrl = aboutUrls[language] || aboutUrls.default
   const privacyUrl = privacyUrls[language] || privacyUrls.default
-  const accessibilityUrl: string | undefined = accessibilityUrls?.[language] ?? accessibilityUrls?.default
+  const accessibilityUrl = accessibilityUrls?.[language] ?? accessibilityUrls?.default
 
   return (
     <Footer>
