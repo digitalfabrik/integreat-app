@@ -38,7 +38,7 @@ const CityContentFooter = ({ city, language, mode = 'normal' }: CityContentFoote
   const { t } = useTranslation(['layout', 'settings'])
   const aboutUrl = aboutUrls[language] || aboutUrls.default
   const privacyUrl = privacyUrls[language] || privacyUrls.default
-  const accessibilityUrl: string | undefined = accessibilityUrls?.[language] ?? accessibilityUrls?.default
+  const accessibilityUrl = accessibilityUrls?.[language] ?? accessibilityUrls?.default
   const disclaimerPath = pathnameFromRouteInformation({
     route: DISCLAIMER_ROUTE,
     cityCode: city,
