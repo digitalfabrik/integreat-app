@@ -47,6 +47,9 @@ const commonIntegreatBuildConfig: CommonBuildConfigType = {
     default: 'https://integreat-app.de/datenschutz/',
     en: 'https://integreat-app.de/en/privacy/',
   },
+  accessibilityUrls: {
+    default: 'https://integreat-app.de/barrierefreiheit/',
+  },
 }
 export const androidIntegreatBuildConfig: AndroidBuildConfigType = {
   ...commonIntegreatBuildConfig,
