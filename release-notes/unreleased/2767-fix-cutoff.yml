@@ -1,0 +1,7 @@
+issue_key: #2767
+show_in_stores: true
+platforms:
+  - android
+  - iod
+en: Fix text cutoff in categories list
+de: Abgeschnittene Texte in der Kategorienlisten werden nun korrekt dargestellt

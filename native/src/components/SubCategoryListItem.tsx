@@ -8,22 +8,23 @@ import { PageResourceCacheStateType } from '../utils/DataContainer'
 import { CategoryThumbnail } from './CategoryListItem'
 import Pressable from './base/Pressable'
 
-const SubCategoryTitleContainer = styled.View<{ language: string }>`
-  flex: 1;
-  align-items: center;
-  margin: 8px 0;
-  flex-direction: ${props => contentDirection(props.language)};
-`
-
 const FlexStyledLink = styled(Pressable)<{ language: string }>`
   display: flex;
+  flex-flow: row nowrap;
   flex-direction: ${props => contentDirection(props.language)};
-  margin: 0 0 0 24px;
+  margin: 8px 0 8px 24px;
   border-bottom-width: 1px;
   border-bottom-color: ${props => props.theme.colors.themeColor};
 `
 
+const SubCategoryTitleContainer = styled.View<{ language: string }>`
+  flex: 1;
+  align-items: center;
+  flex-direction: ${props => contentDirection(props.language)};
+`
+
 const SubCategoryTitle = styled.Text`
+  flex: 1;
   color: ${props => props.theme.colors.textColor};
   font-family: ${props => props.theme.fonts.native.decorativeFontRegular};
 `
