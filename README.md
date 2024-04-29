@@ -5,6 +5,7 @@
 [![CircleCI Status](https://circleci.com/gh/digitalfabrik/integreat-app.svg?style=shield)](https://circleci.com/gh/digitalfabrik/integreat-app)
 [![Maintainability](https://api.codeclimate.com/v1/badges/5be95233a83e181d8a42/maintainability)](https://codeclimate.com/github/digitalfabrik/integreat-app/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/5be95233a83e181d8a42/test_coverage)](https://codeclimate.com/github/digitalfabrik/integreat-app/test_coverage)
+[![CodeScene Code Health](https://codescene.io/projects/53058/status-badges/code-health)](https://codescene.io/projects/53058)
 
 # integreat-app
 
