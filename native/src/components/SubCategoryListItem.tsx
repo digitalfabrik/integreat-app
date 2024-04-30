@@ -10,9 +10,8 @@ import Pressable from './base/Pressable'
 
 const FlexStyledLink = styled(Pressable)<{ language: string }>`
   display: flex;
-  flex-flow: row nowrap;
   flex-direction: ${props => contentDirection(props.language)};
-  margin: 8px 0 8px 24px;
+  margin-left: 24px;
   border-bottom-width: 1px;
   border-bottom-color: ${props => props.theme.colors.themeColor};
 `

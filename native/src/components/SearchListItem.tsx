@@ -42,6 +42,7 @@ const TitleDirectionContainer = styled.View<{ language: string }>`
 `
 
 const HighlighterCategoryTitle = styled(Highlighter)<{ language: string }>`
+  flex-shrink: 1;
   flex-direction: ${props => contentDirection(props.language)};
   font-family: ${props => props.theme.fonts.native.decorativeFontRegular};
   color: ${props => props.theme.colors.textColor};
