@@ -1,7 +1,7 @@
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 import { View } from 'react-native'
-import styled from 'styled-components'
+import styled from 'styled-components/native'
 
 import { MAX_DATE_RECURRENCES, MAX_DATE_RECURRENCES_COLLAPSED } from 'shared'
 import { DateModel } from 'shared/api'

@@ -96,6 +96,11 @@ jest.mock('../routes/SearchModalContainer', () => {
 
   return () => <Text>Search</Text>
 })
+jest.mock('../routes/CityNotCooperating', () => {
+  const { Text } = require('react-native')
+
+  return () => <Text>CityNotCooperating</Text>
+})
 jest.mock('../routes/PDFViewModal', () => {
   const { Text } = require('react-native')
 

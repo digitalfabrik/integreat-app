@@ -16,7 +16,6 @@ const StyledLink = styled(Link)`
     color: ${props => props.theme.colors.textColor};
   }
 `
-const StyledSpan = StyledLink.withComponent('span')
 
 const StyledIcon = styled(Icon)`
   width: 24px;
@@ -39,10 +38,11 @@ const KebabActionItemLink = ({ href, text, iconSrc }: KebabActionItemLinkProps):
     )
   }
   return (
-    <StyledSpan aria-label={text} dir='auto' style={{ flex: 1 }}>
+    // @ts-expect-error wrong types from polymorphic 'as', see https://github.com/styled-components/styled-components/issues/4112
+    <StyledLink as='span' aria-label={text} dir='auto' style={{ flex: 1 }}>
       <StyledIcon src={iconSrc} />
       <span>{text}</span>
-    </StyledSpan>
+    </StyledLink>
   )
 }
 

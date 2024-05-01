@@ -22,12 +22,13 @@ const CleanLink = ({ to, children, ariaLabel, className, newTab }: CleanLinkProp
   const newTabProps = newTab && { target: '_blank', rel: 'noopener noreferrer' }
   if (isExternalUrl(to)) {
     return (
+      // @ts-expect-error wrong types from polymorphic 'as', see https://github.com/styled-components/styled-components/issues/4112
       <StyledCleanLink
+        as='a'
         href={to}
         aria-label={ariaLabel}
         className={className}
         data-testid='externalLink'
-        as='a'
         {...newTabProps}>
         {children}
       </StyledCleanLink>

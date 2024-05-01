@@ -1,6 +1,6 @@
 import { TFunction } from 'i18next'
+import { DefaultTheme } from 'styled-components/native'
 
-import { ThemeType } from 'build-configs'
 import { ExternalSourcePermissions } from 'shared'
 
 import { ParsedCacheDictionaryType } from '../components/Page'
@@ -233,7 +233,7 @@ const renderHtml = (
   html: string,
   cacheDictionary: ParsedCacheDictionaryType,
   supportedIframeSources: string[],
-  theme: ThemeType,
+  theme: DefaultTheme,
   language: string,
   externalSourcePermissions: ExternalSourcePermissions,
   t: TFunction,

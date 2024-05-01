@@ -9,7 +9,6 @@ import CityNotCooperating from '../CityNotCooperating'
 jest.mock('react-i18next')
 jest.mock('styled-components')
 jest.mock('@react-native-clipboard/clipboard', () => ({
-  ...jest.requireActual('@react-native-clipboard/clipboard'),
   setString: jest.fn(),
 }))
 jest.mock('react-native/Libraries/EventEmitter/NativeEventEmitter')

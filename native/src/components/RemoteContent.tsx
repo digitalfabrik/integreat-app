@@ -1,8 +1,7 @@
 import React, { ReactElement, useCallback, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Text, Platform, useWindowDimensions } from 'react-native'
-import WebView, { WebViewMessageEvent } from 'react-native-webview'
-import { WebViewNavigation } from 'react-native-webview/lib/WebViewTypes'
+import WebView, { WebViewMessageEvent, WebViewNavigation } from 'react-native-webview'
 import { useTheme } from 'styled-components/native'
 
 import { CONSENT_ROUTE } from 'shared'

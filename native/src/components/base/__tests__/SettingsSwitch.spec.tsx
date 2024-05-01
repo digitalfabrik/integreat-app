@@ -1,6 +1,7 @@
-import { fireEvent, render } from '@testing-library/react-native'
+import { fireEvent } from '@testing-library/react-native'
 import React from 'react'
 
+import render from '../../../testing/render'
 import SettingsSwitch from '../SettingsSwitch'
 
 jest.mock('styled-components')
