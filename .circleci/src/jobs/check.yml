@@ -17,7 +17,7 @@ steps:
       command: yarn prettier:check
   - run:
       name: TS check
-      command: node --max-old-space-size=1536 ./node_modules/.bin/tsc --build
+      command: yarn ts:check:ci
   - run:
       name: Lint
       command: yarn lint:ci
