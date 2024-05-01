@@ -12,7 +12,7 @@ type IconProps = {
   label?: string
   directionDependent?: boolean
   reverse?: boolean
-  style?: Record<string, number>[]
+  style?: { width?: number; height?: number; color?: ColorValue }
 }
 
 const Icon = ({
@@ -36,9 +36,9 @@ const Icon = ({
         },
         style,
       ]}
-      width={style?.[0]?.width ?? DEFAULT_ICON_SIZE}
-      height={style?.[0]?.height ?? DEFAULT_ICON_SIZE}
-      color={(style?.[0]?.color as ColorValue | undefined) ?? theme.colors.textColor}
+      width={style?.width ?? DEFAULT_ICON_SIZE}
+      height={style?.height ?? DEFAULT_ICON_SIZE}
+      color={style?.color ?? theme.colors.textColor}
       accessibilityLabel={label}
     />
   )

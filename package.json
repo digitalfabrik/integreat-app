@@ -35,9 +35,7 @@
   },
   "resolutions": {
     "luxon": "^3.4.2",
-    "react": "18.2.0",
-    "@types/react": "^18.2.74",
-    "@types/react-native": "^0.71.8"
+    "react": "18.2.0"
   },
   "devDependencies": {
     "@jest/types": "^29.6.3",
@@ -72,6 +70,6 @@
     "stylelint-use-logical": "^2.1.2",
     "ts-jest": "^29.1.2",
     "ts-node": "^10.9.2",
-    "typescript": "5.4.5"
+    "typescript": "^5.4.5"
   }
 }
