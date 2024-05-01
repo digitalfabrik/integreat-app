@@ -21,7 +21,7 @@ program
   .option('--production', 'whether a production (release) build should be made')
   .action((buildConfigName, options) => {
     const { production } = options
-    const productionFlag = production ? '--variant=release' : ''
+    const productionFlag = production ? '--mode=release' : ''
 
     const jsonBuildConfig = execSync(
       `yarn workspace --silent build-configs --silent manage to-json ${buildConfigName} android`,
