@@ -250,7 +250,7 @@ commands:
 jobs:
     build_android:
         docker:
-            - image: cimg/android:2023.02.1-node
+            - image: cimg/android:2024.04.1-node
         environment:
             FASTLANE_SKIP_UPDATE_CHECK: true
             TOTAL_CPUS: 4
@@ -516,7 +516,7 @@ jobs:
             - notify
     deliver_android:
         docker:
-            - image: cimg/android:2023.02.1-node
+            - image: cimg/android:2024.04.1-node
         environment:
             FASTLANE_SKIP_UPDATE_CHECK: true
         parameters:
@@ -684,7 +684,7 @@ jobs:
             - notify
     e2e_android:
         docker:
-            - image: cimg/android:2023.02.1-node
+            - image: cimg/node:20.12.2
         environment:
             FASTLANE_SKIP_UPDATE_CHECK: true
         resource_class: small
@@ -703,7 +703,7 @@ jobs:
             - notify
     e2e_ios:
         docker:
-            - image: cimg/android:2023.02.1-node
+            - image: cimg/node:20.12.2
         environment:
             FASTLANE_SKIP_UPDATE_CHECK: true
         resource_class: small
@@ -858,7 +858,7 @@ jobs:
                             ${RELEASE_NOTES}
     promote_android:
         docker:
-            - image: cimg/android:2023.02.1-node
+            - image: cimg/android:2024.04.1-node
         environment:
             FASTLANE_SKIP_UPDATE_CHECK: true
         parameters:
