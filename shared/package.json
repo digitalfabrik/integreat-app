@@ -3,6 +3,7 @@
   "version": "0.0.1",
   "description": "Code shared between native and web mostly for api",
   "main": "index.ts",
+  "sideEffects": false,
   "private": true,
   "scripts": {
     "test": "jest",
