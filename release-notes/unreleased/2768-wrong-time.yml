@@ -1,0 +1,8 @@
+issue_key: 2768
+show_in_stores: true
+platforms:
+  - web
+  - android
+  - ios
+en: Fix event times sometimes being off by one hour in the detail view.
+de: Um eine Stunde abweichende Zeiten in der Veranstaltungsdetailansicht behoben.
