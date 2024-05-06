@@ -54,6 +54,10 @@ class DateModel {
     return this._recurrenceRule
   }
 
+  get offset(): number {
+    return this._offset
+  }
+
   get isToday(): boolean {
     const now = DateTime.now()
     return (

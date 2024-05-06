@@ -4,5 +4,5 @@ platforms:
   - web
   - android
   - ios
-en: Fix event times sometimes being off by one hour in the detail view.
-de: Um eine Stunde abweichende Zeiten in der Veranstaltungsdetailansicht behoben.
+en: Fix event times sometimes being off by one hour.
+de: Um eine Stunde abweichende Zeiten von Veranstaltungen behoben.
