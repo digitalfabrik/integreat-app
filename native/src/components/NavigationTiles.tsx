@@ -70,7 +70,7 @@ const NavigationTiles = ({ tiles }: NavigationTilesProps): ReactElement => {
   return (
     <TilesRow>
       {isScrollable && (
-        <StyledPressable onPress={scrollToStart} accessibilityLabel={t('scrollLeft')}>
+        <StyledPressable onPress={scrollToStart} accessibilityLabel={t('back')}>
           <StyledIcon Icon={ArrowBackIcon} disabled={scrolledToStart} directionDependent />
         </StyledPressable>
       )}
@@ -97,7 +97,7 @@ const NavigationTiles = ({ tiles }: NavigationTilesProps): ReactElement => {
         ))}
       </ScrollView>
       {isScrollable && (
-        <StyledPressable onPress={scrollToEnd} accessibilityLabel={t('scrollRight')}>
+        <StyledPressable onPress={scrollToEnd} accessibilityLabel={t('forward')}>
           <StyledIcon Icon={ArrowBackIcon} disabled={scrolledToEnd} directionDependent reverse />
         </StyledPressable>
       )}

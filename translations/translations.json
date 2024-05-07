@@ -492,8 +492,7 @@
       "showLess": "Weniger anzeigen",
       "optional": "optional",
       "back": "Zurück",
-      "scrollLeft": "Nach links",
-      "scrollRight": "Nach rechts"
+      "forward": "Vorwärts"
     },
     "am": {
       "copied": "ተቀድቷል",
@@ -585,8 +584,7 @@
       "showLess": "Show less",
       "optional": "optional",
       "back": "Back",
-      "scrollLeft": "Scroll left",
-      "scrollRight": "Scroll right"
+      "forward": "Forward"
     },
     "es": {
       "copied": "Copiado",
