@@ -7,7 +7,7 @@ const getCapability = () => {
   }
   const capability = capabilities[capabilityName]
 
-  if (capability === undefined) {
+  if (!capability) {
     throw new Error(`Value of E2E_CONFIG is invalid! It should be one of ${Object.keys(capabilities)}`)
   }
 
