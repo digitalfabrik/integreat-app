@@ -18,9 +18,7 @@ describe('disclaimer', () => {
     language: 'de',
   }
   it('should map router to url', () => {
-    expect(disclaimer.mapParamsToUrl(params)).toBe(
-      'https://integreat-api-url.de/augsburg/de/wp-json/extensions/v3/disclaimer/',
-    )
+    expect(disclaimer.mapParamsToUrl(params)).toBe('https://integreat-api-url.de/api/v3/augsburg/de/disclaimer/')
   })
   it('should throw if there is no disclaimer', () => {
     expect(() => disclaimer.mapResponse(null, params)).toThrow('The disclaimer  does not exist here.')

@@ -90,7 +90,7 @@ export default (baseUrl: string): Endpoint<ParamsType, Record<string, never>> =>
     .withParamsToUrlMapper(params => {
       const { city, language, routeType, slug } = params
 
-      return `${baseUrl}/${city}/${language}/wp-json/extensions/v3/feedback/${getFeedbackType(routeType, slug)}/`
+      return `${baseUrl}/api/v3/${city}/${language}/feedback/${getFeedbackType(routeType, slug)}/`
     })
     .withParamsToBodyMapper((params: ParamsType): FormData => {
       const { isPositiveRating, comment, contactMail, query, searchTerm, slug } = params

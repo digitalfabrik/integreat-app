@@ -24,7 +24,7 @@ describe('feedback', () => {
         routeType: CATEGORIES_ROUTE,
         isPositiveRating: true,
       }),
-    ).toBe('https://integreat-api-url.de/augsburg/de/wp-json/extensions/v3/feedback/categories/')
+    ).toBe('https://integreat-api-url.de/api/v3/augsburg/de/feedback/categories/')
   })
 
   it('should create the correct feedback endpoint', () => {
@@ -38,7 +38,7 @@ describe('feedback', () => {
         isPositiveRating: true,
         slug: `willkommen`,
       }),
-    ).toBe('https://integreat-api-url.de/augsburg/de/wp-json/extensions/v3/feedback/page/')
+    ).toBe('https://integreat-api-url.de/api/v3/augsburg/de/feedback/page/')
   })
 
   it('should map the params to the body', () => {
@@ -95,7 +95,7 @@ describe('feedback', () => {
         searchTerm: 'query full',
         ...props,
       })
-      expect(url).toBe(`https://integreat-api-url.de/augsburg/de/wp-json/extensions/v3/feedback/${feedbackType}/`)
+      expect(url).toBe(`https://integreat-api-url.de/api/v3/augsburg/de/feedback/${feedbackType}/`)
     },
   )
 })

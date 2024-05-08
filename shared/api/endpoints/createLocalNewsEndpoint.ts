@@ -13,8 +13,7 @@ type ParamsType = {
 export default (baseUrl: string): Endpoint<ParamsType, Array<LocalNewsModel>> =>
   new EndpointBuilder<ParamsType, Array<LocalNewsModel>>(LOCAL_NEWS_ENDPOINT_NAME)
     .withParamsToUrlMapper(
-      (params: ParamsType): string =>
-        `${baseUrl}/${params.city}/${params.language}/wp-json/extensions/v3/fcm/?channel=news`,
+      (params: ParamsType): string => `${baseUrl}/api/v3/${params.city}/${params.language}/fcm/?channel=news`,
     )
     .withMapper(
       (json: Array<JsonLocalNewsType>): Array<LocalNewsModel> =>

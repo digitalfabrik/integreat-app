@@ -38,7 +38,7 @@ describe('createCategoryParentsEndpoint', () => {
 
   it('should map params to url', () => {
     expect(endpoint.mapParamsToUrl(params)).toBe(
-      `${baseUrl}/${params.city}/${params.language}/wp-json/extensions/v3/parents/?url=${params.cityContentPath}`,
+      `${baseUrl}/api/v3/${params.city}/${params.language}/parents/?url=${params.cityContentPath}`,
     )
   })
 

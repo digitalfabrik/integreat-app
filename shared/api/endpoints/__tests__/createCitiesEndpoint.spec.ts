@@ -74,7 +74,7 @@ describe('cities', () => {
   const cityJson = [city1, city2]
 
   it('should map params to url', () => {
-    expect(cities.mapParamsToUrl()).toBe('https://integreat-api-url.de/wp-json/extensions/v3/sites/')
+    expect(cities.mapParamsToUrl()).toBe('https://integreat-api-url.de/api/v3/regions/')
   })
 
   it('should map fetched data to models', () => {
