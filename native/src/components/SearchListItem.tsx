@@ -37,7 +37,7 @@ const SearchEntryContainer = styled.View`
 `
 
 const TitleDirectionContainer = styled.View<{ language: string }>`
-  flex-direction: ${props => contentDirection(props.language)};
+  flex-flow: ${props => contentDirection(props.language)} wrap;
   align-items: center;
 `
 
@@ -117,7 +117,7 @@ const SearchListItem = ({
       <DirectionContainer language={language}>
         <SearchEntryContainer>
           <TitleDirectionContainer language={language}>
-            <CategoryThumbnail language={language} source={thumbnail} resourceCache={resourceCache} />
+            {!!thumbnail && <CategoryThumbnail language={language} source={thumbnail} resourceCache={resourceCache} />}
             {Title}
           </TitleDirectionContainer>
           {Content}
