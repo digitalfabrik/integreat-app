@@ -32,7 +32,7 @@ import {
 import { deleteIfExists } from './helpers'
 import { log, reportError } from './sentry'
 
-export const CONTENT_VERSION = 'v6'
+export const CONTENT_VERSION = 'v7'
 export const RESOURCE_CACHE_VERSION = 'v1'
 
 // Our pdf view can only load from DocumentDir. Therefore we need to use that
@@ -107,6 +107,7 @@ type ContentEventJsonType = {
     end_date: string
     all_day: boolean
     recurrence_rule: string | null
+    offset: number
   }
   location: LocationJsonType<number | null> | null
   featured_image: FeaturedImageJsonType | null | undefined
@@ -635,6 +636,7 @@ class DatabaseConnector {
           end_date: event.date.endDate.toISO(),
           all_day: event.date.allDay,
           recurrence_rule: event.date.recurrenceRule?.toString() ?? null,
+          offset: event.date.offset,
         },
         location: event.location
           ? {
@@ -688,6 +690,7 @@ class DatabaseConnector {
           date: new DateModel({
             startDate: DateTime.fromISO(jsonDate.start_date),
             endDate: DateTime.fromISO(jsonDate.end_date),
+            offset: jsonDate.offset,
             allDay: jsonDate.all_day,
             recurrenceRule: jsonDate.recurrence_rule ? rrulestr(jsonDate.recurrence_rule) : null,
           }),
