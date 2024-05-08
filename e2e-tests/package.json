@@ -27,6 +27,7 @@
     "@wdio/spec-reporter": "^8.32.4",
     "@wdio/types": "^8.32.4",
     "appium": "^2.5.3",
+    "ts-node": "^10.9.2",
     "webdriverio": "^8.35.1"
   },
   "workspaces": {

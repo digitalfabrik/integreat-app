@@ -4,14 +4,14 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "manage-metadata": "ts-node manage-metadata.ts",
-    "git-version": "ts-node git-version.ts",
-    "github-release": "ts-node github-release.ts",
-    "github-promote-release": "ts-node github-promote-release.ts",
-    "github-release-asset": "ts-node github-release-asset.ts",
-    "move-release-notes": "ts-node move-release-notes.ts",
-    "next-version": "ts-node next-version.ts",
-    "trigger-pipeline": "ts-node trigger-pipeline.ts",
+    "manage-metadata": "tsx manage-metadata.ts",
+    "git-version": "tsx git-version.ts",
+    "github-release": "tsx github-release.ts",
+    "github-promote-release": "tsx github-promote-release.ts",
+    "github-release-asset": "tsx github-release-asset.ts",
+    "move-release-notes": "tsx move-release-notes.ts",
+    "next-version": "tsx next-version.ts",
+    "trigger-pipeline": "tsx trigger-pipeline.ts",
     "ts:check": "tsc --build"
   },
   "devDependencies": {
@@ -23,7 +23,7 @@
     "commander": "^12.0.0",
     "js-yaml": "^4.1.0",
     "node-fetch": "^3.3.2",
-    "ts-node": "^10.9.2",
+    "tsx": "^4.8.2",
     "typescript": "^5.4.5"
   }
 }
