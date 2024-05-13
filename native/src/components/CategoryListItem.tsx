@@ -72,11 +72,13 @@ const CategoryListItem = ({
       <DirectionContainer language={language}>
         <CategoryEntryContainer>
           <TitleDirectionContainer language={language}>
-            <CategoryThumbnail
-              language={language}
-              source={category.thumbnail}
-              resourceCache={resourceCache[category.path]}
-            />
+            {!!category.thumbnail && (
+              <CategoryThumbnail
+                language={language}
+                source={category.thumbnail}
+                resourceCache={resourceCache[category.path]}
+              />
+            )}
             <CategoryTitle language={language}>{category.title}</CategoryTitle>
           </TitleDirectionContainer>
         </CategoryEntryContainer>
