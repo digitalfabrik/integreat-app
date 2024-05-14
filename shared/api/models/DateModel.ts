@@ -18,14 +18,16 @@ class DateModel {
     endDate,
     allDay,
     recurrenceRule,
+    offset,
   }: {
     startDate: DateTime
     endDate: DateTime
     allDay: boolean
     recurrenceRule: RRuleType | null
+    offset?: number
   }) {
     this._recurrenceRule = recurrenceRule
-    this._offset = startDate.offset
+    this._offset = offset ?? startDate.offset
     this._allDay = allDay
     this._duration = endDate.diff(startDate)
     this._startDate = startDate
@@ -50,6 +52,10 @@ class DateModel {
 
   get recurrenceRule(): RRuleType | null {
     return this._recurrenceRule
+  }
+
+  get offset(): number {
+    return this._offset
   }
 
   get isToday(): boolean {
@@ -80,6 +86,7 @@ class DateModel {
             startDate: it,
             endDate: it.plus(duration),
             recurrenceRule: this.recurrenceRule,
+            offset: this._offset,
           }),
       )
   }

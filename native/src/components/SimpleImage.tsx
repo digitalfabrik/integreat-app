@@ -1,6 +1,7 @@
 import React, { JSXElementConstructor, ReactElement, useMemo } from 'react'
 import { Image, View, StyleProp, ImageStyle, ImageResizeMode } from 'react-native'
-import { SvgCssUri, SvgProps } from 'react-native-svg'
+import { SvgProps } from 'react-native-svg'
+import { SvgCssUri } from 'react-native-svg/css'
 import styled from 'styled-components/native'
 
 import { PageResourceCacheStateType } from '../utils/DataContainer'

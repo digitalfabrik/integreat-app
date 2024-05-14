@@ -1,7 +1,7 @@
 import React, { ReactElement, useState } from 'react'
 import { View } from 'react-native'
 import Pdf from 'react-native-pdf'
-import { useTheme } from 'styled-components'
+import { useTheme } from 'styled-components/native'
 
 import { PdfViewModalRouteType } from 'shared'
 import { ErrorCode } from 'shared/api'

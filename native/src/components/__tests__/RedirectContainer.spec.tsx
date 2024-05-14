@@ -1,6 +1,6 @@
+import { waitFor } from '@testing-library/react-native'
 import { mocked } from 'jest-mock'
 import React from 'react'
-import waitForExpect from 'wait-for-expect'
 
 import { REDIRECT_ROUTE } from 'shared'
 
@@ -38,7 +38,7 @@ describe('RedirectContainer', () => {
 
   it('should call navigate to deep link on mount', async () => {
     render(<RedirectContainer route={route} navigation={navigation} />)
-    await waitForExpect(() => {
+    await waitFor(() => {
       expect(navigateToDeepLink).toHaveBeenCalledTimes(1)
       expect(navigateToDeepLink).toHaveBeenCalledWith(url)
     })

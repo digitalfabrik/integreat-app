@@ -77,10 +77,6 @@ type SelectorProps = {
   activeItemCode?: string
   disabledItemTooltip: string
 }
-
-/**
- * Displays a Selector showing different items
- */
 const Selector = ({
   items,
   activeItemCode,
@@ -99,6 +95,7 @@ const Selector = ({
             to={item.href}
             onClick={closeDropDown}
             aria-selected={item.code === activeItemCode}
+            ariaLabel=''
             tabIndex={0}
             $enabled
             $selected={item.code === activeItemCode}>
@@ -108,7 +105,15 @@ const Selector = ({
         )
       }
       return (
-        <Element as={Tooltip} key={item.code} text={disabledItemTooltip} flow='up' $enabled={false} $selected={false}>
+        // @ts-expect-error wrong types from polymorphic 'as', see https://github.com/styled-components/styled-components/issues/4112
+        <Element
+          as={Tooltip}
+          key={item.code}
+          ariaLabel=''
+          text={disabledItemTooltip}
+          flow='up'
+          $enabled={false}
+          $selected={false}>
           <BoldSpacer>{item.name}</BoldSpacer>
           {item.name}
         </Element>

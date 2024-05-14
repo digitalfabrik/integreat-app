@@ -1,0 +1,7 @@
+issue_key: 2767
+show_in_stores: true
+platforms:
+  - android
+  - ios
+en: Fix cut off text in categories list and the search.
+de: Abgeschnittene Texte in der Kategorienliste und der Suche behoben.

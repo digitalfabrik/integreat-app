@@ -1,6 +1,3 @@
-#!/usr/bin/env sh
-. "$(dirname -- "$0")/_/husky.sh"
-
 # Check if something changed in .circleci directory such that the config.yml needs to be updated
 if git diff --cached --name-only | xargs | grep .circleci; then
   # Abort if circleci command line tools are not installed

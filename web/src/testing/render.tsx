@@ -1,6 +1,6 @@
 import type { Router } from '@remix-run/router'
 import { render, RenderResult } from '@testing-library/react'
-import React, { ReactElement } from 'react'
+import React, { ReactElement, ReactNode } from 'react'
 import { createMemoryRouter, MemoryRouter, RouterProvider } from 'react-router-dom'
 import { ThemeProvider } from 'styled-components'
 
@@ -17,14 +17,14 @@ type RenderRouteOptions = {
 
 const theme = { ...buildConfig().lightTheme, contentDirection: 'ltr' as UiDirectionType }
 
-const AllTheProviders = ({ children, options }: { children: ReactElement; options?: { pathname: string } }) => (
+const AllTheProviders = ({ children, options }: { children: ReactNode; options?: { pathname: string } }) => (
   <MemoryRouter initialEntries={options ? [options.pathname] : ['/']}>
     <ThemeProvider theme={theme}>{children}</ThemeProvider>
   </MemoryRouter>
 )
 
 export const renderWithRouterAndTheme = (ui: ReactElement, options?: { pathname: string }): RenderResult =>
-  render(ui, { wrapper: (props: { children: ReactElement }) => <AllTheProviders {...props} options={options} /> })
+  render(ui, { wrapper: (props: { children: ReactNode }) => <AllTheProviders {...props} options={options} /> })
 
 export const renderWithTheme = (ui: ReactElement): RenderResult =>
   render(<ThemeProvider theme={theme}>{ui}</ThemeProvider>)

@@ -1,8 +1,7 @@
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 import { KeyboardTypeOptions } from 'react-native'
-import { css } from 'styled-components'
-import styled from 'styled-components/native'
+import styled, { css } from 'styled-components/native'
 
 import Text from './Text'
 

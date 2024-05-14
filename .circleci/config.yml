@@ -146,14 +146,16 @@ commands:
         steps:
             - restore_cache:
                 keys:
-                    - 3-gems-{{ arch }}-{{ checksum "<< parameters.directory >>/Gemfile.lock" }}
-                    - 3-gems-{{ arch }}-
+                    - 4-gems-{{ arch }}-{{ checksum "<< parameters.directory >>/Gemfile.lock" }}
+                    - 4-gems-{{ arch }}-
+                name: Restore Ruby Cache
             - run:
                 command: bundle check || bundle install
                 name: '[FL] install'
                 working_directory: << parameters.directory >>
             - save_cache:
-                key: 3-gems-{{ arch }}-{{ checksum "<< parameters.directory >>/Gemfile.lock" }}
+                key: 4-gems-{{ arch }}-{{ checksum "<< parameters.directory >>/Gemfile.lock" }}
+                name: Save Ruby Cache
                 paths:
                     - << parameters.directory >>/vendor/bundle
     restore_yarn_cache:
@@ -250,7 +252,7 @@ commands:
 jobs:
     build_android:
         docker:
-            - image: cimg/android:2023.02.1-node
+            - image: cimg/android:2024.04.1-node
         environment:
             FASTLANE_SKIP_UPDATE_CHECK: true
             TOTAL_CPUS: 4
@@ -280,6 +282,23 @@ jobs:
                 directory: native/android
             - restore_gradle_cache
             - run:
+                command: |
+                    sudo apt-get update && sudo apt-get install -y ninja-build
+                name: Install Ninja
+            - run:
+                command: |
+                    wget https://github.com/Kitware/CMake/releases/download/v3.22.1/cmake-3.22.1-Linux-x86_64.tar.gz
+                    tar -xzvf cmake-3.22.1-Linux-x86_64.tar.gz -C $HOME
+                    export PATH=$HOME/ninja:$HOME/cmake-3.22.1-Linux-x86_64/bin:$PATH
+                name: Install CMake
+            - run:
+                command: |
+                    export PATH=$HOME/ninja:$HOME/cmake-3.22.1-Linux-x86_64/bin:$PATH
+                name: Set CMake and Ninja Paths
+            - run:
+                command: yes | sdkmanager --licenses || if [ $? -ne '141' ]; then exit $?; fi;
+                name: Accept Android SDK Licenses
+            - run:
                 command: bundle exec fastlane keystore
                 name: '[FL] Prepare Android Keystore'
                 working_directory: native/android
@@ -291,7 +310,7 @@ jobs:
                 command: |
                     mkdir -p sourcemaps/<< parameters.build_config_name >>
                     cp native/android/app/build/generated/sourcemaps/react/release/index.android.bundle.map sourcemaps/<< parameters.build_config_name >>/
-                    cp native/android/app/build/ASSETS/createBundleReleaseJsAndAssets/index.android.bundle sourcemaps/<< parameters.build_config_name >>/
+                    cp native/android/app/build/generated/assets/createBundleReleaseJsAndAssets/index.android.bundle sourcemaps/<< parameters.build_config_name >>/
                 name: Prepare Sourcemaps
             - persist_to_workspace:
                 paths:
@@ -331,7 +350,7 @@ jobs:
             FL_OUTPUT_DIR: output
             TOTAL_CPUS: 4
         macos:
-            xcode: 15.0.1
+            xcode: 15.3.0
         parameters:
             build_config_name:
                 default: integreat
@@ -396,7 +415,7 @@ jobs:
             - notify
     build_web:
         docker:
-            - image: cimg/node:18.14.1
+            - image: cimg/node:20.12.1
         environment:
             TOTAL_CPUS: 2
         parameters:
@@ -441,7 +460,7 @@ jobs:
             - notify
     bump_version:
         docker:
-            - image: cimg/node:18.14.1
+            - image: cimg/node:20.12.1
         parameters:
             prepare_delivery:
                 default: false
@@ -483,7 +502,7 @@ jobs:
             - notify
     check:
         docker:
-            - image: cimg/node:18.14.1
+            - image: cimg/node:20.12.1
         environment:
             TOTAL_CPUS: 1
             TZ: Europe/Berlin
@@ -499,7 +518,7 @@ jobs:
                 command: yarn prettier:check
                 name: Prettier
             - run:
-                command: yarn ts:check
+                command: yarn ts:check:ci
                 name: TS check
             - run:
                 command: yarn lint:ci
@@ -516,7 +535,7 @@ jobs:
             - notify
     deliver_android:
         docker:
-            - image: cimg/android:2023.02.1-node
+            - image: cimg/android:2024.04.1-node
         environment:
             FASTLANE_SKIP_UPDATE_CHECK: true
         parameters:
@@ -558,7 +577,7 @@ jobs:
         environment:
             FASTLANE_SKIP_UPDATE_CHECK: true
         macos:
-            xcode: 15.0.1
+            xcode: 15.3.0
         parameters:
             build_config_name:
                 default: integreat
@@ -605,7 +624,7 @@ jobs:
             - notify
     deliver_web:
         docker:
-            - image: cimg/node:18.14.1
+            - image: cimg/node:20.12.1
         parameters:
             delivery:
                 description: Whether to deliver to production, beta or to webnext.
@@ -684,7 +703,7 @@ jobs:
             - notify
     e2e_android:
         docker:
-            - image: cimg/android:2023.02.1-node
+            - image: cimg/android:2024.04.1-node
         environment:
             FASTLANE_SKIP_UPDATE_CHECK: true
         resource_class: small
@@ -703,7 +722,7 @@ jobs:
             - notify
     e2e_ios:
         docker:
-            - image: cimg/android:2023.02.1-node
+            - image: cimg/android:2024.04.1-node
         environment:
             FASTLANE_SKIP_UPDATE_CHECK: true
         resource_class: small
@@ -722,7 +741,7 @@ jobs:
             - notify
     e2e_web:
         docker:
-            - image: cimg/node:18.14.1-browsers
+            - image: cimg/node:20.12.1-browsers
             - image: selenium/standalone-chrome
         resource_class: medium
         shell: /bin/bash -eo pipefail
@@ -741,7 +760,7 @@ jobs:
             - notify
     move_release_notes:
         docker:
-            - image: cimg/node:18.14.1
+            - image: cimg/node:20.12.1
         resource_class: small
         steps:
             - checkout
@@ -756,7 +775,7 @@ jobs:
             - notify
     notify_android:
         docker:
-            - image: cimg/node:18.14.1
+            - image: cimg/node:20.12.1
         parameters:
             production_delivery:
                 description: Whether builds are delivered to the production or beta lane of the play store.
@@ -789,7 +808,7 @@ jobs:
                 success_message: <<^ parameters.production_delivery >>[Beta] <</ parameters.production_delivery >>Integreat, Malte and Aschaffenburg ${NEW_VERSION_NAME} have been released successfully on Android!\n${RELEASE_NOTES}\n${ANDROID_ARTIFACT_URLS}
     notify_ios:
         docker:
-            - image: cimg/node:18.14.1
+            - image: cimg/node:20.12.1
         parameters:
             production_delivery:
                 description: Whether builds are delivered to the app store or testflight.
@@ -822,7 +841,7 @@ jobs:
                 success_message: <<^ parameters.production_delivery >>[Beta] <</ parameters.production_delivery >>Integreat, Malte and Aschaffenburg ${NEW_VERSION_NAME} have been released successfully on iOS!\n${RELEASE_NOTES}\n${IOS_ARTIFACT_URLS}
     notify_web:
         docker:
-            - image: cimg/node:18.14.1
+            - image: cimg/node:20.12.1
         parameters:
             production_delivery:
                 description: Whether builds are delivered to production or beta.
@@ -858,7 +877,7 @@ jobs:
                             ${RELEASE_NOTES}
     promote_android:
         docker:
-            - image: cimg/android:2023.02.1-node
+            - image: cimg/android:2024.04.1-node
         environment:
             FASTLANE_SKIP_UPDATE_CHECK: true
         parameters:
@@ -892,7 +911,7 @@ jobs:
         environment:
             FASTLANE_SKIP_UPDATE_CHECK: true
         macos:
-            xcode: 15.0.1
+            xcode: 15.3.0
         parameters:
             build_config_name:
                 default: integreat
@@ -921,7 +940,7 @@ jobs:
             - notify
     promote_web:
         docker:
-            - image: cimg/node:18.14.1
+            - image: cimg/node:20.12.1
         resource_class: small
         shell: /bin/bash -eo pipefail
         steps:
@@ -950,7 +969,7 @@ jobs:
             - notify
     sentry_android:
         docker:
-            - image: cimg/node:18.14.1
+            - image: cimg/node:20.12.1
         resource_class: small
         shell: /bin/bash -eo pipefail
         steps:
@@ -970,7 +989,7 @@ jobs:
             - notify
     sentry_ios:
         docker:
-            - image: cimg/node:18.14.1
+            - image: cimg/node:20.12.1
         resource_class: small
         shell: /bin/bash -eo pipefail
         steps:
@@ -990,7 +1009,7 @@ jobs:
             - notify
     sentry_web:
         docker:
-            - image: cimg/node:18.14.1
+            - image: cimg/node:20.12.1
         resource_class: small
         shell: /bin/bash -eo pipefail
         steps:

@@ -1,4 +1,5 @@
 apply plugin: "com.android.application"
+apply plugin: "org.jetbrains.kotlin.android"
 apply plugin: "com.facebook.react"
 
 import com.android.build.OutputFile
@@ -91,10 +92,10 @@ def reactNativeArchitectures() {
 }
 
 android {
-    namespace "tuerantuer.app.integreat"
     ndkVersion rootProject.ext.ndkVersion
-    
-    compileSdkVersion rootProject.ext.compileSdkVersion
+    buildToolsVersion rootProject.ext.buildToolsVersion
+    compileSdk rootProject.ext.compileSdkVersion
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
@@ -105,6 +106,13 @@ android {
     namespace "tuerantuer.app.integreat"
     defaultConfig {
         applicationId buildConfig.applicationId ?: "tuerantuer.app.integreat"
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.targetSdkVersion
+
+        if (project.hasProperty('VERSION_CODE')) {
+            versionCode project.VERSION_CODE.toInteger()
+            versionName project.VERSION_NAME
+        }
 
         setupResourceValues(buildConfigName, {
             String type, String name, String value -> resValue(type, name, value)
@@ -114,14 +122,7 @@ android {
             String type, String name, String value -> resValue(type, name, value)
         })
 
-        manifestPlaceholders = [*:determineTheme(buildConfig), *:determineIcon(buildConfig)]
-
-        minSdkVersion rootProject.ext.minSdkVersion
-        targetSdkVersion rootProject.ext.targetSdkVersion
-        if (project.hasProperty('VERSION_CODE')) {
-            versionCode project.VERSION_CODE.toInteger()
-            versionName project.VERSION_NAME
-        }
+        manifestPlaceholders = [*:determineIcon(buildConfig)]
     }
     signingConfigs {
         release {
@@ -205,12 +206,6 @@ dependencies {
     implementation 'com.squareup.okio:okio:2.8.0'
     implementation 'com.squareup.okhttp3:okhttp:4.9.0'
     implementation 'com.squareup.okhttp3:okhttp-urlconnection:4.9.0'
-
-    debugImplementation("com.facebook.flipper:flipper:${FLIPPER_VERSION}")
-    debugImplementation("com.facebook.flipper:flipper-network-plugin:${FLIPPER_VERSION}") {
-        exclude group:'com.squareup.okhttp3', module:'okhttp'
-    }
-    debugImplementation("com.facebook.flipper:flipper-fresco-plugin:${FLIPPER_VERSION}")
 
     if (hermesEnabled.toBoolean()) {
         implementation("com.facebook.react:hermes-android")

@@ -5,14 +5,16 @@ parameters:
     default: native
 steps:
   - restore_cache:
+      name: Restore Ruby Cache
       keys:
-        - 3-gems-{{ arch }}-{{ checksum "<< parameters.directory >>/Gemfile.lock" }}
-        - 3-gems-{{ arch }}-
+        - 4-gems-{{ arch }}-{{ checksum "<< parameters.directory >>/Gemfile.lock" }}
+        - 4-gems-{{ arch }}-
   - run:
       name: '[FL] install'
       command: bundle check || bundle install
       working_directory: << parameters.directory >>
   - save_cache:
-      key: 3-gems-{{ arch }}-{{ checksum "<< parameters.directory >>/Gemfile.lock" }}
+      name: Save Ruby Cache
+      key: 4-gems-{{ arch }}-{{ checksum "<< parameters.directory >>/Gemfile.lock" }}
       paths:
         - << parameters.directory >>/vendor/bundle

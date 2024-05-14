@@ -1,7 +1,7 @@
 import { NavigationContainer } from '@react-navigation/native'
 import { fireEvent, waitFor } from '@testing-library/react-native'
 import React from 'react'
-import { ThemeProvider } from 'styled-components'
+import { ThemeProvider } from 'styled-components/native'
 
 import {
   CATEGORIES_ROUTE,

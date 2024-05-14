@@ -3,8 +3,7 @@ import type { BBox, Feature, GeoJsonProperties, Geometry } from 'geojson'
 import { Position } from 'geojson'
 import React, { ReactElement, useCallback, useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { useTheme } from 'styled-components'
-import styled from 'styled-components/native'
+import styled, { useTheme } from 'styled-components/native'
 
 import {
   animationDuration,

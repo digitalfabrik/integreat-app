@@ -1,7 +1,7 @@
-import React, { ReactElement, useContext, useState } from 'react'
+import React, { ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { KeyboardAvoidingView, Platform } from 'react-native'
-import styled, { ThemeContext } from 'styled-components/native'
+import styled from 'styled-components/native'
 
 import { parseHTML, SEARCH_FINISHED_SIGNAL_NAME, SEARCH_ROUTE, SearchResult, useSearch } from 'shared'
 
@@ -39,7 +39,6 @@ const SearchModal = ({
 }: SearchModalProps): ReactElement | null => {
   const [query, setQuery] = useState<string>(initialSearchText)
   const resourceCache = useResourceCache({ cityCode, languageCode })
-  const theme = useContext(ThemeContext)
   const { t } = useTranslation('search')
 
   const searchResults = useSearch(allPossibleResults, query)
@@ -74,7 +73,7 @@ const SearchModal = ({
 
   return (
     <Wrapper {...testID('Search-Page')}>
-      <SearchHeader theme={theme} query={query} closeSearchBar={onClose} onSearchChanged={setQuery} t={t} />
+      <SearchHeader query={query} closeSearchBar={onClose} onSearchChanged={setQuery} />
       <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : undefined} style={{ flex: 1 }}>
         <List
           items={searchResults}

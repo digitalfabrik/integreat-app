@@ -8,13 +8,13 @@
     "translations": "0.0.1"
   },
   "devDependencies": {
-    "@types/flat": "^5.0.2",
-    "commander": "^11.0.0",
+    "@types/flat": "^5.0.5",
+    "commander": "^12.0.0",
     "decamelize": "^5.0.1",
     "flat": "^5.0.2"
   },
   "scripts": {
-    "manage": "ts-node tools/manage.ts",
+    "manage": "tsx tools/manage.ts",
     "ts:check": "tsc --build",
     "lint": "eslint --cache --cache-location ../.eslintcache ."
   }
