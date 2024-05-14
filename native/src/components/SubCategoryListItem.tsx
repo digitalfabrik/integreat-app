@@ -26,6 +26,7 @@ const FlexStyledLink = styled(Pressable)<{ language: string }>`
 const SubCategoryTitle = styled.Text`
   color: ${props => props.theme.colors.textColor};
   font-family: ${props => props.theme.fonts.native.decorativeFontRegular};
+  flex-shrink: 1;
 `
 
 type SubCategoryListItemProps = {

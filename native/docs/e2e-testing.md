@@ -37,7 +37,7 @@ inspect the tree of the app.
    accessing the server.
 3. Fill one of those URLs into the host field. If you want to get to a specific route, fill in the path as well.
 4. Fill in keys and values of desired capabilities: deviceName, platformVersion, automationName, platformName. You
-   can find examples of those in the two files named `wdio.conf.ts` or `wdio-ios.conf.ts`.
+   can find examples of those in the two files named `capabilities.ts` or `wdio-ios.conf.ts`.
 5. Click on "Start Session".
 
 ### Running tests on browserstack
