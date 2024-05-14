@@ -24,6 +24,7 @@ import buildConfig from './constants/buildConfig'
 import { userAgent } from './constants/endpoint'
 import AppContextProvider from './contexts/AppContextProvider'
 import useSendOfflineJpalSignals from './hooks/useSendOfflineJpalSignals'
+import { isHighContrastModeEnabled } from './utils/HighContrastMode'
 import { backgroundAppStatePushNotificationListener } from './utils/PushNotificationsManager'
 import sendTrackingSignal from './utils/sendTrackingSignal'
 

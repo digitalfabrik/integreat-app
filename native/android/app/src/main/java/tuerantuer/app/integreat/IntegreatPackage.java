@@ -6,6 +6,7 @@ import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.uimanager.ViewManager;
 import tuerantuer.app.integreat.constants.NativeConstantsModule;
 import tuerantuer.app.integreat.fetcher.FetcherModule;
+import tuerantuer.app.integreat.fetcher.HighContrastModule;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -23,6 +24,7 @@ public class IntegreatPackage implements ReactPackage {
         List<NativeModule> modules = new ArrayList<>();
         modules.add(new FetcherModule(reactContext));
         modules.add(new NativeConstantsModule(reactContext));
+        modules.add(new HighContrastModule(reactContext));
         return modules;
     }
 }
