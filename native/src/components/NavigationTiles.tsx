@@ -1,5 +1,4 @@
 import React, { JSXElementConstructor, ReactElement, useRef, useState } from 'react'
-import { useTranslation } from 'react-i18next'
 import { Dimensions, NativeScrollEvent, NativeSyntheticEvent, ScrollView } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { SvgProps } from 'react-native-svg'
@@ -65,12 +64,10 @@ const NavigationTiles = ({ tiles }: NavigationTilesProps): ReactElement => {
   const scrollToStart = () => scrollViewRef.current?.scrollTo({ x: 0, y: 0, animated: true })
   const scrollToEnd = () => scrollViewRef.current?.scrollToEnd({ animated: true })
 
-  const { t } = useTranslation('common')
-
   return (
     <TilesRow>
       {isScrollable && (
-        <StyledPressable onPress={scrollToStart} accessibilityLabel={t('back')}>
+        <StyledPressable onPress={scrollToStart} aria-hidden>
           <StyledIcon Icon={ArrowBackIcon} disabled={scrolledToStart} directionDependent />
         </StyledPressable>
       )}
@@ -97,7 +94,7 @@ const NavigationTiles = ({ tiles }: NavigationTilesProps): ReactElement => {
         ))}
       </ScrollView>
       {isScrollable && (
-        <StyledPressable onPress={scrollToEnd} accessibilityLabel={t('forward')}>
+        <StyledPressable onPress={scrollToEnd} aria-hidden>
           <StyledIcon Icon={ArrowBackIcon} disabled={scrolledToEnd} directionDependent reverse />
         </StyledPressable>
       )}
