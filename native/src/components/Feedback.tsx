@@ -59,7 +59,7 @@ const Feedback = ({
   const navigation = useNavigate().navigation
 
   const isSearchFeedback = searchTerm !== undefined
-  const submitDisabled = isPositiveFeedback === null && comment.trim().length === 0 && !isSearchFeedback
+  const submitDisabled = isPositiveFeedback === null && comment.trim().length === 0 && !searchTerm
 
   if (sendingStatus === 'sending') {
     return <LoadingSpinner />
