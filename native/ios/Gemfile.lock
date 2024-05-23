@@ -225,6 +225,7 @@ GEM
     plist (3.7.1)
     public_suffix (4.0.7)
     rake (13.2.1)
+    rb-readline (0.5.5)
     representable (3.2.0)
       declarative (< 0.1.0)
       trailblazer-option (>= 0.1.1, < 0.2.0)
@@ -279,6 +280,7 @@ DEPENDENCIES
   cocoapods (>= 1.13, < 1.15)
   fastlane (>= 2.216.0)
   fastlane-plugin-yarn
+  rb-readline
 
 BUNDLED WITH
    2.4.13
