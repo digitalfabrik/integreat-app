@@ -3,10 +3,13 @@ import Keyboard from '../helpers/Keyboard.js'
 import { Selector } from '../helpers/Selector.js'
 import DashboardPage from '../pageobjects/dashboard.page.js'
 import LandingPage from '../pageobjects/landing.page.js'
+import { allowNotifications } from '../utils/deviceUtils.js'
 
 describe('navigate to other location', () => {
   it('should open a city on location selection', async () => {
-    await LandingPage.get()
+    const landingPage = LandingPage
+    allowNotifications()
+    await landingPage.get()
 
     const cities = await LandingPage.cities
     const search = await LandingPage.search
