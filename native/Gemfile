@@ -6,8 +6,8 @@ source "https://rubygems.org"
 # https://github.com/fastlane/fastlane/issues/21794#issuecomment-2021331335
 gem "rb-readline"
 
-gem "fastlane", ">= 2.216.0"
-gem "octokit", "~> 4.18"
+gem "fastlane", ">= 2.220.0"
+gem "octokit", ">= 8.1.0"
 
 plugins_path = File.join(File.dirname(__FILE__), 'fastlane', 'Pluginfile')
 eval_gemfile(plugins_path) if File.exist?(plugins_path)
