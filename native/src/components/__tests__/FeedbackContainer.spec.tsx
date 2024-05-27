@@ -166,4 +166,16 @@ describe('FeedbackContainer', () => {
       slug: undefined,
     })
   })
+
+  it('should disable send button if query term is removed', async () => {
+    const { findByText, getByDisplayValue } = render(
+      <NavigationContainer>
+        <FeedbackContainer routeType={SEARCH_ROUTE} language={language} cityCode={city} query='query' />
+      </NavigationContainer>,
+    )
+    expect(await findByText('send')).not.toBeDisabled()
+    const input = getByDisplayValue('query')
+    fireEvent.changeText(input, '')
+    expect(await findByText('send')).toBeDisabled()
+  })
 })
