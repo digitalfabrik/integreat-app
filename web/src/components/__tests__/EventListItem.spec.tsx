@@ -26,7 +26,7 @@ describe('EventListItem', () => {
     expect(getByText(event.title)).toBeTruthy()
     expect(getByText(event.date.toFormattedString(language), { collapseWhitespace: false })).toBeTruthy()
     expect(getByText(event.location!.fullAddress)).toBeTruthy()
-    expect(getByRole('img')).toHaveProperty('src', event.thumbnail)
+    expect(getByRole('presentation')).toHaveProperty('src', event.thumbnail)
     expect(getByText(excerpt)).toBeTruthy()
   })
 
@@ -39,7 +39,7 @@ describe('EventListItem', () => {
 
     expect(getByText(event.title)).toBeTruthy()
     expect(getByText(event.date.toFormattedString(language), { collapseWhitespace: false })).toBeTruthy()
-    const src = (getByRole('img') as HTMLMediaElement).src
+    const src = (getByRole('presentation') as HTMLMediaElement).src
     expect(
       [EventThumbnailPlaceholder1, EventThumbnailPlaceholder2, EventThumbnailPlaceholder3].some(img =>
         src.endsWith(img),

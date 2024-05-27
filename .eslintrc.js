@@ -4,6 +4,7 @@ module.exports = {
   plugins: [
     '@typescript-eslint',
     'jest',
+    'jsx-a11y',
     'jsx-expressions',
     'prefer-arrow',
     'react',

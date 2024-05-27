@@ -1,4 +1,4 @@
-fastlane_version "2.216.0"
+fastlane_version "2.220.0"
 
 CREDENTIALS_GIT_REPOSITORY_URL = ENV['CREDENTIALS_GIT_REPOSITORY_URL']
 CREDENTIALS_DIRECTORY_PATH = ENV['CREDENTIALS_DIRECTORY_PATH']
@@ -55,7 +55,11 @@ lane :build do |options|
   gradle_system_properties = {
     # 2GB Gradle + 1GB dex + 2-2.5GB RN < 6GB of circleci resource class medium+
     :"org.gradle.jvmargs" => "-Xms512m -Xmx2024m",
-    :"org.gradle.daemon" => false
+    :"org.gradle.daemon" => false,
+    # react-native is currently only guaranteed to work with JDK 17
+    # See https://stackoverflow.com/questions/69619829/could-not-resolve-all-files-for-configuration-appandroidjdkimage
+    # https://reactnative.dev/docs/environment-setup?guide=native&platform=android#installing-dependencies
+    :"org.gradle.java.home" => "/usr/lib/jvm/java-17-openjdk-amd64"
   }
 
   if ENV['TOTAL_CPUS']

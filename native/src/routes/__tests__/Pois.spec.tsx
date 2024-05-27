@@ -32,7 +32,8 @@ describe('Pois', () => {
     renderWithNavigator(
       POIS_ROUTE,
       Pois,
-      { pois, cityModel: city, language: 'de' },
+      // @ts-expect-error ts complains that route and navigation are missing even they get passed later
+      { pois, cityModel: city, language: 'de', refresh: jest.fn() },
       {
         slug,
         multipoi,

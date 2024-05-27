@@ -1,6 +1,6 @@
-import { render } from '@testing-library/react-native'
 import React from 'react'
 
+import render from '../../testing/render'
 import ProgressSpinner from '../ProgressSpinner'
 
 jest.mock('styled-components')

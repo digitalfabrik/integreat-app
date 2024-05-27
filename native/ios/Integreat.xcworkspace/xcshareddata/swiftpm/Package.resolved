@@ -1,4 +1,5 @@
 {
+  "originHash" : "b440cbd994821d1c59ef3fae39cdd359458004248a336c94f8a8b08f5fed3877",
   "pins" : [
     {
       "identity" : "maplibre-gl-native-distribution",
@@ -10,5 +11,5 @@
       }
     }
   ],
-  "version" : 2
+  "version" : 3
 }

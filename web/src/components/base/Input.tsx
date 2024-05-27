@@ -21,14 +21,14 @@ const GeneralInputStyles = css<{ submitted: boolean }>`
     `}
 `
 
-const StyledTextArea = styled.textarea`
+const StyledTextArea = styled.textarea<{ submitted: boolean }>`
   ${GeneralInputStyles};
   border-radius: 0.2rem 0.2rem 0;
   resize: vertical;
   min-height: 60px;
 `
 
-const TextInput = styled.input`
+const TextInput = styled.input<{ submitted: boolean }>`
   ${GeneralInputStyles};
   border-radius: 0.2rem;
   background-clip: padding-box;
