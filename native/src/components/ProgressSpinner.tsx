@@ -2,8 +2,7 @@ import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Dimensions } from 'react-native'
 import Svg, { Circle, G } from 'react-native-svg'
-import { useTheme } from 'styled-components'
-import styled from 'styled-components/native'
+import styled, { useTheme } from 'styled-components/native'
 
 import { buildConfigAssets } from '../constants/buildConfig'
 

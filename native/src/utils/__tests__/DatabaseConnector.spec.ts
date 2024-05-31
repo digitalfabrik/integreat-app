@@ -1,6 +1,8 @@
 import { waitFor } from '@testing-library/react-native'
 import { DateTime } from 'luxon'
+import { rrulestr } from 'rrule'
 
+import { DateModel, EventModel } from 'shared/api'
 import CategoriesMapModelBuilder from 'shared/api/endpoints/testing/CategoriesMapModelBuilder'
 import CityModelBuilder from 'shared/api/endpoints/testing/CityModelBuilder'
 import EventModelBuilder from 'shared/api/endpoints/testing/EventModelBuilder'
@@ -13,15 +15,15 @@ import DatabaseConnector, {
   UNVERSIONED_RESOURCE_CACHE_DIR_PATH,
 } from '../DatabaseConnector'
 
-const now = DateTime.fromISO('2013-05-04T00:00:00.000')
+const now = DateTime.fromISO('2024-05-02T11:45:43.443+02:00')
 jest.useFakeTimers({ now: now.toJSDate() })
 
 const databaseConnector = new DatabaseConnector()
 afterEach(() => {
   BlobUtil.fs._reset()
-
   jest.clearAllMocks()
 })
+
 describe('DatabaseConnector', () => {
   const city = 'augsburg'
   const language = 'de'
@@ -44,17 +46,20 @@ describe('DatabaseConnector', () => {
       },
     },
   }
+
   describe('isCitiesPersisted', () => {
     it('should return false if cities are not persisted', async () => {
       const isPersisted = await databaseConnector.isCitiesPersisted()
       expect(isPersisted).toBe(false)
     })
+
     it('should return true if cities are persisted', async () => {
       await databaseConnector.storeCities(testCities)
       const isPersisted = await databaseConnector.isCitiesPersisted()
       expect(isPersisted).toBe(true)
     })
   })
+
   describe('storeCities', () => {
     it('should store the json file in the correct path', async () => {
       await databaseConnector.storeCities(testCities)
@@ -65,35 +70,42 @@ describe('DatabaseConnector', () => {
       )
     })
   })
+
   describe('loadCities', () => {
     it('should throw exception if cities are not persisted', async () => {
       await expect(databaseConnector.loadCities()).rejects.toThrow()
     })
+
     it('should return a value that matches the one that was stored', async () => {
       await databaseConnector.storeCities(testCities)
       const cities = await databaseConnector.loadCities()
       expect(cities).toStrictEqual(testCities)
     })
   })
+
   describe('loadLastUpdate', () => {
     it('should return null if no data is persisted for a given city-language pair', async () => {
       const context = new DatabaseContext('tcc', 'de')
       const dateTime = await databaseConnector.loadLastUpdate(context)
       expect(dateTime).toBeNull()
     })
+
     it('should throw if persisted data is malformed for a given city-language pair', async () => {
       const context = new DatabaseContext('tcc', 'de')
       BlobUtil.fs.writeFile(databaseConnector.getMetaCitiesPath(), '{ "i": "am": "malformed" } }', 'utf8')
       await expect(databaseConnector.loadLastUpdate(context)).rejects.toThrow()
     })
+
     it('should throw error if currentCity in context is null', async () => {
       const context = new DatabaseContext(undefined, 'de')
       await expect(databaseConnector.loadLastUpdate(context)).rejects.toThrow()
     })
+
     it('should throw error if currentLanguage is null', async () => {
       const context = new DatabaseContext('tcc')
       await expect(databaseConnector.loadLastUpdate(context)).rejects.toThrow()
     })
+
     it('should return a DateTime that matches the one that was stored', async () => {
       const context = new DatabaseContext('tcc', 'de')
       const dateExpected = DateTime.fromISO('2011-05-04T00:00:00.000Z')
@@ -102,22 +114,26 @@ describe('DatabaseConnector', () => {
       expect(dateExpected).toStrictEqual(await databaseConnector.loadLastUpdate(context))
     })
   })
+
   describe('storeLastUpdate', () => {
     it('should throw error if currentCity in context is null', async () => {
       const context = new DatabaseContext(undefined, 'de')
       const date = DateTime.fromISO('2011-05-04T00:00:00.000Z')
       await expect(databaseConnector.storeLastUpdate(date, context)).rejects.toThrow()
     })
+
     it('should throw error if currentLanguage in context is null', async () => {
       const context = new DatabaseContext('tcc')
       const date = DateTime.fromISO('2011-05-04T00:00:00.000Z')
       await expect(databaseConnector.storeLastUpdate(date, context)).rejects.toThrow()
     })
+
     it('should throw error if meta of city is null', async () => {
       const context = new DatabaseContext('tcc')
       const date = DateTime.fromISO('2011-05-04T00:00:00.000Z')
       await expect(databaseConnector.storeLastUpdate(date, context)).rejects.toThrow()
     })
+
     it('should override multiple lastUpdates of the same context', async () => {
       const context = new DatabaseContext('tcc', 'de')
       const date = DateTime.fromISO('2011-05-04T00:00:00.000Z')
@@ -127,6 +143,7 @@ describe('DatabaseConnector', () => {
       await databaseConnector.storeLastUpdate(date2, context)
       expect(date2).toStrictEqual(await databaseConnector.loadLastUpdate(context))
     })
+
     it('should store the json file in the correct path', async () => {
       const context = new DatabaseContext('tcc', 'de')
       const date = DateTime.fromISO('2011-05-04T00:00:00.000Z')
@@ -139,12 +156,14 @@ describe('DatabaseConnector', () => {
       )
     })
   })
+
   describe('isCategoriesPersisted', () => {
     it('should return false if categories are not persisted', async () => {
       const context = new DatabaseContext('tcc', 'de')
       const isPersisted = await databaseConnector.isCategoriesPersisted(context)
       expect(isPersisted).toBe(false)
     })
+
     it('should return true if categories are persisted', async () => {
       const context = new DatabaseContext('tcc', 'de')
       await databaseConnector.storeCategories(testCategoriesMap, context)
@@ -152,6 +171,7 @@ describe('DatabaseConnector', () => {
       expect(isPersisted).toBe(true)
     })
   })
+
   describe('storeCategories', () => {
     it('should store the json file in the correct path', async () => {
       const context = new DatabaseContext('tcc', 'de')
@@ -163,11 +183,13 @@ describe('DatabaseConnector', () => {
       )
     })
   })
+
   describe('loadCategories', () => {
     it('should throw error if categories are not persisted', async () => {
       const context = new DatabaseContext('tcc', 'de')
       await expect(databaseConnector.loadCategories(context)).rejects.toThrow()
     })
+
     it('should return a value that matches the one that was stored', async () => {
       const context = new DatabaseContext('tcc', 'de')
       await databaseConnector.storeCategories(testCategoriesMap, context)
@@ -175,12 +197,14 @@ describe('DatabaseConnector', () => {
       expect(categories.isEqual(testCategoriesMap)).toBe(true)
     })
   })
+
   describe('isEventsPersisted', () => {
     it('should return false if events are not persisted', async () => {
       const context = new DatabaseContext('tcc', 'de')
       const isPersisted = await databaseConnector.isEventsPersisted(context)
       expect(isPersisted).toBe(false)
     })
+
     it('should return true if events are persisted', async () => {
       const context = new DatabaseContext('tcc', 'de')
       await databaseConnector.storeEvents(testEvents, context)
@@ -188,6 +212,7 @@ describe('DatabaseConnector', () => {
       expect(isPersisted).toBe(true)
     })
   })
+
   describe('storeEvents', () => {
     it('should store the json file in the correct path', async () => {
       const context = new DatabaseContext('tcc', 'de')
@@ -199,18 +224,60 @@ describe('DatabaseConnector', () => {
       )
     })
   })
+
   describe('loadEvents', () => {
     it('should throw error if events are not persisted', async () => {
       const context = new DatabaseContext('tcc', 'de')
       await expect(databaseConnector.loadEvents(context)).rejects.toThrow()
     })
+
     it('should return a value that matches the one that was stored', async () => {
       const context = new DatabaseContext('tcc', 'de')
       await databaseConnector.storeEvents(testEvents, context)
       const events = await databaseConnector.loadEvents(context)
       expect(events.every((event, i) => event.isEqual(testEvents[i]!))).toBeTruthy()
     })
+
+    it('should correctly persist and load event dates', async () => {
+      const context = new DatabaseContext('tcc', 'de')
+      await databaseConnector.storeEvents(testEvents, context)
+      const events = await databaseConnector.loadEvents(context)
+      expect(events.every((event, i) => event.isEqual(testEvents[i]!))).toBeTruthy()
+    })
+
+    it('should correctly keep offset over recurrences', async () => {
+      const context = new DatabaseContext('tcc', 'de')
+      const recurrenceRule = rrulestr('DTSTART:20240116T090000\nRRULE:FREQ=WEEKLY;BYDAY=TU')
+      const date = new DateModel({
+        startDate: DateTime.fromISO('2024-01-16T10:00:00+01:00'),
+        endDate: DateTime.fromISO('2024-01-16T12:00:00+01:00'),
+        allDay: false,
+        recurrenceRule,
+      })
+      const event = new EventModel({
+        path: '/augsburg/de/events/asylpolitischer_fruehschoppen',
+        title: 'Asylpolitischer Frühschoppen',
+        excerpt: 'Asylpolitischer Frühschoppen',
+        content: '<div>Some event test content :)</div>',
+        availableLanguages: new Map(),
+        thumbnail: '',
+        date,
+        location: null,
+        lastUpdate: DateTime.fromISO('2022-06-29T09:19:57.443+02:00'),
+        featuredImage: null,
+      })
+
+      expect(event.date.toFormattedString('de', false)).toBe('7. Mai 2024 10:00 - 12:00')
+      expect(event.date.recurrences(1)[0]!.toFormattedString('de', false)).toBe('7. Mai 2024 10:00 - 12:00')
+
+      await databaseConnector.storeEvents([event], context)
+      const loadedEvent = (await databaseConnector.loadEvents(context))[0]!
+
+      expect(loadedEvent.date.toFormattedString('de', false)).toBe('7. Mai 2024 10:00 - 12:00')
+      expect(loadedEvent.date.recurrences(1)[0]!.toFormattedString('de', false)).toBe('7. Mai 2024 10:00 - 12:00')
+    })
   })
+
   describe('storeResourceCache', () => {
     it('should store the json file in the correct path', async () => {
       const context = new DatabaseContext('tcc', 'de')
@@ -222,12 +289,14 @@ describe('DatabaseConnector', () => {
       )
     })
   })
+
   describe('loadResourceCache', () => {
     it('should return an empty value if resources are not persisted', async () => {
       const context = new DatabaseContext('tcc', 'de')
       const cache = await databaseConnector.loadResourceCache(context)
       expect(cache).toEqual({})
     })
+
     it('should return a value that matches the one that was stored', async () => {
       const context = new DatabaseContext('tcc', 'de')
       await databaseConnector.storeResourceCache(testResources, context)
@@ -266,6 +335,7 @@ describe('DatabaseConnector', () => {
         },
       })
     })
+
     it('should delete old files if there are more than MAX_STORED_CITIES', async () => {
       await populateCityContent('muenchen')
       await populateCityContent('dortmund')
@@ -306,10 +376,11 @@ describe('DatabaseConnector', () => {
         },
         regensburg: {
           languages: {},
-          last_usage: '2013-05-04T00:00:00.000+02:00',
+          last_usage: '2024-05-02T11:45:43.443+02:00',
         },
       })
     })
+
     it('should override if persisted data is malformed for a given city-language pair', async () => {
       const context = new DatabaseContext('tcc', 'de')
       const path = databaseConnector.getMetaCitiesPath()
@@ -318,11 +389,12 @@ describe('DatabaseConnector', () => {
       expect(JSON.parse(await BlobUtil.fs.readFile(path, 'utf8'))).toEqual({
         tcc: {
           languages: {},
-          last_usage: '2013-05-04T00:00:00.000+02:00',
+          last_usage: '2024-05-02T11:45:43.443+02:00',
         },
       })
     })
   })
+
   describe('loadLastUsages', () => {
     it('should load last usages', async () => {
       await BlobUtil.fs.writeFile(
@@ -374,12 +446,14 @@ describe('DatabaseConnector', () => {
         },
       ])
     })
+
     it('should throw array if persisted data is malformed', async () => {
       const path = databaseConnector.getMetaCitiesPath()
       BlobUtil.fs.writeFile(path, '{ "i": "am": "malformed" } }', 'utf8')
       await expect(databaseConnector.loadLastUsages()).rejects.toThrow()
     })
   })
+
   describe('deleteOldFiles', () => {
     it('should keep only the maximal number of caches and files', async () => {
       await populateCityContent('muenchen')
@@ -435,6 +509,7 @@ describe('DatabaseConnector', () => {
         },
       })
     })
+
     it('should not delete the resource cache of the same city', async () => {
       await populateCityContent('augsburg')
       await populateCityContent('dortmund')

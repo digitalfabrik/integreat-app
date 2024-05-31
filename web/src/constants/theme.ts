@@ -1,8 +1,8 @@
-import { DefaultTheme, FlattenInterpolation, FlattenSimpleInterpolation, ThemeProps, css } from 'styled-components'
+import { css, RuleSet } from 'styled-components'
 
 export type HelpersType = {
-  removeLinkHighlighting: FlattenSimpleInterpolation
-  adaptiveFontSize: FlattenInterpolation<ThemeProps<DefaultTheme>>
+  removeLinkHighlighting: RuleSet
+  adaptiveFontSize: RuleSet
 }
 
 export const helpers: HelpersType = {

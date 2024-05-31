@@ -184,6 +184,7 @@ describe('PushNotificationsManager', () => {
         news_id: '123',
         group: 'news',
       },
+      fcmOptions: {},
     }
     it('should go to news if there is an initial message', async () => {
       const url = 'https://integreat.app/augsburg/de/news/local/123'

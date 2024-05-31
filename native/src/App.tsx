@@ -6,7 +6,7 @@ import { LogBox } from 'react-native'
 import { SafeAreaProvider } from 'react-native-safe-area-context'
 import { enableScreens } from 'react-native-screens'
 import { HeaderButtonsProvider } from 'react-navigation-header-buttons'
-import { ThemeProvider } from 'styled-components'
+import { ThemeProvider } from 'styled-components/native'
 
 import { CLOSE_PAGE_SIGNAL_NAME, REDIRECT_ROUTE } from 'shared'
 import { setUserAgent } from 'shared/api'

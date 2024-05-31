@@ -1,6 +1,6 @@
 import React, { ReactElement } from 'react'
 import { Switch } from 'react-native'
-import { useTheme } from 'styled-components'
+import { useTheme } from 'styled-components/native'
 
 type SettingsSwitchProps = {
   onPress: (value: boolean) => void

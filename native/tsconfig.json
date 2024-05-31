@@ -16,7 +16,7 @@
     },
     "skipLibCheck": true,
     "typeRoots": ["./src/@types", "./node_modules/@types", "../node_modules/@types"],
-    "types": ["jest", "node", "react-native", "styled-components-react-native"]
+    "types": ["jest", "node"]
   },
   "include": [
     "src/**/*",

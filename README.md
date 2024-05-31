@@ -61,7 +61,7 @@ There are also separate sub-projects used by both projects:
 
 - Rate our apps in the [PlayStore](https://play.google.com/store/apps/developer?id=T%C3%BCr+an+T%C3%BCr+-+Digitalfabrik+gGmbH)
   and the [Apple App Store](https://apps.apple.com/ae/developer/tur-an-tur-digitalfabrik-ggmbh/id1309363258).
-- Install [nodejs v16 LTS](https://nodejs.org/).
+- Install [nodejs v20 LTS](https://nodejs.org/).
 - Install [classic yarn](https://classic.yarnpkg.com).
 
 ### Project setup

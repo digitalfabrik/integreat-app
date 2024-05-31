@@ -20,7 +20,6 @@ export default {
   preset: 'react-native',
   automock: false,
   moduleNameMapper: {
-    '.+\\.(css|styl|less|sass|scss|png|jpg|ttf|woff|woff2)$': 'jest-transform-stub',
     '\\.svg': '<rootDir>/src/__mocks__/svgrMock.ts',
     uuid: require.resolve('uuid'),
   },

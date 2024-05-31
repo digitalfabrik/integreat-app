@@ -1,7 +1,6 @@
-import * as React from 'react'
-import { ReactElement, useContext, useState } from 'react'
+import React, { ReactElement, useState } from 'react'
 import { View } from 'react-native'
-import { ThemeContext } from 'styled-components'
+import { useTheme } from 'styled-components/native'
 
 import { ImageViewModalRouteType } from 'shared'
 import { ErrorCode } from 'shared/api'
@@ -16,11 +15,7 @@ type ImageViewModalProps = {
 
 const ImageViewModal = ({ route }: ImageViewModalProps): ReactElement => {
   const [isError, setError] = useState(false)
-  const theme = useContext(ThemeContext)
-
-  const {
-    colors: { backgroundAccentColor },
-  } = theme
+  const theme = useTheme()
 
   if (isError) {
     return <Failure code={ErrorCode.UnknownError} />
@@ -31,7 +26,7 @@ const ImageViewModal = ({ route }: ImageViewModalProps): ReactElement => {
       style={{
         flex: 1,
         justifyContent: 'center',
-        backgroundColor: backgroundAccentColor,
+        backgroundColor: theme.colors.backgroundAccentColor,
       }}>
       <PinchPanImage uri={route.params.url} onError={() => setError(true)} />
     </View>
