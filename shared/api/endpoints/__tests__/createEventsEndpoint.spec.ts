@@ -2,6 +2,7 @@ import { DateTime } from 'luxon'
 import { rrulestr } from 'rrule'
 
 import { DateModel, EventModel, FeaturedImageModel, LocationModel } from '../..'
+import { API_VERSION } from '../../constants'
 import { JsonEventType } from '../../types'
 import createEventsEndpoint from '../createEventsEndpoint'
 
@@ -160,7 +161,7 @@ describe('events', () => {
 
   it('should map params to url', () => {
     expect(events.mapParamsToUrl(params)).toBe(
-      'https://integreat-api-url.de/augsburg/de/wp-json/extensions/v3/events/?combine_recurring=True',
+      `https://integreat-api-url.de/api/${API_VERSION}/augsburg/de/events/?combine_recurring=True`,
     )
   })
 

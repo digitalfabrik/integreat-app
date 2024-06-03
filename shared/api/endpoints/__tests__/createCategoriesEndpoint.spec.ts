@@ -1,6 +1,7 @@
 import { mocked } from 'jest-mock'
 import { DateTime } from 'luxon'
 
+import { API_VERSION } from '../../constants'
 import mapCategoryJson from '../../mapping/mapCategoryJson'
 import CategoriesMapModel from '../../models/CategoriesMapModel'
 import CategoryModel from '../../models/CategoryModel'
@@ -38,7 +39,7 @@ describe('createCategoriesEndpoint', () => {
 
   it('should map params to url', () => {
     expect(endpoint.mapParamsToUrl(params)).toBe(
-      `${baseUrl}/${params.city}/${params.language}/wp-json/extensions/v3/pages/`,
+      `${baseUrl}/api/${API_VERSION}/${params.city}/${params.language}/pages/`,
     )
   })
 

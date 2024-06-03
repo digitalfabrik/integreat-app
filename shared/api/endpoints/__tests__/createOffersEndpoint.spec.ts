@@ -1,3 +1,4 @@
+import { API_VERSION } from '../../constants'
 import OfferModel from '../../models/OfferModel'
 import createOffersEndpoint from '../createOffersEndpoint'
 
@@ -61,9 +62,7 @@ describe('endpoint', () => {
     language: 'en',
   }
   it('should map router to url', () => {
-    expect(offers.mapParamsToUrl(params)).toBe(
-      'https://integreat-api-url.de/bad-toelz/en/wp-json/extensions/v3/extras/',
-    )
+    expect(offers.mapParamsToUrl(params)).toBe(`https://integreat-api-url.de/api/${API_VERSION}/bad-toelz/en/offers/`)
   })
   it('should map json to models', () => {
     const disclaimerModel = offers.mapResponse(pageJson, params)
