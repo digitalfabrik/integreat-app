@@ -1,5 +1,6 @@
 import { Endpoint, EndpointBuilder, CategoryModel } from '..'
 
+import { API_VERSION } from '../constants'
 import mapCategoryJson from '../mapping/mapCategoryJson'
 import { JsonCategoryType } from '../types'
 
@@ -17,7 +18,7 @@ export default (baseUrl: string): Endpoint<ParamsType, Array<CategoryModel>> =>
       const basePath = `/${city}/${language}`
       // No url query param returns the children of the root
       const query = basePath === cityContentPath ? '' : `&url=${params.cityContentPath}`
-      return `${baseUrl}/api/v3/${params.city}/${params.language}/children/?depth=${depth}${query}`
+      return `${baseUrl}/api/${API_VERSION}/${params.city}/${params.language}/children/?depth=${depth}${query}`
     })
     .withMapper((json: Array<JsonCategoryType>, params: ParamsType): Array<CategoryModel> => {
       const basePath = `/${params.city}/${params.language}`

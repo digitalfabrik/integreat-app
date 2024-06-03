@@ -4,6 +4,7 @@ import { rrulestr } from 'rrule'
 
 import Endpoint from '../Endpoint'
 import EndpointBuilder from '../EndpointBuilder'
+import { API_VERSION } from '../constants'
 import mapAvailableLanguages from '../mapping/mapAvailableLanguages'
 import DateModel from '../models/DateModel'
 import EventModel from '../models/EventModel'
@@ -41,7 +42,7 @@ export default (baseUrl: string): Endpoint<ParamsType, Array<EventModel>> =>
   new EndpointBuilder<ParamsType, Array<EventModel>>(EVENTS_ENDPOINT_NAME)
     .withParamsToUrlMapper(
       (params: ParamsType): string =>
-        `${baseUrl}/api/v3/${params.city}/${params.language}/events/?combine_recurring=True`,
+        `${baseUrl}/api/${API_VERSION}/${params.city}/${params.language}/events/?combine_recurring=True`,
     )
     .withMapper(
       (json: Array<JsonEventType>): Array<EventModel> =>

@@ -2,6 +2,7 @@ import { DateTime } from 'luxon'
 
 import Endpoint from '../Endpoint'
 import EndpointBuilder from '../EndpointBuilder'
+import { API_VERSION } from '../constants'
 import NotFoundError from '../errors/NotFoundError'
 import PageModel from '../models/PageModel'
 import { JsonDisclaimerType } from '../types'
@@ -14,7 +15,7 @@ type ParamsType = {
 export default (baseUrl: string): Endpoint<ParamsType, PageModel> =>
   new EndpointBuilder<ParamsType, PageModel>(DISCLAIMER_ENDPOINT_NAME)
     .withParamsToUrlMapper(
-      (params: ParamsType): string => `${baseUrl}/api/v3/${params.city}/${params.language}/disclaimer/`,
+      (params: ParamsType): string => `${baseUrl}/api/${API_VERSION}/${params.city}/${params.language}/disclaimer/`,
     )
     .withMapper((json: JsonDisclaimerType | null | undefined, params: ParamsType): PageModel => {
       if (!json) {

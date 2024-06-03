@@ -1,5 +1,6 @@
 import { Endpoint, EndpointBuilder, CategoryModel } from '..'
 
+import { API_VERSION } from '../constants'
 import mapCategoryJson from '../mapping/mapCategoryJson'
 import { JsonCategoryType } from '../types'
 
@@ -19,7 +20,7 @@ export default (baseUrl: string): Endpoint<ParamsType, CategoryModel> =>
         throw new Error('This endpoint does not support the root category!')
       }
 
-      return `${baseUrl}/api/v3/${city}/${language}/page/?url=${cityContentPath}`
+      return `${baseUrl}/api/${API_VERSION}/${city}/${language}/page/?url=${cityContentPath}`
     })
     .withMapper((json: JsonCategoryType, params: ParamsType): CategoryModel => {
       const basePath = `/${params.city}/${params.language}`

@@ -2,6 +2,7 @@ import { DateTime } from 'luxon'
 
 import Endpoint from '../Endpoint'
 import EndpointBuilder from '../EndpointBuilder'
+import { API_VERSION } from '../constants'
 import mapCategoryJson from '../mapping/mapCategoryJson'
 import CategoriesMapModel from '../models/CategoriesMapModel'
 import CategoryModel from '../models/CategoryModel'
@@ -14,7 +15,9 @@ type ParamsType = {
 }
 export default (baseUrl: string): Endpoint<ParamsType, CategoriesMapModel> =>
   new EndpointBuilder<ParamsType, CategoriesMapModel>(CATEGORIES_ENDPOINT_NAME)
-    .withParamsToUrlMapper((params: ParamsType): string => `${baseUrl}/api/v3/${params.city}/${params.language}/pages/`)
+    .withParamsToUrlMapper(
+      (params: ParamsType): string => `${baseUrl}/api/${API_VERSION}/${params.city}/${params.language}/pages/`,
+    )
     .withMapper((json: Array<JsonCategoryType>, params: ParamsType): CategoriesMapModel => {
       const basePath = `/${params.city}/${params.language}`
       const categories = json.map(category => mapCategoryJson(category, basePath))

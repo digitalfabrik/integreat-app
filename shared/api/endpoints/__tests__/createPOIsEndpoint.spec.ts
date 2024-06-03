@@ -1,5 +1,6 @@
 import { DateTime } from 'luxon'
 
+import { API_VERSION } from '../../constants'
 import LocationModel from '../../models/LocationModel'
 import PoiCategoryModel from '../../models/PoiCategoryModel'
 import PoiModel from '../../models/PoiModel'
@@ -94,7 +95,9 @@ describe('pois', () => {
     language: 'de',
   }
   it('should map params to url', () => {
-    expect(pois.mapParamsToUrl(params)).toBe('https://integreat-api-url.de/api/v3/augsburg/de/locations/?on_map=1')
+    expect(pois.mapParamsToUrl(params)).toBe(
+      `https://integreat-api-url.de/api/${API_VERSION}/augsburg/de/locations/?on_map=1`,
+    )
   })
   const json = [poi1, poi2, poi3, poi4]
   it('should map fetched data to models', () => {

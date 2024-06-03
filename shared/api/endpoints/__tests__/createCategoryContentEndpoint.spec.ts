@@ -1,5 +1,6 @@
 import { mocked } from 'jest-mock'
 
+import { API_VERSION } from '../../constants'
 import mapCategoryJson from '../../mapping/mapCategoryJson'
 import createCategoryContentEndpoint from '../createCategoryContentEndpoint'
 import CategoriesMapModelBuilder from '../testing/CategoriesMapModelBuilder'
@@ -22,7 +23,7 @@ describe('createCategoryContentEndpoint', () => {
 
   it('should map params to url', () => {
     expect(endpoint.mapParamsToUrl(params)).toBe(
-      `${baseUrl}/api/v3/${params.city}/${params.language}/page/?url=${params.cityContentPath}`,
+      `${baseUrl}/api/${API_VERSION}/${params.city}/${params.language}/page/?url=${params.cityContentPath}`,
     )
   })
 

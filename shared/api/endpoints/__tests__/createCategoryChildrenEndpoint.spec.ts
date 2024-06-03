@@ -1,5 +1,6 @@
 import { mocked } from 'jest-mock'
 
+import { API_VERSION } from '../../constants'
 import mapCategoryJson from '../../mapping/mapCategoryJson'
 import createCategoryChildrenEndpoint from '../createCategoryChildrenEndpoint'
 import CategoriesMapModelBuilder from '../testing/CategoriesMapModelBuilder'
@@ -23,13 +24,13 @@ describe('createCategoryChildrenEndpoint', () => {
 
   it('should map params to url', () => {
     expect(endpoint.mapParamsToUrl(params)).toBe(
-      `${baseUrl}/api/v3/${params.city}/${params.language}/children/?depth=1&url=${params.cityContentPath}`,
+      `${baseUrl}/api/${API_VERSION}/${params.city}/${params.language}/children/?depth=1&url=${params.cityContentPath}`,
     )
   })
 
   it('should map params to url for root category', () => {
     expect(endpoint.mapParamsToUrl({ ...params, cityContentPath: '/augsburg/fa', depth: 0 })).toBe(
-      `${baseUrl}/api/v3/${params.city}/${params.language}/children/?depth=0`,
+      `${baseUrl}/api/${API_VERSION}/${params.city}/${params.language}/children/?depth=0`,
     )
   })
 

@@ -2,6 +2,7 @@ import { DateTime } from 'luxon'
 
 import Endpoint from '../Endpoint'
 import EndpointBuilder from '../EndpointBuilder'
+import { API_VERSION } from '../constants'
 import LocalNewsModel from '../models/LocalNewsModel'
 import { JsonLocalNewsType } from '../types'
 
@@ -13,7 +14,8 @@ type ParamsType = {
 export default (baseUrl: string): Endpoint<ParamsType, Array<LocalNewsModel>> =>
   new EndpointBuilder<ParamsType, Array<LocalNewsModel>>(LOCAL_NEWS_ENDPOINT_NAME)
     .withParamsToUrlMapper(
-      (params: ParamsType): string => `${baseUrl}/api/v3/${params.city}/${params.language}/fcm/?channel=news`,
+      (params: ParamsType): string =>
+        `${baseUrl}/api/${API_VERSION}/${params.city}/${params.language}/fcm/?channel=news`,
     )
     .withMapper(
       (json: Array<JsonLocalNewsType>): Array<LocalNewsModel> =>

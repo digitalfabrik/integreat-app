@@ -1,3 +1,4 @@
+import { API_VERSION } from '../../constants'
 import CityModel from '../../models/CityModel'
 import LanguageModel from '../../models/LanguageModel'
 import { JsonCityType, JsonLanguageType } from '../../types'
@@ -74,7 +75,7 @@ describe('cities', () => {
   const cityJson = [city1, city2]
 
   it('should map params to url', () => {
-    expect(cities.mapParamsToUrl()).toBe('https://integreat-api-url.de/api/v3/regions/')
+    expect(cities.mapParamsToUrl()).toBe(`https://integreat-api-url.de/api/${API_VERSION}/regions/`)
   })
 
   it('should map fetched data to models', () => {

@@ -1,5 +1,6 @@
 import Endpoint from '../Endpoint'
 import EndpointBuilder from '../EndpointBuilder'
+import { API_VERSION } from '../constants'
 import OfferModel from '../models/OfferModel'
 import { JsonOfferPostType, JsonOfferType } from '../types'
 
@@ -13,7 +14,7 @@ type ParamsType = {
 }
 export default (baseUrl: string): Endpoint<ParamsType, Array<OfferModel>> =>
   new EndpointBuilder<ParamsType, Array<OfferModel>>(OFFERS_ENDPOINT_NAME)
-    .withParamsToUrlMapper(params => `${baseUrl}/api/v3/${params.city}/${params.language}/offers/`)
+    .withParamsToUrlMapper(params => `${baseUrl}/api/${API_VERSION}/${params.city}/${params.language}/offers/`)
     .withMapper((json: Array<JsonOfferType>) =>
       json.map(
         offer =>

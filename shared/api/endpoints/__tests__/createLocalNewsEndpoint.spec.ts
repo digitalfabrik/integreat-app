@@ -1,5 +1,6 @@
 import { DateTime } from 'luxon'
 
+import { API_VERSION } from '../../constants'
 import LocalNewsModel from '../../models/LocalNewsModel'
 import { JsonLocalNewsType } from '../../types'
 import createLocalNewsEndpoint from '../createLocalNewsEndpoint'
@@ -39,7 +40,7 @@ describe('localnews', () => {
   }
   it('should map params to url', () => {
     expect(localNews.mapParamsToUrl(params)).toBe(
-      `https://cms.integreat-app.de/api/v3/${params.city}/${params.language}/fcm/?channel=news`,
+      `https://cms.integreat-app.de/api/${API_VERSION}/${params.city}/${params.language}/fcm/?channel=news`,
     )
   })
   const json = [item1, item2, item3]
