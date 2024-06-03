@@ -1,0 +1,7 @@
+issue_key: 2726
+show_in_stores: true
+platforms:
+  - android
+  - ios
+en: Open settings if location permissions are not granted.
+de: Die Einstellungen werden nun geöffnet wenn der Standort-Zugriff nicht erlaubt ist.
