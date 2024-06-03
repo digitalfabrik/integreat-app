@@ -6,7 +6,8 @@ We have a file to share these in instead here.
 ### Changing the API in the web app
 
 In the browser console, run `window.localStorage.setItem('api-url', 'https://cms-test.integreat-app.de')`
-or whichever API you want to call. You can also do it manually in the local storage of the browser.
+or whichever API (e.g. ''https://cms.integreat-app.de) you want to call. You can also do it manually in
+the local storage of the browser.
 
 ### Triggering a deployment
 
