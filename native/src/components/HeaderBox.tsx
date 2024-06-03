@@ -1,5 +1,6 @@
 import { HeaderBackButton } from '@react-navigation/elements'
 import React, { ReactElement } from 'react'
+import { useTranslation } from 'react-i18next'
 import { useWindowDimensions } from 'react-native'
 import styled, { useTheme } from 'styled-components/native'
 
@@ -35,10 +36,16 @@ type HeaderBoxProps = {
 const HeaderBox = ({ goBack, canGoBack = true, text }: HeaderBoxProps): ReactElement => {
   const deviceWidth = useWindowDimensions().width
   const theme = useTheme()
+  const { t } = useTranslation('common')
 
   const AppIcon = buildConfigAssets().AppIcon
   const HeaderIcon = canGoBack ? (
-    <HeaderBackButton onPress={goBack} labelVisible={false} tintColor={theme.colors.textColor} />
+    <HeaderBackButton
+      onPress={goBack}
+      accessibilityLabel={t('back')}
+      labelVisible={false}
+      tintColor={theme.colors.textColor}
+    />
   ) : (
     <StyledIcon Icon={AppIcon} />
   )

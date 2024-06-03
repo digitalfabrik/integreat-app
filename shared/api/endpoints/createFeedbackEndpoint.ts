@@ -16,6 +16,7 @@ import {
 } from '../../routes'
 import Endpoint from '../Endpoint'
 import EndpointBuilder from '../EndpointBuilder'
+import { API_VERSION } from '../constants'
 
 export const FEEDBACK_ENDPOINT_NAME = 'categoriesFeedback'
 export const POSITIVE_RATING = 'up'
@@ -90,7 +91,7 @@ export default (baseUrl: string): Endpoint<ParamsType, Record<string, never>> =>
     .withParamsToUrlMapper(params => {
       const { city, language, routeType, slug } = params
 
-      return `${baseUrl}/${city}/${language}/wp-json/extensions/v3/feedback/${getFeedbackType(routeType, slug)}/`
+      return `${baseUrl}/api/${API_VERSION}/${city}/${language}/feedback/${getFeedbackType(routeType, slug)}/`
     })
     .withParamsToBodyMapper((params: ParamsType): FormData => {
       const { isPositiveRating, comment, contactMail, query, searchTerm, slug } = params

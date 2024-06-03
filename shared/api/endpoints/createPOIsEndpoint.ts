@@ -2,6 +2,7 @@ import { DateTime } from 'luxon'
 
 import Endpoint from '../Endpoint'
 import EndpointBuilder from '../EndpointBuilder'
+import { API_VERSION } from '../constants'
 import mapAvailableLanguages from '../mapping/mapAvailableLanguages'
 import LocationModel from '../models/LocationModel'
 import OpeningHoursModel from '../models/OpeningHoursModel'
@@ -18,7 +19,7 @@ export default (baseUrl: string): Endpoint<ParamsType, Array<PoiModel>> =>
   new EndpointBuilder<ParamsType, Array<PoiModel>>(POIS_ENDPOINT_NAME)
     .withParamsToUrlMapper(
       (params: ParamsType): string =>
-        `${baseUrl}/${params.city}/${params.language}/wp-json/extensions/v3/locations/?on_map=1`,
+        `${baseUrl}/api/${API_VERSION}/${params.city}/${params.language}/locations/?on_map=1`,
     )
     .withMapper(
       (json: Array<JsonPoiType>): Array<PoiModel> =>

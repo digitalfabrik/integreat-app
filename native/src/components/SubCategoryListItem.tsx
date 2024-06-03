@@ -26,6 +26,7 @@ const FlexStyledLink = styled(Pressable)<{ language: string }>`
 const SubCategoryTitle = styled.Text`
   color: ${props => props.theme.colors.textColor};
   font-family: ${props => props.theme.fonts.native.decorativeFontRegular};
+  flex-shrink: 1;
 `
 
 type SubCategoryListItemProps = {
@@ -43,7 +44,9 @@ const SubCategoryListItem = ({
 }: SubCategoryListItemProps): ReactElement => (
   <FlexStyledLink onPress={() => onItemPress(subCategory)} language={language}>
     <SubCategoryTitleContainer language={language}>
-      <CategoryThumbnail language={language} source={subCategory.thumbnail} resourceCache={resourceCache} />
+      {!!subCategory.thumbnail && (
+        <CategoryThumbnail language={language} source={subCategory.thumbnail} resourceCache={resourceCache} />
+      )}
       <SubCategoryTitle>{subCategory.title}</SubCategoryTitle>
     </SubCategoryTitleContainer>
   </FlexStyledLink>
