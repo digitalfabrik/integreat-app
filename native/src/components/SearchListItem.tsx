@@ -46,6 +46,7 @@ const HighlighterCategoryTitle = styled(Highlighter)<{ language: string }>`
   font-family: ${props => props.theme.fonts.native.decorativeFontRegular};
   color: ${props => props.theme.colors.textColor};
   font-weight: bold;
+  flex-shrink: 1;
 `
 
 type SearchListItemProps = {
@@ -117,7 +118,7 @@ const SearchListItem = ({
       <DirectionContainer language={language}>
         <SearchEntryContainer>
           <TitleDirectionContainer language={language}>
-            <CategoryThumbnail language={language} source={thumbnail} resourceCache={resourceCache} />
+            {!!thumbnail && <CategoryThumbnail language={language} source={thumbnail} resourceCache={resourceCache} />}
             {Title}
           </TitleDirectionContainer>
           {Content}

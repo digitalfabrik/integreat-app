@@ -38,6 +38,7 @@ const CategoryTitle = styled.Text<{ language: string }>`
   flex-direction: ${props => contentDirection(props.language)};
   font-family: ${props => props.theme.fonts.native.decorativeFontBold};
   color: ${props => props.theme.colors.textColor};
+  flex-shrink: 1;
 `
 
 export const CategoryThumbnail = styled(SimpleImage)<{ language: string }>`
@@ -71,11 +72,13 @@ const CategoryListItem = ({
       <DirectionContainer language={language}>
         <CategoryEntryContainer>
           <TitleDirectionContainer language={language}>
-            <CategoryThumbnail
-              language={language}
-              source={category.thumbnail}
-              resourceCache={resourceCache[category.path]}
-            />
+            {!!category.thumbnail && (
+              <CategoryThumbnail
+                language={language}
+                source={category.thumbnail}
+                resourceCache={resourceCache[category.path]}
+              />
+            )}
             <CategoryTitle language={language}>{category.title}</CategoryTitle>
           </TitleDirectionContainer>
         </CategoryEntryContainer>

@@ -196,7 +196,8 @@ const RemoteContent = ({
 
       if (target instanceof HTMLAnchorElement) {
         const href = target.href
-        onInternalLinkClick(decodeURIComponent(new URL(decodeURIComponent(href)).pathname))
+        const url = new URL(decodeURIComponent(href))
+        onInternalLinkClick(decodeURIComponent(`${url.pathname}${url.search}${url.hash}`))
       }
     },
     [onInternalLinkClick],

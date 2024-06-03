@@ -40,7 +40,7 @@ const List = <T,>({
     ListHeaderComponent={Header}
     ListFooterComponent={Footer}
     ListFooterComponentStyle={{ flex: 1, justifyContent: 'flex-end' }}
-    refreshControl={<RefreshControl onRefresh={refresh} refreshing={false} />}
+    refreshControl={refresh ? <RefreshControl onRefresh={refresh} refreshing={false} /> : undefined}
     ListEmptyComponent={
       typeof noItemsMessage === 'string' ? <NoItemsMessage>{noItemsMessage}</NoItemsMessage> : noItemsMessage
     }
