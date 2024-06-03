@@ -56,7 +56,7 @@ describe('SearchFeedback', () => {
     const { getByText, rerender } = renderWithTheme(
       <SearchFeedback cityCode={cityCode} languageCode={languageCode} query='ab' noResults />,
     )
-    expect(getByText('feedback:send')).toBeTruthy()
+    expect(getByText('feedback:send')).toBeEnabled()
 
     // the query is controlled in the parent of SearchFeedback, so we need to update the props
     rerender(
