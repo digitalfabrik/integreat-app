@@ -49,13 +49,14 @@ type PoisProps = {
   pois: Array<PoiModel>
   cityModel: CityModel
   language: string
+  refresh: () => void
   route: RouteProps<PoisRouteType>
   navigation: NavigationProps<PoisRouteType>
 }
 
 const RESTORE_TIMEOUT = 100
 
-const Pois = ({ pois: allPois, language, cityModel, route, navigation }: PoisProps): ReactElement => {
+const Pois = ({ pois: allPois, language, cityModel, route, navigation, refresh }: PoisProps): ReactElement => {
   const { slug, multipoi, poiCategoryId, zoom } = route.params
   const [poiCurrentlyOpenFilter, setPoiCurrentlyOpenFilter] = useState(false)
   const [showFilterSelection, setShowFilterSelection] = useState(false)
@@ -221,6 +222,7 @@ const Pois = ({ pois: allPois, language, cityModel, route, navigation }: PoisPro
               noItemsMessage={t('noPois')}
               renderItem={renderPoiListItem}
               scrollEnabled={false}
+              refresh={refresh}
             />
           )}
         </Container>

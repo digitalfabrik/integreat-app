@@ -14,7 +14,7 @@ const integreatE2e = {
     floss: false,
     pois: true,
     newsStream: true,
-    pushNotifications: false,
+    pushNotifications: true,
     introSlides: false,
     jpalTracking: false,
     sentry: false,
