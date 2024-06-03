@@ -962,9 +962,7 @@ PODS:
     - React-debug
   - react-native-blob-util (0.19.9):
     - React-Core
-  - react-native-geolocation (3.2.1):
-    - glog
-    - RCT-Folly (= 2022.05.16.00)
+  - react-native-geolocation (3.0.6):
     - React-Core
   - react-native-get-random-values (1.11.0):
     - React-Core
@@ -1483,7 +1481,7 @@ SPEC CHECKSUMS:
   React-logger: 7b19bdfb254772a0332d6cd4d66eceb0678b6730
   React-Mapbuffer: 6f392912435adb8fbf4c3eee0e79a0a0b4e4b717
   react-native-blob-util: 18b510205c080a453574a7d2344d64673d0ad9af
-  react-native-geolocation: ed9e1d132f576b9a4a503af46f9704413ea0dec1
+  react-native-geolocation: 0f7fe8a4c2de477e278b0365cce27d089a8c5903
   react-native-get-random-values: 21325b2244dfa6b58878f51f9aa42821e7ba3d06
   react-native-netinfo: bdb108d340cdb41875c9ced535977cac6d2ff321
   react-native-pdf: 79aa75e39a80c1d45ffe58aa500f3cf08f267a2e

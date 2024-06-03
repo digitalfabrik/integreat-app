@@ -1,0 +1,7 @@
+issue_key: 2768
+show_in_stores: true
+platforms:
+  - android
+  - ios
+en: Fixed pull to refresh in map.
+de: Aktualisieren der Orte ist nun möglich.
