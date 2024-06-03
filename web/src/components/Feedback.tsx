@@ -73,7 +73,7 @@ const Feedback = ({
 
   const isSearchFeedback = searchTerm !== undefined
   const commentTitle = isSearchFeedback ? 'wantedInformation' : 'commentHeadline'
-  const sendFeedbackDisabled = isPositiveFeedback === null && comment.trim().length === 0 && !isSearchFeedback
+  const sendFeedbackDisabled = isPositiveFeedback === null && comment.trim().length === 0 && !searchTerm
 
   if (sendingStatus === 'successful') {
     return (
