@@ -1,5 +1,6 @@
 import { DateTime } from 'luxon'
 
+import { API_VERSION } from '../../constants'
 import LocalNewsModel from '../../models/LocalNewsModel'
 import { JsonLocalNewsType } from '../../types'
 import createLocalNewsElementEndpoint from '../createLocalNewsElementEndpoint'
@@ -35,7 +36,7 @@ describe('localnews', () => {
   }
   it('should map params to url', () => {
     expect(localNewsElement.mapParamsToUrl(params)).toBe(
-      `${baseUrl}/${params.city}/${params.language}/wp-json/extensions/v3/fcm/?id=${params.id}`,
+      `${baseUrl}/api/${API_VERSION}/${params.city}/${params.language}/fcm/?id=${params.id}`,
     )
   })
   it('should map fetched data to models', () => {
