@@ -100,22 +100,23 @@ const SearchPage = ({ city, cityCode, languageCode, pathname }: CityRouteProps):
       <Helmet pageTitle={pageTitle} languageChangePaths={languageChangePaths} cityModel={city} />
       {SearchBar}
       <List>
-        {query?.length > 0 && results.map(({ title, content, path, thumbnail }) => (
-          <SearchListItem
-            title={title}
-            contentWithoutHtml={parseHTML(content)}
-            key={path}
-            query={query}
-            path={path}
-            thumbnail={thumbnail}
-          />
-        ))}
+        {query.length > 0 &&
+          results.map(({ title, content, path, thumbnail }) => (
+            <SearchListItem
+              title={title}
+              contentWithoutHtml={parseHTML(content)}
+              key={path}
+              query={query}
+              path={path}
+              thumbnail={thumbnail}
+            />
+          ))}
       </List>
       <SearchFeedback
-          cityCode={cityCode}
-          languageCode={languageCode}
-          noResults={results.length === 0}
-          query={filterText}
+        cityCode={cityCode}
+        languageCode={languageCode}
+        noResults={results.length === 0}
+        query={filterText}
       />
     </CityContentLayout>
   )

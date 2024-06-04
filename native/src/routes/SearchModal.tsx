@@ -75,17 +75,17 @@ const SearchModal = ({
     <Wrapper {...testID('Search-Page')}>
       <SearchHeader query={query} closeSearchBar={onClose} onSearchChanged={setQuery} />
       <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : undefined} style={{ flex: 1 }}>
-        {query?.length > 0 && <List
-                items={searchResults}
-                renderItem={renderItem}
-                accessibilityLabel={t('searchResultsCount', { count: searchResults.length })}
-                style={{ flex: 1 }}
-                noItemsMessage={
-                  <FeedbackContainer routeType={SEARCH_ROUTE} language={languageCode} cityCode={cityCode} query={query} />
-                }
-            />
-
-        }
+        {query.length > 0 && (
+          <List
+            items={searchResults}
+            renderItem={renderItem}
+            accessibilityLabel={t('searchResultsCount', { count: searchResults.length })}
+            style={{ flex: 1 }}
+            noItemsMessage={
+              <FeedbackContainer routeType={SEARCH_ROUTE} language={languageCode} cityCode={cityCode} query={query} />
+            }
+          />
+        )}
       </KeyboardAvoidingView>
     </Wrapper>
   )
