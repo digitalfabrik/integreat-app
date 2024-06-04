@@ -55,6 +55,7 @@ react {
     //
     //   The list of flags to pass to the Hermes compiler. By default is "-O", "-output-source-map"
     // hermesFlags = ["-O", "-output-source-map"]
+    hermesFlags =  ["-O", "-output-source-map", "-Wundefined-variable"] // this will disable all undefined warnings (they are created due to hermes ahead of time compilation)
 }
 
 /**
