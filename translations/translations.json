@@ -490,7 +490,8 @@
       "close": "Schließen",
       "showMore": "Mehr anzeigen",
       "showLess": "Weniger anzeigen",
-      "optional": "optional"
+      "optional": "optional",
+      "back": "Zurück"
     },
     "am": {
       "copied": "ተቀድቷል",
@@ -502,7 +503,8 @@
       "close": "ይዝጉ",
       "showMore": "ተጨማሪ አሳይ",
       "showLess": "ያነሰ አሳይ",
-      "optional": "አማራጭ /ሊተው የሚችል/"
+      "optional": "አማራጭ /ሊተው የሚችል/",
+      "back": "ወደኋላ ተመለስ"
     },
     "ar": {
       "copied": "تم النسخ",
@@ -514,7 +516,8 @@
       "close": "إغلاق",
       "showMore": "عرض المزيد",
       "showLess": "عرض أقل",
-      "optional": "اختياري"
+      "optional": "اختياري",
+      "back": "تراجع"
     },
     "bg": {
       "copied": "Копиран",
@@ -526,7 +529,8 @@
       "close": "Затваряне",
       "showMore": "Показване на повече",
       "showLess": "Показване на по-малко",
-      "optional": "опционално"
+      "optional": "опционално",
+      "back": "Обратно"
     },
     "ckb": {
       "copied": "کۆپی کرا",
@@ -538,7 +542,8 @@
       "close": "داخستن",
       "showMore": "پیشاندانی زیاتر",
       "showLess": "پیشاندانی کەمتر",
-      "optional": "دڵخواز"
+      "optional": "دڵخواز",
+      "back": "گەڕانەوە"
     },
     "cs": {
       "copied": "Kopírovat",
@@ -550,7 +555,8 @@
       "close": "Zavřít",
       "showMore": "Zobrazit více",
       "showLess": "Zobrazit méně",
-      "optional": "volitelné"
+      "optional": "volitelné",
+      "back": "Zpět"
     },
     "el": {
       "copied": "Αντιγράφηκε",
@@ -562,7 +568,8 @@
       "close": "Κλείσιμο",
       "showMore": "Εμφάνιση περισσότερων",
       "showLess": "Εμφάνιση λιγότερων",
-      "optional": "προαιρετικό"
+      "optional": "προαιρετικό",
+      "back": "Πίσω"
     },
     "en": {
       "copied": "Copied",
@@ -574,7 +581,8 @@
       "close": "Close",
       "showMore": "Show more",
       "showLess": "Show less",
-      "optional": "optional"
+      "optional": "optional",
+      "back": "Back"
     },
     "es": {
       "copied": "Copiado",
@@ -586,7 +594,8 @@
       "close": "Cerrar",
       "showMore": "Mostrar más",
       "showLess": "Mostrar menos",
-      "optional": "opcional"
+      "optional": "opcional",
+      "back": "Atrás"
     },
     "fi": {
       "copied": "Kopioitu",
@@ -598,7 +607,8 @@
       "close": "Sulje",
       "showMore": "Näytä enemmän",
       "showLess": "Näytä vähemmän",
-      "optional": "valinnainen"
+      "optional": "valinnainen",
+      "back": "Takaisin"
     },
     "fr": {
       "copied": "Copié",
@@ -610,7 +620,8 @@
       "close": "Fermer",
       "showMore": "Afficher plus",
       "showLess": "Afficher moins",
-      "optional": "facultatif"
+      "optional": "facultatif",
+      "back": "Retour"
     },
     "hr": {
       "copied": "kopirano",
@@ -622,7 +633,8 @@
       "close": "Zatvori",
       "showMore": "Prikazati više",
       "showLess": "Prikazati manje",
-      "optional": "opcijski"
+      "optional": "opcijski",
+      "back": "Natrag"
     },
     "hu": {
       "copied": "Bemásolva",
@@ -634,7 +646,8 @@
       "close": "Bezárás",
       "showMore": "Részletek",
       "showLess": "Kevesebb megjelenítése",
-      "optional": "opcionális"
+      "optional": "opcionális",
+      "back": "Vissza"
     },
     "it": {
       "copied": "Copiato",
@@ -646,7 +659,8 @@
       "close": "Chiudi",
       "showMore": "Mostra altro",
       "showLess": "Mostra meno",
-      "optional": "opzionale"
+      "optional": "opzionale",
+      "back": "Indietro"
     },
     "ka": {
       "copied": "დაკოპირებულია",
@@ -658,7 +672,8 @@
       "close": "დახურვა",
       "showMore": "მეტის ჩვენება",
       "showLess": "ნაკლების ჩვენება",
-      "optional": "ნებაყოფლობით"
+      "optional": "ნებაყოფლობით",
+      "back": "უკან"
     },
     "kmr": {
       "copied": "Kopî bû",
@@ -670,7 +685,8 @@
       "close": "Girêdan",
       "showMore": "Zêdetir nîşan bide",
       "showLess": "Kêmtir nîşan bide",
-      "optional": "Dilxwazî"
+      "optional": "Dilxwazî",
+      "back": "Vegeriyan"
     },
     "mk": {
       "copied": "Копирано",
@@ -682,7 +698,8 @@
       "close": "Затвори",
       "showMore": "Прикажи повеќе",
       "showLess": "Прикажи помалку",
-      "optional": "опционално"
+      "optional": "опционално",
+      "back": "Назад"
     },
     "nl": {
       "copied": "Gekopieerd",
@@ -694,7 +711,8 @@
       "close": "sluit af",
       "showMore": "Meer tonen",
       "showLess": "Minder tonen",
-      "optional": "optioneel"
+      "optional": "optioneel",
+      "back": "Terug"
     },
     "pes": {
       "copied": "کپی شد",
@@ -706,7 +724,8 @@
       "close": "بستن",
       "showMore": "نمایش بیشتر",
       "showLess": "نمایش کمتر",
-      "optional": "اختیاری"
+      "optional": "اختیاری",
+      "back": "بازگشت"
     },
     "pl": {
       "copied": "Skopiowano",
@@ -718,7 +737,8 @@
       "close": "Zamknij",
       "showMore": "Wyświetl więcej",
       "showLess": "Wyświetl mniej",
-      "optional": "opcja"
+      "optional": "opcja",
+      "back": "Powrót"
     },
     "prs": {
       "copied": "کپی شد",
@@ -730,7 +750,8 @@
       "close": "بستن",
       "showMore": "بیشتر نشان بدهيد",
       "showLess": "کمتر نشان بدهيد",
-      "optional": "اختیاری"
+      "optional": "اختیاری",
+      "back": "بازگشت"
     },
     "ps": {
       "copied": "کاپی شولو",
@@ -742,7 +763,8 @@
       "close": "پای ته رسول",
       "showMore": "ډېر وښاياست",
       "showLess": "لږ وښاياست",
-      "optional": "اختیاري"
+      "optional": "اختیاري",
+      "back": "بيرته ګرځېدل"
     },
     "pt": {
       "copied": "Copiado",
@@ -754,7 +776,8 @@
       "close": "Fechar",
       "showMore": "Mostrar mais",
       "showLess": "Mostrar menos",
-      "optional": "opcional"
+      "optional": "opcional",
+      "back": "Voltar"
     },
     "ro": {
       "copied": "Copiat",
@@ -766,7 +789,8 @@
       "close": "Închideți",
       "showMore": "Afișează mai mult",
       "showLess": "Afișează mai puțin",
-      "optional": "opțional"
+      "optional": "opțional",
+      "back": "Înapoi"
     },
     "ru": {
       "copied": "Скопировано",
@@ -778,7 +802,8 @@
       "close": "Закрыть",
       "showMore": "Показать больше",
       "showLess": "Показать меньше",
-      "optional": "опционально"
+      "optional": "опционально",
+      "back": "Назад"
     },
     "so": {
       "copied": "la koobiyeeyay",
@@ -790,7 +815,8 @@
       "close": "Xidh",
       "showMore": "Wax badan muuji",
       "showLess": "Wax yar muuji",
-      "optional": "ikhtiyaari"
+      "optional": "ikhtiyaari",
+      "back": "Dib u noqo"
     },
     "sq": {
       "copied": "e kopjuar",
@@ -802,7 +828,8 @@
       "close": "Mbyll",
       "showMore": "Shfaq më shumë",
       "showLess": "Shfaq më pak",
-      "optional": "opsionale"
+      "optional": "opsionale",
+      "back": "Kthehu"
     },
     "sr-Cyrl": {
       "copied": "копирано",
@@ -814,7 +841,8 @@
       "close": "Затвори",
       "showMore": "Прикажи више",
       "showLess": "Прикажи мање",
-      "optional": "опција"
+      "optional": "опција",
+      "back": "Назад"
     },
     "sr-Latn": {
       "copied": "kopirano",
@@ -826,7 +854,8 @@
       "close": "Zatvorite",
       "showMore": "Prikaži više",
       "showLess": "Prikaži manje",
-      "optional": "opcija"
+      "optional": "opcija",
+      "back": "Nazad"
     },
     "ti": {
       "copied": "ተቐዲሑ",
@@ -838,7 +867,8 @@
       "close": "ዕጾ",
       "showMore": "ተወሳኺ ኣርእዩ",
       "showLess": "ዝወሓደ ኣርእዩ",
-      "optional": "ከም ምርጫኹም"
+      "optional": "ከም ምርጫኹም",
+      "back": "ዝባን"
     },
     "tr": {
       "copied": "kopyalandı",
@@ -850,7 +880,8 @@
       "close": "Kapat",
       "showMore": "Daha fazla göster",
       "showLess": "Daha az göster",
-      "optional": "isteğe bağlı"
+      "optional": "isteğe bağlı",
+      "back": "Geri"
     },
     "uk": {
       "copied": "Копіювати",
@@ -862,7 +893,8 @@
       "close": "Закрити",
       "showMore": "Показати більше",
       "showLess": "Показати менше",
-      "optional": "додатково"
+      "optional": "додатково",
+      "back": "Назад"
     },
     "ur": {
       "copied": "کاپی کیا گیا",
@@ -874,7 +906,8 @@
       "close": "بند کریں",
       "showMore": "مزید دکھائیں",
       "showLess": "کم دکھائیں",
-      "optional": "اختیاری"
+      "optional": "اختیاری",
+      "back": "واپسی"
     },
     "zh-CN": {
       "copied": "已复制",
@@ -886,7 +919,8 @@
       "close": "关闭",
       "showMore": "显示更多",
       "showLess": "显示更少",
-      "optional": "可选"
+      "optional": "可选",
+      "back": "返回"
     }
   },
   "consent": {
@@ -2816,7 +2850,6 @@
       "chooseCalendar": "Kalender-Auswahl",
       "added": "Hinzugefügt",
       "goToCalendar": "Zum Kalender",
-      "back": "Zurück",
       "settings": "Einstellungen",
       "recurring": "wiederholend",
       "today": "heute",
@@ -2838,7 +2871,6 @@
       "chooseCalendar": "የቀን መቁጠሪያን ይምረጡ",
       "added": "ታክሏል",
       "goToCalendar": "ወደ ቀን መቁጠሪያ ይሂዱ",
-      "back": "ወደኋላ ተመለስ",
       "settings": "ቅንብሮች",
       "recurring": "ተደጋጋሚ",
       "today": "ዛሬ",
@@ -2860,7 +2892,6 @@
       "chooseCalendar": "اختر تقويمًا",
       "added": "تمت الإضافة",
       "goToCalendar": "إلى التقويم",
-      "back": "تراجع",
       "settings": "أوضاع الضبط",
       "recurring": "مكرر",
       "today": "اليوم",
@@ -2882,7 +2913,6 @@
       "chooseCalendar": "Избери календар",
       "added": "Добавен",
       "goToCalendar": "Към календара",
-      "back": "Обратно",
       "settings": "Настройки",
       "recurring": "повтарящ се",
       "today": "днес",
@@ -2904,7 +2934,6 @@
       "chooseCalendar": "ساڵنامەیەک هەڵبژێرە",
       "added": "زیادکرا",
       "goToCalendar": "دەسپێگەیشتن بە ساڵنامە",
-      "back": "گەڕانەوە",
       "settings": "ڕێکخستنەکان",
       "recurring": "دووپاتە",
       "today": "ئەمڕۆ",
@@ -2926,7 +2955,6 @@
       "chooseCalendar": "Výběr kalendáře",
       "added": "Přidáno",
       "goToCalendar": "Do kalendáře",
-      "back": "Zpět",
       "settings": "Nastavení",
       "recurring": "opakování",
       "today": "dnes",
@@ -2948,7 +2976,6 @@
       "chooseCalendar": "Επιλέξτε ένα ημερολόγιο",
       "added": "Προστέθηκε",
       "goToCalendar": "Μετάβαση στο ημερολόγιο",
-      "back": "Πίσω",
       "settings": "Ρυθμίσεις",
       "recurring": "επαναλαμβάνεται",
       "today": "σήμερα",
@@ -2970,7 +2997,6 @@
       "chooseCalendar": "Calendar choice",
       "added": "Added",
       "goToCalendar": "Go to calendar",
-      "back": "Back",
       "settings": "Settings",
       "recurring": "recurring",
       "today": "today",
@@ -2992,7 +3018,6 @@
       "chooseCalendar": "Elije un calendario",
       "added": "Se añadió",
       "goToCalendar": "al calendario",
-      "back": "Atrás",
       "settings": "Ajustes",
       "recurring": "repetitivo",
       "today": "hoy",
@@ -3014,7 +3039,6 @@
       "chooseCalendar": "Valitse kalenteri",
       "added": "Lisätty",
       "goToCalendar": "Kalenteriin",
-      "back": "Takaisin",
       "settings": "Asetukset",
       "recurring": "toistuva",
       "today": "tänään",
@@ -3036,7 +3060,6 @@
       "chooseCalendar": "Choisis un calendrier",
       "added": "Ajouté",
       "goToCalendar": "Accéder au calendrier",
-      "back": "Retour",
       "settings": "Réglages",
       "recurring": "répétitif",
       "today": "aujourd’hui",
@@ -3058,7 +3081,6 @@
       "chooseCalendar": "Izaberi kalendar",
       "added": "Dodano",
       "goToCalendar": "Na kalendar",
-      "back": "Natrag",
       "settings": "Postavke",
       "recurring": "ponavljajući",
       "today": "danas",
@@ -3080,7 +3102,6 @@
       "chooseCalendar": "Válasszon ki egy naptárat",
       "added": "Hozzáadva",
       "goToCalendar": "A naptárhoz",
-      "back": "Vissza",
       "settings": "Beállítások",
       "recurring": "ismétlődő",
       "today": "ma",
@@ -3102,7 +3123,6 @@
       "chooseCalendar": "Seleziona un calendario",
       "added": "Aggiunto",
       "goToCalendar": "Al calendario",
-      "back": "Indietro",
       "settings": "Impostazioni",
       "recurring": "ricorrente",
       "today": "oggi",
@@ -3124,7 +3144,6 @@
       "chooseCalendar": "აირჩიე კალენდარი",
       "added": "დამატებულია",
       "goToCalendar": "კალენდარზე გადასვლა",
-      "back": "უკან",
       "settings": "პარამეტრები",
       "recurring": "განმეორებით",
       "today": "დღეს",
@@ -3146,7 +3165,6 @@
       "chooseCalendar": "Rojhejmêrekê bibijêre",
       "added": "Zêdekirin",
       "goToCalendar": "Li rojhejmêrê",
-      "back": "Vegeriyan",
       "settings": "Eyarkirin",
       "recurring": "Dubarebûyî",
       "today": "Îro",
@@ -3168,7 +3186,6 @@
       "chooseCalendar": "Избери календар",
       "added": "Додадено",
       "goToCalendar": "Кон календарот",
-      "back": "Назад",
       "settings": "Поставки",
       "recurring": "повторувачки",
       "today": "утре",
@@ -3190,7 +3207,6 @@
       "chooseCalendar": "Selecteer een kalender",
       "added": "Toegevoegd",
       "goToCalendar": "Naar de kalender",
-      "back": "Terug",
       "settings": "Instellingen",
       "recurring": "herhalend",
       "today": "vandaag",
@@ -3212,7 +3228,6 @@
       "chooseCalendar": "یک تقویم را انتخاب کنید",
       "added": "افزوده شد",
       "goToCalendar": "دسترسی به تقویم",
-      "back": "بازگشت",
       "settings": "تنظیمات",
       "recurring": "تکراری",
       "today": "امروز",
@@ -3234,7 +3249,6 @@
       "chooseCalendar": "Wybierz kalendarz",
       "added": "Dodano",
       "goToCalendar": "Do kalendarza",
-      "back": "Powrót",
       "settings": "Ustawienia",
       "recurring": "powtarzający się",
       "today": "dzisiaj",
@@ -3256,7 +3270,6 @@
       "chooseCalendar": "یک تقویم را انتخاب کنید",
       "added": "اضافه شد",
       "goToCalendar": "دسترسی به تقویم",
-      "back": "بازگشت",
       "settings": "تنظیمات",
       "recurring": "تکراری",
       "today": "امروز",
@@ -3278,7 +3291,6 @@
       "chooseCalendar": "يوه جنتري غوره کړئ",
       "added": "اضافه شو",
       "goToCalendar": "جنتري ته لاسرسی",
-      "back": "بيرته ګرځېدل",
       "settings": "تنظيمات",
       "recurring": "تکراري",
       "today": "نن ورځ",
@@ -3300,7 +3312,6 @@
       "chooseCalendar": "Selecione um calendário",
       "added": "Adicionado",
       "goToCalendar": "Para o calendário",
-      "back": "Voltar",
       "settings": "Definições",
       "recurring": "repetitivo",
       "today": "hoje",
@@ -3322,7 +3333,6 @@
       "chooseCalendar": "Selectați un calendar",
       "added": "Adăugat",
       "goToCalendar": "La calendar",
-      "back": "Înapoi",
       "settings": "Setări",
       "recurring": "repetarea",
       "today": "astăzi",
@@ -3344,7 +3354,6 @@
       "chooseCalendar": "Выбери календарь",
       "added": "Добавлено",
       "goToCalendar": "К календарю",
-      "back": "Назад",
       "settings": "Настройки",
       "recurring": "периодически",
       "today": "сегодня",
@@ -3366,7 +3375,6 @@
       "chooseCalendar": "Dooro jadwalka",
       "added": "Ku daray",
       "goToCalendar": "Jadwalka",
-      "back": "Dib u noqo",
       "settings": "Dejinta",
       "recurring": "Soo noqnoqda",
       "today": "Maanta",
@@ -3388,7 +3396,6 @@
       "chooseCalendar": "Zgjidh një kalendar",
       "added": "U shtua",
       "goToCalendar": "Shko te kalendari",
-      "back": "Kthehu",
       "settings": "Cilësimet",
       "recurring": "periodik",
       "today": "sot",
@@ -3410,7 +3417,6 @@
       "chooseCalendar": "Изабери календар",
       "added": "Додато",
       "goToCalendar": "На календар",
-      "back": "Назад",
       "settings": "Подешавања",
       "recurring": "понављајући",
       "today": "данас",
@@ -3432,7 +3438,6 @@
       "chooseCalendar": "Izaberi kalendar",
       "added": "Dodato",
       "goToCalendar": "Na kalendar",
-      "back": "Nazad",
       "settings": "Podešavanja",
       "recurring": "ponavljajući",
       "today": "danas",
@@ -3454,7 +3459,6 @@
       "chooseCalendar": "ዓውደ ኣዋርሕ ምረጽ",
       "added": "ተወሰኸ",
       "goToCalendar": "ናብ ዓውደ ኣዋርሕ",
-      "back": "ዝባን",
       "settings": "ቅጥዕታት",
       "recurring": "ተደጋጋሚ",
       "today": "ሎምዓንቲ",
@@ -3476,7 +3480,6 @@
       "chooseCalendar": "Bir takvim seç",
       "added": "Eklendi",
       "goToCalendar": "Takvime git",
-      "back": "Geri",
       "settings": "Ayarlar",
       "recurring": "tekrarlayan",
       "today": "bugün",
@@ -3498,7 +3501,6 @@
       "chooseCalendar": "Виберіть календар",
       "added": "Додано",
       "goToCalendar": "До календаря",
-      "back": "Назад",
       "settings": "Налаштування",
       "recurring": "періодичні",
       "today": "сьогодні",
@@ -3520,7 +3522,6 @@
       "chooseCalendar": "ایک کیلنڈر منتخب کریں",
       "added": "شامل کیا گیا",
       "goToCalendar": "کیلنڈر پر جائیں",
-      "back": "واپسی",
       "settings": "ترتیبات",
       "recurring": "مکرر",
       "today": "آج",
@@ -3542,7 +3543,6 @@
       "chooseCalendar": "选择日历",
       "added": "添加到日历",
       "goToCalendar": "转到日历",
-      "back": "返回",
       "settings": "设置",
       "recurring": "重复",
       "today": "今天",

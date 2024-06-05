@@ -1,5 +1,6 @@
 import { DateTime } from 'luxon'
 
+import { API_VERSION } from '../../constants'
 import PageModel from '../../models/PageModel'
 import createDisclaimerEndpoint from '../createDisclaimerEndpoint'
 
@@ -19,7 +20,7 @@ describe('disclaimer', () => {
   }
   it('should map router to url', () => {
     expect(disclaimer.mapParamsToUrl(params)).toBe(
-      'https://integreat-api-url.de/augsburg/de/wp-json/extensions/v3/disclaimer/',
+      `https://integreat-api-url.de/api/${API_VERSION}/augsburg/de/disclaimer/`,
     )
   })
   it('should throw if there is no disclaimer', () => {
