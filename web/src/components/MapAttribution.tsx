@@ -3,8 +3,8 @@ import styled from 'styled-components'
 
 import { openStreeMapCopyright } from 'shared'
 
-import CleanLink from './CleanLink'
 import Button from './base/Button'
+import Link from './base/Link'
 
 const Attribution = styled.div`
   display: flex;
@@ -26,7 +26,7 @@ const StyledButton = styled(Button)<{ expanded: boolean }>`
   font-weight: ${props => (props.expanded ? 'normal' : 'bold')};
 `
 
-const OpenStreetMapsLink = styled(CleanLink)`
+const OpenStreetMapsLink = styled(Link)`
   text-decoration: underline;
   color: ${props => props.theme.colors.tunewsThemeColor};
 `
