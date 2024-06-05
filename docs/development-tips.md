@@ -9,9 +9,13 @@ In the browser console, run `window.localStorage.setItem('api-url', 'https://cms
 or whichever API (e.g. ''https://cms.integreat-app.de) you want to call. You can also do it manually in
 the local storage of the browser.
 
+See also [here](../web/README.md#cms).
+
 ### Triggering a deployment
 
 In `/tools`, use the following command: `yarn trigger-pipeline trigger <workflow from trigger-pipeline.ts>—api-token <CircleCI token>`.
+
+See also [here](./cicd.md#triggering-a-delivery).
 
 ### Opening a URL in the native app
 
