@@ -218,7 +218,7 @@ cmake-build-*/
 out/
 
 # VSCode
-.vscode/settings.json
+.vscode
 
 # mpeltonen/sbt-idea plugin
 .idea_modules/

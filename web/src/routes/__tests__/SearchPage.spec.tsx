@@ -58,12 +58,12 @@ describe('SearchPage', () => {
   const renderSearch = ({ query }: { query?: string } = {}) =>
     renderRoute(searchPage, { routePattern, pathname, searchParams: query })
 
-  it('should display results', () => {
-    const { getByPlaceholderText, getByText } = renderSearch()
+  it('should only display results if query has a length', () => {
+    const { queryByText, getByPlaceholderText, getByText } = renderSearch()
 
-    expect(getByText(category1.title)).toBeTruthy()
-    expect(getByText(event0.title)).toBeTruthy()
-    expect(getByText(poi0.title)).toBeTruthy()
+    expect(queryByText(category1.title)).toBeNull()
+    expect(queryByText(event0.title)).toBeNull()
+    expect(queryByText(poi0.title)).toBeNull()
 
     fireEvent.change(getByPlaceholderText('search:searchPlaceholder'), {
       target: {
