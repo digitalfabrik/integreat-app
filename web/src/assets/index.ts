@@ -12,9 +12,12 @@ import CalendarTodayRecurringIcon from '../../../assets/icons/calendar-today-rec
 import CalendarTodayIcon from '../../../assets/icons/calendar-today.svg'
 import CalendarIcon from '../../../assets/icons/calendar.svg'
 import CategoriesIcon from '../../../assets/icons/categories.svg'
+import ChatbotIcon from '../../../assets/icons/chatbot.svg'
 import ClockIcon from '../../../assets/icons/clock.svg'
 import CloseIcon from '../../../assets/icons/close.svg'
+import CloseWhiteIcon from '../../../assets/icons/close_white.svg'
 import CopyIcon from '../../../assets/icons/copy.svg'
+import DataSecurityIcon from '../../../assets/icons/data-security.svg'
 import DoneIcon from '../../../assets/icons/done.svg'
 import EditLocationIcon from '../../../assets/icons/edit-location.svg'
 import EuroIcon from '../../../assets/icons/euro.svg'
@@ -30,6 +33,7 @@ import LocationMarkerIcon from '../../../assets/icons/location-marker.svg'
 import LocationIcon from '../../../assets/icons/location.svg'
 import MailIcon from '../../../assets/icons/mail.svg'
 import MenuIcon from '../../../assets/icons/menu.svg'
+import MinimizeIcon from '../../../assets/icons/minimize.svg'
 import NewsIcon from '../../../assets/icons/news.svg'
 import NoteIcon from '../../../assets/icons/note.svg'
 import OffersIcon from '../../../assets/icons/offers.svg'
@@ -63,9 +67,12 @@ export {
   CalendarTodayIcon,
   CalendarTodayRecurringIcon,
   CategoriesIcon,
+  ChatbotIcon,
   ClockIcon,
   CloseIcon,
+  CloseWhiteIcon,
   CopyIcon,
+  DataSecurityIcon,
   DoneIcon,
   EditLocationIcon,
   EuroIcon,
@@ -84,6 +91,7 @@ export {
   LocationMarkerIcon,
   MailIcon,
   MenuIcon,
+  MinimizeIcon,
   NewsIcon,
   NoteIcon,
   OffersIcon,

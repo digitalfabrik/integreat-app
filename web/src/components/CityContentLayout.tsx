@@ -11,6 +11,7 @@ import Layout from './Layout'
 export type CityContentLayoutProps = {
   Toolbar?: ReactNode
   children?: ReactNode
+  chatbot?: ReactNode
   route: RouteType
   languageChangePaths: Array<{ code: string; path: string | null; name: string }> | null
   isLoading: boolean
@@ -31,6 +32,7 @@ const CityContentLayout = (props: CityContentLayoutProps): ReactElement => {
     isLoading,
     route,
     Toolbar,
+    chatbot,
     fullWidth = false,
     disableScrollingSafari = false,
     showFooter = true,
@@ -57,6 +59,7 @@ const CityContentLayout = (props: CityContentLayoutProps): ReactElement => {
           <CityContentFooter city={city.code} language={languageCode} />
         ) : null
       }
+      chatbot={chatbot}
       toolbar={!isLoadingMobile && Toolbar}>
       {children}
     </Layout>

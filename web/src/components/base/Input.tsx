@@ -1,3 +1,4 @@
+import placeholder from 'lodash/fp/placeholder'
 import React, { ChangeEvent, ReactElement } from 'react'
 import styled, { css } from 'styled-components'
 
@@ -61,6 +62,7 @@ export type InputProps = {
   required?: boolean
   hint?: string
   hintIsLabel?: boolean
+  placeholder?: string
 }
 
 const Input = ({
@@ -71,6 +73,7 @@ const Input = ({
   submitted = false,
   multiline,
   maxLength,
+  placeholder,
   required,
   hint,
   hintIsLabel = false,
@@ -97,6 +100,7 @@ const Input = ({
           maxLength={maxLength}
           required={required}
           submitted={submitted}
+          placeholder={placeholder}
         />
       ) : (
         <TextInput
@@ -107,6 +111,7 @@ const Input = ({
           value={value}
           maxLength={maxLength}
           submitted={submitted}
+          placeholder={placeholder}
         />
       )}
     </InputContainer>

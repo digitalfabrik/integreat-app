@@ -19,6 +19,7 @@ import { CityRouteProps } from '../CityContentSwitcher'
 import Breadcrumbs from '../components/Breadcrumbs'
 import CategoriesContent from '../components/CategoriesContent'
 import CategoriesToolbar from '../components/CategoriesToolbar'
+import ChatbotContainer from '../components/ChatbotContainer'
 import CityContentLayout, { CityContentLayoutProps } from '../components/CityContentLayout'
 import FailureSwitcher from '../components/FailureSwitcher'
 import Helmet from '../components/Helmet'
@@ -127,6 +128,7 @@ const CategoriesPage = ({ city, pathname, cityCode, languageCode }: CityRoutePro
     Toolbar: (
       <CategoriesToolbar category={category} cityCode={cityCode} languageCode={languageCode} pageTitle={pageTitle} />
     ),
+    chatbot: <ChatbotContainer />,
   }
 
   if (categoriesLoading || parentsLoading || pathname !== previousPathname) {
