@@ -1,4 +1,4 @@
-# Special tricks
+# Development Tips and Tricks
 
 This is a file in which we can collect some tricks that we might otherwise just put in private note files.
 We have a file to share these in instead here.
