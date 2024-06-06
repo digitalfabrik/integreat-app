@@ -1,11 +1,10 @@
-import React, { ReactNode, ReactElement } from 'react'
+import React, { ReactElement, ReactNode } from 'react'
 import { Link as RouterLink } from 'react-router-dom'
 import styled from 'styled-components'
 
 import { helpers } from '../../constants/theme'
 import isExternalUrl from '../../utils/isExternalUrl'
 
-// StyledLink component that uses the helpers conditionally
 const StyledLink = styled(RouterLink)<{ $removeHighlight?: boolean; $adaptiveFontSize?: boolean }>`
   color: inherit;
   text-decoration: none;
@@ -21,7 +20,7 @@ const StyledAnchor = styled.a`
 `
 
 type LinkProps = {
-  to: string
+  to?: string
   children: ReactNode
   ariaLabel?: string
   className?: string
@@ -43,22 +42,34 @@ const Link = ({
   removeHighlight,
   adaptiveFontSize,
 }: LinkProps): ReactElement => {
-  const newTabProps = newTab && { target: '_blank', rel: 'noopener noreferrer' }
+  const newTabProps = { target: '_blank', rel: 'noopener noreferrer' }
+
+  const getUrl = () => {
+    if (to) {
+      return to
+    }
+    if (href) {
+      return href
+    }
+    return '/'
+  }
+
+  const url = getUrl()
 
   if (isCleanAnchor) {
     return (
-      <StyledAnchor aria-label={ariaLabel} className={className} href={href || to} data-testid='anchorLink'>
+      <StyledAnchor aria-label={ariaLabel} className={className} href={url} data-testid='anchorLink'>
         {children}
       </StyledAnchor>
     )
   }
 
-  if (isExternalUrl(to)) {
+  if (isExternalUrl(url)) {
     return (
       // @ts-expect-error wrong types from polymorphic 'as', see https://github.com/styled-components/styled-components/issues/4112
       <StyledLink
         as='a'
-        href={href || to}
+        href={url}
         aria-label={ariaLabel}
         className={className}
         data-testid='externalLink'
@@ -72,13 +83,13 @@ const Link = ({
 
   return (
     <StyledLink
-      to={href || to}
+      to={url}
       aria-label={ariaLabel}
       className={className}
       data-testid='internalLink'
       $removeHighlight={removeHighlight}
       $adaptiveFontSize={adaptiveFontSize}
-      {...newTabProps}>
+      {...(newTab ? newTabProps : {})}>
       {children}
     </StyledLink>
   )

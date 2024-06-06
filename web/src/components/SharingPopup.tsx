@@ -8,6 +8,7 @@ import ToolbarItem from './ToolbarItem'
 import Tooltip from './Tooltip'
 import Button from './base/Button'
 import Icon from './base/Icon'
+import Link from './base/Link'
 
 type SharingPopupProps = {
   shareUrl: string
@@ -153,7 +154,7 @@ const CloseButton = styled(Button)`
   display: flex;
 `
 
-const Link = styled.a`
+const StyledLink = styled(Link)`
   background-color: ${props => props.theme.colors.backgroundColor};
   border: none;
   padding: 0;
@@ -210,27 +211,25 @@ const SharingPopup = ({ shareUrl, title, flow, portalNeeded }: SharingPopupProps
           {Backdrop}
           <TooltipContainer $flow={portalNeeded ? 'horizontal' : flow} $active={shareOptionsVisible}>
             <Tooltip text={t('whatsappTooltip')} flow='up'>
-              <Link
+              <StyledLink
                 href={`https://api.whatsapp.com/send?text=${shareMessage}%0a${encodedShareUrl}`}
-                target='_blank'
-                aria-label={t('whatsappTooltip')}>
+                ariaLabel={t('whatsappTooltip')}>
                 <StyledIcon src={WhatsappIcon} />
-              </Link>
+              </StyledLink>
             </Tooltip>
             <Tooltip text={t('facebookTooltip')} flow='up'>
-              <Link
+              <StyledLink
                 href={`https://www.facebook.com/sharer/sharer.php?u=${encodedShareUrl}&t${shareMessage}`}
-                target='_blank'
-                aria-label={t('facebookTooltip')}>
+                ariaLabel={t('facebookTooltip')}>
                 <StyledIcon src={FacebookIcon} />
-              </Link>
+              </StyledLink>
             </Tooltip>
             <Tooltip text={t('mailTooltip')} flow='up'>
-              <Link
+              <StyledLink
                 href={`mailto:?subject=${encodedTitle}&body=${shareMessage} ${encodedShareUrl}`}
-                aria-label={t('mailTooltip')}>
+                ariaLabel={t('mailTooltip')}>
                 <StyledIcon src={MailIcon} />
-              </Link>
+              </StyledLink>
             </Tooltip>
             <Tooltip text={t('closeTooltip')} flow='up'>
               <CloseButton onClick={() => setShareOptionsVisible(false)} label={t('closeTooltip')}>

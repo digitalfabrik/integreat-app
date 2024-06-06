@@ -1,9 +1,9 @@
 import React, { ReactElement } from 'react'
-import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 
 import Tooltip from './Tooltip'
 import Icon from './base/Icon'
+import Link from './base/Link'
 
 const StyledIcon = styled(Icon)`
   width: 28px;
@@ -19,7 +19,7 @@ type HeaderActionItemLinkProps = {
 const HeaderActionItemLink = ({ href, text, iconSrc }: HeaderActionItemLinkProps): ReactElement => (
   <Tooltip text={text} flow='down' smallViewportFlow='left'>
     {href ? (
-      <Link to={href} aria-label={text}>
+      <Link to={href} ariaLabel={text}>
         <StyledIcon src={iconSrc} />
       </Link>
     ) : (
