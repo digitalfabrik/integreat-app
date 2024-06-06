@@ -1,5 +1,3 @@
-import { forEach, reduce } from 'lodash'
-
 import { TransformedTranslationsType, TranslationsType } from './types'
 
 /**
@@ -9,11 +7,10 @@ import { TransformedTranslationsType, TranslationsType } from './types'
  */
 
 export default (translations: TranslationsType): TransformedTranslationsType =>
-  reduce<TranslationsType, TransformedTranslationsType>(
-    translations,
-    (transformedTranslations, namespace, namespaceName) => {
+  Object.entries(translations).reduce(
+    (transformedTranslations: TransformedTranslationsType, [namespaceName, namespace]) => {
       const newTransformedTranslations = transformedTranslations
-      forEach(namespace, (language, languageTag) => {
+      Object.entries(namespace).forEach(([languageTag, language]) => {
         newTransformedTranslations[languageTag] = {
           ...newTransformedTranslations[languageTag],
           [namespaceName]: language as Record<string, string>,
