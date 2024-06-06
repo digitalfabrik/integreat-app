@@ -12,6 +12,7 @@ import CalendarTodayRecurringIcon from '../../../assets/icons/calendar-today-rec
 import CalendarTodayIcon from '../../../assets/icons/calendar-today.svg'
 import CalendarIcon from '../../../assets/icons/calendar.svg'
 import CategoriesIcon from '../../../assets/icons/categories.svg'
+import ChatIntegreatLogo from '../../../assets/icons/chat_integreat_logo.svg'
 import ChatbotIcon from '../../../assets/icons/chatbot.svg'
 import ClockIcon from '../../../assets/icons/clock.svg'
 import CloseIcon from '../../../assets/icons/close.svg'
@@ -32,6 +33,7 @@ import LgbtqiIcon from '../../../assets/icons/lgbtqi.svg'
 import LocationMarkerIcon from '../../../assets/icons/location-marker.svg'
 import LocationIcon from '../../../assets/icons/location.svg'
 import MailIcon from '../../../assets/icons/mail.svg'
+import MaximizeIcon from '../../../assets/icons/maximize.svg'
 import MenuIcon from '../../../assets/icons/menu.svg'
 import MinimizeIcon from '../../../assets/icons/minimize.svg'
 import NewsIcon from '../../../assets/icons/news.svg'
@@ -68,6 +70,7 @@ export {
   CalendarTodayRecurringIcon,
   CategoriesIcon,
   ChatbotIcon,
+  ChatIntegreatLogo,
   ClockIcon,
   CloseIcon,
   CloseWhiteIcon,
@@ -90,6 +93,7 @@ export {
   LocationIcon,
   LocationMarkerIcon,
   MailIcon,
+  MaximizeIcon,
   MenuIcon,
   MinimizeIcon,
   NewsIcon,

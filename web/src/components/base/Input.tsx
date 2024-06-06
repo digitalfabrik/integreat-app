@@ -1,4 +1,3 @@
-import placeholder from 'lodash/fp/placeholder'
 import React, { ChangeEvent, ReactElement } from 'react'
 import styled, { css } from 'styled-components'
 
@@ -22,11 +21,11 @@ const GeneralInputStyles = css<{ submitted: boolean }>`
     `}
 `
 
-const StyledTextArea = styled.textarea<{ submitted: boolean }>`
+const StyledTextArea = styled.textarea<{ submitted: boolean; small: boolean }>`
   ${GeneralInputStyles};
   border-radius: 0.2rem 0.2rem 0;
   resize: vertical;
-  min-height: 60px;
+  min-height: ${props => (props.small ? '16px' : '60px')};
 `
 
 const TextInput = styled.input<{ submitted: boolean }>`
@@ -101,6 +100,7 @@ const Input = ({
           required={required}
           submitted={submitted}
           placeholder={placeholder}
+          small={numberOfLines === 1}
         />
       ) : (
         <TextInput

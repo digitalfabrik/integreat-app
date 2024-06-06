@@ -1,15 +1,13 @@
 import FocusTrap from 'focus-trap-react'
 import React, { ReactElement, ReactNode, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
-import styled, { useTheme } from 'styled-components'
+import styled from 'styled-components'
 
 import dimensions from '../constants/dimensions'
-import useLockedBody from '../hooks/useLockedBody'
-import useScrollToTop from '../hooks/useScrollToTop'
 import useWindowDimensions from '../hooks/useWindowDimensions'
+import { ChatbotVisibilityStatus } from './ChatbotContainer'
 import ChatbotModalContent from './ChatbotModalContent'
 import { LAYOUT_ELEMENT_ID } from './Layout'
-import ModalContent from './ModalContent'
 import Button from './base/Button'
 
 const Overlay = styled(Button)`
@@ -45,17 +43,23 @@ const ModalContentContainer = styled.div`
   }
 `
 
-type ModalProps = {
+type ChatBotModalProps = {
   title: string
   children: ReactNode
   closeModal: () => void
+  visibilityStatus: ChatbotVisibilityStatus
+  resizeModal: () => void
 }
 
-const Modal = ({ title, closeModal, children }: ModalProps): ReactElement => {
+const ChatbotModal = ({
+  title,
+  closeModal,
+  children,
+  visibilityStatus,
+  resizeModal,
+}: ChatBotModalProps): ReactElement => {
   const { viewportSmall } = useWindowDimensions()
   const { t } = useTranslation('common')
-  useScrollToTop()
-  useLockedBody(true)
 
   useEffect(() => {
     const layoutElement = document.getElementById(LAYOUT_ELEMENT_ID)
@@ -67,11 +71,16 @@ const Modal = ({ title, closeModal, children }: ModalProps): ReactElement => {
   const Modal = (
     <FocusTrap focusTrapOptions={{ clickOutsideDeactivates: true, tabbableOptions: { displayCheck: 'legacy-full' } }}>
       <ModalContainer role='dialog' aria-hidden={false} aria-modal>
-        <Overlay onClick={closeModal} tabIndex={0} ariaLabel={t('close')}>
+        <Overlay onClick={resizeModal} tabIndex={0} ariaLabel={t('close')}>
           <div />
         </Overlay>
         <ModalContentContainer>
-          <ChatbotModalContent title={title} closeModal={closeModal} small={viewportSmall}>
+          <ChatbotModalContent
+            title={title}
+            onClose={closeModal}
+            small={viewportSmall}
+            onResize={resizeModal}
+            visibilityStatus={visibilityStatus}>
             {children}
           </ChatbotModalContent>
         </ModalContentContainer>
@@ -82,4 +91,4 @@ const Modal = ({ title, closeModal, children }: ModalProps): ReactElement => {
   return Modal
 }
 
-export default Modal
+export default ChatbotModal

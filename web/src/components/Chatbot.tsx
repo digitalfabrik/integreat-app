@@ -2,6 +2,8 @@ import React, { ReactElement, useState } from 'react'
 import styled from 'styled-components'
 
 import { DataSecurityIcon } from '../assets'
+import ChatbotConversation from './ChatbotConversation'
+import LoadingSpinner from './LoadingSpinner'
 import Icon from './base/Icon'
 import Input from './base/Input'
 import InputSection from './base/InputSection'
@@ -9,17 +11,18 @@ import TextButton from './base/TextButton'
 
 const Container = styled.div`
   min-width: 300px;
-  height: 350px;
+  height: 400px;
   padding: 12px;
+  display: flex;
+  flex-direction: column;
 `
 
-const ConversationContainer = styled.div`
-  height: 50%;
-  font-size: ${props => props.theme.fonts.hintFontSize};
+const LoadingContainer = styled(Container)`
+  justify-content: center;
 `
 
 const StyledInputSection = styled(InputSection)`
-  height: 50%;
+  // height: 50%;
 `
 
 const StyledIconContainer = styled.div`
@@ -37,20 +40,41 @@ const SubmitButton = styled(TextButton)`
   flex: 1;
 `
 
-const onSubmit = () => console.log('Senden')
+const LoadingText = styled.div`
+  text-align: center;
+`
+
+// TODO security info container, scrollToBottom on chat messages, fix external link styling, submit on enter, fix minimize issue -> Text gone
+
 const Chatbot = (): ReactElement => {
   const [textInput, setTextInput] = useState<string>('')
+  const [hasConversationStated, setHasConversationStated] = useState<boolean>(false)
+  const loading = false
+  const onSubmit = () => {
+    setHasConversationStated(true)
+    setTextInput('')
+  }
+
+  if (loading) {
+    return (
+      <LoadingContainer>
+        <LoadingSpinner />
+        <LoadingText>Einen Moment bitte, nach Ihrer Antwort wird gesucht...</LoadingText>
+      </LoadingContainer>
+    )
+  }
+
   return (
     <Container>
-      <ConversationContainer>Conversation Content</ConversationContainer>
-      <StyledInputSection id='chatbot' title='Meine Frage:'>
+      <ChatbotConversation hasConversationStarted={hasConversationStated} />
+      <StyledInputSection id='chatbot' title={hasConversationStated ? '' : 'Meine Frage:'}>
         <Input
           id='chatbot'
           value={textInput}
           onChange={setTextInput}
           multiline
-          numberOfLines={3}
-          placeholder='Ich möchte wissen....'
+          numberOfLines={hasConversationStated ? 1 : 3}
+          placeholder={hasConversationStated ? undefined : 'Ich möchte wissen....'}
         />
       </StyledInputSection>
       <SubmitContainer>
