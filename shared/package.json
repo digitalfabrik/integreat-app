@@ -3,6 +3,7 @@
   "version": "0.0.1",
   "description": "Code shared between native and web mostly for api",
   "main": "index.ts",
+  "sideEffects": false,
   "private": true,
   "scripts": {
     "test": "jest",
@@ -16,9 +17,9 @@
   },
   "dependencies": {
     "@turf/distance": "^6.5.0",
+    "deepmerge-ts": "^5.1.0",
     "entities": "^4.5.0",
     "htmlparser2": "^9.1.0",
-    "lodash": "^4.17.21",
     "luxon": "^3.4.4",
     "minisearch": "^6.3.0",
     "normalize-path": "^3.0.0",
@@ -28,7 +29,6 @@
   },
   "devDependencies": {
     "@types/geojson": "^7946.0.10",
-    "@types/lodash": "^4.14.197",
     "@types/luxon": "^3.3.1",
     "@types/md5": "^2.3.2",
     "@types/normalize-path": "^3.0.0",
