@@ -1,5 +1,4 @@
-import { groupBy, transform } from 'lodash'
-import React, { ReactElement, ReactNode, useState } from 'react'
+import React, { ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
 
@@ -39,22 +38,16 @@ const CitySelector = ({ cities, language }: CitySelectorProps): ReactElement => 
 
   const resultCities = filterSortCities(cities, filterText, buildConfig().featureFlags.developerFriendly)
 
-  const groups = groupBy(resultCities, city => city.sortCategory)
-
-  const entries = transform(
-    groups,
-    (result: Array<ReactNode>, cities, key) => {
-      result.push(
-        <div key={key}>
-          <CityListParent stickyTop={stickyTop}>{key}</CityListParent>
-          {cities.map(city => (
-            <CityEntry key={city.code} city={city} language={language} filterText={filterText} />
-          ))}
-        </div>,
-      )
-    },
-    [],
-  )
+  const groups = [...new Set(resultCities.map(it => it.sortCategory))].map(group => (
+    <div key={group}>
+      <CityListParent stickyTop={stickyTop}>{group}</CityListParent>
+      {resultCities
+        .filter(it => it.sortCategory === group)
+        .map(city => (
+          <CityEntry key={city.code} city={city} language={language} filterText={filterText} />
+        ))}
+    </div>
+  ))
 
   return (
     <Container>
@@ -65,7 +58,7 @@ const CitySelector = ({ cities, language }: CitySelectorProps): ReactElement => 
         placeholderText={t('searchCity')}
         spaceSearch={false}
         onStickyTopChanged={setStickyTop}>
-        {resultCities.length === 0 ? <Failure errorMessage='search:nothingFound' /> : entries}
+        {resultCities.length === 0 ? <Failure errorMessage='search:nothingFound' /> : groups}
       </ScrollingSearchBox>
     </Container>
   )
