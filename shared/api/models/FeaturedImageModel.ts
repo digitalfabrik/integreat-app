@@ -1,10 +1,11 @@
-import { isEqual } from 'lodash'
-
 type FeaturedImageInstanceType = {
   url: string
   width: number
   height: number
 }
+
+const isSameImage = (a: FeaturedImageInstanceType, b: FeaturedImageInstanceType): boolean =>
+  a.url === b.url && a.width === b.width && a.height === b.height
 
 class FeaturedImageModel {
   _description: string | null | undefined
@@ -51,10 +52,10 @@ class FeaturedImageModel {
     return (
       !!other &&
       this.description === other.description &&
-      isEqual(this.thumbnail, other.thumbnail) &&
-      isEqual(this.medium, other.medium) &&
-      isEqual(this.large, other.large) &&
-      isEqual(this.full, other.full)
+      isSameImage(this.thumbnail, other.thumbnail) &&
+      isSameImage(this.medium, other.medium) &&
+      isSameImage(this.large, other.large) &&
+      isSameImage(this.full, other.full)
     )
   }
 }
