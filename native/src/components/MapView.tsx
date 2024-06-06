@@ -90,7 +90,7 @@ const MapView = ({
   const cameraRef = useRef<MapLibreGL.Camera>(null)
   const mapRef = useRef<MapLibreGL.MapView>(null)
   const [followUserLocation, setFollowUserLocation] = useState<boolean>(false)
-  const { requestAndDetermineLocation } = useUserLocation()
+  const { refreshPermissionAndLocation } = useUserLocation({ requestPermissionInitially: true })
   const { t } = useTranslation('pois')
   const theme = useTheme()
 
@@ -119,12 +119,12 @@ const MapView = ({
   )
 
   const onRequestLocation = useCallback(async () => {
-    await requestAndDetermineLocation()
     if (userLocation) {
       moveTo(userLocation)
       setFollowUserLocation(true)
     }
-  }, [moveTo, requestAndDetermineLocation, userLocation])
+    await refreshPermissionAndLocation()
+  }, [refreshPermissionAndLocation, moveTo, userLocation])
 
   useEffect(() => {
     if (selectedFeature) {

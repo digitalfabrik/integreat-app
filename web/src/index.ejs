@@ -1,20 +1,20 @@
 <!doctype html>
-<html lang="">
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="x-ua-compatible" content="ie=edge">
 
-    <!-- Nginx Server Side Include template for dynamic social media previews -->
-    <!--# if expr="$render_title = yes" -->
-    <!--# include virtual="/proxy/socialmeta/$request_uri" -->
-    <!--# else -->
-    <!-- Default tags for a prettier social media preview, will be overwritten in Helmet.tsx for most pages. -->
+<!-- Nginx Server Side Include template for dynamic social media previews -->
+<!--# if expr="$render_title = yes" -->
+<!--# include virtual="/proxy/socialmeta/$request_uri" -->
+<!--# else -->
+<html lang="">
+    <head>
     <title><%= config.appName %></title>
     <meta name="apple-mobile-web-app-title" content="<%= config.appName %>">
     <meta property="og:title" content="<%= config.appName %>" data-react-helmet="true">
     <meta property="og:site_name" content="<%= config.hostName %>">
     <meta name="twitter:title" content="<%= config.appName %>">
-    <!--# endif -->
+<!--# endif -->
+
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <% if (config.manifestUrl) { %>
