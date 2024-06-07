@@ -1,3 +1,4 @@
+import { DateTime } from 'luxon'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useNavigate, useParams } from 'react-router-dom'
@@ -24,10 +25,11 @@ import { cmsApiBaseUrl } from '../constants/urls'
 import usePreviousProp from '../hooks/usePreviousProp'
 import featuredImageToSrcSet from '../utils/featuredImageToSrcSet'
 
-const Spacing = styled.div`
+const Spacing = styled.div<{ $content: string; $lastUpdate?: DateTime }>`
   display: flex;
   flex-direction: column;
   padding-top: 12px;
+  padding-bottom: ${props => (props.$content.length > 0 && props.$lastUpdate ? '0px' : '12px')};
   gap: 8px;
 `
 
@@ -118,7 +120,7 @@ const EventsPage = ({ city, pathname, languageCode, cityCode }: CityRouteProps):
           title={title}
           onInternalLinkClick={navigate}
           BeforeContent={
-            <Spacing>
+            <Spacing $content={content} $lastUpdate={lastUpdate}>
               <DatesPageDetail date={date} languageCode={languageCode} />
               {location && <PageDetail identifier={t('address')} information={location.fullAddress} />}
             </Spacing>
