@@ -1,17 +1,24 @@
-import React, { ReactElement, useState } from 'react'
+import React, { KeyboardEvent, ReactElement, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
 
-import { DataSecurityIcon } from '../assets'
+import dimensions from '../constants/dimensions'
 import ChatbotConversation from './ChatbotConversation'
+import ChatbotSecurityInformation from './ChatbotSecurityInformation'
 import LoadingSpinner from './LoadingSpinner'
-import Icon from './base/Icon'
+import { ChatMessageType, testSessionId } from './__mocks__/ChatMessages'
 import Input from './base/Input'
 import InputSection from './base/InputSection'
 import TextButton from './base/TextButton'
 
 const Container = styled.div`
   min-width: 300px;
-  height: 400px;
+  height: 460px;
+
+  @media ${dimensions.smallViewport} {
+    height: 100%;
+  }
+
   padding: 12px;
   display: flex;
   flex-direction: column;
@@ -19,17 +26,6 @@ const Container = styled.div`
 
 const LoadingContainer = styled(Container)`
   justify-content: center;
-`
-
-const StyledInputSection = styled(InputSection)`
-  // height: 50%;
-`
-
-const StyledIconContainer = styled.div`
-  height: 24px;
-  width: 24px;
-  align-self: center;
-  padding: 8px;
 `
 
 const SubmitContainer = styled.div`
@@ -44,15 +40,33 @@ const LoadingText = styled.div`
   text-align: center;
 `
 
-// TODO security info container, scrollToBottom on chat messages, fix external link styling, submit on enter, fix minimize issue -> Text gone
+// TODO cleanup, add feature flag, only show for munich, improve sessionId handling, fix loading spinner by adding className, rename hasConversationStarted to hasOpenSession
 
-const Chatbot = (): ReactElement => {
+type ChatbotProps = {
+  messages: ChatMessageType[]
+  updateSessionId: (newValue: number) => void
+  sessionId: number
+}
+
+const Chatbot = ({ messages, updateSessionId, sessionId }: ChatbotProps): ReactElement => {
+  const { t } = useTranslation('chatbot')
   const [textInput, setTextInput] = useState<string>('')
-  const [hasConversationStated, setHasConversationStated] = useState<boolean>(false)
+  const hasConversationStarted = messages.length > 0
+
   const loading = false
   const onSubmit = () => {
-    setHasConversationStated(true)
     setTextInput('')
+    if (typeof sessionId === 'number' && sessionId) {
+      return
+    }
+    updateSessionId(testSessionId)
+  }
+
+  const submitOnEnter = (e: KeyboardEvent) => {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault()
+      onSubmit()
+    }
   }
 
   if (loading) {
@@ -66,22 +80,21 @@ const Chatbot = (): ReactElement => {
 
   return (
     <Container>
-      <ChatbotConversation hasConversationStarted={hasConversationStated} />
-      <StyledInputSection id='chatbot' title={hasConversationStated ? '' : 'Meine Frage:'}>
+      <ChatbotConversation hasConversationStarted={hasConversationStarted} messages={messages} />
+      <InputSection id='chatbot' title={hasConversationStarted ? '' : t('inputLabel')}>
         <Input
           id='chatbot'
           value={textInput}
           onChange={setTextInput}
           multiline
-          numberOfLines={hasConversationStated ? 1 : 3}
-          placeholder={hasConversationStated ? undefined : 'Ich möchte wissen....'}
+          onKeyDown={submitOnEnter}
+          numberOfLines={2}
+          placeholder={hasConversationStarted ? undefined : t('inputPlaceholder')}
         />
-      </StyledInputSection>
+      </InputSection>
       <SubmitContainer>
-        <SubmitButton disabled={textInput.length === 0} onClick={onSubmit} text='Senden' />
-        <StyledIconContainer>
-          <Icon src={DataSecurityIcon} />
-        </StyledIconContainer>
+        <SubmitButton disabled={textInput.length === 0} onClick={onSubmit} text={t('sendButton')} />
+        <ChatbotSecurityInformation />
       </SubmitContainer>
     </Container>
   )

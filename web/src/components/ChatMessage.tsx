@@ -1,4 +1,6 @@
 import React, { ReactElement } from 'react'
+import { useTranslation } from 'react-i18next'
+import { useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
 
 import { ChatIntegreatLogo } from '../assets'
@@ -22,6 +24,8 @@ const Container = styled.div<{ isAuthor: boolean }>`
 
 const IconContainer = styled.div<{ visible: boolean }>`
   opacity: ${props => (props.visible ? 1 : 0)};
+  height: 24px;
+  width: 24px;
   display: flex;
 `
 
@@ -41,14 +45,16 @@ const Circle = styled.div`
 type ChatMessageProps = { message: ChatMessageType; showIcon: boolean }
 
 const ChatMessage = ({ message, showIcon }: ChatMessageProps): ReactElement => {
+  const navigate = useNavigate()
+  const { t } = useTranslation('chatbot')
   const { body, userIsAuthor } = message
   return (
     <Container isAuthor={userIsAuthor}>
       <IconContainer visible={showIcon}>
-        {userIsAuthor ? <Circle>Sie</Circle> : <Icon src={ChatIntegreatLogo} />}
+        {userIsAuthor ? <Circle>{t('user')}</Circle> : <Icon src={ChatIntegreatLogo} />}
       </IconContainer>
       <Message isAuthor={userIsAuthor}>
-        <RemoteContent html={body} onInternalLinkClick={() => console.log('nav')} smallText />
+        <RemoteContent html={body} onInternalLinkClick={navigate} smallText />
       </Message>
     </Container>
   )

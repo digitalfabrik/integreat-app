@@ -4,10 +4,12 @@ export type ChatMessageType = {
   userIsAuthor: boolean
 }
 
-export const testMessages: ChatMessageType[] = [
+export const testSessionId = 1
+
+const testMessages: ChatMessageType[] = [
   {
     id: 1,
-    body: '<b>Meine Frage lautet</b>, warum bei Integreat eigentlich alles gelb ist.<a class="link-external" href="https://www.integreat.app">Weitere Infos</a>',
+    body: '<b>Meine Frage lautet</b>, warum bei Integreat eigentlich alles gelb ist. <a rel="noopener" class="link-external" target="_blank" href="https://www.google.com" >Weitere Infos</a>',
     userIsAuthor: true,
   },
   {
@@ -36,3 +38,10 @@ export const testMessages: ChatMessageType[] = [
     userIsAuthor: false,
   },
 ]
+export const mockedGetMessages = (sessionId: number): ChatMessageType[] => {
+  if (!sessionId) {
+    return []
+  }
+  // get messages from API
+  return testMessages
+}

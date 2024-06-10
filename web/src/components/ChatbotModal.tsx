@@ -29,7 +29,10 @@ const ModalContainer = styled.div`
 `
 
 const ModalContentContainer = styled.div`
-  margin-right: 20px;
+  @media ${dimensions.mediumLargeViewport} {
+    margin-inline-end: 20px;
+  }
+
   position: relative;
   display: flex;
   flex-direction: column;

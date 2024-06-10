@@ -1,8 +1,9 @@
-import React, { ReactElement } from 'react'
+import React, { ReactElement, useEffect, useRef } from 'react'
+import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
 
 import ChatMessage from './ChatMessage'
-import { testMessages } from './__mocks__/ChatMessages'
+import { ChatMessageType } from './__mocks__/ChatMessages'
 
 const Container = styled.div`
   flex: 50%;
@@ -12,25 +13,39 @@ const Container = styled.div`
 
 type ChatbotConversationProps = {
   hasConversationStarted: boolean
+  messages: ChatMessageType[]
 }
 
-const ChatbotConversation = ({ hasConversationStarted }: ChatbotConversationProps): ReactElement => {
+const ChatbotConversation = ({ hasConversationStarted, messages }: ChatbotConversationProps): ReactElement => {
+  const { t } = useTranslation('chatbot')
+  const messagesEndRef = useRef<null | HTMLDivElement>(null)
+
+  const scrollToBottom = () => {
+    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' })
+  }
+
+  useEffect(() => {
+    scrollToBottom()
+  }, [messages])
+
   return (
     <Container>
       {hasConversationStarted ? (
-        <div>
-          {testMessages.map((message, index) => (
+        <>
+          {messages.map((message, index) => (
             <ChatMessage
               message={message}
               key={message.id}
-              showIcon={testMessages[index - 1]?.userIsAuthor !== message.userIsAuthor}
+              showIcon={messages[index - 1]?.userIsAuthor !== message.userIsAuthor}
             />
           ))}
-        </div>
+          <div ref={messagesEndRef} />
+        </>
       ) : (
         <div>
-          Bitte geben Sie Ihre Frage in das Textfeld ein. Sie können alles fragen, von lokalen Informationen bis hin zu
-          spezifischen Anfragen bezüglich Ihrer Situation. Mehr lesen...
+          <b>{t('conversationTitle')}</b>
+          <br />
+          {t('conversationText')}
         </div>
       )}
     </Container>

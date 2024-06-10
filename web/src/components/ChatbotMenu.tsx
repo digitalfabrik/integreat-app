@@ -1,7 +1,7 @@
 import React, { ReactElement } from 'react'
 import styled from 'styled-components'
 
-import { CloseWhiteIcon, MaximizeIcon, MinimizeIcon } from '../assets'
+import { ArrowBackIcon, CloseWhiteIcon, MaximizeIcon, MinimizeIcon } from '../assets'
 import { ChatbotVisibilityStatus } from './ChatbotContainer'
 import Button from './base/Button'
 import Icon from './base/Icon'
@@ -26,23 +26,29 @@ type ChatbotMenuProps = {
   visibilityStatus: ChatbotVisibilityStatus
   onClose: () => void
   onResize: () => void
+  small: boolean
 }
-const ChatbotMenu = ({ onResize, onClose, visibilityStatus }: ChatbotMenuProps): ReactElement => {
-  console.log(visibilityStatus)
-  return (
-    <ButtonContainer>
-      <StyledButton ariaLabel='close' onClick={onResize}>
-        {' '}
-        <StyledIcon
-          src={visibilityStatus === ChatbotVisibilityStatus.maximized ? MinimizeIcon : MaximizeIcon}
-          directionDependent
-        />{' '}
-      </StyledButton>
+const ChatbotMenu = ({ onResize, onClose, visibilityStatus, small }: ChatbotMenuProps): ReactElement => (
+  <ButtonContainer>
+    {small ? (
       <StyledButton ariaLabel='close' onClick={onClose}>
-        <StyledIcon src={CloseWhiteIcon} directionDependent />
+        <StyledIcon src={ArrowBackIcon} directionDependent />
       </StyledButton>
-    </ButtonContainer>
-  )
-}
+    ) : (
+      <>
+        <StyledButton ariaLabel='close' onClick={onResize}>
+          {' '}
+          <StyledIcon
+            src={visibilityStatus === ChatbotVisibilityStatus.maximized ? MinimizeIcon : MaximizeIcon}
+            directionDependent
+          />{' '}
+        </StyledButton>
+        <StyledButton ariaLabel='close' onClick={onClose}>
+          <StyledIcon src={CloseWhiteIcon} directionDependent />
+        </StyledButton>
+      </>
+    )}
+  </ButtonContainer>
+)
 
 export default ChatbotMenu

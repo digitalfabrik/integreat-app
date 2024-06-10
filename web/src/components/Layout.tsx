@@ -148,7 +148,7 @@ const Layout = ({
         <Main fullWidth={fullWidth}>{children}</Main>
       </Body>
       {viewportSmall && toolbar}
-      {!viewportSmall && chatbot}
+      {chatbot}
       {footer}
     </RichLayout>
   )

@@ -1,6 +1,7 @@
 import React, { ReactElement, ReactNode } from 'react'
-import styled, { css } from 'styled-components'
+import styled from 'styled-components'
 
+import dimensions from '../constants/dimensions'
 import { ChatbotVisibilityStatus } from './ChatbotContainer'
 import ChatbotMenu from './ChatbotMenu'
 
@@ -11,6 +12,10 @@ const Container = styled.div`
   border-radius: 5px;
   flex: 1;
   width: 400px;
+
+  @media ${dimensions.smallViewport} {
+    width: 100%;
+  }
 `
 
 const Header = styled.div<{ small: boolean }>`
@@ -24,12 +29,16 @@ const Header = styled.div<{ small: boolean }>`
   border-top-right-radius: 5px;
   background-color: ${props => props.theme.colors.themeColor};
   padding: 4px 8px;
-  ${props =>
-    props.small &&
-    css`
-      align-self: flex-start;
-      gap: 16px;
-    `}
+
+  @media ${dimensions.smallViewport} {
+    padding: 8px 16px;
+    gap: 12px;
+  }
+`
+
+const Title = styled.span<{ isClickable: boolean }>`
+  flex: 1;
+  cursor: ${props => (props.isClickable ? 'pointer' : 'auto')};
 `
 
 type ModalProps = {
@@ -49,11 +58,19 @@ const ChatbotModalContent = ({
   small,
   visibilityStatus,
 }: ModalProps): ReactElement => {
+  const isMinimized = visibilityStatus === ChatbotVisibilityStatus.minimized
   return (
     <Container>
       <Header small={small}>
-        <span>{title}</span>
-        <ChatbotMenu onClose={onClose} onResize={onResize} visibilityStatus={visibilityStatus} />
+        <Title
+          isClickable={isMinimized}
+          onClick={isMinimized ? onResize : undefined}
+          role='button'
+          onKeyDown={isMinimized ? onResize : undefined}
+          tabIndex={0}>
+          {title}
+        </Title>
+        <ChatbotMenu onClose={onClose} onResize={onResize} visibilityStatus={visibilityStatus} small={small} />
       </Header>
       {visibilityStatus === ChatbotVisibilityStatus.maximized && children}
     </Container>

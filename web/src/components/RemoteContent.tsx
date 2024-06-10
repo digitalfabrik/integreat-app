@@ -1,7 +1,7 @@
 import Dompurify from 'dompurify'
 import React, { ReactElement, useCallback, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 
 import { ExternalSourcePermissions } from 'shared'
 
@@ -103,8 +103,14 @@ const SandBox = styled.div<{ centered: boolean; smallText: boolean }>`
     content: '';
     display: inline-block;
     background-image: url('${ExternalLinkIcon}');
-    width: ${props => (props.smallText ? helpers.adaptiveFontSize : props.theme.fonts.contentFontSize)};
-    height: ${props => (props.smallText ? helpers.adaptiveFontSize : props.theme.fonts.contentFontSize)};
+    width: ${props => props.theme.fonts.contentFontSize};
+    height: ${props => props.theme.fonts.contentFontSize};
+    ${props =>
+      props.smallText &&
+      css`
+        ${helpers.adaptiveHeight}
+        ${helpers.adaptiveWidth}
+      `};
     background-size: contain;
     background-repeat: no-repeat;
     vertical-align: middle;
@@ -170,6 +176,7 @@ type RemoteContentProps = {
 const HIJACK = new RegExp(buildConfig().internalLinksHijackPattern)
 const DOMPURIFY_TAG_IFRAME = 'iframe'
 const DOMPURIFY_ATTRIBUTE_FULLSCREEN = 'allowfullscreen'
+const DOMPURIFY_ATTRIBUTE_TARGET = 'target'
 
 export type IframeSources = Record<number, string>
 export const IFRAME_BLANK_SOURCE = 'about:blank'
@@ -261,13 +268,14 @@ const RemoteContent = ({
   const dangerouslySetInnerHTML = {
     __html: Dompurify.sanitize(html, {
       ADD_TAGS: [DOMPURIFY_TAG_IFRAME],
-      ADD_ATTR: [DOMPURIFY_ATTRIBUTE_FULLSCREEN],
+      ADD_ATTR: [DOMPURIFY_ATTRIBUTE_FULLSCREEN, DOMPURIFY_ATTRIBUTE_TARGET],
     }),
   }
 
   return (
     <SandBox
       dir='auto'
+      className='sandbox'
       centered={centered}
       dangerouslySetInnerHTML={dangerouslySetInnerHTML}
       ref={sandBoxRef}
