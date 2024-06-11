@@ -1,9 +1,12 @@
 import React, { ReactElement, ReactNode } from 'react'
 
 import { CityModel } from 'shared/api'
+import { POIS_ROUTE } from 'shared/routes'
 
+import buildConfig from '../constants/buildConfig'
 import useWindowDimensions from '../hooks/useWindowDimensions'
 import { RouteType } from '../routes'
+import ChatbotContainer from './ChatbotContainer'
 import CityContentFooter from './CityContentFooter'
 import CityContentHeader from './CityContentHeader'
 import Layout from './Layout'
@@ -11,7 +14,7 @@ import Layout from './Layout'
 export type CityContentLayoutProps = {
   Toolbar?: ReactNode
   children?: ReactNode
-  chatbot?: ReactNode
+  Chatbot?: ReactNode
   route: RouteType
   languageChangePaths: Array<{ code: string; path: string | null; name: string }> | null
   isLoading: boolean
@@ -32,16 +35,16 @@ const CityContentLayout = (props: CityContentLayoutProps): ReactElement => {
     isLoading,
     route,
     Toolbar,
-    chatbot,
     fullWidth = false,
     disableScrollingSafari = false,
     showFooter = true,
     city,
   } = props
 
+  const isChatbotEnabled =
+    buildConfig().featureFlags.chatbot && route !== POIS_ROUTE && city.name === 'Landeshauptstadt München'
   // to avoid jumping issues for desktop, isLoading is only checked on mobile viewport
   const isLoadingMobile = isLoading && viewportSmall
-
   return (
     <Layout
       disableScrollingSafari={disableScrollingSafari}
@@ -59,7 +62,7 @@ const CityContentLayout = (props: CityContentLayoutProps): ReactElement => {
           <CityContentFooter city={city.code} language={languageCode} />
         ) : null
       }
-      chatbot={chatbot}
+      chatbot={isChatbotEnabled ? <ChatbotContainer /> : undefined}
       toolbar={!isLoadingMobile && Toolbar}>
       {children}
     </Layout>

@@ -25,10 +25,13 @@ const Header = styled.div<{ small: boolean }>`
   font-size: ${props => props.theme.fonts.hintFontSize};
   font-weight: bold;
   align-items: center;
-  border-top-left-radius: 5px;
-  border-top-right-radius: 5px;
   background-color: ${props => props.theme.colors.themeColor};
   padding: 4px 8px;
+
+  @media ${dimensions.mediumLargeViewport} {
+    border-start-start-radius: 5px;
+    border-start-end-radius: 5px;
+  }
 
   @media ${dimensions.smallViewport} {
     padding: 8px 16px;
@@ -50,7 +53,7 @@ type ModalProps = {
   visibilityStatus: ChatbotVisibilityStatus
 }
 
-const ChatbotModalContent = ({
+const ChatbotContentWrapper = ({
   title,
   onClose,
   onResize,
@@ -77,4 +80,4 @@ const ChatbotModalContent = ({
   )
 }
 
-export default ChatbotModalContent
+export default ChatbotContentWrapper

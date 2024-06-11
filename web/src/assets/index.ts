@@ -12,7 +12,6 @@ import CalendarTodayRecurringIcon from '../../../assets/icons/calendar-today-rec
 import CalendarTodayIcon from '../../../assets/icons/calendar-today.svg'
 import CalendarIcon from '../../../assets/icons/calendar.svg'
 import CategoriesIcon from '../../../assets/icons/categories.svg'
-import ChatIntegreatLogo from '../../../assets/icons/chat_integreat_logo.svg'
 import ChatbotIcon from '../../../assets/icons/chatbot.svg'
 import ClockIcon from '../../../assets/icons/clock.svg'
 import CloseIcon from '../../../assets/icons/close.svg'
@@ -70,7 +69,6 @@ export {
   CalendarTodayRecurringIcon,
   CategoriesIcon,
   ChatbotIcon,
-  ChatIntegreatLogo,
   ClockIcon,
   CloseIcon,
   CloseWhiteIcon,

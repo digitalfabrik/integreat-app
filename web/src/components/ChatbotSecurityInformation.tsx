@@ -10,9 +10,7 @@ const SecurityInformationContainer = styled.div`
   position: relative;
   display: flex;
 `
-const StyledIconContainer = styled.button`
-  height: 24px;
-  width: 24px;
+const SecurityIconContainer = styled.button`
   align-self: center;
   margin-left: 8px;
   cursor: pointer;
@@ -20,6 +18,11 @@ const StyledIconContainer = styled.button`
   border: none;
   background-color: transparent;
   padding: 0;
+`
+
+const SecurityIcon = styled(Icon)`
+  width: 32px;
+  height: 32px;
 `
 
 const InformationTooltipContainer = styled.div`
@@ -45,9 +48,9 @@ const ChatbotSecurityInformation = (): ReactElement => {
   return (
     <SecurityInformationContainer>
       {securityInformationVisible && <InformationTooltipContainer>{t('dataSecurity')}</InformationTooltipContainer>}
-      <StyledIconContainer onClick={() => setSecurityInformationVisible(!securityInformationVisible)}>
-        <Icon src={DataSecurityIcon} />
-      </StyledIconContainer>
+      <SecurityIconContainer onClick={() => setSecurityInformationVisible(!securityInformationVisible)}>
+        <SecurityIcon src={DataSecurityIcon} />
+      </SecurityIconContainer>
     </SecurityInformationContainer>
   )
 }

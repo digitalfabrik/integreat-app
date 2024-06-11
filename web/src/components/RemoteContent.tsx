@@ -275,7 +275,6 @@ const RemoteContent = ({
   return (
     <SandBox
       dir='auto'
-      className='sandbox'
       centered={centered}
       dangerouslySetInnerHTML={dangerouslySetInnerHTML}
       ref={sandBoxRef}

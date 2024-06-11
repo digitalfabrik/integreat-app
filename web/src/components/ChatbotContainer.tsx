@@ -1,15 +1,15 @@
-import React, { ReactElement, useEffect, useState } from 'react'
+import React, { ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
 
 import { ChatbotIcon } from '../assets'
+import buildConfig from '../constants/buildConfig'
 import dimensions from '../constants/dimensions'
-import useLocalStorage from '../hooks/useLocalStorage'
+import useLockedBody from '../hooks/useLockedBody'
 import useWindowDimensions from '../hooks/useWindowDimensions'
 import Chatbot from './Chatbot'
+import ChatbotContentWrapper from './ChatbotContentWrapper'
 import ChatbotModal from './ChatbotModal'
-import ChatbotModalContent from './ChatbotModalContent'
-import { ChatMessageType, mockedGetMessages } from './__mocks__/ChatMessages'
 import Icon from './base/Icon'
 
 const ChatbotButtonContainer = styled.button`
@@ -22,12 +22,17 @@ const ChatbotButtonContainer = styled.button`
   flex-direction: column;
 
   @media ${dimensions.smallViewport} {
-    box-shadow: 0 2px 3px 3px rgb(0 0 0 / 30%);
-    bottom: 16px;
-    inset-inline-end: 16px;
-    border-radius: 50%;
-    padding: 0;
+    bottom: 12px;
+    inset-inline-end: 12px;
   }
+`
+
+const Circle = styled.div`
+  background-color: ${props => props.theme.colors.themeColor};
+  border-radius: 50%;
+  box-shadow: 0 2px 3px 3px rgb(0 0 0 / 20%);
+  align-self: center;
+  padding: 8px;
 `
 
 const MinimizedToolbar = styled.div`
@@ -42,13 +47,15 @@ const MinimizedToolbar = styled.div`
 `
 
 const ChatIcon = styled(Icon)`
-  width: 40px;
-  height: 40px;
+  display: flex;
+  width: 24px;
+  height: 24px;
   align-self: center;
+  justify-content: center;
 
   @media ${dimensions.smallViewport} {
-    width: 60px;
-    height: 60px;
+    width: 40px;
+    height: 40px;
   }
 `
 
@@ -62,38 +69,32 @@ export enum ChatbotVisibilityStatus {
   maximized,
 }
 
-const LOCAL_STORAGE_ITEM_CHAT_MESSAGES = 'ChatBot-Session'
 const ChatbotContainer = (): ReactElement => {
   const { t } = useTranslation('chatbot')
   const [chatBotVisibilityStatus, setChatBotVisibilityStatus] = useState<ChatbotVisibilityStatus>(
     ChatbotVisibilityStatus.closed,
   )
-  const { value: sessionId, updateLocalStorageItem } = useLocalStorage<number>(LOCAL_STORAGE_ITEM_CHAT_MESSAGES)
-  const [messages, setMessages] = useState<ChatMessageType[]>([])
   const { viewportSmall } = useWindowDimensions()
-
-  useEffect(() => {
-    if (typeof sessionId === 'number' && sessionId) {
-      setMessages(mockedGetMessages(sessionId))
-    }
-  }, [sessionId])
+  const isChatMaximized = chatBotVisibilityStatus === ChatbotVisibilityStatus.maximized
+  useLockedBody(isChatMaximized)
+  const headerTitle = t('headerTitle', { appName: buildConfig().appName })
 
   return (
     <>
-      {chatBotVisibilityStatus === ChatbotVisibilityStatus.maximized && (
+      {isChatMaximized && (
         <ChatbotModal
-          title={t('headerTitle')}
+          title={headerTitle}
           resizeModal={() => setChatBotVisibilityStatus(ChatbotVisibilityStatus.minimized)}
           closeModal={() => setChatBotVisibilityStatus(ChatbotVisibilityStatus.closed)}
           visibilityStatus={chatBotVisibilityStatus}>
-          <Chatbot messages={messages} updateSessionId={updateLocalStorageItem} sessionId={sessionId} />
+          <Chatbot />
         </ChatbotModal>
       )}
 
       {chatBotVisibilityStatus === ChatbotVisibilityStatus.minimized && (
         <MinimizedToolbar>
-          <ChatbotModalContent
-            title={t('headerTitle')}
+          <ChatbotContentWrapper
+            title={headerTitle}
             onResize={() => setChatBotVisibilityStatus(ChatbotVisibilityStatus.maximized)}
             onClose={() => setChatBotVisibilityStatus(ChatbotVisibilityStatus.closed)}
             small={false}
@@ -103,7 +104,9 @@ const ChatbotContainer = (): ReactElement => {
       )}
       {chatBotVisibilityStatus === ChatbotVisibilityStatus.closed && (
         <ChatbotButtonContainer onClick={() => setChatBotVisibilityStatus(ChatbotVisibilityStatus.maximized)}>
-          <ChatIcon src={ChatbotIcon} title={t('button')} />
+          <Circle>
+            <ChatIcon src={ChatbotIcon} title={t('button')} />
+          </Circle>
           {!viewportSmall && <ChatTitle>{t('button')}</ChatTitle>}
         </ChatbotButtonContainer>
       )}

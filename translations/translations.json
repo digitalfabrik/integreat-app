@@ -211,9 +211,10 @@
       "conversationTitle": "Bitte geben Sie Ihre Frage in das Textfeld ein.",
       "conversationText": "Sie können alles fragen, von lokalen Informationen bis hin zu spezifischen Anfragen bezüglich Ihrer Situation.",
       "dataSecurity": "Datenschutz und Sicherheit: \nIhre Privatsphäre ist uns sehr wichtig. Alle Gespräche werden vertraulich \nbehandelt, und Ihre Daten werden sicher verarbeitet. Mehr Informationen zum Datenschutz finden Sie in unseren Datenschutzrichtlinien.",
-      "headerTitle": "Integreat Chat Support",
+      "headerTitle": "{{appName}} Chat Support",
       "inputLabel": "Meine Frage:",
       "inputPlaceholder": "Ich möchte wissen...",
+      "loadingText": "Einen Moment bitte, nach Ihrer Antwort wird gesucht...",
       "sendButton": "Senden",
       "user": "Sie"
     },
@@ -222,9 +223,10 @@
       "conversationTitle": "Please enter your question in the text field.",
       "conversationText": "You can ask anything from local information to specific requests regarding your situation.",
       "dataSecurity": "Date capture and security: \nYour privacy is very important to us. All languages will be confidential \ntreated, and your data will be safely handled. More information on dating can be found in our dating reference line.",
-      "headerTitle": "Integreat Chat Support",
+      "headerTitle": "{{appName}} Chat Support",
       "inputLabel": "My question:",
       "inputPlaceholder": "I would like to know...",
+      "loadingText": "One moment please, we are looking for your answer...",
       "sendButton": "Send",
       "user": "You"
     }

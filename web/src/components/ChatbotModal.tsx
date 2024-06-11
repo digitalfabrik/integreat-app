@@ -6,7 +6,7 @@ import styled from 'styled-components'
 import dimensions from '../constants/dimensions'
 import useWindowDimensions from '../hooks/useWindowDimensions'
 import { ChatbotVisibilityStatus } from './ChatbotContainer'
-import ChatbotModalContent from './ChatbotModalContent'
+import ChatbotModalContent from './ChatbotContentWrapper'
 import { LAYOUT_ELEMENT_ID } from './Layout'
 import Button from './base/Button'
 

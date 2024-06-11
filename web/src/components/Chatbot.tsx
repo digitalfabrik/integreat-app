@@ -3,10 +3,11 @@ import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
 
 import dimensions from '../constants/dimensions'
+import useLocalStorage from '../hooks/useLocalStorage'
 import ChatbotConversation from './ChatbotConversation'
 import ChatbotSecurityInformation from './ChatbotSecurityInformation'
 import LoadingSpinner from './LoadingSpinner'
-import { ChatMessageType, testSessionId } from './__mocks__/ChatMessages'
+import { ChatMessageType, mockedGetMessages, testSessionId } from './__mocks__/ChatMessages'
 import Input from './base/Input'
 import InputSection from './base/InputSection'
 import TextButton from './base/TextButton'
@@ -14,14 +15,13 @@ import TextButton from './base/TextButton'
 const Container = styled.div`
   min-width: 300px;
   height: 460px;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
 
   @media ${dimensions.smallViewport} {
     height: 100%;
   }
-
-  padding: 12px;
-  display: flex;
-  flex-direction: column;
 `
 
 const LoadingContainer = styled(Container)`
@@ -40,26 +40,31 @@ const LoadingText = styled.div`
   text-align: center;
 `
 
-// TODO cleanup, add feature flag, only show for munich, improve sessionId handling, fix loading spinner by adding className, rename hasConversationStarted to hasOpenSession
+const StyledLoadingSpinner = styled(LoadingSpinner)`
+  margin-top: 0;
+`
 
-type ChatbotProps = {
-  messages: ChatMessageType[]
-  updateSessionId: (newValue: number) => void
-  sessionId: number
-}
+const LOCAL_STORAGE_ITEM_CHAT_MESSAGES = 'ChatBot-Session'
 
-const Chatbot = ({ messages, updateSessionId, sessionId }: ChatbotProps): ReactElement => {
+const Chatbot = (): ReactElement => {
   const { t } = useTranslation('chatbot')
   const [textInput, setTextInput] = useState<string>('')
-  const hasConversationStarted = messages.length > 0
+  const { value: sessionId, updateLocalStorageItem: setSessionId } = useLocalStorage<number>(
+    LOCAL_STORAGE_ITEM_CHAT_MESSAGES,
+  )
+  const hasSessionId = !!(typeof sessionId === 'number' && sessionId)
+  // TODO 2799 Implement Chat API
+  const [messages, setMessages] = useState<ChatMessageType[]>(hasSessionId ? mockedGetMessages(sessionId) : [])
 
   const loading = false
   const onSubmit = () => {
     setTextInput('')
-    if (typeof sessionId === 'number' && sessionId) {
+    // TODO 2799 Implement Chat API - get messages and set correct sessionId
+    setMessages(mockedGetMessages(sessionId))
+    if (hasSessionId) {
       return
     }
-    updateSessionId(testSessionId)
+    setSessionId(testSessionId)
   }
 
   const submitOnEnter = (e: KeyboardEvent) => {
@@ -68,20 +73,21 @@ const Chatbot = ({ messages, updateSessionId, sessionId }: ChatbotProps): ReactE
       onSubmit()
     }
   }
-
+  // loading will be provided by api
+  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
   if (loading) {
     return (
       <LoadingContainer>
-        <LoadingSpinner />
-        <LoadingText>Einen Moment bitte, nach Ihrer Antwort wird gesucht...</LoadingText>
+        <StyledLoadingSpinner />
+        <LoadingText>{t('loadingText')}</LoadingText>
       </LoadingContainer>
     )
   }
 
   return (
     <Container>
-      <ChatbotConversation hasConversationStarted={hasConversationStarted} messages={messages} />
-      <InputSection id='chatbot' title={hasConversationStarted ? '' : t('inputLabel')}>
+      <ChatbotConversation hasConversationStarted={hasSessionId} messages={messages} />
+      <InputSection id='chatbot' title={hasSessionId ? '' : t('inputLabel')}>
         <Input
           id='chatbot'
           value={textInput}
@@ -89,7 +95,7 @@ const Chatbot = ({ messages, updateSessionId, sessionId }: ChatbotProps): ReactE
           multiline
           onKeyDown={submitOnEnter}
           numberOfLines={2}
-          placeholder={hasConversationStarted ? undefined : t('inputPlaceholder')}
+          placeholder={t('inputPlaceholder')}
         />
       </InputSection>
       <SubmitContainer>

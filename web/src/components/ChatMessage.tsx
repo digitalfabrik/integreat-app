@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
 
-import { ChatIntegreatLogo } from '../assets'
+import buildConfig from '../constants/buildConfig'
 import RemoteContent from './RemoteContent'
 import { ChatMessageType } from './__mocks__/ChatMessages'
 import Icon from './base/Icon'
@@ -45,13 +45,14 @@ const Circle = styled.div`
 type ChatMessageProps = { message: ChatMessageType; showIcon: boolean }
 
 const ChatMessage = ({ message, showIcon }: ChatMessageProps): ReactElement => {
+  const { icons } = buildConfig()
   const navigate = useNavigate()
   const { t } = useTranslation('chatbot')
   const { body, userIsAuthor } = message
   return (
     <Container isAuthor={userIsAuthor}>
       <IconContainer visible={showIcon}>
-        {userIsAuthor ? <Circle>{t('user')}</Circle> : <Icon src={ChatIntegreatLogo} />}
+        {userIsAuthor ? <Circle>{t('user')}</Circle> : <Icon src={icons.appLogoMobile} />}
       </IconContainer>
       <Message isAuthor={userIsAuthor}>
         <RemoteContent html={body} onInternalLinkClick={navigate} smallText />
