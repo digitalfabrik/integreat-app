@@ -1,12 +1,12 @@
 import React, { ReactElement } from 'react'
 import styled from 'styled-components'
 
-import { MALTE_HELP_FORM_OFFER_ROUTE, SPRUNGBRETT_OFFER_ALIAS } from 'shared'
+import { MALTE_HELP_FORM_OFFER_ALIAS, SPRUNGBRETT_OFFER_ALIAS } from 'shared'
 import { CategoryModel } from 'shared/api'
 
 import { CityRouteProps } from '../CityContentSwitcher'
-import MalteHelpFormOfferPage from '../routes/MalteHelpFormOfferPage'
-import SprungbrettOfferPage from '../routes/SprungbrettOfferPage'
+import MalteHelpForm from './MalteHelpForm'
+import SprungbrettOffer from './SprungbrettOffer'
 
 const Container = styled.div<{ withMargin: boolean }>`
   ${props => props.withMargin && 'margin-top: 48px;'}
@@ -20,9 +20,9 @@ const EmbeddedOffer = ({ category, ...props }: EmbeddedOffersProps): ReactElemen
   const offer = category.embeddedOffers[0]
   switch (offer?.alias) {
     case SPRUNGBRETT_OFFER_ALIAS:
-      return <SprungbrettOfferPage {...props} embedded />
-    case MALTE_HELP_FORM_OFFER_ROUTE:
-      return <MalteHelpFormOfferPage {...props} categoryPageTitle={category.title} embedded />
+      return <SprungbrettOffer sprungbrettOffer={offer} />
+    case MALTE_HELP_FORM_OFFER_ALIAS:
+      return <MalteHelpForm pageTitle={category.title} malteHelpFormOffer={offer} {...props} />
     default:
       return null
   }

@@ -29,7 +29,6 @@ describe('search', () => {
         live,
         languages: new LanguageModelBuilder(2).build(),
         eventsEnabled: true,
-        offersEnabled: true,
         poisEnabled: true,
         localNewsEnabled: false,
         tunewsEnabled: false,

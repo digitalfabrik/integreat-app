@@ -8,10 +8,8 @@ import {
   LANDING_ROUTE,
   LICENSES_ROUTE,
   NEWS_ROUTE,
-  OFFERS_ROUTE,
   POIS_ROUTE,
   SEARCH_ROUTE,
-  SPRUNGBRETT_OFFER_ROUTE,
 } from '.'
 import { NonNullableRouteInformationType } from '..'
 
@@ -46,11 +44,6 @@ export const pathnameFromRouteInformation = (routeInformation: NonNullableRouteI
     // https://integreat.app/jpal
     return constructPathname([CITY_NOT_COOPERATING_ROUTE, routeInformation.languageCode])
   }
-  if (routeInformation.route === SPRUNGBRETT_OFFER_ROUTE) {
-    const { cityCode, languageCode, route } = routeInformation
-    // https://integreat.app/augsburg/de/offers/sprungbrett
-    return constructPathname([cityCode, languageCode, OFFERS_ROUTE, route])
-  }
   if (routeInformation.route === CATEGORIES_ROUTE) {
     // https://integreat.app/augsburg/de/, https://integreat.app/augsburg/de/willkommen/erste-schritte
     return constructPathname([routeInformation.cityContentPath])
@@ -62,7 +55,6 @@ export const pathnameFromRouteInformation = (routeInformation: NonNullableRouteI
   }
   if (
     routeInformation.route === DISCLAIMER_ROUTE ||
-    routeInformation.route === OFFERS_ROUTE ||
     routeInformation.route === SEARCH_ROUTE ||
     routeInformation.route === NEWS_ROUTE
   ) {

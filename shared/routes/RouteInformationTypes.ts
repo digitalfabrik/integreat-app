@@ -9,10 +9,8 @@ import {
   LicensesRouteType,
   LocalNewsType,
   NewsRouteType,
-  OffersRouteType,
   PoisRouteType,
   SearchRouteType,
-  SprungbrettOfferRouteType,
   TuNewsType,
 } from '.'
 
@@ -58,7 +56,7 @@ export type NewsRouteInformationType = ParamsType & {
 
 export type SimpleCityContentFeatureType = ParamsType & {
   // Routes without customizable ids, e.g. '/augsburg/de/disclaimer/'
-  route: DisclaimerRouteType | OffersRouteType | SprungbrettOfferRouteType
+  route: DisclaimerRouteType
 }
 
 export type EventsRouteInformationType = ParamsType & {

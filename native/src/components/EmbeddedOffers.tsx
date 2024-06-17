@@ -1,7 +1,7 @@
 import React, { ReactElement } from 'react'
 import styled from 'styled-components/native'
 
-import { CATEGORIES_ROUTE, MALTE_HELP_FORM_OFFER_ROUTE, SPRUNGBRETT_OFFER_ALIAS } from 'shared'
+import { CATEGORIES_ROUTE, MALTE_HELP_FORM_OFFER_ALIAS, SPRUNGBRETT_OFFER_ALIAS } from 'shared'
 import { CategoryModel } from 'shared/api'
 
 import urlFromRouteInformation from '../navigation/url'
@@ -24,7 +24,7 @@ const EmbeddedOffer = ({ category, cityCode, languageCode, goBack }: EmbeddedOff
   switch (offer?.alias) {
     case SPRUNGBRETT_OFFER_ALIAS:
       return <SprungbrettOffer sprungbrettOffer={offer} languageCode={languageCode} />
-    case MALTE_HELP_FORM_OFFER_ROUTE: {
+    case MALTE_HELP_FORM_OFFER_ALIAS: {
       const url = urlFromRouteInformation({
         route: CATEGORIES_ROUTE,
         languageCode,

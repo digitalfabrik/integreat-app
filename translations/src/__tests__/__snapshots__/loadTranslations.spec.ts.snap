@@ -6,7 +6,6 @@ exports[`loadTranslations should correctly merge and transform translations 1`] 
     "dashboard": {
       "events": "الفعاليات",
       "localInformation": "معلومات محلية",
-      "offers": "العروض",
     },
   },
   "de": {
@@ -23,14 +22,12 @@ exports[`loadTranslations should correctly merge and transform translations 1`] 
       "localInformation": "Malte Informationen",
       "news": "Malte Nachrichten",
       "newsAlternative": "Neuigkeiten",
-      "offers": "Malte Angebote",
     },
   },
   "en": {
     "dashboard": {
       "events": "Malte Events",
       "localInformation": "Malte information",
-      "offers": "Malte Offers",
     },
   },
   "kmr": {
@@ -52,7 +49,6 @@ exports[`loadTranslations should correctly transform translations 1`] = `
     "dashboard": {
       "events": "الفعاليات",
       "localInformation": "معلومات محلية",
-      "offers": "العروض",
     },
   },
   "de": {
@@ -69,7 +65,6 @@ exports[`loadTranslations should correctly transform translations 1`] = `
       "localInformation": "Lokale Informationen",
       "news": "Nachrichten",
       "newsAlternative": "Neuigkeiten",
-      "offers": "Angebote",
     },
   },
   "kmr": {

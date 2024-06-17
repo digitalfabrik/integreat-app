@@ -69,32 +69,24 @@ describe('categories', () => {
         thumbnail: 'some_thumbnail',
         name: 'Serlo ABC',
         url: 'https://abc-app.serlo.org/',
-        post: undefined,
       },
       {
         alias: 'sprungbrett',
         thumbnail: 'some_other_thumbnail',
         name: 'Sprungbrett',
         url: 'https://web.integreat-app.de/proxy/sprungbrett/app-search-internships?location=augsburg',
-        post: undefined,
       },
       {
-        alias: 'lehrstellen-radar',
+        alias: 'help',
         thumbnail: 'some_other_thumbnail',
-        name: 'Lehrstellenradar',
-        url: 'https://www.lehrstellen-radar.de/5100,0,lsrlist.html',
+        name: 'Hilfebutton',
+        url: '',
         post: {
-          partner: '0006',
-          radius: '50',
-          plz: '86150',
+          'zammad-url': 'https://zammad-malte.tuerantuer.org/',
         },
       },
     ],
   }
-  const lehrstellenRadarPostData = new Map()
-  lehrstellenRadarPostData.set('partner', '0006')
-  lehrstellenRadarPostData.set('radius', '50')
-  lehrstellenRadarPostData.set('plz', '86150')
   const offerModels = [
     new OfferModel({
       alias: 'serlo-abc',
@@ -109,11 +101,10 @@ describe('categories', () => {
       path: 'https://web.integreat-app.de/proxy/sprungbrett/app-search-internships?location=augsburg',
     }),
     new OfferModel({
-      alias: 'lehrstellen-radar',
+      alias: 'help',
       thumbnail: 'some_other_thumbnail',
-      title: 'Lehrstellenradar',
-      path: 'https://www.lehrstellen-radar.de/5100,0,lsrlist.html',
-      postData: lehrstellenRadarPostData,
+      title: 'Hilfebutton',
+      path: 'https://zammad-malte.tuerantuer.org/',
     }),
   ]
   const categoryModel1 = new CategoryModel({

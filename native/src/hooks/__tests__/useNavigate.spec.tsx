@@ -10,7 +10,6 @@ import {
   LANDING_ROUTE,
   LOCAL_NEWS_TYPE,
   NEWS_ROUTE,
-  OFFERS_ROUTE,
   OPEN_PAGE_SIGNAL_NAME,
   POIS_ROUTE,
   RouteInformationType,
@@ -158,15 +157,6 @@ describe('useNavigate', () => {
       ...params,
     })
     expect(navigation.push).toHaveBeenCalledWith(DISCLAIMER_ROUTE)
-    expect(navigation.push).toHaveBeenCalledTimes(1)
-  })
-
-  it('should navigate to offers route', () => {
-    renderMockComponent({
-      route: OFFERS_ROUTE,
-      ...params,
-    })
-    expect(navigation.push).toHaveBeenCalledWith(OFFERS_ROUTE)
     expect(navigation.push).toHaveBeenCalledTimes(1)
   })
 
