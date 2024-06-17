@@ -132,6 +132,9 @@ class Config {
     sk: {
       rtl: false,
     },
+    orm: {
+      rtl: false,
+    },
   }
 
   // Fallbacks for unnormalized language codes from our backend
