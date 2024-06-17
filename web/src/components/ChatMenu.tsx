@@ -2,6 +2,7 @@ import React, { ReactElement } from 'react'
 import styled from 'styled-components'
 
 import { ArrowBackIcon, CloseIcon, MaximizeIcon, MinimizeIcon } from '../assets'
+import dimensions from '../constants/dimensions'
 import { ChatVisibilityStatus } from './ChatContainer'
 import Button from './base/Button'
 import Icon from './base/Icon'
@@ -16,6 +17,10 @@ const StyledIcon = styled(Icon)`
   align-self: center;
   display: flex;
   color: ${props => props.theme.colors.backgroundColor};
+
+  @media ${dimensions.smallViewport} {
+    color: ${props => props.theme.colors.textColor};
+  }
 `
 
 const ButtonContainer = styled.div`
