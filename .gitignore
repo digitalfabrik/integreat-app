@@ -128,3 +128,7 @@ runConfigurations.xml
 .DS_Store
 
 reports/
+
+
+#VSCode
+.vscode/launch.json

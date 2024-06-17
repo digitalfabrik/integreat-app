@@ -66,4 +66,12 @@ describe('SearchFeedback', () => {
     )
     await waitFor(() => expect(getByText('feedback:send')).toBeDisabled())
   })
+
+  it('should hide feedback button if query has no length', () => {
+    const { queryByText } = renderWithTheme(
+      <SearchFeedback cityCode={cityCode} languageCode={languageCode} query='' noResults={false} />,
+    )
+
+    expect(queryByText('feedback:informationNotFound')).toBeNull()
+  })
 })

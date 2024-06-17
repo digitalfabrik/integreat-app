@@ -23,6 +23,7 @@ type SearchFeedbackProps = {
 const SearchFeedback = ({ cityCode, languageCode, query, noResults }: SearchFeedbackProps): ReactElement => {
   const [showFeedback, setShowFeedback] = useState<boolean>(false)
   const { t } = useTranslation('feedback')
+  const noQuery = query.length === 0
 
   useEffect(() => setShowFeedback(false), [query])
 
@@ -39,7 +40,9 @@ const SearchFeedback = ({ cityCode, languageCode, query, noResults }: SearchFeed
       </Container>
     )
   }
-
+  if (noQuery) {
+    return <div />
+  }
   return (
     <Container>
       <TextButton onClick={() => setShowFeedback(true)} text={t('informationNotFound')} />
