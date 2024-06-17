@@ -21,7 +21,7 @@ const integreatE2e = {
     developerFriendly: false,
     fixedCity: null,
     cityNotCooperatingTemplate,
-    chatbot: false,
+    chat: false,
   },
 }
 const commonIntegreatE2eBuildConfig: CommonBuildConfigType = {

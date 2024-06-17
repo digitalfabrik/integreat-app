@@ -1,8 +1,8 @@
 import React, { ReactElement } from 'react'
 import styled from 'styled-components'
 
-import { ArrowBackIcon, CloseWhiteIcon, MaximizeIcon, MinimizeIcon } from '../assets'
-import { ChatbotVisibilityStatus } from './ChatbotContainer'
+import { ArrowBackIcon, CloseIcon, MaximizeIcon, MinimizeIcon } from '../assets'
+import { ChatVisibilityStatus } from './ChatContainer'
 import Button from './base/Button'
 import Icon from './base/Icon'
 
@@ -15,6 +15,7 @@ const StyledIcon = styled(Icon)`
   height: 24px;
   align-self: center;
   display: flex;
+  color: ${props => props.theme.colors.backgroundColor};
 `
 
 const ButtonContainer = styled.div`
@@ -22,13 +23,13 @@ const ButtonContainer = styled.div`
   gap: 8px;
 `
 
-type ChatbotMenuProps = {
-  visibilityStatus: ChatbotVisibilityStatus
+type ChatMenuProps = {
+  visibilityStatus: ChatVisibilityStatus
   onClose: () => void
   onResize: () => void
   small: boolean
 }
-const ChatbotMenu = ({ onResize, onClose, visibilityStatus, small }: ChatbotMenuProps): ReactElement => (
+const ChatMenu = ({ onResize, onClose, visibilityStatus, small }: ChatMenuProps): ReactElement => (
   <ButtonContainer>
     {small ? (
       <StyledButton ariaLabel='close' onClick={onClose}>
@@ -39,16 +40,16 @@ const ChatbotMenu = ({ onResize, onClose, visibilityStatus, small }: ChatbotMenu
         <StyledButton ariaLabel='close' onClick={onResize}>
           {' '}
           <StyledIcon
-            src={visibilityStatus === ChatbotVisibilityStatus.maximized ? MinimizeIcon : MaximizeIcon}
+            src={visibilityStatus === ChatVisibilityStatus.maximized ? MinimizeIcon : MaximizeIcon}
             directionDependent
           />{' '}
         </StyledButton>
         <StyledButton ariaLabel='close' onClick={onClose}>
-          <StyledIcon src={CloseWhiteIcon} directionDependent />
+          <StyledIcon src={CloseIcon} directionDependent />
         </StyledButton>
       </>
     )}
   </ButtonContainer>
 )
 
-export default ChatbotMenu
+export default ChatMenu

@@ -205,13 +205,13 @@
       "organizationMoreInformation": "您可以在 <3>{{domain}}</3> 上找到有关 <1>{{organization}}</1> 的更多信息。"
     }
   },
-  "chatbot": {
+  "chat": {
     "de": {
-      "button": "Chatbot (beta)",
+      "button": "Chat (beta)",
       "conversationTitle": "Bitte geben Sie Ihre Frage in das Textfeld ein.",
       "conversationText": "Sie können alles fragen, von lokalen Informationen bis hin zu spezifischen Anfragen bezüglich Ihrer Situation.",
-      "dataSecurity": "Datenschutz und Sicherheit: \nIhre Privatsphäre ist uns sehr wichtig. Alle Gespräche werden vertraulich \nbehandelt, und Ihre Daten werden sicher verarbeitet. Mehr Informationen zum Datenschutz finden Sie in unseren Datenschutzrichtlinien.",
-      "headerTitle": "{{appName}} Chat Support",
+      "dataSecurity": "Datenschutz und Sicherheit: \nIhre Privatsphäre ist uns sehr wichtig. Alle Gespräche werden vertraulich behandelt und Ihre Daten werden sicher verarbeitet. \nMehr Informationen zum Datenschutz finden Sie in unseren Datenschutzrichtlinien.",
+      "header": "{{appName}} Chat Support",
       "inputLabel": "Meine Frage:",
       "inputPlaceholder": "Ich möchte wissen...",
       "loadingText": "Einen Moment bitte, nach Ihrer Antwort wird gesucht...",
@@ -219,11 +219,11 @@
       "user": "Sie"
     },
     "en": {
-      "button": "Chatbot (beta)",
+      "button": "Chat (beta)",
       "conversationTitle": "Please enter your question in the text field.",
       "conversationText": "You can ask anything from local information to specific requests regarding your situation.",
-      "dataSecurity": "Date capture and security: \nYour privacy is very important to us. All languages will be confidential \ntreated, and your data will be safely handled. More information on dating can be found in our dating reference line.",
-      "headerTitle": "{{appName}} Chat Support",
+      "dataSecurity": "Data protection and security: \\nYour privacy is very important to us. All conversations are treated confidentially and your data is processed securely.\\nYou can find more information on data protection in our privacy policy.",
+      "header": "{{appName}} Chat Support",
       "inputLabel": "My question:",
       "inputPlaceholder": "I would like to know...",
       "loadingText": "One moment please, we are looking for your answer...",

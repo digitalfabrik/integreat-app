@@ -22,7 +22,7 @@ const integreatTestCms = {
     developerFriendly: true,
     fixedCity: null,
     cityNotCooperatingTemplate,
-    chatbot: false,
+    chat: true,
   },
 }
 export const commonIntegreatTestCmsBuildConfig: CommonBuildConfigType = {

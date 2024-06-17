@@ -12,10 +12,9 @@ import CalendarTodayRecurringIcon from '../../../assets/icons/calendar-today-rec
 import CalendarTodayIcon from '../../../assets/icons/calendar-today.svg'
 import CalendarIcon from '../../../assets/icons/calendar.svg'
 import CategoriesIcon from '../../../assets/icons/categories.svg'
-import ChatbotIcon from '../../../assets/icons/chatbot.svg'
+import ChatIcon from '../../../assets/icons/chat.svg'
 import ClockIcon from '../../../assets/icons/clock.svg'
 import CloseIcon from '../../../assets/icons/close.svg'
-import CloseWhiteIcon from '../../../assets/icons/close_white.svg'
 import CopyIcon from '../../../assets/icons/copy.svg'
 import DataSecurityIcon from '../../../assets/icons/data-security.svg'
 import DoneIcon from '../../../assets/icons/done.svg'
@@ -68,10 +67,9 @@ export {
   CalendarTodayIcon,
   CalendarTodayRecurringIcon,
   CategoriesIcon,
-  ChatbotIcon,
+  ChatIcon,
   ClockIcon,
   CloseIcon,
-  CloseWhiteIcon,
   CopyIcon,
   DataSecurityIcon,
   DoneIcon,

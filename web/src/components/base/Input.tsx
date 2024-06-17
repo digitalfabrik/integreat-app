@@ -96,7 +96,7 @@ const Input = ({
         <StyledTextArea
           id={id}
           onChange={onInputChange}
-          onKeyDown={onKeyDown ? e => onKeyDown(e) : undefined}
+          onKeyDown={onKeyDown}
           value={value}
           rows={numberOfLines}
           maxLength={maxLength}
@@ -110,7 +110,7 @@ const Input = ({
           id={id}
           type='text'
           onChange={onInputChange}
-          onKeyDown={onKeyDown ? e => onKeyDown(e) : undefined}
+          onKeyDown={onKeyDown}
           required={required}
           value={value}
           maxLength={maxLength}

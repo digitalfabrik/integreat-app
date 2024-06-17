@@ -11,13 +11,13 @@ const Container = styled.div`
   overflow: auto;
 `
 
-type ChatbotConversationProps = {
+type ChatConversationProps = {
   hasConversationStarted: boolean
   messages: ChatMessageType[]
 }
 
-const ChatbotConversation = ({ hasConversationStarted, messages }: ChatbotConversationProps): ReactElement => {
-  const { t } = useTranslation('chatbot')
+const ChatConversation = ({ hasConversationStarted, messages }: ChatConversationProps): ReactElement => {
+  const { t } = useTranslation('chat')
   const messagesEndRef = useRef<null | HTMLDivElement>(null)
 
   const scrollToBottom = () => {
@@ -52,4 +52,4 @@ const ChatbotConversation = ({ hasConversationStarted, messages }: ChatbotConver
   )
 }
 
-export default ChatbotConversation
+export default ChatConversation

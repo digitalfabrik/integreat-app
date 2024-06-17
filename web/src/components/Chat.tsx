@@ -4,8 +4,8 @@ import styled from 'styled-components'
 
 import dimensions from '../constants/dimensions'
 import useLocalStorage from '../hooks/useLocalStorage'
-import ChatbotConversation from './ChatbotConversation'
-import ChatbotSecurityInformation from './ChatbotSecurityInformation'
+import ChatConversation from './ChatConversation'
+import ChatSecurityInformation from './ChatSecurityInformation'
 import LoadingSpinner from './LoadingSpinner'
 import { ChatMessageType, mockedGetMessages, testSessionId } from './__mocks__/ChatMessages'
 import Input from './base/Input'
@@ -44,14 +44,15 @@ const StyledLoadingSpinner = styled(LoadingSpinner)`
   margin-top: 0;
 `
 
-const LOCAL_STORAGE_ITEM_CHAT_MESSAGES = 'ChatBot-Session'
+const LOCAL_STORAGE_ITEM_CHAT_MESSAGES = 'Chat-Session'
 
-const Chatbot = (): ReactElement => {
-  const { t } = useTranslation('chatbot')
+const Chat = (): ReactElement => {
+  const { t } = useTranslation('chat')
   const [textInput, setTextInput] = useState<string>('')
   const { value: sessionId, updateLocalStorageItem: setSessionId } = useLocalStorage<number>(
     LOCAL_STORAGE_ITEM_CHAT_MESSAGES,
   )
+  // 2833 TODO Improve useLocalStorage hook with a default/init method
   const hasSessionId = !!(typeof sessionId === 'number' && sessionId)
   // TODO 2799 Implement Chat API
   const [messages, setMessages] = useState<ChatMessageType[]>(hasSessionId ? mockedGetMessages(sessionId) : [])
@@ -86,10 +87,10 @@ const Chatbot = (): ReactElement => {
 
   return (
     <Container>
-      <ChatbotConversation hasConversationStarted={hasSessionId} messages={messages} />
-      <InputSection id='chatbot' title={hasSessionId ? '' : t('inputLabel')}>
+      <ChatConversation hasConversationStarted={hasSessionId} messages={messages} />
+      <InputSection id='chat' title={hasSessionId ? '' : t('inputLabel')}>
         <Input
-          id='chatbot'
+          id='chat'
           value={textInput}
           onChange={setTextInput}
           multiline
@@ -100,10 +101,10 @@ const Chatbot = (): ReactElement => {
       </InputSection>
       <SubmitContainer>
         <SubmitButton disabled={textInput.length === 0} onClick={onSubmit} text={t('sendButton')} />
-        <ChatbotSecurityInformation />
+        <ChatSecurityInformation />
       </SubmitContainer>
     </Container>
   )
 }
 
-export default Chatbot
+export default Chat

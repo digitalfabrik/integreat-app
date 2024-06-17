@@ -23,13 +23,14 @@ const SecurityIconContainer = styled.button`
 const SecurityIcon = styled(Icon)`
   width: 32px;
   height: 32px;
+  color: ${props => props.theme.colors.textSecondaryColor};
 `
 
 const InformationTooltipContainer = styled.div`
   position: absolute;
   z-index: 2000;
   border: 1px solid;
-  background-color: #585858;
+  background-color: ${props => props.theme.colors.textSecondaryColor};
   color: white;
   padding: 12px;
   text-align: center;
@@ -42,8 +43,8 @@ const InformationTooltipContainer = styled.div`
   }
 `
 
-const ChatbotSecurityInformation = (): ReactElement => {
-  const { t } = useTranslation('chatbot')
+const ChatSecurityInformation = (): ReactElement => {
+  const { t } = useTranslation('chat')
   const [securityInformationVisible, setSecurityInformationVisible] = useState<boolean>(false)
   return (
     <SecurityInformationContainer>
@@ -55,4 +56,4 @@ const ChatbotSecurityInformation = (): ReactElement => {
   )
 }
 
-export default ChatbotSecurityInformation
+export default ChatSecurityInformation

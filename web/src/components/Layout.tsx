@@ -117,7 +117,7 @@ type LayoutProps = {
   footer?: ReactNode
   header?: ReactNode
   toolbar?: ReactNode
-  chatbot?: ReactNode
+  chat?: ReactNode
   children?: ReactNode
   fullWidth?: boolean
   disableScrollingSafari?: boolean
@@ -127,7 +127,7 @@ const Layout = ({
   footer,
   header,
   toolbar,
-  chatbot,
+  chat,
   children,
   fullWidth = false,
   disableScrollingSafari = false,
@@ -148,7 +148,7 @@ const Layout = ({
         <Main fullWidth={fullWidth}>{children}</Main>
       </Body>
       {viewportSmall && toolbar}
-      {chatbot}
+      {chat}
       {footer}
     </RichLayout>
   )

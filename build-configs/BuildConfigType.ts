@@ -38,7 +38,7 @@ export type FeatureFlagsType = FixedCityType & {
   // Enables the option for users to suggest Integreat to their city and uses this template for the suggestion
   cityNotCooperating?: boolean
   cityNotCooperatingTemplate: string | null
-  chatbot: boolean
+  chat: boolean
 }
 
 // Available on all platforms

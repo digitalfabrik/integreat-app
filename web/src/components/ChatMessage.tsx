@@ -8,22 +8,22 @@ import RemoteContent from './RemoteContent'
 import { ChatMessageType } from './__mocks__/ChatMessages'
 import Icon from './base/Icon'
 
-const Message = styled.div<{ isAuthor: boolean }>`
+const Message = styled.div`
   border-radius: 5px;
   padding: 8px;
   border: 1px solid ${props => props.theme.colors.textDecorationColor};
   flex-basis: 70%;
 `
 
-const Container = styled.div<{ isAuthor: boolean }>`
+const Container = styled.div<{ $isAuthor: boolean }>`
   display: flex;
-  ${props => (props.isAuthor ? 'flex-direction:row-reverse' : 'flex-direction:row')};
+  ${props => (props.$isAuthor ? 'flex-direction:row-reverse' : 'flex-direction:row')};
   margin-bottom: 12px;
   gap: 8px;
 `
 
-const IconContainer = styled.div<{ visible: boolean }>`
-  opacity: ${props => (props.visible ? 1 : 0)};
+const IconContainer = styled.div<{ $visible: boolean }>`
+  opacity: ${props => (props.$visible ? 1 : 0)};
   height: 24px;
   width: 24px;
   display: flex;
@@ -45,16 +45,17 @@ const Circle = styled.div`
 type ChatMessageProps = { message: ChatMessageType; showIcon: boolean }
 
 const ChatMessage = ({ message, showIcon }: ChatMessageProps): ReactElement => {
+  // TODO 2799 Check if Remote content is really needed here or how external links will be delivered via api
   const { icons } = buildConfig()
   const navigate = useNavigate()
-  const { t } = useTranslation('chatbot')
+  const { t } = useTranslation('chat')
   const { body, userIsAuthor } = message
   return (
-    <Container isAuthor={userIsAuthor}>
-      <IconContainer visible={showIcon}>
+    <Container $isAuthor={userIsAuthor}>
+      <IconContainer $visible={showIcon}>
         {userIsAuthor ? <Circle>{t('user')}</Circle> : <Icon src={icons.appLogoMobile} />}
       </IconContainer>
-      <Message isAuthor={userIsAuthor}>
+      <Message>
         <RemoteContent html={body} onInternalLinkClick={navigate} smallText />
       </Message>
     </Container>

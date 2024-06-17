@@ -5,8 +5,8 @@ import styled from 'styled-components'
 
 import dimensions from '../constants/dimensions'
 import useWindowDimensions from '../hooks/useWindowDimensions'
-import { ChatbotVisibilityStatus } from './ChatbotContainer'
-import ChatbotModalContent from './ChatbotContentWrapper'
+import { ChatVisibilityStatus } from './ChatContainer'
+import ChatModalContent from './ChatContentWrapper'
 import { LAYOUT_ELEMENT_ID } from './Layout'
 import Button from './base/Button'
 
@@ -46,21 +46,15 @@ const ModalContentContainer = styled.div`
   }
 `
 
-type ChatBotModalProps = {
+type ChatModalProps = {
   title: string
   children: ReactNode
   closeModal: () => void
-  visibilityStatus: ChatbotVisibilityStatus
+  visibilityStatus: ChatVisibilityStatus
   resizeModal: () => void
 }
 
-const ChatbotModal = ({
-  title,
-  closeModal,
-  children,
-  visibilityStatus,
-  resizeModal,
-}: ChatBotModalProps): ReactElement => {
+const ChatModal = ({ title, closeModal, children, visibilityStatus, resizeModal }: ChatModalProps): ReactElement => {
   const { viewportSmall } = useWindowDimensions()
   const { t } = useTranslation('common')
 
@@ -71,27 +65,25 @@ const ChatbotModal = ({
     return () => layoutElement?.setAttribute('aria-hidden', 'false')
   }, [])
 
-  const Modal = (
+  return (
     <FocusTrap focusTrapOptions={{ clickOutsideDeactivates: true, tabbableOptions: { displayCheck: 'legacy-full' } }}>
       <ModalContainer role='dialog' aria-hidden={false} aria-modal>
         <Overlay onClick={resizeModal} tabIndex={0} ariaLabel={t('close')}>
           <div />
         </Overlay>
         <ModalContentContainer>
-          <ChatbotModalContent
+          <ChatModalContent
             title={title}
             onClose={closeModal}
             small={viewportSmall}
             onResize={resizeModal}
             visibilityStatus={visibilityStatus}>
             {children}
-          </ChatbotModalContent>
+          </ChatModalContent>
         </ModalContentContainer>
       </ModalContainer>
     </FocusTrap>
   )
-
-  return Modal
 }
 
-export default ChatbotModal
+export default ChatModal

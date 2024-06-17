@@ -2,8 +2,8 @@ import React, { ReactElement, ReactNode } from 'react'
 import styled from 'styled-components'
 
 import dimensions from '../constants/dimensions'
-import { ChatbotVisibilityStatus } from './ChatbotContainer'
-import ChatbotMenu from './ChatbotMenu'
+import { ChatVisibilityStatus } from './ChatContainer'
+import ChatMenu from './ChatMenu'
 
 const Container = styled.div`
   display: flex;
@@ -50,10 +50,10 @@ type ModalProps = {
   onClose: () => void
   onResize: () => void
   small: boolean
-  visibilityStatus: ChatbotVisibilityStatus
+  visibilityStatus: ChatVisibilityStatus
 }
 
-const ChatbotContentWrapper = ({
+const ChatContentWrapper = ({
   title,
   onClose,
   onResize,
@@ -61,7 +61,7 @@ const ChatbotContentWrapper = ({
   small,
   visibilityStatus,
 }: ModalProps): ReactElement => {
-  const isMinimized = visibilityStatus === ChatbotVisibilityStatus.minimized
+  const isMinimized = visibilityStatus === ChatVisibilityStatus.minimized
   return (
     <Container>
       <Header small={small}>
@@ -73,11 +73,11 @@ const ChatbotContentWrapper = ({
           tabIndex={0}>
           {title}
         </Title>
-        <ChatbotMenu onClose={onClose} onResize={onResize} visibilityStatus={visibilityStatus} small={small} />
+        <ChatMenu onClose={onClose} onResize={onResize} visibilityStatus={visibilityStatus} small={small} />
       </Header>
-      {visibilityStatus === ChatbotVisibilityStatus.maximized && children}
+      {visibilityStatus === ChatVisibilityStatus.maximized && children}
     </Container>
   )
 }
 
-export default ChatbotContentWrapper
+export default ChatContentWrapper
