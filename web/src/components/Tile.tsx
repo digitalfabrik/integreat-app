@@ -4,7 +4,7 @@ import styled from 'styled-components'
 import { TileModel } from 'shared'
 import { request } from 'shared/api'
 
-import CleanLink from './CleanLink'
+import Link from './base/Link'
 
 const Thumbnail = styled.div`
   position: relative;
@@ -92,7 +92,7 @@ const Tile = ({ tile }: TileProps): ReactElement => {
 
   const getTile = (): ReactNode => {
     if (!tile.postData) {
-      return <CleanLink to={tile.path}>{getTileContent()}</CleanLink>
+      return <Link to={tile.path}>{getTileContent()}</Link>
     }
     const inputs: ReactNode[] = []
     // tile.postData is not an array so key is actually a string with the name of the post data field

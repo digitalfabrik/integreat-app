@@ -1,8 +1,8 @@
 import React, { ReactElement } from 'react'
-import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 
 import Icon from './base/Icon'
+import Link from './base/Link'
 
 const StyledLink = styled(Link)`
   display: flex;

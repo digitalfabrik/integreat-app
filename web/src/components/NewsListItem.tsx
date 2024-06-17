@@ -6,11 +6,11 @@ import styled from 'styled-components'
 import { getExcerpt, LOCAL_NEWS_TYPE, NewsType } from 'shared'
 
 import { EXCERPT_MAX_CHARS } from '../constants'
-import CleanLink from './CleanLink'
 import LastUpdateInfo from './LastUpdateInfo'
 import { Description } from './ListItem'
+import Link from './base/Link'
 
-const Link = styled(CleanLink)`
+const StyledLink = styled(Link)`
   display: flex;
   background-color: ${({ theme }) => theme.colors.backgroundColor};
 `
@@ -58,7 +58,7 @@ const NewsListItem = ({ title, content, timestamp, t, type, link }: NewsListItem
 
   return (
     <StyledNewsListItem>
-      <Link to={link}>
+      <StyledLink to={link}>
         <Description>
           <Title dir='auto'>{title}</Title>
           <Body dir='auto'>{excerpt}</Body>
@@ -67,7 +67,7 @@ const NewsListItem = ({ title, content, timestamp, t, type, link }: NewsListItem
             <ReadMore $type={type}>{readMoreLinkText}</ReadMore>
           </StyledContainer>
         </Description>
-      </Link>
+      </StyledLink>
     </StyledNewsListItem>
   )
 }

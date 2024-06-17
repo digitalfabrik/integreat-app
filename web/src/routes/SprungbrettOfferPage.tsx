@@ -9,12 +9,12 @@ import { CityRouteProps } from '../CityContentSwitcher'
 import Caption from '../components/Caption'
 import CityContentLayout, { CityContentLayoutProps } from '../components/CityContentLayout'
 import CityContentToolbar from '../components/CityContentToolbar'
-import CleanLink from '../components/CleanLink'
 import FailureSwitcher from '../components/FailureSwitcher'
 import Helmet from '../components/Helmet'
 import List from '../components/List'
 import LoadingSpinner from '../components/LoadingSpinner'
 import SprungbrettListItem from '../components/SprungbrettListItem'
+import Link from '../components/base/Link'
 import { cmsApiBaseUrl } from '../constants/urls'
 
 const Image = styled.img`
@@ -98,9 +98,9 @@ const SprungbrettOfferPage = ({
       {!embedded && <Caption title={offer.title} />}
       <List noItemsMessage={t('noOffersAvailable')} renderItem={renderSprungbrettListItem} items={sprungbrettJobs} />
       {!embedded && (
-        <CleanLink to='https://www.sprungbrett-intowork.de'>
+        <Link to='https://www.sprungbrett-intowork.de'>
           <Image src={offer.thumbnail} alt='' />
-        </CleanLink>
+        </Link>
       )}
     </Wrapper>
   )
