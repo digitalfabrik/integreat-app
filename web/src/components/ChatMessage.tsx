@@ -14,6 +14,7 @@ const Message = styled.div`
   padding: 8px;
   border: 1px solid ${props => props.theme.colors.textDecorationColor};
   flex-basis: 70%;
+
   & > div > a {
     line-break: anywhere;
   }

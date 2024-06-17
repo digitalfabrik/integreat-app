@@ -104,7 +104,7 @@ const ChatContainer = ({ city, language }: ChatContainerProps): ReactElement => 
         resizeModal={() => setChatVisibilityStatus(ChatVisibilityStatus.minimized)}
         closeModal={() => setChatVisibilityStatus(ChatVisibilityStatus.closed)}
         visibilityStatus={chatVisibilityStatus}>
-        <Chat city={city} language={language} deviceId={deviceId} />
+        {hasDeviceId && <Chat city={city} language={language} deviceId={deviceId} />}
       </ChatModal>
     )
   }

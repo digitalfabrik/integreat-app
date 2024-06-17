@@ -67,10 +67,12 @@ const Chat = ({ city, language, deviceId }: ChatProps): ReactElement => {
     error,
   } = useLoadFromEndpoint(createChatGetEndpoint, cmsApiBaseUrl, { city, language, deviceId })
 
+  const hasChatMessages = chatMessages !== null && chatMessages.length > 0
+
   useEffect(() => {
     const pollChatMessages = setTimeout(refreshMessages, POLLING_INTERVAL)
     return () => clearTimeout(pollChatMessages)
-  })
+  }, [refreshMessages])
 
   const onSubmit = () => {
     if (!deviceId) {
@@ -118,11 +120,8 @@ const Chat = ({ city, language, deviceId }: ChatProps): ReactElement => {
 
   return (
     <Container>
-      <ChatConversation
-        hasConversationStarted={chatMessages !== null && chatMessages.length > 0}
-        messages={chatMessages ?? []}
-      />
-      <InputSection id='chat' title={chatMessages !== null && chatMessages.length > 0 ? '' : t('inputLabel')}>
+      <ChatConversation hasConversationStarted={hasChatMessages} messages={chatMessages ?? []} />
+      <InputSection id='chat' title={hasChatMessages ? '' : t('inputLabel')}>
         <Input
           id='chat'
           value={textInput}

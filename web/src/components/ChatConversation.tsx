@@ -2,8 +2,9 @@ import React, { ReactElement, useEffect, useRef } from 'react'
 import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
 
+import ChatMessageModel from 'shared/api/models/ChatMessageModel'
+
 import ChatMessage from './ChatMessage'
-import { ChatMessageType } from './__mocks__/ChatMessages'
 
 const Container = styled.div`
   flex: 50%;
@@ -13,7 +14,7 @@ const Container = styled.div`
 
 type ChatConversationProps = {
   hasConversationStarted: boolean
-  messages: ChatMessageType[]
+  messages: ChatMessageModel[]
 }
 
 const ChatConversation = ({ hasConversationStarted, messages }: ChatConversationProps): ReactElement => {
