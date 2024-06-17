@@ -1,13 +1,17 @@
-import React, { KeyboardEvent, ReactElement, useState } from 'react'
+import React, { KeyboardEvent, ReactElement, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
 
+import { createChatGetEndpoint, createChatPostEndpoint, useLoadFromEndpoint } from 'shared/api'
+
 import dimensions from '../constants/dimensions'
-import useLocalStorage from '../hooks/useLocalStorage'
+import { cmsApiBaseUrl } from '../constants/urls'
+import { reportError } from '../utils/sentry'
 import ChatConversation from './ChatConversation'
 import ChatSecurityInformation from './ChatSecurityInformation'
+import FailureSwitcher from './FailureSwitcher'
+import { SendingStatusType } from './FeedbackContainer'
 import LoadingSpinner from './LoadingSpinner'
-import { ChatMessageType, mockedGetMessages, testSessionId } from './__mocks__/ChatMessages'
 import Input from './base/Input'
 import InputSection from './base/InputSection'
 import TextButton from './base/TextButton'
@@ -44,28 +48,52 @@ const StyledLoadingSpinner = styled(LoadingSpinner)`
   margin-top: 0;
 `
 
-const LOCAL_STORAGE_ITEM_CHAT_MESSAGES = 'Chat-Session'
+type ChatProps = {
+  city: string
+  language: string
+  deviceId: string
+}
 
-const Chat = (): ReactElement => {
+// TODO add error handling
+
+const POLLING_INTERVAL = 30000
+const Chat = ({ city, language, deviceId }: ChatProps): ReactElement => {
   const { t } = useTranslation('chat')
   const [textInput, setTextInput] = useState<string>('')
-  const { value: sessionId, updateLocalStorageItem: setSessionId } = useLocalStorage<number>(
-    LOCAL_STORAGE_ITEM_CHAT_MESSAGES,
-  )
-  // 2833 TODO Improve useLocalStorage hook with a default/init method
-  const hasSessionId = !!(typeof sessionId === 'number' && sessionId)
-  // TODO 2799 Implement Chat API
-  const [messages, setMessages] = useState<ChatMessageType[]>(hasSessionId ? mockedGetMessages(sessionId) : [])
+  const [sendingStatus, setSendingStatus] = useState<SendingStatusType>('idle')
+  const {
+    data: chatMessages,
+    refresh: refreshMessages,
+    error,
+  } = useLoadFromEndpoint(createChatGetEndpoint, cmsApiBaseUrl, { city, language, deviceId })
 
-  const loading = false
+  useEffect(() => {
+    const pollChatMessages = setTimeout(refreshMessages, POLLING_INTERVAL)
+    return () => clearTimeout(pollChatMessages)
+  })
+
   const onSubmit = () => {
-    setTextInput('')
-    // TODO 2799 Implement Chat API - get messages and set correct sessionId
-    setMessages(mockedGetMessages(sessionId))
-    if (hasSessionId) {
+    if (!deviceId) {
       return
     }
-    setSessionId(testSessionId)
+    setSendingStatus('sending')
+    const request = async () => {
+      const chatEndpoint = createChatPostEndpoint(cmsApiBaseUrl)
+      await chatEndpoint.request({
+        city,
+        language,
+        message: textInput,
+        deviceId,
+      })
+      refreshMessages()
+    }
+    setSendingStatus('successful')
+    setTextInput('')
+
+    request().catch(err => {
+      reportError(err)
+      setSendingStatus('failed')
+    })
   }
 
   const submitOnEnter = (e: KeyboardEvent) => {
@@ -74,9 +102,8 @@ const Chat = (): ReactElement => {
       onSubmit()
     }
   }
-  // loading will be provided by api
-  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-  if (loading) {
+
+  if (sendingStatus === 'sending') {
     return (
       <LoadingContainer>
         <StyledLoadingSpinner />
@@ -85,10 +112,17 @@ const Chat = (): ReactElement => {
     )
   }
 
+  if (error) {
+    return <FailureSwitcher error={error} />
+  }
+
   return (
     <Container>
-      <ChatConversation hasConversationStarted={hasSessionId} messages={messages} />
-      <InputSection id='chat' title={hasSessionId ? '' : t('inputLabel')}>
+      <ChatConversation
+        hasConversationStarted={chatMessages !== null && chatMessages.length > 0}
+        messages={chatMessages ?? []}
+      />
+      <InputSection id='chat' title={chatMessages !== null && chatMessages.length > 0 ? '' : t('inputLabel')}>
         <Input
           id='chat'
           value={textInput}

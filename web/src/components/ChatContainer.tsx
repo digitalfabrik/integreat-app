@@ -5,6 +5,7 @@ import styled from 'styled-components'
 import { ChatIcon } from '../assets'
 import buildConfig from '../constants/buildConfig'
 import dimensions from '../constants/dimensions'
+import useLocalStorage from '../hooks/useLocalStorage'
 import useLockedBody from '../hooks/useLockedBody'
 import useWindowDimensions from '../hooks/useWindowDimensions'
 import Chat from './Chat'
@@ -70,13 +71,31 @@ export enum ChatVisibilityStatus {
   maximized,
 }
 
-const ChatContainer = (): ReactElement => {
+type ChatContainerProps = {
+  city: string
+  language: string
+}
+
+const LOCAL_STORAGE_ITEM_CHAT_MESSAGES = 'Chat-Device-Id'
+const ChatContainer = ({ city, language }: ChatContainerProps): ReactElement => {
   const { t } = useTranslation('chat')
   const [chatVisibilityStatus, setChatVisibilityStatus] = useState<ChatVisibilityStatus>(ChatVisibilityStatus.closed)
   const { viewportSmall } = useWindowDimensions()
   const isChatMaximized = chatVisibilityStatus === ChatVisibilityStatus.maximized
   useLockedBody(isChatMaximized)
   const title = t('header', { appName: buildConfig().appName })
+  const { value: deviceId, updateLocalStorageItem: setDeviceId } = useLocalStorage<string>(
+    LOCAL_STORAGE_ITEM_CHAT_MESSAGES,
+  )
+  // 2833 TODO Improve useLocalStorage hook with a default/init method
+  const hasDeviceId = !!(typeof deviceId === 'string' && deviceId)
+
+  const openChatAndInitialize = () => {
+    if (!hasDeviceId) {
+      setDeviceId(window.self.crypto.randomUUID())
+    }
+    setChatVisibilityStatus(ChatVisibilityStatus.maximized)
+  }
 
   if (isChatMaximized) {
     return (
@@ -85,7 +104,7 @@ const ChatContainer = (): ReactElement => {
         resizeModal={() => setChatVisibilityStatus(ChatVisibilityStatus.minimized)}
         closeModal={() => setChatVisibilityStatus(ChatVisibilityStatus.closed)}
         visibilityStatus={chatVisibilityStatus}>
-        <Chat />
+        <Chat city={city} language={language} deviceId={deviceId} />
       </ChatModal>
     )
   }
@@ -105,7 +124,7 @@ const ChatContainer = (): ReactElement => {
   }
 
   return (
-    <ChatButtonContainer onClick={() => setChatVisibilityStatus(ChatVisibilityStatus.maximized)}>
+    <ChatButtonContainer onClick={openChatAndInitialize}>
       <Circle>
         <StyledIcon src={ChatIcon} title={t('button')} />
       </Circle>

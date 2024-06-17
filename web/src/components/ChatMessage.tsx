@@ -3,9 +3,10 @@ import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
 
+import ChatMessageModel from 'shared/api/models/ChatMessageModel'
+
 import buildConfig from '../constants/buildConfig'
 import RemoteContent from './RemoteContent'
-import { ChatMessageType } from './__mocks__/ChatMessages'
 import Icon from './base/Icon'
 
 const Message = styled.div`
@@ -13,6 +14,9 @@ const Message = styled.div`
   padding: 8px;
   border: 1px solid ${props => props.theme.colors.textDecorationColor};
   flex-basis: 70%;
+  & > div > a {
+    line-break: anywhere;
+  }
 `
 
 const Container = styled.div<{ $isAuthor: boolean }>`
@@ -42,7 +46,7 @@ const Circle = styled.div`
   font-size: ${props => props.theme.fonts.decorativeFontSizeSmall};
 `
 
-type ChatMessageProps = { message: ChatMessageType; showIcon: boolean }
+type ChatMessageProps = { message: ChatMessageModel; showIcon: boolean }
 
 const ChatMessage = ({ message, showIcon }: ChatMessageProps): ReactElement => {
   // TODO 2799 Check if Remote content is really needed here or how external links will be delivered via api
