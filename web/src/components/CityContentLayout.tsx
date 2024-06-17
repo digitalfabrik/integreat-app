@@ -1,9 +1,12 @@
 import React, { ReactElement, ReactNode } from 'react'
 
 import { CityModel } from 'shared/api'
+import { POIS_ROUTE } from 'shared/routes'
 
+import buildConfig from '../constants/buildConfig'
 import useWindowDimensions from '../hooks/useWindowDimensions'
 import { RouteType } from '../routes'
+import ChatContainer from './ChatContainer'
 import CityContentFooter from './CityContentFooter'
 import CityContentHeader from './CityContentHeader'
 import Layout from './Layout'
@@ -37,9 +40,10 @@ const CityContentLayout = (props: CityContentLayoutProps): ReactElement => {
     city,
   } = props
 
+  const isChatEnabled =
+    buildConfig().featureFlags.chat && route !== POIS_ROUTE && city.name === 'Landeshauptstadt München'
   // to avoid jumping issues for desktop, isLoading is only checked on mobile viewport
   const isLoadingMobile = isLoading && viewportSmall
-
   return (
     <Layout
       disableScrollingSafari={disableScrollingSafari}
@@ -57,6 +61,7 @@ const CityContentLayout = (props: CityContentLayoutProps): ReactElement => {
           <CityContentFooter city={city.code} language={languageCode} />
         ) : null
       }
+      chat={isChatEnabled ? <ChatContainer /> : undefined}
       toolbar={!isLoadingMobile && Toolbar}>
       {children}
     </Layout>

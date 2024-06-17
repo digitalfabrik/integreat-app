@@ -40,6 +40,7 @@ const commonMalteBuildConfig: CommonBuildConfigType = {
     developerFriendly: false,
     fixedCity: null,
     cityNotCooperatingTemplate: null,
+    chat: false,
   },
   aboutUrls: {
     default: 'https://www.malteser-werke.de/malte-app',
