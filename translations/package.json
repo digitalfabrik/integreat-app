@@ -3,7 +3,6 @@
   "version": "0.0.1",
   "description": "Translations for the integreat frontend projects",
   "main": "src/index.ts",
-  "sideEffects": false,
   "private": true,
   "scripts": {
     "manage": "tsx tools/manage.ts",
