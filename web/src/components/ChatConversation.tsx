@@ -7,17 +7,35 @@ import ChatMessageModel from 'shared/api/models/ChatMessageModel'
 import ChatMessage from './ChatMessage'
 
 const Container = styled.div`
-  flex: 50%;
   font-size: ${props => props.theme.fonts.hintFontSize};
   overflow: auto;
+`
+
+const InitialMessage = styled.div`
+  margin-bottom: 12px;
+`
+
+const ErrorSendingStatus = styled.div`
+  background-color: ${props => props.theme.colors.invalidInput};
+  border-radius: 5px;
+  padding: 8px;
+  border: 1px solid ${props => props.theme.colors.textDecorationColor};
+  margin: 16px;
 `
 
 type ChatConversationProps = {
   hasConversationStarted: boolean
   messages: ChatMessageModel[]
+  showError: boolean
+  className?: string
 }
 
-const ChatConversation = ({ hasConversationStarted, messages }: ChatConversationProps): ReactElement => {
+const ChatConversation = ({
+  hasConversationStarted,
+  messages,
+  showError,
+  className,
+}: ChatConversationProps): ReactElement => {
   const { t } = useTranslation('chat')
   const messagesEndRef = useRef<null | HTMLDivElement>(null)
 
@@ -30,9 +48,10 @@ const ChatConversation = ({ hasConversationStarted, messages }: ChatConversation
   }, [messages])
 
   return (
-    <Container>
+    <Container className={className}>
       {hasConversationStarted ? (
         <>
+          <InitialMessage>{t('initialMessage')}</InitialMessage>
           {messages.map((message, index) => (
             <ChatMessage
               message={message}
@@ -49,6 +68,7 @@ const ChatConversation = ({ hasConversationStarted, messages }: ChatConversation
           {t('conversationText')}
         </div>
       )}
+      {showError && <ErrorSendingStatus role='alert'>{t('errorMessage')}</ErrorSendingStatus>}
     </Container>
   )
 }
