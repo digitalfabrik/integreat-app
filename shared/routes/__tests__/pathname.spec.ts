@@ -23,9 +23,9 @@ describe('pathname', () => {
         cityCode,
         languageCode,
         route: EVENTS_ROUTE,
-        path: '/augsburg/de/events/1235',
+        path: 'my-event-1235',
       })
-      expect(pathname).toBe('/augsburg/de/events/1235')
+      expect(pathname).toBe('/augsburg/de/events/my-event-1235')
     })
     it('should return correct pathname for city content routes without path', () => {
       const pathname = cityContentPath({
