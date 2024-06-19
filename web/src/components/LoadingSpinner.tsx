@@ -55,8 +55,12 @@ const Spinner = styled.div`
   }
 `
 
-const LoadingSpinner = (): ReactElement => (
-  <Spinner>
+type LoadingSpinnerProps = {
+  className?: string
+}
+
+const LoadingSpinner = ({ className }: LoadingSpinnerProps): ReactElement => (
+  <Spinner className={className}>
     <div />
     <div />
     <div />

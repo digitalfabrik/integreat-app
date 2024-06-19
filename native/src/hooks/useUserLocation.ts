@@ -1,133 +1,98 @@
-import Geolocation, { GeolocationError, GeolocationResponse } from '@react-native-community/geolocation'
+import Geolocation, { GeolocationError } from '@react-native-community/geolocation'
 import { useCallback, useEffect, useState } from 'react'
-import { openSettings, RESULTS } from 'react-native-permissions'
-import SystemSetting from 'react-native-system-setting'
+import { useTranslation } from 'react-i18next'
+import { Platform } from 'react-native'
+import { check, openSettings, PERMISSIONS, request, RESULTS } from 'react-native-permissions'
 
 import { LocationStateType, UnavailableLocationState } from 'shared'
 
-import { checkLocationPermission, requestLocationPermission } from '../utils/LocationPermissionManager'
+import { log, reportError } from '../utils/sentry'
+import useSnackbar from './useSnackbar'
+
+const locationPermission =
+  Platform.OS === 'ios' ? PERMISSIONS.IOS.LOCATION_WHEN_IN_USE : PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION
 
 const locationStateOnError = (error: GeolocationError): UnavailableLocationState => {
-  if (error.code === error.PERMISSION_DENIED) {
-    return {
-      status: 'unavailable',
-      message: 'noPermission',
-      coordinates: undefined,
-    }
-  }
-  if (error.code === error.POSITION_UNAVAILABLE) {
-    return {
-      status: 'unavailable',
-      message: 'notAvailable',
-      coordinates: undefined,
-    }
-  }
+  const message = error.code === error.PERMISSION_DENIED ? 'noPermission' : 'timeout'
   return {
     status: 'unavailable',
-    message: 'timeout',
+    message: error.code === error.POSITION_UNAVAILABLE ? 'notAvailable' : message,
     coordinates: undefined,
   }
 }
 
-export type LocationInformationType = LocationStateType & {
-  requestAndDetermineLocation: () => Promise<void>
-}
-
-const useUserLocation = (useSettingsListener = false): LocationInformationType => {
-  const [locationState, setLocationState] = useState<LocationStateType>({
-    status: 'loading',
-    message: 'loading',
-    coordinates: undefined,
-  })
-
-  const determineLocation = useCallback(() => {
+const getUserLocation = async (): Promise<LocationStateType> =>
+  new Promise(resolve => {
     Geolocation.getCurrentPosition(
-      (position: GeolocationResponse) => {
-        setLocationState({
+      position =>
+        resolve({
           status: 'ready',
           message: 'ready',
           coordinates: [position.coords.longitude, position.coords.latitude],
-        })
-      },
-      (error: GeolocationError) => {
-        setLocationState(locationStateOnError(error))
-      },
-      {
-        enableHighAccuracy: true,
-
-        timeout: 50000,
-
-        maximumAge: 3600000,
-      },
+        }),
+      error => resolve(locationStateOnError(error)),
+      { timeout: 30000 },
     )
-  }, [])
+  })
 
-  useEffect(() => {
-    checkLocationPermission().then(locationPermissionStatus => {
+type UseUserLocationProps = {
+  requestPermissionInitially: boolean
+}
+
+type RequestPermissionAndLocationOptions = {
+  showSnackbarIfBlocked?: boolean
+  requestPermission?: boolean
+}
+
+type UseUserLocationReturn = LocationStateType & {
+  refreshPermissionAndLocation: (options?: RequestPermissionAndLocationOptions) => Promise<void>
+}
+
+const initialState: LocationStateType = { status: 'loading', message: 'loading', coordinates: undefined }
+
+const useUserLocation = ({ requestPermissionInitially }: UseUserLocationProps): UseUserLocationReturn => {
+  const [locationState, setLocationState] = useState<LocationStateType>(initialState)
+  const showSnackbar = useSnackbar()
+  const { t } = useTranslation()
+
+  const refreshPermissionAndLocation = useCallback(
+    async ({ showSnackbarIfBlocked = true, requestPermission = true }: RequestPermissionAndLocationOptions = {}) => {
+      setLocationState(initialState)
+
+      const locationPermissionStatus = requestPermission
+        ? await request(locationPermission)
+        : await check(locationPermission)
+
+      if (requestPermission) {
+        log(`Location permission status: ${locationPermissionStatus}`)
+      }
+
       if (locationPermissionStatus === RESULTS.GRANTED) {
-        setLocationState(state => ({
-          status: 'loading',
-          message: 'loading',
-          coordinates: state.coordinates,
-        }))
-        determineLocation()
+        setLocationState(await getUserLocation())
       } else {
-        setLocationState({
-          status: 'unavailable',
-          message: 'noPermission',
-          coordinates: undefined,
-        })
-      }
-    })
-  }, [determineLocation])
+        setLocationState({ message: 'noPermission', status: 'unavailable', coordinates: undefined })
 
-  const requestAndDetermineLocation = useCallback(async () => {
-    setLocationState(state => ({
-      status: 'loading',
-      message: 'loading',
-      coordinates: state.coordinates,
-    }))
-    const locationPermissionStatus = await checkLocationPermission()
-
-    if (locationPermissionStatus === RESULTS.GRANTED || (await requestLocationPermission()) === RESULTS.GRANTED) {
-      determineLocation()
-    } else {
-      setLocationState({
-        message: 'noPermission',
-        status: 'unavailable',
-        coordinates: undefined,
-      })
-      if (locationPermissionStatus === RESULTS.BLOCKED) {
-        await openSettings()
-      }
-    }
-  }, [determineLocation])
-
-  useEffect(() => {
-    if (useSettingsListener) {
-      const onLocationChanged = (enabled: boolean) => {
-        if (enabled) {
-          requestAndDetermineLocation()
-        } else {
-          setLocationState({
-            status: 'unavailable',
-            message: 'notAvailable',
-            coordinates: undefined,
+        if (requestPermission && showSnackbarIfBlocked && locationPermissionStatus === RESULTS.BLOCKED) {
+          showSnackbar({
+            text: t('landing:noPermission'),
+            positiveAction: { label: t('layout:settings'), onPress: openSettings },
           })
         }
       }
-      // updates the location state, whenever the user changes the location permission
-      const listener = SystemSetting.addLocationListener(onLocationChanged)
-      return () => {
-        listener.then(listener => listener && SystemSetting.removeListener(listener))
-      }
-    }
-    return () => undefined
-  })
+    },
+    [showSnackbar, t],
+  )
+
+  useEffect(() => {
+    refreshPermissionAndLocation({
+      requestPermission: requestPermissionInitially,
+      showSnackbarIfBlocked: false,
+    }).catch(reportError)
+  }, [refreshPermissionAndLocation, requestPermissionInitially])
 
   return {
     ...locationState,
-    requestAndDetermineLocation,
+    refreshPermissionAndLocation,
   }
 }
 

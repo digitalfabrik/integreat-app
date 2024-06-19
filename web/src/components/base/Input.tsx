@@ -21,11 +21,11 @@ const GeneralInputStyles = css<{ submitted: boolean }>`
     `}
 `
 
-const StyledTextArea = styled.textarea<{ submitted: boolean }>`
+const StyledTextArea = styled.textarea<{ submitted: boolean; small: boolean }>`
   ${GeneralInputStyles};
   border-radius: 0.2rem 0.2rem 0;
-  resize: vertical;
-  min-height: 60px;
+  min-height: ${props => (props.small ? '16px' : '60px')};
+  resize: none;
 `
 
 const TextInput = styled.input<{ submitted: boolean }>`
@@ -55,22 +55,26 @@ export type InputProps = {
   value: string
   submitted?: boolean
   onChange: (input: string) => void
+  onKeyDown?: (e: React.KeyboardEvent<HTMLTextAreaElement | HTMLInputElement>) => void
   multiline?: boolean
   numberOfLines?: number
   maxLength?: number
   required?: boolean
   hint?: string
   hintIsLabel?: boolean
+  placeholder?: string
 }
 
 const Input = ({
   id,
   onChange,
+  onKeyDown,
   numberOfLines = DEFAULT_MULTI_LINE_NUMBER,
   value,
   submitted = false,
   multiline,
   maxLength,
+  placeholder,
   required,
   hint,
   hintIsLabel = false,
@@ -92,21 +96,26 @@ const Input = ({
         <StyledTextArea
           id={id}
           onChange={onInputChange}
+          onKeyDown={onKeyDown}
           value={value}
           rows={numberOfLines}
           maxLength={maxLength}
           required={required}
           submitted={submitted}
+          placeholder={placeholder}
+          small={numberOfLines === 1}
         />
       ) : (
         <TextInput
           id={id}
           type='text'
           onChange={onInputChange}
+          onKeyDown={onKeyDown}
           required={required}
           value={value}
           maxLength={maxLength}
           submitted={submitted}
+          placeholder={placeholder}
         />
       )}
     </InputContainer>

@@ -3,6 +3,8 @@ import { css, RuleSet } from 'styled-components'
 export type HelpersType = {
   removeLinkHighlighting: RuleSet
   adaptiveFontSize: RuleSet
+  adaptiveWidth: RuleSet
+  adaptiveHeight: RuleSet
 }
 
 export const helpers: HelpersType = {
@@ -12,6 +14,20 @@ export const helpers: HelpersType = {
   `,
   adaptiveFontSize: css`
     font-size: clamp(
+      ${props => props.theme.fonts.adaptiveFontSizeSmall.min},
+      ${props => props.theme.fonts.adaptiveFontSizeSmall.value},
+      ${props => props.theme.fonts.adaptiveFontSizeSmall.max}
+    );
+  `,
+  adaptiveWidth: css`
+    width: clamp(
+      ${props => props.theme.fonts.adaptiveFontSizeSmall.min},
+      ${props => props.theme.fonts.adaptiveFontSizeSmall.value},
+      ${props => props.theme.fonts.adaptiveFontSizeSmall.max}
+    );
+  `,
+  adaptiveHeight: css`
+    height: clamp(
       ${props => props.theme.fonts.adaptiveFontSizeSmall.min},
       ${props => props.theme.fonts.adaptiveFontSizeSmall.value},
       ${props => props.theme.fonts.adaptiveFontSizeSmall.max}

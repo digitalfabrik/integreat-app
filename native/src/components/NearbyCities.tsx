@@ -37,8 +37,9 @@ type NearbyCitiesProps = {
 }
 
 const NearbyCities = ({ cities, navigateToDashboard, filterText }: NearbyCitiesProps): ReactElement => {
-  const locationInformation = useUserLocation()
-  const { status, coordinates, message, requestAndDetermineLocation } = locationInformation
+  const { status, coordinates, message, refreshPermissionAndLocation } = useUserLocation({
+    requestPermissionInitially: false,
+  })
   const { t } = useTranslation('landing')
 
   if (!coordinates) {
@@ -49,7 +50,7 @@ const NearbyCities = ({ cities, navigateToDashboard, filterText }: NearbyCitiesP
           {status !== 'loading' && (
             <IconButton
               icon={<StyledIcon Icon={RefreshIcon} />}
-              onPress={requestAndDetermineLocation}
+              onPress={refreshPermissionAndLocation}
               accessibilityLabel={t('refresh')}
             />
           )}

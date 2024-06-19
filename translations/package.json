@@ -3,6 +3,7 @@
   "version": "0.0.1",
   "description": "Translations for the integreat frontend projects",
   "main": "src/index.ts",
+  "sideEffects": false,
   "private": true,
   "scripts": {
     "manage": "tsx tools/manage.ts",
@@ -16,7 +17,9 @@
     "lint": "eslint --cache --cache-location ../.eslintcache .",
     "ts:check": "tsc --build"
   },
-  "dependencies": {},
+  "dependencies": {
+    "deepmerge-ts": "^5.1.0"
+  },
   "devDependencies": {
     "@types/flat": "^5.0.5",
     "@types/lodash": "^4.17.0",
