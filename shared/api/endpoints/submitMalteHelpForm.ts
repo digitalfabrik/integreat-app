@@ -69,7 +69,7 @@ type SubmitHelpFormParams = {
   email?: string
   telephone?: string
   cityCode: string
-  helpButtonOffer: OfferModel
+  malteHelpFormOffer: OfferModel
 } & Omit<BuildHelpFormBodyParams, 'additionalContactInformation'>
 
 type ZammadConfig = {
@@ -106,7 +106,7 @@ const submitMalteHelpForm = async ({
   pageTitle,
   url,
   cityCode,
-  helpButtonOffer,
+  malteHelpFormOffer,
   name,
   email,
   roomNumber,
@@ -115,10 +115,9 @@ const submitMalteHelpForm = async ({
   contactGender,
   comment,
 }: SubmitHelpFormParams): Promise<void> => {
-  const zammadUrl = helpButtonOffer.postData?.get('zammad-url')
-  const config = zammadUrl ? await getZammadConfig(zammadUrl, fingerprint) : undefined
+  const config = await getZammadConfig(malteHelpFormOffer.path, fingerprint)
 
-  if (!config?.enabled) {
+  if (!config.enabled) {
     return
   }
 

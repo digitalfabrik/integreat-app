@@ -15,7 +15,6 @@ import {
   POIS_ROUTE,
   PoisRouteType,
   SHARE_SIGNAL_NAME,
-  SPRUNGBRETT_OFFER_ROUTE,
   DISCLAIMER_ROUTE,
   SEARCH_ROUTE,
   SETTINGS_ROUTE,
@@ -157,9 +156,6 @@ const Header = ({
 
       case CATEGORIES_ROUTE:
         return getCategorySlug((route.params as RoutesParamsType[CategoriesRouteType]).path)
-
-      case SPRUNGBRETT_OFFER_ROUTE:
-        return SPRUNGBRETT_OFFER_ROUTE
 
       case DISCLAIMER_ROUTE:
         return DISCLAIMER_ROUTE

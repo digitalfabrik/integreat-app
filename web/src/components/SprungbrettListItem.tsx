@@ -1,5 +1,4 @@
-import * as React from 'react'
-import { memo, ReactElement } from 'react'
+import React, { memo, ReactElement } from 'react'
 import styled from 'styled-components'
 
 import { SprungbrettJobModel } from 'shared/api'

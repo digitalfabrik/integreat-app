@@ -11,7 +11,6 @@ import {
   CONSENT_ROUTE,
   DISCLAIMER_ROUTE,
   EVENTS_ROUTE,
-  EXTERNAL_OFFER_ROUTE,
   FEEDBACK_MODAL_ROUTE,
   IMAGE_VIEW_MODAL_ROUTE,
   INTRO_ROUTE,
@@ -21,14 +20,12 @@ import {
   LandingRouteType,
   LICENSES_ROUTE,
   NEWS_ROUTE,
-  OFFERS_ROUTE,
   PDF_VIEW_MODAL_ROUTE,
   POIS_ROUTE,
   REDIRECT_ROUTE,
   RedirectRouteType,
   SEARCH_ROUTE,
   SETTINGS_ROUTE,
-  SPRUNGBRETT_OFFER_ROUTE,
 } from 'shared'
 
 import Header from './components/Header'
@@ -45,7 +42,6 @@ import CityNotCooperating from './routes/CityNotCooperating'
 import Consent from './routes/Consent'
 import DisclaimerContainer from './routes/DisclaimerContainer'
 import EventsContainer from './routes/EventsContainer'
-import ExternalOfferContainer from './routes/ExternalOfferContainer'
 import FeedbackModalContainer from './routes/FeedbackModalContainer'
 import ImageViewModal from './routes/ImageViewModal'
 import Intro from './routes/Intro'
@@ -54,12 +50,10 @@ import Landing from './routes/Landing'
 import Licenses from './routes/Licenses'
 import LoadingErrorHandler from './routes/LoadingErrorHandler'
 import NewsContainer from './routes/NewsContainer'
-import OffersContainer from './routes/OffersContainer'
 import PDFViewModal from './routes/PDFViewModal'
 import PoisContainer from './routes/PoisContainer'
 import SearchModalContainer from './routes/SearchModalContainer'
 import Settings from './routes/Settings'
-import SprungbrettOfferContainer from './routes/SprungbrettOfferContainer'
 import { ASYNC_STORAGE_VERSION } from './utils/AppSettings'
 import dataContainer from './utils/DefaultDataContainer'
 import {
@@ -187,8 +181,6 @@ const Navigator = (): ReactElement | null => {
 
       <Stack.Group screenOptions={{ header: defaultHeader }}>
         <Stack.Screen name={CATEGORIES_ROUTE} initialParams={{}} component={CategoriesContainer} />
-        <Stack.Screen name={OFFERS_ROUTE} component={OffersContainer} />
-        <Stack.Screen name={SPRUNGBRETT_OFFER_ROUTE} component={SprungbrettOfferContainer} />
         <Stack.Screen name={POIS_ROUTE} component={PoisContainer} />
         <Stack.Screen name={EVENTS_ROUTE} component={EventsContainer} />
         <Stack.Screen name={NEWS_ROUTE} component={NewsContainer} />
@@ -210,7 +202,6 @@ const Navigator = (): ReactElement | null => {
       <Stack.Group screenOptions={{ header: settingsHeader }}>
         <Stack.Screen name={SETTINGS_ROUTE} component={Settings} />
         <Stack.Screen name={LICENSES_ROUTE} component={Licenses} />
-        <Stack.Screen name={EXTERNAL_OFFER_ROUTE} component={ExternalOfferContainer} />
         <Stack.Screen name={CONSENT_ROUTE} component={Consent} />
       </Stack.Group>
     </Stack.Navigator>

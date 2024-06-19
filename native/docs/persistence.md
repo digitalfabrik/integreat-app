@@ -44,7 +44,6 @@ The `cities.json` contains information about all cities:
     "live": true,
     "code": "regensburg",
     "prefix": "Stadt",
-    "extras_enabled": true,
     "events_enabled": true,
     "sorting_name": "Regensburg"
   }

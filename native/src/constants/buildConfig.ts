@@ -14,13 +14,11 @@ import integreatAppIcon from 'build-configs/integreat/assets/app-icon-round.svg'
 import integreatCityNotCooperatingIcon from 'build-configs/integreat/assets/city-not-cooperating.svg'
 import integreatIntroEventsIcon from 'build-configs/integreat/assets/intro-slides/Events.svg'
 import integreatIntroLanguageIcon from 'build-configs/integreat/assets/intro-slides/Language.svg'
-import integreatIntroOffersIcon from 'build-configs/integreat/assets/intro-slides/Offers.svg'
 import integreatIntroSearchIcon from 'build-configs/integreat/assets/intro-slides/Search.svg'
 import malteLoadingImage from 'build-configs/malte/assets/app-icon-circle.svg'
 import malteAppIcon from 'build-configs/malte/assets/app-icon-round.svg'
 import malteIntroEventsIcon from 'build-configs/malte/assets/intro-slides/Events.svg'
 import malteIntroLanguageIcon from 'build-configs/malte/assets/intro-slides/Language.svg'
-import malteIntroOffersIcon from 'build-configs/malte/assets/intro-slides/Offers.svg'
 import malteIntroSearchIcon from 'build-configs/malte/assets/intro-slides/Search.svg'
 
 type AssetsType = {
@@ -30,7 +28,6 @@ type AssetsType = {
   intro?: {
     Events: React.JSXElementConstructor<SvgProps>
     Language: React.JSXElementConstructor<SvgProps>
-    Offers: React.JSXElementConstructor<SvgProps>
     Search: React.JSXElementConstructor<SvgProps>
   }
 }
@@ -48,7 +45,6 @@ export const buildConfigAssets = (): AssetsType => {
       intro: {
         Events: integreatIntroEventsIcon,
         Language: integreatIntroLanguageIcon,
-        Offers: integreatIntroOffersIcon,
         Search: integreatIntroSearchIcon,
       },
     }
@@ -60,7 +56,6 @@ export const buildConfigAssets = (): AssetsType => {
       intro: {
         Events: malteIntroEventsIcon,
         Language: malteIntroLanguageIcon,
-        Offers: malteIntroOffersIcon,
         Search: malteIntroSearchIcon,
       },
     }

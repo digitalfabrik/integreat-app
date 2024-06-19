@@ -6,10 +6,8 @@ import {
   LANDING_ROUTE,
   LOCAL_NEWS_TYPE,
   NEWS_ROUTE,
-  OFFERS_ROUTE,
   POIS_ROUTE,
   SEARCH_ROUTE,
-  SPRUNGBRETT_OFFER_ROUTE,
   TU_NEWS_TYPE,
 } from '..'
 
@@ -144,32 +142,6 @@ describe('InternalPathnameParser', () => {
       languageCode,
       cityCode,
     })
-  })
-
-  it('should match offers route', () => {
-    const pathname = `/${cityCode}/${languageCode}/${OFFERS_ROUTE}`
-    const parser = new InternalPathnameParser(pathname, languageCode, null)
-    expect(parser.route()).toEqual({
-      route: OFFERS_ROUTE,
-      languageCode,
-      cityCode,
-    })
-  })
-
-  it('should match sprungbrett offers route', () => {
-    const pathname = `/${cityCode}/${languageCode}/${OFFERS_ROUTE}/${SPRUNGBRETT_OFFER_ROUTE}`
-    const parser = new InternalPathnameParser(pathname, languageCode, null)
-    expect(parser.route()).toEqual({
-      route: SPRUNGBRETT_OFFER_ROUTE,
-      languageCode,
-      cityCode,
-    })
-  })
-
-  it('should not match any other offer', () => {
-    const pathname = `/${cityCode}/${languageCode}/${OFFERS_ROUTE}/random`
-    const parser = new InternalPathnameParser(pathname, languageCode, null)
-    expect(parser.route()).toBeNull()
   })
 
   it('should match search route', () => {
@@ -389,32 +361,6 @@ describe('InternalPathnameParser', () => {
       })
     })
 
-    it('should match offers route', () => {
-      const pathname = `/${fixedCity}/${languageCode}/${OFFERS_ROUTE}`
-      const parser = new InternalPathnameParser(pathname, languageCode, fixedCity)
-      expect(parser.route()).toEqual({
-        route: OFFERS_ROUTE,
-        languageCode,
-        cityCode: fixedCity,
-      })
-    })
-
-    it('should match sprungbrett offers route', () => {
-      const pathname = `/${fixedCity}/${languageCode}/${OFFERS_ROUTE}/${SPRUNGBRETT_OFFER_ROUTE}`
-      const parser = new InternalPathnameParser(pathname, languageCode, fixedCity)
-      expect(parser.route()).toEqual({
-        route: SPRUNGBRETT_OFFER_ROUTE,
-        languageCode,
-        cityCode: fixedCity,
-      })
-    })
-
-    it('should not match any other offer', () => {
-      const pathname = `/${fixedCity}/${languageCode}/${OFFERS_ROUTE}/random`
-      const parser = new InternalPathnameParser(pathname, languageCode, fixedCity)
-      expect(parser.route()).toBeNull()
-    })
-
     it('should match search route', () => {
       const pathname = `/${fixedCity}/${languageCode}/${SEARCH_ROUTE}`
       const parser = new InternalPathnameParser(pathname, languageCode, fixedCity)
@@ -607,26 +553,6 @@ describe('InternalPathnameParser', () => {
       const parser = new InternalPathnameParser(pathname, languageCode, null)
       expect(parser.route()).toEqual({
         route: DISCLAIMER_ROUTE,
-        languageCode,
-        cityCode,
-      })
-    })
-
-    it('should match offers route', () => {
-      const pathname = `/${cityCode}/${OFFERS_ROUTE}`
-      const parser = new InternalPathnameParser(pathname, languageCode, null)
-      expect(parser.route()).toEqual({
-        route: OFFERS_ROUTE,
-        languageCode,
-        cityCode,
-      })
-    })
-
-    it('should match sprungbrett offers route', () => {
-      const pathname = `/${cityCode}/${OFFERS_ROUTE}/${SPRUNGBRETT_OFFER_ROUTE}`
-      const parser = new InternalPathnameParser(pathname, languageCode, null)
-      expect(parser.route()).toEqual({
-        route: SPRUNGBRETT_OFFER_ROUTE,
         languageCode,
         cityCode,
       })

@@ -33,7 +33,7 @@ Information necessary for the creation of a new build config.
 - Privacy policy link
 - Languages of the app
 - Different translations (especially metadata)
-- (De)activated features: pois, news stream, push notifications, offers, ...
+- (De)activated features: pois, news stream, push notifications, ...
 - Fonts (Content, UI only at own risk)
 
 #### For Stores/Webapp

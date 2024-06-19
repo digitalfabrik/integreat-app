@@ -35,9 +35,6 @@ const styledIcons = icons
       Events: styled(icons.Events)`
         ${ImageStyle};
       `,
-      Offers: styled(icons.Offers)`
-        ${ImageStyle};
-      `,
       Language: styled(icons.Language)`
         ${ImageStyle};
       `,
@@ -95,12 +92,6 @@ const Intro = ({ route, navigation }: IntroProps): ReactElement => {
         title: t('events'),
         description: t('eventsDescription'),
         Content: <StyledIcon Icon={styledIcons.Events} />,
-      },
-      {
-        key: 'offers',
-        title: t('offers'),
-        description: t('offersDescription'),
-        Content: <StyledIcon Icon={styledIcons.Offers} />,
       },
       {
         key: 'languageChange',

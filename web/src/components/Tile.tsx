@@ -90,25 +90,11 @@ const Tile = ({ tile }: TileProps): ReactElement => {
     )
   }
 
-  const getTile = (): ReactNode => {
-    if (!tile.postData) {
-      return <CleanLink to={tile.path}>{getTileContent()}</CleanLink>
-    }
-    const inputs: ReactNode[] = []
-    // tile.postData is not an array so key is actually a string with the name of the post data field
-    // eslint-disable-next-line react/no-array-index-key
-    tile.postData.forEach((value, key) => inputs.unshift(<input type='hidden' value={value} key={key} name={key} />))
-    return (
-      <form method='POST' action={tile.path}>
-        {inputs}
-        <button type='submit' role='link'>
-          {getTileContent()}
-        </button>
-      </form>
-    )
-  }
-
-  return <TileContainer>{getTile()}</TileContainer>
+  return (
+    <TileContainer>
+      <CleanLink to={tile.path}>{getTileContent()}</CleanLink>
+    </TileContainer>
+  )
 }
 
 export default Tile

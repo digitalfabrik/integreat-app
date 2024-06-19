@@ -2,6 +2,7 @@ import { DateTime } from 'luxon'
 import md5 from 'md5'
 import seedrandom from 'seedrandom'
 
+import { APPOINTMENT_BOOKING_OFFER_ALIAS } from '../../../constants'
 import CategoriesMapModel from '../../models/CategoriesMapModel'
 import CategoryModel from '../../models/CategoryModel'
 import OfferModel from '../../models/OfferModel'
@@ -104,11 +105,10 @@ class CategoriesMapModelBuilder {
                   path: 'https://web.integreat-app.de/proxy/sprungbrett/app-search-internships?location=augsburg',
                 }),
                 new OfferModel({
-                  alias: 'lehrstellen-radar',
+                  alias: APPOINTMENT_BOOKING_OFFER_ALIAS,
                   thumbnail: 'some_other_thumbnail',
-                  title: 'Lehrstellenradar',
-                  path: 'https://www.lehrstellen-radar.de/5100,0,lsrlist.html',
-                  postData: lehrstellenRadarPostData,
+                  title: 'Terminbuchung',
+                  path: 'https://termine.malteapp.de/',
                 }),
               ]
             : [],
