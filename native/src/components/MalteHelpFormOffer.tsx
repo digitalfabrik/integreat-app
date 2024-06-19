@@ -94,7 +94,7 @@ const MalteHelpFormOffer = ({
         url,
         pageTitle: categoryPageTitle,
         cityCode,
-        helpButtonOffer: malteHelpFormOffer,
+        malteHelpFormOffer,
         name: data.name,
         roomNumber: data.roomNumber,
         email: data.email,

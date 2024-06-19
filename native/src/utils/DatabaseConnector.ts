@@ -19,7 +19,6 @@ import {
   PoiCategoryModel,
   OrganizationModel,
   OfferModel,
-  createPostMap,
 } from 'shared/api'
 
 import DatabaseContext from '../models/DatabaseContext'
@@ -70,7 +69,6 @@ type OfferJsonType = {
   title: string
   path: string
   thumbnail: string
-  post: Record<string, string> | null
 }
 type LocationJsonType<T> = {
   id: number
@@ -122,7 +120,6 @@ type ContentCityJsonType = {
   code: string
   languages: ContentLanguageJsonType[]
   prefix: string | null
-  extras_enabled: boolean
   events_enabled: boolean
   pois_enabled: boolean
   sorting_name: string
@@ -397,7 +394,6 @@ class DatabaseConnector {
           alias: offer.alias,
           thumbnail: offer.thumbnail,
           path: offer.path,
-          post: offer.postData ? Object.fromEntries(offer.postData) : null,
         })),
       }),
     )
@@ -434,7 +430,6 @@ class DatabaseConnector {
                   alias: jsonOffer.alias,
                   thumbnail: jsonOffer.thumbnail,
                   path: jsonOffer.path,
-                  postData: jsonOffer.post ? createPostMap(jsonOffer.post) : undefined,
                 }),
             ),
           })
@@ -579,7 +574,6 @@ class DatabaseConnector {
         code: city.code,
         languages: city.languages.map(it => ({ code: it.code, name: it.name })),
         prefix: city.prefix,
-        extras_enabled: city.offersEnabled,
         events_enabled: city.eventsEnabled,
         pois_enabled: city.poisEnabled,
         pushNotificationsEnabled: city.localNewsEnabled,
@@ -607,7 +601,6 @@ class DatabaseConnector {
             eventsEnabled: jsonObject.events_enabled,
             localNewsEnabled: jsonObject.pushNotificationsEnabled,
             tunewsEnabled: jsonObject.tunewsEnabled,
-            offersEnabled: jsonObject.extras_enabled,
             poisEnabled: jsonObject.pois_enabled,
             sortingName: jsonObject.sorting_name,
             prefix: jsonObject.prefix,

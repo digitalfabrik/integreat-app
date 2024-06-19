@@ -6,13 +6,10 @@ import {
   cityContentPath,
   DISCLAIMER_ROUTE,
   EVENTS_ROUTE,
-  MALTE_HELP_FORM_OFFER_ROUTE,
   NEWS_ROUTE,
   normalizePath,
-  OFFERS_ROUTE,
   POIS_ROUTE,
   SEARCH_ROUTE,
-  SPRUNGBRETT_OFFER_ROUTE,
 } from 'shared'
 import { CityModel, NotFoundError, useLoadFromEndpoint, createCityEndpoint } from 'shared/api'
 
@@ -26,16 +23,13 @@ import LoadingSpinner from './components/LoadingSpinner'
 import buildConfig from './constants/buildConfig'
 import { cmsApiBaseUrl } from './constants/urls'
 import { LOCAL_NEWS_ROUTE, RoutePatterns, RouteType, TU_NEWS_DETAIL_ROUTE, TU_NEWS_ROUTE } from './routes'
-import MalteHelpFormOfferPage from './routes/MalteHelpFormOfferPage'
 import lazyWithRetry from './utils/retryImport'
 
 const TuNewsDetailPage = lazyWithRetry(() => import('./routes/TuNewsDetailPage'))
 const TuNewsPage = lazyWithRetry(() => import('./routes/TuNewsPage'))
-const OffersPage = lazyWithRetry(() => import('./routes/OffersPage'))
 const EventsPage = lazyWithRetry(() => import('./routes/EventsPage'))
 const CategoriesPage = lazyWithRetry(() => import('./routes/CategoriesPage'))
 const LocalNewsPage = lazyWithRetry(() => import('./routes/LocalNewsPage'))
-const SprungbrettOfferPage = lazyWithRetry(() => import('./routes/SprungbrettOfferPage'))
 const PoisPage = lazyWithRetry(() => import('./routes/PoisPage'))
 const SearchPage = lazyWithRetry(() => import('./routes/SearchPage'))
 const DisclaimerPage = lazyWithRetry(() => import('./routes/DisclaimerPage'))
@@ -94,7 +88,6 @@ const CityContentSwitcher = ({ languageCode }: CityContentSwitcherProps): ReactE
 
   // If the city is not available yet, nothing is rendered in the routes. Therefore, we can render the route until we know whether the feature is enabled.
   const eventsEnabled = !city || city.eventsEnabled
-  const offersEnabled = !city || city.offersEnabled
   const localNewsEnabled = buildConfig().featureFlags.newsStream && (!city || city.localNewsEnabled)
   const tuNewsEnabled = buildConfig().featureFlags.newsStream && (!city || city.tunewsEnabled)
   const poisEnabled = buildConfig().featureFlags.pois && (!city || city.poisEnabled)
@@ -137,9 +130,6 @@ const CityContentSwitcher = ({ languageCode }: CityContentSwitcherProps): ReactE
       {render(CATEGORIES_ROUTE, CategoriesPage)}
       {eventsEnabled && render(EVENTS_ROUTE, EventsPage, ':eventId')}
 
-      {offersEnabled && render(SPRUNGBRETT_OFFER_ROUTE, SprungbrettOfferPage)}
-      {offersEnabled && render(MALTE_HELP_FORM_OFFER_ROUTE, MalteHelpFormOfferPage)}
-      {offersEnabled && render(OFFERS_ROUTE, OffersPage)}
       {poisEnabled && render(POIS_ROUTE, PoisPage, ':slug')}
       {localNewsEnabled && render(LOCAL_NEWS_ROUTE, LocalNewsPage, ':newsId')}
 

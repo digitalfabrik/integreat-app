@@ -2,29 +2,29 @@ import { RenderResult } from '@testing-library/react'
 import { mocked } from 'jest-mock'
 import React from 'react'
 
-import { pathnameFromRouteInformation, SPRUNGBRETT_OFFER_ROUTE } from 'shared'
-import { CityModelBuilder, OffersModelBuilder, SprungbrettJobModel, useLoadAsync } from 'shared/api'
+import { OfferModel, SprungbrettJobModel, useLoadFromEndpoint } from 'shared/api'
 
-import { renderRoute } from '../../testing/render'
-import SprungbrettOfferPage from '../SprungbrettOfferPage'
-import { RoutePatterns } from '../index'
+import { renderWithRouterAndTheme } from '../../testing/render'
+import SprungbrettOffer from '../SprungbrettOffer'
 
 jest.mock('shared/api', () => ({
   ...jest.requireActual('shared/api'),
-  useLoadAsync: jest.fn(),
+  useLoadFromEndpoint: jest.fn(),
 }))
 jest.mock('react-inlinesvg')
 jest.mock('react-i18next')
 
-describe('SprungbrettOfferPage', () => {
+describe('SprungbrettOffer', () => {
   beforeEach(() => {
     jest.clearAllMocks()
   })
 
-  const cities = new CityModelBuilder(2).build()
-  const city = cities[0]!
-  const languageCode = 'en'
-  const offers = new OffersModelBuilder(1).build()
+  const sprungbrettOffer = new OfferModel({
+    alias: 'sprungbrett',
+    thumbnail: 'some_other_thumbnail',
+    title: 'Sprungbrett',
+    path: 'https://web.integreat-app.de/proxy/sprungbrett/app-search-internships?location=augsburg',
+  })
   const sprungbrettJobs = [
     new SprungbrettJobModel({
       id: 0,
@@ -51,36 +51,21 @@ describe('SprungbrettOfferPage', () => {
       url: 'http://awesome-jobs.domain',
     }),
   ]
-  const pathname = pathnameFromRouteInformation({
-    route: SPRUNGBRETT_OFFER_ROUTE,
-    cityCode: city.code,
-    languageCode,
-  })
-  const routePattern = `/:cityCode/:languageCode/${RoutePatterns[SPRUNGBRETT_OFFER_ROUTE]}`
-
   const returnValue = {
-    data: {
-      sprungbrettJobs,
-      offers,
-      sprungbrettOffer: offers[0],
-    },
+    data: sprungbrettJobs,
     loading: false,
     error: null,
     refresh: jest.fn,
   }
 
   const renderSprungbrett = (): RenderResult =>
-    renderRoute(
-      <SprungbrettOfferPage city={city} pathname={pathname} cityCode={city.code} languageCode={languageCode} />,
-      { routePattern, pathname },
-    )
+    renderWithRouterAndTheme(<SprungbrettOffer sprungbrettOffer={sprungbrettOffer} />)
 
-  it('should render page with title and content', () => {
-    mocked(useLoadAsync).mockImplementation(() => returnValue as never)
+  it('should render list sprungbrett jobs', () => {
+    mocked(useLoadFromEndpoint).mockImplementation(() => returnValue as never)
 
     const { getByText } = renderSprungbrett()
 
-    expect(getByText(offers[0]!.title)).toBeTruthy()
     sprungbrettJobs.forEach(sprungbrettJob => {
       expect(getByText(sprungbrettJob.title)).toBeTruthy()
     })
@@ -88,7 +73,11 @@ describe('SprungbrettOfferPage', () => {
 
   it('should render error when loading fails', () => {
     const errorMessage = 'Offers are not available!'
-    mocked(useLoadAsync).mockImplementation(() => ({ ...returnValue, error: new Error(errorMessage), data: null }))
+    mocked(useLoadFromEndpoint).mockImplementation(() => ({
+      ...returnValue,
+      error: new Error(errorMessage),
+      data: null,
+    }))
 
     const { getByText } = renderSprungbrett()
 

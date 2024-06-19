@@ -19,14 +19,12 @@ export const testTranslations: TranslationsType = {
     },
     de: {
       localInformation: 'Lokale Informationen',
-      offers: 'Angebote',
       events: 'Veranstaltungen',
       news: 'Nachrichten',
       newsAlternative: 'Neuigkeiten',
     },
     ar: {
       localInformation: 'معلومات محلية',
-      offers: 'العروض',
       events: 'الفعاليات',
     },
     'zh-CN': {
@@ -39,12 +37,10 @@ export const testOverrideTranslations: TranslationsType = {
   dashboard: {
     de: {
       localInformation: 'Malte Informationen',
-      offers: 'Malte Angebote',
       news: 'Malte Nachrichten',
     },
     en: {
       localInformation: 'Malte information',
-      offers: 'Malte Offers',
       events: 'Malte Events',
     },
   },

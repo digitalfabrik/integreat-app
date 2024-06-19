@@ -6,7 +6,6 @@ import {
   EVENTS_ROUTE,
   LOCAL_NEWS_TYPE,
   NEWS_ROUTE,
-  OFFERS_ROUTE,
   POIS_ROUTE,
   RouteInformationType,
   TileModel,
@@ -14,7 +13,7 @@ import {
 } from 'shared'
 import { CityModel } from 'shared/api'
 
-import { CalendarIcon, NewsIcon, OffersIcon, POIsIcon } from '../assets'
+import { CalendarIcon, NewsIcon, POIsIcon } from '../assets'
 import buildConfig from '../constants/buildConfig'
 import NavigationTiles from './NavigationTiles'
 
@@ -68,23 +67,6 @@ const DashboardNavigationTiles = ({
         onTilePress: () =>
           navigateTo({
             route: EVENTS_ROUTE,
-            cityCode,
-            languageCode,
-          }),
-      }),
-    )
-  }
-
-  if (cityModel.offersEnabled) {
-    tiles.push(
-      new TileModel({
-        title: t('offers'),
-        path: 'offers',
-        thumbnail: OffersIcon,
-        isExternalUrl: false,
-        onTilePress: () =>
-          navigateTo({
-            route: OFFERS_ROUTE,
             cityCode,
             languageCode,
           }),

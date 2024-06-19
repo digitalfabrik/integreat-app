@@ -121,13 +121,15 @@ export type JsonLocalNewsType = {
   title: string
   message: string
 }
-export type JsonOfferPostType = Record<string, string>
+export type JsonOfferPostType = {
+  'zammad-url': string | undefined
+}
 export type JsonOfferType = {
   alias: string
   name: string
   url: string
   thumbnail: string
-  post: JsonOfferPostType | null | undefined
+  post?: JsonOfferPostType | null
 }
 
 export type JsonSprungbrettJobType = {
@@ -152,7 +154,6 @@ export type JsonCityType = {
   live: boolean
   languages: JsonLanguageType[]
   events: boolean
-  extras: boolean
   pois: boolean
   tunews: boolean
   push_notifications: boolean
