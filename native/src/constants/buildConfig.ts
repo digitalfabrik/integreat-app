@@ -19,7 +19,6 @@ import malteLoadingImage from 'build-configs/malte/assets/app-icon-circle.svg'
 import malteAppIcon from 'build-configs/malte/assets/app-icon-round.svg'
 import malteIntroEventsIcon from 'build-configs/malte/assets/intro-slides/Events.svg'
 import malteIntroLanguageIcon from 'build-configs/malte/assets/intro-slides/Language.svg'
-import malteIntroOffersIcon from 'build-configs/malte/assets/intro-slides/Offers.svg'
 import malteIntroSearchIcon from 'build-configs/malte/assets/intro-slides/Search.svg'
 
 type AssetsType = {
@@ -29,7 +28,6 @@ type AssetsType = {
   intro?: {
     Events: React.JSXElementConstructor<SvgProps>
     Language: React.JSXElementConstructor<SvgProps>
-    Offers: React.JSXElementConstructor<SvgProps>
     Search: React.JSXElementConstructor<SvgProps>
   }
 }
