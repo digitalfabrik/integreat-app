@@ -216,7 +216,7 @@
       "initialMessage": "Ihre Chatanfrage wurde gesendet. Die Hotline beantwortet Ihre Nachricht so schnell wie möglich.",
       "inputLabel": "Meine Frage:",
       "inputPlaceholder": "Ich möchte wissen...",
-      "loadingText": "Einen Moment bitte, nach Ihrer Antwort wird gesucht...",
+      "loadingText": "Einen Moment bitte, der Chat wird gestartet...",
       "sendButton": "Senden",
       "user": "Sie"
     },
@@ -230,7 +230,7 @@
       "initialMessage": "Your chat request has been sent. The hotline will answer your message as soon as possible.",
       "inputLabel": "My question:",
       "inputPlaceholder": "I would like to know...",
-      "loadingText": "One moment please, we are looking for your answer...",
+      "loadingText": "One moment please, the chat will be started...",
       "sendButton": "Send",
       "user": "You"
     }

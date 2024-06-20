@@ -22,7 +22,6 @@ const useLoadFromEndpoint = <T extends object, P>(
   createEndpoint: (baseUrl: string) => Endpoint<P, T>,
   baseUrl: string | (() => Promise<string>),
   params: P,
-  skip = false,
 ): Return<T> =>
   useLoadAsync(
     useCallback(
@@ -31,7 +30,6 @@ const useLoadFromEndpoint = <T extends object, P>(
       // eslint-disable-next-line react-hooks/exhaustive-deps
       [createEndpoint, baseUrl, JSON.stringify(params)],
     ),
-    skip,
   )
 
 export default useLoadFromEndpoint

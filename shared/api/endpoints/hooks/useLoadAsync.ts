@@ -27,10 +27,7 @@ export type Return<T extends object> = {
   refresh: () => void
 }
 
-export const useLoadAsync = <T extends object>(
-  request: (refresh: boolean) => Promise<T | null>,
-  skip = false,
-): Return<T> => {
+export const useLoadAsync = <T extends object>(request: (refresh: boolean) => Promise<T | null>): Return<T> => {
   const [data, setData] = useState<T | null>(null)
   const [error, setError] = useState<Error | null>(null)
   const [loading, setLoading] = useState<boolean>(true)
@@ -43,12 +40,10 @@ export const useLoadAsync = <T extends object>(
   )
 
   useEffect(() => {
-    if (!skip) {
-      setData(null)
-      setError(null)
-      load()
-    }
-  }, [load, skip])
+    setData(null)
+    setError(null)
+    load()
+  }, [load])
 
   return { data, error, loading, refresh: useCallback(() => load(true), [load]) }
 }

@@ -26,14 +26,14 @@ const ErrorSendingStatus = styled.div`
 type ChatConversationProps = {
   hasConversationStarted: boolean
   messages: ChatMessageModel[]
-  showError: boolean
+  hasError: boolean
   className?: string
 }
 
 const ChatConversation = ({
   hasConversationStarted,
   messages,
-  showError,
+  hasError,
   className,
 }: ChatConversationProps): ReactElement => {
   const { t } = useTranslation('chat')
@@ -68,7 +68,7 @@ const ChatConversation = ({
           {t('conversationText')}
         </div>
       )}
-      {showError && <ErrorSendingStatus role='alert'>{t('errorMessage')}</ErrorSendingStatus>}
+      {hasError && <ErrorSendingStatus role='alert'>{t('errorMessage')}</ErrorSendingStatus>}
     </Container>
   )
 }

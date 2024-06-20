@@ -7,8 +7,8 @@ import buildConfig from '../constants/buildConfig'
 import dimensions from '../constants/dimensions'
 import useLockedBody from '../hooks/useLockedBody'
 import useWindowDimensions from '../hooks/useWindowDimensions'
-import Chat from './Chat'
 import ChatContentWrapper from './ChatContentWrapper'
+import ChatController from './ChatController'
 import ChatModal from './ChatModal'
 import Icon from './base/Icon'
 
@@ -90,7 +90,7 @@ const ChatContainer = ({ city, language }: ChatContainerProps): ReactElement => 
         resizeModal={() => setChatVisibilityStatus(ChatVisibilityStatus.minimized)}
         closeModal={() => setChatVisibilityStatus(ChatVisibilityStatus.closed)}
         visibilityStatus={chatVisibilityStatus}>
-        <Chat city={city} language={language} generatedDeviceId={window.self.crypto.randomUUID()} />
+        <ChatController city={city} language={language} />
       </ChatModal>
     )
   }
