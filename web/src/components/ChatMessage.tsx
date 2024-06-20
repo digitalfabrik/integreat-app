@@ -60,7 +60,7 @@ const ChatMessage = ({ message, showIcon }: ChatMessageProps): ReactElement => {
       <IconContainer $visible={showIcon}>
         {userIsAuthor ? <Circle>{t('user')}</Circle> : <Icon src={icons.appLogoMobile} />}
       </IconContainer>
-      <Message>
+      <Message data-testid={message.id}>
         <RemoteContent html={body} onInternalLinkClick={navigate} smallText />
       </Message>
     </Container>

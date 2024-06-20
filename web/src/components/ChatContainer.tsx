@@ -86,6 +86,7 @@ const ChatContainer = ({ city, language }: ChatContainerProps): ReactElement => 
   if (isChatMaximized) {
     return (
       <ChatModal
+        data-testid='chat-modal'
         title={title}
         resizeModal={() => setChatVisibilityStatus(ChatVisibilityStatus.minimized)}
         closeModal={() => setChatVisibilityStatus(ChatVisibilityStatus.closed)}
@@ -97,7 +98,7 @@ const ChatContainer = ({ city, language }: ChatContainerProps): ReactElement => 
 
   if (chatVisibilityStatus === ChatVisibilityStatus.minimized) {
     return (
-      <MinimizedToolbar>
+      <MinimizedToolbar data-testid='chat-minimized-toolbar'>
         <ChatContentWrapper
           title={title}
           onResize={() => setChatVisibilityStatus(ChatVisibilityStatus.maximized)}
@@ -110,7 +111,9 @@ const ChatContainer = ({ city, language }: ChatContainerProps): ReactElement => 
   }
 
   return (
-    <ChatButtonContainer onClick={() => setChatVisibilityStatus(ChatVisibilityStatus.maximized)}>
+    <ChatButtonContainer
+      data-testid='chat-button-container'
+      onClick={() => setChatVisibilityStatus(ChatVisibilityStatus.maximized)}>
       <Circle>
         <StyledIcon src={ChatIcon} title={t('button')} />
       </Circle>

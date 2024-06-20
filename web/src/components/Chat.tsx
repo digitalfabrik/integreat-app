@@ -80,7 +80,7 @@ const Chat = ({ messages, submitMessage, deviceId, hasError, isLoading, refreshM
     }
   }
 
-  if (isLoading) {
+  if (isLoading && !hasError) {
     return (
       <LoadingContainer>
         <StyledLoadingSpinner />

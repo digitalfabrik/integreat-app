@@ -37,7 +37,7 @@ const ChatConversation = ({
   className,
 }: ChatConversationProps): ReactElement => {
   const { t } = useTranslation('chat')
-  const messagesEndRef = useRef<null | HTMLDivElement>(null)
+  const messagesEndRef = useRef<HTMLDivElement | null>(null)
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' })
@@ -51,7 +51,7 @@ const ChatConversation = ({
     <Container className={className}>
       {hasConversationStarted ? (
         <>
-          <InitialMessage>{t('initialMessage')}</InitialMessage>
+          {!hasError && <InitialMessage>{t('initialMessage')}</InitialMessage>}
           {messages.map((message, index) => (
             <ChatMessage
               message={message}

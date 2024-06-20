@@ -42,7 +42,9 @@ const ChatMenu = ({ onResize, onClose, visibilityStatus, small }: ChatMenuProps)
       </StyledButton>
     ) : (
       <>
-        <StyledButton ariaLabel='close' onClick={onResize}>
+        <StyledButton
+          ariaLabel={visibilityStatus === ChatVisibilityStatus.maximized ? 'minimize' : 'maximize'}
+          onClick={onResize}>
           {' '}
           <StyledIcon
             src={visibilityStatus === ChatVisibilityStatus.maximized ? MinimizeIcon : MaximizeIcon}
