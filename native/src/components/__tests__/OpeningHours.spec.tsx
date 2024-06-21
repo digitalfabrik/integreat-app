@@ -19,18 +19,26 @@ describe('OpeningHours', () => {
         isTemporarilyClosed={isTemporarilyClosed}
         openingHours={openingHours}
         language='de'
+        appointmentUrl='https://make.an/appointment'
       />,
     )
+  const openingHours = Array.from(
+    { length: 7 },
+    () => new OpeningHoursModel({ allDay: false, closed: false, timeSlots: [{ end: '18:00', start: '08:00' }] }),
+  )
+
   it('should display that the location is temporarily closed', () => {
     const { getByText } = renderOpeningHours(false, true, null)
     expect(getByText('temporarilyClosed')).toBeTruthy()
   })
+
   it('should display that the location is opened', () => {
-    const openingHours = Array.from(
-      { length: 7 },
-      () => new OpeningHoursModel({ allDay: false, closed: false, timeSlots: [{ end: '18:00', start: '08:00' }] }),
-    )
     const { getByText } = renderOpeningHours(true, false, openingHours)
     expect(getByText('opened')).toBeTruthy()
+  })
+
+  it('should display the link to make an appointment', () => {
+    const { getByText } = renderOpeningHours(true, false, openingHours)
+    expect(getByText('makeAppointment')).toBeTruthy()
   })
 })

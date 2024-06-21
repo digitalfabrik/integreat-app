@@ -7,10 +7,14 @@ import styled from 'styled-components/native'
 import { weekdays } from 'shared'
 import { OpeningHoursModel } from 'shared/api'
 
+import { ExternalLinkIcon } from '../assets'
 import { contentDirection } from '../constants/contentDirection'
+import useSnackbar from '../hooks/useSnackbar'
+import openExternalUrl from '../utils/openExternalUrl'
 import Collapsible from './Collapsible'
 import HorizontalLine from './HorizontalLine'
 import OpeningEntry from './OpeningEntry'
+import Icon from './base/Icon'
 
 const OpeningLabel = styled.Text<{ isOpened: boolean; $direction: string }>`
   color: ${props => (props.isOpened ? props.theme.colors.positiveHighlight : props.theme.colors.negativeHighlight)};
@@ -32,11 +36,26 @@ const TitleContainer = styled.View<{ language: string }>`
   flex-direction: ${props => contentDirection(props.language)};
 `
 
+const LinkContainer = styled.Pressable`
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+  align-items: center;
+  padding-top: 4px;
+`
+
+const Link = styled.Text`
+  font-size: 16px;
+  color: #0b57d0;
+  text-decoration: underline;
+`
+
 type OpeningHoursProps = {
   isCurrentlyOpen: boolean
   language: string
   openingHours: OpeningHoursModel[] | null
   isTemporarilyClosed: boolean
+  appointmentUrl: string | null
 }
 
 const getOpeningLabel = (isTemporarilyClosed: boolean, isCurrentlyOpened: boolean): string => {
@@ -51,8 +70,10 @@ const OpeningHours = ({
   language,
   openingHours,
   isTemporarilyClosed,
+  appointmentUrl,
 }: OpeningHoursProps): ReactElement | null => {
   const { t } = useTranslation('pois')
+  const showSnackbar = useSnackbar()
 
   const openingHoursTitle = (
     <TitleContainer language={language}>
@@ -92,6 +113,12 @@ const OpeningHours = ({
               language={language}
             />
           ))}
+          {appointmentUrl !== null && (
+            <LinkContainer onPress={() => openExternalUrl(appointmentUrl, showSnackbar)} accessibilityRole='link'>
+              <Link>{t('makeAppointment')}</Link>
+              <Icon Icon={ExternalLinkIcon} style={{ width: 16, height: 16 }} />
+            </LinkContainer>
+          )}
         </Content>
       </Collapsible>
       <HorizontalLine />

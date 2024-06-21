@@ -38,6 +38,7 @@ export default (baseUrl: string): Endpoint<ParamsType, Array<PoiModel>> =>
               email: poi.email,
               temporarilyClosed: poi.temporarily_closed,
               openingHours: poi.opening_hours?.map(openingHour => new OpeningHoursModel(openingHour)) ?? null,
+              appointmentUrl: poi.appointment_url,
               category: new PoiCategoryModel({
                 id: poi.category.id,
                 name: poi.category.name,

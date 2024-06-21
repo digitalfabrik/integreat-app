@@ -133,8 +133,18 @@ const PoiDetails = ({ poi, distance, toolbar }: PoiDetailsProps): ReactElement =
   const { viewportSmall } = useWindowDimensions()
   const theme = useTheme()
   const { t } = useTranslation('pois')
-  const { content, location, website, phoneNumber, email, isCurrentlyOpen, openingHours, temporarilyClosed, category } =
-    poi
+  const {
+    content,
+    location,
+    website,
+    phoneNumber,
+    email,
+    isCurrentlyOpen,
+    openingHours,
+    temporarilyClosed,
+    category,
+    appointmentUrl,
+  } = poi
 
   const thumbnail = poi.thumbnail ?? PoiThumbnailPlaceholderLarge
   const isAndroid = /Android/i.test(navigator.userAgent)
@@ -197,6 +207,12 @@ const PoiDetails = ({ poi, distance, toolbar }: PoiDetailsProps): ReactElement =
           isCurrentlyOpen={isCurrentlyOpen}
           isTemporarilyClosed={temporarilyClosed}
         />
+        {appointmentUrl !== null && (
+          <Link to={appointmentUrl} newTab>
+            <LinkLabel>{t('makeAppointment')}</LinkLabel>
+            <StyledExternalLinkIcon src={ExternalLinkIcon} directionDependent />
+          </Link>
+        )}
       </>
       {content.length > 0 && (
         <>
