@@ -56,8 +56,9 @@ type SettingItemProps = {
 const SettingItem = (props: SettingItemProps): ReactElement => {
   const { title, description, onPress, value, hasBadge, hasSwitch, bigTitle, accessibilityRole } = props
   const { t } = useTranslation('settings')
+
   return (
-    <Pressable onPress={onPress} accessibilityRole={accessibilityRole}>
+    <Pressable onPress={onPress} accessibilityRole={accessibilityRole} accessible={false}>
       <PadView>
         <ContentContainer>
           <View>
