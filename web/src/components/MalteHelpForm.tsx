@@ -52,7 +52,7 @@ type MalteHelpFormProps = {
   pageTitle: string
   cityCode: string
   languageCode: string
-  helpButtonOffer: OfferModel
+  malteHelpFormOffer: OfferModel
 }
 
 const scrollToFirstError = (form: HTMLFormElement) => {
@@ -60,7 +60,7 @@ const scrollToFirstError = (form: HTMLFormElement) => {
   invalidInput?.scrollIntoView({ behavior: 'smooth' })
 }
 
-const MalteHelpForm = ({ pageTitle, languageCode, cityCode, helpButtonOffer }: MalteHelpFormProps): ReactElement => {
+const MalteHelpForm = ({ pageTitle, languageCode, cityCode, malteHelpFormOffer }: MalteHelpFormProps): ReactElement => {
   const { t } = useTranslation('malteHelpForm')
   const [sendingStatus, setSendingStatus] = useState<SendingStatusType>('idle')
   const [submitted, setSubmitted] = useState(false)
@@ -91,7 +91,7 @@ const MalteHelpForm = ({ pageTitle, languageCode, cityCode, helpButtonOffer }: M
           url: window.location.href,
           pageTitle,
           cityCode,
-          helpButtonOffer,
+          malteHelpFormOffer,
           name,
           email,
           telephone,

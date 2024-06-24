@@ -6,10 +6,8 @@ import {
   LANDING_ROUTE,
   LOCAL_NEWS_TYPE,
   NEWS_ROUTE,
-  OFFERS_ROUTE,
   POIS_ROUTE,
   SEARCH_ROUTE,
-  SPRUNGBRETT_OFFER_ROUTE,
   TU_NEWS_TYPE,
 } from '..'
 
@@ -24,10 +22,10 @@ describe('pathname', () => {
       const pathname = cityContentPath({
         cityCode,
         languageCode,
-        route: OFFERS_ROUTE,
-        path: SPRUNGBRETT_OFFER_ROUTE,
+        route: EVENTS_ROUTE,
+        path: 'my-event-1235',
       })
-      expect(pathname).toBe('/augsburg/de/offers/sprungbrett')
+      expect(pathname).toBe('/augsburg/de/events/my-event-1235')
     })
     it('should return correct pathname for city content routes without path', () => {
       const pathname = cityContentPath({
@@ -129,24 +127,6 @@ describe('pathname', () => {
           cityCode,
         }),
       ).toBe(`/${cityCode}/${languageCode}/${DISCLAIMER_ROUTE}`)
-    })
-    it('should match offers route', () => {
-      expect(
-        pathnameFromRouteInformation({
-          route: OFFERS_ROUTE,
-          languageCode,
-          cityCode,
-        }),
-      ).toBe(`/${cityCode}/${languageCode}/${OFFERS_ROUTE}`)
-    })
-    it('should match sprungbrett offers route', () => {
-      expect(
-        pathnameFromRouteInformation({
-          route: SPRUNGBRETT_OFFER_ROUTE,
-          languageCode,
-          cityCode,
-        }),
-      ).toBe(`/${cityCode}/${languageCode}/${OFFERS_ROUTE}/${SPRUNGBRETT_OFFER_ROUTE}`)
     })
     it('should match search route', () => {
       expect(

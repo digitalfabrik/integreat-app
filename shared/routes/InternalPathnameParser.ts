@@ -7,11 +7,9 @@ import {
   LANDING_ROUTE,
   LOCAL_NEWS_TYPE,
   NEWS_ROUTE,
-  OFFERS_ROUTE,
   POIS_ROUTE,
   RESERVED_CITY_CONTENT_SLUGS,
   SEARCH_ROUTE,
-  SPRUNGBRETT_OFFER_ROUTE,
   TU_NEWS_TYPE,
 } from '.'
 
@@ -180,20 +178,6 @@ class InternalPathnameParser {
     }
   }
 
-  offers = (): RouteInformationType => {
-    const params = this.cityContentParams(OFFERS_ROUTE)
-    const route = this._length > ENTITY_ID_INDEX ? this._parts[ENTITY_ID_INDEX] : OFFERS_ROUTE
-
-    if (params && (route === OFFERS_ROUTE || route === SPRUNGBRETT_OFFER_ROUTE)) {
-      return {
-        route,
-        ...params,
-      }
-    }
-
-    return null
-  }
-
   disclaimer = (): RouteInformationType => {
     const params = this.cityContentParams(DISCLAIMER_ROUTE)
 
@@ -228,9 +212,7 @@ class InternalPathnameParser {
 
     if (
       this._length > 2 &&
-      !([SEARCH_ROUTE, DISCLAIMER_ROUTE, POIS_ROUTE, EVENTS_ROUTE, OFFERS_ROUTE, NEWS_ROUTE] as string[]).includes(
-        this._parts[2]!,
-      )
+      !([SEARCH_ROUTE, DISCLAIMER_ROUTE, POIS_ROUTE, EVENTS_ROUTE, NEWS_ROUTE] as string[]).includes(this._parts[2]!)
     ) {
       return {
         route: CATEGORIES_ROUTE,
@@ -248,7 +230,6 @@ class InternalPathnameParser {
     this.jpalTracking() ||
     this.events() ||
     this.pois() ||
-    this.offers() ||
     this.disclaimer() ||
     this.news() ||
     this.search() ||

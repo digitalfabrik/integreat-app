@@ -1,0 +1,7 @@
+issue_key: 2467
+show_in_stores: false
+platforms:
+  - web
+  - ios
+  - android
+en: Remove the offers tab and routes in favor of page-based offers

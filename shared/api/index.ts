@@ -54,10 +54,8 @@ export {
   default as createTunewsElementEndpoint,
   TUNEWS_ELEMENT_ENDPOINT_NAME,
 } from './endpoints/createTunewsElementEndpoint'
-export { default as createOffersEndpoint, OFFERS_ENDPOINT_NAME, createPostMap } from './endpoints/createOffersEndpoint'
 export { default as createFeedbackEndpoint, FEEDBACK_ENDPOINT_NAME } from './endpoints/createFeedbackEndpoint'
 export { default as createTrackingEndpoint, TRACKING_ENDPOINT_NAME } from './endpoints/createTrackingEndpoint'
-export { default as loadSprungbrettJobs, type LoadSprungbrettJobReturn } from './endpoints/loadSprungbrettJobs'
 export {
   default as submitMalteHelpForm,
   type ContactGender,
@@ -77,7 +75,6 @@ export {
   default as createSprungbrettJobsEndpoint,
   SPRUNGBRETT_JOBS_ENDPOINT_NAME,
 } from './endpoints/createSprungbrettJobsEndpoint'
-export { SPRUNGBRETT_OFFER } from './endpoints/createSprungbrettJobsEndpoint'
 export { default as useLoadFromEndpoint, loadFromEndpoint } from './endpoints/hooks/useLoadFromEndpoint'
 export { default as useLoadAsync, loadAsync } from './endpoints/hooks/useLoadAsync'
 export { default as CategoriesMapModel } from './models/CategoriesMapModel'

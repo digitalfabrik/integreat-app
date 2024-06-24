@@ -79,7 +79,6 @@ describe('News', () => {
       live: false,
       languages: new LanguageModelBuilder(2).build(),
       eventsEnabled: true,
-      offersEnabled: true,
       poisEnabled: false,
       localNewsEnabled,
       tunewsEnabled: tuNewsEnabled,

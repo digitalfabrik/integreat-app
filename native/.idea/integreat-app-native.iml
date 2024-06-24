@@ -21,6 +21,8 @@
       <excludeFolder url="file://$MODULE_DIR$/../e2e-tests/dist" />
       <excludeFolder url="file://$MODULE_DIR$/../shared/dist" />
       <excludeFolder url="file://$MODULE_DIR$/../.yarn" />
+      <excludeFolder url="file://$MODULE_DIR$/.bundle" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

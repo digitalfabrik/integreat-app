@@ -9,7 +9,6 @@ describe('CityModel', () => {
       live: true,
       languages: new LanguageModelBuilder(2).build(),
       eventsEnabled: false,
-      offersEnabled: false,
       poisEnabled: false,
       localNewsEnabled: false,
       tunewsEnabled: false,

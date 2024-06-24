@@ -2,7 +2,6 @@
   "name": "build-configs",
   "version": "0.0.1",
   "main": "index.ts",
-  "sideEffects": false,
   "description": "Build configs for the integreat project",
   "private": true,
   "dependencies": {

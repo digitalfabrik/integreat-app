@@ -5,7 +5,6 @@ import {
   cityContentPath,
   EVENTS_ROUTE,
   NEWS_ROUTE,
-  OFFERS_ROUTE,
   pathnameFromRouteInformation,
   POIS_ROUTE,
   LANDING_ROUTE,
@@ -55,12 +54,6 @@ const FailureSwitcher = ({ error }: FailureSwitcherProps): ReactElement => {
             goToPath: pathnameFromRouteInformation({ route: NEWS_ROUTE, newsType: error.type, ...params }),
             goToMessage: 'goTo.news',
             errorMessage: 'notFound.news',
-          }
-        case 'offer':
-          return {
-            goToPath: pathnameFromRouteInformation({ route: OFFERS_ROUTE, ...params }),
-            goToMessage: 'goTo.offers',
-            errorMessage: 'notFound.offer',
           }
         case 'poi':
           return {

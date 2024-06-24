@@ -1,24 +1,14 @@
-import isMapEqual from '../../utils/isMapEqual'
-
 export default class OfferModel {
   _alias: string
   _title: string
   _path: string
   _thumbnail: string
-  _postData?: Map<string, string>
 
-  constructor(params: {
-    alias: string
-    title: string
-    path: string
-    thumbnail: string
-    postData?: Map<string, string>
-  }) {
+  constructor(params: { alias: string; title: string; path: string; thumbnail: string }) {
     this._alias = params.alias
     this._title = params.title
     this._path = params.path
     this._thumbnail = params.thumbnail
-    this._postData = params.postData
   }
 
   get alias(): string {
@@ -37,15 +27,8 @@ export default class OfferModel {
     return this._path
   }
 
-  get postData(): Map<string, string> | undefined {
-    return this._postData
-  }
-
   isEqual(other: OfferModel): boolean {
-    const postDataEqual =
-      (this.postData && other.postData && isMapEqual(this.postData, other.postData)) || !this.postData
     return (
-      postDataEqual &&
       this.alias === other.alias &&
       this.thumbnail === other.thumbnail &&
       this.title === other.title &&

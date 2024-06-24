@@ -36,7 +36,6 @@ import MenuIcon from '../../../assets/icons/menu.svg'
 import MinimizeIcon from '../../../assets/icons/minimize.svg'
 import NewsIcon from '../../../assets/icons/news.svg'
 import NoteIcon from '../../../assets/icons/note.svg'
-import OffersIcon from '../../../assets/icons/offers.svg'
 import PdfIcon from '../../../assets/icons/pdf.svg'
 import PetIcon from '../../../assets/icons/pet.svg'
 import PhoneIcon from '../../../assets/icons/phone.svg'
@@ -94,7 +93,6 @@ export {
   MinimizeIcon,
   NewsIcon,
   NoteIcon,
-  OffersIcon,
   PdfIcon,
   PetIcon,
   PhoneIcon,

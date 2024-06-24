@@ -27,7 +27,6 @@ const mapCityJson = (json: JsonCityType): CityModel =>
     live: json.live,
     languages: mapLanguagesJson(json.languages),
     eventsEnabled: json.events,
-    offersEnabled: json.extras,
     poisEnabled: json.pois,
     tunewsEnabled: json.tunews,
     localNewsEnabled: json.push_notifications,

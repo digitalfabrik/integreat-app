@@ -1,7 +1,7 @@
 import { Matcher, SelectorMatcherOptions } from '@testing-library/react'
 import React from 'react'
 
-import { CATEGORIES_ROUTE, EVENTS_ROUTE, OFFERS_ROUTE, POIS_ROUTE, SPRUNGBRETT_OFFER_ROUTE } from 'shared'
+import { CATEGORIES_ROUTE, EVENTS_ROUTE, POIS_ROUTE } from 'shared'
 import { CityModel, LanguageModelBuilder } from 'shared/api'
 
 import { LOCAL_NEWS_ROUTE, TU_NEWS_DETAIL_ROUTE, TU_NEWS_ROUTE } from '../../routes'
@@ -15,20 +15,13 @@ jest.mock('../HeaderNavigationItem', () => ({ text, active }: { text: string; ac
 ))
 
 describe('CityContentHeader', () => {
-  const cityModel = (
-    offersEnabled: boolean,
-    eventsEnabled: boolean,
-    poisEnabled: boolean,
-    tunewsEnabled: boolean,
-    localNewsEnabled: boolean,
-  ) =>
+  const cityModel = (eventsEnabled: boolean, poisEnabled: boolean, tunewsEnabled: boolean, localNewsEnabled: boolean) =>
     new CityModel({
       name: 'Stadt Augsburg',
       code: 'augsburg',
       live: true,
       languages: new LanguageModelBuilder(2).build(),
       eventsEnabled,
-      offersEnabled,
       poisEnabled,
       localNewsEnabled,
       tunewsEnabled,
@@ -65,13 +58,11 @@ describe('CityContentHeader', () => {
   const expectNavigationItems = (
     getByText: GetByTextType,
     categories: boolean,
-    offers: boolean,
     events: boolean,
     pois: boolean,
     news: boolean,
   ) => {
     expectNavigationItem(getByText, categories, 'localInformation')
-    expectNavigationItem(getByText, offers, 'offers')
     expectNavigationItem(getByText, events, 'events')
     expectNavigationItem(getByText, pois, 'locations')
     expectNavigationItem(getByText, news, 'news')
@@ -83,11 +74,11 @@ describe('CityContentHeader', () => {
         <CityContentHeader
           languageCode={languageCode}
           route={CATEGORIES_ROUTE}
-          cityModel={cityModel(false, false, false, false, false)}
+          cityModel={cityModel(false, false, false, false)}
           languageChangePaths={languageChangePaths}
         />,
       )
-      expectNavigationItems(getByText, false, false, false, false, false)
+      expectNavigationItems(getByText, false, false, false, false)
     })
 
     it('should show categories if events are enabled', () => {
@@ -95,11 +86,11 @@ describe('CityContentHeader', () => {
         <CityContentHeader
           languageCode={languageCode}
           route={CATEGORIES_ROUTE}
-          cityModel={cityModel(false, true, false, false, false)}
+          cityModel={cityModel(true, false, false, false)}
           languageChangePaths={languageChangePaths}
         />,
       )
-      expectNavigationItems(getByText, true, false, true, false, false)
+      expectNavigationItems(getByText, true, true, false, false)
     })
 
     it('should show categories if news are enabled', () => {
@@ -107,23 +98,23 @@ describe('CityContentHeader', () => {
         <CityContentHeader
           languageCode={languageCode}
           route={CATEGORIES_ROUTE}
-          cityModel={cityModel(false, false, false, false, true)}
+          cityModel={cityModel(false, false, false, true)}
           languageChangePaths={languageChangePaths}
         />,
       )
-      expectNavigationItems(getByText, true, false, false, false, true)
+      expectNavigationItems(getByText, true, false, false, true)
     })
 
-    it('should show categories, news, events, offers, pois', () => {
+    it('should show categories, news, events, pois', () => {
       const { getByText } = renderWithRouterAndTheme(
         <CityContentHeader
           languageCode={languageCode}
           route={CATEGORIES_ROUTE}
-          cityModel={cityModel(true, true, true, true, true)}
+          cityModel={cityModel(true, true, true, true)}
           languageChangePaths={languageChangePaths}
         />,
       )
-      expectNavigationItems(getByText, true, true, true, true, true)
+      expectNavigationItems(getByText, true, true, true, true)
     })
 
     it('should highlight local information if route corresponds', () => {
@@ -131,12 +122,11 @@ describe('CityContentHeader', () => {
         <CityContentHeader
           languageCode={languageCode}
           route={CATEGORIES_ROUTE}
-          cityModel={cityModel(true, true, true, true, true)}
+          cityModel={cityModel(true, true, true, true)}
           languageChangePaths={languageChangePaths}
         />,
       )
       expect(getByText('layout:localInformation active')).toBeTruthy()
-      expect(getByText('layout:offers inactive')).toBeTruthy()
       expect(getByText('layout:news inactive')).toBeTruthy()
       expect(getByText('layout:events inactive')).toBeTruthy()
       expect(getByText('layout:locations inactive')).toBeTruthy()
@@ -147,12 +137,11 @@ describe('CityContentHeader', () => {
         <CityContentHeader
           languageCode={languageCode}
           route={LOCAL_NEWS_ROUTE}
-          cityModel={cityModel(true, true, true, true, true)}
+          cityModel={cityModel(true, true, true, true)}
           languageChangePaths={languageChangePaths}
         />,
       )
       expect(getByText('layout:localInformation inactive')).toBeTruthy()
-      expect(getByText('layout:offers inactive')).toBeTruthy()
       expect(getByText('layout:news active')).toBeTruthy()
       expect(getByText('layout:events inactive')).toBeTruthy()
       expect(getByText('layout:locations inactive')).toBeTruthy()
@@ -163,12 +152,11 @@ describe('CityContentHeader', () => {
         <CityContentHeader
           languageCode={languageCode}
           route={TU_NEWS_ROUTE}
-          cityModel={cityModel(true, true, true, true, true)}
+          cityModel={cityModel(true, true, true, true)}
           languageChangePaths={languageChangePaths}
         />,
       )
       expect(getByText('layout:localInformation inactive')).toBeTruthy()
-      expect(getByText('layout:offers inactive')).toBeTruthy()
       expect(getByText('layout:news active')).toBeTruthy()
       expect(getByText('layout:events inactive')).toBeTruthy()
       expect(getByText('layout:locations inactive')).toBeTruthy()
@@ -179,12 +167,11 @@ describe('CityContentHeader', () => {
         <CityContentHeader
           languageCode={languageCode}
           route={TU_NEWS_DETAIL_ROUTE}
-          cityModel={cityModel(true, true, true, true, true)}
+          cityModel={cityModel(true, true, true, true)}
           languageChangePaths={languageChangePaths}
         />,
       )
       expect(getByText('layout:localInformation inactive')).toBeTruthy()
-      expect(getByText('layout:offers inactive')).toBeTruthy()
       expect(getByText('layout:news active')).toBeTruthy()
       expect(getByText('layout:events inactive')).toBeTruthy()
       expect(getByText('layout:locations inactive')).toBeTruthy()
@@ -195,46 +182,13 @@ describe('CityContentHeader', () => {
         <CityContentHeader
           languageCode={languageCode}
           route={EVENTS_ROUTE}
-          cityModel={cityModel(true, true, true, true, true)}
+          cityModel={cityModel(true, true, true, true)}
           languageChangePaths={languageChangePaths}
         />,
       )
       expect(getByText('layout:localInformation inactive')).toBeTruthy()
-      expect(getByText('layout:offers inactive')).toBeTruthy()
       expect(getByText('layout:news inactive')).toBeTruthy()
       expect(getByText('layout:events active')).toBeTruthy()
-      expect(getByText('layout:locations inactive')).toBeTruthy()
-    })
-
-    it('layout:should highlight offers if offers route is active', () => {
-      const { getByText } = renderWithRouterAndTheme(
-        <CityContentHeader
-          languageCode={languageCode}
-          route={OFFERS_ROUTE}
-          cityModel={cityModel(true, true, true, true, true)}
-          languageChangePaths={languageChangePaths}
-        />,
-      )
-      expect(getByText('layout:localInformation inactive')).toBeTruthy()
-      expect(getByText('layout:offers active')).toBeTruthy()
-      expect(getByText('layout:news inactive')).toBeTruthy()
-      expect(getByText('layout:events inactive')).toBeTruthy()
-      expect(getByText('layout:locations inactive')).toBeTruthy()
-    })
-
-    it('should highlight offers if sprungbrett route is selected', () => {
-      const { getByText } = renderWithRouterAndTheme(
-        <CityContentHeader
-          languageCode={languageCode}
-          route={SPRUNGBRETT_OFFER_ROUTE}
-          cityModel={cityModel(true, true, true, true, true)}
-          languageChangePaths={languageChangePaths}
-        />,
-      )
-      expect(getByText('layout:localInformation inactive')).toBeTruthy()
-      expect(getByText('layout:offers active')).toBeTruthy()
-      expect(getByText('layout:news inactive')).toBeTruthy()
-      expect(getByText('layout:events inactive')).toBeTruthy()
       expect(getByText('layout:locations inactive')).toBeTruthy()
     })
 
@@ -243,12 +197,11 @@ describe('CityContentHeader', () => {
         <CityContentHeader
           languageCode={languageCode}
           route={POIS_ROUTE}
-          cityModel={cityModel(true, true, true, true, true)}
+          cityModel={cityModel(true, true, true, true)}
           languageChangePaths={languageChangePaths}
         />,
       )
       expect(getByText('layout:localInformation inactive')).toBeTruthy()
-      expect(getByText('layout:offers inactive')).toBeTruthy()
       expect(getByText('layout:news inactive')).toBeTruthy()
       expect(getByText('layout:events inactive')).toBeTruthy()
       expect(getByText('layout:locations active')).toBeTruthy()
