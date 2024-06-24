@@ -124,6 +124,7 @@ type ContentCityJsonType = {
   prefix: string | null
   extras_enabled: boolean
   events_enabled: boolean
+  chat_enabled: boolean
   pois_enabled: boolean
   sorting_name: string
   longitude: number
@@ -581,6 +582,7 @@ class DatabaseConnector {
         prefix: city.prefix,
         extras_enabled: city.offersEnabled,
         events_enabled: city.eventsEnabled,
+        chat_enabled: city.chatEnabled,
         pois_enabled: city.poisEnabled,
         pushNotificationsEnabled: city.localNewsEnabled,
         tunewsEnabled: city.tunewsEnabled,
@@ -615,6 +617,7 @@ class DatabaseConnector {
             latitude: jsonObject.latitude,
             aliases: jsonObject.aliases,
             boundingBox: jsonObject.bounding_box,
+            chatEnabled: jsonObject.chat_enabled,
           }),
       )
 

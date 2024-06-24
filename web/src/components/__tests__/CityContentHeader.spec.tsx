@@ -43,6 +43,7 @@ describe('CityContentHeader', () => {
         },
       },
       boundingBox: [10.7880103, 48.447238, 11.0174493, 48.297834],
+      chatEnabled: false,
     })
 
   const languageChangePaths = [

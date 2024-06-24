@@ -171,6 +171,7 @@ export type JsonCityType = {
   longitude: number
   aliases: Record<string, { longitude: number; latitude: number }> | null
   bounding_box: [[number, number], [number, number]]
+  is_chat_enabled: boolean
 }
 
 export type TimeSlot = {

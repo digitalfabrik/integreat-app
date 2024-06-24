@@ -45,17 +45,19 @@ const ChatController = ({ city, language }: ChatControllerProps): ReactElement =
     }
   }
 
-  if (!hasOpenChatSession) {
+  if (hasOpenChatSession) {
     return (
-      <Chat
-        submitMessage={submitMessage}
-        messages={[]}
-        hasError={sendingStatus === 'failed'}
-        isLoading={sendingStatus === 'sending' && !hasOpenChatSession}
-      />
+      <ChatInitializedView deviceId={storedDeviceId} city={city} language={language} submitMessage={submitMessage} />
     )
   }
-  return <ChatInitializedView deviceId={storedDeviceId} city={city} language={language} submitMessage={submitMessage} />
+  return (
+    <Chat
+      submitMessage={submitMessage}
+      messages={[]}
+      hasError={sendingStatus === 'failed'}
+      isLoading={sendingStatus === 'sending' && !hasOpenChatSession}
+    />
+  )
 }
 
 export default ChatController

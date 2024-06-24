@@ -25,6 +25,7 @@ const cities = [
       },
     },
     boundingBox: [10.7880103, 48.447238, 11.0174493, 48.297834],
+    chatEnabled: false,
   }),
   new CityModel({
     name: 'Oldtown',
@@ -47,6 +48,7 @@ const cities = [
       },
     },
     boundingBox: [12.002, 48.947, 11.0174493, 49.297834],
+    chatEnabled: false,
   }),
   new CityModel({
     name: 'City',
@@ -64,6 +66,7 @@ const cities = [
     prefix: null,
     aliases: null,
     boundingBox: [10.7880103, 48.447238, 11.0174493, 48.297834],
+    chatEnabled: false,
   }),
   new CityModel({
     name: 'Other city',
@@ -81,6 +84,7 @@ const cities = [
     prefix: null,
     aliases: null,
     boundingBox: [10.7880103, 48.447238, 11.0174493, 48.297834],
+    chatEnabled: false,
   }),
   new CityModel({
     name: 'Notlive',
@@ -98,6 +102,7 @@ const cities = [
     prefix: null,
     aliases: null,
     boundingBox: [0, 0, 0, 0],
+    chatEnabled: false,
   }),
   new CityModel({
     name: 'Yet another city',
@@ -115,6 +120,7 @@ const cities = [
     prefix: null,
     aliases: null,
     boundingBox: [10.7880103, 48.447238, 11.0174493, 48.297834],
+    chatEnabled: false,
   }),
 ]
 

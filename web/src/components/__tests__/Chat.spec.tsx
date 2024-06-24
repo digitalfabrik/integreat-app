@@ -30,13 +30,14 @@ const render = (
   )
 
 describe('Chat', () => {
-  it('should sending button be disabled if no input text is provided', () => {
+  it('sending button should be disabled if no input text is provided', () => {
     const { getByRole } = render([], false, false, submitMessage, refresh, undefined)
     const buttonSendMessage = getByRole('button', {
       name: 'chat:sendButton',
     })
     expect(buttonSendMessage).toBeDisabled()
   })
+
   it('should be able to send a message if text is provided', () => {
     const { getByRole, getByPlaceholderText } = render([], false, false, submitMessage, refresh, undefined)
     const buttonSendMessage = getByRole('button', {

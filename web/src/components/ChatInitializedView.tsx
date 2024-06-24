@@ -1,6 +1,6 @@
 import React, { ReactElement, useEffect } from 'react'
 
-import { createChatMessageEndpoint, useLoadFromEndpoint } from 'shared/api'
+import { createChatMessagesEndpoint, useLoadFromEndpoint } from 'shared/api'
 
 import { cmsApiBaseUrl } from '../constants/urls'
 import Chat from './Chat'
@@ -18,7 +18,7 @@ const ChatInitializedView = ({ city, deviceId, language, submitMessage }: ChatIn
     data: chatMessages,
     refresh: refreshMessages,
     error,
-  } = useLoadFromEndpoint(createChatMessageEndpoint, cmsApiBaseUrl, { city, language, deviceId })
+  } = useLoadFromEndpoint(createChatMessagesEndpoint, cmsApiBaseUrl, { city, language, deviceId })
 
   useEffect(() => {
     const pollMessageInterval = setInterval(refreshMessages, POLLING_INTERVAL)

@@ -3,8 +3,8 @@ import EndpointBuilder from '../EndpointBuilder'
 import { API_VERSION } from '../constants'
 import ChatMessageModel from '../models/ChatMessageModel'
 import { JsonChatMessagesType } from '../types'
+import { CHAT_ENDPOINT_NAME } from './createChatSessionEndpoint'
 
-export const CHAT_ENDPOINT_NAME = 'chat'
 type ParamsType = {
   city: string
   language: string

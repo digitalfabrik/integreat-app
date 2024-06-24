@@ -230,7 +230,7 @@
       "initialMessage": "Your chat request has been sent. The hotline will answer your message as soon as possible.",
       "inputLabel": "My question:",
       "inputPlaceholder": "I would like to know...",
-      "loadingText": "One moment please, the chat will be started...",
+      "loadingText": "One moment please, the chat is being started...",
       "sendButton": "Send",
       "user": "You"
     }

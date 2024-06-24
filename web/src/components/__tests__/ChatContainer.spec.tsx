@@ -17,6 +17,7 @@ describe('ChatContainer', () => {
     expect(getByText('chat:conversationTitle')).toBeTruthy()
     expect(getByText('chat:conversationText')).toBeTruthy()
   })
+
   it('should show minimized toolbar on minimize button click', () => {
     const { getByTestId, getByLabelText } = renderWithTheme(<ChatContainer city='Augsburg' language='de' />)
     const chatButtonContainer = getByTestId('chat-button-container')
@@ -26,6 +27,7 @@ describe('ChatContainer', () => {
     fireEvent.click(minimizeButton)
     expect(getByTestId('chat-minimized-toolbar')).toBeTruthy()
   })
+
   it('should close chat if close button was clicked', () => {
     const { getByTestId, queryByTestId, getByLabelText, queryByText } = renderWithTheme(
       <ChatContainer city='Augsburg' language='de' />,
@@ -40,6 +42,7 @@ describe('ChatContainer', () => {
     expect(queryByText('chat:conversationTitle')).toBeFalsy()
     expect(queryByText('chat:conversationText')).toBeFalsy()
   })
+
   it('should maximize chat on maximize button click if chat was minimized', () => {
     const { getByTestId, getByText, getByLabelText } = renderWithTheme(<ChatContainer city='Augsburg' language='de' />)
     const chatButtonContainer = getByTestId('chat-button-container')

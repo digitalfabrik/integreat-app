@@ -40,10 +40,7 @@ const CityContentLayout = (props: CityContentLayoutProps): ReactElement => {
     city,
   } = props
 
-  const isChatEnabled =
-    buildConfig().featureFlags.chat &&
-    route !== POIS_ROUTE &&
-    (city.name === 'Testumgebung' || city.name === 'Landeshauptstadt München')
+  const isChatEnabled = buildConfig().featureFlags.chat && route !== POIS_ROUTE && city.chatEnabled
   // to avoid jumping issues for desktop, isLoading is only checked on mobile viewport
   const isLoadingMobile = isLoading && viewportSmall
   return (
