@@ -85,6 +85,7 @@ class CityModel {
   get chatEnabled(): boolean {
     return this._chatEnabled
   }
+
   get eventsEnabled(): boolean {
     return this._eventsEnabled
   }

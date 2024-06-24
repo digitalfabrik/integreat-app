@@ -15,6 +15,7 @@ describe('createChatMessagesEndpoint', () => {
       `${baseUrl}/api/${API_VERSION}/${params.city}/${params.language}/chat/${params.deviceId}/`,
     )
   })
+
   it('should map fetched data to model', () => {
     const messageJson = {
       messages: [

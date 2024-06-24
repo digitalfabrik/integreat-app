@@ -15,6 +15,7 @@ describe('createChatSessionEndpoint', () => {
       `${baseUrl}/api/${API_VERSION}/${params.city}/${params.language}/chat/${params.deviceId}/`,
     )
   })
+
   it('should map the params to the body', () => {
     const formData = new FormData()
     formData.append('message', params.message)
