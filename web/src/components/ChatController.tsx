@@ -1,6 +1,6 @@
 import React, { ReactElement, useState } from 'react'
 
-import { createChatSessionEndpoint } from 'shared/api'
+import { createSendChatMessageEndpoint } from 'shared/api'
 
 import { cmsApiBaseUrl } from '../constants/urls'
 import useLocalStorage from '../hooks/useLocalStorage'
@@ -25,7 +25,7 @@ const ChatController = ({ city, language }: ChatControllerProps): ReactElement =
   const submitMessage = async (text: string, storedDeviceId?: string, refreshMessages?: () => void) => {
     setSendingStatus('sending')
     const deviceId = storedDeviceId ?? window.self.crypto.randomUUID()
-    const { data, error } = await createChatSessionEndpoint(cmsApiBaseUrl).request({
+    const { data, error } = await createSendChatMessageEndpoint(cmsApiBaseUrl).request({
       city,
       language,
       message: text,

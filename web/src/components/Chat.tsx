@@ -44,12 +44,12 @@ const StyledLoadingSpinner = styled(LoadingSpinner)`
   margin-top: 0;
 `
 
-const InputWrapper = styled.div`
-  height: ${dimensions.chatInputContainerHeight}px;
+const InputWrapper = styled.div<{ $height: number }>`
+  height: ${props => props.$height}px;
   padding-top: 12px;
 `
 
-const StyledChatConversion = styled(ChatConversation)<{ $height: number }>`
+const StyledChatConversation = styled(ChatConversation)<{ $height: number }>`
   height: ${props => props.$height}px;
 `
 
@@ -65,7 +65,7 @@ type ChatProps = {
 const Chat = ({ messages, submitMessage, deviceId, hasError, isLoading, refreshMessages }: ChatProps): ReactElement => {
   const { t } = useTranslation('chat')
   const [textInput, setTextInput] = useState<string>('')
-
+  const hasConversationStarted = !!deviceId
   const { height: deviceHeight } = useWindowDimensions()
 
   const onSubmit = () => {
@@ -91,13 +91,13 @@ const Chat = ({ messages, submitMessage, deviceId, hasError, isLoading, refreshM
 
   return (
     <Container>
-      <StyledChatConversion
-        $height={deviceHeight - dimensions.chatInputContainerHeight}
-        hasConversationStarted={!!deviceId}
+      <StyledChatConversation
+        $height={deviceHeight - dimensions.getChatInputContainerHeight(hasConversationStarted)}
+        hasConversationStarted={hasConversationStarted}
         messages={messages}
         hasError={hasError}
       />
-      <InputWrapper>
+      <InputWrapper $height={dimensions.getChatInputContainerHeight(hasConversationStarted)}>
         <InputSection id='chat' title={messages.length > 0 ? '' : t('inputLabel')}>
           <Input
             id='chat'

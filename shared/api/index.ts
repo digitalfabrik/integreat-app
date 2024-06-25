@@ -38,7 +38,7 @@ export {
   default as createCategoryParentsEndpoint,
   CATEGORY_PARENTS_ENDPOINT_NAME,
 } from './endpoints/createCategoryParentsEndpoint'
-export { default as createChatSessionEndpoint, CHAT_ENDPOINT_NAME } from './endpoints/createChatSessionEndpoint'
+export { default as createSendChatMessageEndpoint, CHAT_ENDPOINT_NAME } from './endpoints/createSendChatMessageEndpoint'
 export { default as createChatMessagesEndpoint } from './endpoints/createChatMessagesEndpoint'
 export { default as createCitiesEndpoint, CITIES_ENDPOINT_NAME } from './endpoints/createCitiesEndpoint'
 export { default as createCityEndpoint, CITY_ENDPOINT_NAME } from './endpoints/createCityEndpoint'

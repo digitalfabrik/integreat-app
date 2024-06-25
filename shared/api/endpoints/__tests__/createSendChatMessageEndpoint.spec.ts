@@ -1,7 +1,7 @@
 import { API_VERSION } from '../../constants'
-import createChatSessionEndpoint from '../createChatSessionEndpoint'
+import createSendChatMessageEndpoint from '../createSendChatMessageEndpoint'
 
-describe('createChatSessionEndpoint', () => {
+describe('createSendChatMessageEndpoint', () => {
   const baseUrl = 'https://example.com'
   const params = {
     city: 'augsburg',
@@ -9,7 +9,7 @@ describe('createChatSessionEndpoint', () => {
     deviceId: '23123-dsasd1-2dsa12',
     message: 'Ich habe eine Frage',
   }
-  const endpoint = createChatSessionEndpoint(baseUrl)
+  const endpoint = createSendChatMessageEndpoint(baseUrl)
   it('should map params to url', () => {
     expect(endpoint.mapParamsToUrl(params)).toBe(
       `${baseUrl}/api/${API_VERSION}/${params.city}/${params.language}/chat/${params.deviceId}/`,

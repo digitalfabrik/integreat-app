@@ -3,6 +3,7 @@ import React, { ReactElement, useEffect } from 'react'
 import { createChatMessagesEndpoint, useLoadFromEndpoint } from 'shared/api'
 
 import { cmsApiBaseUrl } from '../constants/urls'
+import useIsTabActive from '../hooks/useIsTabActive'
 import Chat from './Chat'
 
 type ChatInitializedViewProps = {
@@ -19,11 +20,15 @@ const ChatInitializedView = ({ city, deviceId, language, submitMessage }: ChatIn
     refresh: refreshMessages,
     error,
   } = useLoadFromEndpoint(createChatMessagesEndpoint, cmsApiBaseUrl, { city, language, deviceId })
+  const isBrowserTabActive = useIsTabActive()
 
   useEffect(() => {
+    if (!isBrowserTabActive) {
+      return undefined
+    }
     const pollMessageInterval = setInterval(refreshMessages, POLLING_INTERVAL)
     return () => clearInterval(pollMessageInterval)
-  }, [refreshMessages])
+  }, [refreshMessages, isBrowserTabActive])
 
   return (
     <Chat
