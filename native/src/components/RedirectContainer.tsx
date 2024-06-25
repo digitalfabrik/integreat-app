@@ -1,4 +1,5 @@
 import React, { ReactElement, useEffect } from 'react'
+import InAppBrowser from 'react-native-inappbrowser-reborn'
 
 import { RedirectRouteType } from 'shared'
 
@@ -31,6 +32,7 @@ const RedirectContainer = ({ route, navigation }: RedirectContainerProps): React
   useEffect(() => {
     // To support potentially older devices taking longer we setup a separate interval to retry the navigation
     const interval = setInterval(() => {
+      InAppBrowser.close()
       navigateToDeepLink(url)
     }, INTERVAL_TIMEOUT)
     return () => clearInterval(interval)
