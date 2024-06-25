@@ -1,3 +1,6 @@
+const CHAT_INPUT_CONTAINER_SMALL = 220
+const CHAT_INPUT_CONTAINER_LARGE = 250
+
 export type DimensionsType = {
   maxWidthViewportSmall: number
   smallViewport: string
@@ -14,6 +17,7 @@ export type DimensionsType = {
   navigationMenuHeight: number
   poiDesktopPanelWidth: number
   mainContainerHorizontalPadding: number
+  getChatInputContainerHeight: (hasStarted: boolean) => number
 }
 
 const dimensions: DimensionsType = {
@@ -32,6 +36,8 @@ const dimensions: DimensionsType = {
   navigationMenuHeight: 90,
   poiDesktopPanelWidth: 332,
   mainContainerHorizontalPadding: 10,
+  getChatInputContainerHeight: (hasStarted: boolean) =>
+    hasStarted ? CHAT_INPUT_CONTAINER_SMALL : CHAT_INPUT_CONTAINER_LARGE,
 }
 
 export default dimensions

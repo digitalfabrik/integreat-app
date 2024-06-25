@@ -49,6 +49,7 @@ describe('cities', () => {
       [10.7880103, 48.447238],
       [11.0174493, 48.297834],
     ],
+    is_chat_enabled: false,
   }
   const city2: JsonCityType = {
     name: 'Stadt Regensburg',
@@ -68,6 +69,7 @@ describe('cities', () => {
       [12.055, 48.995],
       [12.145, 49.085],
     ],
+    is_chat_enabled: false,
   }
 
   const cityJson = [city1, city2]
@@ -84,6 +86,7 @@ describe('cities', () => {
         code: 'augsburg',
         live: city1.live,
         languages,
+        chatEnabled: false,
         eventsEnabled: true,
         poisEnabled: true,
         localNewsEnabled: true,
@@ -105,6 +108,7 @@ describe('cities', () => {
         code: 'regensburg',
         live: city2.live,
         languages,
+        chatEnabled: false,
         eventsEnabled: false,
         poisEnabled: false,
         localNewsEnabled: false,

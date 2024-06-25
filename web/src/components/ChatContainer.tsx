@@ -7,8 +7,8 @@ import buildConfig from '../constants/buildConfig'
 import dimensions from '../constants/dimensions'
 import useLockedBody from '../hooks/useLockedBody'
 import useWindowDimensions from '../hooks/useWindowDimensions'
-import Chat from './Chat'
 import ChatContentWrapper from './ChatContentWrapper'
+import ChatController from './ChatController'
 import ChatModal from './ChatModal'
 import Icon from './base/Icon'
 
@@ -70,7 +70,12 @@ export enum ChatVisibilityStatus {
   maximized,
 }
 
-const ChatContainer = (): ReactElement => {
+type ChatContainerProps = {
+  city: string
+  language: string
+}
+
+const ChatContainer = ({ city, language }: ChatContainerProps): ReactElement => {
   const { t } = useTranslation('chat')
   const [chatVisibilityStatus, setChatVisibilityStatus] = useState<ChatVisibilityStatus>(ChatVisibilityStatus.closed)
   const { viewportSmall } = useWindowDimensions()
@@ -81,18 +86,19 @@ const ChatContainer = (): ReactElement => {
   if (isChatMaximized) {
     return (
       <ChatModal
+        data-testid='chat-modal'
         title={title}
         resizeModal={() => setChatVisibilityStatus(ChatVisibilityStatus.minimized)}
         closeModal={() => setChatVisibilityStatus(ChatVisibilityStatus.closed)}
         visibilityStatus={chatVisibilityStatus}>
-        <Chat />
+        <ChatController city={city} language={language} />
       </ChatModal>
     )
   }
 
   if (chatVisibilityStatus === ChatVisibilityStatus.minimized) {
     return (
-      <MinimizedToolbar>
+      <MinimizedToolbar data-testid='chat-minimized-toolbar'>
         <ChatContentWrapper
           title={title}
           onResize={() => setChatVisibilityStatus(ChatVisibilityStatus.maximized)}
@@ -105,7 +111,9 @@ const ChatContainer = (): ReactElement => {
   }
 
   return (
-    <ChatButtonContainer onClick={() => setChatVisibilityStatus(ChatVisibilityStatus.maximized)}>
+    <ChatButtonContainer
+      data-testid='chat-button-container'
+      onClick={() => setChatVisibilityStatus(ChatVisibilityStatus.maximized)}>
       <Circle>
         <StyledIcon src={ChatIcon} title={t('button')} />
       </Circle>

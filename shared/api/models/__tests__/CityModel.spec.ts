@@ -18,6 +18,7 @@ describe('CityModel', () => {
       longitude: 10.892578,
       aliases: null,
       boundingBox: [10.7880103, 48.447238, 11.0174493, 48.297834],
+      chatEnabled: false,
     }),
   ]
 

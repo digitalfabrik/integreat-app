@@ -9,6 +9,7 @@ class CityModel {
   _code: string
   _live: boolean
   _languages: LanguageModel[]
+  _chatEnabled: boolean
   _eventsEnabled: boolean
   _poisEnabled: boolean
   _localNewsEnabled: boolean
@@ -26,6 +27,7 @@ class CityModel {
     poisEnabled: boolean
     eventsEnabled: boolean
     localNewsEnabled: boolean
+    chatEnabled: boolean
     tunewsEnabled: boolean
     sortingName: string
     prefix: string | null
@@ -38,6 +40,7 @@ class CityModel {
     this._code = params.code
     this._live = params.live
     this._languages = params.languages
+    this._chatEnabled = params.chatEnabled
     this._eventsEnabled = params.eventsEnabled
     this._poisEnabled = params.poisEnabled
     this._localNewsEnabled = params.localNewsEnabled
@@ -74,6 +77,10 @@ class CityModel {
 
   get sortingName(): string {
     return this._sortingName
+  }
+
+  get chatEnabled(): boolean {
+    return this._chatEnabled
   }
 
   get eventsEnabled(): boolean {
