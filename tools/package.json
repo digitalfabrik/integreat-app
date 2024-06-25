@@ -2,7 +2,6 @@
   "version": "0.0.1",
   "name": "tools",
   "private": true,
-  "sideEffects": false,
   "type": "module",
   "scripts": {
     "manage-metadata": "tsx manage-metadata.ts",

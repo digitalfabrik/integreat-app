@@ -44,6 +44,7 @@ describe('pois', () => {
     },
     last_updated: '2017-01-09T15:30:00+02:00',
     temporarily_closed: false,
+    appointment_url: 'https://set.up/an/appointment',
     opening_hours: null,
   })
 
@@ -79,6 +80,7 @@ describe('pois', () => {
       lastUpdate: DateTime.fromISO('2017-01-09T15:30:00+02:00'),
       temporarilyClosed: false,
       openingHours: null,
+      appointmentUrl: 'https://set.up/an/appointment',
     })
 
   const poi1 = createPoi(2730)
