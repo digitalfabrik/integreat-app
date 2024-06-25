@@ -99,6 +99,7 @@ export type JsonPoiType = {
   phone_number: string | null
   temporarily_closed: boolean
   opening_hours: JsonOpeningHoursType[] | null
+  appointment_url: string | null
   category: JsonPoiCategoryType
 }
 export type JsonEventType = {

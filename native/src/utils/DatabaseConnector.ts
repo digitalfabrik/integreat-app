@@ -146,6 +146,7 @@ type ContentPoiJsonType = {
   category: { id: number; name: string; color: string; icon: string; iconName: string }
   openingHours: { allDay: boolean; closed: boolean; timeSlots: { start: string; end: string }[] }[] | null
   temporarilyClosed: boolean
+  appointmentUrl: string | null
 }
 type ContentLocalNewsJsonType = {
   id: number
@@ -480,6 +481,7 @@ class DatabaseConnector {
             })),
           })) ?? null,
         temporarilyClosed: poi.temporarilyClosed,
+        appointmentUrl: poi.appointmentUrl,
       }),
     )
     await this.writeFile(this.getContentPath('pois', context), JSON.stringify(jsonModels))
@@ -533,6 +535,7 @@ class DatabaseConnector {
                 }),
             ) ?? null,
           temporarilyClosed: jsonObject.temporarilyClosed,
+          appointmentUrl: jsonObject.appointmentUrl,
         })
       })
 

@@ -1,0 +1,6 @@
+issue_key: 2665
+show_in_stores: true
+platforms:
+  - ios
+en: Fix a bug when opening deep links
+de: Fehlerbehebung beim Öffnen eines Deep Links
