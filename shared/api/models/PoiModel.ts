@@ -18,6 +18,7 @@ class PoiModel extends ExtendedPageModel {
   _openingHours: OpeningHoursModel[] | null
   _temporarilyClosed: boolean
   _category: PoiCategoryModel
+  _appointmentUrl: string | null
 
   constructor(params: {
     path: string
@@ -35,6 +36,7 @@ class PoiModel extends ExtendedPageModel {
     temporarilyClosed: boolean
     openingHours: OpeningHoursModel[] | null
     category: PoiCategoryModel
+    appointmentUrl: string | null
   }) {
     const {
       category,
@@ -46,6 +48,7 @@ class PoiModel extends ExtendedPageModel {
       website,
       phoneNumber,
       email,
+      appointmentUrl,
       ...other
     } = params
     super(other)
@@ -58,6 +61,7 @@ class PoiModel extends ExtendedPageModel {
     this._openingHours = openingHours
     this._temporarilyClosed = temporarilyClosed
     this._category = category
+    this._appointmentUrl = appointmentUrl
   }
 
   get location(): LocationModel<number> {
@@ -108,6 +112,10 @@ class PoiModel extends ExtendedPageModel {
 
   get temporarilyClosed(): boolean {
     return this._temporarilyClosed
+  }
+
+  get appointmentUrl(): string | null {
+    return this._appointmentUrl
   }
 
   get category(): PoiCategoryModel {

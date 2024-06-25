@@ -208,25 +208,29 @@
   "chat": {
     "de": {
       "button": "Chat (beta)",
-      "conversationTitle": "Bitte geben Sie Ihre Frage in das Textfeld ein.",
-      "conversationText": "Sie können alles fragen, von lokalen Informationen bis hin zu spezifischen Anfragen bezüglich Ihrer Situation.",
-      "dataSecurity": "Datenschutz und Sicherheit: \nIhre Privatsphäre ist uns sehr wichtig. Alle Gespräche werden vertraulich behandelt und Ihre Daten werden sicher verarbeitet. \nMehr Informationen zum Datenschutz finden Sie in unseren Datenschutzrichtlinien.",
+      "conversationTitle": "Bitte gib deine Frage in das Textfeld ein.",
+      "conversationText": "Du kannst alles fragen, von lokalen Informationen bis hin zu spezifischen Anfragen bezüglich deiner Situation.",
+      "dataSecurity": "Datenschutz und Sicherheit: \nDeine Privatsphäre ist uns sehr wichtig. Alle Gespräche werden vertraulich behandelt und deine Daten werden sicher verarbeitet. \nMehr Informationen zum Datenschutz findest du in unseren Datenschutzrichtlinien.",
+      "errorMessage": "Es ist ein Fehler bei der Kommunikation aufgetreten.",
       "header": "{{appName}} Chat Support",
+      "initialMessage": "Deine Chatanfrage wurde gesendet. Die Berater*in beantwortet deine Nachricht so schnell wie möglich.",
       "inputLabel": "Meine Frage:",
       "inputPlaceholder": "Ich möchte wissen...",
-      "loadingText": "Einen Moment bitte, nach Ihrer Antwort wird gesucht...",
+      "loadingText": "Einen Moment bitte, der Chat wird gestartet...",
       "sendButton": "Senden",
-      "user": "Sie"
+      "user": "Du"
     },
     "en": {
       "button": "Chat (beta)",
       "conversationTitle": "Please enter your question in the text field.",
       "conversationText": "You can ask anything from local information to specific requests regarding your situation.",
       "dataSecurity": "Data protection and security: \\nYour privacy is very important to us. All conversations are treated confidentially and your data is processed securely.\\nYou can find more information on data protection in our privacy policy.",
+      "errorMessage": "An error has occurred during communication.",
       "header": "{{appName}} Chat Support",
+      "initialMessage": "Your chat request has been sent. The advisor will answer your message as soon as possible.",
       "inputLabel": "My question:",
       "inputPlaceholder": "I would like to know...",
-      "loadingText": "One moment please, we are looking for your answer...",
+      "loadingText": "One moment please, the chat is being started...",
       "sendButton": "Send",
       "user": "You"
     }
@@ -1626,7 +1630,8 @@
         "categories": "Zu den Kategorien",
         "events": "Zu den Veranstaltungen",
         "pois": "Zur Karte",
-        "news": "Zu den Nachrichten"
+        "news": "Zu den Nachrichten",
+        "pageNumber": "Zu Seite {{number}}"
       },
       "pageTitle": "Fehler",
       "generalError": "Ein Fehler ist aufgetreten",
@@ -1864,7 +1869,8 @@
         "categories": "Go to categories",
         "events": "Go to events",
         "pois": "Go to map",
-        "news": "Go to news"
+        "news": "Go to news",
+        "pageNumber": "Go to page {{number}}"
       },
       "pageTitle": "Error",
       "generalError": "An error occurred",
@@ -7670,7 +7676,8 @@
       "showPois_other": "{{count}} Orte anzeigen",
       "alphabetLetters": "A-Z",
       "clearFilter": "Filter {{filter}} löschen",
-      "showOwnLocation": "Eigenen Standort zeigen"
+      "showOwnLocation": "Eigenen Standort zeigen",
+      "makeAppointment": "Termin vereinbaren"
     },
     "am": {
       "pageTitle": "ካርታ",
@@ -8076,7 +8083,8 @@
       "showPois_other": "Show {{count}} places",
       "alphabetLetters": "A-Z",
       "clearFilter": "Delete filter {{filter}}",
-      "showOwnLocation": "Show your own location"
+      "showOwnLocation": "Show your own location",
+      "makeAppointment": "Make an appointment"
     },
     "es": {
       "pageTitle": "Mapa",

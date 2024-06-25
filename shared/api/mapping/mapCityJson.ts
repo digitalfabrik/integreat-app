@@ -36,6 +36,7 @@ const mapCityJson = (json: JsonCityType): CityModel =>
     latitude: json.latitude,
     aliases: json.aliases,
     boundingBox: [...json.bounding_box[0], ...json.bounding_box[1]],
+    chatEnabled: json.is_chat_enabled,
   })
 
 export default mapCityJson

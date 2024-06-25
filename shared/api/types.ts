@@ -72,6 +72,15 @@ export type JsonCategoryType = {
   } | null
   embedded_offers: JsonOfferType[]
 }
+export type JsonChatMessagesType = {
+  messages: [
+    {
+      id: number
+      body: string
+      user_is_author: boolean
+    },
+  ]
+}
 export type JsonDisclaimerType = JsonCategoryType
 export type JsonPoiType = {
   id: number
@@ -90,6 +99,7 @@ export type JsonPoiType = {
   phone_number: string | null
   temporarily_closed: boolean
   opening_hours: JsonOpeningHoursType[] | null
+  appointment_url: string | null
   category: JsonPoiCategoryType
 }
 export type JsonEventType = {
@@ -163,6 +173,7 @@ export type JsonCityType = {
   longitude: number
   aliases: Record<string, { longitude: number; latitude: number }> | null
   bounding_box: [[number, number], [number, number]]
+  is_chat_enabled: boolean
 }
 
 export type TimeSlot = {

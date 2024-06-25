@@ -44,6 +44,7 @@ const pois = [
     openingHours: [
       new OpeningHoursModel({ allDay: true, closed: false, timeSlots: [{ end: '18:00', start: '08:00' }] }),
     ],
+    appointmentUrl: null,
   }),
   new PoiModel({
     path: '/augsburg/en/locations/test_path_2',
@@ -78,6 +79,7 @@ const pois = [
     openingHours: [
       new OpeningHoursModel({ allDay: false, closed: false, timeSlots: [{ end: '18:00', start: '08:00' }] }),
     ],
+    appointmentUrl: 'https://booking.an/appointment',
   }),
   new PoiModel({
     path: '/augsburg/en/locations/another_test_path',
@@ -110,6 +112,7 @@ const pois = [
     lastUpdate: DateTime.fromISO('2011-02-04T00:00:00.000Z'),
     temporarilyClosed: false,
     openingHours: null,
+    appointmentUrl: null,
   }),
 ]
 

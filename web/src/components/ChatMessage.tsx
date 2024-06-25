@@ -3,9 +3,10 @@ import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
 
+import ChatMessageModel from 'shared/api/models/ChatMessageModel'
+
 import buildConfig from '../constants/buildConfig'
 import RemoteContent from './RemoteContent'
-import { ChatMessageType } from './__mocks__/ChatMessages'
 import Icon from './base/Icon'
 
 const Message = styled.div`
@@ -13,6 +14,10 @@ const Message = styled.div`
   padding: 8px;
   border: 1px solid ${props => props.theme.colors.textDecorationColor};
   flex-basis: 70%;
+
+  & > div > a {
+    line-break: anywhere;
+  }
 `
 
 const Container = styled.div<{ $isAuthor: boolean }>`
@@ -24,8 +29,8 @@ const Container = styled.div<{ $isAuthor: boolean }>`
 
 const IconContainer = styled.div<{ $visible: boolean }>`
   opacity: ${props => (props.$visible ? 1 : 0)};
-  height: 24px;
-  width: 24px;
+  height: 25px;
+  width: 25px;
   display: flex;
 `
 
@@ -42,7 +47,7 @@ const Circle = styled.div`
   font-size: ${props => props.theme.fonts.decorativeFontSizeSmall};
 `
 
-type ChatMessageProps = { message: ChatMessageType; showIcon: boolean }
+type ChatMessageProps = { message: ChatMessageModel; showIcon: boolean }
 
 const ChatMessage = ({ message, showIcon }: ChatMessageProps): ReactElement => {
   // TODO 2799 Check if Remote content is really needed here or how external links will be delivered via api
@@ -55,7 +60,7 @@ const ChatMessage = ({ message, showIcon }: ChatMessageProps): ReactElement => {
       <IconContainer $visible={showIcon}>
         {userIsAuthor ? <Circle>{t('user')}</Circle> : <Icon src={icons.appLogoMobile} />}
       </IconContainer>
-      <Message>
+      <Message data-testid={message.id}>
         <RemoteContent html={body} onInternalLinkClick={navigate} smallText />
       </Message>
     </Container>

@@ -50,8 +50,18 @@ type PoiDetailsProps = {
 const PoiDetails = ({ poi, language, distance }: PoiDetailsProps): ReactElement => {
   const { t } = useTranslation('pois')
   const thumbnail = poi.thumbnail ?? PoiThumbnailPlaceholderLarge
-  const { title, content, email, website, phoneNumber, openingHours, temporarilyClosed, isCurrentlyOpen, category } =
-    poi
+  const {
+    title,
+    content,
+    email,
+    website,
+    phoneNumber,
+    openingHours,
+    temporarilyClosed,
+    isCurrentlyOpen,
+    category,
+    appointmentUrl,
+  } = poi
 
   const contactInformationCollapsibleItem = (
     <Collapsible headerContent={t('contactInformation')} language={language}>
@@ -94,6 +104,7 @@ const PoiDetails = ({ poi, language, distance }: PoiDetailsProps): ReactElement 
         openingHours={openingHours}
         isCurrentlyOpen={isCurrentlyOpen}
         isTemporarilyClosed={temporarilyClosed}
+        appointmentUrl={appointmentUrl}
       />
       {content.length > 0 && (
         <>

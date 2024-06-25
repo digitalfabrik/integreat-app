@@ -2,7 +2,6 @@
   "name": "web",
   "version": "0.1.0",
   "private": true,
-  "sideEffects": false,
   "scripts": {
     "webpack-ts": "cross-env TS_NODE_PROJECT=\"tools/tsconfig.webpack.json\" webpack --config tools/webpack.config.ts --env bundle_analyzer",
     "webpack-dev-server-ts": "cross-env TS_NODE_PROJECT=\"tools/tsconfig.webpack.json\" webpack-dev-server --config tools/webpack.config.ts --progress",

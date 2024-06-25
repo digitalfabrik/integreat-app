@@ -121,6 +121,7 @@ type ContentCityJsonType = {
   languages: ContentLanguageJsonType[]
   prefix: string | null
   events_enabled: boolean
+  chat_enabled: boolean
   pois_enabled: boolean
   sorting_name: string
   longitude: number
@@ -145,6 +146,7 @@ type ContentPoiJsonType = {
   category: { id: number; name: string; color: string; icon: string; iconName: string }
   openingHours: { allDay: boolean; closed: boolean; timeSlots: { start: string; end: string }[] }[] | null
   temporarilyClosed: boolean
+  appointmentUrl: string | null
 }
 type ContentLocalNewsJsonType = {
   id: number
@@ -479,6 +481,7 @@ class DatabaseConnector {
             })),
           })) ?? null,
         temporarilyClosed: poi.temporarilyClosed,
+        appointmentUrl: poi.appointmentUrl,
       }),
     )
     await this.writeFile(this.getContentPath('pois', context), JSON.stringify(jsonModels))
@@ -532,6 +535,7 @@ class DatabaseConnector {
                 }),
             ) ?? null,
           temporarilyClosed: jsonObject.temporarilyClosed,
+          appointmentUrl: jsonObject.appointmentUrl,
         })
       })
 
@@ -575,6 +579,7 @@ class DatabaseConnector {
         languages: city.languages.map(it => ({ code: it.code, name: it.name })),
         prefix: city.prefix,
         events_enabled: city.eventsEnabled,
+        chat_enabled: city.chatEnabled,
         pois_enabled: city.poisEnabled,
         pushNotificationsEnabled: city.localNewsEnabled,
         tunewsEnabled: city.tunewsEnabled,
@@ -608,6 +613,7 @@ class DatabaseConnector {
             latitude: jsonObject.latitude,
             aliases: jsonObject.aliases,
             boundingBox: jsonObject.bounding_box,
+            chatEnabled: jsonObject.chat_enabled,
           }),
       )
 
