@@ -7670,7 +7670,8 @@
       "showPois_other": "{{count}} Orte anzeigen",
       "alphabetLetters": "A-Z",
       "clearFilter": "Filter {{filter}} löschen",
-      "showOwnLocation": "Eigenen Standort zeigen"
+      "showOwnLocation": "Eigenen Standort zeigen",
+      "makeAppointment": "Termin vereinbaren"
     },
     "am": {
       "pageTitle": "ካርታ",
@@ -8076,7 +8077,8 @@
       "showPois_other": "Show {{count}} places",
       "alphabetLetters": "A-Z",
       "clearFilter": "Delete filter {{filter}}",
-      "showOwnLocation": "Show your own location"
+      "showOwnLocation": "Show your own location",
+      "makeAppointment": "Make an appointment"
     },
     "es": {
       "pageTitle": "Mapa",
