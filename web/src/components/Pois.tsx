@@ -25,9 +25,9 @@ import useWindowDimensions from '../hooks/useWindowDimensions'
 import moveViewportToCity from '../utils/moveViewportToCity'
 import PoiFiltersOverlayButtons from './PoiFiltersOverlayButtons'
 
-const Container = styled.div<{ panelHeights: number }>`
+const Container = styled.div<{ $panelHeights: number }>`
   display: flex;
-  ${({ panelHeights }) => `height: calc(100vh - ${panelHeights}px);`};
+  ${({ $panelHeights: panelHeights }) => `height: calc(100vh - ${panelHeights}px);`};
 `
 
 type PoiProps = {
@@ -150,7 +150,7 @@ const Pois = ({ pois: allPois, userLocation, city, languageCode, pageTitle }: Po
   const panelHeights = dimensions.headerHeightLarge + dimensions.navigationMenuHeight
 
   return (
-    <Container panelHeights={panelHeights}>
+    <Container $panelHeights={panelHeights}>
       {viewportSmall ? (
         <PoisMobile {...sharedPoiProps} />
       ) : (

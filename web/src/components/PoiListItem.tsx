@@ -80,7 +80,7 @@ const PoiListItem = ({ poi, distance, selectPoi }: PoiListItemProps): ReactEleme
 
   return (
     <ListItemContainer id={slug}>
-      <LinkContainer onClick={selectPoi} tabIndex={0} ariaLabel={title}>
+      <LinkContainer onClick={selectPoi} tabIndex={0} label={title}>
         <Thumbnail alt='' src={thumbnail || PoiThumbnailPlaceholder} />
         <Description>
           <Title>{title}</Title>

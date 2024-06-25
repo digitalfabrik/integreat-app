@@ -3,10 +3,11 @@ import styled from 'styled-components'
 
 import Button from './Button'
 
-const StyledButton = styled(Button)<{ disabled: boolean; fullWidth?: boolean }>`
+const StyledButton = styled(Button)<{ $disabled: boolean }>`
   margin: 16px 0;
   padding: 8px 24px;
-  background-color: ${props => (props.disabled ? props.theme.colors.textDisabledColor : props.theme.colors.themeColor)};
+  background-color: ${props =>
+    props.$disabled ? props.theme.colors.textDisabledColor : props.theme.colors.themeColor};
   color: ${props => props.theme.colors.textColor};
   text-align: center;
   font-weight: 700;
@@ -25,7 +26,13 @@ type TextButtonProps = {
 }
 
 const TextButton = ({ text, onClick, className, type, ...props }: TextButtonProps): ReactElement => (
-  <StyledButton onClick={onClick} disabled={!!props.disabled} ariaLabel='' className={className} type={type}>
+  <StyledButton
+    onClick={onClick}
+    disabled={!!props.disabled}
+    $disabled={!!props.disabled}
+    label=''
+    className={className}
+    type={type}>
     {text}
   </StyledButton>
 )

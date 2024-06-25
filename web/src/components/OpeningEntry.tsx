@@ -7,11 +7,11 @@ import { TimeSlot } from 'shared/api/types'
 const fontBold = 600
 const fontStandard = 400
 
-const EntryContainer = styled.div<{ isCurrentDay: boolean }>`
+const EntryContainer = styled.div<{ $isCurrentDay: boolean }>`
   display: flex;
   justify-content: space-between;
   padding: 4px 0;
-  font-weight: ${props => (props.isCurrentDay ? fontBold : fontStandard)};
+  font-weight: ${props => (props.$isCurrentDay ? fontBold : fontStandard)};
 `
 const Timeslot = styled.div`
   display: flex;
@@ -36,7 +36,7 @@ const OpeningEntry = ({ allDay, closed, timeSlots, weekday, isCurrentDay }: Open
   const { t } = useTranslation('pois')
 
   return (
-    <EntryContainer isCurrentDay={isCurrentDay} id={`openingEntryContainer-${weekday}`}>
+    <EntryContainer $isCurrentDay={isCurrentDay} id={`openingEntryContainer-${weekday}`}>
       <span>{weekday}</span>
       {allDay && <span>{t('allDay')}</span>}
       {closed && <span>{t('closed')}</span>}
