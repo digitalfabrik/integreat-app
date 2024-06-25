@@ -98,7 +98,7 @@ const Link = styled(CleanLink)`
 `
 
 const LinkLabel = styled.span`
-  color: #0b57d0;
+  color: ${props => props.theme.colors.linkColor};
   ${helpers.adaptiveFontSize};
   align-self: flex-end;
 `

@@ -46,8 +46,13 @@ const LinkContainer = styled.Pressable`
 
 const Link = styled.Text`
   font-size: 16px;
-  color: #0b57d0;
+  color: ${props => props.theme.colors.linkColor};
   text-decoration: underline;
+`
+
+const StyledIcon = styled(Icon)`
+  width: 16px;
+  height: 16px;
 `
 
 type OpeningHoursProps = {
@@ -116,7 +121,7 @@ const OpeningHours = ({
           {appointmentUrl !== null && (
             <LinkContainer onPress={() => openExternalUrl(appointmentUrl, showSnackbar)} accessibilityRole='link'>
               <Link>{t('makeAppointment')}</Link>
-              <Icon Icon={ExternalLinkIcon} style={{ width: 16, height: 16 }} />
+              <StyledIcon Icon={ExternalLinkIcon} />
             </LinkContainer>
           )}
         </Content>
