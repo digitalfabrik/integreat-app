@@ -1626,7 +1626,8 @@
         "categories": "Zu den Kategorien",
         "events": "Zu den Veranstaltungen",
         "pois": "Zur Karte",
-        "news": "Zu den Nachrichten"
+        "news": "Zu den Nachrichten",
+        "pageNumber": "Zu Seite {{number}}"
       },
       "pageTitle": "Fehler",
       "generalError": "Ein Fehler ist aufgetreten",
@@ -1864,7 +1865,8 @@
         "categories": "Go to categories",
         "events": "Go to events",
         "pois": "Go to map",
-        "news": "Go to news"
+        "news": "Go to news",
+        "pageNumber": "Go to page {{number}}"
       },
       "pageTitle": "Error",
       "generalError": "An error occurred",
