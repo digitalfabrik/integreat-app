@@ -32,10 +32,8 @@ const RedirectContainer = ({ route, navigation }: RedirectContainerProps): React
   useEffect(() => {
     // To support potentially older devices taking longer we setup a separate interval to retry the navigation
     const interval = setInterval(async () => {
-      const noInAppBrowserOpenYet = !(await InAppBrowser.isAvailable())
-      if (noInAppBrowserOpenYet) {
-        navigateToDeepLink(url)
-      }
+      InAppBrowser.close()
+      navigateToDeepLink(url)
     }, INTERVAL_TIMEOUT)
     return () => clearInterval(interval)
   }, [url, navigation, navigateToDeepLink])
