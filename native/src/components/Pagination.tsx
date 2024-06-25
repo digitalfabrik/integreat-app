@@ -1,5 +1,6 @@
 import { range } from 'lodash'
 import React, { ReactElement } from 'react'
+import { useTranslation } from 'react-i18next'
 import styled from 'styled-components/native'
 
 import Pressable from './base/Pressable'
@@ -13,6 +14,7 @@ const DotsContainer = styled.View`
   align-items: center;
   background-color: ${props => props.theme.colors.backgroundColor};
 `
+
 const Dot = styled(Pressable)<{ isActive: boolean }>`
   width: 10px;
   height: 10px;
@@ -21,6 +23,7 @@ const Dot = styled(Pressable)<{ isActive: boolean }>`
   background-color: ${props =>
     props.isActive ? props.theme.colors.textSecondaryColor : props.theme.colors.textDecorationColor};
 `
+
 type PaginationProps = {
   slideCount: number
   currentSlide: number
@@ -29,11 +32,19 @@ type PaginationProps = {
 
 const Pagination = ({ slideCount, currentSlide, goToSlide }: PaginationProps): ReactElement => {
   const goToSlideIndex = (index: number) => () => goToSlide(index)
+  const { t } = useTranslation('error')
 
   return (
     <DotsContainer>
       {range(slideCount).map(index => (
-        <Dot key={index} isActive={index === currentSlide} onPress={goToSlideIndex(index)} />
+        <Dot
+          key={index}
+          isActive={index === currentSlide}
+          onPress={goToSlideIndex(index)}
+          accessibilityLabel={t('goTo.pageNumber', {
+            number: index + 1,
+          })}
+        />
       ))}
     </DotsContainer>
   )
