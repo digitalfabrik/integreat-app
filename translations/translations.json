@@ -150,6 +150,12 @@
       "organizationContent": "Информация на данной странице предоставлена {{organization}}.",
       "organizationMoreInformation": "Более подробную информацию о <1>{{organization}}</1> ты найдешь на <3>{{domain}}</3>."
     },
+    "sk": {
+      "createPdf": "Vytvoriť PDF",
+      "metaDescription": "{{appName}} je váš digitálny sprievodca po Nemecku. Nájdite miestne informácie, podujatia a poradenstvo. Vždy aktuálne a vo vašom jazyku.",
+      "organizationContent": "Obsahy tejto stránky je z {{organization}}.",
+      "organizationMoreInformation": "Viac informácií o <1>{{organization}}</1> nájdete na <3>{{domain}}</3>."
+    },
     "so": {
       "createPdf": "Abuur PDF",
       "metaDescription": "{{appName}} waa hage-haaga dhijitaalka ah ee Jarmalka. ka raadi macluumaadka gudaha, dhacdooyinka, iyo tallooyinka. Had iyo jeer la soco ka cusaybka iyo luqadaada.",
@@ -435,6 +441,14 @@
       "findOutMail": "найти адрес электронной почты вашего региона;",
       "sendText": "скопировать этот текст, заполнить содержимое [ ], указав ваши данные, и отправить.",
       "copyText": "Копировать текст"
+    },
+    "sk": {
+      "callToAction": "Navrhnite Integreat pre svoj región!",
+      "explanation": "Presvedčila vás nezisková koncepcia aplikácie Integreat a myslíte si, že aj vaše mesto, okres alebo obec by mohli profitovať z digitálneho riešenia? Potom sa môžete celkom ľahko stať aktívnymi.",
+      "whatToDo": "Môžete to urobiť:",
+      "findOutMail": "Zistite e-mailovú adresu svojho regiónu",
+      "sendText": "Skopírujte tento text, vyplňte obsah [ ] svojimi údajmi a odošlite",
+      "copyText": "Skopírovať text"
     },
     "so": {
       "callToAction": "Ablikeeshinka Recomment Integreat ee gobolkaaga!",
@@ -835,6 +849,19 @@
       "optional": "опционально",
       "back": "Назад"
     },
+    "sk": {
+      "copied": "Skopírované",
+      "moreOptions": "Viac možností",
+      "languageNotAvailable": "Váš jazyk tu žiaľ nie je k dispozícii.",
+      "chooseALanguage": "Vyberte si jazyk.",
+      "lastUpdate": "Posledná aktualizácia:",
+      "loading": "Načítajte ...",
+      "close": "Zatvoriť",
+      "showMore": "Zobraziť viac",
+      "showLess": "Zobraziť menej",
+      "optional": "voliteľné",
+      "back": "Späť"
+    },
     "so": {
       "copied": "la koobiyeeyay",
       "moreOptions": "Xulashooyin dheeraad ah",
@@ -1204,6 +1231,16 @@
       "knownResourceBlocked": "Сторонний контент из этого источника был заблокирован. Ты можешь разрешить получение контента из этого источника в настройках.",
       "noSources": "Нет доступных внешних источников."
     },
+    "sk": {
+      "title": "Externé zdroje",
+      "description": "Môžete trvalo súhlasiť so zobrazovaním vložených obsahov z externých zdrojov. Výber sa potom trvalo uloží vo vašom internetovom prehliadači. Súhlas je tu možné kedykoľvek odvolať.",
+      "descriptionNative": "Môžete trvalo súhlasiť so zobrazovaním vložených obsahov od poskytovateľov tretích strán. Výber sa potom trvalo uloží na vašom lokálnom zariadení. Súhlas je tu možné kedykoľvek odvolať.",
+      "consentDescription": "Povolenie obsahov zo {{source}}",
+      "knownResourceOptIn": "Súhlasím s tým, aby sa mi zobrazovalo obsahy z tohto externého zdroja.",
+      "knownResourceContentMessage": "Tento prvok obsahuje údaje z tohto externého zdroja. Vkladanie takýchto obsahov môžete zablokovať v nastaveniach",
+      "knownResourceBlocked": "Externý obsah z tohto zdroja bol zablokovaný. Tento zdroj môžete povoliť v nastaveniach.",
+      "noSources": "Nie sú k dispozícii žiadne externé zdroje."
+    },
     "so": {
       "title": "Agabka dibada dheeriga",
       "description": "Waxaad si waarta u ogolaan kartaa in aad muujiso xogta ku lifaaqan agabka dibada. Doorashadan ayaa si ebid ah loogu keydin doona bogga browserkaaga. Waxaad dib uuga noqon kartaa ogolaanshaha waqti kasto.",
@@ -1446,6 +1483,12 @@
       "news": "Новости",
       "pois": "Карта"
     },
+    "sk": {
+      "localInformation": "Lokálne informácie",
+      "events": "Podujatia",
+      "news": "Správy",
+      "pois": "Mapa"
+    },
     "so": {
       "localInformation": "Macluumaadka deegaanka",
       "events": "Dhacdooyinka",
@@ -1576,6 +1619,9 @@
     },
     "ru": {
       "pageTitle": "Выходные данные и контактная информация"
+    },
+    "sk": {
+      "pageTitle": "Tiráž a kontakt"
     },
     "so": {
       "pageTitle": "Faahfaahinta qoraaga iyo macaluumaadkiisa xiriirka"
@@ -2458,6 +2504,40 @@
       "noCalendarPermission": "Доступ к календарю запрещен.",
       "noCalendarFound": "Подходящий календарь не найден."
     },
+    "sk": {
+      "notFound": {
+        "language": "Tento jazyk tu žiaľ nie je k dispozícii.",
+        "city": "Tento región žiaľ nebol nájdený.",
+        "category": "Táto stránka žiaľ nebola nájdená.",
+        "event": "Táto udalosť žiaľ nebola nájdená.",
+        "poi": "Toto miesto žiaľ nebolo nájdené.",
+        "news": "Táto správa žiaľ nebola nájdená.",
+        "pageTitle": "Stránka nebola nájdená"
+      },
+      "pageNotFound": "Táto stránka žiaľ nebola nájdená.",
+      "noSuitableAppInstalled": "Nie je nainštalovaná žiadna vhodná aplikácia.",
+      "networkConnectionFailed": "Pripojenie na server sa nepodarilo.",
+      "networkRequestFailed": "Dopyt nebolo možné spracovať.",
+      "responseMappingFailed": "Odpoveď servera nebolo možné spracovať.",
+      "unknownError": "Vyskytla sa neznáma chyba.",
+      "tryAgain": "Pokúste sa znova",
+      "loadingFailed": "Stránku žiaľ nebolo možné načítať.",
+      "chooseALanguage": "Vyberte si jazyk:",
+      "goTo": {
+        "start": "Na úvodnú stránku",
+        "categories": "Ku kategóriám",
+        "events": "Ku podujatiam",
+        "pois": "Ku mape",
+        "news": "K správam"
+      },
+      "pageTitle": "Chyba",
+      "generalError": "Vyskytla sa chyba",
+      "notSupportedByDevice": "Táto funkcia nie je na tomto zariadení podporovaná.",
+      "languageSwitchFailedTitle": "Zmena jazyka sa žiaľ nepodarila.",
+      "languageSwitchFailedMessage": "Vybraný jazyk nie je k dispozícii offline. Je potrebné aktívne internetové pripojenie.",
+      "noCalendarPermission": "Prístup do kalendára nie je dovolený.",
+      "noCalendarFound": "Nebol nájdený žiadny vhodný kalendár."
+    },
     "so": {
       "notFound": {
         "language": "Nasiib darro, luuqadan halkan lagama heli karo.",
@@ -3291,6 +3371,27 @@
       "onlyThisEvent": "Только это мероприятие",
       "thisAndAllFutureEvents": "Это и все последующие мероприятия"
     },
+    "sk": {
+      "address": "Adresa",
+      "date_one": "Dátum",
+      "date_other": "Termíny",
+      "nextDate_one": "Nasledujúci termín",
+      "nextDate_other": "Nasledujúce termíny",
+      "events": "Podujatia",
+      "exportAsICal": "Exportovať ako iCal",
+      "addToCalendar": "Pridať do kalendára",
+      "currentlyNoEvents": "Aktuálne nie sú k dispozícii žiadne podujatia.",
+      "pageTitle": "Podujatia",
+      "chooseCalendar": "Výber kalendára",
+      "added": "Pridané",
+      "goToCalendar": "Ku kalendáru",
+      "settings": "Nastavenia",
+      "recurring": "opakujúce sa",
+      "today": "dnes",
+      "todayRecurring": "dnes, opakujúce sa",
+      "onlyThisEvent": "Iba toto podujatie",
+      "thisAndAllFutureEvents": "Toto a všetky budúce podujatia"
+    },
     "so": {
       "address": "ciwaanka",
       "date_one": "taariikhda",
@@ -3490,7 +3591,7 @@
       "headline": "Wie findest du diese Seite?",
       "description": "Wähle eine Reaktion aus und/oder schreibe einen Kommentar.",
       "commentHeadline": "Kommentar",
-      "commentDescription": "Teile uns dein Feedback mit! Wir schätzen sowohl positives als auch negatives Feedback, da es uns hilft, Integreat zu verbessern.",
+      "commentDescription": "Teile uns dein Feedback mit! Wir schätzen sowohl positives als auch negatives Feedback, da es uns hilft, {{appName}} zu verbessern.",
       "isThisSiteUseful": "Ist diese Seite hilfreich?",
       "useful": "Hilfreich",
       "notUseful": "Nicht hilfreich",
@@ -3513,7 +3614,7 @@
       "headline": "ስለዚህ ገጽ ምን ያስባሉ?",
       "description": "ምላሽ ይምረጡ እና/ወይም አስተያየት ይጻፉ።",
       "commentHeadline": "አስተያየት",
-      "commentDescription": "ከእኛ ጋር ግብረመልስዎን ያጋሩ! አዎንታዊ እና አሉታዊ ግብረመልሶች Integreatን ለማሻሻል ስለሚያግዙን፣ ሁለቱንም እንቀበላለን።",
+      "commentDescription": "ከእኛ ጋር ግብረመልስዎን ያጋሩ! አዎንታዊ እና አሉታዊ ግብረመልሶች {{appName}}ን ለማሻሻል ስለሚያግዙን፣ ሁለቱንም እንቀበላለን።",
       "isThisSiteUseful": "ይህ ገጽ ጠቃሚ ነው?",
       "useful": "ጠቃሚ ነው",
       "notUseful": "ጠቃሚ አይደለም",
@@ -3536,7 +3637,7 @@
       "headline": "كيف ترى هذه الصفحة؟",
       "description": "اختر رد فعل و/ أو اكتب تعليقًا.",
       "commentHeadline": "تعليق",
-      "commentDescription": "شارك برأيك معنا! نحن نقدر الرأي الإيجابي والسلبي على حد سواء، فكلاهما يساعدنا في تحسين Integreat.",
+      "commentDescription": "شارك برأيك معنا! نحن نقدر الرأي الإيجابي والسلبي على حد سواء، فكلاهما يساعدنا في تحسين {{appName}}.",
       "isThisSiteUseful": "هل هذه الصفحة مفيدة؟",
       "useful": "مفيدة",
       "notUseful": "غير مفيدة",
@@ -3559,7 +3660,7 @@
       "headline": "Какво мислиш за тази страница?",
       "description": "Избери реакция и/или напиши коментар.",
       "commentHeadline": "Коментар",
-      "commentDescription": "Сподели отзивите си с нас! Ние ценим както положителната, така и отрицателната обратна връзка, тъй като тя ни помага да подобрим Integreat.",
+      "commentDescription": "Сподели отзивите си с нас! Ние ценим както положителната, така и отрицателната обратна връзка, тъй като тя ни помага да подобрим {{appName}}.",
       "isThisSiteUseful": "Полезна ли е тази страница?",
       "useful": "Полезна е",
       "notUseful": "Не е полезна",
@@ -3582,7 +3683,7 @@
       "headline": "بۆچوونت لەسەر ئەم پەیجەت چییە؟",
       "description": "کاردانەوەیەک هەڵبژێرە و/یان کۆمێنتێک دابنێ.",
       "commentHeadline": "کۆمێنت",
-      "commentDescription": "ڕا و بۆچوونی خۆتمان بۆ باس بکە! ئێمـە ڕێز دەگرین لە هەردوو کاردانەوەی ئەرێنی و نەرێنی لەبەرئەوەی یارمەتیدەرمانە بۆ باشترکردنی Integreat.",
+      "commentDescription": "ڕا و بۆچوونی خۆتمان بۆ باس بکە! ئێمـە ڕێز دەگرین لە هەردوو کاردانەوەی ئەرێنی و نەرێنی لەبەرئەوەی یارمەتیدەرمانە بۆ باشترکردنی {{appName}}.",
       "isThisSiteUseful": "ئاخۆ ئەم لاپەڕەیە بەکەڵکە؟",
       "useful": "بەکەڵکە",
       "notUseful": "بەکەڵ نییە",
@@ -3605,7 +3706,7 @@
       "headline": "Líbila se vám tato stránka?",
       "description": "Vyberte reakci a/nebo napište komentář.",
       "commentHeadline": "Komentář",
-      "commentDescription": "Zanechejte nám zpětnou vazbu! Vážíme si jak pozitivní, tak negativní zpětné vazby, protože nám pomáhá zlepšovat Integreat.",
+      "commentDescription": "Zanechejte nám zpětnou vazbu! Vážíme si jak pozitivní, tak negativní zpětné vazby, protože nám pomáhá zlepšovat {{appName}}.",
       "isThisSiteUseful": "Je tato stránka užitečná?",
       "useful": "Užitečné",
       "notUseful": "Neužitečné",
@@ -3628,7 +3729,7 @@
       "headline": "Πώς βρίσκετε αυτή τη σελίδα;",
       "description": "Επιλέξτε μια αντίδραση ή/και γράψτε ένα σχόλιο.",
       "commentHeadline": "Σχόλιο",
-      "commentDescription": "Μοιραστείτε μαζί μας τα σχόλιά σας! Εκτιμούμε τόσο τα θετικά όσο και τα αρνητικά σχόλια, καθώς μας βοηθούν να βελτιώσουμε την Integreat.",
+      "commentDescription": "Μοιραστείτε μαζί μας τα σχόλιά σας! Εκτιμούμε τόσο τα θετικά όσο και τα αρνητικά σχόλια, καθώς μας βοηθούν να βελτιώσουμε την {{appName}}.",
       "isThisSiteUseful": "Είναι χρήσιμη αυτή η σελίδα;",
       "useful": "Χρήσιμη",
       "notUseful": "Μη χρήσιμη",
@@ -3651,7 +3752,7 @@
       "headline": "What do you think of this page?",
       "description": "Select a reaction and/or write a comment.",
       "commentHeadline": "Comment",
-      "commentDescription": "Share your feedback with us! We welcome both positive and negative feedback, as it helps us to improve Integreat.",
+      "commentDescription": "Share your feedback with us! We welcome both positive and negative feedback, as it helps us to improve {{appName}}.",
       "isThisSiteUseful": "Is this site useful?",
       "useful": "Useful",
       "notUseful": "Not useful",
@@ -3674,7 +3775,7 @@
       "headline": "¿Qué te parece esta página?",
       "description": "Selecciona una reacción y/o escribe un comentario.",
       "commentHeadline": "Comentario",
-      "commentDescription": "¡Comparte tu opinión con nosotros! Valoramos tanto las opiniones positivas como negativas, ya que nos ayudan a mejorar Integreat.",
+      "commentDescription": "¡Comparte tu opinión con nosotros! Valoramos tanto las opiniones positivas como negativas, ya que nos ayudan a mejorar {{appName}}.",
       "isThisSiteUseful": "¿Esta página sirve de ayuda?",
       "useful": "Sirve de ayuda",
       "notUseful": "No sirve de ayuda",
@@ -3697,7 +3798,7 @@
       "headline": "Mitä mieltä olet tästä sivusta?",
       "description": "Valitse reaktio tai kirjoita kommentti.",
       "commentHeadline": "Kommentti",
-      "commentDescription": "Anna meille palautetta! Arvostamme niin positiivista kuin negatiivista palautetta, sillä palaute auttaa meitä parantamaan Integreatia.",
+      "commentDescription": "Anna meille palautetta! Arvostamme niin positiivista kuin negatiivista palautetta, sillä palaute auttaa meitä parantamaan {{appName}}ia.",
       "isThisSiteUseful": "Oliko tämä sivu hyödyllinen?",
       "useful": "Hyödyllinen",
       "notUseful": "Ei hyödyllinen",
@@ -3720,7 +3821,7 @@
       "headline": "Que penses-tu de cette page ?",
       "description": "Choisis une réaction et/ou écris un commentaire.",
       "commentHeadline": "Commentaire",
-      "commentDescription": "Fais-nous part de tes commentaires ! Nous apprécions les commentaires positifs et négatifs, car ils nous aident à améliorer Integreat.",
+      "commentDescription": "Fais-nous part de tes commentaires ! Nous apprécions les commentaires positifs et négatifs, car ils nous aident à améliorer {{appName}}.",
       "isThisSiteUseful": "Est-ce que cette page est utile ?",
       "useful": "Utile",
       "notUseful": "Pas utile",
@@ -3743,7 +3844,7 @@
       "headline": "Kako ti se sviđa naša stranica?",
       "description": "Izaberi reakciju i/ili napiši komentar.",
       "commentHeadline": "Komentar",
-      "commentDescription": "Pošalji nam svoje povratne informacije! Cijenimo kako pozitivne tako i negativne povratne informacije, jer nam pomažu u poboljšavanju Integreata.",
+      "commentDescription": "Pošalji nam svoje povratne informacije! Cijenimo kako pozitivne tako i negativne povratne informacije, jer nam pomažu u poboljšavanju {{appName}}a.",
       "isThisSiteUseful": "Je li ova stranica korisna?",
       "useful": "Korisna je",
       "notUseful": "Nije korisna",
@@ -3766,7 +3867,7 @@
       "headline": "Mi a véleménye az oldalról?",
       "description": "Válasszon ki egy reakciót és/vagy írjon egy megjegyzést.",
       "commentHeadline": "Megjegyzés",
-      "commentDescription": "Ossza meg a visszajelzéseit! A pozitív és negatív visszajelzéseknek egyaránt örülünk, mivel ezek segítenek az Integreat javításában.",
+      "commentDescription": "Ossza meg a visszajelzéseit! A pozitív és negatív visszajelzéseknek egyaránt örülünk, mivel ezek segítenek az {{appName}} javításában.",
       "isThisSiteUseful": "Hasznos ez az oldal?",
       "useful": "Hasznos",
       "notUseful": "Nem hasznos",
@@ -3789,7 +3890,7 @@
       "headline": "Cosa ne pensi di questa pagina?",
       "description": "Seleziona una reazione e/o scrivi un commento.",
       "commentHeadline": "Commento",
-      "commentDescription": "Condividi con noi il tuo feedback! Apprezziamo sia i feedback positivi che quelli negativi perché ci aiutano a migliorare Integreat.",
+      "commentDescription": "Condividi con noi il tuo feedback! Apprezziamo sia i feedback positivi che quelli negativi perché ci aiutano a migliorare {{appName}}.",
       "isThisSiteUseful": "Questa pagina è utile?",
       "useful": "Utile",
       "notUseful": "Non utile",
@@ -3835,7 +3936,7 @@
       "headline": "Çawa tu vê rûpelê dihebînî?",
       "description": "Bertekekê bibijêre û nêrînekê binivîse.",
       "commentHeadline": "Nêrîn",
-      "commentDescription": "Nêrînên xwe digel me parve bike! Em girîngiyê didin fîdbek û bertekên erênî û nerênî, ji ber ku alîkairya me ji bo baştirkirina Integreat'ê dike.",
+      "commentDescription": "Nêrînên xwe digel me parve bike! Em girîngiyê didin fîdbek û bertekên erênî û nerênî, ji ber ku alîkairya me ji bo baştirkirina {{appName}}'ê dike.",
       "isThisSiteUseful": "Gelo ev rûpel sûdmend e?",
       "useful": "Sûdewer",
       "notUseful": "Bêkêr (Ne-Sûdewer)",
@@ -3858,7 +3959,7 @@
       "headline": "Како ја најдовте страницава?",
       "description": "Изберете реакција и/или напишете коментар.",
       "commentHeadline": "Коментар",
-      "commentDescription": "Споделете го вашето мислење! Ги цениме и позитивните и негативните мислења бидејќи ни помагаат да го подобриме Integreat.",
+      "commentDescription": "Споделете го вашето мислење! Ги цениме и позитивните и негативните мислења бидејќи ни помагаат да го подобриме {{appName}}.",
       "isThisSiteUseful": "Дали ти помогна оваа страница?",
       "useful": "Ми помогна",
       "notUseful": "Не ми помогна",
@@ -3881,7 +3982,7 @@
       "headline": "Wat vind je van deze pagina?",
       "description": "Selecteer een reactie en/of schrijf een commentaar.",
       "commentHeadline": "Commentaar",
-      "commentDescription": "Deel je feedback met ons! We waarderen zowel positieve als negatieve feedback omdat het ons helpt Integreat te verbeteren.",
+      "commentDescription": "Deel je feedback met ons! We waarderen zowel positieve als negatieve feedback omdat het ons helpt {{appName}} te verbeteren.",
       "isThisSiteUseful": "Is deze website nuttig?",
       "useful": "Nuttig",
       "notUseful": "Niet nuttig",
@@ -3904,7 +4005,7 @@
       "headline": "نظر شما راجع به این صفحه چیست؟",
       "description": "یک واکنش را انتخاب کنید و/یا یک نظر بنویسید.",
       "commentHeadline": "نظر",
-      "commentDescription": "بازخورد خود را با در میان بگذارید! ما برای بازخورد مثبت و منفی ارزش قائل هستیم، زیرا به ما در بهبود Integreat کمک می‌کند.",
+      "commentDescription": "بازخورد خود را با در میان بگذارید! ما برای بازخورد مثبت و منفی ارزش قائل هستیم، زیرا به ما در بهبود {{appName}} کمک می‌کند.",
       "isThisSiteUseful": "آیا این صفحه مفید است؟",
       "useful": "مفید",
       "notUseful": "غیر مفید",
@@ -3927,7 +4028,7 @@
       "headline": "Co sądzisz o tej stronie?",
       "description": "Wybierz reakcję i/lub napisz komentarz.",
       "commentHeadline": "Komentarz",
-      "commentDescription": "Podziel się z nami swoją opinią! Cenimy zarówno pozytywne, jak i negatywne opinie, ponieważ pomagają nam one ulepszać Integreat.",
+      "commentDescription": "Podziel się z nami swoją opinią! Cenimy zarówno pozytywne, jak i negatywne opinie, ponieważ pomagają nam one ulepszać {{appName}}.",
       "isThisSiteUseful": "Czy ta strona jest pomocna?",
       "useful": "Przydatne",
       "notUseful": "Nie przydatne",
@@ -3950,7 +4051,7 @@
       "headline": "نظر شما راجع به این صفحه چیست؟",
       "description": "یک واکنش را انتخاب کرده و/یا یک نظر بنویسید.",
       "commentHeadline": "نظر",
-      "commentDescription": "نظر خود را با در میان بگذارید! ما برای نظر مثبت و منفی ارزش قائل هستیم، زیرا به ما در بهبود Integreat کمک می کند.",
+      "commentDescription": "نظر خود را با در میان بگذارید! ما برای نظر مثبت و منفی ارزش قائل هستیم، زیرا به ما در بهبود {{appName}} کمک می کند.",
       "isThisSiteUseful": "آیا این صفحه موثر است؟",
       "useful": "موثر است",
       "notUseful": "موثر نیست",
@@ -3973,7 +4074,7 @@
       "headline": "ددې پاڼې په اړه ستاسو نظر څه دی؟",
       "description": "يو عکس العمل وټاکئ او/يا يو نظر وليکئ.",
       "commentHeadline": "نظر",
-      "commentDescription": "له مونږ سره خپل نظر شريک کړئ! مونږ مثبت او منفي دواړو نظرونو ته ارزښت ورکوو، ځکه چې له مونږ سره د Integreat په ښه والي کې مرسته کوي.",
+      "commentDescription": "له مونږ سره خپل نظر شريک کړئ! مونږ مثبت او منفي دواړو نظرونو ته ارزښت ورکوو، ځکه چې له مونږ سره د {{appName}} په ښه والي کې مرسته کوي.",
       "isThisSiteUseful": "آیا دا پاڼه ګټوره ده؟",
       "useful": "ګټوره ده",
       "notUseful": "ګټوره نده",
@@ -3996,7 +4097,7 @@
       "headline": "O que é que acha desta página?",
       "description": "Seleccione uma reação e/ou escreva um comentário.",
       "commentHeadline": "Comentário",
-      "commentDescription": "Partilhe a sua opinião connosco! Valorizamos tanto os comentários positivos como os negativos, pois ajudam-nos a melhorar a Integreat.",
+      "commentDescription": "Partilhe a sua opinião connosco! Valorizamos tanto os comentários positivos como os negativos, pois ajudam-nos a melhorar a {{appName}}.",
       "isThisSiteUseful": "Esta página é útil?",
       "useful": "É útil",
       "notUseful": "Não é útil",
@@ -4019,7 +4120,7 @@
       "headline": "Ce părere aveți despre această pagină?",
       "description": "Selectați o reacție și/sau scrieți un comentariu.",
       "commentHeadline": "Comentariu",
-      "commentDescription": "Împărtășește-ne feedback-ul tău! Apreciem atât feedback-ul pozitiv, cât și cel negativ, deoarece ne ajută să îmbunătățim Integreat.",
+      "commentDescription": "Împărtășește-ne feedback-ul tău! Apreciem atât feedback-ul pozitiv, cât și cel negativ, deoarece ne ajută să îmbunătățim {{appName}}.",
       "isThisSiteUseful": "A fost utilă această pagină?",
       "useful": "utilă",
       "notUseful": "inutilă",
@@ -4042,7 +4143,7 @@
       "headline": "Как бы ты оценил/-а эту страницу?",
       "description": "Выбери реакцию и/или напиши комментарий.",
       "commentHeadline": "Комментарий",
-      "commentDescription": "Поделись с нами отзывом! Мы ценим как положительные, так и отрицательные отзывы, ведь они помогают нам совершенствовать Integreat.",
+      "commentDescription": "Поделись с нами отзывом! Мы ценим как положительные, так и отрицательные отзывы, ведь они помогают нам совершенствовать {{appName}}.",
       "isThisSiteUseful": "Содержит ли эта страница полезную информацию?",
       "useful": "Да",
       "notUseful": "Нет",
@@ -4057,6 +4158,29 @@
       "contactMailAddress": "Эл. почта для встречных вопросов",
       "note": "Чтобы отправить отзыв, пожалуйста, выбери реакцию или напиши комментарий."
     },
+    "sk": {
+      "disclaimer": "Kontakt a tiráž",
+      "send": "Odoslať",
+      "failedSendingFeedback": "Pri posielaní spätnej väzby sa vyskytla chyba.",
+      "feedback": "Spätná väzba",
+      "headline": "Ako nájdete túto stránku?",
+      "description": "Vyberte reakciu a/alebo napíšte komentár.",
+      "commentHeadline": "Komentár",
+      "commentDescription": "Podeľte sa s nami o svoju spätnú väzbu! Ceníme si ako pozitívnu, tak aj negatívnu spätnú väzbu, pretože nám pomáha zlepšovať {{appName}}.",
+      "isThisSiteUseful": "Je táto stránka nápomocná?",
+      "useful": "Nápomocná",
+      "notUseful": "Nie je nápomocná",
+      "informationNotFound": "Nenašli ste to správne?",
+      "wantedInformation": "Ktoré informácie tu chýbajú?",
+      "feedbackSent": "Odoslaná spätná väzba",
+      "thanksHeadline": "Ďakujeme vám za vašu spätnú väzbu.",
+      "thanksMessage": "Vaša spätná väzba bola úspešne odoslaná.",
+      "negativeRating": "Táto stránka nie je nápomocná",
+      "positiveRating": "Táto stránka je nápomocná",
+      "searchTermDescription": "Pre nasledujúci pojem nebolo možné nájsť žiadny výsledok:",
+      "contactMailAddress": "E-mail pre spätné otázky",
+      "note": "Vyberte reakciu alebo napíšte komentár, aby ste mohli odoslať spätnú väzbu."
+    },
     "so": {
       "disclaimer": "Macluumaadka xiriirka iyo faahfaahinta qoraaga",
       "send": "Dir",
@@ -4065,7 +4189,7 @@
       "headline": "Sidee ayaad ku helaysaa boggan?",
       "description": "Dooro falcelinta iyo/ ama faallo qor.",
       "commentHeadline": "faallo",
-      "commentDescription": "Nala wadaag ra'yi-celintaada! Waxaannu qiimeynaynaa jawaab celin togan iyo mida taban labadaba maadaama ay naga caawineyso horumarinta Integreat.",
+      "commentDescription": "Nala wadaag ra'yi-celintaada! Waxaannu qiimeynaynaa jawaab celin togan iyo mida taban labadaba maadaama ay naga caawineyso horumarinta {{appName}}.",
       "isThisSiteUseful": "Boggan waxtar ma leeyahay?",
       "useful": "Waxtar leh",
       "notUseful": "Aan waxtar lahayn",
@@ -4088,7 +4212,7 @@
       "headline": "Si të duket kjo faqe?",
       "description": "Zgjidh një reagim dhe/ose shkruaj një koment.",
       "commentHeadline": "Koment",
-      "commentDescription": "Ndaj me ne përshtypjet e tua! Ne i vlerësojmë si përshtypjet pozitive ashtu edhe ato negative, sepse na ndihmojnë të përmirësojmë Integreat-in.",
+      "commentDescription": "Ndaj me ne përshtypjet e tua! Ne i vlerësojmë si përshtypjet pozitive ashtu edhe ato negative, sepse na ndihmojnë të përmirësojmë {{appName}}-in.",
       "isThisSiteUseful": "A është kjo faqe e dobishme?",
       "useful": "E dobishme",
       "notUseful": "Jo e dobishme",
@@ -4111,7 +4235,7 @@
       "headline": "Како ти се допада ова страница?",
       "description": "Изабери реакцију и/или напиши коментар.",
       "commentHeadline": "Коментар",
-      "commentDescription": "Пошаљи нам своје повратне информације! Ценимо како позитивне тако и негативне повратне информације, јер нам помажу да побољшамо Integreat.",
+      "commentDescription": "Пошаљи нам своје повратне информације! Ценимо како позитивне тако и негативне повратне информације, јер нам помажу да побољшамо {{appName}}.",
       "isThisSiteUseful": "Да ли је ова страница била корисна?",
       "useful": "Корисно",
       "notUseful": "Није корисно",
@@ -4134,7 +4258,7 @@
       "headline": "Kako ti se dopada ova stranica?",
       "description": "Izaberi reakciju i/ili napiši komentar.",
       "commentHeadline": "Komentar",
-      "commentDescription": "Pošalji nam svoje povratne informacije! Cenimo kako pozitivne tako i negativne povratne informacije, jer nam pomažu da poboljšamo Integreat.",
+      "commentDescription": "Pošalji nam svoje povratne informacije! Cenimo kako pozitivne tako i negativne povratne informacije, jer nam pomažu da poboljšamo {{appName}}.",
       "isThisSiteUseful": "Da li je ova stranica od pomoći?",
       "useful": "Od pomoći",
       "notUseful": "Nije od pomoći",
@@ -4157,7 +4281,7 @@
       "headline": "ነዚ ገጽ ብኸመይ ትረኽብዎ?",
       "description": "ግብረ መልሲ ምረጽን/ወይ ርእይቶ ጽሓፍን።",
       "commentHeadline": "ርእይቶ",
-      "commentDescription": "ርእይቶኹም ኣካፍሉና! ንIntegreat ንምምሕያሽ ስለ ዝሕግዘና ኣወንታዊን ኣሉታውን ግብረ መልሲ ዋጋ ንህቦ።",
+      "commentDescription": "ርእይቶኹም ኣካፍሉና! ን{{appName}} ንምምሕያሽ ስለ ዝሕግዘና ኣወንታዊን ኣሉታውን ግብረ መልሲ ዋጋ ንህቦ።",
       "isThisSiteUseful": "እዚ ገጽ’ዚ ሓግዚ ድዩ፧",
       "useful": "ሓጋዚ",
       "notUseful": "ሓጋዚ ኣይኮነን",
@@ -4180,7 +4304,7 @@
       "headline": "Bu sayfa hakkında ne düşünüyorsun?",
       "description": "Bir tepki seç ve/veya bir yorum yaz.",
       "commentHeadline": "Yorum",
-      "commentDescription": "Görüşlerini bizimle paylaş! Integreat'i geliştirmemize yardımcı olduğundan hem olumlu hem de olumsuz geri bildirimlere değer veriyoruz.",
+      "commentDescription": "Görüşlerini bizimle paylaş! {{appName}}'i geliştirmemize yardımcı olduğundan hem olumlu hem de olumsuz geri bildirimlere değer veriyoruz.",
       "isThisSiteUseful": "Bu sayfa yardımcı oldu mu?",
       "useful": "Yardımcı",
       "notUseful": "Yardımcı değil",
@@ -4203,7 +4327,7 @@
       "headline": "Що ви думаєте про цю сторінку?",
       "description": "Виберіть реакцію та/або напишіть коментар.",
       "commentHeadline": "Коментар",
-      "commentDescription": "Додайте свій відгук! Ми цінуємо як позитивні, так і негативні відгуки, оскільки вони допомагають вдосконалювати Integreat.",
+      "commentDescription": "Додайте свій відгук! Ми цінуємо як позитивні, так і негативні відгуки, оскільки вони допомагають вдосконалювати {{appName}}.",
       "isThisSiteUseful": "Чи корисна ця сторінка?",
       "useful": "Корисна",
       "notUseful": "Не допомагає",
@@ -4226,7 +4350,7 @@
       "headline": "اس صفحہ کے بارے میں آپ کا کیا خیال ہے؟",
       "description": "ایک ردعمل منتخب کریں اور/یا تبصرہ لکھیں۔",
       "commentHeadline": "تبصرہ",
-      "commentDescription": "ہمارے ساتھ اپنی رائے کا اشتراک کریں! ہم مثبت اور منفی دونوں تاثرات کا خیرمقدم کرتے ہیں، کیونکہ یہ Integreat کو بہتر بنانے میں ہماری مدد کرتا ہے۔",
+      "commentDescription": "ہمارے ساتھ اپنی رائے کا اشتراک کریں! ہم مثبت اور منفی دونوں تاثرات کا خیرمقدم کرتے ہیں، کیونکہ یہ {{appName}} کو بہتر بنانے میں ہماری مدد کرتا ہے۔",
       "isThisSiteUseful": "کیا یہ صفحہ مددگار رہا؟",
       "useful": "مددگار",
       "notUseful": "غیر مددگار",
@@ -4249,7 +4373,7 @@
       "headline": "您对此页面有何看法？",
       "description": "请选择一个回应和/或给出评论。",
       "commentHeadline": "评论",
-      "commentDescription": "欢迎与我们分享您的反馈意见！无论是正面还是负面反馈，我们都非常重视，因为这些有助于我们改进 Integreat。",
+      "commentDescription": "欢迎与我们分享您的反馈意见！无论是正面还是负面反馈，我们都非常重视，因为这些有助于我们改进 {{appName}}。",
       "isThisSiteUseful": "这个网站对您有帮助吗？",
       "useful": "有帮助",
       "notUseful": "没有帮助",
@@ -4540,6 +4664,17 @@
       "eventsDescription": "Актуальные мероприятия и события рядом с вами",
       "skip": "Пропустить",
       "next": "Далее"
+    },
+    "sk": {
+      "appDescription": "{{appName}} je váš digitálny sprievodca pre Nemecko",
+      "search": "Vyhľadávanie",
+      "searchDescription": "Rýchle vyhľadávanie správnej informácie na základe kľúčových slov",
+      "languageChange": "Zmena jazyka",
+      "languageChangeDescription": "Jednoduché prestavenie jazyka jednotlivých stránok",
+      "events": "Podujatia",
+      "eventsDescription": "Aktuálne podujatia a termíny v okolí",
+      "skip": "Preskočiť",
+      "next": "Ďalej"
     },
     "so": {
       "appDescription": "{{appName}} waa tilmaamahaaga dhijitaalka ah ee Jarmalka",
@@ -5020,6 +5155,23 @@
       "refresh": "Обновить список близлежащих регионов",
       "pageTitle": "Местная информация для тебя",
       "metaDescription": "{{appName}} – это твой цифровой путеводитель по Германии. Узнавай местные новости, находи информацию о мероприятиях и консультациях. Всегда актуально и на твоем языке."
+    },
+    "sk": {
+      "searchCity": "Vyhľadávanie",
+      "noCitiesFound": "Žiadne výsledky",
+      "nearbyCities": "V blízkosti",
+      "noNearbyCities": "V blízkosti sa nenašli žiadne regióny.",
+      "alert": "Upozornenie",
+      "locationError": "Aby bolo možné zobraziť regióny v okolí, musia sa aktivovať lokalizačné služby.",
+      "noPermission": "Potrebný prístup na lokalitu",
+      "loading": "Určite lokalitu...",
+      "notAvailable": "Určenie lokality deaktivované",
+      "timeout": "Určenie lokality sa nepodarilo",
+      "refresh": "Aktualizácia zoznamu blízkych regiónov",
+      "pageTitle": "Lokálne informácie pre vás",
+      "metaDescription": "{{appName}} je váš digitálny sprievodca po Nemecku. Nájdite miestne informácie, podujatia a poradenstvo. Vždy aktuálne a vo vašom jazyku.",
+      "cityNotFound": "Nenašli ste svoj región? Buďte aktívni teraz!",
+      "suggestToRegion": "navrhnúť {{appName}} vo vašom regióne"
     },
     "so": {
       "searchCity": "Raadi",
@@ -5760,6 +5912,31 @@
       "sideBarOpenAriaLabel": "Открыть боковую панель",
       "sideBarCloseAriaLabel": "Закрыть боковую панель"
     },
+    "sk": {
+      "imprintAndContact": "Tiráž a kontakt",
+      "privacy": "Ochrana osobných údajov",
+      "localInformation": "Lokálne informácie",
+      "events": "Podujatia",
+      "noEvents": "Žiadne podujatia",
+      "news": "Správy",
+      "noLanguages": "Nie je k dispozícii v iných jazykoch",
+      "noTranslation": "Nie je k dispozícii žiadny preklad",
+      "search": "Vyhľadávať",
+      "locations": "Mapa",
+      "changeLocation": "Zmena lokality",
+      "changeLanguage": "Zmena jazyka",
+      "settings": "Nastavenia",
+      "copyUrl": "Skopírovať odkaz",
+      "feedback": "Spätná väzba",
+      "share": "Zdieľať",
+      "cancel": "Zrušiť",
+      "shareMessage": "Práve nájdené: {{message}}",
+      "shareFailDefaultMessage": "Zdieľanie obsahu sa žiaľ nepodarilo.",
+      "disclaimer": "Tiráž",
+      "sideBarOpenAriaLabel": "Otvoriť bočnú lištu",
+      "sideBarCloseAriaLabel": "Zatvoriť bočnú lištu",
+      "accessibility": "Bezbariérovosť"
+    },
     "so": {
       "imprintAndContact": "Faahfaahinta qoraaga iyo macaluumaadkiisa xiriirka",
       "privacy": "Asturnaanta",
@@ -6103,6 +6280,11 @@
       "license": "Лицензия:",
       "noLicensesMessage": "Нет  данных о лицензии"
     },
+    "sk": {
+      "version": "Verzia:",
+      "license": "Licencia:",
+      "noLicensesMessage": "Nie sú k dispozícii žiadne informácie o licencii"
+    },
     "so": {
       "version": "Nooca:",
       "license": "Shatiga:",
@@ -6224,6 +6406,9 @@
     },
     "ru": {
       "pageTitle": "Выходные данные и контактная информация – {{appName}}"
+    },
+    "sk": {
+      "pageTitle": "Tiráž a kontakt – {{appName}}"
     },
     "so": {
       "pageTitle": "Faahfaahinta qoraaga iyo macaluumaadkiisa xiriirka - {{appName}}"
@@ -6829,6 +7014,29 @@
       "submitFailedReasoning": "Пожалуйста, проверьте подключение к Интернету и повторите попытку.",
       "invalidEmailAddress": "Указан неверный адрес электронной почты."
     },
+    "sk": {
+      "supportNote": "Chceli by sme, aby ste sa v prípade problémov alebo otázok cítili bezpečne a podporovaní. Prostredníctvom nasledujúceho kontaktného formulára máte možnosť skontaktovať sa s kontaktnou osobou. Môžete uviesť druh svojej žiadosti a vybrať si z rôznych možností kontaktu.",
+      "securityNote": "Vaša bezpečnosť má pre nás najvyššiu prioritu. S vašimi údajmi sa bude zaobchádzať dôverne, aby vaša privátna sféra zostala vždy chránená.",
+      "name": "Priezvisko, meno",
+      "roomNumber": "Číslo miestnosti",
+      "howToBeContacted": "Takto by som chcel byť kontaktovaný:",
+      "eMail": "E-mail",
+      "telephone": "Telefón",
+      "telephoneNumber": "Tel. č.",
+      "personally": "Osobne",
+      "contactPerson": "Kontaktná osoba:",
+      "contactPersonAnyGender": "Pohlavie kontaktnej osoby nehrá žiadnu úlohu",
+      "contactPersonGenderFemale": "Chcel/a by som, aby ma kontaktovala osoba ženského pohlavia",
+      "contactPersonGenderMale": "Chcel/a by som, aby ma kontaktovala osoba mužského pohlavia",
+      "contactReason": "Vaša žiadosť:",
+      "maxCharacters": "maximálne {{numberOfCharacters}} znakov",
+      "responseDisclaimer": "Môže trvať niekoľko pracovných dní, kým obdržíte spätné hlásenie. Vašu žiadosť sa budeme snažiť spracovať čo najrýchlejšie.",
+      "submit": "Odoslať formulár",
+      "submitSuccessful": "Formulár bol úspešne odoslaný",
+      "submitFailed": "Formulár nebolo možné odoslať",
+      "submitFailedReasoning": "Zabezpečte stabilné internetové pripojenie a pokúste sa znova.",
+      "invalidEmailAddress": "Uvedená e-mailová adresa je neplatná."
+    },
     "so": {
       "supportNote": "Waxaan rabnaa in aad dareento amaan iyo in lagu taagerayo haddii aad qabto wax su'aal ah ama dhibaato ah. Foomka la xiriirida soo socota ayaa ku siinayo fursad aad kula xiriirto qofka la xiriireyso. Waxaad sheegi kartaa sababta codsigaaga adigoo ka xulanayo doorashooyinka xiriir aad sameyn karto.",
       "securityNote": "Amaankaagaayaa ahmiyadeena kowaad ah. Xogtaada ayaa la ilaalin doona si sirtaada shaqsi loo dhowro waqti walbo.",
@@ -7213,6 +7421,13 @@
       "NSCalendarsUsageDescription": "{{appName}} запрашивает доступ к календарю, чтобы добавить мероприятие.",
       "NSCalendarsFullAccessUsageDescription": "{{appName}} запрашивает доступ к календарю, чтобы добавить мероприятие."
     },
+    "sk": {
+      "NSPhotoLibraryAddUsageDescription": "Na uloženie obrázkov je potrebný prístup {{appName}} do galérie.",
+      "NSLocationWhenInUseUsageDescription": "Na nájdenie blízkych lokalít je potrebný prístup {{appName}} k lokalite.",
+      "NSLocationAlwaysAndWhenInUseUsageDescription": "Na nájdenie blízkych lokalít je potrebný prístup {{appName}} k lokalite.",
+      "NSCalendarsUsageDescription": "{{appName}} chce získať prístup ku kalendáru na pridanie udalosti.",
+      "NSCalendarsFullAccessUsageDescription": "{{appName}} chce získať prístup ku kalendáru na pridanie udalosti."
+    },
     "so": {
       "NSPhotoLibraryAddUsageDescription": "Si loo keydiyo sawirada, {{appName}} waxay u baahan tahay inay marin u hesho keydka sawirada.",
       "NSLocationWhenInUseUsageDescription": "Si loo helo meelaha kuugu dhow, {{appName}} wuxuu u baahan yahay inuu marin u helo goobta.",
@@ -7527,6 +7742,16 @@
       "local": "Местная информация",
       "readMore": "Подробнее",
       "currentlyNoNews": "В настоящий момент новости отсутствуют."
+    },
+    "sk": {
+      "news": "Správy",
+      "localNews": {
+        "localNews": "Lokálne správy",
+        "pageTitle": "Lokálne správy"
+      },
+      "local": "Lokálne",
+      "readMore": "Čítať ďalej",
+      "currentlyNoNews": "Aktuálne nie sú k dispozícii žiadne správy."
     },
     "so": {
       "news": "War",
@@ -9071,6 +9296,64 @@
       "clearFilter": "Удалить фильтр {{filter}}",
       "showOwnLocation": "Показать собственное местоположение"
     },
+    "sk": {
+      "pageTitle": "Mapa",
+      "poi": "Miesto",
+      "pois": "Miesta",
+      "map": "Mapa",
+      "showOnMap": "Zobraziť na mape",
+      "noPois": "Neboli nájdené žiadne miesta.",
+      "unitKilometre": "km",
+      "unitMetre": "m",
+      "distanceKilometre": "{{distance}} km vzdialené",
+      "distanceKilometreAlternative": "{{distance}} km",
+      "distanceMetre": "{{distance}} m vzdialené",
+      "distanceMetreAlternative": "{{distance}} m",
+      "contactInformation": "Kontaktné údaje",
+      "address": "Adresa",
+      "phone": "Telefónne číslo",
+      "eMail": "E-mailová adresa",
+      "website": "Webová stránka",
+      "openingHours": "Otváracie hodiny",
+      "description": "Opis",
+      "addressCopied": "Adresa skopírovaná do medzipamäte",
+      "phoneCopied": "Telefónne číslo skopírované do medzipamäte",
+      "eMailCopied": "E-mailová adresa skopírovaná do medzipamäte",
+      "websiteCopied": "Webová stránka skopírovaná do medzipamäte",
+      "listTitle": "Vo vašej blízkosti",
+      "detailsHeader": "späť na prehľad",
+      "detailsAddress": "Opis cesty",
+      "detailsMapLink": "Otvoriť v Google Maps",
+      "detailsInformation": "Informácie",
+      "detailsNextPoi": "nasledujúci",
+      "detailsPreviousPoi": "predchádzajúci",
+      "previousPoi": "Predchádzajúce miesto",
+      "nextPoi": "Nasledujúce miesto",
+      "openExternalMaps": "Otvoriť v aplikácii Mapy",
+      "allDay": "celodenne",
+      "opened": "otvorené",
+      "closed": "zatvorené",
+      "temporarilyClosed": "Dočasne zatvorené",
+      "montag": "Pondelok",
+      "dienstag": "Utorok",
+      "mittwoch": "Streda",
+      "donnerstag": "Štvrtok",
+      "freitag": "Piatok",
+      "samstag": "Sobota",
+      "sonntag": "Nedeľa",
+      "adjustFilters": "Filtrovať miesta",
+      "onlyCurrentlyOpen": "zobraziť len aktuálne otvorené miesta",
+      "poiCategories": "Kategórie",
+      "showPois_zero": "nájdených 0 miest",
+      "showPois_one": "zobraziť 1 miesto",
+      "showPois_two": "{{count}} Zobraziť miesta",
+      "showPois_few": "{{count}} Zobraziť miesta",
+      "showPois_many": "{{count}} Zobraziť miesta",
+      "showPois_other": "{{count}} Zobraziť miesta",
+      "alphabetLetters": "A-Z",
+      "clearFilter": "Vymazať filter {{filter}}",
+      "showOwnLocation": "Ukázať vlastnú lokalitu"
+    },
     "so": {
       "pageTitle": "khariidad",
       "poi": "goobta",
@@ -9920,6 +10203,19 @@
       "pageTitle": "Поиск",
       "delete": "Удалить введенные данные"
     },
+    "sk": {
+      "nothingFound": "Neboli žiaľ nájdené žiadne vhodné výsledky.",
+      "searchPlaceholder": "Vyhľadávanie",
+      "itemHint": "Otvoriť výsledok vyhľadávania",
+      "searchResultsCount_zero": "0 výsledkov vyhľadávania",
+      "searchResultsCount_one": "1 výsledok vyhľadávania",
+      "searchResultsCount_two": "2 výsledky vyhľadávania",
+      "searchResultsCount_few": "{{count}} Výsledky vyhľadávania",
+      "searchResultsCount_many": "{{count}} Výsledky vyhľadávania",
+      "searchResultsCount_other": "{{count}} Výsledky vyhľadávania",
+      "pageTitle": "Vyhľadávanie",
+      "delete": "Vymazať zadanie"
+    },
     "so": {
       "nothingFound": "Nasiib darro natiijooyin ku habboon lama helin.",
       "searchPlaceholder": "Raadin",
@@ -10589,6 +10885,28 @@
       "externalResourcesTitle": "Внешние источники",
       "externalResourcesDescription": "Укажите разрешенные внешние источники."
     },
+    "sk": {
+      "sentryTitle": "Stabilita aplikácie",
+      "sentryDescription": "Vylepšiť automatické posielanie správ o zlyhaní aplikácie {{appName}}",
+      "pushNewsTitle": "Oznámenia Push",
+      "pushNewsDescription": "Obdržať Oznámenia Push pre najnovšie lokálne správy",
+      "about": "O {{appName}}",
+      "privacyPolicy": "Vyhlásenie o ochrane osobných údajov",
+      "version": "Verzia: {{version}}",
+      "openSourceLicenses": "Licencie Open-Source",
+      "tracking": "Vyhodnotenie J-PAL",
+      "allowTracking": "Dovoliť sledovanie",
+      "trackingShortDescription": "Zúčastnite sa na hodnotiacej štúdii J-PAL na zlepšenie {{appName}}.",
+      "trackingMoreInformation": "Ďalšie informácie o hodnotiacej štúdii J-Pal a cieľoch výskumu",
+      "trackingDescription": "{{appName}} žiada o povolenie sledovať vaše používanie v rámci aplikácie. Vaše údaje sa anonymizujú a používajú len na výskumné účely a na zlepšenie aplikácie. Údaje o sledovaní sa nezdieľajú ani nespracúvajú na reklamu alebo iné komerčné účely.",
+      "trackingLeaveTitle": "Povoliť sledovanie?",
+      "trackingLeaveDescription": "Sledovanie ste nepovolili. Sledovanie nám pomáha zlepšovať aplikáciu {{appName}} a pripravovať lepšie informácie pre prisťahovalcov. Ste si istí, že chcete opustiť obrazovku bez povolenia sledovania?",
+      "enabled": "aktivované",
+      "disabled": "deaktivované",
+      "decline": "Odmietnuť",
+      "externalResourcesTitle": "Externé zdroje",
+      "externalResourcesDescription": "Určite, ktoré externé zdroje sú povolené."
+    },
     "so": {
       "sentryTitle": "Deganaanshaha Aaladda",
       "sentryDescription": "Hagaaji {{appName}} adigoo si otomatigga ah u diraya warbixinnada ciladaha",
@@ -10939,6 +11257,12 @@
       "whatsappTooltip": "поделиться в WhatsApp",
       "closeTooltip": "Закрыть"
     },
+    "sk": {
+      "facebookTooltip": "zdieľať na Facebooku",
+      "mailTooltip": "odporúčať prostredníctvom e-mailu",
+      "whatsappTooltip": "zdieľať v aplikácii WhatsApp",
+      "closeTooltip": "Zatvoriť"
+    },
     "so": {
       "facebookTooltip": "La wadaag ra’yi-celintaada",
       "mailTooltip": "Talooyinka Imayl ahaan",
@@ -11069,6 +11393,9 @@
     },
     "ru": {
       "noOffersAvailable": "Предложения отсутствуют"
+    },
+    "sk": {
+      "noOffersAvailable": "Nie sú k dispozícii žiadne ponuky"
     },
     "so": {
       "noOffersAvailable": "Wax adeeg ah oo la heli karo ma jiraan"
