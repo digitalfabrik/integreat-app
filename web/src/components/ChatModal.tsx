@@ -68,7 +68,7 @@ const ChatModal = ({ title, closeModal, children, visibilityStatus, resizeModal 
   return (
     <FocusTrap focusTrapOptions={{ clickOutsideDeactivates: true, tabbableOptions: { displayCheck: 'legacy-full' } }}>
       <ModalContainer role='dialog' aria-hidden={false} aria-modal>
-        <Overlay onClick={resizeModal} tabIndex={0} ariaLabel={t('close')}>
+        <Overlay onClick={resizeModal} tabIndex={0} label={t('close')}>
           <div />
         </Overlay>
         <ModalContentContainer>

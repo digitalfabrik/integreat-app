@@ -24,10 +24,11 @@ const PanelContainer = styled.article`
   min-width: ${dimensions.poiDesktopPanelWidth}px;
 `
 
-const ListViewWrapper = styled.div<{ panelHeights: number; bottomBarHeight: number }>`
+const ListViewWrapper = styled.div<{ $panelHeights: number; $bottomBarHeight: number }>`
   padding: 16px;
   overflow: auto;
-  ${({ panelHeights, bottomBarHeight }) => `height: calc(100vh - ${panelHeights}px - ${bottomBarHeight}px);`};
+  ${({ $panelHeights: panelHeights, $bottomBarHeight: bottomBarHeight }) =>
+    `height: calc(100vh - ${panelHeights}px - ${bottomBarHeight}px);`};
 `
 
 const ToolbarContainer = styled.div`
@@ -128,8 +129,8 @@ const PoisDesktop = ({
     <>
       <ListViewWrapper
         ref={listRef}
-        panelHeights={panelHeights}
-        bottomBarHeight={poi ? dimensions.poiDetailNavigation : dimensions.toolbarHeight}>
+        $panelHeights={panelHeights}
+        $bottomBarHeight={poi ? dimensions.poiDetailNavigation : dimensions.toolbarHeight}>
         {canDeselect ? (
           <GoBack goBack={deselect} text={t('detailsHeader')} />
         ) : (

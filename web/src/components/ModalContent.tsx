@@ -13,17 +13,17 @@ const Container = styled.div`
   font-family: ${props => props.theme.fonts.web.decorativeFont};
 `
 
-const Header = styled.div<{ small: boolean }>`
+const Header = styled.div<{ $small: boolean }>`
   display: flex;
   padding: 16px;
-  flex-direction: ${props => (props.small ? 'row-reverse' : 'row')};
+  flex-direction: ${props => (props.$small ? 'row-reverse' : 'row')};
   justify-content: space-between;
   font-size: ${props => props.theme.fonts.subTitleFontSize};
   font-weight: bold;
   align-items: center;
 
   ${props =>
-    props.small &&
+    props.$small &&
     css`
       align-self: flex-start;
       gap: 16px;
@@ -53,9 +53,9 @@ const ModalContent = ({ title, closeModal, children, small }: ModalProps): React
 
   return (
     <Container>
-      <Header small={small}>
+      <Header $small={small}>
         <span>{title}</span>
-        <CloseButton ariaLabel={t('close')} onClick={closeModal}>
+        <CloseButton label={t('close')} onClick={closeModal}>
           <StyledIcon src={small ? ArrowBackIcon : CloseIcon} directionDependent />
         </CloseButton>
       </Header>

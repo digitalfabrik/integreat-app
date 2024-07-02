@@ -13,12 +13,12 @@ export const StyledCleanLink = styled(Link)`
 type CleanLinkProps = {
   to: string
   children: ReactNode
-  ariaLabel?: string
+  label?: string
   className?: string
   newTab?: boolean
 }
 
-const CleanLink = ({ to, children, ariaLabel, className, newTab }: CleanLinkProps): ReactElement => {
+const CleanLink = ({ to, children, label, className, newTab }: CleanLinkProps): ReactElement => {
   const newTabProps = newTab && { target: '_blank', rel: 'noopener noreferrer' }
   if (isExternalUrl(to)) {
     return (
@@ -26,7 +26,7 @@ const CleanLink = ({ to, children, ariaLabel, className, newTab }: CleanLinkProp
       <StyledCleanLink
         as='a'
         href={to}
-        aria-label={ariaLabel}
+        aria-label={label}
         className={className}
         data-testid='externalLink'
         {...newTabProps}>

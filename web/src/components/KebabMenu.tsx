@@ -23,7 +23,7 @@ const ToggleContainer = styled.div`
   z-index: 50;
 `
 
-const List = styled.div<{ show: boolean }>`
+const List = styled.div<{ $show: boolean }>`
   font-family: ${props => props.theme.fonts.web.decorativeFont};
   position: absolute;
   top: 0;
@@ -40,12 +40,12 @@ const List = styled.div<{ show: boolean }>`
   ${props => (props.theme.contentDirection === 'rtl' ? `left: 0;` : `right:0;`)}
   ${props =>
     props.theme.contentDirection === 'rtl' ? `transform: translate(-100%, 0);` : `transform: translate(100%, 0);`}
-  ${props => props.show && `opacity: 1;transform: none;`}
+  ${props => props.$show && `opacity: 1;transform: none;`}
   display: flex;
   flex-direction: column;
 `
 
-const Overlay = styled.div<{ show: boolean }>`
+const Overlay = styled.div<{ $show: boolean }>`
   position: absolute;
   width: 100%;
   height: 100vh;
@@ -53,7 +53,7 @@ const Overlay = styled.div<{ show: boolean }>`
   inset-inline-start: 0;
   background-color: rgb(0 0 0 / 50%);
   z-index: 30;
-  display: ${props => (props.show ? `block` : `none`)};
+  display: ${props => (props.$show ? `block` : `none`)};
 `
 
 const Heading = styled.div`
@@ -88,7 +88,7 @@ const KebabMenu = ({ items, show, setShow, Footer }: KebabMenuProps): ReactEleme
 
   return (
     <ToggleContainer>
-      <Button onClick={onClick} ariaLabel={t('sideBarOpenAriaLabel')} aria-expanded={show}>
+      <Button onClick={onClick} label={t('sideBarOpenAriaLabel')} aria-expanded={show}>
         <StyledIcon src={MenuIcon} />
       </Button>
       <Portal
@@ -100,10 +100,10 @@ const KebabMenu = ({ items, show, setShow, Footer }: KebabMenuProps): ReactEleme
         }}>
         {/* disabled because this is an overlay for backdrop close */}
         {/* eslint-disable-next-line styled-components-a11y/no-static-element-interactions,styled-components-a11y/click-events-have-key-events */}
-        <Overlay onClick={onClick} show={show} />
-        <List show={show}>
+        <Overlay onClick={onClick} $show={show} />
+        <List $show={show}>
           <Heading>
-            <Button onClick={onClick} ariaLabel={t('sideBarCloseAriaLabel')}>
+            <Button onClick={onClick} label={t('sideBarCloseAriaLabel')}>
               <Icon src={CloseIcon} />
             </Button>
           </Heading>

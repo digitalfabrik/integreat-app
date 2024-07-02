@@ -18,9 +18,9 @@ const Container = styled.div`
   }
 `
 
-const Header = styled.div<{ small: boolean }>`
+const Header = styled.div<{ $small: boolean }>`
   display: flex;
-  flex-direction: ${props => (props.small ? 'row-reverse' : 'row')};
+  flex-direction: ${props => (props.$small ? 'row-reverse' : 'row')};
   justify-content: space-between;
   font-size: ${props => props.theme.fonts.hintFontSize};
   font-weight: bold;
@@ -39,9 +39,9 @@ const Header = styled.div<{ small: boolean }>`
   }
 `
 
-const Title = styled.span<{ isClickable: boolean }>`
+const Title = styled.span<{ $isClickable: boolean }>`
   flex: 1;
-  cursor: ${props => (props.isClickable ? 'pointer' : 'auto')};
+  cursor: ${props => (props.$isClickable ? 'pointer' : 'auto')};
 `
 
 type ModalProps = {
@@ -64,9 +64,9 @@ const ChatContentWrapper = ({
   const isMinimized = visibilityStatus === ChatVisibilityStatus.minimized
   return (
     <Container>
-      <Header small={small}>
+      <Header $small={small}>
         <Title
-          isClickable={isMinimized}
+          $isClickable={isMinimized}
           onClick={isMinimized ? onResize : undefined}
           role='button'
           onKeyDown={isMinimized ? onResize : undefined}

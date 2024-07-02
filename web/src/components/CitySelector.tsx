@@ -15,9 +15,9 @@ const Container = styled.div`
   padding-top: 22px;
 `
 
-const CityListParent = styled.div<{ stickyTop: number }>`
+const CityListParent = styled.div<{ $stickyTop: number }>`
   position: sticky;
-  top: ${props => props.stickyTop}px;
+  top: ${props => props.$stickyTop}px;
   height: 30px;
   margin-top: 10px;
   line-height: 30px;
@@ -40,7 +40,7 @@ const CitySelector = ({ cities, language }: CitySelectorProps): ReactElement => 
 
   const groups = [...new Set(resultCities.map(it => it.sortCategory))].map(group => (
     <div key={group}>
-      <CityListParent stickyTop={stickyTop}>{group}</CityListParent>
+      <CityListParent $stickyTop={stickyTop}>{group}</CityListParent>
       {resultCities
         .filter(it => it.sortCategory === group)
         .map(city => (

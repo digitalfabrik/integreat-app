@@ -1,8 +1,8 @@
 import React, { ReactNode } from 'react'
 import styled from 'styled-components'
 
-const StyledList = styled.div<{ borderless: boolean }>`
-  border-top: 2px solid ${props => (props.borderless ? 'transparent' : props.theme.colors.themeColor)};
+const StyledList = styled.div<{ $borderless: boolean }>`
+  border-top: 2px solid ${props => (props.$borderless ? 'transparent' : props.theme.colors.themeColor)};
 `
 
 const NoItemsMessage = styled.div`
@@ -24,7 +24,7 @@ class List<T> extends React.PureComponent<ListProps<T>> {
       return <NoItemsMessage>{noItemsMessage}</NoItemsMessage>
     }
 
-    return <StyledList borderless={borderless}>{items.map(item => renderItem(item))}</StyledList>
+    return <StyledList $borderless={borderless}>{items.map(item => renderItem(item))}</StyledList>
   }
 }
 

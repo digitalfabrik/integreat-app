@@ -26,6 +26,7 @@ const Title = styled.h3`
   font-size: ${props => props.theme.fonts.subTitleFontSize};
   font-weight: 700;
 `
+
 const Body = styled.p`
   font-size: 16px;
   line-height: 1.38;

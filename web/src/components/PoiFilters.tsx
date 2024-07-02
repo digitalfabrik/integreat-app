@@ -47,11 +47,11 @@ const SortingHint = styled.div`
   padding: 0 4px;
 `
 
-const TileRow = styled.div<{ itemCount: number }>`
+const TileRow = styled.div<{ $itemCount: number }>`
   display: grid;
   gap: 24px ${tileColumnGap}px;
   justify-content: center;
-  grid-template-columns: repeat(${props => props.itemCount}, ${toggleButtonWidth}px);
+  grid-template-columns: repeat(${props => props.$itemCount}, ${toggleButtonWidth}px);
 `
 
 const StyledButton = styled(TextButton)`
@@ -107,7 +107,7 @@ const PoiFilters = ({
             <SubTitle>{t('poiCategories')}</SubTitle>
             <SortingHint>{t('alphabetLetters')}</SortingHint>
           </Row>
-          <TileRow itemCount={Math.floor(panelWidth / (toggleButtonWidth + tileColumnGap))}>
+          <TileRow $itemCount={Math.floor(panelWidth / (toggleButtonWidth + tileColumnGap))}>
             {poiCategories.map(it => (
               <ToggleButton
                 key={it.id}

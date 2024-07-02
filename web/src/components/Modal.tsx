@@ -69,7 +69,7 @@ const Modal = ({ title, closeModal, children, wrapInPortal = false }: ModalProps
   const Modal = (
     <FocusTrap focusTrapOptions={{ clickOutsideDeactivates: true, tabbableOptions: { displayCheck: 'legacy-full' } }}>
       <ModalContainer role='dialog' aria-hidden={false} aria-modal>
-        <Overlay onClick={closeModal} tabIndex={0} ariaLabel={t('close')}>
+        <Overlay onClick={closeModal} tabIndex={0} label={t('close')}>
           <div />
         </Overlay>
         <ModalContentContainer>

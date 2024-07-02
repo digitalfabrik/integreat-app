@@ -56,13 +56,13 @@ const KebabActionItemDropDown = ({
 
   return (
     <Container ref={wrapperRef}>
-      <StyledButton ariaLabel={text} onClick={toggleDropDown}>
+      <StyledButton label={text} onClick={toggleDropDown}>
         <KebabActionItemLink text={text} iconSrc={iconSrc} />
       </StyledButton>
       <DropDownContainer
         data-testid='headerActionItemDropDown'
-        active={dropDownActive}
-        height={height - dimensions.headerHeightSmall}
+        $active={dropDownActive}
+        $height={height - dimensions.headerHeightSmall}
         // We need to have the visibility here, else the jest-dom testing library can not assert on it
         style={{ visibility: dropDownActive ? 'visible' : 'hidden' }}>
         {children(onClickDropdownItem)}

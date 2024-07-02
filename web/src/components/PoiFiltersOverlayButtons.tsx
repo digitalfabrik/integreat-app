@@ -34,7 +34,7 @@ const PoiFiltersOverlayButtons = ({
       {currentlyOpenFilter && (
         <ChipButton
           text={t('opened')}
-          ariaLabel={t('clearFilter', { filter: t('opened') })}
+          label={t('clearFilter', { filter: t('opened') })}
           icon={ClockIcon}
           onClick={() => setCurrentlyOpenFilter(false)}
           closeButton
@@ -43,7 +43,7 @@ const PoiFiltersOverlayButtons = ({
       {!!poiCategory && (
         <ChipButton
           text={poiCategory.name}
-          ariaLabel={t('clearFilter', { filter: poiCategory.name })}
+          label={t('clearFilter', { filter: poiCategory.name })}
           icon={poiCategory.icon}
           onClick={() => setPoiCategoryFilter(null)}
           closeButton

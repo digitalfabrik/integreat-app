@@ -10,8 +10,8 @@ import { helpers } from '../constants/theme'
 import Collapsible from './Collapsible'
 import OpeningEntry from './OpeningEntry'
 
-const OpeningLabel = styled.span<{ isOpened: boolean }>`
-  color: ${props => (props.isOpened ? props.theme.colors.positiveHighlight : props.theme.colors.negativeHighlight)};
+const OpeningLabel = styled.span<{ $isOpen: boolean }>`
+  color: ${props => (props.$isOpen ? props.theme.colors.positiveHighlight : props.theme.colors.negativeHighlight)};
   padding-inline-end: 12px;
   flex: 0;
 `
@@ -52,7 +52,7 @@ const OpeningHours = ({
   const openingHoursTitle = (
     <TitleContainer>
       <span>{t('openingHours')}</span>
-      <OpeningLabel isOpened={isCurrentlyOpen}>{t(getOpeningLabel(isTemporarilyClosed, isCurrentlyOpen))}</OpeningLabel>
+      <OpeningLabel $isOpen={isCurrentlyOpen}>{t(getOpeningLabel(isTemporarilyClosed, isCurrentlyOpen))}</OpeningLabel>
     </TitleContainer>
   )
   if (isTemporarilyClosed) {

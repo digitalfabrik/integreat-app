@@ -25,7 +25,7 @@ type InputSectionProps = {
   title: string
   description?: string
   showOptional?: boolean
-  children: React.ReactComponentElement<typeof InputComponent>
+  children: ReactElement<typeof InputComponent>
 }
 
 const InputSection = ({ id, showOptional, title, description, children }: InputSectionProps): ReactElement => {

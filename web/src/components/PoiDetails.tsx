@@ -117,6 +117,7 @@ const DetailSection = styled.div`
     justify-content: space-between;
   }
 `
+
 const ToolbarWrapper = styled.div`
   display: flex;
   justify-content: center;
@@ -158,7 +159,7 @@ const PoiDetails = ({ poi, distance, toolbar }: PoiDetailsProps): ReactElement =
         {distance !== null && <Distance>{t('distanceKilometre', { distance: distance.toFixed(1) })}</Distance>}
         <Category>{category.name}</Category>
       </HeadingSection>
-      <Spacer borderColor={theme.colors.borderColor} />
+      <Spacer $borderColor={theme.colors.borderColor} />
       {!viewportSmall && <Subheading>{t('detailsAddress')}</Subheading>}
       <DetailSection>
         <AddressContentWrapper>
@@ -177,7 +178,7 @@ const PoiDetails = ({ poi, distance, toolbar }: PoiDetailsProps): ReactElement =
       </DetailSection>
       {(!!website || !!phoneNumber || !!email) && (
         <>
-          <Spacer borderColor={theme.colors.borderColor} />
+          <Spacer $borderColor={theme.colors.borderColor} />
           <Collapsible title={t('contactInformation')}>
             <div>
               {!!website && (
@@ -200,7 +201,7 @@ const PoiDetails = ({ poi, distance, toolbar }: PoiDetailsProps): ReactElement =
       )}
       <>
         {((openingHours && openingHours.length > 0) || temporarilyClosed) && (
-          <Spacer borderColor={theme.colors.borderColor} />
+          <Spacer $borderColor={theme.colors.borderColor} />
         )}
         <OpeningHours
           openingHours={openingHours}
@@ -216,7 +217,7 @@ const PoiDetails = ({ poi, distance, toolbar }: PoiDetailsProps): ReactElement =
       </>
       {content.length > 0 && (
         <>
-          <Spacer borderColor={theme.colors.borderColor} />
+          <Spacer $borderColor={theme.colors.borderColor} />
           <Collapsible title={t('detailsInformation')}>
             <RemoteContent html={content} onInternalLinkClick={navigate} smallText />
           </Collapsible>
@@ -224,7 +225,7 @@ const PoiDetails = ({ poi, distance, toolbar }: PoiDetailsProps): ReactElement =
       )}
       {toolbar && (
         <>
-          <Spacer borderColor={theme.colors.borderColor} />
+          <Spacer $borderColor={theme.colors.borderColor} />
           <ToolbarWrapper>{toolbar}</ToolbarWrapper>
         </>
       )}

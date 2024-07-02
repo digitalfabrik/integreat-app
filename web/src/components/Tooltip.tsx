@@ -5,49 +5,49 @@ import dimensions from '../constants/dimensions'
 
 type FlowType = 'left' | 'right' | 'up' | 'down'
 
-const pseudosMixin = (flow: FlowType, color: string) => css`
+const pseudosMixin = ($flow: FlowType, $color: string) => css`
   /* CSS Triangle: https://css-tricks.com/snippets/css/css-triangle/ */
   ::before {
-    ${flow === 'up' &&
+    ${$flow === 'up' &&
     `
       bottom: 100%;
       border-bottom-width: 0;
-      border-top-color: ${color};
+      border-top-color: ${$color};
     `}
-    ${flow === 'down' &&
+    ${$flow === 'down' &&
     `
       top: 100%;
       border-top-width: 0;
-      border-bottom-color: ${color};
+      border-bottom-color: ${$color};
     `}
-    ${flow === 'left' &&
+    ${$flow === 'left' &&
     `
       border-right-width: 0;
-      border-left-color: ${color};
+      border-left-color: ${$color};
       left: -5px;
     `}
-    ${flow === 'right' &&
+    ${$flow === 'right' &&
     `
       border-left-width: 0;
-      border-right-color: ${color};
+      border-right-color: ${$color};
       right: -5px;
     `}
   }
 
   ::after {
-    ${flow === 'up' &&
+    ${$flow === 'up' &&
     `
       bottom: calc(99% + 5px);
     `}
-    ${flow === 'down' &&
+    ${$flow === 'down' &&
     `
       top: calc(99% + 5px);
     `}
-    ${flow === 'left' &&
+    ${$flow === 'left' &&
     `
       right: calc(99% + 5px);
     `}
-    ${flow === 'right' &&
+    ${$flow === 'right' &&
     `
       left: calc(99% + 5px);
     `}
@@ -55,12 +55,12 @@ const pseudosMixin = (flow: FlowType, color: string) => css`
 
   ::before,
   ::after {
-    ${(flow === 'left' || flow === 'right') &&
+    ${($flow === 'left' || $flow === 'right') &&
     `
       top: 50%;
       transform: translate(0, -50%);
     `}
-    ${(flow === 'up' || flow === 'down') &&
+    ${($flow === 'up' || $flow === 'down') &&
     `
       left: 50%;
       transform: translate(-50%, 0);
@@ -73,12 +73,12 @@ const MAX_HEIGHT = 50
 const MAX_WIDTH = 300
 
 const TooltipContainer = styled.div<{
-  text: string
-  flow: FlowType
-  smallViewportFlow: FlowType
-  mediumViewportFlow: FlowType
-  active: boolean
-  trigger: 'click' | 'hover'
+  $text: string
+  $flow: FlowType
+  $smallViewportFlow: FlowType
+  $mediumViewportFlow: FlowType
+  $active: boolean
+  $trigger: 'click' | 'hover'
 }>`
   position: relative;
 
@@ -101,7 +101,7 @@ const TooltipContainer = styled.div<{
   }
 
   ::after {
-    content: '${props => props.text}';
+    content: '${props => props.$text}';
     z-index: 1000;
 
     /* Content props */
@@ -121,8 +121,8 @@ const TooltipContainer = styled.div<{
   }
 
   ${props =>
-    props.active &&
-    props.trigger === 'click' &&
+    props.$active &&
+    props.$trigger === 'click' &&
     css`
       ::after,
       ::before {
@@ -132,7 +132,7 @@ const TooltipContainer = styled.div<{
     `};
 
   ${props =>
-    props.trigger === 'hover' &&
+    props.$trigger === 'hover' &&
     css`
       :hover::before,
       :hover::after {
@@ -143,17 +143,17 @@ const TooltipContainer = styled.div<{
 
   /* over 1100px */
   @media ${dimensions.minMaxWidth} {
-    ${props => pseudosMixin(props.flow, props.theme.colors.textSecondaryColor)}
+    ${props => pseudosMixin(props.$flow, props.theme.colors.textSecondaryColor)}
   }
 
   /* below 768px */
   @media screen and ${dimensions.smallViewport} {
-    ${props => pseudosMixin(props.smallViewportFlow, props.theme.colors.textSecondaryColor)}
+    ${props => pseudosMixin(props.$smallViewportFlow, props.theme.colors.textSecondaryColor)}
   }
 
   /* inbetween */
   @media screen and ${dimensions.mediumViewport} {
-    ${props => pseudosMixin(props.mediumViewportFlow, props.theme.colors.textSecondaryColor)}
+    ${props => pseudosMixin(props.$mediumViewportFlow, props.theme.colors.textSecondaryColor)}
   }
 
   @keyframes tooltips {
@@ -283,13 +283,13 @@ export default ({
   return (
     <TooltipContainer
       {...props}
-      text={text}
+      $text={text}
       ref={onRefSet}
-      flow={fixedFlow}
-      active={active}
-      trigger={trigger}
-      mediumViewportFlow={fixedMediumFlow}
-      smallViewportFlow={fixedSmallFlow}>
+      $flow={fixedFlow}
+      $active={active}
+      $trigger={trigger}
+      $mediumViewportFlow={fixedMediumFlow}
+      $smallViewportFlow={fixedSmallFlow}>
       {children}
     </TooltipContainer>
   )
