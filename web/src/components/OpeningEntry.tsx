@@ -1,13 +1,12 @@
-import React, { ReactElement, useEffect, useRef, useState } from 'react'
+import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
-import styled from 'styled-components'
+import { Link } from 'react-router-dom'
+import { Tooltip } from 'react-tooltip'
+import styled, { useTheme } from 'styled-components'
 
 import { TimeSlot } from 'shared/api/types'
 
 import { NoteIcon } from '../assets'
-import Portal from './Portal'
-import SharingPopup from './SharingPopup'
-import Tooltip from './Tooltip'
 import Icon from './base/Icon'
 
 const fontBold = 600
@@ -26,15 +25,32 @@ const Timeslot = styled.div`
   flex-direction: column;
 `
 
+const OpeningContainer = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 8px;
+`
+
+const IconContainer = styled.button`
+  padding: 0;
+  border: none;
+  background-color: transparent;
+  align-self: center;
+  width: 18px;
+  height: 18px;
+`
+
 const TimeSlotEntry = styled.span`
   &:not(:first-child) {
     margin-top: 8px;
   }
 `
 
-const StyledIcon = styled(Icon)`
+const StyledIcon = styled(Icon)<{ $opacity: boolean }>`
   width: 18px;
   height: 18px;
+  align-self: center;
+  opacity: ${props => (props.$opacity ? '1' : '0')};
 `
 
 type OpeningEntryProps = {
@@ -55,65 +71,44 @@ const OpeningEntry = ({
   appointmentOnly,
 }: OpeningEntryProps): ReactElement => {
   const { t } = useTranslation('pois')
-
-  const positioningRef = useRef<HTMLDivElement>(null)
-  const [iconOffsetLeft, setIconOffsetLeft] = useState(0)
-  const [iconOffsetTop, setIconOffsetTop] = useState(0)
-
-  useEffect(() => {
-    if (positioningRef.current) {
-      setIconOffsetLeft(positioningRef.current.getBoundingClientRect().right + 10)
-    }
-  }, [positioningRef.current])
-
-  const updateOffsetTop = () => {
-    if (positioningRef.current) {
-      setIconOffsetTop(positioningRef.current.getBoundingClientRect().top)
-    }
-  }
-
-  useEffect(() => {
-    if (!appointmentOnly) {
-      return
-    }
-    updateOffsetTop()
-    window.addEventListener('wheel', updateOffsetTop)
-    return () => {
-      window.removeEventListener('wheel', updateOffsetTop)
-    }
-  }, [])
+  const theme = useTheme()
 
   return (
-    <EntryContainer isCurrentDay={isCurrentDay} id={`openingEntryContainer-${weekday}`} ref={positioningRef}>
+    <EntryContainer isCurrentDay={isCurrentDay} id={`openingEntryContainer-${weekday}`}>
       <span>{weekday}</span>
-      {allDay && <span>{t('allDay')}</span>}
-      {closed && <span>{t('closed')}</span>}
-      {!allDay && !closed && timeSlots.length > 0 && (
-        <Timeslot>
-          {timeSlots.map(timeSlot => (
-            <TimeSlotEntry key={`${weekday}-${timeSlot.start}`}>
-              {timeSlot.start}-{timeSlot.end}
-            </TimeSlotEntry>
-          ))}
-        </Timeslot>
-      )}
-      {/* TODO: Put into a separate component */}
-      {appointmentOnly && (
+      <OpeningContainer>
+        {allDay && <span>{t('allDay')}</span>}
+        {closed && <span>{t('closed')}</span>}
+        {!allDay && !closed && timeSlots.length > 0 && (
+          <Timeslot>
+            {timeSlots.map(timeSlot => (
+              <TimeSlotEntry key={`${weekday}-${timeSlot.start}`}>
+                {timeSlot.start}-{timeSlot.end}
+              </TimeSlotEntry>
+            ))}
+          </Timeslot>
+        )}
+        {/* TODO: Put into a separate component */}
+
         <>
-          <Portal className='appointment-only-tooltip' show>
-            <div
-              style={{
-                position: 'fixed',
-                left: iconOffsetLeft,
-                top: iconOffsetTop,
-              }}>
-              <Tooltip text={'to be translated'} flow='up' active>
-                <StyledIcon src={NoteIcon} />
-              </Tooltip>
+          <IconContainer id='apointment'>
+            <StyledIcon src={NoteIcon} $opacity={appointmentOnly} />
+          </IconContainer>
+          <Tooltip
+            anchorSelect='#apointment'
+            clickable
+            style={{
+              background: theme.colors.textSecondaryColor,
+              color: theme.colors.backgroundColor,
+              width: '200px',
+            }}>
+            <div>
+              Vereinbare an diesem Tag einen Termin über <Link to='https://google.com'>diese Website</Link> oder
+              telefonisch.
             </div>
-          </Portal>
+          </Tooltip>
         </>
-      )}
+      </OpeningContainer>
     </EntryContainer>
   )
 }
