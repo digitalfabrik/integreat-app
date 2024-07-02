@@ -20,6 +20,7 @@ type JsonOpeningHoursType = {
   allDay: boolean
   closed: boolean
   timeSlots: TimeSlot[]
+  appointmentOnly: boolean
 }
 
 export type JsonPoiCategoryType = {
