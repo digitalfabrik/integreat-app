@@ -75,6 +75,7 @@ const OpeningHours = ({
             closed={entry.closed}
             timeSlots={entry.timeSlots}
             isCurrentDay={index === DateTime.now().weekday - 1}
+            appointmentOnly={entry.appointmentOnly}
           />
         ))}
       </Content>
