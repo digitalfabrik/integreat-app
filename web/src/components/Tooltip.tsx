@@ -290,7 +290,7 @@ export default ({
       trigger={trigger}
       mediumViewportFlow={fixedMediumFlow}
       smallViewportFlow={fixedSmallFlow}>
-      {children}
+      <div>{children}</div>
     </TooltipContainer>
   )
 }
