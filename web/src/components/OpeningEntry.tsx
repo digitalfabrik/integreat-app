@@ -89,25 +89,26 @@ const OpeningEntry = ({
           </Timeslot>
         )}
         {/* TODO: Put into a separate component */}
-
-        <>
-          <IconContainer id='apointment'>
-            <StyledIcon src={NoteIcon} $opacity={appointmentOnly} />
-          </IconContainer>
-          <Tooltip
-            anchorSelect='#apointment'
-            clickable
-            style={{
-              background: theme.colors.textSecondaryColor,
-              color: theme.colors.backgroundColor,
-              width: '200px',
-            }}>
-            <div>
-              Vereinbare an diesem Tag einen Termin über <Link to='https://google.com'>diese Website</Link> oder
-              telefonisch.
-            </div>
-          </Tooltip>
-        </>
+        {appointmentOnly && (
+          <>
+            <IconContainer id='apointment'>
+              <StyledIcon src={NoteIcon} $opacity={appointmentOnly} />
+            </IconContainer>
+            <Tooltip
+              anchorSelect='#apointment'
+              clickable
+              style={{
+                background: theme.colors.textSecondaryColor,
+                color: theme.colors.backgroundColor,
+                width: '200px',
+              }}>
+              <div>
+                Vereinbare an diesem Tag einen Termin über <Link to='https://google.com'>diese Website</Link> oder
+                telefonisch.
+              </div>
+            </Tooltip>
+          </>
+        )}
       </OpeningContainer>
     </EntryContainer>
   )

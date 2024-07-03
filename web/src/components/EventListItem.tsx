@@ -1,5 +1,6 @@
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
+import { Tooltip } from 'react-tooltip'
 import styled from 'styled-components'
 
 import { getExcerpt } from 'shared'
@@ -16,15 +17,10 @@ import {
 import { EXCERPT_MAX_CHARS } from '../constants'
 import useWindowDimensions from '../hooks/useWindowDimensions'
 import ListItem from './ListItem'
-import Tooltip from './Tooltip'
 import Icon from './base/Icon'
 
 const Content = styled.div`
   overflow-wrap: anywhere;
-`
-
-const StyledTooltip = styled(Tooltip)`
-  height: 24px;
 `
 
 type EventListItemProps = {
@@ -39,7 +35,7 @@ const getEventPlaceholder = (path: string): string => {
   return placeholders[pseudoId % placeholders.length]!
 }
 
-const getDateIcon = (date: DateModel): { icon: string; tooltip: string } | null => {
+export const getDateIcon = (date: DateModel): { icon: string; tooltip: string } | null => {
   const icons: { [key in DateIcon]: string } = {
     CalendarTodayRecurringIcon,
     CalendarRecurringIcon,
@@ -60,9 +56,10 @@ const EventListItem = ({ event, languageCode }: EventListItemProps): ReactElemen
   const { t } = useTranslation('events')
 
   const DateIcon = dateIcon && (
-    <StyledTooltip text={t(dateIcon.tooltip)} flow='up'>
-      <Icon src={dateIcon.icon} />
-    </StyledTooltip>
+    <>
+      <Icon src={dateIcon.icon} id='calendar-icon' title={dateIcon.tooltip} />
+      <Tooltip anchorSelect='#calendar-icon'>{t(dateIcon.tooltip)}</Tooltip>
+    </>
   )
 
   return (

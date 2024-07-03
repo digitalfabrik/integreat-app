@@ -18,6 +18,7 @@ type ButtonProps = {
   disabled?: boolean
   tabIndex?: number
   className?: string
+  id?: string
 }
 
 const Button = ({
@@ -28,6 +29,7 @@ const Button = ({
   className,
   type = 'button',
   disabled = false,
+  id,
 }: ButtonProps): ReactElement => (
   <StyledButton
     onClick={onClick}
@@ -35,7 +37,8 @@ const Button = ({
     aria-label={ariaLabel}
     tabIndex={tabIndex}
     type={type}
-    className={className}>
+    className={className}
+    id={id}>
     {children}
   </StyledButton>
 )

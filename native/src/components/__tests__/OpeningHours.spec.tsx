@@ -24,7 +24,13 @@ describe('OpeningHours', () => {
     )
   const openingHours = Array.from(
     { length: 7 },
-    () => new OpeningHoursModel({ allDay: false, closed: false, timeSlots: [{ end: '18:00', start: '08:00' }] }),
+    () =>
+      new OpeningHoursModel({
+        allDay: false,
+        closed: false,
+        timeSlots: [{ end: '18:00', start: '08:00' }],
+        appointmentOnly: false,
+      }),
   )
 
   it('should display that the location is temporarily closed', () => {
@@ -40,5 +46,9 @@ describe('OpeningHours', () => {
   it('should display the link to make an appointment', () => {
     const { getByText } = renderOpeningHours(true, false, openingHours)
     expect(getByText('makeAppointment')).toBeTruthy()
+  })
+
+  it('should display that the location is only open with an appointment', () => {
+    // TODO
   })
 })

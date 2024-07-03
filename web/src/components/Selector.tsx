@@ -1,11 +1,11 @@
 import React, { ReactElement } from 'react'
 import { Link } from 'react-router-dom'
+import { Tooltip } from 'react-tooltip'
 import styled, { css } from 'styled-components'
 
 import dimensions from '../constants/dimensions'
 import { helpers } from '../constants/theme'
 import SelectorItemModel from '../models/SelectorItemModel'
-import Tooltip from './Tooltip'
 import Button from './base/Button'
 
 const Element = styled(Button)<{ $selected: boolean; $enabled: boolean }>`
@@ -37,12 +37,13 @@ const Element = styled(Button)<{ $selected: boolean; $enabled: boolean }>`
   ${props =>
     props.$selected
       ? 'font-weight: 700;'
-      : `:hover {
+      : `&:hover {
           font-weight: 700;
           border-radius: 0;
         }`}
 `
 
+// TODO: ask in the PR if anybody knows what this is for
 const BoldSpacer = styled.div`
   font-weight: 700;
   height: 0;
@@ -77,6 +78,7 @@ type SelectorProps = {
   activeItemCode?: string
   disabledItemTooltip: string
 }
+
 const Selector = ({
   items,
   activeItemCode,
@@ -105,18 +107,14 @@ const Selector = ({
         )
       }
       return (
-        // @ts-expect-error wrong types from polymorphic 'as', see https://github.com/styled-components/styled-components/issues/4112
-        <Element
-          as={Tooltip}
-          key={item.code}
-          ariaLabel=''
-          text={disabledItemTooltip}
-          flow='up'
-          $enabled={false}
-          $selected={false}>
-          <BoldSpacer>{item.name}</BoldSpacer>
-          {item.name}
-        </Element>
+        <>
+          {/* @ts-expect-error wrong types from polymorphic 'as', see https://github.com/styled-components/styled-components/issues/4112 */}
+          <Element as='div' key={item.code} ariaLabel='' $enabled={false} id={item.code}>
+            <BoldSpacer>{item.name}</BoldSpacer>
+            {item.name}
+          </Element>
+          <Tooltip anchorSelect={`#${item.code}`}>{disabledItemTooltip}</Tooltip>
+        </>
       )
     })}
   </Wrapper>

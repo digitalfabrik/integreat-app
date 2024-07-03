@@ -11,13 +11,14 @@ type CleanAnchorProps = {
   children: ReactNode
   ariaLabel?: string
   className?: string
+  id?: string
 }
 
 class CleanAnchor extends React.PureComponent<CleanAnchorProps> {
   render(): ReactNode {
-    const { href, children, className, ariaLabel } = this.props
+    const { href, children, className, ariaLabel, id } = this.props
     return (
-      <StyledAnchor aria-label={ariaLabel} className={className} href={href}>
+      <StyledAnchor aria-label={ariaLabel} className={className} href={href} id={id}>
         {children}
       </StyledAnchor>
     )
