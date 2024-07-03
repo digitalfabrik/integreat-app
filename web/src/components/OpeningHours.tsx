@@ -6,9 +6,11 @@ import styled from 'styled-components'
 import { weekdays } from 'shared'
 import { OpeningHoursModel } from 'shared/api'
 
+import { NoteIcon } from '../assets'
 import { helpers } from '../constants/theme'
 import Collapsible from './Collapsible'
 import OpeningEntry from './OpeningEntry'
+import Icon from './base/Icon'
 
 const OpeningLabel = styled.span<{ isOpened: boolean }>`
   color: ${props => (props.isOpened ? props.theme.colors.positiveHighlight : props.theme.colors.negativeHighlight)};
@@ -27,6 +29,18 @@ const TitleContainer = styled.div`
   font-weight: 700;
   justify-content: space-between;
   ${helpers.adaptiveFontSize};
+`
+
+const OpeningContainer = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 8px;
+`
+
+const StyledIcon = styled(Icon)`
+  width: 18px;
+  height: 18px;
+  color: white;
 `
 
 type OpeningHoursProps = {
@@ -52,7 +66,12 @@ const OpeningHours = ({
   const openingHoursTitle = (
     <TitleContainer>
       <span>{t('openingHours')}</span>
-      <OpeningLabel isOpened={isCurrentlyOpen}>{t(getOpeningLabel(isTemporarilyClosed, isCurrentlyOpen))}</OpeningLabel>
+      <OpeningContainer>
+        <OpeningLabel isOpened={isCurrentlyOpen}>
+          {t(getOpeningLabel(isTemporarilyClosed, isCurrentlyOpen))}
+        </OpeningLabel>
+        <StyledIcon src={NoteIcon} />
+      </OpeningContainer>
     </TitleContainer>
   )
   if (isTemporarilyClosed) {
