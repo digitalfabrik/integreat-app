@@ -15,14 +15,14 @@ import Icon from './base/Icon'
 const ChatButtonContainer = styled.button`
   position: fixed;
   bottom: 10%;
-  right: 10%;
+  inset-inline-end: 10%;
   background-color: transparent;
   border: none;
   display: flex;
   flex-direction: column;
 
   @media ${dimensions.smallViewport} {
-    bottom: 12px;
+    bottom: 85px;
     inset-inline-end: 12px;
   }
 `
@@ -39,7 +39,7 @@ const MinimizedToolbar = styled.div`
   position: fixed;
   z-index: 200;
   bottom: 0;
-  right: 20px;
+  inset-inline-end: 20px;
 
   @media ${dimensions.smallViewport} {
     display: none;
