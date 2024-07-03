@@ -11,7 +11,6 @@ import { renderWithRouterAndTheme } from '../../testing/render'
 import EventListItem, { getDateIcon } from '../EventListItem'
 
 jest.mock('react-i18next')
-jest.mock('../Tooltip', () => ({ text }: { text: string }) => <div>{text}</div>)
 
 jest.useFakeTimers({ now: new Date('2023-10-02T05:23:57.443+02:00') })
 describe('EventListItem', () => {

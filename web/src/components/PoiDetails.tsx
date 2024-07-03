@@ -206,6 +206,7 @@ const PoiDetails = ({ poi, distance, toolbar }: PoiDetailsProps): ReactElement =
           openingHours={openingHours}
           isCurrentlyOpen={isCurrentlyOpen}
           isTemporarilyClosed={temporarilyClosed}
+          link={appointmentUrl ?? website}
         />
         {appointmentUrl !== null && (
           <Link to={appointmentUrl} newTab>

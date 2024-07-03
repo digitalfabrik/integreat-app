@@ -47,6 +47,7 @@ type OpeningHoursProps = {
   isCurrentlyOpen: boolean
   openingHours: OpeningHoursModel[] | null
   isTemporarilyClosed: boolean
+  link: string | null
 }
 
 const getOpeningLabel = (isTemporarilyClosed: boolean, isCurrentlyOpened: boolean): string => {
@@ -60,6 +61,7 @@ const OpeningHours = ({
   isCurrentlyOpen,
   openingHours,
   isTemporarilyClosed,
+  link,
 }: OpeningHoursProps): ReactElement | null => {
   const { t } = useTranslation('pois')
 
@@ -95,6 +97,7 @@ const OpeningHours = ({
             timeSlots={entry.timeSlots}
             isCurrentDay={index === DateTime.now().weekday - 1}
             appointmentOnly={entry.appointmentOnly}
+            link={link}
           />
         ))}
       </Content>

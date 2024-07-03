@@ -20,6 +20,7 @@ describe('OpeningEntry', () => {
         timeSlots={timeSlots}
         isCurrentDay={isCurrentDay}
         appointmentOnly={false}
+        link={null}
       />,
     )
   it('should display the timeslots of a weekday', () => {

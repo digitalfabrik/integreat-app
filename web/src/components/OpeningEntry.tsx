@@ -1,8 +1,8 @@
 import React, { ReactElement } from 'react'
-import { useTranslation } from 'react-i18next'
+import { Trans, useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
 import { Tooltip } from 'react-tooltip'
-import styled, { useTheme } from 'styled-components'
+import styled from 'styled-components'
 
 import { TimeSlot } from 'shared/api/types'
 
@@ -38,6 +38,8 @@ const IconContainer = styled.button`
   align-self: center;
   width: 18px;
   height: 18px;
+  position: absolute;
+  right: -27px;
 `
 
 const TimeSlotEntry = styled.span`
@@ -46,12 +48,49 @@ const TimeSlotEntry = styled.span`
   }
 `
 
-const StyledIcon = styled(Icon)<{ $opacity: boolean }>`
+const StyledIcon = styled(Icon)`
   width: 18px;
   height: 18px;
   align-self: center;
-  opacity: ${props => (props.$opacity ? '1' : '0')};
 `
+
+const TooltipTitle = styled.div`
+  font-weight: 700;
+  margin-bottom: 8px;
+`
+
+type AppointmentOnlyIconProps = {
+  link: string | null
+}
+
+const AppointmentOnlyIcon = ({ link }: AppointmentOnlyIconProps): ReactElement => {
+  const { t } = useTranslation('pois')
+
+  return (
+    <>
+      <IconContainer id='apointment'>
+        <StyledIcon src={NoteIcon} />
+      </IconContainer>
+      <Tooltip
+        anchorSelect='#apointment'
+        clickable
+        style={{
+          width: '250px',
+        }}>
+        <TooltipTitle>{t('appointmentNecessary')}</TooltipTitle>
+        <span>
+          {link ? (
+            <Trans i18nKey='makeAppointmentTooltipWithLink' ns='pois'>
+              This gets replaced by <Link to={link}>react-18next</Link>.
+            </Trans>
+          ) : (
+            t('makeAppointmentTooltipWithoutLink')
+          )}
+        </span>
+      </Tooltip>
+    </>
+  )
+}
 
 type OpeningEntryProps = {
   allDay: boolean
@@ -60,6 +99,7 @@ type OpeningEntryProps = {
   weekday: string
   isCurrentDay: boolean
   appointmentOnly: boolean
+  link: string | null
 }
 
 const OpeningEntry = ({
@@ -69,9 +109,9 @@ const OpeningEntry = ({
   weekday,
   isCurrentDay,
   appointmentOnly,
+  link,
 }: OpeningEntryProps): ReactElement => {
   const { t } = useTranslation('pois')
-  const theme = useTheme()
 
   return (
     <EntryContainer isCurrentDay={isCurrentDay} id={`openingEntryContainer-${weekday}`}>
@@ -88,27 +128,7 @@ const OpeningEntry = ({
             ))}
           </Timeslot>
         )}
-        {/* TODO: Put into a separate component */}
-        {appointmentOnly && (
-          <>
-            <IconContainer id='apointment'>
-              <StyledIcon src={NoteIcon} $opacity={appointmentOnly} />
-            </IconContainer>
-            <Tooltip
-              anchorSelect='#apointment'
-              clickable
-              style={{
-                background: theme.colors.textSecondaryColor,
-                color: theme.colors.backgroundColor,
-                width: '200px',
-              }}>
-              <div>
-                Vereinbare an diesem Tag einen Termin über <Link to='https://google.com'>diese Website</Link> oder
-                telefonisch.
-              </div>
-            </Tooltip>
-          </>
-        )}
+        {appointmentOnly && <AppointmentOnlyIcon link={link} />}
       </OpeningContainer>
     </EntryContainer>
   )
