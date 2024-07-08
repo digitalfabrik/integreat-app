@@ -18,14 +18,14 @@ import {
   preserveIFrameSourcesFromContent,
 } from '../utils/iframes'
 
-const SandBox = styled.div<{ centered: boolean; smallText: boolean }>`
+const SandBox = styled.div<{ $centered: boolean; $smallText: boolean }>`
   font-family: ${props => props.theme.fonts.web.contentFont};
-  font-size: ${props => (props.smallText ? helpers.adaptiveFontSize : props.theme.fonts.contentFontSize)};
+  font-size: ${props => (props.$smallText ? helpers.adaptiveFontSize : props.theme.fonts.contentFontSize)};
   line-height: ${props => props.theme.fonts.contentLineHeight};
   display: flow-root; /* clearfix for the img floats */
 
-  ${props => (props.centered ? 'text-align: center;' : '')}
-  ${props => (props.centered ? 'list-style-position: inside;' : '')}
+  ${props => (props.$centered ? 'text-align: center;' : '')}
+  ${props => (props.$centered ? 'list-style-position: inside;' : '')}
   img {
     max-width: 100%;
     max-height: 100%;
@@ -106,7 +106,7 @@ const SandBox = styled.div<{ centered: boolean; smallText: boolean }>`
     width: ${props => props.theme.fonts.contentFontSize};
     height: ${props => props.theme.fonts.contentFontSize};
     ${props =>
-      props.smallText &&
+      props.$smallText &&
       css`
         ${helpers.adaptiveHeight}
         ${helpers.adaptiveWidth}
@@ -275,10 +275,10 @@ const RemoteContent = ({
   return (
     <SandBox
       dir='auto'
-      centered={centered}
+      $centered={centered}
       dangerouslySetInnerHTML={dangerouslySetInnerHTML}
       ref={sandBoxRef}
-      smallText={smallText}
+      $smallText={smallText}
     />
   )
 }

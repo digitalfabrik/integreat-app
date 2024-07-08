@@ -37,13 +37,13 @@ type ChatMenuProps = {
 const ChatMenu = ({ onResize, onClose, visibilityStatus, small }: ChatMenuProps): ReactElement => (
   <ButtonContainer>
     {small ? (
-      <StyledButton ariaLabel='close' onClick={onClose}>
+      <StyledButton label='close' onClick={onClose}>
         <StyledIcon src={ArrowBackIcon} directionDependent />
       </StyledButton>
     ) : (
       <>
         <StyledButton
-          ariaLabel={visibilityStatus === ChatVisibilityStatus.maximized ? 'minimize' : 'maximize'}
+          label={visibilityStatus === ChatVisibilityStatus.maximized ? 'minimize' : 'maximize'}
           onClick={onResize}>
           {' '}
           <StyledIcon
@@ -51,7 +51,7 @@ const ChatMenu = ({ onResize, onClose, visibilityStatus, small }: ChatMenuProps)
             directionDependent
           />{' '}
         </StyledButton>
-        <StyledButton ariaLabel='close' onClick={onClose}>
+        <StyledButton label='close' onClick={onClose}>
           <StyledIcon src={CloseIcon} directionDependent />
         </StyledButton>
       </>

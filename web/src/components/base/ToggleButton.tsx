@@ -28,7 +28,7 @@ type TextButtonProps = {
 }
 
 const ToggleButton = ({ text, onClick, className, ...props }: TextButtonProps): ReactElement => (
-  <StyledButton onClick={onClick} $active={!!props.active} ariaLabel='' className={className}>
+  <StyledButton onClick={onClick} $active={!!props.active} label='' className={className}>
     <img src={props.icon} alt='' />
     <StyledSmallViewTip as='span'>{text}</StyledSmallViewTip>
   </StyledButton>
