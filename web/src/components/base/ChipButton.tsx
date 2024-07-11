@@ -29,13 +29,13 @@ type ChipButtonProps = {
   text: string
   icon: string
   onClick: () => void
-  ariaLabel?: string
+  label?: string
   closeButton?: boolean
   className?: string
 }
 
-const ChipButton = ({ text, onClick, ariaLabel, className, ...props }: ChipButtonProps): ReactElement => (
-  <StyledButton ariaLabel={ariaLabel ?? text} onClick={onClick} className={className}>
+const ChipButton = ({ text, onClick, label, className, ...props }: ChipButtonProps): ReactElement => (
+  <StyledButton label={label ?? text} onClick={onClick} className={className}>
     <StyledIcon src={props.icon} />
     <div>{text}</div>
     {props.closeButton && <StyledIcon src={CloseIcon} />}

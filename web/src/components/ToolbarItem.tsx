@@ -27,7 +27,7 @@ type ToolbarItemProps = {
 
 const ToolbarItem = ({ href, text, icon, onClick }: ToolbarItemProps): ReactElement => (
   // @ts-expect-error wrong types from polymorphic 'as', see https://github.com/styled-components/styled-components/issues/4112
-  <StyledToolbarItem as={onClick ? Button : undefined} href={href} onClick={onClick} ariaLabel={text}>
+  <StyledToolbarItem as={onClick ? Button : undefined} href={href} onClick={onClick} label={text}>
     <StyledIcon src={icon} />
     <StyledSmallViewTip>{text}</StyledSmallViewTip>
   </StyledToolbarItem>
