@@ -1,6 +1,6 @@
 import React, { ReactElement, useState } from 'react'
 import { Trans, useTranslation } from 'react-i18next'
-import { Modal as RNModal } from 'react-native'
+import { Modal as RNModal, Text } from 'react-native'
 import styled from 'styled-components/native'
 
 import { TimeSlot } from 'shared/api/types'
@@ -38,10 +38,6 @@ const OverlayTitle = styled.Text`
   margin-bottom: 16px;
 `
 
-const OverlayContent = styled.Text`
-  font-weight: 400;
-`
-
 const CloseButton = styled.Pressable`
   padding: 12px;
   margin-left: auto;
@@ -65,7 +61,7 @@ const AppointmentOnlyOverlay = ({ link, closeOverlay }: AppointmentOnlyOverlayPr
       <OverlayCenterer>
         <OverlayContainer>
           <OverlayTitle>{t('appointmentNecessary')}</OverlayTitle>
-          <OverlayContent>
+          <Text>
             {link ? (
               // More information: https://react.i18next.com/latest/trans-component
               <Trans i18nKey='makeAppointmentTooltipWithLink' ns='pois'>
@@ -75,7 +71,7 @@ const AppointmentOnlyOverlay = ({ link, closeOverlay }: AppointmentOnlyOverlayPr
             ) : (
               t('makeAppointmentTooltipWithoutLink')
             )}
-          </OverlayContent>
+          </Text>
           <CloseButton onPress={closeOverlay}>
             <CloseButtonText>{t('close', { ns: 'common' })}</CloseButtonText>
           </CloseButton>
