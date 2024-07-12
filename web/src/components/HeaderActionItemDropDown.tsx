@@ -42,13 +42,13 @@ const HeaderActionItemDropDown = ({ iconSrc, text, children }: HeaderActionItemD
 
   return (
     <div ref={wrapperRef}>
-      <Button ariaLabel={text} onClick={toggleDropDown} id={id}>
+      <Button label={text} onClick={toggleDropDown} id={id}>
         <StyledIcon src={iconSrc} />
       </Button>
       <Tooltip anchorSelect={`#${id}`}>{text}</Tooltip>
       <DropDownContainer
         data-testid='headerActionItemDropDown'
-        active={dropDownActive}
+        $active={dropDownActive}
         // We need to have the visibility here, else the jest-dom testing library can not assert on it
         style={{ visibility: dropDownActive ? 'visible' : 'hidden' }}>
         {children(closeDropDown)}

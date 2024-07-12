@@ -52,7 +52,7 @@ type ToolbarItemProps = {
 const ToolbarItem = ({ href, text, icon, onClick, id }: ToolbarItemProps): ReactElement => {
   if (onClick) {
     return (
-      <StyledToolbarButton onClick={onClick} ariaLabel={text} id={id}>
+      <StyledToolbarButton onClick={onClick} label={text} id={id}>
         <StyledIcon src={icon} />
         <StyledSmallViewTip>{text}</StyledSmallViewTip>
       </StyledToolbarButton>
@@ -60,7 +60,7 @@ const ToolbarItem = ({ href, text, icon, onClick, id }: ToolbarItemProps): React
   }
 
   return (
-    <StyledToolbarLink href={href} ariaLabel={text} id={id}>
+    <StyledToolbarLink href={href} label={text} id={id}>
       <StyledIcon src={icon} />
       <StyledSmallViewTip>{text}</StyledSmallViewTip>
     </StyledToolbarLink>

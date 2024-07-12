@@ -1,10 +1,10 @@
 import React, { ReactElement, ReactNode } from 'react'
 import styled from 'styled-components'
 
-const StyledButton = styled.button<{ disabled: boolean }>`
+const StyledButton = styled.button<{ $disabled: boolean }>`
   background-color: transparent;
-  cursor: ${props => (props.disabled ? 'default' : 'pointer')};
-  pointer-events: ${props => (props.disabled ? 'none' : 'default')};
+  cursor: ${props => (props.$disabled ? 'default' : 'pointer')};
+  pointer-events: ${props => (props.$disabled ? 'none' : 'default')};
   padding: 0;
   border: none;
   text-align: start;
@@ -13,7 +13,7 @@ const StyledButton = styled.button<{ disabled: boolean }>`
 type ButtonProps = {
   onClick: () => void
   children: ReactNode
-  ariaLabel: string
+  label: string
   type?: 'submit' | 'button'
   disabled?: boolean
   tabIndex?: number
@@ -24,7 +24,7 @@ type ButtonProps = {
 const Button = ({
   onClick,
   children,
-  ariaLabel,
+  label,
   tabIndex,
   className,
   type = 'button',
@@ -34,7 +34,8 @@ const Button = ({
   <StyledButton
     onClick={onClick}
     disabled={disabled}
-    aria-label={ariaLabel}
+    $disabled={disabled}
+    aria-label={label}
     tabIndex={tabIndex}
     type={type}
     className={className}

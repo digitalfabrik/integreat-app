@@ -51,7 +51,7 @@ const BoldSpacer = styled.div`
   visibility: hidden;
 `
 
-const Wrapper = styled.div<{ vertical: boolean }>`
+const Wrapper = styled.div<{ $vertical: boolean }>`
   display: flex;
   width: 100%;
   flex-flow: row wrap;
@@ -60,7 +60,7 @@ const Wrapper = styled.div<{ vertical: boolean }>`
   text-align: center;
 
   ${props =>
-    props.vertical &&
+    props.$vertical &&
     css`
       flex-flow: column;
       align-items: center;
@@ -86,7 +86,7 @@ const Selector = ({
   closeDropDown,
   disabledItemTooltip,
 }: SelectorProps): ReactElement => (
-  <Wrapper vertical={verticalLayout} id='languageSelector'>
+  <Wrapper $vertical={verticalLayout} id='languageSelector'>
     {items.map(item => {
       if (item.href) {
         return (
@@ -97,7 +97,7 @@ const Selector = ({
             to={item.href}
             onClick={closeDropDown}
             aria-selected={item.code === activeItemCode}
-            ariaLabel=''
+            label=''
             tabIndex={0}
             $enabled
             $selected={item.code === activeItemCode}>
@@ -109,7 +109,7 @@ const Selector = ({
       return (
         <>
           {/* @ts-expect-error wrong types from polymorphic 'as', see https://github.com/styled-components/styled-components/issues/4112 */}
-          <Element as='div' key={item.code} ariaLabel='' $enabled={false} id={item.code}>
+          <Element as='div' key={item.code} label='' $enabled={false} id={item.code}>
             <BoldSpacer>{item.name}</BoldSpacer>
             {item.name}
           </Element>

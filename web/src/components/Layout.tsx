@@ -40,7 +40,7 @@ export const RichLayout = styled.div`
   }
 `
 
-const Body = styled.div<{ fullWidth: boolean; disableScrollingSafari: boolean }>`
+const Body = styled.div<{ $fullWidth: boolean; $disableScrollingSafari: boolean }>`
   width: 100%;
   box-sizing: border-box;
   margin: 0 auto;
@@ -52,7 +52,7 @@ const Body = styled.div<{ fullWidth: boolean; disableScrollingSafari: boolean }>
   /* Fix jumping iOS Safari Toolbar by prevent scrolling on body */
 
   ${props =>
-    props.disableScrollingSafari &&
+    props.$disableScrollingSafari &&
     css`
       @supports (-webkit-touch-callout: none) {
         /* CSS specific to iOS safari devices */
@@ -62,7 +62,7 @@ const Body = styled.div<{ fullWidth: boolean; disableScrollingSafari: boolean }>
     `};
   /* https://aykevl.nl/2014/09/fix-jumping-scrollbar */
   ${props =>
-    !props.fullWidth &&
+    !props.$fullWidth &&
     css`
       @media screen and ${dimensions.minMaxWidth} {
         padding-inline: calc((100vw - ${dimensions.maxWidth}px) / 2) calc((200% - 100vw - ${dimensions.maxWidth}px) / 2);
@@ -70,13 +70,13 @@ const Body = styled.div<{ fullWidth: boolean; disableScrollingSafari: boolean }>
     `};
 `
 
-const Main = styled.main<{ fullWidth: boolean }>`
+const Main = styled.main<{ $fullWidth: boolean }>`
   display: inline-block;
-  width: ${props => (props.fullWidth ? '100%' : dimensions.maxWidth - 2 * dimensions.toolbarWidth)}px;
+  width: ${props => (props.$fullWidth ? '100%' : dimensions.maxWidth - 2 * dimensions.toolbarWidth)}px;
   max-width: calc(100% - ${dimensions.toolbarWidth}px);
   box-sizing: border-box;
   margin: 0 auto;
-  padding: ${props => (props.fullWidth ? '0' : `0 ${dimensions.mainContainerHorizontalPadding}px 30px`)};
+  padding: ${props => (props.$fullWidth ? '0' : `0 ${dimensions.mainContainerHorizontalPadding}px 30px`)};
   text-align: start;
   word-wrap: break-word;
 
@@ -92,9 +92,9 @@ const Main = styled.main<{ fullWidth: boolean }>`
   }
 `
 
-const Aside = styled.aside<{ languageSelectorHeight: number }>`
-  top: ${props => props.languageSelectorHeight + dimensions.headerHeightLarge + additionalToolbarTopSpacing}px;
-  margin-top: ${props => props.languageSelectorHeight - dimensions.navigationMenuHeight}px;
+const Aside = styled.aside<{ $languageSelectorHeight: number }>`
+  top: ${props => props.$languageSelectorHeight + dimensions.headerHeightLarge + additionalToolbarTopSpacing}px;
+  margin-top: ${props => props.$languageSelectorHeight - dimensions.navigationMenuHeight}px;
   display: inline-block;
   position: sticky;
   width: ${dimensions.toolbarWidth}px;
@@ -143,9 +143,9 @@ const Layout = ({
   return (
     <RichLayout id={LAYOUT_ELEMENT_ID}>
       {header}
-      <Body fullWidth={fullWidth} disableScrollingSafari={disableScrollingSafari}>
-        {!viewportSmall && <Aside languageSelectorHeight={languageSelectorHeight}>{toolbar}</Aside>}
-        <Main fullWidth={fullWidth}>{children}</Main>
+      <Body $fullWidth={fullWidth} $disableScrollingSafari={disableScrollingSafari}>
+        {!viewportSmall && <Aside $languageSelectorHeight={languageSelectorHeight}>{toolbar}</Aside>}
+        <Main $fullWidth={fullWidth}>{children}</Main>
       </Body>
       {viewportSmall && toolbar}
       {chat}

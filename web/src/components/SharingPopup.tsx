@@ -18,8 +18,8 @@ type SharingPopupProps = {
 }
 
 const TooltipContainer = styled.div<{
-  flow: 'vertical' | 'horizontal'
-  active: boolean
+  $flow: 'vertical' | 'horizontal'
+  $active: boolean
 }>`
   background-color: ${props => props.theme.colors.backgroundColor};
   padding: 8px;
@@ -32,14 +32,14 @@ const TooltipContainer = styled.div<{
   font-size: 1rem;
 
   ${props =>
-    props.flow === 'vertical' &&
+    props.$flow === 'vertical' &&
     css`
       flex-flow: column-reverse;
       transform: translateY(-100%);
     `};
 
   ${props =>
-    props.flow === 'horizontal' &&
+    props.$flow === 'horizontal' &&
     (props.theme.contentDirection === 'ltr'
       ? css`
           transform: translate(30%, -8px);
@@ -49,7 +49,7 @@ const TooltipContainer = styled.div<{
         `)};
 
   ${props =>
-    props.active &&
+    props.$active &&
     css`
       animation: tooltips 300ms ease-out forwards;
     `};
@@ -69,7 +69,7 @@ const TooltipContainer = styled.div<{
     border-inline-end: 10px solid transparent;
 
     ${props =>
-      props.flow === 'vertical' &&
+      props.$flow === 'vertical' &&
       (props.theme.contentDirection === 'ltr'
         ? css`
             left: 20px;
@@ -83,7 +83,7 @@ const TooltipContainer = styled.div<{
           `)};
 
     ${props =>
-      props.flow === 'horizontal' &&
+      props.$flow === 'horizontal' &&
       (props.theme.contentDirection === 'ltr'
         ? css`
             left: -14px;
@@ -97,7 +97,7 @@ const TooltipContainer = styled.div<{
           `)};
 
     ${props =>
-      props.active &&
+      props.$active &&
       css`
         animation: tooltips 300ms ease-out forwards;
       `};
@@ -111,7 +111,7 @@ const TooltipContainer = styled.div<{
     border-inline-end: 11px solid transparent;
 
     ${props =>
-      props.flow === 'vertical' &&
+      props.$flow === 'vertical' &&
       (props.theme.contentDirection === 'ltr'
         ? css`
             left: 20px;
@@ -125,7 +125,7 @@ const TooltipContainer = styled.div<{
           `)};
 
     ${props =>
-      props.flow === 'horizontal' &&
+      props.$flow === 'horizontal' &&
       (props.theme.contentDirection === 'ltr'
         ? css`
             left: -17px;
@@ -139,7 +139,7 @@ const TooltipContainer = styled.div<{
           `)};
 
     ${props =>
-      props.active &&
+      props.$active &&
       css`
         animation: tooltips 300ms ease-out forwards;
       `};
@@ -202,7 +202,7 @@ const SharingPopup = ({ shareUrl, title, flow, portalNeeded }: SharingPopupProps
   const tooltipDirection: PlacesType = viewportSmall ? tooltipDirectionMobile : 'top'
 
   const Backdrop = (
-    <BackdropContainer onClick={() => setShareOptionsVisible(false)} ariaLabel={t('closeTooltip')} tabIndex={0}>
+    <BackdropContainer onClick={() => setShareOptionsVisible(false)} label={t('closeTooltip')} tabIndex={0}>
       <div />
     </BackdropContainer>
   )
@@ -217,7 +217,7 @@ const SharingPopup = ({ shareUrl, title, flow, portalNeeded }: SharingPopupProps
             </Portal>
           )}
           {Backdrop}
-          <TooltipContainer flow={portalNeeded ? 'horizontal' : flow} active={shareOptionsVisible}>
+          <TooltipContainer $flow={portalNeeded ? 'horizontal' : flow} $active={shareOptionsVisible}>
             <Link
               href={`https://api.whatsapp.com/send?text=${shareMessage}%0a${encodedShareUrl}`}
               target='_blank'
@@ -247,7 +247,7 @@ const SharingPopup = ({ shareUrl, title, flow, portalNeeded }: SharingPopupProps
             <Tooltip anchorSelect='#share-email' place={tooltipDirection}>
               {t('mailTooltip')}
             </Tooltip>
-            <CloseButton onClick={() => setShareOptionsVisible(false)} ariaLabel={t('closeTooltip')} id='close-button'>
+            <CloseButton onClick={() => setShareOptionsVisible(false)} label={t('closeTooltip')} id='close-button'>
               <StyledIcon src={CloseIcon} />
             </CloseButton>
             <Tooltip anchorSelect='#close-button' place={tooltipDirection}>

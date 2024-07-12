@@ -6,11 +6,11 @@ import Icon from './base/Icon'
 
 const searchLogoWidth = '24px'
 
-const Spacer = styled.div<{ space: boolean }>`
-  ${props => props.space && 'margin: 15px 0;'}
+const Spacer = styled.div<{ $space: boolean }>`
+  ${props => props.$space && 'margin: 15px 0;'}
 `
 
-const TextInput = styled.input.attrs({ type: 'text' })`
+const TextInput = styled.input`
   width: calc(100% - ${searchLogoWidth} - 5px);
   height: 25px;
   box-sizing: border-box;
@@ -67,7 +67,7 @@ const SearchInput = ({
   }
 
   return (
-    <Spacer space={spaceSearch}>
+    <Spacer $space={spaceSearch}>
       <Wrapper>
         <StyledIcon src={SearchIcon} />
         {/* eslint-disable-next-line styled-components-a11y/no-autofocus -- in a dedicated search modal autofocus is fine */}
@@ -78,6 +78,7 @@ const SearchInput = ({
           onChange={handleFilterTextChange}
           onClick={onClickInput}
           autoFocus
+          type='text'
         />
       </Wrapper>
     </Spacer>
