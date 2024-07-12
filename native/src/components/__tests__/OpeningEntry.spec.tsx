@@ -20,6 +20,8 @@ describe('OpeningEntry', () => {
         timeSlots={timeSlots}
         isCurrentDay={isCurrentDay}
         language='de'
+        appointmentOnly={false}
+        link=''
       />,
     )
   it('should display the timeslots of a weekday', () => {
@@ -47,5 +49,9 @@ describe('OpeningEntry', () => {
     expect(timeSlot).toBeTruthy()
     expect(timeSlotLabel).toHaveStyle(expectedStyle)
     expect(timeSlot).toHaveStyle(expectedStyle)
+  })
+
+  it('should display that the location is only open with an appointment', () => {
+    // TODO
   })
 })

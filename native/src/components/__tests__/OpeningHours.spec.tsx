@@ -20,6 +20,7 @@ describe('OpeningHours', () => {
         openingHours={openingHours}
         language='de'
         appointmentUrl='https://make.an/appointment'
+        link='https://make.an/appointment'
       />,
     )
   const openingHours = Array.from(
@@ -46,9 +47,5 @@ describe('OpeningHours', () => {
   it('should display the link to make an appointment', () => {
     const { getByText } = renderOpeningHours(true, false, openingHours)
     expect(getByText('makeAppointment')).toBeTruthy()
-  })
-
-  it('should display that the location is only open with an appointment', () => {
-    // TODO
   })
 })

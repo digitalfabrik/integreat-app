@@ -7,6 +7,7 @@ import styled from 'styled-components'
 import { TimeSlot } from 'shared/api/types'
 
 import { NoteIcon } from '../assets'
+import dimensions from '../constants/dimensions'
 import Icon from './base/Icon'
 
 const fontBold = 600
@@ -57,6 +58,16 @@ const StyledIcon = styled(Icon)`
 const TooltipTitle = styled.div`
   font-weight: 700;
   margin-bottom: 8px;
+
+  @media ${dimensions.smallViewport} {
+    font-size: 14px;
+  }
+`
+
+const TooltipContent = styled.span`
+  @media ${dimensions.smallViewport} {
+    font-size: 14px;
+  }
 `
 
 type AppointmentOnlyIconProps = {
@@ -78,15 +89,16 @@ const AppointmentOnlyIcon = ({ link }: AppointmentOnlyIconProps): ReactElement =
           width: '250px',
         }}>
         <TooltipTitle>{t('appointmentNecessary')}</TooltipTitle>
-        <span>
+        <TooltipContent>
           {link ? (
+            // More information: https://react.i18next.com/latest/trans-component
             <Trans i18nKey='makeAppointmentTooltipWithLink' ns='pois'>
               This gets replaced by <Link to={link}>react-18next</Link>.
             </Trans>
           ) : (
             t('makeAppointmentTooltipWithoutLink')
           )}
-        </span>
+        </TooltipContent>
       </Tooltip>
     </>
   )
