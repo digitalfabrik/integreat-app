@@ -79,7 +79,7 @@ const AppointmentOnlyIcon = ({ link }: AppointmentOnlyIconProps): ReactElement =
 
   return (
     <>
-      <IconContainer id='apointment'>
+      <IconContainer id='apointment' title={t('appointmentNecessary')}>
         <StyledIcon src={NoteIcon} />
       </IconContainer>
       <Tooltip

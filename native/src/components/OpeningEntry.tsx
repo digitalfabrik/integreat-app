@@ -166,7 +166,7 @@ const OpeningEntry = ({
       {appointmentOnly && (
         <AppointmentOnlyContainer>
           <StyledPressable onPress={() => setOverlayOpen(true)}>
-            <StyledIcon Icon={NoteIcon} />
+            <StyledIcon Icon={NoteIcon} label={t('appointmentNecessary')} />
           </StyledPressable>
           {overlayOpen && <AppointmentOnlyOverlay closeOverlay={() => setOverlayOpen(false)} link={link} />}
         </AppointmentOnlyContainer>

@@ -42,8 +42,4 @@ describe('OpeningHours', () => {
     const { getByText } = renderOpeningHours(true, false, openingHours)
     expect(getByText('pois:opened')).toBeTruthy()
   })
-
-  it('should display that the location is only open with an appointment', () => {
-    // TODO
-  })
 })

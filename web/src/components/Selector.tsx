@@ -43,7 +43,6 @@ const Element = styled(Button)<{ $selected: boolean; $enabled: boolean }>`
         }`}
 `
 
-// TODO: ask in the PR if anybody knows what this is for
 const BoldSpacer = styled.div`
   font-weight: 700;
   height: 0;
