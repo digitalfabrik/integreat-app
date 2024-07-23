@@ -48,7 +48,7 @@ const LocalNewsPage = ({ city, pathname, languageCode, cityCode }: CityRouteProp
           newsType: LOCAL_NEWS_TYPE,
           cityCode,
           languageCode,
-          newsId: id.toString(),
+          newsId: id,
         })}
         t={t}
         type={LOCAL_NEWS_TYPE}

@@ -23,20 +23,6 @@ const TimeStampContent = styled.Text<{ language: string }>`
   text-align: ${props => contentAlignment(props.language)};
   align-self: center;
 `
-
-type NewsModelsType = Array<LocalNewsModel | TunewsModel>
-
-export type NewsProps = {
-  news: NewsModelsType
-  navigateToNews: (newsId: string) => void
-  newsId: string | null | undefined
-  languageCode: string
-  selectedNewsType: NewsType
-  loadMore?: () => void
-  loadingMore?: boolean
-  refresh: () => void
-}
-
 const getPageTitle = (
   selectedNewsType: NewsType,
   selectedNewsItem: LocalNewsModel | TunewsModel | null | undefined,
@@ -51,6 +37,19 @@ const getPageTitle = (
   return t('localNews.pageTitle')
 }
 
+type NewsModelsType = Array<LocalNewsModel | TunewsModel>
+
+type NewsProps = {
+  news: NewsModelsType
+  navigateToNews: (newsId: number) => void
+  newsId: number | null
+  languageCode: string
+  selectedNewsType: NewsType
+  loadMore?: () => void
+  loadingMore?: boolean
+  refresh: () => void
+}
+
 const News = ({
   news,
   loadMore,
@@ -61,14 +60,14 @@ const News = ({
   refresh,
   loadingMore,
 }: NewsProps): ReactElement => {
-  const selectedNewsItem = newsId ? news.find(_newsItem => _newsItem.id.toString() === newsId) : null
+  const selectedNewsItem = newsId !== null ? news.find(_newsItem => _newsItem.id === newsId) : null
   const { t } = useTranslation('news')
 
   const navigation = useNavigate().navigation as NavigationProps<NewsRouteType>
   useSetRouteTitle({ navigation, title: getPageTitle(selectedNewsType, selectedNewsItem, t) })
 
   const rendersNewsListItem = ({ item, index }: { item: LocalNewsModel | TunewsModel; index: number }) => {
-    const navigateToNewsDetail = () => navigateToNews(item.id.toString())
+    const navigateToNewsDetail = () => navigateToNews(item.id)
 
     return (
       <NewsListItem
@@ -81,29 +80,30 @@ const News = ({
     )
   }
 
-  if (newsId) {
-    if (selectedNewsItem) {
-      return (
-        <ScrollView>
-          <Page
-            title={selectedNewsItem.title}
-            content={
-              selectedNewsItem instanceof LocalNewsModel
-                ? replaceLinks(selectedNewsItem.content)
-                : selectedNewsItem.content
-            }
-            language={languageCode}
-            Footer={
-              selectedNewsItem instanceof LocalNewsModel && (
-                <TimeStampContent language={languageCode}>
-                  <TimeStamp lastUpdate={selectedNewsItem.timestamp} showText={false} />
-                </TimeStampContent>
-              )
-            }
-          />
-        </ScrollView>
-      )
-    }
+  if (selectedNewsItem) {
+    return (
+      <ScrollView>
+        <Page
+          title={selectedNewsItem.title}
+          content={
+            selectedNewsItem instanceof LocalNewsModel
+              ? replaceLinks(selectedNewsItem.content)
+              : selectedNewsItem.content
+          }
+          language={languageCode}
+          Footer={
+            selectedNewsItem instanceof LocalNewsModel && (
+              <TimeStampContent language={languageCode}>
+                <TimeStamp lastUpdate={selectedNewsItem.timestamp} showText={false} />
+              </TimeStampContent>
+            )
+          }
+        />
+      </ScrollView>
+    )
+  }
+
+  if (newsId !== null) {
     return <Failure code={ErrorCode.PageNotFound} />
   }
 

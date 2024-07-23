@@ -11,16 +11,16 @@ import urlFromRouteInformation from '../navigation/url'
 type LocalNewsProps = {
   route: RouteProps<NewsRouteType>
   navigation: NavigationProps<NewsRouteType>
-  newsId: string | null
+  newsId: number | null
   data: CityContentData
-  navigateToNews: (newsId: string) => void
+  navigateToNews: (newsId: number) => void
   refresh: () => void
 }
 
 const LocalNews = ({ route, navigation, data, newsId, navigateToNews, refresh }: LocalNewsProps): ReactElement => {
   const cityCode = data.city.code
   const languageCode = data.language.code
-  const availableLanguages = newsId ? [languageCode] : data.languages.map(it => it.code)
+  const availableLanguages = newsId !== null ? [languageCode] : data.languages.map(it => it.code)
   const shareUrl = urlFromRouteInformation({
     route: NEWS_ROUTE,
     cityCode,

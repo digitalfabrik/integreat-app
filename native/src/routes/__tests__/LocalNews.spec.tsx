@@ -67,7 +67,7 @@ describe('LocalNews', () => {
     name: NEWS_ROUTE,
   }
 
-  const renderNews = ({ newsId = null }: { newsId?: string | null }) =>
+  const renderNews = ({ newsId = null }: { newsId?: number | null }) =>
     render(
       <NavigationContainer>
         <LocalNews
@@ -91,7 +91,7 @@ describe('LocalNews', () => {
   })
 
   it('should show news detail', () => {
-    const { queryByText } = renderNews({ newsId: news[0].id.toString() })
+    const { queryByText } = renderNews({ newsId: news[0].id })
     expect(queryByText(news[0].title)).toBeTruthy()
     expect(queryByText(news[0].content)).toBeTruthy()
 

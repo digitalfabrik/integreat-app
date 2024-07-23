@@ -66,7 +66,7 @@ describe('News', () => {
     tuNewsEnabled = true,
     localNewsEnabled = true,
   }: {
-    newsId?: string | null
+    newsId?: number | null
     data?: Array<LocalNewsModel | TunewsModel>
     loadingMore?: boolean
     selectedNewsType?: TuNewsType | LocalNewsType
@@ -95,12 +95,12 @@ describe('News', () => {
   }
 
   it('should show not found error if news with id not found', () => {
-    const { getByText } = renderNews({ newsId: 'i am a ghost' })
+    const { getByText } = renderNews({ newsId: 32498732984824 })
     expect(getByText('pageNotFound')).toBeTruthy()
   })
 
   it('should show news detail', () => {
-    const { queryByText } = renderNews({ newsId: news[0].id.toString() })
+    const { queryByText } = renderNews({ newsId: news[0].id })
     expect(queryByText(news[0].title)).toBeTruthy()
     expect(queryByText(news[0].content)).toBeTruthy()
 
@@ -142,14 +142,14 @@ describe('News', () => {
   })
 
   it('should not add links for tünews', () => {
-    const { getByText, queryByText } = renderNews({ data: news, newsId: news[0].id.toString() })
+    const { getByText, queryByText } = renderNews({ data: news, newsId: news[0].id })
     expect(getByText(news[0].title)).toBeTruthy()
     expect(getByText(news[0].content)).toBeTruthy()
     expect(queryByText(replaceLinks(news[0].content))).toBeFalsy()
   })
 
   it('should add links in local news detail', () => {
-    const { getByText, queryByText } = renderNews({ data: localNews, newsId: localNews[0].id.toString() })
+    const { getByText, queryByText } = renderNews({ data: localNews, newsId: localNews[0].id })
     expect(getByText(localNews[0].title)).toBeTruthy()
     expect(queryByText(localNews[0].content)).toBeFalsy()
     expect(queryByText(replaceLinks(localNews[0].content))).toBeTruthy()
