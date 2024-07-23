@@ -24,12 +24,14 @@ const news: [LocalNewsModel, LocalNewsModel] = [
     title: 'Local news 1',
     timestamp: DateTime.fromISO('2020-01-20T00:00:00.000Z'),
     content: 'Local news content 2',
+    availableLanguages: {},
   }),
   new LocalNewsModel({
     id: 1234,
     title: 'Local news 2',
     timestamp: DateTime.fromISO('2020-01-20T00:00:00.000Z'),
     content: 'Local news content 2',
+    availableLanguages: {},
   }),
 ]
 

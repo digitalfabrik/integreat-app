@@ -33,6 +33,7 @@ describe('LocalNewsList', () => {
     title: 'Important',
     timestamp: date,
     content: 'This is a very important content from your favourite city!',
+    availableLanguages: {},
   })
 
   const localNews2 = new LocalNewsModel({
@@ -40,6 +41,7 @@ describe('LocalNewsList', () => {
     title: 'Love :)',
     timestamp: date,
     content: 'I am a random local news content content and I like it!!!!!!!!!',
+    availableLanguages: {},
   })
 
   const items = [localNews1, localNews2]

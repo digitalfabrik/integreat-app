@@ -33,12 +33,12 @@ export default (baseUrl: string): Endpoint<ParamsType, LocalNewsModel> =>
         )
       }
 
-      const { id, timestamp, title, message } = localNewsModel
       return new LocalNewsModel({
-        id,
-        timestamp: DateTime.fromISO(timestamp),
-        title,
-        content: message,
+        id: localNewsModel.id,
+        timestamp: DateTime.fromISO(localNewsModel.timestamp),
+        title: localNewsModel.title,
+        content: localNewsModel.message,
+        availableLanguages: localNewsModel.available_languages,
       })
     })
     .build()

@@ -153,6 +153,7 @@ type ContentLocalNewsJsonType = {
   timestamp: string
   title: string
   content: string
+  available_languages: Record<string, number>
 }
 type CityCodeType = string
 type LanguageCodeType = string
@@ -540,6 +541,7 @@ class DatabaseConnector {
         timestamp: it.timestamp.toISO(),
         title: it.title,
         content: it.content,
+        available_languages: it.availableLanguages,
       }),
     )
     await this.writeFile(this.getContentPath('localNews', context), JSON.stringify(jsonModels))
@@ -555,6 +557,7 @@ class DatabaseConnector {
             timestamp: DateTime.fromISO(jsonObject.timestamp),
             title: jsonObject.title,
             content: jsonObject.content,
+            availableLanguages: jsonObject.available_languages,
           }),
       )
 

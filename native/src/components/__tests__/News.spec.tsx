@@ -43,6 +43,7 @@ const localNews: [LocalNewsModel] = [
     timestamp: DateTime.fromISO('2019-03-01T00:00:00.000'),
     title: 'Local News',
     content: 'Local news with url: https://example.com',
+    availableLanguages: {},
   }),
 ]
 

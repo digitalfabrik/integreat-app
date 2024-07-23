@@ -26,6 +26,7 @@ export default (baseUrl: string): Endpoint<ParamsType, Array<LocalNewsModel>> =>
               timestamp: DateTime.fromISO(localNews.timestamp),
               title: localNews.title,
               content: localNews.message,
+              availableLanguages: localNews.available_languages,
             }),
         ),
     )
