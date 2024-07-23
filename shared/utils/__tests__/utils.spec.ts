@@ -58,7 +58,7 @@ describe('getCategoryTiles', () => {
     title: 'Appointment booking',
     content: 'Some content',
     order: 0,
-    availableLanguages: new Map(),
+    availableLanguages: {},
     thumbnail: 'my thumbnail',
     parentPath: '',
     lastUpdate: DateTime.fromISO('2023-10-09T07:00:00.000+02:00'),

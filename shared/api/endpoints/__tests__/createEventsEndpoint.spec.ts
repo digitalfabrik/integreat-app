@@ -79,7 +79,7 @@ describe('events', () => {
       title: 'Asylpolitischer Frühschoppen',
       excerpt: 'Asylpolitischer Frühschoppen',
       content: '<div>Some event test content :)</div>',
-      availableLanguages: new Map(),
+      availableLanguages: {},
       thumbnail: '',
       date: new DateModel({
         allDay,

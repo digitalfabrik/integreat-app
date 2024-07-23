@@ -30,7 +30,7 @@ export default (baseUrl: string): Endpoint<ParamsType, CategoriesMapModel> =>
           content: '',
           thumbnail: '',
           order: -1,
-          availableLanguages: new Map(),
+          availableLanguages: {},
           lastUpdate: DateTime.fromMillis(0),
           organization: null,
           embeddedOffers: [],

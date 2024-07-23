@@ -5,18 +5,16 @@ import OpeningHoursModel from '../../models/OpeningHoursModel'
 import PoiCategoryModel from '../../models/PoiCategoryModel'
 import PoiModel from '../../models/PoiModel'
 
-const availableLanguages = new Map([
-  ['de', '/augsburg/de/locations/test'],
-  ['en', '/augsburg/en/locations/test-translated'],
-])
-
 const pois = [
   new PoiModel({
     path: '/augsburg/de/locations/test',
     title: 'Test Title',
     content: 'My extremely long test content',
     thumbnail: 'test',
-    availableLanguages,
+    availableLanguages: {
+      de: '/augsburg/de/locations/test',
+      en: '/augsburg/en/locations/test-translated',
+    },
     excerpt: 'excerpt',
     metaDescription: 'meta',
     website: 'https://example.com',
@@ -51,7 +49,10 @@ const pois = [
     title: 'test title 2',
     content: 'test content 2',
     thumbnail: 'test thumbnail 2',
-    availableLanguages,
+    availableLanguages: {
+      de: '/augsburg/de/locations/test',
+      en: '/augsburg/en/locations/test-translated',
+    },
     excerpt: 'test excerpt 2',
     metaDescription: 'meta 2',
     website: null,
@@ -86,7 +87,10 @@ const pois = [
     title: 'Another test title',
     content: 'another test content',
     thumbnail: 'another test thumbnail',
-    availableLanguages,
+    availableLanguages: {
+      de: '/augsburg/de/locations/test',
+      en: '/augsburg/en/locations/test-translated',
+    },
     excerpt: 'Another test excerpt',
     metaDescription: null,
     website: null,

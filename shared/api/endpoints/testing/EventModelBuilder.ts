@@ -87,11 +87,12 @@ class EventModelBuilder {
           event: new EventModel({
             path,
             title: 'first Event',
-            availableLanguages: new Map(
-              LANGUAGES.filter(language => language !== this._language).map(lng => [
-                lng,
-                `/${this._city}/${lng}/events/event${index}`,
-              ]),
+            availableLanguages: LANGUAGES.filter(language => language !== this._language).reduce(
+              (acc, code) => ({
+                ...acc,
+                [code]: `/${this._city}/${code}/events/event${index}`,
+              }),
+              {},
             ),
             date: new DateModel({
               startDate,
