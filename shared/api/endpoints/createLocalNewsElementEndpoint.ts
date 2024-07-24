@@ -6,6 +6,7 @@ import EndpointBuilder from '../EndpointBuilder'
 import { API_VERSION } from '../constants'
 import MappingError from '../errors/MappingError'
 import NotFoundError from '../errors/NotFoundError'
+import { mapNewsAvailableLanguages } from '../mapping/mapAvailableLanguages'
 import LocalNewsModel from '../models/LocalNewsModel'
 import { JsonLocalNewsType } from '../types'
 
@@ -38,7 +39,7 @@ export default (baseUrl: string): Endpoint<ParamsType, LocalNewsModel> =>
         timestamp: DateTime.fromISO(localNewsModel.timestamp),
         title: localNewsModel.title,
         content: localNewsModel.message,
-        availableLanguages: localNewsModel.available_languages,
+        availableLanguages: mapNewsAvailableLanguages(localNewsModel.available_languages),
       })
     })
     .build()

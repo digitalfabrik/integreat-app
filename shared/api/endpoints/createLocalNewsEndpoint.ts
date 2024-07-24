@@ -3,6 +3,7 @@ import { DateTime } from 'luxon'
 import Endpoint from '../Endpoint'
 import EndpointBuilder from '../EndpointBuilder'
 import { API_VERSION } from '../constants'
+import { mapNewsAvailableLanguages } from '../mapping/mapAvailableLanguages'
 import LocalNewsModel from '../models/LocalNewsModel'
 import { JsonLocalNewsType } from '../types'
 
@@ -26,7 +27,7 @@ export default (baseUrl: string): Endpoint<ParamsType, Array<LocalNewsModel>> =>
               timestamp: DateTime.fromISO(localNews.timestamp),
               title: localNews.title,
               content: localNews.message,
-              availableLanguages: localNews.available_languages,
+              availableLanguages: mapNewsAvailableLanguages(localNews.available_languages),
             }),
         ),
     )

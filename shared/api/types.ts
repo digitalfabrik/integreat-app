@@ -126,7 +126,7 @@ export type JsonTunewsType = {
   enewsno: string
 }
 export type JsonLocalNewsType = {
-  id: number
+  id: string
   timestamp: string
   title: string
   message: string

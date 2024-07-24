@@ -9,21 +9,18 @@ class LocalNewsModel {
   _availableLanguages: Record<string, number>
 
   constructor(params: {
-    id: number
+    id: number | string
     timestamp: DateTime
     title: string
     content: string
-    availableLanguages: Record<string, { id: number }>
+    availableLanguages: Record<string, number>
   }) {
     const { id, timestamp, title, content, availableLanguages } = params
-    this._id = id
+    this._id = typeof id === 'number' ? id : parseInt(id, 10)
     this._timestamp = timestamp
     this._title = decodeHTML(title)
     this._content = decodeHTML(content)
-    this._availableLanguages = Object.entries(availableLanguages).reduce(
-      (acc, [code, value]) => ({ ...acc, [code]: value.id }),
-      {},
-    )
+    this._availableLanguages = availableLanguages
   }
 
   get availableLanguages(): Record<string, number> {
