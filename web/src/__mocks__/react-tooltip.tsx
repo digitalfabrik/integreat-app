@@ -1,5 +1,5 @@
 import React, { ReactNode } from 'react'
 
-const Tooltip = ({ children }: { children: ReactNode }) => <div>{children}</div>
+const Tooltip = ({ children }: { children: ReactNode }): ReactNode => <div>{children}</div>
 
 export { Tooltip }
