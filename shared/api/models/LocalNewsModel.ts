@@ -9,14 +9,14 @@ class LocalNewsModel {
   _availableLanguages: Record<string, number>
 
   constructor(params: {
-    id: number | string
+    id: number
     timestamp: DateTime
     title: string
     content: string
     availableLanguages: Record<string, number>
   }) {
     const { id, timestamp, title, content, availableLanguages } = params
-    this._id = typeof id === 'number' ? id : parseInt(id, 10)
+    this._id = id
     this._timestamp = timestamp
     this._title = decodeHTML(title)
     this._content = decodeHTML(content)

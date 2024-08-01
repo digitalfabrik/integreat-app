@@ -60,7 +60,7 @@ const News = ({
   refresh,
   loadingMore,
 }: NewsProps): ReactElement => {
-  const selectedNewsItem = newsId !== null ? news.find(_newsItem => _newsItem.id === newsId) : null
+  const selectedNewsItem = news.find(_newsItem => _newsItem.id === newsId)
   const { t } = useTranslation('news')
 
   const navigation = useNavigate().navigation as NavigationProps<NewsRouteType>
