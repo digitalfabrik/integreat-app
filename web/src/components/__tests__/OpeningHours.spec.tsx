@@ -20,7 +20,7 @@ describe('OpeningHours', () => {
         isCurrentlyOpen={isCurrentlyOpen}
         isTemporarilyClosed={isTemporarilyClosed}
         openingHours={openingHours}
-        link={null}
+        appointmentOverlayLink={null}
       />,
     )
   it('should display that the location is temporarily closed', () => {

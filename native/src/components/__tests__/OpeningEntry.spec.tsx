@@ -24,7 +24,7 @@ describe('OpeningEntry', () => {
         isCurrentDay={isCurrentDay}
         language='de'
         appointmentOnly={appointmentOnly}
-        link=''
+        appointmentOverlayLink=''
       />,
     )
   it('should display the timeslots of a weekday', () => {
@@ -59,12 +59,12 @@ describe('OpeningEntry', () => {
     const { getByLabelText, getByText, queryByText } = renderOpeningEntries(false, false, false, true)
     const appointmentOnlyIcon = getByLabelText('appointmentNecessary')
     expect(appointmentOnlyIcon).toBeDefined()
-    expect(queryByText('makeAppointmentTooltipWithoutLink')).toBeNull()
+    expect(queryByText('pois:makeAppointmentTooltipWithLink')).toBeNull()
 
     await user.press(appointmentOnlyIcon)
-    expect(queryByText('makeAppointmentTooltipWithoutLink')).toBeDefined()
+    expect(queryByText('pois:makeAppointmentTooltipWithLink')).toBeDefined()
 
-    await user.press(getByText('close'))
-    expect(queryByText('makeAppointmentTooltipWithoutLink')).toBeNull()
+    await user.press(getByText('common:close'))
+    expect(queryByText('pois:makeAppointmentTooltipWithLink')).toBeNull()
   })
 })

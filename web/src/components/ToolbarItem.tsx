@@ -7,21 +7,13 @@ import StyledSmallViewTip from './StyledSmallViewTip'
 import Button from './base/Button'
 import Icon from './base/Icon'
 
-const StyledToolbarButton = styled(Button)`
-  margin: 8px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 4px;
-
-  @media ${dimensions.smallViewport} {
-    line-height: 1.15;
-  }
-`
-
-const StyledToolbarLink = styled(CleanAnchor)`
-  margin: 8px;
+const StyledToolbarItem = styled(CleanAnchor)`
+  display: inline-block;
+  padding: 8px;
+  cursor: pointer;
+  border: none;
   color: ${props => props.theme.colors.textColor};
+  background-color: transparent;
   text-align: center;
 
   @media ${dimensions.smallViewport} {
@@ -49,22 +41,12 @@ type ToolbarItemProps = {
   id?: string
 } & ItemProps
 
-const ToolbarItem = ({ href, text, icon, onClick, id }: ToolbarItemProps): ReactElement => {
-  if (onClick) {
-    return (
-      <StyledToolbarButton onClick={onClick} label={text} id={id}>
-        <StyledIcon src={icon} />
-        <StyledSmallViewTip>{text}</StyledSmallViewTip>
-      </StyledToolbarButton>
-    )
-  }
-
-  return (
-    <StyledToolbarLink href={href} label={text} id={id}>
-      <StyledIcon src={icon} />
-      <StyledSmallViewTip>{text}</StyledSmallViewTip>
-    </StyledToolbarLink>
-  )
-}
+const ToolbarItem = ({ href, text, icon, onClick, id }: ToolbarItemProps): ReactElement => (
+  // @ts-expect-error wrong types from polymorphic 'as', see https://github.com/styled-components/styled-components/issues/4112
+  <StyledToolbarItem as={onClick ? Button : undefined} id={id} href={href} onClick={onClick} label={text}>
+    <StyledIcon src={icon} />
+    <StyledSmallViewTip>{text}</StyledSmallViewTip>
+  </StyledToolbarItem>
+)
 
 export default ToolbarItem

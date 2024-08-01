@@ -20,7 +20,7 @@ describe('OpeningHours', () => {
         openingHours={openingHours}
         language='de'
         appointmentUrl='https://make.an/appointment'
-        link='https://make.an/appointment'
+        appointmentOverlayLink='https://make.an/appointment'
       />,
     )
   const openingHours = Array.from(

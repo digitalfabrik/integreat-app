@@ -57,7 +57,7 @@ const EventListItem = ({ event, languageCode }: EventListItemProps): ReactElemen
 
   const DateIcon = dateIcon && (
     <>
-      <Icon src={dateIcon.icon} id='calendar-icon' title={dateIcon.tooltip} />
+      <Icon src={dateIcon.icon} id='calendar-icon' title={t(dateIcon.tooltip)} />
       <Tooltip anchorSelect='#calendar-icon'>{t(dateIcon.tooltip)}</Tooltip>
     </>
   )

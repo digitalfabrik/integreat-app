@@ -1,14 +1,10 @@
 import React, { ReactElement } from 'react'
-import { Trans, useTranslation } from 'react-i18next'
-import { Link } from 'react-router-dom'
-import { Tooltip } from 'react-tooltip'
+import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
 
 import { TimeSlot } from 'shared/api/types'
 
-import { NoteIcon } from '../assets'
-import dimensions from '../constants/dimensions'
-import Icon from './base/Icon'
+import AppointmentOnlyIcon from './AppointmentOnlyIcon'
 
 const fontBold = 600
 const fontStandard = 400
@@ -32,77 +28,11 @@ const OpeningContainer = styled.div`
   gap: 8px;
 `
 
-const IconContainer = styled.button`
-  padding: 0;
-  border: none;
-  background-color: transparent;
-  align-self: center;
-  width: 18px;
-  height: 18px;
-  position: absolute;
-  right: -27px;
-`
-
 const TimeSlotEntry = styled.span`
   &:not(:first-child) {
     margin-top: 8px;
   }
 `
-
-const StyledIcon = styled(Icon)`
-  width: 18px;
-  height: 18px;
-  align-self: center;
-`
-
-const TooltipTitle = styled.div`
-  font-weight: 700;
-  margin-bottom: 8px;
-
-  @media ${dimensions.smallViewport} {
-    font-size: 14px;
-  }
-`
-
-const TooltipContent = styled.span`
-  @media ${dimensions.smallViewport} {
-    font-size: 14px;
-  }
-`
-
-type AppointmentOnlyIconProps = {
-  link: string | null
-}
-
-const AppointmentOnlyIcon = ({ link }: AppointmentOnlyIconProps): ReactElement => {
-  const { t } = useTranslation('pois')
-
-  return (
-    <>
-      <IconContainer id='apointment' title={t('appointmentNecessary')}>
-        <StyledIcon src={NoteIcon} />
-      </IconContainer>
-      <Tooltip
-        anchorSelect='#apointment'
-        clickable
-        style={{
-          width: '250px',
-        }}>
-        <TooltipTitle>{t('appointmentNecessary')}</TooltipTitle>
-        <TooltipContent>
-          {link ? (
-            // More information: https://react.i18next.com/latest/trans-component
-            <Trans i18nKey='makeAppointmentTooltipWithLink' ns='pois'>
-              This gets replaced by <Link to={link}>react-18next</Link>.
-            </Trans>
-          ) : (
-            t('makeAppointmentTooltipWithoutLink')
-          )}
-        </TooltipContent>
-      </Tooltip>
-    </>
-  )
-}
 
 type OpeningEntryProps = {
   allDay: boolean
@@ -111,7 +41,7 @@ type OpeningEntryProps = {
   weekday: string
   isCurrentDay: boolean
   appointmentOnly: boolean
-  link: string | null
+  appointmentOverlayLink: string | null
 }
 
 const OpeningEntry = ({
@@ -121,7 +51,7 @@ const OpeningEntry = ({
   weekday,
   isCurrentDay,
   appointmentOnly,
-  link,
+  appointmentOverlayLink,
 }: OpeningEntryProps): ReactElement => {
   const { t } = useTranslation('pois')
 
@@ -140,7 +70,7 @@ const OpeningEntry = ({
             ))}
           </Timeslot>
         )}
-        {appointmentOnly && <AppointmentOnlyIcon link={link} />}
+        {appointmentOnly && <AppointmentOnlyIcon appointmentUrl={appointmentOverlayLink} />}
       </OpeningContainer>
     </EntryContainer>
   )

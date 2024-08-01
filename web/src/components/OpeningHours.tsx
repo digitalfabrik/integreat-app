@@ -6,11 +6,9 @@ import styled from 'styled-components'
 import { weekdays } from 'shared'
 import { OpeningHoursModel } from 'shared/api'
 
-import { NoteIcon } from '../assets'
 import { helpers } from '../constants/theme'
 import Collapsible from './Collapsible'
 import OpeningEntry from './OpeningEntry'
-import Icon from './base/Icon'
 
 const OpeningLabel = styled.span<{ $isOpen: boolean }>`
   color: ${props => (props.$isOpen ? props.theme.colors.positiveHighlight : props.theme.colors.negativeHighlight)};
@@ -37,17 +35,11 @@ const OpeningContainer = styled.div`
   gap: 8px;
 `
 
-const StyledIcon = styled(Icon)`
-  width: 18px;
-  height: 18px;
-  color: white;
-`
-
 type OpeningHoursProps = {
   isCurrentlyOpen: boolean
   openingHours: OpeningHoursModel[] | null
   isTemporarilyClosed: boolean
-  link: string | null
+  appointmentOverlayLink: string | null
 }
 
 const getOpeningLabel = (isTemporarilyClosed: boolean, isCurrentlyOpened: boolean): string => {
@@ -61,7 +53,7 @@ const OpeningHours = ({
   isCurrentlyOpen,
   openingHours,
   isTemporarilyClosed,
-  link,
+  appointmentOverlayLink,
 }: OpeningHoursProps): ReactElement | null => {
   const { t } = useTranslation('pois')
 
@@ -72,7 +64,6 @@ const OpeningHours = ({
         <OpeningLabel $isOpen={isCurrentlyOpen}>
           {t(getOpeningLabel(isTemporarilyClosed, isCurrentlyOpen))}
         </OpeningLabel>
-        <StyledIcon src={NoteIcon} />
       </OpeningContainer>
     </TitleContainer>
   )
@@ -97,7 +88,7 @@ const OpeningHours = ({
             timeSlots={entry.timeSlots}
             isCurrentDay={index === DateTime.now().weekday - 1}
             appointmentOnly={entry.appointmentOnly}
-            link={link}
+            appointmentOverlayLink={appointmentOverlayLink}
           />
         ))}
       </Content>
