@@ -89,7 +89,7 @@ describe('LocalNews', () => {
     expect(getByText(news[1].title)).toBeTruthy()
 
     fireEvent.press(getByText(news[1].title))
-    expect(selectNews).toHaveBeenCalledWith(news[1].id.toString())
+    expect(selectNews).toHaveBeenCalledWith(news[1].id)
   })
 
   it('should show news detail', () => {

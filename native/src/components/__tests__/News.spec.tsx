@@ -117,7 +117,7 @@ describe('News', () => {
     expect(getByText(news[1].content)).toBeTruthy()
 
     fireEvent.press(getByText(news[1].title))
-    expect(navigateToNews).toHaveBeenCalledWith(news[1].id.toString())
+    expect(navigateToNews).toHaveBeenCalledWith(news[1].id)
   })
 
   it('should show currently no news', () => {
