@@ -190,14 +190,6 @@ type PageResourceCacheJsonType = Record<string, PageResourceCacheEntryJsonType>
 type LanguageResourceCacheJsonType = Record<string, PageResourceCacheJsonType>
 type CityResourceCacheJsonType = Record<LanguageCodeType, LanguageResourceCacheJsonType>
 
-const mapToObject = (map: Map<string, string>) => {
-  const output: Record<string, string> = {}
-  map.forEach((value, key) => {
-    output[key] = value
-  })
-  return output
-}
-
 class DatabaseConnector {
   constructor() {
     this.migrationRoutine().catch(reportError)
@@ -380,7 +372,7 @@ class DatabaseConnector {
         content: category.content,
         last_update: category.lastUpdate.toISO(),
         thumbnail: category.thumbnail,
-        available_languages: mapToObject(category.availableLanguages),
+        available_languages: category.availableLanguages,
         parent_path: category.parentPath,
         children: categoriesMap.getChildren(category).map(category => category.path),
         order: category.order,
@@ -406,36 +398,36 @@ class DatabaseConnector {
     const path = this.getContentPath('categories', context)
     const mapCategoriesJson = (json: ContentCategoryJsonType[]) =>
       new CategoriesMapModel(
-        json.map(jsonObject => {
-          const availableLanguages = new Map<string, string>(Object.entries(jsonObject.available_languages))
-          return new CategoryModel({
-            root: jsonObject.root,
-            path: jsonObject.path,
-            title: jsonObject.title,
-            content: jsonObject.content,
-            thumbnail: jsonObject.thumbnail,
-            parentPath: jsonObject.parent_path,
-            order: jsonObject.order,
-            availableLanguages,
-            lastUpdate: DateTime.fromISO(jsonObject.last_update),
-            organization: jsonObject.organization
-              ? new OrganizationModel({
-                  name: jsonObject.organization.name,
-                  logo: jsonObject.organization.logo,
-                  url: jsonObject.organization.url,
-                })
-              : null,
-            embeddedOffers: jsonObject.embedded_offers.map(
-              jsonOffer =>
-                new OfferModel({
-                  title: jsonOffer.title,
-                  alias: jsonOffer.alias,
-                  thumbnail: jsonOffer.thumbnail,
-                  path: jsonOffer.path,
-                }),
-            ),
-          })
-        }),
+        json.map(
+          jsonObject =>
+            new CategoryModel({
+              root: jsonObject.root,
+              path: jsonObject.path,
+              title: jsonObject.title,
+              content: jsonObject.content,
+              thumbnail: jsonObject.thumbnail,
+              parentPath: jsonObject.parent_path,
+              order: jsonObject.order,
+              availableLanguages: jsonObject.available_languages,
+              lastUpdate: DateTime.fromISO(jsonObject.last_update),
+              organization: jsonObject.organization
+                ? new OrganizationModel({
+                    name: jsonObject.organization.name,
+                    logo: jsonObject.organization.logo,
+                    url: jsonObject.organization.url,
+                  })
+                : null,
+              embeddedOffers: jsonObject.embedded_offers.map(
+                jsonOffer =>
+                  new OfferModel({
+                    title: jsonOffer.title,
+                    alias: jsonOffer.alias,
+                    thumbnail: jsonOffer.thumbnail,
+                    path: jsonOffer.path,
+                  }),
+              ),
+            }),
+        ),
       )
 
     return this.readFile(path, mapCategoriesJson)
@@ -448,7 +440,7 @@ class DatabaseConnector {
         title: poi.title,
         content: poi.content,
         thumbnail: poi.thumbnail,
-        availableLanguages: mapToObject(poi.availableLanguages),
+        availableLanguages: poi.availableLanguages,
         excerpt: poi.excerpt,
         website: poi.website,
         phoneNumber: poi.phoneNumber,
@@ -492,13 +484,12 @@ class DatabaseConnector {
     const mapPoisJson = (json: ContentPoiJsonType[]) =>
       json.map(jsonObject => {
         const jsonLocation = jsonObject.location
-        const availableLanguages = new Map<string, string>(Object.entries(jsonObject.availableLanguages))
         return new PoiModel({
           path: jsonObject.path,
           title: jsonObject.title,
           content: jsonObject.content,
           thumbnail: jsonObject.thumbnail,
-          availableLanguages,
+          availableLanguages: jsonObject.availableLanguages,
           metaDescription: null, // not used in native
           excerpt: jsonObject.excerpt,
           website: jsonObject.website,
@@ -628,7 +619,7 @@ class DatabaseConnector {
         content: event.content,
         last_update: event.lastUpdate.toISO(),
         thumbnail: event.thumbnail,
-        available_languages: mapToObject(event.availableLanguages),
+        available_languages: event.availableLanguages,
         excerpt: event.excerpt,
         date: {
           start_date: event.date.startDate.toISO(),
@@ -668,7 +659,6 @@ class DatabaseConnector {
     const mapEventsJson = (json: ContentEventJsonType[]) =>
       json.map(jsonObject => {
         const jsonDate = jsonObject.date
-        const availableLanguages = new Map<string, string>(Object.entries(jsonObject.available_languages))
         return new EventModel({
           path: jsonObject.path,
           title: jsonObject.title,
@@ -683,7 +673,7 @@ class DatabaseConnector {
                 full: jsonObject.featured_image.full,
               })
             : null,
-          availableLanguages,
+          availableLanguages: jsonObject.available_languages,
           lastUpdate: DateTime.fromISO(jsonObject.last_update),
           excerpt: jsonObject.excerpt,
           date: new DateModel({
