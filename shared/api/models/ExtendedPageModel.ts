@@ -32,7 +32,7 @@ class ExtendedPageModel extends PageModel {
 
   get availableLanguageSlugs(): Record<string, string> {
     return Object.entries(this.availableLanguages).reduce(
-      (acc, [code, path]) => ({ ...acc, [code]: getSlugFromPath(path) }),
+      (availableLanguageSlugs, [code, path]) => ({ ...availableLanguageSlugs, [code]: getSlugFromPath(path) }),
       {},
     )
   }

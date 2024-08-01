@@ -88,8 +88,8 @@ class EventModelBuilder {
             path,
             title: 'first Event',
             availableLanguages: LANGUAGES.filter(language => language !== this._language).reduce(
-              (acc, code) => ({
-                ...acc,
+              (availableLanguages, code) => ({
+                ...availableLanguages,
                 [code]: `/${this._city}/${code}/events/event${index}`,
               }),
               {},
