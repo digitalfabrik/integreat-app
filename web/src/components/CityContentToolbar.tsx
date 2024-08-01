@@ -1,6 +1,6 @@
 import React, { memo, ReactNode, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Tooltip, PlacesType } from 'react-tooltip'
+import { PlacesType } from 'react-tooltip'
 import { useTheme } from 'styled-components'
 
 import { CopyIcon, DoneIcon } from '../assets'
@@ -10,6 +10,7 @@ import FeedbackToolbarItem from './FeedbackToolbarItem'
 import SharingPopup from './SharingPopup'
 import Toolbar from './Toolbar'
 import ToolbarItem from './ToolbarItem'
+import Tooltip from './base/Tooltip'
 
 type CityContentToolbarProps = {
   feedbackTarget?: string
@@ -59,13 +60,19 @@ const CityContentToolbar = (props: CityContentToolbarProps) => {
         title={pageTitle}
         portalNeeded={isInBottomActionSheet}
       />
-      <ToolbarItem
-        icon={linkCopied ? DoneIcon : CopyIcon}
-        text={t('copyUrl')}
-        onClick={copyToClipboard}
+      <Tooltip
         id='copy-icon'
-      />
-      <Tooltip anchorSelect='#copy-icon' openOnClick isOpen={linkCopied} place={tooltipDirection}>
+        openOnClick
+        isOpen={linkCopied}
+        place={tooltipDirection}
+        container={
+          <ToolbarItem
+            icon={linkCopied ? DoneIcon : CopyIcon}
+            text={t('copyUrl')}
+            onClick={copyToClipboard}
+            id='copy-icon'
+          />
+        }>
         {t('common:copied')}
       </Tooltip>
       {hasFeedbackOption && (

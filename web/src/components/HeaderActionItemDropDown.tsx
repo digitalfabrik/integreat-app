@@ -1,5 +1,4 @@
 import React, { ReactElement, ReactNode, useRef, useState } from 'react'
-import { Tooltip } from 'react-tooltip'
 import styled from 'styled-components'
 
 import useOnClickOutside from '../hooks/useOnClickOutside'
@@ -7,6 +6,7 @@ import { spacesToDashes } from '../utils/stringUtils'
 import DropDownContainer from './DropDownContainer'
 import Button from './base/Button'
 import Icon from './base/Icon'
+import Tooltip from './base/Tooltip'
 
 const StyledIcon = styled(Icon)`
   width: 28px;
@@ -42,10 +42,15 @@ const HeaderActionItemDropDown = ({ iconSrc, text, children }: HeaderActionItemD
 
   return (
     <div ref={wrapperRef}>
-      <Button label={text} onClick={toggleDropDown} id={id}>
-        <StyledIcon src={iconSrc} />
-      </Button>
-      <Tooltip anchorSelect={`#${id}`}>{text}</Tooltip>
+      <Tooltip
+        id={id}
+        container={
+          <Button label={text} onClick={toggleDropDown} id={id}>
+            <StyledIcon src={iconSrc} />
+          </Button>
+        }>
+        {text}
+      </Tooltip>
       <DropDownContainer
         data-testid='headerActionItemDropDown'
         $active={dropDownActive}

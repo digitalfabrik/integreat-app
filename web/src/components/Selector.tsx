@@ -1,18 +1,17 @@
 import React, { ReactElement } from 'react'
 import { Link } from 'react-router-dom'
-import { Tooltip } from 'react-tooltip'
 import styled, { css } from 'styled-components'
 
 import dimensions from '../constants/dimensions'
 import { helpers } from '../constants/theme'
 import SelectorItemModel from '../models/SelectorItemModel'
 import Button from './base/Button'
+import Tooltip from './base/Tooltip'
 
 const Element = styled(Button)<{ $selected: boolean; $enabled: boolean }>`
   ${helpers.removeLinkHighlighting};
   height: ${dimensions.headerHeightLarge}px;
   min-width: 90px;
-  flex: 1 1 auto;
   padding: 0 5px;
   font-size: 1.2em;
   line-height: ${dimensions.headerHeightLarge}px;
@@ -106,14 +105,18 @@ const Selector = ({
         )
       }
       return (
-        <>
-          {/* @ts-expect-error wrong types from polymorphic 'as', see https://github.com/styled-components/styled-components/issues/4112 */}
-          <Element as='div' key={item.code} label='' $enabled={false} id={item.code}>
-            <BoldSpacer>{item.name}</BoldSpacer>
-            {item.name}
-          </Element>
-          <Tooltip anchorSelect={`#${item.code}`}>{disabledItemTooltip}</Tooltip>
-        </>
+        <Tooltip
+          id={item.code}
+          key={item.code}
+          container={
+            // @ts-expect-error wrong types from polymorphic 'as', see https://github.com/styled-components/styled-components/issues/4112
+            <Element as='div' label='' $enabled={false} id={item.code}>
+              <BoldSpacer>{item.name}</BoldSpacer>
+              {item.name}
+            </Element>
+          }>
+          {disabledItemTooltip}
+        </Tooltip>
       )
     })}
   </Wrapper>

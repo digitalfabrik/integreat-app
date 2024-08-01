@@ -1,22 +1,25 @@
 import React, { ReactElement } from 'react'
 import { Trans, useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
-import { Tooltip } from 'react-tooltip'
 import { styled } from 'styled-components'
 
 import { NoteIcon } from '../assets'
 import dimensions from '../constants/dimensions'
 import Icon from './base/Icon'
+import Tooltip from './base/Tooltip'
+
+const Container = styled.div`
+  position: absolute;
+  inset-inline-end: -27px;
+  top: 4px;
+`
 
 const IconContainer = styled.button`
   padding: 0;
   border: none;
   background-color: transparent;
-  align-self: center;
   width: 18px;
   height: 18px;
-  position: absolute;
-  inset-inline-end: -27px;
 `
 
 const StyledIcon = styled(Icon)`
@@ -48,16 +51,18 @@ const AppointmentOnlyIcon = ({ appointmentUrl }: AppointmentOnlyIconProps): Reac
   const { t } = useTranslation('pois')
 
   return (
-    <>
-      <IconContainer id='appointment' title={t('appointmentNecessary')}>
-        <StyledIcon src={NoteIcon} />
-      </IconContainer>
+    <Container>
       <Tooltip
-        anchorSelect='#appointment'
+        id='appointment'
         clickable
         style={{
           width: '250px',
-        }}>
+        }}
+        container={
+          <IconContainer title={t('appointmentNecessary')}>
+            <StyledIcon src={NoteIcon} />
+          </IconContainer>
+        }>
         <TooltipTitle>{t('appointmentNecessary')}</TooltipTitle>
         <TooltipContent>
           {/* More information: https://react.i18next.com/latest/trans-component */}
@@ -67,7 +72,7 @@ const AppointmentOnlyIcon = ({ appointmentUrl }: AppointmentOnlyIconProps): Reac
           </Trans>
         </TooltipContent>
       </Tooltip>
-    </>
+    </Container>
   )
 }
 

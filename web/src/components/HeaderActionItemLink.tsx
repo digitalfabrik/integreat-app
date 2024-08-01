@@ -1,12 +1,13 @@
 import React, { ReactElement } from 'react'
 import { Link } from 'react-router-dom'
-import { Tooltip, PlacesType } from 'react-tooltip'
+import { PlacesType } from 'react-tooltip'
 import styled, { useTheme } from 'styled-components'
 
 import dimensions from '../constants/dimensions'
 import useWindowDimensions from '../hooks/useWindowDimensions'
 import { spacesToDashes } from '../utils/stringUtils'
 import Icon from './base/Icon'
+import Tooltip from './base/Tooltip'
 
 const StyledIcon = styled(Icon)`
   width: 28px;
@@ -30,20 +31,22 @@ const HeaderActionItemLink = ({ href, text, iconSrc }: HeaderActionItemLinkProps
   const tooltipDirection: PlacesType = isMediumViewport ? tooltipDirectionMediumDesktop : 'bottom'
 
   return (
-    <>
-      {href ? (
-        <Link to={href} aria-label={text} id={id}>
-          <StyledIcon src={iconSrc} />
-        </Link>
-      ) : (
-        <span aria-label={text} id={id}>
-          <StyledIcon src={iconSrc} />
-        </span>
-      )}
-      <Tooltip anchorSelect={`#${id}`} place={tooltipDirection}>
-        {text}
-      </Tooltip>
-    </>
+    <Tooltip
+      id={id}
+      place={tooltipDirection}
+      container={
+        href ? (
+          <Link to={href} aria-label={text} id={id}>
+            <StyledIcon src={iconSrc} />
+          </Link>
+        ) : (
+          <span aria-label={text} id={id}>
+            <StyledIcon src={iconSrc} />
+          </span>
+        )
+      }>
+      {text}
+    </Tooltip>
   )
 }
 

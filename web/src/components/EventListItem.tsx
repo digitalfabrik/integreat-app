@@ -1,6 +1,5 @@
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Tooltip } from 'react-tooltip'
 import styled from 'styled-components'
 
 import { getExcerpt } from 'shared'
@@ -18,6 +17,7 @@ import { EXCERPT_MAX_CHARS } from '../constants'
 import useWindowDimensions from '../hooks/useWindowDimensions'
 import ListItem from './ListItem'
 import Icon from './base/Icon'
+import Tooltip from './base/Tooltip'
 
 const Content = styled.div`
   overflow-wrap: anywhere;
@@ -56,10 +56,9 @@ const EventListItem = ({ event, languageCode }: EventListItemProps): ReactElemen
   const { t } = useTranslation('events')
 
   const DateIcon = dateIcon && (
-    <>
-      <Icon src={dateIcon.icon} id='calendar-icon' title={t(dateIcon.tooltip)} />
-      <Tooltip anchorSelect='#calendar-icon'>{t(dateIcon.tooltip)}</Tooltip>
-    </>
+    <Tooltip id='calendar-icon' container={<Icon src={dateIcon.icon} id='calendar-icon' title={t(dateIcon.tooltip)} />}>
+      {t(dateIcon.tooltip)}
+    </Tooltip>
   )
 
   return (
