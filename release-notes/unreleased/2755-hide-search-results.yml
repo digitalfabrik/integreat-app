@@ -1,0 +1,7 @@
+issue_key: 2755
+show_in_stores: false
+platforms:
+  - android
+  - ios
+  - web
+en: Hide search results if no query is entered
