@@ -31,7 +31,7 @@ type KebabActionItemLinkProps = {
 const KebabActionItemLink = ({ href, text, iconSrc }: KebabActionItemLinkProps): ReactElement => {
   if (href) {
     return (
-      <StyledLink to={href} aria-label={text} dir='auto'>
+      <StyledLink to={href} aria-label={text}>
         <StyledIcon src={iconSrc} />
         <span>{text}</span>
       </StyledLink>
@@ -39,7 +39,7 @@ const KebabActionItemLink = ({ href, text, iconSrc }: KebabActionItemLinkProps):
   }
   return (
     // @ts-expect-error wrong types from polymorphic 'as', see https://github.com/styled-components/styled-components/issues/4112
-    <StyledLink as='span' aria-label={text} dir='auto' style={{ flex: 1 }}>
+    <StyledLink as='span' aria-label={text} style={{ flex: 1 }}>
       <StyledIcon src={iconSrc} />
       <span>{text}</span>
     </StyledLink>

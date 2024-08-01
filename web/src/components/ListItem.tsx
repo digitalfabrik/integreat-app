@@ -32,9 +32,7 @@ const Title = styled.div`
   font-weight: 700;
 `
 
-const FullWidthLink = styled(Link).attrs(() => ({
-  stylized: true,
-}))`
+const FullWidthLink = styled(Link)`
   flex: 1;
 `
 

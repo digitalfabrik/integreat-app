@@ -5,21 +5,6 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "Debug iOS",
-      "cwd": "${workspaceFolder}/native",
-      "type": "reactnative",
-      "request": "launch",
-      "platform": "ios",
-      "scheme": "integreat",
-    },
-    {
-      "name": "Debug Android Hermes",
-      "request": "launch",
-      "type": "reactnativedirect",
-      "cwd": "${workspaceFolder}/native",
-      "platform": "android"
-    },
-    {
       "type": "chrome",
       "request": "launch",
       "name": "Launch Chrome against localhost",

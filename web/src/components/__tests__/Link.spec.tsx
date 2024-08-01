@@ -7,12 +7,12 @@ import Link from '../base/Link'
 describe('Link component', () => {
   it('renders an external link', () => {
     const { getByTestId } = render(
-      <Link to='https://external.com' ariaLabel='external link'>
+      <Link to='https://example.com' ariaLabel='external link'>
         External Link
       </Link>,
     )
     const linkElement = getByTestId('externalLink')
-    expect(linkElement).toHaveAttribute('href', 'https://external.com')
+    expect(linkElement).toHaveAttribute('href', 'https://example.com')
     expect(linkElement).toHaveAttribute('aria-label', 'external link')
   })
 
@@ -28,30 +28,9 @@ describe('Link component', () => {
     expect(linkElement).toHaveAttribute('aria-label', 'internal link')
   })
 
-  it('renders a clean anchor link', () => {
-    const { getByTestId } = render(
-      <Link to='https://cleananchor.com' isCleanAnchor ariaLabel='clean anchor'>
-        Clean Anchor
-      </Link>,
-    )
-    const linkElement = getByTestId('anchorLink')
-    expect(linkElement).toHaveAttribute('href', 'https://cleananchor.com')
-    expect(linkElement).toHaveAttribute('aria-label', 'clean anchor')
-  })
-
-  it('applies removeLinkHighlighting styles', () => {
-    const { getByTestId } = render(
-      <Link to='https://external.com' removeHighlight>
-        Highlight Removed
-      </Link>,
-    )
-    const linkElement = getByTestId('externalLink')
-    expect(linkElement).toHaveStyle('text-decoration: none')
-  })
-
   it('opens link in a new tab', () => {
     const { getByTestId } = render(
-      <Link to='https://external.com' newTab>
+      <Link to='https://example.com' newTab>
         New Tab Link
       </Link>,
     )

@@ -1,6 +1,7 @@
 import React, { ReactElement } from 'react'
 import styled from 'styled-components'
 
+import { helpers } from '../constants/theme'
 import Link from './base/Link'
 
 const Marker = styled.img`
@@ -10,13 +11,12 @@ const Marker = styled.img`
   object-fit: contain;
 `
 
-const StyledLink = styled(Link).attrs(() => ({
-  adaptiveFontSize: true,
-}))`
+const StyledLink = styled(Link)`
   align-items: center;
   padding-top: 4px;
   gap: 8px;
   overflow-wrap: anywhere;
+  ${helpers.adaptiveFontSize};
 `
 
 type ContactItemProps = {

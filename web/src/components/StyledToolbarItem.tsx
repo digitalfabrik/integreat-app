@@ -3,9 +3,7 @@ import styled from 'styled-components'
 import dimensions from '../constants/dimensions'
 import Link from './base/Link'
 
-const StyledToolbarItem = styled(Link).attrs(() => ({
-  isCleanAnchor: true,
-}))`
+const StyledToolbarItem = styled(Link)`
   display: inline-block;
   padding: 8px;
   cursor: pointer;

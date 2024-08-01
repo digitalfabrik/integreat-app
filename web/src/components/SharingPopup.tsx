@@ -212,21 +212,21 @@ const SharingPopup = ({ shareUrl, title, flow, portalNeeded }: SharingPopupProps
           <TooltipContainer $flow={portalNeeded ? 'horizontal' : flow} $active={shareOptionsVisible}>
             <Tooltip text={t('whatsappTooltip')} flow='up'>
               <StyledLink
-                href={`https://api.whatsapp.com/send?text=${shareMessage}%0a${encodedShareUrl}`}
+                to={`https://api.whatsapp.com/send?text=${shareMessage}%0a${encodedShareUrl}`}
                 ariaLabel={t('whatsappTooltip')}>
                 <StyledIcon src={WhatsappIcon} />
               </StyledLink>
             </Tooltip>
             <Tooltip text={t('facebookTooltip')} flow='up'>
               <StyledLink
-                href={`https://www.facebook.com/sharer/sharer.php?u=${encodedShareUrl}&t${shareMessage}`}
+                to={`https://www.facebook.com/sharer/sharer.php?u=${encodedShareUrl}&t${shareMessage}`}
                 ariaLabel={t('facebookTooltip')}>
                 <StyledIcon src={FacebookIcon} />
               </StyledLink>
             </Tooltip>
             <Tooltip text={t('mailTooltip')} flow='up'>
               <StyledLink
-                href={`mailto:?subject=${encodedTitle}&body=${shareMessage} ${encodedShareUrl}`}
+                to={`mailto:?subject=${encodedTitle}&body=${shareMessage} ${encodedShareUrl}`}
                 ariaLabel={t('mailTooltip')}>
                 <StyledIcon src={MailIcon} />
               </StyledLink>
