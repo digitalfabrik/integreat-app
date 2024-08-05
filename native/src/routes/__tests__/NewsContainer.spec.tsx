@@ -74,7 +74,7 @@ describe('NewsContainer', () => {
     newsId = null,
   }: {
     newsType?: LocalNewsType | TuNewsType
-    newsId?: string | null
+    newsId?: number | null
   }) => {
     const route = {
       key: 'route-id-0',
@@ -115,7 +115,7 @@ describe('NewsContainer', () => {
 
   it('should render tunews detail', () => {
     mocked(useLoadCityContent).mockImplementation(() => returnValue)
-    const { getByText } = renderNews({ newsId: '4321' })
+    const { getByText } = renderNews({ newsId: 4321 })
 
     expect(getByText('4321')).toBeTruthy()
     expect(getByText('TuNewsDetail')).toBeTruthy()

@@ -88,7 +88,7 @@ export type RoutesParamsType = {
     slug?: string
   }
   [NEWS_ROUTE]: RouteTitle & {
-    newsId: string | null
+    newsId: number | null
     newsType: NewsType
   }
   [DISCLAIMER_ROUTE]: undefined

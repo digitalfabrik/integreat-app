@@ -5,12 +5,12 @@ import { createTunewsElementEndpoint, ReturnType, TunewsModel, useLoadAsync } fr
 import { tunewsApiUrl } from '../constants/endpoint'
 
 type UseLoadTuNewsElementProps = {
-  newsId: string
+  newsId: number
 }
 
 const useLoadTuNewsElement = ({ newsId }: UseLoadTuNewsElementProps): ReturnType<TunewsModel> => {
   const load = useCallback(async () => {
-    const payload = await createTunewsElementEndpoint(tunewsApiUrl).request({ id: parseInt(newsId, 10) })
+    const payload = await createTunewsElementEndpoint(tunewsApiUrl).request({ id: newsId })
     if (!payload.data) {
       throw new Error('Data missing!')
     }

@@ -121,6 +121,7 @@ dist
 # IntelliJ
 **/workspace.xml
 runConfigurations.xml
+**/prettier.xml
 
 .tsbuild
 

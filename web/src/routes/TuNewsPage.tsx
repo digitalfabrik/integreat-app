@@ -61,7 +61,7 @@ const TuNewsPage = ({ cityCode, languageCode, city }: CityRouteProps): ReactElem
           newsType: TU_NEWS_TYPE,
           cityCode,
           languageCode,
-          newsId: id.toString(),
+          newsId: id,
         })}
         t={t}
         type={TU_NEWS_TYPE}

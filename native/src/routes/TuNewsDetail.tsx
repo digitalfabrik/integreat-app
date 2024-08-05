@@ -27,7 +27,7 @@ const StyledIcon = styled(Icon)`
 type TuNewsProps = {
   route: RouteProps<NewsRouteType>
   navigation: NavigationProps<NewsRouteType>
-  newsId: string
+  newsId: number
   data: CityContentData
 }
 

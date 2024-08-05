@@ -174,7 +174,7 @@ class InternalPathnameParser {
       cityCode: this._parts[0]!,
       languageCode: this._parts[1]!,
       newsType,
-      newsId,
+      newsId: newsId ? parseInt(newsId, 10) : undefined,
     }
   }
 

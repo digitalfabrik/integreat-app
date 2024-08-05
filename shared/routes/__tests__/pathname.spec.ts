@@ -153,7 +153,7 @@ describe('pathname', () => {
         pathnameFromRouteInformation({
           route: NEWS_ROUTE,
           newsType: LOCAL_NEWS_TYPE,
-          newsId: '1234',
+          newsId: 1234,
           languageCode,
           cityCode,
         }),
@@ -175,7 +175,7 @@ describe('pathname', () => {
         pathnameFromRouteInformation({
           route: NEWS_ROUTE,
           newsType: TU_NEWS_TYPE,
-          newsId: '1234',
+          newsId: 1234,
           languageCode,
           cityCode,
         }),
