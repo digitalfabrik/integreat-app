@@ -66,7 +66,6 @@ const LocalNewsPage = ({ city, pathname, languageCode, cityCode }: CityRouteProp
     )
   }
 
-  // Language change is not possible between local news detail views because we don't know the id of other languages
   const languageChangePaths = city.languages.map(({ code, name }) => {
     const newNewsId = newsModel?.availableLanguages[code]
     return {
