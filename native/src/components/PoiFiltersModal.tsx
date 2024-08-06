@@ -1,6 +1,5 @@
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Dimensions, FlatList } from 'react-native'
 import { SvgUri } from 'react-native-svg'
 import styled from 'styled-components/native'
 
@@ -56,20 +55,22 @@ const FlexEnd = styled.View`
   justify-content: flex-end;
 `
 
-// const TileRow = styled(Row)`
-//   place-content: space-between center;
-//   flex-wrap: wrap;
-//   gap: 16px;
-// `
+const TileRow = styled(Row)`
+  place-content: space-between center;
+  flex-wrap: wrap;
+  gap: 16px;
+`
 
 const StyledToggleButton = styled(ToggleButton)`
   margin-bottom: 8px;
 `
 
 const StyledTextButton = styled(TextButton)`
-  margin-top: 16px;
+  margin-bottom: 16px;
 `
-
+const StyledScrollView = styled.ScrollView`
+  height: 100%;
+`
 type PoiFiltersModalProps = {
   modalVisible: boolean
   closeModal: () => void
@@ -92,50 +93,39 @@ const PoiFiltersModal = ({
   poisCount,
 }: PoiFiltersModalProps): ReactElement => {
   const { t } = useTranslation('pois')
-  const { height } = Dimensions.get('window')
-  const toggleButtonHeight = 100
-  const numOfColumns = 3
-  const flatListHeight = Math.ceil(height - (poiCategories.length / numOfColumns) * toggleButtonHeight)
+
   return (
-    <Modal
-      modalVisible={modalVisible}
-      closeModal={closeModal}
-      headerTitle=''
-      title={t('adjustFilters')}
-      scrollView={false}>
+    <Modal modalVisible={modalVisible} closeModal={closeModal} headerTitle='' title={t('adjustFilters')}>
       <Container>
-        <Section>
-          <SubTitle>{t('openingHours')}</SubTitle>
-          <Row>
-            <Icon Icon={ClockIcon} />
-            <StyledText>{t('onlyCurrentlyOpen')}</StyledText>
-            <FlexEnd>
-              <SettingsSwitch onPress={setCurrentlyOpenFilter} value={currentlyOpenFilter} />
-            </FlexEnd>
-          </Row>
-        </Section>
-        <Section>
-          <Row>
-            <SubTitle>{t('poiCategories')}</SubTitle>
-            <SortingHint>{t('alphabetLetters')}</SortingHint>
-          </Row>
-          <FlatList
-            data={poiCategories}
-            numColumns={numOfColumns}
-            style={{ marginVertical: 10, height: flatListHeight }}
-            contentContainerStyle={{ gap: 16, alignItems: 'center' }}
-            columnWrapperStyle={{ gap: 16 }}
-            renderItem={({ item }) => (
-              <StyledToggleButton
-                key={item.id}
-                text={item.name}
-                active={item.id === selectedPoiCategory?.id}
-                onPress={() => setSelectedPoiCategory(item.id === selectedPoiCategory?.id ? null : item)}
-                Icon={<SvgUri uri={item.icon} />}
-              />
-            )}
-          />
-        </Section>
+        <StyledScrollView>
+          <Section>
+            <SubTitle>{t('openingHours')}</SubTitle>
+            <Row>
+              <Icon Icon={ClockIcon} />
+              <StyledText>{t('onlyCurrentlyOpen')}</StyledText>
+              <FlexEnd>
+                <SettingsSwitch onPress={setCurrentlyOpenFilter} value={currentlyOpenFilter} />
+              </FlexEnd>
+            </Row>
+          </Section>
+          <Section>
+            <Row>
+              <SubTitle>{t('poiCategories')}</SubTitle>
+              <SortingHint>{t('alphabetLetters')}</SortingHint>
+            </Row>
+            <TileRow>
+              {poiCategories.map(item => (
+                <StyledToggleButton
+                  key={item.id}
+                  text={item.name}
+                  active={item.id === selectedPoiCategory?.id}
+                  onPress={() => setSelectedPoiCategory(item.id === selectedPoiCategory?.id ? null : item)}
+                  Icon={<SvgUri uri={item.icon} />}
+                />
+              ))}
+            </TileRow>
+          </Section>
+        </StyledScrollView>
         <Section>
           <StyledTextButton
             onPress={closeModal}
