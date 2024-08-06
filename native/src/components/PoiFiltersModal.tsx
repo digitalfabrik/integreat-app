@@ -1,5 +1,6 @@
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
+import { Dimensions, FlatList } from 'react-native'
 import { SvgUri } from 'react-native-svg'
 import styled from 'styled-components/native'
 
@@ -55,11 +56,11 @@ const FlexEnd = styled.View`
   justify-content: flex-end;
 `
 
-const TileRow = styled(Row)`
-  place-content: space-between center;
-  flex-wrap: wrap;
-  gap: 16px;
-`
+// const TileRow = styled(Row)`
+//   place-content: space-between center;
+//   flex-wrap: wrap;
+//   gap: 16px;
+// `
 
 const StyledToggleButton = styled(ToggleButton)`
   margin-bottom: 8px;
@@ -91,9 +92,17 @@ const PoiFiltersModal = ({
   poisCount,
 }: PoiFiltersModalProps): ReactElement => {
   const { t } = useTranslation('pois')
+  const { height } = Dimensions.get('window')
+  const toggleButtonHeight = 70
+  const flatListHeight = height - (toggleButtonHeight * poiCategories.length) / 2
 
   return (
-    <Modal modalVisible={modalVisible} closeModal={closeModal} headerTitle='' title={t('adjustFilters')}>
+    <Modal
+      modalVisible={modalVisible}
+      closeModal={closeModal}
+      headerTitle=''
+      title={t('adjustFilters')}
+      scrollView={false}>
       <Container>
         <Section>
           <SubTitle>{t('openingHours')}</SubTitle>
@@ -110,17 +119,22 @@ const PoiFiltersModal = ({
             <SubTitle>{t('poiCategories')}</SubTitle>
             <SortingHint>{t('alphabetLetters')}</SortingHint>
           </Row>
-          <TileRow>
-            {poiCategories.map(it => (
+          <FlatList
+            data={poiCategories}
+            numColumns={3}
+            style={{ marginVertical: 10, height: flatListHeight }}
+            contentContainerStyle={{ gap: 16, alignItems: 'center' }}
+            columnWrapperStyle={{ gap: 16 }}
+            renderItem={({ item }) => (
               <StyledToggleButton
-                key={it.id}
-                text={it.name}
-                active={it.id === selectedPoiCategory?.id}
-                onPress={() => setSelectedPoiCategory(it.id === selectedPoiCategory?.id ? null : it)}
-                Icon={<SvgUri uri={it.icon} />}
+                key={item.id}
+                text={item.name}
+                active={item.id === selectedPoiCategory?.id}
+                onPress={() => setSelectedPoiCategory(item.id === selectedPoiCategory?.id ? null : item)}
+                Icon={<SvgUri uri={item.icon} />}
               />
-            ))}
-          </TileRow>
+            )}
+          />
         </Section>
         <Section>
           <StyledTextButton
