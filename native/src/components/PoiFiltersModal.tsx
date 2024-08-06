@@ -93,9 +93,9 @@ const PoiFiltersModal = ({
 }: PoiFiltersModalProps): ReactElement => {
   const { t } = useTranslation('pois')
   const { height } = Dimensions.get('window')
-  const toggleButtonHeight = 70
-  const flatListHeight = height - (toggleButtonHeight * poiCategories.length) / 2
-
+  const toggleButtonHeight = 100
+  const numOfColumns = 3
+  const flatListHeight = Math.ceil(height - (poiCategories.length / numOfColumns) * toggleButtonHeight)
   return (
     <Modal
       modalVisible={modalVisible}
@@ -121,7 +121,7 @@ const PoiFiltersModal = ({
           </Row>
           <FlatList
             data={poiCategories}
-            numColumns={3}
+            numColumns={numOfColumns}
             style={{ marginVertical: 10, height: flatListHeight }}
             contentContainerStyle={{ gap: 16, alignItems: 'center' }}
             columnWrapperStyle={{ gap: 16 }}
