@@ -80,7 +80,7 @@ const ActionBar = styled.nav`
   justify-content: flex-end;
   gap: 12px;
   padding: 0 16px;
-  flex: 1 1 0;
+  margin-inline-start: auto;
 
   @media ${dimensions.smallViewport} {
     order: 2;
