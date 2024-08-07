@@ -66,7 +66,8 @@ const StyledToggleButton = styled(ToggleButton)`
 `
 
 const StyledTextButton = styled(TextButton)`
-  margin-bottom: 16px;
+  margin-top: 8px;
+  margin-bottom: 8px;
 `
 
 type PoiFiltersModalProps = {
@@ -111,13 +112,13 @@ const PoiFiltersModal = ({
             <SortingHint>{t('alphabetLetters')}</SortingHint>
           </Row>
           <TileRow>
-            {poiCategories.map(item => (
+            {poiCategories.map(it => (
               <StyledToggleButton
-                key={item.id}
-                text={item.name}
-                active={item.id === selectedPoiCategory?.id}
-                onPress={() => setSelectedPoiCategory(item.id === selectedPoiCategory?.id ? null : item)}
-                Icon={<SvgUri uri={item.icon} />}
+                key={it.id}
+                text={it.name}
+                active={it.id === selectedPoiCategory?.id}
+                onPress={() => setSelectedPoiCategory(it.id === selectedPoiCategory?.id ? null : it)}
+                Icon={<SvgUri uri={it.icon} />}
               />
             ))}
           </TileRow>
