@@ -68,9 +68,7 @@ const StyledToggleButton = styled(ToggleButton)`
 const StyledTextButton = styled(TextButton)`
   margin-bottom: 16px;
 `
-const StyledScrollView = styled.ScrollView`
-  height: 100%;
-`
+
 type PoiFiltersModalProps = {
   modalVisible: boolean
   closeModal: () => void
@@ -97,35 +95,33 @@ const PoiFiltersModal = ({
   return (
     <Modal modalVisible={modalVisible} closeModal={closeModal} headerTitle='' title={t('adjustFilters')}>
       <Container>
-        <StyledScrollView>
-          <Section>
-            <SubTitle>{t('openingHours')}</SubTitle>
-            <Row>
-              <Icon Icon={ClockIcon} />
-              <StyledText>{t('onlyCurrentlyOpen')}</StyledText>
-              <FlexEnd>
-                <SettingsSwitch onPress={setCurrentlyOpenFilter} value={currentlyOpenFilter} />
-              </FlexEnd>
-            </Row>
-          </Section>
-          <Section>
-            <Row>
-              <SubTitle>{t('poiCategories')}</SubTitle>
-              <SortingHint>{t('alphabetLetters')}</SortingHint>
-            </Row>
-            <TileRow>
-              {poiCategories.map(item => (
-                <StyledToggleButton
-                  key={item.id}
-                  text={item.name}
-                  active={item.id === selectedPoiCategory?.id}
-                  onPress={() => setSelectedPoiCategory(item.id === selectedPoiCategory?.id ? null : item)}
-                  Icon={<SvgUri uri={item.icon} />}
-                />
-              ))}
-            </TileRow>
-          </Section>
-        </StyledScrollView>
+        <Section>
+          <SubTitle>{t('openingHours')}</SubTitle>
+          <Row>
+            <Icon Icon={ClockIcon} />
+            <StyledText>{t('onlyCurrentlyOpen')}</StyledText>
+            <FlexEnd>
+              <SettingsSwitch onPress={setCurrentlyOpenFilter} value={currentlyOpenFilter} />
+            </FlexEnd>
+          </Row>
+        </Section>
+        <Section>
+          <Row>
+            <SubTitle>{t('poiCategories')}</SubTitle>
+            <SortingHint>{t('alphabetLetters')}</SortingHint>
+          </Row>
+          <TileRow>
+            {poiCategories.map(item => (
+              <StyledToggleButton
+                key={item.id}
+                text={item.name}
+                active={item.id === selectedPoiCategory?.id}
+                onPress={() => setSelectedPoiCategory(item.id === selectedPoiCategory?.id ? null : item)}
+                Icon={<SvgUri uri={item.icon} />}
+              />
+            ))}
+          </TileRow>
+        </Section>
         <Section>
           <StyledTextButton
             onPress={closeModal}

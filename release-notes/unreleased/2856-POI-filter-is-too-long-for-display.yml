@@ -1,0 +1,6 @@
+issue_key:
+show_in_stores: true
+platforms: # relevant platforms, possible values: web, android and ios
+  - ios
+  - android
+en: Fixed scrolling at filter locations
