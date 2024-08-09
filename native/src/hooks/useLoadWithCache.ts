@@ -65,8 +65,13 @@ const loadWithCache = async <T extends object>({
 }
 
 const useLoadWithCache = <T extends object>(params: Load<T>): ReturnType<T> =>
-  // Normally using params as dependency triggers infinite re-renders
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  useLoadAsync<T>(useCallback(forceUpdate => loadWithCache<T>({ ...params, forceUpdate }), [JSON.stringify(params)]))
+  useLoadAsync<T>(
+    useCallback(
+      forceUpdate => loadWithCache<T>({ ...params, forceUpdate: params.forceUpdate || forceUpdate }),
+      // Normally using params as dependency triggers infinite re-renders
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+      [JSON.stringify(params)],
+    ),
+  )
 
 export default useLoadWithCache
