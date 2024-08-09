@@ -15,9 +15,9 @@ type GeneralHeaderProps = {
 const GeneralHeader = ({ languageCode }: GeneralHeaderProps): ReactElement => {
   const { t } = useTranslation('layout')
   const landingPath = pathnameFromRouteInformation({ route: LANDING_ROUTE, languageCode })
-  const actionItems = !buildConfig().featureFlags.fixedCity
-    ? [<HeaderActionItemLink key='landing' href={landingPath} iconSrc={LocationIcon} text={t('changeLocation')} />]
-    : []
+  const actionItems = buildConfig().featureFlags.fixedCity
+    ? []
+    : [<HeaderActionItemLink key='landing' href={landingPath} iconSrc={LocationIcon} text={t('changeLocation')} />]
 
   return (
     <Header
