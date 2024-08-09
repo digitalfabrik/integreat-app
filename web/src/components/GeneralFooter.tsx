@@ -5,8 +5,8 @@ import { LICENSES_ROUTE, MAIN_DISCLAIMER_ROUTE } from 'shared'
 
 import buildConfig from '../constants/buildConfig'
 import { RoutePatterns } from '../routes'
-import CleanLink from './CleanLink'
 import Footer from './Footer'
+import Link from './base/Link'
 
 type GeneralFooterProps = {
   language: string
@@ -22,11 +22,11 @@ const GeneralFooter = ({ language }: GeneralFooterProps): ReactElement => {
 
   return (
     <Footer>
-      <CleanLink to={RoutePatterns[MAIN_DISCLAIMER_ROUTE]}>{t('imprintAndContact')}</CleanLink>
-      <CleanLink to={aboutUrl}>{t('settings:about', { appName: buildConfig().appName })}</CleanLink>
-      <CleanLink to={privacyUrl}>{t('privacy')}</CleanLink>
-      <CleanLink to={RoutePatterns[LICENSES_ROUTE]}>{t('settings:openSourceLicenses')}</CleanLink>
-      {!!accessibilityUrl && <CleanLink to={accessibilityUrl}>{t('accessibility')}</CleanLink>}
+      <Link to={RoutePatterns[MAIN_DISCLAIMER_ROUTE]}>{t('imprintAndContact')}</Link>
+      <Link to={aboutUrl}>{t('settings:about', { appName: buildConfig().appName })}</Link>
+      <Link to={privacyUrl}>{t('privacy')}</Link>
+      <Link to={RoutePatterns[LICENSES_ROUTE]}>{t('settings:openSourceLicenses')}</Link>
+      {!!accessibilityUrl && <Link to={accessibilityUrl}>{t('accessibility')}</Link>}
     </Footer>
   )
 }

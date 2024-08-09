@@ -1,10 +1,10 @@
 import React, { ReactElement } from 'react'
-import { Link } from 'react-router-dom'
 import styled, { css } from 'styled-components'
 
 import dimensions from '../constants/dimensions'
 import { helpers } from '../constants/theme'
 import Icon from './base/Icon'
+import Link from './base/Link'
 
 const Container = styled.div`
   flex: 1 1 135px;

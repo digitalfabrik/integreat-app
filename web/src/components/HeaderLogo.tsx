@@ -1,11 +1,11 @@
 import { DateTime } from 'luxon'
 import React, { ReactElement } from 'react'
-import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 
 import buildConfig from '../constants/buildConfig'
 import dimensions from '../constants/dimensions'
 import useWindowDimensions from '../hooks/useWindowDimensions'
+import Link from './base/Link'
 
 type HeaderLogoProps = {
   link: string
