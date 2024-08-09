@@ -13,6 +13,7 @@ const transformNodeModules = [
   'build-configs',
   '@dr.pogodin/react-native-static-server',
 ]
+process.env.TZ = 'Europe/Berlin'
 export default {
   rootDir: '.',
   roots: ['src'],
