@@ -18,15 +18,17 @@ type IconProps = {
   reverse?: boolean
   className?: string
   title?: string
+  id?: string
 }
 
-const Icon = ({ src, directionDependent = false, reverse = false, className, title }: IconProps): ReactElement => (
+const Icon = ({ src, directionDependent = false, reverse = false, className, title, id }: IconProps): ReactElement => (
   <StyledIcon
     src={src}
     $directionDependent={directionDependent}
     $reverse={reverse}
     className={className}
     title={title}
+    id={id}
   />
 )
 

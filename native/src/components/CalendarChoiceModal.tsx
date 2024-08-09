@@ -1,4 +1,4 @@
-import React, { Fragment, ReactElement, useState } from 'react'
+import React, { ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { FlatList, View } from 'react-native'
 import { Calendar } from 'react-native-calendar-events'

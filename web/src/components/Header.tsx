@@ -46,10 +46,6 @@ const Row = styled.div`
   min-height: ${dimensions.headerHeightLarge}px;
   flex-direction: row;
 
-  :first-child {
-    z-index: 1; /* Necessary to make the LanguageFlyout cover the NavigationItems as they have opacity set */
-  }
-
   @media ${dimensions.smallViewport} {
     background-color: ${props => props.theme.colors.backgroundAccentColor};
     justify-content: space-between;

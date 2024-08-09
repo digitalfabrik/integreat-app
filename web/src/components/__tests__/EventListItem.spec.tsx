@@ -8,10 +8,10 @@ import { EventModelBuilder, DateModel } from 'shared/api'
 import { EventThumbnailPlaceholder1, EventThumbnailPlaceholder2, EventThumbnailPlaceholder3 } from '../../assets'
 import { EXCERPT_MAX_CHARS } from '../../constants'
 import { renderWithRouterAndTheme } from '../../testing/render'
-import EventListItem from '../EventListItem'
+import EventListItem, { getDateIcon } from '../EventListItem'
 
 jest.mock('react-i18next')
-jest.mock('../Tooltip', () => ({ text }: { text: string }) => <div>{text}</div>)
+jest.mock('react-tooltip')
 
 jest.useFakeTimers({ now: new Date('2023-10-02T05:23:57.443+02:00') })
 describe('EventListItem', () => {
@@ -61,6 +61,7 @@ describe('EventListItem', () => {
 
     it('should show no icon if neither recurring nor today', () => {
       const event = createEvent()
+      expect(getDateIcon(event.date)?.tooltip).toBeUndefined()
 
       const { queryByText } = renderWithRouterAndTheme(<EventListItem event={event} languageCode={language} />)
 
@@ -72,11 +73,9 @@ describe('EventListItem', () => {
     it('should show icon if recurring and today', () => {
       const event = createEvent('DTSTART:20230414T050000\nRRULE:FREQ=WEEKLY;BYDAY=MO;UNTIL=20231029T050000')
 
-      const { queryByText, getByText } = renderWithRouterAndTheme(
-        <EventListItem event={event} languageCode={language} />,
-      )
+      const { queryByText } = renderWithRouterAndTheme(<EventListItem event={event} languageCode={language} />)
 
-      expect(getByText('events:todayRecurring')).toBeTruthy()
+      expect(queryByText('events:todayRecurring')).toBeTruthy()
       expect(queryByText('events:recurring')).toBeFalsy()
       expect(queryByText('events:today')).toBeFalsy()
     })
@@ -84,25 +83,21 @@ describe('EventListItem', () => {
     it('should show icon if recurring but not today', () => {
       const event = createEvent('DTSTART:20230414T050000\nRRULE:FREQ=WEEKLY;BYDAY=TU;UNTIL=20231029T050000')
 
-      const { queryByText, getByText } = renderWithRouterAndTheme(
-        <EventListItem event={event} languageCode={language} />,
-      )
+      const { queryByText } = renderWithRouterAndTheme(<EventListItem event={event} languageCode={language} />)
 
-      expect(getByText('events:recurring')).toBeTruthy()
       expect(queryByText('events:todayRecurring')).toBeFalsy()
+      expect(queryByText('events:recurring')).toBeTruthy()
       expect(queryByText('events:today')).toBeFalsy()
     })
 
     it('should show icon if today but not recurring', () => {
       const event = createEvent('DTSTART:20230414T050000\nRRULE:FREQ=WEEKLY;BYDAY=MO;UNTIL=20231003T050000')
 
-      const { queryByText, getByText } = renderWithRouterAndTheme(
-        <EventListItem event={event} languageCode={language} />,
-      )
+      const { queryByText } = renderWithRouterAndTheme(<EventListItem event={event} languageCode={language} />)
 
-      expect(getByText('events:today')).toBeTruthy()
       expect(queryByText('events:todayRecurring')).toBeFalsy()
       expect(queryByText('events:recurring')).toBeFalsy()
+      expect(queryByText('events:today')).toBeTruthy()
     })
   })
 })

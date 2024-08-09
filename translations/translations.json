@@ -8142,7 +8142,10 @@
       "alphabetLetters": "A-Z",
       "clearFilter": "Filter {{filter}} löschen",
       "showOwnLocation": "Eigenen Standort zeigen",
-      "makeAppointment": "Termin vereinbaren"
+      "makeAppointment": "Termin vereinbaren",
+      "appointmentNecessary": "Termin erforderlich",
+      "makeAppointmentTooltipWithLink": "Vereinbare an diesem Tag einen Termin über <1>die Webseite</1> oder telefonisch.",
+      "theWebsite": "die Webseite"
     },
     "am": {
       "pageTitle": "ካርታ",
@@ -8549,7 +8552,10 @@
       "alphabetLetters": "A-Z",
       "clearFilter": "Delete filter {{filter}}",
       "showOwnLocation": "Show your own location",
-      "makeAppointment": "Make an appointment"
+      "makeAppointment": "Make an appointment",
+      "appointmentNecessary": "Appointment necessary",
+      "makeAppointmentTooltipWithLink": "Make an appointment on this day via <1>the website</1> or by phone.",
+      "theWebsite": "the website"
     },
     "es": {
       "pageTitle": "Mapa",

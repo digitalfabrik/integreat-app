@@ -105,6 +105,7 @@ const PoiDetails = ({ poi, language, distance }: PoiDetailsProps): ReactElement 
         isCurrentlyOpen={isCurrentlyOpen}
         isTemporarilyClosed={temporarilyClosed}
         appointmentUrl={appointmentUrl}
+        appointmentOverlayLink={appointmentUrl || website}
       />
       {content.length > 0 && (
         <>

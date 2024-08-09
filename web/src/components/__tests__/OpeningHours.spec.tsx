@@ -20,16 +20,24 @@ describe('OpeningHours', () => {
         isCurrentlyOpen={isCurrentlyOpen}
         isTemporarilyClosed={isTemporarilyClosed}
         openingHours={openingHours}
+        appointmentOverlayLink={null}
       />,
     )
   it('should display that the location is temporarily closed', () => {
     const { getByText } = renderOpeningHours(false, true, null)
     expect(getByText('pois:temporarilyClosed')).toBeTruthy()
   })
-  it('should display that the location is opened', () => {
+
+  it('should display that the location is open', () => {
     const openingHours = Array.from(
       { length: 7 },
-      () => new OpenHoursModel({ allDay: false, closed: false, timeSlots: [{ end: '18:00', start: '08:00' }] }),
+      () =>
+        new OpenHoursModel({
+          allDay: false,
+          closed: false,
+          timeSlots: [{ end: '18:00', start: '08:00' }],
+          appointmentOnly: false,
+        }),
     )
     const { getByText } = renderOpeningHours(true, false, openingHours)
     expect(getByText('pois:opened')).toBeTruthy()

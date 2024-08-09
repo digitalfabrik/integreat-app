@@ -11,7 +11,7 @@ describe('OpeningEntry', () => {
     { end: '12:00', start: '08:00' },
   ]
   const currentWeekday = 'Monday'
-  const renderOpeningEntries = (allDay: boolean, closed: boolean, isCurrentDay: boolean) =>
+  const renderOpeningEntries = (allDay: boolean, closed: boolean, isCurrentDay: boolean, appointmentOnly: boolean) =>
     renderWithTheme(
       <OpeningEntry
         weekday={currentWeekday}
@@ -19,29 +19,36 @@ describe('OpeningEntry', () => {
         closed={closed}
         timeSlots={timeSlots}
         isCurrentDay={isCurrentDay}
+        appointmentOnly={appointmentOnly}
+        appointmentOverlayLink={null}
       />,
     )
   it('should display the timeslots of a weekday', () => {
-    const { getByText } = renderOpeningEntries(false, false, false)
+    const { getByText } = renderOpeningEntries(false, false, false, false)
     expect(getByText(`${timeSlots[0]!.start}-${timeSlots[0]!.end}`)).toBeTruthy()
     expect(getByText(`${timeSlots[1]!.start}-${timeSlots[1]!.end}`)).toBeTruthy()
   })
 
   it('should display all day opened for the weekday if allDay flag is true', () => {
-    const { getByText } = renderOpeningEntries(true, false, false)
+    const { getByText } = renderOpeningEntries(true, false, false, false)
     expect(getByText('pois:allDay')).toBeTruthy()
   })
 
   it('should display closed for the weekday if closed flag is true', () => {
-    const { getByText } = renderOpeningEntries(false, true, false)
+    const { getByText } = renderOpeningEntries(false, true, false, false)
     expect(getByText('pois:closed')).toBeTruthy()
   })
 
   it('should highlight the timeslot of the current weekday bold', () => {
-    const { getByText } = renderOpeningEntries(false, false, true)
+    const { getByText } = renderOpeningEntries(false, false, true, false)
     const currentDayContainer = document.getElementById(`openingEntryContainer-${currentWeekday}`)
     const containerStyle = window.getComputedStyle(currentDayContainer!)
     expect(getByText(`${timeSlots[0]!.start}-${timeSlots[0]!.end}`)).toBeTruthy()
     expect(containerStyle.fontWeight).toBe('600')
+  })
+
+  it('should display that the location is only open with an appointment', () => {
+    const { getByTitle } = renderOpeningEntries(false, false, false, true)
+    expect(getByTitle('pois:appointmentNecessary')).toBeDefined()
   })
 })
