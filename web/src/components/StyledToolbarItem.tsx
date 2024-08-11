@@ -7,7 +7,6 @@ const StyledToolbarItem = styled(CleanAnchor)<{ disabled?: boolean }>`
   display: inline-block;
   padding: 8px;
   cursor: pointer;
-  /* pointer-events: ${props => (props.disabled ? 'none' : null)}; */
   border: none;
   color: ${props => (props.disabled ? props.theme.colors.textDisabledColor : props.theme.colors.textColor)};
   background-color: transparent;
