@@ -1,4 +1,4 @@
-export type FontType =
+type FontType =
   | 'notoSans'
   | 'raleway'
   | 'varelaRound'

@@ -31,7 +31,7 @@ type ToolbarItemProps = {
 const ToolbarItem = ({ href, text, icon, isDisabled = false, onClick }: ToolbarItemProps): ReactElement => {
   const { t } = useTranslation('categories')
   return isDisabled ? (
-    <Tooltip text={t('createPdf')} flow='up'>
+    <Tooltip text={t('disabledPdf')} flow='up'>
       <StyledToolbarItem
         as={onClick ? Button : undefined}
         // @ts-expect-error wrong types from polymorphic 'as', see https://github.com/styled-components/styled-components/issues/4112
