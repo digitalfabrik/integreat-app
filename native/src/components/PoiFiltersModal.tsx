@@ -40,6 +40,7 @@ const StyledText = styled.Text`
   color: ${props => props.theme.colors.textColor};
   font-family: ${props => props.theme.fonts.native.decorativeFontRegular};
   padding: 4px;
+  max-width: 80%;
 `
 
 const SortingHint = styled.Text`
@@ -98,7 +99,7 @@ const PoiFiltersModal = ({
       <Container>
         <Section>
           <SubTitle>{t('openingHours')}</SubTitle>
-          <Row>
+          <Row style={{ alignItems: 'center' }}>
             <Icon Icon={ClockIcon} />
             <StyledText>{t('onlyCurrentlyOpen')}</StyledText>
             <FlexEnd>
