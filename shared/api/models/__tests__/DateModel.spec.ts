@@ -253,5 +253,89 @@ describe('DateModel', () => {
       expect(recurrence.toFormattedString('de', false)).toBe('7. Mai 2024 10:00 - 12:00')
       expect(recurrence.recurrences(1)[0]!.toFormattedString('de', false)).toBe('7. Mai 2024 10:00 - 12:00')
     })
+
+    it('should correctly handle dates if it is winter time and the event starts during winter time', () => {
+      jest.useFakeTimers({ now: new Date('2024-01-13T15:23:57.443+01:00') })
+      const recurrenceRule = rrulestr('DTSTART:20231223T070000Z\nRRULE:FREQ=WEEKLY;BYDAY=MO')
+      const date = new DateModel({
+        startDate: DateTime.fromISO('2023-12-25T08:00:00.000+01:00'),
+        endDate: DateTime.fromISO('2023-12-25T10:00:00.000+01:00'),
+        allDay: false,
+        recurrenceRule,
+      })
+
+      expect(date.recurrences(1)).toEqual([
+        new DateModel({
+          allDay: false,
+          recurrenceRule,
+          startDate: DateTime.fromISO('2024-01-15T08:00:00.000+01:00'),
+          endDate: DateTime.fromISO('2024-01-15T10:00:00.000+01:00'),
+          offset: 60,
+        }),
+      ])
+    })
+
+    it('should correctly handle dates if it is winter time and the event starts during summer time', () => {
+      jest.useFakeTimers({ now: new Date('2024-01-13T15:23:57.443+01:00') })
+      const recurrenceRule = rrulestr('DTSTART:20230831T120000Z\nRRULE:FREQ=WEEKLY;BYDAY=WE')
+      const date = new DateModel({
+        startDate: DateTime.fromISO('2023-09-06T14:00:00.000+02:00'),
+        endDate: DateTime.fromISO('2023-09-06T15:00:00.000+02:00'),
+        allDay: false,
+        recurrenceRule,
+      })
+
+      expect(date.recurrences(1)).toEqual([
+        new DateModel({
+          allDay: false,
+          recurrenceRule,
+          startDate: DateTime.fromISO('2024-01-17T14:00:00.000+01:00'),
+          endDate: DateTime.fromISO('2024-01-17T15:00:00.000+01:00'),
+          offset: 120, // TODO: check if this shouldn't be 60 minutes because it is winter time after all
+        }),
+      ])
+    })
+
+    it('should correctly handle dates if it is summer time and the event starts during winter time', () => {
+      jest.useFakeTimers({ now: new Date('2024-08-13T15:23:57.443+02:00') })
+      const recurrenceRule = rrulestr('DTSTART:20231223T150000Z\nRRULE:FREQ=WEEKLY;BYDAY=TU')
+      const date = new DateModel({
+        startDate: DateTime.fromISO('2023-12-26T16:00:00.000+01:00'),
+        endDate: DateTime.fromISO('2023-12-26T18:00:00.000+01:00'),
+        allDay: false,
+        recurrenceRule,
+      })
+
+      expect(date.recurrences(1)).toEqual([
+        new DateModel({
+          allDay: false,
+          recurrenceRule,
+          startDate: DateTime.fromISO('2024-08-13T16:00:00.000+02:00'),
+          endDate: DateTime.fromISO('2024-08-13T18:00:00.000+02:00'),
+          offset: 60, // TODO: same as above
+        }),
+      ])
+    })
+
+    it('should correctly handle dates if it is summer time and the event starts during summer time', () => {
+      jest.useFakeTimers({ now: new Date('2024-08-13T15:23:57.443+02:00') })
+      const recurrenceRule = rrulestr('DTSTART:20240331T230000Z\nRRULE:FREQ=WEEKLY;BYDAY=TH')
+      const date = new DateModel({
+        startDate: DateTime.fromISO('2024-04-01T01:00:00.000+02:00'),
+        endDate: DateTime.fromISO('2024-04-01T23:59:00.000+02:00'),
+        allDay: false,
+        recurrenceRule,
+      })
+
+      expect(date.recurrences(1)).toEqual([
+        new DateModel({
+          allDay: false,
+          recurrenceRule,
+          startDate: DateTime.fromISO('2024-08-15T01:00:00.000+02:00'),
+          endDate: DateTime.fromISO('2024-08-15T23:59:00.000+02:00'),
+          offset: 120,
+        }),
+      ])
+    })
   })
 })
