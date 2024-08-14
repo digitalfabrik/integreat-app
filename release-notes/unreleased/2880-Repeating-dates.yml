@@ -1,0 +1,8 @@
+issue_key: 2880
+show_in_stores: true
+platforms:
+  - web
+  - android
+  - ios
+en: Fix the dates on recurring all-day events
+de: Fehlerbehebung beim Datum von wiederholenden ganztägigen Veranstaltungen
