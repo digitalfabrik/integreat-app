@@ -22,8 +22,8 @@ const HeaderLanguageSelectorItem = ({
   closeSidebar,
 }: HeaderLanguageSelectorItemProps): ReactElement => {
   const { t } = useTranslation('layout')
+  const { i18n } = useTranslation()
   const noLanguagesHint = t('noLanguages')
-
   const renderItem = (closeDropDown: () => void): ReactElement => (
     <Selector
       closeDropDown={closeDropDown}
@@ -44,7 +44,10 @@ const HeaderLanguageSelectorItem = ({
     }
 
     return (
-      <HeaderActionItemDropDown iconSrc={LanguageIcon} text={t('changeLanguage')}>
+      <HeaderActionItemDropDown
+        iconSrc={LanguageIcon}
+        text={t('changeLanguage')}
+        innerText={selectorItems.find(item => item._code === i18n.language)?._name}>
         {renderItem}
       </HeaderActionItemDropDown>
     )

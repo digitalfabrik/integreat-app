@@ -11,11 +11,30 @@ const StyledIcon = styled(Icon)`
   width: 28px;
   height: 28px;
 `
+const ActionBox = styled(Button)`
+  height: 36px;
+  min-width: 122px;
+  display: flex;
+  border-color: black;
+  border-width: 1px;
+  border-style: solid;
+  border-radius: 4px;
+  justify-content: center;
+  align-items: center;
+`
+
+const StyledText = styled.span`
+  font-weight: bold;
+  font-size: 14px;
+  margin: 0px 5px;
+  letter-spacing: 1.25px;
+`
 
 type HeaderActionItemDropDownProps = {
   children: (closeDropDown: () => void) => ReactNode
   iconSrc: string
   text: string
+  innerText?: string
 }
 
 /**
@@ -23,7 +42,12 @@ type HeaderActionItemDropDownProps = {
  * Header. Once the user clicks outside, the node is hidden again. Additionally, the inner node gets a
  * closeDropDownCallback through its props to close the dropDown and hide itself.
  */
-const HeaderActionItemDropDown = ({ iconSrc, text, children }: HeaderActionItemDropDownProps): ReactElement => {
+const HeaderActionItemDropDown = ({
+  iconSrc,
+  text,
+  innerText,
+  children,
+}: HeaderActionItemDropDownProps): ReactElement => {
   const [dropDownActive, setDropDownActive] = useState(false)
 
   const toggleDropDown = (): void => {
@@ -40,9 +64,16 @@ const HeaderActionItemDropDown = ({ iconSrc, text, children }: HeaderActionItemD
   return (
     <div ref={wrapperRef}>
       <Tooltip text={text} flow='down' mediumViewportFlow='left'>
-        <Button label={text} onClick={toggleDropDown}>
-          <StyledIcon src={iconSrc} />
-        </Button>
+        {innerText ? (
+          <ActionBox label={text} onClick={toggleDropDown}>
+            <StyledIcon src={iconSrc} />
+            <StyledText>{innerText}</StyledText>
+          </ActionBox>
+        ) : (
+          <Button label={text} onClick={toggleDropDown}>
+            <StyledIcon src={iconSrc} />
+          </Button>
+        )}
       </Tooltip>
       <DropDownContainer
         data-testid='headerActionItemDropDown'
