@@ -73,22 +73,32 @@ class DateModel {
     }
 
     const now = DateTime.now()
-    const maxDate = now.plus({ years: MAX_RECURRENCE_YEARS }).toJSDate()
     const duration = this._endDate.diff(this._startDate)
+    const minDate = now.minus(duration).minus({ minutes: now.offset }).toJSDate() // to also include events that are happening right now
+    const maxDate = now.plus({ years: MAX_RECURRENCE_YEARS }).toJSDate()
 
-    return this.recurrenceRule
-      .between(this.currentDateToRrule(), maxDate, true, (_, index) => index < count)
-      .map(it => this.rruleToDateTime(it))
-      .map(
-        it =>
-          new DateModel({
-            allDay: this._allDay,
-            startDate: it,
-            endDate: it.plus(duration),
-            recurrenceRule: this.recurrenceRule,
-            offset: this._offset,
-          }),
-      )
+    // The rrule package considers all times to be in UTC time zones and ignores time zone offsets
+    // So we manually subtract the offset before getting the recurrences and add it back in after
+    // If we don't subtract the offset for the recurrences, we get the wrong date if the offset is
+    // bigger than the distance from midnight (e.g. 1 am with a 2h offset during CET summer time)
+    // https://github.com/jkbrzt/rrule#important-use-utc-dates
+    const localRecurrenceRule = this.getRecurrenceRuleInLocalTime(this.recurrenceRule)
+    if (!localRecurrenceRule) {
+      return [this]
+    }
+
+    return localRecurrenceRule
+      .between(minDate, maxDate, true, (_, index) => index < count)
+      .map(offsetDate => {
+        const actualDate = DateTime.fromJSDate(offsetDate).plus({ minutes: offsetDate.getTimezoneOffset() })
+        return new DateModel({
+          allDay: this.allDay,
+          startDate: actualDate,
+          endDate: actualDate.plus(duration),
+          recurrenceRule: this.recurrenceRule,
+          offset: this.offset,
+        })
+      })
   }
 
   hasMoreRecurrencesThan(count: number): boolean {
@@ -128,23 +138,16 @@ class DateModel {
     return null
   }
 
-  private rruleToDateTime(date: Date): DateTime {
-    const dateTime = DateTime.fromJSDate(date)
-    // rrule is not correctly handling timezones and always returning local time in the shape of UTC
-    // Therefore we have to manually apply timezone offset, e.g. for daylight savings time
-    // https://github.com/jkbrzt/rrule#important-use-utc-dates
-    return dateTime.plus({ minutes: this._offset - dateTime.offset })
-  }
-
-  private currentDateToRrule(): Date {
-    // rrule is not correctly handling timezones and is expecting dates in "local time", i.e. in the timezone of dstart
-    // Therefore we have to manually apply timezone offset, e.g. for daylight savings time
-    // https://github.com/jkbrzt/rrule#important-use-utc-dates
-    // Also include dates happening at the moment by subtracting the duration
-    return DateTime.now()
-      .minus(this._duration)
-      .minus({ minutes: this._offset - DateTime.now().offset })
-      .toJSDate()
+  private getRecurrenceRuleInLocalTime(recurrenceRule: RRuleType): RRuleType | undefined {
+    const startDate = recurrenceRule.options.dtstart
+    const offsetStartDate = DateTime.fromJSDate(startDate).minus({ minutes: startDate.getTimezoneOffset() }).toJSDate()
+    return new RRuleType({
+      freq: recurrenceRule.options.freq,
+      byweekday: recurrenceRule.options.byweekday,
+      interval: recurrenceRule.options.interval,
+      until: recurrenceRule.options.until,
+      dtstart: offsetStartDate,
+    })
   }
 
   isEqual(other: DateModel): boolean {

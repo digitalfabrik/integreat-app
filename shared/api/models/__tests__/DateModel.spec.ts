@@ -291,7 +291,7 @@ describe('DateModel', () => {
           recurrenceRule,
           startDate: DateTime.fromISO('2024-01-17T14:00:00.000+01:00'),
           endDate: DateTime.fromISO('2024-01-17T15:00:00.000+01:00'),
-          offset: 120, // TODO: check if this shouldn't be 60 minutes because it is winter time after all
+          offset: 120,
         }),
       ])
     })
@@ -312,7 +312,7 @@ describe('DateModel', () => {
           recurrenceRule,
           startDate: DateTime.fromISO('2024-08-13T16:00:00.000+02:00'),
           endDate: DateTime.fromISO('2024-08-13T18:00:00.000+02:00'),
-          offset: 60, // TODO: same as above
+          offset: 60,
         }),
       ])
     })
@@ -340,7 +340,7 @@ describe('DateModel', () => {
 
     it('should correctly handle allDay events', () => {
       jest.useFakeTimers({ now: new Date('2024-08-13T15:23:57.443+02:00') })
-      const recurrenceRule = rrulestr('DTSTART:20240813T220000\nRRULE:FREQ=WEEKLY;BYDAY=SA', { tzid: 'UTC' })
+      const recurrenceRule = rrulestr('DTSTART:20240813T220000\nRRULE:FREQ=WEEKLY;BYDAY=SA')
       const date = new DateModel({
         startDate: DateTime.fromISO('2024-08-14T00:00:00.000+02:00'),
         endDate: DateTime.fromISO('2024-08-14T23:59:00.000+02:00'),
@@ -354,6 +354,27 @@ describe('DateModel', () => {
           recurrenceRule,
           startDate: DateTime.fromISO('2024-08-17T00:00:00.000+02:00'),
           endDate: DateTime.fromISO('2024-08-17T23:59:00.000+02:00'),
+          offset: 120,
+        }),
+      ])
+    })
+
+    it('should also return events that are happening right now', () => {
+      jest.useFakeTimers({ now: new Date('2024-08-15T15:23:57.443+02:00') })
+      const recurrenceRule = rrulestr('DTSTART:20240815T120000\nRRULE:FREQ=WEEKLY;BYDAY=TH')
+      const date = new DateModel({
+        startDate: DateTime.fromISO('2024-08-15T14:00:00.000+02:00'),
+        endDate: DateTime.fromISO('2024-08-15T16:00:00.000+02:00'),
+        allDay: false,
+        recurrenceRule,
+      })
+
+      expect(date.recurrences(1)).toEqual([
+        new DateModel({
+          allDay: false,
+          recurrenceRule,
+          startDate: DateTime.fromISO('2024-08-15T14:00:00.000+02:00'),
+          endDate: DateTime.fromISO('2024-08-15T16:00:00.000+02:00'),
           offset: 120,
         }),
       ])
