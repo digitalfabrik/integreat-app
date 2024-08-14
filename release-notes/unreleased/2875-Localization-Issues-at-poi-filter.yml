@@ -3,5 +3,5 @@ show_in_stores: true
 platforms: # relevant platforms, possible values: web, android and ios
   - ios
   - android
-en: Fixed an issue at the map filter where opening hours not aligned correctly
+en: Fixed an issue at the map filter where opening hours were not aligned correctly
 de: Ein Problem beim Kartenfilter wurde behoben, bei dem die Öffnungszeiten nicht richtig ausgerichtet waren
