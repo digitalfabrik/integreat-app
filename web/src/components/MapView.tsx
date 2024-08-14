@@ -43,7 +43,7 @@ const OverlayContainer = styled.div`
   display: flex;
   padding: 12px 8px;
   flex: 1;
-  z-index: 1;
+  z-index: 0;
   position: absolute;
   top: 0;
   gap: 8px;
