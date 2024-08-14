@@ -29,7 +29,7 @@ const ActionBox = styled(Button)<{ $isRTL?: boolean }>`
 const StyledText = styled.span`
   font-weight: bold;
   font-size: 14px;
-  margin: 0px 5px;
+  margin: 0 5px;
   letter-spacing: 1.25px;
 `
 
