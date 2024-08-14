@@ -1,6 +1,8 @@
 import React, { ReactElement, ReactNode, useRef, useState } from 'react'
 import styled from 'styled-components'
 
+import config from 'translations/src/config'
+
 import useOnClickOutside from '../hooks/useOnClickOutside'
 import DropDownContainer from './DropDownContainer'
 import Tooltip from './Tooltip'
@@ -11,7 +13,7 @@ const StyledIcon = styled(Icon)`
   width: 28px;
   height: 28px;
 `
-const ActionBox = styled(Button)`
+const ActionBox = styled(Button)<{ $isRTL?: boolean }>`
   height: 36px;
   min-width: 122px;
   display: flex;
@@ -21,6 +23,7 @@ const ActionBox = styled(Button)`
   border-radius: 4px;
   justify-content: center;
   align-items: center;
+  flex-direction: ${props => (props.$isRTL ? 'row-reverse' : 'row')};
 `
 
 const StyledText = styled.span`
@@ -65,7 +68,7 @@ const HeaderActionItemDropDown = ({
     <div ref={wrapperRef}>
       <Tooltip text={text} flow='down' mediumViewportFlow='left'>
         {innerText ? (
-          <ActionBox label={text} onClick={toggleDropDown}>
+          <ActionBox label={text} onClick={toggleDropDown} $isRTL={config.hasRTLScript(innerText)}>
             <StyledIcon src={iconSrc} />
             <StyledText>{innerText}</StyledText>
           </ActionBox>
