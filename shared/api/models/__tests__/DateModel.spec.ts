@@ -337,5 +337,26 @@ describe('DateModel', () => {
         }),
       ])
     })
+
+    it('should correctly handle allDay events', () => {
+      jest.useFakeTimers({ now: new Date('2024-08-13T15:23:57.443+02:00') })
+      const recurrenceRule = rrulestr('DTSTART:20240813T220000\nRRULE:FREQ=WEEKLY;BYDAY=SA', { tzid: 'UTC' })
+      const date = new DateModel({
+        startDate: DateTime.fromISO('2024-08-14T00:00:00.000+02:00'),
+        endDate: DateTime.fromISO('2024-08-14T23:59:00.000+02:00'),
+        allDay: true,
+        recurrenceRule,
+      })
+
+      expect(date.recurrences(1)).toEqual([
+        new DateModel({
+          allDay: true,
+          recurrenceRule,
+          startDate: DateTime.fromISO('2024-08-17T00:00:00.000+02:00'),
+          endDate: DateTime.fromISO('2024-08-17T23:59:00.000+02:00'),
+          offset: 120,
+        }),
+      ])
+    })
   })
 })
