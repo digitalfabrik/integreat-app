@@ -338,7 +338,7 @@ describe('DateModel', () => {
       ])
     })
 
-    it('should correctly handle allDay events', () => {
+    it('should correctly handle allDay events in summer time', () => {
       jest.useFakeTimers({ now: new Date('2024-08-13T15:23:57.443+02:00') })
       const recurrenceRule = rrulestr('DTSTART:20240813T220000\nRRULE:FREQ=WEEKLY;BYDAY=SA')
       const date = new DateModel({
@@ -354,6 +354,27 @@ describe('DateModel', () => {
           recurrenceRule,
           startDate: DateTime.fromISO('2024-08-17T00:00:00.000+02:00'),
           endDate: DateTime.fromISO('2024-08-17T23:59:00.000+02:00'),
+          offset: 120,
+        }),
+      ])
+    })
+
+    it('should correctly handle allDay events in winter time', () => {
+      jest.useFakeTimers({ now: new Date('2024-01-13T15:23:57.443+01:00') })
+      const recurrenceRule = rrulestr('DTSTART:20230813T220000\nRRULE:FREQ=WEEKLY;BYDAY=MO')
+      const date = new DateModel({
+        startDate: DateTime.fromISO('2023-08-14T00:00:00.000+01:00'),
+        endDate: DateTime.fromISO('2023-08-14T23:59:00.000+01:00'),
+        allDay: true,
+        recurrenceRule,
+      })
+
+      expect(date.recurrences(1)).toEqual([
+        new DateModel({
+          allDay: true,
+          recurrenceRule,
+          startDate: DateTime.fromISO('2024-01-15T00:00:00.000+01:00'),
+          endDate: DateTime.fromISO('2024-01-15T23:59:00.000+01:00'),
           offset: 120,
         }),
       ])
