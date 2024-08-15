@@ -6,9 +6,11 @@ import CleanAnchor from './CleanAnchor'
 const StyledToolbarItem = styled(CleanAnchor)<{ disabled?: boolean }>`
   display: inline-block;
   padding: 8px;
+
   && {
     cursor: ${props => (props.disabled ? 'default' : 'pointer')};
   }
+
   border: none;
   color: ${props => (props.disabled ? props.theme.colors.textDisabledColor : props.theme.colors.textColor)};
   background-color: transparent;
