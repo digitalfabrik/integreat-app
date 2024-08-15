@@ -35,7 +35,7 @@ const ToolbarItem = ({ href, text, icon, isDisabled = false, onClick }: ToolbarI
       as={onClick ? Button : undefined}
       // @ts-expect-error wrong types from polymorphic 'as', see https://github.com/styled-components/styled-components/issues/4112
       href={isDisabled ? null : href}
-      onClick={onClick}
+      onClick={isDisabled ? null : onClick}
       label={text}
       disabled={isDisabled}>
       <StyledIcon src={icon} disabled={isDisabled} />
