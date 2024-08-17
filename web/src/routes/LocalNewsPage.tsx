@@ -2,7 +2,13 @@ import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useNavigate, useParams } from 'react-router-dom'
 
-import { LOCAL_NEWS_TYPE, NEWS_ROUTE, pathnameFromRouteInformation, replaceLinks } from 'shared'
+import {
+  LOCAL_NEWS_TYPE,
+  NEWS_ROUTE,
+  NewsRouteInformationType,
+  pathnameFromRouteInformation,
+  replaceLinks,
+} from 'shared'
 import { createLocalNewsEndpoint, LocalNewsModel, NotFoundError, useLoadFromEndpoint } from 'shared/api'
 
 import { CityRouteProps } from '../CityContentSwitcher'
@@ -16,9 +22,11 @@ import NewsListItem from '../components/NewsListItem'
 import NewsTabs from '../components/NewsTabs'
 import Page from '../components/Page'
 import { cmsApiBaseUrl } from '../constants/urls'
+import usePreviousProp from '../hooks/usePreviousProp'
 import { LOCAL_NEWS_ROUTE } from './index'
 
 const LocalNewsPage = ({ city, pathname, languageCode, cityCode }: CityRouteProps): ReactElement | null => {
+  const previousPathname = usePreviousProp({ prop: pathname })
   const { newsId } = useParams()
   const { t } = useTranslation('news')
   const navigate = useNavigate()
@@ -35,6 +43,14 @@ const LocalNewsPage = ({ city, pathname, languageCode, cityCode }: CityRouteProp
 
   const newsModel = newsId ? localNews?.find((it: LocalNewsModel) => it.id.toString() === newsId) : undefined
 
+  const createNewsPath = ({ languageCode: newLanguageCode, newsId }: Partial<NewsRouteInformationType>): string =>
+    pathnameFromRouteInformation({
+      route: NEWS_ROUTE,
+      newsType: LOCAL_NEWS_TYPE,
+      cityCode,
+      languageCode: newLanguageCode ?? languageCode,
+      newsId,
+    })
   const renderLocalNewsListItem = (localNewsItem: LocalNewsModel) => {
     const { id, title, content, timestamp } = localNewsItem
     return (
@@ -43,27 +59,21 @@ const LocalNewsPage = ({ city, pathname, languageCode, cityCode }: CityRouteProp
         content={content}
         timestamp={timestamp}
         key={id}
-        link={pathnameFromRouteInformation({
-          route: NEWS_ROUTE,
-          newsType: LOCAL_NEWS_TYPE,
-          cityCode,
-          languageCode,
-          newsId: id.toString(),
-        })}
+        link={createNewsPath({ newsId: id })}
         t={t}
         type={LOCAL_NEWS_TYPE}
       />
     )
   }
 
-  // Language change is not possible between local news detail views because we don't know the id of other languages
-  const languageChangePaths = city.languages.map(({ code, name }) => ({
-    path: newsId
-      ? null
-      : pathnameFromRouteInformation({ route: NEWS_ROUTE, newsType: LOCAL_NEWS_TYPE, cityCode, languageCode: code }),
-    name,
-    code,
-  }))
+  const languageChangePaths = city.languages.map(({ code, name }) => {
+    const newNewsId = newsModel?.availableLanguages[code]
+    return {
+      path: newsId && newNewsId === undefined ? null : createNewsPath({ languageCode: code, newsId: newNewsId }),
+      name,
+      code,
+    }
+  })
 
   const pageTitle = `${newsModel && newsModel.title ? newsModel.title : t('localNews.pageTitle')} - ${city.name}`
   const locationLayoutParams: Omit<CityContentLayoutProps, 'isLoading'> = {
@@ -81,7 +91,7 @@ const LocalNewsPage = ({ city, pathname, languageCode, cityCode }: CityRouteProp
     ),
   }
 
-  if (loading) {
+  if (loading || previousPathname !== pathname) {
     return (
       <CityContentLayout isLoading {...locationLayoutParams}>
         <NewsTabs
