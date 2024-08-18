@@ -1,0 +1,8 @@
+issue_key: 2732
+show_in_stores: true
+platforms:
+  - android
+  - ios
+  - web
+en: Enable language change for local news.
+de: Sprachwechsel für lokale Nachrichten wird nun unterstützt.
