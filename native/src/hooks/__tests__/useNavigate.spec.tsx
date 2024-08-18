@@ -183,12 +183,12 @@ describe('useNavigate', () => {
       route: NEWS_ROUTE,
       ...params,
       newsType: LOCAL_NEWS_TYPE,
-      newsId: '1234',
+      newsId: 1234,
     })
     expect(navigation.push).toHaveBeenCalledWith(NEWS_ROUTE, {
       ...params,
       newsType: LOCAL_NEWS_TYPE,
-      newsId: '1234',
+      newsId: 1234,
     })
     expect(navigation.push).toHaveBeenCalledTimes(1)
   })
@@ -201,7 +201,7 @@ describe('useNavigate', () => {
       route: NEWS_ROUTE,
       ...params,
       newsType: LOCAL_NEWS_TYPE,
-      newsId: '1234',
+      newsId: 1234,
     })
     expect(navigation.push).not.toHaveBeenCalled()
   })
