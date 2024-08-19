@@ -51,7 +51,7 @@ export type NewsRouteInformationType = ParamsType & {
   // Two levels of ids: news type and news id
   route: NewsRouteType
   newsType: LocalNewsType | TuNewsType
-  newsId?: string
+  newsId?: number
 }
 
 export type SimpleCityContentFeatureType = ParamsType & {

@@ -66,7 +66,8 @@ const StyledToggleButton = styled(ToggleButton)`
 `
 
 const StyledTextButton = styled(TextButton)`
-  margin-top: 16px;
+  margin-top: 8px;
+  margin-bottom: 8px;
 `
 
 type PoiFiltersModalProps = {
