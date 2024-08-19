@@ -83,9 +83,6 @@ class DateModel {
     // bigger than the distance from midnight (e.g. 1 am with a 2h offset during CET summer time)
     // https://github.com/jkbrzt/rrule#important-use-utc-dates
     const localRecurrenceRule = this.getRecurrenceRuleInLocalTime(this.recurrenceRule)
-    if (!localRecurrenceRule) {
-      return [this]
-    }
 
     return localRecurrenceRule
       .between(minDate, maxDate, true, (_, index) => index < count)
@@ -138,7 +135,7 @@ class DateModel {
     return null
   }
 
-  private getRecurrenceRuleInLocalTime(recurrenceRule: RRuleType): RRuleType | undefined {
+  private getRecurrenceRuleInLocalTime(recurrenceRule: RRuleType): RRuleType {
     const startDate = recurrenceRule.options.dtstart
     const offsetStartDate = DateTime.fromJSDate(startDate).minus({ minutes: startDate.getTimezoneOffset() }).toJSDate()
     return new RRuleType({
