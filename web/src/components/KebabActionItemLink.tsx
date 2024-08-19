@@ -24,14 +24,14 @@ const StyledIcon = styled(Icon)`
 `
 
 type KebabActionItemLinkProps = {
-  href?: string
+  to?: string
   text: string
   iconSrc: string
 }
 
-const KebabActionItemLink = ({ href, text, iconSrc }: KebabActionItemLinkProps): ReactElement => (
+const KebabActionItemLink = ({ to, text, iconSrc }: KebabActionItemLinkProps): ReactElement => (
   // @ts-expect-error wrong types from polymorphic 'as', see https://github.com/styled-components/styled-components/issues/4112
-  <StyledLink {...(href ? { to: href } : { as: 'span' })} aria-label={text} dir='auto'>
+  <StyledLink {...(to ? { to } : { as: 'span' })} aria-label={text} dir='auto'>
     <StyledIcon src={iconSrc} />
     <span>{text}</span>
   </StyledLink>

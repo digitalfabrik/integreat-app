@@ -13,11 +13,11 @@ const StyledIcon = styled(Icon)`
 type ItemProps =
   | {
       onClick: () => void
-      href?: undefined
+      to?: undefined
     }
   | {
       onClick?: undefined
-      href: string
+      to: string
     }
 
 type ToolbarItemProps = {
@@ -25,9 +25,9 @@ type ToolbarItemProps = {
   text: string
 } & ItemProps
 
-const ToolbarItem = ({ href, text, icon, onClick }: ToolbarItemProps): ReactElement => (
+const ToolbarItem = ({ to, text, icon, onClick }: ToolbarItemProps): ReactElement => (
   // @ts-expect-error wrong types from polymorphic 'as', see https://github.com/styled-components/styled-components/issues/4112
-  <StyledToolbarItem as={onClick ? Button : undefined} href={href} onClick={onClick} label={text}>
+  <StyledToolbarItem as={onClick ? Button : undefined} to={to} onClick={onClick} label={text}>
     <StyledIcon src={icon} />
     <StyledSmallViewTip>{text}</StyledSmallViewTip>
   </StyledToolbarItem>

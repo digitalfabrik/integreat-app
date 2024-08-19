@@ -11,15 +11,15 @@ const StyledIcon = styled(Icon)`
 `
 
 type HeaderActionItemLinkProps = {
-  href?: string
+  to?: string
   text: string
   iconSrc: string
 }
 
-const HeaderActionItemLink = ({ href, text, iconSrc }: HeaderActionItemLinkProps): ReactElement => (
+const HeaderActionItemLink = ({ to, text, iconSrc }: HeaderActionItemLinkProps): ReactElement => (
   <Tooltip text={text} flow='down' smallViewportFlow='left'>
-    {href ? (
-      <Link to={href} ariaLabel={text}>
+    {to ? (
+      <Link to={to} ariaLabel={text}>
         <StyledIcon src={iconSrc} />
       </Link>
     ) : (
