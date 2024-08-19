@@ -33,6 +33,7 @@ const Title = styled.div`
 `
 
 const FullWidthLink = styled(Link)`
+  display: flex;
   flex: 1;
 `
 

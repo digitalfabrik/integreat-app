@@ -9,7 +9,6 @@ import isExternalUrl from '../../utils/isExternalUrl'
 const StyledLink = styled(RouterLink)`
   color: inherit;
   text-decoration: none;
-  display: flex;
 `
 
 type LinkProps = {

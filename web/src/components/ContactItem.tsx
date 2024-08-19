@@ -12,6 +12,7 @@ const Marker = styled.img`
 `
 
 const StyledLink = styled(Link)`
+  display: flex;
   align-items: center;
   padding-top: 4px;
   gap: 8px;

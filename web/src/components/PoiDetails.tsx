@@ -93,7 +93,7 @@ const Subheading = styled.div`
 
 const StyledLink = styled(Link)`
   display: flex;
-  margin-top: 16px;
+  margin-top: 8px;
   gap: 8px;
 `
 
@@ -209,10 +209,10 @@ const PoiDetails = ({ poi, distance, toolbar }: PoiDetailsProps): ReactElement =
           isTemporarilyClosed={temporarilyClosed}
         />
         {appointmentUrl !== null && (
-          <Link to={appointmentUrl} newTab>
+          <StyledLink to={appointmentUrl} newTab>
             <LinkLabel>{t('makeAppointment')}</LinkLabel>
             <StyledExternalLinkIcon src={ExternalLinkIcon} directionDependent />
-          </Link>
+          </StyledLink>
         )}
       </>
       {content.length > 0 && (
