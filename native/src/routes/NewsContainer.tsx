@@ -1,4 +1,4 @@
-import React, { ReactElement, useCallback, useEffect } from 'react'
+import React, { ReactElement, useCallback } from 'react'
 
 import { LOCAL_NEWS_TYPE, NEWS_ROUTE, NewsRouteType, NewsType, TU_NEWS_TYPE } from 'shared'
 import { ErrorCode } from 'shared/api'
@@ -21,10 +21,8 @@ type NewsContainerProps = {
 const NewsContainer = ({ route, navigation }: NewsContainerProps): ReactElement | null => {
   const { newsType, newsId } = route.params
   const { cityCode, languageCode } = useCityAppContext()
-  const { data, refreshLocalNews, ...response } = useLoadCityContent({ cityCode, languageCode })
+  const { data, ...response } = useLoadCityContent({ cityCode, languageCode, refreshLocalNews: true })
   const { navigateTo } = useNavigate()
-
-  useEffect(refreshLocalNews, [refreshLocalNews])
 
   const navigateToNews = useCallback(
     (newsId: number) => navigateTo({ route: NEWS_ROUTE, cityCode, languageCode, newsType, newsId }),
