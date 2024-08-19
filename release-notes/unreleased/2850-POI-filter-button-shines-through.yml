@@ -1,0 +1,6 @@
+issue_key: 2850
+show_in_stores: false
+platforms: # relevant platforms, possible values: web, android and ios
+  - web
+en: Fixed an issue with filter location button showing on top of the change language overlay
+de: Ein Problem mit der Schaltfläche „Filterstandort“ wurde behoben, die über dem Overlay zum Ändern der Sprache angezeigt wurde
