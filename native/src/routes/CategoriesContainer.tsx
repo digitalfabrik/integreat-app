@@ -35,7 +35,7 @@ const CategoriesContainer = ({ navigation, route }: CategoriesContainerProps): R
   const path = route.params.path ?? cityContentPath({ cityCode, languageCode })
   const category = useMemo(() => data?.categories.findCategoryByPath(path), [data?.categories, path])
   const availableLanguages =
-    category && !category.isRoot() ? Array.from(category.availableLanguages.keys()) : data?.languages.map(it => it.code)
+    category && !category.isRoot() ? Object.keys(category.availableLanguages) : data?.languages.map(it => it.code)
 
   const shareUrl = urlFromRouteInformation({
     route: CATEGORIES_ROUTE,
@@ -49,8 +49,7 @@ const CategoriesContainer = ({ navigation, route }: CategoriesContainerProps): R
   const onLanguageChange = useCallback(
     (newLanguage: string) => {
       if (category) {
-        const newPath = category.availableLanguages.get(newLanguage)
-        navigation.setParams({ path: newPath })
+        navigation.setParams({ path: category.availableLanguages[newLanguage] })
       }
     },
     [category, navigation],

@@ -27,6 +27,7 @@ import useSnackbar from './useSnackbar'
 type Params = {
   cityCode: string
   languageCode: string
+  refreshLocalNews?: boolean
 }
 
 export type CityContentData = {
@@ -42,14 +43,13 @@ export type CityContentData = {
 
 export type CityContentReturn = Omit<ReturnType<CityContentData>, 'error'> & {
   error: ErrorCode | Error | null
-  refreshLocalNews: () => void
 }
 
 /**
  * Hook to load all the offline available city content at once and handle errors, loading and refreshing at the same time.
  * Takes care of updating the data regularly.
  */
-const useLoadCityContent = ({ cityCode, languageCode }: Params): CityContentReturn => {
+const useLoadCityContent = ({ cityCode, languageCode, refreshLocalNews }: Params): CityContentReturn => {
   const showSnackbar = useSnackbar()
   const citiesReturn = useLoadCities()
   const previousLanguageCode = usePreviousProp({ prop: languageCode })
@@ -82,6 +82,7 @@ const useLoadCityContent = ({ cityCode, languageCode }: Params): CityContentRetu
     createEndpoint: createLocalNewsEndpoint,
     getFromDataContainer: dataContainer.getLocalNews,
     setToDataContainer: dataContainer.setLocalNews,
+    forceUpdate: refreshLocalNews,
   })
 
   useEffect(() => {
@@ -164,6 +165,6 @@ const useLoadCityContent = ({ cityCode, languageCode }: Params): CityContentRetu
         }
       : null
 
-  return { error: getError(), loading, refresh, data, refreshLocalNews: localNewsReturn.refresh }
+  return { error: getError(), loading, refresh, data }
 }
 export default useLoadCityContent

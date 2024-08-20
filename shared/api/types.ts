@@ -131,6 +131,7 @@ export type JsonLocalNewsType = {
   timestamp: string
   title: string
   message: string
+  available_languages: Record<string, { id: number }>
 }
 export type JsonOfferPostType = {
   'zammad-url': string | undefined

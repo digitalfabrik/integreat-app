@@ -29,7 +29,7 @@ describe('EventModel', () => {
       longitude: null,
     }),
     excerpt: 'bal bla bla text',
-    availableLanguages: new Map<string, string>([['', '']]),
+    availableLanguages: {},
     lastUpdate: DateTime.fromISO('2022-06-05T17:50:00+02:00'),
     featuredImage: null,
   }
