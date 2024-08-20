@@ -1,5 +1,10 @@
 import React, { ReactElement, ReactNode } from 'react'
 import { Tooltip as ReactTooltip, ITooltip as ReactTooltipType } from 'react-tooltip'
+import styled from 'styled-components'
+
+const StyledTooltip = styled(ReactTooltip)`
+  z-index: 1;
+`
 
 type TooltipProps = {
   tooltipContent: ReactNode
@@ -10,9 +15,9 @@ type TooltipProps = {
 const Tooltip = ({ children, id, place, tooltipContent, ...props }: TooltipProps): ReactElement => (
   <>
     <div id={id}>{children}</div>
-    <ReactTooltip {...props} anchorSelect={`#${id}`}>
+    <StyledTooltip {...props} anchorSelect={`#${id}`}>
       {tooltipContent}
-    </ReactTooltip>
+    </StyledTooltip>
   </>
 )
 
