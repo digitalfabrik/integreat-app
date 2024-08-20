@@ -3,7 +3,7 @@ import ResourceURLFinder from '../ResourceURLFinder'
 jest.mock('react-i18next')
 
 describe('ResourceURLFinder', () => {
-  it('should find urls ending on png,jpg,jpeg,pdf in src and href tags', () => {
+  it('should find urls ending on png, jpg, jpeg, pdf in src and href tags', () => {
     const finder = new ResourceURLFinder(['ex.am'])
     finder.init()
     const urls = finder.findResourceUrls(`
@@ -36,6 +36,7 @@ describe('ResourceURLFinder', () => {
       ]),
     )
   })
+
   it('should build a fetchMap including thumbnails if supplied', () => {
     const finder = new ResourceURLFinder(['ex.am'])
     finder.init()
@@ -53,10 +54,11 @@ describe('ResourceURLFinder', () => {
         content: '<img src="https://ex.am/pl2.png" alt="Crazy" />',
       },
     ]
-    const fetchMap = finder.buildFetchMap(input, (url, urlHash) => `buildFilePath('${url}', '${urlHash}')`)
+    const fetchMap = finder.buildFetchMap(input, (url, urlHash) => `buildFilePath('${url}', '${urlHash}')`, [])
     finder.finalize()
     expect(fetchMap).toMatchSnapshot()
   })
+
   it('should build a correct fetch map if two pages are using the same resource', () => {
     const finder = new ResourceURLFinder(['ex.am'])
     finder.init()
@@ -72,9 +74,34 @@ describe('ResourceURLFinder', () => {
         content: '<img src="https://ex.am/pl1.png" alt="Crazy" />',
       },
     ]
-    const fetchMap = finder.buildFetchMap(input, (url, urlHash) => `buildFilePath('${url}', '${urlHash}')`)
+    const fetchMap = finder.buildFetchMap(input, (url, urlHash) => `buildFilePath('${url}', '${urlHash}')`, [])
     finder.finalize()
     expect(fetchMap['/path1']).toEqual(fetchMap['/path2'])
+    expect(fetchMap).toMatchSnapshot()
+  })
+
+  it('should build a correct fetch map using previously cached files', () => {
+    const finder = new ResourceURLFinder(['ex.am'])
+    finder.init()
+    const input = [
+      {
+        path: '/path1',
+        thumbnail: 'https://ex.am/thumb.png',
+        content: `<img src="https://ex.am/pl1.png" alt="First Pic" />
+                  <img src="https://ex.am/pl2.png" alt="Second Pic" />
+                  <img src="https://ex.am/pl3.jpg" alt="Third Pic" />`,
+      },
+      {
+        path: '/path2',
+        thumbnail: '',
+        content: '<img src="https://ex.am/pl4.pdf" alt="And an entire PDF" />',
+      },
+    ]
+    const fetchMap = finder.buildFetchMap(input, (url, urlHash) => `buildFilePath('${url}', '${urlHash}')`, [
+      'https://ex.am/pl2.png',
+      'https://ex.am/pl4.pdf',
+    ])
+    finder.finalize()
     expect(fetchMap).toMatchSnapshot()
   })
 })

@@ -17,4 +17,5 @@ module.exports = {
   useTranslation,
   I18nextProvider: ({ children }: { children: React.ReactNode }) => <>{children}</>,
   reactI18nextModule: realModule.reactI18nextModule,
+  Trans: ({ i18nKey }: { i18nKey: string }) => <span>{i18nKey}</span>,
 }

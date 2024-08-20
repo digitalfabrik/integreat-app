@@ -20,11 +20,18 @@ describe('OpeningHours', () => {
         openingHours={openingHours}
         language='de'
         appointmentUrl='https://make.an/appointment'
+        appointmentOverlayLink='https://make.an/appointment'
       />,
     )
   const openingHours = Array.from(
     { length: 7 },
-    () => new OpeningHoursModel({ allDay: false, closed: false, timeSlots: [{ end: '18:00', start: '08:00' }] }),
+    () =>
+      new OpeningHoursModel({
+        allDay: false,
+        closed: false,
+        timeSlots: [{ end: '18:00', start: '08:00' }],
+        appointmentOnly: false,
+      }),
   )
 
   it('should display that the location is temporarily closed', () => {

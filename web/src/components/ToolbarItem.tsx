@@ -2,14 +2,28 @@ import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
 
+import dimensions from '../constants/dimensions'
+import CleanAnchor from './CleanAnchor'
 import StyledSmallViewTip from './StyledSmallViewTip'
-import StyledToolbarItem from './StyledToolbarItem'
-import Tooltip from './Tooltip'
 import Button from './base/Button'
 import Icon from './base/Icon'
 
-const StyledIcon = styled(Icon)<{ disabled?: boolean }>`
-  color: ${props => (props.disabled ? props.theme.colors.textDisabledColor : props.theme.colors.textSecondaryColor)};
+const StyledToolbarItem = styled(CleanAnchor)`
+  display: inline-block;
+  padding: 8px;
+  cursor: pointer;
+  border: none;
+  color: ${props => props.theme.colors.textColor};
+  background-color: transparent;
+  text-align: center;
+
+  @media ${dimensions.smallViewport} {
+    line-height: 1.15;
+  }
+`
+
+const StyledIcon = styled(Icon)`
+  color: ${props => props.theme.colors.textSecondaryColor};
 `
 
 type ItemProps =
@@ -25,30 +39,16 @@ type ItemProps =
 type ToolbarItemProps = {
   icon: string
   text: string
+  id?: string
   isDisabled?: boolean
 } & ItemProps
 
-const ToolbarItem = ({ href, text, icon, isDisabled = false, onClick }: ToolbarItemProps): ReactElement => {
-  const { t } = useTranslation('categories')
-  const styledToolbarItem = (
-    <StyledToolbarItem
-      as={onClick ? Button : undefined}
-      // @ts-expect-error wrong types from polymorphic 'as', see https://github.com/styled-components/styled-components/issues/4112
-      href={isDisabled ? null : href}
-      onClick={isDisabled ? null : onClick}
-      label={text}
-      disabled={isDisabled}>
-      <StyledIcon src={icon} disabled={isDisabled} />
-      <StyledSmallViewTip>{text}</StyledSmallViewTip>
-    </StyledToolbarItem>
-  )
-  return isDisabled ? (
-    <Tooltip text={t('disabledPdf')} flow='up'>
-      {styledToolbarItem}
-    </Tooltip>
-  ) : (
-    <>{styledToolbarItem}</>
-  )
-}
+const ToolbarItem = ({ href, text, icon, onClick, id }: ToolbarItemProps): ReactElement => (
+  // @ts-expect-error wrong types from polymorphic 'as', see https://github.com/styled-components/styled-components/issues/4112
+  <StyledToolbarItem as={onClick ? Button : undefined} id={id} href={href} onClick={onClick} label={text}>
+    <StyledIcon src={icon} />
+    <StyledSmallViewTip>{text}</StyledSmallViewTip>
+  </StyledToolbarItem>
+)
 
 export default ToolbarItem

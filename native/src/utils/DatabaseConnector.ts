@@ -144,7 +144,9 @@ type ContentPoiJsonType = {
   location: LocationJsonType<number>
   lastUpdate: string
   category: { id: number; name: string; color: string; icon: string; iconName: string }
-  openingHours: { allDay: boolean; closed: boolean; timeSlots: { start: string; end: string }[] }[] | null
+  openingHours:
+    | { allDay: boolean; closed: boolean; timeSlots: { start: string; end: string }[]; appointmentOnly: boolean }[]
+    | null
   temporarilyClosed: boolean
   appointmentUrl: string | null
 }
@@ -472,6 +474,7 @@ class DatabaseConnector {
               start: timeslot.start,
               end: timeslot.end,
             })),
+            appointmentOnly: hours.appointmentOnly,
           })) ?? null,
         temporarilyClosed: poi.temporarilyClosed,
         appointmentUrl: poi.appointmentUrl,
@@ -524,6 +527,7 @@ class DatabaseConnector {
                     start: timeslot.start,
                     end: timeslot.end,
                   })),
+                  appointmentOnly: hours.appointmentOnly,
                 }),
             ) ?? null,
           temporarilyClosed: jsonObject.temporarilyClosed,
