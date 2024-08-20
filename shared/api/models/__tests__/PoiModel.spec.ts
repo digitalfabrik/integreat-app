@@ -15,6 +15,7 @@ describe('PoiModel', () => {
       _timeSlots: [{ end: '18:00', start: '08:00' }],
       _allDay: true,
       _closed: false,
+      _appointmentOnly: false,
     },
   ]
 

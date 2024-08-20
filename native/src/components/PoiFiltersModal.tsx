@@ -34,12 +34,17 @@ const Row = styled.View`
   flex-direction: row;
   padding-top: 16px;
 `
+const StyledRow = styled(Row)`
+  align-items: center;
+  justify-content: center;
+`
 
 const StyledText = styled.Text`
   font-size: 14px;
   color: ${props => props.theme.colors.textColor};
   font-family: ${props => props.theme.fonts.native.decorativeFontRegular};
   padding: 4px;
+  flex-shrink: 1;
 `
 
 const SortingHint = styled.Text`
@@ -51,7 +56,6 @@ const SortingHint = styled.Text`
 `
 
 const FlexEnd = styled.View`
-  flex: 1;
   justify-content: flex-end;
 `
 
@@ -100,13 +104,13 @@ const PoiFiltersModal = ({
           <Row>
             <SubTitle>{t('openingHours')}</SubTitle>
           </Row>
-          <Row>
+          <StyledRow>
             <Icon Icon={ClockIcon} />
             <StyledText>{t('onlyCurrentlyOpen')}</StyledText>
             <FlexEnd>
               <SettingsSwitch onPress={setCurrentlyOpenFilter} value={currentlyOpenFilter} />
             </FlexEnd>
-          </Row>
+          </StyledRow>
         </Section>
         <Section>
           <Row>
