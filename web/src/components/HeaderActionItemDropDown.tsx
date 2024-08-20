@@ -20,7 +20,7 @@ const ActionBox = styled(Button)`
   justify-content: center;
   align-items: center;
   flex-direction: ${props => (props.theme.contentDirection === 'rtl' ? 'row-reverse' : 'row')};
-  gap: 0 5px;
+  gap: 4px;
 `
 
 const StyledText = styled.span`
