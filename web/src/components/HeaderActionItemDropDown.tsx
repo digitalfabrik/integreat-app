@@ -13,17 +13,15 @@ const StyledIcon = styled(Icon)`
   width: 28px;
   height: 28px;
 `
-const ActionBox = styled(Button)<{ $isRTL?: boolean }>`
-  height: 36px;
+const ActionBox = styled(Button)`
+  padding: 3px 0;
   min-width: 122px;
   display: flex;
-  border-color: black;
-  border-width: 1px;
-  border-style: solid;
+  border: 1px solid ${props => props.theme.colors.textColor};
   border-radius: 4px;
   justify-content: center;
   align-items: center;
-  flex-direction: ${props => (props.$isRTL ? 'row-reverse' : 'row')};
+  flex-direction: ${props => (props.theme.contentDirection === 'rtl' ? 'row-reverse' : 'row')};
 `
 
 const StyledText = styled.span`
