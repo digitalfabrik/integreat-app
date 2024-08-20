@@ -31,21 +31,16 @@ const HeaderActionItemLink = ({ href, text, iconSrc }: HeaderActionItemLinkProps
   const tooltipDirection: PlacesType = isMediumViewport ? tooltipDirectionMediumDesktop : 'bottom'
 
   return (
-    <Tooltip
-      id={id}
-      place={tooltipDirection}
-      container={
-        href ? (
-          <Link to={href} aria-label={text} id={id}>
-            <StyledIcon src={iconSrc} />
-          </Link>
-        ) : (
-          <span aria-label={text} id={id}>
-            <StyledIcon src={iconSrc} />
-          </span>
-        )
-      }>
-      {text}
+    <Tooltip id={id} place={tooltipDirection} tooltipContent={text}>
+      {href ? (
+        <Link to={href} aria-label={text} id={id}>
+          <StyledIcon src={iconSrc} />
+        </Link>
+      ) : (
+        <span aria-label={text} id={id}>
+          <StyledIcon src={iconSrc} />
+        </span>
+      )}
     </Tooltip>
   )
 }

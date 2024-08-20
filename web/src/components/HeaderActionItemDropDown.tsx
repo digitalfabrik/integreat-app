@@ -42,14 +42,10 @@ const HeaderActionItemDropDown = ({ iconSrc, text, children }: HeaderActionItemD
 
   return (
     <div ref={wrapperRef}>
-      <Tooltip
-        id={id}
-        container={
-          <Button label={text} onClick={toggleDropDown} id={id}>
-            <StyledIcon src={iconSrc} />
-          </Button>
-        }>
-        {text}
+      <Tooltip id={id} tooltipContent={text}>
+        <Button label={text} onClick={toggleDropDown} id={id}>
+          <StyledIcon src={iconSrc} />
+        </Button>
       </Tooltip>
       <DropDownContainer
         data-testid='headerActionItemDropDown'

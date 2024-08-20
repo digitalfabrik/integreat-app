@@ -105,17 +105,12 @@ const Selector = ({
         )
       }
       return (
-        <Tooltip
-          id={item.code}
-          key={item.code}
-          container={
-            // @ts-expect-error wrong types from polymorphic 'as', see https://github.com/styled-components/styled-components/issues/4112
-            <Element as='div' label='' $enabled={false} id={item.code}>
-              <BoldSpacer>{item.name}</BoldSpacer>
-              {item.name}
-            </Element>
-          }>
-          {disabledItemTooltip}
+        <Tooltip id={item.code} key={item.code} tooltipContent={disabledItemTooltip}>
+          {/* @ts-expect-error wrong types from polymorphic 'as', see https://github.com/styled-components/styled-components/issues/4112 */}
+          <Element as='div' label='' $enabled={false} id={item.code}>
+            <BoldSpacer>{item.name}</BoldSpacer>
+            {item.name}
+          </Element>
         </Tooltip>
       )
     })}

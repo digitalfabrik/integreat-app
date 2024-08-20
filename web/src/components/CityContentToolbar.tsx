@@ -65,15 +65,13 @@ const CityContentToolbar = (props: CityContentToolbarProps) => {
         openOnClick
         isOpen={linkCopied}
         place={tooltipDirection}
-        container={
-          <ToolbarItem
-            icon={linkCopied ? DoneIcon : CopyIcon}
-            text={t('copyUrl')}
-            onClick={copyToClipboard}
-            id='copy-icon'
-          />
-        }>
-        {t('common:copied')}
+        tooltipContent={t('common:copied')}>
+        <ToolbarItem
+          icon={linkCopied ? DoneIcon : CopyIcon}
+          text={t('copyUrl')}
+          onClick={copyToClipboard}
+          id='copy-icon'
+        />
       </Tooltip>
       {hasFeedbackOption && (
         <FeedbackToolbarItem route={route} slug={feedbackTarget} isInBottomActionSheet={isInBottomActionSheet} />

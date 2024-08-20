@@ -2,16 +2,24 @@ import React, { ReactElement, ReactNode } from 'react'
 import { Tooltip as ReactTooltip, ITooltip as ReactTooltipType } from 'react-tooltip'
 
 type TooltipProps = {
+  tooltipContent: ReactNode
   children: ReactNode
-  container: ReactElement
+  // container: ReactElement
   id: string
 } & ReactTooltipType
 
-const Tooltip = ({ container, children, id, place, ...props }: TooltipProps): ReactElement => (
+const Tooltip = ({ children, id, place, tooltipContent, ...props }: TooltipProps): ReactElement => (
+  // <>
+  //   <div id={id}>{container}</div>
+  //   <ReactTooltip {...props} anchorSelect={`#${id}`}>
+  //     {children}
+  //   </ReactTooltip>
+  // </>
+
   <>
-    <div id={id}>{container}</div>
+    <div id={id}>{children}</div>
     <ReactTooltip {...props} anchorSelect={`#${id}`}>
-      {children}
+      {tooltipContent}
     </ReactTooltip>
   </>
 )

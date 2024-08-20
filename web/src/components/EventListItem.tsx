@@ -56,8 +56,8 @@ const EventListItem = ({ event, languageCode }: EventListItemProps): ReactElemen
   const { t } = useTranslation('events')
 
   const DateIcon = dateIcon && (
-    <Tooltip id='calendar-icon' container={<Icon src={dateIcon.icon} id='calendar-icon' title={t(dateIcon.tooltip)} />}>
-      {t(dateIcon.tooltip)}
+    <Tooltip id='calendar-icon' tooltipContent={t(dateIcon.tooltip)}>
+      <Icon src={dateIcon.icon} id='calendar-icon' title={t(dateIcon.tooltip)} />
     </Tooltip>
   )
 
