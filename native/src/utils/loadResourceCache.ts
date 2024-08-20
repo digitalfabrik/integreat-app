@@ -51,8 +51,14 @@ const loadResourceCache = async ({
     return
   }
 
-  const fetchMap = resourceURLFinder.buildFetchMap(input, (url, urlHash) =>
-    buildResourceFilePath(url, cityCode, urlHash),
+  const currentResourceCache = await dataContainer.getResourceCache(cityCode, languageCode)
+
+  const currentlyCachedFiles = Object.values(currentResourceCache).map(Object.keys).flat()
+
+  const fetchMap = resourceURLFinder.buildFetchMap(
+    input,
+    (url, urlHash) => buildResourceFilePath(url, cityCode, urlHash),
+    currentlyCachedFiles,
   )
   resourceURLFinder.finalize()
 

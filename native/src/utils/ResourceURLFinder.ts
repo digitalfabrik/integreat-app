@@ -73,7 +73,11 @@ export default class ResourceURLFinder {
     return this._foundUrls
   }
 
-  buildFetchMap(inputs: InputEntryType[], buildFilePath: (url: string, urlHash: string) => string): FetchMapType {
+  buildFetchMap(
+    inputs: InputEntryType[],
+    buildFilePath: (url: string, urlHash: string) => string,
+    currentlyCachedFiles: string[],
+  ): FetchMapType {
     return reduce<InputEntryType, FetchMapType>(
       inputs,
       (fetchMap, input: InputEntryType) => {
@@ -86,15 +90,17 @@ export default class ResourceURLFinder {
         }
 
         const newFetchMap = fetchMap
-        newFetchMap[path] = Array.from(urlSet).map(url => {
-          const urlHash = md5(url)
-          const filePath = buildFilePath(url, urlHash)
-          return {
-            url,
-            urlHash,
-            filePath,
-          }
-        })
+        newFetchMap[path] = Array.from(urlSet)
+          .filter(url => !currentlyCachedFiles.includes(url))
+          .map(url => {
+            const urlHash = md5(url)
+            const filePath = buildFilePath(url, urlHash)
+            return {
+              url,
+              urlHash,
+              filePath,
+            }
+          })
         return newFetchMap
       },
       {},
