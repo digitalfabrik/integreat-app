@@ -108,6 +108,12 @@
       "organizationContent": "De inhoud van deze pagina is afkomstig van {{organization}}.",
       "organizationMoreInformation": "Je kunt meer informatie vinden over <1>{{organization}}</1> op <3>{{domain}}</3>."
     },
+    "orm": {
+      "createPdf": "PDF bani",
+      "metaDescription": "{{appName}} kun qajeelfama dijitaalaa jireenya keessan Jarman keessaadha. Odeeffannoo naannoo, sagantaalee fi gorsa argadhu. Yeroo hunda yeroo ammaa fi afaan keessaniin kan argamu.",
+      "organizationContent": "Yaadni waraqaa kana irraa kan dhufe {{organization}}.",
+      "organizationMoreInformation": "Odeeffannoo gadi fagoo waaee <1>{{organization}}</1> as irraa <3>{{domain}}</3> argachuu dandeessu."
+    },
     "pes": {
       "createPdf": "ایجاد PDF",
       "metaDescription": "{{appName}} راهنمای دیجیتال شما برای کشور آلمان است. شما می‌توانید اطلاعات محلی، رویدادها و خدمات مشاوره را در آن بیابید. همواره به روز و به زبان خودتان.",
@@ -216,7 +222,7 @@
       "button": "Chat (beta)",
       "conversationTitle": "Bitte gib deine Frage in das Textfeld ein.",
       "conversationText": "Du kannst alles fragen, von lokalen Informationen bis hin zu spezifischen Anfragen bezüglich deiner Situation.",
-      "dataSecurity": "Datenschutz und Sicherheit: \nDeine Privatsphäre ist uns sehr wichtig. Alle Gespräche werden vertraulich behandelt und deine Daten werden sicher verarbeitet. \nMehr Informationen zum Datenschutz findest du in unseren Datenschutzrichtlinien.",
+      "dataSecurity": "Datenschutz und Sicherheit: Deine Privatsphäre ist uns sehr wichtig. Alle Gespräche werden vertraulich behandelt und deine Daten werden sicher verarbeitet. Mehr Informationen zum Datenschutz findest du in unseren Datenschutzrichtlinien.",
       "errorMessage": "Es ist ein Fehler bei der Kommunikation aufgetreten.",
       "header": "{{appName}} Chat Support",
       "initialMessage": "Deine Chatanfrage wurde gesendet. Die Berater*in beantwortet deine Nachricht so schnell wie möglich.",
@@ -230,7 +236,7 @@
       "button": "Chat (beta)",
       "conversationTitle": "Please enter your question in the text field.",
       "conversationText": "You can ask anything from local information to specific requests regarding your situation.",
-      "dataSecurity": "Data protection and security: \\nYour privacy is very important to us. All conversations are treated confidentially and your data is processed securely.\\nYou can find more information on data protection in our privacy policy.",
+      "dataSecurity": "Data protection and security: Your privacy is very important to us. All conversations are treated confidentially and your data is processed securely. You can find more information on data protection in our privacy policy.",
       "errorMessage": "An error has occurred during communication.",
       "header": "{{appName}} Chat Support",
       "initialMessage": "Your chat request has been sent. The advisor will answer your message as soon as possible.",
@@ -239,6 +245,20 @@
       "loadingText": "One moment please, the chat is being started...",
       "sendButton": "Send",
       "user": "You"
+    },
+    "orm": {
+      "button": "Chat (beta)",
+      "conversationTitle": "Bakka barrreefa kanaatti gaaffii keessan barreessaa.",
+      "conversationText": "Odeeffannoo naannoo irraa kaasee hanga gaaffii dhimma dhuunfaa keetti waan kamiyyuu gaafachuu dandeessa.",
+      "dataSecurity": "Eegumsa daataa fi of eeggannoo : Icciittiin kee nuuf baayyee barbaachisaadha. Haasaan hundi iccitiidhaan kan ilaalamu yoo ta'u, daataan kee haala nageenya qabuun kan hojjetamudha. Odeeffannoo dabalataa waa'ee eegumsa daataa imaammata icciitii keenya keessatti argachuu dandeessa.",
+      "errorMessage": "Yeroo qunnamtii keenyaa dogoggorri uumameera.",
+      "header": "{{appName}} Deggersa Chaatii",
+      "initialMessage": "Gaaffiin chaatii keessanii ergamee jira. Hanga dandaametti gorsaan hatattamaan deebii isiniif kenna.",
+      "inputLabel": "Gaaffii koo:",
+      "inputPlaceholder": "Wanti ani baruu barbaade….",
+      "loadingText": "Maaloo yeroo tokko, chaatiin jalqabeera….",
+      "sendButton": "Erguu",
+      "user": "Sii"
     }
   },
   "cityNotCooperating": {
@@ -385,6 +405,14 @@
       "findOutMail": "Krijg het emailadres van jouw regio",
       "sendText": "Kopieer deze tekst, vul de […] content aan met jouw details en verstuur",
       "copyText": "Kopieer tekst"
+    },
+    "orm": {
+      "callToAction": "Naannoo keessan akka fudhatu gaafadhaa!",
+      "explanation": "Yaad-rimeen tola ooltummaa Integreat-App kun si amansiiseera akkasumasdabalataan naannoo kee yaadi,\nDameen keessan ykn hawaasni keessan furmaata dijitaalaa kana irraa fayyadamuu danda'aa? Haala kana keessatti salphaatti amma asitti sochii gochuu dandeessu.",
+      "whatToDo": "Kun wanta ati gochuu dandeessudha:",
+      "findOutMail": "Teessoo Imelii naannoo keessanii argadhaa",
+      "sendText": "Barruu kana koppii godhaa, [ ]-qabiyyee isaa adeemsa keessan waliin guutaa ergaa",
+      "copyText": "Barruu koppii godhi"
     },
     "pes": {
       "callToAction": "Integreat را به منطقه خود معرفی کنید!",
@@ -757,6 +785,19 @@
       "showLess": "Minder tonen",
       "optional": "optioneel",
       "back": "Terug"
+    },
+    "orm": {
+      "copied": "Koppii taeera",
+      "moreOptions": "Filannoo dabalataa",
+      "languageNotAvailable": "Dhiifama, garuu afaanni keessan as keessa hin jiru.",
+      "chooseALanguage": "Afaan filadhaa!",
+      "lastUpdate": "Yeroo dhumaaf kan fooyyae:",
+      "loading": "Barbaadaa jira…",
+      "close": "Cufi",
+      "showMore": "Dabalataan agarsiisi",
+      "showLess": "Muraasa agarsiisi",
+      "optional": "Filannoo",
+      "back": "Duubatti"
     },
     "pes": {
       "copied": "کپی شد",
@@ -1161,6 +1202,16 @@
       "knownResourceBlocked": "Externe inhoud van deze bron is geblokkeerd. U kunt deze bron toestaan in de instellingen.",
       "noSources": "Geen externe bronnen beschikbaar."
     },
+    "orm": {
+      "title": "Maddoota alaa",
+      "description": "Agarsiisa qabiyyee dabalataa dhiyeessitoota qaama sadaffaa irraa dhaabbataadhaan walii galuu dandeessa. Filannoon sun booda dhaabbataadhaan biroowserii interneetii keessan keessatti ni kuufama. Yeroo barbaaddetti hayyama kee asitti haquu dandeessa.",
+      "descriptionNative": "Agarsiisa qabiyyee dabalataa dhiyeessitoota qaama sadaffaa irraa dhaabbataadhaan walii galuu dandeessa. Filannoon sun booda dhaabbataadhaan gara biroowserii interneetii keessan keessatti ni kuufama. Yeroo barbaaddetti hayyama kee asitti haquu dandeessa.",
+      "consentDescription": "Qabiyyee {{source}} irraa hayyami.",
+      "knownResourceOptIn": "Qabiyyeen madda alaa kana irraa natti mul'achuu akka danda'u waliin gala.",
+      "knownResourceContentMessage": "Qaamni kun daataa madda alaa kana irraa of keessaa qaba. Qabiyyee akkasii qindaa'inoota keessaa balleessuu dandeessa.",
+      "knownResourceBlocked": "Qabiyyeen alaa madda kana irraa ugguramee jira. Madda kana qindaa'inoota keessatti hayyamuu dandeessa.",
+      "noSources": "Maddi alaa eeyyamamaa miti."
+    },
     "pes": {
       "title": "منابع خارجی",
       "description": "شما می‌توانید یک بار برای همیشه موافقت خود را نسبت به نمایش محتوای قرار گرفته از منابع خارجی اعلام کنید. سپس این انتخاب برای همیشه در مرورگر اینترنت شما ذخیره می‌گردد. هر زمان که بخواهید می‌توانید موافقت خود را در اینجا لغو کنید.",
@@ -1441,6 +1492,12 @@
       "news": "Nieuws",
       "pois": "Kaart"
     },
+    "orm": {
+      "localInformation": "Odeeffannoo naannoo",
+      "events": "Sagantaalee",
+      "news": "Oduu",
+      "pois": "Kaartaa"
+    },
     "pes": {
       "localInformation": "اطلاعات محلی",
       "events": "رویدادها",
@@ -1598,6 +1655,9 @@
     },
     "nl": {
       "pageTitle": "Impressum en contactgegevens"
+    },
+    "orm": {
+      "pageTitle": "Ashaaraa fi quunnamtii"
     },
     "pes": {
       "pageTitle": "اطلاعات ناشر و تماس"
@@ -2265,6 +2325,41 @@
       "languageSwitchFailedMessage": "De geselecteerde taal is niet beschikbaar als je offline bent. Er is een actieve verbinding met het internet nodig.",
       "noCalendarPermission": "Toegang tot de kalender is niet toegestaan.",
       "noCalendarFound": "Er is geen geschikte kalender gevonden."
+    },
+    "orm": {
+      "notFound": {
+        "language": "Dhiifama, garuu afaan kun as keessa hin jiru.",
+        "city": "Dhiifama naannoon kun as keessa him jiru.",
+        "category": "Dhiifama, garuu bakki isin gaafattan hin jiru.",
+        "event": "Dhiifama, garuu sagantaan kun hin jiru.",
+        "poi": "Dhiifama, bakki kun hin jiru.",
+        "news": "Dhiifama, garuu ergaan kun hin jiru.",
+        "pageTitle": "Fuulli kun hin jiru."
+      },
+      "pageNotFound": "Dhiifama, garuu bakki isin gaafattan hin jiru.",
+      "noSuitableAppInstalled": "Appiin barbaachisaa ta'e hin fe'amne.",
+      "networkConnectionFailed": "Wal qunnamtiin sarvarii waliin godhame hin milkoofne.",
+      "networkRequestFailed": "Gaaffiin keessan adeemsifamuu hin dandeennye.",
+      "responseMappingFailed": "Yeroo deebiin sarvarii adeemsifamu dogongorri uumameera.",
+      "unknownError": "Dogoggorri hin beekamne uumameera.",
+      "tryAgain": "Irra deebiin yaali",
+      "loadingFailed": "Dhiifama, garuu fuulli gaafatame hin barbaadamne.",
+      "chooseALanguage": "Afaan filadhu:",
+      "goTo": {
+        "start": "Gara fuula jalqabaa deemi",
+        "categories": "Gara qabiyyee deemi",
+        "events": "Gara sagantaa deemi",
+        "pois": "Gara kaartaa deemi",
+        "news": "Gara oduu deemi",
+        "pageNumber": "Gara fuula {{number}}deemi"
+      },
+      "pageTitle": "Dogoggora",
+      "generalError": "Dogoggorri uumameera",
+      "notSupportedByDevice": "Gochi kun meeshaa kana irratti hin dalagu.",
+      "languageSwitchFailedTitle": "Walumaa galatti, jijjiirraan afaanii kufeera.",
+      "languageSwitchFailedMessage": "Afaan filame yoo sararaan ala taate hin hojjetu. Interneetiin sirriitti dalagu barbaachiusaadha.",
+      "noCalendarPermission": "Kaalaanderii fayyadamuun hin hayyamamu.",
+      "noCalendarFound": "Kaalaanderiin barbaachisu hin jiru."
     },
     "pes": {
       "notFound": {
@@ -3224,6 +3319,27 @@
       "onlyThisEvent": "Alleen dit evenement",
       "thisAndAllFutureEvents": "Dit en alle toekomstige evenementen"
     },
+    "orm": {
+      "address": "Bakka",
+      "date_one": "Guyyaa",
+      "date_other": "Guyyoota",
+      "nextDate_one": "Guyyaa itti aanu",
+      "nextDate_other": "Guyyoota itti aanan",
+      "events": "Sagantaalee",
+      "exportAsICal": "Akka iCal tti erguu",
+      "addToCalendar": "Kaalanderiitti dabaluu",
+      "currentlyNoEvents": "Sagantaan tokkollee amma hin jiru.",
+      "pageTitle": "Sagantaalee",
+      "chooseCalendar": "Filannoo Kaalanderii",
+      "added": "Dabalameera",
+      "goToCalendar": "Gara kaalanderii",
+      "settings": "Saajoo",
+      "recurring": "Irra deddeebii",
+      "today": "Hara",
+      "todayRecurring": "Irra deebii haraa",
+      "onlyThisEvent": "Sagantaa kana qofa",
+      "thisAndAllFutureEvents": "Sagantaa kanaa fi gara fuul duraa"
+    },
     "pes": {
       "address": "نشانی",
       "date_one": "تاریخ",
@@ -3997,6 +4113,29 @@
       "contactMailAddress": "Stuur een email voor overige vragen.",
       "note": "Selecteer een reactie of schrijf een opmerking om de feedback te kunnen versturen."
     },
+    "orm": {
+      "disclaimer": "Quunnamtii fi ashaaraa",
+      "send": "Erguu",
+      "failedSendingFeedback": "Yeroo duub deebii erguu dogongorri uumamee jira.",
+      "feedback": "Duub deebii",
+      "headline": "Waaee fuula kanaa maal yaadda?",
+      "description": "Haalota filadhu akkasumas/ yookiin yaada barreessi.",
+      "commentHeadline": "Yaada",
+      "commentDescription": "Duub deebiikee nuuuf qoodi! Duub deebii deggersaa fi faallessaa tae nii fudhanna, innis rakkoo keenya furuuf waan nu gargaaruufi.",
+      "isThisSiteUseful": "Marsariitiin kun faayidaa qabaa?",
+      "useful": "Faayidaa kan qabu",
+      "notUseful": "Faayidaa kan hin qabne",
+      "informationNotFound": "Wanta barbaadaa jirtu hin argannee?",
+      "wantedInformation": "Odeeffannoo kamtummoo hafe?",
+      "feedbackSent": "Duub deebiin ergameera",
+      "thanksHeadline": "Duub deebii keessaniif guddaa galatoomaa.",
+      "thanksMessage": "Duub deebiin keessan milkaa'inaan ergameera.",
+      "negativeRating": "Marsariitiin kun Faayidaa hin qabu",
+      "positiveRating": "Marsariitiin kun faayidaa qaba",
+      "searchTermDescription": "Kanneen armaan gadiitiif deebiin hin jiru:",
+      "contactMailAddress": "Gaaffii dabalataaf Imelii godhaa",
+      "note": "Duub deebii erguuf jecha deebii filadhaa ykn yaada barreessaa."
+    },
     "pes": {
       "disclaimer": "اطلاعات ناشر و تماس",
       "send": "ارسال",
@@ -4588,6 +4727,17 @@
       "skip": "Sla over",
       "next": "Ga door"
     },
+    "orm": {
+      "appDescription": "{{appName}} kun qajeelfama dijitaalaa jireenya keessan Jarman keessaadha.",
+      "search": "Barbaadi",
+      "searchDescription": "Jechoota ijoo irratti hundaa’un oeeffannoo sirrii barbaadi.",
+      "languageChange": "Afaan jijjiiruu",
+      "languageChangeDescription": "Fuula dhuunfaa irraa afaan jijjiiruun salphaadha",
+      "events": "Sagantaalee",
+      "eventsDescription": "Sagantaawwan yeroo ammaa fi guyyootaa naannoo sana jiran",
+      "skip": "Irra darbi",
+      "next": "Itti fufi"
+    },
     "pes": {
       "appDescription": "{{appName}}‏ راهنمای دیجیتالی شما در مورد آلمان است",
       "search": "جستجو",
@@ -5050,6 +5200,23 @@
       "refresh": "Update de lijst met de dichtstbijzijnde regio's",
       "pageTitle": "Lokale informatie voor jou",
       "metaDescription": "{{appName}} is jouw digitale gids voor Duitsland. Vind lokale informatie, evenementen en advies. Altijd up-to-date en in jouw taal."
+    },
+    "orm": {
+      "searchCity": "Barbaadi",
+      "noCitiesFound": "Bu'aan hin argamne",
+      "nearbyCities": "Naannoo sanatti",
+      "noNearbyCities": "Bakka sana naannoonhin jiru",
+      "alert": "Yaadannoo",
+      "locationError": "Naannoowwan bakka sana jiran agarsiisuuf tajaajiloonni hordoffii hojiirra ooluu qabu.",
+      "noPermission": "Bakka argachuun barbaachisaadha",
+      "loading": "Bakkeewwan murteessuu....",
+      "notAvailable": "Bakka murteessituun cufameera",
+      "timeout": "Murteessitutti bakkaa kufeera",
+      "refresh": "Tarree naannolee dhiyoo jiran haaromsi",
+      "pageTitle": "Odeeffannoo naanoo jiran si'iif",
+      "metaDescription": "{{appName}} kun qajeelfama dijitaalaa jireenya keessan Jarman keessaadha. Odeeffannoo naannoo, sagantaalee fi gorsa argadhu. Yeroo hunda yeroo ammaa fi afaan keessaniin kan argamu.",
+      "cityNotFound": "Naannoon keessan hin jiruu? Amma tarkaanfii fudhadhuu.",
+      "suggestToRegion": "Naannoo keetiif {{appName}} kenni"
     },
     "pes": {
       "searchCity": "جستجو",
@@ -5744,6 +5911,31 @@
       "sideBarOpenAriaLabel": "Zijbalk openen",
       "sideBarCloseAriaLabel": "Zijbalk sluiten"
     },
+    "orm": {
+      "imprintAndContact": "Ashaaraa fi quunnamtii",
+      "privacy": "Eegumsa daataa",
+      "localInformation": "Odeeffannoo naannoo",
+      "events": "Sagantaalee",
+      "noEvents": "Sagantaan hin jiru",
+      "news": "Oduu",
+      "noLanguages": "Afaan biraatiin hin jiru",
+      "noTranslation": "Hiikkaan hin jiru",
+      "search": "Barbaadi",
+      "locations": "Kaartaa",
+      "changeLocation": "Bakka jijjiiri",
+      "changeLanguage": "Kaartaa jijjiiri",
+      "settings": "Saajoo",
+      "copyUrl": "Bakka isaa koppii godhi",
+      "feedback": "Duub deebii",
+      "share": "Qoodi",
+      "cancel": "Kuffiisi",
+      "shareMessage": "Reefu argame: {{message}}",
+      "shareFailDefaultMessage": "Amma yeroo qabiyyeen qoodamu dogongorri uumame.",
+      "disclaimer": "Ashaaraa",
+      "sideBarOpenAriaLabel": "Barruu cinaa banaa",
+      "sideBarCloseAriaLabel": "Barruu cinaa cufaa",
+      "accessibility": "Dhaqqabummaa"
+    },
     "pes": {
       "imprintAndContact": "اطلاعات ناشر و تماس",
       "privacy": "حفاظت از داده ها",
@@ -6245,6 +6437,11 @@
       "license": "Licentie:",
       "noLicensesMessage": "Geen licentie-informatie beschikbaar"
     },
+    "orm": {
+      "version": "Gosa:",
+      "license": "Eeyyama:",
+      "noLicensesMessage": "Odeeffannoon hayyamaa hin jiru"
+    },
     "pes": {
       "version": "نسخه:",
       "license": "مجوز:",
@@ -6385,6 +6582,9 @@
     },
     "nl": {
       "pageTitle": "Impressum en contactgegevens - {{appName}}"
+    },
+    "orm": {
+      "pageTitle": "Ashaaraa fi qunnamtii - {{appName}}"
     },
     "pes": {
       "pageTitle": "اطلاعات ناشر و تماس - {{appName}}"
@@ -6852,6 +7052,29 @@
       "submitFailed": "Formulier kon niet worden verzonden",
       "submitFailedReasoning": "Zorg voor een stabiele internetverbinding en probeer het opnieuw.",
       "invalidEmailAddress": "Het opgegeven e-mailadres is ongeldig."
+    },
+    "orm": {
+      "supportNote": "Yeroo rakkoon ykn gaaffii qabaattan hundatti nageenyi fi deeggarsa akka isinitti dhagahamu barbaanna. Unki quunnamtii armaan gadii kun nama quunnamtii tokko waliin wal qunnamuuf carraa siif kenna. Maalummaa gaaffii keetii ibsuu fi filannoowwan quunnamtii adda addaa keessaa filachuu dandeessa.",
+      "securityNote": "Nageenyi keessan aantummaa keenya isa olaanaadha. Daataan keessan iccitiidhaan kan ilaalamu yoo ta’u, yeroo hunda iccitiin keessan akka eegamudha.",
+      "name": "Maqaa abbaa, maqaa jalqabaa",
+      "roomNumber": "Lakkoofsa manaa",
+      "howToBeContacted": "Kun akkaataa ani itti si qunnamuu danda'udha:",
+      "eMail": "Karaa Imelii",
+      "telephone": "Karaa bilbilaa",
+      "telephoneNumber": "Karaa lakkoofsaa",
+      "personally": "Qaamaan",
+      "contactPerson": "Nama qunnamamu:",
+      "contactPersonAnyGender": "Saalli nama duraan quunnamtii qabu barbaachisaa miti",
+      "contactPersonGenderFemale": "Ani dubartoonni qofti akka na qunnamanin barbaada",
+      "contactPersonGenderMale": "Ani dhiironni qofti akka na qunnamanin barbaada",
+      "contactReason": "Gaaffiin keessan:",
+      "maxCharacters": "Taatee guddaa {{numberOfCharacters}}",
+      "responseDisclaimer": "Deebii argachuu kee dura guyyoota hojii muraasa fudhachuu danda’a. Gaaffii keessan saffisaan adeemsisuuf waan dandeenyu hunda ni goona",
+      "submit": "Unki kan kan galu",
+      "submitSuccessful": "Unkaan milkaa’inaan dhiyaate",
+      "submitFailed": "Unkaan milkaa’inaan hin dhiyaanne",
+      "submitFailedReasoning": "Mee qunnamtii interneetii tasgabbaa'aa ta'e mirkaneessaa irra deebi'aa yaalaa.",
+      "invalidEmailAddress": "Bakki Imelii isin guuttan sirrii miti."
     },
     "pes": {
       "supportNote": "ما می‌خواهیم که در صورت داشتن هر گونه مشکل یا سؤال، احساس امنیت و حمایت کنید. برای ارتباط با مسئول پاسخگویی می‌توانید از فرم تماس زیر استفاده کنید. شما می‌توانید ماهیت درخواست خود را مشخص کنید و از میان گزینه‌های مختلف تماس انتخاب کنید.",
@@ -7327,8 +7550,8 @@
       "NSPhotoLibraryAddUsageDescription": "Za pohranjivanje slika {{appName}} mora imati pristup galeriji.",
       "NSLocationWhenInUseUsageDescription": "Da bi mogla pronaći obližnja mjesta, aplikacija {{appName}} mora imati omogućen pristup lokaciji.",
       "NSLocationAlwaysAndWhenInUseUsageDescription": "Da bi mogla pronaći obližnja mjesta, aplikacija {{appName}} mora imati omogućen pristup lokaciji.",
-      "NSCalendarsUsageDescription": "\\{\\{appName}} želi pristupiti radi dodavanja događaja.",
-      "NSCalendarsFullAccessUsageDescription": "\\{\\{appName}} želi pristupiti radi dodavanja događaja."
+      "NSCalendarsUsageDescription": "{{appName}} želi pristupiti radi dodavanja događaja.",
+      "NSCalendarsFullAccessUsageDescription": "{{appName}} želi pristupiti radi dodavanja događaja."
     },
     "hu": {
       "NSPhotoLibraryAddUsageDescription": "A képek mentéséhez a(z) {{appName}} alkalmazásnak hozzáférésre van szüksége a galériához.",
@@ -7371,6 +7594,13 @@
       "NSLocationAlwaysAndWhenInUseUsageDescription": "{{appName}} wil jouw locatie gebruiken om steden in de buurt te vinden.",
       "NSCalendarsUsageDescription": "{{appName}} wil toegang tot de kalender om een evenement toe te voegen.",
       "NSCalendarsFullAccessUsageDescription": "{{appName}} wil toegang tot de kalender om een evenement toe te voegen."
+    },
+    "orm": {
+      "NSPhotoLibraryAddUsageDescription": "{{appName}} suuraawwan gara kuusaa keessanitti saaguu barbaaddaa.",
+      "NSLocationWhenInUseUsageDescription": "{{appName}} bakka dhiyoo jiran barbaaduuf bakka kee fayyadamuu barbaaddaa.",
+      "NSLocationAlwaysAndWhenInUseUsageDescription": "{{appName}} bakka dhiyoo jiran barbaaduuf bakka kee fayyadamuu barbaaddaa.",
+      "NSCalendarsUsageDescription": "{{appName}} sagantaa dabaluudhaaf kalaandarii argachuu barbaada.",
+      "NSCalendarsFullAccessUsageDescription": "{{appName}} sagantaa dabaluudhaaf kalaandarii argachuu barbaada."
     },
     "pes": {
       "NSPhotoLibraryAddUsageDescription": "برای ذخیره تصاویر، {{appName}} نیاز به دسترسی به گالری دارد.",
@@ -7672,6 +7902,16 @@
       "local": "Lokaal",
       "readMore": "Ga door",
       "currentlyNoNews": "Op dit moment is er geen nieuws."
+    },
+    "orm": {
+      "news": "Oduu",
+      "localNews": {
+        "localNews": "Oduu naannoo",
+        "pageTitle": "Oduu naannoo"
+      },
+      "local": "Naannoo",
+      "readMore": "Itti fufi",
+      "currentlyNoNews": "Yeroo ammaa oduun hin jiru"
     },
     "pes": {
       "news": "اخبار",
@@ -8890,6 +9130,65 @@
       "alphabetLetters": "A-Z",
       "clearFilter": "Filter {{filter}} verwijderen",
       "showOwnLocation": "Eigen locatie tonen"
+    },
+    "orm": {
+      "pageTitle": "Kaartaa",
+      "poi": "Bakka",
+      "pois": "Bakkeewwan",
+      "map": "Kaartaa",
+      "showOnMap": "Kaartaa irraa agarsiisi",
+      "noPois": "Bakki kun hin jiru.",
+      "unitKilometre": "km",
+      "unitMetre": "m",
+      "distanceKilometre": "{{distance}} km fagaatee",
+      "distanceKilometreAlternative": "{{distance}} km",
+      "distanceMetre": "{{distance}} m fagaatee ",
+      "distanceMetreAlternative": "{{distance}} m",
+      "contactInformation": "Odeeffannoo quunnamtii guutuu",
+      "address": "Bakka",
+      "phone": "Lakkoofsa bilbilaa",
+      "eMail": "Bakka Imelii",
+      "website": "Marsariitii",
+      "openingHours": "Yeroo itti banamu",
+      "description": "Ibsa",
+      "addressCopied": "Teessoo gara gabatee gabateetti koppii ta’e",
+      "phoneCopied": "Lakkoofsa bilbilaa gara gabateetti koppii ta’e",
+      "eMailCopied": "Bakka Imeliigara gabateetti koppii ta’e",
+      "websiteCopied": "Marsariitii gara gabateetti koppii ta’e",
+      "listTitle": "Kan sitti dhihoo",
+      "detailsHeader": "Duubatti",
+      "detailsAddress": "Kallattii",
+      "detailsMapLink": "Kaartaa googilii irraa bani",
+      "detailsInformation": "Odeeffannoo",
+      "detailsNextPoi": "Itti fufaa",
+      "detailsPreviousPoi": "Kan duraa",
+      "previousPoi": "Bakka duraa",
+      "nextPoi": "Bakka itti aanu",
+      "openExternalMaps": "App kaartaa googilii irraa banuu",
+      "allDay": "Guyyaa hunda",
+      "opened": "Bani",
+      "closed": "Cufaadha",
+      "temporarilyClosed": "Yeroo ammaa cufaadha",
+      "montag": "Wiixata",
+      "dienstag": "Kibxata",
+      "mittwoch": "Roobii",
+      "donnerstag": "Kamisa",
+      "freitag": "Jimaata",
+      "samstag": "Sanbata",
+      "sonntag": "Dilbata",
+      "adjustFilters": "Bakkeewwan calaluu",
+      "onlyCurrentlyOpen": "bakkeewwan amma banaman qofa agarsiisu",
+      "poiCategories": "Ramaddiiwwan",
+      "showPois_zero": "Bakka 0 agarsiisi",
+      "showPois_one": "Bakka 1 agarsiisi",
+      "showPois_two": "Bakkeewwan {{count}} agarsiisi",
+      "showPois_few": "Bakkeewwan {{count}} agarsiisi",
+      "showPois_many": "Bakkeewwan {{count}} agarsiisi",
+      "showPois_other": "Bakkeewwan {{count}} agarsiisi",
+      "alphabetLetters": "A-Z",
+      "clearFilter": "Qulqulleessaa {{filter}} haquu.",
+      "showOwnLocation": "Bakka dhuunfaa kee agarsiisi",
+      "makeAppointment": "Beellama qabadhu"
     },
     "pes": {
       "pageTitle": "نقشه",
@@ -10112,6 +10411,19 @@
       "pageTitle": "Zoek",
       "delete": "Invoer verwijderen"
     },
+    "orm": {
+      "nothingFound": "Dhiifama, bu'aa walsimsiisu argachuu hin dandeenye.",
+      "searchPlaceholder": "Barbaadi",
+      "itemHint": "Bu'aa barbaadame ilaali",
+      "searchResultsCount_zero": "Bu’aan barbaadame 0",
+      "searchResultsCount_one": "Bu’aan barbaadame 1",
+      "searchResultsCount_two": "Bu’aan barbaadame 2",
+      "searchResultsCount_few": "{{count}} bu'aa barbaadame",
+      "searchResultsCount_many": "{{count}} bu'aa barbaadame",
+      "searchResultsCount_other": "{{count}} bu'aa barbaadame",
+      "pageTitle": "Barbaadi",
+      "delete": "Galtee haquu"
+    },
     "pes": {
       "nothingFound": "متأسفانه هیچ نتیجه منطبقی یافت نشد.",
       "searchPlaceholder": "جستجو",
@@ -10731,6 +11043,28 @@
       "externalResourcesTitle": "Externe bronnen",
       "externalResourcesDescription": "Geef aan welke externe bronnen zijn toegestaan."
     },
+    "orm": {
+      "sentryTitle": "Ga’umsa App",
+      "sentryDescription": "Gabaasa kufaatii hatattamaan ofii isaa erguu appii {{appName}} fooyyessi",
+      "pushNewsTitle": "Yaadachiisa dhiibbaa",
+      "pushNewsDescription": "Oduu biyya keessaa isa haaraa argachuuf yaadachiisa dhiibbaa argachuu",
+      "about": "Waa’ee {{appName}}",
+      "privacyPolicy": "Imaammata eegumsa daataa",
+      "version": "Gosa: {{version}} kan jedhu.",
+      "openSourceLicenses": "Hayyama madda banaa",
+      "tracking": "Madaallii J-PAL",
+      "allowTracking": "Hordoffii hayyamuu",
+      "trackingShortDescription": "{{appName}} fooyyessuuf qorannoo madaallii J-PAL irratti hirmaadhu.",
+      "trackingMoreInformation": "Odeeffannoo dabalataa madaallii J-Pal fi kaayyoo qorannoo irratti",
+      "trackingDescription": "{{appName}} fayyadama kee appii keessaa hordofuuf hayyama gaafachaa jira. Daataan keessan maqaa kan hin beekamne yoo ta'u, qorannoo fi appii fooyyessuuf qofa kan ooludha. Hordoffii hojii irraa oolchiteetta.",
+      "trackingLeaveTitle": "Hordoffii hayyamuu?",
+      "trackingLeaveDescription": "Hordoffii hojii irraa oolchiteetta. Hordoffiin appii {{appName}} fooyyessuu fi godaantotaaf odeeffannoo fooyya'aa kennuudhaaf nu gargaara. Hordoffii osoo hin dandeessisin iskiriinii keessaa bahuu akka barbaaddu mirkaneeffatteettaa?",
+      "enabled": "hojiirra oole",
+      "disabled": "Hojii irraa hin oolle",
+      "decline": "Diduu",
+      "externalResourcesTitle": "Maddoota Alaa",
+      "externalResourcesDescription": "Maddoonni alaa kam akka hayyamaman addeessi."
+    },
     "pes": {
       "sentryTitle": "پایداری اپلیکیشن",
       "sentryDescription": "با ارسال خودکار گزارش‌های خرابی، اپلیکیشن {{appName}} را بهبود بخشید",
@@ -11215,6 +11549,12 @@
       "whatsappTooltip": "in WhatsApp delen",
       "closeTooltip": "Sluiten"
     },
+    "orm": {
+      "facebookTooltip": "Feesbuuki irratti qoodi",
+      "mailTooltip": "karaa email gorsuu",
+      "whatsappTooltip": "Karaa WhatsApp qoodi",
+      "closeTooltip": "Cufi"
+    },
     "pes": {
       "facebookTooltip": "اشتراک‌گذاری در فیسبوک",
       "mailTooltip": "معرفی به دیگران از طریق پست الکترونیک",
@@ -11372,6 +11712,9 @@
     },
     "nl": {
       "noOffersAvailable": "Geen aanbod beschikbaar"
+    },
+    "orm": {
+      "noOffersAvailable": "Dhiyeessiin hin jiru"
     },
     "pes": {
       "noOffersAvailable": "هیچ خدماتی در دسترس نیست"

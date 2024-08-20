@@ -25,7 +25,7 @@ class PoiModel extends ExtendedPageModel {
     title: string
     content: string
     thumbnail: string | null
-    availableLanguages: Map<string, string>
+    availableLanguages: Record<string, string>
     metaDescription: string | null
     excerpt: string
     location: LocationModel<number>

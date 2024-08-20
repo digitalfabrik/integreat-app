@@ -10,7 +10,7 @@ export default class TileModel<T = string | null> {
     path: string
     thumbnail: T
     isExternalUrl: boolean
-    postData?: Map<string, string>
+    postData?: Record<string, string>
     onTilePress?: () => void
   }) {
     this._title = params.title
