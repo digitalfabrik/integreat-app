@@ -14,6 +14,10 @@ const Container = styled.div`
   top: 4px;
 `
 
+const StyledTooltip = styled(Tooltip)`
+  max-width: 250px;
+`
+
 const IconContainer = styled.button`
   padding: 0;
   border: none;
@@ -52,12 +56,9 @@ const AppointmentOnlyIcon = ({ appointmentUrl }: AppointmentOnlyIconProps): Reac
 
   return (
     <Container>
-      <Tooltip
+      <StyledTooltip
         id='appointment'
         clickable
-        style={{
-          width: '250px',
-        }}
         tooltipContent={
           <>
             <TooltipTitle>{t('appointmentNecessary')}</TooltipTitle>
@@ -73,7 +74,7 @@ const AppointmentOnlyIcon = ({ appointmentUrl }: AppointmentOnlyIconProps): Reac
         <IconContainer title={t('appointmentNecessary')}>
           <StyledIcon src={NoteIcon} />
         </IconContainer>
-      </Tooltip>
+      </StyledTooltip>
     </Container>
   )
 }
