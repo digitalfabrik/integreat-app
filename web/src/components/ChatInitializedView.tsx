@@ -10,7 +10,7 @@ type ChatInitializedViewProps = {
   city: string
   language: string
   deviceId: string
-  submitMessage: (text: string, deviceId?: string) => void
+  submitMessage: (text: string, refreshMessages: () => void) => void
 }
 
 const POLLING_INTERVAL = 16000
@@ -33,11 +33,9 @@ const ChatInitializedView = ({ city, deviceId, language, submitMessage }: ChatIn
   return (
     <Chat
       messages={chatMessages !== null ? chatMessages : []}
-      submitMessage={submitMessage}
-      deviceId={deviceId}
+      submitMessage={(text: string) => submitMessage(text, refreshMessages)}
       hasError={!!error}
       isLoading={chatMessages === null}
-      refreshMessages={refreshMessages}
     />
   )
 }

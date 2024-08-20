@@ -38,6 +38,7 @@ Object.defineProperty(window, 'scrollTo', {
   value: () => undefined,
   writable: true,
 })
+window.crypto.randomUUID = () => '7e21fd52-c6fa-4f76-96d6-045460f4054c'
 // Needed For BottomActionSheet
 Object.defineProperty(window, 'matchMedia', {
   writable: true,

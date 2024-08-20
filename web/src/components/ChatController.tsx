@@ -4,7 +4,6 @@ import { createSendChatMessageEndpoint } from 'shared/api'
 
 import { cmsApiBaseUrl } from '../constants/urls'
 import useLocalStorage from '../hooks/useLocalStorage'
-import Chat from './Chat'
 import ChatInitializedView from './ChatInitializedView'
 import { SendingStatusType } from './FeedbackContainer'
 
@@ -15,26 +14,23 @@ type ChatControllerProps = {
 
 const LOCAL_STORAGE_ITEM_CHAT_MESSAGES = 'Chat-Device-Id'
 const ChatController = ({ city, language }: ChatControllerProps): ReactElement => {
-  const [sendingStatus, setSendingStatus] = useState<SendingStatusType>('idle')
-  const { value: storedDeviceId, updateLocalStorageItem: setDeviceId } = useLocalStorage<string>(
-    LOCAL_STORAGE_ITEM_CHAT_MESSAGES,
-  )
-  // 2833 TODO Improve useLocalStorage hook with a default/init method
-  const hasOpenChatSession = !!(typeof storedDeviceId === 'string' && storedDeviceId)
+  const [_, setSendingStatus] = useState<SendingStatusType>('idle')
+  const { value: deviceId } = useLocalStorage({
+    key: LOCAL_STORAGE_ITEM_CHAT_MESSAGES,
+    initialValue: window.crypto.randomUUID(),
+  })
 
-  const submitMessage = async (text: string, storedDeviceId?: string, refreshMessages?: () => void) => {
+  const submitMessage = async (message: string, refreshMessages?: () => void) => {
     setSendingStatus('sending')
-    const deviceId = storedDeviceId ?? window.self.crypto.randomUUID()
     const { data, error } = await createSendChatMessageEndpoint(cmsApiBaseUrl).request({
       city,
       language,
-      message: text,
+      message,
       deviceId,
     })
 
     if (data !== null) {
       setSendingStatus('successful')
-      setDeviceId(deviceId)
       if (refreshMessages) {
         refreshMessages()
       }
@@ -45,19 +41,7 @@ const ChatController = ({ city, language }: ChatControllerProps): ReactElement =
     }
   }
 
-  if (hasOpenChatSession) {
-    return (
-      <ChatInitializedView deviceId={storedDeviceId} city={city} language={language} submitMessage={submitMessage} />
-    )
-  }
-  return (
-    <Chat
-      submitMessage={submitMessage}
-      messages={[]}
-      hasError={sendingStatus === 'failed'}
-      isLoading={sendingStatus === 'sending' && !hasOpenChatSession}
-    />
-  )
+  return <ChatInitializedView deviceId={deviceId} city={city} language={language} submitMessage={submitMessage} />
 }
 
 export default ChatController
