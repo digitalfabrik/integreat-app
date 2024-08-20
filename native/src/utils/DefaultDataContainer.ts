@@ -203,12 +203,13 @@ class DefaultDataContainer implements DataContainer {
       const removedPaths = difference(oldPaths, newPaths)
 
       if (!isEmpty(removedPaths)) {
-        const collection: CityResourceCacheStateType = omitBy(
+        const otherLanguagesCollection: CityResourceCacheStateType = omitBy(
           previousResourceCache,
-          (val, key: string) => key === language,
+          (_val, key: string) => key === language,
         )
-        const pathsOfOtherLanguages = flatMap(collection, (languageCache: LanguageResourceCacheStateType) =>
-          this.getFilePathsFromLanguageResourceCache(languageCache),
+        const pathsOfOtherLanguages = flatMap(
+          otherLanguagesCollection,
+          (languageCache: LanguageResourceCacheStateType) => this.getFilePathsFromLanguageResourceCache(languageCache),
         )
         const pathsToClean = difference(removedPaths, pathsOfOtherLanguages)
         log('Cleaning up the following resources:')

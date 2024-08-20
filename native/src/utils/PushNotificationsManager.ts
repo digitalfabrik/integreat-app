@@ -23,8 +23,6 @@ type Message = FirebaseMessagingTypes.RemoteMessage & {
 }
 
 const WAITING_TIME_FOR_CMS = 1000
-const PUSH_NOTIFICATION_SHOW_DURATION = 10000
-const ANDROID_PERMISSION_REQUEST_NEEDED_API_LEVEL = 33
 
 const importFirebaseMessaging = async (): Promise<() => FirebaseMessagingTypes.Module> =>
   import('@react-native-firebase/messaging').then(firebase => firebase.default)
