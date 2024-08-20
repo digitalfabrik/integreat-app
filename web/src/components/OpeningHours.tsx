@@ -29,10 +29,17 @@ const TitleContainer = styled.div`
   ${helpers.adaptiveFontSize};
 `
 
+const OpeningContainer = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 8px;
+`
+
 type OpeningHoursProps = {
   isCurrentlyOpen: boolean
   openingHours: OpeningHoursModel[] | null
   isTemporarilyClosed: boolean
+  appointmentOverlayLink: string | null
 }
 
 const getOpeningLabel = (isTemporarilyClosed: boolean, isCurrentlyOpened: boolean): string => {
@@ -46,13 +53,18 @@ const OpeningHours = ({
   isCurrentlyOpen,
   openingHours,
   isTemporarilyClosed,
+  appointmentOverlayLink,
 }: OpeningHoursProps): ReactElement | null => {
   const { t } = useTranslation('pois')
 
   const openingHoursTitle = (
     <TitleContainer>
       <span>{t('openingHours')}</span>
-      <OpeningLabel $isOpen={isCurrentlyOpen}>{t(getOpeningLabel(isTemporarilyClosed, isCurrentlyOpen))}</OpeningLabel>
+      <OpeningContainer>
+        <OpeningLabel $isOpen={isCurrentlyOpen}>
+          {t(getOpeningLabel(isTemporarilyClosed, isCurrentlyOpen))}
+        </OpeningLabel>
+      </OpeningContainer>
     </TitleContainer>
   )
   if (isTemporarilyClosed) {
@@ -75,6 +87,8 @@ const OpeningHours = ({
             closed={entry.closed}
             timeSlots={entry.timeSlots}
             isCurrentDay={index === DateTime.now().weekday - 1}
+            appointmentOnly={entry.appointmentOnly}
+            appointmentOverlayLink={appointmentOverlayLink}
           />
         ))}
       </Content>
