@@ -1,8 +1,6 @@
 import React, { ReactElement, ReactNode, useRef, useState } from 'react'
 import styled from 'styled-components'
 
-import config from 'translations/src/config'
-
 import useOnClickOutside from '../hooks/useOnClickOutside'
 import { spacesToDashes } from '../utils/stringUtils'
 import DropDownContainer from './DropDownContainer'
@@ -15,20 +13,19 @@ const StyledIcon = styled(Icon)`
   height: 28px;
 `
 const ActionBox = styled(Button)`
-  padding: 3px 0;
-  min-width: 122px;
+  padding: 4px 6px;
   display: flex;
   border: 1px solid ${props => props.theme.colors.textColor};
   border-radius: 4px;
   justify-content: center;
   align-items: center;
   flex-direction: ${props => (props.theme.contentDirection === 'rtl' ? 'row-reverse' : 'row')};
+  gap: 0 5px;
 `
 
 const StyledText = styled.span`
   font-weight: bold;
   font-size: 14px;
-  margin: 0 5px;
   letter-spacing: 1.25px;
 `
 
@@ -69,7 +66,7 @@ const HeaderActionItemDropDown = ({
     <div ref={wrapperRef}>
       <Tooltip id={id} tooltipContent={text}>
         {innerText ? (
-          <ActionBox label={text} onClick={toggleDropDown} $isRTL={config.hasRTLScript(innerText)}>
+          <ActionBox label={text} onClick={toggleDropDown}>
             <StyledIcon src={iconSrc} />
             <StyledText>{innerText}</StyledText>
           </ActionBox>
