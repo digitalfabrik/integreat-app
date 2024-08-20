@@ -1,5 +1,5 @@
 import { DateTime } from 'luxon'
-import React, { ReactElement } from 'react'
+import React, { ReactElement, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useNavigate, useParams } from 'react-router-dom'
 import styled from 'styled-components'
@@ -11,6 +11,7 @@ import { CityRouteProps } from '../CityContentSwitcher'
 import Caption from '../components/Caption'
 import CityContentLayout, { CityContentLayoutProps } from '../components/CityContentLayout'
 import CityContentToolbar from '../components/CityContentToolbar'
+import CustomDatePicker from '../components/CustomDatePicker'
 import DatesPageDetail from '../components/DatesPageDetail'
 import EventListItem from '../components/EventListItem'
 import ExportEventButton from '../components/ExportEventButton'
@@ -33,17 +34,69 @@ const Spacing = styled.div<{ $content: string; $lastUpdate?: DateTime }>`
   gap: 8px;
 `
 
+const DateSection = styled.div`
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  margin-bottom: 20px;
+  justify-content: center;
+`
+
 const EventsPage = ({ city, pathname, languageCode, cityCode }: CityRouteProps): ReactElement | null => {
   const previousPathname = usePreviousProp({ prop: pathname })
   const { eventId } = useParams()
   const { t } = useTranslation('events')
   const navigate = useNavigate()
 
+  const [fromDate, setFromDate] = useState<string>(DateTime.local().toFormat('yyyy-MM-dd').toLocaleString())
+  const [toDate, setToDate] = useState<string>(
+    DateTime.local().plus({ year: 1 }).toFormat('yyyy-MM-dd').toLocaleString(),
+  )
+  const [filteredEvents, setFilteredEvents] = useState<EventModel[]>([])
+  const [fromError, setFromError] = useState('')
+  const [toError, setToError] = useState('')
+
   const {
     data: events,
     loading,
     error: eventsError,
   } = useLoadFromEndpoint(createEventsEndpoint, cmsApiBaseUrl, { city: cityCode, language: languageCode })
+
+  useEffect(() => {
+    const isValidDateFormat = (date: string) => {
+      const dateRegex = /^\d{4}-\d{2}-\d{2}$/
+      return dateRegex.test(date)
+    }
+    const filterByDateRange = (from: string, to: string) => {
+      setToError('')
+      setFromError('')
+
+      if (!isValidDateFormat(from)) {
+        setFromError('Invalid `from` date format')
+        return []
+      }
+
+      if (!isValidDateFormat(to)) {
+        setToError('Invalid `to` date format')
+        return []
+      }
+      const fromDateTime = DateTime.fromISO(from)
+      const toDateTime = DateTime.fromISO(to).endOf('day')
+
+      if (fromDateTime > toDateTime) {
+        setFromError('`from` date should be earlier than `to` date')
+        return []
+      }
+      return (
+        events?.filter(
+          event =>
+            DateTime.fromISO(event.date.startDate) >= fromDateTime &&
+            DateTime.fromISO(event.date.endDate) <= toDateTime,
+        ) || []
+      )
+    }
+    setFilteredEvents(filterByDateRange(fromDate, toDate))
+  }, [fromDate, toDate, events])
 
   if (!city) {
     return null
@@ -143,7 +196,11 @@ const EventsPage = ({ city, pathname, languageCode, cityCode }: CityRouteProps):
     <CityContentLayout isLoading={false} {...locationLayoutParams}>
       <Helmet pageTitle={pageTitle} languageChangePaths={languageChangePaths} cityModel={city} />
       <Caption title={t('events')} />
-      <List noItemsMessage={t('currentlyNoEvents')} items={events} renderItem={renderEventListItem} />
+      <DateSection>
+        <CustomDatePicker title='from' value={fromDate} setValue={setFromDate} error={fromError} />
+        <CustomDatePicker title='to' value={toDate} setValue={setToDate} error={toError} />
+      </DateSection>
+      <List noItemsMessage={t('currentlyNoEvents')} items={filteredEvents} renderItem={renderEventListItem} />
     </CityContentLayout>
   )
 }
