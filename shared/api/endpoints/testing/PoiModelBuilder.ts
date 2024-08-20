@@ -40,7 +40,12 @@ const pois = [
     lastUpdate: DateTime.fromISO('2011-02-04T00:00:00.000Z'),
     temporarilyClosed: false,
     openingHours: [
-      new OpeningHoursModel({ allDay: true, closed: false, timeSlots: [{ end: '18:00', start: '08:00' }] }),
+      new OpeningHoursModel({
+        allDay: true,
+        closed: false,
+        timeSlots: [{ end: '18:00', start: '08:00' }],
+        appointmentOnly: false,
+      }),
     ],
     appointmentUrl: null,
   }),
@@ -78,7 +83,12 @@ const pois = [
     lastUpdate: DateTime.fromISO('2011-02-04T00:00:00.000Z'),
     temporarilyClosed: false,
     openingHours: [
-      new OpeningHoursModel({ allDay: false, closed: false, timeSlots: [{ end: '18:00', start: '08:00' }] }),
+      new OpeningHoursModel({
+        allDay: false,
+        closed: false,
+        timeSlots: [{ end: '18:00', start: '08:00' }],
+        appointmentOnly: true,
+      }),
     ],
     appointmentUrl: 'https://booking.an/appointment',
   }),

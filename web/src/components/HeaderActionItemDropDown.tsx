@@ -4,10 +4,11 @@ import styled from 'styled-components'
 import config from 'translations/src/config'
 
 import useOnClickOutside from '../hooks/useOnClickOutside'
+import { spacesToDashes } from '../utils/stringUtils'
 import DropDownContainer from './DropDownContainer'
-import Tooltip from './Tooltip'
 import Button from './base/Button'
 import Icon from './base/Icon'
+import Tooltip from './base/Tooltip'
 
 const StyledIcon = styled(Icon)`
   width: 28px;
@@ -62,16 +63,18 @@ const HeaderActionItemDropDown = ({
   const wrapperRef = useRef(null)
   useOnClickOutside(wrapperRef, closeDropDown)
 
+  const id = spacesToDashes(text)
+
   return (
     <div ref={wrapperRef}>
-      <Tooltip text={text} flow='down' mediumViewportFlow='left'>
+      <Tooltip id={id} tooltipContent={text}>
         {innerText ? (
           <ActionBox label={text} onClick={toggleDropDown} $isRTL={config.hasRTLScript(innerText)}>
             <StyledIcon src={iconSrc} />
             <StyledText>{innerText}</StyledText>
           </ActionBox>
         ) : (
-          <Button label={text} onClick={toggleDropDown}>
+          <Button label={text} onClick={toggleDropDown} id={id}>
             <StyledIcon src={iconSrc} />
           </Button>
         )}
