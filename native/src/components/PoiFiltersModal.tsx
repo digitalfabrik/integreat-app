@@ -101,7 +101,9 @@ const PoiFiltersModal = ({
     <Modal modalVisible={modalVisible} closeModal={closeModal} headerTitle='' title={t('adjustFilters')}>
       <Container>
         <Section>
-          <SubTitle>{t('openingHours')}</SubTitle>
+          <Row>
+            <SubTitle>{t('openingHours')}</SubTitle>
+          </Row>
           <StyledRow>
             <Icon Icon={ClockIcon} />
             <StyledText>{t('onlyCurrentlyOpen')}</StyledText>
