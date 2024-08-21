@@ -2,12 +2,12 @@ import React, { ReactElement } from 'react'
 import styled from 'styled-components'
 
 import dimensions from '../constants/dimensions'
-import CleanAnchor from './CleanAnchor'
 import StyledSmallViewTip from './StyledSmallViewTip'
 import Button from './base/Button'
 import Icon from './base/Icon'
+import Link from './base/Link'
 
-const StyledToolbarItem = styled(CleanAnchor)`
+const StyledToolbarItem = styled(Link)`
   display: inline-block;
   padding: 8px;
   cursor: pointer;
