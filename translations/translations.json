@@ -3002,7 +3002,10 @@
       "today": "اليوم",
       "todayRecurring": "اليوم، مكرر",
       "onlyThisEvent": "هذه الفعالية فقط",
-      "thisAndAllFutureEvents": "هذه الفعالية وكل الفعاليات القادمة"
+      "thisAndAllFutureEvents": "هذه الفعالية وكل الفعاليات القادمة",
+      "from": "من",
+      "to": "إلى",
+      "resetFilter": "إعادة تعيين الفلتر:"
     },
     "bg": {
       "address": "Адрес",
@@ -3107,7 +3110,10 @@
       "today": "today",
       "todayRecurring": "today, recurring",
       "onlyThisEvent": "Only this event",
-      "thisAndAllFutureEvents": "This and all future events"
+      "thisAndAllFutureEvents": "This and all future events",
+      "from": "from",
+      "to": "to",
+      "resetFilter": "reset filter:"
     },
     "es": {
       "address": "Dirección",

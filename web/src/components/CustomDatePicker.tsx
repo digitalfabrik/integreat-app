@@ -11,7 +11,7 @@ const DateContainer = styled.div`
 const StyledInput = styled.input`
   min-width: 316px;
   height: 56px;
-  padding: 0 16px;
+  padding: 0 2px 0 16px;
   border-radius: 8px;
   border-color: ${props => props.theme.colors.themeColorLight};
   border-width: 3px;
@@ -24,10 +24,17 @@ const StyledInput = styled.input`
     }
 
     &::-webkit-calendar-picker-indicator {
-      background: url(${CalendarEventsIcon}) no-repeat;
-      background-size: contain;
-      transform: scale(2);
-      color: gray;
+      background: url(${CalendarEventsIcon}) no-repeat center center;
+      background-size: 55px;
+      width: 45px;
+      height: 45px;
+      border-radius: 50%;
+      cursor: pointer;
+      /* transform: scale(1.5); */
+      background-color: #e9e8e9;
+    }
+    &:focus::-webkit-calendar-picker-indicator {
+      background-color: ${props => props.theme.colors.themeColorLight};
     }
   }
   @media ${dimensions.mediumViewport} {
@@ -38,7 +45,8 @@ const StyledTitle = styled.span`
   background-color: ${props => props.theme.colors.backgroundColor};
   position: absolute;
   top: -12px;
-  left: 10px;
+  left: ${props => (props.theme.contentDirection === 'rtl' ? 'auto' : '10px')};
+  right: ${props => (props.theme.contentDirection === 'rtl' ? '12px' : 'auto')};
   padding: 2px 5px;
   font-size: 12px;
   font-weight: 400;

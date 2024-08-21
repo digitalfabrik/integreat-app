@@ -99,6 +99,7 @@ const EventsPage = ({ city, pathname, languageCode, cityCode }: CityRouteProps):
   } = useLoadFromEndpoint(createEventsEndpoint, cmsApiBaseUrl, { city: cityCode, language: languageCode })
 
   const { fromDate, setFromDate, toDate, setToDate, filteredEvents, fromError, toError } = useDateFilter(events)
+  const isReset = fromDate === defaultFromDate && toDate === defaultToDate
 
   if (!city) {
     return null
@@ -202,12 +203,12 @@ const EventsPage = ({ city, pathname, languageCode, cityCode }: CityRouteProps):
         <DateFilterToggle toggle={toggleDateFilter} setToggleDateFilter={setToggleDateFilter} />
         {toggleDateFilter && (
           <>
-            <CustomDatePicker title='from' value={fromDate} setValue={setFromDate} error={fromError || ''} />
-            <CustomDatePicker title='to' value={toDate} setValue={setToDate} error={toError || ''} />
+            <CustomDatePicker title={t('from')} value={fromDate} setValue={setFromDate} error={fromError || ''} />
+            <CustomDatePicker title={t('to')} value={toDate} setValue={setToDate} error={toError || ''} />
           </>
         )}
       </DateSection>
-      {!(fromDate === defaultFromDate && toDate === defaultToDate) && (
+      {!isReset && (
         <Button
           label='resetDate'
           onClick={() => {
@@ -216,7 +217,7 @@ const EventsPage = ({ city, pathname, languageCode, cityCode }: CityRouteProps):
           }}>
           <StyledButtonContents>
             <Icon src={CloseIcon} />
-            <span>{`reset filter: ${DateTime.fromISO(fromDate).toFormat('dd/MM/yy')} - ${DateTime.fromISO(toDate).toFormat('dd/MM/yy')}`}</span>
+            <span>{`${t('resetFilter')} ${DateTime.fromISO(fromDate || defaultFromDate).toFormat('dd/MM/yy')} - ${DateTime.fromISO(toDate || defaultFromDate).toFormat('dd/MM/yy')}`}</span>
           </StyledButtonContents>
         </Button>
       )}
