@@ -24,12 +24,14 @@ const news: [LocalNewsModel, LocalNewsModel] = [
     title: 'Local news 1',
     timestamp: DateTime.fromISO('2020-01-20T00:00:00.000Z'),
     content: 'Local news content 2',
+    availableLanguages: {},
   }),
   new LocalNewsModel({
     id: 1234,
     title: 'Local news 2',
     timestamp: DateTime.fromISO('2020-01-20T00:00:00.000Z'),
     content: 'Local news content 2',
+    availableLanguages: {},
   }),
 ]
 
@@ -67,7 +69,7 @@ describe('LocalNews', () => {
     name: NEWS_ROUTE,
   }
 
-  const renderNews = ({ newsId = null }: { newsId?: string | null }) =>
+  const renderNews = ({ newsId = null }: { newsId?: number | null }) =>
     render(
       <NavigationContainer>
         <LocalNews
@@ -87,11 +89,11 @@ describe('LocalNews', () => {
     expect(getByText(news[1].title)).toBeTruthy()
 
     fireEvent.press(getByText(news[1].title))
-    expect(selectNews).toHaveBeenCalledWith(news[1].id.toString())
+    expect(selectNews).toHaveBeenCalledWith(news[1].id)
   })
 
   it('should show news detail', () => {
-    const { queryByText } = renderNews({ newsId: news[0].id.toString() })
+    const { queryByText } = renderNews({ newsId: news[0].id })
     expect(queryByText(news[0].title)).toBeTruthy()
     expect(queryByText(news[0].content)).toBeTruthy()
 

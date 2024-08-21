@@ -1,0 +1,7 @@
+issue_key: 2130
+show_in_stores: true
+platforms:
+  - ios
+  - android
+en: Only download images that changed
+de: Bilder werden nur heruntergeladen, wenn sie sich geändert haben

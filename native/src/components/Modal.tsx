@@ -50,7 +50,7 @@ const Modal = ({
         <HeaderBox goBack={closeModal} text={headerTitle} />
       </Header>
       {scrollView ? (
-        <ScrollContent contentContainerStyle={{ flex: 1 }}>
+        <ScrollContent contentContainerStyle={{ flexGrow: 1 }}>
           {!!title && <Caption title={title} />}
           {children}
         </ScrollContent>

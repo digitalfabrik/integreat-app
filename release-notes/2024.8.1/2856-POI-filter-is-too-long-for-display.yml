@@ -1,0 +1,7 @@
+issue_key: 2856
+show_in_stores: true
+platforms:
+  - ios
+  - android
+en: Fixed scrolling at filter locations.
+de: Die Filter für die Orte sind jetzt scrollbar.

@@ -31,7 +31,7 @@ import {
 import { deleteIfExists } from './helpers'
 import { log, reportError } from './sentry'
 
-export const CONTENT_VERSION = 'v7'
+export const CONTENT_VERSION = 'v8'
 export const RESOURCE_CACHE_VERSION = 'v1'
 
 // Our pdf view can only load from DocumentDir. Therefore we need to use that
@@ -144,7 +144,9 @@ type ContentPoiJsonType = {
   location: LocationJsonType<number>
   lastUpdate: string
   category: { id: number; name: string; color: string; icon: string; iconName: string }
-  openingHours: { allDay: boolean; closed: boolean; timeSlots: { start: string; end: string }[] }[] | null
+  openingHours:
+    | { allDay: boolean; closed: boolean; timeSlots: { start: string; end: string }[]; appointmentOnly: boolean }[]
+    | null
   temporarilyClosed: boolean
   appointmentUrl: string | null
 }
@@ -153,6 +155,7 @@ type ContentLocalNewsJsonType = {
   timestamp: string
   title: string
   content: string
+  available_languages: Record<string, number> | undefined
 }
 type CityCodeType = string
 type LanguageCodeType = string
@@ -471,6 +474,7 @@ class DatabaseConnector {
               start: timeslot.start,
               end: timeslot.end,
             })),
+            appointmentOnly: hours.appointmentOnly,
           })) ?? null,
         temporarilyClosed: poi.temporarilyClosed,
         appointmentUrl: poi.appointmentUrl,
@@ -523,6 +527,7 @@ class DatabaseConnector {
                     start: timeslot.start,
                     end: timeslot.end,
                   })),
+                  appointmentOnly: hours.appointmentOnly,
                 }),
             ) ?? null,
           temporarilyClosed: jsonObject.temporarilyClosed,
@@ -540,6 +545,7 @@ class DatabaseConnector {
         timestamp: it.timestamp.toISO(),
         title: it.title,
         content: it.content,
+        available_languages: it.availableLanguages,
       }),
     )
     await this.writeFile(this.getContentPath('localNews', context), JSON.stringify(jsonModels))
@@ -555,6 +561,7 @@ class DatabaseConnector {
             timestamp: DateTime.fromISO(jsonObject.timestamp),
             title: jsonObject.title,
             content: jsonObject.content,
+            availableLanguages: jsonObject.available_languages ?? {},
           }),
       )
 

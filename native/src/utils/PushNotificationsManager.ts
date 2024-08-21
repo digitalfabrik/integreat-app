@@ -23,8 +23,6 @@ type Message = FirebaseMessagingTypes.RemoteMessage & {
 }
 
 const WAITING_TIME_FOR_CMS = 1000
-const PUSH_NOTIFICATION_SHOW_DURATION = 10000
-const ANDROID_PERMISSION_REQUEST_NEEDED_API_LEVEL = 33
 
 const importFirebaseMessaging = async (): Promise<() => FirebaseMessagingTypes.Module> =>
   import('@react-native-firebase/messaging').then(firebase => firebase.default)
@@ -90,7 +88,7 @@ const routeInformationFromMessage = (message: Message): NonNullableRouteInformat
   languageCode: message.data.language_code,
   route: NEWS_ROUTE,
   newsType: LOCAL_NEWS_TYPE,
-  newsId: message.data.news_id,
+  newsId: parseInt(message.data.news_id, 10),
 })
 const urlFromMessage = (message: Message): string => urlFromRouteInformation(routeInformationFromMessage(message))
 

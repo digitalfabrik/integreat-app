@@ -5,14 +5,13 @@ import styled, { css } from 'styled-components'
 import dimensions from '../constants/dimensions'
 import { helpers } from '../constants/theme'
 import SelectorItemModel from '../models/SelectorItemModel'
-import Tooltip from './Tooltip'
 import Button from './base/Button'
+import Tooltip from './base/Tooltip'
 
 const Element = styled(Button)<{ $selected: boolean; $enabled: boolean }>`
   ${helpers.removeLinkHighlighting};
   height: ${dimensions.headerHeightLarge}px;
   min-width: 90px;
-  flex: 1 1 auto;
   padding: 0 5px;
   font-size: 1.2em;
   line-height: ${dimensions.headerHeightLarge}px;
@@ -37,7 +36,7 @@ const Element = styled(Button)<{ $selected: boolean; $enabled: boolean }>`
   ${props =>
     props.$selected
       ? 'font-weight: 700;'
-      : `:hover {
+      : `&:hover {
           font-weight: 700;
           border-radius: 0;
         }`}
@@ -77,6 +76,7 @@ type SelectorProps = {
   activeItemCode?: string
   disabledItemTooltip: string
 }
+
 const Selector = ({
   items,
   activeItemCode,
@@ -105,18 +105,13 @@ const Selector = ({
         )
       }
       return (
-        // @ts-expect-error wrong types from polymorphic 'as', see https://github.com/styled-components/styled-components/issues/4112
-        <Element
-          as={Tooltip}
-          key={item.code}
-          label=''
-          text={disabledItemTooltip}
-          flow='up'
-          $enabled={false}
-          $selected={false}>
-          <BoldSpacer>{item.name}</BoldSpacer>
-          {item.name}
-        </Element>
+        <Tooltip id={item.code} key={item.code} tooltipContent={disabledItemTooltip}>
+          {/* @ts-expect-error wrong types from polymorphic 'as', see https://github.com/styled-components/styled-components/issues/4112 */}
+          <Element as='div' label='' $enabled={false} id={item.code}>
+            <BoldSpacer>{item.name}</BoldSpacer>
+            {item.name}
+          </Element>
+        </Tooltip>
       )
     })}
   </Wrapper>
