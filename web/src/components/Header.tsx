@@ -45,6 +45,7 @@ const Row = styled.div`
   align-items: stretch;
   min-height: ${dimensions.headerHeightLarge}px;
   flex-direction: row;
+  justify-content: space-between;
 
   @media ${dimensions.smallViewport} {
     background-color: ${props => props.theme.colors.backgroundAccentColor};
@@ -79,7 +80,6 @@ const ActionBar = styled.nav`
 
   @media ${dimensions.smallViewport} {
     order: 2;
-    flex: 1 1 0;
   }
 `
 
