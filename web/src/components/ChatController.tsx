@@ -1,10 +1,11 @@
-import React, { ReactElement, useState } from 'react'
+import React, { ReactElement, useEffect, useState } from 'react'
 
-import { createSendChatMessageEndpoint } from 'shared/api'
+import { createChatMessagesEndpoint, createSendChatMessageEndpoint, useLoadFromEndpoint } from 'shared/api'
 
 import { cmsApiBaseUrl } from '../constants/urls'
+import useIsTabActive from '../hooks/useIsTabActive'
 import useLocalStorage from '../hooks/useLocalStorage'
-import ChatInitializedView from './ChatInitializedView'
+import Chat from './Chat'
 import { SendingStatusType } from './FeedbackContainer'
 
 type ChatControllerProps = {
@@ -13,14 +14,30 @@ type ChatControllerProps = {
 }
 
 const LOCAL_STORAGE_ITEM_CHAT_MESSAGES = 'Chat-Device-Id'
+const POLLING_INTERVAL = 16000
+
 const ChatController = ({ city, language }: ChatControllerProps): ReactElement => {
   const [_, setSendingStatus] = useState<SendingStatusType>('idle')
   const { value: deviceId } = useLocalStorage({
     key: LOCAL_STORAGE_ITEM_CHAT_MESSAGES,
     initialValue: window.crypto.randomUUID(),
   })
+  const {
+    data: chatMessages,
+    refresh: refreshMessages,
+    error,
+  } = useLoadFromEndpoint(createChatMessagesEndpoint, cmsApiBaseUrl, { city, language, deviceId })
+  const isBrowserTabActive = useIsTabActive()
 
-  const submitMessage = async (message: string, refreshMessages?: () => void) => {
+  useEffect(() => {
+    if (!isBrowserTabActive) {
+      return undefined
+    }
+    const pollMessageInterval = setInterval(refreshMessages, POLLING_INTERVAL)
+    return () => clearInterval(pollMessageInterval)
+  }, [refreshMessages, isBrowserTabActive])
+
+  const submitMessage = async (message: string) => {
     setSendingStatus('sending')
     const { data, error } = await createSendChatMessageEndpoint(cmsApiBaseUrl).request({
       city,
@@ -31,9 +48,7 @@ const ChatController = ({ city, language }: ChatControllerProps): ReactElement =
 
     if (data !== null) {
       setSendingStatus('successful')
-      if (refreshMessages) {
-        refreshMessages()
-      }
+      refreshMessages()
     }
 
     if (error !== null) {
@@ -41,7 +56,14 @@ const ChatController = ({ city, language }: ChatControllerProps): ReactElement =
     }
   }
 
-  return <ChatInitializedView deviceId={deviceId} city={city} language={language} submitMessage={submitMessage} />
+  return (
+    <Chat
+      messages={chatMessages ?? []}
+      submitMessage={submitMessage}
+      hasError={!!error}
+      isLoading={chatMessages === null}
+    />
+  )
 }
 
 export default ChatController

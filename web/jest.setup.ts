@@ -4,11 +4,10 @@ import * as fs from 'fs'
 import * as path from 'path'
 import 'raf/polyfill'
 
-// Setup fetch mock
 global.fetch = require('jest-fetch-mock')
-// Setup config mock
 
 console.error = () => undefined
+Element.prototype.scrollIntoView = jest.fn()
 
 const walkDir = (dir: string, callback: (dir: string) => void) => {
   fs.readdirSync(dir).forEach(f => {
