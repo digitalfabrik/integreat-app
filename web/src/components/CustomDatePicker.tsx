@@ -2,23 +2,25 @@ import React, { ReactElement } from 'react'
 import styled from 'styled-components'
 
 import { CalendarEventsIcon } from '../assets'
+import dimensions from '../constants/dimensions'
 
 const DateContainer = styled.div`
   width: fit-content;
   position: relative;
 `
 const StyledInput = styled.input`
-  width: 315px;
-  height: 55px;
-  padding: 0 15px;
-  border-radius: 7px;
-  border-color: ${props => props.theme.colors.themeColor};
+  min-width: 316px;
+  height: 56px;
+  padding: 0 16px;
+  border-radius: 8px;
+  border-color: ${props => props.theme.colors.themeColorLight};
   border-width: 3px;
   border-style: solid;
 
   &&& {
     &:focus {
       outline: none;
+      border-color: ${props => props.theme.colors.themeColor};
     }
 
     &::-webkit-calendar-picker-indicator {
@@ -27,6 +29,9 @@ const StyledInput = styled.input`
       transform: scale(2);
       color: gray;
     }
+  }
+  @media ${dimensions.mediumViewport} {
+    min-width: 240px;
   }
 `
 const StyledTitle = styled.span`
