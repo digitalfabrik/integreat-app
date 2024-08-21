@@ -51,21 +51,14 @@ const CityContentHeader = ({
 
   const { t } = useTranslation('layout')
 
-  const SearchButton = <HeaderActionItemLink key='search' href={searchPath} text={t('search')} iconSrc={SearchIcon} />
+  const SearchButton = <HeaderActionItemLink key='search' to={searchPath} text={t('search')} iconSrc={SearchIcon} />
 
   const actionItems = viewportSmall
     ? [SearchButton]
     : [
         SearchButton,
         ...(!buildConfig().featureFlags.fixedCity
-          ? [
-              <HeaderActionItemLink
-                key='location'
-                href={landingPath}
-                text={t('changeLocation')}
-                iconSrc={LocationIcon}
-              />,
-            ]
+          ? [<HeaderActionItemLink key='location' to={landingPath} text={t('changeLocation')} iconSrc={LocationIcon} />]
           : []),
         <LanguageSelector
           key='language'
@@ -76,7 +69,7 @@ const CityContentHeader = ({
       ]
 
   const kebabItems = [
-    <KebabActionItemLink key='location' href={landingPath} text={t('changeLocation')} iconSrc={LocationIcon} />,
+    <KebabActionItemLink key='location' to={landingPath} text={t('changeLocation')} iconSrc={LocationIcon} />,
     <LanguageSelector
       key='language'
       languageChangePaths={languageChangePaths}
@@ -100,7 +93,7 @@ const CityContentHeader = ({
     const items: Array<ReactElement> = [
       <HeaderNavigationItem
         key='categories'
-        href={categoriesPath}
+        to={categoriesPath}
         active={route === CATEGORIES_ROUTE}
         text={t('localInformation')}
         icon={CategoriesIcon}
@@ -112,7 +105,7 @@ const CityContentHeader = ({
         <HeaderNavigationItem
           key='news'
           active={route === LOCAL_NEWS_ROUTE || route === TU_NEWS_ROUTE || route === TU_NEWS_DETAIL_ROUTE}
-          href={newsPath}
+          to={newsPath}
           text={t('news')}
           icon={NewsIcon}
         />,
@@ -123,7 +116,7 @@ const CityContentHeader = ({
       items.push(
         <HeaderNavigationItem
           key='events'
-          href={eventsPath}
+          to={eventsPath}
           active={route === EVENTS_ROUTE}
           text={t('events')}
           icon={CalendarIcon}
@@ -135,7 +128,7 @@ const CityContentHeader = ({
       items.push(
         <HeaderNavigationItem
           key='locations'
-          href={poisPath}
+          to={poisPath}
           active={route === POIS_ROUTE}
           text={t('locations')}
           icon={POIsIcon}

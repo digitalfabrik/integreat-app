@@ -20,6 +20,7 @@ type JsonOpeningHoursType = {
   allDay: boolean
   closed: boolean
   timeSlots: TimeSlot[]
+  appointmentOnly: boolean
 }
 
 export type JsonPoiCategoryType = {
@@ -130,6 +131,7 @@ export type JsonLocalNewsType = {
   timestamp: string
   title: string
   message: string
+  available_languages: Record<string, { id: number }>
 }
 export type JsonOfferPostType = {
   'zammad-url': string | undefined

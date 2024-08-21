@@ -16,15 +16,11 @@ import {
 import { EXCERPT_MAX_CHARS } from '../constants'
 import useWindowDimensions from '../hooks/useWindowDimensions'
 import ListItem from './ListItem'
-import Tooltip from './Tooltip'
 import Icon from './base/Icon'
+import Tooltip from './base/Tooltip'
 
 const Content = styled.div`
   overflow-wrap: anywhere;
-`
-
-const StyledTooltip = styled(Tooltip)`
-  height: 24px;
 `
 
 type EventListItemProps = {
@@ -39,7 +35,7 @@ const getEventPlaceholder = (path: string): string => {
   return placeholders[pseudoId % placeholders.length]!
 }
 
-const getDateIcon = (date: DateModel): { icon: string; tooltip: string } | null => {
+export const getDateIcon = (date: DateModel): { icon: string; tooltip: string } | null => {
   const icons: { [key in DateIcon]: string } = {
     CalendarTodayRecurringIcon,
     CalendarRecurringIcon,
@@ -60,9 +56,9 @@ const EventListItem = ({ event, languageCode }: EventListItemProps): ReactElemen
   const { t } = useTranslation('events')
 
   const DateIcon = dateIcon && (
-    <StyledTooltip text={t(dateIcon.tooltip)} flow='up'>
-      <Icon src={dateIcon.icon} />
-    </StyledTooltip>
+    <Tooltip id='calendar-icon' tooltipContent={t(dateIcon.tooltip)}>
+      <Icon src={dateIcon.icon} id='calendar-icon' title={t(dateIcon.tooltip)} />
+    </Tooltip>
   )
 
   return (

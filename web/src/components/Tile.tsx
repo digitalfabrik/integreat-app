@@ -4,7 +4,7 @@ import styled from 'styled-components'
 import { TileModel } from 'shared'
 import { request } from 'shared/api'
 
-import CleanLink from './CleanLink'
+import Link from './base/Link'
 
 const Thumbnail = styled.div`
   position: relative;
@@ -92,7 +92,7 @@ const Tile = ({ tile }: TileProps): ReactElement => {
 
   return (
     <TileContainer>
-      <CleanLink to={tile.path}>{getTileContent()}</CleanLink>
+      <Link to={tile.path}>{getTileContent()}</Link>
     </TileContainer>
   )
 }

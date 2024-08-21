@@ -1,0 +1,7 @@
+issue_key: 2870
+show_in_stores: true
+platforms: # relevant platforms, possible values: web, android and ios
+  - android
+  - ios
+en: A fix for the toggle button in the map filter
+de: Der Toggle-Button im Kartenfilter wurde verbessert
