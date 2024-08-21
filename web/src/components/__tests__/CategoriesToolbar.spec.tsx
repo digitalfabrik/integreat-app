@@ -72,7 +72,7 @@ describe('CategoriesToolbar', () => {
   it('should prevent PDF URL for RTL Languages', () => {
     const cityCode = 'augsburg'
     const languageCode = 'ar'
-    const { getByText } = renderWithTheme(
+    const { getByText } = renderWithRouterAndTheme(
       <CategoriesToolbar category={rootCategory} cityCode={cityCode} languageCode={languageCode} pageTitle='Test' />,
     )
     const pdfUrlLink = getByText('categories:createPdf').closest('a')
