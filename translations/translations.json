@@ -17,7 +17,8 @@
       "createPdf": "إصدار ملف PDF",
       "metaDescription": "{{appName}} هو دليلك الرقمي لألمانيا. اكتشف المعلومات المحلية والمناسبات وخدمة الاستشارات. تحديث مستمر وبلغتك.",
       "organizationContent": "محتويات هذه الصفحة هي من خلال {{organization}}.",
-      "organizationMoreInformation": "المزيد من المعلومات حول <1>{{organization}}</1> متاح على <3>{{domain}}</3>."
+      "organizationMoreInformation": "المزيد من المعلومات حول <1>{{organization}}</1> متاح على <3>{{domain}}</3>.",
+      "disabledPdf": "اصدار ملف PDF غير متاح حاليا في هذه اللغة."
     },
     "bg": {
       "createPdf": "Създайте PDF",

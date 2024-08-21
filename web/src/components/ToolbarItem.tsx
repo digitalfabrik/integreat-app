@@ -13,11 +13,6 @@ import Tooltip from './base/Tooltip'
 const StyledToolbarItem = styled(CleanAnchor)<{ disabled?: boolean }>`
   display: inline-block;
   padding: 8px;
-
-  && {
-    cursor: ${props => (props.disabled ? 'default' : 'pointer')};
-  }
-
   border: none;
   color: ${props => (props.disabled ? props.theme.colors.textDisabledColor : props.theme.colors.textColor)};
   background-color: transparent;
@@ -30,6 +25,10 @@ const StyledToolbarItem = styled(CleanAnchor)<{ disabled?: boolean }>`
 
 const StyledIcon = styled(Icon)<{ disabled?: boolean }>`
   color: ${props => (props.disabled ? props.theme.colors.textDisabledColor : props.theme.colors.textSecondaryColor)};
+`
+
+const StyledTooltip = styled(Tooltip)`
+  max-width: 250px;
 `
 
 type ItemProps =
@@ -52,25 +51,29 @@ type ToolbarItemProps = {
 const ToolbarItem = ({ href, text, icon, isDisabled = false, onClick, id }: ToolbarItemProps): ReactElement => {
   const { t } = useTranslation('categories')
   const toolTipId = spacesToDashes(text)
-  const styledToolbarItem = (
+  if (isDisabled) {
+    return (
+      <StyledTooltip id={toolTipId} tooltipContent={t('disabledPdf')}>
+        {/* @ts-expect-error wrong types from polymorphic 'as', see https://github.com/styled-components/styled-components/issues/4112 */}
+        <StyledToolbarItem as='div' id={id} label={text} disabled>
+          <StyledIcon src={icon} disabled />
+          <StyledSmallViewTip>{text}</StyledSmallViewTip>
+        </StyledToolbarItem>
+      </StyledTooltip>
+    )
+  }
+  return (
     <StyledToolbarItem
       as={onClick ? Button : undefined}
       id={id}
       // @ts-expect-error wrong types from polymorphic 'as', see https://github.com/styled-components/styled-components/issues/4112
-      href={isDisabled ? null : href}
-      onClick={isDisabled ? null : onClick}
+      href={href}
+      onClick={onClick}
       label={text}
-      disabled={isDisabled}>
-      <StyledIcon src={icon} disabled={isDisabled} />
+      disabled={false}>
+      <StyledIcon src={icon} disabled={false} />
       <StyledSmallViewTip>{text}</StyledSmallViewTip>
     </StyledToolbarItem>
-  )
-  return isDisabled ? (
-    <Tooltip id={toolTipId} tooltipContent={t('disabledPdf')}>
-      {styledToolbarItem}
-    </Tooltip>
-  ) : (
-    <>{styledToolbarItem}</>
   )
 }
 
