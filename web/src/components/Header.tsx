@@ -45,6 +45,7 @@ const Row = styled.div`
   align-items: stretch;
   min-height: ${dimensions.headerHeightLarge}px;
   flex-direction: row;
+  justify-content: space-between;
 
   :first-child {
     z-index: 1; /* Necessary to make the LanguageFlyout cover the NavigationItems as they have opacity set */
@@ -80,7 +81,6 @@ const ActionBar = styled.nav`
   justify-content: flex-end;
   gap: 12px;
   padding: 0 16px;
-  margin-inline-start: auto;
 
   @media ${dimensions.smallViewport} {
     order: 2;
