@@ -25,7 +25,13 @@ describe('Landing', () => {
 
   beforeEach(() => {
     jest.clearAllMocks()
-    mocked(useLoadCities).mockImplementation(() => ({ data: cities, error: null, refresh: jest.fn(), loading: false }))
+    mocked(useLoadCities).mockImplementation(() => ({
+      data: cities,
+      error: null,
+      refresh: jest.fn(),
+      loading: false,
+      setData: jest.fn(),
+    }))
   })
 
   const navigation = createNavigationScreenPropMock<LandingRouteType>()

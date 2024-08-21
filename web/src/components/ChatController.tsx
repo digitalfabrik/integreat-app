@@ -1,6 +1,11 @@
 import React, { ReactElement, useEffect, useState } from 'react'
 
-import { createChatMessagesEndpoint, createSendChatMessageEndpoint, useLoadFromEndpoint } from 'shared/api'
+import {
+  createChatMessagesEndpoint,
+  createSendChatMessageEndpoint,
+  NotFoundError,
+  useLoadFromEndpoint,
+} from 'shared/api'
 
 import { cmsApiBaseUrl } from '../constants/urls'
 import useIsTabActive from '../hooks/useIsTabActive'
@@ -17,7 +22,7 @@ const LOCAL_STORAGE_ITEM_CHAT_MESSAGES = 'Chat-Device-Id'
 const POLLING_INTERVAL = 16000
 
 const ChatController = ({ city, language }: ChatControllerProps): ReactElement => {
-  const [_, setSendingStatus] = useState<SendingStatusType>('idle')
+  const [sendingStatus, setSendingStatus] = useState<SendingStatusType>('idle')
   const { value: deviceId } = useLocalStorage({
     key: LOCAL_STORAGE_ITEM_CHAT_MESSAGES,
     initialValue: window.crypto.randomUUID(),
@@ -26,6 +31,8 @@ const ChatController = ({ city, language }: ChatControllerProps): ReactElement =
     data: chatMessages,
     refresh: refreshMessages,
     error,
+    loading,
+    setData,
   } = useLoadFromEndpoint(createChatMessagesEndpoint, cmsApiBaseUrl, { city, language, deviceId })
   const isBrowserTabActive = useIsTabActive()
 
@@ -47,8 +54,8 @@ const ChatController = ({ city, language }: ChatControllerProps): ReactElement =
     })
 
     if (data !== null) {
+      setData(messages => [...(messages ?? []), data])
       setSendingStatus('successful')
-      refreshMessages()
     }
 
     if (error !== null) {
@@ -60,8 +67,9 @@ const ChatController = ({ city, language }: ChatControllerProps): ReactElement =
     <Chat
       messages={chatMessages ?? []}
       submitMessage={submitMessage}
-      hasError={!!error}
-      isLoading={chatMessages === null}
+      // If no message has been sent yet, fetching the messages yields a 404 not found error
+      hasError={error !== null && !(error instanceof NotFoundError)}
+      isLoading={chatMessages === null && (loading || sendingStatus === 'sending')}
     />
   )
 }
