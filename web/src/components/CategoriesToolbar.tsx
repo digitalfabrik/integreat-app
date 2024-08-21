@@ -31,7 +31,7 @@ const CategoriesToolbar = (props: CategoriesToolbarProps): ReactElement => {
       route={CATEGORIES_ROUTE}
       feedbackTarget={category && !category.isRoot() ? category.slug : undefined}
       pageTitle={pageTitle}>
-      <ToolbarItem icon={PdfIcon} text={t('createPdf')} href={pdfUrl} isDisabled={config.hasRTLScript(languageCode)} />
+      <ToolbarItem icon={PdfIcon} text={t('createPdf')} to={pdfUrl} isDisabled={config.hasRTLScript(languageCode)} />
     </CityContentToolbar>
   )
 }

@@ -2,7 +2,7 @@ import React, { ReactElement } from 'react'
 import styled from 'styled-components'
 
 import { helpers } from '../constants/theme'
-import CleanLink from './CleanLink'
+import Link from './base/Link'
 
 const Marker = styled.img`
   width: 20px;
@@ -11,7 +11,8 @@ const Marker = styled.img`
   object-fit: contain;
 `
 
-const Link = styled(CleanLink)`
+const StyledLink = styled(Link)`
+  display: flex;
   align-items: center;
   padding-top: 4px;
   gap: 8px;
@@ -27,10 +28,10 @@ type ContactItemProps = {
 }
 
 const ContactItem = ({ iconSrc, iconAlt, link, content }: ContactItemProps): ReactElement => (
-  <Link to={link}>
+  <StyledLink to={link}>
     <Marker src={iconSrc} alt={iconAlt} />
     {content}
-  </Link>
+  </StyledLink>
 )
 
 export default ContactItem

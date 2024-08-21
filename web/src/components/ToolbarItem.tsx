@@ -4,13 +4,13 @@ import styled from 'styled-components'
 
 import dimensions from '../constants/dimensions'
 import { spacesToDashes } from '../utils/stringUtils'
-import CleanAnchor from './CleanAnchor'
 import StyledSmallViewTip from './StyledSmallViewTip'
 import Button from './base/Button'
 import Icon from './base/Icon'
+import Link from './base/Link'
 import Tooltip from './base/Tooltip'
 
-const StyledToolbarItem = styled(CleanAnchor)<{ disabled?: boolean }>`
+const StyledToolbarItem = styled(Link)<{ disabled?: boolean }>`
   display: inline-block;
   padding: 8px;
   border: none;
@@ -34,11 +34,11 @@ const StyledTooltip = styled(Tooltip)`
 type ItemProps =
   | {
       onClick: () => void
-      href?: undefined
+      to?: undefined
     }
   | {
       onClick?: undefined
-      href: string
+      to: string
     }
 
 type ToolbarItemProps = {
@@ -48,7 +48,7 @@ type ToolbarItemProps = {
   isDisabled?: boolean
 } & ItemProps
 
-const ToolbarItem = ({ href, text, icon, isDisabled = false, onClick, id }: ToolbarItemProps): ReactElement => {
+const ToolbarItem = ({ to, text, icon, isDisabled = false, onClick, id }: ToolbarItemProps): ReactElement => {
   const { t } = useTranslation('categories')
   const toolTipId = spacesToDashes(text)
   if (isDisabled) {
@@ -67,7 +67,7 @@ const ToolbarItem = ({ href, text, icon, isDisabled = false, onClick, id }: Tool
       as={onClick ? Button : undefined}
       id={id}
       // @ts-expect-error wrong types from polymorphic 'as', see https://github.com/styled-components/styled-components/issues/4112
-      href={href}
+      to={to}
       onClick={onClick}
       label={text}
       disabled={false}>

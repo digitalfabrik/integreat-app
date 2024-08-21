@@ -1,5 +1,4 @@
 import React, { ReactElement } from 'react'
-import { Link } from 'react-router-dom'
 import { PlacesType } from 'react-tooltip'
 import styled, { useTheme } from 'styled-components'
 
@@ -7,6 +6,7 @@ import dimensions from '../constants/dimensions'
 import useWindowDimensions from '../hooks/useWindowDimensions'
 import { spacesToDashes } from '../utils/stringUtils'
 import Icon from './base/Icon'
+import Link from './base/Link'
 import Tooltip from './base/Tooltip'
 
 const StyledIcon = styled(Icon)`
@@ -15,12 +15,12 @@ const StyledIcon = styled(Icon)`
 `
 
 type HeaderActionItemLinkProps = {
-  href?: string
+  to?: string
   text: string
   iconSrc: string
 }
 
-const HeaderActionItemLink = ({ href, text, iconSrc }: HeaderActionItemLinkProps): ReactElement => {
+const HeaderActionItemLink = ({ to, text, iconSrc }: HeaderActionItemLinkProps): ReactElement => {
   const id = spacesToDashes(text)
 
   const theme = useTheme()
@@ -32,8 +32,8 @@ const HeaderActionItemLink = ({ href, text, iconSrc }: HeaderActionItemLinkProps
 
   return (
     <Tooltip id={id} place={tooltipDirection} tooltipContent={text}>
-      {href ? (
-        <Link to={href} aria-label={text} id={id}>
+      {to ? (
+        <Link to={to} ariaLabel={text} id={id}>
           <StyledIcon src={iconSrc} />
         </Link>
       ) : (
