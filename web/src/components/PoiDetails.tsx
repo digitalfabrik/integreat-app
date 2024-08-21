@@ -17,13 +17,13 @@ import {
 import dimensions from '../constants/dimensions'
 import { helpers } from '../constants/theme'
 import useWindowDimensions from '../hooks/useWindowDimensions'
-import CleanLink from './CleanLink'
 import Collapsible from './Collapsible'
 import ContactItem from './ContactItem'
 import OpeningHours from './OpeningHours'
 import RemoteContent from './RemoteContent'
 import Spacer from './Spacer'
 import Icon from './base/Icon'
+import Link from './base/Link'
 
 const DetailsContainer = styled.div`
   font-family: ${props => props.theme.fonts.web.contentFont};
@@ -91,9 +91,9 @@ const Subheading = styled.div`
   ${helpers.adaptiveFontSize};
 `
 
-const Link = styled(CleanLink)`
+const StyledLink = styled(Link)`
   display: flex;
-  margin-top: 16px;
+  margin-top: 8px;
   gap: 8px;
 `
 
@@ -171,10 +171,10 @@ const PoiDetails = ({ poi, distance, toolbar }: PoiDetailsProps): ReactElement =
             </span>
           </AddressContent>
         </AddressContentWrapper>
-        <Link to={externalMapsLink} newTab>
+        <StyledLink to={externalMapsLink} newTab>
           {!viewportSmall && <LinkLabel>{t('detailsMapLink')}</LinkLabel>}
           <StyledExternalLinkIcon src={ExternalLinkIcon} directionDependent />
-        </Link>
+        </StyledLink>
       </DetailSection>
       {(!!website || !!phoneNumber || !!email) && (
         <>
@@ -210,10 +210,10 @@ const PoiDetails = ({ poi, distance, toolbar }: PoiDetailsProps): ReactElement =
           appointmentOverlayLink={appointmentUrl ?? website}
         />
         {appointmentUrl !== null && (
-          <Link to={appointmentUrl} newTab>
+          <StyledLink to={appointmentUrl} newTab>
             <LinkLabel>{t('makeAppointment')}</LinkLabel>
             <StyledExternalLinkIcon src={ExternalLinkIcon} directionDependent />
-          </Link>
+          </StyledLink>
         )}
       </>
       {content.length > 0 && (

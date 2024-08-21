@@ -1,10 +1,10 @@
 import React, { ReactElement } from 'react'
-import { Link } from 'react-router-dom'
 import styled, { css } from 'styled-components'
 
 import dimensions from '../constants/dimensions'
 import { helpers } from '../constants/theme'
 import Icon from './base/Icon'
+import Link from './base/Link'
 
 const Container = styled.div`
   flex: 1 1 135px;
@@ -97,14 +97,14 @@ const StyledIcon = styled(Icon)`
 
 export type HeaderNavigationItemProps = {
   text: string
-  href: string
+  to: string
   active: boolean
   icon: string
 }
 
-const HeaderNavigationItem = ({ active, text, href, icon }: HeaderNavigationItemProps): ReactElement => (
+const HeaderNavigationItem = ({ active, text, to, icon }: HeaderNavigationItemProps): ReactElement => (
   <Container className='header-navigation-item'>
-    <StyledLink to={href} $active={active}>
+    <StyledLink to={to} $active={active}>
       <Circle>
         <StyledIcon src={icon} />
       </Circle>
