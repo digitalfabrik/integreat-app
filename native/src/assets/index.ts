@@ -3,6 +3,7 @@ import EventThumbnailPlaceholder1 from '../../../assets/event-thumbnail-placehol
 import EventThumbnailPlaceholder2 from '../../../assets/event-thumbnail-placeholder-2.jpg'
 import EventThumbnailPlaceholder3 from '../../../assets/event-thumbnail-placeholder-3.jpg'
 import ArrowBackIcon from '../../../assets/icons/arrow-back.svg'
+import CalendarEventsIcon from '../../../assets/icons/calendar-events.svg'
 import CalendarRecurringIcon from '../../../assets/icons/calendar-recurring.svg'
 import CalendarTodayRecurringIcon from '../../../assets/icons/calendar-today-recurring.svg'
 import CalendarTodayIcon from '../../../assets/icons/calendar-today.svg'
@@ -45,6 +46,7 @@ export {
   CalendarRecurringIcon,
   CalendarTodayIcon,
   CalendarTodayRecurringIcon,
+  CalendarEventsIcon,
   ClockIcon,
   CloseIcon,
   EditLocationIcon,

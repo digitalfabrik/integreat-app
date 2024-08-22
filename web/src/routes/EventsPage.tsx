@@ -6,6 +6,7 @@ import styled from 'styled-components'
 
 import { EVENTS_ROUTE, pathnameFromRouteInformation } from 'shared'
 import { createEventsEndpoint, EventModel, NotFoundError, useLoadFromEndpoint } from 'shared/api'
+import useDateFilter from 'shared/hooks/useDateFilter'
 
 import { CityRouteProps } from '../CityContentSwitcher'
 import { ShrinkIcon, ExpandIcon, CloseIcon } from '../assets'
@@ -27,7 +28,6 @@ import Button from '../components/base/Button'
 import Icon from '../components/base/Icon'
 import dimensions from '../constants/dimensions'
 import { cmsApiBaseUrl } from '../constants/urls'
-import useDateFilter from '../hooks/useDateFilter'
 import usePreviousProp from '../hooks/usePreviousProp'
 import featuredImageToSrcSet from '../utils/featuredImageToSrcSet'
 
@@ -98,7 +98,7 @@ const EventsPage = ({ city, pathname, languageCode, cityCode }: CityRouteProps):
     error: eventsError,
   } = useLoadFromEndpoint(createEventsEndpoint, cmsApiBaseUrl, { city: cityCode, language: languageCode })
 
-  const { fromDate, setFromDate, toDate, setToDate, filteredEvents, fromError, toError } = useDateFilter(events)
+  const { fromDate, setFromDate, toDate, setToDate, filteredEvents, fromDateError, toDateError } = useDateFilter(events)
   const isReset = fromDate === defaultFromDate && toDate === defaultToDate
 
   if (!city) {
@@ -203,8 +203,18 @@ const EventsPage = ({ city, pathname, languageCode, cityCode }: CityRouteProps):
         <DateFilterToggle toggle={toggleDateFilter} setToggleDateFilter={setToggleDateFilter} />
         {toggleDateFilter && (
           <>
-            <CustomDatePicker title={t('from')} value={fromDate} setValue={setFromDate} error={fromError || ''} />
-            <CustomDatePicker title={t('to')} value={toDate} setValue={setToDate} error={toError || ''} />
+            <CustomDatePicker
+              title={t('from')}
+              value={fromDate}
+              setValue={setFromDate}
+              error={(fromDateError as string) || ''}
+            />
+            <CustomDatePicker
+              title={t('to')}
+              value={toDate}
+              setValue={setToDate}
+              error={(toDateError as string) || ''}
+            />
           </>
         )}
       </DateSection>
@@ -217,7 +227,7 @@ const EventsPage = ({ city, pathname, languageCode, cityCode }: CityRouteProps):
           }}>
           <StyledButtonContents>
             <Icon src={CloseIcon} />
-            <span>{`${t('resetFilter')} ${DateTime.fromISO(fromDate || defaultFromDate).toFormat('dd/MM/yy')} - ${DateTime.fromISO(toDate || defaultFromDate).toFormat('dd/MM/yy')}`}</span>
+            <span>{`${t('resetFilter')} ${DateTime.fromISO((fromDate as string) || defaultFromDate).toFormat('dd/MM/yy')} - ${DateTime.fromISO((toDate as string) || defaultFromDate).toFormat('dd/MM/yy')}`}</span>
           </StyledButtonContents>
         </Button>
       )}

@@ -9,18 +9,18 @@ type UseDateFilterReturn = {
   toDate: string
   setToDate: Dispatch<SetStateAction<string>>
   filteredEvents: EventModel[]
-  fromError: string | null
-  toError: string | null
+  fromDateError: string | null
+  toDateError: string | null
 }
 
 const useDateFilter = (events: EventModel[] | null): UseDateFilterReturn => {
   const [fromDate, setFromDate] = useState<string>(DateTime.local().toFormat('yyyy-MM-dd').toLocaleString())
   const [toDate, setToDate] = useState<string>(
-    DateTime.local().plus({ year: 1 }).toFormat('yyyy-MM-dd').toLocaleString(),
+    DateTime.local().plus({ day: 10 }).toFormat('yyyy-MM-dd').toLocaleString(),
   )
   const [filteredEvents, setFilteredEvents] = useState<EventModel[]>([])
-  const [fromError, setFromError] = useState<string | null>(null)
-  const [toError, setToError] = useState<string | null>(null)
+  const [fromDateError, setFromDateError] = useState<string | null>(null)
+  const [toDateError, setToDateError] = useState<string | null>(null)
 
   useEffect(() => {
     const isValidDateFormat = (date: string) => {
@@ -28,23 +28,23 @@ const useDateFilter = (events: EventModel[] | null): UseDateFilterReturn => {
       return dateRegex.test(date)
     }
     const filterByDateRange = (from: string, to: string) => {
-      setToError('')
-      setFromError('')
+      setToDateError('')
+      setFromDateError('')
 
       if (!isValidDateFormat(from)) {
-        setFromError('Invalid `from` date format')
+        setFromDateError('Invalid from date format')
         return []
       }
 
       if (!isValidDateFormat(to)) {
-        setToError('Invalid `to` date format')
+        setToDateError('Invalid to date format')
         return []
       }
       const fromDateTime = DateTime.fromISO(from)
       const toDateTime = DateTime.fromISO(to).endOf('day')
 
       if (fromDateTime > toDateTime) {
-        setFromError('`from` date should be earlier than `to` date')
+        setFromDateError('from date should be earlier than to date')
         return []
       }
       return (
@@ -65,8 +65,8 @@ const useDateFilter = (events: EventModel[] | null): UseDateFilterReturn => {
     toDate,
     setToDate,
     filteredEvents,
-    fromError,
-    toError,
+    fromDateError,
+    toDateError,
   }
 }
 

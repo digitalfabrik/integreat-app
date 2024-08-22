@@ -30,7 +30,6 @@ const StyledInput = styled.input`
       height: 45px;
       border-radius: 50%;
       cursor: pointer;
-      /* transform: scale(1.5); */
       background-color: #e9e8e9;
     }
     &:focus::-webkit-calendar-picker-indicator {

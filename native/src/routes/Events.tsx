@@ -1,12 +1,15 @@
-import React, { ReactElement } from 'react'
+import React, { ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { RefreshControl } from 'react-native'
 import styled from 'styled-components/native'
 
 import { EVENTS_ROUTE, RouteInformationType } from 'shared'
 import { fromError, NotFoundError, CityModel, EventModel } from 'shared/api'
+import useDateFilter from 'shared/hooks/useDateFilter'
 
+import CalendarRangeModal from '../components/CalendarRangeModal'
 import Caption from '../components/Caption'
+import CustomDatePicker from '../components/CustomDatePicker'
 import DatesPageDetail from '../components/DatesPageDetail'
 import EventListItem from '../components/EventListItem'
 import ExportEventButton from '../components/ExportEventButton'
@@ -29,7 +32,14 @@ const Separator = styled.View`
 const PageDetailsContainer = styled.View`
   gap: 8px;
 `
-
+const DateSection = styled.View`
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin: 0px 5px 20px 5px;
+  justify-content: center;
+  align-items: center;
+`
 export type EventsProps = {
   slug?: string
   events: Array<EventModel>
@@ -41,6 +51,8 @@ export type EventsProps = {
 
 const Events = ({ cityModel, language, navigateTo, events, slug, refresh }: EventsProps): ReactElement => {
   const { t } = useTranslation('events')
+  const { fromDate, setFromDate, toDate, setToDate, filteredEvents, fromDateError, toDateError } = useDateFilter(events)
+  const [modalState, setModalState] = useState(false)
 
   if (!cityModel.eventsEnabled) {
     const error = new NotFoundError({
@@ -103,20 +115,47 @@ const Events = ({ cityModel, language, navigateTo, events, slug, refresh }: Even
   }
 
   return (
-    <ListContainer>
-      <List
-        items={events}
-        renderItem={renderEventListItem}
-        Header={
-          <>
-            <Caption title={t('events')} />
-            <Separator />
-          </>
-        }
-        refresh={refresh}
-        noItemsMessage={t('currentlyNoEvents')}
+    <>
+      <CalendarRangeModal
+        closeModal={() => setModalState(false)}
+        title='Select Range'
+        modalVisible={modalState}
+        fromDate={fromDate}
+        toDate={toDate}
+        setToDate={setToDate}
+        setFromDate={setFromDate}
       />
-    </ListContainer>
+      <ListContainer>
+        <List
+          items={filteredEvents}
+          renderItem={renderEventListItem}
+          Header={
+            <>
+              <Caption title={t('events')} />
+              <DateSection>
+                <CustomDatePicker
+                  setModalState={setModalState}
+                  setValue={setFromDate}
+                  title={t('from')}
+                  error={(fromDateError as string) || ''}
+                  value={fromDate}
+                />
+                <CustomDatePicker
+                  setModalState={setModalState}
+                  setValue={setToDate}
+                  title={t('to')}
+                  error={(toDateError as string) || ''}
+                  value={toDate}
+                />
+              </DateSection>
+              <Separator />
+            </>
+          }
+          refresh={refresh}
+          noItemsMessage={t('currentlyNoEvents')}
+        />
+      </ListContainer>
+    </>
   )
 }
 
