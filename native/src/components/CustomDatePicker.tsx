@@ -58,7 +58,13 @@ const CustomDatePicker = ({ title, value, setValue, error, setModalState }: Cust
   <DateContainer>
     <StyledTitle>{title}</StyledTitle>
     <StyledInputWrapper>
-      <Input numberOfLines={1} invalid={false} onChangeText={event => setValue(event)} value={value} />
+      <Input
+        keyboardType='numeric'
+        numberOfLines={1}
+        invalid={false}
+        onChangeText={event => setValue(event)}
+        value={value}
+      />
       <StyledIconButton
         icon={<Icon Icon={CalendarEventsIcon} />}
         accessibilityLabel='calenderEventsIcon'

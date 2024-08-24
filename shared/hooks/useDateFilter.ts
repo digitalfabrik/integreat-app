@@ -22,6 +22,8 @@ const useDateFilter = (events: EventModel[] | null): UseDateFilterReturn => {
   const [fromDateError, setFromDateError] = useState<string | null>(null)
   const [toDateError, setToDateError] = useState<string | null>(null)
 
+  const months = 12
+  const days = 31
   useEffect(() => {
     const isValidDateFormat = (date: string) => {
       const dateRegex = /^\d{4}-\d{2}-\d{2}$/
@@ -30,16 +32,34 @@ const useDateFilter = (events: EventModel[] | null): UseDateFilterReturn => {
     const filterByDateRange = (from: string, to: string) => {
       setToDateError('')
       setFromDateError('')
+      const splitFrom = from.split('-')
+      const splitTo = to.split('-')
 
       if (!isValidDateFormat(from)) {
         setFromDateError('Invalid from date format')
         return []
       }
-
       if (!isValidDateFormat(to)) {
         setToDateError('Invalid to date format')
         return []
       }
+      if (Number(splitFrom[1]) < 1 || Number(splitFrom[1]) > months) {
+        setFromDateError('Invalid from date format')
+        return []
+      }
+      if (Number(splitFrom[2]) < 1 || Number(splitFrom[2]) > days) {
+        setFromDateError('Invalid from date format')
+        return []
+      }
+      if (Number(splitTo[1]) < 1 || Number(splitTo[1]) > months) {
+        setToDateError('Invalid to date format')
+        return []
+      }
+      if (Number(splitTo[2]) < 1 || Number(splitTo[2]) > days) {
+        setToDateError('Invalid to date format')
+        return []
+      }
+
       const fromDateTime = DateTime.fromISO(from)
       const toDateTime = DateTime.fromISO(to).endOf('day')
 

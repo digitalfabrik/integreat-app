@@ -43,28 +43,29 @@ const DateSection = styled.div`
   display: flex;
   flex-direction: row;
   gap: 10px;
-  margin: 0px 5px 20px 5px;
+  margin: 0px 5px 15px 5px;
   justify-content: center;
-  align-items: center;
 
   @media ${dimensions.smallViewport} {
     flex-direction: column;
+    align-items: center;
   }
 `
-const HideDateButton = styled(Button)`
-  display: none;
-  align-self: flex-start;
-  @media ${dimensions.smallViewport} {
-    display: block;
-  }
-`
-const StyledButtonContents = styled.div`
+const StyledButton = styled(Button)`
   display: flex;
+  flex-direction: row;
   align-items: center;
   gap: 5px;
   white-space: nowrap;
   font-weight: bold;
   padding: 5px;
+`
+const HideDateButton = styled(StyledButton)`
+  display: none;
+  align-self: flex-start;
+  @media ${dimensions.smallViewport} {
+    display: flex;
+  }
 `
 
 const DateFilterToggle = ({
@@ -75,10 +76,8 @@ const DateFilterToggle = ({
   setToggleDateFilter: React.Dispatch<React.SetStateAction<boolean>>
 }) => (
   <HideDateButton label='toggleDate' onClick={() => setToggleDateFilter((prev: boolean) => !prev)}>
-    <StyledButtonContents>
-      <Icon src={toggle ? ShrinkIcon : ExpandIcon} />
-      {toggle ? <span>Hide filters</span> : <span>Show filters</span>}
-    </StyledButtonContents>
+    <Icon src={toggle ? ShrinkIcon : ExpandIcon} />
+    {toggle ? <span>Hide filters</span> : <span>Show filters</span>}
   </HideDateButton>
 )
 
@@ -89,7 +88,7 @@ const EventsPage = ({ city, pathname, languageCode, cityCode }: CityRouteProps):
   const navigate = useNavigate()
 
   const defaultFromDate = DateTime.local().toFormat('yyyy-MM-dd').toLocaleString()
-  const defaultToDate = DateTime.local().plus({ year: 1 }).toFormat('yyyy-MM-dd').toLocaleString()
+  const defaultToDate = DateTime.local().plus({ day: 10 }).toFormat('yyyy-MM-dd').toLocaleString()
   const [toggleDateFilter, setToggleDateFilter] = useState(true)
 
   const {
@@ -218,18 +217,16 @@ const EventsPage = ({ city, pathname, languageCode, cityCode }: CityRouteProps):
           </>
         )}
       </DateSection>
-      {!isReset && (
-        <Button
+      {!isReset && toggleDateFilter && (
+        <StyledButton
           label='resetDate'
           onClick={() => {
             setFromDate(defaultFromDate)
             setToDate(defaultToDate)
           }}>
-          <StyledButtonContents>
-            <Icon src={CloseIcon} />
-            <span>{`${t('resetFilter')} ${DateTime.fromISO((fromDate as string) || defaultFromDate).toFormat('dd/MM/yy')} - ${DateTime.fromISO((toDate as string) || defaultFromDate).toFormat('dd/MM/yy')}`}</span>
-          </StyledButtonContents>
-        </Button>
+          <Icon src={CloseIcon} />
+          <span>{`${t('resetFilter')} ${DateTime.fromISO((fromDate as string) || defaultFromDate).toFormat('dd/MM/yy')} - ${DateTime.fromISO((toDate as string) || defaultFromDate).toFormat('dd/MM/yy')}`}</span>
+        </StyledButton>
       )}
       <List noItemsMessage={t('currentlyNoEvents')} items={filteredEvents} renderItem={renderEventListItem} />
     </CityContentLayout>
