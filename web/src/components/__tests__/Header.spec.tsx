@@ -38,10 +38,10 @@ describe('Header', () => {
     const { getByLabelText, getByText } = renderWithRouterAndTheme(
       <Header
         logoHref='/random_route'
-        actionItems={[<HeaderActionItemLink key={0} href='/random_route' text='random route' iconSrc='/icon.jpg' />]}
-        navigationItems={[<HeaderNavigationItem key={0} href='/another_route' text='text1' icon='icon.jpg' active />]}
+        actionItems={[<HeaderActionItemLink key={0} to='/random_route' text='random route' iconSrc='/icon.jpg' />]}
+        navigationItems={[<HeaderNavigationItem key={0} to='/another_route' text='text1' icon='icon.jpg' active />]}
         kebabItems={[
-          <KebabActionItemLink key='location' href='/kebab_route' text='Change Location' iconSrc='icon.jpg' />,
+          <KebabActionItemLink key='location' to='/kebab_route' text='Change Location' iconSrc='icon.jpg' />,
         ]}
         cityName={cityName}
         cityCode='test'
@@ -53,7 +53,6 @@ describe('Header', () => {
     expect(getByLabelText('layout:sideBarOpenAriaLabel')).toBeInTheDocument()
     fireEvent.click(getByLabelText('layout:sideBarOpenAriaLabel'))
     expect(getByText('Change Location').parentElement).toHaveProperty('href', 'http://localhost/kebab_route')
-    expect(getByText('Change Location').parentElement).toHaveProperty('href', 'http://localhost/kebab_route')
     expect(getByText('layout,settings:imprintAndContact')).toHaveProperty('href', 'http://localhost/test/de/disclaimer')
   })
 
@@ -62,10 +61,10 @@ describe('Header', () => {
     const { queryByTestId } = renderWithRouterAndTheme(
       <Header
         logoHref='/random_route'
-        actionItems={[<HeaderActionItemLink key={0} href='/random_route' text='random route' iconSrc='/icon.jpg' />]}
-        navigationItems={[<HeaderNavigationItem key={0} href='/another_route' text='text1' icon='icon.jpg' active />]}
+        actionItems={[<HeaderActionItemLink key={0} to='/random_route' text='random route' iconSrc='/icon.jpg' />]}
+        navigationItems={[<HeaderNavigationItem key={0} to='/another_route' text='text1' icon='icon.jpg' active />]}
         kebabItems={[
-          <KebabActionItemLink key='location' href='/kebab_route' text='Change Locaction' iconSrc='icon.jpg' />,
+          <KebabActionItemLink key='location' to='/kebab_route' text='Change Locaction' iconSrc='icon.jpg' />,
         ]}
         language='de'
       />,

@@ -1,11 +1,12 @@
 import React, { ReactElement } from 'react'
-import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 
 import Icon from './base/Icon'
+import Link from './base/Link'
 
 const StyledLink = styled(Link)`
   display: flex;
+  flex: 1;
   text-decoration: none;
   padding: 24px 0;
   border-bottom: 1px solid ${props => props.theme.colors.themeColor};
@@ -23,27 +24,17 @@ const StyledIcon = styled(Icon)`
 `
 
 type KebabActionItemLinkProps = {
-  href?: string
+  to?: string
   text: string
   iconSrc: string
 }
 
-const KebabActionItemLink = ({ href, text, iconSrc }: KebabActionItemLinkProps): ReactElement => {
-  if (href) {
-    return (
-      <StyledLink to={href} aria-label={text} dir='auto'>
-        <StyledIcon src={iconSrc} />
-        <span>{text}</span>
-      </StyledLink>
-    )
-  }
-  return (
-    // @ts-expect-error wrong types from polymorphic 'as', see https://github.com/styled-components/styled-components/issues/4112
-    <StyledLink as='span' aria-label={text} dir='auto' style={{ flex: 1 }}>
-      <StyledIcon src={iconSrc} />
-      <span>{text}</span>
-    </StyledLink>
-  )
-}
+const KebabActionItemLink = ({ to, text, iconSrc }: KebabActionItemLinkProps): ReactElement => (
+  // @ts-expect-error wrong types from polymorphic 'as', see https://github.com/styled-components/styled-components/issues/4112
+  <StyledLink {...(to ? { to } : { as: 'span' })} aria-label={text} dir='auto'>
+    <StyledIcon src={iconSrc} />
+    <span>{text}</span>
+  </StyledLink>
+)
 
 export default KebabActionItemLink

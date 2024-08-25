@@ -9,6 +9,7 @@ import Portal from './Portal'
 import ToolbarItem from './ToolbarItem'
 import Button from './base/Button'
 import Icon from './base/Icon'
+import Link from './base/Link'
 import Tooltip from './base/Tooltip'
 
 type SharingPopupProps = {
@@ -158,7 +159,7 @@ const CloseButton = styled(Button)`
   display: flex;
 `
 
-const Link = styled.a`
+const StyledLink = styled(Link)`
   background-color: ${props => props.theme.colors.backgroundColor};
   border: none;
   padding: 0;
@@ -220,27 +221,25 @@ const SharingPopup = ({ shareUrl, title, flow, portalNeeded }: SharingPopupProps
           {Backdrop}
           <TooltipContainer $flow={portalNeeded ? 'horizontal' : flow} $active={shareOptionsVisible}>
             <Tooltip id='share-whatsapp' place={tooltipDirection} tooltipContent={t('whatsappTooltip')}>
-              <Link
-                href={`https://api.whatsapp.com/send?text=${shareMessage}%0a${encodedShareUrl}`}
-                target='_blank'
-                aria-label={t('whatsappTooltip')}>
+              <StyledLink
+                to={`https://api.whatsapp.com/send?text=${shareMessage}%0a${encodedShareUrl}`}
+                ariaLabel={t('whatsappTooltip')}>
                 <StyledIcon src={WhatsappIcon} />
-              </Link>
+              </StyledLink>
             </Tooltip>
             <Tooltip id='share-facebook' place={tooltipDirection} tooltipContent={t('facebookTooltip')}>
-              <Link
-                href={`https://www.facebook.com/sharer/sharer.php?u=${encodedShareUrl}&t${shareMessage}`}
-                target='_blank'
-                aria-label={t('facebookTooltip')}>
+              <StyledLink
+                to={`https://www.facebook.com/sharer/sharer.php?u=${encodedShareUrl}&t${shareMessage}`}
+                ariaLabel={t('facebookTooltip')}>
                 <StyledIcon src={FacebookIcon} />
-              </Link>
+              </StyledLink>
             </Tooltip>
             <Tooltip id='share-email' place={tooltipDirection} tooltipContent={t('mailTooltip')}>
-              <Link
-                href={`mailto:?subject=${encodedTitle}&body=${shareMessage} ${encodedShareUrl}`}
-                aria-label={t('mailTooltip')}>
+              <StyledLink
+                to={`mailto:?subject=${encodedTitle}&body=${shareMessage} ${encodedShareUrl}`}
+                ariaLabel={t('mailTooltip')}>
                 <StyledIcon src={MailIcon} />
-              </Link>
+              </StyledLink>
             </Tooltip>
             <Tooltip id='close-button' place={tooltipDirection} tooltipContent={t('closeTooltip')}>
               <CloseButton onClick={() => setShareOptionsVisible(false)} label={t('closeTooltip')}>

@@ -5,8 +5,8 @@ import styled from 'styled-components'
 import { DISCLAIMER_ROUTE, LICENSES_ROUTE, pathnameFromRouteInformation } from 'shared'
 
 import buildConfig from '../constants/buildConfig'
-import CleanLink from './CleanLink'
 import Footer from './Footer'
+import Link from './base/Link'
 
 const SidebarFooterContainer = styled.div`
   width: 100%;
@@ -50,11 +50,11 @@ const CityContentFooter = ({ city, language, mode = 'normal' }: CityContentFoote
 
   const Links = (
     <>
-      <CleanLink to={disclaimerPath}>{t('imprintAndContact')}</CleanLink>
-      <CleanLink to={aboutUrl}>{t('settings:about', { appName: buildConfig().appName })}</CleanLink>
-      <CleanLink to={privacyUrl}>{t('privacy')}</CleanLink>
-      <CleanLink to={licensesPath}>{t('settings:openSourceLicenses')}</CleanLink>
-      {!!accessibilityUrl && <CleanLink to={accessibilityUrl}>{t('accessibility')}</CleanLink>}
+      <Link to={disclaimerPath}>{t('imprintAndContact')}</Link>
+      <Link to={aboutUrl}>{t('settings:about', { appName: buildConfig().appName })}</Link>
+      <Link to={privacyUrl}>{t('privacy')}</Link>
+      <Link to={licensesPath}>{t('settings:openSourceLicenses')}</Link>
+      {!!accessibilityUrl && <Link to={accessibilityUrl}>{t('accessibility')}</Link>}
     </>
   )
 
