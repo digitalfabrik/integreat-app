@@ -1,14 +1,17 @@
 import { DateTime } from 'luxon'
 import React, { ReactElement, useEffect } from 'react'
+import { useTranslation } from 'react-i18next'
+import { Modal } from 'react-native'
 import DateTimePicker, { DateType } from 'react-native-ui-datepicker'
 import styled from 'styled-components/native'
 
-import Modal from './Modal'
+import Caption from './Caption'
 import TextButton from './base/TextButton'
 
 const DatePickerWrapper = styled.View`
   background-color: ${props => props.theme.colors.textDecorationColor};
   border-radius: 10px;
+  margin: 228px 10px 0;
 `
 const StyledView = styled.View`
   gap: 8px;
@@ -23,7 +26,6 @@ const StyledTextButton = styled(TextButton)`
 export type CalendarViewerProps = {
   modalVisible: boolean
   closeModal: () => void
-  title: string
   fromDate: string
   toDate: string
   setFromDate: React.Dispatch<React.SetStateAction<string>>
@@ -33,7 +35,6 @@ export type CalendarViewerProps = {
 const CalendarRangeModal = ({
   modalVisible,
   closeModal,
-  title,
   fromDate,
   toDate,
   setFromDate,
@@ -48,6 +49,7 @@ const CalendarRangeModal = ({
     startDate: undefined,
     endDate: undefined,
   })
+  const { t } = useTranslation('events')
 
   useEffect(() => {
     if (fromDate.length === DateFormat.length && toDate.length === DateFormat.length) {
@@ -63,8 +65,16 @@ const CalendarRangeModal = ({
   }, [fromDate, toDate])
 
   return (
-    <Modal modalVisible={modalVisible} closeModal={closeModal} headerTitle={title}>
+    <Modal
+      style={{ margin: 0 }}
+      animationType='slide'
+      transparent
+      visible={modalVisible}
+      onRequestClose={() => {
+        closeModal()
+      }}>
       <DatePickerWrapper>
+        <Caption title={t('select_range')} />
         <DateTimePicker
           mode='range'
           startDate={range.startDate}
@@ -88,7 +98,7 @@ const CalendarRangeModal = ({
               }
               closeModal()
             }}
-            text='Cancel'
+            text={t('cancel')}
             type='clear'
           />
           <StyledTextButton
@@ -99,7 +109,7 @@ const CalendarRangeModal = ({
               }
               closeModal()
             }}
-            text='Ok'
+            text={t('ok')}
             type='clear'
           />
         </StyledView>

@@ -1,3 +1,4 @@
+import { TFunction } from 'i18next'
 import { DateTime } from 'luxon'
 import React, { ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -43,7 +44,7 @@ const DateSection = styled.div`
   display: flex;
   flex-direction: row;
   gap: 10px;
-  margin: 0px 5px 15px 5px;
+  margin: 0 5px 15px;
   justify-content: center;
 
   @media ${dimensions.smallViewport} {
@@ -63,6 +64,7 @@ const StyledButton = styled(Button)`
 const HideDateButton = styled(StyledButton)`
   display: none;
   align-self: flex-start;
+
   @media ${dimensions.smallViewport} {
     display: flex;
   }
@@ -71,13 +73,15 @@ const HideDateButton = styled(StyledButton)`
 const DateFilterToggle = ({
   toggle,
   setToggleDateFilter,
+  t,
 }: {
   toggle: boolean
   setToggleDateFilter: React.Dispatch<React.SetStateAction<boolean>>
+  t: TFunction<'events', undefined>
 }) => (
   <HideDateButton label='toggleDate' onClick={() => setToggleDateFilter((prev: boolean) => !prev)}>
     <Icon src={toggle ? ShrinkIcon : ExpandIcon} />
-    {toggle ? <span>Hide filters</span> : <span>Show filters</span>}
+    {toggle ? <span>{t('hide_filters')}</span> : <span>{t('show_filters')}</span>}
   </HideDateButton>
 )
 
@@ -97,7 +101,10 @@ const EventsPage = ({ city, pathname, languageCode, cityCode }: CityRouteProps):
     error: eventsError,
   } = useLoadFromEndpoint(createEventsEndpoint, cmsApiBaseUrl, { city: cityCode, language: languageCode })
 
-  const { fromDate, setFromDate, toDate, setToDate, filteredEvents, fromDateError, toDateError } = useDateFilter(events)
+  const { fromDate, setFromDate, toDate, setToDate, filteredEvents, fromDateError, toDateError } = useDateFilter(
+    events,
+    key => t(key),
+  )
   const isReset = fromDate === defaultFromDate && toDate === defaultToDate
 
   if (!city) {
@@ -199,7 +206,7 @@ const EventsPage = ({ city, pathname, languageCode, cityCode }: CityRouteProps):
       <Helmet pageTitle={pageTitle} languageChangePaths={languageChangePaths} cityModel={city} />
       <Caption title={t('events')} />
       <DateSection>
-        <DateFilterToggle toggle={toggleDateFilter} setToggleDateFilter={setToggleDateFilter} />
+        <DateFilterToggle toggle={toggleDateFilter} setToggleDateFilter={setToggleDateFilter} t={t} />
         {toggleDateFilter && (
           <>
             <CustomDatePicker

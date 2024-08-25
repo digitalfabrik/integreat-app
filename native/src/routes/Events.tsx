@@ -41,7 +41,7 @@ const DateSection = styled.View`
   display: flex;
   flex-direction: column;
   gap: 12px;
-  margin: 0px 5px 15px 5px;
+  margin: 0 5px 15px;
   justify-content: center;
   align-items: center;
 `
@@ -56,7 +56,7 @@ const StyledText = styled(Text)`
   font-weight: bold;
   padding: 5px;
 `
-export type EventsProps = {
+type EventsProps = {
   slug?: string
   events: Array<EventModel>
   cityModel: CityModel
@@ -64,11 +64,18 @@ export type EventsProps = {
   navigateTo: (routeInformation: RouteInformationType) => void
   refresh: () => void
 }
-export type ResetFilterTextProps = {
+
+type ResetFilterTextProps = {
   fromDate: string
   toDate: string
   defaultFromDate: string
   defaultToDate: string
+  t: TFunction<'events', undefined>
+}
+
+type DateFilterToggleProps = {
+  toggle: boolean
+  setToggleDateFilter: React.Dispatch<React.SetStateAction<boolean>>
   t: TFunction<'events', undefined>
 }
 const ResetFilterText = ({ fromDate, toDate, defaultFromDate, defaultToDate, t }: ResetFilterTextProps) => {
@@ -81,21 +88,18 @@ const ResetFilterText = ({ fromDate, toDate, defaultFromDate, defaultToDate, t }
   return <StyledText>{Title}</StyledText>
 }
 
-const DateFilterToggle = ({
-  toggle,
-  setToggleDateFilter,
-}: {
-  toggle: boolean
-  setToggleDateFilter: React.Dispatch<React.SetStateAction<boolean>>
-}) => (
+const DateFilterToggle = ({ toggle, setToggleDateFilter, t }: DateFilterToggleProps) => (
   <StyledButton style={{ alignSelf: 'flex-start' }} onPress={() => setToggleDateFilter((prev: boolean) => !prev)}>
     <Icon Icon={toggle ? ShrinkIcon : ExpandIcon} />
-    {toggle ? <StyledText>Hide filters</StyledText> : <StyledText>Show filters</StyledText>}
+    {toggle ? <StyledText>{t('hide_filters')}</StyledText> : <StyledText>{t('show_filters')}</StyledText>}
   </StyledButton>
 )
 const Events = ({ cityModel, language, navigateTo, events, slug, refresh }: EventsProps): ReactElement => {
   const { t } = useTranslation('events')
-  const { fromDate, setFromDate, toDate, setToDate, filteredEvents, fromDateError, toDateError } = useDateFilter(events)
+  const { fromDate, setFromDate, toDate, setToDate, filteredEvents, fromDateError, toDateError } = useDateFilter(
+    events,
+    key => t(key),
+  )
   const [modalState, setModalState] = useState(false)
   const defaultFromDate = DateTime.local().toFormat('yyyy-MM-dd').toLocaleString()
   const defaultToDate = DateTime.local().plus({ day: 10 }).toFormat('yyyy-MM-dd').toLocaleString()
@@ -166,7 +170,6 @@ const Events = ({ cityModel, language, navigateTo, events, slug, refresh }: Even
     <>
       <CalendarRangeModal
         closeModal={() => setModalState(false)}
-        title='Select Range'
         modalVisible={modalState}
         fromDate={fromDate}
         toDate={toDate}
@@ -181,7 +184,7 @@ const Events = ({ cityModel, language, navigateTo, events, slug, refresh }: Even
             <>
               <Caption title={t('events')} />
               <DateSection>
-                <DateFilterToggle toggle={toggleDateFilter} setToggleDateFilter={setToggleDateFilter} />
+                <DateFilterToggle t={t} toggle={toggleDateFilter} setToggleDateFilter={setToggleDateFilter} />
                 {toggleDateFilter && (
                   <>
                     <CustomDatePicker

@@ -1,3 +1,4 @@
+import { DateTime } from 'luxon'
 import React, { ReactElement } from 'react'
 import styled from 'styled-components/native'
 
@@ -9,14 +10,14 @@ const DateContainer = styled.View`
   width: fit-content;
   position: relative;
 `
-const Input = styled.TextInput<{ numberOfLines: number; invalid: boolean }>`
+const Input = styled.TextInput`
   padding: 8px;
-  width: 80%;
+  /* width: 80%; */
 `
 const StyledInputWrapper = styled.View`
   min-width: 316px;
   height: 56px;
-  padding: 0 12px 0 16px;
+  padding: 0 16px;
   border-radius: 8px;
   border-color: ${props => props.theme.colors.themeColorLight};
   border-width: 3px;
@@ -49,22 +50,26 @@ const StyledError = styled.Text`
 `
 type CustomDatePickerProps = {
   title: string
-  value?: string
+  value: string
   setValue: React.Dispatch<React.SetStateAction<string>>
   error?: string
   setModalState: React.Dispatch<React.SetStateAction<boolean>>
+}
+const safeDate = (value: string, dateformat: 0 | 1) => {
+  try {
+    if (dateformat) {
+      return DateTime.fromFormat(value, 'dd/MM/yyyy').toFormat('yyyy-MM-dd')
+    }
+    return DateTime.fromISO(value).toFormat('dd/MM/yyyy')
+  } catch (e) {
+    return value
+  }
 }
 const CustomDatePicker = ({ title, value, setValue, error, setModalState }: CustomDatePickerProps): ReactElement => (
   <DateContainer>
     <StyledTitle>{title}</StyledTitle>
     <StyledInputWrapper>
-      <Input
-        keyboardType='numeric'
-        numberOfLines={1}
-        invalid={false}
-        onChangeText={event => setValue(event)}
-        value={value}
-      />
+      <Input keyboardType='numeric' onChangeText={event => setValue(safeDate(event, 1))} value={safeDate(value, 0)} />
       <StyledIconButton
         icon={<Icon Icon={CalendarEventsIcon} />}
         accessibilityLabel='calenderEventsIcon'
