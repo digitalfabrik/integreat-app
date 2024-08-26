@@ -1,0 +1,5 @@
+issue_key: 2852
+show_in_stores: false
+platforms: # relevant platforms, possible values: web, android and ios
+  - web
+en: Disabling Pdf for some languages due to a problem in the CMS.
