@@ -118,6 +118,7 @@ class EventModelBuilder {
                     <img src='${resourceUrl2}'/>`,
             thumbnail,
             featuredImage: null,
+            locationPath: '/testumgebung/de/locations/testort/',
           }),
           resources: {
             [resourceUrl1]: this.createResource(resourceUrl1, index, lastUpdate),

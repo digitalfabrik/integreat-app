@@ -14,6 +14,7 @@ class EventModel extends ExtendedPageModel {
   _location: LocationModel<number | null> | null
   _excerpt: string
   _featuredImage: FeaturedImageModel | null
+  _locationPath: string | null
 
   constructor(params: {
     path: string
@@ -26,14 +27,16 @@ class EventModel extends ExtendedPageModel {
     availableLanguages: Record<string, string>
     lastUpdate: DateTime
     featuredImage: FeaturedImageModel | null
+    locationPath: string | null
   }) {
-    const { date, location, excerpt, featuredImage, ...other } = params
+    const { date, location, excerpt, featuredImage, locationPath, ...other } = params
     super(other)
     this._date = date
     this._location = location
     // Remove carriage returns that break e.g. ical
     this._excerpt = decodeHTML(excerpt).replace(/\r/g, '').trim()
     this._featuredImage = featuredImage
+    this._locationPath = locationPath
   }
 
   get date(): DateModel {
@@ -50,6 +53,10 @@ class EventModel extends ExtendedPageModel {
 
   get featuredImage(): FeaturedImageModel | null {
     return this._featuredImage
+  }
+
+  get locationPath(): string | null {
+    return this._locationPath
   }
 
   toICal(baseUrl: string, appName: string, recurring: boolean): string {

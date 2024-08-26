@@ -117,6 +117,7 @@ export type JsonEventType = {
   location: JsonLocationType<number | null>
   featured_image: JsonFeaturedImageType | null | undefined
   recurrence_rule?: string | null
+  location_path: string | null
 }
 export type JsonTunewsType = {
   id: number
