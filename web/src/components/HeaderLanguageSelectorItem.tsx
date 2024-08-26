@@ -44,7 +44,10 @@ const HeaderLanguageSelectorItem = ({
     }
 
     return (
-      <HeaderActionItemDropDown iconSrc={LanguageIcon} text={t('changeLanguage')}>
+      <HeaderActionItemDropDown
+        iconSrc={LanguageIcon}
+        text={t('changeLanguage')}
+        innerText={selectorItems.find(item => item.code === activeItemCode)?.name}>
         {renderItem}
       </HeaderActionItemDropDown>
     )

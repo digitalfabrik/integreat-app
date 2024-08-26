@@ -78,6 +78,6 @@ describe('PoisPage', () => {
     expect(getAllByText('English')[0]).toHaveAttribute('href', poi0.availableLanguages.en)
     expect(getAllByText('Deutsch')[0]).toHaveAttribute('href', poi0.availableLanguages.de)
     // Pathname is not correctly updated, therefore the pathname does not include the slug
-    expect(getAllByText('اَللُّغَةُ اَلْعَرَبِيَّة')[0]).toHaveAttribute('href', '/augsburg/ar/locations')
+    expect(getAllByText('اَللُّغَةُ اَلْعَرَبِيَّة')[1]).toHaveAttribute('href', '/augsburg/ar/locations')
   })
 })
