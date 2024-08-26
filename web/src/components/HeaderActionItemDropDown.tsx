@@ -12,11 +12,28 @@ const StyledIcon = styled(Icon)`
   width: 28px;
   height: 28px;
 `
+const ActionBox = styled(Button)`
+  padding: 4px 6px;
+  display: flex;
+  border: 1px solid ${props => props.theme.colors.textColor};
+  border-radius: 4px;
+  justify-content: center;
+  align-items: center;
+  flex-direction: ${props => (props.theme.contentDirection === 'rtl' ? 'row-reverse' : 'row')};
+  gap: 4px;
+`
+
+const StyledText = styled.span`
+  font-weight: bold;
+  font-size: 14px;
+  letter-spacing: 1.25px;
+`
 
 type HeaderActionItemDropDownProps = {
   children: (closeDropDown: () => void) => ReactNode
   iconSrc: string
   text: string
+  innerText?: string
 }
 
 /**
@@ -24,7 +41,12 @@ type HeaderActionItemDropDownProps = {
  * Header. Once the user clicks outside, the node is hidden again. Additionally, the inner node gets a
  * closeDropDownCallback through its props to close the dropDown and hide itself.
  */
-const HeaderActionItemDropDown = ({ iconSrc, text, children }: HeaderActionItemDropDownProps): ReactElement => {
+const HeaderActionItemDropDown = ({
+  iconSrc,
+  text,
+  innerText,
+  children,
+}: HeaderActionItemDropDownProps): ReactElement => {
   const [dropDownActive, setDropDownActive] = useState(false)
 
   const toggleDropDown = (): void => {
@@ -43,9 +65,16 @@ const HeaderActionItemDropDown = ({ iconSrc, text, children }: HeaderActionItemD
   return (
     <div ref={wrapperRef}>
       <Tooltip id={id} tooltipContent={text}>
-        <Button label={text} onClick={toggleDropDown} id={id}>
-          <StyledIcon src={iconSrc} />
-        </Button>
+        {innerText ? (
+          <ActionBox label={text} onClick={toggleDropDown}>
+            <StyledIcon src={iconSrc} />
+            <StyledText>{innerText}</StyledText>
+          </ActionBox>
+        ) : (
+          <Button label={text} onClick={toggleDropDown} id={id}>
+            <StyledIcon src={iconSrc} />
+          </Button>
+        )}
       </Tooltip>
       <DropDownContainer
         data-testid='headerActionItemDropDown'
