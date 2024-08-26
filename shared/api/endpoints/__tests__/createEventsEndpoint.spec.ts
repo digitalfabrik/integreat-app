@@ -71,6 +71,7 @@ describe('events', () => {
       ],
     },
     recurrence_rule: rrule,
+    location_path: '/testumgebung/de/locations/testort/',
   })
 
   const createEventModel = (allDay: boolean, startDate: DateTime, endDate: DateTime, rrule?: string): EventModel =>
@@ -121,6 +122,7 @@ describe('events', () => {
           height: 500,
         },
       }),
+      locationPath: '/testumgebung/de/locations/testort/',
     })
 
   const event1 = createEvent(false, '2016-01-31T10:00:00+01:00', '2016-01-31T13:00:00+01:00')

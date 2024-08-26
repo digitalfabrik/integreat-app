@@ -15,7 +15,7 @@ describe('PageDetail', () => {
   })
 
   it('should render correctly with a path', () => {
-    const { getByText, getByRole, debug } = renderWithRouterAndTheme(
+    const { getByText, getByRole } = renderWithRouterAndTheme(
       <PageDetail identifier={identifier} information={information} pathToInformation={path} />,
     )
     expect(getByText(`${identifier}:`)).toBeDefined()

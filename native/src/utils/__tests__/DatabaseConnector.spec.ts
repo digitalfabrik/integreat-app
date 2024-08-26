@@ -265,6 +265,7 @@ describe('DatabaseConnector', () => {
         location: null,
         lastUpdate: DateTime.fromISO('2022-06-29T09:19:57.443+02:00'),
         featuredImage: null,
+        locationPath: '/testumgebung/de/locations/testort/',
       })
 
       expect(event.date.toFormattedString('de', false)).toBe('7. Mai 2024 10:00 - 12:00')
