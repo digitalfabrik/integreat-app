@@ -126,7 +126,13 @@ const EventsPage = ({ city, pathname, languageCode, cityCode }: CityRouteProps):
           BeforeContent={
             <Spacing $content={content} $lastUpdate={lastUpdate}>
               <DatesPageDetail date={date} languageCode={languageCode} />
-              {location && <PageDetail identifier={t('address')} information={location.fullAddress} />}
+              {location && (
+                <PageDetail
+                  identifier={t('address')}
+                  information={location.fullAddress}
+                  pathToInformation={event.locationPath}
+                />
+              )}
             </Spacing>
           }
           Footer={<ExportEventButton event={event} />}
