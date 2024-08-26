@@ -16,6 +16,8 @@ import { RoutePatterns } from '../index'
 jest.mock('maplibre-gl')
 jest.mock('react-inlinesvg')
 jest.mock('react-i18next')
+jest.mock('react-tooltip')
+
 jest.mock('shared/api', () => ({
   ...jest.requireActual('shared/api'),
   useLoadFromEndpoint: jest.fn(),
