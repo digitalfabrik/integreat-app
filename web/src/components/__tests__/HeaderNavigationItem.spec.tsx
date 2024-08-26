@@ -12,7 +12,7 @@ describe('HeaderNavigationItem', () => {
   const text = 'Kategorien'
 
   it('should render an ActiveNavigationItem', () => {
-    const { getByText } = renderWithRouterAndTheme(<HeaderNavigationItem text={text} active href={href} icon='icon' />)
+    const { getByText } = renderWithRouterAndTheme(<HeaderNavigationItem text={text} active to={href} icon='icon' />)
 
     const textNode = getByText(text)
     expect(textNode).toBeTruthy()

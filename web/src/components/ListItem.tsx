@@ -1,7 +1,7 @@
 import React, { ReactElement, ReactNode } from 'react'
 import styled from 'styled-components'
 
-import { StyledCleanLink } from './CleanLink'
+import Link from './base/Link'
 
 const ListItemContainer = styled.article`
   border-bottom: 2px solid ${props => props.theme.colors.themeColor};
@@ -32,7 +32,8 @@ const Title = styled.div`
   font-weight: 700;
 `
 
-const FullWidthLink = styled(StyledCleanLink)`
+const FullWidthLink = styled(Link)`
+  display: flex;
   flex: 1;
 `
 

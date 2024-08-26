@@ -4,7 +4,7 @@ import React from 'react'
 import { CategoryModel } from 'shared/api'
 
 import { cmsApiBaseUrl } from '../../constants/urls'
-import { renderWithTheme } from '../../testing/render'
+import { renderWithRouterAndTheme } from '../../testing/render'
 import CategoriesToolbar from '../CategoriesToolbar'
 
 jest.mock('react-inlinesvg')
@@ -46,7 +46,7 @@ describe('CategoriesToolbar', () => {
   it('should use the correct PDF URL for a root category', () => {
     const cityCode = 'augsburg'
     const languageCode = 'de'
-    const { getByText } = renderWithTheme(
+    const { getByText } = renderWithRouterAndTheme(
       <CategoriesToolbar category={rootCategory} cityCode={cityCode} languageCode={languageCode} pageTitle='Test' />,
     )
     const pdfUrlLink = getByText('categories:createPdf').closest('a')
@@ -57,7 +57,7 @@ describe('CategoriesToolbar', () => {
   it('should use the correct PDF URL for a non-root category', () => {
     const cityCode = 'augsburg'
     const languageCode = 'de'
-    const { getByText } = renderWithTheme(
+    const { getByText } = renderWithRouterAndTheme(
       <CategoriesToolbar category={childCategory} cityCode={cityCode} languageCode={languageCode} pageTitle='Test' />,
     )
     const pdfUrlLink = getByText('categories:createPdf').closest('a')
@@ -67,5 +67,16 @@ describe('CategoriesToolbar', () => {
         childCategory.path,
       )}`,
     )
+  })
+
+  it('should prevent PDF URL for RTL Languages', () => {
+    const cityCode = 'augsburg'
+    const languageCode = 'ar'
+    const { getByText } = renderWithRouterAndTheme(
+      <CategoriesToolbar category={rootCategory} cityCode={cityCode} languageCode={languageCode} pageTitle='Test' />,
+    )
+    const pdfUrlLink = getByText('categories:createPdf').closest('a')
+
+    expect(pdfUrlLink?.href).toBeFalsy()
   })
 })
