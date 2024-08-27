@@ -11,7 +11,7 @@ const DateContainer = styled.div`
 const StyledInput = styled.input`
   min-width: 316px;
   height: 56px;
-  padding: 0 8px;
+  padding: 0 16px;
   border-radius: 8px;
   border-color: ${props => props.theme.colors.themeColorLight};
   border-width: 3px;
@@ -26,8 +26,8 @@ const StyledInput = styled.input`
     &::-webkit-calendar-picker-indicator {
       background: url(${CalendarEventsIcon}) no-repeat center center;
       background-size: 55px;
-      width: 45px;
-      height: 45px;
+      width: 40px;
+      height: 40px;
       border-radius: 50%;
       cursor: pointer;
       background-color: #e9e8e9;

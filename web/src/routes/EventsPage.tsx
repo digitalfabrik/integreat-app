@@ -1,6 +1,5 @@
-import { TFunction } from 'i18next'
 import { DateTime } from 'luxon'
-import React, { ReactElement, useState } from 'react'
+import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useNavigate, useParams } from 'react-router-dom'
 import styled from 'styled-components'
@@ -10,13 +9,12 @@ import { createEventsEndpoint, EventModel, NotFoundError, useLoadFromEndpoint } 
 import useDateFilter from 'shared/hooks/useDateFilter'
 
 import { CityRouteProps } from '../CityContentSwitcher'
-import { ShrinkIcon, ExpandIcon, CloseIcon } from '../assets'
 import Caption from '../components/Caption'
 import CityContentLayout, { CityContentLayoutProps } from '../components/CityContentLayout'
 import CityContentToolbar from '../components/CityContentToolbar'
-import CustomDatePicker from '../components/CustomDatePicker'
 import DatesPageDetail from '../components/DatesPageDetail'
 import EventListItem from '../components/EventListItem'
+import EventsDateFilter from '../components/EventsDateFilter'
 import ExportEventButton from '../components/ExportEventButton'
 import FailureSwitcher from '../components/FailureSwitcher'
 import Helmet from '../components/Helmet'
@@ -25,9 +23,6 @@ import List from '../components/List'
 import LoadingSpinner from '../components/LoadingSpinner'
 import Page, { THUMBNAIL_WIDTH } from '../components/Page'
 import PageDetail from '../components/PageDetail'
-import Button from '../components/base/Button'
-import Icon from '../components/base/Icon'
-import dimensions from '../constants/dimensions'
 import { cmsApiBaseUrl } from '../constants/urls'
 import usePreviousProp from '../hooks/usePreviousProp'
 import featuredImageToSrcSet from '../utils/featuredImageToSrcSet'
@@ -40,60 +35,11 @@ const Spacing = styled.div<{ $content: string; $lastUpdate?: DateTime }>`
   gap: 8px;
 `
 
-const DateSection = styled.div`
-  display: flex;
-  flex-direction: row;
-  gap: 10px;
-  margin: 0 5px 15px;
-  justify-content: center;
-
-  @media ${dimensions.smallViewport} {
-    flex-direction: column;
-    align-items: center;
-  }
-`
-const StyledButton = styled(Button)`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  gap: 5px;
-  white-space: nowrap;
-  font-weight: bold;
-  padding: 5px;
-`
-const HideDateButton = styled(StyledButton)`
-  display: none;
-  align-self: flex-start;
-
-  @media ${dimensions.smallViewport} {
-    display: flex;
-  }
-`
-
-const DateFilterToggle = ({
-  toggle,
-  setToggleDateFilter,
-  t,
-}: {
-  toggle: boolean
-  setToggleDateFilter: React.Dispatch<React.SetStateAction<boolean>>
-  t: TFunction<'events', undefined>
-}) => (
-  <HideDateButton label='toggleDate' onClick={() => setToggleDateFilter((prev: boolean) => !prev)}>
-    <Icon src={toggle ? ShrinkIcon : ExpandIcon} />
-    {toggle ? <span>{t('hide_filters')}</span> : <span>{t('show_filters')}</span>}
-  </HideDateButton>
-)
-
 const EventsPage = ({ city, pathname, languageCode, cityCode }: CityRouteProps): ReactElement | null => {
   const previousPathname = usePreviousProp({ prop: pathname })
   const { eventId } = useParams()
   const { t } = useTranslation('events')
   const navigate = useNavigate()
-
-  const defaultFromDate = DateTime.local().toFormat('yyyy-MM-dd').toLocaleString()
-  const defaultToDate = DateTime.local().plus({ day: 10 }).toFormat('yyyy-MM-dd').toLocaleString()
-  const [toggleDateFilter, setToggleDateFilter] = useState(true)
 
   const {
     data: events,
@@ -105,7 +51,6 @@ const EventsPage = ({ city, pathname, languageCode, cityCode }: CityRouteProps):
     events,
     key => t(key),
   )
-  const isReset = fromDate === defaultFromDate && toDate === defaultToDate
 
   if (!city) {
     return null
@@ -205,36 +150,14 @@ const EventsPage = ({ city, pathname, languageCode, cityCode }: CityRouteProps):
     <CityContentLayout isLoading={false} {...locationLayoutParams}>
       <Helmet pageTitle={pageTitle} languageChangePaths={languageChangePaths} cityModel={city} />
       <Caption title={t('events')} />
-      <DateSection>
-        <DateFilterToggle toggle={toggleDateFilter} setToggleDateFilter={setToggleDateFilter} t={t} />
-        {toggleDateFilter && (
-          <>
-            <CustomDatePicker
-              title={t('from')}
-              value={fromDate}
-              setValue={setFromDate}
-              error={(fromDateError as string) || ''}
-            />
-            <CustomDatePicker
-              title={t('to')}
-              value={toDate}
-              setValue={setToDate}
-              error={(toDateError as string) || ''}
-            />
-          </>
-        )}
-      </DateSection>
-      {!isReset && toggleDateFilter && (
-        <StyledButton
-          label='resetDate'
-          onClick={() => {
-            setFromDate(defaultFromDate)
-            setToDate(defaultToDate)
-          }}>
-          <Icon src={CloseIcon} />
-          <span>{`${t('resetFilter')} ${DateTime.fromISO((fromDate as string) || defaultFromDate).toFormat('dd/MM/yy')} - ${DateTime.fromISO((toDate as string) || defaultFromDate).toFormat('dd/MM/yy')}`}</span>
-        </StyledButton>
-      )}
+      <EventsDateFilter
+        fromDate={fromDate}
+        setFromDate={setFromDate}
+        toDate={toDate}
+        setToDate={setToDate}
+        fromDateError={fromDateError}
+        toDateError={toDateError}
+      />
       <List noItemsMessage={t('currentlyNoEvents')} items={filteredEvents} renderItem={renderEventListItem} />
     </CityContentLayout>
   )

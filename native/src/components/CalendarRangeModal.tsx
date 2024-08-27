@@ -7,6 +7,7 @@ import styled from 'styled-components/native'
 
 import { commonLightColors } from 'build-configs/common/theme/colors'
 
+import { getMarkedDates } from '../utils/calendarRangeUtils'
 import Caption from './Caption'
 import TextButton from './base/TextButton'
 
@@ -66,12 +67,6 @@ const CalendarRangeModal = ({
     }
   }, [fromDate, toDate])
 
-  type MarkedDateType = {
-    selected: boolean
-    startingDay?: boolean
-    endingDay?: boolean
-  }
-
   const handleDayPress = (day: DayProps) => {
     if (!range.startDate) {
       setRange({ startDate: day.dateString, endDate: '' })
@@ -80,50 +75,6 @@ const CalendarRangeModal = ({
     } else {
       setRange({ startDate: day.dateString, endDate: '' })
     }
-  }
-
-  const getMarkedDates = () => {
-    const markedDateStyling = {
-      color: '#FBDA16',
-      textColor: '#000',
-    }
-
-    const markedDates: Record<string, MarkedDateType> = {}
-
-    if (range.startDate) {
-      markedDates[range.startDate] = {
-        selected: true,
-        startingDay: true,
-        endingDay: range.startDate === range.endDate,
-        ...markedDateStyling,
-      }
-    }
-
-    if (range.endDate && range.startDate !== range.endDate) {
-      markedDates[range.endDate] = {
-        selected: true,
-        endingDay: true,
-        ...markedDateStyling,
-      }
-    }
-
-    if (range.startDate && range.endDate && range.startDate !== range.endDate) {
-      const start = new Date(range.startDate)
-      const end = new Date(range.endDate)
-
-      while (start <= end) {
-        const dateString = start.toISOString().split('T')[0]
-        if (dateString !== range.startDate && dateString !== range.endDate) {
-          markedDates[dateString || 0] = {
-            selected: true,
-            ...markedDateStyling,
-          }
-        }
-        start.setDate(start.getDate() + 1)
-      }
-    }
-
-    return markedDates
   }
 
   return (
@@ -139,7 +90,7 @@ const CalendarRangeModal = ({
         <Caption title={t('select_range')} />
         <Calendar
           markingType='period'
-          markedDates={getMarkedDates()}
+          markedDates={getMarkedDates(range.startDate, range.endDate)}
           onDayPress={handleDayPress}
           theme={{
             calendarBackground: commonLightColors.textDecorationColor,
