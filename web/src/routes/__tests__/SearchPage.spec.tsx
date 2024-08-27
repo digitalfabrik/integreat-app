@@ -13,6 +13,8 @@ import { RoutePatterns } from '../index'
 jest.mock('react-inlinesvg')
 jest.mock('react-i18next')
 jest.mock('../../hooks/useAllPossibleSearchResults')
+jest.mock('react-tooltip')
+
 jest.mock('shared', () => ({
   ...jest.requireActual('shared'),
   useSearch: (results: SearchResult[], query: string) => (query === 'no results, please' ? [] : results),
