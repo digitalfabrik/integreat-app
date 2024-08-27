@@ -70,7 +70,7 @@ const CustomDatePicker = ({ title, value, setValue, error }: CustomDatePickerPro
   return (
     <DateContainer>
       <StyledTitle>{title}</StyledTitle>
-      <StyledInput type='date' value={value} onChange={handleDateChange} />
+      <StyledInput alt='Date-input' type='date' value={value} onChange={handleDateChange} />
       {!!error && <StyledError>{error}</StyledError>}
     </DateContainer>
   )

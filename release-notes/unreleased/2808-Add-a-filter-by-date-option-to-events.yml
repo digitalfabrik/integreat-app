@@ -1,0 +1,8 @@
+issue_key: 2808
+show_in_stores: True
+platforms: # relevant platforms, possible values: web, android and ios
+  - web
+  - android
+  - ios
+en: Added a new date filter to easily find events
+de: Ein neuer Datumsfilter wurde hinzugefügt, um Ereignisse einfach zu finden

@@ -3,7 +3,7 @@ import React from 'react'
 import render from '../../testing/render'
 import CustomDatePicker from '../CustomDatePicker'
 
-describe('CalendarRangeModal', () => {
+describe('CustomDatePicker_native', () => {
   const setValue = jest.fn()
   const setModalState = jest.fn()
   const testDateIsoFormat = '2024-08-26'
@@ -22,7 +22,6 @@ describe('CalendarRangeModal', () => {
 
   it('should convert ISO date to EU format in input', () => {
     const { getByTestId } = renderCustomDatePicker()
-    console.log(getByTestId('DatePicker-input').props.value)
     expect(getByTestId('DatePicker-input').props.value).toBe(testDateEuFormat)
   })
 })

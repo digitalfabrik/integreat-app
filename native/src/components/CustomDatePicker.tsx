@@ -35,7 +35,7 @@ const StyledTitle = styled.Text`
   background-color: ${props => props.theme.colors.backgroundColor};
   position: absolute;
   top: -12px;
-  left: ${props => (props.theme.contentDirection === 'rtl' ? 'auto' : '10px')};
+  left: ${props => (props.theme.contentDirection === 'rtl' ? 'auto' : '12px')};
   right: ${props => (props.theme.contentDirection === 'rtl' ? '12px' : 'auto')};
   padding: 2px 5px;
   font-size: 12px;
