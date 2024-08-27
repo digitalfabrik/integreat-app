@@ -70,8 +70,8 @@ const useDateFilter = (events: EventModel[] | null, translation: (key: string) =
       return (
         events?.filter(
           event =>
-            DateTime.fromISO(event.date.startDate) >= fromDateTime &&
-            DateTime.fromISO(event.date.endDate) <= toDateTime,
+            DateTime.fromISO(String(event.date.startDate)) >= fromDateTime &&
+            DateTime.fromISO(String(event.date.endDate)) <= toDateTime,
         ) || []
       )
     }

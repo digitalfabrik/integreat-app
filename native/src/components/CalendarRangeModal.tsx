@@ -2,7 +2,7 @@ import { DateTime } from 'luxon'
 import React, { ReactElement, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Modal } from 'react-native'
-import { Calendar, DayProps } from 'react-native-calendars'
+import { Calendar } from 'react-native-calendars'
 import styled from 'styled-components/native'
 
 import { commonLightColors } from 'build-configs/common/theme/colors'
@@ -19,7 +19,7 @@ const DatePickerWrapper = styled.View`
 const StyledView = styled.View`
   gap: 8px;
   flex-direction: row;
-  justify-content: ${props => (props.theme.contentDirection === 'rtl' ? 'flex-end' : 'flex-start')};
+  justify-content: ${props => (props.theme.contentDirection === 'rtl' ? 'flex-start' : 'flex-end')};
   padding: 5px 10px;
 `
 const StyledTextButton = styled(TextButton)`
@@ -67,7 +67,7 @@ const CalendarRangeModal = ({
     }
   }, [fromDate, toDate])
 
-  const handleDayPress = (day: DayProps) => {
+  const handleDayPress = (day: { dateString: string }) => {
     if (!range.startDate) {
       setRange({ startDate: day.dateString, endDate: '' })
     } else if (!range.endDate) {
@@ -106,8 +106,8 @@ const CalendarRangeModal = ({
             onPress={() => {
               try {
                 setRange({
-                  startDate: DateTime.fromISO(fromDate).toJSDate(),
-                  endDate: DateTime.fromISO(toDate).toJSDate(),
+                  startDate: fromDate,
+                  endDate: toDate,
                 })
               } catch (e) {
                 // console.log(e)
