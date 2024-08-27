@@ -12,7 +12,6 @@ const DateContainer = styled.View`
 `
 const Input = styled.TextInput`
   padding: 8px;
-  /* width: 80%; */
 `
 const StyledInputWrapper = styled.View`
   min-width: 316px;
@@ -26,11 +25,11 @@ const StyledInputWrapper = styled.View`
   justify-content: space-between;
   align-items: center;
 `
-const StyledIconButton = styled(IconButton)`
+const StyledIconButton = styled(IconButton)<{ $isModalOpen: boolean }>`
   transform: scale(2);
   width: 20px;
   height: 20px;
-  background-color: #e9e8e9;
+  background-color: ${props => (props.$isModalOpen ? props.theme.colors.themeColorLight : '#e9e8e9')};
 `
 const StyledTitle = styled.Text`
   background-color: ${props => props.theme.colors.backgroundColor};
@@ -53,6 +52,7 @@ type CustomDatePickerProps = {
   value: string
   setValue: React.Dispatch<React.SetStateAction<string>>
   error?: string
+  modalState: boolean
   setModalState: React.Dispatch<React.SetStateAction<boolean>>
 }
 const safeDate = (value: string, dateformat: 0 | 1) => {
@@ -65,12 +65,25 @@ const safeDate = (value: string, dateformat: 0 | 1) => {
     return value
   }
 }
-const CustomDatePicker = ({ title, value, setValue, error, setModalState }: CustomDatePickerProps): ReactElement => (
+const CustomDatePicker = ({
+  title,
+  value,
+  setValue,
+  error,
+  modalState,
+  setModalState,
+}: CustomDatePickerProps): ReactElement => (
   <DateContainer>
     <StyledTitle>{title}</StyledTitle>
     <StyledInputWrapper>
-      <Input keyboardType='numeric' onChangeText={event => setValue(safeDate(event, 1))} value={safeDate(value, 0)} />
+      <Input
+        testID='DatePicker-input'
+        keyboardType='numeric'
+        onChangeText={event => setValue(safeDate(event, 1))}
+        value={safeDate(value, 0)}
+      />
       <StyledIconButton
+        $isModalOpen={modalState}
         icon={<Icon Icon={CalendarEventsIcon} />}
         accessibilityLabel='calenderEventsIcon'
         onPress={() => {

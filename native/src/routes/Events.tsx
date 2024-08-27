@@ -47,10 +47,11 @@ const DateSection = styled.View`
 `
 const StyledButton = styled.TouchableOpacity`
   display: flex;
-  flex-direction: row;
+  flex-direction: ${props => (props.theme.contentDirection === 'rtl' ? 'row-reverse' : 'row')};
   align-items: center;
   gap: 5px;
   justify-content: center;
+  align-self: ${props => (props.theme.contentDirection === 'rtl' ? 'flex-end' : 'flex-start')};
 `
 const StyledText = styled(Text)`
   font-weight: bold;
@@ -89,7 +90,7 @@ const ResetFilterText = ({ fromDate, toDate, defaultFromDate, defaultToDate, t }
 }
 
 const DateFilterToggle = ({ toggle, setToggleDateFilter, t }: DateFilterToggleProps) => (
-  <StyledButton style={{ alignSelf: 'flex-start' }} onPress={() => setToggleDateFilter((prev: boolean) => !prev)}>
+  <StyledButton onPress={() => setToggleDateFilter((prev: boolean) => !prev)}>
     <Icon Icon={toggle ? ShrinkIcon : ExpandIcon} />
     {toggle ? <StyledText>{t('hide_filters')}</StyledText> : <StyledText>{t('show_filters')}</StyledText>}
   </StyledButton>
@@ -188,6 +189,7 @@ const Events = ({ cityModel, language, navigateTo, events, slug, refresh }: Even
                 {toggleDateFilter && (
                   <>
                     <CustomDatePicker
+                      modalState={modalState}
                       setModalState={setModalState}
                       setValue={setFromDate}
                       title={t('from')}
@@ -195,6 +197,7 @@ const Events = ({ cityModel, language, navigateTo, events, slug, refresh }: Even
                       value={fromDate}
                     />
                     <CustomDatePicker
+                      modalState={modalState}
                       setModalState={setModalState}
                       setValue={setToDate}
                       title={t('to')}
