@@ -5,8 +5,12 @@ import { cityContentPattern } from '../routes'
 import { renderRoute } from '../testing/render'
 
 const renderSuccessful = 'route'
+
 jest.mock('react-i18next')
+jest.mock('react-tooltip')
+
 jest.mock('../CityContentSwitcher', () => () => <div>{renderSuccessful}</div>)
+
 describe('FixedCityContentSwitcher', () => {
   const languageCode = 'de'
   const fixedCity = 'hallo'
