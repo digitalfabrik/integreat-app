@@ -1,5 +1,5 @@
 import { DateTime, Duration } from 'luxon'
-import { RRule as RRuleType } from 'rrule'
+import { RRule as RRuleType, rrulestr } from 'rrule'
 
 const MAX_RECURRENCE_YEARS = 5
 
@@ -137,14 +137,12 @@ class DateModel {
 
   private getRecurrenceRuleInLocalTime(recurrenceRule: RRuleType): RRuleType {
     const startDate = recurrenceRule.options.dtstart
-    const offsetStartDate = DateTime.fromJSDate(startDate).minus({ minutes: startDate.getTimezoneOffset() }).toJSDate()
-    return new RRuleType({
-      freq: recurrenceRule.options.freq,
-      byweekday: recurrenceRule.options.byweekday,
-      interval: recurrenceRule.options.interval,
-      until: recurrenceRule.options.until,
-      dtstart: offsetStartDate,
-    })
+    const offsetStartDate = DateTime.fromJSDate(startDate)
+      .minus({ minutes: startDate.getTimezoneOffset() })
+      .toUTC()
+      .toFormat("yyyyMMdd'T'HHmmss")
+    const regexForFindingDate = /\d{8}T\d{6}/
+    return rrulestr(recurrenceRule.toString().replace(regexForFindingDate, offsetStartDate))
   }
 
   isEqual(other: DateModel): boolean {
