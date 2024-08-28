@@ -58,12 +58,12 @@ const NewsHeader = ({ cityModel, selectedNewsType, selectNewsType }: NewsHeaderP
       <Caption title={t('news')} />
       {cityModel.localNewsEnabled && cityModel.tunewsEnabled && (
         <HeaderContainer>
-          <StyledPressable onPress={selectLocalNews} accessibilityRole='button' accessibilityLabel={t('local')}>
+          <StyledPressable onPress={selectLocalNews} role='button' accessibilityLabel={t('local')}>
             <LocalTabWrapper isSelected={selectedNewsType === LOCAL_NEWS_TYPE}>
               <LocalText>{t('local')}</LocalText>
             </LocalTabWrapper>
           </StyledPressable>
-          <StyledPressable onPress={selectTuNews} accessibilityRole='button' accessibilityLabel='TüNews'>
+          <StyledPressable onPress={selectTuNews} role='button' accessibilityLabel='TüNews'>
             <StyledIcon Icon={selectedNewsType === TU_NEWS_TYPE ? TuNewsActiveIcon : TuNewsInactiveIcon} />
           </StyledPressable>
         </HeaderContainer>

@@ -1,6 +1,6 @@
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Text, View, AccessibilityRole } from 'react-native'
+import { Text, View, Role } from 'react-native'
 import styled from 'styled-components/native'
 
 import Pressable from './base/Pressable'
@@ -47,18 +47,18 @@ type SettingItemProps = {
   description?: string
   onPress: () => void
   bigTitle?: boolean
-  accessibilityRole?: AccessibilityRole
+  role?: Role
   hasSwitch?: boolean
   hasBadge?: boolean
   value: boolean
 }
 
 const SettingItem = (props: SettingItemProps): ReactElement => {
-  const { title, description, onPress, value, hasBadge, hasSwitch, bigTitle, accessibilityRole } = props
+  const { title, description, onPress, value, hasBadge, hasSwitch, bigTitle, role } = props
   const { t } = useTranslation('settings')
 
   return (
-    <Pressable onPress={onPress} accessibilityRole={accessibilityRole} accessible={false}>
+    <Pressable onPress={onPress} role={role} accessible={false}>
       <PadView>
         <ContentContainer>
           <View>

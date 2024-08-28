@@ -123,7 +123,7 @@ const OpeningHours = ({
             />
           ))}
           {appointmentUrl !== null && (
-            <LinkContainer onPress={() => openExternalUrl(appointmentUrl, showSnackbar)} accessibilityRole='link'>
+            <LinkContainer onPress={() => openExternalUrl(appointmentUrl, showSnackbar)} role='link'>
               <Link>{t('makeAppointment')}</Link>
               <StyledIcon Icon={ExternalLinkIcon} />
             </LinkContainer>
