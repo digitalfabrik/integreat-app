@@ -133,9 +133,37 @@ const RemoteContent = (props: RemoteContentProps): ReactElement | null => {
   if (error) {
     return <Failure code={ErrorCode.UnknownError} />
   }
+  const injectedJavaScript = `
+  (function() {
+    document.addEventListener('touchend', function(e) {
+      var target = e.target || e.srcElement;
+      
+      function findClosestAnchor(element) {
+        while (element) {
+          if (element.tagName.toLowerCase() === 'a') {
+            return element;
+          }
+          element = element.parentElement;
+        }
+        return null;
+      }
+      if (['a', 'li', 'span', 'strong'].includes(target.tagName.toLowerCase())) {
+        var anchor = findClosestAnchor(target);
+        if (anchor) {
+          e.preventDefault();
+          window.location.href = anchor.getAttribute('href');
+        }
+      } else {
+        e.stopPropagation();
+      }
+    }, false);
+  })();
+  true;
+`
 
   return (
     <WebView
+      injectedJavaScript={injectedJavaScript}
       source={{
         baseUrl: resourceCacheUrl,
         html: renderHtml(
