@@ -1,47 +1,59 @@
+import { DateTime } from 'luxon'
+
+import { lightColors } from 'build-configs/integreat/theme/colors'
+
 type MarkedDateType = {
   selected: boolean
   startingDay?: boolean
   endingDay?: boolean
 }
 
-export const getMarkedDates = (startDate: string, endDate: string): Record<string, MarkedDateType> => {
+export const getMarkedDates = (
+  startDate: DateTime | null,
+  endDate: DateTime | null,
+): Record<string, MarkedDateType> => {
   const markedDateStyling = {
-    color: '#FBDA16',
-    textColor: '#000',
+    color: lightColors.themeColor,
+    textColor: lightColors.textColor,
   }
 
   const markedDates: Record<string, MarkedDateType> = {}
 
-  if (startDate) {
-    markedDates[startDate] = {
+  const cutoffDate = DateTime.fromISO('2020-01-01')
+
+  const validStartDate = startDate && startDate >= cutoffDate ? startDate : null
+
+  const validEndDate = endDate && endDate >= cutoffDate ? endDate : null
+
+  if (validStartDate) {
+    const startDateString = validStartDate.toISODate()
+    markedDates[startDateString] = {
       selected: true,
       startingDay: true,
-      endingDay: startDate === endDate,
+      endingDay: startDateString === validEndDate?.toISODate(),
       ...markedDateStyling,
     }
   }
 
-  if (endDate && startDate !== endDate) {
-    markedDates[endDate] = {
+  if (validEndDate && (!validStartDate || validStartDate.toISODate() !== validEndDate.toISODate())) {
+    const endDateString = validEndDate.toISODate()
+    markedDates[endDateString] = {
       selected: true,
       endingDay: true,
       ...markedDateStyling,
     }
   }
 
-  if (startDate && endDate && startDate !== endDate) {
-    const start = new Date(startDate)
-    const end = new Date(endDate)
+  if (validStartDate && validEndDate && validStartDate < validEndDate) {
+    let current = validStartDate.plus({ days: 1 })
 
-    while (start <= end) {
-      const dateString = start.toISOString().split('T')[0]
-      if (dateString !== startDate && dateString !== endDate) {
-        markedDates[dateString || 0] = {
-          selected: true,
-          ...markedDateStyling,
-        }
+    while (current < validEndDate) {
+      const dateString = current.toISODate()
+      markedDates[dateString] = {
+        selected: true,
+        ...markedDateStyling,
       }
-      start.setDate(start.getDate() + 1)
+      current = current.plus({ days: 1 })
     }
   }
 

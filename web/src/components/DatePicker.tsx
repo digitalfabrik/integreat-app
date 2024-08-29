@@ -1,7 +1,10 @@
+import { DateTime } from 'luxon'
 import React, { ReactElement } from 'react'
 import styled from 'styled-components'
 
-import { CalendarEventsIcon } from '../assets'
+import { INPUT_DATE_FORMAT } from 'shared/constants'
+
+import { CalendarTodayIcon } from '../assets'
 import dimensions from '../constants/dimensions'
 
 const DateContainer = styled.div`
@@ -24,13 +27,12 @@ const StyledInput = styled.input`
     }
 
     &::-webkit-calendar-picker-indicator {
-      background: url(${CalendarEventsIcon}) no-repeat center center;
-      background-size: 55px;
+      background: url(${CalendarTodayIcon}) no-repeat center center;
       width: 40px;
       height: 40px;
       border-radius: 50%;
       cursor: pointer;
-      background-color: #e9e8e9;
+      background-color: ${props => props.theme.colors.textDisabledColor};
     }
 
     &:focus::-webkit-calendar-picker-indicator {
@@ -46,7 +48,7 @@ const StyledTitle = styled.span`
   background-color: ${props => props.theme.colors.backgroundColor};
   position: absolute;
   top: -12px;
-  left: ${props => (props.theme.contentDirection === 'rtl' ? 'auto' : '10px')};
+  left: ${props => (props.theme.contentDirection === 'rtl' ? 'auto' : '12px')};
   right: ${props => (props.theme.contentDirection === 'rtl' ? '12px' : 'auto')};
   padding: 2px 5px;
   font-size: 12px;
@@ -57,23 +59,32 @@ const StyledError = styled.div`
   font-weight: bold;
   color: ${props => props.theme.colors.invalidInput};
 `
-type CustomDatePickerProps = {
+export type DatePickerProps = {
   title: string
-  value?: string
-  setValue: React.Dispatch<React.SetStateAction<string>>
+  value?: DateTime | null
+  setValue: (fromDate: DateTime | null) => void
   error?: string
 }
-const CustomDatePicker = ({ title, value, setValue, error }: CustomDatePickerProps): ReactElement => {
+const DatePicker = ({ title, value, setValue, error }: DatePickerProps): ReactElement => {
   const handleDateChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setValue(event.target.value)
+    try {
+      setValue(DateTime.fromFormat(event.target.value, INPUT_DATE_FORMAT).toLocal())
+    } catch (e) {
+      setValue(null)
+    }
   }
   return (
     <DateContainer>
       <StyledTitle>{title}</StyledTitle>
-      <StyledInput alt='Date-input' type='date' value={value} onChange={handleDateChange} />
+      <StyledInput
+        alt='Date-input'
+        type='date'
+        value={value?.toFormat(INPUT_DATE_FORMAT)}
+        onChange={handleDateChange}
+      />
       {!!error && <StyledError>{error}</StyledError>}
     </DateContainer>
   )
 }
 
-export default CustomDatePicker
+export default DatePicker

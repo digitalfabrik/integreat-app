@@ -1,11 +1,9 @@
 import { DateTime } from 'luxon'
-import React, { ReactElement, useEffect } from 'react'
+import React, { ReactElement, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Modal } from 'react-native'
 import { Calendar } from 'react-native-calendars'
-import styled from 'styled-components/native'
-
-import { commonLightColors } from 'build-configs/common/theme/colors'
+import styled, { useTheme } from 'styled-components/native'
 
 import { getMarkedDates } from '../utils/calendarRangeUtils'
 import Caption from './Caption'
@@ -14,7 +12,12 @@ import TextButton from './base/TextButton'
 const DatePickerWrapper = styled.View`
   background-color: ${props => props.theme.colors.textDecorationColor};
   border-radius: 20px;
-  margin: 228px 10px 0;
+  position: absolute;
+  width: 90%;
+  top: 228px;
+  justify-self: center;
+  /* stylelint-disable-next-line declaration-block-no-redundant-longhand-properties */
+  align-self: center;
 `
 const StyledView = styled.View`
   gap: 8px;
@@ -26,13 +29,17 @@ const StyledTextButton = styled(TextButton)`
   background-color: transparent;
   transform: scale(0.8);
 `
+const StyledPressable = styled.Pressable`
+  flex: 1;
+`
+
 export type CalendarViewerProps = {
   modalVisible: boolean
   closeModal: () => void
-  fromDate: string
-  toDate: string
-  setFromDate: React.Dispatch<React.SetStateAction<string>>
-  setToDate: React.Dispatch<React.SetStateAction<string>>
+  fromDate: DateTime | null
+  toDate: DateTime | null
+  setFromDate: (fromDate: DateTime) => void
+  setToDate: (toDate: DateTime) => void
 }
 
 const CalendarRangeModal = ({
@@ -43,85 +50,63 @@ const CalendarRangeModal = ({
   setFromDate,
   setToDate,
 }: CalendarViewerProps): ReactElement => {
-  const DateFormat = 'yyyy-MM-dd'
-  type RangeType = {
-    startDate: string
-    endDate: string
-  }
-  const [range, setRange] = React.useState<RangeType>({
-    startDate: '',
-    endDate: '',
-  })
+  const [tempFromDate, setTempFromDate] = useState<DateTime | null>(fromDate)
+  const [tempToDate, setTempToDate] = useState<DateTime | null>(toDate)
   const { t } = useTranslation('events')
+  const theme = useTheme()
 
   useEffect(() => {
-    if (fromDate.length === DateFormat.length && toDate.length === DateFormat.length) {
-      try {
-        setRange({
-          startDate: fromDate,
-          endDate: toDate,
-        })
-      } catch (e) {
-        // console.log(e)
-      }
-    }
+    setTempFromDate(fromDate)
+    setTempToDate(toDate)
   }, [fromDate, toDate])
 
   const handleDayPress = (day: { dateString: string }) => {
-    if (!range.startDate) {
-      setRange({ startDate: day.dateString, endDate: '' })
-    } else if (!range.endDate) {
-      setRange({ ...range, endDate: day.dateString })
+    const selectedDate = DateTime.fromISO(day.dateString)
+
+    if (!tempFromDate) {
+      setTempFromDate(selectedDate)
+      setTempToDate(null)
+    } else if (!tempToDate) {
+      setTempToDate(selectedDate)
     } else {
-      setRange({ startDate: day.dateString, endDate: '' })
+      setTempFromDate(selectedDate)
+      setTempToDate(null)
     }
   }
 
   return (
-    <Modal
-      style={{ margin: 0 }}
-      animationType='slide'
-      transparent
-      visible={modalVisible}
-      onRequestClose={() => {
-        closeModal()
-      }}>
+    <Modal style={{ margin: 0 }} animationType='slide' transparent visible={modalVisible} onRequestClose={closeModal}>
+      <StyledPressable onPress={closeModal} />
       <DatePickerWrapper>
-        <Caption title={t('select_range')} />
+        <Caption title={t('selectRange')} />
         <Calendar
           markingType='period'
-          markedDates={getMarkedDates(range.startDate, range.endDate)}
+          markedDates={getMarkedDates(tempFromDate, tempToDate)}
           onDayPress={handleDayPress}
           theme={{
-            calendarBackground: commonLightColors.textDecorationColor,
-            dayTextColor: commonLightColors.textColor,
-            textDisabledColor: '#44474A',
-            todayTextColor: commonLightColors.backgroundColor,
-            textSectionTitleColor: commonLightColors.textColor,
-            arrowColor: commonLightColors.textColor,
+            calendarBackground: theme.colors.textDecorationColor,
+            dayTextColor: theme.colors.textColor,
+            textDisabledColor: theme.colors.textSecondaryColor,
+            todayTextColor: theme.colors.backgroundColor,
+            textSectionTitleColor: theme.colors.textColor,
+            arrowColor: theme.colors.textColor,
           }}
         />
         <StyledView>
           <StyledTextButton
             onPress={() => {
-              try {
-                setRange({
-                  startDate: fromDate,
-                  endDate: toDate,
-                })
-              } catch (e) {
-                // console.log(e)
-              }
+              setTempFromDate(fromDate)
+              setTempToDate(toDate)
               closeModal()
             }}
-            text={t('cancel')}
+            text={t('layout:cancel')}
             type='clear'
           />
           <StyledTextButton
             onPress={() => {
-              if (Boolean(range.startDate) && Boolean(range.endDate)) {
-                setFromDate(DateTime.fromJSDate(new Date(range.startDate)).toFormat(DateFormat))
-                setToDate(DateTime.fromJSDate(new Date(range.endDate)).toFormat(DateFormat))
+              if (Boolean(tempFromDate) && Boolean(tempToDate)) {
+                setFromDate(tempFromDate || DateTime.local())
+                setToDate(tempToDate || DateTime.local())
               }
               closeModal()
             }}

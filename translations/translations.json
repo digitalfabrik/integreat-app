@@ -3009,14 +3009,13 @@
       "from": "من",
       "to": "إلى",
       "resetFilter": "إعادة تعيين الفلتر:",
-      "invalid_from_date": "تنسيق تاريخ (من) غير صالح",
-      "invalid_to_date": "تنسيق تاريخ (إلى) غير صالح",
-      "should_be_earlier": "يجب أن يكون تاريخ البداية قبل تاريخ النهاية",
-      "hide_filters": "إخفاء الفلاتر",
-      "show_filters": "إظهار الفلاتر",
-      "select_range": "اختر النطاق",
-      "ok": "موافق",
-      "cancel": "إلغاء"
+      "invalidFromDate": "تنسيق تاريخ (من) غير صالح",
+      "invalidToDate": "تنسيق تاريخ (إلى) غير صالح",
+      "shouldBeEarlier": "يجب أن يكون تاريخ البداية قبل تاريخ النهاية",
+      "hideFilters": "إخفاء الفلاتر",
+      "showFilters": "إظهار الفلاتر",
+      "selectRange": "اختر النطاق",
+      "ok": "موافق"
     },
     "bg": {
       "address": "Адрес",
@@ -3125,14 +3124,13 @@
       "from": "from",
       "to": "to",
       "resetFilter": "reset filter:",
-      "invalid_from_date": "Invalid from date format",
-      "invalid_to_date": "Invalid to date format",
-      "should_be_earlier": "from date should be earlier than to date",
-      "hide_filters": "Hide filters",
-      "show_filters": "Show filters",
-      "select_range": "Select Range",
-      "ok": "Ok",
-      "cancel": "Cancel"
+      "invalidFromDate": "Invalid from date format",
+      "invalidToDate": "Invalid to date format",
+      "shouldBeEarlier": "from date should be earlier than to date",
+      "hideFilters": "Hide filters",
+      "showFilters": "Show filters",
+      "selectRange": "Select Range",
+      "ok": "Ok"
     },
     "es": {
       "address": "Dirección",

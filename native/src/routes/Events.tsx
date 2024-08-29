@@ -1,5 +1,3 @@
-import { TFunction } from 'i18next'
-import { DateTime } from 'luxon'
 import React, { ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { RefreshControl } from 'react-native'
@@ -9,12 +7,11 @@ import { EVENTS_ROUTE, RouteInformationType } from 'shared'
 import { fromError, NotFoundError, CityModel, EventModel } from 'shared/api'
 import useDateFilter from 'shared/hooks/useDateFilter'
 
-import { CloseIcon, ShrinkIcon, ExpandIcon } from '../assets'
 import CalendarRangeModal from '../components/CalendarRangeModal'
 import Caption from '../components/Caption'
-import CustomDatePicker from '../components/CustomDatePicker'
 import DatesPageDetail from '../components/DatesPageDetail'
 import EventListItem from '../components/EventListItem'
+import EventsDateFilter from '../components/EventsDateFilter'
 import ExportEventButton from '../components/ExportEventButton'
 import Failure from '../components/Failure'
 import Layout from '../components/Layout'
@@ -22,8 +19,6 @@ import LayoutedScrollView from '../components/LayoutedScrollView'
 import List from '../components/List'
 import Page from '../components/Page'
 import PageDetail from '../components/PageDetail'
-import Icon from '../components/base/Icon'
-import Text from '../components/base/Text'
 
 const ListContainer = styled(Layout)`
   padding: 0 8px;
@@ -37,26 +32,7 @@ const Separator = styled.View`
 const PageDetailsContainer = styled.View`
   gap: 8px;
 `
-const DateSection = styled.View`
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  margin: 0 5px 15px;
-  justify-content: center;
-  align-items: center;
-`
-const StyledButton = styled.TouchableOpacity`
-  display: flex;
-  flex-direction: ${props => (props.theme.contentDirection === 'rtl' ? 'row-reverse' : 'row')};
-  align-items: center;
-  gap: 5px;
-  justify-content: center;
-  align-self: ${props => (props.theme.contentDirection === 'rtl' ? 'flex-end' : 'flex-start')};
-`
-const StyledText = styled(Text)`
-  font-weight: bold;
-  padding: 5px;
-`
+
 type EventsProps = {
   slug?: string
   events: Array<EventModel>
@@ -66,35 +42,6 @@ type EventsProps = {
   refresh: () => void
 }
 
-type ResetFilterTextProps = {
-  fromDate: string
-  toDate: string
-  defaultFromDate: string
-  defaultToDate: string
-  t: TFunction<'events', undefined>
-}
-
-type DateFilterToggleProps = {
-  toggle: boolean
-  setToggleDateFilter: React.Dispatch<React.SetStateAction<boolean>>
-  t: TFunction<'events', undefined>
-}
-const ResetFilterText = ({ fromDate, toDate, defaultFromDate, defaultToDate, t }: ResetFilterTextProps) => {
-  let Title = ''
-  try {
-    Title = `${t('resetFilter')} ${DateTime.fromISO(fromDate).toFormat('dd/MM/yy')} - ${DateTime.fromISO(toDate).toFormat('dd/MM/yy')}`
-  } catch (e) {
-    Title = `${t('resetFilter')} ${DateTime.fromISO(defaultFromDate).toFormat('dd/MM/yy')} - ${DateTime.fromISO(defaultToDate).toFormat('dd/MM/yy')}`
-  }
-  return <StyledText>{Title}</StyledText>
-}
-
-const DateFilterToggle = ({ toggle, setToggleDateFilter, t }: DateFilterToggleProps) => (
-  <StyledButton onPress={() => setToggleDateFilter((prev: boolean) => !prev)}>
-    <Icon Icon={toggle ? ShrinkIcon : ExpandIcon} />
-    {toggle ? <StyledText>{t('hide_filters')}</StyledText> : <StyledText>{t('show_filters')}</StyledText>}
-  </StyledButton>
-)
 const Events = ({ cityModel, language, navigateTo, events, slug, refresh }: EventsProps): ReactElement => {
   const { t } = useTranslation('events')
   const { fromDate, setFromDate, toDate, setToDate, filteredEvents, fromDateError, toDateError } = useDateFilter(
@@ -102,10 +49,6 @@ const Events = ({ cityModel, language, navigateTo, events, slug, refresh }: Even
     key => t(key),
   )
   const [modalState, setModalState] = useState(false)
-  const defaultFromDate = DateTime.local().toFormat('yyyy-MM-dd').toLocaleString()
-  const defaultToDate = DateTime.local().plus({ day: 10 }).toFormat('yyyy-MM-dd').toLocaleString()
-  const [toggleDateFilter, setToggleDateFilter] = useState(true)
-  const isReset = fromDate === defaultFromDate && toDate === defaultToDate
 
   if (!cityModel.eventsEnabled) {
     const error = new NotFoundError({
@@ -184,47 +127,16 @@ const Events = ({ cityModel, language, navigateTo, events, slug, refresh }: Even
           Header={
             <>
               <Caption title={t('events')} />
-              <DateSection>
-                <DateFilterToggle t={t} toggle={toggleDateFilter} setToggleDateFilter={setToggleDateFilter} />
-                {toggleDateFilter && (
-                  <>
-                    <CustomDatePicker
-                      modalState={modalState}
-                      setModalState={setModalState}
-                      setValue={setFromDate}
-                      title={t('from')}
-                      error={(fromDateError as string) || ''}
-                      value={fromDate}
-                    />
-                    <CustomDatePicker
-                      modalState={modalState}
-                      setModalState={setModalState}
-                      setValue={setToDate}
-                      title={t('to')}
-                      error={(toDateError as string) || ''}
-                      value={toDate}
-                    />
-                  </>
-                )}
-              </DateSection>
-              <>
-                {!isReset && toggleDateFilter && (
-                  <StyledButton
-                    onPress={() => {
-                      setFromDate(defaultFromDate)
-                      setToDate(defaultToDate)
-                    }}>
-                    <Icon Icon={CloseIcon} />
-                    <ResetFilterText
-                      fromDate={fromDate}
-                      toDate={toDate}
-                      t={t}
-                      defaultFromDate={defaultFromDate}
-                      defaultToDate={defaultToDate}
-                    />
-                  </StyledButton>
-                )}
-              </>
+              <EventsDateFilter
+                fromDate={fromDate}
+                setFromDate={setFromDate}
+                toDate={toDate}
+                setToDate={setToDate}
+                fromDateError={fromDateError}
+                toDateError={toDateError}
+                modalState={modalState}
+                setModalState={setModalState}
+              />
               <Separator />
             </>
           }

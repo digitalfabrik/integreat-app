@@ -1,8 +1,22 @@
 import { fireEvent } from '@testing-library/react-native'
+import { DateTime } from 'luxon'
 import React from 'react'
 
-import render from '../../testing/render'
+import renderWithTheme from '../../testing/render'
 import CalendarRangeModal from '../CalendarRangeModal'
+
+jest.mock('react-i18next', () => ({
+  useTranslation: () => ({
+    t: (key: string) => {
+      const translations: Record<string, string> = {
+        'layout:cancel': 'Cancel',
+        ok: 'OK',
+        selectRange: 'Select Date Range',
+      }
+      return translations[key] || key
+    },
+  }),
+}))
 
 describe('CalendarRangeModal', () => {
   beforeEach(jest.clearAllMocks)
@@ -12,21 +26,30 @@ describe('CalendarRangeModal', () => {
   const setToDate = jest.fn()
 
   const renderCalendarRangeModal = () =>
-    render(
+    renderWithTheme(
       <CalendarRangeModal
         closeModal={closeModal}
-        fromDate='2024-08-26'
+        fromDate={DateTime.local()}
         modalVisible
-        setFromDate={setToDate}
-        setToDate={setFromDate}
-        toDate='2024-08-29'
+        setFromDate={setFromDate}
+        setToDate={setToDate}
+        toDate={DateTime.local().plus({ day: 2 })}
       />,
     )
 
-  it('should close modal on button press', () => {
+  it('should close modal on "Cancel" button press', () => {
     const { getByText } = renderCalendarRangeModal()
 
-    fireEvent.press(getByText('cancel'))
+    fireEvent.press(getByText('Cancel'))
+    expect(closeModal).toHaveBeenCalledTimes(1)
+  })
+
+  it('should set dates and close modal on "OK" button press', () => {
+    const { getByText } = renderCalendarRangeModal()
+
+    fireEvent.press(getByText('OK'))
+    expect(setFromDate).toHaveBeenCalled()
+    expect(setToDate).toHaveBeenCalled()
     expect(closeModal).toHaveBeenCalledTimes(1)
   })
 })
