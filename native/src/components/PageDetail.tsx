@@ -4,29 +4,34 @@ import styled from 'styled-components/native'
 import { InternalPathnameParser } from 'shared'
 
 import buildConfig from '../constants/buildConfig'
-import { contentDirection } from '../constants/contentDirection'
 import useNavigate from '../hooks/useNavigate'
 
-const DetailContainer = styled.Text<{ language: string }>`
-  flex-direction: ${props => contentDirection(props.language)};
-  font-family: ${props => props.theme.fonts.native.contentFontRegular};
+const DetailContainer = styled.View<{ language: string }>`
+  flex-direction: row;
   color: ${props => props.theme.colors.textColor};
+  align-items: center;
 `
 
 const Identifier = styled.Text`
   font-family: ${props => props.theme.fonts.native.contentFontBold};
   color: ${props => props.theme.colors.textColor};
+  align-self: flex-start;
 `
 
 const StyledButton = styled.Pressable`
-  /* Offset for bold sibling + underline */
-  margin-top: -2px;
+  flex-shrink: 1;
 `
 
 const ButtonText = styled.Text`
+  font-family: ${props => props.theme.fonts.native.contentFontRegular};
   color: ${props => props.theme.colors.linkColor};
   text-decoration: underline;
   text-decoration-color: ${props => props.theme.colors.linkColor};
+`
+
+const StyledText = styled.Text`
+  font-family: ${props => props.theme.fonts.native.contentFontRegular};
+  flex-shrink: 1;
 `
 
 type PageDetailProps = {
@@ -48,7 +53,7 @@ const PageDetail = ({ identifier, information, language, path }: PageDetailProps
           <ButtonText>{information}</ButtonText>
         </StyledButton>
       ) : (
-        information
+        <StyledText>{information}</StyledText>
       )}
     </DetailContainer>
   )
