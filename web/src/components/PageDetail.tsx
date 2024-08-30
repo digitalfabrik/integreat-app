@@ -7,11 +7,6 @@ const Identifier = styled.span`
   font-weight: 700;
 `
 
-const StyledLink = styled(Link)`
-  color: ${props => props.theme.colors.linkColor};
-  text-decoration: underline;
-`
-
 type PageDetailProps = {
   identifier: string
   information: string
@@ -21,7 +16,13 @@ type PageDetailProps = {
 const PageDetail = ({ identifier, information, path }: PageDetailProps): ReactElement => (
   <div>
     <Identifier>{identifier}: </Identifier>
-    {path ? <StyledLink to={path}>{information}</StyledLink> : <span>{information}</span>}
+    {path ? (
+      <Link to={path} highlighted>
+        {information}
+      </Link>
+    ) : (
+      <span>{information}</span>
+    )}
   </div>
 )
 
