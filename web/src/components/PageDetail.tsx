@@ -15,13 +15,13 @@ const StyledLink = styled(Link)`
 type PageDetailProps = {
   identifier: string
   information: string
-  pathToInformation?: string | null
+  path?: string | null
 }
 
-const PageDetail = ({ identifier, information, pathToInformation }: PageDetailProps): ReactElement => (
+const PageDetail = ({ identifier, information, path }: PageDetailProps): ReactElement => (
   <div>
     <Identifier>{identifier}: </Identifier>
-    {pathToInformation ? <StyledLink to={pathToInformation}>{information}</StyledLink> : <span>{information}</span>}
+    {path ? <StyledLink to={path}>{information}</StyledLink> : <span>{information}</span>}
   </div>
 )
 

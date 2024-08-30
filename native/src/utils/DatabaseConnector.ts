@@ -109,7 +109,7 @@ type ContentEventJsonType = {
   }
   location: LocationJsonType<number | null> | null
   featured_image: FeaturedImageJsonType | null | undefined
-  location_path: string | null
+  poi_path: string | null
 }
 type ContentLanguageJsonType = {
   code: string
@@ -657,7 +657,7 @@ class DatabaseConnector {
               full: event.featuredImage.full,
             }
           : null,
-        location_path: event.locationPath,
+        poi_path: event.poiPath,
       }),
     )
     await this.writeFile(this.getContentPath('events', context), JSON.stringify(jsonModels))
@@ -704,7 +704,7 @@ class DatabaseConnector {
                 town: jsonObject.location.town,
               })
             : null,
-          locationPath: jsonObject.location_path,
+          poiPath: jsonObject.poi_path,
         })
       })
 

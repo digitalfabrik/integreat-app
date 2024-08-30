@@ -127,11 +127,7 @@ const EventsPage = ({ city, pathname, languageCode, cityCode }: CityRouteProps):
             <Spacing $content={content} $lastUpdate={lastUpdate}>
               <DatesPageDetail date={date} languageCode={languageCode} />
               {location && (
-                <PageDetail
-                  identifier={t('address')}
-                  information={location.fullAddress}
-                  pathToInformation={event.locationPath}
-                />
+                <PageDetail identifier={t('address')} information={location.fullAddress} path={event.poiPath} />
               )}
             </Spacing>
           }

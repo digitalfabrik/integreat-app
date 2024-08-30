@@ -76,7 +76,7 @@ const Events = ({ cityModel, language, navigateTo, events, slug, refresh }: Even
                     identifier={t('address')}
                     information={event.location.fullAddress}
                     language={language}
-                    locationPath={event.locationPath}
+                    path={event.poiPath}
                   />
                 )}
               </PageDetailsContainer>

@@ -33,14 +33,14 @@ type PageDetailProps = {
   identifier: string
   information: string
   language: string
-  locationPath?: string | null
+  path?: string | null
 }
 
-const PageDetail = ({ identifier, information, language, locationPath }: PageDetailProps): ReactElement => {
+const PageDetail = ({ identifier, information, language, path }: PageDetailProps): ReactElement => {
   const { navigateTo } = useNavigate()
 
-  if (locationPath) {
-    const parsedRoute = new InternalPathnameParser(locationPath, language, buildConfig().featureFlags.fixedCity).route()
+  if (path) {
+    const parsedRoute = new InternalPathnameParser(path, language, buildConfig().featureFlags.fixedCity).route()
     return (
       <DetailContainer language={language}>
         <Identifier>{identifier}: </Identifier>
