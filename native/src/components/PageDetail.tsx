@@ -38,23 +38,18 @@ type PageDetailProps = {
 
 const PageDetail = ({ identifier, information, language, path }: PageDetailProps): ReactElement => {
   const { navigateTo } = useNavigate()
-
-  if (path) {
-    const parsedRoute = new InternalPathnameParser(path, language, buildConfig().featureFlags.fixedCity).route()
-    return (
-      <DetailContainer language={language}>
-        <Identifier>{identifier}: </Identifier>
-        <StyledButton onPress={() => navigateTo(parsedRoute)}>
-          <ButtonText>{information}</ButtonText>
-        </StyledButton>
-      </DetailContainer>
-    )
-  }
+  const route = path ? new InternalPathnameParser(path, language, buildConfig().featureFlags.fixedCity).route() : null
 
   return (
     <DetailContainer language={language}>
       <Identifier>{identifier}: </Identifier>
-      {information}
+      {route ? (
+        <StyledButton onPress={() => navigateTo(route)}>
+          <ButtonText>{information}</ButtonText>
+        </StyledButton>
+      ) : (
+        information
+      )}
     </DetailContainer>
   )
 }
