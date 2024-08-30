@@ -6,7 +6,7 @@ import { InternalPathnameParser } from 'shared'
 import buildConfig from '../constants/buildConfig'
 import useNavigate from '../hooks/useNavigate'
 
-const DetailContainer = styled.View<{ language: string }>`
+const DetailContainer = styled.View`
   flex-direction: row;
   color: ${props => props.theme.colors.textColor};
   align-items: center;
@@ -46,7 +46,7 @@ const PageDetail = ({ identifier, information, language, path }: PageDetailProps
   const route = path ? new InternalPathnameParser(path, language, buildConfig().featureFlags.fixedCity).route() : null
 
   return (
-    <DetailContainer language={language}>
+    <DetailContainer>
       <Identifier>{identifier}: </Identifier>
       {route ? (
         <StyledButton onPress={() => navigateTo(route)}>
