@@ -142,6 +142,8 @@ class DateModel {
       .toUTC()
       .toFormat("yyyyMMdd'T'HHmmss")
     const regexForFindingDate = /\d{8}T\d{6}/
+    // Don't parse by the recurrenceRule options here, rrule doesn't properly parse the params for every nth day of the month
+    // https://github.com/jkbrzt/rrule/issues/326
     return rrulestr(recurrenceRule.toString().replace(regexForFindingDate, offsetStartDate))
   }
 
