@@ -47,7 +47,7 @@ type TextButtonProps = {
 }
 
 const ChipButton = ({ text, onPress, Icon: IconProp, closeButton, style }: TextButtonProps): ReactElement => (
-  <StyledPressable onPress={onPress} style={style}>
+  <StyledPressable role='button' onPress={onPress} style={style}>
     <IconContainer>{IconProp}</IconContainer>
     <Spacer />
     <StyledText>{text}</StyledText>

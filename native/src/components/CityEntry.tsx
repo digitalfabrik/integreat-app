@@ -86,7 +86,7 @@ const CityEntry = ({ city, query, navigateToDashboard }: CityEntryProps): ReactE
     ) : null
 
   return (
-    <CityListItem {...testID('City-Entry')} onPress={() => navigateToDashboard(city)}>
+    <CityListItem role='button' {...testID('City-Entry')} onPress={() => navigateToDashboard(city)}>
       <>
         <Label
           searchWords={[normalizedQuery]}

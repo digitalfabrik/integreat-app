@@ -34,6 +34,7 @@ const AspectRatioImage = ({ source, style, resizeMode, specifyAspectRatio }: Asp
       source={{ uri: source }}
       resizeMode={resizeMode}
       style={style}
+      role='img'
     />
   )
 }

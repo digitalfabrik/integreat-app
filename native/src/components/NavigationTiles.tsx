@@ -67,7 +67,7 @@ const NavigationTiles = ({ tiles }: NavigationTilesProps): ReactElement => {
   return (
     <TilesRow>
       {isScrollable && (
-        <StyledPressable onPress={scrollToStart} aria-hidden>
+        <StyledPressable role='button' onPress={scrollToStart} aria-hidden>
           <StyledIcon Icon={ArrowBackIcon} disabled={scrolledToStart} directionDependent />
         </StyledPressable>
       )}
