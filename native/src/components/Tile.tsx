@@ -32,15 +32,16 @@ type TileProps = {
   tile: TileModel
   onTilePress: (tile: TileModel) => void
   resourceCache: PageResourceCacheStateType | undefined
+  language: string
 }
 
-const Tile = ({ onTilePress, tile, resourceCache }: TileProps): ReactElement => {
+const Tile = ({ onTilePress, tile, resourceCache, language }: TileProps): ReactElement => {
   const showSnackbar = useSnackbar()
   const openTile = () =>
     tile.isExternalUrl ? openExternalUrl(tile.path, showSnackbar).catch(reportError) : onTilePress(tile)
 
   return (
-    <TileContainer onPress={openTile}>
+    <TileContainer onPress={openTile} accessibilityLanguage={language}>
       <Thumbnail source={tile.thumbnail} resourceCache={resourceCache} />
       <TileTitle android_hyphenationFrequency='full'>{tile.title}</TileTitle>
     </TileContainer>

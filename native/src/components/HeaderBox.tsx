@@ -1,11 +1,12 @@
 import { HeaderBackButton } from '@react-navigation/elements'
-import React, { ReactElement } from 'react'
+import React, { ReactElement, useContext } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useWindowDimensions } from 'react-native'
 import styled, { useTheme } from 'styled-components/native'
 
 import { buildConfigAssets } from '../constants/buildConfig'
 import dimensions from '../constants/dimensions'
+import { AppContext } from '../contexts/AppContextProvider'
 import Icon from './base/Icon'
 
 const HorizontalLeft = styled.View`
@@ -37,6 +38,7 @@ const HeaderBox = ({ goBack, canGoBack = true, text }: HeaderBoxProps): ReactEle
   const deviceWidth = useWindowDimensions().width
   const theme = useTheme()
   const { t } = useTranslation('common')
+  const { languageCode } = useContext(AppContext)
 
   const AppIcon = buildConfigAssets().AppIcon
   const HeaderIcon = canGoBack ? (
@@ -49,10 +51,14 @@ const HeaderBox = ({ goBack, canGoBack = true, text }: HeaderBoxProps): ReactEle
   ) : (
     <StyledIcon Icon={AppIcon} />
   )
+
   return (
     <HorizontalLeft>
       {HeaderIcon}
-      <HeaderText allowFontScaling={false} fontSize={deviceWidth * dimensions.fontScaling}>
+      <HeaderText
+        allowFontScaling={false}
+        fontSize={deviceWidth * dimensions.fontScaling}
+        accessibilityLanguage={languageCode}>
         {text}
       </HeaderText>
     </HorizontalLeft>

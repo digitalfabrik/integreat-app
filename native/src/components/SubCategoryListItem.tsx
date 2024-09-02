@@ -42,7 +42,7 @@ const SubCategoryListItem = ({
   onItemPress,
   language,
 }: SubCategoryListItemProps): ReactElement => (
-  <FlexStyledLink onPress={() => onItemPress(subCategory)} language={language}>
+  <FlexStyledLink onPress={() => onItemPress(subCategory)} language={language} accessibilityLanguage={language}>
     <SubCategoryTitleContainer language={language}>
       {!!subCategory.thumbnail && (
         <CategoryThumbnail language={language} source={subCategory.thumbnail} resourceCache={resourceCache} />
