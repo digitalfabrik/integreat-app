@@ -86,7 +86,7 @@ const NewsListItem = ({ index, newsItem, navigateToNews, isTunews }: NewsListIte
     <>
       <Divider firstItem={index === 0} />
       <ListItemWrapper>
-        <StyledPressable onPress={navigateToNews}>
+        <StyledPressable onPress={navigateToNews} accessibilityLanguage='de'>
           <Description>
             <Title>{newsItem.title}</Title>
             <Content numberOfLines={EXCERPT_MAX_LINES}>{newsItem.content}</Content>
@@ -96,11 +96,13 @@ const NewsListItem = ({ index, newsItem, navigateToNews, isTunews }: NewsListIte
               </TimeStampContent>
             )}
           </Description>
+        </StyledPressable>
+        <Pressable onPress={navigateToNews}>
           <ReadMoreWrapper language={i18n.language}>
             <ReadMore isTunews={isTunews} onPress={navigateToNews}>{`${t('readMore')}`}</ReadMore>
             <StyledIcon Icon={ArrowBackIcon} directionDependent reverse isTunews={isTunews} />
           </ReadMoreWrapper>
-        </StyledPressable>
+        </Pressable>
       </ListItemWrapper>
     </>
   )

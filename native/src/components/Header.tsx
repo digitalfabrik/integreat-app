@@ -18,6 +18,9 @@ import {
   DISCLAIMER_ROUTE,
   SEARCH_ROUTE,
   SETTINGS_ROUTE,
+  FEEDBACK_MODAL_ROUTE,
+  CONSENT_ROUTE,
+  LICENSES_ROUTE,
 } from 'shared'
 import { LanguageModel, FeedbackRouteType } from 'shared/api'
 
@@ -218,13 +221,34 @@ const Header = ({
     }
 
     const previousRouteTitle = (previousParams as { title?: string } | undefined)?.title
-    return previousRouteTitle ?? t(previousRoute.name === 'categories' ? 'localInformation' : previousRoute.name)
+    return previousRouteTitle ?? t(previousRoute.name === CATEGORIES_ROUTE ? 'localInformation' : previousRoute.name)
+  }
+
+  const isHeaderTextInPhoneLanguage = (): boolean => {
+    if (route.name === NEWS_ROUTE && (route.params as { newsId?: string })?.newsId) {
+      return true
+    }
+    if (route.name === EVENTS_ROUTE && (route.params as { slug?: string })?.slug) {
+      return true
+    }
+    if (route.name === CONSENT_ROUTE) {
+      return true
+    }
+    if (route.name === LICENSES_ROUTE) {
+      return true
+    }
+    return false
   }
 
   return (
     <BoxShadow>
       <Horizontal>
-        <HeaderBox goBack={navigation.goBack} canGoBack={canGoBack} text={getHeaderText()} />
+        <HeaderBox
+          goBack={navigation.goBack}
+          canGoBack={canGoBack}
+          text={getHeaderText()}
+          language={isHeaderTextInPhoneLanguage() ? '' : languageCode}
+        />
         <CustomHeaderButtons cancelLabel={t('cancel')} items={items} overflowItems={overflowItems} />
       </Horizontal>
     </BoxShadow>

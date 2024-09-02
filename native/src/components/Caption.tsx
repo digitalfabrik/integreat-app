@@ -13,12 +13,12 @@ const H1 = styled(Text)`
 `
 type CaptionProps = {
   title: string
+  language?: string
 }
 
-const Caption = ({ title }: CaptionProps): ReactElement => {
-  const { languageCode } = useContext(AppContext)
+const Caption = ({ title, language }: CaptionProps): ReactElement => {
   return (
-    <H1 android_hyphenationFrequency='full' accessibilityLanguage={languageCode}>
+    <H1 android_hyphenationFrequency='full' accessibilityLanguage={language}>
       {title}
     </H1>
   )
