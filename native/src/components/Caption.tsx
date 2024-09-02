@@ -1,7 +1,6 @@
-import React, { ReactElement, useContext } from 'react'
+import React, { ReactElement } from 'react'
 import styled from 'styled-components/native'
 
-import { AppContext } from '../contexts/AppContextProvider'
 import Text from './base/Text'
 
 const H1 = styled(Text)`
@@ -16,12 +15,10 @@ type CaptionProps = {
   language?: string
 }
 
-const Caption = ({ title, language }: CaptionProps): ReactElement => {
-  return (
-    <H1 android_hyphenationFrequency='full' accessibilityLanguage={language}>
-      {title}
-    </H1>
-  )
-}
+const Caption = ({ title, language }: CaptionProps): ReactElement => (
+  <H1 android_hyphenationFrequency='full' accessibilityLanguage={language}>
+    {title}
+  </H1>
+)
 
 export default Caption

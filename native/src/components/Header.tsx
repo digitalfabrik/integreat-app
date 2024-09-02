@@ -18,7 +18,6 @@ import {
   DISCLAIMER_ROUTE,
   SEARCH_ROUTE,
   SETTINGS_ROUTE,
-  FEEDBACK_MODAL_ROUTE,
   CONSENT_ROUTE,
   LICENSES_ROUTE,
 } from 'shared'
@@ -225,10 +224,10 @@ const Header = ({
   }
 
   const isHeaderTextInPhoneLanguage = (): boolean => {
-    if (route.name === NEWS_ROUTE && (route.params as { newsId?: string })?.newsId) {
+    if (route.name === NEWS_ROUTE && (route.params as { newsId?: string }).newsId) {
       return true
     }
-    if (route.name === EVENTS_ROUTE && (route.params as { slug?: string })?.slug) {
+    if (route.name === EVENTS_ROUTE && (route.params as { slug?: string }).slug) {
       return true
     }
     if (route.name === CONSENT_ROUTE) {

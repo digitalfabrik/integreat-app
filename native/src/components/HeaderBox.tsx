@@ -1,12 +1,11 @@
 import { HeaderBackButton } from '@react-navigation/elements'
-import React, { ReactElement, useContext } from 'react'
+import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useWindowDimensions } from 'react-native'
 import styled, { useTheme } from 'styled-components/native'
 
 import { buildConfigAssets } from '../constants/buildConfig'
 import dimensions from '../constants/dimensions'
-import { AppContext } from '../contexts/AppContextProvider'
 import Icon from './base/Icon'
 
 const HorizontalLeft = styled.View`
