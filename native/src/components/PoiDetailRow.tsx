@@ -28,7 +28,10 @@ type PoiDetailRowProps = {
 const PoiDetailRow = ({ externalUrl, text, accessibilityLabel, Icon: IconProp }: PoiDetailRowProps): ReactElement => {
   const showSnackbar = useSnackbar()
   return (
-    <Container onPress={() => openExternalUrl(externalUrl, showSnackbar)} accessibilityLabel={accessibilityLabel}>
+    <Container
+      onPress={() => openExternalUrl(externalUrl, showSnackbar)}
+      role='link'
+      accessibilityLabel={accessibilityLabel}>
       <Icon Icon={IconProp} />
       <StyledText>{text}</StyledText>
     </Container>
