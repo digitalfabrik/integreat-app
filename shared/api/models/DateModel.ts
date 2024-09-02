@@ -1,6 +1,8 @@
 import { DateTime, Duration } from 'luxon'
 import { RRule as RRuleType, rrulestr } from 'rrule'
 
+import { formatDateICal } from '../../utils'
+
 const MAX_RECURRENCE_YEARS = 5
 
 export type DateIcon = 'CalendarTodayRecurringIcon' | 'CalendarRecurringIcon' | 'CalendarTodayIcon'
@@ -137,10 +139,9 @@ class DateModel {
 
   private getRecurrenceRuleInLocalTime(recurrenceRule: RRuleType): RRuleType {
     const startDate = recurrenceRule.options.dtstart
-    const offsetStartDate = DateTime.fromJSDate(startDate)
-      .minus({ minutes: startDate.getTimezoneOffset() })
-      .toUTC()
-      .toFormat("yyyyMMdd'T'HHmmss")
+    const offsetStartDate = formatDateICal(
+      DateTime.fromJSDate(startDate).minus({ minutes: startDate.getTimezoneOffset() }).toUTC(),
+    )
     const regexForFindingDate = /\d{8}T\d{6}/
     // Don't parse by the recurrenceRule options here, rrule doesn't properly parse the params for every nth day of the month
     // https://github.com/jkbrzt/rrule/issues/326
