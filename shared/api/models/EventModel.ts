@@ -1,6 +1,5 @@
 import { decodeHTML } from 'entities'
 import { DateTime } from 'luxon'
-import { RRule } from 'rrule'
 import { v5 } from 'uuid'
 
 import { formatDateICal } from '../../utils'
