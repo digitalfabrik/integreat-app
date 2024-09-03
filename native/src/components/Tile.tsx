@@ -40,7 +40,7 @@ const Tile = ({ onTilePress, tile, resourceCache }: TileProps): ReactElement => 
     tile.isExternalUrl ? openExternalUrl(tile.path, showSnackbar).catch(reportError) : onTilePress(tile)
 
   return (
-    <TileContainer onPress={openTile} role='button'>
+    <TileContainer onPress={openTile} role='link'>
       <Thumbnail source={tile.thumbnail} resourceCache={resourceCache} />
       <TileTitle android_hyphenationFrequency='full'>{tile.title}</TileTitle>
     </TileContainer>

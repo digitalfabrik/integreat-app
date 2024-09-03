@@ -50,7 +50,7 @@ type NavigationTileProps = {
 }
 
 const NavigationTile = ({ tile, width }: NavigationTileProps): ReactElement => (
-  <StyledPressable role='button' onPress={tile.onTilePress} width={width}>
+  <StyledPressable role='link' onPress={tile.onTilePress} width={width}>
     <Circle>
       <StyledIcon source={tile.thumbnail} />
     </Circle>
