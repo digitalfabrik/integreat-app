@@ -224,16 +224,12 @@ const Header = ({
   }
 
   const isHeaderTextInPhoneLanguage = (): boolean => {
-    if (route.name === NEWS_ROUTE && (route.params as { newsId?: string }).newsId) {
-      return true
-    }
-    if (route.name === EVENTS_ROUTE && (route.params as { slug?: string }).slug) {
-      return true
-    }
-    if (route.name === CONSENT_ROUTE) {
-      return true
-    }
-    if (route.name === LICENSES_ROUTE) {
+    if (
+      (route.name === NEWS_ROUTE && (route.params as { newsId?: string }).newsId) ||
+      (route.name === EVENTS_ROUTE && (route.params as { slug?: string }).slug) ||
+      route.name === CONSENT_ROUTE ||
+      route.name === LICENSES_ROUTE
+    ) {
       return true
     }
     return false
