@@ -77,6 +77,7 @@ const SearchInput = ({
           defaultValue={filterText}
           onChange={handleFilterTextChange}
           onClick={onClickInput}
+          // eslint-disable-next-line jsx-a11y/no-autofocus -- in a dedicated search modal autofocus is fine
           autoFocus
           type='text'
         />

@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import React, { ReactElement } from 'react'
 import { Animated, Image, ImageErrorEventData, NativeSyntheticEvent } from 'react-native'
 import {

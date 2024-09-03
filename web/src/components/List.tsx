@@ -1,4 +1,4 @@
-import React, { ReactNode } from 'react'
+import React, { ReactNode, ReactElement } from 'react'
 import styled from 'styled-components'
 
 const StyledList = styled.div<{ $borderless: boolean }>`
@@ -17,15 +17,12 @@ type ListProps<T> = {
   borderless?: boolean
 }
 
-class List<T> extends React.PureComponent<ListProps<T>> {
-  render(): ReactNode {
-    const { items, renderItem, noItemsMessage, borderless = false } = this.props
-    if (items.length === 0) {
-      return <NoItemsMessage>{noItemsMessage}</NoItemsMessage>
-    }
-
-    return <StyledList $borderless={borderless}>{items.map(item => renderItem(item))}</StyledList>
+const List = <T,>({ items, renderItem, noItemsMessage, borderless = false }: ListProps<T>): ReactElement => {
+  if (items.length === 0) {
+    return <NoItemsMessage>{noItemsMessage}</NoItemsMessage>
   }
+
+  return <StyledList $borderless={borderless}>{items.map(item => renderItem(item))}</StyledList>
 }
 
 export default List

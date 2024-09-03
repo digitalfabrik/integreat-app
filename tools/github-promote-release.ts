@@ -4,8 +4,8 @@ import { program } from 'commander'
 
 import authenticate from './github-authentication.js'
 
-const octokit = new Octokit()
-type Releases = GetResponseTypeFromEndpointMethod<typeof octokit.repos.listReleases>
+const _unusedOctokit = new Octokit()
+type Releases = GetResponseTypeFromEndpointMethod<typeof _unusedOctokit.repos.listReleases>
 
 type Options = {
   deliverinoPrivateKey: string

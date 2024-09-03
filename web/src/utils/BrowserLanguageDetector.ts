@@ -21,9 +21,8 @@ const languageDetector: LanguageDetectorModule = {
       // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition,@typescript-eslint/strict-boolean-expressions
       if (navigator.languages) {
         // chrome only; not an array, so can't use .push.apply instead of iterating
-        for (let i = 0; i < navigator.languages.length; i += 1) {
-          // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-          bcp47Tags.push(navigator.languages[i]!)
+        for (const language of navigator.languages) {
+          bcp47Tags.push(language)
         }
       }
 

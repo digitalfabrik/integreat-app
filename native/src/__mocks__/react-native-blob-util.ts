@@ -5,6 +5,7 @@ const mockFiles: MockFilesType = {}
 
 const deleteAllMockFiles = () => {
   Object.keys(mockFiles).forEach(path => {
+    // eslint-disable-next-line @typescript-eslint/no-dynamic-delete
     delete mockFiles[path]
   })
 }
@@ -44,6 +45,7 @@ const unlink = (file: string): Promise<void> => {
 
     // Delete file if paths are matching or file is an ancestor directory
     if (filePath === path || (filePath === slicedPath && path[filePath.length] === '/')) {
+      // eslint-disable-next-line @typescript-eslint/no-dynamic-delete
       delete mockFiles[path]
     }
   })

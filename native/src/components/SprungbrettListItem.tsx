@@ -1,4 +1,4 @@
-import React, { PureComponent, ReactElement } from 'react'
+import React, { ReactElement } from 'react'
 import { Text } from 'react-native'
 
 import { SprungbrettJobModel } from 'shared/api'
@@ -12,16 +12,10 @@ type SprungbrettListItemProps = {
   language: string
 }
 
-// This should stay a PureComponent for performance reasons
-class SprungbrettListItem extends PureComponent<SprungbrettListItemProps> {
-  render(): ReactElement {
-    const { language, job, openJobInBrowser } = this.props
-    return (
-      <ListItem thumbnail={SprungbrettIcon} title={job.title} navigateTo={openJobInBrowser} language={language}>
-        <Text>{job.location}</Text>
-      </ListItem>
-    )
-  }
-}
+const SprungbrettListItem = ({ language, job, openJobInBrowser }: SprungbrettListItemProps): ReactElement => (
+  <ListItem thumbnail={SprungbrettIcon} title={job.title} navigateTo={openJobInBrowser} language={language}>
+    <Text>{job.location}</Text>
+  </ListItem>
+)
 
 export default SprungbrettListItem

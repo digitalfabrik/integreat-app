@@ -19,7 +19,7 @@ const isAvailable = (): boolean => {
     const testKey = 'i18next.translate.boo'
     localStorage.setItem(testKey, 'foo')
     localStorage.removeItem(testKey)
-  } catch (e) {
+  } catch (_) {
     hasLocalStorageSupport = false
   }
 

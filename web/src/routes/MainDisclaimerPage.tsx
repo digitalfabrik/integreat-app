@@ -21,7 +21,6 @@ const MainDisclaimerPage = ({ languageCode }: MainDisclaimerPageProps): ReactEle
       <div>
         <Caption title='Impressum und Datenschutz' />
         <div
-          // eslint-disable-next-line react/no-danger
           dangerouslySetInnerHTML={{
             __html: buildConfig().mainImprint,
           }}

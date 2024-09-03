@@ -280,6 +280,7 @@ class DatabaseConnector {
 
   async _deleteMetaOfCities(cities: Array<string>): Promise<void> {
     const metaCities = await this._loadMetaCities()
+    // eslint-disable-next-line @typescript-eslint/no-dynamic-delete
     cities.forEach(city => delete metaCities[city])
     await this._storeMetaCities(metaCities)
   }

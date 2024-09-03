@@ -5,7 +5,7 @@ const isExternalUrl = (link: string): boolean => {
   try {
     const _ = new URL(link)
     return true
-  } catch (e) {
+  } catch (_) {
     return false
   }
 }

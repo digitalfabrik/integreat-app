@@ -47,6 +47,7 @@ const ThemedSearchBar = ({ onChangeText, value, autofocus }: ThemedSearchBarProp
         accessibilityRole='search'
         onChangeText={onChangeText}
         value={value}
+        // eslint-disable-next-line jsx-a11y/no-autofocus -- in a dedicated search modal autofocus is fine
         autoFocus={autofocus}
         placeholder={t('searchPlaceholder')}
       />

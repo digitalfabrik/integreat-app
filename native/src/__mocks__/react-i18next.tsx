@@ -1,5 +1,5 @@
 // eslint-disable-next-line import/no-import-module-exports
-import * as React from 'react'
+import React, { ReactNode } from 'react'
 
 const realModule = jest.requireActual('react-i18next')
 
@@ -15,7 +15,7 @@ const useTranslation = (_unusedNamespace: string | string[]) => ({
 module.exports = {
   ...realModule,
   useTranslation,
-  I18nextProvider: ({ children }: { children: React.ReactNode }) => <>{children}</>,
+  I18nextProvider: ({ children }: { children: ReactNode }) => <>{children}</>,
   reactI18nextModule: realModule.reactI18nextModule,
   Trans: ({ i18nKey }: { i18nKey: string }) => <span>{i18nKey}</span>,
 }

@@ -45,9 +45,9 @@ describe('Helmet', () => {
 
   const metaByProperty = (property: string) => {
     const metas = document.getElementsByTagName('meta')
-    for (let i = 0; i < metas.length; i += 1) {
-      if (metas[i]!.getAttribute('property') === property) {
-        return metas[i]!.getAttribute('content')
+    for (const meta of metas) {
+      if (meta.getAttribute('property') === property) {
+        return meta.getAttribute('content')
       }
     }
     return null
@@ -55,9 +55,9 @@ describe('Helmet', () => {
 
   const linkByHrefLang = (code: string) => {
     const links = document.getElementsByTagName('link')
-    for (let i = 0; i < links.length; i += 1) {
-      if (links[i]!.getAttribute('hrefLang') === code) {
-        return links[i]
+    for (const link of links) {
+      if (link.getAttribute('hrefLang') === code) {
+        return link
       }
     }
     return null
