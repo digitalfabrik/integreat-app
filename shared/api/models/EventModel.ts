@@ -1,6 +1,5 @@
 import { decodeHTML } from 'entities'
 import { DateTime } from 'luxon'
-import { RRule } from 'rrule'
 import { v5 } from 'uuid'
 
 import { formatDateICal } from '../../utils'
@@ -72,8 +71,7 @@ class EventModel extends ExtendedPageModel {
     }
 
     if (recurring && date.recurrenceRule) {
-      const { freq, interval, until, byweekday } = date.recurrenceRule.options
-      const recurrence = RRule.optionsToString({ freq, interval, until, byweekday })
+      const recurrence = date.recurrenceRule.toString()
       if (recurrence) {
         body.push(recurrence)
       }

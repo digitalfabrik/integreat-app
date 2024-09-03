@@ -8,6 +8,7 @@ const mockData = (data: unknown): typeof useLoadFromEndpoint =>
     loading: false,
     error: null,
     refresh: () => null,
+    setData: jest.fn(),
   })) as typeof useLoadFromEndpoint
 
 export const mockUseLoadFromEndpointWithData = <T>(data: T): void => {
@@ -24,6 +25,7 @@ export const mockUseLoadFromEndpointLoading = <T>({ data, error }: { data?: T; e
     loading: true,
     error: error ? new Error(error) : null,
     refresh: () => null,
+    setData: jest.fn(),
   })) as typeof useLoadFromEndpoint
   mocked(useLoadFromEndpoint).mockImplementationOnce(useLoadFromEndpointMock)
 }
@@ -34,6 +36,7 @@ export const mockUseLoadFromEndpointWithError = (error: string): void => {
     loading: false,
     error: new Error(error),
     refresh: () => null,
+    setData: jest.fn(),
   })) as typeof useLoadFromEndpoint
   mocked(useLoadFromEndpoint).mockImplementation(useLoadFromEndpointMock)
 }
