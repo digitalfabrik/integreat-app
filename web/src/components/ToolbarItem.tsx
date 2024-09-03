@@ -1,18 +1,20 @@
 import React, { ReactElement } from 'react'
+import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
 
 import dimensions from '../constants/dimensions'
+import { spacesToDashes } from '../utils/stringUtils'
 import StyledSmallViewTip from './StyledSmallViewTip'
 import Button from './base/Button'
 import Icon from './base/Icon'
 import Link from './base/Link'
+import Tooltip from './base/Tooltip'
 
-const StyledToolbarItem = styled(Link)`
+const StyledToolbarItem = styled(Link)<{ disabled?: boolean }>`
   display: inline-block;
   padding: 8px;
-  cursor: pointer;
   border: none;
-  color: ${props => props.theme.colors.textColor};
+  color: ${props => (props.disabled ? props.theme.colors.textDisabledColor : props.theme.colors.textColor)};
   background-color: transparent;
   text-align: center;
 
@@ -21,8 +23,12 @@ const StyledToolbarItem = styled(Link)`
   }
 `
 
-const StyledIcon = styled(Icon)`
-  color: ${props => props.theme.colors.textSecondaryColor};
+const StyledIcon = styled(Icon)<{ disabled?: boolean }>`
+  color: ${props => (props.disabled ? props.theme.colors.textDisabledColor : props.theme.colors.textSecondaryColor)};
+`
+
+const StyledTooltip = styled(Tooltip)`
+  max-width: 250px;
 `
 
 type ItemProps =
@@ -39,14 +45,36 @@ type ToolbarItemProps = {
   icon: string
   text: string
   id?: string
+  isDisabled?: boolean
 } & ItemProps
 
-const ToolbarItem = ({ to, text, icon, onClick, id }: ToolbarItemProps): ReactElement => (
-  // @ts-expect-error wrong types from polymorphic 'as', see https://github.com/styled-components/styled-components/issues/4112
-  <StyledToolbarItem as={onClick ? Button : undefined} id={id} to={to} onClick={onClick} label={text}>
-    <StyledIcon src={icon} />
-    <StyledSmallViewTip>{text}</StyledSmallViewTip>
-  </StyledToolbarItem>
-)
+const ToolbarItem = ({ to, text, icon, isDisabled = false, onClick, id }: ToolbarItemProps): ReactElement => {
+  const { t } = useTranslation('categories')
+  const toolTipId = spacesToDashes(text)
+  if (isDisabled) {
+    return (
+      <StyledTooltip id={toolTipId} tooltipContent={t('disabledPdf')}>
+        {/* @ts-expect-error wrong types from polymorphic 'as', see https://github.com/styled-components/styled-components/issues/4112 */}
+        <StyledToolbarItem as='div' id={id} label={text} disabled>
+          <StyledIcon src={icon} disabled />
+          <StyledSmallViewTip>{text}</StyledSmallViewTip>
+        </StyledToolbarItem>
+      </StyledTooltip>
+    )
+  }
+  return (
+    <StyledToolbarItem
+      as={onClick ? Button : undefined}
+      id={id}
+      // @ts-expect-error wrong types from polymorphic 'as', see https://github.com/styled-components/styled-components/issues/4112
+      to={to}
+      onClick={onClick}
+      label={text}
+      disabled={false}>
+      <StyledIcon src={icon} disabled={false} />
+      <StyledSmallViewTip>{text}</StyledSmallViewTip>
+    </StyledToolbarItem>
+  )
+}
 
 export default ToolbarItem

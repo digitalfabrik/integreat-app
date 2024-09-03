@@ -1,0 +1,6 @@
+issue_key: 2831
+show_in_stores: true
+platforms: # relevant platforms, possible values: web, android and ios
+  - web
+en: New button design for language selection button
+de: Neues Button-Design für die Sprachauswahl-Schaltfläche

@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next'
 
 import { CATEGORIES_ROUTE } from 'shared'
 import { CategoryModel } from 'shared/api'
+import config from 'translations/src/config'
 
 import { PdfIcon } from '../assets'
 import { cmsApiBaseUrl } from '../constants/urls'
@@ -30,7 +31,7 @@ const CategoriesToolbar = (props: CategoriesToolbarProps): ReactElement => {
       route={CATEGORIES_ROUTE}
       feedbackTarget={category && !category.isRoot() ? category.slug : undefined}
       pageTitle={pageTitle}>
-      <ToolbarItem icon={PdfIcon} text={t('createPdf')} to={pdfUrl} />
+      <ToolbarItem icon={PdfIcon} text={t('createPdf')} to={pdfUrl} isDisabled={config.hasRTLScript(languageCode)} />
     </CityContentToolbar>
   )
 }
