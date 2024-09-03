@@ -16,7 +16,7 @@ describe('EventModel', () => {
       startDate: DateTime.fromISO('2020-03-20T10:50:00+02:00'),
       endDate: DateTime.fromISO('2020-03-20T17:50:00+02:00'),
       allDay: false,
-      recurrenceRule: rrulestr('FREQ=WEEKLY;INTERVAL=3;UNTIL=20200703T235959Z;BYDAY=FR'),
+      recurrenceRule: rrulestr('FREQ=WEEKLY;INTERVAL=3;UNTIL=20200703T235959Z;BYDAY=-1FR'),
     }),
     location: new LocationModel({
       id: 1,
@@ -70,9 +70,9 @@ describe('EventModel', () => {
     expect(endDate).toBe(`DTEND;TZID=${timezone}:20200320T165000`)
   })
 
-  it('should have a recurrence rule in iCal', () => {
+  it('should have the correct recurrence rule in iCal', () => {
     const recurrenceField = getICalField(event, 'RRULE', true)
-    expect(recurrenceField).toBe('RRULE:FREQ=WEEKLY;INTERVAL=3;UNTIL=20200703T235959Z;BYDAY=FR')
+    expect(recurrenceField).toBe('RRULE:FREQ=WEEKLY;INTERVAL=3;UNTIL=20200703T235959Z;BYDAY=-1FR')
   })
 
   it('should correctly strip carriage returns and escape new lines in ical description', () => {
