@@ -188,9 +188,10 @@ const RemoteContent = ({
   smallText = false,
 }: RemoteContentProps): ReactElement => {
   const sandBoxRef = React.createRef<HTMLDivElement>()
-  const { value: externalSourcePermissions, updateLocalStorageItem } = useLocalStorage<ExternalSourcePermissions>(
-    LOCAL_STORAGE_ITEM_EXTERNAL_SOURCES,
-  )
+  const { value: externalSourcePermissions, updateLocalStorageItem } = useLocalStorage<ExternalSourcePermissions>({
+    key: LOCAL_STORAGE_ITEM_EXTERNAL_SOURCES,
+    initialValue: {},
+  })
 
   const [contentIframeSources, setContentIframeSources] = useState<IframeSources>({})
   const { viewportSmall, width: deviceWidth } = useWindowDimensions()

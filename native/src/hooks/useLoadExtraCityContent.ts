@@ -23,7 +23,10 @@ type Load<T extends object> =
 type UseLoadExtraCityContentParams<T extends object> = Params & Load<T>
 
 type UseLoadExtraCityContentData<T> = CityContentData & { extra: T }
-export type UseLoadExtraCityContentReturn<T> = Omit<ReturnType<UseLoadExtraCityContentData<T>>, 'error'> & {
+export type UseLoadExtraCityContentReturn<T> = Omit<
+  Omit<ReturnType<UseLoadExtraCityContentData<T>>, 'error'>,
+  'setData'
+> & {
   error: ErrorCode | Error | null
 }
 

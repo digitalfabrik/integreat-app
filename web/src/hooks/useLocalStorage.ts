@@ -1,27 +1,34 @@
 import { useState, useCallback } from 'react'
 
-type UseLocalStorageReturnType<T> = {
+type UseLocalStorageProps<T> = {
+  key: string
+  initialValue: T
+}
+
+type UseLocalStorageReturn<T> = {
   value: T
   updateLocalStorageItem: (newValue: T) => void
-  removeLocalStorageItem: () => void
 }
-const useLocalStorage = <T>(name: string): UseLocalStorageReturnType<T> => {
-  const [value, setValue] = useState<string | null>(localStorage.getItem(name))
+
+const useLocalStorage = <T>({ key, initialValue }: UseLocalStorageProps<T>): UseLocalStorageReturn<T> => {
+  const [value, setValue] = useState<T>(() => {
+    const localStorageItem = localStorage.getItem(key)
+    if (localStorageItem) {
+      return JSON.parse(localStorageItem)
+    }
+    localStorage.setItem(key, JSON.stringify(initialValue))
+    return initialValue
+  })
 
   const updateLocalStorageItem = useCallback(
     (newValue: T) => {
-      localStorage.setItem(name, JSON.stringify(newValue))
-      setValue(JSON.stringify(newValue))
+      localStorage.setItem(key, JSON.stringify(newValue))
+      setValue(newValue)
     },
-    [name],
+    [key],
   )
 
-  const removeLocalStorageItem = useCallback(() => {
-    localStorage.removeItem(name)
-    setValue(null)
-  }, [name])
-
-  return { value: value ? JSON.parse(value) : {}, updateLocalStorageItem, removeLocalStorageItem }
+  return { value, updateLocalStorageItem }
 }
 
 export default useLocalStorage

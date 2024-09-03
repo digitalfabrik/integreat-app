@@ -18,7 +18,7 @@ type ParamsType = {
   language: string
 }
 
-type TuNewsReturnType = ReturnType<TunewsModel[]> & {
+type TuNewsReturnType = Omit<ReturnType<TunewsModel[]>, 'setData'> & {
   loadMore?: () => void
   loadingMore?: boolean
   availableLanguages: LanguageModel[] | null

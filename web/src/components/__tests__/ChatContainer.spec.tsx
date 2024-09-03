@@ -1,15 +1,24 @@
 import { fireEvent } from '@testing-library/react'
 import React, { ReactElement } from 'react'
 
-import { renderWithTheme } from '../../testing/render'
+import { mockUseLoadFromEndpointWithData } from 'shared/api/endpoints/testing/mockUseLoadFromEndpoint'
+
+import { renderWithRouterAndTheme, renderWithTheme } from '../../testing/render'
 import ChatContainer from '../ChatContainer'
 
 jest.mock('react-i18next')
 jest.mock('focus-trap-react', () => ({ children }: { children: ReactElement }) => <div>{children}</div>)
 
+jest.mock('shared/api', () => ({
+  ...jest.requireActual('shared/api'),
+  useLoadFromEndpoint: jest.fn(),
+}))
+
 describe('ChatContainer', () => {
+  mockUseLoadFromEndpointWithData([])
+
   it('should open chat modal and show content on chat button click', () => {
-    const { getByTestId, getByText } = renderWithTheme(<ChatContainer city='Augsburg' language='de' />)
+    const { getByTestId, getByText } = renderWithRouterAndTheme(<ChatContainer city='augsburg' language='de' />)
     const chatButtonContainer = getByTestId('chat-button-container')
     expect(chatButtonContainer).toBeTruthy()
     fireEvent.click(chatButtonContainer)
@@ -19,7 +28,7 @@ describe('ChatContainer', () => {
   })
 
   it('should show minimized toolbar on minimize button click', () => {
-    const { getByTestId, getByLabelText } = renderWithTheme(<ChatContainer city='Augsburg' language='de' />)
+    const { getByTestId, getByLabelText } = renderWithTheme(<ChatContainer city='augsburg' language='de' />)
     const chatButtonContainer = getByTestId('chat-button-container')
     expect(chatButtonContainer).toBeTruthy()
     fireEvent.click(chatButtonContainer)
@@ -30,7 +39,7 @@ describe('ChatContainer', () => {
 
   it('should close chat if close button was clicked', () => {
     const { getByTestId, queryByTestId, getByLabelText, queryByText } = renderWithTheme(
-      <ChatContainer city='Augsburg' language='de' />,
+      <ChatContainer city='augsburg' language='de' />,
     )
     const chatButtonContainer = getByTestId('chat-button-container')
     expect(chatButtonContainer).toBeTruthy()
@@ -44,7 +53,7 @@ describe('ChatContainer', () => {
   })
 
   it('should maximize chat on maximize button click if chat was minimized', () => {
-    const { getByTestId, getByText, getByLabelText } = renderWithTheme(<ChatContainer city='Augsburg' language='de' />)
+    const { getByTestId, getByText, getByLabelText } = renderWithTheme(<ChatContainer city='augsburg' language='de' />)
     const chatButtonContainer = getByTestId('chat-button-container')
     expect(chatButtonContainer).toBeTruthy()
     fireEvent.click(chatButtonContainer)

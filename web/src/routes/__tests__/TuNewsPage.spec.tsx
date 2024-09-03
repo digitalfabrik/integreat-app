@@ -1,8 +1,11 @@
-import { mocked } from 'jest-mock'
 import React from 'react'
 
 import { NEWS_ROUTE, pathnameFromRouteInformation, TU_NEWS_TYPE } from 'shared'
-import { CityModelBuilder, LanguageModelBuilder, LanguageModel, ReturnType, useLoadFromEndpoint } from 'shared/api'
+import { CityModelBuilder, LanguageModelBuilder } from 'shared/api'
+import {
+  mockUseLoadFromEndpointWithData,
+  mockUseLoadFromEndpointWithError,
+} from 'shared/api/endpoints/testing/mockUseLoadFromEndpoint'
 
 import { renderRoute } from '../../testing/render'
 import TuNewsPage from '../TuNewsPage'
@@ -28,13 +31,6 @@ describe('TuNewsPage', () => {
   const city = cities[0]!
   const language = tuNewsLanguages[0]!
 
-  const languagesReturn: ReturnType<LanguageModel[]> = {
-    data: tuNewsLanguages,
-    loading: false,
-    error: null,
-    refresh: () => undefined,
-  }
-
   const pathname = pathnameFromRouteInformation({
     route: NEWS_ROUTE,
     newsType: TU_NEWS_TYPE,
@@ -43,20 +39,20 @@ describe('TuNewsPage', () => {
   })
   const routePattern = `/:cityCode/:languageCode/${RoutePatterns[TU_NEWS_ROUTE]}`
 
-  const renderTuNewsRoute = (languageModel = language, tuNewsLanguages = languagesReturn) => {
-    mocked(useLoadFromEndpoint).mockImplementation(() => tuNewsLanguages as never)
-    return renderRoute(
-      <TuNewsPage city={city} pathname={pathname} cityCode={city.code} languageCode={languageModel.code} />,
-      { routePattern, pathname },
-    )
-  }
+  const renderTuNewsRoute = (languageModel = language) =>
+    renderRoute(<TuNewsPage city={city} pathname={pathname} cityCode={city.code} languageCode={languageModel.code} />, {
+      routePattern,
+      pathname,
+    })
 
   it('should render error if loading languages fails', () => {
-    const { getByText } = renderTuNewsRoute(language, { ...languagesReturn, error: new Error('my lang error') })
+    mockUseLoadFromEndpointWithError('my lang error')
+    const { getByText } = renderTuNewsRoute(language)
     expect(getByText('error:unknownError')).toBeTruthy()
   })
 
   it('should render language failure if language is not available', () => {
+    mockUseLoadFromEndpointWithData(tuNewsLanguages)
     const { getAllByText, queryByText } = renderTuNewsRoute(city.languages[2]!)
     expect(getAllByText('error:notFound.language error:chooseALanguage')).toBeTruthy()
     // Available languages
@@ -72,6 +68,7 @@ describe('TuNewsPage', () => {
   })
 
   it('should render list', () => {
+    mockUseLoadFromEndpointWithData(tuNewsLanguages)
     const { getByText } = renderTuNewsRoute()
     expect(getByText('List')).toBeTruthy()
   })
