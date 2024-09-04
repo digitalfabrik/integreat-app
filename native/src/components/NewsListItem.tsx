@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react'
+import React, { ReactElement, useContext } from 'react'
 import { useTranslation } from 'react-i18next'
 import styled from 'styled-components/native'
 
@@ -7,6 +7,7 @@ import { LocalNewsModel, TunewsModel } from 'shared/api'
 import { ArrowBackIcon } from '../assets'
 import { EXCERPT_MAX_LINES } from '../constants'
 import { contentDirection } from '../constants/contentDirection'
+import { AppContext } from '../contexts/AppContextProvider'
 import TimeStamp from './TimeStamp'
 import Icon from './base/Icon'
 import Pressable from './base/Pressable'
@@ -81,12 +82,13 @@ export const ReadMore = styled(Text)<{ isTunews: boolean }>`
 const NewsListItem = ({ index, newsItem, navigateToNews, isTunews }: NewsListItemProps): ReactElement => {
   const { t, i18n } = useTranslation('news')
   const timestamp = newsItem instanceof LocalNewsModel ? newsItem.timestamp : null
+  const { languageCode } = useContext(AppContext)
 
   return (
     <>
       <Divider firstItem={index === 0} />
       <ListItemWrapper>
-        <StyledPressable onPress={navigateToNews} accessibilityLanguage='de'>
+        <StyledPressable onPress={navigateToNews} accessibilityLanguage={languageCode}>
           <Description>
             <Title>{newsItem.title}</Title>
             <Content numberOfLines={EXCERPT_MAX_LINES}>{newsItem.content}</Content>
