@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-extraneous-class */
 const WAIT_FOR_SWIPE_FINISHED = 2000
 
 type SelectorReturn = ReturnType<typeof $>

@@ -9,7 +9,11 @@ export default class Page {
    * @param path path of the sub page (e.g. /path/to/page.html)
    */
 
-  open(path: string): Promise<string> {
-    return browser.url(`${path}`)
+  async open(path: string): Promise<string> {
+    const url = await browser.url(`${path}`)
+    if (url === undefined) {
+      throw new Error('Page not found')
+    }
+    return url
   }
 }

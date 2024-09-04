@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-extraneous-class */
 class Keyboard {
   static hide = async (iosSendKey = '\n'): Promise<void> => {
     if (driver.isAndroid) {
