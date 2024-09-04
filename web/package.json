@@ -31,8 +31,8 @@
   "dependencies": {
     "@integreat-app/react-sticky-headroom": "^2.2.1",
     "@math.gl/web-mercator": "^3.6.3",
-    "@sentry/react": "^7.119.0",
-    "@sentry/types": "^7.119.0",
+    "@sentry/react": "^8.28.0",
+    "@sentry/types": "^8.28.0",
     "build-configs": "0.0.1",
     "dompurify": "^3.0.11",
     "focus-trap-react": "^10.2.3",
