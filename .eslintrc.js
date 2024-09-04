@@ -21,6 +21,7 @@ module.exports = {
     'plugin:jest/recommended',
     'plugin:jest/style',
     'plugin:styled-components-a11y/strict',
+    'plugin:react-native-a11y/all',
   ],
   env: {
     es6: true,
@@ -46,6 +47,7 @@ module.exports = {
     'no-underscore-dangle': 'off',
     'react/display-name': 'off',
     'react/jsx-props-no-spreading': 'off',
+    'react-native-a11y/has-accessibility-hint': 'off',
     'jest/no-mocks-import': 'off',
 
     // Unwanted
