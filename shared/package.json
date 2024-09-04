@@ -18,7 +18,7 @@
   "dependencies": {
     "@turf/distance": "^7.1.0",
     "deepmerge-ts": "^7.1.0",
-    "entities": "^5.0.0",
+    "entities": "^4.5.0",
     "htmlparser2": "^9.1.0",
     "luxon": "^3.5.0",
     "minisearch": "^7.1.0",
