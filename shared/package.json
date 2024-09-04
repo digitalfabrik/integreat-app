@@ -16,16 +16,16 @@
     "react": "18.2.0"
   },
   "dependencies": {
-    "@turf/distance": "^6.5.0",
-    "deepmerge-ts": "^5.1.0",
-    "entities": "^4.5.0",
+    "@turf/distance": "^7.1.0",
+    "deepmerge-ts": "^7.1.0",
+    "entities": "^5.0.0",
     "htmlparser2": "^9.1.0",
-    "luxon": "^3.4.4",
-    "minisearch": "^6.3.0",
+    "luxon": "^3.5.0",
+    "minisearch": "^7.1.0",
     "normalize-path": "^3.0.0",
     "normalize-strings": "^1.1.1",
     "rrule": "2.8.1",
-    "uuid": "^9.0.1"
+    "uuid": "^10.0.0"
   },
   "devDependencies": {
     "@types/geojson": "^7946.0.10",
