@@ -11,6 +11,7 @@ properties you can set.
 ### Android
 
 Before first starting the test:
+
 - make sure appium is installed by running `appium --version`
 - install appium android driver by running `appium driver install uiautomator2` **in the project root**.
 - set the APPIUM_HOME var to ~/.appium
