@@ -7,7 +7,7 @@ import { allowNotifications } from '../utils/deviceUtils.js'
 
 describe('navigate to other location', () => {
   it('should open a city on location selection', async () => {
-    allowNotifications()
+    await allowNotifications()
     const landingPage = LandingPage
     await landingPage.get()
 
