@@ -1,3 +1,5 @@
+import obdachOverrideTranslations from 'translations/override-translations/obdach.json'
+
 import { OBDACH_ASSETS } from '../AssetsType'
 import { CommonBuildConfigType, WebBuildConfigType } from '../BuildConfigType'
 import mainImprint from './mainImprint'
@@ -13,6 +15,7 @@ const commonObdachBuildConfig: CommonBuildConfigType = {
   allowedHostNames: ['cms.netzwerkobdachwohnen.de', 'admin.netzwerkobdachwohnen.de'],
   allowedLookalikes: [],
   supportedIframeSources: ['vimeo.com'],
+  translationsOverride: obdachOverrideTranslations,
   internalLinksHijackPattern:
     'https?:\\/\\/((cms\\.)?netzwerkobdachwohnen\\.de)(?!\\/(media|[^/]*\\/(wp-content|wp-admin|wp-json))\\/.*).*',
   featureFlags: {

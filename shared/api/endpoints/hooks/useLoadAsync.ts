@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react'
+import { Dispatch, SetStateAction, useCallback, useEffect, useState } from 'react'
 
 export const loadAsync = async <T>(
   request: () => Promise<T | null>,
@@ -25,6 +25,7 @@ export type Return<T extends object> = {
   error: Error | null
   loading: boolean
   refresh: () => void
+  setData: Dispatch<SetStateAction<T | null>>
 }
 
 export const useLoadAsync = <T extends object>(request: (refresh: boolean) => Promise<T | null>): Return<T> => {
@@ -45,7 +46,7 @@ export const useLoadAsync = <T extends object>(request: (refresh: boolean) => Pr
     load()
   }, [load])
 
-  return { data, error, loading, refresh: useCallback(() => load(true), [load]) }
+  return { data, error, loading, refresh: useCallback(() => load(true), [load]), setData }
 }
 
 export default useLoadAsync

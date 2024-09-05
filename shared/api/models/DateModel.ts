@@ -1,5 +1,7 @@
 import { DateTime, Duration } from 'luxon'
-import { RRule as RRuleType } from 'rrule'
+import { RRule as RRuleType, rrulestr } from 'rrule'
+
+import { formatDateICal } from '../../utils'
 
 const MAX_RECURRENCE_YEARS = 5
 
@@ -137,14 +139,13 @@ class DateModel {
 
   private getRecurrenceRuleInLocalTime(recurrenceRule: RRuleType): RRuleType {
     const startDate = recurrenceRule.options.dtstart
-    const offsetStartDate = DateTime.fromJSDate(startDate).minus({ minutes: startDate.getTimezoneOffset() }).toJSDate()
-    return new RRuleType({
-      freq: recurrenceRule.options.freq,
-      byweekday: recurrenceRule.options.byweekday,
-      interval: recurrenceRule.options.interval,
-      until: recurrenceRule.options.until,
-      dtstart: offsetStartDate,
-    })
+    const offsetStartDate = formatDateICal(
+      DateTime.fromJSDate(startDate).minus({ minutes: startDate.getTimezoneOffset() }).toUTC(),
+    )
+    const regexForFindingDate = /\d{8}T\d{6}/
+    // Don't parse by the recurrenceRule options here, rrule doesn't properly parse the params for every nth day of the month
+    // https://github.com/jkbrzt/rrule/issues/326
+    return rrulestr(recurrenceRule.toString().replace(regexForFindingDate, offsetStartDate))
   }
 
   isEqual(other: DateModel): boolean {

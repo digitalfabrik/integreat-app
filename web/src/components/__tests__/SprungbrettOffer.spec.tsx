@@ -3,6 +3,7 @@ import { mocked } from 'jest-mock'
 import React from 'react'
 
 import { OfferModel, SprungbrettJobModel, useLoadFromEndpoint } from 'shared/api'
+import { mockUseLoadFromEndpointWithError } from 'shared/api/endpoints/testing/mockUseLoadFromEndpoint'
 
 import { renderWithRouterAndTheme } from '../../testing/render'
 import SprungbrettOffer from '../SprungbrettOffer'
@@ -73,11 +74,7 @@ describe('SprungbrettOffer', () => {
 
   it('should render error when loading fails', () => {
     const errorMessage = 'Offers are not available!'
-    mocked(useLoadFromEndpoint).mockImplementation(() => ({
-      ...returnValue,
-      error: new Error(errorMessage),
-      data: null,
-    }))
+    mockUseLoadFromEndpointWithError(errorMessage)
 
     const { getByText } = renderSprungbrett()
 

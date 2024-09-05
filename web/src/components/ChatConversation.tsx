@@ -37,15 +37,10 @@ const ChatConversation = ({
   className,
 }: ChatConversationProps): ReactElement => {
   const { t } = useTranslation('chat')
-  const messagesEndRef = useRef<HTMLDivElement | null>(null)
+  const messagesEndRef = useRef<HTMLDivElement>(null)
 
-  const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' })
-  }
-
-  useEffect(() => {
-    scrollToBottom()
-  }, [messages])
+  const scrollToBottom = () => messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' })
+  useEffect(scrollToBottom, [messages])
 
   return (
     <Container className={className}>

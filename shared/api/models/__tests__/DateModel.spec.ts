@@ -400,5 +400,174 @@ describe('DateModel', () => {
         }),
       ])
     })
+
+    it('should correctly handle events recurring every second week of the month', () => {
+      jest.useFakeTimers({ now: new Date('2024-07-28T15:23:57.443+02:00') })
+      const recurrenceRule = rrulestr('DTSTART:20240620T083000\nRRULE:FREQ=MONTHLY;BYDAY=+2MO')
+      const date = new DateModel({
+        startDate: DateTime.fromISO('2024-06-20T10:30:00.000+02:00'),
+        endDate: DateTime.fromISO('2024-06-20T12:00:00.000+02:00'),
+        allDay: false,
+        recurrenceRule,
+      })
+
+      expect(date.recurrences(3)).toEqual([
+        new DateModel({
+          allDay: false,
+          recurrenceRule,
+          startDate: DateTime.fromISO('2024-08-12T10:30:00.000+02:00'),
+          endDate: DateTime.fromISO('2024-08-12T12:00:00.000+02:00'),
+          offset: 120,
+        }),
+        new DateModel({
+          allDay: false,
+          recurrenceRule,
+          startDate: DateTime.fromISO('2024-09-09T10:30:00.000+02:00'),
+          endDate: DateTime.fromISO('2024-09-09T12:00:00.000+02:00'),
+          offset: 120,
+        }),
+        new DateModel({
+          allDay: false,
+          recurrenceRule,
+          startDate: DateTime.fromISO('2024-10-14T10:30:00.000+02:00'),
+          endDate: DateTime.fromISO('2024-10-14T12:00:00.000+02:00'),
+          offset: 120,
+        }),
+      ])
+    })
+
+    it('should correctly handle events recurring every last week of the month', () => {
+      jest.useFakeTimers({ now: new Date('2024-08-28T15:23:57.443+02:00') })
+      const recurrenceRule = rrulestr('DTSTART:20240827T220000\nRRULE:FREQ=MONTHLY;BYDAY=-1WE')
+      const date = new DateModel({
+        startDate: DateTime.fromISO('2024-08-28T00:00:00.000+02:00'),
+        endDate: DateTime.fromISO('2024-08-28T23:59:00.000+02:00'),
+        allDay: true,
+        recurrenceRule,
+      })
+
+      expect(date.recurrences(3)).toEqual([
+        new DateModel({
+          allDay: true,
+          recurrenceRule,
+          startDate: DateTime.fromISO('2024-08-28T00:00:00.000+02:00'),
+          endDate: DateTime.fromISO('2024-08-28T23:59:00.000+02:00'),
+          offset: 120,
+        }),
+        new DateModel({
+          allDay: true,
+          recurrenceRule,
+          startDate: DateTime.fromISO('2024-09-25T00:00:00.000+02:00'),
+          endDate: DateTime.fromISO('2024-09-25T23:59:00.000+02:00'),
+          offset: 120,
+        }),
+        new DateModel({
+          allDay: true,
+          recurrenceRule,
+          startDate: DateTime.fromISO('2024-10-30T00:00:00.000+01:00'),
+          endDate: DateTime.fromISO('2024-10-30T23:59:00.000+01:00'),
+          offset: 120,
+        }),
+      ])
+    })
+
+    it('should correctly handle events recurring every third week of every second month', () => {
+      jest.useFakeTimers({ now: new Date('2024-08-28T15:23:57.443+02:00') })
+      const recurrenceRule = rrulestr('DTSTART:20240620T083000\nRRULE:FREQ=MONTHLY;INTERVAL=2;BYDAY=+3TH')
+      const date = new DateModel({
+        startDate: DateTime.fromISO('2024-06-20T10:30:00.000+02:00'),
+        endDate: DateTime.fromISO('2024-06-20T12:00:00.000+02:00'),
+        allDay: false,
+        recurrenceRule,
+      })
+
+      expect(date.recurrences(3)).toEqual([
+        new DateModel({
+          allDay: false,
+          recurrenceRule,
+          startDate: DateTime.fromISO('2024-10-17T10:30:00.000+02:00'),
+          endDate: DateTime.fromISO('2024-10-17T12:00:00.000+02:00'),
+          offset: 120,
+        }),
+        new DateModel({
+          allDay: false,
+          recurrenceRule,
+          startDate: DateTime.fromISO('2024-12-19T10:30:00.000+01:00'),
+          endDate: DateTime.fromISO('2024-12-19T12:00:00.000+01:00'),
+          offset: 120,
+        }),
+        new DateModel({
+          allDay: false,
+          recurrenceRule,
+          startDate: DateTime.fromISO('2025-02-20T10:30:00.000+01:00'),
+          endDate: DateTime.fromISO('2025-02-20T12:00:00.000+01:00'),
+          offset: 120,
+        }),
+      ])
+    })
+
+    it('should correctly handle events repeating annually', () => {
+      jest.useFakeTimers({ now: new Date('2024-08-28T15:23:57.443+02:00') })
+      const recurrenceRule = rrulestr('DTSTART:20241205T230000\nRRULE:FREQ=YEARLY')
+      const date = new DateModel({
+        startDate: DateTime.fromISO('2024-12-06T00:00:00.000+01:00'),
+        endDate: DateTime.fromISO('2024-12-06T23:59:00.000+01:00'),
+        allDay: true,
+        recurrenceRule,
+      })
+
+      expect(date.recurrences(3)).toEqual([
+        new DateModel({
+          allDay: true,
+          startDate: DateTime.fromISO('2024-12-06T00:00:00.000+01:00'),
+          endDate: DateTime.fromISO('2024-12-06T23:59:00.000+01:00'),
+          recurrenceRule,
+        }),
+        new DateModel({
+          allDay: true,
+          startDate: DateTime.fromISO('2025-12-06T00:00:00.000+01:00'),
+          endDate: DateTime.fromISO('2025-12-06T23:59:00.000+01:00'),
+          recurrenceRule,
+        }),
+        new DateModel({
+          allDay: true,
+          startDate: DateTime.fromISO('2026-12-06T00:00:00.000+01:00'),
+          endDate: DateTime.fromISO('2026-12-06T23:59:00.000+01:00'),
+          recurrenceRule,
+        }),
+      ])
+    })
+
+    it('should correctly handle events repeating every 2 years', () => {
+      jest.useFakeTimers({ now: new Date('2024-08-28T15:23:57.443+02:00') })
+      const recurrenceRule = rrulestr('DTSTART:20241205T230000\nRRULE:FREQ=YEARLY;INTERVAL=2')
+      const date = new DateModel({
+        startDate: DateTime.fromISO('2024-12-06T00:00:00.000+01:00'),
+        endDate: DateTime.fromISO('2024-12-06T23:59:00.000+01:00'),
+        allDay: true,
+        recurrenceRule,
+      })
+
+      expect(date.recurrences(3)).toEqual([
+        new DateModel({
+          allDay: true,
+          startDate: DateTime.fromISO('2024-12-06T00:00:00.000+01:00'),
+          endDate: DateTime.fromISO('2024-12-06T23:59:00.000+01:00'),
+          recurrenceRule,
+        }),
+        new DateModel({
+          allDay: true,
+          startDate: DateTime.fromISO('2026-12-06T00:00:00.000+01:00'),
+          endDate: DateTime.fromISO('2026-12-06T23:59:00.000+01:00'),
+          recurrenceRule,
+        }),
+        new DateModel({
+          allDay: true,
+          startDate: DateTime.fromISO('2028-12-06T00:00:00.000+01:00'),
+          endDate: DateTime.fromISO('2028-12-06T23:59:00.000+01:00'),
+          recurrenceRule,
+        }),
+      ])
+    })
   })
 })
