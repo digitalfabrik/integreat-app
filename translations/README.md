@@ -35,8 +35,9 @@ If you need a new font for your language, the following steps are required:
 
 ### Submitting for translation
 
-Translations should be done by professional translators. If there are enough untranslated strings,
-they can be submitted to professionals for translations as follows:
+Translations should be done by professional translators.
+We usually ask for translations through our service team.
+If there are enough untranslated strings, they can be submitted to professionals for translations as follows:
 
 - Create an issue in our issue tracker.
 - Create a new branch for the translations.
