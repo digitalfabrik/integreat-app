@@ -11,6 +11,7 @@ const SettingsSwitch = ({ value, onPress }: SettingsSwitchProps): ReactElement =
   const theme = useTheme()
   return (
     <Switch
+      testID='SettingsSwitch'
       thumbColor={theme.colors.themeColor}
       trackColor={{
         true: theme.colors.themeColor,

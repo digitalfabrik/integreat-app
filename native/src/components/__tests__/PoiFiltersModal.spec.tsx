@@ -42,9 +42,9 @@ describe('PoiFiltersModal', () => {
     )
 
   it('should set toggle open filter', () => {
-    const { getByRole } = renderPoiFiltersModal({})
+    const { getByTestId } = renderPoiFiltersModal({})
 
-    fireEvent.press(getByRole('switch'))
+    fireEvent.press(getByTestId('SettingsSwitch'))
     expect(setCurrentlyOpenFilter).toHaveBeenCalledTimes(1)
   })
 

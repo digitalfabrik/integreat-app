@@ -61,7 +61,7 @@ const SimpleImage = ({
   }
 
   if (typeof source === 'number') {
-    return <Image source={source} resizeMode={resizeMode} style={style} />
+    return <Image source={source} resizeMode={resizeMode} style={style} accessibilityIgnoresInvertColors role='img' />
   }
 
   const isSvgIcon = typeof source === 'function'

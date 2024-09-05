@@ -94,7 +94,7 @@ const NavigationTiles = ({ tiles }: NavigationTilesProps): ReactElement => {
         ))}
       </ScrollView>
       {isScrollable && (
-        <StyledPressable onPress={scrollToEnd} aria-hidden>
+        <StyledPressable role='button' onPress={scrollToEnd} aria-hidden>
           <StyledIcon Icon={ArrowBackIcon} disabled={scrolledToEnd} directionDependent reverse />
         </StyledPressable>
       )}
