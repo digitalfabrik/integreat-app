@@ -58,7 +58,7 @@ const SettingItem = (props: SettingItemProps): ReactElement => {
   const { t } = useTranslation('settings')
 
   return (
-    <Pressable onPress={onPress} role={role || 'none'} accessible={false}>
+    <Pressable onPress={onPress} role={role ?? 'none'} accessible={false}>
       <PadView>
         <ContentContainer>
           <View>
