@@ -3,6 +3,7 @@ import styled, { css } from 'styled-components'
 
 import dimensions from '../constants/dimensions'
 import useWindowDimensions from '../hooks/useWindowDimensions'
+import { MobileBanner } from './MobileBanner'
 
 const additionalToolbarTopSpacing = 32
 
@@ -142,6 +143,7 @@ const Layout = ({
 
   return (
     <RichLayout id={LAYOUT_ELEMENT_ID}>
+      <MobileBanner />
       {header}
       <Body $fullWidth={fullWidth} $disableScrollingSafari={disableScrollingSafari}>
         {!viewportSmall && <Aside $languageSelectorHeight={languageSelectorHeight}>{toolbar}</Aside>}
