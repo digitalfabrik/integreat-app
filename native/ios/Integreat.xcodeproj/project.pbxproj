@@ -18,7 +18,7 @@
 		2E0440F826C127B000183828 /* NotoSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2E0440F426C127AF00183828 /* NotoSans-Bold.ttf */; };
 		2E0440FA26C127B000183828 /* NotoSansArabic-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2E0440F626C127B000183828 /* NotoSansArabic-Bold.ttf */; };
 		2E0440FC26C133EE00183828 /* NotoSans.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2E0440FB26C133EE00183828 /* NotoSans.ttf */; };
-		2E673E9226C3C27C00B97628 /* BuildFile in Frameworks */ = {isa = PBXBuildFile; };
+		2E673E9226C3C27C00B97628 /* (null) in Frameworks */ = {isa = PBXBuildFile; };
 		616E1B072370E00100136B38 /* ConstantsModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 616E1B062370E00100136B38 /* ConstantsModule.swift */; };
 		616E1B092370E07D00136B38 /* ConstantsModule.m in Sources */ = {isa = PBXBuildFile; fileRef = 616E1B082370E07D00136B38 /* ConstantsModule.m */; };
 		7B4C27552274D7B7000FA969 /* FetchResultCollector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B4C27542274D7B7000FA969 /* FetchResultCollector.swift */; };
@@ -107,7 +107,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				051E12C629AF8FEA007A0950 /* Mapbox in Frameworks */,
-				2E673E9226C3C27C00B97628 /* BuildFile in Frameworks */,
+				2E673E9226C3C27C00B97628 /* (null) in Frameworks */,
 				ED297163215061F000B7C4FE /* JavaScriptCore.framework in Frameworks */,
 				7FF6DB6FCBBE6D434D176725 /* libPods-Integreat.a in Frameworks */,
 			);
@@ -523,13 +523,13 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 69727E617B9E8BD342173C32 /* Pods-Integreat.debug.xcconfig */;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = "$BUILD_CONFIG_APP_ICON";
+				ASSETCATALOG_COMPILER_APPICON_NAME = $BUILD_CONFIG_APP_ICON;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Integreat/Integreat.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 7272KE28TJ;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -650,12 +650,12 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 141E599FFA3EDB52E36D5513 /* Pods-Integreat.release.xcconfig */;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = "$BUILD_CONFIG_APP_ICON";
+				ASSETCATALOG_COMPILER_APPICON_NAME = $BUILD_CONFIG_APP_ICON;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 7272KE28TJ;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -776,10 +776,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_CFLAGS = "$(inherited)";
 				OTHER_CPLUSPLUSFLAGS = "$(inherited)";
-				OTHER_LDFLAGS = (
-					"$(inherited)",
-					" ",
-				);
+				OTHER_LDFLAGS = "$(inherited)  ";
 				REACT_NATIVE_PATH = "${PODS_ROOT}/../../node_modules/react-native";
 				SDKROOT = iphoneos;
 				USE_HERMES = true;
