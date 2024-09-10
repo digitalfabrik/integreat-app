@@ -14,7 +14,7 @@ describe('navigate to other location', () => {
     const cities = await LandingPage.cities
     const search = await LandingPage.search
 
-    expect(cities.length).toBeGreaterThan(0)
+    expect(await cities.length).toBeGreaterThan(0)
     await search.click()
     await search.addValue(filter)
 

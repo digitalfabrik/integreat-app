@@ -17,8 +17,8 @@ describe('navigate to other location', () => {
     const filteredCities = await LandingPage.cities
     const filteredCity = await LandingPage.city(defaultCity)
 
-    expect(cities.length).toBeGreaterThan(0)
-    expect(filteredCities.length).toBeLessThan(cities.length)
+    expect(await cities.length).toBeGreaterThan(0)
+    expect(filteredCities.length).toBeLessThan(await cities.length)
     expect(await filteredCity.isDisplayed()).toBeTruthy()
 
     // navigate to dashboard

@@ -1,9 +1,7 @@
-import { Capabilities } from '@wdio/types'
-
 import { browsers, ciCapabilities } from './capabilities.js'
 import waitForLocalhost from './waitForLocalhost.js'
 
-const getCapabilities = (): Array<Capabilities.DesiredCapabilities> => {
+const getCapabilities = (): Array<WebdriverIO.Capabilities> => {
   if (process.env.CI) {
     return [ciCapabilities]
   }

@@ -10,10 +10,10 @@ export default class Page {
    */
 
   async open(path: string): Promise<string> {
-    const url = await browser.url(`${path}`)
-    if (url === undefined) {
+    const request = await browser.url(`${path}`)
+    if (request?.url === undefined) {
       throw new Error('Page not found')
     }
-    return url
+    return request.url
   }
 }

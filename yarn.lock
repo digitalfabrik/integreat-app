@@ -6001,7 +6001,7 @@ appdirsjs@^1.2.4:
   resolved "https://registry.yarnpkg.com/appdirsjs/-/appdirsjs-1.2.7.tgz#50b4b7948a26ba6090d4aede2ae2dc2b051be3b3"
   integrity sha512-Quji6+8kLBC3NnBeo14nPDq0+2jUs5s3/xEye+udFHumHhRk4M7aAMXp/PBJqkKYGuuyR9M/6Dq7d2AViiGmhw==
 
-appium@^2.5.3:
+appium@^2.11.3:
   version "2.11.3"
   resolved "https://registry.yarnpkg.com/appium/-/appium-2.11.3.tgz#13770433b1a1564ec2c88232ea4c85203001482b"
   integrity sha512-O545jE/SkZecGBtT+yf7WTzkIyELkwgrKOIeXKTIiX5ob2Dzl+tVkTMzosJul8DaNsUlur7DR9PMAX9wZ7/o+A==
