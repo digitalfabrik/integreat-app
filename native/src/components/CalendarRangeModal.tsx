@@ -110,7 +110,7 @@ const CalendarRangeModal = ({
               }
               closeModal()
             }}
-            text={t('ok')}
+            text={t('common:ok')}
             type='clear'
           />
         </StyledView>

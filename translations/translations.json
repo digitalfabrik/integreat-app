@@ -566,7 +566,8 @@
       "showMore": "Mehr anzeigen",
       "showLess": "Weniger anzeigen",
       "optional": "optional",
-      "back": "Zurück"
+      "back": "Zurück",
+      "ok": "Ok"
     },
     "am": {
       "copied": "ተቀድቷል",
@@ -592,7 +593,8 @@
       "showMore": "عرض المزيد",
       "showLess": "عرض أقل",
       "optional": "اختياري",
-      "back": "تراجع"
+      "back": "تراجع",
+      "ok": "موافق"
     },
     "bg": {
       "copied": "Копиран",
@@ -657,7 +659,8 @@
       "showMore": "Show more",
       "showLess": "Show less",
       "optional": "optional",
-      "back": "Back"
+      "back": "Back",
+      "ok": "Ok"
     },
     "es": {
       "copied": "Copiado",
@@ -2963,7 +2966,16 @@
       "today": "heute",
       "todayRecurring": "heute, wiederholend",
       "onlyThisEvent": "Nur diese Veranstaltung",
-      "thisAndAllFutureEvents": "Diese und alle zukünftigen Veranstaltungen"
+      "thisAndAllFutureEvents": "Diese und alle zukünftigen Veranstaltungen",
+      "from": "von",
+      "to": "bis",
+      "resetFilter": "Filter löschen:",
+      "invalidFromDate": "Ungültiges Startdatum",
+      "invalidToDate": "Ungültiges Enddatum",
+      "shouldBeEarlier": "Das Anfangsdatum sollte vor dem Enddatum liegen.",
+      "hideFilters": "Filter verbergen",
+      "showFilters": "Filter anzeigen",
+      "selectRange": "Zeitraum auswählen"
     },
     "am": {
       "address": "ኣድራሻ",
@@ -3014,8 +3026,7 @@
       "shouldBeEarlier": "يجب أن يكون تاريخ البداية قبل تاريخ النهاية",
       "hideFilters": "إخفاء الفلاتر",
       "showFilters": "إظهار الفلاتر",
-      "selectRange": "اختر النطاق",
-      "ok": "موافق"
+      "selectRange": "اختر النطاق"
     },
     "bg": {
       "address": "Адрес",
@@ -3124,13 +3135,12 @@
       "from": "from",
       "to": "to",
       "resetFilter": "reset filter:",
-      "invalidFromDate": "Invalid from date format",
-      "invalidToDate": "Invalid to date format",
-      "shouldBeEarlier": "from date should be earlier than to date",
+      "invalidFromDate": "Invalid start date",
+      "invalidToDate": "Invalid end date",
+      "shouldBeEarlier": "The start date should be before the end date.",
       "hideFilters": "Hide filters",
       "showFilters": "Show filters",
-      "selectRange": "Select Range",
-      "ok": "Ok"
+      "selectRange": "Select Range"
     },
     "es": {
       "address": "Dirección",
