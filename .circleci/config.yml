@@ -1100,7 +1100,6 @@ workflows:
                     - mattermost
                 requires:
                     - bump_version
-                    - check
         unless:
             or:
                 - equal:

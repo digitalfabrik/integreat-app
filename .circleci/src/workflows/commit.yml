@@ -25,6 +25,5 @@ jobs:
   - e2e_web:
       requires:
         - bump_version
-        - check
       context:
         - mattermost
