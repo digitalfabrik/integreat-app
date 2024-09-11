@@ -13,9 +13,9 @@ type UseDateFilterReturn = {
   toDateError: string | null
 }
 
-const useDateFilter = (events: EventModel[] | null, translation: (key: string) => string): UseDateFilterReturn => {
-  const [fromDate, setFromDate] = useState<DateTime | null>(DateTime.local())
-  const [toDate, setToDate] = useState<DateTime | null>(DateTime.local().plus({ day: 10 }))
+const useDateFilter = (events: EventModel[] | null): UseDateFilterReturn => {
+  const [fromDate, setFromDate] = useState<DateTime | null>(DateTime.now())
+  const [toDate, setToDate] = useState<DateTime | null>(DateTime.now().plus({ day: 10 }))
   const [filteredEvents, setFilteredEvents] = useState<EventModel[]>([])
   const [fromDateError, setFromDateError] = useState<string | null>(null)
   const [toDateError, setToDateError] = useState<string | null>(null)
@@ -25,11 +25,11 @@ const useDateFilter = (events: EventModel[] | null, translation: (key: string) =
       setFromDateError('')
 
       if (!from) {
-        setFromDateError(translation('invalidFromDate'))
+        setFromDateError('invalidFromDate')
         return []
       }
       if (!to) {
-        setToDateError(translation('invalidToDate'))
+        setToDateError('invalidToDate')
         return []
       }
 
@@ -37,7 +37,7 @@ const useDateFilter = (events: EventModel[] | null, translation: (key: string) =
       const toDateTime = to.endOf('day')
 
       if (fromDateTime > toDateTime) {
-        setFromDateError(translation('shouldBeEarlier'))
+        setFromDateError('shouldBeEarlier')
         return []
       }
       return events?.filter(event => event.date.startDate >= fromDateTime && event.date.endDate <= toDateTime) || []

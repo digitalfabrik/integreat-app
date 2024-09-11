@@ -6,28 +6,28 @@ import renderWithTheme from '../../testing/render'
 import DatePicker, { DatePickerProps } from '../DatePicker'
 
 describe('DatePickerForNative', () => {
-  const setValue = jest.fn()
-  const setModalState = jest.fn()
+  const setDate = jest.fn()
+  const setModalOpen = jest.fn()
 
-  const renderCustomDatePicker = ({ modalState, setModalState, setValue, title, value, error }: DatePickerProps) =>
+  const renderCustomDatePicker = ({ modalOpen, setModalOpen, setDate, title, date, error }: DatePickerProps) =>
     renderWithTheme(
       <DatePicker
-        modalState={modalState}
-        setModalState={setModalState}
-        setValue={setValue}
+        modalOpen={modalOpen}
+        setModalOpen={setModalOpen}
+        setDate={setDate}
         title={title}
-        value={value}
+        date={date}
         error={error}
       />,
     )
 
   it('renders correctly with given props', () => {
     const { getByText } = renderCustomDatePicker({
-      modalState: false,
-      setModalState,
-      setValue,
+      modalOpen: false,
+      setModalOpen,
+      setDate,
       title: 'Test DatePicker',
-      value: DateTime.local(),
+      date: DateTime.now(),
       error: '',
     })
 
@@ -36,11 +36,11 @@ describe('DatePickerForNative', () => {
 
   it('updates date state and calls setValue with correct date', () => {
     const { getByTestId } = renderCustomDatePicker({
-      modalState: false,
-      setModalState,
-      setValue,
+      modalOpen: false,
+      setModalOpen,
+      setDate,
       title: 'Test DatePicker',
-      value: DateTime.local(),
+      date: DateTime.now(),
       error: '',
     })
 
@@ -52,16 +52,16 @@ describe('DatePickerForNative', () => {
     fireEvent.changeText(monthInput, '08')
     fireEvent.changeText(yearInput, '2024')
 
-    expect(setValue).toHaveBeenCalledWith(DateTime.fromFormat('15/08/2024', 'dd/MM/yyyy').toLocal())
+    expect(setDate).toHaveBeenCalledWith(DateTime.fromFormat('15/08/2024', 'dd/MM/yyyy'))
   })
 
   it('handles errors gracefully', () => {
     const { getByText } = renderCustomDatePicker({
-      modalState: false,
-      setModalState,
-      setValue,
+      modalOpen: false,
+      setModalOpen,
+      setDate,
       title: 'Test DatePicker',
-      value: null,
+      date: null,
       error: 'Invalid date',
     })
 

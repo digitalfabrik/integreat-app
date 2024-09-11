@@ -3,9 +3,8 @@ import { useTranslation } from 'react-i18next'
 import { RefreshControl } from 'react-native'
 import styled from 'styled-components/native'
 
-import { EVENTS_ROUTE, RouteInformationType } from 'shared'
+import { EVENTS_ROUTE, RouteInformationType, useDateFilter } from 'shared'
 import { fromError, NotFoundError, CityModel, EventModel } from 'shared/api'
-import useDateFilter from 'shared/hooks/useDateFilter'
 
 import CalendarRangeModal from '../components/CalendarRangeModal'
 import Caption from '../components/Caption'
@@ -44,11 +43,8 @@ type EventsProps = {
 
 const Events = ({ cityModel, language, navigateTo, events, slug, refresh }: EventsProps): ReactElement => {
   const { t } = useTranslation('events')
-  const { fromDate, setFromDate, toDate, setToDate, filteredEvents, fromDateError, toDateError } = useDateFilter(
-    events,
-    key => t(key),
-  )
-  const [modalState, setModalState] = useState(false)
+  const { fromDate, setFromDate, toDate, setToDate, filteredEvents, fromDateError, toDateError } = useDateFilter(events)
+  const [modalOpen, setModalOpen] = useState(false)
 
   if (!cityModel.eventsEnabled) {
     const error = new NotFoundError({
@@ -113,8 +109,8 @@ const Events = ({ cityModel, language, navigateTo, events, slug, refresh }: Even
   return (
     <>
       <CalendarRangeModal
-        closeModal={() => setModalState(false)}
-        modalVisible={modalState}
+        closeModal={() => setModalOpen(false)}
+        modalVisible={modalOpen}
         fromDate={fromDate}
         toDate={toDate}
         setToDate={setToDate}
@@ -134,8 +130,8 @@ const Events = ({ cityModel, language, navigateTo, events, slug, refresh }: Even
                 setToDate={setToDate}
                 fromDateError={fromDateError}
                 toDateError={toDateError}
-                modalState={modalState}
-                setModalState={setModalState}
+                modalOpen={modalOpen}
+                setModalOpen={setModalOpen}
               />
               <Separator />
             </>

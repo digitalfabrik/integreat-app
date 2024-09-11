@@ -2,7 +2,7 @@ import { DateTime } from 'luxon'
 import React, { ReactElement, useEffect, useState } from 'react'
 import styled from 'styled-components/native'
 
-import { DATE_FORMAT } from 'shared/constants'
+import { DATE_FORMAT } from 'shared'
 
 import { CalendarTodayIcon } from '../assets'
 import Icon from './base/Icon'
@@ -57,35 +57,32 @@ const StyledError = styled.Text`
 `
 export type DatePickerProps = {
   title: string
-  value: DateTime | null
-  setValue: (fromDate: DateTime | null) => void
+  date: DateTime | null
+  setDate: (date: DateTime | null) => void
   error?: string
-  modalState: boolean
-  setModalState: React.Dispatch<React.SetStateAction<boolean>>
+  modalOpen: boolean
+  setModalOpen: (open: boolean) => void
 }
-const DatePicker = ({ title, value, setValue, error, modalState, setModalState }: DatePickerProps): ReactElement => {
-  const formatDate = (date: DateTime | null, part: number) => date?.toFormat(DATE_FORMAT).split('/')[part]
-
-  const [inputDay, setInputDay] = useState(formatDate(value, 0))
-  const [inputMonth, setInputMonth] = useState(formatDate(value, 1))
-  const [inputYear, setInputYear] = useState(formatDate(value, 2))
+const DatePicker = ({ title, date, setDate, error, modalOpen, setModalOpen }: DatePickerProps): ReactElement => {
+  const [inputDay, setInputDay] = useState(date?.toFormat('dd'))
+  const [inputMonth, setInputMonth] = useState(date?.toFormat('MM'))
+  const [inputYear, setInputYear] = useState(date?.toFormat('yyyy'))
 
   useEffect(() => {
     try {
-      setValue(DateTime.fromFormat(`${inputDay}/${inputMonth}/${inputYear}`, DATE_FORMAT).toLocal())
+      setDate(DateTime.fromFormat(`${inputDay}/${inputMonth}/${inputYear}`, DATE_FORMAT))
     } catch (e) {
-      setValue(null)
+      setDate(null)
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [inputDay, inputMonth, inputYear])
+  }, [inputDay, inputMonth, inputYear, setDate])
 
   useEffect(() => {
-    if (value) {
-      setInputDay(formatDate(value, 0))
-      setInputMonth(formatDate(value, 1))
-      setInputYear(formatDate(value, 2))
+    if (date) {
+      setInputDay(date.toFormat('dd'))
+      setInputMonth(date.toFormat('MM'))
+      setInputYear(date.toFormat('yyyy'))
     }
-  }, [value])
+  }, [date])
 
   return (
     <DateContainer>
@@ -96,38 +93,32 @@ const DatePicker = ({ title, value, setValue, error, modalState, setModalState }
             testID='DatePicker-day'
             keyboardType='numeric'
             maxLength={2}
-            onChangeText={event => {
-              setInputDay(event as string)
-            }}
+            onChangeText={setInputDay}
             value={inputDay}
           />
-          <Text>/</Text>
+          <Text>.</Text>
           <Input
             testID='DatePicker-month'
             keyboardType='numeric'
             maxLength={2}
-            onChangeText={event => {
-              setInputMonth(event)
-            }}
+            onChangeText={setInputMonth}
             value={inputMonth}
           />
-          <Text>/</Text>
+          <Text>.</Text>
           <Input
             testID='DatePicker-year'
             maxLength={4}
             keyboardType='numeric'
-            onChangeText={event => {
-              setInputYear(event)
-            }}
+            onChangeText={setInputYear}
             value={inputYear}
           />
         </Wrapper>
         <StyledIconButton
-          $isModalOpen={modalState}
+          $isModalOpen={modalOpen}
           icon={<Icon Icon={CalendarTodayIcon} />}
           accessibilityLabel='calenderEventsIcon'
           onPress={() => {
-            setModalState(true)
+            setModalOpen(true)
           }}
         />
       </StyledInputWrapper>

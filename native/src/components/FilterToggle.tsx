@@ -1,5 +1,5 @@
-import { TFunction } from 'i18next'
 import React, { ReactElement } from 'react'
+import { useTranslation } from 'react-i18next'
 import styled from 'styled-components/native'
 
 import { ExpandIcon, ShrinkIcon } from '../assets'
@@ -21,13 +21,15 @@ const StyledButton = styled.TouchableOpacity`
 type DateFilterToggleProps = {
   toggle: boolean
   setToggleDateFilter: React.Dispatch<React.SetStateAction<boolean>>
-  t: TFunction<'events', undefined>
 }
 
-const FilterToggle = ({ toggle, setToggleDateFilter, t }: DateFilterToggleProps): ReactElement => (
-  <StyledButton onPress={() => setToggleDateFilter((prev: boolean) => !prev)}>
-    <Icon Icon={toggle ? ShrinkIcon : ExpandIcon} />
-    {toggle ? <StyledText>{t('hideFilters')}</StyledText> : <StyledText>{t('showFilters')}</StyledText>}
-  </StyledButton>
-)
+const FilterToggle = ({ toggle, setToggleDateFilter }: DateFilterToggleProps): ReactElement => {
+  const { t } = useTranslation('events')
+  return (
+    <StyledButton onPress={() => setToggleDateFilter((prev: boolean) => !prev)}>
+      <Icon Icon={toggle ? ShrinkIcon : ExpandIcon} />
+      <StyledText>{t(toggle ? 'hideFilters' : 'showFilters')}</StyledText>
+    </StyledButton>
+  )
+}
 export default FilterToggle

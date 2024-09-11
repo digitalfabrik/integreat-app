@@ -1,6 +1,6 @@
 import { DateTime } from 'luxon'
 
-import { lightColors } from 'build-configs/integreat/theme/colors'
+import { ThemeType } from 'build-configs'
 
 type MarkedDateType = {
   selected: boolean
@@ -11,15 +11,16 @@ type MarkedDateType = {
 export const getMarkedDates = (
   startDate: DateTime | null,
   endDate: DateTime | null,
+  theme: ThemeType,
 ): Record<string, MarkedDateType> => {
   const markedDateStyling = {
-    color: lightColors.themeColor,
-    textColor: lightColors.textColor,
+    color: theme.colors.themeColor,
+    textColor: theme.colors.textColor,
   }
 
   const markedDates: Record<string, MarkedDateType> = {}
 
-  const cutoffDate = DateTime.fromISO('2020-01-01')
+  const cutoffDate = DateTime.now().minus({ years: 1 })
 
   const validStartDate = startDate && startDate >= cutoffDate ? startDate : null
 

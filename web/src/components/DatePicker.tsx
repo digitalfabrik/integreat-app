@@ -2,7 +2,7 @@ import { DateTime } from 'luxon'
 import React, { ReactElement } from 'react'
 import styled from 'styled-components'
 
-import { INPUT_DATE_FORMAT } from 'shared/constants'
+import { INPUT_DATE_FORMAT } from 'shared'
 
 import { CalendarTodayIcon } from '../assets'
 import dimensions from '../constants/dimensions'
@@ -61,27 +61,22 @@ const StyledError = styled.div`
 `
 export type DatePickerProps = {
   title: string
-  value?: DateTime | null
-  setValue: (fromDate: DateTime | null) => void
+  date?: DateTime | null
+  setDate: (fromDate: DateTime | null) => void
   error?: string
 }
-const DatePicker = ({ title, value, setValue, error }: DatePickerProps): ReactElement => {
+const DatePicker = ({ title, date, setDate, error }: DatePickerProps): ReactElement => {
   const handleDateChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     try {
-      setValue(DateTime.fromFormat(event.target.value, INPUT_DATE_FORMAT).toLocal())
+      setDate(DateTime.fromFormat(event.target.value, INPUT_DATE_FORMAT))
     } catch (e) {
-      setValue(null)
+      setDate(null)
     }
   }
   return (
     <DateContainer>
       <StyledTitle>{title}</StyledTitle>
-      <StyledInput
-        alt='Date-input'
-        type='date'
-        value={value?.toFormat(INPUT_DATE_FORMAT)}
-        onChange={handleDateChange}
-      />
+      <StyledInput alt='Date-input' type='date' value={date?.toFormat(INPUT_DATE_FORMAT)} onChange={handleDateChange} />
       {!!error && <StyledError>{error}</StyledError>}
     </DateContainer>
   )

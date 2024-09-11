@@ -4,9 +4,8 @@ import { useTranslation } from 'react-i18next'
 import { useNavigate, useParams } from 'react-router-dom'
 import styled from 'styled-components'
 
-import { EVENTS_ROUTE, pathnameFromRouteInformation } from 'shared'
+import { EVENTS_ROUTE, pathnameFromRouteInformation, useDateFilter } from 'shared'
 import { createEventsEndpoint, EventModel, NotFoundError, useLoadFromEndpoint } from 'shared/api'
-import useDateFilter from 'shared/hooks/useDateFilter'
 
 import { CityRouteProps } from '../CityContentSwitcher'
 import Caption from '../components/Caption'
@@ -47,10 +46,7 @@ const EventsPage = ({ city, pathname, languageCode, cityCode }: CityRouteProps):
     error: eventsError,
   } = useLoadFromEndpoint(createEventsEndpoint, cmsApiBaseUrl, { city: cityCode, language: languageCode })
 
-  const { fromDate, setFromDate, toDate, setToDate, filteredEvents, fromDateError, toDateError } = useDateFilter(
-    events,
-    key => t(key),
-  )
+  const { fromDate, setFromDate, toDate, setToDate, filteredEvents, fromDateError, toDateError } = useDateFilter(events)
 
   if (!city) {
     return null

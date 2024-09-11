@@ -15,14 +15,12 @@ const DatePickerWrapper = styled.View`
   position: absolute;
   width: 90%;
   top: 228px;
-  justify-self: center;
-  /* stylelint-disable-next-line declaration-block-no-redundant-longhand-properties */
   align-self: center;
 `
 const StyledView = styled.View`
   gap: 8px;
-  flex-direction: row;
-  justify-content: ${props => (props.theme.contentDirection === 'rtl' ? 'flex-start' : 'flex-end')};
+  flex-direction: ${props => (props.theme.contentDirection === 'ltr' ? 'row' : 'row-reverse')};
+  justify-content: flex-start;
   padding: 5px 10px;
 `
 const StyledTextButton = styled(TextButton)`
@@ -63,14 +61,11 @@ const CalendarRangeModal = ({
   const handleDayPress = (day: { dateString: string }) => {
     const selectedDate = DateTime.fromISO(day.dateString)
 
-    if (!tempFromDate) {
+    if (!tempFromDate || tempToDate) {
       setTempFromDate(selectedDate)
       setTempToDate(null)
-    } else if (!tempToDate) {
-      setTempToDate(selectedDate)
     } else {
-      setTempFromDate(selectedDate)
-      setTempToDate(null)
+      setTempToDate(selectedDate)
     }
   }
 
@@ -81,7 +76,7 @@ const CalendarRangeModal = ({
         <Caption title={t('selectRange')} />
         <Calendar
           markingType='period'
-          markedDates={getMarkedDates(tempFromDate, tempToDate)}
+          markedDates={getMarkedDates(tempFromDate, tempToDate, theme)}
           onDayPress={handleDayPress}
           theme={{
             calendarBackground: theme.colors.textDecorationColor,
@@ -104,9 +99,9 @@ const CalendarRangeModal = ({
           />
           <StyledTextButton
             onPress={() => {
-              if (Boolean(tempFromDate) && Boolean(tempToDate)) {
-                setFromDate(tempFromDate || DateTime.local())
-                setToDate(tempToDate || DateTime.local())
+              if (tempFromDate && tempToDate) {
+                setFromDate(tempFromDate)
+                setToDate(tempToDate)
               }
               closeModal()
             }}

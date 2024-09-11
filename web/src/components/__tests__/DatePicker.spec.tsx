@@ -6,40 +6,41 @@ import { renderWithTheme } from '../../testing/render'
 import DatePicker, { DatePickerProps } from '../DatePicker'
 
 describe('DatePicker', () => {
-  const setValue = jest.fn()
+  const setDate = jest.fn()
 
-  const renderCustomDatePicker = ({ setValue, title, value, error }: DatePickerProps) =>
-    renderWithTheme(<DatePicker setValue={setValue} title={title} value={value} error={error} />)
+  const renderCustomDatePicker = ({ setDate, title, date, error }: DatePickerProps) =>
+    renderWithTheme(<DatePicker setDate={setDate} title={title} date={date} error={error} />)
 
   it('renders correctly with given props', () => {
     const title = 'From Date'
-    const value = DateTime.local()
+    const date = DateTime.now()
 
     const { getByText, getByAltText } = renderCustomDatePicker({
       title,
-      value,
-      setValue,
+      date,
+      setDate,
       error: '',
     })
 
     expect(getByText(title)).toBeInTheDocument()
-    expect(getByAltText('Date-input')).toHaveValue(value.toFormat('yyyy-MM-dd'))
+    expect(getByAltText('Date-input')).toHaveValue(date.toFormat('yyyy-MM-dd'))
   })
 
   it('handles date change correctly', () => {
-    const newValue = DateTime.local().plus({ days: 1 }).toFormat('yyyy-MM-dd')
+    const newValue = DateTime.now().plus({ days: 1 }).toFormat('yyyy-MM-dd')
 
     const { getByAltText } = renderCustomDatePicker({
       title: 'From Date',
-      value: DateTime.local(),
-      setValue,
+      date: DateTime.local(),
+      setDate,
       error: '',
     })
 
     const input = getByAltText('Date-input')
+
     fireEvent.change(input, { target: { value: newValue } })
 
-    expect(setValue).toHaveBeenCalledWith(DateTime.fromFormat(newValue, 'yyyy-MM-dd').toLocal())
+    expect(setDate).toHaveBeenCalledWith(DateTime.fromFormat(newValue, 'yyyy-MM-dd'))
   })
 
   it('displays an error message when error prop is provided', () => {
@@ -47,8 +48,8 @@ describe('DatePicker', () => {
 
     const { getByText } = renderCustomDatePicker({
       title: 'From Date',
-      value: DateTime.local(),
-      setValue,
+      date: DateTime.local(),
+      setDate,
       error,
     })
 

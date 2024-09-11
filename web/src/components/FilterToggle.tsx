@@ -1,5 +1,5 @@
-import { TFunction } from 'i18next'
 import React, { ReactElement } from 'react'
+import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
 
 import { ShrinkIcon, ExpandIcon } from '../assets'
@@ -16,6 +16,7 @@ const StyledButton = styled(Button)`
   font-weight: bold;
   padding: 5px;
 `
+
 const HideDateButton = styled(StyledButton)`
   display: none;
   align-self: flex-start;
@@ -24,19 +25,21 @@ const HideDateButton = styled(StyledButton)`
     display: flex;
   }
 `
+
 const FilterToggle = ({
   toggle,
   setToggleDateFilter,
-  t,
 }: {
   toggle: boolean
   setToggleDateFilter: React.Dispatch<React.SetStateAction<boolean>>
-  t: TFunction<'events', undefined>
-}): ReactElement => (
-  <HideDateButton label='toggleDate' onClick={() => setToggleDateFilter((prev: boolean) => !prev)}>
-    <Icon src={toggle ? ShrinkIcon : ExpandIcon} />
-    {toggle ? <span>{t('hideFilters')}</span> : <span>{t('showFilters')}</span>}
-  </HideDateButton>
-)
+}): ReactElement => {
+  const { t } = useTranslation('events')
+  return (
+    <HideDateButton label='toggleDate' onClick={() => setToggleDateFilter((prev: boolean) => !prev)}>
+      <Icon src={toggle ? ShrinkIcon : ExpandIcon} />
+      <span>{t(toggle ? 'hideFilters' : 'showFilters')}</span>
+    </HideDateButton>
+  )
+}
 
 export default FilterToggle
