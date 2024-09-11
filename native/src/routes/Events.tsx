@@ -76,7 +76,12 @@ const Events = ({ cityModel, language, navigateTo, events, slug, refresh }: Even
               <PageDetailsContainer>
                 <DatesPageDetail date={event.date} languageCode={language} />
                 {event.location && (
-                  <PageDetail identifier={t('address')} information={event.location.fullAddress} language={language} />
+                  <PageDetail
+                    identifier={t('address')}
+                    information={event.location.fullAddress}
+                    language={language}
+                    path={event.poiPath}
+                  />
                 )}
               </PageDetailsContainer>
             }

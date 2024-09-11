@@ -41,7 +41,7 @@ export type CityContentData = {
   pois: PoiModel[]
 }
 
-export type CityContentReturn = Omit<ReturnType<CityContentData>, 'error'> & {
+export type CityContentReturn = Omit<Omit<ReturnType<CityContentData>, 'error'>, 'setData'> & {
   error: ErrorCode | Error | null
 }
 

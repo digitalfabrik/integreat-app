@@ -16,7 +16,7 @@ describe('EventModel', () => {
       startDate: DateTime.fromISO('2020-03-20T10:50:00+02:00'),
       endDate: DateTime.fromISO('2020-03-20T17:50:00+02:00'),
       allDay: false,
-      recurrenceRule: rrulestr('FREQ=WEEKLY;INTERVAL=3;UNTIL=20200703T235959Z;BYDAY=FR'),
+      recurrenceRule: rrulestr('FREQ=WEEKLY;INTERVAL=3;UNTIL=20200703T235959Z;BYDAY=-1FR'),
     }),
     location: new LocationModel({
       id: 1,
@@ -32,6 +32,7 @@ describe('EventModel', () => {
     availableLanguages: {},
     lastUpdate: DateTime.fromISO('2022-06-05T17:50:00+02:00'),
     featuredImage: null,
+    poiPath: '/testumgebung/de/locations/testort/',
   }
   const event = new EventModel(params)
   const baseUrl = 'https://example.com'
@@ -69,9 +70,9 @@ describe('EventModel', () => {
     expect(endDate).toBe(`DTEND;TZID=${timezone}:20200320T165000`)
   })
 
-  it('should have a recurrence rule in iCal', () => {
+  it('should have the correct recurrence rule in iCal', () => {
     const recurrenceField = getICalField(event, 'RRULE', true)
-    expect(recurrenceField).toBe('RRULE:FREQ=WEEKLY;INTERVAL=3;UNTIL=20200703T235959Z;BYDAY=FR')
+    expect(recurrenceField).toBe('RRULE:FREQ=WEEKLY;INTERVAL=3;UNTIL=20200703T235959Z;BYDAY=-1FR')
   })
 
   it('should correctly strip carriage returns and escape new lines in ical description', () => {
@@ -100,5 +101,9 @@ describe('EventModel', () => {
     expect(encodeURI(description)).toBe(
       'DESCRIPTION:Wer%20darf%20teilnehmen?%5Cn%20%20%20%20%20%20Alle%20Frauen%20sind%20herzlich%20willkommen.%5Cn%20%20%20%20%20%20Was%20machen%20wir%20genau?%5Cn%5Cn%20%20%20%20%20%20Yoga%5Cn%20%20%20%20%20%20Stretching%5Cn%20%20%20%20Dancing%5Cn%5Cn%20%20%20%20Das%20Angebot%20ist%20kostenlos%5Cn%20%20%20%20Bitte%20melden%20Sie%20sich:%5Cn%20%20%20%20%20%20%C2%A0%5Cn%20%20%20%20anmeldung@invia-augbsurg.de%5Cn%20%20%20%2008214494625%5Cn%20%20%20%20Informationen%20bez%C3%BCglich%20des%20Orts%20erhalten%20Sie%20nach%20der%20Anmeldung%5Cn%5Cnhttps://example.com/augsburg/de/events/event0',
     )
+  })
+
+  it('should have a location path', () => {
+    expect(event.poiPath).toBe('/testumgebung/de/locations/testort/')
   })
 })
