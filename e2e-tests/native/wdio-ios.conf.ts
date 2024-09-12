@@ -1,6 +1,8 @@
+import { Capabilities } from '@wdio/types'
+
 import { config as defaultConfig } from './wdio.conf.js'
 
-const iosCapabilities: WebdriverIO.Capabilities = {
+const iosCapabilities: Capabilities.DesiredCapabilities = {
   platformName: 'iOS',
   // http://appium.io/docs/en/2.1/guides/caps/
   'appium:deviceName': 'iPhone 14',
