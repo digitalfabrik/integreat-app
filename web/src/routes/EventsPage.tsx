@@ -45,8 +45,10 @@ const EventsPage = ({ city, pathname, languageCode, cityCode }: CityRouteProps):
     loading,
     error: eventsError,
   } = useLoadFromEndpoint(createEventsEndpoint, cmsApiBaseUrl, { city: cityCode, language: languageCode })
-
-  const { fromDate, setFromDate, toDate, setToDate, filteredEvents, fromDateError, toDateError } = useDateFilter(events)
+  const { fromDate, setFromDate, toDate, setToDate, filteredEvents, fromDateError, toDateError } = useDateFilter(
+    events,
+    false,
+  )
 
   if (!city) {
     return null

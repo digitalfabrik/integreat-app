@@ -1,5 +1,5 @@
 import { DateTime } from 'luxon'
-import { useState, useEffect } from 'react'
+import { useState, useMemo } from 'react'
 
 import { EventModel } from 'shared/api'
 
@@ -13,39 +13,25 @@ type UseDateFilterReturn = {
   toDateError: string | null
 }
 
-const useDateFilter = (events: EventModel[] | null): UseDateFilterReturn => {
+const useDateFilter = (events: EventModel[] | null, isClear: boolean): UseDateFilterReturn => {
   const [fromDate, setFromDate] = useState<DateTime | null>(DateTime.now())
-  const [toDate, setToDate] = useState<DateTime | null>(DateTime.now().plus({ day: 10 }))
-  const [filteredEvents, setFilteredEvents] = useState<EventModel[]>([])
-  const [fromDateError, setFromDateError] = useState<string | null>(null)
-  const [toDateError, setToDateError] = useState<string | null>(null)
-  useEffect(() => {
-    const filterByDateRange = (from: DateTime | null, to: DateTime | null) => {
-      setToDateError('')
-      setFromDateError('')
+  const [toDate, setToDate] = useState<DateTime | null>(DateTime.now().plus({ year: 1 }))
+  const toDateError = toDate ? null : 'invalidToDate'
+  const isEarlierError = fromDate && toDate && fromDate > toDate ? 'shouldBeEarlier' : null
+  const fromDateError = fromDate ? isEarlierError : 'invalidFromDate'
 
-      if (!from) {
-        setFromDateError('invalidFromDate')
-        return []
-      }
-      if (!to) {
-        setToDateError('invalidToDate')
-        return []
-      }
-
-      const fromDateTime = from
-      const toDateTime = to.endOf('day')
-
-      if (fromDateTime > toDateTime) {
-        setFromDateError('shouldBeEarlier')
-        return []
-      }
-      return events?.filter(event => event.date.startDate >= fromDateTime && event.date.endDate <= toDateTime) || []
+  const filteredEvents = useMemo(() => {
+    if (!fromDate || !toDate || fromDate > toDate) {
+      return []
     }
 
-    setFilteredEvents(filterByDateRange(fromDate, toDate))
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [fromDate, toDate, events])
+    const fromDateTime = fromDate
+    const toDateTime = toDate.endOf('day')
+
+    return isClear
+      ? events || []
+      : events?.filter(event => event.date.startDate <= toDateTime && event.date.endDate >= fromDateTime) || []
+  }, [fromDate, toDate, isClear, events])
 
   return {
     fromDate,

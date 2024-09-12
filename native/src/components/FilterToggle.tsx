@@ -20,13 +20,13 @@ const StyledButton = styled.TouchableOpacity`
 `
 type DateFilterToggleProps = {
   toggle: boolean
-  setToggleDateFilter: React.Dispatch<React.SetStateAction<boolean>>
+  setToggleDateFilter: (toggle: boolean) => void
 }
 
 const FilterToggle = ({ toggle, setToggleDateFilter }: DateFilterToggleProps): ReactElement => {
   const { t } = useTranslation('events')
   return (
-    <StyledButton onPress={() => setToggleDateFilter((prev: boolean) => !prev)}>
+    <StyledButton onPress={() => setToggleDateFilter(!toggle)}>
       <Icon Icon={toggle ? ShrinkIcon : ExpandIcon} />
       <StyledText>{t(toggle ? 'hideFilters' : 'showFilters')}</StyledText>
     </StyledButton>

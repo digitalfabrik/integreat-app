@@ -2,8 +2,6 @@ import { DateTime } from 'luxon'
 import React, { ReactElement, useEffect, useState } from 'react'
 import styled from 'styled-components/native'
 
-import { DATE_FORMAT } from 'shared'
-
 import { CalendarTodayIcon } from '../assets'
 import Icon from './base/Icon'
 import IconButton from './base/IconButton'
@@ -70,7 +68,7 @@ const DatePicker = ({ title, date, setDate, error, modalOpen, setModalOpen }: Da
 
   useEffect(() => {
     try {
-      setDate(DateTime.fromFormat(`${inputDay}/${inputMonth}/${inputYear}`, DATE_FORMAT))
+      setDate(DateTime.fromISO(`${inputYear}-${inputMonth}-${inputDay}`))
     } catch (e) {
       setDate(null)
     }

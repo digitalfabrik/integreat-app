@@ -31,11 +31,11 @@ const FilterToggle = ({
   setToggleDateFilter,
 }: {
   toggle: boolean
-  setToggleDateFilter: React.Dispatch<React.SetStateAction<boolean>>
+  setToggleDateFilter: (toggle: boolean) => void
 }): ReactElement => {
   const { t } = useTranslation('events')
   return (
-    <HideDateButton label='toggleDate' onClick={() => setToggleDateFilter((prev: boolean) => !prev)}>
+    <HideDateButton label='toggleDate' onClick={() => setToggleDateFilter(!toggle)}>
       <Icon src={toggle ? ShrinkIcon : ExpandIcon} />
       <span>{t(toggle ? 'hideFilters' : 'showFilters')}</span>
     </HideDateButton>

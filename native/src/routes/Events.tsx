@@ -43,7 +43,11 @@ type EventsProps = {
 
 const Events = ({ cityModel, language, navigateTo, events, slug, refresh }: EventsProps): ReactElement => {
   const { t } = useTranslation('events')
-  const { fromDate, setFromDate, toDate, setToDate, filteredEvents, fromDateError, toDateError } = useDateFilter(events)
+  const [isClear, setIsClear] = useState(true)
+  const { fromDate, setFromDate, toDate, setToDate, filteredEvents, fromDateError, toDateError } = useDateFilter(
+    events,
+    isClear,
+  )
   const [modalOpen, setModalOpen] = useState(false)
 
   if (!cityModel.eventsEnabled) {
@@ -137,6 +141,7 @@ const Events = ({ cityModel, language, navigateTo, events, slug, refresh }: Even
                 toDateError={toDateError}
                 modalOpen={modalOpen}
                 setModalOpen={setModalOpen}
+                setIsClear={setIsClear}
               />
               <Separator />
             </>

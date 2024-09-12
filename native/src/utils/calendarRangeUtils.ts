@@ -20,42 +20,22 @@ export const getMarkedDates = (
 
   const markedDates: Record<string, MarkedDateType> = {}
 
-  const cutoffDate = DateTime.now().minus({ years: 1 })
+  const cutoffStartDate = DateTime.now().minus({ years: 2 })
+  const cutoffEndDate = DateTime.now().plus({ years: 2 })
 
-  const validStartDate = startDate && startDate >= cutoffDate ? startDate : null
-
-  const validEndDate = endDate && endDate >= cutoffDate ? endDate : null
-
-  if (validStartDate) {
-    const startDateString = validStartDate.toISODate()
-    markedDates[startDateString] = {
+  if (!startDate || startDate < cutoffStartDate || (endDate !== null && endDate > cutoffEndDate)) {
+    return {}
+  }
+  const safeEndDate = endDate ?? startDate
+  let currentDate = startDate
+  while (currentDate <= safeEndDate) {
+    markedDates[currentDate.toISODate()] = {
       selected: true,
-      startingDay: true,
-      endingDay: startDateString === validEndDate?.toISODate(),
+      startingDay: startDate.equals(currentDate),
+      endingDay: endDate?.equals(currentDate),
       ...markedDateStyling,
     }
-  }
-
-  if (validEndDate && (!validStartDate || validStartDate.toISODate() !== validEndDate.toISODate())) {
-    const endDateString = validEndDate.toISODate()
-    markedDates[endDateString] = {
-      selected: true,
-      endingDay: true,
-      ...markedDateStyling,
-    }
-  }
-
-  if (validStartDate && validEndDate && validStartDate < validEndDate) {
-    let current = validStartDate.plus({ days: 1 })
-
-    while (current < validEndDate) {
-      const dateString = current.toISODate()
-      markedDates[dateString] = {
-        selected: true,
-        ...markedDateStyling,
-      }
-      current = current.plus({ days: 1 })
-    }
+    currentDate = currentDate.plus({ days: 1 })
   }
 
   return markedDates

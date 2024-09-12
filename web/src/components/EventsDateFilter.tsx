@@ -34,13 +34,13 @@ const StyledButton = styled(Button)`
 `
 
 type ResetFilterTextProps = {
-  fromDate: DateTime | null
-  toDate: DateTime | null
+  fromDate: DateTime
+  toDate: DateTime
 }
 
 const ResetFilterText = ({ fromDate, toDate }: ResetFilterTextProps) => {
   const { t } = useTranslation('events')
-  const title = `${t('resetFilter')} ${fromDate?.toFormat('dd.MM.yy')} - ${toDate?.toFormat('dd.MM.yy')}`
+  const title = `${t('resetFilter')} ${fromDate.toLocaleString()} - ${toDate.toLocaleString()}`
   return <span>{title}</span>
 }
 type EventsDateFilterProps = {
@@ -60,22 +60,22 @@ const EventsDateFilter = ({
   toDateError,
 }: EventsDateFilterProps): JSX.Element => {
   const defaultFromDate = DateTime.now().startOf('day')
-  const defaultToDate = DateTime.now().plus({ day: 10 }).startOf('day')
-  const [toggleDateFilter, setToggleDateFilter] = useState(true)
+  const defaultToDate = DateTime.now().plus({ year: 1 }).startOf('day')
+  const [showDateFilter, setShowDateFilter] = useState(true)
   const isReset = fromDate?.startOf('day').equals(defaultFromDate) && toDate?.startOf('day').equals(defaultToDate)
   const { t } = useTranslation('events')
   return (
     <>
       <DateSection>
-        <FilterToggle toggle={toggleDateFilter} setToggleDateFilter={setToggleDateFilter} />
-        {toggleDateFilter && (
+        <FilterToggle toggle={showDateFilter} setToggleDateFilter={setShowDateFilter} />
+        {showDateFilter && (
           <>
             <DatePicker title={t('from')} date={fromDate} setDate={setFromDate} error={t(fromDateError ?? '')} />
             <DatePicker title={t('to')} date={toDate} setDate={setToDate} error={t(toDateError ?? '')} />
           </>
         )}
       </DateSection>
-      {!isReset && toggleDateFilter && (
+      {!isReset && showDateFilter && (
         <StyledButton
           label='resetDate'
           onClick={() => {

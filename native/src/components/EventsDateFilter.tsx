@@ -30,13 +30,13 @@ const StyledText = styled(Text)`
   padding: 5px;
 `
 type ResetFilterTextProps = {
-  fromDate: DateTime | null
-  toDate: DateTime | null
+  fromDate: DateTime
+  toDate: DateTime
 }
 
 const ResetFilterText = ({ fromDate, toDate }: ResetFilterTextProps) => {
   const { t } = useTranslation('events')
-  const title = `${t('resetFilter')} ${fromDate?.toFormat('dd.MM.yy')} - ${toDate?.toFormat('dd.MM.yy')}`
+  const title = `${t('resetFilter')} ${fromDate.toFormat('dd.MM.yy')} - ${toDate.toFormat('dd.MM.yy')}`
   return <StyledText>{title}</StyledText>
 }
 
@@ -49,6 +49,7 @@ type EventsDateFilterProps = {
   toDateError: string | null
   modalOpen: boolean
   setModalOpen: (modalOpen: boolean) => void
+  setIsClear: (clear: boolean) => void
 }
 const EventsDateFilter = ({
   fromDate,
@@ -59,17 +60,27 @@ const EventsDateFilter = ({
   toDateError,
   modalOpen,
   setModalOpen,
+  setIsClear,
 }: EventsDateFilterProps): JSX.Element => {
   const defaultFromDate = DateTime.now().startOf('day')
-  const defaultToDate = DateTime.now().plus({ day: 10 }).startOf('day')
-  const [toggleDateFilter, setToggleDateFilter] = useState(true)
+  const defaultToDate = DateTime.now().plus({ year: 1 }).startOf('day')
+  const [showDateFilter, setShowDateFilter] = useState(false)
   const isReset = fromDate?.startOf('day').equals(defaultFromDate) && toDate?.startOf('day').equals(defaultToDate)
   const { t } = useTranslation('events')
+  let firstToggle = true
+
+  const handleToggle = (toggleState: boolean) => {
+    setShowDateFilter(toggleState)
+    if (firstToggle) {
+      setIsClear(false)
+      firstToggle = false
+    }
+  }
   return (
     <>
       <DateSection>
-        <FilterToggle toggle={toggleDateFilter} setToggleDateFilter={setToggleDateFilter} />
-        {toggleDateFilter && (
+        <FilterToggle toggle={showDateFilter} setToggleDateFilter={handleToggle} />
+        {showDateFilter && (
           <>
             <DatePicker
               modalOpen={modalOpen}
@@ -91,7 +102,7 @@ const EventsDateFilter = ({
         )}
       </DateSection>
       <>
-        {!isReset && toggleDateFilter && (
+        {!isReset && showDateFilter && (
           <StyledButton
             onPress={() => {
               setFromDate(defaultFromDate)

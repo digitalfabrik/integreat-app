@@ -24,8 +24,7 @@
     "src/assets/licenses.json",
     "jest.setup.ts",
     "jest.config.ts",
-    "stylelint.config.js",
-    "../shared/hooks/useDateFilter.ts"
+    "stylelint.config.js"
   ],
   "references": [
     {

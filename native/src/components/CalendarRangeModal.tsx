@@ -19,13 +19,16 @@ const DatePickerWrapper = styled.View`
 `
 const StyledView = styled.View`
   gap: 8px;
-  flex-direction: ${props => (props.theme.contentDirection === 'ltr' ? 'row' : 'row-reverse')};
-  justify-content: flex-start;
+  justify-content: ${props => (props.theme.contentDirection === 'rtl' ? 'flex-start' : 'flex-end')};
+  flex-direction: ${props => (props.theme.contentDirection === 'rtl' ? 'row-reverse' : 'row')};
   padding: 5px 10px;
 `
+const OPACITY_DISABLED = 0.5
+
 const StyledTextButton = styled(TextButton)`
   background-color: transparent;
   transform: scale(0.8);
+  opacity: ${props => (props.disabled ? OPACITY_DISABLED : 1)};
 `
 const StyledPressable = styled.Pressable`
   flex: 1;
@@ -107,6 +110,7 @@ const CalendarRangeModal = ({
             }}
             text={t('common:ok')}
             type='clear'
+            disabled={tempFromDate === null || tempToDate === null || tempFromDate > tempToDate}
           />
         </StyledView>
       </DatePickerWrapper>
