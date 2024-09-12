@@ -45,7 +45,7 @@ const EventsPage = ({ city, pathname, languageCode, cityCode }: CityRouteProps):
     loading,
     error: eventsError,
   } = useLoadFromEndpoint(createEventsEndpoint, cmsApiBaseUrl, { city: cityCode, language: languageCode })
-  const { fromDate, setFromDate, toDate, setToDate, filteredEvents, fromDateError, toDateError } = useDateFilter(
+  const { startDate, setStartDate, endDate, setEndDate, filteredEvents, startDateError, endDateError } = useDateFilter(
     events,
     false,
   )
@@ -151,12 +151,12 @@ const EventsPage = ({ city, pathname, languageCode, cityCode }: CityRouteProps):
       <Helmet pageTitle={pageTitle} languageChangePaths={languageChangePaths} cityModel={city} />
       <Caption title={t('events')} />
       <EventsDateFilter
-        fromDate={fromDate}
-        setFromDate={setFromDate}
-        toDate={toDate}
-        setToDate={setToDate}
-        fromDateError={fromDateError}
-        toDateError={toDateError}
+        startDate={startDate}
+        setStartDate={setStartDate}
+        endDate={endDate}
+        setEndDate={setEndDate}
+        startDateError={startDateError}
+        endDateError={endDateError}
       />
       <List noItemsMessage={t('currentlyNoEvents')} items={filteredEvents} renderItem={renderEventListItem} />
     </CityContentLayout>

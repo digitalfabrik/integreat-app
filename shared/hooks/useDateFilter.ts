@@ -4,43 +4,43 @@ import { useState, useMemo } from 'react'
 import { EventModel } from 'shared/api'
 
 type UseDateFilterReturn = {
-  fromDate: DateTime | null
-  setFromDate: (fromDate: DateTime | null) => void
-  toDate: DateTime | null
-  setToDate: (toDate: DateTime | null) => void
+  startDate: DateTime | null
+  setStartDate: (startDate: DateTime | null) => void
+  endDate: DateTime | null
+  setEndDate: (endDate: DateTime | null) => void
   filteredEvents: EventModel[]
-  fromDateError: string | null
-  toDateError: string | null
+  startDateError: string | null
+  endDateError: string | null
 }
 
 const useDateFilter = (events: EventModel[] | null, isClear: boolean): UseDateFilterReturn => {
-  const [fromDate, setFromDate] = useState<DateTime | null>(DateTime.now())
-  const [toDate, setToDate] = useState<DateTime | null>(DateTime.now().plus({ year: 1 }))
-  const toDateError = toDate ? null : 'invalidToDate'
-  const isEarlierError = fromDate && toDate && fromDate > toDate ? 'shouldBeEarlier' : null
-  const fromDateError = fromDate ? isEarlierError : 'invalidFromDate'
+  const [startDate, setStartDate] = useState<DateTime | null>(DateTime.now())
+  const [endDate, setEndDate] = useState<DateTime | null>(DateTime.now().plus({ year: 1 }))
+  const endDateError = endDate ? null : 'invalidEndDate'
+  const isEarlierError = startDate && endDate && startDate > endDate ? 'shouldBeEarlier' : null
+  const startDateError = startDate ? isEarlierError : 'invalidStartDate'
 
   const filteredEvents = useMemo(() => {
-    if (!fromDate || !toDate || fromDate > toDate) {
+    if (!startDate || !endDate || startDate > endDate) {
       return []
     }
 
-    const fromDateTime = fromDate
-    const toDateTime = toDate.endOf('day')
+    const startDateTime = startDate
+    const endDateTime = endDate.endOf('day')
 
     return isClear
       ? events || []
-      : events?.filter(event => event.date.startDate <= toDateTime && event.date.endDate >= fromDateTime) || []
-  }, [fromDate, toDate, isClear, events])
+      : events?.filter(event => event.date.startDate <= endDateTime && event.date.endDate >= startDateTime) || []
+  }, [startDate, endDate, isClear, events])
 
   return {
-    fromDate,
-    setFromDate,
-    toDate,
-    setToDate,
+    startDate,
+    setStartDate,
+    endDate,
+    setEndDate,
     filteredEvents,
-    fromDateError,
-    toDateError,
+    startDateError,
+    endDateError,
   }
 }
 

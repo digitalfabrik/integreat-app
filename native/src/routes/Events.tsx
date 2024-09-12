@@ -44,7 +44,7 @@ type EventsProps = {
 const Events = ({ cityModel, language, navigateTo, events, slug, refresh }: EventsProps): ReactElement => {
   const { t } = useTranslation('events')
   const [isClear, setIsClear] = useState(true)
-  const { fromDate, setFromDate, toDate, setToDate, filteredEvents, fromDateError, toDateError } = useDateFilter(
+  const { startDate, setStartDate, endDate, setEndDate, filteredEvents, startDateError, endDateError } = useDateFilter(
     events,
     isClear,
   )
@@ -120,10 +120,10 @@ const Events = ({ cityModel, language, navigateTo, events, slug, refresh }: Even
       <CalendarRangeModal
         closeModal={() => setModalOpen(false)}
         modalVisible={modalOpen}
-        fromDate={fromDate}
-        toDate={toDate}
-        setToDate={setToDate}
-        setFromDate={setFromDate}
+        startDate={startDate}
+        endDate={endDate}
+        setEndDate={setEndDate}
+        setStartDate={setStartDate}
       />
       <ListContainer>
         <List
@@ -133,12 +133,12 @@ const Events = ({ cityModel, language, navigateTo, events, slug, refresh }: Even
             <>
               <Caption title={t('events')} />
               <EventsDateFilter
-                fromDate={fromDate}
-                setFromDate={setFromDate}
-                toDate={toDate}
-                setToDate={setToDate}
-                fromDateError={fromDateError}
-                toDateError={toDateError}
+                startDate={startDate}
+                setStartDate={setStartDate}
+                endDate={endDate}
+                setEndDate={setEndDate}
+                startDateError={startDateError}
+                endDateError={endDateError}
                 modalOpen={modalOpen}
                 setModalOpen={setModalOpen}
                 setIsClear={setIsClear}

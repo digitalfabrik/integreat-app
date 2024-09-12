@@ -11,18 +11,18 @@ describe('CalendarRangeModal', () => {
   beforeEach(jest.clearAllMocks)
 
   const closeModal = jest.fn()
-  const setFromDate = jest.fn()
-  const setToDate = jest.fn()
+  const setStartDate = jest.fn()
+  const setEndDate = jest.fn()
 
   const renderCalendarRangeModal = () =>
     renderWithTheme(
       <CalendarRangeModal
         closeModal={closeModal}
-        fromDate={DateTime.now()}
+        startDate={DateTime.now()}
         modalVisible
-        setFromDate={setFromDate}
-        setToDate={setToDate}
-        toDate={DateTime.now().plus({ day: 2 })}
+        setStartDate={setStartDate}
+        setEndDate={setEndDate}
+        endDate={DateTime.now().plus({ day: 2 })}
       />,
     )
 
@@ -37,8 +37,8 @@ describe('CalendarRangeModal', () => {
     const { getByText } = renderCalendarRangeModal()
 
     fireEvent.press(getByText('common:ok'))
-    expect(setFromDate).toHaveBeenCalled()
-    expect(setToDate).toHaveBeenCalled()
+    expect(setStartDate).toHaveBeenCalled()
+    expect(setEndDate).toHaveBeenCalled()
     expect(closeModal).toHaveBeenCalledTimes(1)
   })
 })

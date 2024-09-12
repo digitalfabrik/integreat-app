@@ -37,38 +37,38 @@ const StyledPressable = styled.Pressable`
 export type CalendarViewerProps = {
   modalVisible: boolean
   closeModal: () => void
-  fromDate: DateTime | null
-  toDate: DateTime | null
-  setFromDate: (fromDate: DateTime) => void
-  setToDate: (toDate: DateTime) => void
+  startDate: DateTime | null
+  endDate: DateTime | null
+  setStartDate: (startDate: DateTime) => void
+  setEndDate: (endDate: DateTime) => void
 }
 
 const CalendarRangeModal = ({
   modalVisible,
   closeModal,
-  fromDate,
-  toDate,
-  setFromDate,
-  setToDate,
+  startDate,
+  endDate,
+  setStartDate,
+  setEndDate,
 }: CalendarViewerProps): ReactElement => {
-  const [tempFromDate, setTempFromDate] = useState<DateTime | null>(fromDate)
-  const [tempToDate, setTempToDate] = useState<DateTime | null>(toDate)
+  const [tempStartDate, setTempStartDate] = useState<DateTime | null>(startDate)
+  const [tempEndDate, setTempEndDate] = useState<DateTime | null>(endDate)
   const { t } = useTranslation('events')
   const theme = useTheme()
 
   useEffect(() => {
-    setTempFromDate(fromDate)
-    setTempToDate(toDate)
-  }, [fromDate, toDate])
+    setTempStartDate(startDate)
+    setTempEndDate(endDate)
+  }, [startDate, endDate])
 
   const handleDayPress = (day: { dateString: string }) => {
     const selectedDate = DateTime.fromISO(day.dateString)
 
-    if (!tempFromDate || tempToDate) {
-      setTempFromDate(selectedDate)
-      setTempToDate(null)
+    if (!tempStartDate || tempEndDate) {
+      setTempStartDate(selectedDate)
+      setTempEndDate(null)
     } else {
-      setTempToDate(selectedDate)
+      setTempEndDate(selectedDate)
     }
   }
 
@@ -79,7 +79,7 @@ const CalendarRangeModal = ({
         <Caption title={t('selectRange')} />
         <Calendar
           markingType='period'
-          markedDates={getMarkedDates(tempFromDate, tempToDate, theme)}
+          markedDates={getMarkedDates(tempStartDate, tempEndDate, theme)}
           onDayPress={handleDayPress}
           theme={{
             calendarBackground: theme.colors.textDecorationColor,
@@ -93,8 +93,8 @@ const CalendarRangeModal = ({
         <StyledView>
           <StyledTextButton
             onPress={() => {
-              setTempFromDate(fromDate)
-              setTempToDate(toDate)
+              setTempStartDate(startDate)
+              setTempEndDate(endDate)
               closeModal()
             }}
             text={t('layout:cancel')}
@@ -102,15 +102,15 @@ const CalendarRangeModal = ({
           />
           <StyledTextButton
             onPress={() => {
-              if (tempFromDate && tempToDate) {
-                setFromDate(tempFromDate)
-                setToDate(tempToDate)
+              if (tempStartDate && tempEndDate) {
+                setStartDate(tempStartDate)
+                setEndDate(tempEndDate)
               }
               closeModal()
             }}
             text={t('common:ok')}
             type='clear'
-            disabled={tempFromDate === null || tempToDate === null || tempFromDate > tempToDate}
+            disabled={tempStartDate === null || tempEndDate === null || tempStartDate > tempEndDate}
           />
         </StyledView>
       </DatePickerWrapper>

@@ -62,7 +62,7 @@ const StyledError = styled.div`
 export type DatePickerProps = {
   title: string
   date?: DateTime | null
-  setDate: (fromDate: DateTime | null) => void
+  setDate: (startDate: DateTime | null) => void
   error?: string
 }
 const DatePicker = ({ title, date, setDate, error }: DatePickerProps): ReactElement => {

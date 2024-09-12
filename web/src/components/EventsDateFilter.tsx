@@ -34,35 +34,35 @@ const StyledButton = styled(Button)`
 `
 
 type ResetFilterTextProps = {
-  fromDate: DateTime
-  toDate: DateTime
+  startDate: DateTime
+  endDate: DateTime
 }
 
-const ResetFilterText = ({ fromDate, toDate }: ResetFilterTextProps) => {
+const ResetFilterText = ({ startDate, endDate }: ResetFilterTextProps) => {
   const { t } = useTranslation('events')
-  const title = `${t('resetFilter')} ${fromDate.toLocaleString()} - ${toDate.toLocaleString()}`
+  const title = `${t('resetFilter')} ${startDate.toLocaleString()} - ${endDate.toLocaleString()}`
   return <span>{title}</span>
 }
 type EventsDateFilterProps = {
-  fromDate: DateTime | null
-  setFromDate: (fromDate: DateTime | null) => void
-  fromDateError: string | null
-  toDate: DateTime | null
-  setToDate: (toDate: DateTime | null) => void
-  toDateError: string | null
+  startDate: DateTime | null
+  setStartDate: (startDate: DateTime | null) => void
+  startDateError: string | null
+  endDate: DateTime | null
+  setEndDate: (endDate: DateTime | null) => void
+  endDateError: string | null
 }
 const EventsDateFilter = ({
-  fromDate,
-  setFromDate,
-  fromDateError,
-  toDate,
-  setToDate,
-  toDateError,
+  startDate,
+  setStartDate,
+  startDateError,
+  endDate,
+  setEndDate,
+  endDateError,
 }: EventsDateFilterProps): JSX.Element => {
-  const defaultFromDate = DateTime.now().startOf('day')
-  const defaultToDate = DateTime.now().plus({ year: 1 }).startOf('day')
+  const defaultStartDate = DateTime.now().startOf('day')
+  const defaultEndDate = DateTime.now().plus({ year: 1 }).startOf('day')
   const [showDateFilter, setShowDateFilter] = useState(true)
-  const isReset = fromDate?.startOf('day').equals(defaultFromDate) && toDate?.startOf('day').equals(defaultToDate)
+  const isReset = startDate?.startOf('day').equals(defaultStartDate) && endDate?.startOf('day').equals(defaultEndDate)
   const { t } = useTranslation('events')
   return (
     <>
@@ -70,8 +70,8 @@ const EventsDateFilter = ({
         <FilterToggle toggle={showDateFilter} setToggleDateFilter={setShowDateFilter} />
         {showDateFilter && (
           <>
-            <DatePicker title={t('from')} date={fromDate} setDate={setFromDate} error={t(fromDateError ?? '')} />
-            <DatePicker title={t('to')} date={toDate} setDate={setToDate} error={t(toDateError ?? '')} />
+            <DatePicker title={t('from')} date={startDate} setDate={setStartDate} error={t(startDateError ?? '')} />
+            <DatePicker title={t('to')} date={endDate} setDate={setEndDate} error={t(endDateError ?? '')} />
           </>
         )}
       </DateSection>
@@ -79,11 +79,11 @@ const EventsDateFilter = ({
         <StyledButton
           label='resetDate'
           onClick={() => {
-            setFromDate(defaultFromDate)
-            setToDate(defaultToDate)
+            setStartDate(defaultStartDate)
+            setEndDate(defaultEndDate)
           }}>
           <Icon src={CloseIcon} />
-          <ResetFilterText fromDate={fromDate ?? defaultFromDate} toDate={toDate ?? defaultToDate} />
+          <ResetFilterText startDate={startDate ?? defaultStartDate} endDate={endDate ?? defaultEndDate} />
         </StyledButton>
       )}
     </>
