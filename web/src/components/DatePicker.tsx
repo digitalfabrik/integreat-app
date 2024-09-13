@@ -76,7 +76,12 @@ const DatePicker = ({ title, date, setDate, error }: DatePickerProps): ReactElem
   return (
     <DateContainer>
       <StyledTitle>{title}</StyledTitle>
-      <StyledInput alt='Date-input' type='date' value={date?.toFormat(INPUT_DATE_FORMAT)} onChange={handleDateChange} />
+      <StyledInput
+        placeholder='Date-input'
+        type='date'
+        value={date?.toFormat(INPUT_DATE_FORMAT)}
+        onChange={handleDateChange}
+      />
       {!!error && <StyledError>{error}</StyledError>}
     </DateContainer>
   )

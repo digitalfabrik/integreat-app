@@ -15,7 +15,7 @@ describe('DatePicker', () => {
     const title = 'From Date'
     const date = DateTime.now()
 
-    const { getByText, getByAltText } = renderCustomDatePicker({
+    const { getByText, getByPlaceholderText } = renderCustomDatePicker({
       title,
       date,
       setDate,
@@ -23,20 +23,20 @@ describe('DatePicker', () => {
     })
 
     expect(getByText(title)).toBeInTheDocument()
-    expect(getByAltText('Date-input')).toHaveValue(date.toFormat('yyyy-MM-dd'))
+    expect(getByPlaceholderText('Date-input')).toHaveValue(date.toFormat('yyyy-MM-dd'))
   })
 
   it('handles date change correctly', () => {
     const newValue = DateTime.now().plus({ days: 1 }).toFormat('yyyy-MM-dd')
 
-    const { getByAltText } = renderCustomDatePicker({
+    const { getByPlaceholderText } = renderCustomDatePicker({
       title: 'From Date',
       date: DateTime.local(),
       setDate,
       error: '',
     })
 
-    const input = getByAltText('Date-input')
+    const input = getByPlaceholderText('Date-input')
 
     fireEvent.change(input, { target: { value: newValue } })
 
