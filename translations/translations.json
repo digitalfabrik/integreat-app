@@ -5551,7 +5551,10 @@
       "shareFailDefaultMessage": "للأسف، فشل في مشاركة المحتوى.",
       "disclaimer": "هيئة التحرير",
       "sideBarOpenAriaLabel": "فتح الشريط الجانبي",
-      "sideBarCloseAriaLabel": "غلق الشريط الجانبي"
+      "sideBarCloseAriaLabel": "غلق الشريط الجانبي",
+      "openInApp": "افتح في تطبيق Integreat",
+      "open": "افتح",
+      "view": "عرض"
     },
     "bg": {
       "imprintAndContact": "Импресум и контакт",
@@ -5672,6 +5675,9 @@
       "disclaimer": "Imprint",
       "sideBarOpenAriaLabel": "Open sidebar",
       "sideBarCloseAriaLabel": "Close sidebar",
+      "openInApp": "Open in the Integreat app",
+      "open": "Open",
+      "view": "View",
       "accessibility": "Accessibility"
     },
     "es": {
@@ -5744,7 +5750,10 @@
       "shareFailDefaultMessage": "Le partage du contenu a malheureusement échoué.",
       "disclaimer": "Mentions légales",
       "sideBarOpenAriaLabel": "Ouvrir la barre latérale",
-      "sideBarCloseAriaLabel": "Fermer la barre latérale"
+      "sideBarCloseAriaLabel": "Fermer la barre latérale",
+      "openInApp": "Ouvrir dans l'app Integreat",
+      "open": "Ouvrir",
+      "view": "Voir"
     },
     "hr": {
       "imprintAndContact": "Impresum i kontakt",

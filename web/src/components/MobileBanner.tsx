@@ -1,12 +1,13 @@
 import { DateTime } from 'luxon'
 import React, { useEffect, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
 
+import { CloseIcon } from '../assets'
 import buildConfig from '../constants/buildConfig'
 import dimensions from '../constants/dimensions'
 import Button from './base/Button'
 import Icon from './base/Icon'
-import Link from './base/Link'
 
 const StyledBanner = styled.div<{ $isInstalled: boolean }>`
   display: none;
@@ -16,7 +17,7 @@ const StyledBanner = styled.div<{ $isInstalled: boolean }>`
   align-items: center;
   transition: all 2s ease-out;
 
-  height: ${props => (props.$isInstalled ? '90px' : 'fit-content')};
+  height: ${props => (!props.$isInstalled ? '80px' : 'fit-content')};
 
   @media ${dimensions.smallViewport} {
     display: flex;
@@ -24,7 +25,18 @@ const StyledBanner = styled.div<{ $isInstalled: boolean }>`
 `
 const StyledDiv = styled.div`
   display: flex;
+  align-items: center;
   gap: 10px;
+`
+const StyledCloseButton = styled(Button)`
+  display: flex;
+  gap: 10px;
+`
+const StyledIcon = styled(Icon)<{ $isInstalled: boolean }>`
+  width: ${props => (!props.$isInstalled ? '64px' : '34px')};
+  height: ${props => (!props.$isInstalled ? '64px' : '34px')};
+  background-color: 'white';
+  border-radius: 5;
 `
 const StyledDivText = styled.div`
   display: flex;
@@ -36,12 +48,13 @@ const StyledAppName = styled.span`
   font-size: 14px;
 `
 const StyledDescription = styled.span`
-  color: #848489;
+  color: ${props => props.theme.colors.textSecondaryColor};
   font-size: 12px;
 `
-const StyledButton = styled(Link)`
-  background-color: ${props => props.theme.colors.textColor};
-  color: ${props => props.theme.colors.themeColor};
+const StyledButton = styled.button<{ $isInstalled: boolean }>`
+  background-color: ${props => (!props.$isInstalled ? 'transparent' : props.theme.colors.textColor)};
+  color: ${props => (!props.$isInstalled ? props.theme.colors.textColor : props.theme.colors.themeColor)};
+  border: ${props => !props.$isInstalled && 'none'};
   border-radius: 40px;
   padding: 6px 12px;
   height: fit-content;
@@ -51,30 +64,36 @@ const StyledButton = styled(Link)`
 `
 
 export const MobileBanner = () => {
-  const [isAndroid, setIsAndroid] = useState<boolean>(false)
   const [isHidden, setIsHidden] = useState<boolean>(true)
   const [isInstalled, setIsInstalled] = useState<boolean>(false)
   const { icons, appName, apps, hostName } = buildConfig()
+  const appStoreUrl = `https://play.google.com/store/apps/details?id=${apps?.android.applicationId}`
+  const ua = navigator.userAgent
+  const isAndroid = Boolean(/android/i.test(ua))
+  const { t } = useTranslation('layout')
 
-  const checkIfAppIsInstalled = (applicationId: string) => {
-    const deepLink = `integreat://`
-    const appStoreUrl = `https://play.google.com/store/apps/details?id=${applicationId}`
+  const checkIfAppIsInstalled = () => {
+    const deepLink = `integreat://${hostName}`
+    const timeoutDuration = 2000
+    const checkIntervalMs = 100
 
-    return new Promise(resolve => {
-      const startTime = Date.now()
-      const timeoutDuration = 2000
-      window.location.href = deepLink
+    const startTime = Date.now()
 
-      const interval = setInterval(() => {
-        if (Date.now() - startTime > timeoutDuration) {
-          clearInterval(interval)
+    window.location.href = deepLink
 
-          //   window.location.href = appStoreUrl
-          resolve(false)
-        } else {
-          resolve(true)
-        }
-      }, 100)
+    // Check if the app responds within the timeoutDuration
+    const interval = setInterval(() => {
+      if (Date.now() - startTime > timeoutDuration) {
+        clearInterval(interval)
+        window.location.href = appStoreUrl
+      }
+    }, checkIntervalMs)
+
+    // Event listener for success if app is opened and page gets hidden
+    window.addEventListener('visibilitychange', () => {
+      if (document.visibilityState === 'hidden') {
+        clearInterval(interval)
+      }
     })
   }
 
@@ -85,17 +104,8 @@ export const MobileBanner = () => {
   }
 
   useEffect(() => {
-    if (!checkIfAppIsInstalled(apps?.android.applicationId)) {
-      console.log('installed')
-    }
-    const ua = navigator.userAgent
-    if (/android/i.test(ua)) {
-      setIsAndroid(true)
-    } else {
-      setIsAndroid(false)
-    }
     if (localStorage.getItem('showBanner')) {
-      if (DateTime.fromISO(localStorage.getItem('showBanner')) > DateTime.local()) {
+      if (DateTime.fromISO(localStorage.getItem('showBanner')) > DateTime.now()) {
         setIsHidden(false)
       }
     }
@@ -104,17 +114,25 @@ export const MobileBanner = () => {
   return (
     isAndroid &&
     isHidden && (
-      <StyledBanner $isInstalled={isInstalled}>
+      <StyledBanner onClick={() => setIsInstalled(prev => !prev)} $isInstalled={isInstalled}>
         <StyledDiv>
-          {/* <Icon src={icons.appLogoMobile} /> */}
-          <div style={{ width: 34, height: 34, backgroundColor: 'white', borderRadius: 5 }} />
+          <StyledCloseButton label='closeButton' onClick={toggleBanner}>
+            {!isInstalled && <Icon src={CloseIcon} />}
+          </StyledCloseButton>
+          <StyledIcon $isInstalled={isInstalled} src={icons.appLogoMobile} />
           <StyledDivText>
             <StyledAppName>{appName}</StyledAppName>
-            <StyledDescription>Ouvrir dans l'app Integreat</StyledDescription>
+            {!isInstalled && (
+              <>
+                <StyledDescription>Tür an Tür - Digitalfabrik gGmbH</StyledDescription>
+                <StyledDescription>⭐⭐⭐⭐⭐</StyledDescription>
+              </>
+            )}
+            <StyledDescription>{isInstalled ? t('openInApp') : 'GET — On the Google Play Store'}</StyledDescription>
           </StyledDivText>
         </StyledDiv>
-        <StyledButton to={`https://play.google.com/store/apps/details?id=${apps?.android.applicationId}`}>
-          OUVRIR
+        <StyledButton $isInstalled={isInstalled} onClick={checkIfAppIsInstalled}>
+          {t(!isInstalled ? 'view' : 'open')}
         </StyledButton>
       </StyledBanner>
     )
