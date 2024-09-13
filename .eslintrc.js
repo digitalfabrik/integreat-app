@@ -195,12 +195,6 @@ module.exports = {
         'unicorn/prefer-node-protocol': 'error',
       },
     },
-    {
-      files: ['e2e-tests/**'],
-      rules: {
-        '@typescript-eslint/await-thenable': 'off',
-      },
-    },
   ],
   reportUnusedDisableDirectives: true,
   settings: {
