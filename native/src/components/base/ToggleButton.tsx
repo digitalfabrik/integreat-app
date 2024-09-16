@@ -37,7 +37,7 @@ type TextButtonProps = {
 }
 
 const ToggleButton = ({ text, onPress, Icon, active, style }: TextButtonProps): ReactElement => (
-  <StyledPressable active={active} onPress={onPress} style={style}>
+  <StyledPressable role='switch' active={active} onPress={onPress} style={style}>
     {Icon}
     <StyledText numberOfLines={1}>{text}</StyledText>
   </StyledPressable>

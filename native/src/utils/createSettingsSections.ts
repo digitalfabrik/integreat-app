@@ -1,6 +1,6 @@
 import * as Sentry from '@sentry/react-native'
 import { TFunction } from 'i18next'
-import { AccessibilityRole, SectionListData } from 'react-native'
+import { Role, SectionListData } from 'react-native'
 import { openSettings } from 'react-native-permissions'
 
 import { CONSENT_ROUTE, JPAL_TRACKING_ROUTE, LICENSES_ROUTE, SettingsRouteType } from 'shared'
@@ -29,7 +29,7 @@ export type SettingsSectionType = {
   description?: string
   onPress: () => void
   bigTitle?: boolean
-  accessibilityRole?: AccessibilityRole
+  role?: Role
   hasSwitch?: boolean
   hasBadge?: boolean
   getSettingValue?: (settings: SettingsType) => boolean | null
@@ -134,7 +134,7 @@ const createSettingsSections = ({
         },
       },
       {
-        accessibilityRole: 'link',
+        role: 'link',
         title: t('about', {
           appName: buildConfig().appName,
         }),
@@ -145,7 +145,7 @@ const createSettingsSections = ({
         },
       },
       {
-        accessibilityRole: 'link',
+        role: 'link',
         title: t('privacyPolicy'),
         onPress: () => {
           const { privacyUrls } = buildConfig()

@@ -39,7 +39,7 @@ const LicenseItem = (props: LicenseItemProps): ReactElement => {
   const { name, version, license, onPress } = props
   const { t } = useTranslation('licenses')
   return (
-    <LicenseItemContainer onPress={onPress}>
+    <LicenseItemContainer onPress={onPress} role='link'>
       <View>
         <Name>{name}</Name>
         <Description>
