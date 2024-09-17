@@ -14,6 +14,10 @@ type CaptionProps = {
   title: string
 }
 
-const Caption = ({ title }: CaptionProps): ReactElement => <H1 android_hyphenationFrequency='full'>{title}</H1>
+const Caption = ({ title }: CaptionProps): ReactElement => (
+  <H1 enableTts android_hyphenationFrequency='full'>
+    {title}
+  </H1>
+)
 
 export default Caption

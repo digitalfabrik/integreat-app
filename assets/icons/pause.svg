@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="23.690035mm"
+   height="20.822878mm"
+   viewBox="0 0 23.690034 20.822878"
+   version="1.1"
+   id="svg1"
+   xml:space="preserve"
+   inkscape:export-filename="sound.svg"
+   inkscape:export-xdpi="96"
+   inkscape:export-ydpi="96"
+   inkscape:version="1.3.2 (091e20e, 2023-11-25, custom)"
+   sodipodi:docname="pause.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg"><sodipodi:namedview
+     id="namedview1"
+     pagecolor="#ffffff"
+     bordercolor="#999999"
+     borderopacity="1"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:document-units="mm"
+     inkscape:zoom="5.7941077"
+     inkscape:cx="36.761484"
+     inkscape:cy="33.223407"
+     inkscape:window-width="1920"
+     inkscape:window-height="1009"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1" /><defs
+     id="defs1" /><g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-1.8265683,-3.8814576)"><g
+       id="g4"
+       transform="matrix(0.19196123,0,0,0.19196123,4.134238,4.680668)"
+       style="stroke-width:1.00020197;stroke-dasharray:none;fill:#fbda16;fill-opacity:1"><path
+         d="M 81.667,93.159 H 59.989 c -1.104,0 -2,-0.896 -2,-2 V 8.841 c 0,-1.104 0.896,-2 2,-2 h 21.678 c 1.104,0 2,0.896 2,2 v 82.318 c 0,1.105 -0.896,2 -2,2 z m -41.656,0 H 18.333 c -1.104,0 -2,-0.896 -2,-2 V 8.841 c 0,-1.104 0.896,-2 2,-2 h 21.678 c 1.104,0 2,0.896 2,2 v 82.318 c 0,1.105 -0.896,2 -2,2 z"
+         id="path1-3"
+         style="stroke-width:1.00020197;stroke-dasharray:none;fill:#fbda16;fill-opacity:1" /></g></g><style
+     type="text/css"
+     id="style1">
+	.st0{display:none;}
+	.st1{display:inline;}
+</style></svg>
