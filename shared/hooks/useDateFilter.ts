@@ -8,30 +8,33 @@ type UseDateFilterReturn = {
   setStartDate: (startDate: DateTime | null) => void
   endDate: DateTime | null
   setEndDate: (endDate: DateTime | null) => void
-  filteredEvents: EventModel[]
+  filteredEvents: EventModel[] | null
   startDateError: string | null
-  endDateError: string | null
 }
 
-const useDateFilter = (events: EventModel[] | null, isClear: boolean): UseDateFilterReturn => {
-  const [startDate, setStartDate] = useState<DateTime | null>(DateTime.now())
-  const [endDate, setEndDate] = useState<DateTime | null>(DateTime.now().plus({ year: 1 }))
-  const endDateError = endDate ? null : 'invalidEndDate'
-  const isEarlierError = startDate && endDate && startDate > endDate ? 'shouldBeEarlier' : null
-  const startDateError = startDate ? isEarlierError : 'invalidStartDate'
+const useDateFilter = (events: EventModel[] | null): UseDateFilterReturn => {
+  const [startDate, setStartDate] = useState<DateTime | null>(null)
+  const [endDate, setEndDate] = useState<DateTime | null>(null)
+  const startDateError = startDate && endDate && startDate > endDate ? 'shouldBeEarlier' : null
 
   const filteredEvents = useMemo(() => {
-    if (!startDate || !endDate || startDate > endDate) {
-      return []
+    if (!startDate && !endDate) {
+      return events
     }
 
-    const startDateTime = startDate
-    const endDateTime = endDate.endOf('day')
+    const isStartAfterEnd = startDate && endDate && startDate > endDate
+    if (!events || isStartAfterEnd) {
+      return null
+    }
 
-    return isClear
-      ? events || []
-      : events?.filter(event => event.date.startDate <= endDateTime && event.date.endDate >= startDateTime) || []
-  }, [startDate, endDate, isClear, events])
+    const endDateTime = endDate?.endOf('day')
+
+    return (
+      events
+        .filter(event => !endDateTime || event.date.startDate <= endDateTime)
+        .filter(event => !startDate || event.date.endDate >= startDate) || []
+    )
+  }, [startDate, endDate, events])
 
   return {
     startDate,
@@ -40,7 +43,6 @@ const useDateFilter = (events: EventModel[] | null, isClear: boolean): UseDateFi
     setEndDate,
     filteredEvents,
     startDateError,
-    endDateError,
   }
 }
 

@@ -34,36 +34,34 @@ const StyledButton = styled(Button)`
 `
 
 type ResetFilterTextProps = {
-  startDate: DateTime
-  endDate: DateTime
+  startDate: DateTime | null
+  endDate: DateTime | null
 }
 
 const ResetFilterText = ({ startDate, endDate }: ResetFilterTextProps) => {
   const { t } = useTranslation('events')
-  const title = `${t('resetFilter')} ${startDate.toLocaleString()} - ${endDate.toLocaleString()}`
+  const title = `${t('resetFilter')} ${startDate?.toLocaleString() ?? 'unlimited'} - ${endDate?.toLocaleString() ?? 'unlimited'}`
   return <span>{title}</span>
 }
+
 type EventsDateFilterProps = {
   startDate: DateTime | null
   setStartDate: (startDate: DateTime | null) => void
   startDateError: string | null
   endDate: DateTime | null
   setEndDate: (endDate: DateTime | null) => void
-  endDateError: string | null
 }
+
 const EventsDateFilter = ({
   startDate,
   setStartDate,
   startDateError,
   endDate,
   setEndDate,
-  endDateError,
 }: EventsDateFilterProps): JSX.Element => {
-  const defaultStartDate = DateTime.now().startOf('day')
-  const defaultEndDate = DateTime.now().plus({ year: 1 }).startOf('day')
-  const [showDateFilter, setShowDateFilter] = useState(true)
-  const isReset = startDate?.startOf('day').equals(defaultStartDate) && endDate?.startOf('day').equals(defaultEndDate)
+  const [showDateFilter, setShowDateFilter] = useState(false)
   const { t } = useTranslation('events')
+
   return (
     <>
       <DateSection>
@@ -71,19 +69,19 @@ const EventsDateFilter = ({
         {showDateFilter && (
           <>
             <DatePicker title={t('from')} date={startDate} setDate={setStartDate} error={t(startDateError ?? '')} />
-            <DatePicker title={t('to')} date={endDate} setDate={setEndDate} error={t(endDateError ?? '')} />
+            <DatePicker title={t('to')} date={endDate} setDate={setEndDate} />
           </>
         )}
       </DateSection>
-      {!isReset && showDateFilter && (
+      {(startDate || endDate) && (
         <StyledButton
           label='resetDate'
           onClick={() => {
-            setStartDate(defaultStartDate)
-            setEndDate(defaultEndDate)
+            setStartDate(null)
+            setEndDate(null)
           }}>
           <Icon src={CloseIcon} />
-          <ResetFilterText startDate={startDate ?? defaultStartDate} endDate={endDate ?? defaultEndDate} />
+          <ResetFilterText startDate={startDate} endDate={endDate} />
         </StyledButton>
       )}
     </>
