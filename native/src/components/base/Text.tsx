@@ -1,10 +1,13 @@
-import React, { ReactElement, useEffect, useState } from 'react'
+import { useRoute } from '@react-navigation/native'
+import React, { ReactElement, useContext, useEffect, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import { TextProps, Text as RNText } from 'react-native'
-import Tts, { TtsEventHandler } from 'react-native-tts'
+import Tts from 'react-native-tts'
 import styled from 'styled-components/native'
 
 import { PauseIcon, SoundIcon } from '../../assets'
 import { contentAlignmentRTLText } from '../../constants/contentDirection'
+import { AppContext } from '../../contexts/AppContextProvider'
 import Icon from './Icon'
 import IconButton from './IconButton'
 
@@ -30,9 +33,10 @@ const Text = (props: TextProps & TtsOptions): ReactElement => {
   const { children, style, enableTts = false } = props
   const text = typeof children === 'string' ? children : ''
   const [isPlaying, setIsPlaying] = useState(false)
-  const [sentences, setSentences] = useState<string[]>([])
-  const [currentSentence, setCurrentSentence] = useState<number>(0)
-
+  const { languageCode } = useContext(AppContext)
+  const route = useRoute()
+  const { i18n } = useTranslation()
+  const isPersian = languageCode === 'fa' || i18n.language === 'fa'
   // const initializeTtsListeners = async () => {
   //   // Check the initialization status of the TTS engine
   //   Tts.getInitStatus().then(
@@ -50,42 +54,37 @@ const Text = (props: TextProps & TtsOptions): ReactElement => {
   // }
 
   useEffect(() => {
-    if (enableTts) {
-      const finishedListener: TtsEventHandler<'tts-finish'> = () => {
-        if (currentSentence < sentences.length - 1) {
-          setCurrentSentence(prev => prev + 1)
-        } else {
-          setIsPlaying(false)
-          setCurrentSentence(0)
-        }
-      }
+    // Tts.engines().then(engines => console.log(engines));
+    // initializeTtsListeners()
+  }, [])
 
-      const startListener: TtsEventHandler<'tts-start'> = () => {
-        setIsPlaying(true)
-      }
-
-      Tts.addEventListener('tts-start', startListener)
-      Tts.addEventListener('tts-finish', finishedListener)
+  useEffect(() => {
+    if (enableTts && !isPersian) {
+      Tts.addEventListener('tts-finish', () => setIsPlaying(false))
+      Tts.addEventListener('tts-progress', () => setIsPlaying(true))
+      Tts.addEventListener('tts-cancel', () => setIsPlaying(false))
     }
     return () => {
-      Tts.removeAllListeners('tts-start')
-      Tts.removeAllListeners('tts-finish')
+      Tts.removeAllListeners('tts-progress')
+      Tts.removeAllListeners('tts-cancel')
     }
-  }, [currentSentence, enableTts, sentences.length])
+  }, [enableTts, isPersian])
 
-  useEffect(() => {
-    if (enableTts) {
-      const splitSentences = text.split(' ')
-      setSentences(splitSentences)
+  const startReading = () => {
+    if (route.name === 'events') {
+      if (contentAlignmentRTLText(typeof children === 'string' ? children : '') === 'left') {
+        Tts.setDefaultLanguage(languageCode)
+      } else {
+        Tts.setDefaultLanguage('ar')
+      }
+    } else if (route.name === 'categories') {
+      Tts.setDefaultLanguage(languageCode)
+    } else {
+      Tts.setDefaultLanguage(i18n.language)
     }
-  }, [enableTts, text])
-
-  useEffect(() => {
-    if (isPlaying) {
-      Tts.speak(sentences[currentSentence])
-    }
-  }, [currentSentence, isPlaying, sentences])
-
+    Tts.speak(text)
+    setIsPlaying(true)
+  }
   const pauseReading = () => {
     Tts.stop()
     setIsPlaying(false)
@@ -100,11 +99,11 @@ const Text = (props: TextProps & TtsOptions): ReactElement => {
         {...props}>
         {children}
       </StyledText>
-      {enableTts && (
+      {enableTts && !isPersian && (
         <StyledIcon
           accessibilityLabel='Sound button'
           icon={isPlaying ? <Icon Icon={PauseIcon} /> : <Icon Icon={SoundIcon} />}
-          onPress={isPlaying ? pauseReading : () => setIsPlaying(true)}
+          onPress={isPlaying ? pauseReading : startReading}
         />
       )}
     </>
