@@ -89,7 +89,7 @@ const OpeningEntry = ({
       )}
       {appointmentOnly && (
         <AppointmentOnlyContainer language={language}>
-          <StyledPressable onPress={() => setOverlayOpen(true)}>
+          <StyledPressable role='button' onPress={() => setOverlayOpen(true)}>
             <StyledIcon Icon={NoteIcon} label={t('appointmentNecessary')} />
           </StyledPressable>
           {overlayOpen && (

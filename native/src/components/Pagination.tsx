@@ -41,6 +41,7 @@ const Pagination = ({ slideCount, currentSlide, goToSlide }: PaginationProps): R
           key={index}
           isActive={index === currentSlide}
           onPress={goToSlideIndex(index)}
+          role='link'
           accessibilityLabel={t('goTo.pageNumber', {
             number: index + 1,
           })}
