@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		051E12C629AF8FEA007A0950 /* Mapbox in Frameworks */ = {isa = PBXBuildFile; productRef = 58DA50835FA4C55D1A53318C /* Mapbox */; };
+		095C98F3B71D0ADBEC0789F6 /* libPods-Integreat.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D0E6990C3D47BCF56480A000 /* libPods-Integreat.a */; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.mm */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
@@ -18,7 +19,7 @@
 		2E0440F826C127B000183828 /* NotoSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2E0440F426C127AF00183828 /* NotoSans-Bold.ttf */; };
 		2E0440FA26C127B000183828 /* NotoSansArabic-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2E0440F626C127B000183828 /* NotoSansArabic-Bold.ttf */; };
 		2E0440FC26C133EE00183828 /* NotoSans.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2E0440FB26C133EE00183828 /* NotoSans.ttf */; };
-		2E673E9226C3C27C00B97628 /* (null) in Frameworks */ = {isa = PBXBuildFile; };
+		2E673E9226C3C27C00B97628 /* BuildFile in Frameworks */ = {isa = PBXBuildFile; };
 		616E1B072370E00100136B38 /* ConstantsModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 616E1B062370E00100136B38 /* ConstantsModule.swift */; };
 		616E1B092370E07D00136B38 /* ConstantsModule.m in Sources */ = {isa = PBXBuildFile; fileRef = 616E1B082370E07D00136B38 /* ConstantsModule.m */; };
 		7B4C27552274D7B7000FA969 /* FetchResultCollector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B4C27542274D7B7000FA969 /* FetchResultCollector.swift */; };
@@ -27,7 +28,6 @@
 		7B9749D322DC7A940078B456 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 7B9749D522DC7A940078B456 /* InfoPlist.strings */; };
 		7BF11494226F61B60031D233 /* FetcherModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BF11469226F4D740031D233 /* FetcherModule.swift */; };
 		7BF11495226F61BC0031D233 /* FetcherModule.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BF11490226F4E6D0031D233 /* FetcherModule.m */; };
-		7FF6DB6FCBBE6D434D176725 /* libPods-Integreat.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A5EAD212210740264FA55D1 /* libPods-Integreat.a */; };
 		A330D33322AA9F54005736D0 /* Raleway-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A330D32E22AA9F54005736D0 /* Raleway-Regular.ttf */; };
 		A330D33722AA9F54005736D0 /* Raleway-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A330D33222AA9F54005736D0 /* Raleway-Bold.ttf */; };
 		B8BF8F3C260B402B00F436B7 /* VarelaRound-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B8BF8F3B260B402B00F436B7 /* VarelaRound-Regular.ttf */; };
@@ -35,7 +35,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		0A5EAD212210740264FA55D1 /* libPods-Integreat.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Integreat.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		11E1BDA05F930C392DC16DF8 /* Pods-Integreat.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Integreat.release.xcconfig"; path = "Target Support Files/Pods-Integreat/Pods-Integreat.release.xcconfig"; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* Integreat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Integreat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = Integreat/AppDelegate.h; sourceTree = "<group>"; };
 		13B07FB01A68108700A75B9A /* AppDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.mm; path = Integreat/AppDelegate.mm; sourceTree = "<group>"; };
@@ -43,7 +43,6 @@
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = Integreat/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = Integreat/main.m; sourceTree = "<group>"; };
 		13B07FB81A68108700A75B9A /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = PrivacyInfo.xcprivacy; path = Integreat/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
-		141E599FFA3EDB52E36D5513 /* Pods-Integreat.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Integreat.release.xcconfig"; path = "Target Support Files/Pods-Integreat/Pods-Integreat.release.xcconfig"; sourceTree = "<group>"; };
 		17287B1C24FFC8D600CA52F4 /* LaunchScreenIntegreat.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreenIntegreat.storyboard; sourceTree = "<group>"; };
 		17287B1E24FFCD9800CA52F4 /* LaunchScreenDefault.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreenDefault.storyboard; sourceTree = "<group>"; };
 		1F18CA8D2BD6BA7D002F319B /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
@@ -54,7 +53,7 @@
 		2E0440FB26C133EE00183828 /* NotoSans.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = NotoSans.ttf; sourceTree = "<group>"; };
 		616E1B062370E00100136B38 /* ConstantsModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ConstantsModule.swift; path = Integreat/constants/ConstantsModule.swift; sourceTree = "<group>"; };
 		616E1B082370E07D00136B38 /* ConstantsModule.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = ConstantsModule.m; path = Integreat/constants/ConstantsModule.m; sourceTree = "<group>"; };
-		69727E617B9E8BD342173C32 /* Pods-Integreat.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Integreat.debug.xcconfig"; path = "Target Support Files/Pods-Integreat/Pods-Integreat.debug.xcconfig"; sourceTree = "<group>"; };
+		69350B775B12365C4F9687B0 /* Pods-Integreat.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Integreat.debug.xcconfig"; path = "Target Support Files/Pods-Integreat/Pods-Integreat.debug.xcconfig"; sourceTree = "<group>"; };
 		7B0E54CE2369C1480016A7C1 /* de */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		7B4C27542274D7B7000FA969 /* FetchResultCollector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchResultCollector.swift; sourceTree = "<group>"; };
 		7B4C277B2274DE2B000FA969 /* FetchResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchResult.swift; sourceTree = "<group>"; };
@@ -94,6 +93,7 @@
 		B876661826E7565E00E363C4 /* ur */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ur; path = ur.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		B8BF8F3B260B402B00F436B7 /* VarelaRound-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "VarelaRound-Regular.ttf"; sourceTree = "<group>"; };
 		B8F3AC7E24ADE7E10010125F /* buildConfig.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = buildConfig.xcconfig; sourceTree = "<group>"; };
+		D0E6990C3D47BCF56480A000 /* libPods-Integreat.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Integreat.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		ED2971642150620600B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS12.0.sdk/System/Library/Frameworks/JavaScriptCore.framework; sourceTree = DEVELOPER_DIR; };
 		EE11BE9E24A4D56D00C6F209 /* Integreat.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = Integreat.entitlements; path = Integreat/Integreat.entitlements; sourceTree = "<group>"; };
@@ -107,9 +107,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				051E12C629AF8FEA007A0950 /* Mapbox in Frameworks */,
-				2E673E9226C3C27C00B97628 /* (null) in Frameworks */,
+				2E673E9226C3C27C00B97628 /* BuildFile in Frameworks */,
 				ED297163215061F000B7C4FE /* JavaScriptCore.framework in Frameworks */,
-				7FF6DB6FCBBE6D434D176725 /* libPods-Integreat.a in Frameworks */,
+				095C98F3B71D0ADBEC0789F6 /* libPods-Integreat.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -139,8 +139,8 @@
 		1AAE51E1A73392104080B8FA /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				69727E617B9E8BD342173C32 /* Pods-Integreat.debug.xcconfig */,
-				141E599FFA3EDB52E36D5513 /* Pods-Integreat.release.xcconfig */,
+				69350B775B12365C4F9687B0 /* Pods-Integreat.debug.xcconfig */,
+				11E1BDA05F930C392DC16DF8 /* Pods-Integreat.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -153,7 +153,7 @@
 				EE11BE9F24A4D65F00C6F209 /* FIRAnalyticsConnector.framework */,
 				ED2971642150620600B7C4FE /* JavaScriptCore.framework */,
 				2D16E6891FA4F8E400B85C8A /* libReact.a */,
-				0A5EAD212210740264FA55D1 /* libPods-Integreat.a */,
+				D0E6990C3D47BCF56480A000 /* libPods-Integreat.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -234,16 +234,16 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "Integreat" */;
 			buildPhases = (
-				C0AA9FF27CEA85C4B4B20E16 /* [CP] Check Pods Manifest.lock */,
+				4E2275F8F5CAFC689C4AA4B6 /* [CP] Check Pods Manifest.lock */,
 				B8C49AA223E1E8B9001C7A0A /* Start Packager */,
 				13B07F871A680F5B00A75B9A /* Sources */,
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
 				2E4AEEB92AFD3D4800365635 /* ShellScript */,
-				095046B5C573545AD8C9F5FC /* [CP] Embed Pods Frameworks */,
-				E57D02C5FA017F6408ECD74B /* [CP] Copy Pods Resources */,
-				E940510A7A52337BF0E6DCB5 /* [CP-User] [RNFB] Core Configuration */,
+				60F249EA0B8C122C46EE4943 /* [CP] Embed Pods Frameworks */,
+				12EB4262F9468BCB05E2C16E /* [CP] Copy Pods Resources */,
+				E48128C532F938B4875B25C6 /* [CP-User] [RNFB] Core Configuration */,
 			);
 			buildRules = (
 			);
@@ -353,21 +353,21 @@
 			shellPath = /bin/sh;
 			shellScript = "../node_modules/react-native/scripts/react-native-xcode.sh index.ts\n";
 		};
-		095046B5C573545AD8C9F5FC /* [CP] Embed Pods Frameworks */ = {
+		12EB4262F9468BCB05E2C16E /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Integreat/Pods-Integreat-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-Integreat/Pods-Integreat-resources-${CONFIGURATION}-input-files.xcfilelist",
 			);
-			name = "[CP] Embed Pods Frameworks";
+			name = "[CP] Copy Pods Resources";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Integreat/Pods-Integreat-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-Integreat/Pods-Integreat-resources-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Integreat/Pods-Integreat-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Integreat/Pods-Integreat-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		2E4AEEB92AFD3D4800365635 /* ShellScript */ = {
@@ -387,26 +387,7 @@
 			shellPath = /bin/sh;
 			shellScript = "# Workaround for Mapbox ios certificates issue - https://stackoverflow.com/questions/77397157\n  if [ \"$XCODE_VERSION_MAJOR\" = \"1500\" ]; then\n    echo \"Remove signature files (Xcode 15 workaround)\"\n\n    rm \"$BUILD_DIR/Release-iphoneos/Mapbox.xcframework-ios.signature\"\n  fi\n";
 		};
-		B8C49AA223E1E8B9001C7A0A /* Start Packager */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-			);
-			name = "Start Packager";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "export RCT_METRO_PORT=\"${RCT_METRO_PORT:=8081}\"\necho \"export RCT_METRO_PORT=${RCT_METRO_PORT}\" > \"${SRCROOT}/../node_modules/react-native/scripts/.packager.env\"\nif [ -z \"${RCT_NO_LAUNCH_PACKAGER+xxx}\" ] ; then\n  if nc -w 5 -z localhost ${RCT_METRO_PORT} ; then\n    if ! curl -s \"http://localhost:${RCT_METRO_PORT}/status\" | grep -q \"packager-status:running\" ; then\n      echo \"Port ${RCT_METRO_PORT} already in use, packager is either not running or not running correctly\"\n      exit 2\n    fi\n  else\n    open \"$SRCROOT/../node_modules/react-native/scripts/launchPackager.command\" || echo \"Can't start packager automatically\"\n  fi\nfi\n";
-			showEnvVarsInLog = 0;
-		};
-		C0AA9FF27CEA85C4B4B20E16 /* [CP] Check Pods Manifest.lock */ = {
+		4E2275F8F5CAFC689C4AA4B6 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -428,24 +409,43 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		E57D02C5FA017F6408ECD74B /* [CP] Copy Pods Resources */ = {
+		60F249EA0B8C122C46EE4943 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Integreat/Pods-Integreat-resources-${CONFIGURATION}-input-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-Integreat/Pods-Integreat-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
-			name = "[CP] Copy Pods Resources";
+			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Integreat/Pods-Integreat-resources-${CONFIGURATION}-output-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-Integreat/Pods-Integreat-frameworks-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Integreat/Pods-Integreat-resources.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Integreat/Pods-Integreat-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		E940510A7A52337BF0E6DCB5 /* [CP-User] [RNFB] Core Configuration */ = {
+		B8C49AA223E1E8B9001C7A0A /* Start Packager */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Start Packager";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "export RCT_METRO_PORT=\"${RCT_METRO_PORT:=8081}\"\necho \"export RCT_METRO_PORT=${RCT_METRO_PORT}\" > \"${SRCROOT}/../node_modules/react-native/scripts/.packager.env\"\nif [ -z \"${RCT_NO_LAUNCH_PACKAGER+xxx}\" ] ; then\n  if nc -w 5 -z localhost ${RCT_METRO_PORT} ; then\n    if ! curl -s \"http://localhost:${RCT_METRO_PORT}/status\" | grep -q \"packager-status:running\" ; then\n      echo \"Port ${RCT_METRO_PORT} already in use, packager is either not running or not running correctly\"\n      exit 2\n    fi\n  else\n    open \"$SRCROOT/../node_modules/react-native/scripts/launchPackager.command\" || echo \"Can't start packager automatically\"\n  fi\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		E48128C532F938B4875B25C6 /* [CP-User] [RNFB] Core Configuration */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -521,9 +521,9 @@
 /* Begin XCBuildConfiguration section */
 		13B07F951A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 69727E617B9E8BD342173C32 /* Pods-Integreat.debug.xcconfig */;
+			baseConfigurationReference = 69350B775B12365C4F9687B0 /* Pods-Integreat.debug.xcconfig */;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = $BUILD_CONFIG_APP_ICON;
+				ASSETCATALOG_COMPILER_APPICON_NAME = "$BUILD_CONFIG_APP_ICON";
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Integreat/Integreat.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
@@ -648,9 +648,9 @@
 		};
 		174C5C3824B6309C00F61198 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 141E599FFA3EDB52E36D5513 /* Pods-Integreat.release.xcconfig */;
+			baseConfigurationReference = 11E1BDA05F930C392DC16DF8 /* Pods-Integreat.release.xcconfig */;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = $BUILD_CONFIG_APP_ICON;
+				ASSETCATALOG_COMPILER_APPICON_NAME = "$BUILD_CONFIG_APP_ICON";
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Manual;
@@ -776,7 +776,10 @@
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_CFLAGS = "$(inherited)";
 				OTHER_CPLUSPLUSFLAGS = "$(inherited)";
-				OTHER_LDFLAGS = "$(inherited)  ";
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					" ",
+				);
 				REACT_NATIVE_PATH = "${PODS_ROOT}/../../node_modules/react-native";
 				SDKROOT = iphoneos;
 				USE_HERMES = true;
