@@ -45,10 +45,7 @@ const EventsPage = ({ city, pathname, languageCode, cityCode }: CityRouteProps):
     loading,
     error: eventsError,
   } = useLoadFromEndpoint(createEventsEndpoint, cmsApiBaseUrl, { city: cityCode, language: languageCode })
-  const { startDate, setStartDate, endDate, setEndDate, filteredEvents, startDateError, endDateError } = useDateFilter(
-    events,
-    false,
-  )
+  const { startDate, setStartDate, endDate, setEndDate, filteredEvents, startDateError } = useDateFilter(events)
 
   if (!city) {
     return null
@@ -156,9 +153,12 @@ const EventsPage = ({ city, pathname, languageCode, cityCode }: CityRouteProps):
         endDate={endDate}
         setEndDate={setEndDate}
         startDateError={startDateError}
-        endDateError={endDateError}
       />
-      <List noItemsMessage={t('currentlyNoEvents')} items={filteredEvents} renderItem={renderEventListItem} />
+      <List
+        noItemsMessage={t('currentlyNoEvents')}
+        items={(filteredEvents as EventModel[] | null) ?? []}
+        renderItem={renderEventListItem}
+      />
     </CityContentLayout>
   )
 }

@@ -65,12 +65,14 @@ const DatePicker = ({ title, date, setDate, error, modalOpen, setModalOpen }: Da
   const [inputDay, setInputDay] = useState(date?.toFormat('dd'))
   const [inputMonth, setInputMonth] = useState(date?.toFormat('MM'))
   const [inputYear, setInputYear] = useState(date?.toFormat('yyyy'))
+  const maxDays = 31
+  const maxMonths = 12
 
   useEffect(() => {
     try {
       setDate(DateTime.fromISO(`${inputYear}-${inputMonth}-${inputDay}`))
-    } catch (e) {
-      setDate(null)
+    } catch (_) {
+      // setDate(null)
     }
   }, [inputDay, inputMonth, inputYear, setDate])
 
@@ -79,6 +81,10 @@ const DatePicker = ({ title, date, setDate, error, modalOpen, setModalOpen }: Da
       setInputDay(date.toFormat('dd'))
       setInputMonth(date.toFormat('MM'))
       setInputYear(date.toFormat('yyyy'))
+    } else {
+      setInputDay('')
+      setInputMonth('')
+      setInputYear('')
     }
   }, [date])
 
@@ -88,22 +94,43 @@ const DatePicker = ({ title, date, setDate, error, modalOpen, setModalOpen }: Da
       <StyledInputWrapper>
         <Wrapper>
           <Input
+            placeholder='dd'
             testID='DatePicker-day'
             keyboardType='numeric'
             maxLength={2}
-            onChangeText={setInputDay}
+            onBlur={() => {
+              if (inputDay?.length === 1 && Number(inputDay) !== 0) {
+                setInputDay(`0${inputDay}`)
+              }
+            }}
+            onChangeText={text => {
+              if (Number(text) <= maxDays) {
+                setInputDay(text)
+              }
+            }}
             value={inputDay}
           />
           <Text>.</Text>
           <Input
+            placeholder='mm'
             testID='DatePicker-month'
             keyboardType='numeric'
             maxLength={2}
-            onChangeText={setInputMonth}
+            onBlur={() => {
+              if (inputMonth?.length === 1 && Number(inputMonth) !== 0) {
+                setInputMonth(`0${inputMonth}`)
+              }
+            }}
+            onChangeText={text => {
+              if (Number(text) <= maxMonths) {
+                setInputMonth(text)
+              }
+            }}
             value={inputMonth}
           />
           <Text>.</Text>
           <Input
+            placeholder='yyyy'
             testID='DatePicker-year'
             maxLength={4}
             keyboardType='numeric'

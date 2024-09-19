@@ -43,11 +43,7 @@ type EventsProps = {
 
 const Events = ({ cityModel, language, navigateTo, events, slug, refresh }: EventsProps): ReactElement => {
   const { t } = useTranslation('events')
-  const [isClear, setIsClear] = useState(true)
-  const { startDate, setStartDate, endDate, setEndDate, filteredEvents, startDateError, endDateError } = useDateFilter(
-    events,
-    isClear,
-  )
+  const { startDate, setStartDate, endDate, setEndDate, filteredEvents, startDateError } = useDateFilter(events)
   const [modalOpen, setModalOpen] = useState(false)
 
   if (!cityModel.eventsEnabled) {
@@ -127,7 +123,7 @@ const Events = ({ cityModel, language, navigateTo, events, slug, refresh }: Even
       />
       <ListContainer>
         <List
-          items={filteredEvents}
+          items={(filteredEvents as EventModel[] | null) ?? []}
           renderItem={renderEventListItem}
           Header={
             <>
@@ -138,10 +134,8 @@ const Events = ({ cityModel, language, navigateTo, events, slug, refresh }: Even
                 endDate={endDate}
                 setEndDate={setEndDate}
                 startDateError={startDateError}
-                endDateError={endDateError}
                 modalOpen={modalOpen}
                 setModalOpen={setModalOpen}
-                setIsClear={setIsClear}
               />
               <Separator />
             </>

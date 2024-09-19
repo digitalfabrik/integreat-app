@@ -30,13 +30,13 @@ const StyledText = styled(Text)`
   padding: 5px;
 `
 type ResetFilterTextProps = {
-  startDate: DateTime
-  endDate: DateTime
+  startDate: DateTime | null
+  endDate: DateTime | null
 }
 
 const ResetFilterText = ({ startDate, endDate }: ResetFilterTextProps) => {
   const { t } = useTranslation('events')
-  const title = `${t('resetFilter')} ${startDate.toFormat('dd.MM.yy')} - ${endDate.toFormat('dd.MM.yy')}`
+  const title = `${t('resetFilter')} ${startDate?.toLocaleString() ?? '∞'} - ${endDate?.toLocaleString() ?? '∞'}`
   return <StyledText>{title}</StyledText>
 }
 
@@ -46,10 +46,8 @@ type EventsDateFilterProps = {
   startDateError: string | null
   endDate: DateTime | null
   setEndDate: (startDate: DateTime | null) => void
-  endDateError: string | null
   modalOpen: boolean
   setModalOpen: (modalOpen: boolean) => void
-  setIsClear: (clear: boolean) => void
 }
 const EventsDateFilter = ({
   startDate,
@@ -57,29 +55,15 @@ const EventsDateFilter = ({
   startDateError,
   endDate,
   setEndDate,
-  endDateError,
   modalOpen,
   setModalOpen,
-  setIsClear,
 }: EventsDateFilterProps): JSX.Element => {
-  const defaultStartDate = DateTime.now().startOf('day')
-  const defaultEndDate = DateTime.now().plus({ year: 1 }).startOf('day')
   const [showDateFilter, setShowDateFilter] = useState(false)
-  const isReset = startDate?.startOf('day').equals(defaultStartDate) && endDate?.startOf('day').equals(defaultEndDate)
   const { t } = useTranslation('events')
-  let firstToggle = true
-
-  const handleToggle = (toggleState: boolean) => {
-    setShowDateFilter(toggleState)
-    if (firstToggle) {
-      setIsClear(false)
-      firstToggle = false
-    }
-  }
   return (
     <>
       <DateSection>
-        <FilterToggle toggle={showDateFilter} setToggleDateFilter={handleToggle} />
+        <FilterToggle toggle={showDateFilter} setToggleDateFilter={setShowDateFilter} />
         {showDateFilter && (
           <>
             <DatePicker
@@ -87,7 +71,7 @@ const EventsDateFilter = ({
               setModalOpen={setModalOpen}
               setDate={setStartDate}
               title={t('from')}
-              error={t(startDateError ?? '')}
+              error={startDateError ? t(startDateError) : ''}
               date={startDate}
             />
             <DatePicker
@@ -95,21 +79,20 @@ const EventsDateFilter = ({
               setModalOpen={setModalOpen}
               setDate={setEndDate}
               title={t('to')}
-              error={t(endDateError ?? '')}
               date={endDate}
             />
           </>
         )}
       </DateSection>
       <>
-        {!isReset && showDateFilter && (
+        {(startDate || endDate) && (
           <StyledButton
             onPress={() => {
-              setStartDate(defaultStartDate)
-              setEndDate(defaultEndDate)
+              setStartDate(null)
+              setEndDate(null)
             }}>
             <Icon Icon={CloseIcon} />
-            <ResetFilterText startDate={startDate ?? defaultStartDate} endDate={endDate ?? defaultEndDate} />
+            <ResetFilterText startDate={startDate} endDate={endDate} />
           </StyledButton>
         )}
       </>

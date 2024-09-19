@@ -1,8 +1,7 @@
 import { DateTime } from 'luxon'
-import React, { ReactElement } from 'react'
+import React, { ReactElement, useEffect, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
-
-import { INPUT_DATE_FORMAT } from 'shared'
 
 import { CalendarTodayIcon } from '../assets'
 import dimensions from '../constants/dimensions'
@@ -59,30 +58,38 @@ const StyledError = styled.div`
   font-weight: bold;
   color: ${props => props.theme.colors.invalidInput};
 `
+
 export type DatePickerProps = {
   title: string
   date?: DateTime | null
-  setDate: (startDate: DateTime | null) => void
+  setDate: (date: DateTime | null) => void
   error?: string
 }
+
 const DatePicker = ({ title, date, setDate, error }: DatePickerProps): ReactElement => {
+  const { t } = useTranslation('events')
+  const [tempDate, setTempDate] = useState(date?.toISODate() ?? '')
+  const isInvalidDate = tempDate !== '' && date?.toISODate() !== tempDate
+  const shownError = error || (isInvalidDate ? t('invalidDate') : undefined)
+
+  useEffect(() => {
+    setTempDate(date?.toISODate() ?? '')
+  }, [date])
+
   const handleDateChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setTempDate(event.target.value)
     try {
-      setDate(DateTime.fromFormat(event.target.value, INPUT_DATE_FORMAT))
-    } catch (e) {
-      setDate(null)
+      setDate(DateTime.fromISO(event.target.value))
+    } catch (_) {
+      // Invalid date format, do not update the state
     }
   }
+
   return (
     <DateContainer>
       <StyledTitle>{title}</StyledTitle>
-      <StyledInput
-        placeholder='Date-input'
-        type='date'
-        value={date?.toFormat(INPUT_DATE_FORMAT)}
-        onChange={handleDateChange}
-      />
-      {!!error && <StyledError>{error}</StyledError>}
+      <StyledInput placeholder='Date-input' type='date' value={tempDate} onChange={handleDateChange} />
+      {!!shownError && <StyledError>{shownError}</StyledError>}
     </DateContainer>
   )
 }
