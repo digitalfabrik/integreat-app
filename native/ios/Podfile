@@ -22,6 +22,8 @@ use_modular_headers!
 target 'Integreat' do
   config = use_native_modules!
 
+  pod 'ReactCommon', :modular_headers => true
+
   setup_permissions([
     'Calendars',
     'LocationWhenInUse',
