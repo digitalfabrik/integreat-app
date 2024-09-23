@@ -114,7 +114,7 @@ const SearchListItem = ({
   )
 
   return (
-    <FlexStyledLink onPress={navigateToSearchResult} accessibilityHint={t('itemHint')}>
+    <FlexStyledLink onPress={navigateToSearchResult} role='link' accessibilityHint={t('itemHint')}>
       <DirectionContainer language={language}>
         <SearchEntryContainer>
           <TitleDirectionContainer language={language}>

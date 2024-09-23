@@ -34,7 +34,7 @@ type RadioButtonProps = {
 }
 
 const RadioButton = ({ children, selected, select }: RadioButtonProps): ReactElement => (
-  <Container onPress={select}>
+  <Container onPress={select} role='radio'>
     <Ring selected={selected}>{selected && <Marker />}</Ring>
     {children}
   </Container>

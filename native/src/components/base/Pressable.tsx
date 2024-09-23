@@ -1,10 +1,11 @@
 import React, { ReactElement } from 'react'
-import { Pressable as RNPressable, PressableProps as RNPressableProps, StyleProp, ViewStyle } from 'react-native'
+import { Pressable as RNPressable, PressableProps as RNPressableProps, Role, StyleProp, ViewStyle } from 'react-native'
 
 const ON_PRESS_OPACITY = 0.5
 
 type PressableProps = {
   style?: StyleProp<ViewStyle>
+  role: Role
 } & RNPressableProps
 
 const Pressable = ({ style, ...props }: PressableProps): ReactElement => (

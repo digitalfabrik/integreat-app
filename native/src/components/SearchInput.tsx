@@ -46,6 +46,7 @@ const SearchInput = ({
         aria-label={placeholderText}
         defaultValue={filterText}
         onChangeText={onFilterTextChange}
+        role='searchbox'
       />
     </Wrapper>
   )

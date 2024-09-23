@@ -94,6 +94,7 @@ const InputSection = ({
         invalid={invalid}
         returnKeyType='done'
         blurOnSubmit
+        role='searchbox'
       />
     </Container>
   )

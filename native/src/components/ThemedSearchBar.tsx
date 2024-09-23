@@ -44,7 +44,7 @@ const ThemedSearchBar = ({ onChangeText, value, autofocus }: ThemedSearchBarProp
       <StyledIcon Icon={SearchIcon} />
       <StyledInput
         {...testID('Content-Search-Input')}
-        accessibilityRole='search'
+        role='searchbox'
         onChangeText={onChangeText}
         value={value}
         autoFocus={autofocus}
