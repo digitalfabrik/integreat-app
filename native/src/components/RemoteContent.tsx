@@ -1,7 +1,6 @@
-import React, { ReactElement, useCallback, useContext, useEffect, useMemo, useState } from 'react'
+import React, { ReactElement, useCallback, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Text, Platform, useWindowDimensions, Button } from 'react-native'
-import Tts, { TtsEventHandler } from 'react-native-tts'
+import { Text, Platform, useWindowDimensions } from 'react-native'
 import WebView, { WebViewMessageEvent, WebViewNavigation } from 'react-native-webview'
 import { useTheme } from 'styled-components/native'
 
@@ -17,13 +16,13 @@ import {
   OPEN_SETTINGS_MESSAGE_TYPE,
   WARNING_MESSAGE_TYPE,
 } from '../constants/webview'
-import { AppContext } from '../contexts/AppContextProvider'
 import { useAppContext } from '../hooks/useCityAppContext'
 import useNavigate from '../hooks/useNavigate'
 import renderHtml from '../utils/renderHtml'
 import { log, reportError } from '../utils/sentry'
 import Failure from './Failure'
 import { ParsedCacheDictionaryType } from './Page'
+import TtsPlayer from './TtsPlayer'
 
 export const renderWebviewError = (
   errorDomain: string | null | undefined,
@@ -44,12 +43,6 @@ type RemoteContentProps = {
   onLoad: () => void
 }
 
-const extractSentencesFromHtml = (html: string) => {
-  const cleanText = html.replace(/<\/?[^>]+(>|$)/g, '')
-  const sentences = cleanText.split('.').map(sentence => sentence.trim())
-  return sentences.filter(sentence => sentence.length > 0)
-}
-
 // If the app crashes without an error message while using RemoteContent, consider wrapping it in a ScrollView or setting a manual height
 const RemoteContent = (props: RemoteContentProps): ReactElement | null => {
   const { onLoad, content, cacheDictionary, resourceCacheUrl, language, onLinkPress } = props
@@ -65,10 +58,6 @@ const RemoteContent = (props: RemoteContentProps): ReactElement | null => {
   const theme = useTheme()
   const { t } = useTranslation()
   const { width: deviceWidth } = useWindowDimensions()
-  const { languageCode } = useContext(AppContext)
-  const [sentenceIndex, setSentenceIndex] = useState(0)
-  const [isPlaying, setIsPlaying] = useState(false)
-  const sentences = useMemo(() => extractSentencesFromHtml(content), [content])
 
   useEffect(() => {
     // If it takes too long returning false in onShouldStartLoadWithRequest the webview loads the pressed url anyway on android.
@@ -80,40 +69,10 @@ const RemoteContent = (props: RemoteContentProps): ReactElement | null => {
   }, [onLinkPress, pressedUrl])
 
   useEffect(() => {
-    Tts.addEventListener('tts-progress', () => setIsPlaying(true))
-    Tts.addEventListener('tts-cancel', () => setIsPlaying(false))
-    Tts.addEventListener('tts-finish', () => {
-      if (sentenceIndex < sentences.length - 1) {
-        setSentenceIndex(prev => prev + 1)
-      } else {
-        setIsPlaying(false)
-        setSentenceIndex(0)
-      }
-    })
-
-    return () => {
-      Tts.removeAllListeners('tts-finish')
-      Tts.removeAllListeners('tts-progress')
-      Tts.removeAllListeners('tts-cancel')
-    }
-  }, [sentenceIndex, sentences.length])
-  useEffect(() => {
     if (webViewHeight !== defaultWebviewHeight || content.length === 0) {
       onLoad()
     }
   }, [onLoad, webViewHeight, content])
-
-  useEffect(() => {
-    if (isPlaying) {
-      Tts.setDefaultLanguage(languageCode)
-      Tts.speak(sentences[sentenceIndex])
-    }
-  }, [isPlaying, languageCode, sentenceIndex, sentences])
-
-  const pauseReading = () => {
-    Tts.stop()
-    setIsPlaying(false)
-  }
 
   // messages are triggered in renderHtml.ts
   const onMessage = useCallback(
@@ -176,14 +135,6 @@ const RemoteContent = (props: RemoteContentProps): ReactElement | null => {
     return <Failure code={ErrorCode.UnknownError} />
   }
 
-  // const startReading = () => {
-  //   Tts.setDefaultLanguage(languageCode)
-  //   const sentences = extractSentencesFromHtml(content);
-
-  //   Tts.speak(sentences[sentenceCounter])
-  //   // setIsPlaying(true)
-  // }
-
   return (
     <>
       <WebView
@@ -221,7 +172,7 @@ const RemoteContent = (props: RemoteContentProps): ReactElement | null => {
           opacity: 0.99, // fixes crashing in Android https://github.com/react-native-webview/react-native-webview/issues/811
         }}
       />
-      <Button title={isPlaying ? 'Pause' : 'Read Text'} onPress={isPlaying ? pauseReading : () => setIsPlaying(true)} />
+      <TtsPlayer content={content} isTtsHtml />
     </>
   )
 }
