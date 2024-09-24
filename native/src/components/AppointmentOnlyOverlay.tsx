@@ -63,7 +63,7 @@ const AppointmentOnlyOverlay = ({ appointmentUrl, closeOverlay }: AppointmentOnl
               {appointmentUrl ? <Link url={appointmentUrl} text={t('theWebsite')} /> : <Text>{t('theWebsite')}</Text>}
             </Trans>
           </Text>
-          <CloseButton onPress={closeOverlay}>
+          <CloseButton onPress={closeOverlay} role='button'>
             <CloseButtonText>{t('common:close')}</CloseButtonText>
           </CloseButton>
         </OverlayContainer>

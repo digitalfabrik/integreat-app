@@ -48,7 +48,7 @@ const List = <T,>({
     showsVerticalScrollIndicator={false}
     onEndReachedThreshold={1}
     scrollEnabled={scrollEnabled}
-    accessibilityRole='list'
+    role='list'
     accessibilityLabel={accessibilityLabel}
     style={style}
   />

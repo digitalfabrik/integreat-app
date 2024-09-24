@@ -21,7 +21,7 @@ type IconButtonProps = {
 }
 
 const IconButton = ({ accessibilityLabel, icon, onPress, style }: IconButtonProps): ReactElement => (
-  <StyledPressable onPress={onPress} style={style} accessibilityLabel={accessibilityLabel}>
+  <StyledPressable onPress={onPress} style={style} accessibilityLabel={accessibilityLabel} role='button'>
     <View>{icon}</View>
   </StyledPressable>
 )

@@ -31,7 +31,7 @@ type SelectorItemProps = {
 const SelectorItem = ({ model: { name, code, enabled, onPress }, selected }: SelectorItemProps): ReactElement => {
   if (enabled || selected) {
     return (
-      <TouchTarget key={code} onPress={onPress}>
+      <TouchTarget key={code} onPress={onPress} role='button'>
         <ItemWrapper selected={selected}>
           <Element enabled>{name}</Element>
         </ItemWrapper>

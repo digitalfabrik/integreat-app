@@ -64,6 +64,7 @@ const CalendarChoiceModal = ({
     <Modal modalVisible={modalVisible} closeModal={closeModal} headerTitle={eventTitle} scrollView={false}>
       <Heading>{t('chooseCalendar')}</Heading>
       <StyledList
+        role='list'
         data={calendars}
         renderItem={({ item, index }) => (
           <>

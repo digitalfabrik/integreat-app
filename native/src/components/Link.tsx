@@ -20,7 +20,7 @@ type LinkProps = {
 const Link = ({ url, text, style }: LinkProps): ReactElement => {
   const showSnackbar = useSnackbar()
   return (
-    <LinkText style={style} onPress={() => openExternalUrl(url, showSnackbar)} accessibilityRole='link'>
+    <LinkText style={style} onPress={() => openExternalUrl(url, showSnackbar)} role='link'>
       {text}
     </LinkText>
   )

@@ -5,8 +5,8 @@ import LandingPage from '../pageobjects/landing.page.js'
 import { allowNotifications } from './deviceUtils.js'
 
 export const navigateToDashboard = async (): Promise<void> => {
-  const landingPage = LandingPage
   await allowNotifications()
+  const landingPage = LandingPage
   await landingPage.get()
   const search = await LandingPage.search
   await search.click()
