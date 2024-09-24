@@ -15,6 +15,23 @@ jest.mock('react-native-permissions', () => require('react-native-permissions/mo
 // https://reactnavigation.org/docs/testing#mocking-native-modules
 require('react-native-gesture-handler/jestSetup')
 
+// Mock react-native-tts globally
+jest.mock('react-native-tts', () => ({
+  speak: jest.fn(),
+  stop: jest.fn(),
+  setDefaultLanguage: jest.fn(),
+  addEventListener: jest.fn(),
+  removeAllListeners: jest.fn(),
+  getInitStatus: jest.fn(() => Promise.resolve('success')),
+  addListener: jest.fn(() => ({ remove: jest.fn() })),
+}))
+jest.mock('@react-navigation/native', () => ({
+  ...jest.requireActual('@react-navigation/native'),
+  useNavigation: jest.fn(() => ({
+    addListener: jest.fn(),
+  })),
+}))
+
 jest.mock('react-native-reanimated', () => {
   const Reanimated = require('react-native-reanimated/mock')
 

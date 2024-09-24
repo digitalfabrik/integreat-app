@@ -1,8 +1,8 @@
-import { useRoute, useNavigation } from '@react-navigation/native'
+import { useNavigation } from '@react-navigation/native'
 import React, { ReactElement, useCallback, useContext, useEffect, useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Button } from 'react-native'
-import Tts, { TtsError } from 'react-native-tts'
+import Tts from 'react-native-tts'
 import styled from 'styled-components/native'
 
 import { PauseIcon, SoundIcon } from '../assets'
@@ -51,7 +51,6 @@ const extractSentencesFromHtml = (html: string) => {
 
 const TtsPlayer = ({ content, disabled = false, isTtsHtml = false }: TtsPlayerProps): ReactElement => {
   const { languageCode } = useContext(AppContext)
-  const route = useRoute()
   const { i18n } = useTranslation()
   const [sentenceIndex, setSentenceIndex] = useState(0)
   const navigation = useNavigation()
@@ -67,7 +66,7 @@ const TtsPlayer = ({ content, disabled = false, isTtsHtml = false }: TtsPlayerPr
           // await Tts.setDefaultLanguage('de-DE')
         }
       })
-      .catch(async (error: TtsError) => {
+      .catch(async error => {
         /* eslint-disable-next-line no-console */
         console.error(`Tts-Error: ${error.code}`)
         if (error.code === 'no_engine') {
@@ -124,17 +123,11 @@ const TtsPlayer = ({ content, disabled = false, isTtsHtml = false }: TtsPlayerPr
   const startReading = () => {
     setIsPlaying(true)
     if (!isTtsHtml) {
-      if (route.name === 'events') {
-        if (contentAlignmentRTLText(typeof content === 'string' ? content : '') === 'left') {
-          Tts.setDefaultLanguage(languageCode)
-        } else {
-          // if persian is not supported then leaves the arabic the only rtl language
-          Tts.setDefaultLanguage('ar')
-        }
-      } else if (route.name === 'categories') {
+      if (contentAlignmentRTLText(typeof content === 'string' ? content : '') === 'left') {
         Tts.setDefaultLanguage(languageCode)
       } else {
-        Tts.setDefaultLanguage(i18n.language)
+        // if persian is not supported then leaves the arabic the only rtl language
+        Tts.setDefaultLanguage('ar')
       }
       setIsPlaying(true)
       Tts.speak(content)
