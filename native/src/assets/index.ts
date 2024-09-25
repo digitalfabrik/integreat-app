@@ -25,6 +25,8 @@ import NoInternetIcon from '../../../assets/icons/no-internet.svg'
 import NoteIcon from '../../../assets/icons/note.svg'
 import PauseIcon from '../../../assets/icons/pause.svg'
 import PhoneIcon from '../../../assets/icons/phone.svg'
+import PlayIcon from '../../../assets/icons/play.svg'
+import PlaybackIcon from '../../../assets/icons/playback.svg'
 import POIsIcon from '../../../assets/icons/pois.svg'
 import RefreshIcon from '../../../assets/icons/refresh.svg'
 import SadSmileyIcon from '../../../assets/icons/sad-smiley.svg'
@@ -81,4 +83,6 @@ export {
   WarningIcon,
   WebsiteIcon,
   PauseIcon,
+  PlaybackIcon,
+  PlayIcon,
 }

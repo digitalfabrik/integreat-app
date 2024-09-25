@@ -1,15 +1,17 @@
 import { useNavigation } from '@react-navigation/native'
 import React, { ReactElement, useCallback, useContext, useEffect, useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Button } from 'react-native'
 import Tts from 'react-native-tts'
 import styled from 'styled-components/native'
 
-import { PauseIcon, SoundIcon } from '../assets'
+import { PauseIcon, PlaybackIcon, PlayIcon, SoundIcon } from '../assets'
 import { contentAlignmentRTLText } from '../constants/contentDirection'
 import { AppContext } from '../contexts/AppContextProvider'
+import Slider from './Slider'
+// import Slider from './Slider'
 import Icon from './base/Icon'
 import IconButton from './base/IconButton'
+import Text from './base/Text'
 
 const StyledIcon = styled(IconButton)`
   position: absolute;
@@ -19,8 +21,52 @@ const StyledIcon = styled(IconButton)`
   width: 30px;
   height: 30px;
   background-color: transparent;
-  /* border-radius: 5px;
-  border: 0.5px solid rgba(0, 0, 0, 0.3); */
+`
+
+const StyledTtsPlayer = styled.View`
+  position: absolute;
+  bottom: 10px;
+  background-color: #dedede;
+  border-radius: 28px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  align-self: center;
+  z-index: 5;
+  gap: 5px;
+`
+const StyledPanel = styled.View`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 20px;
+`
+const StyledPlayIcon = styled(IconButton)`
+  background-color: #232323;
+  width: 50px;
+  height: 50px;
+  border-radius: 50px;
+`
+const StyledBackForthButton = styled.TouchableOpacity`
+  display: flex;
+  flex-direction: row;
+  gap: 5px;
+  align-items: flex-end;
+`
+
+const PlayButtonIcon = styled(Icon)`
+  color: #dedede;
+`
+const SmallPlayIcon = styled(Icon)`
+  color: ${props => props.theme.colors.themeColor};
+`
+const BackForthIcon = styled(Icon)<{ $flip: boolean }>`
+  transform: ${props => (props.$flip ? 'scaleX(-1)' : '')};
+`
+const StyledText = styled(Text)`
+  font-weight: bold;
 `
 
 type TtsPlayerProps = {
@@ -55,9 +101,9 @@ const TtsPlayer = ({ content, disabled = false, isTtsHtml = false }: TtsPlayerPr
   const [sentenceIndex, setSentenceIndex] = useState(0)
   const navigation = useNavigation()
   const [isPlaying, setIsPlaying] = useState(false)
+  const [volume, setVolume] = useState(100)
   const sentences = useMemo(() => extractSentencesFromHtml(content), [content])
   const isPersian = languageCode === 'fa' || i18n.language === 'fa'
-
   const initializeTts = useCallback((): void => {
     Tts.getInitStatus()
       .then(async (status: string) => {
@@ -141,16 +187,31 @@ const TtsPlayer = ({ content, disabled = false, isTtsHtml = false }: TtsPlayerPr
   return (
     <>
       {isTtsHtml ? (
-        <Button
-          title={isPlaying ? 'Pause' : 'Read Text'}
-          onPress={isPlaying ? pauseReading : startReading}
-          disabled={isPersian}
-        />
+        <StyledTtsPlayer>
+          <StyledPanel>
+            <StyledBackForthButton accessibilityLabel='Forward Button' onPress={() => {}}>
+              <StyledText>10</StyledText>
+              <BackForthIcon $flip Icon={PlaybackIcon} />
+            </StyledBackForthButton>
+            <StyledPlayIcon
+              accessibilityLabel='Play Button'
+              onPress={isPlaying ? pauseReading : startReading}
+              icon={<PlayButtonIcon Icon={isPlaying ? PauseIcon : PlayIcon} />}
+            />
+            <StyledBackForthButton accessibilityLabel='Forward Button' onPress={() => {}}>
+              <BackForthIcon $flip={false} Icon={PlaybackIcon} />
+              <StyledText>10</StyledText>
+            </StyledBackForthButton>
+          </StyledPanel>
+          <StyledPanel>
+            <Slider maxValue={100} minValue={0} onValueChange={setVolume} />
+          </StyledPanel>
+        </StyledTtsPlayer>
       ) : (
         !isPersian && (
           <StyledIcon
             accessibilityLabel='Sound button'
-            icon={<Icon Icon={isPlaying ? PauseIcon : SoundIcon} />}
+            icon={<SmallPlayIcon Icon={isPlaying ? PauseIcon : SoundIcon} />}
             onPress={isPlaying ? pauseReading : startReading}
           />
         )

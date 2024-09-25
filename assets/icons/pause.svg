@@ -42,10 +42,10 @@
      transform="translate(-1.8265683,-3.8814576)"><g
        id="g4"
        transform="matrix(0.19196123,0,0,0.19196123,4.134238,4.680668)"
-       style="stroke-width:1.00020197;stroke-dasharray:none;fill:#fbda16;fill-opacity:1"><path
+       style="stroke-width:1.00020197;stroke-dasharray:none;fill:currentColor;fill-opacity:1"><path
          d="M 81.667,93.159 H 59.989 c -1.104,0 -2,-0.896 -2,-2 V 8.841 c 0,-1.104 0.896,-2 2,-2 h 21.678 c 1.104,0 2,0.896 2,2 v 82.318 c 0,1.105 -0.896,2 -2,2 z m -41.656,0 H 18.333 c -1.104,0 -2,-0.896 -2,-2 V 8.841 c 0,-1.104 0.896,-2 2,-2 h 21.678 c 1.104,0 2,0.896 2,2 v 82.318 c 0,1.105 -0.896,2 -2,2 z"
          id="path1-3"
-         style="stroke-width:1.00020197;stroke-dasharray:none;fill:#fbda16;fill-opacity:1" /></g></g><style
+         style="stroke-width:1.00020197;stroke-dasharray:none;fill:currentColor;fill-opacity:1" /></g></g><style
      type="text/css"
      id="style1">
 	.st0{display:none;}

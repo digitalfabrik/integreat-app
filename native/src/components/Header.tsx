@@ -50,6 +50,7 @@ enum HeaderButtonTitle {
   Language = 'changeLanguage',
   Location = 'changeLocation',
   Search = 'search',
+  ReadAloud = 'Read aloud',
   Share = 'share',
   Settings = 'settings',
   Feedback = 'feedback',
@@ -113,6 +114,10 @@ const Header = ({
       showSnackbar({ text: 'generalError' })
       reportError(e)
     }
+  }
+
+  const onRead = async () => {
+    // show player
   }
 
   const renderItem = (title: string, iconName: string, visible: boolean, onPress?: () => void): ReactElement => (
@@ -192,6 +197,7 @@ const Header = ({
           ? [renderOverflowItem(HeaderButtonTitle.Location, () => navigation.navigate(LANDING_ROUTE))]
           : []),
         renderOverflowItem(HeaderButtonTitle.Settings, () => navigation.navigate(SETTINGS_ROUTE)),
+        ...[renderOverflowItem(HeaderButtonTitle.ReadAloud, onRead)],
         ...(route.name !== NEWS_ROUTE ? [renderOverflowItem(HeaderButtonTitle.Feedback, navigateToFeedback)] : []),
         ...(route.name !== DISCLAIMER_ROUTE
           ? [renderOverflowItem(HeaderButtonTitle.Disclaimer, () => navigation.navigate(DISCLAIMER_ROUTE))]
