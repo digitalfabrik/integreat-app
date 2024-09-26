@@ -22,6 +22,7 @@ import MailIcon from '../../../assets/icons/mail.svg'
 import MenuIcon from '../../../assets/icons/menu.svg'
 import NewsIcon from '../../../assets/icons/news.svg'
 import NoInternetIcon from '../../../assets/icons/no-internet.svg'
+import NoSoundIcon from '../../../assets/icons/no-sound.svg'
 import NoteIcon from '../../../assets/icons/note.svg'
 import PauseIcon from '../../../assets/icons/pause.svg'
 import PhoneIcon from '../../../assets/icons/phone.svg'
@@ -67,6 +68,7 @@ export {
   NewsIcon,
   NoInternetIcon,
   NoteIcon,
+  NoSoundIcon,
   PhoneIcon,
   POIsIcon,
   PoiThumbnailPlaceholder,

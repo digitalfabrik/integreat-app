@@ -51,6 +51,7 @@ const RemoteContent = (props: RemoteContentProps): ReactElement | null => {
   const { settings, updateSettings } = useAppContext()
   const { navigateTo } = useNavigate()
   const { externalSourcePermissions } = settings
+  const [showTtsPlayer, setShowTtsPlayer] = useState(true)
 
   // https://github.com/react-native-webview/react-native-webview/issues/1069#issuecomment-651699461
   const defaultWebviewHeight = 1
@@ -172,7 +173,7 @@ const RemoteContent = (props: RemoteContentProps): ReactElement | null => {
           opacity: 0.99, // fixes crashing in Android https://github.com/react-native-webview/react-native-webview/issues/811
         }}
       />
-      <TtsPlayer content={content} isTtsHtml />
+      <TtsPlayer content={content} isTtsHtml closeModal={() => setShowTtsPlayer(false)} modalVisible={showTtsPlayer} />
     </>
   )
 }

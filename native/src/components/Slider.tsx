@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useWindowDimensions } from 'react-native'
 import { GestureHandlerRootView, GestureDetector, Gesture } from 'react-native-gesture-handler'
 import Animated, { useSharedValue, useAnimatedStyle, runOnJS } from 'react-native-reanimated'
@@ -42,10 +42,12 @@ const defaultMaxValue = 100
 const Slider = ({
   minValue = 0,
   maxValue = defaultMaxValue,
+  initialValue = 0, // New prop to set the initial value
   onValueChange,
 }: {
   minValue: number
   maxValue: number
+  initialValue?: number
   onValueChange: (value: number) => void
 }): React.ReactElement => {
   const offset = useSharedValue(0)
@@ -53,6 +55,14 @@ const Slider = ({
   const widthPercentage = 0.6
   const SLIDER_WIDTH = width * widthPercentage
   const MAX_OFFSET = SLIDER_WIDTH - SLIDER_HANDLE_SIZE
+
+  // Set the initial offset value based on the initialValue prop
+  useEffect(() => {
+    if (initialValue >= minValue && initialValue <= maxValue) {
+      const initialOffset = ((initialValue - minValue) / (maxValue - minValue)) * MAX_OFFSET
+      offset.value = initialOffset
+    }
+  }, [initialValue, minValue, maxValue, MAX_OFFSET, offset])
 
   const pan = Gesture.Pan().onChange(event => {
     let newValue = offset.value + event.changeX

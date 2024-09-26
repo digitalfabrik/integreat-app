@@ -1,14 +1,15 @@
 import { useNavigation } from '@react-navigation/native'
 import React, { ReactElement, useCallback, useContext, useEffect, useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
+import { Modal } from 'react-native'
 import Tts from 'react-native-tts'
 import styled from 'styled-components/native'
 
-import { PauseIcon, PlaybackIcon, PlayIcon, SoundIcon } from '../assets'
+import { CloseIcon, NoSoundIcon, PauseIcon, PlaybackIcon, PlayIcon, SoundIcon } from '../assets'
 import { contentAlignmentRTLText } from '../constants/contentDirection'
 import { AppContext } from '../contexts/AppContextProvider'
+import { extractSentencesFromHtml } from '../utils/TtsPlayerUtils'
 import Slider from './Slider'
-// import Slider from './Slider'
 import Icon from './base/Icon'
 import IconButton from './base/IconButton'
 import Text from './base/Text'
@@ -24,11 +25,9 @@ const StyledIcon = styled(IconButton)`
 `
 
 const StyledTtsPlayer = styled.View`
-  position: absolute;
-  bottom: 10px;
   background-color: #dedede;
   border-radius: 28px;
-  width: 100%;
+  width: 95%;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -36,6 +35,9 @@ const StyledTtsPlayer = styled.View`
   align-self: center;
   z-index: 5;
   gap: 5px;
+  padding: 6px;
+  position: absolute;
+  bottom: 5px;
 `
 const StyledPanel = styled.View`
   display: flex;
@@ -68,40 +70,41 @@ const BackForthIcon = styled(Icon)<{ $flip: boolean }>`
 const StyledText = styled(Text)`
   font-weight: bold;
 `
+const CloseButton = styled.TouchableOpacity`
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  border-radius: 7px;
+  background-color: ${props => props.theme.colors.themeColor};
+
+  padding: 5px;
+  gap: 5px;
+  width: 40%;
+`
 
 type TtsPlayerProps = {
   disabled?: boolean
   isTtsHtml: boolean
   content: string
+  modalVisible?: boolean
+  closeModal?: () => void
 }
 
-const decodeHtmlEntities = (html: string): string =>
-  html
-    // Handle decimal entities like &#1610;
-    .replace(/&#(\d+);/g, (match, dec) => String.fromCharCode(dec))
-    // Handle hexadecimal entities like &#x1F600;
-    .replace(/&#x([0-9A-Fa-f]+);/g, (match, hex) => String.fromCharCode(parseInt(hex, 16)))
-    // Handle named entities like &quot;, &amp;
-    .replace(/&quot;/g, '"')
-    .replace(/&amp;/g, '&')
-    .replace(/&lt;/g, '<')
-    .replace(/&gt;/g, '>')
-    .replace(/&apos;/g, "'") // Apostrophe
-
-const extractSentencesFromHtml = (html: string) => {
-  const decodedText = decodeHtmlEntities(html)
-  const cleanText = decodedText.replace(/<\/?[^>]+(>|$)/g, '')
-  const sentences = cleanText.split('.').map(sentence => sentence.trim())
-  return sentences.filter(sentence => sentence.length > 0)
-}
-
-const TtsPlayer = ({ content, disabled = false, isTtsHtml = false }: TtsPlayerProps): ReactElement => {
+const TtsPlayer = ({
+  content,
+  modalVisible,
+  closeModal,
+  disabled = false,
+  isTtsHtml = false,
+}: TtsPlayerProps): ReactElement => {
   const { languageCode } = useContext(AppContext)
   const { i18n } = useTranslation()
   const [sentenceIndex, setSentenceIndex] = useState(0)
   const navigation = useNavigation()
   const [isPlaying, setIsPlaying] = useState(false)
-  const [volume, setVolume] = useState(100)
+  const defaultVolume = 50
+  const [volume, setVolume] = useState(defaultVolume)
   const sentences = useMemo(() => extractSentencesFromHtml(content), [content])
   const isPersian = languageCode === 'fa' || i18n.language === 'fa'
   const initializeTts = useCallback((): void => {
@@ -132,6 +135,7 @@ const TtsPlayer = ({ content, disabled = false, isTtsHtml = false }: TtsPlayerPr
     Tts.addEventListener('tts-cancel', () => setIsPlaying(false))
     Tts.addEventListener('tts-finish', () => {
       if (sentenceIndex < sentences.length - 1) {
+        Tts.stop()
         setSentenceIndex(prev => prev + 1)
       } else {
         setIsPlaying(false)
@@ -150,12 +154,21 @@ const TtsPlayer = ({ content, disabled = false, isTtsHtml = false }: TtsPlayerPr
     if (isPlaying && isTtsHtml) {
       setIsPlaying(true)
       Tts.setDefaultLanguage(languageCode)
-      Tts.speak(String(sentences[sentenceIndex]))
+      const percentage = 100
+      Tts.speak(String(sentences[sentenceIndex]), {
+        androidParams: {
+          KEY_PARAM_PAN: -1,
+          KEY_PARAM_VOLUME: volume / percentage,
+          KEY_PARAM_STREAM: 'STREAM_MUSIC',
+        },
+        iosVoiceId: '',
+        rate: 1,
+      })
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isPlaying, isTtsHtml, languageCode, sentenceIndex, sentences])
 
   useEffect(() => {
-    // stop tts when heading back
     const unsubscribe = navigation.addListener('beforeRemove', () => {
       if (isPlaying) {
         Tts.stop()
@@ -167,46 +180,84 @@ const TtsPlayer = ({ content, disabled = false, isTtsHtml = false }: TtsPlayerPr
   }, [navigation, isPlaying])
 
   const startReading = () => {
-    setIsPlaying(true)
+    setIsPlaying(true) // this will start reading sentences
     if (!isTtsHtml) {
+      // if text it will run here
       if (contentAlignmentRTLText(typeof content === 'string' ? content : '') === 'left') {
         Tts.setDefaultLanguage(languageCode)
       } else {
-        // if persian is not supported then leaves the arabic the only rtl language
         Tts.setDefaultLanguage('ar')
       }
       setIsPlaying(true)
       Tts.speak(content)
     }
   }
+
   const pauseReading = () => {
     Tts.stop()
     setIsPlaying(false)
   }
 
+  const handleBackward = () => {
+    Tts.stop()
+    setSentenceIndex(prev => Math.max(0, prev - 1)) // it return the bigger number so no minus
+    startReading()
+  }
+
+  const handleForward = () => {
+    Tts.stop()
+    setSentenceIndex(prev => Math.min(sentences.length - 1, prev + 1))
+    startReading()
+  }
+
+  const handleVolumeChange = (newVolume: number) => {
+    Tts.stop()
+    setVolume(newVolume)
+    if (isPlaying) {
+      startReading()
+    }
+  }
+
   return (
     <>
       {isTtsHtml ? (
-        <StyledTtsPlayer>
-          <StyledPanel>
-            <StyledBackForthButton accessibilityLabel='Forward Button' onPress={() => {}}>
-              <StyledText>10</StyledText>
-              <BackForthIcon $flip Icon={PlaybackIcon} />
-            </StyledBackForthButton>
-            <StyledPlayIcon
-              accessibilityLabel='Play Button'
-              onPress={isPlaying ? pauseReading : startReading}
-              icon={<PlayButtonIcon Icon={isPlaying ? PauseIcon : PlayIcon} />}
-            />
-            <StyledBackForthButton accessibilityLabel='Forward Button' onPress={() => {}}>
-              <BackForthIcon $flip={false} Icon={PlaybackIcon} />
-              <StyledText>10</StyledText>
-            </StyledBackForthButton>
-          </StyledPanel>
-          <StyledPanel>
-            <Slider maxValue={100} minValue={0} onValueChange={setVolume} />
-          </StyledPanel>
-        </StyledTtsPlayer>
+        <Modal visible={modalVisible} onRequestClose={closeModal} animationType='slide' transparent>
+          <StyledTtsPlayer>
+            <StyledPanel>
+              <StyledBackForthButton accessibilityLabel='backward Button' onPress={handleBackward}>
+                <StyledText>Back</StyledText>
+                <BackForthIcon $flip Icon={PlaybackIcon} />
+              </StyledBackForthButton>
+              <StyledPlayIcon
+                accessibilityLabel='Play Button'
+                onPress={isPlaying ? pauseReading : startReading}
+                icon={<PlayButtonIcon Icon={isPlaying ? PauseIcon : PlayIcon} />}
+              />
+              <StyledBackForthButton accessibilityLabel='Forward Button' onPress={handleForward}>
+                <BackForthIcon $flip={false} Icon={PlaybackIcon} />
+                <StyledText>Next</StyledText>
+              </StyledBackForthButton>
+            </StyledPanel>
+            <StyledPanel style={{ paddingHorizontal: 10 }}>
+              <Icon Icon={NoSoundIcon} style={{ height: 18, width: 18 }} />
+              <Slider maxValue={100} minValue={0} initialValue={50} onValueChange={handleVolumeChange} />
+              <Icon Icon={SoundIcon} />
+            </StyledPanel>
+            <CloseButton
+              accessibilityLabel='Close player'
+              onPress={closeModal}
+              style={{
+                elevation: 5, // For Android shadow
+                shadowColor: 'black', // For iOS shadow
+                shadowOffset: { width: 0, height: 2 },
+                shadowOpacity: 0.2,
+                shadowRadius: 3,
+              }}>
+              <Icon Icon={CloseIcon} />
+              <StyledText>Close</StyledText>
+            </CloseButton>
+          </StyledTtsPlayer>
+        </Modal>
       ) : (
         !isPersian && (
           <StyledIcon
