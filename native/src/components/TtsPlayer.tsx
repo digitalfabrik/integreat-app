@@ -1,4 +1,5 @@
 import { useNavigation } from '@react-navigation/native'
+import { debounce } from 'lodash'
 import React, { ReactElement, useCallback, useContext, useEffect, useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Modal } from 'react-native'
@@ -24,20 +25,21 @@ const StyledIcon = styled(IconButton)`
   background-color: transparent;
 `
 
-const StyledTtsPlayer = styled.View`
+const StyledTtsPlayer = styled.View<{ $isPlaying: boolean }>`
   background-color: #dedede;
   border-radius: 28px;
   width: 95%;
   display: flex;
-  flex-direction: column;
+  flex-direction: ${props => (props.$isPlaying ? 'column' : 'row')};
   justify-content: center;
   align-items: center;
   align-self: center;
   z-index: 5;
-  gap: 5px;
   padding: 6px;
   position: absolute;
   bottom: 5px;
+  min-height: 93px;
+  gap: ${props => (props.$isPlaying ? '5px;' : '10px')};
 `
 const StyledPanel = styled.View`
   display: flex;
@@ -70,6 +72,11 @@ const BackForthIcon = styled(Icon)<{ $flip: boolean }>`
 const StyledText = styled(Text)`
   font-weight: bold;
 `
+const StyledPlayerHeaderText = styled(Text)`
+  font-weight: 600;
+  align-self: center;
+  font-size: 18px;
+`
 const CloseButton = styled.TouchableOpacity`
   display: flex;
   flex-direction: row;
@@ -77,10 +84,13 @@ const CloseButton = styled.TouchableOpacity`
   align-items: center;
   border-radius: 7px;
   background-color: ${props => props.theme.colors.themeColor};
-
   padding: 5px;
   gap: 5px;
-  width: 40%;
+  width: 176px;
+`
+const CloseView = styled.View`
+  flex-direction: column;
+  gap: 10px;
 `
 
 type TtsPlayerProps = {
@@ -103,6 +113,7 @@ const TtsPlayer = ({
   const [sentenceIndex, setSentenceIndex] = useState(0)
   const navigation = useNavigation()
   const [isPlaying, setIsPlaying] = useState(false)
+  const [expandPlayer, setExpandPlayer] = useState(false)
   const defaultVolume = 50
   const [volume, setVolume] = useState(defaultVolume)
   const sentences = useMemo(() => extractSentencesFromHtml(content), [content])
@@ -157,7 +168,7 @@ const TtsPlayer = ({
       const percentage = 100
       Tts.speak(String(sentences[sentenceIndex]), {
         androidParams: {
-          KEY_PARAM_PAN: -1,
+          KEY_PARAM_PAN: 0,
           KEY_PARAM_VOLUME: volume / percentage,
           KEY_PARAM_STREAM: 'STREAM_MUSIC',
         },
@@ -210,52 +221,73 @@ const TtsPlayer = ({
     startReading()
   }
 
-  const handleVolumeChange = (newVolume: number) => {
-    Tts.stop()
+  const debouncedVolumeChange = debounce((newVolume: number) => {
     setVolume(newVolume)
-    if (isPlaying) {
-      startReading()
-    }
+    Tts.stop().then(() =>
+      setTimeout(() => {
+        startReading()
+      }, 200),
+    )
+  }, 500) // Adjust the delay as needed
+
+  const handleVolumeChange = (newVolume: number) => {
+    debouncedVolumeChange(newVolume)
   }
 
   return (
     <>
       {isTtsHtml ? (
         <Modal visible={modalVisible} onRequestClose={closeModal} animationType='slide' transparent>
-          <StyledTtsPlayer>
+          <StyledTtsPlayer $isPlaying={expandPlayer}>
             <StyledPanel>
-              <StyledBackForthButton accessibilityLabel='backward Button' onPress={handleBackward}>
-                <StyledText>Back</StyledText>
-                <BackForthIcon $flip Icon={PlaybackIcon} />
-              </StyledBackForthButton>
+              {expandPlayer && (
+                <StyledBackForthButton accessibilityLabel='backward Button' onPress={handleBackward}>
+                  <StyledText>Back</StyledText>
+                  <BackForthIcon $flip Icon={PlaybackIcon} />
+                </StyledBackForthButton>
+              )}
               <StyledPlayIcon
                 accessibilityLabel='Play Button'
-                onPress={isPlaying ? pauseReading : startReading}
+                onPress={() => {
+                  if (isPlaying) {
+                    pauseReading()
+                  } else {
+                    startReading()
+                  }
+                  setExpandPlayer(!isPlaying)
+                }}
                 icon={<PlayButtonIcon Icon={isPlaying ? PauseIcon : PlayIcon} />}
               />
-              <StyledBackForthButton accessibilityLabel='Forward Button' onPress={handleForward}>
-                <BackForthIcon $flip={false} Icon={PlaybackIcon} />
-                <StyledText>Next</StyledText>
-              </StyledBackForthButton>
+              {expandPlayer && (
+                <StyledBackForthButton accessibilityLabel='Forward Button' onPress={handleForward}>
+                  <BackForthIcon $flip={false} Icon={PlaybackIcon} />
+                  <StyledText>Next</StyledText>
+                </StyledBackForthButton>
+              )}
             </StyledPanel>
-            <StyledPanel style={{ paddingHorizontal: 10 }}>
-              <Icon Icon={NoSoundIcon} style={{ height: 18, width: 18 }} />
-              <Slider maxValue={100} minValue={0} initialValue={50} onValueChange={handleVolumeChange} />
-              <Icon Icon={SoundIcon} />
-            </StyledPanel>
-            <CloseButton
-              accessibilityLabel='Close player'
-              onPress={closeModal}
-              style={{
-                elevation: 5, // For Android shadow
-                shadowColor: 'black', // For iOS shadow
-                shadowOffset: { width: 0, height: 2 },
-                shadowOpacity: 0.2,
-                shadowRadius: 3,
-              }}>
-              <Icon Icon={CloseIcon} />
-              <StyledText>Close</StyledText>
-            </CloseButton>
+            {expandPlayer && (
+              <StyledPanel style={{ paddingHorizontal: 10 }}>
+                <Icon Icon={NoSoundIcon} style={{ height: 18, width: 18 }} />
+                <Slider maxValue={100} minValue={0} initialValue={50} onValueChange={handleVolumeChange} />
+                <Icon Icon={SoundIcon} />
+              </StyledPanel>
+            )}
+            <CloseView>
+              {!expandPlayer && <StyledPlayerHeaderText>Vorlesefunktion</StyledPlayerHeaderText>}
+              <CloseButton
+                accessibilityLabel='Close player'
+                onPress={closeModal}
+                style={{
+                  elevation: 5, // For Android shadow
+                  shadowColor: 'black', // For iOS shadow
+                  shadowOffset: { width: 0, height: 2 },
+                  shadowOpacity: 0.2,
+                  shadowRadius: 3,
+                }}>
+                <Icon Icon={CloseIcon} />
+                <StyledText>Close</StyledText>
+              </CloseButton>
+            </CloseView>
           </StyledTtsPlayer>
         </Modal>
       ) : (
