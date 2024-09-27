@@ -1,11 +1,12 @@
 import { DateTime } from 'luxon'
-import React, { useEffect, useState } from 'react'
+import React, { ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
 
 import { CloseIcon, StarIcon } from '../assets'
 import buildConfig from '../constants/buildConfig'
 import dimensions from '../constants/dimensions'
+import useLocalStorage from '../hooks/useLocalStorage'
 import Button from './base/Button'
 import Icon from './base/Icon'
 
@@ -16,44 +17,50 @@ const StyledBanner = styled.div<{ $isInstalled: boolean }>`
   padding: 15px;
   align-items: center;
   transition: all 2s ease-out;
-  height: ${props => (!props.$isInstalled ? '80px' : 'fit-content')};
+  height: ${props => (props.$isInstalled ? 'fit-content' : '80px')};
 
   @media ${dimensions.smallViewport} {
     display: flex;
   }
 `
+
 const StyledDiv = styled.div`
   display: flex;
   align-items: center;
   gap: 10px;
 `
+
 const StyledCloseButton = styled(Button)`
   display: flex;
   gap: 10px;
-  fill: ${props => props.theme.colors.themeContrast};
 `
+
 const StyledBannerIcon = styled(Icon)<{ $isInstalled: boolean }>`
-  width: ${props => (!props.$isInstalled ? '64px' : '34px')};
-  height: ${props => (!props.$isInstalled ? '64px' : '34px')};
+  width: ${props => (props.$isInstalled ? '32px' : '64px')};
+  height: ${props => (props.$isInstalled ? '32px' : '64px')};
   background-color: 'white';
   border-radius: 5;
 `
+
 const StyledDivText = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
   gap: 2px;
 `
+
 const StyledAppName = styled.span`
   font-weight: bold;
   font-size: 14px;
   color: ${props => props.theme.colors.themeContrast};
 `
+
 const StyledDescription = styled.span`
   color: ${props => props.theme.colors.themeContrast};
   white-space: nowrap;
   font-size: 12px;
 `
+
 const StyledButton = styled.button<{ $isInstalled: boolean }>`
   background-color: ${props => (!props.$isInstalled ? 'transparent' : props.theme.colors.textColor)};
   color: ${props => (!props.$isInstalled ? props.theme.colors.themeContrast : props.theme.colors.themeColor)};
@@ -77,13 +84,15 @@ const StyledStars = styled.div`
   display: flex;
   gap: 1px;
 `
-export const MobileBanner = (): React.JSX.Element => {
-  const [isHidden, setIsHidden] = useState<boolean>(true)
-  const [isInstalled] = useState<boolean>(false)
+
+export const MobileBanner = (): ReactElement => {
+  const { value, updateLocalStorageItem } = useLocalStorage<string | null>({ key: 'showBanner', initialValue: null })
+  const isVisible = !value || DateTime.fromISO(value).plus({ months: 3 }) < DateTime.now()
+  const [isInstalled] = useState<boolean>(false) // This is always false because we can't know if app is installed or not before running the deep-link
   const { icons, appName, apps, hostName } = buildConfig()
   const appStoreUrl = `https://play.google.com/store/apps/details?id=${apps?.android.applicationId}`
-  const ua = navigator.userAgent
-  const isAndroid = Boolean(/android/i.test(ua))
+  const userAgent = navigator.userAgent
+  const isAndroid = Boolean(/android/i.test(userAgent))
   const { t } = useTranslation('layout')
 
   const checkIfAppIsInstalled = () => {
@@ -113,49 +122,41 @@ export const MobileBanner = (): React.JSX.Element => {
 
   const toggleBanner = () => {
     const expirationDate = DateTime.now().plus({ months: 3 })
-    localStorage.setItem('showBanner', expirationDate.toISO())
-    setIsHidden(false)
+    updateLocalStorageItem(expirationDate.toISO())
   }
 
-  useEffect(() => {
-    if (localStorage.getItem('showBanner')) {
-      if (DateTime.fromISO(String(localStorage.getItem('showBanner'))) > DateTime.now()) {
-        setIsHidden(false)
-      }
-    }
-  }, [])
-
-  return (
-    <>
-      {isAndroid && isHidden && (
-        <StyledBanner $isInstalled={isInstalled}>
-          <StyledDiv>
-            <StyledCloseButton label='closeButton' onClick={toggleBanner}>
-              {!isInstalled && <Icon src={CloseIcon} />}
-            </StyledCloseButton>
-            <StyledBannerIcon $isInstalled={isInstalled} src={icons.appLogoMobile} />
-            <StyledDivText>
-              <StyledAppName>{appName}</StyledAppName>
-              {!isInstalled && (
-                <>
-                  <StyledDescription>Tür an Tür - Digitalfabrik gGmbH</StyledDescription>
-                  <StyledStars>
-                    <StyledStarIcon src={StarIcon} />
-                    <StyledStarIcon src={StarIcon} />
-                    <StyledStarIcon src={StarIcon} />
-                    <StyledStarIcon src={StarIcon} />
-                    <StyledStarIcon src={StarIcon} />
-                  </StyledStars>
-                </>
-              )}
-              <StyledDescription>{isInstalled ? t('openInApp') : 'GET — On the Google Play Store'}</StyledDescription>
-            </StyledDivText>
-          </StyledDiv>
-          <StyledButton $isInstalled={isInstalled} onClick={checkIfAppIsInstalled}>
-            {t(!isInstalled ? 'View' : 'Open')}
-          </StyledButton>
-        </StyledBanner>
-      )}
-    </>
-  )
+  if (isAndroid && isVisible) {
+    return (
+      <StyledBanner $isInstalled={isInstalled}>
+        <StyledDiv>
+          <StyledCloseButton label='closeButton' onClick={toggleBanner}>
+            {!isInstalled && <Icon src={CloseIcon} />}
+          </StyledCloseButton>
+          <StyledBannerIcon $isInstalled={isInstalled} src={icons.appLogoMobile} />
+          <StyledDivText>
+            <StyledAppName>{appName}</StyledAppName>
+            {!isInstalled && (
+              <>
+                <StyledDescription>Tür an Tür - Digitalfabrik gGmbH</StyledDescription>
+                <StyledStars>
+                  <StyledStarIcon src={StarIcon} />
+                  <StyledStarIcon src={StarIcon} />
+                  <StyledStarIcon src={StarIcon} />
+                  <StyledStarIcon src={StarIcon} />
+                  <StyledStarIcon src={StarIcon} />
+                </StyledStars>
+              </>
+            )}
+            <StyledDescription>
+              {isInstalled ? t('openInApp', { appName: buildConfig().appName }) : 'GET — On the Google Play Store'}
+            </StyledDescription>
+          </StyledDivText>
+        </StyledDiv>
+        <StyledButton $isInstalled={isInstalled} onClick={checkIfAppIsInstalled}>
+          {t(!isInstalled ? 'View' : 'Open')}
+        </StyledButton>
+      </StyledBanner>
+    )
+  }
+  return <> {/* Return emptiness */}</>
 }

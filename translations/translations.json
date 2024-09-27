@@ -5552,7 +5552,7 @@
       "disclaimer": "هيئة التحرير",
       "sideBarOpenAriaLabel": "فتح الشريط الجانبي",
       "sideBarCloseAriaLabel": "غلق الشريط الجانبي",
-      "openInApp": "افتح في تطبيق Integreat",
+      "openInApp": "افتح في تطبيق {{appName}}",
       "open": "افتح",
       "view": "عرض"
     },
@@ -5675,7 +5675,7 @@
       "disclaimer": "Imprint",
       "sideBarOpenAriaLabel": "Open sidebar",
       "sideBarCloseAriaLabel": "Close sidebar",
-      "openInApp": "Open in the Integreat app",
+      "openInApp": "Open in the {{appName}} app",
       "open": "Open",
       "view": "View",
       "accessibility": "Accessibility"
@@ -5751,7 +5751,7 @@
       "disclaimer": "Mentions légales",
       "sideBarOpenAriaLabel": "Ouvrir la barre latérale",
       "sideBarCloseAriaLabel": "Fermer la barre latérale",
-      "openInApp": "Ouvrir dans l'app Integreat",
+      "openInApp": "Ouvrir dans l'app {{appName}}",
       "open": "Ouvrir",
       "view": "Voir"
     },
