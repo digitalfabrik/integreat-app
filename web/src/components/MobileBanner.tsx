@@ -85,7 +85,7 @@ const StyledStars = styled.div`
   gap: 1px;
 `
 
-export const MobileBanner = (): ReactElement => {
+export const MobileBanner = (): ReactElement | null => {
   const { value, updateLocalStorageItem } = useLocalStorage<string | null>({ key: 'showBanner', initialValue: null })
   const isVisible = !value || DateTime.fromISO(value).plus({ months: 3 }) < DateTime.now()
   const [isInstalled] = useState<boolean>(false) // This is always false because we can't know if app is installed or not before running the deep-link
@@ -158,5 +158,5 @@ export const MobileBanner = (): ReactElement => {
       </StyledBanner>
     )
   }
-  return <> {/* Return emptiness */}</>
+  return null
 }
