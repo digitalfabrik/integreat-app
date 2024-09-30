@@ -1,29 +1,15 @@
-import { useNavigation } from '@react-navigation/native'
 import { debounce } from 'lodash'
-import React, { ReactElement, useCallback, useContext, useEffect, useMemo, useState } from 'react'
-import { useTranslation } from 'react-i18next'
-import { Modal } from 'react-native'
+import React, { createContext, ReactElement, useCallback, useContext, useEffect, useMemo, useState } from 'react'
 import Tts from 'react-native-tts'
 import styled from 'styled-components/native'
 
 import { CloseIcon, NoSoundIcon, PauseIcon, PlaybackIcon, PlayIcon, SoundIcon } from '../assets'
-import { contentAlignmentRTLText } from '../constants/contentDirection'
 import { AppContext } from '../contexts/AppContextProvider'
 import { extractSentencesFromHtml } from '../utils/TtsPlayerUtils'
 import Slider from './Slider'
 import Icon from './base/Icon'
 import IconButton from './base/IconButton'
 import Text from './base/Text'
-
-const StyledIcon = styled(IconButton)`
-  position: absolute;
-  left: 10px;
-  top: 15px;
-  z-index: 20;
-  width: 30px;
-  height: 30px;
-  background-color: transparent;
-`
 
 const StyledTtsPlayer = styled.View<{ $isPlaying: boolean }>`
   background-color: #dedede;
@@ -53,6 +39,7 @@ const StyledPlayIcon = styled(IconButton)`
   height: 50px;
   border-radius: 50px;
 `
+
 const StyledBackForthButton = styled.TouchableOpacity`
   display: flex;
   flex-direction: row;
@@ -63,20 +50,21 @@ const StyledBackForthButton = styled.TouchableOpacity`
 const PlayButtonIcon = styled(Icon)`
   color: #dedede;
 `
-const SmallPlayIcon = styled(Icon)`
-  color: ${props => props.theme.colors.themeColor};
-`
+
 const BackForthIcon = styled(Icon)<{ $flip: boolean }>`
   transform: ${props => (props.$flip ? 'scaleX(-1)' : '')};
 `
+
 const StyledText = styled(Text)`
   font-weight: bold;
 `
+
 const StyledPlayerHeaderText = styled(Text)`
   font-weight: 600;
   align-self: center;
   font-size: 18px;
 `
+
 const CloseButton = styled.TouchableOpacity`
   display: flex;
   flex-direction: row;
@@ -88,36 +76,54 @@ const CloseButton = styled.TouchableOpacity`
   gap: 5px;
   width: 176px;
 `
+
 const CloseView = styled.View`
   flex-direction: column;
   gap: 10px;
 `
 
+export type ttsContextType = {
+  content: string
+  setContent: React.Dispatch<React.SetStateAction<string>>
+  sentenceIndex: number
+  setSentenceIndex: React.Dispatch<React.SetStateAction<number>>
+  visible: boolean
+  setVisible: React.Dispatch<React.SetStateAction<boolean>>
+}
+export const ttsContext = createContext<ttsContextType>({
+  content: '',
+  setContent: () => {
+    // setContent
+  },
+  sentenceIndex: 0,
+  setSentenceIndex: () => {
+    // setSentenceIndex
+  },
+  visible: false,
+  setVisible: () => {
+    // setSentenceIndex
+  },
+})
+
 type TtsPlayerProps = {
   disabled?: boolean
-  isTtsHtml: boolean
-  content: string
-  modalVisible?: boolean
-  closeModal?: () => void
+  children: ReactElement
+  initialVisibility?: boolean
 }
-
-const TtsPlayer = ({
-  content,
-  modalVisible,
-  closeModal,
-  disabled = false,
-  isTtsHtml = false,
-}: TtsPlayerProps): ReactElement => {
+const TtsPlayer = ({ initialVisibility = false, disabled = false, children }: TtsPlayerProps): ReactElement | null => {
   const { languageCode } = useContext(AppContext)
-  const { i18n } = useTranslation()
   const [sentenceIndex, setSentenceIndex] = useState(0)
-  const navigation = useNavigation()
+  // const navigation = useNavigation()
   const [isPlaying, setIsPlaying] = useState(false)
   const [expandPlayer, setExpandPlayer] = useState(false)
   const defaultVolume = 50
   const [volume, setVolume] = useState(defaultVolume)
-  const sentences = useMemo(() => extractSentencesFromHtml(content), [content])
-  const isPersian = languageCode === 'fa' || i18n.language === 'fa'
+  const [content, setContent] = useState('')
+  const [visible, setVisible] = useState(initialVisibility)
+  const sentences: string[] = useMemo(() => extractSentencesFromHtml(content), [content])
+
+  const isPersian = languageCode === 'fa'
+
   const initializeTts = useCallback((): void => {
     Tts.getInitStatus()
       .then(async (status: string) => {
@@ -162,7 +168,7 @@ const TtsPlayer = ({
   }, [disabled, initializeTts, sentenceIndex, sentences.length])
 
   useEffect(() => {
-    if (isPlaying && isTtsHtml) {
+    if (isPlaying) {
       setIsPlaying(true)
       Tts.setDefaultLanguage(languageCode)
       const percentage = 100
@@ -177,31 +183,34 @@ const TtsPlayer = ({
       })
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isPlaying, isTtsHtml, languageCode, sentenceIndex, sentences])
+  }, [isPlaying, languageCode, sentenceIndex, sentences])
 
-  useEffect(() => {
-    const unsubscribe = navigation.addListener('beforeRemove', () => {
-      if (isPlaying) {
-        Tts.stop()
-        setIsPlaying(false)
-      }
-    })
+  // useEffect(() => {
+  //   const unsubscribe = navigation.addListener('beforeRemove', () => {
+  //     if (isPlaying) {
+  //       Tts.stop()
+  //       setIsPlaying(false)
+  //     }
+  //   })
 
-    return unsubscribe
-  }, [navigation, isPlaying])
+  //   return unsubscribe
+  // }, [navigation, isPlaying])
 
   const startReading = () => {
-    setIsPlaying(true) // this will start reading sentences
-    if (!isTtsHtml) {
-      // if text it will run here
-      if (contentAlignmentRTLText(typeof content === 'string' ? content : '') === 'left') {
-        Tts.setDefaultLanguage(languageCode)
-      } else {
-        Tts.setDefaultLanguage('ar')
-      }
-      setIsPlaying(true)
-      Tts.speak(content)
+    if (!isPersian) {
+      // Persian not supported
+      setIsPlaying(true) // this will start reading sentences
     }
+    // if (!isTtsHtml) {
+    //   // if text it will run here
+    //   if (contentAlignmentRTLText(typeof content === 'string' ? content : '') === 'left') {
+    //     Tts.setDefaultLanguage(languageCode)
+    //   } else {
+    //     Tts.setDefaultLanguage('ar')
+    //   }
+    //   setIsPlaying(true)
+    //   Tts.speak(content)
+    // }
   }
 
   const pauseReading = () => {
@@ -211,7 +220,7 @@ const TtsPlayer = ({
 
   const handleBackward = () => {
     Tts.stop()
-    setSentenceIndex(prev => Math.max(0, prev - 1)) // it return the bigger number so no minus
+    setSentenceIndex(prev => Math.max(0, prev - 1)) // it return the bigger number so no negative values
     startReading()
   }
 
@@ -228,78 +237,80 @@ const TtsPlayer = ({
         startReading()
       }, 200),
     )
-  }, 500) // Adjust the delay as needed
+  }, 500)
 
   const handleVolumeChange = (newVolume: number) => {
     debouncedVolumeChange(newVolume)
   }
 
+  const ttsContextValue = useMemo(
+    () => ({
+      content,
+      setContent,
+      sentenceIndex,
+      setSentenceIndex,
+      visible,
+      setVisible,
+    }),
+    [content, setContent, sentenceIndex, setSentenceIndex, visible, setVisible],
+  )
   return (
-    <>
-      {isTtsHtml ? (
-        <Modal visible={modalVisible} onRequestClose={closeModal} animationType='slide' transparent>
-          <StyledTtsPlayer $isPlaying={expandPlayer}>
-            <StyledPanel>
-              {expandPlayer && (
-                <StyledBackForthButton accessibilityLabel='backward Button' onPress={handleBackward}>
-                  <StyledText>Back</StyledText>
-                  <BackForthIcon $flip Icon={PlaybackIcon} />
-                </StyledBackForthButton>
-              )}
-              <StyledPlayIcon
-                accessibilityLabel='Play Button'
-                onPress={() => {
-                  if (isPlaying) {
-                    pauseReading()
-                  } else {
-                    startReading()
-                  }
-                  setExpandPlayer(!isPlaying)
-                }}
-                icon={<PlayButtonIcon Icon={isPlaying ? PauseIcon : PlayIcon} />}
-              />
-              {expandPlayer && (
-                <StyledBackForthButton accessibilityLabel='Forward Button' onPress={handleForward}>
-                  <BackForthIcon $flip={false} Icon={PlaybackIcon} />
-                  <StyledText>Next</StyledText>
-                </StyledBackForthButton>
-              )}
-            </StyledPanel>
+    <ttsContext.Provider value={ttsContextValue}>
+      {children}
+      {visible && (
+        <StyledTtsPlayer $isPlaying={expandPlayer}>
+          <StyledPanel>
             {expandPlayer && (
-              <StyledPanel style={{ paddingHorizontal: 10 }}>
-                <Icon Icon={NoSoundIcon} style={{ height: 18, width: 18 }} />
-                <Slider maxValue={100} minValue={0} initialValue={50} onValueChange={handleVolumeChange} />
-                <Icon Icon={SoundIcon} />
-              </StyledPanel>
+              <StyledBackForthButton accessibilityLabel='backward Button' onPress={handleBackward}>
+                <StyledText>Back</StyledText>
+                <BackForthIcon $flip Icon={PlaybackIcon} />
+              </StyledBackForthButton>
             )}
-            <CloseView>
-              {!expandPlayer && <StyledPlayerHeaderText>Vorlesefunktion</StyledPlayerHeaderText>}
-              <CloseButton
-                accessibilityLabel='Close player'
-                onPress={closeModal}
-                style={{
-                  elevation: 5, // For Android shadow
-                  shadowColor: 'black', // For iOS shadow
-                  shadowOffset: { width: 0, height: 2 },
-                  shadowOpacity: 0.2,
-                  shadowRadius: 3,
-                }}>
-                <Icon Icon={CloseIcon} />
-                <StyledText>Close</StyledText>
-              </CloseButton>
-            </CloseView>
-          </StyledTtsPlayer>
-        </Modal>
-      ) : (
-        !isPersian && (
-          <StyledIcon
-            accessibilityLabel='Sound button'
-            icon={<SmallPlayIcon Icon={isPlaying ? PauseIcon : SoundIcon} />}
-            onPress={isPlaying ? pauseReading : startReading}
-          />
-        )
+            <StyledPlayIcon
+              accessibilityLabel='Play Button'
+              onPress={() => {
+                if (isPlaying) {
+                  pauseReading()
+                } else {
+                  startReading()
+                }
+                setExpandPlayer(!isPlaying)
+              }}
+              icon={<PlayButtonIcon Icon={isPlaying ? PauseIcon : PlayIcon} />}
+            />
+            {expandPlayer && (
+              <StyledBackForthButton accessibilityLabel='Forward Button' onPress={handleForward}>
+                <BackForthIcon $flip={false} Icon={PlaybackIcon} />
+                <StyledText>Next</StyledText>
+              </StyledBackForthButton>
+            )}
+          </StyledPanel>
+          {expandPlayer && (
+            <StyledPanel style={{ paddingHorizontal: 10 }}>
+              <Icon Icon={NoSoundIcon} style={{ height: 18, width: 18 }} />
+              <Slider maxValue={100} minValue={0} initialValue={50} onValueChange={handleVolumeChange} />
+              <Icon Icon={SoundIcon} />
+            </StyledPanel>
+          )}
+          <CloseView>
+            {!expandPlayer && <StyledPlayerHeaderText>Vorlesefunktion</StyledPlayerHeaderText>}
+            <CloseButton
+              accessibilityLabel='Close player'
+              onPress={() => setVisible(false)}
+              style={{
+                elevation: 5, // For Android shadow
+                shadowColor: 'black', // For iOS shadow
+                shadowOffset: { width: 0, height: 2 },
+                shadowOpacity: 0.2,
+                shadowRadius: 3,
+              }}>
+              <Icon Icon={CloseIcon} />
+              <StyledText>Close</StyledText>
+            </CloseButton>
+          </CloseView>
+        </StyledTtsPlayer>
       )}
-    </>
+    </ttsContext.Provider>
   )
 }
 

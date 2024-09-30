@@ -25,12 +25,6 @@ jest.mock('react-native-tts', () => ({
   getInitStatus: jest.fn(() => Promise.resolve('success')),
   addListener: jest.fn(() => ({ remove: jest.fn() })),
 }))
-jest.mock('@react-navigation/native', () => ({
-  ...jest.requireActual('@react-navigation/native'),
-  useNavigation: jest.fn(() => ({
-    addListener: jest.fn(),
-  })),
-}))
 
 jest.mock('react-native-reanimated', () => {
   const Reanimated = require('react-native-reanimated/mock')

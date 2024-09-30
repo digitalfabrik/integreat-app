@@ -18,11 +18,11 @@ import {
 } from '../constants/webview'
 import { useAppContext } from '../hooks/useCityAppContext'
 import useNavigate from '../hooks/useNavigate'
+import useTtsPlayer from '../hooks/useTtsPlayer'
 import renderHtml from '../utils/renderHtml'
 import { log, reportError } from '../utils/sentry'
 import Failure from './Failure'
 import { ParsedCacheDictionaryType } from './Page'
-import TtsPlayer from './TtsPlayer'
 
 export const renderWebviewError = (
   errorDomain: string | null | undefined,
@@ -51,7 +51,7 @@ const RemoteContent = (props: RemoteContentProps): ReactElement | null => {
   const { settings, updateSettings } = useAppContext()
   const { navigateTo } = useNavigate()
   const { externalSourcePermissions } = settings
-  const [showTtsPlayer, setShowTtsPlayer] = useState(true)
+  const { setContent, setSentenceIndex } = useTtsPlayer()
 
   // https://github.com/react-native-webview/react-native-webview/issues/1069#issuecomment-651699461
   const defaultWebviewHeight = 1
@@ -68,6 +68,11 @@ const RemoteContent = (props: RemoteContentProps): ReactElement | null => {
       setPressedUrl(null)
     }
   }, [onLinkPress, pressedUrl])
+
+  useEffect(() => {
+    setContent(content)
+    setSentenceIndex(0)
+  }, [content, setContent, setSentenceIndex, language])
 
   useEffect(() => {
     if (webViewHeight !== defaultWebviewHeight || content.length === 0) {
@@ -137,44 +142,41 @@ const RemoteContent = (props: RemoteContentProps): ReactElement | null => {
   }
 
   return (
-    <>
-      <WebView
-        source={{
-          baseUrl: resourceCacheUrl,
-          html: renderHtml(
-            content,
-            cacheDictionary,
-            buildConfig().supportedIframeSources,
-            theme,
-            language,
-            externalSourcePermissions,
-            t,
-            deviceWidth,
-            dimensions.pageContainerPaddingHorizontal,
-          ),
-        }}
-        originWhitelist={['*']} // Needed by iOS to load the initial html
-        javaScriptEnabled
-        dataDetectorTypes='none'
-        userAgent={userAgent}
-        domStorageEnabled={false}
-        allowsFullscreenVideo
-        showsVerticalScrollIndicator={false}
-        showsHorizontalScrollIndicator={false}
-        scrollEnabled={false} // To disable scrolling in iOS
-        onMessage={onMessage}
-        renderError={renderWebviewError}
-        onShouldStartLoadWithRequest={onShouldStartLoadWithRequest}
-        // To allow custom handling of link clicks in android
-        // https://github.com/react-native-webview/react-native-webview/issues/1869
-        setSupportMultipleWindows={false}
-        style={{
-          height: webViewHeight,
-          opacity: 0.99, // fixes crashing in Android https://github.com/react-native-webview/react-native-webview/issues/811
-        }}
-      />
-      <TtsPlayer content={content} isTtsHtml closeModal={() => setShowTtsPlayer(false)} modalVisible={showTtsPlayer} />
-    </>
+    <WebView
+      source={{
+        baseUrl: resourceCacheUrl,
+        html: renderHtml(
+          content,
+          cacheDictionary,
+          buildConfig().supportedIframeSources,
+          theme,
+          language,
+          externalSourcePermissions,
+          t,
+          deviceWidth,
+          dimensions.pageContainerPaddingHorizontal,
+        ),
+      }}
+      originWhitelist={['*']} // Needed by iOS to load the initial html
+      javaScriptEnabled
+      dataDetectorTypes='none'
+      userAgent={userAgent}
+      domStorageEnabled={false}
+      allowsFullscreenVideo
+      showsVerticalScrollIndicator={false}
+      showsHorizontalScrollIndicator={false}
+      scrollEnabled={false} // To disable scrolling in iOS
+      onMessage={onMessage}
+      renderError={renderWebviewError}
+      onShouldStartLoadWithRequest={onShouldStartLoadWithRequest}
+      // To allow custom handling of link clicks in android
+      // https://github.com/react-native-webview/react-native-webview/issues/1869
+      setSupportMultipleWindows={false}
+      style={{
+        height: webViewHeight,
+        opacity: 0.99, // fixes crashing in Android https://github.com/react-native-webview/react-native-webview/issues/811
+      }}
+    />
   )
 }
 
