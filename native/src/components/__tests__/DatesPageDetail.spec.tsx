@@ -1,3 +1,4 @@
+import { NavigationContainer } from '@react-navigation/native'
 import { fireEvent } from '@testing-library/react-native'
 import { DateTime } from 'luxon'
 import React from 'react'
@@ -12,7 +13,12 @@ jest.mock('react-i18next')
 
 jest.useFakeTimers({ now: new Date('2023-10-09T15:23:57.443+02:00') })
 describe('DatesPageDetail', () => {
-  const renderDatesPageDetail = (date: DateModel) => render(<DatesPageDetail date={date} languageCode='de' />)
+  const renderDatesPageDetail = (date: DateModel) =>
+    render(
+      <NavigationContainer>
+        <DatesPageDetail date={date} languageCode='de' />
+      </NavigationContainer>,
+    )
   const date = (rrule?: string) =>
     new DateModel({
       startDate: DateTime.fromISO('2023-10-09T07:00:00.000+02:00'),

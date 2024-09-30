@@ -88,7 +88,7 @@ const NewsListItem = ({ index, newsItem, navigateToNews, isTunews }: NewsListIte
     <>
       <Divider firstItem={index === 0} />
       <ListItemWrapper>
-        <StyledPressable onPress={navigateToNews} accessibilityLanguage={languageCode}>
+        <StyledPressable onPress={navigateToNews} accessibilityLanguage={languageCode} role='link'>
           <Description>
             <Title>{newsItem.title}</Title>
             <Content numberOfLines={EXCERPT_MAX_LINES}>{newsItem.content}</Content>

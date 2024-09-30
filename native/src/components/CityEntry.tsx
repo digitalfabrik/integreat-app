@@ -89,6 +89,7 @@ const CityEntry = ({ city, query, navigateToDashboard }: CityEntryProps): ReactE
 
   return (
     <CityListItem
+      role='link'
       {...testID('City-Entry')}
       onPress={() => navigateToDashboard(city)}
       accessibilityLanguage={languageCode}>

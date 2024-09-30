@@ -21,9 +21,10 @@ const Description = styled.div`
 type ConsentPageProps = { languageCode: string }
 const ConsentPage = ({ languageCode }: ConsentPageProps): ReactElement => {
   const { t } = useTranslation('consent')
-  const { value: externalSourcePermissions, updateLocalStorageItem } = useLocalStorage<ExternalSourcePermissions>(
-    LOCAL_STORAGE_ITEM_EXTERNAL_SOURCES,
-  )
+  const { value: externalSourcePermissions, updateLocalStorageItem } = useLocalStorage<ExternalSourcePermissions>({
+    key: LOCAL_STORAGE_ITEM_EXTERNAL_SOURCES,
+    initialValue: {},
+  })
 
   const updateSourcePermission = (source: string, permissionGiven: boolean) =>
     updateLocalStorageItem({

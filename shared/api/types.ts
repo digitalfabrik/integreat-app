@@ -73,14 +73,13 @@ export type JsonCategoryType = {
   } | null
   embedded_offers: JsonOfferType[]
 }
+export type JsonChatMessageType = {
+  id: number
+  body: string
+  user_is_author: boolean
+}
 export type JsonChatMessagesType = {
-  messages: [
-    {
-      id: number
-      body: string
-      user_is_author: boolean
-    },
-  ]
+  messages: JsonChatMessageType[]
 }
 export type JsonDisclaimerType = JsonCategoryType
 export type JsonPoiType = {
@@ -117,6 +116,7 @@ export type JsonEventType = {
   location: JsonLocationType<number | null>
   featured_image: JsonFeaturedImageType | null | undefined
   recurrence_rule?: string | null
+  location_path: string | null
 }
 export type JsonTunewsType = {
   id: number

@@ -57,7 +57,7 @@ type PoiListItemProps = {
 const PoiListItem = ({ poi, language, navigateToPoi, distance }: PoiListItemProps) => {
   const { t } = useTranslation('pois')
   return (
-    <StyledPressable onPress={navigateToPoi} language={language}>
+    <StyledPressable onPress={navigateToPoi} language={language} role='link'>
       <Thumbnail source={poi.thumbnail ?? PoiThumbnailPlaceholder} resizeMode='cover' />
       <Description>
         <Title>{poi.title}</Title>

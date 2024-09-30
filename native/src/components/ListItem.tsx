@@ -54,7 +54,7 @@ type ListItemProps = {
 }
 
 const ListItem = ({ language, title, thumbnail, children, Icon, navigateTo }: ListItemProps): ReactElement => (
-  <StyledPressable onPress={navigateTo} accessibilityLanguage={language}>
+  <StyledPressable onPress={navigateTo} accessibilityLanguage={language} role='link'>
     <ListItemView language={language}>
       <Thumbnail source={thumbnail} />
       <Description>

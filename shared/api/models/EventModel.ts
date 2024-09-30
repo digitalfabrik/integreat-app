@@ -1,6 +1,5 @@
 import { decodeHTML } from 'entities'
 import { DateTime } from 'luxon'
-import { RRule } from 'rrule'
 import { v5 } from 'uuid'
 
 import { formatDateICal } from '../../utils'
@@ -14,6 +13,7 @@ class EventModel extends ExtendedPageModel {
   _location: LocationModel<number | null> | null
   _excerpt: string
   _featuredImage: FeaturedImageModel | null
+  _poiPath: string | null
 
   constructor(params: {
     path: string
@@ -26,14 +26,16 @@ class EventModel extends ExtendedPageModel {
     availableLanguages: Record<string, string>
     lastUpdate: DateTime
     featuredImage: FeaturedImageModel | null
+    poiPath: string | null
   }) {
-    const { date, location, excerpt, featuredImage, ...other } = params
+    const { date, location, excerpt, featuredImage, poiPath, ...other } = params
     super(other)
     this._date = date
     this._location = location
     // Remove carriage returns that break e.g. ical
     this._excerpt = decodeHTML(excerpt).replace(/\r/g, '').trim()
     this._featuredImage = featuredImage
+    this._poiPath = poiPath
   }
 
   get date(): DateModel {
@@ -50,6 +52,10 @@ class EventModel extends ExtendedPageModel {
 
   get featuredImage(): FeaturedImageModel | null {
     return this._featuredImage
+  }
+
+  get poiPath(): string | null {
+    return this._poiPath
   }
 
   toICal(baseUrl: string, appName: string, recurring: boolean): string {
@@ -72,8 +78,7 @@ class EventModel extends ExtendedPageModel {
     }
 
     if (recurring && date.recurrenceRule) {
-      const { freq, interval, until, byweekday } = date.recurrenceRule.options
-      const recurrence = RRule.optionsToString({ freq, interval, until, byweekday })
+      const recurrence = date.recurrenceRule.toString()
       if (recurrence) {
         body.push(recurrence)
       }

@@ -1,0 +1,7 @@
+issue_key: 2906
+show_in_stores: false
+platforms:
+  - ios
+  - android
+  - web
+en: Add support for danish language.

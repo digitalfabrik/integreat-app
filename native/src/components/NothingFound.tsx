@@ -32,7 +32,7 @@ const NothingFound = ({ paddingTop = false }: NothingFoundProps): ReactElement =
   return (
     <Container paddingTop={paddingTop}>
       <StyledIcon Icon={SadSmileyIcon} />
-      <Description accessibilityRole='alert'>{t('search:nothingFound')}</Description>
+      <Description role='alert'>{t('search:nothingFound')}</Description>
     </Container>
   )
 }
