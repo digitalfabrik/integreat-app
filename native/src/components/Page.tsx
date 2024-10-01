@@ -83,6 +83,7 @@ const Page = ({
         cacheDictionary={cacheDictionary}
         onLinkPress={onLinkPress}
         onLoad={onLoad}
+        loading={loading}
         language={language}
         resourceCacheUrl={resourceCacheUrl}
       />
