@@ -1,6 +1,6 @@
 # Upload the Android sourcemaps to sentry
 docker:
-  - image: cimg/node:20.12.1
+  - image: cimg/node:20.17.0
 resource_class: small
 shell: /bin/bash -eo pipefail
 steps:

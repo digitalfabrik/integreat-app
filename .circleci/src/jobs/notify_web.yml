@@ -4,7 +4,7 @@ parameters:
     description: Whether builds are delivered to production or beta.
     type: boolean
 docker:
-  - image: cimg/node:20.12.1
+  - image: cimg/node:20.17.0
 resource_class: small
 steps:
   - checkout
