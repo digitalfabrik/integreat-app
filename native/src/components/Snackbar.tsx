@@ -45,7 +45,9 @@ const Snackbar = ({ text, positiveAction, negativeAction }: SnackbarProps): Reac
   const horizontal = !(positiveAction && negativeAction)
   return (
     <Container row={horizontal}>
-      <Message hasActions={!!(negativeAction || positiveAction)}>{text}</Message>
+      <Message role='alert' hasActions={!!(negativeAction || positiveAction)}>
+        {text}
+      </Message>
       <ActionContainer row={!horizontal}>
         {negativeAction && <Action onPress={negativeAction.onPress}>{negativeAction.label}</Action>}
         {positiveAction && <Action onPress={positiveAction.onPress}>{positiveAction.label}</Action>}

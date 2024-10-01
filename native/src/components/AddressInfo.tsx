@@ -48,13 +48,13 @@ const AddressInfo = ({ location, language }: AddressInfoProps): ReactElement => 
 
   return (
     <Container language={language}>
-      <Pressable onPress={copyLocationToClipboard}>
+      <Pressable role='button' onPress={copyLocationToClipboard}>
         <Text>{address}</Text>
         <Text>
           {postcode} {town}
         </Text>
       </Pressable>
-      <IconContainer onPress={openExternalMaps} accessibilityLabel={t('openExternalMaps')}>
+      <IconContainer role='link' onPress={openExternalMaps} accessibilityLabel={t('openExternalMaps')}>
         <Icon Icon={ExternalLinkIcon} />
       </IconContainer>
     </Container>

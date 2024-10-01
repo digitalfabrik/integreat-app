@@ -55,6 +55,7 @@ describe('JsonLdEvent', () => {
           height: 40,
         },
       }),
+      poiPath: '/testumgebung/de/locations/testort/',
     })
     expect(createJsonLd(eventModel)).toEqual({
       '@context': 'https://schema.org',

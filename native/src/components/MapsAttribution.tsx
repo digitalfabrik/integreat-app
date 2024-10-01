@@ -45,7 +45,7 @@ const MapAttribution = (): ReactElement => {
   const { url, label, linkText, icon } = openStreeMapCopyright
   const [expanded, setExpanded] = useState<boolean>(false)
   return (
-    <AttributionContainer onPress={() => setExpanded(!expanded)} accessibilityRole='button' expanded={expanded}>
+    <AttributionContainer onPress={() => setExpanded(!expanded)} role='button' expanded={expanded}>
       <Attribution>
         <Copyright expanded={expanded}>{icon}</Copyright>
         {expanded && (

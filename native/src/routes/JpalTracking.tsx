@@ -79,7 +79,7 @@ const JpalTracking = ({ navigation }: JpalTrackingProps): ReactElement => {
         <Caption title={t('tracking')} />
         <Text>{t('trackingDescription', { appName: buildConfig().appName })}</Text>
 
-        <DescriptionContainer onPress={toggleTrackingEnabled}>
+        <DescriptionContainer role='button' onPress={toggleTrackingEnabled}>
           <ThemedText>{t('allowTracking')}</ThemedText>
           <SettingsSwitch value={!!trackingEnabled} onPress={toggleTrackingEnabled} />
         </DescriptionContainer>

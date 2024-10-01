@@ -6,7 +6,7 @@ const androidCapabilities: WebdriverIO.Capabilities = {
 
 export const config: WebdriverIO.Config = {
   runner: 'local',
-  specs: ['./test/specs/**/*.ts'],
+  specs: ['./test/specs/**/*.e2e.ts'],
   exclude: [],
 
   maxInstances: 1,
