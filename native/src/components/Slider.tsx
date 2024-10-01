@@ -42,7 +42,7 @@ const defaultMaxValue = 100
 const Slider = ({
   minValue = 0,
   maxValue = defaultMaxValue,
-  initialValue = 0, // New prop to set the initial value
+  initialValue = 0, // prop to set the initial value
   onValueChange,
 }: {
   minValue: number
@@ -60,7 +60,9 @@ const Slider = ({
   useEffect(() => {
     if (initialValue >= minValue && initialValue <= maxValue) {
       const initialOffset = ((initialValue - minValue) / (maxValue - minValue)) * MAX_OFFSET
-      offset.value = initialOffset
+      requestAnimationFrame(() => {
+        offset.value = initialOffset // Make sure this runs on the next frame
+      })
     }
   }, [initialValue, minValue, maxValue, MAX_OFFSET, offset])
 

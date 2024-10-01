@@ -18,9 +18,9 @@ describe('TtsPlayer', () => {
     return null
   }
 
-  const renderTtsPlayer = ({ disabled = false }: { disabled?: boolean }): RenderAPI =>
+  const renderTtsPlayer = (): RenderAPI =>
     renderWithTheme(
-      <TtsPlayer disabled={disabled} initialVisibility>
+      <TtsPlayer initialVisibility>
         <MockComponent />
       </TtsPlayer>,
     )
@@ -32,7 +32,8 @@ describe('TtsPlayer', () => {
 
   it('should start reading when the button is pressed', async () => {
     const text = 'This is a test'
-    const { getByRole } = renderTtsPlayer({ disabled: false })
+    const title = 'test'
+    const { getByRole } = renderTtsPlayer()
 
     const soundButton = getByRole('button')
     fireEvent.press(soundButton)
@@ -45,6 +46,8 @@ describe('TtsPlayer', () => {
         setSentenceIndex: jest.fn(),
         visible: true,
         setVisible: jest.fn(),
+        title,
+        setTitle: jest.fn(),
       }))
     })
 
@@ -56,13 +59,13 @@ describe('TtsPlayer', () => {
   })
 
   it('should initialize TTS engine on load', async () => {
-    renderTtsPlayer({ disabled: false })
+    renderTtsPlayer()
 
     expect(Tts.getInitStatus).toHaveBeenCalledTimes(1)
   })
 
   it('should remove TTS listeners on unmount', () => {
-    const { unmount } = renderTtsPlayer({ disabled: false })
+    const { unmount } = renderTtsPlayer()
 
     unmount()
 

@@ -12,6 +12,8 @@ const useTtsPlayer = (): ttsContextType => {
     setSentenceIndex: tts.setSentenceIndex,
     visible: tts.visible,
     setVisible: tts.setVisible,
+    title: tts.title,
+    setTitle: tts.setTitle,
   }
 }
 

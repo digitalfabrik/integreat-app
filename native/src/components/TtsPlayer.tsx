@@ -83,15 +83,17 @@ const CloseView = styled.View`
 `
 
 export type ttsContextType = {
-  content: string
-  setContent: React.Dispatch<React.SetStateAction<string>>
+  content: string | null
+  setContent: React.Dispatch<React.SetStateAction<string | null>>
   sentenceIndex: number
   setSentenceIndex: React.Dispatch<React.SetStateAction<number>>
   visible: boolean
   setVisible: React.Dispatch<React.SetStateAction<boolean>>
+  title: string
+  setTitle: React.Dispatch<React.SetStateAction<string>>
 }
 export const ttsContext = createContext<ttsContextType>({
-  content: '',
+  content: null,
   setContent: () => {
     // setContent
   },
@@ -101,27 +103,32 @@ export const ttsContext = createContext<ttsContextType>({
   },
   visible: false,
   setVisible: () => {
-    // setSentenceIndex
+    // setVisible
+  },
+  title: '',
+  setTitle: () => {
+    // setTitle
   },
 })
 
 type TtsPlayerProps = {
-  disabled?: boolean
   children: ReactElement
   initialVisibility?: boolean
 }
-const TtsPlayer = ({ initialVisibility = false, disabled = false, children }: TtsPlayerProps): ReactElement | null => {
+const TtsPlayer = ({ initialVisibility = false, children }: TtsPlayerProps): ReactElement | null => {
   const { languageCode } = useContext(AppContext)
   const [sentenceIndex, setSentenceIndex] = useState(0)
-  // const navigation = useNavigation()
   const [isPlaying, setIsPlaying] = useState(false)
   const [expandPlayer, setExpandPlayer] = useState(false)
   const defaultVolume = 50
   const [volume, setVolume] = useState(defaultVolume)
-  const [content, setContent] = useState('')
+  const [content, setContent] = useState<string | null>(null)
   const [visible, setVisible] = useState(initialVisibility)
-  const sentences: string[] = useMemo(() => extractSentencesFromHtml(content), [content])
-
+  const [title, setTitle] = useState('')
+  const sentences: string[] | [] = useMemo(
+    () => (content ? [title, ...extractSentencesFromHtml(content)] : []),
+    [title, content],
+  )
   const isPersian = languageCode === 'fa'
 
   const initializeTts = useCallback((): void => {
@@ -143,9 +150,6 @@ const TtsPlayer = ({ initialVisibility = false, disabled = false, children }: Tt
   }, [])
 
   useEffect(() => {
-    if (disabled) {
-      return () => undefined
-    }
     initializeTts()
 
     Tts.addEventListener('tts-progress', () => setIsPlaying(true))
@@ -165,10 +169,10 @@ const TtsPlayer = ({ initialVisibility = false, disabled = false, children }: Tt
       Tts.removeAllListeners('tts-progress')
       Tts.removeAllListeners('tts-cancel')
     }
-  }, [disabled, initializeTts, sentenceIndex, sentences.length])
+  }, [initializeTts, sentenceIndex, sentences.length])
 
   useEffect(() => {
-    if (isPlaying) {
+    if (isPlaying && sentences.length > 0) {
       setIsPlaying(true)
       Tts.setDefaultLanguage(languageCode)
       const percentage = 100
@@ -182,35 +186,17 @@ const TtsPlayer = ({ initialVisibility = false, disabled = false, children }: Tt
         rate: 1,
       })
     }
+    if (sentences.length === 0) {
+      setSentenceIndex(0)
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isPlaying, languageCode, sentenceIndex, sentences])
 
-  // useEffect(() => {
-  //   const unsubscribe = navigation.addListener('beforeRemove', () => {
-  //     if (isPlaying) {
-  //       Tts.stop()
-  //       setIsPlaying(false)
-  //     }
-  //   })
-
-  //   return unsubscribe
-  // }, [navigation, isPlaying])
-
   const startReading = () => {
-    if (!isPersian) {
+    if (!isPersian && sentences.length > 0) {
       // Persian not supported
       setIsPlaying(true) // this will start reading sentences
     }
-    // if (!isTtsHtml) {
-    //   // if text it will run here
-    //   if (contentAlignmentRTLText(typeof content === 'string' ? content : '') === 'left') {
-    //     Tts.setDefaultLanguage(languageCode)
-    //   } else {
-    //     Tts.setDefaultLanguage('ar')
-    //   }
-    //   setIsPlaying(true)
-    //   Tts.speak(content)
-    // }
   }
 
   const pauseReading = () => {
@@ -230,17 +216,26 @@ const TtsPlayer = ({ initialVisibility = false, disabled = false, children }: Tt
     startReading()
   }
 
+  const debounceDelay = 500
+
   const debouncedVolumeChange = debounce((newVolume: number) => {
     setVolume(newVolume)
     Tts.stop().then(() =>
       setTimeout(() => {
         startReading()
+        // eslint-disable-next-line no-magic-numbers
       }, 200),
     )
-  }, 500)
+  }, debounceDelay)
 
   const handleVolumeChange = (newVolume: number) => {
     debouncedVolumeChange(newVolume)
+  }
+
+  const handleClose = () => {
+    setVisible(false)
+    setExpandPlayer(false)
+    Tts.stop()
   }
 
   const ttsContextValue = useMemo(
@@ -251,8 +246,10 @@ const TtsPlayer = ({ initialVisibility = false, disabled = false, children }: Tt
       setSentenceIndex,
       visible,
       setVisible,
+      title,
+      setTitle,
     }),
-    [content, setContent, sentenceIndex, setSentenceIndex, visible, setVisible],
+    [content, sentenceIndex, visible, title],
   )
   return (
     <ttsContext.Provider value={ttsContextValue}>
@@ -296,7 +293,7 @@ const TtsPlayer = ({ initialVisibility = false, disabled = false, children }: Tt
             {!expandPlayer && <StyledPlayerHeaderText>Vorlesefunktion</StyledPlayerHeaderText>}
             <CloseButton
               accessibilityLabel='Close player'
-              onPress={() => setVisible(false)}
+              onPress={handleClose}
               style={{
                 elevation: 5, // For Android shadow
                 shadowColor: 'black', // For iOS shadow

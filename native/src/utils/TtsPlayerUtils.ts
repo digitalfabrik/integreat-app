@@ -13,7 +13,17 @@ const decodeHtmlEntities = (html: string): string =>
 
 export const extractSentencesFromHtml = (html: string): string[] => {
   const decodedText = decodeHtmlEntities(html)
+  // Remove HTML tags
   const cleanText = decodedText.replace(/<\/?[^>]+(>|$)/g, '')
-  const sentences = cleanText.split('.').map(sentence => sentence.trim())
+
+  // Split by periods but avoid splitting abbreviations
+  let sentences = cleanText
+    .split(/(?<!\b(?:e\.g|i\.e|etc|ex))\.\s+/i) // negative lookbehind for abbreviations
+    .map(sentence => sentence.trim())
+
+  // Further split based on newlines, if it's a list
+  sentences = sentences.flatMap(sentence => sentence.split(/\n+/).map(line => line.trim()))
+
+  // Filter out empty sentences
   return sentences.filter(sentence => sentence.length > 0)
 }

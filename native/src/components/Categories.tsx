@@ -1,9 +1,10 @@
-import React, { ReactElement } from 'react'
+import React, { ReactElement, useEffect } from 'react'
 import { View } from 'react-native'
 
 import { CATEGORIES_ROUTE, getCategoryTiles, RouteInformationType } from 'shared'
 import { CategoriesMapModel, CategoryModel, CityModel } from 'shared/api'
 
+import useTtsPlayer from '../hooks/useTtsPlayer'
 import testID from '../testing/testID'
 import { LanguageResourceCacheStateType } from '../utils/DataContainer'
 import CategoryListItem from './CategoryListItem'
@@ -34,6 +35,17 @@ const Categories = ({
 }: CategoriesProps): ReactElement => {
   const children = categories.getChildren(category)
   const cityCode = cityModel.code
+  const { setTitle, setContent } = useTtsPlayer()
+
+  useEffect(() => {
+    if (categories.isLeaf(category)) {
+      setTitle(category.title)
+      setContent(category.content)
+    }
+    return () => {
+      setContent(null)
+    }
+  }, [categories, category, category.content, setContent, setTitle])
 
   const navigateToCategory = ({ path }: { path: string }) =>
     navigateTo({
