@@ -51,7 +51,7 @@ enum HeaderButtonTitle {
   Language = 'changeLanguage',
   Location = 'changeLocation',
   Search = 'search',
-  ReadAloud = 'Read aloud',
+  ReadAloud = 'readAloud',
   Share = 'share',
   Settings = 'settings',
   Feedback = 'feedback',
@@ -199,7 +199,11 @@ const Header = ({
           ? [renderOverflowItem(HeaderButtonTitle.Location, () => navigation.navigate(LANDING_ROUTE))]
           : []),
         renderOverflowItem(HeaderButtonTitle.Settings, () => navigation.navigate(SETTINGS_ROUTE)),
-        ...[content ? renderOverflowItem(HeaderButtonTitle.ReadAloud, onRead) : []],
+        ...[
+          content && (buildConfig().appName === 'IntegreatTestCms' || buildConfig().appName === 'Integreat')
+            ? renderOverflowItem(t(`${HeaderButtonTitle.ReadAloud}`), onRead)
+            : [],
+        ],
         ...(route.name !== NEWS_ROUTE ? [renderOverflowItem(HeaderButtonTitle.Feedback, navigateToFeedback)] : []),
         ...(route.name !== DISCLAIMER_ROUTE
           ? [renderOverflowItem(HeaderButtonTitle.Disclaimer, () => navigation.navigate(DISCLAIMER_ROUTE))]

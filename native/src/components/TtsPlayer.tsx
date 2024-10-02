@@ -1,5 +1,6 @@
 import { debounce } from 'lodash'
 import React, { createContext, ReactElement, useCallback, useContext, useEffect, useMemo, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import Tts from 'react-native-tts'
 import styled from 'styled-components/native'
 
@@ -14,13 +15,12 @@ import Text from './base/Text'
 const StyledTtsPlayer = styled.View<{ $isPlaying: boolean }>`
   background-color: #dedede;
   border-radius: 28px;
-  width: 95%;
+  width: 85%;
   display: flex;
   flex-direction: ${props => (props.$isPlaying ? 'column' : 'row')};
   justify-content: center;
   align-items: center;
   align-self: center;
-  z-index: 5;
   padding: 6px;
   position: absolute;
   bottom: 5px;
@@ -91,6 +91,8 @@ export type ttsContextType = {
   setVisible: React.Dispatch<React.SetStateAction<boolean>>
   title: string
   setTitle: React.Dispatch<React.SetStateAction<string>>
+  volume: number
+  setVolume: React.Dispatch<React.SetStateAction<number>>
 }
 export const ttsContext = createContext<ttsContextType>({
   content: null,
@@ -109,19 +111,24 @@ export const ttsContext = createContext<ttsContextType>({
   setTitle: () => {
     // setTitle
   },
+  volume: 50,
+  setVolume: () => {
+    // setVolume
+  },
 })
 
 type TtsPlayerProps = {
   children: ReactElement
   initialVisibility?: boolean
 }
-const TtsPlayer = ({ initialVisibility = false, children }: TtsPlayerProps): ReactElement | null => {
+const TtsPlayer = ({ initialVisibility = false, children }: TtsPlayerProps): ReactElement => {
   const { languageCode } = useContext(AppContext)
-  const [sentenceIndex, setSentenceIndex] = useState(0)
+  const { t } = useTranslation('layout')
   const [isPlaying, setIsPlaying] = useState(false)
   const [expandPlayer, setExpandPlayer] = useState(false)
   const defaultVolume = 50
   const [volume, setVolume] = useState(defaultVolume)
+  const [sentenceIndex, setSentenceIndex] = useState(0)
   const [content, setContent] = useState<string | null>(null)
   const [visible, setVisible] = useState(initialVisibility)
   const [title, setTitle] = useState('')
@@ -156,7 +163,6 @@ const TtsPlayer = ({ initialVisibility = false, children }: TtsPlayerProps): Rea
     Tts.addEventListener('tts-cancel', () => setIsPlaying(false))
     Tts.addEventListener('tts-finish', () => {
       if (sentenceIndex < sentences.length - 1) {
-        Tts.stop()
         setSentenceIndex(prev => prev + 1)
       } else {
         setIsPlaying(false)
@@ -173,7 +179,6 @@ const TtsPlayer = ({ initialVisibility = false, children }: TtsPlayerProps): Rea
 
   useEffect(() => {
     if (isPlaying && sentences.length > 0) {
-      setIsPlaying(true)
       Tts.setDefaultLanguage(languageCode)
       const percentage = 100
       Tts.speak(String(sentences[sentenceIndex]), {
@@ -187,15 +192,26 @@ const TtsPlayer = ({ initialVisibility = false, children }: TtsPlayerProps): Rea
       })
     }
     if (sentences.length === 0) {
+      // if there is no sentences (null) just reset for future use
       setSentenceIndex(0)
+      setExpandPlayer(false)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isPlaying, languageCode, sentenceIndex, sentences])
 
+  const stopTts = async () => {
+    await Tts.stop()
+    const TTS_STOP_DELAY = 100 // delay to make sure tts is stopped
+    await new Promise(resolve => {
+      setTimeout(resolve, TTS_STOP_DELAY)
+    })
+  }
   const startReading = () => {
     if (!isPersian && sentences.length > 0) {
       // Persian not supported
       setIsPlaying(true) // this will start reading sentences
+    } else {
+      setIsPlaying(false)
     }
   }
 
@@ -204,14 +220,14 @@ const TtsPlayer = ({ initialVisibility = false, children }: TtsPlayerProps): Rea
     setIsPlaying(false)
   }
 
-  const handleBackward = () => {
-    Tts.stop()
+  const handleBackward = async () => {
+    await stopTts()
     setSentenceIndex(prev => Math.max(0, prev - 1)) // it return the bigger number so no negative values
     startReading()
   }
 
-  const handleForward = () => {
-    Tts.stop()
+  const handleForward = async () => {
+    await stopTts()
     setSentenceIndex(prev => Math.min(sentences.length - 1, prev + 1))
     startReading()
   }
@@ -220,22 +236,24 @@ const TtsPlayer = ({ initialVisibility = false, children }: TtsPlayerProps): Rea
 
   const debouncedVolumeChange = debounce((newVolume: number) => {
     setVolume(newVolume)
-    Tts.stop().then(() =>
-      setTimeout(() => {
-        startReading()
-        // eslint-disable-next-line no-magic-numbers
-      }, 200),
-    )
+    if (isPlaying) {
+      Tts.stop().then(() =>
+        setTimeout(() => {
+          startReading()
+          // eslint-disable-next-line no-magic-numbers
+        }, 200),
+      )
+    }
   }, debounceDelay)
 
   const handleVolumeChange = (newVolume: number) => {
     debouncedVolumeChange(newVolume)
   }
 
-  const handleClose = () => {
+  const handleClose = async () => {
     setVisible(false)
     setExpandPlayer(false)
-    Tts.stop()
+    await stopTts()
   }
 
   const ttsContextValue = useMemo(
@@ -248,8 +266,10 @@ const TtsPlayer = ({ initialVisibility = false, children }: TtsPlayerProps): Rea
       setVisible,
       title,
       setTitle,
+      volume,
+      setVolume,
     }),
-    [content, sentenceIndex, visible, title],
+    [content, sentenceIndex, visible, title, volume],
   )
   return (
     <ttsContext.Provider value={ttsContextValue}>
@@ -259,7 +279,7 @@ const TtsPlayer = ({ initialVisibility = false, children }: TtsPlayerProps): Rea
           <StyledPanel>
             {expandPlayer && (
               <StyledBackForthButton accessibilityLabel='backward Button' onPress={handleBackward}>
-                <StyledText>Back</StyledText>
+                <StyledText>{t('prev')}</StyledText>
                 <BackForthIcon $flip Icon={PlaybackIcon} />
               </StyledBackForthButton>
             )}
@@ -278,19 +298,19 @@ const TtsPlayer = ({ initialVisibility = false, children }: TtsPlayerProps): Rea
             {expandPlayer && (
               <StyledBackForthButton accessibilityLabel='Forward Button' onPress={handleForward}>
                 <BackForthIcon $flip={false} Icon={PlaybackIcon} />
-                <StyledText>Next</StyledText>
+                <StyledText>{t('next')}</StyledText>
               </StyledBackForthButton>
             )}
           </StyledPanel>
           {expandPlayer && (
             <StyledPanel style={{ paddingHorizontal: 10 }}>
               <Icon Icon={NoSoundIcon} style={{ height: 18, width: 18 }} />
-              <Slider maxValue={100} minValue={0} initialValue={50} onValueChange={handleVolumeChange} />
+              <Slider maxValue={100} minValue={0} initialValue={volume} onValueChange={handleVolumeChange} />
               <Icon Icon={SoundIcon} />
             </StyledPanel>
           )}
           <CloseView>
-            {!expandPlayer && <StyledPlayerHeaderText>Vorlesefunktion</StyledPlayerHeaderText>}
+            {!expandPlayer && <StyledPlayerHeaderText>{t('readAloud')}</StyledPlayerHeaderText>}
             <CloseButton
               accessibilityLabel='Close player'
               onPress={handleClose}
@@ -302,7 +322,7 @@ const TtsPlayer = ({ initialVisibility = false, children }: TtsPlayerProps): Rea
                 shadowRadius: 3,
               }}>
               <Icon Icon={CloseIcon} />
-              <StyledText>Close</StyledText>
+              <StyledText>{t('common:close')}</StyledText>
             </CloseButton>
           </CloseView>
         </StyledTtsPlayer>

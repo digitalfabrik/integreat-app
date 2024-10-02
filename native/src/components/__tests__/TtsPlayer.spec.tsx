@@ -8,6 +8,33 @@ import TtsPlayer from '../TtsPlayer'
 
 jest.mock('styled-components')
 jest.mock('react-i18next')
+jest.mock('../../hooks/useTtsPlayer')
+
+const mockUseTtsPlayer = useTtsPlayer as jest.Mock
+
+mockUseTtsPlayer.mockReturnValue({
+  content: null,
+  setContent: jest.fn(),
+  sentenceIndex: 0,
+  setSentenceIndex: jest.fn(),
+  visible: false,
+  setVisible: jest.fn(),
+  title: '',
+  setTitle: jest.fn(),
+  volume: 50,
+  setVolume: jest.fn(),
+})
+
+// Mock react-native-tts globally
+jest.mock('react-native-tts', () => ({
+  speak: jest.fn(),
+  stop: jest.fn(),
+  setDefaultLanguage: jest.fn(),
+  addEventListener: jest.fn(),
+  removeAllListeners: jest.fn(),
+  getInitStatus: jest.fn(() => Promise.resolve('success')),
+  addListener: jest.fn(() => ({ remove: jest.fn() })),
+}))
 
 describe('TtsPlayer', () => {
   const enqueueTts = jest.fn()
@@ -31,7 +58,7 @@ describe('TtsPlayer', () => {
   })
 
   it('should start reading when the button is pressed', async () => {
-    const text = 'This is a test'
+    const text = '<p>This is a test</p>'
     const title = 'test'
     const { getByRole } = renderTtsPlayer()
 
@@ -48,14 +75,16 @@ describe('TtsPlayer', () => {
         setVisible: jest.fn(),
         title,
         setTitle: jest.fn(),
+        volume: 50,
+        setVolume: jest.fn(),
       }))
     })
 
     await act(async () => {
       jest.advanceTimersByTime(1000) // Simulate some delay
     })
-
-    expect(Tts.speak).toHaveBeenCalled()
+    console.log(title)
+    expect(Tts.speak(title)).toHaveBeenCalled()
   })
 
   it('should initialize TTS engine on load', async () => {

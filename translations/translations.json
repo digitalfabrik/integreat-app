@@ -5503,7 +5503,10 @@
       "disclaimer": "Impressum",
       "sideBarOpenAriaLabel": "Seitenleiste öffnen",
       "sideBarCloseAriaLabel": "Seitenleiste schließen",
-      "accessibility": "Barrierefreiheit"
+      "accessibility": "Barrierefreiheit",
+      "readAloud": "Vorlesefunktion",
+      "prev": "Zurück",
+      "next": "Nächster"
     },
     "am": {
       "imprintAndContact": "ዕትም እና የግንኙነት መረጃ",
@@ -5551,7 +5554,10 @@
       "shareFailDefaultMessage": "للأسف، فشل في مشاركة المحتوى.",
       "disclaimer": "هيئة التحرير",
       "sideBarOpenAriaLabel": "فتح الشريط الجانبي",
-      "sideBarCloseAriaLabel": "غلق الشريط الجانبي"
+      "sideBarCloseAriaLabel": "غلق الشريط الجانبي",
+      "readAloud": "قراءة بصوت عالٍ",
+      "prev": "السابق",
+      "next": "التالي"
     },
     "bg": {
       "imprintAndContact": "Импресум и контакт",
@@ -5672,7 +5678,10 @@
       "disclaimer": "Imprint",
       "sideBarOpenAriaLabel": "Open sidebar",
       "sideBarCloseAriaLabel": "Close sidebar",
-      "accessibility": "Accessibility"
+      "accessibility": "Accessibility",
+      "readAloud": "Read aloud",
+      "prev": "Prev",
+      "next": "Next"
     },
     "es": {
       "imprintAndContact": "Aviso legal y contacto",
