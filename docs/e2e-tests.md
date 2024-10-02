@@ -9,6 +9,10 @@ To run the E2e-tests take a look at the commands in the [package.json](../e2e-te
 local selenium server, connect to browserstack and to select the correct chromedriver. Additionally, it can be
 configured to run multiple E2E-tests in parallel.
 
+> **Note**
+> WebdriverIO provides selectors for react components. However, they do not work properly for internet explorer in web.
+> Therefore, you should use more primitive selectors instead (like xpath).
+
 ## Browserstack
 
 Browserstack provides you with a large set of available operating systems, browser, and browser versions.

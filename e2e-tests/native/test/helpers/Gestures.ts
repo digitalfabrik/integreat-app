@@ -3,14 +3,18 @@ const WAIT_FOR_SWIPE_FINISHED = 2000
 type SelectorReturn = ReturnType<typeof $>
 
 class Gestures {
-  static async checkIfDisplayedWithSwipeUp(selector: SelectorReturn, maxScrolls: number): Promise<SelectorReturn> {
+  static async checkIfDisplayedWithSwipeUp(selector: SelectorReturn, maxScrolls: number): Promise<WebdriverIO.Element> {
     if (driver.isAndroid) {
       return this.swipeIntoViewAndroid(selector, maxScrolls)
     }
     return this.swipeIntoViewIOS(selector, maxScrolls)
   }
 
-  static async swipeIntoViewAndroid(selector: SelectorReturn, maxScrolls: number, amount = 0): Promise<SelectorReturn> {
+  static async swipeIntoViewAndroid(
+    selector: SelectorReturn,
+    maxScrolls: number,
+    amount = 0,
+  ): Promise<WebdriverIO.Element> {
     const scrollForward = `android=new UiScrollable(new UiSelector().scrollable(true)).scrollForward()`
     if (!(await selector.isDisplayed()) && amount <= maxScrolls) {
       await $(scrollForward)
@@ -23,7 +27,11 @@ class Gestures {
     return selector
   }
 
-  static async swipeIntoViewIOS(selector: SelectorReturn, maxScrolls: number, amount = 0): Promise<SelectorReturn> {
+  static async swipeIntoViewIOS(
+    selector: SelectorReturn,
+    maxScrolls: number,
+    amount = 0,
+  ): Promise<WebdriverIO.Element> {
     // If the element is not displayed and we haven't scrolled the max amount of scrolls
     // then scroll and execute the method again
     if (!(await selector.isDisplayed()) && amount <= maxScrolls) {

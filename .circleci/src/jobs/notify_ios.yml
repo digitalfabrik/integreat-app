@@ -4,7 +4,7 @@ parameters:
     description: Whether builds are delivered to the app store or testflight.
     type: boolean
 docker:
-  - image: cimg/node:20.17.0
+  - image: cimg/node:20.12.1
 resource_class: small
 steps:
   - checkout
