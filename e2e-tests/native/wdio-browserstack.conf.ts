@@ -49,6 +49,6 @@ export const config: WebdriverIO.Config = {
   before: async (): Promise<void> => {
     // implicit: time the driver will wait searching for elements ($, $$)
     const implicitTimeout = 2000
-    driver.setImplicitTimeout(implicitTimeout)
+    driver.setTimeouts(implicitTimeout)
   },
 }
