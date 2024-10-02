@@ -3,9 +3,7 @@ when:
     - and:
         - << pipeline.parameters.api_triggered >>
         - equal: [<< pipeline.parameters.workflow_type >>, e2e_tests]
-    - and:
-        - equal: [main, << pipeline.git.branch >>]
-        - not: << pipeline.parameters.api_triggered >>
+    - not: << pipeline.parameters.api_triggered >>
 jobs:
   - bump_version:
       prepare_delivery: false

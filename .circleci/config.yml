@@ -1519,11 +1519,7 @@ workflows:
                     - equal:
                         - << pipeline.parameters.workflow_type >>
                         - e2e_tests
-                - and:
-                    - equal:
-                        - main
-                        - << pipeline.git.branch >>
-                    - not: << pipeline.parameters.api_triggered >>
+                - not: << pipeline.parameters.api_triggered >>
     native_beta_delivery:
         jobs:
             - bump_version:
