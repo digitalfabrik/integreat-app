@@ -266,7 +266,7 @@ jobs:
                     - integreat-test-cms
                     - aschaffenburg
                 type: enum
-        resource_class: large
+        resource_class: xlarge
         shell: /bin/bash -eo pipefail
         steps:
             - checkout
