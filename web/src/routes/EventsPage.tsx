@@ -154,11 +154,7 @@ const EventsPage = ({ city, pathname, languageCode, cityCode }: CityRouteProps):
         setEndDate={setEndDate}
         startDateError={startDateError}
       />
-      <List
-        noItemsMessage={t('currentlyNoEvents')}
-        items={(filteredEvents as EventModel[] | null) ?? []}
-        renderItem={renderEventListItem}
-      />
+      <List noItemsMessage={t('currentlyNoEvents')} items={filteredEvents ?? []} renderItem={renderEventListItem} />
     </CityContentLayout>
   )
 }

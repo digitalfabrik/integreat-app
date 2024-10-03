@@ -23,7 +23,7 @@ describe('DatePicker', () => {
     })
 
     expect(getByText(title)).toBeInTheDocument()
-    expect(getByPlaceholderText('Date-input')).toHaveValue(date.toFormat('yyyy-MM-dd'))
+    expect(getByPlaceholderText(date.toLocaleString())).toHaveValue(date.toFormat('yyyy-MM-dd'))
   })
 
   it('handles date change correctly', () => {
@@ -36,7 +36,7 @@ describe('DatePicker', () => {
       error: '',
     })
 
-    const input = getByPlaceholderText('Date-input')
+    const input = getByPlaceholderText(DateTime.now().toLocaleString())
 
     fireEvent.change(input, { target: { value: newValue } })
 

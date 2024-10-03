@@ -66,12 +66,20 @@ export type DatePickerProps = {
   error?: string
 }
 
+const isValidIsoDate = (date: string): boolean => {
+  try {
+    DateTime.fromISO(date)
+    return true
+  } catch (_) {
+    return false
+  }
+}
+
 const DatePicker = ({ title, date, setDate, error }: DatePickerProps): ReactElement => {
   const { t } = useTranslation('events')
   const [tempDate, setTempDate] = useState(date?.toISODate() ?? '')
-  const isInvalidDate = tempDate !== '' && date?.toISODate() !== tempDate
+  const isInvalidDate = tempDate !== '' && isValidIsoDate(tempDate) === false
   const shownError = error || (isInvalidDate ? t('invalidDate') : undefined)
-
   useEffect(() => {
     setTempDate(date?.toISODate() ?? '')
   }, [date])
@@ -88,7 +96,12 @@ const DatePicker = ({ title, date, setDate, error }: DatePickerProps): ReactElem
   return (
     <DateContainer>
       <StyledTitle>{title}</StyledTitle>
-      <StyledInput placeholder='Date-input' type='date' value={tempDate} onChange={handleDateChange} />
+      <StyledInput
+        placeholder={DateTime.now().toLocaleString()}
+        type='date'
+        value={tempDate}
+        onChange={handleDateChange}
+      />
       {!!shownError && <StyledError>{shownError}</StyledError>}
     </DateContainer>
   )

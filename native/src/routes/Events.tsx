@@ -123,7 +123,7 @@ const Events = ({ cityModel, language, navigateTo, events, slug, refresh }: Even
       />
       <ListContainer>
         <List
-          items={(filteredEvents as EventModel[] | null) ?? []}
+          items={filteredEvents ?? []}
           renderItem={renderEventListItem}
           Header={
             <>

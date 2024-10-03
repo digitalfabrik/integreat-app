@@ -3,6 +3,18 @@ import { useState, useMemo } from 'react'
 
 import { EventModel } from 'shared/api'
 
+import { MAX_DATE_RECURRENCES } from '../constants'
+
+const isWithinDateRange = (
+  startDate: DateTime | null,
+  endDate: DateTime | null,
+  itemStartDate: DateTime,
+  itemEndDate: DateTime,
+): boolean => {
+  const endDateTime = endDate?.endOf('day')
+  return (!endDateTime || itemStartDate <= endDateTime) && (!startDate || itemEndDate >= startDate)
+}
+
 type UseDateFilterReturn = {
   startDate: DateTime | null
   setStartDate: (startDate: DateTime | null) => void
@@ -27,11 +39,24 @@ const useDateFilter = (events: EventModel[] | null): UseDateFilterReturn => {
       return null
     }
 
-    const endDateTime = endDate?.endOf('day')
+    return events.filter(event => {
+      const isWithinRange = isWithinDateRange(startDate, endDate, event.date.startDate, event.date.endDate)
 
-    return events.filter(
-      event => (!endDateTime || event.date.startDate <= endDateTime) && (!startDate || event.date.endDate >= startDate),
-    )
+      // If the event has a recurrence rule, check its recurrences as well
+      if (event.date.recurrenceRule) {
+        const recurrences = event.date.recurrences(MAX_DATE_RECURRENCES)
+
+        // Check if at least one of the recurrences falls within the date range
+        const hasValidRecurrence = recurrences.some(recurrence =>
+          isWithinDateRange(startDate, endDate, recurrence.startDate, recurrence.endDate),
+        )
+
+        return isWithinRange || hasValidRecurrence
+      }
+
+      // If no recurrence rule, just return if the event itself is within the range
+      return isWithinRange
+    })
   }, [startDate, endDate, events])
 
   return {
