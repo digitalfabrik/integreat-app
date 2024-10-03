@@ -5503,6 +5503,10 @@
       "disclaimer": "Impressum",
       "sideBarOpenAriaLabel": "Seitenleiste öffnen",
       "sideBarCloseAriaLabel": "Seitenleiste schließen",
+      "openInApp": "In der {{appName}} App öffnen",
+      "open": "Öffnen",
+      "view": "Anzeigen",
+      "getOnPlayStore": "Holen Sie es - im Google Play Store",
       "accessibility": "Barrierefreiheit"
     },
     "am": {
@@ -5554,7 +5558,8 @@
       "sideBarCloseAriaLabel": "غلق الشريط الجانبي",
       "openInApp": "افتح في تطبيق {{appName}}",
       "open": "افتح",
-      "view": "عرض"
+      "view": "عرض",
+      "getOnPlayStore": "احصل عليه - على متجر Google Play"
     },
     "bg": {
       "imprintAndContact": "Импресум и контакт",
@@ -5678,6 +5683,7 @@
       "openInApp": "Open in the {{appName}} app",
       "open": "Open",
       "view": "View",
+      "getOnPlayStore": "GET — On the Google Play Store",
       "accessibility": "Accessibility"
     },
     "es": {
@@ -5753,7 +5759,8 @@
       "sideBarCloseAriaLabel": "Fermer la barre latérale",
       "openInApp": "Ouvrir dans l'app {{appName}}",
       "open": "Ouvrir",
-      "view": "Voir"
+      "view": "Voir",
+      "getOnPlayStore": "Obtenir - Sur le Google Play Store"
     },
     "hr": {
       "imprintAndContact": "Impresum i kontakt",

@@ -36,8 +36,8 @@ const StyledCloseButton = styled(Button)`
 `
 
 const StyledBannerIcon = styled(Icon)<{ $isInstalled: boolean }>`
-  width: ${props => (props.$isInstalled ? '32px' : '64px')};
-  height: ${props => (props.$isInstalled ? '32px' : '64px')};
+  width: ${props => (props.$isInstalled ? '32px' : '48px')};
+  height: ${props => (props.$isInstalled ? '32px' : '48px')};
   background-color: 'white';
   border-radius: 5;
 `
@@ -51,14 +51,16 @@ const StyledDivText = styled.div`
 
 const StyledAppName = styled.span`
   font-weight: bold;
-  font-size: 14px;
+  font-size: 12px;
   color: ${props => props.theme.colors.themeContrast};
 `
 
-const StyledDescription = styled.span`
+const smallScreenSize = 400
+
+const StyledDescription = styled.span<{ $screenSize: number }>`
   color: ${props => props.theme.colors.themeContrast};
   white-space: nowrap;
-  font-size: 12px;
+  font-size: ${props => (props.$screenSize <= smallScreenSize ? '10px' : '12px')};
 `
 
 const StyledButton = styled.button<{ $isInstalled: boolean }>`
@@ -69,9 +71,10 @@ const StyledButton = styled.button<{ $isInstalled: boolean }>`
   padding: 6px 12px;
   height: fit-content;
   margin: 0;
-  font-size: 15px;
+  font-size: 14px;
   font-weight: bold;
   text-decoration: ${props => (props.$isInstalled ? 'solid' : 'underline')};
+  overflow: hidden;
 `
 
 const StyledStarIcon = styled(Icon)`
@@ -130,14 +133,14 @@ export const MobileBanner = (): ReactElement | null => {
       <StyledBanner $isInstalled={isInstalled}>
         <StyledDiv>
           <StyledCloseButton label='closeButton' onClick={toggleBanner}>
-            {!isInstalled && <Icon src={CloseIcon} />}
+            {isInstalled === false && <Icon src={CloseIcon} />}
           </StyledCloseButton>
           <StyledBannerIcon $isInstalled={isInstalled} src={icons.appLogoMobile} />
           <StyledDivText>
             <StyledAppName>{appName}</StyledAppName>
-            {!isInstalled && (
+            {isInstalled === false && (
               <>
-                <StyledDescription>Tür an Tür - Digitalfabrik gGmbH</StyledDescription>
+                <StyledDescription $screenSize={window.innerWidth}>Tür an Tür - Digitalfabrik gGmbH</StyledDescription>
                 <StyledStars>
                   <StyledStarIcon src={StarIcon} />
                   <StyledStarIcon src={StarIcon} />
@@ -147,13 +150,13 @@ export const MobileBanner = (): ReactElement | null => {
                 </StyledStars>
               </>
             )}
-            <StyledDescription>
-              {isInstalled ? t('openInApp', { appName: buildConfig().appName }) : 'GET — On the Google Play Store'}
+            <StyledDescription $screenSize={window.innerWidth}>
+              {isInstalled ? t('openInApp', { appName: buildConfig().appName }) : t('getOnPlayStore')}
             </StyledDescription>
           </StyledDivText>
         </StyledDiv>
         <StyledButton $isInstalled={isInstalled} onClick={checkIfAppIsInstalled}>
-          {t(!isInstalled ? 'View' : 'Open')}
+          {t(isInstalled ? 'open' : 'view')}
         </StyledButton>
       </StyledBanner>
     )
