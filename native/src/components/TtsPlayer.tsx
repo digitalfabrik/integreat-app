@@ -1,6 +1,7 @@
 import { debounce } from 'lodash'
 import React, { createContext, ReactElement, useCallback, useContext, useEffect, useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
+import { AppState } from 'react-native'
 import Tts from 'react-native-tts'
 import styled from 'styled-components/native'
 
@@ -198,6 +199,19 @@ const TtsPlayer = ({ initialVisibility = false, children }: TtsPlayerProps): Rea
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isPlaying, languageCode, sentenceIndex, sentences])
+
+  useEffect(() => {
+    // Stop tts if not in foreground
+    const subscription = AppState.addEventListener('change', nextAppState => {
+      if (nextAppState === 'inactive' || nextAppState === 'background') {
+        Tts.stop()
+      }
+    })
+
+    return () => {
+      subscription.remove()
+    }
+  }, [])
 
   const stopTts = async () => {
     await Tts.stop()
