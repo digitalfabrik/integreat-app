@@ -17,6 +17,7 @@ import {
   hideIframe,
   preserveIFrameSourcesFromContent,
 } from '../utils/iframes'
+import TtsReader from './TtsReader'
 
 const SandBox = styled.div<{ $centered: boolean; $smallText: boolean }>`
   font-family: ${props => props.theme.fonts.web.contentFont};
@@ -274,13 +275,9 @@ const RemoteContent = ({
   }
 
   return (
-    <SandBox
-      dir='auto'
-      $centered={centered}
-      dangerouslySetInnerHTML={dangerouslySetInnerHTML}
-      ref={sandBoxRef}
-      $smallText={smallText}
-    />
+    <SandBox dir='auto' $centered={centered} ref={sandBoxRef} $smallText={smallText}>
+      <TtsReader html={html} />
+    </SandBox>
   )
 }
 
