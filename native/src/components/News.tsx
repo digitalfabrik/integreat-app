@@ -1,5 +1,5 @@
 import { TFunction } from 'i18next'
-import React, { ReactElement } from 'react'
+import React, { ReactElement, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { ScrollView } from 'react-native'
 import styled from 'styled-components/native'
@@ -11,6 +11,7 @@ import { NavigationProps } from '../constants/NavigationTypes'
 import { contentAlignment } from '../constants/contentDirection'
 import useNavigate from '../hooks/useNavigate'
 import useSetRouteTitle from '../hooks/useSetRouteTitle'
+import useTtsPlayer from '../hooks/useTtsPlayer'
 import Failure from './Failure'
 import List from './List'
 import LoadingSpinner from './LoadingSpinner'
@@ -62,6 +63,16 @@ const News = ({
 }: NewsProps): ReactElement => {
   const selectedNewsItem = news.find(_newsItem => _newsItem.id === newsId)
   const { t } = useTranslation('news')
+
+  const { setTitle, setContent } = useTtsPlayer()
+
+  useEffect(() => {
+    setTitle(selectedNewsItem?.title ?? 'News')
+    setContent(selectedNewsItem?.content ?? '')
+    return () => {
+      setContent(null)
+    }
+  }, [selectedNewsItem?.content, selectedNewsItem?.title, setContent, setTitle])
 
   const navigation = useNavigate().navigation as NavigationProps<NewsRouteType>
   useSetRouteTitle({ navigation, title: getPageTitle(selectedNewsType, selectedNewsItem, t) })
