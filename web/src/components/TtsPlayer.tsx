@@ -1,4 +1,4 @@
-import React, { createContext, ReactElement, useCallback, useContext, useEffect, useMemo, useState } from 'react'
+import React, { ReactElement, useCallback, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
 
@@ -6,20 +6,21 @@ import { CloseIcon, NoSoundIcon, PauseIcon, PlaybackIcon, PlayIcon, SoundIcon } 
 import Button from './base/Button'
 import Icon from './base/Icon'
 
-const StyledTtsPlayer = styled.div<{ $isPlaying: boolean }>`
+const StyledTtsPlayer = styled.dialog<{ $isPlaying: boolean }>`
   background-color: #dedede;
   border-radius: 28px;
-  width: 85%;
+  width: 388px;
   display: flex;
   flex-direction: ${props => (props.$isPlaying ? 'column' : 'row')};
   justify-content: center;
   align-items: center;
   align-self: center;
   padding: 6px;
-  position: absolute;
+  position: fixed;
   bottom: 5px;
   min-height: 93px;
   gap: ${props => (props.$isPlaying ? '5px;' : '10px')};
+  border-color: transparent;
 `
 const StyledPanel = styled.div`
   display: flex;
@@ -33,6 +34,9 @@ const StyledPlayIcon = styled(Button)`
   width: 50px;
   height: 50px;
   border-radius: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `
 
 const StyledBackForthButton = styled(Button)`
@@ -44,6 +48,10 @@ const StyledBackForthButton = styled(Button)`
 
 const PlayButtonIcon = styled(Icon)`
   color: #dedede;
+`
+const StyledNoSoundIcon = styled(Icon)`
+  height: 18px;
+  width: 18px;
 `
 
 const BackForthIcon = styled(Icon)<{ $flip: boolean }>`
@@ -70,91 +78,126 @@ const CloseButton = styled(Button)`
   padding: 5px;
   gap: 5px;
   width: 176px;
+  box-shadow: 1px 1px 10px 1px grey;
 `
 
 const CloseView = styled.div`
+  display: flex;
   flex-direction: column;
   gap: 10px;
+  justify-content: center;
 `
-
-export type ttsContextType = {
-  visible: boolean
-  setVisible: React.Dispatch<React.SetStateAction<boolean>>
-  title: string
-  setTitle: React.Dispatch<React.SetStateAction<string>>
-  volume: number
-  setVolume: React.Dispatch<React.SetStateAction<number>>
-}
-export const ttsContext = createContext<ttsContextType>({
-  visible: false,
-  setVisible: () => {
-    // setVisible
-  },
-  title: '',
-  setTitle: () => {
-    // setTitle
-  },
-  volume: 50,
-  setVolume: () => {
-    // setVolume
-  },
-})
+const voidElements = new Set([
+  'area',
+  'base',
+  'br',
+  'col',
+  'embed',
+  'hr',
+  'img',
+  'input',
+  'link',
+  'meta',
+  'param',
+  'source',
+  'track',
+  'wbr',
+])
 
 type TtsPlayerProps = {
-  children: ReactElement
+  html: string
   initialVisibility?: boolean
+  languageCode: string
 }
-const TtsPlayer = ({ initialVisibility = false, children }: TtsPlayerProps): ReactElement | null => {
-  //   const { languageCode } = useContext(AppContext)
+const TtsPlayer = ({ initialVisibility = false, html, languageCode }: TtsPlayerProps): ReactElement | null => {
   const { t } = useTranslation('layout')
-  const [isPlaying, setIsPlaying] = useState(false)
+  const [isPlaying, setIsPlaying] = useState<boolean | null>(null)
   const [expandPlayer, setExpandPlayer] = useState(false)
   const defaultVolume = 50
   const [volume, setVolume] = useState(defaultVolume)
-  //   const [sentenceIndex, setSentenceIndex] = useState(0)
-  //   const [content, setContent] = useState<string | null>(null)
   const [visible, setVisible] = useState(initialVisibility)
-  const [title, setTitle] = useState('')
-  //   const sentences: string[] | [] = useMemo(
-  //     () => (content ? [title, ...extractSentencesFromHtml(content)] : []),
-  //     [title, content],
-  //   )
+  const [voice, setVoice] = useState<SpeechSynthesisVoice | null>(null)
+  const [utterance, setUtterance] = useState<SpeechSynthesisUtterance | null>(null)
+  const [currentWordIndex, setCurrentWordIndex] = useState<number | null>(null)
 
-  //   const isPersian = languageCode === 'fa'
-
-  //   const initializeTts = useCallback((): void => {
-  //     Tts.getInitStatus()
-  //       .then(async (status: string) => {
-  //         // Status does not have to be 'success'
-  //         if (status === 'success') {
-  //           // await Tts.setDefaultLanguage('de-DE')
-  //         }
-  //       })
-  //       .catch(async error => {
-  //         /* eslint-disable-next-line no-console */
-  //         console.error(`Tts-Error: ${error.code}`)
-  //         if (error.code === 'no_engine') {
-  //           /* eslint-disable-next-line no-console */
-  //           await Tts.requestInstallEngine().catch((e: string) => console.error('Failed to install tts engine: ', e))
-  //         }
-  //       })
-  //   }, [])
-
-  const stopTts = async () => {
-    // await Tts.stop()
-    // const TTS_STOP_DELAY = 100 // delay to make sure tts is stopped
-    // await new Promise(resolve => {
-    //   setTimeout(resolve, TTS_STOP_DELAY)
-    // })
+  const handleBoundary = (event: SpeechSynthesisEvent, newUtterance: SpeechSynthesisUtterance) => {
+    if (event.name === 'word') {
+      const textUpToChar = newUtterance.text.substring(0, event.charIndex)
+      const words = textUpToChar.split(/\s+/)
+      const index = words.length - 1
+      setCurrentWordIndex(index)
+    }
   }
 
+  useEffect(() => {
+    const synth = window.speechSynthesis
+    const u = new SpeechSynthesisUtterance()
+
+    const handleVoicesChanged = () => {
+      const voices = synth.getVoices()
+
+      // Select voice matching the passed languageCode
+      const selectedVoice = voices.find(voice => voice.lang.startsWith(languageCode))
+
+      if (selectedVoice) {
+        setVoice(selectedVoice)
+        u.voice = selectedVoice
+      } else if (voices.length > 0) {
+        // Fallback to the first available voice if no match is found
+        setVoice(voices[0])
+        u.voice = voices[0]
+      }
+    }
+
+    synth.addEventListener('voiceschanged', handleVoicesChanged)
+    handleVoicesChanged()
+
+    setUtterance(u)
+
+    return () => {
+      synth.cancel()
+      synth.removeEventListener('voiceschanged', handleVoicesChanged)
+    }
+  }, [languageCode])
+
+  useEffect(() => {
+    if (utterance) {
+      // Extract text from HTML
+      const tempDiv = document.createElement('div')
+      tempDiv.innerHTML = html
+      utterance.text = tempDiv.textContent || tempDiv.innerText || ''
+      // utterance.pitch = pitch
+      // utterance.rate = rate
+      utterance.volume = volume
+      if (voice) {
+        utterance.voice = voice
+      }
+      const boundaryHandler = (event: SpeechSynthesisEvent) => handleBoundary(event, utterance)
+      utterance.onboundary = boundaryHandler
+
+      // Reset current word index when text changes
+      setCurrentWordIndex(null)
+    }
+  }, [html, utterance, volume, voice])
+
+  useEffect(() => {
+    const synth = window.speechSynthesis
+    if (isPlaying === null) {
+      synth.cancel()
+      return
+    }
+    if (isPlaying && synth.paused) {
+      synth.resume()
+    } else if (utterance) {
+      synth.speak(utterance)
+    }
+    if (isPlaying === false) {
+      synth.pause()
+    }
+  }, [isPlaying, utterance])
+
   const startReading = () => {
-    // if (!isPersian && sentences.length > 0) {
-    //   // Persian not supported
-    //   setIsPlaying(true) // this will start reading sentences
-    // } else {
-    //   setIsPlaying(false)
-    // }
+    setIsPlaying(true)
   }
 
   const pauseReading = () => {
@@ -164,53 +207,118 @@ const TtsPlayer = ({ initialVisibility = false, children }: TtsPlayerProps): Rea
 
   const handleBackward = async () => {
     // setSentenceIndex(prev => Math.max(0, prev - 1)) // it return the bigger number so no negative values
-    startReading()
+    // startReading()
   }
 
   const handleForward = async () => {
     // setSentenceIndex(prev => Math.min(sentences.length - 1, prev + 1))
-    startReading()
+    // startReading()
   }
 
-  //   const debounceDelay = 500
-
-  //   const debouncedVolumeChange = debounce((newVolume: number) => {
-  //     setVolume(newVolume)
-  //     if (isPlaying) {
-  //       Tts.stop().then(() =>
-  //         setTimeout(() => {
-  //           startReading()
-  //           // eslint-disable-next-line no-magic-numbers
-  //         }, 200),
-  //       )
-  //     }
-  //   }, debounceDelay)
-
-  const handleVolumeChange = (newVolume: number) => {
-    // debouncedVolumeChange(newVolume)
+  const handleVolumeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const newVolume = parseFloat(event.target.value)
     setVolume(newVolume)
+
+    if (utterance) {
+      // Cancel current utterance and restart with the new volume
+      const synth = window.speechSynthesis
+      synth.cancel()
+
+      const newUtterance = new SpeechSynthesisUtterance()
+      newUtterance.text = utterance.text
+      newUtterance.voice = voice
+      newUtterance.volume = newVolume
+      const boundaryHandler = (event: SpeechSynthesisEvent) => handleBoundary(event, newUtterance)
+      newUtterance.onboundary = boundaryHandler
+
+      // Speak the new utterance with the updated volume
+      setUtterance(newUtterance)
+      synth.speak(newUtterance)
+    }
   }
 
   const handleClose = async () => {
     setVisible(false)
     setExpandPlayer(false)
-    await stopTts()
   }
 
-  const ttsContextValue = useMemo(
-    () => ({
-      visible,
-      setVisible,
-      title,
-      setTitle,
-      volume,
-      setVolume,
-    }),
-    [visible, title, volume],
-  )
+  const renderContent = useCallback(() => {
+    let wordCount = 0
+    const parser = new DOMParser()
+    const doc = parser.parseFromString(html, 'text/html')
+
+    const traverse = (node: Node): React.ReactNode => {
+      if (node.nodeType === Node.TEXT_NODE) {
+        const words = node.textContent?.split(/(\s+)/) || []
+        return words.map(word => {
+          if (word.trim() === '') {
+            return word
+          }
+          const currentIndex = wordCount
+          wordCount += 1
+          return (
+            <span
+              key={`word-${currentIndex}`}
+              data-word-index={currentIndex}
+              className={currentWordIndex === currentIndex ? 'highlight' : undefined}>
+              {word}
+            </span>
+          )
+        })
+      }
+
+      if (node.nodeType === Node.ELEMENT_NODE) {
+        const element = node as HTMLElement
+        const tagName = element.tagName.toLowerCase()
+
+        // Extract attributes
+        const attrs: { [key: string]: unknown } = {}
+        Array.from(element.attributes).forEach(attr => {
+          if (attr.name === 'style') {
+            // Parse style string into an object
+            const styleObject: { [key: string]: string } = {}
+            const styleString = attr.value
+            styleString.split(';').forEach(styleRule => {
+              if (styleRule.trim() === '') return
+              const [property, value] = styleRule.split(':')
+              if (property && value) {
+                const camelCasedProperty = property.trim().replace(/-([a-z])/g, (_, char) => char.toUpperCase())
+                styleObject[camelCasedProperty] = value.trim()
+              }
+            })
+            attrs.style = styleObject
+          } else if (attr.name === 'class') {
+            attrs.className = attr.value
+          } else if (attr.name === 'for') {
+            attrs.htmlFor = attr.value
+          } else {
+            attrs[attr.name] = attr.value
+          }
+        })
+
+        if (voidElements.has(tagName)) {
+          // Render void elements without children
+          return React.createElement(tagName, {
+            key: `void-${tagName}-${wordCount}`,
+            ...attrs,
+          })
+        }
+
+        // Render non-void elements with children
+        const children = Array.from(element.childNodes).map((child, index) => (
+          <React.Fragment key={`element${index + 1}`}>{traverse(child)}</React.Fragment>
+        ))
+        return React.createElement(tagName, { key: `element-${tagName}-${wordCount}`, ...attrs }, children)
+      }
+
+      return null
+    }
+
+    return traverse(doc.body)
+  }, [currentWordIndex, html])
+
   return (
-    <ttsContext.Provider value={ttsContextValue}>
-      {children}
+    <div>
       {visible && (
         <StyledTtsPlayer $isPlaying={expandPlayer}>
           <StyledPanel>
@@ -230,7 +338,7 @@ const TtsPlayer = ({ initialVisibility = false, children }: TtsPlayerProps): Rea
                 }
                 setExpandPlayer(!isPlaying)
               }}>
-              <PlayButtonIcon src={isPlaying ? PauseIcon : PlayIcon} />
+              <PlayButtonIcon src={isPlaying ?? false ? PauseIcon : PlayIcon} />
             </StyledPlayIcon>
             {expandPlayer && (
               <StyledBackForthButton label='Forward Button' onClick={handleForward}>
@@ -241,30 +349,28 @@ const TtsPlayer = ({ initialVisibility = false, children }: TtsPlayerProps): Rea
           </StyledPanel>
           {expandPlayer && (
             <StyledPanel>
-              <Icon src={NoSoundIcon} style={{ height: 18, width: 18 }} />
+              <StyledNoSoundIcon src={NoSoundIcon} />
               {/* <Slider maxValue={100} minValue={0} initialValue={volume} onValueChange={handleVolumeChange} /> */}
+              <input type='range' min='0' max='1' step='0.1' value={volume} onChange={handleVolumeChange} />
               <Icon src={SoundIcon} />
             </StyledPanel>
           )}
           <CloseView>
             {!expandPlayer && <StyledPlayerHeaderText>{t('readAloud')}</StyledPlayerHeaderText>}
-            <CloseButton
-              label='Close player'
-              onClick={handleClose}
-              style={{
-                elevation: 5, // For Android shadow
-                shadowColor: 'black', // For iOS shadow
-                shadowOffset: { width: 0, height: 2 },
-                shadowOpacity: 0.2,
-                shadowRadius: 3,
-              }}>
+            <CloseButton label='Close player' onClick={handleClose}>
               <Icon src={CloseIcon} />
               <StyledText>{t('common:close')}</StyledText>
             </CloseButton>
           </CloseView>
         </StyledTtsPlayer>
       )}
-    </ttsContext.Provider>
+      <div>{renderContent()}</div>
+      <style jsx>{`
+        .highlight {
+          background-color: yellow;
+        }
+      `}</style>
+    </div>
   )
 }
 

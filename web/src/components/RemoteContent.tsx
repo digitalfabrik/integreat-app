@@ -1,6 +1,7 @@
 import Dompurify from 'dompurify'
 import React, { ReactElement, useCallback, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
+import { useMatch } from 'react-router-dom'
 import styled, { css } from 'styled-components'
 
 import { ExternalSourcePermissions } from 'shared'
@@ -17,7 +18,7 @@ import {
   hideIframe,
   preserveIFrameSourcesFromContent,
 } from '../utils/iframes'
-import TtsReader from './TtsReader'
+import TtsPlayer from './TtsPlayer'
 
 const SandBox = styled.div<{ $centered: boolean; $smallText: boolean }>`
   font-family: ${props => props.theme.fonts.web.contentFont};
@@ -189,6 +190,8 @@ const RemoteContent = ({
   smallText = false,
 }: RemoteContentProps): ReactElement => {
   const sandBoxRef = React.createRef<HTMLDivElement>()
+  const { routeParam1 } = useMatch('/:routeParam0/:routeParam1/*')?.params ?? {}
+  const { i18n } = useTranslation()
   const { value: externalSourcePermissions, updateLocalStorageItem } = useLocalStorage<ExternalSourcePermissions>({
     key: LOCAL_STORAGE_ITEM_EXTERNAL_SOURCES,
     initialValue: {},
@@ -274,9 +277,11 @@ const RemoteContent = ({
     }),
   }
 
+  const detectedLanguageCode = i18n.language
+  const language = routeParam1 ?? detectedLanguageCode
   return (
     <SandBox dir='auto' $centered={centered} ref={sandBoxRef} $smallText={smallText}>
-      <TtsReader html={html} />
+      <TtsPlayer html={html} initialVisibility languageCode={language} />
     </SandBox>
   )
 }
