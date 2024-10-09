@@ -5506,7 +5506,7 @@
       "openInApp": "In der {{appName}} App öffnen",
       "open": "Öffnen",
       "view": "Anzeigen",
-      "getOnPlayStore": "Holen Sie es - im Google Play Store",
+      "getOnPlayStore": "Im Google Play Store anschauen",
       "accessibility": "Barrierefreiheit"
     },
     "am": {
@@ -5756,11 +5756,7 @@
       "shareFailDefaultMessage": "Le partage du contenu a malheureusement échoué.",
       "disclaimer": "Mentions légales",
       "sideBarOpenAriaLabel": "Ouvrir la barre latérale",
-      "sideBarCloseAriaLabel": "Fermer la barre latérale",
-      "openInApp": "Ouvrir dans l'app {{appName}}",
-      "open": "Ouvrir",
-      "view": "Voir",
-      "getOnPlayStore": "Obtenir - Sur le Google Play Store"
+      "sideBarCloseAriaLabel": "Fermer la barre latérale"
     },
     "hr": {
       "imprintAndContact": "Impresum i kontakt",

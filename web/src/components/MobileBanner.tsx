@@ -3,7 +3,7 @@ import React, { ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
 
-import { CloseIcon, StarIcon } from '../assets'
+import { CloseIcon } from '../assets'
 import buildConfig from '../constants/buildConfig'
 import dimensions from '../constants/dimensions'
 import useLocalStorage from '../hooks/useLocalStorage'
@@ -38,7 +38,6 @@ const StyledCloseButton = styled(Button)`
 const StyledBannerIcon = styled(Icon)<{ $isInstalled: boolean }>`
   width: ${props => (props.$isInstalled ? '32px' : '48px')};
   height: ${props => (props.$isInstalled ? '32px' : '48px')};
-  background-color: 'white';
   border-radius: 5;
 `
 
@@ -75,17 +74,6 @@ const StyledButton = styled.button<{ $isInstalled: boolean }>`
   font-weight: bold;
   text-decoration: ${props => (props.$isInstalled ? 'solid' : 'underline')};
   overflow: hidden;
-`
-
-const StyledStarIcon = styled(Icon)`
-  width: 12px;
-  height: 12px;
-  fill: #f1a33b;
-`
-
-const StyledStars = styled.div`
-  display: flex;
-  gap: 1px;
 `
 
 export const MobileBanner = (): ReactElement | null => {
@@ -139,16 +127,7 @@ export const MobileBanner = (): ReactElement | null => {
           <StyledDivText>
             <StyledAppName>{appName}</StyledAppName>
             {isInstalled === false && (
-              <>
-                <StyledDescription $screenSize={window.innerWidth}>Tür an Tür - Digitalfabrik gGmbH</StyledDescription>
-                <StyledStars>
-                  <StyledStarIcon src={StarIcon} />
-                  <StyledStarIcon src={StarIcon} />
-                  <StyledStarIcon src={StarIcon} />
-                  <StyledStarIcon src={StarIcon} />
-                  <StyledStarIcon src={StarIcon} />
-                </StyledStars>
-              </>
+              <StyledDescription $screenSize={window.innerWidth}>Tür an Tür - Digitalfabrik gGmbH</StyledDescription>
             )}
             <StyledDescription $screenSize={window.innerWidth}>
               {isInstalled ? t('openInApp', { appName: buildConfig().appName }) : t('getOnPlayStore')}

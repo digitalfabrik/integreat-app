@@ -46,7 +46,6 @@ import SecurityIcon from '../../../assets/icons/security.svg'
 import ShareIcon from '../../../assets/icons/share.svg'
 import SmokingIcon from '../../../assets/icons/smoking.svg'
 import SprungbrettIcon from '../../../assets/icons/sprungbrett.svg'
-import StarIcon from '../../../assets/icons/star.svg'
 import SupportIcon from '../../../assets/icons/support.svg'
 import TimerIcon from '../../../assets/icons/timer.svg'
 import TuNewsActiveIcon from '../../../assets/icons/tu-news-active.svg'
@@ -107,7 +106,6 @@ export {
   SmokingIcon,
   SprungbrettIcon,
   SupportIcon,
-  StarIcon,
   TimerIcon,
   TuNewsActiveIcon,
   TuNewsInactiveIcon,
