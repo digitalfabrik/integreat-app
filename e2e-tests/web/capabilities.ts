@@ -2,7 +2,7 @@ import { Capabilities } from '@wdio/types'
 
 import { getGitBranch, getGitHeadReference } from '../shared/git.js'
 
-const browserstackCaps = (config: Capabilities.BrowserStackCapabilities): Capabilities.DesiredCapabilities => {
+const browserstackCaps = (config: Capabilities.BrowserStackCapabilities): WebdriverIO.Capabilities => {
   const prefix = process.env.CI ? 'IG CI' : 'IG DEV'
   return {
     'bstack:options': {
@@ -17,7 +17,7 @@ const browserstackCaps = (config: Capabilities.BrowserStackCapabilities): Capabi
   }
 }
 
-export const browsers = ['chrome', 'firefox', 'safari', 'edge'] as const
+export const browsers = ['chrome', 'firefox', 'safari'] as const
 
 export const browserstackCapabilities = {
   chrome: browserstackCaps({
@@ -38,7 +38,7 @@ export const browserstackCapabilities = {
     browserName: 'Safari',
     browserVersion: '14.0',
   }),
-} as Record<(typeof browsers)[number], Capabilities.DesiredCapabilities>
+}
 
 export const ciCapabilities = {
   browserName: 'chrome',
