@@ -87,6 +87,36 @@ const CloseView = styled.div`
   gap: 10px;
   justify-content: center;
 `
+const Slider = styled.input`
+  border-radius: 25px;
+  -webkit-appearance: none;
+  background: #b9b9b9;
+
+  &::-ms-track {
+    border-radius: 25px;
+  }
+
+  &::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    height: 16px;
+    width: 16px;
+    border-radius: 50%;
+    background: #333;
+    cursor: pointer;
+  }
+
+  &::-moz-range-thumb {
+    height: 16px;
+    width: 16px;
+    border-radius: 50%;
+    background: #333;
+    cursor: pointer;
+  }
+`
+
+const StyledWord = styled.span<{ isCurrent: boolean }>`
+  background-color: ${props => (props.isCurrent ? 'yellow' : 'transparent')};
+`
 const voidElements = new Set([
   'area',
   'base',
@@ -109,28 +139,39 @@ type TtsPlayerProps = {
   initialVisibility?: boolean
   languageCode: string
 }
+
 const TtsPlayer = ({ initialVisibility = false, html, languageCode }: TtsPlayerProps): ReactElement | null => {
   const { t } = useTranslation('layout')
-  const [isPlaying, setIsPlaying] = useState<boolean | null>(null)
+  const [isPlaying, setIsPlaying] = useState<boolean>(false)
   const [expandPlayer, setExpandPlayer] = useState(false)
-  const defaultVolume = 50
+  const defaultVolume = 0.5
   const [volume, setVolume] = useState(defaultVolume)
   const [visible, setVisible] = useState(initialVisibility)
   const [voice, setVoice] = useState<SpeechSynthesisVoice | null>(null)
   const [utterance, setUtterance] = useState<SpeechSynthesisUtterance | null>(null)
-  const [currentWordIndex, setCurrentWordIndex] = useState<number | null>(null)
+  const [currentWordIndex, setCurrentWordIndex] = useState<number>(0)
+  const [words, setWords] = useState<string[]>([])
+  const numOfWordsToSkip = 10
 
-  const handleBoundary = (event: SpeechSynthesisEvent, newUtterance: SpeechSynthesisUtterance) => {
+  const synth = window.speechSynthesis
+
+  // Parse HTML and split into words
+  useEffect(() => {
+    const tempDiv = document.createElement('div')
+    tempDiv.innerHTML = html
+    const textContent = tempDiv.textContent || tempDiv.innerText || ''
+    const wordsArray = textContent.split(/\s+/).filter(word => word.trim() !== '')
+    setWords(wordsArray)
+    setCurrentWordIndex(0)
+  }, [html])
+
+  const handleBoundary = (event: SpeechSynthesisEvent) => {
     if (event.name === 'word') {
-      const textUpToChar = newUtterance.text.substring(0, event.charIndex)
-      const words = textUpToChar.split(/\s+/)
-      const index = words.length - 1
-      setCurrentWordIndex(index)
+      setCurrentWordIndex(prevIndex => prevIndex + 1)
     }
   }
 
   useEffect(() => {
-    const synth = window.speechSynthesis
     const u = new SpeechSynthesisUtterance()
 
     const handleVoicesChanged = () => {
@@ -158,61 +199,67 @@ const TtsPlayer = ({ initialVisibility = false, html, languageCode }: TtsPlayerP
       synth.cancel()
       synth.removeEventListener('voiceschanged', handleVoicesChanged)
     }
-  }, [languageCode])
+  }, [languageCode, synth])
 
   useEffect(() => {
     if (utterance) {
-      // Extract text from HTML
-      const tempDiv = document.createElement('div')
-      tempDiv.innerHTML = html
-      utterance.text = tempDiv.textContent || tempDiv.innerText || ''
-      // utterance.pitch = pitch
-      // utterance.rate = rate
+      const textToSpeak = words.slice(currentWordIndex).join(' ')
+      utterance.text = textToSpeak
       utterance.volume = volume
       if (voice) {
         utterance.voice = voice
       }
-      const boundaryHandler = (event: SpeechSynthesisEvent) => handleBoundary(event, utterance)
-      utterance.onboundary = boundaryHandler
-
-      // Reset current word index when text changes
-      setCurrentWordIndex(null)
+      utterance.onboundary = handleBoundary
     }
-  }, [html, utterance, volume, voice])
-
-  useEffect(() => {
-    const synth = window.speechSynthesis
-    if (isPlaying === null) {
-      synth.cancel()
-      return
-    }
-    if (isPlaying && synth.paused) {
-      synth.resume()
-    } else if (utterance) {
-      synth.speak(utterance)
-    }
-    if (isPlaying === false) {
-      synth.pause()
-    }
-  }, [isPlaying, utterance])
+  }, [words, currentWordIndex, utterance, volume, voice])
 
   const startReading = () => {
-    setIsPlaying(true)
+    if (!isPlaying && synth.paused) {
+      synth.resume()
+      setIsPlaying(true)
+    } else if (utterance) {
+      synth.cancel()
+      synth.speak(utterance)
+      setIsPlaying(true)
+    }
   }
 
   const pauseReading = () => {
-    // Tts.stop()
+    synth.pause()
     setIsPlaying(false)
   }
 
-  const handleBackward = async () => {
-    // setSentenceIndex(prev => Math.max(0, prev - 1)) // it return the bigger number so no negative values
-    // startReading()
+  const togglePlayPause = () => {
+    if (isPlaying) {
+      pauseReading()
+    } else {
+      startReading()
+    }
+    setExpandPlayer(!isPlaying)
   }
 
-  const handleForward = async () => {
-    // setSentenceIndex(prev => Math.min(sentences.length - 1, prev + 1))
-    // startReading()
+  const handleBackward = () => {
+    setCurrentWordIndex(prevIndex => Math.max(0, prevIndex - numOfWordsToSkip))
+    if (isPlaying) {
+      synth.cancel()
+      setTimeout(() => {
+        if (utterance) {
+          startReading()
+        }
+      }, 100)
+    }
+  }
+
+  const handleForward = () => {
+    setCurrentWordIndex(prevIndex => Math.min(prevIndex + numOfWordsToSkip, words.length - 1))
+    if (isPlaying) {
+      synth.cancel()
+      setTimeout(() => {
+        if (utterance) {
+          startReading()
+        }
+      }, 100)
+    }
   }
 
   const handleVolumeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -220,26 +267,16 @@ const TtsPlayer = ({ initialVisibility = false, html, languageCode }: TtsPlayerP
     setVolume(newVolume)
 
     if (utterance) {
-      // Cancel current utterance and restart with the new volume
-      const synth = window.speechSynthesis
       synth.cancel()
-
-      const newUtterance = new SpeechSynthesisUtterance()
-      newUtterance.text = utterance.text
-      newUtterance.voice = voice
-      newUtterance.volume = newVolume
-      const boundaryHandler = (event: SpeechSynthesisEvent) => handleBoundary(event, newUtterance)
-      newUtterance.onboundary = boundaryHandler
-
-      // Speak the new utterance with the updated volume
-      setUtterance(newUtterance)
-      synth.speak(newUtterance)
+      startReading()
     }
   }
 
-  const handleClose = async () => {
+  const handleClose = () => {
     setVisible(false)
     setExpandPlayer(false)
+    synth.cancel()
+    setIsPlaying(false)
   }
 
   const renderContent = useCallback(() => {
@@ -249,20 +286,22 @@ const TtsPlayer = ({ initialVisibility = false, html, languageCode }: TtsPlayerP
 
     const traverse = (node: Node): React.ReactNode => {
       if (node.nodeType === Node.TEXT_NODE) {
-        const words = node.textContent?.split(/(\s+)/) || []
-        return words.map(word => {
+        const textContent = node.textContent || ''
+        const wordsInNode = textContent.split(/(\s+)/)
+        return wordsInNode.map(word => {
           if (word.trim() === '') {
+            // Return whitespace as is
             return word
           }
           const currentIndex = wordCount
           wordCount += 1
           return (
-            <span
+            <StyledWord
               key={`word-${currentIndex}`}
               data-word-index={currentIndex}
-              className={currentWordIndex === currentIndex ? 'highlight' : undefined}>
+              isCurrent={currentWordIndex === currentIndex}>
               {word}
-            </span>
+            </StyledWord>
           )
         })
       }
@@ -271,43 +310,34 @@ const TtsPlayer = ({ initialVisibility = false, html, languageCode }: TtsPlayerP
         const element = node as HTMLElement
         const tagName = element.tagName.toLowerCase()
 
-        // Extract attributes
-        const attrs: { [key: string]: unknown } = {}
+        const attrs: { [key: string]: string } = {}
         Array.from(element.attributes).forEach(attr => {
-          if (attr.name === 'style') {
-            // Parse style string into an object
+          const attrName = attr.name === 'class' ? 'className' : attr.name === 'for' ? 'htmlFor' : attr.name
+
+          if (attrName === 'style') {
+            const tempElement = document.createElement('div')
+            tempElement.style.cssText = attr.value
             const styleObject: { [key: string]: string } = {}
-            const styleString = attr.value
-            styleString.split(';').forEach(styleRule => {
-              if (styleRule.trim() === '') return
-              const [property, value] = styleRule.split(':')
-              if (property && value) {
-                const camelCasedProperty = property.trim().replace(/-([a-z])/g, (_, char) => char.toUpperCase())
-                styleObject[camelCasedProperty] = value.trim()
-              }
-            })
+            for (let i = 0; i < tempElement.style.length; i++) {
+              const propertyName = tempElement.style[i]
+              const propertyValue = tempElement.style.getPropertyValue(propertyName)
+              styleObject[propertyName] = propertyValue
+            }
             attrs.style = styleObject
-          } else if (attr.name === 'class') {
-            attrs.className = attr.value
-          } else if (attr.name === 'for') {
-            attrs.htmlFor = attr.value
           } else {
-            attrs[attr.name] = attr.value
+            attrs[attrName] = attr.value
           }
         })
 
         if (voidElements.has(tagName)) {
-          // Render void elements without children
           return React.createElement(tagName, {
             key: `void-${tagName}-${wordCount}`,
             ...attrs,
           })
         }
 
-        // Render non-void elements with children
-        const children = Array.from(element.childNodes).map((child, index) => (
-          <React.Fragment key={`element${index + 1}`}>{traverse(child)}</React.Fragment>
-        ))
+        const children = Array.from(element.childNodes).map(child => traverse(child))
+
         return React.createElement(tagName, { key: `element-${tagName}-${wordCount}`, ...attrs }, children)
       }
 
@@ -323,22 +353,13 @@ const TtsPlayer = ({ initialVisibility = false, html, languageCode }: TtsPlayerP
         <StyledTtsPlayer $isPlaying={expandPlayer}>
           <StyledPanel>
             {expandPlayer && (
-              <StyledBackForthButton label='backward Button' onClick={handleBackward}>
+              <StyledBackForthButton label='Backward Button' onClick={handleBackward}>
                 <StyledText>{t('prev')}</StyledText>
                 <BackForthIcon $flip src={PlaybackIcon} />
               </StyledBackForthButton>
             )}
-            <StyledPlayIcon
-              label='Play Button'
-              onClick={() => {
-                if (isPlaying) {
-                  pauseReading()
-                } else {
-                  startReading()
-                }
-                setExpandPlayer(!isPlaying)
-              }}>
-              <PlayButtonIcon src={isPlaying ?? false ? PauseIcon : PlayIcon} />
+            <StyledPlayIcon label='Play Button' onClick={togglePlayPause}>
+              <PlayButtonIcon src={isPlaying ? PauseIcon : PlayIcon} />
             </StyledPlayIcon>
             {expandPlayer && (
               <StyledBackForthButton label='Forward Button' onClick={handleForward}>
@@ -350,8 +371,7 @@ const TtsPlayer = ({ initialVisibility = false, html, languageCode }: TtsPlayerP
           {expandPlayer && (
             <StyledPanel>
               <StyledNoSoundIcon src={NoSoundIcon} />
-              {/* <Slider maxValue={100} minValue={0} initialValue={volume} onValueChange={handleVolumeChange} /> */}
-              <input type='range' min='0' max='1' step='0.1' value={volume} onChange={handleVolumeChange} />
+              <Slider type='range' min='0' max='1' step='0.1' value={volume} onChange={handleVolumeChange} />
               <Icon src={SoundIcon} />
             </StyledPanel>
           )}
@@ -365,11 +385,6 @@ const TtsPlayer = ({ initialVisibility = false, html, languageCode }: TtsPlayerP
         </StyledTtsPlayer>
       )}
       <div>{renderContent()}</div>
-      <style jsx>{`
-        .highlight {
-          background-color: yellow;
-        }
-      `}</style>
     </div>
   )
 }
