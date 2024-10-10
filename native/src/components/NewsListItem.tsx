@@ -1,4 +1,4 @@
-import React, { ReactElement, useContext } from 'react'
+import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 import styled from 'styled-components/native'
 
@@ -7,7 +7,7 @@ import { LocalNewsModel, TunewsModel } from 'shared/api'
 import { ArrowBackIcon } from '../assets'
 import { EXCERPT_MAX_LINES } from '../constants'
 import { contentDirection } from '../constants/contentDirection'
-import { AppContext } from '../contexts/AppContextProvider'
+import { useAppContext } from '../hooks/useCityAppContext'
 import TimeStamp from './TimeStamp'
 import Icon from './base/Icon'
 import Pressable from './base/Pressable'
@@ -82,7 +82,7 @@ export const ReadMore = styled(Text)<{ isTunews: boolean }>`
 const NewsListItem = ({ index, newsItem, navigateToNews, isTunews }: NewsListItemProps): ReactElement => {
   const { t, i18n } = useTranslation('news')
   const timestamp = newsItem instanceof LocalNewsModel ? newsItem.timestamp : null
-  const { languageCode } = useContext(AppContext)
+  const { languageCode } = useAppContext()
 
   return (
     <>
