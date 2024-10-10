@@ -8,13 +8,14 @@ import styled from 'styled-components/native'
 import { CloseIcon, NoSoundIcon, PauseIcon, PlaybackIcon, PlayIcon, SoundIcon } from '../assets'
 import { AppContext } from '../contexts/AppContextProvider'
 import { extractSentencesFromHtml } from '../utils/TtsPlayerUtils'
+import { reportError } from '../utils/sentry'
 import Slider from './Slider'
 import Icon from './base/Icon'
 import IconButton from './base/IconButton'
 import Text from './base/Text'
 
 const StyledTtsPlayer = styled.View<{ $isPlaying: boolean }>`
-  background-color: #dedede;
+  background-color: ${props => props.theme.colors.grayBackgroundColor};
   border-radius: 28px;
   width: 85%;
   display: flex;
@@ -28,14 +29,16 @@ const StyledTtsPlayer = styled.View<{ $isPlaying: boolean }>`
   min-height: 93px;
   gap: ${props => (props.$isPlaying ? '5px;' : '10px')};
 `
+
 const StyledPanel = styled.View`
   display: flex;
   flex-direction: row;
   align-items: center;
   gap: 20px;
 `
+
 const StyledPlayIcon = styled(IconButton)`
-  background-color: #232323;
+  background-color: ${props => props.theme.colors.textColor};
   width: 50px;
   height: 50px;
   border-radius: 50px;
@@ -49,7 +52,12 @@ const StyledBackForthButton = styled.TouchableOpacity`
 `
 
 const PlayButtonIcon = styled(Icon)`
-  color: #dedede;
+  color: ${props => props.theme.colors.grayBackgroundColor};
+`
+
+const StyledNoSoundIcon = styled(Icon)`
+  height: 18px;
+  width: 18px;
 `
 
 const BackForthIcon = styled(Icon)<{ $flip: boolean }>`
@@ -95,33 +103,27 @@ export type ttsContextType = {
   volume: number
   setVolume: React.Dispatch<React.SetStateAction<number>>
 }
+
+/* eslint-disable @typescript-eslint/no-empty-function */
 export const ttsContext = createContext<ttsContextType>({
   content: null,
-  setContent: () => {
-    // setContent
-  },
+  setContent: () => {},
   sentenceIndex: 0,
-  setSentenceIndex: () => {
-    // setSentenceIndex
-  },
+  setSentenceIndex: () => {},
   visible: false,
-  setVisible: () => {
-    // setVisible
-  },
+  setVisible: () => {},
   title: '',
-  setTitle: () => {
-    // setTitle
-  },
+  setTitle: () => {},
   volume: 50,
-  setVolume: () => {
-    // setVolume
-  },
+  setVolume: () => {},
 })
+/* eslint-enable @typescript-eslint/no-empty-function */
 
 type TtsPlayerProps = {
   children: ReactElement
   initialVisibility?: boolean
 }
+
 const TtsPlayer = ({ initialVisibility = false, children }: TtsPlayerProps): ReactElement => {
   const { languageCode } = useContext(AppContext)
   const { t } = useTranslation('layout')
@@ -134,27 +136,18 @@ const TtsPlayer = ({ initialVisibility = false, children }: TtsPlayerProps): Rea
   const [visible, setVisible] = useState(initialVisibility)
   const [title, setTitle] = useState('')
   const sentences: string[] | [] = useMemo(
-    () => (content ? [title, ...extractSentencesFromHtml(content)] : []),
-    [title, content],
+    () => (content ? [title, ...extractSentencesFromHtml(content, languageCode)] : []),
+    [content, title, languageCode],
   )
   const isPersian = languageCode === 'fa'
 
   const initializeTts = useCallback((): void => {
-    Tts.getInitStatus()
-      .then(async (status: string) => {
-        // Status does not have to be 'success'
-        if (status === 'success') {
-          // await Tts.setDefaultLanguage('de-DE')
-        }
-      })
-      .catch(async error => {
-        /* eslint-disable-next-line no-console */
-        console.error(`Tts-Error: ${error.code}`)
-        if (error.code === 'no_engine') {
-          /* eslint-disable-next-line no-console */
-          await Tts.requestInstallEngine().catch((e: string) => console.error('Failed to install tts engine: ', e))
-        }
-      })
+    Tts.getInitStatus().catch(async error => {
+      reportError(`Tts-Error: ${error.code}`)
+      if (error.code === 'no_engine') {
+        await Tts.requestInstallEngine().catch((e: string) => reportError(`Failed to install tts engine: : ${e}`))
+      }
+    })
   }, [])
 
   useEffect(() => {
@@ -223,7 +216,7 @@ const TtsPlayer = ({ initialVisibility = false, children }: TtsPlayerProps): Rea
   const startReading = () => {
     if (!isPersian && sentences.length > 0) {
       // Persian not supported
-      setIsPlaying(true) // this will start reading sentences
+      setIsPlaying(true)
     } else {
       setIsPlaying(false)
     }
@@ -318,7 +311,7 @@ const TtsPlayer = ({ initialVisibility = false, children }: TtsPlayerProps): Rea
           </StyledPanel>
           {expandPlayer && (
             <StyledPanel style={{ paddingHorizontal: 10 }}>
-              <Icon Icon={NoSoundIcon} style={{ height: 18, width: 18 }} />
+              <StyledNoSoundIcon Icon={NoSoundIcon} />
               <Slider maxValue={100} minValue={0} initialValue={volume} onValueChange={handleVolumeChange} />
               <Icon Icon={SoundIcon} />
             </StyledPanel>

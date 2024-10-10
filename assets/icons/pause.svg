@@ -2,9 +2,9 @@
 <!-- Created with Inkscape (http://www.inkscape.org/) -->
 
 <svg
-   width="23.690035mm"
-   height="20.822878mm"
-   viewBox="0 0 23.690034 20.822878"
+   width="24mm"
+   height="24mm"
+   viewBox="0 0 23.999999 24"
    version="1.1"
    id="svg1"
    xml:space="preserve"
@@ -25,27 +25,29 @@
      inkscape:pageopacity="0"
      inkscape:pagecheckerboard="0"
      inkscape:deskcolor="#d1d1d1"
-     inkscape:document-units="mm"
+     inkscape:document-units="cm"
      inkscape:zoom="5.7941077"
-     inkscape:cx="36.761484"
-     inkscape:cy="33.223407"
+     inkscape:cx="49.53308"
+     inkscape:cy="29.944214"
      inkscape:window-width="1920"
      inkscape:window-height="1009"
      inkscape:window-x="-8"
      inkscape:window-y="-8"
      inkscape:window-maximized="1"
-     inkscape:current-layer="layer1" /><defs
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     showguides="true" /><defs
      id="defs1" /><g
      inkscape:label="Layer 1"
      inkscape:groupmode="layer"
      id="layer1"
      transform="translate(-1.8265683,-3.8814576)"><g
        id="g4"
-       transform="matrix(0.19196123,0,0,0.19196123,4.134238,4.680668)"
-       style="stroke-width:1.00020197;stroke-dasharray:none;fill:currentColor;fill-opacity:1"><path
+       transform="matrix(0.20758721,0,0,0.20758721,3.3310483,5.3711845)"
+       style="fill:currentColor;fill-opacity:1;stroke-width:1.0002;stroke-dasharray:none"><path
          d="M 81.667,93.159 H 59.989 c -1.104,0 -2,-0.896 -2,-2 V 8.841 c 0,-1.104 0.896,-2 2,-2 h 21.678 c 1.104,0 2,0.896 2,2 v 82.318 c 0,1.105 -0.896,2 -2,2 z m -41.656,0 H 18.333 c -1.104,0 -2,-0.896 -2,-2 V 8.841 c 0,-1.104 0.896,-2 2,-2 h 21.678 c 1.104,0 2,0.896 2,2 v 82.318 c 0,1.105 -0.896,2 -2,2 z"
          id="path1-3"
-         style="stroke-width:1.00020197;stroke-dasharray:none;fill:currentColor;fill-opacity:1" /></g></g><style
+         style="fill:currentColor;fill-opacity:1;stroke-width:1.0002;stroke-dasharray:none" /></g></g><style
      type="text/css"
      id="style1">
 	.st0{display:none;}

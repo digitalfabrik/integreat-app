@@ -191,7 +191,6 @@ const Header = ({
     ),
     renderItem(HeaderButtonTitle.Language, 'language', showItems, goToLanguageChange),
   ]
-
   const overflowItems = showOverflowItems
     ? [
         ...(shareUrl ? [renderOverflowItem(HeaderButtonTitle.Share, onShare)] : []),
@@ -200,7 +199,9 @@ const Header = ({
           : []),
         renderOverflowItem(HeaderButtonTitle.Settings, () => navigation.navigate(SETTINGS_ROUTE)),
         ...[
-          content && (buildConfig().appName === 'IntegreatTestCms' || buildConfig().appName === 'Integreat')
+          content &&
+          (buildConfig().appName === 'IntegreatTestCms' || buildConfig().appName === 'Integreat') &&
+          languageCode !== 'fa'
             ? renderOverflowItem(t(`${HeaderButtonTitle.ReadAloud}`), onRead)
             : [],
         ],

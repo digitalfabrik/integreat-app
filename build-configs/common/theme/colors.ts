@@ -15,6 +15,7 @@ export type ColorsType = {
   negativeHighlight: string
   invalidInput: string
   linkColor: string
+  grayBackgroundColor: string
 }
 export const commonLightColors = {
   backgroundAccentColor: '#fafafa',
@@ -31,4 +32,5 @@ export const commonLightColors = {
   negativeHighlight: '#8b0000',
   invalidInput: '#B3261E',
   linkColor: '#0b57d0',
+  grayBackgroundColor: '#dedede',
 }

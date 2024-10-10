@@ -5,6 +5,7 @@ import Animated, { useSharedValue, useAnimatedStyle, runOnJS } from 'react-nativ
 import styled from 'styled-components/native'
 
 const SLIDER_HANDLE_SIZE = 16
+const slightlyDarkGray = '#b9b9b9'
 
 const Container = styled.View`
   flex: 1;
@@ -15,7 +16,7 @@ const Container = styled.View`
 
 const SliderTrack = styled.View`
   height: 5px;
-  background-color: #b9b9b9;
+  background-color: ${slightlyDarkGray};
   border-radius: 25px;
   justify-content: center;
   position: relative;
@@ -32,7 +33,7 @@ const FilledTrack = styled(Animated.View)`
 const AnimatedSliderHandle = styled(Animated.View)`
   width: ${SLIDER_HANDLE_SIZE}px;
   height: ${SLIDER_HANDLE_SIZE}px;
-  background-color: #232323;
+  background-color: ${props => props.theme.colors.textColor};
   border-radius: ${SLIDER_HANDLE_SIZE / 2}px;
   position: absolute;
 `
@@ -42,7 +43,7 @@ const defaultMaxValue = 100
 const Slider = ({
   minValue = 0,
   maxValue = defaultMaxValue,
-  initialValue = 0, // prop to set the initial value
+  initialValue = 0,
   onValueChange,
 }: {
   minValue: number
@@ -56,7 +57,6 @@ const Slider = ({
   const SLIDER_WIDTH = width * widthPercentage
   const MAX_OFFSET = SLIDER_WIDTH - SLIDER_HANDLE_SIZE
 
-  // Set the initial offset value based on the initialValue prop
   useEffect(() => {
     if (initialValue >= minValue && initialValue <= maxValue) {
       const initialOffset = ((initialValue - minValue) / (maxValue - minValue)) * MAX_OFFSET

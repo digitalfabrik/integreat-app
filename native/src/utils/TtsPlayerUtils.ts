@@ -1,29 +1,10 @@
-const decodeHtmlEntities = (html: string): string =>
-  html
-    // Handle decimal entities like &#1610;
-    .replace(/&#(\d+);/g, (match, dec) => String.fromCharCode(dec))
-    // Handle hexadecimal entities like &#x1F600;
-    .replace(/&#x([0-9A-Fa-f]+);/g, (match, hex) => String.fromCharCode(parseInt(hex, 16)))
-    // Handle named entities like &quot;, &amp;
-    .replace(/&quot;/g, '"')
-    .replace(/&amp;/g, '&')
-    .replace(/&lt;/g, '<')
-    .replace(/&gt;/g, '>')
-    .replace(/&apos;/g, "'") // Apostrophe
+import { decode } from 'entities'
+import segment from 'sentencex'
 
-export const extractSentencesFromHtml = (html: string): string[] => {
-  const decodedText = decodeHtmlEntities(html)
-  // Remove HTML tags
-  const cleanText = decodedText.replace(/<\/?[^>]+(>|$)/g, '')
+const removeHtmlTags = (html: string): string => html.replace(/<\/?[^>]+(>|$)/g, ' ').trim()
 
-  // Split by periods but avoid splitting abbreviations
-  let sentences = cleanText
-    .split(/(?<!\b(?:e\.g|i\.e|etc|ex))\.\s+/i) // negative lookbehind for abbreviations
-    .map(sentence => sentence.trim())
-
-  // Further split based on newlines, if it's a list
-  sentences = sentences.flatMap(sentence => sentence.split(/\n+/).map(line => line.trim()))
-
-  // Filter out empty sentences
-  return sentences.filter(sentence => sentence.length > 0)
+export const extractSentencesFromHtml = (html: string, language: string): string[] => {
+  const decodedText = decode(html)
+  const removedTags = removeHtmlTags(decodedText)
+  return segment(language, removedTags)
 }
