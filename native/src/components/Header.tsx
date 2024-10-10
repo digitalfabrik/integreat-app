@@ -34,6 +34,8 @@ import CustomHeaderButtons from './CustomHeaderButtons'
 import HeaderBox from './HeaderBox'
 import HighlightBox from './HighlightBox'
 
+const DEFAULT_LANGUAGE = 'de'
+
 const Horizontal = styled.View`
   flex: 1;
   flex-direction: row;
@@ -199,11 +201,11 @@ const Header = ({
       ]
     : []
 
-  const getHeaderText = (): string => {
+  const getHeaderText = (): { text: string; language: string } => {
     const currentTitle = (route.params as { title?: string } | undefined)?.title
     if (!previousRoute) {
       // Home/Dashboard: Show current route title, i.e. city name
-      return currentTitle ?? ''
+      return { text: currentTitle ?? '', language: DEFAULT_LANGUAGE }
     }
 
     const previousParams = previousRoute.params
@@ -213,18 +215,35 @@ const Header = ({
     if (currentRouteIsPoi && notFromDeepLink) {
       const poisRouteParams = route.params as RoutesParamsType[PoisRouteType]
       if (poisRouteParams.slug || poisRouteParams.multipoi !== undefined) {
-        return t('locations')
+        return { text: t('locations'), language: '' } // system language
       }
     }
 
     const previousRouteTitle = (previousParams as { title?: string } | undefined)?.title
-    return previousRouteTitle ?? t(previousRoute.name === 'categories' ? 'localInformation' : previousRoute.name)
+    let language
+    if (previousRoute.name === CATEGORIES_ROUTE && !(previousParams as { path?: string }).path) {
+      language = DEFAULT_LANGUAGE
+    } else if (previousRouteTitle || previousRoute.name === CATEGORIES_ROUTE) {
+      language = languageCode
+    } else {
+      language = '' // systen language
+    }
+
+    return {
+      text: previousRouteTitle ?? t(previousRoute.name === CATEGORIES_ROUTE ? 'localInformation' : previousRoute.name),
+      language,
+    }
   }
 
   return (
     <BoxShadow>
       <Horizontal>
-        <HeaderBox goBack={navigation.goBack} canGoBack={canGoBack} text={getHeaderText()} />
+        <HeaderBox
+          goBack={navigation.goBack}
+          canGoBack={canGoBack}
+          text={getHeaderText().text}
+          language={getHeaderText().language}
+        />
         <CustomHeaderButtons cancelLabel={t('cancel')} items={items} overflowItems={overflowItems} />
       </Horizontal>
     </BoxShadow>
