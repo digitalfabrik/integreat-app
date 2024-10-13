@@ -87,15 +87,15 @@ const EventsPage = ({ city, pathname, languageCode, cityCode }: CityRouteProps):
     ),
   }
 
+  let returnedContent: React.ReactNode = null
+
   if (loading || pathname !== previousPathname) {
-    return (
+    returnedContent = (
       <CityContentLayout isLoading {...locationLayoutParams}>
         <LoadingSpinner />
       </CityContentLayout>
     )
-  }
-
-  if (!events || (eventId && !event)) {
+  } else if (!events || (eventId && !event)) {
     const error =
       eventsError ||
       new NotFoundError({
@@ -105,17 +105,15 @@ const EventsPage = ({ city, pathname, languageCode, cityCode }: CityRouteProps):
         language: languageCode,
       })
 
-    return (
+    returnedContent = (
       <CityContentLayout isLoading={false} {...locationLayoutParams}>
         <FailureSwitcher error={error} />
       </CityContentLayout>
     )
-  }
-
-  if (event) {
+  } else if (event) {
     const { featuredImage, lastUpdate, content, title, location, date } = event
 
-    return (
+    returnedContent = (
       <CityContentLayout isLoading={false} {...locationLayoutParams}>
         <Helmet pageTitle={pageTitle} languageChangePaths={languageChangePaths} cityModel={city} />
         <JsonLdEvent event={event} />
@@ -137,26 +135,27 @@ const EventsPage = ({ city, pathname, languageCode, cityCode }: CityRouteProps):
         />
       </CityContentLayout>
     )
+  } else {
+    const renderEventListItem = (event: EventModel) => (
+      <EventListItem event={event} languageCode={languageCode} key={event.path} />
+    )
+
+    returnedContent = (
+      <CityContentLayout isLoading={false} {...locationLayoutParams}>
+        <Helmet pageTitle={pageTitle} languageChangePaths={languageChangePaths} cityModel={city} />
+        <Caption title={t('events')} />
+        <EventsDateFilter
+          startDate={startDate}
+          setStartDate={setStartDate}
+          endDate={endDate}
+          setEndDate={setEndDate}
+          startDateError={startDateError}
+        />
+        <List noItemsMessage={t('currentlyNoEvents')} items={filteredEvents ?? []} renderItem={renderEventListItem} />
+      </CityContentLayout>
+    )
   }
-
-  const renderEventListItem = (event: EventModel) => (
-    <EventListItem event={event} languageCode={languageCode} key={event.path} />
-  )
-
-  return (
-    <CityContentLayout isLoading={false} {...locationLayoutParams}>
-      <Helmet pageTitle={pageTitle} languageChangePaths={languageChangePaths} cityModel={city} />
-      <Caption title={t('events')} />
-      <EventsDateFilter
-        startDate={startDate}
-        setStartDate={setStartDate}
-        endDate={endDate}
-        setEndDate={setEndDate}
-        startDateError={startDateError}
-      />
-      <List noItemsMessage={t('currentlyNoEvents')} items={filteredEvents ?? []} renderItem={renderEventListItem} />
-    </CityContentLayout>
-  )
+  return <>{returnedContent}</>
 }
 
 export default EventsPage
