@@ -2,8 +2,7 @@ import { DateTime } from 'luxon'
 import { useState, useMemo } from 'react'
 
 import { EventModel } from 'shared/api'
-
-import { isEventWithinRange, UseDateFilterReturn } from '../utils/DateFilterUtils'
+import { isEventWithinRange, UseDateFilterReturn } from 'shared/utils/dateFilterUtils'
 
 const useDateFilter = (events: EventModel[] | null): UseDateFilterReturn => {
   const [startDate, setStartDate] = useState<DateTime | null>(null)

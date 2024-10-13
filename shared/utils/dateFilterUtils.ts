@@ -30,7 +30,7 @@ export const isEventWithinRange = (
   const isWithinRange = isWithinDateRange(startDate, endDate, event.date.startDate, event.date.endDate)
 
   if (event.date.recurrenceRule) {
-    const recurrences = event.date.recurrences(MAX_DATE_RECURRENCES, startDate, endDate)
+    const recurrences = event.date.recurrences(MAX_DATE_RECURRENCES, startDate?.startOf('day'), endDate?.endOf('day'))
     const hasValidRecurrence = recurrences.some(recurrence =>
       isWithinDateRange(startDate, endDate, recurrence.startDate, recurrence.endDate),
     )
