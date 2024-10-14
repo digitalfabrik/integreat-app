@@ -12,7 +12,7 @@
       "metaDescription": "{{appName}} በጀርመን ላለው ህይወት የእርስዎ ዲጂታል መመሪያ ነው። አካባቢያዊ መረጃን፣ ክንዉኖችን እና ምክርን ያግኙ። በእርስዎ ቋንቋ ሁልጊዜ የቅርብ ጊዜ የሆነ እና የሚገኝ ነው።",
       "organizationContent": "የዚህ ገጽ ይዘቶች ከ{{organization}} ናቸው።",
       "organizationMoreInformation": "ስለ <1>{{organization}}</1> on <3>{{domain}}</3> ተጨማሪ መረጃ ማግኘት ይችላሉ።",
-      "disabledPdf": "/ፒዲኤፍ/pdf ወደ ውጭ መላክ በአሁኑ ጊዜ በዚህ ቋንቋ አይቻልም።"
+      "disabledPdf": "/ፒዲኤፍ ወደ ውጭ መላክ በአሁኑ ጊዜ በዚህ ቋንቋ አይቻልም።"
     },
     "ar": {
       "createPdf": "إصدار ملف PDF",
@@ -285,8 +285,8 @@
       "inputLabel": "የኔ ጥያቄ፡-",
       "inputPlaceholder": "ማወቅ እፈልጋለሁ...",
       "loadingText": "እባካችሁ አንድ አፍታ ውይይቱ እየተጀመረ ነው...",
-      "sendButton": "ካንተ",
-      "user": "የ"
+      "sendButton": "ለክ ",
+      "user": "እርስዎ "
     },
     "ar": {
       "button": "دردشة (بيتا)",
@@ -6008,7 +6008,7 @@
       "refresh": "በቅርብ የሚገኙት ኣከባቢዎች መዝገብ ማሻሻል",
       "pageTitle": "ለእርስዎ አካባቢያዊ መረጃ",
       "metaDescription": "{{appName}} በጀርመን ላለው ህይወት የእርስዎ ዲጂታል መመሪያ ነው። አካባቢያዊ መረጃን፣ ክንዉኖችን እና ምክርን ያግኙ። በእርስዎ ቋንቋ ሁልጊዜ የቅርብ ጊዜ የሆነ እና የሚገኝ ነው።",
-      "cityNotFound": "ክልልህን አላገኘህም? አሁን ንቁ ይሁኑ!",
+      "cityNotFound": "ክልልህ አልተገኘም? አሁን እርምጃ ይውሰዱ! ",
       "suggestToRegion": "{{appName}} በክልልዎ ውስጥ ይጠቁሙ"
     },
     "ar": {
