@@ -30,12 +30,12 @@ found [here](build-configs.md).**
 - [Install and setup Fastlane](../../docs/cicd.md#fastlane-setup).
 - Read about [Apple Certificates](apple-certifcates.md).
 - To set up the certificates: have access to the `app-credentials` repo, and the Passbolt folder Integreat App
-Publishing
+  Publishing
 
 #### Certificates Setup
 
-- If none of your devices are logged in to the Apple account of  the app team, warn someone with a logged in device
-that you will need a code in a few minutes. That could be e.g. Steffi, Andy, or Leandra.
+- If none of your devices are logged in to the Apple account of the app team, warn someone with a logged in device
+  that you will need a code in a few minutes. That could be e.g. Steffi, Andy, or Leandra.
 
 - Install the certificates locally:
 
@@ -48,10 +48,10 @@ cd ios && fastlane match development (or whichever environment you need)
 - The password that you need to fill in twice is saved in Passbolt as Digitalfabrik Fastlane Match.
 
 - The Apple account that you need to sign in to is the one of the app team, the password is in Passbolt. This is also
-the step where you will need the second factor.
+  the step where you will need the second factor.
 
 - You will need to add all the app_identifier you want to work with, in case of Integreat and its whitelabels, that would
-be `de.integreat-app,app.aschaffenburg,de.malteapp.` If you fill in an invalid one, you get a list with the available ones.
+  be `de.integreat-app,app.aschaffenburg,de.malteapp.` If you fill in an invalid one, you get a list with the available ones.
 
 ##### Trouble Shooting
 
