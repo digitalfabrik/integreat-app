@@ -24,7 +24,7 @@ const POLLING_INTERVAL = 16000
 const ChatController = ({ city, language }: ChatControllerProps): ReactElement => {
   const [sendingStatus, setSendingStatus] = useState<SendingStatusType>('idle')
   const { value: deviceId } = useLocalStorage({
-    key: LOCAL_STORAGE_ITEM_CHAT_MESSAGES,
+    key: `${LOCAL_STORAGE_ITEM_CHAT_MESSAGES}-${city}`,
     initialValue: window.crypto.randomUUID(),
   })
   const {
