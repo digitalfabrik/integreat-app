@@ -191,6 +191,15 @@ const Header = ({
     ),
     renderItem(HeaderButtonTitle.Language, 'language', showItems, goToLanguageChange),
   ]
+
+  const unsupportedLanguagesForTts = ['fa']
+  const ttsEnabled =
+    content &&
+    (buildConfig().appName === 'IntegreatTestCms' || buildConfig().appName === 'Integreat') &&
+    !unsupportedLanguagesForTts.includes(languageCode)
+      ? renderOverflowItem(t(`${HeaderButtonTitle.ReadAloud}`), onRead)
+      : []
+
   const overflowItems = showOverflowItems
     ? [
         ...(shareUrl ? [renderOverflowItem(HeaderButtonTitle.Share, onShare)] : []),
@@ -198,13 +207,7 @@ const Header = ({
           ? [renderOverflowItem(HeaderButtonTitle.Location, () => navigation.navigate(LANDING_ROUTE))]
           : []),
         renderOverflowItem(HeaderButtonTitle.Settings, () => navigation.navigate(SETTINGS_ROUTE)),
-        ...[
-          content &&
-          (buildConfig().appName === 'IntegreatTestCms' || buildConfig().appName === 'Integreat') &&
-          languageCode !== 'fa'
-            ? renderOverflowItem(t(`${HeaderButtonTitle.ReadAloud}`), onRead)
-            : [],
-        ],
+        ...[ttsEnabled],
         ...(route.name !== NEWS_ROUTE ? [renderOverflowItem(HeaderButtonTitle.Feedback, navigateToFeedback)] : []),
         ...(route.name !== DISCLAIMER_ROUTE
           ? [renderOverflowItem(HeaderButtonTitle.Disclaimer, () => navigation.navigate(DISCLAIMER_ROUTE))]

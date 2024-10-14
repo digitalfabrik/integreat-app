@@ -6,6 +6,7 @@ import Tts from 'react-native-tts'
 import styled from 'styled-components/native'
 
 import { CloseIcon, NoSoundIcon, PauseIcon, PlaybackIcon, PlayIcon, SoundIcon } from '../assets'
+import { isRTL } from '../constants/contentDirection'
 import { AppContext } from '../contexts/AppContextProvider'
 import { extractSentencesFromHtml } from '../utils/TtsPlayerUtils'
 import { reportError } from '../utils/sentry'
@@ -60,8 +61,8 @@ const StyledNoSoundIcon = styled(Icon)`
   width: 18px;
 `
 
-const BackForthIcon = styled(Icon)<{ $flip: boolean }>`
-  transform: ${props => (props.$flip ? 'scaleX(-1)' : '')};
+const FlipView = styled.View`
+  transform: scaleX(-1);
 `
 
 const StyledText = styled(Text)`
@@ -287,7 +288,7 @@ const TtsPlayer = ({ initialVisibility = false, children }: TtsPlayerProps): Rea
             {expandPlayer && (
               <StyledBackForthButton accessibilityLabel='backward Button' onPress={handleBackward}>
                 <StyledText>{t('prev')}</StyledText>
-                <BackForthIcon $flip Icon={PlaybackIcon} />
+                <Icon Icon={PlaybackIcon} />
               </StyledBackForthButton>
             )}
             <StyledPlayIcon
@@ -304,13 +305,15 @@ const TtsPlayer = ({ initialVisibility = false, children }: TtsPlayerProps): Rea
             />
             {expandPlayer && (
               <StyledBackForthButton accessibilityLabel='Forward Button' onPress={handleForward}>
-                <BackForthIcon $flip={false} Icon={PlaybackIcon} />
+                <FlipView>
+                  <Icon Icon={PlaybackIcon} />
+                </FlipView>
                 <StyledText>{t('next')}</StyledText>
               </StyledBackForthButton>
             )}
           </StyledPanel>
           {expandPlayer && (
-            <StyledPanel style={{ paddingHorizontal: 10 }}>
+            <StyledPanel style={{ paddingHorizontal: 10, flexDirection: isRTL() ? 'row-reverse' : 'row' }}>
               <StyledNoSoundIcon Icon={NoSoundIcon} />
               <Slider maxValue={100} minValue={0} initialValue={volume} onValueChange={handleVolumeChange} />
               <Icon Icon={SoundIcon} />

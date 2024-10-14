@@ -4,6 +4,8 @@ import { GestureHandlerRootView, GestureDetector, Gesture } from 'react-native-g
 import Animated, { useSharedValue, useAnimatedStyle, runOnJS } from 'react-native-reanimated'
 import styled from 'styled-components/native'
 
+import { isRTL } from '../constants/contentDirection'
+
 const SLIDER_HANDLE_SIZE = 16
 const slightlyDarkGray = '#b9b9b9'
 
@@ -27,7 +29,7 @@ const FilledTrack = styled(Animated.View)`
   background-color: ${props => props.theme.colors.textSecondaryColor};
   border-radius: 25px;
   position: absolute;
-  left: 0;
+  ${isRTL() ? `right:0;` : `left: 0;`}
 `
 
 const AnimatedSliderHandle = styled(Animated.View)`
@@ -36,6 +38,7 @@ const AnimatedSliderHandle = styled(Animated.View)`
   background-color: ${props => props.theme.colors.textColor};
   border-radius: ${SLIDER_HANDLE_SIZE / 2}px;
   position: absolute;
+  ${isRTL() ? `right:0;` : `left: 0;`}
 `
 
 const defaultMaxValue = 100
@@ -91,7 +94,7 @@ const Slider = ({
   }))
 
   return (
-    <GestureHandlerRootView style={{ flex: 1 }}>
+    <GestureHandlerRootView style={{ flex: 1, direction: 'ltr' }}>
       <Container>
         <SliderTrack style={{ width: SLIDER_WIDTH }}>
           <FilledTrack style={filledTrackStyle} />

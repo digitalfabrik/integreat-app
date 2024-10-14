@@ -135,7 +135,7 @@ const RemoteContent = (props: RemoteContentProps): ReactElement | null => {
   if (error) {
     return <Failure code={ErrorCode.UnknownError} />
   }
-  const ttsPlayerHeight = 50
+
   return (
     <WebView
       source={{
@@ -168,7 +168,7 @@ const RemoteContent = (props: RemoteContentProps): ReactElement | null => {
       // https://github.com/react-native-webview/react-native-webview/issues/1869
       setSupportMultipleWindows={false}
       style={{
-        height: visible ? webViewHeight + ttsPlayerHeight : webViewHeight,
+        height: visible ? webViewHeight + dimensions.ttsPlayerHeight : webViewHeight,
         opacity: 0.99, // fixes crashing in Android https://github.com/react-native-webview/react-native-webview/issues/811
       }}
     />
