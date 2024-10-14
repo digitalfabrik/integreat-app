@@ -9,6 +9,12 @@ import TtsPlayer from '../TtsPlayer'
 jest.mock('react-i18next')
 jest.mock('react-native-tts')
 
+jest.mock('react-native-reanimated', () => {
+  const Reanimated = require('react-native-reanimated/mock')
+  Reanimated.useEvent = jest.fn()
+  return Reanimated
+})
+
 describe('TtsPlayer', () => {
   const TestChild = () => {
     const { setContent, setTitle, setVisible } = useTtsPlayer()
