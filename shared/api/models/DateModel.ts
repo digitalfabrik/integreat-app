@@ -76,10 +76,9 @@ class DateModel {
 
     const now = DateTime.now()
     const duration = this._endDate.diff(this._startDate)
-    const minDate = filterStartDate
-      ? filterStartDate.minus(duration).minus({ minutes: filterStartDate.offset }).toJSDate()
-      : now.minus(duration).minus({ minutes: now.offset }).toJSDate() // to also include events that are happening right now
-    const maxDate = filterEndDate ? filterEndDate.toJSDate() : now.plus({ years: MAX_RECURRENCE_YEARS }).toJSDate()
+    const startDate = filterStartDate ?? now
+    const minDate = startDate.minus(duration).minus({ minutes: startDate.offset }).toJSDate() // to also include events that are happening right now
+    const maxDate = (filterEndDate ?? now.plus({ years: MAX_RECURRENCE_YEARS })).toJSDate()
 
     // The rrule package considers all times to be in UTC time zones and ignores time zone offsets
     // So we manually subtract the offset before getting the recurrences and add it back in after

@@ -3,15 +3,6 @@ import { DateTime } from 'luxon'
 import { EventModel } from '../api'
 import { MAX_DATE_RECURRENCES } from '../constants'
 
-export type UseDateFilterReturn = {
-  startDate: DateTime | null
-  setStartDate: (startDate: DateTime | null) => void
-  endDate: DateTime | null
-  setEndDate: (endDate: DateTime | null) => void
-  filteredEvents: EventModel[] | null
-  startDateError: string | null
-}
-
 const isWithinDateRange = (
   startDate: DateTime | null,
   endDate: DateTime | null,
