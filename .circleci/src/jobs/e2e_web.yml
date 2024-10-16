@@ -1,5 +1,5 @@
 docker:
-  - image: cimg/node:20.12.1-browsers
+  - image: cimg/node:20.17.0-browsers
   - image: selenium/standalone-chrome
 resource_class: medium
 shell: /bin/bash -eo pipefail
