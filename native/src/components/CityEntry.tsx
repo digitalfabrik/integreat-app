@@ -1,4 +1,4 @@
-import React, { Fragment, memo, ReactElement } from 'react'
+import React, { Fragment, memo, ReactElement, useContext } from 'react'
 import { Text } from 'react-native'
 import Highlighter from 'react-native-highlight-words'
 import styled from 'styled-components/native'
@@ -6,6 +6,7 @@ import styled from 'styled-components/native'
 import { normalizeString } from 'shared'
 import { CityModel } from 'shared/api'
 
+import { AppContext } from '../contexts/AppContextProvider'
 import testID from '../testing/testID'
 import Pressable from './base/Pressable'
 
@@ -52,6 +53,7 @@ const CityEntry = ({ city, query, navigateToDashboard }: CityEntryProps): ReactE
       ? Object.keys(city.aliases).filter(alias => normalizeString(alias).includes(normalizedQuery))
       : []
   const aliases = matchingAliases.slice(0, MAX_NUMBER_OF_ALIASES_SHOWN)
+  const { languageCode } = useContext(AppContext)
 
   const Aliases =
     aliases.length > 0 ? (
@@ -86,7 +88,11 @@ const CityEntry = ({ city, query, navigateToDashboard }: CityEntryProps): ReactE
     ) : null
 
   return (
-    <CityListItem role='link' {...testID('City-Entry')} onPress={() => navigateToDashboard(city)}>
+    <CityListItem
+      role='link'
+      {...testID('City-Entry')}
+      onPress={() => navigateToDashboard(city)}
+      accessibilityLanguage={languageCode}>
       <>
         <Label
           searchWords={[normalizedQuery]}

@@ -7,6 +7,7 @@ import { LocalNewsModel, TunewsModel } from 'shared/api'
 import { ArrowBackIcon } from '../assets'
 import { EXCERPT_MAX_LINES } from '../constants'
 import { contentDirection } from '../constants/contentDirection'
+import { useAppContext } from '../hooks/useCityAppContext'
 import TimeStamp from './TimeStamp'
 import Icon from './base/Icon'
 import Pressable from './base/Pressable'
@@ -81,12 +82,13 @@ export const ReadMore = styled(Text)<{ isTunews: boolean }>`
 const NewsListItem = ({ index, newsItem, navigateToNews, isTunews }: NewsListItemProps): ReactElement => {
   const { t, i18n } = useTranslation('news')
   const timestamp = newsItem instanceof LocalNewsModel ? newsItem.timestamp : null
+  const { languageCode } = useAppContext()
 
   return (
     <>
       <Divider firstItem={index === 0} />
       <ListItemWrapper>
-        <StyledPressable onPress={navigateToNews} role='link'>
+        <StyledPressable onPress={navigateToNews} accessibilityLanguage={languageCode} role='link'>
           <Description>
             <Title>{newsItem.title}</Title>
             <Content numberOfLines={EXCERPT_MAX_LINES}>{newsItem.content}</Content>
@@ -96,11 +98,13 @@ const NewsListItem = ({ index, newsItem, navigateToNews, isTunews }: NewsListIte
               </TimeStampContent>
             )}
           </Description>
+        </StyledPressable>
+        <Pressable role='link' onPress={navigateToNews}>
           <ReadMoreWrapper language={i18n.language}>
             <ReadMore isTunews={isTunews} onPress={navigateToNews}>{`${t('readMore')}`}</ReadMore>
             <StyledIcon Icon={ArrowBackIcon} directionDependent reverse isTunews={isTunews} />
           </ReadMoreWrapper>
-        </StyledPressable>
+        </Pressable>
       </ListItemWrapper>
     </>
   )
