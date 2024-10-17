@@ -214,7 +214,7 @@ const Header = ({
     if (currentRouteIsPoi && notFromDeepLink) {
       const poisRouteParams = route.params as RoutesParamsType[PoisRouteType]
       if (poisRouteParams.slug || poisRouteParams.multipoi !== undefined) {
-        return { text: t('locations'), language: undefined }
+        return { text: t('locations'), language: undefined } // system language
       }
     }
 
@@ -231,7 +231,7 @@ const Header = ({
       }
     }
 
-    return { text: previousRoute.name, language: undefined }
+    return { text: previousRoute.name, language: undefined } // system language
   }
 
   return (
