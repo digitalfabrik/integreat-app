@@ -20,6 +20,7 @@ import {
   SETTINGS_ROUTE,
 } from 'shared'
 import { LanguageModel, FeedbackRouteType } from 'shared/api'
+import { config } from 'translations'
 
 import { NavigationProps, RouteProps, RoutesParamsType, RoutesType } from '../constants/NavigationTypes'
 import buildConfig from '../constants/buildConfig'
@@ -33,8 +34,6 @@ import { reportError } from '../utils/sentry'
 import CustomHeaderButtons from './CustomHeaderButtons'
 import HeaderBox from './HeaderBox'
 import HighlightBox from './HighlightBox'
-
-const DEFAULT_LANGUAGE = 'de'
 
 const Horizontal = styled.View`
   flex: 1;
@@ -201,11 +200,11 @@ const Header = ({
       ]
     : []
 
-  const getHeaderText = (): { text: string; language: string } => {
+  const getHeaderText = (): { text: string; language?: string } => {
     const currentTitle = (route.params as { title?: string } | undefined)?.title
     if (!previousRoute) {
       // Home/Dashboard: Show current route title, i.e. city name
-      return { text: currentTitle ?? '', language: DEFAULT_LANGUAGE }
+      return { text: currentTitle ?? '', language: config.sourceLanguage }
     }
 
     const previousParams = previousRoute.params
@@ -215,18 +214,18 @@ const Header = ({
     if (currentRouteIsPoi && notFromDeepLink) {
       const poisRouteParams = route.params as RoutesParamsType[PoisRouteType]
       if (poisRouteParams.slug || poisRouteParams.multipoi !== undefined) {
-        return { text: t('locations'), language: '' } // system language
+        return { text: t('locations'), language: undefined }
       }
     }
 
     const previousRouteTitle = (previousParams as { title?: string } | undefined)?.title
     let language
     if (previousRoute.name === CATEGORIES_ROUTE && !(previousParams as { path?: string }).path) {
-      language = DEFAULT_LANGUAGE
+      language = config.sourceLanguage
     } else if (previousRouteTitle || previousRoute.name === CATEGORIES_ROUTE) {
       language = languageCode
     } else {
-      language = '' // systen language
+      language = undefined
     }
 
     return {
