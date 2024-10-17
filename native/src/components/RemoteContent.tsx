@@ -18,6 +18,7 @@ import {
 } from '../constants/webview'
 import { useAppContext } from '../hooks/useCityAppContext'
 import useNavigate from '../hooks/useNavigate'
+import useTtsPlayer from '../hooks/useTtsPlayer'
 import renderHtml from '../utils/renderHtml'
 import { log, reportError } from '../utils/sentry'
 import Failure from './Failure'
@@ -65,6 +66,7 @@ const RemoteContent = ({
   const { settings, updateSettings } = useAppContext()
   const { navigateTo } = useNavigate()
   const { externalSourcePermissions } = settings
+  const { visible } = useTtsPlayer()
 
   // https://github.com/react-native-webview/react-native-webview/issues/1069#issuecomment-651699461
   const defaultWebviewHeight = 1
@@ -181,7 +183,7 @@ const RemoteContent = ({
       // https://github.com/react-native-webview/react-native-webview/issues/1869
       setSupportMultipleWindows={false}
       style={{
-        height: webViewHeight,
+        height: visible ? webViewHeight + dimensions.ttsPlayerHeight : webViewHeight,
         opacity: loading ? LOADING_OPACITY : DEFAULT_OPACITY,
       }}
     />

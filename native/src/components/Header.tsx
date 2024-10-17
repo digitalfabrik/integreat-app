@@ -26,6 +26,7 @@ import buildConfig from '../constants/buildConfig'
 import dimensions from '../constants/dimensions'
 import { AppContext } from '../contexts/AppContextProvider'
 import useSnackbar from '../hooks/useSnackbar'
+import useTtsPlayer from '../hooks/useTtsPlayer'
 import createNavigateToFeedbackModal from '../navigation/createNavigateToFeedbackModal'
 import navigateToLanguageChange from '../navigation/navigateToLanguageChange'
 import sendTrackingSignal from '../utils/sendTrackingSignal'
@@ -50,6 +51,7 @@ enum HeaderButtonTitle {
   Language = 'changeLanguage',
   Location = 'changeLocation',
   Search = 'search',
+  ReadAloud = 'readAloud',
   Share = 'share',
   Settings = 'settings',
   Feedback = 'feedback',
@@ -82,6 +84,7 @@ const Header = ({
   // Save route/canGoBack to state to prevent it from changing during navigating which would lead to flickering of the title and back button
   const [previousRoute] = useState(navigation.getState().routes[navigation.getState().routes.length - 2])
   const [canGoBack] = useState(navigation.canGoBack())
+  const { setVisible: setTtsPlayerVisible, content } = useTtsPlayer()
 
   const onShare = async () => {
     if (!shareUrl) {
@@ -185,6 +188,14 @@ const Header = ({
     renderItem(HeaderButtonTitle.Language, 'language', showItems, goToLanguageChange),
   ]
 
+  const unsupportedLanguagesForTts = ['fa']
+  const ttsEnabled =
+    content &&
+    (buildConfig().appName === 'IntegreatTestCms' || buildConfig().appName === 'Integreat') &&
+    !unsupportedLanguagesForTts.includes(languageCode)
+      ? renderOverflowItem(t(`${HeaderButtonTitle.ReadAloud}`), () => setTtsPlayerVisible(true))
+      : []
+
   const overflowItems = showOverflowItems
     ? [
         ...(shareUrl ? [renderOverflowItem(HeaderButtonTitle.Share, onShare)] : []),
@@ -192,6 +203,7 @@ const Header = ({
           ? [renderOverflowItem(HeaderButtonTitle.Location, () => navigation.navigate(LANDING_ROUTE))]
           : []),
         renderOverflowItem(HeaderButtonTitle.Settings, () => navigation.navigate(SETTINGS_ROUTE)),
+        ...[ttsEnabled],
         ...(route.name !== NEWS_ROUTE ? [renderOverflowItem(HeaderButtonTitle.Feedback, navigateToFeedback)] : []),
         ...(route.name !== DISCLAIMER_ROUTE
           ? [renderOverflowItem(HeaderButtonTitle.Disclaimer, () => navigation.navigate(DISCLAIMER_ROUTE))]

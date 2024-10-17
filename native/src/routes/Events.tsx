@@ -16,6 +16,7 @@ import LayoutedScrollView from '../components/LayoutedScrollView'
 import List from '../components/List'
 import Page from '../components/Page'
 import PageDetail from '../components/PageDetail'
+import useTtsPlayer from '../hooks/useTtsPlayer'
 
 const ListContainer = styled(Layout)`
   padding: 0 8px;
@@ -41,6 +42,8 @@ export type EventsProps = {
 
 const Events = ({ cityModel, language, navigateTo, events, slug, refresh }: EventsProps): ReactElement => {
   const { t } = useTranslation('events')
+  const event = slug ? events.find(it => it.slug === slug) : null
+  useTtsPlayer(event?.content ?? '', event?.title ?? 'Events')
 
   if (!cityModel.eventsEnabled) {
     const error = new NotFoundError({

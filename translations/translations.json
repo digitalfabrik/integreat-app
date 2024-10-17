@@ -6631,7 +6631,10 @@
       "disclaimer": "Impressum",
       "sideBarOpenAriaLabel": "Seitenleiste öffnen",
       "sideBarCloseAriaLabel": "Seitenleiste schließen",
-      "accessibility": "Barrierefreiheit"
+      "accessibility": "Barrierefreiheit",
+      "readAloud": "Vorlesefunktion",
+      "prev": "Zurück",
+      "next": "Weiter"
     },
     "am": {
       "imprintAndContact": "ዕትም እና የግንኙነት መረጃ",
@@ -6681,7 +6684,10 @@
       "disclaimer": "هيئة التحرير",
       "sideBarOpenAriaLabel": "فتح الشريط الجانبي",
       "sideBarCloseAriaLabel": "غلق الشريط الجانبي",
-      "accessibility": "حرية الوصول"
+      "accessibility": "حرية الوصول",
+      "readAloud": "قراءة بصوت عالٍ",
+      "prev": "السابق",
+      "next": "التالي"
     },
     "bg": {
       "imprintAndContact": "Импресум и контакт",
@@ -6831,7 +6837,10 @@
       "disclaimer": "Imprint",
       "sideBarOpenAriaLabel": "Open sidebar",
       "sideBarCloseAriaLabel": "Close sidebar",
-      "accessibility": "Accessibility"
+      "accessibility": "Accessibility",
+      "readAloud": "Read aloud",
+      "prev": "Prev",
+      "next": "Next"
     },
     "es": {
       "imprintAndContact": "Aviso legal y contacto",
