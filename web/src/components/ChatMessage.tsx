@@ -5,6 +5,7 @@ import styled from 'styled-components'
 
 import ChatMessageModel from 'shared/api/models/ChatMessageModel'
 
+import { ChatbotBot, ChatbotPerson } from '../assets'
 import buildConfig from '../constants/buildConfig'
 import RemoteContent from './RemoteContent'
 import Icon from './base/Icon'
@@ -51,15 +52,21 @@ type ChatMessageProps = { message: ChatMessageModel; showIcon: boolean }
 
 const ChatMessage = ({ message, showIcon }: ChatMessageProps): ReactElement => {
   // TODO 2799 Check if Remote content is really needed here or how external links will be delivered via api
-  const { icons } = buildConfig()
   const navigate = useNavigate()
   const { t } = useTranslation('chat')
-  const { body, userIsAuthor } = message
+  const { body, userIsAuthor, isAutomaticAnswer } = message
+
+  const getIcon = (userIsAuthor: boolean, isAutomaticAnswer: boolean): ReactElement => {
+    if (userIsAuthor) {
+      return <Circle>{t('user')}</Circle>
+    }
+    const icon = isAutomaticAnswer ? ChatbotBot : ChatbotPerson
+    return <Icon src={icon} />
+  }
+
   return (
     <Container $isAuthor={userIsAuthor}>
-      <IconContainer $visible={showIcon}>
-        {userIsAuthor ? <Circle>{t('user')}</Circle> : <Icon src={icons.appLogoMobile} />}
-      </IconContainer>
+      <IconContainer $visible={showIcon}>{getIcon(userIsAuthor, isAutomaticAnswer)}</IconContainer>
       <Message data-testid={message.id}>
         <RemoteContent html={body} onInternalLinkClick={navigate} smallText />
       </Message>
