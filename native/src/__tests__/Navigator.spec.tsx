@@ -23,7 +23,7 @@ jest.mock('../utils/sentry')
 jest.mock('react-native/Libraries/Utilities/useWindowDimensions')
 jest.mock('react-i18next')
 jest.mock('react-native/Libraries/EventEmitter/NativeEventEmitter')
-jest.mock('react-native-webview', () => ({
+jest.mock('@dr.pogodin/react-native-webview', () => ({
   default: () => jest.fn(),
 }))
 jest.mock('../routes/Intro', () => {
