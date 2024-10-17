@@ -1,7 +1,6 @@
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
-import { SectionList, SectionListData } from 'react-native'
-import styled from 'styled-components/native'
+import { FlatList } from 'react-native'
 
 import { SettingsRouteType } from 'shared'
 
@@ -18,15 +17,6 @@ import { log, reportError } from '../utils/sentry'
 type SettingsProps = {
   navigation: NavigationProps<SettingsRouteType>
 }
-
-type SectionType = SectionListData<SettingsSectionType> & {
-  title?: string | null
-}
-
-const SectionHeader = styled.Text`
-  padding: 20px;
-  color: ${props => props.theme.colors.textColor};
-`
 
 const Settings = ({ navigation }: SettingsProps): ReactElement => {
   const appContext = useCityAppContext()
@@ -46,36 +36,24 @@ const Settings = ({ navigation }: SettingsProps): ReactElement => {
 
   const renderItem = ({ item }: { item: SettingsSectionType }) => {
     const { getSettingValue, onPress, ...otherProps } = item
-    const value = !!(getSettingValue && getSettingValue(settings))
+    const value = getSettingValue ? !!getSettingValue(settings) : null
     return <SettingItem value={value} key={otherProps.title} onPress={safeOnPress(onPress)} {...otherProps} />
   }
 
-  const renderSectionHeader = ({ section: { title } }: { section: SectionType }) => {
-    if (!title) {
-      return null
-    }
-
-    return <SectionHeader>{title}</SectionHeader>
-  }
-
-  const sections = createSettingsSections({
-    appContext,
-    navigation,
-    showSnackbar,
-    t,
-  })
+  const sections = createSettingsSections({ appContext, navigation, showSnackbar, t }).filter(
+    (it): it is SettingsSectionType => it !== null,
+  )
 
   return (
     <Layout>
       <Caption title={t('layout:settings')} />
-      <SectionList
-        sections={sections}
-        extraData={settings}
+      <ItemSeparator />
+      <FlatList
+        data={sections}
+        extraData={appContext.settings}
         renderItem={renderItem}
-        renderSectionHeader={renderSectionHeader}
         ItemSeparatorComponent={ItemSeparator}
-        SectionSeparatorComponent={ItemSeparator}
-        stickySectionHeadersEnabled={false}
+        ListFooterComponent={ItemSeparator}
       />
     </Layout>
   )

@@ -48,20 +48,20 @@ describe('createSettingsSections', () => {
       navigation,
       showSnackbar,
       t,
-    })[0]!.data
+    })
 
   describe('allowPushNotifications', () => {
     it('should not include push notification setting if disabled', () => {
       mockedPushNotificationsEnabled.mockImplementation(() => false)
       const sections = createSettings()
-      expect(sections.find(it => it.title === 'privacyPolicy')).toBeTruthy()
-      expect(sections.find(it => it.title === 'pushNewsTitle')).toBeFalsy()
+      expect(sections.find(it => it?.title === 'privacyPolicy')).toBeTruthy()
+      expect(sections.find(it => it?.title === 'pushNewsTitle')).toBeFalsy()
     })
 
     it('should set correct setting on press', async () => {
       mockedPushNotificationsEnabled.mockImplementation(() => true)
       const sections = createSettings()
-      const pushNotificationSection = sections.find(it => it.title === 'pushNewsTitle')!
+      const pushNotificationSection = sections.find(it => it?.title === 'pushNewsTitle')!
       await pushNotificationSection!.onPress()
       expect(updateSettings).toHaveBeenCalledTimes(1)
       expect(updateSettings).toHaveBeenCalledWith({ allowPushNotifications: false })
@@ -77,7 +77,7 @@ describe('createSettingsSections', () => {
     it('should unsubscribe from push notification topic', async () => {
       mockedPushNotificationsEnabled.mockImplementation(() => true)
       const sections = createSettings()
-      const pushNotificationSection = sections.find(it => it.title === 'pushNewsTitle')!
+      const pushNotificationSection = sections.find(it => it?.title === 'pushNewsTitle')!
 
       expect(mockUnsubscribeNews).not.toHaveBeenCalled()
 
@@ -95,7 +95,7 @@ describe('createSettingsSections', () => {
     it('should subscribe to push notification topic if permission is granted', async () => {
       mockedPushNotificationsEnabled.mockImplementation(() => true)
       const sections = createSettings({ allowPushNotifications: false })
-      const pushNotificationSection = sections.find(it => it.title === 'pushNewsTitle')!
+      const pushNotificationSection = sections.find(it => it?.title === 'pushNewsTitle')!
 
       expect(mockRequestPushNotificationPermission).not.toHaveBeenCalled()
       expect(mockSubscribeNews).not.toHaveBeenCalled()
@@ -120,7 +120,7 @@ describe('createSettingsSections', () => {
     it('should open settings and return false if permissions not granted', async () => {
       mockedPushNotificationsEnabled.mockImplementation(() => true)
       const sections = createSettings({ allowPushNotifications: false })
-      const pushNotificationSection = sections.find(it => it.title === 'pushNewsTitle')!
+      const pushNotificationSection = sections.find(it => it?.title === 'pushNewsTitle')!
 
       expect(mockRequestPushNotificationPermission).not.toHaveBeenCalled()
       expect(mockSubscribeNews).not.toHaveBeenCalled()

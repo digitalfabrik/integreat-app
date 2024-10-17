@@ -1,6 +1,6 @@
 import * as Sentry from '@sentry/react-native'
 import { TFunction } from 'i18next'
-import { Role, SectionListData } from 'react-native'
+import { Role } from 'react-native'
 import { openSettings } from 'react-native-permissions'
 
 import { CONSENT_ROUTE, JPAL_TRACKING_ROUTE, LICENSES_ROUTE, SettingsRouteType } from 'shared'
@@ -26,7 +26,6 @@ export type SettingsSectionType = {
   onPress: () => Promise<void> | void
   bigTitle?: boolean
   role?: Role
-  hasSwitch?: boolean
   hasBadge?: boolean
   getSettingValue?: (settings: SettingsType) => boolean | null
 }
@@ -49,123 +48,105 @@ const createSettingsSections = ({
   navigation,
   showSnackbar,
   t,
-}: CreateSettingsSectionsProps): Readonly<Array<SectionListData<SettingsSectionType>>> => [
+}: CreateSettingsSectionsProps): (SettingsSectionType | null)[] => [
+  pushNotificationsEnabled()
+    ? {
+        title: t('pushNewsTitle'),
+        description: t('pushNewsDescription'),
+        getSettingValue: (settings: SettingsType) => settings.allowPushNotifications,
+        onPress: async () => {
+          const allowPushNotifications = !settings.allowPushNotifications
+          updateSettings({ allowPushNotifications })
+          if (!allowPushNotifications) {
+            await unsubscribeNews(cityCode, languageCode)
+            return
+          }
+
+          const status = await requestPushNotificationPermission(updateSettings)
+
+          if (status) {
+            await subscribeNews({ cityCode, languageCode, allowPushNotifications, skipSettingsCheck: true })
+          } else {
+            updateSettings({ allowPushNotifications: false })
+            // If the user has rejected the permission once, it can only be changed in the system settings
+            showSnackbar({
+              text: 'noPushNotificationPermission',
+              positiveAction: {
+                label: t('layout:settings'),
+                onPress: openSettings,
+              },
+            })
+          }
+        },
+      }
+    : null,
   {
-    title: null,
-    data: [
-      ...(!pushNotificationsEnabled()
-        ? []
-        : [
-            {
-              title: t('pushNewsTitle'),
-              description: t('pushNewsDescription'),
-              hasSwitch: true,
-              getSettingValue: (settings: SettingsType) => settings.allowPushNotifications,
-              onPress: async () => {
-                const allowPushNotifications = !settings.allowPushNotifications
-                updateSettings({ allowPushNotifications })
-                if (!allowPushNotifications) {
-                  await unsubscribeNews(cityCode, languageCode)
-                  return
-                }
+    title: t('sentryTitle'),
+    description: t('sentryDescription', { appName: buildConfig().appName }),
+    getSettingValue: (settings: SettingsType) => settings.errorTracking,
+    onPress: async () => {
+      const errorTracking = !settings.errorTracking
+      updateSettings({ errorTracking })
 
-                const status = await requestPushNotificationPermission(updateSettings)
-
-                if (status) {
-                  await subscribeNews({ cityCode, languageCode, allowPushNotifications, skipSettingsCheck: true })
-                } else {
-                  updateSettings({ allowPushNotifications: false })
-                  // If the user has rejected the permission once, it can only be changed in the system settings
-                  showSnackbar({
-                    text: 'noPushNotificationPermission',
-                    positiveAction: {
-                      label: t('layout:settings'),
-                      onPress: openSettings,
-                    },
-                  })
-                }
-              },
-            },
-          ]),
-      {
-        title: t('sentryTitle'),
-        description: t('sentryDescription', {
-          appName: buildConfig().appName,
-        }),
-        hasSwitch: true,
-        getSettingValue: (settings: SettingsType) => settings.errorTracking,
-        onPress: async () => {
-          const errorTracking = !settings.errorTracking
-          updateSettings({ errorTracking })
-
-          const client = Sentry.getClient()
-          if (errorTracking && !client) {
-            initSentry()
-          } else if (client) {
-            client.getOptions().enabled = errorTracking
-          }
-        },
-      },
-      {
-        title: t('externalResourcesTitle'),
-        description: t('externalResourcesDescription'),
-        onPress: () => {
-          navigation.navigate(CONSENT_ROUTE)
-        },
-      },
-      {
-        role: 'link',
-        title: t('about', {
-          appName: buildConfig().appName,
-        }),
-        onPress: async () => {
-          const { aboutUrls } = buildConfig()
-          const aboutUrl = aboutUrls[languageCode] || aboutUrls.default
-          await openExternalUrl(aboutUrl, showSnackbar)
-        },
-      },
-      {
-        role: 'link',
-        title: t('privacyPolicy'),
-        onPress: async () => {
-          const { privacyUrls } = buildConfig()
-          const privacyUrl = privacyUrls[languageCode] || privacyUrls.default
-          await openExternalUrl(privacyUrl, showSnackbar)
-        },
-      },
-      {
-        title: t('version', {
-          version: NativeConstants.appVersion,
-        }),
-        onPress: () => {
-          volatileValues.versionTaps += 1
-
-          if (volatileValues.versionTaps === TRIGGER_VERSION_TAPS) {
-            volatileValues.versionTaps = 0
-            throw Error('This error was thrown for testing purposes. Please ignore this error.')
-          }
-        },
-      },
-      {
-        title: t('openSourceLicenses'),
-        onPress: () => navigation.navigate(LICENSES_ROUTE),
-      },
-      // Only show the jpal tracking setting for users that opened it via deep link before
-      ...(buildConfig().featureFlags.jpalTracking && settings.jpalTrackingCode
-        ? [
-            {
-              title: t('tracking'),
-              description: t('trackingShortDescription', { appName: buildConfig().appName }),
-              getSettingValue: (settings: SettingsType) => settings.jpalTrackingEnabled,
-              hasBadge: true,
-              onPress: () => {
-                navigation.navigate(JPAL_TRACKING_ROUTE)
-              },
-            },
-          ]
-        : []),
-    ],
+      const client = Sentry.getClient()
+      if (errorTracking && !client) {
+        initSentry()
+      } else if (client) {
+        client.getOptions().enabled = errorTracking
+      }
+    },
   },
+  {
+    title: t('externalResourcesTitle'),
+    description: t('externalResourcesDescription'),
+    onPress: () => navigation.navigate(CONSENT_ROUTE),
+  },
+  {
+    role: 'link',
+    title: t('about', {
+      appName: buildConfig().appName,
+    }),
+    onPress: async () => {
+      const { aboutUrls } = buildConfig()
+      const aboutUrl = aboutUrls[languageCode] || aboutUrls.default
+      await openExternalUrl(aboutUrl, showSnackbar)
+    },
+  },
+  {
+    role: 'link',
+    title: t('privacyPolicy'),
+    onPress: async () => {
+      const { privacyUrls } = buildConfig()
+      const privacyUrl = privacyUrls[languageCode] || privacyUrls.default
+      await openExternalUrl(privacyUrl, showSnackbar)
+    },
+  },
+  {
+    title: t('version', { version: NativeConstants.appVersion }),
+    onPress: () => {
+      volatileValues.versionTaps += 1
+
+      if (volatileValues.versionTaps === TRIGGER_VERSION_TAPS) {
+        volatileValues.versionTaps = 0
+        throw Error('This error was thrown for testing purposes. Please ignore this error.')
+      }
+    },
+  },
+  {
+    title: t('openSourceLicenses'),
+    onPress: () => navigation.navigate(LICENSES_ROUTE),
+  },
+  buildConfig().featureFlags.jpalTracking && settings.jpalTrackingCode
+    ? {
+        title: t('tracking'),
+        description: t('trackingShortDescription', { appName: buildConfig().appName }),
+        getSettingValue: (settings: SettingsType) => settings.jpalTrackingEnabled,
+        hasBadge: true,
+        onPress: () => {
+          navigation.navigate(JPAL_TRACKING_ROUTE)
+        },
+      }
+    : null,
 ]
 
 export default createSettingsSections
