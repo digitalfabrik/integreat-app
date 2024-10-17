@@ -218,20 +218,20 @@ const Header = ({
       }
     }
 
-    const previousRouteTitle = (previousParams as { title?: string } | undefined)?.title
-    let language
-    if (previousRoute.name === CATEGORIES_ROUTE && !(previousParams as { path?: string }).path) {
-      language = config.sourceLanguage
-    } else if (previousRouteTitle || previousRoute.name === CATEGORIES_ROUTE) {
-      language = languageCode
-    } else {
-      language = undefined
+    const previousRouteTitle = (previousParams as { path?: string } | undefined)?.path
+
+    if (previousRouteTitle) {
+      return { text: previousRouteTitle, language: languageCode }
     }
 
-    return {
-      text: previousRouteTitle ?? t(previousRoute.name === CATEGORIES_ROUTE ? 'localInformation' : previousRoute.name),
-      language,
+    if (previousRoute.name === CATEGORIES_ROUTE) {
+      return {
+        text: t('localInformation'),
+        language: previousRouteTitle === undefined ? config.sourceLanguage : languageCode,
+      }
     }
+
+    return { text: previousRoute.name, language: undefined }
   }
 
   return (
