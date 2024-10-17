@@ -50,8 +50,8 @@ cd ios && fastlane match development (or whichever environment you need)
 - The Apple account that you need to sign in to is the one of the app team, the password is in Passbolt. This is also
   the step where you will need the second factor.
 
-- You will need to add all the app_identifier you want to work with, in case of Integreat and its whitelabels, that would
-  be `de.integreat-app,app.aschaffenburg,de.malteapp.` If you fill in an invalid one, you get a list with the available ones.
+- You will need to add all the app_identifier you want to work with. You can find a list of them at
+  https://github.com/digitalfabrik/app-credentials/blob/main/apple%20app%20identifier%20list.txt
 
 ##### Trouble Shooting
 
