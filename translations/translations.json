@@ -11,7 +11,8 @@
       "createPdf": "PDF ይፍጠሩ",
       "metaDescription": "{{appName}} በጀርመን ላለው ህይወት የእርስዎ ዲጂታል መመሪያ ነው። አካባቢያዊ መረጃን፣ ክንዉኖችን እና ምክርን ያግኙ። በእርስዎ ቋንቋ ሁልጊዜ የቅርብ ጊዜ የሆነ እና የሚገኝ ነው።",
       "organizationContent": "የዚህ ገጽ ይዘቶች ከ{{organization}} ናቸው።",
-      "organizationMoreInformation": "ስለ <1>{{organization}}</1> on <3>{{domain}}</3> ተጨማሪ መረጃ ማግኘት ይችላሉ።"
+      "organizationMoreInformation": "ስለ <1>{{organization}}</1> on <3>{{domain}}</3> ተጨማሪ መረጃ ማግኘት ይችላሉ።",
+      "disabledPdf": "/ፒዲኤፍ ወደ ውጭ መላክ በአሁኑ ጊዜ በዚህ ቋንቋ አይቻልም።"
     },
     "ar": {
       "createPdf": "إصدار ملف PDF",
@@ -24,25 +25,36 @@
       "createPdf": "Създайте PDF",
       "metaDescription": "{{appName}} е твоят цифров пътеводител за Германия. Намери местна информация, събития и съвети. Винаги актуални и на твоя език.",
       "organizationContent": "Съдържанието на тази страница е от {{organization}}.",
-      "organizationMoreInformation": "Можеш да намериш повече информация за <1>{{organization}}</1> на <3>{{domain}}</3>."
+      "organizationMoreInformation": "Можеш да намериш повече информация за <1>{{organization}}</1> на <3>{{domain}}</3>.",
+      "disabledPdf": "Експортът в PDF понастоящем не е възможен на този език."
     },
     "ckb": {
       "createPdf": "دروستکردنی PDF",
       "metaDescription": " {{appName}} ڕێنمای دیجیتاڵی تۆ بە زمانی ئەڵمانی. تۆ دەتوانی زانیاری و ڕووداو و ئامۆژگارییە خۆجێیەکان لێرەدا بدۆزێوە. هەردەم نوێ و بە زمانی تۆ.",
       "organizationContent": "ناوەرۆکی ئەم پەیجە لەلایەن {{organization}} دابینکراوە.",
-      "organizationMoreInformation": "بۆ زانیاری زیاتر دەربارەی <1>{{organization}}</1> سەردانی <3>{{domain}}</3> بکە."
+      "organizationMoreInformation": "بۆ زانیاری زیاتر دەربارەی <1>{{organization}}</1> سەردانی <3>{{domain}}</3> بکە.",
+      "disabledPdf": "وەرگرتنی فایلی PDF بەم زمانە لە ئێستادا مومکین نییە."
     },
     "cs": {
       "createPdf": "Vytvořit PDF",
       "metaDescription": "{{appName}} je váš digitální průvodce po Německu. Nacházejte místní informace, události a tipy. Vždy aktuální a ve vašem jazyce.",
       "organizationContent": "Obsah této stránky pochází od {{organization}}.",
-      "organizationMoreInformation": "Více informací o <1>{{organization}}</1> najdete na <3>{{domain}}</3>."
+      "organizationMoreInformation": "Více informací o <1>{{organization}}</1> najdete na <3>{{domain}}</3>.",
+      "disabledPdf": "Export do PDF není v tomto jazyce v současné době možný."
+    },
+    "da": {
+      "createPdf": "Opret PDF",
+      "metaDescription": "{{appName}} er din digitale guide til Tyskland. Find lokale oplysninger, arrangementer og rådgivning. Altid opdateret og på dit sprog.",
+      "organizationContent": "Indholdet på denne side er fra {{organization}}.",
+      "organizationMoreInformation": "Du kan finde yderligere oplysninger om <1>{{organization}}</1> på <3>{{domain}}</3>.",
+      "disabledPdf": "PDF-eksporten er i øjeblikket ikke mulig på dette sprog."
     },
     "el": {
       "createPdf": "Δημιουργία PDF",
       "metaDescription": "Η εφαρμογή {{appName}} είναι ο ψηφιακός σας οδηγός για τη Γερμανία. Βρείτε τοπικές πληροφορίες, εκδηλώσεις και συμβουλές. Πάντα ενημερωμένες και στη γλώσσα σας.",
       "organizationContent": "Τα περιεχόμενα αυτής της σελίδας προέρχονται από την {{organization}}.",
-      "organizationMoreInformation": "Μπορείτε να βρείτε περισσότερες πληροφορίες σχετικά με την <1>{{organization}}</1> στη διεύθυνση <3>{{domain}}</3>."
+      "organizationMoreInformation": "Μπορείτε να βρείτε περισσότερες πληροφορίες σχετικά με την <1>{{organization}}</1> στη διεύθυνση <3>{{domain}}</3>.",
+      "disabledPdf": "Η εξαγωγή ως αρχείο PDF σε αυτή τη γλώσσα δεν είναι προς το παρόν δυνατή."
     },
     "en": {
       "createPdf": "Create a PDF",
@@ -55,13 +67,15 @@
       "createPdf": "Crear PDF",
       "metaDescription": "{{appName}} es tu guía digital de Alemania. Encuentra información local, eventos y consejos. Siempre al día y en tu idioma.",
       "organizationContent": "El contenido de esta página procede de {{organization}}.",
-      "organizationMoreInformation": "Encontrarás más información sobre <1>{{organization}}</1> en <3>{{domain}}</3>."
+      "organizationMoreInformation": "Encontrarás más información sobre <1>{{organization}}</1> en <3>{{domain}}</3>.",
+      "disabledPdf": "La exportación a PDF no es posible actualmente en este idioma."
     },
     "fi": {
       "createPdf": "Luo PDF",
       "metaDescription": "{{appName}} on digitaalinen Saksa-oppaasi. Löydä paikallisia tietoja, tapahtumia ja neuvoja. Aina ajan tasalla ja omalla äidinkielelläsi.",
       "organizationContent": "Tämän sivun sisältö on organisaatiolta {{organization}}.",
-      "organizationMoreInformation": "Lisätietoja organisaatiosta <1>{{organization}}</1> on osoitteessa <3>{{domain}}</3>."
+      "organizationMoreInformation": "Lisätietoja organisaatiosta <1>{{organization}}</1> on osoitteessa <3>{{domain}}</3>.",
+      "disabledPdf": "PDF-vienti ei ole juuri nyt mahdollista tällä kielellä."
     },
     "fr": {
       "createPdf": "Créer PDF",
@@ -73,151 +87,176 @@
       "createPdf": "Kreiraj PDF",
       "metaDescription": "{{appName}} je tvoj digitalni vodič za Njemačku. Nađi lokalne informacije, manifestacije i savjetovališta. Uvijek aktualno i na tvom jeziku.",
       "organizationContent": "{{organization}} je vlasnik sadržaja ove stranice.",
-      "organizationMoreInformation": "Više informacija o <1>{{organization}}</1> možeš naći na <3>{{domain}}</3>."
+      "organizationMoreInformation": "Više informacija o <1>{{organization}}</1> možeš naći na <3>{{domain}}</3>.",
+      "disabledPdf": "Izvoz PDF-a trenutno nije moguć na ovom jeziku."
     },
     "hu": {
       "createPdf": "PDF létrehozása",
       "metaDescription": "{{appName}} a digitális útikalauza Németországba. Itt talál helyi információkat, eseményeket és tippeket. Mindig naprakész és magyarul beszél.",
       "organizationContent": "az oldal tartalmát {{organization}} készítette.",
-      "organizationMoreInformation": "További <1>{{organization}}</1>-információkat <3>{{domain}}</3> oldalon találhat."
+      "organizationMoreInformation": "További <1>{{organization}}</1>-információkat <3>{{domain}}</3> oldalon találhat.",
+      "disabledPdf": "PDF-export ezen a nyelven jelenleg nem lehetséges."
     },
     "it": {
       "createPdf": "Crea PDF",
       "metaDescription": "{{appName}} è la tua guida digitale in Germania. Trova informazioni, eventi e consigli locali. Sempre aggiornata e nella tua lingua.",
       "organizationContent": "I contenuti di questa pagina sono di {{organization}}.",
-      "organizationMoreInformation": "Puoi trovare maggiori informazioni su <1>{{organization}}</1> qui: <3>{{domain}}</3>."
+      "organizationMoreInformation": "Puoi trovare maggiori informazioni su <1>{{organization}}</1> qui: <3>{{domain}}</3>.",
+      "disabledPdf": "Al momento l’esportazione in PDF non è possibile in questa lingua."
     },
     "ka": {
       "createPdf": "PDF. შექმნა",
       "metaDescription": "{{appName}} შენი ციფრული გზამკვლევია გერმანიისთვის. მოიძიე ადგილობრივი ინფორმაციები, ღონისძიებები და კონსულტაციები. ყოველთვის აქტუალური და შენს ენაზე.",
       "organizationContent": "ამ გვერდის შემცველობა შექმნილია {{organization}}-ის მიერ.",
-      "organizationMoreInformation": "დამატებითი ინფორმაცია <1>{{organization}}</1>-ის შესახებ შეგიძლია იპოვნო აქ <3>{{domain}}</3>."
+      "organizationMoreInformation": "დამატებითი ინფორმაცია <1>{{organization}}</1>-ის შესახებ შეგიძლია იპოვნო აქ <3>{{domain}}</3>.",
+      "disabledPdf": "ამ ენის შემთხვევაში ამჟამად არ არის შესაძლებელი PDF-ფაილის ექსპორტირება."
     },
     "kmr": {
       "createPdf": "Pêkanîna PDF'ê",
       "metaDescription": "{{appName}} Rêbernameya te ya dîjîtal ji bo Almanyayê ye. Zanyarî, rûdan û pêşniyazên xwecihî bibîne, Hertim birojkirî û bi zimanê te yê sereke.",
       "organizationContent": "Naverokên vê rûpelê ji {{organization}} ne.",
-      "organizationMoreInformation": "Tu dikarî zanyarîne zêdetir derbarê <1>{{organization}}</1> li <3>{{domain}}</3> bibînî."
+      "organizationMoreInformation": "Tu dikarî zanyarîne zêdetir derbarê <1>{{organization}}</1> li <3>{{domain}}</3> bibînî.",
+      "disabledPdf": "Hilgirtina fayla PDF bi vî zemanî niha ne pêkan e."
     },
     "mk": {
       "createPdf": "Креирај PDF",
       "metaDescription": "{{appName}} е вашиот дигитален водич за Германија. Најдете локални информации, настани и совети. Секогаш актуелни и на вашиот јазик.",
       "organizationContent": "Содржините на страницава се од {{organization}}.",
-      "organizationMoreInformation": "Повеќе информации за <1>{{organization}}</1> ќе најдете на <3>{{domain}}</3>."
+      "organizationMoreInformation": "Повеќе информации за <1>{{organization}}</1> ќе најдете на <3>{{domain}}</3>.",
+      "disabledPdf": "Извезување во PDF моментално не е можно на јазиков."
     },
     "nl": {
       "createPdf": "Maak een PDF",
       "metaDescription": "{{appName}} is jouw digitale gids voor Duitsland. Vind lokale informatie, evenementen en advies. Altijd up-to-date en in jouw taal.",
       "organizationContent": "De inhoud van deze pagina is afkomstig van {{organization}}.",
-      "organizationMoreInformation": "Je kunt meer informatie vinden over <1>{{organization}}</1> op <3>{{domain}}</3>."
+      "organizationMoreInformation": "Je kunt meer informatie vinden over <1>{{organization}}</1> op <3>{{domain}}</3>.",
+      "disabledPdf": "PDF-export is momenteel in deze taal niet mogelijk."
     },
     "orm": {
       "createPdf": "PDF bani",
       "metaDescription": "{{appName}} kun qajeelfama dijitaalaa jireenya keessan Jarman keessaadha. Odeeffannoo naannoo, sagantaalee fi gorsa argadhu. Yeroo hunda yeroo ammaa fi afaan keessaniin kan argamu.",
       "organizationContent": "Yaadni waraqaa kana irraa kan dhufe {{organization}}.",
-      "organizationMoreInformation": "Odeeffannoo gadi fagoo waaee <1>{{organization}}</1> as irraa <3>{{domain}}</3> argachuu dandeessu."
+      "organizationMoreInformation": "Odeeffannoo gadi fagoo waaee <1>{{organization}}</1> as irraa <3>{{domain}}</3> argachuu dandeessu.",
+      "disabledPdf": "Yeroo ammaa kana PDF erguun afaan kanaan hin danda'amu."
     },
     "pes": {
       "createPdf": "ایجاد PDF",
       "metaDescription": "{{appName}} راهنمای دیجیتال شما برای کشور آلمان است. شما می‌توانید اطلاعات محلی، رویدادها و خدمات مشاوره را در آن بیابید. همواره به روز و به زبان خودتان.",
       "organizationContent": "محتوای این صفحه از طرف {{organization}} تهیه شده است.",
-      "organizationMoreInformation": "جهت کسب اطلاعات بیشتر در خصوص <1>{{organization}}</1> رجوع کنید به <3>{{domain}}</3>."
+      "organizationMoreInformation": "جهت کسب اطلاعات بیشتر در خصوص <1>{{organization}}</1> رجوع کنید به <3>{{domain}}</3>.",
+      "disabledPdf": "ذخیره کردن فایل PDF به این زبان در حال حاضر امکان‌پذیر نیست."
     },
     "pl": {
       "createPdf": "Wygeneruj PDF",
       "metaDescription": "{{appName}} to Twój cyfrowy przewodnik po Niemczech. Znajdź lokalne informacje, wydarzenia i porady. Zawsze aktualne i w Twoim języku.",
       "organizationContent": "Treści na tej stronie pochodzą od {{organization}}.",
-      "organizationMoreInformation": "Więcej informacji na temat <1>{{organization}}</1> znajdziesz na stronie <3>{{domain}}</3>."
+      "organizationMoreInformation": "Więcej informacji na temat <1>{{organization}}</1> znajdziesz na stronie <3>{{domain}}</3>.",
+      "disabledPdf": "Eksport PDF nie jest obecnie możliwy w tym języku."
     },
     "prs": {
       "createPdf": "ایجاد PDF",
       "metaDescription": "{{appName}} رهنمای دیجیتال شما برای کشور آلمان است. شما می توانید معلومات محلی، رویدادها و خدمات مشوره دهی را در آن بیابید. همیشه تازه و به زبان خودتان.",
       "organizationContent": "محتوای این صفحه از {{organization}} تهیه شده است.",
-      "organizationMoreInformation": "شما می توانید معلومات بیشتر در مورد <1>{{organization}}</1> را در <3>{{domain}}</3> بيابيد."
+      "organizationMoreInformation": "شما می توانید معلومات بیشتر در مورد <1>{{organization}}</1> را در <3>{{domain}}</3> بيابيد.",
+      "disabledPdf": "صدور فایل PDF به این زبان فعلاً امکانپذیر نیست."
     },
     "ps": {
       "createPdf": "پي ډي ایف جوړول",
       "metaDescription": "{{appName}} د جرمني لپاره ستاسو ډيجټلي لارښود دی. ځايي معلومات، مراسم او سپارښتنې په هغې کې ومومئ. تل تازه او ستاسو په ژبه.",
       "organizationContent": "ددې پاڼې منځپانګه له {{organization}} څخه ده.",
-      "organizationMoreInformation": "تاسو کولی شئ چې د <1>{{organization}}</1> په اړه نور معلومات په <3>{{domain}}</3> کې پيدا کړئ."
+      "organizationMoreInformation": "تاسو کولی شئ چې د <1>{{organization}}</1> په اړه نور معلومات په <3>{{domain}}</3> کې پيدا کړئ.",
+      "disabledPdf": "اوسمهال په دې ژبه د PDF فايل صادرولو امکان نشته."
     },
     "pt": {
       "createPdf": "Criar um PDF",
       "metaDescription": "A {{appName}} é o seu guia digital da Alemanha. Consulte informações, eventos e conselhos a nível local. Sempre atualizada e disponível no seu idioma.",
       "organizationContent": "O conteúdo desta página é da {{organization}}.",
-      "organizationMoreInformation": "Pode encontrar mais informações sobre <1>{{organization}}</1> em <3>{{domain}}</3>."
+      "organizationMoreInformation": "Pode encontrar mais informações sobre <1>{{organization}}</1> em <3>{{domain}}</3>.",
+      "disabledPdf": "Atualmente, não é possível exportar PDF nesta língua."
     },
     "ro": {
       "createPdf": "Creați PDF",
       "metaDescription": "{{appName}} este ghidul tău digital pentru Germania. Găsiți informații, evenimente și sfaturi locale. Întotdeauna actualizate și în limba dumneavoastră.",
       "organizationContent": "Conținutul acestei pagini provine de la {{organization}}.",
-      "organizationMoreInformation": "Puteți găsi mai multe informații despre <1>{{organization}}</1> la <3>{{domain}}</3>."
+      "organizationMoreInformation": "Puteți găsi mai multe informații despre <1>{{organization}}</1> la <3>{{domain}}</3>.",
+      "disabledPdf": "Exportul PDF nu este posibil momentan în această limbă."
     },
     "ru": {
       "createPdf": "Создать PDF",
       "metaDescription": "{{appName}} – это твой цифровой путеводитель по Германии. Узнавай местные новости, находи информацию о мероприятиях и консультациях. Всегда актуально и на твоем языке.",
       "organizationContent": "Информация на данной странице предоставлена {{organization}}.",
-      "organizationMoreInformation": "Более подробную информацию о <1>{{organization}}</1> ты найдешь на <3>{{domain}}</3>."
+      "organizationMoreInformation": "Более подробную информацию о <1>{{organization}}</1> ты найдешь на <3>{{domain}}</3>.",
+      "disabledPdf": "В настоящее время экспорт в PDF на этом языке невозможен."
     },
     "sk": {
       "createPdf": "Vytvoriť PDF",
       "metaDescription": "{{appName}} je váš digitálny sprievodca po Nemecku. Nájdite miestne informácie, podujatia a poradenstvo. Vždy aktuálne a vo vašom jazyku.",
       "organizationContent": "Obsahy tejto stránky je z {{organization}}.",
-      "organizationMoreInformation": "Viac informácií o <1>{{organization}}</1> nájdete na <3>{{domain}}</3>."
+      "organizationMoreInformation": "Viac informácií o <1>{{organization}}</1> nájdete na <3>{{domain}}</3>.",
+      "disabledPdf": "Export do PDF aktuálne v tomto jazyku nie je možný."
     },
     "so": {
       "createPdf": "Abuur PDF",
       "metaDescription": "{{appName}} waa hage-haaga dhijitaalka ah ee Jarmalka. ka raadi macluumaadka gudaha, dhacdooyinka, iyo tallooyinka. Had iyo jeer la soco ka cusaybka iyo luqadaada.",
       "organizationContent": "Waxa ku jira nuxurka boggan ee uu bixiyay {{organization}}.",
-      "organizationMoreInformation": "Wixii macluumaad dheeraad ah ee ku saabsan <1>{{organization}}</1>, booqo <3>{{domain}}</3>."
+      "organizationMoreInformation": "Wixii macluumaad dheeraad ah ee ku saabsan <1>{{organization}}</1>, booqo <3>{{domain}}</3>.",
+      "disabledPdf": "Dhoofinta PDF-ka suurtogal uma ahan luqaddan wakhti xaadirkan."
     },
     "sq": {
       "createPdf": "Krijo PDF",
       "metaDescription": "{{appName}} është udhëzuesi yt digjital për Gjermaninë. Gjej informacione, evenimente dhe këshillime vendase. Gjithmonë aktuale dhe në gjuhën tënde.",
       "organizationContent": "Përmbajtja e kësaj faqeje ofrohet nga {{organization}}.",
-      "organizationMoreInformation": "Më shumë informacione mbi <1>{{organization}}</1> i gjen në <3>{{domain}}</3>."
+      "organizationMoreInformation": "Më shumë informacione mbi <1>{{organization}}</1> i gjen në <3>{{domain}}</3>.",
+      "disabledPdf": "Eksportimi në PDF në këtë gjuhë është aktualisht i pamundur."
     },
     "sr-Cyrl": {
       "createPdf": "Креирање PDF документа",
       "metaDescription": "{{appName}} је твој дигитални водич за Немачку. Нађи локалне информације, манифестације и саветовалишта. Увек актуелно и на твом језику.",
       "organizationContent": "{{organization}} је власник садржаја ове странице.",
-      "organizationMoreInformation": "Више информација о <1>{{organization}}</1> можеш наћи на <3>{{domain}}</3>."
+      "organizationMoreInformation": "Више информација о <1>{{organization}}</1> можеш наћи на <3>{{domain}}</3>.",
+      "disabledPdf": "Извоз ПДФ-а тренутно није могућ на овом језику."
     },
     "sr-Latn": {
       "createPdf": "Kreiranje PDF dokumenta",
       "metaDescription": "{{appName}} je tvoj digitalni vodič za Nemačku. Nađi lokalne informacije, manifestacije i savetovališta. Uvek aktuelno i na tvom jeziku.",
       "organizationContent": "{{organization}} je vlasnik sadržaja ove stranice.",
-      "organizationMoreInformation": "Više informacija o <1>{{organization}}</1> možeš naći na <3>{{domain}}</3>."
+      "organizationMoreInformation": "Više informacija o <1>{{organization}}</1> možeš naći na <3>{{domain}}</3>.",
+      "disabledPdf": "Izvoz PDF-a trenutno nije moguć na ovom jeziku."
     },
     "ti": {
       "createPdf": "PDF ፍጠር",
       "metaDescription": "{{appName}} ንጀርመን ዝኸውን ዲጂታላዊ መምርሒኹም እዩ። ኣብቲ ከባቢ ዝርከብ ሓበሬታ፡ ፍጻመታትን ምኽርን ድለ። ኩሉ ግዜ እዋናዊን ብቋንቋኻን።",
       "organizationContent": "ኣብዚ ገጽ ዘሎ ትሕዝቶ ብ {{organization}} ዝተዳለወ እዩ።",
-      "organizationMoreInformation": "ብዛዕባ <1>{{organization}}</1> ዝያዳ ሓበሬታ ንምርካብ፣ <3>{{domain}}</3> ተወከሱ።"
+      "organizationMoreInformation": "ብዛዕባ <1>{{organization}}</1> ዝያዳ ሓበሬታ ንምርካብ፣ <3>{{domain}}</3> ተወከሱ።",
+      "disabledPdf": "እቲ PDF ውጤት በዚ ቋንቋ እንደ ዚሕ ኣይከኣልን."
     },
     "tr": {
       "createPdf": "PDF oluşturun",
       "metaDescription": "{{appName}} Almanya için senin dijital rehberin. Yerel bilgiler, etkinlikler ve öneriler bul. Her zaman güncel ve senin dilinde.",
       "organizationContent": "Bu sayfanın içeriği {{organization}} mülkiyetine aittir.",
-      "organizationMoreInformation": "<1>{{organization}}</1> hakkında daha fazla bilgi için bkz. <3>{{domain}}</3>."
+      "organizationMoreInformation": "<1>{{organization}}</1> hakkında daha fazla bilgi için bkz. <3>{{domain}}</3>.",
+      "disabledPdf": "PDF-Dışa Aktarım işlemi şu anda bu dil için mümkün değildir."
     },
     "uk": {
       "createPdf": "Створити PDF",
       "metaDescription": "{{appName}} — ваш цифровий путівник Німеччиною. Знаходьте місцеву інформацію, події та консультації. Завжди актуальні відомості вашою мовою.",
       "organizationContent": "Вміст цієї сторінки належить організації {{organization}}.",
-      "organizationMoreInformation": "Додаткову інформацію про <1>{{organization}}</1> дивіться на сайті <3>{{domain}}</3>."
+      "organizationMoreInformation": "Додаткову інформацію про <1>{{organization}}</1> дивіться на сайті <3>{{domain}}</3>.",
+      "disabledPdf": "Експорт файлів PDF цією мовою поки що неможливий."
     },
     "ur": {
       "createPdf": "PDF بنائیں",
       "metaDescription": "{{appName}} جرمنی میں زندگی کے لیے آپ کا ڈیجیٹل گائیڈ ہے۔ مقامی معلومات، واقعات اور مشورے دریافت کریں۔ ہمیشہ تازہ ترین اور آپ کی اپنی زبان میں دستیاب۔",
       "organizationContent": "اس صفحہ کا مواد {{organization}} سے لیا گیا ہے۔",
-      "organizationMoreInformation": "آپ <3>{{domain}}</3> پر <1>{{organization}}</1> کے بارے میں مزید معلومات حاصل کر سکتے ہیں۔"
+      "organizationMoreInformation": "آپ <3>{{domain}}</3> پر <1>{{organization}}</1> کے بارے میں مزید معلومات حاصل کر سکتے ہیں۔",
+      "disabledPdf": "پی ڈی ایف (PDF) ایکسپورٹ کرنا فی الحال اس زبان میں ممکن نہیں ہے۔"
     },
     "zh-CN": {
       "createPdf": "创建 PDF",
       "metaDescription": "{{appName}} 是您的德国数字指南。查找当地信息、活动和信息咨询。始终以您的语言提供最新资讯。",
       "organizationContent": "本页内容来自 {{organization}}。",
-      "organizationMoreInformation": "您可以在 <3>{{domain}}</3> 上找到有关 <1>{{organization}}</1> 的更多信息。"
+      "organizationMoreInformation": "您可以在 <3>{{domain}}</3> 上找到有关 <1>{{organization}}</1> 的更多信息。",
+      "disabledPdf": "目前在该语言中无法导出 PDF。"
     }
   },
   "chat": {
@@ -235,6 +274,104 @@
       "sendButton": "Senden",
       "user": "Du"
     },
+    "am": {
+      "button": "ተወያይ(beta)",
+      "conversationTitle": "እባክዎትን ጥያቄዎን በጽሑፍ መስኩ ውስጥ ያስገቡ።",
+      "conversationText": "ስለሁኔታዎ ከአካባቢያዊ መረጃ እስከ ልዩ ጥያቄዎች ድረስ ማንኛውንም ነገር መጠየቅ ይችላሉ።",
+      "dataSecurity": "ግላዊነትና ደህንነት፡ የእርስዎ ግላዊነት ለእኛ በጣም አስፈላጊ ነው። ሁሉም ንግግሮች በሚስጥር ይያዛሉና የእርስዎ ውሂብ ደህንነቱ በተጠበቀ ሁኔታ ይከናወናል። ስለ ውሂብ/data/ ጥበቃ ተጨማሪ መረጃ በእኛ የውሂብ ጥበቃ መመሪያ ውስጥ ማግኘት ይችላሉ።",
+      "errorMessage": "የግንኙነት ስህተት ተከስቷል።",
+      "header": "{{appName}}የውይይት ድጋፍ",
+      "initialMessage": "የውይይት ጥያቄህ ተልኳል። አማካሪው በተቻለ ፍጥነት መልእክትዎን ይመልሳል።",
+      "inputLabel": "የኔ ጥያቄ፡-",
+      "inputPlaceholder": "ማወቅ እፈልጋለሁ...",
+      "loadingText": "እባካችሁ አንድ አፍታ ውይይቱ እየተጀመረ ነው...",
+      "sendButton": "ለክ ",
+      "user": "እርስዎ "
+    },
+    "ar": {
+      "button": "دردشة (بيتا)",
+      "conversationTitle": "الرجاء إدخال سؤالك في حقل النص.",
+      "conversationText": "يمكنك طرح سؤال عن أي شيء بدءًا من المعلومات المحلية وحتى الاستفسارات المتخصصة حول موقفك.",
+      "dataSecurity": "حماية البيانات والسلامة: خصوصيتك مهمة جدًا بالنسبة لنا. يتم التعامل مع جميع المحادثات بسرية وتتم معالجة بياناتك بشكل آمن. تجد المزيد من المعلومات حول حماية البيانات في مبادئنا التوجيهية لحماية البيانات.",
+      "errorMessage": "حدث خطأ في الاتصال.",
+      "header": "{{appName}} دعم الدردشة",
+      "initialMessage": "تم إرسال طلب الدردشة الخاص بك. سيقوم المستشار بالرد على رسالتك في أسرع وقت ممكن.",
+      "inputLabel": "سؤالي:",
+      "inputPlaceholder": "أريد أن أعرف...",
+      "loadingText": "لحظة واحدة من فضلك، يتم بدء المحادثة...",
+      "sendButton": "إرسال",
+      "user": "أنت"
+    },
+    "bg": {
+      "button": "Чат (бета версия)",
+      "conversationTitle": "Моля, въведете въпроса си в текстовото поле.",
+      "conversationText": "Можете да зададете всякакви въпроси - от местна информация до конкретни запитвания за вашата ситуация.",
+      "dataSecurity": "Защита и сигурност на данните: Вашата поверителност е много важна за нас. Всички разговори са поверителни и данните ви се обработват сигурно. Можете да намерите повече информация за защитата на данните в нашата политика за поверителност.",
+      "errorMessage": "По време на комуникацията е възникнала грешка.",
+      "header": "{{appName}} Чат поддръжка",
+      "initialMessage": "Вашата заявка за чат е изпратена. Консултантът ще отговори на съобщението ви възможно най-скоро.",
+      "inputLabel": "Моят въпрос:",
+      "inputPlaceholder": "Искам да знам...",
+      "loadingText": "Един момент, моля, чатът започва...",
+      "sendButton": "Изпрати",
+      "user": "Вие"
+    },
+    "ckb": {
+      "button": "چات (بێتا)",
+      "conversationTitle": "تکایە لە فیلدی تێکستەکەدا پرسیارەکەت داخڵ بکە.",
+      "conversationText": "دەتوانیت سەبارەت بە هەر شتێک پرسیار بکەیت لە زانیاری ناوخۆییەوە تا پرسیاری تایبەت سەبارەت بە دۆخەکەت.",
+      "dataSecurity": "پاراستن نهێنی زانیاری و ئاسایش: پاراستنی نهێنی زانیارییەکانی تۆ بۆ ئێمە زۆر گرنگە. هەموو گفتوگۆکان بە نهێنی دادەنرێت و زانیارییەکانت بە شێوەیەکی پارێزراو پرۆسێس دەکرێن. دەتوانی زانیاری زیاتر دەربارەی پاراستنی زانیارییەکان لە بەشی ڕێنماییەکانی پاراستنی زانیارییەکانماندا بدۆزییەوە.",
+      "errorMessage": "هەڵەیەک لە پەیوەندیکردندا ڕوویداوە.",
+      "header": "{{appName}} پاڵپشتی چات",
+      "initialMessage": "داواکاری چاتەکەت نێردرا. ڕاوێژکار بە زووترین کات وەڵامی پەیامەکەت دەداتەوە.",
+      "inputLabel": "پرسیارەکەم:",
+      "inputPlaceholder": "دەمەوێت بزانم...",
+      "loadingText": "تکایە ساتێک چاوەڕێ بکە، چاتەکە خەریکە دەست پێدەکات...",
+      "sendButton": "ناردن",
+      "user": "تۆ"
+    },
+    "cs": {
+      "button": "Chat (beta)",
+      "conversationTitle": "Zadejte svůj dotaz do textového pole.",
+      "conversationText": "Můžete se ptát na cokoli, od místních informací až po konkrétní dotazy týkající se vaší situace.",
+      "dataSecurity": "Ochrana a zabezpečení dat: Vaše soukromí je pro nás velmi důležité. Všechny rozhovory jsou důvěrné a vaše údaje jsou zpracovávány bezpečně. Další informace o ochraně osobních údajů najdete v našich zásadách ochrany osobních údajů.",
+      "errorMessage": "Během komunikace došlo k chybě.",
+      "header": "{{appName}} Chatová podpora",
+      "initialMessage": "Váš požadavek na chat byl odeslán. Poradce/poradkyně* na vaši zprávu odpoví podle možností co nejdříve.",
+      "inputLabel": "Moje otázka:",
+      "inputPlaceholder": "Rád bych věděl/a...",
+      "loadingText": "Moment, prosím, spouští se chat...",
+      "sendButton": "Odeslat",
+      "user": "Vy"
+    },
+    "da": {
+      "button": "Chat (beta)",
+      "conversationTitle": "Skriv venligst dit spørgsmål i tekstfeltet.",
+      "conversationText": "Du kan spørge om alt fra lokale oplysninger til specifikke spørgsmål om din situation.",
+      "dataSecurity": "Databeskyttelse og sikkerhed: Dit privatliv er meget vigtigt for os. Alle samtaler behandles fortroligt, og dine data behandles sikkert. Du kan finde flere oplysninger om databeskyttelse i vores privatlivspolitik.",
+      "errorMessage": "Der er opstået en fejl under kommunikationen.",
+      "header": "{{appName}} Chat-support",
+      "initialMessage": "Din chatanmodning er blevet sendt. Rådgiveren* vil svare på din besked så hurtigt som muligt.",
+      "inputLabel": "Mit spørgsmål:",
+      "inputPlaceholder": "Jeg kunne godt tænke mig at vide...",
+      "loadingText": "Et øjeblik, chatten starter...",
+      "sendButton": "Send",
+      "user": "Du"
+    },
+    "el": {
+      "button": "Συνομιλία (beta)",
+      "conversationTitle": "Παρακαλούμε εισάγετε την ερώτησή σας στο πεδίο κειμένου.",
+      "conversationText": "Μπορείτε να ζητήσετε οτιδήποτε, από τοπικές πληροφορίες μέχρι συγκεκριμένες ερωτήσεις σχετικά με την κατάστασή σας.",
+      "dataSecurity": "Προστασία δεδομένων και ασφάλεια: Το απόρρητό σας είναι πολύ σημαντικό για εμάς. Όλες οι συνομιλίες αντιμετωπίζονται εμπιστευτικά και τα δεδομένα σας υποβάλλονται σε ασφαλή επεξεργασία. Μπορείτε να βρείτε περισσότερες πληροφορίες σχετικά με την προστασία δεδομένων στην πολιτική απορρήτου μας.",
+      "errorMessage": "Προέκυψε σφάλμα κατά τη διάρκεια της επικοινωνίας.",
+      "header": "{{appName}} Υποστήριξη συνομιλίας",
+      "initialMessage": "Το αίτημα συνομιλίας σας έχει σταλεί. Ο/Η σύμβουλος θα απαντήσει στο μήνυμά σας το συντομότερο δυνατό.",
+      "inputLabel": "Η ερώτησή μου:",
+      "inputPlaceholder": "Θα ήθελα να ξέρω...",
+      "loadingText": "Μια στιγμή παρακαλώ, η συνομιλία ξεκινά...",
+      "sendButton": "Αποστολή",
+      "user": "Εσείς"
+    },
     "en": {
       "button": "Chat (beta)",
       "conversationTitle": "Please enter your question in the text field.",
@@ -249,6 +386,146 @@
       "sendButton": "Send",
       "user": "You"
     },
+    "es": {
+      "button": "Chat (beta)",
+      "conversationTitle": "Introduce tu pregunta en el campo de texto.",
+      "conversationText": "Puedes preguntar cualquier cosa, desde información local hasta cuestiones concretas sobre tu situación.",
+      "dataSecurity": "Protección de datos y seguridad: tu privacidad es muy importante para nosotros. Todas las conversaciones se tratan confidencialmente y tus datos se tratan de forma segura. Puedes encontrar más información sobre la protección de datos en nuestra política de privacidad.",
+      "errorMessage": "Se ha producido un error durante la comunicación.",
+      "header": "Soporte de chat de {{appName}}",
+      "initialMessage": "Tu solicitud de chat se ha enviado. Tu asesor/a responderá a tu mensaje lo antes posible.",
+      "inputLabel": "Mi pregunta:",
+      "inputPlaceholder": "Me gustaría saber...",
+      "loadingText": "Un momento por favor, el chat se está iniciando...",
+      "sendButton": "Enviar",
+      "user": "Tú"
+    },
+    "fi": {
+      "button": "Chatti (beeta)",
+      "conversationTitle": "Kirjoita kysymyksesi tekstikenttään.",
+      "conversationText": "Voit kysyä mitä tahansa paikallisista tiedoista henkilökohtaiseen tilanteeseesi liittyviin tietoihin.",
+      "dataSecurity": "Tietosuoja ja turvallisuus: Yksityisyytesi on meille erittäin tärkeää. Kaikki keskustelut ovat luottamuksellisia, ja tietojasi käsitellään turvallisesti. Lisätietoja tietosuojasta on tietosuojaselosteessamme.",
+      "errorMessage": "Tiedonsiirrossa on tapahtunut virhe.",
+      "header": "Sovelluksen {{appName}} chattituki",
+      "initialMessage": "Chattipyyntösi on lähetetty. Neuvoja vastaa viestiisi mahdollisimman pian.",
+      "inputLabel": "Kysymykseni:",
+      "inputPlaceholder": "Haluaisin tietää...",
+      "loadingText": "Pikku hetki. Chatti käynnistyy...",
+      "sendButton": "Lähetä",
+      "user": "Sinä"
+    },
+    "fr": {
+      "button": "Chat (bêta)",
+      "conversationTitle": "Saisis ta question dans le champ de texte.",
+      "conversationText": "Tu peux n’importe quelle question : des informations locales ou des demandes spécifiques concernant ta situation.",
+      "dataSecurity": "Protection des données et sécurité : Ta vie privée est très importante pour nous. Toutes les conversations sont traitées de manière confidentielle et tes données sont traitées en toute sécurité. Tu trouveras plus d’informations sur la protection des données dans notre politique de confidentialité.",
+      "errorMessage": "Une erreur s’est produite lors de la communication.",
+      "header": "Assistance du chat {{appName}}",
+      "initialMessage": "Ta demande de chat a été envoyée. Le conseiller/la conseillère répond à ton message le plus rapidement possible.",
+      "inputLabel": "Ma question :",
+      "inputPlaceholder": "Je veux savoir...",
+      "loadingText": "Un instant s’il te plaît, le chat va commencer...",
+      "sendButton": "Envoyer",
+      "user": "Toi"
+    },
+    "hr": {
+      "button": "Chat (beta)",
+      "conversationTitle": "Unesi svoje pitanje u polje za tekst.",
+      "conversationText": "Možeš pitati bilo što, od lokalnih informacija do specifičnih upita vezano za svoju situaciju.",
+      "dataSecurity": "Zaštita osobnih podataka i sigurnost: Tvoja privatnost nam je veoma važna. Svi razgovori se tretiraju povjerljivo i tvoji podaci se obrađuju na siguran način. Više informacije o zaštiti osobnih podataka možeš naći u našim smjernicama o zaštiti osobnih podataka.",
+      "errorMessage": "Došlo je do greške u komunikaciji.",
+      "header": "{{appName}} chat pomoć",
+      "initialMessage": "Tvoj upit za chat je poslat. Savjetnik/ca će prvom prilikom odgovoriti na tvoju poruku.",
+      "inputLabel": "Moje pitanje:",
+      "inputPlaceholder": "Želim znati...",
+      "loadingText": "Sačekajte trenutak, chat se pokreće...",
+      "sendButton": "Pošalji",
+      "user": "Ti"
+    },
+    "hu": {
+      "button": "Csevegő (béta)",
+      "conversationTitle": "Írja be kérdését a mezőbe.",
+      "conversationText": "A helyi információktól kezdve a saját helyzetével kapcsolatos konkrét kérdésekig bármit kérdezhet.",
+      "dataSecurity": "Adatvédelem és biztonság: Az adatai védelme nagyon fontos számunkra. Minden beszélgetést és az Ön adatait is biztonságosan kezeljük. Az adatvédelemmel kapcsolatos további információkat az adatvédelmi szabályzatunkban talál.",
+      "errorMessage": "Hiba történt a kommunikáció során.",
+      "header": "{{appName}} Segítségnyújtás csevegőben",
+      "initialMessage": "Elküldtük a csevegő iránti kérését. A tanácsadó a lehető leghamarabb válaszol az üzenetére.",
+      "inputLabel": "A kérdésem:",
+      "inputPlaceholder": "Szeretném tudni, hogy...",
+      "loadingText": "Kérem, várjon egy pillanatot, amíg a csevegő elindul...",
+      "sendButton": "Küldés",
+      "user": "Te"
+    },
+    "it": {
+      "button": "Chat (beta)",
+      "conversationTitle": "Inserisci la tua domanda nel campo di testo.",
+      "conversationText": "Puoi chiedere qualsiasi cosa, da informazioni locali a richieste specifiche sulla tua situazione.",
+      "dataSecurity": "Protezione e sicurezza dei dati: la tua privacy è molto importante per noi. Tutte le conversazioni sono trattate in modo confidenziale e i tuoi dati sono elaborati in modo sicuro. Puoi trovare maggiori informazioni sulla protezione dei dati nella nostra informativa sulla privacy.",
+      "errorMessage": "Si è verificato un errore durante la comunicazione.",
+      "header": "Assistenza {{appName}} via chat",
+      "initialMessage": "La tua richiesta di chat è stata inviata. Il consulente risponderà al tuo messaggio quanto prima.",
+      "inputLabel": "La mia domanda:",
+      "inputPlaceholder": "Vorrei sapere...",
+      "loadingText": "Un momento per favore, avvio chat in corso...",
+      "sendButton": "Invia",
+      "user": "Tu"
+    },
+    "ka": {
+      "button": "ჩატი (ბეტა)",
+      "conversationTitle": "მიუთითე შენი შეკითხვა ტექსტურ ველში.",
+      "conversationText": "შეგიძლია, იკითხო ნებისმიერი რამ – ინფორმაცია ადგილობრივი ცხოვრების შესახებ თუ კონკრეტული შეკითხვები შენს მდგომარეობასთან დაკავშირებით.",
+      "dataSecurity": "მონაცემთა დაცვა და უსაფრთხოება: შენი კონფიდენციალურობის დაცვა ჩვენთვის ძალიან მნიშვნელოვანია. ყველა საუბარი კონფიდენციალურად იმართება, ხოლო შენი მონაცემები უსაფრთხოდ მუშავდება. უფრო დაწვრილებითი ინფორმაცია მონაცემთა დაცვის შესახებ შეგიძლია, იხილო მონაცემთა დაცვის დებულებაში.",
+      "errorMessage": "კომუნიკაციის დროს მოხდა შეცდომა.",
+      "header": "{{appName}} მხარდაჭერა ჩატით",
+      "initialMessage": "ჩატის მოთხოვნა გაიგზავნა. კონსულტანტი მაქსიმალურად სწრაფად უპასუხებს შენს შეტყობინებას.",
+      "inputLabel": "ჩემი შეკითხვა:",
+      "inputPlaceholder": "მსურს, ვიცოდე...",
+      "loadingText": "ერთი წუთით, თუ შეიძლება, ჩატი დაიწყება...",
+      "sendButton": "გაგზავნა",
+      "user": "შენ"
+    },
+    "kmr": {
+      "button": "Chat (Beta)",
+      "conversationTitle": "Ji kerema xwe pirsên xwe di xaneyê nivîsê da binivîsîne.",
+      "conversationText": "Tu dikarî ji zanyariyên xwecihî bigire heta pirsên taybet li ser rewşa xwe bipirsî.",
+      "dataSecurity": "Parastina datayan û ewlehî: Nihêniya ji bo me gelekî giring e. Tevahiya hevpeyîvînan wek nihênî tên zanîn û datayên te bi awayê êmin tên pêvajokirin. Tu dikarî zanyariyên zêdetir li ser parastina datayan li destûrkarên me yên parastina datayan bibînî.",
+      "errorMessage": "Çewtiyek qewimiye.",
+      "header": "{{appName}} Piştevaniya Chatê",
+      "initialMessage": "Daxwaza te ya chatê hat şandin. Şêwirmend dê di dema herî lez da bersiva peyama te bide.",
+      "inputLabel": "Pirsa min:",
+      "inputPlaceholder": "Ez dixwazim bizanim...",
+      "loadingText": "Ji kerema xwe kêliyekê li bendê bimîne, chat tê destpêkirin...",
+      "sendButton": "Şandin",
+      "user": "Tu"
+    },
+    "mk": {
+      "button": "Разговор (бета)",
+      "conversationTitle": "Внесете прашање во текстуалното поле.",
+      "conversationText": "Можете да прашате сè, од локални информации до специфични прашања за вашата ситуација.",
+      "dataSecurity": "Заштита на податоците и безбедност: Вашата приватност е многу важна за нас. Сите разговори се третираат доверливо и вашите податоци ќе бидат обработени безбедно. Можете да најдете повеќе информации за заштитата на податоците во нашите упатства за заштита на податоците.",
+      "errorMessage": "Се појави грешка во комуникацијата.",
+      "header": "Поддршка преку разговор на {{appName}}",
+      "initialMessage": "Вашето барање за разговор е испратено. Советувачот ќе одговори на вашата порака што е можно побрзо.",
+      "inputLabel": "Моето прашање:",
+      "inputPlaceholder": "Сакам да знам...",
+      "loadingText": "Почекајте момент, разговорот започнува...",
+      "sendButton": "Испраќање",
+      "user": "Ти"
+    },
+    "nl": {
+      "button": "Chatten (beta)",
+      "conversationTitle": "Voer je vraag in het tekstveld in.",
+      "conversationText": "Je kunt alles vragen, van plaatselijke informatie tot specifieke vragen over jouw situatie.",
+      "dataSecurity": "Gegevensbescherming en -beveiliging: Jouw privacy is voor ons heel belangrijk. Alle gesprekken worden vertrouwelijk behandeld en je gegevens worden veilig verwerkt. Meer informatie over gegevensbescherming vind je in ons privacybeleid.",
+      "errorMessage": "Er is een fout opgetreden tijdens de communicatie.",
+      "header": "{{appName}} Chatondersteuning",
+      "initialMessage": "Je chatverzoek is verzonden. De counsellor zal je bericht zo snel mogelijk beantwoorden.",
+      "inputLabel": "Mijn vraag:",
+      "inputPlaceholder": "Ik zou graag willen weten...",
+      "loadingText": "Een moment alstublieft, de chat begint...",
+      "sendButton": "Verzenden",
+      "user": "Jij"
+    },
     "orm": {
       "button": "Chat (beta)",
       "conversationTitle": "Bakka barrreefa kanaatti gaaffii keessan barreessaa.",
@@ -262,6 +539,244 @@
       "loadingText": "Maaloo yeroo tokko, chaatiin jalqabeera….",
       "sendButton": "Erguu",
       "user": "Sii"
+    },
+    "pes": {
+      "button": "چت (بتا)",
+      "conversationTitle": "لطفاً سوال خود را در فیلد متن وارد نمایید.",
+      "conversationText": "شما می‌توانید از اطلاعات محلی گرفته تا سوالات خاص در مورد وضعیت خود را بپرسید.",
+      "dataSecurity": "حفاظت از داده‌ها و امنیت: حریم خصوصی شما برای ما بسیار مهم است. کلیه مکالمات محرمانه تلقی می‌شوند و داده‌های شما به صورت امن پردازش می‌گردند. شما می‌توانید اطلاعات بیشتر در مورد حفاظت از داده‌ها را در دستورالعمل‌های حفاظت از داده‌های ما بیابید.",
+      "errorMessage": "یک خطای ارتباطی رخ داده است.",
+      "header": "{{appName}} پشتیبانی چت",
+      "initialMessage": "درخواست چت شما ارسال شد. مشاور در اسرع وقت به پیام شما پاسخ خواهد داد.",
+      "inputLabel": "سوال من:",
+      "inputPlaceholder": "من می‌خواهم بدانم...",
+      "loadingText": "لطفاً یک لحظه صبر کنید، چت در حال شروع است...",
+      "sendButton": "ارسال",
+      "user": "شما"
+    },
+    "pl": {
+      "button": "Czat (beta)",
+      "conversationTitle": "Wpisz Twoje pytanie w polu tekstowym.",
+      "conversationText": "Możesz pytać o wszystko, od informacji lokalnych po konkretne pytania dotyczące Twojej sytuacji.",
+      "dataSecurity": "Ochrona i bezpieczeństwo danych: Twoja prywatność jest dla nas bardzo ważna. Wszystkie rozmowy są traktowane jako poufne, a Twoje dane są przetwarzane w bezpieczny sposób. Więcej informacji na temat ochrony danych znajdziesz w naszej polityce prywatności.",
+      "errorMessage": "Wystąpił błąd podczas komunikacji.",
+      "header": "Obsługa czatu {{appName}}",
+      "initialMessage": "Twoja prośba o czat została wysłana. Doradca odpowie na Twoją wiadomość tak szybko, jak to możliwe.",
+      "inputLabel": "Moje pytanie:",
+      "inputPlaceholder": "Chcę wiedzieć...",
+      "loadingText": "Chwileczkę, czat się zaczyna...",
+      "sendButton": "Wyślij",
+      "user": "Ty"
+    },
+    "prs": {
+      "button": "چت (بیتا)",
+      "conversationTitle": "لطفاً پرسش خود را در فیلد (جای) متن وارد نمایید.",
+      "conversationText": "شما میتوانید از معلومات محلی گرفته تا سوالات خاص در مورد وضعیت خود را بپرسید.",
+      "dataSecurity": "حريم خصوصی و امنيت: حریم خصوصی شما برای ما بسیار مهم است. تمام مکالمات محرمانه تلقی میشوند و معلومات شما به صورت امن پروسس میگردد. شما میتوانید معلومات بیشتر در مورد حفاظت از معلومات را در دستورالعمل های حفاظت از معلومات ما بیابید.",
+      "errorMessage": "یک خطای ارتباطی رخ داد.",
+      "header": "{{appName}} پشتیبانی چت",
+      "initialMessage": "درخواست چت شما ارسال شد. مشاور در اسرع وقت به پیام شما پاسخ خواهد داد.",
+      "inputLabel": "سوال من:",
+      "inputPlaceholder": "من میخواهم بدانم...",
+      "loadingText": "لطفاً یک لحظه صبر کنید، چت در حال شروع شدن است...",
+      "sendButton": "ارسال",
+      "user": "شما"
+    },
+    "ps": {
+      "button": "چټ (بيټا)",
+      "conversationTitle": "د مهربانۍ له مخې خپله پوښتنه د متن په ځای کې دننه کړئ.",
+      "conversationText": "تاسو کولی شئ جې د ځايي معلوماتو څخه نيولې بيا د خپل حالت په اړه تر ځانګړو پوښتنو پورې هرڅه وپوښتئ.",
+      "dataSecurity": "محرميت او خونديتوب: ستاسو محرميت زمونږ لپاره ډېر مهم دی. ټولې خبرې اترې په محرم ډول ترسره کېږي او ستاسو له معلوماتو څخه په خوندي ډول ګټه اخيستل کېږي. تاسو کولی شئ چې زموږ د معلوماتو خوندي ساتنې په لارښودونو کې د معلوماتو خوندي ساتنې په اړه نور معلومات ومومئ.",
+      "errorMessage": "په خبرو اترو کې يوه خرابي رامنځته شوه.",
+      "header": "{{appName}} د چټ ملاتړ",
+      "initialMessage": "ستاسو د چټ غوښتنه واستول شوه. مشاور به ستاسو پيغام ته ژر تر ژره ځواب ووايي.",
+      "inputLabel": "زما پوښتنه:",
+      "inputPlaceholder": "زه غواړم په دې پوه شم چې...",
+      "loadingText": "د مهربانۍ له مخې يوه شېبه انتظار وکړئ، چټ د پيلېدو په حال کې دی...",
+      "sendButton": "لېږل",
+      "user": "تاسو"
+    },
+    "pt": {
+      "button": "Conversa (beta)",
+      "conversationTitle": "Introduz a tua pergunta no campo de texto.",
+      "conversationText": "Podes perguntar qualquer coisa, desde informações locais a perguntas específicas sobre a tua situação.",
+      "dataSecurity": "Proteção e segurança dos dados: A tua privacidade é muito importante para nós. Todas as conversas são tratadas confidencialmente e os teus dados são processados de forma segura. Podes encontrar mais informações sobre a proteção de dados na nossa política de privacidade.",
+      "errorMessage": "Ocorreu um erro durante a comunicação.",
+      "header": "{{appName}} Suporte de conversa",
+      "initialMessage": "O teu pedido de conversa foi enviado. O consultor responderá à tua mensagem o mais rapidamente possível.",
+      "inputLabel": "A minha pergunta:",
+      "inputPlaceholder": "Gostaria de saber...",
+      "loadingText": "Um momento, por favor, a conversa está a começar...",
+      "sendButton": "Enviar",
+      "user": "Tu"
+    },
+    "ro": {
+      "button": "Chat (beta)",
+      "conversationTitle": "Vă rugăm să introduceți întrebarea dvs. în câmpul de text.",
+      "conversationText": "Puteți solicita orice, de la informații locale, la întrebări specifice privind situația dumneavoastră.",
+      "dataSecurity": "Protecția și securitatea datelor: Confidențialitatea dumneavoastră este foarte importantă pentru noi. Toate conversațiile sunt tratate confidențial, iar datele dumneavoastră sunt prelucrate în siguranță. Puteți găsi mai multe informații privind protecția datelor în politica noastră de confidențialitate.",
+      "errorMessage": "A apărut o eroare în timpul comunicării.",
+      "header": "{{appName}} Suport chat",
+      "initialMessage": "Cererea dvs. de chat a fost trimisă. Consilierul va răspunde la mesajul dvs. cât mai curând posibil.",
+      "inputLabel": "Întrebarea mea:",
+      "inputPlaceholder": "Aș dori să știu...",
+      "loadingText": "Vă rugăm să așteptați un moment; începe chat-ul...",
+      "sendButton": "Trimitere",
+      "user": "Tu"
+    },
+    "ru": {
+      "button": "Чат (бета-версия)",
+      "conversationTitle": "Введи свой вопрос в текстовое поле.",
+      "conversationText": "Ты можешь спрашивать о чем угодно, начиная с информации о местной жизни и заканчивая конкретными вопросами о твоей ситуации.",
+      "dataSecurity": "Защита данных и безопасность: Безопасность твоей частной жизни очень важна для нас. Все разговоры ведутся конфиденциально, а твои данные обрабатываются с соблюдением необходимых стандартов безопасности. Более подробную информацию о защите данных ты можешь найти в нашей политике конфиденциальности.",
+      "errorMessage": "Во время сеанса связи произошла ошибка.",
+      "header": "Чат поддержки {{appName}}",
+      "initialMessage": "Твой запрос в чат отправлен. Консультант ответит на твое сообщение в самое ближайшее время.",
+      "inputLabel": "Мой вопрос:",
+      "inputPlaceholder": "Я бы хотел/а знать...",
+      "loadingText": "Подождите, чат запускается...",
+      "sendButton": "Отправить",
+      "user": "Ты"
+    },
+    "sk": {
+      "button": "Chat (beta)",
+      "conversationTitle": "Do textového poľa zadajte svoju otázku.",
+      "conversationText": "Môžete sa pýtať na čokoľvek, od miestnych informácií až po špecifické otázky týkajúce sa vašej situácie.",
+      "dataSecurity": "Ochrana a bezpečnosť údajov: Vaša súkromná sféra je pre nás veľmi dôležitá. So všetkými rozhovormi sa zaobchádza dôverne a vaše údaje sa spracúvajú bezpečne. Viac informácií ohľadom ochrany osobných údajov nájdete v našich Smerniciach o ochrane osobných údajov.",
+      "errorMessage": "Pri komunikácii sa vyskytla chyba.",
+      "header": "{{appName}} Chatová podpora",
+      "initialMessage": "Vaša žiadosť o chat bola odoslaná. Poradca/kyňa odpovie na vašu správu podľa možnosti čo najskôr.",
+      "inputLabel": "Moja otázka:",
+      "inputPlaceholder": "Chcel/a by som vedieť...",
+      "loadingText": "Moment, prosím, spúšťa sa chat...",
+      "sendButton": "Odoslať",
+      "user": "Vy"
+    },
+    "so": {
+      "button": "Chat (beta)",
+      "conversationTitle": "Fadlan ku qor su'aashaada gudaha goobta qoraalka.",
+      "conversationText": "Waxaad weydiin kartaa wax kasta, laga bilaabo macluumaadka deegaanka ilaa codsiyada gaarka ah ee xaaladdaada ku saabsan.",
+      "dataSecurity": "Asturnaanta iyo Amniga: Asturnaantaada waa muhiim noo. Dhammaan wada sheekaysigu waxaa loo tixgaliyaa si sir ah, waxaana xogtaada loo habeeyaa si ammaan ah. Macluumaad dheeri ah oo ku saabsan ilaalinta xogta waxaad ka heli kartaa siyaasadeena asturnaanta.",
+      "errorMessage": "Khalad ayaa ka dhacay xiligii isgaarsiinta.",
+      "header": "{{appName}} Chat Support",
+      "initialMessage": "Codsigaaga wada sheekaysiga waa la diray. La-taliyaha ayaa fariintaada sida ugu dhakhsaha badan uga jawaabi doona.",
+      "inputLabel": "Su'aashayda:",
+      "inputPlaceholder": "Waxaan doonayaa inaan ogaado...",
+      "loadingText": "Hal daqiiqo, wada sheekaysiga wuu bilaabanayaa...",
+      "sendButton": "Dir",
+      "user": "Adiga"
+    },
+    "sq": {
+      "button": "Chat (beta)",
+      "conversationTitle": "Jepe pyetjen në këtë fushë teksti këtu.",
+      "conversationText": "Mund të pyesësh çfarëdo nga informacioni lokal deri te pyetjet specifike rreth situatës tënde.",
+      "dataSecurity": "Mbrojtja e të dhënave dhe siguria: Sfera jote private është shumë e rëndësishme për ne. Të gjitha bisedat trajtohen në mënyrë konfidenciale dhe të dhënat e tua përpunohen në mënyrë të sigurt. Më shumë informacione lidhur me mbrojtjen e të dhënave i gjen në këtë politikë privatësie.",
+      "errorMessage": "Ndodhi një gabim në komunikim.",
+      "header": "{{appName}} Chat Support",
+      "initialMessage": "Kërkesa jote për bisedë është dërguar. Këshilluesi do t'i përgjigjet mesazhit tënd sa më shpejt të jetë e mundur.",
+      "inputLabel": "Pyetja ime:",
+      "inputPlaceholder": "Dua të di...",
+      "loadingText": "Një moment të lutem, biseda po fillon...",
+      "sendButton": "Dërgo",
+      "user": "Ti"
+    },
+    "sr-Cyrl": {
+      "button": "Ћаскање (бета)",
+      "conversationTitle": "Унеси своје питање у поље за текст.",
+      "conversationText": "Можеш да питаш било шта, од локалних информација до специфичних упита везано за своју ситуацију.",
+      "dataSecurity": "Заштита података и безбедност: Твоја приватност нам је веома важна. Сви разговори се третирају поверљиво и твоји подаци се обрађују на безбедан начин. Више информације о заштити података о личности можеш наћи у нашим смерницама о заштити података о личности.",
+      "errorMessage": "Дошло је до грешке у комуникацији.",
+      "header": "Подршка ћаскањем за {{appName}}",
+      "initialMessage": "Твој упит за ћаскање је послат. Саветник/ца ће првом приликом одговорити на твоју поруку.",
+      "inputLabel": "Моје питање:",
+      "inputPlaceholder": "Желим да знам...",
+      "loadingText": "Само секунд, ћаскање се покреће...",
+      "sendButton": "Пошаљи",
+      "user": "Ти"
+    },
+    "sr-Latn": {
+      "button": "Ćaskanje (beta)",
+      "conversationTitle": "Unesi svoje pitanje u polje za tekst.",
+      "conversationText": "Možeš da pitaš bilo šta, od lokalnih informacija do specifičnih upita vezano za svoju situaciju.",
+      "dataSecurity": "Zaštita podataka i bezbednost: Tvoja privatnost nam je veoma važna. Svi razgovori se tretiraju poverljivo i tvoji podaci se obrađuju na bezbedan način. Više informacije o zaštiti podataka o ličnosti možeš naći u našim smernicama o zaštiti podataka o ličnosti.",
+      "errorMessage": "Došlo je do greške u komunikaciji.",
+      "header": "Podrška ćaskanjem za {{appName}}",
+      "initialMessage": "Tvoj upit za ćaskanje je poslat. Savetnik/ca će prvom prilikom odgovoriti na tvoju poruku.",
+      "inputLabel": "Moje pitanje:",
+      "inputPlaceholder": "Želim da znam...",
+      "loadingText": "Samo sekund, ćaskanje se pokreće...",
+      "sendButton": "Pošalji",
+      "user": "Ti"
+    },
+    "ti": {
+      "button": "ቻት (ቤታ)",
+      "conversationTitle": "በጣም ጽሑፍካን በኩልን እንደትግበር ኣብቲ ህብልጽ መልእኽት ጸሓፈካን ናብኡ እንድውል ይቕረቡ",
+      "conversationText": "ንስኻ እንታይም ነገር ብሕቶት ብዘይ ገድሊ ትሓትት ከምኡ'ውን ከባብሎም ሓበሬታታትካን እሞ ብዘይ ከይትጸልእ እንኳ ትኸታትካላ.",
+      "dataSecurity": "ጥልቃዊ ሕብረትን ውርሃትን. ንናትና ናብ ሕጉሲካ ብጣዕሚ ንግርን ቅነን ይረክብሉና. ኩሉ ዝተሰማማዕ ዝርከቡ ቅነናት ብተንክልነት ክጥንቀቅ ኣብርሆ ኢልና. ተጨማሪ ሓበሬታ ብተንክልነትና ኣብ ዝተቓተለት ኣማኻሪያትና ትረኽብ ዶ.",
+      "errorMessage": " ገጸኻሪ ብቲ ትህታት ኣንደምሳልኩ ኣዕምሩ እዩ.",
+      "header": "{{appName}} ቻት ደገ ንርእይዮ ኣብቲ.",
+      "initialMessage": "ናትካ ሓበሬታ በታ ምርእካ ተሰድደትን ኣብ ሓግ ኣብኩ. በረድ ንሕኡርክትኻ ሰልኣካ ብትኽክልነት እንድውል ይሕብርር ነራን.",
+      "inputLabel": "ሕቶይ፡",
+      "inputPlaceholder": "እንተዘሎ…",
+      "loadingText": "ቅንይልካ ሓዱሽ በርዕት ትምህሩና እናሓልፎም…",
+      "sendButton": "ምርኣይ",
+      "user": "ንስኻ"
+    },
+    "tr": {
+      "button": "Sohbet (beta)",
+      "conversationTitle": "Lütfen sorunu metin alanına gir.",
+      "conversationText": "Yerel bilgilerden durumunla ilgili özel sorulara kadar her şeyi sorabilirsin.",
+      "dataSecurity": "Gizlilik ve güvenlik: Gizliliğin bizim için çok önemlidir. Tüm görüşmeler gizlilikle ele alınır ve verilerin güvenli bir şekilde işlenir. Gizlilik ile ilgili daha fazla bilgiye gizlilik politikamız altından ulaşabilirsin.",
+      "errorMessage": "İletişim sırasında bir hata oluştu.",
+      "header": "{{appName}} Sohbet Desteği",
+      "initialMessage": "Sohbet isteğin gönderildi. Danışmanlar mesajına mümkün olan en kısa sürede yanıt verecektir.",
+      "inputLabel": "Benim sorum:",
+      "inputPlaceholder": "Öğrenmek istediğim...",
+      "loadingText": "Lütfen kısaca bekle, sohbet başlatılıyor...",
+      "sendButton": "Gönder",
+      "user": "Sen"
+    },
+    "uk": {
+      "button": "Чат (бета-версія)",
+      "conversationTitle": "Введіть своє запитання в текстовому полі.",
+      "conversationText": "Ви можете поставити запитання на будь-яку тему: від місцевої інформації до конкретних запитів щодо вашої ситуації.",
+      "dataSecurity": "Захист і безпека даних: Для нас дуже важлива ваша конфіденційність. Всі розмови є конфіденційними, а ваші дані обробляються безпечним способом. З додатковою інформацією про захист даних можна ознайомитися в нашій політиці конфіденційності.",
+      "errorMessage": "Під час спілкування сталася помилка.",
+      "header": "Підтримка в чаті {{AppName}}",
+      "initialMessage": "Ваш запит на початок чату відправлено. Консультант якнайшвидше відповість на ваше повідомлення.",
+      "inputLabel": "Моє запитання:",
+      "inputPlaceholder": "Мені хотілося б дізнатися...",
+      "loadingText": "Зачекайте хвилинку, чат починається...",
+      "sendButton": "Надіслати",
+      "user": "Ви"
+    },
+    "ur": {
+      "button": "چیٹ (بی ٹا)",
+      "conversationTitle": "براہ کرم ٹیکسٹ فیلڈ میں اپنا سوال درج کریں۔",
+      "conversationText": "آپ مقامی معلومات سے لے کر اپنی صورتحال کے بارے میں مخصوص پوچھ تاچھ تک کچھ بھی پوچھ سکتے ہیں۔",
+      "dataSecurity": "رازداری اور سیکورٹی: آپ کی رازداری ہمارے لیے بہت اہم ہے۔ تمام بات چیت کو خفیہ رکھا جاتا ہے اور آپ کے ڈیٹا کو محفوظ طریقے سے پروسیس کیا جاتا ہے۔ آپ ڈیٹا کے تحفظ کے بارے میں مزید معلومات ہمارے ڈیٹا کے تحفظ کے رہنما خطوط میں حاصل کر سکتے ہیں۔",
+      "errorMessage": "ایک مواصلاتی خرابی پیش آگئی۔",
+      "header": "{{appName}} چیٹ سپورٹ",
+      "initialMessage": "آپ کی چیٹ کی درخواست بھیج دی گئی ہے۔ مشیر جلد از جلد آپ کے پیغام کا جواب دے گا۔",
+      "inputLabel": "میرا سوال:",
+      "inputPlaceholder": "میں جاننا چاہتا ہوں...",
+      "loadingText": "براه کرم تھوڑی دیر انتظار کریں، چیٹ شروع ہو رہی ہے...",
+      "sendButton": "بھیجیں",
+      "user": "آپ"
+    },
+    "zh-CN": {
+      "button": "聊天（测试版）",
+      "conversationTitle": "请在文本框中输入您的问题。",
+      "conversationText": "您可以询问任何问题，无论是本地信息还是有关您情况的具体询问均可。",
+      "dataSecurity": "数据保护和安全：我们非常重视您的隐私。所有对话都会保密，您的数据也会得到安全处理。有关数据保护的更多信息，请参阅我们的隐私政策。",
+      "errorMessage": "通信过程中发生错误。",
+      "header": "{{appName}} 聊天支持",
+      "initialMessage": "您的聊天请求已发送。咨询师会尽快回复您的信息。",
+      "inputLabel": "我的问题是：",
+      "inputPlaceholder": "我想知道...",
+      "loadingText": "请稍等，聊天即将开始...",
+      "sendButton": "发送",
+      "user": "您"
     }
   },
   "cityNotCooperating": {
@@ -312,6 +827,14 @@
       "findOutMail": "Zjistěte e-mailovou adresu svého regionu",
       "sendText": "Zkopírujte tento text, vyplňte []-obsah svými údaji a odešlete jej.",
       "copyText": "Kopírovat text"
+    },
+    "da": {
+      "callToAction": "Foreslå Integreat til din region!",
+      "explanation": "Integreat-appens non-profit-koncept har overbevist dig, og du tror, at din by, dit distrikt eller din kommune også kan få gavn af den digitale løsning? Så kan du nemt blive aktiv med dette.",
+      "whatToDo": "Her er, hvad du kan gøre:",
+      "findOutMail": "Find din regions e-mailadresse",
+      "sendText": "Kopiér denne tekst, udfyld [ ]-indholdet med dine oplysninger, og send den afsted",
+      "copyText": "Kopiér tekst"
     },
     "el": {
       "callToAction": "Προτείνετε το Integreat στην περιοχή σας!",
@@ -538,7 +1061,7 @@
       "copyText": "Скопіюйте текст"
     },
     "ur": {
-      "callToAction": "اپنے علاقے کو شامل کرنے کے لئے تجویز کریں۔",
+      "callToAction": "اپنے علاقے میں انٹیگریٹ (Integreat) تجویز کریں!",
       "explanation": "اگر آپ  Integreat ایپلیکیشن کو مفت میں حاصل کرکے مطمئن ہیں اور آپ سمجھتے ہیں کہ آپ کا شہر، ملک اور آپ کی کمیونٹی بھی اس سے استفادہ کر سکتے ہیں تو آپ اس ایپلیکیشن کے ساتھ آسانی سے فعال رہ سکتے ہیں۔",
       "whatToDo": "یہاں آپ کو اس کو کرنے کا طریقہ ملے گا:",
       "findOutMail": "آپ اپنے علاقے کا ای میل ایڈریس معلوم کریں۔",
@@ -566,7 +1089,8 @@
       "showMore": "Mehr anzeigen",
       "showLess": "Weniger anzeigen",
       "optional": "optional",
-      "back": "Zurück"
+      "back": "Zurück",
+      "ok": "Ok"
     },
     "am": {
       "copied": "ተቀድቷል",
@@ -579,7 +1103,8 @@
       "showMore": "ተጨማሪ አሳይ",
       "showLess": "ያነሰ አሳይ",
       "optional": "አማራጭ /ሊተው የሚችል/",
-      "back": "ወደኋላ ተመለስ"
+      "back": "ወደኋላ ተመለስ",
+      "ok": "እሺ"
     },
     "ar": {
       "copied": "تم النسخ",
@@ -592,7 +1117,8 @@
       "showMore": "عرض المزيد",
       "showLess": "عرض أقل",
       "optional": "اختياري",
-      "back": "تراجع"
+      "back": "تراجع",
+      "ok": "موافق"
     },
     "bg": {
       "copied": "Копиран",
@@ -605,7 +1131,8 @@
       "showMore": "Показване на повече",
       "showLess": "Показване на по-малко",
       "optional": "опционално",
-      "back": "Обратно"
+      "back": "Обратно",
+      "ok": "Добре"
     },
     "ckb": {
       "copied": "کۆپی کرا",
@@ -618,7 +1145,8 @@
       "showMore": "پیشاندانی زیاتر",
       "showLess": "پیشاندانی کەمتر",
       "optional": "دڵخواز",
-      "back": "گەڕانەوە"
+      "back": "گەڕانەوە",
+      "ok": "پەسەندکردن"
     },
     "cs": {
       "copied": "Kopírovat",
@@ -631,7 +1159,22 @@
       "showMore": "Zobrazit více",
       "showLess": "Zobrazit méně",
       "optional": "volitelné",
-      "back": "Zpět"
+      "back": "Zpět",
+      "ok": "OK"
+    },
+    "da": {
+      "copied": "Kopieret",
+      "moreOptions": "Flere muligheder",
+      "languageNotAvailable": "Dit sprog er desværre ikke tilgængeligt her.",
+      "chooseALanguage": "Vælg et sprog.",
+      "lastUpdate": "Sidst opdateret:",
+      "loading": "Indlæs ...",
+      "close": "Luk",
+      "showMore": "Vis mere",
+      "showLess": "Vis mindre",
+      "optional": "valgfri",
+      "back": "Tilbage",
+      "ok": "Ok"
     },
     "el": {
       "copied": "Αντιγράφηκε",
@@ -644,7 +1187,8 @@
       "showMore": "Εμφάνιση περισσότερων",
       "showLess": "Εμφάνιση λιγότερων",
       "optional": "προαιρετικό",
-      "back": "Πίσω"
+      "back": "Πίσω",
+      "ok": "Εντάξει"
     },
     "en": {
       "copied": "Copied",
@@ -657,7 +1201,8 @@
       "showMore": "Show more",
       "showLess": "Show less",
       "optional": "optional",
-      "back": "Back"
+      "back": "Back",
+      "ok": "Ok"
     },
     "es": {
       "copied": "Copiado",
@@ -670,7 +1215,8 @@
       "showMore": "Mostrar más",
       "showLess": "Mostrar menos",
       "optional": "opcional",
-      "back": "Atrás"
+      "back": "Atrás",
+      "ok": "OK"
     },
     "fi": {
       "copied": "Kopioitu",
@@ -683,7 +1229,8 @@
       "showMore": "Näytä enemmän",
       "showLess": "Näytä vähemmän",
       "optional": "valinnainen",
-      "back": "Takaisin"
+      "back": "Takaisin",
+      "ok": "OK"
     },
     "fr": {
       "copied": "Copié",
@@ -696,7 +1243,8 @@
       "showMore": "Afficher plus",
       "showLess": "Afficher moins",
       "optional": "facultatif",
-      "back": "Retour"
+      "back": "Retour",
+      "ok": "Ok"
     },
     "hr": {
       "copied": "kopirano",
@@ -709,7 +1257,8 @@
       "showMore": "Prikazati više",
       "showLess": "Prikazati manje",
       "optional": "opcijski",
-      "back": "Natrag"
+      "back": "Natrag",
+      "ok": "U redu"
     },
     "hu": {
       "copied": "Bemásolva",
@@ -722,7 +1271,8 @@
       "showMore": "Részletek",
       "showLess": "Kevesebb megjelenítése",
       "optional": "opcionális",
-      "back": "Vissza"
+      "back": "Vissza",
+      "ok": "Rendben"
     },
     "it": {
       "copied": "Copiato",
@@ -735,7 +1285,8 @@
       "showMore": "Mostra altro",
       "showLess": "Mostra meno",
       "optional": "opzionale",
-      "back": "Indietro"
+      "back": "Indietro",
+      "ok": "OK"
     },
     "ka": {
       "copied": "დაკოპირებულია",
@@ -748,7 +1299,8 @@
       "showMore": "მეტის ჩვენება",
       "showLess": "ნაკლების ჩვენება",
       "optional": "ნებაყოფლობით",
-      "back": "უკან"
+      "back": "უკან",
+      "ok": "კარგი"
     },
     "kmr": {
       "copied": "Kopî bû",
@@ -761,7 +1313,8 @@
       "showMore": "Zêdetir nîşan bide",
       "showLess": "Kêmtir nîşan bide",
       "optional": "Dilxwazî",
-      "back": "Vegeriyan"
+      "back": "Vegeriyan",
+      "ok": "Piştrastkirin"
     },
     "mk": {
       "copied": "Копирано",
@@ -774,7 +1327,8 @@
       "showMore": "Прикажи повеќе",
       "showLess": "Прикажи помалку",
       "optional": "опционално",
-      "back": "Назад"
+      "back": "Назад",
+      "ok": "Во ред"
     },
     "nl": {
       "copied": "Gekopieerd",
@@ -787,7 +1341,8 @@
       "showMore": "Meer tonen",
       "showLess": "Minder tonen",
       "optional": "optioneel",
-      "back": "Terug"
+      "back": "Terug",
+      "ok": "OK"
     },
     "orm": {
       "copied": "Koppii taeera",
@@ -800,7 +1355,8 @@
       "showMore": "Dabalataan agarsiisi",
       "showLess": "Muraasa agarsiisi",
       "optional": "Filannoo",
-      "back": "Duubatti"
+      "back": "Duubatti",
+      "ok": "Tole"
     },
     "pes": {
       "copied": "کپی شد",
@@ -826,7 +1382,8 @@
       "showMore": "Wyświetl więcej",
       "showLess": "Wyświetl mniej",
       "optional": "opcja",
-      "back": "Powrót"
+      "back": "Powrót",
+      "ok": "Ok"
     },
     "prs": {
       "copied": "کپی شد",
@@ -839,7 +1396,8 @@
       "showMore": "بیشتر نشان بدهيد",
       "showLess": "کمتر نشان بدهيد",
       "optional": "اختیاری",
-      "back": "بازگشت"
+      "back": "بازگشت",
+      "ok": "درست است"
     },
     "ps": {
       "copied": "کاپی شولو",
@@ -852,7 +1410,8 @@
       "showMore": "ډېر وښاياست",
       "showLess": "لږ وښاياست",
       "optional": "اختیاري",
-      "back": "بيرته ګرځېدل"
+      "back": "بيرته ګرځېدل",
+      "ok": "سمه ده"
     },
     "pt": {
       "copied": "Copiado",
@@ -865,7 +1424,8 @@
       "showMore": "Mostrar mais",
       "showLess": "Mostrar menos",
       "optional": "opcional",
-      "back": "Voltar"
+      "back": "Voltar",
+      "ok": "Está bem"
     },
     "ro": {
       "copied": "Copiat",
@@ -878,7 +1438,8 @@
       "showMore": "Afișează mai mult",
       "showLess": "Afișează mai puțin",
       "optional": "opțional",
-      "back": "Înapoi"
+      "back": "Înapoi",
+      "ok": "Bine"
     },
     "ru": {
       "copied": "Скопировано",
@@ -891,7 +1452,8 @@
       "showMore": "Показать больше",
       "showLess": "Показать меньше",
       "optional": "опционально",
-      "back": "Назад"
+      "back": "Назад",
+      "ok": "Ок"
     },
     "sk": {
       "copied": "Skopírované",
@@ -904,7 +1466,8 @@
       "showMore": "Zobraziť viac",
       "showLess": "Zobraziť menej",
       "optional": "voliteľné",
-      "back": "Späť"
+      "back": "Späť",
+      "ok": "Ok"
     },
     "so": {
       "copied": "la koobiyeeyay",
@@ -917,7 +1480,8 @@
       "showMore": "Wax badan muuji",
       "showLess": "Wax yar muuji",
       "optional": "ikhtiyaari",
-      "back": "Dib u noqo"
+      "back": "Dib u noqo",
+      "ok": "Haye"
     },
     "sq": {
       "copied": "e kopjuar",
@@ -930,7 +1494,8 @@
       "showMore": "Shfaq më shumë",
       "showLess": "Shfaq më pak",
       "optional": "opsionale",
-      "back": "Kthehu"
+      "back": "Kthehu",
+      "ok": "Në rregull"
     },
     "sr-Cyrl": {
       "copied": "копирано",
@@ -943,7 +1508,8 @@
       "showMore": "Прикажи више",
       "showLess": "Прикажи мање",
       "optional": "опција",
-      "back": "Назад"
+      "back": "Назад",
+      "ok": "У реду"
     },
     "sr-Latn": {
       "copied": "kopirano",
@@ -956,7 +1522,8 @@
       "showMore": "Prikaži više",
       "showLess": "Prikaži manje",
       "optional": "opcija",
-      "back": "Nazad"
+      "back": "Nazad",
+      "ok": "U redu"
     },
     "ti": {
       "copied": "ተቐዲሑ",
@@ -969,7 +1536,8 @@
       "showMore": "ተወሳኺ ኣርእዩ",
       "showLess": "ዝወሓደ ኣርእዩ",
       "optional": "ከም ምርጫኹም",
-      "back": "ዝባን"
+      "back": "ዝባን",
+      "ok": "እሺ"
     },
     "tr": {
       "copied": "kopyalandı",
@@ -982,7 +1550,8 @@
       "showMore": "Daha fazla göster",
       "showLess": "Daha az göster",
       "optional": "isteğe bağlı",
-      "back": "Geri"
+      "back": "Geri",
+      "ok": "Tamam"
     },
     "uk": {
       "copied": "Копіювати",
@@ -995,7 +1564,8 @@
       "showMore": "Показати більше",
       "showLess": "Показати менше",
       "optional": "додатково",
-      "back": "Назад"
+      "back": "Назад",
+      "ok": "Гаразд"
     },
     "ur": {
       "copied": "کاپی کیا گیا",
@@ -1008,7 +1578,8 @@
       "showMore": "مزید دکھائیں",
       "showLess": "کم دکھائیں",
       "optional": "اختیاری",
-      "back": "واپسی"
+      "back": "واپسی",
+      "ok": "ٹھیک ہے"
     },
     "zh-CN": {
       "copied": "已复制",
@@ -1021,7 +1592,8 @@
       "showMore": "显示更多",
       "showLess": "显示更少",
       "optional": "可选",
-      "back": "返回"
+      "back": "返回",
+      "ok": "确认"
     }
   },
   "consent": {
@@ -1084,6 +1656,16 @@
       "knownResourceContentMessage": "Tento prvek obsahuje data z tohoto externího zdroje. Vkládání takového obsahu můžete zablokovat v nastavení",
       "knownResourceBlocked": "Externí obsah z tohoto zdroje byl zablokován. Tento zdroj můžete povolit v nastavení.",
       "noSources": "Žádné externí zdroje nejsou k dispozici."
+    },
+    "da": {
+      "title": "Eksterne kilder",
+      "description": "Du kan give permanent samtykke til visning af indlejret indhold fra eksterne kilder. Valget vil derefter blive gemt permanent i din internetbrowser. Samtykket kan til enhver tid tilbagekaldes her.",
+      "descriptionNative": "Du kan give permanent samtykke til visning af indlejret indhold fra tredjepartsudbydere. Valget vil derefter blive gemt permanent på din lokale enhed. Samtykket kan til enhver tid tilbagekaldes her.",
+      "consentDescription": "Tillad indhold fra {{source}}",
+      "knownResourceOptIn": "Jeg er indforstået med, at indhold fra denne eksterne kilde kan blive vist for mig.",
+      "knownResourceContentMessage": "Dette element indeholder data fra denne eksterne kilde. Du kan blokere for indlejring af sådant indhold i indstillingerne",
+      "knownResourceBlocked": "Eksternt indhold fra denne kilde er blevet blokeret. Du kan tillade denne kilde i indstillingerne.",
+      "noSources": "Ingen eksterne kilder tilgængelige."
     },
     "el": {
       "title": "Εξωτερικές πηγές",
@@ -1423,6 +2005,12 @@
       "news": "Zprávy",
       "pois": "Mapa"
     },
+    "da": {
+      "localInformation": "Lokale oplysninger",
+      "events": "Begivenheder",
+      "news": "Nyheder",
+      "pois": "Kort"
+    },
     "el": {
       "localInformation": "Τοπικές πληροφορίες",
       "events": "Εκδηλώσεις",
@@ -1623,6 +2211,9 @@
     "cs": {
       "pageTitle": "Impresum a kontakt"
     },
+    "da": {
+      "pageTitle": "Kolofon og kontakt"
+    },
     "el": {
       "pageTitle": "Στοιχεία έκδοσης και επικοινωνία"
     },
@@ -1774,7 +2365,8 @@
         "categories": "ወደ ምድቦች",
         "events": "ወደ ዝግጅቶች",
         "pois": "ወደ ካርታ",
-        "news": "ወደ ዜናዎች"
+        "news": "ወደ ዜናዎች",
+        "pageNumber": "ወደ ገጽ {{number}}"
       },
       "pageTitle": "ስህተት",
       "generalError": "ስህተት ተፈጥሯል",
@@ -1808,7 +2400,8 @@
         "categories": "إلى الفئات",
         "events": "إلى الفعاليات",
         "pois": "إلى الخريطة",
-        "news": "إلى الأخبار"
+        "news": "إلى الأخبار",
+        "pageNumber": "إلى صفحة {{number}}"
       },
       "pageTitle": "خطأ",
       "generalError": "حدث خطأ ما",
@@ -1842,7 +2435,8 @@
         "categories": "Към категориите",
         "events": "Към събитията",
         "pois": "Към картата",
-        "news": "Към новините"
+        "news": "Към новините",
+        "pageNumber": "Към страница {{number}}"
       },
       "pageTitle": "Грешка",
       "generalError": "Възникна грешка",
@@ -1876,7 +2470,8 @@
         "categories": "بۆ کۆمەڵەکان",
         "events": "بۆ ڕووداوەکان",
         "pois": "بۆ نەخشە",
-        "news": "بۆ هەواڵ"
+        "news": "بۆ هەواڵ",
+        "pageNumber": "بڕۆ بۆ لاپەڕەی {{number}}"
       },
       "pageTitle": "هەڵە",
       "generalError": "هەڵەیەک ڕووی داوە",
@@ -1910,7 +2505,8 @@
         "categories": "Ke kategoriím",
         "events": "K akcím",
         "pois": "Na mapu",
-        "news": "Ke zprávám"
+        "news": "Ke zprávám",
+        "pageNumber": "Na stránku {{number}}"
       },
       "pageTitle": "Chyba",
       "generalError": "Došlo k chybě",
@@ -1919,6 +2515,41 @@
       "languageSwitchFailedMessage": "Vybraný jazyk není k dispozici v režimu offline. Je vyžadováno aktivní připojení k internetu.",
       "noCalendarPermission": "Přístup do kalendáře není povolen.",
       "noCalendarFound": "Nebyl nalezen žádný vhodný kalendář."
+    },
+    "da": {
+      "notFound": {
+        "language": "Dette sprog er desværre ikke tilgængeligt her.",
+        "city": "Beklager, denne region blev ikke fundet.",
+        "category": "Beklager, denne side blev ikke fundet.",
+        "event": "Beklager, denne begivenhed blev ikke fundet.",
+        "poi": "Beklager, dette sted blev ikke fundet.",
+        "news": "Beklager, denne besked blev ikke fundet.",
+        "pageTitle": "Siden blev ikke fundet"
+      },
+      "pageNotFound": "Beklager, denne side blev ikke fundet.",
+      "noSuitableAppInstalled": "Ingen passende app installeret.",
+      "networkConnectionFailed": "Forbindelsen til serveren mislykkedes.",
+      "networkRequestFailed": "Forespørgslen kunne ikke behandles.",
+      "responseMappingFailed": "Svaret fra serveren kunne ikke behandles.",
+      "unknownError": "Der er opstået en ukendt fejl.",
+      "tryAgain": "Prøv igen",
+      "loadingFailed": "Beklager, siden kunne ikke indlæses.",
+      "chooseALanguage": "Vælg et sprog:",
+      "goTo": {
+        "start": "Til startsiden",
+        "categories": "Til kategorierne",
+        "events": "Til begivenhederne",
+        "pois": "Til kortet",
+        "news": "Til nyhederne",
+        "pageNumber": "Til side {{number}}"
+      },
+      "pageTitle": "Fejl",
+      "generalError": "Der er opstået en fejl",
+      "notSupportedByDevice": "Denne funktion er ikke understøttet på denne enhed.",
+      "languageSwitchFailedTitle": "Desværre mislykkedes sprogskiftet.",
+      "languageSwitchFailedMessage": "Det valgte sprog er ikke tilgængeligt offline. En aktiv internetforbindelse er nødvendig.",
+      "noCalendarPermission": "Adgang til kalenderen er ikke tilladt.",
+      "noCalendarFound": "Der blev ikke fundet nogen passende kalender."
     },
     "el": {
       "notFound": {
@@ -1944,7 +2575,8 @@
         "categories": "Προς κατηγορίες",
         "events": "Προς εκδηλώσεις",
         "pois": "Μετάβαση στο χάρτη",
-        "news": "Προς ειδήσεις"
+        "news": "Προς ειδήσεις",
+        "pageNumber": "Στη σελίδα {{number}}"
       },
       "pageTitle": "Σφάλμα",
       "generalError": "Παρουσιάστηκε σφάλμα",
@@ -2013,7 +2645,8 @@
         "categories": "Ir a las categorías",
         "events": "Ir a las actividades",
         "pois": "Ir al mapa",
-        "news": "Ir a los mensajes"
+        "news": "Ir a los mensajes",
+        "pageNumber": "A la página {{number}}"
       },
       "pageTitle": "Error",
       "generalError": "Se ha producido un error",
@@ -2047,7 +2680,8 @@
         "categories": "Siirry kategorioihin",
         "events": "Siirry tapahtumiin",
         "pois": "Siirry karttaan",
-        "news": "Siirry uutisiin"
+        "news": "Siirry uutisiin",
+        "pageNumber": "Sivulle {{number}}"
       },
       "pageTitle": "Virhe",
       "generalError": "Ilmeni virhe",
@@ -2081,7 +2715,8 @@
         "categories": "Vers les catégories",
         "events": "Vers les événements",
         "pois": "Aller à la carte",
-        "news": "Accéder aux messages"
+        "news": "Accéder aux messages",
+        "pageNumber": "Vers la page {{number}}"
       },
       "pageTitle": "Erreur",
       "generalError": "Une erreur s'est produite",
@@ -2115,7 +2750,8 @@
         "categories": "Na kategorije",
         "events": "Na događanja",
         "pois": "Idi na kartu",
-        "news": "Na vijesti"
+        "news": "Na vijesti",
+        "pageNumber": "Idi na stranicu {{number}}"
       },
       "pageTitle": "Pogreške",
       "generalError": "Došlo je do pogreške",
@@ -2149,7 +2785,8 @@
         "categories": "A Kategóriákhoz",
         "events": "Az Eseményekhez",
         "pois": "A térképhez",
-        "news": "A hírekhez"
+        "news": "A hírekhez",
+        "pageNumber": "A(z) {{number}}. oldalra"
       },
       "pageTitle": "Hiba",
       "generalError": "Hiba lépett fel.",
@@ -2183,7 +2820,8 @@
         "categories": "Vai su Categorie",
         "events": "Vai su Eventi",
         "pois": "Vai alla mappa",
-        "news": "Vai su Messaggi"
+        "news": "Vai su Messaggi",
+        "pageNumber": "Alla pagina {{number}}"
       },
       "pageTitle": "Errore",
       "generalError": "Si è verificato un errore",
@@ -2217,7 +2855,8 @@
         "categories": "კატეგორიებისაკენ",
         "events": "ღონისძიებებისაკენ",
         "pois": "რუქაზე გადასვლა",
-        "news": "ინფორმაციებისაკენ"
+        "news": "ინფორმაციებისაკენ",
+        "pageNumber": "გვერდი: {{number}}"
       },
       "pageTitle": "შეცდომა",
       "generalError": "გამოვლინდა შეცდომა",
@@ -2251,7 +2890,8 @@
         "categories": "Ber bi destebendiyan va",
         "events": "Ber bi rûdanan va",
         "pois": "Bo nexşeyê",
-        "news": "Bo nûçeyan"
+        "news": "Bo nûçeyan",
+        "pageNumber": "Çûn bo rûpela {{number}}"
       },
       "pageTitle": "Şaşitî (Eror)",
       "generalError": "Şaşitiyek qewimiye",
@@ -2285,7 +2925,8 @@
         "categories": "Кон категориите",
         "events": "Кон настаните",
         "pois": "Кон мапата",
-        "news": "Кон вестите"
+        "news": "Кон вестите",
+        "pageNumber": "Кон страницата {{number}}"
       },
       "pageTitle": "Грешка",
       "generalError": "Настапи грешка",
@@ -2319,7 +2960,8 @@
         "categories": "Ga naar categorieën",
         "events": "Ga naar evenementen",
         "pois": "Ga naar de kaart",
-        "news": "Ga naar nieuws"
+        "news": "Ga naar nieuws",
+        "pageNumber": "Naar pagina {{number}}"
       },
       "pageTitle": "Fout",
       "generalError": "Er is een fout opgetreden.",
@@ -2388,7 +3030,8 @@
         "categories": "به سوی دسته بندی ها",
         "events": "به سوی رویدادها",
         "pois": "به نقشه",
-        "news": "به اخبار"
+        "news": "به اخبار",
+        "pageNumber": "رفتن به صفحه {{number}}"
       },
       "pageTitle": "خطا",
       "generalError": "خطایی رخ داده است",
@@ -2422,7 +3065,8 @@
         "categories": "Do kategorii",
         "events": "Do wydarzeń",
         "pois": "Przejdź do mapy",
-        "news": "Do wiadomości"
+        "news": "Do wiadomości",
+        "pageNumber": "Do strony {{number}}"
       },
       "pageTitle": "Błąd",
       "generalError": "Wystąpił błąd",
@@ -2456,7 +3100,8 @@
         "categories": "به دسته ها",
         "events": "به رویدادها",
         "pois": "به نقشه",
-        "news": "به اخبار"
+        "news": "به اخبار",
+        "pageNumber": "به صفحه {{number}} بروید"
       },
       "pageTitle": "خطا",
       "generalError": "خطایی رخ داده است",
@@ -2490,7 +3135,8 @@
         "categories": "کټګوریو یعنی انواعو  ته تلل",
         "events": "غونډو ته تلل",
         "pois": "نقشی تہ تلل",
-        "news": "خبرونو ته"
+        "news": "خبرونو ته",
+        "pageNumber": "{{number}} پاڼې ته لاړ شئ"
       },
       "pageTitle": "اشتباه",
       "generalError": "یوه اشتباه رامینځته شوه",
@@ -2524,7 +3170,8 @@
         "categories": "Ir para as categorias",
         "events": "Ir para os eventos",
         "pois": "Ir para o mapa",
-        "news": "Ir para as notícias"
+        "news": "Ir para as notícias",
+        "pageNumber": "Para a página {{number}}"
       },
       "pageTitle": "Erro",
       "generalError": "Ocorreu um erro",
@@ -2558,7 +3205,8 @@
         "categories": "Spre categorii",
         "events": "Spre evenimente",
         "pois": "Spre hartă",
-        "news": "Spre știri"
+        "news": "Spre știri",
+        "pageNumber": "La pagina {{number}}"
       },
       "pageTitle": "Erori",
       "generalError": "A apărut o eroare",
@@ -2592,7 +3240,8 @@
         "categories": "К категориям",
         "events": "К мероприятиям",
         "pois": "К карте",
-        "news": "К сообщениям"
+        "news": "К сообщениям",
+        "pageNumber": "На страницу {{number}}"
       },
       "pageTitle": "Ошибка",
       "generalError": "Произошла ошибка",
@@ -2626,7 +3275,8 @@
         "categories": "Ku kategóriám",
         "events": "Ku podujatiam",
         "pois": "Ku mape",
-        "news": "K správam"
+        "news": "K správam",
+        "pageNumber": "Na stránku {{number}}"
       },
       "pageTitle": "Chyba",
       "generalError": "Vyskytla sa chyba",
@@ -2660,7 +3310,8 @@
         "categories": "Aad Qaybaha",
         "events": "Aad dhacdooyinka",
         "pois": "Aad khariidadda",
-        "news": "Ee aqbaaraha"
+        "news": "Ee aqbaaraha",
+        "pageNumber": "Bogga {{number}}"
       },
       "pageTitle": "Qalad",
       "generalError": "Khalad ayaa dhacay",
@@ -2694,7 +3345,8 @@
         "categories": "Tek kategoritë",
         "events": "Tek evenimentet",
         "pois": "Tek harta",
-        "news": "Tek lajmet"
+        "news": "Tek lajmet",
+        "pageNumber": "Te faqja {{number}}"
       },
       "pageTitle": "Gabim",
       "generalError": "Një gabim ka ndodhur",
@@ -2728,7 +3380,8 @@
         "categories": "Ка категоријама",
         "events": "Ка догађајима",
         "pois": "Ка картама",
-        "news": "Ка вестима"
+        "news": "Ка вестима",
+        "pageNumber": "иди на страну {{number}}"
       },
       "pageTitle": "Грешка",
       "generalError": "Дошло је до грешке",
@@ -2762,7 +3415,8 @@
         "categories": "Ka kategorijama",
         "events": "Ka događajima",
         "pois": "Ka kartama",
-        "news": "Ka vestima"
+        "news": "Ka vestima",
+        "pageNumber": "Idi na stranu {{number}}"
       },
       "pageTitle": "Greška",
       "generalError": "Došlo je do greške",
@@ -2796,7 +3450,8 @@
         "categories": "ናብቶም ምድባት",
         "events": "ናብቶም ኣጋጣሚታት",
         "pois": "ናብ ካርታ",
-        "news": "ነቲ ዜና"
+        "news": "ነቲ ዜና",
+        "pageNumber": "ናብ ምሕደር ድርጅት ብቲ\\ {{number}}"
       },
       "pageTitle": "ጌጋ",
       "generalError": "ሓደ ጌጋ ተኸሲቱ ኣሎ",
@@ -2830,7 +3485,8 @@
         "categories": "Kategorilere git",
         "events": "Etkinliklere git",
         "pois": "Haritaya git",
-        "news": "Mesajlara git"
+        "news": "Mesajlara git",
+        "pageNumber": "Sayfa {{number}} hakkında"
       },
       "pageTitle": "Hata",
       "generalError": "Bir hata oluştu",
@@ -2864,7 +3520,8 @@
         "categories": "До категорій",
         "events": "До подій",
         "pois": "До карти",
-        "news": "До новин"
+        "news": "До новин",
+        "pageNumber": "Перейти до стор. {{number}}"
       },
       "pageTitle": "Помилка",
       "generalError": "Виникла помилка",
@@ -2898,7 +3555,8 @@
         "categories": "زمروں پر",
         "events": "ایونٹس پر",
         "pois": "نقشے سے متعلق",
-        "news": "خبروں پر"
+        "news": "خبروں پر",
+        "pageNumber": "صفحہ {{number}} پر جائیں"
       },
       "pageTitle": "خرابی",
       "generalError": "ایک خرابی پیش آئی ہے",
@@ -2932,7 +3590,8 @@
         "categories": "前往类别",
         "events": "前往活动",
         "pois": "前往地图",
-        "news": "前往新闻"
+        "news": "前往新闻",
+        "pageNumber": "转至第 {{number}} 页"
       },
       "pageTitle": "错误",
       "generalError": "发生了错误",
@@ -2963,7 +3622,16 @@
       "today": "heute",
       "todayRecurring": "heute, wiederholend",
       "onlyThisEvent": "Nur diese Veranstaltung",
-      "thisAndAllFutureEvents": "Diese und alle zukünftigen Veranstaltungen"
+      "thisAndAllFutureEvents": "Diese und alle zukünftigen Veranstaltungen",
+      "from": "von",
+      "to": "bis",
+      "resetFilter": "Filter löschen:",
+      "invalidFromDate": "Ungültiges Startdatum",
+      "invalidToDate": "Ungültiges Enddatum",
+      "shouldBeEarlier": "Das Anfangsdatum sollte vor dem Enddatum liegen.",
+      "hideFilters": "Filter verbergen",
+      "showFilters": "Filter anzeigen",
+      "selectRange": "Zeitraum auswählen"
     },
     "am": {
       "address": "ኣድራሻ",
@@ -2984,7 +3652,16 @@
       "today": "ዛሬ",
       "todayRecurring": "ዛሬ፣ ተደጋጋሚ",
       "onlyThisEvent": "ይህ ክስተት ብቻ",
-      "thisAndAllFutureEvents": "ይህ እና ሁሉም የወደፊት ክስተቶች"
+      "thisAndAllFutureEvents": "ይህ እና ሁሉም የወደፊት ክስተቶች",
+      "from": "ቮን",
+      "to": "ቢስ",
+      "resetFilter": "ማጣሪያ አጽዳ፡",
+      "invalidFromDate": "ልክ ያልሆነ የመጀመሪያ ቀን",
+      "invalidToDate": "ልክ ያልሆነ የማብቂያ ቀን",
+      "shouldBeEarlier": "የመነሻ ቀን ከማብቂያው ቀን በፊት መሆን አለበት።",
+      "hideFilters": "ማጣሪያዎችን ደብቅ",
+      "showFilters": "ማጣሪያዎችን አሳይ",
+      "selectRange": "ጊዜ ይምረጡ"
     },
     "ar": {
       "address": "العنوان",
@@ -3005,7 +3682,16 @@
       "today": "اليوم",
       "todayRecurring": "اليوم، مكرر",
       "onlyThisEvent": "هذه الفعالية فقط",
-      "thisAndAllFutureEvents": "هذه الفعالية وكل الفعاليات القادمة"
+      "thisAndAllFutureEvents": "هذه الفعالية وكل الفعاليات القادمة",
+      "from": "من",
+      "to": "إلى",
+      "resetFilter": "إعادة تعيين الفلتر:",
+      "invalidFromDate": "تنسيق تاريخ (من) غير صالح",
+      "invalidToDate": "تنسيق تاريخ (إلى) غير صالح",
+      "shouldBeEarlier": "يجب أن يكون تاريخ البداية قبل تاريخ النهاية",
+      "hideFilters": "إخفاء الفلاتر",
+      "showFilters": "إظهار الفلاتر",
+      "selectRange": "اختر النطاق"
     },
     "bg": {
       "address": "Адрес",
@@ -3026,7 +3712,16 @@
       "today": "днес",
       "todayRecurring": "днес, повтарящ се",
       "onlyThisEvent": "Само това събитие",
-      "thisAndAllFutureEvents": "Това и всички бъдещи събития"
+      "thisAndAllFutureEvents": "Това и всички бъдещи събития",
+      "from": "от",
+      "to": "до",
+      "resetFilter": "Изтриване на филтъра:",
+      "invalidFromDate": "Невалидна начална дата",
+      "invalidToDate": "Невалидна крайна дата",
+      "shouldBeEarlier": "Началната дата трябва да е преди крайната дата.",
+      "hideFilters": "Скриване на филтъра",
+      "showFilters": "Показване на филтъра",
+      "selectRange": "Изберете период"
     },
     "ckb": {
       "address": "ناونیشان",
@@ -3047,7 +3742,16 @@
       "today": "ئەمڕۆ",
       "todayRecurring": "ئەمڕۆ، دووپاتە",
       "onlyThisEvent": "تەنیا ئەم ڕووداوانە",
-      "thisAndAllFutureEvents": "ئەم ڕووداوانە و هەموو ڕووداوەکانی داهاتوو"
+      "thisAndAllFutureEvents": "ئەم ڕووداوانە و هەموو ڕووداوەکانی داهاتوو",
+      "from": "لە",
+      "to": "تا",
+      "resetFilter": "لابردنی فلتەر:",
+      "invalidFromDate": "ڕێکەوتی دەستپێکردن نادروستە",
+      "invalidToDate": "ڕێکەوتی کۆتایی نادروستە",
+      "shouldBeEarlier": "ڕێکەوتی دەستپێکردن دەبێ بەر لە ڕێکەوتی کۆتایی بێت.",
+      "hideFilters": "شاردنەوەی فلتەر",
+      "showFilters": "پیشاندانی فلتەر",
+      "selectRange": "مەودایەکی کاتیی هەڵبژێرە"
     },
     "cs": {
       "address": "Adresa",
@@ -3068,7 +3772,46 @@
       "today": "dnes",
       "todayRecurring": "dnes, opakování",
       "onlyThisEvent": "Pouze tato událost",
-      "thisAndAllFutureEvents": "Tyto a všechny budoucí události"
+      "thisAndAllFutureEvents": "Tyto a všechny budoucí události",
+      "from": "od",
+      "to": "do",
+      "resetFilter": "Vymazat filtr:",
+      "invalidFromDate": "Neplatné datum zahájení",
+      "invalidToDate": "Neplatné datum ukončení",
+      "shouldBeEarlier": "Datum zahájení by mělo být před datem ukončení.",
+      "hideFilters": "Skrýt filtr",
+      "showFilters": "Zobrazit filtr",
+      "selectRange": "Zvolit časové období"
+    },
+    "da": {
+      "address": "Adresse",
+      "date_one": "Dato",
+      "date_other": "Aftaler",
+      "nextDate_one": "Næste aftale",
+      "nextDate_other": "Næste aftaler",
+      "events": "Begivenheder",
+      "exportAsICal": "Eksporter som iCal",
+      "addToCalendar": "Føj til kalender",
+      "currentlyNoEvents": "Der er i øjeblikket ingen arrangementer.",
+      "pageTitle": "Begivenheder",
+      "chooseCalendar": "Valg af kalender",
+      "added": "Tilføjet",
+      "goToCalendar": "Til kalenderen",
+      "settings": "Indstillinger",
+      "recurring": "gentagende",
+      "today": "i dag",
+      "todayRecurring": "i dag og gentagende",
+      "onlyThisEvent": "Kun denne begivenhed",
+      "thisAndAllFutureEvents": "Denne og alle fremtidige begivenheder",
+      "from": "fra",
+      "to": "indtil",
+      "resetFilter": "Slet filter:",
+      "invalidFromDate": "Ugyldig startdato",
+      "invalidToDate": "Ugyldig slutdato",
+      "shouldBeEarlier": "Startdatoen skal ligge før slutdatoen.",
+      "hideFilters": "Skjul filter",
+      "showFilters": "Vis filter",
+      "selectRange": "Vælg periode"
     },
     "el": {
       "address": "Διεύθυνση",
@@ -3089,7 +3832,16 @@
       "today": "σήμερα",
       "todayRecurring": "σήμερα, επαναλαμβάνεται",
       "onlyThisEvent": "Μόνο αυτό το συμβάν",
-      "thisAndAllFutureEvents": "Αυτό και όλα τα μελλοντικά συμβάντα"
+      "thisAndAllFutureEvents": "Αυτό και όλα τα μελλοντικά συμβάντα",
+      "from": "από",
+      "to": "έως",
+      "resetFilter": "Διαγραφή φίλτρου:",
+      "invalidFromDate": "Μη έγκυρη ημερομηνία έναρξης",
+      "invalidToDate": "Μη έγκυρη ημερομηνία λήξης",
+      "shouldBeEarlier": "Η ημερομηνία έναρξης πρέπει να είναι πριν από την ημερομηνία λήξης.",
+      "hideFilters": "Απόκρυψη φίλτρου",
+      "showFilters": "Εμφάνιση φίλτρου",
+      "selectRange": "Επιλέξτε περίοδο"
     },
     "en": {
       "address": "Address",
@@ -3110,7 +3862,16 @@
       "today": "today",
       "todayRecurring": "today, recurring",
       "onlyThisEvent": "Only this event",
-      "thisAndAllFutureEvents": "This and all future events"
+      "thisAndAllFutureEvents": "This and all future events",
+      "from": "from",
+      "to": "to",
+      "resetFilter": "reset filter:",
+      "invalidFromDate": "Invalid start date",
+      "invalidToDate": "Invalid end date",
+      "shouldBeEarlier": "The start date should be before the end date.",
+      "hideFilters": "Hide filters",
+      "showFilters": "Show filters",
+      "selectRange": "Select Range"
     },
     "es": {
       "address": "Dirección",
@@ -3131,7 +3892,16 @@
       "today": "hoy",
       "todayRecurring": "hoy, repetitivo",
       "onlyThisEvent": "Solo esta actividad",
-      "thisAndAllFutureEvents": "Esta y todas las actividades futuras"
+      "thisAndAllFutureEvents": "Esta y todas las actividades futuras",
+      "from": "de",
+      "to": "a",
+      "resetFilter": "Borrar filtro:",
+      "invalidFromDate": "Fecha de inicio no válida",
+      "invalidToDate": "Fecha final no válida",
+      "shouldBeEarlier": "La fecha de inicio debe ser anterior a la fecha de finalización.",
+      "hideFilters": "Ocultar filtro",
+      "showFilters": "Mostrar filtro",
+      "selectRange": "Seleccionar periodo"
     },
     "fi": {
       "address": "Osoite",
@@ -3152,7 +3922,16 @@
       "today": "tänään",
       "todayRecurring": "tänään, toistuva",
       "onlyThisEvent": "Vain tämä tapahtuma",
-      "thisAndAllFutureEvents": "Tämä ja kaikki tulevat tapahtumat"
+      "thisAndAllFutureEvents": "Tämä ja kaikki tulevat tapahtumat",
+      "from": "alkaen",
+      "to": "asti",
+      "resetFilter": "Poista suodatin:",
+      "invalidFromDate": "Virheellinen alkamispäivä",
+      "invalidToDate": "Virheellinen päättymispäivä",
+      "shouldBeEarlier": "Alkamispäivän on oltava ennen päättymispäivää.",
+      "hideFilters": "Piilota suodatin",
+      "showFilters": "Näytä suodatin",
+      "selectRange": "Valitse ajanjakso"
     },
     "fr": {
       "address": "Adresse",
@@ -3173,7 +3952,16 @@
       "today": "aujourd’hui",
       "todayRecurring": "aujourd’hui, répétitif",
       "onlyThisEvent": "Seulement cet événement",
-      "thisAndAllFutureEvents": "Cet événement et tous ceux à venir"
+      "thisAndAllFutureEvents": "Cet événement et tous ceux à venir",
+      "from": "de",
+      "to": "jusqu’à",
+      "resetFilter": "Supprimer les filtres :",
+      "invalidFromDate": "Date de début non valide",
+      "invalidToDate": "Date de fin non valide",
+      "shouldBeEarlier": "La date de début doit être antérieure à la date de fin.",
+      "hideFilters": "Cacher les filtres",
+      "showFilters": "Afficher les filtres",
+      "selectRange": "Sélectionner la période"
     },
     "hr": {
       "address": "Adresa",
@@ -3194,7 +3982,16 @@
       "today": "danas",
       "todayRecurring": "danas, ponavljajući",
       "onlyThisEvent": "Samo ovaj događaj",
-      "thisAndAllFutureEvents": "Ovaj i budući događaji"
+      "thisAndAllFutureEvents": "Ovaj i budući događaji",
+      "from": "od",
+      "to": "do",
+      "resetFilter": "Izbriši filtre:",
+      "invalidFromDate": "Nevažeći početni datum",
+      "invalidToDate": "Nevažeći završni datum",
+      "shouldBeEarlier": "Početni datum treba biti prije završnog datuma.",
+      "hideFilters": "Sakrij filtre",
+      "showFilters": "Prikaži filtre",
+      "selectRange": "Izaberi period"
     },
     "hu": {
       "address": "Cím",
@@ -3215,7 +4012,16 @@
       "today": "ma",
       "todayRecurring": "ma, ismétlődve",
       "onlyThisEvent": "Csak ez az esemény",
-      "thisAndAllFutureEvents": "Ez és minden jövőbeli esemény"
+      "thisAndAllFutureEvents": "Ez és minden jövőbeli esemény",
+      "from": "első",
+      "to": "utolsó",
+      "resetFilter": "Szűrő törlése:",
+      "invalidFromDate": "Érvénytelen kezdődátum",
+      "invalidToDate": "Érvénytelen végdátum",
+      "shouldBeEarlier": "A kezdődátumnak legyen a végdátum előtt.",
+      "hideFilters": "Szűrő elrejtése",
+      "showFilters": "Szűrő megjelenítése",
+      "selectRange": "Időszak kiválasztása"
     },
     "it": {
       "address": "Indirizzo",
@@ -3236,7 +4042,16 @@
       "today": "oggi",
       "todayRecurring": "oggi, ricorrente",
       "onlyThisEvent": "Solo questo evento",
-      "thisAndAllFutureEvents": "Questo e tutti gli eventi futuri"
+      "thisAndAllFutureEvents": "Questo e tutti gli eventi futuri",
+      "from": "da",
+      "to": "a",
+      "resetFilter": "Elimina il filtro:",
+      "invalidFromDate": "Data di inizio non valida",
+      "invalidToDate": "Data di fine non valida",
+      "shouldBeEarlier": "La data di inizio deve essere precedente alla data di fine.",
+      "hideFilters": "Nascondi filtro",
+      "showFilters": "Mostra filtro",
+      "selectRange": "Seleziona il periodo"
     },
     "ka": {
       "address": "მისამართი",
@@ -3257,7 +4072,16 @@
       "today": "დღეს",
       "todayRecurring": "დღეს, განმეორებით",
       "onlyThisEvent": "მხოლოდ ეს ღონისძიება",
-      "thisAndAllFutureEvents": "ეს და ყველა შემედგომი ღონისძიება"
+      "thisAndAllFutureEvents": "ეს და ყველა შემედგომი ღონისძიება",
+      "from": "საიდან",
+      "to": "სადამდე",
+      "resetFilter": "ფილტრის წაშლა:",
+      "invalidFromDate": "დაწყების არასწორი თარიღი",
+      "invalidToDate": "დასრულების არასწორი თარიღი",
+      "shouldBeEarlier": "დაწყების თარიღი წინ უნდა უსწრებდეს დასრულების თარიღს.",
+      "hideFilters": "ფილტრის დახურვა",
+      "showFilters": "ფილტრის ჩვენება",
+      "selectRange": "პერიოდის არჩევა"
     },
     "kmr": {
       "address": "Navnîşan",
@@ -3278,7 +4102,16 @@
       "today": "Îro",
       "todayRecurring": "Îro, dubarebûyî",
       "onlyThisEvent": "Tenê ev rûdan",
-      "thisAndAllFutureEvents": "Ev rûdan û hemî rûdanên bê"
+      "thisAndAllFutureEvents": "Ev rûdan û hemî rûdanên bê",
+      "from": "Ji",
+      "to": "Heta",
+      "resetFilter": "Jêbirina fîlterê:",
+      "invalidFromDate": "Dîroka destpêkirinê nederbasdar e",
+      "invalidToDate": "Dîroka dawiyê nederbasdar e",
+      "shouldBeEarlier": "Dîroka destpêkirinê divê beriya dîroka dawiyê be.",
+      "hideFilters": "Veşartina fîlterê",
+      "showFilters": "Nîşandana fîlterê",
+      "selectRange": "Bijartina heyama demê"
     },
     "mk": {
       "address": "Адреса",
@@ -3299,7 +4132,16 @@
       "today": "утре",
       "todayRecurring": "утре, повторувачки",
       "onlyThisEvent": "Само овој настан",
-      "thisAndAllFutureEvents": "Овој и сите идни настани"
+      "thisAndAllFutureEvents": "Овој и сите идни настани",
+      "from": "од",
+      "to": "до",
+      "resetFilter": "Бришење филтер:",
+      "invalidFromDate": "Неважечки датум на започнување",
+      "invalidToDate": "Неважечки датум на завршување",
+      "shouldBeEarlier": "Датумот на започнување треба да биде пред датумот на завршување.",
+      "hideFilters": "Скриј филтри",
+      "showFilters": "Прикажи филтри",
+      "selectRange": "Изберете временски период"
     },
     "nl": {
       "address": "Adres",
@@ -3320,7 +4162,16 @@
       "today": "vandaag",
       "todayRecurring": "vandaag, herhalend",
       "onlyThisEvent": "Alleen dit evenement",
-      "thisAndAllFutureEvents": "Dit en alle toekomstige evenementen"
+      "thisAndAllFutureEvents": "Dit en alle toekomstige evenementen",
+      "from": "van",
+      "to": "tot",
+      "resetFilter": "Filter verwijderen:",
+      "invalidFromDate": "Ongeldige begindatum",
+      "invalidToDate": "Ongeldige einddatum",
+      "shouldBeEarlier": "De begindatum moet voor de einddatum liggen.",
+      "hideFilters": "Filter verbergen",
+      "showFilters": "Filter tonen",
+      "selectRange": "Periode selecteren"
     },
     "orm": {
       "address": "Bakka",
@@ -3341,7 +4192,16 @@
       "today": "Hara",
       "todayRecurring": "Irra deebii haraa",
       "onlyThisEvent": "Sagantaa kana qofa",
-      "thisAndAllFutureEvents": "Sagantaa kanaa fi gara fuul duraa"
+      "thisAndAllFutureEvents": "Sagantaa kanaa fi gara fuul duraa",
+      "from": "irraa",
+      "to": "gara",
+      "resetFilter": "irra deebi'ii calali/saagi:",
+      "invalidFromDate": "Guyyaa jalqabaa sirrii hin taane",
+      "invalidToDate": "Guyyaa dhuma/xumuraa sirrii hin taane",
+      "shouldBeEarlier": "Guyyaan jalqabaa guyyaa dhumaa dura ta'uu qaba.",
+      "hideFilters": "Calaltuu dhoksi",
+      "showFilters": "Calaltuu agarsiisi",
+      "selectRange": "Daangaa/hamma filadhu"
     },
     "pes": {
       "address": "نشانی",
@@ -3362,7 +4222,16 @@
       "today": "امروز",
       "todayRecurring": "امروز، تکراری",
       "onlyThisEvent": "فقط این رویداد",
-      "thisAndAllFutureEvents": "این رویداد و تمام رویدادهای آتی"
+      "thisAndAllFutureEvents": "این رویداد و تمام رویدادهای آتی",
+      "from": "از",
+      "to": "تا",
+      "resetFilter": "حذف فیلتر:",
+      "invalidFromDate": "تاریخ شروع نامعتبر است",
+      "invalidToDate": "تاریخ پایان نامعتبر است",
+      "shouldBeEarlier": "تاریخ شروع باید قبل از تاریخ پایان باشد.",
+      "hideFilters": "پنهان کردن فیلتر",
+      "showFilters": "نمایش فیلتر",
+      "selectRange": "انتخاب بازه زمانی"
     },
     "pl": {
       "address": "Adres",
@@ -3383,7 +4252,16 @@
       "today": "dzisiaj",
       "todayRecurring": "dzisiaj, powtarzający się",
       "onlyThisEvent": "Tylko to wydarzenie",
-      "thisAndAllFutureEvents": "To i wszystkie przyszłe wydarzenia"
+      "thisAndAllFutureEvents": "To i wszystkie przyszłe wydarzenia",
+      "from": "z",
+      "to": "do",
+      "resetFilter": "Usuń filtr:",
+      "invalidFromDate": "Nieprawidłowa data rozpoczęcia",
+      "invalidToDate": "Nieprawidłowa data zakończenia",
+      "shouldBeEarlier": "Data rozpoczęcia powinna być wcześniejsza niż data zakończenia.",
+      "hideFilters": "Ukryj filtr",
+      "showFilters": "Pokaż filtr",
+      "selectRange": "Wybierz okres"
     },
     "prs": {
       "address": "آدرس",
@@ -3404,7 +4282,16 @@
       "today": "امروز",
       "todayRecurring": "امروز، تکراری",
       "onlyThisEvent": "فقط این رویداد",
-      "thisAndAllFutureEvents": "این و همه رویدادهای آینده"
+      "thisAndAllFutureEvents": "این و همه رویدادهای آینده",
+      "from": "از",
+      "to": "تا",
+      "resetFilter": "حذف فلتر:",
+      "invalidFromDate": "تاریخ شروع درست نیست",
+      "invalidToDate": "تاریخ پایان درست نیست",
+      "shouldBeEarlier": "تاریخ شروع باید قبل از تاریخ پایان باشد.",
+      "hideFilters": "پنهان نمودن فلترها",
+      "showFilters": "نمایش فلترها",
+      "selectRange": "انتخاب دوره زمانی"
     },
     "ps": {
       "address": "پتہ",
@@ -3425,7 +4312,16 @@
       "today": "نن ورځ",
       "todayRecurring": "نن ورځ، تکراري",
       "onlyThisEvent": "يوازې دا مراسم",
-      "thisAndAllFutureEvents": "دا او راتلونکي ټول مراسم"
+      "thisAndAllFutureEvents": "دا او راتلونکي ټول مراسم",
+      "from": "له",
+      "to": "تر",
+      "resetFilter": "د فلتر لرې کول:",
+      "invalidFromDate": "د پيل نېټه ناسمه ده",
+      "invalidToDate": "د پای نېټه ناسمه ده",
+      "shouldBeEarlier": "د پيل نېټه بايد د پای له نېټې څخه مخکې وي.",
+      "hideFilters": "د فلترونو پټول",
+      "showFilters": "د فلترونو ښودل",
+      "selectRange": "د وخت موده وټاکئ"
     },
     "pt": {
       "address": "Endereço",
@@ -3446,7 +4342,16 @@
       "today": "hoje",
       "todayRecurring": "hoje, repetitivo",
       "onlyThisEvent": "Apenas este evento",
-      "thisAndAllFutureEvents": "Este e todos os eventos futuros"
+      "thisAndAllFutureEvents": "Este e todos os eventos futuros",
+      "from": "de",
+      "to": "até",
+      "resetFilter": "Eliminar o filtro:",
+      "invalidFromDate": "Data de início inválida",
+      "invalidToDate": "Data de fim inválida",
+      "shouldBeEarlier": "A data de início deve ser anterior à data de fim.",
+      "hideFilters": "Ocultar filtro",
+      "showFilters": "Exibir filtro",
+      "selectRange": "Selecionar período"
     },
     "ro": {
       "address": "Adresa",
@@ -3467,7 +4372,16 @@
       "today": "astăzi",
       "todayRecurring": "astăzi, repetând",
       "onlyThisEvent": "Numai acest eveniment",
-      "thisAndAllFutureEvents": "Acesta și toate evenimentele viitoare"
+      "thisAndAllFutureEvents": "Acesta și toate evenimentele viitoare",
+      "from": "de la",
+      "to": "până la",
+      "resetFilter": "Ștergerea filtrului:",
+      "invalidFromDate": "Data de începere nevalidă",
+      "invalidToDate": "Dată finală nevalidă",
+      "shouldBeEarlier": "Data de început trebuie să fie anterioară datei de sfârșit.",
+      "hideFilters": "Ascundere filtru",
+      "showFilters": "Afișare filtru",
+      "selectRange": "Selectarea perioadei"
     },
     "ru": {
       "address": "Адрес",
@@ -3488,7 +4402,16 @@
       "today": "сегодня",
       "todayRecurring": "сегодня, периодически",
       "onlyThisEvent": "Только это мероприятие",
-      "thisAndAllFutureEvents": "Это и все последующие мероприятия"
+      "thisAndAllFutureEvents": "Это и все последующие мероприятия",
+      "from": "от",
+      "to": "до",
+      "resetFilter": "Удалить фильтр:",
+      "invalidFromDate": "Неверная дата начала",
+      "invalidToDate": "Неверная дата окончания",
+      "shouldBeEarlier": "Дата начала должна быть раньше даты окончания.",
+      "hideFilters": "Скрыть фильтр",
+      "showFilters": "Показать фильтр",
+      "selectRange": "Выбрать период"
     },
     "sk": {
       "address": "Adresa",
@@ -3509,7 +4432,16 @@
       "today": "dnes",
       "todayRecurring": "dnes, opakujúce sa",
       "onlyThisEvent": "Iba toto podujatie",
-      "thisAndAllFutureEvents": "Toto a všetky budúce podujatia"
+      "thisAndAllFutureEvents": "Toto a všetky budúce podujatia",
+      "from": "od",
+      "to": "do",
+      "resetFilter": "Vymazať filter:",
+      "invalidFromDate": "Neplatný dátum začiatku",
+      "invalidToDate": "Neplatný dátum ukončenia",
+      "shouldBeEarlier": "Dátum začiatku by mal byť pred dátumom ukončenia.",
+      "hideFilters": "Skryť filter",
+      "showFilters": "Zobraziť filter",
+      "selectRange": "Zvoliť časové obdobie"
     },
     "so": {
       "address": "ciwaanka",
@@ -3530,7 +4462,16 @@
       "today": "Maanta",
       "todayRecurring": "Maanta, soo noqnoqonaysa",
       "onlyThisEvent": "Kaliya dhacdadaan",
-      "thisAndAllFutureEvents": "Tan iyo dhamaan dhacdooyinka mustaqbalka"
+      "thisAndAllFutureEvents": "Tan iyo dhamaan dhacdooyinka mustaqbalka",
+      "from": "laga bilaabo",
+      "to": "ilaa",
+      "resetFilter": "Nadiifi shaandhada:",
+      "invalidFromDate": "Taariikhda bilowga waa khalad",
+      "invalidToDate": "Taariikhda dhamaadka waa khalad",
+      "shouldBeEarlier": "Taariikhda bilowga waa inay kahoraysaa taariikhda dhamaadka.",
+      "hideFilters": "Qari shaandhada",
+      "showFilters": "Soo bandhig shaandhada",
+      "selectRange": "Dooro muddada"
     },
     "sq": {
       "address": "Adresa",
@@ -3551,7 +4492,16 @@
       "today": "sot",
       "todayRecurring": "sot, periodik",
       "onlyThisEvent": "Vetëm kjo ngjarje",
-      "thisAndAllFutureEvents": "Kjo dhe të gjitha ngjarjet e ardhshme"
+      "thisAndAllFutureEvents": "Kjo dhe të gjitha ngjarjet e ardhshme",
+      "from": "nga",
+      "to": "deri",
+      "resetFilter": "Fshij filtrin:",
+      "invalidFromDate": "Datë e pavlefshme fillimi",
+      "invalidToDate": "Datë e pavlefshme mbarimi",
+      "shouldBeEarlier": "Data e fillimit duhet të jetë para datës së mbarimit.",
+      "hideFilters": "Fshih filtrin",
+      "showFilters": "Shfaq filtrin",
+      "selectRange": "Zgjidh periudhën"
     },
     "sr-Cyrl": {
       "address": "Адреса",
@@ -3572,7 +4522,16 @@
       "today": "данас",
       "todayRecurring": "данас, понављајући",
       "onlyThisEvent": "Само овај догађај",
-      "thisAndAllFutureEvents": "Овај и будући догађаји"
+      "thisAndAllFutureEvents": "Овај и будући догађаји",
+      "from": "од",
+      "to": "до",
+      "resetFilter": "Избриши филтере:",
+      "invalidFromDate": "Неважећи почетни датум",
+      "invalidToDate": "Неважећи завршни датум",
+      "shouldBeEarlier": "Почетни датум треба да буде пре завршног датума.",
+      "hideFilters": "Сакриј филтере",
+      "showFilters": "Прикажи филтере",
+      "selectRange": "Изабери период"
     },
     "sr-Latn": {
       "address": "Adresa",
@@ -3593,7 +4552,16 @@
       "today": "danas",
       "todayRecurring": "danas, ponavljajući",
       "onlyThisEvent": "Samo ovaj događaj",
-      "thisAndAllFutureEvents": "Ovaj i budući događaji"
+      "thisAndAllFutureEvents": "Ovaj i budući događaji",
+      "from": "od",
+      "to": "do",
+      "resetFilter": "Izbriši filtere:",
+      "invalidFromDate": "Nevažeći početni datum",
+      "invalidToDate": "Nevažeći završni datum",
+      "shouldBeEarlier": "Početni datum treba da bude pre završnog datuma.",
+      "hideFilters": "Sakrij filtere",
+      "showFilters": "Prikaži filtere",
+      "selectRange": "Izaberi period"
     },
     "ti": {
       "address": "ኣድራሻ",
@@ -3614,7 +4582,16 @@
       "today": "ሎምዓንቲ",
       "todayRecurring": "ሎሚ፣ ተደጋጋሚ",
       "onlyThisEvent": "እዚ ፍጻመ እዚ ጥራይ",
-      "thisAndAllFutureEvents": "እዚን ኩሉ ኣብ መጻኢ ዝፍጸም ፍጻመታትን"
+      "thisAndAllFutureEvents": "እዚን ኩሉ ኣብ መጻኢ ዝፍጸም ፍጻመታትን",
+      "from": "ካብ",
+      "to": "ክሳብ",
+      "resetFilter": "ንጹር ፍልተር:",
+      "invalidFromDate": "ዘይሕጋዊ ምጅማር ዕለት",
+      "invalidToDate": "ዘይሕጋዊ ናይ መወዳእታ ዕለት",
+      "shouldBeEarlier": "እቲ ናይ ምጅማር ዕለት ቅድሚ ናይ መወዳእታ ዕለት ክኸውን ኣለዎ.",
+      "hideFilters": "ፍልትራት ምሕባእ",
+      "showFilters": "ፍልትራት ኣርእዩ",
+      "selectRange": "ናይ ግዜ ክፍለ ግዜ ምረጽ"
     },
     "tr": {
       "address": "Adres",
@@ -3635,7 +4612,16 @@
       "today": "bugün",
       "todayRecurring": "bugün, tekrarlayan",
       "onlyThisEvent": "Sadece bu etkinlik",
-      "thisAndAllFutureEvents": "Bu ve gelecekteki tüm etkinlikler"
+      "thisAndAllFutureEvents": "Bu ve gelecekteki tüm etkinlikler",
+      "from": "başlangıç",
+      "to": "bitiş",
+      "resetFilter": "Filtreyi sil:",
+      "invalidFromDate": "Geçersiz başlangıç tarihi",
+      "invalidToDate": "Geçersiz bitiş tarihi",
+      "shouldBeEarlier": "Başlangıç tarihi bitiş tarihinden önce olmalıdır.",
+      "hideFilters": "Filtreyi gizle",
+      "showFilters": "Filtreyi göster",
+      "selectRange": "Zaman aralığı seç"
     },
     "uk": {
       "address": "Адреса",
@@ -3656,7 +4642,16 @@
       "today": "сьогодні",
       "todayRecurring": "сьогодні, періодичні",
       "onlyThisEvent": "Тільки ця подія",
-      "thisAndAllFutureEvents": "Ця та всі  майбутні події"
+      "thisAndAllFutureEvents": "Ця та всі  майбутні події",
+      "from": "від",
+      "to": "до",
+      "resetFilter": "Видалити фільтр:",
+      "invalidFromDate": "Неправильна дата початку",
+      "invalidToDate": "Неправильна дата завершення",
+      "shouldBeEarlier": "Дата початку повинна передувати даті завершення.",
+      "hideFilters": "Сховати фільтр",
+      "showFilters": "Показати фільтр",
+      "selectRange": "Виберіть період"
     },
     "ur": {
       "address": "پتہ",
@@ -3677,7 +4672,16 @@
       "today": "آج",
       "todayRecurring": "آج، مکرر",
       "onlyThisEvent": "صرف یہ واقعہ",
-      "thisAndAllFutureEvents": "یہ اور مستقبل کے تمام واقعات"
+      "thisAndAllFutureEvents": "یہ اور مستقبل کے تمام واقعات",
+      "from": "سے",
+      "to": "تک",
+      "resetFilter": "فلٹر صاف کریں:",
+      "invalidFromDate": "آغاز کی تاریخ غلط ہے",
+      "invalidToDate": "اختتامی تاریخ غلط ہے",
+      "shouldBeEarlier": "آغاز کی تاریخ اختتامی تاریخ سے پہلے ہونی چاہئے۔",
+      "hideFilters": "فلٹرز چھپائیں",
+      "showFilters": "فلٹرز دکھائیں",
+      "selectRange": "وقت کی مدت منتخب کریں"
     },
     "zh-CN": {
       "address": "地址",
@@ -3698,7 +4702,16 @@
       "today": "今天",
       "todayRecurring": "今天，重复",
       "onlyThisEvent": "仅限本次活动",
-      "thisAndAllFutureEvents": "本次活动及今后的所有活动"
+      "thisAndAllFutureEvents": "本次活动及今后的所有活动",
+      "from": "从",
+      "to": "到",
+      "resetFilter": "删除筛选器：",
+      "invalidFromDate": "开始日期无效",
+      "invalidToDate": "结束日期无效",
+      "shouldBeEarlier": "开始日期应在结束日期之前。",
+      "hideFilters": "隐藏筛选器",
+      "showFilters": "显示筛选器",
+      "selectRange": "选择时间段"
     }
   },
   "feedback": {
@@ -3839,6 +4852,29 @@
       "searchTermDescription": "Pro následující termín se nepodařilo najít žádný výsledek:",
       "contactMailAddress": "E-mail pro dotazy",
       "note": "Vyberte reakci nebo napište komentář, abyste mohli odeslat zpětnou vazbu."
+    },
+    "da": {
+      "disclaimer": "Kontakt og kolofon",
+      "send": "Send",
+      "failedSendingFeedback": "Der opstod en fejl under afsendelsen af feedbacken.",
+      "feedback": "Feedback",
+      "headline": "Hvad synes du om denne side?",
+      "description": "Vælg en reaktion og/eller skriv en kommentar.",
+      "commentHeadline": "Kommentar",
+      "commentDescription": "Del din feedback med os! Vi værdsætter både positiv og negativ feedback, da det hjælper os med at forbedre {{appName}}.",
+      "isThisSiteUseful": "Er denne side nyttig?",
+      "useful": "Nyttig",
+      "notUseful": "Ikke nyttig",
+      "informationNotFound": "Har du ikke fundet det rigtige?",
+      "wantedInformation": "Hvilke oplysninger mangler her?",
+      "feedbackSent": "Feedback sendt",
+      "thanksHeadline": "Mange tak for din feedback.",
+      "thanksMessage": "Din feedback er blevet sendt.",
+      "negativeRating": "Denne side er ikke til nogen hjælp",
+      "positiveRating": "Denne side er nyttig",
+      "searchTermDescription": "Der blev ikke fundet noget resultat for det følgende udtryk:",
+      "contactMailAddress": "E-mail til forespørgsler",
+      "note": "Vælg en reaktion eller skriv en kommentar for at kunne sende feedback."
     },
     "el": {
       "disclaimer": "Στοιχεία έκδοσης και επικοινωνία",
@@ -4598,6 +5634,17 @@
       "skip": "Přeskočit",
       "next": "Další"
     },
+    "da": {
+      "appDescription": "{{appName}} er din digitale guide til Tyskland",
+      "search": "Søg efter",
+      "searchDescription": "Find hurtigt de rigtige oplysninger ved hjælp af nøgleord",
+      "languageChange": "Sprogskift",
+      "languageChangeDescription": "Skift nemt sprog på de enkelte sider",
+      "events": "Begivenheder",
+      "eventsDescription": "Aktuelle begivenheder og aftaler i nabolaget",
+      "skip": "Spring over",
+      "next": "Yderligere"
+    },
     "el": {
       "appDescription": "Το {{appName}} είναι ο ψηφιακός οδηγός σας για τη Γερμανία",
       "search": "Αναζήτηση",
@@ -4960,7 +6007,9 @@
       "timeout": "ቦታ መወሰን አልተሳካም",
       "refresh": "በቅርብ የሚገኙት ኣከባቢዎች መዝገብ ማሻሻል",
       "pageTitle": "ለእርስዎ አካባቢያዊ መረጃ",
-      "metaDescription": "{{appName}} በጀርመን ላለው ህይወት የእርስዎ ዲጂታል መመሪያ ነው። አካባቢያዊ መረጃን፣ ክንዉኖችን እና ምክርን ያግኙ። በእርስዎ ቋንቋ ሁልጊዜ የቅርብ ጊዜ የሆነ እና የሚገኝ ነው።"
+      "metaDescription": "{{appName}} በጀርመን ላለው ህይወት የእርስዎ ዲጂታል መመሪያ ነው። አካባቢያዊ መረጃን፣ ክንዉኖችን እና ምክርን ያግኙ። በእርስዎ ቋንቋ ሁልጊዜ የቅርብ ጊዜ የሆነ እና የሚገኝ ነው።",
+      "cityNotFound": "ክልልህ አልተገኘም? አሁን እርምጃ ይውሰዱ! ",
+      "suggestToRegion": "{{appName}} በክልልዎ ውስጥ ይጠቁሙ"
     },
     "ar": {
       "searchCity": "بحث",
@@ -4975,7 +6024,9 @@
       "timeout": "فشل في تحديد الموقع",
       "refresh": "تحديث قائمة المناطق القريبة",
       "pageTitle": "معلومات محلية من أجلك",
-      "metaDescription": "{{appName}} هو دليلك الرقمي لألمانيا. اكتشف المعلومات المحلية والمناسبات وخدمة الاستشارات. تحديث مستمر وبلغتك."
+      "metaDescription": "{{appName}} هو دليلك الرقمي لألمانيا. اكتشف المعلومات المحلية والمناسبات وخدمة الاستشارات. تحديث مستمر وبلغتك.",
+      "cityNotFound": "لم يتم العثور على منطقتك؟ كن نشطاً الآن!",
+      "suggestToRegion": "اقترح {{appName}} في منطقتك"
     },
     "bg": {
       "searchCity": "Търсене",
@@ -4990,7 +6041,9 @@
       "timeout": "Неуспешно определяне на местоположението",
       "refresh": "Актуализиране на списъка с близки региони",
       "pageTitle": "Местна информация за теб",
-      "metaDescription": "{{appName}} е твоят цифров пътеводител за Германия. Намери местна информация, събития и съвети. Винаги актуални и на твоя език."
+      "metaDescription": "{{appName}} е твоят цифров пътеводител за Германия. Намери местна информация, събития и съвети. Винаги актуални и на твоя език.",
+      "cityNotFound": "Не сте открили своя регион? Станете активни сега!",
+      "suggestToRegion": "Предложете {{appName}} във вашия регион"
     },
     "ckb": {
       "searchCity": "گەڕان",
@@ -5005,7 +6058,9 @@
       "timeout": "دیاریکردنی شوێن سەرکەوتوو نەبوو",
       "refresh": "لیستی ناوچە نزیکەکان بەڕۆژ بکەوە",
       "pageTitle": "زانیاری خۆجێی بۆ تۆ",
-      "metaDescription": " {{appName}} ڕێنمای دیجیتاڵی تۆ بە زمانی ئەڵمانی. تۆ دەتوانی زانیاری و ڕووداو و ئامۆژگارییە خۆجێیەکان لێرەدا بدۆزێوە. هەردەم نوێ و بە زمانی تۆ."
+      "metaDescription": " {{appName}} ڕێنمای دیجیتاڵی تۆ بە زمانی ئەڵمانی. تۆ دەتوانی زانیاری و ڕووداو و ئامۆژگارییە خۆجێیەکان لێرەدا بدۆزێوە. هەردەم نوێ و بە زمانی تۆ.",
+      "cityNotFound": "ناوچەکەت نەدۆزییەوە؟ هەر ئێستا چالاک بە!",
+      "suggestToRegion": "پێشنیاری {{appName}} لە ناوچەکەتدا"
     },
     "cs": {
       "searchCity": "Vyhledávání",
@@ -5020,7 +6075,26 @@
       "timeout": "Lokalizace se nezdařila",
       "refresh": "Aktualizace seznamu okolních regionů",
       "pageTitle": "Místní informace pro vás",
-      "metaDescription": "{{appName}} je váš digitální průvodce po Německu. Nacházejte místní informace, události a tipy. Vždy aktuální a ve vašem jazyce."
+      "metaDescription": "{{appName}} je váš digitální průvodce po Německu. Nacházejte místní informace, události a tipy. Vždy aktuální a ve vašem jazyce.",
+      "cityNotFound": "Nenašli jste svůj region? Buďte aktivní hned teď!",
+      "suggestToRegion": "Navrhnout {{appName}} ve vašem regionu"
+    },
+    "da": {
+      "searchCity": "Søg efter",
+      "noCitiesFound": "Ingen resultater",
+      "nearbyCities": "I nærheden",
+      "noNearbyCities": "Ingen regioner fundet i nærheden.",
+      "alert": "Bemærk",
+      "locationError": "Lokaliseringstjenester skal være aktiverede for at kunne vise områder i nærheden.",
+      "noPermission": "Adgang til stedet påkrævet",
+      "loading": "Bestem placering...",
+      "notAvailable": "Stedsbestemmelse deaktiveret",
+      "timeout": "Bestemmelse af placering mislykkedes",
+      "refresh": "Opdater listen over nærliggende regioner",
+      "pageTitle": "Lokale oplysninger til dig",
+      "metaDescription": "{{appName}} er din digitale guide til Tyskland. Find lokale oplysninger, arrangementer og rådgivning. Altid opdateret og på dit sprog.",
+      "cityNotFound": "Har du ikke fundet din region? Bliv aktiv nu!",
+      "suggestToRegion": "Foreslå {{appName}} i din region"
     },
     "el": {
       "searchCity": "Αναζήτηση",
@@ -5035,7 +6109,9 @@
       "timeout": "Ο προσδιορισμός της τοποθεσίας απέτυχε",
       "refresh": "Ενημέρωση της λίστας κοντινών περιοχών",
       "pageTitle": "Τοπικές πληροφορίες για εσάς",
-      "metaDescription": "Η εφαρμογή {{appName}} είναι ο ψηφιακός σας οδηγός για τη Γερμανία. Βρείτε τοπικές πληροφορίες, εκδηλώσεις και συμβουλές. Πάντα ενημερωμένες και στη γλώσσα σας."
+      "metaDescription": "Η εφαρμογή {{appName}} είναι ο ψηφιακός σας οδηγός για τη Γερμανία. Βρείτε τοπικές πληροφορίες, εκδηλώσεις και συμβουλές. Πάντα ενημερωμένες και στη γλώσσα σας.",
+      "cityNotFound": "Δεν βρήκατε την περιοχή σας; Δραστηριοποιηθείτε τώρα!",
+      "suggestToRegion": "Προτείνετε {{appName}} στην περιοχή σας"
     },
     "en": {
       "searchCity": "Search",
@@ -5067,7 +6143,9 @@
       "timeout": "La localización falló",
       "refresh": "Actualizar la lista de las regiones cercanas",
       "pageTitle": "Información local para ti",
-      "metaDescription": "{{appName}} es tu guía digital de Alemania. Encuentra información local, eventos y consejos. Siempre al día y en tu idioma."
+      "metaDescription": "{{appName}} es tu guía digital de Alemania. Encuentra información local, eventos y consejos. Siempre al día y en tu idioma.",
+      "cityNotFound": "¿No has encontrado tu región? ¡Actívate ya!",
+      "suggestToRegion": "Propón {{appName}} para tu región"
     },
     "fi": {
       "searchCity": "Haku",
@@ -5082,7 +6160,9 @@
       "timeout": "Sijainninmääritys epäonnistui",
       "refresh": "Päivitä läheisten alueiden luettelo",
       "pageTitle": "Paikallisia tietoja sinulle",
-      "metaDescription": "{{appName}} on digitaalinen Saksa-oppaasi. Löydä paikallisia tietoja, tapahtumia ja neuvoja. Aina ajan tasalla ja omalla äidinkielelläsi."
+      "metaDescription": "{{appName}} on digitaalinen Saksa-oppaasi. Löydä paikallisia tietoja, tapahtumia ja neuvoja. Aina ajan tasalla ja omalla äidinkielelläsi.",
+      "cityNotFound": "Etkö löytänyt aluettasi? Aktivoidu nyt!",
+      "suggestToRegion": "Ehdota sovellusta {{appName}} alueellasi"
     },
     "fr": {
       "searchCity": "Recherche",
@@ -5097,7 +6177,9 @@
       "timeout": "Échec de la localisation",
       "refresh": "Mettre à jour la liste des régions proches",
       "pageTitle": "Informations locales pour toi",
-      "metaDescription": "{{appName}} est ton guide numérique pour l’Allemagne. Trouve des conseils, des informations locales, des événements près de chez toi. Toujours à jour et dans ta langue."
+      "metaDescription": "{{appName}} est ton guide numérique pour l’Allemagne. Trouve des conseils, des informations locales, des événements près de chez toi. Toujours à jour et dans ta langue.",
+      "cityNotFound": "Tu n’as pas trouvé ta région ? Active-la dès maintenant !",
+      "suggestToRegion": "Proposer {{appName}} dans ta région"
     },
     "hr": {
       "searchCity": "Pretraživanje",
@@ -5112,7 +6194,9 @@
       "timeout": "Neuspješno određivanje lokacije",
       "refresh": "Ažuriraj popis obližnjih regija",
       "pageTitle": "Lokalne informacije za tebe",
-      "metaDescription": "{{appName}} je tvoj digitalni vodič za Njemačku. Nađi lokalne informacije, manifestacije i savjetovališta. Uvijek aktualno i na tvom jeziku."
+      "metaDescription": "{{appName}} je tvoj digitalni vodič za Njemačku. Nađi lokalne informacije, manifestacije i savjetovališta. Uvijek aktualno i na tvom jeziku.",
+      "cityNotFound": "Tvoja regija nije pronađena? Aktiviraj se!",
+      "suggestToRegion": "Predloži {{appName}} u svojoj regiji"
     },
     "hu": {
       "searchCity": "Keresés",
@@ -5127,7 +6211,9 @@
       "timeout": "Helymeghatározás sikertelen",
       "refresh": "A környékbeli régiók listájának aktualizálása",
       "pageTitle": "Lokale Informationen für Dich",
-      "metaDescription": "{{appName}} a digitális útikalauza Németországba. Itt talál helyi információkat, eseményeket és tippeket. Mindig naprakész és magyarul beszél."
+      "metaDescription": "{{appName}} a digitális útikalauza Németországba. Itt talál helyi információkat, eseményeket és tippeket. Mindig naprakész és magyarul beszél.",
+      "cityNotFound": "Nem találja a régióját? Legyél most aktív!",
+      "suggestToRegion": "{{appName}} javaslata a régiójában"
     },
     "it": {
       "searchCity": "Ricerca",
@@ -5142,7 +6228,9 @@
       "timeout": "Geolocalizzazione non riuscita",
       "refresh": "Aggiorna l'elenco delle regioni vicine",
       "pageTitle": "Informazioni locali per te",
-      "metaDescription": "{{appName}} è la tua guida digitale in Germania. Trova informazioni, eventi e consigli locali. Sempre aggiornata e nella tua lingua."
+      "metaDescription": "{{appName}} è la tua guida digitale in Germania. Trova informazioni, eventi e consigli locali. Sempre aggiornata e nella tua lingua.",
+      "cityNotFound": "Non hai trovato la tua regione? Attivati subito!",
+      "suggestToRegion": "Suggerisci {{appName}} nella tua regione"
     },
     "ka": {
       "searchCity": "ძებნა",
@@ -5157,7 +6245,9 @@
       "timeout": "ვერ განისაზღვრა მდებარეობის ადგილი",
       "refresh": "ახლოსმდებარე რეგიონების სიის განახლება",
       "pageTitle": "ადგილობრივი ინფორმაციები შენთვის",
-      "metaDescription": "{{appName}} შენი ციფრული გზამკვლევია გერმანიისთვის. მოიძიე ადგილობრივი ინფორმაციები, ღონისძიებები და კონსულტაციები. ყოველთვის აქტუალური და შენს ენაზე."
+      "metaDescription": "{{appName}} შენი ციფრული გზამკვლევია გერმანიისთვის. მოიძიე ადგილობრივი ინფორმაციები, ღონისძიებები და კონსულტაციები. ყოველთვის აქტუალური და შენს ენაზე.",
+      "cityNotFound": "ვერ იპოვე შენი რეგიონი? გახდი აქტიური!",
+      "suggestToRegion": "აპისთვის {{appName}} რეკომენდაციის გაწევა შენს რეგიონში"
     },
     "kmr": {
       "searchCity": "Lêgerîn",
@@ -5172,7 +6262,9 @@
       "timeout": "Diyarkirinê mekanê serketî nebû",
       "refresh": "Lîsteya navçeyên nêzîk biroj bike",
       "pageTitle": "Zanyariyên xwecihî ji bo te.",
-      "metaDescription": "{{appName}} Rêbernameya te ya dîjîtal ji bo Almanyayê ye. Zanyarî, rûdan û pêşniyazên xwecihî bibîne, Hertim birojkirî û bi zimanê te yê sereke."
+      "metaDescription": "{{appName}} Rêbernameya te ya dîjîtal ji bo Almanyayê ye. Zanyarî, rûdan û pêşniyazên xwecihî bibîne, Hertim birojkirî û bi zimanê te yê sereke.",
+      "cityNotFound": "Te navçeya xwe peyda nekir? Aniha çalak bibe!",
+      "suggestToRegion": "{{appName}} Pêşniyaz li navçeya te bixwe"
     },
     "mk": {
       "searchCity": "Барај",
@@ -5187,7 +6279,9 @@
       "timeout": "Не може да се активира опцијата за одредување на локацијата",
       "refresh": "Ажурирај го списокот со региони во близина",
       "pageTitle": "Локални информации за вас",
-      "metaDescription": "{{appName}} е вашиот дигитален водич за Германија. Најдете локални информации, настани и совети. Секогаш актуелни и на вашиот јазик."
+      "metaDescription": "{{appName}} е вашиот дигитален водич за Германија. Најдете локални информации, настани и совети. Секогаш актуелни и на вашиот јазик.",
+      "cityNotFound": "Не го најдовте вашиот регион? Активирајте се сега!",
+      "suggestToRegion": "Предложете {{appName}} во вашиот регион"
     },
     "nl": {
       "searchCity": "Zoek",
@@ -5202,7 +6296,9 @@
       "timeout": "Automatische plaatsbepaling is mislukt.",
       "refresh": "Update de lijst met de dichtstbijzijnde regio's",
       "pageTitle": "Lokale informatie voor jou",
-      "metaDescription": "{{appName}} is jouw digitale gids voor Duitsland. Vind lokale informatie, evenementen en advies. Altijd up-to-date en in jouw taal."
+      "metaDescription": "{{appName}} is jouw digitale gids voor Duitsland. Vind lokale informatie, evenementen en advies. Altijd up-to-date en in jouw taal.",
+      "cityNotFound": "Jouw regio niet gevonden? Word nu actief!",
+      "suggestToRegion": "{{appName}} in jouw regio voorstellen"
     },
     "orm": {
       "searchCity": "Barbaadi",
@@ -5234,7 +6330,9 @@
       "timeout": "تعیین موقعیت مکانی انجام نشد",
       "refresh": "فهرست مناطق نزدیک را فعال کنید",
       "pageTitle": "اطلاعات محلی برای شما",
-      "metaDescription": "{{appName}} راهنمای دیجیتال شما برای کشور آلمان است. شما می‌توانید اطلاعات محلی، رویدادها و خدمات مشاوره را در آن بیابید. همواره به روز و به زبان خودتان."
+      "metaDescription": "{{appName}} راهنمای دیجیتال شما برای کشور آلمان است. شما می‌توانید اطلاعات محلی، رویدادها و خدمات مشاوره را در آن بیابید. همواره به روز و به زبان خودتان.",
+      "cityNotFound": "منطقه خود را پیدا نکردید؟ هم اکنون فعال شوید!",
+      "suggestToRegion": "{{appName}} پیشنهاد در منطقه خودتان"
     },
     "pl": {
       "searchCity": "Wyszukaj",
@@ -5249,7 +6347,9 @@
       "timeout": "Ustalenie placówki nie powiodło się",
       "refresh": "Aktualizuje listę regionów w pobliżu",
       "pageTitle": "Lokale Informationen für Dich",
-      "metaDescription": "{{appName}} to Twój cyfrowy przewodnik po Niemczech. Znajdź lokalne informacje, wydarzenia i porady. Zawsze aktualne i w Twoim języku."
+      "metaDescription": "{{appName}} to Twój cyfrowy przewodnik po Niemczech. Znajdź lokalne informacje, wydarzenia i porady. Zawsze aktualne i w Twoim języku.",
+      "cityNotFound": "Nie udało Ci się znaleźć Twojego regionu? Zacznij działać już teraz!",
+      "suggestToRegion": "Zaproponuj {{appName}} w Twoim regionie"
     },
     "prs": {
       "searchCity": "جستجو",
@@ -5264,7 +6364,9 @@
       "timeout": "تعیین مکان ناموفق بود",
       "refresh": "فهرست مناطق نزدیک را به روز کنید",
       "pageTitle": "معلومات محلی برای شما",
-      "metaDescription": "{{appName}} رهنمای دیجیتال شما برای کشور آلمان است. شما می توانید معلومات محلی، رویدادها و خدمات مشوره دهی را در آن بیابید. همیشه تازه و به زبان خودتان."
+      "metaDescription": "{{appName}} رهنمای دیجیتال شما برای کشور آلمان است. شما می توانید معلومات محلی، رویدادها و خدمات مشوره دهی را در آن بیابید. همیشه تازه و به زبان خودتان.",
+      "cityNotFound": "منطقه خود را پیدا نکردید؟ هم اکنون فعال شوید!",
+      "suggestToRegion": "پیشنهاد {{appName}} در منطقه خودتان"
     },
     "ps": {
       "searchCity": "لټون",
@@ -5279,7 +6381,9 @@
       "timeout": "د موقعیت تعینول ناکام شو",
       "refresh": "دہ شا و خوا علاقہ لیست اپډیټ کہ",
       "pageTitle": "ستاسو لپاره ځايي معلومات",
-      "metaDescription": "{{appName}} د جرمني لپاره ستاسو ډيجټلي لارښود دی. ځايي معلومات، مراسم او سپارښتنې په هغې کې ومومئ. تل تازه او ستاسو په ژبه."
+      "metaDescription": "{{appName}} د جرمني لپاره ستاسو ډيجټلي لارښود دی. ځايي معلومات، مراسم او سپارښتنې په هغې کې ومومئ. تل تازه او ستاسو په ژبه.",
+      "cityNotFound": "خپله منطقه مو پيدا نکړه؟ همدا اوس فعال شئ!",
+      "suggestToRegion": "ستاسو په منطقه کې د {{appName}} وړانديز وکړئ"
     },
     "pt": {
       "searchCity": "Procura",
@@ -5294,7 +6398,9 @@
       "timeout": "A determinação da localização falhou",
       "refresh": "Atualizar a lista de regiões próximas",
       "pageTitle": "Regiões",
-      "metaDescription": "A {{appName}} é o seu guia digital da Alemanha. Consulte informações, eventos e conselhos a nível local. Sempre atualizada e disponível no seu idioma."
+      "metaDescription": "A {{appName}} é o seu guia digital da Alemanha. Consulte informações, eventos e conselhos a nível local. Sempre atualizada e disponível no seu idioma.",
+      "cityNotFound": "Não encontraste a tua região? Torna-te ativo agora!",
+      "suggestToRegion": "sugerir {{appName}} na tua região"
     },
     "ro": {
       "searchCity": "Căutare",
@@ -5309,7 +6415,9 @@
       "timeout": "Identificare locație eșuată",
       "refresh": "Actualizați lista de regiuni din apropiere",
       "pageTitle": "Informații locale pentru dumneavoastră",
-      "metaDescription": "{{appName}} este ghidul tău digital pentru Germania. Găsiți informații, evenimente și sfaturi locale. Întotdeauna actualizate și în limba dumneavoastră."
+      "metaDescription": "{{appName}} este ghidul tău digital pentru Germania. Găsiți informații, evenimente și sfaturi locale. Întotdeauna actualizate și în limba dumneavoastră.",
+      "cityNotFound": "Nu v-ați găsit regiunea? Fii activ acum!",
+      "suggestToRegion": "{{appName}} sugerat în regiunea dvs."
     },
     "ru": {
       "searchCity": "Поиск",
@@ -5324,7 +6432,9 @@
       "timeout": "Не удалось определить местоположение",
       "refresh": "Обновить список близлежащих регионов",
       "pageTitle": "Местная информация для тебя",
-      "metaDescription": "{{appName}} – это твой цифровой путеводитель по Германии. Узнавай местные новости, находи информацию о мероприятиях и консультациях. Всегда актуально и на твоем языке."
+      "metaDescription": "{{appName}} – это твой цифровой путеводитель по Германии. Узнавай местные новости, находи информацию о мероприятиях и консультациях. Всегда актуально и на твоем языке.",
+      "cityNotFound": "Не удалось найти свой регион? Бери инициативу в свои руки!",
+      "suggestToRegion": "Предложить {{appName}} в своем регионе"
     },
     "sk": {
       "searchCity": "Vyhľadávanie",
@@ -5356,7 +6466,9 @@
       "timeout": "Helitaanka goobta waa lagu guuldareystay",
       "refresh": "Cusbooneysii liiska gobollada iigu dhow",
       "pageTitle": "Macluumaadkan gudaha ee laguugu talogalay adiga",
-      "metaDescription": "{{appName}} waa hage-haaga dhijitaalka ah ee Jarmalka. ka raadi macluumaadka gudaha, dhacdooyinka, iyo tallooyinka. Had iyo jeer la soco ka cusaybka iyo luqadaada."
+      "metaDescription": "{{appName}} waa hage-haaga dhijitaalka ah ee Jarmalka. ka raadi macluumaadka gudaha, dhacdooyinka, iyo tallooyinka. Had iyo jeer la soco ka cusaybka iyo luqadaada.",
+      "cityNotFound": "Ma heli kartaa gobolkaaga? Hadda hel!",
+      "suggestToRegion": "Soo jeedi {{appName}} gobolkaaga"
     },
     "sq": {
       "searchCity": "Kërko",
@@ -5371,7 +6483,9 @@
       "timeout": "Përcaktimi i vendndodhjes dështoi",
       "refresh": "Përditëso listën e rajoneve të afërta",
       "pageTitle": "Informacione vendase për ty",
-      "metaDescription": "{{appName}} është udhëzuesi yt digjital për Gjermaninë. Gjej informacione, evenimente dhe këshillime vendase. Gjithmonë aktuale dhe në gjuhën tënde."
+      "metaDescription": "{{appName}} është udhëzuesi yt digjital për Gjermaninë. Gjej informacione, evenimente dhe këshillime vendase. Gjithmonë aktuale dhe në gjuhën tënde.",
+      "cityNotFound": "Nuk e gjete rajonin tënd? Vepro tani!",
+      "suggestToRegion": "Sugjero {{appName}} në rajonin tënd"
     },
     "sr-Cyrl": {
       "searchCity": "Претраживање",
@@ -5386,7 +6500,9 @@
       "timeout": "Неуспешно одређивање локације",
       "refresh": "Ажурирајте листу оближњих региона",
       "pageTitle": "Локалне информације за тебе",
-      "metaDescription": "{{appName}} је твој дигитални водич за Немачку. Нађи локалне информације, манифестације и саветовалишта. Увек актуелно и на твом језику."
+      "metaDescription": "{{appName}} је твој дигитални водич за Немачку. Нађи локалне информације, манифестације и саветовалишта. Увек актуелно и на твом језику.",
+      "cityNotFound": "Твоја регија није пронађена? Активирај се!",
+      "suggestToRegion": "Предложи {{appName}} у својој регији"
     },
     "sr-Latn": {
       "searchCity": "Pretraživanje",
@@ -5401,7 +6517,9 @@
       "timeout": "Neuspešno određivanje lokacije",
       "refresh": "Ažurirajte listu obližnjih regiona",
       "pageTitle": "Lokalne informacije za tebe",
-      "metaDescription": "{{appName}} je tvoj digitalni vodič za Nemačku. Nađi lokalne informacije, manifestacije i savetovališta. Uvek aktuelno i na tvom jeziku."
+      "metaDescription": "{{appName}} je tvoj digitalni vodič za Nemačku. Nađi lokalne informacije, manifestacije i savetovališta. Uvek aktuelno i na tvom jeziku.",
+      "cityNotFound": "Tvoja regija nije pronađena? Aktiviraj se!",
+      "suggestToRegion": "Predloži {{appName}} u svojoj regiji"
     },
     "ti": {
       "searchCity": "ምድላይ",
@@ -5416,7 +6534,9 @@
       "timeout": "ምርካብ ቦታ ዕዉት ኣይነበረን",
       "refresh": "ናይተን ኣብ ቀረባ ዝርከባ ከባቢታት መዝገብ ምሕዳስ",
       "pageTitle": "ንዓኻ ዝኸውን ናይ ከባቢ ሓበሬታ",
-      "metaDescription": "{{appName}} ንጀርመን ዝኸውን ዲጂታላዊ መምርሒኹም እዩ። ኣብቲ ከባቢ ዝርከብ ሓበሬታ፡ ፍጻመታትን ምኽርን ድለ። ኩሉ ግዜ እዋናዊን ብቋንቋኻን።"
+      "metaDescription": "{{appName}} ንጀርመን ዝኸውን ዲጂታላዊ መምርሒኹም እዩ። ኣብቲ ከባቢ ዝርከብ ሓበሬታ፡ ፍጻመታትን ምኽርን ድለ። ኩሉ ግዜ እዋናዊን ብቋንቋኻን።",
+      "cityNotFound": "ዞባኻ ኣይረኸብካን? ሕጂ ንጡፋት ኩኑ!",
+      "suggestToRegion": "ኣብ ዞባኹም {{appName}} ሓሳብ ሃቡ."
     },
     "tr": {
       "searchCity": "Arama",
@@ -5431,7 +6551,9 @@
       "timeout": "Konum belirleme başarısız",
       "refresh": "Yakın bölgelerin listesini güncelleyin",
       "pageTitle": "Senin için yerel bilgiler",
-      "metaDescription": "{{appName}} Almanya için senin dijital rehberin. Yerel bilgiler, etkinlikler ve öneriler bul. Her zaman güncel ve senin dilinde."
+      "metaDescription": "{{appName}} Almanya için senin dijital rehberin. Yerel bilgiler, etkinlikler ve öneriler bul. Her zaman güncel ve senin dilinde.",
+      "cityNotFound": "Bölgeni bulamadın mı? Şimdi aktif ol!",
+      "suggestToRegion": "Bölgende {{appName}} uygulamasını öner"
     },
     "uk": {
       "searchCity": "Пошук",
@@ -5446,7 +6568,9 @@
       "timeout": "Розташування не вдалося встановити",
       "refresh": "Оновлення списку сусідніх регіонів",
       "pageTitle": "Місцева інформація для вас",
-      "metaDescription": "{{appName}} — ваш цифровий путівник Німеччиною. Знаходьте місцеву інформацію, події та консультації. Завжди актуальні відомості вашою мовою."
+      "metaDescription": "{{appName}} — ваш цифровий путівник Німеччиною. Знаходьте місцеву інформацію, події та консультації. Завжди актуальні відомості вашою мовою.",
+      "cityNotFound": "Не знайшли свій регіон? Проявіть активність!",
+      "suggestToRegion": "Розкажіть про {{AppName}} у своєму регіоні"
     },
     "ur": {
       "searchCity": "تلاش کریں",
@@ -5461,7 +6585,9 @@
       "timeout": "مقام کا تعین ناکام رہا",
       "refresh": "قریبی علاقوں کی لسٹ کو اپڈیٹ کریں۔",
       "pageTitle": "آپ کے لیے مقامی معلومات",
-      "metaDescription": "{{appName}} جرمنی میں زندگی کے لیے آپ کا ڈیجیٹل گائیڈ ہے۔ مقامی معلومات، واقعات اور مشورے دریافت کریں۔ ہمیشہ تازہ ترین اور آپ کی اپنی زبان میں دستیاب۔"
+      "metaDescription": "{{appName}} جرمنی میں زندگی کے لیے آپ کا ڈیجیٹل گائیڈ ہے۔ مقامی معلومات، واقعات اور مشورے دریافت کریں۔ ہمیشہ تازہ ترین اور آپ کی اپنی زبان میں دستیاب۔",
+      "cityNotFound": "آپ کا علاقہ نہیں ملا؟ ابھی فعال ہو جاؤ!",
+      "suggestToRegion": "اپنے علاقے میں {{appName}} تجویز کریں"
     },
     "zh-CN": {
       "searchCity": "搜索",
@@ -5476,7 +6602,9 @@
       "timeout": "定位失败",
       "refresh": "更新附近地区列表",
       "pageTitle": "为您提供本地信息",
-      "metaDescription": "{{appName}} 是您的德国数字指南。查找当地信息、活动和信息咨询。始终以您的语言提供最新资讯。"
+      "metaDescription": "{{appName}} 是您的德国数字指南。查找当地信息、活动和信息咨询。始终以您的语言提供最新资讯。",
+      "cityNotFound": "没有找到您所在的地区？现在就行动起来！",
+      "suggestToRegion": "向您所在的地区推荐 {{appName}}"
     }
   },
   "layout": {
@@ -5530,7 +6658,8 @@
       "shareFailDefaultMessage": "ይቅርታ፣ ይዘቱን ማጋራቱ አልተሳካም።",
       "disclaimer": "ዕትም",
       "sideBarOpenAriaLabel": "የጎን አሞሌን ክፈት",
-      "sideBarCloseAriaLabel": "የጎን አሞሌን ዝጋ"
+      "sideBarCloseAriaLabel": "የጎን አሞሌን ዝጋ",
+      "accessibility": "ተደራሽነት"
     },
     "ar": {
       "imprintAndContact": "هيئة التحرير وجهة الاتصال",
@@ -5555,6 +6684,7 @@
       "disclaimer": "هيئة التحرير",
       "sideBarOpenAriaLabel": "فتح الشريط الجانبي",
       "sideBarCloseAriaLabel": "غلق الشريط الجانبي",
+      "accessibility": "حرية الوصول",
       "readAloud": "قراءة بصوت عالٍ",
       "prev": "السابق",
       "next": "التالي"
@@ -5581,7 +6711,8 @@
       "shareFailDefaultMessage": "За съжаление споделянето на съдържанието не бе успешно.",
       "disclaimer": "Импресум",
       "sideBarOpenAriaLabel": "Отваряне на страничната лента",
-      "sideBarCloseAriaLabel": "Затваряне на страничната лента"
+      "sideBarCloseAriaLabel": "Затваряне на страничната лента",
+      "accessibility": "Достъпност"
     },
     "ckb": {
       "imprintAndContact": "زانیارییەکانی ناوەندی بڵاوکەرەوە و زانیارییەکانی پەیوەندی",
@@ -5605,7 +6736,8 @@
       "shareFailDefaultMessage": "بەداخەوە هاوبەشکردنی انوەرۆک ئەنجام نەدرا.",
       "disclaimer": "زانیارییەکانی ناوەندی بڵاوکەرەوە",
       "sideBarOpenAriaLabel": "کردنەوەی سایدبار",
-      "sideBarCloseAriaLabel": "داخستنی سایدبار"
+      "sideBarCloseAriaLabel": "داخستنی سایدبار",
+      "accessibility": "بەبێ بەربەست"
     },
     "cs": {
       "imprintAndContact": "Impresum a kontakt",
@@ -5629,7 +6761,33 @@
       "shareFailDefaultMessage": "Je nám líto, sdílení obsahu se nezdařilo.",
       "disclaimer": "Impresum",
       "sideBarOpenAriaLabel": "Otevřít postranní panel",
-      "sideBarCloseAriaLabel": "Zavřít postranní panel"
+      "sideBarCloseAriaLabel": "Zavřít postranní panel",
+      "accessibility": "Přístupnost"
+    },
+    "da": {
+      "imprintAndContact": "Kolofon og kontakt",
+      "privacy": "Beskyttelse af data",
+      "localInformation": "Lokale oplysninger",
+      "events": "Begivenheder",
+      "noEvents": "Ingen begivenheder",
+      "news": "Nyheder",
+      "noLanguages": "Ikke tilgængelig på andre sprog",
+      "noTranslation": "Ingen oversættelse tilgængelig",
+      "search": "Søg efter",
+      "locations": "Kort",
+      "changeLocation": "Skift placering",
+      "changeLanguage": "Skift sprog",
+      "settings": "Indstillinger",
+      "copyUrl": "Kopiér link",
+      "feedback": "Feedback",
+      "share": "Del",
+      "cancel": "Annuller",
+      "shareMessage": "Lige fundet: {{message}}",
+      "shareFailDefaultMessage": "Det er desværre ikke lykkedes at dele indholdet.",
+      "disclaimer": "Kolofon",
+      "sideBarOpenAriaLabel": "Åbn sidepanelet",
+      "sideBarCloseAriaLabel": "Luk sidepanelet",
+      "accessibility": "Tilgængelighed"
     },
     "el": {
       "imprintAndContact": "Στοιχεία έκδοσης και επικοινωνία",
@@ -5653,7 +6811,8 @@
       "shareFailDefaultMessage": "Δυστυχώς, η κοινοποίηση του περιεχομένου απέτυχε.",
       "disclaimer": "Στοιχεία έκδοσης",
       "sideBarOpenAriaLabel": "Ανοίξτε την πλευρική μπάρα",
-      "sideBarCloseAriaLabel": "Κλείστε την πλευρική μπάρα"
+      "sideBarCloseAriaLabel": "Κλείστε την πλευρική μπάρα",
+      "accessibility": "Προσβασιμότητα"
     },
     "en": {
       "imprintAndContact": "Imprint and contacts",
@@ -5705,7 +6864,8 @@
       "shareFailDefaultMessage": "No se ha podido compartir el contenido.",
       "disclaimer": "Aviso legal",
       "sideBarOpenAriaLabel": "Abrir barra lateral",
-      "sideBarCloseAriaLabel": "Cerrar barra lateral"
+      "sideBarCloseAriaLabel": "Cerrar barra lateral",
+      "accessibility": "Accesibilidad"
     },
     "fi": {
       "imprintAndContact": "Julkaisu- ja yhteystiedot",
@@ -5729,7 +6889,8 @@
       "shareFailDefaultMessage": "Sisällön jakaminen epäonnistui.",
       "disclaimer": "Julkaisutiedot",
       "sideBarOpenAriaLabel": "Avaa sivupalkki",
-      "sideBarCloseAriaLabel": "Sulje sivupalkki"
+      "sideBarCloseAriaLabel": "Sulje sivupalkki",
+      "accessibility": "Helppokäyttöisyys"
     },
     "fr": {
       "imprintAndContact": "Mentions légales et contact",
@@ -5753,7 +6914,8 @@
       "shareFailDefaultMessage": "Le partage du contenu a malheureusement échoué.",
       "disclaimer": "Mentions légales",
       "sideBarOpenAriaLabel": "Ouvrir la barre latérale",
-      "sideBarCloseAriaLabel": "Fermer la barre latérale"
+      "sideBarCloseAriaLabel": "Fermer la barre latérale",
+      "accessibility": "Accessibilité"
     },
     "hr": {
       "imprintAndContact": "Impresum i kontakt",
@@ -5777,7 +6939,8 @@
       "shareFailDefaultMessage": "Dijeljenje sadržaja nažalost nije uspjelo.",
       "disclaimer": "Impresum",
       "sideBarOpenAriaLabel": "Otvori bočnu traku",
-      "sideBarCloseAriaLabel": "Zatvori bočnu traku"
+      "sideBarCloseAriaLabel": "Zatvori bočnu traku",
+      "accessibility": "Pristupačnost"
     },
     "hu": {
       "imprintAndContact": "Impresszum és elérhetőség",
@@ -5801,7 +6964,8 @@
       "shareFailDefaultMessage": "Sikertelen tartalom megosztás.",
       "disclaimer": "Impresszum",
       "sideBarOpenAriaLabel": "Oldalsáv megnyitása",
-      "sideBarCloseAriaLabel": "Oldalsáv bezárása"
+      "sideBarCloseAriaLabel": "Oldalsáv bezárása",
+      "accessibility": "Hozzáférhetőség"
     },
     "it": {
       "imprintAndContact": "Impressum e contatti",
@@ -5825,7 +6989,8 @@
       "shareFailDefaultMessage": "Purtroppo la condivisione del contenuto non è riuscita.",
       "disclaimer": "Impressum",
       "sideBarOpenAriaLabel": "Apri la barra laterale",
-      "sideBarCloseAriaLabel": "Chiudi la barra laterale"
+      "sideBarCloseAriaLabel": "Chiudi la barra laterale",
+      "accessibility": "Accessibilità"
     },
     "ka": {
       "imprintAndContact": "მისამართი და საკონტაქტო ინფორმაცია",
@@ -5849,7 +7014,8 @@
       "shareFailDefaultMessage": "შინაარსის გაზიარება ჩაიშალა",
       "disclaimer": "მისამართი",
       "sideBarOpenAriaLabel": "გვერდის ბმულის გახსნა",
-      "sideBarCloseAriaLabel": "გვერდის ბმულის დახურვა"
+      "sideBarCloseAriaLabel": "გვერდის ბმულის დახურვა",
+      "accessibility": "ხელმისაწვდომობა"
     },
     "kmr": {
       "imprintAndContact": "Lêzanînên Weşîner û Têkillî",
@@ -5873,7 +7039,8 @@
       "shareFailDefaultMessage": "Mixabin parvekirina babetên pêk nehat.",
       "disclaimer": "Lêzanînên Weşîner",
       "sideBarOpenAriaLabel": "Zîvala kêlekê veke",
-      "sideBarCloseAriaLabel": "Zîvala kêlekê girêde"
+      "sideBarCloseAriaLabel": "Zîvala kêlekê girêde",
+      "accessibility": "Bê berbend"
     },
     "mk": {
       "imprintAndContact": "Импресум и контакт",
@@ -5897,7 +7064,8 @@
       "shareFailDefaultMessage": "Деловите од содржината за жал не се вчитани.",
       "disclaimer": "Импресум",
       "sideBarOpenAriaLabel": "Отвори ја страничната лента",
-      "sideBarCloseAriaLabel": "Затвори ја страничната лента"
+      "sideBarCloseAriaLabel": "Затвори ја страничната лента",
+      "accessibility": "Пристапност"
     },
     "nl": {
       "imprintAndContact": "Impressum en contactgegevens",
@@ -5921,7 +7089,8 @@
       "shareFailDefaultMessage": "Helaas is er een fout opgetreden bij het delen van de content",
       "disclaimer": "Impressum",
       "sideBarOpenAriaLabel": "Zijbalk openen",
-      "sideBarCloseAriaLabel": "Zijbalk sluiten"
+      "sideBarCloseAriaLabel": "Zijbalk sluiten",
+      "accessibility": "Toegankelijkheid"
     },
     "orm": {
       "imprintAndContact": "Ashaaraa fi quunnamtii",
@@ -5970,7 +7139,8 @@
       "shareFailDefaultMessage": "متأسفانه به اشتراک گذاشتن محتوا انجام نشد.",
       "disclaimer": "اطلاعات ناشر",
       "sideBarOpenAriaLabel": "باز کردن نوار کناری",
-      "sideBarCloseAriaLabel": "بستن نوار کناری"
+      "sideBarCloseAriaLabel": "بستن نوار کناری",
+      "accessibility": "بدون مانع"
     },
     "pl": {
       "imprintAndContact": "Nota prawna i kontakt",
@@ -5994,7 +7164,8 @@
       "shareFailDefaultMessage": "Niestety udostępnianie treści nie powiodło się.",
       "disclaimer": "Nota prawna",
       "sideBarOpenAriaLabel": "Otwórz pasek boczny",
-      "sideBarCloseAriaLabel": "Zamknij pasek boczny"
+      "sideBarCloseAriaLabel": "Zamknij pasek boczny",
+      "accessibility": "Dostępność"
     },
     "prs": {
       "imprintAndContact": "معلومات ناشر و تماس",
@@ -6018,7 +7189,8 @@
       "shareFailDefaultMessage": "متاسفانه اشتراک گذاری محتوا صورت نگرفت.",
       "disclaimer": "معلومات ناشر",
       "sideBarOpenAriaLabel": "باز کردن نوار کناری",
-      "sideBarCloseAriaLabel": "بستن نوار کناری"
+      "sideBarCloseAriaLabel": "بستن نوار کناری",
+      "accessibility": "قابلیت دسترسی"
     },
     "ps": {
       "imprintAndContact": "چاپ او اړیکه",
@@ -6042,7 +7214,8 @@
       "shareFailDefaultMessage": "د منځپانګو شریکول له بده مرغه ناکام شول.",
       "disclaimer": "چاپ کؤنکی",
       "sideBarOpenAriaLabel": "د سايډبار پرانيستل",
-      "sideBarCloseAriaLabel": "د سايډبار بندول"
+      "sideBarCloseAriaLabel": "د سايډبار بندول",
+      "accessibility": "د لاسرسي وړتيا"
     },
     "pt": {
       "imprintAndContact": "Pé de imprensa e contactos",
@@ -6066,7 +7239,8 @@
       "shareFailDefaultMessage": "Lamentamos, mas a partilha do conteúdo falhou.",
       "disclaimer": "Pé de imprensa",
       "sideBarOpenAriaLabel": "Abrir a barra lateral",
-      "sideBarCloseAriaLabel": "Fechar a barra lateral"
+      "sideBarCloseAriaLabel": "Fechar a barra lateral",
+      "accessibility": "Acessibilidade"
     },
     "ro": {
       "imprintAndContact": "Caseta tehnică și contact",
@@ -6090,7 +7264,8 @@
       "shareFailDefaultMessage": "Distribuirea conținutului a eșuat.",
       "disclaimer": "Caseta tehnică",
       "sideBarOpenAriaLabel": "Deschideți bara laterală",
-      "sideBarCloseAriaLabel": "Închideți bara laterală"
+      "sideBarCloseAriaLabel": "Închideți bara laterală",
+      "accessibility": "Accesibilitate"
     },
     "ru": {
       "imprintAndContact": "Выходные данные и контактная информация",
@@ -6114,7 +7289,8 @@
       "shareFailDefaultMessage": "К сожалению, не удалось поделиться содержимым.",
       "disclaimer": "Выходные данные",
       "sideBarOpenAriaLabel": "Открыть боковую панель",
-      "sideBarCloseAriaLabel": "Закрыть боковую панель"
+      "sideBarCloseAriaLabel": "Закрыть боковую панель",
+      "accessibility": "Доступность"
     },
     "sk": {
       "imprintAndContact": "Tiráž a kontakt",
@@ -6163,7 +7339,8 @@
       "shareFailDefaultMessage": "Nasiib darro, wadaagista tusmada ayaa lagu guuldaraystay.",
       "disclaimer": "Qoraa",
       "sideBarOpenAriaLabel": "Fur qaybta dhinaca",
-      "sideBarCloseAriaLabel": "Xidh qaybta dhinaca"
+      "sideBarCloseAriaLabel": "Xidh qaybta dhinaca",
+      "accessibility": "Helitaanka"
     },
     "sq": {
       "imprintAndContact": "Botuesi dhe kontakti",
@@ -6187,7 +7364,8 @@
       "shareFailDefaultMessage": "Fatkeqësisht, ndarja e përmbajtjes dështoi.",
       "disclaimer": "Botuesi",
       "sideBarOpenAriaLabel": "Hap shiritin anësor",
-      "sideBarCloseAriaLabel": "Mbyll shiritin anësor"
+      "sideBarCloseAriaLabel": "Mbyll shiritin anësor",
+      "accessibility": "Aksesueshmëria"
     },
     "sr-Cyrl": {
       "imprintAndContact": "Импресум и контакт",
@@ -6211,7 +7389,8 @@
       "shareFailDefaultMessage": "Нажалост, није било могуће дељење садржаја.",
       "disclaimer": "Импресум",
       "sideBarOpenAriaLabel": "Отвори бочну траку",
-      "sideBarCloseAriaLabel": "Затвори бочну траку"
+      "sideBarCloseAriaLabel": "Затвори бочну траку",
+      "accessibility": "Приступачност"
     },
     "sr-Latn": {
       "imprintAndContact": "Impresum i kontakt",
@@ -6235,7 +7414,8 @@
       "shareFailDefaultMessage": "Nažalost, nije bilo moguće deljenje sadržaja.",
       "disclaimer": "Impresum",
       "sideBarOpenAriaLabel": "Otvori bočnu traku",
-      "sideBarCloseAriaLabel": "Zatvori bočnu traku"
+      "sideBarCloseAriaLabel": "Zatvori bočnu traku",
+      "accessibility": "Pristupačnost"
     },
     "ti": {
       "imprintAndContact": "ናይ ደራሲ ዝርዝራት ሓበሬታን ናይ ርክብን",
@@ -6259,7 +7439,8 @@
       "shareFailDefaultMessage": "ሕማቕ ኣጋጣሚ ኾይኑ፡ ምክፋል እቲ ትሕዝቶ ኣይተዓወተን።",
       "disclaimer": "ደራሲ",
       "sideBarOpenAriaLabel": "ክፉት ጎናዊ መስመር",
-      "sideBarCloseAriaLabel": "ጎናዊ መስመር ዕጸዎ"
+      "sideBarCloseAriaLabel": "ጎናዊ መስመር ዕጸዎ",
+      "accessibility": "ተበጻሕነት"
     },
     "tr": {
       "imprintAndContact": "Künye ve iletişim",
@@ -6283,7 +7464,8 @@
       "shareFailDefaultMessage": "İçeriğin paylaşılması maalesef başarısız.",
       "disclaimer": "Künye",
       "sideBarOpenAriaLabel": "Kenar çubuğunu aç",
-      "sideBarCloseAriaLabel": "Kenar çubuğunu kapat"
+      "sideBarCloseAriaLabel": "Kenar çubuğunu kapat",
+      "accessibility": "Erişilebilirlik"
     },
     "uk": {
       "imprintAndContact": "Імпресум та контакт",
@@ -6307,7 +7489,8 @@
       "shareFailDefaultMessage": "Вибачте, поділитися вмістом не вдалося.",
       "disclaimer": "Імпресум",
       "sideBarOpenAriaLabel": "Відкрити бічну панель",
-      "sideBarCloseAriaLabel": "Закрити бічну панель"
+      "sideBarCloseAriaLabel": "Закрити бічну панель",
+      "accessibility": "Безбар'єрність"
     },
     "ur": {
       "imprintAndContact": "چھاپ اور رابطہ",
@@ -6331,7 +7514,8 @@
       "shareFailDefaultMessage": "بدقسمتی سے مواد شیئر کرنے میں ناکام رہے۔",
       "disclaimer": "چھاپ",
       "sideBarOpenAriaLabel": "سائڈبار کھولیں",
-      "sideBarCloseAriaLabel": "سائڈبار بند کریں"
+      "sideBarCloseAriaLabel": "سائڈبار بند کریں",
+      "accessibility": "رسائی"
     },
     "zh-CN": {
       "imprintAndContact": "版本说明和联系方式",
@@ -6355,7 +7539,8 @@
       "shareFailDefaultMessage": "很抱歉，共享内容时出错。",
       "disclaimer": "版本说明",
       "sideBarOpenAriaLabel": "开启侧边栏",
-      "sideBarCloseAriaLabel": "关闭侧边栏"
+      "sideBarCloseAriaLabel": "关闭侧边栏",
+      "accessibility": "无障碍"
     }
   },
   "licenses": {
@@ -6388,6 +7573,11 @@
       "version": "Verze:",
       "license": "Licence:",
       "noLicensesMessage": "Informace o licenci nejsou k dispozici"
+    },
+    "da": {
+      "version": "Version:",
+      "license": "Licens:",
+      "noLicensesMessage": "Ingen tilgængelige licensoplysninger"
     },
     "el": {
       "version": "Έκδοση:",
@@ -6558,6 +7748,9 @@
     },
     "cs": {
       "pageTitle": "Impresum a kontakt - {{appName}}"
+    },
+    "da": {
+      "pageTitle": "Kolofon og kontakt - {{appName}}"
     },
     "el": {
       "pageTitle": "Στοιχεία έκδοσης και επικοινωνία"
@@ -6788,6 +7981,29 @@
       "submitFailed": "Formulář nebylo možné odeslat",
       "submitFailedReasoning": "Zajistěte prosím stabilní připojení k internetu a zkuste to znovu.",
       "invalidEmailAddress": "Zadaná e-mailová adresa je neplatná."
+    },
+    "da": {
+      "supportNote": "Vi ønsker, at du skal føle dig tryg og støttet, hvis du har problemer eller spørgsmål. Du kan bruge følgende kontaktformular til at komme i kontakt med din kontaktperson. Du kan specificere arten af din henvendelse og vælge mellem forskellige kontaktmuligheder.",
+      "securityNote": "Din sikkerhed er vores højeste prioritet. Dine data vil blive behandlet fortroligt, så dit privatliv altid er beskyttet.",
+      "name": "Efternavn, fornavn",
+      "roomNumber": "Værelsesnummer",
+      "howToBeContacted": "Det er sådan, jeg gerne vil kontaktes:",
+      "eMail": "E-mail",
+      "telephone": "Telefon",
+      "telephoneNumber": "Telefonnr.",
+      "personally": "Personlig",
+      "contactPerson": "Kontaktperson:",
+      "contactPersonAnyGender": "Kontaktpersonens køn er irrelevant",
+      "contactPersonGenderFemale": "Jeg vil gerne kontaktes af en kvindelig person",
+      "contactPersonGenderMale": "Jeg vil gerne kontaktes af en mandlig person",
+      "contactReason": "Din bekymring:",
+      "maxCharacters": "maksimalt {{numberOfCharacters}} tegn",
+      "responseDisclaimer": "Det kan tage et par arbejdsdage, før du får svar. Vi vil bestræbe os på at behandle din anmodning så hurtigt som muligt.",
+      "submit": "Send formular",
+      "submitSuccessful": "Formular sendt med succes",
+      "submitFailed": "Formular kunne ikke sendes",
+      "submitFailedReasoning": "Sørg for en stabil internetforbindelse, og prøv igen.",
+      "invalidEmailAddress": "Den angivne e-mailadresse er ugyldig."
     },
     "el": {
       "supportNote": "Θέλουμε να αισθάνεστε ασφάλεια και ότι είμαστε στο πλευρό σας αν έχετε προβλήματα ή ερωτήσεις. Μπορείτε να χρησιμοποιήσετε την παρακάτω φόρμα επικοινωνίας για να επικοινωνήσετε με τον υπεύθυνο επικοινωνίας σας. Μπορείτε να καθορίσετε τη φύση του αιτήματός σας και να επιλέξετε μεταξύ διαφόρων επιλογών επικοινωνίας.",
@@ -7523,6 +8739,13 @@
       "NSCalendarsUsageDescription": "{{appName}} by rád získal přístup ke kalendáři, aby mohl přidat událost.",
       "NSCalendarsFullAccessUsageDescription": "{{appName}} by rád získal přístup ke kalendáři, aby mohl přidat událost."
     },
+    "da": {
+      "NSPhotoLibraryAddUsageDescription": "For at gemme billeder skal {{appName}} have adgang til galleriet.",
+      "NSLocationWhenInUseUsageDescription": "For at finde steder i nærheden skal {{appName}} have adgang til placeringen.",
+      "NSLocationAlwaysAndWhenInUseUsageDescription": "For at finde steder i nærheden skal {{appName}} have adgang til placeringen.",
+      "NSCalendarsUsageDescription": "{{appName}} vil gerne have adgang til kalenderen for at tilføje en begivenhed.",
+      "NSCalendarsFullAccessUsageDescription": "{{appName}} vil gerne have adgang til kalenderen for at tilføje en begivenhed."
+    },
     "el": {
       "NSPhotoLibraryAddUsageDescription": "Για την αποθήκευση εικόνων, είναι απαραίτητη η πρόσβαση του {{appName}} στη συλλογή.",
       "NSLocationWhenInUseUsageDescription": "Για την εύρεση κοντινών τοποθεσιών, είναι απαραίτητη η πρόσβαση του {{appName}} στην τοποθεσία.",
@@ -7794,6 +9017,16 @@
       "local": "Lokální",
       "readMore": "Přečtěte si více",
       "currentlyNoNews": "V tuto chvíli nejsou žádné novinky."
+    },
+    "da": {
+      "news": "Nyheder",
+      "localNews": {
+        "localNews": "Lokale nyheder",
+        "pageTitle": "Lokale nyheder"
+      },
+      "local": "Lokal",
+      "readMore": "Læs mere om det",
+      "currentlyNoNews": "Der er i øjeblikket ingen nyheder."
     },
     "el": {
       "news": "Ειδήσεις",
@@ -8215,7 +9448,11 @@
       "showPois_other": "{{count}} አካባቢዎችን አሳይ",
       "alphabetLetters": "ከኤ እስከ ዜድ",
       "clearFilter": "{{filter}} ማጣሪያን አጥፋ",
-      "showOwnLocation": "የራስዎን ቦታ ያሳዩ"
+      "showOwnLocation": "የራስዎን ቦታ ያሳዩ",
+      "makeAppointment": "ቀጠሮ ይያዙ",
+      "appointmentNecessary": "ቀጠሮ ያስፈልጋል",
+      "makeAppointmentTooltipWithLink": "በእለቱ በ<1>ድር ጣቢያው</1> ወይም በስልክ ቀጠሮ ይያዙ።",
+      "theWebsite": "ድር /ገዕ/ጣቢያውን"
     },
     "ar": {
       "pageTitle": "الخريطة",
@@ -8273,7 +9510,11 @@
       "showPois_other": "عرض عدد {{count}} مواقع",
       "alphabetLetters": "من الألف إلى الياء",
       "clearFilter": "حذف الفلتر {{filter}}",
-      "showOwnLocation": "إظهار موقعك الخاص"
+      "showOwnLocation": "إظهار موقعك الخاص",
+      "makeAppointment": "تحديد موعد",
+      "appointmentNecessary": "الموعد ضروري",
+      "makeAppointmentTooltipWithLink": "حدد موعدًا في ذلك اليوم عبر <1>die Webseite</1> أو عبر الهاتف.",
+      "theWebsite": "موقع الويب"
     },
     "bg": {
       "pageTitle": "Карта",
@@ -8331,7 +9572,11 @@
       "showPois_other": "Показване на {{count}} местоположения",
       "alphabetLetters": "А-Я",
       "clearFilter": "Изтриване на филтър {{filter}}",
-      "showOwnLocation": "Показване на собственото местоположение"
+      "showOwnLocation": "Показване на собственото местоположение",
+      "makeAppointment": "Уговорете среща",
+      "appointmentNecessary": "Необходима е среща",
+      "makeAppointmentTooltipWithLink": "Запишете се за среща в този ден чрез <1>уеб сайта</1> или по телефона.",
+      "theWebsite": "уеб сайтът"
     },
     "ckb": {
       "pageTitle": "نەخشە",
@@ -8389,7 +9634,11 @@
       "showPois_other": "{{count}} شوێن پیشان بدرێت",
       "alphabetLetters": "A-Z",
       "clearFilter": "سڕینەوەی فیلتەر {{filter}}",
-      "showOwnLocation": "پیشاندانی شوێنی خۆت"
+      "showOwnLocation": "پیشاندانی شوێنی خۆت",
+      "makeAppointment": "دیاریکردنی کاتی دیدار و چاپێکەوتن",
+      "appointmentNecessary": "دیاریکردنی کاتێک بۆ دیدار و چاوپێکەوتن پێویستە",
+      "makeAppointmentTooltipWithLink": "لە ڕێگەی <1>ماڵپەڕ</1> یان لە ڕێگەی تەلەفۆنەوە کاتێک بۆ دیدار و چاوپێکەوتن بۆ ئەم ڕۆژە دیاری بکە.",
+      "theWebsite": "ماڵپەڕی..."
     },
     "cs": {
       "pageTitle": "Mapa",
@@ -8447,7 +9696,73 @@
       "showPois_other": "{{count}} Zobrazit místa",
       "alphabetLetters": "A-Z",
       "clearFilter": "Smazat filtr {{filter}}",
-      "showOwnLocation": "Zobrazit vlastní polohu"
+      "showOwnLocation": "Zobrazit vlastní polohu",
+      "makeAppointment": "Sjednat schůzku",
+      "appointmentNecessary": "Potřebná schůzka",
+      "makeAppointmentTooltipWithLink": "Sjednejte si na tento den schůzku prostřednictvím <1>webové stránky<1> nebo telefonicky.",
+      "theWebsite": "webová stránka"
+    },
+    "da": {
+      "pageTitle": "Kort",
+      "poi": "Sted",
+      "pois": "Steder",
+      "map": "Kort",
+      "showOnMap": "Vis på kortet",
+      "noPois": "Ingen steder fundet.",
+      "unitKilometre": "km",
+      "unitMetre": "m",
+      "distanceKilometre": "{{distance}} km væk",
+      "distanceKilometreAlternative": "{{distance}} km",
+      "distanceMetre": "{{distance}} m væk",
+      "distanceMetreAlternative": "{{distance}} m",
+      "contactInformation": "Kontaktoplysninger",
+      "address": "Adresse",
+      "phone": "Telefonnummer",
+      "eMail": "E-mailadresse",
+      "website": "Hjemmeside",
+      "openingHours": "Åbningstider",
+      "description": "Beskrivelse",
+      "addressCopied": "Adresse kopieret til udklipsholder",
+      "phoneCopied": "Telefonnummer kopieret til udklipsholder",
+      "eMailCopied": "E-mailadresse kopieret til udklipsholder",
+      "websiteCopied": "Hjemmeside kopieret til udklipsholder",
+      "listTitle": "I dit nabolag",
+      "detailsHeader": "Tilbage til oversigt",
+      "detailsAddress": "Rutevejledning",
+      "detailsMapLink": "Åbn i Google Maps",
+      "detailsInformation": "Oplysninger",
+      "detailsNextPoi": "Næste",
+      "detailsPreviousPoi": "Tidligere",
+      "previousPoi": "Tidligere placering",
+      "nextPoi": "Næste sted",
+      "openExternalMaps": "Åbn i kort-appen",
+      "allDay": "Hele dagen",
+      "opened": "Åben",
+      "closed": "Lukket",
+      "temporarilyClosed": "Midlertidigt lukket",
+      "montag": "Mandag",
+      "dienstag": "Tirsdag",
+      "mittwoch": "Onsdag",
+      "donnerstag": "Torsdag",
+      "freitag": "Fredag",
+      "samstag": "Lørdag",
+      "sonntag": "Søndag",
+      "adjustFilters": "Filtrer steder",
+      "onlyCurrentlyOpen": "Vis kun steder, der er åbne i øjeblikket",
+      "poiCategories": "Kategorier",
+      "showPois_zero": "0 steder fundet",
+      "showPois_one": "Vis 1 placering",
+      "showPois_two": "Vis {{count}} steder",
+      "showPois_few": "Vis {{count}} steder",
+      "showPois_many": "Vis {{count}} steder",
+      "showPois_other": "Vis {{count}} steder",
+      "alphabetLetters": "A-Z",
+      "clearFilter": "Slet filter {{filter}}",
+      "showOwnLocation": "Vis din egen placering",
+      "makeAppointment": "Lav en aftale",
+      "appointmentNecessary": "Aftale påkrævet",
+      "makeAppointmentTooltipWithLink": "Lav en aftale på denne dag via <1>hjemmesiden</1> eller pr. telefon.",
+      "theWebsite": "hjemmesiden"
     },
     "el": {
       "pageTitle": "Χάρτης",
@@ -8505,7 +9820,11 @@
       "showPois_other": "Εμφάνιση {{count}} τοποθεσιών",
       "alphabetLetters": "Α-Ω",
       "clearFilter": "Διαγραφή φίλτρου {{filter}}",
-      "showOwnLocation": "Εμφάνιση της τοποθεσίας σας"
+      "showOwnLocation": "Εμφάνιση της τοποθεσίας σας",
+      "makeAppointment": "Κλείστε ραντεβού",
+      "appointmentNecessary": "Απαιτείται ραντεβού",
+      "makeAppointmentTooltipWithLink": "Κλείστε ραντεβού την ημέρα αυτή μέσω <1>της ιστοσελίδας</1> ή τηλεφωνικά.",
+      "theWebsite": "η ιστοσελίδα"
     },
     "en": {
       "pageTitle": "Map",
@@ -8625,7 +9944,11 @@
       "showPois_other": "Mostrar {{count}} ubicaciones",
       "alphabetLetters": "A-Z",
       "clearFilter": "Eliminar filtro {{filter}}",
-      "showOwnLocation": "Mostrar tu propia ubicación"
+      "showOwnLocation": "Mostrar tu propia ubicación",
+      "makeAppointment": "Solicita una cita",
+      "appointmentNecessary": "Se requiere cita previa",
+      "makeAppointmentTooltipWithLink": "Solicita una cita para ese día a través de <1>el sitio web</1> o por teléfono.",
+      "theWebsite": "el sitio web"
     },
     "fi": {
       "pageTitle": "Kartta",
@@ -8683,7 +10006,11 @@
       "showPois_other": "Näytä {{count}} paikkaa",
       "alphabetLetters": "A–Z",
       "clearFilter": "Poista suodatin {{filter}}",
-      "showOwnLocation": "Näytä oma sijainti"
+      "showOwnLocation": "Näytä oma sijainti",
+      "makeAppointment": "Varaa aika",
+      "appointmentNecessary": "Ajanvaraus on pakollinen",
+      "makeAppointmentTooltipWithLink": "Varaa aika tälle päivälle <1>verkkosivulta</1> tai puhelimitse.",
+      "theWebsite": "verkkosivu"
     },
     "fr": {
       "pageTitle": "Carte",
@@ -8741,7 +10068,11 @@
       "showPois_other": "Afficher {{count}} lieux",
       "alphabetLetters": "A-Z",
       "clearFilter": "Supprimer le filtre {{filter}}",
-      "showOwnLocation": "Montrer son propre emplacement"
+      "showOwnLocation": "Montrer son propre emplacement",
+      "makeAppointment": "Prendre rendez-vous",
+      "appointmentNecessary": "Rendez-vous nécessaire",
+      "makeAppointmentTooltipWithLink": "Prends rendez-vous ce jour-là via <1>le site web</1> ou par téléphone.",
+      "theWebsite": "le site web"
     },
     "hr": {
       "pageTitle": "Karta",
@@ -8799,7 +10130,11 @@
       "showPois_other": "Prikazati {{count}} mjesta",
       "alphabetLetters": "A-Z",
       "clearFilter": "Izbriši filtere {{filter}}",
-      "showOwnLocation": "Prikaži vlastitu lokaciju"
+      "showOwnLocation": "Prikaži vlastitu lokaciju",
+      "makeAppointment": "Zagovori termin",
+      "appointmentNecessary": "Potreban je termin",
+      "makeAppointmentTooltipWithLink": "Zagovori termin na ovaj dan putem <1>internetske stranice</1> ili telefona.",
+      "theWebsite": "internet stranica"
     },
     "hu": {
       "pageTitle": "Térkép",
@@ -8857,7 +10192,11 @@
       "showPois_other": "{{count}} hely megjelenítése",
       "alphabetLetters": "A-Z",
       "clearFilter": "{{filter}} szűrő törlése",
-      "showOwnLocation": "Saját helyszín megjelenítése"
+      "showOwnLocation": "Saját helyszín megjelenítése",
+      "makeAppointment": "Időpont egyeztetés",
+      "appointmentNecessary": "Időpont szükséges",
+      "makeAppointmentTooltipWithLink": "Foglalj időpontot erre a napra a <1>weboldalon</1> vagy telefonon keresztül,",
+      "theWebsite": "a weboldal"
     },
     "it": {
       "pageTitle": "Mappa",
@@ -8915,7 +10254,11 @@
       "showPois_other": "{{count}} Mostra le località",
       "alphabetLetters": "A-Z",
       "clearFilter": "Elimina il filtro {{filter}}",
-      "showOwnLocation": "Mostra la tua posizione"
+      "showOwnLocation": "Mostra la tua posizione",
+      "makeAppointment": "Fissa un appuntamento",
+      "appointmentNecessary": "È necessario un appuntamento",
+      "makeAppointmentTooltipWithLink": "Fissa un appuntamento in questo giorno <1>sul sito</1> o per telefono.",
+      "theWebsite": "il sito"
     },
     "ka": {
       "pageTitle": "რუქები",
@@ -8971,9 +10314,13 @@
       "showPois_few": "{{count}} ადგილის ჩვენება",
       "showPois_many": "{{count}} ადგილის ჩვენება",
       "showPois_other": "{{count}} ადგილის ჩვენება",
-      "alphabetLetters": "A-Z",
+      "alphabetLetters": "ა-ჰ",
       "clearFilter": "ფილტრის {{filter}} წაშლა",
-      "showOwnLocation": "საკუთარი ადგილმდებარეობის ჩვენება"
+      "showOwnLocation": "საკუთარი ადგილმდებარეობის ჩვენება",
+      "makeAppointment": "შეხვედრის დანიშვნა",
+      "appointmentNecessary": "აუცილებელია შეხვედრის დანიშვნა",
+      "makeAppointmentTooltipWithLink": "დანიშნე შეხვედრა ამ დღეს <1>ვებსაიტით</1> ან ტელეფონით.",
+      "theWebsite": "ვებსაიტი"
     },
     "kmr": {
       "pageTitle": "Nexşe",
@@ -9031,7 +10378,11 @@
       "showPois_other": "{{count}} cih werin nîşandan",
       "alphabetLetters": "A-Z",
       "clearFilter": "Jêbirina Fîlterê {{filter}}",
-      "showOwnLocation": "Cihê xwe nîşan bide"
+      "showOwnLocation": "Cihê xwe nîşan bide",
+      "makeAppointment": "Diyarkirina dema hevdîtinê",
+      "appointmentNecessary": "Dema hevdîtinê pêwîst e",
+      "makeAppointmentTooltipWithLink": "Bi rêya <1>malperê</1> yan bi rêya telefonê ji bo vê rojê demeke hevdîtinê veqetîne.",
+      "theWebsite": "Malper"
     },
     "mk": {
       "pageTitle": "Мапа",
@@ -9089,7 +10440,11 @@
       "showPois_other": "Прикажи {{count}} локации",
       "alphabetLetters": "А-Ш",
       "clearFilter": "Избриши го филтерот {{filter}}",
-      "showOwnLocation": "Прикажете ја вашата локација"
+      "showOwnLocation": "Прикажете ја вашата локација",
+      "makeAppointment": "Закажете термин",
+      "appointmentNecessary": "Потребно е закажување",
+      "makeAppointmentTooltipWithLink": "Закажете состанок тој ден преку <1>веб-сајтот</1> или по телефон.",
+      "theWebsite": "веб-сајтот"
     },
     "nl": {
       "pageTitle": "Kaart",
@@ -9147,7 +10502,11 @@
       "showPois_other": "{{count}} locaties weergeven",
       "alphabetLetters": "A-Z",
       "clearFilter": "Filter {{filter}} verwijderen",
-      "showOwnLocation": "Eigen locatie tonen"
+      "showOwnLocation": "Eigen locatie tonen",
+      "makeAppointment": "Afspraak maken",
+      "appointmentNecessary": "Afspraak vereist",
+      "makeAppointmentTooltipWithLink": "Maak op deze dag een afspraak via <1>de website</1> of telefonisch.",
+      "theWebsite": "de website"
     },
     "orm": {
       "pageTitle": "Kaartaa",
@@ -9206,7 +10565,10 @@
       "alphabetLetters": "A-Z",
       "clearFilter": "Qulqulleessaa {{filter}} haquu.",
       "showOwnLocation": "Bakka dhuunfaa kee agarsiisi",
-      "makeAppointment": "Beellama qabadhu"
+      "makeAppointment": "Beellama qabadhu",
+      "appointmentNecessary": "Beellamni barbaachisaadha",
+      "makeAppointmentTooltipWithLink": "Guyyaa kana karaa <1>marsariitii</1> ykn bilbilaan beellama qabadhaa.",
+      "theWebsite": "marsariitii"
     },
     "pes": {
       "pageTitle": "نقشه",
@@ -9264,7 +10626,11 @@
       "showPois_other": "{{count}} مکان نمایش داده شود",
       "alphabetLetters": "الف-ی",
       "clearFilter": "حذف فیلتر {{filter}}",
-      "showOwnLocation": "نمایش موقعیت مکانی خودتان"
+      "showOwnLocation": "نمایش موقعیت مکانی خودتان",
+      "makeAppointment": "تعیین وقت ملاقات",
+      "appointmentNecessary": "وقت ملاقات ضروری است",
+      "makeAppointmentTooltipWithLink": "از طریق <1>وب‌سایت</1> یا به صورت تلفنی برای این روز یک وقت ملاقات تعیین کنید.",
+      "theWebsite": "وب‌سایت"
     },
     "pl": {
       "pageTitle": "Mapa",
@@ -9314,6 +10680,7 @@
       "adjustFilters": "Filtruj miejsca",
       "onlyCurrentlyOpen": "pokaż tylko aktualnie otwarte miejsca",
       "poiCategories": "Kategorie",
+      "showPois_zero": "Znaleziono 0 lokalizacji",
       "showPois_one": "znaleziono 0 lokalizacji",
       "showPois_two": "wyświetl 1 lokalizację",
       "showPois_few": "Wyświetl lokalizacje ({{count}})",
@@ -9321,7 +10688,11 @@
       "showPois_other": "Wyświetl lokalizacje ({{count}})",
       "alphabetLetters": "Wyświetl lokalizacje ({{count}})",
       "clearFilter": "Usuń filtr {{filter}}",
-      "showOwnLocation": "Pokaż moją lokalizację"
+      "showOwnLocation": "Pokaż moją lokalizację",
+      "makeAppointment": "Umów się na spotkanie",
+      "appointmentNecessary": "Konieczne jest umówienie się na spotkanie",
+      "makeAppointmentTooltipWithLink": "Umów się na spotkanie w tym dniu za pośrednictwem <1>strony internetowej</1> lub telefonicznie.",
+      "theWebsite": "strona internetowa"
     },
     "prs": {
       "pageTitle": "نقشه",
@@ -9379,7 +10750,11 @@
       "showPois_other": "نمایش{{count}}  مکان ها",
       "alphabetLetters": "الف-ی (A-Z)",
       "clearFilter": "حذف فلتر {{filter}}",
-      "showOwnLocation": "نمایش موقعیت خودتان"
+      "showOwnLocation": "نمایش موقعیت خودتان",
+      "makeAppointment": "تعیین نمودن وقت ملاقات",
+      "appointmentNecessary": "وقت ملاقات ضروری است",
+      "makeAppointmentTooltipWithLink": "از طریق <1>وبسایت</1> یا به صورت تلیفونی برای این روز یک وقت ملاقات تعیین کنید.",
+      "theWebsite": "وبسایت"
     },
     "ps": {
       "pageTitle": "نقشہ",
@@ -9437,7 +10812,11 @@
       "showPois_other": "{{count}} موقعيتونه وښاياست",
       "alphabetLetters": "الف-ی (A-Z)",
       "clearFilter": "د {{filter}} فلتر حذفول",
-      "showOwnLocation": "د خپل موقعيت ښودل"
+      "showOwnLocation": "د خپل موقعيت ښودل",
+      "makeAppointment": "د ليدنې وخت وټاکئ",
+      "appointmentNecessary": "د ليدنې وخت ټاکل اړين دي",
+      "makeAppointmentTooltipWithLink": "هغه ورځ د <1>ويب سايټ</1> يا د ټليفون له لارې د ليدنې وخت وټاکئ.",
+      "theWebsite": "ويب سايټ"
     },
     "pt": {
       "pageTitle": "Mapa",
@@ -9495,7 +10874,11 @@
       "showPois_other": "{{count}} Mostrar localizações",
       "alphabetLetters": "A-Z",
       "clearFilter": "Eliminar o filtro {{filter}}",
-      "showOwnLocation": "Mostrar a sua própria localização"
+      "showOwnLocation": "Mostrar a sua própria localização",
+      "makeAppointment": "Efetuar marcação",
+      "appointmentNecessary": "Marcação obrigatória",
+      "makeAppointmentTooltipWithLink": " Efetuar marcação neste dia através <1>do sítio Web<1> ou por telefone.",
+      "theWebsite": "o sítio Web"
     },
     "ro": {
       "pageTitle": "Harta",
@@ -9553,7 +10936,11 @@
       "showPois_other": "Arată {{count}} locații",
       "alphabetLetters": "A-Z",
       "clearFilter": "Ștergeți filtrul {{filter}}",
-      "showOwnLocation": "Afișați propria locație"
+      "showOwnLocation": "Afișați propria locație",
+      "makeAppointment": "Realizare programare",
+      "appointmentNecessary": "Programare necesară",
+      "makeAppointmentTooltipWithLink": "Realizează o programare în această zi prin <1>pagina de Internet</1> sau telefonic.",
+      "theWebsite": "pagina de Internet"
     },
     "ru": {
       "pageTitle": "Карта",
@@ -9611,7 +10998,11 @@
       "showPois_other": "Показать {{count}} мест",
       "alphabetLetters": "А-Я",
       "clearFilter": "Удалить фильтр {{filter}}",
-      "showOwnLocation": "Показать собственное местоположение"
+      "showOwnLocation": "Показать собственное местоположение",
+      "makeAppointment": "Записаться на прием",
+      "appointmentNecessary": "Требуется предварительная запись",
+      "makeAppointmentTooltipWithLink": "Запишись на прием в этот день через <1>сайт</1> или по телефону.",
+      "theWebsite": "сайт"
     },
     "sk": {
       "pageTitle": "Mapa",
@@ -9669,7 +11060,11 @@
       "showPois_other": "{{count}} Zobraziť miesta",
       "alphabetLetters": "A-Z",
       "clearFilter": "Vymazať filter {{filter}}",
-      "showOwnLocation": "Ukázať vlastnú lokalitu"
+      "showOwnLocation": "Ukázať vlastnú lokalitu",
+      "makeAppointment": "Dohodnúť termín",
+      "appointmentNecessary": "Potrebný termín",
+      "makeAppointmentTooltipWithLink": "Dohodnite si v tento deň termín cez <1>webovú stránku</1> alebo telefonicky.",
+      "theWebsite": "Webová stránka"
     },
     "so": {
       "pageTitle": "khariidad",
@@ -9727,7 +11122,11 @@
       "showPois_other": "{{count}} Muuji goobaha",
       "alphabetLetters": "Bilow ilaa dhamaad",
       "clearFilter": "Nadiifi shaandhada {{filter}}",
-      "showOwnLocation": "Tus goobtayda"
+      "showOwnLocation": "Tus goobtayda",
+      "makeAppointment": "Ballan samee",
+      "appointmentNecessary": "Ballan loo baahan yahay",
+      "makeAppointmentTooltipWithLink": "Samee ballan maalintan adoo maraya <1>bogga internetka</1> ama telefoonka.",
+      "theWebsite": "bogga internetka"
     },
     "sq": {
       "pageTitle": "Harta",
@@ -9785,7 +11184,11 @@
       "showPois_other": "Shfaqni {{count}} vende",
       "alphabetLetters": "A-Z",
       "clearFilter": "Fshije filtrin {{filter}}",
-      "showOwnLocation": "Trego vendndodhjen"
+      "showOwnLocation": "Trego vendndodhjen",
+      "makeAppointment": "Cakto takim",
+      "appointmentNecessary": "Duhet takim",
+      "makeAppointmentTooltipWithLink": "Cakto një takim në këtë ditë nëpërmjet <1>faqes së internetit</1> ose me telefon.",
+      "theWebsite": "faqja e internetit"
     },
     "sr-Cyrl": {
       "pageTitle": "Карта",
@@ -9843,7 +11246,11 @@
       "showPois_other": "Прикажи {{count}} места",
       "alphabetLetters": "A-Z",
       "clearFilter": "Избриши филтере {{filter}}",
-      "showOwnLocation": "Прикажи сопствену локацију"
+      "showOwnLocation": "Прикажи сопствену локацију",
+      "makeAppointment": "Заговори термин",
+      "appointmentNecessary": "Потребан је термин",
+      "makeAppointmentTooltipWithLink": "Заговори термин на овај дан путем <1>интернет странице</1> или телефона.",
+      "theWebsite": "интернет страница"
     },
     "sr-Latn": {
       "pageTitle": "Karta",
@@ -9901,7 +11308,11 @@
       "showPois_other": "Prikaži {{count}} mesta",
       "alphabetLetters": "A-Z",
       "clearFilter": "Izbriši filtere {{filter}}",
-      "showOwnLocation": "Prikaži sopstvenu lokaciju"
+      "showOwnLocation": "Prikaži sopstvenu lokaciju",
+      "makeAppointment": "Zagovori termin",
+      "appointmentNecessary": "Potreban je termin",
+      "makeAppointmentTooltipWithLink": "Zagovori termin na ovaj dan putem <1>internet stranice</1> ili telefona.",
+      "theWebsite": "internet stranica"
     },
     "ti": {
       "pageTitle": "ካርታ",
@@ -9959,7 +11370,11 @@
       "showPois_other": "{{count}} ቦታታት ኣርእዩ",
       "alphabetLetters": "ሀ_ ፈ",
       "clearFilter": "{{filter}} ፍልተር ኣጽርዮ",
-      "showOwnLocation": "ኣቀማምጣይ ኣርእይ"
+      "showOwnLocation": "ኣቀማምጣይ ኣርእይ",
+      "makeAppointment": "ቆጸራ ውሰድ",
+      "appointmentNecessary": "ቆጸራ የድሊ",
+      "makeAppointmentTooltipWithLink": "ኣብታ መዓልቲ እቲኣ ብመንገዲ <1>ዌብሳይት</1> ወይ ብተሌፎን ቆጸራ ውሰድ.",
+      "theWebsite": "እቲ መርበብ ሓበሬታ"
     },
     "tr": {
       "pageTitle": "Harita",
@@ -10017,7 +11432,11 @@
       "showPois_other": "{{count}} konum göster",
       "alphabetLetters": "A-Z",
       "clearFilter": "{{filter}} filtresini sil",
-      "showOwnLocation": "Kendi konumunu göster"
+      "showOwnLocation": "Kendi konumunu göster",
+      "makeAppointment": "Randevu al",
+      "appointmentNecessary": "Randevu gerekli",
+      "makeAppointmentTooltipWithLink": "O gün için <1>web sitesi</1> üzerinden ya da telefon aracılığıyla randevu kararlaştır.",
+      "theWebsite": "Web sitesi"
     },
     "uk": {
       "pageTitle": "Мапа",
@@ -10075,7 +11494,11 @@
       "showPois_other": "Показати {{count}} місцезнаходжень(-ня)",
       "alphabetLetters": "A-Z",
       "clearFilter": "Видалити фільтр {{filter}}",
-      "showOwnLocation": "Показати власне місцезнаходження"
+      "showOwnLocation": "Показати власне місцезнаходження",
+      "makeAppointment": "Записатися на прийом",
+      "appointmentNecessary": "Необхідний попередній запис",
+      "makeAppointmentTooltipWithLink": "Запишіться на цей день через <1>вебсайт</1> або за телефоном.",
+      "theWebsite": "вебсайт"
     },
     "ur": {
       "pageTitle": "نقشہ",
@@ -10133,7 +11556,11 @@
       "showPois_other": "{{count}} مقامات دکھائیں",
       "alphabetLetters": "A-Z",
       "clearFilter": "فلٹر حذف کریں  {{filter}}",
-      "showOwnLocation": "اپنا مقام دکھائیں"
+      "showOwnLocation": "اپنا مقام دکھائیں",
+      "makeAppointment": "ملاقات کا وقت بنائیں",
+      "appointmentNecessary": "ملاقات کا وقت لینا درکار ہے",
+      "makeAppointmentTooltipWithLink": "اس دن <1>ویب سائٹ</1> کے ذریعے یا فون کے ذریعے ملاقات کا وقت بنائیں۔",
+      "theWebsite": "ویب سائٹ"
     },
     "zh-CN": {
       "pageTitle": "地图",
@@ -10191,7 +11618,11 @@
       "showPois_other": "显示 {{count}} 个地点",
       "alphabetLetters": "A-Z",
       "clearFilter": "删除筛选器 {{filter}}",
-      "showOwnLocation": "显示自己的位置"
+      "showOwnLocation": "显示自己的位置",
+      "makeAppointment": "预约时间",
+      "appointmentNecessary": "需要预约",
+      "makeAppointmentTooltipWithLink": "在这一天通过<1>网站</1>或电话进行预约。",
+      "theWebsite": "网站"
     }
   },
   "search": {
@@ -10272,6 +11703,19 @@
       "searchResultsCount_other": "{{count}} Výsledky hledání",
       "pageTitle": "Vyhledávání",
       "delete": "Smazat zadání"
+    },
+    "da": {
+      "nothingFound": "Beklager, der blev ikke fundet nogen matchende resultater.",
+      "searchPlaceholder": "Søg efter",
+      "itemHint": "Åbn søgeresultat",
+      "searchResultsCount_zero": "0 søgeresultater",
+      "searchResultsCount_one": "1 søgeresultat",
+      "searchResultsCount_two": "2 søgeresultater",
+      "searchResultsCount_few": "{{count}} søgeresultater",
+      "searchResultsCount_many": "{{count}} søgeresultater",
+      "searchResultsCount_other": "{{count}} søgeresultater",
+      "pageTitle": "Søg efter",
+      "delete": "Slet input"
     },
     "el": {
       "nothingFound": "Δυστυχώς δεν βρέθηκαν ταιριαστά αποτελέσματα.",
@@ -10796,6 +12240,28 @@
       "decline": "Zakázat",
       "externalResourcesTitle": "Externí zdroje",
       "externalResourcesDescription": "Určete, které externí zdroje jsou povoleny."
+    },
+    "da": {
+      "sentryTitle": "App-stabilitet",
+      "sentryDescription": "Forbedr appen {{appName}} ved automatisk at sende nedbrudsrapporter",
+      "pushNewsTitle": "Push-meddelelser",
+      "pushNewsDescription": "Modtag push-meddelelser om de seneste lokale nyheder",
+      "about": "Om {{appName}}",
+      "privacyPolicy": "Fortrolighedspolitik",
+      "version": "Version: {{version}}",
+      "openSourceLicenses": "Open source-licenser",
+      "tracking": "J-PAL-evaluering",
+      "allowTracking": "Tillad sporing",
+      "trackingShortDescription": "Deltag i J-PAL-evalueringsundersøgelsen for at forbedre {{appName}}.",
+      "trackingMoreInformation": "Yderligere oplysninger om J-Pal-evalueringsundersøgelsen og forskningsmålene",
+      "trackingDescription": "{{appName}} anmoder om tilladelse til at spore din brug i appen. Dine data er anonymiserede og bruges kun til forskningsformål og til at forbedre appen. Sporingsdataene deles eller behandles ikke til reklame eller andre kommercielle formål.",
+      "trackingLeaveTitle": "Tillad sporing?",
+      "trackingLeaveDescription": "Du har ikke tilladt sporing. Sporing hjælper os med at forbedre appen {{appName}} og give bedre oplysninger til indvandrere. Er du sikker på, at du vil forlade skærmen uden at tillade sporing?",
+      "enabled": "aktiveret",
+      "disabled": "deaktiveret",
+      "decline": "Afvis",
+      "externalResourcesTitle": "Eksterne kilder",
+      "externalResourcesDescription": "Angiv, hvilke eksterne kilder der er tilladt."
     },
     "el": {
       "sentryTitle": "Σταθερότητα εφαρμογής",
@@ -11495,6 +12961,12 @@
       "whatsappTooltip": "sdílet v aplikaci WhatsApp",
       "closeTooltip": "Zavřít"
     },
+    "da": {
+      "facebookTooltip": "del på Facebook",
+      "mailTooltip": "anbefaler via e-mail",
+      "whatsappTooltip": "del i WhatsApp",
+      "closeTooltip": "Luk"
+    },
     "el": {
       "facebookTooltip": "κοινοποίηση στο Facebook",
       "mailTooltip": "πρόταση μέσω email",
@@ -11694,6 +13166,9 @@
     },
     "cs": {
       "noOffersAvailable": "Nejsou k dispozici žádné nabídky"
+    },
+    "da": {
+      "noOffersAvailable": "Ingen tilgængelige tilbud"
     },
     "el": {
       "noOffersAvailable": "Δεν υπάρχουν διαθέσιμες προσφορές"
