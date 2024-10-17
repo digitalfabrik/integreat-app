@@ -1,0 +1,5 @@
+issue_key: 2931
+show_in_stores: true
+platforms:
+  - web
+en: Only scroll to the bottom in the chat if there are new messages.
