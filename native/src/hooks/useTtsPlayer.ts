@@ -1,9 +1,19 @@
-import { useContext } from 'react'
+import { useContext, useEffect } from 'react'
 
-import { ttsContext, ttsContextType } from '../components/TtsPlayer'
+import { ttsContext, TtsContextType } from '../components/TtsPlayer'
 
-const useTtsPlayer = (): ttsContextType => {
+const useTtsPlayer = (content?: string, title?: string): TtsContextType => {
   const tts = useContext(ttsContext)
+
+  useEffect(() => {
+    if (content && title) {
+      tts.setContent(content)
+      tts.setTitle(title)
+    }
+    return () => {
+      tts.setContent(null)
+    }
+  }, [content, title, tts])
 
   return {
     content: tts.content,

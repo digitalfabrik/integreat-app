@@ -92,7 +92,15 @@ const CloseView = styled.View`
   gap: 10px;
 `
 
-export type ttsContextType = {
+const elevatedButton = {
+  elevation: 5, // For Android shadow
+  shadowColor: 'black', // For iOS shadow
+  shadowOffset: { width: 0, height: 2 },
+  shadowOpacity: 0.2,
+  shadowRadius: 3,
+}
+
+export type TtsContextType = {
   content: string | null
   setContent: React.Dispatch<React.SetStateAction<string | null>>
   sentenceIndex: number
@@ -105,20 +113,18 @@ export type ttsContextType = {
   setVolume: React.Dispatch<React.SetStateAction<number>>
 }
 
-/* eslint-disable @typescript-eslint/no-empty-function */
-export const ttsContext = createContext<ttsContextType>({
+export const ttsContext = createContext<TtsContextType>({
   content: null,
-  setContent: () => {},
+  setContent: () => undefined,
   sentenceIndex: 0,
-  setSentenceIndex: () => {},
+  setSentenceIndex: () => undefined,
   visible: false,
-  setVisible: () => {},
+  setVisible: () => undefined,
   title: '',
-  setTitle: () => {},
+  setTitle: () => undefined,
   volume: 50,
-  setVolume: () => {},
+  setVolume: () => undefined,
 })
-/* eslint-enable @typescript-eslint/no-empty-function */
 
 type TtsPlayerProps = {
   children: ReactElement
@@ -141,6 +147,8 @@ const TtsPlayer = ({ initialVisibility = false, children }: TtsPlayerProps): Rea
     [content, title, languageCode],
   )
   const isPersian = languageCode === 'fa'
+  const maxTitle = 20
+  const isTitleLong = title.length > maxTitle ? title.substring(0, maxTitle).concat('...') : title || t('readAloud')
 
   const initializeTts = useCallback((): void => {
     Tts.getInitStatus().catch(async error => {
@@ -283,15 +291,18 @@ const TtsPlayer = ({ initialVisibility = false, children }: TtsPlayerProps): Rea
     <ttsContext.Provider value={ttsContextValue}>
       {children}
       {visible && (
-        <StyledTtsPlayer $isPlaying={expandPlayer}>
+        <StyledTtsPlayer $isPlaying={expandPlayer} style={elevatedButton}>
           <StyledPanel>
             {expandPlayer && (
               <StyledBackForthButton accessibilityLabel='backward Button' onPress={handleBackward}>
                 <StyledText>{t('prev')}</StyledText>
-                <Icon Icon={PlaybackIcon} />
+                <FlipView>
+                  <Icon Icon={PlaybackIcon} />
+                </FlipView>
               </StyledBackForthButton>
             )}
             <StyledPlayIcon
+              style={elevatedButton}
               accessibilityLabel='Play Button'
               onPress={() => {
                 if (isPlaying) {
@@ -305,9 +316,7 @@ const TtsPlayer = ({ initialVisibility = false, children }: TtsPlayerProps): Rea
             />
             {expandPlayer && (
               <StyledBackForthButton accessibilityLabel='Forward Button' onPress={handleForward}>
-                <FlipView>
-                  <Icon Icon={PlaybackIcon} />
-                </FlipView>
+                <Icon Icon={PlaybackIcon} />
                 <StyledText>{t('next')}</StyledText>
               </StyledBackForthButton>
             )}
@@ -320,17 +329,8 @@ const TtsPlayer = ({ initialVisibility = false, children }: TtsPlayerProps): Rea
             </StyledPanel>
           )}
           <CloseView>
-            {!expandPlayer && <StyledPlayerHeaderText>{t('readAloud')}</StyledPlayerHeaderText>}
-            <CloseButton
-              accessibilityLabel='Close player'
-              onPress={handleClose}
-              style={{
-                elevation: 5, // For Android shadow
-                shadowColor: 'black', // For iOS shadow
-                shadowOffset: { width: 0, height: 2 },
-                shadowOpacity: 0.2,
-                shadowRadius: 3,
-              }}>
+            {!expandPlayer && <StyledPlayerHeaderText>{isTitleLong}</StyledPlayerHeaderText>}
+            <CloseButton accessibilityLabel='Close player' onPress={handleClose} style={elevatedButton}>
               <Icon Icon={CloseIcon} />
               <StyledText>{t('common:close')}</StyledText>
             </CloseButton>

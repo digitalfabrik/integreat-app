@@ -7,7 +7,6 @@ import styled from 'styled-components/native'
 import { isRTL } from '../constants/contentDirection'
 
 const SLIDER_HANDLE_SIZE = 16
-const slightlyDarkGray = '#b9b9b9'
 
 const Container = styled.View`
   flex: 1;
@@ -18,7 +17,7 @@ const Container = styled.View`
 
 const SliderTrack = styled.View`
   height: 5px;
-  background-color: ${slightlyDarkGray};
+  background-color: ${props => props.theme.colors.slightlyDarkGray};
   border-radius: 25px;
   justify-content: center;
   position: relative;

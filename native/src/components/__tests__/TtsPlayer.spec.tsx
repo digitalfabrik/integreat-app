@@ -1,5 +1,5 @@
 import { act, fireEvent, RenderAPI } from '@testing-library/react-native'
-import React, { useEffect } from 'react'
+import React from 'react'
 import Tts from 'react-native-tts'
 
 import useTtsPlayer from '../../hooks/useTtsPlayer'
@@ -17,14 +17,7 @@ jest.mock('react-native-reanimated', () => {
 
 describe('TtsPlayer', () => {
   const TestChild = () => {
-    const { setContent, setTitle, setVisible } = useTtsPlayer()
-
-    useEffect(() => {
-      setContent('<p>This is a test</p>')
-      setTitle('test')
-      setVisible(true)
-    }, [setContent, setTitle, setVisible])
-
+    useTtsPlayer('<p>This is a test</p>', 'test')
     return null
   }
 

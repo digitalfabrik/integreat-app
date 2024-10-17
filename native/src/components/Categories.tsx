@@ -1,4 +1,4 @@
-import React, { ReactElement, useEffect } from 'react'
+import React, { ReactElement } from 'react'
 import { View } from 'react-native'
 
 import { CATEGORIES_ROUTE, getCategoryTiles, RouteInformationType } from 'shared'
@@ -35,17 +35,7 @@ const Categories = ({
 }: CategoriesProps): ReactElement => {
   const children = categories.getChildren(category)
   const cityCode = cityModel.code
-  const { setTitle, setContent } = useTtsPlayer()
-
-  useEffect(() => {
-    if (categories.isLeaf(category)) {
-      setTitle(category.title)
-      setContent(category.content)
-    }
-    return () => {
-      setContent(null)
-    }
-  }, [categories, category, category.content, setContent, setTitle])
+  useTtsPlayer(categories.isLeaf(category) ? category.content : '', categories.isLeaf(category) ? category.title : '')
 
   const navigateToCategory = ({ path }: { path: string }) =>
     navigateTo({

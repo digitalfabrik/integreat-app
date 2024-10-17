@@ -1,4 +1,4 @@
-import React, { ReactElement, useEffect } from 'react'
+import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 import { RefreshControl } from 'react-native'
 import styled from 'styled-components/native'
@@ -42,18 +42,8 @@ export type EventsProps = {
 
 const Events = ({ cityModel, language, navigateTo, events, slug, refresh }: EventsProps): ReactElement => {
   const { t } = useTranslation('events')
-  const { setTitle, setContent } = useTtsPlayer()
-
-  useEffect(() => {
-    if (slug) {
-      const event = events.find(it => it.slug === slug)
-      setTitle(event?.title ?? 'Events')
-      setContent(event?.content ?? '')
-    }
-    return () => {
-      setContent(null)
-    }
-  }, [events, setContent, setTitle, slug])
+  const event = slug ? events.find(it => it.slug === slug) : null
+  useTtsPlayer(event?.content ?? '', event?.title ?? 'Events')
 
   if (!cityModel.eventsEnabled) {
     const error = new NotFoundError({

@@ -84,7 +84,7 @@ const Header = ({
   // Save route/canGoBack to state to prevent it from changing during navigating which would lead to flickering of the title and back button
   const [previousRoute] = useState(navigation.getState().routes[navigation.getState().routes.length - 2])
   const [canGoBack] = useState(navigation.canGoBack())
-  const { setVisible, content } = useTtsPlayer()
+  const { setVisible: setTtsPlayerVisible, content } = useTtsPlayer()
 
   const onShare = async () => {
     if (!shareUrl) {
@@ -116,10 +116,6 @@ const Header = ({
       showSnackbar({ text: 'generalError' })
       reportError(e)
     }
-  }
-
-  const onRead = async () => {
-    setVisible(true)
   }
 
   const renderItem = (title: string, iconName: string, visible: boolean, onPress?: () => void): ReactElement => (
@@ -197,7 +193,7 @@ const Header = ({
     content &&
     (buildConfig().appName === 'IntegreatTestCms' || buildConfig().appName === 'Integreat') &&
     !unsupportedLanguagesForTts.includes(languageCode)
-      ? renderOverflowItem(t(`${HeaderButtonTitle.ReadAloud}`), onRead)
+      ? renderOverflowItem(t(`${HeaderButtonTitle.ReadAloud}`), () => setTtsPlayerVisible(true))
       : []
 
   const overflowItems = showOverflowItems
