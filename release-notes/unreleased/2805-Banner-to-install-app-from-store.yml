@@ -1,0 +1,5 @@
+issue_key: 2805
+show_in_stores: false
+platforms: # relevant platforms, possible values: web, android and ios
+  - web
+en: Display banner to route android users to the mobile app.
