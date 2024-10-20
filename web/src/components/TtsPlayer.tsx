@@ -1,8 +1,10 @@
 import React, { ReactElement, useCallback, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import styled from 'styled-components'
+import segment from 'sentencex'
+import styled, { useTheme } from 'styled-components'
 
 import { CloseIcon, NoSoundIcon, PauseIcon, PlaybackIcon, PlayIcon, SoundIcon } from '../assets'
+import Modal from './Modal'
 import Button from './base/Button'
 import Icon from './base/Icon'
 
@@ -41,7 +43,7 @@ const StyledPlayIcon = styled(Button)`
 
 const StyledBackForthButton = styled(Button)`
   display: flex;
-  flex-direction: row;
+  flex-direction: ${props => (props.theme.contentDirection === 'rtl' ? 'row-reverse ' : 'row')};
   gap: 5px;
   align-items: flex-end;
 `
@@ -87,9 +89,14 @@ const CloseView = styled.div`
   gap: 10px;
   justify-content: center;
 `
+
+const ModalContent = styled.div`
+  padding: 20px;
+`
+
 const Slider = styled.input`
   border-radius: 25px;
-  -webkit-appearance: none;
+  appearance: none;
   background: #b9b9b9;
 
   &::-ms-track {
@@ -97,7 +104,7 @@ const Slider = styled.input`
   }
 
   &::-webkit-slider-thumb {
-    -webkit-appearance: none;
+    appearance: none;
     height: 16px;
     width: 16px;
     border-radius: 50%;
@@ -113,27 +120,52 @@ const Slider = styled.input`
     cursor: pointer;
   }
 `
-
-const StyledWord = styled.span<{ isCurrent: boolean }>`
-  background-color: ${props => (props.isCurrent ? 'yellow' : 'transparent')};
-`
-const voidElements = new Set([
-  'area',
-  'base',
-  'br',
-  'col',
-  'embed',
-  'hr',
-  'img',
-  'input',
-  'link',
-  'meta',
-  'param',
-  'source',
-  'track',
-  'wbr',
-])
-
+const HelpModal = ({ closeModal }: { closeModal: () => void }) => (
+  <Modal title='' closeModal={closeModal}>
+    <ModalContent>
+      <p>This Voice is not available it needs to be installed</p>
+      <ul>
+        <li>
+          <a
+            href='https://support.microsoft.com/en-us/topic/download-languages-and-voices-for-immersive-reader-read-mode-and-read-aloud-4c83a8d8-7486-42f7-8e46-2b0fdf753130'
+            target='_blank'
+            rel='noreferrer'>
+            Windows
+          </a>
+        </li>
+        <li>
+          <a
+            href='https://support.apple.com/guide/mac-help/change-the-voice-your-mac-uses-to-speak-text-mchlp2290/mac'
+            target='_blank'
+            rel='noreferrer'>
+            MacOS
+          </a>
+        </li>
+        <li>
+          <a
+            href='https://github.com/espeak-ng/espeak-ng/blob/master/docs/mbrola.md#installation-of-standard-packages'
+            target='_blank'
+            rel='noreferrer'>
+            Ubuntu
+          </a>
+        </li>
+        <li>
+          <a
+            href='https://support.google.com/accessibility/android/answer/6006983?hl=en&sjid=9301509494880612166-EU'
+            target='_blank'
+            rel='noreferrer'>
+            Android
+          </a>
+        </li>
+        <li>
+          <a href='https://support.apple.com/en-us/HT202362' target='_blank' rel='noreferrer'>
+            iOS
+          </a>
+        </li>
+      </ul>
+    </ModalContent>
+  </Modal>
+)
 type TtsPlayerProps = {
   html: string
   initialVisibility?: boolean
@@ -142,84 +174,86 @@ type TtsPlayerProps = {
 
 const TtsPlayer = ({ initialVisibility = false, html, languageCode }: TtsPlayerProps): ReactElement | null => {
   const { t } = useTranslation('layout')
+  const theme = useTheme()
   const [isPlaying, setIsPlaying] = useState<boolean>(false)
   const [expandPlayer, setExpandPlayer] = useState(false)
   const defaultVolume = 0.5
   const [volume, setVolume] = useState(defaultVolume)
   const [visible, setVisible] = useState(initialVisibility)
-  const [voice, setVoice] = useState<SpeechSynthesisVoice | null>(null)
-  const [utterance, setUtterance] = useState<SpeechSynthesisUtterance | null>(null)
-  const [currentWordIndex, setCurrentWordIndex] = useState<number>(0)
-  const [words, setWords] = useState<string[]>([])
-  const numOfWordsToSkip = 10
-
+  const [currentSentencesIndex, setCurrentSentenceIndex] = useState<number>(0)
+  const [sentences, setSentences] = useState<string[]>([])
+  const [showHelpModal, setShowHelpModal] = useState(false)
+  const numOfSentencesToSkip = 1
   const synth = window.speechSynthesis
 
-  // Parse HTML and split into words
+  const utteranceSetup = useCallback(() => {
+    const utterance = new SpeechSynthesisUtterance()
+    utterance.text = sentences.slice(currentSentencesIndex).join(' ')
+    utterance.onend = () => {
+      setCurrentSentenceIndex(0)
+      setIsPlaying(false)
+      setExpandPlayer(false)
+    }
+    utterance.volume = volume
+    return utterance
+  }, [currentSentencesIndex, sentences, volume])
+
   useEffect(() => {
     const tempDiv = document.createElement('div')
     tempDiv.innerHTML = html
-    const textContent = tempDiv.textContent || tempDiv.innerText || ''
-    const wordsArray = textContent.split(/\s+/).filter(word => word.trim() !== '')
-    setWords(wordsArray)
-    setCurrentWordIndex(0)
-  }, [html])
 
-  const handleBoundary = (event: SpeechSynthesisEvent) => {
-    if (event.name === 'word') {
-      setCurrentWordIndex(prevIndex => prevIndex + 1)
+    const appendPeriod = (elements: NodeListOf<HTMLElement>) => {
+      elements.forEach((element: HTMLElement) => {
+        const trimmedText = element.textContent?.trim()
+        if (trimmedText && !trimmedText.endsWith('.')) {
+          // eslint-disable-next-line no-param-reassign
+          element.textContent = trimmedText.concat('.')
+        }
+      })
     }
-  }
+
+    const listItems = tempDiv.querySelectorAll('li')
+    appendPeriod(listItems)
+
+    const paragraphs = tempDiv.querySelectorAll('p')
+    appendPeriod(paragraphs)
+
+    const textContent = tempDiv.textContent || tempDiv.innerText
+    setSentences(segment(languageCode, textContent))
+    setCurrentSentenceIndex(0)
+  }, [html, languageCode])
 
   useEffect(() => {
-    const u = new SpeechSynthesisUtterance()
-
     const handleVoicesChanged = () => {
       const voices = synth.getVoices()
 
-      // Select voice matching the passed languageCode
       const selectedVoice = voices.find(voice => voice.lang.startsWith(languageCode))
 
       if (selectedVoice) {
-        setVoice(selectedVoice)
-        u.voice = selectedVoice
-      } else if (voices.length > 0) {
-        // Fallback to the first available voice if no match is found
-        setVoice(voices[0])
-        u.voice = voices[0]
+        utteranceSetup().voice = selectedVoice
+      } else {
+        setShowHelpModal(true)
+        setSentences([])
       }
     }
 
     synth.addEventListener('voiceschanged', handleVoicesChanged)
     handleVoicesChanged()
 
-    setUtterance(u)
-
     return () => {
       synth.cancel()
       synth.removeEventListener('voiceschanged', handleVoicesChanged)
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [languageCode, synth])
-
-  useEffect(() => {
-    if (utterance) {
-      const textToSpeak = words.slice(currentWordIndex).join(' ')
-      utterance.text = textToSpeak
-      utterance.volume = volume
-      if (voice) {
-        utterance.voice = voice
-      }
-      utterance.onboundary = handleBoundary
-    }
-  }, [words, currentWordIndex, utterance, volume, voice])
 
   const startReading = () => {
     if (!isPlaying && synth.paused) {
       synth.resume()
       setIsPlaying(true)
-    } else if (utterance) {
+    } else {
       synth.cancel()
-      synth.speak(utterance)
+      synth.speak(utteranceSetup())
       setIsPlaying(true)
     }
   }
@@ -239,37 +273,27 @@ const TtsPlayer = ({ initialVisibility = false, html, languageCode }: TtsPlayerP
   }
 
   const handleBackward = () => {
-    setCurrentWordIndex(prevIndex => Math.max(0, prevIndex - numOfWordsToSkip))
     if (isPlaying) {
       synth.cancel()
-      setTimeout(() => {
-        if (utterance) {
-          startReading()
-        }
-      }, 100)
     }
+    setCurrentSentenceIndex(prevIndex => Math.max(0, prevIndex - numOfSentencesToSkip))
+
+    startReading()
   }
 
   const handleForward = () => {
-    setCurrentWordIndex(prevIndex => Math.min(prevIndex + numOfWordsToSkip, words.length - 1))
     if (isPlaying) {
       synth.cancel()
-      setTimeout(() => {
-        if (utterance) {
-          startReading()
-        }
-      }, 100)
     }
+    setCurrentSentenceIndex(prevIndex => Math.min(prevIndex + numOfSentencesToSkip, sentences.length - 1))
+    startReading()
   }
 
   const handleVolumeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const newVolume = parseFloat(event.target.value)
     setVolume(newVolume)
-
-    if (utterance) {
-      synth.cancel()
-      startReading()
-    }
+    synth.cancel()
+    startReading()
   }
 
   const handleClose = () => {
@@ -278,80 +302,12 @@ const TtsPlayer = ({ initialVisibility = false, html, languageCode }: TtsPlayerP
     synth.cancel()
     setIsPlaying(false)
   }
-
-  const renderContent = useCallback(() => {
-    let wordCount = 0
-    const parser = new DOMParser()
-    const doc = parser.parseFromString(html, 'text/html')
-
-    const traverse = (node: Node): React.ReactNode => {
-      if (node.nodeType === Node.TEXT_NODE) {
-        const textContent = node.textContent || ''
-        const wordsInNode = textContent.split(/(\s+)/)
-        return wordsInNode.map(word => {
-          if (word.trim() === '') {
-            // Return whitespace as is
-            return word
-          }
-          const currentIndex = wordCount
-          wordCount += 1
-          return (
-            <StyledWord
-              key={`word-${currentIndex}`}
-              data-word-index={currentIndex}
-              isCurrent={currentWordIndex === currentIndex}>
-              {word}
-            </StyledWord>
-          )
-        })
-      }
-
-      if (node.nodeType === Node.ELEMENT_NODE) {
-        const element = node as HTMLElement
-        const tagName = element.tagName.toLowerCase()
-
-        const attrs: { [key: string]: string } = {}
-        Array.from(element.attributes).forEach(attr => {
-          const attrName = attr.name === 'class' ? 'className' : attr.name === 'for' ? 'htmlFor' : attr.name
-
-          if (attrName === 'style') {
-            const tempElement = document.createElement('div')
-            tempElement.style.cssText = attr.value
-            const styleObject: { [key: string]: string } = {}
-            for (let i = 0; i < tempElement.style.length; i++) {
-              const propertyName = tempElement.style[i]
-              const propertyValue = tempElement.style.getPropertyValue(propertyName)
-              styleObject[propertyName] = propertyValue
-            }
-            attrs.style = styleObject
-          } else {
-            attrs[attrName] = attr.value
-          }
-        })
-
-        if (voidElements.has(tagName)) {
-          return React.createElement(tagName, {
-            key: `void-${tagName}-${wordCount}`,
-            ...attrs,
-          })
-        }
-
-        const children = Array.from(element.childNodes).map(child => traverse(child))
-
-        return React.createElement(tagName, { key: `element-${tagName}-${wordCount}`, ...attrs }, children)
-      }
-
-      return null
-    }
-
-    return traverse(doc.body)
-  }, [currentWordIndex, html])
-
-  return (
-    <div>
-      {visible && (
+  if (visible) {
+    return (
+      <>
+        {showHelpModal && <HelpModal closeModal={() => setShowHelpModal(false)} />}
         <StyledTtsPlayer $isPlaying={expandPlayer}>
-          <StyledPanel>
+          <StyledPanel style={{ flexDirection: theme.contentDirection === 'rtl' ? 'row-reverse' : 'row' }}>
             {expandPlayer && (
               <StyledBackForthButton label='Backward Button' onClick={handleBackward}>
                 <StyledText>{t('prev')}</StyledText>
@@ -383,10 +339,10 @@ const TtsPlayer = ({ initialVisibility = false, html, languageCode }: TtsPlayerP
             </CloseButton>
           </CloseView>
         </StyledTtsPlayer>
-      )}
-      <div>{renderContent()}</div>
-    </div>
-  )
+      </>
+    )
+  }
+  return null
 }
 
 export default TtsPlayer

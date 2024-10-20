@@ -280,9 +280,16 @@ const RemoteContent = ({
   const detectedLanguageCode = i18n.language
   const language = routeParam1 ?? detectedLanguageCode
   return (
-    <SandBox dir='auto' $centered={centered} ref={sandBoxRef} $smallText={smallText}>
+    <>
+      <SandBox
+        dir='auto'
+        $centered={centered}
+        dangerouslySetInnerHTML={dangerouslySetInnerHTML}
+        ref={sandBoxRef}
+        $smallText={smallText}
+      />
       <TtsPlayer html={html} initialVisibility languageCode={language} />
-    </SandBox>
+    </>
   )
 }
 
