@@ -35,7 +35,7 @@ found [here](build-configs.md).**
 #### Certificates Setup
 
 - If none of your devices are logged in to the Apple account of the app team, warn someone with a logged in device
-  that you will need a code in a few minutes. That could be e.g. Steffi, Andy, or Leandra.
+  that you will need a code in a few minutes. If you're not sure who that is, ask in the #team-app channel in Mattermost.
 
 - Install the certificates locally:
 
@@ -58,7 +58,7 @@ cd ios && fastlane match development (or whichever environment you need)
 - [Installing certificates hangs on `Cloning remote git repo...`](troubleshooting.md#bundle-exec-fastlane-certificates-hangs-on-cloning-remote-git-repo)
 - Secrets containing `'`: Exporting as environment variable is possible as
   follows: `export SECRET='<prefix>'"'"'<suffix>'`.
-- 2FA prompt: Message Steffi, Andy, or Leandra.
+- 2FA prompt: Ask on Mattermost, in the #team-app channel
 
 #### Dependency Management
 
