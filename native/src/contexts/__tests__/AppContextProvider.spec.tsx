@@ -135,7 +135,7 @@ describe('AppContextProvider', () => {
     expect(await appSettings.loadSettings()).toMatchObject({ selectedCity: 'hallo' })
     expect(setSettings).toHaveBeenCalledTimes(1)
     expect(subscribeNews).toHaveBeenCalledTimes(1)
-    expect(subscribeNews).toHaveBeenCalledWith('hallo', 'de')
+    expect(subscribeNews).toHaveBeenCalledWith({ cityCode: 'hallo', languageCode: 'de', allowPushNotifications: true })
   })
 
   it('should select city', async () => {
@@ -150,7 +150,11 @@ describe('AppContextProvider', () => {
     expect(await appSettings.loadSettings()).toMatchObject({ selectedCity: 'augsburg' })
     expect(setSettings).toHaveBeenCalledTimes(1)
     expect(subscribeNews).toHaveBeenCalledTimes(1)
-    expect(subscribeNews).toHaveBeenCalledWith('augsburg', 'de')
+    expect(subscribeNews).toHaveBeenCalledWith({
+      cityCode: 'augsburg',
+      languageCode: 'de',
+      allowPushNotifications: true,
+    })
     expect(unsubscribeNews).not.toHaveBeenCalled()
   })
 
@@ -166,7 +170,11 @@ describe('AppContextProvider', () => {
     expect(await appSettings.loadSettings()).toMatchObject({ selectedCity: 'augsburg' })
     expect(setSettings).toHaveBeenCalledTimes(1)
     expect(subscribeNews).toHaveBeenCalledTimes(1)
-    expect(subscribeNews).toHaveBeenCalledWith('augsburg', 'de')
+    expect(subscribeNews).toHaveBeenCalledWith({
+      cityCode: 'augsburg',
+      languageCode: 'de',
+      allowPushNotifications: true,
+    })
     expect(unsubscribeNews).toHaveBeenCalledTimes(1)
     expect(unsubscribeNews).toHaveBeenCalledWith('muenchen', 'de')
   })
@@ -198,7 +206,11 @@ describe('AppContextProvider', () => {
     expect(await appSettings.loadSettings()).toMatchObject({ contentLanguage: 'ar' })
     expect(setSettings).toHaveBeenCalledTimes(1)
     expect(subscribeNews).toHaveBeenCalledTimes(1)
-    expect(subscribeNews).toHaveBeenCalledWith('muenchen', 'ar')
+    expect(subscribeNews).toHaveBeenCalledWith({
+      cityCode: 'muenchen',
+      languageCode: 'ar',
+      allowPushNotifications: true,
+    })
     expect(unsubscribeNews).toHaveBeenCalledTimes(1)
     expect(unsubscribeNews).toHaveBeenCalledWith('muenchen', 'de')
   })
