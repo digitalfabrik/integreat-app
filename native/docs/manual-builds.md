@@ -29,13 +29,15 @@ found [here](build-configs.md).**
 - Install and setup XCode.
 - [Install and setup Fastlane](../../docs/cicd.md#fastlane-setup).
 - Read about [Apple Certificates](apple-certifcates.md).
-- To set up the certificates: have access to the `app-credentials` repo, and the Passbolt folder Integreat App
-  Publishing
+- To set up the certificates:
+  - have access to the `app-credentials` repo
+  - have access to the Passbolt folder Integreat App Publishing
+  - your personal Apple account needs to be added to the Digitalfabrik's account either as an admin or with the right to
+    access "Certificates, Identifiers & Profiles".
+
+If you need any of these permissions, ask for them in the #app-team channel on Mattermost.
 
 #### Certificates Setup
-
-- If none of your devices are logged in to the Apple account of the app team, warn someone with a logged in device
-  that you will need a code in a few minutes. If you're not sure who that is, ask in the #team-app channel in Mattermost.
 
 - Install the certificates locally:
 
@@ -47,18 +49,15 @@ cd ios && fastlane match development (or whichever environment you need)
 
 - The password that you need to fill in twice is saved in Passbolt as Digitalfabrik Fastlane Match.
 
-- The Apple account that you need to sign in to is the one of the app team, the password is in Passbolt. This is also
-  the step where you will need the second factor.
+- The Apple account that you need to sign in to is your personal one.
 
-- You will need to add all the app_identifier you want to work with. You can find a list of them at
+- You will need to add all the app_identifiers you want to work with. You can find a list of them at
   https://github.com/digitalfabrik/app-credentials/blob/main/apple%20app%20identifier%20list.txt
 
 ##### Trouble Shooting
 
 - [Installing certificates hangs on `Cloning remote git repo...`](troubleshooting.md#bundle-exec-fastlane-certificates-hangs-on-cloning-remote-git-repo)
-- Secrets containing `'`: Exporting as environment variable is possible as
-  follows: `export SECRET='<prefix>'"'"'<suffix>'`.
-- 2FA prompt: Ask on Mattermost, in the #team-app channel
+- Secrets containing `'`: Exporting as environment variable is possible as follows: `export SECRET='<prefix>'"'"'<suffix>'`.
 
 #### Dependency Management
 
