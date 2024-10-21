@@ -18,7 +18,7 @@ const SettingsSwitch = ({ value, onPress }: SettingsSwitchProps): ReactElement =
       }}
       value={value}
       onValueChange={onPress}
-      accessibilityRole='switch'
+      role='switch'
     />
   )
 }

@@ -1,0 +1,6 @@
+issue_key: 2160
+show_in_stores: true
+platforms:
+  - android
+en: Fixed a bug causing the content to jump if pressed.
+de: Unerwartete Sprünge des Inhalts werden nun verhindert.

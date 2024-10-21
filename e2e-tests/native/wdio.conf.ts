@@ -1,6 +1,4 @@
-import { Capabilities } from '@wdio/types'
-
-const androidCapabilities: Capabilities.DesiredCapabilities = {
+const androidCapabilities: WebdriverIO.Capabilities = {
   platformName: 'android',
   'appium:app': '../native/android/app/build/outputs/apk/debug/app-debug.apk',
   'appium:automationName': 'UiAutomator2',
@@ -8,7 +6,7 @@ const androidCapabilities: Capabilities.DesiredCapabilities = {
 
 export const config: WebdriverIO.Config = {
   runner: 'local',
-  specs: ['./test/specs/**/*.ts'],
+  specs: ['./test/specs/**/*.e2e.ts'],
   exclude: [],
 
   maxInstances: 1,
