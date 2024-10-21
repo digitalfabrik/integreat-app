@@ -76,7 +76,7 @@ const Page = ({
 
   return (
     <Container $padding={padding}>
-      {!loading && title ? <Caption title={title} /> : null}
+      {!loading && title ? <Caption title={title} language={language} /> : null}
       {!loading && BeforeContent}
       <RemoteContent
         content={content}
