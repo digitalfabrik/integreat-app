@@ -35,15 +35,17 @@ found [here](build-configs.md).**
   - your personal Apple account needs to be added to the Digitalfabrik's account either as an admin or with the right to
     access "Certificates, Identifiers & Profiles".
 
-If you need any of these permissions, ask for them in the #app-team channel on Mattermost.
+If you need any of these permissions, ask for them in the ~team-app channel on Mattermost.
 
 #### Certificates Setup
 
 - Install the certificates locally:
 
 ```bash
-cd ios && fastlane match development (or whichever environment you need)
+cd ios && fastlane match development
 ```
+
+If you want to build for for a different environment than development (e.g. production), put that one in the command.
 
 - If you get an error that you can't clone the repo `app-credentials`, request access.
 
@@ -51,7 +53,7 @@ cd ios && fastlane match development (or whichever environment you need)
 
 - The Apple account that you need to sign in to is your personal one.
 
-- You will need to add all the app_identifiers you want to work with. You can find a list of them at
+- You will need to add all the `app_identifiers` you want to work with. You can find a list of them at
   https://github.com/digitalfabrik/app-credentials/blob/main/apple%20app%20identifier%20list.txt
 
 ##### Trouble Shooting
