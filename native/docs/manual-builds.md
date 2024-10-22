@@ -31,7 +31,7 @@ found [here](build-configs.md).**
 - Read about [Apple Certificates](apple-certifcates.md).
 - To set up the certificates:
   - have access to the `app-credentials` repo
-  - have access to the Passbolt folder Integreat App Publishing
+  - have access to the Passbolt folder "Integreat App Publishing"
   - your personal Apple account needs to be added to the Digitalfabrik's account either as an admin or with the right to
     access "Certificates, Identifiers & Profiles".
 
