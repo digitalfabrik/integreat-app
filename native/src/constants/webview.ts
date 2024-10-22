@@ -1,5 +1,5 @@
+import { WebViewSource } from '@dr.pogodin/react-native-webview/lib/WebViewTypes'
 import { Platform } from 'react-native'
-import { WebViewSource } from 'react-native-webview/lib/WebViewTypes'
 
 export const ERROR_MESSAGE_TYPE = 'error'
 export const WARNING_MESSAGE_TYPE = 'warning'
