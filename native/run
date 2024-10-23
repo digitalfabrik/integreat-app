@@ -21,10 +21,10 @@ program
     const { production } = options
     const productionFlag = production ? '--mode=release' : ''
 
-    const jsonBuildConfig = execSync(`yarn workspace --silent build-configs manage to-json ${buildConfigName} android`)
+    const jsonBuildConfig = execSync(`yarn workspace build-configs manage to-json ${buildConfigName} android`)
     const applicationId = JSON.parse(jsonBuildConfig).applicationId
 
-    const buildConfig = execSync(`yarn workspace --silent build-configs manage to-bash ${buildConfigName} android`)
+    const buildConfig = execSync(`yarn workspace build-configs manage to-bash ${buildConfigName} android`)
       .toString()
       .replaceAll('\n', ' ')
     execSync(

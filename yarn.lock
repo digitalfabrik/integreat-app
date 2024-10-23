@@ -6952,10 +6952,37 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@yarnpkg/fslib@npm:^3.0.2":
+  version: 3.1.0
+  resolution: "@yarnpkg/fslib@npm:3.1.0"
+  dependencies:
+    tslib: "npm:^2.4.0"
+  checksum: 10c0/e327aaf73fe2fff442a71f045fe006f13931a09021b5b868a993a644d4950cd3c5589f1d58ee9e38390bca83705a30b649db7ae462fe704fdb6cdeb12ed2232a
+  languageName: node
+  linkType: hard
+
 "@yarnpkg/lockfile@npm:^1.1.0":
   version: 1.1.0
   resolution: "@yarnpkg/lockfile@npm:1.1.0"
   checksum: 10c0/0bfa50a3d756623d1f3409bc23f225a1d069424dbc77c6fd2f14fb377390cd57ec703dc70286e081c564be9051ead9ba85d81d66a3e68eeb6eb506d4e0c0fbda
+  languageName: node
+  linkType: hard
+
+"@yarnpkg/plugin-workspace-tools@npm:^4.1.0":
+  version: 4.1.0
+  resolution: "@yarnpkg/plugin-workspace-tools@npm:4.1.0"
+  dependencies:
+    "@yarnpkg/fslib": "npm:^3.0.2"
+    clipanion: "npm:^4.0.0-rc.2"
+    micromatch: "npm:^4.0.2"
+    p-limit: "npm:^2.2.0"
+    tslib: "npm:^2.4.0"
+    typanion: "npm:^3.14.0"
+  peerDependencies:
+    "@yarnpkg/cli": ^4.1.0
+    "@yarnpkg/core": ^4.0.3
+    "@yarnpkg/plugin-git": ^3.0.0
+  checksum: 10c0/85ae6389fb000a9379920543468e057b312e061c8c5dd1c3b3ae4959fd90679d93b6e2b6b34d1d3c4d2fdca5a92da875326ba582dd5e29b557a8e47bd891ffa9
   languageName: node
   linkType: hard
 
@@ -7909,11 +7936,11 @@ __metadata:
   linkType: hard
 
 "bare-stream@npm:^2.0.0":
-  version: 2.3.1
-  resolution: "bare-stream@npm:2.3.1"
+  version: 2.3.2
+  resolution: "bare-stream@npm:2.3.2"
   dependencies:
     streamx: "npm:^2.20.0"
-  checksum: 10c0/45714dc65df9c59d4b0f366e462c44869652a10073965328bc8340261fd6aba841e96babcf17e304090e1d46239ee2f6816e9b07c971b30447bfa199d6e3dcd1
+  checksum: 10c0/e2bda606c2cbd6acbb2558d9a5f6d2d4bc08fb635d32d599bc8e74c1d2298c956decf6a3a820e485a760bb73b8a7f0e743ec5262f08cccbaf5eeb599253d4221
   languageName: node
   linkType: hard
 
@@ -8608,6 +8635,17 @@ __metadata:
   version: 4.1.0
   resolution: "cli-width@npm:4.1.0"
   checksum: 10c0/1fbd56413578f6117abcaf858903ba1f4ad78370a4032f916745fa2c7e390183a9d9029cf837df320b0fdce8137668e522f60a30a5f3d6529ff3872d265a955f
+  languageName: node
+  linkType: hard
+
+"clipanion@npm:^4.0.0-rc.2":
+  version: 4.0.0-rc.4
+  resolution: "clipanion@npm:4.0.0-rc.4"
+  dependencies:
+    typanion: "npm:^3.8.0"
+  peerDependencies:
+    typanion: "*"
+  checksum: 10c0/047b415b59a5e9777d00690fba563ccc850eca6bf27790a88d1deea3ecc8a89840ae9aed554ff284cc698a9f3f20256e43c25ff4a7c4c90a71e5e7d9dca61dd1
   languageName: node
   linkType: hard
 
@@ -10078,9 +10116,9 @@ __metadata:
   linkType: hard
 
 "electron-to-chromium@npm:^1.5.41":
-  version: 1.5.42
-  resolution: "electron-to-chromium@npm:1.5.42"
-  checksum: 10c0/5a3a206a35f5a0894626f6f2a001e3b56a4d94af3193260e2819e8ecb2ee8ba1176e639b833a03fff5af8bfaafb0c3931b26a4421f79e2a58e85fd5bf02221f8
+  version: 1.5.43
+  resolution: "electron-to-chromium@npm:1.5.43"
+  checksum: 10c0/d13f271f80807d1de3440a80849cbfcaa9810338e107c846ef5f1117e3a4a0267ae2d4f16a52c98438a06e9b65d83a0fb06d3f396de25e8cb303e6906ac4bd8c
   languageName: node
   linkType: hard
 
@@ -13004,6 +13042,7 @@ __metadata:
     "@types/node": "npm:^22.5.3"
     "@typescript-eslint/eslint-plugin": "npm:^7.7.0"
     "@typescript-eslint/parser": "npm:^7.7.0"
+    "@yarnpkg/plugin-workspace-tools": "npm:^4.1.0"
     eslint: "npm:^8.57.0"
     eslint-config-airbnb: "npm:^19.0.4"
     eslint-config-prettier: "npm:^9.1.0"
@@ -16016,7 +16055,6 @@ __metadata:
     htmlparser2: "npm:^9.1.0"
     i18next: "npm:^23.14.0"
     intl-pluralrules: "npm:^2.0.1"
-    jest: "npm:^29.7.0"
     lodash: "npm:^4.17.21"
     luxon: "npm:^3.4.2"
     md5: "npm:^2.3.0"
@@ -16051,8 +16089,6 @@ __metadata:
     styled-components: "npm:^6.1.13"
     stylis: "npm:^4.3.4"
     translations: "npm:0.0.1"
-    ts-jest: "npm:^29.2.5"
-    ts-node: "npm:^10.9.2"
     url-parse: "npm:^1.5.10"
     wait-for-expect: "npm:^3.0.2"
   languageName: unknown
@@ -19414,7 +19450,7 @@ __metadata:
     minisearch: "npm:^7.1.0"
     normalize-path: "npm:^3.0.0"
     normalize-strings: "npm:^1.1.1"
-    react: "npm:18.2.0"
+    react: "workspaces:web"
     rrule: "npm:2.8.1"
     seedrandom: "npm:^3.0.5"
     uuid: "npm:^10.0.0"
@@ -20870,7 +20906,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ts-jest@npm:^29.1.2, ts-jest@npm:^29.2.5":
+"ts-jest@npm:^29.1.2":
   version: 29.2.5
   resolution: "ts-jest@npm:29.2.5"
   dependencies:
@@ -21050,6 +21086,13 @@ __metadata:
   bin:
     tsx: dist/cli.mjs
   checksum: 10c0/cbea9baf57e7406fa0ecc2c03b9bb2501ee740dc28c938f949180a646a28e5d65e7cccbfba340508923bfd45e90320ef9eef7f815cae4515b6ef2ee429edc7ee
+  languageName: node
+  linkType: hard
+
+"typanion@npm:^3.14.0, typanion@npm:^3.8.0":
+  version: 3.14.0
+  resolution: "typanion@npm:3.14.0"
+  checksum: 10c0/8b03b19844e6955bfd906c31dc781bae6d7f1fb3ce4fe24b7501557013d4889ae5cefe671dafe98d87ead0adceb8afcb8bc16df7dc0bd2b7331bac96f3a7cae2
   languageName: node
   linkType: hard
 
@@ -21741,9 +21784,9 @@ __metadata:
     focus-trap-react: "npm:^10.2.3"
     html-loader: "npm:^5.1.0"
     html-webpack-plugin: "npm:^5.6.0"
+    htmlparser2: "npm:^9.1.0"
     i18next: "npm:^23.14.0"
     img-loader: "npm:^4.0.0"
-    jest: "npm:^29.7.0"
     jest-environment-jsdom: "npm:29.7.0"
     jest-fetch-mock: "npm:^3.0.3"
     luxon: "npm:^3.4.2"
@@ -21765,15 +21808,13 @@ __metadata:
     react-router-dom: "npm:^6.26.1"
     react-spring-bottom-sheet: "npm:^3.4.1"
     react-tooltip: "npm:^5.28.0"
-    rrule: "npm:^2.8.1"
+    rrule: "npm:2.8.1"
     schema-dts: "npm:^1.1.2"
     shared: "npm:0.0.1"
     style-loader: "npm:^4.0.0"
     styled-components: "npm:^6.1.13"
     translations: "npm:0.0.1"
-    ts-jest: "npm:^29.2.5"
     ts-loader: "npm:^9.5.1"
-    ts-node: "npm:^10.9.2"
     tsconfig-paths: "npm:^4.2.0"
     url-loader: "npm:^4.1.1"
     webpack: "npm:^5.91.0"
