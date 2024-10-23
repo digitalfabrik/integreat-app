@@ -16,11 +16,11 @@ import DatabaseConnector from './DatabaseConnector'
 import { log } from './sentry'
 
 type CacheType = {
-  pois: Cache<Array<PoiModel>>
-  cities: Cache<Array<CityModel>>
-  events: Cache<Array<EventModel>>
+  pois: Cache<PoiModel[]>
+  cities: Cache<CityModel[]>
+  events: Cache<EventModel[]>
   categories: Cache<CategoriesMapModel>
-  localNews: Cache<Array<LocalNewsModel>>
+  localNews: Cache<LocalNewsModel[]>
   resourceCache: Cache<CityResourceCacheStateType>
   lastUpdate: Cache<DateTime | null>
 }
@@ -33,21 +33,21 @@ class DefaultDataContainer implements DataContainer {
   constructor() {
     this._databaseConnector = new DatabaseConnector()
     this.caches = {
-      pois: new Cache<Array<PoiModel>>(
+      pois: new Cache<PoiModel[]>(
         this._databaseConnector,
         (connector: DatabaseConnector, context: DatabaseContext) => connector.loadPois(context),
-        (value: Array<PoiModel>, connector: DatabaseConnector, context: DatabaseContext) =>
+        (value: PoiModel[], connector: DatabaseConnector, context: DatabaseContext) =>
           connector.storePois(value, context),
       ),
-      cities: new Cache<Array<CityModel>>(
+      cities: new Cache<CityModel[]>(
         this._databaseConnector,
         (connector: DatabaseConnector) => connector.loadCities(),
-        (value: Array<CityModel>, connector: DatabaseConnector) => connector.storeCities(value),
+        (value: CityModel[], connector: DatabaseConnector) => connector.storeCities(value),
       ),
-      events: new Cache<Array<EventModel>>(
+      events: new Cache<EventModel[]>(
         this._databaseConnector,
         (connector: DatabaseConnector, context: DatabaseContext) => connector.loadEvents(context),
-        (value: Array<EventModel>, connector: DatabaseConnector, context: DatabaseContext) =>
+        (value: EventModel[], connector: DatabaseConnector, context: DatabaseContext) =>
           connector.storeEvents(value, context),
       ),
       categories: new Cache<CategoriesMapModel>(
@@ -94,7 +94,7 @@ class DefaultDataContainer implements DataContainer {
     return this.caches[key].isCached(context)
   }
 
-  getCities = async (): Promise<Array<CityModel>> => {
+  getCities = async (): Promise<CityModel[]> => {
     const cache = this.caches.cities
     return cache.get(new DatabaseContext())
   }
@@ -105,15 +105,15 @@ class DefaultDataContainer implements DataContainer {
     return cache.get(context)
   }
 
-  getEvents = (city: string, language: string): Promise<Array<EventModel>> => {
+  getEvents = (city: string, language: string): Promise<EventModel[]> => {
     const context = new DatabaseContext(city, language)
-    const cache: Cache<Array<EventModel>> = this.caches.events
+    const cache: Cache<EventModel[]> = this.caches.events
     return cache.get(context)
   }
 
-  getPois = (city: string, language: string): Promise<Array<PoiModel>> => {
+  getPois = (city: string, language: string): Promise<PoiModel[]> => {
     const context = new DatabaseContext(city, language)
-    const cache: Cache<Array<PoiModel>> = this.caches.pois
+    const cache: Cache<PoiModel[]> = this.caches.pois
     return cache.get(context)
   }
 
@@ -143,9 +143,9 @@ class DefaultDataContainer implements DataContainer {
     await cache.cache(categories, context)
   }
 
-  setPois = async (city: string, language: string, pois: Array<PoiModel>): Promise<void> => {
+  setPois = async (city: string, language: string, pois: PoiModel[]): Promise<void> => {
     const context = new DatabaseContext(city, language)
-    const cache: Cache<Array<PoiModel>> = this.caches.pois
+    const cache: Cache<PoiModel[]> = this.caches.pois
     await cache.cache(pois, context)
   }
 
@@ -155,22 +155,21 @@ class DefaultDataContainer implements DataContainer {
     await cache.cache(localNews, context)
   }
 
-  setCities = async (cities: Array<CityModel>): Promise<void> => {
+  setCities = async (cities: CityModel[]): Promise<void> => {
     const cache = this.caches.cities
     await cache.cache(cities, new DatabaseContext())
   }
 
-  setEvents = async (city: string, language: string, events: Array<EventModel>): Promise<void> => {
+  setEvents = async (city: string, language: string, events: EventModel[]): Promise<void> => {
     const context = new DatabaseContext(city, language)
-    const cache: Cache<Array<EventModel>> = this.caches.events
+    const cache: Cache<EventModel[]> = this.caches.events
     await cache.cache(events, context)
   }
 
-  getFilePathsFromLanguageResourceCache(languageResourceCache: LanguageResourceCacheStateType): Array<string> {
-    const pageResourceCaches: Array<PageResourceCacheStateType> = Object.values(languageResourceCache)
-    return flatMap(
-      pageResourceCaches,
-      (file: PageResourceCacheStateType): Array<string> => map(file, ({ filePath }) => filePath),
+  getFilePathsFromLanguageResourceCache(languageResourceCache: LanguageResourceCacheStateType): string[] {
+    const pageResourceCaches: PageResourceCacheStateType[] = Object.values(languageResourceCache)
+    return flatMap(pageResourceCaches, (file: PageResourceCacheStateType): string[] =>
+      map(file, ({ filePath }) => filePath),
     )
   }
 

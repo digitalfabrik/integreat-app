@@ -59,7 +59,7 @@ const createSettingsSections = ({
   navigation,
   settings,
   showSnackbar,
-}: CreateSettingsSectionsProps): Readonly<Array<SectionListData<SettingsSectionType>>> => [
+}: CreateSettingsSectionsProps): Readonly<SectionListData<SettingsSectionType>[]> => [
   {
     title: null,
     data: [

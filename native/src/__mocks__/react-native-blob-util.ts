@@ -27,7 +27,7 @@ const existsMock = (file: string): Promise<boolean> => {
   return Promise.resolve(exists || isParentOfExisting)
 }
 
-const lsMock = (path: string): Promise<Array<string>> => {
+const lsMock = (path: string): Promise<string[]> => {
   const filesInPath = Object.keys(mockFiles).filter(filePath => filePath.startsWith(path))
   return Promise.resolve(filesInPath)
 }
@@ -58,7 +58,7 @@ export default {
     },
   },
   fs: {
-    ls: jest.fn<Promise<Array<string>>, [string]>(lsMock),
+    ls: jest.fn<Promise<string[]>, [string]>(lsMock),
     exists: jest.fn<Promise<boolean>, [string]>(existsMock),
     isDir: jest.fn<Promise<boolean>, [string]>(async () => true),
     writeFile: jest.fn<Promise<void>, [string, string, string]>(writeMockFile),
