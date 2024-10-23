@@ -52,6 +52,7 @@
     "react-router-dom": "^6.26.1",
     "react-spring-bottom-sheet": "^3.4.1",
     "react-tooltip": "^5.28.0",
+    "rrule": "^2.8.1",
     "schema-dts": "^1.1.2",
     "shared": "0.0.1",
     "styled-components": "^6.1.13",
@@ -81,6 +82,7 @@
     "html-loader": "^5.1.0",
     "html-webpack-plugin": "^5.6.0",
     "img-loader": "^4.0.0",
+    "jest": "^29.7.0",
     "jest-environment-jsdom": "29.7.0",
     "jest-fetch-mock": "^3.0.3",
     "npm-license-crawler": "^0.2.1",
@@ -88,12 +90,17 @@
     "react-refresh": "^0.14.2",
     "react-refresh-typescript": "^2.0.9",
     "style-loader": "^4.0.0",
+    "ts-jest": "^29.2.5",
     "ts-loader": "^9.5.1",
+    "ts-node": "^10.9.2",
     "tsconfig-paths": "^4.2.0",
     "url-loader": "^4.1.1",
     "webpack": "^5.91.0",
     "webpack-bundle-analyzer": "^4.10.1",
     "webpack-cli": "^5.1.4",
     "webpack-dev-server": "^5.0.4"
+  },
+  "installConfig": {
+    "hoistingLimits": "workspaces"
   }
 }

@@ -61,8 +61,12 @@
     "stylelint-react-native": "^2.7.0",
     "stylelint-use-logical": "^2.1.2",
     "ts-jest": "^29.1.2",
+    "ts-node": "^10.9.2",
     "tsx": "^4.8.2",
     "typescript": "^5.4.5"
   },
-  "packageManager": "yarn@4.5.1"
+  "packageManager": "yarn@4.5.1",
+  "installConfig": {
+    "hoistingLimits": "none"
+  }
 }
