@@ -14,6 +14,7 @@ export type ColorsType = {
   positiveHighlight: string
   negativeHighlight: string
   invalidInput: string
+  warningColor: string
   linkColor: string
 }
 export const commonLightColors = {
