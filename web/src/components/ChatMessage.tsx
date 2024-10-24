@@ -1,3 +1,4 @@
+import { TFunction } from 'i18next'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router-dom'
@@ -50,7 +51,7 @@ const Circle = styled.div`
 
 type ChatMessageProps = { message: ChatMessageModel; showIcon: boolean }
 
-const getIcon = (userIsAuthor: boolean, isAutomaticAnswer: boolean): ReactElement => {
+const getIcon = (userIsAuthor: boolean, isAutomaticAnswer: boolean, t: TFunction<'chat'>): ReactElement => {
   if (userIsAuthor) {
     return <Circle>{t('user')}</Circle>
   }
@@ -65,7 +66,7 @@ const ChatMessage = ({ message, showIcon }: ChatMessageProps): ReactElement => {
 
   return (
     <Container $isAuthor={userIsAuthor}>
-      <IconContainer $visible={showIcon}>{getIcon(userIsAuthor, isAutomaticAnswer)}</IconContainer>
+      <IconContainer $visible={showIcon}>{getIcon(userIsAuthor, isAutomaticAnswer, t)}</IconContainer>
       <Message data-testid={message.id}>
         <RemoteContent html={body} onInternalLinkClick={navigate} smallText />
       </Message>
