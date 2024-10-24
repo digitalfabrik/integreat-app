@@ -100,8 +100,8 @@ export type RoutesParamsType = {
   }
   [LICENSES_ROUTE]: undefined
   [CHANGE_LANGUAGE_MODAL_ROUTE]: {
-    languages: Array<LanguageModel>
-    availableLanguages: Array<string>
+    languages: LanguageModel[]
+    availableLanguages: string[]
   }
   [PDF_VIEW_MODAL_ROUTE]: {
     url: string

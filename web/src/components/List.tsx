@@ -11,7 +11,7 @@ const NoItemsMessage = styled.div`
 `
 
 type ListProps<T> = {
-  items: Array<T>
+  items: T[]
   noItemsMessage: string
   renderItem: (item: T) => ReactNode
   borderless?: boolean

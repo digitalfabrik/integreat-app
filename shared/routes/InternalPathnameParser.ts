@@ -20,7 +20,7 @@ import { parseQueryParams } from './query'
 const ENTITY_ID_INDEX = 3
 
 class InternalPathnameParser {
-  _parts: Array<string>
+  _parts: string[]
   _length: number
   _fallbackLanguageCode: string
   _fixedCity: string | null

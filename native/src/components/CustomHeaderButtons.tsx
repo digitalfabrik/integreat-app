@@ -40,8 +40,8 @@ const onOverflowMenuPress = (cancelButtonLabel: string) => (props: OnOverflowMen
 
 const CustomHeaderButtons = (props: {
   cancelLabel: string
-  items: Array<ReactNode>
-  overflowItems: Array<ReactNode>
+  items: ReactNode[]
+  overflowItems: ReactNode[]
 }): ReactElement => {
   const { cancelLabel, items, overflowItems } = props
   const { t } = useTranslation('common')

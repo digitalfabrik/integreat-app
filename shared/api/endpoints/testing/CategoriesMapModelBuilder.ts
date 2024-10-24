@@ -27,7 +27,7 @@ class CategoriesMapModelBuilder {
   _arity: number
   _city: string
   _language: string
-  _categories: Array<CategoryModel> = []
+  _categories: CategoryModel[] = []
   _resourceCache: Record<string, PageResourceCacheStateType> = {}
   _id = 0
 

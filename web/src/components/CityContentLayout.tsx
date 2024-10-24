@@ -15,7 +15,7 @@ export type CityContentLayoutProps = {
   Toolbar?: ReactNode
   children?: ReactNode
   route: RouteType
-  languageChangePaths: Array<{ code: string; path: string | null; name: string }> | null
+  languageChangePaths: { code: string; path: string | null; name: string }[] | null
   isLoading: boolean
   city: CityModel
   languageCode: string

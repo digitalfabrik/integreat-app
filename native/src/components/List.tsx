@@ -10,7 +10,7 @@ const NoItemsMessage = styled.Text`
 `
 
 type ListProps<T> = {
-  items: Array<T>
+  items: T[]
   noItemsMessage?: ReactElement | string
   renderItem: (props: { item: T; index: number }) => ReactElement
   Header?: ReactElement

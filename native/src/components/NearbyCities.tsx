@@ -31,7 +31,7 @@ const StyledIcon = styled(Icon)`
 `
 
 type NearbyCitiesProps = {
-  cities: Array<CityModel>
+  cities: CityModel[]
   navigateToDashboard: (city: CityModel) => void
   filterText: string
 }

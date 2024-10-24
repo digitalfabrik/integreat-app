@@ -141,7 +141,7 @@ class PoiModelBuilder {
     }
   }
 
-  build(): Array<PoiModel> {
+  build(): PoiModel[] {
     return pois.slice(0, this._poisCount)
   }
 }

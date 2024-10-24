@@ -4,7 +4,7 @@ import styled from 'styled-components'
 import buildConfig from '../constants/buildConfig'
 
 type FooterProps = {
-  children: Array<ReactNode> | ReactNode
+  children: ReactNode[] | ReactNode
   overlay?: boolean
 }
 

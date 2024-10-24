@@ -5,7 +5,7 @@ import { BreadcrumbList, WithContext } from 'schema-dts'
 import BreadcrumbModel from '../models/BreadcrumbModel'
 import { urlFromPath } from '../utils/stringUtils'
 
-export const createJsonLd = (breadcrumbs: Array<BreadcrumbModel>): WithContext<BreadcrumbList> =>
+export const createJsonLd = (breadcrumbs: BreadcrumbModel[]): WithContext<BreadcrumbList> =>
   // https://developers.google.com/search/docs/data-types/breadcrumb
   ({
     '@context': 'https://schema.org',
@@ -19,7 +19,7 @@ export const createJsonLd = (breadcrumbs: Array<BreadcrumbModel>): WithContext<B
   })
 
 type JsonLdBreadcrumbsProps = {
-  breadcrumbs: Array<BreadcrumbModel>
+  breadcrumbs: BreadcrumbModel[]
 }
 
 const JsonLdBreadcrumbs = ({ breadcrumbs }: JsonLdBreadcrumbsProps): ReactElement => (

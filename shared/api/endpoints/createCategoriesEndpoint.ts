@@ -18,7 +18,7 @@ export default (baseUrl: string): Endpoint<ParamsType, CategoriesMapModel> =>
     .withParamsToUrlMapper(
       (params: ParamsType): string => `${baseUrl}/api/${API_VERSION}/${params.city}/${params.language}/pages/`,
     )
-    .withMapper((json: Array<JsonCategoryType>, params: ParamsType): CategoriesMapModel => {
+    .withMapper((json: JsonCategoryType[], params: ParamsType): CategoriesMapModel => {
       const basePath = `/${params.city}/${params.language}`
       const categories = json.map(category => mapCategoryJson(category, basePath))
       categories.push(

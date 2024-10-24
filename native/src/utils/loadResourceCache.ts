@@ -16,7 +16,7 @@ export type FetchMapTargetType = {
   urlHash: string
 }
 
-export type FetchMapType = Record<string, Array<FetchMapTargetType>>
+export type FetchMapType = Record<string, FetchMapTargetType[]>
 
 const loadResourceCache = async ({
   cityCode,

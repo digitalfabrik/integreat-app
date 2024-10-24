@@ -27,7 +27,7 @@ const CityListParent = styled.div<{ $stickyTop: number }>`
 `
 
 type CitySelectorProps = {
-  cities: Array<CityModel>
+  cities: CityModel[]
   language: string
 }
 

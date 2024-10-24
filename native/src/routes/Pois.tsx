@@ -46,7 +46,7 @@ const getBottomSheetSnapPoints = (deviceHeight: number): [number, number, number
 ]
 
 type PoisProps = {
-  pois: Array<PoiModel>
+  pois: PoiModel[]
   cityModel: CityModel
   language: string
   refresh: () => void

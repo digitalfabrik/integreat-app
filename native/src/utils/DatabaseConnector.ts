@@ -54,7 +54,7 @@ type ContentCategoryJsonType = {
   thumbnail: string | null
   available_languages: Record<string, string>
   parent_path: string
-  children: Array<string>
+  children: string[]
   order: number
   organization: {
     name: string
@@ -279,7 +279,7 @@ class DatabaseConnector {
     this._storeMetaCities(metaData)
   }
 
-  async _deleteMetaOfCities(cities: Array<string>): Promise<void> {
+  async _deleteMetaOfCities(cities: string[]): Promise<void> {
     const metaCities = await this._loadMetaCities()
     cities.forEach(city => delete metaCities[city])
     await this._storeMetaCities(metaCities)
@@ -342,7 +342,7 @@ class DatabaseConnector {
     await this.writeFile(path, JSON.stringify(citiesMetaJson))
   }
 
-  async loadLastUsages(): Promise<Array<CityLastUsageType>> {
+  async loadLastUsages(): Promise<CityLastUsageType[]> {
     const metaData = await this._loadMetaCities()
     return map<MetaCitiesType, CityLastUsageType>(metaData, (value, key) => ({
       city: key,
@@ -437,7 +437,7 @@ class DatabaseConnector {
     return this.readFile(path, mapCategoriesJson)
   }
 
-  async storePois(pois: Array<PoiModel>, context: DatabaseContext): Promise<void> {
+  async storePois(pois: PoiModel[], context: DatabaseContext): Promise<void> {
     const jsonModels = pois.map(
       (poi: PoiModel): ContentPoiJsonType => ({
         path: poi.path,
@@ -484,7 +484,7 @@ class DatabaseConnector {
     await this.writeFile(this.getContentPath('pois', context), JSON.stringify(jsonModels))
   }
 
-  async loadPois(context: DatabaseContext): Promise<Array<PoiModel>> {
+  async loadPois(context: DatabaseContext): Promise<PoiModel[]> {
     const path = this.getContentPath('pois', context)
     const mapPoisJson = (json: ContentPoiJsonType[]) =>
       json.map(jsonObject => {
@@ -569,7 +569,7 @@ class DatabaseConnector {
     return this.readFile(path, mapLocalNewsJson)
   }
 
-  async storeCities(cities: Array<CityModel>): Promise<void> {
+  async storeCities(cities: CityModel[]): Promise<void> {
     const jsonModels = cities.map(
       (city: CityModel): ContentCityJsonType => ({
         name: city.name,
@@ -592,7 +592,7 @@ class DatabaseConnector {
     await this.writeFile(this.getCitiesPath(), JSON.stringify(jsonModels))
   }
 
-  async loadCities(): Promise<Array<CityModel>> {
+  async loadCities(): Promise<CityModel[]> {
     const path = this.getCitiesPath()
     const mapCityJson = (json: ContentCityJsonType[]) =>
       json.map(
@@ -619,7 +619,7 @@ class DatabaseConnector {
     return this.readFile(path, mapCityJson)
   }
 
-  async storeEvents(events: Array<EventModel>, context: DatabaseContext): Promise<void> {
+  async storeEvents(events: EventModel[], context: DatabaseContext): Promise<void> {
     const jsonModels = events.map(
       (event: EventModel): ContentEventJsonType => ({
         path: event.path,
@@ -663,7 +663,7 @@ class DatabaseConnector {
     await this.writeFile(this.getContentPath('events', context), JSON.stringify(jsonModels))
   }
 
-  async loadEvents(context: DatabaseContext): Promise<Array<EventModel>> {
+  async loadEvents(context: DatabaseContext): Promise<EventModel[]> {
     const path = this.getContentPath('events', context)
     const mapEventsJson = (json: ContentEventJsonType[]) =>
       json.map(jsonObject => {

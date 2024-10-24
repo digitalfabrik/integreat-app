@@ -11,8 +11,8 @@ type ParamsType = {
   cityContentPath: string
   depth: number
 }
-export default (baseUrl: string): Endpoint<ParamsType, Array<CategoryModel>> =>
-  new EndpointBuilder<ParamsType, Array<CategoryModel>>(CATEGORY_CHILDREN_ENDPOINT_NAME)
+export default (baseUrl: string): Endpoint<ParamsType, CategoryModel[]> =>
+  new EndpointBuilder<ParamsType, CategoryModel[]>(CATEGORY_CHILDREN_ENDPOINT_NAME)
     .withParamsToUrlMapper((params: ParamsType): string => {
       const { city, language, cityContentPath, depth } = params
       const basePath = `/${city}/${language}`
@@ -20,7 +20,7 @@ export default (baseUrl: string): Endpoint<ParamsType, Array<CategoryModel>> =>
       const query = basePath === cityContentPath ? '' : `&url=${params.cityContentPath}`
       return `${baseUrl}/api/${API_VERSION}/${params.city}/${params.language}/children/?depth=${depth}${query}`
     })
-    .withMapper((json: Array<JsonCategoryType>, params: ParamsType): Array<CategoryModel> => {
+    .withMapper((json: JsonCategoryType[], params: ParamsType): CategoryModel[] => {
       const basePath = `/${params.city}/${params.language}`
       return json.map(category => mapCategoryJson(category, basePath))
     })

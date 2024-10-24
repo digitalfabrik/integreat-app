@@ -1,7 +1,7 @@
 import { browsers, ciCapabilities } from './capabilities.js'
 import waitForLocalhost from './waitForLocalhost.js'
 
-const getCapabilities = (): Array<WebdriverIO.Capabilities> => {
+const getCapabilities = (): WebdriverIO.Capabilities[] => {
   if (process.env.CI) {
     return [ciCapabilities]
   }

@@ -15,7 +15,7 @@ export const Wrapper = styled.View`
 `
 
 type SelectorProps = {
-  items: Array<SelectorItemModel>
+  items: SelectorItemModel[]
   selectedItemCode: string | null
 }
 

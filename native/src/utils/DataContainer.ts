@@ -15,24 +15,24 @@ export type DataContainer = {
    * Returns an Array of PoiModels.
    * @throws Will throw an error if the array is null.
    */
-  getPois: (city: string, language: string) => Promise<Array<PoiModel>>
+  getPois: (city: string, language: string) => Promise<PoiModel[]>
 
   /**
    * Sets the pois and persist them ?
    */
-  setPois: (city: string, language: string, pois: Array<PoiModel>) => Promise<void>
+  setPois: (city: string, language: string, pois: PoiModel[]) => Promise<void>
 
   /**
    * Returns an Array of CityModels.
    * @throws Will throw an error if the array is null.
    */
-  getCities: () => Promise<Array<CityModel>>
+  getCities: () => Promise<CityModel[]>
 
   /**
    * Sets the cities but does not persist them.
    * For now switching cities when offline is not possible.
    */
-  setCities: (cities: Array<CityModel>) => Promise<void>
+  setCities: (cities: CityModel[]) => Promise<void>
 
   /**
    * Returns the CategoriesMapModel.
@@ -49,23 +49,23 @@ export type DataContainer = {
    * Returns an Array of events.
    * @throws Will throw an error if the array is null.
    */
-  getEvents: (city: string, language: string) => Promise<Array<EventModel>>
+  getEvents: (city: string, language: string) => Promise<EventModel[]>
 
   /**
    * Sets the events and persists them.
    */
-  setEvents: (city: string, language: string, events: Array<EventModel>) => Promise<void>
+  setEvents: (city: string, language: string, events: EventModel[]) => Promise<void>
 
   /**
    * Returns an Array of local news.
    * @throws Will throw an error if the array is null.
    */
-  getLocalNews: (city: string, language: string) => Promise<Array<LocalNewsModel>>
+  getLocalNews: (city: string, language: string) => Promise<LocalNewsModel[]>
 
   /**
    * Sets the local news and persists them.
    */
-  setLocalNews: (city: string, language: string, events: Array<LocalNewsModel>) => Promise<void>
+  setLocalNews: (city: string, language: string, events: LocalNewsModel[]) => Promise<void>
 
   /**
    * Returns the ResourceCache.

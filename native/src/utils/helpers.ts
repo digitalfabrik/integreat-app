@@ -33,9 +33,9 @@ export const determineApiUrl = async (): Promise<string> => {
  */
 export const forEachTreeNode = <T>(
   root: T,
-  resolveChildren: (arg0: T) => Array<T>,
+  resolveChildren: (arg0: T) => T[],
   depth: number,
-  nodeAction: (arg0: T, arg1: Array<T> | null | undefined) => void,
+  nodeAction: (arg0: T, arg1: T[] | null | undefined) => void,
 ): void => {
   if (depth === 0) {
     nodeAction(root, null)

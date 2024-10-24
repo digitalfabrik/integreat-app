@@ -72,7 +72,7 @@ const Wrapper = styled.div<{ $vertical: boolean }>`
 type SelectorProps = {
   verticalLayout: boolean
   closeDropDown?: () => void
-  items: Array<SelectorItemModel>
+  items: SelectorItemModel[]
   activeItemCode?: string
   disabledItemTooltip: string
 }

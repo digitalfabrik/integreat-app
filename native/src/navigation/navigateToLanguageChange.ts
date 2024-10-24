@@ -10,8 +10,8 @@ const navigateToLanguageChange = <T extends RoutesType>({
   availableLanguages,
 }: {
   navigation: NavigationProps<T>
-  languages: Array<LanguageModel>
-  availableLanguages: Array<string>
+  languages: LanguageModel[]
+  availableLanguages: string[]
 }): void => {
   sendTrackingSignal({
     signal: {

@@ -16,7 +16,7 @@ type ParamsType = {
 export default (baseUrl: string): Endpoint<ParamsType, TunewsModel> =>
   new EndpointBuilder<ParamsType, TunewsModel>(TUNEWS_ELEMENT_ENDPOINT_NAME)
     .withParamsToUrlMapper((params: ParamsType): string => `${baseUrl}/v1/news/${params.id}`)
-    .withMapper((json: JsonTunewsType | Array<void>, params: ParamsType): TunewsModel => {
+    .withMapper((json: JsonTunewsType | void[], params: ParamsType): TunewsModel => {
       // The api is not good and returns an empty array if the tunews does not exist
       if (Array.isArray(json)) {
         throw new NotFoundError({

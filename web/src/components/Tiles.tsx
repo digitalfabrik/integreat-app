@@ -23,7 +23,7 @@ const TilesRow = styled.div`
 
 type TilesProps = {
   title: string | null
-  tiles: Array<TileModel>
+  tiles: TileModel[]
 }
 
 const Tiles = ({ title, tiles }: TilesProps): ReactElement => (

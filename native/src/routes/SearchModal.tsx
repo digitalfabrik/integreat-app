@@ -23,7 +23,7 @@ const Wrapper = styled.View`
 `
 
 export type SearchModalProps = {
-  allPossibleResults: Array<SearchResult>
+  allPossibleResults: SearchResult[]
   languageCode: string
   cityCode: string
   closeModal: (query: string) => void

@@ -23,7 +23,7 @@ const NativeLanguageDetector: LanguageDetectorModule = {
         )
         return acc
       },
-      [] as Array<string | undefined>,
+      [] as (string | undefined)[],
     )
     // Return the first supported languageTag or our fallback
     return supportedKeys.find(it => it !== undefined) ?? config.defaultFallback
