@@ -88,7 +88,8 @@ const Stack = createStackNavigator<RoutesParamsType>()
 
 const Navigator = (): ReactElement | null => {
   const showSnackbar = useSnackbar()
-  const { settings, cityCode, changeCityCode, languageCode, updateSettings } = useAppContext()
+  const appContext = useAppContext()
+  const { settings, cityCode, changeCityCode, updateSettings } = appContext
   const navigation = useNavigation<NavigationProps<RoutesType>>()
   const [initialRoute, setInitialRoute] = useState<InitialRouteType>(null)
 
@@ -96,8 +97,8 @@ const Navigator = (): ReactElement | null => {
   const { data: cities, error: citiesError, refresh: refreshCities } = useLoadCities()
 
   useEffect(() => {
-    initialPushNotificationRequest(cityCode, languageCode).catch(reportError)
-  }, [cityCode, languageCode])
+    initialPushNotificationRequest(appContext).catch(reportError)
+  }, [appContext])
 
   useForegroundPushNotificationListener({ showSnackbar, navigate: navigation.navigate })
 

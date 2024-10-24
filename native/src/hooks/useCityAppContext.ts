@@ -2,13 +2,13 @@ import { useContext } from 'react'
 
 import { AppContext, AppContextType } from '../contexts/AppContextProvider'
 
-type UseCityAppContextReturn = AppContextType & {
+export type CityAppContext = AppContextType & {
   cityCode: string
 }
 
 export const useAppContext = (): AppContextType => useContext(AppContext)
 
-const useCityAppContext = (): UseCityAppContextReturn => {
+const useCityAppContext = (): CityAppContext => {
   const { cityCode, ...context } = useAppContext()
   if (!cityCode) {
     throw new Error('City code not set!')

@@ -9,9 +9,11 @@ import { LOCAL_NEWS_TYPE, NEWS_ROUTE, NonNullableRouteInformationType } from 'sh
 import { SnackbarType } from '../components/SnackbarContainer'
 import { RoutesType } from '../constants/NavigationTypes'
 import buildConfig from '../constants/buildConfig'
+import { AppContextType } from '../contexts/AppContextProvider'
 import urlFromRouteInformation from '../navigation/url'
-import appSettings from './AppSettings'
 import { log, reportError } from './sentry'
+
+type UpdateSettingsType = (settings: { allowPushNotifications: boolean }) => void
 
 type Message = FirebaseMessagingTypes.RemoteMessage & {
   notification: { title: string }
@@ -30,7 +32,7 @@ const importFirebaseMessaging = async (): Promise<() => FirebaseMessagingTypes.M
 export const pushNotificationsEnabled = (): boolean =>
   buildConfig().featureFlags.pushNotifications && !buildConfig().featureFlags.floss
 
-export const requestPushNotificationPermission = async (): Promise<boolean> => {
+export const requestPushNotificationPermission = async (updateSettings: UpdateSettingsType): Promise<boolean> => {
   if (!pushNotificationsEnabled()) {
     log('Push notifications disabled, no permissions requested.')
     return false
@@ -41,7 +43,7 @@ export const requestPushNotificationPermission = async (): Promise<boolean> => {
 
   if (permissionStatus !== RESULTS.GRANTED) {
     log(`Permission denied, disabling push notifications in settings.`)
-    await appSettings.setSettings({ allowPushNotifications: false })
+    updateSettings({ allowPushNotifications: false })
   }
 
   return permissionStatus === RESULTS.GRANTED
@@ -65,15 +67,27 @@ export const unsubscribeNews = async (city: string, language: string): Promise<v
   }
   log(`Unsubscribed from ${topic} topic!`)
 }
-export const subscribeNews = async (city: string, language: string, skipSettingsCheck = false): Promise<void> => {
+
+type SubscribeNewsParams = {
+  cityCode: string
+  languageCode: string
+  allowPushNotifications: boolean
+  skipSettingsCheck?: boolean
+}
+
+export const subscribeNews = async ({
+  cityCode,
+  languageCode,
+  allowPushNotifications,
+  skipSettingsCheck = false,
+}: SubscribeNewsParams): Promise<void> => {
   try {
-    const { allowPushNotifications } = await appSettings.loadSettings()
     if (!pushNotificationsEnabled() || (!allowPushNotifications && !skipSettingsCheck)) {
       log('Push notifications disabled, subscription skipped.')
       return
     }
 
-    const topic = newsTopic(city, language)
+    const topic = newsTopic(cityCode, languageCode)
 
     const messaging = await importFirebaseMessaging()
     await messaging().subscribeToTopic(topic)
@@ -154,7 +168,6 @@ export const backgroundAppStatePushNotificationListener = (listener: (url: strin
     importFirebaseMessaging()
       .then(messaging => {
         const onReceiveURL = ({ url }: { url: string }) => listener(url)
-
         const onReceiveURLListener = Linking.addListener('url', onReceiveURL)
 
         const unsubscribeNotification = messaging().onNotificationOpenedApp(message =>
@@ -175,13 +188,15 @@ export const backgroundAppStatePushNotificationListener = (listener: (url: strin
 // Since Android 13 and iOS 17 an explicit permission request is needed, otherwise push notifications are not received.
 // Therefore request the permissions once if not yet granted and subscribe to the current channel if successful.
 // See https://github.com/digitalfabrik/integreat-app/issues/2438 and https://github.com/digitalfabrik/integreat-app/issues/2655
-export const initialPushNotificationRequest = async (cityCode: string | null, languageCode: string): Promise<void> => {
-  const { allowPushNotifications } = await appSettings.loadSettings()
+export const initialPushNotificationRequest = async (appContext: AppContextType): Promise<void> => {
+  const { cityCode, languageCode, settings, updateSettings } = appContext
+  const { allowPushNotifications } = settings
+
   const pushNotificationPermissionGranted = (await checkNotifications()).status === RESULTS.GRANTED
   if (!pushNotificationPermissionGranted && allowPushNotifications) {
-    const success = await requestPushNotificationPermission()
+    const success = await requestPushNotificationPermission(updateSettings)
     if (success && cityCode) {
-      await subscribeNews(cityCode, languageCode)
+      await subscribeNews({ cityCode, languageCode, allowPushNotifications })
     }
   }
 }
