@@ -5,7 +5,7 @@ import styled from 'styled-components'
 
 import ChatMessageModel from 'shared/api/models/ChatMessageModel'
 
-import { ChatbotBot, ChatbotPerson } from '../assets'
+import { ChatBot, ChatPerson } from '../assets'
 import buildConfig from '../constants/buildConfig'
 import RemoteContent from './RemoteContent'
 import Icon from './base/Icon'
@@ -50,19 +50,18 @@ const Circle = styled.div`
 
 type ChatMessageProps = { message: ChatMessageModel; showIcon: boolean }
 
+const getIcon = (userIsAuthor: boolean, isAutomaticAnswer: boolean): ReactElement => {
+  if (userIsAuthor) {
+    return <Circle>{t('user')}</Circle>
+  }
+  const icon = isAutomaticAnswer ? ChatBot : ChatPerson
+  return <Icon src={icon} />
+}
+
 const ChatMessage = ({ message, showIcon }: ChatMessageProps): ReactElement => {
-  // TODO 2799 Check if Remote content is really needed here or how external links will be delivered via api
   const navigate = useNavigate()
   const { t } = useTranslation('chat')
   const { body, userIsAuthor, isAutomaticAnswer } = message
-
-  const getIcon = (userIsAuthor: boolean, isAutomaticAnswer: boolean): ReactElement => {
-    if (userIsAuthor) {
-      return <Circle>{t('user')}</Circle>
-    }
-    const icon = isAutomaticAnswer ? ChatbotBot : ChatbotPerson
-    return <Icon src={icon} />
-  }
 
   return (
     <Container $isAuthor={userIsAuthor}>
