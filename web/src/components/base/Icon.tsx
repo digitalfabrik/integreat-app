@@ -10,6 +10,7 @@ const StyledIcon = styled(SVG)<{ $directionDependent: boolean; $reverse: boolean
   color: ${props => props.theme.colors.textColor};
   width: 24px;
   height: 24px;
+  --theme-color: ${props => props.theme.colors.themeColor};
 `
 
 type IconProps = {

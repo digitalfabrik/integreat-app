@@ -32,6 +32,7 @@ describe('createChatMessagesEndpoint', () => {
         id: 2,
         body: 'Informationen zu Ihrer Frage finden Sie auf folgenden Seiten:',
         userIsAuthor: false,
+        automaticAnswer: false,
       }),
     ])
   })
