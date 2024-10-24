@@ -14,6 +14,7 @@
   },
   "scripts": {
     "prepare": "husky",
+    "lint": "yarn g:lint",
     "g:lint": "eslint --cache --cache-location .eslintcache . && yarn workspace web stylelint && yarn workspace native stylelint",
     "lint:ci": "yarn node --max-old-space-size=1536 $(yarn bin eslint) --format junit -o reports/lint/junit-lint.xml .",
     "g:test": "cd $INIT_CWD && jest",
@@ -26,7 +27,8 @@
     "g:prettier:check": "cd $INIT_CWD && prettier --check .",
     "g:prettier:write": "cd $INIT_CWD && prettier --write .",
     "ts:check": "tsc --build",
-    "ts:check:ci": "yarn node --max-old-space-size=1536 $(yarn bin tsc) --build"
+    "ts:check:ci": "yarn node --max-old-space-size=1536 $(yarn bin tsc) --build",
+    "appium": "yarn g:appium"
   },
   "resolutions": {
     "luxon": "^3.4.2",

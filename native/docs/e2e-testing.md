@@ -12,10 +12,10 @@ properties you can set.
 
 Before first starting the test:
 
-- make sure appium is installed by running `appium --version`
-- install appium android driver by running `appium driver install uiautomator2` **in the project root**.
+- make sure appium is installed by running `yarn appium --version`
+- install appium android driver by running `yarn appium driver install uiautomator2` **in the project root**.
 - set the APPIUM_HOME var to ~/.appium
-- make sure everything is set up correctly: `appium driver list --installed` in the e2e-tests subfolder should list uiautomator2
+- make sure everything is set up correctly: `yarn appium driver list --installed` in the e2e-tests subfolder should list uiautomator2
 
 1. Start an emulator (only the emulator, don't need to manually start the app)
 2. Start the app: `yarn prepare:native:start`
