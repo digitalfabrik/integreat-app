@@ -102,6 +102,7 @@ const SearchPage = ({ city, cityCode, languageCode, pathname }: CityRouteProps):
       {query.length > 0 && (
         <>
           <List>
+            <p>{`${results.length} Suchergebnisse`}</p>
             {results.map(({ title, content, path, thumbnail }) => (
               <SearchListItem
                 title={title}
