@@ -1,9 +1,11 @@
-import React, { ReactElement, useCallback, useEffect, useState } from 'react'
+import EasySpeech from 'easy-speech'
+import React, { ReactElement, useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import segment from 'sentencex'
 import styled, { useTheme } from 'styled-components'
 
 import { CloseIcon, NoSoundIcon, PauseIcon, PlaybackIcon, PlayIcon, SoundIcon } from '../assets'
+import { reportError } from '../utils/sentry'
 import Modal from './Modal'
 import Button from './base/Button'
 import Icon from './base/Icon'
@@ -123,7 +125,7 @@ const Slider = styled.input`
 const HelpModal = ({ closeModal }: { closeModal: () => void }) => (
   <Modal title='' closeModal={closeModal}>
     <ModalContent>
-      <p>This Voice is not available it needs to be installed</p>
+      <h3>This voice is not available right now; it requires installation for the selected language.</h3>
       <ul>
         <li>
           <a
@@ -184,19 +186,26 @@ const TtsPlayer = ({ initialVisibility = false, html, languageCode }: TtsPlayerP
   const [sentences, setSentences] = useState<string[]>([])
   const [showHelpModal, setShowHelpModal] = useState(false)
   const numOfSentencesToSkip = 1
-  const synth = window.speechSynthesis
+  const EasySpeechInfo = EasySpeech.detect()
+  const skipRef = useRef(false)
 
-  const utteranceSetup = useCallback(() => {
-    const utterance = new SpeechSynthesisUtterance()
-    utterance.text = sentences.slice(currentSentencesIndex).join(' ')
-    utterance.onend = () => {
+  const handleBoundary = (event: SpeechSynthesisEvent) => {
+    if (event.name === 'sentence' && skipRef.current) {
+      setCurrentSentenceIndex((prevIndex: number) => prevIndex + 1)
+    }
+    if (currentSentencesIndex >= sentences.length - 1) {
       setCurrentSentenceIndex(0)
       setIsPlaying(false)
       setExpandPlayer(false)
     }
-    utterance.volume = volume
-    return utterance
-  }, [currentSentencesIndex, sentences, volume])
+  }
+
+  useEffect(() => {
+    EasySpeech.init({ maxTimeout: 5000, interval: 250 }).catch(e => reportError(e))
+    return () => {
+      EasySpeech.cancel()
+    }
+  }, [])
 
   useEffect(() => {
     const tempDiv = document.createElement('div')
@@ -223,43 +232,28 @@ const TtsPlayer = ({ initialVisibility = false, html, languageCode }: TtsPlayerP
     setCurrentSentenceIndex(0)
   }, [html, languageCode])
 
-  useEffect(() => {
-    const handleVoicesChanged = () => {
-      const voices = synth.getVoices()
-
-      const selectedVoice = voices.find(voice => voice.lang.startsWith(languageCode))
-
-      if (selectedVoice) {
-        utteranceSetup().voice = selectedVoice
-      } else {
-        setShowHelpModal(true)
-        setSentences([])
-      }
+  const startReading = async (index = currentSentencesIndex) => {
+    EasySpeech.cancel()
+    const voices = EasySpeech.voices()
+    const selectedVoice = voices.find(voice => voice.lang.startsWith(languageCode))
+    if (selectedVoice == null) {
+      setSentences([])
+      setShowHelpModal(true)
+      return
     }
-
-    synth.addEventListener('voiceschanged', handleVoicesChanged)
-    handleVoicesChanged()
-
-    return () => {
-      synth.cancel()
-      synth.removeEventListener('voiceschanged', handleVoicesChanged)
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [languageCode, synth])
-
-  const startReading = () => {
-    if (!isPlaying && synth.paused) {
-      synth.resume()
-      setIsPlaying(true)
-    } else {
-      synth.cancel()
-      synth.speak(utteranceSetup())
-      setIsPlaying(true)
-    }
+    setIsPlaying(true)
+    await EasySpeech.speak({
+      text: sentences.slice(index).join(' '),
+      voice: selectedVoice,
+      pitch: 1,
+      rate: 1,
+      volume,
+      boundary: e => handleBoundary(e),
+    }).catch(() => null)
   }
 
   const pauseReading = () => {
-    synth.pause()
+    EasySpeech.pause()
     setIsPlaying(false)
   }
 
@@ -267,39 +261,53 @@ const TtsPlayer = ({ initialVisibility = false, html, languageCode }: TtsPlayerP
     if (isPlaying) {
       pauseReading()
     } else {
+      skipRef.current = true
       startReading()
     }
     setExpandPlayer(!isPlaying)
   }
 
-  const handleBackward = () => {
-    if (isPlaying) {
-      synth.cancel()
+  const withSkip = async (action: () => Promise<void>) => {
+    skipRef.current = true
+    try {
+      await action()
+    } finally {
+      skipRef.current = false
     }
-    setCurrentSentenceIndex(prevIndex => Math.max(0, prevIndex - numOfSentencesToSkip))
-
-    startReading()
   }
-
   const handleForward = () => {
     if (isPlaying) {
-      synth.cancel()
+      EasySpeech.cancel()
     }
-    setCurrentSentenceIndex(prevIndex => Math.min(prevIndex + numOfSentencesToSkip, sentences.length - 1))
-    startReading()
+    setCurrentSentenceIndex(prevIndex => {
+      const newIndex = Math.min(prevIndex + numOfSentencesToSkip, sentences.length - 1)
+      withSkip(() => startReading(newIndex))
+      return newIndex
+    })
+  }
+
+  const handleBackward = () => {
+    if (isPlaying) {
+      EasySpeech.cancel()
+    }
+    setCurrentSentenceIndex(prevIndex => {
+      const newIndex = Math.max(0, prevIndex - numOfSentencesToSkip)
+      withSkip(() => startReading(newIndex))
+      return newIndex
+    })
   }
 
   const handleVolumeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const newVolume = parseFloat(event.target.value)
     setVolume(newVolume)
-    synth.cancel()
-    startReading()
+    EasySpeech.cancel()
+    withSkip(() => startReading())
   }
 
   const handleClose = () => {
     setVisible(false)
     setExpandPlayer(false)
-    synth.cancel()
+    EasySpeech.cancel()
     setIsPlaying(false)
   }
   if (visible) {
