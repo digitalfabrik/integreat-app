@@ -102,7 +102,9 @@ const SearchPage = ({ city, cityCode, languageCode, pathname }: CityRouteProps):
       {query.length > 0 && (
         <>
           <List>
-            <p>{`${t('searchResultsCount', { count: results.length })}`}</p>
+            <p style={{ margin: '10px 5px', fontSize: 'small' }}>
+              {`${t('searchResultsCount', { count: results.length })}`}
+            </p>
             {results.map(({ title, content, path, thumbnail }) => (
               <SearchListItem
                 title={title}
