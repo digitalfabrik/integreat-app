@@ -25,6 +25,11 @@ const List = styled.ul`
   }
 `
 
+const SearchCounter = styled.p`
+  margin: 10px 5px;
+  fontsize: 'small';
+`
+
 const SearchPage = ({ city, cityCode, languageCode, pathname }: CityRouteProps): ReactElement | null => {
   const query = new URLSearchParams(useLocation().search).get('query') ?? ''
   const [filterText, setFilterText] = useState<string>(query)
@@ -102,9 +107,7 @@ const SearchPage = ({ city, cityCode, languageCode, pathname }: CityRouteProps):
       {query.length > 0 && (
         <>
           <List>
-            <p style={{ margin: '10px 5px', fontSize: 'small' }}>
-              {`${t('searchResultsCount', { count: results.length })}`}
-            </p>
+            <SearchCounter>{`${t('searchResultsCount', { count: results.length })}`}</SearchCounter>
             {results.map(({ title, content, path, thumbnail }) => (
               <SearchListItem
                 title={title}
