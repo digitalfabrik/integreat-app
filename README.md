@@ -22,23 +22,15 @@ React JS and React Native App for [Integreat](https://integreat-app.de), [Malte]
 
 ## Contributing
 
+First, make sure you have a look at our [conventions](docs/conventions.md).
+
 You can contribute by:
 
+- [Reporting bugs](docs/contributing.md#reporting-issues-and-bugs)
 - [Creating Pull requests](docs/contributing.md#pull-requests)
-- [Reporting bugs](docs/contributing.md#bug-reporting)
 
 If you want to know more about Integreat or if you want to join us, contact [Leandra](mailto:leandra.hahn@tuerantuer.org),
 [Steffen](mailto:steffen.kleinle@tuerantuer.org) or [our info mail](mailto:info@integreat-app.de) and visit our [website](https://integreat-app.de).
-
-We use this emoji code for reviewing:
-
-- :+1: or `:+1:` This is great! It always feels good when somebody likes your work. Show them!
-- :question: or `:question:` I have a question / can you clarify?
-- :x: or `:x:` This has to change. It’s possibly an error or strongly violates existing conventions.
-- :wrench: or `:wrench:` This is a well-meant suggestion. Take it or leave it.
-- :upside_down_face: or `:upside_down_face:` This is a nitpick. Normally related to a small formatting or stylizing detail that shouldn’t block moving forward.
-- :thought_balloon: or `:thought_balloon:` I’m just thinking out loud here. Something doesn’t necessarily have to change, but I want to make sure to share my thoughts.
-- :clown_face: or `:clown_face:` This is a complaint about something with no obvious answer, not necessarily a problem originating from changes.
 
 ## Project Structure
 
