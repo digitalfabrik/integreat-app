@@ -20,7 +20,7 @@ const StyledTtsPlayer = styled.dialog<{ $isPlaying: boolean }>`
   align-items: center;
   align-self: center;
   padding: 6px;
-  position: fixed;
+  position: sticky;
   bottom: 5px;
   min-height: 93px;
   gap: ${props => (props.$isPlaying ? '5px;' : '10px')};
@@ -187,12 +187,13 @@ const TtsPlayer = ({ initialVisibility = false, html, languageCode }: TtsPlayerP
   const [showHelpModal, setShowHelpModal] = useState(false)
   const numOfSentencesToSkip = 1
   const EasySpeechInfo = EasySpeech.detect()
-  const skipRef = useRef(false)
+  const allowIncrement = useRef(true)
 
   const handleBoundary = (event: SpeechSynthesisEvent) => {
-    if (event.name === 'sentence' && skipRef.current) {
+    if (event.name === 'sentence' && allowIncrement.current) {
       setCurrentSentenceIndex((prevIndex: number) => prevIndex + 1)
     }
+    allowIncrement.current = true
     if (currentSentencesIndex >= sentences.length - 1) {
       setCurrentSentenceIndex(0)
       setIsPlaying(false)
@@ -204,6 +205,7 @@ const TtsPlayer = ({ initialVisibility = false, html, languageCode }: TtsPlayerP
     EasySpeech.init({ maxTimeout: 5000, interval: 250 }).catch(e => reportError(e))
     return () => {
       EasySpeech.cancel()
+      setCurrentSentenceIndex(0)
     }
   }, [])
 
@@ -235,13 +237,12 @@ const TtsPlayer = ({ initialVisibility = false, html, languageCode }: TtsPlayerP
   const startReading = async (index = currentSentencesIndex) => {
     EasySpeech.cancel()
     const voices = EasySpeech.voices()
-    const selectedVoice = voices.find(voice => voice.lang.startsWith(languageCode))
+    const selectedVoice = voices.find((voice: SpeechSynthesisVoice) => voice.lang.startsWith(languageCode))
     if (selectedVoice == null) {
       setSentences([])
       setShowHelpModal(true)
       return
     }
-    setIsPlaying(true)
     await EasySpeech.speak({
       text: sentences.slice(index).join(' '),
       voice: selectedVoice,
@@ -256,25 +257,27 @@ const TtsPlayer = ({ initialVisibility = false, html, languageCode }: TtsPlayerP
     EasySpeech.pause()
     setIsPlaying(false)
   }
-
+  const withSkip = async (action: () => Promise<void>) => {
+    allowIncrement.current = true
+    try {
+      await action()
+    } finally {
+      allowIncrement.current = false
+    }
+  }
   const togglePlayPause = () => {
     if (isPlaying) {
       pauseReading()
+    } else if (currentSentencesIndex !== 0) {
+      setIsPlaying(true)
+      EasySpeech.resume()
     } else {
-      skipRef.current = true
-      startReading()
+      setIsPlaying(true)
+      withSkip(() => startReading())
     }
     setExpandPlayer(!isPlaying)
   }
 
-  const withSkip = async (action: () => Promise<void>) => {
-    skipRef.current = true
-    try {
-      await action()
-    } finally {
-      skipRef.current = false
-    }
-  }
   const handleForward = () => {
     if (isPlaying) {
       EasySpeech.cancel()
