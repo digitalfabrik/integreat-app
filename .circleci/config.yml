@@ -326,6 +326,16 @@ jobs:
                 paths:
                     - << parameters.build_config_name >>.apk
                 root: native/android
+            - run:
+                command: mv app/build/outputs/bundle/release/app-release.aab << parameters.build_config_name >>.aab
+                name: Rename aab
+                working_directory: native/android
+            - store_artifacts:
+                path: native/android/<< parameters.build_config_name >>.aab
+            - persist_to_workspace:
+                paths:
+                    - << parameters.build_config_name >>.aab
+                root: native/android
             - unless:
                 condition:
                     or:
