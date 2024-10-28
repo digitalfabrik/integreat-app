@@ -1,0 +1,6 @@
+issue_key: 2520
+show_in_stores: false
+platforms:
+  - web
+  - android and ios
+en: Show number of search results
