@@ -26,6 +26,7 @@ import LoadingSpinner from '../components/LoadingSpinner'
 import buildConfig from '../constants/buildConfig'
 import { cmsApiBaseUrl } from '../constants/urls'
 import usePreviousProp from '../hooks/usePreviousProp'
+import useTtsPlayer from '../hooks/useTtsPlayer'
 import BreadcrumbModel from '../models/BreadcrumbModel'
 
 const CATEGORY_NOT_FOUND_STATUS_CODE = 400
@@ -47,7 +48,6 @@ const CategoriesPage = ({ city, pathname, cityCode, languageCode }: CityRoutePro
   const previousPathname = usePreviousProp({ prop: pathname })
   const categoryId = useParams()['*']
   const { t } = useTranslation('layout')
-
   const {
     data: categories,
     loading: categoriesLoading,
@@ -59,6 +59,9 @@ const CategoriesPage = ({ city, pathname, cityCode, languageCode }: CityRoutePro
     depth: categoryId ? 2 : 1,
     cityContentPath: pathname,
   })
+
+  const category = categories?.find(it => it.path === pathname)
+  useTtsPlayer(category ? category.content : '', category ? category.title : '')
 
   const requestParents = useCallback(async () => {
     if (!categoryId) {
@@ -102,7 +105,6 @@ const CategoriesPage = ({ city, pathname, cityCode, languageCode }: CityRoutePro
     )
   }
 
-  const category = categories?.find(it => it.path === pathname)
   const languageChangePaths = city.languages.map(({ code, name }) => {
     const isCurrentLanguage = code === languageCode
     const path = category?.isRoot()

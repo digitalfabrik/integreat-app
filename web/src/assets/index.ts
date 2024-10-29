@@ -44,6 +44,7 @@ import PhoneIcon from '../../../assets/icons/phone.svg'
 import PlayIcon from '../../../assets/icons/play.svg'
 import PlaybackIcon from '../../../assets/icons/playback.svg'
 import POIsIcon from '../../../assets/icons/pois.svg'
+import ReadAloud from '../../../assets/icons/readAloud.svg'
 import SadSmileyIcon from '../../../assets/icons/sad-smiley.svg'
 import SearchIcon from '../../../assets/icons/search.svg'
 import SecurityIcon from '../../../assets/icons/security.svg'
@@ -55,6 +56,7 @@ import SupportIcon from '../../../assets/icons/support.svg'
 import TimerIcon from '../../../assets/icons/timer.svg'
 import TuNewsActiveIcon from '../../../assets/icons/tu-news-active.svg'
 import TuNewsInactiveIcon from '../../../assets/icons/tu-news-inactive.svg'
+import WarningIcon from '../../../assets/icons/warning.svg'
 import WebsiteIcon from '../../../assets/icons/website.svg'
 import WhatsappIcon from '../../../assets/icons/whatsapp.svg'
 import PoiThumbnailPlaceholderLarge from '../../../assets/poi-thumbnail-placeholder-large.jpg'
@@ -108,6 +110,7 @@ export {
   POIsIcon,
   PoiThumbnailPlaceholder,
   PoiThumbnailPlaceholderLarge,
+  ReadAloud,
   SadSmileyIcon,
   SearchIcon,
   SecurityIcon,
@@ -121,4 +124,5 @@ export {
   TuNewsInactiveIcon,
   WebsiteIcon,
   WhatsappIcon,
+  WarningIcon,
 }

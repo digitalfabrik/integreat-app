@@ -16,6 +16,7 @@ import LoadingSpinner from '../components/LoadingSpinner'
 import Page from '../components/Page'
 import Icon from '../components/base/Icon'
 import { tunewsApiBaseUrl } from '../constants/urls'
+import useTtsPlayer from '../hooks/useTtsPlayer'
 import { TU_NEWS_DETAIL_ROUTE } from './index'
 
 const StyledContainer = styled.div`
@@ -64,6 +65,8 @@ const TuNewsDetailPage = ({ city, pathname, cityCode, languageCode }: CityRouteP
     loading,
     error: newsError,
   } = useLoadFromEndpoint(createTunewsElementEndpoint, tunewsApiBaseUrl, { id: parseInt(newsId, 10) })
+
+  useTtsPlayer(newsModel?.content ?? '', newsModel?.title ?? 'News')
 
   if (!city) {
     return null

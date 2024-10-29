@@ -23,6 +23,7 @@ import NewsTabs from '../components/NewsTabs'
 import Page from '../components/Page'
 import { cmsApiBaseUrl } from '../constants/urls'
 import usePreviousProp from '../hooks/usePreviousProp'
+import useTtsPlayer from '../hooks/useTtsPlayer'
 import { LOCAL_NEWS_ROUTE } from './index'
 
 const LocalNewsPage = ({ city, pathname, languageCode, cityCode }: CityRouteProps): ReactElement | null => {
@@ -37,11 +38,12 @@ const LocalNewsPage = ({ city, pathname, languageCode, cityCode }: CityRouteProp
     error: newsError,
   } = useLoadFromEndpoint(createLocalNewsEndpoint, cmsApiBaseUrl, { city: cityCode, language: languageCode })
 
+  const newsModel = newsId ? localNews?.find((it: LocalNewsModel) => it.id.toString() === newsId) : undefined
+  useTtsPlayer(newsModel?.content ?? '', newsModel?.title ?? 'News')
+
   if (!city) {
     return null
   }
-
-  const newsModel = newsId ? localNews?.find((it: LocalNewsModel) => it.id.toString() === newsId) : undefined
 
   const createNewsPath = ({ languageCode: newLanguageCode, newsId }: Partial<NewsRouteInformationType>): string =>
     pathnameFromRouteInformation({

@@ -288,7 +288,7 @@ const RemoteContent = ({
         ref={sandBoxRef}
         $smallText={smallText}
       />
-      <TtsPlayer html={html} initialVisibility languageCode={language} />
+      <TtsPlayer languageCode={language} />
     </>
   )
 }

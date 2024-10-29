@@ -31,7 +31,7 @@ const Header = styled.div<{ $small: boolean }>`
 `
 
 const CloseButton = styled(Button)`
-  background-color: ${props => props.theme.colors.backgroundColor};
+  background-color: transparent;
 `
 
 const StyledIcon = styled(Icon)`
@@ -41,20 +41,33 @@ const StyledIcon = styled(Icon)`
   display: flex;
 `
 
+const StyledDiv = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+`
+
 type ModalProps = {
   title: string
+  icon?: string
+  style?: React.CSSProperties
   children: ReactNode
   closeModal: () => void
   small: boolean
 }
 
-const ModalContent = ({ title, closeModal, children, small }: ModalProps): ReactElement => {
+const ModalContent = ({ title, icon, style, closeModal, children, small }: ModalProps): ReactElement => {
   const { t } = useTranslation('common')
 
   return (
-    <Container>
+    <Container style={style}>
       <Header $small={small}>
-        <span>{title}</span>
+        <StyledDiv>
+          {Boolean(icon) && <StyledIcon src={icon ?? ''} />}
+          <span>{title}</span>
+        </StyledDiv>
         <CloseButton label={t('close')} onClick={closeModal}>
           <StyledIcon src={small ? ArrowBackIcon : CloseIcon} directionDependent />
         </CloseButton>
