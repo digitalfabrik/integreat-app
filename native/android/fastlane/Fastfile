@@ -68,7 +68,7 @@ lane :build do |options|
   end
 
   gradle(
-      task: "assembleRelease",
+      tasks: ["assembleRelease", "bundleRelease"],
       properties: {
           :BUILD_CONFIG_NAME => build_config_name,
           :VERSION_CODE => version_code,
