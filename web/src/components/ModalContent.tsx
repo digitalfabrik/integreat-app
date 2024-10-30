@@ -51,7 +51,7 @@ const StyledDiv = styled.div`
 
 type ModalProps = {
   title: string
-  icon?: string
+  icon?: ReactElement
   style?: React.CSSProperties
   children: ReactNode
   closeModal: () => void
@@ -65,7 +65,7 @@ const ModalContent = ({ title, icon, style, closeModal, children, small }: Modal
     <Container style={style}>
       <Header $small={small}>
         <StyledDiv>
-          {Boolean(icon) && <StyledIcon src={icon ?? ''} />}
+          {Boolean(icon) && icon}
           <span>{title}</span>
         </StyledDiv>
         <CloseButton label={t('close')} onClick={closeModal}>

@@ -4,11 +4,11 @@ import { useTranslation } from 'react-i18next'
 import segment from 'sentencex'
 import styled, { useTheme } from 'styled-components'
 
-import { CloseIcon, NoSoundIcon, PauseIcon, PlaybackIcon, PlayIcon, SoundIcon, WarningIcon } from '../assets'
+import { CloseIcon, NoSoundIcon, PauseIcon, PlaybackIcon, PlayIcon, SoundIcon } from '../assets'
 import dimensions from '../constants/dimensions'
 import useTtsPlayer from '../hooks/useTtsPlayer'
 import { reportError } from '../utils/sentry'
-import Modal from './Modal'
+import TtsHelpModal from './TtsHelpModal'
 import Button from './base/Button'
 import Icon from './base/Icon'
 
@@ -60,6 +60,7 @@ const StyledBackForthButton = styled(Button)`
 const PlayButtonIcon = styled(Icon)`
   color: #dedede;
 `
+
 const StyledNoSoundIcon = styled(Icon)`
   height: 18px;
   width: 18px;
@@ -99,11 +100,6 @@ const CloseView = styled.div`
   justify-content: center;
 `
 
-const ModalContent = styled.div`
-  padding: 0 16px;
-  width: 80%;
-`
-
 const Slider = styled.input`
   border-radius: 25px;
   appearance: none;
@@ -130,58 +126,7 @@ const Slider = styled.input`
     cursor: pointer;
   }
 `
-const HelpModal = ({ closeModal }: { closeModal: () => void }) => {
-  const theme = useTheme()
-  return (
-    <Modal style={{ borderRadius: 20 }} title='Sprache nicht unterstützt' icon={WarningIcon} closeModal={closeModal}>
-      <ModalContent>
-        {/* <h3>This voice is not available right now; it requires installation for the selected language.</h3>  */}
-        <h3>
-          Diese Stimme ist im Moment nicht verfügbar; für die ausgewählte Sprache ist eine Installation erforderlich.
-        </h3>
-        <ul>
-          <li>
-            <a
-              href='https://support.microsoft.com/en-us/topic/download-languages-and-voices-for-immersive-reader-read-mode-and-read-aloud-4c83a8d8-7486-42f7-8e46-2b0fdf753130'
-              target='_blank'
-              rel='noreferrer'>
-              Windows
-            </a>
-          </li>
-          <li>
-            <a
-              href='https://support.apple.com/guide/mac-help/change-the-voice-your-mac-uses-to-speak-text-mchlp2290/mac'
-              target='_blank'
-              rel='noreferrer'>
-              MacOS
-            </a>
-          </li>
-          <li>
-            <a
-              href='https://github.com/espeak-ng/espeak-ng/blob/master/docs/mbrola.md#installation-of-standard-packages'
-              target='_blank'
-              rel='noreferrer'>
-              Ubuntu
-            </a>
-          </li>
-          <li>
-            <a
-              href='https://support.google.com/accessibility/android/answer/6006983?hl=en&sjid=9301509494880612166-EU'
-              target='_blank'
-              rel='noreferrer'>
-              Android
-            </a>
-          </li>
-          <li>
-            <a href='https://support.apple.com/en-us/HT202362' target='_blank' rel='noreferrer'>
-              iOS
-            </a>
-          </li>
-        </ul>
-      </ModalContent>
-    </Modal>
-  )
-}
+
 type TtsPlayerProps = {
   languageCode: string
 }
@@ -200,6 +145,8 @@ const TtsPlayer = ({ languageCode }: TtsPlayerProps): ReactElement | null => {
   const allowIncrement = useRef(true)
   const maxTitle = 20
   const isTitleLong = title.length > maxTitle ? title.substring(0, maxTitle).concat('...') : title || t('readAloud')
+  const userAgent = navigator.userAgent
+  const isAndroid = Boolean(/android/i.test(userAgent))
 
   const handleBoundary = (event: SpeechSynthesisEvent) => {
     if (event.name === 'sentence' && allowIncrement.current) {
@@ -216,7 +163,7 @@ const TtsPlayer = ({ languageCode }: TtsPlayerProps): ReactElement | null => {
   useEffect(() => {
     EasySpeech.init({ maxTimeout: 5000, interval: 250 }).catch(e => reportError(e))
     return () => {
-      EasySpeech.cancel()
+      EasySpeech.reset()
       setCurrentSentenceIndex(0)
     }
   }, [])
@@ -280,7 +227,7 @@ const TtsPlayer = ({ languageCode }: TtsPlayerProps): ReactElement | null => {
   const togglePlayPause = () => {
     if (isPlaying) {
       pauseReading()
-    } else if (currentSentencesIndex !== 0) {
+    } else if (currentSentencesIndex !== 0 && !isAndroid) {
       setIsPlaying(true)
       EasySpeech.resume()
     } else {
@@ -323,12 +270,13 @@ const TtsPlayer = ({ languageCode }: TtsPlayerProps): ReactElement | null => {
     setVisible(false)
     setExpandPlayer(false)
     EasySpeech.cancel()
+    setCurrentSentenceIndex(0)
     setIsPlaying(false)
   }
   if (visible) {
     return (
       <>
-        {showHelpModal && <HelpModal closeModal={() => setShowHelpModal(false)} />}
+        {showHelpModal && <TtsHelpModal closeModal={() => setShowHelpModal(false)} />}
         <StyledTtsPlayer $isPlaying={expandPlayer}>
           <StyledPanel style={{ flexDirection: theme.contentDirection === 'rtl' ? 'row-reverse' : 'row' }}>
             {expandPlayer && (
@@ -337,7 +285,7 @@ const TtsPlayer = ({ languageCode }: TtsPlayerProps): ReactElement | null => {
                 <BackForthIcon $flip src={PlaybackIcon} />
               </StyledBackForthButton>
             )}
-            <StyledPlayIcon label='Play Button' onClick={togglePlayPause}>
+            <StyledPlayIcon label='play-button' onClick={togglePlayPause}>
               <PlayButtonIcon src={isPlaying ? PauseIcon : PlayIcon} />
             </StyledPlayIcon>
             {expandPlayer && (

@@ -6,6 +6,9 @@ import 'raf/polyfill'
 
 global.fetch = require('jest-fetch-mock')
 
+jest.mock('easySpeech')
+jest.mock('sentencex', () => jest.fn())
+
 console.error = () => undefined
 Element.prototype.scrollIntoView = jest.fn()
 
