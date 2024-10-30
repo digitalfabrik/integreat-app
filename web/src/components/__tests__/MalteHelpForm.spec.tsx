@@ -12,6 +12,9 @@ jest.mock('shared/api', () => ({
   submitMalteHelpForm: jest.fn(),
 }))
 
+// Typescript shenanigans to be able to use mockImplementation in the tests
+const mockedSubmitMalteHelpForm = submitMalteHelpForm as jest.MockedFunction<typeof submitMalteHelpForm>
+
 const submitButtonLabel = 'malteHelpForm:submit'
 const nameInputLabel = 'malteHelpForm:name'
 const name = 'Doe, Jane'
@@ -27,9 +30,6 @@ const maleContactLabel = 'malteHelpForm:contactPersonGenderMale'
 const messageInputLabel = 'malteHelpForm:contactReason'
 const message =
   "Hello, I can't figure out how to open my window for my contractually agreed daily Lüften, can you help me?"
-
-// Typescript shenanigans to be able to use mockImplementation in the tests
-const mockedSubmitMalteHelpForm = submitMalteHelpForm as jest.MockedFunction<typeof submitMalteHelpForm>
 
 describe('MalteHelpForm', () => {
   beforeEach(() => {
