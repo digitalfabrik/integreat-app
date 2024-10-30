@@ -28,6 +28,9 @@ const messageInputLabel = 'malteHelpForm:contactReason'
 const message =
   "Hello, I can't figure out how to open my window for my contractually agreed daily Lüften, can you help me?"
 
+// Typescript shenanigans to be able to use mockImplementation in the tests
+const mockedSubmitMalteHelpForm = submitMalteHelpForm as jest.MockedFunction<typeof submitMalteHelpForm>
+
 describe('MalteHelpForm', () => {
   beforeEach(() => {
     jest.clearAllMocks()
@@ -70,7 +73,7 @@ describe('MalteHelpForm', () => {
     expect(submitButton).toBeEnabled()
 
     fireEvent.click(submitButton)
-    expect(submitMalteHelpForm).toHaveBeenCalledWith(
+    expect(mockedSubmitMalteHelpForm).toHaveBeenCalledWith(
       expect.objectContaining({
         comment: message,
         contactChannel: 'email',
@@ -112,7 +115,7 @@ describe('MalteHelpForm', () => {
     expect(submitButton).toBeEnabled()
 
     fireEvent.click(submitButton)
-    expect(submitMalteHelpForm).toHaveBeenCalledWith(
+    expect(mockedSubmitMalteHelpForm).toHaveBeenCalledWith(
       expect.objectContaining({
         comment: message,
         contactChannel: 'telephone',
@@ -150,7 +153,7 @@ describe('MalteHelpForm', () => {
     expect(submitButton).toBeEnabled()
 
     fireEvent.click(submitButton)
-    expect(submitMalteHelpForm).toHaveBeenCalledWith(
+    expect(mockedSubmitMalteHelpForm).toHaveBeenCalledWith(
       expect.objectContaining({
         comment: message,
         contactChannel: 'personally',
@@ -194,7 +197,7 @@ describe('MalteHelpForm', () => {
     expect(submitButton).toBeEnabled()
 
     fireEvent.click(submitButton)
-    expect(submitMalteHelpForm).toHaveBeenCalledWith(
+    expect(mockedSubmitMalteHelpForm).toHaveBeenCalledWith(
       expect.objectContaining({
         comment: message,
         contactChannel: 'personally',
@@ -238,7 +241,7 @@ describe('MalteHelpForm', () => {
     expect(submitButton).toBeEnabled()
 
     fireEvent.click(submitButton)
-    expect(submitMalteHelpForm).toHaveBeenCalledWith(
+    expect(mockedSubmitMalteHelpForm).toHaveBeenCalledWith(
       expect.objectContaining({
         comment: message,
         contactChannel: 'personally',
@@ -270,11 +273,11 @@ describe('MalteHelpForm', () => {
     expect(submitButton).toBeDisabled()
 
     fireEvent.click(submitButton)
-    expect(submitMalteHelpForm).not.toHaveBeenCalled()
+    expect(mockedSubmitMalteHelpForm).not.toHaveBeenCalled()
   })
 
   it('should show an error if Zammad says the email address is invalid', async () => {
-    submitMalteHelpForm.mockImplementation(() => {
+    mockedSubmitMalteHelpForm.mockImplementation(() => {
       throw new InvalidEmailError()
     })
     const { getByLabelText, getByText, getAllByLabelText } = renderWithRouterAndTheme(<MalteHelpForm {...props} />)
@@ -299,7 +302,7 @@ describe('MalteHelpForm', () => {
     expect(submitButton).toBeEnabled()
 
     fireEvent.click(submitButton)
-    expect(submitMalteHelpForm).toHaveBeenCalledWith(
+    expect(mockedSubmitMalteHelpForm).toHaveBeenCalledWith(
       expect.objectContaining({
         comment: message,
         contactChannel: 'email',
@@ -315,7 +318,7 @@ describe('MalteHelpForm', () => {
   })
 
   it('should show an error if there is another error while sending to Zammad', async () => {
-    submitMalteHelpForm.mockImplementation(() => {
+    mockedSubmitMalteHelpForm.mockImplementation(() => {
       throw new Error()
     })
     global.reportError = jest.fn()
@@ -334,7 +337,7 @@ describe('MalteHelpForm', () => {
     expect(submitButton).toBeDisabled()
 
     const emailInput = getAllByLabelText(emailInputLabel)[1]!
-    fireEvent.change(emailInput, { target: { value: 'email' } })
+    fireEvent.change(emailInput, { target: { value: email } })
     expect(submitButton).toBeEnabled()
 
     const messageInput = getByLabelText(messageInputLabel)
@@ -342,12 +345,12 @@ describe('MalteHelpForm', () => {
     expect(submitButton).toBeEnabled()
 
     fireEvent.click(submitButton)
-    expect(submitMalteHelpForm).toHaveBeenCalledWith(
+    expect(mockedSubmitMalteHelpForm).toHaveBeenCalledWith(
       expect.objectContaining({
         comment: message,
         contactChannel: 'email',
         contactGender: 'any',
-        email: 'email',
+        email,
         name,
         roomNumber,
         telephone: '',
