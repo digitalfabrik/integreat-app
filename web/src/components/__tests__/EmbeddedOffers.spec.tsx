@@ -7,14 +7,14 @@ import { CategoryModel, OfferModel } from 'shared/api'
 
 import EmbeddedOffers from '../EmbeddedOffers'
 
-jest.mock('../SprungbrettOffer.tsx', () => ({
+jest.mock('../SprungbrettOffer', () => ({
   __esModule: true,
   default: ({ sprungbrettOffer }: { sprungbrettOffer: OfferModel }) => (
     <div>This is the Sprungbrett offer called {sprungbrettOffer.title}</div>
   ),
 }))
 
-jest.mock('../MalteHelpForm.tsx', () => ({
+jest.mock('../MalteHelpForm', () => ({
   __esModule: true,
   default: ({ malteHelpFormOffer }: { malteHelpFormOffer: OfferModel }) => (
     <div>This is the Malte help form called {malteHelpFormOffer.title}</div>

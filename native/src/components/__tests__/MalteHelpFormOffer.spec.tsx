@@ -19,9 +19,6 @@ jest.mock('../../hooks/useSnackbar.ts', () => ({
   default: () => mockShowSnackbar,
 }))
 
-// Typescript shenanigans to be able to use mockImplementation in the tests
-const mockedSubmitMalteHelpForm = submitMalteHelpForm as jest.MockedFunction<typeof submitMalteHelpForm>
-
 const submitButtonLabel = 'submit'
 const nameInputLabel = 'name'
 const name = 'Doe, Jane'
@@ -90,7 +87,7 @@ describe('MalteHelpFormOffer', () => {
     expect(submitButton).toBeEnabled()
 
     await user.press(submitButton)
-    expect(mockedSubmitMalteHelpForm).toHaveBeenCalledWith(
+    expect(submitMalteHelpForm).toHaveBeenCalledWith(
       expect.objectContaining({
         comment: message,
         contactChannel: 'email',
@@ -138,7 +135,7 @@ describe('MalteHelpFormOffer', () => {
     })
 
     await user.press(submitButton)
-    expect(mockedSubmitMalteHelpForm).toHaveBeenCalledWith(
+    expect(submitMalteHelpForm).toHaveBeenCalledWith(
       expect.objectContaining({
         comment: message,
         contactChannel: 'telephone',
@@ -181,7 +178,7 @@ describe('MalteHelpFormOffer', () => {
     })
 
     await user.press(submitButton)
-    expect(mockedSubmitMalteHelpForm).toHaveBeenCalledWith(
+    expect(submitMalteHelpForm).toHaveBeenCalledWith(
       expect.objectContaining({
         comment: message,
         contactChannel: 'personally',
@@ -228,7 +225,7 @@ describe('MalteHelpFormOffer', () => {
     })
 
     await user.press(submitButton)
-    expect(mockedSubmitMalteHelpForm).toHaveBeenCalledWith(
+    expect(submitMalteHelpForm).toHaveBeenCalledWith(
       expect.objectContaining({
         comment: message,
         contactChannel: 'personally',
@@ -275,7 +272,7 @@ describe('MalteHelpFormOffer', () => {
     })
 
     await user.press(submitButton)
-    expect(mockedSubmitMalteHelpForm).toHaveBeenCalledWith(
+    expect(submitMalteHelpForm).toHaveBeenCalledWith(
       expect.objectContaining({
         comment: message,
         contactChannel: 'personally',
@@ -312,13 +309,13 @@ describe('MalteHelpFormOffer', () => {
     expect(submitButton).toBeDisabled()
 
     await user.press(submitButton)
-    expect(mockedSubmitMalteHelpForm).not.toHaveBeenCalled()
+    expect(submitMalteHelpForm).not.toHaveBeenCalled()
 
     expect(mockShowSnackbar).not.toHaveBeenCalled()
   })
 
   it('should not submit if Zammad says the email address is invalid', async () => {
-    mockedSubmitMalteHelpForm.mockImplementation(() => {
+    jest.mocked(submitMalteHelpForm).mockImplementation(() => {
       throw new InvalidEmailError()
     })
 
@@ -348,7 +345,7 @@ describe('MalteHelpFormOffer', () => {
     expect(submitButton).toBeEnabled()
 
     await user.press(submitButton)
-    expect(mockedSubmitMalteHelpForm).toHaveBeenCalledWith(
+    expect(submitMalteHelpForm).toHaveBeenCalledWith(
       expect.objectContaining({
         comment: message,
         contactChannel: 'email',
@@ -364,7 +361,7 @@ describe('MalteHelpFormOffer', () => {
   })
 
   it('should show an error if there is another error while sending to Zammad', async () => {
-    mockedSubmitMalteHelpForm.mockImplementation(() => {
+    jest.mocked(submitMalteHelpForm).mockImplementation(() => {
       throw new Error()
     })
 
@@ -394,7 +391,7 @@ describe('MalteHelpFormOffer', () => {
     expect(submitButton).toBeEnabled()
 
     await user.press(submitButton)
-    expect(mockedSubmitMalteHelpForm).toHaveBeenCalledWith(
+    expect(submitMalteHelpForm).toHaveBeenCalledWith(
       expect.objectContaining({
         comment: message,
         contactChannel: 'email',

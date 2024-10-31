@@ -7,7 +7,7 @@ import { CategoryModel, OfferModel } from 'shared/api'
 import render from '../../testing/render'
 import EmbeddedOffers from '../EmbeddedOffers'
 
-jest.mock('../SprungbrettOffer.tsx', () => ({
+jest.mock('../SprungbrettOffer', () => ({
   __esModule: true,
   default: ({ sprungbrettOffer }: { sprungbrettOffer: OfferModel }) => {
     const { Text } = require('react-native')
@@ -15,7 +15,7 @@ jest.mock('../SprungbrettOffer.tsx', () => ({
   },
 }))
 
-jest.mock('../MalteHelpFormOffer.tsx', () => ({
+jest.mock('../MalteHelpFormOffer', () => ({
   __esModule: true,
   default: ({ malteHelpFormOffer }: { malteHelpFormOffer: OfferModel }) => {
     const { Text } = require('react-native')
