@@ -9,9 +9,6 @@ import { LocationStateType, UnavailableLocationState } from 'shared'
 import { log, reportError } from '../utils/sentry'
 import useSnackbar from './useSnackbar'
 
-const locationPermission =
-  Platform.OS === 'ios' ? PERMISSIONS.IOS.LOCATION_WHEN_IN_USE : PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION
-
 const locationStateOnError = (error: GeolocationError): UnavailableLocationState => {
   const message = error.code === error.PERMISSION_DENIED ? 'noPermission' : 'timeout'
   return {
@@ -34,6 +31,22 @@ const getUserLocation = async (): Promise<LocationStateType> =>
       { timeout: 30000 },
     )
   })
+
+const locationPermissionIOS = PERMISSIONS.IOS.LOCATION_WHEN_IN_USE
+const fineLocationPermissionAndroid = PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION
+const coarseLocationPermissionAndroid = PERMISSIONS.ANDROID.ACCESS_COARSE_LOCATION
+
+const getLocationPermissionStatus = async (requestPermission: boolean) => {
+  const permissionFunctionToCall = requestPermission ? request : check
+  if (Platform.OS === 'ios') {
+    return permissionFunctionToCall(locationPermissionIOS)
+  }
+  const finePermission = await permissionFunctionToCall(fineLocationPermissionAndroid)
+  if (finePermission === RESULTS.GRANTED || finePermission === RESULTS.LIMITED) {
+    return finePermission
+  }
+  return permissionFunctionToCall(coarseLocationPermissionAndroid)
+}
 
 type UseUserLocationProps = {
   requestPermissionInitially: boolean
@@ -59,9 +72,7 @@ const useUserLocation = ({ requestPermissionInitially }: UseUserLocationProps): 
     async ({ showSnackbarIfBlocked = true, requestPermission = true }: RequestPermissionAndLocationOptions = {}) => {
       setLocationState(initialState)
 
-      const locationPermissionStatus = requestPermission
-        ? await request(locationPermission)
-        : await check(locationPermission)
+      const locationPermissionStatus = await getLocationPermissionStatus(requestPermission)
 
       if (requestPermission) {
         log(`Location permission status: ${locationPermissionStatus}`)
