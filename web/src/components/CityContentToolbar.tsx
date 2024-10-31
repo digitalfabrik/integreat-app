@@ -4,6 +4,7 @@ import { PlacesType } from 'react-tooltip'
 import { useTheme } from 'styled-components'
 
 import { CopyIcon, DoneIcon, ReadAloud } from '../assets'
+import buildConfig from '../constants/buildConfig'
 import useTtsPlayer from '../hooks/useTtsPlayer'
 import useWindowDimensions from '../hooks/useWindowDimensions'
 import { RouteType } from '../routes'
@@ -51,12 +52,15 @@ const CityContentToolbar = (props: CityContentToolbarProps) => {
   const theme = useTheme()
   const tooltipDirectionForDesktop: PlacesType = theme.contentDirection === 'ltr' ? 'right' : 'left'
   const tooltipDirection: PlacesType = viewportSmall ? 'top' : tooltipDirectionForDesktop
-  const { setVisible } = useTtsPlayer()
+  const { setVisible, content } = useTtsPlayer()
+  const ttsEnabled = content && (buildConfig().appName === 'IntegreatTestCms' || buildConfig().appName === 'Integreat')
 
   return (
     <Toolbar iconDirection={iconDirection} hideDivider={hideDivider}>
       {children}
-      <ToolbarItem icon={ReadAloud} text={t('readAloud')} onClick={() => setVisible(true)} id='readAloud-icon' />
+      {Boolean(ttsEnabled) && (
+        <ToolbarItem icon={ReadAloud} text={t('readAloud')} onClick={() => setVisible(true)} id='readAloud-icon' />
+      )}
       <SharingPopup
         shareUrl={window.location.href}
         flow={iconDirection === 'row' ? 'vertical' : 'horizontal'}

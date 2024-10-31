@@ -40,7 +40,9 @@ const ModalContentContainer = styled.div<{ $style?: ModalContentStyling }>`
   display: flex;
   flex-direction: column;
   background-color: ${props =>
-    props.$style?.backgroundColor != null ? props.theme.colors.themeColorLight : props.theme.colors.backgroundColor};
+    props.$style?.backgroundColor != null
+      ? props.theme.colors.ttsPlayerWarningBackground
+      : props.theme.colors.backgroundColor};
   border-radius: ${props => (props.$style?.borderRadius != null ? props.$style.borderRadius : 0)}px;
 
   @media ${dimensions.smallViewport} {

@@ -1,0 +1,12 @@
+const MockTts = {
+  init: jest.fn().mockResolvedValue(true),
+  speak: jest.fn().mockResolvedValue(true),
+  reset: jest.fn(),
+  cancel: jest.fn(),
+  pause: jest.fn(),
+  resume: jest.fn(),
+  detect: jest.fn(),
+  voices: jest.fn().mockReturnValue([{ lang: 'en-US' }]),
+}
+
+export default MockTts

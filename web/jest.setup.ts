@@ -6,7 +6,7 @@ import 'raf/polyfill'
 
 global.fetch = require('jest-fetch-mock')
 
-jest.mock('easySpeech')
+jest.mock('easy-speech')
 jest.mock('sentencex', () => jest.fn())
 
 console.error = () => undefined

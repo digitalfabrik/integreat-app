@@ -1,6 +1,8 @@
 import { fireEvent } from '@testing-library/react'
 import React from 'react'
+import { MemoryRouter } from 'react-router-dom'
 
+// Import MemoryRouter if not included in renderWithTheme
 import { renderWithTheme } from '../../testing/render'
 import RemoteContent from '../RemoteContent'
 
@@ -10,7 +12,9 @@ describe('RemoteContent', () => {
   it('should render the html content', () => {
     const content = 'Test html'
     const { getByText } = renderWithTheme(
-      <RemoteContent html={`<div>${content}</div>`} onInternalLinkClick={() => undefined} />,
+      <MemoryRouter>
+        <RemoteContent html={`<div>${content}</div>`} onInternalLinkClick={() => undefined} />
+      </MemoryRouter>,
     )
     expect(getByText(content)).toBeTruthy()
   })
@@ -22,7 +26,9 @@ describe('RemoteContent', () => {
     const onInternalLinkClick = jest.fn()
 
     const { getByRole, getAllByRole } = renderWithTheme(
-      <RemoteContent html={html} onInternalLinkClick={onInternalLinkClick} />,
+      <MemoryRouter>
+        <RemoteContent html={html} onInternalLinkClick={onInternalLinkClick} />
+      </MemoryRouter>,
     )
 
     expect(getAllByRole('link')).toHaveLength(1)
@@ -38,7 +44,9 @@ describe('RemoteContent', () => {
     const onInternalLinkClick = jest.fn()
 
     const { getByRole, getAllByRole } = renderWithTheme(
-      <RemoteContent html={html} onInternalLinkClick={onInternalLinkClick} />,
+      <MemoryRouter>
+        <RemoteContent html={html} onInternalLinkClick={onInternalLinkClick} />
+      </MemoryRouter>,
     )
 
     expect(getAllByRole('link')).toHaveLength(1)
@@ -53,7 +61,11 @@ describe('RemoteContent', () => {
     const html = `<iframe title=${iframeTitle} src=${src} />`
     const onInternalLinkClick = jest.fn()
 
-    const { getByTitle } = renderWithTheme(<RemoteContent html={html} onInternalLinkClick={onInternalLinkClick} />)
+    const { getByTitle } = renderWithTheme(
+      <MemoryRouter>
+        <RemoteContent html={html} onInternalLinkClick={onInternalLinkClick} />
+      </MemoryRouter>,
+    )
 
     expect(getByTitle(iframeTitle)).toHaveAttribute('src', 'about:blank')
   })
@@ -64,7 +76,11 @@ describe('RemoteContent', () => {
     const html = `<iframe title=${iframeTitle} src=${src} />`
     const onInternalLinkClick = jest.fn()
 
-    const { getAllByRole } = renderWithTheme(<RemoteContent html={html} onInternalLinkClick={onInternalLinkClick} />)
+    const { getAllByRole } = renderWithTheme(
+      <MemoryRouter>
+        <RemoteContent html={html} onInternalLinkClick={onInternalLinkClick} />
+      </MemoryRouter>,
+    )
 
     expect(getAllByRole('checkbox')).toHaveLength(1)
   })
@@ -77,7 +93,9 @@ describe('RemoteContent', () => {
     const onInternalLinkClick = jest.fn()
 
     const { getByRole, getAllByRole, getByTitle } = renderWithTheme(
-      <RemoteContent html={html} onInternalLinkClick={onInternalLinkClick} />,
+      <MemoryRouter>
+        <RemoteContent html={html} onInternalLinkClick={onInternalLinkClick} />
+      </MemoryRouter>,
     )
 
     expect(getAllByRole('checkbox')).toHaveLength(1)
@@ -92,7 +110,9 @@ describe('RemoteContent', () => {
     const content =
       '<div><p>Ich bleib aber da.<iframe//src=jAva&Tab;script:alert(3)>def</p><math><mi//xlink:href="data:x,<script>alert(4)</script>">'
     const { getByText } = renderWithTheme(
-      <RemoteContent html={`<div>${content}</div>`} onInternalLinkClick={() => undefined} />,
+      <MemoryRouter>
+        <RemoteContent html={`<div>${content}</div>`} onInternalLinkClick={() => undefined} />
+      </MemoryRouter>,
     )
 
     expect(alertSpy).not.toHaveBeenCalled()

@@ -32,6 +32,7 @@ const StyledTtsPlayer = styled.dialog<{ $isPlaying: boolean }>`
     width: 90%;
   }
 `
+
 const StyledPanel = styled.div`
   display: flex;
   flex-direction: row;
@@ -39,6 +40,11 @@ const StyledPanel = styled.div`
   gap: 20px;
   padding: 0 10px;
 `
+
+const StyledSliderPanel = styled(StyledPanel)`
+  width: 90%;
+`
+
 const StyledPlayIcon = styled(Button)`
   background-color: #232323;
   width: 50px;
@@ -61,9 +67,9 @@ const PlayButtonIcon = styled(Icon)`
   color: #dedede;
 `
 
-const StyledNoSoundIcon = styled(Icon)`
-  height: 18px;
-  width: 18px;
+const StyleSoundIcon = styled(Icon)`
+  height: 30px;
+  width: 30px;
 `
 
 const BackForthIcon = styled(Icon)<{ $flip: boolean }>`
@@ -101,6 +107,7 @@ const CloseView = styled.div`
 `
 
 const Slider = styled.input`
+  width: 100%;
   border-radius: 25px;
   appearance: none;
   background: #b9b9b9;
@@ -163,6 +170,7 @@ const TtsPlayer = ({ languageCode }: TtsPlayerProps): ReactElement | null => {
   useEffect(() => {
     EasySpeech.init({ maxTimeout: 5000, interval: 250 }).catch(e => reportError(e))
     return () => {
+      EasySpeech.cancel()
       EasySpeech.reset()
       setCurrentSentenceIndex(0)
     }
@@ -280,7 +288,7 @@ const TtsPlayer = ({ languageCode }: TtsPlayerProps): ReactElement | null => {
         <StyledTtsPlayer $isPlaying={expandPlayer}>
           <StyledPanel style={{ flexDirection: theme.contentDirection === 'rtl' ? 'row-reverse' : 'row' }}>
             {expandPlayer && (
-              <StyledBackForthButton label='Backward Button' onClick={handleBackward}>
+              <StyledBackForthButton label='backward-button' onClick={handleBackward}>
                 <StyledText>{t('prev')}</StyledText>
                 <BackForthIcon $flip src={PlaybackIcon} />
               </StyledBackForthButton>
@@ -289,22 +297,30 @@ const TtsPlayer = ({ languageCode }: TtsPlayerProps): ReactElement | null => {
               <PlayButtonIcon src={isPlaying ? PauseIcon : PlayIcon} />
             </StyledPlayIcon>
             {expandPlayer && (
-              <StyledBackForthButton label='Forward Button' onClick={handleForward}>
+              <StyledBackForthButton label='forward-button' onClick={handleForward}>
                 <BackForthIcon $flip={false} src={PlaybackIcon} />
                 <StyledText>{t('next')}</StyledText>
               </StyledBackForthButton>
             )}
           </StyledPanel>
           {expandPlayer && (
-            <StyledPanel>
-              <StyledNoSoundIcon src={NoSoundIcon} />
-              <Slider type='range' min='0' max='1' step='0.1' value={volume} onChange={handleVolumeChange} />
-              <Icon src={SoundIcon} />
-            </StyledPanel>
+            <StyledSliderPanel>
+              <Icon src={NoSoundIcon} />
+              <Slider
+                aria-label='slider-component'
+                type='range'
+                min='0'
+                max='1'
+                step='0.1'
+                value={volume}
+                onChange={handleVolumeChange}
+              />
+              <StyleSoundIcon src={SoundIcon} />
+            </StyledSliderPanel>
           )}
           <CloseView>
             {!expandPlayer && <StyledPlayerHeaderText>{isTitleLong}</StyledPlayerHeaderText>}
-            <CloseButton label='Close player' onClick={handleClose}>
+            <CloseButton label='close-player' onClick={handleClose}>
               <Icon src={CloseIcon} />
               <StyledText>{t('common:close')}</StyledText>
             </CloseButton>
