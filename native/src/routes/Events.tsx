@@ -6,7 +6,6 @@ import styled from 'styled-components/native'
 import { EVENTS_ROUTE, RouteInformationType, useDateFilter } from 'shared'
 import { fromError, NotFoundError, CityModel, EventModel } from 'shared/api'
 
-import CalendarRangeModal from '../components/CalendarRangeModal'
 import Caption from '../components/Caption'
 import DatesPageDetail from '../components/DatesPageDetail'
 import EventListItem from '../components/EventListItem'
@@ -112,39 +111,29 @@ const Events = ({ cityModel, language, navigateTo, events, slug, refresh }: Even
   }
 
   return (
-    <>
-      <CalendarRangeModal
-        closeModal={() => setModalOpen(false)}
-        modalVisible={modalOpen}
-        startDate={startDate}
-        endDate={endDate}
-        setEndDate={setEndDate}
-        setStartDate={setStartDate}
+    <ListContainer>
+      <List
+        items={filteredEvents ?? []}
+        renderItem={renderEventListItem}
+        Header={
+          <>
+            <Caption title={t('events')} />
+            <EventsDateFilter
+              startDate={startDate}
+              setStartDate={setStartDate}
+              endDate={endDate}
+              setEndDate={setEndDate}
+              startDateError={startDateError}
+              modalOpen={modalOpen}
+              setModalOpen={setModalOpen}
+            />
+            <Separator />
+          </>
+        }
+        refresh={refresh}
+        noItemsMessage={t('currentlyNoEvents')}
       />
-      <ListContainer>
-        <List
-          items={filteredEvents ?? []}
-          renderItem={renderEventListItem}
-          Header={
-            <>
-              <Caption title={t('events')} />
-              <EventsDateFilter
-                startDate={startDate}
-                setStartDate={setStartDate}
-                endDate={endDate}
-                setEndDate={setEndDate}
-                startDateError={startDateError}
-                modalOpen={modalOpen}
-                setModalOpen={setModalOpen}
-              />
-              <Separator />
-            </>
-          }
-          refresh={refresh}
-          noItemsMessage={t('currentlyNoEvents')}
-        />
-      </ListContainer>
-    </>
+    </ListContainer>
   )
 }
 

@@ -14,22 +14,24 @@ const DatePickerWrapper = styled.View`
   border-radius: 20px;
   position: absolute;
   width: 90%;
-  top: 228px;
+  top: 25%;
   align-self: center;
 `
+
 const StyledView = styled.View`
   gap: 8px;
   justify-content: ${props => (props.theme.contentDirection === 'rtl' ? 'flex-start' : 'flex-end')};
-  flex-direction: ${props => (props.theme.contentDirection === 'rtl' ? 'row-reverse' : 'row')};
-  padding: 5px 10px;
+  flex-direction: row;
+  padding: 5px 14px;
 `
+
 const OPACITY_DISABLED = 0.5
 
 const StyledTextButton = styled(TextButton)`
   background-color: transparent;
-  transform: scale(0.8);
   opacity: ${props => (props.disabled ? OPACITY_DISABLED : 1)};
 `
+
 const StyledPressable = styled.Pressable`
   flex: 1;
 `
@@ -55,6 +57,15 @@ const CalendarRangeModal = ({
   const [tempEndDate, setTempEndDate] = useState<DateTime | null>(endDate)
   const { t } = useTranslation('events')
   const theme = useTheme()
+
+  const textButtonStyles = {
+    container: {
+      height: 40,
+    },
+    text: {
+      fontSize: 16,
+    },
+  }
 
   useEffect(() => {
     setTempStartDate(startDate)
@@ -92,6 +103,8 @@ const CalendarRangeModal = ({
         />
         <StyledView>
           <StyledTextButton
+            style={textButtonStyles.container}
+            textStyle={textButtonStyles.text}
             onPress={() => {
               setTempStartDate(startDate)
               setTempEndDate(endDate)
@@ -101,6 +114,8 @@ const CalendarRangeModal = ({
             type='clear'
           />
           <StyledTextButton
+            style={textButtonStyles.container}
+            textStyle={textButtonStyles.text}
             onPress={() => {
               if (tempStartDate && tempEndDate) {
                 setStartDate(tempStartDate)

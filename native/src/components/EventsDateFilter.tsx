@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next'
 import styled from 'styled-components/native'
 
 import { CloseIcon } from '../assets'
+import CalendarRangeModal from './CalendarRangeModal'
 import DatePicker from './DatePicker'
 import FilterToggle from './FilterToggle'
 import Icon from './base/Icon'
@@ -17,6 +18,7 @@ const DateSection = styled.View`
   justify-content: center;
   align-items: center;
 `
+
 const StyledButton = styled.TouchableOpacity`
   display: flex;
   flex-direction: ${props => (props.theme.contentDirection === 'rtl' ? 'row-reverse' : 'row')};
@@ -25,10 +27,12 @@ const StyledButton = styled.TouchableOpacity`
   justify-content: center;
   align-self: ${props => (props.theme.contentDirection === 'rtl' ? 'flex-end' : 'flex-start')};
 `
+
 const StyledText = styled(Text)`
   font-weight: bold;
   padding: 5px;
 `
+
 type ResetFilterTextProps = {
   startDate: DateTime | null
   endDate: DateTime | null
@@ -36,7 +40,7 @@ type ResetFilterTextProps = {
 
 const ResetFilterText = ({ startDate, endDate }: ResetFilterTextProps) => {
   const { t } = useTranslation('events')
-  const title = `${t('resetFilter')} ${startDate?.toLocaleString() ?? '∞'} - ${endDate?.toLocaleString() ?? '∞'}`
+  const title = `${t('resetFilter')} ${startDate?.toLocal().toFormat('dd.MM.yyyy') ?? '∞'} - ${endDate?.toLocal().toFormat('dd.MM.yyyy') ?? '∞'}`
   return <StyledText>{title}</StyledText>
 }
 
@@ -62,6 +66,14 @@ const EventsDateFilter = ({
   const { t } = useTranslation('events')
   return (
     <>
+      <CalendarRangeModal
+        closeModal={() => setModalOpen(false)}
+        modalVisible={modalOpen}
+        startDate={startDate}
+        endDate={endDate}
+        setEndDate={setEndDate}
+        setStartDate={setStartDate}
+      />
       <DateSection>
         <FilterToggle toggle={showDateFilter} setToggleDateFilter={setShowDateFilter} />
         {showDateFilter && (

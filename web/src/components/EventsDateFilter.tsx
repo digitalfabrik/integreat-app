@@ -40,7 +40,7 @@ type ResetFilterTextProps = {
 
 const ResetFilterText = ({ startDate, endDate }: ResetFilterTextProps) => {
   const { t } = useTranslation('events')
-  const title = `${t('resetFilter')} ${startDate?.toLocaleString() ?? '∞'} - ${endDate?.toLocaleString() ?? '∞'}`
+  const title = `${t('resetFilter')} ${startDate?.toLocal().toFormat('dd.MM.yyyy') ?? '∞'} - ${endDate?.toLocal().toFormat('dd.MM.yyyy') ?? '∞'}`
   return <span>{title}</span>
 }
 

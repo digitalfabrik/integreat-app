@@ -10,6 +10,7 @@ const DateContainer = styled.div`
   width: fit-content;
   position: relative;
 `
+
 const StyledInput = styled.input`
   min-width: 316px;
   height: 56px;
@@ -43,6 +44,7 @@ const StyledInput = styled.input`
     min-width: 240px;
   }
 `
+
 const StyledTitle = styled.span`
   background-color: ${props => props.theme.colors.backgroundColor};
   position: absolute;
@@ -53,6 +55,7 @@ const StyledTitle = styled.span`
   font-size: 12px;
   font-weight: 400;
 `
+
 const StyledError = styled.div`
   font-size: 12px;
   font-weight: bold;

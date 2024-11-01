@@ -76,7 +76,7 @@ class DateModel {
 
     const now = DateTime.now()
     const duration = this._endDate.diff(this._startDate)
-    const startDate = filterStartDate ?? now
+    const startDate = filterStartDate && filterStartDate > now ? filterStartDate : now
     const minDate = startDate.minus(duration).minus({ minutes: startDate.offset }).toJSDate() // to also include events that are happening right now
     const maxDate = (filterEndDate ?? now.plus({ years: MAX_RECURRENCE_YEARS })).toJSDate()
 
