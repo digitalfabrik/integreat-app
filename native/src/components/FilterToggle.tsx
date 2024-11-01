@@ -34,4 +34,5 @@ const FilterToggle = ({ toggle, setToggleDateFilter }: DateFilterToggleProps): R
     </StyledButton>
   )
 }
+
 export default FilterToggle

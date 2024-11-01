@@ -53,6 +53,7 @@ type EventsDateFilterProps = {
   modalOpen: boolean
   setModalOpen: (modalOpen: boolean) => void
 }
+
 const EventsDateFilter = ({
   startDate,
   setStartDate,
@@ -111,4 +112,5 @@ const EventsDateFilter = ({
     </>
   )
 }
+
 export default EventsDateFilter

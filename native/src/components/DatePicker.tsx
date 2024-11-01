@@ -70,6 +70,7 @@ export type DatePickerProps = {
   modalOpen: boolean
   setModalOpen: (open: boolean) => void
 }
+
 const DatePicker = ({ title, date, setDate, error, modalOpen, setModalOpen }: DatePickerProps): ReactElement => {
   const { t } = useTranslation('events')
   const [inputDay, setInputDay] = useState(date?.toFormat('dd'))
