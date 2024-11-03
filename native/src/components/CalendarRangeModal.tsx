@@ -43,6 +43,7 @@ export type CalendarViewerProps = {
   endDate: DateTime | null
   setStartDate: (startDate: DateTime) => void
   setEndDate: (endDate: DateTime) => void
+  currentInput?: string
 }
 
 const CalendarRangeModal = ({
@@ -52,6 +53,7 @@ const CalendarRangeModal = ({
   endDate,
   setStartDate,
   setEndDate,
+  currentInput,
 }: CalendarViewerProps): ReactElement => {
   const [tempStartDate, setTempStartDate] = useState<DateTime | null>(startDate)
   const [tempEndDate, setTempEndDate] = useState<DateTime | null>(endDate)
@@ -90,7 +92,7 @@ const CalendarRangeModal = ({
         <Caption title={t('selectRange')} />
         <Calendar
           markingType='period'
-          markedDates={getMarkedDates(tempStartDate, tempEndDate, theme)}
+          markedDates={getMarkedDates(tempStartDate, tempEndDate, theme, currentInput ?? '')}
           onDayPress={handleDayPress}
           theme={{
             calendarBackground: theme.colors.textDecorationColor,
@@ -117,15 +119,24 @@ const CalendarRangeModal = ({
             style={textButtonStyles.container}
             textStyle={textButtonStyles.text}
             onPress={() => {
-              if (tempStartDate && tempEndDate) {
+              if (tempStartDate && currentInput === 'from' && tempEndDate == null) {
+                setStartDate(tempStartDate)
+              } else if (tempStartDate && currentInput === 'to' && tempEndDate == null) {
+                setEndDate(tempStartDate)
+              } else if (tempStartDate && tempEndDate) {
                 setStartDate(tempStartDate)
                 setEndDate(tempEndDate)
               }
+              setTempStartDate(null)
+              setTempEndDate(null)
               closeModal()
             }}
             text={t('common:ok')}
             type='clear'
-            disabled={tempStartDate === null || tempEndDate === null || tempStartDate > tempEndDate}
+            disabled={
+              (tempStartDate === null && tempEndDate === null) ||
+              Boolean(tempStartDate && tempEndDate && tempStartDate > tempEndDate)
+            }
           />
         </StyledView>
       </DatePickerWrapper>

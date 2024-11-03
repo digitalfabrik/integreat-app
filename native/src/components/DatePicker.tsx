@@ -69,9 +69,18 @@ export type DatePickerProps = {
   error?: string
   modalOpen: boolean
   setModalOpen: (open: boolean) => void
+  setCurrentRefIdentifier?: () => void
 }
 
-const DatePicker = ({ title, date, setDate, error, modalOpen, setModalOpen }: DatePickerProps): ReactElement => {
+const DatePicker = ({
+  title,
+  date,
+  setDate,
+  error,
+  modalOpen,
+  setModalOpen,
+  setCurrentRefIdentifier,
+}: DatePickerProps): ReactElement => {
   const { t } = useTranslation('events')
   const [inputDay, setInputDay] = useState(date?.toFormat('dd'))
   const [inputMonth, setInputMonth] = useState(date?.toFormat('MM'))
@@ -190,6 +199,9 @@ const DatePicker = ({ title, date, setDate, error, modalOpen, setModalOpen }: Da
           accessibilityLabel='calenderEventsIcon'
           onPress={() => {
             setModalOpen(true)
+            if (setCurrentRefIdentifier) {
+              setCurrentRefIdentifier()
+            }
           }}
         />
       </StyledInputWrapper>

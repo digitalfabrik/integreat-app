@@ -1,5 +1,5 @@
 import { DateTime } from 'luxon'
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import styled from 'styled-components/native'
 
@@ -65,6 +65,15 @@ const EventsDateFilter = ({
 }: EventsDateFilterProps): JSX.Element => {
   const [showDateFilter, setShowDateFilter] = useState(false)
   const { t } = useTranslation('events')
+  const currentInput = useRef<string>('from')
+
+  const handleFromCurrentInput = () => {
+    currentInput.current = 'from'
+  }
+  const handleToCurrentInput = () => {
+    currentInput.current = 'to'
+  }
+
   return (
     <>
       <CalendarRangeModal
@@ -74,6 +83,7 @@ const EventsDateFilter = ({
         endDate={endDate}
         setEndDate={setEndDate}
         setStartDate={setStartDate}
+        currentInput={currentInput.current}
       />
       <DateSection>
         <FilterToggle toggle={showDateFilter} setToggleDateFilter={setShowDateFilter} />
@@ -86,6 +96,7 @@ const EventsDateFilter = ({
               title={t('from')}
               error={startDateError ? t(startDateError) : ''}
               date={startDate}
+              setCurrentRefIdentifier={handleFromCurrentInput}
             />
             <DatePicker
               modalOpen={modalOpen}
@@ -93,6 +104,7 @@ const EventsDateFilter = ({
               setDate={setEndDate}
               title={t('to')}
               date={endDate}
+              setCurrentRefIdentifier={handleToCurrentInput}
             />
           </>
         )}

@@ -12,6 +12,7 @@ export const getMarkedDates = (
   startDate: DateTime | null,
   endDate: DateTime | null,
   theme: ThemeType,
+  currentInput: string,
 ): Record<string, MarkedDateType> => {
   const markedDateStyling = {
     color: theme.colors.themeColor,
@@ -26,16 +27,33 @@ export const getMarkedDates = (
   if (!startDate || startDate < cutoffStartDate || (endDate !== null && endDate > cutoffEndDate)) {
     return {}
   }
-  const safeEndDate = endDate ?? startDate
-  let currentDate = startDate
-  while (currentDate <= safeEndDate) {
-    markedDates[currentDate.toISODate()] = {
+
+  if (currentInput === 'to' && endDate === null) {
+    markedDates[startDate.toISODate()] = {
       selected: true,
-      startingDay: startDate.equals(currentDate),
-      endingDay: endDate?.equals(currentDate),
+      startingDay: false,
+      endingDay: true,
       ...markedDateStyling,
     }
-    currentDate = currentDate.plus({ days: 1 })
+  } else if (currentInput === 'from' && endDate === null) {
+    markedDates[startDate.toISODate()] = {
+      selected: true,
+      startingDay: true,
+      endingDay: false,
+      ...markedDateStyling,
+    }
+  } else {
+    let currentDate = startDate
+    const safeEndDate = endDate ?? startDate
+    while (currentDate <= safeEndDate) {
+      markedDates[currentDate.toISODate()] = {
+        selected: true,
+        startingDay: startDate.equals(currentDate),
+        endingDay: safeEndDate.equals(currentDate),
+        ...markedDateStyling,
+      }
+      currentDate = currentDate.plus({ days: 1 })
+    }
   }
 
   return markedDates
