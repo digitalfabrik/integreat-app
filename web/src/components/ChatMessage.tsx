@@ -1,3 +1,4 @@
+import { TFunction } from 'i18next'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router-dom'
@@ -5,7 +6,7 @@ import styled from 'styled-components'
 
 import ChatMessageModel from 'shared/api/models/ChatMessageModel'
 
-import buildConfig from '../constants/buildConfig'
+import { ChatBot, ChatPerson } from '../assets'
 import RemoteContent from './RemoteContent'
 import Icon from './base/Icon'
 
@@ -49,17 +50,22 @@ const Circle = styled.div`
 
 type ChatMessageProps = { message: ChatMessageModel; showIcon: boolean }
 
+const getIcon = (userIsAuthor: boolean, isAutomaticAnswer: boolean, t: TFunction<'chat'>): ReactElement => {
+  if (userIsAuthor) {
+    return <Circle>{t('user')}</Circle>
+  }
+  const icon = isAutomaticAnswer ? ChatBot : ChatPerson
+  return <Icon src={icon} />
+}
+
 const ChatMessage = ({ message, showIcon }: ChatMessageProps): ReactElement => {
-  // TODO 2799 Check if Remote content is really needed here or how external links will be delivered via api
-  const { icons } = buildConfig()
   const navigate = useNavigate()
   const { t } = useTranslation('chat')
-  const { body, userIsAuthor } = message
+  const { body, userIsAuthor, isAutomaticAnswer } = message
+
   return (
     <Container $isAuthor={userIsAuthor}>
-      <IconContainer $visible={showIcon}>
-        {userIsAuthor ? <Circle>{t('user')}</Circle> : <Icon src={icons.appLogoMobile} />}
-      </IconContainer>
+      <IconContainer $visible={showIcon}>{getIcon(userIsAuthor, isAutomaticAnswer, t)}</IconContainer>
       <Message data-testid={message.id}>
         <RemoteContent html={body} onInternalLinkClick={navigate} smallText />
       </Message>
