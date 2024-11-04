@@ -7,19 +7,13 @@ import { CategoryModel, OfferModel } from 'shared/api'
 
 import EmbeddedOffers from '../EmbeddedOffers'
 
-jest.mock('../SprungbrettOffer', () => {
-  const MockedSprungbrettOffer = ({ sprungbrettOffer }: { sprungbrettOffer: OfferModel }) => (
-    <div>This is the Sprungbrett offer called {sprungbrettOffer.title}</div>
-  )
-  return MockedSprungbrettOffer
-})
+jest.mock('../SprungbrettOffer', () => ({ sprungbrettOffer }: { sprungbrettOffer: OfferModel }) => (
+  <div>This is the Sprungbrett offer called {sprungbrettOffer.title}</div>
+))
 
-jest.mock('../MalteHelpForm', () => {
-  const MockedMalteHelpForm = ({ malteHelpFormOffer }: { malteHelpFormOffer: OfferModel }) => (
-    <div>This is the Malte help form called {malteHelpFormOffer.title}</div>
-  )
-  return MockedMalteHelpForm
-})
+jest.mock('../MalteHelpForm', () => ({ malteHelpFormOffer }: { malteHelpFormOffer: OfferModel }) => (
+  <div>This is the Malte help form called {malteHelpFormOffer.title}</div>
+))
 
 describe('EmbeddedOffers', () => {
   const createCategory = (offer: OfferModel) =>
