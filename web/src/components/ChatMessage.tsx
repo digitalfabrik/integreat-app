@@ -7,7 +7,6 @@ import styled from 'styled-components'
 import ChatMessageModel from 'shared/api/models/ChatMessageModel'
 
 import { ChatBot, ChatPerson } from '../assets'
-import buildConfig from '../constants/buildConfig'
 import RemoteContent from './RemoteContent'
 import Icon from './base/Icon'
 
