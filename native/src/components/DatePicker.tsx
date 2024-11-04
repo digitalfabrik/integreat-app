@@ -1,7 +1,7 @@
 import { DateTime } from 'luxon'
 import React, { ReactElement, RefObject, useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { TextInput } from 'react-native'
+import { NativeSyntheticEvent, TextInput, TextInputKeyPressEventData } from 'react-native'
 import styled from 'styled-components/native'
 
 import { CalendarTodayIcon } from '../assets'
@@ -10,16 +10,17 @@ import IconButton from './base/IconButton'
 import Text from './base/Text'
 
 const DateContainer = styled.View`
-  width: fit-content;
+  width: auto;
   position: relative;
 `
 
 const Input = styled(TextInput)`
   text-align: center;
+  min-width: 20%;
 `
 
 const StyledInputWrapper = styled.View`
-  min-width: 316px;
+  min-width: 80%;
   height: 56px;
   padding: 0 16px;
   border-radius: 8px;
@@ -33,8 +34,8 @@ const StyledInputWrapper = styled.View`
 
 const Wrapper = styled.View`
   flex-direction: row;
-  justify-content: space-between;
   align-items: center;
+  width: 50%;
 `
 
 const StyledIconButton = styled(IconButton)<{ $isModalOpen: boolean }>`
@@ -71,6 +72,14 @@ export type DatePickerProps = {
   setModalOpen: (open: boolean) => void
 }
 
+const handleKeyPress = (key: string, currentInput: string | undefined, refPrev?: RefObject<TextInput>) => {
+  if (key === 'Backspace') {
+    if (currentInput?.length === 0 && refPrev) {
+      refPrev.current?.focus()
+    }
+  }
+}
+
 const DatePicker = ({ title, date, setDate, error, modalOpen, setModalOpen }: DatePickerProps): ReactElement => {
   const { t } = useTranslation('events')
   const [inputDay, setInputDay] = useState(date?.toFormat('dd'))
@@ -81,7 +90,7 @@ const DatePicker = ({ title, date, setDate, error, modalOpen, setModalOpen }: Da
   const yearRef = useRef<TextInput>(null)
   const maxDays = 31
   const maxMonths = 12
-  const maxYears = 9999
+  const maxYears = 3000
 
   useEffect(() => {
     try {
@@ -155,6 +164,7 @@ const DatePicker = ({ title, date, setDate, error, modalOpen, setModalOpen }: Da
             onChangeText={text => {
               handleOnChangeText(text, setInputDay, maxDays, monthRef)
             }}
+            selectTextOnFocus
             value={inputDay}
           />
           <Text>.</Text>
@@ -168,10 +178,15 @@ const DatePicker = ({ title, date, setDate, error, modalOpen, setModalOpen }: Da
             onChangeText={text => {
               handleOnChangeText(text, setInputMonth, maxMonths, yearRef)
             }}
+            selectTextOnFocus
             value={inputMonth}
+            onKeyPress={({ nativeEvent }: NativeSyntheticEvent<TextInputKeyPressEventData>) => {
+              handleKeyPress(nativeEvent.key, inputMonth, dayRef)
+            }}
           />
           <Text>.</Text>
           <Input
+            style={{ marginLeft: 6 }}
             ref={yearRef}
             placeholder={t('yyyy')}
             testID='DatePicker-year'
@@ -181,6 +196,10 @@ const DatePicker = ({ title, date, setDate, error, modalOpen, setModalOpen }: Da
             onChangeText={text => {
               handleOnChangeText(text, setInputYear, maxYears)
             }}
+            onKeyPress={({ nativeEvent }: NativeSyntheticEvent<TextInputKeyPressEventData>) => {
+              handleKeyPress(nativeEvent.key, inputYear, monthRef)
+            }}
+            selectTextOnFocus
             value={inputYear}
           />
         </Wrapper>
