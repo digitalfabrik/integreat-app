@@ -8,10 +8,8 @@ import ChatConversation from '../ChatConversation'
 jest.mock('react-i18next')
 window.HTMLElement.prototype.scrollIntoView = jest.fn()
 
-const render = (messages: ChatMessageModel[], hasConversationStarted: boolean, hasError: boolean) =>
-  renderWithRouterAndTheme(
-    <ChatConversation messages={messages} hasConversationStarted={hasConversationStarted} hasError={hasError} />,
-  )
+const render = (messages: ChatMessageModel[], hasError: boolean) =>
+  renderWithRouterAndTheme(<ChatConversation messages={messages} hasError={hasError} />)
 
 describe('ChatConversation', () => {
   const testMessages: ChatMessageModel[] = [
@@ -30,20 +28,20 @@ describe('ChatConversation', () => {
   ]
 
   it('should display welcome text if conversation has not started', () => {
-    const { getByText } = render([], false, false)
+    const { getByText } = render([], false)
     expect(getByText('chat:conversationTitle')).toBeTruthy()
     expect(getByText('chat:conversationText')).toBeTruthy()
   })
 
   it('should display messages if conversation has started and the initial message', () => {
-    const { getByText, getByTestId } = render(testMessages, true, false)
+    const { getByText, getByTestId } = render(testMessages, false)
     expect(getByText('chat:initialMessage')).toBeTruthy()
     expect(getByTestId(testMessages[0]!.id)).toBeTruthy()
     expect(getByTestId(testMessages[1]!.id)).toBeTruthy()
   })
 
   it('should display error messages if error occurs', () => {
-    const { getByText } = render([], true, true)
+    const { getByText } = render([], true)
     expect(getByText('chat:errorMessage')).toBeTruthy()
   })
 })

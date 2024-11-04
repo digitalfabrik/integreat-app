@@ -1,6 +1,6 @@
 export const filter = 'wirschaffendas'
 export const contentSearch = 'language'
-export const defaultCity = 'Testumgebung Ende-zu-Ende-Testing'
+export const defaultCity = 'E2E-Testumgebung'
 export const augsburgCity = 'Stadt Augsburg'
 export const language = 'en'
 

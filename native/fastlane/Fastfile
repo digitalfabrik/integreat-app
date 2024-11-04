@@ -66,8 +66,8 @@ platform :android do
   # version_code: The version code of the app
   # version_name: The version name of the app
   # build_config_name: The name of the build config
-  # apk_path: The path of the apk to upload (relative to home dir)
-  # production_delivery: Whether the apk should be uploaded to the production track
+  # aab_path: The path of the aab to upload (relative to home dir)
+  # production_delivery: Whether the aab should be uploaded to the production track
   desc "Deliver the app to Play Store. Depending on the option `production_delivery` the update is released to the general public."
   lane :playstore_upload do |options|
     ensure_env_vars(
@@ -77,10 +77,10 @@ platform :android do
     version_code = options[:version_code]
     version_name = options[:version_name]
     build_config_name = options[:build_config_name]
-    apk_path = options[:apk_path]
+    aab_path = options[:aab_path]
     production_delivery = options[:production_delivery]
 
-    if [version_name, version_code, build_config_name, apk_path, production_delivery].include?(nil)
+    if [version_name, version_code, build_config_name, aab_path, production_delivery].include?(nil)
       raise "'nil' passed as parameter! Aborting..."
     end
 
@@ -102,7 +102,7 @@ platform :android do
         skip_upload_screenshots: skip_images,
         skip_upload_metadata: false,
         release_status: "completed",
-        apk: "#{ENV['HOME']}/#{apk_path}",
+        aab: "#{ENV['HOME']}/#{aab_path}",
         json_key_data: ENV["GOOGLE_SERVICE_ACCOUNT_JSON"]
     )
   end
@@ -153,6 +153,7 @@ platform :android do
       skip_upload_screenshots: true,
       skip_upload_metadata: true,
       skip_upload_apk: true,
+      skip_upload_aab: true,
       release_status: "completed",
       json_key_data: ENV["GOOGLE_SERVICE_ACCOUNT_JSON"]
     )
