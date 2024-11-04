@@ -2,5 +2,5 @@ issue_key: 2949
 show_in_stores: true
 platforms:
   - android
-en: A coarse location permission is now seen as an accepted permission
-de: Erlaubnis zur groben Ortung zählt jetzt als erlaubt
+en: Fix location detection if only granted approximate permission.
+de: Die Standortbestimmung funktioniert nun auch, wenn nur eine grobe Bestimmung erlaubt wird.
