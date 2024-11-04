@@ -7,21 +7,21 @@ import { CategoryModel, OfferModel } from 'shared/api'
 import render from '../../testing/render'
 import EmbeddedOffers from '../EmbeddedOffers'
 
-jest.mock('../SprungbrettOffer', () => ({
-  __esModule: true,
-  default: ({ sprungbrettOffer }: { sprungbrettOffer: OfferModel }) => {
+jest.mock('../SprungbrettOffer.tsx', () => {
+  const MockedSprungbrettOffer = ({ sprungbrettOffer }: { sprungbrettOffer: OfferModel }) => {
     const { Text } = require('react-native')
     return <Text>This is the Sprungbrett offer called {sprungbrettOffer.title}</Text>
-  },
-}))
+  }
+  return MockedSprungbrettOffer
+})
 
-jest.mock('../MalteHelpFormOffer', () => ({
-  __esModule: true,
-  default: ({ malteHelpFormOffer }: { malteHelpFormOffer: OfferModel }) => {
+jest.mock('../MalteHelpFormOffer', () => {
+  const MockedMalteHelpForm = ({ malteHelpFormOffer }: { malteHelpFormOffer: OfferModel }) => {
     const { Text } = require('react-native')
     return <Text>This is the Malte help form called {malteHelpFormOffer.title}</Text>
-  },
-}))
+  }
+  return MockedMalteHelpForm
+})
 
 describe('EmbeddedOffers', () => {
   const createCategory = (offer: OfferModel) =>
