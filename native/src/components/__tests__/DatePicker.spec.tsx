@@ -21,7 +21,7 @@ describe('DatePickerForNative', () => {
       />,
     )
 
-  it('renders correctly with given props', () => {
+  it('should render the given props correctly', () => {
     const { getByText } = renderCustomDatePicker({
       modalOpen: false,
       setModalOpen,
@@ -34,8 +34,8 @@ describe('DatePickerForNative', () => {
     expect(getByText('Test DatePicker')).toBeTruthy()
   })
 
-  it('updates date state and calls setValue with correct date', () => {
-    const { getByTestId } = renderCustomDatePicker({
+  it('should update date state and calls setValue with correct date', () => {
+    const { getByPlaceholderText } = renderCustomDatePicker({
       modalOpen: false,
       setModalOpen,
       setDate,
@@ -44,9 +44,9 @@ describe('DatePickerForNative', () => {
       error: '',
     })
 
-    const dayInput = getByTestId('DatePicker-day')
-    const monthInput = getByTestId('DatePicker-month')
-    const yearInput = getByTestId('DatePicker-year')
+    const dayInput = getByPlaceholderText('dd')
+    const monthInput = getByPlaceholderText('mm')
+    const yearInput = getByPlaceholderText('yyyy')
 
     fireEvent.changeText(dayInput, '15')
     fireEvent.changeText(monthInput, '08')
@@ -55,7 +55,7 @@ describe('DatePickerForNative', () => {
     expect(setDate).toHaveBeenCalledWith(DateTime.fromFormat('15/08/2024', 'dd/MM/yyyy'))
   })
 
-  it('handles errors gracefully', () => {
+  it('should show errors correctly', () => {
     const { getByText } = renderCustomDatePicker({
       modalOpen: false,
       setModalOpen,
@@ -66,5 +66,55 @@ describe('DatePickerForNative', () => {
     })
 
     expect(getByText('Invalid date')).toBeTruthy()
+  })
+
+  it('should not allow day greater than 31', () => {
+    const { getByPlaceholderText } = renderCustomDatePicker({
+      modalOpen: false,
+      setModalOpen,
+      setDate,
+      title: 'Test DatePicker',
+      date: null,
+      error: '',
+    })
+
+    const dayInput = getByPlaceholderText('dd')
+
+    fireEvent.changeText(dayInput, '32')
+    expect(dayInput.props.value).toBe('')
+  })
+
+  it('should not allow month greater than 12', () => {
+    const { getByPlaceholderText } = renderCustomDatePicker({
+      modalOpen: false,
+      setModalOpen,
+      setDate,
+      title: 'Test DatePicker',
+      date: null,
+      error: '',
+    })
+
+    const monthInput = getByPlaceholderText('mm')
+
+    fireEvent.changeText(monthInput, '13')
+    expect(monthInput.props.value).toBe('')
+  })
+
+  it('should format the day with leading zero on blur', () => {
+    const { getByPlaceholderText } = renderCustomDatePicker({
+      modalOpen: false,
+      setModalOpen,
+      setDate,
+      title: 'Test DatePicker',
+      date: null,
+      error: '',
+    })
+
+    const dayInput = getByPlaceholderText('dd')
+
+    fireEvent.changeText(dayInput, '5')
+    fireEvent(dayInput, 'blur')
+
+    expect(dayInput.props.value).toBe('05')
   })
 })
