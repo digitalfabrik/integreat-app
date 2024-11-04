@@ -7,7 +7,7 @@ import { CategoryModel, OfferModel } from 'shared/api'
 import render from '../../testing/render'
 import EmbeddedOffers from '../EmbeddedOffers'
 
-jest.mock('../SprungbrettOffer.tsx', () => {
+jest.mock('../SprungbrettOffer', () => {
   const MockedSprungbrettOffer = ({ sprungbrettOffer }: { sprungbrettOffer: OfferModel }) => {
     const { Text } = require('react-native')
     return <Text>This is the Sprungbrett offer called {sprungbrettOffer.title}</Text>

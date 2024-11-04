@@ -7,7 +7,7 @@ import { CategoryModel, OfferModel } from 'shared/api'
 
 import EmbeddedOffers from '../EmbeddedOffers'
 
-jest.mock('../SprungbrettOffer.tsx', () => {
+jest.mock('../SprungbrettOffer', () => {
   const MockedSprungbrettOffer = ({ sprungbrettOffer }: { sprungbrettOffer: OfferModel }) => (
     <div>This is the Sprungbrett offer called {sprungbrettOffer.title}</div>
   )
