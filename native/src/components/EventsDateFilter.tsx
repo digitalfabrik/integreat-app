@@ -67,11 +67,13 @@ const EventsDateFilter = ({
   const { t } = useTranslation('events')
   const currentInput = useRef<string>('from')
 
-  const handleFromCurrentInput = () => {
+  const setModalOpenAndCurrentInputFrom = (openModal: boolean) => {
     currentInput.current = 'from'
+    setModalOpen(openModal)
   }
-  const handleToCurrentInput = () => {
+  const setModalOpenAndCurrentInputTo = (openModal: boolean) => {
     currentInput.current = 'to'
+    setModalOpen(openModal)
   }
 
   return (
@@ -91,20 +93,18 @@ const EventsDateFilter = ({
           <>
             <DatePicker
               modalOpen={modalOpen}
-              setModalOpen={setModalOpen}
+              setModalOpen={setModalOpenAndCurrentInputFrom}
               setDate={setStartDate}
               title={t('from')}
               error={startDateError ? t(startDateError) : ''}
               date={startDate}
-              setCurrentRefIdentifier={handleFromCurrentInput}
             />
             <DatePicker
               modalOpen={modalOpen}
-              setModalOpen={setModalOpen}
+              setModalOpen={setModalOpenAndCurrentInputTo}
               setDate={setEndDate}
               title={t('to')}
               date={endDate}
-              setCurrentRefIdentifier={handleToCurrentInput}
             />
           </>
         )}
