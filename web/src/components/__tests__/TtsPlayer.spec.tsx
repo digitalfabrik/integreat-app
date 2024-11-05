@@ -59,7 +59,7 @@ describe('TtsPlayer', () => {
 
     expect(EasySpeech.speak).toHaveBeenCalledWith(
       expect.objectContaining({
-        text: 'This is a test.',
+        text: 'test. This is a test.',
         voice: { lang: 'en-US' },
         pitch: 1,
         rate: 1,
@@ -113,6 +113,6 @@ describe('TtsPlayer', () => {
 
     unmount()
 
-    expect(EasySpeech.reset).toHaveBeenCalled()
+    expect(EasySpeech.cancel).toHaveBeenCalled()
   })
 })

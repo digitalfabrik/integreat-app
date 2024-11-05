@@ -5506,7 +5506,9 @@
       "accessibility": "Barrierefreiheit",
       "readAloud": "Vorlesefunktion",
       "prev": "Zurück",
-      "next": "Weiter"
+      "next": "Weiter",
+      "languageNotSupported": "Sprache nicht unterstützt",
+      "voiceUnavailableMessage": "Diese Stimme ist im Moment nicht verfügbar; für die ausgewählte Sprache ist eine Installation erforderlich."
     },
     "am": {
       "imprintAndContact": "ዕትም እና የግንኙነት መረጃ",
@@ -5557,7 +5559,9 @@
       "sideBarCloseAriaLabel": "غلق الشريط الجانبي",
       "readAloud": "قراءة بصوت عالٍ",
       "prev": "السابق",
-      "next": "التالي"
+      "next": "التالي",
+      "languageNotSupported": "اللغة غير مدعومة",
+      "voiceUnavailableMessage": "هذا الصوت غير متاح في الوقت الحالي؛ يتطلب تثبيت اللغة المختارة."
     },
     "bg": {
       "imprintAndContact": "Импресум и контакт",
@@ -5681,7 +5685,9 @@
       "accessibility": "Accessibility",
       "readAloud": "Read aloud",
       "prev": "Prev",
-      "next": "Next"
+      "next": "Next",
+      "languageNotSupported": "Language not supported",
+      "voiceUnavailableMessage": "This voice is currently unavailable; installation is required for the selected language."
     },
     "es": {
       "imprintAndContact": "Aviso legal y contacto",

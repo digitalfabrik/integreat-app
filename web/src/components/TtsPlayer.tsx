@@ -148,32 +148,23 @@ const TtsPlayer = ({ languageCode }: TtsPlayerProps): ReactElement | null => {
   const [sentences, setSentences] = useState<string[]>([])
   const [showHelpModal, setShowHelpModal] = useState(false)
   const numOfSentencesToSkip = 1
-  const EasySpeechInfo = EasySpeech.detect()
+  const EasySpeechSpeechSynthesis = EasySpeech.detect().speechSynthesis
   const allowIncrement = useRef(true)
   const maxTitle = 20
   const isTitleLong = title.length > maxTitle ? title.substring(0, maxTitle).concat('...') : title || t('readAloud')
   const userAgent = navigator.userAgent
   const isAndroid = Boolean(/android/i.test(userAgent))
+  const volumeRef = useRef(volume)
 
   const handleBoundary = (event: SpeechSynthesisEvent) => {
     if (event.name === 'sentence' && allowIncrement.current) {
       setCurrentSentenceIndex((prevIndex: number) => prevIndex + 1)
     }
     allowIncrement.current = true
-    if (currentSentencesIndex >= sentences.length - 1) {
-      setCurrentSentenceIndex(0)
-      setIsPlaying(false)
-      setExpandPlayer(false)
-    }
   }
 
   useEffect(() => {
     EasySpeech.init({ maxTimeout: 5000, interval: 250 }).catch(e => reportError(e))
-    return () => {
-      EasySpeech.cancel()
-      EasySpeech.reset()
-      setCurrentSentenceIndex(0)
-    }
   }, [])
 
   useEffect(() => {
@@ -197,26 +188,45 @@ const TtsPlayer = ({ languageCode }: TtsPlayerProps): ReactElement | null => {
     appendPeriod(paragraphs)
 
     const textContent = tempDiv.textContent || tempDiv.innerText
-    setSentences(segment(languageCode, textContent))
+    setSentences([title.concat('.'), ...segment(languageCode, textContent)])
     setCurrentSentenceIndex(0)
-  }, [content, languageCode])
+
+    return () => {
+      if (EasySpeechSpeechSynthesis) {
+        EasySpeech.cancel()
+      }
+      setCurrentSentenceIndex(0)
+      setIsPlaying(false)
+      setExpandPlayer(false)
+    }
+  }, [EasySpeechSpeechSynthesis, content, languageCode, title])
 
   const startReading = async (index = currentSentencesIndex) => {
     EasySpeech.cancel()
     const voices = EasySpeech.voices()
     const selectedVoice = voices.find((voice: SpeechSynthesisVoice) => voice.lang.startsWith(languageCode))
+    const currentVolume = volumeRef.current
     if (selectedVoice == null) {
       setSentences([])
       setShowHelpModal(true)
       return
     }
+
     await EasySpeech.speak({
       text: sentences.slice(index).join(' '),
       voice: selectedVoice,
       pitch: 1,
       rate: 1,
-      volume,
+      volume: currentVolume,
       boundary: e => handleBoundary(e),
+      end: () => {
+        // Added if statement to make sure that firefox is running this only at the end
+        if (currentSentencesIndex + 2 >= sentences.length - 1) {
+          setCurrentSentenceIndex(0)
+          setIsPlaying(false)
+          setExpandPlayer(false)
+        }
+      },
     }).catch(() => null)
   }
 
@@ -224,7 +234,8 @@ const TtsPlayer = ({ languageCode }: TtsPlayerProps): ReactElement | null => {
     EasySpeech.pause()
     setIsPlaying(false)
   }
-  const withSkip = async (action: () => Promise<void>) => {
+
+  const boundaryGuard = async (action: () => Promise<void>) => {
     allowIncrement.current = true
     try {
       await action()
@@ -232,6 +243,7 @@ const TtsPlayer = ({ languageCode }: TtsPlayerProps): ReactElement | null => {
       allowIncrement.current = false
     }
   }
+
   const togglePlayPause = () => {
     if (isPlaying) {
       pauseReading()
@@ -240,7 +252,7 @@ const TtsPlayer = ({ languageCode }: TtsPlayerProps): ReactElement | null => {
       EasySpeech.resume()
     } else {
       setIsPlaying(true)
-      withSkip(() => startReading())
+      boundaryGuard(() => startReading())
     }
     setExpandPlayer(!isPlaying)
   }
@@ -251,7 +263,7 @@ const TtsPlayer = ({ languageCode }: TtsPlayerProps): ReactElement | null => {
     }
     setCurrentSentenceIndex(prevIndex => {
       const newIndex = Math.min(prevIndex + numOfSentencesToSkip, sentences.length - 1)
-      withSkip(() => startReading(newIndex))
+      boundaryGuard(() => startReading(newIndex))
       return newIndex
     })
   }
@@ -262,7 +274,7 @@ const TtsPlayer = ({ languageCode }: TtsPlayerProps): ReactElement | null => {
     }
     setCurrentSentenceIndex(prevIndex => {
       const newIndex = Math.max(0, prevIndex - numOfSentencesToSkip)
-      withSkip(() => startReading(newIndex))
+      boundaryGuard(() => startReading(newIndex))
       return newIndex
     })
   }
@@ -270,8 +282,8 @@ const TtsPlayer = ({ languageCode }: TtsPlayerProps): ReactElement | null => {
   const handleVolumeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const newVolume = parseFloat(event.target.value)
     setVolume(newVolume)
-    EasySpeech.cancel()
-    withSkip(() => startReading())
+    volumeRef.current = newVolume
+    boundaryGuard(() => startReading(currentSentencesIndex))
   }
 
   const handleClose = () => {
@@ -281,6 +293,7 @@ const TtsPlayer = ({ languageCode }: TtsPlayerProps): ReactElement | null => {
     setCurrentSentenceIndex(0)
     setIsPlaying(false)
   }
+
   if (visible) {
     return (
       <>
@@ -329,6 +342,7 @@ const TtsPlayer = ({ languageCode }: TtsPlayerProps): ReactElement | null => {
       </>
     )
   }
+
   return null
 }
 

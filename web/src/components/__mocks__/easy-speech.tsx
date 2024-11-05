@@ -5,7 +5,9 @@ const MockTts = {
   cancel: jest.fn(),
   pause: jest.fn(),
   resume: jest.fn(),
-  detect: jest.fn(),
+  detect: jest.fn().mockReturnValue({
+    speechSynthesis: {},
+  }),
   voices: jest.fn().mockReturnValue([{ lang: 'en-US' }]),
 }
 

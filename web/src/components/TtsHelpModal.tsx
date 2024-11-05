@@ -1,4 +1,5 @@
 import React, { ReactElement } from 'react'
+import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
 import styled, { useTheme } from 'styled-components'
 
@@ -20,7 +21,7 @@ const ModalContent = styled.div`
 `
 
 const StyledWarningText = styled.div`
-  font-weight: 400;
+  font-family: ${props => props.theme.fonts.native.contentFontRegular};
   font-size: 14px;
   width: 70%;
   margin: 10px 0;
@@ -69,7 +70,7 @@ const helpItemsData = [
 ]
 const HelpModalItem = ({ icon, title, path }: { icon: string; title: string; path: string }) => (
   <div>
-    <StyledItem to={path}>
+    <StyledItem to={path} target='_blank'>
       <Icon src={icon} />
       <StyledText>{title}</StyledText>
     </StyledItem>
@@ -77,16 +78,15 @@ const HelpModalItem = ({ icon, title, path }: { icon: string; title: string; pat
 )
 const TtsHelpModal = ({ closeModal }: { closeModal: () => void }): ReactElement => {
   const theme = useTheme()
+  const { t } = useTranslation('layout')
   return (
     <Modal
       style={{ borderRadius: 5, backgroundColor: theme.colors.ttsPlayerWarningBackground }}
-      title='Sprache nicht unterstützt'
+      title={t('languageNotSupported')}
       icon={<StyledWarningIcon src={WarningIcon} />}
       closeModal={closeModal}>
       <ModalContent>
-        <StyledWarningText>
-          Diese Stimme ist im Moment nicht verfügbar; für die ausgewählte Sprache ist eine Installation erforderlich.
-        </StyledWarningText>
+        <StyledWarningText>{t('voiceUnavailableMessage')}</StyledWarningText>
         <StyledList>
           {helpItemsData.map((item, index) => (
             <HelpModalItem key={`guide${index + 1}`} title={item.title} icon={item.icon} path={item.path} />
