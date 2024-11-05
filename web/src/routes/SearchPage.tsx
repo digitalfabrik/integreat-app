@@ -25,7 +25,7 @@ const List = styled.ul`
   }
 `
 
-const SearchCounter = styled.p`
+const SearchCounter = styled.text`
   margin: 10px 5px;
   fontsize: 'small';
 `
