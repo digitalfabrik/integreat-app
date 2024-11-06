@@ -122,7 +122,7 @@ export type JsonEventType = {
 export type JsonTunewsType = {
   id: number
   title: string
-  tags: Array<string>
+  tags: string[]
   date: string
   content: string
   enewsno: string

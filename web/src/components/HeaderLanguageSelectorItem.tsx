@@ -9,7 +9,7 @@ import KebabActionItemDropDown from './KebabActionItemDropDown'
 import Selector from './Selector'
 
 type HeaderLanguageSelectorItemProps = {
-  selectorItems: Array<SelectorItemModel>
+  selectorItems: SelectorItemModel[]
   activeItemCode: string
   inKebabMenu?: boolean
   closeSidebar?: () => void
