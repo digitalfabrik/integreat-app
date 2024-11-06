@@ -10,7 +10,7 @@ import SearchListItem from '../SearchListItem'
 
 jest.mock('react-i18next')
 jest.mock('styled-components')
-jest.mock('react-native-webview', () => ({
+jest.mock('@dr.pogodin/react-native-webview', () => ({
   default: () => jest.fn(),
 }))
 

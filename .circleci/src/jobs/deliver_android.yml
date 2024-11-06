@@ -8,7 +8,7 @@ parameters:
     description: Whether to deliver the build to production.
     type: boolean
 docker:
-  - image: cimg/android:2024.04.1-node
+  - image: cimg/android:2024.08.1-node
 resource_class: small
 shell: /bin/bash -eo pipefail
 environment:
@@ -32,6 +32,6 @@ steps:
       working_directory: native
   - run:
       name: '[FL] Play Store Upload'
-      command: bundle exec fastlane android playstore_upload build_config_name:<< parameters.build_config_name >> apk_path:attached_workspace/<< parameters.build_config_name >>.apk production_delivery:"<< parameters.production_delivery >>" version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE}
+      command: bundle exec fastlane android playstore_upload build_config_name:<< parameters.build_config_name >> aab_path:attached_workspace/<< parameters.build_config_name >>.aab production_delivery:"<< parameters.production_delivery >>" version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE}
       working_directory: native
   - notify

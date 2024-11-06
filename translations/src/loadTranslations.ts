@@ -5,7 +5,9 @@ import transformTranslations from './transformTranslations'
 import { TranslationsType, TransformedTranslationsType } from './types'
 
 const loadTranslations = (translationsOverride?: TranslationsType): TransformedTranslationsType => {
-  const translations = translationsOverride ? deepmerge(defaultTranslations, translationsOverride) : defaultTranslations
+  const translations = translationsOverride
+    ? deepmerge(defaultTranslations as TranslationsType, translationsOverride)
+    : defaultTranslations
   return transformTranslations(translations)
 }
 

@@ -252,7 +252,7 @@ commands:
 jobs:
     build_android:
         docker:
-            - image: cimg/android:2024.04.1-node
+            - image: cimg/android:2024.08.1-node
         environment:
             FASTLANE_SKIP_UPDATE_CHECK: true
             TOTAL_CPUS: 4
@@ -266,7 +266,7 @@ jobs:
                     - integreat-test-cms
                     - aschaffenburg
                 type: enum
-        resource_class: large
+        resource_class: xlarge
         shell: /bin/bash -eo pipefail
         steps:
             - checkout
@@ -325,6 +325,16 @@ jobs:
             - persist_to_workspace:
                 paths:
                     - << parameters.build_config_name >>.apk
+                root: native/android
+            - run:
+                command: mv app/build/outputs/bundle/release/app-release.aab << parameters.build_config_name >>.aab
+                name: Rename aab
+                working_directory: native/android
+            - store_artifacts:
+                path: native/android/<< parameters.build_config_name >>.aab
+            - persist_to_workspace:
+                paths:
+                    - << parameters.build_config_name >>.aab
                 root: native/android
             - unless:
                 condition:
@@ -415,7 +425,7 @@ jobs:
             - notify
     build_web:
         docker:
-            - image: cimg/node:20.12.1
+            - image: cimg/node:20.17.0
         environment:
             TOTAL_CPUS: 2
         parameters:
@@ -460,7 +470,7 @@ jobs:
             - notify
     bump_version:
         docker:
-            - image: cimg/node:20.12.1
+            - image: cimg/node:20.17.0
         parameters:
             prepare_delivery:
                 default: false
@@ -502,7 +512,7 @@ jobs:
             - notify
     check:
         docker:
-            - image: cimg/node:20.12.1
+            - image: cimg/node:20.17.0
         environment:
             TOTAL_CPUS: 1
             TZ: Europe/Berlin
@@ -535,7 +545,7 @@ jobs:
             - notify
     deliver_android:
         docker:
-            - image: cimg/android:2024.04.1-node
+            - image: cimg/android:2024.08.1-node
         environment:
             FASTLANE_SKIP_UPDATE_CHECK: true
         parameters:
@@ -569,7 +579,7 @@ jobs:
                 name: '[FL] Browserstack Upload Live'
                 working_directory: native
             - run:
-                command: bundle exec fastlane android playstore_upload build_config_name:<< parameters.build_config_name >> apk_path:attached_workspace/<< parameters.build_config_name >>.apk production_delivery:"<< parameters.production_delivery >>" version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE}
+                command: bundle exec fastlane android playstore_upload build_config_name:<< parameters.build_config_name >> aab_path:attached_workspace/<< parameters.build_config_name >>.aab production_delivery:"<< parameters.production_delivery >>" version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE}
                 name: '[FL] Play Store Upload'
                 working_directory: native
             - notify
@@ -624,7 +634,7 @@ jobs:
             - notify
     deliver_web:
         docker:
-            - image: cimg/node:20.12.1
+            - image: cimg/node:20.17.0
         parameters:
             delivery:
                 description: Whether to deliver to production, beta or to webnext.
@@ -703,7 +713,7 @@ jobs:
             - notify
     e2e_android:
         docker:
-            - image: cimg/android:2024.04.1-node
+            - image: cimg/android:2024.08.1-node
         environment:
             FASTLANE_SKIP_UPDATE_CHECK: true
         resource_class: small
@@ -722,7 +732,7 @@ jobs:
             - notify
     e2e_ios:
         docker:
-            - image: cimg/android:2024.04.1-node
+            - image: cimg/android:2024.08.1-node
         environment:
             FASTLANE_SKIP_UPDATE_CHECK: true
         resource_class: small
@@ -741,7 +751,7 @@ jobs:
             - notify
     e2e_web:
         docker:
-            - image: cimg/node:20.12.1-browsers
+            - image: cimg/node:20.17.0-browsers
             - image: selenium/standalone-chrome
         resource_class: medium
         shell: /bin/bash -eo pipefail
@@ -760,7 +770,7 @@ jobs:
             - notify
     move_release_notes:
         docker:
-            - image: cimg/node:20.12.1
+            - image: cimg/node:20.17.0
         resource_class: small
         steps:
             - checkout
@@ -775,7 +785,7 @@ jobs:
             - notify
     notify_android:
         docker:
-            - image: cimg/node:20.12.1
+            - image: cimg/node:20.17.0
         parameters:
             production_delivery:
                 description: Whether builds are delivered to the production or beta lane of the play store.
@@ -808,7 +818,7 @@ jobs:
                 success_message: <<^ parameters.production_delivery >>[Beta] <</ parameters.production_delivery >>Integreat, Malte and Aschaffenburg ${NEW_VERSION_NAME} have been released successfully on Android!\n${RELEASE_NOTES}\n${ANDROID_ARTIFACT_URLS}
     notify_ios:
         docker:
-            - image: cimg/node:20.12.1
+            - image: cimg/node:20.17.0
         parameters:
             production_delivery:
                 description: Whether builds are delivered to the app store or testflight.
@@ -841,7 +851,7 @@ jobs:
                 success_message: <<^ parameters.production_delivery >>[Beta] <</ parameters.production_delivery >>Integreat, Malte and Aschaffenburg ${NEW_VERSION_NAME} have been released successfully on iOS!\n${RELEASE_NOTES}\n${IOS_ARTIFACT_URLS}
     notify_web:
         docker:
-            - image: cimg/node:20.12.1
+            - image: cimg/node:20.17.0
         parameters:
             production_delivery:
                 description: Whether builds are delivered to production or beta.
@@ -877,7 +887,7 @@ jobs:
                             ${RELEASE_NOTES}
     promote_android:
         docker:
-            - image: cimg/android:2024.04.1-node
+            - image: cimg/android:2024.08.1-node
         environment:
             FASTLANE_SKIP_UPDATE_CHECK: true
         parameters:
@@ -940,7 +950,7 @@ jobs:
             - notify
     promote_web:
         docker:
-            - image: cimg/node:20.12.1
+            - image: cimg/node:20.17.0
         resource_class: small
         shell: /bin/bash -eo pipefail
         steps:
@@ -969,7 +979,7 @@ jobs:
             - notify
     sentry_android:
         docker:
-            - image: cimg/node:20.12.1
+            - image: cimg/node:20.17.0
         resource_class: small
         shell: /bin/bash -eo pipefail
         steps:
@@ -989,7 +999,7 @@ jobs:
             - notify
     sentry_ios:
         docker:
-            - image: cimg/node:20.12.1
+            - image: cimg/node:20.17.0
         resource_class: small
         shell: /bin/bash -eo pipefail
         steps:
@@ -1009,7 +1019,7 @@ jobs:
             - notify
     sentry_web:
         docker:
-            - image: cimg/node:20.12.1
+            - image: cimg/node:20.17.0
         resource_class: small
         shell: /bin/bash -eo pipefail
         steps:
@@ -1032,7 +1042,7 @@ jobs:
             - notify
     upload_browserstack:
         docker:
-            - image: cimg/ruby:3.1.1
+            - image: cimg/ruby:3.2.5
         environment:
             FASTLANE_SKIP_UPDATE_CHECK: true
         parameters:
