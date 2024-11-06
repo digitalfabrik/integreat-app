@@ -154,6 +154,7 @@ const TtsPlayer = ({ languageCode }: TtsPlayerProps): ReactElement | null => {
   const isTitleLong = title.length > maxTitle ? title.substring(0, maxTitle).concat('...') : title || t('readAloud')
   const userAgent = navigator.userAgent
   const isAndroid = Boolean(/android/i.test(userAgent))
+  const isFirefox = userAgent.toLowerCase().includes('firefox')
   const volumeRef = useRef(volume)
 
   const handleBoundary = (event: SpeechSynthesisEvent) => {
@@ -161,6 +162,12 @@ const TtsPlayer = ({ languageCode }: TtsPlayerProps): ReactElement | null => {
       setCurrentSentenceIndex((prevIndex: number) => prevIndex + 1)
     }
     allowIncrement.current = true
+  }
+
+  const resetOnEnd = () => {
+    setCurrentSentenceIndex(0)
+    setIsPlaying(false)
+    setExpandPlayer(false)
   }
 
   useEffect(() => {
@@ -188,7 +195,9 @@ const TtsPlayer = ({ languageCode }: TtsPlayerProps): ReactElement | null => {
     appendPeriod(paragraphs)
 
     const textContent = tempDiv.textContent || tempDiv.innerText
-    setSentences([title.concat('.'), ...segment(languageCode, textContent)])
+    const sentencesFromSegment = segment(languageCode, textContent) ?? []
+
+    setSentences([title.concat('.'), ...sentencesFromSegment])
     setCurrentSentenceIndex(0)
 
     return () => {
@@ -200,6 +209,12 @@ const TtsPlayer = ({ languageCode }: TtsPlayerProps): ReactElement | null => {
       setExpandPlayer(false)
     }
   }, [EasySpeechSpeechSynthesis, content, languageCode, title])
+
+  useEffect(() => {
+    if (currentSentencesIndex + 1 >= sentences.length - 1) {
+      resetOnEnd()
+    }
+  }, [currentSentencesIndex, sentences])
 
   const startReading = async (index = currentSentencesIndex) => {
     EasySpeech.cancel()
@@ -220,11 +235,8 @@ const TtsPlayer = ({ languageCode }: TtsPlayerProps): ReactElement | null => {
       volume: currentVolume,
       boundary: e => handleBoundary(e),
       end: () => {
-        // Added if statement to make sure that firefox is running this only at the end
-        if (currentSentencesIndex + 2 >= sentences.length - 1) {
-          setCurrentSentenceIndex(0)
-          setIsPlaying(false)
-          setExpandPlayer(false)
+        if (!isFirefox) {
+          resetOnEnd()
         }
       },
     }).catch(() => null)

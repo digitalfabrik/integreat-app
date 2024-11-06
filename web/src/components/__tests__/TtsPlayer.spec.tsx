@@ -15,7 +15,7 @@ jest.mock('sentencex', () => jest.fn(() => ['This is a test.']))
 
 describe('TtsPlayer', () => {
   const TestChild = () => {
-    const { setVisible } = useTtsPlayer('<p>This is a test</p>', 'test')
+    const { setVisible } = useTtsPlayer('<p>This is a test.</p>', 'test')
     React.useEffect(() => {
       setVisible(true)
     }, [setVisible])
@@ -81,8 +81,7 @@ describe('TtsPlayer', () => {
     expect(volumeSlider).toBeInTheDocument()
 
     fireEvent.change(volumeSlider, { target: { value: 0.8 } })
-    fireEvent.click(playBtn) // to stop the player
-    fireEvent.click(playBtn) // play with the new volume value
+    fireEvent.click(playBtn)
 
     expect(EasySpeech.speak).toHaveBeenCalledWith(
       expect.objectContaining({
