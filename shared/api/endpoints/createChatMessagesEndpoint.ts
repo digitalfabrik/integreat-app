@@ -24,6 +24,7 @@ export default (baseUrl: string): Endpoint<ParamsType, ChatMessageModel[]> =>
             id: chatMessage.id,
             body: chatMessage.body,
             userIsAuthor: chatMessage.user_is_author,
+            automaticAnswer: chatMessage.automatic_answer,
           }),
       ),
     )
