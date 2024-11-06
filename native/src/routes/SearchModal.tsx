@@ -22,7 +22,7 @@ const Wrapper = styled.View`
   background-color: ${props => props.theme.colors.backgroundColor};
 `
 
-const SearchCounter = styled.p`
+const SearchCounter = styled.Text`
   margin: 10px 5px;
   fontsize: 'small';
 `
