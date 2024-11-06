@@ -23,8 +23,9 @@ const Wrapper = styled.View`
 `
 
 const SearchCounter = styled.Text`
-  margin: 10px 5px;
-  fontsize: 'small';
+  margin: 10px 20px;
+  fontsize: 'medium';
+  color: ${props => props.theme.colors.textSecondaryColor};
 `
 
 export type SearchModalProps = {

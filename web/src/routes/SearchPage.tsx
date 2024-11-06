@@ -26,8 +26,10 @@ const List = styled.ul`
 `
 
 const SearchCounter = styled.p`
-  margin: 10px 5px;
+  margin: 10px 0;
+  padding-left: 5px;
   fontsize: 'small';
+  color: ${props => props.theme.colors.textSecondaryColor};
 `
 
 const SearchPage = ({ city, cityCode, languageCode, pathname }: CityRouteProps): ReactElement | null => {
