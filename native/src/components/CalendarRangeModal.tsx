@@ -25,11 +25,11 @@ const StyledView = styled.View`
   padding: 5px 14px;
 `
 
-const OPACITY_DISABLED = 0.5
+const DISABLED_OPACITY = 0.5
 
 const StyledTextButton = styled(TextButton)`
   background-color: transparent;
-  opacity: ${props => (props.disabled ? OPACITY_DISABLED : 1)};
+  opacity: ${props => (props.disabled ? DISABLED_OPACITY : 1)};
 `
 
 const StyledPressable = styled.Pressable`
@@ -85,6 +85,22 @@ const CalendarRangeModal = ({
     }
   }
 
+  const updateCalendarBasedOnInput = (
+    tempStartDate: DateTime<true> | null,
+    tempEndDate: DateTime<true> | null,
+    currentInput: string,
+  ) => {
+    if (tempStartDate && tempEndDate) {
+      setStartDate(tempStartDate)
+      setEndDate(tempEndDate)
+    } else if (tempStartDate && tempEndDate == null) {
+      ;(currentInput === 'from' ? setStartDate : setEndDate)(tempStartDate)
+    }
+    setTempStartDate(null)
+    setTempEndDate(null)
+    closeModal()
+  }
+
   return (
     <Modal style={{ margin: 0 }} animationType='slide' transparent visible={modalVisible} onRequestClose={closeModal}>
       <StyledPressable onPress={closeModal} />
@@ -118,24 +134,12 @@ const CalendarRangeModal = ({
           <StyledTextButton
             style={textButtonStyles.container}
             textStyle={textButtonStyles.text}
-            onPress={() => {
-              if (tempStartDate && currentInput === 'from' && tempEndDate == null) {
-                setStartDate(tempStartDate)
-              } else if (tempStartDate && currentInput === 'to' && tempEndDate == null) {
-                setEndDate(tempStartDate)
-              } else if (tempStartDate && tempEndDate) {
-                setStartDate(tempStartDate)
-                setEndDate(tempEndDate)
-              }
-              setTempStartDate(null)
-              setTempEndDate(null)
-              closeModal()
-            }}
+            onPress={() => updateCalendarBasedOnInput(tempStartDate, tempEndDate, currentInput ?? '')}
             text={t('common:ok')}
             type='clear'
             disabled={
               (tempStartDate === null && tempEndDate === null) ||
-              Boolean(tempStartDate && tempEndDate && tempStartDate > tempEndDate)
+              !!(tempStartDate && tempEndDate && tempStartDate > tempEndDate)
             }
           />
         </StyledView>

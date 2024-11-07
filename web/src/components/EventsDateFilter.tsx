@@ -12,7 +12,6 @@ import Icon from './base/Icon'
 
 const DateSection = styled.div`
   display: flex;
-  flex-direction: row;
   gap: 10px;
   margin: 0 5px 15px;
   justify-content: center;
@@ -25,7 +24,6 @@ const DateSection = styled.div`
 
 const StyledButton = styled(Button)`
   display: flex;
-  flex-direction: row;
   align-items: center;
   gap: 5px;
   white-space: nowrap;
@@ -40,8 +38,8 @@ type ResetFilterTextProps = {
 
 const ResetFilterText = ({ startDate, endDate }: ResetFilterTextProps) => {
   const { t } = useTranslation('events')
-  const title = `${t('resetFilter')} ${startDate?.toLocal().toFormat('dd.MM.yyyy') ?? '∞'} - ${endDate?.toLocal().toFormat('dd.MM.yyyy') ?? '∞'}`
-  return <span>{title}</span>
+  const text = `${t('resetFilter')} ${startDate ? startDate.toLocaleString({ day: '2-digit', month: '2-digit', year: 'numeric' }) : '∞'} - ${endDate ? endDate.toLocaleString({ day: '2-digit', month: '2-digit', year: 'numeric' }) : '∞'}`
+  return <span>{text}</span>
 }
 
 type EventsDateFilterProps = {
@@ -64,7 +62,7 @@ const EventsDateFilter = ({
 
   return (
     <>
-      <FilterToggle toggle={showDateFilter} setToggleDateFilter={setShowDateFilter} />
+      <FilterToggle isDateFilterActive={showDateFilter} setToggleDateFilter={setShowDateFilter} />
       <DateSection>
         {showDateFilter && (
           <>

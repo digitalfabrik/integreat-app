@@ -34,7 +34,7 @@ describe('DatePickerForNative', () => {
     expect(getByText('Test DatePicker')).toBeTruthy()
   })
 
-  it('should update date state and calls setValue with correct date', () => {
+  it('should update the date correctly', () => {
     const { getByPlaceholderText } = renderCustomDatePicker({
       modalOpen: false,
       setModalOpen,
@@ -81,7 +81,8 @@ describe('DatePickerForNative', () => {
     const dayInput = getByPlaceholderText('dd')
 
     fireEvent.changeText(dayInput, '32')
-    expect(dayInput.props.value).toBe('')
+    fireEvent(dayInput, 'blur')
+    expect(dayInput.props.value).toBe(DateTime.now().toFormat('dd'))
   })
 
   it('should not allow month greater than 12', () => {
@@ -97,7 +98,8 @@ describe('DatePickerForNative', () => {
     const monthInput = getByPlaceholderText('mm')
 
     fireEvent.changeText(monthInput, '13')
-    expect(monthInput.props.value).toBe('')
+    fireEvent(monthInput, 'blur')
+    expect(monthInput.props.value).toBe(DateTime.now().toFormat('MM'))
   })
 
   it('should format the day with leading zero on blur', () => {

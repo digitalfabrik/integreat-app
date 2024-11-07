@@ -1,10 +1,11 @@
 import { DateTime } from 'luxon'
-import React, { ReactElement, RefObject, useEffect, useRef, useState } from 'react'
+import React, { ReactElement, useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { NativeSyntheticEvent, TextInput, TextInputKeyPressEventData } from 'react-native'
+import { TextInput, View } from 'react-native'
 import styled from 'styled-components/native'
 
 import { CalendarTodayIcon } from '../assets'
+import DatePickerInput from './DatePickerInput'
 import Icon from './base/Icon'
 import IconButton from './base/IconButton'
 import Text from './base/Text'
@@ -12,11 +13,6 @@ import Text from './base/Text'
 const DateContainer = styled.View`
   width: auto;
   position: relative;
-`
-
-const Input = styled(TextInput)`
-  text-align: center;
-  min-width: 20%;
 `
 
 const StyledInputWrapper = styled.View`
@@ -50,10 +46,8 @@ const StyledTitle = styled.Text`
   position: absolute;
   top: -12px;
   left: 12px;
-  right: auto;
   padding: 2px 5px;
   font-size: 12px;
-  font-weight: 400;
   z-index: 1;
 `
 
@@ -72,31 +66,25 @@ export type DatePickerProps = {
   setModalOpen: (open: boolean) => void
 }
 
-const handleKeyPress = (key: string, currentInput: string | undefined, refPrev?: RefObject<TextInput>) => {
-  if (key === 'Backspace') {
-    if (currentInput?.length === 0 && refPrev) {
-      refPrev.current?.focus()
-    }
-  }
-}
-
 const DatePicker = ({ title, date, setDate, error, modalOpen, setModalOpen }: DatePickerProps): ReactElement => {
   const { t } = useTranslation('events')
   const [inputDay, setInputDay] = useState(date?.toFormat('dd'))
   const [inputMonth, setInputMonth] = useState(date?.toFormat('MM'))
   const [inputYear, setInputYear] = useState(date?.toFormat('yyyy'))
+  const [datePickerError, setDatePickerError] = useState('')
   const dayRef = useRef<TextInput>(null)
   const monthRef = useRef<TextInput>(null)
   const yearRef = useRef<TextInput>(null)
-  const maxDays = 31
-  const maxMonths = 12
-  const maxYears = 3000
 
   useEffect(() => {
     try {
+      setDatePickerError('')
       setDate(DateTime.fromISO(`${inputYear}-${inputMonth}-${inputDay}`))
-    } catch (_) {
-      // setDate(null)
+    } catch (e) {
+      // This will detect out of range for days
+      if (!String(e).includes('ISO')) {
+        setDatePickerError(String(e).replace('Error: ', ''))
+      }
     }
   }, [inputDay, inputMonth, inputYear, setDate])
 
@@ -112,107 +100,52 @@ const DatePicker = ({ title, date, setDate, error, modalOpen, setModalOpen }: Da
     }
   }, [date])
 
-  const handleBlurForDayMonth = (
-    inputValue: string | undefined,
-    setInputValue: React.Dispatch<React.SetStateAction<string | undefined>>,
-    currentValue: number,
-  ) => {
-    const maxOfTwoDigits = 10
-    if (Number(inputValue) !== 0 && inputValue?.length === 1) {
-      setInputValue(`0${inputValue}`)
-    } else if (inputValue === '00' || inputValue === '0') {
-      const formattedValue = currentValue < maxOfTwoDigits ? `0${currentValue}` : `${currentValue}`
-      setInputValue(formattedValue)
-    }
-  }
-
-  const handleBlurForYears = () => {
-    const yearLength = 4
-    if (inputYear && inputYear.length < yearLength) {
-      setInputYear(String(DateTime.now().year))
-    } else if (inputYear === '0000') {
-      setInputYear(String(DateTime.now().year))
-    }
-  }
-
-  const handleOnChangeText = (
-    text: string,
-    setInputValue: React.Dispatch<React.SetStateAction<string | undefined>>,
-    maxNumber: number,
-    ref?: RefObject<TextInput>,
-  ) => {
-    if (/^\d*$/.test(text) && Number(text) <= maxNumber) {
-      setInputValue(text)
-      if (ref && text.length === 2) {
-        ref.current?.focus()
-      }
-    }
-  }
-
   return (
     <DateContainer>
       <StyledTitle>{title}</StyledTitle>
       <StyledInputWrapper>
         <Wrapper>
-          <Input
+          <DatePickerInput
             ref={dayRef}
             placeholder={t('dd')}
-            testID='DatePicker-day'
-            keyboardType='numeric'
-            maxLength={2}
-            onBlur={() => handleBlurForDayMonth(inputDay, setInputDay, DateTime.now().day)}
-            onChangeText={text => {
-              handleOnChangeText(text, setInputDay, maxDays, monthRef)
-            }}
-            selectTextOnFocus
-            value={inputDay}
+            nextTargetRef={monthRef}
+            inputValue={inputDay}
+            setInputValue={setInputDay}
+            type='day'
           />
           <Text>.</Text>
-          <Input
+          <DatePickerInput
             ref={monthRef}
             placeholder={t('mm')}
-            testID='DatePicker-month'
-            keyboardType='numeric'
-            maxLength={2}
-            onBlur={() => handleBlurForDayMonth(inputMonth, setInputMonth, DateTime.now().month)}
-            onChangeText={text => {
-              handleOnChangeText(text, setInputMonth, maxMonths, yearRef)
-            }}
-            selectTextOnFocus
-            value={inputMonth}
-            onKeyPress={({ nativeEvent }: NativeSyntheticEvent<TextInputKeyPressEventData>) => {
-              handleKeyPress(nativeEvent.key, inputMonth, dayRef)
-            }}
+            nextTargetRef={yearRef}
+            prevTargetRef={dayRef}
+            inputValue={inputMonth}
+            setInputValue={setInputMonth}
+            type='month'
           />
           <Text>.</Text>
-          <Input
+          <DatePickerInput
             style={{ marginLeft: 6 }}
             ref={yearRef}
+            prevTargetRef={monthRef}
             placeholder={t('yyyy')}
-            testID='DatePicker-year'
-            maxLength={4}
-            keyboardType='numeric'
-            onBlur={handleBlurForYears}
-            onChangeText={text => {
-              handleOnChangeText(text, setInputYear, maxYears)
-            }}
-            onKeyPress={({ nativeEvent }: NativeSyntheticEvent<TextInputKeyPressEventData>) => {
-              handleKeyPress(nativeEvent.key, inputYear, monthRef)
-            }}
-            selectTextOnFocus
-            value={inputYear}
+            inputValue={inputYear}
+            setInputValue={setInputYear}
+            type='year'
           />
         </Wrapper>
         <StyledIconButton
           $isModalOpen={modalOpen}
           icon={<Icon Icon={CalendarTodayIcon} />}
-          accessibilityLabel='calenderEventsIcon'
+          accessibilityLabel={t('common:openCalendar')}
           onPress={() => {
             setModalOpen(true)
           }}
         />
       </StyledInputWrapper>
-      {!!error && <StyledError>{error}</StyledError>}
+      <View style={{ width: '80%' }}>
+        {!!(error || datePickerError) && <StyledError>{error || datePickerError}</StyledError>}
+      </View>
     </DateContainer>
   )
 }

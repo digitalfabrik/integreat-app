@@ -1090,7 +1090,8 @@
       "showLess": "Weniger anzeigen",
       "optional": "optional",
       "back": "Zurück",
-      "ok": "Ok"
+      "ok": "Ok",
+      "openCalendar": "Kalender öffnen"
     },
     "am": {
       "copied": "ተቀድቷል",
@@ -1202,7 +1203,8 @@
       "showLess": "Show less",
       "optional": "optional",
       "back": "Back",
-      "ok": "Ok"
+      "ok": "Ok",
+      "openCalendar": "Open calendar"
     },
     "es": {
       "copied": "Copiado",
@@ -3632,9 +3634,9 @@
       "hideFilters": "Filter verbergen",
       "showFilters": "Filter anzeigen",
       "selectRange": "Zeitraum auswählen",
-      "dd": "dd",
-      "mm": "mm",
-      "yyyy": "yyyy"
+      "dd": "Tag",
+      "mm": "Monat",
+      "yyyy": "Jahr"
     },
     "am": {
       "address": "ኣድራሻ",
@@ -3878,9 +3880,9 @@
       "hideFilters": "Hide filters",
       "showFilters": "Show filters",
       "selectRange": "Select Range",
-      "dd": "dd",
-      "mm": "mm",
-      "yyyy": "yyyy"
+      "dd": "day",
+      "mm": "month",
+      "yyyy": "year"
     },
     "es": {
       "address": "Dirección",

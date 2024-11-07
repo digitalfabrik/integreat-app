@@ -13,24 +13,23 @@ const StyledText = styled(Text)`
 
 const StyledButton = styled.TouchableOpacity`
   display: flex;
-  flex-direction: ${props => (props.theme.contentDirection === 'rtl' ? 'row-reverse' : 'row')};
+  flex-direction: row;
   align-items: center;
   gap: 5px;
-  justify-content: center;
   align-self: ${props => (props.theme.contentDirection === 'rtl' ? 'flex-end' : 'flex-start')};
 `
 
 type DateFilterToggleProps = {
-  toggle: boolean
-  setToggleDateFilter: (toggle: boolean) => void
+  isDateFilterActive: boolean
+  setToggleDateFilter: (isEnabled: boolean) => void
 }
 
-const FilterToggle = ({ toggle, setToggleDateFilter }: DateFilterToggleProps): ReactElement => {
+const FilterToggle = ({ isDateFilterActive, setToggleDateFilter }: DateFilterToggleProps): ReactElement => {
   const { t } = useTranslation('events')
   return (
-    <StyledButton onPress={() => setToggleDateFilter(!toggle)}>
-      <Icon Icon={toggle ? ShrinkIcon : ExpandIcon} />
-      <StyledText>{t(toggle ? 'hideFilters' : 'showFilters')}</StyledText>
+    <StyledButton onPress={() => setToggleDateFilter(!isDateFilterActive)}>
+      <Icon Icon={isDateFilterActive ? ShrinkIcon : ExpandIcon} />
+      <StyledText>{t(isDateFilterActive ? 'hideFilters' : 'showFilters')}</StyledText>
     </StyledButton>
   )
 }

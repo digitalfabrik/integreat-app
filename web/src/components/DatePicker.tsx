@@ -6,14 +6,18 @@ import styled from 'styled-components'
 import { CalendarTodayIcon } from '../assets'
 import dimensions from '../constants/dimensions'
 
+const INPUT_MIN_WIDTH = '316px'
+const INPUT_HEIGHT = '56px'
+const INPUT_MIN_WIDTH_ON_MID_VIEWPORT = '240px'
+
 const DateContainer = styled.div`
   width: fit-content;
   position: relative;
 `
 
 const StyledInput = styled.input`
-  min-width: 316px;
-  height: 56px;
+  min-width: ${INPUT_MIN_WIDTH};
+  height: ${INPUT_HEIGHT};
   padding: 0 16px;
   border-radius: 8px;
   border-color: ${props => props.theme.colors.themeColorLight};
@@ -41,7 +45,7 @@ const StyledInput = styled.input`
   }
 
   @media ${dimensions.mediumViewport} {
-    min-width: 240px;
+    min-width: ${INPUT_MIN_WIDTH_ON_MID_VIEWPORT};
   }
 `
 
@@ -53,7 +57,6 @@ const StyledTitle = styled.span`
   right: ${props => (props.theme.contentDirection === 'rtl' ? '12px' : 'auto')};
   padding: 2px 5px;
   font-size: 12px;
-  font-weight: 400;
 `
 
 const StyledError = styled.div`
@@ -82,7 +85,7 @@ const DatePicker = ({ title, date, setDate, error }: DatePickerProps): ReactElem
   const { t } = useTranslation('events')
   const [tempDate, setTempDate] = useState(date?.toISODate() ?? '')
   const isInvalidDate = tempDate !== '' && isValidIsoDate(tempDate) === false
-  const shownError = error || (isInvalidDate ? t('invalidDate') : undefined)
+  const shownError = error || (isInvalidDate ? t('invalidToDate') : undefined)
   useEffect(() => {
     setTempDate(date?.toISODate() ?? '')
   }, [date])

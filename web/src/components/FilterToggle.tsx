@@ -18,17 +18,17 @@ const StyledButton = styled(Button)`
 `
 
 const FilterToggle = ({
-  toggle,
+  isDateFilterActive,
   setToggleDateFilter,
 }: {
-  toggle: boolean
-  setToggleDateFilter: (toggle: boolean) => void
+  isDateFilterActive: boolean
+  setToggleDateFilter: (isEnabled: boolean) => void
 }): ReactElement => {
   const { t } = useTranslation('events')
   return (
-    <StyledButton label='toggleDate' onClick={() => setToggleDateFilter(!toggle)}>
-      <Icon src={toggle ? ShrinkIcon : ExpandIcon} />
-      <span>{t(toggle ? 'hideFilters' : 'showFilters')}</span>
+    <StyledButton label='toggleDate' onClick={() => setToggleDateFilter(!isDateFilterActive)}>
+      <Icon src={isDateFilterActive ? ShrinkIcon : ExpandIcon} />
+      <span>{t(isDateFilterActive ? 'hideFilters' : 'showFilters')}</span>
     </StyledButton>
   )
 }

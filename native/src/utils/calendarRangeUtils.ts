@@ -24,7 +24,7 @@ export const getMarkedDates = (
   const cutoffStartDate = DateTime.now().minus({ years: 2 })
   const cutoffEndDate = DateTime.now().plus({ years: 2 })
 
-  if (!startDate || startDate < cutoffStartDate || (endDate !== null && endDate > cutoffEndDate)) {
+  if (!startDate || startDate < cutoffStartDate || (endDate && endDate > cutoffEndDate)) {
     return {}
   }
 
@@ -43,16 +43,16 @@ export const getMarkedDates = (
       ...markedDateStyling,
     }
   } else {
-    let currentDate = startDate
+    let runningDate = startDate
     const safeEndDate = endDate ?? startDate
-    while (currentDate <= safeEndDate) {
-      markedDates[currentDate.toISODate()] = {
+    while (runningDate <= safeEndDate) {
+      markedDates[runningDate.toISODate()] = {
         selected: true,
-        startingDay: startDate.equals(currentDate),
-        endingDay: safeEndDate.equals(currentDate),
+        startingDay: startDate.equals(runningDate),
+        endingDay: safeEndDate.equals(runningDate),
         ...markedDateStyling,
       }
-      currentDate = currentDate.plus({ days: 1 })
+      runningDate = runningDate.plus({ days: 1 })
     }
   }
 

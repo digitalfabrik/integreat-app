@@ -15,17 +15,14 @@ const DateSection = styled.View`
   flex-direction: column;
   gap: 12px;
   margin: 0 5px 15px;
-  justify-content: center;
   align-items: center;
 `
 
 const StyledButton = styled.TouchableOpacity`
   display: flex;
-  flex-direction: ${props => (props.theme.contentDirection === 'rtl' ? 'row-reverse' : 'row')};
+  flex-direction: row;
   align-items: center;
   gap: 5px;
-  justify-content: center;
-  align-self: ${props => (props.theme.contentDirection === 'rtl' ? 'flex-end' : 'flex-start')};
 `
 
 const StyledText = styled(Text)`
@@ -40,8 +37,8 @@ type ResetFilterTextProps = {
 
 const ResetFilterText = ({ startDate, endDate }: ResetFilterTextProps) => {
   const { t } = useTranslation('events')
-  const title = `${t('resetFilter')} ${startDate?.toLocal().toFormat('dd.MM.yyyy') ?? '∞'} - ${endDate?.toLocal().toFormat('dd.MM.yyyy') ?? '∞'}`
-  return <StyledText>{title}</StyledText>
+  const text = `${t('resetFilter')} ${startDate ? startDate.toLocaleString({ day: '2-digit', month: '2-digit', year: 'numeric' }) : '∞'} - ${endDate ? endDate.toLocaleString({ day: '2-digit', month: '2-digit', year: 'numeric' }) : '∞'}`
+  return <StyledText>{text}</StyledText>
 }
 
 type EventsDateFilterProps = {
@@ -88,7 +85,7 @@ const EventsDateFilter = ({
         currentInput={currentInput.current}
       />
       <DateSection>
-        <FilterToggle toggle={showDateFilter} setToggleDateFilter={setShowDateFilter} />
+        <FilterToggle isDateFilterActive={showDateFilter} setToggleDateFilter={setShowDateFilter} />
         {showDateFilter && (
           <>
             <DatePicker
