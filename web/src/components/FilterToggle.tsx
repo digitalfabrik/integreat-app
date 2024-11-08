@@ -8,7 +8,6 @@ import Icon from './base/Icon'
 
 const StyledButton = styled(Button)`
   display: flex;
-  flex-direction: row;
   align-items: center;
   gap: 5px;
   white-space: nowrap;
