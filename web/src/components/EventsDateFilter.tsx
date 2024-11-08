@@ -5,6 +5,7 @@ import styled from 'styled-components'
 
 import { CloseIcon } from '../assets'
 import dimensions from '../constants/dimensions'
+import Accordion from './Accordion'
 import DatePicker from './DatePicker'
 import FilterToggle from './FilterToggle'
 import Button from './base/Button'
@@ -13,8 +14,8 @@ import Icon from './base/Icon'
 const DateSection = styled.div`
   display: flex;
   gap: 10px;
-  margin: 0 5px 15px;
-  justify-content: center;
+  margin: 15px 5px;
+  justify-content: space-evenly;
 
   @media ${dimensions.smallViewport} {
     flex-direction: column;
@@ -63,8 +64,8 @@ const EventsDateFilter = ({
   return (
     <>
       <FilterToggle isDateFilterActive={showDateFilter} setToggleDateFilter={setShowDateFilter} />
-      <DateSection>
-        {showDateFilter && (
+      <Accordion isOpen={showDateFilter}>
+        <DateSection>
           <>
             <DatePicker
               title={t('from')}
@@ -74,8 +75,8 @@ const EventsDateFilter = ({
             />
             <DatePicker title={t('to')} date={endDate} setDate={setEndDate} />
           </>
-        )}
-      </DateSection>
+        </DateSection>
+      </Accordion>
       {(startDate || endDate) && (
         <StyledButton
           label='resetDate'

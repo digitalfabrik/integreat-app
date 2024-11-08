@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next'
 import styled from 'styled-components/native'
 
 import { CloseIcon } from '../assets'
+import Accordion from './Accordion'
 import CalendarRangeModal from './CalendarRangeModal'
 import DatePicker from './DatePicker'
 import FilterToggle from './FilterToggle'
@@ -14,7 +15,7 @@ const DateSection = styled.View`
   display: flex;
   flex-direction: column;
   gap: 12px;
-  margin: 0 5px 15px;
+  margin: 15px 5px;
   align-items: center;
 `
 
@@ -84,9 +85,9 @@ const EventsDateFilter = ({
         setStartDate={setStartDate}
         currentInput={currentInput.current}
       />
-      <DateSection>
-        <FilterToggle isDateFilterActive={showDateFilter} setToggleDateFilter={setShowDateFilter} />
-        {showDateFilter && (
+      <FilterToggle isDateFilterActive={showDateFilter} setToggleDateFilter={setShowDateFilter} />
+      <Accordion isOpen={showDateFilter} viewKey='Accordion'>
+        <DateSection>
           <>
             <DatePicker
               modalOpen={modalOpen}
@@ -104,8 +105,8 @@ const EventsDateFilter = ({
               date={endDate}
             />
           </>
-        )}
-      </DateSection>
+        </DateSection>
+      </Accordion>
       <>
         {(startDate || endDate) && (
           <StyledButton
