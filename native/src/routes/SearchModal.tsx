@@ -24,7 +24,6 @@ const Wrapper = styled.View`
 
 const SearchCounter = styled.Text`
   margin: 10px 20px;
-  fontsize: 'medium';
   color: ${props => props.theme.colors.textSecondaryColor};
 `
 

@@ -26,9 +26,7 @@ const List = styled.ul`
 `
 
 const SearchCounter = styled.p`
-  margin: 10px 0;
-  padding-left: 5px;
-  fontsize: 'small';
+  padding: 0 5px;
   color: ${props => props.theme.colors.textSecondaryColor};
 `
 
