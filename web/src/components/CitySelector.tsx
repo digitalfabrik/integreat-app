@@ -34,7 +34,7 @@ type CitySelectorProps = {
   language: string
 }
 
-const CitySelector = ({ cities, language }: CitySelectorProps): JSX.Element => {
+const CitySelector = ({ cities, language }: CitySelectorProps): ReactElement => {
   const [filterText, setFilterText] = useState<string>('')
   const [stickyTop, setStickyTop] = useState<number>(0)
   const { t } = useTranslation('landing')
