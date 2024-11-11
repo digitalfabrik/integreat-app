@@ -20,7 +20,7 @@ type CityContentRouteUrlType = {
   path?: string | null | undefined
 }
 
-const constructPathname = (parts: Array<string | null | undefined>) => {
+const constructPathname = (parts: (string | null | undefined)[]) => {
   const pathname = parts
     .filter(Boolean)
     .map(part => part?.toLowerCase())

@@ -113,6 +113,12 @@ module.exports = {
         allowNullableString: true,
       },
     ],
+    '@typescript-eslint/array-type': [
+      'error',
+      {
+        default: 'array',
+      },
+    ],
     '@typescript-eslint/switch-exhaustiveness-check': 'error',
     '@typescript-eslint/no-non-null-assertion': 'error',
 

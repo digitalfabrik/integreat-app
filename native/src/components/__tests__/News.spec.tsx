@@ -68,7 +68,7 @@ describe('News', () => {
     localNewsEnabled = true,
   }: {
     newsId?: number | null
-    data?: Array<LocalNewsModel | TunewsModel>
+    data?: (LocalNewsModel | TunewsModel)[]
     loadingMore?: boolean
     selectedNewsType?: TuNewsType | LocalNewsType
     tuNewsEnabled?: boolean

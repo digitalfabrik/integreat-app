@@ -17,7 +17,7 @@ class LanguageModelBuilder {
     }
   }
 
-  build(): Array<LanguageModel> {
+  build(): LanguageModel[] {
     return languages.slice(0, this._languagesCount)
   }
 }

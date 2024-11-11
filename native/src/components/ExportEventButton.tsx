@@ -1,9 +1,9 @@
 import { DateTime } from 'luxon'
 import React, { ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Linking, Platform } from 'react-native'
+import { Platform } from 'react-native'
 import RNCalendarEvents, { Calendar, CalendarEventWritable, RecurrenceFrequency } from 'react-native-calendar-events'
-import { PERMISSIONS, requestMultiple } from 'react-native-permissions'
+import { PERMISSIONS, openSettings, requestMultiple } from 'react-native-permissions'
 import { Frequency } from 'rrule'
 import styled from 'styled-components/native'
 
@@ -89,8 +89,8 @@ const ExportEventButton = ({ event }: ExportEventButtonType): ReactElement => {
       showSnackbar({
         text: 'noCalendarPermission',
         positiveAction: {
-          label: t('settings'),
-          onPress: Linking.openSettings,
+          label: t('layout:settings'),
+          onPress: openSettings,
         },
       })
       return
