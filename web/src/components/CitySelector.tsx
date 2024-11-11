@@ -25,13 +25,17 @@ const CityListParent = styled.div<{ $stickyTop: number }>`
   background-color: ${props => props.theme.colors.backgroundColor};
   border-bottom: 1px solid ${props => props.theme.colors.themeColor};
 `
+const SearchCounter = styled.p`
+  padding: 0 5px;
+  color: ${props => props.theme.colors.textSecondaryColor};
+`
 
 type CitySelectorProps = {
   cities: Array<CityModel>
   language: string
 }
 
-const CitySelector = ({ cities, language }: CitySelectorProps): ReactElement => {
+const CitySelector = ({ cities, language }: CitySelectorProps): JSX.Element => {
   const [filterText, setFilterText] = useState<string>('')
   const [stickyTop, setStickyTop] = useState<number>(0)
   const { t } = useTranslation('landing')
@@ -58,6 +62,7 @@ const CitySelector = ({ cities, language }: CitySelectorProps): ReactElement => 
         placeholderText={t('searchCity')}
         spaceSearch={false}
         onStickyTopChanged={setStickyTop}>
+        <SearchCounter>{t('search:searchResultsCount', { count: resultCities.length })}</SearchCounter>
         {resultCities.length === 0 ? <Failure errorMessage='search:nothingFound' /> : groups}
       </ScrollingSearchBox>
     </Container>
