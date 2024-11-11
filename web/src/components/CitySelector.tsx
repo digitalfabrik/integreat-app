@@ -26,7 +26,6 @@ const CityListParent = styled.div<{ $stickyTop: number }>`
   border-bottom: 1px solid ${props => props.theme.colors.themeColor};
 `
 const SearchCounter = styled.p`
-  padding: 0 5px;
   color: ${props => props.theme.colors.textSecondaryColor};
 `
 

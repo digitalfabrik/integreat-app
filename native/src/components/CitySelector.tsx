@@ -26,6 +26,12 @@ const SearchBar = styled.View`
   padding: 0 10%;
 `
 
+const SearchCounter = styled.Text`
+  margin: 15px 0 10px 0;
+  color: ${props => props.theme.colors.textSecondaryColor};
+  font-weight: 500;
+`
+
 type CitySelectorProps = {
   cities: Array<CityModel>
   navigateToDashboard: (city: CityModel) => void
@@ -70,6 +76,7 @@ const CitySelector = ({ cities, navigateToDashboard }: CitySelectorProps): React
           <CityGroup>{t('nearbyCities')}</CityGroup>
           <NearbyCities cities={cities} navigateToDashboard={navigateToDashboard} filterText={filterText} />
         </CityGroupContainer>
+        <SearchCounter>{t('search:searchResultsCount', { count: resultCities.length })}</SearchCounter>
         {resultCities.length === 0 ? <NothingFound paddingTop /> : cityEntries}
       </View>
     </View>
